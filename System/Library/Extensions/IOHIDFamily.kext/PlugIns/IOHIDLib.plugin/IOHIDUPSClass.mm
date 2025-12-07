@@ -19,6 +19,7 @@
 - (void)parseElements:(id)elements;
 - (void)parseProperties:(id)properties;
 - (void)updateElements:(id)elements;
+- (void)valueAvailableCallback:(int)callback;
 @end
 
 @implementation IOHIDUPSClass
@@ -80,7 +81,7 @@ LABEL_5:
 
 - (void)parseProperties:(id)properties
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   propertiesCopy = properties;
   v6 = objc_msgSend_objectForKeyedSubscript_(propertiesCopy, v5, @"Transport");
   objc_msgSend_setObject_forKeyedSubscript_(self->_properties, v7, v6, @"Transport Type");
@@ -151,36 +152,34 @@ LABEL_5:
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
     properties = self->_properties;
-    v48 = 138412290;
+    v47 = 138412290;
     propertiesCopy2 = properties;
-    _os_log_impl(&dword_29D3EE000, v45, OS_LOG_TYPE_DEFAULT, "properties: %@", &v48, 0xCu);
+    _os_log_impl(&dword_29D3EE000, v45, OS_LOG_TYPE_DEFAULT, "properties: %@", &v47, 0xCu);
   }
-
-  v47 = *MEMORY[0x29EDCA608];
 }
 
 - (void)parseElements:(id)elements
 {
-  v103 = *MEMORY[0x29EDCA608];
+  v102 = *MEMORY[0x29EDCA608];
+  v94 = 0u;
   v95 = 0u;
   v96 = 0u;
   v97 = 0u;
-  v98 = 0u;
   obj = elements;
-  v87 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v95, v102, 16);
-  if (v87)
+  v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v94, v101, 16);
+  if (v86)
   {
-    v86 = *v96;
+    v85 = *v95;
     do
     {
-      for (i = 0; i != v87; ++i)
+      for (i = 0; i != v86; ++i)
       {
-        if (*v96 != v86)
+        if (*v95 != v85)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v95 + 1) + 8 * i);
+        v7 = *(*(&v94 + 1) + 8 * i);
         v8 = [HIDLibElement alloc];
         v10 = objc_msgSend_initWithElementRef_(v8, v9, v7);
         v11 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
@@ -537,8 +536,8 @@ LABEL_120:
 
         if (v27)
         {
-          v85 = v17;
-          v88 = i;
+          v84 = v17;
+          v87 = i;
           v29 = v14;
           p_elements = &self->_elements;
           objc_msgSend_addObjectsFromArray_(v11, v28, self->_elements.input);
@@ -546,29 +545,29 @@ LABEL_120:
           objc_msgSend_addObjectsFromArray_(v11, v32, self->_elements.feature);
           v35 = objc_msgSend_psKey(v10, v33, v34);
           selfCopy = self;
-          v89 = v11;
+          v88 = v11;
           v38 = objc_msgSend_copyElements_psKey_(self, v37, v11, v35);
 
-          v93 = 0u;
-          v94 = 0u;
-          v91 = 0u;
           v92 = 0u;
+          v93 = 0u;
+          v90 = 0u;
+          v91 = 0u;
           v39 = v38;
-          v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v91, v101, 16);
+          v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v90, v100, 16);
           if (v41)
           {
             v44 = v41;
-            v45 = *v92;
+            v45 = *v91;
             do
             {
               for (j = 0; j != v44; ++j)
               {
-                if (*v92 != v45)
+                if (*v91 != v45)
                 {
                   objc_enumerationMutation(v39);
                 }
 
-                v47 = *(*(&v91 + 1) + 8 * j);
+                v47 = *(*(&v90 + 1) + 8 * j);
                 v48 = objc_msgSend_usagePage(v47, v42, v43);
                 if (v48 == objc_msgSend_usagePage(v10, v49, v50))
                 {
@@ -581,7 +580,7 @@ LABEL_120:
                 }
               }
 
-              v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v42, &v91, v101, 16);
+              v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v42, &v90, v100, 16);
             }
 
             while (v44);
@@ -594,8 +593,8 @@ LABEL_120:
 
           if (v29 > 4)
           {
-            i = v88;
-            if (v85 == 129)
+            i = v87;
+            if (v84 == 129)
             {
               objc_msgSend_addObject_(p_elements->output, v61, v10);
             }
@@ -609,9 +608,9 @@ LABEL_120:
                 v65 = objc_msgSend_usagePage(v10, v63, v64);
                 v68 = objc_msgSend_usage(v10, v66, v67);
                 *buf = 67109376;
-                *v100 = v65;
-                *&v100[4] = 1024;
-                *&v100[6] = v68;
+                *v99 = v65;
+                *&v99[4] = 1024;
+                *&v99[6] = v68;
                 _os_log_impl(&dword_29D3EE000, v62, OS_LOG_TYPE_DEFAULT, "Feature element (UP : %x, U : %x) added for polling", buf, 0xEu);
               }
 
@@ -626,25 +625,25 @@ LABEL_120:
 
                 v70 = objc_alloc(MEMORY[0x29EDB8E68]);
                 v73 = objc_msgSend_date(MEMORY[0x29EDB8DB0], v71, v72);
-                v90[0] = MEMORY[0x29EDCA5F8];
-                v90[1] = 3221225472;
-                v90[2] = sub_29D3F4AF0;
-                v90[3] = &unk_29F34D190;
-                v90[4] = selfCopy;
-                v75 = objc_msgSend_initWithFireDate_interval_repeats_block_(v70, v74, v73, 1, v90, 5.0);
+                v89[0] = MEMORY[0x29EDCA5F8];
+                v89[1] = 3221225472;
+                v89[2] = sub_29D3F4AF0;
+                v89[3] = &unk_29F34D190;
+                v89[4] = selfCopy;
+                v75 = objc_msgSend_initWithFireDate_interval_repeats_block_(v70, v74, v73, 1, v89, 5.0);
                 timer = selfCopy->_timer;
                 selfCopy->_timer = v75;
               }
             }
 
-            v11 = v89;
+            v11 = v88;
           }
 
           else
           {
             objc_msgSend_addObject_(p_elements->input, v61, v10);
-            i = v88;
-            v11 = v89;
+            i = v87;
+            v11 = v88;
           }
         }
 
@@ -654,10 +653,10 @@ LABEL_120:
         }
       }
 
-      v87 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v77, &v95, v102, 16);
+      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v77, &v94, v101, 16);
     }
 
-    while (v87);
+    while (v86);
   }
 
   objc_msgSend_addObjectsFromArray_(self->_commandElements, v5, self->_elements.output);
@@ -669,40 +668,38 @@ LABEL_120:
   {
     v82 = self->_capabilities;
     *buf = 138412290;
-    *v100 = v82;
+    *v99 = v82;
     _os_log_impl(&dword_29D3EE000, v81, OS_LOG_TYPE_DEFAULT, "capabilities: %@", buf, 0xCu);
   }
-
-  v83 = *MEMORY[0x29EDCA608];
 }
 
 - (id)copyElements:(id)elements psKey:(id)key
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   elementsCopy = elements;
   keyCopy = key;
   v7 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = elementsCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v22, v26, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v21, v25, 16);
   if (v10)
   {
     v13 = v10;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v8);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
-        v17 = objc_msgSend_psKey(v16, v11, v12, v22);
+        v16 = *(*(&v21 + 1) + 8 * i);
+        v17 = objc_msgSend_psKey(v16, v11, v12, v21);
         isEqualToString = objc_msgSend_isEqualToString_(v17, v18, keyCopy);
 
         if (isEqualToString)
@@ -711,44 +708,43 @@ LABEL_120:
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v22, v26, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v21, v25, 16);
     }
 
     while (v13);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 - (id)latestElement:(id)element psKey:(id)key
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   elementCopy = element;
   keyCopy = key;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = objc_msgSend_copyElements_psKey_(self, v8, elementCopy, keyCopy);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v25, v29, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v24, v28, 16);
   if (v11)
   {
     v14 = v11;
     v15 = 0;
     v16 = 0;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v9);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
-        if (objc_msgSend_timestamp(v19, v12, v13, v25) > v15)
+        v19 = *(*(&v24 + 1) + 8 * i);
+        if (objc_msgSend_timestamp(v19, v12, v13, v24) > v15)
         {
           v20 = v19;
 
@@ -757,7 +753,7 @@ LABEL_120:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v25, v29, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v24, v28, 16);
     }
 
     while (v14);
@@ -768,14 +764,12 @@ LABEL_120:
     v16 = 0;
   }
 
-  v23 = *MEMORY[0x29EDCA608];
-
   return v16;
 }
 
 - (void)updateElements:(id)elements
 {
-  v87 = *MEMORY[0x29EDCA608];
+  v86 = *MEMORY[0x29EDCA608];
   elementsCopy = elements;
   transaction = self->_transaction;
   if (!transaction)
@@ -802,60 +796,60 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
-  v8 = elementsCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v75, v86, 16);
-  if (v10)
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v7 = elementsCopy;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v74, v85, 16);
+  if (v9)
   {
-    v13 = v10;
-    v69 = elementsCopy;
-    v14 = 0;
-    v15 = *v76;
+    v12 = v9;
+    v68 = elementsCopy;
+    v13 = 0;
+    v14 = *v75;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v76 != v15)
+        if (*v75 != v14)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v17 = *(*(&v75 + 1) + 8 * i);
-        if (!objc_msgSend_isConstant(v17, v11, v12) || (objc_msgSend_isUpdated(v17, v11, v12) & 1) == 0)
+        v16 = *(*(&v74 + 1) + 8 * i);
+        if (!objc_msgSend_isConstant(v16, v10, v11) || (objc_msgSend_isUpdated(v16, v10, v11) & 1) == 0)
         {
-          v18 = self->_transaction;
-          addElement = (*v18)->addElement;
-          v20 = objc_msgSend_elementRef(v17, v11, v12);
-          v21 = (addElement)(v18, v20, 0);
-          if (v21)
+          v17 = self->_transaction;
+          addElement = (*v17)->addElement;
+          v19 = objc_msgSend_elementRef(v16, v10, v11);
+          v20 = (addElement)(v17, v19, 0);
+          if (v20)
           {
-            v22 = v21;
-            v23 = _IOHIDLogCategory();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v21 = v20;
+            v22 = _IOHIDLogCategory();
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
-              v80 = v22;
-              _os_log_impl(&dword_29D3EE000, v23, OS_LOG_TYPE_DEFAULT, "Failed to add element to transaction %x", buf, 8u);
+              v79 = v21;
+              _os_log_impl(&dword_29D3EE000, v22, OS_LOG_TYPE_DEFAULT, "Failed to add element to transaction %x", buf, 8u);
             }
           }
 
           else
           {
-            ++v14;
+            ++v13;
           }
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v75, v86, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v74, v85, 16);
     }
 
-    while (v13);
+    while (v12);
 
-    elementsCopy = v69;
-    if (v14)
+    elementsCopy = v68;
+    if (v13)
     {
       if (((*self->_transaction)->commit)(self->_transaction, 0, 0, 0, 0))
       {
@@ -869,124 +863,124 @@ LABEL_7:
         goto LABEL_7;
       }
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
       v72 = 0u;
-      v25 = v8;
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v71, v85, 16);
-      if (!v27)
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v24 = v7;
+      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v70, v84, 16);
+      if (!v26)
       {
         goto LABEL_56;
       }
 
-      v31 = v27;
-      v32 = *v72;
-      *&v30 = 67109632;
-      v68 = v30;
+      v30 = v26;
+      v31 = *v71;
+      *&v29 = 67109632;
+      v67 = v29;
 LABEL_33:
-      v33 = 0;
+      v32 = 0;
       while (1)
       {
-        if (*v72 != v32)
+        if (*v71 != v31)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v24);
         }
 
-        v34 = *(*(&v71 + 1) + 8 * v33);
-        v70 = 0;
-        if (objc_msgSend_isConstant(v34, v28, v29, v68) && (objc_msgSend_isUpdated(v34, v28, v29) & 1) != 0)
+        v33 = *(*(&v70 + 1) + 8 * v32);
+        v69 = 0;
+        if (objc_msgSend_isConstant(v33, v27, v28, v67) && (objc_msgSend_isUpdated(v33, v27, v28) & 1) != 0)
         {
           goto LABEL_51;
         }
 
-        v35 = self->_transaction;
-        getValue = (*v35)->getValue;
-        v37 = objc_msgSend_elementRef(v34, v28, v29);
-        v38 = (getValue)(v35, v37, &v70, 0);
-        if (v38)
+        v34 = self->_transaction;
+        getValue = (*v34)->getValue;
+        v36 = objc_msgSend_elementRef(v33, v27, v28);
+        v37 = (getValue)(v34, v36, &v69, 0);
+        if (v37)
         {
-          v40 = 1;
+          v39 = 1;
         }
 
         else
         {
-          v40 = v70 == 0;
+          v39 = v69 == 0;
         }
 
-        if (v40)
+        if (v39)
         {
-          v41 = v38;
-          v42 = _IOHIDLogCategory();
-          v43 = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
-          if (v41)
+          v40 = v37;
+          v41 = _IOHIDLogCategory();
+          v42 = os_log_type_enabled(v41, OS_LOG_TYPE_ERROR);
+          if (v40)
           {
-            if (v43)
+            if (v42)
             {
-              v46 = objc_msgSend_usagePage(v34, v44, v45);
-              v49 = objc_msgSend_usage(v34, v47, v48);
-              *buf = v68;
-              v80 = v46;
-              v81 = 1024;
-              v82 = v49;
-              v83 = 1024;
-              v84 = v41;
-              v50 = v42;
-              v51 = "Unable to update element UP: %x, U : %x failed(%#x)";
-              v52 = 20;
+              v45 = objc_msgSend_usagePage(v33, v43, v44);
+              v48 = objc_msgSend_usage(v33, v46, v47);
+              *buf = v67;
+              v79 = v45;
+              v80 = 1024;
+              v81 = v48;
+              v82 = 1024;
+              v83 = v40;
+              v49 = v41;
+              v50 = "Unable to update element UP: %x, U : %x failed(%#x)";
+              v51 = 20;
 LABEL_54:
-              _os_log_error_impl(&dword_29D3EE000, v50, OS_LOG_TYPE_ERROR, v51, buf, v52);
+              _os_log_error_impl(&dword_29D3EE000, v49, OS_LOG_TYPE_ERROR, v50, buf, v51);
             }
           }
 
-          else if (v43)
+          else if (v42)
           {
-            v63 = objc_msgSend_usagePage(v34, v44, v45);
-            v66 = objc_msgSend_usage(v34, v64, v65);
+            v62 = objc_msgSend_usagePage(v33, v43, v44);
+            v65 = objc_msgSend_usage(v33, v63, v64);
             *buf = 67109376;
-            v80 = v63;
-            v81 = 1024;
-            v82 = v66;
-            v50 = v42;
-            v51 = "Unable to update element UP: %x, U : %x no value";
-            v52 = 14;
+            v79 = v62;
+            v80 = 1024;
+            v81 = v65;
+            v49 = v41;
+            v50 = "Unable to update element UP: %x, U : %x no value";
+            v51 = 14;
             goto LABEL_54;
           }
         }
 
         else
         {
-          objc_msgSend_setValueRef_(v34, v39, v70);
-          objc_msgSend_setIsUpdated_(v34, v53, 1);
-          if (!objc_msgSend_isConstant(v34, v54, v55))
+          objc_msgSend_setValueRef_(v33, v38, v69);
+          objc_msgSend_setIsUpdated_(v33, v52, 1);
+          if (!objc_msgSend_isConstant(v33, v53, v54))
           {
             goto LABEL_51;
           }
 
-          v42 = _IOHIDLogCategory();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v41 = _IOHIDLogCategory();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            v59 = objc_msgSend_usagePage(v34, v57, v58);
-            v62 = objc_msgSend_usage(v34, v60, v61);
+            v58 = objc_msgSend_usagePage(v33, v56, v57);
+            v61 = objc_msgSend_usage(v33, v59, v60);
             *buf = 67109376;
-            v80 = v59;
-            v81 = 1024;
-            v82 = v62;
-            _os_log_impl(&dword_29D3EE000, v42, OS_LOG_TYPE_DEFAULT, "Constant feature element UP : %x , U : %x updated", buf, 0xEu);
+            v79 = v58;
+            v80 = 1024;
+            v81 = v61;
+            _os_log_impl(&dword_29D3EE000, v41, OS_LOG_TYPE_DEFAULT, "Constant feature element UP : %x , U : %x updated", buf, 0xEu);
           }
         }
 
 LABEL_51:
-        if (v31 == ++v33)
+        if (v30 == ++v32)
         {
-          v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v71, v85, 16);
-          v31 = v67;
-          if (!v67)
+          v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v70, v84, 16);
+          v30 = v66;
+          if (!v66)
           {
 LABEL_56:
 
             ((*self->_transaction)->clear)(self->_transaction, 0);
-            elementsCopy = v69;
+            elementsCopy = v68;
             goto LABEL_8;
           }
 
@@ -1000,54 +994,52 @@ LABEL_56:
   {
   }
 
-  v24 = _IOHIDLogCategory();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v23 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_29D3EE000, v24, OS_LOG_TYPE_DEFAULT, "Nothing to commit skip", buf, 2u);
+    _os_log_impl(&dword_29D3EE000, v23, OS_LOG_TYPE_DEFAULT, "Nothing to commit skip", buf, 2u);
   }
 
   ((*self->_transaction)->clear)(self->_transaction, 0);
 LABEL_8:
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)updateEvent
 {
-  v177 = *MEMORY[0x29EDCA608];
+  v176 = *MEMORY[0x29EDCA608];
   objc_msgSend_removeAllObjects(self->_upsUpdatedEvent, a2, v2);
-  v169 = 0u;
-  v170 = 0u;
-  v167 = 0u;
   v168 = 0u;
+  v169 = 0u;
+  v166 = 0u;
+  v167 = 0u;
   obj = self->_eventElements;
-  v165 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v167, v176, 16);
-  if (!v165)
+  v164 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v166, v175, 16);
+  if (!v164)
   {
+    v157 = 0;
     v158 = 0;
     v159 = 0;
-    v160 = 0;
-    v166 = 0;
+    v165 = 0;
     goto LABEL_115;
   }
 
+  v157 = 0;
   v158 = 0;
   v159 = 0;
-  v160 = 0;
-  v166 = 0;
-  v164 = *v168;
+  v165 = 0;
+  v163 = *v167;
   do
   {
     v7 = 0;
     do
     {
-      if (*v168 != v164)
+      if (*v167 != v163)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v167 + 1) + 8 * v7);
+      v8 = *(*(&v166 + 1) + 8 * v7);
       eventElements = self->_eventElements;
       v10 = objc_msgSend_psKey(v8, v5, v6);
       v12 = objc_msgSend_latestElement_psKey_(self, v11, eventElements, v10);
@@ -1135,7 +1127,7 @@ LABEL_86:
                   objc_msgSend_setObject_forKeyedSubscript_(self->_upsUpdatedEvent, v118, v51, v21);
                 }
 
-                v166 |= isEqual ^ 1;
+                v165 |= isEqual ^ 1;
 
                 goto LABEL_90;
               default:
@@ -1195,39 +1187,39 @@ LABEL_51:
                   v94 = v91;
                   if (v91 && objc_msgSend_count(v91, v92, v93))
                   {
-                    v156 = v89;
+                    v155 = v89;
                     v95 = objc_msgSend_objectAtIndex_(v94, v92, 0);
-                    v155 = objc_msgSend_integerValue(v95, v96, v97);
-                    v161 = v95;
+                    v154 = objc_msgSend_integerValue(v95, v96, v97);
+                    v160 = v95;
                     if ((objc_msgSend_isEqual_(v95, v98, v18) & 1) == 0)
                     {
-                      v99 = objc_msgSend_numberWithInt_(MEMORY[0x29EDBA070], v92, (((100 - v156) / 100.0 * v155) / 60));
+                      v99 = objc_msgSend_numberWithInt_(MEMORY[0x29EDBA070], v92, (((100 - v155) / 100.0 * v154) / 60));
                       objc_msgSend_setObject_forKeyedSubscript_(self->_upsUpdatedEvent, v100, v99, @"Time to Full Charge");
                     }
                   }
 
                   else
                   {
-                    v161 = 0;
+                    v160 = 0;
                   }
 
                   v124 = objc_msgSend_copyElements_psKey_(self, v92, self->_eventElements, @"Time to Empty");
 
                   if (v124 && objc_msgSend_count(v124, v125, v126))
                   {
-                    v157 = objc_msgSend_objectAtIndex_(v124, v127, 0);
+                    v156 = objc_msgSend_objectAtIndex_(v124, v127, 0);
 
-                    v162 = MEMORY[0x29EDBA070];
-                    v130 = objc_msgSend_integerValue(v157, v128, v129);
-                    v132 = objc_msgSend_numberWithInteger_(v162, v131, v130 / 60);
+                    v161 = MEMORY[0x29EDBA070];
+                    v130 = objc_msgSend_integerValue(v156, v128, v129);
+                    v132 = objc_msgSend_numberWithInteger_(v161, v131, v130 / 60);
                     objc_msgSend_setObject_forKeyedSubscript_(self->_upsUpdatedEvent, v133, v132, @"Time to Empty");
 
-                    v134 = v157;
+                    v134 = v156;
                   }
 
                   else
                   {
-                    v134 = v161;
+                    v134 = v160;
                   }
                 }
               }
@@ -1246,8 +1238,8 @@ LABEL_51:
                 }
 
                 v51 = v111;
-                HIDWORD(v159) |= objc_msgSend_integerValue(v8, v112, v113) != 0;
-                HIDWORD(v158) = objc_msgSend_isEqual_(v18, v114, v110);
+                HIDWORD(v158) |= objc_msgSend_integerValue(v8, v112, v113) != 0;
+                HIDWORD(v157) = objc_msgSend_isEqual_(v18, v114, v110);
                 goto LABEL_86;
               }
 
@@ -1261,8 +1253,8 @@ LABEL_51:
                 }
 
                 v51 = v72;
-                LODWORD(v160) = v160 | (objc_msgSend_integerValue(v8, v73, v74) != 0);
-                LODWORD(v158) = objc_msgSend_isEqual_(v18, v75, &unk_2A241CAD8);
+                LODWORD(v159) = v159 | (objc_msgSend_integerValue(v8, v73, v74) != 0);
+                LODWORD(v157) = objc_msgSend_isEqual_(v18, v75, &unk_2A241CAD8);
                 goto LABEL_86;
               }
             }
@@ -1293,8 +1285,8 @@ LABEL_51:
               }
 
               v51 = v79;
-              HIDWORD(v160) |= objc_msgSend_integerValue(v8, v80, v81) != 0;
-              LODWORD(v159) = objc_msgSend_isEqual_(v18, v82, @"AC Power");
+              HIDWORD(v159) |= objc_msgSend_integerValue(v8, v80, v81) != 0;
+              LODWORD(v158) = objc_msgSend_isEqual_(v18, v82, @"AC Power");
               goto LABEL_86;
             }
 
@@ -1454,15 +1446,15 @@ LABEL_26:
         v63 = objc_msgSend_integerValue(v8, v61, v62);
         v66 = objc_msgSend_psKey(v8, v64, v65);
         *buf = 67110146;
-        *v172 = v54;
-        *&v172[4] = 1024;
-        *&v172[6] = v57;
-        LOWORD(v173) = 1024;
-        *(&v173 + 2) = v60;
-        HIWORD(v173) = 2048;
-        *v174 = v63;
-        *&v174[8] = 2112;
-        v175 = v66;
+        *v171 = v54;
+        *&v171[4] = 1024;
+        *&v171[6] = v57;
+        LOWORD(v172) = 1024;
+        *(&v172 + 2) = v60;
+        HIWORD(v172) = 2048;
+        *v173 = v63;
+        *&v173[8] = 2112;
+        v174 = v66;
         _os_log_impl(&dword_29D3EE000, v18, OS_LOG_TYPE_DEFAULT, "Skipping duplicate element (UP : %x U : %x Type : %u IV: %ld) with key %@\n", buf, 0x28u);
       }
 
@@ -1471,9 +1463,9 @@ LABEL_90:
       ++v7;
     }
 
-    while (v165 != v7);
-    v146 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v167, v176, 16);
-    v165 = v146;
+    while (v164 != v7);
+    v146 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v166, v175, 16);
+    v164 = v146;
   }
 
   while (v146);
@@ -1483,7 +1475,7 @@ LABEL_115:
   if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
   {
     v148 = "No";
-    if ((v160 & 0x100000000) != 0)
+    if ((v159 & 0x100000000) != 0)
     {
       v149 = "Yes";
     }
@@ -1493,7 +1485,7 @@ LABEL_115:
       v149 = "No";
     }
 
-    if ((v159 & 0x100000000) != 0)
+    if ((v158 & 0x100000000) != 0)
     {
       v150 = "Yes";
     }
@@ -1504,23 +1496,23 @@ LABEL_115:
     }
 
     *buf = 136315650;
-    *v172 = v149;
-    *&v172[8] = 2080;
-    v173 = v150;
-    if (v160)
+    *v171 = v149;
+    *&v171[8] = 2080;
+    v172 = v150;
+    if (v159)
     {
       v148 = "Yes";
     }
 
-    *v174 = 2080;
-    *&v174[2] = v148;
+    *v173 = 2080;
+    *&v173[2] = v148;
     _os_log_impl(&dword_29D3EE000, v147, OS_LOG_TYPE_DEFAULT, "Power Source status isACSource : %s , isCharging : %s , isDischarging : %s", buf, 0x20u);
   }
 
-  if ((v159 ^ HIDWORD(v160)) & 1) != 0 || ((HIDWORD(v158) ^ HIDWORD(v159)) & 1) != 0 || ((v158 ^ v160))
+  if ((v158 ^ HIDWORD(v159)) & 1) != 0 || ((HIDWORD(v157) ^ HIDWORD(v158)) & 1) != 0 || ((v157 ^ v159))
   {
     upsUpdatedEvent = self->_upsUpdatedEvent;
-    if ((v160 | ~BYTE4(v159)) & ~BYTE4(v160))
+    if ((v159 | ~BYTE4(v158)) & ~BYTE4(v159))
     {
       objc_msgSend_setObject_forKeyedSubscript_(upsUpdatedEvent, v151, @"Battery Power", @"Power Source State");
     }
@@ -1532,8 +1524,38 @@ LABEL_115:
   }
 
   objc_msgSend_addEntriesFromDictionary_(self->_upsEvent, v151, self->_upsUpdatedEvent);
-  v153 = *MEMORY[0x29EDCA608];
-  return v166 & 1;
+  return v165 & 1;
+}
+
+- (void)valueAvailableCallback:(int)callback
+{
+  if (!callback)
+  {
+    do
+    {
+      value = 0;
+      v4 = ((*self->_queue)->copyNextValue)(self->_queue, &value, 0, 0);
+      if (value)
+      {
+        Element = IOHIDValueGetElement(value);
+        v6 = [HIDLibElement alloc];
+        v8 = objc_msgSend_initWithElementRef_(v6, v7, Element);
+        v10 = objc_msgSend_indexOfObject_(self->_elements.input, v9, v8);
+        v12 = objc_msgSend_objectAtIndex_(self->_elements.input, v11, v10);
+        objc_msgSend_setValueRef_(v12, v13, value);
+        CFRelease(value);
+      }
+    }
+
+    while (!v4);
+  }
+
+  objc_msgSend_updateEvent(self, a2, *&callback);
+  if (self->_eventCallback)
+  {
+    sub_29D3F4CB8(self->_upsEvent, @"dispatchEvent");
+    (self->_eventCallback)(self->_eventTarget, 0, self->_eventRefcon, &self->_ups, self->_upsUpdatedEvent);
+  }
 }
 
 - (void)initialEventUpdate
@@ -1611,13 +1633,13 @@ LABEL_115:
 
 - (int)sendCommand:(id)command
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   commandCopy = command;
   v5 = _IOHIDLogCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = commandCopy;
+    v15 = commandCopy;
     _os_log_impl(&dword_29D3EE000, v5, OS_LOG_TYPE_DEFAULT, "sendCommand: %@", buf, 0xCu);
   }
 
@@ -1629,12 +1651,12 @@ LABEL_115:
     if (transaction)
     {
       ((*transaction)->setDirection)(transaction, 1, 0);
-      v14[0] = MEMORY[0x29EDCA5F8];
-      v14[1] = 3221225472;
-      v14[2] = sub_29D3F67C8;
-      v14[3] = &unk_29F34D1B8;
-      v14[4] = self;
-      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(commandCopy, v10, v14);
+      v13[0] = MEMORY[0x29EDCA5F8];
+      v13[1] = 3221225472;
+      v13[2] = sub_29D3F67C8;
+      v13[3] = &unk_29F34D1B8;
+      v13[4] = self;
+      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(commandCopy, v10, v13);
       v6 = ((*self->_transaction)->commit)(self->_transaction, 0, 0, 0, 0);
       ((*self->_transaction)->clear)(self->_transaction, 0);
     }
@@ -1651,7 +1673,6 @@ LABEL_115:
     }
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1771,7 +1792,7 @@ LABEL_115:
 
 - (int)start:(id)start service:(unsigned int)service
 {
-  v90 = *MEMORY[0x29EDCA608];
+  v87 = *MEMORY[0x29EDCA608];
   cf = 0;
   properties = 0;
   theInterface = 0;
@@ -1779,13 +1800,13 @@ LABEL_115:
   if (IORegistryEntryCreateCFProperties(service, &properties, *MEMORY[0x29EDB8ED8], 0))
   {
     sub_29D3F6F04();
-    v46 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v46))
+    v43 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v43))
     {
       sub_29D3F6EF8(1.5047e-36);
 LABEL_52:
       sub_29D3F6F28();
-      _os_log_error_impl(v54, v55, v56, v57, v58, 8u);
+      _os_log_error_impl(v51, v52, v53, v54, v55, 8u);
       goto LABEL_61;
     }
 
@@ -1794,16 +1815,16 @@ LABEL_52:
 
   if (!properties)
   {
-    v47 = _IOHIDLogCategory();
-    if (!sub_29D3F6F10(v47))
+    v44 = _IOHIDLogCategory();
+    if (!sub_29D3F6F10(v44))
     {
       goto LABEL_65;
     }
 
-    v89 = 0;
+    v86 = 0;
 LABEL_64:
     sub_29D3F6F28();
-    _os_log_error_impl(v64, v65, v66, v67, v68, 2u);
+    _os_log_error_impl(v61, v62, v63, v64, v65, 2u);
     goto LABEL_65;
   }
 
@@ -1813,8 +1834,8 @@ LABEL_64:
   if (IOCreatePlugInInterfaceForService(service, v4, v9, &theInterface, &theScore))
   {
     sub_29D3F6F04();
-    v48 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v48))
+    v45 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v45))
     {
       goto LABEL_51;
     }
@@ -1825,13 +1846,13 @@ LABEL_64:
   LODWORD(v4) = theInterface;
   if (!theInterface)
   {
-    v49 = _IOHIDLogCategory();
-    if (!sub_29D3F6F10(v49))
+    v46 = _IOHIDLogCategory();
+    if (!sub_29D3F6F10(v46))
     {
       goto LABEL_65;
     }
 
-    v89 = 0;
+    v86 = 0;
     goto LABEL_64;
   }
 
@@ -1843,8 +1864,8 @@ LABEL_64:
   if (v5(v12))
   {
     sub_29D3F6F04();
-    v50 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v50))
+    v47 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v47))
     {
       goto LABEL_67;
     }
@@ -1857,21 +1878,21 @@ LABEL_60:
   device = self->_device;
   if (!device)
   {
-    v51 = _IOHIDLogCategory();
-    if (!sub_29D3F6F10(v51))
+    v48 = _IOHIDLogCategory();
+    if (!sub_29D3F6F10(v48))
     {
       goto LABEL_65;
     }
 
-    v89 = 0;
+    v86 = 0;
     goto LABEL_64;
   }
 
   if (((*device)->open)(device, 0))
   {
     sub_29D3F6F04();
-    v52 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v52))
+    v49 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v49))
     {
       goto LABEL_51;
     }
@@ -1882,8 +1903,8 @@ LABEL_60:
   if (((*self->_device)->copyMatchingElements)(self->_device, 0, &cf, 0))
   {
     sub_29D3F6F04();
-    v53 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v53))
+    v50 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v50))
     {
 LABEL_51:
       sub_29D3F6EF8(1.5047e-36);
@@ -1897,27 +1918,26 @@ LABEL_61:
 
   if (!cf)
   {
-    v59 = _IOHIDLogCategory();
-    if (!sub_29D3F6F10(v59))
+    v56 = _IOHIDLogCategory();
+    if (!sub_29D3F6F10(v56))
     {
       goto LABEL_65;
     }
 
-    v89 = 0;
+    v86 = 0;
     goto LABEL_64;
   }
 
-  v14 = self->_device;
   sub_29D3F6EE4();
-  v15 = sub_29D3EFB6C();
-  v16 = CFUUIDGetConstantUUIDWithBytes(v15, 0x2Eu, 0xC7u, 0x8Bu, 0xDBu, 0x9Fu, 0x4Eu, 0x11u, byte7a[0], byte7a[1], byte7a[2], byte7a[3], byte7a[4], byte7a[5], byte7a[6], byte7a[7], byte15a);
-  CFUUIDGetUUIDBytes(v16);
-  v17 = sub_29D3F6F38();
-  if (v5(v17))
+  v14 = sub_29D3EFB6C();
+  v15 = CFUUIDGetConstantUUIDWithBytes(v14, 0x2Eu, 0xC7u, 0x8Bu, 0xDBu, 0x9Fu, 0x4Eu, 0x11u, byte7a[0], byte7a[1], byte7a[2], byte7a[3], byte7a[4], byte7a[5], byte7a[6], byte7a[7], byte15a);
+  CFUUIDGetUUIDBytes(v15);
+  v16 = sub_29D3F6F38();
+  if (v5(v16))
   {
     sub_29D3F6F04();
-    v60 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v60))
+    v57 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v57))
     {
       goto LABEL_67;
     }
@@ -1927,27 +1947,26 @@ LABEL_61:
 
   if (!self->_queue)
   {
-    v61 = _IOHIDLogCategory();
-    if (!sub_29D3F6F10(v61))
+    v58 = _IOHIDLogCategory();
+    if (!sub_29D3F6F10(v58))
     {
       goto LABEL_65;
     }
 
-    v89 = 0;
+    v86 = 0;
     goto LABEL_64;
   }
 
-  v18 = self->_device;
   sub_29D3F6EE4();
-  v19 = sub_29D3EFB6C();
-  v20 = CFUUIDGetConstantUUIDWithBytes(v19, 0x1Fu, 0x2Eu, 0x78u, 0xFAu, 0x9Fu, 0xFAu, 0x11u, byte7b[0], byte7b[1], byte7b[2], byte7b[3], byte7b[4], byte7b[5], byte7b[6], byte7b[7], byte15b);
-  CFUUIDGetUUIDBytes(v20);
-  v21 = sub_29D3F6F38();
-  if (v5(v21))
+  v17 = sub_29D3EFB6C();
+  v18 = CFUUIDGetConstantUUIDWithBytes(v17, 0x1Fu, 0x2Eu, 0x78u, 0xFAu, 0x9Fu, 0xFAu, 0x11u, byte7b[0], byte7b[1], byte7b[2], byte7b[3], byte7b[4], byte7b[5], byte7b[6], byte7b[7], byte15b);
+  CFUUIDGetUUIDBytes(v18);
+  v19 = sub_29D3F6F38();
+  if (v5(v19))
   {
     sub_29D3F6F04();
-    v62 = _IOHIDLogCategory();
-    if (!sub_29D3F6F10(v62))
+    v59 = _IOHIDLogCategory();
+    if (!sub_29D3F6F10(v59))
     {
       goto LABEL_60;
     }
@@ -1955,17 +1974,17 @@ LABEL_61:
 LABEL_67:
     sub_29D3F6EF8(1.5047e-36);
     sub_29D3F6F28();
-    _os_log_error_impl(v69, v70, v71, v72, v73, 8u);
+    _os_log_error_impl(v66, v67, v68, v69, v70, 8u);
     goto LABEL_60;
   }
 
   transaction = self->_transaction;
   if (!transaction)
   {
-    v63 = _IOHIDLogCategory();
-    if (sub_29D3F6F10(v63))
+    v60 = _IOHIDLogCategory();
+    if (sub_29D3F6F10(v60))
     {
-      v89 = 0;
+      v86 = 0;
       goto LABEL_64;
     }
 
@@ -1976,48 +1995,48 @@ LABEL_65:
   }
 
   ((*transaction)->setDirection)(transaction, 1, 0);
-  objc_msgSend_parseElements_(self, v23, cf);
+  objc_msgSend_parseElements_(self, v21, cf);
   queue = self->_queue;
   setDepth = (*queue)->setDepth;
-  v28 = objc_msgSend_count(self->_elements.input, v26, v27);
-  (setDepth)(queue, v28, 0);
+  v26 = objc_msgSend_count(self->_elements.input, v24, v25);
+  (setDepth)(queue, v26, 0);
+  v77 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v29 = self->_elements.input;
-  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v80, v88, 16);
-  if (v31)
+  v27 = self->_elements.input;
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v77, v85, 16);
+  if (v29)
   {
-    v34 = v31;
-    v35 = *v81;
+    v32 = v29;
+    v33 = *v78;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v81 != v35)
+        if (*v78 != v33)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v27);
         }
 
-        v37 = *(*(&v80 + 1) + 8 * i);
-        if (objc_msgSend_type(v37, v32, v33) <= 4)
+        v35 = *(*(&v77 + 1) + 8 * i);
+        if (objc_msgSend_type(v35, v30, v31) <= 4)
         {
-          v38 = self->_queue;
-          addElement = (*v38)->addElement;
-          v40 = objc_msgSend_elementRef(v37, v32, v33);
-          (addElement)(v38, v40, 0);
+          v36 = self->_queue;
+          addElement = (*v36)->addElement;
+          v38 = objc_msgSend_elementRef(v35, v30, v31);
+          (addElement)(v36, v38, 0);
         }
       }
 
-      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v80, v88, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v77, v85, 16);
     }
 
-    while (v34);
+    while (v32);
   }
 
-  v41 = ((*self->_queue)->getAsyncEventSource)(self->_queue, &self->_runLoopSource);
-  if (v41)
+  v39 = ((*self->_queue)->getAsyncEventSource)(self->_queue, &self->_runLoopSource);
+  if (v39)
   {
     goto LABEL_35;
   }
@@ -2028,18 +2047,18 @@ LABEL_65:
     goto LABEL_28;
   }
 
-  v41 = ((*self->_queue)->setValueAvailableCallback)(self->_queue, sub_29D3EFE14, self);
-  if (v41)
+  v39 = ((*self->_queue)->setValueAvailableCallback)(self->_queue, sub_29D3EFE14, self);
+  if (v39)
   {
 LABEL_35:
-    LODWORD(v4) = v41;
+    LODWORD(v4) = v39;
     goto LABEL_28;
   }
 
   LODWORD(v4) = ((*self->_queue)->start)(self->_queue, 0);
   if (!v4)
   {
-    objc_msgSend_initialEventUpdate(self, v42, v43);
+    objc_msgSend_initialEventUpdate(self, v40, v41);
   }
 
 LABEL_28:
@@ -2058,7 +2077,6 @@ LABEL_28:
     CFRelease(properties);
   }
 
-  v44 = *MEMORY[0x29EDCA608];
   return v4;
 }
 

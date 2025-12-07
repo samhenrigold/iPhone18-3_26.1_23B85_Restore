@@ -411,7 +411,7 @@ void __63__SKUITonePurchaseController__finishContactPicker_withContact___block_i
 
 - (void)_showContactPicker
 {
-  v3 = SKUIContactsUIFramework();
+  v3 = SKUIContactsUIFramework(self, a2);
   v4 = SKUIWeakLinkedClassForString(&cfstr_Cncontactpicke.isa, v3);
   if (v4)
   {

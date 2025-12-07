@@ -18,6 +18,7 @@
 - (void)navigationSession:(id)session didSendNavigationServiceCallback:(id)callback;
 - (void)navigationSession:(id)session didStartWithRoute:(id)route navigationType:(int64_t)type isResumingMultipointRoute:(BOOL)multipointRoute isReconnecting:(BOOL)reconnecting;
 - (void)navigationSession:(id)session didSuppressReroute:(id)reroute;
+- (void)navigationSession:(id)session didSwitchToNewTransportType:(int)type newRoute:(id)route rerouteReason:(unint64_t)reason;
 - (void)navigationSession:(id)session didUpdateAlternateRoutes:(id)routes;
 - (void)navigationSession:(id)session didUpdateDestination:(id)destination;
 - (void)navigationSession:(id)session didUpdateTargetLegIndex:(unint64_t)index;
@@ -273,37 +274,37 @@ LABEL_9:
 
 - (void)navigationSession:(id)session didRerouteWithWaypoints:(id)waypoints
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   waypointsCopy = waypoints;
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(waypointsCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = waypointsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [(MNTraceNavigationEventRecorder *)self _descriptionForWaypoint:*(*(&v15 + 1) + 8 * v11), v15];
+        v12 = [(MNTraceNavigationEventRecorder *)self _descriptionForWaypoint:*(*(&v14 + 1) + 8 * v11), v14];
         [v6 addObject:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -311,8 +312,6 @@ LABEL_9:
 
   v13 = [v6 componentsJoinedByString:{@", "}];
   [(MNTraceNavigationEventRecorder *)self _recordEvent:15 description:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationSession:(id)session didUpdateDestination:(id)destination
@@ -323,33 +322,33 @@ LABEL_9:
 
 - (void)navigationSession:(id)session didUpdateAlternateRoutes:(id)routes
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   if ([routesCopy count])
   {
     selfCopy = self;
     v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(routesCopy, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v21 = routesCopy;
+    v20 = routesCopy;
     obj = routesCopy;
-    v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
+          v11 = *(*(&v22 + 1) + 8 * i);
           v12 = MEMORY[0x1E696AEC0];
           route = [v11 route];
           name = [route name];
@@ -360,14 +359,14 @@ LABEL_9:
           [v6 addObject:v17];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v8);
     }
 
     self = selfCopy;
-    routesCopy = v21;
+    routesCopy = v20;
   }
 
   else
@@ -377,8 +376,46 @@ LABEL_9:
 
   v18 = [v6 componentsJoinedByString:{@", "}];
   [(MNTraceNavigationEventRecorder *)self _recordEvent:13 description:v18];
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)navigationSession:(id)session didSwitchToNewTransportType:(int)type newRoute:(id)route rerouteReason:(unint64_t)reason
+{
+  v7 = *&type;
+  v20 = MEMORY[0x1E696AEC0];
+  routeCopy = route;
+  route = [routeCopy route];
+  name = [route name];
+  if (v7 >= 7)
+  {
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v7];
+  }
+
+  else
+  {
+    v12 = off_1E842F890[v7];
+  }
+
+  capitalizedString = [(__CFString *)v12 capitalizedString];
+  if (reason - 1 > 0xF)
+  {
+    v14 = @"Unknown";
+  }
+
+  else
+  {
+    v14 = off_1E842F8C8[reason - 1];
+  }
+
+  route2 = [routeCopy route];
+  serverRouteID = [route2 serverRouteID];
+  route3 = [routeCopy route];
+
+  uniqueRouteID = [route3 uniqueRouteID];
+  v21 = [v20 stringWithFormat:@"%@ | ChangedTransportType: %@ | %@ | %@ | %@", name, capitalizedString, v14, serverRouteID, uniqueRouteID];
+
+  [(MNTraceNavigationEventRecorder *)self _recordEvent:12 description:v21];
+  previousSuppressedRerouteError = self->_previousSuppressedRerouteError;
+  self->_previousSuppressedRerouteError = 0;
 }
 
 - (void)navigationSession:(id)session didReroute:(id)reroute withLocation:(id)location withAlternateRoutes:(id)routes rerouteReason:(unint64_t)reason
@@ -1134,7 +1171,7 @@ void __60__MNTraceNavigationEventRecorder__stringForSignDescription___block_invo
 
 - (void)_recordEvent:(int64_t)event description:(id)description
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v7 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -1161,11 +1198,11 @@ void __60__MNTraceNavigationEventRecorder__stringForSignDescription___block_invo
       v11 = &stru_1F4EB6B70;
     }
 
-    v14 = 138412546;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v11;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "Recording event [%@] %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v11;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "Recording event [%@] %@", &v13, 0x16u);
   }
 
   if (descriptionCopy)
@@ -1179,190 +1216,184 @@ void __60__MNTraceNavigationEventRecorder__stringForSignDescription___block_invo
   }
 
   [(MNTraceRecorder *)self->_traceRecorder recordNavigationEvent:event description:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recordDebugSettings
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (_GEOConfigHasValue())
   {
-    v85 = MEMORY[0x1E69E9820];
-    v86 = 3221225472;
-    v87 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke;
-    v88 = &unk_1E842F6F0;
-    v89 = dictionary;
+    v82 = MEMORY[0x1E69E9820];
+    v83 = 3221225472;
+    v84 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke;
+    v85 = &unk_1E842F6F0;
+    v86 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v80 = MEMORY[0x1E69E9820];
-    v81 = 3221225472;
-    v82 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_2;
-    v83 = &unk_1E842F6F0;
-    v84 = dictionary;
+    v77 = MEMORY[0x1E69E9820];
+    v78 = 3221225472;
+    v79 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_2;
+    v80 = &unk_1E842F6F0;
+    v81 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v75 = MEMORY[0x1E69E9820];
-    v76 = 3221225472;
-    v77 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_3;
-    v78 = &unk_1E842F6F0;
-    v79 = dictionary;
+    v72 = MEMORY[0x1E69E9820];
+    v73 = 3221225472;
+    v74 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_3;
+    v75 = &unk_1E842F6F0;
+    v76 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v70 = MEMORY[0x1E69E9820];
-    v71 = 3221225472;
-    v72 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_4;
-    v73 = &unk_1E842F6F0;
-    v74 = dictionary;
+    v67 = MEMORY[0x1E69E9820];
+    v68 = 3221225472;
+    v69 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_4;
+    v70 = &unk_1E842F6F0;
+    v71 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v65 = MEMORY[0x1E69E9820];
-    v66 = 3221225472;
-    v67 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_5;
-    v68 = &unk_1E842F6F0;
-    v69 = dictionary;
+    v62 = MEMORY[0x1E69E9820];
+    v63 = 3221225472;
+    v64 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_5;
+    v65 = &unk_1E842F6F0;
+    v66 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v60 = MEMORY[0x1E69E9820];
-    v61 = 3221225472;
-    v62 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_6;
-    v63 = &unk_1E842F6F0;
-    v64 = dictionary;
+    v57 = MEMORY[0x1E69E9820];
+    v58 = 3221225472;
+    v59 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_6;
+    v60 = &unk_1E842F6F0;
+    v61 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v55 = MEMORY[0x1E69E9820];
-    v56 = 3221225472;
-    v57 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_7;
-    v58 = &unk_1E842F6F0;
-    v59 = dictionary;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_7;
+    v55 = &unk_1E842F6F0;
+    v56 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v50 = MEMORY[0x1E69E9820];
-    v51 = 3221225472;
-    v52 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_8;
-    v53 = &unk_1E842F6F0;
-    v54 = dictionary;
+    v47 = MEMORY[0x1E69E9820];
+    v48 = 3221225472;
+    v49 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_8;
+    v50 = &unk_1E842F6F0;
+    v51 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v45 = MEMORY[0x1E69E9820];
-    v46 = 3221225472;
-    v47 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_9;
-    v48 = &unk_1E842F6F0;
-    v49 = dictionary;
+    v42 = MEMORY[0x1E69E9820];
+    v43 = 3221225472;
+    v44 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_9;
+    v45 = &unk_1E842F6F0;
+    v46 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v40 = MEMORY[0x1E69E9820];
-    v41 = 3221225472;
-    v42 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_10;
-    v43 = &unk_1E842F6F0;
-    v44 = dictionary;
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 3221225472;
+    v39 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_10;
+    v40 = &unk_1E842F6F0;
+    v41 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v35 = MEMORY[0x1E69E9820];
-    v36 = 3221225472;
-    v37 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_11;
-    v38 = &unk_1E842F6F0;
-    v39 = dictionary;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 3221225472;
+    v34 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_11;
+    v35 = &unk_1E842F6F0;
+    v36 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_12;
-    v33 = &unk_1E842F6F0;
-    v34 = dictionary;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_12;
+    v30 = &unk_1E842F6F0;
+    v31 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   if (_GEOConfigHasValue())
   {
-    v25 = MEMORY[0x1E69E9820];
-    v26 = 3221225472;
-    v27 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_13;
-    v28 = &unk_1E842F6F0;
-    v29 = dictionary;
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_13;
+    v25 = &unk_1E842F6F0;
+    v26 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
-  v4 = *MEMORY[0x1E69A1A80];
-  v5 = *(MEMORY[0x1E69A1A80] + 8);
   if (_GEOConfigHasValue())
   {
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_14;
-    v23 = &unk_1E842F6F0;
-    v24 = dictionary;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke_14;
+    v20 = &unk_1E842F6F0;
+    v21 = dictionary;
     GEOConfigGetPropertiesForKey();
   }
 
   allKeys = [dictionary allKeys];
-  v7 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
+  v5 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-  v18 = 0u;
-  v19 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v90 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v6 = v5;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v87 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v14;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v11)
+        if (*v14 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        v14 = [dictionary objectForKeyedSubscript:{v13, v16}];
-        [(MNTraceRecorder *)self->_traceRecorder recordDebugSetting:v13 settingValue:v14];
+        v11 = *(*(&v13 + 1) + 8 * i);
+        v12 = [dictionary objectForKeyedSubscript:{v11, v13}];
+        [(MNTraceRecorder *)self->_traceRecorder recordDebugSetting:v11 settingValue:v12];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v90 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v87 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __54__MNTraceNavigationEventRecorder__recordDebugSettings__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)

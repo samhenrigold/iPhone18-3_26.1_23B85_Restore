@@ -21,6 +21,7 @@
 - (void)connectOnce:(id)once connectionTimeoutEnabled:(BOOL)enabled;
 - (void)connectPeripheral:(id)peripheral options:(id)options;
 - (void)connectionTimeout:(id)timeout;
+- (void)disconnectPeripheral:(id)peripheral force:(BOOL)force;
 - (void)pairingAgent:(id)agent peerDidCompletePairing:(id)pairing;
 - (void)pairingAgent:(id)agent peerDidFailToCompletePairing:(id)pairing error:(id)error;
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair;
@@ -865,6 +866,64 @@ LABEL_31:
   }
 
 LABEL_33:
+}
+
+- (void)disconnectPeripheral:(id)peripheral force:(BOOL)force
+{
+  forceCopy = force;
+  peripheralCopy = peripheral;
+  centralManager = [(ConnectionManager *)self centralManager];
+  if ([centralManager state] == 5)
+  {
+    state = [peripheralCopy state];
+
+    if (!state)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_6:
+    v11 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v11;
+      name = [peripheralCopy name];
+      v19 = 138412290;
+      v20 = name;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Disconnecting peripheral %@...", &v19, 0xCu);
+    }
+
+    centralManager2 = [(ConnectionManager *)self centralManager];
+    [centralManager2 cancelPeripheralConnection:peripheralCopy force:forceCopy];
+
+    clientServiceManagerMap = [(ConnectionManager *)self clientServiceManagerMap];
+    [clientServiceManagerMap removeObjectForKey:peripheralCopy];
+
+    connectOnceNoTimeoutIdentifiers = [(ConnectionManager *)self connectOnceNoTimeoutIdentifiers];
+    identifier = [peripheralCopy identifier];
+    [connectOnceNoTimeoutIdentifiers removeObject:identifier];
+
+    accessoryConnectionMap = [(ConnectionManager *)self accessoryConnectionMap];
+    [accessoryConnectionMap removeObjectForKey:peripheralCopy];
+
+    goto LABEL_10;
+  }
+
+  centralManager3 = [(ConnectionManager *)self centralManager];
+  if ([centralManager3 state] != 10)
+  {
+
+    goto LABEL_10;
+  }
+
+  state2 = [peripheralCopy state];
+
+  if (state2)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_10:
 }
 
 - (void)refreshConnectionAssertion

@@ -105,43 +105,42 @@ uint64_t __37__BBObserverClientProxy_xpcInterface__block_invoke()
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   server = [(BBObserverClientProxy *)self server];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = self->_bulletinIDsToTransaction;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [server clearBulletinIDIfPossible:*(*(&v11 + 1) + 8 * v8++) rescheduleExpirationTimer:1];
+        [server clearBulletinIDIfPossible:*(*(&v10 + 1) + 8 * v8++) rescheduleExpirationTimer:1];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   [(NSXPCConnection *)self->_connection invalidate];
-  v10.receiver = self;
-  v10.super_class = BBObserverClientProxy;
-  [(BBObserverClientProxy *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = BBObserverClientProxy;
+  [(BBObserverClientProxy *)&v9 dealloc];
 }
 
 - (NSString)clientBundleIdentifier
@@ -172,7 +171,7 @@ uint64_t __37__BBObserverClientProxy_xpcInterface__block_invoke()
 
 - (void)removeTransaction:(id)transaction
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = self->_bulletinIDsToTransaction;
   objc_sync_enter(v5);
@@ -192,16 +191,15 @@ uint64_t __37__BBObserverClientProxy_xpcInterface__block_invoke()
     v11 = BBLogBulletinLife;
     if (os_log_type_enabled(BBLogBulletinLife, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = transactionCopy;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_impl(&dword_241EFF000, v11, OS_LOG_TYPE_DEFAULT, "asked to remove a transaction (%{public}@) but our transaction (%{public}@) doesn't match IDs", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = transactionCopy;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_241EFF000, v11, OS_LOG_TYPE_DEFAULT, "asked to remove a transaction (%{public}@) but our transaction (%{public}@) doesn't match IDs", &v12, 0x16u);
     }
   }
 
   objc_sync_exit(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)transactionBulletinIDs
@@ -491,7 +489,7 @@ void __75__BBObserverClientProxy_setObserverFeed_asLightsAndSirensGateway_priori
 
 void __55__BBObserverClientProxy_handleResponse_withCompletion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
@@ -499,19 +497,17 @@ void __55__BBObserverClientProxy_handleResponse_withCompletion___block_invoke(ui
     v4 = *(a1 + 40);
     v5 = v2;
     v6 = [v3 server];
-    v9 = 138543874;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ handling response %{public}@ with server %{public}@", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
+    v12 = 2114;
+    v13 = v6;
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ handling response %{public}@ with server %{public}@", &v8, 0x20u);
   }
 
   v7 = [*(a1 + 32) server];
   [v7 observer:*(a1 + 32) handleResponse:*(a1 + 40) withCompletion:*(a1 + 48)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedWithBulletinID:(id)d transactionID:(unint64_t)iD
@@ -845,19 +841,17 @@ void __80__BBObserverClientProxy_getBulletinsForPublisherMatchIDs_sectionID_with
 
 - (void)setObserverOptions:(unint64_t)options
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   self->_observerOptions = options;
   v5 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2048;
+    v8 = 2048;
     optionsCopy = options;
-    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%@ setObserverOptions: options: %ld", &v7, 0x16u);
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%@ setObserverOptions: options: %ld", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

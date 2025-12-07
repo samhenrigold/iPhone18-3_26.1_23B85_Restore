@@ -68,22 +68,20 @@
 
 - (id)feedbackResult
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D4C5D0]);
   resultID = [(MSParsecSearchSessionMessageResult *)self resultID];
   [v3 setIdentifier:resultID];
 
-  v10 = @"messageAgeInDays";
+  v9 = @"messageAgeInDays";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[MSParsecSearchSessionMessageResult messageAge](self, "messageAge")}];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v3 setLocalFeatures:v6];
 
   [v3 setType:2];
   mailRankingSignals = [(MSParsecSearchSessionMessageResult *)self mailRankingSignals];
   [v3 setMailRankingSignals:mailRankingSignals];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

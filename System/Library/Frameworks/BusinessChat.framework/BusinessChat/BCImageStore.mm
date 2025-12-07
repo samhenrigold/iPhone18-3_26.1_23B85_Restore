@@ -9,20 +9,20 @@
 
 - (BCImageStore)initWithData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = LogCategory_Daemon();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [dataCopy description];
     *buf = 138412290;
-    v19 = v7;
+    v18 = v7;
     _os_log_impl(&dword_236EA0000, v6, OS_LOG_TYPE_DEFAULT, "BCImageStore: initWithData %@", buf, 0xCu);
   }
 
-  v17.receiver = self;
-  v17.super_class = BCImageStore;
-  v8 = [(BCImageStore *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = BCImageStore;
+  v8 = [(BCImageStore *)&v16 init];
   if (v8)
   {
     v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:0];
@@ -47,43 +47,42 @@
 
   v14 = v13;
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)generateImageDictionaryFromArray:(void *)array
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (arrayCopy)
   {
-    v28 = arrayCopy;
-    v29 = objc_opt_new();
+    v27 = arrayCopy;
+    v28 = objc_opt_new();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     obj = arrayCopy;
-    v3 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v3 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = @"data";
       v6 = @"identifier";
-      v7 = *v34;
+      v7 = *v33;
       do
       {
         v8 = 0;
-        v30 = v4;
+        v29 = v4;
         do
         {
-          if (*v34 != v7)
+          if (*v33 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v33 + 1) + 8 * v8);
-          v10 = [v9 objectForKeyedSubscript:{v5, v28}];
+          v9 = *(*(&v32 + 1) + 8 * v8);
+          v10 = [v9 objectForKeyedSubscript:{v5, v27}];
           v11 = [v9 objectForKeyedSubscript:v6];
           if (v11)
           {
@@ -131,7 +130,7 @@
               v22 = [v9 objectForKeyedSubscript:@"description"];
               v23 = [(BCImage *)v21 initWithImageData:v13 identifier:v11 description:v22];
 
-              [v29 setObject:v23 forKeyedSubscript:v11];
+              [v28 setObject:v23 forKeyedSubscript:v11];
             }
 
             else
@@ -147,23 +146,23 @@
             v5 = v15;
 
             v6 = v14;
-            v4 = v30;
+            v4 = v29;
           }
 
           ++v8;
         }
 
         while (v4 != v8);
-        v4 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v4 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v4);
     }
 
-    allKeys = [v29 allKeys];
+    allKeys = [v28 allKeys];
     if ([allKeys count])
     {
-      v25 = v29;
+      v25 = v28;
     }
 
     else
@@ -173,7 +172,7 @@
 
     v2 = v25;
 
-    arrayCopy = v28;
+    arrayCopy = v27;
   }
 
   else
@@ -181,26 +180,24 @@
     v2 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (BCImageStore)initWithArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v5 = LogCategory_Daemon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = arrayCopy;
+    v16 = arrayCopy;
     _os_log_impl(&dword_236EA0000, v5, OS_LOG_TYPE_DEFAULT, "BCImageStore: initWithArray %@", buf, 0xCu);
   }
 
-  v15.receiver = self;
-  v15.super_class = BCImageStore;
-  v6 = [(BCImageStore *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = BCImageStore;
+  v6 = [(BCImageStore *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -225,53 +222,52 @@
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BCImageStore)initWithImages:(id)images
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   imagesCopy = images;
   v5 = LogCategory_Daemon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = imagesCopy;
+    v24 = imagesCopy;
     _os_log_impl(&dword_236EA0000, v5, OS_LOG_TYPE_DEFAULT, "BCImageStore: initWithImages %@", buf, 0xCu);
   }
 
-  v22.receiver = self;
-  v22.super_class = BCImageStore;
-  v6 = [(BCImageStore *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BCImageStore;
+  v6 = [(BCImageStore *)&v21 init];
   if (v6)
   {
     v7 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = imagesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           identifier = [v13 identifier];
           [v7 setObject:v13 forKey:identifier];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
@@ -283,7 +279,6 @@
     v6->_data = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

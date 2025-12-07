@@ -71,42 +71,42 @@
 
 - (void)layoutSubviews
 {
-  v10.receiver = self;
-  v10.super_class = _NTKCGalleryCollectionFooter;
-  [(_NTKCGalleryCollectionFooter *)&v10 layoutSubviews];
+  v14.receiver = self;
+  v14.super_class = _NTKCGalleryCollectionFooter;
+  [(_NTKCGalleryCollectionFooter *)&v14 layoutSubviews];
   [(_NTKCGalleryCollectionFooter *)self bounds];
-  Width = CGRectGetWidth(v11);
-  v4 = NTKCScreenStyle();
+  Width = CGRectGetWidth(v15);
+  v6 = NTKCScreenStyle(v4, v5);
   IsRTL = CLKLayoutIsRTL();
-  [(UILabel *)self->_label frame];
-  v6 = 0.0;
+  frame = [(UILabel *)self->_label frame];
+  v10 = 0.0;
   if ((IsRTL & 1) == 0)
   {
-    if (NTKCScreenStyle() == -1)
+    if (NTKCScreenStyle(frame, v9) == -1)
     {
-      v6 = 11.0;
+      v10 = 11.0;
     }
 
     else
     {
-      v6 = 15.0;
+      v10 = 15.0;
     }
   }
 
-  v7 = 15.0;
-  if (v4 == -1)
+  v11 = 15.0;
+  if (v6 == -1)
   {
-    v7 = 11.0;
+    v11 = 11.0;
   }
 
-  v8 = Width - v7;
+  v12 = Width - v11;
   [NTKCFaceContainerView sizeForFaceSize:1 style:FaceSize()];
-  [(UILabel *)self->_label setFrame:v6, 0.0, v8, v9];
+  [(UILabel *)self->_label setFrame:v10, 0.0, v12, v13];
 }
 
 - (void)_fontSizeDidChange
 {
-  v3 = NTKCScreenStyle();
+  v3 = NTKCScreenStyle(self, a2);
   v4 = MEMORY[0x277D76968];
   if (v3 != -1)
   {

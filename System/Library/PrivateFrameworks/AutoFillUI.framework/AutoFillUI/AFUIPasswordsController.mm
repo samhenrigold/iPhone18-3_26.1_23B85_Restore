@@ -87,12 +87,12 @@
   [v10 authenticateToPresentInPopover:_shouldPresentAllPasswordsViewInPopover completion:v13];
 }
 
-uint64_t __96__AFUIPasswordsController_presentPasswordPickerFromViewController_didFinishAuthenticationBlock___block_invoke(void *a1, int a2)
+uint64_t (**__96__AFUIPasswordsController_presentPasswordPickerFromViewController_didFinishAuthenticationBlock___block_invoke(void *a1, int a2))(void)
 {
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))();
+    result = result[2]();
   }
 
   if (a2)

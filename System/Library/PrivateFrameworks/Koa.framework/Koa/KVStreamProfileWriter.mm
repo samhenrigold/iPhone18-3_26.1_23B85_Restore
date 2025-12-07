@@ -9,7 +9,7 @@
 
 - (BOOL)addItem:(id)item error:(id *)error
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v12 = objc_msgSend_buffer(itemCopy, v7, v8, v9, v10, v11);
   v13 = sub_2559B1A54(v12);
@@ -17,10 +17,10 @@
   if (!objc_msgSend_length(v13, v14, v15, v16, v17, v18))
   {
     v47 = MEMORY[0x277CCA9B8];
-    v58 = *MEMORY[0x277CCA450];
+    v57 = *MEMORY[0x277CCA450];
     v48 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v19, @"Invalid item %@", v21, v22, v23, itemCopy);
-    v59[0] = v48;
-    v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, v59, &v58, 1, v50);
+    v58[0] = v48;
+    v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, v58, &v57, 1, v50);
     v54 = objc_msgSend_errorWithDomain_code_userInfo_(v47, v52, @"com.apple.koa.profile", 7, v51, v53);
     if (error && v54)
     {
@@ -49,7 +49,6 @@ LABEL_9:
   v46 = 1;
 LABEL_10:
 
-  v56 = *MEMORY[0x277D85DE8];
   return v46;
 }
 

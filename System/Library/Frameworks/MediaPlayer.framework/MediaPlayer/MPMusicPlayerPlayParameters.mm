@@ -528,7 +528,7 @@ void __50__MPMusicPlayerPlayParameters_initWithDictionary___block_invoke(uint64_
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  if (v4 || *(a1 + 40) || *(a1 + 48))
+  if (*(a1 + 32) != 0 || *(a1 + 48))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;

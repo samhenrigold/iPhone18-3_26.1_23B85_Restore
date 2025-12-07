@@ -101,7 +101,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -111,10 +111,9 @@
   }
 
   VSRequireMainThread();
-  v5.receiver = self;
-  v5.super_class = VSApplication;
-  [(VSApplication *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = VSApplication;
+  [(VSApplication *)&v4 dealloc];
 }
 
 void __42__VSApplication_transitionToStartingState__block_invoke(uint64_t a1)
@@ -138,11 +137,11 @@ void __59__VSApplication_transitionToNotifyingOfFailureToStartState__block_invok
   [v5 enqueueEvent:@"Finished notifying of failure to start"];
 }
 
-void __39__VSApplication_transitionToReadyState__block_invoke(uint64_t a1)
+void __39__VSApplication_transitionToReadyState__block_invoke(uint64_t a1, uint64_t a2)
 {
   VSRequireMainThread();
-  v2 = [*(a1 + 32) delegate];
-  [v2 applicationDidStart:*(a1 + 32)];
+  v3 = [*(a1 + 32) delegate];
+  [v3 applicationDidStart:*(a1 + 32)];
 }
 
 - (void)transitionToStoppingState
@@ -189,14 +188,14 @@ void __39__VSApplication_transitionToReadyState__block_invoke(uint64_t a1)
 
 - (void)appDocumentForDocument:(id)document completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   documentCopy = document;
   v7 = VSDefaultLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[VSApplication appDocumentForDocument:completionHandler:]";
+    v20 = "[VSApplication appDocumentForDocument:completionHandler:]";
     _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -214,36 +213,34 @@ void __39__VSApplication_transitionToReadyState__block_invoke(uint64_t a1)
     if (v14)
     {
       *buf = 136315138;
-      v21 = "[VSApplication appDocumentForDocument:completionHandler:]";
+      v20 = "[VSApplication appDocumentForDocument:completionHandler:]";
       _os_log_impl(&dword_270DD4000, v13, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __58__VSApplication_appDocumentForDocument_completionHandler___block_invoke;
-    v17[3] = &unk_279E1A000;
-    v19 = handlerCopy;
-    v18 = v12;
-    __58__VSApplication_appDocumentForDocument_completionHandler___block_invoke(v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __58__VSApplication_appDocumentForDocument_completionHandler___block_invoke;
+    v16[3] = &unk_279E1A000;
+    v18 = handlerCopy;
+    v17 = v12;
+    __58__VSApplication_appDocumentForDocument_completionHandler___block_invoke(v16);
     v15 = VSDefaultLogObject();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "[VSApplication appDocumentForDocument:completionHandler:]";
+      v20 = "[VSApplication appDocumentForDocument:completionHandler:]";
       _os_log_impl(&dword_270DD4000, v15, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
     }
 
-    v13 = v19;
+    v13 = v18;
   }
 
   else if (v14)
   {
     *buf = 136315138;
-    v21 = "[VSApplication appDocumentForDocument:completionHandler:]";
+    v20 = "[VSApplication appDocumentForDocument:completionHandler:]";
     _os_log_impl(&dword_270DD4000, v13, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appContext:(id)context didStartWithOptions:(id)options
@@ -268,20 +265,18 @@ void __39__VSApplication_transitionToReadyState__block_invoke(uint64_t a1)
 
 - (void)appContext:(id)context didStopWithOptions:(id)options
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v6 = VSDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = optionsCopy;
-    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "App context did stop with options: %@.", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = optionsCopy;
+    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "App context did stop with options: %@.", &v8, 0xCu);
   }
 
   stateMachine = [(VSApplication *)self stateMachine];
   [stateMachine enqueueEvent:@"Finished stopping"];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appContext:(id)context evaluateAppJavaScriptInContext:(id)inContext
@@ -363,36 +358,38 @@ void __39__VSApplication_transitionToReadyState__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __36__VSApplication_viewElementRegistry__block_invoke()
+uint64_t __36__VSApplication_viewElementRegistry__block_invoke(uint64_t a1, uint64_t a2)
 {
-  viewElementRegistry___vs_lazy_init_variable = __36__VSApplication_viewElementRegistry__block_invoke_2();
+  v2 = __36__VSApplication_viewElementRegistry__block_invoke_2(a1, a2);
+  v3 = viewElementRegistry___vs_lazy_init_variable;
+  viewElementRegistry___vs_lazy_init_variable = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
-id __36__VSApplication_viewElementRegistry__block_invoke_2()
+id __36__VSApplication_viewElementRegistry__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [MEMORY[0x277D1B080] registerClass:objc_opt_class() forFeatureName:@"WebMessagePort"];
-  v0 = objc_alloc_init(MEMORY[0x277D1B138]);
-  [v0 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2458] elementType:162];
-  [v0 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2450] elementType:161];
-  [v0 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2460] elementType:165];
-  [v0 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2468] elementType:163];
-  [v0 registerClass:objc_opt_class() forElementName:@"accountName" elementType:138];
-  [v0 registerClass:objc_opt_class() forElementName:@"buttonLockup" elementType:156];
-  [v0 registerClass:objc_opt_class() forElementName:@"description" elementType:138];
-  [v0 registerClass:objc_opt_class() forElementName:@"displayLink" elementType:157];
-  [v0 registerClass:objc_opt_class() forElementName:0x2880B8CD0 elementType:158];
-  [v0 registerClass:objc_opt_class() forElementName:@"item" elementType:159];
-  [v0 registerClass:objc_opt_class() forElementName:@"img" elementType:49];
-  [v0 registerClass:objc_opt_class() forElementName:@"text" elementType:138];
-  [v0 registerClass:objc_opt_class() forElementName:@"textField" elementType:140];
-  [v0 registerClass:objc_opt_class() forElementName:@"textFieldGroup" elementType:160];
-  [v0 registerClass:objc_opt_class() forElementName:@"title" elementType:138];
-  [v0 registerClass:objc_opt_class() forElementName:@"twoFactorTextField" elementType:140];
+  v2 = objc_alloc_init(MEMORY[0x277D1B138]);
+  [v2 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2458] elementType:162];
+  [v2 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2450] elementType:161];
+  [v2 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2460] elementType:165];
+  [v2 registerClass:objc_opt_class() forElementName:*MEMORY[0x277CE2468] elementType:163];
+  [v2 registerClass:objc_opt_class() forElementName:@"accountName" elementType:138];
+  [v2 registerClass:objc_opt_class() forElementName:@"buttonLockup" elementType:156];
+  [v2 registerClass:objc_opt_class() forElementName:@"description" elementType:138];
+  [v2 registerClass:objc_opt_class() forElementName:@"displayLink" elementType:157];
+  [v2 registerClass:objc_opt_class() forElementName:0x2880B8CD0 elementType:158];
+  [v2 registerClass:objc_opt_class() forElementName:@"item" elementType:159];
+  [v2 registerClass:objc_opt_class() forElementName:@"img" elementType:49];
+  [v2 registerClass:objc_opt_class() forElementName:@"text" elementType:138];
+  [v2 registerClass:objc_opt_class() forElementName:@"textField" elementType:140];
+  [v2 registerClass:objc_opt_class() forElementName:@"textFieldGroup" elementType:160];
+  [v2 registerClass:objc_opt_class() forElementName:@"title" elementType:138];
+  [v2 registerClass:objc_opt_class() forElementName:@"twoFactorTextField" elementType:140];
   +[VSIKItemGroup registerFeature];
 
-  return v0;
+  return v2;
 }
 
 - (NSHTTPCookieStorage)cookieStorage
@@ -420,11 +417,10 @@ id __36__VSApplication_viewElementRegistry__block_invoke_2()
 
 - (void)appContext:(uint64_t)a1 didFailWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "App context did fail with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "App context did fail with error: %@", &v2, 0xCu);
 }
 
 @end

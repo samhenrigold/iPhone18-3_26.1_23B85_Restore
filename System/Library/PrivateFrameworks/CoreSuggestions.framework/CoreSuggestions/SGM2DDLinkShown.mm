@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceAsString:(int)string;
 - (int)StringAsInterface:(id)interface;
 - (int)interface;
 - (unint64_t)hash;
@@ -118,18 +119,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    interface = self->_interface;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -280,6 +280,21 @@ LABEL_9:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)interfaceAsString:(int)string
+{
+  if (string >= 0x14)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC418[string];
   }
 
   return v4;

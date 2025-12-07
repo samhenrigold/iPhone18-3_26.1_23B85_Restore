@@ -10,6 +10,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isInitializing;
 - (BOOL)isInvalid;
+- (BOOL)setCachedValueIfAvailableForGroupUpdate:(BOOL)update;
 - (BOOL)supportsDisable;
 - (BOOL)supportsError;
 - (BOOL)supportsNotifier;
@@ -40,6 +41,8 @@
 - (void)dealloc;
 - (void)groupInitializationRequested;
 - (void)handleError:(id)error value:(id)value;
+- (void)handleRegistrationWithInstanceID:(id)d registered:(BOOL)registered;
+- (void)handleRegistrationWithInstanceID:(id)d value:(id)value registered:(BOOL)registered;
 - (void)handleUpdateWithInstanceID:(id)d value:(id)value;
 - (void)handleValueAndError:(id)error value:(id)value;
 - (void)handleWrite:(id)write value:(id)value;
@@ -65,7 +68,7 @@
 
 + (void)registerCharacteristicClass:(Class)class
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (registerCharacteristicClass__onceToken != -1)
   {
     +[CAFCharacteristic registerCharacteristicClass:];
@@ -73,35 +76,34 @@
 
   v4 = _registeredCharacteristicClasses;
   objc_sync_enter(v4);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   characteristicFormats = [(objc_class *)class characteristicFormats];
-  v6 = [characteristicFormats countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [characteristicFormats countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(characteristicFormats);
         }
 
-        [_registeredCharacteristicClasses setObject:class forKeyedSubscript:*(*(&v10 + 1) + 8 * i)];
+        [_registeredCharacteristicClasses setObject:class forKeyedSubscript:*(*(&v9 + 1) + 8 * i)];
       }
 
-      v6 = [characteristicFormats countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [characteristicFormats countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(v4);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__CAFCharacteristic_registerCharacteristicClass___block_invoke()
@@ -149,9 +151,9 @@ uint64_t __49__CAFCharacteristic_registerCharacteristicClass___block_invoke()
 {
   serviceCopy = service;
   configCopy = config;
-  v58.receiver = self;
-  v58.super_class = CAFCharacteristic;
-  v8 = [(CAFCharacteristic *)&v58 init];
+  v63.receiver = self;
+  v63.super_class = CAFCharacteristic;
+  v8 = [(CAFCharacteristic *)&v63 init];
   v9 = v8;
   if (!v8)
   {
@@ -237,8 +239,8 @@ uint64_t __49__CAFCharacteristic_registerCharacteristicClass___block_invoke()
 
   if (!v9->_instanceID)
   {
-    v37 = CAFCharacteristicLogging();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = CAFCharacteristicLogging(v25);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       [CAFCharacteristic initWithService:serviceCopy config:?];
     }
@@ -246,16 +248,16 @@ uint64_t __49__CAFCharacteristic_registerCharacteristicClass___block_invoke()
     goto LABEL_31;
   }
 
-  v25 = [CAFCarConfiguration getType:configCopy];
+  v26 = [CAFCarConfiguration getType:configCopy];
   characteristicType = v9->_characteristicType;
-  v9->_characteristicType = v25;
+  v9->_characteristicType = v26;
 
   if (!v9->_characteristicType)
   {
-    v37 = CAFCharacteristicLogging();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v39 = CAFCharacteristicLogging(v28);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      [CAFCharacteristic initWithService:serviceCopy config:&v9->_instanceID];
+      [CAFCharacteristic initWithService:serviceCopy config:?];
     }
 
 LABEL_31:
@@ -264,127 +266,128 @@ LABEL_31:
   }
 
   pluginID = [serviceCopy pluginID];
-  v28 = [CAFCarConfiguration getUUID:pluginID instanceID:v9->_instanceID];
+  v30 = [CAFCarConfiguration getUUID:pluginID instanceID:v9->_instanceID];
   uniqueIdentifier = v9->_uniqueIdentifier;
-  v9->_uniqueIdentifier = v28;
+  v9->_uniqueIdentifier = v30;
 
-  v30 = [CAFCharacteristicTypes characteristicNameForType:v9->_characteristicType];
+  v32 = [CAFCharacteristicTypes characteristicNameForType:v9->_characteristicType];
   typeName = v9->_typeName;
-  v9->_typeName = v30;
+  v9->_typeName = v32;
 
-  v32 = [configCopy objectForKeyedSubscript:@"initialValue"];
-  if (v32)
+  v34 = [configCopy objectForKeyedSubscript:@"initialValue"];
+  if (v34)
   {
     v9->_hasInitialValue = 1;
     null = [MEMORY[0x277CBEB68] null];
-    v34 = [v32 isEqual:null];
+    v36 = [v34 isEqual:null];
 
-    v35 = [CAFCharacteristicValue alloc];
-    if (v34)
+    v37 = [CAFCharacteristicValue alloc];
+    if (v36)
     {
-      v36 = 0;
+      v38 = 0;
     }
 
     else
     {
-      v36 = v32;
+      v38 = v34;
     }
 
-    v39 = [(CAFCharacteristicValue *)v35 initWithValue:v36 error:0];
+    v41 = [(CAFCharacteristicValue *)v37 initWithValue:v38 error:0];
     characteristicValue = v9->_characteristicValue;
-    v9->_characteristicValue = v39;
+    v9->_characteristicValue = v41;
   }
 
-  v41 = [[CAFCharacteristicMetadata alloc] initWithConfig:configCopy];
+  v43 = [[CAFCharacteristicMetadata alloc] initWithConfig:configCopy];
   metaData = v9->_metaData;
-  v9->_metaData = v41;
+  v9->_metaData = v43;
 
   if (v9->_metaData)
   {
     v9->_writable = [CAFCarConfiguration getBoolean:configCopy key:@"writable"];
     v9->_isMutable = [CAFCarConfiguration getBoolean:configCopy key:@"mutable"];
     objc_opt_class();
-    v43 = [configCopy objectForKeyedSubscript:@"priority"];
-    if (v43 && (objc_opt_isKindOfClass() & 1) != 0)
+    v46 = [configCopy objectForKeyedSubscript:@"priority"];
+    if (v46 && (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v44 = v43;
+      v47 = v46;
     }
 
     else
     {
-      v44 = 0;
+      v47 = 0;
     }
 
     priority = v9->_priority;
-    v9->_priority = v44;
+    v9->_priority = v47;
 
     v9->_hasLargePayload = [CAFCarConfiguration getBoolean:configCopy key:@"largePayload"];
     v9->_supportsInvalid = [CAFCarConfiguration getBoolean:configCopy key:@"supportsInvalid"];
     v9->_isNotificationEnabled = 0;
-    v46 = [(CAFCharacteristic *)v9 car];
-    carManager = [v46 carManager];
+    v49 = [(CAFCharacteristic *)v9 car];
+    carManager = [v49 carManager];
     v9->_shouldInitialize = [carManager shouldInitializeCharacteristic:v9];
 
-    v48 = objc_alloc(MEMORY[0x277CF89C0]);
+    v51 = objc_alloc(MEMORY[0x277CF89C0]);
     observerProtocol = [objc_opt_class() observerProtocol];
-    v50 = [v48 initWithProtocol:observerProtocol];
+    v53 = [v51 initWithProtocol:observerProtocol];
     observers = v9->_observers;
-    v9->_observers = v50;
+    v9->_observers = v53;
 
-    v52 = [[CAFCachedDescription alloc] initWithCacheable:v9];
+    v55 = [[CAFCachedDescription alloc] initWithCacheable:v9];
     cachedDescription = v9->_cachedDescription;
-    v9->_cachedDescription = v52;
+    v9->_cachedDescription = v55;
 
-    [(CAFCharacteristic *)v9 setCachedValueIfAvailableForGroupUpdate:0];
+    v57 = [(CAFCharacteristic *)v9 setCachedValueIfAvailableForGroupUpdate:0];
     if (v9->_shouldInitialize)
     {
-      if (![(CAFCharacteristic *)v9 shouldDeferInitialization])
+      shouldDeferInitialization = [(CAFCharacteristic *)v9 shouldDeferInitialization];
+      if (!shouldDeferInitialization)
       {
 LABEL_51:
 
 LABEL_52:
-        v38 = v9;
+        v40 = v9;
         goto LABEL_53;
       }
 
-      v54 = CAFCharacteristicLogging();
-      v55 = 2;
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v59 = CAFCharacteristicLogging(shouldDeferInitialization);
+      v60 = 2;
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
         [CAFCharacteristic initWithService:config:];
-        v55 = 2;
+        v60 = 2;
       }
     }
 
     else
     {
-      v54 = CAFCharacteristicLogging();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v59 = CAFCharacteristicLogging(v57);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
         [CAFCharacteristic initWithService:config:];
       }
 
-      v55 = 1;
+      v60 = 1;
     }
 
     os_unfair_lock_lock(&v9->_valueLock);
-    [(CAFCharacteristic *)v9 setLockState:v55];
+    [(CAFCharacteristic *)v9 setLockState:v60];
     os_unfair_lock_unlock(&v9->_valueLock);
     [(CAFCharacteristic *)v9 _didUpdateFromGroupUpdate:0];
     goto LABEL_51;
   }
 
-  v56 = CAFCharacteristicLogging();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+  v61 = CAFCharacteristicLogging(v45);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
   {
-    [CAFCharacteristic initWithService:serviceCopy config:&v9->_instanceID];
+    [CAFCharacteristic initWithService:serviceCopy config:?];
   }
 
 LABEL_32:
-  v38 = 0;
+  v40 = 0;
 LABEL_53:
 
-  return v38;
+  return v40;
 }
 
 - (void)dealloc
@@ -451,7 +454,8 @@ LABEL_53:
 - (BOOL)isCurrent
 {
   os_unfair_lock_lock(&self->_valueLock);
-  IsCurrent = CAFCharacteristicStateIsCurrent([(CAFCharacteristic *)self lockState]);
+  lockState = [(CAFCharacteristic *)self lockState];
+  IsCurrent = CAFCharacteristicStateIsCurrent(lockState, v4);
   os_unfair_lock_unlock(&self->_valueLock);
   return IsCurrent;
 }
@@ -464,7 +468,8 @@ LABEL_53:
   }
 
   os_unfair_lock_lock(&self->_valueLock);
-  IsInitializing = CAFCharacteristicStateIsInitializing([(CAFCharacteristic *)self lockState]);
+  lockState = [(CAFCharacteristic *)self lockState];
+  IsInitializing = CAFCharacteristicStateIsInitializing(lockState, v5);
   if ((IsInitializing & 1) == 0)
   {
     [(CAFCharacteristic *)self setInitializationFinished:1];
@@ -494,14 +499,15 @@ LABEL_53:
 
 - (void)setValue:(id)value
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if ([(CAFCharacteristic *)self writable])
   {
-    if ([(CAFCharacteristic *)self isDisabled])
+    isDisabled = [(CAFCharacteristic *)self isDisabled];
+    if (isDisabled)
     {
-      v5 = CAFCharacteristicLogging();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = CAFCharacteristicLogging(isDisabled);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [CAFCharacteristic setValue:];
       }
@@ -510,11 +516,12 @@ LABEL_53:
     }
 
     isInitializing = [(CAFCharacteristic *)self isInitializing];
-    v5 = CAFCharacteristicLogging();
-    v8 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
-    if (isInitializing)
+    v10 = isInitializing;
+    v6 = CAFCharacteristicLogging(isInitializing);
+    v11 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+    if (v10)
     {
-      if (v8)
+      if (v11)
       {
         [CAFCharacteristic setValue:];
       }
@@ -522,41 +529,41 @@ LABEL_53:
       goto LABEL_19;
     }
 
-    if (v8)
+    if (v11)
     {
       [CAFCharacteristic setValue:];
     }
 
-    v9 = CARSignpostLogForCategory();
+    v12 = CARSignpostLogForCategory();
     if (self)
     {
-      v10 = CARSignpostLogForCategory();
-      v11 = os_signpost_id_make_with_pointer(v10, self);
+      v13 = CARSignpostLogForCategory();
+      v14 = os_signpost_id_make_with_pointer(v13, self);
 
-      if (v11 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+      if (v14 - 1 > 0xFFFFFFFFFFFFFFFDLL)
       {
 LABEL_18:
 
         os_unfair_lock_lock(&self->_valueLock);
         [(CAFCharacteristic *)self setLockState:5];
-        v20 = 0;
-        v5 = [(CAFCharacteristic *)self encodeValue:valueCopy error:&v20];
-        v15 = v20;
-        [(CAFCharacteristic *)self _lock_setError:v15];
+        v22 = 0;
+        v6 = [(CAFCharacteristic *)self encodeValue:valueCopy error:&v22];
+        v18 = v22;
+        [(CAFCharacteristic *)self _lock_setError:v18];
         [(CAFCharacteristic *)self setPendingValue:valueCopy];
         [(CAFCharacteristic *)self setTransactionId:[(CAFCharacteristic *)self transactionId]+ 1];
         os_unfair_lock_unlock(&self->_valueLock);
         [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
         objc_initWeak(buf, self);
-        v16 = [(CAFCharacteristic *)self car];
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __30__CAFCharacteristic_setValue___block_invoke;
-        v18[3] = &unk_27890F478;
-        objc_copyWeak(&v19, buf);
-        [v16 writeCharacteristic:self value:v5 response:v18];
+        v19 = [(CAFCharacteristic *)self car];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __30__CAFCharacteristic_setValue___block_invoke;
+        v20[3] = &unk_27890F478;
+        objc_copyWeak(&v21, buf);
+        [v19 writeCharacteristic:self value:v6 response:v20];
 
-        objc_destroyWeak(&v19);
+        objc_destroyWeak(&v21);
         objc_destroyWeak(buf);
 
         goto LABEL_19;
@@ -565,21 +572,21 @@ LABEL_18:
 
     else
     {
-      v11 = 0xEEEEB0B5B2B2EEEELL;
+      v14 = 0xEEEEB0B5B2B2EEEELL;
     }
 
-    if (os_signpost_enabled(v9))
+    if (os_signpost_enabled(v12))
     {
       name = [(CAFCharacteristic *)self name];
       pluginID = [(CAFCharacteristic *)self pluginID];
       instanceID = [(CAFCharacteristic *)self instanceID];
       *buf = 138543874;
-      v22 = name;
-      v23 = 2114;
-      v24 = pluginID;
+      v24 = name;
       v25 = 2114;
-      v26 = instanceID;
-      _os_signpost_emit_with_name_impl(&dword_231618000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v11, "Set", "Characteristic: %{public}@ pluginID: %{public}@ instanceID: %{public}@", buf, 0x20u);
+      v26 = pluginID;
+      v27 = 2114;
+      v28 = instanceID;
+      _os_signpost_emit_with_name_impl(&dword_231618000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v14, "Set", "Characteristic: %{public}@ pluginID: %{public}@ instanceID: %{public}@", buf, 0x20u);
     }
 
     goto LABEL_18;
@@ -588,15 +595,13 @@ LABEL_18:
   cAF_writeToReadonlyError = [MEMORY[0x277CCA9B8] CAF_writeToReadonlyError];
   [(CAFCharacteristic *)self setError:cAF_writeToReadonlyError];
 
-  v5 = CAFCharacteristicLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = CAFCharacteristicLogging(v8);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [CAFCharacteristic setValue:];
   }
 
 LABEL_19:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __30__CAFCharacteristic_setValue___block_invoke(uint64_t a1, void *a2)
@@ -634,10 +639,84 @@ LABEL_7:
 
 - (void)groupInitializationRequested
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_231618000, v0, v1, "%{public}@ groupInitializationRequested", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = CAFCharacteristicLogging(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [CAFCharacteristic groupInitializationRequested];
+  }
+
+  os_unfair_lock_lock(&self->_valueLock);
+  if (![(CAFCharacteristic *)self lockState])
+  {
+    [(CAFCharacteristic *)self setLockState:6];
+  }
+
+  os_unfair_lock_unlock(&self->_valueLock);
+  [(CAFCharacteristic *)self _updateStateIfNeeded];
+}
+
+- (BOOL)setCachedValueIfAvailableForGroupUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v23 = *MEMORY[0x277D85DE8];
+  characteristicValue = [(CAFCharacteristic *)self characteristicValue];
+
+  if (characteristicValue)
+  {
+    characteristicValue2 = [(CAFCharacteristic *)self characteristicValue];
+    if (characteristicValue2)
+    {
+      characteristicValue3 = [(CAFCharacteristic *)self characteristicValue];
+      value = [characteristicValue3 value];
+      v16 = 0;
+      v10 = [(CAFCharacteristic *)self decodeValue:value error:&v16];
+      v11 = v16;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 0;
+    }
+
+    v13 = CAFCharacteristicLogging(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    {
+      v15 = @"YES";
+      *buf = 138543874;
+      selfCopy = self;
+      v19 = 2112;
+      if (!v10)
+      {
+        v15 = @"NO";
+      }
+
+      v20 = v15;
+      v21 = 2112;
+      v22 = v11;
+      _os_log_debug_impl(&dword_231618000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ value set %@ decodeError=%@", buf, 0x20u);
+    }
+
+    os_unfair_lock_lock(&self->_valueLock);
+    [(CAFCharacteristic *)self setCachedValue:v10];
+    [(CAFCharacteristic *)self setPendingValue:0];
+    [(CAFCharacteristic *)self setLockState:3];
+    [(CAFCharacteristic *)self _lock_setError:v11];
+    [(CAFCharacteristic *)self setTransactionId:[(CAFCharacteristic *)self transactionId]+ 1];
+    os_unfair_lock_unlock(&self->_valueLock);
+    [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:updateCopy];
+  }
+
+  else
+  {
+    v11 = CAFCharacteristicLogging(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [CAFCharacteristic setCachedValueIfAvailableForGroupUpdate:];
+    }
+  }
+
+  return characteristicValue != 0;
 }
 
 - (NSString)formattedValue
@@ -702,20 +781,19 @@ LABEL_7:
 - (BOOL)_lock_setError:(id)error
 {
   errorCopy = error;
-  error = self->_error;
   p_error = &self->_error;
-  v8 = BSEqualObjects();
-  if ((v8 & 1) == 0)
+  v7 = BSEqualObjects();
+  if ((v7 & 1) == 0)
   {
     objc_storeStrong(p_error, error);
   }
 
-  return v8 ^ 1;
+  return v7 ^ 1;
 }
 
 - (void)updateValueRequiringRead:(BOOL)read
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = CARSignpostLogForCategory();
   v6 = 0xEEEEB0B5B2B2EEEELL;
   v7 = 0xEEEEB0B5B2B2EEEELL;
@@ -727,11 +805,11 @@ LABEL_7:
       pluginID = [(CAFCharacteristic *)self pluginID];
       instanceID = [(CAFCharacteristic *)self instanceID];
       *buf = 138543874;
-      v33 = name;
-      v34 = 2114;
-      v35 = pluginID;
-      v36 = 2114;
-      v37 = instanceID;
+      v34 = name;
+      v35 = 2114;
+      v36 = pluginID;
+      v37 = 2114;
+      v38 = instanceID;
       _os_signpost_emit_with_name_impl(&dword_231618000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Get", "Characteristic: %{public}@ pluginID: %{public}@ instanceID: %{public}@", buf, 0x20u);
     }
   }
@@ -751,9 +829,9 @@ LABEL_7:
     {
       characteristicValue2 = [(CAFCharacteristic *)self characteristicValue];
       value = [characteristicValue2 value];
-      v31 = 0;
-      v16 = [(CAFCharacteristic *)self decodeValue:value error:&v31];
-      v17 = v31;
+      v32 = 0;
+      v16 = [(CAFCharacteristic *)self decodeValue:value error:&v32];
+      v17 = v32;
 
       [(CAFCharacteristic *)self _lock_setError:v17];
       [(CAFCharacteristic *)self setCachedValue:v16];
@@ -762,25 +840,25 @@ LABEL_7:
 
 LABEL_9:
       os_unfair_lock_unlock(&self->_valueLock);
-      [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
+      v18 = [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
 LABEL_12:
-      v18 = CAFCharacteristicLogging();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = CAFCharacteristicLogging(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         [CAFCharacteristic updateValueRequiringRead:?];
       }
 
-      v19 = CARSignpostLogForCategory();
-      if (!self || (CARSignpostLogForCategory(), v20 = objc_claimAutoreleasedReturnValue(), v6 = os_signpost_id_make_with_pointer(v20, self), v20, v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL))
+      v20 = CARSignpostLogForCategory();
+      if (!self || (CARSignpostLogForCategory(), v21 = objc_claimAutoreleasedReturnValue(), v6 = os_signpost_id_make_with_pointer(v21, self), v21, v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL))
       {
-        if (os_signpost_enabled(v19))
+        if (os_signpost_enabled(v20))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_231618000, v19, OS_SIGNPOST_INTERVAL_END, v6, "Get", "Bailed", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_231618000, v20, OS_SIGNPOST_INTERVAL_END, v6, "Get", "Bailed", buf, 2u);
         }
       }
 
-      goto LABEL_19;
+      return;
     }
   }
 
@@ -800,37 +878,35 @@ LABEL_12:
   {
     characteristicValue3 = [(CAFCharacteristic *)self characteristicValue];
     value2 = [characteristicValue3 value];
-    v30 = 0;
-    v24 = [(CAFCharacteristic *)self decodeValue:value2 error:&v30];
-    v25 = v30;
+    v31 = 0;
+    v24 = [(CAFCharacteristic *)self decodeValue:value2 error:&v31];
+    v25 = v31;
     [(CAFCharacteristic *)self setPendingValue:v24];
 
     [(CAFCharacteristic *)self _lock_setError:v25];
     [(CAFCharacteristic *)self setLockState:4];
     [(CAFCharacteristic *)self setTransactionId:[(CAFCharacteristic *)self transactionId]+ 1];
     os_unfair_lock_unlock(&self->_valueLock);
-    [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
+    v26 = [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
   }
 
-  v26 = CAFCharacteristicLogging();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v27 = CAFCharacteristicLogging(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     [CAFCharacteristic updateValueRequiringRead:?];
   }
 
   objc_initWeak(buf, self);
-  v27 = [(CAFCharacteristic *)self car];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __46__CAFCharacteristic_updateValueRequiringRead___block_invoke;
-  v28[3] = &unk_27890F478;
-  objc_copyWeak(&v29, buf);
-  [v27 readCharacteristic:self response:v28];
+  v28 = [(CAFCharacteristic *)self car];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __46__CAFCharacteristic_updateValueRequiringRead___block_invoke;
+  v29[3] = &unk_27890F478;
+  objc_copyWeak(&v30, buf);
+  [v28 readCharacteristic:self response:v29];
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(buf);
-LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CAFCharacteristic_updateValueRequiringRead___block_invoke(uint64_t a1, void *a2)
@@ -868,7 +944,7 @@ LABEL_7:
 
 - (void)_readValueCompletionTransactionID:(unint64_t)d error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   os_unfair_lock_lock(&self->_valueLock);
   transactionId = [(CAFCharacteristic *)self transactionId];
@@ -876,9 +952,9 @@ LABEL_7:
   {
     characteristicValue = [(CAFCharacteristic *)self characteristicValue];
     value = [characteristicValue value];
-    v18 = 0;
-    v10 = [(CAFCharacteristic *)self decodeValue:value error:&v18];
-    v11 = v18;
+    v19 = 0;
+    v10 = [(CAFCharacteristic *)self decodeValue:value error:&v19];
+    v11 = v19;
 
     if (errorCopy)
     {
@@ -896,17 +972,17 @@ LABEL_7:
     [(CAFCharacteristic *)self setPendingValue:0];
     [(CAFCharacteristic *)self setLockState:3];
     os_unfair_lock_unlock(&self->_valueLock);
-    v15 = CAFCharacteristicLogging();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = CAFCharacteristicLogging(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       fullDescription = [(CAFCharacteristic *)self fullDescription];
       *buf = 138543874;
-      v20 = fullDescription;
-      v21 = 2114;
+      v21 = fullDescription;
+      v22 = 2114;
       dCopy = v10;
-      v23 = 2114;
-      v24 = errorCopy;
-      _os_log_debug_impl(&dword_231618000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ readValue completion: value=%{public}@ error=<%{public}@>", buf, 0x20u);
+      v24 = 2114;
+      v25 = errorCopy;
+      _os_log_debug_impl(&dword_231618000, v17, OS_LOG_TYPE_DEBUG, "%{public}@ readValue completion: value=%{public}@ error=<%{public}@>", buf, 0x20u);
     }
 
     [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
@@ -916,21 +992,19 @@ LABEL_7:
   {
     v13 = transactionId;
     os_unfair_lock_unlock(&self->_valueLock);
-    v10 = CAFCharacteristicLogging();
+    v10 = CAFCharacteristicLogging(v14);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       fullDescription2 = [(CAFCharacteristic *)self fullDescription];
       *buf = 138543874;
-      v20 = fullDescription2;
-      v21 = 2048;
+      v21 = fullDescription2;
+      v22 = 2048;
       dCopy = d;
-      v23 = 2048;
-      v24 = v13;
+      v24 = 2048;
+      v25 = v13;
       _os_log_debug_impl(&dword_231618000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ readValue completion: transactionID %lu != %lu", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)format
@@ -981,13 +1055,10 @@ LABEL_7:
 - (void)_updateStateIfNeeded
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromCharacteristicState([v1 lastState]);
-  v9 = NSStringFromCharacteristicState(v0);
+  v8 = NSStringFromCharacteristicState(v0);
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didUpdateFromGroupUpdate:(BOOL)update
@@ -1263,21 +1334,19 @@ void __47__CAFCharacteristic__didUpdateFromGroupUpdate___block_invoke(uint64_t a
 
 + (id)characteristicFormats
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   primaryCharacteristicFormat = [self primaryCharacteristicFormat];
-  v9[0] = primaryCharacteristicFormat;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = primaryCharacteristicFormat;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   secondaryCharacteristicFormats = [self secondaryCharacteristicFormats];
   v6 = [v4 arrayByAddingObjectsFromArray:secondaryCharacteristicFormats];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)handleValueAndError:(id)error value:(id)value
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   valueCopy = value;
   instanceID = [(CAFCharacteristic *)self instanceID];
@@ -1302,20 +1371,20 @@ void __47__CAFCharacteristic__didUpdateFromGroupUpdate___block_invoke(uint64_t a
         v15 = 0;
       }
 
-      v19 = CAFCharacteristicLogging();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v20 = CAFCharacteristicLogging(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         pluginID = [(CAFCharacteristic *)self pluginID];
         instanceID2 = [(CAFCharacteristic *)self instanceID];
-        v38 = 138413058;
-        v39 = pluginID;
-        v40 = 2112;
-        v41 = instanceID2;
-        v42 = 2112;
-        v43 = errorCopy;
-        v44 = 2112;
-        v45 = v15;
-        _os_log_debug_impl(&dword_231618000, v19, OS_LOG_TYPE_DEBUG, "Handle error state update pluginID: %@ instanceID: %@ (%@) state value: %@", &v38, 0x2Au);
+        v43 = 138413058;
+        v44 = pluginID;
+        v45 = 2112;
+        v46 = instanceID2;
+        v47 = 2112;
+        v48 = errorCopy;
+        v49 = 2112;
+        v50 = v15;
+        _os_log_debug_impl(&dword_231618000, v20, OS_LOG_TYPE_DEBUG, "Handle error state update pluginID: %@ instanceID: %@ (%@) state value: %@", &v43, 0x2Au);
       }
 
       os_unfair_lock_lock(&self->_valueLock);
@@ -1341,20 +1410,20 @@ void __47__CAFCharacteristic__didUpdateFromGroupUpdate___block_invoke(uint64_t a
           v15 = 0;
         }
 
-        v23 = CAFCharacteristicLogging();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v25 = CAFCharacteristicLogging(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           pluginID2 = [(CAFCharacteristic *)self pluginID];
           instanceID3 = [(CAFCharacteristic *)self instanceID];
-          v38 = 138413058;
-          v39 = pluginID2;
-          v40 = 2112;
-          v41 = instanceID3;
-          v42 = 2112;
-          v43 = errorCopy;
-          v44 = 2112;
-          v45 = v15;
-          _os_log_debug_impl(&dword_231618000, v23, OS_LOG_TYPE_DEBUG, "Handle disabled state update pluginID: %@ instanceID: %@ (%@) state value: %@", &v38, 0x2Au);
+          v43 = 138413058;
+          v44 = pluginID2;
+          v45 = 2112;
+          v46 = instanceID3;
+          v47 = 2112;
+          v48 = errorCopy;
+          v49 = 2112;
+          v50 = v15;
+          _os_log_debug_impl(&dword_231618000, v25, OS_LOG_TYPE_DEBUG, "Handle disabled state update pluginID: %@ instanceID: %@ (%@) state value: %@", &v43, 0x2Au);
         }
 
         os_unfair_lock_lock(&self->_valueLock);
@@ -1364,25 +1433,26 @@ void __47__CAFCharacteristic__didUpdateFromGroupUpdate___block_invoke(uint64_t a
       else
       {
         restrictedInstanceID = [(CAFCharacteristic *)self restrictedInstanceID];
-        v21 = [errorCopy isEqual:restrictedInstanceID];
+        v22 = [errorCopy isEqual:restrictedInstanceID];
 
-        if (!v21)
+        if (!v22)
         {
           notifierInstanceID = [(CAFCharacteristic *)self notifierInstanceID];
-          v25 = [errorCopy isEqual:notifierInstanceID];
+          v27 = [errorCopy isEqual:notifierInstanceID];
 
-          if (!v25)
+          if (!v27)
           {
             goto LABEL_38;
           }
 
-          v26 = CAFCharacteristicLogging();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v29 = CAFCharacteristicLogging(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             [CAFCharacteristic handleValueAndError:value:];
           }
 
-          if ([(CAFCharacteristic *)self shouldInitialize])
+          shouldInitialize = [(CAFCharacteristic *)self shouldInitialize];
+          if (shouldInitialize)
           {
             service = [(CAFCharacteristic *)self service];
             observers = [service observers];
@@ -1394,7 +1464,7 @@ void __47__CAFCharacteristic__didUpdateFromGroupUpdate___block_invoke(uint64_t a
               goto LABEL_38;
             }
 
-            v15 = CAFGeneralLogging();
+            v15 = CAFGeneralLogging(v34);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
               [CAFCharacteristic handleValueAndError:? value:?];
@@ -1403,7 +1473,7 @@ void __47__CAFCharacteristic__didUpdateFromGroupUpdate___block_invoke(uint64_t a
 
           else
           {
-            v15 = CAFGeneralLogging();
+            v15 = CAFGeneralLogging(shouldInitialize);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
               [CAFCharacteristic handleValueAndError:? value:?];
@@ -1427,20 +1497,20 @@ LABEL_37:
           v15 = 0;
         }
 
-        v30 = CAFCharacteristicLogging();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        v36 = CAFCharacteristicLogging(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           pluginID3 = [(CAFCharacteristic *)self pluginID];
           instanceID4 = [(CAFCharacteristic *)self instanceID];
-          v38 = 138413058;
-          v39 = pluginID3;
-          v40 = 2112;
-          v41 = instanceID4;
-          v42 = 2112;
-          v43 = errorCopy;
-          v44 = 2112;
-          v45 = v15;
-          _os_log_debug_impl(&dword_231618000, v30, OS_LOG_TYPE_DEBUG, "Handle restricted state update pluginID: %@ instanceID: %@ (%@) state value: %@", &v38, 0x2Au);
+          v43 = 138413058;
+          v44 = pluginID3;
+          v45 = 2112;
+          v46 = instanceID4;
+          v47 = 2112;
+          v48 = errorCopy;
+          v49 = 2112;
+          v50 = v15;
+          _os_log_debug_impl(&dword_231618000, v36, OS_LOG_TYPE_DEBUG, "Handle restricted state update pluginID: %@ instanceID: %@ (%@) state value: %@", &v43, 0x2Au);
         }
 
         os_unfair_lock_lock(&self->_valueLock);
@@ -1469,13 +1539,11 @@ LABEL_37:
 
   [(CAFCharacteristic *)self setCachedValueIfAvailableForGroupUpdate:0];
 LABEL_38:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdateWithInstanceID:(id)d value:(id)value
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(CAFCharacteristic *)self handleValueAndError:d value:value];
   v5 = CARSignpostLogForCategory();
   if (self)
@@ -1499,18 +1567,16 @@ LABEL_38:
     name = [(CAFCharacteristic *)self name];
     pluginID = [(CAFCharacteristic *)self pluginID];
     instanceID = [(CAFCharacteristic *)self instanceID];
-    v12 = 138543874;
-    v13 = name;
-    v14 = 2114;
-    v15 = pluginID;
-    v16 = 2114;
-    v17 = instanceID;
-    _os_signpost_emit_with_name_impl(&dword_231618000, v5, OS_SIGNPOST_EVENT, v7, "Update", "Characteristic: %{public}@ pluginID: %{public}@ instanceID: %{public}@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = name;
+    v13 = 2114;
+    v14 = pluginID;
+    v15 = 2114;
+    v16 = instanceID;
+    _os_signpost_emit_with_name_impl(&dword_231618000, v5, OS_SIGNPOST_EVENT, v7, "Update", "Characteristic: %{public}@ pluginID: %{public}@ instanceID: %{public}@", &v11, 0x20u);
   }
 
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWrite:(id)write value:(id)value
@@ -1522,10 +1588,10 @@ LABEL_7:
 
   if (v9)
   {
-    v10 = CAFCharacteristicLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = CAFCharacteristicLogging(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(CAFCharacteristic *)self handleWrite:valueCopy value:v10];
+      [(CAFCharacteristic *)self handleWrite:valueCopy value:v11];
     }
 
     if (valueCopy)
@@ -1550,13 +1616,53 @@ LABEL_7:
 
   if (v9)
   {
-    v10 = CAFCharacteristicLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = CAFCharacteristicLogging(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [CAFCharacteristic handleError:value:];
     }
 
     [(CAFCharacteristic *)self setError:valueCopy];
+  }
+}
+
+- (void)handleRegistrationWithInstanceID:(id)d value:(id)value registered:(BOOL)registered
+{
+  registeredCopy = registered;
+  dCopy = d;
+  valueCopy = value;
+  instanceID = [(CAFCharacteristic *)self instanceID];
+  v10 = [dCopy isEqual:instanceID];
+
+  if (v10)
+  {
+    os_unfair_lock_lock(&self->_valueLock);
+    [(CAFCharacteristic *)self setIsNotificationEnabled:registeredCopy];
+    os_unfair_lock_unlock(&self->_valueLock);
+  }
+
+  [(CAFCharacteristic *)self handleValueAndError:dCopy value:valueCopy];
+}
+
+- (void)handleRegistrationWithInstanceID:(id)d registered:(BOOL)registered
+{
+  registeredCopy = registered;
+  dCopy = d;
+  instanceID = [(CAFCharacteristic *)self instanceID];
+  v8 = [dCopy isEqual:instanceID];
+
+  if (v8)
+  {
+    v10 = CAFCharacteristicLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      [CAFCharacteristic handleRegistrationWithInstanceID:? registered:?];
+    }
+
+    os_unfair_lock_lock(&self->_valueLock);
+    [(CAFCharacteristic *)self setIsNotificationEnabled:registeredCopy];
+    os_unfair_lock_unlock(&self->_valueLock);
+    [(CAFCharacteristic *)self _didUpdateFromGroupUpdate:0];
   }
 }
 
@@ -1771,156 +1877,99 @@ LABEL_7:
   return WeakRetained;
 }
 
-- (void)initWithService:config:.cold.1()
+- (void)initWithService:(void *)a1 config:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_231618000, v0, v1, "%{public}@ shouldInitialize=NO", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithService:config:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_231618000, v0, v1, "%{public}@ shouldDefer=YES", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithService:(void *)a1 config:(uint64_t *)a2 .cold.3(void *a1, uint64_t *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = [a1 pluginID];
-  v4 = *a2;
+  v1 = [a1 pluginID];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_231618000, v5, v6, "Parsing characteristic config from pluginID: %@ instanceID: %@ failed for metaData", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_231618000, v2, v3, "Parsing characteristic config from pluginID: %@ instanceID: %@ failed for metaData", v4, v5, v6, v7);
 }
 
-- (void)initWithService:(void *)a1 config:(uint64_t *)a2 .cold.4(void *a1, uint64_t *a2)
+- (void)initWithService:(void *)a1 config:.cold.4(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = [a1 pluginID];
-  v4 = *a2;
+  v1 = [a1 pluginID];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_231618000, v5, v6, "Parsing characteristic config from pluginID: %@ instanceID: %@ failed for characteristicType", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_231618000, v2, v3, "Parsing characteristic config from pluginID: %@ instanceID: %@ failed for characteristicType", v4, v5, v6, v7);
 }
 
 - (void)initWithService:(void *)a1 config:.cold.5(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 pluginID];
-  v10 = [a1 instanceID];
-  OUTLINED_FUNCTION_1(&dword_231618000, v3, v4, "Parsing characteristic config from pluginID: %@ service instanceID: %@ failed for instanceID", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v3 = [a1 instanceID];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_1(&dword_231618000, v4, v5, "Parsing characteristic config from pluginID: %@ service instanceID: %@ failed for instanceID", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)setValue:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_231618000, v0, OS_LOG_TYPE_ERROR, "%{public}@ characteristic is not writable", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231618000, v0, OS_LOG_TYPE_ERROR, "%{public}@ characteristic is not writable", v1, 0xCu);
 }
 
 - (void)setValue:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_debug_impl(&dword_231618000, v1, OS_LOG_TYPE_DEBUG, "%{public}@ setValue: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setValue:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_231618000, v0, v1, "%{public}@ unable to set value while initializing", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_debug_impl(&dword_231618000, v1, OS_LOG_TYPE_DEBUG, "%{public}@ setValue: %{public}@", v2, 0x16u);
 }
 
 - (void)setValue:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_231618000, v0, OS_LOG_TYPE_ERROR, "%{public}@ characteristic is currently disabled", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setCachedValueIfAvailableForGroupUpdate:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_231618000, v0, v1, "%{public}@ no value to cache", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231618000, v0, OS_LOG_TYPE_ERROR, "%{public}@ characteristic is currently disabled", v1, 0xCu);
 }
 
 - (void)updateValueRequiringRead:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateValueRequiringRead:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleValueAndError:value:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 pluginID];
   v3 = [v0 instanceID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleValueAndError:(void *)a1 value:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 service];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleValueAndError:(void *)a1 value:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 service];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWrite:(NSObject *)a3 value:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v8 = [a1 pluginID];
   v9 = [a1 instanceID];
   if (a2)
@@ -1948,11 +1997,11 @@ LABEL_7:
   }
 
   *buf = 138412802;
-  v15 = v8;
-  v16 = 2112;
-  v17 = v9;
-  v18 = 2112;
-  v19 = v11;
+  v14 = v8;
+  v15 = 2112;
+  v16 = v9;
+  v17 = 2112;
+  v18 = v11;
   _os_log_debug_impl(&dword_231618000, a3, OS_LOG_TYPE_DEBUG, "Handle write pluginID: %@ instanceID: %@%@", buf, 0x20u);
   if (v10)
   {
@@ -1961,32 +2010,24 @@ LABEL_7:
   if (a2)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleError:value:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 pluginID];
   v3 = [v0 instanceID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRegistrationWithInstanceID:(void *)a1 registered:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 pluginID];
   v3 = [a1 instanceID];
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

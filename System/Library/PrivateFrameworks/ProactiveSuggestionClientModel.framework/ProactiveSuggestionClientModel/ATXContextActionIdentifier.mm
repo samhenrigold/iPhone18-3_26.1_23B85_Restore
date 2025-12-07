@@ -61,21 +61,23 @@
   if (identifierCopy)
   {
     v6 = [identifierCopy componentsSeparatedByString:@":"];
-    if ([v6 count] == 3)
+    v7 = [v6 count];
+    if (v7 == 3)
     {
-      v7 = [v6 objectAtIndexedSubscript:0];
-      v8 = [v6 objectAtIndexedSubscript:1];
-      v9 = [v6 objectAtIndexedSubscript:2];
-      if (-[NSObject length](v7, "length") && [v8 length] && objc_msgSend(v9, "length"))
+      v8 = [v6 objectAtIndexedSubscript:0];
+      v9 = [v6 objectAtIndexedSubscript:1];
+      v10 = [v6 objectAtIndexedSubscript:2];
+      v11 = [v8 length];
+      if (v11 && (v11 = [v9 length]) != 0 && (v11 = objc_msgSend(v10, "length")) != 0)
       {
-        self = [(ATXContextActionIdentifier *)self initWithContext:v7 subtype:v8 instanceIdentifier:v9];
+        self = [(ATXContextActionIdentifier *)self initWithContext:v8 subtype:v9 instanceIdentifier:v10];
         selfCopy = self;
       }
 
       else
       {
-        v11 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v13 = __atxlog_handle_blending(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           [ATXContextActionIdentifier initWithUniqueIdentifier:];
         }
@@ -86,8 +88,8 @@
 
     else
     {
-      v7 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = __atxlog_handle_blending(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [ATXContextActionIdentifier initWithUniqueIdentifier:];
       }
@@ -106,12 +108,12 @@
 
 - (ATXContextActionIdentifier)initWithProactiveSuggestion:(id)suggestion
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   v5 = suggestionCopy;
   if (!suggestionCopy)
   {
-    firstObject = __atxlog_handle_blending();
+    firstObject = __atxlog_handle_blending(0);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -124,7 +126,7 @@
   executableSpecification = [suggestionCopy executableSpecification];
   executableType = [executableSpecification executableType];
 
-  v8 = 0;
+  v9 = 0;
   if (executableType > 4)
   {
     if (executableType <= 0xB)
@@ -136,20 +138,20 @@
 
       if (executableType == 8)
       {
-        v28 = objc_opt_class();
+        v30 = objc_opt_class();
         uiSpecification = [v5 uiSpecification];
-        v30 = [v28 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification, "predictionReasons")}];
-        firstObject = [v30 firstObject];
+        v32 = [v30 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification, "predictionReasons")}];
+        firstObject = [v32 firstObject];
 
-        v31 = objc_opt_class();
+        v33 = objc_opt_class();
         executableSpecification2 = [v5 executableSpecification];
         executableIdentifier = [executableSpecification2 executableIdentifier];
-        executableSpecification4 = [v31 actionTypeFromSpotlightActionType:executableIdentifier];
+        executableSpecification4 = [v33 actionTypeFromSpotlightActionType:executableIdentifier];
 
 LABEL_24:
         executableSpecification3 = [v5 executableSpecification];
         executableIdentifier2 = [executableSpecification3 executableIdentifier];
-        v8 = [executableIdentifier2 hash];
+        v9 = [executableIdentifier2 hash];
 
         goto LABEL_25;
       }
@@ -161,7 +163,7 @@ LABEL_24:
 
         if (!predictionReasons)
         {
-          firstObject = __atxlog_handle_blending();
+          firstObject = __atxlog_handle_blending(v21);
           if (!os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_33;
@@ -170,7 +172,7 @@ LABEL_24:
           executableSpecification4 = [v5 executableSpecification];
           executableIdentifier3 = [(__CFString *)executableSpecification4 executableIdentifier];
           *buf = 138412290;
-          v47 = executableIdentifier3;
+          v49 = executableIdentifier3;
           _os_log_impl(&dword_1DEFC4000, firstObject, OS_LOG_TYPE_DEFAULT, "ATXContextActionIdentifier: App Shortcut skipped: %@", buf, 0xCu);
 
 LABEL_32:
@@ -179,13 +181,13 @@ LABEL_33:
           goto LABEL_34;
         }
 
-        v20 = objc_opt_class();
+        v22 = objc_opt_class();
         uiSpecification3 = [v5 uiSpecification];
-        v22 = [v20 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification3, "predictionReasons")}];
-        firstObject = [v22 firstObject];
+        v24 = [v22 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification3, "predictionReasons")}];
+        firstObject = [v24 firstObject];
 
         executableSpecification4 = [objc_opt_class() _actionTypeFromShortcutsActionSuggestion:v5];
-        v8 = [objc_opt_class() _instanceIdentifierFromShortcutsActionSuggestion:v5];
+        v9 = [objc_opt_class() _instanceIdentifierFromShortcutsActionSuggestion:v5];
         goto LABEL_25;
       }
     }
@@ -194,14 +196,14 @@ LABEL_33:
     firstObject = 0;
     if (executableType == 5)
     {
-      v23 = objc_opt_class();
+      v25 = objc_opt_class();
       uiSpecification4 = [v5 uiSpecification];
-      v25 = [v23 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification4, "predictionReasons")}];
-      firstObject = [v25 firstObject];
+      v27 = [v25 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification4, "predictionReasons")}];
+      firstObject = [v27 firstObject];
 
       executableSpecification5 = [v5 executableSpecification];
       executableIdentifier4 = [executableSpecification5 executableIdentifier];
-      v8 = [executableIdentifier4 hash];
+      v9 = [executableIdentifier4 hash];
 
       executableSpecification4 = @"AppClip";
     }
@@ -212,7 +214,7 @@ LABEL_33:
   if (executableType < 2 || (executableType - 3) < 2)
   {
 LABEL_14:
-    firstObject = __atxlog_handle_blending();
+    firstObject = __atxlog_handle_blending(v8);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_FAULT))
     {
       [(ATXContextActionIdentifier *)v5 initWithProactiveSuggestion:firstObject];
@@ -225,10 +227,10 @@ LABEL_14:
   firstObject = 0;
   if (executableType == 2)
   {
-    v11 = objc_opt_class();
+    v12 = objc_opt_class();
     uiSpecification5 = [v5 uiSpecification];
-    v13 = [v11 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification5, "predictionReasons")}];
-    firstObject = [v13 firstObject];
+    v14 = [v12 _stringsWithPredictionReasons:{objc_msgSend(uiSpecification5, "predictionReasons")}];
+    firstObject = [v14 firstObject];
 
     atxActionExecutableObject = [v5 atxActionExecutableObject];
     actionType = [atxActionExecutableObject actionType];
@@ -258,10 +260,11 @@ LABEL_14:
   }
 
 LABEL_25:
-  if (![firstObject length]|| ![(__CFString *)executableSpecification4 length]|| !v8)
+  v38 = [firstObject length];
+  if (!v38 || (v38 = [(__CFString *)executableSpecification4 length]) == 0 || !v9)
   {
-    v37 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+    v40 = __atxlog_handle_blending(v38);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
     {
       executableSpecification6 = [v5 executableSpecification];
       executableClassString = [executableSpecification6 executableClassString];
@@ -269,29 +272,28 @@ LABEL_25:
       executableIdentifier5 = [executableSpecification7 executableIdentifier];
       uiSpecification6 = [v5 uiSpecification];
       *buf = 138413570;
-      v47 = executableClassString;
-      v48 = 2112;
-      v49 = firstObject;
+      v49 = executableClassString;
       v50 = 2112;
-      v51 = executableSpecification4;
-      v52 = 2048;
-      v53 = v8;
-      v54 = 2112;
-      v55 = executableIdentifier5;
-      v56 = 2048;
+      v51 = firstObject;
+      v52 = 2112;
+      v53 = executableSpecification4;
+      v54 = 2048;
+      v55 = v9;
+      v56 = 2112;
+      v57 = executableIdentifier5;
+      v58 = 2048;
       predictionReasons2 = [uiSpecification6 predictionReasons];
-      _os_log_fault_impl(&dword_1DEFC4000, v37, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier suggestion unhandled: %@: %@, %@, %lu, %@, %llu", buf, 0x3Eu);
+      _os_log_fault_impl(&dword_1DEFC4000, v40, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier suggestion unhandled: %@: %@, %@, %lu, %@, %llu", buf, 0x3Eu);
     }
 
     goto LABEL_32;
   }
 
-  self = [(ATXContextActionIdentifier *)self initWithContext:firstObject subType:executableSpecification4 instanceIdentifierInteger:v8];
+  self = [(ATXContextActionIdentifier *)self initWithContext:firstObject subType:executableSpecification4 instanceIdentifierInteger:v9];
 
   selfCopy = self;
 LABEL_34:
 
-  v38 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -336,9 +338,9 @@ LABEL_3:
       }
     }
 
-    v10 = [&unk_1F5A41350 objectForKeyedSubscript:v9];
+    v11 = [&unk_1F5A41350 objectForKeyedSubscript:v9];
 
-    if (v10)
+    if (v11)
     {
       goto LABEL_14;
     }
@@ -349,18 +351,16 @@ LABEL_3:
 LABEL_9:
   }
 
-  v11 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+  v12 = __atxlog_handle_blending(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
     +[ATXContextActionIdentifier actionTypeFromSpotlightActionType:];
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v11;
 }
 
 + (id)_actionTypeFromShortcutsActionSuggestion:(id)suggestion
@@ -406,9 +406,9 @@ LABEL_3:
       }
     }
 
-    v11 = [&unk_1F5A41378 objectForKeyedSubscript:v10];
+    v12 = [&unk_1F5A41378 objectForKeyedSubscript:v10];
 
-    if (v11)
+    if (v12)
     {
       goto LABEL_14;
     }
@@ -419,18 +419,16 @@ LABEL_3:
 LABEL_9:
   }
 
-  v12 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v13 = __atxlog_handle_blending(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     +[ATXContextActionIdentifier _actionTypeFromShortcutsActionSuggestion:];
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 + (unint64_t)_instanceIdentifierFromShortcutsActionSuggestion:(id)suggestion
@@ -570,7 +568,7 @@ LABEL_13:
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending();
+  v7 = __atxlog_handle_blending(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"context" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXContextActionIdentifier" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -584,7 +582,7 @@ LABEL_13:
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_blending();
+    v13 = __atxlog_handle_blending(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"subtype" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXContextActionIdentifier" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];
@@ -598,7 +596,7 @@ LABEL_13:
     {
       v16 = MEMORY[0x1E69C5D78];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_blending();
+      v18 = __atxlog_handle_blending(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"instanceId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXContextActionIdentifier" errorCode:-1 logHandle:v18];
 
       error3 = [coderCopy error];
@@ -621,50 +619,44 @@ LABEL_13:
 
 - (void)initWithUniqueIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "ATXContextActionIdentifier: unsupported uniqueId format: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "ATXContextActionIdentifier: unsupported uniqueId format: %@", v1, 0xCu);
 }
 
 - (void)initWithUniqueIdentifier:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "ATXContextActionIdentifier: expected component missing: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEBUG, "ATXContextActionIdentifier: expected component missing: %@", v1, 0xCu);
 }
 
 - (void)initWithProactiveSuggestion:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = [a1 executableSpecification];
   v5 = [v4 executableType];
   v6 = [a1 executableSpecification];
   v7 = [v6 executableClassString];
-  v9 = 134218242;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier unsupported type: %lu, %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 134218242;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier unsupported type: %lu, %@", &v8, 0x16u);
 }
 
 + (void)actionTypeFromSpotlightActionType:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier: unsupported Spotlight action id: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier: unsupported Spotlight action id: %@", v1, 0xCu);
 }
 
 + (void)_actionTypeFromShortcutsActionSuggestion:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier: unsupported Shortcuts action id: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_FAULT, "ATXContextActionIdentifier: unsupported Shortcuts action id: %@", v1, 0xCu);
 }
 
 @end

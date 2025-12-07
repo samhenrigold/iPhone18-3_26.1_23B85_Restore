@@ -10,7 +10,7 @@
 
 + (BOOL)validatePredicate:(id)predicate allowedKeys:(id)keys error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   if (predicate)
   {
     keysCopy = keys;
@@ -24,9 +24,9 @@
 
     else if (error)
     {
-      v14 = *MEMORY[0x1E696A578];
-      v15[0] = @"Predicate was invalid because it was nil.";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x1E696A578];
+      v14[0] = @"Predicate was invalid because it was nil.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"BMQueryErrorDomain" code:2 userInfo:v11];
 
       LOBYTE(error) = 0;
@@ -38,7 +38,6 @@
     LOBYTE(error) = 1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -103,14 +102,14 @@
 
 - (void)visitPredicateExpression:(id)expression
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   expressionCopy = expression;
   if ([(_DKPredicateValidator *)self validated])
   {
     v5 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v43 = [v5 initWithObjects:{*MEMORY[0x1E696A240], *MEMORY[0x1E696A258], *MEMORY[0x1E696A288], *MEMORY[0x1E696A290], *MEMORY[0x1E696A298], *MEMORY[0x1E696A5B0], *MEMORY[0x1E696A748], *MEMORY[0x1E696A900], *MEMORY[0x1E696AA50], *MEMORY[0x1E696AA58], *MEMORY[0x1E696AA60], 0}];
+    v42 = [v5 initWithObjects:{*MEMORY[0x1E696A240], *MEMORY[0x1E696A258], *MEMORY[0x1E696A288], *MEMORY[0x1E696A290], *MEMORY[0x1E696A298], *MEMORY[0x1E696A5B0], *MEMORY[0x1E696A748], *MEMORY[0x1E696A900], *MEMORY[0x1E696AA50], *MEMORY[0x1E696AA58], *MEMORY[0x1E696AA60], 0}];
     expressionType = [expressionCopy expressionType];
-    v42 = expressionCopy;
+    v41 = expressionCopy;
     if (expressionType == 10)
     {
 LABEL_5:
@@ -118,10 +117,10 @@ LABEL_5:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v56 = *MEMORY[0x1E696A578];
+        v55 = *MEMORY[0x1E696A578];
         v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid keypath class: %@", objc_opt_class()];
-        v57[0] = v27;
-        obj = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+        v56[0] = v27;
+        obj = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
 
         v28 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BMQueryErrorDomain" code:2 userInfo:obj];
         [(_DKPredicateValidator *)self setError:v28];
@@ -133,29 +132,29 @@ LABEL_5:
       keyPath2 = [expressionCopy keyPath];
       v8 = [keyPath2 componentsSeparatedByString:@"."];
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       obj = v8;
       v9 = 0;
-      v10 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v10 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
       if (!v10)
       {
         goto LABEL_24;
       }
 
-      v11 = *v46;
+      v11 = *v45;
       while (1)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v46 != v11)
+          if (*v45 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v45 + 1) + 8 * i);
+          v13 = *(*(&v44 + 1) + 8 * i);
           if ([v13 hasPrefix:@"@"])
           {
             if ([v13 length] < 2)
@@ -164,7 +163,7 @@ LABEL_5:
             }
 
             v14 = [v13 substringFromIndex:1];
-            if (([v43 containsObject:v14] & 1) == 0)
+            if (([v42 containsObject:v14] & 1) == 0)
             {
               [(_DKPredicateValidator *)self setValidated:0];
             }
@@ -195,17 +194,17 @@ LABEL_21:
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+        v10 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
         if (!v10)
         {
 LABEL_24:
 
           if (![(_DKPredicateValidator *)self validated])
           {
-            v53 = *MEMORY[0x1E696A578];
+            v52 = *MEMORY[0x1E696A578];
             v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Used keys: %@", v9];
-            v54 = v18;
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+            v53 = v18;
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
 
             v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BMQueryErrorDomain" code:2 userInfo:v19];
             [(_DKPredicateValidator *)self setError:v20];
@@ -243,10 +242,10 @@ LABEL_24:
       if (!v32)
       {
         [(_DKPredicateValidator *)self setValidated:0];
-        v49 = *MEMORY[0x1E696A578];
+        v48 = *MEMORY[0x1E696A578];
         v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid function: %@", keyPath];
-        v50 = v33;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+        v49 = v33;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
 
         v35 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BMQueryErrorDomain" code:2 userInfo:v34];
         [(_DKPredicateValidator *)self setError:v35];
@@ -257,7 +256,7 @@ LABEL_24:
 LABEL_38:
 LABEL_39:
 
-      expressionCopy = v42;
+      expressionCopy = v41;
       goto LABEL_40;
     }
 
@@ -269,11 +268,11 @@ LABEL_39:
       if (![v23 expressionType])
       {
         arguments4 = [expressionCopy arguments];
-        v38 = [arguments4 objectAtIndexedSubscript:1];
-        constantValue = [v38 constantValue];
-        v40 = [constantValue isEqual:@"NSDate"];
+        v37 = [arguments4 objectAtIndexedSubscript:1];
+        constantValue = [v37 constantValue];
+        v39 = [constantValue isEqual:@"NSDate"];
 
-        if (v40)
+        if (v39)
         {
           goto LABEL_38;
         }
@@ -281,9 +280,9 @@ LABEL_39:
 LABEL_33:
         [(_DKPredicateValidator *)self setValidated:0];
         v24 = MEMORY[0x1E696ABC0];
-        v51 = *MEMORY[0x1E696A578];
-        v52 = @"Unsupported cast";
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        v50 = *MEMORY[0x1E696A578];
+        v51 = @"Unsupported cast";
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
         v26 = [v24 errorWithDomain:@"BMQueryErrorDomain" code:3 userInfo:v25];
         [(_DKPredicateValidator *)self setError:v26];
 
@@ -295,57 +294,55 @@ LABEL_33:
   }
 
 LABEL_40:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)validateSortDescriptors:(id)descriptors
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   v4 = [MEMORY[0x1E695DFD8] setWithObjects:{@"alloc", @"new", @"init", @"mutableCopy", @"release", @"retain", @"autorelease", @"dealloc", @"finalize", 0}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v5 = descriptorsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v24 + 1) + 8 * i) key];
+        v10 = [*(*(&v23 + 1) + 8 * i) key];
         v11 = [v10 componentsSeparatedByString:@"."];
 
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v12 = v11;
-        v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v21;
+          v15 = *v20;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v21 != v15)
+              if (*v20 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              if ([v4 containsObject:*(*(&v20 + 1) + 8 * j)])
+              if ([v4 containsObject:*(*(&v19 + 1) + 8 * j)])
               {
 
                 v17 = 0;
@@ -353,7 +350,7 @@ LABEL_40:
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v14)
             {
               continue;
@@ -364,7 +361,7 @@ LABEL_40:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
       v17 = 1;
     }
 
@@ -378,7 +375,6 @@ LABEL_40:
 
 LABEL_19:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

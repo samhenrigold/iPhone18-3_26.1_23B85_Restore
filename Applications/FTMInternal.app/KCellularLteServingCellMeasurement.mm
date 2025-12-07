@@ -141,49 +141,45 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isConnectedMode = self->_isConnectedMode;
     PBDataWriterWriteBOOLField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_rxInfos;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_rxInfos;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -293,7 +289,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -314,7 +309,6 @@
       goto LABEL_17;
     }
 
-    v10 = *(equalCopy + 28);
     if (self->_isConnectedMode)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -343,13 +337,13 @@
   if (![(NSMutableArray *)rxInfos isEqual:?])
   {
 LABEL_17:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_18;
   }
 
   has = self->_has;
 LABEL_12:
-  v8 = (*(equalCopy + 32) & 2) == 0;
+  v7 = (*(equalCopy + 32) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_subsId != *(equalCopy + 6))
@@ -357,12 +351,12 @@ LABEL_12:
       goto LABEL_17;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_18:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

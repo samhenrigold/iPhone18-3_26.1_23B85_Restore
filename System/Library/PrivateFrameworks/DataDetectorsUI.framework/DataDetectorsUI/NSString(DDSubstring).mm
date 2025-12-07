@@ -38,7 +38,7 @@
 
     else
     {
-      v9 = v8 - v7;
+      v9 = (v8 - v7);
     }
 
     v10 = [self substringWithRange:{v7, v9}];

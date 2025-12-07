@@ -43,36 +43,36 @@
 
 - (NSArray)resolvedAddresses
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   hasBeenResolved = 0;
   v2 = CFHostGetAddressing(self->_host, &hasBeenResolved);
   if (hasBeenResolved)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v12 + 1) + 8 * i) copy];
+          v9 = [*(*(&v11 + 1) + 8 * i) copy];
           [v3 addObject:v9];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v6);
@@ -84,51 +84,49 @@
     v3 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (NSArray)resolvedAddressStrings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   resolvedAddresses = [(ISURLResolverOperation *)self resolvedAddresses];
   if (resolvedAddresses)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v4 = resolvedAddresses;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           v10 = v9;
-          if (getnameinfo([v10 bytes], objc_msgSend(v9, "length"), v18, 0x401u, 0, 0, 2))
+          if (getnameinfo([v10 bytes], objc_msgSend(v9, "length"), v17, 0x401u, 0, 0, 2))
           {
 
             v3 = 0;
             goto LABEL_12;
           }
 
-          v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v18];
+          v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v17];
           [v3 addObject:v11];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -145,8 +143,6 @@ LABEL_12:
   {
     v3 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -255,9 +251,8 @@ LABEL_18:
 
     if (v11)
     {
-      v17[0] = 0;
-      LODWORD(v16) = 2;
-      v12 = _os_log_send_and_compose_impl();
+      v16[0] = 0;
+      v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "Resolver: Lookup started", v16, 2);
 
       if (!v12)
       {
@@ -273,7 +268,7 @@ LABEL_15:
         goto LABEL_18;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, v17, v16}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }

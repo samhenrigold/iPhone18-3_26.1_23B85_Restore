@@ -240,10 +240,7 @@ LABEL_50:
       dispatch_once(&qword_100228ED8, &stru_1001FA550);
     }
 
-    v6 = 113;
-    v4 = "";
-    v5 = "[NRNetInfo dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228ED0, 1, "%s%.30s:%-4d dealloc", ", "[NRNetInfo dealloc]"", 113);
   }
 
   if (self)
@@ -257,9 +254,9 @@ LABEL_50:
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = NRNetInfo;
-  [(NRNetInfo *)&v7 dealloc:v4];
+  v4.receiver = self;
+  v4.super_class = NRNetInfo;
+  [(NRNetInfo *)&v4 dealloc];
 }
 
 @end

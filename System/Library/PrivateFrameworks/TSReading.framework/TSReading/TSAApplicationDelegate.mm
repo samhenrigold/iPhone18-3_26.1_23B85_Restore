@@ -67,7 +67,7 @@
 
 - (id)noDocumentsImagePath
 {
-  v2 = TSABundle();
+  v2 = TSABundle(self, a2);
 
   return [v2 pathForResource:@"TSAApplicationNoDocumentsImage" ofType:@"png"];
 }
@@ -81,7 +81,7 @@
 
 - (id)stringForImportingDocument
 {
-  v2 = TSABundle();
+  v2 = TSABundle(self, a2);
 
   return [v2 localizedStringForKey:@"Importing\\U2026" value:&stru_287D36338 table:@"TSApplication"];
 }

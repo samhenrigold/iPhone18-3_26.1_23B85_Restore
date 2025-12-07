@@ -19,19 +19,19 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_1CA166130();
+  sub_1CA166130(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1CA166244();
+  sub_1CA166244(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1CA1662C4();
+  sub_1CA1662C4(selfCopy);
 }
 
 - (_TtC27AppleMediaServicesUIDynamic21LoadingViewController)initWithNibName:(id)name bundle:(id)bundle

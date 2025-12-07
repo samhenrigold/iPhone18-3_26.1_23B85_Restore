@@ -9,7 +9,6 @@
 - (void)_disconnectClient:(id)client;
 - (void)dealloc;
 - (void)exportedInterface;
-- (void)init;
 @end
 
 @implementation LABaseService
@@ -79,14 +78,13 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [*a2 count];
-  v7 = 138412546;
+  v6 = 138412546;
   selfCopy = self;
-  v9 = 2048;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1DF403000, a3, OS_LOG_TYPE_DEBUG, "Deallocated service: %@ clients: %ld", &v7, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = 2048;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1DF403000, a3, OS_LOG_TYPE_DEBUG, "Deallocated service: %@ clients: %ld", &v6, 0x16u);
 }
 
 - (id)exportedInterface
@@ -116,11 +114,11 @@
   connectionCopy = connection;
   [(LABaseService *)self _assertRunningInCorrectQueue];
   v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = __Block_byref_object_copy_;
-  v19[3] = __Block_byref_object_dispose_;
-  v20 = objc_opt_new();
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = objc_opt_new();
   exportedInterface = [(LABaseService *)self exportedInterface];
   [connectionCopy setExportedInterface:exportedInterface];
 
@@ -146,12 +144,12 @@
   interruptionHandler = [connectionCopy interruptionHandler];
   [connectionCopy setInvalidationHandler:interruptionHandler];
 
-  [(NSMutableDictionary *)self->_clients setObject:connectionCopy forKeyedSubscript:*(v19[0] + 40)];
+  [(NSMutableDictionary *)self->_clients setObject:connectionCopy forKeyedSubscript:v19[5]];
   [connectionCopy resume];
   v13 = LACLogService();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [LABaseService listener:v19 shouldAcceptNewConnection:?];
+    [LABaseService listener:shouldAcceptNewConnection:];
   }
 
   objc_destroyWeak(&v16);
@@ -229,62 +227,19 @@ void __52__LABaseService_listener_shouldAcceptNewConnection___block_invoke(uint6
   return WeakRetained;
 }
 
-- (void)init
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1DF403000, v0, v1, "Allocated service: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)exportedInterface
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1DF403000, v3, v4, "Added client to service: %@ clientID: %@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __52__LABaseService_listener_shouldAcceptNewConnection___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1DF403000, v0, v1, "Interruption invoked in service: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_disconnectClient:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1DF403000, v0, v1, "Removed client from service: %@ clientID: %@");
   v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_disconnectClient:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1DF403000, v0, v1, "Requested termination of service: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_disconnectClient:(id *)a1 .cold.3(id *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [*a1 count];
-  v5[0] = 67109120;
-  v5[1] = v3;
-  _os_log_debug_impl(&dword_1DF403000, a2, OS_LOG_TYPE_DEBUG, "Keeping service alive because there are still %d clients", v5, 8u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 67109120;
+  v4[1] = v3;
+  _os_log_debug_impl(&dword_1DF403000, a2, OS_LOG_TYPE_DEBUG, "Keeping service alive because there are still %d clients", v4, 8u);
 }
 
 @end

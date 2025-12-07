@@ -17,7 +17,7 @@
 
 - (PLBBMavHwRfLTELogMsg)init
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -44,15 +44,15 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v4;
+        v19 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = PLBBMavHwRfLTELogMsg;
-  v10 = [(PLBBMsgRoot *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = PLBBMavHwRfLTELogMsg;
+  v10 = [(PLBBMsgRoot *)&v16 init];
   if (v10)
   {
     v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -66,11 +66,10 @@
     v10->_inited = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
+void *__28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_64 = result;
@@ -79,7 +78,7 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
 
 - (void)sendAndLogPLEntry:(id)entry withName:(id)name withType:(id)type
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   nameCopy = name;
   typeCopy = type;
@@ -98,7 +97,7 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
 
     if (byte_2811F6CD9 == 1)
     {
-      v45 = typeCopy;
+      v44 = typeCopy;
       v12 = nameCopy;
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMavHwRfLTELogMsg sendAndLogPLEntry:withName:withType:]"];
       v14 = MEMORY[0x277D3F178];
@@ -111,34 +110,34 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v51 = v13;
+        v50 = v13;
         _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       nameCopy = v12;
-      typeCopy = v45;
+      typeCopy = v44;
     }
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v19 = objc_opt_class();
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_372;
-    v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v48[4] = v19;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_372;
+    v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v47[4] = v19;
     if (qword_2811F6CF8 != -1)
     {
-      dispatch_once(&qword_2811F6CF8, v48);
+      dispatch_once(&qword_2811F6CF8, v47);
     }
 
     if (byte_2811F6CDA == 1)
     {
       v20 = typeCopy;
-      v44 = typeCopy;
+      v43 = typeCopy;
       v21 = nameCopy;
-      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Sending PLEntry: name=%@ type=%@", nameCopy, v44];
+      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Sending PLEntry: name=%@ type=%@", nameCopy, v43];
       v23 = MEMORY[0x277D3F178];
       v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMavHwRfLTELogMsg.m"];
       lastPathComponent2 = [v24 lastPathComponent];
@@ -149,7 +148,7 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v51 = v22;
+        v50 = v22;
         _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -172,19 +171,19 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
   if (!agent && [MEMORY[0x277D3F180] debugEnabled])
   {
     v32 = objc_opt_class();
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_378;
-    v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v47[4] = v32;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_378;
+    v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v46[4] = v32;
     if (qword_2811F6D00 != -1)
     {
-      dispatch_once(&qword_2811F6D00, v47);
+      dispatch_once(&qword_2811F6D00, v46);
     }
 
     if (byte_2811F6CDB == 1)
     {
-      v46 = typeCopy;
+      v45 = typeCopy;
       v33 = nameCopy;
       v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bad agent"];
       v35 = MEMORY[0x277D3F178];
@@ -197,12 +196,12 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v51 = v34;
+        v50 = v34;
         _os_log_debug_impl(&dword_21A4C6000, v39, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       nameCopy = v33;
-      typeCopy = v46;
+      typeCopy = v45;
     }
   }
 
@@ -212,25 +211,23 @@ uint64_t __28__PLBBMavHwRfLTELogMsg_init__block_invoke(uint64_t a1)
 
   agent2 = [(PLBBMsgRoot *)self agent];
   [agent2 logEntry:entryCopy];
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke(uint64_t a1)
+void *__60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CD9 = result;
   return result;
 }
 
-uint64_t __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_372(uint64_t a1)
+void *__60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_372(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CDA = result;
   return result;
 }
 
-uint64_t __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_378(uint64_t a1)
+void *__60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_invoke_378(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CDB = result;
@@ -239,7 +236,7 @@ uint64_t __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_
 
 - (void)setHeaderWithSeqNum:(id)num andDate:(id)date andTimeCal:(double)cal
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   numCopy = num;
   dateCopy = date;
   if ([MEMORY[0x277D3F180] debugEnabled])
@@ -268,7 +265,7 @@ uint64_t __60__PLBBMavHwRfLTELogMsg_sendAndLogPLEntry_withName_withType___block_
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v11;
+        v28 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -289,14 +286,14 @@ LABEL_11:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v19 = objc_opt_class();
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_384;
-    v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v26[4] = v19;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_384;
+    v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v25[4] = v19;
     if (qword_2811F6D10 != -1)
     {
-      dispatch_once(&qword_2811F6D10, v26);
+      dispatch_once(&qword_2811F6D10, v25);
     }
 
     if (byte_2811F6CDD == 1)
@@ -312,7 +309,7 @@ LABEL_11:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v18;
+        v28 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -321,18 +318,16 @@ LABEL_11:
   }
 
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke(uint64_t a1)
+void *__63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CDC = result;
   return result;
 }
 
-uint64_t __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_384(uint64_t a1)
+void *__63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_384(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CDD = result;
@@ -341,7 +336,7 @@ uint64_t __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___blo
 
 - (void)addPairWithKey:(id)key andWithVal:(id)val
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valCopy = val;
   if ([MEMORY[0x277D3F180] debugEnabled])
@@ -370,7 +365,7 @@ uint64_t __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___blo
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v35 = v9;
+        v34 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -382,14 +377,14 @@ uint64_t __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___blo
     if (debugEnabled)
     {
       v16 = objc_opt_class();
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397;
-      v31[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v31[4] = v16;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397;
+      v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30[4] = v16;
       if (qword_2811F6D28 != -1)
       {
-        dispatch_once(&qword_2811F6D28, v31);
+        dispatch_once(&qword_2811F6D28, v30);
       }
 
       if (byte_2811F6CE0 == 1)
@@ -405,7 +400,7 @@ uint64_t __63__PLBBMavHwRfLTELogMsg_setHeaderWithSeqNum_andDate_andTimeCal___blo
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v35 = valCopy;
+          v34 = valCopy;
           _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -421,14 +416,14 @@ LABEL_17:
   if (debugEnabled)
   {
     v24 = objc_opt_class();
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_391;
-    v32[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v32[4] = v24;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_391;
+    v31[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v31[4] = v24;
     if (qword_2811F6D20 != -1)
     {
-      dispatch_once(&qword_2811F6D20, v32);
+      dispatch_once(&qword_2811F6D20, v31);
     }
 
     if (byte_2811F6CDF == 1)
@@ -444,7 +439,7 @@ LABEL_17:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v35 = kvPairs;
+        v34 = kvPairs;
         _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -453,25 +448,23 @@ LABEL_17:
   }
 
 LABEL_25:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke(uint64_t a1)
+void *__50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CDE = result;
   return result;
 }
 
-uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_391(uint64_t a1)
+void *__50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_391(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CDF = result;
   return result;
 }
 
-uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397(uint64_t a1)
+void *__50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CE0 = result;
@@ -480,108 +473,106 @@ uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397
 
 + (id)entryEventBackwardDefinitionBBMav10HwRfLTE
 {
-  v47[2] = *MEMORY[0x277D85DE8];
-  v46[0] = *MEMORY[0x277D3F4E8];
+  v46[2] = *MEMORY[0x277D85DE8];
+  v45[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v44[0] = *MEMORY[0x277D3F568];
-  v44[1] = v2;
-  v45[0] = &unk_282C1CDF8;
-  v45[1] = MEMORY[0x277CBEC28];
+  v43[0] = *MEMORY[0x277D3F568];
+  v43[1] = v2;
+  v44[0] = &unk_282C1CDF8;
+  v44[1] = MEMORY[0x277CBEC28];
   v3 = *MEMORY[0x277D3F558];
-  v44[2] = *MEMORY[0x277D3F548];
-  v44[3] = v3;
-  v45[2] = @"refreshRequestHandler";
-  v45[3] = MEMORY[0x277CBEC38];
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
-  v47[0] = v26;
-  v46[1] = *MEMORY[0x277D3F540];
-  v42[0] = @"SeqNum";
+  v43[2] = *MEMORY[0x277D3F548];
+  v43[3] = v3;
+  v44[2] = @"refreshRequestHandler";
+  v44[3] = MEMORY[0x277CBEC38];
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
+  v46[0] = v25;
+  v45[1] = *MEMORY[0x277D3F540];
+  v41[0] = @"SeqNum";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v43[0] = commonTypeDict_IntegerFormat;
-  v42[1] = @"BBDate";
+  v42[0] = commonTypeDict_IntegerFormat;
+  v41[1] = @"BBDate";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v43[1] = commonTypeDict_DateFormat;
-  v42[2] = @"LogDuration";
+  v42[1] = commonTypeDict_DateFormat;
+  v41[2] = @"LogDuration";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v43[2] = commonTypeDict_RealFormat;
-  v42[3] = @"DupMode";
+  v42[2] = commonTypeDict_RealFormat;
+  v41[3] = @"DupMode";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v43[3] = commonTypeDict_IntegerFormat2;
-  v42[4] = @"CAFreqInfo";
+  v42[3] = commonTypeDict_IntegerFormat2;
+  v41[4] = @"CAFreqInfo";
   v5 = *MEMORY[0x277D3F598];
-  v39[0] = *MEMORY[0x277D3F5A8];
-  v4 = v39[0];
-  v39[1] = v5;
-  v41[0] = &unk_282C135C0;
-  v41[1] = &unk_282C135D8;
-  v40 = *MEMORY[0x277D3F5A0];
-  v6 = v40;
-  v41[2] = &unk_282C135F0;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v39 count:3];
-  v43[4] = v17;
-  v42[5] = @"C0TBSzArr";
-  v37[0] = v4;
-  v37[1] = v5;
-  v38[0] = &unk_282C135C0;
-  v38[1] = &unk_282C13608;
-  v37[2] = v6;
-  v38[2] = &unk_282C135F0;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
-  v43[5] = v16;
-  v42[6] = @"C1TBSzArr";
-  v35[0] = v4;
-  v35[1] = v5;
-  v36[0] = &unk_282C135C0;
-  v36[1] = &unk_282C13608;
-  v35[2] = v6;
-  v36[2] = &unk_282C135F0;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
-  v43[6] = v15;
-  v42[7] = @"TxPwrBktArr";
-  v33[0] = v4;
-  v33[1] = v5;
-  v34[0] = &unk_282C135C0;
-  v34[1] = &unk_282C13620;
-  v33[2] = v6;
-  v34[2] = &unk_282C135F0;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
-  v43[7] = v7;
-  v42[8] = @"CASCCStateArr";
-  v31[0] = v4;
-  v31[1] = v5;
-  v32[0] = &unk_282C135C0;
-  v32[1] = &unk_282C135D8;
-  v31[2] = v6;
-  v32[2] = &unk_282C135F0;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-  v43[8] = v8;
-  v42[9] = @"kRfActRxTxArr";
-  v29[0] = v4;
-  v29[1] = v5;
-  v30[0] = &unk_282C135C0;
-  v30[1] = &unk_282C13638;
-  v29[2] = v6;
-  v30[2] = &unk_282C135F0;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
-  v43[9] = v9;
-  v42[10] = @"SleepStateArr";
-  v27[0] = v4;
-  v27[1] = v5;
-  v28[0] = &unk_282C135C0;
-  v28[1] = &unk_282C13638;
-  v27[2] = v6;
-  v28[2] = &unk_282C135F0;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
-  v43[10] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:11];
-  v47[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v38[0] = *MEMORY[0x277D3F5A8];
+  v4 = v38[0];
+  v38[1] = v5;
+  v40[0] = &unk_282C135C0;
+  v40[1] = &unk_282C135D8;
+  v39 = *MEMORY[0x277D3F5A0];
+  v6 = v39;
+  v40[2] = &unk_282C135F0;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v38 count:3];
+  v42[4] = v16;
+  v41[5] = @"C0TBSzArr";
+  v36[0] = v4;
+  v36[1] = v5;
+  v37[0] = &unk_282C135C0;
+  v37[1] = &unk_282C13608;
+  v36[2] = v6;
+  v37[2] = &unk_282C135F0;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+  v42[5] = v15;
+  v41[6] = @"C1TBSzArr";
+  v34[0] = v4;
+  v34[1] = v5;
+  v35[0] = &unk_282C135C0;
+  v35[1] = &unk_282C13608;
+  v34[2] = v6;
+  v35[2] = &unk_282C135F0;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
+  v42[6] = v14;
+  v41[7] = @"TxPwrBktArr";
+  v32[0] = v4;
+  v32[1] = v5;
+  v33[0] = &unk_282C135C0;
+  v33[1] = &unk_282C13620;
+  v32[2] = v6;
+  v33[2] = &unk_282C135F0;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v42[7] = v7;
+  v41[8] = @"CASCCStateArr";
+  v30[0] = v4;
+  v30[1] = v5;
+  v31[0] = &unk_282C135C0;
+  v31[1] = &unk_282C135D8;
+  v30[2] = v6;
+  v31[2] = &unk_282C135F0;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v42[8] = v8;
+  v41[9] = @"kRfActRxTxArr";
+  v28[0] = v4;
+  v28[1] = v5;
+  v29[0] = &unk_282C135C0;
+  v29[1] = &unk_282C13638;
+  v28[2] = v6;
+  v29[2] = &unk_282C135F0;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+  v42[9] = v9;
+  v41[10] = @"SleepStateArr";
+  v26[0] = v4;
+  v26[1] = v5;
+  v27[0] = &unk_282C135C0;
+  v27[1] = &unk_282C13638;
+  v26[2] = v6;
+  v27[2] = &unk_282C135F0;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v42[10] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:11];
+  v46[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
 
   return v12;
 }
@@ -595,15 +586,15 @@ uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397
 
 - (id)logEventBackwardBBMav10HwRfLTE
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke;
-    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v19 = v3;
+    v15 = 3221225472;
+    v16 = __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v3;
     if (qword_2811F6D30 != -1)
     {
       dispatch_once(&qword_2811F6D30, &block);
@@ -611,7 +602,7 @@ uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397
 
     if (byte_2811F6CE1 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMavHwRfLTELogMsg logEventBackwardBBMav10HwRfLTE]", block, v16, v17, v18, v19];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMavHwRfLTELogMsg logEventBackwardBBMav10HwRfLTE]", block, v15, v16, v17, v18];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMavHwRfLTELogMsg.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -622,7 +613,7 @@ uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v4;
+        v22 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -631,18 +622,16 @@ uint64_t __50__PLBBMavHwRfLTELogMsg_addPairWithKey_andWithVal___block_invoke_397
   v10 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"BBMavHwRfLTE"];
   v11 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v10];
   [(PLBBMavHwRfLTELogMsg *)self populateEntry:v11];
-  v20[0] = @"entry";
-  v20[1] = @"entryKey";
-  v21[0] = v11;
-  v21[1] = v10;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v19[0] = @"entry";
+  v19[1] = @"entryKey";
+  v20[0] = v11;
+  v20[1] = v10;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
-uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke(uint64_t a1)
+void *__54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CE1 = result;
@@ -693,198 +682,196 @@ uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke
 
 + (id)entryEventBackwardDefinitionBBMav13HwRfLTE
 {
-  v77[2] = *MEMORY[0x277D85DE8];
-  v76[0] = *MEMORY[0x277D3F4E8];
+  v76[2] = *MEMORY[0x277D85DE8];
+  v75[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v74[0] = *MEMORY[0x277D3F568];
-  v74[1] = v2;
-  v75[0] = &unk_282C1CE08;
-  v75[1] = MEMORY[0x277CBEC28];
+  v73[0] = *MEMORY[0x277D3F568];
+  v73[1] = v2;
+  v74[0] = &unk_282C1CE08;
+  v74[1] = MEMORY[0x277CBEC28];
   v3 = *MEMORY[0x277D3F558];
-  v74[2] = *MEMORY[0x277D3F548];
-  v74[3] = v3;
-  v75[2] = @"refreshMav13BBRfLTE";
-  v75[3] = MEMORY[0x277CBEC38];
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:4];
-  v77[0] = v36;
-  v76[1] = *MEMORY[0x277D3F540];
-  v72[0] = @"SeqNum";
+  v73[2] = *MEMORY[0x277D3F548];
+  v73[3] = v3;
+  v74[2] = @"refreshMav13BBRfLTE";
+  v74[3] = MEMORY[0x277CBEC38];
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:4];
+  v76[0] = v35;
+  v75[1] = *MEMORY[0x277D3F540];
+  v71[0] = @"SeqNum";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v73[0] = commonTypeDict_IntegerFormat;
-  v72[1] = @"BBDate";
+  v72[0] = commonTypeDict_IntegerFormat;
+  v71[1] = @"BBDate";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v73[1] = commonTypeDict_DateFormat;
-  v72[2] = @"LogDuration";
+  v72[1] = commonTypeDict_DateFormat;
+  v71[2] = @"LogDuration";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v73[2] = commonTypeDict_RealFormat;
-  v72[3] = @"DupMode";
+  v72[2] = commonTypeDict_RealFormat;
+  v71[3] = @"DupMode";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v73[3] = commonTypeDict_IntegerFormat2;
-  v72[4] = @"CAFreqInfo";
+  v72[3] = commonTypeDict_IntegerFormat2;
+  v71[4] = @"CAFreqInfo";
   v5 = *MEMORY[0x277D3F598];
-  v69[0] = *MEMORY[0x277D3F5A8];
-  v4 = v69[0];
-  v69[1] = v5;
-  v71[0] = &unk_282C135C0;
-  v71[1] = &unk_282C135D8;
-  v70 = *MEMORY[0x277D3F5A0];
-  v6 = v70;
-  v71[2] = &unk_282C135F0;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v69 count:3];
-  v73[4] = v27;
-  v72[5] = @"C0TBSzArr";
-  v67[0] = v4;
-  v67[1] = v5;
-  v68[0] = &unk_282C135C0;
-  v68[1] = &unk_282C13650;
-  v67[2] = v6;
-  v68[2] = &unk_282C135F0;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
-  v73[5] = v26;
-  v72[6] = @"C1TBSzArr";
-  v65[0] = v4;
-  v65[1] = v5;
-  v66[0] = &unk_282C135C0;
-  v66[1] = &unk_282C13650;
-  v65[2] = v6;
-  v66[2] = &unk_282C135F0;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
-  v73[6] = v25;
-  v72[7] = @"TxPwrBktArr";
-  v63[0] = v4;
-  v63[1] = v5;
-  v64[0] = &unk_282C135C0;
-  v64[1] = &unk_282C13620;
-  v63[2] = v6;
-  v64[2] = &unk_282C135F0;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:3];
-  v73[7] = v24;
-  v72[8] = @"CASCCStateArr";
-  v61[0] = v4;
-  v61[1] = v5;
-  v62[0] = &unk_282C135C0;
-  v62[1] = &unk_282C135D8;
-  v61[2] = v6;
-  v62[2] = &unk_282C135F0;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:3];
-  v73[8] = v23;
-  v72[9] = @"RfActRxTxPCCArr";
-  v59[0] = v4;
-  v59[1] = v5;
-  v60[0] = &unk_282C135C0;
-  v60[1] = &unk_282C13668;
-  v59[2] = v6;
-  v60[2] = &unk_282C135F0;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:3];
-  v73[9] = v22;
-  v72[10] = @"RfActRxTxSCCArr";
-  v57[0] = v4;
-  v57[1] = v5;
-  v58[0] = &unk_282C135C0;
-  v58[1] = &unk_282C13668;
-  v57[2] = v6;
-  v58[2] = &unk_282C135F0;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:3];
-  v73[10] = v21;
-  v72[11] = @"RfActRxTxPCCSCCArr";
-  v55[0] = v4;
-  v55[1] = v5;
-  v56[0] = &unk_282C135C0;
-  v56[1] = &unk_282C13668;
-  v55[2] = v6;
-  v56[2] = &unk_282C135F0;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
-  v73[11] = v20;
-  v72[12] = @"SleepStateIdleArr";
-  v53[0] = v4;
-  v53[1] = v5;
-  v54[0] = &unk_282C135C0;
-  v54[1] = &unk_282C13680;
-  v53[2] = v6;
-  v54[2] = &unk_282C135F0;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
-  v73[12] = v19;
-  v72[13] = @"SleepStateConnArr";
-  v51[0] = v4;
-  v51[1] = v5;
-  v52[0] = &unk_282C135C0;
-  v52[1] = &unk_282C13680;
-  v51[2] = v6;
-  v52[2] = &unk_282C135F0;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
-  v73[13] = v18;
-  v72[14] = @"RfRSRPIdleArr";
-  v49[0] = v4;
-  v49[1] = v5;
-  v50[0] = &unk_282C135C0;
-  v50[1] = &unk_282C13638;
-  v49[2] = v6;
-  v50[2] = &unk_282C135F0;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
-  v73[14] = v17;
-  v72[15] = @"RfRSRPConnArr";
-  v47[0] = v4;
-  v47[1] = v5;
-  v48[0] = &unk_282C135C0;
-  v48[1] = &unk_282C13638;
-  v47[2] = v6;
-  v48[2] = &unk_282C135F0;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
-  v73[15] = v16;
-  v72[16] = @"RfSINRIdleArr";
-  v45[0] = v4;
-  v45[1] = v5;
-  v46[0] = &unk_282C135C0;
-  v46[1] = &unk_282C13638;
-  v45[2] = v6;
-  v46[2] = &unk_282C135F0;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
-  v73[16] = v7;
-  v72[17] = @"RfSINRConnArr";
-  v43[0] = v4;
-  v43[1] = v5;
-  v44[0] = &unk_282C135C0;
-  v44[1] = &unk_282C13638;
-  v43[2] = v6;
-  v44[2] = &unk_282C135F0;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
-  v73[17] = v8;
-  v72[18] = @"RfARXArr";
-  v41[0] = v4;
-  v41[1] = v5;
-  v42[0] = &unk_282C135C0;
-  v42[1] = &unk_282C13698;
-  v41[2] = v6;
-  v42[2] = &unk_282C135F0;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
-  v73[18] = v9;
-  v72[19] = @"RfNLICArr";
-  v39[0] = v4;
-  v39[1] = v5;
-  v40[0] = &unk_282C135C0;
-  v40[1] = &unk_282C136B0;
-  v39[2] = v6;
-  v40[2] = &unk_282C135F0;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
-  v73[19] = v10;
-  v72[20] = @"RfBPEArr";
-  v37[0] = v4;
-  v37[1] = v5;
-  v38[0] = &unk_282C135C0;
-  v38[1] = &unk_282C13668;
-  v37[2] = v6;
-  v38[2] = &unk_282C135F0;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
-  v73[20] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:21];
-  v77[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v68[0] = *MEMORY[0x277D3F5A8];
+  v4 = v68[0];
+  v68[1] = v5;
+  v70[0] = &unk_282C135C0;
+  v70[1] = &unk_282C135D8;
+  v69 = *MEMORY[0x277D3F5A0];
+  v6 = v69;
+  v70[2] = &unk_282C135F0;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v68 count:3];
+  v72[4] = v26;
+  v71[5] = @"C0TBSzArr";
+  v66[0] = v4;
+  v66[1] = v5;
+  v67[0] = &unk_282C135C0;
+  v67[1] = &unk_282C13650;
+  v66[2] = v6;
+  v67[2] = &unk_282C135F0;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
+  v72[5] = v25;
+  v71[6] = @"C1TBSzArr";
+  v64[0] = v4;
+  v64[1] = v5;
+  v65[0] = &unk_282C135C0;
+  v65[1] = &unk_282C13650;
+  v64[2] = v6;
+  v65[2] = &unk_282C135F0;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
+  v72[6] = v24;
+  v71[7] = @"TxPwrBktArr";
+  v62[0] = v4;
+  v62[1] = v5;
+  v63[0] = &unk_282C135C0;
+  v63[1] = &unk_282C13620;
+  v62[2] = v6;
+  v63[2] = &unk_282C135F0;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:3];
+  v72[7] = v23;
+  v71[8] = @"CASCCStateArr";
+  v60[0] = v4;
+  v60[1] = v5;
+  v61[0] = &unk_282C135C0;
+  v61[1] = &unk_282C135D8;
+  v60[2] = v6;
+  v61[2] = &unk_282C135F0;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
+  v72[8] = v22;
+  v71[9] = @"RfActRxTxPCCArr";
+  v58[0] = v4;
+  v58[1] = v5;
+  v59[0] = &unk_282C135C0;
+  v59[1] = &unk_282C13668;
+  v58[2] = v6;
+  v59[2] = &unk_282C135F0;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
+  v72[9] = v21;
+  v71[10] = @"RfActRxTxSCCArr";
+  v56[0] = v4;
+  v56[1] = v5;
+  v57[0] = &unk_282C135C0;
+  v57[1] = &unk_282C13668;
+  v56[2] = v6;
+  v57[2] = &unk_282C135F0;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
+  v72[10] = v20;
+  v71[11] = @"RfActRxTxPCCSCCArr";
+  v54[0] = v4;
+  v54[1] = v5;
+  v55[0] = &unk_282C135C0;
+  v55[1] = &unk_282C13668;
+  v54[2] = v6;
+  v55[2] = &unk_282C135F0;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:3];
+  v72[11] = v19;
+  v71[12] = @"SleepStateIdleArr";
+  v52[0] = v4;
+  v52[1] = v5;
+  v53[0] = &unk_282C135C0;
+  v53[1] = &unk_282C13680;
+  v52[2] = v6;
+  v53[2] = &unk_282C135F0;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
+  v72[12] = v18;
+  v71[13] = @"SleepStateConnArr";
+  v50[0] = v4;
+  v50[1] = v5;
+  v51[0] = &unk_282C135C0;
+  v51[1] = &unk_282C13680;
+  v50[2] = v6;
+  v51[2] = &unk_282C135F0;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
+  v72[13] = v17;
+  v71[14] = @"RfRSRPIdleArr";
+  v48[0] = v4;
+  v48[1] = v5;
+  v49[0] = &unk_282C135C0;
+  v49[1] = &unk_282C13638;
+  v48[2] = v6;
+  v49[2] = &unk_282C135F0;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
+  v72[14] = v16;
+  v71[15] = @"RfRSRPConnArr";
+  v46[0] = v4;
+  v46[1] = v5;
+  v47[0] = &unk_282C135C0;
+  v47[1] = &unk_282C13638;
+  v46[2] = v6;
+  v47[2] = &unk_282C135F0;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
+  v72[15] = v15;
+  v71[16] = @"RfSINRIdleArr";
+  v44[0] = v4;
+  v44[1] = v5;
+  v45[0] = &unk_282C135C0;
+  v45[1] = &unk_282C13638;
+  v44[2] = v6;
+  v45[2] = &unk_282C135F0;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
+  v72[16] = v7;
+  v71[17] = @"RfSINRConnArr";
+  v42[0] = v4;
+  v42[1] = v5;
+  v43[0] = &unk_282C135C0;
+  v43[1] = &unk_282C13638;
+  v42[2] = v6;
+  v43[2] = &unk_282C135F0;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+  v72[17] = v8;
+  v71[18] = @"RfARXArr";
+  v40[0] = v4;
+  v40[1] = v5;
+  v41[0] = &unk_282C135C0;
+  v41[1] = &unk_282C13698;
+  v40[2] = v6;
+  v41[2] = &unk_282C135F0;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
+  v72[18] = v9;
+  v71[19] = @"RfNLICArr";
+  v38[0] = v4;
+  v38[1] = v5;
+  v39[0] = &unk_282C135C0;
+  v39[1] = &unk_282C136B0;
+  v38[2] = v6;
+  v39[2] = &unk_282C135F0;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+  v72[19] = v10;
+  v71[20] = @"RfBPEArr";
+  v36[0] = v4;
+  v36[1] = v5;
+  v37[0] = &unk_282C135C0;
+  v37[1] = &unk_282C13668;
+  v36[2] = v6;
+  v37[2] = &unk_282C135F0;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+  v72[20] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:21];
+  v76[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
 
   return v13;
 }
@@ -898,15 +885,15 @@ uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke
 
 - (id)logEventBackwardBBMav13HwRfLTE
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav13HwRfLTE__block_invoke;
-    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v19 = v3;
+    v15 = 3221225472;
+    v16 = __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav13HwRfLTE__block_invoke;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v3;
     if (qword_2811F6D38 != -1)
     {
       dispatch_once(&qword_2811F6D38, &block);
@@ -914,7 +901,7 @@ uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke
 
     if (byte_2811F6CE2 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMavHwRfLTELogMsg logEventBackwardBBMav13HwRfLTE]", block, v16, v17, v18, v19];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBMavHwRfLTELogMsg logEventBackwardBBMav13HwRfLTE]", block, v15, v16, v17, v18];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBMavHwRfLTELogMsg.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -925,7 +912,7 @@ uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v4;
+        v22 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -934,18 +921,16 @@ uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav10HwRfLTE__block_invoke
   v10 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"BBMavHwRfLTE"];
   v11 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v10];
   [(PLBBMavHwRfLTELogMsg *)self populateMav13Entry:v11];
-  v20[0] = @"entry";
-  v20[1] = @"entryKey";
-  v21[0] = v11;
-  v21[1] = v10;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v19[0] = @"entry";
+  v19[1] = @"entryKey";
+  v20[0] = v11;
+  v20[1] = v10;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
-uint64_t __54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav13HwRfLTE__block_invoke(uint64_t a1)
+void *__54__PLBBMavHwRfLTELogMsg_logEventBackwardBBMav13HwRfLTE__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6CE2 = result;

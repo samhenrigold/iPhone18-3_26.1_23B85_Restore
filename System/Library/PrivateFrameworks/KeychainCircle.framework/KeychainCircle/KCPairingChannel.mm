@@ -14,6 +14,7 @@
 - (BOOL)join:(id *)join voucher:(id)voucher eventS:(id)s setupPairingChannelSignPost:(octagon_signpost_s)post finishPairing:(BOOL *)pairing error:(id *)error;
 - (BOOL)populateKeychainForTestingWithNumberOfKeychainItems:(int)items;
 - (BOOL)populateKeychainWithLargeItemsForTestingWithCount:(int)count;
+- (BOOL)populateKeychainWithMixedLargeItemsForTestingWithCount:(int)count;
 - (BOOL)populateKeychainWithTooLargeItemsForTestingWithCount:(int)count;
 - (id)copySubsetFrom:(id)from begin:(unint64_t)begin end:(unint64_t)end;
 - (id)createPacket:(id)packet results:(id)results endSession:(BOOL)session;
@@ -22,6 +23,7 @@
 - (id)exchangePacket:(id)packet complete:(BOOL *)complete error:(id *)error;
 - (id)fetchItemForPersistentRef:(id)ref error:(id *)error;
 - (id)formNextPacket;
+- (id)initAsInitiator:(BOOL)initiator version:(id)version;
 - (id)updateItem:(id)item;
 - (int)fetchCountOfReceivedItemsForTesting;
 - (int)fetchCountOfSentItemsForTesting;
@@ -61,41 +63,124 @@
 
 - (unint64_t)fetchNumberOfPCSKeychainItems
 {
-  v14[8] = *MEMORY[0x277D85DE8];
+  v13[8] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CDC248];
   v3 = *MEMORY[0x277CDC5C8];
-  v13[0] = *MEMORY[0x277CDC228];
-  v13[1] = v3;
-  v14[0] = v2;
-  v14[1] = MEMORY[0x277CBEC38];
+  v12[0] = *MEMORY[0x277CDC228];
+  v12[1] = v3;
+  v13[0] = v2;
+  v13[1] = MEMORY[0x277CBEC38];
   v4 = *MEMORY[0x277CDBEC8];
-  v13[2] = *MEMORY[0x277CDC140];
-  v13[3] = v4;
-  v14[2] = MEMORY[0x277CBEC38];
-  v14[3] = @"com.apple.ProtectedCloudStorage";
+  v12[2] = *MEMORY[0x277CDC140];
+  v12[3] = v4;
+  v13[2] = MEMORY[0x277CBEC38];
+  v13[3] = @"com.apple.ProtectedCloudStorage";
   v5 = *MEMORY[0x277CDC428];
-  v13[4] = *MEMORY[0x277CDC118];
-  v13[5] = v5;
+  v12[4] = *MEMORY[0x277CDC118];
+  v12[5] = v5;
   v6 = *MEMORY[0x277CDC430];
-  v14[4] = @"123456";
-  v14[5] = v6;
+  v13[4] = @"123456";
+  v13[5] = v6;
   v7 = *MEMORY[0x277CDC558];
-  v13[6] = *MEMORY[0x277CDC550];
-  v13[7] = v7;
-  v14[6] = MEMORY[0x277CBEC38];
-  v14[7] = MEMORY[0x277CBEC38];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:8];
-  v12 = 0;
-  SecItemCopyMatching(v8, &v12);
-  v9 = [v12 count];
+  v12[6] = *MEMORY[0x277CDC550];
+  v12[7] = v7;
+  v13[6] = MEMORY[0x277CBEC38];
+  v13[7] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:8];
+  v11 = 0;
+  SecItemCopyMatching(v8, &v11);
+  v9 = [v11 count];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
+- (BOOL)populateKeychainWithMixedLargeItemsForTestingWithCount:(int)count
+{
+  v3 = *&count;
+  v28[7] = *MEMORY[0x277D85DE8];
+  v4 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:1572864];
+  v5 = *MEMORY[0x277CDC540];
+  if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x180000uLL, [v4 mutableBytes]))
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v7 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:0x400000];
+    if (SecRandomCopyBytes(v5, 0x400000uLL, [v7 mutableBytes]))
+    {
+      v6 = 0;
+    }
+
+    else if (v3 < 1)
+    {
+      v6 = 1;
+    }
+
+    else
+    {
+      v8 = 0;
+      v25 = *MEMORY[0x277CDC228];
+      v24 = *MEMORY[0x277CDC248];
+      v23 = *MEMORY[0x277CDC5C8];
+      v22 = *MEMORY[0x277CDC140];
+      v21 = *MEMORY[0x277CDBEC8];
+      v20 = *MEMORY[0x277CDC118];
+      v6 = 1;
+      v19 = *MEMORY[0x277CDBF20];
+      v18 = *MEMORY[0x277CDC5E8];
+      do
+      {
+        if (v8)
+        {
+          v9 = v4;
+        }
+
+        else
+        {
+          v9 = v7;
+        }
+
+        v10 = v3;
+        v11 = v9;
+        v27[0] = v25;
+        v27[1] = v23;
+        v28[0] = v24;
+        v28[1] = MEMORY[0x277CBEC38];
+        v28[2] = MEMORY[0x277CBEC38];
+        v27[2] = v22;
+        v27[3] = v21;
+        v28[3] = @"com.apple.ProtectedCloudStorage";
+        v28[4] = @"123456";
+        v27[4] = v20;
+        v27[5] = v19;
+        v12 = MEMORY[0x277CCACA8];
+        uUID = [MEMORY[0x277CCAD78] UUID];
+        uUIDString = [uUID UUIDString];
+        v15 = [v12 stringWithFormat:@"%@-%d", uUIDString, v8];
+        v27[6] = v18;
+        v28[5] = v15;
+        v28[6] = v11;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:7];
+
+        result = 0;
+        v6 &= SecItemAdd(v16, &result) == 0;
+
+        v3 = v10;
+        v8 = (v8 + 1);
+      }
+
+      while (v10 != v8);
+    }
+  }
+
+  return v6;
 }
 
 - (BOOL)populateKeychainWithTooLargeItemsForTestingWithCount:(int)count
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:0x400000];
   if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x400000uLL, [v4 mutableBytes]))
   {
@@ -110,37 +195,37 @@
   else
   {
     v6 = 0;
-    v22 = *MEMORY[0x277CDC228];
-    v21 = *MEMORY[0x277CDC248];
-    v20 = *MEMORY[0x277CDC5C8];
-    v19 = *MEMORY[0x277CDC140];
-    v18 = *MEMORY[0x277CDBEC8];
-    v17 = *MEMORY[0x277CDC118];
+    v21 = *MEMORY[0x277CDC228];
+    v20 = *MEMORY[0x277CDC248];
+    v19 = *MEMORY[0x277CDC5C8];
+    v18 = *MEMORY[0x277CDC140];
+    v17 = *MEMORY[0x277CDBEC8];
+    v16 = *MEMORY[0x277CDC118];
     v5 = 1;
-    v16 = *MEMORY[0x277CDBF20];
+    v15 = *MEMORY[0x277CDBF20];
     v7 = *MEMORY[0x277CDC5E8];
     v8 = MEMORY[0x277CBEC38];
     do
     {
-      v24[0] = v22;
-      v24[1] = v20;
-      v25[0] = v21;
-      v25[1] = v8;
-      v24[2] = v19;
-      v24[3] = v18;
-      v25[2] = v8;
-      v25[3] = @"com.apple.ProtectedCloudStorage";
-      v25[4] = @"123456";
-      v24[4] = v17;
-      v24[5] = v16;
+      v23[0] = v21;
+      v23[1] = v19;
+      v24[0] = v20;
+      v24[1] = v8;
+      v23[2] = v18;
+      v23[3] = v17;
+      v24[2] = v8;
+      v24[3] = @"com.apple.ProtectedCloudStorage";
+      v24[4] = @"123456";
+      v23[4] = v16;
+      v23[5] = v15;
       v9 = MEMORY[0x277CCACA8];
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
       v12 = [v9 stringWithFormat:@"%@-%d", uUIDString, v6];
-      v24[6] = v7;
-      v25[5] = v12;
-      v25[6] = v4;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+      v23[6] = v7;
+      v24[5] = v12;
+      v24[6] = v4;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
 
       result = 0;
       v5 &= SecItemAdd(v13, &result) == 0;
@@ -151,13 +236,12 @@
     while (count != v6);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)populateKeychainWithLargeItemsForTestingWithCount:(int)count
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:1625292];
   if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x18CCCCuLL, [v4 mutableBytes]))
   {
@@ -172,37 +256,37 @@
   else
   {
     v6 = 0;
-    v22 = *MEMORY[0x277CDC228];
-    v21 = *MEMORY[0x277CDC248];
-    v20 = *MEMORY[0x277CDC5C8];
-    v19 = *MEMORY[0x277CDC140];
-    v18 = *MEMORY[0x277CDBEC8];
-    v17 = *MEMORY[0x277CDC118];
+    v21 = *MEMORY[0x277CDC228];
+    v20 = *MEMORY[0x277CDC248];
+    v19 = *MEMORY[0x277CDC5C8];
+    v18 = *MEMORY[0x277CDC140];
+    v17 = *MEMORY[0x277CDBEC8];
+    v16 = *MEMORY[0x277CDC118];
     v5 = 1;
-    v16 = *MEMORY[0x277CDBF20];
+    v15 = *MEMORY[0x277CDBF20];
     v7 = *MEMORY[0x277CDC5E8];
     v8 = MEMORY[0x277CBEC38];
     do
     {
-      v24[0] = v22;
-      v24[1] = v20;
-      v25[0] = v21;
-      v25[1] = v8;
-      v24[2] = v19;
-      v24[3] = v18;
-      v25[2] = v8;
-      v25[3] = @"com.apple.ProtectedCloudStorage";
-      v25[4] = @"123456";
-      v24[4] = v17;
-      v24[5] = v16;
+      v23[0] = v21;
+      v23[1] = v19;
+      v24[0] = v20;
+      v24[1] = v8;
+      v23[2] = v18;
+      v23[3] = v17;
+      v24[2] = v8;
+      v24[3] = @"com.apple.ProtectedCloudStorage";
+      v24[4] = @"123456";
+      v23[4] = v16;
+      v23[5] = v15;
       v9 = MEMORY[0x277CCACA8];
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
       v12 = [v9 stringWithFormat:@"%@-%d", uUIDString, v6];
-      v24[6] = v7;
-      v25[5] = v12;
-      v25[6] = v4;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+      v23[6] = v7;
+      v24[5] = v12;
+      v24[6] = v4;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
 
       result = 0;
       v5 &= SecItemAdd(v13, &result) == 0;
@@ -213,64 +297,58 @@
     while (count != v6);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)populateKeychainForTestingWithNumberOfKeychainItems:(int)items
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   if (items < 1)
   {
-    v5 = 1;
+    return 1;
   }
 
-  else
+  v4 = 0;
+  v21 = *MEMORY[0x277CDC228];
+  v20 = *MEMORY[0x277CDC248];
+  v19 = *MEMORY[0x277CDC5C8];
+  v18 = *MEMORY[0x277CDC140];
+  v17 = *MEMORY[0x277CDBEC8];
+  v16 = *MEMORY[0x277CDC118];
+  v5 = 1;
+  v15 = *MEMORY[0x277CDBF20];
+  v6 = *MEMORY[0x277CDC5E8];
+  v7 = MEMORY[0x277CBEC38];
+  do
   {
-    v4 = 0;
-    v22 = *MEMORY[0x277CDC228];
-    v21 = *MEMORY[0x277CDC248];
-    v20 = *MEMORY[0x277CDC5C8];
-    v19 = *MEMORY[0x277CDC140];
-    v18 = *MEMORY[0x277CDBEC8];
-    v17 = *MEMORY[0x277CDC118];
-    v5 = 1;
-    v16 = *MEMORY[0x277CDBF20];
-    v6 = *MEMORY[0x277CDC5E8];
-    v7 = MEMORY[0x277CBEC38];
-    do
-    {
-      v24[0] = v22;
-      v24[1] = v20;
-      v25[0] = v21;
-      v25[1] = v7;
-      v24[2] = v19;
-      v24[3] = v18;
-      v25[2] = v7;
-      v25[3] = @"com.apple.ProtectedCloudStorage";
-      v25[4] = @"123456";
-      v24[4] = v17;
-      v24[5] = v16;
-      v8 = MEMORY[0x277CCACA8];
-      uUID = [MEMORY[0x277CCAD78] UUID];
-      uUIDString = [uUID UUIDString];
-      v11 = [v8 stringWithFormat:@"%@-%d", uUIDString, v4];
-      v25[5] = v11;
-      v24[6] = v6;
-      v12 = [@"zesty" dataUsingEncoding:4];
-      v25[6] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+    v23[0] = v21;
+    v23[1] = v19;
+    v24[0] = v20;
+    v24[1] = v7;
+    v23[2] = v18;
+    v23[3] = v17;
+    v24[2] = v7;
+    v24[3] = @"com.apple.ProtectedCloudStorage";
+    v24[4] = @"123456";
+    v23[4] = v16;
+    v23[5] = v15;
+    v8 = MEMORY[0x277CCACA8];
+    uUID = [MEMORY[0x277CCAD78] UUID];
+    uUIDString = [uUID UUIDString];
+    v11 = [v8 stringWithFormat:@"%@-%d", uUIDString, v4];
+    v24[5] = v11;
+    v23[6] = v6;
+    v12 = [@"zesty" dataUsingEncoding:4];
+    v24[6] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
 
-      result = 0;
-      v5 &= SecItemAdd(v13, &result) == 0;
+    result = 0;
+    v5 &= SecItemAdd(v13, &result) == 0;
 
-      v4 = (v4 + 1);
-    }
-
-    while (items != v4);
+    v4 = (v4 + 1);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  while (items != v4);
   return v5;
 }
 
@@ -350,7 +428,7 @@ void __50__KCPairingChannel_exchangePacket_complete_error___block_invoke(uint64_
 
 - (void)exchangePacket:(id)packet complete:(id)complete
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   v8 = secLogObjForScope("pairing");
@@ -372,26 +450,26 @@ void __50__KCPairingChannel_exchangePacket_complete_error___block_invoke(uint64_
   if (v9)
   {
     v10 = v9;
-    v20 = 0;
-    v11 = [MEMORY[0x277CCAC58] propertyListWithData:v9 options:512 format:0 error:&v20];
+    v19 = 0;
+    v11 = [MEMORY[0x277CCAC58] propertyListWithData:v9 options:512 format:0 error:&v19];
     if (v11)
     {
       v12 = v11;
 
 LABEL_8:
       nextState = [(KCPairingChannel *)self nextState];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __44__KCPairingChannel_exchangePacket_complete___block_invoke;
-      v18[3] = &unk_2788635B8;
-      v18[4] = self;
-      v19 = completeCopy;
-      (nextState)[2](nextState, v12, v18);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __44__KCPairingChannel_exchangePacket_complete___block_invoke;
+      v17[3] = &unk_2788635B8;
+      v17[4] = self;
+      v18 = completeCopy;
+      (nextState)[2](nextState, v12, v17);
 
       goto LABEL_15;
     }
 
-    v15 = v20;
+    v15 = v19;
     v16 = secLogObjForScope("pairing");
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
@@ -415,13 +493,11 @@ LABEL_8:
   }
 
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __44__KCPairingChannel_exchangePacket_complete___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (!v6)
@@ -431,9 +507,9 @@ void __44__KCPairingChannel_exchangePacket_complete___block_invoke(uint64_t a1, 
     goto LABEL_16;
   }
 
-  v23 = 0;
-  v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:v6 format:200 options:0 error:&v23];
-  v9 = v23;
+  v21 = 0;
+  v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:v6 format:200 options:0 error:&v21];
+  v9 = v21;
   v10 = v9;
   if (v7 && !v8)
   {
@@ -451,32 +527,31 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v13 = *(a1 + 32);
   v11 = [objc_opt_class() pairingChannelCompressData:v8];
   if (v11)
   {
-    v14 = *(a1 + 32);
-    v15 = "acceptor";
-    if (*(v14 + 9))
+    v13 = *(a1 + 32);
+    v14 = "acceptor";
+    if (*(v13 + 9))
     {
-      v15 = "initiator";
+      v14 = "initiator";
     }
 
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.ckks.pairing.packet-size.%s.%u", v15, *(v14 + 20)];
-    v22 = MEMORY[0x277CDBD78];
-    v26 = *MEMORY[0x277CDBE00];
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "length")}];
-    v27[0] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    [v22 sendEvent:v12 event:v17];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.ckks.pairing.packet-size.%s.%u", v14, *(v13 + 20)];
+    v20 = MEMORY[0x277CDBD78];
+    v24 = *MEMORY[0x277CDBE00];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "length")}];
+    v25[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    [v20 sendEvent:v12 event:v16];
 
-    v18 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v11 length];
+      v18 = [v11 length];
       *buf = 134217984;
-      v25[0] = v19;
-      _os_log_impl(&dword_22EB09000, v18, OS_LOG_TYPE_DEFAULT, "pairing packet size %lu", buf, 0xCu);
+      v23[0] = v18;
+      _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "pairing packet size %lu", buf, 0xCu);
     }
 
     goto LABEL_13;
@@ -485,18 +560,17 @@ LABEL_13:
 LABEL_15:
 
 LABEL_16:
-  v20 = secLogObjForScope("pairing");
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = secLogObjForScope("pairing");
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    LODWORD(v25[0]) = v8 != 0;
-    WORD2(v25[0]) = 2112;
-    *(v25 + 6) = v7;
-    _os_log_impl(&dword_22EB09000, v20, OS_LOG_TYPE_DEFAULT, "Exchange packet complete data: %{BOOL}d: %@", buf, 0x12u);
+    LODWORD(v23[0]) = v8 != 0;
+    WORD2(v23[0]) = 2112;
+    *(v23 + 6) = v7;
+    _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "Exchange packet complete data: %{BOOL}d: %@", buf, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateStart:(id)start
@@ -568,7 +642,7 @@ LABEL_16:
 
 - (void)acceptorWaitForAck:(id)ack complete:(id)complete
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   ackCopy = ack;
   completeCopy = complete;
   v7 = secLogObjForScope("pairing");
@@ -597,8 +671,8 @@ LABEL_16:
     flowID = [peerVersionContext2 flowID];
     peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
     deviceSessionID = [peerVersionContext3 deviceSessionID];
-    LOBYTE(v35) = 1;
-    v10 = [(AAFAnalyticsEventSecurity *)v18 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.pairingEmptyOctagonPayload" testsAreEnabled:metricsAreEnabled canSendMetrics:v35 category:&unk_2843768F0];
+    LOBYTE(v34) = 1;
+    v10 = [(AAFAnalyticsEventSecurity *)v18 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.pairingEmptyOctagonPayload" testsAreEnabled:metricsAreEnabled canSendMetrics:v34 category:&unk_2843768F0];
 
     [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:0];
     (*(completeCopy + 2))(completeCopy, 1, 0, 0);
@@ -607,17 +681,17 @@ LABEL_16:
   else
   {
     v10 = [ackCopy objectForKeyedSubscript:@"o"];
-    v36 = [(AAFAnalyticsEventSecurity *)v10 objectForKeyedSubscript:@"k"];
+    v35 = [(AAFAnalyticsEventSecurity *)v10 objectForKeyedSubscript:@"k"];
     v11 = secLogObjForScope("pairing");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v36;
+      v40 = v35;
       _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "Received ack number: %@", buf, 0xCu);
     }
 
     ackNumber = [(KCPairingChannel *)self ackNumber];
-    v13 = [v36 isEqualToNumber:ackNumber];
+    v13 = [v35 isEqualToNumber:ackNumber];
 
     if (v13)
     {
@@ -628,16 +702,16 @@ LABEL_16:
       if (itemIndex)
       {
         objc_initWeak(buf, self);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __48__KCPairingChannel_acceptorWaitForAck_complete___block_invoke;
-        v38[3] = &unk_278863270;
-        objc_copyWeak(&v39, buf);
-        [(KCPairingChannel *)self setNextState:v38];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __48__KCPairingChannel_acceptorWaitForAck_complete___block_invoke;
+        v37[3] = &unk_278863270;
+        objc_copyWeak(&v38, buf);
+        [(KCPairingChannel *)self setNextState:v37];
         formNextPacket = [(KCPairingChannel *)self formNextPacket];
         (*(completeCopy + 2))(completeCopy, 0, formNextPacket, 0);
 
-        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v38);
         objc_destroyWeak(buf);
       }
 
@@ -664,15 +738,13 @@ LABEL_16:
       flowID2 = [peerVersionContext5 flowID];
       peerVersionContext6 = [(KCPairingChannel *)self peerVersionContext];
       deviceSessionID2 = [peerVersionContext6 deviceSessionID];
-      LOBYTE(v35) = 1;
-      v33 = [(AAFAnalyticsEventSecurity *)v26 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:@"com.apple.security.pairingEmptyAckPayload" testsAreEnabled:metricsAreEnabled canSendMetrics:v35 category:&unk_2843768F0];
+      LOBYTE(v34) = 1;
+      v33 = [(AAFAnalyticsEventSecurity *)v26 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:@"com.apple.security.pairingEmptyAckPayload" testsAreEnabled:metricsAreEnabled canSendMetrics:v34 category:&unk_2843768F0];
 
       [(AAFAnalyticsEventSecurity *)v33 sendMetricWithResult:0 error:0];
       [(KCPairingChannel *)self acceptorPCSDataPacket:MEMORY[0x277CBEC10] complete:completeCopy];
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __48__KCPairingChannel_acceptorWaitForAck_complete___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -816,7 +888,7 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
 
 - (int)fetchPCSItemPersistentRefs:(const void *)refs error:(id *)error
 {
-  v28[7] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   dsidForTest = [(KCPairingChannel *)self dsidForTest];
 
   if (dsidForTest)
@@ -826,24 +898,24 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
 
   else
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2050000000;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2050000000;
     v9 = getACAccountStoreClass_softClass;
-    v26 = getACAccountStoreClass_softClass;
+    v25 = getACAccountStoreClass_softClass;
     if (!getACAccountStoreClass_softClass)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __getACAccountStoreClass_block_invoke;
-      v22[3] = &unk_278863628;
-      v22[4] = &v23;
-      __getACAccountStoreClass_block_invoke(v22);
-      v9 = v24[3];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __getACAccountStoreClass_block_invoke;
+      v21[3] = &unk_278863628;
+      v21[4] = &v22;
+      __getACAccountStoreClass_block_invoke(v21);
+      v9 = v23[3];
     }
 
     v10 = v9;
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
     defaultStore = [v9 defaultStore];
     aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
     dsidForTest2 = [aa_primaryAppleAccount aa_personID];
@@ -853,24 +925,24 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
   {
     v13 = *MEMORY[0x277CDC248];
     v14 = *MEMORY[0x277CDC5C8];
-    v27[0] = *MEMORY[0x277CDC228];
-    v27[1] = v14;
+    v26[0] = *MEMORY[0x277CDC228];
+    v26[1] = v14;
     v15 = *MEMORY[0x277CDBEC8];
-    v27[2] = *MEMORY[0x277CDC140];
-    v27[3] = v15;
-    v28[2] = MEMORY[0x277CBEC38];
-    v28[3] = @"com.apple.ProtectedCloudStorage";
+    v26[2] = *MEMORY[0x277CDC140];
+    v26[3] = v15;
+    v27[2] = MEMORY[0x277CBEC38];
+    v27[3] = @"com.apple.ProtectedCloudStorage";
     v16 = *MEMORY[0x277CDC428];
-    v27[4] = *MEMORY[0x277CDC118];
-    v27[5] = v16;
+    v26[4] = *MEMORY[0x277CDC118];
+    v26[5] = v16;
     v17 = *MEMORY[0x277CDC430];
-    v28[4] = dsidForTest2;
-    v28[5] = v17;
-    v28[0] = v13;
-    v28[1] = MEMORY[0x277CBEC38];
-    v27[6] = *MEMORY[0x277CDC560];
-    v28[6] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:7];
+    v27[4] = dsidForTest2;
+    v27[5] = v17;
+    v27[0] = v13;
+    v27[1] = MEMORY[0x277CBEC38];
+    v26[6] = *MEMORY[0x277CDC560];
+    v27[6] = MEMORY[0x277CBEC38];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
     v19 = SecItemCopyMatching(v18, refs);
   }
 
@@ -884,13 +956,12 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
     v19 = -26276;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)evaluateResults:(void *)results
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = CFGetTypeID(results);
   if (v5 == CFArrayGetTypeID())
   {
@@ -914,15 +985,13 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
     v9 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
-      v13 = CFGetTypeID(results);
-      _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "acceptorPCSDataPacket: received unexpected return type from SecItemCopyMatching, typeID: %lu", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = CFGetTypeID(results);
+      _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "acceptorPCSDataPacket: received unexpected return type from SecItemCopyMatching, typeID: %lu", &v11, 0xCu);
     }
 
     v8 = [(KCPairingChannel *)self createPacket:&unk_2843768C0 results:0 endSession:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -952,7 +1021,7 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
 - (id)createPacket:(id)packet results:(id)results endSession:(BOOL)session
 {
   sessionCopy = session;
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   resultsCopy = results;
   [(KCPairingChannel *)self setCountOfSentItems:&unk_2843768A8];
@@ -964,42 +1033,42 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
     [dictionary2 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"e"];
   }
 
-  v52 = packetCopy;
+  v51 = packetCopy;
   [(KCPairingChannel *)self setAckNumber:packetCopy];
   ackNumber = [(KCPairingChannel *)self ackNumber];
   [v11 setObject:ackNumber forKeyedSubscript:@"n"];
 
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   obj = resultsCopy;
-  v59 = [obj countByEnumeratingWithState:&v64 objects:v72 count:16];
+  v58 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
   v14 = 0;
-  if (!v59)
+  if (!v58)
   {
     goto LABEL_39;
   }
 
-  v57 = *v65;
-  v58 = v11;
-  v53 = dictionary3;
+  v56 = *v64;
+  v57 = v11;
+  v52 = dictionary3;
   while (2)
   {
-    for (i = 0; i != v59; ++i)
+    for (i = 0; i != v58; ++i)
     {
-      if (*v65 != v57)
+      if (*v64 != v56)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v64 + 1) + 8 * i);
+      v16 = *(*(&v63 + 1) + 8 * i);
       v17 = objc_autoreleasePoolPush();
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@+%ld", @"pcsdata", v14];
-      v63 = 0;
-      v19 = [(KCPairingChannel *)self fetchItemForPersistentRef:v16 error:&v63];
-      v20 = v63;
+      v62 = 0;
+      v19 = [(KCPairingChannel *)self fetchItemForPersistentRef:v16 error:&v62];
+      v20 = v62;
       if (v19)
       {
         v21 = v20 == 0;
@@ -1010,26 +1079,26 @@ void __51__KCPairingChannel_acceptorPCSDataPacket_complete___block_invoke(uint64
         v21 = 0;
       }
 
-      v60 = v19;
-      v61 = v14;
+      v59 = v19;
+      v60 = v14;
       if (v21)
       {
         v34 = [(AAFAnalyticsEventSecurity *)v19 mutableCopy];
         v33 = [(KCPairingChannel *)self updateItem:v34];
 
-        v62 = 0;
-        v35 = [(KCPairingChannel *)self createTempPacketAndCheckSize:dictionary3 pcsItem:v33 octagonData:v11 keyForItem:v18 error:&v62];
-        v36 = v62;
+        v61 = 0;
+        v35 = [(KCPairingChannel *)self createTempPacketAndCheckSize:dictionary3 pcsItem:v33 octagonData:v11 keyForItem:v18 error:&v61];
+        v36 = v61;
         v32 = v36;
         if (v35 && v36 == 0)
         {
           v38 = dictionary3;
           [(AAFAnalyticsEventSecurity *)dictionary3 setObject:v33 forKeyedSubscript:v18];
 LABEL_28:
-          v22 = v60;
-          v11 = v58;
+          v22 = v59;
+          v11 = v57;
           dictionary3 = v38;
-          v14 = v61 + 1;
+          v14 = v60 + 1;
           goto LABEL_29;
         }
 
@@ -1040,7 +1109,7 @@ LABEL_28:
           if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v69 = v32;
+            v68 = v32;
             v42 = "pairing: failed to compress packet. will not add anymore items, error: %@";
             v43 = v41;
             v44 = 12;
@@ -1057,7 +1126,7 @@ LABEL_36:
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v69 = v33;
+              v68 = v33;
               _os_log_impl(&dword_22EB09000, v39, OS_LOG_TYPE_DEFAULT, "item by itself is too large for the pairing channel: %@", buf, 0xCu);
             }
 
@@ -1087,25 +1156,25 @@ LABEL_36:
           }
         }
 
-        [v58 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"e"];
+        [v57 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"e"];
 LABEL_38:
 
         objc_autoreleasePoolPop(v17);
-        v11 = v58;
-        v14 = v61;
+        v11 = v57;
+        v14 = v60;
         goto LABEL_39;
       }
 
       v22 = v20;
-      v55 = v18;
-      v56 = v17;
+      v54 = v18;
+      v55 = v17;
       v23 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v69 = v16;
-        v70 = 2112;
-        v71 = v22;
+        v68 = v16;
+        v69 = 2112;
+        v70 = v22;
         _os_log_impl(&dword_22EB09000, v23, OS_LOG_TYPE_DEFAULT, "failed to fetch persistent ref %@, error: %@, continuing", buf, 0x16u);
       }
 
@@ -1117,24 +1186,24 @@ LABEL_38:
       [(KCPairingChannel *)self peerVersionContext];
       v30 = v29 = self;
       deviceSessionID = [v30 deviceSessionID];
-      LOBYTE(v50) = 1;
-      v32 = [(AAFAnalyticsEventSecurity *)v24 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.pairingFailedToFetchItemForPersistentRef" testsAreEnabled:metricsAreEnabled canSendMetrics:v50 category:&unk_2843768F0];
+      LOBYTE(v49) = 1;
+      v32 = [(AAFAnalyticsEventSecurity *)v24 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.pairingFailedToFetchItemForPersistentRef" testsAreEnabled:metricsAreEnabled canSendMetrics:v49 category:&unk_2843768F0];
 
       self = v29;
       [(AAFAnalyticsEventSecurity *)v32 sendMetricWithResult:0 error:v22];
-      v33 = v60;
-      v14 = v61;
-      v11 = v58;
-      dictionary3 = v53;
-      v18 = v55;
-      v17 = v56;
+      v33 = v59;
+      v14 = v60;
+      v11 = v57;
+      dictionary3 = v52;
+      v18 = v54;
+      v17 = v55;
 LABEL_29:
 
       objc_autoreleasePoolPop(v17);
     }
 
-    v59 = [obj countByEnumeratingWithState:&v64 objects:v72 count:16];
-    if (v59)
+    v58 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+    if (v58)
     {
       continue;
     }
@@ -1149,9 +1218,9 @@ LABEL_39:
   {
     v46 = [(AAFAnalyticsEventSecurity *)dictionary3 count];
     *buf = 134218242;
-    v69 = v46;
-    v70 = 2112;
-    v71 = dictionary3;
+    v68 = v46;
+    v69 = 2112;
+    v70 = dictionary3;
     _os_log_impl(&dword_22EB09000, v45, OS_LOG_TYPE_DEFAULT, "acceptor will send initiator (%lu) items: %@", buf, 0x16u);
   }
 
@@ -1162,14 +1231,12 @@ LABEL_39:
   [v11 setObject:dictionary3 forKeyedSubscript:@"a"];
   [dictionary setObject:v11 forKeyedSubscript:@"o"];
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)fetchItemForPersistentRef:(id)ref error:(id *)error
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   refCopy = ref;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:*MEMORY[0x277CDC248] forKeyedSubscript:*MEMORY[0x277CDC228]];
@@ -1186,7 +1253,7 @@ LABEL_39:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = refCopy;
+      v28 = refCopy;
       _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "fetchItemForPersistentRef: failed to fetch persistent ref: %@", buf, 0xCu);
     }
 
@@ -1195,10 +1262,10 @@ LABEL_39:
       v12 = MEMORY[0x277CCA9B8];
       v13 = kKCPairingChannelErrorDomain;
       v14 = v8;
-      v32 = *MEMORY[0x277CCA450];
+      v31 = *MEMORY[0x277CCA450];
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"SecItemCopyMatching: %d", v8];
-      v33[0] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v32[0] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       *error = [v12 errorWithDomain:v13 code:v14 userInfo:v16];
     }
   }
@@ -1217,9 +1284,9 @@ LABEL_39:
     {
       v18 = CFGetTypeID(result);
       *buf = 138412546;
-      v29 = refCopy;
-      v30 = 2048;
-      v31 = v18;
+      v28 = refCopy;
+      v29 = 2048;
+      v30 = v18;
       _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "fetchItemForPersistentRef: unexpected keychain item type fetched for persistent ref: %@, type: %lu", buf, 0x16u);
     }
 
@@ -1227,9 +1294,9 @@ LABEL_39:
     {
       v19 = MEMORY[0x277CCA9B8];
       v20 = kKCPairingChannelErrorDomain;
-      v26 = *MEMORY[0x277CCA450];
-      v27 = @"unexpected keychain item type fetched for persistent ref";
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v25 = *MEMORY[0x277CCA450];
+      v26 = @"unexpected keychain item type fetched for persistent ref";
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       *error = [v19 errorWithDomain:v20 code:10 userInfo:v21];
     }
   }
@@ -1243,8 +1310,6 @@ LABEL_39:
 
   v10 = 0;
 LABEL_16:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1275,10 +1340,10 @@ LABEL_16:
 
 - (BOOL)isPacketSizeAcceptable:(id)acceptable error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:acceptable format:200 options:0 error:&v17];
-  v7 = v17;
+  v19 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:acceptable format:200 options:0 error:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -1311,7 +1376,7 @@ LABEL_12:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v8;
+    v18 = v8;
     _os_log_impl(&dword_22EB09000, v10, OS_LOG_TYPE_DEFAULT, "pairing: failed to serialize temp packet: %@", buf, 0xCu);
   }
 
@@ -1327,7 +1392,6 @@ LABEL_12:
   *error = v8;
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1342,7 +1406,7 @@ LABEL_13:
 
 - (void)acceptorThirdPacket:(id)packet complete:(id)complete
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   v7 = secLogObjForScope("pairing");
@@ -1353,28 +1417,28 @@ LABEL_13:
   }
 
   *buf = 0;
-  v54 = buf;
-  v55 = 0x2020000000;
-  v56 = 0;
+  v53 = buf;
+  v54 = 0x2020000000;
+  v55 = 0;
   v8 = _OctagonSignpostLogSystem();
   v9 = _OctagonSignpostCreate();
-  v39 = v10;
+  v38 = v10;
   v11 = v9;
 
   v12 = _OctagonSignpostLogSystem();
   v13 = v12;
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    *v57 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "PairingChannelAcceptorMessage3", " enableTelemetry=YES ", v57, 2u);
+    *v56 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "PairingChannelAcceptorMessage3", " enableTelemetry=YES ", v56, 2u);
   }
 
   v14 = _OctagonSignpostLogSystem();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v57 = 134217984;
-    v58 = v11;
-    _os_log_impl(&dword_22EB09000, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelAcceptorMessage3  enableTelemetry=YES ", v57, 0xCu);
+    *v56 = 134217984;
+    v57 = v11;
+    _os_log_impl(&dword_22EB09000, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelAcceptorMessage3  enableTelemetry=YES ", v56, 0xCu);
   }
 
   v15 = [AAFAnalyticsEventSecurity alloc];
@@ -1384,87 +1448,82 @@ LABEL_13:
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  LOBYTE(v34) = 1;
-  v22 = [(AAFAnalyticsEventSecurity *)v15 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesPacket5" testsAreEnabled:metricsAreEnabled canSendMetrics:v34 category:&unk_2843768F0];
+  LOBYTE(v33) = 1;
+  v22 = [(AAFAnalyticsEventSecurity *)v15 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesPacket5" testsAreEnabled:metricsAreEnabled canSendMetrics:v33 category:&unk_2843768F0];
 
   acceptorInitialSyncCredentialsFlags = [(KCPairingChannel *)self acceptorInitialSyncCredentialsFlags];
   connection = [(KCPairingChannel *)self connection];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke;
-  v47[3] = &unk_278863400;
-  v51 = v11;
-  v52 = v39;
-  v50 = buf;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke;
+  v46[3] = &unk_278863400;
+  v50 = v11;
+  v51 = v38;
+  v49 = buf;
   v23 = v22;
-  v48 = v23;
+  v47 = v23;
   v24 = completeCopy;
-  v49 = v24;
-  v37 = [connection remoteObjectProxyWithErrorHandler:v47];
+  v48 = v24;
+  v36 = [connection remoteObjectProxyWithErrorHandler:v46];
   peerVersionContext4 = [(KCPairingChannel *)self peerVersionContext];
   altDSID2 = [peerVersionContext4 altDSID];
   peerVersionContext5 = [(KCPairingChannel *)self peerVersionContext];
   flowID2 = [peerVersionContext5 flowID];
   peerVersionContext6 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID2 = [peerVersionContext6 deviceSessionID];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_292;
-  v40[3] = &unk_278863518;
-  v44 = buf;
-  v45 = v11;
-  v46 = v39;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_292;
+  v39[3] = &unk_278863518;
+  v43 = buf;
+  v44 = v11;
+  v45 = v38;
   v31 = v23;
-  v41 = v31;
+  v40 = v31;
   selfCopy = self;
   v32 = v24;
-  v43 = v32;
-  [v37 initialSyncCredentials:acceptorInitialSyncCredentialsFlags altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 complete:v40];
+  v42 = v32;
+  [v36 initialSyncCredentials:acceptorInitialSyncCredentialsFlags altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 complete:v39];
 
   _Block_object_dispose(buf, 8);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 64);
-  v5 = a2;
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = *(a1 + 56);
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 56);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    v11 = 67240192;
+    LODWORD(v12) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelAcceptorMessage3", " OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", &v11, 8u);
+  }
+
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 134218496;
     v10 = *(*(*(a1 + 48) + 8) + 24);
-    v14 = 67240192;
-    LODWORD(v15) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelAcceptorMessage3", " OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", &v14, 8u);
+    v12 = *(a1 + 56);
+    v13 = 2048;
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = 1026;
+    v16 = v10;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage3  OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", &v11, 0x1Cu);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    v14 = 134218496;
-    v12 = *(*(*(a1 + 48) + 8) + 24);
-    v15 = *(a1 + 56);
-    v16 = 2048;
-    v17 = Nanoseconds / 1000000000.0;
-    v18 = 1026;
-    v19 = v12;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage3  OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", &v14, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:0 error:v5];
+  [*(a1 + 32) sendMetricWithResult:0 error:v3];
   (*(*(a1 + 40) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_292(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB38] dictionary];
@@ -1472,9 +1531,9 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_292(uint
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v24 = [v5 count];
-    *&v24[4] = 2112;
-    *&v24[6] = v6;
+    *v22 = [v5 count];
+    *&v22[4] = 2112;
+    *&v22[6] = v6;
     _os_log_impl(&dword_22EB09000, v8, OS_LOG_TYPE_DEFAULT, "acceptor initialSyncCredentials complete: items %u: %@", buf, 0x12u);
   }
 
@@ -1491,52 +1550,50 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_292(uint
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 72);
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v13 = _OctagonSignpostLogSystem();
-  v14 = v13;
-  v15 = *(a1 + 64);
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v11 = _OctagonSignpostLogSystem();
+  v12 = v11;
+  v13 = *(a1 + 64);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v16 = *(*(*(a1 + 56) + 8) + 24);
+    v14 = *(*(*(a1 + 56) + 8) + 24);
     *buf = 67240192;
-    *v24 = v16;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_END, v15, "PairingChannelAcceptorMessage3", " OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", buf, 8u);
+    *v22 = v14;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorMessage3", " OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", buf, 8u);
   }
 
-  v17 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v15 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v18 = *(*(*(a1 + 56) + 8) + 24);
-    *v24 = *(a1 + 64);
-    *&v24[8] = 2048;
-    *&v24[10] = Nanoseconds / 1000000000.0;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage3  OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", buf, 0x1Cu);
+    v16 = *(*(*(a1 + 56) + 8) + 24);
+    *v22 = *(a1 + 64);
+    *&v22[8] = 2048;
+    *&v22[10] = Nanoseconds / 1000000000.0;
+    v23 = 1026;
+    v24 = v16;
+    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage3  OctagonSignpostNamePairingChannelAcceptorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage3}d ", buf, 0x1Cu);
   }
 
   [*(a1 + 32) sendMetricWithResult:v6 == 0 error:v6];
-  if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && [*(a1 + 40) acceptorWillSendPCSData])
+  if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v17) && [*(a1 + 40) acceptorWillSendPCSData])
   {
-    v19 = secLogObjForScope(pairingScope);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = secLogObjForScope(pairingScope);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "acceptor will send PCS data", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v18, OS_LOG_TYPE_DEFAULT, "acceptor will send PCS data", buf, 2u);
     }
 
     objc_initWeak(buf, *(a1 + 40));
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293;
-    v21[3] = &unk_278863270;
-    objc_copyWeak(&v22, buf);
-    [*(a1 + 40) setNextState:v21];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293;
+    v19[3] = &unk_278863270;
+    objc_copyWeak(&v20, buf);
+    [*(a1 + 40) setNextState:v19];
     (*(*(a1 + 48) + 16))();
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
@@ -1544,8 +1601,6 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_292(uint
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint64_t a1, void *a2, void *a3)
@@ -1558,7 +1613,7 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
 
 - (void)acceptorSecondOctagonPacket:(id)packet reply:(id)reply complete:(id)complete
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   replyCopy = reply;
   completeCopy = complete;
@@ -1569,8 +1624,8 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  LOBYTE(v38) = 1;
-  v17 = [(AAFAnalyticsEventSecurity *)v10 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesVoucher" testsAreEnabled:metricsAreEnabled canSendMetrics:v38 category:&unk_2843768F0];
+  LOBYTE(v37) = 1;
+  v17 = [(AAFAnalyticsEventSecurity *)v10 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesVoucher" testsAreEnabled:metricsAreEnabled canSendMetrics:v37 category:&unk_2843768F0];
 
   v18 = [packetCopy objectForKeyedSubscript:@"o"];
   objc_opt_class();
@@ -1579,9 +1634,9 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
     v19 = [[OTPairingMessage alloc] initWithData:v18];
     if ([(OTPairingMessage *)v19 hasPrepare])
     {
-      v39 = v18;
+      v38 = v18;
       prepare = [(OTPairingMessage *)v19 prepare];
-      v44 = 0;
+      v43 = 0;
       peerVersionContext4 = [(KCPairingChannel *)self peerVersionContext];
       capability = [peerVersionContext4 capability];
 
@@ -1596,13 +1651,13 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
         capability2 = @"full";
       }
 
-      v40 = completeCopy;
-      v41 = packetCopy;
+      v39 = completeCopy;
+      v40 = packetCopy;
       v27 = secLogObjForScope(pairingScope);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v46 = capability2;
+        v45 = capability2;
         _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "acceptor channel max capability set to %@", buf, 0xCu);
       }
 
@@ -1614,17 +1669,17 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v46) = v28 + 1;
+          LODWORD(v45) = v28 + 1;
           _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "Attempt %d fetching voucher", buf, 8u);
         }
 
-        v43 = 0;
-        v31 = [(KCPairingChannel *)self fetchVoucher:replyCopy prepare:prepare eventS:v17 finishedPairing:&v44 maxCapability:capability2 error:&v43];
-        v29 = v43;
+        v42 = 0;
+        v31 = [(KCPairingChannel *)self fetchVoucher:replyCopy prepare:prepare eventS:v17 finishedPairing:&v43 maxCapability:capability2 error:&v42];
+        v29 = v42;
         if (v31)
         {
-          completeCopy = v40;
-          (*(v40 + 2))(v40, v44, replyCopy, 0);
+          completeCopy = v39;
+          (*(v39 + 2))(v39, v43, replyCopy, 0);
           goto LABEL_29;
         }
 
@@ -1637,7 +1692,7 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v46) = v28 + 2;
+          LODWORD(v45) = v28 + 2;
           _os_log_impl(&dword_22EB09000, v32, OS_LOG_TYPE_DEFAULT, "Attempt %d retrying fetching voucher", buf, 8u);
         }
 
@@ -1652,7 +1707,7 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
           }
 
           *buf = 67109120;
-          LODWORD(v46) = vouchMaxRetry;
+          LODWORD(v45) = vouchMaxRetry;
           v34 = "pairing: failed to fetch voucher %d times, bailing.";
           v35 = v33;
           v36 = 8;
@@ -1667,11 +1722,11 @@ void __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(uint
       }
 
       *buf = 136315650;
-      v46 = pairingScope;
-      v47 = 1024;
-      v48 = v28 + 1;
-      v49 = 2112;
-      v50 = v29;
+      v45 = pairingScope;
+      v46 = 1024;
+      v47 = v28 + 1;
+      v48 = 2112;
+      v49 = v29;
       v34 = "%s Attempt %d failed fetching voucher: %@";
       v35 = v33;
       v36 = 28;
@@ -1679,12 +1734,12 @@ LABEL_27:
       _os_log_impl(&dword_22EB09000, v35, OS_LOG_TYPE_DEFAULT, v34, buf, v36);
 LABEL_28:
 
-      completeCopy = v40;
-      (*(v40 + 2))(v40, 1, 0, v29);
+      completeCopy = v39;
+      (*(v39 + 2))(v39, 1, 0, v29);
 LABEL_29:
-      v18 = v39;
+      v18 = v38;
 
-      packetCopy = v41;
+      packetCopy = v40;
     }
 
     else
@@ -1715,8 +1770,6 @@ LABEL_29:
     [(KCPairingChannel *)self setNextStateError:v19 complete:completeCopy];
     [(AAFAnalyticsEventSecurity *)v17 sendMetricWithResult:0 error:v19];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fetchVoucher:(id)voucher prepare:(id)prepare eventS:(id)s finishedPairing:(BOOL *)pairing maxCapability:(id)capability error:(id *)error
@@ -1780,7 +1833,7 @@ LABEL_29:
 
 void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapability_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1791,7 +1844,7 @@ void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapab
     {
       v11 = [*(a1 + 32) counter];
       *buf = 67109120;
-      v39 = v11;
+      v40 = v11;
       _os_log_impl(&dword_22EB09000, v10, OS_LOG_TYPE_DEFAULT, "error acceptor handling octagon packet %d", buf, 8u);
     }
 
@@ -1803,32 +1856,32 @@ void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapab
     goto LABEL_6;
   }
 
-  v16 = secLogObjForScope(pairingScope);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = secLogObjForScope(pairingScope);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = [*(a1 + 32) counter];
+    v16 = [*(a1 + 32) counter];
     *buf = 67109120;
-    v39 = v17;
-    _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "acceptor handled octagon packet %d", buf, 8u);
+    v40 = v16;
+    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "acceptor handled octagon packet %d", buf, 8u);
   }
 
   if (SOSCCIsSOSTrustAndSyncingEnabled() && [*(a1 + 32) acceptorWillSendInitialSyncCredentials])
   {
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapability_error___block_invoke_288;
-    v36[3] = &unk_278863270;
-    v18 = &v37;
-    objc_copyWeak(&v37, (a1 + 72));
-    [*(a1 + 32) setNextState:v36];
-    v19 = 0;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapability_error___block_invoke_288;
+    v37[3] = &unk_278863270;
+    v17 = &v38;
+    objc_copyWeak(&v38, (a1 + 72));
+    [*(a1 + 32) setNextState:v37];
+    v18 = 0;
   }
 
   else
   {
-    if (!CloudServicesLibraryCore() || !getSecureBackupIsGuitarfishEnabledSymbolLoc() || !soft_SecureBackupIsGuitarfishEnabled() || ![*(a1 + 32) acceptorWillSendPCSData])
+    if (!CloudServicesLibraryCore(0) || !getSecureBackupIsGuitarfishEnabledSymbolLoc() || (soft_SecureBackupIsGuitarfishEnabled(), !v19) || ![*(a1 + 32) acceptorWillSendPCSData])
     {
-      v19 = 1;
+      v18 = 1;
       goto LABEL_21;
     }
 
@@ -1839,17 +1892,17 @@ void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapab
       _os_log_impl(&dword_22EB09000, v20, OS_LOG_TYPE_DEFAULT, "acceptor will send PCS data", buf, 2u);
     }
 
-    v31 = MEMORY[0x277D85DD0];
-    v32 = 3221225472;
-    v33 = __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapability_error___block_invoke_289;
-    v34 = &unk_278863270;
-    v18 = &v35;
-    objc_copyWeak(&v35, (a1 + 72));
-    [*(a1 + 32) setNextState:&v31];
-    v19 = 1;
+    v32 = MEMORY[0x277D85DD0];
+    v33 = 3221225472;
+    v34 = __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapability_error___block_invoke_289;
+    v35 = &unk_278863270;
+    v17 = &v36;
+    objc_copyWeak(&v36, (a1 + 72));
+    [*(a1 + 32) setNextState:&v32];
+    v18 = 1;
   }
 
-  objc_destroyWeak(v18);
+  objc_destroyWeak(v17);
 LABEL_21:
   v14 = objc_alloc_init(OTPairingMessage);
   v21 = objc_alloc_init(OTSupportSOSMessage);
@@ -1877,7 +1930,7 @@ LABEL_21:
     v26 = 2;
   }
 
-  v27 = [(OTPairingMessage *)v14 supportsSOS:v31];
+  v27 = [(OTPairingMessage *)v14 supportsSOS:v32];
   [v27 setSupported:v26];
 
   v28 = [(OTPairingMessage *)v14 supportsOctagon];
@@ -1900,19 +1953,17 @@ LABEL_21:
 
   [*(a1 + 40) sendMetricWithResult:1 error:0];
   *(*(*(a1 + 64) + 8) + 24) = 1;
-  if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && [*(a1 + 32) acceptorWillSendPCSData])
+  if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v31) && [*(a1 + 32) acceptorWillSendPCSData])
   {
     **(a1 + 80) = 0;
   }
 
   else
   {
-    **(a1 + 80) = v19;
+    **(a1 + 80) = v18;
   }
 
 LABEL_6:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapability_error___block_invoke_288(uint64_t a1, void *a2, void *a3)
@@ -1933,18 +1984,18 @@ void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapab
 
 - (void)acceptorSecondPacket:(id)packet complete:(id)complete
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   objc_initWeak(&location, self);
   [(KCPairingChannel *)self setNextStateError:0 complete:0];
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x2020000000;
-  v73 = 0;
+  v71[0] = 0;
+  v71[1] = v71;
+  v71[2] = 0x2020000000;
+  v72 = 0;
   v6 = _OctagonSignpostLogSystem();
   v7 = _OctagonSignpostCreate();
-  v43 = v8;
+  v42 = v8;
   v9 = v7;
 
   v10 = _OctagonSignpostLogSystem();
@@ -1970,8 +2021,8 @@ void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapab
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  LOBYTE(v37) = 1;
-  v44 = [(AAFAnalyticsEventSecurity *)v13 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesPacket4" testsAreEnabled:metricsAreEnabled canSendMetrics:v37 category:&unk_2843768F0];
+  LOBYTE(v36) = 1;
+  v43 = [(AAFAnalyticsEventSecurity *)v13 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesPacket4" testsAreEnabled:metricsAreEnabled canSendMetrics:v36 category:&unk_2843768F0];
 
   v20 = secLogObjForScope("pairing");
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -1982,172 +2033,164 @@ void __84__KCPairingChannel_fetchVoucher_prepare_eventS_finishedPairing_maxCapab
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy_;
-  v80 = __Block_byref_object_dispose_;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy_;
+  v79 = __Block_byref_object_dispose_;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v21 = [packetCopy objectForKeyedSubscript:@"p"];
   if ([(KCPairingChannel *)self sessionSupportsSOS]&& (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v70[0] = 0;
-    v70[1] = v70;
-    v70[2] = 0x2020000000;
-    v71 = 0;
+    v69[0] = 0;
+    v69[1] = v69;
+    v69[2] = 0x2020000000;
+    v70 = 0;
     v22 = _OctagonSignpostLogSystem();
     v23 = _OctagonSignpostCreate();
-    v42 = v24;
+    v41 = v24;
     v25 = v23;
 
     v26 = _OctagonSignpostLogSystem();
     v27 = v26;
     if ((v25 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
-      *v75 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "PairingChannelAcceptorCircleJoiningBlob", " enableTelemetry=YES ", v75, 2u);
+      *v74 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "PairingChannelAcceptorCircleJoiningBlob", " enableTelemetry=YES ", v74, 2u);
     }
 
     v28 = _OctagonSignpostLogSystem();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      *v75 = 134217984;
-      v76 = v25;
-      _os_log_impl(&dword_22EB09000, v28, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelAcceptorCircleJoiningBlob  enableTelemetry=YES ", v75, 0xCu);
+      *v74 = 134217984;
+      v75 = v25;
+      _os_log_impl(&dword_22EB09000, v28, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelAcceptorCircleJoiningBlob  enableTelemetry=YES ", v74, 0xCu);
     }
 
     connection = [(KCPairingChannel *)self connection];
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke;
-    v61[3] = &unk_2788632C0;
-    v66 = v25;
-    v67 = v42;
-    v68 = v9;
-    v69 = v43;
-    v64 = v70;
-    v65 = v72;
-    v29 = v44;
-    v62 = v29;
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke;
+    v60[3] = &unk_2788632C0;
+    v65 = v25;
+    v66 = v41;
+    v67 = v9;
+    v68 = v42;
+    v63 = v69;
+    v64 = v71;
+    v29 = v43;
+    v61 = v29;
     v30 = completeCopy;
-    v63 = v30;
-    v39 = [connection remoteObjectProxyWithErrorHandler:v61];
+    v62 = v30;
+    v38 = [connection remoteObjectProxyWithErrorHandler:v60];
     peerVersionContext4 = [(KCPairingChannel *)self peerVersionContext];
     altDSID2 = [peerVersionContext4 altDSID];
     peerVersionContext5 = [(KCPairingChannel *)self peerVersionContext];
     flowID2 = [peerVersionContext5 flowID];
     peerVersionContext6 = [(KCPairingChannel *)self peerVersionContext];
     deviceSessionID2 = [peerVersionContext6 deviceSessionID];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_284;
-    v53[3] = &unk_2788634C8;
-    v60[1] = v25;
-    v60[2] = v42;
-    v57 = v70;
-    v53[4] = self;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_284;
+    v52[3] = &unk_2788634C8;
+    v59[1] = v25;
+    v59[2] = v41;
+    v56 = v69;
+    v52[4] = self;
     p_buf = &buf;
-    v54 = packetCopy;
-    v59 = v72;
-    v60[3] = v9;
-    v60[4] = v43;
-    v55 = v29;
-    v56 = v30;
-    objc_copyWeak(v60, &location);
-    [v39 circleJoiningBlob:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 applicant:v21 complete:v53];
+    v53 = packetCopy;
+    v58 = v71;
+    v59[3] = v9;
+    v59[4] = v42;
+    v54 = v29;
+    v55 = v30;
+    objc_copyWeak(v59, &location);
+    [v38 circleJoiningBlob:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 applicant:v21 complete:v52];
 
-    objc_destroyWeak(v60);
-    _Block_object_dispose(v70, 8);
+    objc_destroyWeak(v59);
+    _Block_object_dispose(v69, 8);
   }
 
   else if ([(KCPairingChannel *)self sessionSupportsOctagon])
   {
     v35 = *(*(&buf + 1) + 40);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_287;
-    v47[3] = &unk_2788632E8;
-    v50 = v72;
-    v51 = v9;
-    v52 = v43;
-    v48 = v44;
-    v49 = completeCopy;
-    [(KCPairingChannel *)self acceptorSecondOctagonPacket:packetCopy reply:v35 complete:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_287;
+    v46[3] = &unk_2788632E8;
+    v49 = v71;
+    v50 = v9;
+    v51 = v42;
+    v47 = v43;
+    v48 = completeCopy;
+    [(KCPairingChannel *)self acceptorSecondOctagonPacket:packetCopy reply:v35 complete:v46];
   }
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(v72, 8);
+  _Block_object_dispose(v71, 8);
   objc_destroyWeak(&location);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 72);
-  v5 = a2;
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = *(a1 + 64);
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 64);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelAcceptorCircleJoiningBlob", " OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", &v24, 8u);
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelAcceptorCircleJoiningBlob", " OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", &v19, 8u);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 64);
-    v13 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 134218496;
-    v25 = v12;
-    v26 = 2048;
-    v27 = Nanoseconds / 1000000000.0;
-    v28 = 1026;
-    v29 = v13;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorCircleJoiningBlob  OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", &v24, 0x1Cu);
+    v10 = *(a1 + 64);
+    v11 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 134218496;
+    v20 = v10;
+    v21 = 2048;
+    v22 = Nanoseconds / 1000000000.0;
+    v23 = 1026;
+    v24 = v11;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorCircleJoiningBlob  OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", &v19, 0x1Cu);
   }
 
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v16 = _OctagonSignpostGetNanoseconds();
+  v12 = _OctagonSignpostGetNanoseconds();
+  v13 = _OctagonSignpostLogSystem();
+  v14 = v13;
+  v15 = *(a1 + 80);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    v16 = *(*(*(a1 + 56) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v16;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_END, v15, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v19, 8u);
+  }
+
   v17 = _OctagonSignpostLogSystem();
-  v18 = v17;
-  v19 = *(a1 + 80);
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = *(*(*(a1 + 56) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v20;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v18, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v24, 8u);
+    v19 = 134218496;
+    v18 = *(*(*(a1 + 56) + 8) + 24);
+    v20 = *(a1 + 80);
+    v21 = 2048;
+    v22 = v12 / 1000000000.0;
+    v23 = 1026;
+    v24 = v18;
+    _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v19, 0x1Cu);
   }
 
-  v21 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = 134218496;
-    v22 = *(*(*(a1 + 56) + 8) + 24);
-    v25 = *(a1 + 80);
-    v26 = 2048;
-    v27 = v16 / 1000000000.0;
-    v28 = 1026;
-    v29 = v22;
-    _os_log_impl(&dword_22EB09000, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v24, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:0 error:v5];
+  [*(a1 + 32) sendMetricWithResult:0 error:v3];
   (*(*(a1 + 40) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_284(uint64_t a1, void *a2, void *a3)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -2156,45 +2199,43 @@ void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_284(uin
     *(*(*(a1 + 64) + 8) + 24) = 1;
   }
 
-  v8 = *(a1 + 96);
-  v9 = *(a1 + 104);
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 96);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 96);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v14 = *(*(*(a1 + 64) + 8) + 24);
+    v12 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 67240192;
-    *v57 = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorCircleJoiningBlob", " OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", buf, 8u);
+    *v48 = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorCircleJoiningBlob", " OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", buf, 8u);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 96);
-    v17 = *(*(*(a1 + 64) + 8) + 24);
+    v14 = *(a1 + 96);
+    v15 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 134218496;
-    *v57 = v16;
-    *&v57[8] = 2048;
-    *&v57[10] = Nanoseconds / 1000000000.0;
-    v58 = 1026;
-    v59 = v17;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorCircleJoiningBlob  OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", buf, 0x1Cu);
+    *v48 = v14;
+    *&v48[8] = 2048;
+    *&v48[10] = Nanoseconds / 1000000000.0;
+    v49 = 1026;
+    v50 = v15;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorCircleJoiningBlob  OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorCircleJoiningBlob}d ", buf, 0x1Cu);
   }
 
   if (v5)
   {
-    v18 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v16 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [*(a1 + 32) acceptorWillSendInitialSyncCredentials];
+      v17 = [*(a1 + 32) acceptorWillSendInitialSyncCredentials];
       *buf = 67109378;
-      *v57 = v19;
-      *&v57[4] = 2112;
-      *&v57[6] = v7;
-      _os_log_impl(&dword_22EB09000, v18, OS_LOG_TYPE_DEFAULT, "acceptor pairing complete (will send: %{BOOL}d): %@", buf, 0x12u);
+      *v48 = v17;
+      *&v48[4] = 2112;
+      *&v48[6] = v7;
+      _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "acceptor pairing complete (will send: %{BOOL}d): %@", buf, 0x12u);
     }
 
     [*(*(*(a1 + 72) + 8) + 40) setObject:v5 forKeyedSubscript:@"b"];
@@ -2202,204 +2243,188 @@ void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_284(uin
 
   if ([*(a1 + 32) sessionSupportsOctagon])
   {
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 40);
-    v22 = *(*(*(a1 + 72) + 8) + 40);
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_285;
-    v51[3] = &unk_2788632E8;
-    v54 = *(a1 + 80);
-    v55 = *(a1 + 112);
-    v52 = *(a1 + 48);
-    v53 = *(a1 + 56);
-    [v20 acceptorSecondOctagonPacket:v21 reply:v22 complete:v51];
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    v20 = *(*(*(a1 + 72) + 8) + 40);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_285;
+    v42[3] = &unk_2788632E8;
+    v45 = *(a1 + 80);
+    v46 = *(a1 + 112);
+    v43 = *(a1 + 48);
+    v44 = *(a1 + 56);
+    [v18 acceptorSecondOctagonPacket:v19 reply:v20 complete:v42];
 
-    v23 = v52;
+    v21 = v43;
   }
 
   else
   {
-    v24 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v22 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v24, OS_LOG_TYPE_DEFAULT, "posting kSOSCCCircleOctagonKeysChangedNotification", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v22, OS_LOG_TYPE_DEFAULT, "posting kSOSCCCircleOctagonKeysChangedNotification", buf, 2u);
     }
 
     notify_post(*MEMORY[0x277CDBE70]);
     if ([*(a1 + 32) acceptorWillSendInitialSyncCredentials])
     {
-      v46 = MEMORY[0x277D85DD0];
-      v47 = 3221225472;
-      v48 = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_286;
-      v49 = &unk_278863270;
-      objc_copyWeak(&v50, (a1 + 88));
-      [*(a1 + 32) setNextState:&v46];
+      v37 = MEMORY[0x277D85DD0];
+      v38 = 3221225472;
+      v39 = __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_286;
+      v40 = &unk_278863270;
+      objc_copyWeak(&v41, (a1 + 88));
+      [*(a1 + 32) setNextState:&v37];
       *(*(*(a1 + 80) + 8) + 24) = 1;
-      v25 = *(a1 + 112);
-      v26 = *(a1 + 120);
-      v27 = _OctagonSignpostGetNanoseconds();
-      v28 = _OctagonSignpostLogSystem();
-      v29 = v28;
-      v30 = *(a1 + 112);
-      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+      v23 = _OctagonSignpostGetNanoseconds();
+      v24 = _OctagonSignpostLogSystem();
+      v25 = v24;
+      v26 = *(a1 + 112);
+      if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
       {
-        v31 = *(*(*(a1 + 80) + 8) + 24);
+        v27 = *(*(*(a1 + 80) + 8) + 24);
         *buf = 67240192;
-        *v57 = v31;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v29, OS_SIGNPOST_INTERVAL_END, v30, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 8u);
+        *v48 = v27;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v25, OS_SIGNPOST_INTERVAL_END, v26, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 8u);
       }
 
-      v32 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v28 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v33 = *(*(*(a1 + 80) + 8) + 24);
-        *v57 = *(a1 + 112);
-        *&v57[8] = 2048;
-        *&v57[10] = v27 / 1000000000.0;
-        v58 = 1026;
-        v59 = v33;
-        _os_log_impl(&dword_22EB09000, v32, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 0x1Cu);
+        v29 = *(*(*(a1 + 80) + 8) + 24);
+        *v48 = *(a1 + 112);
+        *&v48[8] = 2048;
+        *&v48[10] = v23 / 1000000000.0;
+        v49 = 1026;
+        v50 = v29;
+        _os_log_impl(&dword_22EB09000, v28, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 0x1Cu);
       }
 
-      [*(a1 + 48) sendMetricWithResult:1 error:{0, v46, v47, v48, v49}];
-      v34 = *(*(*(a1 + 72) + 8) + 40);
+      [*(a1 + 48) sendMetricWithResult:1 error:{0, v37, v38, v39, v40}];
       (*(*(a1 + 56) + 16))();
-      objc_destroyWeak(&v50);
+      objc_destroyWeak(&v41);
     }
 
     else
     {
       *(*(*(a1 + 80) + 8) + 24) = 1;
-      v35 = *(a1 + 112);
-      v36 = *(a1 + 120);
-      v37 = _OctagonSignpostGetNanoseconds();
-      v38 = _OctagonSignpostLogSystem();
-      v39 = v38;
-      v40 = *(a1 + 112);
-      if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+      v30 = _OctagonSignpostGetNanoseconds();
+      v31 = _OctagonSignpostLogSystem();
+      v32 = v31;
+      v33 = *(a1 + 112);
+      if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
-        v41 = *(*(*(a1 + 80) + 8) + 24);
+        v34 = *(*(*(a1 + 80) + 8) + 24);
         *buf = 67240192;
-        *v57 = v41;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v39, OS_SIGNPOST_INTERVAL_END, v40, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 8u);
+        *v48 = v34;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v32, OS_SIGNPOST_INTERVAL_END, v33, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 8u);
       }
 
-      v42 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v35 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v43 = *(*(*(a1 + 80) + 8) + 24);
-        *v57 = *(a1 + 112);
-        *&v57[8] = 2048;
-        *&v57[10] = v37 / 1000000000.0;
-        v58 = 1026;
-        v59 = v43;
-        _os_log_impl(&dword_22EB09000, v42, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 0x1Cu);
+        v36 = *(*(*(a1 + 80) + 8) + 24);
+        *v48 = *(a1 + 112);
+        *&v48[8] = 2048;
+        *&v48[10] = v30 / 1000000000.0;
+        v49 = 1026;
+        v50 = v36;
+        _os_log_impl(&dword_22EB09000, v35, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 48) sendMetricWithResult:1 error:0];
-      v44 = *(*(*(a1 + 72) + 8) + 40);
       (*(*(a1 + 56) + 16))();
     }
 
-    v23 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v21 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v23, OS_LOG_TYPE_DEFAULT, "acceptor reply to packet 2", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v21, OS_LOG_TYPE_DEFAULT, "acceptor reply to packet 2", buf, 2u);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_287(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_285(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorMessage2", " OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage2  OctagonSignpostNamePairingChannelAcceptorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage2}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_286(uint64_t a1, void *a2, void *a3)
@@ -2412,7 +2437,7 @@ void __50__KCPairingChannel_acceptorSecondPacket_complete___block_invoke_286(uin
 
 - (void)acceptorFirstOctagonPacket:(id)packet reply:(id)reply complete:(id)complete
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   completeCopy = complete;
   v10 = [packet objectForKeyedSubscript:@"o"];
@@ -2459,13 +2484,13 @@ LABEL_18:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v27) = v14 + 1;
+      LODWORD(v26) = v14 + 1;
       _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "Attempt %d fetching epoch", buf, 8u);
     }
 
-    v25 = 0;
-    v16 = [(KCPairingChannel *)self fetchEpoch:replyCopy error:&v25];
-    v13 = v25;
+    v24 = 0;
+    v16 = [(KCPairingChannel *)self fetchEpoch:replyCopy error:&v24];
+    v13 = v24;
     if (v16)
     {
       (*(completeCopy + 2))(completeCopy, 0, replyCopy, 0);
@@ -2481,7 +2506,7 @@ LABEL_18:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v27) = v14 + 2;
+      LODWORD(v26) = v14 + 2;
       _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "Attempt %d retrying fetching epoch", buf, 8u);
     }
 
@@ -2496,7 +2521,7 @@ LABEL_18:
       }
 
       *buf = 67109120;
-      LODWORD(v27) = epochMaxRetry;
+      LODWORD(v26) = epochMaxRetry;
       v19 = "pairing: failed to fetch epoch %d times, bailing.";
       v20 = v18;
       v21 = 8;
@@ -2511,11 +2536,11 @@ LABEL_18:
   }
 
   *buf = 136315650;
-  v27 = pairingScope;
-  v28 = 1024;
-  v29 = v14 + 1;
-  v30 = 2112;
-  v31 = v13;
+  v26 = pairingScope;
+  v27 = 1024;
+  v28 = v14 + 1;
+  v29 = 2112;
+  v30 = v13;
   v19 = "%s: Attempt %d failed fetching epoch: %@";
   v20 = v18;
   v21 = 28;
@@ -2525,8 +2550,6 @@ LABEL_23:
 
   (*(completeCopy + 2))(completeCopy, 1, 0, v13);
 LABEL_24:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fetchEpoch:(id)epoch error:(id *)error
@@ -2579,15 +2602,15 @@ LABEL_24:
 
 void __37__KCPairingChannel_fetchEpoch_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = secLogObjForScope("pairing");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v27 = a2;
-    v28 = 2112;
-    v29 = v6;
+    v26 = a2;
+    v27 = 2112;
+    v28 = v6;
     _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "acceptor rpcEpochWithArguments: %ld (%@)", buf, 0x16u);
   }
 
@@ -2598,7 +2621,7 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke(uint64_t a1, uint64_
     {
       v9 = [*(a1 + 32) counter];
       *buf = 67109120;
-      LODWORD(v27) = v9;
+      LODWORD(v26) = v9;
       _os_log_impl(&dword_22EB09000, v8, OS_LOG_TYPE_DEFAULT, "error acceptor handling packet %d", buf, 8u);
     }
 
@@ -2607,67 +2630,65 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke(uint64_t a1, uint64_
 
   else
   {
-    v11 = secLogObjForScope(pairingScope);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = secLogObjForScope(pairingScope);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [*(a1 + 32) counter];
+      v11 = [*(a1 + 32) counter];
       *buf = 67109120;
-      LODWORD(v27) = v12;
-      _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "acceptor handled packet %d", buf, 8u);
+      LODWORD(v26) = v11;
+      _os_log_impl(&dword_22EB09000, v10, OS_LOG_TYPE_DEFAULT, "acceptor handled packet %d", buf, 8u);
     }
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __37__KCPairingChannel_fetchEpoch_error___block_invoke_281;
-    v24[3] = &unk_278863270;
-    objc_copyWeak(&v25, (a1 + 64));
-    [*(a1 + 32) setNextState:v24];
-    v13 = objc_alloc_init(OTPairingMessage);
-    v14 = objc_alloc_init(OTSupportSOSMessage);
-    [(OTPairingMessage *)v13 setSupportsSOS:v14];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __37__KCPairingChannel_fetchEpoch_error___block_invoke_281;
+    v23[3] = &unk_278863270;
+    objc_copyWeak(&v24, (a1 + 64));
+    [*(a1 + 32) setNextState:v23];
+    v12 = objc_alloc_init(OTPairingMessage);
+    v13 = objc_alloc_init(OTSupportSOSMessage);
+    [(OTPairingMessage *)v12 setSupportsSOS:v13];
 
-    v15 = objc_alloc_init(OTSupportOctagonMessage);
-    [(OTPairingMessage *)v13 setSupportsOctagon:v15];
+    v14 = objc_alloc_init(OTSupportOctagonMessage);
+    [(OTPairingMessage *)v12 setSupportsOctagon:v14];
 
-    v16 = objc_alloc_init(OTSponsorToApplicantRound1M2);
-    [(OTPairingMessage *)v13 setEpoch:v16];
+    v15 = objc_alloc_init(OTSponsorToApplicantRound1M2);
+    [(OTPairingMessage *)v12 setEpoch:v15];
 
-    v17 = [(OTPairingMessage *)v13 epoch];
-    [v17 setEpoch:a2];
+    v16 = [(OTPairingMessage *)v12 epoch];
+    [v16 setEpoch:a2];
 
-    LODWORD(v17) = SOSCCIsSOSTrustAndSyncingEnabled();
-    v18 = [(OTPairingMessage *)v13 supportsSOS];
-    v19 = v18;
-    if (v17)
+    LODWORD(v16) = SOSCCIsSOSTrustAndSyncingEnabled();
+    v17 = [(OTPairingMessage *)v12 supportsSOS];
+    v18 = v17;
+    if (v16)
     {
-      v20 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v20 = 2;
+      v19 = 2;
     }
 
-    [v18 setSupported:v20];
+    [v17 setSupported:v19];
 
-    v21 = [(OTPairingMessage *)v13 supportsOctagon];
-    [v21 setSupported:1];
+    v20 = [(OTPairingMessage *)v12 supportsOctagon];
+    [v20 setSupported:1];
 
-    v22 = [(OTPairingMessage *)v13 data];
-    [*(a1 + 40) setObject:v22 forKeyedSubscript:@"o"];
+    v21 = [(OTPairingMessage *)v12 data];
+    [*(a1 + 40) setObject:v21 forKeyedSubscript:@"o"];
 
-    v23 = secLogObjForScope(pairingScope);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = secLogObjForScope(pairingScope);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v23, OS_LOG_TYPE_DEFAULT, "acceptor reply to packet 1", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v22, OS_LOG_TYPE_DEFAULT, "acceptor reply to packet 1", buf, 2u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, void *a2, void *a3)
@@ -2680,7 +2701,7 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, voi
 
 - (void)acceptorFirstPacket:(id)packet complete:(id)complete
 {
-  v124[1] = *MEMORY[0x277D85DE8];
+  v125[1] = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   objc_initWeak(&location, self);
@@ -2708,23 +2729,23 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, voi
   }
 
   v8 = [AAFAnalyticsEventSecurity alloc];
-  v123 = @"supportedTrustSystem";
+  v124 = @"supportedTrustSystem";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:sessionSupportsSOS];
-  v124[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:&v123 count:1];
+  v125[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v125 forKeys:&v124 count:1];
   peerVersionContext = [(KCPairingChannel *)self peerVersionContext];
   altDSID = [peerVersionContext altDSID];
   peerVersionContext2 = [(KCPairingChannel *)self peerVersionContext];
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  LOBYTE(v72) = 1;
-  v17 = [(AAFAnalyticsEventSecurity *)v8 initWithKeychainCircleMetrics:v10 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesPacket2" testsAreEnabled:metricsAreEnabled canSendMetrics:v72 category:&unk_2843768F0];
+  LOBYTE(v73) = 1;
+  v17 = [(AAFAnalyticsEventSecurity *)v8 initWithKeychainCircleMetrics:v10 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.acceptorCreatesPacket2" testsAreEnabled:metricsAreEnabled canSendMetrics:v73 category:&unk_2843768F0];
 
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
-  v115 = 0;
+  v113 = 0;
+  v114 = &v113;
+  v115 = 0x2020000000;
+  v116 = 0;
   v18 = _OctagonSignpostLogSystem();
   v19 = _OctagonSignpostCreate();
   v21 = v20;
@@ -2748,37 +2769,37 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, voi
 
   if ([(KCPairingChannel *)self sessionSupportsSOS]&& ![(KCPairingChannel *)self ensureControlChannel])
   {
-    v37 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v38 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "unable to establish a channel to sos control", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v38, OS_LOG_TYPE_DEFAULT, "unable to establish a channel to sos control", buf, 2u);
     }
 
     v31 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:1 userInfo:0];
     [(KCPairingChannel *)self setNextStateError:v31 complete:completeCopy];
     [(AAFAnalyticsEventSecurity *)v17 sendMetricWithResult:0 error:v31];
     Nanoseconds = _OctagonSignpostGetNanoseconds();
-    v39 = _OctagonSignpostLogSystem();
-    v40 = v39;
-    if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+    v40 = _OctagonSignpostLogSystem();
+    v41 = v40;
+    if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
     {
-      v41 = *(v113 + 24);
+      v42 = *(v114 + 24);
       *buf = 67240192;
-      *&buf[4] = v41;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v40, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 8u);
+      *&buf[4] = v42;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v41, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 8u);
     }
 
     dictionary = _OctagonSignpostLogSystem();
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v43 = *(v113 + 24);
+      v44 = *(v114 + 24);
       *&buf[4] = v19;
       *&buf[12] = 2048;
       *&buf[14] = Nanoseconds / 1000000000.0;
       *&buf[22] = 1026;
-      LODWORD(v120) = v43;
+      LODWORD(v121) = v44;
       _os_log_impl(&dword_22EB09000, dictionary, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 0x1Cu);
     }
   }
@@ -2809,11 +2830,11 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, voi
 
     if (v30)
     {
-      v36 = secLogObjForScope("pairing");
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v37 = secLogObjForScope("pairing");
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v36, OS_LOG_TYPE_DEFAULT, "initiator didn't send a octagon packet, so skipping all octagon flows", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "initiator didn't send a octagon packet, so skipping all octagon flows", buf, 2u);
       }
 
       [(KCPairingChannel *)self setSessionSupportsOctagon:0];
@@ -2824,17 +2845,18 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, voi
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (CloudServicesLibraryCore())
+      if (CloudServicesLibraryCore(0))
       {
         if (getSecureBackupIsGuitarfishEnabledSymbolLoc())
         {
-          if (soft_SecureBackupIsGuitarfishEnabled())
+          soft_SecureBackupIsGuitarfishEnabled();
+          if (v32)
           {
-            v32 = [v31 objectForKeyedSubscript:@"s"];
-            if (v32)
+            v33 = [v31 objectForKeyedSubscript:@"s"];
+            if (v33)
             {
-              v33 = [v31 objectForKeyedSubscript:@"s"];
-              if ([v33 isEqualToNumber:MEMORY[0x277CBEC38]])
+              v34 = [v31 objectForKeyedSubscript:@"s"];
+              if ([v34 isEqualToNumber:MEMORY[0x277CBEC38]])
               {
                 peerVersionContext4 = [(KCPairingChannel *)self peerVersionContext];
                 accountIsGuitarfish = [peerVersionContext4 accountIsGuitarfish];
@@ -2856,62 +2878,72 @@ void __37__KCPairingChannel_fetchEpoch_error___block_invoke_281(uint64_t a1, voi
 LABEL_47:
       v31 = objc_alloc_init(MEMORY[0x277CDBD70]);
       dictionary = [MEMORY[0x277CBEB38] dictionary];
-      if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && [(KCPairingChannel *)self acceptorWillSendPCSData])
+      if (CloudServicesLibraryCore(0))
       {
-        [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"y"];
+        if (getSecureBackupIsGuitarfishEnabledSymbolLoc())
+        {
+          soft_SecureBackupIsGuitarfishEnabled();
+          if (v47)
+          {
+            if ([(KCPairingChannel *)self acceptorWillSendPCSData])
+            {
+              [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"y"];
+            }
+          }
+        }
       }
 
-      v108 = 0;
-      v109 = &v108;
-      v110 = 0x2020000000;
-      v111 = 1;
+      v109 = 0;
+      v110 = &v109;
+      v111 = 0x2020000000;
+      v112 = 1;
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v120 = __Block_byref_object_copy_;
-      v121 = __Block_byref_object_dispose_;
-      v122 = 0;
+      v121 = __Block_byref_object_copy_;
+      v122 = __Block_byref_object_dispose_;
+      v123 = 0;
       otControl = [(KCPairingChannel *)self otControl];
       controlArguments = [(KCPairingChannel *)self controlArguments];
-      v107[0] = MEMORY[0x277D85DD0];
-      v107[1] = 3221225472;
-      v107[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke;
-      v107[3] = &unk_278863450;
-      v107[4] = &v108;
-      v107[5] = buf;
-      [otControl fetchTrustStatus:controlArguments configuration:v31 reply:v107];
+      v108[0] = MEMORY[0x277D85DD0];
+      v108[1] = 3221225472;
+      v108[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke;
+      v108[3] = &unk_278863450;
+      v108[4] = &v109;
+      v108[5] = buf;
+      [otControl fetchTrustStatus:controlArguments configuration:v31 reply:v108];
 
-      if (v109[3])
+      if (v110[3])
       {
-        v48 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        v50 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          *v117 = 0;
-          _os_log_impl(&dword_22EB09000, v48, OS_LOG_TYPE_DEFAULT, "pairing: device is not trusted, stopping the pairing flow", v117, 2u);
+          *v118 = 0;
+          _os_log_impl(&dword_22EB09000, v50, OS_LOG_TYPE_DEFAULT, "pairing: device is not trusted, stopping the pairing flow", v118, 2u);
         }
 
-        v49 = *(*&buf[8] + 40);
-        v50 = v49;
-        if (!v49)
+        v51 = *(*&buf[8] + 40);
+        v52 = v51;
+        if (!v51)
         {
-          v50 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:8 description:{@"device cannot support pairing, not trusted in Octagon"}];
+          v52 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:8 description:{@"device cannot support pairing, not trusted in Octagon"}];
         }
 
-        completeCopy[2](completeCopy, 1, 0, v50);
-        if (!v49)
+        completeCopy[2](completeCopy, 1, 0, v52);
+        if (!v51)
         {
         }
       }
 
       else if (*(*&buf[8] + 40))
       {
-        v51 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        v53 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
-          v52 = *(*&buf[8] + 40);
-          *v117 = 138412290;
-          *&v117[4] = v52;
-          _os_log_impl(&dword_22EB09000, v51, OS_LOG_TYPE_DEFAULT, "pairing: failed to check trust status: %@", v117, 0xCu);
+          v54 = *(*&buf[8] + 40);
+          *v118 = 138412290;
+          *&v118[4] = v54;
+          _os_log_impl(&dword_22EB09000, v53, OS_LOG_TYPE_DEFAULT, "pairing: failed to check trust status: %@", v118, 0xCu);
         }
 
         completeCopy[2](completeCopy, 1, 0, *(*&buf[8] + 40));
@@ -2919,144 +2951,144 @@ LABEL_47:
 
       else if ([(KCPairingChannel *)self sessionSupportsSOS])
       {
-        v53 = _OctagonSignpostLogSystem();
-        v54 = _OctagonSignpostCreate();
-        v79 = v55;
-        spid = v54;
-
-        v56 = _OctagonSignpostLogSystem();
-        v57 = v56;
-        if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
-        {
-          *v117 = 0;
-          _os_signpost_emit_with_name_impl(&dword_22EB09000, v57, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PairingChannelAcceptorFetchStashCredential", " enableTelemetry=YES ", v117, 2u);
-        }
+        v55 = _OctagonSignpostLogSystem();
+        v56 = _OctagonSignpostCreate();
+        v80 = v57;
+        spid = v56;
 
         v58 = _OctagonSignpostLogSystem();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v59 = v58;
+        if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
         {
-          *v117 = 134217984;
-          *&v117[4] = spid;
-          _os_log_impl(&dword_22EB09000, v58, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelAcceptorFetchStashCredential  enableTelemetry=YES ", v117, 0xCu);
+          *v118 = 0;
+          _os_signpost_emit_with_name_impl(&dword_22EB09000, v59, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PairingChannelAcceptorFetchStashCredential", " enableTelemetry=YES ", v118, 2u);
         }
 
-        *v117 = 0;
-        *&v117[8] = v117;
-        *&v117[16] = 0x2020000000;
-        LOBYTE(v118) = 0;
+        v60 = _OctagonSignpostLogSystem();
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+        {
+          *v118 = 134217984;
+          *&v118[4] = spid;
+          _os_log_impl(&dword_22EB09000, v60, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelAcceptorFetchStashCredential  enableTelemetry=YES ", v118, 0xCu);
+        }
+
+        *v118 = 0;
+        *&v118[8] = v118;
+        *&v118[16] = 0x2020000000;
+        LOBYTE(v119) = 0;
         connection = [(KCPairingChannel *)self connection];
-        v98[0] = MEMORY[0x277D85DD0];
-        v98[1] = 3221225472;
-        v98[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_275;
-        v98[3] = &unk_2788632C0;
-        v103 = spid;
-        v104 = v79;
-        v105 = v19;
-        v106 = v21;
-        v101 = v117;
-        v102 = &v112;
-        v74 = v17;
-        v99 = v74;
-        v73 = completeCopy;
-        v100 = v73;
-        v75 = [connection remoteObjectProxyWithErrorHandler:v98];
+        v99[0] = MEMORY[0x277D85DD0];
+        v99[1] = 3221225472;
+        v99[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_275;
+        v99[3] = &unk_2788632C0;
+        v104 = spid;
+        v105 = v80;
+        v106 = v19;
+        v107 = v21;
+        v102 = v118;
+        v103 = &v113;
+        v75 = v17;
+        v100 = v75;
+        v74 = completeCopy;
+        v101 = v74;
+        v76 = [connection remoteObjectProxyWithErrorHandler:v99];
         peerVersionContext5 = [(KCPairingChannel *)self peerVersionContext];
         altDSID2 = [peerVersionContext5 altDSID];
         peerVersionContext6 = [(KCPairingChannel *)self peerVersionContext];
         flowID2 = [peerVersionContext6 flowID];
         peerVersionContext7 = [(KCPairingChannel *)self peerVersionContext];
         deviceSessionID2 = [peerVersionContext7 deviceSessionID];
-        v89[0] = MEMORY[0x277D85DD0];
-        v89[1] = 3221225472;
-        v89[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_276;
-        v89[3] = &unk_278863478;
-        v95 = v117;
-        v97[1] = spid;
-        v97[2] = v79;
-        v90 = dictionary;
+        v90[0] = MEMORY[0x277D85DD0];
+        v90[1] = 3221225472;
+        v90[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_276;
+        v90[3] = &unk_278863478;
+        v96 = v118;
+        v98[1] = spid;
+        v98[2] = v80;
+        v91 = dictionary;
         selfCopy = self;
-        v92 = packetCopy;
-        v96 = &v112;
-        v97[3] = v19;
-        v97[4] = v21;
-        v93 = v74;
-        v94 = v73;
-        objc_copyWeak(v97, &location);
-        [v75 validatedStashedAccountCredential:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 complete:v89];
+        v93 = packetCopy;
+        v97 = &v113;
+        v98[3] = v19;
+        v98[4] = v21;
+        v94 = v75;
+        v95 = v74;
+        objc_copyWeak(v98, &location);
+        [v76 validatedStashedAccountCredential:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 complete:v90];
 
-        objc_destroyWeak(v97);
-        _Block_object_dispose(v117, 8);
+        objc_destroyWeak(v98);
+        _Block_object_dispose(v118, 8);
       }
 
       else if ([(KCPairingChannel *)self sessionSupportsOctagon])
       {
-        v83[0] = MEMORY[0x277D85DD0];
-        v83[1] = 3221225472;
-        v83[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_280;
-        v83[3] = &unk_2788632E8;
-        v86 = &v112;
-        v87 = v19;
-        v88 = v21;
-        v84 = v17;
-        v85 = completeCopy;
-        [(KCPairingChannel *)self acceptorFirstOctagonPacket:packetCopy reply:dictionary complete:v83];
+        v84[0] = MEMORY[0x277D85DD0];
+        v84[1] = 3221225472;
+        v84[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_280;
+        v84[3] = &unk_2788632E8;
+        v87 = &v113;
+        v88 = v19;
+        v89 = v21;
+        v85 = v17;
+        v86 = completeCopy;
+        [(KCPairingChannel *)self acceptorFirstOctagonPacket:packetCopy reply:dictionary complete:v84];
       }
 
       else
       {
-        v63 = secLogObjForScope("pairing");
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+        v65 = secLogObjForScope("pairing");
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
-          *v117 = 0;
-          _os_log_impl(&dword_22EB09000, v63, OS_LOG_TYPE_DEFAULT, "acceptor neither of octagon nor SOS", v117, 2u);
+          *v118 = 0;
+          _os_log_impl(&dword_22EB09000, v65, OS_LOG_TYPE_DEFAULT, "acceptor neither of octagon nor SOS", v118, 2u);
         }
 
-        v64 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:6 userInfo:0];
-        [(KCPairingChannel *)self setNextStateError:v64 complete:completeCopy];
-        v65 = _OctagonSignpostGetNanoseconds();
-        v66 = _OctagonSignpostLogSystem();
-        v67 = v66;
-        if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v66))
+        v66 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:6 userInfo:0];
+        [(KCPairingChannel *)self setNextStateError:v66 complete:completeCopy];
+        v67 = _OctagonSignpostGetNanoseconds();
+        v68 = _OctagonSignpostLogSystem();
+        v69 = v68;
+        if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v68))
         {
-          v68 = *(v113 + 24);
-          *v117 = 67240192;
-          *&v117[4] = v68;
-          _os_signpost_emit_with_name_impl(&dword_22EB09000, v67, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", v117, 8u);
+          v70 = *(v114 + 24);
+          *v118 = 67240192;
+          *&v118[4] = v70;
+          _os_signpost_emit_with_name_impl(&dword_22EB09000, v69, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", v118, 8u);
         }
 
-        v69 = _OctagonSignpostLogSystem();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+        v71 = _OctagonSignpostLogSystem();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
-          *v117 = 134218496;
-          v70 = *(v113 + 24);
-          *&v117[4] = v19;
-          *&v117[12] = 2048;
-          *&v117[14] = v65 / 1000000000.0;
-          *&v117[22] = 1026;
-          v118 = v70;
-          _os_log_impl(&dword_22EB09000, v69, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", v117, 0x1Cu);
+          *v118 = 134218496;
+          v72 = *(v114 + 24);
+          *&v118[4] = v19;
+          *&v118[12] = 2048;
+          *&v118[14] = v67 / 1000000000.0;
+          *&v118[22] = 1026;
+          v119 = v72;
+          _os_log_impl(&dword_22EB09000, v71, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", v118, 0x1Cu);
         }
 
-        [(AAFAnalyticsEventSecurity *)v17 sendMetricWithResult:0 error:v64];
+        [(AAFAnalyticsEventSecurity *)v17 sendMetricWithResult:0 error:v66];
       }
 
       _Block_object_dispose(buf, 8);
 
-      _Block_object_dispose(&v108, 8);
+      _Block_object_dispose(&v109, 8);
       goto LABEL_81;
     }
 
-    v44 = secLogObjForScope(pairingScope);
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v45 = secLogObjForScope(pairingScope);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v44, OS_LOG_TYPE_DEFAULT, "acceptorFirstPacket: expected NSDictionary type", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v45, OS_LOG_TYPE_DEFAULT, "acceptorFirstPacket: expected NSDictionary type", buf, 2u);
     }
 
     if (_os_feature_enabled_impl())
     {
-      v45 = [objc_alloc(MEMORY[0x277CDBD88]) initTapToRadar:@"Encountered unexpected packet format while proximity pairing" description:@"The source device expected an NSDictionary payload but received an unexpected packet format. Please include a sysdiagnose of both this device and the device signing in." radar:@"137694941"];
-      [v45 trigger];
+      v46 = [objc_alloc(MEMORY[0x277CDBD88]) initTapToRadar:@"Encountered unexpected packet format while proximity pairing" description:@"The source device expected an NSDictionary payload but received an unexpected packet format. Please include a sysdiagnose of both this device and the device signing in." radar:@"137694941"];
+      [v46 trigger];
     }
 
     dictionary = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:9 userInfo:0];
@@ -3065,89 +3097,81 @@ LABEL_47:
 
 LABEL_81:
 
-  _Block_object_dispose(&v112, 8);
+  _Block_object_dispose(&v113, 8);
   objc_destroyWeak(&location);
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_275(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 72);
-  v5 = a2;
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = *(a1 + 64);
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 64);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelAcceptorFetchStashCredential", " OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", &v24, 8u);
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelAcceptorFetchStashCredential", " OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", &v19, 8u);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 64);
-    v13 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 134218496;
-    v25 = v12;
-    v26 = 2048;
-    v27 = Nanoseconds / 1000000000.0;
-    v28 = 1026;
-    v29 = v13;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorFetchStashCredential  OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", &v24, 0x1Cu);
+    v10 = *(a1 + 64);
+    v11 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 134218496;
+    v20 = v10;
+    v21 = 2048;
+    v22 = Nanoseconds / 1000000000.0;
+    v23 = 1026;
+    v24 = v11;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorFetchStashCredential  OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", &v19, 0x1Cu);
   }
 
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v16 = _OctagonSignpostGetNanoseconds();
+  v12 = _OctagonSignpostGetNanoseconds();
+  v13 = _OctagonSignpostLogSystem();
+  v14 = v13;
+  v15 = *(a1 + 80);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    v16 = *(*(*(a1 + 56) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v16;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_END, v15, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v19, 8u);
+  }
+
   v17 = _OctagonSignpostLogSystem();
-  v18 = v17;
-  v19 = *(a1 + 80);
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = *(*(*(a1 + 56) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v20;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v18, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v24, 8u);
+    v19 = 134218496;
+    v18 = *(*(*(a1 + 56) + 8) + 24);
+    v20 = *(a1 + 80);
+    v21 = 2048;
+    v22 = v12 / 1000000000.0;
+    v23 = 1026;
+    v24 = v18;
+    _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v19, 0x1Cu);
   }
 
-  v21 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = 134218496;
-    v22 = *(*(*(a1 + 56) + 8) + 24);
-    v25 = *(a1 + 80);
-    v26 = 2048;
-    v27 = v16 / 1000000000.0;
-    v28 = 1026;
-    v29 = v22;
-    _os_log_impl(&dword_22EB09000, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v24, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:0 error:v5];
+  [*(a1 + 32) sendMetricWithResult:0 error:v3];
   (*(*(a1 + 40) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_276(uint64_t a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = secLogObjForScope("pairing");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v60 = v5 != 0;
-    *&v60[4] = 2112;
-    *&v60[6] = v6;
+    *v52 = v5 != 0;
+    *&v52[4] = 2112;
+    *&v52[6] = v6;
     _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "acceptor validatedStashedAccountCredential: %{BOOL}d (%@)", buf, 0x12u);
   }
 
@@ -3156,32 +3180,30 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_276(uint
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
-  v8 = *(a1 + 96);
-  v9 = *(a1 + 104);
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 96);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 96);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v14 = *(*(*(a1 + 72) + 8) + 24);
+    v12 = *(*(*(a1 + 72) + 8) + 24);
     *buf = 67240192;
-    *v60 = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorFetchStashCredential", " OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", buf, 8u);
+    *v52 = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorFetchStashCredential", " OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", buf, 8u);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 96);
-    v17 = *(*(*(a1 + 72) + 8) + 24);
+    v14 = *(a1 + 96);
+    v15 = *(*(*(a1 + 72) + 8) + 24);
     *buf = 134218496;
-    *v60 = v16;
-    *&v60[8] = 2048;
-    *&v60[10] = Nanoseconds / 1000000000.0;
-    v61 = 1026;
-    v62 = v17;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorFetchStashCredential  OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", buf, 0x1Cu);
+    *v52 = v14;
+    *&v52[8] = 2048;
+    *&v52[10] = Nanoseconds / 1000000000.0;
+    v53 = 1026;
+    v54 = v15;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorFetchStashCredential  OctagonSignpostNamePairingChannelAcceptorFetchStashCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorFetchStashCredential}d ", buf, 0x1Cu);
   }
 
   if (v5)
@@ -3194,67 +3216,64 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_276(uint
 
     if ([*(a1 + 40) sessionSupportsOctagon])
     {
-      v19 = *(a1 + 40);
-      v18 = *(a1 + 48);
-      v20 = *(a1 + 32);
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_277;
-      v54[3] = &unk_2788632E8;
-      v57 = *(a1 + 80);
-      v58 = *(a1 + 112);
-      v55 = *(a1 + 56);
-      v56 = *(a1 + 64);
-      [v19 acceptorFirstOctagonPacket:v18 reply:v20 complete:v54];
+      v17 = *(a1 + 40);
+      v16 = *(a1 + 48);
+      v18 = *(a1 + 32);
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_277;
+      v46[3] = &unk_2788632E8;
+      v49 = *(a1 + 80);
+      v50 = *(a1 + 112);
+      v47 = *(a1 + 56);
+      v48 = *(a1 + 64);
+      [v17 acceptorFirstOctagonPacket:v16 reply:v18 complete:v46];
     }
 
     else
     {
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_278;
-      v52[3] = &unk_278863270;
-      objc_copyWeak(&v53, (a1 + 88));
-      [*(a1 + 40) setNextState:v52];
-      v32 = secLogObjForScope("pairing");
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_278;
+      v44[3] = &unk_278863270;
+      objc_copyWeak(&v45, (a1 + 88));
+      [*(a1 + 40) setNextState:v44];
+      v28 = secLogObjForScope("pairing");
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v32, OS_LOG_TYPE_DEFAULT, "acceptor reply to packet 1", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v28, OS_LOG_TYPE_DEFAULT, "acceptor reply to packet 1", buf, 2u);
       }
 
       *(*(*(a1 + 80) + 8) + 24) = 1;
-      v33 = *(a1 + 112);
-      v34 = *(a1 + 120);
-      v35 = _OctagonSignpostGetNanoseconds();
-      v36 = _OctagonSignpostLogSystem();
-      v37 = v36;
-      v38 = *(a1 + 112);
-      if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      v29 = _OctagonSignpostGetNanoseconds();
+      v30 = _OctagonSignpostLogSystem();
+      v31 = v30;
+      v32 = *(a1 + 112);
+      if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
       {
-        v39 = *(*(*(a1 + 80) + 8) + 24);
+        v33 = *(*(*(a1 + 80) + 8) + 24);
         *buf = 67240192;
-        *v60 = v39;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v37, OS_SIGNPOST_INTERVAL_END, v38, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 8u);
+        *v52 = v33;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v31, OS_SIGNPOST_INTERVAL_END, v32, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 8u);
       }
 
-      v40 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v34 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v41 = *(*(*(a1 + 80) + 8) + 24);
-        *v60 = *(a1 + 112);
-        *&v60[8] = 2048;
-        *&v60[10] = v35 / 1000000000.0;
-        v61 = 1026;
-        v62 = v41;
-        _os_log_impl(&dword_22EB09000, v40, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 0x1Cu);
+        v35 = *(*(*(a1 + 80) + 8) + 24);
+        *v52 = *(a1 + 112);
+        *&v52[8] = 2048;
+        *&v52[10] = v29 / 1000000000.0;
+        v53 = 1026;
+        v54 = v35;
+        _os_log_impl(&dword_22EB09000, v34, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 56) sendMetricWithResult:1 error:0];
-      v42 = *(a1 + 32);
       (*(*(a1 + 64) + 16))();
-      objc_destroyWeak(&v53);
+      objc_destroyWeak(&v45);
     }
   }
 
@@ -3262,150 +3281,138 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_276(uint
   {
     if ([*(a1 + 40) sessionSupportsOctagon])
     {
-      v45 = *(a1 + 40);
-      v44 = *(a1 + 48);
-      v46 = *(a1 + 32);
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279;
-      v47[3] = &unk_2788632E8;
-      v50 = *(a1 + 80);
-      v51 = *(a1 + 112);
-      v48 = *(a1 + 56);
-      v49 = *(a1 + 64);
-      [v45 acceptorFirstOctagonPacket:v44 reply:v46 complete:v47];
+      v37 = *(a1 + 40);
+      v36 = *(a1 + 48);
+      v38 = *(a1 + 32);
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279;
+      v39[3] = &unk_2788632E8;
+      v42 = *(a1 + 80);
+      v43 = *(a1 + 112);
+      v40 = *(a1 + 56);
+      v41 = *(a1 + 64);
+      [v37 acceptorFirstOctagonPacket:v36 reply:v38 complete:v39];
     }
   }
 
   else
   {
-    v21 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v19 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v60 = v6;
-      _os_log_impl(&dword_22EB09000, v21, OS_LOG_TYPE_DEFAULT, "acceptor doesn't have a stashed credential: %@", buf, 0xCu);
+      *v52 = v6;
+      _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "acceptor doesn't have a stashed credential: %@", buf, 0xCu);
     }
 
-    v22 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:7 userInfo:0];
-    [*(a1 + 40) setNextStateError:v22 complete:*(a1 + 64)];
-    v23 = *(a1 + 112);
-    v24 = *(a1 + 120);
-    v25 = _OctagonSignpostGetNanoseconds();
-    v26 = _OctagonSignpostLogSystem();
-    v27 = v26;
-    v28 = *(a1 + 112);
-    if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v20 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:7 userInfo:0];
+    [*(a1 + 40) setNextStateError:v20 complete:*(a1 + 64)];
+    v21 = _OctagonSignpostGetNanoseconds();
+    v22 = _OctagonSignpostLogSystem();
+    v23 = v22;
+    v24 = *(a1 + 112);
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      v29 = *(*(*(a1 + 80) + 8) + 24);
+      v25 = *(*(*(a1 + 80) + 8) + 24);
       *buf = 67240192;
-      *v60 = v29;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v27, OS_SIGNPOST_INTERVAL_END, v28, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 8u);
+      *v52 = v25;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v23, OS_SIGNPOST_INTERVAL_END, v24, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 8u);
     }
 
-    v30 = _OctagonSignpostLogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v26 = _OctagonSignpostLogSystem();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v31 = *(*(*(a1 + 80) + 8) + 24);
-      *v60 = *(a1 + 112);
-      *&v60[8] = 2048;
-      *&v60[10] = v25 / 1000000000.0;
-      v61 = 1026;
-      v62 = v31;
-      _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 0x1Cu);
+      v27 = *(*(*(a1 + 80) + 8) + 24);
+      *v52 = *(a1 + 112);
+      *&v52[8] = 2048;
+      *&v52[10] = v21 / 1000000000.0;
+      v53 = 1026;
+      v54 = v27;
+      _os_log_impl(&dword_22EB09000, v26, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", buf, 0x1Cu);
     }
 
-    [*(a1 + 56) sendMetricWithResult:0 error:v22];
+    [*(a1 + 56) sendMetricWithResult:0 error:v20];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_280(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_277(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_278(uint64_t a1, void *a2, void *a3)
@@ -3418,50 +3425,46 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_278(uint
 
 void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelAcceptorMessage1", " OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelAcceptorMessage1  OctagonSignpostNamePairingChannelAcceptorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelAcceptorMessage1}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiatorPCSDataPacket:(id)packet complete:(id)complete
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   v5 = secLogObjForScope("pairing");
@@ -3493,7 +3496,7 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
         if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v123 = result;
+          v122 = result;
           _os_log_impl(&dword_22EB09000, v50, OS_LOG_TYPE_DEFAULT, "pairing: Failed to drop AKS lock assertion: %@", buf, 0xCu);
         }
       }
@@ -3515,72 +3518,72 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
     flowID = [peerVersionContext2 flowID];
     peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
     deviceSessionID = [peerVersionContext3 deviceSessionID];
-    LOBYTE(v79) = 1;
-    v84 = [(AAFAnalyticsEventSecurity *)v52 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.pairingDidNotReceivePCSData" testsAreEnabled:metricsAreEnabled canSendMetrics:v79 category:&unk_2843768F0];
+    LOBYTE(v78) = 1;
+    v83 = [(AAFAnalyticsEventSecurity *)v52 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.pairingDidNotReceivePCSData" testsAreEnabled:metricsAreEnabled canSendMetrics:v78 category:&unk_2843768F0];
 
-    [(AAFAnalyticsEventSecurity *)v84 sendMetricWithResult:0 error:0];
+    [(AAFAnalyticsEventSecurity *)v83 sendMetricWithResult:0 error:0];
     (*(completeCopy + 2))(completeCopy, 1, 0, 0);
   }
 
   else
   {
-    v84 = [packetCopy objectForKeyedSubscript:@"o"];
-    v80 = [(AAFAnalyticsEventSecurity *)v84 objectForKeyedSubscript:@"e"];
-    v97 = [(AAFAnalyticsEventSecurity *)v84 objectForKeyedSubscript:@"a"];
-    v81 = [(AAFAnalyticsEventSecurity *)v84 objectForKeyedSubscript:@"n"];
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v97, "count")}];
+    v83 = [packetCopy objectForKeyedSubscript:@"o"];
+    v79 = [(AAFAnalyticsEventSecurity *)v83 objectForKeyedSubscript:@"e"];
+    v96 = [(AAFAnalyticsEventSecurity *)v83 objectForKeyedSubscript:@"a"];
+    v80 = [(AAFAnalyticsEventSecurity *)v83 objectForKeyedSubscript:@"n"];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v96, "count")}];
     [(KCPairingChannel *)self setCountOfReceivedItems:v8];
 
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
     v107 = 0u;
-    obj = [v97 allKeys];
-    v98 = [obj countByEnumeratingWithState:&v106 objects:v121 count:16];
-    if (v98)
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    obj = [v96 allKeys];
+    v97 = [obj countByEnumeratingWithState:&v105 objects:v120 count:16];
+    if (v97)
     {
-      v99 = 0;
-      v94 = 0;
-      v96 = *v107;
-      v95 = *MEMORY[0x277CDC228];
-      v92 = *MEMORY[0x277CDC138];
-      v93 = *MEMORY[0x277CDC140];
-      v90 = *MEMORY[0x277CDBF20];
-      v91 = *MEMORY[0x277CDBEC8];
-      v89 = *MEMORY[0x277CDC118];
-      v88 = *MEMORY[0x277CDC098];
-      v87 = *MEMORY[0x277CDC5C8];
-      v86 = *MEMORY[0x277CCA590];
+      v98 = 0;
+      v93 = 0;
+      v95 = *v106;
+      v94 = *MEMORY[0x277CDC228];
+      v91 = *MEMORY[0x277CDC138];
+      v92 = *MEMORY[0x277CDC140];
+      v89 = *MEMORY[0x277CDBF20];
+      v90 = *MEMORY[0x277CDBEC8];
+      v88 = *MEMORY[0x277CDC118];
+      v87 = *MEMORY[0x277CDC098];
+      v86 = *MEMORY[0x277CDC5C8];
+      v85 = *MEMORY[0x277CCA590];
       do
       {
         v9 = 0;
         do
         {
-          if (*v107 != v96)
+          if (*v106 != v95)
           {
             v10 = v9;
             objc_enumerationMutation(obj);
             v9 = v10;
           }
 
-          v102 = v9;
-          v11 = *(*(&v106 + 1) + 8 * v9);
+          v101 = v9;
+          v11 = *(*(&v105 + 1) + 8 * v9);
           context = objc_autoreleasePoolPush();
           v12 = secLogObjForScope("pairing");
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v123 = v11;
+            v122 = v11;
             _os_log_impl(&dword_22EB09000, v12, OS_LOG_TYPE_DEFAULT, "adding keychain entry key: %@", buf, 0xCu);
           }
 
-          v13 = [v97 objectForKeyedSubscript:v11];
+          v13 = [v96 objectForKeyedSubscript:v11];
           result = 0;
           v14 = secLogObjForScope("pairing");
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v123 = v13;
+            v122 = v13;
             _os_log_impl(&dword_22EB09000, v14, OS_LOG_TYPE_DEFAULT, "adding keychain entry data %@", buf, 0xCu);
           }
 
@@ -3589,32 +3592,32 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
           if (v15 == -25299)
           {
             v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
-            v19 = [(__CFDictionary *)v13 objectForKeyedSubscript:v95];
-            [v18 setObject:v19 forKeyedSubscript:v95];
+            v19 = [(__CFDictionary *)v13 objectForKeyedSubscript:v94];
+            [v18 setObject:v19 forKeyedSubscript:v94];
 
-            v20 = [(__CFDictionary *)v13 objectForKeyedSubscript:v93];
-            [v18 setObject:v20 forKeyedSubscript:v93];
+            v20 = [(__CFDictionary *)v13 objectForKeyedSubscript:v92];
+            [v18 setObject:v20 forKeyedSubscript:v92];
 
-            v21 = [(__CFDictionary *)v13 objectForKeyedSubscript:v92];
-            [v18 setObject:v21 forKeyedSubscript:v92];
+            v21 = [(__CFDictionary *)v13 objectForKeyedSubscript:v91];
+            [v18 setObject:v21 forKeyedSubscript:v91];
 
-            v22 = [(__CFDictionary *)v13 objectForKeyedSubscript:v91];
-            [v18 setObject:v22 forKeyedSubscript:v91];
+            v22 = [(__CFDictionary *)v13 objectForKeyedSubscript:v90];
+            [v18 setObject:v22 forKeyedSubscript:v90];
 
-            v23 = [(__CFDictionary *)v13 objectForKeyedSubscript:v90];
-            [v18 setObject:v23 forKeyedSubscript:v90];
+            v23 = [(__CFDictionary *)v13 objectForKeyedSubscript:v89];
+            [v18 setObject:v23 forKeyedSubscript:v89];
 
-            v24 = [(__CFDictionary *)v13 objectForKeyedSubscript:v89];
-            [v18 setObject:v24 forKeyedSubscript:v89];
+            v24 = [(__CFDictionary *)v13 objectForKeyedSubscript:v88];
+            [v18 setObject:v24 forKeyedSubscript:v88];
 
-            v25 = [(__CFDictionary *)v13 objectForKeyedSubscript:v88];
-            [v18 setObject:v25 forKeyedSubscript:v88];
+            v25 = [(__CFDictionary *)v13 objectForKeyedSubscript:v87];
+            [v18 setObject:v25 forKeyedSubscript:v87];
 
-            v26 = [(__CFDictionary *)v13 objectForKeyedSubscript:v87];
-            [v18 setObject:v26 forKeyedSubscript:v87];
+            v26 = [(__CFDictionary *)v13 objectForKeyedSubscript:v86];
+            [v18 setObject:v26 forKeyedSubscript:v86];
 
             attributesToUpdate = [(__CFDictionary *)v13 mutableCopy];
-            [(__CFDictionary *)attributesToUpdate setObject:0 forKeyedSubscript:v95];
+            [(__CFDictionary *)attributesToUpdate setObject:0 forKeyedSubscript:v94];
             v27 = SecItemUpdate(v18, attributesToUpdate);
             if (v27)
             {
@@ -3625,21 +3628,21 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
               flowID2 = [peerVersionContext5 flowID];
               peerVersionContext6 = [(KCPairingChannel *)self peerVersionContext];
               deviceSessionID2 = [peerVersionContext6 deviceSessionID];
-              LOBYTE(v79) = 1;
-              v35 = [(AAFAnalyticsEventSecurity *)v28 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:@"com.apple.security.pairingFailedToUpdateItemInKeychain" testsAreEnabled:metricsAreEnabled canSendMetrics:v79 category:&unk_2843768F0];
+              LOBYTE(v78) = 1;
+              v35 = [(AAFAnalyticsEventSecurity *)v28 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:@"com.apple.security.pairingFailedToUpdateItemInKeychain" testsAreEnabled:metricsAreEnabled canSendMetrics:v78 category:&unk_2843768F0];
 
-              v36 = [MEMORY[0x277CCA9B8] errorWithDomain:v86 code:v27 description:@"SecItemUpdate: failed to update PCS item in the keychain"];
+              v36 = [MEMORY[0x277CCA9B8] errorWithDomain:v85 code:v27 description:@"SecItemUpdate: failed to update PCS item in the keychain"];
               [(AAFAnalyticsEventSecurity *)v35 sendMetricWithResult:0 error:v36];
 
               v37 = secLogObjForScope("SecError");
               if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                LODWORD(v123) = v27;
+                LODWORD(v122) = v27;
                 _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "pairing, SecItemUpdate failed %d", buf, 8u);
               }
 
-              ++v99;
+              ++v98;
             }
 
             else
@@ -3648,11 +3651,11 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
               if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v123 = v13;
+                v122 = v13;
                 _os_log_impl(&dword_22EB09000, v48, OS_LOG_TYPE_DEFAULT, "successfully updated pcs item: %@", buf, 0xCu);
               }
 
-              ++v94;
+              ++v93;
             }
           }
 
@@ -3665,21 +3668,21 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
             flowID3 = [peerVersionContext8 flowID];
             peerVersionContext9 = [(KCPairingChannel *)self peerVersionContext];
             deviceSessionID3 = [peerVersionContext9 deviceSessionID];
-            LOBYTE(v79) = 1;
-            v45 = [(AAFAnalyticsEventSecurity *)v38 initWithKeychainCircleMetrics:0 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 eventName:@"com.apple.security.pairingFailedToAddItemToKeychain" testsAreEnabled:metricsAreEnabled canSendMetrics:v79 category:&unk_2843768F0];
+            LOBYTE(v78) = 1;
+            v45 = [(AAFAnalyticsEventSecurity *)v38 initWithKeychainCircleMetrics:0 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 eventName:@"com.apple.security.pairingFailedToAddItemToKeychain" testsAreEnabled:metricsAreEnabled canSendMetrics:v78 category:&unk_2843768F0];
 
-            v46 = [MEMORY[0x277CCA9B8] errorWithDomain:v86 code:v16 description:@"SecItemAdd: failed to add PCS item to the keychain"];
+            v46 = [MEMORY[0x277CCA9B8] errorWithDomain:v85 code:v16 description:@"SecItemAdd: failed to add PCS item to the keychain"];
             [(AAFAnalyticsEventSecurity *)v45 sendMetricWithResult:0 error:v46];
 
             v47 = secLogObjForScope("SecError");
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
-              LODWORD(v123) = v16;
+              LODWORD(v122) = v16;
               _os_log_impl(&dword_22EB09000, v47, OS_LOG_TYPE_DEFAULT, "pairing: failed to add PCS item: %d", buf, 8u);
             }
 
-            ++v99;
+            ++v98;
           }
 
           else
@@ -3688,49 +3691,49 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v123 = v13;
+              v122 = v13;
               _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "successfully added pcs item: %@", buf, 0xCu);
             }
 
-            ++v94;
+            ++v93;
           }
 
           objc_autoreleasePoolPop(context);
-          v9 = v102 + 1;
+          v9 = v101 + 1;
         }
 
-        while (v98 != v102 + 1);
-        v98 = [obj countByEnumeratingWithState:&v106 objects:v121 count:16];
+        while (v97 != v101 + 1);
+        v97 = [obj countByEnumeratingWithState:&v105 objects:v120 count:16];
       }
 
-      while (v98);
+      while (v97);
     }
 
     else
     {
-      v99 = 0;
-      v94 = 0;
+      v98 = 0;
+      v93 = 0;
     }
 
     v59 = [AAFAnalyticsEventSecurity alloc];
-    v119[0] = @"pairingSuccessfulImportCount";
-    v60 = [MEMORY[0x277CCABB0] numberWithInt:v94];
-    v119[1] = @"pairingFailedImportCount";
-    v120[0] = v60;
-    v61 = [MEMORY[0x277CCABB0] numberWithInt:v99];
-    v120[1] = v61;
-    v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:2];
+    v118[0] = @"pairingSuccessfulImportCount";
+    v60 = [MEMORY[0x277CCABB0] numberWithInt:v93];
+    v118[1] = @"pairingFailedImportCount";
+    v119[0] = v60;
+    v61 = [MEMORY[0x277CCABB0] numberWithInt:v98];
+    v119[1] = v61;
+    v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:v118 count:2];
     peerVersionContext10 = [(KCPairingChannel *)self peerVersionContext];
     altDSID4 = [peerVersionContext10 altDSID];
     peerVersionContext11 = [(KCPairingChannel *)self peerVersionContext];
     flowID4 = [peerVersionContext11 flowID];
     peerVersionContext12 = [(KCPairingChannel *)self peerVersionContext];
     deviceSessionID4 = [peerVersionContext12 deviceSessionID];
-    LOBYTE(v79) = 1;
-    v69 = [(AAFAnalyticsEventSecurity *)v59 initWithKeychainCircleMetrics:v62 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:@"com.apple.security.pairingImportKeychainResults" testsAreEnabled:metricsAreEnabled canSendMetrics:v79 category:&unk_2843768F0];
+    LOBYTE(v78) = 1;
+    v69 = [(AAFAnalyticsEventSecurity *)v59 initWithKeychainCircleMetrics:v62 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:@"com.apple.security.pairingImportKeychainResults" testsAreEnabled:metricsAreEnabled canSendMetrics:v78 category:&unk_2843768F0];
 
-    [(AAFAnalyticsEventSecurity *)v69 sendMetricWithResult:v99 != 0 error:0];
-    if ([v80 isEqualToNumber:MEMORY[0x277CBEC38]])
+    [(AAFAnalyticsEventSecurity *)v69 sendMetricWithResult:v98 != 0 error:0];
+    if ([v79 isEqualToNumber:MEMORY[0x277CBEC38]])
     {
       if ([(KCPairingChannel *)self grabbedLockAssertion])
       {
@@ -3741,7 +3744,7 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
           if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v123 = result;
+            v122 = result;
             _os_log_impl(&dword_22EB09000, v70, OS_LOG_TYPE_DEFAULT, "pairing: Failed to drop AKS lock assertion: %@", buf, 0xCu);
           }
         }
@@ -3760,50 +3763,48 @@ void __49__KCPairingChannel_acceptorFirstPacket_complete___block_invoke_279(uint
       if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v123 = v81;
+        v122 = v80;
         _os_log_impl(&dword_22EB09000, v72, OS_LOG_TYPE_DEFAULT, "Sending ack %@", buf, 0xCu);
       }
 
-      v115 = @"k";
-      v116 = v81;
-      v117 = @"o";
-      v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
-      v118 = v73;
-      v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+      v114 = @"k";
+      v115 = v80;
+      v116 = @"o";
+      v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+      v117 = v73;
+      v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
       (*(completeCopy + 2))(completeCopy, 1, v74, 0);
     }
 
     else
     {
       objc_initWeak(&result, self);
-      v104[0] = MEMORY[0x277D85DD0];
-      v104[1] = 3221225472;
-      v104[2] = __52__KCPairingChannel_initiatorPCSDataPacket_complete___block_invoke;
-      v104[3] = &unk_278863270;
-      objc_copyWeak(&v105, &result);
-      [(KCPairingChannel *)self setNextState:v104];
+      v103[0] = MEMORY[0x277D85DD0];
+      v103[1] = 3221225472;
+      v103[2] = __52__KCPairingChannel_initiatorPCSDataPacket_complete___block_invoke;
+      v103[3] = &unk_278863270;
+      objc_copyWeak(&v104, &result);
+      [(KCPairingChannel *)self setNextState:v103];
       v75 = secLogObjForScope("pairing");
       if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v123 = v81;
+        v122 = v80;
         _os_log_impl(&dword_22EB09000, v75, OS_LOG_TYPE_DEFAULT, "Sending ack %@", buf, 0xCu);
       }
 
-      v111 = @"k";
-      v112 = v81;
-      v113 = @"o";
-      v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
-      v114 = v76;
-      v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+      v110 = @"k";
+      v111 = v80;
+      v112 = @"o";
+      v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+      v113 = v76;
+      v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
       (*(completeCopy + 2))(completeCopy, 0, v77, 0);
 
-      objc_destroyWeak(&v105);
+      objc_destroyWeak(&v104);
       objc_destroyWeak(&result);
     }
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 void __52__KCPairingChannel_initiatorPCSDataPacket_complete___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3940,13 +3941,13 @@ void __52__KCPairingChannel_initiatorPCSDataPacket_complete___block_invoke(uint6
     }
 
     [(AAFAnalyticsEventSecurity *)v20 sendMetricWithResult:1 error:0];
-    if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && [(KCPairingChannel *)self initiatorExpectPCSData])
+    if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v37) && [(KCPairingChannel *)self initiatorExpectPCSData])
     {
-      v37 = secLogObjForScope("pairing");
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = secLogObjForScope("pairing");
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *v66 = 0;
-        _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "initiator will wait for PCS data", v66, 2u);
+        _os_log_impl(&dword_22EB09000, v38, OS_LOG_TYPE_DEFAULT, "initiator will wait for PCS data", v66, 2u);
       }
 
       v59 = 0;
@@ -3991,7 +3992,6 @@ void __52__KCPairingChannel_initiatorPCSDataPacket_complete___block_invoke(uint6
   }
 
   _Block_object_dispose(buf, 8);
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4004,52 +4004,48 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke(uint64
 
 void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_248(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 64);
-  v5 = a2;
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = *(a1 + 56);
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 56);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    v11 = 67240192;
+    LODWORD(v12) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelInitiatorMessage4", " OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", &v11, 8u);
+  }
+
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 134218496;
     v10 = *(*(*(a1 + 48) + 8) + 24);
-    v14 = 67240192;
-    LODWORD(v15) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorMessage4", " OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", &v14, 8u);
+    v12 = *(a1 + 56);
+    v13 = 2048;
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = 1026;
+    v16 = v10;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage4  OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", &v11, 0x1Cu);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    v14 = 134218496;
-    v12 = *(*(*(a1 + 48) + 8) + 24);
-    v15 = *(a1 + 56);
-    v16 = 2048;
-    v17 = Nanoseconds / 1000000000.0;
-    v18 = 1026;
-    v19 = v12;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage4  OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", &v14, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:0 error:v5];
+  [*(a1 + 32) sendMetricWithResult:0 error:v3];
   (*(*(a1 + 40) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_249(uint64_t a1, int a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = secLogObjForScope("pairing");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v34 = a2;
-    *&v34[4] = 2112;
-    *&v34[6] = v5;
+    *v30 = a2;
+    *&v30[4] = 2112;
+    *&v30[6] = v5;
     _os_log_impl(&dword_22EB09000, v6, OS_LOG_TYPE_DEFAULT, "initiator importInitialSyncCredentials: %{BOOL}d: %@", buf, 0x12u);
   }
 
@@ -4058,13 +4054,13 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_249(ui
     *(*(a1 + 32) + 8) = 0;
   }
 
-  if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && [*(a1 + 32) initiatorExpectPCSData])
+  if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v7) && [*(a1 + 32) initiatorExpectPCSData])
   {
-    v7 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "initiator will wait for PCS data", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v8, OS_LOG_TYPE_DEFAULT, "initiator will wait for PCS data", buf, 2u);
     }
 
     cf = 0;
@@ -4075,98 +4071,92 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_249(ui
 
     else
     {
-      v18 = secLogObjForScope("SecError");
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v16 = secLogObjForScope("SecError");
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v34 = cf;
-        _os_log_impl(&dword_22EB09000, v18, OS_LOG_TYPE_DEFAULT, "pairing: Unable to acquire AKS lock assertion: %@", buf, 0xCu);
+        *v30 = cf;
+        _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "pairing: Unable to acquire AKS lock assertion: %@", buf, 0xCu);
       }
     }
 
-    v19 = cf;
+    v17 = cf;
     if (cf)
     {
       cf = 0;
-      CFRelease(v19);
+      CFRelease(v17);
     }
 
     objc_initWeak(&location, *(a1 + 32));
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250;
-    v29[3] = &unk_278863270;
-    objc_copyWeak(&v30, &location);
-    [*(a1 + 32) setNextState:v29];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250;
+    v25[3] = &unk_278863270;
+    objc_copyWeak(&v26, &location);
+    [*(a1 + 32) setNextState:v25];
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    v20 = *(a1 + 64);
-    v21 = *(a1 + 72);
     Nanoseconds = _OctagonSignpostGetNanoseconds();
-    v23 = _OctagonSignpostLogSystem();
-    v24 = v23;
-    v25 = *(a1 + 64);
-    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v19 = _OctagonSignpostLogSystem();
+    v20 = v19;
+    v21 = *(a1 + 64);
+    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
-      v26 = *(*(*(a1 + 56) + 8) + 24);
+      v22 = *(*(*(a1 + 56) + 8) + 24);
       *buf = 67240192;
-      *v34 = v26;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PairingChannelInitiatorMessage4", " OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 8u);
+      *v30 = v22;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v20, OS_SIGNPOST_INTERVAL_END, v21, "PairingChannelInitiatorMessage4", " OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 8u);
     }
 
-    v27 = _OctagonSignpostLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v23 = _OctagonSignpostLogSystem();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v28 = *(*(*(a1 + 56) + 8) + 24);
-      *v34 = *(a1 + 64);
-      *&v34[8] = 2048;
-      *&v34[10] = Nanoseconds / 1000000000.0;
-      v35 = 1026;
-      v36 = v28;
-      _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage4  OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 0x1Cu);
+      v24 = *(*(*(a1 + 56) + 8) + 24);
+      *v30 = *(a1 + 64);
+      *&v30[8] = 2048;
+      *&v30[10] = Nanoseconds / 1000000000.0;
+      v31 = 1026;
+      v32 = v24;
+      _os_log_impl(&dword_22EB09000, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage4  OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 0x1Cu);
     }
 
     [*(a1 + 40) sendMetricWithResult:1 error:v5];
     (*(*(a1 + 48) + 16))();
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 
   else
   {
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    v8 = *(a1 + 64);
-    v9 = *(a1 + 72);
-    v10 = _OctagonSignpostGetNanoseconds();
-    v11 = _OctagonSignpostLogSystem();
-    v12 = v11;
-    v13 = *(a1 + 64);
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v9 = _OctagonSignpostGetNanoseconds();
+    v10 = _OctagonSignpostLogSystem();
+    v11 = v10;
+    v12 = *(a1 + 64);
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      v14 = *(*(*(a1 + 56) + 8) + 24);
+      v13 = *(*(*(a1 + 56) + 8) + 24);
       *buf = 67240192;
-      *v34 = v14;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelInitiatorMessage4", " OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 8u);
+      *v30 = v13;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v11, OS_SIGNPOST_INTERVAL_END, v12, "PairingChannelInitiatorMessage4", " OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 8u);
     }
 
-    v15 = _OctagonSignpostLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = _OctagonSignpostLogSystem();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v16 = *(*(*(a1 + 56) + 8) + 24);
-      *v34 = *(a1 + 64);
-      *&v34[8] = 2048;
-      *&v34[10] = v10 / 1000000000.0;
-      v35 = 1026;
-      v36 = v16;
-      _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage4  OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 0x1Cu);
+      v15 = *(*(*(a1 + 56) + 8) + 24);
+      *v30 = *(a1 + 64);
+      *&v30[8] = 2048;
+      *&v30[10] = v9 / 1000000000.0;
+      v31 = 1026;
+      v32 = v15;
+      _os_log_impl(&dword_22EB09000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage4  OctagonSignpostNamePairingChannelInitiatorMessage4=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage4}d ", buf, 0x1Cu);
     }
 
     [*(a1 + 40) sendMetricWithResult:1 error:v5];
     (*(*(a1 + 48) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(uint64_t a1, void *a2, void *a3)
@@ -4179,7 +4169,7 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
 
 - (void)initiatorThirdPacket:(id)packet complete:(id)complete
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   v6 = secLogObjForScope("pairing");
@@ -4191,12 +4181,12 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
 
   v7 = _OctagonSignpostLogSystem();
   v8 = _OctagonSignpostCreate();
-  v82 = v9;
+  v81 = v9;
   v10 = v8;
 
   v11 = _OctagonSignpostLogSystem();
   v12 = v11;
-  v78 = (v10 - 1);
+  v77 = (v10 - 1);
   if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     LOWORD(buf) = 0;
@@ -4218,17 +4208,17 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  LOBYTE(v73) = 1;
-  v85 = [(AAFAnalyticsEventSecurity *)v14 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.initiatorJoinsTrustSystems" testsAreEnabled:metricsAreEnabled canSendMetrics:v73 category:&unk_2843768F0];
+  LOBYTE(v72) = 1;
+  v84 = [(AAFAnalyticsEventSecurity *)v14 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.initiatorJoinsTrustSystems" testsAreEnabled:metricsAreEnabled canSendMetrics:v72 category:&unk_2843768F0];
 
   [(KCPairingChannel *)self setNextStateError:0 complete:0];
-  v84 = [packetCopy objectForKeyedSubscript:@"b"];
+  v83 = [packetCopy objectForKeyedSubscript:@"b"];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v108 = 0x2020000000;
-  v109 = 0;
+  v107 = 0x2020000000;
+  v108 = 0;
   objc_initWeak(&location, self);
-  if (v84 && SOSCCIsSOSTrustAndSyncingEnabled())
+  if (v83 && SOSCCIsSOSTrustAndSyncingEnabled())
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -4236,111 +4226,111 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
       Nanoseconds = _OctagonSignpostGetNanoseconds();
       v55 = _OctagonSignpostLogSystem();
       v56 = v55;
-      if (v78 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+      if (v77 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
       {
         v57 = *(*(&buf + 1) + 24);
-        *v106 = 67240192;
-        *&v106[4] = v57;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v56, OS_SIGNPOST_INTERVAL_END, v10, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v106, 8u);
+        *v105 = 67240192;
+        *&v105[4] = v57;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v56, OS_SIGNPOST_INTERVAL_END, v10, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v105, 8u);
       }
 
       v58 = _OctagonSignpostLogSystem();
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 134218496;
+        *v105 = 134218496;
         v59 = *(*(&buf + 1) + 24);
-        *&v106[4] = v10;
-        *&v106[12] = 2048;
-        *&v106[14] = Nanoseconds / 1000000000.0;
-        *&v106[22] = 1026;
-        *&v106[24] = v59;
-        _os_log_impl(&dword_22EB09000, v58, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v106, 0x1Cu);
+        *&v105[4] = v10;
+        *&v105[12] = 2048;
+        *&v105[14] = Nanoseconds / 1000000000.0;
+        *&v105[22] = 1026;
+        *&v105[24] = v59;
+        _os_log_impl(&dword_22EB09000, v58, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v105, 0x1Cu);
       }
 
       v60 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:5 userInfo:0];
-      [(AAFAnalyticsEventSecurity *)v85 sendMetricWithResult:0 error:v60];
+      [(AAFAnalyticsEventSecurity *)v84 sendMetricWithResult:0 error:v60];
       completeCopy[2](completeCopy, 1, 0, v60);
       goto LABEL_61;
     }
 
-    *v106 = 0;
-    *&v106[8] = v106;
-    *&v106[16] = 0x2020000000;
-    v106[24] = 0;
+    *v105 = 0;
+    *&v105[8] = v105;
+    *&v105[16] = 0x2020000000;
+    v105[24] = 0;
     v21 = _OctagonSignpostLogSystem();
     v22 = _OctagonSignpostCreate();
-    v79 = v23;
+    v78 = v23;
     v24 = v22;
 
     v25 = _OctagonSignpostLogSystem();
     v26 = v25;
     if ((v24 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
-      *v104 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v24, "PairingChannelInitiatorJoinSOS", " enableTelemetry=YES ", v104, 2u);
+      *v103 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v24, "PairingChannelInitiatorJoinSOS", " enableTelemetry=YES ", v103, 2u);
     }
 
     v27 = _OctagonSignpostLogSystem();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      *v104 = 134217984;
-      v105 = v24;
-      _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelInitiatorJoinSOS  enableTelemetry=YES ", v104, 0xCu);
+      *v103 = 134217984;
+      v104 = v24;
+      _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelInitiatorJoinSOS  enableTelemetry=YES ", v103, 0xCu);
     }
 
     connection = [(KCPairingChannel *)self connection];
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke;
-    v94[3] = &unk_2788632C0;
-    v99 = v24;
-    v100 = v79;
-    v101 = v10;
-    v102 = v82;
-    v97 = v106;
+    v93[0] = MEMORY[0x277D85DD0];
+    v93[1] = 3221225472;
+    v93[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke;
+    v93[3] = &unk_2788632C0;
+    v98 = v24;
+    v99 = v78;
+    v100 = v10;
+    v101 = v81;
+    v96 = v105;
     p_buf = &buf;
-    v28 = v85;
-    v95 = v28;
+    v28 = v84;
+    v94 = v28;
     v29 = completeCopy;
-    v96 = v29;
-    v74 = [connection remoteObjectProxyWithErrorHandler:v94];
+    v95 = v29;
+    v73 = [connection remoteObjectProxyWithErrorHandler:v93];
     peerVersionContext4 = [(KCPairingChannel *)self peerVersionContext];
     altDSID2 = [peerVersionContext4 altDSID];
     peerVersionContext5 = [(KCPairingChannel *)self peerVersionContext];
     flowID2 = [peerVersionContext5 flowID];
     peerVersionContext6 = [(KCPairingChannel *)self peerVersionContext];
     deviceSessionID2 = [peerVersionContext6 deviceSessionID];
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_244;
-    v88[3] = &unk_2788633D8;
-    v91 = v106;
-    v88[4] = self;
-    v93[2] = v79;
-    v93[3] = v10;
-    v93[4] = v82;
-    v93[1] = v24;
-    v92 = &buf;
-    v89 = v28;
-    v90 = v29;
-    objc_copyWeak(v93, &location);
-    [v74 joinCircleWithBlob:v84 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 version:1 complete:v88];
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_244;
+    v87[3] = &unk_2788633D8;
+    v90 = v105;
+    v87[4] = self;
+    v92[2] = v78;
+    v92[3] = v10;
+    v92[4] = v81;
+    v92[1] = v24;
+    v91 = &buf;
+    v88 = v28;
+    v89 = v29;
+    objc_copyWeak(v92, &location);
+    [v73 joinCircleWithBlob:v83 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 version:1 complete:v87];
 
-    objc_destroyWeak(v93);
-    _Block_object_dispose(v106, 8);
+    objc_destroyWeak(v92);
+    _Block_object_dispose(v105, 8);
   }
 
   if ([(KCPairingChannel *)self sessionSupportsOctagon])
   {
-    v80 = [packetCopy objectForKeyedSubscript:@"o"];
+    v79 = [packetCopy objectForKeyedSubscript:@"o"];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v44 = secLogObjForScope(pairingScope);
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 0;
-        _os_log_impl(&dword_22EB09000, v44, OS_LOG_TYPE_DEFAULT, "initiatorThirdPacket octagonData missing or wrong class", v106, 2u);
+        *v105 = 0;
+        _os_log_impl(&dword_22EB09000, v44, OS_LOG_TYPE_DEFAULT, "initiatorThirdPacket octagonData missing or wrong class", v105, 2u);
       }
 
       v45 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:4 userInfo:0];
@@ -4349,40 +4339,40 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
       v47 = _OctagonSignpostGetNanoseconds();
       v48 = _OctagonSignpostLogSystem();
       v49 = v48;
-      if (v78 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+      if (v77 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
       {
         v50 = *(*(&buf + 1) + 24);
-        *v106 = 67240192;
-        *&v106[4] = v50;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v49, OS_SIGNPOST_INTERVAL_END, v10, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v106, 8u);
+        *v105 = 67240192;
+        *&v105[4] = v50;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v49, OS_SIGNPOST_INTERVAL_END, v10, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v105, 8u);
       }
 
       v51 = _OctagonSignpostLogSystem();
       if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 134218496;
+        *v105 = 134218496;
         v52 = *(*(&buf + 1) + 24);
-        *&v106[4] = v10;
-        *&v106[12] = 2048;
-        *&v106[14] = v47 / 1000000000.0;
-        *&v106[22] = 1026;
-        *&v106[24] = v52;
-        _os_log_impl(&dword_22EB09000, v51, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v106, 0x1Cu);
+        *&v105[4] = v10;
+        *&v105[12] = 2048;
+        *&v105[14] = v47 / 1000000000.0;
+        *&v105[22] = 1026;
+        *&v105[24] = v52;
+        _os_log_impl(&dword_22EB09000, v51, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v105, 0x1Cu);
       }
 
       v53 = v46;
-      [(AAFAnalyticsEventSecurity *)v85 sendMetricWithResult:0 error:v46];
+      [(AAFAnalyticsEventSecurity *)v84 sendMetricWithResult:0 error:v46];
       goto LABEL_60;
     }
 
-    v77 = [[OTPairingMessage alloc] initWithData:v80];
-    if (![(OTPairingMessage *)v77 hasVoucher])
+    v76 = [[OTPairingMessage alloc] initWithData:v79];
+    if (![(OTPairingMessage *)v76 hasVoucher])
     {
       v61 = secLogObjForScope(pairingScope);
       if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 0;
-        _os_log_impl(&dword_22EB09000, v61, OS_LOG_TYPE_DEFAULT, "initiatorThirdPacket pairingMessage has no voucher", v106, 2u);
+        *v105 = 0;
+        _os_log_impl(&dword_22EB09000, v61, OS_LOG_TYPE_DEFAULT, "initiatorThirdPacket pairingMessage has no voucher", v105, 2u);
       }
 
       voucher = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:4 userInfo:0];
@@ -4390,52 +4380,52 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
       v62 = _OctagonSignpostGetNanoseconds();
       v63 = _OctagonSignpostLogSystem();
       v64 = v63;
-      if (v78 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
+      if (v77 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
       {
         v65 = *(*(&buf + 1) + 24);
-        *v106 = 67240192;
-        *&v106[4] = v65;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v64, OS_SIGNPOST_INTERVAL_END, v10, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v106, 8u);
+        *v105 = 67240192;
+        *&v105[4] = v65;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v64, OS_SIGNPOST_INTERVAL_END, v10, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v105, 8u);
       }
 
       v66 = _OctagonSignpostLogSystem();
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 134218496;
+        *v105 = 134218496;
         v67 = *(*(&buf + 1) + 24);
-        *&v106[4] = v10;
-        *&v106[12] = 2048;
-        *&v106[14] = v62 / 1000000000.0;
-        *&v106[22] = 1026;
-        *&v106[24] = v67;
-        _os_log_impl(&dword_22EB09000, v66, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v106, 0x1Cu);
+        *&v105[4] = v10;
+        *&v105[12] = 2048;
+        *&v105[14] = v62 / 1000000000.0;
+        *&v105[22] = 1026;
+        *&v105[24] = v67;
+        _os_log_impl(&dword_22EB09000, v66, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", v105, 0x1Cu);
       }
 
-      [(AAFAnalyticsEventSecurity *)v85 sendMetricWithResult:0 error:voucher];
+      [(AAFAnalyticsEventSecurity *)v84 sendMetricWithResult:0 error:voucher];
       goto LABEL_59;
     }
 
-    voucher = [(OTPairingMessage *)v77 voucher];
+    voucher = [(OTPairingMessage *)v76 voucher];
     v36 = 0;
     v37 = 0;
     v38 = 0;
-    v104[0] = 0;
+    v103[0] = 0;
     while (1)
     {
       v39 = secLogObjForScope(pairingScope);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 67109120;
-        *&v106[4] = v38 + 1;
-        _os_log_impl(&dword_22EB09000, v39, OS_LOG_TYPE_DEFAULT, "Attempt %d, calling join", v106, 8u);
+        *v105 = 67109120;
+        *&v105[4] = v38 + 1;
+        _os_log_impl(&dword_22EB09000, v39, OS_LOG_TYPE_DEFAULT, "Attempt %d, calling join", v105, 8u);
       }
 
-      v86 = 0;
-      v87 = v36;
-      v40 = [(KCPairingChannel *)self join:&v87 voucher:voucher eventS:v85 setupPairingChannelSignPost:v10 finishPairing:v82 error:v104, &v86];
-      v41 = v87;
+      v85 = 0;
+      v86 = v36;
+      v40 = [(KCPairingChannel *)self join:&v86 voucher:voucher eventS:v84 setupPairingChannelSignPost:v10 finishPairing:v81 error:v103, &v85];
+      v41 = v86;
 
-      v37 = v86;
+      v37 = v85;
       if (v40)
       {
         break;
@@ -4446,13 +4436,13 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
         v71 = secLogObjForScope("SecError");
         if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
-          *v106 = 136315650;
-          *&v106[4] = pairingScope;
-          *&v106[12] = 1024;
-          *&v106[14] = v38 + 1;
-          *&v106[18] = 2112;
-          *&v106[20] = v37;
-          _os_log_impl(&dword_22EB09000, v71, OS_LOG_TYPE_DEFAULT, "%s: Attempt %d failed join: %@", v106, 0x1Cu);
+          *v105 = 136315650;
+          *&v105[4] = pairingScope;
+          *&v105[12] = 1024;
+          *&v105[14] = v38 + 1;
+          *&v105[18] = 2112;
+          *&v105[20] = v37;
+          _os_log_impl(&dword_22EB09000, v71, OS_LOG_TYPE_DEFAULT, "%s: Attempt %d failed join: %@", v105, 0x1Cu);
         }
 
         v70 = 0;
@@ -4464,9 +4454,9 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
       v42 = secLogObjForScope(pairingScope);
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 67109120;
-        *&v106[4] = v38 + 2;
-        _os_log_impl(&dword_22EB09000, v42, OS_LOG_TYPE_DEFAULT, "Attempt %d retrying join", v106, 8u);
+        *v105 = 67109120;
+        *&v105[4] = v38 + 2;
+        _os_log_impl(&dword_22EB09000, v42, OS_LOG_TYPE_DEFAULT, "Attempt %d retrying join", v105, 8u);
       }
 
       ++v38;
@@ -4476,19 +4466,19 @@ void __51__KCPairingChannel_initiatorFourthPacket_complete___block_invoke_250(ui
         v43 = secLogObjForScope("SecError");
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          *v106 = 67109120;
-          *&v106[4] = joinMaxRetry;
-          _os_log_impl(&dword_22EB09000, v43, OS_LOG_TYPE_DEFAULT, "pairing: failed to join %d times, bailing.", v106, 8u);
+          *v105 = 67109120;
+          *&v105[4] = joinMaxRetry;
+          _os_log_impl(&dword_22EB09000, v43, OS_LOG_TYPE_DEFAULT, "pairing: failed to join %d times, bailing.", v105, 8u);
         }
 
         completeCopy[2](completeCopy, 1, 0, v37);
 LABEL_58:
 
 LABEL_59:
-        v53 = v77;
+        v53 = v76;
 LABEL_60:
 
-        v60 = v80;
+        v60 = v79;
 LABEL_61:
 
         goto LABEL_62;
@@ -4496,7 +4486,7 @@ LABEL_61:
     }
 
     v68 = 0;
-    v69 = v104[0];
+    v69 = v103[0];
     v70 = v41;
 LABEL_57:
     (completeCopy)[2](completeCopy, v69 & 1, v70, v68);
@@ -4506,159 +4496,147 @@ LABEL_57:
 LABEL_62:
   objc_destroyWeak(&location);
   _Block_object_dispose(&buf, 8);
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 72);
-  v5 = a2;
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = *(a1 + 64);
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 64);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorJoinSOS", " OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", &v24, 8u);
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelInitiatorJoinSOS", " OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", &v19, 8u);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 64);
-    v13 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 134218496;
-    v25 = v12;
-    v26 = 2048;
-    v27 = Nanoseconds / 1000000000.0;
-    v28 = 1026;
-    v29 = v13;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorJoinSOS  OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", &v24, 0x1Cu);
+    v10 = *(a1 + 64);
+    v11 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 134218496;
+    v20 = v10;
+    v21 = 2048;
+    v22 = Nanoseconds / 1000000000.0;
+    v23 = 1026;
+    v24 = v11;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorJoinSOS  OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", &v19, 0x1Cu);
   }
 
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v16 = _OctagonSignpostGetNanoseconds();
+  v12 = _OctagonSignpostGetNanoseconds();
+  v13 = _OctagonSignpostLogSystem();
+  v14 = v13;
+  v15 = *(a1 + 80);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    v16 = *(*(*(a1 + 56) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v16;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_END, v15, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", &v19, 8u);
+  }
+
   v17 = _OctagonSignpostLogSystem();
-  v18 = v17;
-  v19 = *(a1 + 80);
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = *(*(*(a1 + 56) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v20;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v18, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", &v24, 8u);
+    v19 = 134218496;
+    v18 = *(*(*(a1 + 56) + 8) + 24);
+    v20 = *(a1 + 80);
+    v21 = 2048;
+    v22 = v12 / 1000000000.0;
+    v23 = 1026;
+    v24 = v18;
+    _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", &v19, 0x1Cu);
   }
 
-  v21 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = 134218496;
-    v22 = *(*(*(a1 + 56) + 8) + 24);
-    v25 = *(a1 + 80);
-    v26 = 2048;
-    v27 = v16 / 1000000000.0;
-    v28 = 1026;
-    v29 = v22;
-    _os_log_impl(&dword_22EB09000, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", &v24, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:0 error:v5];
+  [*(a1 + 32) sendMetricWithResult:0 error:v3];
   (*(*(a1 + 40) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_244(uint64_t a1, int a2, void *a3)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5 && a2)
   {
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 80);
-  v7 = *(a1 + 88);
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v9 = _OctagonSignpostLogSystem();
-  v10 = v9;
-  v11 = *(a1 + 80);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v7 = _OctagonSignpostLogSystem();
+  v8 = v7;
+  v9 = *(a1 + 80);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v12 = *(*(*(a1 + 56) + 8) + 24);
+    v10 = *(*(*(a1 + 56) + 8) + 24);
     *buf = 67240192;
-    *v69 = v12;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorJoinSOS", " OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", buf, 8u);
+    *v59 = v10;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorJoinSOS", " OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", buf, 8u);
   }
 
-  v13 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v11 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 80);
-    v15 = *(*(*(a1 + 56) + 8) + 24);
+    v12 = *(a1 + 80);
+    v13 = *(*(*(a1 + 56) + 8) + 24);
     *buf = 134218496;
-    *v69 = v14;
-    *&v69[8] = 2048;
-    *&v69[10] = Nanoseconds / 1000000000.0;
-    v70 = 1026;
-    v71 = v15;
-    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorJoinSOS  OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", buf, 0x1Cu);
+    *v59 = v12;
+    *&v59[8] = 2048;
+    *&v59[10] = Nanoseconds / 1000000000.0;
+    v60 = 1026;
+    v61 = v13;
+    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorJoinSOS  OctagonSignpostNamePairingChannelInitiatorJoinSOS=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorJoinSOS}d ", buf, 0x1Cu);
   }
 
   if (v5 || [*(a1 + 32) testFailSOS])
   {
-    v16 = [*(a1 + 32) sessionSupportsOctagon];
-    v17 = secLogObjForScope("pairing");
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if (v16)
+    v14 = [*(a1 + 32) sessionSupportsOctagon];
+    v15 = secLogObjForScope("pairing");
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      if (v18)
+      if (v16)
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "failed to join circle with blob, continuing to handle octagon protocol", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "failed to join circle with blob, continuing to handle octagon protocol", buf, 2u);
       }
     }
 
     else
     {
-      if (v18)
+      if (v16)
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "failed to join circle with blob", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "failed to join circle with blob", buf, 2u);
       }
 
-      v19 = *(a1 + 96);
-      v20 = *(a1 + 104);
-      v21 = _OctagonSignpostGetNanoseconds();
-      v22 = _OctagonSignpostLogSystem();
-      v23 = v22;
-      v24 = *(a1 + 96);
-      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      v17 = _OctagonSignpostGetNanoseconds();
+      v18 = _OctagonSignpostLogSystem();
+      v19 = v18;
+      v20 = *(a1 + 96);
+      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
       {
-        v25 = *(*(*(a1 + 64) + 8) + 24);
+        v21 = *(*(*(a1 + 64) + 8) + 24);
         *buf = 67240192;
-        *v69 = v25;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v23, OS_SIGNPOST_INTERVAL_END, v24, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v59 = v21;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v19, OS_SIGNPOST_INTERVAL_END, v20, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v26 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v22 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v27 = *(*(*(a1 + 64) + 8) + 24);
-        *v69 = *(a1 + 96);
-        *&v69[8] = 2048;
-        *&v69[10] = v21 / 1000000000.0;
-        v70 = 1026;
-        v71 = v27;
-        _os_log_impl(&dword_22EB09000, v26, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v23 = *(*(*(a1 + 64) + 8) + 24);
+        *v59 = *(a1 + 96);
+        *&v59[8] = 2048;
+        *&v59[10] = v17 / 1000000000.0;
+        v60 = 1026;
+        v61 = v23;
+        _os_log_impl(&dword_22EB09000, v22, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:0 error:v5];
@@ -4668,11 +4646,11 @@ void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_244(uin
 
   else if ([*(a1 + 32) sessionSupportsOctagon])
   {
-    v29 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v24 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v29, OS_LOG_TYPE_DEFAULT, "initiator circle join complete", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v24, OS_LOG_TYPE_DEFAULT, "initiator circle join complete", buf, 2u);
     }
   }
 
@@ -4684,65 +4662,63 @@ void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_244(uin
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    v31 = secLogObjForScope("pairing");
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v26 = secLogObjForScope("pairing");
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = WeakRetained[10];
+      v27 = WeakRetained[10];
       *buf = 67109378;
-      *v69 = v32;
-      *&v69[4] = 2112;
-      *&v69[6] = 0;
-      _os_log_impl(&dword_22EB09000, v31, OS_LOG_TYPE_DEFAULT, "initiator circle join complete, more data: %{BOOL}d: %@", buf, 0x12u);
+      *v59 = v27;
+      *&v59[4] = 2112;
+      *&v59[6] = 0;
+      _os_log_impl(&dword_22EB09000, v26, OS_LOG_TYPE_DEFAULT, "initiator circle join complete, more data: %{BOOL}d: %@", buf, 0x12u);
     }
 
     if (WeakRetained[10] == 1)
     {
-      v66[0] = MEMORY[0x277D85DD0];
-      v66[1] = 3221225472;
-      v66[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_245;
-      v66[3] = &unk_278863270;
-      objc_copyWeak(&v67, (a1 + 72));
-      [WeakRetained setNextState:v66];
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_245;
+      v56[3] = &unk_278863270;
+      objc_copyWeak(&v57, (a1 + 72));
+      [WeakRetained setNextState:v56];
       *(*(*(a1 + 64) + 8) + 24) = 1;
-      v33 = *(a1 + 96);
-      v34 = *(a1 + 104);
-      v35 = _OctagonSignpostGetNanoseconds();
-      v36 = _OctagonSignpostLogSystem();
-      v37 = v36;
-      v38 = *(a1 + 96);
-      if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      v28 = _OctagonSignpostGetNanoseconds();
+      v29 = _OctagonSignpostLogSystem();
+      v30 = v29;
+      v31 = *(a1 + 96);
+      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
-        v39 = *(*(*(a1 + 64) + 8) + 24);
+        v32 = *(*(*(a1 + 64) + 8) + 24);
         *buf = 67240192;
-        *v69 = v39;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v37, OS_SIGNPOST_INTERVAL_END, v38, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v59 = v32;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v30, OS_SIGNPOST_INTERVAL_END, v31, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v40 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v33 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v41 = *(*(*(a1 + 64) + 8) + 24);
-        *v69 = *(a1 + 96);
-        *&v69[8] = 2048;
-        *&v69[10] = v35 / 1000000000.0;
-        v70 = 1026;
-        v71 = v41;
-        _os_log_impl(&dword_22EB09000, v40, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v34 = *(*(*(a1 + 64) + 8) + 24);
+        *v59 = *(a1 + 96);
+        *&v59[8] = 2048;
+        *&v59[10] = v28 / 1000000000.0;
+        v60 = 1026;
+        v61 = v34;
+        _os_log_impl(&dword_22EB09000, v33, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:1 error:0];
       (*(*(a1 + 48) + 16))();
-      objc_destroyWeak(&v67);
+      objc_destroyWeak(&v57);
     }
 
-    else if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && WeakRetained[12] == 1)
+    else if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v35) && WeakRetained[12] == 1)
     {
-      v42 = secLogObjForScope("pairing");
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v36 = secLogObjForScope("pairing");
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v42, OS_LOG_TYPE_DEFAULT, "initiator will wait for PCS data", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v36, OS_LOG_TYPE_DEFAULT, "initiator will wait for PCS data", buf, 2u);
       }
 
       cf = 0;
@@ -4753,97 +4729,91 @@ void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_244(uin
 
       else
       {
-        v52 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v44 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *v69 = cf;
-          _os_log_impl(&dword_22EB09000, v52, OS_LOG_TYPE_DEFAULT, "pairing: Unable to acquire AKS lock assertion: %@", buf, 0xCu);
+          *v59 = cf;
+          _os_log_impl(&dword_22EB09000, v44, OS_LOG_TYPE_DEFAULT, "pairing: Unable to acquire AKS lock assertion: %@", buf, 0xCu);
         }
       }
 
-      v53 = cf;
+      v45 = cf;
       if (cf)
       {
         cf = 0;
-        CFRelease(v53);
+        CFRelease(v45);
       }
 
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_246;
-      v63[3] = &unk_278863270;
-      objc_copyWeak(&v64, (a1 + 72));
-      [*(a1 + 32) setNextState:v63];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_246;
+      v53[3] = &unk_278863270;
+      objc_copyWeak(&v54, (a1 + 72));
+      [*(a1 + 32) setNextState:v53];
       *(*(*(a1 + 64) + 8) + 24) = 1;
-      v54 = *(a1 + 96);
-      v55 = *(a1 + 104);
-      v56 = _OctagonSignpostGetNanoseconds();
-      v57 = _OctagonSignpostLogSystem();
-      v58 = v57;
-      v59 = *(a1 + 96);
-      if (v59 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
+      v46 = _OctagonSignpostGetNanoseconds();
+      v47 = _OctagonSignpostLogSystem();
+      v48 = v47;
+      v49 = *(a1 + 96);
+      if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
       {
-        v60 = *(*(*(a1 + 64) + 8) + 24);
+        v50 = *(*(*(a1 + 64) + 8) + 24);
         *buf = 67240192;
-        *v69 = v60;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v58, OS_SIGNPOST_INTERVAL_END, v59, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v59 = v50;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v48, OS_SIGNPOST_INTERVAL_END, v49, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v61 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v51 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v62 = *(*(*(a1 + 64) + 8) + 24);
-        *v69 = *(a1 + 96);
-        *&v69[8] = 2048;
-        *&v69[10] = v56 / 1000000000.0;
-        v70 = 1026;
-        v71 = v62;
-        _os_log_impl(&dword_22EB09000, v61, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v52 = *(*(*(a1 + 64) + 8) + 24);
+        *v59 = *(a1 + 96);
+        *&v59[8] = 2048;
+        *&v59[10] = v46 / 1000000000.0;
+        v60 = 1026;
+        v61 = v52;
+        _os_log_impl(&dword_22EB09000, v51, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:1 error:0];
       (*(*(a1 + 48) + 16))();
-      objc_destroyWeak(&v64);
+      objc_destroyWeak(&v54);
     }
 
     else
     {
       *(*(*(a1 + 64) + 8) + 24) = 1;
-      v43 = *(a1 + 96);
-      v44 = *(a1 + 104);
-      v45 = _OctagonSignpostGetNanoseconds();
-      v46 = _OctagonSignpostLogSystem();
-      v47 = v46;
-      v48 = *(a1 + 96);
-      if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+      v37 = _OctagonSignpostGetNanoseconds();
+      v38 = _OctagonSignpostLogSystem();
+      v39 = v38;
+      v40 = *(a1 + 96);
+      if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
       {
-        v49 = *(*(*(a1 + 64) + 8) + 24);
+        v41 = *(*(*(a1 + 64) + 8) + 24);
         *buf = 67240192;
-        *v69 = v49;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v47, OS_SIGNPOST_INTERVAL_END, v48, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v59 = v41;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v39, OS_SIGNPOST_INTERVAL_END, v40, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v50 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v42 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v51 = *(*(*(a1 + 64) + 8) + 24);
-        *v69 = *(a1 + 96);
-        *&v69[8] = 2048;
-        *&v69[10] = v45 / 1000000000.0;
-        v70 = 1026;
-        v71 = v51;
-        _os_log_impl(&dword_22EB09000, v50, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v43 = *(*(*(a1 + 64) + 8) + 24);
+        *v59 = *(a1 + 96);
+        *&v59[8] = 2048;
+        *&v59[10] = v37 / 1000000000.0;
+        v60 = 1026;
+        v61 = v43;
+        _os_log_impl(&dword_22EB09000, v42, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:1 error:0];
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_245(uint64_t a1, void *a2, void *a3)
@@ -4940,7 +4910,7 @@ void __50__KCPairingChannel_initiatorThirdPacket_complete___block_invoke_246(uin
 
 void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_finishPairing_error___block_invoke(uint64_t a1, void *a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3 || [*(a1 + 32) testFailOctagon])
   {
@@ -4949,104 +4919,100 @@ void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_fini
     {
       v5 = [*(a1 + 32) counter];
       *buf = 67109378;
-      *v61 = v5;
-      *&v61[4] = 2112;
-      *&v61[6] = v3;
+      *v53 = v5;
+      *&v53[4] = 2112;
+      *&v53[6] = v3;
       _os_log_impl(&dword_22EB09000, v4, OS_LOG_TYPE_DEFAULT, "ot-pairing: failed to create %d message: %@", buf, 0x12u);
     }
 
-    v6 = *(a1 + 88);
-    v7 = *(a1 + 96);
     Nanoseconds = _OctagonSignpostGetNanoseconds();
-    v9 = _OctagonSignpostLogSystem();
-    v10 = v9;
-    v11 = *(a1 + 88);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v7 = _OctagonSignpostLogSystem();
+    v8 = v7;
+    v9 = *(a1 + 88);
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v12 = *(*(*(a1 + 48) + 8) + 24);
+      v10 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 67240192;
-      *v61 = v12;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+      *v53 = v10;
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
     }
 
-    v13 = _OctagonSignpostLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v11 = _OctagonSignpostLogSystem();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v14 = *(*(*(a1 + 48) + 8) + 24);
-      *v61 = *(a1 + 88);
-      *&v61[8] = 2048;
-      *&v61[10] = Nanoseconds / 1000000000.0;
-      v62 = 1026;
-      v63 = v14;
-      _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+      v12 = *(*(*(a1 + 48) + 8) + 24);
+      *v53 = *(a1 + 88);
+      *&v53[8] = 2048;
+      *&v53[10] = Nanoseconds / 1000000000.0;
+      v54 = 1026;
+      v55 = v12;
+      _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
     }
 
     [*(a1 + 40) sendMetricWithResult:0 error:v3];
-    v15 = *(*(a1 + 56) + 8);
-    v16 = v3;
-    WeakRetained = *(v15 + 40);
-    *(v15 + 40) = v16;
+    v13 = *(*(a1 + 56) + 8);
+    v14 = v3;
+    WeakRetained = *(v13 + 40);
+    *(v13 + 40) = v14;
   }
 
   else
   {
-    v19 = secLogObjForScope(pairingScope);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v16 = secLogObjForScope(pairingScope);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "initiatorThirdPacket successfully joined Octagon", buf, 2u);
+      _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "initiatorThirdPacket successfully joined Octagon", buf, 2u);
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 1;
     WeakRetained = objc_loadWeakRetained((a1 + 80));
     if (SOSCCIsSOSTrustAndSyncingEnabled() && WeakRetained[10] == 1)
     {
-      v58[0] = MEMORY[0x277D85DD0];
-      v58[1] = 3221225472;
-      v58[2] = __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_finishPairing_error___block_invoke_242;
-      v58[3] = &unk_278863270;
-      objc_copyWeak(&v59, (a1 + 80));
-      [WeakRetained setNextState:v58];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_finishPairing_error___block_invoke_242;
+      v50[3] = &unk_278863270;
+      objc_copyWeak(&v51, (a1 + 80));
+      [WeakRetained setNextState:v50];
       *(*(*(a1 + 48) + 8) + 24) = 1;
+      v17 = _OctagonSignpostGetNanoseconds();
+      v18 = _OctagonSignpostLogSystem();
+      v19 = v18;
       v20 = *(a1 + 88);
-      v21 = *(a1 + 96);
-      v22 = _OctagonSignpostGetNanoseconds();
-      v23 = _OctagonSignpostLogSystem();
-      v24 = v23;
-      v25 = *(a1 + 88);
-      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
       {
-        v26 = *(*(*(a1 + 48) + 8) + 24);
+        v21 = *(*(*(a1 + 48) + 8) + 24);
         *buf = 67240192;
-        *v61 = v26;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v53 = v21;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v19, OS_SIGNPOST_INTERVAL_END, v20, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v27 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v22 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v28 = *(*(*(a1 + 48) + 8) + 24);
-        *v61 = *(a1 + 88);
-        *&v61[8] = 2048;
-        *&v61[10] = v22 / 1000000000.0;
-        v62 = 1026;
-        v63 = v28;
-        _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v23 = *(*(*(a1 + 48) + 8) + 24);
+        *v53 = *(a1 + 88);
+        *&v53[8] = 2048;
+        *&v53[10] = v17 / 1000000000.0;
+        v54 = 1026;
+        v55 = v23;
+        _os_log_impl(&dword_22EB09000, v22, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:1 error:0];
-      v29 = [MEMORY[0x277CBEC10] mutableCopy];
-      v30 = *(*(a1 + 72) + 8);
-      v31 = *(v30 + 40);
-      *(v30 + 40) = v29;
+      v24 = [MEMORY[0x277CBEC10] mutableCopy];
+      v25 = *(*(a1 + 72) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v24;
 
       **(a1 + 104) = 0;
-      objc_destroyWeak(&v59);
+      objc_destroyWeak(&v51);
     }
 
-    else if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && WeakRetained[12] == 1)
+    else if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v27) && WeakRetained[12] == 1)
     {
       cf = 0;
       if (SecAKSKeybagHoldLockAssertion(0, 600, &cf))
@@ -5056,102 +5022,96 @@ void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_fini
 
       else
       {
-        v41 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v35 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *v61 = cf;
-          _os_log_impl(&dword_22EB09000, v41, OS_LOG_TYPE_DEFAULT, "pairing: Unable to acquire AKS lock assertion: %@", buf, 0xCu);
+          *v53 = cf;
+          _os_log_impl(&dword_22EB09000, v35, OS_LOG_TYPE_DEFAULT, "pairing: Unable to acquire AKS lock assertion: %@", buf, 0xCu);
         }
       }
 
-      v42 = cf;
+      v36 = cf;
       if (cf)
       {
         cf = 0;
-        CFRelease(v42);
+        CFRelease(v36);
       }
 
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_finishPairing_error___block_invoke_243;
-      v55[3] = &unk_278863270;
-      objc_copyWeak(&v56, (a1 + 80));
-      [WeakRetained setNextState:v55];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_finishPairing_error___block_invoke_243;
+      v47[3] = &unk_278863270;
+      objc_copyWeak(&v48, (a1 + 80));
+      [WeakRetained setNextState:v47];
       *(*(*(a1 + 48) + 8) + 24) = 1;
-      v43 = *(a1 + 88);
-      v44 = *(a1 + 96);
-      v45 = _OctagonSignpostGetNanoseconds();
-      v46 = _OctagonSignpostLogSystem();
-      v47 = v46;
-      v48 = *(a1 + 88);
-      if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+      v37 = _OctagonSignpostGetNanoseconds();
+      v38 = _OctagonSignpostLogSystem();
+      v39 = v38;
+      v40 = *(a1 + 88);
+      if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
       {
-        v49 = *(*(*(a1 + 48) + 8) + 24);
+        v41 = *(*(*(a1 + 48) + 8) + 24);
         *buf = 67240192;
-        *v61 = v49;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v47, OS_SIGNPOST_INTERVAL_END, v48, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v53 = v41;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v39, OS_SIGNPOST_INTERVAL_END, v40, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v50 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v42 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v51 = *(*(*(a1 + 48) + 8) + 24);
-        *v61 = *(a1 + 88);
-        *&v61[8] = 2048;
-        *&v61[10] = v45 / 1000000000.0;
-        v62 = 1026;
-        v63 = v51;
-        _os_log_impl(&dword_22EB09000, v50, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v43 = *(*(*(a1 + 48) + 8) + 24);
+        *v53 = *(a1 + 88);
+        *&v53[8] = 2048;
+        *&v53[10] = v37 / 1000000000.0;
+        v54 = 1026;
+        v55 = v43;
+        _os_log_impl(&dword_22EB09000, v42, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:1 error:0];
-      v52 = [MEMORY[0x277CBEC10] mutableCopy];
-      v53 = *(*(a1 + 72) + 8);
-      v54 = *(v53 + 40);
-      *(v53 + 40) = v52;
+      v44 = [MEMORY[0x277CBEC10] mutableCopy];
+      v45 = *(*(a1 + 72) + 8);
+      v46 = *(v45 + 40);
+      *(v45 + 40) = v44;
 
       **(a1 + 104) = 0;
-      objc_destroyWeak(&v56);
+      objc_destroyWeak(&v48);
     }
 
     else
     {
       *(*(*(a1 + 48) + 8) + 24) = 1;
-      v32 = *(a1 + 88);
-      v33 = *(a1 + 96);
-      v34 = _OctagonSignpostGetNanoseconds();
-      v35 = _OctagonSignpostLogSystem();
-      v36 = v35;
-      v37 = *(a1 + 88);
-      if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+      v28 = _OctagonSignpostGetNanoseconds();
+      v29 = _OctagonSignpostLogSystem();
+      v30 = v29;
+      v31 = *(a1 + 88);
+      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
-        v38 = *(*(*(a1 + 48) + 8) + 24);
+        v32 = *(*(*(a1 + 48) + 8) + 24);
         *buf = 67240192;
-        *v61 = v38;
-        _os_signpost_emit_with_name_impl(&dword_22EB09000, v36, OS_SIGNPOST_INTERVAL_END, v37, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
+        *v53 = v32;
+        _os_signpost_emit_with_name_impl(&dword_22EB09000, v30, OS_SIGNPOST_INTERVAL_END, v31, "PairingChannelInitiatorMessage3", " OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 8u);
       }
 
-      v39 = _OctagonSignpostLogSystem();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v33 = _OctagonSignpostLogSystem();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v40 = *(*(*(a1 + 48) + 8) + 24);
-        *v61 = *(a1 + 88);
-        *&v61[8] = 2048;
-        *&v61[10] = v34 / 1000000000.0;
-        v62 = 1026;
-        v63 = v40;
-        _os_log_impl(&dword_22EB09000, v39, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
+        v34 = *(*(*(a1 + 48) + 8) + 24);
+        *v53 = *(a1 + 88);
+        *&v53[8] = 2048;
+        *&v53[10] = v28 / 1000000000.0;
+        v54 = 1026;
+        v55 = v34;
+        _os_log_impl(&dword_22EB09000, v33, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage3  OctagonSignpostNamePairingChannelInitiatorMessage3=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage3}d ", buf, 0x1Cu);
       }
 
       [*(a1 + 40) sendMetricWithResult:1 error:0];
       **(a1 + 104) = 1;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_finishPairing_error___block_invoke_242(uint64_t a1, void *a2, void *a3)
@@ -5172,7 +5132,7 @@ void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_fini
 
 - (void)initiatorCompleteSecondPacketOctagon:(id)octagon application:(id)application complete:(id)complete
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   octagonCopy = octagon;
   applicationCopy = application;
   completeCopy = complete;
@@ -5199,7 +5159,7 @@ void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_fini
     goto LABEL_24;
   }
 
-  v24 = v12;
+  v23 = v12;
   v13 = 0;
   v14 = 0;
   do
@@ -5210,16 +5170,16 @@ void __88__KCPairingChannel_join_voucher_eventS_setupPairingChannelSignPost_fini
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v28) = v13 + 1;
+      LODWORD(v27) = v13 + 1;
       _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "Attempt %d, calling fetchPrepare", buf, 8u);
     }
 
-    v25 = 0;
-    v26 = dictionary;
-    v17 = [(KCPairingChannel *)self fetchPrepare:&v26 application:applicationCopy error:&v25];
-    v18 = v26;
+    v24 = 0;
+    v25 = dictionary;
+    v17 = [(KCPairingChannel *)self fetchPrepare:&v25 application:applicationCopy error:&v24];
+    v18 = v25;
 
-    v14 = v25;
+    v14 = v24;
     if (v17)
     {
       (*(completeCopy + 2))(completeCopy, 0, v18, 0);
@@ -5234,11 +5194,11 @@ LABEL_22:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v28 = pairingScope;
-        v29 = 1024;
-        v30 = v13 + 1;
-        v31 = 2112;
-        v32 = v14;
+        v27 = pairingScope;
+        v28 = 1024;
+        v29 = v13 + 1;
+        v30 = 2112;
+        v31 = v14;
         _os_log_impl(&dword_22EB09000, v22, OS_LOG_TYPE_DEFAULT, "%s: Attempt %d, failed fetching prepare %@", buf, 0x1Cu);
       }
 
@@ -5250,7 +5210,7 @@ LABEL_22:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v28) = v13 + 2;
+      LODWORD(v27) = v13 + 2;
       _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "Attempt %d, retrying fetching prepare", buf, 8u);
     }
 
@@ -5262,16 +5222,14 @@ LABEL_22:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v28) = prepareMaxRetry;
+    LODWORD(v27) = prepareMaxRetry;
     _os_log_impl(&dword_22EB09000, v20, OS_LOG_TYPE_DEFAULT, "pairing: failed to fetch prepare %d times, bailing.", buf, 8u);
   }
 
   (*(completeCopy + 2))(completeCopy, 1, 0, v14);
 LABEL_23:
-  v12 = v24;
+  v12 = v23;
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fetchPrepare:(id *)prepare application:(id)application error:(id *)error
@@ -5342,8 +5300,8 @@ LABEL_24:
 
 void __51__KCPairingChannel_fetchPrepare_application_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v41 = a2;
+  v51 = *MEMORY[0x277D85DE8];
+  v40 = a2;
   v13 = a3;
   v14 = a4;
   v15 = a5;
@@ -5356,9 +5314,9 @@ void __51__KCPairingChannel_fetchPrepare_application_error___block_invoke(uint64
     {
       v19 = [*(a1 + 32) counter];
       *buf = 67109378;
-      v49 = v19;
-      v50 = 2112;
-      v51 = v17;
+      v48 = v19;
+      v49 = 2112;
+      v50 = v17;
       _os_log_impl(&dword_22EB09000, v18, OS_LOG_TYPE_DEFAULT, "ot-pairing: failed to create %d message: %@", buf, 0x12u);
     }
 
@@ -5372,87 +5330,85 @@ void __51__KCPairingChannel_fetchPrepare_application_error___block_invoke(uint64
   {
     *(*(*(a1 + 56) + 8) + 24) = 1;
     v22 = objc_alloc_init(OTPairingMessage);
-    v24 = objc_alloc_init(OTSupportSOSMessage);
-    [(OTPairingMessage *)v22 setSupportsSOS:v24];
+    v23 = objc_alloc_init(OTSupportSOSMessage);
+    [(OTPairingMessage *)v22 setSupportsSOS:v23];
 
-    v25 = objc_alloc_init(OTSupportOctagonMessage);
-    [(OTPairingMessage *)v22 setSupportsOctagon:v25];
+    v24 = objc_alloc_init(OTSupportOctagonMessage);
+    [(OTPairingMessage *)v22 setSupportsOctagon:v24];
 
-    v26 = objc_alloc_init(OTApplicantToSponsorRound2M1);
-    [(OTApplicantToSponsorRound2M1 *)v26 setPeerID:v41];
-    [(OTApplicantToSponsorRound2M1 *)v26 setPermanentInfo:v13];
-    [(OTApplicantToSponsorRound2M1 *)v26 setPermanentInfoSig:v14];
-    [(OTApplicantToSponsorRound2M1 *)v26 setStableInfo:v15];
-    [(OTApplicantToSponsorRound2M1 *)v26 setStableInfoSig:v16];
+    v25 = objc_alloc_init(OTApplicantToSponsorRound2M1);
+    [(OTApplicantToSponsorRound2M1 *)v25 setPeerID:v40];
+    [(OTApplicantToSponsorRound2M1 *)v25 setPermanentInfo:v13];
+    [(OTApplicantToSponsorRound2M1 *)v25 setPermanentInfoSig:v14];
+    [(OTApplicantToSponsorRound2M1 *)v25 setStableInfo:v15];
+    [(OTApplicantToSponsorRound2M1 *)v25 setStableInfoSig:v16];
     if (SOSCCIsSOSTrustAndSyncingEnabled())
     {
-      v27 = 1;
+      v26 = 1;
     }
 
     else
     {
-      v27 = 2;
+      v26 = 2;
     }
 
-    v28 = [(OTPairingMessage *)v22 supportsSOS];
-    [v28 setSupported:v27];
+    v27 = [(OTPairingMessage *)v22 supportsSOS];
+    [v27 setSupported:v26];
 
-    v29 = [(OTPairingMessage *)v22 supportsOctagon];
-    [v29 setSupported:1];
+    v28 = [(OTPairingMessage *)v22 supportsOctagon];
+    [v28 setSupported:1];
 
-    [(OTPairingMessage *)v22 setPrepare:v26];
-    v30 = *(a1 + 40);
-    v31 = secLogObjForScope(pairingScope);
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-    if (v30)
+    [(OTPairingMessage *)v22 setPrepare:v25];
+    v29 = *(a1 + 40);
+    v30 = secLogObjForScope(pairingScope);
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    if (v29)
     {
-      if (v32)
+      if (v31)
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v31, OS_LOG_TYPE_DEFAULT, "initiatorCompleteSecondPacketOctagon returning octagon and sos data", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "initiatorCompleteSecondPacketOctagon returning octagon and sos data", buf, 2u);
       }
 
-      v33 = *(a1 + 40);
-      v46[0] = @"p";
-      v46[1] = @"o";
-      v47[0] = v33;
-      v34 = [(OTPairingMessage *)v22 data];
-      v47[1] = v34;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+      v32 = *(a1 + 40);
+      v45[0] = @"p";
+      v45[1] = @"o";
+      v46[0] = v32;
+      v33 = [(OTPairingMessage *)v22 data];
+      v46[1] = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
     }
 
     else
     {
-      if (v32)
+      if (v31)
       {
         *buf = 0;
-        _os_log_impl(&dword_22EB09000, v31, OS_LOG_TYPE_DEFAULT, "initiatorCompleteSecondPacketOctagon returning octagon data", buf, 2u);
+        _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "initiatorCompleteSecondPacketOctagon returning octagon data", buf, 2u);
       }
 
-      v44 = @"o";
-      v34 = [(OTPairingMessage *)v22 data];
-      v45 = v34;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v43 = @"o";
+      v33 = [(OTPairingMessage *)v22 data];
+      v44 = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
     }
 
-    v36 = v35;
-    v37 = [v35 mutableCopy];
-    v38 = *(*(a1 + 64) + 8);
-    v39 = *(v38 + 40);
-    *(v38 + 40) = v37;
+    v35 = v34;
+    v36 = [v34 mutableCopy];
+    v37 = *(*(a1 + 64) + 8);
+    v38 = *(v37 + 40);
+    *(v37 + 40) = v36;
 
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __51__KCPairingChannel_fetchPrepare_application_error___block_invoke_238;
-    v42[3] = &unk_278863270;
-    objc_copyWeak(&v43, (a1 + 72));
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __51__KCPairingChannel_fetchPrepare_application_error___block_invoke_238;
+    v41[3] = &unk_278863270;
+    objc_copyWeak(&v42, (a1 + 72));
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    [WeakRetained setNextState:v42];
+    [WeakRetained setNextState:v41];
 
-    objc_destroyWeak(&v43);
+    objc_destroyWeak(&v42);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_fetchPrepare_application_error___block_invoke_238(uint64_t a1, void *a2, void *a3)
@@ -5465,7 +5421,7 @@ void __51__KCPairingChannel_fetchPrepare_application_error___block_invoke_238(ui
 
 - (void)initiatorCompleteSecondPacketWithSOS:(id)s complete:(id)complete
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   sCopy = s;
   completeCopy = complete;
   v8 = secLogObjForScope("pairing");
@@ -5478,108 +5434,103 @@ void __51__KCPairingChannel_fetchPrepare_application_error___block_invoke_238(ui
   objc_initWeak(&location, self);
   [(KCPairingChannel *)self setNextStateError:0 complete:0];
   *buf = 0;
-  v41 = buf;
-  v42 = 0x2020000000;
-  v43 = 0;
+  v40 = buf;
+  v41 = 0x2020000000;
+  v42 = 0;
   v9 = _OctagonSignpostLogSystem();
   v10 = _OctagonSignpostCreate();
-  v29 = v11;
+  v28 = v11;
   v12 = v10;
 
   v13 = _OctagonSignpostLogSystem();
   v14 = v13;
   if ((v12 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v45 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "PairingChannelInitiatorMakeSOSPeer", " enableTelemetry=YES ", v45, 2u);
+    *v44 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "PairingChannelInitiatorMakeSOSPeer", " enableTelemetry=YES ", v44, 2u);
   }
 
   v15 = _OctagonSignpostLogSystem();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    *v45 = 134217984;
-    v46 = v12;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelInitiatorMakeSOSPeer  enableTelemetry=YES ", v45, 0xCu);
+    *v44 = 134217984;
+    v45 = v12;
+    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelInitiatorMakeSOSPeer  enableTelemetry=YES ", v44, 0xCu);
   }
 
-  v27 = sCopy;
+  v26 = sCopy;
   connection = [(KCPairingChannel *)self connection];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke;
-  v35[3] = &unk_278863338;
-  v38 = v12;
-  v39 = v29;
-  v37 = buf;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke;
+  v34[3] = &unk_278863338;
+  v37 = v12;
+  v38 = v28;
+  v36 = buf;
   v16 = completeCopy;
-  v36 = v16;
-  v17 = [connection remoteObjectProxyWithErrorHandler:v35];
+  v35 = v16;
+  v17 = [connection remoteObjectProxyWithErrorHandler:v34];
   peerVersionContext = [(KCPairingChannel *)self peerVersionContext];
   altDSID = [peerVersionContext altDSID];
   peerVersionContext2 = [(KCPairingChannel *)self peerVersionContext];
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke_231;
-  v30[3] = &unk_278863360;
-  v34[1] = v12;
-  v34[2] = v29;
-  v33 = buf;
-  v30[4] = self;
-  v24 = v27;
-  v31 = v24;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke_231;
+  v29[3] = &unk_278863360;
+  v33[1] = v12;
+  v33[2] = v28;
+  v32 = buf;
+  v29[4] = self;
+  v24 = v26;
+  v30 = v24;
   v25 = v16;
-  v32 = v25;
-  objc_copyWeak(v34, &location);
-  [v17 myPeerInfo:altDSID flowID:flowID deviceSessionID:deviceSessionID canSendMetrics:1 complete:v30];
+  v31 = v25;
+  objc_copyWeak(v33, &location);
+  [v17 myPeerInfo:altDSID flowID:flowID deviceSessionID:deviceSessionID canSendMetrics:1 complete:v29];
 
-  objc_destroyWeak(v34);
+  objc_destroyWeak(v33);
   _Block_object_dispose(buf, 8);
   objc_destroyWeak(&location);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = a1[6];
-  v4 = a1[7];
-  v5 = a2;
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = a1[6];
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = a1[6];
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v10 = *(*(a1[5] + 8) + 24);
-    v14 = 67240192;
-    LODWORD(v15) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorMakeSOSPeer", " OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", &v14, 8u);
+    v8 = *(*(a1[5] + 8) + 24);
+    v11 = 67240192;
+    LODWORD(v12) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelInitiatorMakeSOSPeer", " OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", &v11, 8u);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134218496;
-    v12 = *(*(a1[5] + 8) + 24);
-    v15 = a1[6];
-    v16 = 2048;
-    v17 = Nanoseconds / 1000000000.0;
-    v18 = 1026;
-    v19 = v12;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMakeSOSPeer  OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", &v14, 0x1Cu);
+    v11 = 134218496;
+    v10 = *(*(a1[5] + 8) + 24);
+    v12 = a1[6];
+    v13 = 2048;
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = 1026;
+    v16 = v10;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMakeSOSPeer  OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", &v11, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke_231(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -5588,52 +5539,50 @@ void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___bloc
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 
-  v8 = *(a1 + 72);
-  v9 = *(a1 + 80);
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 72);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 72);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v14 = *(*(*(a1 + 56) + 8) + 24);
+    v12 = *(*(*(a1 + 56) + 8) + 24);
     *buf = 67240192;
-    LODWORD(v27) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelInitiatorMakeSOSPeer", " OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", buf, 8u);
+    LODWORD(v24) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorMakeSOSPeer", " OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", buf, 8u);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v16 = *(*(*(a1 + 56) + 8) + 24);
-    v27 = *(a1 + 72);
-    v28 = 2048;
-    v29 = Nanoseconds / 1000000000.0;
-    v30 = 1026;
-    v31 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMakeSOSPeer  OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", buf, 0x1Cu);
+    v14 = *(*(*(a1 + 56) + 8) + 24);
+    v24 = *(a1 + 72);
+    v25 = 2048;
+    v26 = Nanoseconds / 1000000000.0;
+    v27 = 1026;
+    v28 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMakeSOSPeer  OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMakeSOSPeer}d ", buf, 0x1Cu);
   }
 
   if (v5 && ([*(a1 + 32) testFailSOS] & 1) == 0)
   {
     if (![*(a1 + 32) sessionSupportsOctagon])
     {
-      v18 = *(a1 + 48);
-      v24 = @"p";
-      v25 = v5;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      (*(v18 + 16))(v18, 0, v19, v7);
+      v16 = *(a1 + 48);
+      v21 = @"p";
+      v22 = v5;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      (*(v16 + 16))(v16, 0, v17, v7);
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke_232;
-      v22[3] = &unk_278863270;
-      objc_copyWeak(&v23, (a1 + 64));
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke_232;
+      v19[3] = &unk_278863270;
+      objc_copyWeak(&v20, (a1 + 64));
       WeakRetained = objc_loadWeakRetained((a1 + 64));
-      [WeakRetained setNextState:v22];
+      [WeakRetained setNextState:v19];
 
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v20);
       goto LABEL_18;
     }
 
@@ -5647,18 +5596,16 @@ LABEL_12:
     goto LABEL_18;
   }
 
-  v17 = secLogObjForScope("pairing");
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v15 = secLogObjForScope("pairing");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v7;
-    _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "failed getting application: %@", buf, 0xCu);
+    v24 = v7;
+    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "failed getting application: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___block_invoke_232(uint64_t a1, void *a2, void *a3)
@@ -5749,30 +5696,31 @@ void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___bloc
     }
   }
 
-  if (CloudServicesLibraryCore())
+  if (CloudServicesLibraryCore(0))
   {
     if (getSecureBackupIsGuitarfishEnabledSymbolLoc())
     {
-      if (soft_SecureBackupIsGuitarfishEnabled())
+      soft_SecureBackupIsGuitarfishEnabled();
+      if (v25)
       {
         peerVersionContext4 = [(KCPairingChannel *)self peerVersionContext];
         accountIsGuitarfish = [peerVersionContext4 accountIsGuitarfish];
 
         if (accountIsGuitarfish)
         {
-          v27 = [packetCopy objectForKeyedSubscript:@"y"];
-          if (v27)
+          v28 = [packetCopy objectForKeyedSubscript:@"y"];
+          if (v28)
           {
-            v28 = [packetCopy objectForKeyedSubscript:@"y"];
-            v29 = [v28 isEqualToNumber:MEMORY[0x277CBEC38]];
+            v29 = [packetCopy objectForKeyedSubscript:@"y"];
+            v30 = [v29 isEqualToNumber:MEMORY[0x277CBEC38]];
 
-            if (v29)
+            if (v30)
             {
-              v30 = secLogObjForScope("pairing");
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v31 = secLogObjForScope("pairing");
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
                 LOWORD(v89) = 0;
-                _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "acceptor will send PCS data", &v89, 2u);
+                _os_log_impl(&dword_22EB09000, v31, OS_LOG_TYPE_DEFAULT, "acceptor will send PCS data", &v89, 2u);
               }
 
               [(KCPairingChannel *)self setInitiatorExpectPCSData:1];
@@ -5789,25 +5737,25 @@ void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___bloc
     *(&v89 + 1) = &v89;
     v90 = 0x2020000000;
     v91 = 0;
-    v31 = _OctagonSignpostLogSystem();
-    v32 = _OctagonSignpostCreate();
-    v50 = v33;
-    v34 = v32;
+    v32 = _OctagonSignpostLogSystem();
+    v33 = _OctagonSignpostCreate();
+    v50 = v34;
+    v35 = v33;
 
-    v35 = _OctagonSignpostLogSystem();
-    v36 = v35;
-    if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+    v36 = _OctagonSignpostLogSystem();
+    v37 = v36;
+    if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
     {
       *v87 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v34, "PairingChannelInitiatorStashAccountCredential", " enableTelemetry=YES ", v87, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v35, "PairingChannelInitiatorStashAccountCredential", " enableTelemetry=YES ", v87, 2u);
     }
 
-    v37 = _OctagonSignpostLogSystem();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v38 = _OctagonSignpostLogSystem();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *v87 = 134217984;
-      v88 = v34;
-      _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelInitiatorStashAccountCredential  enableTelemetry=YES ", v87, 0xCu);
+      v88 = v35;
+      _os_log_impl(&dword_22EB09000, v38, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PairingChannelInitiatorStashAccountCredential  enableTelemetry=YES ", v87, 0xCu);
     }
 
     connection = [(KCPairingChannel *)self connection];
@@ -5815,16 +5763,16 @@ void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___bloc
     v74[1] = 3221225472;
     v74[2] = __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke;
     v74[3] = &unk_2788632C0;
-    v79 = v34;
+    v79 = v35;
     v80 = v50;
     v81 = v56;
     v82 = v51;
     v77 = &v89;
     v78 = buf;
-    v38 = v53;
-    v75 = v38;
-    v39 = completeCopy;
-    v76 = v39;
+    v39 = v53;
+    v75 = v39;
+    v40 = completeCopy;
+    v76 = v40;
     v48 = [connection remoteObjectProxyWithErrorHandler:v74];
     peerVersionContext5 = [(KCPairingChannel *)self peerVersionContext];
     altDSID2 = [peerVersionContext5 altDSID];
@@ -5842,9 +5790,9 @@ void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___bloc
     v72 = v56;
     v73 = v51;
     v69 = buf;
-    v70 = v34;
-    v65 = v38;
-    v67 = v39;
+    v70 = v35;
+    v65 = v39;
+    v67 = v40;
     v66 = packetCopy;
     [v48 stashAccountCredential:v52 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 canSendMetrics:1 complete:v64];
 
@@ -5866,324 +5814,299 @@ void __66__KCPairingChannel_initiatorCompleteSecondPacketWithSOS_complete___bloc
   }
 
   _Block_object_dispose(buf, 8);
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 72);
-  v5 = a2;
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a2;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v7 = _OctagonSignpostLogSystem();
-  v8 = v7;
-  v9 = *(a1 + 64);
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v5 = _OctagonSignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 64);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v10;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorStashAccountCredential", " OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", &v24, 8u);
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v6, OS_SIGNPOST_INTERVAL_END, v7, "PairingChannelInitiatorStashAccountCredential", " OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", &v19, 8u);
   }
 
-  v11 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 64);
-    v13 = *(*(*(a1 + 48) + 8) + 24);
-    v24 = 134218496;
-    v25 = v12;
-    v26 = 2048;
-    v27 = Nanoseconds / 1000000000.0;
-    v28 = 1026;
-    v29 = v13;
-    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorStashAccountCredential  OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", &v24, 0x1Cu);
+    v10 = *(a1 + 64);
+    v11 = *(*(*(a1 + 48) + 8) + 24);
+    v19 = 134218496;
+    v20 = v10;
+    v21 = 2048;
+    v22 = Nanoseconds / 1000000000.0;
+    v23 = 1026;
+    v24 = v11;
+    _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorStashAccountCredential  OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", &v19, 0x1Cu);
   }
 
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v16 = _OctagonSignpostGetNanoseconds();
+  v12 = _OctagonSignpostGetNanoseconds();
+  v13 = _OctagonSignpostLogSystem();
+  v14 = v13;
+  v15 = *(a1 + 80);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    v16 = *(*(*(a1 + 56) + 8) + 24);
+    v19 = 67240192;
+    LODWORD(v20) = v16;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v14, OS_SIGNPOST_INTERVAL_END, v15, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v19, 8u);
+  }
+
   v17 = _OctagonSignpostLogSystem();
-  v18 = v17;
-  v19 = *(a1 + 80);
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = *(*(*(a1 + 56) + 8) + 24);
-    v24 = 67240192;
-    LODWORD(v25) = v20;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v18, OS_SIGNPOST_INTERVAL_END, v19, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v24, 8u);
+    v19 = 134218496;
+    v18 = *(*(*(a1 + 56) + 8) + 24);
+    v20 = *(a1 + 80);
+    v21 = 2048;
+    v22 = v12 / 1000000000.0;
+    v23 = 1026;
+    v24 = v18;
+    _os_log_impl(&dword_22EB09000, v17, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v19, 0x1Cu);
   }
 
-  v21 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = 134218496;
-    v22 = *(*(*(a1 + 56) + 8) + 24);
-    v25 = *(a1 + 80);
-    v26 = 2048;
-    v27 = v16 / 1000000000.0;
-    v28 = 1026;
-    v29 = v22;
-    _os_log_impl(&dword_22EB09000, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v24, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:0 error:v5];
+  [*(a1 + 32) sendMetricWithResult:0 error:v3];
   (*(*(a1 + 40) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_225(uint64_t a1, int a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5 && a2)
   {
     *(*(*(a1 + 64) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 80);
-  v7 = *(a1 + 88);
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v9 = _OctagonSignpostLogSystem();
-  v10 = v9;
-  v11 = *(a1 + 80);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v7 = _OctagonSignpostLogSystem();
+  v8 = v7;
+  v9 = *(a1 + 80);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v12 = *(*(*(a1 + 64) + 8) + 24);
+    v10 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 67240192;
-    LODWORD(v43) = v12;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorStashAccountCredential", " OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", buf, 8u);
+    LODWORD(v38) = v10;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PairingChannelInitiatorStashAccountCredential", " OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", buf, 8u);
   }
 
-  v13 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v11 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 80);
-    v15 = *(*(*(a1 + 64) + 8) + 24);
+    v12 = *(a1 + 80);
+    v13 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 134218496;
-    v43 = v14;
-    v44 = 2048;
-    v45 = Nanoseconds / 1000000000.0;
-    v46 = 1026;
-    v47 = v15;
-    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorStashAccountCredential  OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", buf, 0x1Cu);
+    v38 = v12;
+    v39 = 2048;
+    v40 = Nanoseconds / 1000000000.0;
+    v41 = 1026;
+    v42 = v13;
+    _os_log_impl(&dword_22EB09000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorStashAccountCredential  OctagonSignpostNamePairingChannelInitiatorStashAccountCredential=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorStashAccountCredential}d ", buf, 0x1Cu);
   }
 
   [*(a1 + 32) setNextStateError:0 complete:0];
   if (a2 && ![*(a1 + 32) testFailSOS])
   {
-    v29 = *(a1 + 48);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228;
-    v32[3] = &unk_2788632E8;
-    v35 = *(a1 + 72);
-    v36 = *(a1 + 96);
-    v30 = *(a1 + 32);
-    v33 = *(a1 + 40);
-    v34 = *(a1 + 56);
-    [v30 initiatorCompleteSecondPacketWithSOS:v29 complete:v32];
+    v25 = *(a1 + 48);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228;
+    v27[3] = &unk_2788632E8;
+    v30 = *(a1 + 72);
+    v31 = *(a1 + 96);
+    v26 = *(a1 + 32);
+    v28 = *(a1 + 40);
+    v29 = *(a1 + 56);
+    [v26 initiatorCompleteSecondPacketWithSOS:v25 complete:v27];
 
-    v19 = v33;
+    v17 = v28;
     goto LABEL_22;
   }
 
-  v16 = secLogObjForScope("pairing");
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v14 = secLogObjForScope("pairing");
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v43 = v5;
-    _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "failed stash credentials: %@", buf, 0xCu);
+    v38 = v5;
+    _os_log_impl(&dword_22EB09000, v14, OS_LOG_TYPE_DEFAULT, "failed stash credentials: %@", buf, 0xCu);
   }
 
   if ([*(a1 + 32) sessionSupportsOctagon])
   {
-    v17 = *(a1 + 48);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_226;
-    v37[3] = &unk_2788632E8;
-    v40 = *(a1 + 72);
-    v41 = *(a1 + 96);
-    v18 = *(a1 + 32);
-    v38 = *(a1 + 40);
-    v39 = *(a1 + 56);
-    [v18 initiatorCompleteSecondPacketOctagon:v17 application:0 complete:v37];
+    v15 = *(a1 + 48);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_226;
+    v32[3] = &unk_2788632E8;
+    v35 = *(a1 + 72);
+    v36 = *(a1 + 96);
+    v16 = *(a1 + 32);
+    v33 = *(a1 + 40);
+    v34 = *(a1 + 56);
+    [v16 initiatorCompleteSecondPacketOctagon:v15 application:0 complete:v32];
 
-    v19 = v38;
+    v17 = v33;
 LABEL_22:
 
     goto LABEL_23;
   }
 
-  v20 = *(a1 + 96);
-  v21 = *(a1 + 104);
-  v22 = _OctagonSignpostGetNanoseconds();
-  v23 = _OctagonSignpostLogSystem();
-  v24 = v23;
-  v25 = *(a1 + 96);
-  if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  v18 = _OctagonSignpostGetNanoseconds();
+  v19 = _OctagonSignpostLogSystem();
+  v20 = v19;
+  v21 = *(a1 + 96);
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v26 = *(*(*(a1 + 72) + 8) + 24);
+    v22 = *(*(*(a1 + 72) + 8) + 24);
     *buf = 67240192;
-    LODWORD(v43) = v26;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", buf, 8u);
+    LODWORD(v38) = v22;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v20, OS_SIGNPOST_INTERVAL_END, v21, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", buf, 8u);
   }
 
-  v27 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v23 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v28 = *(*(*(a1 + 72) + 8) + 24);
-    v43 = *(a1 + 96);
-    v44 = 2048;
-    v45 = v22 / 1000000000.0;
-    v46 = 1026;
-    v47 = v28;
-    _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", buf, 0x1Cu);
+    v24 = *(*(*(a1 + 72) + 8) + 24);
+    v38 = *(a1 + 96);
+    v39 = 2048;
+    v40 = v18 / 1000000000.0;
+    v41 = 1026;
+    v42 = v24;
+    _os_log_impl(&dword_22EB09000, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", buf, 0x1Cu);
   }
 
   [*(a1 + 40) sendMetricWithResult:0 error:v5];
   (*(*(a1 + 56) + 16))();
 LABEL_23:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_230(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_226(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = a4;
-  v9 = a3;
+  v6 = a4;
+  v7 = a3;
   Nanoseconds = _OctagonSignpostGetNanoseconds();
-  v11 = _OctagonSignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 56);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _OctagonSignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 56);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
+    v12 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 67240192;
+    LODWORD(v16) = v12;
+    _os_signpost_emit_with_name_impl(&dword_22EB09000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v15, 8u);
+  }
+
+  v13 = _OctagonSignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 134218496;
     v14 = *(*(*(a1 + 48) + 8) + 24);
-    v18 = 67240192;
-    LODWORD(v19) = v14;
-    _os_signpost_emit_with_name_impl(&dword_22EB09000, v12, OS_SIGNPOST_INTERVAL_END, v13, "PairingChannelInitiatorMessage2", " OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v18, 8u);
+    v16 = *(a1 + 56);
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 1026;
+    v20 = v14;
+    _os_log_impl(&dword_22EB09000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v15, 0x1Cu);
   }
 
-  v15 = _OctagonSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = 134218496;
-    v16 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 56);
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v16;
-    _os_log_impl(&dword_22EB09000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage2  OctagonSignpostNamePairingChannelInitiatorMessage2=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage2}d ", &v18, 0x1Cu);
-  }
-
-  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v8];
+  [*(a1 + 32) sendMetricWithResult:*(*(*(a1 + 48) + 8) + 24) error:v6];
   (*(*(a1 + 40) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiatorFirstPacket:(id)packet complete:(id)complete
 {
-  v89[1] = *MEMORY[0x277D85DE8];
+  v90[1] = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completeCopy = complete;
   v6 = secLogObjForScope("pairing");
@@ -6198,7 +6121,7 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
 
   v8 = _OctagonSignpostLogSystem();
   v9 = v8;
-  v55 = spid - 1;
+  v56 = spid - 1;
   if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
@@ -6229,18 +6152,18 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
   }
 
   v12 = [AAFAnalyticsEventSecurity alloc];
-  v88 = @"supportedTrustSystem";
+  v89 = @"supportedTrustSystem";
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:sessionSupportsSOS];
-  v89[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:&v88 count:1];
+  v90[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
   peerVersionContext = [(KCPairingChannel *)self peerVersionContext];
   altDSID = [peerVersionContext altDSID];
   peerVersionContext2 = [(KCPairingChannel *)self peerVersionContext];
   flowID = [peerVersionContext2 flowID];
   peerVersionContext3 = [(KCPairingChannel *)self peerVersionContext];
   deviceSessionID = [peerVersionContext3 deviceSessionID];
-  LOBYTE(v53) = 1;
-  v21 = [(AAFAnalyticsEventSecurity *)v12 initWithKeychainCircleMetrics:v14 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.initiatorCreatesPacket1" testsAreEnabled:metricsAreEnabled canSendMetrics:v53 category:&unk_2843768F0];
+  LOBYTE(v54) = 1;
+  v21 = [(AAFAnalyticsEventSecurity *)v12 initWithKeychainCircleMetrics:v14 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.initiatorCreatesPacket1" testsAreEnabled:metricsAreEnabled canSendMetrics:v54 category:&unk_2843768F0];
 
   if (SOSCCIsSOSTrustAndSyncingEnabled() && ![(KCPairingChannel *)self ensureControlChannel])
   {
@@ -6249,7 +6172,7 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
     Nanoseconds = _OctagonSignpostGetNanoseconds();
     v33 = _OctagonSignpostLogSystem();
     v34 = v33;
-    if (v55 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v33))
+    if (v56 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v33))
     {
       *buf = 67240192;
       _os_signpost_emit_with_name_impl(&dword_22EB09000, v34, OS_SIGNPOST_INTERVAL_END, spid, "PairingChannelInitiatorMessage1", " OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 8u);
@@ -6260,10 +6183,10 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
     {
       *buf = 134218496;
       *&buf[4] = spid;
-      v84 = 2048;
-      v85 = Nanoseconds / 1000000000.0;
-      v86 = 1026;
-      v87 = 0;
+      v85 = 2048;
+      v86 = Nanoseconds / 1000000000.0;
+      v87 = 1026;
+      v88 = 0;
       _os_log_impl(&dword_22EB09000, v35, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage1  OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 0x1Cu);
     }
 
@@ -6273,64 +6196,64 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
   else if ([(KCPairingChannel *)self sessionSupportsOctagon]&& [(KCPairingChannel *)self sessionSupportsSOS]&& ![(KCPairingChannel *)self testFailOctagon])
   {
     objc_initWeak(&location, self);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke;
-    v62[3] = &unk_278863270;
-    objc_copyWeak(&v63, &location);
-    [(KCPairingChannel *)self setNextState:v62];
-    v44 = _OctagonSignpostGetNanoseconds();
-    v45 = _OctagonSignpostLogSystem();
-    v46 = v45;
-    if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke;
+    v63[3] = &unk_278863270;
+    objc_copyWeak(&v64, &location);
+    [(KCPairingChannel *)self setNextState:v63];
+    v45 = _OctagonSignpostGetNanoseconds();
+    v46 = _OctagonSignpostLogSystem();
+    v47 = v46;
+    if (v56 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
     {
       *buf = 67240192;
       *&buf[4] = 1;
-      _os_signpost_emit_with_name_impl(&dword_22EB09000, v46, OS_SIGNPOST_INTERVAL_END, spid, "PairingChannelInitiatorMessage1", " OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 8u);
+      _os_signpost_emit_with_name_impl(&dword_22EB09000, v47, OS_SIGNPOST_INTERVAL_END, spid, "PairingChannelInitiatorMessage1", " OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 8u);
     }
 
-    v47 = _OctagonSignpostLogSystem();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v48 = _OctagonSignpostLogSystem();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
       *&buf[4] = spid;
-      v84 = 2048;
-      v85 = v44 / 1000000000.0;
-      v86 = 1026;
-      v87 = 1;
-      _os_log_impl(&dword_22EB09000, v47, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage1  OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 0x1Cu);
+      v85 = 2048;
+      v86 = v45 / 1000000000.0;
+      v87 = 1026;
+      v88 = 1;
+      _os_log_impl(&dword_22EB09000, v48, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage1  OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 0x1Cu);
     }
 
     [(AAFAnalyticsEventSecurity *)v21 sendMetricWithResult:1 error:0];
-    if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && (-[KCPairingChannel peerVersionContext](self, "peerVersionContext"), v48 = objc_claimAutoreleasedReturnValue(), v49 = [v48 accountIsGuitarfish], v48, v49))
+    if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v49) && (-[KCPairingChannel peerVersionContext](self, "peerVersionContext"), v50 = objc_claimAutoreleasedReturnValue(), v51 = [v50 accountIsGuitarfish], v50, v51))
     {
-      v81[1] = @"o";
-      v82[0] = MEMORY[0x277CBEC38];
-      v80[1] = MEMORY[0x277CBEC38];
-      v81[0] = @"d";
-      v79[0] = @"v";
-      v79[1] = @"s";
-      v80[0] = @"O";
-      v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:2];
-      v82[1] = v50;
-      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
-      (*(completeCopy + 2))(completeCopy, 0, v51, 0);
+      v82[1] = @"o";
+      v83[0] = MEMORY[0x277CBEC38];
+      v81[1] = MEMORY[0x277CBEC38];
+      v82[0] = @"d";
+      v80[0] = @"v";
+      v80[1] = @"s";
+      v81[0] = @"O";
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:2];
+      v83[1] = v52;
+      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
+      (*(completeCopy + 2))(completeCopy, 0, v53, 0);
     }
 
     else
     {
-      v77[0] = @"d";
-      v77[1] = @"o";
-      v78[0] = MEMORY[0x277CBEC38];
-      v75 = @"v";
-      v76 = @"O";
-      v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-      v78[1] = v50;
-      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
-      (*(completeCopy + 2))(completeCopy, 0, v51, 0);
+      v78[0] = @"d";
+      v78[1] = @"o";
+      v79[0] = MEMORY[0x277CBEC38];
+      v76 = @"v";
+      v77 = @"O";
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+      v79[1] = v52;
+      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:2];
+      (*(completeCopy + 2))(completeCopy, 0, v53, 0);
     }
 
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v64);
     objc_destroyWeak(&location);
   }
 
@@ -6339,7 +6262,7 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
     v22 = _OctagonSignpostGetNanoseconds();
     v23 = _OctagonSignpostLogSystem();
     v24 = v23;
-    if (v55 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v23))
+    if (v56 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v23))
     {
       *buf = 67240192;
       _os_signpost_emit_with_name_impl(&dword_22EB09000, v24, OS_SIGNPOST_INTERVAL_END, spid, "PairingChannelInitiatorMessage1", " OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 8u);
@@ -6350,10 +6273,10 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
     {
       *buf = 134218496;
       *&buf[4] = spid;
-      v84 = 2048;
-      v85 = v22 / 1000000000.0;
-      v86 = 1026;
-      v87 = 0;
+      v85 = 2048;
+      v86 = v22 / 1000000000.0;
+      v87 = 1026;
+      v88 = 0;
       _os_log_impl(&dword_22EB09000, v25, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage1  OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 0x1Cu);
     }
 
@@ -6364,16 +6287,16 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
   else if ([(KCPairingChannel *)self sessionSupportsOctagon]&& ![(KCPairingChannel *)self sessionSupportsSOS])
   {
     objc_initWeak(&location, self);
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke_223;
-    v60[3] = &unk_278863270;
-    objc_copyWeak(&v61, &location);
-    [(KCPairingChannel *)self setNextState:v60];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke_223;
+    v61[3] = &unk_278863270;
+    objc_copyWeak(&v62, &location);
+    [(KCPairingChannel *)self setNextState:v61];
     v36 = _OctagonSignpostGetNanoseconds();
     v37 = _OctagonSignpostLogSystem();
     v38 = v37;
-    if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+    if (v56 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
     {
       *buf = 67240192;
       *&buf[4] = 1;
@@ -6385,55 +6308,55 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
     {
       *buf = 134218496;
       *&buf[4] = spid;
-      v84 = 2048;
-      v85 = v36 / 1000000000.0;
-      v86 = 1026;
-      v87 = 1;
+      v85 = 2048;
+      v86 = v36 / 1000000000.0;
+      v87 = 1026;
+      v88 = 1;
       _os_log_impl(&dword_22EB09000, v39, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage1  OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 0x1Cu);
     }
 
     [(AAFAnalyticsEventSecurity *)v21 sendMetricWithResult:1 error:0];
-    if (CloudServicesLibraryCore() && getSecureBackupIsGuitarfishEnabledSymbolLoc() && soft_SecureBackupIsGuitarfishEnabled() && (-[KCPairingChannel peerVersionContext](self, "peerVersionContext"), v40 = objc_claimAutoreleasedReturnValue(), v41 = [v40 accountIsGuitarfish], v40, v41))
+    if (CloudServicesLibraryCore(0) && getSecureBackupIsGuitarfishEnabledSymbolLoc() && (soft_SecureBackupIsGuitarfishEnabled(), v40) && (-[KCPairingChannel peerVersionContext](self, "peerVersionContext"), v41 = objc_claimAutoreleasedReturnValue(), v42 = [v41 accountIsGuitarfish], v41, v42))
     {
-      v73 = @"o";
-      v71[0] = @"v";
-      v71[1] = @"s";
-      v72[0] = @"O";
-      v72[1] = MEMORY[0x277CBEC38];
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
-      v74 = v42;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-      (*(completeCopy + 2))(completeCopy, 0, v43, 0);
+      v74 = @"o";
+      v72[0] = @"v";
+      v72[1] = @"s";
+      v73[0] = @"O";
+      v73[1] = MEMORY[0x277CBEC38];
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
+      v75 = v43;
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      (*(completeCopy + 2))(completeCopy, 0, v44, 0);
     }
 
     else
     {
-      v67 = @"v";
-      v68 = @"O";
-      v69 = @"o";
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-      v70 = v42;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-      (*(completeCopy + 2))(completeCopy, 0, v43, 0);
+      v68 = @"v";
+      v69 = @"O";
+      v70 = @"o";
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+      v71 = v43;
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      (*(completeCopy + 2))(completeCopy, 0, v44, 0);
     }
 
-    objc_destroyWeak(&v61);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(&location);
   }
 
   else
   {
     objc_initWeak(&location, self);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke_224;
-    v58[3] = &unk_278863270;
-    objc_copyWeak(&v59, &location);
-    [(KCPairingChannel *)self setNextState:v58];
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke_224;
+    v59[3] = &unk_278863270;
+    objc_copyWeak(&v60, &location);
+    [(KCPairingChannel *)self setNextState:v59];
     v26 = _OctagonSignpostGetNanoseconds();
     v27 = _OctagonSignpostLogSystem();
     v28 = v27;
-    if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    if (v56 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       *buf = 67240192;
       *&buf[4] = 1;
@@ -6445,24 +6368,22 @@ void __51__KCPairingChannel_initiatorSecondPacket_complete___block_invoke_228(ui
     {
       *buf = 134218496;
       *&buf[4] = spid;
-      v84 = 2048;
-      v85 = v26 / 1000000000.0;
-      v86 = 1026;
-      v87 = 1;
+      v85 = 2048;
+      v86 = v26 / 1000000000.0;
+      v87 = 1026;
+      v88 = 1;
       _os_log_impl(&dword_22EB09000, v29, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PairingChannelInitiatorMessage1  OctagonSignpostNamePairingChannelInitiatorMessage1=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePairingChannelInitiatorMessage1}d ", buf, 0x1Cu);
     }
 
     [(AAFAnalyticsEventSecurity *)v21 sendMetricWithResult:1 error:0];
-    v65 = @"d";
-    v66 = MEMORY[0x277CBEC38];
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v66 = @"d";
+    v67 = MEMORY[0x277CBEC38];
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
     (*(completeCopy + 2))(completeCopy, 0, v30, 0);
 
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v60);
     objc_destroyWeak(&location);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -6514,16 +6435,16 @@ void __50__KCPairingChannel_initiatorFirstPacket_complete___block_invoke_224(uin
 
 void __41__KCPairingChannel_waitForOctagonUpgrade__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_22EB09000, v4, OS_LOG_TYPE_DEFAULT, "pairing: failed to upgrade initiator into Octagon: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_22EB09000, v4, OS_LOG_TYPE_DEFAULT, "pairing: failed to upgrade initiator into Octagon: %@", &v8, 0xCu);
     }
 
     v5 = *(a1 + 32);
@@ -6539,22 +6460,20 @@ void __41__KCPairingChannel_waitForOctagonUpgrade__block_invoke(uint64_t a1, voi
   }
 
   [v5 sendMetricWithResult:v6 error:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNextStateError:(id)error complete:(id)complete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   completeCopy = complete;
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __47__KCPairingChannel_setNextStateError_complete___block_invoke;
-  v10[3] = &unk_278863270;
-  objc_copyWeak(&v11, &location);
-  [(KCPairingChannel *)self setNextState:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __47__KCPairingChannel_setNextStateError_complete___block_invoke;
+  v9[3] = &unk_278863270;
+  objc_copyWeak(&v10, &location);
+  [(KCPairingChannel *)self setNextState:v9];
   if (completeCopy)
   {
     if (errorCopy)
@@ -6563,7 +6482,7 @@ void __41__KCPairingChannel_waitForOctagonUpgrade__block_invoke(uint64_t a1, voi
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v14 = errorCopy;
+        v13 = errorCopy;
         _os_log_impl(&dword_22EB09000, v8, OS_LOG_TYPE_DEFAULT, "pairingchannel: failed pairing with: %@", buf, 0xCu);
       }
     }
@@ -6571,10 +6490,8 @@ void __41__KCPairingChannel_waitForOctagonUpgrade__block_invoke(uint64_t a1, voi
     (*(completeCopy + 2))(completeCopy, 0, 0, errorCopy);
   }
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __47__KCPairingChannel_setNextStateError_complete___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -6597,6 +6514,106 @@ void __47__KCPairingChannel_setNextStateError_complete___block_invoke(uint64_t a
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:kKCPairingChannelErrorDomain code:2 userInfo:0];
   (*(completeCopy + 2))(completeCopy, 0, 0, v6);
+}
+
+- (id)initAsInitiator:(BOOL)initiator version:(id)version
+{
+  initiatorCopy = initiator;
+  versionCopy = version;
+  if (+[KCPairingChannel isSupportedPlatform])
+  {
+    v42.receiver = self;
+    v42.super_class = KCPairingChannel;
+    v8 = [(KCPairingChannel *)&v42 init];
+    if (v8)
+    {
+      objc_initWeak(location, v8);
+      v8->_initiator = initiatorCopy;
+      objc_storeStrong(&v8->_peerVersionContext, version);
+      if (v8->_initiator)
+      {
+        v9 = &v40;
+        v10 = v39;
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v11 = __44__KCPairingChannel_initAsInitiator_version___block_invoke;
+      }
+
+      else
+      {
+        v9 = &v38;
+        v10 = v37;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v11 = __44__KCPairingChannel_initAsInitiator_version___block_invoke_2;
+      }
+
+      v10[2] = v11;
+      v10[3] = &unk_278863270;
+      objc_copyWeak(v9, location);
+      v14 = MEMORY[0x2318F3560](v10);
+      nextState = v8->_nextState;
+      v8->_nextState = v14;
+
+      objc_destroyWeak(v9);
+      v8->_needInitialSync = 1;
+      v8->_testFailSOS = 0;
+      v8->_sessionSupportsSOS = SOSCCIsSOSTrustAndSyncingEnabled();
+      v8->_sessionSupportsOctagon = 1;
+      v36 = 0;
+      v16 = [MEMORY[0x277CDBD58] controlObject:1 error:&v36];
+      v17 = v36;
+      otControl = v8->_otControl;
+      v8->_otControl = v16;
+
+      if (v17)
+      {
+        v19 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          *v35 = 0;
+          _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "could not stand up otcontrol connection", v35, 2u);
+        }
+      }
+
+      v20 = objc_alloc(MEMORY[0x277CDBD68]);
+      v21 = *MEMORY[0x277CDBD98];
+      uniqueDeviceID = [versionCopy uniqueDeviceID];
+      uniqueClientID = [versionCopy uniqueClientID];
+      uUID = [MEMORY[0x277CCAD78] UUID];
+      uUIDString = [uUID UUIDString];
+      v26 = [v20 initWithProtocolType:v21 uniqueDeviceID:uniqueDeviceID uniqueClientID:uniqueClientID pairingUUID:uUIDString epoch:0 isInitiator:initiatorCopy];
+      joiningConfiguration = v8->_joiningConfiguration;
+      v8->_joiningConfiguration = v26;
+
+      v28 = objc_alloc(MEMORY[0x277CDBD60]);
+      altDSID = [versionCopy altDSID];
+      flowID = [versionCopy flowID];
+      deviceSessionID = [versionCopy deviceSessionID];
+      v32 = [v28 initWithAltDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID];
+      controlArguments = v8->_controlArguments;
+      v8->_controlArguments = v32;
+
+      objc_destroyWeak(location);
+    }
+
+    self = v8;
+    selfCopy = self;
+  }
+
+  else
+  {
+    v12 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(location[0]) = 0;
+      _os_log_impl(&dword_22EB09000, v12, OS_LOG_TYPE_DEFAULT, "platform not supported for pairing", location, 2u);
+    }
+
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 void __44__KCPairingChannel_initAsInitiator_version___block_invoke(uint64_t a1, void *a2, void *a3)

@@ -3,6 +3,7 @@
 - (void)appDidEnterBackground:(id)background;
 - (void)didCancelResetActionSheet;
 - (void)dismissSelfIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -19,6 +20,14 @@
   }
 
   return 1;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PSGResetNetworkSettingsListController;
+  [(PSGResetOrEraseListController *)&v4 viewDidAppear:appear];
+  [(PSGResetOrEraseListController *)self showResetActionSheet:0];
 }
 
 - (void)viewDidLoad

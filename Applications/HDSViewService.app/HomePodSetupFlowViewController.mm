@@ -36,14 +36,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100077B74;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_100075B48(contextCopy, v6);
-  sub_1000616F4(v6);
+  sub_1000616F4(v6, v7);
 }
 
 - (void)viewDidLoad
@@ -100,14 +106,13 @@
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1000754B8();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)_physicalButtonInteraction:(id)interaction handleAction:(id)action withActiveActions:(id)actions

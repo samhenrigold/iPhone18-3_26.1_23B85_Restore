@@ -405,7 +405,9 @@ LABEL_7:
 + (void)activityForDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v2, v3, "invalid CUIKUserActivityType: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v2, v3, "invalid CUIKUserActivityType: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

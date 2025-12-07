@@ -1,3 +1,336 @@
+id sub_1001059C8()
+{
+  result = [objc_opt_self() secondarySystemGroupedBackgroundColor];
+  qword_10076BF50 = result;
+  return result;
+}
+
+void sub_100105A04(_OWORD *a1@<X8>)
+{
+  v3 = type metadata accessor for IndexPath();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(v1 + 24);
+  v8 = UICollectionElementKindSectionHeader;
+  IndexPath.init(item:section:)();
+  isa = IndexPath._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
+  v10 = [v7 supplementaryViewForElementKind:v8 atIndexPath:isa];
+
+  if (v10)
+  {
+    swift_getObjectType();
+    if (swift_conformsToProtocol2())
+    {
+      v11 = v10;
+      sub_100608964(v26);
+      v24 = v26[1];
+      v25 = v26[0];
+      v22 = v26[3];
+      v23 = v26[2];
+      v21 = v26[4];
+      v20 = v26[5];
+      v19 = v26[6];
+    }
+
+    else
+    {
+      v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v21 = 0u;
+      v20 = 0u;
+      v19 = 0u;
+    }
+
+    v13 = v24;
+    v12 = v25;
+    v15 = v22;
+    v14 = v23;
+    v16 = v21;
+    v17 = v20;
+    v18 = v19;
+  }
+
+  else
+  {
+    v12 = 0uLL;
+    v13 = 0uLL;
+    v14 = 0uLL;
+    v15 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
+    v18 = 0uLL;
+  }
+
+  *a1 = v12;
+  a1[1] = v13;
+  a1[2] = v14;
+  a1[3] = v15;
+  a1[4] = v16;
+  a1[5] = v17;
+  a1[6] = v18;
+}
+
+uint64_t sub_100105C10(uint64_t result, uint64_t a2)
+{
+  if (!result)
+  {
+    v10[39] = v2;
+    v10[40] = v3;
+    memcpy(__dst, (a2 + 32), sizeof(__dst));
+    memcpy(v10, (a2 + 32), 0x118uLL);
+    result = sub_10010896C(v10);
+    if (result != 1)
+    {
+      sub_100108984(__src);
+      memcpy(v7, (a2 + 32), sizeof(v7));
+      memcpy((a2 + 32), __src, 0x118uLL);
+      memcpy(v8, __dst, sizeof(v8));
+      sub_100106478(v8, &v5);
+      sub_1000079B4(v7, &qword_10076C040, &unk_1006301D0);
+      [v10[15] removeFromSuperview];
+      [*(a2 + 24) setHidden:0];
+      return sub_1000079B4(__dst, &qword_10076C040, &unk_1006301D0);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_100105D14()
+{
+  memcpy(__dst, v0 + 4, sizeof(__dst));
+  sub_1000079B4(__dst, &qword_10076C040, &unk_1006301D0);
+  return swift_deallocClassInstance();
+}
+
+uint64_t destroy for TTRIBoardColumnDraggingAnimator.AnimationState(id *a1)
+{
+}
+
+uint64_t initializeWithCopy for TTRIBoardColumnDraggingAnimator.AnimationState(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v3;
+  v4 = *(a2 + 32);
+  v5 = *(a2 + 40);
+  *(a1 + 32) = v4;
+  *(a1 + 40) = v5;
+  v6 = *(a2 + 48);
+  *(a1 + 48) = v6;
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 72) = *(a2 + 72);
+  v7 = *(a2 + 88);
+  v8 = *(a2 + 96);
+  *(a1 + 88) = v7;
+  *(a1 + 96) = v8;
+  v9 = *(a2 + 112);
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 112) = v9;
+  v10 = *(a2 + 120);
+  v34 = *(a2 + 128);
+  *(a1 + 120) = v10;
+  *(a1 + 128) = v34;
+  *(a1 + 152) = *(a2 + 152);
+  *(a1 + 136) = *(a2 + 136);
+  v11 = *(a2 + 168);
+  v32 = *(a2 + 176);
+  *(a1 + 168) = v11;
+  *(a1 + 176) = v32;
+  v35 = *(a2 + 184);
+  *(a1 + 184) = v35;
+  v12 = *(a2 + 208);
+  *(a1 + 192) = *(a2 + 192);
+  *(a1 + 208) = v12;
+  v14 = *(a2 + 224);
+  v13 = *(a2 + 232);
+  *(a1 + 224) = v14;
+  *(a1 + 232) = v13;
+  v33 = v13;
+  v15 = *(a2 + 248);
+  *(a1 + 240) = *(a2 + 240);
+  *(a1 + 248) = v15;
+  v36 = v15;
+  v37 = *(a2 + 256);
+  v16 = *(a2 + 264);
+  v38 = *(a2 + 272);
+  *(a1 + 256) = v37;
+  *(a1 + 264) = v16;
+  *(a1 + 272) = v38;
+  v17 = v4;
+  v18 = v5;
+  v19 = v6;
+  v20 = v7;
+  v21 = v8;
+
+  v22 = v10;
+  v23 = v34;
+  v24 = v11;
+  v25 = v32;
+  v26 = v35;
+  v27 = v14;
+  v28 = v33;
+
+  v29 = v36;
+  v30 = v37;
+
+  return a1;
+}
+
+void *assignWithCopy for TTRIBoardColumnDraggingAnimator.AnimationState(void *a1, void *a2)
+{
+  *a1 = *a2;
+  a1[1] = a2[1];
+  a1[2] = a2[2];
+  a1[3] = a2[3];
+  v4 = a2[4];
+  v5 = a1[4];
+  a1[4] = v4;
+  v6 = v4;
+
+  v7 = a2[5];
+  v8 = a1[5];
+  a1[5] = v7;
+  v9 = v7;
+
+  v10 = a2[6];
+  v11 = a1[6];
+  a1[6] = v10;
+  v12 = v10;
+
+  a1[7] = a2[7];
+  a1[8] = a2[8];
+  a1[9] = a2[9];
+  a1[10] = a2[10];
+  v13 = a2[11];
+  v14 = a1[11];
+  a1[11] = v13;
+  v15 = v13;
+
+  v16 = a2[12];
+  v17 = a1[12];
+  a1[12] = v16;
+  v18 = v16;
+
+  a1[13] = a2[13];
+
+  a1[14] = a2[14];
+
+  v19 = a2[15];
+  v20 = a1[15];
+  a1[15] = v19;
+  v21 = v19;
+
+  v22 = a2[16];
+  v23 = a1[16];
+  a1[16] = v22;
+  v24 = v22;
+
+  a1[17] = a2[17];
+  a1[18] = a2[18];
+  a1[19] = a2[19];
+  a1[20] = a2[20];
+  v25 = a2[21];
+  v26 = a1[21];
+  a1[21] = v25;
+  v27 = v25;
+
+  v28 = a2[22];
+  v29 = a1[22];
+  a1[22] = v28;
+  v30 = v28;
+
+  v31 = a2[23];
+  v32 = a1[23];
+  a1[23] = v31;
+  v33 = v31;
+
+  a1[24] = a2[24];
+  a1[25] = a2[25];
+  a1[26] = a2[26];
+  a1[27] = a2[27];
+  v34 = a2[28];
+  v35 = a1[28];
+  a1[28] = v34;
+  v36 = v34;
+
+  v37 = a2[29];
+  v38 = a1[29];
+  a1[29] = v37;
+  v39 = v37;
+
+  a1[30] = a2[30];
+
+  v40 = a2[31];
+  v41 = a1[31];
+  a1[31] = v40;
+  v42 = v40;
+
+  v43 = a2[32];
+  v44 = a1[32];
+  a1[32] = v43;
+  v45 = v43;
+
+  a1[33] = a2[33];
+
+  a1[34] = a2[34];
+
+  return a1;
+}
+
+uint64_t assignWithTake for TTRIBoardColumnDraggingAnimator.AnimationState(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v4;
+
+  v5 = *(a1 + 40);
+  *(a1 + 32) = *(a2 + 32);
+
+  v6 = *(a1 + 48);
+  *(a1 + 48) = *(a2 + 48);
+
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 72) = *(a2 + 72);
+
+  v7 = *(a1 + 96);
+  *(a1 + 88) = *(a2 + 88);
+
+  *(a1 + 104) = *(a2 + 104);
+
+  v8 = *(a1 + 128);
+  *(a1 + 120) = *(a2 + 120);
+
+  *(a1 + 136) = *(a2 + 136);
+  *(a1 + 152) = *(a2 + 152);
+
+  v9 = *(a1 + 176);
+  *(a1 + 168) = *(a2 + 168);
+
+  v10 = *(a1 + 184);
+  *(a1 + 184) = *(a2 + 184);
+
+  v11 = *(a2 + 208);
+  *(a1 + 192) = *(a2 + 192);
+  *(a1 + 208) = v11;
+
+  v12 = *(a1 + 232);
+  *(a1 + 224) = *(a2 + 224);
+
+  v13 = *(a1 + 248);
+  *(a1 + 240) = *(a2 + 240);
+
+  *(a1 + 256) = *(a2 + 256);
+
+  *(a1 + 272) = *(a2 + 272);
+
+  return a1;
+}
+
 uint64_t getEnumTagSinglePayload for TTRIBoardColumnDraggingAnimator.AnimationState(uint64_t a1, int a2)
 {
   if (!a2)
@@ -78,7 +411,7 @@ void sub_100106440()
   sub_100107B0C(1, (v0 + 24));
 }
 
-void sub_1001064B0(void **a1)
+void sub_1001064B0(uint64_t *a1)
 {
   v2 = *(type metadata accessor for IndexPath() - 8);
   v3 = *a1;
@@ -149,7 +482,7 @@ void sub_100106684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
   v40 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v44 = &v30 - v11;
-  v14.n128_f64[0] = __chkstk_darwin(v12);
+  v14 = __chkstk_darwin(v12);
   v43 = &v30 - v15;
   v32 = a2;
   if (a3 != a2)
@@ -231,7 +564,7 @@ void sub_100106908(unint64_t *a1, uint64_t a2, void *a3, unint64_t a4)
   v133 = &v118 - v13;
   __chkstk_darwin(v14);
   v139 = &v118 - v15;
-  v17.n128_f64[0] = __chkstk_darwin(v16);
+  v17 = __chkstk_darwin(v16);
   v138 = &v118 - v18;
   v19 = a3[1];
   if (v19 < 1)
@@ -1240,7 +1573,7 @@ void sub_100107B0C(int a1, double *a2)
   v4 = *(v107 - 8);
   __chkstk_darwin(v107);
   v106 = &v85 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100058000(&qword_10076C008);
+  v6 = sub_100058000(&qword_10076C008, &qword_1006301A0);
   __chkstk_darwin(v6 - 8);
   v105 = &v85 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -1252,11 +1585,11 @@ void sub_100107B0C(int a1, double *a2)
   v114 = *(v103 - 1);
   __chkstk_darwin(v103);
   v15 = &v85 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_100058000(&qword_10076C010);
+  v16 = sub_100058000(&qword_10076C010, &qword_1006301A8);
   v17 = *(v16 - 8);
   __chkstk_darwin(v16);
   v94 = (&v85 - v18);
-  v19 = sub_100058000(&qword_10076C018);
+  v19 = sub_100058000(&qword_10076C018, &qword_1006301B0);
   __chkstk_darwin(v19 - 8);
   v21 = &v85 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v22);
@@ -1314,14 +1647,14 @@ void sub_100107B0C(int a1, double *a2)
       v37 = v94;
       *v94 = v29;
       sub_10010869C(v35, v37 + v36, type metadata accessor for TTRIBoardColumnDraggingAnimator.AnimationState.Cell);
-      sub_100016588(v37, v21, &qword_10076C010);
+      sub_100016588(v37, v21, &qword_10076C010, &qword_1006301A8);
       v33 = 0;
       v117 = v34;
     }
 
     v38 = v111;
     (*v110)(v21, v33, 1, v16);
-    sub_100016588(v21, v38, &qword_10076C018);
+    sub_100016588(v21, v38, &qword_10076C018, &qword_1006301B0);
     if ((*v109)(v38, 1, v16) == 1)
     {
       return;
@@ -1421,13 +1754,13 @@ void sub_100107B0C(int a1, double *a2)
     v73 = OBJC_IVAR____TtC9Reminders50TTRIBoardColumnDraggingAnimationCellBackgroundView_shape;
     swift_beginAccess();
     v74 = v105;
-    sub_10000794C(v64 + v73, v105, &qword_10076C008);
+    sub_10000794C(v64 + v73, v105, &qword_10076C008, &qword_1006301A0);
     swift_beginAccess();
     sub_100108724(v10, v64 + v73);
     swift_endAccess();
     sub_1002FCDE0(v74);
-    sub_1000079B4(v74, &qword_10076C008);
-    sub_1000079B4(v10, &qword_10076C008);
+    sub_1000079B4(v74, &qword_10076C008, &qword_1006301A0);
+    sub_1000079B4(v10, &qword_10076C008, &qword_1006301A0);
     v75 = v64 + OBJC_IVAR____TtC9Reminders50TTRIBoardColumnDraggingAnimationCellBackgroundView_shadow;
     v76 = *(v64 + OBJC_IVAR____TtC9Reminders50TTRIBoardColumnDraggingAnimationCellBackgroundView_shadow + 32);
     v77 = *(v64 + OBJC_IVAR____TtC9Reminders50TTRIBoardColumnDraggingAnimationCellBackgroundView_shadow + 16);
@@ -1443,10 +1776,10 @@ void sub_100107B0C(int a1, double *a2)
       *(v75 + 8) = v80;
       *(v75 + 24) = v79;
       *(v75 + 32) = v55;
-      sub_10000794C(v121, &v120, &qword_10076C020);
+      sub_10000794C(v121, &v120, &qword_10076C020, &qword_1006301B8);
       v81 = v78;
       sub_1002FD608(v121);
-      sub_1000079B4(v121, &qword_10076C020);
+      sub_1000079B4(v121, &qword_10076C020, &qword_1006301B8);
     }
 
     else
@@ -1521,7 +1854,7 @@ uint64_t sub_10010869C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_100108724(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100058000(&qword_10076C008);
+  v4 = sub_100058000(&qword_10076C008, &qword_1006301A0);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -1972,10 +2305,10 @@ uint64_t sub_1001091D0(uint64_t a1, char *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t sub_100109284()
+uint64_t sub_100109284(uint64_t a1)
 {
   result = type metadata accessor for TTRRectCorners();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -2014,7 +2347,7 @@ void *sub_10010932C(uint64_t a1, uint64_t *a2, uint64_t a3)
     v15 = *(*(v14 - 8) + 16);
     v16 = v6;
     v17 = v11;
-    v15(&v8[v13], v9 + v13, v14);
+    v15(&v8[v13], &v9[v13], v14);
     v18 = *(a3 + 24);
     v19 = v3 + v18;
     v20 = a2 + v18;
@@ -2022,7 +2355,7 @@ void *sub_10010932C(uint64_t a1, uint64_t *a2, uint64_t a3)
     *v19 = *v20;
     *(v19 + 8) = *(v20 + 8);
     *(v19 + 24) = *(v20 + 24);
-    v22 = *(v20 + 40);
+    v22 = *(v20 + 5);
     *(v19 + 5) = v22;
     v23 = v21;
     v24 = v22;
@@ -2177,10 +2510,10 @@ uint64_t sub_100109824(uint64_t a1, uint64_t a2, uint64_t a3)
   return a1;
 }
 
-uint64_t sub_100109948()
+uint64_t sub_100109948(uint64_t a1)
 {
   result = type metadata accessor for TTRIBoardColumnDraggingAnimationSource.Background(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -2220,7 +2553,7 @@ void *sub_1001099E8(uint64_t a1, uint64_t *a2, int *a3)
     v36 = *(*(v15 - 8) + 16);
     v16 = v7;
     v17 = v13;
-    v36(&v10[v14], v11 + v14, v15);
+    v36(&v10[v14], &v11[v14], v15);
     v18 = *(v37 + 24);
     v19 = v3 + v18;
     v20 = a2 + v18;
@@ -2228,7 +2561,7 @@ void *sub_1001099E8(uint64_t a1, uint64_t *a2, int *a3)
     *v19 = *v20;
     *(v19 + 24) = *(v20 + 24);
     *(v19 + 8) = *(v20 + 8);
-    v22 = *(v20 + 40);
+    v22 = *(v20 + 5);
     *(v19 + 5) = v22;
     v23 = a3[5];
     v24 = a3[6];
@@ -2446,10 +2779,10 @@ uint64_t sub_10010A020(uint64_t a1, uint64_t a2, int *a3)
   return a1;
 }
 
-uint64_t sub_10010A194()
+uint64_t sub_10010A194(uint64_t a1)
 {
   result = type metadata accessor for TTRIBoardColumnDraggingAnimationSource.Cell(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -3048,7 +3381,7 @@ LABEL_8:
   return result;
 }
 
-id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6)
+id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, uint64_t a5, uint64_t a6)
 {
   v108 = a6;
   v103 = a5;
@@ -3058,18 +3391,18 @@ id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6
   v7 = type metadata accessor for TTRRemindersListLayout();
   v117 = *(v7 - 8);
   v118 = v7;
-  v8 = __chkstk_darwin(v7);
-  v99 = &v98 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v8);
-  v109 = &v98 - v11;
-  v12 = __chkstk_darwin(v10);
-  v98 = &v98 - v13;
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v7);
+  v99 = &v98 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v109 = &v98 - v10;
+  __chkstk_darwin(v11);
+  v98 = &v98 - v12;
+  __chkstk_darwin(v13);
   v115 = &v98 - v14;
   v15 = type metadata accessor for TTRIRemindersCommonPresenterConfiguration(0);
-  v16 = __chkstk_darwin(v15 - 8);
-  v105 = &v98 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
+  __chkstk_darwin(v15 - 8);
+  v105 = (&v98 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v17);
   v104 = &v98 - v18;
   v107 = type metadata accessor for TTRIRemindersListAssembly.PresenterConfigurationBuilder(0) - 8;
   __chkstk_darwin(v107);
@@ -3086,17 +3419,17 @@ id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6
   v100 = (&v98 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
   v27 = type metadata accessor for REMSuggestedAttributesElector.ExcludedAttributes();
   v28 = *(v27 - 8);
-  v29 = __chkstk_darwin(v27);
-  v31 = &v98 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v29);
+  __chkstk_darwin(v27);
+  v30 = &v98 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v31);
   v33 = &v98 - v32;
-  sub_100058000(&qword_10076C210);
+  sub_100058000(&qword_10076C210, qword_100640CA0);
   v34 = swift_allocObject();
   *(v34 + 16) = xmmword_10062D400;
   static REMSuggestedAttributesElector.ExcludedAttributes.lists.getter();
-  v124[0] = v34;
-  sub_10010BDC4(&qword_100769628, &type metadata accessor for REMSuggestedAttributesElector.ExcludedAttributes);
-  sub_100058000(&qword_10076C218);
+  v125[0] = v34;
+  sub_10010BDC4(&qword_100769628, &type metadata accessor for REMSuggestedAttributesElector.ExcludedAttributes, &protocol conformance descriptor for REMSuggestedAttributesElector.ExcludedAttributes);
+  sub_100058000(&qword_10076C218, &unk_1006302E0);
   sub_10010BA44();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v35 = v100;
@@ -3105,10 +3438,10 @@ id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6
   v112 = v28;
   v36 = *(v28 + 16);
   v113 = v27;
-  v36(v31, v33, v27);
+  v36(v30, v33, v27);
   (*(v22 + 104))(v24, enum case for TTRRemindersListDefaultListType.any(_:), v101);
   v37 = v35;
-  sub_10007786C(v35, v31, v24, v124);
+  sub_10007786C(v35, v30, v24, v125);
   v38 = *a2;
 
   v39 = v38;
@@ -3117,49 +3450,49 @@ id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6
   swift_allocObject();
   v40 = v110;
   v41 = TTRShowPublicTemplateDataModelSource.init(store:publicTemplateObjectID:fallbackProperties:)();
-  v42 = v124[0];
-  type metadata accessor for TTRShowPublicTemplateViewModelSource();
+  v42 = v125[0];
+  type metadata accessor for TTRShowPublicTemplateViewModelSource(0);
   v43 = swift_allocObject();
 
   v106 = v42;
   v44 = sub_10010BAA8(0, v41, v106, v43);
   sub_10010BD5C(a2, v37, type metadata accessor for TTRIRemindersListAssembly.CommonParameters);
-  sub_10010BCAC(v124, v121);
-  v45 = sub_10010BDC4(&qword_10076C228, type metadata accessor for TTRShowPublicTemplateViewModelSource);
+  sub_10010BCAC(v125, v122);
+  v45 = sub_10010BDC4(&qword_10076C228, type metadata accessor for TTRShowPublicTemplateViewModelSource, &unk_100646FD0);
   v46 = v116;
   sub_10010BD5C(v37, v116, type metadata accessor for TTRIRemindersListAssembly.CommonParameters);
   v47 = v107;
-  sub_10010BCAC(v121, v46 + *(v107 + 28));
+  sub_10010BCAC(v122, v46 + *(v107 + 28));
   v48 = (v46 + *(v47 + 32));
   *v48 = v44;
   v48[1] = v45;
-  v49 = v121[0];
-  sub_100058000(&qword_10076C230);
+  v49 = v122[0];
+  sub_100058000(&qword_10076C230, &unk_1006339A0);
   v50 = swift_allocObject();
   *(v50 + 16) = xmmword_10062D3F0;
-  sub_10000794C(&v123, v120, &qword_100769608);
-  v51 = *(v120[5] + 8);
-  *(v50 + 32) = v120[4];
+  sub_10000794C(&v124, v121, &qword_100769608, &unk_1006302F0);
+  v51 = *(v121[5] + 8);
+  *(v50 + 32) = v121[4];
   *(v50 + 40) = v51;
-  sub_10000794C(&v122, v119, &qword_100769600);
+  sub_10000794C(&v123, v119, &qword_100769600, &qword_10062E0A0);
   swift_retain_n();
   v52 = v49;
   swift_unknownObjectRelease();
-  *(v50 + 48) = v119[3];
+  *(v50 + 48) = v120;
   sub_100004758(v119);
-  sub_100004758(v120);
+  sub_100004758(v121);
   type metadata accessor for TTRReminderListEditingPresenter(0);
   v53 = swift_allocObject();
   v54 = sub_1003A8DE0(v52, v44, v50, v53);
 
-  sub_10010BD08(v121);
+  sub_10010BD08(v122);
   sub_10010BE0C(v37, type metadata accessor for TTRIRemindersListAssembly.CommonParameters);
   v55 = *(v47 + 36);
   v103 = v54;
   *(v46 + v55) = v54;
   v56 = v104;
   sub_100078BBC(v104);
-  v107 = type metadata accessor for TTRIShowPublicTemplatePresenter();
+  v107 = type metadata accessor for TTRIShowPublicTemplatePresenter(0);
   v57 = swift_allocObject();
   v58 = (v57 + OBJC_IVAR____TtC9Reminders31TTRIShowPublicTemplatePresenter_dataModelSource);
   *v58 = v41;
@@ -3226,41 +3559,41 @@ id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6
 
   v79 = static TTRLocalizableStrings.Templates.addListFromPublicTemplateButton.getter();
   v81 = v80;
-  v82 = objc_allocWithZone(type metadata accessor for TTRIShowRemindersViewController());
+  v82 = objc_allocWithZone(type metadata accessor for TTRIShowRemindersViewController(0));
   v83 = v68;
   v84 = sub_1003A8E14(v61, v83, v105, v78, v79, v81, 1, v82);
 
   v85 = *(v73 + 32);
   v86 = v84;
   v85(v84, &off_100723D78, v108, v73);
-  sub_10010BDC4(&qword_10076C238, type metadata accessor for TTRIShowPublicTemplatePresenter);
+  sub_10010BDC4(&qword_10076C238, type metadata accessor for TTRIShowPublicTemplatePresenter, &unk_100635C58);
 
   TTRRemindersListInteractor.delegate.setter();
 
   TTRRemindersListInteractor.optimisticUpdatesDelegate.setter();
   swift_unknownObjectWeakAssign();
-  sub_10010BDC4(&qword_10076C240, type metadata accessor for TTRShowPublicTemplateViewModelSource);
+  sub_10010BDC4(&qword_10076C240, type metadata accessor for TTRShowPublicTemplateViewModelSource, &unk_10063C338);
 
   dispatch thunk of TTRShowPublicTemplateDataModelSource.delegate.setter();
 
   sub_10056FEB0(v87, &off_10071A9B0);
 
-  v103[3] = &off_10071AB30;
+  *(v103 + 24) = &off_10071AB30;
   swift_unknownObjectWeakAssign();
-  sub_10000794C(&v125, v121, &qword_100769600);
-  v88 = v121[4];
+  sub_10000794C(&v126, v122, &qword_100769600, &qword_10062E0A0);
+  v88 = v122[4];
   swift_unknownObjectRelease();
   *(v88 + 40) = &off_10071A918;
   swift_unknownObjectWeakAssign();
   swift_unknownObjectRelease();
-  sub_100004758(v121);
-  sub_10000794C(&v126, v121, &qword_100769608);
+  sub_100004758(v122);
+  sub_10000794C(&v127, v122, &qword_100769608, &unk_1006302F0);
   swift_getObjectType();
-  sub_10010BDC4(&qword_10076C248, type metadata accessor for TTRIShowPublicTemplatePresenter);
+  sub_10010BDC4(&qword_10076C248, type metadata accessor for TTRIShowPublicTemplatePresenter, &unk_100635930);
 
   dispatch thunk of TTRIQuickBarInputAccessoryModuleInterface.moduleDelegate.setter();
   swift_unknownObjectRelease();
-  sub_100004758(v121);
+  sub_100004758(v122);
   dispatch thunk of TTRShowPublicTemplateDataModelSource.start()();
   v89 = objc_allocWithZone(UINavigationController);
   swift_retain_n();
@@ -3291,7 +3624,7 @@ id sub_10010ACF0(uint64_t *a1, void **a2, void *a3, id a4, void *a5, uint64_t a6
   *v96 = v61;
   (*(v112 + 8))(v111, v113);
   sub_10010BE0C(v116, type metadata accessor for TTRIRemindersListAssembly.PresenterConfigurationBuilder);
-  sub_10010BD08(v124);
+  sub_10010BD08(v125);
   return v90;
 }
 
@@ -3300,7 +3633,7 @@ unint64_t sub_10010BA44()
   result = qword_10076C220;
   if (!qword_10076C220)
   {
-    sub_10005D20C(&qword_10076C218);
+    sub_10005D20C(&qword_10076C218, &unk_1006302E0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10076C220);
   }
@@ -3310,7 +3643,7 @@ unint64_t sub_10010BA44()
 
 uint64_t sub_10010BAA8(char a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = sub_100058000(&unk_10078A380);
+  v8 = sub_100058000(&unk_10078A380, &qword_10062DE60);
   __chkstk_darwin(v8 - 8);
   v10 = &v22 - v9;
   v11 = type metadata accessor for TTRListType.SortingCapability();
@@ -3347,7 +3680,7 @@ uint64_t sub_10010BD5C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_10010BDC4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10010BDC4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3369,7 +3702,7 @@ uint64_t sub_10010BE0C(uint64_t a1, uint64_t (*a2)(void))
 
 uint64_t sub_10010BE6C(uint64_t a1)
 {
-  v2 = sub_100058000(&unk_10078A380);
+  v2 = sub_100058000(&unk_10078A380, &qword_10062DE60);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3468,7 +3801,7 @@ id sub_10010C220()
   {
     v4 = v0;
     v5 = [objc_allocWithZone(UILabel) init];
-    sub_100003540(0, &qword_100771DF0);
+    sub_100003540(0, &qword_100771DF0, UIFont_ptr);
     v6 = static UIFont.roundedSystemFont.getter();
     [v5 setFont:v6];
 
@@ -3539,7 +3872,7 @@ void sub_10010C4CC()
   v4 = OBJC_IVAR____TtC9Reminders34TTRIHashtagSuggestionTableViewCell____lazy_storage___titleLabel;
   [v0 addSubview:*&v0[OBJC_IVAR____TtC9Reminders34TTRIHashtagSuggestionTableViewCell____lazy_storage___titleLabel]];
   v5 = objc_opt_self();
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_100630300;
   v7 = [*&v0[v3] heightAnchor];
@@ -3580,20 +3913,20 @@ void sub_10010C4CC()
   v28 = [v26 constraintEqualToAnchor:v27];
 
   *(v6 + 88) = v28;
-  sub_100003540(0, &qword_10076BAD0);
+  sub_100003540(0, &qword_10076BAD0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v5 activateConstraints:isa];
 }
 
-id sub_10010C8C8()
+id sub_10010C8C8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TTRIHashtagSuggestionTableViewCell();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TTRIHashtagSuggestionTableViewCell();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-uint64_t sub_10010C96C(uint64_t a1, void *aBlock)
+double sub_10010C96C(uint64_t a1, void *aBlock)
 {
   v2 = *(a1 + 32);
   v3 = _Block_copy(aBlock);
@@ -3601,11 +3934,13 @@ uint64_t sub_10010C96C(uint64_t a1, void *aBlock)
   *(v4 + 16) = v3;
 
   v2(sub_1001137D4, v4);
+
+  return result;
 }
 
 void sub_10010CA00(uint64_t a1, uint64_t a2)
 {
-  sub_100003540(0, &qword_10076C550);
+  sub_100003540(0, &qword_10076C550, UIMenuElement_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
   (*(a2 + 16))(a2, isa);
 }
@@ -3631,7 +3966,7 @@ id sub_10010CA7C(uint64_t a1, uint64_t a2, uint64_t a3)
   if (a3)
   {
 LABEL_3:
-    sub_100003540(0, &qword_10076C550);
+    sub_100003540(0, &qword_10076C550, UIMenuElement_ptr);
     v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -3640,7 +3975,7 @@ LABEL_4:
   swift_unknownObjectRetain();
   v6 = v5(v10, v3);
 
-  sub_1000079B4(v10, &qword_10076AE40);
+  sub_1000079B4(v10, &qword_10076AE40, &qword_10062EE50);
 
   return v6;
 }
@@ -3652,15 +3987,15 @@ uint64_t sub_10010CB70(uint64_t a1, uint64_t a2)
   v3 = *(v44 - 8);
   __chkstk_darwin(v44);
   v40 = &v36[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v5 = sub_100058000(&unk_10076C558);
+  v5 = sub_100058000(&unk_10076C558, &qword_1006304C8);
   __chkstk_darwin(v5);
   v7 = &v36[-v6];
   v8 = type metadata accessor for TTRIRemindersListNavigationBarViewModel.TrailingItem(0);
-  v9 = __chkstk_darwin(v8);
-  v43 = &v36[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v11 = __chkstk_darwin(v9);
-  v42 = &v36[-v12];
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v8);
+  v43 = &v36[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v10);
+  v42 = &v36[-v11];
+  __chkstk_darwin(v12);
   v15 = &v36[-v14];
   v16 = *(a2 + 16);
   if (!v16)
@@ -3791,7 +4126,7 @@ LABEL_32:
 
     v18 = v45;
 LABEL_31:
-    sub_1000079B4(v7, &unk_10076C558);
+    sub_1000079B4(v7, &unk_10076C558, &qword_1006304C8);
     goto LABEL_32;
   }
 
@@ -3818,25 +4153,25 @@ LABEL_43:
   return 1;
 }
 
-BOOL sub_10010D1A0(uint64_t a1, uint64_t a2, void (*a3)(void), unint64_t *a4, void (*a5)(uint64_t))
+BOOL sub_10010D1A0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
-  v8 = 0;
-  v9 = *(a2 + 16);
+  v9 = 0;
+  v10 = *(a2 + 16);
   do
   {
-    v10 = v8;
-    if (v9 == v8)
+    v11 = v9;
+    if (v10 == v9)
     {
       break;
     }
 
     a3(0);
-    ++v8;
-    sub_100113B0C(a4, a5);
+    ++v9;
+    sub_100113B0C(a4, a5, a6);
   }
 
   while ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0);
-  return v9 != v10;
+  return v10 != v11;
 }
 
 uint64_t sub_10010D2A8()
@@ -3855,21 +4190,21 @@ uint64_t sub_10010D2A8()
   return v3(v1, v2, v0);
 }
 
-uint64_t sub_10010D370()
+char *sub_10010D370(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v2 = result;
+    v3 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v4 = result;
     swift_unknownObjectRetain();
 
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v3 = *(v1 + 40);
+      v5 = *(v3 + 40);
       ObjectType = swift_getObjectType();
-      (*(v3 + 72))(v1, &off_100713C08, ObjectType, v3);
+      (*(v5 + 72))(v3, &off_100713C08, ObjectType, v5);
       swift_unknownObjectRelease();
     }
 
@@ -3890,12 +4225,12 @@ objc_class *sub_10010D42C(uint64_t *a1, uint64_t a2, UIBarButtonSystemItem a3)
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     swift_allocObject();
     swift_unknownObjectWeakInit();
     v8 = v3;
     v9 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    v15.value.super.super.isa = sub_100003540(0, &qword_10076B800);
+    v15.value.super.super.isa = sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v14.value.super.super.isa = v9;
     v14.is_nil = 0;
     v10.super.super.isa = UIBarButtonItem.init(systemItem:primaryAction:menu:)(a3, v14, v15).super.super.isa;
@@ -3921,13 +4256,13 @@ objc_class *sub_10010D548()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     v4 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v13 = v4;
     v5 = v0;
     v6 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v7 = v6;
     v8.value._countAndFlagsBits = 0;
     v8.value._object = 0xE000000000000000;
@@ -3948,21 +4283,21 @@ objc_class *sub_10010D548()
   return v3;
 }
 
-uint64_t sub_10010D694()
+char *sub_10010D694(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v2 = result;
+    v3 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v4 = result;
     swift_unknownObjectRetain();
 
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v3 = *(v1 + 40);
+      v5 = *(v3 + 40);
       ObjectType = swift_getObjectType();
-      (*(v3 + 48))(v1, &off_100713C08, ObjectType, v3);
+      (*(v5 + 48))(v3, &off_100713C08, ObjectType, v5);
       swift_unknownObjectRelease();
     }
 
@@ -3972,21 +4307,21 @@ uint64_t sub_10010D694()
   return result;
 }
 
-uint64_t sub_10010D750()
+char *sub_10010D750(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v2 = result;
+    v3 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v4 = result;
     swift_unknownObjectRetain();
 
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v3 = *(v1 + 40);
+      v5 = *(v3 + 40);
       ObjectType = swift_getObjectType();
-      (*(v3 + 56))(v1, &off_100713C08, ObjectType, v3);
+      (*(v5 + 56))(v3, &off_100713C08, ObjectType, v5);
       swift_unknownObjectRelease();
     }
 
@@ -4007,7 +4342,7 @@ objc_class *sub_10010D80C()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     v4 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v5 = v0;
@@ -4016,7 +4351,7 @@ objc_class *sub_10010D80C()
     v7 = String._bridgeToObjectiveC()();
     v8 = [objc_opt_self() _systemImageNamed:{v7, 0, 0, 0, sub_10011387C, v4}];
 
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v9._countAndFlagsBits = 0xD000000000000028;
     v9._object = 0x8000000100672550;
     v10._countAndFlagsBits = 1868852821;
@@ -4048,7 +4383,7 @@ objc_class *sub_10010D9C0()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     v4 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v5 = v0;
@@ -4057,7 +4392,7 @@ objc_class *sub_10010D9C0()
     v7 = String._bridgeToObjectiveC()();
     v8 = [objc_opt_self() _systemImageNamed:{v7, 0, 0, 0, sub_10011384C, v4}];
 
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v9._countAndFlagsBits = 0xD000000000000028;
     v9._object = 0x8000000100672550;
     v10._countAndFlagsBits = 1868850514;
@@ -4090,12 +4425,12 @@ objc_class *sub_10010DB74()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     v5 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v20 = v5;
     v6 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v7._object = 0x8000000100672600;
     v8._countAndFlagsBits = 0xD000000000000028;
     v8._object = 0x8000000100672550;
@@ -4109,8 +4444,8 @@ objc_class *sub_10010DB74()
     v21.is_nil = v6;
     v22.value.super.super.isa = 0;
     isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v9, v21, v22, v23).super.super.isa;
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v14 = swift_allocObject();
     *(v14 + 16) = xmmword_10062D420;
     *(v14 + 32) = isa;
@@ -4130,41 +4465,41 @@ objc_class *sub_10010DB74()
   return v4;
 }
 
-void sub_10010DDDC(void *a1)
+void sub_10010DDDC(void *a1, uint64_t a2)
 {
-  v2 = sub_100058000(&unk_10076FCD0);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v12 - v3;
+  v3 = sub_100058000(&unk_10076FCD0, &unk_1006304D0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v13 - v4;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v6 = Strong;
+    v7 = Strong;
     if ([a1 presentationSourceItem])
     {
       swift_unknownObjectRetain();
       static TTRIPopoverAnchor.sourceItem(_:permittedArrowDirections:)();
       swift_unknownObjectRelease_n();
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = type metadata accessor for TTRIPopoverAnchor();
-    (*(*(v8 - 8) + 56))(v4, v7, 1, v8);
-    v9 = *&v6[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v9 = type metadata accessor for TTRIPopoverAnchor();
+    (*(*(v9 - 8) + 56))(v5, v8, 1, v9);
+    v10 = *&v7[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v10 = *(v9 + 40);
+      v11 = *(v10 + 40);
       ObjectType = swift_getObjectType();
-      (*(v10 + 64))(v9, &off_100713C08, 1, v4, ObjectType, v10);
+      (*(v11 + 64))(v10, &off_100713C08, 1, v5, ObjectType, v11);
       swift_unknownObjectRelease();
     }
 
-    sub_1000079B4(v4, &unk_10076FCD0);
+    sub_1000079B4(v5, &unk_10076FCD0, &unk_1006304D0);
   }
 }
 
@@ -4180,11 +4515,11 @@ objc_class *sub_10010DFCC(void *a1, uint64_t a2, uint64_t a3, void *a4)
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     v12 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v13 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v14._countAndFlagsBits = 0xD000000000000028;
     v14._object = 0x8000000100672550;
     v15._countAndFlagsBits = a3;
@@ -4198,8 +4533,8 @@ objc_class *sub_10010DFCC(void *a1, uint64_t a2, uint64_t a3, void *a4)
     v27.is_nil = v13;
     v28.value.super.super.isa = 0;
     isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v16, v27, v28, v29).super.super.isa;
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v21 = swift_allocObject();
     *(v21 + 16) = xmmword_10062D420;
     *(v21 + 32) = isa;
@@ -4219,31 +4554,31 @@ objc_class *sub_10010DFCC(void *a1, uint64_t a2, uint64_t a3, void *a4)
   return v8;
 }
 
-uint64_t sub_10010E220()
+char *sub_10010E220(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_100058000(&unk_10076FCD0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v9 - v1;
+  v2 = sub_100058000(&unk_10076FCD0, &unk_1006304D0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v11 - v3;
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v4 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v5 = result;
+    v6 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v7 = result;
     swift_unknownObjectRetain();
 
-    v6 = type metadata accessor for TTRIPopoverAnchor();
-    (*(*(v6 - 8) + 56))(v2, 1, 1, v6);
+    v8 = type metadata accessor for TTRIPopoverAnchor();
+    (*(*(v8 - 8) + 56))(v4, 1, 1, v8);
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v7 = *(v4 + 40);
+      v9 = *(v6 + 40);
       ObjectType = swift_getObjectType();
-      (*(v7 + 64))(v4, &off_100713C08, 1, v2, ObjectType, v7);
+      (*(v9 + 64))(v6, &off_100713C08, 1, v4, ObjectType, v9);
       swift_unknownObjectRelease();
     }
 
     swift_unknownObjectRelease();
-    return sub_1000079B4(v2, &unk_10076FCD0);
+    return sub_1000079B4(v4, &unk_10076FCD0, &unk_1006304D0);
   }
 
   return result;
@@ -4278,7 +4613,7 @@ objc_class *sub_10010E390()
 
 objc_class *sub_10010E420()
 {
-  sub_100003540(0, &qword_10076B800);
+  sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
   v0 = static TTRLocalizableStrings.RemindersList.autoCategorizationTitle.getter();
   v2 = v1;
   v3 = static TTRCommonAsset.Image.autoCategorizationIcon.getter();
@@ -4288,8 +4623,8 @@ objc_class *sub_10010E420()
   v9.value.super.isa = v3;
   v9.is_nil = 0;
   isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v4, v9, v10, v11).super.super.isa;
-  sub_100003540(0, &qword_10076C548);
-  sub_100058000(&qword_10076B780);
+  sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_10062D420;
   *(v6 + 32) = isa;
@@ -4311,7 +4646,7 @@ objc_class *sub_10010E528()
 
   else
   {
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v5._object = 0x8000000100672670;
     v6._countAndFlagsBits = 0xD00000000000005ALL;
     v6._object = 0x80000001006726A0;
@@ -4320,7 +4655,7 @@ objc_class *sub_10010E528()
     v7._object = 0xE400000000000000;
     v8 = TTRLocalizedString(_:value:comment:)(v5, v7, v6);
     v9 = static TTRCommonAsset.Image.actionMenuIcon.getter();
-    sub_100003540(0, &unk_10076B890);
+    sub_100003540(0, &unk_10076B890, UIMenu_ptr);
     swift_allocObject();
     swift_unknownObjectWeakInit();
 
@@ -4337,8 +4672,8 @@ objc_class *sub_10010E528()
 
     [(objc_class *)isa setMenuRepresentation:v12];
 
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_10062D420;
     *(v13 + 32) = isa;
@@ -4358,7 +4693,7 @@ objc_class *sub_10010E528()
   return v4;
 }
 
-uint64_t sub_10010E7BC()
+uint64_t sub_10010E7BC(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -4367,25 +4702,25 @@ uint64_t sub_10010E7BC()
     return 0;
   }
 
-  v1 = *(Strong + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-  v2 = Strong;
+  v2 = *(Strong + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
+  v3 = Strong;
   swift_unknownObjectRetain();
 
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v3 = *(v1 + 40);
+    v4 = *(v2 + 40);
     ObjectType = swift_getObjectType();
-    v5 = (*(v3 + 16))(v1, &off_100713C08, ObjectType, v3);
+    v6 = (*(v4 + 16))(v2, &off_100713C08, ObjectType, v4);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 objc_class *sub_10010E890()
@@ -4400,12 +4735,12 @@ objc_class *sub_10010E890()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     v5 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v20 = v5;
     v6 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v7._countAndFlagsBits = 0x6574616C706D6554;
     v8._countAndFlagsBits = 0xD000000000000028;
     v8._object = 0x8000000100672550;
@@ -4419,8 +4754,8 @@ objc_class *sub_10010E890()
     v21.is_nil = v6;
     v22.value.super.super.isa = 0;
     isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v9, v21, v22, v23).super.super.isa;
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v14 = swift_allocObject();
     *(v14 + 16) = xmmword_10062D420;
     *(v14 + 32) = isa;
@@ -4440,21 +4775,21 @@ objc_class *sub_10010E890()
   return v4;
 }
 
-uint64_t sub_10010EAFC()
+char *sub_10010EAFC(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v2 = result;
+    v3 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v4 = result;
     swift_unknownObjectRetain();
 
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v3 = *(v1 + 40);
+      v5 = *(v3 + 40);
       ObjectType = swift_getObjectType();
-      (*(v3 + 80))(v1, &off_100713C08, ObjectType, v3);
+      (*(v5 + 80))(v3, &off_100713C08, ObjectType, v5);
       swift_unknownObjectRelease();
     }
 
@@ -4464,156 +4799,156 @@ uint64_t sub_10010EAFC()
   return result;
 }
 
-uint64_t sub_10010EBB8()
+uint64_t sub_10010EBB8(uint64_t a1)
 {
-  v0._countAndFlagsBits = 0x2065754420746553;
-  v0._object = 0xEC00000065746144;
-  v1._countAndFlagsBits = 0xD000000000000022;
-  v1._object = 0x8000000100672730;
-  v2.value = TTRLocalizedString(_:comment:)(v0, v1);
-  v3 = String._bridgeToObjectiveC()();
-  v4 = [objc_opt_self() _systemImageNamed:v3];
+  v1._countAndFlagsBits = 0x2065754420746553;
+  v1._object = 0xEC00000065746144;
+  v2._countAndFlagsBits = 0xD000000000000022;
+  v2._object = 0x8000000100672730;
+  v3.value = TTRLocalizedString(_:comment:)(v1, v2);
+  v4 = String._bridgeToObjectiveC()();
+  v5 = [objc_opt_self() _systemImageNamed:v4];
 
-  v5 = swift_allocObject();
+  v6 = swift_allocObject();
   swift_unknownObjectWeakInit();
   type metadata accessor for CenterBarButtonItemGroupWithMenuRepresentation();
-  v6 = swift_allocObject();
-  *(v6 + 16) = 0;
-  sub_100003540(0, &qword_10076B800);
-  *(v6 + 40) = 0;
-  *(v6 + 48) = 0;
+  v7 = swift_allocObject();
+  *(v7 + 16) = 0;
+  sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
+  *(v7 + 40) = 0;
+  *(v7 + 48) = 0;
   swift_bridgeObjectRetain_n();
 
-  children = v4;
-  v28.value.super.isa = v4;
-  v28.is_nil = 0;
-  v30.value.super.super.isa = 0;
-  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v28, v30, v33).super.super.isa;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_1001139AC;
-  *(v8 + 24) = v5;
-  v26 = sub_1001139DC;
-  v27 = v8;
+  children = v5;
+  v29.value.super.isa = v5;
+  v29.is_nil = 0;
+  v31.value.super.super.isa = 0;
+  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v29, v31, v34).super.super.isa;
+  v9 = swift_allocObject();
+  *(v9 + 16) = sub_1001139AC;
+  *(v9 + 24) = v6;
+  v27 = sub_1001139DC;
+  v28 = v9;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010CA7C;
-  v25 = &unk_100716078;
-  v9 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010CA7C;
+  v26 = &unk_100716078;
+  v10 = _Block_copy(&aBlock);
 
-  [(objc_class *)isa _setSecondaryActionsProvider:v9];
-  _Block_release(v9);
-  v10 = objc_opt_self();
-  v11 = swift_allocObject();
-  *(v11 + 16) = sub_1001139AC;
-  *(v11 + 24) = v5;
-  v26 = sub_100113A04;
-  v27 = v11;
+  [(objc_class *)isa _setSecondaryActionsProvider:v10];
+  _Block_release(v10);
+  v11 = objc_opt_self();
+  v12 = swift_allocObject();
+  *(v12 + 16) = sub_1001139AC;
+  *(v12 + 24) = v6;
+  v27 = sub_100113A04;
+  v28 = v12;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010C96C;
-  v25 = &unk_1007160C8;
-  v12 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010C96C;
+  v26 = &unk_1007160C8;
+  v13 = _Block_copy(&aBlock);
 
-  v13 = [v10 elementWithUncachedProvider:v12];
-  _Block_release(v12);
-  sub_100003540(0, &unk_10076B890);
-  sub_100058000(&qword_10076B780);
+  v14 = [v11 elementWithUncachedProvider:v13];
+  _Block_release(v13);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_10062D420;
-  *(preferredElementSize + 32) = v13;
-  v15 = children;
-  v16 = v13;
-  v31.value.super.isa = v4;
-  v31.is_nil = 0;
-  v17 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v2.value, 0, v31, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
-  [(objc_class *)isa setMenuRepresentation:v17];
+  *(preferredElementSize + 32) = v14;
+  v16 = children;
+  v17 = v14;
+  v32.value.super.isa = v5;
+  v32.is_nil = 0;
+  v18 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v3.value, 0, v32, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
+  [(objc_class *)isa setMenuRepresentation:v18];
 
-  *(v6 + 24) = isa;
-  v18 = v15;
-  v29.value.super.isa = v4;
-  v29.is_nil = 0;
-  v32.value.super.super.isa = 0;
-  v19 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v29, v32, v34).super.super.isa;
-  [(objc_class *)v19 setEnabled:0];
+  *(v7 + 24) = isa;
+  v19 = v16;
+  v30.value.super.isa = v5;
+  v30.is_nil = 0;
+  v33.value.super.super.isa = 0;
+  v20 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v30, v33, v35).super.super.isa;
+  [(objc_class *)v20 setEnabled:0];
 
-  *(v6 + 32) = v19;
-  return v6;
+  *(v7 + 32) = v20;
+  return v7;
 }
 
-uint64_t sub_10010EFB4()
+uint64_t sub_10010EFB4(uint64_t a1)
 {
-  v0._countAndFlagsBits = 0x61636F4C20746553;
-  v0._object = 0xEC0000006E6F6974;
-  v1._object = 0x8000000100672730;
-  v1._countAndFlagsBits = 0xD000000000000022;
-  v2.value = TTRLocalizedString(_:comment:)(v0, v1);
-  v3 = String._bridgeToObjectiveC()();
-  v4 = [objc_opt_self() _systemImageNamed:v3];
+  v1._countAndFlagsBits = 0x61636F4C20746553;
+  v1._object = 0xEC0000006E6F6974;
+  v2._object = 0x8000000100672730;
+  v2._countAndFlagsBits = 0xD000000000000022;
+  v3.value = TTRLocalizedString(_:comment:)(v1, v2);
+  v4 = String._bridgeToObjectiveC()();
+  v5 = [objc_opt_self() _systemImageNamed:v4];
 
-  v5 = swift_allocObject();
+  v6 = swift_allocObject();
   swift_unknownObjectWeakInit();
   type metadata accessor for CenterBarButtonItemGroupWithMenuRepresentation();
-  v6 = swift_allocObject();
-  *(v6 + 40) = 0;
-  *(v6 + 48) = 0;
-  *(v6 + 16) = 1;
-  sub_100003540(0, &qword_10076B800);
+  v7 = swift_allocObject();
+  *(v7 + 40) = 0;
+  *(v7 + 48) = 0;
+  *(v7 + 16) = 1;
+  sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
   swift_bridgeObjectRetain_n();
 
-  children = v4;
-  v28.value.super.isa = v4;
-  v28.is_nil = 0;
-  v30.value.super.super.isa = 0;
-  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v28, v30, v33).super.super.isa;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_100113A0C;
-  *(v8 + 24) = v5;
-  v26 = sub_100113B7C;
-  v27 = v8;
+  children = v5;
+  v29.value.super.isa = v5;
+  v29.is_nil = 0;
+  v31.value.super.super.isa = 0;
+  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v29, v31, v34).super.super.isa;
+  v9 = swift_allocObject();
+  *(v9 + 16) = sub_100113A0C;
+  *(v9 + 24) = v6;
+  v27 = sub_100113B7C;
+  v28 = v9;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010CA7C;
-  v25 = &unk_100716118;
-  v9 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010CA7C;
+  v26 = &unk_100716118;
+  v10 = _Block_copy(&aBlock);
 
-  [(objc_class *)isa _setSecondaryActionsProvider:v9];
-  _Block_release(v9);
-  v10 = objc_opt_self();
-  v11 = swift_allocObject();
-  *(v11 + 16) = sub_100113A0C;
-  *(v11 + 24) = v5;
-  v26 = sub_100113B80;
-  v27 = v11;
+  [(objc_class *)isa _setSecondaryActionsProvider:v10];
+  _Block_release(v10);
+  v11 = objc_opt_self();
+  v12 = swift_allocObject();
+  *(v12 + 16) = sub_100113A0C;
+  *(v12 + 24) = v6;
+  v27 = sub_100113B80;
+  v28 = v12;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010C96C;
-  v25 = &unk_100716168;
-  v12 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010C96C;
+  v26 = &unk_100716168;
+  v13 = _Block_copy(&aBlock);
 
-  v13 = [v10 elementWithUncachedProvider:v12];
-  _Block_release(v12);
-  sub_100003540(0, &unk_10076B890);
-  sub_100058000(&qword_10076B780);
+  v14 = [v11 elementWithUncachedProvider:v13];
+  _Block_release(v13);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_10062D420;
-  *(preferredElementSize + 32) = v13;
-  v15 = children;
-  v16 = v13;
-  v31.value.super.isa = v4;
-  v31.is_nil = 0;
-  v17 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v2.value, 0, v31, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
-  [(objc_class *)isa setMenuRepresentation:v17];
+  *(preferredElementSize + 32) = v14;
+  v16 = children;
+  v17 = v14;
+  v32.value.super.isa = v5;
+  v32.is_nil = 0;
+  v18 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v3.value, 0, v32, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
+  [(objc_class *)isa setMenuRepresentation:v18];
 
-  *(v6 + 24) = isa;
-  v18 = v15;
-  v29.value.super.isa = v4;
-  v29.is_nil = 0;
-  v32.value.super.super.isa = 0;
-  v19 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v29, v32, v34).super.super.isa;
-  [(objc_class *)v19 setEnabled:0];
+  *(v7 + 24) = isa;
+  v19 = v16;
+  v30.value.super.isa = v5;
+  v30.is_nil = 0;
+  v33.value.super.super.isa = 0;
+  v20 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v30, v33, v35).super.super.isa;
+  [(objc_class *)v20 setEnabled:0];
 
-  *(v6 + 32) = v19;
-  return v6;
+  *(v7 + 32) = v20;
+  return v7;
 }
 
 uint64_t sub_10010F3AC()
@@ -4626,12 +4961,12 @@ uint64_t sub_10010F3AC()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     swift_allocObject();
     swift_unknownObjectWeakInit();
     v3 = v0;
     v4 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v5.value._countAndFlagsBits = 0;
     v5.value._object = 0xE000000000000000;
     v8.value.super.isa = 0;
@@ -4649,7 +4984,7 @@ uint64_t sub_10010F3AC()
   return v2;
 }
 
-uint64_t sub_10010F4F4(uint64_t a1, uint64_t a2, void (*a3)(void))
+void *sub_10010F4F4(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
@@ -4665,156 +5000,156 @@ uint64_t sub_10010F4F4(uint64_t a1, uint64_t a2, void (*a3)(void))
   return result;
 }
 
-uint64_t sub_10010F574()
+uint64_t sub_10010F574(uint64_t a1)
 {
-  v0._countAndFlagsBits = 0x67616D4920646441;
-  v1._object = 0x8000000100672730;
-  v0._object = 0xE900000000000065;
-  v1._countAndFlagsBits = 0xD000000000000022;
-  v2.value = TTRLocalizedString(_:comment:)(v0, v1);
-  v3 = String._bridgeToObjectiveC()();
-  v4 = [objc_opt_self() _systemImageNamed:v3];
+  v1._countAndFlagsBits = 0x67616D4920646441;
+  v2._object = 0x8000000100672730;
+  v1._object = 0xE900000000000065;
+  v2._countAndFlagsBits = 0xD000000000000022;
+  v3.value = TTRLocalizedString(_:comment:)(v1, v2);
+  v4 = String._bridgeToObjectiveC()();
+  v5 = [objc_opt_self() _systemImageNamed:v4];
 
-  v5 = swift_allocObject();
+  v6 = swift_allocObject();
   swift_unknownObjectWeakInit();
   type metadata accessor for CenterBarButtonItemGroupWithMenuRepresentation();
-  v6 = swift_allocObject();
-  *(v6 + 40) = 0;
-  *(v6 + 48) = 0;
-  *(v6 + 16) = 3;
-  sub_100003540(0, &qword_10076B800);
+  v7 = swift_allocObject();
+  *(v7 + 40) = 0;
+  *(v7 + 48) = 0;
+  *(v7 + 16) = 3;
+  sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
   swift_bridgeObjectRetain_n();
 
-  children = v4;
-  v28.value.super.isa = v4;
-  v28.is_nil = 0;
-  v30.value.super.super.isa = 0;
-  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v28, v30, v33).super.super.isa;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_100113A6C;
-  *(v8 + 24) = v5;
-  v26 = sub_100113B7C;
-  v27 = v8;
+  children = v5;
+  v29.value.super.isa = v5;
+  v29.is_nil = 0;
+  v31.value.super.super.isa = 0;
+  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v29, v31, v34).super.super.isa;
+  v9 = swift_allocObject();
+  *(v9 + 16) = sub_100113A6C;
+  *(v9 + 24) = v6;
+  v27 = sub_100113B7C;
+  v28 = v9;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010CA7C;
-  v25 = &unk_1007161B8;
-  v9 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010CA7C;
+  v26 = &unk_1007161B8;
+  v10 = _Block_copy(&aBlock);
 
-  [(objc_class *)isa _setSecondaryActionsProvider:v9];
-  _Block_release(v9);
-  v10 = objc_opt_self();
-  v11 = swift_allocObject();
-  *(v11 + 16) = sub_100113A6C;
-  *(v11 + 24) = v5;
-  v26 = sub_100113B80;
-  v27 = v11;
+  [(objc_class *)isa _setSecondaryActionsProvider:v10];
+  _Block_release(v10);
+  v11 = objc_opt_self();
+  v12 = swift_allocObject();
+  *(v12 + 16) = sub_100113A6C;
+  *(v12 + 24) = v6;
+  v27 = sub_100113B80;
+  v28 = v12;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010C96C;
-  v25 = &unk_100716208;
-  v12 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010C96C;
+  v26 = &unk_100716208;
+  v13 = _Block_copy(&aBlock);
 
-  v13 = [v10 elementWithUncachedProvider:v12];
-  _Block_release(v12);
-  sub_100003540(0, &unk_10076B890);
-  sub_100058000(&qword_10076B780);
+  v14 = [v11 elementWithUncachedProvider:v13];
+  _Block_release(v13);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_10062D420;
-  *(preferredElementSize + 32) = v13;
-  v15 = children;
-  v16 = v13;
-  v31.value.super.isa = v4;
-  v31.is_nil = 0;
-  v17 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v2.value, 0, v31, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
-  [(objc_class *)isa setMenuRepresentation:v17];
+  *(preferredElementSize + 32) = v14;
+  v16 = children;
+  v17 = v14;
+  v32.value.super.isa = v5;
+  v32.is_nil = 0;
+  v18 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v3.value, 0, v32, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
+  [(objc_class *)isa setMenuRepresentation:v18];
 
-  *(v6 + 24) = isa;
-  v18 = v15;
-  v29.value.super.isa = v4;
-  v29.is_nil = 0;
-  v32.value.super.super.isa = 0;
-  v19 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v29, v32, v34).super.super.isa;
-  [(objc_class *)v19 setEnabled:0];
+  *(v7 + 24) = isa;
+  v19 = v16;
+  v30.value.super.isa = v5;
+  v30.is_nil = 0;
+  v33.value.super.super.isa = 0;
+  v20 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v30, v33, v35).super.super.isa;
+  [(objc_class *)v20 setEnabled:0];
 
-  *(v6 + 32) = v19;
-  return v6;
+  *(v7 + 32) = v20;
+  return v7;
 }
 
-uint64_t sub_10010F964()
+uint64_t sub_10010F964(uint64_t a1)
 {
-  v0._countAndFlagsBits = 0x67615420646441;
-  v1._object = 0x8000000100672730;
-  v0._object = 0xE700000000000000;
-  v1._countAndFlagsBits = 0xD000000000000022;
-  v2.value = TTRLocalizedString(_:comment:)(v0, v1);
-  v3 = String._bridgeToObjectiveC()();
-  v4 = [objc_opt_self() _systemImageNamed:v3];
+  v1._countAndFlagsBits = 0x67615420646441;
+  v2._object = 0x8000000100672730;
+  v1._object = 0xE700000000000000;
+  v2._countAndFlagsBits = 0xD000000000000022;
+  v3.value = TTRLocalizedString(_:comment:)(v1, v2);
+  v4 = String._bridgeToObjectiveC()();
+  v5 = [objc_opt_self() _systemImageNamed:v4];
 
-  v5 = swift_allocObject();
+  v6 = swift_allocObject();
   swift_unknownObjectWeakInit();
   type metadata accessor for CenterBarButtonItemGroupWithMenuRepresentation();
-  v6 = swift_allocObject();
-  *(v6 + 40) = 0;
-  *(v6 + 48) = 0;
-  *(v6 + 16) = 4;
-  sub_100003540(0, &qword_10076B800);
+  v7 = swift_allocObject();
+  *(v7 + 40) = 0;
+  *(v7 + 48) = 0;
+  *(v7 + 16) = 4;
+  sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
   swift_bridgeObjectRetain_n();
 
-  children = v4;
-  v28.value.super.isa = v4;
-  v28.is_nil = 0;
-  v30.value.super.super.isa = 0;
-  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v28, v30, v33).super.super.isa;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_100113A9C;
-  *(v8 + 24) = v5;
-  v26 = sub_100113B7C;
-  v27 = v8;
+  children = v5;
+  v29.value.super.isa = v5;
+  v29.is_nil = 0;
+  v31.value.super.super.isa = 0;
+  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v29, v31, v34).super.super.isa;
+  v9 = swift_allocObject();
+  *(v9 + 16) = sub_100113A9C;
+  *(v9 + 24) = v6;
+  v27 = sub_100113B7C;
+  v28 = v9;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010CA7C;
-  v25 = &unk_100716258;
-  v9 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010CA7C;
+  v26 = &unk_100716258;
+  v10 = _Block_copy(&aBlock);
 
-  [(objc_class *)isa _setSecondaryActionsProvider:v9];
-  _Block_release(v9);
-  v10 = objc_opt_self();
-  v11 = swift_allocObject();
-  *(v11 + 16) = sub_100113A9C;
-  *(v11 + 24) = v5;
-  v26 = sub_100113B80;
-  v27 = v11;
+  [(objc_class *)isa _setSecondaryActionsProvider:v10];
+  _Block_release(v10);
+  v11 = objc_opt_self();
+  v12 = swift_allocObject();
+  *(v12 + 16) = sub_100113A9C;
+  *(v12 + 24) = v6;
+  v27 = sub_100113B80;
+  v28 = v12;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010C96C;
-  v25 = &unk_1007162A8;
-  v12 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010C96C;
+  v26 = &unk_1007162A8;
+  v13 = _Block_copy(&aBlock);
 
-  v13 = [v10 elementWithUncachedProvider:v12];
-  _Block_release(v12);
-  sub_100003540(0, &unk_10076B890);
-  sub_100058000(&qword_10076B780);
+  v14 = [v11 elementWithUncachedProvider:v13];
+  _Block_release(v13);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_10062D420;
-  *(preferredElementSize + 32) = v13;
-  v15 = children;
-  v16 = v13;
-  v31.value.super.isa = v4;
-  v31.is_nil = 0;
-  v17 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v2.value, 0, v31, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
-  [(objc_class *)isa setMenuRepresentation:v17];
+  *(preferredElementSize + 32) = v14;
+  v16 = children;
+  v17 = v14;
+  v32.value.super.isa = v5;
+  v32.is_nil = 0;
+  v18 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v3.value, 0, v32, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
+  [(objc_class *)isa setMenuRepresentation:v18];
 
-  *(v6 + 24) = isa;
-  v18 = v15;
-  v29.value.super.isa = v4;
-  v29.is_nil = 0;
-  v32.value.super.super.isa = 0;
-  v19 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v29, v32, v34).super.super.isa;
-  [(objc_class *)v19 setEnabled:0];
+  *(v7 + 24) = isa;
+  v19 = v16;
+  v30.value.super.isa = v5;
+  v30.is_nil = 0;
+  v33.value.super.super.isa = 0;
+  v20 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v30, v33, v35).super.super.isa;
+  [(objc_class *)v20 setEnabled:0];
 
-  *(v6 + 32) = v19;
-  return v6;
+  *(v7 + 32) = v20;
+  return v7;
 }
 
 uint64_t sub_10010FD50(uint64_t *a1, uint64_t (*a2)(uint64_t))
@@ -4835,80 +5170,80 @@ uint64_t sub_10010FD50(uint64_t *a1, uint64_t (*a2)(uint64_t))
   return v5;
 }
 
-uint64_t sub_10010FDB8()
+uint64_t sub_10010FDB8(uint64_t a1)
 {
-  v0._countAndFlagsBits = 0x6E6769737341;
-  v1._object = 0x8000000100672730;
-  v0._object = 0xE600000000000000;
-  v1._countAndFlagsBits = 0xD000000000000022;
-  v2.value = TTRLocalizedString(_:comment:)(v0, v1);
-  v3 = String._bridgeToObjectiveC()();
-  v4 = [objc_opt_self() _systemImageNamed:v3];
+  v1._countAndFlagsBits = 0x6E6769737341;
+  v2._object = 0x8000000100672730;
+  v1._object = 0xE600000000000000;
+  v2._countAndFlagsBits = 0xD000000000000022;
+  v3.value = TTRLocalizedString(_:comment:)(v1, v2);
+  v4 = String._bridgeToObjectiveC()();
+  v5 = [objc_opt_self() _systemImageNamed:v4];
 
-  v5 = swift_allocObject();
+  v6 = swift_allocObject();
   swift_unknownObjectWeakInit();
   type metadata accessor for CenterBarButtonItemGroupWithMenuRepresentation();
-  v6 = swift_allocObject();
-  *(v6 + 40) = 0;
-  *(v6 + 48) = 0;
-  *(v6 + 16) = 5;
-  sub_100003540(0, &qword_10076B800);
+  v7 = swift_allocObject();
+  *(v7 + 40) = 0;
+  *(v7 + 48) = 0;
+  *(v7 + 16) = 5;
+  sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
   swift_bridgeObjectRetain_n();
 
-  children = v4;
-  v28.value.super.isa = v4;
-  v28.is_nil = 0;
-  v30.value.super.super.isa = 0;
-  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v28, v30, v33).super.super.isa;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_100113ACC;
-  *(v8 + 24) = v5;
-  v26 = sub_100113B7C;
-  v27 = v8;
+  children = v5;
+  v29.value.super.isa = v5;
+  v29.is_nil = 0;
+  v31.value.super.super.isa = 0;
+  isa = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v29, v31, v34).super.super.isa;
+  v9 = swift_allocObject();
+  *(v9 + 16) = sub_100113ACC;
+  *(v9 + 24) = v6;
+  v27 = sub_100113B7C;
+  v28 = v9;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010CA7C;
-  v25 = &unk_1007162F8;
-  v9 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010CA7C;
+  v26 = &unk_1007162F8;
+  v10 = _Block_copy(&aBlock);
 
-  [(objc_class *)isa _setSecondaryActionsProvider:v9];
-  _Block_release(v9);
-  v10 = objc_opt_self();
-  v11 = swift_allocObject();
-  *(v11 + 16) = sub_100113ACC;
-  *(v11 + 24) = v5;
-  v26 = sub_100113B80;
-  v27 = v11;
+  [(objc_class *)isa _setSecondaryActionsProvider:v10];
+  _Block_release(v10);
+  v11 = objc_opt_self();
+  v12 = swift_allocObject();
+  *(v12 + 16) = sub_100113ACC;
+  *(v12 + 24) = v6;
+  v27 = sub_100113B80;
+  v28 = v12;
   aBlock = _NSConcreteStackBlock;
-  v23 = 1107296256;
-  v24 = sub_10010C96C;
-  v25 = &unk_100716348;
-  v12 = _Block_copy(&aBlock);
+  v24 = 1107296256;
+  v25 = sub_10010C96C;
+  v26 = &unk_100716348;
+  v13 = _Block_copy(&aBlock);
 
-  v13 = [v10 elementWithUncachedProvider:v12];
-  _Block_release(v12);
-  sub_100003540(0, &unk_10076B890);
-  sub_100058000(&qword_10076B780);
+  v14 = [v11 elementWithUncachedProvider:v13];
+  _Block_release(v13);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_10062D420;
-  *(preferredElementSize + 32) = v13;
-  v15 = children;
-  v16 = v13;
-  v31.value.super.isa = v4;
-  v31.is_nil = 0;
-  v17 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v2.value, 0, v31, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
-  [(objc_class *)isa setMenuRepresentation:v17];
+  *(preferredElementSize + 32) = v14;
+  v16 = children;
+  v17 = v14;
+  v32.value.super.isa = v5;
+  v32.is_nil = 0;
+  v18 = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v3.value, 0, v32, 0, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, children).super.super.isa;
+  [(objc_class *)isa setMenuRepresentation:v18];
 
-  *(v6 + 24) = isa;
-  v18 = v15;
-  v29.value.super.isa = v4;
-  v29.is_nil = 0;
-  v32.value.super.super.isa = 0;
-  v19 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v2, v29, v32, v34).super.super.isa;
-  [(objc_class *)v19 setEnabled:0];
+  *(v7 + 24) = isa;
+  v19 = v16;
+  v30.value.super.isa = v5;
+  v30.is_nil = 0;
+  v33.value.super.super.isa = 0;
+  v20 = UIBarButtonItem.init(title:image:primaryAction:menu:)(v3, v30, v33, v35).super.super.isa;
+  [(objc_class *)v20 setEnabled:0];
 
-  *(v6 + 32) = v19;
-  return v6;
+  *(v7 + 32) = v20;
+  return v7;
 }
 
 uint64_t sub_1001101A0(uint64_t a1, uint64_t (*a2)(void))
@@ -4938,12 +5273,12 @@ uint64_t sub_100110230()
 
   else
   {
-    sub_100003540(0, &qword_10076BA60);
+    sub_100003540(0, &qword_10076BA60, UIAction_ptr);
     swift_allocObject();
     swift_unknownObjectWeakInit();
     v3 = v0;
     v4 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v8.value.super.isa = static TTRCommonAsset.Image.addSectionIcon.getter();
     v5.value._countAndFlagsBits = 0;
     v5.value._object = 0xE000000000000000;
@@ -4961,23 +5296,23 @@ uint64_t sub_100110230()
   return v2;
 }
 
-uint64_t sub_10011037C()
+char *sub_10011037C(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v2 = result;
+    v3 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v4 = result;
     swift_unknownObjectRetain();
 
-    if ((*(v1 + OBJC_IVAR____TtC9Reminders39TTRIRemindersListNavigationBarPresenter_shouldIgnoreCenterItemActions) & 1) == 0)
+    if ((*(v3 + OBJC_IVAR____TtC9Reminders39TTRIRemindersListNavigationBarPresenter_shouldIgnoreCenterItemActions) & 1) == 0)
     {
       if (swift_unknownObjectWeakLoadStrong())
       {
-        v3 = *(v1 + 40);
+        v5 = *(v3 + 40);
         ObjectType = swift_getObjectType();
-        (*(v3 + 144))(v1, &off_100713C08, ObjectType, v3);
+        (*(v5 + 144))(v3, &off_100713C08, ObjectType, v5);
         swift_unknownObjectRelease();
       }
     }
@@ -4994,31 +5329,33 @@ id sub_100110448()
   v2 = &v0[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___timeZoneOverrideButton];
   v3 = *&v0[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___timeZoneOverrideButton];
   v4 = *&v0[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___timeZoneOverrideButton + 8];
+  v5 = *(v2 + 2);
   if (v3)
   {
-    v5 = v3;
+    v6 = v3;
   }
 
   else
   {
-    v6 = sub_100110510(v1);
-    v8 = v7;
-    v9 = *v2;
-    v10 = *(v2 + 1);
-    *v2 = v6;
-    *(v2 + 1) = v7;
-    *(v2 + 2) = v11;
-    v5 = v6;
-    v8;
+    v7 = sub_100110510(v1);
+    v9 = v8;
+    v10 = *v2;
+    v11 = *(v2 + 1);
+    v12 = *(v2 + 2);
+    *v2 = v7;
+    *(v2 + 1) = v8;
+    *(v2 + 2) = v13;
+    v6 = v7;
+    v9;
 
-    sub_100113914(v9, v10);
+    sub_100113914(v10, v11, v12);
   }
 
-  sub_10011395C(v3, v4);
-  return v5;
+  sub_10011395C(v3, v4, v5);
+  return v6;
 }
 
-id sub_100110510(void *a1)
+id sub_100110510(char *a1)
 {
   v20[3] = swift_getObjectType();
   v20[0] = a1;
@@ -5036,7 +5373,7 @@ id sub_100110510(void *a1)
 
   v6 = [v2 elementWithUncachedProvider:v4];
   _Block_release(v4);
-  sub_100003540(0, &unk_10076B890);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
   v7._countAndFlagsBits = 0x6E6F5A20656D6954;
   v8._object = 0x8000000100672700;
   v7._object = 0xE900000000000065;
@@ -5045,7 +5382,7 @@ id sub_100110510(void *a1)
   v10 = String._bridgeToObjectiveC()();
   v11 = [objc_opt_self() _systemImageNamed:v10];
 
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_10062D420;
   *(preferredElementSize + 32) = v6;
@@ -5056,7 +5393,7 @@ id sub_100110510(void *a1)
   swift_allocObject();
   v14 = *(sub_10008C6E0(v20, isa) + 16);
   [v14 setSharesBackground:0];
-  sub_100003540(0, &qword_10076C548);
+  sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
   v15 = swift_allocObject();
   *(v15 + 16) = xmmword_10062D420;
   *(v15 + 32) = v14;
@@ -5066,7 +5403,7 @@ id sub_100110510(void *a1)
   return v16;
 }
 
-uint64_t type metadata accessor for TTRIRemindersListNavigationBarController()
+uint64_t type metadata accessor for TTRIRemindersListNavigationBarController(uint64_t a1)
 {
   result = qword_10076C3A8;
   if (!qword_10076C3A8)
@@ -5077,29 +5414,29 @@ uint64_t type metadata accessor for TTRIRemindersListNavigationBarController()
   return result;
 }
 
-void sub_100110A64()
+void sub_100110A64(uint64_t a1)
 {
-  sub_100110B54();
-  if (v0 <= 0x3F)
+  sub_100110B54(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_100110B54()
+void sub_100110B54(uint64_t a1)
 {
   if (!qword_10076C3B8)
   {
     type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration(255);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_10076C3B8);
+      atomic_store(v1, &qword_10076C3B8);
     }
   }
 }
 
-uint64_t sub_100110BAC(void *a1, void *a2)
+double sub_100110BAC(void *a1, void *a2)
 {
   v3 = v2;
   v6 = *(v3 + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_navigationItem);
@@ -5130,14 +5467,14 @@ uint64_t sub_100110BAC(void *a1, void *a2)
     sub_100081EF8(0xD00000000000001ALL, 0x8000000100672780);
   }
 
-  sub_100058000(&unk_10076BD70);
+  sub_100058000(&unk_10076BD70, &unk_10062FF20);
   v15 = swift_allocObject();
   *(v15 + 16) = xmmword_10062D400;
   *(v15 + 32) = type metadata accessor for UITraitHorizontalSizeClass();
   *(v15 + 40) = &protocol witness table for UITraitHorizontalSizeClass;
   swift_allocObject();
   swift_unknownObjectWeakInit();
-  sub_100003540(0, &qword_10076AD28);
+  sub_100003540(0, &qword_10076AD28, UIViewController_ptr);
   v16 = UIViewController.registerForTraitChanges<A>(_:handler:)();
 
   v17 = swift_allocObject();
@@ -5148,46 +5485,48 @@ uint64_t sub_100110BAC(void *a1, void *a2)
   type metadata accessor for AnyCancellable();
   swift_allocObject();
   *(v3 + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_traitChangeCancellable) = AnyCancellable.init(_:)();
+
+  return result;
 }
 
-void sub_100110EA4(void *a1)
+void sub_100110EA4(void *a1, uint64_t a2, uint64_t a3)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v5 = Strong;
+    v6 = [a1 traitCollection];
+    v7 = OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_isCompactHorizontalSizeClass;
+    v8 = v5[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_isCompactHorizontalSizeClass];
+    v9 = [v6 horizontalSizeClass];
+    if (v8 == (v9 == 1))
+    {
+      v10 = v6;
+      v6 = v5;
+    }
+
+    else
+    {
+      v5[v7] = v9 == 1;
+      sub_100081EF8(0xD00000000000001ALL, 0x8000000100672780);
+      v10 = v5;
+    }
+  }
+}
+
+void sub_100110F8C(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
     v3 = Strong;
-    v4 = [a1 traitCollection];
-    v5 = OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_isCompactHorizontalSizeClass;
-    v6 = v3[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_isCompactHorizontalSizeClass];
-    v7 = [v4 horizontalSizeClass];
-    if (v6 == (v7 == 1))
-    {
-      v8 = v4;
-      v4 = v3;
-    }
-
-    else
-    {
-      v3[v5] = v7 == 1;
-      sub_100081EF8(0xD00000000000001ALL, 0x8000000100672780);
-      v8 = v3;
-    }
-  }
-}
-
-void sub_100110F8C()
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v1 = Strong;
     UIViewController.unregisterForTraitChanges(_:)();
   }
 }
 
-uint64_t sub_100110FE8(uint64_t a1)
+uint64_t sub_100110FE8(uint64_t *a1)
 {
   v3 = type metadata accessor for TTRIRemindersListNavigationBarViewModel.TrailingItem(0);
   __chkstk_darwin(v3);
@@ -5196,16 +5535,16 @@ uint64_t sub_100110FE8(uint64_t a1)
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v104 = &v94 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100058000(&qword_10076C530);
+  v9 = sub_100058000(&qword_10076C530, &qword_1006304B0);
   __chkstk_darwin(v9);
   v11 = &v94 - v10;
-  v12 = sub_100058000(&unk_10076C538);
-  v13 = __chkstk_darwin(v12 - 8);
-  v14 = __chkstk_darwin(v13);
-  v16 = &v94 - v15;
-  __chkstk_darwin(v14);
+  v12 = sub_100058000(&unk_10076C538, &unk_1006304B8);
+  __chkstk_darwin(v12 - 8);
+  __chkstk_darwin(v13);
+  v15 = &v94 - v14;
+  __chkstk_darwin(v16);
   v19 = &v94 - v18;
-  v106 = *&v1[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_navigationItem];
+  v106 = *(v1 + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_navigationItem);
   if (!v106)
   {
     if (qword_100766F18 == -1)
@@ -5242,7 +5581,7 @@ LABEL_37:
   v99(v19, 0, 1, v6);
   v22 = *(v9 + 48);
   v101 = v20;
-  sub_100113338(&v1[v20], v11);
+  sub_100113338(v1 + v20, v11);
   sub_100113338(v19, &v11[v22]);
   v23 = *(v7 + 48);
   v24 = v23(v11, 1, v6);
@@ -5252,28 +5591,28 @@ LABEL_37:
   {
     v26 = v106;
     v27 = v106;
-    sub_1000079B4(v19, &unk_10076C538);
+    sub_1000079B4(v19, &unk_10076C538, &unk_1006304B8);
     v28 = v6;
     v29 = v26;
     if (v23(&v11[v22], 1, v28) == 1)
     {
 
-      sub_1000079B4(v11, &unk_10076C538);
+      sub_1000079B4(v11, &unk_10076C538, &unk_1006304B8);
       return 0;
     }
 
     goto LABEL_12;
   }
 
-  sub_100113338(v11, v16);
+  sub_100113338(v11, v15);
   if (v23(&v11[v22], 1, v6) == 1)
   {
     v29 = v106;
     v35 = v106;
-    sub_1000079B4(v19, &unk_10076C538);
-    sub_100113710(v16, type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration);
+    sub_1000079B4(v19, &unk_10076C538, &unk_1006304B8);
+    sub_100113710(v15, type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration);
 LABEL_12:
-    sub_1000079B4(v11, &qword_10076C530);
+    sub_1000079B4(v11, &qword_10076C530, &qword_1006304B0);
     v36 = v105;
     goto LABEL_13;
   }
@@ -5282,11 +5621,11 @@ LABEL_12:
   sub_100113770(&v11[v22], v104);
   v29 = v106;
   v103 = v106;
-  v49 = sub_1005F4378(v16, v48);
+  v49 = sub_1005F4378(v15, v48);
   sub_100113710(v48, type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration);
-  sub_1000079B4(v19, &unk_10076C538);
-  sub_100113710(v16, type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration);
-  sub_1000079B4(v11, &unk_10076C538);
+  sub_1000079B4(v19, &unk_10076C538, &unk_1006304B8);
+  sub_100113710(v15, type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration);
+  sub_1000079B4(v11, &unk_10076C538, &unk_1006304B8);
   v36 = v105;
   if (v49)
   {
@@ -5311,7 +5650,7 @@ LABEL_13:
 
   v40 = v25;
   v41 = *(v21 + *(v36 + 20));
-  aBlock[0] = &_swiftEmptyArrayStorage;
+  aBlock[0] = _swiftEmptyArrayStorage;
   v42 = *(v41 + 16);
   if (v42)
   {
@@ -5339,7 +5678,7 @@ LABEL_13:
         v46 = 0;
       }
 
-      sub_100111E88(v46 | v45 | *(v44 - 2));
+      sub_100111E88(v46 | v45 | *(v44 - 2), v25, v21);
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
       if (*((aBlock[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((aBlock[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
@@ -5364,7 +5703,7 @@ LABEL_13:
     goto LABEL_37;
   }
 
-  v47 = &_swiftEmptyArrayStorage;
+  v47 = _swiftEmptyArrayStorage;
 LABEL_32:
   v50 = v21;
   if (v104)
@@ -5402,7 +5741,7 @@ LABEL_41:
   v95 = v52;
   v96 = sub_10007D6BC(sub_1001133A8, (&v94 - 6), v52);
   v53 = *(v21 + *(v36 + 28));
-  aBlock[0] = &_swiftEmptyArrayStorage;
+  aBlock[0] = _swiftEmptyArrayStorage;
   v54 = v53[2];
   if (v54)
   {
@@ -5458,7 +5797,7 @@ LABEL_41:
     goto LABEL_71;
   }
 
-  v60 = &_swiftEmptyArrayStorage;
+  v60 = _swiftEmptyArrayStorage;
 LABEL_54:
   v108[0] = 0;
   v61 = *(v50 + *(v105 + 32));
@@ -5515,13 +5854,13 @@ LABEL_62:
     v71 = v70;
     v72 = [v70 barButtonItems];
 
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v73 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v73 = &_swiftEmptyArrayStorage;
+    v73 = _swiftEmptyArrayStorage;
   }
 
   v74 = sub_100126584(v73, v60);
@@ -5540,7 +5879,7 @@ LABEL_72:
 
 LABEL_69:
       v75 = objc_allocWithZone(UIBarButtonItemGroup);
-      sub_100003540(0, &qword_10076B800);
+      sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
       v77 = [v75 initWithBarButtonItems:isa representativeItem:0];
@@ -5563,7 +5902,7 @@ LABEL_71:
 
 LABEL_74:
   v78 = [v53 trailingItemGroups];
-  sub_100003540(0, &qword_10076C548);
+  sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
   v79 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   LOBYTE(v78) = sub_100126598(v79, v96);
@@ -5590,13 +5929,13 @@ LABEL_74:
   }
 
   v83 = [v53 leftBarButtonItems];
-  if (v83 && (v84 = v83, sub_100003540(0, &qword_10076B800), v85 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v84, , LOBYTE(v84) = sub_100126584(v85, v55), v81 = v103, , , (v84 & 1) != 0))
+  if (v83 && (v84 = v83, sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr), v85 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v84, , LOBYTE(v84) = sub_100126584(v85, v55), v81 = v103, , , (v84 & 1) != 0))
   {
   }
 
   else
   {
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     v86 = Array._bridgeToObjectiveC()().super.isa;
 
     [v53 setLeftBarButtonItems:v86];
@@ -5634,12 +5973,12 @@ LABEL_74:
   sub_1001137DC(v50, v102, type metadata accessor for TTRIRemindersListNavigationBarViewModel.ProcessedConfiguration);
   v99(v92, 0, 1, v105);
   swift_beginAccess();
-  sub_100113698(v92, &v25[v90]);
+  sub_100113698(v92, v25 + v90);
   swift_endAccess();
   return v34;
 }
 
-id sub_100111E88(unsigned int a1)
+id sub_100111E88(unsigned int a1, uint64_t a2, uint64_t a3)
 {
   if (a1 <= 2u)
   {
@@ -5647,79 +5986,79 @@ id sub_100111E88(unsigned int a1)
     {
       if (a1 != 1)
       {
-        v4 = *(sub_10010F3AC() + 24);
+        v6 = *(sub_10010F3AC() + 24);
 
-        v5 = v4;
+        v7 = v6;
         if ((a1 & 0x10000) != 0)
         {
-          v7 = 0x8000000100672730;
-          v6 = 1734437958;
-          v8 = 0xE400000000000000;
+          v9 = 0x8000000100672730;
+          v8 = 1734437958;
+          v10 = 0xE400000000000000;
         }
 
         else
         {
-          v6 = 0x67616C666E55;
-          v7 = 0x8000000100672730;
-          v8 = 0xE600000000000000;
+          v8 = 0x67616C666E55;
+          v9 = 0x8000000100672730;
+          v10 = 0xE600000000000000;
         }
 
-        v17 = 0xD000000000000022;
-        TTRLocalizedString(_:comment:)(*&v6, *(&v7 - 1));
-        v18 = String._bridgeToObjectiveC()();
+        v19 = 0xD000000000000022;
+        TTRLocalizedString(_:comment:)(*&v8, *(&v9 - 1));
+        v20 = String._bridgeToObjectiveC()();
 
-        [v5 setTitle:v18];
+        [v7 setTitle:v20];
 
-        v19 = String._bridgeToObjectiveC()();
-        v20 = [objc_opt_self() _systemImageNamed:v19];
+        v21 = String._bridgeToObjectiveC()();
+        v22 = [objc_opt_self() _systemImageNamed:v21];
 
-        [v5 setImage:v20];
-        [v5 setEnabled:(a1 >> 8) & 1];
+        [v7 setImage:v22];
+        [v7 setEnabled:(a1 >> 8) & 1];
 
-        v10 = sub_1001121A0();
+        v12 = sub_1001121A0();
 
-        return v10;
+        return v12;
       }
 
-      v2 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___locationBarButton;
-      v3 = sub_10010EFB4;
+      v4 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___locationBarButton;
+      v5 = sub_10010EFB4;
     }
 
     else
     {
-      v2 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___dueDateBarButton;
-      v3 = sub_10010EBB8;
+      v4 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___dueDateBarButton;
+      v5 = sub_10010EBB8;
     }
 
 LABEL_14:
-    sub_10010FD50(v2, v3);
+    sub_10010FD50(v4, v5);
     if ((a1 & 0x100) != 0)
     {
-      v9 = sub_100112E38();
+      v11 = sub_100112E38();
     }
 
     else
     {
-      v9 = sub_10011300C();
+      v11 = sub_10011300C();
     }
 
-    v10 = v9;
+    v12 = v11;
 
-    return v10;
+    return v12;
   }
 
   if (a1 <= 4u)
   {
     if (a1 == 3)
     {
-      v2 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___photoBarButton;
-      v3 = sub_10010F574;
+      v4 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___photoBarButton;
+      v5 = sub_10010F574;
     }
 
     else
     {
-      v2 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___hashtagBarButton;
-      v3 = sub_10010F964;
+      v4 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___hashtagBarButton;
+      v5 = sub_10010F964;
     }
 
     goto LABEL_14;
@@ -5727,25 +6066,25 @@ LABEL_14:
 
   if (a1 == 5)
   {
-    v2 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___assigneeBarButton;
-    v3 = sub_10010FDB8;
+    v4 = &OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___assigneeBarButton;
+    v5 = sub_10010FDB8;
     goto LABEL_14;
   }
 
-  v12 = (a1 >> 8) & 1;
-  v13 = *(sub_100110230() + 24);
+  v14 = (a1 >> 8) & 1;
+  v15 = *(sub_100110230() + 24);
 
-  v14 = v13;
+  v16 = v15;
   static TTRLocalizableStrings.Sections.addSectionActionText(listLayout:)();
-  v15 = String._bridgeToObjectiveC()();
+  v17 = String._bridgeToObjectiveC()();
 
-  [v14 setTitle:v15];
+  [v16 setTitle:v17];
 
-  [v14 setEnabled:v12];
+  [v16 setEnabled:v14];
 
-  v16 = sub_1001121A0();
+  v18 = sub_1001121A0();
 
-  return v16;
+  return v18;
 }
 
 id sub_1001121A0()
@@ -5758,8 +6097,8 @@ id sub_1001121A0()
 
   else
   {
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_10062D420;
     v4 = *(v0 + 24);
@@ -5848,7 +6187,7 @@ void sub_100112374(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@
     v40(v14, v17, v11);
     v42 = TTRSharedWithYouHighlight.itemProvider.getter();
     v43 = v66 + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_collaborationBarButton;
-    if (*(v66 + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_collaborationBarButton) && (objc_opt_self(), (v44 = swift_dynamicCastObjCClass()) != 0) && (v45 = [v44 itemProvider]) != 0 && (v46 = v45, sub_100003540(0, &unk_10076C570), v47 = v42, v48 = static NSObject.== infix(_:_:)(), v46, v47, (v48 & 1) != 0))
+    if (*(v66 + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_collaborationBarButton) && (objc_opt_self(), (v44 = swift_dynamicCastObjCClass()) != 0) && (v45 = [v44 itemProvider]) != 0 && (v46 = v45, sub_100003540(0, &unk_10076C570, NSItemProvider_ptr), v47 = v42, v48 = static NSObject.== infix(_:_:)(), v46, v47, (v48 & 1) != 0))
     {
 
       (*(v63 + 8))(v41, v64);
@@ -5860,11 +6199,11 @@ void sub_100112374(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@
       swift_unknownObjectWeakInit();
       TTRCollaborationDetailView.init(manageSharedListAction:)();
       v53 = [objc_allocWithZone(_SWCollaborationBarButtonItem) initWithItemProvider:v42];
-      sub_100113B0C(&qword_10076C568, &type metadata accessor for TTRCollaborationDetailView);
+      sub_100113B0C(&qword_10076C568, &type metadata accessor for TTRCollaborationDetailView, &protocol conformance descriptor for TTRCollaborationDetailView);
       _SWCollaborationBarButtonItem.setDetailViewListContent<A>(_:)();
       [v53 ttr_hideManageButton];
-      sub_100003540(0, &qword_10076C548);
-      sub_100058000(&qword_10076B780);
+      sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+      sub_100058000(&qword_10076B780, &qword_10062D7C0);
       v54 = swift_allocObject();
       *(v54 + 16) = xmmword_10062D420;
       *(v54 + 32) = v53;
@@ -5947,37 +6286,37 @@ LABEL_25:
   *v65 = v52;
 }
 
-uint64_t sub_1001129C8()
+char *sub_1001129C8(uint64_t a1)
 {
-  v0 = sub_100058000(&unk_10076FCD0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v9 - v1;
+  v1 = sub_100058000(&unk_10076FCD0, &unk_1006304D0);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v10 - v2;
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v4 = *(result + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-    v5 = result;
+    v5 = *&result[OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter];
+    v6 = result;
     swift_unknownObjectRetain();
 
-    v6 = type metadata accessor for TTRIPopoverAnchor();
-    (*(*(v6 - 8) + 56))(v2, 1, 1, v6);
+    v7 = type metadata accessor for TTRIPopoverAnchor();
+    (*(*(v7 - 8) + 56))(v3, 1, 1, v7);
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v7 = *(v4 + 40);
+      v8 = *(v5 + 40);
       ObjectType = swift_getObjectType();
-      (*(v7 + 64))(v4, &off_100713C08, 0, v2, ObjectType, v7);
+      (*(v8 + 64))(v5, &off_100713C08, 0, v3, ObjectType, v8);
       swift_unknownObjectRelease();
     }
 
     swift_unknownObjectRelease();
-    return sub_1000079B4(v2, &unk_10076FCD0);
+    return sub_1000079B4(v3, &unk_10076FCD0, &unk_1006304D0);
   }
 
   return result;
 }
 
-uint64_t sub_100112B38(void (*a1)(uint64_t))
+uint64_t sub_100112B38(void (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -5986,8 +6325,8 @@ uint64_t sub_100112B38(void (*a1)(uint64_t))
     goto LABEL_6;
   }
 
-  v3 = *(Strong + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
-  v4 = Strong;
+  v5 = *(Strong + OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController_presenter);
+  v6 = Strong;
   swift_unknownObjectRetain();
 
   if (!swift_unknownObjectWeakLoadStrong())
@@ -5996,36 +6335,36 @@ uint64_t sub_100112B38(void (*a1)(uint64_t))
     goto LABEL_6;
   }
 
-  v5 = *(v3 + 40);
+  v7 = *(v5 + 40);
   ObjectType = swift_getObjectType();
-  v7 = (*(v5 + 16))(v3, &off_100713C08, ObjectType, v5);
+  v9 = (*(v7 + 16))(v5, &off_100713C08, ObjectType, v7);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  if (!v7)
+  if (!v9)
   {
 LABEL_6:
-    preferredElementSize = &_swiftEmptyArrayStorage;
+    preferredElementSize = _swiftEmptyArrayStorage;
     goto LABEL_7;
   }
 
-  v8 = [v7 children];
+  v10 = [v9 children];
 
-  sub_100003540(0, &qword_10076C550);
+  sub_100003540(0, &qword_10076C550, UIMenuElement_ptr);
   preferredElementSize = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_7:
-  sub_100003540(0, &unk_10076B890);
-  v10._countAndFlagsBits = 0;
-  v10._object = 0xE000000000000000;
-  v16.value.super.isa = 0;
-  v16.is_nil = 0;
-  isa = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v10, 0, v16, 1, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, v15).super.super.isa;
-  sub_100058000(&qword_10076B780);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_10062D420;
-  *(v12 + 32) = isa;
-  v13 = isa;
-  a1(v12);
+  sub_100003540(0, &unk_10076B890, UIMenu_ptr);
+  v12._countAndFlagsBits = 0;
+  v12._object = 0xE000000000000000;
+  v18.value.super.isa = 0;
+  v18.is_nil = 0;
+  isa = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v12, 0, v18, 1, 0xFFFFFFFFFFFFFFFFLL, preferredElementSize, v17).super.super.isa;
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_10062D420;
+  *(v14 + 32) = isa;
+  v15 = isa;
+  a1(v14);
 }
 
 uint64_t sub_100112D10()
@@ -6041,13 +6380,13 @@ void sub_100112D74(void (*a1)(void *), uint64_t a2, uint64_t (*a3)(void))
   if (v4)
   {
     v5 = [v4 children];
-    sub_100003540(0, &qword_10076C550);
+    sub_100003540(0, &qword_10076C550, UIMenuElement_ptr);
     v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v6 = &_swiftEmptyArrayStorage;
+    v6 = _swiftEmptyArrayStorage;
   }
 
   a1(v6);
@@ -6063,8 +6402,8 @@ id sub_100112E38()
 
   else
   {
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_10062D420;
     v4 = *(v0 + 24);
@@ -6094,8 +6433,8 @@ id sub_10011300C()
 
   else
   {
-    sub_100003540(0, &qword_10076C548);
-    sub_100058000(&qword_10076B780);
+    sub_100003540(0, &qword_10076C548, UIBarButtonItemGroup_ptr);
+    sub_100058000(&qword_10076B780, &qword_10062D7C0);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_10062D420;
     v4 = *(v0 + 32);
@@ -6151,7 +6490,7 @@ uint64_t assignWithTake for TTRIBoardColumnDraggingAnimationCellBackgroundView.F
 
 uint64_t sub_100113338(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100058000(&unk_10076C538);
+  v4 = sub_100058000(&unk_10076C538, &unk_1006304B8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -6170,13 +6509,13 @@ uint64_t sub_1001133E0(uint64_t a1, _BYTE *a2, uint64_t a3)
   v3 = *(a1 + 16);
   if (!v3)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v26 = OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___redoBarButton;
   v27 = OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___undoBarButton;
   v5 = (a1 + 32);
-  v6 = &_swiftEmptyArrayStorage;
+  v6 = _swiftEmptyArrayStorage;
   while (1)
   {
     v8 = *v5++;
@@ -6184,7 +6523,7 @@ uint64_t sub_1001133E0(uint64_t a1, _BYTE *a2, uint64_t a3)
     if (v8 == 2)
     {
       *a2 = 1;
-      sub_100058000(&qword_10076B780);
+      sub_100058000(&qword_10076B780, &qword_10062D7C0);
       v9 = swift_allocObject();
       *(v9 + 16) = xmmword_10062D420;
       *(v9 + 32) = sub_10010D42C(&OBJC_IVAR____TtC9Reminders40TTRIRemindersListNavigationBarController____lazy_storage___cancelModalPresentationBarButton, sub_100113844, UIBarButtonSystemItemCancel);
@@ -6198,7 +6537,7 @@ uint64_t sub_1001133E0(uint64_t a1, _BYTE *a2, uint64_t a3)
       v11 = sub_10010D9C0();
       [(objc_class *)v11 setEnabled:(v7 >> 8) & 1];
 
-      sub_100058000(&qword_10076B780);
+      sub_100058000(&qword_10076B780, &qword_10062D7C0);
       v9 = swift_allocObject();
       *(v9 + 16) = xmmword_10062D410;
       v12 = *(a3 + v27);
@@ -6219,7 +6558,7 @@ uint64_t sub_1001133E0(uint64_t a1, _BYTE *a2, uint64_t a3)
       {
 LABEL_25:
         __break(1u);
-        return &_swiftEmptyArrayStorage;
+        return _swiftEmptyArrayStorage;
       }
     }
 
@@ -6275,7 +6614,7 @@ LABEL_19:
       break;
     }
 
-    sub_100003540(0, &qword_10076B800);
+    sub_100003540(0, &qword_10076B800, UIBarButtonItem_ptr);
     swift_arrayInitWithCopy();
 
     if (v16 >= 1)
@@ -6306,7 +6645,7 @@ LABEL_29:
 
 uint64_t sub_100113698(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100058000(&unk_10076C538);
+  v4 = sub_100058000(&unk_10076C538, &unk_1006304B8);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -6332,27 +6671,27 @@ uint64_t sub_1001137DC(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-void *sub_100113914(void *result, void *a2)
+double sub_100113914(void *a1, void *a2, uint64_t a3)
 {
-  if (result)
+  if (a1)
   {
   }
 
   return result;
 }
 
-void *sub_10011395C(void *result, void *a2)
+void *sub_10011395C(void *result, void *a2, uint64_t a3)
 {
   if (result)
   {
-    v3 = result;
-    v4 = a2;
+    v4 = result;
+    v5 = a2;
   }
 
   return result;
 }
 
-uint64_t sub_100113B0C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100113B0C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6381,7 +6720,7 @@ uint64_t sub_100113BC0()
   return v3(v1, v2, v0);
 }
 
-uint64_t sub_100113C88(uint64_t a1, uint64_t a2)
+id sub_100113C88(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = type metadata accessor for TTRRemindersListReminderActionTarget(0);
@@ -6404,194 +6743,197 @@ uint64_t sub_100113C88(uint64_t a1, uint64_t a2)
 
   else
   {
-    sub_1000079B4(&v15, &qword_100775A10);
+    sub_1000079B4(&v15, &qword_100775A10, &qword_100636020);
     return 0;
   }
 
   return v13;
 }
 
-void *sub_100113DD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_100113DD0(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v164 = a2;
-  v7 = sub_100058000(&qword_100775780);
+  v165 = a2;
+  v7 = sub_100058000(&qword_100775780, &unk_100630580);
   __chkstk_darwin(v7 - 8);
-  v161 = &v140 - v8;
-  v9 = sub_100058000(&qword_100772140);
+  v162 = &v141 - v8;
+  v9 = sub_100058000(&qword_100772140, &qword_10062D9F0);
   __chkstk_darwin(v9 - 8);
-  v147 = &v140 - v10;
+  v148 = &v141 - v10;
   v11 = type metadata accessor for TTRRemindersListReminderInsertionPosition();
-  v151 = *(v11 - 8);
+  v152 = *(v11 - 8);
   __chkstk_darwin(v11);
-  v150 = &v140 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v153 = type metadata accessor for TTRRemindersListBatchReminderCreationParams();
-  v149 = *(v153 - 8);
-  __chkstk_darwin(v153);
-  v148 = (&v140 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = sub_100058000(&qword_10076C6F0);
+  v151 = &v141 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v154 = type metadata accessor for TTRRemindersListBatchReminderCreationParams();
+  v150 = *(v154 - 8);
+  __chkstk_darwin(v154);
+  v149 = (&v141 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = sub_100058000(&qword_10076C6F0, &unk_100630590);
   __chkstk_darwin(v14 - 8);
-  *&v152 = &v140 - v15;
-  v156 = type metadata accessor for TTRRemindersListTargetContainer();
-  v154 = *(v156 - 8);
-  __chkstk_darwin(v156);
-  v155 = &v140 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v153 = &v141 - v15;
+  v157 = type metadata accessor for TTRRemindersListTargetContainer();
+  v155 = *(v157 - 8);
+  __chkstk_darwin(v157);
+  v156 = &v141 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = type metadata accessor for TTRRemindersListReminderActionTarget(0);
   __chkstk_darwin(v17 - 8);
-  v19 = (&v140 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v19 = (&v141 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v20);
-  v159 = &v140 - v21;
-  v22 = sub_100058000(&qword_10076C6F8);
+  v160 = &v141 - v21;
+  v22 = sub_100058000(&qword_10076C6F8, &qword_10063E530);
   __chkstk_darwin(v22 - 8);
-  v24 = (&v140 - v23);
-  v25 = sub_100058000(&unk_100781910);
+  v24 = (&v141 - v23);
+  v25 = sub_100058000(&unk_100781910, &unk_1006305A0);
   __chkstk_darwin(v25);
-  v27 = &v140 - v26;
-  v160 = type metadata accessor for TTRRemindersListViewModel.Item();
-  v162 = *(v160 - 8);
-  __chkstk_darwin(v160);
-  v163 = &v140 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = &v141 - v26;
+  v161 = type metadata accessor for TTRRemindersListViewModel.Item();
+  v163 = *(v161 - 8);
+  __chkstk_darwin(v161);
+  v164 = &v141 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v29);
-  v158 = &v140 - v30;
-  v31 = sub_100058000(&qword_10076C700);
+  v159 = &v141 - v30;
+  v31 = sub_100058000(&qword_10076C700, &qword_100634E00);
   __chkstk_darwin(v31 - 8);
-  v33 = &v140 - v32;
-  v165 = sub_100058000(&unk_100775620);
-  __chkstk_darwin(v165);
-  v35 = &v140 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = &v141 - v32;
+  v166 = sub_100058000(&unk_100775620, &unk_1006305B0);
+  __chkstk_darwin(v166);
+  v35 = &v141 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v36);
   if (a3 < 1)
   {
     return 0;
   }
 
-  v140 = a3;
-  v141 = v11;
-  v146 = &v140 - v37;
-  v157 = v38;
-  v39 = *(a4 + 16);
-  v40 = *(a4 + 24);
+  v141 = a3;
+  v142 = v11;
+  v147 = &v141 - v37;
+  v158 = v38;
+  v39 = a4[2];
+  v40 = a4[3];
   ObjectType = swift_getObjectType();
   v42 = *(v40 + 496);
-  v144 = v39;
-  v143 = ObjectType;
-  v145 = v40;
-  v42(&v169, a1, v164);
-  if (v170)
+  v145 = v39;
+  v144 = ObjectType;
+  v146 = v40;
+  v42(&v170, a1, v165);
+  if (v171)
   {
-    sub_100005FD0(&v169, &v172);
-    v43 = v173;
-    v44 = v174;
-    sub_10000C36C(&v172, v173);
-    (*(v44 + 32))(&v169, _swiftEmptyArrayStorage, v43, v44);
-    v45 = v170;
-    v46 = v171;
-    sub_10000C36C(&v169, v170);
+    sub_100005FD0(&v170, &v173);
+    v43 = v174;
+    v44 = v175;
+    sub_10000C36C(&v173, v174);
+    (*(v44 + 32))(&v170, _swiftEmptyArrayStorage, v43, v44);
+    v45 = v171;
+    v46 = v172;
+    sub_10000C36C(&v170, v171);
     (*(v46 + 24))(v45, v46);
-    v47 = v157;
-    v48 = v165;
-    if ((*(v157 + 48))(v33, 1, v165) == 1)
+    v47 = v158;
+    v48 = v166;
+    if ((*(v158 + 48))(v33, 1, v166) == 1)
     {
-      sub_1000079B4(v33, &qword_10076C700);
+      sub_1000079B4(v33, &qword_10076C700, &qword_100634E00);
 LABEL_5:
-      sub_100004758(&v169);
+      sub_100004758(&v170);
 LABEL_28:
-      sub_100004758(&v172);
+      sub_100004758(&v173);
       return 0;
     }
 
-    v164 = a4;
-    v49 = v146;
-    (*(v47 + 32))(v146, v33, v48);
-    sub_100004758(&v169);
-    v50 = v173;
-    v51 = v174;
-    sub_10000C36C(&v172, v173);
+    v165 = a4;
+    v49 = v147;
+    (*(v47 + 32))(v147, v33, v48);
+    sub_100004758(&v170);
+    v50 = v174;
+    v51 = v175;
+    sub_10000C36C(&v173, v174);
     (*(v51 + 16))(v50, v51);
-    v52 = sub_100058000(&qword_10076C708);
+    v52 = sub_100058000(&qword_10076C708, &unk_1006305C0);
     if ((*(*(v52 - 8) + 48))(v24, 1, v52) == 1)
     {
-      (*(v47 + 8))(v49, v165);
+      (*(v47 + 8))(v49, v166);
       v53 = &qword_10076C6F8;
-      v54 = v24;
+      v54 = &qword_10063E530;
+      v55 = v24;
 LABEL_27:
-      sub_1000079B4(v54, v53);
+      sub_1000079B4(v55, v53, v54);
       goto LABEL_28;
     }
 
-    v55 = *(v24 + *(v52 + 48));
-    v56 = *(v25 + 48);
-    v57 = v162;
-    v58 = *(v162 + 32);
-    v59 = v24;
-    v60 = v160;
-    v58(v27, v59, v160);
-    *&v27[v56] = v55;
-    v142 = *&v27[*(v25 + 48)];
-    v61 = v158;
-    v58(v158, v27, v60);
-    v62 = v173;
+    v56 = *(v24 + *(v52 + 48));
+    v57 = *(v25 + 48);
+    v58 = v163;
+    v59 = *(v163 + 32);
+    v60 = v24;
+    v61 = v161;
+    v59(v27, v60, v161);
+    *&v27[v57] = v56;
+    v143 = *&v27[*(v25 + 48)];
+    v62 = v159;
+    v59(v159, v27, v61);
     v63 = v174;
-    sub_10000C36C(&v172, v173);
-    v64 = v159;
-    (*(v63 + 8))(v62, v63);
-    sub_100117584(v64, v19, type metadata accessor for TTRRemindersListReminderActionTarget);
-    v65 = v152;
-    sub_10057DDC0(v19, v152);
-    v66 = v154;
-    v67 = v156;
-    if ((*(v154 + 48))(v65, 1, v156) == 1)
+    v64 = v175;
+    sub_10000C36C(&v173, v174);
+    v65 = v160;
+    (*(v64 + 8))(v63, v64);
+    sub_100117584(v65, v19, type metadata accessor for TTRRemindersListReminderActionTarget);
+    v66 = v153;
+    sub_10057DDC0(v19, v153);
+    v67 = v155;
+    v68 = v157;
+    if ((*(v155 + 48))(v66, 1, v157) == 1)
     {
-      sub_100117528(v64);
-      (*(v57 + 8))(v61, v60);
-      (*(v157 + 8))(v146, v165);
+      sub_100117528(v65);
+      (*(v58 + 8))(v62, v61);
+      (*(v158 + 8))(v147, v166);
       v53 = &qword_10076C6F0;
-      v54 = v65;
+      v54 = &unk_100630590;
+      v55 = v66;
       goto LABEL_27;
     }
 
-    (*(v66 + 32))(v155, v65, v67);
-    v68 = *(v164 + 32);
-    v69 = swift_getObjectType();
-    v70 = v148;
-    *v148 = v140;
+    (*(v67 + 32))(v156, v66, v68);
+    v69 = v165[4];
+    v70 = swift_getObjectType();
     v71 = v149;
-    v149[13](v70, enum case for TTRRemindersListBatchReminderCreationParams.count(_:), v153);
-    (*(v157 + 16))(v35, v146, v165);
+    *v149 = v141;
     v72 = v150;
+    v150[13](v71, enum case for TTRRemindersListBatchReminderCreationParams.count(_:), v154);
+    (*(v158 + 16))(v35, v147, v166);
+    v73 = v151;
     TTRRemindersListReminderInsertionPosition.init(relativePosition:)();
-    (*(v145 + 408))(v143);
+    (*(v146 + 408))(v144);
     dispatch thunk of TTRRemindersListInteractorType.newReminderChangeItems(params:targetContainer:position:remindersBeingSaved:)();
 
-    (*(v151 + 8))(v72, v141);
-    (v71[1])(v70, v153);
-    if (!v168)
+    (*(v152 + 8))(v73, v142);
+    (v72[1])(v71, v154);
+    if (!v169)
     {
-      (*(v66 + 8))(v155, v156);
-      sub_100117528(v159);
-      (*(v162 + 8))(v158, v160);
-      (*(v157 + 8))(v146, v165);
+      (*(v67 + 8))(v156, v157);
+      sub_100117528(v160);
+      (*(v163 + 8))(v159, v161);
+      (*(v158 + 8))(v147, v166);
       v53 = &qword_10076C710;
-      v54 = &v167;
+      v54 = &unk_100647120;
+      v55 = &v168;
       goto LABEL_27;
     }
 
-    sub_100005FD0(&v167, &v169);
-    sub_10000C36C(&v169, v170);
-    v73 = dispatch thunk of TTRRemindersListChangeItemGroup.reminderChangeItems.getter();
-    v74 = v73;
-    v151 = v73 >> 62;
-    if (v73 >> 62)
+    sub_100005FD0(&v168, &v170);
+    sub_10000C36C(&v170, v171);
+    v74 = dispatch thunk of TTRRemindersListChangeItemGroup.reminderChangeItems.getter();
+    v75 = v74;
+    v152 = v74 >> 62;
+    if (v74 >> 62)
     {
       goto LABEL_83;
     }
 
-    for (i = *((v73 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = _CocoaArrayWrapper.endIndex.getter())
+    for (i = *((v74 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = _CocoaArrayWrapper.endIndex.getter())
     {
-      v76 = v164;
-      v153 = i;
+      v77 = v165;
+      v154 = i;
       if (i)
       {
-        v166 = _swiftEmptyArrayStorage;
+        v167 = _swiftEmptyArrayStorage;
         sub_1004A1EBC(0, i & ~(i >> 63), 0);
         if (i < 0)
         {
@@ -6601,173 +6943,173 @@ LABEL_85:
           goto LABEL_86;
         }
 
-        v77 = 0;
-        v78 = v166;
-        v70 = v74 & 0xC000000000000001;
-        v152 = xmmword_10062D420;
+        v78 = 0;
+        v79 = v167;
+        v71 = v75 & 0xC000000000000001;
+        v153 = xmmword_10062D420;
         do
         {
-          if (v70)
+          if (v71)
           {
-            v79 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+            v80 = specialized _ArrayBuffer._getElementSlowPath(_:)();
           }
 
           else
           {
-            v79 = *(v74 + 8 * v77 + 32);
+            v80 = *(v75 + 8 * v78 + 32);
           }
 
-          v80 = v79;
-          sub_100058000(&qword_10076B780);
-          v81 = swift_allocObject();
-          *(v81 + 16) = v152;
-          *(v81 + 32) = v80;
-          v82 = v80;
+          v81 = v80;
+          sub_100058000(&qword_10076B780, &qword_10062D7C0);
+          v82 = swift_allocObject();
+          *(v82 + 16) = v153;
+          *(v82 + 32) = v81;
+          v83 = v81;
           dispatch thunk of TTRRemindersListInteractorType.attributeEditor(for:)();
 
-          v166 = v78;
-          v84 = v78[2];
-          v83 = v78[3];
-          if (v84 >= v83 >> 1)
+          v167 = v79;
+          v85 = v79[2];
+          v84 = v79[3];
+          if (v85 >= v84 >> 1)
           {
-            sub_1004A1EBC((v83 > 1), v84 + 1, 1);
-            v78 = v166;
+            sub_1004A1EBC((v84 > 1), v85 + 1, 1);
+            v79 = v167;
           }
 
-          ++v77;
-          v78[2] = v84 + 1;
-          sub_100005FD0(&v167, &v78[5 * v84 + 4]);
+          ++v78;
+          v79[2] = v85 + 1;
+          sub_100005FD0(&v168, &v79[5 * v85 + 4]);
         }
 
-        while (v153 != v77);
+        while (v154 != v78);
 
-        v76 = v164;
+        v77 = v165;
       }
 
-      if (v151)
+      if (v152)
       {
-        v85 = _CocoaArrayWrapper.endIndex.getter();
+        v86 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v85 = *((v74 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v86 = *((v75 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v68 = v155;
-      v69 = v159;
-      v88 = v162;
-      v89 = _swiftEmptyArrayStorage;
-      if (!v85)
+      v69 = v156;
+      v70 = v160;
+      v89 = v163;
+      v90 = _swiftEmptyArrayStorage;
+      if (!v86)
       {
 LABEL_47:
-        v96 = *(v88 + 16);
-        v97 = v147;
-        v98 = v160;
-        v150 = (v88 + 16);
-        v149 = v96;
-        (v96)(v147, v158, v160);
-        (*(v88 + 56))(v97, 0, 1, v98);
-        v99 = sub_1003E0588(v89);
+        v97 = *(v89 + 16);
+        v98 = v148;
+        v99 = v161;
+        v151 = (v89 + 16);
+        v150 = v97;
+        (v97)(v148, v159, v161);
+        (*(v89 + 56))(v98, 0, 1, v99);
+        v100 = sub_1003E0588(v90);
 
-        v70 = (*(v145 + 392))(v97, v99, v143);
+        v71 = (*(v146 + 392))(v98, v100, v144);
 
-        sub_1000079B4(v97, &qword_100772140);
-        if (*(v70 + 16) == v153)
+        sub_1000079B4(v98, &qword_100772140, &qword_10062D9F0);
+        if (*(v71 + 16) == v154)
         {
 
-          v100 = v70;
-          v101 = *(v70 + 16);
-          v143 = v100;
-          if (v101)
+          v101 = v71;
+          v102 = *(v71 + 16);
+          v144 = v101;
+          if (v102)
           {
-            v148 = *(v76 + 48);
-            v102 = v100 + ((*(v162 + 80) + 32) & ~*(v162 + 80));
-            v147 = "editingPresenter";
-            v145 = *(v162 + 72);
-            v86 = _swiftEmptyArrayStorage;
-            v144 = (v162 + 8);
-            v103 = v160;
+            v149 = v77[6];
+            v103 = v101 + ((*(v163 + 80) + 32) & ~*(v163 + 80));
+            v148 = "editingPresenter";
+            v146 = *(v163 + 72);
+            v87 = _swiftEmptyArrayStorage;
+            v145 = (v163 + 8);
+            v104 = v161;
             while (1)
             {
-              (v149)(v163, v102, v103);
-              *&v167 = 0;
-              *(&v167 + 1) = 0xE000000000000000;
+              (v150)(v164, v103, v104);
+              *&v168 = 0;
+              *(&v168 + 1) = 0xE000000000000000;
               _StringGuts.grow(_:)(31);
-              v105 = _typeName(_:qualified:)();
-              v107 = v106;
+              v106 = _typeName(_:qualified:)();
+              v108 = v107;
 
-              *&v167 = v105;
-              *(&v167 + 1) = v107;
-              v108._object = (v147 | 0x8000000000000000);
-              v108._countAndFlagsBits = 0xD00000000000001DLL;
-              String.append(_:)(v108);
-              v151 = v167;
-              *&v152 = *(v148[8] + 64);
+              *&v168 = v106;
+              *(&v168 + 1) = v108;
+              v109._object = (v148 | 0x8000000000000000);
+              v109._countAndFlagsBits = 0xD00000000000001DLL;
+              String.append(_:)(v109);
+              v152 = v168;
+              *&v153 = *(v149[8] + 64);
               Strong = swift_unknownObjectWeakLoadStrong();
               if (!Strong)
               {
                 goto LABEL_56;
               }
 
-              v110 = Strong;
+              v111 = Strong;
               if (!swift_unknownObjectWeakLoadStrong())
               {
                 break;
               }
 
-              v111 = *(v110 + 24);
-              v112 = swift_getObjectType();
-              v113 = sub_1001175F4(&qword_100769610, type metadata accessor for TTRReminderListEditingPresenter);
-              v114 = *(v111 + 48);
-              v115 = v161;
-              v116 = v112;
-              v69 = v159;
-              v117 = v111;
-              v103 = v160;
-              v114(v110, v113, v116, v117);
+              v112 = *(v111 + 24);
+              v113 = swift_getObjectType();
+              v114 = sub_1001175F4(&qword_100769610, type metadata accessor for TTRReminderListEditingPresenter, &unk_100644258);
+              v115 = *(v112 + 48);
+              v116 = v162;
+              v117 = v113;
+              v70 = v160;
+              v118 = v112;
+              v104 = v161;
+              v115(v111, v114, v117, v118);
               swift_unknownObjectRelease();
-              v118 = v115;
+              v119 = v116;
               swift_unknownObjectRelease();
 LABEL_57:
-              sub_1001175F4(&qword_100775790, type metadata accessor for TTRRemindersListEditingSessionProvider);
+              sub_1001175F4(&qword_100775790, type metadata accessor for TTRRemindersListEditingSessionProvider, &unk_10063E618);
 
-              v120 = v163;
-              v121 = TTRRemindersListEditingSessionProviderCapability.acquireEditingSession(forEditing:acquirerName:undoContext:editingSessionState:editingSessionDelegate:)();
+              v121 = v164;
+              v122 = TTRRemindersListEditingSessionProviderCapability.acquireEditingSession(forEditing:acquirerName:undoContext:editingSessionState:editingSessionDelegate:)();
 
-              sub_1000079B4(v118, &qword_100775780);
-              (*v144)(v120, v103);
+              sub_1000079B4(v119, &qword_100775780, &unk_100630580);
+              (*v145)(v121, v104);
 
-              if (v121)
+              if (v122)
               {
                 if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                 {
-                  v86 = sub_100547450(0, v86[2] + 1, 1, v86);
+                  v87 = sub_100547450(0, v87[2] + 1, 1, v87);
                 }
 
-                v123 = v86[2];
-                v122 = v86[3];
-                v104 = v162;
-                if (v123 >= v122 >> 1)
+                v124 = v87[2];
+                v123 = v87[3];
+                v105 = v163;
+                if (v124 >= v123 >> 1)
                 {
-                  v125 = sub_100547450((v122 > 1), v123 + 1, 1, v86);
-                  v104 = v162;
-                  v86 = v125;
+                  v126 = sub_100547450((v123 > 1), v124 + 1, 1, v87);
+                  v105 = v163;
+                  v87 = v126;
                 }
 
-                v86[2] = v123 + 1;
-                v124 = &v86[2 * v123];
-                v124[4] = v121;
-                v124[5] = &protocol witness table for TTRRemindersListConcreteEditingSession;
+                v87[2] = v124 + 1;
+                v125 = &v87[2 * v124];
+                v125[4] = v122;
+                v125[5] = &protocol witness table for TTRRemindersListConcreteEditingSession;
               }
 
               else
               {
-                v104 = v162;
+                v105 = v163;
               }
 
-              v102 += v145;
-              if (!--v101)
+              v103 += v146;
+              if (!--v102)
               {
                 goto LABEL_69;
               }
@@ -6775,54 +7117,54 @@ LABEL_57:
 
             swift_unknownObjectRelease();
 LABEL_56:
-            v119 = type metadata accessor for TTRRemindersListUndoContext();
-            v118 = v161;
-            (*(*(v119 - 8) + 56))(v161, 1, 1, v119);
+            v120 = type metadata accessor for TTRRemindersListUndoContext();
+            v119 = v162;
+            (*(*(v120 - 8) + 56))(v162, 1, 1, v120);
             goto LABEL_57;
           }
 
-          v86 = _swiftEmptyArrayStorage;
-          v103 = v160;
-          v104 = v162;
+          v87 = _swiftEmptyArrayStorage;
+          v104 = v161;
+          v105 = v163;
 LABEL_69:
-          if (v153 == v86[2])
+          if (v154 == v87[2])
           {
-            v132 = v104;
+            v133 = v105;
 
-            (*(v154 + 8))(v155, v156);
-            sub_100117528(v69);
-            (*(v132 + 8))(v158, v103);
-            (*(v157 + 8))(v146, v165);
-            sub_100004758(&v169);
-            sub_100004758(&v172);
-            return v86;
+            (*(v155 + 8))(v156, v157);
+            sub_100117528(v70);
+            (*(v133 + 8))(v159, v104);
+            (*(v158 + 8))(v147, v166);
+            sub_100004758(&v170);
+            sub_100004758(&v173);
+            return v87;
           }
 
-          v133 = v143;
+          v134 = v144;
           if (qword_100766F20 != -1)
           {
             swift_once();
           }
 
-          v134 = type metadata accessor for Logger();
-          sub_100003E30(v134, qword_10076C5F0);
+          v135 = type metadata accessor for Logger();
+          sub_100003E30(v135, qword_10076C5F0);
 
-          v135 = Logger.logObject.getter();
-          v136 = static os_log_type_t.fault.getter();
-          if (os_log_type_enabled(v135, v136))
+          v136 = Logger.logObject.getter();
+          v137 = static os_log_type_t.fault.getter();
+          if (os_log_type_enabled(v136, v137))
           {
-            v137 = swift_slowAlloc();
-            *v137 = 134218240;
-            v138 = *(v133 + 16);
+            v138 = swift_slowAlloc();
+            *v138 = 134218240;
+            v139 = *(v134 + 16);
 
-            *(v137 + 4) = v138;
+            *(v138 + 4) = v139;
 
-            *(v137 + 12) = 2048;
-            v139 = v86[2];
+            *(v138 + 12) = 2048;
+            v140 = v87[2];
 
-            *(v137 + 14) = v139;
+            *(v138 + 14) = v140;
 
-            _os_log_impl(&_mh_execute_header, v135, v136, "editingSessions count not matching items count {items: %ld, editingSessions: %ld}", v137, 0x16u);
+            _os_log_impl(&_mh_execute_header, v136, v137, "editingSessions count not matching items count {items: %ld, editingSessions: %ld}", v138, 0x16u);
           }
 
           else
@@ -6832,46 +7174,46 @@ LABEL_69:
             swift_bridgeObjectRelease_n();
           }
 
-          (*(v154 + 8))(v155, v156);
-          sub_100117528(v69);
-          (*(v162 + 8))(v158, v103);
+          (*(v155 + 8))(v156, v157);
+          sub_100117528(v70);
+          (*(v163 + 8))(v159, v104);
 LABEL_80:
-          (*(v157 + 8))(v146, v165);
+          (*(v158 + 8))(v147, v166);
           goto LABEL_5;
         }
 
         if (qword_100766F20 == -1)
         {
 LABEL_64:
-          v126 = type metadata accessor for Logger();
-          sub_100003E30(v126, qword_10076C5F0);
+          v127 = type metadata accessor for Logger();
+          sub_100003E30(v127, qword_10076C5F0);
 
-          v127 = Logger.logObject.getter();
-          v128 = static os_log_type_t.fault.getter();
-          if (os_log_type_enabled(v127, v128))
+          v128 = Logger.logObject.getter();
+          v129 = static os_log_type_t.fault.getter();
+          if (os_log_type_enabled(v128, v129))
           {
-            v129 = swift_slowAlloc();
-            *v129 = 134218240;
-            v130 = *(v70 + 16);
+            v130 = swift_slowAlloc();
+            *v130 = 134218240;
+            v131 = *(v71 + 16);
 
-            *(v129 + 4) = v130;
+            *(v130 + 4) = v131;
 
-            *(v129 + 12) = 2048;
-            if (v151)
+            *(v130 + 12) = 2048;
+            if (v152)
             {
-              v131 = _CocoaArrayWrapper.endIndex.getter();
+              v132 = _CocoaArrayWrapper.endIndex.getter();
             }
 
             else
             {
-              v131 = *((v74 & 0xFFFFFFFFFFFFFF8) + 0x10);
+              v132 = *((v75 & 0xFFFFFFFFFFFFFF8) + 0x10);
             }
 
-            *(v129 + 14) = v131;
+            *(v130 + 14) = v132;
 
-            _os_log_impl(&_mh_execute_header, v127, v128, "items count not matching reminderChangeItems count {items: %ld, reminderChangeItems: %ld}", v129, 0x16u);
+            _os_log_impl(&_mh_execute_header, v128, v129, "items count not matching reminderChangeItems count {items: %ld, reminderChangeItems: %ld}", v130, 0x16u);
 
-            v68 = v155;
+            v69 = v156;
           }
 
           else
@@ -6881,9 +7223,9 @@ LABEL_64:
             swift_bridgeObjectRelease_n();
           }
 
-          (*(v154 + 8))(v68, v156);
-          sub_100117528(v69);
-          (*(v162 + 8))(v158, v160);
+          (*(v155 + 8))(v69, v157);
+          sub_100117528(v70);
+          (*(v163 + 8))(v159, v161);
           goto LABEL_80;
         }
 
@@ -6892,69 +7234,69 @@ LABEL_86:
         goto LABEL_64;
       }
 
-      *&v167 = _swiftEmptyArrayStorage;
-      v68 = v85 & ~(v85 >> 63);
+      *&v168 = _swiftEmptyArrayStorage;
+      v69 = v86 & ~(v86 >> 63);
 
-      sub_1004A1E7C(0, v68, 0);
-      if (v85 < 0)
+      sub_1004A1E7C(0, v69, 0);
+      if (v86 < 0)
       {
         goto LABEL_85;
       }
 
-      v89 = v167;
-      if (v151)
+      v90 = v168;
+      if (v152)
       {
-        v90 = _CocoaArrayWrapper.endIndex.getter();
+        v91 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v90 = *((v74 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v91 = *((v75 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v68 = 0;
-      v69 = v90 & ~(v90 >> 63);
-      while (v69 != v68)
+      v69 = 0;
+      v70 = v91 & ~(v91 >> 63);
+      while (v70 != v69)
       {
-        if ((v74 & 0xC000000000000001) != 0)
+        if ((v75 & 0xC000000000000001) != 0)
         {
-          v91 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v92 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          v91 = *(v74 + 8 * v68 + 32);
+          v92 = *(v75 + 8 * v69 + 32);
         }
 
-        v70 = v142 + v68;
-        if (__OFADD__(v142, v68))
+        v71 = v143 + v69;
+        if (__OFADD__(v143, v69))
         {
           goto LABEL_82;
         }
 
-        *&v167 = v89;
-        v93 = v89[2];
-        v92 = v89[3];
-        if (v93 >= v92 >> 1)
+        *&v168 = v90;
+        v94 = v90[2];
+        v93 = v90[3];
+        if (v94 >= v93 >> 1)
         {
-          v95 = v91;
-          sub_1004A1E7C((v92 > 1), v93 + 1, 1);
-          v91 = v95;
-          v89 = v167;
+          v96 = v92;
+          sub_1004A1E7C((v93 > 1), v94 + 1, 1);
+          v92 = v96;
+          v90 = v168;
         }
 
-        ++v68;
-        v89[2] = v93 + 1;
-        v94 = &v89[2 * v93];
-        v94[4] = v91;
-        v94[5] = v70;
-        v76 = v164;
-        if (v85 == v68)
+        ++v69;
+        v90[2] = v94 + 1;
+        v95 = &v90[2 * v94];
+        v95[4] = v92;
+        v95[5] = v71;
+        v77 = v165;
+        if (v86 == v69)
         {
 
-          v68 = v155;
-          v69 = v159;
-          v88 = v162;
+          v69 = v156;
+          v70 = v160;
+          v89 = v163;
           goto LABEL_47;
         }
       }
@@ -6967,7 +7309,7 @@ LABEL_83:
     }
   }
 
-  sub_1000079B4(&v169, &qword_100775A10);
+  sub_1000079B4(&v170, &qword_100775A10, &qword_100636020);
   return 0;
 }
 
@@ -7002,7 +7344,7 @@ uint64_t sub_1001154CC(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
     v17 = v16;
     v37[0] = v16;
     *v15 = 136315138;
-    sub_1001175F4(&qword_100775630, &type metadata accessor for TTRRemindersListViewModel.Item);
+    sub_1001175F4(&qword_100775630, &type metadata accessor for TTRRemindersListViewModel.Item, &protocol conformance descriptor for TTRRemindersListViewModel.Item);
     v18 = TTRTreeStorageItem.treeItemDescription.getter();
     v20 = v19;
     (*(v8 + 8))(v10, v7);
@@ -7023,7 +7365,7 @@ uint64_t sub_1001154CC(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
   ObjectType = swift_getObjectType();
   dispatch thunk of TTRRemindersListEditingSession.attributeEditor.getter();
   sub_10000C36C(v37, v37[3]);
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v22 = swift_allocObject();
   *(v22 + 16) = xmmword_10062D420;
   *(v22 + 32) = v11;
@@ -7031,23 +7373,23 @@ uint64_t sub_1001154CC(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
   dispatch thunk of TTRRemindersListAttributeEditing.addAttributes(from:isForNewReminder:)();
 
   sub_100004758(v37);
-  sub_100058000(&qword_10076C6E0);
+  sub_100058000(&qword_10076C6E0, &unk_100630570);
   v24 = v33;
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_10062D3F0;
   static TTRRemindersListEditingSessionDisplayTargets.cell.getter();
   static TTRRemindersListEditingSessionDisplayTargets.reminderEditingComponents.getter();
   v37[0] = v25;
-  sub_1001175F4(&unk_1007756B0, &type metadata accessor for TTRRemindersListEditingSessionDisplayTargets);
-  sub_100058000(&qword_10076C6E8);
-  sub_10011763C(&unk_1007756C0, &qword_10076C6E8);
+  sub_1001175F4(&unk_1007756B0, &type metadata accessor for TTRRemindersListEditingSessionDisplayTargets, &protocol conformance descriptor for TTRRemindersListEditingSessionDisplayTargets);
+  sub_100058000(&qword_10076C6E8, &unk_100635D60);
+  sub_10011763C(&unk_1007756C0, &qword_10076C6E8, &unk_100635D60);
   v26 = v32;
   v27 = v35;
   dispatch thunk of SetAlgebra.init<A>(_:)();
   dispatch thunk of TTRRemindersListEditingSession.setNeedsDisplay(_:)();
   (*(v24 + 8))(v26, v27);
   v37[0] = v23;
-  sub_100058000(&qword_10076C6C0);
+  sub_100058000(&qword_10076C6C0, &qword_100630558);
   swift_allocObject();
   v28 = v23;
   return Promise.init(value:)();
@@ -7082,7 +7424,7 @@ void sub_1001159C0(uint64_t a1, uint64_t a2)
 
     *(v10 + 4) = v13;
     *(v10 + 12) = 2080;
-    sub_1001175F4(&qword_100775630, &type metadata accessor for TTRRemindersListViewModel.Item);
+    sub_1001175F4(&qword_100775630, &type metadata accessor for TTRRemindersListViewModel.Item, &protocol conformance descriptor for TTRRemindersListViewModel.Item);
     v14 = TTRTreeStorageItem.treeItemDescription.getter();
     v16 = v15;
     (*(v4 + 8))(v6, v3);
@@ -7118,10 +7460,10 @@ void sub_100115C94(uint64_t *a1, uint64_t a2)
       if (*(v12 + 8 * v8))
       {
         v16 = _swiftEmptyArrayStorage;
-        v15 = sub_1001175F4(&qword_10076C6D0, &type metadata accessor for TTRRemindersListEditingSessionFinishingOption);
+        v15 = sub_1001175F4(&qword_10076C6D0, &type metadata accessor for TTRRemindersListEditingSessionFinishingOption, &protocol conformance descriptor for TTRRemindersListEditingSessionFinishingOption);
         swift_unknownObjectRetain();
-        sub_100058000(&unk_1007756D0);
-        sub_10011763C(&qword_10076C6D8, &unk_1007756D0);
+        sub_100058000(&unk_1007756D0, &qword_100630568);
+        sub_10011763C(&qword_10076C6D8, &unk_1007756D0, &qword_100630568);
         dispatch thunk of SetAlgebra.init<A>(_:)();
       }
 
@@ -7174,7 +7516,7 @@ uint64_t sub_100115EC0(void **a1, uint64_t a2)
     v16 = v15;
     v24 = v15;
     *v14 = 136315138;
-    sub_1001175F4(&qword_100775630, &type metadata accessor for TTRRemindersListViewModel.Item);
+    sub_1001175F4(&qword_100775630, &type metadata accessor for TTRRemindersListViewModel.Item, &protocol conformance descriptor for TTRRemindersListViewModel.Item);
     v17 = TTRTreeStorageItem.treeItemDescription.getter();
     v19 = v18;
     (*(v6 + 8))(v8, v5);
@@ -7193,38 +7535,38 @@ uint64_t sub_100115EC0(void **a1, uint64_t a2)
   }
 
   v24 = v9;
-  sub_100058000(&qword_10076C6C0);
+  sub_100058000(&qword_10076C6C0, &qword_100630558);
   swift_allocObject();
   v21 = v9;
   return Promise.init(value:)();
 }
 
-void sub_100116184()
+void sub_100116184(uint64_t a1)
 {
   if (qword_100766F20 != -1)
   {
     swift_once();
   }
 
-  v0 = type metadata accessor for Logger();
-  sub_100003E30(v0, qword_10076C5F0);
+  v1 = type metadata accessor for Logger();
+  sub_100003E30(v1, qword_10076C5F0);
   swift_errorRetain();
   oslog = Logger.logObject.getter();
-  v1 = static os_log_type_t.error.getter();
+  v2 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(oslog, v1))
+  if (os_log_type_enabled(oslog, v2))
   {
-    v2 = swift_slowAlloc();
     v3 = swift_slowAlloc();
-    v8 = v3;
-    *v2 = 136315138;
+    v4 = swift_slowAlloc();
+    v9 = v4;
+    *v3 = 136315138;
     swift_getErrorValue();
-    v4 = Error.localizedDescription.getter();
-    v6 = sub_100004060(v4, v5, &v8);
+    v5 = Error.localizedDescription.getter();
+    v7 = sub_100004060(v5, v6, &v9);
 
-    *(v2 + 4) = v6;
-    _os_log_impl(&_mh_execute_header, oslog, v1, "performDrop(into:): Failed to load contents. Nothing to add to existing reminder {error: %s}", v2, 0xCu);
-    sub_100004758(v3);
+    *(v3 + 4) = v7;
+    _os_log_impl(&_mh_execute_header, oslog, v2, "performDrop(into:): Failed to load contents. Nothing to add to existing reminder {error: %s}", v3, 0xCu);
+    sub_100004758(v4);
   }
 
   else
@@ -7234,21 +7576,21 @@ void sub_100116184()
 
 uint64_t sub_10011631C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  sub_100058000(&qword_10076C718);
+  sub_100058000(&qword_10076C718, &qword_1006305D0);
   type metadata accessor for TTRRemindersListImportedContent();
-  sub_10011763C(&qword_10076C720, &qword_10076C718);
+  sub_10011763C(&qword_10076C720, &qword_10076C718, &qword_1006305D0);
   v4 = Sequence.removingNils<A>()();
   sub_1001163D4(v4, a3);
 }
 
-uint64_t sub_1001163D4(uint64_t a1, uint64_t a2)
+void sub_1001163D4(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = type metadata accessor for TTRRemindersListViewModel.Item();
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v19 = 0;
+  v17 = 0;
   type metadata accessor for TTRRemindersListImportedContent();
   static TTRRemindersListImportedContent.undoActionNameForApplyToExistingReminder(_:)();
   v9 = objc_opt_self();
@@ -7257,7 +7599,7 @@ uint64_t sub_1001163D4(uint64_t a1, uint64_t a2)
   (*(v7 + 16))(&aBlock[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a2, v6);
   v11 = (*(v7 + 80) + 32) & ~*(v7 + 80);
   v12 = swift_allocObject();
-  *(v12 + 16) = &v19;
+  *(v12 + 16) = &v17;
   *(v12 + 24) = v3;
   (*(v7 + 32))(v12 + v11, &aBlock[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v6);
   *(v12 + ((v8 + v11 + 7) & 0xFFFFFFFFFFFFFFF8)) = a1;
@@ -7284,15 +7626,10 @@ uint64_t sub_1001163D4(uint64_t a1, uint64_t a2)
 
   else
   {
-    v16 = v19;
-
-    return v16 > 0;
   }
-
-  return result;
 }
 
-uint64_t sub_10011667C(uint64_t a1, uint64_t a2)
+id sub_10011667C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = type metadata accessor for TTRRemindersListReminderActionTarget(0);
@@ -7315,14 +7652,14 @@ uint64_t sub_10011667C(uint64_t a1, uint64_t a2)
 
   else
   {
-    sub_1000079B4(&v15, &qword_10076C6C8);
+    sub_1000079B4(&v15, &qword_10076C6C8, &qword_100630560);
     return 0;
   }
 
   return v13;
 }
 
-uint64_t sub_1001167C4(void **a1, void *a2, uint64_t a3)
+uint64_t sub_1001167C4(void **a1, void *a2, void *a3)
 {
   v45 = a3;
   v5 = type metadata accessor for REMHashtagLabelSpecifier();
@@ -7332,7 +7669,7 @@ uint64_t sub_1001167C4(void **a1, void *a2, uint64_t a3)
   v42 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
   v41 = &v37 - v8;
-  v9 = sub_100058000(&qword_10076C6B8);
+  v9 = sub_100058000(&qword_10076C6B8, &unk_100630540);
   __chkstk_darwin(v9 - 8);
   v11 = &v37 - v10;
   v12 = type metadata accessor for DateComponents();
@@ -7361,7 +7698,7 @@ uint64_t sub_1001167C4(void **a1, void *a2, uint64_t a3)
   }
 
   sub_10000C36C(a2, a2[3]);
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v22 = swift_allocObject();
   *(v22 + 16) = xmmword_10062D420;
   *(v22 + 32) = v17;
@@ -7388,7 +7725,7 @@ uint64_t sub_1001167C4(void **a1, void *a2, uint64_t a3)
       (*(v31 + 16))(v11, v32, v33);
       (*(v31 + 56))(v11, 0, 1, v33);
       TTRRemindersListAttributeEditing.setDueDate(_:)();
-      sub_1000079B4(v11, &qword_10076C6B8);
+      sub_1000079B4(v11, &qword_10076C6B8, &unk_100630540);
       (*(v31 + 8))(v32, v33);
     }
 
@@ -7408,7 +7745,7 @@ uint64_t sub_1001167C4(void **a1, void *a2, uint64_t a3)
   {
 LABEL_18:
     v46 = v23;
-    sub_100058000(&qword_10076C6C0);
+    sub_100058000(&qword_10076C6C0, &qword_100630558);
     swift_allocObject();
     v35 = v23;
     return Promise.init(value:)();
@@ -7426,7 +7763,7 @@ LABEL_18:
   {
     (*(v26 + 96))(v28, v25);
 
-    v40 = *(sub_100058000(&qword_10076B830) + 64);
+    v40 = *(sub_100058000(&qword_10076B830, &qword_100630550) + 64);
     sub_10000C36C(a2, a2[3]);
     dispatch thunk of TTRRemindersListAttributeEditing.updateHashtags(toMatchLabels:)();
 
@@ -7480,7 +7817,7 @@ id sub_100116E20(uint64_t a1, void *a2)
   return [a2 removeFromList];
 }
 
-uint64_t sub_100116FF0(uint64_t a1)
+id sub_100116FF0(uint64_t a1)
 {
   v2 = type metadata accessor for TTRSection();
   v3 = *(v2 - 8);
@@ -7575,7 +7912,7 @@ uint64_t sub_100116FF0(uint64_t a1)
 uint64_t sub_10011736C(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a2 + 48);
-  sub_100058000(&qword_100772150);
+  sub_100058000(&qword_100772150, &unk_100635D00);
   v8 = type metadata accessor for TTRRemindersListViewModel.Item();
   v9 = *(v8 - 8);
   v10 = (*(v9 + 80) + 32) & ~*(v9 + 80);
@@ -7615,7 +7952,7 @@ uint64_t sub_100117584(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_1001175F4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1001175F4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7628,12 +7965,12 @@ uint64_t sub_1001175F4(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10011763C(unint64_t *a1, uint64_t *a2)
+uint64_t sub_10011763C(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_10005D20C(a2);
+    sub_10005D20C(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7679,7 +8016,7 @@ id REMCustomSmartListFilterDescriptor.attributedHumanReadableDescription.getter(
   return v3;
 }
 
-void *assignWithCopy for TTRIAccountsListsPresentationTree(void *a1, void *a2)
+uint64_t *assignWithCopy for TTRIAccountsListsPresentationTree(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -7700,7 +8037,7 @@ uint64_t sub_1001178B0@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1001178F8(uint64_t a1)
 {
-  v2 = sub_100058000(&unk_100771B40);
+  v2 = sub_100058000(&unk_100771B40, &unk_10062FB70);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7776,7 +8113,7 @@ uint64_t TTRIDebouncedHoverAction.__allocating_init(_:handlerQueue:)(uint64_t a1
   v4 = swift_allocObject();
   *(v4 + 24) = 0;
   swift_unknownObjectWeakInit();
-  sub_100058000(&qword_100767510);
+  sub_100058000(&qword_100767510, &unk_10062BD00);
   swift_allocObject();
   *(v4 + 48) = PassthroughSubject.init()();
   *(v4 + 56) = 0;
@@ -7789,7 +8126,7 @@ uint64_t TTRIDebouncedHoverAction.init(_:handlerQueue:)(uint64_t a1, double a2)
 {
   *(v2 + 24) = 0;
   swift_unknownObjectWeakInit();
-  sub_100058000(&qword_100767510);
+  sub_100058000(&qword_100767510, &unk_10062BD00);
   swift_allocObject();
   *(v2 + 48) = PassthroughSubject.init()();
   *(v2 + 56) = 0;
@@ -7798,11 +8135,11 @@ uint64_t TTRIDebouncedHoverAction.init(_:handlerQueue:)(uint64_t a1, double a2)
   return v2;
 }
 
-uint64_t sub_100117CEC()
+void sub_100117CEC()
 {
   v1 = v0;
   v2 = *v0;
-  v3 = sub_100058000(&qword_10076C938);
+  v3 = sub_100058000(&qword_10076C938, &qword_1006308B0);
   __chkstk_darwin(v3 - 8);
   v5 = &v28 - v4;
   v6 = type metadata accessor for OS_dispatch_queue.SchedulerTimeType.Stride();
@@ -7810,22 +8147,22 @@ uint64_t sub_100117CEC()
   v40 = v6;
   __chkstk_darwin(v6);
   v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100058000(&qword_10076C940);
+  v9 = sub_100058000(&qword_10076C940, &qword_1006308B8);
   v41 = *(v9 - 8);
   __chkstk_darwin(v9);
   v11 = &v28 - v10;
-  v12 = sub_100058000(&qword_10076C948);
+  v12 = sub_100058000(&qword_10076C948, &qword_1006308C0);
   v38 = *(v12 - 8);
   __chkstk_darwin(v12);
   v14 = &v28 - v13;
-  v15 = sub_100058000(&qword_10076C950);
-  result = __chkstk_darwin(v15);
+  v15 = sub_100058000(&qword_10076C950, &qword_1006308C8);
+  __chkstk_darwin(v15);
   if (!v1[7])
   {
     v33 = &v28 - v17;
     v34 = v12;
     v43 = v1[6];
-    v36 = result;
+    v36 = v16;
     v37 = v18;
 
     static OS_dispatch_queue.SchedulerTimeType.Stride.seconds(_:)();
@@ -7840,36 +8177,34 @@ uint64_t sub_100117CEC()
     v21 = v19;
     v28 = v9;
     v29 = v21;
-    sub_100058000(&qword_100767510);
+    sub_100058000(&qword_100767510, &unk_10062BD00);
     sub_1000A96A0();
-    sub_10000E188(&qword_10076C958, &qword_100767510);
+    sub_10000E188(&qword_10076C958, &qword_100767510, &unk_10062BD00, &protocol conformance descriptor for PassthroughSubject<A, B>);
     sub_1001184EC();
     Publisher.debounce<A>(for:scheduler:options:)();
     sub_100118544(v5);
     (*(v39 + 8))(v8, v40);
 
-    sub_10000E188(&qword_10076C968, &qword_10076C940);
+    sub_10000E188(&qword_10076C968, &qword_10076C940, &qword_1006308B8, &protocol conformance descriptor for Publishers.Debounce<A, B>);
     v22 = v28;
     Publisher.drop(while:)();
     (*(v41 + 8))(v11, v22);
     v23 = v29;
     v43 = v29;
     v30(v5, 1, 1, v31);
-    sub_10000E188(&qword_10076C970, &qword_10076C948);
+    sub_10000E188(&qword_10076C970, &qword_10076C948, &qword_1006308C0, &protocol conformance descriptor for Publishers.DropWhile<A>);
     v25 = v33;
     v24 = v34;
     Publisher.receive<A>(on:options:)();
     sub_100118544(v5);
 
     (*(v38 + 8))(v14, v24);
-    sub_10000E188(&qword_10076C978, &qword_10076C950);
+    sub_10000E188(&qword_10076C978, &qword_10076C950, &qword_1006308C8, &protocol conformance descriptor for Publishers.ReceiveOn<A, B>);
     v26 = v36;
     v27 = Publisher.sink<A>(weakTarget:receiveValue:receiveCompletion:)();
     (*(v37 + 8))(v25, v26);
     v1[7] = v27;
   }
-
-  return result;
 }
 
 Swift::Void __swiftcall TTRIDebouncedHoverAction.cancel()()
@@ -7943,7 +8278,7 @@ unint64_t sub_1001184EC()
 
 uint64_t sub_100118544(uint64_t a1)
 {
-  v2 = sub_100058000(&qword_10076C938);
+  v2 = sub_100058000(&qword_10076C938, &qword_1006308B0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7954,10 +8289,10 @@ id sub_1001185AC(uint64_t a1)
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100058000(&unk_10077C040);
+  v7 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v7 - 8);
   v9 = &v20 - v8;
-  v10 = sub_100058000(&qword_10076C9F8);
+  v10 = sub_100058000(&qword_10076C9F8, &qword_100630960);
   v11 = v10 - 8;
   __chkstk_darwin(v10);
   v13 = &v20 - v12;
@@ -7972,7 +8307,7 @@ id sub_1001185AC(uint64_t a1)
   {
     if (v16(&v13[v15], 1, v3) == 1)
     {
-      return sub_1000079B4(v13, &unk_10077C040);
+      return sub_1000079B4(v13, &unk_10077C040, &unk_10063A210);
     }
 
     goto LABEL_6;
@@ -7983,7 +8318,7 @@ id sub_1001185AC(uint64_t a1)
   {
     (*(v4 + 8))(v9, v3);
 LABEL_6:
-    sub_1000079B4(v13, &qword_10076C9F8);
+    sub_1000079B4(v13, &qword_10076C9F8, &qword_100630960);
 LABEL_7:
     swift_beginAccess();
     sub_10011B5C4(v21, v1 + v14);
@@ -7997,7 +8332,7 @@ LABEL_7:
   v19 = *(v4 + 8);
   v19(v6, v3);
   v19(v9, v3);
-  result = sub_1000079B4(v13, &unk_10077C040);
+  result = sub_1000079B4(v13, &unk_10077C040, &unk_10063A210);
   if ((v18 & 1) == 0)
   {
     goto LABEL_7;
@@ -8008,7 +8343,7 @@ LABEL_7:
 
 uint64_t sub_100118A74(uint64_t a1)
 {
-  v2 = sub_100058000(&unk_10077C040);
+  v2 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v2 - 8);
   v4 = v10 - v3;
   if (qword_100766F28 != -1)
@@ -8023,7 +8358,7 @@ uint64_t sub_100118A74(uint64_t a1)
   v8 = v5;
   if (v7 == 1)
   {
-    sub_1000079B4(v4, &unk_10077C040);
+    sub_1000079B4(v4, &unk_10077C040, &unk_10063A210);
 LABEL_6:
     v11 = 0;
     memset(v10, 0, sizeof(v10));
@@ -8037,7 +8372,7 @@ LABEL_6:
 
 LABEL_7:
   UICellConfigurationState.subscript.setter();
-  return sub_1000079B4(a1, &unk_10077C040);
+  return sub_1000079B4(a1, &unk_10077C040, &unk_10063A210);
 }
 
 uint64_t sub_100118BFC(char *a1)
@@ -8053,14 +8388,14 @@ uint64_t sub_100118BFC(char *a1)
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v71 = &v70 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100058000(&unk_10077C040);
+  v9 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v9 - 8);
   v11 = &v70 - v10;
   v12 = type metadata accessor for UIListContentConfiguration();
   v13 = *(v12 - 8);
-  v14 = __chkstk_darwin(v12);
-  v16 = &v70 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
+  __chkstk_darwin(v12);
+  v15 = &v70 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
   v18 = &v70 - v17;
   sub_100119444();
   static UIListContentConfiguration.cell()();
@@ -8076,7 +8411,7 @@ uint64_t sub_100118BFC(char *a1)
   v77 = v13 + 8;
   v78 = v12;
   v76 = v21;
-  v21(v16, v12);
+  v21(v15, v12);
   sub_100004758(v80);
   v22 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_viewModel;
   swift_beginAccess();
@@ -8085,7 +8420,7 @@ uint64_t sub_100118BFC(char *a1)
   v23 = *(v7 + 48);
   v24 = v6;
   LODWORD(v19) = v23(v11, 1, v6);
-  sub_1000079B4(v11, &unk_10077C040);
+  sub_1000079B4(v11, &unk_10077C040, &unk_10063A210);
   if (v19 == 1 || (v25 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_displayNameField, ([*&v2[OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_displayNameField] isEditing] & 1) != 0))
   {
     v26 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_currentLayout;
@@ -8177,7 +8512,7 @@ LABEL_19:
           v64 = [v51 contentView];
           v65 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_canonicalNameField;
           v66 = *&v2[OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_canonicalNameField];
-          sub_100003540(0, &qword_10076B020);
+          sub_100003540(0, &qword_10076B020, UIView_ptr);
           v67 = v66;
           v68 = UIFocusEnvironment.contains(_:)();
 
@@ -8198,7 +8533,7 @@ LABEL_19:
   }
 
 LABEL_4:
-  sub_100003540(0, &qword_100771DF0);
+  sub_100003540(0, &qword_100771DF0, UIFont_ptr);
   static UIFont.roundedBodyFont.getter();
   v30 = UIListContentConfiguration.textProperties.modify();
   UIListContentConfiguration.TextProperties.font.setter();
@@ -8238,7 +8573,7 @@ void sub_100119444()
   v1 = v0;
   v2 = type metadata accessor for UIListContentConfiguration();
   __chkstk_darwin(v2 - 8);
-  sub_100003540(0, &qword_100785420);
+  sub_100003540(0, &qword_100785420, UIListContentView_ptr);
   static UIListContentConfiguration.cell()();
   v3 = UIListContentView.init(configuration:)();
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -8250,7 +8585,7 @@ void sub_100119444()
   v6 = v3;
 
   v7 = objc_opt_self();
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_10062D450;
   v9 = [v6 topAnchor];
@@ -8278,7 +8613,7 @@ void sub_100119444()
 
   v24 = [v21 constraintEqualToAnchor:v23];
   *(v8 + 56) = v24;
-  sub_100003540(0, &qword_10076BAD0);
+  sub_100003540(0, &qword_10076BAD0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v68 = v7;
@@ -8286,7 +8621,7 @@ void sub_100119444()
 
   v26 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_displayNameField;
   v27 = *&v1[OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_displayNameField];
-  sub_100003540(0, &qword_100771DF0);
+  sub_100003540(0, &qword_100771DF0, UIFont_ptr);
   v28 = v27;
   v29 = static UIFont.roundedBodyFont.getter();
   [v28 setFont:v29];
@@ -8379,7 +8714,7 @@ uint64_t sub_100119D6C()
   if (*&v0[OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_sectionCellConstraints])
   {
     v2 = objc_opt_self();
-    sub_100003540(0, &qword_10076BAD0);
+    sub_100003540(0, &qword_10076BAD0, NSLayoutConstraint_ptr);
 
     isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -8388,7 +8723,7 @@ uint64_t sub_100119D6C()
     *&v0[v1] = 0;
   }
 
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_10062D450;
   v5 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_displayNameField;
@@ -8417,7 +8752,7 @@ uint64_t sub_100119D6C()
   v21 = [v18 constraintEqualToAnchor:v20 constant:-10.0];
   *(v4 + 56) = v21;
   v22 = objc_opt_self();
-  sub_100003540(0, &qword_10076BAD0);
+  sub_100003540(0, &qword_10076BAD0, NSLayoutConstraint_ptr);
   v23 = Array._bridgeToObjectiveC()().super.isa;
   [v22 activateConstraints:v23];
 
@@ -8431,10 +8766,10 @@ uint64_t sub_10011A1D8()
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v26 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100058000(&unk_10077C040);
-  v6 = __chkstk_darwin(v5 - 8);
-  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
+  v5 = sub_100058000(&unk_10077C040, &unk_10063A210);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
   v10 = &v26 - v9;
   v11 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_viewModel;
   swift_beginAccess();
@@ -8442,16 +8777,16 @@ uint64_t sub_10011A1D8()
   v27 = v3;
   v12 = *(v3 + 48);
   v13 = v12(v10, 1, v2);
-  sub_1000079B4(v10, &unk_10077C040);
+  sub_1000079B4(v10, &unk_10077C040, &unk_10063A210);
   if (v13 == 1)
   {
     goto LABEL_4;
   }
 
-  sub_10011B554(v0 + v11, v8);
-  if (v12(v8, 1, v2) == 1)
+  sub_10011B554(v0 + v11, v7);
+  if (v12(v7, 1, v2) == 1)
   {
-    sub_1000079B4(v8, &unk_10077C040);
+    sub_1000079B4(v7, &unk_10077C040, &unk_10063A210);
 LABEL_4:
     v29.receiver = v0;
     v29.super_class = ObjectType;
@@ -8470,8 +8805,8 @@ LABEL_4:
   v17 = v2;
   v18 = v26;
   v19 = v27;
-  (*(v27 + 32))(v26, v8, v17);
-  sub_100058000(&qword_10076CA08);
+  (*(v27 + 32))(v26, v7, v17);
+  sub_100058000(&qword_10076CA08, &qword_100630968);
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_10062D3F0;
   *(v20 + 32) = TTREditSectionsViewModel.SectionItem.displayName.getter();
@@ -8490,14 +8825,14 @@ LABEL_4:
   *(v20 + 48) = v22;
   *(v20 + 56) = v23;
   v28 = v20;
-  sub_100058000(&unk_1007853F0);
-  sub_10000E188(&qword_10076CA10, &unk_1007853F0);
+  sub_100058000(&unk_1007853F0, &qword_100630970);
+  sub_10000E188(&qword_10076CA10, &unk_1007853F0, &qword_100630970, &protocol conformance descriptor for [A]);
   v24 = Sequence.removingNils<A>()();
 
   v28 = v24;
   static TTRAccesibility.General.Label.Separator.getter();
-  sub_100058000(&unk_100781F20);
-  sub_10000E188(&qword_100771E20, &unk_100781F20);
+  sub_100058000(&unk_100781F20, &unk_10062D7E0);
+  sub_10000E188(&qword_100771E20, &unk_100781F20, &unk_10062D7E0, &protocol conformance descriptor for [A]);
   v16 = BidirectionalCollection<>.joined(separator:)();
 
   (*(v19 + 8))(v18, v17);
@@ -8507,7 +8842,7 @@ LABEL_4:
 uint64_t sub_10011A5C4()
 {
   ObjectType = swift_getObjectType();
-  v2 = sub_100058000(&unk_10077C040);
+  v2 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v2 - 8);
   v4 = &v13 - v3;
   v5 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_viewModel;
@@ -8515,7 +8850,7 @@ uint64_t sub_10011A5C4()
   sub_10011B554(v0 + v5, v4);
   v6 = type metadata accessor for TTREditSectionsViewModel.SectionItem();
   LODWORD(v5) = (*(*(v6 - 8) + 48))(v4, 1, v6);
-  sub_1000079B4(v4, &unk_10077C040);
+  sub_1000079B4(v4, &unk_10077C040, &unk_10063A210);
   if (v5 == 1)
   {
     sub_10011A758();
@@ -8562,7 +8897,7 @@ void sub_10011A758()
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100058000(&unk_10077C040);
+  v7 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v7 - 8);
   v9 = &v21 - v8;
   v10 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_viewModel;
@@ -8570,7 +8905,7 @@ void sub_10011A758()
   sub_10011B554(v0 + v10, v9);
   v11 = type metadata accessor for TTREditSectionsViewModel.SectionItem();
   LODWORD(v10) = (*(*(v11 - 8) + 48))(v9, 1, v11);
-  sub_1000079B4(v9, &unk_10077C040);
+  sub_1000079B4(v9, &unk_10077C040, &unk_10063A210);
   if (v10 == 1)
   {
     v12 = UICollectionViewListCell.accessories.getter();
@@ -8648,7 +8983,7 @@ id sub_10011AAE4(void *a1, uint64_t a2, void (*a3)(void))
 id sub_10011AB64()
 {
   ObjectType = swift_getObjectType();
-  v2 = sub_100058000(&unk_10077C040);
+  v2 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v2 - 8);
   v4 = &v10 - v3;
   v5 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_viewModel;
@@ -8656,7 +8991,7 @@ id sub_10011AB64()
   sub_10011B554(v0 + v5, v4);
   v6 = type metadata accessor for TTREditSectionsViewModel.SectionItem();
   LODWORD(v5) = (*(*(v6 - 8) + 48))(v4, 1, v6);
-  sub_1000079B4(v4, &unk_10077C040);
+  sub_1000079B4(v4, &unk_10077C040, &unk_10063A210);
   if (v5 != 1)
   {
     return static TTRAccesibility.General.Hint.Edit.getter();
@@ -8698,7 +9033,7 @@ void sub_10011ACD0(void *a1, uint64_t a2, NSString a3, SEL *a4)
 
 void sub_10011AD6C()
 {
-  v1 = sub_100058000(&unk_10077C040);
+  v1 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v1 - 8);
   v3 = &v9 - v2;
   v4 = OBJC_IVAR____TtC9Reminders20TTRIEditSectionsCell_viewModel;
@@ -8706,7 +9041,7 @@ void sub_10011AD6C()
   sub_10011B554(v0 + v4, v3);
   v5 = type metadata accessor for TTREditSectionsViewModel.SectionItem();
   LODWORD(v4) = (*(*(v5 - 8) + 48))(v3, 1, v5);
-  sub_1000079B4(v3, &unk_10077C040);
+  sub_1000079B4(v3, &unk_10077C040, &unk_10063A210);
   if (v4 == 1)
   {
     sub_10011A758();
@@ -8787,7 +9122,7 @@ id sub_10011B114(void *a1)
   return v11;
 }
 
-uint64_t type metadata accessor for TTRIEditSectionsCell()
+uint64_t type metadata accessor for TTRIEditSectionsCell(uint64_t a1)
 {
   result = qword_10076C9E0;
   if (!qword_10076C9E0)
@@ -8798,42 +9133,42 @@ uint64_t type metadata accessor for TTRIEditSectionsCell()
   return result;
 }
 
-void sub_10011B40C()
+void sub_10011B40C(uint64_t a1)
 {
   type metadata accessor for TTRRemindersListLayout();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_10011B4FC();
-    if (v1 <= 0x3F)
+    sub_10011B4FC(319);
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_10011B4FC()
+void sub_10011B4FC(uint64_t a1)
 {
   if (!qword_10076C9F0)
   {
     type metadata accessor for TTREditSectionsViewModel.SectionItem();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_10076C9F0);
+      atomic_store(v1, &qword_10076C9F0);
     }
   }
 }
 
 uint64_t sub_10011B554(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100058000(&unk_10077C040);
+  v4 = sub_100058000(&unk_10077C040, &unk_10063A210);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10011B5C4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100058000(&unk_10077C040);
+  v4 = sub_100058000(&unk_10077C040, &unk_10063A210);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -8861,7 +9196,7 @@ NSString sub_10011B68C()
 uint64_t sub_10011B6C4(uint64_t a1)
 {
   type metadata accessor for TTRIQuickLookPreviewController();
-  sub_100058000(&qword_100777790);
+  sub_100058000(&qword_100777790, &qword_100630978);
   v2 = type metadata accessor for URL();
   v3 = *(v2 - 8);
   v4 = (*(v3 + 80) + 32) & ~*(v3 + 80);
@@ -8959,11 +9294,11 @@ void sub_10011BC80()
   v2 = *v0;
   v3 = type metadata accessor for TTRListToCustomSmartListConverterValidation();
   v4 = *(v3 - 8);
-  v5 = __chkstk_darwin(v3);
-  v71 = &v58 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v58 - v8;
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v3);
+  v71 = &v58 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v8 = &v58 - v7;
+  __chkstk_darwin(v9);
   v72 = (&v58 - v10);
   v11 = v1[31];
   v12 = v1[29];
@@ -8980,7 +9315,7 @@ void sub_10011BC80()
     swift_unknownObjectRetain();
     v66 = v12;
     v15(v12, v11);
-    v16 = sub_100003540(0, &qword_10076CAB0);
+    v16 = sub_100003540(0, &qword_10076CAB0, REMListChangeItem_ptr);
     if (swift_dynamicCast())
     {
       v17 = aBlock;
@@ -9005,16 +9340,16 @@ void sub_10011BC80()
       v23 = *(v68 + 16);
       v24 = v18;
       v25 = v70;
-      v23(v9, v24, v70);
+      v23(v8, v24, v70);
       v63 = *(v22 + 88);
       v64 = v22 + 88;
-      v26 = v63(v9, v25);
+      v26 = v63(v8, v25);
       v62 = enum case for TTRListToCustomSmartListConverterValidation.ok(_:);
       if (v26 == enum case for TTRListToCustomSmartListConverterValidation.ok(_:))
       {
         v60 = v23;
-        (*(v22 + 96))(v9, v25);
-        v27 = *(v9 + 2);
+        (*(v22 + 96))(v8, v25);
+        v27 = *(v8 + 2);
 
         static TTRLocalizableStrings.Common.alertCancelButton.getter();
         v28 = String._bridgeToObjectiveC()();
@@ -9211,37 +9546,37 @@ void sub_10011C6DC(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5,
 
     v13 = type metadata accessor for Logger();
     sub_100003E30(v13, qword_10076CA18);
-    sub_100058000(&unk_100775610);
+    sub_100058000(&unk_100775610, &unk_1006323A0);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10062D400;
     *(inited + 32) = 0x44497463656A626FLL;
     *(inited + 40) = 0xE800000000000000;
     v15 = [a3 objectID];
-    *(inited + 72) = sub_100003540(0, &qword_10076BA50);
+    *(inited + 72) = sub_100003540(0, &qword_10076BA50, REMObjectID_ptr);
     *(inited + 48) = v15;
-    sub_100008E04(inited);
+    v16 = sub_100008E04(inited);
     swift_setDeallocating();
     sub_10011F2F8(inited + 32);
-    sub_10000FD44();
+    sub_10000FD44("List Detail Convert List to Custom Smart List {objectID: %@}", 60, 2, v16);
 
-    v16 = swift_unknownObjectWeakLoadStrong();
-    if (v16)
+    v17 = swift_unknownObjectWeakLoadStrong();
+    if (v17)
     {
-      sub_10000C36C((v16 + 48), *(v16 + 72));
+      sub_10000C36C((v17 + 48), *(v17 + 72));
       sub_1000928BC();
       swift_unknownObjectRelease();
     }
 
-    v17 = swift_allocObject();
-    v17[2] = v12;
-    v17[3] = a3;
-    v17[4] = a4;
-    v18 = *(a7 + 112);
+    v18 = swift_allocObject();
+    v18[2] = v12;
+    v18[3] = a3;
+    v18[4] = a4;
+    v19 = *(a7 + 112);
     swift_unknownObjectRetain();
 
-    v19 = a3;
+    v20 = a3;
 
-    v20 = v18(sub_10011F374, v17, a5, a7);
+    v21 = v19(sub_10011F374, v18, a5, a7);
 
     swift_unknownObjectRelease();
   }
@@ -9318,19 +9653,19 @@ uint64_t sub_10011CBCC()
     v4 = v0[15];
     v5 = type metadata accessor for Logger();
     sub_100003E30(v5, qword_10076CA18);
-    sub_100058000(&unk_100775610);
+    sub_100058000(&unk_100775610, &unk_1006323A0);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10062D400;
     *(inited + 32) = 0x44497463656A626FLL;
     *(inited + 40) = 0xE800000000000000;
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
     v8 = (*(AssociatedConformanceWitness + 40))(v4, AssociatedConformanceWitness);
-    *(inited + 72) = sub_100003540(0, &qword_10076BA50);
+    *(inited + 72) = sub_100003540(0, &qword_10076BA50, REMObjectID_ptr);
     *(inited + 48) = v8;
-    sub_100008E04(inited);
+    v9 = sub_100008E04(inited);
     swift_setDeallocating();
     sub_10011F2F8(inited + 32);
-    sub_10000FD44();
+    sub_10000FD44("List Detail Done {objectID: %@}", 31, 2, v9);
 
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
@@ -9340,17 +9675,17 @@ uint64_t sub_10011CBCC()
       swift_unknownObjectRelease();
     }
 
-    v11 = v0[16];
-    v10 = v0[17];
-    v12 = v0[15];
-    v13 = sub_100177458(v0[14], v0[13]);
-    sub_10011DABC(v13, v14);
+    v12 = v0[16];
+    v11 = v0[17];
+    v13 = v0[15];
+    v14 = sub_100177458(v0[14], v0[13]);
+    sub_10011DABC(v14, v15);
 
-    (*(v11 + 8))(v10, v12);
+    (*(v12 + 8))(v11, v13);
 
-    v15 = v0[1];
+    v16 = v0[1];
 
-    return v15();
+    return v16();
   }
 }
 
@@ -9385,19 +9720,19 @@ uint64_t sub_10011D010()
     v2 = *(v0 + 120);
     v3 = type metadata accessor for Logger();
     sub_100003E30(v3, qword_10076CA18);
-    sub_100058000(&unk_100775610);
+    sub_100058000(&unk_100775610, &unk_1006323A0);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10062D400;
     *(inited + 32) = 0x44497463656A626FLL;
     *(inited + 40) = 0xE800000000000000;
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
     v6 = (*(AssociatedConformanceWitness + 40))(v2, AssociatedConformanceWitness);
-    *(inited + 72) = sub_100003540(0, &qword_10076BA50);
+    *(inited + 72) = sub_100003540(0, &qword_10076BA50, REMObjectID_ptr);
     *(inited + 48) = v6;
-    sub_100008E04(inited);
+    v7 = sub_100008E04(inited);
     swift_setDeallocating();
     sub_10011F2F8(inited + 32);
-    sub_10000FD44();
+    sub_10000FD44("List Detail Done {objectID: %@}", 31, 2, v7);
 
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
@@ -9407,18 +9742,18 @@ uint64_t sub_10011D010()
       swift_unknownObjectRelease();
     }
 
-    v9 = *(v0 + 128);
-    v8 = *(v0 + 136);
-    v10 = *(v0 + 120);
-    v11 = sub_100177458(*(v0 + 112), *(v0 + 104));
-    sub_10011DABC(v11, v12);
+    v10 = *(v0 + 128);
+    v9 = *(v0 + 136);
+    v11 = *(v0 + 120);
+    v12 = sub_100177458(*(v0 + 112), *(v0 + 104));
+    sub_10011DABC(v12, v13);
 
-    (*(v9 + 8))(v8, v10);
+    (*(v10 + 8))(v9, v11);
   }
 
-  v13 = *(v0 + 8);
+  v14 = *(v0 + 8);
 
-  return v13();
+  return v14();
 }
 
 uint64_t sub_10011D298(char a1)
@@ -9426,7 +9761,7 @@ uint64_t sub_10011D298(char a1)
   *(v2 + 48) = v1;
   *(v2 + 172) = a1;
   *(v2 + 56) = *v1;
-  *(v2 + 64) = type metadata accessor for TTRListDetailViewModel();
+  *(v2 + 64) = type metadata accessor for TTRListDetailViewModel(0);
   *(v2 + 72) = swift_task_alloc();
   v3 = type metadata accessor for TTRRemindersListLayout();
   *(v2 + 80) = v3;
@@ -9500,36 +9835,36 @@ LABEL_8:
     v25 = *(v18 + 248);
     *(v0 + 16) = *(v18 + 232);
     *(v0 + 32) = v25;
-    v26 = type metadata accessor for TTRListDetailPresenter.ConvertGroceryListToRegularListConfirmationAlertResponse();
-    type metadata accessor for TTRIValueBasedAlertAction();
+    v26 = type metadata accessor for TTRListDetailPresenter.ConvertGroceryListToRegularListConfirmationAlertResponse(255, v0 + 16);
+    v27 = type metadata accessor for TTRIValueBasedAlertAction();
     type metadata accessor for _ContiguousArrayStorage();
     swift_allocObject();
-    v27 = static Array._adoptStorage(_:count:)();
-    v28._object = 0x8000000100672C50;
-    v29._countAndFlagsBits = 1885693259;
-    v29._object = 0xE400000000000000;
-    v28._countAndFlagsBits = 0xD000000000000084;
-    TTRLocalizedString(_:comment:)(v29, v28);
+    v28 = static Array._adoptStorage(_:count:)();
+    v29._object = 0x8000000100672C50;
+    v30._countAndFlagsBits = 1885693259;
+    v30._object = 0xE400000000000000;
+    v29._countAndFlagsBits = 0xD000000000000084;
+    TTRLocalizedString(_:comment:)(v30, v29);
     *(v0 + 169) = 0;
     TTRIValueBasedAlertAction.init(title:style:value:)();
-    v30._countAndFlagsBits = 0x65766F6D6552;
-    v31._object = 0x8000000100672C50;
-    v30._object = 0xE600000000000000;
-    v31._countAndFlagsBits = 0xD000000000000084;
-    TTRLocalizedString(_:comment:)(v30, v31);
+    v31._countAndFlagsBits = 0x65766F6D6552;
+    v32._object = 0x8000000100672C50;
+    v31._object = 0xE600000000000000;
+    v32._countAndFlagsBits = 0xD000000000000084;
+    TTRLocalizedString(_:comment:)(v31, v32);
     *(v0 + 170) = 1;
     TTRIValueBasedAlertAction.init(title:style:value:)();
     static TTRLocalizableStrings.Common.alertCancelButton.getter();
     *(v0 + 171) = 2;
     TTRIValueBasedAlertAction.init(title:style:value:)();
-    v32 = sub_10015D9FC(v27);
-    *(v0 + 152) = v32;
-    v33 = swift_task_alloc();
-    *(v0 + 160) = v33;
-    *v33 = v0;
-    v33[1] = sub_10011D8A8;
+    v33 = sub_10015D9FC(v28, v27);
+    *(v0 + 152) = v33;
+    v34 = swift_task_alloc();
+    *(v0 + 160) = v34;
+    *v34 = v0;
+    v34[1] = sub_10011D8A8;
 
-    return sub_1002D7498(v0 + 168, v24, v32, v26);
+    return sub_1002D7498(v0 + 168, v24, v33, v26);
   }
 
   if (v12 == enum case for TTRRemindersListLayout.columns(_:))
@@ -9542,473 +9877,4 @@ LABEL_8:
   }
 
   return _diagnoseUnexpectedEnumCase<A>(type:)();
-}
-
-uint64_t sub_10011D8A8()
-{
-  v1 = *v0;
-
-  v2 = *(v1 + 136);
-  v3 = *(v1 + 128);
-
-  return _swift_task_switch(sub_10011D9EC, v3, v2);
-}
-
-uint64_t sub_10011D9EC()
-{
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 80);
-  v3 = *(v0 + 88);
-
-  (*(v3 + 8))(v1, v2);
-  v4 = *(v0 + 168);
-
-  v5 = *(v0 + 8);
-
-  return v5(v4);
-}
-
-uint64_t sub_10011DABC(uint64_t a1, uint64_t a2)
-{
-  v5 = v2 + *(*v2 + 272);
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
-  {
-    v7 = *(v5 + 8);
-    ObjectType = swift_getObjectType();
-    (*(v7 + 8))(v2, &off_1007166F0, a1, a2, (*(v2 + *(*v2 + 288)) & 1) == 0, ObjectType, v7);
-
-    return swift_unknownObjectRelease();
-  }
-
-  return result;
-}
-
-uint64_t sub_10011DB9C()
-{
-  v1 = *(*v0 + 248);
-  v2 = *(*v0 + 232);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v4 = *(AssociatedTypeWitness - 8);
-  __chkstk_darwin(AssociatedTypeWitness);
-  v6 = &v12[-v5];
-  (*(v1 + 24))(v2, v1);
-  if (qword_100766F30 != -1)
-  {
-    swift_once();
-  }
-
-  v7 = type metadata accessor for Logger();
-  sub_100003E30(v7, qword_10076CA18);
-  sub_100058000(&unk_100775610);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_10062D400;
-  *(inited + 32) = 0x44497463656A626FLL;
-  *(inited + 40) = 0xE800000000000000;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v10 = (*(AssociatedConformanceWitness + 40))(AssociatedTypeWitness, AssociatedConformanceWitness);
-  *(inited + 72) = sub_100003540(0, &qword_10076BA50);
-  *(inited + 48) = v10;
-  sub_100008E04(inited);
-  swift_setDeallocating();
-  sub_10011F2F8(inited + 32);
-  sub_10000FD44();
-
-  if (swift_unknownObjectWeakLoadStrong())
-  {
-    sub_1004BE910();
-    swift_unknownObjectRelease();
-  }
-
-  return (*(v4 + 8))(v6, AssociatedTypeWitness);
-}
-
-void sub_10011DE40()
-{
-  if (qword_100766F30 != -1)
-  {
-    swift_once();
-  }
-
-  v1 = type metadata accessor for Logger();
-  sub_100003E30(v1, qword_10076CA18);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_10000FD44();
-
-  sub_10000C36C((v0 + *(*v0 + 296)), *(v0 + *(*v0 + 296) + 24));
-  sub_1002D7840();
-}
-
-uint64_t sub_10011DF10()
-{
-  v1 = v0 + *(*v0 + 272);
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
-  {
-    v3 = *(v1 + 8);
-    ObjectType = swift_getObjectType();
-    (*(v3 + 16))(v0, &off_1007166F0, ObjectType, v3);
-
-    return swift_unknownObjectRelease();
-  }
-
-  return result;
-}
-
-uint64_t sub_10011DFE4()
-{
-  sub_10003B788(v0 + *(*v0 + 264));
-  sub_10003B788(v0 + *(*v0 + 272));
-  sub_10003B788(v0 + *(*v0 + 280));
-  sub_100004758(v0 + *(*v0 + 296));
-  swift_unknownObjectRelease();
-
-  return swift_unknownObjectRelease();
-}
-
-uint64_t *sub_10011E0AC()
-{
-  v0 = TTRListDetailPresenter.deinit();
-  sub_10003B788(v0 + *(*v0 + 264));
-  sub_10003B788(v0 + *(*v0 + 272));
-  sub_10003B788(v0 + *(*v0 + 280));
-  sub_100004758(v0 + *(*v0 + 296));
-  swift_unknownObjectRelease();
-  swift_unknownObjectRelease();
-  return v0;
-}
-
-uint64_t sub_10011E17C()
-{
-  sub_10011E0AC();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t sub_10011E20C()
-{
-  v1 = swift_task_alloc();
-  *(v0 + 16) = v1;
-  *v1 = v0;
-  v1[1] = sub_10001AA3C;
-
-  return sub_10011CA94();
-}
-
-uint64_t sub_10011E2A0()
-{
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
-  {
-    sub_1002DDD94();
-
-    return swift_unknownObjectRelease();
-  }
-
-  return result;
-}
-
-uint64_t sub_10011E308@<X0>(uint64_t a1@<X8>)
-{
-  if (swift_unknownObjectWeakLoadStrong())
-  {
-    Strong = swift_unknownObjectWeakLoadStrong();
-    if (Strong)
-    {
-      v3 = Strong;
-      static TTRIPopoverAnchor.barButtonItem(_:permittedArrowDirections:)();
-
-      v4 = 0;
-    }
-
-    else
-    {
-      v4 = 1;
-    }
-
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 1;
-  }
-
-  v5 = type metadata accessor for TTRIPopoverAnchor();
-  v6 = *(*(v5 - 8) + 56);
-
-  return v6(a1, v4, 1, v5);
-}
-
-uint64_t sub_10011E3F0()
-{
-  if ((sub_10011BB8C() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (*(v0 + *(*v0 + 288)))
-  {
-    return static TTRLocalizableStrings.Common.confirmationMessageForDiscardingChanges.getter();
-  }
-
-  v2._object = 0x8000000100672DE0;
-  v3._countAndFlagsBits = 0xD000000000000034;
-  v3._object = 0x8000000100672E10;
-  v2._countAndFlagsBits = 0xD00000000000002FLL;
-  return TTRLocalizedString(_:comment:)(v2, v3)._countAndFlagsBits;
-}
-
-uint64_t sub_10011E480(uint64_t a1, uint64_t a2)
-{
-  *(v2 + *(*v2 + 280) + 8) = a2;
-  swift_unknownObjectWeakAssign();
-
-  return swift_unknownObjectRelease();
-}
-
-id sub_10011E4F4(uint64_t a1, _BYTE *a2)
-{
-  ObjectType = swift_getObjectType();
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController_tableDataController] = 0;
-  a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController_ttrAccessibilityShouldAnnounceOptionChanges] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___dateSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___dateGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___locationSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___locationGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___flaggedSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___flaggedGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___prioritySection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___priorityGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___listsSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___listsGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___hashtagsSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___hashtagsGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___disabledFiltersSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___disabledFiltersGroup] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___documentationSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___filterOperatorSection] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___enabledFilters] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___dateOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___compactDateDetailCell1] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___compactDatePickerCell1] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___relativeRangeCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___compactDateDetailCell2] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___compactDatePickerCell2] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___regularWidthDatePickerCell1] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___regularWidthDatePickerCell2] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___includePastDueRemindersCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___timeOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___priorityOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___flaggedOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___locationOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___locationQuickPicksCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___locationDetailCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___hashtagOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___hashtagCollectionCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___hashtagToggleShowMoreCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___listsOptionsCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___listCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___listPopoverCell] = 0;
-  *&a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController____lazy_storage___filterOperatorCell] = 0;
-  v5 = &a2[OBJC_IVAR____TtC9Reminders39TTRISmartListFilterEditorViewController_presenter];
-  *v5 = a1;
-  v5[1] = &off_100725B70;
-  v7.receiver = a2;
-  v7.super_class = ObjectType;
-  return objc_msgSendSuper2(&v7, "initWithNibName:bundle:", 0, 0);
-}
-
-id sub_10011E748(void *a1, int a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v76 = a7;
-  v77 = a6;
-  LODWORD(v78) = a2;
-  v72 = type metadata accessor for TTRISmartListFilterEditorHashtagsViewModel() - 8;
-  __chkstk_darwin(v72);
-  v71 = (&v64 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v66 = type metadata accessor for REMHashtagLabelSpecifier();
-  v68 = *(v66 - 8);
-  v12 = __chkstk_darwin(v66);
-  v70 = &v64 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v67 = &v64 - v14;
-  v15 = type metadata accessor for TTRAuthorizationSource();
-  v16 = *(v15 - 8);
-  __chkstk_darwin(v15);
-  v18 = &v64 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v87[3] = type metadata accessor for TTRSmartListVersionWarningInteractor();
-  v87[4] = &protocol witness table for TTRSmartListVersionWarningInteractor;
-  v87[0] = a5;
-  v19 = objc_allocWithZone(TTRUndoManager);
-
-  v20 = String._bridgeToObjectiveC()();
-  v21 = [v19 initWithDebugIdentifier:v20];
-
-  type metadata accessor for TTRGeoLocationService();
-  static TTRAuthorizationSource.defaultForLocations.getter();
-  v22 = static TTRGeoLocationService.newService(authorizationSource:)();
-  (*(v16 + 8))(v18, v15);
-  v23 = type metadata accessor for TTRSmartListFilterEditorInteractor();
-  swift_allocObject();
-  v24 = a1;
-  v25 = a4;
-  v74 = v21;
-  v79 = TTRSmartListFilterEditorInteractor.init(filter:store:undoManager:)(a1, v25, v74);
-  v80 = sub_1004E6B3C(v25, v22);
-  v73 = type metadata accessor for TTRISmartListFilterEditorRouter();
-  v26 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  sub_10011F898(&qword_10076CAC0, type metadata accessor for TTRISmartListFilterEditorRouter);
-  sub_100003540(0, &qword_100769660);
-
-  static UNUserNotificationCenter.ttr_unUserNotificationCenter.getter();
-  v86 = 0;
-  v84 = 0u;
-  v85 = 0u;
-  v27 = objc_opt_self();
-  v75 = v22;
-  v28 = [v27 daemonUserDefaults];
-  type metadata accessor for TTRIPrivacyChecker();
-  swift_allocObject();
-  v29 = TTRIPrivacyChecker.init(delegate:unUserNotificationCenter:geoService:notificationsService:userDefaults:urgentAlarmService:)();
-  v30 = [objc_opt_self() sharedInstance];
-  *(&v85 + 1) = sub_100003540(0, &qword_10076CAC8);
-  v86 = &off_10072FC00;
-  *&v84 = v30;
-  v31 = type metadata accessor for TTRListDetailDeviceInfoProvider();
-  v32 = swift_allocObject();
-  v69 = v30;
-  swift_defaultActor_initialize();
-  *(v32 + 160) = 0;
-  *(v32 + 168) = 0;
-  sub_100005FD0(&v84, v32 + 112);
-  *(v32 + 152) = a3;
-  sub_10000B0D8(v87, &v84);
-  v83[3] = v23;
-  v83[4] = &protocol witness table for TTRSmartListFilterEditorInteractor;
-  v83[0] = v79;
-  v82[3] = v31;
-  v82[4] = &off_10072FC98;
-  v82[0] = v32;
-  type metadata accessor for TTRISmartListFilterEditorPresenter(0);
-  v33 = swift_allocObject();
-  v34 = sub_10000AE84(v82, v31);
-  __chkstk_darwin(v34);
-  v36 = (&v64 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v37 + 16))(v36);
-  v38 = *v36;
-  v81[4] = &off_10072FC98;
-  v81[3] = v31;
-  v81[0] = v38;
-  *(v33 + 24) = 0;
-  swift_unknownObjectWeakInit();
-  *(v33 + 40) = 0;
-  swift_unknownObjectWeakInit();
-  *(v33 + 56) = 0;
-  *(v33 + 64) = 0;
-  *(v33 + 280) = 0;
-  *(v33 + 288) = 0;
-  v39 = OBJC_IVAR____TtC9Reminders34TTRISmartListFilterEditorPresenter_hashtagLabelsLayoutResult;
-  v40 = type metadata accessor for TTRIHashtagWrappingCollectionView.LayoutResult();
-  (*(*(v40 - 8) + 56))(v33 + v39, 1, 1, v40);
-  *(v33 + OBJC_IVAR____TtC9Reminders34TTRISmartListFilterEditorPresenter_showsAllHashtagLabels) = 0;
-  *(v33 + 65) = v78 & 1;
-  *(v33 + 72) = a3;
-  sub_10000B0D8(v83, v33 + 80);
-  *(v33 + 264) = v80;
-  *(v33 + 272) = &protocol witness table for TTRLocationQuickPicksInteractor;
-  *(v33 + 144) = v73;
-  *(v33 + 152) = &off_100717D80;
-  *(v33 + 120) = v26;
-  *(v33 + 160) = v29;
-  sub_10000B0D8(v81, v33 + 168);
-  sub_10000B0D8(&v84, v33 + 224);
-  *(v33 + 208) = v25;
-  v41 = v74;
-  *(v33 + 48) = v74;
-  v42 = a3;
-  v43 = v41;
-  v44 = v25;
-  v74 = v26;
-  swift_retain_n();
-  v45 = v42;
-  v73 = v29;
-  swift_retain_n();
-  v78 = v43;
-  v65 = v44;
-  v64 = v45;
-
-  v46 = v67;
-  static REMHashtagLabelSpecifier.empty.getter();
-  v47 = v68;
-  v48 = v66;
-  (*(v68 + 32))(v33 + OBJC_IVAR____TtC9Reminders34TTRISmartListFilterEditorPresenter_hashtagLabelSelectionCache, v46, v66);
-  sub_100003540(0, &qword_100777780);
-  static OS_dispatch_queue.main.getter();
-  type metadata accessor for TTRDeferredAction();
-  swift_allocObject();
-  *(v33 + 216) = TTRDeferredAction.init(queue:)();
-  sub_10011F898(&qword_10076CAD0, type metadata accessor for TTRISmartListFilterEditorPresenter);
-
-  TTRDeferredAction.delegate.setter();
-
-  v49 = v71;
-  sub_1003E1084(v71);
-  v50 = v47;
-  v51 = *(v47 + 16);
-  v52 = v70;
-  v51(v70, v49 + *(v72 + 28), v48);
-  sub_10011F838(v49, type metadata accessor for TTRISmartListFilterEditorHashtagsViewModel);
-  v53 = OBJC_IVAR____TtC9Reminders34TTRISmartListFilterEditorPresenter_hashtagLabelSelectionCache;
-  swift_beginAccess();
-  v51(v46, (v33 + v53), v48);
-  sub_10011F898(&unk_10076B9B0, &type metadata accessor for REMHashtagLabelSpecifier);
-  LOBYTE(v45) = dispatch thunk of static Equatable.== infix(_:_:)();
-  v54 = *(v50 + 8);
-  v54(v46, v48);
-  if ((v45 & 1) == 0)
-  {
-    swift_beginAccess();
-    (*(v50 + 24))(v33 + v53, v52, v48);
-    swift_endAccess();
-  }
-
-  v54(v52, v48);
-  sub_1003E17E0();
-
-  sub_100004758(&v84);
-  sub_100004758(v83);
-  sub_100004758(v81);
-  sub_100004758(v82);
-  v55 = objc_allocWithZone(type metadata accessor for TTRISmartListFilterEditorViewController());
-
-  v57 = sub_10011E4F4(v56, v55);
-  v58 = v79;
-  swift_beginAccess();
-  *(v58 + 24) = &off_100725B60;
-  swift_unknownObjectWeakAssign();
-  sub_10011F898(&qword_10076CAD8, type metadata accessor for TTRISmartListFilterEditorPresenter);
-
-  TTRLocationQuickPicksInteractor.delegate.setter();
-  *(v33 + 24) = &off_10071D4B8;
-  swift_unknownObjectWeakAssign();
-  *(v33 + 40) = v76;
-  swift_unknownObjectWeakAssign();
-  swift_unknownObjectWeakAssign();
-  v59 = [objc_allocWithZone(UINavigationController) initWithRootViewController:v57];
-  v60 = [v59 presentationController];
-  if (v60)
-  {
-    v61 = v60;
-    v62 = v57;
-    [v61 setDelegate:v62];
-  }
-
-  else
-  {
-  }
-
-  sub_100004758(v87);
-  return v59;
 }

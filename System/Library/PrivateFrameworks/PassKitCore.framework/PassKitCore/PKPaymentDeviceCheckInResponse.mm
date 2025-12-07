@@ -24,29 +24,29 @@
     if (v6)
     {
       v7 = v6;
-      if ([v6 isEqualToString:@"updateConfig"])
+      if (objc_msgSend_isEqualToString_(v6))
       {
         v8 = 1;
       }
 
-      else if ([v7 isEqualToString:@"updateRegistration"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         v8 = 2;
       }
 
-      else if ([v7 isEqualToString:@"reRegister"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         v8 = 3;
       }
 
-      else if ([v7 isEqualToString:@"checkInRequiresAuth"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         v8 = 4;
       }
 
       else
       {
-        if (([v7 isEqualToString:@"reRegisterPeerPayment"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v7) & 1) == 0)
         {
 LABEL_20:
 

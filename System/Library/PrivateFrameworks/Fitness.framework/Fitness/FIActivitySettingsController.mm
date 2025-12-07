@@ -102,7 +102,7 @@
 
 - (BOOL)_commitValue:(id)value forPropertyKey:(id)key error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   _HKInitializeLogging();
@@ -116,66 +116,66 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__4;
-  v50 = __Block_byref_object_dispose__4;
-  v51 = 0;
-  v45[0] = @"height";
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__4;
+  v49 = __Block_byref_object_dispose__4;
+  v50 = 0;
+  v44[0] = @"height";
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke;
   aBlock[3] = &unk_279004ED8;
   aBlock[4] = self;
   v10 = valueCopy;
-  v43 = v10;
+  v42 = v10;
   p_buf = &buf;
   v11 = _Block_copy(aBlock);
-  v46[0] = v11;
-  v45[1] = @"weight";
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_2;
-  v39[3] = &unk_279004ED8;
-  v39[4] = self;
+  v45[0] = v11;
+  v44[1] = @"weight";
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_2;
+  v38[3] = &unk_279004ED8;
+  v38[4] = self;
   v12 = v10;
-  v40 = v12;
-  v41 = &buf;
-  v13 = _Block_copy(v39);
-  v46[1] = v13;
-  v45[2] = @"dateOfBirth";
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_3;
-  v35[3] = &unk_279004ED8;
+  v39 = v12;
+  v40 = &buf;
+  v13 = _Block_copy(v38);
+  v45[1] = v13;
+  v44[2] = @"dateOfBirth";
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_3;
+  v34[3] = &unk_279004ED8;
   v14 = v12;
-  v36 = v14;
+  v35 = v14;
   selfCopy = self;
-  v38 = &buf;
-  v15 = _Block_copy(v35);
-  v46[2] = v15;
-  v45[3] = @"biologicalSexObject";
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_4;
-  v31[3] = &unk_279004ED8;
+  v37 = &buf;
+  v15 = _Block_copy(v34);
+  v45[2] = v15;
+  v44[3] = @"biologicalSexObject";
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_4;
+  v30[3] = &unk_279004ED8;
   v16 = v14;
-  v32 = v16;
+  v31 = v16;
   selfCopy2 = self;
-  v34 = &buf;
-  v17 = _Block_copy(v31);
-  v46[3] = v17;
-  v45[4] = @"wheelchairUse";
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_5;
-  v27[3] = &unk_279004ED8;
+  v33 = &buf;
+  v17 = _Block_copy(v30);
+  v45[3] = v17;
+  v44[4] = @"wheelchairUse";
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __66__FIActivitySettingsController__commitValue_forPropertyKey_error___block_invoke_5;
+  v26[3] = &unk_279004ED8;
   v18 = v16;
-  v28 = v18;
+  v27 = v18;
   selfCopy3 = self;
-  v30 = &buf;
-  v19 = _Block_copy(v27);
-  v46[4] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:5];
+  v29 = &buf;
+  v19 = _Block_copy(v26);
+  v45[4] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
 
   v21 = [v20 objectForKeyedSubscript:keyCopy];
   v22 = v21;
@@ -196,7 +196,7 @@ LABEL_10:
   _HKInitializeLogging();
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_ERROR))
   {
-    [FIActivitySettingsController _commitValue:keyCopy forPropertyKey:&buf + 8 error:?];
+    [FIActivitySettingsController _commitValue:forPropertyKey:error:];
   }
 
   v23 = 0;
@@ -208,7 +208,6 @@ LABEL_10:
 LABEL_11:
 
   _Block_object_dispose(&buf, 8);
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -342,7 +341,7 @@ void __66__FIActivitySettingsController__commitValue_forPropertyKey_error___bloc
       _HKInitializeLogging();
       if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_ERROR))
       {
-        [FIActivitySettingsController _logAndNilError:descriptionCopy operationDescription:error];
+        [FIActivitySettingsController _logAndNilError:operationDescription:];
       }
     }
 
@@ -366,34 +365,34 @@ void __66__FIActivitySettingsController__commitValue_forPropertyKey_error___bloc
 
 - (BOOL)commmitWithError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allKeys = [(NSMutableDictionary *)self->_dirtyPropertiesMap allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v10);
+        v12 = *(*(&v18 + 1) + 8 * v10);
         v13 = [(NSMutableDictionary *)self->_dirtyPropertiesMap objectForKeyedSubscript:v12];
-        v18 = v11;
-        [(FIActivitySettingsController *)self _commitValue:v13 forPropertyKey:v12 error:&v18];
-        v8 = v18;
+        v17 = v11;
+        [(FIActivitySettingsController *)self _commitValue:v13 forPropertyKey:v12 error:&v17];
+        v8 = v17;
 
         if (error && v8)
         {
@@ -409,7 +408,7 @@ void __66__FIActivitySettingsController__commitValue_forPropertyKey_error___bloc
       }
 
       while (v7 != v10);
-      v7 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -428,7 +427,6 @@ void __66__FIActivitySettingsController__commitValue_forPropertyKey_error___bloc
   v15 = 1;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -445,29 +443,29 @@ LABEL_14:
 
 - (HKQuantity)leanBodyMass
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCBC8]];
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277CCCD50] ascending:0];
   v5 = dispatch_semaphore_create(0);
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__4;
-  v25 = __Block_byref_object_dispose__4;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__4;
+  v24 = __Block_byref_object_dispose__4;
+  v25 = 0;
   v6 = objc_alloc(MEMORY[0x277CCD8D0]);
-  v27[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __44__FIActivitySettingsController_leanBodyMass__block_invoke;
-  v18 = &unk_279004F00;
-  v20 = &v21;
+  v26[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __44__FIActivitySettingsController_leanBodyMass__block_invoke;
+  v17 = &unk_279004F00;
+  v19 = &v20;
   v8 = v5;
-  v19 = v8;
-  v9 = [v6 initWithSampleType:v3 predicate:0 limit:1 sortDescriptors:v7 resultsHandler:&v15];
+  v18 = v8;
+  v9 = [v6 initWithSampleType:v3 predicate:0 limit:1 sortDescriptors:v7 resultsHandler:&v14];
 
-  [(HKHealthStore *)self->_healthStore executeQuery:v9, v15, v16, v17, v18];
+  [(HKHealthStore *)self->_healthStore executeQuery:v9, v14, v15, v16, v17];
   v10 = dispatch_time(0, 5000000000);
   if (dispatch_semaphore_wait(v8, v10))
   {
@@ -479,10 +477,9 @@ LABEL_14:
     }
   }
 
-  v12 = v22[5];
+  v12 = v21[5];
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v12;
 }
@@ -519,31 +516,12 @@ intptr_t __44__FIActivitySettingsController_leanBodyMass__block_invoke(uint64_t 
   return v4;
 }
 
-- (void)_commitValue:(uint64_t)a1 forPropertyKey:(uint64_t)a2 error:.cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_24B35E000, v3, v4, "[HealthSettings] Failed to store characteristic %@ with error %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_logAndNilError:(uint64_t)a1 operationDescription:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_24B35E000, v3, v4, "[HealthSettings] Failed operation: %{public}@ with error %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_logAndNilError:(uint64_t)a1 operationDescription:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "[HealthSettings] Internal error: no error argument passed for operation %{public}@, assuming the worst", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "[HealthSettings] Internal error: no error argument passed for operation %{public}@, assuming the worst", &v2, 0xCu);
 }
 
 @end

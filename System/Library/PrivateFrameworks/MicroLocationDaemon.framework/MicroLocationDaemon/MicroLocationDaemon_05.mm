@@ -1,382 +1,53 @@
-void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+void sub_25903E42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v5 = *(a1 + 2);
-  v6 = *a2;
-  v7 = *(a2 + 2);
-  v16 = *a1;
-  v17 = v5;
-  v14 = v6;
-  v15 = v7;
-  v8 = *(a3 + 2);
-  v12 = *a3;
-  v13 = v8;
-  std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(&v16, &v14, &v12, &v18);
-  v9 = v19;
-  v10 = v20;
-  v11 = v21;
-  *a4 = v18;
-  *(a4 + 8) = v9;
-  *(a4 + 16) = v10;
-  *(a4 + 24) = v11;
-}
-
-void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
-{
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = *(a3 + 8);
-  if (*a1 != *a2 || v5 != *(a2 + 8))
-  {
-    do
-    {
-      v8 = *a3;
-      v9 = 1 << v6;
-      if ((*v4 >> v5))
-      {
-        v10 = *v8 | v9;
-      }
-
-      else
-      {
-        v10 = *v8 & ~v9;
-      }
-
-      *v8 = v10;
-      if (v5 == 63)
-      {
-        v11 = 0;
-        *a1 = ++v4;
-      }
-
-      else
-      {
-        v11 = v5 + 1;
-      }
-
-      *(a1 + 8) = v11;
-      v12 = *(a3 + 8);
-      if (v12 == 63)
-      {
-        v6 = 0;
-        *a3 += 8;
-        v4 = *a1;
-      }
-
-      else
-      {
-        v6 = v12 + 1;
-      }
-
-      *(a3 + 8) = v6;
-      v5 = *(a1 + 8);
-    }
-
-    while (v4 != *a2 || v5 != *(a2 + 8));
-  }
-
-  *a4 = v4;
-  *(a4 + 8) = v5;
-  *(a4 + 16) = *a3;
-  *(a4 + 24) = v6;
-}
-
-void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2)
-{
-  v2 = 0;
-  for (i = 0; i != 16; ++i)
-  {
-    v2 ^= (v2 << 6) + (v2 >> 2) + 2654435769u + *(a2 + i);
-  }
-
-  v4 = a1[1];
-  if (!*&v4)
-  {
-    goto LABEL_24;
-  }
-
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
-  {
-    v6 = v2;
-    if (v2 >= *&v4)
-    {
-      v6 = v2 % *&v4;
-    }
-  }
-
-  else
-  {
-    v6 = (*&v4 - 1) & v2;
-  }
-
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
-  {
-LABEL_24:
-    operator new();
-  }
-
-  while (1)
-  {
-    v9 = v8[1];
-    if (v9 == v2)
-    {
-      break;
-    }
-
-    if (v5.u32[0] > 1uLL)
-    {
-      if (v9 >= *&v4)
-      {
-        v9 %= *&v4;
-      }
-    }
-
-    else
-    {
-      v9 &= *&v4 - 1;
-    }
-
-    if (v9 != v6)
-    {
-      goto LABEL_24;
-    }
-
-LABEL_23:
-    v8 = *v8;
-    if (!v8)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  if (v8[2] != *a2 || v8[3] != a2[1])
-  {
-    goto LABEL_23;
-  }
-
-  return v8;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<int,ULPointLocation>,std::__unordered_map_hasher<int,std::__hash_value_type<int,ULPointLocation>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,ULPointLocation>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,ULPointLocation>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v3 <= v2)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v7 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void std::vector<char>::__append(std::vector<char> *this, std::vector<char>::size_type __n, std::vector<char>::const_reference __x)
-{
-  end = this->__end_;
-  value = this->__end_cap_.__value_;
-  if (value - end >= __n)
-  {
-    if (__n)
-    {
-      memset(this->__end_, *__x, __n);
-      end += __n;
-    }
-
-    this->__end_ = end;
-  }
-
-  else
-  {
-    begin = this->__begin_;
-    v8 = (end - this->__begin_);
-    v9 = &v8[__n];
-    if (&v8[__n] < 0)
-    {
-      std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
-    }
-
-    v10 = value - begin;
-    if (2 * v10 > v9)
-    {
-      v9 = 2 * v10;
-    }
-
-    if (v10 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v11 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v9;
-    }
-
-    if (v11)
-    {
-      operator new();
-    }
-
-    v12 = end - this->__begin_;
-    memset(v8, *__x, __n);
-    memcpy(&v8[begin - end], begin, v12);
-    this->__begin_ = &v8[begin - end];
-    this->__end_ = &v8[__n];
-    this->__end_cap_.__value_ = 0;
-    if (begin)
-    {
-
-      operator delete(begin);
-    }
-  }
-}
-
-uint64_t ULHomeSlamModel::ULHomeSlamModel(uint64_t a1, const ULTrajectoryPointCloud *a2, uint64_t *a3, uint64_t a4, __int128 *a5, uint64_t *a6)
-{
-  v11 = std::__optional_move_base<ULTrajectoryPointCloud,false>::__optional_move_base[abi:ne200100](a1, a2);
-  *(v11 + 5) = 0;
-  *(v11 + 6) = 0;
-  *(v11 + 7) = 0;
-  std::vector<ULROI>::__init_with_size[abi:ne200100]<ULROI*,ULROI*>(v11 + 40, *a3, a3[1], (a3[1] - *a3) >> 5);
-  std::unordered_map<boost::uuids::uuid,CLMicroLocationAnchorAppearance>::unordered_map(a1 + 64, a4);
-  *(a1 + 104) = *(a4 + 40);
-  if (*(a5 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external((a1 + 120), *a5, *(a5 + 1));
-  }
-
-  else
-  {
-    v12 = *a5;
-    *(a1 + 136) = *(a5 + 2);
-    *(a1 + 120) = v12;
-  }
-
-  v13 = *(a5 + 24);
-  v14 = *(a5 + 40);
-  v15 = *(a5 + 14);
-  *(a1 + 184) = 0;
-  *(a1 + 176) = v15;
-  *(a1 + 160) = v14;
-  *(a1 + 144) = v13;
-  *(a1 + 192) = 0;
-  *(a1 + 200) = 0;
-  std::vector<ULPositionedImage>::__init_with_size[abi:ne200100]<ULPositionedImage*,ULPositionedImage*>(a1 + 184, *a6, a6[1], 0xEEEEEEEEEEEEEEEFLL * ((a6[1] - *a6) >> 4));
-  return a1;
-}
-
-void sub_25903E42C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v2 + 64);
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v3 + 64);
   std::vector<ULROI>::__destroy_vector::operator()[abi:ne200100](va);
-  std::optional<ULTrajectoryPointCloud>::~optional(v2);
+  std::optional<ULTrajectoryPointCloud>::~optional(v3);
   _Unwind_Resume(a1);
 }
 
 void ULHomeSlamModel::createEmptyHomeSlamModel(uint64_t a1@<X8>)
 {
-  v3 = +[ULDefaultsSingleton shared];
-  v4 = [v3 defaultsDictionary];
+  v2 = +[ULDefaultsSingleton shared];
+  v3 = [v2 defaultsDictionary];
 
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULVersion"];
-  v6 = [v4 objectForKey:v5];
-  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULVersion"];
+  v5 = [v3 objectForKey:v4];
+  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    ULSettings::convert<NSString * {__strong},std::string>(v6, v8);
-    *__p = *v8;
-    *&__p[16] = *&v8[16];
+    ULSettings::convert<NSString * {__strong},std::string>(v5, v7);
+    *__p = *v7;
+    *&__p[16] = *&v7[16];
   }
 
   else
   {
-    ULSettings::convert<NSString * {__strong},std::string>(@"4.0.26", v8);
-    *__p = *v8;
-    *&__p[15] = *&v8[15];
-    __p[23] = v8[23];
+    ULSettings::convert<NSString * {__strong},std::string>(@"4.0.26", v7);
+    *__p = *v7;
+    *&__p[15] = *&v7[15];
+    __p[23] = v7[23];
   }
 
-  v14 = 4;
+  v13 = 4;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v10[0] = 0;
-  v12 = 0;
-  memset(v9, 0, sizeof(v9));
-  CLMicroLocationAnchorAppearanceMap::CLMicroLocationAnchorAppearanceMap(v8);
-  memset(v7, 0, sizeof(v7));
-  ULHomeSlamModel::ULHomeSlamModel(a1, v10, v9, v8, __p, v7);
-  v17 = v7;
-  std::vector<ULPositionedImage>::__destroy_vector::operator()[abi:ne200100](&v17);
-  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v8);
-  *v8 = v9;
-  std::vector<ULROI>::__destroy_vector::operator()[abi:ne200100](v8);
-  if (v12 == 1)
+  v9[0] = 0;
+  v11 = 0;
+  memset(v8, 0, sizeof(v8));
+  CLMicroLocationAnchorAppearanceMap::CLMicroLocationAnchorAppearanceMap(v7);
+  memset(v6, 0, sizeof(v6));
+  ULHomeSlamModel::ULHomeSlamModel(a1, v9, v8, v7, __p, v6);
+  v16 = v6;
+  std::vector<ULPositionedImage>::__destroy_vector::operator()[abi:ne200100](&v16);
+  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v7);
+  *v7 = v8;
+  std::vector<ULROI>::__destroy_vector::operator()[abi:ne200100](v7);
+  if (v11 == 1)
   {
-    std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::reset[abi:ne200100](&v11, 0);
-    *v8 = v10;
-    std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](v8);
+    std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::reset[abi:ne200100](&v10, 0);
+    *v7 = v9;
+    std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](v7);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -385,7 +56,7 @@ void ULHomeSlamModel::createEmptyHomeSlamModel(uint64_t a1@<X8>)
   }
 }
 
-BOOL ULHomeSlamModel::isGeoWorkMode(uint64_t a1, uint64_t *a2)
+BOOL ULHomeSlamModel::isGeoWorkMode(ULTrajectoryPointCloud *a1, uint64_t *a2)
 {
   v4 = +[ULDefaultsSingleton shared];
   v5 = [v4 defaultsDictionary];
@@ -409,7 +80,7 @@ BOOL ULHomeSlamModel::isGeoWorkMode(uint64_t a1, uint64_t *a2)
     return 0;
   }
 
-  ULTrajectoryPointCloud::getAllPoints(a1, &__p);
+  ULTrajectoryPointCloud::getAllPoints(&__p, a1);
   v11 = __p;
   v10 = v29;
   v12 = +[ULDefaultsSingleton shared];
@@ -479,26 +150,26 @@ void sub_25903E94C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   CLMicroLocationProto::HomeSlamModel::HomeSlamModel(a2);
-  CLMicroLocationProto::ModelMetadata::ModelMetadata(v50);
+  CLMicroLocationProto::ModelMetadata::ModelMetadata(v49);
   v4 = *(this + 36);
   if (!CLMicroLocationProto::ModelType_IsValid(v4))
   {
     __assert_rtn("set_modeltype", "microlocation.pb.h", 15074, "::CLMicroLocationProto::ModelType_IsValid(value)");
   }
 
-  v52 = v4;
-  v55 |= 3u;
-  if (v51 == MEMORY[0x277D82C30])
+  v51 = v4;
+  v54 |= 3u;
+  if (v50 == MEMORY[0x277D82C30])
   {
     operator new();
   }
 
-  std::string::operator=(v51, this + 5);
-  v53 = *(this + 148);
-  v55 |= 0x3FCu;
-  v54 = *(this + 164);
+  std::string::operator=(v50, this + 5);
+  v52 = *(this + 148);
+  v54 |= 0x3FCu;
+  v53 = *(this + 164);
   *(a2 + 120) |= 8u;
   v5 = *(a2 + 64);
   if (!v5)
@@ -506,50 +177,50 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
     operator new();
   }
 
-  CLMicroLocationProto::ModelMetadata::CopyFrom(v5, v50);
+  CLMicroLocationProto::ModelMetadata::CopyFrom(v5, v49);
   if (*(this + 32) == 1)
   {
-    ULTrajectoryPointCloud::getAllPoints(this, &v67);
-    v6 = v67;
-    v7 = v68;
-    if (v67 != v68)
+    ULTrajectoryPointCloud::getAllPoints(&v66, this);
+    v6 = v66;
+    v7 = v67;
+    if (v66 != v67)
     {
       do
       {
         v8 = *v6;
-        *&v46[12] = *(v6 + 12);
-        *v46 = v8;
+        *&v45[12] = *(v6 + 12);
+        *v45 = v8;
         CLMicroLocationProto::ULTrajectoryPoint::ULTrajectoryPoint(&__p);
-        v61 |= 1u;
-        v9 = v58;
+        v60 |= 1u;
+        v9 = v57;
+        if (!v57)
+        {
+          operator new();
+        }
+
+        ULPointLocation::toProtobuf(v45, v40);
+        CLMicroLocationProto::ULPointLocation::CopyFrom(v9, v40);
+        CLMicroLocationProto::ULPointLocation::~ULPointLocation(v40);
+        v60 |= 2u;
+        v10 = v58;
         if (!v58)
         {
           operator new();
         }
 
-        ULPointLocation::toProtobuf(v46, &v41);
-        CLMicroLocationProto::ULPointLocation::CopyFrom(v9, &v41);
-        CLMicroLocationProto::ULPointLocation::~ULPointLocation(&v41);
-        v61 |= 2u;
-        v10 = v59;
+        ULPointMovement::toProtobuf(&v45[12], v40);
+        CLMicroLocationProto::ULPointMovement::CopyFrom(v10, v40);
+        CLMicroLocationProto::ULPointMovement::~ULPointMovement(v40);
+        v60 |= 4u;
+        v11 = v59;
         if (!v59)
         {
           operator new();
         }
 
-        ULPointMovement::toProtobuf(&v46[12], &v41);
-        CLMicroLocationProto::ULPointMovement::CopyFrom(v10, &v41);
-        CLMicroLocationProto::ULPointMovement::~ULPointMovement(&v41);
-        v61 |= 4u;
-        v11 = v60;
-        if (!v60)
-        {
-          operator new();
-        }
-
-        ULPointMovement::toProtobuf(&v46[20], &v41);
-        CLMicroLocationProto::ULPointMovement::CopyFrom(v11, &v41);
-        CLMicroLocationProto::ULPointMovement::~ULPointMovement(&v41);
+        ULPointMovement::toProtobuf(&v45[20], v40);
+        CLMicroLocationProto::ULPointMovement::CopyFrom(v11, v40);
+        CLMicroLocationProto::ULPointMovement::~ULPointMovement(v40);
         v12 = *(a2 + 20);
         v13 = *(a2 + 16);
         if (v13 >= v12)
@@ -572,12 +243,12 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
       }
 
       while (v6 != v7);
-      v6 = v67;
+      v6 = v66;
     }
 
     if (v6)
     {
-      v68 = v6;
+      v67 = v6;
       operator delete(v6);
     }
 
@@ -593,10 +264,9 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v41.var0 = ULTrajectoryPointCloud::getMapCenter(this);
-    v41.var1 = v16;
-    v41.var2 = v17;
-    ULPointLocation::toProtobuf(&v41, &__p);
+    LODWORD(v40[0].__r_.__value_.__l.__data_) = ULTrajectoryPointCloud::getMapCenter(this);
+    *(v40[0].__r_.__value_.__r.__words + 4) = __PAIR64__(v17, v16);
+    ULPointLocation::toProtobuf(v40, &__p);
     CLMicroLocationProto::ULPointLocation::CopyFrom(v15, &__p);
     CLMicroLocationProto::ULPointLocation::~ULPointLocation(&__p);
     if ((*(this + 32) & 1) == 0)
@@ -604,7 +274,7 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    ULTrajectoryPointCloud::getMapDimensions(this, &__p);
+    ULTrajectoryPointCloud::getMapDimensions(&__p, this);
     v18 = __p;
     v19 = *(a2 + 120);
     *(a2 + 80) = *__p;
@@ -612,83 +282,83 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
     v20 = *(v18 + 2);
     *(a2 + 120) = v19 | 0xE0;
     *(a2 + 112) = v20;
-    v58 = v18;
+    v57 = v18;
     operator delete(v18);
   }
 
   v21 = *(this + 5);
   for (i = *(this + 6); v21 != i; v21 += 32)
   {
+    v66 = 0;
     v67 = 0;
     v68 = 0;
-    v69 = 0;
-    std::vector<ULROIPoint>::__init_with_size[abi:ne200100]<ULROIPoint*,ULROIPoint*>(&v67, *v21, *(v21 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(v21 + 8) - *v21) >> 4));
-    v70 = *(v21 + 24);
-    CLMicroLocationProto::ULROI::ULROI(v46);
-    v22 = v67;
-    v23 = v68;
+    std::vector<ULROIPoint>::__init_with_size[abi:ne200100]<ULROIPoint*,ULROIPoint*>(&v66, *v21, *(v21 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(v21 + 8) - *v21) >> 4));
+    v69 = *(v21 + 24);
+    CLMicroLocationProto::ULROI::ULROI(v45);
+    v22 = v66;
+    v23 = v67;
     while (v22 != v23)
     {
       v24 = *v22;
-      LODWORD(v58) = v22[2];
+      LODWORD(v57) = v22[2];
       __p = v24;
-      CLMicroLocationFingerprint::CLMicroLocationFingerprint(&v59, (v22 + 4));
-      CLMicroLocationProto::ULROIPoint::ULROIPoint(&v42);
-      v45 |= 1u;
-      v25 = v43;
+      CLMicroLocationFingerprint::CLMicroLocationFingerprint(&v58, (v22 + 4));
+      CLMicroLocationProto::ULROIPoint::ULROIPoint(v41);
+      v44 |= 1u;
+      v25 = v42;
+      if (!v42)
+      {
+        operator new();
+      }
+
+      ULPointLocation::toProtobuf(&__p, v40);
+      CLMicroLocationProto::ULPointLocation::CopyFrom(v25, v40);
+      CLMicroLocationProto::ULPointLocation::~ULPointLocation(v40);
+      v44 |= 2u;
+      v26 = v43;
       if (!v43)
       {
         operator new();
       }
 
-      ULPointLocation::toProtobuf(&__p, &v41);
-      CLMicroLocationProto::ULPointLocation::CopyFrom(v25, &v41);
-      CLMicroLocationProto::ULPointLocation::~ULPointLocation(&v41);
-      v45 |= 2u;
-      v26 = v44;
-      if (!v44)
+      v55[0] = 0;
+      v55[16] = 0;
+      CLMicroLocationFingerprint::toProtobuf(&v58, v55, v40);
+      CLMicroLocationProto::Fingerprint::CopyFrom(v26, v40);
+      CLMicroLocationProto::Fingerprint::~Fingerprint(v40);
+      v27 = *&v45[20];
+      v28 = *&v45[16];
+      if (*&v45[16] >= *&v45[20])
       {
-        operator new();
-      }
-
-      v56[0] = 0;
-      v56[16] = 0;
-      CLMicroLocationFingerprint::toProtobuf(&v59, v56, &v41);
-      CLMicroLocationProto::Fingerprint::CopyFrom(v26, &v41);
-      CLMicroLocationProto::Fingerprint::~Fingerprint(&v41);
-      v27 = *&v46[20];
-      v28 = *&v46[16];
-      if (*&v46[16] >= *&v46[20])
-      {
-        if (*&v46[20] == *&v46[24])
+        if (*&v45[20] == *&v45[24])
         {
-          wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&v46[8]);
-          v27 = *&v46[20];
+          wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&v45[8]);
+          v27 = *&v45[20];
         }
 
-        *&v46[20] = v27 + 1;
+        *&v45[20] = v27 + 1;
         wireless_diagnostics::google::protobuf::internal::GenericTypeHandler<CLMicroLocationProto::ULROIPoint>::New();
       }
 
-      ++*&v46[16];
-      CLMicroLocationProto::ULROIPoint::CopyFrom(*(*&v46[8] + 8 * v28), &v42);
-      CLMicroLocationProto::ULROIPoint::~ULROIPoint(&v42);
-      *&v41.var0 = v66;
-      std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v41);
-      if (v64)
+      ++*&v45[16];
+      CLMicroLocationProto::ULROIPoint::CopyFrom(*(*&v45[8] + 8 * v28), v41);
+      CLMicroLocationProto::ULROIPoint::~ULROIPoint(v41);
+      v40[0].__r_.__value_.__r.__words[0] = v65;
+      std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](v40);
+      if (v63)
       {
-        v65 = v64;
-        operator delete(v64);
+        v64 = v63;
+        operator delete(v63);
       }
 
-      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v63);
       std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v62);
-      std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(&v59);
+      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v61);
+      std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(&v58);
       v22 += 60;
     }
 
-    v49 |= 2u;
-    v48 = v70;
+    v48 |= 2u;
+    v47 = v69;
     v29 = *(a2 + 44);
     v30 = *(a2 + 40);
     if (v30 >= v29)
@@ -705,9 +375,9 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
 
     v31 = *(a2 + 32);
     *(a2 + 40) = v30 + 1;
-    CLMicroLocationProto::ULROI::CopyFrom(*(v31 + 8 * v30), v46);
-    CLMicroLocationProto::ULROI::~ULROI(v46);
-    __p = &v67;
+    CLMicroLocationProto::ULROI::CopyFrom(*(v31 + 8 * v30), v45);
+    CLMicroLocationProto::ULROI::~ULROI(v45);
+    __p = &v66;
     std::vector<ULROIPoint>::__destroy_vector::operator()[abi:ne200100](&__p);
   }
 
@@ -725,30 +395,30 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
   for (j = *(this + 24); v33 != j; v33 += 240)
   {
     v35 = *v33;
-    LODWORD(v58) = *(v33 + 8);
+    LODWORD(v57) = *(v33 + 8);
     __p = v35;
-    CLMicroLocationFingerprint::CLMicroLocationFingerprint(&v59, (v33 + 16));
-    CLMicroLocationProto::ULPositionedImage::ULPositionedImage(v46);
-    ULPointLocation::toProtobuf(&__p, &v41);
-    v47 |= 1u;
-    if (!*&v46[8])
+    CLMicroLocationFingerprint::CLMicroLocationFingerprint(&v58, (v33 + 16));
+    CLMicroLocationProto::ULPositionedImage::ULPositionedImage(v45);
+    ULPointLocation::toProtobuf(&__p, v40);
+    v46 |= 1u;
+    if (!*&v45[8])
     {
       operator new();
     }
 
-    CLMicroLocationProto::ULPointLocation::CopyFrom(*&v46[8], &v41);
-    CLMicroLocationProto::ULPointLocation::~ULPointLocation(&v41);
-    LOBYTE(v67) = 0;
-    LOBYTE(v69) = 0;
-    CLMicroLocationFingerprint::toProtobuf(&v59, &v67, &v41);
-    v47 |= 2u;
-    if (!*&v46[16])
+    CLMicroLocationProto::ULPointLocation::CopyFrom(*&v45[8], v40);
+    CLMicroLocationProto::ULPointLocation::~ULPointLocation(v40);
+    LOBYTE(v66) = 0;
+    LOBYTE(v68) = 0;
+    CLMicroLocationFingerprint::toProtobuf(&v58, &v66, v40);
+    v46 |= 2u;
+    if (!*&v45[16])
     {
       operator new();
     }
 
-    CLMicroLocationProto::Fingerprint::CopyFrom(*&v46[16], &v41);
-    CLMicroLocationProto::Fingerprint::~Fingerprint(&v41);
+    CLMicroLocationProto::Fingerprint::CopyFrom(*&v45[16], v40);
+    CLMicroLocationProto::Fingerprint::~Fingerprint(v40);
     v36 = *(a2 + 100);
     v37 = *(a2 + 96);
     if (v37 >= v36)
@@ -765,28 +435,27 @@ void ULHomeSlamModel::toProtobuf(ULHomeSlamModel *this@<X0>, uint64_t a2@<X8>)
 
     v38 = *(a2 + 88);
     *(a2 + 96) = v37 + 1;
-    CLMicroLocationProto::ULPositionedImage::CopyFrom(*(v38 + 8 * v37), v46);
-    CLMicroLocationProto::ULPositionedImage::~ULPositionedImage(v46);
-    *&v41.var0 = v66;
-    std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v41);
-    if (v64)
+    CLMicroLocationProto::ULPositionedImage::CopyFrom(*(v38 + 8 * v37), v45);
+    CLMicroLocationProto::ULPositionedImage::~ULPositionedImage(v45);
+    v40[0].__r_.__value_.__r.__words[0] = v65;
+    std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](v40);
+    if (v63)
     {
-      v65 = v64;
-      operator delete(v64);
+      v64 = v63;
+      operator delete(v63);
     }
 
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v63);
     std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v62);
-    std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(&v59);
+    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v61);
+    std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(&v58);
   }
 
-  CLMicroLocationProto::ModelMetadata::~ModelMetadata(v50);
-  v39 = *MEMORY[0x277D85DE8];
+  CLMicroLocationProto::ModelMetadata::~ModelMetadata(v49);
 }
 
 void sub_25903F2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
 {
-  MEMORY[0x259CA1F90](v40, 0x1081C40DCAC275BLL);
+  MEMORY[0x259CA1F90](v40, 0x1081C40DCAC275BLL, a3, a4, a5, a6, a7, a8);
   CLMicroLocationProto::ModelMetadata::~ModelMetadata(&a39);
   CLMicroLocationProto::HomeSlamModel::~HomeSlamModel(v39);
   _Unwind_Resume(a1);
@@ -795,9 +464,9 @@ void sub_25903F2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLocation *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = this;
-  v128[3] = *MEMORY[0x277D85DE8];
-  v110[0] = 0;
-  v112 = 0;
+  v127[3] = *MEMORY[0x277D85DE8];
+  v109[0] = 0;
+  v111 = 0;
   if ((~*(this + 30) & 0xF0) == 0)
   {
     v5 = this[9];
@@ -806,16 +475,16 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       v5 = *(CLMicroLocationProto::HomeSlamModel::default_instance(0) + 72);
     }
 
-    v121[0] = ULPointLocation::fromProtobuf(v5, a2);
-    v121[1] = v6;
-    v121[2] = v7;
-    v122 = *(v3 + 10);
-    v123 = *(v3 + 28);
-    v99.__r_.__value_.__r.__words[0] = __PAIR64__(v6, v121[0]);
-    LODWORD(v99.__r_.__value_.__r.__words[1]) = v7;
-    HIDWORD(v99.__r_.__value_.__r.__words[1]) = ULSettings::get<ULSettings::HomeSlamMinimumBoxSize>();
-    LODWORD(v99.__r_.__value_.__r.__words[2]) = ULSettings::get<ULSettings::HomeSlamMinimumBoxSize>();
-    HIDWORD(v99.__r_.__value_.__r.__words[2]) = ULSettings::get<ULSettings::HomeSlamMinimumBoxSize>();
+    v120[0] = ULPointLocation::fromProtobuf(v5, a2);
+    v120[1] = v6;
+    v120[2] = v7;
+    v121 = v3[10];
+    v122 = *(v3 + 28);
+    v98.__r_.__value_.__r.__words[0] = __PAIR64__(v6, v120[0]);
+    LODWORD(v98.__r_.__value_.__r.__words[1]) = v7;
+    HIDWORD(v98.__r_.__value_.__r.__words[1]) = ULSettings::get<ULSettings::HomeSlamMinimumBoxSize>();
+    LODWORD(v98.__r_.__value_.__r.__words[2]) = ULSettings::get<ULSettings::HomeSlamMinimumBoxSize>();
+    HIDWORD(v98.__r_.__value_.__r.__words[2]) = ULSettings::get<ULSettings::HomeSlamMinimumBoxSize>();
     v8 = +[ULDefaultsSingleton shared];
     v9 = [v8 defaultsDictionary];
 
@@ -833,16 +502,16 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
 
     v13 = v12;
 
-    ULTrajectoryPointCloud::ULTrajectoryPointCloud(&__str, v121, &v99, v13);
-    std::optional<ULTrajectoryPointCloud>::operator=[abi:ne200100]<ULTrajectoryPointCloud,void>(v110, &__str);
-    std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::reset[abi:ne200100](v115, 0);
-    v109[0] = &__str;
-    std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](v109);
+    ULTrajectoryPointCloud::ULTrajectoryPointCloud(&__str, v120, &v98, v13);
+    std::optional<ULTrajectoryPointCloud>::operator=[abi:ne200100]<ULTrajectoryPointCloud,void>(v109, &__str);
+    std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::reset[abi:ne200100](v114, 0);
+    v108[0] = &__str;
+    std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](v108);
     if (*(v3 + 4))
     {
-      v14 = *(v3 + 1);
-      v15 = *v14;
-      v16 = *(*v14 + 8);
+      v14 = v3[1];
+      v15 = *&v14->var0;
+      v16 = *(*&v14->var0 + 8);
       if (!v16)
       {
         v16 = *(CLMicroLocationProto::ULTrajectoryPoint::default_instance(0) + 8);
@@ -866,29 +535,29 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       }
 
       v27 = ULPointMovement::fromProtobuf(v26);
-      if (v112)
+      if (v111)
       {
         __str.__r_.__value_.__r.__words[0] = __PAIR64__(v19, LODWORD(v17));
         __str.__r_.__value_.__l.__size_ = __PAIR64__(LODWORD(v23), v21);
         __str.__r_.__value_.__r.__words[2] = __PAIR64__(LODWORD(v27), v25);
-        LODWORD(v115[0]) = v28;
-        ULTrajectoryPointCloud::addPoint();
+        LODWORD(v114[0]) = v28;
+        ULTrajectoryPointCloud::addPoint(v109, &__str);
       }
 
       std::__throw_bad_optional_access[abi:ne200100]();
     }
   }
 
-  memset(v109, 0, sizeof(v109));
+  memset(v108, 0, sizeof(v108));
   v29 = *(v3 + 10);
   if (v29)
   {
-    v30 = *(v3 + 4);
-    v31 = &v30[v29];
+    v30 = v3[4];
+    v31 = (v30 + 8 * v29);
     do
     {
-      v32 = *v30;
-      memset(&v99, 0, sizeof(v99));
+      v32 = *&v30->var0;
+      memset(&v98, 0, sizeof(v98));
       v33 = *(v32 + 16);
       if (v33)
       {
@@ -912,48 +581,48 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
             v44 = *(CLMicroLocationProto::ULROIPoint::default_instance(v38) + 16);
           }
 
-          CLMicroLocationFingerprint::CLMicroLocationFingerprint(v121, v44);
+          CLMicroLocationFingerprint::CLMicroLocationFingerprint(v120, v44);
           __str.__r_.__value_.__r.__words[0] = __PAIR64__(v41, LODWORD(v39));
           LODWORD(__str.__r_.__value_.__r.__words[1]) = v43;
-          CLMicroLocationFingerprint::CLMicroLocationFingerprint(&__str.__r_.__value_.__r.__words[2], v121);
-          size = v99.__r_.__value_.__l.__size_;
-          if (v99.__r_.__value_.__l.__size_ >= v99.__r_.__value_.__r.__words[2])
+          CLMicroLocationFingerprint::CLMicroLocationFingerprint(&__str.__r_.__value_.__r.__words[2], v120);
+          size = v98.__r_.__value_.__l.__size_;
+          if (v98.__r_.__value_.__l.__size_ >= v98.__r_.__value_.__r.__words[2])
           {
-            v47 = std::vector<ULROIPoint>::__emplace_back_slow_path<ULROIPoint const&>(&v99, &__str);
+            v47 = std::vector<ULROIPoint>::__emplace_back_slow_path<ULROIPoint const&>(&v98, &__str);
           }
 
           else
           {
             v46 = __str.__r_.__value_.__r.__words[0];
-            *(v99.__r_.__value_.__l.__size_ + 8) = __str.__r_.__value_.__r.__words[1];
+            *(v98.__r_.__value_.__l.__size_ + 8) = __str.__r_.__value_.__r.__words[1];
             *size = v46;
             CLMicroLocationFingerprint::CLMicroLocationFingerprint((size + 2), &__str.__r_.__value_.__r.__words[2]);
             v47 = (size + 30);
           }
 
-          v99.__r_.__value_.__l.__size_ = v47;
-          v96 = v120;
-          std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v96);
+          v98.__r_.__value_.__l.__size_ = v47;
+          v95 = v119;
+          std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v95);
           if (__p)
           {
-            v119 = __p;
+            v118 = __p;
             operator delete(__p);
           }
 
-          std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v117);
           std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v116);
+          std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v115);
           std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(&__str.__r_.__value_.__r.__words[2]);
-          __str.__r_.__value_.__r.__words[0] = v128;
+          __str.__r_.__value_.__r.__words[0] = v127;
           std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&__str);
-          if (v126)
+          if (v125)
           {
-            v127 = v126;
-            operator delete(v126);
+            v126 = v125;
+            operator delete(v125);
           }
 
-          std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v125);
           std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v124);
-          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v121);
+          std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v123);
+          std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v120);
           ++v34;
           v35 -= 8;
         }
@@ -961,21 +630,21 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
         while (v35);
       }
 
-      v100 = *(v32 + 32);
-      std::vector<ULROI>::push_back[abi:ne200100](v109, &v99);
-      __str.__r_.__value_.__r.__words[0] = &v99;
+      v99 = *(v32 + 32);
+      std::vector<ULROI>::push_back[abi:ne200100](v108, &v98);
+      __str.__r_.__value_.__r.__words[0] = &v98;
       std::vector<ULROIPoint>::__destroy_vector::operator()[abi:ne200100](&__str);
-      ++v30;
+      v30 = (v30 + 8);
     }
 
     while (v30 != v31);
   }
 
-  memset(&v99, 0, sizeof(v99));
-  v100 = 4;
-  if ((*(v3 + 120) & 8) != 0)
+  memset(&v98, 0, sizeof(v98));
+  v99 = 4;
+  if ((v3[15] & 8) != 0)
   {
-    v48 = *(v3 + 8);
+    v48 = v3[8];
     if (!v48)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
@@ -984,13 +653,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
 
     if (LOBYTE(v48[4].var2))
     {
-      v49 = *(v3 + 8);
+      v49 = v3[8];
       if (!v49)
       {
         v49 = *(CLMicroLocationProto::HomeSlamModel::default_instance(this) + 64);
       }
 
-      v50 = *(v49 + 8);
+      v50 = *&v49->var2;
       if (*(v50 + 23) < 0)
       {
         std::string::__init_copy_ctor_external(&__str, *v50, *(v50 + 1));
@@ -1009,19 +678,19 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       std::string::basic_string[abi:ne200100]<0>(&__str, "0");
     }
 
-    this = std::string::operator=(&v99, &__str);
+    this = std::string::operator=(&v98, &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
-    v52 = *(v3 + 8);
+    v52 = v3[8];
     v53 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v53 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v53[4].var2) & 2) != 0)
@@ -1031,7 +700,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v55 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       var1_low = LODWORD(v55[1].var1);
@@ -1042,13 +711,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       var1_low = 4;
     }
 
-    v100 = var1_low;
+    v99 = var1_low;
     v56 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v56 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v56[4].var2) & 4) != 0)
@@ -1058,7 +727,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v58 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       var2 = v58[1].var2;
@@ -1069,13 +738,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       var2 = 0.0;
     }
 
-    v101 = var2;
+    v100 = var2;
     v59 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v59 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v59[4].var2) & 8) != 0)
@@ -1085,7 +754,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v61 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       var0 = v61[2].var0;
@@ -1096,13 +765,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       var0 = 0.0;
     }
 
-    v102 = var0;
+    v101 = var0;
     v62 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v62 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v62[4].var2) & 0x10) != 0)
@@ -1112,7 +781,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v64 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       var1 = v64[2].var1;
@@ -1123,13 +792,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       var1 = 0.0;
     }
 
-    v103 = var1;
+    v102 = var1;
     v65 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v65 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v65[4].var2) & 0x20) != 0)
@@ -1139,7 +808,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v67 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       v66 = v67[2].var2;
@@ -1150,13 +819,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       v66 = 0.0;
     }
 
-    v104 = v66;
+    v103 = v66;
     v68 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v68 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v68[4].var2) & 0x40) != 0)
@@ -1166,7 +835,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v70 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       v69 = v70[3].var0;
@@ -1177,13 +846,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       v69 = 0.0;
     }
 
-    v105 = v69;
+    v104 = v69;
     v71 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v71 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if ((LOBYTE(v71[4].var2) & 0x80) != 0)
@@ -1193,7 +862,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v73 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       v72 = v73[3].var1;
@@ -1204,13 +873,13 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       v72 = 0.0;
     }
 
-    v106 = v72;
+    v105 = v72;
     v74 = v52;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
       v74 = this[8];
-      v52 = *(v3 + 8);
+      v52 = v3[8];
     }
 
     if (BYTE1(v74[4].var2))
@@ -1220,7 +889,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
         v76 = this[8];
-        v52 = *(v3 + 8);
+        v52 = v3[8];
       }
 
       v75 = v76[3].var2;
@@ -1231,7 +900,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       v75 = 0.0;
     }
 
-    v107 = v75;
+    v106 = v75;
     if (!v52)
     {
       this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
@@ -1240,7 +909,7 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
 
     if ((BYTE1(v52[4].var2) & 2) != 0)
     {
-      v78 = *(v3 + 8);
+      v78 = v3[8];
       if (!v78)
       {
         this = CLMicroLocationProto::HomeSlamModel::default_instance(this);
@@ -1255,21 +924,21 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
       v77 = 0.0;
     }
 
-    v108 = v77;
+    v107 = v77;
   }
 
+  v95 = 0;
   v96 = 0;
   v97 = 0;
-  v98 = 0;
   v79 = *(v3 + 24);
   if (v79)
   {
-    v80 = *(v3 + 11);
+    v80 = v3[11];
     v81 = 8 * v79;
     do
     {
-      v82 = *v80;
-      v83 = *(*v80 + 8);
+      v82 = *&v80->var0;
+      v83 = *(*&v80->var0 + 8);
       if (!v83)
       {
         v83 = *(CLMicroLocationProto::ULPositionedImage::default_instance(0) + 8);
@@ -1284,86 +953,84 @@ void ULHomeSlamModel::fromProtobuf(ULPointLocation **this@<X0>, const ULPointLoc
         v90 = *(CLMicroLocationProto::ULPositionedImage::default_instance(v84) + 16);
       }
 
-      CLMicroLocationFingerprint::CLMicroLocationFingerprint(v121, v90);
+      CLMicroLocationFingerprint::CLMicroLocationFingerprint(v120, v90);
       __str.__r_.__value_.__r.__words[0] = __PAIR64__(v87, LODWORD(v85));
       LODWORD(__str.__r_.__value_.__r.__words[1]) = v89;
-      CLMicroLocationFingerprint::CLMicroLocationFingerprint(&__str.__r_.__value_.__r.__words[2], v121);
-      v91 = v97;
-      if (v97 >= v98)
+      CLMicroLocationFingerprint::CLMicroLocationFingerprint(&__str.__r_.__value_.__r.__words[2], v120);
+      v91 = v96;
+      if (v96 >= v97)
       {
-        v93 = std::vector<ULPositionedImage>::__emplace_back_slow_path<ULPositionedImage const&>(&v96, &__str);
+        v93 = std::vector<ULPositionedImage>::__emplace_back_slow_path<ULPositionedImage const&>(&v95, &__str);
       }
 
       else
       {
         v92 = __str.__r_.__value_.__r.__words[0];
-        *(v97 + 8) = __str.__r_.__value_.__r.__words[1];
+        *(v96 + 8) = __str.__r_.__value_.__r.__words[1];
         *v91 = v92;
         CLMicroLocationFingerprint::CLMicroLocationFingerprint((v91 + 2), &__str.__r_.__value_.__r.__words[2]);
         v93 = (v91 + 30);
       }
 
-      v97 = v93;
-      v113 = v120;
-      std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v113);
+      v96 = v93;
+      v112 = v119;
+      std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v112);
       if (__p)
       {
-        v119 = __p;
+        v118 = __p;
         operator delete(__p);
       }
 
-      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v117);
       std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v116);
+      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v115);
       std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(&__str.__r_.__value_.__r.__words[2]);
-      __str.__r_.__value_.__r.__words[0] = v128;
+      __str.__r_.__value_.__r.__words[0] = v127;
       std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&__str);
-      if (v126)
+      if (v125)
       {
-        v127 = v126;
-        operator delete(v126);
+        v126 = v125;
+        operator delete(v125);
       }
 
-      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v125);
       std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v124);
-      this = std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v121);
-      ++v80;
+      std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v123);
+      this = std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v120);
+      v80 = (v80 + 8);
       v81 -= 8;
     }
 
     while (v81);
   }
 
-  v94 = *(v3 + 7);
+  v94 = v3[7];
   if (!v94)
   {
     v94 = *(CLMicroLocationProto::HomeSlamModel::default_instance(this) + 56);
   }
 
   CLMicroLocationAnchorAppearanceMap::CLMicroLocationAnchorAppearanceMap(&__str, v94);
-  ULHomeSlamModel::ULHomeSlamModel(a3, v110, v109, &__str, &v99, &v96);
+  ULHomeSlamModel::ULHomeSlamModel(a3, v109, v108, &__str, &v98, &v95);
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&__str);
-  __str.__r_.__value_.__r.__words[0] = &v96;
+  __str.__r_.__value_.__r.__words[0] = &v95;
   std::vector<ULPositionedImage>::__destroy_vector::operator()[abi:ne200100](&__str);
-  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v99.__r_.__value_.__l.__data_);
+    operator delete(v98.__r_.__value_.__l.__data_);
   }
 
-  __str.__r_.__value_.__r.__words[0] = v109;
+  __str.__r_.__value_.__r.__words[0] = v108;
   std::vector<ULROI>::__destroy_vector::operator()[abi:ne200100](&__str);
-  if (v112 == 1)
+  if (v111 == 1)
   {
-    std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::reset[abi:ne200100](&v111, 0);
-    __str.__r_.__value_.__r.__words[0] = v110;
+    std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::reset[abi:ne200100](&v110, 0);
+    __str.__r_.__value_.__r.__words[0] = v109;
     std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](&__str);
   }
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25903FDB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25903FDB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   std::optional<ULTrajectoryPointCloud>::~optional(va);
   _Unwind_Resume(a1);
@@ -1428,7 +1095,7 @@ __n128 ULHomeSlamModel::getMetadata@<Q0>(ULHomeSlamModel *this@<X0>, uint64_t a2
   return result;
 }
 
-uint64_t ULHomeSlamModel::addPositionedImage(uint64_t *a1, uint64_t a2)
+uint64_t ULHomeSlamModel::addPositionedImage(unint64_t *a1, uint64_t *a2)
 {
   v3 = a1[24];
   if (v3 >= a1[25])
@@ -1439,9 +1106,9 @@ uint64_t ULHomeSlamModel::addPositionedImage(uint64_t *a1, uint64_t a2)
   else
   {
     v4 = *a2;
-    *(v3 + 8) = *(a2 + 8);
+    *(v3 + 8) = *(a2 + 2);
     *v3 = v4;
-    CLMicroLocationFingerprint::CLMicroLocationFingerprint((v3 + 16), (a2 + 16));
+    CLMicroLocationFingerprint::CLMicroLocationFingerprint((v3 + 16), (a2 + 2));
     result = v3 + 240;
     a1[24] = v3 + 240;
   }
@@ -1523,12 +1190,11 @@ LABEL_16:
   return MEMORY[0x259CA1EE0](&v22);
 }
 
-void sub_259040444(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_259040444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -1541,6 +1207,7 @@ void sub_259040444(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
   MEMORY[0x259CA1EE0](va1);
   _Unwind_Resume(a1);
@@ -1601,14 +1268,14 @@ uint64_t std::vector<ULROIPoint>::__emplace_back_slow_path<ULROIPoint const&>(ui
   return v14;
 }
 
-void sub_25904072C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25904072C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ULROIPoint>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ULROI>::__construct_one_at_end[abi:ne200100]<ULROI const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<ULROI>::__construct_one_at_end[abi:ne200100]<ULROI const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = 0;
@@ -1620,16 +1287,16 @@ uint64_t std::vector<ULROI>::__construct_one_at_end[abi:ne200100]<ULROI const&>(
   return result;
 }
 
-uint64_t std::vector<ULROI>::__emplace_back_slow_path<ULROI const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<ULROI>::__emplace_back_slow_path<ULROI const&>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -1661,14 +1328,14 @@ uint64_t std::vector<ULROI>::__emplace_back_slow_path<ULROI const&>(uint64_t a1,
   std::vector<ULROIPoint>::__init_with_size[abi:ne200100]<ULROIPoint*,ULROIPoint*>(v8, *a2, *(a2 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 8) - *a2) >> 4));
   *(v8 + 24) = *(a2 + 24);
   *&v17 = v17 + 32;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v16 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ULROI>,ULROI*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -1677,14 +1344,14 @@ uint64_t std::vector<ULROI>::__emplace_back_slow_path<ULROI const&>(uint64_t a1,
   return v14;
 }
 
-void sub_2590408D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2590408D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ULROI>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ULPositionedImage>::__emplace_back_slow_path<ULPositionedImage const&>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<ULPositionedImage>::__emplace_back_slow_path<ULPositionedImage const&>(unint64_t *a1, uint64_t *a2)
 {
   v2 = 0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -1739,9 +1406,9 @@ uint64_t std::vector<ULPositionedImage>::__emplace_back_slow_path<ULPositionedIm
   return v14;
 }
 
-void sub_259040A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_259040A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ULPositionedImage>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1928,7 +1595,7 @@ void ULModel::~ULModel(ULModel *this)
       operator delete(v2);
     }
 
-    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(this + 200);
+    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(this + 25);
     v4 = (this + 176);
     std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v4);
     if (*(this + 136) == 1)
@@ -1945,9 +1612,9 @@ void ULModel::~ULModel(ULModel *this)
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2008,7 +1675,7 @@ void std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uu
   a1[1] = v2;
 }
 
-void ULTrajectoryPointCloud::ULTrajectoryPointCloud(ULTrajectoryPointCloud *this, const ULBoudingBox *a2, const ULBoudingBox *a3)
+void ULTrajectoryPointCloud::ULTrajectoryPointCloud(ULTrajectoryPointCloud *this, const ULBoudingBox *a2, const ULBoudingBox *a3, int a4)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -2016,9 +1683,9 @@ void ULTrajectoryPointCloud::ULTrajectoryPointCloud(ULTrajectoryPointCloud *this
   operator new();
 }
 
-void sub_25904105C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25904105C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2029,11 +1696,10 @@ void ULTrajectoryPointCloud::ULTrajectoryPointCloud(ULTrajectoryPointCloud *this
   *(this + 1) = 0;
   *(this + 2) = 0;
   v2 = *(a2 + 3);
-  v4 = *v2;
-  v5 = *(v2 + 2);
-  v6 = *(v2 + 24);
-  v7 = *(v2 + 5);
-  v3 = *(v2 + 13);
+  v3 = *v2;
+  v4 = *(v2 + 2);
+  v5 = *(v2 + 24);
+  v6 = *(v2 + 5);
   operator new();
 }
 
@@ -2045,29 +1711,29 @@ void sub_259041188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 ULTrajectoryPointCloud::getBoundary@<Q0>(ULTrajectoryPointCloud *this@<X0>, __n128 *a2@<X8>)
+__n128 ULTrajectoryPointCloud::getBoundary@<Q0>(__n128 *__return_ptr a1@<X8>, ULTrajectoryPointCloud *this@<X0>)
 {
   v2 = *(this + 3);
   result = *v2;
-  *a2 = *v2;
-  a2[1].n128_u64[0] = v2[1].n128_u64[0];
+  *a1 = *v2;
+  a1[1].n128_u64[0] = v2[1].n128_u64[0];
   return result;
 }
 
-__n128 ULTrajectoryPointCloud::getMinimumBox@<Q0>(ULTrajectoryPointCloud *this@<X0>, __n128 *a2@<X8>)
+__n128 ULTrajectoryPointCloud::getMinimumBox@<Q0>(__n128 *__return_ptr a1@<X8>, ULTrajectoryPointCloud *this@<X0>)
 {
   v2 = *(this + 3);
   result = *(v2 + 24);
-  *a2 = result;
-  a2[1].n128_u64[0] = *(v2 + 40);
+  *a1 = result;
+  a1[1].n128_u64[0] = *(v2 + 40);
   return result;
 }
 
-void ULTrajectoryPointCloud::getAllPoints(__int128 ***this@<X0>, const void **a2@<X8>)
+void ULTrajectoryPointCloud::getAllPoints(const void **__return_ptr a1@<X8>, __int128 ***this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = *this;
   v3 = this[1];
   if (*this != v3)
@@ -2081,12 +1747,12 @@ void ULTrajectoryPointCloud::getAllPoints(__int128 ***this@<X0>, const void **a2
         atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v8 = a2[1];
-      v7 = a2[2];
+      v8 = a1[1];
+      v7 = a1[2];
       if (v8 >= v7)
       {
-        v11 = *a2;
-        v12 = v8 - *a2;
+        v11 = *a1;
+        v12 = v8 - *a1;
         v13 = 0x6DB6DB6DB6DB6DB7 * (v12 >> 2) + 1;
         if (v13 > 0x924924924924924)
         {
@@ -2111,7 +1777,7 @@ void ULTrajectoryPointCloud::getAllPoints(__int128 ***this@<X0>, const void **a2
 
         if (v15)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<ULTrajectoryPoint>>(a2, v15);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<ULTrajectoryPoint>>(a1, v15);
         }
 
         v16 = (4 * (v12 >> 2));
@@ -2121,10 +1787,10 @@ void ULTrajectoryPointCloud::getAllPoints(__int128 ***this@<X0>, const void **a2
         v10 = v16 + 28;
         v18 = v16 - v12;
         memcpy(v16 - v12, v11, v12);
-        v19 = *a2;
-        *a2 = v18;
-        a2[1] = v10;
-        a2[2] = 0;
+        v19 = *a1;
+        *a1 = v18;
+        a1[1] = v10;
+        a1[2] = 0;
         if (v19)
         {
           operator delete(v19);
@@ -2139,7 +1805,7 @@ void ULTrajectoryPointCloud::getAllPoints(__int128 ***this@<X0>, const void **a2
         v10 = v8 + 28;
       }
 
-      a2[1] = v10;
+      a1[1] = v10;
       if (v5)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -2230,7 +1896,7 @@ void **std::vector<std::shared_ptr<ULTrajectoryPoint>>::push_back[abi:ne200100](
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -2299,49 +1965,38 @@ void ULTrajectoryPointCloud::getPointsAroundPoint(uint64_t a1, uint64_t a2, floa
   *&v7[3] = a6;
   *&v7[4] = a6;
   *&v7[5] = a6;
-  ULOcTree<std::shared_ptr<ULTrajectoryPoint>>::query((a1 + 24), v7, a2, v6);
+  ULOcTree<std::shared_ptr<ULTrajectoryPoint>>::query((a1 + 24), v6, v7, a2);
   v8 = v6;
   std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](&v8);
 }
 
-uint64_t ULOcTree<std::shared_ptr<ULTrajectoryPoint>>::query@<X0>(uint64_t *a1@<X0>, const ULBoudingBox *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *ULOcTree<std::shared_ptr<ULTrajectoryPoint>>::query@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>, const ULBoudingBox *a3@<X1>, uint64_t a4@<X2>)
 {
-  ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::query(*a1, a2, a3);
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  v6 = *a3;
-  v7 = *(a3 + 8);
-  v8 = (v7 - *a3) >> 4;
-
-  return std::vector<std::shared_ptr<ULTrajectoryPoint>>::__init_with_size[abi:ne200100]<std::shared_ptr<ULTrajectoryPoint>*,std::shared_ptr<ULTrajectoryPoint>*>(a4, v6, v7, v8);
-}
-
-float ULTrajectoryPointCloud::getMapCenter(ULTrajectoryPointCloud *this)
-{
-  v1 = *(this + 3);
-  result = *v1;
-  v3 = *(v1 + 4);
-  v4 = *(v1 + 8);
-  return result;
-}
-
-uint64_t ULTrajectoryPointCloud::getMapDimensions@<X0>(ULTrajectoryPointCloud *this@<X0>, void *a2@<X8>)
-{
-  *&v8[4] = *MEMORY[0x277D85DE8];
-  v2 = *(this + 3);
-  v3 = *(v2 + 20);
-  v6 = *(v2 + 12);
-  v7 = v3;
+  ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::query(*a1, a3, a4);
+  *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  *a2 = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(a2, &v6, v8, 3uLL);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *a4;
+  v7 = *(a4 + 8);
+  v8 = (v7 - *a4) >> 4;
+
+  return std::vector<std::shared_ptr<ULTrajectoryPoint>>::__init_with_size[abi:ne200100]<std::shared_ptr<ULTrajectoryPoint>*,std::shared_ptr<ULTrajectoryPoint>*>(a2, v6, v7, v8);
 }
 
-float ULPointLocation::toProtobuf@<S0>(ULPointLocation *this@<X0>, uint64_t a2@<X8>)
+uint64_t *ULTrajectoryPointCloud::getMapDimensions@<X0>(uint64_t *__return_ptr a1@<X8>, ULTrajectoryPointCloud *this@<X0>)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = *(this + 3);
+  v3 = *(v2 + 20);
+  v5 = *(v2 + 12);
+  v6 = v3;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  return std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(a1, &v5, &v7, 3uLL);
+}
+
+float ULPointLocation::toProtobuf@<S0>(ULPointLocation *this@<X0>, CLMicroLocationProto::ULPointLocation *a2@<X8>)
 {
   v3 = CLMicroLocationProto::ULPointLocation::ULPointLocation(a2);
   v4 = *(v3 + 24);
@@ -2352,27 +2007,12 @@ float ULPointLocation::toProtobuf@<S0>(ULPointLocation *this@<X0>, uint64_t a2@<
   return result;
 }
 
-float ULPointLocation::fromProtobuf(ULPointLocation *this, const ULPointLocation *a2)
-{
-  result = this->var2;
-  var0 = this[1].var0;
-  var1 = this[1].var1;
-  return result;
-}
-
-double ULPointMovement::toProtobuf@<D0>(ULPointMovement *this@<X0>, void *a2@<X8>)
+double ULPointMovement::toProtobuf@<D0>(ULPointMovement *this@<X0>, CLMicroLocationProto::ULPointMovement *a2@<X8>)
 {
   v3 = CLMicroLocationProto::ULPointMovement::ULPointMovement(a2);
   *(v3 + 5) |= 3u;
   result = *this;
   v3[1] = *this;
-  return result;
-}
-
-float ULPointMovement::fromProtobuf(uint64_t a1)
-{
-  result = *(a1 + 8);
-  v2 = *(a1 + 12);
   return result;
 }
 
@@ -2392,7 +2032,7 @@ uint64_t *std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::~un
   return a1;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2514,18 +2154,9 @@ BOOL ULBoudingBox::contains(ULBoudingBox *this, float a2, float a3, float a4)
   return (v11 - v12) <= a4 && (v11 + v12) >= a4;
 }
 
-void ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::subdivide(uint64_t a1)
+void sub_259041EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  v1 = vmul_f32(*(a1 + 12), 0x3F0000003F000000);
-  v2 = *a1 - v1.f32[0];
-  v3 = *(a1 + 4) - v1.f32[1];
-  v4 = *(a1 + 8) - (*(a1 + 20) * 0.5);
-  operator new();
-}
-
-void sub_259041EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2621,7 +2252,7 @@ uint64_t std::__split_buffer<std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTraj
   return a1;
 }
 
-void **ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::query(uint64_t a1, const ULBoudingBox *a2, const void **a3)
+uint64_t ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::query(uint64_t a1, const ULBoudingBox *a2, const void **a3)
 {
   result = ULBoudingBox::intersects(a1, a2);
   if (result)
@@ -2675,7 +2306,7 @@ void **ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::query(uint64_t a1, cons
 
           v12 = (v17 + 16);
           v19 = a3[1] - *a3;
-          v20 = v17 - v19;
+          v20 = (v17 - v19);
           memcpy((v17 - v19), *a3, v19);
           v21 = *a3;
           *a3 = v20;
@@ -2693,13 +2324,13 @@ void **ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>::query(uint64_t a1, cons
         {
           v11 = *(v7 + 1);
           *v9 = *v7;
-          v9[1] = v11;
+          *(v9 + 1) = v11;
           if (v11)
           {
             atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v12 = v9 + 2;
+          v12 = v9 + 16;
         }
 
         a3[1] = v12;
@@ -2725,26 +2356,7 @@ BOOL ULBoudingBox::intersects(ULBoudingBox *this, const ULBoudingBox *a2)
 {
   v2 = *(this + 3);
   v3 = *(a2 + 3);
-  if ((*this - v2) > (*a2 + v3))
-  {
-    return 0;
-  }
-
-  if ((*this + v2) < (*a2 - v3))
-  {
-    return 0;
-  }
-
-  v4 = *(this + 1);
-  v5 = *(this + 4);
-  v6 = *(a2 + 1);
-  v7 = *(a2 + 4);
-  if ((v4 - v5) > (v6 + v7))
-  {
-    return 0;
-  }
-
-  if ((v4 + v5) >= (v6 - v7) && (v8 = *(this + 2), v9 = *(this + 5), v10 = *(a2 + 2), v11 = *(a2 + 5), (v8 - v9) <= (v10 + v11)))
+  if ((*this - v2) <= (*a2 + v3) && (*this + v2) >= (*a2 - v3) && (v4 = *(this + 1), v5 = *(this + 4), v6 = *(a2 + 1), v7 = *(a2 + 4), (v4 - v5) <= (v6 + v7)) && (v4 + v5) >= (v6 - v7) && (v8 = *(this + 2), v9 = *(this + 5), v10 = *(a2 + 2), v11 = *(a2 + 5), (v8 - v9) <= (v10 + v11)))
   {
     return (v8 + v9) >= (v10 - v11);
   }
@@ -2755,7 +2367,7 @@ BOOL ULBoudingBox::intersects(ULBoudingBox *this, const ULBoudingBox *a2)
   }
 }
 
-uint64_t std::vector<std::shared_ptr<ULTrajectoryPoint>>::__init_with_size[abi:ne200100]<std::shared_ptr<ULTrajectoryPoint>*,std::shared_ptr<ULTrajectoryPoint>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<ULTrajectoryPoint>>::__init_with_size[abi:ne200100]<std::shared_ptr<ULTrajectoryPoint>*,std::shared_ptr<ULTrajectoryPoint>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2772,7 +2384,7 @@ void sub_259042304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<ULTrajectoryPoint>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<ULTrajectoryPoint>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2988,8 +2600,9 @@ void sub_2590428A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, const std::string *a2, int a3)
+uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, const std::string *a2, uint64_t a3)
 {
+  v3 = a3;
   a1[22] = 0;
   v6 = MEMORY[0x277D82890] + 104;
   a1[16] = MEMORY[0x277D82890] + 104;
@@ -3017,7 +2630,7 @@ uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<cha
   *a1 = v13;
   a1[16] = v6;
   a1[2] = v8;
-  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, a3);
+  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, v3);
   return a1;
 }
 
@@ -3310,7 +2923,7 @@ void sub_25904303C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL CLMacAddress::isMalformed(CLMacAddress *this, const CLMacAddress *a2)
 {
-  CLMacAddress::str(this, &v6);
+  CLMacAddress::str(&v6, this);
   if (v8 < 0)
   {
     v3 = v7 == 12 && *v6 == 0x6666666666666666 && v6[2] == 1717986918;
@@ -3325,7 +2938,7 @@ BOOL CLMacAddress::isMalformed(CLMacAddress *this, const CLMacAddress *a2)
   return v3;
 }
 
-uint64_t CLMacAddress::str@<X0>(CLMacAddress *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *CLMacAddress::str@<X0>(uint64_t *__return_ptr a1@<X8>, CLMacAddress *this@<X0>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v12);
   v4 = v13;
@@ -3360,7 +2973,7 @@ uint64_t CLMacAddress::str@<X0>(CLMacAddress *this@<X0>, _BYTE *a2@<X8>)
     if ((v21 & 8) == 0)
     {
       v7 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_16;
     }
 
@@ -3379,14 +2992,14 @@ uint64_t CLMacAddress::str@<X0>(CLMacAddress *this@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v7;
+  *(a1 + 23) = v7;
   if (v7)
   {
-    memmove(a2, v9, v7);
+    memmove(a1, v9, v7);
   }
 
 LABEL_16:
-  a2[v7] = 0;
+  *(a1 + v7) = 0;
   v12[0] = *MEMORY[0x277D82818];
   v10 = *(MEMORY[0x277D82818] + 72);
   *(v12 + *(v12[0] - 24)) = *(MEMORY[0x277D82818] + 64);
@@ -3410,7 +3023,7 @@ BOOL CLMacAddress::isValid(CLMacAddress *this, const CLMacAddress *a2)
     return 0;
   }
 
-  CLMacAddress::str(this, &v7);
+  CLMacAddress::str(&v7, this);
   if (v9 < 0)
   {
     v3 = v8 != 12 || *v7 != 0x3030303030303030 || v7[2] != 808464432;
@@ -3468,7 +3081,7 @@ void sub_2590437A8(_Unwind_Exception *a1)
 void CLMacAddress::toPrettyStr(CLMacAddress *this@<X0>, std::string *a2@<X8>)
 {
   v3 = v8;
-  CLMacAddress::str(this, v8);
+  CLMacAddress::str(v8, this);
   v4 = 0;
   a2->__r_.__value_.__r.__words[0] = 0;
   a2->__r_.__value_.__l.__size_ = 0;
@@ -3532,7 +3145,7 @@ void sub_2590438B0(_Unwind_Exception *exception_object)
 void CLMacAddress::toCLStr(CLMacAddress *this@<X0>, std::string *a2@<X8>)
 {
   v3 = v9;
-  CLMacAddress::str(this, v9);
+  CLMacAddress::str(v9, this);
   v4 = 0;
   a2->__r_.__value_.__r.__words[0] = 0;
   a2->__r_.__value_.__l.__size_ = 0;
@@ -3701,9 +3314,9 @@ CLMicroLocationLegacyClient *CLMicroLocationLegacyClient::onBatteryState(CLMicro
 
 uint64_t CLMicroLocationLegacyClient::requestLocalizationIfPossible(CLMicroLocationLegacyClient *this, int a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = cl::chrono::CFAbsoluteTimeClock::now();
-  v17 = v6;
+  v16 = v6;
   if (*(this + 89))
   {
     if (a2 && ULThrottle::shouldThrottle(this + 64, v6))
@@ -3723,7 +3336,7 @@ uint64_t CLMicroLocationLegacyClient::requestLocalizationIfPossible(CLMicroLocat
       v8 = +[ULEventLog shared];
       [v8 log:@"Legacy Throttle Event"];
 
-      goto LABEL_13;
+      return 0;
     }
 
     if (*(this + 16) != 1)
@@ -3731,19 +3344,19 @@ uint64_t CLMicroLocationLegacyClient::requestLocalizationIfPossible(CLMicroLocat
       goto LABEL_18;
     }
 
-    v16 = 0;
-    boost::uuids::detail::random_provider_base::random_provider_base(&v16);
-    *&buf = boost::uuids::random_generator_pure::operator()(&v16);
+    v15 = 0;
+    boost::uuids::detail::random_provider_base::random_provider_base(&v15);
+    *&buf = boost::uuids::random_generator_pure::operator()(&v15);
     *(&buf + 1) = v11;
-    boost::uuids::detail::random_provider_base::destroy(&v16);
+    boost::uuids::detail::random_provider_base::destroy(&v15);
     if ((*(this + 16) & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    if ((*(**(this + 3) + 56))(*(this + 3), *this, *(this + 1), &buf, &v17, a3))
+    if ((*(**(this + 3) + 56))(*(this + 3), *this, *(this + 1), &buf, &v16, a3))
     {
-      ULThrottle::setLastStartedTime(this + 64, &v17);
+      ULThrottle::setLastStartedTime(this + 64, &v16);
       v10 = 1;
     }
 
@@ -3786,12 +3399,10 @@ LABEL_18:
     {
       LOWORD(buf) = 0;
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "Localization is not allowed", &buf, 2u);
-LABEL_13:
-      v10 = 0;
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3807,7 +3418,7 @@ CLMicroLocationLegacyClient *CLMicroLocationLegacyClient::onDisplayState(CLMicro
 
 uint64_t CLMicroLocationLegacyClient::onHomeKit(CLMicroLocationLegacyClient *this, NSDictionary *a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (CLMicroLocationLegacyEventHomeKit::isHomekitTriggerLocalization(v3, v4))
   {
@@ -3823,19 +3434,19 @@ uint64_t CLMicroLocationLegacyClient::onHomeKit(CLMicroLocationLegacyClient *thi
   {
     if (CLMicroLocationLegacyEventHomeKit::isHomekitSceneRequest(v3, v7))
     {
-      CLMicroLocationLegacyEventHomeKit::homekitSceneActionSetUUID(v3, &v11);
+      CLMicroLocationLegacyEventHomeKit::homekitSceneActionSetUUID(&v10, v3);
     }
 
     else
     {
-      CLMicroLocationLegacyEventHomeKit::homekitAccessoryUUID(v3, &v11);
+      CLMicroLocationLegacyEventHomeKit::homekitAccessoryUUID(&v10, v3);
     }
 
-    v13[0] = *v12;
-    *(v13 + 7) = *&v12[7];
-    *v12 = v13[0];
-    *&v12[7] = *(v13 + 7);
-    v8 = CLMicroLocationLegacyClient::requestRecordingIfPossible(this, 1, &v11);
+    v12[0] = *v11;
+    *(v12 + 7) = *&v11[7];
+    *v11 = v12[0];
+    *&v11[7] = *(v12 + 7);
+    v8 = CLMicroLocationLegacyClient::requestRecordingIfPossible(this, 1, &v10);
   }
 
   else
@@ -3843,15 +3454,14 @@ uint64_t CLMicroLocationLegacyClient::onHomeKit(CLMicroLocationLegacyClient *thi
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 | v8;
 }
 
 uint64_t CLMicroLocationLegacyClient::requestRecordingIfPossible(uint64_t *a1, int a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = cl::chrono::CFAbsoluteTimeClock::now();
-  v21 = v6;
+  v20 = v6;
   if ((a1[11] & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -3866,14 +3476,12 @@ uint64_t CLMicroLocationLegacyClient::requestRecordingIfPossible(uint64_t *a1, i
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "Recording is not allowed", buf, 2u);
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   if (*(a1 + 16) != 1)
   {
-LABEL_14:
-    v10 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   if (a2 && ULThrottle::shouldThrottle((a1 + 5), v6))
@@ -3893,7 +3501,7 @@ LABEL_14:
     v8 = +[ULEventLog shared];
     [v8 log:@"Legacy Throttle Event"];
 
-    goto LABEL_14;
+    return 0;
   }
 
   if ((*(a3 + 16) & 1) == 0)
@@ -3904,30 +3512,14 @@ LABEL_14:
     boost::uuids::detail::random_provider_base::destroy(buf);
   }
 
-  if (*(a1 + 16) != 1)
+  if (*(a1 + 16) == 1 && (v12 = a1[3], v13 = *a1, v14 = a1[1], v19 = 0, boost::uuids::detail::random_provider_base::random_provider_base(&v19), v15 = boost::uuids::random_generator_pure::operator()(&v19), buf[0] = 0, v23 = 0, LODWORD(v12) = (*(*v12 + 64))(v12, v13, v14, v15, v16, buf, &v20), boost::uuids::detail::random_provider_base::destroy(&v19), v12))
   {
-    goto LABEL_21;
-  }
-
-  v13 = a1[3];
-  v14 = *a1;
-  v15 = a1[1];
-  v20 = 0;
-  boost::uuids::detail::random_provider_base::random_provider_base(&v20);
-  v16 = boost::uuids::random_generator_pure::operator()(&v20);
-  buf[0] = 0;
-  v24 = 0;
-  LODWORD(v13) = (*(*v13 + 64))(v13, v14, v15, v16, v17, buf, &v21);
-  boost::uuids::detail::random_provider_base::destroy(&v20);
-  if (v13)
-  {
-    ULThrottle::setLastStartedTime((a1 + 5), &v21);
+    ULThrottle::setLastStartedTime((a1 + 5), &v20);
     v10 = 1;
   }
 
   else
   {
-LABEL_21:
     v10 = 0;
   }
 
@@ -3936,34 +3528,31 @@ LABEL_21:
     CLMicroLocationLegacyClient::requestLocalizationIfPossible();
   }
 
-  v18 = logObject_MicroLocation_Default;
+  v17 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = @"NO";
+    v18 = @"NO";
     if (v10)
     {
-      v19 = @"YES";
+      v18 = @"YES";
     }
 
     *buf = 138412290;
-    v23 = v19;
-    _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "Recording requested, success: %@", buf, 0xCu);
+    v22 = v18;
+    _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_DEFAULT, "Recording requested, success: %@", buf, 0xCu);
   }
 
-LABEL_15:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t CLMicroLocationLegacyClient::onRecordingRequest(CLMicroLocationLegacyClient *this, NSDictionary *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  *&v8[17] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v5 = CLMicroLocationLegacyEventRecordingRequest::isForceRecording(v3, v4);
-  CLMicroLocationLegacyEventRecordingRequest::recordingRequestUUID(v3, v9);
-  v6 = CLMicroLocationLegacyClient::requestRecordingIfPossible(this, v5 ^ 1, v9);
+  CLMicroLocationLegacyEventRecordingRequest::recordingRequestUUID(v8, v3);
+  v6 = CLMicroLocationLegacyClient::requestRecordingIfPossible(this, v5 ^ 1, v8);
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3993,27 +3582,24 @@ LABEL_15:
 
 void CLMicroLocationLegacyClient::databaseAvailable(CLMicroLocationLegacyClient *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ((*(this + 16) & 1) == 0)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "milo-internal-legacy-client-name-unsupervised");
-    [@"00000000-0000-0000-0000-000000000016" boostUUID];
-    if ((v8 & 1) == 0)
+    objc_msgSend_boostUUID(@"00000000-0000-0000-0000-000000000016");
+    if ((v6 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v3 = 1;
-    CLMicroLocationLegacyClient::tryCreateServiceAndConnect(this, __p, v6, v7, &v3, &v9);
-    *this = v9;
-    *(this + 16) = v10;
-    if (v5 < 0)
+    CLMicroLocationLegacyClient::tryCreateServiceAndConnect(this, __p, v4, v5, &v7);
+    *this = v7;
+    *(this + 16) = v8;
+    if (v3 < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2590445A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4026,81 +3612,80 @@ void sub_2590445A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CLMicroLocationLegacyClient::tryCreateServiceAndConnect(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
+void CLMicroLocationLegacyClient::tryCreateServiceAndConnect(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a6@<X8>)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     CLMicroLocationLegacyClient::requestLocalizationIfPossible();
   }
 
-  v12 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     if (*(a2 + 23) >= 0)
     {
-      v13 = a2;
+      v12 = a2;
     }
 
     else
     {
-      v13 = *a2;
+      v12 = *a2;
     }
 
-    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:v13];
-    v15 = *a5;
-    v16 = ULServiceTypeToString();
+    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
+    v14 = ULServiceTypeToString();
     *buf = 138412546;
-    *&buf[4] = v14;
+    *&buf[4] = v13;
     *&buf[12] = 2112;
-    *&buf[14] = v16;
-    _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEFAULT, "tryCreateServiceAndConnect: clientName: %@, serviceType: %@", buf, 0x16u);
+    *&buf[14] = v14;
+    _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "tryCreateServiceAndConnect: clientName: %@, serviceType: %@", buf, 0x16u);
   }
 
-  v17 = *(a1 + 24);
+  v15 = *(a1 + 24);
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  (*(*v17 + 32))(buf, v17, a2, __p);
-  if (v34 < 0)
+  (*(*v15 + 32))(buf, v15, a2, __p);
+  if (v31 < 0)
   {
     operator delete(*__p);
   }
 
   if (*buf == *&buf[8])
   {
-    v19 = 0;
-    v18 = 0;
+    v17 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v18 = **buf;
-    v32[0] = *(*buf + 1);
-    *(v32 + 7) = *(*buf + 8);
-    v19 = 1;
+    v16 = **buf;
+    v29[0] = *(*buf + 1);
+    *(v29 + 7) = *(*buf + 8);
+    v17 = 1;
   }
 
-  v20 = objc_alloc(MEMORY[0x277D28778]);
-  v21 = [MEMORY[0x277CBEB98] set];
-  v22 = [v20 initWithContextLayers:v21];
+  v18 = objc_alloc(MEMORY[0x277D28778]);
+  v19 = [MEMORY[0x277CBEB98] set];
+  v20 = [v18 initWithContextLayers:v19];
 
-  [v22 setPredictionsUpdateType:0];
-  v23 = *(a1 + 24);
-  v29 = v18;
-  *v30 = v32[0];
-  *&v30[7] = *(v32 + 7);
-  v31 = v19;
+  [v20 setPredictionsUpdateType:0];
+  v21 = *(a1 + 24);
+  v26 = v16;
+  *v27 = v29[0];
+  *&v27[7] = *(v29 + 7);
+  v28 = v17;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  v24 = (*(*v23 + 40))(v23, a2, a3, a4, &v29, a3, a4, v22, __p);
-  if (v34 < 0)
+  v22 = (*(*v21 + 40))(v21, a2, a3, a4, &v26, a3, a4, v20, __p);
+  if (v31 < 0)
   {
     operator delete(*__p);
   }
 
-  if (v24 == -1)
+  if (v22 == -1)
   {
     *a6 = a3;
     *(a6 + 8) = a4;
-    v27 = 1;
+    v25 = 1;
   }
 
   else
@@ -4110,28 +3695,26 @@ void CLMicroLocationLegacyClient::tryCreateServiceAndConnect(uint64_t a1@<X0>, u
       CLMicroLocationLegacyClient::requestLocalizationIfPossible();
     }
 
-    v25 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v23 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [MEMORY[0x277CCABB0] numberWithInteger:v24];
+      v24 = [MEMORY[0x277CCABB0] numberWithInteger:v22];
       *__p = 138412290;
-      *&__p[4] = v26;
-      _os_log_impl(&dword_258FE9000, v25, OS_LOG_TYPE_DEFAULT, "tryCreateServiceAndConnect: failed to connect, errorId: %@", __p, 0xCu);
+      *&__p[4] = v24;
+      _os_log_impl(&dword_258FE9000, v23, OS_LOG_TYPE_DEFAULT, "tryCreateServiceAndConnect: failed to connect, errorId: %@", __p, 0xCu);
     }
 
-    v27 = 0;
+    v25 = 0;
     *a6 = 0;
   }
 
-  *(a6 + 16) = v27;
+  *(a6 + 16) = v25;
 
   if (*buf)
   {
     *&buf[8] = *buf;
     operator delete(*buf);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void sub_259044918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23)
@@ -4173,24 +3756,22 @@ void CLMicroLocationLegacyClient::publishResultsToBiomeAndCoreDuet(CLMicroLocati
 
   if (v6 && *(this + 16) == 1 && *this == *a2 && *(this + 1) == *(a2 + 1))
   {
-    v14[0] = 0;
-    v14[1] = 0;
-    v13 = v14;
-    v12 = cl::chrono::CFAbsoluteTimeClock::now();
+    v13[0] = 0;
+    v13[1] = 0;
+    v12 = v13;
+    v11 = cl::chrono::CFAbsoluteTimeClock::now();
     *buf = "com.apple.magicalmoments";
     std::__optional_copy_base<std::vector<ULLocalizationResultInternal>,false>::__optional_copy_base[abi:ne200100](&buf[8], a3);
     v10 = *(a3 + 3);
-    v16 = *(a3 + 2);
-    *v17 = v10;
-    *&v17[15] = *(a3 + 63);
-    memset(v18, 0, sizeof(v18));
-    std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid*,boost::uuids::uuid*>(v18, *(a3 + 9), *(a3 + 10), (*(a3 + 10) - *(a3 + 9)) >> 4);
+    v15 = *(a3 + 2);
+    *v16 = v10;
+    *&v16[15] = *(a3 + 63);
+    memset(v17, 0, sizeof(v17));
+    std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid*,boost::uuids::uuid*>(v17, *(a3 + 9), *(a3 + 10), (*(a3 + 10) - *(a3 + 9)) >> 4);
     memset(__p, 0, 24);
     std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(__p, *(a3 + 12), *(a3 + 13), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 13) - *(a3 + 12)) >> 2));
-    std::__tree<std::__value_type<std::string,ULLocalizationResult>,std::__map_value_compare<std::string,std::__value_type<std::string,ULLocalizationResult>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ULLocalizationResult>>>::__emplace_multi<std::pair<char const*,ULLocalizationResult>>();
+    std::__tree<std::__value_type<std::string,ULLocalizationResult>,std::__map_value_compare<std::string,std::__value_type<std::string,ULLocalizationResult>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ULLocalizationResult>>>::__emplace_multi<std::pair<char const*,ULLocalizationResult>>(&v12);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void CLMicroLocationLegacyClient::publishResults(uint64_t a1, double *a2)
@@ -4211,10 +3792,10 @@ void CLMicroLocationLegacyClient::publishResults(uint64_t a1, double *a2)
   objc_autoreleasePoolPop(v3);
 }
 
-void CLMicroLocationLegacyClient::updateStatus(uint64_t a1, uint64_t *a2)
+void CLMicroLocationLegacyClient::updateStatus(_BYTE *a1, uint64_t *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 16) == 1 && *a1 == a2[4] && *(a1 + 8) == a2[5])
+  v34 = *MEMORY[0x277D85DE8];
+  if (a1[16] == 1 && *a1 == a2[4] && *(a1 + 1) == a2[5])
   {
     v6 = *a2;
     v5 = a2[1];
@@ -4233,14 +3814,14 @@ void CLMicroLocationLegacyClient::updateStatus(uint64_t a1, uint64_t *a2)
 
     v8 = v5 != v7;
     v9 = v5 == v7;
-    v10 = *(a1 + 89);
-    *(a1 + 89) = v6 != 1;
+    v10 = a1[89];
+    a1[89] = v6 != 1;
     if (v6 != 1)
     {
       v9 = 1;
     }
 
-    *(a1 + 88) = v9;
+    a1[88] = v9;
     if (v10 == 1 && v6 == 1)
     {
       if (onceToken_MicroLocation_Default != -1)
@@ -4267,22 +3848,22 @@ void CLMicroLocationLegacyClient::updateStatus(uint64_t a1, uint64_t *a2)
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a2 + 232);
-      v15 = *(a1 + 89);
-      v16 = *(a1 + 88);
+      v15 = a1[89];
+      v16 = a1[88];
       *buf = 68290306;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 1026;
-      v26 = v6 == 1;
-      v27 = 1026;
-      v28 = v8;
-      v29 = 1026;
-      v30 = v14;
-      v31 = 1026;
-      v32 = v15;
-      v33 = 1026;
-      v34 = v16;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 1026;
+      v25 = v6 == 1;
+      v26 = 1026;
+      v27 = v8;
+      v28 = 1026;
+      v29 = v14;
+      v30 = 1026;
+      v31 = v15;
+      v32 = 1026;
+      v33 = v16;
       _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Service Status update, isSuspended:%{public}hhd, isReasonLocationNotSupported:%{public}hhd, isMapValid:%{public}hhd, Localization Allowed:%{public}hhd, Recording Allowed:%{public}hhd}", buf, 0x30u);
     }
 
@@ -4300,22 +3881,17 @@ void CLMicroLocationLegacyClient::updateStatus(uint64_t a1, uint64_t *a2)
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Service Status Update Event isMapValid: %s", v18];
     [v17 log:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t boost::uuids::random_generator_pure::operator()(uint64_t a1)
+uint64_t boost::uuids::random_generator_pure::operator()(boost::uuids::detail::random_provider_base *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  boost::uuids::detail::random_provider_base::get_random_bytes(a1, &v3, 0x10uLL);
-  LOBYTE(v4) = v4 & 0x3F | 0x80;
-  BYTE6(v3) = BYTE6(v3) & 0xF | 0x40;
-  result = v3;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[2] = *MEMORY[0x277D85DE8];
+  boost::uuids::detail::random_provider_base::get_random_bytes(a1, v2, 0x10uLL);
+  BYTE6(v2[0]) = BYTE6(v2[0]) & 0xF | 0x40;
+  return v2[0];
 }
 
-uint64_t std::__optional_copy_base<std::vector<ULLocalizationResultInternal>,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<std::vector<ULLocalizationResultInternal>,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -4333,7 +3909,7 @@ void sub_2590450B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<ULLocalizationResultInternal>,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<ULLocalizationResultInternal>,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -4348,7 +3924,7 @@ void *std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,fal
   return result;
 }
 
-uint64_t std::vector<ULLocalizationResultInternal>::__init_with_size[abi:ne200100]<ULLocalizationResultInternal*,ULLocalizationResultInternal*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULLocalizationResultInternal>::__init_with_size[abi:ne200100]<ULLocalizationResultInternal*,ULLocalizationResultInternal*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4672,7 +4248,7 @@ void sub_259045E48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<std::string,ULLocalizationResult>,std::__map_value_compare<std::string,std::__value_type<std::string,ULLocalizationResult>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ULLocalizationResult>>>::__find_leaf_high(uint64_t a1, void *a2, void *a3)
+void *std::__tree<std::__value_type<std::string,ULLocalizationResult>,std::__map_value_compare<std::string,std::__value_type<std::string,ULLocalizationResult>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ULLocalizationResult>>>::__find_leaf_high(uint64_t a1, void *a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -4819,61 +4395,61 @@ void *CLMicroLocationLegacyEventHomeKit::isHomekitTriggerRecording(CLMicroLocati
   return v3;
 }
 
-void CLMicroLocationLegacyEventHomeKit::homekitSceneActionSetUUID(CLMicroLocationLegacyEventHomeKit *this@<X0>, uint64_t a2@<X8>)
+void CLMicroLocationLegacyEventHomeKit::homekitSceneActionSetUUID(uint64_t *__return_ptr a1@<X8>, CLMicroLocationLegacyEventHomeKit *this@<X0>)
 {
-  v7 = this;
-  v4 = [(CLMicroLocationLegacyEventHomeKit *)v7 objectForKeyedSubscript:@"private.HomeKit.scene.actionSetUUID"];
+  v6 = this;
+  v3 = [(CLMicroLocationLegacyEventHomeKit *)v6 objectForKeyedSubscript:@"private.HomeKit.scene.actionSetUUID"];
 
-  if (v4)
+  if (v3)
   {
-    v5 = [(CLMicroLocationLegacyEventHomeKit *)v7 objectForKeyedSubscript:@"private.HomeKit.scene.actionSetUUID"];
-    v6 = v5;
-    if (v5)
+    v4 = [(CLMicroLocationLegacyEventHomeKit *)v6 objectForKeyedSubscript:@"private.HomeKit.scene.actionSetUUID"];
+    v5 = v4;
+    if (v4)
     {
-      [v5 boostUUID];
+      objc_msgSend_boostUUID(v4);
     }
 
     else
     {
-      *a2 = 0;
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
+      *a1 = 0;
+      a1[1] = 0;
+      *(a1 + 16) = 0;
     }
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 16) = 0;
+    *a1 = 0;
+    *(a1 + 16) = 0;
   }
 }
 
-void CLMicroLocationLegacyEventHomeKit::homekitAccessoryUUID(CLMicroLocationLegacyEventHomeKit *this@<X0>, uint64_t a2@<X8>)
+void CLMicroLocationLegacyEventHomeKit::homekitAccessoryUUID(uint64_t *__return_ptr a1@<X8>, CLMicroLocationLegacyEventHomeKit *this@<X0>)
 {
-  v7 = this;
-  v4 = [(CLMicroLocationLegacyEventHomeKit *)v7 objectForKeyedSubscript:@"private.HomeKit.accessory.accessoryUUID"];
+  v6 = this;
+  v3 = [(CLMicroLocationLegacyEventHomeKit *)v6 objectForKeyedSubscript:@"private.HomeKit.accessory.accessoryUUID"];
 
-  if (v4)
+  if (v3)
   {
-    v5 = [(CLMicroLocationLegacyEventHomeKit *)v7 objectForKeyedSubscript:@"private.HomeKit.accessory.accessoryUUID"];
-    v6 = v5;
-    if (v5)
+    v4 = [(CLMicroLocationLegacyEventHomeKit *)v6 objectForKeyedSubscript:@"private.HomeKit.accessory.accessoryUUID"];
+    v5 = v4;
+    if (v4)
     {
-      [v5 boostUUID];
+      objc_msgSend_boostUUID(v4);
     }
 
     else
     {
-      *a2 = 0;
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
+      *a1 = 0;
+      a1[1] = 0;
+      *(a1 + 16) = 0;
     }
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 16) = 0;
+    *a1 = 0;
+    *(a1 + 16) = 0;
   }
 }
 
@@ -4891,85 +4467,86 @@ void *CLMicroLocationLegacyEventRecordingRequest::isForceRecording(CLMicroLocati
   return v3;
 }
 
-void CLMicroLocationLegacyEventRecordingRequest::recordingRequestUUID(CLMicroLocationLegacyEventRecordingRequest *this@<X0>, uint64_t a2@<X8>)
+void CLMicroLocationLegacyEventRecordingRequest::recordingRequestUUID(uint64_t *__return_ptr a1@<X8>, CLMicroLocationLegacyEventRecordingRequest *this@<X0>)
 {
-  v8 = this;
-  v4 = [(CLMicroLocationLegacyEventRecordingRequest *)v8 objectForKeyedSubscript:@"private.MicroLocation.recordingTriggerUUID"];
+  v7 = this;
+  v3 = [(CLMicroLocationLegacyEventRecordingRequest *)v7 objectForKeyedSubscript:@"private.MicroLocation.recordingTriggerUUID"];
 
-  if (v4)
+  if (v3)
   {
-    v5 = [(CLMicroLocationLegacyEventRecordingRequest *)v8 objectForKeyedSubscript:@"private.MicroLocation.recordingTriggerUUID"];
-    v6 = [v5 UUIDString];
-    v7 = v6;
-    if (v6)
+    v4 = [(CLMicroLocationLegacyEventRecordingRequest *)v7 objectForKeyedSubscript:@"private.MicroLocation.recordingTriggerUUID"];
+    v5 = [v4 UUIDString];
+    v6 = v5;
+    if (v5)
     {
-      [v6 boostUUID];
+      objc_msgSend_boostUUID(v5);
     }
 
     else
     {
-      *a2 = 0;
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
+      *a1 = 0;
+      a1[1] = 0;
+      *(a1 + 16) = 0;
     }
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 16) = 0;
+    *a1 = 0;
+    *(a1 + 16) = 0;
   }
 }
 
 uint64_t ULBinaryRoiNullSpaceLocalizationAlgorithm::localize@<X0>(CLMicroLocationModel *this@<X1>, CLMicroLocationLocalizationSettings *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
 {
-  v80 = *MEMORY[0x277D85DE8];
-  if (!CLMicroLocationModel::isValid(this))
+  v81 = *MEMORY[0x277D85DE8];
+  isValid = CLMicroLocationModel::isValid(this);
+  if ((isValid & 1) == 0)
   {
-    ULBinaryRoiNullSpaceLocalizationAlgorithm::localize();
+    ULBinaryRoiNullSpaceLocalizationAlgorithm::localize(isValid);
   }
 
   if ((*(a4 + 32) & 1) == 0)
   {
-    ULBinaryRoiNullSpaceLocalizationAlgorithm::localize();
+    ULBinaryRoiNullSpaceLocalizationAlgorithm::localize(isValid);
   }
 
-  v55 = a5;
-  v56 = a2;
-  v74 = 0u;
+  v56 = a5;
+  v57 = a2;
   v75 = 0u;
-  v76 = 1065353216;
-  v10 = *(this + 22);
-  if (v10 != *(this + 23))
+  v76 = 0u;
+  v77 = 1065353216;
+  v11 = *(this + 22);
+  if (v11 != *(this + 23))
   {
-    __p[0] = v10 + 2;
-    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(&v74, v10 + 2);
-    v11 = *(a4 + 24);
-    if (v11)
+    __p[0] = v11 + 2;
+    v12 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(&v75, v11 + 2, &std::piecewise_construct, __p);
+    v13 = *(a4 + 24);
+    if (v13)
     {
-      *__p = (*(*v11 + 48))(v11, *v10, a3);
-      std::__tree<double>::__emplace_multi<double>();
+      *__p = (*(*v13 + 48))(v13, *v11, a3);
+      std::__tree<double>::__emplace_multi<double>((v12 + 4), __p);
     }
 
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  CLMicroLocationModel::getIdentifiers(this, &v72);
+  CLMicroLocationModel::getIdentifiers(&v73, this);
   LOBYTE(__p[0]) = 0;
-  v67 = 0;
-  LOBYTE(v68) = 0;
-  v69[8] = 0;
-  *&v69[16] = 0;
-  v69[18] = 0;
-  v70 = 0u;
-  memset(v71, 0, sizeof(v71));
+  v68 = 0;
+  LOBYTE(v69) = 0;
+  v70[8] = 0;
+  *&v70[16] = 0;
+  v70[18] = 0;
+  v71 = 0u;
+  memset(v72, 0, sizeof(v72));
   buf = 0uLL;
-  v78 = 0;
-  v79 = 1;
+  v79 = 0;
+  v80 = 1;
   std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<ULLocalizationResultInternal>,false>>(__p, &buf);
-  if (v79 == 1)
+  if (v80 == 1)
   {
-    v12 = buf.n128_u64[0];
+    v14 = buf.n128_u64[0];
     if (buf.n128_u64[0])
     {
       buf.n128_u64[1] = buf.n128_u64[0];
@@ -4977,286 +4554,284 @@ uint64_t ULBinaryRoiNullSpaceLocalizationAlgorithm::localize@<X0>(CLMicroLocatio
     }
   }
 
-  v13 = __p[1];
-  if (__p[1] >= v66)
+  v15 = __p[1];
+  if (__p[1] >= v67)
   {
-    v15 = 0xCCCCCCCCCCCCCCCDLL * ((__p[1] - __p[0]) >> 2) + 1;
-    if (v15 > 0xCCCCCCCCCCCCCCCLL)
+    v17 = 0xCCCCCCCCCCCCCCCDLL * ((__p[1] - __p[0]) >> 2) + 1;
+    if (v17 > 0xCCCCCCCCCCCCCCCLL)
     {
       std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
     }
 
-    if (0x999999999999999ALL * ((v66 - __p[0]) >> 2) > v15)
+    if (0x999999999999999ALL * ((v67 - __p[0]) >> 2) > v17)
     {
-      v15 = 0x999999999999999ALL * ((v66 - __p[0]) >> 2);
+      v17 = 0x999999999999999ALL * ((v67 - __p[0]) >> 2);
     }
 
-    if (0xCCCCCCCCCCCCCCCDLL * ((v66 - __p[0]) >> 2) >= 0x666666666666666)
+    if (0xCCCCCCCCCCCCCCCDLL * ((v67 - __p[0]) >> 2) >= 0x666666666666666)
     {
-      v16 = 0xCCCCCCCCCCCCCCCLL;
+      v18 = 0xCCCCCCCCCCCCCCCLL;
     }
 
     else
     {
-      v16 = v15;
+      v18 = v17;
     }
 
-    if (v16)
+    if (v18)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(__p, v16);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(__p, v18);
     }
 
-    v17 = 4 * ((__p[1] - __p[0]) >> 2);
-    v14 = (v17 + 20);
-    *v17 = 0;
-    *(v17 + 8) = 0;
-    *(v17 + 16) = 0;
-    v18 = (v17 - (__p[1] - __p[0]));
-    memcpy(v18, __p[0], __p[1] - __p[0]);
-    v12 = __p[0];
-    __p[0] = v18;
-    __p[1] = v14;
-    v66 = 0;
-    if (v12)
+    v19 = 4 * ((__p[1] - __p[0]) >> 2);
+    v16 = (v19 + 20);
+    *v19 = 0;
+    *(v19 + 8) = 0;
+    *(v19 + 16) = 0;
+    v20 = (v19 - (__p[1] - __p[0]));
+    memcpy(v20, __p[0], __p[1] - __p[0]);
+    v14 = __p[0];
+    __p[0] = v20;
+    __p[1] = v16;
+    v67 = 0;
+    if (v14)
     {
-      operator delete(v12);
+      operator delete(v14);
     }
   }
 
   else
   {
-    v14 = __p[1] + 20;
+    v16 = __p[1] + 20;
     *__p[1] = 0;
-    v13[1] = 0;
-    *(v13 + 4) = 0;
+    v15[1] = 0;
+    *(v15 + 4) = 0;
   }
 
-  __p[1] = v14;
-  ULBinaryRoiNullSpaceLocalizationAlgorithm::getAdjustmentPowerForBinaryRoiDetectionThreshold(v12, v56);
-  v20 = v72;
-  if (v72 != v73)
+  __p[1] = v16;
+  ULBinaryRoiNullSpaceLocalizationAlgorithm::getAdjustmentPowerForBinaryRoiDetectionThreshold(v14, v57);
+  v22 = v73;
+  if (v73 != v74)
   {
-    v21 = v19;
+    v23 = v21;
     do
     {
-      if ((*(v20 + 25) & *(v20 + 33)) != -1)
+      if ((*(v22 + 25) & *(v22 + 33)) != 0xFFFFFFFFFFFFFFFFLL)
       {
-        memset(v63, 0, sizeof(v63));
-        v64 = 1065353216;
-        for (i = v75; i; i = *i)
+        memset(v64, 0, sizeof(v64));
+        v65 = 1065353216;
+        for (i = v76; i; i = *i)
         {
-          v23 = i[2] == *(v20 + 25) && i[3] == *(v20 + 33);
-          if (v23)
+          v25 = *(i + 2) == *(v22 + 25) && *(i + 3) == *(v22 + 33);
+          if (v25)
           {
             buf.n128_u64[0] = (i + 2);
-            v25 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(v63, i + 2);
-            if (i != v25)
+            v27 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(v64, i + 2, &std::piecewise_construct, &buf);
+            if (i != v27)
             {
-              std::__tree<double>::__assign_multi<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(v25 + 4, i[4], i + 5);
+              std::__tree<double>::__assign_multi<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(v27 + 4, *(i + 4), i + 5);
             }
           }
 
           else
           {
             buf.n128_u64[0] = CL::kNegMicroLocation;
-            v24 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(v63, CL::kNegMicroLocation);
-            std::multiset<double>::insert[abi:ne200100]<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>((v24 + 4), i[4], (i + 5));
+            v26 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(v64, CL::kNegMicroLocation, &std::piecewise_construct, &buf);
+            std::multiset<double>::insert[abi:ne200100]<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(v26 + 4, *(i + 4), i + 5);
           }
         }
 
-        ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap(v56, v63, v61);
-        v58 = 0u;
+        ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap(v62, v57, v64);
         v59 = 0u;
-        v60 = 1065353216;
-        v26 = CLMicroLocationLocalizationSettings::getKernelFuncSettings(v56);
-        ULAlgorithms::createKernelFunction(v26, &v57);
+        v60 = 0u;
+        v61 = 1065353216;
+        v28 = CLMicroLocationLocalizationSettings::getKernelFuncSettings(v57);
+        ULAlgorithms::createKernelFunction(&v58, v28);
 
-        for (j = v62; j; j = *j)
+        for (j = v63; j; j = *j)
         {
-          v28 = (*(*v57 + 24))(v57, j[4]);
-          if (v28 >= 0.0)
+          v30 = (*(*v58 + 24))(v58, j[4]);
+          if (v30 >= 0.0)
           {
             buf.n128_u64[0] = (j + 2);
-            *(std::__hash_table<std::__hash_value_type<boost::uuids::uuid,double>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,double>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(&v58, j + 2) + 4) = v28 / (1.0 - v28);
+            *(std::__hash_table<std::__hash_value_type<boost::uuids::uuid,double>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,double>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(&v59, j + 2, &std::piecewise_construct, &buf) + 4) = v30 / (1.0 - v30);
             if (onceToken_MicroLocation_Default != -1)
             {
               ULBinaryRoiNullSpaceLocalizationAlgorithm::localize();
             }
 
-            v29 = logObject_MicroLocation_Default;
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            v31 = logObject_MicroLocation_Default;
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
             {
               operator new();
             }
           }
         }
 
-        v30 = v59;
-        if (v59)
+        v32 = v60;
+        if (v60)
         {
-          v31 = 1.0;
-          v32 = v59;
+          v33 = 1.0;
+          v34 = v60;
           do
           {
-            v31 = v31 + v32[4];
-            v32 = *v32;
+            v33 = v33 + v34[4];
+            v34 = *v34;
           }
 
-          while (v32);
-          v33 = 1.0 / v31;
+          while (v34);
+          v35 = 1.0 / v33;
           do
           {
-            if (*(v30 + 2) == *(v20 + 25) && *(v30 + 3) == *(v20 + 33))
+            if (*(v32 + 2) == *(v22 + 25) && *(v32 + 3) == *(v22 + 33))
             {
-              v36 = *(v30 + 2);
-              v35 = *(v30 + 3);
-              v37 = pow(v33 * v30[4], v21);
-              v38 = __p[1];
-              if (__p[1] >= v66)
+              v38 = *(v32 + 2);
+              v37 = *(v32 + 3);
+              v39 = pow(v35 * v32[4], v23);
+              v40 = __p[1];
+              if (__p[1] >= v67)
               {
-                v41 = 0xCCCCCCCCCCCCCCCDLL * ((__p[1] - __p[0]) >> 2);
-                v42 = v41 + 1;
-                if (v41 + 1 > 0xCCCCCCCCCCCCCCCLL)
+                v43 = 0xCCCCCCCCCCCCCCCDLL * ((__p[1] - __p[0]) >> 2);
+                v44 = v43 + 1;
+                if (v43 + 1 > 0xCCCCCCCCCCCCCCCLL)
                 {
                   std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
                 }
 
-                if (0x999999999999999ALL * ((v66 - __p[0]) >> 2) > v42)
+                if (0x999999999999999ALL * ((v67 - __p[0]) >> 2) > v44)
                 {
-                  v42 = 0x999999999999999ALL * ((v66 - __p[0]) >> 2);
+                  v44 = 0x999999999999999ALL * ((v67 - __p[0]) >> 2);
                 }
 
-                if (0xCCCCCCCCCCCCCCCDLL * ((v66 - __p[0]) >> 2) >= 0x666666666666666)
+                if (0xCCCCCCCCCCCCCCCDLL * ((v67 - __p[0]) >> 2) >= 0x666666666666666)
                 {
-                  v43 = 0xCCCCCCCCCCCCCCCLL;
+                  v45 = 0xCCCCCCCCCCCCCCCLL;
                 }
 
                 else
                 {
-                  v43 = v42;
+                  v45 = v44;
                 }
 
-                if (v43)
+                if (v45)
                 {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(__p, v43);
+                  std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(__p, v45);
                 }
 
-                v44 = 4 * ((__p[1] - __p[0]) >> 2);
-                v45 = v37;
-                *v44 = v36;
-                *(v44 + 8) = v35;
-                *(v44 + 16) = v45;
-                v40 = (20 * v41 + 20);
-                v46 = (20 * v41 - (__p[1] - __p[0]));
-                memcpy(v46, __p[0], __p[1] - __p[0]);
-                v47 = __p[0];
-                __p[0] = v46;
-                __p[1] = v40;
-                v66 = 0;
-                if (v47)
+                v46 = 4 * ((__p[1] - __p[0]) >> 2);
+                v47 = v39;
+                *v46 = v38;
+                *(v46 + 8) = v37;
+                *(v46 + 16) = v47;
+                v42 = (20 * v43 + 20);
+                v48 = (20 * v43 - (__p[1] - __p[0]));
+                memcpy(v48, __p[0], __p[1] - __p[0]);
+                v49 = __p[0];
+                __p[0] = v48;
+                __p[1] = v42;
+                v67 = 0;
+                if (v49)
                 {
-                  operator delete(v47);
+                  operator delete(v49);
                 }
               }
 
               else
               {
-                v39 = v37;
-                *__p[1] = v36;
-                *(v38 + 1) = v35;
-                v38[4] = v39;
-                v40 = v38 + 5;
+                v41 = v39;
+                *__p[1] = v38;
+                *(v40 + 1) = v37;
+                v40[4] = v41;
+                v42 = v40 + 5;
               }
 
-              __p[1] = v40;
+              __p[1] = v42;
             }
 
-            v30 = *v30;
+            v32 = *v32;
           }
 
-          while (v30);
+          while (v32);
         }
 
-        v48 = v57;
-        v57 = 0;
-        if (v48)
+        v50 = v58;
+        v58 = 0;
+        if (v50)
         {
-          (*(*v48 + 8))(v48);
+          (*(*v50 + 8))(v50);
         }
 
-        std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v58);
-        std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v61);
-        std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::~__hash_table(v63);
+        std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v59);
+        std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v62);
+        std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::~__hash_table(v64);
       }
 
-      v49 = v20[1];
-      if (v49)
+      v51 = v22[1];
+      if (v51)
       {
         do
         {
-          v50 = v49;
-          v49 = *v49;
+          v52 = v51;
+          v51 = *v51;
         }
 
-        while (v49);
+        while (v51);
       }
 
       else
       {
         do
         {
-          v50 = v20[2];
-          v23 = *v50 == v20;
-          v20 = v50;
+          v52 = v22[2];
+          v25 = *v52 == v22;
+          v22 = v52;
         }
 
-        while (!v23);
+        while (!v25);
       }
 
-      v20 = v50;
+      v22 = v52;
     }
 
-    while (v50 != v73);
+    while (v52 != v74);
   }
 
-  *v55 = 0;
-  *(v55 + 24) = 0;
-  v51 = v67;
-  if (v67 == 1)
+  *v56 = 0;
+  *(v56 + 24) = 0;
+  v53 = v68;
+  if (v68 == 1)
   {
-    *v55 = *__p;
-    *(v55 + 16) = v66;
+    *v56 = *__p;
+    *(v56 + 16) = v67;
     __p[1] = 0;
-    v66 = 0;
+    v67 = 0;
     __p[0] = 0;
-    *(v55 + 24) = 1;
+    *(v56 + 24) = 1;
   }
 
-  v52 = *v69;
-  *(v55 + 32) = v68;
-  *(v55 + 48) = v52;
-  *(v55 + 63) = *&v69[15];
-  *(v55 + 72) = v70;
-  *(v55 + 88) = v71[0];
-  v71[0] = 0;
-  v70 = 0uLL;
-  *(v55 + 96) = *&v71[1];
-  *(v55 + 112) = v71[3];
-  memset(&v71[1], 0, 24);
-  *(v55 + 120) = 1;
-  if (v51 && __p[0])
+  v54 = *v70;
+  *(v56 + 32) = v69;
+  *(v56 + 48) = v54;
+  *(v56 + 63) = *&v70[15];
+  *(v56 + 72) = v71;
+  *(v56 + 88) = v72[0];
+  v72[0] = 0;
+  v71 = 0uLL;
+  *(v56 + 96) = *&v72[1];
+  *(v56 + 112) = v72[3];
+  memset(&v72[1], 0, 24);
+  *(v56 + 120) = 1;
+  if (v53 && __p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v72, v73[0]);
-  result = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::~__hash_table(&v74);
-  v54 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v73, v74[0]);
+  return std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::~__hash_table(&v75);
 }
 
-void sub_259046C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, void *a51)
+void sub_259046C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51)
 {
   ULLocalizationResult::~ULLocalizationResult(&a35);
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a50, a51);
@@ -5276,23 +4851,25 @@ void ULBinaryRoiNullSpaceLocalizationAlgorithm::getAdjustmentPowerForBinaryRoiDe
 
     else
     {
-      AdjustmentPowerForBinaryRoiDetectionThreshold = ULBinaryRoiNullSpaceLocalizationAlgorithm::getAdjustmentPowerForBinaryRoiDetectionThreshold();
-      std::multiset<double>::insert[abi:ne200100]<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(AdjustmentPowerForBinaryRoiDetectionThreshold);
+      AdjustmentPowerForBinaryRoiDetectionThreshold = ULBinaryRoiNullSpaceLocalizationAlgorithm::getAdjustmentPowerForBinaryRoiDetectionThreshold(*&v2);
+      std::multiset<double>::insert[abi:ne200100]<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(AdjustmentPowerForBinaryRoiDetectionThreshold, v6, v7);
     }
   }
 }
 
-void std::multiset<double>::insert[abi:ne200100]<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t **std::multiset<double>::insert[abi:ne200100]<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(uint64_t **result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
-    std::__tree<double>::__emplace_hint_multi<double const&>();
+    std::__tree<double>::__emplace_hint_multi<double const&>(result, (result + 1), a2 + 4);
   }
+
+  return result;
 }
 
-uint64_t *ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap@<X0>(ULHomeSlamModel *this@<X2>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double *ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap@<X0>(uint64_t *__return_ptr a1@<X8>, ULHomeSlamModel *this@<X2>, uint64_t a3@<X1>)
 {
-  v6 = *(a2 + 16);
+  v6 = *(a3 + 16);
   if (v6)
   {
     v7 = 0;
@@ -5311,12 +4888,12 @@ uint64_t *ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap@<
     v8 = 0.0;
   }
 
-  TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(this);
-  v10 = *(TrajectoryPointCloud + 8);
+  ULHomeSlamModel::getTrajectoryPointCloud(this);
+  v10 = *(v9 + 8);
   if (v10)
   {
-    v3 = TrajectoryPointCloud;
-    v11 = *(TrajectoryPointCloud + 8);
+    v3 = v9;
+    v11 = *(v9 + 8);
     do
     {
       v12 = *(v11 + 8);
@@ -5336,7 +4913,7 @@ uint64_t *ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap@<
     while (v11);
   }
 
-  ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap();
+  ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap(v9);
   do
   {
     ++v10;
@@ -5345,9 +4922,10 @@ uint64_t *ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap@<
       v10 = *v10;
       if (!v10)
       {
-        ReducedDistancesMap = ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap();
-        std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(a3);
-        _Unwind_Resume(ReducedDistancesMap);
+        ULBinaryRoiNullSpaceLocalizationAlgorithm::createReducedDistancesMap(v9);
+        v23 = v22;
+        std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(a1);
+        _Unwind_Resume(v23);
       }
 
 LABEL_15:
@@ -5358,15 +4936,15 @@ LABEL_15:
   }
 
   while (v13 != 3);
-  LODWORD(v23) = 2;
-  v14 = *std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>::at(v3, &v23);
-  LODWORD(v23) = 3;
-  result = std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>::at(v3, &v23);
+  LODWORD(v24) = 2;
+  v14 = *std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>::at(v3, &v24);
+  LODWORD(v24) = 3;
+  result = std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>::at(v3, &v24);
   v16 = *result;
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 1065353216;
-  for (i = *(a2 + 16); i; i = *i)
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  for (i = *(a3 + 16); i; i = *i)
   {
     if (~*(i + 1) == 0)
     {
@@ -5381,10 +4959,10 @@ LABEL_15:
     CLReducerFunction<std::multiset<double>,double>::parametrizedPercentileSorted(i + 4, v18);
     v20 = v19;
     v21 = i[6];
-    v23 = i + 2;
-    result = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(a3, i + 2);
-    result[4] = v20;
-    *(result + 5) = v21 / v8;
+    v24 = i + 2;
+    result = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(a1, i + 2, &std::piecewise_construct, &v24);
+    *(result + 4) = v20;
+    result[5] = v21 / v8;
   }
 
   return result;
@@ -5468,8 +5046,7 @@ __n128 std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,fa
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -5534,38 +5111,38 @@ void std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<d
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = 0;
+  v4 = 0;
   for (i = 0; i != 16; ++i)
   {
-    v2 ^= (v2 << 6) + (v2 >> 2) + 2654435769u + *(a2 + i);
+    v4 ^= (v4 << 6) + (v4 >> 2) + 2654435769u + *(a2 + i);
   }
 
-  v4 = a1[1];
-  if (!*&v4)
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_24;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = v2;
-    if (v2 >= *&v4)
+    v8 = v4;
+    if (v4 >= *&v6)
     {
-      v6 = v2 % *&v4;
+      v8 = v4 % *&v6;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v2;
+    v8 = (*&v6 - 1) & v4;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_24:
     operator new();
@@ -5573,44 +5150,44 @@ LABEL_24:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v2)
+    v11 = v10[1];
+    if (v11 == v4)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_24;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != a2[1])
+  if (v10[2] != *a2 || v10[3] != a2[1])
   {
     goto LABEL_23;
   }
 
-  return v8;
+  return v10;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<boost::uuids::uuid,std::multiset<double>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **a2)
@@ -5628,7 +5205,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(a2);
 }
 
-uint64_t **std::__tree<double>::__assign_multi<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t *std::__tree<double>::__assign_multi<std::__tree_const_iterator<double,std::__tree_node<double,void *> *,long>>(uint64_t *result, double *a2, double *a3)
 {
   v5 = result;
   if (result[2])
@@ -5636,7 +5213,7 @@ uint64_t **std::__tree<double>::__assign_multi<std::__tree_const_iterator<double
     v6 = *result;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -5660,7 +5237,7 @@ uint64_t **std::__tree<double>::__assign_multi<std::__tree_const_iterator<double
         v9 = a2;
         do
         {
-          v8[4] = v9[4];
+          v8[4] = *(v9 + 4);
           std::__tree<double>::__node_insert_multi(v5, v8);
           v8 = v13;
           v14 = v13;
@@ -5669,7 +5246,7 @@ uint64_t **std::__tree<double>::__assign_multi<std::__tree_const_iterator<double
             v13 = std::__tree<double>::_DetachedTreeCache::__detach_next(v13);
           }
 
-          v10 = v9[1];
+          v10 = *(v9 + 1);
           if (v10)
           {
             do
@@ -5685,7 +5262,7 @@ uint64_t **std::__tree<double>::__assign_multi<std::__tree_const_iterator<double
           {
             do
             {
-              a2 = v9[2];
+              a2 = *(v9 + 2);
               v11 = *a2 == v9;
               v9 = a2;
             }
@@ -5710,23 +5287,23 @@ uint64_t **std::__tree<double>::__assign_multi<std::__tree_const_iterator<double
 
   if (a2 != a3)
   {
-    std::__tree<double>::__emplace_multi<double>();
+    std::__tree<double>::__emplace_multi<double>(v5, a2 + 4);
   }
 
   return result;
 }
 
-void sub_25904766C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25904766C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<double>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<double>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<double>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -5756,7 +5333,7 @@ uint64_t std::__tree<double>::__node_insert_multi(uint64_t **a1, uint64_t a2)
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -5834,7 +5411,7 @@ uint64_t std::__tree<double>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne2001
   return a1;
 }
 
-double *std::__tree<double>::__find_leaf(void *a1, double *a2, double **a3, double *a4)
+double *std::__tree<double>::__find_leaf(double **a1, double *a2, double **a3, double *a4)
 {
   v4 = (a1 + 1);
   if (a1 + 1 != a2 && a2[4] < *a4)
@@ -5850,14 +5427,14 @@ double *std::__tree<double>::__find_leaf(void *a1, double *a2, double **a3, doub
 
       while (1)
       {
-        v4 = v5;
-        if (*(v5 + 32) >= *a4)
+        v4 = *&v5;
+        if (*(*&v5 + 32) >= *a4)
         {
           break;
         }
 
-        v5 = *(v5 + 8);
-        if (!v5)
+        v5 = *(*&v5 + 8);
+        if (v5 == 0.0)
         {
           goto LABEL_19;
         }
@@ -5877,7 +5454,19 @@ LABEL_20:
 
   else
   {
-    if (v6 == 0.0)
+    if (v6)
+    {
+      v7 = *a2;
+      do
+      {
+        v8 = v7;
+        v7 = *(v7 + 8);
+      }
+
+      while (v7);
+    }
+
+    else
     {
       v9 = a2;
       do
@@ -5888,18 +5477,6 @@ LABEL_20:
       }
 
       while (v10);
-    }
-
-    else
-    {
-      v7 = *a2;
-      do
-      {
-        v8 = *&v7;
-        v7 = *(*&v7 + 8);
-      }
-
-      while (v7 != 0.0);
     }
 
     if (*a4 < v8[4])
@@ -5915,14 +5492,14 @@ LABEL_20:
 
         while (1)
         {
-          v4 = v11;
-          if (*a4 < *(v11 + 32))
+          v4 = *&v11;
+          if (*a4 < *(*&v11 + 32))
           {
             break;
           }
 
-          v11 = *(v11 + 8);
-          if (!v11)
+          v11 = *(*&v11 + 8);
+          if (v11 == 0.0)
           {
 LABEL_19:
             a2 = v4 + 1;
@@ -5933,52 +5510,52 @@ LABEL_19:
     }
   }
 
-  if (v6 == 0.0)
-  {
-    *a3 = a2;
-  }
-
-  else
+  if (v6)
   {
     *a3 = v8;
     return v8 + 1;
   }
 
+  else
+  {
+    *a3 = a2;
+  }
+
   return a2;
 }
 
-void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,double>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,double>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,double>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,double>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,double>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = 0;
+  v4 = 0;
   for (i = 0; i != 16; ++i)
   {
-    v2 ^= (v2 << 6) + (v2 >> 2) + 2654435769u + *(a2 + i);
+    v4 ^= (v4 << 6) + (v4 >> 2) + 2654435769u + *(a2 + i);
   }
 
-  v4 = a1[1];
-  if (!*&v4)
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_24;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = v2;
-    if (v2 >= *&v4)
+    v8 = v4;
+    if (v4 >= *&v6)
     {
-      v6 = v2 % *&v4;
+      v8 = v4 % *&v6;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v2;
+    v8 = (*&v6 - 1) & v4;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_24:
     operator new();
@@ -5986,78 +5563,78 @@ LABEL_24:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v2)
+    v11 = v10[1];
+    if (v11 == v4)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_24;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != a2[1])
+  if (v10[2] != *a2 || v10[3] != a2[1])
   {
     goto LABEL_23;
   }
 
-  return v8;
+  return v10;
 }
 
-void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,ULNullSpaceLocalizationAlgorithm::ReducedDistanceAndWeight>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = 0;
+  v4 = 0;
   for (i = 0; i != 16; ++i)
   {
-    v2 ^= (v2 << 6) + (v2 >> 2) + 2654435769u + *(a2 + i);
+    v4 ^= (v4 << 6) + (v4 >> 2) + 2654435769u + *(a2 + i);
   }
 
-  v4 = a1[1];
-  if (!*&v4)
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_24;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = v2;
-    if (v2 >= *&v4)
+    v8 = v4;
+    if (v4 >= *&v6)
     {
-      v6 = v2 % *&v4;
+      v8 = v4 % *&v6;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v2;
+    v8 = (*&v6 - 1) & v4;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_24:
     operator new();
@@ -6065,59 +5642,60 @@ LABEL_24:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v2)
+    v11 = v10[1];
+    if (v11 == v4)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_24;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != a2[1])
+  if (v10[2] != *a2 || v10[3] != a2[1])
   {
     goto LABEL_23;
   }
 
-  return v8;
+  return v10;
 }
 
-void ULBlueAtlasLocalizationAlgorithm::localize(CLMicroLocationModel *this@<X1>, const CLMicroLocationModel *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X8>)
+void ULBlueAtlasLocalizationAlgorithm::localize(CLMacAddress *this@<X1>, const CLMicroLocationModel *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X8>)
 {
   v161[4] = *MEMORY[0x277D85DE8];
-  if (!CLMicroLocationModel::isValid(this))
+  isValid = CLMicroLocationModel::isValid(this);
+  if ((isValid & 1) == 0)
   {
-    ULBlueAtlasLocalizationAlgorithm::localize();
+    ULBlueAtlasLocalizationAlgorithm::localize(isValid);
   }
 
-  if (*(this + 1) == 3)
+  if (HIDWORD(this->var0) == 3)
   {
     if ((*(a3 + 32) & 1) == 0)
     {
-      ULBlueAtlasLocalizationAlgorithm::localize();
+      ULBlueAtlasLocalizationAlgorithm::localize(isValid);
     }
 
     LOBYTE(v126[0]) = 0;
@@ -6138,66 +5716,64 @@ void ULBlueAtlasLocalizationAlgorithm::localize(CLMicroLocationModel *this@<X1>,
     }
 
     v112 = boost::uuids::string_generator::operator()<char const*>(__p, "84848484-8484-8484-8484-848484848484", "");
-    v113 = v10;
-    v11 = +[ULDefaultsSingleton shared];
-    v12 = [v11 defaultsDictionary];
+    v113 = v11;
+    v12 = +[ULDefaultsSingleton shared];
+    v13 = [v12 defaultsDictionary];
 
-    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasAssociatedAccessPointLocalizerEnabled"];
-    v14 = [v12 objectForKey:v13];
-    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasAssociatedAccessPointLocalizerEnabled"];
+    v15 = [v13 objectForKey:v14];
+    if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v15 = [v14 BOOLValue];
+      v16 = [v15 BOOLValue];
     }
 
     else
     {
-      v15 = [MEMORY[0x277CBEC38] BOOLValue];
+      v16 = [MEMORY[0x277CBEC38] BOOLValue];
     }
 
-    v16 = v15;
+    v17 = v16;
 
-    if (!v16)
+    if (!v17)
     {
       goto LABEL_14;
     }
 
     std::__optional_copy_base<CLMicroLocationProto::AssociatedAccessPointInfo,false>::__optional_copy_base[abi:ne200100](v125, a4);
     isValidAssociatedAccessPointBasedDecision = ULBlueAtlasLocalizationAlgorithm::isValidAssociatedAccessPointBasedDecision(this, v125);
-    v19 = isValidAssociatedAccessPointBasedDecision;
+    v20 = isValidAssociatedAccessPointBasedDecision;
     if (v125[32] == 1)
     {
       CLMicroLocationProto::AssociatedAccessPointInfo::~AssociatedAccessPointInfo(v125);
-      if (!v19)
+      if (!v20)
       {
 LABEL_14:
-        if ((*(this + 136) & 1) == 0)
+        if ((this[17].var0 & 1) == 0)
         {
           if (onceToken_MicroLocation_Default != -1)
           {
             ULBlueAtlasLocalizationAlgorithm::localize();
           }
 
-          v28 = logObject_MicroLocation_Default;
+          v27 = logObject_MicroLocation_Default;
           if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
           {
             *__p = 68289026;
             *&__p[8] = 2082;
             *&__p[10] = "";
-            _os_log_impl(&dword_258FE9000, v28, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, model with empty Blue Atlas Data, publishing empty results}", __p, 0x12u);
+            _os_log_impl(&dword_258FE9000, v27, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, model with empty Blue Atlas Data, publishing empty results}", __p, 0x12u);
           }
 
           goto LABEL_140;
         }
 
         v109 = a2;
-        v20 = *(this + 11);
-        v21 = *(this + 23);
-        v22 = *(this + 22);
-        v23 = 0x277CBE000;
-        if (v22 == v21)
+        var0 = this[23].var0;
+        v22 = this[22].var0;
+        if (v22 == var0)
         {
+          v35 = 0.0;
           v36 = 0.0;
-          v37 = 0.0;
         }
 
         else
@@ -6208,19 +5784,19 @@ LABEL_14:
           do
           {
             CLMicroLocationFingerprint::CLMicroLocationFingerprint(__p, *v22);
-            v24 = v123;
+            v23 = v123;
             if (v123 >= v124)
             {
-              v25 = std::vector<CLMicroLocationFingerprint>::__emplace_back_slow_path<CLMicroLocationFingerprint>(&v122, __p);
+              v24 = std::vector<CLMicroLocationFingerprint>::__emplace_back_slow_path<CLMicroLocationFingerprint>(&v122, __p);
             }
 
             else
             {
               std::allocator_traits<std::allocator<CLMicroLocationFingerprint>>::construct[abi:ne200100]<CLMicroLocationFingerprint,CLMicroLocationFingerprint,void,0>(&v122, v123, __p);
-              v25 = v24 + 224;
+              v24 = v23 + 224;
             }
 
-            v123 = v25;
+            v123 = v24;
             v155.__r_.__value_.__r.__words[0] = &v154;
             std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](&v155);
             if (v152)
@@ -6235,48 +5811,48 @@ LABEL_14:
             v22 += 4;
           }
 
-          while (v22 != v21);
+          while (v22 != var0);
           v119 = 0;
           v120 = 0;
           v121 = 0;
-          if ((*(this + 136) & 1) == 0)
+          if ((this[17].var0 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
-          v26 = *(this + 9);
-          v27 = *(this + 10);
-          while (v26 != v27)
+          v25 = this[9].var0;
+          v26 = this[10].var0;
+          while (v25 != v26)
           {
-            *buf = *v26;
+            *buf = *v25;
             *__p = CLMacAddress::toUint64(buf);
             *&__p[24] = 0;
             std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::push_back[abi:ne200100](&v119, __p);
             std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned long long,boost::uuids::uuid,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](__p);
-            ++v26;
+            ++v25;
           }
 
           CLMicroLocationFingerprint::CLMicroLocationFingerprint(&v155, &v122);
-          v34 = v155.__r_.__value_.__r.__words[2];
+          v33 = v155.__r_.__value_.__r.__words[2];
           if (v155.__r_.__value_.__r.__words[2])
           {
-            v35 = 0;
+            v34 = 0;
             do
             {
-              if (*(v34 + 6) == 1)
+              if (*(v33 + 6) == 1)
               {
-                ++v35;
+                ++v34;
               }
 
-              v34 = *v34;
+              v33 = *v33;
             }
 
-            while (v34);
+            while (v33);
           }
 
           else
           {
-            v35 = 0;
+            v34 = 0;
           }
 
           memset(v118, 0, sizeof(v118));
@@ -6286,21 +5862,22 @@ LABEL_14:
           *__p = v118;
           std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__destroy_vector::operator()[abi:ne200100](__p);
           std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](__p);
-          v40 = v155.__r_.__value_.__r.__words[2];
+          v39 = v155.__r_.__value_.__r.__words[2];
           if (v155.__r_.__value_.__r.__words[2])
           {
-            v41 = 1;
+            v40 = 1;
             do
             {
-              if (*(v40 + 6) == 1)
+              if (*(v39 + 6) == 1)
               {
-                if (*(v40 + 14))
+                if (*(v39 + 14))
                 {
                   std::__throw_bad_variant_access[abi:ne200100]();
                 }
 
-                v133.var0 = ULHomeSlamModel::getTrajectoryPointCloud(v40[4]);
-                if ((v41 & 1) == 0)
+                ULHomeSlamModel::getTrajectoryPointCloud(v39[4]);
+                v133.var0 = v41;
+                if ((v40 & 1) == 0)
                 {
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[16], ", ", 2);
                 }
@@ -6328,21 +5905,20 @@ LABEL_14:
 
                 v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[16], v42, v43);
                 std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, " (", 2);
-                v45 = *(v40 + 7);
-                v46 = std::ostream::operator<<();
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, ")", 1);
+                v45 = std::ostream::operator<<();
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, ")", 1);
                 if ((buf[23] & 0x80000000) != 0)
                 {
                   operator delete(*buf);
                 }
 
-                v41 = 0;
+                v40 = 0;
               }
 
-              v40 = *v40;
+              v39 = *v39;
             }
 
-            while (v40);
+            while (v39);
           }
 
           if (onceToken_MicroLocation_Default != -1)
@@ -6350,24 +5926,23 @@ LABEL_14:
             ULBlueAtlasLocalizationAlgorithm::localize();
           }
 
-          v47 = v109;
-          v23 = 0x277CBE000;
-          v48 = v106;
-          v49 = logObject_MicroLocation_Default;
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v46 = v109;
+          v47 = v106;
+          v48 = logObject_MicroLocation_Default;
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            v51 = v119;
-            v50 = v120;
-            v52 = v156;
+            v50 = v119;
+            v49 = v120;
+            v51 = v156;
             std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](__p, &v133);
             if (v134 >= 0)
             {
-              var0 = &v133;
+              v52 = &v133;
             }
 
             else
             {
-              var0 = v133.var0;
+              v52 = v133.var0;
             }
 
             *buf = 68290050;
@@ -6375,120 +5950,120 @@ LABEL_14:
             *&buf[8] = 2082;
             *&buf[10] = "";
             *&buf[18] = 2050;
-            *&buf[20] = (v50 - v51) >> 5;
+            *&buf[20] = (v49 - v50) >> 5;
             v137 = 2050;
-            v138 = v35;
+            v138 = v34;
             v139 = 2050;
-            v140 = v52;
+            v140 = v51;
             v141 = 2082;
-            v142 = var0;
-            _os_log_impl(&dword_258FE9000, v49, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization - Model Super fingerprint, num dominant sources:%{public}lu, super fingerprint size before filtering dominant sources:%{public}lu, super fingerprint size:%{public}lu, values:%{public, location:escape_only}s}", buf, 0x3Au);
+            v142 = v52;
+            _os_log_impl(&dword_258FE9000, v48, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization - Model Super fingerprint, num dominant sources:%{public}lu, super fingerprint size before filtering dominant sources:%{public}lu, super fingerprint size:%{public}lu, values:%{public, location:escape_only}s}", buf, 0x3Au);
             if (v134 < 0)
             {
               operator delete(v133.var0);
             }
 
-            v47 = v109;
-            v23 = 0x277CBE000uLL;
-            v48 = v106;
+            v46 = v109;
+            v47 = v106;
           }
 
-          if ((*(v48 + 32) & 1) == 0)
+          if ((*(v47 + 32) & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
-          std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::__value_func[abi:ne200100](&v133, v48);
+          std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::__value_func[abi:ne200100](&v133, v47);
           if (!v135)
           {
             std::__throw_bad_function_call[abi:ne200100]();
           }
 
-          v54 = (*(*v135 + 48))(v135, &v155, v47);
+          v53 = (*(*v135 + 48))(v135, &v155, v46);
           if (onceToken_MicroLocation_Default != -1)
           {
             ULBlueAtlasLocalizationAlgorithm::localize();
           }
 
-          v36 = v54;
-          v55 = logObject_MicroLocation_Default;
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v35 = v53;
+          v54 = logObject_MicroLocation_Default;
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289538;
             *&buf[4] = 0;
             *&buf[8] = 2082;
             *&buf[10] = "";
             *&buf[18] = 2050;
-            *&buf[20] = v36;
+            *&buf[20] = v35;
             v137 = 2050;
             v138 = 0;
-            _os_log_impl(&dword_258FE9000, v55, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, euclideanDistance:%{public}f, euclideanScore:%{public}f}", buf, 0x26u);
+            _os_log_impl(&dword_258FE9000, v54, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, euclideanDistance:%{public}f, euclideanScore:%{public}f}", buf, 0x26u);
           }
 
-          v56 = +[ULDefaultsSingleton shared];
-          v57 = [v56 defaultsDictionary];
+          v55 = +[ULDefaultsSingleton shared];
+          v56 = [v55 defaultsDictionary];
 
-          v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerEuclideanThresholds"];
-          v59 = [v57 objectForKey:v58];
-          if (v59 && (v60 = *(v23 + 2656), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v57 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerEuclideanThresholds"];
+          v58 = [v56 objectForKey:v57];
+          if (v58 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v59, buf);
+            ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v58, buf);
             v107 = *buf;
             v116 = *buf;
-            v61 = *&buf[16];
+            v59 = *&buf[16];
           }
 
           else
           {
             ULSettings::convert<std::initializer_list<double>,std::vector<double>>(&_ZGRN10ULSettings14SettingsTraitsINS_37BlueAtlasLocalizerEuclideanThresholdsEE12defaultValueE_, 2uLL, buf);
-            v61 = *&buf[16];
+            v59 = *&buf[16];
             v107 = *buf;
             v116 = *buf;
           }
 
-          v117 = v61;
+          v117 = v59;
 
-          v62 = v107;
-          v63 = +[ULDefaultsSingleton shared];
-          v64 = [v63 defaultsDictionary];
+          v60 = v107;
+          v61 = +[ULDefaultsSingleton shared];
+          v62 = [v61 defaultsDictionary];
 
-          v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerEuclideanSimilarityScores"];
-          v66 = [v64 objectForKey:v65];
-          if (v66 && (v67 = *(v23 + 2656), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v63 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerEuclideanSimilarityScores"];
+          v64 = [v62 objectForKey:v63];
+          if (v64 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v66, buf);
+            ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v64, buf);
             v108 = *buf;
             v114 = *buf;
-            v68 = *&buf[16];
+            v65 = *&buf[16];
           }
 
           else
           {
             ULSettings::convert<std::initializer_list<double>,std::vector<double>>(&_ZGRN10ULSettings14SettingsTraitsINS_43BlueAtlasLocalizerEuclideanSimilarityScoresEE12defaultValueE_, 2uLL, buf);
-            v68 = *&buf[16];
+            v65 = *&buf[16];
             v108 = *buf;
             v114 = *buf;
           }
 
-          v115 = v68;
+          v115 = v65;
 
-          CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(&v116, &v114, 0, v36);
-          v37 = v69;
+          v66.n128_u64[1] = *(&v108 + 1);
+          v66.n128_f64[0] = v35;
+          v36 = CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(&v116, &v114, 0, v66, v67, v68);
           if (v108)
           {
             operator delete(v108);
           }
 
-          if (v62)
+          if (v60)
           {
-            operator delete(v62);
+            operator delete(v60);
           }
 
           std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::~__value_func[abi:ne200100](&v133);
           *__p = *MEMORY[0x277D82818];
-          v70 = *(MEMORY[0x277D82818] + 72);
+          v69 = *(MEMORY[0x277D82818] + 72);
           *&__p[*(*__p - 24)] = *(MEMORY[0x277D82818] + 64);
-          *&__p[16] = v70;
+          *&__p[16] = v69;
           *&__p[24] = MEMORY[0x277D82878] + 16;
           if ((v150[7] & 0x80000000) != 0)
           {
@@ -6516,65 +6091,66 @@ LABEL_14:
           std::vector<CLMicroLocationFingerprint>::__destroy_vector::operator()[abi:ne200100](__p);
         }
 
-        v71 = ULBlueAtlasLocalizationAlgorithm::countSharedAPsInModelAndTestFingerprint(this, v109, v17);
-        v72 = +[ULDefaultsSingleton shared];
-        v73 = [v72 defaultsDictionary];
+        v70 = ULBlueAtlasLocalizationAlgorithm::countSharedAPsInModelAndTestFingerprint(this, v109, v18);
+        v71 = +[ULDefaultsSingleton shared];
+        v72 = [v71 defaultsDictionary];
 
-        v74 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerRssiScaleNumberOfAps"];
-        v75 = [v73 objectForKey:v74];
-        if (v75 && (v76 = *(v23 + 2656), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        v73 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerRssiScaleNumberOfAps"];
+        v74 = [v72 objectForKey:v73];
+        if (v74 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v75, __p);
+          ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v74, __p);
           v110 = *__p;
           *&v155.__r_.__value_.__l.__data_ = *__p;
-          v77 = *&__p[16];
+          v75 = *&__p[16];
         }
 
         else
         {
           ULSettings::convert<std::initializer_list<double>,std::vector<double>>(&_ZGRN10ULSettings14SettingsTraitsINS_38BlueAtlasLocalizerRssiScaleNumberOfApsEE12defaultValueE_, 2uLL, __p);
-          v77 = *&__p[16];
+          v75 = *&__p[16];
           v110 = *__p;
           *&v155.__r_.__value_.__l.__data_ = *__p;
         }
 
-        v155.__r_.__value_.__r.__words[2] = v77;
+        v155.__r_.__value_.__r.__words[2] = v75;
 
-        v78 = v110;
-        v79 = +[ULDefaultsSingleton shared];
-        v80 = [v79 defaultsDictionary];
+        v76 = v110;
+        v77 = +[ULDefaultsSingleton shared];
+        v78 = [v77 defaultsDictionary];
 
-        v81 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerRssiScaleFactor"];
-        v82 = [v80 objectForKey:v81];
-        if (v82 && (v83 = *(v23 + 2656), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        v79 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasLocalizerRssiScaleFactor"];
+        v80 = [v78 objectForKey:v79];
+        if (v80 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v82, __p);
-          v111 = *__p;
+          ULSettings::convert<NSArray<NSNumber *> * {__strong},std::vector<double>>(v80, __p);
+          *v111 = *__p;
           *buf = *__p;
-          v84 = *&__p[16];
+          v81 = *&__p[16];
         }
 
         else
         {
           ULSettings::convert<std::initializer_list<double>,std::vector<double>>(&_ZGRN10ULSettings14SettingsTraitsINS_33BlueAtlasLocalizerRssiScaleFactorEE12defaultValueE_, 2uLL, __p);
-          v84 = *&__p[16];
-          v111 = *__p;
+          v81 = *&__p[16];
+          *v111 = *__p;
           *buf = *__p;
         }
 
-        *&buf[16] = v84;
+        *&buf[16] = v81;
 
-        v85 = v71;
-        CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(&v155, buf, 1, v71);
-        v87 = v86;
-        if (v111)
+        v82 = v70;
+        v83.n128_u64[1] = v111[1];
+        v83.n128_f64[0] = v70;
+        v86 = CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(&v155, buf, 1, v83, v84, v85);
+        if (v111[0])
         {
-          operator delete(v111);
+          operator delete(v111[0]);
         }
 
-        if (v78)
+        if (v76)
         {
-          operator delete(v78);
+          operator delete(v76);
         }
 
         if (onceToken_MicroLocation_Default != -1)
@@ -6582,67 +6158,67 @@ LABEL_14:
           ULBlueAtlasLocalizationAlgorithm::localize();
         }
 
-        v88 = (v37 + -0.5) * v87 + 0.5;
-        v89 = logObject_MicroLocation_Default;
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+        v87 = (v36 + -0.5) * v86 + 0.5;
+        v88 = logObject_MicroLocation_Default;
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
         {
           *__p = 68290306;
           *&__p[8] = 2082;
           *&__p[10] = "";
           *&__p[18] = 2050;
-          *&__p[20] = v36;
+          *&__p[20] = v35;
           *&__p[28] = 2050;
-          *&__p[30] = v37;
+          *&__p[30] = v36;
           v144 = 2050;
-          v145 = v85;
+          v145 = v82;
           v146 = 2050;
-          v147 = v87;
+          v147 = v86;
           v148 = 2050;
-          v149[0] = (v37 + -0.5) * v87 + 0.5;
-          _os_log_impl(&dword_258FE9000, v89, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, euclideanDistance:%{public}f, euclideanScore:%{public}f, numSharedAPs:%{public}f, rssiScaleFactor:%{public}f, similarityScore:%{public}f}", __p, 0x44u);
+          v149[0] = (v36 + -0.5) * v86 + 0.5;
+          _os_log_impl(&dword_258FE9000, v88, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, euclideanDistance:%{public}f, euclideanScore:%{public}f, numSharedAPs:%{public}f, rssiScaleFactor:%{public}f, similarityScore:%{public}f}", __p, 0x44u);
         }
 
-        v33 = v126[1];
+        v32 = v126[1];
         if (v126[1] < v127)
         {
-          v90 = v88;
+          v89 = v87;
           *v126[1] = v112;
-          *(v33 + 1) = v113;
-          v33[4] = v90;
+          *(v32 + 1) = v113;
+          v32[4] = v89;
           goto LABEL_126;
         }
 
-        v92 = 0xCCCCCCCCCCCCCCCDLL * ((v126[1] - v126[0]) >> 2) + 1;
-        if (v92 > 0xCCCCCCCCCCCCCCCLL)
+        v91 = 0xCCCCCCCCCCCCCCCDLL * ((v126[1] - v126[0]) >> 2) + 1;
+        if (v91 > 0xCCCCCCCCCCCCCCCLL)
         {
           std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x999999999999999ALL * ((v127 - v126[0]) >> 2) > v92)
+        if (0x999999999999999ALL * ((v127 - v126[0]) >> 2) > v91)
         {
-          v92 = 0x999999999999999ALL * ((v127 - v126[0]) >> 2);
+          v91 = 0x999999999999999ALL * ((v127 - v126[0]) >> 2);
         }
 
         if (0xCCCCCCCCCCCCCCCDLL * ((v127 - v126[0]) >> 2) >= 0x666666666666666)
         {
-          v93 = 0xCCCCCCCCCCCCCCCLL;
+          v92 = 0xCCCCCCCCCCCCCCCLL;
         }
 
         else
         {
-          v93 = v92;
+          v92 = v91;
         }
 
-        if (v93)
+        if (v92)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(v126, v93);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(v126, v92);
         }
 
-        v94 = 4 * ((v126[1] - v126[0]) >> 2);
-        v95 = v88;
-        *v94 = v112;
-        *(v94 + 8) = v113;
-        *(v94 + 16) = v95;
+        v93 = 4 * ((v126[1] - v126[0]) >> 2);
+        v94 = v87;
+        *v93 = v112;
+        *(v93 + 8) = v113;
+        *(v93 + 16) = v94;
         goto LABEL_137;
       }
     }
@@ -6657,58 +6233,58 @@ LABEL_14:
       ULBlueAtlasLocalizationAlgorithm::localize();
     }
 
-    v29 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v28 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(this + 136) != 1 || (*(this + 120) & 1) == 0)
+      if (LOBYTE(this[17].var0) != 1 || (this[15].var0 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v30 = *(this + 1);
+      var0_high = HIDWORD(this->var0);
       CLMacAddress::toCLStr(this + 14, &v155);
       if ((*(a4 + 32) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v31 = &v155;
+      v30 = &v155;
       if ((v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v31 = v155.__r_.__value_.__r.__words[0];
+        v30 = v155.__r_.__value_.__r.__words[0];
       }
 
-      v32 = *(a4 + 16);
+      v31 = *(a4 + 16);
       *__p = 68289795;
       *&__p[8] = 2082;
       *&__p[10] = "";
       *&__p[18] = 2050;
-      *&__p[20] = v30;
+      *&__p[20] = var0_high;
       *&__p[28] = 2081;
-      *&__p[30] = v31;
+      *&__p[30] = v30;
       v144 = 2050;
-      v145 = v32;
-      _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, found matching strong associated AP, ModelType:%{public}lu, MAC Address:%{private, location:escape_only}s, Rssi:%{public}f}", __p, 0x30u);
+      v145 = v31;
+      _os_log_impl(&dword_258FE9000, v28, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:BlueAtlasLocalization, found matching strong associated AP, ModelType:%{public}lu, MAC Address:%{private, location:escape_only}s, Rssi:%{public}f}", __p, 0x30u);
       if (SHIBYTE(v155.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v155.__r_.__value_.__l.__data_);
       }
     }
 
-    v33 = v126[1];
+    v32 = v126[1];
     if (v126[1] < v127)
     {
       *v126[1] = v112;
-      *(v33 + 1) = v113;
-      v33[4] = 1.0;
+      *(v32 + 1) = v113;
+      v32[4] = 1.0;
 LABEL_126:
-      v91 = v33 + 5;
+      v90 = v32 + 5;
 LABEL_139:
-      v126[1] = v91;
+      v126[1] = v90;
 LABEL_140:
       *a5 = 0;
       *(a5 + 24) = 0;
-      v98 = v128;
+      v97 = v128;
       if (v128 == 1)
       {
         *a5 = *v126;
@@ -6719,9 +6295,9 @@ LABEL_140:
         *(a5 + 24) = 1;
       }
 
-      v99 = *v130;
+      v98 = *v130;
       *(a5 + 32) = v129;
-      *(a5 + 48) = v99;
+      *(a5 + 48) = v98;
       *(a5 + 63) = *&v130[15];
       *(a5 + 72) = v131;
       *(a5 + 88) = v132[0];
@@ -6731,7 +6307,7 @@ LABEL_140:
       *(a5 + 112) = v132[3];
       memset(&v132[1], 0, 24);
       *(a5 + 120) = 1;
-      if (v98)
+      if (v97)
       {
         if (v126[0])
         {
@@ -6740,118 +6316,117 @@ LABEL_140:
         }
       }
 
-      v100 = *MEMORY[0x277D85DE8];
       return;
     }
 
-    v38 = 0xCCCCCCCCCCCCCCCDLL * ((v126[1] - v126[0]) >> 2) + 1;
-    if (v38 > 0xCCCCCCCCCCCCCCCLL)
+    v37 = 0xCCCCCCCCCCCCCCCDLL * ((v126[1] - v126[0]) >> 2) + 1;
+    if (v37 > 0xCCCCCCCCCCCCCCCLL)
     {
       std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
     }
 
-    if (0x999999999999999ALL * ((v127 - v126[0]) >> 2) > v38)
+    if (0x999999999999999ALL * ((v127 - v126[0]) >> 2) > v37)
     {
-      v38 = 0x999999999999999ALL * ((v127 - v126[0]) >> 2);
+      v37 = 0x999999999999999ALL * ((v127 - v126[0]) >> 2);
     }
 
     if (0xCCCCCCCCCCCCCCCDLL * ((v127 - v126[0]) >> 2) >= 0x666666666666666)
     {
-      v39 = 0xCCCCCCCCCCCCCCCLL;
+      v38 = 0xCCCCCCCCCCCCCCCLL;
     }
 
     else
     {
-      v39 = v38;
+      v38 = v37;
     }
 
-    if (v39)
+    if (v38)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(v126, v39);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ULParticle>>(v126, v38);
     }
 
-    v94 = 4 * ((v126[1] - v126[0]) >> 2);
-    *v94 = v112;
-    *(v94 + 8) = v113;
-    *(v94 + 16) = 1065353216;
+    v93 = 4 * ((v126[1] - v126[0]) >> 2);
+    *v93 = v112;
+    *(v93 + 8) = v113;
+    *(v93 + 16) = 1065353216;
 LABEL_137:
-    v91 = (v94 + 20);
-    v96 = (v94 - (v126[1] - v126[0]));
-    memcpy(v96, v126[0], v126[1] - v126[0]);
-    v97 = v126[0];
-    v126[0] = v96;
-    v126[1] = v91;
+    v90 = (v93 + 20);
+    v95 = (v93 - (v126[1] - v126[0]));
+    memcpy(v95, v126[0], v126[1] - v126[0]);
+    v96 = v126[0];
+    v126[0] = v95;
+    v126[1] = v90;
     v127 = 0;
-    if (v97)
+    if (v96)
     {
-      operator delete(v97);
+      operator delete(v96);
     }
 
     goto LABEL_139;
   }
 
-  v101 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v101, OS_LOG_TYPE_FAULT))
+  v99 = _CLLogObjectForCategory_MicroLocation_Default(isValid);
+  if (os_log_type_enabled(v99, OS_LOG_TYPE_FAULT))
   {
-    CLMicroLocationProtobufHelper::modelTypeToString(*(this + 1), &v155);
-    v102 = (v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v155 : v155.__r_.__value_.__r.__words[0];
+    CLMicroLocationProtobufHelper::modelTypeToString(HIDWORD(this->var0), &v155);
+    v100 = (v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v155 : v155.__r_.__value_.__r.__words[0];
     *__p = 68289795;
     *&__p[8] = 2082;
     *&__p[10] = "";
     *&__p[18] = 2082;
-    *&__p[20] = v102;
+    *&__p[20] = v100;
     *&__p[28] = 2082;
     *&__p[30] = "assert";
     v144 = 2081;
     v145 = COERCE_DOUBLE("model.modelType == CLMicroLocationProto::ModelType::BLUE_ATLAS");
-    _os_log_impl(&dword_258FE9000, v101, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Blue Atlas Localization, model type is not BLUE_ATLAS!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", __p, 0x30u);
+    _os_log_impl(&dword_258FE9000, v99, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Blue Atlas Localization, model type is not BLUE_ATLAS!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", __p, 0x30u);
     if (SHIBYTE(v155.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v155.__r_.__value_.__l.__data_);
     }
   }
 
-  v103 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_signpost_enabled(v103))
+  v102 = _CLLogObjectForCategory_MicroLocation_Default(v101);
+  if (os_signpost_enabled(v102))
   {
-    CLMicroLocationProtobufHelper::modelTypeToString(*(this + 1), &v155);
-    v104 = (v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v155 : v155.__r_.__value_.__r.__words[0];
+    CLMicroLocationProtobufHelper::modelTypeToString(HIDWORD(this->var0), &v155);
+    v103 = (v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v155 : v155.__r_.__value_.__r.__words[0];
     *__p = 68289795;
     *&__p[8] = 2082;
     *&__p[10] = "";
     *&__p[18] = 2082;
-    *&__p[20] = v104;
+    *&__p[20] = v103;
     *&__p[28] = 2082;
     *&__p[30] = "assert";
     v144 = 2081;
     v145 = COERCE_DOUBLE("model.modelType == CLMicroLocationProto::ModelType::BLUE_ATLAS");
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v103, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Blue Atlas Localization, model type is not BLUE_ATLAS!", "{msg%{public}.0s:Blue Atlas Localization, model type is not BLUE_ATLAS!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", __p, 0x30u);
+    _os_signpost_emit_with_name_impl(&dword_258FE9000, v102, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Blue Atlas Localization, model type is not BLUE_ATLAS!", "{msg%{public}.0s:Blue Atlas Localization, model type is not BLUE_ATLAS!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", __p, 0x30u);
     if (SHIBYTE(v155.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v155.__r_.__value_.__l.__data_);
     }
   }
 
-  v105 = _CLLogObjectForCategory_MicroLocation_Default();
+  v105 = _CLLogObjectForCategory_MicroLocation_Default(v104);
   if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
   {
-    CLMicroLocationProtobufHelper::modelTypeToString(*(this + 1), &v155);
+    CLMicroLocationProtobufHelper::modelTypeToString(HIDWORD(this->var0), &v155);
     ULBlueAtlasLocalizationAlgorithm::localize(&v155, __p, v105);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/Localizer/Algorithms/ULBlueAtlasLocalizationAlgorithm.mm", 28, "localize");
   __break(1u);
 }
 
-void sub_25904900C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, __int16 a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63)
+void sub_25904900C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, __int16 a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63)
 {
-  if (v69)
+  if (v65)
   {
-    operator delete(v69);
+    operator delete(v65);
   }
 
   std::__function::__value_func<float ()(CLMicroLocationFingerprint const&,CLMicroLocationFingerprint const&)>::~__value_func[abi:ne200100](&a57);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a69);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a65);
   CLMicroLocationFingerprint::~CLMicroLocationFingerprint(&STACK[0x300]);
   STACK[0x300] = &a30;
   std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__destroy_vector::operator()[abi:ne200100](&STACK[0x300]);
@@ -6885,20 +6460,13 @@ BOOL ULBlueAtlasLocalizationAlgorithm::isValidAssociatedAccessPointBasedDecision
 
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULBlueAtlasStrongAssociatedAccessPointThreshold"];
   v8 = [v6 objectForKey:v7];
-  if (!v8)
-  {
-    goto LABEL_10;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     [v8 floatValue];
   }
 
   else
   {
-LABEL_10:
     [&unk_286A72CD0 floatValue];
   }
 
@@ -6907,7 +6475,7 @@ LABEL_10:
   return v4 > v10;
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6921,209 +6489,157 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
-uint64_t CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(uint64_t result, uint64_t **a2, int a3, double a4)
+double CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(double **result, uint64_t *a2, int a3, __n128 a4, __n128 a5, __n128 a6)
 {
-  v5 = *result;
-  v4 = *(result + 8);
-  v6 = *a2;
-  v7 = a2[1];
-  if ((v4 - *result) == (v7 - *a2))
+  v7 = *result;
+  v6 = result[1];
+  v8 = *a2;
+  v9 = a2[1];
+  if (v6 - *result != v9 - *a2)
   {
-    if (v5 != v4)
+    CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(result);
+  }
+
+  v10 = a4.n128_f64[0];
+  v11 = 0.0;
+  if (v7 != v6)
+  {
+    for (i = v7 + 1; i != v6; ++i)
     {
-      for (i = v5 + 1; i != v4; ++i)
+      v13 = *(i - 1);
+      v14 = *i > v13;
+      if (!a3)
       {
-        v9 = *(i - 1);
-        v10 = *i > v9;
-        if (!a3)
-        {
-          v10 = *i < v9;
-        }
+        v14 = *i < v13;
+      }
 
-        if (v10)
+      if (v14)
+      {
+        CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>(result);
+      }
+    }
+
+    while (v7 != v6 && v8 != v9)
+    {
+      if (a3)
+      {
+        if (*v7 < v10)
         {
-          CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>();
+          return *v8;
         }
       }
 
-      while (v5 != v4 && v6 != v7)
+      else if (*v7 > v10)
       {
-        v11 = *v5;
-        if (a3)
-        {
-          if (*v5 < a4)
-          {
-            goto LABEL_17;
-          }
-        }
-
-        else if (*v5 > a4)
-        {
-LABEL_17:
-          v12 = *v6;
-          return result;
-        }
-
-        ++v5;
-        ++v6;
+        return *v8;
       }
+
+      ++v7;
+      v8 += 8;
     }
   }
 
-  else
-  {
-    v13 = CLMicroLocationBlueAtlasAlgorithms::calculateScoreForValue<double>();
-    return ULBlueAtlasLocalizationAlgorithm::countSharedAPsInModelAndTestFingerprint(v13, v14, v15);
-  }
-
-  return result;
+  return v11;
 }
 
 uint64_t ULBlueAtlasLocalizationAlgorithm::countSharedAPsInModelAndTestFingerprint(ULBlueAtlasLocalizationAlgorithm *this, const CLMicroLocationModel *a2, const CLMicroLocationFingerprint *a3)
 {
   v33 = *MEMORY[0x277D85DE8];
-  if (*(this + 1) == 3 && *(this + 136) == 1)
+  if (*(this + 1) != 3 || *(this + 136) != 1)
   {
-    v24 = 0;
-    v25 = 0;
-    v26 = 0;
-    std::vector<CLMacAddress>::__init_with_size[abi:ne200100]<CLMacAddress*,CLMacAddress*>(&v24, *(this + 9), *(this + 10), (*(this + 10) - *(this + 9)) >> 3);
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v18);
-    v4 = *(a2 + 2);
-    if (v4)
+    return 0;
+  }
+
+  v24 = 0;
+  v25 = 0;
+  v26 = 0;
+  std::vector<CLMacAddress>::__init_with_size[abi:ne200100]<CLMacAddress*,CLMacAddress*>(&v24, *(this + 9), *(this + 10), (*(this + 10) - *(this + 9)) >> 3);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v18);
+  v4 = *(a2 + 2);
+  if (v4)
+  {
+    v5 = 0;
+    v6 = 1;
+    do
     {
-      v5 = 0;
-      v6 = 1;
-      do
+      if (*(v4 + 6) == 1)
       {
-        if (*(v4 + 6) == 1)
+        if (*(v4 + 14))
         {
-          if (*(v4 + 14))
-          {
-            std::__throw_bad_variant_access[abi:ne200100]();
-          }
-
-          __p[0] = ULHomeSlamModel::getTrajectoryPointCloud(v4[4]);
-          v7 = v24;
-          v8 = v25;
-          if (v24 != v25)
-          {
-            while (!CLMacAddress::operator==(v7, __p))
-            {
-              if (++v7 == v8)
-              {
-                v7 = v8;
-                break;
-              }
-            }
-
-            v8 = v25;
-          }
-
-          if (v7 != v8)
-          {
-            if ((v6 & 1) == 0)
-            {
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, ", ", 2);
-            }
-
-            CLMacAddress::toPrettyStr(__p, buf);
-            if ((v30 & 0x80000000) == 0)
-            {
-              v9 = buf;
-            }
-
-            else
-            {
-              v9 = *buf;
-            }
-
-            if ((v30 & 0x80000000) == 0)
-            {
-              v10 = BYTE3(v30);
-            }
-
-            else
-            {
-              v10 = *v28;
-            }
-
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, v9, v10);
-            if (SBYTE3(v30) < 0)
-            {
-              operator delete(*buf);
-            }
-
-            v6 = 0;
-            v5 = (v5 + 1);
-          }
+          std::__throw_bad_variant_access[abi:ne200100]();
         }
 
-        v4 = *v4;
+        ULHomeSlamModel::getTrajectoryPointCloud(v4[4]);
+        __p[0] = v7;
+        v8 = v24;
+        v9 = v25;
+        if (v24 != v25)
+        {
+          while (!CLMacAddress::operator==(v8, __p))
+          {
+            if (++v8 == v9)
+            {
+              v8 = v9;
+              break;
+            }
+          }
+
+          v9 = v25;
+        }
+
+        if (v8 != v9)
+        {
+          if ((v6 & 1) == 0)
+          {
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, ", ", 2);
+          }
+
+          CLMacAddress::toPrettyStr(__p, buf);
+          if ((v30 & 0x80000000) == 0)
+          {
+            v10 = buf;
+          }
+
+          else
+          {
+            v10 = *buf;
+          }
+
+          if ((v30 & 0x80000000) == 0)
+          {
+            v11 = BYTE3(v30);
+          }
+
+          else
+          {
+            v11 = *v28;
+          }
+
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, v10, v11);
+          if (SBYTE3(v30) < 0)
+          {
+            operator delete(*buf);
+          }
+
+          v6 = 0;
+          v5 = (v5 + 1);
+        }
       }
 
-      while (v4);
+      v4 = *v4;
     }
 
-    else
-    {
-      v5 = 0;
-    }
-
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      ULBlueAtlasLocalizationAlgorithm::localize();
-    }
-
-    v13 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v18, __p);
-      v14 = v17 >= 0 ? __p : __p[0];
-      *buf = 68289538;
-      *&buf[4] = 0;
-      *v28 = 2082;
-      *&v28[2] = "";
-      v29 = 2050;
-      v30 = v5;
-      v31 = 2082;
-      v32 = v14;
-      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:countSharedAPsInTestFingerprintAndModel, number of shared APs:%{public}lu, shared AP addresses:%{public, location:escape_only}s}", buf, 0x26u);
-      if (v17 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v18[0] = *MEMORY[0x277D82818];
-    v15 = *(MEMORY[0x277D82818] + 72);
-    *(v18 + *(v18[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-    v19 = v15;
-    v20 = MEMORY[0x277D82878] + 16;
-    if (v22 < 0)
-    {
-      operator delete(v21[7].__locale_);
-    }
-
-    v20 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v21);
-    std::iostream::~basic_iostream();
-    MEMORY[0x259CA1EE0](&v23);
-    if (v24)
-    {
-      v25 = v24;
-      operator delete(v24);
-    }
+    while (v4);
   }
 
   else
@@ -7131,20 +6647,64 @@ uint64_t ULBlueAtlasLocalizationAlgorithm::countSharedAPsInModelAndTestFingerpri
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULBlueAtlasLocalizationAlgorithm::localize();
+  }
+
+  v13 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v18, __p);
+    v14 = v17 >= 0 ? __p : __p[0];
+    *buf = 68289538;
+    *&buf[4] = 0;
+    *v28 = 2082;
+    *&v28[2] = "";
+    v29 = 2050;
+    v30 = v5;
+    v31 = 2082;
+    v32 = v14;
+    _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:countSharedAPsInTestFingerprintAndModel, number of shared APs:%{public}lu, shared AP addresses:%{public, location:escape_only}s}", buf, 0x26u);
+    if (v17 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v18[0] = *MEMORY[0x277D82818];
+  v15 = *(MEMORY[0x277D82818] + 72);
+  *(v18 + *(v18[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v19 = v15;
+  v20 = MEMORY[0x277D82878] + 16;
+  if (v22 < 0)
+  {
+    operator delete(v21[7].__locale_);
+  }
+
+  v20 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v21);
+  std::iostream::~basic_iostream();
+  MEMORY[0x259CA1EE0](&v23);
+  if (v24)
+  {
+    v25 = v24;
+    operator delete(v24);
+  }
+
   return v5;
 }
 
-void sub_2590499AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2590499AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
-  v8 = *(v6 - 152);
-  if (v8)
+  v12 = *(v10 - 152);
+  if (v12)
   {
-    *(v6 - 144) = v8;
-    operator delete(v8);
+    *(v10 - 144) = v12;
+    operator delete(v12);
   }
 
   _Unwind_Resume(a1);
@@ -7230,9 +6790,9 @@ uint64_t std::vector<CLMicroLocationFingerprint>::__emplace_back_slow_path<CLMic
   return v12;
 }
 
-void sub_259049C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_259049C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CLMicroLocationFingerprint>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7367,8 +6927,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
@@ -7400,7 +6959,7 @@ uint64_t std::__split_buffer<std::variant<unsigned long long,boost::uuids::uuid,
   return a1;
 }
 
-uint64_t std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__init_with_size[abi:ne200100]<std::variant<unsigned long long,boost::uuids::uuid,std::string>*,std::variant<unsigned long long,boost::uuids::uuid,std::string>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__init_with_size[abi:ne200100]<std::variant<unsigned long long,boost::uuids::uuid,std::string>*,std::variant<unsigned long long,boost::uuids::uuid,std::string>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7410,14 +6969,14 @@ uint64_t std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::str
   return result;
 }
 
-void sub_259049FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_259049FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::variant<unsigned long long,boost::uuids::uuid,std::string>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7522,7 +7081,7 @@ void sub_25904A4B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CLMacAddress>::__init_with_size[abi:ne200100]<CLMacAddress*,CLMacAddress*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CLMacAddress>::__init_with_size[abi:ne200100]<CLMacAddress*,CLMacAddress*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7560,42 +7119,40 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
-void ULCosineSimilarityLocalizationAlgorithm::localize(CLMicroLocationModel *this@<X1>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+void ULCosineSimilarityLocalizationAlgorithm::localize(CLMicroLocationModel *this@<X1>, uint64_t a2@<X8>, uint64_t a3@<X3>)
 {
-  v72 = *MEMORY[0x277D85DE8];
-  if (!CLMicroLocationModel::isValid(this))
+  v76 = *MEMORY[0x277D85DE8];
+  isValid = CLMicroLocationModel::isValid(this);
+  if ((isValid & 1) == 0)
   {
-    ULCosineSimilarityLocalizationAlgorithm::localize();
+    ULCosineSimilarityLocalizationAlgorithm::localize(isValid);
   }
 
   if (*(this + 1) != 2)
   {
-    v24 = _CLLogObjectForCategory_MicroLocation_Default();
+    v24 = _CLLogObjectForCategory_MicroLocation_Default(isValid);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       CLMicroLocationProtobufHelper::modelTypeToString(*(this + 1), buf);
       v25 = buf[1].n128_i8[7] >= 0 ? buf : buf[0].n128_u64[0];
       __p = 68289795;
-      v49 = 2082;
-      v50 = "";
-      v51 = 2082;
-      v52 = v25;
       v53 = 2082;
-      v54 = "assert";
-      v55 = 2081;
-      v56 = "model.modelType == CLMicroLocationProto::ModelType::SIMILARITY_LIST";
+      v54 = "";
+      v55 = 2082;
+      v56 = v25;
+      v57 = 2082;
+      v58 = "assert";
+      v59 = 2081;
+      v60 = "model.modelType == CLMicroLocationProto::ModelType::SIMILARITY_LIST";
       _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:CosineSimilarityLocalization, model type is not similarity list!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x30u);
       if (buf[1].n128_i8[7] < 0)
       {
@@ -7603,90 +7160,90 @@ void ULCosineSimilarityLocalizationAlgorithm::localize(CLMicroLocationModel *thi
       }
     }
 
-    v26 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v26))
+    v27 = _CLLogObjectForCategory_MicroLocation_Default(v26);
+    if (os_signpost_enabled(v27))
     {
       CLMicroLocationProtobufHelper::modelTypeToString(*(this + 1), buf);
-      v27 = buf[1].n128_i8[7] >= 0 ? buf : buf[0].n128_u64[0];
+      v28 = buf[1].n128_i8[7] >= 0 ? buf : buf[0].n128_u64[0];
       __p = 68289795;
-      v49 = 2082;
-      v50 = "";
-      v51 = 2082;
-      v52 = v27;
       v53 = 2082;
-      v54 = "assert";
-      v55 = 2081;
-      v56 = "model.modelType == CLMicroLocationProto::ModelType::SIMILARITY_LIST";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CosineSimilarityLocalization, model type is not similarity list!", "{msg%{public}.0s:CosineSimilarityLocalization, model type is not similarity list!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x30u);
+      v54 = "";
+      v55 = 2082;
+      v56 = v28;
+      v57 = 2082;
+      v58 = "assert";
+      v59 = 2081;
+      v60 = "model.modelType == CLMicroLocationProto::ModelType::SIMILARITY_LIST";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CosineSimilarityLocalization, model type is not similarity list!", "{msg%{public}.0s:CosineSimilarityLocalization, model type is not similarity list!, Model Type:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x30u);
       if (buf[1].n128_i8[7] < 0)
       {
         operator delete(buf[0].n128_u64[0]);
       }
     }
 
-    v28 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v30 = _CLLogObjectForCategory_MicroLocation_Default(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       CLMicroLocationProtobufHelper::modelTypeToString(*(this + 1), buf);
-      ULCosineSimilarityLocalizationAlgorithm::localize(buf, &__p, v28);
+      ULCosineSimilarityLocalizationAlgorithm::localize(buf, &__p, v30);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/Localizer/Algorithms/ULCosineSimilarityLocalizationAlgorithm.mm", 21, "localize");
     __break(1u);
     goto LABEL_87;
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "com.apple.magicalmoments");
-  CLMicroLocationLocalizationSettings::CLMicroLocationLocalizationSettings(v35, &__p);
-  std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>::map[abi:ne200100](v39, v35);
-  v40 = v37;
-  v41 = v38;
+  CLMicroLocationLocalizationSettings::CLMicroLocationLocalizationSettings(v38, &__p);
+  std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>::map[abi:ne200100](v42, v38);
+  v44 = v40;
+  v45 = v41;
 
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v35, v36);
-  if (SBYTE3(v52) < 0)
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v38, v39);
+  if (SBYTE3(v56) < 0)
   {
     operator delete(__p);
   }
 
   buf[0] = 0uLL;
   std::string::basic_string[abi:ne200100]<0>(&__p, "com.apple.magicalmoments");
-  v5 = cl::chrono::CFAbsoluteTimeClock::now();
-  ULModelMetaData::ULModelMetaData(v69, buf, &__p, 0, v5);
-  if (SBYTE3(v52) < 0)
+  v6 = cl::chrono::CFAbsoluteTimeClock::now();
+  ULModelMetaData::ULModelMetaData(v73, buf, &__p, 0, v6);
+  if (SBYTE3(v56) < 0)
   {
     operator delete(__p);
   }
 
-  std::optional<ULRfClusterModelMetaData>::operator=[abi:ne200100]<ULRfClusterModelMetaData&,void>(v70, v39);
+  std::optional<ULRfClusterModelMetaData>::operator=[abi:ne200100]<ULRfClusterModelMetaData&,void>(v74, v42);
   ULModel::ULModel(&__p, this);
-  v33[0] = 0;
-  v34 = 0;
-  ULRfClusterLocalizer::localize(&__p, v69, a2, v33, a3);
-  if (v34 == 1)
+  v35[0] = 0;
+  v36 = 0;
+  ULRfClusterLocalizer::localize(a2, &__p, v73, a3, v35, &v37);
+  if (v36 == 1)
   {
-    CLMicroLocationProto::AssociatedAccessPointInfo::~AssociatedAccessPointInfo(v33);
+    CLMicroLocationProto::AssociatedAccessPointInfo::~AssociatedAccessPointInfo(v35);
   }
 
-  if (*(a3 + 120) == 1 && *(a3 + 24) == 1)
+  if (*(a2 + 120) == 1 && *(a2 + 24) == 1)
   {
-    v30 = 0;
-    v31 = 0;
     v32 = 0;
-    std::vector<ULLocalizationResultInternal>::__init_with_size[abi:ne200100]<ULLocalizationResultInternal*,ULLocalizationResultInternal*>(&v30, *a3, *(a3 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 8) - *a3) >> 2));
-    v6 = v30;
-    if (v30 != v31)
+    v33 = 0;
+    v34 = 0;
+    std::vector<ULLocalizationResultInternal>::__init_with_size[abi:ne200100]<ULLocalizationResultInternal*,ULLocalizationResultInternal*>(&v32, *a2, *(a2 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 8) - *a2) >> 2));
+    v7 = v32;
+    if (v32 != v33)
     {
-      while (*v6 != 0)
+      while (*v7 != 0)
       {
-        v6 += 5;
-        if (v6 == v31)
+        v7 += 5;
+        if (v7 == v33)
         {
           goto LABEL_28;
         }
       }
     }
 
-    if (v6 == v31)
+    if (v7 == v33)
     {
 LABEL_28:
       if (onceToken_MicroLocation_Default != -1)
@@ -7694,28 +7251,28 @@ LABEL_28:
         ULCosineSimilarityLocalizationAlgorithm::localize();
       }
 
-      v9 = logObject_MicroLocation_Default;
-      v8 = 0.0;
+      v10 = logObject_MicroLocation_Default;
+      v9 = 0.0;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
       {
         buf[0].n128_u16[0] = 0;
-        _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "CosineSimilarityLocalization, did not find null space probability", buf, 2u);
+        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "CosineSimilarityLocalization, did not find null space probability", buf, 2u);
       }
     }
 
     else
     {
-      v8 = v6[4];
+      v9 = v7[4];
     }
 
-    v10 = +[ULDefaultsSingleton shared];
-    v11 = [v10 defaultsDictionary];
+    v11 = +[ULDefaultsSingleton shared];
+    v12 = [v11 defaultsDictionary];
 
-    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULNullClusterThresholdForLowConfidence"];
-    v13 = [v11 objectForKey:v12];
-    if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULNullClusterThresholdForLowConfidence"];
+    v14 = [v12 objectForKey:v13];
+    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      [v13 floatValue];
+      [v14 floatValue];
     }
 
     else
@@ -7723,45 +7280,45 @@ LABEL_28:
       [&unk_286A72CE0 floatValue];
     }
 
-    v15 = v14;
+    v16 = v15;
 
-    if (v8 > v15)
+    if (v9 > v16)
     {
-      *(a3 + 64) = 1;
+      *(a2 + 64) = 1;
       if (onceToken_MicroLocation_Default != -1)
       {
         ULCosineSimilarityLocalizationAlgorithm::localize();
       }
 
-      v16 = logObject_MicroLocation_Default;
+      v17 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         buf[0].n128_u64[0] = 68289283;
         buf[0].n128_u16[4] = 2082;
         *(&buf[0].n128_u64[1] + 2) = "";
         buf[1].n128_u16[1] = 2049;
-        *(buf[1].n128_f64 + 4) = v8;
-        _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CosineSimilarityLocalization, null cluster probability, nullClusterProbability:%{private}.6f}", buf, 0x1Cu);
+        *(buf[1].n128_f64 + 4) = v9;
+        _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CosineSimilarityLocalization, null cluster probability, nullClusterProbability:%{private}.6f}", buf, 0x1Cu);
       }
     }
 
     if (onceToken_MicroLocation_Default == -1)
     {
 LABEL_42:
-      v17 = logObject_MicroLocation_Default;
+      v18 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         buf[0].n128_u64[0] = 68289282;
         buf[0].n128_u16[4] = 2082;
         *(&buf[0].n128_u64[1] + 2) = "";
         buf[1].n128_u16[1] = 2050;
-        *(buf[1].n128_u64 + 4) = 0xCCCCCCCCCCCCCCCDLL * ((v31 - v30) >> 2);
-        _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CosineSimilarityLocalization, internalLocalizer results, numInternalResults:%{public}lu}", buf, 0x1Cu);
+        *(buf[1].n128_u64 + 4) = 0xCCCCCCCCCCCCCCCDLL * ((v33 - v32) >> 2);
+        _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CosineSimilarityLocalization, internalLocalizer results, numInternalResults:%{public}lu}", buf, 0x1Cu);
       }
 
-      v18 = v30;
-      v19 = v31;
-      if (v31 != v30)
+      v19 = v32;
+      v20 = v33;
+      if (v33 != v32)
       {
         do
         {
@@ -7770,16 +7327,16 @@ LABEL_42:
             ULCosineSimilarityLocalizationAlgorithm::localize();
           }
 
-          v20 = logObject_MicroLocation_Default;
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v21 = logObject_MicroLocation_Default;
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             operator new();
           }
 
-          v18 += 20;
+          v19 += 20;
         }
 
-        while (v18 != v19);
+        while (v19 != v20);
       }
 
       if (onceToken_MicroLocation_Default != -1)
@@ -7787,23 +7344,23 @@ LABEL_42:
         ULCosineSimilarityLocalizationAlgorithm::localize();
       }
 
-      v21 = logObject_MicroLocation_Default;
+      v22 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = *(a3 + 64);
+        v23 = *(a2 + 64);
         buf[0].n128_u64[0] = 68289282;
         buf[0].n128_u16[4] = 2082;
         *(&buf[0].n128_u64[1] + 2) = "";
         buf[1].n128_u16[1] = 1026;
-        buf[1].n128_u32[1] = v22;
-        _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Updated RfScan, Is required:%{public}hhd}", buf, 0x18u);
+        buf[1].n128_u32[1] = v23;
+        _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Updated RfScan, Is required:%{public}hhd}", buf, 0x18u);
       }
 
-      ULLocalizationResult::removeNullCluster(a3);
-      v7 = v30;
-      if (v30)
+      ULLocalizationResult::removeNullCluster(a2);
+      v8 = v32;
+      if (v32)
       {
-        v31 = v30;
+        v33 = v32;
         goto LABEL_56;
       }
 
@@ -7815,25 +7372,25 @@ LABEL_87:
     goto LABEL_42;
   }
 
-  v46 = 0;
-  v44 = 0u;
-  *v45 = 0u;
-  *v43 = 0u;
+  v50 = 0;
+  v48 = 0u;
+  *v49 = 0u;
+  *v47 = 0u;
   memset(buf, 0, sizeof(buf));
-  v47 = 1;
-  std::__optional_storage_base<ULLocalizationResult,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ULLocalizationResult,false>>(a3, buf);
-  if (v47 == 1)
+  v51 = 1;
+  std::__optional_storage_base<ULLocalizationResult,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ULLocalizationResult,false>>(a2, buf);
+  if (v51 == 1)
   {
-    if (v45[0])
+    if (v49[0])
     {
-      v45[1] = v45[0];
-      operator delete(v45[0]);
+      v49[1] = v49[0];
+      operator delete(v49[0]);
     }
 
-    if (v43[1])
+    if (v47[1])
     {
-      *&v44 = v43[1];
-      operator delete(v43[1]);
+      *&v48 = v47[1];
+      operator delete(v47[1]);
     }
 
     if (buf[1].n128_u8[8] == 1 && buf[0].n128_u64[0])
@@ -7845,60 +7402,59 @@ LABEL_87:
 
   memset(buf, 0, 24);
   buf[1].n128_u8[8] = 1;
-  std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<ULLocalizationResultInternal>,false>>(a3, buf);
+  std::__optional_storage_base<std::vector<ULLocalizationResultInternal>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<ULLocalizationResultInternal>,false>>(a2, buf);
   if (buf[1].n128_u8[8] == 1)
   {
-    v7 = buf[0].n128_u64[0];
+    v8 = buf[0].n128_u64[0];
     if (buf[0].n128_u64[0])
     {
       buf[0].n128_u64[1] = buf[0].n128_u64[0];
 LABEL_56:
-      operator delete(v7);
+      operator delete(v8);
     }
   }
 
 LABEL_57:
-  if (v68 == 1)
+  if (v72 == 1)
   {
-    ULHomeSlamModel::~ULHomeSlamModel(&v67);
+    ULHomeSlamModel::~ULHomeSlamModel(&v71);
   }
 
-  if (v66 == 1)
+  if (v70 == 1)
   {
-    if (v65 < 0)
+    if (v69 < 0)
     {
-      operator delete(v64);
+      operator delete(v68);
     }
 
-    if (v62)
+    if (v66)
     {
-      v63 = v62;
-      operator delete(v62);
+      v67 = v66;
+      operator delete(v66);
     }
 
-    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(&v61);
-    buf[0].n128_u64[0] = &v60;
+    std::__hash_table<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,std::vector<boost::uuids::uuid>>>>::~__hash_table(&v65);
+    buf[0].n128_u64[0] = &v64;
     std::vector<std::pair<std::shared_ptr<CLMicroLocationFingerprint>,boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](buf);
-    if (v59 == 1 && v57)
+    if (v63 == 1 && v61)
     {
-      v58 = v57;
-      operator delete(v57);
+      v62 = v61;
+      operator delete(v61);
     }
 
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v50 + 6);
+    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v54 + 6);
   }
 
-  if (v71 == 1)
+  if (v75 == 1)
   {
 
-    std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v70, v70[1]);
+    std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v74, v74[1]);
   }
 
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v39, v39[1]);
-  v23 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v42, v43);
 }
 
-void sub_25904AF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62)
+void sub_25904AF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62)
 {
   if (__p)
   {
@@ -7960,7 +7516,7 @@ uint64_t std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,do
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__emplace_hint_unique_key_args<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::pair<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes const,double> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__emplace_hint_unique_key_args<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::pair<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes const,double> const&>(v5, (v5 + 8), v4 + 8, v4 + 2);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -7994,20 +7550,20 @@ uint64_t std::map<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,do
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__emplace_hint_unique_key_args<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::pair<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes const,double> const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__emplace_hint_unique_key_args<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::pair<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes const,double> const&>(uint64_t **a1, uint64_t *a2, int *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__find_equal<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__find_equal<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__find_equal<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__find_equal<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -8034,7 +7590,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -8095,7 +7651,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -8174,7 +7730,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -8196,15 +7752,15 @@ LABEL_48:
   return a4;
 }
 
-uint64_t **std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__tree_node<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__tree_node<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -8279,23 +7835,23 @@ uint64_t **std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::Lo
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__emplace_multi<std::pair<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes const,double> const&>();
+    std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__emplace_multi<std::pair<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes const,double> const&>(v5, a2 + 2);
   }
 
   return result;
 }
 
-void sub_25904B648(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25904B648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<double>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::__map_value_compare<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>,std::less<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes>,true>,std::allocator<std::__value_type<CLMicroLocationLocalizationSettings::LocalizerSettingsTypes,double>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -8325,7 +7881,7 @@ uint64_t std::__tree<std::__value_type<CLMicroLocationLocalizationSettings::Loca
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -8425,36 +7981,6 @@ __n128 std::__optional_storage_base<ULLocalizationResult,false>::__assign_from[a
   return result;
 }
 
-void ULHomeSlamModel::~ULHomeSlamModel(void **this)
-{
-  v3 = this + 23;
-  std::vector<ULPositionedImage>::__destroy_vector::operator()[abi:ne200100](&v3);
-  if (*(this + 143) < 0)
-  {
-    operator delete(this[15]);
-  }
-
-  std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table((this + 8));
-  v3 = this + 5;
-  std::vector<ULROI>::__destroy_vector::operator()[abi:ne200100](&v3);
-  if (*(this + 32) == 1)
-  {
-    v2 = this[3];
-    this[3] = 0;
-    if (v2)
-    {
-      v3 = (v2 + 80);
-      std::vector<std::unique_ptr<ULOctreeNode<std::shared_ptr<ULTrajectoryPoint>>>>::__destroy_vector::operator()[abi:ne200100](&v3);
-      v3 = (v2 + 56);
-      std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](&v3);
-      MEMORY[0x259CA1F90](v2, 0x1020C40B3163EAALL);
-    }
-
-    v3 = this;
-    std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  }
-}
-
 void ULModelMetaData::~ULModelMetaData(id *this)
 {
   if (*(this + 64) == 1)
@@ -8490,7 +8016,7 @@ void ULHomeSlamProbabilityVectorAlgorithm::localizeVisionFingerprint(uint64_t *a
     do
     {
       v11 = *v7;
-      v12 = v7[1];
+      v12 = *(v7 + 8);
       while (v11 != v12)
       {
         v13 = *(a3 + 280);
@@ -8535,7 +8061,7 @@ void ULHomeSlamProbabilityVectorAlgorithm::localizeVisionFingerprint(uint64_t *a
 
           v22 = (v98 - __src) >> 3;
           v23 = 8 * v18;
-          *v23 = *(v7 + 6);
+          *v23 = *(v7 + 24);
           *(v23 + 4) = v14;
           v10 = 8 * v18 + 8;
           v24 = (8 * v18 - 8 * v22);
@@ -8552,7 +8078,7 @@ void ULHomeSlamProbabilityVectorAlgorithm::localizeVisionFingerprint(uint64_t *a
 
         else
         {
-          *v98 = *(v7 + 6);
+          *v98 = *(v7 + 24);
           *(v15 + 1) = v14;
           v10 = (v15 + 8);
         }
@@ -8561,7 +8087,7 @@ void ULHomeSlamProbabilityVectorAlgorithm::localizeVisionFingerprint(uint64_t *a
         v11 += 240;
       }
 
-      v7 += 4;
+      v7 += 32;
     }
 
     while (v7 != v92);
@@ -8725,7 +8251,7 @@ LABEL_49:
     }
 
     v100 = v53;
-    v54 = std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v94, v53);
+    v54 = std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v94, v53, &std::piecewise_construct, &v100);
     ++v54[3];
     v53 += 2;
   }
@@ -8779,7 +8305,7 @@ LABEL_117:
           v66 = 16 * v62;
           *v66 = v58;
           *(v66 + 8) = 0;
-          v57 = 16 * v62 + 16;
+          v57 = (16 * v62 + 16);
           v67 = (v66 - 16 * (v61 >> 4));
           memcpy(v67, v60, v61);
           v68 = *a4;
@@ -8795,7 +8321,7 @@ LABEL_117:
         else
         {
           *v57 = v58;
-          *(v57 + 8) = 0;
+          *(v57 + 1) = 0;
           v57 += 16;
         }
 
@@ -8888,7 +8414,7 @@ LABEL_117:
           *v87 = v74;
           *(v87 + 8) = 0x3FF0000000000000;
 LABEL_104:
-          v77 = v87 + 16;
+          v77 = (v87 + 16);
           v88 = (v87 - 16 * v86);
           memcpy(v88, v78, v79);
           v89 = *v71;
@@ -8952,7 +8478,7 @@ LABEL_104:
         *(v76 + 1) = 0;
       }
 
-      v77 = (v76 + 16);
+      v77 = v76 + 16;
       v71 = a4;
 LABEL_106:
       v71[1] = v77;
@@ -8971,7 +8497,7 @@ LABEL_107:
   }
 }
 
-void sub_25904C0A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_25904C0A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&a13);
   if (__p)
@@ -8990,7 +8516,7 @@ void sub_25904C0A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v88 = *MEMORY[0x277D85DE8];
   memset(v75, 0, sizeof(v75));
@@ -9002,21 +8528,21 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **
     do
     {
       v9 = *v6;
-      if (*v6 != *(v6 + 1))
+      if (*v6 != *(v6 + 8))
       {
-        *buf = v6 + 6;
-        std::__hash_table<std::__hash_value_type<int,std::multiset<double>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::multiset<double>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::multiset<double>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::multiset<double>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v75, v6 + 6);
-        v10 = *(a3 + 280);
-        if (v10)
+        *buf = v6 + 24;
+        v10 = std::__hash_table<std::__hash_value_type<int,std::multiset<double>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::multiset<double>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::multiset<double>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::multiset<double>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v75, (v6 + 24), &std::piecewise_construct, buf);
+        v11 = *(a3 + 280);
+        if (v11)
         {
-          *buf = (*(*v10 + 48))(v10, v9 + 16, a2);
-          std::__tree<double>::__emplace_multi<double>();
+          *buf = (*(*v11 + 48))(v11, v9 + 16, a2);
+          std::__tree<double>::__emplace_multi<double>((v10 + 3), buf);
         }
 
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      v6 += 8;
+      v6 += 32;
     }
 
     while (v6 != v7);
@@ -9029,73 +8555,73 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **
   __src = 0;
   v68 = 0;
   v69 = 0;
-  ULAlgorithms::createKernelFunction(*(a3 + 312), &v66);
+  ULAlgorithms::createKernelFunction(&v66, *(a3 + 312));
   for (i = v74; i; i = *i)
   {
-    v12 = (*(*v66 + 24))(v66, *(i + 3));
-    v13 = (i + 2);
+    v13 = (*(*v66 + 24))(v66, *(i + 3));
+    v14 = (i + 2);
     *buf = i + 2;
-    std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, i + 4)[3] = 0;
-    if (v12 >= 0.0)
+    std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, i + 4, &std::piecewise_construct, buf)[3] = 0;
+    if (v13 >= 0.0)
     {
-      if (v12 >= 0.999)
+      if (v13 >= 0.999)
       {
-        v14 = v68;
+        v15 = v68;
         if (v68 >= v69)
         {
-          v16 = __src;
-          v17 = v68 - __src;
-          v18 = (v68 - __src) >> 2;
-          v19 = v18 + 1;
-          if ((v18 + 1) >> 62)
+          v17 = __src;
+          v18 = v68 - __src;
+          v19 = (v68 - __src) >> 2;
+          v20 = v19 + 1;
+          if ((v19 + 1) >> 62)
           {
             std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
           }
 
-          v20 = v69 - __src;
-          if ((v69 - __src) >> 1 > v19)
+          v21 = v69 - __src;
+          if ((v69 - __src) >> 1 > v20)
           {
-            v19 = v20 >> 1;
+            v20 = v21 >> 1;
           }
 
-          v21 = v20 >= 0x7FFFFFFFFFFFFFFCLL;
-          v22 = 0x3FFFFFFFFFFFFFFFLL;
-          if (!v21)
+          v22 = v21 >= 0x7FFFFFFFFFFFFFFCLL;
+          v23 = 0x3FFFFFFFFFFFFFFFLL;
+          if (!v22)
           {
-            v22 = v19;
+            v23 = v20;
           }
 
-          if (v22)
-          {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(&__src, v22);
-          }
-
-          *(4 * v18) = *v13;
-          v15 = 4 * v18 + 4;
-          memcpy(0, v16, v17);
-          v23 = __src;
-          __src = 0;
-          v68 = v15;
-          v69 = 0;
           if (v23)
           {
-            operator delete(v23);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(&__src, v23);
+          }
+
+          *(4 * v19) = *v14;
+          v16 = 4 * v19 + 4;
+          memcpy(0, v17, v18);
+          v24 = __src;
+          __src = 0;
+          v68 = v16;
+          v69 = 0;
+          if (v24)
+          {
+            operator delete(v24);
           }
         }
 
         else
         {
-          *v68 = *v13;
-          v15 = (v14 + 4);
+          *v68 = *v14;
+          v16 = (v15 + 4);
         }
 
-        v68 = v15;
+        v68 = v16;
       }
 
       else
       {
         *buf = i + 2;
-        *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, i + 4) + 3) = v12 / (1.0 - v12);
+        *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, i + 4, &std::piecewise_construct, buf) + 3) = v13 / (1.0 - v13);
       }
     }
 
@@ -9104,31 +8630,31 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **
       ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint();
     }
 
-    v24 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      std::to_string(&v65, *v13);
-      v25 = &v65;
+      std::to_string(&v65, *v14);
+      v26 = &v65;
       if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v25 = v65.__r_.__value_.__r.__words[0];
+        v26 = v65.__r_.__value_.__r.__words[0];
       }
 
-      v27 = i[3];
-      v26 = i[4];
+      v28 = i[3];
+      v27 = i[4];
       *buf = 68290051;
       *&buf[4] = 0;
       v78 = 2082;
       v79 = "";
       v80 = 2081;
-      v81 = v25;
+      v81 = v26;
       v82 = 2049;
-      v83 = v26;
+      v83 = v27;
       v84 = 2049;
-      v85 = v12;
+      v85 = v13;
       v86 = 2049;
-      v87 = v27;
-      _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:nullspace, identifier:%{private, location:escape_only}s, weight:%{private}f, phat:%{private}f, reducedDistance:%{private}f}", buf, 0x3Au);
+      v87 = v28;
+      _os_log_impl(&dword_258FE9000, v25, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:nullspace, identifier:%{private, location:escape_only}s, weight:%{private}f, phat:%{private}f, reducedDistance:%{private}f}", buf, 0x3Au);
       if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v65.__r_.__value_.__l.__data_);
@@ -9139,95 +8665,95 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  v28 = __src;
-  v29 = v68;
-  v30 = v71;
+  v29 = __src;
+  v30 = v68;
+  v31 = v71;
   if (__src == v68)
   {
     if (v71)
     {
-      v46 = 1.0;
-      v47 = v71;
+      v47 = 1.0;
+      v48 = v71;
       do
       {
-        v46 = v46 + v47[3];
-        v47 = *v47;
+        v47 = v47 + v48[3];
+        v48 = *v48;
       }
 
-      while (v47);
-      v33 = 0;
-      v48 = 1.0 / v46;
+      while (v48);
+      v34 = 0;
+      v49 = 1.0 / v47;
       do
       {
-        v49 = *(v30 + 4);
-        v50 = v48 * *(v30 + 3);
-        v51 = *(a4 + 16);
-        if (v33 >= v51)
+        v50 = *(v31 + 4);
+        v51 = v49 * *(v31 + 3);
+        v52 = *(a4 + 16);
+        if (v34 >= v52)
         {
-          v52 = (v33 - *a4) >> 4;
-          if ((v52 + 1) >> 60)
+          v53 = (v34 - *a4) >> 4;
+          if ((v53 + 1) >> 60)
           {
             std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
           }
 
-          v53 = v51 - *a4;
-          v54 = v53 >> 3;
-          if (v53 >> 3 <= (v52 + 1))
+          v54 = v52 - *a4;
+          v55 = v54 >> 3;
+          if (v54 >> 3 <= (v53 + 1))
           {
-            v54 = v52 + 1;
+            v55 = v53 + 1;
           }
 
-          if (v53 >= 0x7FFFFFFFFFFFFFF0)
+          if (v54 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v55 = 0xFFFFFFFFFFFFFFFLL;
+            v56 = 0xFFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v55 = v54;
+            v56 = v55;
           }
 
-          if (v55)
+          if (v56)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<ULRoomProbability>>(a4, v55);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<ULRoomProbability>>(a4, v56);
           }
 
-          v56 = 16 * v52;
-          *v56 = v49;
-          *(v56 + 4) = 0;
-          *(v56 + 8) = v50;
-          v33 = (16 * v52 + 16);
-          v57 = *(a4 + 8) - *a4;
-          v58 = v56 - v57;
-          memcpy((v56 - v57), *a4, v57);
-          v59 = *a4;
-          *a4 = v58;
-          *(a4 + 8) = v33;
+          v57 = 16 * v53;
+          *v57 = v50;
+          *(v57 + 4) = 0;
+          *(v57 + 8) = v51;
+          v34 = (16 * v53 + 16);
+          v58 = *(a4 + 8) - *a4;
+          v59 = v57 - v58;
+          memcpy((v57 - v58), *a4, v58);
+          v60 = *a4;
+          *a4 = v59;
+          *(a4 + 8) = v34;
           *(a4 + 16) = 0;
-          if (v59)
+          if (v60)
           {
-            operator delete(v59);
+            operator delete(v60);
           }
         }
 
         else
         {
-          v33->n128_u32[0] = v49;
-          v33->n128_u32[1] = 0;
-          v33->n128_f64[1] = v50;
-          ++v33;
+          v34->n128_u32[0] = v50;
+          v34->n128_u32[1] = 0;
+          v34->n128_f64[1] = v51;
+          ++v34;
         }
 
-        *(a4 + 8) = v33;
-        v30 = *v30;
+        *(a4 + 8) = v34;
+        v31 = *v31;
       }
 
-      while (v30);
+      while (v31);
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
   }
 
@@ -9237,122 +8763,122 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **
     {
       do
       {
-        *buf = v30 + 2;
-        std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, v30 + 4)[3] = 0;
-        v30 = *v30;
+        *buf = v31 + 2;
+        std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, v31 + 4, &std::piecewise_construct, buf)[3] = 0;
+        v31 = *v31;
       }
 
-      while (v30);
-      v28 = __src;
-      v29 = v68;
+      while (v31);
+      v29 = __src;
+      v30 = v68;
     }
 
-    if (v29 != v28)
+    if (v30 != v29)
     {
-      v31 = 1.0 / (v29 - v28);
+      v32 = 1.0 / (v30 - v29);
       do
       {
-        *buf = *&v28;
-        *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, v28++) + 3) = v31;
+        *buf = *&v29;
+        *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v70, v29++, &std::piecewise_construct, buf) + 3) = v32;
       }
 
-      while (v28 != v29);
+      while (v29 != v30);
     }
 
-    v32 = v71;
+    v33 = v71;
     if (v71)
     {
-      v33 = *(a4 + 8);
+      v34 = *(a4 + 8);
       do
       {
-        v34 = *(v32 + 4);
-        v35 = v32[3];
-        v36 = *(a4 + 16);
-        if (v33 >= v36)
+        v35 = *(v33 + 4);
+        v36 = v33[3];
+        v37 = *(a4 + 16);
+        if (v34 >= v37)
         {
-          v37 = *a4;
-          v38 = v33 - *a4;
-          v39 = v38 >> 4;
-          v40 = (v38 >> 4) + 1;
-          if (v40 >> 60)
+          v38 = *a4;
+          v39 = v34 - *a4;
+          v40 = v39 >> 4;
+          v41 = (v39 >> 4) + 1;
+          if (v41 >> 60)
           {
             std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
           }
 
-          v41 = v36 - v37;
-          if (v41 >> 3 > v40)
+          v42 = v37 - v38;
+          if (v42 >> 3 > v41)
           {
-            v40 = v41 >> 3;
+            v41 = v42 >> 3;
           }
 
-          if (v41 >= 0x7FFFFFFFFFFFFFF0)
+          if (v42 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v42 = 0xFFFFFFFFFFFFFFFLL;
+            v43 = 0xFFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v42 = v40;
+            v43 = v41;
           }
 
-          if (v42)
+          if (v43)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<ULRoomProbability>>(a4, v42);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<ULRoomProbability>>(a4, v43);
           }
 
-          v43 = 16 * v39;
-          *v43 = v34;
-          *(v43 + 8) = v35;
-          v33 = (16 * v39 + 16);
-          v44 = (v43 - 16 * (v38 >> 4));
-          memcpy(v44, v37, v38);
-          v45 = *a4;
-          *a4 = v44;
-          *(a4 + 8) = v33;
+          v44 = 16 * v40;
+          *v44 = v35;
+          *(v44 + 8) = v36;
+          v34 = (16 * v40 + 16);
+          v45 = (v44 - 16 * (v39 >> 4));
+          memcpy(v45, v38, v39);
+          v46 = *a4;
+          *a4 = v45;
+          *(a4 + 8) = v34;
           *(a4 + 16) = 0;
-          if (v45)
+          if (v46)
           {
-            operator delete(v45);
+            operator delete(v46);
           }
         }
 
         else
         {
-          v33->n128_u32[0] = v34;
-          v33->n128_u64[1] = v35;
-          ++v33;
+          v34->n128_u32[0] = v35;
+          v34->n128_u64[1] = v36;
+          ++v34;
         }
 
-        *(a4 + 8) = v33;
-        v32 = *v32;
+        *(a4 + 8) = v34;
+        v33 = *v33;
       }
 
-      while (v32);
+      while (v33);
     }
 
     else
     {
-      v33 = *(a4 + 8);
+      v34 = *(a4 + 8);
     }
   }
 
-  v60 = 126 - 2 * __clz((v33 - *a4) >> 4);
-  if (v33 == *a4)
+  v61 = 126 - 2 * __clz((v34 - *a4) >> 4);
+  if (v34 == *a4)
   {
-    v61 = 0;
+    v62 = 0;
   }
 
   else
   {
-    v61 = v60;
+    v62 = v61;
   }
 
-  std::__introsort<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,false>(*a4, v33, v61, 1);
-  v62 = v66;
+  std::__introsort<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,false>(*a4, v34, v62, 1);
+  v63 = v66;
   v66 = 0;
-  if (v62)
+  if (v63)
   {
-    (*(*v62 + 8))(v62);
+    (*(*v63 + 8))(v63);
   }
 
   if (__src)
@@ -9363,13 +8889,12 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint@<X0>(int **
 
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v70);
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v73);
-  result = std::__hash_table<std::__hash_value_type<int,std::multiset<double>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::multiset<double>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::multiset<double>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::multiset<double>>>>::~__hash_table(v75);
-  v64 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<std::__hash_value_type<int,std::multiset<double>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::multiset<double>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::multiset<double>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::multiset<double>>>>::~__hash_table(v75);
 }
 
-void sub_25904C7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_25904C7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   if (__p)
   {
     operator delete(__p);
@@ -9377,7 +8902,7 @@ void sub_25904C7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&a19);
   std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&a24);
-  std::__hash_table<std::__hash_value_type<int,std::multiset<double>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::multiset<double>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::multiset<double>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::multiset<double>>>>::~__hash_table(&a29);
+  std::__hash_table<std::__hash_value_type<int,std::multiset<double>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::multiset<double>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::multiset<double>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::multiset<double>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
@@ -9409,24 +8934,22 @@ uint64_t ULHomeSlamProbabilityVectorAlgorithm::createReducedDistancesMap@<X0>(ui
   *(a3 + 32) = 1065353216;
   for (i = *(a1 + 16); i; i = *i)
   {
-    std::multiset<double>::multiset[abi:ne200100](v14, i + 3);
+    std::multiset<double>::multiset[abi:ne200100](v13, (i + 6));
     if (!v16)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v9 = (*(*v16 + 48))(v16, v14);
-    v10 = i[5];
-    v14[4] = i + 2;
-    v11 = std::__hash_table<std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>,std::__unordered_map_hasher<int,std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a3, i + 4);
+    v9 = (*(*v16 + 48))(v16, v13);
+    v10 = *(i + 5);
+    v14 = i + 4;
+    v11 = std::__hash_table<std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>,std::__unordered_map_hasher<int,std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,ULHomeSlamProbabilityVectorAlgorithm::ReducedDistanceAndWeight>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a3, i + 4, &std::piecewise_construct, &v14);
     *(v11 + 3) = v9;
     *(v11 + 4) = v10 / v7;
-    std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v14, v14[1]);
+    std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(v13, v13[1]);
   }
 
-  result = std::__function::__value_func<double ()(std::multiset<double>)>::~__value_func[abi:ne200100](v15);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<double ()(std::multiset<double>)>::~__value_func[abi:ne200100](v15);
 }
 
 void ULHomeSlamProbabilityVectorAlgorithm::localize(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
@@ -9646,305 +9169,390 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_13()
   logObject_MicroLocation_Default = v0;
 }
 
-void std::__introsort<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,false>(unint64_t a1, __n128 *a2, uint64_t a3, char a4)
+void std::__introsort<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,false>(unint64_t result, __n128 *a2, uint64_t a3, char a4)
 {
-  v140 = *MEMORY[0x277D85DE8];
-LABEL_2:
+LABEL_1:
   v8 = a2 - 1;
   v9 = a2 - 2;
   v10 = a2 - 3;
-  v11 = a1;
+  v11 = result;
   while (1)
   {
-    a1 = v11;
+    result = v11;
     v12 = (a2 - v11) >> 4;
-    if (v12 > 2)
+    if (v12 <= 2)
+    {
+      if (v12 < 2)
+      {
+        return;
+      }
+
+      if (v12 == 2)
+      {
+        v66 = a2[-1].n128_i32[0];
+        v65 = a2 - 1;
+        if (v66 < *v11)
+        {
+          v67 = *v11;
+          *v11 = *v65;
+          *v65 = v67;
+        }
+
+        return;
+      }
+
+      goto LABEL_9;
+    }
+
+    if (v12 == 3)
     {
       break;
     }
 
-    if (v12 < 2)
+    if (v12 == 4)
     {
-      goto LABEL_190;
-    }
-
-    if (v12 == 2)
-    {
-      v67 = a2[-1].n128_i32[0];
-      v66 = a2 - 1;
-      if (v67 < *v11)
+      v68 = (v11 + 16);
+      v74 = *(v11 + 16);
+      v75 = (v11 + 32);
+      v76 = *(v11 + 32);
+      v77 = *v11;
+      if (v74 >= *v11)
       {
-        v68 = *v11;
-        *v11 = *v66;
-        *v66 = v68;
+        if (v76 < v74)
+        {
+          v117 = *v68;
+          *v68 = *v75;
+          *v75 = v117;
+          v76 = v117.n128_u32[0];
+          if (v68->n128_u32[0] < v77)
+          {
+            v118 = *v11;
+            *v11 = *v68;
+            *(v11 + 16) = v118;
+          }
+        }
       }
 
-      goto LABEL_190;
+      else
+      {
+        v78 = *v11;
+        v79 = *(v11 + 8);
+        if (v76 < v74)
+        {
+          *v11 = *v75;
+          goto LABEL_183;
+        }
+
+        *v11 = *v68;
+        *(v11 + 16) = v78;
+        *(v11 + 24) = v79;
+        if (v76 < v78)
+        {
+          *v68 = *v75;
+LABEL_183:
+          *(v11 + 32) = v78;
+          *(v11 + 40) = v79;
+          v76 = v78;
+        }
+      }
+
+      if (v8->n128_u32[0] >= v76)
+      {
+        return;
+      }
+
+      v122 = *v75;
+      *v75 = *v8;
+      *v8 = v122;
+      if (v75->n128_u32[0] >= v68->n128_u32[0])
+      {
+        return;
+      }
+
+      v123 = *(v11 + 16);
+      *v68 = *v75;
+      *(v11 + 32) = v123;
+LABEL_187:
+      if (*(v11 + 16) < *v11)
+      {
+        v124 = *v11;
+        *v11 = *v68;
+        *(v11 + 16) = v124;
+      }
+
+      return;
     }
 
-LABEL_10:
+    if (v12 == 5)
+    {
+
+      std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,0>(v11, (v11 + 16), (v11 + 32), (v11 + 48), a2 - 1);
+      return;
+    }
+
+LABEL_9:
     if (v12 <= 23)
     {
-      v81 = (v11 + 16);
-      v83 = v11 == a2 || v81 == a2;
+      v80 = (v11 + 16);
+      v82 = v11 == a2 || v80 == a2;
       if (a4)
       {
-        if (!v83)
+        if (!v82)
         {
-          v84 = 0;
-          v85 = v11;
+          v83 = 0;
+          v84 = v11;
           do
           {
-            v86 = v81;
-            v87 = *(v85 + 16);
-            if (v87 < *v85)
+            v85 = v80;
+            v86 = *(v84 + 16);
+            if (v86 < *v84)
             {
-              v129 = *(v85 + 20);
-              v135 = *(v85 + 28);
-              v88 = v84;
+              v127 = *(v84 + 20);
+              v133 = *(v84 + 28);
+              v87 = v83;
               while (1)
               {
-                *(v11 + v88 + 16) = *(v11 + v88);
-                if (!v88)
+                *(v11 + v87 + 16) = *(v11 + v87);
+                if (!v87)
                 {
                   break;
                 }
 
-                v89 = *(v11 + v88 - 16);
-                v88 -= 16;
-                if (v87 >= v89)
+                v88 = *(v11 + v87 - 16);
+                v87 -= 16;
+                if (v86 >= v88)
                 {
-                  v90 = v11 + v88 + 16;
-                  goto LABEL_123;
+                  v89 = v11 + v87 + 16;
+                  goto LABEL_122;
                 }
               }
 
-              v90 = v11;
-LABEL_123:
-              *v90 = v87;
-              *(v90 + 12) = v135;
-              *(v90 + 4) = v129;
+              v89 = v11;
+LABEL_122:
+              *v89 = v86;
+              *(v89 + 12) = v133;
+              *(v89 + 4) = v127;
             }
 
-            v81 = v86 + 1;
-            v84 += 16;
-            v85 = v86;
+            v80 = v85 + 1;
+            v83 += 16;
+            v84 = v85;
           }
 
-          while (&v86[1] != a2);
+          while (&v85[1] != a2);
         }
       }
 
-      else if (!v83)
+      else if (!v82)
       {
         do
         {
-          v120 = v81;
-          v121 = *(a1 + 16);
-          if (v121 < *a1)
+          v119 = v80;
+          v120 = *(result + 16);
+          if (v120 < *result)
           {
-            v132 = *(a1 + 20);
-            v137 = *(a1 + 28);
+            v130 = *(result + 20);
+            v135 = *(result + 28);
             do
             {
-              *v81 = v81[-1];
-              v122 = v81[-2].n128_i32[0];
-              --v81;
+              *v80 = v80[-1];
+              v121 = v80[-2].n128_i32[0];
+              --v80;
             }
 
-            while (v121 < v122);
-            v81->n128_u32[0] = v121;
-            v81->n128_u32[3] = v137;
-            *(v81->n128_u64 + 4) = v132;
+            while (v120 < v121);
+            v80->n128_u32[0] = v120;
+            v80->n128_u32[3] = v135;
+            *(v80->n128_u64 + 4) = v130;
           }
 
-          v81 = v120 + 1;
-          a1 = v120;
+          v80 = (v119 + 16);
+          result = v119;
         }
 
-        while (&v120[1] != a2);
+        while ((v119 + 16) != a2);
       }
 
-      goto LABEL_190;
+      return;
     }
 
     if (!a3)
     {
       if (v11 != a2)
       {
-        v91 = (v12 - 2) >> 1;
-        v92 = v91;
+        v90 = (v12 - 2) >> 1;
+        v91 = v90;
         do
         {
-          v93 = v92;
-          if (v91 >= v92)
+          v92 = v91;
+          if (v90 >= v91)
           {
-            v94 = (2 * v92) | 1;
-            v95 = (v11 + 16 * v94);
-            if (2 * v93 + 2 >= v12)
+            v93 = (2 * v91) | 1;
+            v94 = (v11 + 16 * v93);
+            if (2 * v92 + 2 >= v12)
             {
-              v96 = *v95;
+              v95 = *v94;
             }
 
             else
             {
-              v96 = v95[4];
-              v97 = *v95 < v96;
-              if (*v95 > v96)
+              v95 = v94[4];
+              v96 = *v94 < v95;
+              if (*v94 > v95)
               {
-                v96 = *v95;
+                v95 = *v94;
               }
 
-              if (v97)
+              if (v96)
               {
-                v95 += 4;
-                v94 = 2 * v93 + 2;
+                v94 += 4;
+                v93 = 2 * v92 + 2;
               }
             }
 
-            v98 = (v11 + 16 * v93);
-            v99 = *v98;
-            if (v96 >= *v98)
+            v97 = (v11 + 16 * v92);
+            v98 = *v97;
+            if (v95 >= *v97)
             {
-              v136 = v98[3];
-              v130 = *(v98 + 1);
+              v134 = v97[3];
+              v128 = *(v97 + 1);
               do
               {
-                v100 = v98;
-                v98 = v95;
-                *v100 = *v95;
-                if (v91 < v94)
+                v99 = v97;
+                v97 = v94;
+                *v99 = *v94;
+                if (v90 < v93)
                 {
                   break;
                 }
 
-                v101 = (2 * v94) | 1;
-                v95 = (v11 + 16 * v101);
-                v94 = 2 * v94 + 2;
-                if (v94 >= v12)
+                v100 = (2 * v93) | 1;
+                v94 = (v11 + 16 * v100);
+                v93 = 2 * v93 + 2;
+                if (v93 >= v12)
                 {
-                  v102 = *v95;
-                  v94 = v101;
+                  v101 = *v94;
+                  v93 = v100;
                 }
 
                 else
                 {
-                  v102 = *v95;
-                  v103 = v95[4];
-                  if (*v95 <= v103)
+                  v101 = *v94;
+                  v102 = v94[4];
+                  if (*v94 <= v102)
                   {
-                    v102 = v95[4];
+                    v101 = v94[4];
                   }
 
-                  if (*v95 >= v103)
+                  if (*v94 >= v102)
                   {
-                    v94 = v101;
+                    v93 = v100;
                   }
 
                   else
                   {
-                    v95 += 4;
+                    v94 += 4;
                   }
                 }
               }
 
-              while (v102 >= v99);
-              *v98 = v99;
-              v98[3] = v136;
-              *(v98 + 1) = v130;
+              while (v101 >= v98);
+              *v97 = v98;
+              v97[3] = v134;
+              *(v97 + 1) = v128;
             }
           }
 
-          v92 = v93 - 1;
+          v91 = v92 - 1;
         }
 
-        while (v93);
+        while (v92);
         do
         {
-          v104 = 0;
-          v131 = *v11;
-          v105 = v11;
+          v103 = 0;
+          v129 = *v11;
+          v104 = v11;
           do
           {
-            v106 = &v105[v104];
-            v107 = v106 + 1;
-            v108 = (2 * v104) | 1;
-            v104 = 2 * v104 + 2;
-            if (v104 >= v12)
+            v105 = &v104[v103];
+            v106 = v105 + 1;
+            v107 = (2 * v103) | 1;
+            v103 = 2 * v103 + 2;
+            if (v103 >= v12)
             {
-              v104 = v108;
+              v103 = v107;
             }
 
             else
             {
-              v110 = v106[2].n128_i32[0];
-              v109 = v106 + 2;
-              if (v109[-1].n128_u32[0] >= v110)
+              v109 = v105[2].n128_i32[0];
+              v108 = v105 + 2;
+              if (v108[-1].n128_u32[0] >= v109)
               {
-                v104 = v108;
+                v103 = v107;
               }
 
               else
               {
-                v107 = v109;
+                v106 = v108;
               }
             }
 
-            *v105 = *v107;
-            v105 = v107;
+            *v104 = *v106;
+            v104 = v106;
           }
 
-          while (v104 <= ((v12 - 2) >> 1));
-          if (v107 == --a2)
+          while (v103 <= ((v12 - 2) >> 1));
+          if (v106 == --a2)
           {
-            *v107 = v131;
+            *v106 = v129;
           }
 
           else
           {
-            *v107 = *a2;
-            *a2 = v131;
-            v111 = (&v107[1] - v11) >> 4;
-            v97 = v111 < 2;
-            v112 = v111 - 2;
-            if (!v97)
+            *v106 = *a2;
+            *a2 = v129;
+            v110 = (&v106[1] - v11) >> 4;
+            v96 = v110 < 2;
+            v111 = v110 - 2;
+            if (!v96)
             {
-              v113 = v112 >> 1;
-              v114 = (v11 + 16 * v113);
-              v115 = v107->n128_u32[0];
-              if (v114->n128_u32[0] < v107->n128_u32[0])
+              v112 = v111 >> 1;
+              v113 = (v11 + 16 * v112);
+              v114 = v106->n128_u32[0];
+              if (v113->n128_u32[0] < v106->n128_u32[0])
               {
-                v139 = v107->n128_i32[3];
-                v138 = *(v107->n128_u64 + 4);
+                v137 = v106->n128_i32[3];
+                v136 = *(v106->n128_u64 + 4);
                 do
                 {
-                  v116 = v107;
-                  v107 = v114;
-                  *v116 = *v114;
-                  if (!v113)
+                  v115 = v106;
+                  v106 = v113;
+                  *v115 = *v113;
+                  if (!v112)
                   {
                     break;
                   }
 
-                  v113 = (v113 - 1) >> 1;
-                  v114 = (v11 + 16 * v113);
+                  v112 = (v112 - 1) >> 1;
+                  v113 = (v11 + 16 * v112);
                 }
 
-                while (v114->n128_u32[0] < v115);
-                v107->n128_u32[0] = v115;
-                v107->n128_u32[3] = v139;
-                *(v107->n128_u64 + 4) = v138;
+                while (v113->n128_u32[0] < v114);
+                v106->n128_u32[0] = v114;
+                v106->n128_u32[3] = v137;
+                *(v106->n128_u64 + 4) = v136;
               }
             }
           }
 
-          v97 = v12-- <= 2;
+          v96 = v12-- <= 2;
         }
 
-        while (!v97);
+        while (!v96);
       }
 
-      goto LABEL_190;
+      return;
     }
 
     v13 = (v11 + 16 * (v12 >> 1));
@@ -10098,7 +9706,7 @@ LABEL_123:
         if (v41 < v39)
         {
           *v25 = *v32;
-          goto LABEL_54;
+          goto LABEL_53;
         }
 
         *v25 = *v14;
@@ -10106,7 +9714,7 @@ LABEL_123:
         if (v41 < v42.n128_i32[0])
         {
           *v14 = *v32;
-LABEL_54:
+LABEL_53:
           *v32 = v42;
         }
       }
@@ -10114,7 +9722,7 @@ LABEL_54:
       v45 = *v11;
       *v11 = *v14;
       *v14 = v45;
-      goto LABEL_56;
+      goto LABEL_55;
     }
 
     v18 = *v11;
@@ -10133,7 +9741,7 @@ LABEL_54:
         }
       }
 
-      goto LABEL_56;
+      goto LABEL_55;
     }
 
     v19 = *v13;
@@ -10143,7 +9751,7 @@ LABEL_54:
       *v11 = v19;
       if (v8->n128_u32[0] >= v19.n128_i32[0])
       {
-        goto LABEL_56;
+        goto LABEL_55;
       }
 
       *v11 = *v8;
@@ -10155,14 +9763,14 @@ LABEL_54:
     }
 
     *v8 = v19;
-LABEL_56:
+LABEL_55:
     --a3;
     v46 = *v11;
     if ((a4 & 1) != 0 || *(v11 - 16) < v46)
     {
       v47 = 0;
-      v133 = *(v11 + 12);
-      v127 = *(v11 + 4);
+      v131 = *(v11 + 12);
+      v125 = *(v11 + 4);
       do
       {
         v48 = *(v11 + v47 + 16);
@@ -10228,43 +9836,43 @@ LABEL_56:
         while (v11 < v53);
       }
 
-      if (v11 - 16 != a1)
+      if (v11 - 16 != result)
       {
-        *a1 = *(v11 - 16);
+        *result = *(v11 - 16);
       }
 
       *(v11 - 16) = v46;
-      *(v11 - 4) = v133;
-      *(v11 - 12) = v127;
+      *(v11 - 4) = v131;
+      *(v11 - 12) = v125;
       if (v49 < v50)
       {
-        goto LABEL_77;
+        goto LABEL_76;
       }
 
-      v57 = std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *>(a1, (v11 - 16));
+      v57 = std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *>(result, (v11 - 16));
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *>(v11, a2))
       {
         a2 = (v11 - 16);
         if (!v57)
         {
-          goto LABEL_2;
+          goto LABEL_1;
         }
 
-        goto LABEL_190;
+        return;
       }
 
       if (!v57)
       {
-LABEL_77:
-        std::__introsort<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,false>(a1, v11 - 16, a3, a4 & 1);
+LABEL_76:
+        std::__introsort<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,false>(result, (v11 - 16), a3, a4 & 1);
         a4 = 0;
       }
     }
 
     else
     {
-      v134 = *(v11 + 12);
-      v128 = *(v11 + 4);
+      v132 = *(v11 + 12);
+      v126 = *(v11 + 4);
       if (v46 >= v8->n128_u32[0])
       {
         v59 = v11 + 16;
@@ -10327,146 +9935,55 @@ LABEL_77:
         while (v46 < v64);
       }
 
-      if (v11 - 16 != a1)
+      if (v11 - 16 != result)
       {
-        *a1 = *(v11 - 16);
+        *result = *(v11 - 16);
       }
 
       a4 = 0;
       *(v11 - 16) = v46;
-      *(v11 - 4) = v134;
-      *(v11 - 12) = v128;
+      *(v11 - 4) = v132;
+      *(v11 - 12) = v126;
     }
   }
 
-  if (v12 == 3)
+  v68 = (v11 + 16);
+  v69 = *(v11 + 16);
+  v70 = a2 - 1;
+  v71 = a2[-1].n128_i32[0];
+  if (v69 >= *v11)
   {
-    v69 = (v11 + 16);
-    v70 = *(v11 + 16);
-    v71 = a2 - 1;
-    v72 = a2[-1].n128_i32[0];
-    if (v70 >= *v11)
+    if (v71 >= v69)
     {
-      if (v72 < v70)
-      {
-        v117 = *(v11 + 16);
-        *v69 = *v71;
-        *v71 = v117;
-        goto LABEL_188;
-      }
+      return;
     }
 
-    else
-    {
-      v74 = *v11;
-      v73 = *(v11 + 8);
-      if (v72 < v70)
-      {
-        *v11 = *v71;
-LABEL_181:
-        a2[-1].n128_u64[0] = v74;
-        a2[-1].n128_u64[1] = v73;
-        goto LABEL_190;
-      }
-
-      *v11 = *v69;
-      *(v11 + 16) = v74;
-      *(v11 + 24) = v73;
-      if (v71->n128_u32[0] < v74)
-      {
-        *v69 = *v71;
-        goto LABEL_181;
-      }
-    }
-
-LABEL_190:
-    v126 = *MEMORY[0x277D85DE8];
-    return;
+    v116 = *(v11 + 16);
+    *v68 = *v70;
+    *v70 = v116;
+    goto LABEL_187;
   }
 
-  if (v12 == 4)
+  v73 = *v11;
+  v72 = *(v11 + 8);
+  if (v71 >= v69)
   {
-    v69 = (v11 + 16);
-    v75 = *(v11 + 16);
-    v76 = (v11 + 32);
-    v77 = *(v11 + 32);
-    v78 = *v11;
-    if (v75 >= *v11)
+    *v11 = *v68;
+    *(v11 + 16) = v73;
+    *(v11 + 24) = v72;
+    if (v70->n128_u32[0] >= v73)
     {
-      if (v77 < v75)
-      {
-        v118 = *v69;
-        *v69 = *v76;
-        *v76 = v118;
-        v77 = v118.n128_u32[0];
-        if (v69->n128_u32[0] < v78)
-        {
-          v119 = *v11;
-          *v11 = *v69;
-          *(v11 + 16) = v119;
-        }
-      }
-
-      goto LABEL_185;
+      return;
     }
 
-    v79 = *v11;
-    v80 = *(v11 + 8);
-    if (v77 >= v75)
-    {
-      *v11 = *v69;
-      *(v11 + 16) = v79;
-      *(v11 + 24) = v80;
-      if (v77 >= v79)
-      {
-        goto LABEL_185;
-      }
-
-      *v69 = *v76;
-    }
-
-    else
-    {
-      *v11 = *v76;
-    }
-
-    *(v11 + 32) = v79;
-    *(v11 + 40) = v80;
-    v77 = v79;
-LABEL_185:
-    if (v8->n128_u32[0] >= v77)
-    {
-      goto LABEL_190;
-    }
-
-    v123 = *v76;
-    *v76 = *v8;
-    *v8 = v123;
-    if (v76->n128_u32[0] >= v69->n128_u32[0])
-    {
-      goto LABEL_190;
-    }
-
-    v124 = *(v11 + 16);
-    *v69 = *v76;
-    *(v11 + 32) = v124;
-LABEL_188:
-    if (*(v11 + 16) < *v11)
-    {
-      v125 = *v11;
-      *v11 = *v69;
-      *(v11 + 16) = v125;
-    }
-
-    goto LABEL_190;
+    *v68 = *v70;
   }
 
-  if (v12 != 5)
+  else
   {
-    goto LABEL_10;
+    *v11 = *v70;
   }
 
-  v65 = *MEMORY[0x277D85DE8];
-
-  std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,ULHomeSlamProbabilityVectorAlgorithm::localizeRfFingerprint(std::vector<ULROI> const&,CLMicroLocationFingerprint const&,ULHomeSlamSettings const&)::$_1 &,ULRoomProbability *,0>(v11, (v11 + 16), (v11 + 32), (v11 + 48), a2 - 1);
+  a2[-1].n128_u64[0] = v73;
+  a2[-1].n128_u64[1] = v72;
 }

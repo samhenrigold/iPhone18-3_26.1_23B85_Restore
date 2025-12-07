@@ -12,23 +12,21 @@
 
 - (id)jsonDictionary
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11[0] = @"view";
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10[0] = @"view";
   view = [(CKKSExternalKey *)self view];
-  v12[0] = view;
-  v11[1] = @"uuid";
+  v11[0] = view;
+  v10[1] = @"uuid";
   uuid = [(CKKSExternalKey *)self uuid];
-  v12[1] = uuid;
-  v11[2] = @"parentKeyUUID";
+  v11[1] = uuid;
+  v10[2] = @"parentKeyUUID";
   parentKeyUUID = [(CKKSExternalKey *)self parentKeyUUID];
-  v12[2] = parentKeyUUID;
-  v11[3] = @"keyData";
+  v11[2] = parentKeyUUID;
+  v10[3] = @"keyData";
   keyData = [(CKKSExternalKey *)self keyData];
   v7 = [keyData base64EncodedStringWithOptions:0];
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }
@@ -192,7 +190,7 @@ LABEL_21:
 
 + (id)parseFromJSONDict:(id)dict error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v6 = [dictCopy objectForKeyedSubscript:@"view"];
   v7 = [dictCopy objectForKeyedSubscript:@"uuid"];
@@ -252,11 +250,11 @@ LABEL_13:
 LABEL_14:
         v17 = MEMORY[0x1E696ABC0];
         v18 = *MEMORY[0x1E696A768];
-        v22[0] = *MEMORY[0x1E696A578];
-        v22[1] = @"missingkeys";
-        v23[0] = @"Missing some required field";
-        v23[1] = v16;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+        v21[0] = *MEMORY[0x1E696A578];
+        v21[1] = @"missingkeys";
+        v22[0] = @"Missing some required field";
+        v22[1] = v16;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
         *error = [v17 errorWithDomain:v18 code:-50 userInfo:v19];
 
         goto LABEL_15;
@@ -281,9 +279,9 @@ LABEL_23:
   {
     v13 = MEMORY[0x1E696ABC0];
     v14 = *MEMORY[0x1E696A768];
-    v24 = *MEMORY[0x1E696A578];
-    v25[0] = @"No wrapped key to parse";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A578];
+    v24[0] = @"No wrapped key to parse";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     [v13 errorWithDomain:v14 code:-50 userInfo:v11];
     *error = v12 = 0;
     goto LABEL_16;
@@ -291,8 +289,6 @@ LABEL_23:
 
   v12 = 0;
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

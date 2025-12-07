@@ -133,9 +133,9 @@ LABEL_35:
   return 1;
 }
 
-__CFString *sub_23E4DA62C(char *a1, id *a2, void **a3, void **a4)
+__CFString *sub_23E4DA62C(id *a1, id *a2, void **a3, void **a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345438);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345438, &qword_23E4E0098);
   MEMORY[0x28223BE20](v8 - 8);
   v54 = &v50 - v9;
   v10 = a2 - a1 + 7;
@@ -154,7 +154,7 @@ __CFString *sub_23E4DA62C(char *a1, id *a2, void **a3, void **a4)
   v13 = v12 >> 3;
   if (v11 < v12 >> 3)
   {
-    if (a4 != a1 || &a1[8 * v11] <= a4)
+    if (a4 != a1 || &a1[v11] <= a4)
     {
       memmove(a4, a1, 8 * v11);
     }
@@ -204,7 +204,7 @@ LABEL_48:
         (*(*(v28 - 8) + 56))(v54, 1, 1, v28);
         sub_23E4ABBE4();
         v30 = sub_23E4DCF4C();
-        sub_23E4AC750(v29, &qword_27E345438);
+        sub_23E4AC750(v29, &qword_27E345438, &qword_23E4E0098);
 
         if (v30 != -1)
         {
@@ -220,7 +220,7 @@ LABEL_48:
         }
 
 LABEL_17:
-        a1 += 8;
+        ++a1;
         if (a4 >= v59 || a2 >= v53)
         {
           goto LABEL_40;
@@ -304,7 +304,7 @@ LABEL_28:
     (*(*(v46 - 8) + 56))(v54, 1, 1, v46);
     sub_23E4ABBE4();
     v48 = sub_23E4DCF4C();
-    sub_23E4AC750(v47, &qword_27E345438);
+    sub_23E4AC750(v47, &qword_27E345438, &qword_23E4E0098);
 
     v49 = a3 + 1;
     if (v48 == -1)
@@ -389,9 +389,8 @@ LABEL_27:
       do
       {
         v30 = v28;
-        v31 = (v28 + 1);
-        v32 = *(v29 - 1);
-        v29 -= 8;
+        v31 = v28 + 1;
+        v32 = *--v29;
         v33 = *v27;
         v34 = v32;
         v35 = v33;
@@ -501,7 +500,7 @@ LABEL_20:
 LABEL_38:
   if (v25 != v14 || v25 >= (v14 + ((v44 - v14 + (v44 - v14 < 0 ? 7uLL : 0)) & 0xFFFFFFFFFFFFFFF8)))
   {
-    memmove(v25, v14, 8 * ((v44 - v14) / 8));
+    memmove(v25, v14, 8 * (v44 - v14));
   }
 
   return 1;
@@ -642,7 +641,7 @@ LABEL_43:
   return 1;
 }
 
-uint64_t sub_23E4DB0A4(unsigned __int8 *__dst, unsigned __int8 *__src, unint64_t a3, unsigned __int8 *a4, char a5, void *a6)
+uint64_t sub_23E4DB0A4(char *__dst, char *__src, char *a3, char *a4, char a5, void *a6)
 {
   v7 = v6;
   v9 = a4;
@@ -651,14 +650,14 @@ uint64_t sub_23E4DB0A4(unsigned __int8 *__dst, unsigned __int8 *__src, unint64_t
   v12 = __dst;
   v13 = __src - __dst;
   v14 = a3 - __src;
-  if (__src - __dst < (a3 - __src))
+  if (__src - __dst < a3 - __src)
   {
     if (a4 != __dst || a4 >= __src)
     {
       memmove(a4, __dst, v13);
     }
 
-    v15 = &v9[v13];
+    v15 = (v9 + v13);
     if (v13 < 1 || v11 >= v10)
     {
 LABEL_19:
@@ -673,7 +672,7 @@ LABEL_19:
       v16 = sub_23E4B7574(&v35, &v34, a5 & 1, a6);
       if (v6)
       {
-        v28 = v15 - v9;
+        v28 = &v15[-v9];
         if (v12 < v9 || v12 >= v15 || v12 != v9)
         {
           v29 = v12;
@@ -695,7 +694,7 @@ LABEL_19:
 
       else
       {
-        v19 = v9 + 1;
+        v19 = (v9 + 1);
         v18 = v9;
         v17 = v11;
         if (v12 < v9)
@@ -734,7 +733,7 @@ LABEL_17:
     memmove(a4, __src, a3 - __src);
   }
 
-  v15 = &v9[v14];
+  v15 = (v9 + v14);
   if (v14 < 1 || v11 <= v12)
   {
     goto LABEL_50;
@@ -791,7 +790,7 @@ LABEL_26:
 LABEL_49:
       a6 = v32;
 LABEL_50:
-      v28 = v15 - v9;
+      v28 = &v15[-v9];
       if (v11 >= v9 && v11 < v15 && v11 == v9)
       {
         goto LABEL_56;
@@ -827,7 +826,7 @@ LABEL_56:
   return 1;
 }
 
-uint64_t sub_23E4DB388(unint64_t a1)
+char *sub_23E4DB388(unint64_t a1)
 {
   v3 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
@@ -837,7 +836,7 @@ uint64_t sub_23E4DB388(unint64_t a1)
     v3 = result;
   }
 
-  v5 = *(v3 + 16);
+  v5 = *(v3 + 2);
   if (v5 <= a1)
   {
     __break(1u);
@@ -846,10 +845,10 @@ uint64_t sub_23E4DB388(unint64_t a1)
   else
   {
     v6 = v5 - 1;
-    v7 = v3 + 16 * a1;
-    v8 = *(v7 + 32);
-    memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
-    *(v3 + 16) = v6;
+    v7 = &v3[16 * a1];
+    v8 = *(v7 + 4);
+    memmove(v7 + 32, v7 + 48, 16 * (v5 - 1 - a1));
+    *(v3 + 2) = v6;
     *v1 = v3;
     return v8;
   }
@@ -860,7 +859,7 @@ uint64_t sub_23E4DB388(unint64_t a1)
 void *sub_23E4DB414()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345448);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345448, &qword_23E4E00A8);
   v2 = *v0;
   v3 = sub_23E4DD09C();
   v4 = v3;
@@ -938,7 +937,7 @@ LABEL_19:
   return result;
 }
 
-void *sub_23E4DB570(void *a1, int64_t a2, char a3)
+void *sub_23E4DB570(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23E4DB590(a1, a2, a3, *v3);
   *v3 = result;
@@ -986,7 +985,7 @@ void *sub_23E4DB590(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345428);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345428, &qword_23E4E0088);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -1016,7 +1015,7 @@ void *sub_23E4DB590(void *result, int64_t a2, char a3, void *a4)
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345430);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345430, &qword_23E4E0090);
     swift_arrayInitWithCopy();
   }
 
@@ -1169,12 +1168,12 @@ BOOL sub_23E4DB81C(void *a1, void *a2)
 
 uint64_t sub_23E4DB890(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345420);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E345420, &qword_23E4E0080);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-void sub_23E4DB920(unsigned __int8 **a1, uint64_t a2, uint64_t *a3, uint64_t a4, char a5, void *a6)
+void sub_23E4DB920(char **a1, uint64_t a2, uint64_t *a3, uint64_t a4, char a5, void *a6)
 {
   v9 = a3[1];
   v101 = a6;
@@ -1203,11 +1202,11 @@ LABEL_90:
   v11 = MEMORY[0x277D84F90];
   while (1)
   {
-    v12 = v10 + 1;
+    v12 = (v10 + 1);
     if (v10 + 1 < v9)
     {
       v13 = *a3;
-      v105 = *(*a3 + v12);
+      v105 = v12[*a3];
       v104 = *(v13 + v10);
       v14 = sub_23E4B7574(&v105, &v104, a5 & 1, v101);
       if (v6)
@@ -1277,12 +1276,12 @@ LABEL_104:
       goto LABEL_123;
     }
 
-    if (v12 - v10 >= v94)
+    if (&v12[-v10] >= v94)
     {
       goto LABEL_136;
     }
 
-    v23 = (v10 + v94);
+    v23 = v10 + v94;
     if (__OFADD__(v10, v94))
     {
       __break(1u);
@@ -1321,13 +1320,13 @@ LABEL_136:
     else
     {
       v77 = *a3;
-      v78 = (*a3 + v12);
+      v78 = &v12[*a3];
       v79 = v10 - v12;
       v98 = v23;
       do
       {
         v97 = v12;
-        v80 = *(v77 + v12);
+        v80 = v12[v77];
         v81 = v79;
         v82 = v78;
         v83 = v78;
@@ -1362,7 +1361,7 @@ LABEL_136:
         --v79;
       }
 
-      while ((v97 + 1) != v98);
+      while (v97 + 1 != v98);
       v12 = v98;
       if (v98 < v10)
       {
@@ -1572,7 +1571,7 @@ LABEL_70:
     v72 = v101;
     v73 = (v67 + v68);
     v74 = (v67 + v71);
-    v75 = v67 + v70;
+    v75 = (v67 + v70);
     a5 = v99;
     sub_23E4DB0A4(v73, v74, v75, v98, v99 & 1, v72);
     if (v6)
@@ -1669,7 +1668,7 @@ LABEL_102:
       v90 = *(v89 + 4);
       v91 = *(v89 + 5);
       v92 = v101;
-      sub_23E4DB0A4((v87 + v88), (v87 + v90), v87 + v91, v98, v99 & 1, v92);
+      sub_23E4DB0A4((v87 + v88), (v87 + v90), (v87 + v91), v98, v99 & 1, v92);
       if (v6)
       {
 
@@ -1724,7 +1723,7 @@ unint64_t sub_23E4DBFF0()
   result = qword_27E345368;
   if (!qword_27E345368)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27E345360);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27E345360, &unk_23E4DFD78);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27E345368);
   }
@@ -1737,7 +1736,7 @@ void AAUILocalizedActivityTypeForAchievement_cold_1(void *a1)
   v1 = [a1 template];
   v2 = [v1 uniqueName];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23E4A3000, v3, v4, "Could not determine Localized activity type for achievement's template: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1(&dword_23E4A3000, v3, v4, "Could not determine Localized activity type for achievement's template: %@", v5, v6, v7, v8);
 }
 
 void AAUILocalizedModalityForAchievement_cold_1(void *a1)
@@ -1745,7 +1744,7 @@ void AAUILocalizedModalityForAchievement_cold_1(void *a1)
   v1 = [a1 template];
   v2 = [v1 uniqueName];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23E4A3000, v3, v4, "Could not localized Modality for template %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1(&dword_23E4A3000, v3, v4, "Could not localized Modality for template %@", v5, v6, v7, v8);
 }
 
 CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)

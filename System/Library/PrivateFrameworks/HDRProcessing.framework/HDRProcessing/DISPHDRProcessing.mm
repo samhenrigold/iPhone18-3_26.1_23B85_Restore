@@ -16,6 +16,7 @@
 - (void)populateDISPColorConfigFixedDegamma:(BOOL)degamma AlgoMode:(int)mode Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)self0;
 - (void)populateDISPColorConfigPostToneMapCSC:(BOOL)c AlgoMode:(int)mode Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)self0;
 - (void)populateDISPColorConfigPreToneMapCSC:(BOOL)c AlgoMode:(int)mode Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)self0;
+- (void)populateDISPColorConfigToneMap:(BOOL)map AlgoMode:(int)mode Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)self0;
 - (void)populateDISPColorConfigToneMapDpc:(BOOL)dpc Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)context;
 - (void)populateDISPColorConfigToneMapLUT:(BOOL)t Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)context;
 - (void)populateDISPColorConfigToneMapParametric:(BOOL)parametric Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)context;
@@ -551,12 +552,12 @@ LABEL_31:
 
 - (void)populateDISPColorConfigToneMapLUT:(BOOL)t Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   p_ToneMapLUT = &self->ToneMapLUT;
   if (!t)
   {
     p_ToneMapLUT->mode = 0;
-    goto LABEL_48;
+    return;
   }
 
   *&p_ToneMapLUT->mode = 0x300000001;
@@ -570,12 +571,12 @@ LABEL_31:
     {
       if (logInstanceID)
       {
-        v25 = logInstanceID;
+        v24 = logInstanceID;
       }
 
       else
       {
-        v25 = prevLogInstanceID;
+        v24 = prevLogInstanceID;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -583,23 +584,23 @@ LABEL_31:
         goto LABEL_42;
       }
 
-      v31 = 134217984;
-      v32 = WORD1(v25);
-      v26 = MEMORY[0x277D86220];
-      v27 = " [1.450.54] #%04llx ToneMapLUT_xsamples memory allocation failed!";
+      v29 = 134217984;
+      v30 = WORD1(v24);
+      v25 = MEMORY[0x277D86220];
+      v26 = " [1.450.54] #%04llx ToneMapLUT_xsamples memory allocation failed!";
       goto LABEL_41;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      v28 = MEMORY[0x277D86220];
-      v29 = " [1.450.54] ToneMapLUT_xsamples memory allocation failed!";
-      goto LABEL_47;
+      return;
     }
 
-LABEL_48:
-    v30 = *MEMORY[0x277D85DE8];
+    LOWORD(v29) = 0;
+    v27 = MEMORY[0x277D86220];
+    v28 = " [1.450.54] ToneMapLUT_xsamples memory allocation failed!";
+LABEL_47:
+    _os_log_impl(&dword_250836000, v27, OS_LOG_TYPE_DEFAULT, v28, &v29, 2u);
     return;
   }
 
@@ -612,12 +613,12 @@ LABEL_48:
     {
       if (logInstanceID)
       {
-        v25 = logInstanceID;
+        v24 = logInstanceID;
       }
 
       else
       {
-        v25 = prevLogInstanceID;
+        v24 = prevLogInstanceID;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -625,22 +626,22 @@ LABEL_48:
         goto LABEL_42;
       }
 
-      v31 = 134217984;
-      v32 = WORD1(v25);
-      v26 = MEMORY[0x277D86220];
-      v27 = " [1.450.54] #%04llx ToneMapLUT_ysamples memory allocation failed!";
+      v29 = 134217984;
+      v30 = WORD1(v24);
+      v25 = MEMORY[0x277D86220];
+      v26 = " [1.450.54] #%04llx ToneMapLUT_ysamples memory allocation failed!";
       goto LABEL_41;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      v28 = MEMORY[0x277D86220];
-      v29 = " [1.450.54] ToneMapLUT_ysamples memory allocation failed!";
-      goto LABEL_47;
+      return;
     }
 
-    goto LABEL_48;
+    LOWORD(v29) = 0;
+    v27 = MEMORY[0x277D86220];
+    v28 = " [1.450.54] ToneMapLUT_ysamples memory allocation failed!";
+    goto LABEL_47;
   }
 
   p_ToneMapLUT->curveData.var0.nonuniformtable.ysamples = v16;
@@ -656,7 +657,7 @@ LABEL_48:
 
   if (context->contentType != 2)
   {
-    goto LABEL_48;
+    return;
   }
 
   p_ToneMapMixFactorLUT = &self->ToneMapMixFactorLUT;
@@ -671,12 +672,12 @@ LABEL_48:
     {
       if (logInstanceID)
       {
-        v25 = logInstanceID;
+        v24 = logInstanceID;
       }
 
       else
       {
-        v25 = prevLogInstanceID;
+        v24 = prevLogInstanceID;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -684,21 +685,21 @@ LABEL_48:
         goto LABEL_42;
       }
 
-      v31 = 134217984;
-      v32 = WORD1(v25);
-      v26 = MEMORY[0x277D86220];
-      v27 = " [1.450.54] #%04llx ToneMapMixFactorLUT_xsamples memory allocation failed!";
+      v29 = 134217984;
+      v30 = WORD1(v24);
+      v25 = MEMORY[0x277D86220];
+      v26 = " [1.450.54] #%04llx ToneMapMixFactorLUT_xsamples memory allocation failed!";
       goto LABEL_41;
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_48;
+      return;
     }
 
-    LOWORD(v31) = 0;
-    v28 = MEMORY[0x277D86220];
-    v29 = " [1.450.54] ToneMapMixFactorLUT_xsamples memory allocation failed!";
+    LOWORD(v29) = 0;
+    v27 = MEMORY[0x277D86220];
+    v28 = " [1.450.54] ToneMapMixFactorLUT_xsamples memory allocation failed!";
     goto LABEL_47;
   }
 
@@ -711,12 +712,12 @@ LABEL_48:
     {
       if (logInstanceID)
       {
-        v25 = logInstanceID;
+        v24 = logInstanceID;
       }
 
       else
       {
-        v25 = prevLogInstanceID;
+        v24 = prevLogInstanceID;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -724,28 +725,26 @@ LABEL_48:
         goto LABEL_42;
       }
 
-      v31 = 134217984;
-      v32 = WORD1(v25);
-      v26 = MEMORY[0x277D86220];
-      v27 = " [1.450.54] #%04llx ToneMapMixFactorLUT_ysamples memory allocation failed!";
+      v29 = 134217984;
+      v30 = WORD1(v24);
+      v25 = MEMORY[0x277D86220];
+      v26 = " [1.450.54] #%04llx ToneMapMixFactorLUT_ysamples memory allocation failed!";
 LABEL_41:
-      _os_log_impl(&dword_250836000, v26, OS_LOG_TYPE_DEFAULT, v27, &v31, 0xCu);
+      _os_log_impl(&dword_250836000, v25, OS_LOG_TYPE_DEFAULT, v26, &v29, 0xCu);
 LABEL_42:
-      prevLogInstanceID = v25;
-      goto LABEL_48;
+      prevLogInstanceID = v24;
+      return;
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_48;
+      return;
     }
 
-    LOWORD(v31) = 0;
-    v28 = MEMORY[0x277D86220];
-    v29 = " [1.450.54] ToneMapMixFactorLUT_ysamples memory allocation failed!";
-LABEL_47:
-    _os_log_impl(&dword_250836000, v28, OS_LOG_TYPE_DEFAULT, v29, &v31, 2u);
-    goto LABEL_48;
+    LOWORD(v29) = 0;
+    v27 = MEMORY[0x277D86220];
+    v28 = " [1.450.54] ToneMapMixFactorLUT_ysamples memory allocation failed!";
+    goto LABEL_47;
   }
 
   self->ToneMapMixFactorLUT.curveData.var0.nonuniformtable.ysamples = v21;
@@ -754,20 +753,19 @@ LABEL_47:
   p_ToneMapMixFactorLUT->curveData.var0.param.d = lumaMixFactorTableBuffer[753];
   memcpy(p_ToneMapMixFactorLUT->curveData.var0.table.samples, lutInput, 0xBC8uLL);
   ysamples = p_ToneMapMixFactorLUT->curveData.var0.nonuniformtable.ysamples;
-  v24 = *MEMORY[0x277D85DE8];
 
   memcpy(ysamples, lumaMixFactorTableBuffer, 0xBC8uLL);
 }
 
 - (void)populateDISPColorConfigToneMapParametric:(BOOL)parametric Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)context
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (!parametric)
   {
     v11 = 28752;
 LABEL_40:
     *(&self->super.super.isa + v11) = 0;
-    goto LABEL_41;
+    return;
   }
 
   if (context->contentType == 3)
@@ -801,17 +799,17 @@ LABEL_40:
 
     else if (curveType == 3)
     {
-      [(DolbyVisionDM4 *)self->_dm40 getDM4Params:v54, prefix, config, data];
+      [(DolbyVisionDM4 *)self->_dm40 getDM4Params:v53, prefix, config, data];
       *&self->ToneMapPolyCurve.mode = 0x300000001;
       self->ToneMapPolyCurve.curveData.type = 12;
       *&self->ToneMapPolyCurve.curveData.var0.param.gamma = 0x100000004;
-      *(&self->ToneMapPolyCurve.curveData.var0.tmcurve + 84) = vrev64_s32(*&v54[3]);
+      *(&self->ToneMapPolyCurve.curveData.var0.tmcurve + 84) = vrev64_s32(*&v53[3]);
       self->ToneMapPolyCurve.curveData.var0.polycurve.segcurvorder[1] = 3;
-      v21 = *v54;
-      *(&self->ToneMapPolyCurve.curveData.var0.tmcurve + 44) = *v54;
-      v56[0] = -v21;
-      v56[1] = 1.0;
-      PolyGeneric2PolyStd(v56, 2, 3, &v55, self->ToneMapPolyCurve.curveData.var0.polycurve.segcurvcoeff[1]);
+      v21 = *v53;
+      *(&self->ToneMapPolyCurve.curveData.var0.tmcurve + 44) = *v53;
+      v55[0] = -v21;
+      v55[1] = 1.0;
+      PolyGeneric2PolyStd(v55, 2, 3, &v54, self->ToneMapPolyCurve.curveData.var0.polycurve.segcurvcoeff[1], 3);
     }
   }
 
@@ -1019,67 +1017,70 @@ LABEL_25:
   self->ToneMapAmbientCurve.curveData.var0.polycurve.segcurvorder[0] = LODWORD(control->ambAdaptationParam.aL);
   self->ToneMapAmbientCurve.curveData.var0.table.count = LODWORD(control->ambAdaptationParam.bL);
   self->ToneMapAmbientCurve.curveData.var0.polycurve.segcurvorder[1] = 1;
-LABEL_41:
-  v53 = *MEMORY[0x277D85DE8];
+}
+
+- (void)populateDISPColorConfigToneMap:(BOOL)map AlgoMode:(int)mode Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)self0
+{
+  mapCopy = map;
+  if (!mode || GetConfig() && (Config = GetConfig(), *HDRConfig::GetConfigEntryValue(Config, 0x56u, 0) == 1))
+  {
+    [(DISPHDRProcessing *)self populateDISPColorConfigToneMapLUT:mapCopy Prefix:prefix DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
+  }
+
+  if (mode == 1)
+  {
+
+    [(DISPHDRProcessing *)self populateDISPColorConfigToneMapParametric:mapCopy Prefix:prefix DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:?];
+  }
 }
 
 - (void)populateDISPColorConfigPostToneMapCSC:(BOOL)c AlgoMode:(int)mode Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)self0
 {
-  v27 = *MEMORY[0x277D85DE8];
-  if (c)
+  v26 = *MEMORY[0x277D85DE8];
+  if (!c)
   {
-    v12 = 1.0;
-    if (control->atmEnable && (targetMaxLinear = control->targetMaxLinearOutput, targetMaxLinear > control->diffuseInNits))
-    {
-      if (context->processingType == 2)
-      {
-        v14 = control->targetMaxLinear / targetMaxLinear;
-      }
+    self->PostToneMapCSC.mode = 0;
+    return;
+  }
 
-      else
-      {
-        v14 = 1.0;
-      }
+  v12 = 1.0;
+  if (control->atmEnable && (targetMaxLinear = control->targetMaxLinearOutput, targetMaxLinear > control->diffuseInNits))
+  {
+    if (context->processingType == 2)
+    {
+      v14 = control->targetMaxLinear / targetMaxLinear;
     }
 
     else
     {
       v14 = 1.0;
-      targetMaxLinear = control->targetMaxLinear;
     }
+  }
 
-    processingType = context->processingType;
-    if (processingType == 1)
+  else
+  {
+    v14 = 1.0;
+    targetMaxLinear = control->targetMaxLinear;
+  }
+
+  processingType = context->processingType;
+  if (processingType == 1)
+  {
+    if (context->outputTransferFunction != 16)
     {
-      if (context->outputTransferFunction != 16)
-      {
-        v14 = 10000.0 / targetMaxLinear;
-      }
-
-      snprintf(__str, 0x3FFuLL, "postRGB2RGB: from DM config, scaler=%f", v14);
-      v16 = *&config[1].var26;
-      LODWORD(v12) = *&config[1].var36;
-      HIDWORD(v16) = *&config[1].var30;
-      v19 = vextq_s8(vextq_s8(*&config[1].var30, *&config[1].var30, 0xCuLL), *&config[1].var34, 8uLL);
-      goto LABEL_31;
+      v14 = 10000.0 / targetMaxLinear;
     }
 
-    if (processingType != 2)
-    {
-      v16 = xmmword_2508CDDF0;
-      v19 = xmmword_2508CDDF0;
-LABEL_31:
-      *&self->PostToneMapCSC.mode = 0x300000001;
-      *self->PostToneMapCSC.colorMatrix.in_offset = 0;
-      self->PostToneMapCSC.colorMatrix.in_offset[2] = 0.0;
-      *self->PostToneMapCSC.colorMatrix.out_offset = 0;
-      self->PostToneMapCSC.colorMatrix.out_offset[2] = 0.0;
-      *self->PostToneMapCSC.colorMatrix.matrix = v16;
-      *&self->PostToneMapCSC.colorMatrix.matrix[4] = v19;
-      self->PostToneMapCSC.colorMatrix.matrix[8] = v12;
-      goto LABEL_32;
-    }
+    snprintf(__str, 0x3FFuLL, "postRGB2RGB: from DM config, scaler=%f", v14);
+    v16 = *&config[1].var26;
+    LODWORD(v12) = *&config[1].var36;
+    HIDWORD(v16) = *&config[1].var30;
+    v19 = vextq_s8(vextq_s8(*&config[1].var30, *&config[1].var30, 0xCuLL), *&config[1].var34, 8uLL);
+    goto LABEL_31;
+  }
 
+  if (processingType == 2)
+  {
     v16 = xmmword_2508CDDF0;
     var15 = hdrControl->var15;
     if (var15 == 9)
@@ -1134,24 +1135,32 @@ LABEL_31:
 LABEL_27:
     if (context->outputTransferFunction == 13)
     {
-      v24 = v19;
-      v25 = v16;
+      v23 = v19;
+      v24 = v16;
       if (GetConfig())
       {
         Config = GetConfig();
         HDRConfig::GetConfigEntryValue(Config, 0x58u, 0);
       }
 
-      v19 = v24;
-      v16 = v25;
+      v19 = v23;
+      v16 = v24;
     }
 
     goto LABEL_31;
   }
 
-  self->PostToneMapCSC.mode = 0;
-LABEL_32:
-  v23 = *MEMORY[0x277D85DE8];
+  v16 = xmmword_2508CDDF0;
+  v19 = xmmword_2508CDDF0;
+LABEL_31:
+  *&self->PostToneMapCSC.mode = 0x300000001;
+  *self->PostToneMapCSC.colorMatrix.in_offset = 0;
+  self->PostToneMapCSC.colorMatrix.in_offset[2] = 0.0;
+  *self->PostToneMapCSC.colorMatrix.out_offset = 0;
+  self->PostToneMapCSC.colorMatrix.out_offset[2] = 0.0;
+  *self->PostToneMapCSC.colorMatrix.matrix = v16;
+  *&self->PostToneMapCSC.colorMatrix.matrix[4] = v19;
+  self->PostToneMapCSC.colorMatrix.matrix[8] = v12;
 }
 
 - (void)populateDISPColorConfigToneMapDpc:(BOOL)dpc Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl DISPHDRContext:(EngineHDRContext *)context
@@ -1180,21 +1189,20 @@ LABEL_32:
 
 - (void)populateDISPColorConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(EngineHDRContext *)context
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v16 = 0;
+  v19 = *MEMORY[0x277D85DE8];
   v15 = 0;
   v14 = 0;
+  v13 = 0;
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  [(DISPHDRProcessing *)self decideStageStatus:&v14 DMConfig:config AlgoMode:&v17 DISPHDRContext:context];
-  [(DISPHDRProcessing *)self populateDISPColorConfigFixedDegamma:v14 AlgoMode:v17 Prefix:&v16 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
-  [(DISPHDRProcessing *)self populateDISPColorConfigPreToneMapCSC:BYTE1(v14) AlgoMode:HIDWORD(v17) Prefix:&v16 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
-  [(DISPHDRProcessing *)self populateDISPColorConfigToneMap:BYTE2(v14) AlgoMode:v18 Prefix:&v16 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
-  [(DISPHDRProcessing *)self populateDISPToneMapConfig:&v16 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
-  [(DISPHDRProcessing *)self populateDISPColorConfigPostToneMapCSC:HIBYTE(v14) AlgoMode:HIDWORD(v18) Prefix:&v16 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
-  [(DISPHDRProcessing *)self populateDISPColorConfigToneMapDpc:v15 Prefix:&v16 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
-  v13 = *MEMORY[0x277D85DE8];
+  [(DISPHDRProcessing *)self decideStageStatus:&v13 DMConfig:config AlgoMode:&v16 DISPHDRContext:context];
+  [(DISPHDRProcessing *)self populateDISPColorConfigFixedDegamma:v13 AlgoMode:v16 Prefix:&v15 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
+  [(DISPHDRProcessing *)self populateDISPColorConfigPreToneMapCSC:BYTE1(v13) AlgoMode:HIDWORD(v16) Prefix:&v15 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
+  [(DISPHDRProcessing *)self populateDISPColorConfigToneMap:BYTE2(v13) AlgoMode:v17 Prefix:&v15 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
+  [(DISPHDRProcessing *)self populateDISPToneMapConfig:&v15 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
+  [(DISPHDRProcessing *)self populateDISPColorConfigPostToneMapCSC:HIBYTE(v13) AlgoMode:HIDWORD(v17) Prefix:&v15 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
+  [(DISPHDRProcessing *)self populateDISPColorConfigToneMapDpc:v14 Prefix:&v15 DMConfig:config DMData:data tcControl:control hdrControl:hdrControl DISPHDRContext:context];
 }
 
 - (void)hdr10_createLUTFromDMConfig:(id *)config DM:(id)m TCControl:(ToneCurve_Control *)control HDRControl:(id *)rControl TMParam:(_HDR10TMParam *)param TMParam:(_HDR10TMParam *)mParam EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)self0
@@ -1467,7 +1475,7 @@ LABEL_11:
 
 - (void)setDisplayManagementParametricConfigToneMapSpline:(_splCurveParam *)spline
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   n = spline->n;
   v5 = n > 1;
   v6 = n - 1;
@@ -1475,9 +1483,9 @@ LABEL_11:
   {
     v7 = spline->polyCs[0];
     calcCubicSplineParam(spline->splCs, spline->XsC[0], spline->YsC[0], spline->MsC[0], spline->XsC[1], spline->YsC[1], spline->MsC[1]);
-    v10[0] = -spline->XsC[0];
-    v10[1] = 1.0;
-    PolyGeneric2PolyStd(v10, 2, 3, v7 - 20, v7);
+    v9[0] = -spline->XsC[0];
+    v9[1] = 1.0;
+    PolyGeneric2PolyStd(v9, 2, 3, v7 - 20, v7, 4);
   }
 
   v8 = spline->MsC[0];
@@ -1485,7 +1493,6 @@ LABEL_11:
   spline->linCs[0][1] = v8;
   spline->linCs[1][0] = spline->YsC[v6] - (spline->MsC[v6] * spline->XsC[v6]);
   spline->linCs[1][1] = spline->MsC[v6];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDisplayManagementParametricConfigToneMapHLG:(ToneCurve_Control *)g HDRControl:(id *)control
@@ -1542,7 +1549,7 @@ LABEL_11:
 
 - (void)setDisplayManagementParametricConfig:(ToneCurve_Control *)config HDRControl:(id *)control
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(DISPHDRProcessing *)self setDisplayManagementParametricConfigToneMap:config HDRControl:control];
   n = config->edrAdaptationParam.n;
   v6 = n > 1;
@@ -1550,9 +1557,9 @@ LABEL_11:
   if (v6)
   {
     calcCubicSplineParam(config->edrAdaptationParam.splCs, config->edrAdaptationParam.Xs[0], config->edrAdaptationParam.Ys[0], config->edrAdaptationParam.Ms[0], config->edrAdaptationParam.Xs[1], config->edrAdaptationParam.Ys[1], config->edrAdaptationParam.Ms[1]);
-    v13 = -config->edrAdaptationParam.Xs[0];
-    v14 = 1065353216;
-    PolyGeneric2PolyStd(&v13, 2, 3, config->edrAdaptationParam.splCs[0], config->edrAdaptationParam.polyCs[0]);
+    v12 = -config->edrAdaptationParam.Xs[0];
+    v13 = 1065353216;
+    PolyGeneric2PolyStd(&v12, 2, 3, config->edrAdaptationParam.splCs[0], config->edrAdaptationParam.polyCs[0], 4);
   }
 
   v8 = config->edrAdaptationParam.Ms[0];
@@ -1566,9 +1573,9 @@ LABEL_11:
   if (v6)
   {
     calcCubicSplineParam(config->ambAdaptationParam.splCs, config->ambAdaptationParam.XsC[0], config->ambAdaptationParam.YsC[0], config->ambAdaptationParam.MsC[0], config->ambAdaptationParam.XsC[1], config->ambAdaptationParam.YsC[1], config->ambAdaptationParam.MsC[1]);
-    v13 = -config->ambAdaptationParam.XsC[0];
-    v14 = 1065353216;
-    PolyGeneric2PolyStd(&v13, 2, 3, config->ambAdaptationParam.splCs[0], config->ambAdaptationParam.polyCs[0]);
+    v12 = -config->ambAdaptationParam.XsC[0];
+    v13 = 1065353216;
+    PolyGeneric2PolyStd(&v12, 2, 3, config->ambAdaptationParam.splCs[0], config->ambAdaptationParam.polyCs[0], 4);
   }
 
   v11 = config->ambAdaptationParam.MsC[0];
@@ -1577,7 +1584,6 @@ LABEL_11:
   config->ambAdaptationParam.linCs[1][0] = config->ambAdaptationParam.YsC[v10] - (config->ambAdaptationParam.MsC[v10] * config->ambAdaptationParam.XsC[v10]);
   config->ambAdaptationParam.linCs[1][1] = config->ambAdaptationParam.MsC[v10];
   config->ambAdaptationParam.TmaxNits = 1.0;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

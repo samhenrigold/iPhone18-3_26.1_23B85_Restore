@@ -650,12 +650,12 @@ void __100__SBSSystemServiceClient_registerAssociatedHintViewContextId_layerRend
   [(FBSServiceFacilityClient *)self sendMessage:v11 withType:12];
 }
 
-void __86__SBSSystemServiceClient_updateHintViewContentVisibility_forButton_animationSettings___block_invoke(uint64_t a1, void *a2)
+void __86__SBSSystemServiceClient_updateHintViewContentVisibility_forButton_animationSettings___block_invoke(void *a1, void *a2)
 {
-  v3 = *(a1 + 40);
+  v3 = a1[5];
   xdict = a2;
   xpc_dictionary_set_int64(xdict, "hintContentVisibility", v3);
-  xpc_dictionary_set_int64(xdict, "buttonKind", *(a1 + 48));
+  xpc_dictionary_set_int64(xdict, "buttonKind", a1[6]);
   BSSerializeBSXPCEncodableObjectToXPCDictionaryWithKey();
 }
 

@@ -19,32 +19,32 @@
 
 - (id)_axViewContainsSwitch
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   accessibilityIdentification = [(UIViewAccessibility__MusicApplication__UIKit *)self accessibilityIdentification];
   v4 = [accessibilityIdentification isEqualToString:@"AXPublicPlaylistSwitchContainerView"];
 
   if (v4)
   {
     [(UIViewAccessibility__MusicApplication__UIKit *)self subviews];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v5 = v17 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = v16 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           MEMORY[0x29C2E2DD0](@"UISwitch");
           if (objc_opt_isKindOfClass())
           {
@@ -53,7 +53,7 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -71,8 +71,6 @@ LABEL_13:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v11;
 }

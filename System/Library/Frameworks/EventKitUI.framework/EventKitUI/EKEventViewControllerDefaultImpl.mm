@@ -642,7 +642,7 @@ LABEL_23:
   return v4;
 }
 
-uint64_t __57__EKEventViewControllerDefaultImpl__indexPathForSection___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__57__EKEventViewControllerDefaultImpl__indexPathForSection___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 tag];
   if (result == *(a1 + 40))
@@ -4221,7 +4221,7 @@ uint64_t __64__EKEventViewControllerDefaultImpl_eventDetailItemWantsRefresh___bl
   else
   {
     result = [a2 numberOfSubitems];
-    *(*(*(v4 + 48) + 8) + 24) += result;
+    *(*(v4[6] + 8) + 24) += result;
   }
 
   return result;
@@ -4989,20 +4989,20 @@ void __51__EKEventViewControllerDefaultImpl__deleteClicked___block_invoke(uint64
   [v11 performWithOptions:v7 block:v10];
 }
 
-uint64_t __51__EKEventViewControllerDefaultImpl__deleteClicked___block_invoke_2(uint64_t result)
+void *__51__EKEventViewControllerDefaultImpl__deleteClicked___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
+  v1 = result[6];
   if (v1 == 2)
   {
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
     v2 = 2;
   }
 
   else if (v1 == 1)
   {
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
     v2 = 1;
   }
 
@@ -5023,8 +5023,8 @@ uint64_t __51__EKEventViewControllerDefaultImpl__deleteClicked___block_invoke_2(
       v2 = 0;
     }
 
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
   }
 
   return [v4 _performDelete:v2 editor:v3];
@@ -5785,9 +5785,9 @@ LABEL_24:
     {
       v7 = headerViewCopy;
       backgroundColor = [viewCopy backgroundColor];
-      contentView = [v7 contentView];
+      v9 = objc_msgSend_contentView(v7);
 
-      [contentView setBackgroundColor:backgroundColor];
+      [v9 setBackgroundColor:backgroundColor];
     }
   }
 }
@@ -6001,11 +6001,11 @@ uint64_t __72__EKEventViewControllerDefaultImpl_updateTitleWithScrollView_animat
   return [v5 animateInWithCompletionBlock:v7];
 }
 
-uint64_t __72__EKEventViewControllerDefaultImpl_updateTitleWithScrollView_animation___block_invoke_2(uint64_t result, int a2)
+void *__72__EKEventViewControllerDefaultImpl_updateTitleWithScrollView_animation___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1168) setAnimating:0];
+    return [*(result[4] + 1168) setAnimating:0];
   }
 
   return result;
@@ -6019,11 +6019,11 @@ uint64_t __72__EKEventViewControllerDefaultImpl_updateTitleWithScrollView_animat
   return [v2 setNeedsLayout];
 }
 
-uint64_t __72__EKEventViewControllerDefaultImpl_updateTitleWithScrollView_animation___block_invoke_4(uint64_t result, int a2)
+id *__72__EKEventViewControllerDefaultImpl_updateTitleWithScrollView_animation___block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _clearCustomTitle];
+    return [result[4] _clearCustomTitle];
   }
 
   return result;

@@ -52,34 +52,32 @@ uint64_t __39__AXSDAudioLevelsHelper_sharedInstance__block_invoke()
 
 - (void)registerListener:(id)listener forAudioLevelUpdates:(id)updates withBucketCount:(int)count
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   updatesCopy = updates;
   v10 = AXLogUltron();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v21 = listenerCopy;
-    v22 = 1024;
+    v20 = listenerCopy;
+    v21 = 1024;
     countCopy = count;
     _os_log_debug_impl(&dword_23D62D000, v10, OS_LOG_TYPE_DEBUG, "Register audio listener: %@ with bucket count: %d", buf, 0x12u);
   }
 
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:listenerCopy];
   listenerQueue = self->_listenerQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __79__AXSDAudioLevelsHelper_registerListener_forAudioLevelUpdates_withBucketCount___block_invoke;
-  v16[3] = &unk_278BDD518;
-  v17 = v11;
-  v18 = updatesCopy;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __79__AXSDAudioLevelsHelper_registerListener_forAudioLevelUpdates_withBucketCount___block_invoke;
+  v15[3] = &unk_278BDD518;
+  v16 = v11;
+  v17 = updatesCopy;
+  v15[4] = self;
   countCopy2 = count;
   v13 = v11;
   v14 = updatesCopy;
-  dispatch_async(listenerQueue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(listenerQueue, v15);
 }
 
 void __79__AXSDAudioLevelsHelper_registerListener_forAudioLevelUpdates_withBucketCount___block_invoke(uint64_t a1)
@@ -95,28 +93,26 @@ void __79__AXSDAudioLevelsHelper_registerListener_forAudioLevelUpdates_withBucke
 
 - (void)deregisterListener:(id)listener
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = AXLogUltron();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v13 = listenerCopy;
+    v12 = listenerCopy;
     _os_log_debug_impl(&dword_23D62D000, v5, OS_LOG_TYPE_DEBUG, "Deregister audio listener: %@", buf, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:listenerCopy];
   listenerQueue = self->_listenerQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __44__AXSDAudioLevelsHelper_deregisterListener___block_invoke;
-  v10[3] = &unk_278BDD2C0;
-  v10[4] = self;
-  v11 = v6;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __44__AXSDAudioLevelsHelper_deregisterListener___block_invoke;
+  v9[3] = &unk_278BDD2C0;
+  v9[4] = self;
+  v10 = v6;
   v8 = v6;
-  dispatch_async(listenerQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(listenerQueue, v9);
 }
 
 uint64_t __44__AXSDAudioLevelsHelper_deregisterListener___block_invoke(uint64_t a1)
@@ -159,28 +155,28 @@ uint64_t __44__AXSDAudioLevelsHelper_deregisterListener___block_invoke(uint64_t 
 
 void __51__AXSDAudioLevelsHelper_updateListenersWithBuffer___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v24;
+    v5 = *v22;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v24 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * i);
-        v8 = [*(*(a1 + 32) + 16) objectForKey:{v7, v17, v18, v19, v20}];
+        v7 = *(*(&v21 + 1) + 8 * i);
+        v8 = [*(*(a1 + 32) + 16) objectForKey:{v7, v16, v17, v18, v19}];
         v9 = [v8 intValue];
 
         if (v9 != *(*(*(a1 + 48) + 8) + 24))
@@ -203,23 +199,20 @@ void __51__AXSDAudioLevelsHelper_updateListenersWithBuffer___block_invoke(uint64
         v15 = v14;
         if (v14 && *(*(*(a1 + 56) + 8) + 40))
         {
-          v17 = MEMORY[0x277D85DD0];
-          v18 = 3221225472;
-          v19 = __51__AXSDAudioLevelsHelper_updateListenersWithBuffer___block_invoke_2;
-          v20 = &unk_278BDD540;
-          v21 = v14;
-          v22 = *(a1 + 56);
+          v16 = MEMORY[0x277D85DD0];
+          v17 = 3221225472;
+          v18 = __51__AXSDAudioLevelsHelper_updateListenersWithBuffer___block_invoke_2;
+          v19 = &unk_278BDD540;
+          v20 = v14;
           AXPerformBlockOnMainThread();
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

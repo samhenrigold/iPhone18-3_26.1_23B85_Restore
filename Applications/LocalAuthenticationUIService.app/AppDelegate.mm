@@ -12,7 +12,7 @@
   if (options)
   {
     type metadata accessor for UIApplicationLaunchOptionsKey();
-    lazy protocol witness table accessor for type UIApplicationLaunchOptionsKey and conformance UIApplicationLaunchOptionsKey(&lazy protocol witness table cache variable for type UIApplicationLaunchOptionsKey and conformance UIApplicationLaunchOptionsKey);
+    lazy protocol witness table accessor for type UIApplicationLaunchOptionsKey and conformance UIApplicationLaunchOptionsKey(&lazy protocol witness table cache variable for type UIApplicationLaunchOptionsKey and conformance UIApplicationLaunchOptionsKey, &protocol conformance descriptor for UIApplicationLaunchOptionsKey);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

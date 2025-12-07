@@ -23,13 +23,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_24E0EFBC0();
+  sub_24E0EFBC0(selfCopy);
 }
 
 - (void)didMoveToSuperview
 {
   selfCopy = self;
-  sub_24E0EFD7C();
+  sub_24E0EFD7C(selfCopy);
 }
 
 @end

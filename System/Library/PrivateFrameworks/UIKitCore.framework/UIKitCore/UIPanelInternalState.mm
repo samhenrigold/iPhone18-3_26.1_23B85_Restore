@@ -85,20 +85,20 @@ id __84___UIPanelInternalState_computePossibleStatesGivenParentView_withSize_for
   return v17;
 }
 
-uint64_t __84___UIPanelInternalState_computePossibleStatesGivenParentView_withSize_forceOverlay___block_invoke_203(uint64_t result, double a2, double a3)
+id *__84___UIPanelInternalState_computePossibleStatesGivenParentView_withSize_forceOverlay___block_invoke_203(id *result, double a2, double a3)
 {
   v4 = result;
   if (a2 > 0.0)
   {
-    v5 = *(result + 32);
-    [*(result + 40) _currentScreenScale];
+    v5 = result[4];
+    [result[5] _currentScreenScale];
     result = [v5 leadingBorderWidthForScale:?];
   }
 
   if (a3 > 0.0)
   {
-    v6 = *(v4 + 32);
-    [*(v4 + 40) _currentScreenScale];
+    v6 = v4[4];
+    [v4[5] _currentScreenScale];
     return [v6 trailingBorderWidthForScale:?];
   }
 

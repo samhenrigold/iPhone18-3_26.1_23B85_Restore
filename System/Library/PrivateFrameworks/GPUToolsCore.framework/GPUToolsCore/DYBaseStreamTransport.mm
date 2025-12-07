@@ -164,7 +164,6 @@ LABEL_5:
     [(DYTransportMessage *)v20 _setSerial:self->_tmu->var0.var2 replySerial:self->_tmu->var0.var3 transport:self];
     [(DYTransportMessage *)v20 _setTransportSize:v9];
     objc_autoreleasePoolPop(v3);
-    messageBuffer = self->_messageBuffer;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -174,9 +173,9 @@ LABEL_5:
     self->_messageBuffer = 0;
     [(DYTransport *)self _dispatchMessage:v20];
 
-    v22 = self->_tmu;
-    *&v22->var3 = xmmword_24D6A9350;
-    v22->var5 = 0;
+    v21 = self->_tmu;
+    *&v21->var3 = xmmword_24D6A9350;
+    v21->var5 = 0;
     return;
   }
 
@@ -190,7 +189,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  _DYOLog(self, 3, @"failed to unpack message attributes", v12, v13, v14, v15, v16, v23);
+  _DYOLog(self, 3, @"failed to unpack message attributes", v12, v13, v14, v15, v16, v22);
   [(DYBaseStreamTransport *)self _scheduleInvalidation:[DYError errorWithDomain:@"DYErrorDomain" code:260 userInfo:0]];
 
   objc_autoreleasePoolPop(v3);

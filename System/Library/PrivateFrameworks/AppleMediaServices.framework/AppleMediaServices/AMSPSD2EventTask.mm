@@ -13,7 +13,7 @@
 
 + (void)sendCUIBootstrapEventWithURL:(id)l error:(id)error
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAE144B0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAE144B0, &unk_192FC78B0);
   MEMORY[0x1EEE9AC00](v6 - 8, v7);
   v9 = &v13 - v8;
   if (l)
@@ -34,12 +34,12 @@
   errorCopy = error;
   sub_192C40170();
 
-  sub_1928FC07C(v9, &unk_1EAE144B0);
+  sub_1928FC07C(v9, &unk_1EAE144B0, &unk_192FC78B0);
 }
 
 + (void)sendCUIBootstrapInitiatedEventWithURL:(id)l
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAE144B0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAE144B0, &unk_192FC78B0);
   MEMORY[0x1EEE9AC00](v4 - 8, v5);
   v7 = &v10 - v6;
   if (l)
@@ -58,7 +58,7 @@
   __swift_storeEnumTagSinglePayload(v7, v9, 1, v8);
   swift_getObjCClassMetadata();
   sub_192C41498();
-  sub_1928FC07C(v7, &unk_1EAE144B0);
+  sub_1928FC07C(v7, &unk_1EAE144B0, &unk_192FC78B0);
 }
 
 + (void)sendCUICallbackEventWithResolveData:(id)data

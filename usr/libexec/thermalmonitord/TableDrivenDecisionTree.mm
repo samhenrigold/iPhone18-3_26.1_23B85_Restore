@@ -1,6 +1,8 @@
 @interface TableDrivenDecisionTree
 - (TableDrivenDecisionTree)initWithComponentControllers:(id)controllers hotspotControllers:(id)hotspotControllers decisionTreeTable:(id)table;
+- (id)findCC:(int)c;
 - (int)getMTypeFromComponent:(int)component;
+- (int)getReleaseRateForComponent:(int)component;
 - (void)actionComponentControl;
 - (void)evaluateDecisionTree;
 - (void)initDecisionTable:(__CFDictionary *)table;
@@ -180,6 +182,13 @@
   }
 }
 
+- (int)getReleaseRateForComponent:(int)component
+{
+  v3 = [(TableDrivenDecisionTree *)self findCC:[(TableDrivenDecisionTree *)self getMTypeFromComponent:*&component]];
+
+  return [v3 getReleaseRate];
+}
+
 - (void)readReleaseRateForAllComponents
 {
   block[0] = _NSConcreteStackBlock;
@@ -190,6 +199,50 @@
   if (qword_1000AAC10 != -1)
   {
     dispatch_once(&qword_1000AAC10, block);
+  }
+}
+
+- (id)findCC:(int)c
+{
+  v3 = *&c;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  componentControllers = self->_componentControllers;
+  v5 = [(NSArray *)componentControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *v12;
+LABEL_3:
+  v8 = 0;
+  while (1)
+  {
+    if (*v12 != v7)
+    {
+      objc_enumerationMutation(componentControllers);
+    }
+
+    v9 = *(*(&v11 + 1) + 8 * v8);
+    if ([v9 isEqualMType:v3])
+    {
+      return v9;
+    }
+
+    if (v6 == ++v8)
+    {
+      v6 = [(NSArray *)componentControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
+      {
+        goto LABEL_3;
+      }
+
+      return 0;
+    }
   }
 }
 

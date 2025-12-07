@@ -84,7 +84,7 @@
 
 - (void)executeWithContext:(id)context delegate:(id)delegate qualityOfService:(int64_t)service
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   delegateCopy = delegate;
   networkReachability = [contextCopy networkReachability];
@@ -93,15 +93,15 @@
   if (isCloudKitReachable)
   {
     internalPrivateDataContext = [contextCopy internalPrivateDataContext];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __71__FCRemoveRecordsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
-    v18[3] = &unk_1E7C3FE20;
-    v18[4] = self;
-    v19 = contextCopy;
-    v20 = delegateCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __71__FCRemoveRecordsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
+    v17[3] = &unk_1E7C3FE20;
+    v17[4] = self;
+    v18 = contextCopy;
+    v19 = delegateCopy;
     serviceCopy = service;
-    [internalPrivateDataContext prepareRecordZonesForUseWithCompletionHandler:v18];
+    [internalPrivateDataContext prepareRecordZonesForUseWithCompletionHandler:v17];
   }
 
   else
@@ -113,39 +113,36 @@
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
       *buf = 138543618;
-      v23 = v16;
-      v24 = 2048;
+      v22 = v16;
+      v23 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will not execute because CloudKit is not reachable", buf, 0x16u);
     }
 
     [delegateCopy command:self didFinishWithStatus:1];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FCRemoveRecordsCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = FCCommandQueueLog;
     if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = v4;
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = *(a1 + 32);
-      v15 = 138543874;
-      v16 = v13;
-      v17 = 2048;
-      v18 = v14;
-      v19 = 2114;
-      v20 = v3;
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "<%{public}@ %p> failed to prepare zones for use with error: %{public}@", &v15, 0x20u);
+      v9 = v4;
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = *(a1 + 32);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2048;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v3;
+      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "<%{public}@ %p> failed to prepare zones for use with error: %{public}@", &v13, 0x20u);
     }
 
     [*(a1 + 48) command:*(a1 + 32) didFinishWithStatus:{objc_msgSend(*(a1 + 32), "statusForCloudKitError:", v3)}];
@@ -168,8 +165,6 @@ void __71__FCRemoveRecordsCommand_executeWithContext_delegate_qualityOfService__
     v8 = [(FCArrayStream *)v5 initWithArray:v7];
     [(FCRemoveRecordsCommand *)*(a1 + 32) handleRecordIDsFromStream:v8 context:*(a1 + 40) delegate:*(a1 + 48) qualityOfService:*(a1 + 56)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRecordIDsFromStream:(void *)stream context:(void *)context delegate:(uint64_t)delegate qualityOfService:
@@ -227,28 +222,28 @@ void __71__FCRemoveRecordsCommand_executeWithContext_delegate_qualityOfService__
 
 void __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qualityOfService___block_invoke(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = *(a1 + 64);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v31 = __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qualityOfService___block_invoke_2;
-  v32 = &unk_1E7C3FE68;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v30 = __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qualityOfService___block_invoke_2;
+  v31 = &unk_1E7C3FE68;
   v7 = *(a1 + 48);
-  v29 = *(a1 + 32);
-  v8 = v29.i64[1];
+  v28 = *(a1 + 32);
+  v8 = v28.i64[1];
   v9 = *(a1 + 56);
   v10.i64[0] = v7;
   v10.i64[1] = v9;
-  v11 = vzip2q_s64(v29, v10);
-  v10.i64[1] = v29.i64[0];
-  v34 = v11;
-  v33 = v10;
-  v35 = *(a1 + 64);
+  v11 = vzip2q_s64(v28, v10);
+  v10.i64[1] = v28.i64[0];
+  v33 = v11;
+  v32 = v10;
+  v34 = *(a1 + 64);
   v12 = a2;
   v13 = v5;
-  v14 = v30;
+  v14 = v29;
   if (v4)
   {
     v15 = [v13 networkReachability];
@@ -259,14 +254,14 @@ void __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qua
       *aBlock = MEMORY[0x1E69E9820];
       *&aBlock[8] = 3221225472;
       *&aBlock[16] = __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfService_completion___block_invoke;
-      v41 = &unk_1E7C41148;
+      v40 = &unk_1E7C41148;
       v17 = v12;
-      v46 = v6;
-      v42 = v17;
-      v43 = v4;
+      v45 = v6;
+      v41 = v17;
+      v42 = v4;
       v18 = v14;
-      v45 = v18;
-      v44 = v13;
+      v44 = v18;
+      v43 = v13;
       v19 = _Block_copy(aBlock);
       if ([v17 count])
       {
@@ -282,13 +277,13 @@ void __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qua
           v26 = objc_opt_class();
           v27 = NSStringFromClass(v26);
           *buf = 138543618;
-          v37 = v27;
-          v38 = 2048;
-          v39 = v4;
+          v36 = v27;
+          v37 = 2048;
+          v38 = v4;
           _os_log_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> succeeded because there are no record IDs to delete", buf, 0x16u);
         }
 
-        v31(v18, 0);
+        v30(v18, 0);
       }
     }
 
@@ -307,38 +302,36 @@ void __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qua
         _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> skipping work because CloudKit is not available", aBlock, 0x16u);
       }
 
-      v31(v14, 1);
+      v30(v14, 1);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qualityOfService___block_invoke_2(uint64_t a1, uint64_t a2)
+void __86__FCRemoveRecordsCommand_handleRecordIDsFromStream_context_delegate_qualityOfService___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2 || ([*(a1 + 32) isFinished] & 1) != 0)
   {
     v4 = *(a1 + 56);
     v5 = *(a1 + 40);
 
-    return [v4 command:v5 didFinishWithStatus:a2];
+    [v4 command:v5 didFinishWithStatus:a2];
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 64);
 
-    return [(FCRemoveRecordsCommand *)v7 handleRecordIDsFromStream:v8 context:v9 delegate:v10 qualityOfService:v11];
+    [(FCRemoveRecordsCommand *)v6 handleRecordIDsFromStream:v7 context:v8 delegate:v9 qualityOfService:v10];
   }
 }
 
 void __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfService_completion___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(FCCKPrivateDeleteRecordsOperation);
   [(FCCKPrivateDeleteRecordsOperation *)v2 setRecordIDsToDelete:*(a1 + 32)];
   [(FCOperation *)v2 setQualityOfService:*(a1 + 64)];
@@ -359,39 +352,36 @@ void __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfServic
   v7 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
-    v9 = v7;
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = *(a1 + 40);
+    v8 = v7;
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = *(a1 + 40);
     *buf = 138543874;
+    v19 = v10;
+    v20 = 2048;
     v21 = v11;
-    v22 = 2048;
-    v23 = v12;
-    v24 = 2114;
-    v25 = v6;
-    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will perform delete operation, operationID=%{public}@", buf, 0x20u);
+    v22 = 2114;
+    v23 = v6;
+    _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will perform delete operation, operationID=%{public}@", buf, 0x20u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfService_completion___block_invoke_17;
-  v17[3] = &unk_1E7C3FEB8;
-  v17[4] = *(a1 + 40);
-  v18 = v6;
-  v19 = *(a1 + 56);
-  v13 = v6;
-  [(FCCKPrivateDeleteRecordsOperation *)v2 setDeleteRecordsCompletionBlock:v17];
-  v14 = [*(a1 + 48) internalPrivateDataContext];
-  v15 = [v14 privateDatabase];
-  [(FCCKPrivateDatabase *)v15 addOperation:v2];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfService_completion___block_invoke_17;
+  v15[3] = &unk_1E7C3FEB8;
+  v15[4] = *(a1 + 40);
+  v16 = v6;
+  v17 = *(a1 + 56);
+  v12 = v6;
+  [(FCCKPrivateDeleteRecordsOperation *)v2 setDeleteRecordsCompletionBlock:v15];
+  v13 = [*(a1 + 48) internalPrivateDataContext];
+  v14 = [v13 privateDatabase];
+  [(FCCKPrivateDatabase *)v14 addOperation:v2];
 }
 
 void __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfService_completion___block_invoke_17(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([v4 fc_isCKUnknownItemError])
   {
@@ -405,50 +395,46 @@ void __85__FCRemoveRecordsCommand_handleBatchOfRecordIDs_context_qualityOfServic
       v6 = FCCommandQueueLog;
       if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 32);
-        v17 = v6;
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v20 = *(a1 + 32);
+        v14 = v6;
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = *(a1 + 32);
         *buf = 138543874;
-        v23 = v19;
-        v24 = 2048;
-        v25 = v20;
-        v26 = 2114;
-        v27 = v4;
-        _os_log_error_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error deleting records: %{public}@", buf, 0x20u);
+        v20 = v16;
+        v21 = 2048;
+        v22 = v17;
+        v23 = 2114;
+        v24 = v4;
+        _os_log_error_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error deleting records: %{public}@", buf, 0x20u);
       }
     }
 
-    v21.receiver = *(a1 + 32);
-    v21.super_class = FCRemoveRecordsCommand;
-    v5 = objc_msgSendSuper2(&v21, sel_statusForCloudKitError_, v4);
+    v18.receiver = *(a1 + 32);
+    v18.super_class = FCRemoveRecordsCommand;
+    v5 = objc_msgSendSuper2(&v18, sel_statusForCloudKitError_, v4);
   }
 
   v7 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    v14 = FCCommandStatusDescription(v5);
+    v8 = v7;
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    v13 = FCCommandStatusDescription(v5);
     *buf = 138544130;
-    v23 = v11;
-    v24 = 2048;
-    v25 = v12;
-    v26 = 2114;
-    v27 = v13;
-    v28 = 2114;
-    v29 = v14;
-    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> did perform delete operation, operationID=%{public}@, status=%{public}@", buf, 0x2Au);
+    v20 = v10;
+    v21 = 2048;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v12;
+    v25 = 2114;
+    v26 = v13;
+    _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> did perform delete operation, operationID=%{public}@, status=%{public}@", buf, 0x2Au);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canCoalesceWithCommand:(id)command

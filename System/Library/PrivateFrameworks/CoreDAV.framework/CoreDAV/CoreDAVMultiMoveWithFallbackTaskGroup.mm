@@ -14,7 +14,7 @@
 - (CoreDAVMultiMoveWithFallbackTaskGroup)initWithSourceURLs:(id)ls destinationURL:(id)l overwrite:(BOOL)overwrite useFallback:(BOOL)fallback sourceEntityDataPayloads:(id)payloads sourceEntityDataContentTypes:(id)types sourceEntityETags:(id)tags accountInfoProvider:(id)self0 taskManager:(id)self1
 {
   fallbackCopy = fallback;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   lCopy = l;
   obj = payloads;
@@ -24,9 +24,9 @@
   tagsCopy = tags;
   providerCopy = provider;
   managerCopy = manager;
-  v70.receiver = self;
-  v70.super_class = CoreDAVMultiMoveWithFallbackTaskGroup;
-  v23 = [(CoreDAVTaskGroup *)&v70 initWithAccountInfoProvider:providerCopy taskManager:managerCopy];
+  v69.receiver = self;
+  v69.super_class = CoreDAVMultiMoveWithFallbackTaskGroup;
+  v23 = [(CoreDAVTaskGroup *)&v69 initWithAccountInfoProvider:providerCopy taskManager:managerCopy];
   if (!v23)
   {
     goto LABEL_19;
@@ -34,58 +34,58 @@
 
   if (!lsCopy || ![lsCopy count])
   {
-    v51 = MEMORY[0x277CBEAD8];
-    v52 = *MEMORY[0x277CBE660];
-    v53 = @"Non-nil and non-empty sourceURLs set required.";
+    v50 = MEMORY[0x277CBEAD8];
+    v51 = *MEMORY[0x277CBE660];
+    v52 = @"Non-nil and non-empty sourceURLs set required.";
     goto LABEL_26;
   }
 
   lsCopy2 = ls;
   lCopy2 = l;
-  v58 = managerCopy;
-  v59 = providerCopy;
-  v60 = tagsCopy;
-  v61 = typesCopy2;
-  v62 = payloadsCopy;
+  v57 = managerCopy;
+  v58 = providerCopy;
+  v59 = tagsCopy;
+  v60 = typesCopy2;
+  v61 = payloadsCopy;
   if (!lCopy || ([lCopy CDVRawPath], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "length"), v24, !v25))
   {
-    v51 = MEMORY[0x277CBEAD8];
-    v52 = *MEMORY[0x277CBE660];
-    v53 = @"Non-nil and non-zero length destinationURL required.";
+    v50 = MEMORY[0x277CBEAD8];
+    v51 = *MEMORY[0x277CBE660];
+    v52 = @"Non-nil and non-zero length destinationURL required.";
 LABEL_26:
-    v54 = [v51 exceptionWithName:v52 reason:v53 userInfo:0];
-    objc_exception_throw(v54);
+    v53 = [v50 exceptionWithName:v51 reason:v52 userInfo:0];
+    objc_exception_throw(v53);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v26 = lsCopy;
-  v27 = [v26 countByEnumeratingWithState:&v66 objects:v71 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v65 objects:v70 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v67;
+    v29 = *v66;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v67 != v29)
+        if (*v66 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v66 + 1) + 8 * i);
+        v31 = *(*(&v65 + 1) + 8 * i);
         cDVRawPath = [v31 CDVRawPath];
         v33 = [cDVRawPath length];
 
         if (!v33)
         {
-          v44 = MEMORY[0x277CBEAD8];
-          v45 = *MEMORY[0x277CBE660];
-          v46 = MEMORY[0x277CCACA8];
-          v47 = @"Non-zero length sourceURL required.";
+          v43 = MEMORY[0x277CBEAD8];
+          v44 = *MEMORY[0x277CBE660];
+          v45 = MEMORY[0x277CCACA8];
+          v46 = @"Non-zero length sourceURL required.";
           goto LABEL_22;
         }
 
@@ -94,34 +94,34 @@ LABEL_26:
 
         if (v35)
         {
-          v44 = MEMORY[0x277CBEAD8];
-          v45 = *MEMORY[0x277CBE660];
+          v43 = MEMORY[0x277CBEAD8];
+          v44 = *MEMORY[0x277CBE660];
           [MEMORY[0x277CCACA8] stringWithFormat:@"The value for sourceURL and the value for destinationURL must not be the same. A sourceURL is already present in destination path: %@", v31, lsCopy2, lCopy2];
           goto LABEL_23;
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v66 objects:v71 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v65 objects:v70 count:16];
     }
 
     while (v28);
   }
 
-  typesCopy2 = v61;
-  payloadsCopy = v62;
-  if (fallbackCopy && (!v62 || !v61))
+  typesCopy2 = v60;
+  payloadsCopy = v61;
+  if (fallbackCopy && (!v61 || !v60))
   {
-    v44 = MEMORY[0x277CBEAD8];
-    v45 = *MEMORY[0x277CBE660];
-    v46 = MEMORY[0x277CCACA8];
-    v47 = @"Asked to create a taskgroup with fallback, but some required data for PUT is missing.";
+    v43 = MEMORY[0x277CBEAD8];
+    v44 = *MEMORY[0x277CBE660];
+    v45 = MEMORY[0x277CCACA8];
+    v46 = @"Asked to create a taskgroup with fallback, but some required data for PUT is missing.";
 LABEL_22:
-    [v46 stringWithFormat:v47, v55, lsCopy2, lCopy2];
-    v48 = LABEL_23:;
-    v49 = [v44 exceptionWithName:v45 reason:v48 userInfo:0];
-    v50 = v49;
+    [v45 stringWithFormat:v46, v54, lsCopy2, lCopy2];
+    v47 = LABEL_23:;
+    v48 = [v43 exceptionWithName:v44 reason:v47 userInfo:0];
+    v49 = v48;
 
-    objc_exception_throw(v49);
+    objc_exception_throw(v48);
   }
 
   v23->_useFallback = fallbackCopy;
@@ -140,12 +140,11 @@ LABEL_22:
   destinationEntityETags = v23->_destinationEntityETags;
   v23->_destinationEntityETags = v40;
 
-  providerCopy = v59;
-  tagsCopy = v60;
-  managerCopy = v58;
+  providerCopy = v58;
+  tagsCopy = v59;
+  managerCopy = v57;
 LABEL_19:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -183,7 +182,7 @@ LABEL_19:
 
 - (void)processOutstandingTasks
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   outstandingSourceURLsToMove = self->_outstandingSourceURLsToMove;
   if (outstandingSourceURLsToMove && [(NSMutableArray *)outstandingSourceURLsToMove count])
   {
@@ -204,16 +203,16 @@ LABEL_19:
 
     [(CoreDAVTask *)v8 setTimeoutInterval:self->super._timeoutInterval];
     objc_initWeak(&location, v8);
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__block_invoke;
-    v23 = &unk_278E31008;
-    objc_copyWeak(&v26, &location);
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__block_invoke;
+    v21 = &unk_278E31008;
+    objc_copyWeak(&v24, &location);
     selfCopy = self;
     v13 = lastObject;
-    v25 = v13;
-    [(CoreDAVTask *)v8 setCompletionBlock:&v20];
-    v14 = [CoreDAVLogging sharedLogging:v20];
+    v23 = v13;
+    [(CoreDAVTask *)v8 setCompletionBlock:&v18];
+    v14 = [CoreDAVLogging sharedLogging:v18];
     WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
     v16 = [v14 logHandleForAccountInfoProvider:WeakRetained];
 
@@ -222,7 +221,7 @@ LABEL_19:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v29 = v8;
+        v27 = v8;
         _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_INFO, "[multi-move] ~  Multi-move task group starting:\n%@", buf, 0xCu);
       }
     }
@@ -231,15 +230,12 @@ LABEL_19:
     taskManager = [(CoreDAVTaskGroup *)self taskManager];
     [taskManager submitQueuedCoreDAVTask:v8];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
-
-    v18 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v19 = *MEMORY[0x277D85DE8];
 
     [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:0];
   }
@@ -292,7 +288,7 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
 
 - (void)_completedMoveTask:(id)task sourceURL:(id)l
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   lCopy = l;
   v7 = +[CoreDAVLogging sharedLogging];
@@ -302,7 +298,7 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
   if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v53 = lCopy;
+    v52 = lCopy;
     _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_DEBUG, "[multi-move] ~ Completion block for %@", buf, 0xCu);
   }
 
@@ -330,13 +326,13 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
       if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v53 = lCopy;
+        v52 = lCopy;
         _os_log_impl(&dword_2452FB000, v22, OS_LOG_TYPE_INFO, "[multi-move] ~  Move of %@ failed, trying a PUT as fallback", buf, 0xCu);
       }
 
       sourceEntityDataPayloads = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self sourceEntityDataPayloads];
       v24 = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self filenameFromURL:lCopy];
-      v44 = [sourceEntityDataPayloads objectForKey:v24];
+      v43 = [sourceEntityDataPayloads objectForKey:v24];
 
       sourceEntityDataContentTypes = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self sourceEntityDataContentTypes];
       v26 = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self filenameFromURL:lCopy];
@@ -344,31 +340,31 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
 
       v28 = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self fullDestinationURLFromSourceURL:lCopy];
       v29 = v28;
-      if (v44 && v27 && v28)
+      if (v43 && v27 && v28)
       {
         v30 = [CoreDAVPutTask alloc];
         sourceEntityETags = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self sourceEntityETags];
         v32 = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self filenameFromURL:lCopy];
         v33 = [sourceEntityETags objectForKey:v32];
-        v34 = [(CoreDAVPostOrPutTask *)v30 initWithDataPayload:v44 dataContentType:v27 atURL:v29 previousETag:v33];
+        v34 = [(CoreDAVPostOrPutTask *)v30 initWithDataPayload:v43 dataContentType:v27 atURL:v29 previousETag:v33];
 
         v35 = objc_loadWeakRetained(&self->super._accountInfoProvider);
         [(CoreDAVTask *)v34 setAccountInfoProvider:v35];
 
         objc_initWeak(buf, v34);
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___block_invoke;
-        v49[3] = &unk_278E31008;
-        objc_copyWeak(&v51, buf);
-        v49[4] = self;
-        v50 = lCopy;
-        [(CoreDAVTask *)v34 setCompletionBlock:v49];
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___block_invoke;
+        v48[3] = &unk_278E31008;
+        objc_copyWeak(&v50, buf);
+        v48[4] = self;
+        v49 = lCopy;
+        [(CoreDAVTask *)v34 setCompletionBlock:v48];
         [(NSMutableSet *)self->super._outstandingTasks addObject:v34];
         taskManager = [(CoreDAVTaskGroup *)self taskManager];
         [taskManager submitQueuedCoreDAVTask:v34];
 
-        objc_destroyWeak(&v51);
+        objc_destroyWeak(&v50);
         objc_destroyWeak(buf);
       }
 
@@ -381,7 +377,7 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
         if (v42 && os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v53 = lCopy;
+          v52 = lCopy;
           _os_log_impl(&dword_2452FB000, v42, OS_LOG_TYPE_DEFAULT, "[multi-move] ~ PUT failed for %@. Missing local data.", buf, 0xCu);
         }
 
@@ -398,7 +394,7 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
       if (v39 && os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = lCopy;
+        v52 = lCopy;
         _os_log_impl(&dword_2452FB000, v39, OS_LOG_TYPE_DEFAULT, "[multi-move] ~  Move failed for %@", buf, 0xCu);
       }
 
@@ -415,27 +411,25 @@ uint64_t __64__CoreDAVMultiMoveWithFallbackTaskGroup_processOutstandingTasks__bl
     if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v53 = lCopy;
+      v52 = lCopy;
       _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_INFO, "[multi-move] ~  Move succeded for %@", buf, 0xCu);
     }
 
     v17 = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self fullDestinationURLFromSourceURL:lCopy];
     objc_initWeak(buf, self);
     responseHeaders = [taskCopy responseHeaders];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___block_invoke_35;
-    v46[3] = &unk_278E30F68;
-    objc_copyWeak(&v48, buf);
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___block_invoke_35;
+    v45[3] = &unk_278E30F68;
+    objc_copyWeak(&v47, buf);
     v19 = v17;
-    v47 = v19;
-    [(CoreDAVMultiMoveWithFallbackTaskGroup *)self _setTagsForDestinationEntityAtURL:v19 fromTaskResponseHeaders:responseHeaders completionBlock:v46];
+    v46 = v19;
+    [(CoreDAVMultiMoveWithFallbackTaskGroup *)self _setTagsForDestinationEntityAtURL:v19 fromTaskResponseHeaders:responseHeaders completionBlock:v45];
 
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(buf);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___block_invoke(uint64_t a1)
@@ -469,7 +463,7 @@ void __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___
 
 - (void)_completedPutTask:(id)task sourceURL:(id)l
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   lCopy = l;
   error = [taskCopy error];
@@ -486,7 +480,7 @@ void __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___
       {
         v13 = [taskCopy url];
         *buf = 138412290;
-        v31 = v13;
+        v30 = v13;
         _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_INFO, "[multi-move] ~  Move-fallback PUT to %@ failed", buf, 0xCu);
       }
     }
@@ -503,7 +497,7 @@ void __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___
       {
         v15 = [taskCopy url];
         *buf = 138412290;
-        v31 = v15;
+        v30 = v15;
         _os_log_impl(&dword_2452FB000, v14, OS_LOG_TYPE_INFO, "[multi-move] ~  Move-fallback PUT succeded at %@", buf, 0xCu);
       }
     }
@@ -519,7 +513,7 @@ void __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___
       {
         responseHeaders = [taskCopy responseHeaders];
         *buf = 138412290;
-        v31 = responseHeaders;
+        v30 = responseHeaders;
         _os_log_impl(&dword_2452FB000, v19, OS_LOG_TYPE_INFO, "[multi-move] ~  Move-fallback PUT Responses are: %@", buf, 0xCu);
       }
     }
@@ -527,27 +521,25 @@ void __70__CoreDAVMultiMoveWithFallbackTaskGroup__completedMoveTask_sourceURL___
     v21 = [(CoreDAVMultiMoveWithFallbackTaskGroup *)self fullDestinationURLFromSourceURL:lCopy];
     objc_initWeak(buf, self);
     responseHeaders2 = [taskCopy responseHeaders];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___block_invoke;
-    v25[3] = &unk_278E30FE0;
-    objc_copyWeak(&v29, buf);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___block_invoke;
+    v24[3] = &unk_278E30FE0;
+    objc_copyWeak(&v28, buf);
     v23 = v21;
-    v26 = v23;
-    v27 = taskCopy;
-    v28 = lCopy;
-    [(CoreDAVMultiMoveWithFallbackTaskGroup *)self _setTagsForDestinationEntityAtURL:v23 fromTaskResponseHeaders:responseHeaders2 completionBlock:v25];
+    v25 = v23;
+    v26 = taskCopy;
+    v27 = lCopy;
+    [(CoreDAVMultiMoveWithFallbackTaskGroup *)self _setTagsForDestinationEntityAtURL:v23 fromTaskResponseHeaders:responseHeaders2 completionBlock:v24];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -566,7 +558,7 @@ void __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___b
       {
         v9 = [*(a1 + 40) url];
         *buf = 138412290;
-        v22 = v9;
+        v21 = v9;
         _os_log_impl(&dword_2452FB000, v8, OS_LOG_TYPE_INFO, "[multi-move] ~  Going to do a DELETE of the sourceURL now (put to %@)", buf, 0xCu);
       }
     }
@@ -576,28 +568,26 @@ void __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___b
     [(CoreDAVTask *)v10 setAccountInfoProvider:v11];
 
     objc_initWeak(buf, v10);
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___block_invoke_37;
-    v18 = &unk_278E30F68;
-    objc_copyWeak(&v20, buf);
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___block_invoke_37;
+    v17 = &unk_278E30F68;
+    objc_copyWeak(&v19, buf);
     v12 = v3;
-    v19 = v12;
-    [(CoreDAVTask *)v10 setCompletionBlock:&v15];
-    [v12[4] addObject:{v10, v15, v16, v17, v18}];
+    v18 = v12;
+    [(CoreDAVTask *)v10 setCompletionBlock:&v14];
+    [v12[4] addObject:{v10, v14, v15, v16, v17}];
     v13 = [v12 taskManager];
     [v13 submitQueuedCoreDAVTask:v10];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___block_invoke_37(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -611,9 +601,9 @@ void __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___b
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = [WeakRetained error];
-        v12 = 138412290;
-        v13 = v7;
-        _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "[multi-move] ~  Move-fallback DELETE completed with error: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v7;
+        _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "[multi-move] ~  Move-fallback DELETE completed with error: %@", &v11, 0xCu);
       }
     }
 
@@ -632,8 +622,6 @@ void __69__CoreDAVMultiMoveWithFallbackTaskGroup__completedPutTask_sourceURL___b
       [v9 processOutstandingTasks];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

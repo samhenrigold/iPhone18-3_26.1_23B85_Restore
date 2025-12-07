@@ -18,14 +18,25 @@
 - (id)description
 {
   v2 = self->_batteryType - 1;
+  v3 = "?";
+  v4 = "?";
   if (v2 <= 3)
   {
-    v3 = off_1E788EBB0[v2];
+    v4 = off_1E788EBB0[v2];
   }
 
   batteryState = self->_batteryState;
-  v6 = self->_batteryLevel * 100.0;
-  return NSPrintF();
+  if (batteryState == 2)
+  {
+    v3 = "Charging";
+  }
+
+  if (batteryState == 1)
+  {
+    v3 = "Discharging";
+  }
+
+  return NSPrintF("< Type %s, State %s, Level %.0f%% >", v4, v3, self->_batteryLevel * 100.0);
 }
 
 - (SFBatteryInfo)initWithCoder:(id)coder

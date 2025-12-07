@@ -322,7 +322,7 @@ LABEL_11:
 - (void)_timeChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = ncs_log_complication();
+  v5 = ncs_log_complication(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     name = [changedCopy name];
@@ -375,14 +375,13 @@ LABEL_11:
 
 - (void)_enumerateLabelsWithBlock:(id)block
 {
-  weekdayLabel = self->_weekdayLabel;
-  v5 = (block + 16);
-  v6 = *(block + 2);
+  v4 = (block + 16);
+  v5 = *(block + 2);
   blockCopy = block;
-  v6();
-  (*v5)(blockCopy, self->_previousDateLabel);
-  (*v5)(blockCopy, self->_dateLabel);
-  (*v5)(blockCopy, self->_nextDateLabel);
+  v5();
+  (*v4)(blockCopy, self->_previousDateLabel);
+  (*v4)(blockCopy, self->_dateLabel);
+  (*v4)(blockCopy, self->_nextDateLabel);
 }
 
 - (void)_handleTemplate:(id)template reason:(int64_t)reason

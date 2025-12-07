@@ -301,107 +301,101 @@ void sub_2617E8F68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unint64_t std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, void *a2)
 {
-  *&v26[23] = *MEMORY[0x277D85DE8];
+  *&v23[23] = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v6 = a1[1];
-  if ((*(a1 + 1) & 0x4000) != 0)
-  {
-    v9 = *(a1 + 1);
-    v10 = a2[1];
-    if (v10 <= v9)
-    {
-      LOBYTE(v12) = 0;
-    }
-
-    else if (v10 > 0xC)
-    {
-      v13 = a2[2] + 32 * v9;
-      v2 = *v13;
-      v9 = *(v13 + 8);
-      LOBYTE(v12) = *(v13 + 16);
-      *v22 = *(v13 + 17);
-      *&v22[7] = *(v13 + 24);
-    }
-
-    else
-    {
-      v11 = a2[2];
-      v12 = (a2[3] >> (5 * v9)) & 0x1FLL;
-      v2 = *(v11 + 16 * v9);
-      v9 = *(v11 + 16 * v9 + 8);
-    }
-
-    v23 = v2;
-    v24 = v9;
-    v25 = v12;
-    *v26 = *v22;
-    *&v26[7] = *&v22[7];
-    v7 = std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v23);
-    if ((*(a1 + 1) & 0x8000) == 0)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
+  if ((*(a1 + 1) & 0x4000) == 0)
   {
     v7 = *(a1 + 1);
     if ((*(a1 + 1) & 0x8000) == 0)
     {
-LABEL_3:
-      v8 = *(a1 + 2);
-      goto LABEL_16;
+      return (v6 << 8) | (v7 << 32) | v5 & 0x7F;
     }
+
+    goto LABEL_10;
   }
 
-  v14 = *(a1 + 2);
-  v15 = a2[1];
-  if (v15 <= v14)
+  v8 = *(a1 + 1);
+  v9 = a2[1];
+  if (v9 <= v8)
   {
-    LOBYTE(v17) = 0;
+    LOBYTE(v11) = 0;
   }
 
-  else if (v15 > 0xC)
+  else if (v9 > 0xC)
   {
-    v18 = a2[2] + 32 * v14;
-    v2 = *v18;
-    v14 = *(v18 + 8);
-    LOBYTE(v17) = *(v18 + 16);
-    *v22 = *(v18 + 17);
-    *&v22[7] = *(v18 + 24);
+    v12 = a2[2] + 32 * v8;
+    v2 = *v12;
+    v8 = *(v12 + 8);
+    LOBYTE(v11) = *(v12 + 16);
+    *v19 = *(v12 + 17);
+    *&v19[7] = *(v12 + 24);
   }
 
   else
   {
-    v16 = a2[2];
-    v17 = (a2[3] >> (5 * v14)) & 0x1FLL;
-    v2 = *(v16 + 16 * v14);
-    v14 = *(v16 + 16 * v14 + 8);
+    v10 = a2[2];
+    v11 = (a2[3] >> (5 * v8)) & 0x1FLL;
+    v2 = *(v10 + 16 * v8);
+    v8 = *(v10 + 16 * v8 + 8);
   }
 
-  v23 = v2;
-  v24 = v14;
-  v25 = v17;
-  *v26 = *v22;
-  *&v26[7] = *&v22[7];
-  v8 = std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v23);
-LABEL_16:
-  v19 = *MEMORY[0x277D85DE8];
-  v20 = v8 | (*(a1 + 3) << 32);
+  v20 = v2;
+  v21 = v8;
+  v22 = v11;
+  *v23 = *v19;
+  *&v23[7] = *&v19[7];
+  v7 = std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v20);
+  if ((*(a1 + 1) & 0x8000) != 0)
+  {
+LABEL_10:
+    v13 = *(a1 + 2);
+    v14 = a2[1];
+    if (v14 <= v13)
+    {
+      LOBYTE(v16) = 0;
+    }
+
+    else if (v14 > 0xC)
+    {
+      v17 = a2[2] + 32 * v13;
+      v2 = *v17;
+      v13 = *(v17 + 8);
+      LOBYTE(v16) = *(v17 + 16);
+      *v19 = *(v17 + 17);
+      *&v19[7] = *(v17 + 24);
+    }
+
+    else
+    {
+      v15 = a2[2];
+      v16 = (a2[3] >> (5 * v13)) & 0x1FLL;
+      v2 = *(v15 + 16 * v13);
+      v13 = *(v15 + 16 * v13 + 8);
+    }
+
+    v20 = v2;
+    v21 = v13;
+    v22 = v16;
+    *v23 = *v19;
+    *&v23[7] = *&v19[7];
+    std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v20);
+  }
+
   return (v6 << 8) | (v7 << 32) | v5 & 0x7F;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, __src, v12, 0, 0xAu);
     }
 
-    v11 = 2;
+    v10 = 2;
     if (BYTE1(a3) == 2)
     {
       v7 = "0b";
@@ -414,15 +408,13 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::ba
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v15;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, __src, v9, v7, v11);
-    goto LABEL_19;
+    v9 = &v14;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, __src, v9, v7, v10);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    v11 = 16;
+    v10 = 16;
     if (BYTE1(a3) == 6)
     {
       v7 = "0x";
@@ -435,15 +427,13 @@ LABEL_18:
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = v13;
-    goto LABEL_18;
+    v9 = v12;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, __src, v9, v7, v10);
   }
 
   if (BYTE1(a3) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, __src, v13, 0, 0xAu);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, __src, v12, 0, 0xAu);
   }
 
   if (a1)
@@ -456,10 +446,7 @@ LABEL_11:
     v5 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, __src, v14, v5, 8u);
-LABEL_19:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, __src, v13, v5, 8u);
 }
 
 std::locale *std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](std::locale *this, uint64_t a2)
@@ -501,7 +488,7 @@ void *std::__formatter::__write_string_no_precision[abi:ne200100]<char,std::back
   return a3;
 }
 
-unint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(unsigned __int8 *a1, uint64_t a2, unint64_t a3, int a4)
+uint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(char *a1, uint64_t a2, unint64_t a3, int a4)
 {
   result = 0;
   if (!a2)
@@ -843,12 +830,12 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
   v10 = result[2];
   do
   {
-    v11 = *(v4 + 8) - v10;
+    v11 = v4[1] - v10;
     if (v11 < v8 + 1)
     {
-      result = (*(v4 + 24))(v4, v8 + 2);
-      v10 = *(v4 + 16);
-      v11 = *(v4 + 8) - v10;
+      result = (v4[3])(v4, v8 + 2);
+      v10 = v4[2];
+      v11 = v4[1] - v10;
     }
 
     if (v11 >= v8)
@@ -864,11 +851,11 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
     if (v12)
     {
       result = memmove((*v4 + v10), __src, v12);
-      v10 = *(v4 + 16);
+      v10 = v4[2];
     }
 
     v10 += v12;
-    *(v4 + 16) = v10;
+    v4[2] = v10;
     __src += v12;
     v13 = v8 > v11;
     v8 -= v12;
@@ -1119,12 +1106,12 @@ LABEL_8:
     v10 = result[2];
     do
     {
-      v11 = *(v5 + 8) - v10;
+      v11 = v5[1] - v10;
       if (v11 < v4 + 1)
       {
-        result = (*(v5 + 24))(v5, v4 + 2);
-        v10 = *(v5 + 16);
-        v11 = *(v5 + 8) - v10;
+        result = (v5[3])(v5, v4 + 2);
+        v10 = v5[2];
+        v11 = v5[1] - v10;
       }
 
       if (v11 >= v4)
@@ -1140,11 +1127,11 @@ LABEL_8:
       if (v12)
       {
         result = memset((*v5 + v10), __c, v12);
-        v10 = *(v5 + 16);
+        v10 = v5[2];
       }
 
       v10 += v12;
-      *(v5 + 16) = v10;
+      v5[2] = v10;
       v13 = v4 > v11;
       v4 -= v12;
     }
@@ -1215,7 +1202,7 @@ LABEL_10:
   }
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *__src, uint64_t a7, _BYTE *a8, unsigned int a9)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *__src, char *a7, char *a8, unsigned int a9)
 {
   v9 = a7;
   v10 = __src;
@@ -1289,12 +1276,12 @@ LABEL_17:
       v25 = std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned int>(v18, a7, a1);
       goto LABEL_17;
     default:
-      v48 = a7 - v18;
+      v48 = (a7 - v18);
       v49 = std::__to_chars_integral_width[abi:ne200100]<unsigned int>(a1, a9);
       if (v48 >= v49)
       {
         v9 = &v18[v49];
-        v50 = (v9 - 1);
+        v50 = v9 - 1;
         do
         {
           *v50-- = a0123456789abcd[v14 % a9];
@@ -1464,9 +1451,10 @@ void sub_2617EA11C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(void *a1, char *__src, char *a3, int a4, uint64_t *a5, char a6, uint64_t a7, unint64_t a8)
+void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(uint64_t *a1, char *__src, char *a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   v8 = a7;
+  v9 = a6;
   v11 = a3;
   v14 = HIDWORD(a7);
   v15 = HIDWORD(a8);
@@ -1530,7 +1518,7 @@ LABEL_17:
 
   else
   {
-    v24 = (*a5 + a5[1]);
+    v24 = *a5 + a5[1];
   }
 
   if (v22 >= 0)
@@ -1567,7 +1555,7 @@ LABEL_17:
       break;
     }
 
-    std::__format::__output_buffer<char>::push_back[abi:ne200100](a1, a6);
+    std::__format::__output_buffer<char>::push_back[abi:ne200100](a1, v9);
   }
 
   return std::__formatter::__fill[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(a1, v19, v15);
@@ -2035,7 +2023,7 @@ void std::__formatter::__escape[abi:ne200100]<char>(std::string *a1, unsigned __
         if (v8 == 92)
         {
           v10 = a1;
-          v11 = "\\\";
+          v11 = "\\\"";
           goto LABEL_43;
         }
       }
@@ -2056,7 +2044,7 @@ LABEL_41:
           v10 = a1;
           if (a4 == 1)
           {
-            v11 = "\\"";
+            v11 = "\";
 LABEL_43:
             std::string::append(v10, v11, 2uLL);
             goto LABEL_44;
@@ -2136,11 +2124,11 @@ LABEL_45:
 
 void std::__formatter::__write_escaped_code_unit[abi:ne200100]<char>(std::string *this, unsigned int a2, std::string::value_type *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *a3;
   if (*a3)
   {
-    v6 = (a3 + 1);
+    v6 = a3 + 1;
     do
     {
       std::string::push_back(this, v5);
@@ -2151,11 +2139,11 @@ void std::__formatter::__write_escaped_code_unit[abi:ne200100]<char>(std::string
     while (v7);
   }
 
-  v8 = std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned int>(&v12, &v13, a2);
-  if (&v12 != v8)
+  v8 = std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned int>(&v11, &v12, a2);
+  if (&v11 != v8)
   {
     v9 = v8;
-    v10 = &v12;
+    v10 = &v11;
     do
     {
       std::string::push_back(this, *v10++);
@@ -2165,12 +2153,11 @@ void std::__formatter::__write_escaped_code_unit[abi:ne200100]<char>(std::string
   }
 
   std::string::push_back(this, 125);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(uint64_t result)
+_BYTE *std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(_BYTE *result)
 {
-  v1 = *(result + 1);
+  v1 = result[1];
   if ((v1 - 2) >= 6 && v1 != 0)
   {
     if (v1 != 10)
@@ -2189,17 +2176,17 @@ uint64_t std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(uint64
   return result;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
-    v11 = 2;
+    v10 = 2;
     if (BYTE1(a3) == 2)
     {
       v7 = "0b";
@@ -2212,15 +2199,13 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,s
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v14;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v12, v9, v7, v11);
-    goto LABEL_19;
+    v9 = &v13;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    v11 = 16;
+    v10 = 16;
     if (BYTE1(a3) == 6)
     {
       v7 = "0x";
@@ -2233,15 +2218,13 @@ LABEL_18:
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = &v13;
-    goto LABEL_18;
+    v9 = &v12;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v12, &v13 + 2, 0, 0xAu);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -2254,13 +2237,10 @@ LABEL_11:
     v5 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v12, &v13 + 5, v5, 8u);
-LABEL_19:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, unsigned int a9)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -2465,7 +2445,7 @@ void sub_2617EB2D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint64_t a2, unint64_t a3, unsigned int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, char *a2, unint64_t a3, uint64_t a4)
 {
   v4 = a3;
   HIDWORD(v6) = a4 - 2;
@@ -2488,17 +2468,18 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
       v16 = a1;
       v10 = a2 - a1;
       v11 = a2;
+      v12 = a4;
       v13 = std::__to_chars_integral_width[abi:ne200100]<unsigned long long>(a3, a4);
       a2 = v11;
       if (v10 >= v13)
       {
         a2 = &v16[v13];
-        v14 = (a2 - 1);
+        v14 = a2 - 1;
         do
         {
-          *v14-- = a0123456789abcd[v4 % a4];
-          v15 = v4 >= a4;
-          v4 /= a4;
+          *v14-- = a0123456789abcd[v4 % v12];
+          v15 = v4 >= v12;
+          v4 /= v12;
         }
 
         while (v15);
@@ -2705,59 +2686,55 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned long lo
   return v4;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (BYTE1(a4) <= 3u)
   {
     if (!BYTE1(a4))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
     }
 
-    v12 = 2;
+    v11 = 2;
     if (BYTE1(a4) == 2)
     {
-      v11 = "0b";
+      v10 = "0b";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x200;
     }
 
     else
     {
-      v11 = "0B";
+      v10 = "0B";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v16;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, v8, a5, a6, v13, v9, v11, v12);
-    goto LABEL_19;
+    v9 = &v15;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, v8, a5, a6, v12, v9, v10, v11);
   }
 
   if (BYTE1(a4) > 5u)
   {
-    v12 = 16;
+    v11 = 16;
     if (BYTE1(a4) == 6)
     {
-      v11 = "0x";
+      v10 = "0x";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x600;
     }
 
     else
     {
-      v11 = "0X";
+      v10 = "0X";
       v8 = a4 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = &v14;
-    goto LABEL_18;
+    v9 = &v13;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, v8, a5, a6, v12, v9, v10, v11);
   }
 
   if (BYTE1(a4) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v13, &v14 + 5, 0, 0xAu);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
   }
 
   if (a1 | a2)
@@ -2770,13 +2747,10 @@ LABEL_11:
     v6 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v13, v15, v6, 8u);
-LABEL_19:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v12, v14, v6, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6, char *a7, uint64_t a8, _BYTE *a9, unsigned int a10)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6, char *a7, char *a8, char *a9, unsigned int a10)
 {
   v10 = a8;
   v11 = a7;
@@ -2941,7 +2915,7 @@ LABEL_36:
     {
       if (v24 != 7)
       {
-        v63 = a8 - v20;
+        v63 = (a8 - v20);
         v64 = std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(a1, a2, a10);
         if (v63 >= v64)
         {
@@ -3135,7 +3109,7 @@ void sub_2617EC128(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(uint64_t a1, unint64_t a2, unsigned int a3)
+uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(unint64_t a1, unint64_t a2, unsigned int a3)
 {
   if (__PAIR128__(a2, a1) < a3)
   {
@@ -3446,7 +3420,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,
   v6 = MEMORY[0x26670CFD0](a4, *(a2 + 16) + *(a2 + 8), 3, a3);
   a1[3] = v6;
   result = (a4 + 1);
-  if (a4 + 1 == v6)
+  if ((a4 + 1) == v6)
   {
     a1[1] = v6;
     v11 = 2;
@@ -3475,7 +3449,7 @@ LABEL_8:
       }
 
       v10 = -v9;
-      while (*(v6 + v10) != 101)
+      while (v6[v10] != 101)
       {
         if (++v10 == -3)
         {
@@ -3483,10 +3457,10 @@ LABEL_8:
         }
       }
 
-      a1[2] = v6 + v10;
+      a1[2] = &v6[v10];
       if (*result == 46)
       {
-        v6 = a4 + 1;
+        v6 = (a4 + 1);
       }
     }
 
@@ -3538,7 +3512,7 @@ uint64_t std::__formatter::__format_buffer_hexadecimal_lower_case[abi:ne200100]<
 uint64_t std::__formatter::__format_buffer_scientific_lower_case[abi:ne200100]<float,float>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = a5;
-  result = MEMORY[0x26670CFD0](a5, a3 + a2, 1);
+  result = MEMORY[0x26670CFD0](a5, a3 + a2, 1, a4);
   a1[3] = result;
   v8 = a5 + 1;
   if (*(a5 + 1) == 46)
@@ -3580,25 +3554,25 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t result, char a2)
+uint64_t *std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t *result, char a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!v2 || (v4 = *v2, v3 = v2[1], v2[1] = v3 + 1, v3 < v4))
   {
     v5 = *result;
-    v6 = *(result + 16);
-    *(result + 16) = v6 + 1;
+    v6 = result[2];
+    result[2] = v6 + 1;
     *(v5 + v6) = a2;
-    if (*(result + 16) == *(result + 8))
+    if (result[2] == result[1])
     {
-      return (*(result + 24))(result, 2);
+      return (result[3])(result, 2);
     }
   }
 
   return result;
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+uint64_t *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -3878,7 +3852,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x26670CF70](a4, *(a2 + 16) + *(a2 + 8), 3, a3);
   a1[3] = v6;
   result = (a4 + 1);
-  if (a4 + 1 == v6)
+  if ((a4 + 1) == v6)
   {
     a1[1] = v6;
     v11 = 2;
@@ -3907,7 +3881,7 @@ LABEL_8:
       }
 
       v10 = -v9;
-      while (*(v6 + v10) != 101)
+      while (v6[v10] != 101)
       {
         if (++v10 == -3)
         {
@@ -3915,10 +3889,10 @@ LABEL_8:
         }
       }
 
-      a1[2] = v6 + v10;
+      a1[2] = &v6[v10];
       if (*result == 46)
       {
-        v6 = a4 + 1;
+        v6 = (a4 + 1);
       }
     }
 
@@ -3970,7 +3944,7 @@ uint64_t std::__formatter::__format_buffer_hexadecimal_lower_case[abi:ne200100]<
 uint64_t std::__formatter::__format_buffer_scientific_lower_case[abi:ne200100]<double,double>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = a5;
-  result = MEMORY[0x26670CF70](a5, a3 + a2, 1);
+  result = MEMORY[0x26670CF70](a5, a3 + a2, 1, a4);
   a1[3] = result;
   v8 = a5 + 1;
   if (*(a5 + 1) == 46)
@@ -4019,7 +3993,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x26670CFA0](a4, *(a2 + 16) + *(a2 + 8), 3, a3);
   a1[3] = v6;
   result = (a4 + 1);
-  if (a4 + 1 == v6)
+  if ((a4 + 1) == v6)
   {
     a1[1] = v6;
     v11 = 2;
@@ -4048,7 +4022,7 @@ LABEL_8:
       }
 
       v10 = -v9;
-      while (*(v6 + v10) != 101)
+      while (v6[v10] != 101)
       {
         if (++v10 == -3)
         {
@@ -4056,10 +4030,10 @@ LABEL_8:
         }
       }
 
-      a1[2] = v6 + v10;
+      a1[2] = &v6[v10];
       if (*result == 46)
       {
-        v6 = a4 + 1;
+        v6 = (a4 + 1);
       }
     }
 
@@ -4111,7 +4085,7 @@ uint64_t std::__formatter::__format_buffer_hexadecimal_lower_case[abi:ne200100]<
 uint64_t std::__formatter::__format_buffer_scientific_lower_case[abi:ne200100]<double,long double>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = a5;
-  result = MEMORY[0x26670CFA0](a5, a3 + a2, 1);
+  result = MEMORY[0x26670CFA0](a5, a3 + a2, 1, a4);
   a1[3] = result;
   v8 = a5 + 1;
   if (*(a5 + 1) == 46)
@@ -4165,7 +4139,7 @@ unsigned __int8 *std::__formatter_string<char>::parse[abi:ne200100]<std::basic_f
   return result;
 }
 
-void *std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 *a2, size_t a3, void *a4)
+void *std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a1 + 1);
   v7 = *a4;
@@ -4238,7 +4212,7 @@ void *std::__formatter::__write_string[abi:ne200100]<char,std::back_insert_itera
   return a3;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char *a5, uint64_t a6, _BYTE *a7, unsigned int a8)
+uint64_t *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char *a5, char *a6, char *a7, uint64_t a8)
 {
   v8 = a5;
   v12 = (a3 >> 3) & 3;
@@ -4436,17 +4410,16 @@ void sub_2617ED5D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void RFAnchorManagementServiceCreate()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1[9] = 0;
-  v1[13] = 0;
-  v1[5] = 0;
-  v1[0] = 0;
-  *(v1 + 7) = 0;
-  v1[21] = 0;
-  v1[22] = 0;
-  v1[17] = 0;
-  v2 = 0;
-  v0 = *MEMORY[0x277CBECE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0[9] = 0;
+  v0[13] = 0;
+  v0[5] = 0;
+  v0[0] = 0;
+  *(v0 + 7) = 0;
+  v0[21] = 0;
+  v0[22] = 0;
+  v0[17] = 0;
+  v1 = 0;
   if (qword_2810C4650 != -1)
   {
     dispatch_once(&qword_2810C4650, &__block_literal_global_0);
@@ -4604,7 +4577,7 @@ void *RFAnchorManagementAddNestedAnchoringEntitledPeer(uint64_t a1, unint64_t a2
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 328), &v4);
+  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 328), &v4, &v4);
 }
 
 uint64_t *RFAnchorManagementRemoveNestedAnchoringEntitledPeer(uint64_t a1, unint64_t a2)
@@ -4618,7 +4591,7 @@ void *RFAnchorManagementAddAnchoringEntitledPeer(uint64_t a1, unint64_t a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 368), &v4);
+  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 368), &v4, &v4);
 }
 
 uint64_t *RFAnchorManagementRemoveAnchoringEntitledPeer(uint64_t a1, unint64_t a2)
@@ -4632,7 +4605,7 @@ void *RFAnchorManagementAddAnchoringEntitledAncestor(uint64_t a1, unint64_t a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 408), &v4);
+  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 408), &v4, &v4);
 }
 
 uint64_t *RFAnchorManagementRemoveAnchoringEntitledAncestor(uint64_t a1, unint64_t a2)
@@ -4668,7 +4641,7 @@ void *RFAnchorManagerAllowTransformSyncingForPeer(uint64_t a1, unint64_t a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 448), &v4);
+  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((v2 + 448), &v4, &v4);
 }
 
 uint64_t *RFAnchorManagerRevokeTransformSyncingForPeer(uint64_t a1, unint64_t a2)
@@ -4680,126 +4653,112 @@ uint64_t *RFAnchorManagerRevokeTransformSyncingForPeer(uint64_t a1, unint64_t a2
 
 uint64_t RFAnchorManagementSetAnchoringStateChangeCallback(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v5[0] = &unk_2874083F8;
-  v5[1] = MEMORY[0x26670D530](a2);
-  v5[3] = v5;
-  std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator=((v2 + 40), v5);
-  result = std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = &unk_2874083F8;
+  v4[1] = MEMORY[0x26670D530](a2);
+  v4[3] = v4;
+  std::function<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator=((v2 + 40), v4);
+  return std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2617EDCA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617EDCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void *RFAnchorManagerAddReservedAnchorIdentifier(uint64_t a1, __int128 *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 16);
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  uuid_clear(&v6);
-  v6 = *a2;
-  result = std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>((v3 + 528), &v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  uuid_clear(&v5);
+  v5 = *a2;
+  return std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__emplace_unique_key_args<rf::data_flow::RFUUID,rf::data_flow::RFUUID const&>((v3 + 528), &v5, &v5);
 }
 
-uint64_t *RFAnchorManagerRemoveReservedAnchorIdentifier(uint64_t a1, __int128 *a2)
+uint64_t RFAnchorManagerRemoveReservedAnchorIdentifier(uint64_t a1, __int128 *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 16);
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  uuid_clear(&v6);
-  v6 = *a2;
-  result = std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__erase_unique<rf::data_flow::RFUUID>((v3 + 528), &v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  uuid_clear(&v5);
+  v5 = *a2;
+  return std::__hash_table<rf::data_flow::RFUUID,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<rf::data_flow::RFUUID>>::__erase_unique<rf::data_flow::RFUUID>((v3 + 528), &v5);
 }
 
 uint64_t RFAnchorManagementSetOnAnchorCreatedCallback(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v5[0] = &unk_287408488;
-  v5[1] = MEMORY[0x26670D530](a2);
-  v5[3] = v5;
-  std::function<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::operator=((v2 + 80), v5);
-  result = std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = &unk_287408488;
+  v4[1] = MEMORY[0x26670D530](a2);
+  v4[3] = v4;
+  std::function<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::operator=((v2 + 80), v4);
+  return std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2617EDE44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617EDE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<rf::data_flow::RFUUID ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RFAnchorManagementSetOnCustomAnchorCreateCallback(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v5[0] = &unk_287408598;
-  v5[1] = MEMORY[0x26670D530](a2);
-  v5[3] = v5;
-  std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator=((v2 + 112), v5);
-  result = std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = &unk_287408598;
+  v4[1] = MEMORY[0x26670D530](a2);
+  v4[3] = v4;
+  std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator=((v2 + 112), v4);
+  return std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2617EDEEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617EDEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RFAnchorManagementSetOnSharedCustomAnchorCreateCallback(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v5[0] = &unk_287408628;
-  v5[1] = MEMORY[0x26670D530](a2);
-  v5[3] = v5;
-  std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator=((v2 + 144), v5);
-  result = std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = &unk_287408628;
+  v4[1] = MEMORY[0x26670D530](a2);
+  v4[3] = v4;
+  std::function<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::operator=((v2 + 144), v4);
+  return std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2617EDF94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617EDF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RFAnchorManagementSetOnImageAnchorChangedCallback(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v5[0] = &unk_2874086A8;
-  v5[1] = MEMORY[0x26670D530](a2);
-  v5[3] = v5;
-  std::function<void ()(NSSet<ARReferenceImage *> *)>::operator=((v2 + 208), v5);
-  result = std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = &unk_2874086A8;
+  v4[1] = MEMORY[0x26670D530](a2);
+  v4[3] = v4;
+  std::function<void ()(NSSet<ARReferenceImage *> *)>::operator=((v2 + 208), v4);
+  return std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2617EE03C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617EE03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSSet<ARReferenceImage *> *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5060,51 +5019,56 @@ void std::__hash_table<std::__hash_value_type<REScene *,rf::data_flow::consumer:
 
 void rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions(rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions *this)
 {
-  rf::internal::assert_impl<(rf::internal::AssertLevel)0,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions()::{lambda(void)#1}>(*this != 0);
+  rf::internal::assert_impl<(rf::internal::AssertLevel)0,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions()::{lambda(void)#1}>(*this != 0, &v2);
   MEMORY[0x26670C440](*this, *(this + 10), *(this + 11));
   rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::unsubscribeComponentEvents(this);
 }
 
-uint64_t rf::internal::assert_impl<(rf::internal::AssertLevel)0,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions()::{lambda(void)#1}>(uint64_t result)
+uint64_t rf::internal::assert_impl<(rf::internal::AssertLevel)0,rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions()::{lambda(void)#1}>(uint64_t result, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!result)
   {
     rf::getMessage("Event bus should not be null", __p);
     rf::internal::logAssert(__p);
-    if (v7 < 0)
+    if (v9 < 0)
     {
       operator delete(__p[0]);
     }
 
     rf::internal::debugBreakHandler(v2);
-    v5 = 0;
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v10 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions()::{lambda()#1}::operator()(&v4);
-    if ((v4.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v7 = 0;
+    memset(v12, 0, sizeof(v12));
+    v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    rf::data_flow::consumer::AnchorManagementConsumer::SceneSubscriptions::~SceneSubscriptions()::{lambda()#1}::operator()(&v6);
+    if (v3)
     {
-      v3 = &v4;
+      v4 = 3;
     }
 
     else
     {
-      v3 = v4.__r_.__value_.__r.__words[0];
+      v4 = 2;
     }
 
-    v8 = 136315138;
-    v9 = v3;
-    _os_log_send_and_compose_impl();
-    std::string::~string(&v4);
+    if ((v6.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v5 = &v6;
+    }
+
+    else
+    {
+      v5 = v6.__r_.__value_.__r.__words[0];
+    }
+
+    v10 = 136315138;
+    v11 = v5;
+    _os_log_send_and_compose_impl(v4, &v7, v12, 80, &dword_2617CB000, MEMORY[0x277D86220], 16, "RealityFusion Assert Fatal: %s", &v10);
+    std::string::~string(&v6);
     _os_crash_msg();
     __break(1u);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5270,13 +5234,6 @@ void std::__function::__func<RFAnchorManagementSetAnchoringStateChangeCallback::
   operator delete(a1);
 }
 
-uint64_t std::__function::__func<RFAnchorManagementSetAnchoringStateChangeCallback::$_0,std::allocator<RFAnchorManagementSetAnchoringStateChangeCallback::$_0>,void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::operator()(uint64_t a1, uint64_t *a2, int *a3)
-{
-  v3 = *a2;
-  v4 = *a3;
-  return (*(*(a1 + 8) + 16))();
-}
-
 uint64_t std::__function::__func<RFAnchorManagementSetAnchoringStateChangeCallback::$_0,std::allocator<RFAnchorManagementSetAnchoringStateChangeCallback::$_0>,void ()(REEntity *,rf::data_flow::consumer::AnchoringState)>::target(uint64_t a1, uint64_t a2)
 {
   {
@@ -5347,95 +5304,89 @@ uint64_t std::__function::__func<RFAnchorManagementSetOnAnchorCreatedCallback::$
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZZ44RFAnchorManagementSetOnAnchorCreatedCallbackENK3__0clENS_7variantIJN2rf9data_flow12CustomAnchorENSB_11PlaneAnchorENSB_11ImageAnchorENSB_12ObjectAnchorENSB_10FaceAnchorENSB_10BodyAnchorEEEEEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE1EJSC_SD_SE_SF_SG_SH_EEEEEEDcSJ_DpT0_(uint64_t a1, _OWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LOBYTE(v7) = 0;
-  *(&v7 + 1) = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(v6) = 0;
+  *(&v6 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   result = *uu;
-  v4 = v7;
+  v4 = v6;
   *a2 = *uu;
   a2[1] = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZZ44RFAnchorManagementSetOnAnchorCreatedCallbackENK3__0clENS_7variantIJN2rf9data_flow12CustomAnchorENSB_11PlaneAnchorENSB_11ImageAnchorENSB_12ObjectAnchorENSB_10FaceAnchorENSB_10BodyAnchorEEEEEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE1EJSC_SD_SE_SF_SG_SH_EEEEEEDcSJ_DpT0_(uint64_t a1, _OWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LOBYTE(v7) = 0;
-  *(&v7 + 1) = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(v6) = 0;
+  *(&v6 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   result = *uu;
-  v4 = v7;
+  v4 = v6;
   *a2 = *uu;
   a2[1] = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZZ44RFAnchorManagementSetOnAnchorCreatedCallbackENK3__0clENS_7variantIJN2rf9data_flow12CustomAnchorENSB_11PlaneAnchorENSB_11ImageAnchorENSB_12ObjectAnchorENSB_10FaceAnchorENSB_10BodyAnchorEEEEEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE1EJSC_SD_SE_SF_SG_SH_EEEEEEDcSJ_DpT0_(uint64_t a1, _OWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LOBYTE(v7) = 0;
-  *(&v7 + 1) = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(v6) = 0;
+  *(&v6 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   result = *uu;
-  v4 = v7;
+  v4 = v6;
   *a2 = *uu;
   a2[1] = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZZ44RFAnchorManagementSetOnAnchorCreatedCallbackENK3__0clENS_7variantIJN2rf9data_flow12CustomAnchorENSB_11PlaneAnchorENSB_11ImageAnchorENSB_12ObjectAnchorENSB_10FaceAnchorENSB_10BodyAnchorEEEEEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE1EJSC_SD_SE_SF_SG_SH_EEEEEEDcSJ_DpT0_(uint64_t a1, _OWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LOBYTE(v7) = 0;
-  *(&v7 + 1) = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(v6) = 0;
+  *(&v6 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   result = *uu;
-  v4 = v7;
+  v4 = v6;
   *a2 = *uu;
   a2[1] = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZZ44RFAnchorManagementSetOnAnchorCreatedCallbackENK3__0clENS_7variantIJN2rf9data_flow12CustomAnchorENSB_11PlaneAnchorENSB_11ImageAnchorENSB_12ObjectAnchorENSB_10FaceAnchorENSB_10BodyAnchorEEEEEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE1EJSC_SD_SE_SF_SG_SH_EEEEEEDcSJ_DpT0_(uint64_t a1, _OWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LOBYTE(v7) = 0;
-  *(&v7 + 1) = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(v6) = 0;
+  *(&v6 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   result = *uu;
-  v4 = v7;
+  v4 = v6;
   *a2 = *uu;
   a2[1] = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZZ44RFAnchorManagementSetOnAnchorCreatedCallbackENK3__0clENS_7variantIJN2rf9data_flow12CustomAnchorENSB_11PlaneAnchorENSB_11ImageAnchorENSB_12ObjectAnchorENSB_10FaceAnchorENSB_10BodyAnchorEEEEEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE1EJSC_SD_SE_SF_SG_SH_EEEEEEDcSJ_DpT0_(uint64_t a1, _OWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LOBYTE(v7) = 0;
-  *(&v7 + 1) = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(v6) = 0;
+  *(&v6 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   result = *uu;
-  v4 = v7;
+  v4 = v6;
   *a2 = *uu;
   a2[1] = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void rf::CustomCFObject<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::createWithCFAllocator<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>&>()
+void rf::CustomCFObject<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::createWithCFAllocator<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>&>(uint64_t a1)
 {
   if (rf::ClassRegistration<rf::CustomCFObject<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>>::_dispatchOnceFlag != -1)
   {
@@ -5737,16 +5688,15 @@ uint64_t std::__function::__func<RFAnchorManagementSetOnImageAnchorChangedCallba
 
 void RFEnvironmentProbePlacementServiceCreate()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = 16777217;
-  v2 = 3;
-  v3 = xmmword_261861BC0;
-  v4 = 0x3F8000003F4CCCCDLL;
-  v5 = 0;
-  v6 = xmmword_261861BD0;
+  v8 = *MEMORY[0x277D85DE8];
+  v0 = 16777217;
+  v1 = 3;
+  v2 = xmmword_261861BC0;
+  v3 = 0x3F8000003F4CCCCDLL;
+  v4 = 0;
+  v5 = xmmword_261861BD0;
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  v0 = *MEMORY[0x277CBECE8];
   if (qword_2810C46C0 != -1)
   {
     dispatch_once(&qword_2810C46C0, &__block_literal_global_1);
@@ -5808,27 +5758,25 @@ uint64_t RFEnvironmentProbePlacementServiceSetMaxLocalizedProbeCount(uint64_t re
 
 uint64_t RFEnvironmentProbePlacementServiceSetOnProbeAnchorCreatedCB(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6[0] = &unk_287408758;
-  v6[1] = MEMORY[0x26670D530](a2);
-  v6[3] = v6;
-  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::__value_func[abi:ne200100](v5, v6);
-  std::function<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator=((v2 + 96), v5);
-  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v5);
-  result = std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_287408758;
+  v5[1] = MEMORY[0x26670D530](a2);
+  v5[3] = v5;
+  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::__value_func[abi:ne200100](v4, v5);
+  std::function<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator=((v2 + 96), v4);
+  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v4);
+  return std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2617F00CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617F00CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5836,27 +5784,25 @@ void sub_2617F00CC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCB(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6[0] = &unk_2874087E8;
-  v6[1] = MEMORY[0x26670D530](a2);
-  v6[3] = v6;
-  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::__value_func[abi:ne200100](v5, v6);
-  std::function<void ()(rf::data_flow::EnvironmentProbe const&)>::operator=((v2 + 128), v5);
-  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v5);
-  result = std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_2874087E8;
+  v5[1] = MEMORY[0x26670D530](a2);
+  v5[3] = v5;
+  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::__value_func[abi:ne200100](v4, v5);
+  std::function<void ()(rf::data_flow::EnvironmentProbe const&)>::operator=((v2 + 128), v4);
+  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v4);
+  return std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2617F0198(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617F0198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5864,27 +5810,25 @@ void sub_2617F0198(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t RFEnvironmentProbePlacementServiceSetOnProbeAnchorCreatedCallback(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6[0] = &unk_287408878;
-  v6[1] = MEMORY[0x26670D530](a2);
-  v6[3] = v6;
-  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::__value_func[abi:ne200100](v5, v6);
-  std::function<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator=((v2 + 96), v5);
-  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v5);
-  result = std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_287408878;
+  v5[1] = MEMORY[0x26670D530](a2);
+  v5[3] = v5;
+  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::__value_func[abi:ne200100](v4, v5);
+  std::function<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator=((v2 + 96), v4);
+  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v4);
+  return std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2617F0264(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617F0264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5892,27 +5836,25 @@ void sub_2617F0264(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCallback(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6[0] = &unk_2874088F8;
-  v6[1] = MEMORY[0x26670D530](a2);
-  v6[3] = v6;
-  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::__value_func[abi:ne200100](v5, v6);
-  std::function<void ()(rf::data_flow::EnvironmentProbe const&)>::operator=((v2 + 128), v5);
-  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v5);
-  result = std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_2874088F8;
+  v5[1] = MEMORY[0x26670D530](a2);
+  v5[3] = v5;
+  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::__value_func[abi:ne200100](v4, v5);
+  std::function<void ()(rf::data_flow::EnvironmentProbe const&)>::operator=((v2 + 128), v4);
+  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v4);
+  return std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2617F0330(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617F0330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5920,27 +5862,25 @@ void sub_2617F0330(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t RFEnvironmentProbePlacementServiceSetOnProbeDataCreatedCallback(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6[0] = &unk_287408978;
-  v6[1] = MEMORY[0x26670D530](a2);
-  v6[3] = v6;
-  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::__value_func[abi:ne200100](v5, v6);
-  std::function<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator=((v2 + 96), v5);
-  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v5);
-  result = std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_287408978;
+  v5[1] = MEMORY[0x26670D530](a2);
+  v5[3] = v5;
+  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::__value_func[abi:ne200100](v4, v5);
+  std::function<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator=((v2 + 96), v4);
+  std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v4);
+  return std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2617F03FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617F03FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5948,27 +5888,25 @@ void sub_2617F03FC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t RFEnvironmentProbePlacementServiceSetOnProbeDataRemovedCallback(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6[0] = &unk_2874089F8;
-  v6[1] = MEMORY[0x26670D530](a2);
-  v6[3] = v6;
-  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::__value_func[abi:ne200100](v5, v6);
-  std::function<void ()(rf::data_flow::EnvironmentProbe const&)>::operator=((v2 + 128), v5);
-  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v5);
-  result = std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_2874089F8;
+  v5[1] = MEMORY[0x26670D530](a2);
+  v5[3] = v5;
+  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::__value_func[abi:ne200100](v4, v5);
+  std::function<void ()(rf::data_flow::EnvironmentProbe const&)>::operator=((v2 + 128), v4);
+  std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v4);
+  return std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2617F04C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2617F04C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(rf::data_flow::EnvironmentProbe const&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -6093,7 +6031,7 @@ void std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorC
 
 double std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorCreatedCB::$_0,std::allocator<RFEnvironmentProbePlacementServiceSetOnProbeAnchorCreatedCB::$_0>,rf::data_flow::RFUUID ()(re::Matrix4x4<float> const&,re::Vector3<float> const&)>::operator()@<D0>(uint64_t a1@<X0>, __n128 *a2@<X1>, __n128 *a3@<X2>, uint64_t a4@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
   v8 = *(a1 + 8);
@@ -6107,7 +6045,6 @@ double std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAncho
   uuid_clear(a4);
   result = *uu;
   *a4 = *uu;
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6145,7 +6082,7 @@ void std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorR
 
 uint64_t std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCB::$_0,std::allocator<RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCB::$_0>,void ()(rf::data_flow::EnvironmentProbe const&)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memset(dst, 0, sizeof(dst));
   if (*(a2 + 16))
   {
@@ -6156,10 +6093,9 @@ uint64_t std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnc
   result = *(a1 + 8);
   if (result)
   {
-    result = (*(result + 16))(result, dst);
+    return (*(result + 16))(result, dst);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6256,13 +6192,13 @@ void std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorR
   operator delete(a1);
 }
 
-void std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCallback::$_0,std::allocator<RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCallback::$_0>,void ()(rf::data_flow::EnvironmentProbe const&)>::operator()(uint64_t a1, double *a2)
+void std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCallback::$_0,std::allocator<RFEnvironmentProbePlacementServiceSetOnProbeAnchorRemovedCallback::$_0>,void ()(rf::data_flow::EnvironmentProbe const&)>::operator()(uint64_t a1, rf::data_flow::RFUUID *a2)
 {
   if (*(a1 + 8))
   {
     v4 = objc_alloc(MEMORY[0x277CE5260]);
     v5 = rf::data_flow::RFUUID::asNSUUID(a2);
-    v6 = [v4 initWithIdentifier:v5 transform:a2[4] extent:{a2[6], a2[8], a2[10], a2[12]}];
+    v6 = [v4 initWithIdentifier:v5 transform:*(a2 + 4) extent:{*(a2 + 6), *(a2 + 8), *(a2 + 10), *(a2 + 12)}];
 
     (*(*(a1 + 8) + 16))();
   }
@@ -6369,7 +6305,7 @@ void std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeDataRem
   operator delete(a1);
 }
 
-uint64_t std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeDataRemovedCallback::$_0,std::allocator<RFEnvironmentProbePlacementServiceSetOnProbeDataRemovedCallback::$_0>,void ()(rf::data_flow::EnvironmentProbe const&)>::operator()(uint64_t a1, uint64_t *a2)
+uint64_t std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeDataRemovedCallback::$_0,std::allocator<RFEnvironmentProbePlacementServiceSetOnProbeDataRemovedCallback::$_0>,void ()(rf::data_flow::EnvironmentProbe const&)>::operator()(uint64_t a1, uint64_t **a2)
 {
   result = *(a1 + 8);
   if (result)
@@ -6416,53 +6352,54 @@ uint64_t std::__function::__func<RFEnvironmentProbePlacementServiceSetOnProbeDat
 
 void rf::data_flow::provider::CameraMetadataProvider::setCameraMetadataExposure(rf::data_flow::provider::CameraMetadataProvider *this, float a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v7 = 0;
-  memset(v4, 0, sizeof(v4));
+  v63 = *MEMORY[0x277D85DE8];
   v5 = 0;
+  v6 = 0;
+  memset(v3, 0, sizeof(v3));
+  v4 = 0;
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 1065353216;
-  v14 = 0;
-  v34 = 0;
+  v12 = 1065353216;
+  v13 = 0;
+  v33 = 0;
+  v44 = 0;
   v45 = 0;
   v46 = 0;
-  v47 = 0;
-  v33 = 0;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v32 = 0;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v39 = 0;
-  v38 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v38 = 0;
   v37 = 0u;
   v36 = 0u;
   v35 = 0u;
+  v34 = 0u;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0;
-  v48 = a2;
-  v49 = 1;
+  v43 = 0;
+  v47 = a2;
+  v48 = 1;
+  v49 = 0;
   v50 = 0;
   v51 = 0;
   v52 = 0;
@@ -6476,68 +6413,67 @@ void rf::data_flow::provider::CameraMetadataProvider::setCameraMetadataExposure(
   v60 = 0;
   v61 = 0;
   v62 = 0;
-  v63 = 0;
   v2 = *(this + 1);
   if (v2)
   {
-    rf::Session::consumeInputFromProvider(v2, v4);
+    rf::Session::consumeInputFromProvider(v2, v3);
   }
 
-  rf::data_flow::provider::InputData::~InputData(v4);
-  v3 = *MEMORY[0x277D85DE8];
+  rf::data_flow::provider::InputData::~InputData(v3);
 }
 
 void rf::data_flow::provider::CameraMetadataProvider::setClippingPointLux(rf::data_flow::provider::CameraMetadataProvider *this, float a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v7 = 0;
-  memset(v4, 0, sizeof(v4));
+  v63 = *MEMORY[0x277D85DE8];
   v5 = 0;
+  v6 = 0;
+  memset(v3, 0, sizeof(v3));
+  v4 = 0;
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 1065353216;
-  v14 = 0;
-  v34 = 0;
+  v12 = 1065353216;
+  v13 = 0;
+  v33 = 0;
+  v44 = 0;
   v45 = 0;
   v46 = 0;
   v47 = 0;
   v48 = 0;
-  v49 = 0;
-  v33 = 0;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v32 = 0;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v39 = 0;
-  v38 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v38 = 0;
   v37 = 0u;
   v36 = 0u;
   v35 = 0u;
+  v34 = 0u;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0;
-  v50 = a2;
-  v51 = 1;
+  v43 = 0;
+  v49 = a2;
+  v50 = 1;
+  v51 = 0;
   v52 = 0;
   v53 = 0;
   v54 = 0;
@@ -6549,20 +6485,17 @@ void rf::data_flow::provider::CameraMetadataProvider::setClippingPointLux(rf::da
   v60 = 0;
   v61 = 0;
   v62 = 0;
-  v63 = 0;
   v2 = *(this + 1);
   if (v2)
   {
-    rf::Session::consumeInputFromProvider(v2, v4);
+    rf::Session::consumeInputFromProvider(v2, v3);
   }
 
-  rf::data_flow::provider::InputData::~InputData(v4);
-  v3 = *MEMORY[0x277D85DE8];
+  rf::data_flow::provider::InputData::~InputData(v3);
 }
 
-void RFQueryCreateEntityQueryUsingPredicate()
+void RFQueryCreateEntityQueryUsingPredicate(uint64_t a1)
 {
-  v0 = *MEMORY[0x277CBECE8];
   if (qword_2810C4730 != -1)
   {
     dispatch_once(&qword_2810C4730, &__block_literal_global_2);
@@ -6791,18 +6724,18 @@ void rf::data_flow::consumer::LoggingConsumer::~LoggingConsumer(rf::data_flow::c
 
 void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
 {
-  v71 = *MEMORY[0x277D85DE8];
-  v43 = *(a1 + 16);
-  std::mutex::lock(v43);
+  v68 = *MEMORY[0x277D85DE8];
+  v40 = *(a1 + 16);
+  std::mutex::lock(v40);
   if (*(a1 + 176) == 1)
   {
     v3 = rf::realityFusionLogObject(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sig = v43[45].__m_.__sig;
-      LODWORD(v62.__first_) = 134217984;
-      *(&v62.__first_ + 4) = sig;
-      _os_log_debug_impl(&dword_2617CB000, v3, OS_LOG_TYPE_DEBUG, "LoggingConsumer saveSnapshotRequested for frame %lu", &v62, 0xCu);
+      sig = v40[45].__m_.__sig;
+      LODWORD(v59.__first_) = 134217984;
+      *(&v59.__first_ + 4) = sig;
+      _os_log_debug_impl(&dword_2617CB000, v3, OS_LOG_TYPE_DEBUG, "LoggingConsumer saveSnapshotRequested for frame %lu", &v59, 0xCu);
     }
 
     if (*(a1 + 55) < 0)
@@ -6816,58 +6749,58 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
     }
 
     v4 = *(a1 + 80);
-    v55 = *(a1 + 64);
-    v56 = v4;
+    v52 = *(a1 + 64);
+    v53 = v4;
     v5 = *(a1 + 112);
-    v57 = *(a1 + 96);
-    v58 = v5;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v59, a1 + 128);
-    v60 = *(a1 + 160);
-    v61 = *(a1 + 164);
-    v44 = a1;
+    v54 = *(a1 + 96);
+    v55 = v5;
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v56, a1 + 128);
+    v57 = *(a1 + 160);
+    v58 = *(a1 + 164);
+    v41 = a1;
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v46, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v43, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v46 = __dst;
+      v43 = __dst;
     }
 
+    v44 = v52;
+    v45 = v53;
+    v46 = v54;
     v47 = v55;
-    v48 = v56;
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v48, v56);
     v49 = v57;
     v50 = v58;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v51, v59);
-    v52 = v60;
-    v53 = v61;
     v7 = *(a1 + 352);
     v6 = *(a1 + 360);
-    v62.__first_ = MEMORY[0x277D85DD0];
-    v62.__begin_ = 3321888768;
-    v62.__end_ = ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEENK3__0cvU13block_pointerFvvEEv_block_invoke;
-    v62.__end_cap_.__value_ = &__block_descriptor_192_ea16_32c96_ZTSKZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEE3__0_e5_v8__0l;
-    v62.__end_cap_.__value_ = v44;
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    v59.__first_ = MEMORY[0x277D85DD0];
+    v59.__begin_ = 3321888768;
+    v59.__end_ = ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEENK3__0cvU13block_pointerFvvEEv_block_invoke;
+    v59.__end_cap_.__value_ = &__block_descriptor_192_ea16_32c96_ZTSKZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEE3__0_e5_v8__0l;
+    v59.__end_cap_.__value_ = v41;
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v46;
+      __p = v43;
     }
 
+    v61 = v44;
+    v62 = v45;
+    v63 = v46;
     v64 = v47;
-    v65 = v48;
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v65, v48);
     v66 = v49;
     v67 = v50;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v68, v51);
-    v69 = v52;
-    v70 = v53;
-    v8 = MEMORY[0x26670D530](&v62);
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v68);
+    v8 = MEMORY[0x26670D530](&v59);
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v65);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -6875,13 +6808,13 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
 
     dispatch_group_async(v6, v7, v8);
 
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v51);
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v48);
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v43.__r_.__value_.__l.__data_);
     }
 
-    v2 = std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v59);
+    v2 = std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v56);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__r_.__value_.__l.__data_);
@@ -6893,10 +6826,10 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
     v9 = rf::realityFusionLogObject(v2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v42 = v43[45].__m_.__sig;
-      LODWORD(v62.__first_) = 134217984;
-      *(&v62.__first_ + 4) = v42;
-      _os_log_debug_impl(&dword_2617CB000, v9, OS_LOG_TYPE_DEBUG, "LoggingConsumer saveFullSnapshotRequested for frame %lu", &v62, 0xCu);
+      v39 = v40[45].__m_.__sig;
+      LODWORD(v59.__first_) = 134217984;
+      *(&v59.__first_ + 4) = v39;
+      _os_log_debug_impl(&dword_2617CB000, v9, OS_LOG_TYPE_DEBUG, "LoggingConsumer saveFullSnapshotRequested for frame %lu", &v59, 0xCu);
     }
 
     if (*(a1 + 215) < 0)
@@ -6910,58 +6843,58 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
     }
 
     v10 = *(a1 + 240);
-    v55 = *(a1 + 224);
-    v56 = v10;
+    v52 = *(a1 + 224);
+    v53 = v10;
     v11 = *(a1 + 272);
-    v57 = *(a1 + 256);
-    v58 = v11;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v59, a1 + 288);
-    v60 = *(a1 + 320);
-    v61 = *(a1 + 324);
-    v44 = a1;
+    v54 = *(a1 + 256);
+    v55 = v11;
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v56, a1 + 288);
+    v57 = *(a1 + 320);
+    v58 = *(a1 + 324);
+    v41 = a1;
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v46, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v43, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v46 = __dst;
+      v43 = __dst;
     }
 
+    v44 = v52;
+    v45 = v53;
+    v46 = v54;
     v47 = v55;
-    v48 = v56;
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v48, v56);
     v49 = v57;
     v50 = v58;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v51, v59);
-    v52 = v60;
-    v53 = v61;
     v13 = *(a1 + 352);
     v12 = *(a1 + 360);
-    v62.__first_ = MEMORY[0x277D85DD0];
-    v62.__begin_ = 3321888768;
-    v62.__end_ = ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEENK3__1cvU13block_pointerFvvEEv_block_invoke;
-    v62.__end_cap_.__value_ = &__block_descriptor_192_ea16_32c96_ZTSKZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEE3__1_e5_v8__0l;
-    v62.__end_cap_.__value_ = v44;
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    v59.__first_ = MEMORY[0x277D85DD0];
+    v59.__begin_ = 3321888768;
+    v59.__end_ = ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEENK3__1cvU13block_pointerFvvEEv_block_invoke;
+    v59.__end_cap_.__value_ = &__block_descriptor_192_ea16_32c96_ZTSKZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEE3__1_e5_v8__0l;
+    v59.__end_cap_.__value_ = v41;
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v46;
+      __p = v43;
     }
 
+    v61 = v44;
+    v62 = v45;
+    v63 = v46;
     v64 = v47;
-    v65 = v48;
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v65, v48);
     v66 = v49;
     v67 = v50;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v68, v51);
-    v69 = v52;
-    v70 = v53;
-    v14 = MEMORY[0x26670D530](&v62);
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v68);
+    v14 = MEMORY[0x26670D530](&v59);
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v65);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -6970,13 +6903,13 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
     dispatch_group_async(v12, v13, v14);
 
     std::optional<rf::data_flow::consumer::LoggingConsumer::SaveSnapshotRequest>::operator=[abi:ne200100](a1 + 192);
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v51);
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v48);
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v43.__r_.__value_.__l.__data_);
     }
 
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v59);
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v56);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__r_.__value_.__l.__data_);
@@ -6985,133 +6918,131 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
 
   v15 = *(a1 + 368);
   v16 = *(a1 + 376);
-  if (v16 != v15 && *&v43[49].__m_.__opaque[8])
+  if (v16 != v15 && *&v40[49].__m_.__opaque[8])
   {
-    v44 = 0;
-    v45 = 0;
-    v46.__r_.__value_.__r.__words[0] = 0;
-    v17 = *v43[49].__m_.__opaque;
+    v41 = 0;
+    v42 = 0;
+    v43.__r_.__value_.__r.__words[0] = 0;
+    v17 = *v40[49].__m_.__opaque;
     if (v17)
     {
       do
       {
-        v18 = v17[6];
-        if ((*(v18 + 376) & 1) == 0)
+        if ((*(v17[6] + 376) & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v19 = *(v18 + 368);
-        v20 = REAssetHandleCopyAssetIdentifierString();
-        v21 = v20;
-        v22 = [v20 UTF8String];
-        v23 = strlen(v22);
-        if (v23 >= 0x7FFFFFFFFFFFFFF8)
+        v18 = REAssetHandleCopyAssetIdentifierString();
+        v19 = v18;
+        v20 = [v18 UTF8String];
+        v21 = strlen(v20);
+        if (v21 >= 0x7FFFFFFFFFFFFFF8)
         {
           std::string::__throw_length_error[abi:ne200100]();
         }
 
-        v24 = v23;
-        if (v23 >= 0x17)
+        v22 = v21;
+        if (v21 >= 0x17)
         {
           operator new();
         }
 
-        *(&__dst.__r_.__value_.__s + 23) = v23;
-        if (v23)
+        *(&__dst.__r_.__value_.__s + 23) = v21;
+        if (v21)
         {
-          memmove(&__dst, v22, v23);
+          memmove(&__dst, v20, v21);
         }
 
-        __dst.__r_.__value_.__s.__data_[v24] = 0;
-        CFRelease(v20);
-        v25 = v45;
-        if (v45 >= v46.__r_.__value_.__r.__words[0])
+        __dst.__r_.__value_.__s.__data_[v22] = 0;
+        CFRelease(v18);
+        v23 = v42;
+        if (v42 >= v43.__r_.__value_.__r.__words[0])
         {
-          v27 = 0xAAAAAAAAAAAAAAABLL * ((v45 - v44) >> 3);
-          v28 = v27 + 1;
-          if (v27 + 1 > 0xAAAAAAAAAAAAAAALL)
+          v25 = 0xAAAAAAAAAAAAAAABLL * ((v42 - v41) >> 3);
+          v26 = v25 + 1;
+          if (v25 + 1 > 0xAAAAAAAAAAAAAAALL)
           {
             std::vector<std::string>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((v46.__r_.__value_.__r.__words[0] - v44) >> 3) > v28)
+          if (0x5555555555555556 * ((v43.__r_.__value_.__r.__words[0] - v41) >> 3) > v26)
           {
-            v28 = 0x5555555555555556 * ((v46.__r_.__value_.__r.__words[0] - v44) >> 3);
+            v26 = 0x5555555555555556 * ((v43.__r_.__value_.__r.__words[0] - v41) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v46.__r_.__value_.__r.__words[0] - v44) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((v43.__r_.__value_.__r.__words[0] - v41) >> 3) >= 0x555555555555555)
           {
-            v29 = 0xAAAAAAAAAAAAAAALL;
+            v27 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v29 = v28;
+            v27 = v26;
           }
 
-          v62.__end_cap_.__value_ = &v44;
-          if (v29)
+          v59.__end_cap_.__value_ = &v41;
+          if (v27)
           {
-            std::allocator<std::string>::allocate_at_least[abi:ne200100](&v44, v29);
+            std::allocator<std::string>::allocate_at_least[abi:ne200100](&v41, v27);
           }
 
-          begin = (8 * ((v45 - v44) >> 3));
-          v62.__first_ = 0;
-          v62.__begin_ = begin;
+          begin = (8 * ((v42 - v41) >> 3));
+          v59.__first_ = 0;
+          v59.__begin_ = begin;
           value = 0;
-          v62.__end_ = begin;
-          v62.__end_cap_.__value_ = 0;
+          v59.__end_ = begin;
+          v59.__end_cap_.__value_ = 0;
           if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
           {
             std::string::__init_copy_ctor_external(begin, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
-            begin = v62.__begin_;
-            end = v62.__end_;
-            value = v62.__end_cap_.__value_;
+            begin = v59.__begin_;
+            end = v59.__end_;
+            value = v59.__end_cap_.__value_;
           }
 
           else
           {
             *&begin->__r_.__value_.__l.__data_ = *&__dst.__r_.__value_.__l.__data_;
-            *(24 * v27 + 0x10) = *(&__dst.__r_.__value_.__l + 2);
-            end = (24 * v27);
+            *(24 * v25 + 0x10) = *(&__dst.__r_.__value_.__l + 2);
+            end = (24 * v25);
           }
 
-          v30 = end + 1;
-          v34 = (begin - (v45 - v44));
-          memcpy(v34, v44, v45 - v44);
-          v35 = v44;
-          v36 = v46.__r_.__value_.__r.__words[0];
-          v44 = v34;
-          v45 = v30;
-          v46.__r_.__value_.__r.__words[0] = value;
-          v62.__end_ = v35;
-          v62.__end_cap_.__value_ = v36;
-          v62.__first_ = v35;
-          v62.__begin_ = v35;
-          std::__split_buffer<std::string>::~__split_buffer(&v62);
-          v26 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+          v28 = end + 1;
+          v32 = (begin - (v42 - v41));
+          memcpy(v32, v41, v42 - v41);
+          v33 = v41;
+          v34 = v43.__r_.__value_.__r.__words[0];
+          v41 = v32;
+          v42 = v28;
+          v43.__r_.__value_.__r.__words[0] = value;
+          v59.__end_ = v33;
+          v59.__end_cap_.__value_ = v34;
+          v59.__first_ = v33;
+          v59.__begin_ = v33;
+          std::__split_buffer<std::string>::~__split_buffer(&v59);
+          v24 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v26 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+          v24 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
           if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v45, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v42, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
           }
 
           else
           {
-            *&v45->__r_.__value_.__l.__data_ = *&__dst.__r_.__value_.__l.__data_;
-            v25->__r_.__value_.__r.__words[2] = __dst.__r_.__value_.__r.__words[2];
+            *&v42->__r_.__value_.__l.__data_ = *&__dst.__r_.__value_.__l.__data_;
+            v23->__r_.__value_.__r.__words[2] = __dst.__r_.__value_.__r.__words[2];
           }
 
-          v30 = v25 + 1;
+          v28 = v23 + 1;
         }
 
-        v45 = v30;
-        if (v26 < 0)
+        v42 = v28;
+        if (v24 < 0)
         {
           operator delete(__dst.__r_.__value_.__l.__data_);
         }
@@ -7126,35 +7057,34 @@ void rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(uint64_t a1)
 
     for (; v15 != v16; v15 += 2)
     {
-      v37 = *v15;
-      v38 = v15[1];
-      if (v38)
+      v35 = *v15;
+      v36 = v15[1];
+      if (v36)
       {
-        atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v39 = *(v37 + 88);
-      if (v39)
+      v37 = *(v35 + 88);
+      if (v37)
       {
-        v62.__first_ = v43[45].__m_.__sig;
-        (*(*v39 + 48))(v39, &v62, &v44);
+        v59.__first_ = v40[45].__m_.__sig;
+        (*(*v37 + 48))(v37, &v59, &v41);
       }
 
-      if (v38)
+      if (v36)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
       }
     }
 
-    v62.__first_ = &v44;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v62);
+    v59.__first_ = &v41;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v59);
   }
 
-  std::mutex::unlock(v43);
-  v40 = *MEMORY[0x277D85DE8];
+  std::mutex::unlock(v40);
 }
 
-void sub_2617F25E0(_Unwind_Exception *a1, std::mutex *a2, char a3, uint64_t a4, void *a5, uint64_t a6, int a7, __int16 a8, char a9, char a10, std::mutex *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, std::__split_buffer<std::string> *a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54)
+void sub_2617F25E0(_Unwind_Exception *a1, std::mutex *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, int a7, __int16 a8, char a9, char a10, std::mutex *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, std::__split_buffer<std::string> *a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54)
 {
   rf::data_flow::consumer::LoggingConsumer::consumeLatestUpdate(rf::ConsumerRequest const&)::$_0::~$_0(&a12);
   rf::data_flow::consumer::LoggingConsumer::SaveSnapshotRequest::~SaveSnapshotRequest(&a35);
@@ -7264,7 +7194,7 @@ std::string *rf::data_flow::consumer::LoggingConsumer::requestSaveFullSnapshot(s
 
 std::string *std::optional<rf::data_flow::consumer::LoggingConsumer::SaveSnapshotRequest>::operator=[abi:ne200100]<rf::data_flow::consumer::LoggingConsumer::SaveSnapshotRequest const&,void>(std::string *this, std::string *__str)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   if (this[6].__r_.__value_.__s.__data_[0] == 1)
   {
     std::string::operator=(this, __str);
@@ -7275,32 +7205,32 @@ std::string *std::optional<rf::data_flow::consumer::LoggingConsumer::SaveSnapsho
     *&this[3].__r_.__value_.__r.__words[1] = v4;
     *&this[1].__r_.__value_.__r.__words[1] = v6;
     *&this[2].__r_.__value_.__l.__data_ = v5;
-    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v18, &__str[4]);
+    std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v17, &__str[4]);
     v7 = this + 4;
-    if (v18 != &this[4])
+    if (v17 != &this[4])
     {
-      v8 = v19;
+      v8 = v18;
       data = this[5].__r_.__value_.__l.__data_;
-      if (v19 == v18)
+      if (v18 == v17)
       {
         if (data == v7)
         {
-          (*(*v19 + 24))();
-          (*(*v19 + 32))(v19);
-          v19 = 0;
-          (*(*this[5].__r_.__value_.__l.__data_ + 24))(this[5].__r_.__value_.__r.__words[0], v18);
+          (*(*v18 + 24))();
+          (*(*v18 + 32))(v18);
+          v18 = 0;
+          (*(*this[5].__r_.__value_.__l.__data_ + 24))(this[5].__r_.__value_.__r.__words[0], v17);
           (*(*this[5].__r_.__value_.__l.__data_ + 32))(this[5].__r_.__value_.__r.__words[0]);
           this[5].__r_.__value_.__r.__words[0] = 0;
-          v19 = v18;
-          (*(v20[0] + 24))(v20, this + 4);
-          (*(v20[0] + 32))(v20);
+          v18 = v17;
+          (*(v19[0] + 24))(v19, this + 4);
+          (*(v19[0] + 32))(v19);
         }
 
         else
         {
-          (*(*v19 + 24))();
-          (*(*v19 + 32))(v19);
-          v19 = this[5].__r_.__value_.__l.__data_;
+          (*(*v18 + 24))();
+          (*(*v18 + 32))(v18);
+          v18 = this[5].__r_.__value_.__l.__data_;
         }
 
         this[5].__r_.__value_.__r.__words[0] = v7;
@@ -7308,20 +7238,20 @@ std::string *std::optional<rf::data_flow::consumer::LoggingConsumer::SaveSnapsho
 
       else if (data == v7)
       {
-        (*(*data + 24))(this[5].__r_.__value_.__r.__words[0], v18);
+        (*(*data + 24))(this[5].__r_.__value_.__r.__words[0], v17);
         (*(*this[5].__r_.__value_.__l.__data_ + 32))(this[5].__r_.__value_.__r.__words[0]);
-        this[5].__r_.__value_.__r.__words[0] = v19;
-        v19 = v18;
+        this[5].__r_.__value_.__r.__words[0] = v18;
+        v18 = v17;
       }
 
       else
       {
-        v19 = this[5].__r_.__value_.__l.__data_;
+        v18 = this[5].__r_.__value_.__l.__data_;
         this[5].__r_.__value_.__r.__words[0] = v8;
       }
     }
 
-    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v18);
+    std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v17);
     v15 = __str[5].__r_.__value_.__r.__words[1];
     WORD2(this[5].__r_.__value_.__r.__words[1]) = WORD2(__str[5].__r_.__value_.__r.__words[1]);
     LODWORD(this[5].__r_.__value_.__r.__words[1]) = v15;
@@ -7355,7 +7285,6 @@ std::string *std::optional<rf::data_flow::consumer::LoggingConsumer::SaveSnapsho
     this[6].__r_.__value_.__s.__data_[0] = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -7527,45 +7456,45 @@ uint64_t std::__function::__value_func<void ()(std::string const&)>::__value_fun
 
 void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEENK3__0cvU13block_pointerFvvEEv_block_invoke(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(a1 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v51, *(a1 + 48), *(a1 + 56));
+    std::string::__init_copy_ctor_external(&v50, *(a1 + 48), *(a1 + 56));
   }
 
   else
   {
-    v51 = *(a1 + 48);
+    v50 = *(a1 + 48);
   }
 
   v3 = *(a1 + 96);
-  v52[0] = *(a1 + 80);
-  v52[1] = v3;
+  v51[0] = *(a1 + 80);
+  v51[1] = v3;
   v4 = *(a1 + 128);
-  v52[2] = *(a1 + 112);
-  v52[3] = v4;
-  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v53, a1 + 144);
-  v55 = *(a1 + 176);
-  v56 = *(a1 + 180);
+  v51[2] = *(a1 + 112);
+  v51[3] = v4;
+  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v52, a1 + 144);
+  v54 = *(a1 + 176);
+  v55 = *(a1 + 180);
   v5 = v2[2];
   std::mutex::lock(v5);
-  rf::synthetic::SyntheticUsdKitParser::SyntheticUsdKitParser(v50, 0);
-  rf::synthetic::SyntheticUsdKitParser::setMetersPerUnitScale(v50, 1.0);
-  if (v55 == 1)
+  rf::synthetic::SyntheticUsdKitParser::SyntheticUsdKitParser(v49, 0);
+  rf::synthetic::SyntheticUsdKitParser::setMetersPerUnitScale(v49, 1.0);
+  if (v54 == 1)
   {
     if (*(v5 + 2912) || (v6 = *(v5 + 2952)) != 0)
     {
       for (i = *(v5 + 2904); i; i = *i)
       {
         __dst.__pn_.__r_.__value_.__s.__data_[0] = 3;
-        rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v50, i + 6, v52, &__dst);
+        rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v49, i + 6, v51, &__dst);
       }
 
       for (j = *(v5 + 2944); j; j = *j)
       {
         __dst.__pn_.__r_.__value_.__s.__data_[0] = 3;
-        rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v50, j + 6, v52, &__dst);
+        rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v49, j + 6, v51, &__dst);
       }
 
       LODWORD(v6) = 1;
@@ -7577,26 +7506,26 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
     LODWORD(v6) = 0;
   }
 
-  if (HIBYTE(v56) == 1 && (*(v5 + 3032) || *(v5 + 3072)))
+  if (HIBYTE(v55) == 1 && (*(v5 + 3032) || *(v5 + 3072)))
   {
     for (k = *(v5 + 3024); k; k = *k)
     {
       __dst.__pn_.__r_.__value_.__s.__data_[0] = 4;
-      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v50, k + 6, v52, &__dst);
+      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v49, k + 6, v51, &__dst);
     }
 
     for (m = *(v5 + 3064); m; m = *m)
     {
       __dst.__pn_.__r_.__value_.__s.__data_[0] = 4;
-      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v50, m + 6, v52, &__dst);
+      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v49, m + 6, v51, &__dst);
     }
 
     LODWORD(v6) = 1;
   }
 
-  if (BYTE1(v55) == 1 && (*(v5 + 3392) || *(v5 + 3432)))
+  if (BYTE1(v54) == 1 && (*(v5 + 3392) || *(v5 + 3432)))
   {
-    for (n = (v5 + 3384); ; rf::synthetic::SyntheticUsdKitParser::addAnchorFromInputAnchor(v50, n[6], v52))
+    for (n = (v5 + 3384); ; rf::synthetic::SyntheticUsdKitParser::addAnchorFromInputAnchor(v49, n[6], v51))
     {
       n = *n;
       if (!n)
@@ -7605,7 +7534,7 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
       }
     }
 
-    for (ii = (v5 + 3424); ; rf::synthetic::SyntheticUsdKitParser::addAnchorFromInputAnchor(v50, ii[6], v52))
+    for (ii = (v5 + 3424); ; rf::synthetic::SyntheticUsdKitParser::addAnchorFromInputAnchor(v49, ii[6], v51))
     {
       ii = *ii;
       if (!ii)
@@ -7617,40 +7546,40 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
     LODWORD(v6) = 1;
   }
 
-  if (HIBYTE(v55) == 1 && *(v5 + 3152))
+  if (HIBYTE(v54) == 1 && *(v5 + 3152))
   {
     for (jj = *(v5 + 3144); jj; jj = *jj)
     {
       __dst.__pn_.__r_.__value_.__s.__data_[0] = 3;
-      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v50, jj + 6, v52, &__dst);
+      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v49, jj + 6, v51, &__dst);
     }
 
     LODWORD(v6) = 1;
   }
 
-  if (v56 == 1 && *(v5 + 3192))
+  if (v55 == 1 && *(v5 + 3192))
   {
     for (kk = *(v5 + 3184); kk; kk = *kk)
     {
       __dst.__pn_.__r_.__value_.__s.__data_[0] = 3;
-      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v50, kk + 6, v52, &__dst);
+      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v49, kk + 6, v51, &__dst);
     }
 
     LODWORD(v6) = 1;
   }
 
-  if (BYTE2(v55) == 1 && (*(v5 + 3592) || *(v5 + 3632)))
+  if (BYTE2(v54) == 1 && (*(v5 + 3592) || *(v5 + 3632)))
   {
     v15 = *(v5 + 3584);
     if (v15)
     {
-      rf::synthetic::SyntheticUsdKitParser::addObjectFromInputObject(v50, *(v15 + 48));
+      rf::synthetic::SyntheticUsdKitParser::addObjectFromInputObject(v49, *(v15 + 48), v51);
     }
 
     v17 = *(v5 + 3624);
     if (v17)
     {
-      rf::synthetic::SyntheticUsdKitParser::addObjectFromInputObject(v50, *(v17 + 48));
+      rf::synthetic::SyntheticUsdKitParser::addObjectFromInputObject(v49, *(v17 + 48), v51);
     }
   }
 
@@ -7659,48 +7588,48 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
     goto LABEL_106;
   }
 
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__dst.__pn_, &v51);
-  std::__fs::filesystem::path::stem[abi:ne200100](&v44, &__dst);
-  v16 = SHIBYTE(v44.__r_.__value_.__r.__words[2]);
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__dst.__pn_, &v50);
+  std::__fs::filesystem::path::stem[abi:ne200100](&v43, &__dst);
+  v16 = SHIBYTE(v43.__r_.__value_.__r.__words[2]);
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v45, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v44, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v45 = v44;
+    v44 = v43;
   }
 
-  v18 = std::string::append(&v45, "_", 1uLL);
+  v18 = std::string::append(&v44, "_", 1uLL);
   v19 = *&v18->__r_.__value_.__l.__data_;
-  v57.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&v57.__r_.__value_.__l.__data_ = v19;
+  v56.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+  *&v56.__r_.__value_.__l.__data_ = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&v43, *(v5 + 2880));
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::to_string(&v42, *(v5 + 2880));
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v43;
+    v20 = &v42;
   }
 
   else
   {
-    v20 = v43.__r_.__value_.__r.__words[0];
+    v20 = v42.__r_.__value_.__r.__words[0];
   }
 
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v43.__r_.__value_.__l.__size_;
+    size = v42.__r_.__value_.__l.__size_;
   }
 
-  v22 = std::string::append(&v57, v20, size);
+  v22 = std::string::append(&v56, v20, size);
   v23 = *&v22->__r_.__value_.__l.__data_;
   pn.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
   *&pn.__r_.__value_.__l.__data_ = v23;
@@ -7711,44 +7640,44 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
   v24 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v42, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v41, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v42 = __p;
+    v41 = __p;
   }
 
-  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v25 = &v42;
-  }
-
-  else
-  {
-    v25 = v42.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v26 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
+    v25 = &v41;
   }
 
   else
   {
-    v26 = v42.__r_.__value_.__l.__size_;
+    v25 = v41.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v26 = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v26 = v41.__r_.__value_.__l.__size_;
   }
 
   v27 = std::string::append(&pn, v25, v26);
   v28 = *&v27->__r_.__value_.__l.__data_;
-  v48 = v27->__r_.__value_.__r.__words[2];
-  v47 = v28;
+  v47 = v27->__r_.__value_.__r.__words[2];
+  v46 = v28;
   v27->__r_.__value_.__l.__size_ = 0;
   v27->__r_.__value_.__r.__words[2] = 0;
   v27->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v41.__r_.__value_.__l.__data_);
     if ((v24 & 0x80000000) == 0)
     {
       goto LABEL_69;
@@ -7767,26 +7696,26 @@ LABEL_69:
     operator delete(pn.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
     if ((v16 & 0x80000000) == 0)
     {
       goto LABEL_77;
     }
 
 LABEL_82:
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
     goto LABEL_77;
   }
 
@@ -7796,9 +7725,9 @@ LABEL_82:
   }
 
 LABEL_77:
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v57, &v47);
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v56, &v46);
   std::__fs::filesystem::path::remove_filename[abi:ne200100](&__dst);
-  std::__fs::filesystem::path::operator/=[abi:ne200100](&__dst, &v57);
+  std::__fs::filesystem::path::operator/=[abi:ne200100](&__dst, &v56);
   if (SHIBYTE(__dst.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&pn, __dst.__pn_.__r_.__value_.__l.__data_, __dst.__pn_.__r_.__value_.__l.__size_);
@@ -7809,21 +7738,21 @@ LABEL_77:
     pn = __dst.__pn_;
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
-  v29 = rf::synthetic::SyntheticUsdKitParser::save(v50, &pn);
+  v29 = rf::synthetic::SyntheticUsdKitParser::save(v49, &pn);
   if (v29)
   {
     v30 = rf::realityFusionLogObject(v29);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v39 = *(v5 + 2880);
-      LODWORD(v57.__r_.__value_.__l.__data_) = 134217984;
-      *(v57.__r_.__value_.__r.__words + 4) = v39;
-      _os_log_debug_impl(&dword_2617CB000, v30, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved snapshot for frame %lu", &v57, 0xCu);
+      v38 = *(v5 + 2880);
+      LODWORD(v56.__r_.__value_.__l.__data_) = 134217984;
+      *(v56.__r_.__value_.__r.__words + 4) = v38;
+      _os_log_debug_impl(&dword_2617CB000, v30, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved snapshot for frame %lu", &v56, 0xCu);
     }
 
     v32 = rf::realityFusionLogObject(v31);
@@ -7835,14 +7764,14 @@ LABEL_77:
         p_pn = pn.__r_.__value_.__r.__words[0];
       }
 
-      LODWORD(v57.__r_.__value_.__l.__data_) = 136315138;
-      *(v57.__r_.__value_.__r.__words + 4) = p_pn;
-      _os_log_debug_impl(&dword_2617CB000, v32, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved snapshot at path: %s", &v57, 0xCu);
+      LODWORD(v56.__r_.__value_.__l.__data_) = 136315138;
+      *(v56.__r_.__value_.__r.__words + 4) = p_pn;
+      _os_log_debug_impl(&dword_2617CB000, v32, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved snapshot at path: %s", &v56, 0xCu);
     }
 
-    if (v54)
+    if (v53)
     {
-      (*(*v54 + 48))(v54, &pn);
+      (*(*v53 + 48))(v53, &pn);
     }
 
     v34 = v2[46];
@@ -7858,8 +7787,8 @@ LABEL_77:
       v37 = *(v35 + 24);
       if (v37)
       {
-        v57.__r_.__value_.__r.__words[0] = *(v5 + 2880);
-        (*(*v37 + 48))(v37, &v57);
+        v56.__r_.__value_.__r.__words[0] = *(v5 + 2880);
+        (*(*v37 + 48))(v37, &v56);
       }
 
       if (v36)
@@ -7874,9 +7803,9 @@ LABEL_77:
     operator delete(pn.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v48) < 0)
+  if (SHIBYTE(v47) < 0)
   {
-    operator delete(v47);
+    operator delete(v46);
   }
 
   if (SHIBYTE(__dst.__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -7887,13 +7816,11 @@ LABEL_77:
 LABEL_106:
 
   std::mutex::unlock(v5);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v53);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v52);
+  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v50.__r_.__value_.__l.__data_);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2617F3738(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, void *a56, uint64_t a57, void *a58)
@@ -8002,52 +7929,52 @@ uint64_t std::__function::__value_func<void ()(std::string const&)>::~__value_fu
 
 void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15ConsumerRequestEENK3__1cvU13block_pointerFvvEEv_block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(a1 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v44, *(a1 + 48), *(a1 + 56));
+    std::string::__init_copy_ctor_external(&v43, *(a1 + 48), *(a1 + 56));
   }
 
   else
   {
-    v44 = *(a1 + 48);
+    v43 = *(a1 + 48);
   }
 
   v3 = *(a1 + 96);
-  v45[0] = *(a1 + 80);
-  v45[1] = v3;
+  v44[0] = *(a1 + 80);
+  v44[1] = v3;
   v4 = *(a1 + 128);
-  v45[2] = *(a1 + 112);
-  v45[3] = v4;
-  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v46, a1 + 144);
-  v48 = *(a1 + 176);
-  v49 = *(a1 + 180);
+  v44[2] = *(a1 + 112);
+  v44[3] = v4;
+  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v45, a1 + 144);
+  v47 = *(a1 + 176);
+  v48 = *(a1 + 180);
   v5 = v2[2];
   std::mutex::lock(v5);
-  rf::synthetic::SyntheticUsdKitParser::SyntheticUsdKitParser(v43, 0);
-  rf::synthetic::SyntheticUsdKitParser::setMetersPerUnitScale(v43, 1.0);
-  if (v48 == 1)
+  rf::synthetic::SyntheticUsdKitParser::SyntheticUsdKitParser(v42, 0);
+  rf::synthetic::SyntheticUsdKitParser::setMetersPerUnitScale(v42, 1.0);
+  if (v47 == 1)
   {
     for (i = *(v5 + 80); i; i = *i)
     {
       __dst.__pn_.__r_.__value_.__s.__data_[0] = 3;
-      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v43, i + 6, v45, &__dst);
+      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v42, i + 6, v44, &__dst);
     }
   }
 
-  if (HIBYTE(v49) == 1)
+  if (HIBYTE(v48) == 1)
   {
     for (j = *(v5 + 120); j; j = *j)
     {
       __dst.__pn_.__r_.__value_.__s.__data_[0] = 4;
-      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v43, j + 6, v45, &__dst);
+      rf::synthetic::SyntheticUsdKitParser::addMeshFromUpdateMesh(v42, j + 6, v44, &__dst);
     }
   }
 
-  if (BYTE1(v48) == 1)
+  if (BYTE1(v47) == 1)
   {
-    for (k = (v5 + 160); ; rf::synthetic::SyntheticUsdKitParser::addAnchorFromInputAnchor(v43, (k + 6), v45))
+    for (k = (v5 + 160); ; rf::synthetic::SyntheticUsdKitParser::addAnchorFromInputAnchor(v42, (k + 6), v44))
     {
       k = *k;
       if (!k)
@@ -8057,57 +7984,57 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
     }
   }
 
-  if (BYTE2(v48) == 1)
+  if (BYTE2(v47) == 1)
   {
     v9 = *(v5 + 1336);
     if (v9)
     {
-      rf::synthetic::SyntheticUsdKitParser::addObjectFromInputObject(v43, v9 + 48);
+      rf::synthetic::SyntheticUsdKitParser::addObjectFromInputObject(v42, v9 + 48, v44);
     }
   }
 
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__dst.__pn_, &v44);
-  std::__fs::filesystem::path::stem[abi:ne200100](&v37, &__dst);
-  v10 = SHIBYTE(v37.__r_.__value_.__r.__words[2]);
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__dst.__pn_, &v43);
+  std::__fs::filesystem::path::stem[abi:ne200100](&v36, &__dst);
+  v10 = SHIBYTE(v36.__r_.__value_.__r.__words[2]);
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v38, v37.__r_.__value_.__l.__data_, v37.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v37, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v38 = v37;
+    v37 = v36;
   }
 
-  v11 = std::string::append(&v38, "_", 1uLL);
+  v11 = std::string::append(&v37, "_", 1uLL);
   v12 = *&v11->__r_.__value_.__l.__data_;
-  v50.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-  *&v50.__r_.__value_.__l.__data_ = v12;
+  v49.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v49.__r_.__value_.__l.__data_ = v12;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&v36, *(v5 + 2880));
-  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::to_string(&v35, *(v5 + 2880));
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v13 = &v36;
+    v13 = &v35;
   }
 
   else
   {
-    v13 = v36.__r_.__value_.__r.__words[0];
+    v13 = v35.__r_.__value_.__r.__words[0];
   }
 
-  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v36.__r_.__value_.__l.__size_;
+    size = v35.__r_.__value_.__l.__size_;
   }
 
-  v15 = std::string::append(&v50, v13, size);
+  v15 = std::string::append(&v49, v13, size);
   v16 = *&v15->__r_.__value_.__l.__data_;
   pn.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
   *&pn.__r_.__value_.__l.__data_ = v16;
@@ -8118,44 +8045,44 @@ void ___ZZN2rf9data_flow8consumer15LoggingConsumer19consumeLatestUpdateERKNS_15C
   v17 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v35, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v34, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v35 = __p;
+    v34 = __p;
   }
 
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v35;
-  }
-
-  else
-  {
-    v18 = v35.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v19 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+    v18 = &v34;
   }
 
   else
   {
-    v19 = v35.__r_.__value_.__l.__size_;
+    v18 = v34.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v19 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v19 = v34.__r_.__value_.__l.__size_;
   }
 
   v20 = std::string::append(&pn, v18, v19);
   v21 = *&v20->__r_.__value_.__l.__data_;
-  v41 = v20->__r_.__value_.__r.__words[2];
-  v40 = v21;
+  v40 = v20->__r_.__value_.__r.__words[2];
+  v39 = v21;
   v20->__r_.__value_.__l.__size_ = 0;
   v20->__r_.__value_.__r.__words[2] = 0;
   v20->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
     if ((v17 & 0x80000000) == 0)
     {
       goto LABEL_37;
@@ -8174,19 +8101,19 @@ LABEL_37:
     operator delete(pn.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v50.__r_.__value_.__l.__data_);
+    operator delete(v49.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v38.__r_.__value_.__l.__data_);
+    operator delete(v37.__r_.__value_.__l.__data_);
     if ((v10 & 0x80000000) == 0)
     {
       goto LABEL_45;
@@ -8198,11 +8125,11 @@ LABEL_37:
     goto LABEL_45;
   }
 
-  operator delete(v37.__r_.__value_.__l.__data_);
+  operator delete(v36.__r_.__value_.__l.__data_);
 LABEL_45:
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v50, &v40);
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v49, &v39);
   std::__fs::filesystem::path::remove_filename[abi:ne200100](&__dst);
-  std::__fs::filesystem::path::operator/=[abi:ne200100](&__dst, &v50);
+  std::__fs::filesystem::path::operator/=[abi:ne200100](&__dst, &v49);
   if (SHIBYTE(__dst.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&pn, __dst.__pn_.__r_.__value_.__l.__data_, __dst.__pn_.__r_.__value_.__l.__size_);
@@ -8213,21 +8140,21 @@ LABEL_45:
     pn = __dst.__pn_;
   }
 
-  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v50.__r_.__value_.__l.__data_);
+    operator delete(v49.__r_.__value_.__l.__data_);
   }
 
-  v22 = rf::synthetic::SyntheticUsdKitParser::save(v43, &pn);
+  v22 = rf::synthetic::SyntheticUsdKitParser::save(v42, &pn);
   if (v22)
   {
     v23 = rf::realityFusionLogObject(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      v32 = *(v5 + 2880);
-      LODWORD(v50.__r_.__value_.__l.__data_) = 134217984;
-      *(v50.__r_.__value_.__r.__words + 4) = v32;
-      _os_log_debug_impl(&dword_2617CB000, v23, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved full snapshot for frame %lu", &v50, 0xCu);
+      v31 = *(v5 + 2880);
+      LODWORD(v49.__r_.__value_.__l.__data_) = 134217984;
+      *(v49.__r_.__value_.__r.__words + 4) = v31;
+      _os_log_debug_impl(&dword_2617CB000, v23, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved full snapshot for frame %lu", &v49, 0xCu);
     }
 
     v25 = rf::realityFusionLogObject(v24);
@@ -8239,14 +8166,14 @@ LABEL_45:
         p_pn = pn.__r_.__value_.__r.__words[0];
       }
 
-      LODWORD(v50.__r_.__value_.__l.__data_) = 136315138;
-      *(v50.__r_.__value_.__r.__words + 4) = p_pn;
-      _os_log_debug_impl(&dword_2617CB000, v25, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved snapshot at path: %s", &v50, 0xCu);
+      LODWORD(v49.__r_.__value_.__l.__data_) = 136315138;
+      *(v49.__r_.__value_.__r.__words + 4) = p_pn;
+      _os_log_debug_impl(&dword_2617CB000, v25, OS_LOG_TYPE_DEBUG, "LoggingConsumer: Saved snapshot at path: %s", &v49, 0xCu);
     }
 
-    if (v47)
+    if (v46)
     {
-      (*(*v47 + 48))(v47, &pn);
+      (*(*v46 + 48))(v46, &pn);
     }
 
     v27 = v2[46];
@@ -8262,8 +8189,8 @@ LABEL_45:
       v30 = *(v28 + 56);
       if (v30)
       {
-        v50.__r_.__value_.__r.__words[0] = *(v5 + 2880);
-        (*(*v30 + 48))(v30, &v50);
+        v49.__r_.__value_.__r.__words[0] = *(v5 + 2880);
+        (*(*v30 + 48))(v30, &v49);
       }
 
       if (v29)
@@ -8278,9 +8205,9 @@ LABEL_45:
     operator delete(pn.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v41) < 0)
+  if (SHIBYTE(v40) < 0)
   {
-    operator delete(v40);
+    operator delete(v39);
   }
 
   if (SHIBYTE(__dst.__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -8289,13 +8216,11 @@ LABEL_45:
   }
 
   std::mutex::unlock(v5);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v46);
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v45);
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2617F3FC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, void *a56, uint64_t a57, void *a58)
@@ -8560,8 +8485,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *__dst, std::string **a2)
 {
-  __dst->__r_.__value_.__r.__words[0] = 0;
-  __dst->__r_.__value_.__l.__size_ = 0;
+  *&__dst->__r_.__value_.__l.__data_ = 0uLL;
   __dst->__r_.__value_.__r.__words[2] = 0;
   v3 = *(a2 + 23);
   if (v3 >= 0)
@@ -8586,7 +8510,7 @@ std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(s
 
   if (v5)
   {
-    if (v4 >= __dst && (&__dst->__r_.__value_.__l.__data_ + 1) > v4)
+    if (v4 >= __dst && &__dst->__r_.__value_.__l.__data_ + 1 > v4)
     {
       if (v5 >= 0x7FFFFFFFFFFFFFF8)
       {
@@ -8715,9 +8639,9 @@ uint64_t RFAnchorPtrSetIdentifier(uint64_t a1, uint64_t a2)
 
 uint64_t RFAnchorPtrGetType(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v5, a1);
-  if (v6 == 5)
+  v6 = *MEMORY[0x277D85DE8];
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v4, a1);
+  if (v5 == 5)
   {
     v1 = 5;
   }
@@ -8727,28 +8651,26 @@ uint64_t RFAnchorPtrGetType(uint64_t a1)
     v1 = 0;
   }
 
-  if (v6 >= 5)
+  if (v5 >= 5)
   {
     v2 = v1;
   }
 
   else
   {
-    v2 = v6;
+    v2 = v5;
   }
 
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v4);
   return v2;
 }
 
 CFStringRef RFAnchorPtrCopyDescription(uint64_t a1)
 {
-  v4[35] = *MEMORY[0x277D85DE8];
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v4, a1);
-  DebugDescriptionForAnchor = rf::helpers::getDebugDescriptionForAnchor(v4);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v4);
-  v2 = *MEMORY[0x277D85DE8];
+  v3[35] = *MEMORY[0x277D85DE8];
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v3, a1);
+  DebugDescriptionForAnchor = rf::helpers::getDebugDescriptionForAnchor(v3);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v3);
   return DebugDescriptionForAnchor;
 }
 
@@ -8779,19 +8701,18 @@ uint64_t RFAnchorPtrSetTracked(uint64_t a1, char a2)
 
 __n128 RFAnchorPtrGetTransform(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v7, a1);
-  if (v8 == -1)
+  v8 = *MEMORY[0x277D85DE8];
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v6, a1);
+  if (v7 == -1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  v6 = &v5;
-  *&v1 = (off_287408C60[v8])(&v6, v7);
-  v4 = v1;
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v7);
-  v2 = *MEMORY[0x277D85DE8];
-  return v4;
+  v5 = &v4;
+  *&v1 = (off_287408C60[v7])(&v5, v6);
+  v3 = v1;
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v6);
+  return v3;
 }
 
 uint64_t RFAnchorPtrSetTransform(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
@@ -8874,11 +8795,11 @@ LABEL_10:
 
 uint64_t RFAnchorPtrGetClassification(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v4, a1);
-  if (v6 == 1 && (v5 - 1) <= 4)
+  v6 = *MEMORY[0x277D85DE8];
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v3, a1);
+  if (v5 == 1 && (v4 - 1) <= 4)
   {
-    v1 = qword_2618622B8[v5 - 1];
+    v1 = qword_2618622B8[v4 - 1];
   }
 
   else
@@ -8886,8 +8807,7 @@ uint64_t RFAnchorPtrGetClassification(uint64_t a1)
     v1 = -1;
   }
 
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v4);
-  v2 = *MEMORY[0x277D85DE8];
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v3);
   return v1;
 }
 
@@ -9431,14 +9351,14 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatc
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
+double std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = **a1;
-  LOBYTE(v10) = 0;
-  *(&v10 + 1) = 0;
-  uuid_clear(&v9);
-  v9 = *v3;
+  LOBYTE(v9) = 0;
+  *(&v9 + 1) = 0;
+  uuid_clear(&v8);
+  v8 = *v3;
   if (*(a2 + 16))
   {
     v4 = *a2;
@@ -9449,37 +9369,36 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
     v4 = a2;
   }
 
-  if (v10)
+  if (v9)
   {
-    v5 = v9;
+    v5 = v8;
   }
 
   else
   {
-    v5 = &v9;
+    v5 = &v8;
   }
 
-  result = uuid_compare(v4, v5);
-  if (result)
+  if (uuid_compare(v4, v5))
   {
-    v7 = v10;
-    *a2 = v9;
+    result = *&v8;
+    v7 = v9;
+    *a2 = v8;
     *(a2 + 16) = v7;
     *(a2 + 104) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
+double std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = **a1;
-  LOBYTE(v10) = 0;
-  *(&v10 + 1) = 0;
-  uuid_clear(&v9);
-  v9 = *v3;
+  LOBYTE(v9) = 0;
+  *(&v9 + 1) = 0;
+  uuid_clear(&v8);
+  v8 = *v3;
   if (*(a2 + 16))
   {
     v4 = *a2;
@@ -9490,37 +9409,36 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
     v4 = a2;
   }
 
-  if (v10)
+  if (v9)
   {
-    v5 = v9;
+    v5 = v8;
   }
 
   else
   {
-    v5 = &v9;
+    v5 = &v8;
   }
 
-  result = uuid_compare(v4, v5);
-  if (result)
+  if (uuid_compare(v4, v5))
   {
-    v7 = v10;
-    *a2 = v9;
+    result = *&v8;
+    v7 = v9;
+    *a2 = v8;
     *(a2 + 16) = v7;
     *(a2 + 104) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
+double std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = **a1;
-  LOBYTE(v10) = 0;
-  *(&v10 + 1) = 0;
-  uuid_clear(&v9);
-  v9 = *v3;
+  LOBYTE(v9) = 0;
+  *(&v9 + 1) = 0;
+  uuid_clear(&v8);
+  v8 = *v3;
   if (*(a2 + 16))
   {
     v4 = *a2;
@@ -9531,37 +9449,36 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
     v4 = a2;
   }
 
-  if (v10)
+  if (v9)
   {
-    v5 = v9;
+    v5 = v8;
   }
 
   else
   {
-    v5 = &v9;
+    v5 = &v8;
   }
 
-  result = uuid_compare(v4, v5);
-  if (result)
+  if (uuid_compare(v4, v5))
   {
-    v7 = v10;
-    *a2 = v9;
+    result = *&v8;
+    v7 = v9;
+    *a2 = v8;
     *(a2 + 16) = v7;
     *(a2 + 104) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
+double std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = **a1;
-  LOBYTE(v10) = 0;
-  *(&v10 + 1) = 0;
-  uuid_clear(&v9);
-  v9 = *v3;
+  LOBYTE(v9) = 0;
+  *(&v9 + 1) = 0;
+  uuid_clear(&v8);
+  v8 = *v3;
   if (*(a2 + 16))
   {
     v4 = *a2;
@@ -9572,37 +9489,36 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
     v4 = a2;
   }
 
-  if (v10)
+  if (v9)
   {
-    v5 = v9;
+    v5 = v8;
   }
 
   else
   {
-    v5 = &v9;
+    v5 = &v8;
   }
 
-  result = uuid_compare(v4, v5);
-  if (result)
+  if (uuid_compare(v4, v5))
   {
-    v7 = v10;
-    *a2 = v9;
+    result = *&v8;
+    v7 = v9;
+    *a2 = v8;
     *(a2 + 16) = v7;
     *(a2 + 104) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
+double std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = **a1;
-  LOBYTE(v10) = 0;
-  *(&v10 + 1) = 0;
-  uuid_clear(&v9);
-  v9 = *v3;
+  LOBYTE(v9) = 0;
+  *(&v9 + 1) = 0;
+  uuid_clear(&v8);
+  v8 = *v3;
   if (*(a2 + 16))
   {
     v4 = *a2;
@@ -9613,37 +9529,36 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
     v4 = a2;
   }
 
-  if (v10)
+  if (v9)
   {
-    v5 = v9;
+    v5 = v8;
   }
 
   else
   {
-    v5 = &v9;
+    v5 = &v8;
   }
 
-  result = uuid_compare(v4, v5);
-  if (result)
+  if (uuid_compare(v4, v5))
   {
-    v7 = v10;
-    *a2 = v9;
+    result = *&v8;
+    v7 = v9;
+    *a2 = v8;
     *(a2 + 16) = v7;
     *(a2 + 104) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
+double std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetIdentifier::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(__int128 ***a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = **a1;
-  LOBYTE(v10) = 0;
-  *(&v10 + 1) = 0;
-  uuid_clear(&v9);
-  v9 = *v3;
+  LOBYTE(v9) = 0;
+  *(&v9 + 1) = 0;
+  uuid_clear(&v8);
+  v8 = *v3;
   if (*(a2 + 16))
   {
     v4 = *a2;
@@ -9654,26 +9569,25 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispa
     v4 = a2;
   }
 
-  if (v10)
+  if (v9)
   {
-    v5 = v9;
+    v5 = v8;
   }
 
   else
   {
-    v5 = &v9;
+    v5 = &v8;
   }
 
-  result = uuid_compare(v4, v5);
-  if (result)
+  if (uuid_compare(v4, v5))
   {
-    v7 = v10;
-    *a2 = v9;
+    result = *&v8;
+    v7 = v9;
+    *a2 = v8;
     *(a2 + 16) = v7;
     *(a2 + 104) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9749,60 +9663,6 @@ unsigned __int8 **std::__variant_detail::__visitation::__base::__dispatcher<5ul>
   return result;
 }
 
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrGetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 80);
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrGetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 80);
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrGetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 80);
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrGetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 80);
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrGetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 80);
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrGetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  v3 = *(a2 + 48);
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 80);
-  return result;
-}
-
 float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(float32x4_t **result, float32x4_t *a2)
 {
   v2 = **result;
@@ -9821,4 +9681,174 @@ float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__
   }
 
   return result;
+}
+
+float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(float32x4_t **result, float32x4_t *a2)
+{
+  v2 = **result;
+  v3 = (*result)[1];
+  v4 = (*result)[2];
+  v5 = (*result)[3];
+  v6 = vsubq_f32(a2[2], v2);
+  v7 = vmulq_f32(v6, v6);
+  if (fabsf(vaddv_f32(vadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)))) >= 1.0e-10 || (v8 = vsubq_f32(a2[3], v3), v9 = vmulq_f32(v8, v8), fabsf(vaddv_f32(vadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)))) >= 1.0e-10) || (v10 = vsubq_f32(a2[4], v4), v11 = vmulq_f32(v10, v10), fabsf(vaddv_f32(vadd_f32(*v11.i8, *&vextq_s8(v11, v11, 8uLL)))) >= 1.0e-10) || (v12 = vsubq_f32(a2[5], v5), v13 = vmulq_f32(v12, v12), fabsf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))) >= 1.0e-10))
+  {
+    a2[2] = v2;
+    a2[3] = v3;
+    a2[4] = v4;
+    a2[5] = v5;
+    a2[6].i8[8] = 1;
+  }
+
+  return result;
+}
+
+float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(float32x4_t **result, float32x4_t *a2)
+{
+  v2 = **result;
+  v3 = (*result)[1];
+  v4 = (*result)[2];
+  v5 = (*result)[3];
+  v6 = vsubq_f32(a2[2], v2);
+  v7 = vmulq_f32(v6, v6);
+  if (fabsf(vaddv_f32(vadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)))) >= 1.0e-10 || (v8 = vsubq_f32(a2[3], v3), v9 = vmulq_f32(v8, v8), fabsf(vaddv_f32(vadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)))) >= 1.0e-10) || (v10 = vsubq_f32(a2[4], v4), v11 = vmulq_f32(v10, v10), fabsf(vaddv_f32(vadd_f32(*v11.i8, *&vextq_s8(v11, v11, 8uLL)))) >= 1.0e-10) || (v12 = vsubq_f32(a2[5], v5), v13 = vmulq_f32(v12, v12), fabsf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))) >= 1.0e-10))
+  {
+    a2[2] = v2;
+    a2[3] = v3;
+    a2[4] = v4;
+    a2[5] = v5;
+    a2[6].i8[8] = 1;
+  }
+
+  return result;
+}
+
+float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(float32x4_t **result, float32x4_t *a2)
+{
+  v2 = **result;
+  v3 = (*result)[1];
+  v4 = (*result)[2];
+  v5 = (*result)[3];
+  v6 = vsubq_f32(a2[2], v2);
+  v7 = vmulq_f32(v6, v6);
+  if (fabsf(vaddv_f32(vadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)))) >= 1.0e-10 || (v8 = vsubq_f32(a2[3], v3), v9 = vmulq_f32(v8, v8), fabsf(vaddv_f32(vadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)))) >= 1.0e-10) || (v10 = vsubq_f32(a2[4], v4), v11 = vmulq_f32(v10, v10), fabsf(vaddv_f32(vadd_f32(*v11.i8, *&vextq_s8(v11, v11, 8uLL)))) >= 1.0e-10) || (v12 = vsubq_f32(a2[5], v5), v13 = vmulq_f32(v12, v12), fabsf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))) >= 1.0e-10))
+  {
+    a2[2] = v2;
+    a2[3] = v3;
+    a2[4] = v4;
+    a2[5] = v5;
+    a2[6].i8[8] = 1;
+  }
+
+  return result;
+}
+
+float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(float32x4_t **result, float32x4_t *a2)
+{
+  v2 = **result;
+  v3 = (*result)[1];
+  v4 = (*result)[2];
+  v5 = (*result)[3];
+  v6 = vsubq_f32(a2[2], v2);
+  v7 = vmulq_f32(v6, v6);
+  if (fabsf(vaddv_f32(vadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)))) >= 1.0e-10 || (v8 = vsubq_f32(a2[3], v3), v9 = vmulq_f32(v8, v8), fabsf(vaddv_f32(vadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)))) >= 1.0e-10) || (v10 = vsubq_f32(a2[4], v4), v11 = vmulq_f32(v10, v10), fabsf(vaddv_f32(vadd_f32(*v11.i8, *&vextq_s8(v11, v11, 8uLL)))) >= 1.0e-10) || (v12 = vsubq_f32(a2[5], v5), v13 = vmulq_f32(v12, v12), fabsf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))) >= 1.0e-10))
+  {
+    a2[2] = v2;
+    a2[3] = v3;
+    a2[4] = v4;
+    a2[5] = v5;
+    a2[6].i8[8] = 1;
+  }
+
+  return result;
+}
+
+float32x4_t **std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<RFAnchorPtrSetTransform::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::PlaneAnchor,rf::ImageAnchor,rf::ObjectAnchor,rf::FaceAnchor,rf::BodyAnchor> &>(float32x4_t **result, float32x4_t *a2)
+{
+  v2 = **result;
+  v3 = (*result)[1];
+  v4 = (*result)[2];
+  v5 = (*result)[3];
+  v6 = vsubq_f32(a2[2], v2);
+  v7 = vmulq_f32(v6, v6);
+  if (fabsf(vaddv_f32(vadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)))) >= 1.0e-10 || (v8 = vsubq_f32(a2[3], v3), v9 = vmulq_f32(v8, v8), fabsf(vaddv_f32(vadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)))) >= 1.0e-10) || (v10 = vsubq_f32(a2[4], v4), v11 = vmulq_f32(v10, v10), fabsf(vaddv_f32(vadd_f32(*v11.i8, *&vextq_s8(v11, v11, 8uLL)))) >= 1.0e-10) || (v12 = vsubq_f32(a2[5], v5), v13 = vmulq_f32(v12, v12), fabsf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))) >= 1.0e-10))
+  {
+    a2[2] = v2;
+    a2[3] = v3;
+    a2[4] = v4;
+    a2[5] = v5;
+    a2[6].i8[8] = 1;
+  }
+
+  return result;
+}
+
+CFStringRef *rf::UserDefaults::UserDefaults(CFStringRef *a1, const UInt8 *a2)
+{
+  v2 = a2;
+  v4 = a2[23];
+  if ((v4 & 0x80u) != 0)
+  {
+    a2 = *a2;
+  }
+
+  if (a2)
+  {
+    if ((v4 & 0x80u) == 0)
+    {
+      v5 = v4;
+    }
+
+    else
+    {
+      v5 = *(v2 + 1);
+    }
+
+    v6 = CFStringCreateWithBytes(0, a2, v5, 0x8000100u, 0);
+    *a1 = v6;
+    if (!v6)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    *a1 = 0;
+  }
+
+  v8 = v2[23];
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(v2 + 1);
+  }
+
+  if (!v8)
+  {
+    v9 = *MEMORY[0x277CBF028];
+    if (*MEMORY[0x277CBF028])
+    {
+      CFRetain(*MEMORY[0x277CBF028]);
+      v10 = CFGetTypeID(v9);
+      if (v10 != CFStringGetTypeID())
+      {
+        v12 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v12, "Could not construct");
+        __cxa_throw(v12, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      v6 = *a1;
+    }
+
+    *a1 = v9;
+    if (v6)
+    {
+      CFRelease(v6);
+    }
+  }
+
+  return a1;
 }

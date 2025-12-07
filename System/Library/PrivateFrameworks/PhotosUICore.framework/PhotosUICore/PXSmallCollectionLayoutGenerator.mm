@@ -152,14 +152,12 @@ uint64_t __71__PXSmallCollectionLayoutGenerator__prepareHighQualityAggregationSt
   return [*(a1 + 32) _fillEquallyRect:2 numberOfItems:2 axis:v2 resultHandler:?];
 }
 
-uint64_t __71__PXSmallCollectionLayoutGenerator__prepareHighQualityAggregationStyle__block_invoke_4(uint64_t result, uint64_t a2)
+void __71__PXSmallCollectionLayoutGenerator__prepareHighQualityAggregationStyle__block_invoke_4(void *a1, uint64_t a2, double a3, double a4, double a5, double a6)
 {
-  if (a2 + 1 < *(result + 48))
+  if (a2 + 1 < a1[6])
   {
     PXRectGetCenter();
   }
-
-  return result;
 }
 
 void __70__PXSmallCollectionLayoutGenerator__prepareLowQualityAggregationStyle__block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
@@ -192,14 +190,12 @@ uint64_t __70__PXSmallCollectionLayoutGenerator__prepareLowQualityAggregationSty
   return result;
 }
 
-uint64_t __70__PXSmallCollectionLayoutGenerator__prepareLowQualityAggregationStyle__block_invoke_2(uint64_t result, uint64_t a2)
+void __70__PXSmallCollectionLayoutGenerator__prepareLowQualityAggregationStyle__block_invoke_2(void *a1, uint64_t a2, double a3, double a4, double a5, double a6)
 {
-  if (a2 + 2 * *(result + 48) < *(result + 56))
+  if (a2 + 2 * a1[6] < a1[7])
   {
     PXRectGetCenter();
   }
-
-  return result;
 }
 
 uint64_t __58__PXSmallCollectionLayoutGenerator__prepareEditorialStyle__block_invoke_4(uint64_t a1)

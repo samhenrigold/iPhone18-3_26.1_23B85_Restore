@@ -104,7 +104,7 @@ SUScriptNavigationItem *__43__SUScriptNavigationBar_backNavigationItem__block_in
   return v2;
 }
 
-uint64_t __33__SUScriptNavigationBar_barStyle__block_invoke(uint64_t a1)
+void *__33__SUScriptNavigationBar_barStyle__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_nativeNavigationBar")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -148,7 +148,7 @@ uint64_t __33__SUScriptNavigationBar_barStyle__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __40__SUScriptNavigationBar_navigationItems__block_invoke(uint64_t a1)
+void *__40__SUScriptNavigationBar_navigationItems__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = [objc_msgSend(*(a1 + 32) "_nativeNavigationBar")];
@@ -178,7 +178,7 @@ uint64_t __40__SUScriptNavigationBar_navigationItems__block_invoke(uint64_t a1)
           v7 = [[SUScriptNavigationItem alloc] initWithNativeNavigationItem:*(*(&v8 + 1) + 8 * v6)];
           [*(*(*(a1 + 40) + 8) + 40) addObject:v7];
 
-          ++v6;
+          v6 = v6 + 1;
         }
 
         while (v4 != v6);
@@ -312,7 +312,7 @@ uint64_t __40__SUScriptNavigationBar_setTranslucent___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __42__SUScriptNavigationBar_topNavigationItem__block_invoke(uint64_t a1)
+void *__42__SUScriptNavigationBar_topNavigationItem__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyTopNavigationItem];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -341,7 +341,7 @@ uint64_t __42__SUScriptNavigationBar_topNavigationItem__block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __36__SUScriptNavigationBar_translucent__block_invoke(uint64_t a1)
+void *__36__SUScriptNavigationBar_translucent__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_nativeNavigationBar")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -427,7 +427,7 @@ uint64_t __36__SUScriptNavigationBar_translucent__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __43__SUScriptNavigationBar__topNavigationItem__block_invoke(uint64_t a1)
+void *__43__SUScriptNavigationBar__topNavigationItem__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyTopNavigationItem];
   *(*(*(a1 + 40) + 8) + 40) = result;

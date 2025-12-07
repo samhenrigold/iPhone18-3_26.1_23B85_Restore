@@ -11,7 +11,7 @@
 {
   stateCopy = state;
   selfCopy = self;
-  v6 = sub_23DE62B70();
+  v6 = sub_23DE62B70(stateCopy);
 
   return v6;
 }
@@ -21,7 +21,7 @@
   enumerationCopy = enumeration;
   stateCopy = state;
   selfCopy = self;
-  sub_23DE63198();
+  sub_23DE63198(selfCopy, stateCopy);
   v10 = v9;
 
   if (v10)
@@ -50,28 +50,27 @@
 {
   enumerationCopy = enumeration;
   selfCopy = self;
-  sub_23DE637D8(v14);
+  sub_23DE637D8(v13);
 
-  v6 = v15;
-  if (v15)
+  v6 = v14;
+  if (v14)
   {
-    v7 = __swift_project_boxed_opaque_existential_0(v14, v15);
+    v7 = __swift_project_boxed_opaque_existential_0(v13, v14);
     v8 = *(v6 - 8);
-    v9 = *(v8 + 64);
     MEMORY[0x28223BE20](v7);
-    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v11);
-    v12 = sub_23E1FE73C();
-    (*(v8 + 8))(v11, v6);
-    __swift_destroy_boxed_opaque_existential_0(v14);
+    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v10);
+    v11 = sub_23E1FE73C();
+    (*(v8 + 8))(v10, v6);
+    __swift_destroy_boxed_opaque_existential_0(v13);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 @end

@@ -15,7 +15,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_33F778();
+  sub_33F778(v2);
 }
 
 - (_TtC16MusicApplicationP33_B8BEB5E19410BDA0BB2B4503F9E0BB4143SocialOnboardingNetworkStatusViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -548,7 +548,7 @@ LABEL_7:
                     }
 
                     model = self->_model;
-                    if (!model || ([(VCPCNNModelEspresso *)model outputBlob], (value = buf[0].value) == 0) || ((v25 = self->_model) == 0 ? (v28 = 0, v27 = 0) : ([(VCPCNNModelEspresso *)v25 outputBlob], v26 = self->_model, v27 = v68, !v26) ? (v28 = 0) : ([(VCPCNNModelEspresso *)v26 outputBlob], v28 = v56), v28 * v27 != 5))
+                    if (!model || (objc_msgSend_outputBlob(model), (value = buf[0].value) == 0) || ((v25 = self->_model) == 0 ? (v28 = 0, v27 = 0) : (objc_msgSend_outputBlob(v25), v26 = self->_model, v27 = v68, !v26) ? (v28 = 0) : (objc_msgSend_outputBlob(v26), v28 = v56), v28 * v27 != 5))
                     {
 
                       v11 = -18;

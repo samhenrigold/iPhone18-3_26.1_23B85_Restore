@@ -175,9 +175,9 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41, v42);
   }
 
-  v199 = 0.0;
-  objc_msgSend_p_clampedLabelSampledSizeReturningClampedRatio_(self, v24, v25, v26, v27, &v199);
-  if (v197 < 1 || v198 <= 0)
+  v198 = 0.0;
+  objc_msgSend_p_clampedLabelSampledSizeReturningClampedRatio_(self, v25, v26, v27);
+  if (v196 < 1 || v197 <= 0)
   {
     v47 = MEMORY[0x277D81150];
     v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v44, v45, v46, "[TSCH3DLabelResource get]");
@@ -187,27 +187,27 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61);
   }
 
-  *&v44 = v199;
-  if (v199 <= 0.0)
+  *&v44 = v198;
+  if (v198 <= 0.0)
   {
     v62 = MEMORY[0x277D81150];
     v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v44, v45, v46, "[TSCH3DLabelResource get]");
     v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, v65, v66, v67, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelResource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v69, v199, v70, v71, v63, v68, 93, 0, "invalid clamped ratio %f", v199);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v69, v198, v70, v71, v63, v68, 93, 0, "invalid clamped ratio %f", v198);
 
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v72, v73, v74, v75);
   }
 
   objc_msgSend_renderSamples(self->_attributes, v43, v44, v45, v46);
   v77 = v76;
-  v78 = v199;
-  v82 = objc_msgSend_bufferWithCapacitySize_components_(TSCH3DVectorN2DDataBuffer, v79, v76, v80, v81, &v197, 4);
+  v78 = v198;
+  v82 = objc_msgSend_bufferWithCapacitySize_components_(TSCH3DVectorN2DDataBuffer, v79, v76, v80, v81, &v196, 4);
   objc_msgSend_fillCapacity(v82, v83, v84, v85, v86);
   aSelector = a2;
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   v92 = objc_msgSend_components(v82, v88, v89, v90, v91);
   v97 = objc_msgSend_container(v82, v93, v94, v95, v96);
-  v101 = sub_2761D7D78(&v197, v92, *v97, 0, v98, v99, v100);
+  v101 = sub_2761D7D78(&v196, v92, *v97, 0, v98, v99, v100);
   v106 = objc_msgSend_bitmapContextInfo(self->_attributes, v102, v103, v104, v105);
 
   if (!v106)
@@ -224,65 +224,65 @@
   objc_msgSend_setTSDCGContextInfoForCGContext_(v126, v127, v128, v129, v130, v101);
 
   CGContextSetBlendMode(v101, kCGBlendModeCopy);
-  CGContextTranslateCTM(v101, 0.0, v198);
+  CGContextTranslateCTM(v101, 0.0, v197);
   CGContextScaleCTM(v101, 1.0, -1.0);
   v131 = v77 * v78;
   v132 = v131;
   CGContextScaleCTM(v101, v132, v132);
   CGColorSpaceRelease(DeviceRGB);
   UIGraphicsPushContext(v101);
-  objc_msgSend_bitmapLabelRenderOffset(self, v133, v134, v135, v136);
-  v141 = objc_msgSend_sharedText(TSCHText, v137, v138, v139, v140);
-  v146 = objc_msgSend_string(self->_attributes, v142, v143, v144, v145);
-  v151 = objc_msgSend_paragraphStyle(self->_attributes, v147, v148, v149, v150);
-  objc_msgSend_labelWidth(self->_attributes, v152, v153, v154, v155);
-  v157 = v156;
-  v161 = objc_msgSend_string(self->_attributes, v158, v156, v159, v160);
-  v166 = objc_msgSend_length(v161, v162, v163, v164, v165);
-  v171 = objc_msgSend_attributes(self, v167, v168, v169, v170);
-  v176 = objc_msgSend_styleProvidingSource(v171, v172, v173, v174, v175);
-  objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v141, v177, v157, v195, v196, v146, v151, v101, 0, v166, 0, v132, v176, 0);
+  objc_msgSend_bitmapLabelRenderOffset(self, v133, v134, v135);
+  v140 = objc_msgSend_sharedText(TSCHText, v136, v137, v138, v139);
+  v145 = objc_msgSend_string(self->_attributes, v141, v142, v143, v144);
+  v150 = objc_msgSend_paragraphStyle(self->_attributes, v146, v147, v148, v149);
+  objc_msgSend_labelWidth(self->_attributes, v151, v152, v153, v154);
+  v156 = v155;
+  v160 = objc_msgSend_string(self->_attributes, v157, v155, v158, v159);
+  v165 = objc_msgSend_length(v160, v161, v162, v163, v164);
+  v170 = objc_msgSend_attributes(self, v166, v167, v168, v169);
+  v175 = objc_msgSend_styleProvidingSource(v170, v171, v172, v173, v174);
+  objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v140, v176, v156, v194, v195, v145, v150, v101, 0, v165, 0, v132, v175, 0);
 
   UIGraphicsPopContext();
   TSDClearCGContextInfo();
   CGContextRelease(v101);
   if (byte_280A46430 == 1)
   {
-    v182 = objc_opt_class();
-    v183 = NSStringFromSelector(aSelector);
-    NSLog(&cfstr_P.isa, v182, self, v183, v82);
+    v181 = objc_opt_class();
+    v182 = NSStringFromSelector(aSelector);
+    NSLog(&cfstr_P.isa, v181, self, v182, v82);
   }
 
-  v184 = objc_msgSend_container(v82, v178, v179, v180, v181);
+  v183 = objc_msgSend_container(v82, v177, v178, v179, v180);
+  v184 = v196;
   v185 = v197;
-  v186 = v198;
-  if (v198 * v197 >= 1)
+  if (v197 * v196 >= 1)
   {
-    v187 = 0;
-    v188 = (*v184 + 1);
+    v186 = 0;
+    v187 = (*v183 + 1);
     do
     {
-      if (v188[2])
+      if (v187[2])
       {
-        v189 = 1132396544;
-        v190 = 255.0 / v188[2];
-        LOBYTE(v189) = *(v188 - 1);
-        *&v191 = v190 * v189;
-        *(v188 - 1) = *&v191;
-        LOBYTE(v191) = *v188;
-        *&v192 = v190 * v191;
-        *v188 = *&v192;
-        LOBYTE(v192) = v188[1];
-        v188[1] = (v190 * v192);
+        v188 = 1132396544;
+        v189 = 255.0 / v187[2];
+        LOBYTE(v188) = *(v187 - 1);
+        *&v190 = v189 * v188;
+        *(v187 - 1) = *&v190;
+        LOBYTE(v190) = *v187;
+        *&v191 = v189 * v190;
+        *v187 = *&v191;
+        LOBYTE(v191) = v187[1];
+        v187[1] = (v189 * v191);
+        v184 = v196;
         v185 = v197;
-        v186 = v198;
       }
 
-      v188 += 4;
-      ++v187;
+      v187 += 4;
+      ++v186;
     }
 
-    while (v187 < v186 * v185);
+    while (v186 < v185 * v184);
   }
 
   return v82;
@@ -397,50 +397,50 @@
   }
 
   objc_msgSend_renderSamples(attributes, a2, v4, v5, v6);
-  objc_msgSend_labelSizeWithSamples_(self, v26, v27, v28, v29);
-  if (v78.i32[0] < 1 || v78.i32[1] <= 0)
+  objc_msgSend_labelSizeWithSamples_(self, v26, v27, v28);
+  if (v77.i32[0] < 1 || v77.i32[1] <= 0)
   {
-    v35 = MEMORY[0x277D81150];
-    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v31, v32, v33, "[TSCH3DLabelResource p_clampedLabelSampledSizeReturningClampedRatio:]");
-    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v38, v39, v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelResource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v42, v43, v44, v45, v36, v41, 211, 0, "Label must have a size");
+    v34 = MEMORY[0x277D81150];
+    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v30, v31, v32, "[TSCH3DLabelResource p_clampedLabelSampledSizeReturningClampedRatio:]");
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelResource.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v41, v42, v43, v44, v35, v40, 211, 0, "Label must have a size");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47, v48, v49);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48);
   }
 
-  v50 = objc_msgSend_sharedInstance(TSCH3DChartPlatformSettings, v30, v31, v32, v33);
-  v55 = objc_msgSend_labelMaxTextureSize(v50, v51, v52, v53, v54);
+  v49 = objc_msgSend_sharedInstance(TSCH3DChartPlatformSettings, v29, v30, v31, v32);
+  v54 = objc_msgSend_labelMaxTextureSize(v49, v50, v51, v52, v53);
 
-  if (v55 <= 0)
+  if (v54 <= 0)
   {
-    v61 = MEMORY[0x277D81150];
-    v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, "[TSCH3DLabelResource p_clampedLabelSampledSizeReturningClampedRatio:]");
-    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, v64, v65, v66, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelResource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v61, v68, v69, v70, v71, v62, v67, 213, 0, "max texture size is 0");
+    v60 = MEMORY[0x277D81150];
+    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, v57, v58, v59, "[TSCH3DLabelResource p_clampedLabelSampledSizeReturningClampedRatio:]");
+    v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, v63, v64, v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelResource.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v67, v68, v69, v70, v61, v66, 213, 0, "max texture size is 0");
 
-    v56 = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v72, v73, v74, v75);
+    v55 = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v71, v72, v73, v74);
   }
 
-  v76 = vcvt_f32_s32(v78);
-  v77 = vdiv_f32(vcvt_f32_s32(vmin_s32(v78, vdup_n_s32(v55))), v76);
-  if (v77.f32[0] >= v77.f32[1])
+  v75 = vcvt_f32_s32(v77);
+  v76 = vdiv_f32(vcvt_f32_s32(vmin_s32(v77, vdup_n_s32(v54))), v75);
+  if (v76.f32[0] >= v76.f32[1])
   {
-    v77.f32[0] = v77.f32[1];
+    v76.f32[0] = v76.f32[1];
   }
 
-  *v9 = vcvt_s32_f32(vrndp_f32(vadd_f32(vmul_n_f32(v76, v77.f32[0]), vdup_n_s32(0xBA83126F))));
+  *v9 = vcvt_s32_f32(vrndp_f32(vadd_f32(vmul_n_f32(v75, v76.f32[0]), vdup_n_s32(0xBA83126F))));
   if (ratio)
   {
-    *ratio = v77.f32[0];
+    *ratio = v76.f32[0];
   }
 
-  return v56;
+  return v55;
 }
 
 - (tvec2<int>)labelSizeWithSamples:(double)samples
 {
   v7 = v3;
-  v8 = objc_msgSend_labelSize(self, a2, samples, v4, v5);
+  v8 = objc_msgSend_labelSize(self, samples, v4, v5, a2);
   samplesCopy = samples;
   *v7 = vcvt_s32_f32(vrndp_f32(vadd_f32(vmul_n_f32(v10, samplesCopy), vdup_n_s32(0xBA83126F))));
   return v8;

@@ -27,22 +27,22 @@
 - (id)dictionaryRepresentation
 {
   selfCopy = self;
-  v12[6] = *MEMORY[0x277D85DE8];
+  v11[6] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v11[0] = @"Format";
+    v10[0] = @"Format";
     v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "format")}];
-    v12[0] = v2;
-    v11[1] = @"Type";
+    v11[0] = v2;
+    v10[1] = @"Type";
     v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(selfCopy, "type")}];
-    v12[1] = v3;
-    v11[2] = @"StatID";
+    v11[1] = v3;
+    v10[2] = @"StatID";
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(selfCopy, "statID")}];
-    v12[2] = v4;
-    v11[3] = @"MetadataType";
+    v11[2] = v4;
+    v10[3] = @"MetadataType";
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(selfCopy, "metadataType")}];
-    v12[3] = v5;
-    v11[4] = @"ValueID";
+    v11[3] = v5;
+    v10[4] = @"ValueID";
     valueID = [selfCopy valueID];
     if (valueID)
     {
@@ -54,14 +54,12 @@
       [MEMORY[0x277CBEB68] null];
     }
     v7 = ;
-    v12[4] = v7;
-    v11[5] = @"Name";
+    v11[4] = v7;
+    v10[5] = @"Name";
     name = [selfCopy name];
-    v12[5] = name;
-    selfCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
+    v11[5] = name;
+    selfCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:6];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

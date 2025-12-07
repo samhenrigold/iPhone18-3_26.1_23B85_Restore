@@ -124,7 +124,7 @@
 - (void)autoUpdateEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v4 = sub_1003D5FC8();
+  v4 = sub_1003D5FC8(AppDefaultsManager);
   (*(enabled + 2))(enabledCopy, v4);
 }
 
@@ -139,7 +139,7 @@
 {
   handlerCopy = handler;
   v6 = +[NSMutableArray array];
-  v7 = sub_1002BB3F0();
+  v7 = sub_1002BB3F0(AppUpdatesDatabaseStore);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100322034;
@@ -149,7 +149,7 @@
   v14 = v8;
   [v7 readUsingSession:v13];
 
-  v9 = sub_1002BB3F0();
+  v9 = sub_1002BB3F0(AppUpdatesDatabaseStore);
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
   v11[2] = sub_10032223C;

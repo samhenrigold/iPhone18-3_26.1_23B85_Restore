@@ -9,7 +9,7 @@
   messagesCopy = messages;
   if (messages)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB7D2A60);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB7D2A60, &qword_1B257CCA0);
     messagesCopy = sub_1B256DC5C();
   }
 

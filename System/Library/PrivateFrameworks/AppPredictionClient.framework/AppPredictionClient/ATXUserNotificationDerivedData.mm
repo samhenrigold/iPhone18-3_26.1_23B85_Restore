@@ -157,31 +157,32 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v8];
+      [(ATXDigestTimeline *)self initWithProto:v9];
     }
 
     goto LABEL_8;
   }
 
   scores = [protoCopy scores];
-  v6 = [scores _pas_mappedArrayWithTransform:&__block_literal_global_29];
+  v7 = [scores _pas_mappedArrayWithTransform:&__block_literal_global_29];
 
-  if (v6)
+  if (v7)
   {
-    v7 = [(ATXUserNotificationDerivedData *)self initFromModelScores:v6];
+    v8 = [(ATXUserNotificationDerivedData *)self initFromModelScores:v7];
   }
 
   else
   {
-    v7 = [(ATXUserNotificationDerivedData *)self init];
+    v8 = [(ATXUserNotificationDerivedData *)self init];
   }
 
-  self = v7;
+  self = v8;
 
   selfCopy = self;
 LABEL_11:

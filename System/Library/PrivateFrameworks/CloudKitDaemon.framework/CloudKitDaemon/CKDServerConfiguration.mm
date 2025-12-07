@@ -133,28 +133,28 @@
 
 - (id)valueForKeyPath:(id)path forContainerID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objc_msgSend_valuesForContainerID_(self, v7, d);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v8 = v22 = 0u;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v19, v23, 16);
+  v8 = v21 = 0u;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v18, v22, 16);
   if (v10)
   {
     v12 = v10;
-    v13 = *v20;
+    v13 = *v19;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = objc_msgSend_valueForKeyPath_(*(*(&v19 + 1) + 8 * i), v11, pathCopy, v19);
+        v15 = objc_msgSend_valueForKeyPath_(*(*(&v18 + 1) + 8 * i), v11, pathCopy, v18);
         if (v15)
         {
           v16 = v15;
@@ -162,7 +162,7 @@
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v19, v23, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v18, v22, 16);
       if (v12)
       {
         continue;
@@ -174,8 +174,6 @@
 
   v16 = 0;
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -419,30 +417,30 @@ LABEL_11:
 
 - (id)chunkProfileConfigurationFileExtensionToProfileMap:(id)map
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v7 = objc_msgSend_valuesForContainerID_(self, v6, mapCopy);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = objc_msgSend_reverseObjectEnumerator(v7, v8, v9, 0);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v21, v25, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v20, v24, 16);
   if (v12)
   {
     v14 = v12;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = objc_msgSend_valueForKeyPath_(*(*(&v21 + 1) + 8 * i), v13, @"chunkProfileConfiguration.fileExtensionToProfileMap");
+        v17 = objc_msgSend_valueForKeyPath_(*(*(&v20 + 1) + 8 * i), v13, @"chunkProfileConfiguration.fileExtensionToProfileMap");
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -450,13 +448,11 @@ LABEL_11:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v21, v25, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v20, v24, 16);
     }
 
     while (v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -530,13 +526,13 @@ LABEL_11:
 
 - (void)_parseDeviceCapabilitiesIfNecessary
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_shouldReportDeviceCapabilitiesContainerOverrides || !selfCopy->_shouldCheckDeviceCapabilitiesContainerOverrides)
   {
-    v56 = objc_opt_new();
-    v55 = objc_opt_new();
+    v53 = objc_opt_new();
+    v52 = objc_opt_new();
     v3 = objc_opt_class();
     v5 = objc_msgSend__getValueForKey_ofType_fromDictionary_(selfCopy, v4, @"adopterCapabilitiesAndCryptoAgility", v3, selfCopy->_values);
     v6 = MEMORY[0x277CBC880];
@@ -582,35 +578,35 @@ LABEL_11:
       v24 = objc_msgSend__getValueForKey_ofType_fromDictionary_(selfCopy, v23, @"container", v22, v5);
       if (v24)
       {
-        v62 = 0u;
-        v63 = 0u;
+        v59 = 0u;
         v60 = 0u;
-        v61 = 0u;
-        v58 = v24;
+        v57 = 0u;
+        v58 = 0u;
+        v55 = v24;
         v27 = objc_msgSend_allKeys(v24, v25, v26);
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v60, v72, 16);
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v57, v69, 16);
         if (v29)
         {
-          v57 = *v61;
+          v54 = *v58;
           obj = v27;
           do
           {
-            v59 = v29;
-            for (i = 0; i != v59; ++i)
+            v56 = v29;
+            for (i = 0; i != v56; ++i)
             {
-              if (*v61 != v57)
+              if (*v58 != v54)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v31 = *(*(&v60 + 1) + 8 * i);
+              v31 = *(*(&v57 + 1) + 8 * i);
               v32 = objc_opt_class();
-              v34 = objc_msgSend__getValueForKey_ofType_fromDictionary_(selfCopy, v33, v31, v32, v58);
+              v34 = objc_msgSend__getValueForKey_ofType_fromDictionary_(selfCopy, v33, v31, v32, v55);
               v35 = objc_opt_class();
               v38 = objc_msgSend__getValueForKey_ofType_fromDictionary_(selfCopy, v36, @"enableAdopterCapabilityReport", v35, v34);
               if (v38)
               {
-                objc_msgSend_setObject_forKeyedSubscript_(v56, v37, v38, v31);
+                objc_msgSend_setObject_forKeyedSubscript_(v53, v37, v38, v31);
               }
 
               else
@@ -624,7 +620,7 @@ LABEL_11:
                 if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v65 = v31;
+                  v62 = v31;
                   _os_log_debug_impl(&dword_22506F000, v39, OS_LOG_TYPE_DEBUG, "Server Configuration plist contains override for container %@, but it does not have a enableAdopterCapabilityReport key", buf, 0xCu);
                 }
               }
@@ -633,7 +629,7 @@ LABEL_11:
               v43 = objc_msgSend__getValueForKey_ofType_fromDictionary_(selfCopy, v41, @"enableCheckingAdopterCapability", v40, v34);
               if (v43)
               {
-                objc_msgSend_setObject_forKeyedSubscript_(v55, v42, v43, v31);
+                objc_msgSend_setObject_forKeyedSubscript_(v52, v42, v43, v31);
               }
 
               else
@@ -647,20 +643,20 @@ LABEL_11:
                 if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v65 = v31;
+                  v62 = v31;
                   _os_log_debug_impl(&dword_22506F000, log, OS_LOG_TYPE_DEBUG, "Server Configuration plist contains override for container %@, but it does not have a enableCheckingAdopterCapability key", buf, 0xCu);
                 }
               }
             }
 
             v27 = obj;
-            v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v44, &v60, v72, 16);
+            v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v44, &v57, v69, 16);
           }
 
           while (v29);
         }
 
-        v24 = v58;
+        v24 = v55;
       }
     }
 
@@ -679,8 +675,8 @@ LABEL_11:
       }
     }
 
-    objc_storeStrong(&selfCopy->_shouldReportDeviceCapabilitiesContainerOverrides, v56);
-    objc_storeStrong(&selfCopy->_shouldCheckDeviceCapabilitiesContainerOverrides, v55);
+    objc_storeStrong(&selfCopy->_shouldReportDeviceCapabilitiesContainerOverrides, v53);
+    objc_storeStrong(&selfCopy->_shouldCheckDeviceCapabilitiesContainerOverrides, v52);
     if (*v6 != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -691,25 +687,21 @@ LABEL_11:
     {
       shouldReportDeviceCapabilitiesContainerOverrides = selfCopy->_shouldReportDeviceCapabilitiesContainerOverrides;
       shouldCheckDeviceCapabilitiesContainerOverrides = selfCopy->_shouldCheckDeviceCapabilitiesContainerOverrides;
-      defaultShouldReportDeviceCapabilities = selfCopy->_defaultShouldReportDeviceCapabilities;
+      v48 = CKTernaryDescription();
       v49 = CKTernaryDescription();
-      defaultShouldCheckDeviceCapabilities = selfCopy->_defaultShouldCheckDeviceCapabilities;
-      v51 = CKTernaryDescription();
       *buf = 138413058;
-      v65 = shouldReportDeviceCapabilitiesContainerOverrides;
-      v66 = 2112;
-      v67 = shouldCheckDeviceCapabilitiesContainerOverrides;
-      v68 = 2112;
-      v69 = v49;
-      v70 = 2112;
-      v71 = v51;
+      v62 = shouldReportDeviceCapabilitiesContainerOverrides;
+      v63 = 2112;
+      v64 = shouldCheckDeviceCapabilitiesContainerOverrides;
+      v65 = 2112;
+      v66 = v48;
+      v67 = 2112;
+      v68 = v49;
       _os_log_impl(&dword_22506F000, v45, OS_LOG_TYPE_INFO, "Finished parsing server configuration plist for Device Capabilities Reporting / Checking. Container overrides for reporting device capabilities: %@ \nContainer overrides for checking device capabilities: %@. \nDefault should report: %@ Default should check: %@", buf, 0x2Au);
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allowsDeviceCapabilitiesReportingForContainerID:(id)d
@@ -847,7 +839,7 @@ LABEL_10:
 
 - (id)dictionaryPropertyEncoding
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAB0];
   values = self->_values;
   if (values)
@@ -861,9 +853,9 @@ LABEL_10:
     v7 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(v3, v9, v8, 1, 0);
   }
 
-  v15[0] = @"valuesData";
-  v15[1] = @"expiry";
-  v16[0] = v7;
+  v14[0] = @"valuesData";
+  v14[1] = @"expiry";
+  v15[0] = v7;
   expiry = self->_expiry;
   v11 = expiry;
   if (!expiry)
@@ -871,13 +863,11 @@ LABEL_10:
     v11 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6);
   }
 
-  v16[1] = v11;
-  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, v16, v15, 2);
+  v15[1] = v11;
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, v15, v14, 2);
   if (!expiry)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

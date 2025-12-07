@@ -17,134 +17,129 @@
 
 - (TTSRulesetRunner)init
 {
-  v20.receiver = self;
-  v20.super_class = TTSRulesetRunner;
-  v6 = [(TTSRulesetRunner *)&v20 init];
-  if (v6)
+  v12.receiver = self;
+  v12.super_class = TTSRulesetRunner;
+  v2 = [(TTSRulesetRunner *)&v12 init];
+  if (v2)
   {
-    v7 = objc_msgSend_array(MEMORY[0x1E695DF70], v2, v3, v4, v5);
-    ruleReplacements = v6->_ruleReplacements;
-    v6->_ruleReplacements = v7;
+    array = [MEMORY[0x1E695DF70] array];
+    ruleReplacements = v2->_ruleReplacements;
+    v2->_ruleReplacements = array;
 
-    v13 = objc_msgSend_array(MEMORY[0x1E695DF70], v9, v10, v11, v12);
-    ruleSets = v6->_ruleSets;
-    v6->_ruleSets = v13;
+    array2 = [MEMORY[0x1E695DF70] array];
+    ruleSets = v2->_ruleSets;
+    v2->_ruleSets = array2;
 
-    v15 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x1E69E96A8], QOS_CLASS_USER_INTERACTIVE, -1);
-    v16 = dispatch_queue_attr_make_with_autorelease_frequency(v15, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v7 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x1E69E96A8], QOS_CLASS_USER_INTERACTIVE, -1);
+    v8 = dispatch_queue_attr_make_with_autorelease_frequency(v7, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
 
-    v17 = dispatch_queue_create("ttsruleset.execution", v16);
-    regexExecutionQueue = v6->_regexExecutionQueue;
-    v6->_regexExecutionQueue = v17;
+    v9 = dispatch_queue_create("ttsruleset.execution", v8);
+    regexExecutionQueue = v2->_regexExecutionQueue;
+    v2->_regexExecutionQueue = v9;
   }
 
-  return v6;
+  return v2;
 }
 
 - (void)reset
 {
-  v6 = objc_msgSend_array(MEMORY[0x1E695DF70], a2, v2, v3, v4);
+  array = [MEMORY[0x1E695DF70] array];
   ruleReplacements = self->_ruleReplacements;
-  self->_ruleReplacements = v6;
+  self->_ruleReplacements = array;
 
-  v12 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9, v10, v11);
-  ruleSets = self->_ruleSets;
-  self->_ruleSets = v12;
+  self->_ruleSets = [MEMORY[0x1E695DF70] array];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)loadRuleSet:(id)set
 {
-  objc_msgSend_addObject_(self->_ruleSets, a2, set, v3, v4);
+  [(NSMutableArray *)self->_ruleSets addObject:set];
 
-  MEMORY[0x1EEE66B58](self, sel__recomputeRuleOrdering, v6, v7, v8);
+  MEMORY[0x1EEE66B58](self, sel__recomputeRuleOrdering);
 }
 
 - (void)unloadRuleset:(id)ruleset
 {
-  objc_msgSend_removeObject_(self->_ruleSets, a2, ruleset, v3, v4);
+  [(NSMutableArray *)self->_ruleSets removeObject:ruleset];
 
-  MEMORY[0x1EEE66B58](self, sel__recomputeRuleOrdering, v6, v7, v8);
+  MEMORY[0x1EEE66B58](self, sel__recomputeRuleOrdering);
 }
 
 - (void)_recomputeRuleOrdering
 {
-  v68 = *MEMORY[0x1E69E9840];
-  objc_msgSend_removeAllObjects(self->_ruleReplacements, a2, v2, v3, v4);
-  v10 = objc_msgSend_ruleSets(self, v6, v7, v8, v9);
-  objc_msgSend_sortUsingComparator_(v10, v11, &unk_1F1CEDB28, v12, v13);
+  v28 = *MEMORY[0x1E69E9840];
+  [(NSMutableArray *)self->_ruleReplacements removeAllObjects];
+  ruleSets = [(TTSRulesetRunner *)self ruleSets];
+  [ruleSets sortUsingComparator:&unk_1F1CEDB28];
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  obj = objc_msgSend_ruleSets(self, v14, v15, v16, v17);
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v62, v67, 16);
-  if (v19)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  obj = [(TTSRulesetRunner *)self ruleSets];
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v4)
   {
-    v24 = v19;
-    v25 = *v63;
+    v5 = v4;
+    v6 = *v23;
     do
     {
-      v26 = 0;
+      v7 = 0;
       do
       {
-        if (*v63 != v25)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v62 + 1) + 8 * v26);
-        v58 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v61 = 0u;
-        v28 = objc_msgSend_ruleReplacements(v27, v20, v21, v22, v23);
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v58, v66, 16);
-        if (v30)
+        v8 = *(*(&v22 + 1) + 8 * v7);
+        v18 = 0u;
+        v19 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        ruleReplacements = [v8 ruleReplacements];
+        v10 = [ruleReplacements countByEnumeratingWithState:&v18 objects:v26 count:16];
+        if (v10)
         {
-          v35 = v30;
-          v36 = *v59;
+          v11 = v10;
+          v12 = *v19;
           do
           {
-            v37 = 0;
+            v13 = 0;
             do
             {
-              if (*v59 != v36)
+              if (*v19 != v12)
               {
-                objc_enumerationMutation(v28);
+                objc_enumerationMutation(ruleReplacements);
               }
 
-              v38 = *(*(&v58 + 1) + 8 * v37);
-              v39 = objc_msgSend_ruleReplacements(self, v31, v32, v33, v34);
-              v44 = objc_msgSend_count(v39, v40, v41, v42, v43);
-              objc_msgSend_setIndex_(v38, v45, v44, v46, v47);
+              v14 = *(*(&v18 + 1) + 8 * v13);
+              ruleReplacements2 = [(TTSRulesetRunner *)self ruleReplacements];
+              [v14 setIndex:{objc_msgSend(ruleReplacements2, "count")}];
 
-              v52 = objc_msgSend_ruleReplacements(self, v48, v49, v50, v51);
-              objc_msgSend_addObject_(v52, v53, v38, v54, v55);
+              ruleReplacements3 = [(TTSRulesetRunner *)self ruleReplacements];
+              [ruleReplacements3 addObject:v14];
 
-              ++v37;
+              ++v13;
             }
 
-            while (v35 != v37);
-            v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v58, v66, 16);
+            while (v11 != v13);
+            v11 = [ruleReplacements countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
-          while (v35);
+          while (v11);
         }
 
-        ++v26;
+        ++v7;
       }
 
-      while (v26 != v24);
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v62, v67, 16);
+      while (v7 != v5);
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v24);
+    while (v5);
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (id)processText:(id)text
@@ -154,287 +149,283 @@
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    objc_msgSend_setExecuting_(selfCopy, v6, 1, v7, v8);
-    v9 = [TTSSpeechString alloc];
-    v13 = objc_msgSend_initWithOriginalString_(v9, v10, textCopy, v11, v12);
-    v18 = objc_msgSend_preRuleWriter(selfCopy, v14, v15, v16, v17);
+    [(TTSRulesetRunner *)selfCopy setExecuting:1];
+    v6 = [[TTSSpeechString alloc] initWithOriginalString:textCopy];
+    preRuleWriter = [(TTSRulesetRunner *)selfCopy preRuleWriter];
 
-    if (v18)
+    if (preRuleWriter)
     {
-      v23 = objc_msgSend_preRuleWriter(selfCopy, v19, v20, v21, v22);
-      v24 = (v23)[2](v23, v13);
+      preRuleWriter2 = [(TTSRulesetRunner *)selfCopy preRuleWriter];
+      v9 = (preRuleWriter2)[2](preRuleWriter2, v6);
 
-      if (objc_msgSend_finalized(v24, v25, v26, v27, v28))
+      if ([(TTSSpeechString *)v9 finalized])
       {
-        v29 = [TTSSpeechString alloc];
-        v13 = objc_msgSend_initWithParentSpeechString_(v29, v30, v24, v31, v32);
+        v6 = [[TTSSpeechString alloc] initWithParentSpeechString:v9];
       }
 
       else
       {
-        v13 = v24;
+        v6 = v9;
       }
     }
 
-    v34 = objc_msgSend__processSpeechString_startingAt_currentRecursionDepth_(selfCopy, v19, v13, 0, 0);
-    v39 = objc_msgSend_postRuleWriter(selfCopy, v35, v36, v37, v38);
+    v11 = [(TTSRulesetRunner *)selfCopy _processSpeechString:v6 startingAt:0 currentRecursionDepth:0];
+    postRuleWriter = [(TTSRulesetRunner *)selfCopy postRuleWriter];
 
-    if (v39)
+    if (postRuleWriter)
     {
-      if (objc_msgSend_finalized(v34, v40, v41, v42, v43))
+      if ([v11 finalized])
       {
-        v48 = [TTSSpeechString alloc];
-        v52 = objc_msgSend_initWithParentSpeechString_(v48, v49, v34, v50, v51);
+        v13 = [[TTSSpeechString alloc] initWithParentSpeechString:v11];
 
-        v34 = v52;
+        v11 = v13;
       }
 
-      v53 = objc_msgSend_postRuleWriter(selfCopy, v44, v45, v46, v47);
-      v54 = (v53)[2](v53, v34);
+      postRuleWriter2 = [(TTSRulesetRunner *)selfCopy postRuleWriter];
+      v15 = (postRuleWriter2)[2](postRuleWriter2, v11);
 
-      v34 = v54;
+      v11 = v15;
     }
 
-    if (objc_msgSend_finalized(v34, v40, v41, v42, v43))
+    if ([v11 finalized])
     {
-      v59 = [TTSSpeechString alloc];
-      v63 = objc_msgSend_initWithParentSpeechString_(v59, v60, v34, v61, v62);
+      v16 = [[TTSSpeechString alloc] initWithParentSpeechString:v11];
 
-      v34 = v63;
+      v11 = v16;
     }
 
-    v64 = objc_msgSend_sharedInstance(TTSRegexCache, v55, v56, v57, v58);
-    v67 = objc_msgSend_regexForString_atStart_(v64, v65, @"__AXTTS_SHIELDS_(UP|DOWN)__", 0, v66);
+    v17 = +[TTSRegexCache sharedInstance];
+    v18 = [v17 regexForString:@"__AXTTS_SHIELDS_(UP|DOWN)__" atStart:0];
 
-    v72 = objc_msgSend_originalString(v34, v68, v69, v70, v71);
-    v77 = objc_msgSend_originalString(v34, v73, v74, v75, v76);
-    v82 = objc_msgSend_length(v77, v78, v79, v80, v81);
-    v88[0] = MEMORY[0x1E69E9820];
-    v88[1] = 3221225472;
-    v88[2] = sub_1A9348B04;
-    v88[3] = &unk_1E7880458;
-    v33 = v34;
-    v89 = v33;
-    objc_msgSend_enumerateMatchesInString_options_range_usingBlock_(v67, v83, v72, 2, 0, v82, v88);
+    originalString = [v11 originalString];
+    originalString2 = [v11 originalString];
+    v21 = [originalString2 length];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_1A9348B04;
+    v23[3] = &unk_1E7880458;
+    v10 = v11;
+    v24 = v10;
+    [v18 enumerateMatchesInString:originalString options:2 range:0 usingBlock:{v21, v23}];
 
-    objc_msgSend_setExecuting_(selfCopy, v84, 0, v85, v86);
+    [(TTSRulesetRunner *)selfCopy setExecuting:0];
     objc_sync_exit(selfCopy);
   }
 
   else
   {
-    v33 = 0;
+    v10 = 0;
   }
 
-  return v33;
+  return v10;
 }
 
 - (void)cancelProcessing
 {
-  if (objc_msgSend_executing(self, a2, v2, v3, v4))
+  if ([(TTSRulesetRunner *)self executing])
   {
-    objc_msgSend_setShouldAbort_(self, v6, 1, v7, v8);
+    [(TTSRulesetRunner *)self setShouldAbort:1];
     obj = self;
     objc_sync_enter(obj);
-    objc_msgSend_setShouldAbort_(obj, v9, 0, v10, v11);
+    [(TTSRulesetRunner *)obj setShouldAbort:0];
     objc_sync_exit(obj);
   }
 }
 
 - (NSNumber)ruleCount
 {
-  v5 = MEMORY[0x1E696AD98];
-  v6 = objc_msgSend_ruleReplacements(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_count(v6, v7, v8, v9, v10);
-  v15 = objc_msgSend_numberWithUnsignedInteger_(v5, v12, v11, v13, v14);
+  v2 = MEMORY[0x1E696AD98];
+  ruleReplacements = [(TTSRulesetRunner *)self ruleReplacements];
+  v4 = [v2 numberWithUnsignedInteger:{objc_msgSend(ruleReplacements, "count")}];
 
-  return v15;
+  return v4;
 }
 
 - (id)_ignoreRangesForString:(id)string
 {
   stringCopy = string;
-  v7 = objc_msgSend_rangeOfString_(stringCopy, v4, @"__AXTTS_SHIELDS_UP__", v5, v6);
-  if (v7 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = [stringCopy rangeOfString:@"__AXTTS_SHIELDS_UP__"];
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v12 = MEMORY[0x1E695E0F0];
+    array = MEMORY[0x1E695E0F0];
     goto LABEL_27;
   }
 
-  v13 = v7;
-  v14 = &v8[v7];
-  v12 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9, v10, v11);
-  if (v14 >= objc_msgSend_length(stringCopy, v15, v16, v17, v18))
+  v7 = v4;
+  v8 = v4 + v5;
+  array = [MEMORY[0x1E695DF70] array];
+  if (v8 >= [stringCopy length])
   {
     goto LABEL_26;
   }
 
-  v48 = v12;
-  v23 = 1;
+  v24 = array;
+  v9 = 1;
   while (1)
   {
-    v24 = objc_msgSend_length(stringCopy, v19, v20, v21, v22);
-    v25 = v24 - v14;
-    v27 = objc_msgSend_rangeOfString_options_range_(stringCopy, v26, @"__AXTTS_SHIELDS_UP__", 2, v14, v24 - v14);
-    v29 = v28;
-    v30 = objc_msgSend_rangeOfString_options_range_(stringCopy, v28, @"__AXTTS_SHIELDS_DOWN__", 2, v14, v25);
-    v31 = v27 == 0x7FFFFFFFFFFFFFFFLL || v27 > v30;
-    v32 = v31;
-    if (v30 == 0x7FFFFFFFFFFFFFFFLL || !v32)
+    v10 = [stringCopy length];
+    v11 = v10 - v8;
+    v12 = [stringCopy rangeOfString:@"__AXTTS_SHIELDS_UP__" options:2 range:{v8, v10 - v8}];
+    v14 = v13;
+    v15 = [stringCopy rangeOfString:@"__AXTTS_SHIELDS_DOWN__" options:2 range:{v8, v11}];
+    v17 = v12 == 0x7FFFFFFFFFFFFFFFLL || v12 > v15;
+    v18 = v17;
+    if (v15 == 0x7FFFFFFFFFFFFFFFLL || !v18)
     {
       break;
     }
 
-    if (--v23)
+    if (--v9)
     {
-      v14 = &v19[v30];
+      v8 = v15 + v16;
       goto LABEL_20;
     }
 
-    v14 = &v19[v30];
-    v34 = objc_msgSend_valueWithRange_(MEMORY[0x1E696B098], v19, v13, &v19[v30 - v13], v22);
-    objc_msgSend_addObject_(v48, v35, v34, v36, v37);
+    v8 = v15 + v16;
+    v20 = [MEMORY[0x1E696B098] valueWithRange:{v7, v15 + v16 - v7}];
+    [v24 addObject:v20];
 
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
+    v7 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_24:
-    if (v14 >= objc_msgSend_length(stringCopy, v19, v20, v21, v22))
+    if (v8 >= [stringCopy length])
     {
       goto LABEL_25;
     }
   }
 
-  if (v23)
+  if (v9)
   {
-    v33 = v13;
+    v19 = v7;
   }
 
   else
   {
-    v33 = v27;
+    v19 = v12;
   }
 
-  if (v27 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v12 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    ++v23;
-    v13 = v33;
-    v14 = &v29[v27];
+    ++v9;
+    v7 = v19;
+    v8 = v12 + v14;
   }
 
 LABEL_20:
-  if (v27 != 0x7FFFFFFFFFFFFFFFLL || v30 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v12 != 0x7FFFFFFFFFFFFFFFLL || v15 != 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_24;
   }
 
 LABEL_25:
-  v38 = v23 == 0;
-  v12 = v48;
-  if (!v38)
+  v21 = v9 == 0;
+  array = v24;
+  if (!v21)
   {
 LABEL_26:
-    v39 = MEMORY[0x1E696B098];
-    v40 = objc_msgSend_length(stringCopy, v19, v20, v21, v22);
-    v43 = objc_msgSend_valueWithRange_(v39, v41, v13, v40 - v13, v42);
-    objc_msgSend_addObject_(v12, v44, v43, v45, v46);
+    v22 = [MEMORY[0x1E696B098] valueWithRange:{v7, objc_msgSend(stringCopy, "length") - v7}];
+    [array addObject:v22];
   }
 
 LABEL_27:
 
-  return v12;
+  return array;
 }
 
 - (id)_computeActiveRanges:(id)ranges withIgnoreRanges:(id)ignoreRanges
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   ignoreRangesCopy = ignoreRanges;
-  v10 = objc_msgSend_mutableCopy(ranges, v6, v7, v8, v9);
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v6 = [ranges mutableCopy];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = ignoreRangesCopy;
-  v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v49, v53, 16);
-  if (v48)
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v28)
   {
-    v47 = *v50;
+    v27 = *v30;
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v50 != v47)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = objc_msgSend_rangeValue(*(*(&v49 + 1) + 8 * i), length, v13, v14, v15);
-        v19 = v18;
-        if (objc_msgSend_count(v10, v18, v20, v21, v22))
+        rangeValue = [*(*(&v29 + 1) + 8 * i) rangeValue];
+        v10 = v9;
+        if ([v6 count])
         {
-          v23 = 0;
-          v24 = v19 + v17;
+          v11 = 0;
+          v12 = v10 + rangeValue;
           while (1)
           {
-            v25 = objc_msgSend_objectAtIndexedSubscript_(v10, length, v23, v14, v15);
-            v30 = objc_msgSend_rangeValue(v25, v26, v27, v28, v29);
-            v32 = v31;
+            v13 = [v6 objectAtIndexedSubscript:v11];
+            rangeValue2 = [v13 rangeValue];
+            v16 = v15;
 
-            v56.location = v30;
-            v56.length = v32;
-            v57.location = v17;
-            v57.length = v19;
-            v33 = NSIntersectionRange(v56, v57);
-            length = v33.length;
-            if (v30 >= v24)
+            v36.location = rangeValue2;
+            v36.length = v16;
+            v37.location = rangeValue;
+            v37.length = v10;
+            v17 = NSIntersectionRange(v36, v37);
+            if (rangeValue2 >= v12)
             {
               goto LABEL_23;
             }
 
-            if (!v33.length)
+            if (!v17.length)
             {
               goto LABEL_21;
             }
 
-            v34 = v17 - v30;
-            if (v17 > v30)
+            v18 = rangeValue - rangeValue2;
+            if (rangeValue > rangeValue2)
             {
               break;
             }
 
-            if (v33.location != v30 || v32 != v33.length)
+            if (v17.location != rangeValue2 || v16 != v17.length)
             {
-              objc_msgSend_valueWithRange_(MEMORY[0x1E696B098], v33.length, v19 + v17, v30 + v32 - v24, v15);
-              v41 = LABEL_20:;
-              objc_msgSend_setObject_atIndexedSubscript_(v10, v42, v41, v23, v43);
+              v21 = MEMORY[0x1E696B098];
+              v22 = rangeValue2 + v16 - v12;
+              v23 = v10 + rangeValue;
+LABEL_20:
+              v24 = [v21 valueWithRange:{v23, v22}];
+              [v6 setObject:v24 atIndexedSubscript:v11];
 
 LABEL_21:
-              ++v23;
+              ++v11;
               goto LABEL_22;
             }
 
-            objc_msgSend_removeObjectAtIndex_(v10, v33.length, v23, v34, v15);
+            [v6 removeObjectAtIndex:{v11, v18}];
 LABEL_22:
-            if (v23 >= objc_msgSend_count(v10, length, v13, v14, v15))
+            if (v11 >= [v6 count])
             {
               goto LABEL_23;
             }
           }
 
-          if (v33.location == v17 && v33.length == v19)
+          if (v17.location == rangeValue && v17.length == v10)
           {
-            v35 = objc_msgSend_valueWithRange_(MEMORY[0x1E696B098], v33.length, v30, v34, v15);
-            objc_msgSend_setObject_atIndexedSubscript_(v10, v36, v35, v23, v37);
+            v19 = [MEMORY[0x1E696B098] valueWithRange:{rangeValue2, v18}];
+            [v6 setObject:v19 atIndexedSubscript:v11];
 
-            v14 = v32 + v30 - v24;
-            if (v32 + v30 != v24)
+            if (v16 + rangeValue2 != v12)
             {
-              v38 = objc_msgSend_valueWithRange_(MEMORY[0x1E696B098], length, v19 + v17, v14, v15);
-              objc_msgSend_insertObject_atIndex_(v10, v39, v38, ++v23, v40);
+              v20 = [MEMORY[0x1E696B098] valueWithRange:{v10 + rangeValue, v16 + rangeValue2 - v12}];
+              [v6 insertObject:v20 atIndex:++v11];
             }
 
             goto LABEL_22;
           }
 
-          objc_msgSend_valueWithRange_(MEMORY[0x1E696B098], v33.length, v30, v32 - v33.length, v15);
+          v21 = MEMORY[0x1E696B098];
+          v22 = v16 - v17.length;
+          v23 = rangeValue2;
           goto LABEL_20;
         }
 
@@ -442,379 +433,370 @@ LABEL_23:
         ;
       }
 
-      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, length, &v49, v53, 16);
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v48);
+    while (v28);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v6;
 }
 
 - (id)_processSpeechString:(id)string startingAt:(unint64_t)at currentRecursionDepth:(unint64_t)depth
 {
-  v244 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v13 = objc_msgSend_ruleCount(self, v9, v10, v11, v12);
-  v18 = objc_msgSend_unsignedLongValue(v13, v14, v15, v16, v17);
+  ruleCount = [(TTSRulesetRunner *)self ruleCount];
+  unsignedLongValue = [ruleCount unsignedLongValue];
 
-  if (v18 > at)
+  if (unsignedLongValue > at)
   {
     depthCopy = depth;
-    v214 = stringCopy;
-    v23 = objc_msgSend_transformedString(stringCopy, v19, v20, v21, v22);
-    v27 = objc_msgSend__ignoreRangesForString_(self, v24, v23, v25, v26);
-    v28 = v23;
-    v221 = objc_msgSend_cStringUsingEncoding_(v28, v29, 4, v30, v31);
-    v209 = v23;
-    v222 = objc_msgSend_lengthOfBytesUsingEncoding_(v23, v32, 4, v33, v34);
-    v208 = objc_msgSend_array(MEMORY[0x1E695DF70], v35, v36, v37, v38);
-    v43 = objc_msgSend_ruleCount(self, v39, v40, v41, v42);
+    v71 = stringCopy;
+    transformedString = [stringCopy transformedString];
+    v12 = [(TTSRulesetRunner *)self _ignoreRangesForString:transformedString];
+    v78 = [transformedString cStringUsingEncoding:4];
+    v66 = transformedString;
+    v79 = [transformedString lengthOfBytesUsingEncoding:4];
+    array = [MEMORY[0x1E695DF70] array];
+    ruleCount2 = [(TTSRulesetRunner *)self ruleCount];
     atCopy = at;
-    iterations = objc_msgSend_unsignedLongValue(v43, v44, v45, v46, v47) - at;
+    iterations = [ruleCount2 unsignedLongValue] - at;
 
-    v219 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v48, v49, v50, v51);
-    v237 = 0u;
-    v238 = 0u;
-    v239 = 0u;
-    v240 = 0u;
-    obj = objc_msgSend_ruleSets(self, v52, v53, v54, v55);
-    v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v56, &v237, v243, 16);
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v94 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    obj = [(TTSRulesetRunner *)self ruleSets];
+    v14 = [obj countByEnumeratingWithState:&v94 objects:v100 count:16];
     selfCopy = self;
-    if (v57)
+    if (v14)
     {
-      v61 = v57;
-      v62 = *v238;
-      v63 = 0x1E696B000uLL;
+      v15 = v14;
+      v16 = *v95;
+      v17 = 0x1E696B000uLL;
       do
       {
-        for (i = 0; i != v61; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v238 != v62)
+          if (*v95 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v65 = *(*(&v237 + 1) + 8 * i);
-          v66 = objc_msgSend_valueWithPointer_(*(v63 + 152), v58, v65, v59, v60);
-          v71 = objc_msgSend_array(MEMORY[0x1E695DF70], v67, v68, v69, v70);
-          v76 = objc_msgSend_activationRegex(v65, v72, v73, v74, v75);
+          v19 = *(*(&v94 + 1) + 8 * i);
+          v20 = [*(v17 + 152) valueWithPointer:v19];
+          array2 = [MEMORY[0x1E695DF70] array];
+          activationRegex = [v19 activationRegex];
 
-          if (v76)
+          if (activationRegex)
           {
-            v81 = objc_msgSend_activationRegex(v65, v77, v78, v79, v80);
-            v235[0] = MEMORY[0x1E69E9820];
-            v235[1] = 3221225472;
-            v235[2] = sub_1A93498E8;
-            v235[3] = &unk_1E7880328;
-            v82 = v71;
-            v236 = v82;
-            objc_msgSend_enumerateMatchesInCString_length_usingBlock_(v81, v83, v221, v222, v235);
+            activationRegex2 = [v19 activationRegex];
+            v92[0] = MEMORY[0x1E69E9820];
+            v92[1] = 3221225472;
+            v92[2] = sub_1A93498E8;
+            v92[3] = &unk_1E7880328;
+            v24 = array2;
+            v93 = v24;
+            [activationRegex2 enumerateMatchesInCString:v78 length:v79 usingBlock:v92];
 
-            v84 = v236;
+            v25 = v93;
           }
 
           else
           {
-            v84 = objc_msgSend_valueWithRange_(*(v63 + 152), v77, 0, v222, v80);
-            v242 = v84;
-            objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v85, &v242, 1, v86);
-            v88 = v87 = v27;
-            v82 = objc_msgSend_mutableCopy(v88, v89, v90, v91, v92);
+            v25 = [*(v17 + 152) valueWithRange:{0, v79}];
+            v99 = v25;
+            [MEMORY[0x1E695DEC8] arrayWithObjects:&v99 count:1];
+            v27 = v26 = v12;
+            v24 = [v27 mutableCopy];
 
-            v27 = v87;
+            v12 = v26;
             self = selfCopy;
           }
 
-          v95 = objc_msgSend__computeActiveRanges_withIgnoreRanges_(self, v93, v82, v27, v94);
-          objc_msgSend_setObject_forKeyedSubscript_(v219, v96, v95, v66, v97);
+          v28 = [(TTSRulesetRunner *)self _computeActiveRanges:v24 withIgnoreRanges:v12];
+          [dictionary setObject:v28 forKeyedSubscript:v20];
 
-          v63 = 0x1E696B000;
+          v17 = 0x1E696B000;
         }
 
-        v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v58, &v237, v243, 16);
+        v15 = [obj countByEnumeratingWithState:&v94 objects:v100 count:16];
       }
 
-      while (v61);
+      while (v15);
     }
 
-    v102 = objc_msgSend_regexExecutionQueue(self, v98, v99, v100, v101);
+    regexExecutionQueue = [(TTSRulesetRunner *)self regexExecutionQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A9349958;
     block[3] = &unk_1E78804A8;
     block[4] = self;
-    v232 = atCopy;
-    v103 = v219;
-    v229 = v103;
-    v233 = v222;
-    v234 = v221;
-    v220 = v209;
-    v230 = v220;
-    v104 = v208;
-    v231 = v104;
-    dispatch_apply(iterations, v102, block);
+    v89 = atCopy;
+    v30 = dictionary;
+    v86 = v30;
+    v90 = v79;
+    v91 = v78;
+    v77 = v66;
+    v87 = v77;
+    v31 = array;
+    v88 = v31;
+    dispatch_apply(iterations, regexExecutionQueue, block);
 
-    if (!objc_msgSend_count(v104, v105, v106, v107, v108))
+    if (![v31 count])
     {
-      v126 = AXTTSLogCommon();
-      if (os_log_type_enabled(v126, OS_LOG_TYPE_DEBUG))
+      v37 = AXTTSLogCommon();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
-        sub_1A9578824(depthCopy, v126, v127, v128, v129);
+        sub_1A9578824(depthCopy);
       }
 
-      stringCopy = v214;
-      v125 = v214;
+      stringCopy = v71;
+      v36 = v71;
       goto LABEL_42;
     }
 
-    objc_msgSend_sortUsingComparator_(v104, v109, &unk_1F1CEFCF8, v110, v111);
-    v115 = objc_msgSend_indexOfObjectPassingTest_(v104, v112, &unk_1F1CEFD18, v113, v114);
-    v206 = v27;
-    obja = v103;
-    v212 = v104;
-    if (v115 == 0x7FFFFFFFFFFFFFFFLL)
+    [v31 sortUsingComparator:&unk_1F1CEFCF8];
+    v32 = [v31 indexOfObjectPassingTest:&unk_1F1CEFD18];
+    v63 = v12;
+    obja = v30;
+    v69 = v31;
+    if (v32 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v119 = v214;
+      v33 = v71;
       if (depthCopy <= 0x31)
       {
-        v143 = v104;
-        v210 = 0x7FFFFFFFFFFFFFFFLL;
+        v41 = v31;
+        v67 = 0x7FFFFFFFFFFFFFFFLL;
         goto LABEL_26;
       }
 
-      v120 = 0x7FFFFFFFFFFFFFFFLL;
+      effectiveIndex = 0x7FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v130 = v115;
-      v131 = objc_msgSend_objectAtIndexedSubscript_(v104, v116, v115, v117, v118);
-      v136 = objc_msgSend_ruleReplacement(v131, v132, v133, v134, v135);
-      v120 = objc_msgSend_effectiveIndex(v136, v137, v138, v139, v140);
+      v38 = v32;
+      v39 = [v31 objectAtIndexedSubscript:v32];
+      ruleReplacement = [v39 ruleReplacement];
+      effectiveIndex = [ruleReplacement effectiveIndex];
 
-      v119 = v214;
+      v33 = v71;
       if (depthCopy < 0x32)
       {
-        v144 = objc_msgSend_subarrayWithRange_(v104, v141, 0, v130, v142);
-        v227[0] = MEMORY[0x1E69E9820];
-        v227[1] = 3221225472;
-        v227[2] = sub_1A9349D50;
-        v227[3] = &unk_1E7880508;
-        v210 = v120;
-        v227[4] = v120;
-        v148 = objc_msgSend_ax_filteredArrayUsingBlock_(v104, v145, v227, v146, v147);
-        v143 = objc_msgSend_arrayByAddingObjectsFromArray_(v144, v149, v148, v150, v151);
+        v42 = [v31 subarrayWithRange:{0, v38}];
+        v84[0] = MEMORY[0x1E69E9820];
+        v84[1] = 3221225472;
+        v84[2] = sub_1A9349D50;
+        v84[3] = &unk_1E7880508;
+        v67 = effectiveIndex;
+        v84[4] = effectiveIndex;
+        v43 = [v31 ax_filteredArrayUsingBlock:v84];
+        v41 = [v42 arrayByAddingObjectsFromArray:v43];
 
         goto LABEL_26;
       }
     }
 
-    v210 = v120;
-    v143 = v104;
+    v67 = effectiveIndex;
+    v41 = v31;
 LABEL_26:
-    v152 = [TTSSpeechString alloc];
-    v156 = objc_msgSend_initWithParentSpeechString_(v152, v153, v119, v154, v155);
-    v223 = 0u;
-    v224 = 0u;
-    v225 = 0u;
-    v226 = 0u;
-    v217 = v143;
-    v158 = objc_msgSend_countByEnumeratingWithState_objects_count_(v217, v157, &v223, v241, 16);
-    if (v158)
+    v44 = [[TTSSpeechString alloc] initWithParentSpeechString:v33];
+    v80 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v74 = v41;
+    v45 = [v74 countByEnumeratingWithState:&v80 objects:v98 count:16];
+    if (v45)
     {
-      v160 = v158;
-      v161 = *v224;
+      v46 = v45;
+      v47 = *v81;
       do
       {
-        for (j = 0; j != v160; ++j)
+        for (j = 0; j != v46; ++j)
         {
-          if (*v224 != v161)
+          if (*v81 != v47)
           {
-            objc_enumerationMutation(v217);
+            objc_enumerationMutation(v74);
           }
 
-          v163 = *(*(&v223 + 1) + 8 * j);
-          v164 = objc_msgSend__processTemplateReplacementTextForText_replacement_cString_(selfCopy, v159, v220, v163, v221);
-          v169 = objc_msgSend_match(v163, v165, v166, v167, v168);
-          v174 = objc_msgSend_utf8Range(v169, v170, v171, v172, v173);
-          v176 = objc_msgSend_utf16RangeFromUTF8Range_chars_size_(TTSUnicodeUtils, v175, v174, v175, v221, v222);
-          v178 = v177;
+          v49 = *(*(&v80 + 1) + 8 * j);
+          v50 = [(TTSRulesetRunner *)selfCopy _processTemplateReplacementTextForText:v77 replacement:v49 cString:v78];
+          match = [v49 match];
+          utf8Range = [match utf8Range];
+          v54 = [TTSUnicodeUtils utf16RangeFromUTF8Range:utf8Range chars:v53 size:v78, v79];
+          v56 = v55;
 
-          v183 = objc_msgSend_matchLogger(selfCopy, v179, v180, v181, v182);
+          matchLogger = [(TTSRulesetRunner *)selfCopy matchLogger];
 
-          if (v183)
+          if (matchLogger)
           {
-            v188 = objc_msgSend_matchLogger(selfCopy, v184, v185, v186, v187);
-            v193 = objc_msgSend_originalString(v156, v189, v190, v191, v192);
-            v198 = objc_msgSend_ruleReplacement(v163, v194, v195, v196, v197);
-            (v188)[2](v188, v193, v176, v178, v164, v198);
+            matchLogger2 = [(TTSRulesetRunner *)selfCopy matchLogger];
+            originalString = [(TTSSpeechString *)v44 originalString];
+            ruleReplacement2 = [v49 ruleReplacement];
+            (matchLogger2)[2](matchLogger2, originalString, v54, v56, v50, ruleReplacement2);
           }
 
-          objc_msgSend_transformRange_to_(v156, v184, v176, v178, v164);
+          [(TTSSpeechString *)v44 transformRange:v54 to:v56, v50];
         }
 
-        v160 = objc_msgSend_countByEnumeratingWithState_objects_count_(v217, v159, &v223, v241, 16);
+        v46 = [v74 countByEnumeratingWithState:&v80 objects:v98 count:16];
       }
 
-      while (v160);
+      while (v46);
     }
 
-    if (depthCopy > 0x31 || v210 == 0x7FFFFFFFFFFFFFFFLL)
+    if (depthCopy > 0x31 || v67 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v200 = AXTTSLogCommon();
-      v104 = v212;
-      if (os_log_type_enabled(v200, OS_LOG_TYPE_DEBUG))
+      v61 = AXTTSLogCommon();
+      v31 = v69;
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
       {
-        sub_1A9578824(depthCopy, v200, v201, v202, v203);
+        sub_1A9578824(depthCopy);
       }
 
-      v125 = v156;
-      stringCopy = v214;
+      v36 = v44;
+      stringCopy = v71;
     }
 
     else
     {
-      v125 = objc_msgSend__processSpeechString_startingAt_currentRecursionDepth_(selfCopy, v199, v156, v210 + 1, depthCopy + 1);
-      stringCopy = v214;
-      v104 = v212;
+      v36 = [(TTSRulesetRunner *)selfCopy _processSpeechString:v44 startingAt:v67 + 1 currentRecursionDepth:depthCopy + 1];
+      stringCopy = v71;
+      v31 = v69;
     }
 
-    v27 = v206;
-    v103 = obja;
+    v12 = v63;
+    v30 = obja;
 LABEL_42:
 
     goto LABEL_43;
   }
 
-  v121 = AXTTSLogCommon();
-  if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
+  v35 = AXTTSLogCommon();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A9578824(depth, v121, v122, v123, v124);
+    sub_1A9578824(depth);
   }
 
-  v125 = stringCopy;
+  v36 = stringCopy;
 LABEL_43:
 
-  v204 = *MEMORY[0x1E69E9840];
-
-  return v125;
+  return v36;
 }
 
 - (id)_processTemplateReplacementTextForText:(id)text replacement:(id)replacement cString:(const char *)string
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   replacementCopy = replacement;
-  v9 = objc_msgSend_replacement(replacementCopy, v5, v6, v7, v8);
-  v14 = objc_msgSend_copy(v9, v10, v11, v12, v13);
+  replacement = [replacementCopy replacement];
+  v6 = [replacement copy];
 
-  v19 = objc_msgSend_sharedInstance(TTSRegexCache, v15, v16, v17, v18);
-  v22 = objc_msgSend_regexForString_atStart_(v19, v20, @"\\$(?<num>\\d+)(?=\\D|$)|(\\$\\{(?<numbrack>\\d+)\\})", 0, v21);
+  v7 = +[TTSRegexCache sharedInstance];
+  v8 = [v7 regexForString:@"\\$(?<num>\\d+)(?=\\D|$)|(\\$\\{(?<numbrack>\\d+)\\})" atStart:0];
 
-  v27 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v23, v24, v25, v26);
-  v32 = objc_msgSend_length(v14, v28, v29, v30, v31);
-  v121[0] = MEMORY[0x1E69E9820];
-  v121[1] = 3221225472;
-  v121[2] = sub_1A934A118;
-  v121[3] = &unk_1E7880530;
-  v33 = v14;
-  v122 = v33;
-  v34 = v27;
-  v123 = v34;
-  v111 = v22;
-  objc_msgSend_enumerateMatchesInString_options_range_usingBlock_(v22, v35, v33, 2, 0, v32, v121);
-  v116 = v34;
-  v40 = objc_msgSend_allKeys(v34, v36, v37, v38, v39);
-  v44 = objc_msgSend_sortedArrayUsingComparator_(v40, v41, &unk_1F1CEFD38, v42, v43);
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v10 = [v6 length];
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = sub_1A934A118;
+  v49[3] = &unk_1E7880530;
+  v11 = v6;
+  v50 = v11;
+  v12 = dictionary;
+  v51 = v12;
+  v39 = v8;
+  [v8 enumerateMatchesInString:v11 options:2 range:0 usingBlock:{v10, v49}];
+  v44 = v12;
+  allKeys = [v12 allKeys];
+  v14 = [allKeys sortedArrayUsingComparator:&unk_1F1CEFD38];
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
-  v118 = 0u;
-  obj = v44;
-  v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v45, &v117, v124, 16);
-  if (v46)
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  obj = v14;
+  v15 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+  if (v15)
   {
-    v50 = v46;
-    v115 = *v118;
-    v51 = replacementCopy;
+    v16 = v15;
+    v43 = *v46;
+    v17 = replacementCopy;
     do
     {
-      for (i = 0; i != v50; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        v53 = v33;
-        if (*v118 != v115)
+        v19 = v11;
+        if (*v46 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v54 = *(*(&v117 + 1) + 8 * i);
-        v55 = objc_msgSend_objectForKeyedSubscript_(v116, v47, v54, v48, v49);
-        v60 = objc_msgSend_unsignedLongValue(v55, v56, v57, v58, v59) - 1;
+        v20 = *(*(&v45 + 1) + 8 * i);
+        v21 = [v44 objectForKeyedSubscript:v20];
+        v22 = [v21 unsignedLongValue] - 1;
 
-        v65 = objc_msgSend_rangeValue(v54, v61, v62, v63, v64);
-        v67 = v66;
-        v71 = objc_msgSend_match(v51, v66, v68, v69, v70);
-        v76 = objc_msgSend_captureGroups(v71, v72, v73, v74, v75);
-        v81 = objc_msgSend_count(v76, v77, v78, v79, v80);
+        rangeValue = [v20 rangeValue];
+        v25 = v24;
+        match = [v17 match];
+        captureGroups = [match captureGroups];
+        v28 = [captureGroups count];
 
-        if (v60 >= v81)
+        if (v22 >= v28)
         {
-          v107 = &stru_1F1CFF8D8;
-          objc_msgSend_stringByReplacingCharactersInRange_withString_(v53, v82, v65, v67, &stru_1F1CFF8D8);
+          v36 = &stru_1F1CFF8D8;
         }
 
         else
         {
-          v86 = objc_msgSend_match(v51, v82, v83, v84, v85);
-          v91 = objc_msgSend_captureGroups(v86, v87, v88, v89, v90);
-          v95 = objc_msgSend_objectAtIndex_(v91, v92, v60, v93, v94);
-          v100 = objc_msgSend_utf8Range(v95, v96, v97, v98, v99);
-          v102 = v101;
+          match2 = [v17 match];
+          captureGroups2 = [match2 captureGroups];
+          v31 = [captureGroups2 objectAtIndex:v22];
+          utf8Range = [v31 utf8Range];
+          v34 = v33;
 
-          if (v102)
+          if (v34)
           {
-            v104 = v100 == 0x7FFFFFFFFFFFFFFFLL;
+            v35 = utf8Range == 0x7FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v104 = 1;
+            v35 = 1;
           }
 
-          if (v104)
+          if (v35)
           {
-            v107 = &stru_1F1CFF8D8;
+            v36 = &stru_1F1CFF8D8;
           }
 
           else
           {
-            v105 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v107 = objc_msgSend_initWithBytes_length_encoding_(v105, v106, &string[v100], v102, 4);
+            v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&string[utf8Range] length:v34 encoding:4];
           }
 
-          v51 = replacementCopy;
-          objc_msgSend_stringByReplacingCharactersInRange_withString_(v53, v103, v65, v67, v107);
+          v17 = replacementCopy;
         }
-        v33 = ;
+
+        v11 = [v19 stringByReplacingCharactersInRange:rangeValue withString:{v25, v36}];
       }
 
-      v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v47, &v117, v124, 16);
+      v16 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
-    while (v50);
+    while (v16);
   }
 
   else
   {
-    v51 = replacementCopy;
+    v17 = replacementCopy;
   }
 
-  v108 = v33;
-  v109 = *MEMORY[0x1E69E9840];
-  return v33;
+  v37 = v11;
+  return v11;
 }
 
 @end

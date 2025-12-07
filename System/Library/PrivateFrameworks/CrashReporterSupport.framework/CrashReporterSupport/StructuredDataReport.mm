@@ -1,5 +1,6 @@
 @interface StructuredDataReport
 - (StructuredDataReport)initWithType:(int)type withFile:(id)file;
+- (int)streamContentAtLevel:(BOOL)level withBlock:(id)block;
 - (void)dealloc;
 - (void)generateCustomLogAtLevel:(BOOL)level withBlock:(id)block;
 @end
@@ -32,67 +33,82 @@
 
 - (void)generateCustomLogAtLevel:(BOOL)level withBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCACA8];
-  v7 = *(&self->super.super.isa + *MEMORY[0x277D36BA8]);
-  v8 = OSADateFormat();
-  v9 = [objc_msgSend(v6 stringWithFormat:@"Date:%@\nIncident ID:%@\n%@\n", v8, -[OSAReport incidentID](self, "incidentID"), GetDeviceConfig()), "dataUsingEncoding:allowLossyConversion:", 4, 1];
-  (*(block + 2))(block, v9);
-  v10 = fopen([(NSString *)self->_raw_logfile fileSystemRepresentation], "r");
-  if (v10)
+  v7 = OSADateFormat();
+  v8 = [objc_msgSend(v6 stringWithFormat:@"Date:%@\nIncident ID:%@\n%@\n", v7, -[OSAReport incidentID](self, "incidentID"), GetDeviceConfig()), "dataUsingEncoding:allowLossyConversion:", 4, 1];
+  (*(block + 2))(block, v8);
+  v9 = fopen([(NSString *)self->_raw_logfile fileSystemRepresentation], "r");
+  if (v9)
   {
-    v11 = v10;
-    v12 = [MEMORY[0x277CBEB28] dataWithLength:0x10000];
-    if (v12)
+    v10 = v9;
+    v11 = [MEMORY[0x277CBEB28] dataWithLength:0x10000];
+    if (v11)
     {
-      v13 = v12;
+      v12 = v11;
       do
       {
-        v14 = fread([v13 mutableBytes], 1uLL, 0x10000uLL, v11);
-        v15 = ferror(v11);
-        if (!v14)
+        v13 = fread([v12 mutableBytes], 1uLL, 0x10000uLL, v10);
+        v14 = ferror(v10);
+        if (!v13)
         {
           break;
         }
 
-        if (v15)
+        if (v14)
         {
           break;
         }
 
-        [v13 setLength:v14];
-        (*(block + 2))(block, v13);
+        [v12 setLength:v13];
+        (*(block + 2))(block, v12);
       }
 
-      while (!feof(v11));
+      while (!feof(v10));
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     raw_logfile = self->_raw_logfile;
-    v17 = __error();
-    v18 = strerror(*v17);
+    v16 = __error();
+    v17 = strerror(*v16);
     *buf = 138412546;
-    v21 = raw_logfile;
-    v22 = 2080;
-    v23 = v18;
+    v19 = raw_logfile;
+    v20 = 2080;
+    v21 = v17;
     _os_log_impl(&dword_247DE9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable to open '%@': %s", buf, 0x16u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__StructuredDataReport_streamContentAtLevel_withBlock___block_invoke(uint64_t result, void *a2)
+- (int)streamContentAtLevel:(BOOL)level withBlock:(id)block
 {
-  if (!*(*(*(result + 40) + 8) + 24))
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 0;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __55__StructuredDataReport_streamContentAtLevel_withBlock___block_invoke;
+  v6[3] = &unk_278EDF550;
+  v6[4] = block;
+  v6[5] = &v7;
+  [(StructuredDataReport *)self generateCustomLogAtLevel:level withBlock:v6];
+  v4 = *(v8 + 6);
+  _Block_object_dispose(&v7, 8);
+  return v4;
+}
+
+void *__55__StructuredDataReport_streamContentAtLevel_withBlock___block_invoke(void *result, void *a2)
+{
+  if (!*(*(result[5] + 8) + 24))
   {
     v2 = result;
     result = [a2 length];
     if (result)
     {
-      result = (*(*(v2 + 32) + 16))();
-      *(*(*(v2 + 40) + 8) + 24) = result;
+      result = (*(v2[4] + 16))();
+      *(*(v2[5] + 8) + 24) = result;
     }
   }
 

@@ -68,7 +68,7 @@
   }
 }
 
-void __52__UIKeyboardEmojiVariantView_updateForKeyplane_key___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __52__UIKeyboardEmojiVariantView_updateForKeyplane_key___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v21 = a2;
   if ([v21 displayType] == 50)
@@ -178,7 +178,7 @@ void __52__UIKeyboardEmojiVariantView_updateForKeyplane_key___block_invoke(uint6
   return v13;
 }
 
-uint64_t __71__UIKeyboardEmojiVariantView_updateSelectedVariantIndexForKey_atPoint___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__71__UIKeyboardEmojiVariantView_updateSelectedVariantIndexForKey_atPoint___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *(a1 + 48);
   result = [a2 center];

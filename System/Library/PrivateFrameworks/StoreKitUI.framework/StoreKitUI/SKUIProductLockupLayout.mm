@@ -429,7 +429,7 @@ LABEL_9:
   v11 = 0;
   if (width > 0.00000011920929)
   {
-    [(SKUIProductLockupLayout *)self layoutWidthsForWidth:width];
+    objc_msgSend_layoutWidthsForWidth_(self, width);
     v11 = v29[0];
     v10 = v30;
     v9 = v32;
@@ -707,16 +707,16 @@ BOOL __66__SKUIProductLockupLayout_hasBottomRightElementWithRightAlignment__bloc
 - (double)topPaddingForViewElement:(id)element
 {
   elementCopy = element;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   elementType = [elementCopy elementType];
   if (elementType == 8)
   {
     if ([elementCopy badgeType] == 1)
     {
-      v17[3] = 3.0;
+      v18[3] = 3.0;
     }
 
     else
@@ -727,39 +727,39 @@ BOOL __66__SKUIProductLockupLayout_hasBottomRightElementWithRightAlignment__bloc
       if (v7)
       {
         [v7 _bodyLeading];
-        v9 = v8;
+        v10 = v9;
       }
 
       else
       {
-        v10 = SKUIFontForTextStyle(2);
-        [v10 _bodyLeading];
-        v9 = v11;
+        v11 = SKUIFontForTextStyle(2, v8);
+        [v11 _bodyLeading];
+        v10 = v12;
       }
 
       [(SKUIViewElementLayoutContext *)self->_layoutContext sizeForBadgeElement:elementCopy];
-      v17[3] = v9 - v12;
+      v18[3] = v10 - v13;
     }
   }
 
   else if (elementType == 62)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __52__SKUIProductLockupLayout_topPaddingForViewElement___block_invoke;
-    v15[3] = &unk_2781FC560;
-    v15[4] = self;
-    v15[5] = &v16;
-    [elementCopy enumerateChildrenUsingBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __52__SKUIProductLockupLayout_topPaddingForViewElement___block_invoke;
+    v16[3] = &unk_2781FC560;
+    v16[4] = self;
+    v16[5] = &v17;
+    [elementCopy enumerateChildrenUsingBlock:v16];
   }
 
-  v13 = v17[3];
-  _Block_object_dispose(&v16, 8);
+  v14 = v18[3];
+  _Block_object_dispose(&v17, 8);
 
-  return v13;
+  return v14;
 }
 
-uint64_t __52__SKUIProductLockupLayout_topPaddingForViewElement___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__52__SKUIProductLockupLayout_topPaddingForViewElement___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) topPaddingForViewElement:a2];
   *(*(*(a1 + 40) + 8) + 24) = v6;

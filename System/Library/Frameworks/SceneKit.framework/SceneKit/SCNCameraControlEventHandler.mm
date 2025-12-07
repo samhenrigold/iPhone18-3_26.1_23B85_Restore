@@ -231,7 +231,7 @@
 
       v7 = (originalFovX * 0.5) / 180.0 * 3.14159265;
       memset(v41, 0, sizeof(v41));
-      [node worldTransform];
+      objc_msgSend_worldTransform(node);
       *&v8 = v42;
       v9.i64[0] = 0;
       v9.i64[1] = v8;
@@ -363,17 +363,17 @@
 
   if (v4 == freeViewCameraNode)
   {
-    memset(&v27, 0, sizeof(v27));
+    memset(&v29, 0, sizeof(v29));
 LABEL_24:
     presentationNode2 = [(SCNNode *)v4 presentationNode];
     if (presentationNode2)
     {
-      [(SCNNode *)presentationNode2 worldTransform];
+      objc_msgSend_worldTransform(presentationNode2);
     }
 
     else
     {
-      memset(&v27, 0, sizeof(v27));
+      memset(&v29, 0, sizeof(v29));
     }
 
     goto LABEL_27;
@@ -422,34 +422,34 @@ LABEL_18:
   [SCNTransaction setImmediateMode:1];
   [(SCNNode *)self->_freeViewCameraNode removeAllAnimations];
   [SCNTransaction setImmediateMode:v15];
-  memset(&v27, 0, sizeof(v27));
+  memset(&v29, 0, sizeof(v29));
   if (v4)
   {
     goto LABEL_24;
   }
 
-  v27 = SCNMatrix4Identity;
+  v29 = SCNMatrix4Identity;
 LABEL_27:
-  memset(v26, 0, sizeof(v26));
-  C3DMatrix4x4FromSCNMatrix4(v26, &v27);
-  if (fabs(C3DMatrix4x4Determinant3x3(v26) + -1.0) > 0.00001)
+  memset(v28, 0, sizeof(v28));
+  C3DMatrix4x4FromSCNMatrix4(v28, &v29);
+  if (fabs(C3DMatrix4x4Determinant3x3(v28) + -1.0) > 0.00001)
   {
-    v23[0].i32[2] = 0;
-    v23[0].i64[0] = 0;
-    v25.i32[2] = 0;
-    v25.i64[0] = 0;
-    v24 = 0uLL;
-    C3DMatrix4x4GetAffineTransforms(v26, v23, &v24, &v25);
-    C3DQuaternionNormalize(&v24);
-    C3DMatrix4x4MakeAffine(v26, v23, &v24, &v25);
-    C3DMatrix4x4ToSCNMatrix4(v26, &v27);
+    v25[0].i32[2] = 0;
+    v25[0].i64[0] = 0;
+    v27.i32[2] = 0;
+    v27.i64[0] = 0;
+    v26 = 0uLL;
+    C3DMatrix4x4GetAffineTransforms(v28, v25, &v26, &v27);
+    C3DQuaternionNormalize(&v26);
+    C3DMatrix4x4MakeAffine(v28, v25, &v26, &v27);
+    C3DMatrix4x4ToSCNMatrix4(v28, &v29);
   }
 
-  v23[0] = *&v27.m11;
-  v23[1] = *&v27.m21;
-  v23[2] = *&v27.m31;
-  v23[3] = *&v27.m41;
-  [(SCNNode *)self->_freeViewCameraNode setTransform:v23];
+  v25[0] = *&v29.m11;
+  v25[1] = *&v29.m21;
+  v25[2] = *&v29.m31;
+  v25[3] = *&v29.m41;
+  [(SCNNode *)self->_freeViewCameraNode setTransform:v25];
   [(SCNNode *)self->_freeViewCameraNode setName:@"kSCNFreeViewCameraName"];
   -[SCNCamera setName:](-[SCNNode camera](self->_freeViewCameraNode, "camera"), "setName:", [@"kSCNFreeViewCameraName" stringByAppendingString:@"Camera"]);
   if ([(SCNView *)[(SCNEventHandler *)self view] _showsAuthoringEnvironment])
@@ -463,15 +463,16 @@ LABEL_27:
   if (sceneRef)
   {
     v20 = sceneRef;
-    if (!C3DGetSceneRef([(SCNNode *)self->_freeViewCameraNode nodeRef]))
+    nodeRef = [(SCNNode *)self->_freeViewCameraNode nodeRef];
+    if (!C3DGetSceneRef(nodeRef, v22))
     {
       C3DAddSceneRef([(SCNNode *)self->_freeViewCameraNode nodeRef], v20);
     }
   }
 
   [(SCNCameraControlEventHandler *)self viewedObjectSphere];
-  *&self->_cameraTarget.x = v21;
-  self->_cameraTarget.z = v22;
+  *&self->_cameraTarget.x = v23;
+  self->_cameraTarget.z = v24;
 }
 
 - (void)_installFreeViewCameraIfNeeded
@@ -571,7 +572,7 @@ LABEL_27:
     presentationNode = [v3 presentationNode];
     if (presentationNode)
     {
-      [presentationNode worldTransform];
+      objc_msgSend_worldTransform(presentationNode);
       v5 = 0u;
       v6 = vext_s8(0, *&vextq_s8(v5, v5, 8uLL), 4uLL);
     }
@@ -605,7 +606,7 @@ LABEL_27:
   presentationNode = [view presentationNode];
   if (presentationNode)
   {
-    [presentationNode worldTransform];
+    objc_msgSend_worldTransform(presentationNode);
     v11 = 0u;
     v12 = vext_s8(0, *&vextq_s8(v11, v11, 8uLL), 4uLL);
   }
@@ -655,7 +656,7 @@ LABEL_27:
     v12 = 0u;
     v9 = 0u;
     v10 = 0u;
-    [v5 transform];
+    objc_msgSend_transform(v5);
     C3DMatrix4x4FromSCNMatrix4(v14, &v9);
     v7 = of * -3.14159265 / 180.0;
     C3DMatrix4x4MakeRotationZ(v13, v7);
@@ -687,7 +688,7 @@ LABEL_27:
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    [v7 transform];
+    objc_msgSend_transform(v7);
     v9.n128_u64[0] = 0;
     v9.n128_u32[3] = 0;
     v9.n128_f32[2] = by * -100.0;
@@ -853,7 +854,7 @@ LABEL_31:
     v8 = view;
     [(SCNCameraControlEventHandler *)self cameraAutomaticTargetPoint];
     memset(&v24, 0, sizeof(v24));
-    [v8 transform];
+    objc_msgSend_transform(v8);
     [(SCNCameraControlEventHandler *)self _translationCoef];
     browseScaleFactor = self->_browseScaleFactor;
     zCopy = 0.0;
@@ -972,7 +973,7 @@ LABEL_31:
   v10 = 0u;
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
   }
 
   memset(v8, 0, sizeof(v8));
@@ -1113,7 +1114,7 @@ LABEL_31:
   freeViewCameraNode = self->_freeViewCameraNode;
   if (freeViewCameraNode)
   {
-    [(SCNNode *)freeViewCameraNode transform:0];
+    objc_msgSend_transform(freeViewCameraNode, 0, 0, 0, 0, 0, 0, 0, 0);
     C3DMatrix4x4FromSCNMatrix4(self->_initialMatrix.components, &v14);
     self->_initialPoint.x = x;
     self->_initialPoint.y = y;
@@ -1133,24 +1134,24 @@ LABEL_31:
   return *(sphere + 3) >= 0.0;
 }
 
-uint64_t __82__SCNCameraControlEventHandler_computeBoundingSphereOmittingFloorsForNode_sphere___block_invoke(uint64_t a1, float32x4_t *a2)
+uint64_t __82__SCNCameraControlEventHandler_computeBoundingSphereOmittingFloorsForNode_sphere___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (C3DNodeIsHidden(a2))
+  if (C3DNodeIsHidden(a2, a2))
   {
     return 1;
   }
 
-  if (!C3DNodeGetFloor(a2))
+  if (!C3DNodeGetFloor(a2, v4))
   {
-    v11 = 0uLL;
-    Geometry = C3DNodeGetGeometry(a2);
+    v14 = 0uLL;
+    Geometry = C3DNodeGetGeometry(a2, v6);
     if (Geometry)
     {
-      if (C3DGetBoundingSphere(Geometry, 0, &v11))
+      if (C3DGetBoundingSphere(Geometry, 0, &v14))
       {
-        WorldMatrix = C3DNodeGetWorldMatrix(a2);
-        *&v7 = C3DSphereXFormMatrix4x4(&v11, WorldMatrix, &v11);
-        C3DSphereMakeByMergingSpheres(*(a1 + 32), *(a1 + 32), &v11, v7, v8, v9, v10);
+        WorldMatrix = C3DNodeGetWorldMatrix(a2, v8);
+        *&v10 = C3DSphereXFormMatrix4x4(&v14, WorldMatrix, &v14);
+        C3DSphereMakeByMergingSpheres(*(a1 + 32), *(a1 + 32), &v14, v10, v11, v12, v13);
       }
     }
   }
@@ -1210,7 +1211,7 @@ uint64_t __82__SCNCameraControlEventHandler_computeBoundingSphereOmittingFloorsF
   memset(v13, 0, sizeof(v13));
   if (view)
   {
-    [view worldTransform];
+    objc_msgSend_worldTransform(view, *&v7);
     v5 = 0uLL;
   }
 
@@ -1239,44 +1240,45 @@ uint64_t __82__SCNCameraControlEventHandler_computeBoundingSphereOmittingFloorsF
   x = location.x;
   y = location.y;
   [(SCNView *)[(SCNEventHandler *)self view] bounds];
-  v20 = v4;
+  v21 = v4;
   [(SCNView *)[(SCNEventHandler *)self view] bounds];
-  v17 = v5;
+  v18 = v5;
   v6 = [-[SCNView renderer](-[SCNEventHandler view](self "view")];
-  v7.f64[0] = v20;
-  v7.f64[1] = v17;
-  v21 = vcvt_hight_f32_f64(0, v7);
+  v7.f64[0] = v21;
+  v7.f64[1] = v18;
+  v22 = vcvt_hight_f32_f64(0, v7);
   v7.f64[0] = x;
   v7.f64[1] = y;
   v8 = vcvt_f32_f64(v7);
   [(SCNCameraControlEventHandler *)self viewedObjectSphere];
   *self->_clickOrigin = v9;
   [(SCNCameraControlEventHandler *)self frontVector];
-  v25 = v10;
-  v23 = 0u;
-  v24 = 0u;
+  v27 = v10;
+  v25 = 0u;
+  v26 = 0u;
   nodeRef = [v6 nodeRef];
   sceneRef = [(SCNScene *)[(SCNView *)[(SCNEventHandler *)self view] scene] sceneRef];
   v13.n128_u64[0] = v8;
-  _C3DHitTestComputeHitSegment(nodeRef, sceneRef, &v23, &v24, v21, v13);
+  _C3DHitTestComputeHitSegment(nodeRef, sceneRef, &v25, &v26, v22, v13);
   if (v14)
   {
-    buf = 0uLL;
-    C3DPlaneMakeWithVectors(&buf, self->_clickOrigin, &v25);
-    if (!C3DIntersectionSegment3Plane(&v23, &buf, self->_clickOrigin))
+    *buf = 0;
+    v24 = 0;
+    C3DPlaneMakeWithVectors(buf, self->_clickOrigin, &v27);
+    if (!C3DIntersectionSegment3Plane(&v25, buf, self->_clickOrigin))
     {
-      *&v15 = C3DVector3MidVector(v23, v24);
-      *self->_clickOrigin = v15;
+      *&v16 = C3DVector3MidVector(v25, v26);
+      *self->_clickOrigin = v16;
     }
   }
 
   else
   {
-    v16 = scn_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = scn_default_log(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      buf.n128_u16[0] = 0;
-      _os_log_impl(&dword_21BEF7000, v16, OS_LOG_TYPE_DEFAULT, "Warning: _beginTranslateAtLocation: invalid zRange", &buf, 2u);
+      *buf = 0;
+      _os_log_impl(&dword_21BEF7000, v17, OS_LOG_TYPE_DEFAULT, "Warning: _beginTranslateAtLocation: invalid zRange", buf, 2u);
     }
   }
 }
@@ -1336,52 +1338,48 @@ uint64_t __82__SCNCameraControlEventHandler_computeBoundingSphereOmittingFloorsF
 
 - (void)clearRoll
 {
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = [-[SCNView renderer](-[SCNEventHandler view](self "view")];
   if (v3)
   {
-    [v3 worldTransform];
+    objc_msgSend_worldTransform(v3);
   }
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
   }
 
   v4 = objc_opt_class();
   if (v4)
   {
-    v6[0] = v11;
-    v6[1] = v12;
-    v6[2] = v13;
-    v6[3] = v14;
-    [v4 matrixWithNoRoll:v6];
+    objc_msgSend_matrixWithNoRoll_(v4, v10, v11, v12, v13);
   }
 
   else
   {
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
     v8 = 0u;
+    v9 = 0u;
+    v6 = 0u;
+    v7 = 0u;
   }
 
+  v10 = v6;
   v11 = v7;
   v12 = v8;
   v13 = v9;
-  v14 = v10;
   v5 = [-[SCNView renderer](-[SCNEventHandler view](self "view")];
+  v6 = v10;
   v7 = v11;
   v8 = v12;
   v9 = v13;
-  v10 = v14;
-  [v5 setWorldTransform:&v7];
+  [v5 setWorldTransform:&v6];
 }
 
 - (void)_rotateWithDrag:(CGPoint)drag mode:(int64_t)mode stickyAxis:(unint64_t)axis
@@ -1573,82 +1571,84 @@ uint64_t __82__SCNCameraControlEventHandler_computeBoundingSphereOmittingFloorsF
 {
   x = to.x;
   y = to.y;
-  v38 = 0u;
-  v39 = 0u;
-  memset(v37, 0, sizeof(v37));
-  *(v36.i64 + 4) = 0;
-  v36.i32[0] = 0;
-  v35 = 0uLL;
+  v40 = 0u;
+  v41 = 0u;
+  memset(v39, 0, sizeof(v39));
+  *(v38.i64 + 4) = 0;
+  v38.i32[0] = 0;
+  v37[0] = 0;
+  v37[1] = 0;
   v4 = [-[SCNView renderer](-[SCNEventHandler view](self "view")];
   [(SCNView *)[(SCNEventHandler *)self view] bounds];
-  v17 = v5;
+  v19 = v5;
   [(SCNView *)[(SCNEventHandler *)self view] bounds];
-  v6.f64[0] = v17;
+  v6.f64[0] = v19;
   v6.f64[1] = v7;
-  v18 = vcvt_hight_f32_f64(0, v6);
+  v20 = vcvt_hight_f32_f64(0, v6);
   v6.f64[0] = x;
   v6.f64[1] = y;
   v8 = vcvt_f32_f64(v6);
   nodeRef = [v4 nodeRef];
   sceneRef = [(SCNScene *)[(SCNView *)[(SCNEventHandler *)self view] scene] sceneRef];
   v11.n128_u64[0] = v8;
-  _C3DHitTestComputeHitSegment(nodeRef, sceneRef, &v39, &v38, v18, v11);
+  _C3DHitTestComputeHitSegment(nodeRef, sceneRef, &v41, &v40, v20, v11);
   if (v12)
   {
-    *(v34.i64 + 4) = 0;
-    v34.i32[0] = 0;
+    *(v36.i64 + 4) = 0;
+    v36.i32[0] = 0;
     nodeRef2 = [v4 nodeRef];
-    C3DNodeGetWorldPosition(nodeRef2, &v34);
-    v38 = v34;
+    C3DNodeGetWorldPosition(nodeRef2, &v36);
+    v40 = v36;
     [(SCNCameraControlEventHandler *)self frontVector];
-    v33 = v14;
-    C3DPlaneMakeWithVectors(&v35, self->_clickOrigin, &v33);
-    if (C3DIntersectionRay3Plane(v37, &v35, &v36))
+    v35 = v14;
+    C3DPlaneMakeWithVectors(v37, self->_clickOrigin, &v35);
+    v15 = C3DIntersectionRay3Plane(v39, v37, &v38);
+    if (v15)
     {
-      v32 = vnegq_f32(vsubq_f32(v36, *self->_clickOrigin));
-      v30 = 0u;
-      v31 = 0u;
+      v34 = vnegq_f32(vsubq_f32(v38, *self->_clickOrigin));
+      v32 = 0u;
+      v33 = 0u;
       *buf = 0u;
-      v29 = 0u;
-      memset(v27, 0, sizeof(v27));
-      C3DMatrix4x4MakeTranslation(buf, &v32);
+      v31 = 0u;
+      memset(v29, 0, sizeof(v29));
+      C3DMatrix4x4MakeTranslation(buf, &v34);
+      v27 = 0u;
+      v28 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
       presentationNode = [v4 presentationNode];
       if (presentationNode)
       {
-        [presentationNode transform];
+        objc_msgSend_transform(presentationNode);
       }
 
       else
       {
+        v27 = 0u;
+        v28 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
       }
 
-      memset(v22, 0, sizeof(v22));
-      C3DMatrix4x4FromSCNMatrix4(v22, &v23);
-      C3DMatrix4x4Mult(v22, buf, v27);
-      C3DMatrix4x4ToSCNMatrix4(v27, &v23);
-      v21[0] = v23;
-      v21[1] = v24;
-      v21[2] = v25;
-      v21[3] = v26;
-      [v4 setTransform:v21];
+      memset(v24, 0, sizeof(v24));
+      C3DMatrix4x4FromSCNMatrix4(v24, &v25);
+      C3DMatrix4x4Mult(v24, buf, v29);
+      C3DMatrix4x4ToSCNMatrix4(v29, &v25);
+      v23[0] = v25;
+      v23[1] = v26;
+      v23[2] = v27;
+      v23[3] = v28;
+      [v4 setTransform:v23];
       [(SCNCameraControlEventHandler *)self focusNode:0];
     }
 
     else
     {
-      v16 = scn_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = scn_default_log(v15, v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21BEF7000, v16, OS_LOG_TYPE_DEFAULT, "Warning: Warning: no C3DIntersectionRay3Plane", buf, 2u);
+        _os_log_impl(&dword_21BEF7000, v18, OS_LOG_TYPE_DEFAULT, "Warning: Warning: no C3DIntersectionRay3Plane", buf, 2u);
       }
     }
   }

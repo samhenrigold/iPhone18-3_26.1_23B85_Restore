@@ -1,10 +1,10 @@
 @interface UIFont(PRTimeFont)
 + (CTFontRef)pr_fontWithPostScriptName:()PRTimeFont inBundleAtURL:relativePath:;
 + (__CFString)pr_defaultTimeFontIdentifierForRole:()PRTimeFont;
++ (const)pr_fontWithName:()PRTimeFont forRole:includingFallbackFonts:attributes:;
 + (id)pr_defaultTimeFont;
 + (id)pr_defaultTimeFontForRole:()PRTimeFont;
 + (id)pr_downloadableFontWithPostScriptName:()PRTimeFont;
-+ (id)pr_fontWithName:()PRTimeFont forRole:includingFallbackFonts:attributes:;
 + (id)pr_fontWithPostScriptName:()PRTimeFont inBundle:relativePath:;
 + (id)pr_fontWithPostScriptName:()PRTimeFont inBundleWithIdentifier:relativePath:;
 + (id)pr_fontWithTimeFontIdentifier:()PRTimeFont forRole:includingFallbackFonts:;
@@ -57,7 +57,7 @@
   return v12;
 }
 
-+ (id)pr_fontWithName:()PRTimeFont forRole:includingFallbackFonts:attributes:
++ (const)pr_fontWithName:()PRTimeFont forRole:includingFallbackFonts:attributes:
 {
   v9 = a3;
   v10 = a4;

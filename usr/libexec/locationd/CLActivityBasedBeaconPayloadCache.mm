@@ -61,7 +61,7 @@ LABEL_13:
 
       v11 = 1;
 LABEL_12:
-      [objc_msgSend(v9 "location")];
+      [objc_msgSend_location(v9) horizontalAccuracy];
       [(CLActivityBasedBeaconPayloadCache *)self collectSecondGeotagMetricWithResult:v11 firstHorizontalAccuracy:?];
       [(NSMutableArray *)self->_beaconPayloadCache removeObjectAtIndex:v8];
       goto LABEL_13;
@@ -71,7 +71,7 @@ LABEL_14:
     v13 = [(NSMutableArray *)self->_beaconPayloadCache count];
     for (i = self->_settings._vptr$Settings; v13 > (i[6])(&self->_settings); i = self->_settings._vptr$Settings)
     {
-      [objc_msgSend(-[NSMutableArray firstObject](self->_beaconPayloadCache "firstObject")];
+      [objc_msgSend_location(-[NSMutableArray firstObject](self->_beaconPayloadCache "firstObject"))];
       [(CLActivityBasedBeaconPayloadCache *)self collectSecondGeotagMetricWithResult:2 firstHorizontalAccuracy:?];
       [(NSMutableArray *)self->_beaconPayloadCache removeObjectAtIndex:0];
       v13 = [(NSMutableArray *)self->_beaconPayloadCache count];

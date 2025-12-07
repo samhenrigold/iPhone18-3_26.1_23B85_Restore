@@ -34,7 +34,7 @@
         {
           if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(HomeKitDeviceDetectedMainController *)self dismiss:4];
@@ -79,14 +79,14 @@
   disappearCopy = disappear;
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   if (!self->_dismissed)
   {
     if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(HomeKitDeviceDetectedMainController *)self dismiss:21];
@@ -112,7 +112,7 @@
   appearCopy = appear;
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v14.receiver = self;
@@ -179,7 +179,7 @@
 
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   v8 = completionCopy;

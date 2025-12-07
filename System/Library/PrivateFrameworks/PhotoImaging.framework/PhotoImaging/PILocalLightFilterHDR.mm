@@ -112,12 +112,12 @@
   }
 
   v6 = inputGuideImage;
-  [(CIImage *)v6 extent];
+  objc_msgSend_extent(v6);
   v8 = v7;
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v70.origin.x = v15;
   v70.origin.y = v16;
   v70.size.width = v17;
@@ -155,12 +155,12 @@ LABEL_11:
       }
 
       v22 = _polyKernelHDR;
-      [v20 extent];
+      objc_msgSend_extent(v20);
       v24 = v23;
       v26 = v25;
       v28 = v27;
       v30 = v29;
-      [(CIImage *)self->inputImage extent];
+      objc_msgSend_extent(self->inputImage);
       v71.origin.x = v31;
       v71.origin.y = v32;
       v71.size.width = v33;
@@ -178,7 +178,7 @@ LABEL_11:
       [(NSNumber *)self->inputLocalLight doubleValue];
       if (fabs(v36) >= 1.0e-10)
       {
-        [(CIImage *)self->inputImage extent];
+        objc_msgSend_extent(self->inputImage);
         v38 = v37;
         v40 = v39;
         v42 = v41;
@@ -196,7 +196,7 @@ LABEL_11:
       if (fabs(v47) >= 1.0e-10)
       {
         _shadowKernelHDR = [(PILocalLightFilterHDR *)self _shadowKernelHDR];
-        [(CIImage *)self->inputImage extent];
+        objc_msgSend_extent(self->inputImage);
         v50 = v49;
         v52 = v51;
         v54 = v53;

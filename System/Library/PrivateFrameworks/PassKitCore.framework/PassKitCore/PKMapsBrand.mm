@@ -322,9 +322,9 @@
       goto LABEL_25;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_26;
     }
@@ -345,7 +345,7 @@
       goto LABEL_25;
     }
 
-    v13 = [(NSString *)v6 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v6);
 
     if (!v13)
     {
@@ -376,7 +376,7 @@
   {
     if (v6 && v17)
     {
-      v18 = [(NSString *)v6 isEqualToString:v17];
+      v18 = objc_msgSend_isEqualToString_(v6);
 
       if (!v18)
       {
@@ -571,9 +571,9 @@ LABEL_27:
       goto LABEL_32;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_33;
     }
@@ -594,7 +594,7 @@ LABEL_27:
       goto LABEL_32;
     }
 
-    v13 = [(NSString *)v7 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v7);
 
     if (!v13)
     {
@@ -645,7 +645,7 @@ LABEL_27:
   {
     if (v7 && v19)
     {
-      v20 = [(NSString *)v7 isEqualToString:v19];
+      v20 = objc_msgSend_isEqualToString_(v7);
 
       if (v20)
       {
@@ -766,7 +766,7 @@ LABEL_49:
 
   if (self->_stylingInfoData)
   {
-    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:getMKWalletMerchantStylingInfoClass[0]() fromData:self->_stylingInfoData error:0];
+    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:getMKWalletMerchantStylingInfoClass() fromData:self->_stylingInfoData error:0];
     v5 = self->_lazyStylingInfo;
     self->_lazyStylingInfo = v4;
 

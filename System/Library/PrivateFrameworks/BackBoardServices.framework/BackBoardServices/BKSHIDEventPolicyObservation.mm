@@ -16,7 +16,7 @@
 
 - (void)_init
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -26,28 +26,28 @@
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventPolicyObservation cannot be subclassed"];
+        v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v8 = NSStringFromSelector(sel__init);
-          v9 = objc_opt_class();
-          v10 = NSStringFromClass(v9);
+          v7 = NSStringFromSelector(sel__init);
+          v8 = objc_opt_class();
+          v9 = NSStringFromClass(v8);
           *buf = 138544642;
-          v13 = v8;
-          v14 = 2114;
-          v15 = v10;
-          v16 = 2048;
-          v17 = v1;
-          v18 = 2114;
-          v19 = @"BKSHIDEventPolicyObservation.m";
-          v20 = 1024;
-          v21 = 60;
-          v22 = 2114;
-          v23 = v7;
+          v12 = v7;
+          v13 = 2114;
+          v14 = v9;
+          v15 = 2048;
+          v16 = v1;
+          v17 = 2114;
+          v18 = @"BKSHIDEventPolicyObservation.m";
+          v19 = 1024;
+          v20 = 60;
+          v21 = 2114;
+          v22 = v6;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v7 UTF8String];
+        [v6 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x186349098);
@@ -58,12 +58,11 @@
     v5 = v1[4];
     v1[4] = v4;
 
-    v11.receiver = v1;
-    v11.super_class = BKSHIDEventPolicyObservation;
-    result = objc_msgSendSuper2(&v11, sel_init);
+    v10.receiver = v1;
+    v10.super_class = BKSHIDEventPolicyObservation;
+    return objc_msgSendSuper2(&v10, sel_init);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -73,13 +72,11 @@
   [(BKSHIDEventDeferringEnvironment *)self->_environment hash];
   [(BKSHIDEventDeferringSelectionPathIdentifier *)self->_selectionPath hash];
   [(BKSHIDEventDeferringToken *)self->_token hash];
-  v3 = [MEMORY[0x1E696AD98] numberWithInt:self->_pid];
+  v3 = [MEMORY[0x1E696AD98] numberWithInt:?];
   [v3 hash];
 
-  v4 = [MEMORY[0x1E696AD98] numberWithInteger:self->_policyStatus];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   [v4 hash];
-
-  self->_finalStringToken;
 
   return BSHashPurifyNS();
 }
@@ -109,13 +106,13 @@
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v4 = [streamCopy appendInteger:self->_pid withName:@"pid"];
-  v5 = [streamCopy appendObject:self->_display withName:@"display"];
-  v6 = [streamCopy appendObject:self->_environment withName:@"environment"];
-  v7 = [streamCopy appendObject:self->_selectionPath withName:@"selectionPath"];
-  v8 = [streamCopy appendObject:self->_token withName:@"token"];
-  v9 = [streamCopy appendInteger:self->_policyStatus withName:@"policyStatus"];
-  v10 = [streamCopy appendBool:self->_finalStringToken withName:@"finalStringToken"];
+  v3 = [streamCopy appendInteger:? withName:?];
+  v4 = [streamCopy appendObject:? withName:?];
+  v5 = [streamCopy appendObject:? withName:?];
+  v6 = [streamCopy appendObject:? withName:?];
+  v7 = [streamCopy appendObject:? withName:?];
+  v8 = [streamCopy appendInteger:? withName:?];
+  v9 = [streamCopy appendBool:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -132,74 +129,46 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v6 = v5;
-    if (v5[2] != self->_pid)
-    {
-      goto LABEL_10;
-    }
-
-    v7 = *(v5 + 2);
-    display = self->_display;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_10;
-    }
-
-    v9 = v6[3];
-    environment = self->_environment;
-    if (BSEqualObjects() && (v11 = v6[4], selectionPath = self->_selectionPath, BSEqualObjects()) && (v13 = v6[5], token = self->_token, BSEqualObjects()) && v6[6] == self->_policyStatus)
-    {
-      v15 = *(v6 + 56) == self->_finalStringToken;
-    }
-
-    else
-    {
-LABEL_10:
-      v15 = 0;
-    }
+    v6 = v5[2] == self->_pid && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && *(v5 + 6) == self->_policyStatus && *(v5 + 56) == self->_finalStringToken;
   }
 
   else
   {
-    v15 = 0;
+    v6 = 0;
   }
 
-  return v15;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy encodeInteger:self->_pid forKey:@"pid"];
-  display = self->_display;
-  if (display)
+  [coderCopy encodeInteger:? forKey:?];
+  if (self->_display)
   {
-    [coderCopy encodeObject:display forKey:@"display"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  environment = self->_environment;
-  if (environment)
+  if (self->_environment)
   {
-    [coderCopy encodeObject:environment forKey:@"environment"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  selectionPath = self->_selectionPath;
-  v7 = coderCopy;
-  if (selectionPath)
+  v4 = coderCopy;
+  if (self->_selectionPath)
   {
-    [coderCopy encodeObject:selectionPath forKey:@"selectionPath"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  token = self->_token;
-  if (token)
+  if (self->_token)
   {
-    [coderCopy encodeObject:token forKey:@"token"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  [v7 encodeInteger:self->_policyStatus forKey:@"policyStatus"];
-  [coderCopy encodeBool:self->_finalStringToken forKey:@"finalStringToken"];
+  [v4 encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (BKSHIDEventPolicyObservation)initWithCoder:(id)coder
@@ -208,25 +177,29 @@ LABEL_10:
   v15.super_class = BKSHIDEventPolicyObservation;
   coderCopy = coder;
   v4 = [(BKSHIDEventPolicyObservation *)&v15 init];
-  v4->_pid = [coderCopy decodeIntegerForKey:{@"pid", v15.receiver, v15.super_class}];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"display"];
+  v4->_pid = [coderCopy decodeIntegerForKey:{v15.receiver, v15.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
   display = v4->_display;
   v4->_display = v5;
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"environment"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
   environment = v4->_environment;
   v4->_environment = v7;
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"selectionPath"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
   selectionPath = v4->_selectionPath;
   v4->_selectionPath = v9;
 
-  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"token"];
+  objc_opt_class();
+  v11 = [coderCopy decodeObjectOfClass:? forKey:?];
   token = v4->_token;
   v4->_token = v11;
 
-  v4->_policyStatus = [coderCopy decodeIntegerForKey:@"policyStatus"];
-  v13 = [coderCopy decodeBoolForKey:@"finalStringToken"];
+  v4->_policyStatus = [coderCopy decodeIntegerForKey:?];
+  v13 = [coderCopy decodeBoolForKey:?];
 
   v4->_finalStringToken = v13;
   return v4;
@@ -234,10 +207,10 @@ LABEL_10:
 
 - (BKSHIDEventPolicyObservation)init
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventPolicyObservation"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSHIDEventPolicyObservation init]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;
@@ -257,10 +230,10 @@ LABEL_10:
 
 + (id)new
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventPolicyObservation"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSHIDEventPolicyObservation new]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;

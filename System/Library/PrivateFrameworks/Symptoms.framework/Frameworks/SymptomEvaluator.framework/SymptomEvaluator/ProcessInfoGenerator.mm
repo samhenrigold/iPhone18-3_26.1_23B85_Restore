@@ -56,7 +56,7 @@ void __38__ProcessInfoGenerator_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)generateAdditionalInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
   infoCopy = info;
   v5 = objc_alloc_init(v3);
@@ -74,12 +74,10 @@ void __38__ProcessInfoGenerator_sharedInstance__block_invoke(uint64_t a1)
   v12 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412290;
-    v16 = v5;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "generateAdditionalInfo returns %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v5;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "generateAdditionalInfo returns %@", &v14, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

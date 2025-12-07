@@ -1,8 +1,13 @@
 @interface MRCommandResult
++ (id)commandResultWithSendError:(unsigned int)error;
++ (id)commandResultWithSendError:(unsigned int)error description:(id)description;
 - (MRCommandResult)initWithData:(id)data;
 - (MRCommandResult)initWithError:(id)error;
 - (MRCommandResult)initWithErrorCode:(int64_t)code;
+- (MRCommandResult)initWithHandlerStatuses:(id)statuses sendError:(unsigned int)error;
 - (MRCommandResult)initWithProtobuf:(id)protobuf;
+- (MRCommandResult)initWithResultStatuses:(id)statuses sendError:(unsigned int)error playerPath:(id)path;
+- (MRCommandResult)initWithWithSendError:(unsigned int)error description:(id)description;
 - (NSArray)handlerReturnStatuses;
 - (NSArray)resultStatuses;
 - (NSError)error;
@@ -15,6 +20,41 @@
 @end
 
 @implementation MRCommandResult
+
++ (id)commandResultWithSendError:(unsigned int)error
+{
+  v3 = [[self alloc] initWithHandlerStatuses:0 sendError:*&error];
+
+  return v3;
+}
+
++ (id)commandResultWithSendError:(unsigned int)error description:(id)description
+{
+  v4 = *&error;
+  descriptionCopy = description;
+  v7 = [[self alloc] initWithWithSendError:v4 description:descriptionCopy];
+
+  return v7;
+}
+
+- (MRCommandResult)initWithWithSendError:(unsigned int)error description:(id)description
+{
+  v4 = *&error;
+  descriptionCopy = description;
+  v7 = [(MRCommandResult *)self initWithHandlerStatuses:0 sendError:v4];
+  [(MRCommandResult *)v7 setSendErrorDescription:descriptionCopy];
+
+  return v7;
+}
+
+- (MRCommandResult)initWithHandlerStatuses:(id)statuses sendError:(unsigned int)error
+{
+  v4 = *&error;
+  v6 = [statuses msv_compactMap:&__block_literal_global_57];
+  v7 = [(MRCommandResult *)self initWithResultStatuses:v6 sendError:v4 playerPath:0];
+
+  return v7;
+}
 
 id __53__MRCommandResult_initWithHandlerStatuses_sendError___block_invoke(uint64_t a1, void *a2)
 {
@@ -31,6 +71,30 @@ id __53__MRCommandResult_initWithHandlerStatuses_sendError___block_invoke(uint64
   }
 
   return v3;
+}
+
+- (MRCommandResult)initWithResultStatuses:(id)statuses sendError:(unsigned int)error playerPath:(id)path
+{
+  v6 = *&error;
+  statusesCopy = statuses;
+  pathCopy = path;
+  v15.receiver = self;
+  v15.super_class = MRCommandResult;
+  v10 = [(MRCommandResult *)&v15 init];
+  if (v10)
+  {
+    v11 = [statusesCopy copy];
+    [(MRCommandResult *)v10 setResultStatuses:v11];
+
+    [(MRCommandResult *)v10 setSendError:v6];
+    v12 = MRMediaRemoteSendCommandErrorDescription(v6);
+    [(MRCommandResult *)v10 setSendErrorDescription:v12];
+
+    v13 = [pathCopy copy];
+    [(MRCommandResult *)v10 setPlayerPath:v13];
+  }
+
+  return v10;
 }
 
 - (MRCommandResult)initWithData:(id)data

@@ -721,18 +721,14 @@ LABEL_49:
 
 - (void)setNotes:(id)notes
 {
-  v4 = [notes copy];
-  notes = self->_notes;
-  self->_notes = v4;
+  self->_notes = [notes copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

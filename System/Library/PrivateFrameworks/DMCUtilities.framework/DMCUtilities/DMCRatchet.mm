@@ -24,11 +24,11 @@
 
   else
   {
-    v5 = *DMCLogObjects();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = *DMCLogObjects(0, v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "LARatchetManager is unavailable", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_ERROR, "LARatchetManager is unavailable", v7, 2u);
     }
 
     return 0;
@@ -37,19 +37,20 @@
 
 + (void)isAuthorizedForOperation:(unint64_t)operation completion:(id)completion
 {
-  v28[9] = *MEMORY[0x1E69E9840];
+  v30[9] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (([self isEnabled] & 1) == 0)
+  isEnabled = [self isEnabled];
+  if ((isEnabled & 1) == 0)
   {
-    v17 = *DMCLogObjects();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = *DMCLogObjects(isEnabled, v8);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v18 = "DMCRatchet is authorized because LARatchet is disabled";
-      v19 = v17;
-      v20 = OS_LOG_TYPE_DEFAULT;
+      v21 = "DMCRatchet is authorized because LARatchet is disabled";
+      v22 = v20;
+      v23 = OS_LOG_TYPE_DEFAULT;
 LABEL_8:
-      _os_log_impl(&dword_1B1630000, v19, v20, v18, buf, 2u);
+      _os_log_impl(&dword_1B1630000, v22, v23, v21, buf, 2u);
     }
 
 LABEL_9:
@@ -59,58 +60,57 @@ LABEL_9:
 
   if (!getLARatchetClass())
   {
-    v21 = *DMCLogObjects();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = *DMCLogObjects(0, v9);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v18 = "DMCRatchet is authorized because LARatchet is unavailable";
-      v19 = v21;
-      v20 = OS_LOG_TYPE_ERROR;
+      v21 = "DMCRatchet is authorized because LARatchet is unavailable";
+      v22 = v24;
+      v23 = OS_LOG_TYPE_ERROR;
       goto LABEL_8;
     }
 
     goto LABEL_9;
   }
 
-  v23 = [objc_alloc(getLARatchetClass()) initWithIdentifier:@"com.apple.devicemanagementclient.DMCRatchet"];
-  v7 = MEMORY[0x1E695DF90];
-  v27[0] = &unk_1F28682C0;
-  v8 = [self _ratchetTitleForOperation:operation];
-  v28[0] = v8;
-  v27[1] = &unk_1F28682D8;
-  v9 = [self _ratchetTextForOperation:operation];
-  v28[1] = v9;
-  v27[2] = &unk_1F28682F0;
-  v10 = [self _ratchetStrictTextForOperation:operation];
-  v28[2] = v10;
-  v27[3] = &unk_1F2868308;
-  v11 = [self _ratchetCountdownForOperation:operation];
-  v28[3] = v11;
-  v27[4] = &unk_1F2868320;
-  v12 = [self _ratchetReasonForOperation:operation];
-  v28[4] = v12;
-  v27[5] = &unk_1F2868338;
-  v13 = [self _ratchetCalloutForOperation:operation];
-  v28[5] = v13;
-  v27[6] = &unk_1F2868350;
-  v14 = [MEMORY[0x1E695DFF8] URLWithString:@"prefs:root=General&path=ManagedConfigurationList"];
-  v28[6] = v14;
-  v28[7] = MEMORY[0x1E695E118];
-  v27[7] = &unk_1F2868368;
-  v27[8] = &unk_1F2868380;
-  v28[8] = MEMORY[0x1E695E110];
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:9];
-  v16 = [v7 dictionaryWithDictionary:v15];
+  v25 = [objc_alloc(getLARatchetClass()) initWithIdentifier:@"com.apple.devicemanagementclient.DMCRatchet"];
+  v10 = MEMORY[0x1E695DF90];
+  v29[0] = &unk_1F28682C0;
+  v11 = [self _ratchetTitleForOperation:operation];
+  v30[0] = v11;
+  v29[1] = &unk_1F28682D8;
+  v12 = [self _ratchetTextForOperation:operation];
+  v30[1] = v12;
+  v29[2] = &unk_1F28682F0;
+  v13 = [self _ratchetStrictTextForOperation:operation];
+  v30[2] = v13;
+  v29[3] = &unk_1F2868308;
+  v14 = [self _ratchetCountdownForOperation:operation];
+  v30[3] = v14;
+  v29[4] = &unk_1F2868320;
+  v15 = [self _ratchetReasonForOperation:operation];
+  v30[4] = v15;
+  v29[5] = &unk_1F2868338;
+  v16 = [self _ratchetCalloutForOperation:operation];
+  v30[5] = v16;
+  v29[6] = &unk_1F2868350;
+  v17 = [MEMORY[0x1E695DFF8] URLWithString:@"prefs:root=General&path=ManagedConfigurationList"];
+  v30[6] = v17;
+  v30[7] = MEMORY[0x1E695E118];
+  v29[7] = &unk_1F2868368;
+  v29[8] = &unk_1F2868380;
+  v30[8] = MEMORY[0x1E695E110];
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:9];
+  v19 = [v10 dictionaryWithDictionary:v18];
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __50__DMCRatchet_isAuthorizedForOperation_completion___block_invoke;
-  v24[3] = &unk_1E7ADD178;
-  v25 = completionCopy;
-  [v23 armWithOptions:v16 completion:v24];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __50__DMCRatchet_isAuthorizedForOperation_completion___block_invoke;
+  v26[3] = &unk_1E7ADD178;
+  v27 = completionCopy;
+  [v25 armWithOptions:v19 completion:v26];
 
 LABEL_10:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__DMCRatchet_isAuthorizedForOperation_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -124,7 +124,7 @@ uint64_t __50__DMCRatchet_isAuthorizedForOperation_completion___block_invoke(uin
 
 + (unint64_t)_responseFromRatchetResult:(id)result error:(id)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   v7 = [resultCopy objectForKeyedSubscript:&unk_1F2868338];
@@ -133,12 +133,12 @@ uint64_t __50__DMCRatchet_isAuthorizedForOperation_completion___block_invoke(uin
   {
     if (!errorCopy)
     {
-      v13 = *DMCLogObjects();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = *DMCLogObjects(v8, v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v34 = resultCopy;
-        _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_DEFAULT, "DMCRatchet is unauthorized with result: %{public}@", buf, 0xCu);
+        v42 = resultCopy;
+        _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_DEFAULT, "DMCRatchet is unauthorized with result: %{public}@", buf, 0xCu);
       }
 
       goto LABEL_31;
@@ -146,70 +146,71 @@ uint64_t __50__DMCRatchet_isAuthorizedForOperation_completion___block_invoke(uin
 
     if ([errorCopy code] == 4)
     {
-      v12 = *DMCLogObjects();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = *DMCLogObjects(4, v14);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_15;
       }
 
       *buf = 0;
-      v9 = "DMCRatchet is authorized because passcode is not set";
+      v11 = "DMCRatchet is authorized because passcode is not set";
 LABEL_13:
-      v10 = v12;
-      v11 = 2;
+      v12 = v15;
+      v13 = 2;
       goto LABEL_14;
     }
 
     if ([errorCopy code] == 5)
     {
-      v12 = *DMCLogObjects();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = *DMCLogObjects(5, v17);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_15;
       }
 
       *buf = 0;
-      v9 = "DMCRatchet is authorized because biometry is not enrolled";
+      v11 = "DMCRatchet is authorized because biometry is not enrolled";
       goto LABEL_13;
     }
 
-    if ([errorCopy code] == 1)
+    code = [errorCopy code];
+    if (code == 1)
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       underlyingErrors = [errorCopy underlyingErrors];
-      v18 = [underlyingErrors countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (v18)
+      v23 = [underlyingErrors countByEnumeratingWithState:&v37 objects:v45 count:16];
+      if (v23)
       {
-        v19 = v18;
-        v20 = *v30;
+        v24 = v23;
+        v25 = *v38;
         while (2)
         {
-          for (i = 0; i != v19; ++i)
+          for (i = 0; i != v24; ++i)
           {
-            if (*v30 != v20)
+            if (*v38 != v25)
             {
               objc_enumerationMutation(underlyingErrors);
             }
 
-            if ([*(*(&v29 + 1) + 8 * i) code] == -2)
+            if ([*(*(&v37 + 1) + 8 * i) code] == -2)
             {
-              v28 = *DMCLogObjects();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v36 = *DMCLogObjects(-2, v27);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_DEFAULT, "DMCRatchet canceled by user", buf, 2u);
+                _os_log_impl(&dword_1B1630000, v36, OS_LOG_TYPE_DEFAULT, "DMCRatchet canceled by user", buf, 2u);
               }
 
-              v14 = 2;
+              v18 = 2;
               goto LABEL_16;
             }
           }
 
-          v19 = [underlyingErrors countByEnumeratingWithState:&v29 objects:v37 count:16];
-          if (v19)
+          v24 = [underlyingErrors countByEnumeratingWithState:&v37 objects:v45 count:16];
+          if (v24)
           {
             continue;
           }
@@ -218,60 +219,59 @@ LABEL_13:
         }
       }
 
-      v22 = *DMCLogObjects();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v30 = *DMCLogObjects(v28, v29);
+      if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_31;
       }
 
-      v23 = v22;
+      v31 = v30;
       userInfo = [errorCopy userInfo];
       *buf = 138543362;
-      v34 = userInfo;
-      _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_DEFAULT, "DMCRatchet is unauthorized with generic error user info: %{public}@", buf, 0xCu);
+      v42 = userInfo;
+      _os_log_impl(&dword_1B1630000, v31, OS_LOG_TYPE_DEFAULT, "DMCRatchet is unauthorized with generic error user info: %{public}@", buf, 0xCu);
     }
 
     else
     {
-      v25 = *DMCLogObjects();
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v33 = *DMCLogObjects(code, v21);
+      if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_31:
-        v14 = 1;
+        v18 = 1;
         goto LABEL_16;
       }
 
-      v23 = v25;
-      code = [errorCopy code];
+      v31 = v33;
+      code2 = [errorCopy code];
       userInfo2 = [errorCopy userInfo];
       *buf = 134349314;
-      v34 = code;
-      v35 = 2114;
-      v36 = userInfo2;
-      _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_DEFAULT, "DMCRatchet is unauthorized with error code %{public}ld and user info: %{public}@", buf, 0x16u);
+      v42 = code2;
+      v43 = 2114;
+      v44 = userInfo2;
+      _os_log_impl(&dword_1B1630000, v31, OS_LOG_TYPE_DEFAULT, "DMCRatchet is unauthorized with error code %{public}ld and user info: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_31;
   }
 
-  v8 = *DMCLogObjects();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = *DMCLogObjects(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v34 = resultCopy;
-    v9 = "DMCRatchet is authorized with result: %{public}@";
-    v10 = v8;
-    v11 = 12;
+    v42 = resultCopy;
+    v11 = "DMCRatchet is authorized with result: %{public}@";
+    v12 = v10;
+    v13 = 12;
 LABEL_14:
-    _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
+    _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
   }
 
 LABEL_15:
-  v14 = 0;
+  v18 = 0;
 LABEL_16:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v18;
 }
 
 + (id)_ratchetTitleForOperation:(unint64_t)operation

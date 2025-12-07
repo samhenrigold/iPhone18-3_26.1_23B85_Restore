@@ -115,29 +115,29 @@
 
 - (double)numScoredAppLaunches
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = self->_appLaunches;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         modeEntityStore = self->_modeEntityStore;
-        bundleID = [*(*(&v15 + 1) + 8 * i) bundleID];
+        bundleID = [*(*(&v14 + 1) + 8 * i) bundleID];
         v11 = [(ATXModeEntityStore *)modeEntityStore appEntityForBundleId:bundleID];
         affinityVector = [v11 affinityVector];
 
@@ -147,7 +147,7 @@
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -158,7 +158,6 @@
     v7 = 0.0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -222,7 +221,7 @@ LABEL_6:
 
 + (id)coalesceSessions:(id)sessions modeEntityStore:(id)store
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   sessionsCopy = sessions;
   storeCopy = store;
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
@@ -233,26 +232,26 @@ LABEL_6:
   [distantPast timeIntervalSinceReferenceDate];
   v12 = v11;
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v13 = sessionsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v38;
+    v16 = *v37;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v38 != v16)
+        if (*v37 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v37 + 1) + 8 * i);
+        v18 = *(*(&v36 + 1) + 8 * i);
         [v18 startTimestamp];
         if (v19 < v9)
         {
@@ -266,7 +265,7 @@ LABEL_6:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v15);
@@ -275,37 +274,36 @@ LABEL_6:
   v21 = [v13 _pas_mappedArrayWithTransform:&__block_literal_global_23];
   v22 = [ATXModeEntityAffinityVector weightedCentroid:v21];
   v23 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v24 = v13;
-  v25 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v34;
+    v27 = *v33;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v34 != v27)
+        if (*v33 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        appLaunches = [*(*(&v33 + 1) + 8 * j) appLaunches];
+        appLaunches = [*(*(&v32 + 1) + 8 * j) appLaunches];
         [v23 addObjectsFromArray:appLaunches];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v26);
   }
 
   v30 = [[ATXModeScoringSession alloc] _initFromStartTime:storeCopy endTime:v23 modeEntityStore:v22 appLaunches:v9 sessionAffinityVector:v12];
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -383,21 +381,19 @@ id __42__ATXModeScoringSession__populateAffinity__block_invoke(uint64_t a1, void
 
 - (id)_weightForLaunch:(id)launch
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   launchCopy = launch;
   v4 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v5 = [v4 histogramForLaunchType:0];
 
   bundleID = [launchCopy bundleID];
 
-  v13[0] = bundleID;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = bundleID;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v5 totalLaunchesForBundleIds:v7];
   v9 = v8;
 
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:1.0 / sqrt(v9 + 1.0)];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -405,7 +401,7 @@ id __42__ATXModeScoringSession__populateAffinity__block_invoke(uint64_t a1, void
 - (void)debug_prettyPrintSession:(BOOL)session
 {
   sessionCopy = session;
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CCA968]);
   v6 = MEMORY[0x277CCA968];
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
@@ -418,87 +414,85 @@ id __42__ATXModeScoringSession__populateAffinity__block_invoke(uint64_t a1, void
   v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:self->_endTimestamp];
   v12 = [v5 stringFromDate:v11];
 
-  v13 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_modes(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     prettyDescription = [(ATXModeEntityAffinityVector *)self->_sessionAffinityVector prettyDescription];
     *buf = 138412802;
-    v43 = v10;
-    v44 = 2112;
-    v45 = v12;
-    v46 = 2112;
-    v47 = prettyDescription;
-    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Session: %@, %@: %@", buf, 0x20u);
+    v44 = v10;
+    v45 = 2112;
+    v46 = v12;
+    v47 = 2112;
+    v48 = prettyDescription;
+    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Session: %@, %@: %@", buf, 0x20u);
   }
 
   if (sessionCopy)
   {
-    v33 = v12;
-    v34 = v10;
-    v35 = v8;
-    v36 = v5;
-    v39 = 0u;
+    v34 = v12;
+    v35 = v10;
+    v36 = v8;
+    v37 = v5;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v15 = self->_appLaunches;
-    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
-    if (v16)
+    v39 = 0u;
+    v16 = self->_appLaunches;
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v38;
+      v18 = v17;
+      v19 = *v39;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v38 != v18)
+          if (*v39 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v37 + 1) + 8 * i);
+          v21 = *(*(&v38 + 1) + 8 * i);
           modeEntityStore = self->_modeEntityStore;
-          bundleID = [v20 bundleID];
-          v23 = [(ATXModeEntityStore *)modeEntityStore appEntityForBundleId:bundleID];
+          bundleID = [v21 bundleID];
+          v24 = [(ATXModeEntityStore *)modeEntityStore appEntityForBundleId:bundleID];
 
-          affinityVector = [v23 affinityVector];
+          affinityVector = [v24 affinityVector];
           if (affinityVector)
           {
-            v25 = affinityVector;
-            affinityVector2 = [v23 affinityVector];
+            v26 = affinityVector;
+            affinityVector2 = [v24 affinityVector];
             isZeroVector = [affinityVector2 isZeroVector];
 
             if ((isZeroVector & 1) == 0)
             {
-              v28 = __atxlog_handle_modes();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v30 = __atxlog_handle_modes(v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
-                bundleID2 = [v20 bundleID];
-                affinityVector3 = [v23 affinityVector];
+                bundleID2 = [v21 bundleID];
+                affinityVector3 = [v24 affinityVector];
                 prettyDescription2 = [affinityVector3 prettyDescription];
                 *buf = 138412546;
-                v43 = bundleID2;
-                v44 = 2112;
-                v45 = prettyDescription2;
-                _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "    App Launch: %@, %@", buf, 0x16u);
+                v44 = bundleID2;
+                v45 = 2112;
+                v46 = prettyDescription2;
+                _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "    App Launch: %@, %@", buf, 0x16u);
               }
             }
           }
         }
 
-        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
-    v8 = v35;
-    v5 = v36;
-    v12 = v33;
-    v10 = v34;
+    v8 = v36;
+    v5 = v37;
+    v12 = v34;
+    v10 = v35;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

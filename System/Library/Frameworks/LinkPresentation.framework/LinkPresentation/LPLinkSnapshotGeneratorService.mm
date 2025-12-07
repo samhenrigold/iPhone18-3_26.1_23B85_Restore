@@ -46,10 +46,10 @@ void __87__LPLinkSnapshotGeneratorService_snapshotForMetadata_configurations_com
 
 - (void)internalSnapshotForMetadata:(id)metadata configurations:(id)configurations completionHandler:(id)handler
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   configurationsCopy = configurations;
-  v49 = metadataCopy;
+  v51 = metadataCopy;
   handlerCopy = handler;
   v8 = [[LPLinkView alloc] initWithMetadata:metadataCopy];
   [(LPLinkView *)v8 _setUseLowMemoryImageFilters:1];
@@ -57,15 +57,15 @@ void __87__LPLinkSnapshotGeneratorService_snapshotForMetadata_configurations_com
   [(LPLinkView *)v8 _setAllowsAsynchronousImageDecoding:0];
   [(LPLinkView *)v8 _setUseCPURenderingForMaterials:1];
   v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(configurationsCopy, "count")}];
+  v58 = 0u;
+  v59 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
   obj = configurationsCopy;
-  v10 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+  v10 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v10)
   {
-    v11 = *v55;
+    v11 = *v57;
     v12 = *MEMORY[0x1E695F060];
     v13 = *(MEMORY[0x1E695F060] + 8);
     do
@@ -73,12 +73,12 @@ void __87__LPLinkSnapshotGeneratorService_snapshotForMetadata_configurations_com
       v14 = 0;
       do
       {
-        if (*v55 != v11)
+        if (*v57 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v54 + 1) + 8 * v14);
+        v15 = *(*(&v56 + 1) + 8 * v14);
         v16 = objc_alloc_init(MEMORY[0x1E69DD250]);
         traitCollection = [v15 traitCollection];
         userInterfaceStyle = [traitCollection userInterfaceStyle];
@@ -134,9 +134,9 @@ void __87__LPLinkSnapshotGeneratorService_snapshotForMetadata_configurations_com
         v40 = v39;
         [v15 scale];
         v42 = v41;
-        v60.width = v38;
-        v60.height = v40;
-        UIGraphicsBeginImageContextWithOptions(v60, 0, v42);
+        v62.width = v38;
+        v62.height = v40;
+        UIGraphicsBeginImageContextWithOptions(v62, 0, v42);
         layer2 = [(LPLinkView *)v8 layer];
         [layer2 renderInContext:UIGraphicsGetCurrentContext()];
 
@@ -146,7 +146,7 @@ void __87__LPLinkSnapshotGeneratorService_snapshotForMetadata_configurations_com
           CGContextSetRGBFillColor(CurrentContext, 0.0, 0.0, 1.0, 0.2);
           v45 = UIGraphicsGetCurrentContext();
           [(LPLinkView *)v8 bounds];
-          CGContextFillRect(v45, v61);
+          CGContextFillRect(v45, v63);
         }
 
         v46 = UIGraphicsGetImageFromCurrentImageContext();
@@ -158,17 +158,17 @@ void __87__LPLinkSnapshotGeneratorService_snapshotForMetadata_configurations_com
       }
 
       while (v10 != v14);
-      v10 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v10 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v10);
   }
 
-  v48 = LPLogChannelSnapshotGenerator();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v50 = LPLogChannelSnapshotGenerator(v48, v49);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1AE886000, v48, OS_LOG_TYPE_DEFAULT, "LPLinkSnapshotGeneratorService: finished snapshotting", buf, 2u);
+    _os_log_impl(&dword_1AE886000, v50, OS_LOG_TYPE_DEFAULT, "LPLinkSnapshotGeneratorService: finished snapshotting", buf, 2u);
   }
 
   handlerCopy[2](handlerCopy, 0, v9);

@@ -519,9 +519,9 @@
 
 + (uint64_t)hu_homeAppIconWithSize:()HUAdditions scale:
 {
-  v6 = objc_opt_class();
+  v8 = objc_opt_class();
 
-  return [v6 hu_homeAppIconWithSize:0 scale:self userInterfaceStyle:{a2, a3}];
+  return [v8 hu_homeAppIconWithSize:0 scale:a3 userInterfaceStyle:{a4, a5}];
 }
 
 + (id)hu_homeAppIconWithSize:()HUAdditions scale:userInterfaceStyle:

@@ -160,42 +160,38 @@ LABEL_4:
 
 void __97__WFTakeVideoActionUIKitUserInterface_showWithQuality_device_startImmediately_completionHandler___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277D755C8]);
   [v2 setDelegate:*(a1 + 32)];
   [v2 setSourceType:1];
-  v3 = *(a1 + 32);
   [v2 setCameraDevice:{objc_msgSend(objc_opt_class(), "cameraDeviceFromString:", *(a1 + 40))}];
-  v4 = *(a1 + 32);
   [v2 setVideoQuality:{objc_msgSend(objc_opt_class(), "qualityFromString:", *(a1 + 48))}];
-  v5 = [*MEMORY[0x277CE1E00] identifier];
-  v16[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  [v2 setMediaTypes:v6];
+  v3 = [*MEMORY[0x277CE1E00] identifier];
+  v13[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  [v2 setMediaTypes:v4];
 
   [v2 setCameraCaptureMode:1];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __97__WFTakeVideoActionUIKitUserInterface_showWithQuality_device_startImmediately_completionHandler___block_invoke_2;
-  v13 = &unk_278C373E0;
-  v15 = *(a1 + 56);
-  v7 = v2;
-  v14 = v7;
-  v8 = _Block_copy(&v10);
-  if (([*(a1 + 32) presentContent:v7 completion:{v8, v10, v11, v12, v13}] & 1) == 0)
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __97__WFTakeVideoActionUIKitUserInterface_showWithQuality_device_startImmediately_completionHandler___block_invoke_2;
+  v10 = &unk_278C373E0;
+  v12 = *(a1 + 56);
+  v5 = v2;
+  v11 = v5;
+  v6 = _Block_copy(&v7);
+  if (([*(a1 + 32) presentContent:v5 completion:{v6, v7, v8, v9, v10}] & 1) == 0)
   {
-    [*(a1 + 32) presentContent:v7];
-    v8[2](v8);
+    [*(a1 + 32) presentContent:v5];
+    v6[2](v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __97__WFTakeVideoActionUIKitUserInterface_showWithQuality_device_startImmediately_completionHandler___block_invoke_2(uint64_t result)
+id *__97__WFTakeVideoActionUIKitUserInterface_showWithQuality_device_startImmediately_completionHandler___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) startVideoCapture];
+    return [result[4] startVideoCapture];
   }
 
   return result;

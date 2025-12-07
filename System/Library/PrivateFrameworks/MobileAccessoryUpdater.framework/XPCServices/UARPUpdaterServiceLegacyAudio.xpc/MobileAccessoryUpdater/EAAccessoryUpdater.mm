@@ -17,6 +17,7 @@
 - (void)dealloc;
 - (void)downloadFirmwareWithOptions:(id)options;
 - (void)encodeWithCoder:(id)coder;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)finishWithOptions:(id)options;
 - (void)overrideUpdaterOptions;
 - (void)personalizationResponse:(id)response response:(id)a4 status:(id)status;
@@ -29,9 +30,9 @@
 - (EAAccessoryUpdater)initWithDeviceClass:(id)class delegate:(id)delegate info:(id *)info options:(id)options
 {
   [(FudPluginDelegate *)self->delegate log:5 format:@"Entering: %s:%d", "[EAAccessoryUpdater initWithDeviceClass:delegate:info:options:]", 118];
-  v46.receiver = self;
-  v46.super_class = EAAccessoryUpdater;
-  v11 = [(EAAccessoryUpdater *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = EAAccessoryUpdater;
+  v11 = [(EAAccessoryUpdater *)&v45 init];
   v12 = v11;
   if (!v11)
   {
@@ -64,8 +65,8 @@
   }
 
   infoCopy = info;
-  v44 = [(NSArray *)v16 objectAtIndex:[(NSArray *)v16 count]- 2];
-  mobileAssetType = [[NSString alloc] initWithFormat:@"%@.%@.EA", @"com.apple.MobileAsset.MobileAccessoryUpdate", v44];
+  v43 = [(NSArray *)v16 objectAtIndex:[(NSArray *)v16 count]- 2];
+  mobileAssetType = [[NSString alloc] initWithFormat:@"%@.%@.EA", @"com.apple.MobileAsset.MobileAccessoryUpdate", v43];
   v18 = copyPlistDeviceEntryFromDeviceClass(class);
   v12->deviceOptions = v18;
   v19 = [(NSDictionary *)v18 objectForKey:@"AlternateAssetTypes"];
@@ -74,8 +75,8 @@
   {
     if ([(NSMutableArray *)v19 count]>= 2)
     {
-      v55 = [NSSortDescriptor sortDescriptorWithKey:0 ascending:0 selector:"compare:"];
-      v20 = [(NSMutableArray *)v20 sortedArrayUsingDescriptors:[NSArray arrayWithObjects:&v55 count:1]];
+      v54 = [NSSortDescriptor sortDescriptorWithKey:0 ascending:0 selector:"compare:"];
+      v20 = [(NSMutableArray *)v20 sortedArrayUsingDescriptors:[NSArray arrayWithObjects:&v54 count:1]];
     }
 
     v20 = [NSMutableArray arrayWithArray:v20];
@@ -159,8 +160,7 @@ LABEL_15:
   v12->firmwareUpdater = v33;
   if (!v33)
   {
-    deviceClass = v12->deviceClass;
-    [(FudPluginDelegate *)v12->delegate log:3 format:@"Failed to create EAFirmwareUpdater for deviceClass:%@ assetType:%@", deviceClass, v12->mobileAssetType];
+    [(FudPluginDelegate *)v12->delegate log:3 format:@"Failed to create EAFirmwareUpdater for deviceClass:%@ assetType:%@", v12->deviceClass, v12->mobileAssetType];
     return 0;
   }
 
@@ -170,11 +170,11 @@ LABEL_15:
     v35 = v12->deviceOptions;
     accessory = [(EAFirmwareUpdater *)v34 accessory];
     *buf = 136315650;
-    v50 = "[EAAccessoryUpdater initWithDeviceClass:delegate:info:options:]";
-    v51 = 2112;
-    v52 = v35;
-    v53 = 2112;
-    v54 = accessory;
+    v49 = "[EAAccessoryUpdater initWithDeviceClass:delegate:info:options:]";
+    v50 = 2112;
+    v51 = v35;
+    v52 = 2112;
+    v53 = accessory;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: deviceOptions: %@, firmwareUpdater accessory: %@", buf, 0x20u);
   }
 
@@ -182,10 +182,10 @@ LABEL_15:
   v38 = [(NSDictionary *)v12->deviceOptions objectForKey:@"NeedsAUDeveloperSettings"];
   if (v37)
   {
-    v42 = copyPlistDeviceEntryFromDeviceClass(v37);
-    v43 = [v42 objectForKey:@"NeedsAUDeveloperSettings"];
+    v41 = copyPlistDeviceEntryFromDeviceClass(v37);
+    v42 = [v41 objectForKey:@"NeedsAUDeveloperSettings"];
 
-    if (v43)
+    if (v42)
     {
       goto LABEL_25;
     }
@@ -217,7 +217,7 @@ LABEL_27:
   [(EAFirmwareUpdater *)v12->firmwareUpdater setOverrideFile:@"/var/db/accessoryupdater/ea_updater_override.plist"];
   if (MGGetBoolAnswer())
   {
-    v39 = +[NSURL URLWithString:](NSURL, "URLWithString:", [@"/var/db/accessoryupdater/" stringByAppendingPathComponent:v44]);
+    v39 = +[NSURL URLWithString:](NSURL, "URLWithString:", [@"/var/db/accessoryupdater/" stringByAppendingPathComponent:v43]);
     v12->dropboxPath = v39;
     [(FudPluginDelegate *)v12->delegate log:7 format:@"Default Dropbox Path: %@", v39];
   }
@@ -228,15 +228,15 @@ LABEL_27:
   }
 
   [(EAAccessoryUpdater *)v12 allowConditionalDownloadOnCellular];
-  v47[0] = @"PrepareWeight";
-  v47[1] = @"ApplyWeight";
-  v48[0] = &off_100031790;
-  v48[1] = &off_1000317A8;
-  v47[2] = @"FinishWeight";
-  v47[3] = @"AccessoryIdentifier";
-  v48[2] = &off_100031790;
-  v48[3] = v44;
-  *infoCopy = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:4];
+  v46[0] = @"PrepareWeight";
+  v46[1] = @"ApplyWeight";
+  v47[0] = &off_100031790;
+  v47[1] = &off_1000317A8;
+  v46[2] = @"FinishWeight";
+  v46[3] = @"AccessoryIdentifier";
+  v47[2] = &off_100031790;
+  v47[3] = v43;
+  *infoCopy = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:4];
   return v12;
 }
 
@@ -738,6 +738,180 @@ LABEL_6:
 
   [(EAFirmwareUpdater *)self->firmwareUpdater setFirmwareURL:[(NSArray *)v18 objectAtIndex:0] withManifest:v20 signature:0 certificate:0 hash:0];
   return 1;
+}
+
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  remoteCopy = remote;
+  p_delegate = &self->delegate;
+  [(FudPluginDelegate *)self->delegate log:5 format:@"Entering: %s:%d", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", 846];
+  v8 = +[NSMutableDictionary dictionary];
+  consentRequired = [(EAAccessoryUpdater *)self consentRequired];
+  deviceClass = [(EAFirmwareUpdater *)self->firmwareUpdater name];
+  if (self->restartOnlyUI)
+  {
+    [v8 setObject:+[NSNumber numberWithBool:](NSNumber forKey:{"numberWithBool:", 1), @"SilentUpdateNoUI"}];
+  }
+
+  if ([(EAFirmwareUpdater *)self->firmwareUpdater accessory])
+  {
+    if ([(EAFirmwareUpdater *)self->firmwareUpdater isMultiAssetSession])
+    {
+      [(FudPluginDelegate *)self->delegate log:3 format:@"%s: multi asset session - find NOP %@", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", self->deviceClass];
+LABEL_11:
+      delegate = self->delegate;
+      v14 = 1;
+      v15 = v8;
+LABEL_12:
+      v16 = 1;
+LABEL_13:
+      v12 = 0;
+      goto LABEL_14;
+    }
+
+    if (options)
+    {
+      if ([options objectForKeyedSubscript:@"FirmwareBundle"])
+      {
+        -[EAFirmwareUpdater setFirmwareBundle:](self->firmwareUpdater, "setFirmwareBundle:", [options objectForKeyedSubscript:@"FirmwareBundle"]);
+        goto LABEL_11;
+      }
+
+      if ([options objectForKey:@"LocalFWImage"])
+      {
+        v17 = [options objectForKey:@"LocalFWImage"];
+        v18 = [options objectForKey:@"LocalBuildManifest"];
+        v19 = [options objectForKey:@"LocalSignature"];
+        v20 = [options objectForKey:@"LocalCertificate"];
+        v32 = [options objectForKey:@"LocalHash"];
+        [(FudPluginDelegate *)*p_delegate log:6 format:@"%s: local files fw=%@ manifest=%@ signature=%@ certificate=%@", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", v17, v18, v19, v20];
+        if (![+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", v17]|| v18 && ![+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
+        {
+          goto LABEL_28;
+        }
+
+        v31 = [NSDictionary dictionaryWithContentsOfFile:v18];
+        v21 = [NSData dataWithContentsOfFile:v19];
+        v22 = [NSData dataWithContentsOfFile:v20];
+        v23 = v22;
+        if (v19 && !v21)
+        {
+          sub_1000161AC(p_delegate, v19);
+          goto LABEL_28;
+        }
+
+        if (v20 && !v22)
+        {
+          sub_1000161E8(p_delegate, v20);
+          goto LABEL_28;
+        }
+
+        if (v32)
+        {
+          v24 = [NSData dataWithContentsOfFile:v32 options:1 error:0];
+          if (!v24)
+          {
+            sub_100016170(p_delegate, v32);
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v24 = 0;
+        }
+
+        if (v17 && (!v18 || v31))
+        {
+          [(EAFirmwareUpdater *)self->firmwareUpdater setFirmwareURL:[NSURL fileURLWithPath:?]certificate:v31 hash:v21, v23, v24];
+          goto LABEL_11;
+        }
+
+LABEL_28:
+        sub_100016224(p_delegate);
+        return;
+      }
+    }
+
+    if (MGGetBoolAnswer() && self->dropboxPath && [+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
+    {
+      v35 = 0;
+      v25 = [(EAAccessoryUpdater *)self prepareFirmwareBundlesFromDropbox:v8 error:&v35];
+      [(FudPluginDelegate *)self->delegate didFind:v25 info:v8 updateAvailable:v25 needsDownload:0 error:v35];
+      return;
+    }
+
+    if (!self->localFilePath)
+    {
+      if (consentRequired)
+      {
+        if ([(EAFirmwareUpdater *)self->firmwareUpdater serialNumber])
+        {
+          v29 = [NSString stringWithFormat:@"%@%@/%@", @"/var/run/fud/seed/", [(EAFirmwareUpdater *)self->firmwareUpdater modelNumber], [(EAFirmwareUpdater *)self->firmwareUpdater serialNumber]];
+          if (v29)
+          {
+            if ([[NSURL fileURLWithPath:?], "checkResourceIsReachableAndReturnError:", 0])
+            {
+              [(FudPluginDelegate *)self->delegate log:7 format:@"%s: User previously declined update for this accessory %@ (%@), ignoring this update", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", self->deviceClass, [(EAFirmwareUpdater *)self->firmwareUpdater serialNumber]];
+              delegate = self->delegate;
+              v14 = 0;
+              v15 = 0;
+              v16 = 0;
+              goto LABEL_13;
+            }
+          }
+        }
+
+        if (![(NSString *)deviceClass length])
+        {
+          [(FudPluginDelegate *)self->delegate log:7 format:@"%s: Accessory name unavailable for %@, using deviceClass", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", self->deviceClass];
+          deviceClass = self->deviceClass;
+        }
+      }
+
+      firmwareUpdater = self->firmwareUpdater;
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100012648;
+      v33[3] = &unk_10002CD70;
+      v34 = consentRequired;
+      v33[4] = self;
+      v33[5] = deviceClass;
+      [(EAFirmwareUpdater *)firmwareUpdater findAsset:remoteCopy completion:v33];
+      return;
+    }
+
+    v26 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", self->localFilePath];
+    v27 = self->delegate;
+    localFilePath = self->localFilePath;
+    if (v26)
+    {
+      [(FudPluginDelegate *)v27 log:5 format:@"%s: attempting to use file from dropbox: %@", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", localFilePath];
+      [(EAFirmwareUpdater *)self->firmwareUpdater setFirmwareLocalURL:[NSURL fileURLWithPath:self->localFilePath]];
+      delegate = self->delegate;
+      v14 = 1;
+      v15 = 0;
+      goto LABEL_12;
+    }
+
+    [(FudPluginDelegate *)v27 log:3 format:@"%s: invalid dropbox provided: %@", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", localFilePath];
+    v11 = *p_delegate;
+  }
+
+  else
+  {
+    [(FudPluginDelegate *)self->delegate log:3 format:@"%s: No EA Accessory info for %@", "[EAAccessoryUpdater findFirmwareWithOptions:remote:]", self->deviceClass];
+    v11 = self->delegate;
+  }
+
+  v12 = [NSError errorWithDomain:@"com.apple.EAAccessoryUpdater" code:-1 userInfo:0];
+  delegate = v11;
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+LABEL_14:
+
+  [(FudPluginDelegate *)delegate didFind:v14 info:v15 updateAvailable:v16 needsDownload:0 error:v12];
 }
 
 - (void)downloadFirmwareWithOptions:(id)options

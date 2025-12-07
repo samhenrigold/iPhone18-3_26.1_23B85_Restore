@@ -33,9 +33,9 @@
   if (observerCopy)
   {
     v9 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v9;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -144,7 +144,7 @@
 - (void)_noteHearingTestModeInactiveForProviderWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([(NSMutableSet *)self->_identifiersForHearingTestModeActiveProviders containsObject:?])
+  if (objc_msgSend_containsObject_(self->_identifiersForHearingTestModeActiveProviders))
   {
     [(NSMutableSet *)self->_identifiersForHearingTestModeActiveProviders removeObject:identifierCopy];
     [(SBHearingTestModeCoordinator *)self _recalculateHearingTestMode];

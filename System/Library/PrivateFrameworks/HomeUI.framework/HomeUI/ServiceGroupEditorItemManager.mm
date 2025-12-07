@@ -14,7 +14,7 @@
   selfCopy = self;
   sub_20D11F3CC();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
   v6 = sub_20D567A58();
 
   return v6;
@@ -26,7 +26,7 @@
   selfCopy = self;
   sub_20D11EBAC();
 
-  sub_20CECF940(0, &qword_28111FFE0);
+  sub_20CECF940(0, &qword_28111FFE0, 0x277D14758);
   v6 = sub_20D567A58();
 
   return v6;
@@ -34,16 +34,16 @@
 
 - (id)_buildSectionsWithDisplayedItems:(id)items
 {
-  sub_20CECF940(0, &qword_281120AC0);
-  sub_20CEF7F74(&qword_281120AB0, &qword_281120AC0);
-  sub_20D567D08();
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
+  sub_20CEF7F74(&qword_281120AB0, &qword_281120AC0, 0x277D14748);
+  v4 = sub_20D567D08();
   selfCopy = self;
-  sub_20D11EE80();
+  sub_20D11EE80(v4);
 
-  sub_20CECF940(0, &unk_28111FFD0);
-  v5 = sub_20D567A58();
+  sub_20CECF940(0, &unk_28111FFD0, 0x277D14778);
+  v6 = sub_20D567A58();
 
-  return v5;
+  return v6;
 }
 
 - (id)_homeFuture

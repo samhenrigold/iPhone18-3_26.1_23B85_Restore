@@ -23,7 +23,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(CoreDAVPutTask *)self setNextETag:0];
   if (!errorCopy)
@@ -53,8 +53,8 @@
     }
 
     *buf = 138543362;
-    v22 = objc_opt_class();
-    v10 = v22;
+    v21 = objc_opt_class();
+    v10 = v21;
     v11 = "%{public}@ cancelled";
     v12 = v9;
     v13 = OS_LOG_TYPE_INFO;
@@ -71,10 +71,10 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v22 = objc_opt_class();
-    v23 = 2112;
-    v24 = errorCopy;
-    v10 = v22;
+    v21 = objc_opt_class();
+    v22 = 2112;
+    v23 = errorCopy;
+    v10 = v21;
     v11 = "%{public}@ failed: %@";
     v12 = v9;
     v13 = OS_LOG_TYPE_ERROR;
@@ -98,11 +98,9 @@ LABEL_12:
     [(CoreDAVTask *)self setDelegate:0];
   }
 
-  v20.receiver = self;
-  v20.super_class = CoreDAVPutTask;
-  [(CoreDAVTask *)&v20 finishCoreDAVTaskWithError:errorCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = CoreDAVPutTask;
+  [(CoreDAVTask *)&v19 finishCoreDAVTaskWithError:errorCopy];
 }
 
 @end

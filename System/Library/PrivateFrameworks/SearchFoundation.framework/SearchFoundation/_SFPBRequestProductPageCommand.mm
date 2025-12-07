@@ -211,9 +211,7 @@ LABEL_11:
 
 - (void)setDistributorBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  distributorBundleIdentifier = self->_distributorBundleIdentifier;
-  self->_distributorBundleIdentifier = v4;
+  self->_distributorBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -115,17 +115,17 @@
 {
   errorCopy = error;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = BMLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = BMLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [BMMiningTask finishWithError:];
   }
 
   delegate = [(BMMiningTask *)selfCopy delegate];
-  v8 = objc_opt_respondsToSelector();
+  v9 = objc_opt_respondsToSelector();
 
-  if (v8)
+  if (v9)
   {
     delegate2 = [(BMMiningTask *)selfCopy delegate];
     [delegate2 miningTask:selfCopy didError:errorCopy];
@@ -146,22 +146,22 @@
     [start timeIntervalSinceNow];
     v7 = v6;
 
-    v8 = BMLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = BMLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:status];
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:status];
       v14 = 134218242;
       v15 = -v7;
       v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_241ACA000, v8, OS_LOG_TYPE_DEFAULT, "Finished behavioral mining with elapsed time %.2f seconds, completion status: %@.", &v14, 0x16u);
+      v17 = v10;
+      _os_log_impl(&dword_241ACA000, v9, OS_LOG_TYPE_DEFAULT, "Finished behavioral mining with elapsed time %.2f seconds, completion status: %@.", &v14, 0x16u);
     }
 
     [(BMMiningTask *)selfCopy setCompletionStatus:status];
     delegate = [(BMMiningTask *)selfCopy delegate];
-    v11 = objc_opt_respondsToSelector();
+    v12 = objc_opt_respondsToSelector();
 
-    if (v11)
+    if (v12)
     {
       delegate2 = [(BMMiningTask *)selfCopy delegate];
       [delegate2 miningTaskDidFinish:selfCopy];
@@ -169,20 +169,15 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mine
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCABB0];
   bmMiningTaskConfig = [self bmMiningTaskConfig];
   v3 = [v1 numberWithBool:{objc_msgSend(bmMiningTaskConfig, "interactionExtractedTopicFromAttachmentFactorInUse")}];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_241ACA000, v4, v5, "Passing bmMiningTaskConfig to BMEventExtractor with interactionExtractedTopicFromAttachmentFactorInUse as %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_241ACA000, v4, v5, "Passing bmMiningTaskConfig to BMEventExtractor with interactionExtractedTopicFromAttachmentFactorInUse as %@", v6, v7, v8, v9);
 }
 
 BOOL __20__BMMiningTask_mine__block_invoke(uint64_t a1, void *a2)
@@ -231,12 +226,12 @@ BOOL __20__BMMiningTask_mine__block_invoke(uint64_t a1, void *a2)
 - (void)terminateEarly
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = BMLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = BMLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_241ACA000, v3, OS_LOG_TYPE_DEFAULT, "Stopping mining task with early termination completion status.", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_241ACA000, v4, OS_LOG_TYPE_DEFAULT, "Stopping mining task with early termination completion status.", v13, 2u);
   }
 
   eventExtractor = [(BMMiningTask *)selfCopy eventExtractor];
@@ -284,10 +279,9 @@ BOOL __20__BMMiningTask_mine__block_invoke(uint64_t a1, void *a2)
 
 - (void)finishWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_241ACA000, v0, OS_LOG_TYPE_ERROR, "Finished with error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241ACA000, v0, OS_LOG_TYPE_ERROR, "Finished with error: %@", v1, 0xCu);
 }
 
 @end

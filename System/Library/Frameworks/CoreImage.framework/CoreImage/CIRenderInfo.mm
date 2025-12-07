@@ -5,13 +5,14 @@
 - (id)_pdfDataRepresentation;
 - (id)description;
 - (void)dealloc;
+- (void)init;
 @end
 
 @implementation CIRenderInfo
 
 - (CIRenderInfo)init
 {
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(CIRenderInfo *)v3 init:v4];
@@ -100,6 +101,13 @@
   v2 = CI::RenderTask::quicklookDataForRenderInfo(self->_priv);
 
   return v2;
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIRenderInfo init]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s init is not a valid initializer for CIRenderInfo", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

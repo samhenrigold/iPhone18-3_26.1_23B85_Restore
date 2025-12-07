@@ -34,26 +34,26 @@
   objc_destroyWeak(&location);
 }
 
-id __84__DOCFilenameViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
+id __84__DOCFilenameViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeValueForKey:@"item"];
-  v4 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeValueForKey:@"item"];
+  v5 = __UIAccessibilityCastAsClass();
 
-  if ([v4 isFolder])
+  if ([v5 isFolder])
   {
-    v5 = @"folder.name";
+    v6 = @"folder.name";
   }
 
   else
   {
-    v5 = @"file.name";
+    v6 = @"file.name";
   }
 
-  v6 = accessibilityLocalizedString(v5);
+  v7 = accessibilityLocalizedString(v6);
 
-  return v6;
+  return v7;
 }
 
 - (void)loadView

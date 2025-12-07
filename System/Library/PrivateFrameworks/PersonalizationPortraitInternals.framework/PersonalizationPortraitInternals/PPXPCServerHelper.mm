@@ -8,7 +8,7 @@
 
 + (BOOL)checkForAndLogTrueBooleanEntitlement:(id)entitlement connection:(id)connection serviceName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   entitlementCopy = entitlement;
   connectionCopy = connection;
   nameCopy = name;
@@ -23,11 +23,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        *v25 = v11;
-        *&v25[8] = 2112;
-        *&v25[10] = nameCopy;
-        *&v25[18] = 2112;
-        *&v25[20] = entitlementCopy;
+        *v24 = v11;
+        *&v24[8] = 2112;
+        *&v24[10] = nameCopy;
+        *&v24[18] = 2112;
+        *&v24[20] = entitlementCopy;
         _os_log_fault_impl(&dword_23224A000, v13, OS_LOG_TYPE_FAULT, "Connection from %@ to %@ is missing entitlement: %@", buf, 0x20u);
       }
 
@@ -44,11 +44,11 @@
         processIdentifier = [connectionCopy processIdentifier];
         v16 = strerror(__errnum);
         *buf = 67109634;
-        *v25 = processIdentifier;
-        *&v25[4] = 2112;
-        *&v25[6] = nameCopy;
-        *&v25[14] = 2080;
-        *&v25[16] = v16;
+        *v24 = processIdentifier;
+        *&v24[4] = 2112;
+        *&v24[6] = nameCopy;
+        *&v24[14] = 2080;
+        *&v24[16] = v16;
         v17 = "Connection from %d to %@ failed entitlement check (proc_name error: %s).";
         v18 = v13;
         v19 = 28;
@@ -61,9 +61,9 @@ LABEL_13:
     {
       processIdentifier2 = [connectionCopy processIdentifier];
       *buf = 67109378;
-      *v25 = processIdentifier2;
-      *&v25[4] = 2112;
-      *&v25[6] = nameCopy;
+      *v24 = processIdentifier2;
+      *&v24[4] = 2112;
+      *&v24[6] = nameCopy;
       v17 = "Connection from %d to %@ failed entitlement check.";
       v18 = v13;
       v19 = 18;
@@ -73,7 +73,6 @@ LABEL_13:
 LABEL_10:
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -83,7 +82,7 @@ LABEL_10:
   v6 = MEMORY[0x277D425B0];
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -99,7 +98,7 @@ LABEL_10:
 
 + (BOOL)shouldAcceptConnection:(id)connection serviceName:(id)name allowedServerInterface:(id)interface allowedClientInterface:(id)clientInterface requestHandler:(id)handler validateConnection:(id)validateConnection setupClientProxy:(id)proxy interruptionHandler:(id)self0 invalidationHandler:(id)self1
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   nameCopy = name;
   interfaceCopy = interface;
@@ -109,8 +108,8 @@ LABEL_10:
   proxyCopy = proxy;
   interruptionHandlerCopy = interruptionHandler;
   invalidationHandlerCopy = invalidationHandler;
-  v54 = 0;
-  v19 = procNameForPid([connectionCopy processIdentifier], &v54);
+  v53 = 0;
+  v19 = procNameForPid([connectionCopy processIdentifier], &v53);
   if ([v19 length])
   {
     v20 = pp_xpc_server_log_handle();
@@ -121,11 +120,11 @@ LABEL_10:
 
     processIdentifier = [connectionCopy processIdentifier];
     *buf = 138412802;
-    v56 = nameCopy;
-    v57 = 2112;
-    v58 = v19;
-    v59 = 2048;
-    v60 = processIdentifier;
+    v55 = nameCopy;
+    v56 = 2112;
+    v57 = v19;
+    v58 = 2048;
+    v59 = processIdentifier;
     v22 = "New connection to %@ from %@ (%lu).";
 LABEL_7:
     v27 = v20;
@@ -135,7 +134,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v23 = v54 == 0;
+  v23 = v53 == 0;
   v20 = pp_xpc_server_log_handle();
   v24 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
   if (!v23)
@@ -146,13 +145,13 @@ LABEL_8:
     }
 
     processIdentifier2 = [connectionCopy processIdentifier];
-    v26 = strerror(v54);
+    v26 = strerror(v53);
     *buf = 138412802;
-    v56 = nameCopy;
-    v57 = 2048;
-    v58 = processIdentifier2;
-    v59 = 2080;
-    v60 = v26;
+    v55 = nameCopy;
+    v56 = 2048;
+    v57 = processIdentifier2;
+    v58 = 2080;
+    v59 = v26;
     v22 = "New connection to %@ from unknown process (%lu) (proc_name error: %s).";
     goto LABEL_7;
   }
@@ -161,9 +160,9 @@ LABEL_8:
   {
     processIdentifier3 = [connectionCopy processIdentifier];
     *buf = 138412546;
-    v56 = nameCopy;
-    v57 = 2048;
-    v58 = processIdentifier3;
+    v55 = nameCopy;
+    v56 = 2048;
+    v57 = processIdentifier3;
     v22 = "New connection to %@ from unknown process (%lu).";
     v27 = v20;
     v28 = 22;
@@ -184,30 +183,30 @@ LABEL_9:
       {
 LABEL_15:
         objc_initWeak(buf, connectionCopy);
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerInterface_allowedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler___block_invoke;
-        v49[3] = &unk_2789755A0;
-        objc_copyWeak(&v53, buf);
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerInterface_allowedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler___block_invoke;
+        v48[3] = &unk_2789755A0;
+        objc_copyWeak(&v52, buf);
         v31 = nameCopy;
-        v50 = v31;
+        v49 = v31;
         v32 = v19;
-        v51 = v32;
-        v52 = interruptionHandlerCopy;
-        [connectionCopy setInterruptionHandler:v49];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerInterface_allowedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler___block_invoke_17;
-        v44[3] = &unk_2789755A0;
-        objc_copyWeak(&v48, buf);
-        v45 = v31;
-        v46 = v32;
-        v47 = invalidationHandlerCopy;
-        [connectionCopy setInvalidationHandler:v44];
+        v50 = v32;
+        v51 = interruptionHandlerCopy;
+        [connectionCopy setInterruptionHandler:v48];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerInterface_allowedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler___block_invoke_17;
+        v43[3] = &unk_2789755A0;
+        objc_copyWeak(&v47, buf);
+        v44 = v31;
+        v45 = v32;
+        v46 = invalidationHandlerCopy;
+        [connectionCopy setInvalidationHandler:v43];
         [connectionCopy resume];
 
-        objc_destroyWeak(&v48);
-        objc_destroyWeak(&v53);
+        objc_destroyWeak(&v47);
+        objc_destroyWeak(&v52);
         objc_destroyWeak(buf);
         goto LABEL_16;
       }
@@ -232,13 +231,12 @@ LABEL_15:
 
 LABEL_16:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 void __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerInterface_allowedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -247,24 +245,22 @@ void __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerIn
     {
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v7 = 138412802;
-      v8 = v4;
-      v9 = 2112;
-      v10 = v5;
-      v11 = 2048;
-      v12 = [WeakRetained processIdentifier];
-      _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Connection to %@ from %@ (%lu) was interrupted.", &v7, 0x20u);
+      v6 = 138412802;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      v10 = 2048;
+      v11 = [WeakRetained processIdentifier];
+      _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Connection to %@ from %@ (%lu) was interrupted.", &v6, 0x20u);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerInterface_allowedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler___block_invoke_17(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -273,19 +269,17 @@ void __193__PPXPCServerHelper_shouldAcceptConnection_serviceName_allowedServerIn
     {
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v7 = 138412802;
-      v8 = v4;
-      v9 = 2112;
-      v10 = v5;
-      v11 = 2048;
-      v12 = [WeakRetained processIdentifier];
-      _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Connection to %@ from %@ (%lu) was invalidated.", &v7, 0x20u);
+      v6 = 138412802;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      v10 = 2048;
+      v11 = [WeakRetained processIdentifier];
+      _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Connection to %@ from %@ (%lu) was invalidated.", &v6, 0x20u);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

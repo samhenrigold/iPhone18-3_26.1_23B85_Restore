@@ -9,39 +9,35 @@
 
 - (void)outputToLog:(id)log
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     activityType = self->super._activityType;
     path = self->_path;
-    v8 = 138543618;
-    v9 = activityType;
-    v10 = 2114;
-    v11 = path;
-    _os_log_impl(&dword_24D764000, log, OS_LOG_TYPE_INFO, "%{public}@:\t%{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = activityType;
+    v9 = 2114;
+    v10 = path;
+    _os_log_impl(&dword_24D764000, log, OS_LOG_TYPE_INFO, "%{public}@:\t%{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)jsonObject
 {
-  v11[4] = *MEMORY[0x277D85DE8];
+  v10[4] = *MEMORY[0x277D85DE8];
   activityType = self->super._activityType;
-  v10[0] = @"activityType";
-  v10[1] = @"path";
+  v9[0] = @"activityType";
+  v9[1] = @"path";
   path = self->_path;
-  v11[0] = activityType;
-  v11[1] = path;
-  v10[2] = @"activityStartTime";
+  v10[0] = activityType;
+  v10[1] = path;
+  v9[2] = @"activityStartTime";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityStartTime];
-  v11[2] = v5;
-  v10[3] = @"activityEndTime";
+  v10[2] = v5;
+  v9[3] = @"activityEndTime";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityEndTime];
-  v11[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

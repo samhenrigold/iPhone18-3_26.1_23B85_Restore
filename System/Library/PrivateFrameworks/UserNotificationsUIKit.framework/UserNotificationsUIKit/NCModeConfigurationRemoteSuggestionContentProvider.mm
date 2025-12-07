@@ -58,7 +58,7 @@
 id __182__NCModeConfigurationRemoteSuggestionContentProvider_initWithNotificationRequest_bundleDisplayName_managementDelegate_suggestionDelegate_uuid_suggestionType_scope_modeConfiguration___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
+  v3 = NCUserNotificationsUIKitFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:v2 value:&stru_282FE84F8 table:0];
 
   return v4;
@@ -117,7 +117,7 @@ LABEL_16:
   objc_initWeak(&location, self);
   v12 = [@"NOTIFICATION_REMOTE_MANAGEMENT_SUGGESTION_DONT" stringByAppendingString:v9];
   v13 = MEMORY[0x277D750C8];
-  v14 = NCUserNotificationsUIKitFrameworkBundle();
+  v14 = NCUserNotificationsUIKitFrameworkBundle(v12);
   v15 = [v14 localizedStringForKey:v12 value:&stru_282FE84F8 table:0];
   v29[0] = MEMORY[0x277D85DD0];
   v29[1] = 3221225472;
@@ -128,7 +128,7 @@ LABEL_16:
 
   v17 = [@"NOTIFICATION_REMOTE_MANAGEMENT_SUGGESTION" stringByAppendingString:v9];
   v18 = MEMORY[0x277D750C8];
-  v19 = NCUserNotificationsUIKitFrameworkBundle();
+  v19 = NCUserNotificationsUIKitFrameworkBundle(v17);
   v20 = [v19 localizedStringForKey:v17 value:&stru_282FE84F8 table:0];
   v24 = MEMORY[0x277D85DD0];
   v25 = 3221225472;

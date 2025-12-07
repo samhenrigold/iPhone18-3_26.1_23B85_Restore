@@ -15,7 +15,7 @@ void __39__AVURLAsset_HKAdditions__hk_assetSize__block_invoke(uint64_t a1, void 
     {
       v12 = v9;
       v13 = v8;
-      [v7 preferredTransform];
+      objc_msgSend_preferredTransform(v7);
       v9 = v12;
       v8 = v13;
       v10 = v14;

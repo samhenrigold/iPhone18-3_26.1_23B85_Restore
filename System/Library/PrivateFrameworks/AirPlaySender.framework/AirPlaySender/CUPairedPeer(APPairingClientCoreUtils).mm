@@ -27,7 +27,7 @@
   [v5 setInfo:v6];
   if (IsAppleInternalBuild() && gLogCategory_APPairingClientCoreUtils <= 50 && (gLogCategory_APPairingClientCoreUtils != -1 || _LogCategory_Initialize()))
   {
-    [CUPairedPeer(APPairingClientCoreUtils) patchedPairedPeerWithPeerInfo:];
+    [(CUPairedPeer(APPairingClientCoreUtils) *)v6 patchedPairedPeerWithPeerInfo:v7, v8];
   }
 
   return v5;

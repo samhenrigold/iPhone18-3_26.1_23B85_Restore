@@ -61,13 +61,12 @@
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"This object may only be encoded by an NSXPCCoder."];
   }
 
-  v5 = *self->_priv;
-  v6 = xpc_mach_send_create();
-  [coder encodeXPCObject:v6 forKey:@"Port"];
-  xpc_release(v6);
-  v7 = *(self->_priv + 1);
+  v5 = xpc_mach_send_create();
+  [coder encodeXPCObject:v5 forKey:@"Port"];
+  xpc_release(v5);
+  v6 = *(self->_priv + 1);
 
-  [coder encodeObject:v7 forKey:@"Label"];
+  [coder encodeObject:v6 forKey:@"Label"];
 }
 
 - (MTLSharedEventHandle)initWithCoder:(id)coder

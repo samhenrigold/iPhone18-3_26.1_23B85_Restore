@@ -1,8 +1,8 @@
-id sub_1000012F8()
+id sub_1000012F8(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AppDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for AppDelegate();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 int main(int argc, const char **argv, const char **envp)

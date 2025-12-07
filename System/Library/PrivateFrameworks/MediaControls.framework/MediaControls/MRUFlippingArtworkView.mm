@@ -107,20 +107,24 @@
 - (void)setItemIdentifier:(id)identifier
 {
   identifierCopy = identifier;
+  v5 = identifierCopy;
   if (self->_itemIdentifier != identifierCopy)
   {
-    v7 = identifierCopy;
-    if (([(NSString *)identifierCopy isEqual:?]& 1) == 0)
+    v8 = identifierCopy;
+    identifierCopy = [identifierCopy isEqual:?];
+    v5 = v8;
+    if ((identifierCopy & 1) == 0)
     {
-      v5 = [(NSString *)v7 copy];
+      v6 = [v8 copy];
       itemIdentifier = self->_itemIdentifier;
-      self->_itemIdentifier = v5;
+      self->_itemIdentifier = v6;
 
+      v5 = v8;
       self->_currentItemHasChangedSinceArtworkLastSet = 1;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](identifierCopy, v5);
 }
 
 - (void)setPlaying:(BOOL)playing
@@ -221,7 +225,7 @@
   self->_setArtworkThrottleTimer = v9;
 }
 
-uint64_t __72__MRUFlippingArtworkView_setArtworkImageWithThrottle_updatePlaceholder___block_invoke(uint64_t a1)
+void *__72__MRUFlippingArtworkView_setArtworkImageWithThrottle_updatePlaceholder___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setArtworkImage:*(a1 + 40)];
   result = [*(a1 + 32) setSetArtworkThrottleTimer:0];
@@ -237,7 +241,7 @@ uint64_t __72__MRUFlippingArtworkView_setArtworkImageWithThrottle_updatePlacehol
 
 - (void)setArtworkImage:(id)image
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   v6 = imageCopy;
   artworkImage = self->_artworkImage;
@@ -246,7 +250,8 @@ uint64_t __72__MRUFlippingArtworkView_setArtworkImageWithThrottle_updatePlacehol
     goto LABEL_21;
   }
 
-  if (![(MRUFlippingArtworkView *)self shouldTransitionFromImage:artworkImage toImage:imageCopy]|| ![(MRUFlippingArtworkView *)self isOnScreen])
+  v8 = [(MRUFlippingArtworkView *)self shouldTransitionFromImage:artworkImage toImage:imageCopy];
+  if (!v8 || (v8 = [(MRUFlippingArtworkView *)self isOnScreen], !v8))
   {
     self->_currentItemHasChangedSinceArtworkLastSet = 0;
     self->_catalogHasChangedSinceArtworkImageLastSet = 0;
@@ -259,16 +264,16 @@ uint64_t __72__MRUFlippingArtworkView_setArtworkImageWithThrottle_updatePlacehol
   if (!catalogHasChangedSinceArtworkImageLastSet)
   {
 LABEL_10:
-    v12 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = MCLogCategoryDefault(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218496;
       selfCopy2 = self;
-      v25 = 2048;
-      v26 = v6;
-      v27 = 1024;
-      LODWORD(v28) = [(MRUFlippingArtworkView *)self isOnScreen];
-      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].View view<%p> will set image:<%p> to current layer onScreen:%{BOOL}u", buf, 0x1Cu);
+      v26 = 2048;
+      v27 = v6;
+      v28 = 1024;
+      LODWORD(v29) = [(MRUFlippingArtworkView *)self isOnScreen];
+      _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].View view<%p> will set image:<%p> to current layer onScreen:%{BOOL}u", buf, 0x1Cu);
     }
 
     artworkLayer = [(MRUFlippingArtworkView *)self artworkLayer];
@@ -276,17 +281,17 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  v9 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = MCLogCategoryDefault(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v10 = MRUFlippingArtworkTransitionDirectionDescription([(MRUFlippingArtworkView *)self pendingTransitionDirection]);
+    v11 = MRUFlippingArtworkTransitionDirectionDescription([(MRUFlippingArtworkView *)self pendingTransitionDirection]);
     *buf = 134218498;
     selfCopy2 = self;
-    v25 = 2048;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v10;
-    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].View view<%p> will transition to image:<%p> direction:%@", buf, 0x20u);
+    v26 = 2048;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v11;
+    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEBUG, "[FlippingArtwork].View view<%p> will transition to image:<%p> direction:%@", buf, 0x20u);
   }
 
   artworkLayer = [(MRUFlippingArtworkView *)self artworkLayer];
@@ -295,32 +300,32 @@ LABEL_13:
 
   objc_storeStrong(&self->_artworkImage, image);
   [(MRUFlippingArtworkView *)self setNeedsLayout];
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v13 = self->_observers;
-  v14 = [(NSHashTable *)v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v14)
+  v20 = 0u;
+  v14 = self->_observers;
+  v15 = [(NSHashTable *)v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v19;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v19 != v16)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        [*(*(&v18 + 1) + 8 * i) artworkView:self didChangeArtworkImage:{v6, v18}];
+        [*(*(&v19 + 1) + 8 * i) artworkView:self didChangeArtworkImage:{v6, v19}];
       }
 
-      v15 = [(NSHashTable *)v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v16 = [(NSHashTable *)v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
   [(MRUFlippingArtworkView *)self updateOpacity];

@@ -3,7 +3,7 @@
 
 @implementation AXSAirPodsSpatialAudioLockToDevice
 
-uint64_t ___AXSAirPodsSpatialAudioLockToDevice_block_invoke()
+void *___AXSAirPodsSpatialAudioLockToDevice_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

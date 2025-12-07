@@ -39,9 +39,11 @@
 
 uint64_t __36__TIAnalyticsService_sharedInstance__block_invoke()
 {
-  sharedInstance_instance_250 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_instance_250;
+  sharedInstance_instance_250 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (TIAnalyticsService)init

@@ -136,15 +136,13 @@
 uint64_t __62__CNNameStringTokenizer_tokenizeNameString_inferredNameOrder___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) tokenizer];
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 56) + 8);
   *(*(*(a1 + 48) + 8) + 24) = _CFStringTokenizerCreateNamePartsArrayWithString();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithArray:*(*(*(a1 + 48) + 8) + 24)];
-  v5 = *(*(a1 + 64) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithArray:*(*(*(a1 + 48) + 8) + 24)];
+  v3 = *(*(a1 + 64) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8](v4, v6);
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 + (void)setInferredNameOrder:(int64_t *)order toTokenizerNameOrder:(int)nameOrder

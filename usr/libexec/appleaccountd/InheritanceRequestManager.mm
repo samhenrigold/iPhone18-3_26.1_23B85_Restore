@@ -43,7 +43,7 @@
 {
   interfaceCopy = interface;
   selfCopy = self;
-  sub_10020ACEC();
+  sub_10020ACEC(interfaceCopy);
 }
 
 - (void)fetchManifestOptionsForContact:(id)contact completion:(id)completion
@@ -130,14 +130,13 @@
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
-  v7 = swift_allocObject();
-  *(v7 + 16) = sub_10020A054;
-  *(v7 + 24) = v5;
-  v8 = *v6;
+  sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
+  v6 = swift_allocObject();
+  *(v6 + 16) = sub_10020A054;
+  *(v6 + 24) = v5;
   selfCopy = self;
 
-  sub_100216650(sub_10020A080, v7);
+  sub_100216650(sub_10020A080, v6);
 }
 
 - (void)fetchBenefactorsWithCompletion:(id)completion
@@ -145,17 +144,16 @@
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
-  v7 = swift_allocObject();
+  sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
+  v6 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v8 = swift_allocObject();
-  v8[2] = sub_100209EAC;
-  v8[3] = v5;
-  v8[4] = v7;
-  v9 = *v6;
+  v7 = swift_allocObject();
+  v7[2] = sub_100209EAC;
+  v7[3] = v5;
+  v7[4] = v6;
   selfCopy = self;
 
-  sub_10021AD90(sub_100209ED8, v8);
+  sub_10021AD90(sub_100209ED8, v7);
 }
 
 - (void)fetchSuggestedBeneficiariesWithCompletion:(id)completion
@@ -191,14 +189,13 @@
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
-  v7 = swift_allocObject();
-  *(v7 + 16) = sub_100209B24;
-  *(v7 + 24) = v5;
-  v8 = *v6;
+  sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
+  v6 = swift_allocObject();
+  *(v6 + 16) = sub_100209B24;
+  *(v6 + 24) = v5;
   selfCopy = self;
 
-  sub_100214428(sub_100209B88, v7);
+  sub_100214428(sub_100209B88, v6);
 }
 
 - (void)fetchInvitationWithBeneficiaryID:(id)d completion:(id)completion
@@ -207,24 +204,23 @@
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   v9 = __chkstk_darwin(v6);
-  v10 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
-  v12 = &v20 - v11;
+  v12 = &v23 - v11;
   v13 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   v14 = swift_allocObject();
   *(v14 + 16) = v13;
-  v15 = sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
+  sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
   (*(v7 + 16))(v10, v12, v6);
-  v16 = (*(v7 + 80) + 32) & ~*(v7 + 80);
-  v17 = swift_allocObject();
-  *(v17 + 16) = sub_10005B8DC;
-  *(v17 + 24) = v14;
-  (*(v7 + 32))(v17 + v16, v10, v6);
-  v18 = *v15;
+  v15 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v16 = swift_allocObject();
+  *(v16 + 16) = sub_10005B8DC;
+  *(v16 + 24) = v14;
+  (*(v7 + 32))(v16 + v15, v10, v6);
   selfCopy = self;
 
-  sub_100214780(v12, sub_100209AB0, v17);
+  sub_100214780(v12, sub_100209AB0, v16, v18, v19, v20, v21, v22, v23);
 
   (*(v7 + 8))(v12, v6);
 }
@@ -244,20 +240,19 @@
     v7 = 0;
   }
 
-  v8 = sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
-  v9 = swift_allocObject();
-  v9[2] = invitation;
-  v9[3] = v6;
-  v9[4] = v7;
-  v9[5] = self;
-  v10 = *v8;
+  sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
+  v8 = swift_allocObject();
+  v8[2] = invitation;
+  v8[3] = v6;
+  v8[4] = v7;
+  v8[5] = self;
   invitationCopy = invitation;
   selfCopy = self;
-  v14 = invitationCopy;
-  v13 = selfCopy;
-  sub_100083AA0(v6);
-  sub_100214428(sub_100209928, v9);
-  sub_100083B0C(v6);
+  v12 = invitationCopy;
+  v11 = selfCopy;
+  sub_100083AA0(v6, v7);
+  sub_100214428(sub_100209928, v8);
+  sub_100083B0C(v6, v7);
 }
 
 - (void)respondToInvitation:(id)invitation accepted:(BOOL)accepted completion:(id)completion
@@ -265,28 +260,27 @@
   acceptedCopy = accepted;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  if (v13)
+  if (v12)
   {
-    v14 = swift_allocObject();
-    *(v14 + 16) = v13;
-    v13 = sub_10005B8F8;
+    v13 = swift_allocObject();
+    *(v13 + 16) = v12;
+    v12 = sub_10005B8F8;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   selfCopy = self;
-  sub_100201B38(v12, acceptedCopy, v13, v14);
-  sub_100083B0C(v13);
+  sub_100201B38(v11, acceptedCopy, v12, v13);
+  sub_100083B0C(v12, v13);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)fetchAllHealthInfoWithCompletion:(id)completion
@@ -294,31 +288,29 @@
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
-  v7 = swift_allocObject();
-  *(v7 + 16) = sub_100209738;
-  *(v7 + 24) = v5;
-  v8 = *v6;
+  sub_1000080F8(&self->controller[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController], *&self->storageController[OBJC_IVAR____TtC13appleaccountd25InheritanceRequestManager_storageController]);
+  v6 = swift_allocObject();
+  *(v6 + 16) = sub_100209738;
+  *(v6 + 24) = v5;
   selfCopy = self;
 
-  sub_10021C8A4(sub_100209764, v7);
+  sub_10021C8A4(sub_100209764, v6);
 }
 
 - (void)presentInheritanceInvitationUIWithBeneficiaryID:(id)d completion:(id)completion
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  sub_10020255C(v10, sub_100008DD4, v12);
+  sub_10020255C(v9, sub_100008DD4, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)setupBeneficiaryAliasWithAccessKey:(id)key password:(id)password firstName:(id)name lastName:(id)lastName authToken:(id)token completion:(id)completion

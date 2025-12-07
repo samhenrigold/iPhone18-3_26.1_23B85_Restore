@@ -72,7 +72,7 @@
 
 + (void)recordHitTest:(unint64_t)test
 {
-  v4 = reportingQueue();
+  v4 = reportingQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __34__ARSessionMetrics_recordHitTest___block_invoke;
@@ -85,7 +85,7 @@ void __34__ARSessionMetrics_recordHitTest___block_invoke(uint64_t a1)
 {
   if ((s_isSessionStopped & 1) == 0)
   {
-    v3 = hitTestReportingMap();
+    v3 = hitTestReportingMap(a1);
     v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
     v5 = [v3 objectForKey:v4];
 
@@ -108,7 +108,7 @@ void __34__ARSessionMetrics_recordHitTest___block_invoke(uint64_t a1)
 + (void)recordReplayMetrics:(id)metrics
 {
   metricsCopy = metrics;
-  v4 = reportingQueue();
+  v4 = reportingQueue(metricsCopy);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __40__ARSessionMetrics_recordReplayMetrics___block_invoke;
@@ -121,7 +121,7 @@ void __34__ARSessionMetrics_recordHitTest___block_invoke(uint64_t a1)
 + (void)recordAltitudeLookupAttemptWithDuration:(double)duration andResult:(id)result
 {
   resultCopy = result;
-  v6 = reportingQueue();
+  v6 = reportingQueue(resultCopy);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __70__ARSessionMetrics_recordAltitudeLookupAttemptWithDuration_andResult___block_invoke;
@@ -147,7 +147,7 @@ id __70__ARSessionMetrics_recordAltitudeLookupAttemptWithDuration_andResult___bl
   v3 = [MEMORY[0x1E696AD98] numberWithFloat:v2];
   v9[0] = v3;
   v8[1] = @"bundleID";
-  v4 = bundleID();
+  v4 = bundleID(v3);
   v8[2] = @"result";
   v5 = *(a1 + 32);
   v9[1] = v4;
@@ -159,7 +159,7 @@ id __70__ARSessionMetrics_recordAltitudeLookupAttemptWithDuration_andResult___bl
 
 - (void)recordTrueNorthUnavailable
 {
-  v3 = reportingQueue();
+  v3 = reportingQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __46__ARSessionMetrics_recordTrueNorthUnavailable__block_invoke;
@@ -172,7 +172,7 @@ void __46__ARSessionMetrics_recordTrueNorthUnavailable__block_invoke(uint64_t a1
 {
   v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 241) = 1;
-  v2 = _ARLogSession_1();
+  v2 = _ARLogSession_1(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = objc_opt_class();
@@ -246,7 +246,7 @@ LABEL_14:
 {
   startedCopy = started;
   configurationCopy = configuration;
-  v8 = reportingQueue();
+  v8 = reportingQueue(configurationCopy);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke;
@@ -294,7 +294,7 @@ void __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke(id *
   block[1] = 3221225472;
   block[2] = __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke_2;
   block[3] = &unk_1E817BFE8;
-  v23 = a1[6];
+  v24 = a1[6];
   if (s_rendererString_block_invoke_onceToken != -1)
   {
     dispatch_once(&s_rendererString_block_invoke_onceToken, block);
@@ -312,12 +312,12 @@ void __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke(id *
       if (*(v10 + 200))
       {
         v11 = v10[1];
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke_3;
-        v21[3] = &unk_1E817E510;
-        v21[4] = v10;
-        [v11 sendEvent:@"com.apple.arkit.ARWorldMap.loading" dictionary:v21];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke_3;
+        v22[3] = &unk_1E817E510;
+        v22[4] = v10;
+        [v11 sendEvent:@"com.apple.arkit.ARWorldMap.loading" dictionary:v22];
         v10 = a1[4];
       }
 
@@ -367,8 +367,8 @@ void __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke(id *
     *(a1[4] + 49) = 0;
     *(a1[4] + 50) = 0;
     *(a1[4] + 51) = 0;
-    v18 = hitTestReportingMap();
-    [v18 removeAllObjects];
+    v19 = hitTestReportingMap(v18);
+    [v19 removeAllObjects];
     *(a1[4] + 16) = 1;
     if (objc_opt_respondsToSelector())
     {
@@ -377,9 +377,9 @@ void __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke(id *
 
     if ([a1[5] isKindOfConfiguration:objc_opt_class()])
     {
-      v19 = [a1[5] getAsKindOfConfiguration:objc_opt_class()];
-      v20 = [v19 initialWorldMap];
-      *(a1[4] + 200) = v20 != 0;
+      v20 = [a1[5] getAsKindOfConfiguration:objc_opt_class()];
+      v21 = [v20 initialWorldMap];
+      *(a1[4] + 200) = v21 != 0;
     }
   }
 }
@@ -407,7 +407,7 @@ id __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke_3(uint
   v3 = [v1 numberWithFloat:v2];
   v8[1] = v3;
   v7[2] = @"bundleID";
-  v4 = bundleID();
+  v4 = bundleID(v3);
   v8[2] = v4;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
@@ -425,7 +425,7 @@ id __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke_3(uint
 - (void)_processFrameProperties:(id)properties
 {
   propertiesCopy = properties;
-  v5 = reportingQueue();
+  v5 = reportingQueue(propertiesCopy);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __44__ARSessionMetrics__processFrameProperties___block_invoke;
@@ -438,7 +438,7 @@ id __53__ARSessionMetrics_sessionStarted_withConfiguration___block_invoke_3(uint
 
 void __44__ARSessionMetrics__processFrameProperties___block_invoke(uint64_t a1)
 {
-  v178 = *MEMORY[0x1E69E9840];
+  v195 = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   if (*(*(a1 + 32) + 56))
   {
@@ -447,7 +447,7 @@ void __44__ARSessionMetrics__processFrameProperties___block_invoke(uint64_t a1)
     v5 = *(v4 + 160);
     *(v4 + 160) = v3;
 
-    v6 = [*(a1 + 40) location];
+    v6 = objc_msgSend_location(*(a1 + 40));
     v7 = *(a1 + 32);
     v8 = *(v7 + 168);
     *(v7 + 168) = v6;
@@ -468,27 +468,27 @@ LABEL_146:
       if (*(*v1 + 80) == 1)
       {
         v10[80] = 0;
-        [*(*v1 + 7) timeIntervalSinceNow];
-        *(*v1 + 13) = -v11;
-        v12 = _ARLogSession_1();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v11 = [*(*v1 + 7) timeIntervalSinceNow];
+        *(*v1 + 13) = -v12;
+        v13 = _ARLogSession_1(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v13 = objc_opt_class();
-          v14 = NSStringFromClass(v13);
-          v15 = *v1;
-          v16 = *(*v1 + 13);
+          v14 = objc_opt_class();
+          v15 = NSStringFromClass(v14);
+          v16 = *v1;
+          v17 = *(*v1 + 13);
           *buf = 138543874;
-          v169 = v14;
-          v170 = 2048;
-          v171 = v15;
-          v172 = 2048;
-          v173 = v16;
-          _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: It took %f seconds to initialize vio", buf, 0x20u);
+          v186 = v15;
+          v187 = 2048;
+          v188 = v16;
+          v189 = 2048;
+          v190 = v17;
+          _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: It took %f seconds to initialize vio", buf, 0x20u);
         }
 
-        v17 = [MEMORY[0x1E695DF00] date];
-        v18 = *(*v1 + 8);
-        *(*v1 + 8) = v17;
+        v18 = [MEMORY[0x1E695DF00] date];
+        v19 = *(*v1 + 8);
+        *(*v1 + 8) = v18;
 
         v10 = *v1;
       }
@@ -503,130 +503,130 @@ LABEL_146:
         else if ([v9 trackingState] == 2 && *(*v1 + 201) == 1)
         {
           *(*v1 + 201) = 0;
-          v36 = *v1;
-          v37 = *(*v1 + 1);
-          v167[0] = MEMORY[0x1E69E9820];
-          v167[1] = 3221225472;
-          v167[2] = __44__ARSessionMetrics__processFrameProperties___block_invoke_449;
-          v167[3] = &unk_1E817E510;
-          v167[4] = v36;
-          [v37 sendEvent:@"com.apple.arkit.ARWorldMap.loading" dictionary:v167];
+          v39 = *v1;
+          v40 = *(*v1 + 1);
+          v184[0] = MEMORY[0x1E69E9820];
+          v184[1] = 3221225472;
+          v184[2] = __44__ARSessionMetrics__processFrameProperties___block_invoke_449;
+          v184[3] = &unk_1E817E510;
+          v184[4] = v39;
+          [v40 sendEvent:@"com.apple.arkit.ARWorldMap.loading" dictionary:v184];
         }
       }
 
-      [v9 transform];
-      v39 = *v1;
+      objc_msgSend_transform(v9);
+      v42 = *v1;
       if ((*(*v1 + 112) & 1) == 0)
       {
-        v39[8] = v38;
-        *(*v1 + 9) = v38;
+        v42[8] = v41;
+        *(*v1 + 9) = v41;
         *(*v1 + 112) = 1;
-        v39 = *v1;
+        v42 = *v1;
       }
 
-      v40 = v39[8];
-      if ((vmovn_s32(vcgtq_f32(v38, v40)).u8[0] & 1) == 0)
+      v43 = v42[8];
+      if ((vmovn_s32(vcgtq_f32(v41, v43)).u8[0] & 1) == 0)
       {
-        v40.f32[0] = v38.f32[0];
+        v43.f32[0] = v41.f32[0];
       }
 
-      v39[8].i32[0] = v40.i32[0];
-      v41 = *(*v1 + 33);
-      if (v41 >= v38.f32[1])
+      v42[8].i32[0] = v43.i32[0];
+      v44 = *(*v1 + 33);
+      if (v44 >= v41.f32[1])
       {
-        v41 = v38.f32[1];
+        v44 = v41.f32[1];
       }
 
-      *(*v1 + 33) = v41;
-      v42 = *(*v1 + 34);
-      if (v42 >= v38.f32[2])
+      *(*v1 + 33) = v44;
+      v45 = *(*v1 + 34);
+      if (v45 >= v41.f32[2])
       {
-        v42 = v38.f32[2];
+        v45 = v41.f32[2];
       }
 
-      *(*v1 + 34) = v42;
-      v43 = *(*v1 + 9);
-      if (vmovn_s32(vcgtq_f32(v38, v43)).u8[0])
+      *(*v1 + 34) = v45;
+      v46 = *(*v1 + 9);
+      if (vmovn_s32(vcgtq_f32(v41, v46)).u8[0])
       {
-        v43.f32[0] = v38.f32[0];
+        v46.f32[0] = v41.f32[0];
       }
 
-      *(*v1 + 36) = v43.i32[0];
-      v44 = *(*v1 + 37);
-      if (v44 < v38.f32[1])
+      *(*v1 + 36) = v46.i32[0];
+      v47 = *(*v1 + 37);
+      if (v47 < v41.f32[1])
       {
-        v44 = v38.f32[1];
+        v47 = v41.f32[1];
       }
 
-      *(*v1 + 37) = v44;
-      v45 = *(*v1 + 38);
-      if (v45 < v38.f32[2])
+      *(*v1 + 37) = v47;
+      v48 = *(*v1 + 38);
+      if (v48 < v41.f32[2])
       {
-        v45 = v38.f32[2];
+        v48 = v41.f32[2];
       }
 
-      *(*v1 + 38) = v45;
+      *(*v1 + 38) = v48;
     }
 
     else if ([*(*v1 + 6) isKindOfConfiguration:objc_opt_class()])
     {
-      v19 = [*(a1 + 40) geoTrackingStatus];
-      v20 = v19;
-      if (v19)
+      v20 = [*(a1 + 40) geoTrackingStatus];
+      v21 = v20;
+      if (v20)
       {
-        if (*(*v1 + 31) == 0.0 && [v19 state] != 1 && objc_msgSend(v20, "state"))
+        if (*(*v1 + 31) == 0.0 && [v20 state] != 1 && objc_msgSend(v21, "state"))
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 31) = -v21;
-          v22 = _ARLogSession_1();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          v22 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 31) = -v23;
+          v24 = _ARLogSession_1(v22);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
-            v23 = objc_opt_class();
-            v24 = NSStringFromClass(v23);
-            v25 = *v1;
-            v26 = *(*v1 + 31);
+            v25 = objc_opt_class();
+            v26 = NSStringFromClass(v25);
+            v27 = *v1;
+            v28 = *(*v1 + 31);
             *buf = 138543874;
-            v169 = v24;
-            v170 = 2048;
-            v171 = v25;
-            v172 = 2048;
-            v173 = v26;
-            _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Attempting to localize geo tracking after %f seconds", buf, 0x20u);
+            v186 = v26;
+            v187 = 2048;
+            v188 = v27;
+            v189 = 2048;
+            v190 = v28;
+            _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Attempting to localize geo tracking after %f seconds", buf, 0x20u);
           }
         }
 
-        v27 = [v20 state];
-        v28 = *v1;
-        if (v27 == 3)
+        v29 = [v21 state];
+        v30 = *v1;
+        if (v29 == 3)
         {
-          if ((v28[240] & 1) == 0)
+          if ((v30[240] & 1) == 0)
           {
-            v28[240] = 1;
+            v30[240] = 1;
             ++*(*v1 + 36);
             if (*(*v1 + 32) == 0.0)
             {
-              [*(*v1 + 7) timeIntervalSinceNow];
-              *(*v1 + 32) = -v29;
-              v30 = _ARLogSession_1();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+              v31 = [*(*v1 + 7) timeIntervalSinceNow];
+              *(*v1 + 32) = -v32;
+              v33 = _ARLogSession_1(v31);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
-                v31 = objc_opt_class();
-                v32 = NSStringFromClass(v31);
-                v33 = *v1;
-                v34 = *(*v1 + 32);
+                v34 = objc_opt_class();
+                v35 = NSStringFromClass(v34);
+                v36 = *v1;
+                v37 = *(*v1 + 32);
                 *buf = 138543874;
-                v169 = v32;
-                v170 = 2048;
-                v171 = v33;
-                v172 = 2048;
-                v173 = v34;
-                _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Geo tracking successful localized after %f seconds", buf, 0x20u);
+                v186 = v35;
+                v187 = 2048;
+                v188 = v36;
+                v189 = 2048;
+                v190 = v37;
+                _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Geo tracking successful localized after %f seconds", buf, 0x20u);
               }
             }
           }
 
-          v35 = [v20 accuracy];
-          switch(v35)
+          v38 = [v21 accuracy];
+          switch(v38)
           {
             case 3:
               ++*(*v1 + 35);
@@ -642,390 +642,390 @@ LABEL_146:
 
         else
         {
-          v28[240] = 0;
+          v30[240] = 0;
         }
 
-        if ([v20 state] == 2 || objc_msgSend(v20, "state") == 1)
+        if ([v21 state] == 2 || objc_msgSend(v21, "state") == 1)
         {
-          *(*v1 + 37) |= [v20 failureReasons];
+          *(*v1 + 37) |= [v21 failureReasons];
         }
 
         else
         {
-          *(*v1 + 37) = [v20 failureReasons];
+          *(*v1 + 37) = [v21 failureReasons];
         }
 
-        v46 = [*(a1 + 40) location];
-        v47 = v46;
+        v49 = objc_msgSend_location(*(a1 + 40));
+        v50 = v49;
         if (*(*(a1 + 32) + 304) == 0.0)
         {
-          [v46 horizontalAccuracy];
-          v49 = v48;
+          [v49 horizontalAccuracy];
+          v52 = v51;
           [MEMORY[0x1E69E0300] maximumHorizontalAccuracyThreshold];
-          if (v49 < v50 && [v47 type] == 1)
+          if (v52 < v53 && [v50 type] == 1)
           {
-            [*(*v1 + 7) timeIntervalSinceNow];
-            *(*v1 + 38) = -v51;
-            v52 = _ARLogSession_1();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+            v54 = [*(*v1 + 7) timeIntervalSinceNow];
+            *(*v1 + 38) = -v55;
+            v56 = _ARLogSession_1(v54);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
-              v53 = objc_opt_class();
-              v54 = NSStringFromClass(v53);
-              v55 = *v1;
-              v56 = *(*v1 + 38);
+              v57 = objc_opt_class();
+              v58 = NSStringFromClass(v57);
+              v59 = *v1;
+              v60 = *(*v1 + 38);
               *buf = 138543874;
-              v169 = v54;
-              v170 = 2048;
-              v171 = v55;
-              v172 = 2048;
-              v173 = v56;
-              _os_log_impl(&dword_1C241C000, v52, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL first GPS %f seconds", buf, 0x20u);
+              v186 = v58;
+              v187 = 2048;
+              v188 = v59;
+              v189 = 2048;
+              v190 = v60;
+              _os_log_impl(&dword_1C241C000, v56, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL first GPS %f seconds", buf, 0x20u);
             }
           }
         }
 
         if (*(*v1 + 39) == 0.0)
         {
-          [v47 horizontalAccuracy];
-          v58 = v57;
+          [v50 horizontalAccuracy];
+          v62 = v61;
           [MEMORY[0x1E69E0300] maximumHorizontalAccuracyThreshold];
-          if (v58 < v59 && [v47 type] != 6 && objc_msgSend(v47, "type") != 10)
+          if (v62 < v63 && [v50 type] != 6 && objc_msgSend(v50, "type") != 10)
           {
-            [*(*v1 + 7) timeIntervalSinceNow];
-            *(*v1 + 39) = -v60;
-            v61 = _ARLogSession_1();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+            v64 = [*(*v1 + 7) timeIntervalSinceNow];
+            *(*v1 + 39) = -v65;
+            v66 = _ARLogSession_1(v64);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
             {
-              v62 = objc_opt_class();
-              v63 = NSStringFromClass(v62);
-              v64 = *v1;
-              v65 = *(*v1 + 39);
-              v66 = [v47 type];
+              v67 = objc_opt_class();
+              v68 = NSStringFromClass(v67);
+              v69 = *v1;
+              v70 = *(*v1 + 39);
+              v71 = [v50 type];
               *buf = 138544130;
-              v169 = v63;
-              v170 = 2048;
-              v171 = v64;
-              v172 = 2048;
-              v173 = v65;
-              v174 = 1024;
-              LODWORD(v175) = v66;
-              _os_log_impl(&dword_1C241C000, v61, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL first non-GPS %f seconds, type %i", buf, 0x26u);
+              v186 = v68;
+              v187 = 2048;
+              v188 = v69;
+              v189 = 2048;
+              v190 = v70;
+              v191 = 1024;
+              LODWORD(v192) = v71;
+              _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL first non-GPS %f seconds, type %i", buf, 0x26u);
             }
           }
         }
 
-        if (*(*v1 + 40) == 0.0 && [ARLocationData isAltitudeValid:v47])
+        if (*(*v1 + 40) == 0.0 && [ARLocationData isAltitudeValid:v50])
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 40) = -v67;
-          v68 = _ARLogSession_1();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+          v72 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 40) = -v73;
+          v74 = _ARLogSession_1(v72);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
           {
-            v69 = objc_opt_class();
-            v70 = NSStringFromClass(v69);
-            v71 = *v1;
-            v72 = *(*v1 + 40);
+            v75 = objc_opt_class();
+            v76 = NSStringFromClass(v75);
+            v77 = *v1;
+            v78 = *(*v1 + 40);
             *buf = 138543874;
-            v169 = v70;
-            v170 = 2048;
-            v171 = v71;
-            v172 = 2048;
-            v173 = v72;
-            _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL first DEM value %f seconds", buf, 0x20u);
+            v186 = v76;
+            v187 = 2048;
+            v188 = v77;
+            v189 = 2048;
+            v190 = v78;
+            _os_log_impl(&dword_1C241C000, v74, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL first DEM value %f seconds", buf, 0x20u);
           }
         }
 
-        [v9 transform];
-        v74 = acosf(-v73) * 0.318309886 * 180.0;
-        *&v74 = v74;
-        v75 = [ARGeoTrackingTechnique isCameraUp:v74];
-        v76 = v75;
-        v77 = *v1;
-        v78 = *(*v1 + 41);
-        if (v78 == 0.0 && v75)
+        objc_msgSend_transform(v9);
+        v80 = acosf(-v79) * 0.318309886 * 180.0;
+        *&v80 = v80;
+        v81 = [ARGeoTrackingTechnique isCameraUp:v80];
+        v82 = v81;
+        v83 = *v1;
+        v84 = *(*v1 + 41);
+        if (v84 == 0.0 && v81)
         {
-          [v77[7] timeIntervalSinceNow];
-          *(*v1 + 41) = -v79;
-          v80 = _ARLogSession_1();
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+          v85 = [v83[7] timeIntervalSinceNow];
+          *(*v1 + 41) = -v86;
+          v87 = _ARLogSession_1(v85);
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
           {
-            v81 = objc_opt_class();
-            v82 = NSStringFromClass(v81);
-            v83 = *v1;
-            v84 = *(*v1 + 41);
+            v88 = objc_opt_class();
+            v89 = NSStringFromClass(v88);
+            v90 = *v1;
+            v91 = *(*v1 + 41);
             *buf = 138543874;
-            v169 = v82;
-            v170 = 2048;
-            v171 = v83;
-            v172 = 2048;
-            v173 = v84;
-            _os_log_impl(&dword_1C241C000, v80, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Camera first up %f seconds", buf, 0x20u);
+            v186 = v89;
+            v187 = 2048;
+            v188 = v90;
+            v189 = 2048;
+            v190 = v91;
+            _os_log_impl(&dword_1C241C000, v87, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Camera first up %f seconds", buf, 0x20u);
           }
 
-          v77 = *v1;
-          v78 = *(*v1 + 41);
+          v83 = *v1;
+          v84 = *(*v1 + 41);
         }
 
-        if (v78 > 0.0)
+        if (v84 > 0.0)
         {
-          [v77[7] timeIntervalSinceNow];
-          v86 = *(*v1 + 42) != 0.0;
-          if (-v85 - *(*v1 + 41) <= 1.0)
+          [v83[7] timeIntervalSinceNow];
+          v93 = *(*v1 + 42) != 0.0;
+          if (-v92 - *(*v1 + 41) <= 1.0)
           {
-            v86 = 1;
+            v93 = 1;
           }
 
-          if (!v86 && !v76)
+          if (!v93 && !v82)
           {
-            [*(*v1 + 7) timeIntervalSinceNow];
-            *(*v1 + 42) = -v87;
-            v88 = _ARLogSession_1();
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
+            v94 = [*(*v1 + 7) timeIntervalSinceNow];
+            *(*v1 + 42) = -v95;
+            v96 = _ARLogSession_1(v94);
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
             {
-              v89 = objc_opt_class();
-              v90 = NSStringFromClass(v89);
-              v91 = *v1;
-              v92 = *(*v1 + 42);
+              v97 = objc_opt_class();
+              v98 = NSStringFromClass(v97);
+              v99 = *v1;
+              v100 = *(*v1 + 42);
               *buf = 138543874;
-              v169 = v90;
-              v170 = 2048;
-              v171 = v91;
-              v172 = 2048;
-              v173 = v92;
-              _os_log_impl(&dword_1C241C000, v88, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Camera down again %f seconds", buf, 0x20u);
+              v186 = v98;
+              v187 = 2048;
+              v188 = v99;
+              v189 = 2048;
+              v190 = v100;
+              _os_log_impl(&dword_1C241C000, v96, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Camera down again %f seconds", buf, 0x20u);
             }
           }
         }
 
-        v93 = [*(a1 + 40) vlState];
-        v94 = [v93 hasStartedAvailabilityCheck];
-        v95 = *(a1 + 32);
-        if (*(v95 + 344) == 0.0 && v94)
+        v101 = [*(a1 + 40) vlState];
+        v102 = [v101 hasStartedAvailabilityCheck];
+        v103 = *(a1 + 32);
+        if (*(v103 + 344) == 0.0 && v102)
         {
-          [*(v95 + 56) timeIntervalSinceNow];
-          *(*v1 + 43) = -v96;
-          v97 = _ARLogSession_1();
-          if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
+          v104 = [*(v103 + 56) timeIntervalSinceNow];
+          *(*v1 + 43) = -v105;
+          v106 = _ARLogSession_1(v104);
+          if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
           {
-            v98 = objc_opt_class();
-            v99 = NSStringFromClass(v98);
-            v100 = *v1;
-            v101 = *(*v1 + 43);
+            v107 = objc_opt_class();
+            v108 = NSStringFromClass(v107);
+            v109 = *v1;
+            v110 = *(*v1 + 43);
             *buf = 138543874;
-            v169 = v99;
-            v170 = 2048;
-            v171 = v100;
-            v172 = 2048;
-            v173 = v101;
-            _os_log_impl(&dword_1C241C000, v97, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL available started %f seconds", buf, 0x20u);
+            v186 = v108;
+            v187 = 2048;
+            v188 = v109;
+            v189 = 2048;
+            v190 = v110;
+            _os_log_impl(&dword_1C241C000, v106, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL available started %f seconds", buf, 0x20u);
           }
         }
 
-        v102 = [v93 hasReturnedAvailabilityCheck];
-        if (*(*v1 + 44) == 0.0 && v102)
+        v111 = [v101 hasReturnedAvailabilityCheck];
+        if (*(*v1 + 44) == 0.0 && v111)
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 44) = -v103;
-          v104 = _ARLogSession_1();
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
+          v112 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 44) = -v113;
+          v114 = _ARLogSession_1(v112);
+          if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
           {
-            v105 = objc_opt_class();
-            v106 = NSStringFromClass(v105);
-            v107 = *v1;
-            v108 = *(*v1 + 43);
+            v115 = objc_opt_class();
+            v116 = NSStringFromClass(v115);
+            v117 = *v1;
+            v118 = *(*v1 + 43);
             *buf = 138543874;
-            v169 = v106;
-            v170 = 2048;
-            v171 = v107;
-            v172 = 2048;
-            v173 = v108;
-            _os_log_impl(&dword_1C241C000, v104, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL available returned %f seconds", buf, 0x20u);
+            v186 = v116;
+            v187 = 2048;
+            v188 = v117;
+            v189 = 2048;
+            v190 = v118;
+            _os_log_impl(&dword_1C241C000, v114, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL available returned %f seconds", buf, 0x20u);
           }
         }
 
-        v109 = [v93 hasStartedLocalization];
-        if (*(*v1 + 45) == 0.0 && v109)
+        v119 = [v101 hasStartedLocalization];
+        if (*(*v1 + 45) == 0.0 && v119)
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 45) = -v110;
-          v111 = _ARLogSession_1();
-          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
+          v120 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 45) = -v121;
+          v122 = _ARLogSession_1(v120);
+          if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
           {
-            v112 = objc_opt_class();
-            v113 = NSStringFromClass(v112);
-            v114 = *v1;
-            v115 = *(*v1 + 45);
+            v123 = objc_opt_class();
+            v124 = NSStringFromClass(v123);
+            v125 = *v1;
+            v126 = *(*v1 + 45);
             *buf = 138543874;
-            v169 = v113;
-            v170 = 2048;
-            v171 = v114;
-            v172 = 2048;
-            v173 = v115;
-            _os_log_impl(&dword_1C241C000, v111, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL localization started %f seconds", buf, 0x20u);
+            v186 = v124;
+            v187 = 2048;
+            v188 = v125;
+            v189 = 2048;
+            v190 = v126;
+            _os_log_impl(&dword_1C241C000, v122, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL localization started %f seconds", buf, 0x20u);
           }
         }
 
-        v116 = [v93 hasReturnedLocalization];
-        if (*(*v1 + 46) == 0.0 && v116)
+        v127 = [v101 hasReturnedLocalization];
+        if (*(*v1 + 46) == 0.0 && v127)
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 46) = -v117;
-          v118 = _ARLogSession_1();
-          if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
+          v128 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 46) = -v129;
+          v130 = _ARLogSession_1(v128);
+          if (os_log_type_enabled(v130, OS_LOG_TYPE_DEBUG))
           {
-            v119 = objc_opt_class();
-            v120 = NSStringFromClass(v119);
-            v121 = *v1;
-            v122 = *(*v1 + 46);
+            v131 = objc_opt_class();
+            v132 = NSStringFromClass(v131);
+            v133 = *v1;
+            v134 = *(*v1 + 46);
             *buf = 138543874;
-            v169 = v120;
-            v170 = 2048;
-            v171 = v121;
-            v172 = 2048;
-            v173 = v122;
-            _os_log_impl(&dword_1C241C000, v118, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL localization returned %f seconds", buf, 0x20u);
+            v186 = v132;
+            v187 = 2048;
+            v188 = v133;
+            v189 = 2048;
+            v190 = v134;
+            _os_log_impl(&dword_1C241C000, v130, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Called VL localization returned %f seconds", buf, 0x20u);
           }
         }
 
-        v123 = [v20 failureReasons];
-        if (*(*v1 + 47) == 0.0 && (v123 & 0x10) != 0)
+        v135 = [v21 failureReasons];
+        if (*(*v1 + 47) == 0.0 && (v135 & 0x10) != 0)
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 47) = -v124;
-          v125 = _ARLogSession_1();
-          if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
+          v136 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 47) = -v137;
+          v138 = _ARLogSession_1(v136);
+          if (os_log_type_enabled(v138, OS_LOG_TYPE_DEBUG))
           {
-            v126 = objc_opt_class();
-            v127 = NSStringFromClass(v126);
-            v128 = *v1;
-            v129 = *(*v1 + 47);
+            v139 = objc_opt_class();
+            v140 = NSStringFromClass(v139);
+            v141 = *v1;
+            v142 = *(*v1 + 47);
             *buf = 138543874;
-            v169 = v127;
-            v170 = 2048;
-            v171 = v128;
-            v172 = 2048;
-            v173 = v129;
-            _os_log_impl(&dword_1C241C000, v125, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VL failed to localize after %f seconds", buf, 0x20u);
+            v186 = v140;
+            v187 = 2048;
+            v188 = v141;
+            v189 = 2048;
+            v190 = v142;
+            _os_log_impl(&dword_1C241C000, v138, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VL failed to localize after %f seconds", buf, 0x20u);
           }
         }
 
-        v130 = [v9 trackingState] != 2 && objc_msgSend(v9, "trackingState") != 1;
-        if (*(*v1 + 48) == 0.0 && !v130)
+        v143 = [v9 trackingState] != 2 && objc_msgSend(v9, "trackingState") != 1;
+        if (*(*v1 + 48) == 0.0 && !v143)
         {
-          [*(*v1 + 7) timeIntervalSinceNow];
-          *(*v1 + 48) = -v131;
-          v132 = _ARLogSession_1();
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
+          v144 = [*(*v1 + 7) timeIntervalSinceNow];
+          *(*v1 + 48) = -v145;
+          v146 = _ARLogSession_1(v144);
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_DEBUG))
           {
-            v133 = objc_opt_class();
-            v134 = NSStringFromClass(v133);
-            v135 = *v1;
-            v136 = *(*v1 + 48);
+            v147 = objc_opt_class();
+            v148 = NSStringFromClass(v147);
+            v149 = *v1;
+            v150 = *(*v1 + 48);
             *buf = 138543874;
-            v169 = v134;
-            v170 = 2048;
-            v171 = v135;
-            v172 = 2048;
-            v173 = v136;
-            _os_log_impl(&dword_1C241C000, v132, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO first pose after %f seconds", buf, 0x20u);
+            v186 = v148;
+            v187 = 2048;
+            v188 = v149;
+            v189 = 2048;
+            v190 = v150;
+            _os_log_impl(&dword_1C241C000, v146, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO first pose after %f seconds", buf, 0x20u);
           }
         }
 
-        v137 = [v9 trackingState];
-        v138 = v137;
-        v139 = *v1;
-        v140 = *(*v1 + 49);
-        if (v140 == 0.0 && v137 == 2)
+        v151 = [v9 trackingState];
+        v152 = v151;
+        v153 = *v1;
+        v154 = *(*v1 + 49);
+        if (v154 == 0.0 && v151 == 2)
         {
-          [v139[7] timeIntervalSinceNow];
-          *(*v1 + 49) = -v141;
-          v142 = _ARLogSession_1();
-          if (os_log_type_enabled(v142, OS_LOG_TYPE_DEBUG))
+          v155 = [v153[7] timeIntervalSinceNow];
+          *(*v1 + 49) = -v156;
+          v157 = _ARLogSession_1(v155);
+          if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
           {
-            v143 = objc_opt_class();
-            v144 = NSStringFromClass(v143);
-            v145 = *v1;
-            v146 = *(*v1 + 49);
+            v158 = objc_opt_class();
+            v159 = NSStringFromClass(v158);
+            v160 = *v1;
+            v161 = *(*v1 + 49);
             *buf = 138543874;
-            v169 = v144;
-            v170 = 2048;
-            v171 = v145;
-            v172 = 2048;
-            v173 = v146;
-            _os_log_impl(&dword_1C241C000, v142, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO first normal pose after %f seconds", buf, 0x20u);
+            v186 = v159;
+            v187 = 2048;
+            v188 = v160;
+            v189 = 2048;
+            v190 = v161;
+            _os_log_impl(&dword_1C241C000, v157, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO first normal pose after %f seconds", buf, 0x20u);
           }
 
-          v139 = *v1;
-          v140 = *(*v1 + 49);
+          v153 = *v1;
+          v154 = *(*v1 + 49);
         }
 
-        if (v140 > 0.0)
+        if (v154 > 0.0)
         {
-          [v139[7] timeIntervalSinceNow];
-          v148 = *v1;
-          if (*(*v1 + 50) == 0.0 && -v147 - *(v148 + 49) > 1.0 && v138 != 2)
+          [v153[7] timeIntervalSinceNow];
+          v163 = *v1;
+          if (*(*v1 + 50) == 0.0 && -v162 - *(v163 + 49) > 1.0 && v152 != 2)
           {
-            [v148[7] timeIntervalSinceNow];
-            *(*v1 + 50) = -v149;
-            v150 = _ARLogSession_1();
-            if (os_log_type_enabled(v150, OS_LOG_TYPE_DEBUG))
+            v164 = [v163[7] timeIntervalSinceNow];
+            *(*v1 + 50) = -v165;
+            v166 = _ARLogSession_1(v164);
+            if (os_log_type_enabled(v166, OS_LOG_TYPE_DEBUG))
             {
-              v151 = objc_opt_class();
-              v152 = NSStringFromClass(v151);
-              v153 = *v1;
-              v154 = *(*v1 + 50);
+              v167 = objc_opt_class();
+              v168 = NSStringFromClass(v167);
+              v169 = *v1;
+              v170 = *(*v1 + 50);
               *buf = 138543874;
-              v169 = v152;
-              v170 = 2048;
-              v171 = v153;
-              v172 = 2048;
-              v173 = v154;
-              _os_log_impl(&dword_1C241C000, v150, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO not normal after %f seconds", buf, 0x20u);
+              v186 = v168;
+              v187 = 2048;
+              v188 = v169;
+              v189 = 2048;
+              v190 = v170;
+              _os_log_impl(&dword_1C241C000, v166, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO not normal after %f seconds", buf, 0x20u);
             }
           }
         }
 
         [v9 imageResolution];
-        v156 = v155;
+        v172 = v171;
         [v9 imageResolution];
         if (*(*v1 + 51) == 0.0)
         {
-          v158 = v157;
-          if (v156 * v157 > 0.0)
+          v174 = v173;
+          if (v172 * v173 > 0.0)
           {
-            [*(*v1 + 7) timeIntervalSinceNow];
-            *(*v1 + 51) = -v159;
-            v160 = _ARLogSession_1();
-            if (os_log_type_enabled(v160, OS_LOG_TYPE_DEBUG))
+            v175 = [*(*v1 + 7) timeIntervalSinceNow];
+            *(*v1 + 51) = -v176;
+            v177 = _ARLogSession_1(v175);
+            if (os_log_type_enabled(v177, OS_LOG_TYPE_DEBUG))
             {
-              v161 = objc_opt_class();
-              v162 = NSStringFromClass(v161);
-              v163 = *v1;
-              v164 = *(*v1 + 51);
+              v178 = objc_opt_class();
+              v179 = NSStringFromClass(v178);
+              v180 = *v1;
+              v181 = *(*v1 + 51);
               *buf = 138544386;
-              v169 = v162;
-              v170 = 2048;
-              v171 = v163;
-              v172 = 2048;
-              v173 = v164;
-              v174 = 2048;
-              v175 = v156;
-              v176 = 2048;
-              v177 = v158;
-              _os_log_impl(&dword_1C241C000, v160, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: first image after %f seconds (%f x %f)", buf, 0x34u);
+              v186 = v179;
+              v187 = 2048;
+              v188 = v180;
+              v189 = 2048;
+              v190 = v181;
+              v191 = 2048;
+              v192 = v172;
+              v193 = 2048;
+              v194 = v174;
+              _os_log_impl(&dword_1C241C000, v177, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: first image after %f seconds (%f x %f)", buf, 0x34u);
             }
           }
         }
       }
     }
 
-    v165 = [*(a1 + 40) worldTrackingState];
-    v166 = v165;
-    if (v165)
+    v182 = [*(a1 + 40) worldTrackingState];
+    v183 = v182;
+    if (v182)
     {
-      *(*v1 + 22) = [v165 currentVIOMapSize];
-      *(*v1 + 23) = [v166 numberOfCameraSwitches];
-      *(*v1 + 24) = [v166 reinitializationAttempts];
+      *(*v1 + 22) = [v182 currentVIOMapSize];
+      *(*v1 + 23) = [v183 numberOfCameraSwitches];
+      *(*v1 + 24) = [v183 reinitializationAttempts];
     }
 
     ++*(*v1 + 11);
@@ -1056,7 +1056,7 @@ id __44__ARSessionMetrics__processFrameProperties___block_invoke_449(uint64_t a1
   v3 = [v1 numberWithFloat:v2];
   v8[1] = v3;
   v7[2] = @"bundleID";
-  v4 = bundleID();
+  v4 = bundleID(v3);
   v8[2] = v4;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
@@ -1087,7 +1087,7 @@ id __44__ARSessionMetrics__processFrameProperties___block_invoke_449(uint64_t a1
 
 - (void)recordSaveMap:(int64_t)map numberOfFeaturePoints:(unint64_t)points
 {
-  v7 = reportingQueue();
+  v7 = reportingQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__ARSessionMetrics_recordSaveMap_numberOfFeaturePoints___block_invoke;
@@ -1119,7 +1119,7 @@ id __56__ARSessionMetrics_recordSaveMap_numberOfFeaturePoints___block_invoke_2(u
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
   v8[1] = v3;
   v7[2] = @"bundleID";
-  v4 = bundleID();
+  v4 = bundleID(v3);
   v8[2] = v4;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
@@ -1129,7 +1129,7 @@ id __56__ARSessionMetrics_recordSaveMap_numberOfFeaturePoints___block_invoke_2(u
 - (void)recordRaycast:(id)raycast tracked:(BOOL)tracked
 {
   raycastCopy = raycast;
-  v7 = reportingQueue();
+  v7 = reportingQueue(raycastCopy);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __42__ARSessionMetrics_recordRaycast_tracked___block_invoke;
@@ -1167,7 +1167,7 @@ id __42__ARSessionMetrics_recordRaycast_tracked___block_invoke_2(uint64_t a1)
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
   v9[2] = v4;
   v8[3] = @"bundleID";
-  v5 = bundleID();
+  v5 = bundleID(v4);
   v9[3] = v5;
   v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
@@ -1176,7 +1176,7 @@ id __42__ARSessionMetrics_recordRaycast_tracked___block_invoke_2(uint64_t a1)
 
 - (void)recordHiResFrameCapture
 {
-  v3 = reportingQueue();
+  v3 = reportingQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __43__ARSessionMetrics_recordHiResFrameCapture__block_invoke;
@@ -1187,7 +1187,7 @@ id __42__ARSessionMetrics_recordRaycast_tracked___block_invoke_2(uint64_t a1)
 
 - (void)recordCoachingOverlayUsage:(int)usage
 {
-  v5 = reportingQueue();
+  v5 = reportingQueue(self);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __47__ARSessionMetrics_recordCoachingOverlayUsage___block_invoke;
@@ -1207,7 +1207,7 @@ uint64_t __47__ARSessionMetrics_recordCoachingOverlayUsage___block_invoke(uint64
 - (void)reportSessionFailure:(id)failure
 {
   failureCopy = failure;
-  v5 = reportingQueue();
+  v5 = reportingQueue(failureCopy);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __41__ARSessionMetrics_reportSessionFailure___block_invoke;
@@ -1278,7 +1278,7 @@ id __41__ARSessionMetrics_reportSessionFailure___block_invoke_2(uint64_t a1)
   v8 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 48)];
   v19 = v8;
   v15 = @"bundleID";
-  v9 = bundleID();
+  v9 = bundleID(v8);
   v20 = v9;
   v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:v12 count:5];
 
@@ -1295,7 +1295,7 @@ id __41__ARSessionMetrics_reportSessionFailure___block_invoke_2(uint64_t a1)
 
 - (void)sessionStopped
 {
-  v3 = reportingQueue();
+  v3 = reportingQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __34__ARSessionMetrics_sessionStopped__block_invoke;
@@ -1304,11 +1304,11 @@ id __41__ARSessionMetrics_reportSessionFailure___block_invoke_2(uint64_t a1)
   dispatch_async(v3, block);
 }
 
-uint64_t __34__ARSessionMetrics_sessionStopped__block_invoke(uint64_t a1)
+void *__34__ARSessionMetrics_sessionStopped__block_invoke(uint64_t a1)
 {
   s_isSessionStopped = 1;
   result = *(a1 + 32);
-  if (*(result + 56) && (*(result + 202) & 1) == 0)
+  if (*(result + 7) && (*(result + 202) & 1) == 0)
   {
     [result _recordSessionEnd];
     v3 = *(*(a1 + 32) + 8);
@@ -1322,480 +1322,480 @@ uint64_t __34__ARSessionMetrics_sessionStopped__block_invoke(uint64_t a1)
 - (void)_recordSessionEnd
 {
   selfCopy = self;
-  v149 = *MEMORY[0x1E69E9840];
-  [(NSDate *)self->_startDate timeIntervalSinceNow];
-  v4 = -v3;
-  v5 = _ARLogSession_1();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v151 = *MEMORY[0x1E69E9840];
+  timeIntervalSinceNow = [(NSDate *)self->_startDate timeIntervalSinceNow];
+  v5 = -v4;
+  v6 = _ARLogSession_1(timeIntervalSinceNow);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     *buf = 138543874;
-    v144 = v7;
-    v145 = 2048;
-    v146 = selfCopy;
+    v146 = v8;
     v147 = 2048;
-    v148 = v4;
-    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARSession duration seconds: %f", buf, 0x20u);
+    v148 = selfCopy;
+    v149 = 2048;
+    v150 = v5;
+    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARSession duration seconds: %f", buf, 0x20u);
   }
 
   startDate = selfCopy->_startDate;
   selfCopy->_startDate = 0;
 
-  v9 = &off_1C25C8000;
+  v10 = &off_1C25C8000;
   if ([(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()]&& ![(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()])
   {
-    v23 = [(ARConfiguration *)selfCopy->_currentConfiguration getAsKindOfConfiguration:objc_opt_class()];
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v24 = [(ARConfiguration *)selfCopy->_currentConfiguration getAsKindOfConfiguration:objc_opt_class()];
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
     [(ARSessionMetrics *)selfCopy _recordBadFramePercentageFinal:1];
     if (selfCopy->_hasInitialWorldMap && selfCopy->_relocalizingToInitialWorldMap)
     {
       reporter = selfCopy->_reporter;
-      v139[0] = MEMORY[0x1E69E9820];
-      v139[1] = 3221225472;
-      v139[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke;
-      v139[3] = &__block_descriptor_40_e19___NSDictionary_8__0l;
-      *&v139[4] = v4;
-      [(ARSessionMetricsReporting *)reporter sendEvent:@"com.apple.arkit.ARWorldMap.loading" dictionary:v139];
+      v141[0] = MEMORY[0x1E69E9820];
+      v141[1] = 3221225472;
+      v141[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke;
+      v141[3] = &__block_descriptor_40_e19___NSDictionary_8__0l;
+      *&v141[4] = v5;
+      [(ARSessionMetricsReporting *)reporter sendEvent:@"com.apple.arkit.ARWorldMap.loading" dictionary:v141];
     }
 
-    v28 = 0;
-    v26.i64[0] = 0;
+    v29 = 0;
+    v27.i64[0] = 0;
     if (selfCopy->_positionInitialized)
     {
-      v29 = vsubq_f32(*selfCopy->_maxPos, *selfCopy->_minPos);
-      v26 = vextq_s8(v29, v29, 8uLL);
-      *v26.i8 = vmul_f32(*v29.i8, *v26.i8);
-      v28 = v29.i32[1];
+      v30 = vsubq_f32(*selfCopy->_maxPos, *selfCopy->_minPos);
+      v27 = vextq_s8(v30, v30, 8uLL);
+      *v27.i8 = vmul_f32(*v30.i8, *v27.i8);
+      v29 = v30.i32[1];
     }
 
-    v99 = v25;
-    if ([v23 isCollaborationEnabled])
+    v101 = v26;
+    if ([v24 isCollaborationEnabled])
     {
+      v139 = 0u;
+      v140 = 0u;
       v137 = 0u;
       v138 = 0u;
-      v135 = 0u;
-      v136 = 0u;
-      v30 = selfCopy->_lastUpdatedFrameAnchors;
-      v31 = [(NSArray *)v30 countByEnumeratingWithState:&v135 objects:v142 count:16];
-      if (v31)
+      v31 = selfCopy->_lastUpdatedFrameAnchors;
+      v32 = [(NSArray *)v31 countByEnumeratingWithState:&v137 objects:v144 count:16];
+      if (v32)
       {
-        v32 = v31;
-        v33 = 0;
-        v34 = *v136;
+        v33 = v32;
+        v34 = 0;
+        v35 = *v138;
         do
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v136 != v34)
+            if (*v138 != v35)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v31);
             }
 
             objc_opt_class();
-            v33 += objc_opt_isKindOfClass() & 1;
+            v34 += objc_opt_isKindOfClass() & 1;
           }
 
-          v32 = [(NSArray *)v30 countByEnumeratingWithState:&v135 objects:v142 count:16];
+          v33 = [(NSArray *)v31 countByEnumeratingWithState:&v137 objects:v144 count:16];
         }
 
-        while (v32);
+        while (v33);
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
 
+    v135 = 0u;
+    v136 = 0u;
     v133 = 0u;
     v134 = 0u;
-    v131 = 0u;
-    v132 = 0u;
-    v64 = selfCopy->_lastUpdatedFrameAnchors;
-    v65 = [(NSArray *)v64 countByEnumeratingWithState:&v131 objects:v141 count:16];
-    if (v65)
+    v66 = selfCopy->_lastUpdatedFrameAnchors;
+    v67 = [(NSArray *)v66 countByEnumeratingWithState:&v133 objects:v143 count:16];
+    if (v67)
     {
-      v66 = v65;
-      v67 = 0;
-      v68 = *v132;
+      v68 = v67;
+      v69 = 0;
+      v70 = *v134;
       do
       {
-        for (j = 0; j != v66; ++j)
+        for (j = 0; j != v68; ++j)
         {
-          if (*v132 != v68)
+          if (*v134 != v70)
           {
-            objc_enumerationMutation(v64);
+            objc_enumerationMutation(v66);
           }
 
           objc_opt_class();
-          v67 += objc_opt_isKindOfClass() & 1;
+          v69 += objc_opt_isKindOfClass() & 1;
         }
 
-        v66 = [(NSArray *)v64 countByEnumeratingWithState:&v131 objects:v141 count:16];
+        v68 = [(NSArray *)v66 countByEnumeratingWithState:&v133 objects:v143 count:16];
       }
 
-      while (v66);
+      while (v68);
     }
 
     else
     {
-      v67 = 0;
+      v69 = 0;
     }
 
-    v70 = selfCopy->_reporter;
-    v124[0] = MEMORY[0x1E69E9820];
-    v9 = &off_1C25C8000;
-    v124[1] = 3221225472;
-    v124[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_2;
-    v124[3] = &unk_1E817E618;
-    v124[4] = selfCopy;
-    v125 = v23;
-    v129 = v98;
-    v130 = v28;
-    v126 = v33;
-    v127 = v67;
-    v128 = v4;
-    v71 = v23;
-    [(ARSessionMetricsReporting *)v70 sendEvent:@"com.apple.arkit.ARWorldTracking" dictionary:v124];
+    v72 = selfCopy->_reporter;
+    v126[0] = MEMORY[0x1E69E9820];
+    v10 = &off_1C25C8000;
+    v126[1] = 3221225472;
+    v126[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_2;
+    v126[3] = &unk_1E817E618;
+    v126[4] = selfCopy;
+    v127 = v24;
+    v131 = v100;
+    v132 = v29;
+    v128 = v34;
+    v129 = v69;
+    v130 = v5;
+    v73 = v24;
+    [(ARSessionMetricsReporting *)v72 sendEvent:@"com.apple.arkit.ARWorldTracking" dictionary:v126];
 
     goto LABEL_69;
   }
 
-  v10 = [(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()];
+  v11 = [(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()];
   currentConfiguration = selfCopy->_currentConfiguration;
-  if (v10)
+  if (v11)
   {
-    v12 = [(ARConfiguration *)currentConfiguration getAsKindOfConfiguration:objc_opt_class()];
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v15 = selfCopy->_reporter;
-    v122[0] = MEMORY[0x1E69E9820];
-    v122[1] = 3221225472;
-    v122[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_3;
-    v122[3] = &unk_1E817E510;
-    v123 = v12;
-    v16 = v12;
-    [(ARSessionMetricsReporting *)v15 sendEvent:@"com.apple.arkit.ARImageTracking" dictionary:v122];
-    v17 = v123;
+    v13 = [(ARConfiguration *)currentConfiguration getAsKindOfConfiguration:objc_opt_class()];
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v16 = selfCopy->_reporter;
+    v124[0] = MEMORY[0x1E69E9820];
+    v124[1] = 3221225472;
+    v124[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_3;
+    v124[3] = &unk_1E817E510;
+    v125 = v13;
+    v17 = v13;
+    [(ARSessionMetricsReporting *)v16 sendEvent:@"com.apple.arkit.ARImageTracking" dictionary:v124];
+    v18 = v125;
 LABEL_25:
 
     goto LABEL_70;
   }
 
-  v18 = [(ARConfiguration *)currentConfiguration isKindOfConfiguration:objc_opt_class()];
-  v19 = selfCopy->_currentConfiguration;
-  if (v18)
+  v19 = [(ARConfiguration *)currentConfiguration isKindOfConfiguration:objc_opt_class()];
+  v20 = selfCopy->_currentConfiguration;
+  if (v19)
   {
-    v20 = [(ARConfiguration *)v19 getAsKindOfConfiguration:objc_opt_class()];
-    v21 = objc_opt_class();
-    v14 = NSStringFromClass(v21);
-    v22 = selfCopy->_reporter;
+    v21 = [(ARConfiguration *)v20 getAsKindOfConfiguration:objc_opt_class()];
+    v22 = objc_opt_class();
+    v15 = NSStringFromClass(v22);
+    v23 = selfCopy->_reporter;
+    v122[0] = MEMORY[0x1E69E9820];
+    v122[1] = 3221225472;
+    v122[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_4;
+    v122[3] = &unk_1E817E510;
+    v123 = v21;
+    v17 = v21;
+    [(ARSessionMetricsReporting *)v23 sendEvent:@"com.apple.arkit.ARFaceTracking" dictionary:v122];
+    v18 = v123;
+    goto LABEL_25;
+  }
+
+  v37 = [(ARConfiguration *)v20 isKindOfConfiguration:objc_opt_class()];
+  v38 = selfCopy->_currentConfiguration;
+  if (v37)
+  {
+    v39 = [(ARConfiguration *)v38 getAsKindOfConfiguration:objc_opt_class()];
+    v40 = objc_opt_class();
+    v15 = NSStringFromClass(v40);
+    v41 = selfCopy->_reporter;
     v120[0] = MEMORY[0x1E69E9820];
     v120[1] = 3221225472;
-    v120[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_4;
+    v120[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_5;
     v120[3] = &unk_1E817E510;
-    v121 = v20;
-    v16 = v20;
-    [(ARSessionMetricsReporting *)v22 sendEvent:@"com.apple.arkit.ARFaceTracking" dictionary:v120];
-    v17 = v121;
+    v121 = v39;
+    v17 = v39;
+    [(ARSessionMetricsReporting *)v41 sendEvent:@"com.apple.arkit.ARBodyTracking" dictionary:v120];
+    v18 = v121;
     goto LABEL_25;
   }
 
-  v36 = [(ARConfiguration *)v19 isKindOfConfiguration:objc_opt_class()];
-  v37 = selfCopy->_currentConfiguration;
-  if (v36)
+  if ([(ARConfiguration *)v38 isKindOfConfiguration:objc_opt_class()])
   {
-    v38 = [(ARConfiguration *)v37 getAsKindOfConfiguration:objc_opt_class()];
-    v39 = objc_opt_class();
-    v14 = NSStringFromClass(v39);
-    v40 = selfCopy->_reporter;
-    v118[0] = MEMORY[0x1E69E9820];
-    v118[1] = 3221225472;
-    v118[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_5;
-    v118[3] = &unk_1E817E510;
-    v119 = v38;
-    v16 = v38;
-    [(ARSessionMetricsReporting *)v40 sendEvent:@"com.apple.arkit.ARBodyTracking" dictionary:v118];
-    v17 = v119;
-    goto LABEL_25;
-  }
-
-  if ([(ARConfiguration *)v37 isKindOfConfiguration:objc_opt_class()])
-  {
-    v41 = objc_opt_class();
-    v42 = NSStringFromClass(v41);
-    v14 = v42;
+    v42 = objc_opt_class();
+    v43 = NSStringFromClass(v42);
+    v15 = v43;
     if (!selfCopy->_frameCount)
     {
       goto LABEL_70;
     }
 
-    v99 = v42;
-    v100 = selfCopy->_lastUpdatedFrameLocation;
-    v114 = 0u;
-    v115 = 0u;
+    v101 = v43;
+    v102 = selfCopy->_lastUpdatedFrameLocation;
     v116 = 0u;
     v117 = 0u;
-    v43 = selfCopy->_lastUpdatedFrameAnchors;
-    v44 = [(NSArray *)v43 countByEnumeratingWithState:&v114 objects:v140 count:16];
-    if (v44)
+    v118 = 0u;
+    v119 = 0u;
+    v44 = selfCopy->_lastUpdatedFrameAnchors;
+    v45 = [(NSArray *)v44 countByEnumeratingWithState:&v116 objects:v142 count:16];
+    if (v45)
     {
-      v45 = v44;
-      v97 = selfCopy;
-      v46 = 0;
+      v46 = v45;
+      v99 = selfCopy;
       v47 = 0;
-      v48 = *v115;
-      v49 = 0.0;
-      v50 = 1.79769313e308;
-      v51 = 0.0;
+      v48 = 0;
+      v49 = *v117;
+      v50 = 0.0;
+      v51 = 1.79769313e308;
+      v52 = 0.0;
       do
       {
-        for (k = 0; k != v45; ++k)
+        for (k = 0; k != v46; ++k)
         {
-          if (*v115 != v48)
+          if (*v117 != v49)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v44);
           }
 
-          v53 = *(*(&v114 + 1) + 8 * k);
+          v54 = *(*(&v116 + 1) + 8 * k);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v54 = v53;
-            v55 = objc_alloc(MEMORY[0x1E6985C40]);
-            if (v54)
+            v55 = v54;
+            v56 = objc_alloc(MEMORY[0x1E6985C40]);
+            if (v55)
             {
-              [v54 locationLLA];
-              v56 = v113;
-              [v54 locationLLA];
-              *&v57 = vextq_s8(v112, v112, 8uLL).u64[0];
+              objc_msgSend_locationLLA(v55);
+              v57 = v115[0];
+              objc_msgSend_locationLLA(v55);
+              *&v58 = vextq_s8(v114[0], v114[0], 8uLL).u64[0];
             }
 
             else
             {
-              v56 = 0.0;
               v57 = 0.0;
+              v58 = 0.0;
             }
 
-            v58 = [v55 initWithLatitude:v56 longitude:{v57, v97}];
-            [(CLLocation *)v100 distanceFromLocation:v58];
-            v60 = v59;
+            v59 = [v56 initWithLatitude:v57 longitude:{v58, v99}];
+            [(CLLocation *)v102 distanceFromLocation:v59];
+            v61 = v60;
 
-            if ([v54 altitudeSource] == 3)
+            if ([v55 altitudeSource] == 3)
             {
-              ++v46;
+              ++v47;
             }
 
-            v51 = v51 + v60;
-            if (v50 >= v60)
+            v52 = v52 + v61;
+            if (v51 >= v61)
             {
-              v50 = v60;
+              v51 = v61;
             }
 
-            if (v49 < v60)
+            if (v50 < v61)
             {
-              v49 = v60;
+              v50 = v61;
             }
 
-            ++v47;
+            ++v48;
           }
         }
 
-        v45 = [(NSArray *)v43 countByEnumeratingWithState:&v114 objects:v140 count:16];
+        v46 = [(NSArray *)v44 countByEnumeratingWithState:&v116 objects:v142 count:16];
       }
 
-      while (v45);
+      while (v46);
 
-      if (v47)
+      if (v48)
       {
-        v61 = v47;
+        v63 = v48;
       }
 
       else
       {
-        v61 = 0;
+        v63 = 0;
       }
 
-      if (v47)
+      if (v48)
       {
-        v62 = v50;
+        v64 = v51;
       }
 
       else
       {
-        v62 = 0.0;
+        v64 = 0.0;
       }
 
-      if (v47)
+      if (v48)
       {
-        v63 = v51 / v47;
+        v65 = v52 / v48;
       }
 
       else
       {
-        v63 = v51;
+        v65 = v52;
       }
 
-      selfCopy = v97;
-      v9 = &off_1C25C8000;
+      selfCopy = v99;
+      v10 = &off_1C25C8000;
     }
 
     else
     {
 
-      v61 = 0;
-      v46 = 0;
-      v49 = 0.0;
-      v62 = 0.0;
-      v63 = 0.0;
+      v63 = 0;
+      v47 = 0;
+      v50 = 0.0;
+      v64 = 0.0;
+      v65 = 0.0;
     }
 
     geoTrackingTrueNorthUnavailable = selfCopy->_geoTrackingTrueNorthUnavailable;
-    v84 = _ARLogSession_1();
-    v85 = os_log_type_enabled(v84, OS_LOG_TYPE_INFO);
+    v86 = _ARLogSession_1(v62);
+    v87 = os_log_type_enabled(v86, OS_LOG_TYPE_INFO);
     if (geoTrackingTrueNorthUnavailable)
     {
-      if (v85)
+      if (v87)
       {
-        v86 = objc_opt_class();
-        v87 = NSStringFromClass(v86);
+        v88 = objc_opt_class();
+        v89 = NSStringFromClass(v88);
         *buf = 138543618;
-        v144 = v87;
-        v145 = 2048;
-        v146 = selfCopy;
-        v88 = "%{public}@ <%p>: True North was not available during the session";
+        v146 = v89;
+        v147 = 2048;
+        v148 = selfCopy;
+        v90 = "%{public}@ <%p>: True North was not available during the session";
 LABEL_89:
-        _os_log_impl(&dword_1C241C000, v84, OS_LOG_TYPE_INFO, v88, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v86, OS_LOG_TYPE_INFO, v90, buf, 0x16u);
       }
     }
 
-    else if (v85)
+    else if (v87)
     {
-      v89 = objc_opt_class();
-      v87 = NSStringFromClass(v89);
+      v91 = objc_opt_class();
+      v89 = NSStringFromClass(v91);
       *buf = 138543618;
-      v144 = v87;
-      v145 = 2048;
-      v146 = selfCopy;
-      v88 = "%{public}@ <%p>: True North was available during the session";
+      v146 = v89;
+      v147 = 2048;
+      v148 = selfCopy;
+      v90 = "%{public}@ <%p>: True North was available during the session";
       goto LABEL_89;
     }
 
-    v90 = *&selfCopy->_geoTrackingLowAccuracyFrameCount;
+    v92 = *&selfCopy->_geoTrackingLowAccuracyFrameCount;
     geoTrackingHighAccuracyFrameCount = selfCopy->_geoTrackingHighAccuracyFrameCount;
-    v92 = vaddvq_s64(v90) + geoTrackingHighAccuracyFrameCount;
-    v93 = 0.0;
-    v94 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vdivq_f64(vcvtq_f64_u64(v90), vdupq_lane_s64(COERCE__INT64(v92), 0)), vdupq_n_s64(0x4059000000000000uLL))));
-    v95 = selfCopy->_reporter;
-    v110[0] = MEMORY[0x1E69E9820];
-    v110[1] = *(v9 + 110);
-    v110[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_465;
-    v110[3] = &unk_1E817E640;
-    v110[4] = selfCopy;
-    *&v110[5] = v4;
-    if (v92)
+    v94 = vaddvq_s64(v92) + geoTrackingHighAccuracyFrameCount;
+    v95 = 0.0;
+    v96 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vdivq_f64(vcvtq_f64_u64(v92), vdupq_lane_s64(COERCE__INT64(v94), 0)), vdupq_n_s64(0x4059000000000000uLL))));
+    v97 = selfCopy->_reporter;
+    v112[0] = MEMORY[0x1E69E9820];
+    v112[1] = *(v10 + 110);
+    v112[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_465;
+    v112[3] = &unk_1E817E640;
+    v112[4] = selfCopy;
+    *&v112[5] = v5;
+    if (v94)
     {
-      v96 = geoTrackingHighAccuracyFrameCount / v92 * 100.0;
-      v93 = v96;
+      v98 = geoTrackingHighAccuracyFrameCount / v94 * 100.0;
+      v95 = v98;
     }
 
-    v110[6] = v61;
-    v110[7] = v46;
-    if (!v92)
+    v112[6] = v63;
+    v112[7] = v47;
+    if (!v94)
     {
-      v94 = 0.0;
+      v96 = 0.0;
     }
 
-    *&v110[8] = v62;
-    *&v110[9] = v49;
-    *&v110[10] = v63;
-    *&v110[11] = v94;
-    v111 = v93;
-    [(ARSessionMetricsReporting *)v95 sendEvent:@"com.apple.arkit.ARGeoTracking" dictionary:v110, v97];
+    *&v112[8] = v64;
+    *&v112[9] = v50;
+    *&v112[10] = v65;
+    *&v112[11] = v96;
+    v113 = v95;
+    [(ARSessionMetricsReporting *)v97 sendEvent:@"com.apple.arkit.ARGeoTracking" dictionary:v112, v99];
 
 LABEL_69:
-    v14 = v99;
+    v15 = v101;
     goto LABEL_70;
   }
 
   if ([(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()]|| [(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()]|| [(ARConfiguration *)selfCopy->_currentConfiguration isKindOfConfiguration:objc_opt_class()])
   {
-    v82 = objc_opt_class();
-    v14 = NSStringFromClass(v82);
+    v84 = objc_opt_class();
+    v15 = NSStringFromClass(v84);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
 LABEL_70:
-  v72 = selfCopy->_reporter;
-  v107[0] = MEMORY[0x1E69E9820];
-  v73 = *(v9 + 110);
-  v107[1] = v73;
-  v107[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_2_469;
-  v107[3] = &unk_1E817E5D0;
-  v107[4] = selfCopy;
-  v74 = v14;
-  v108 = v74;
-  v109 = v4;
-  [(ARSessionMetricsReporting *)v72 sendEvent:@"com.apple.arkit.session" dictionary:v107];
+  v74 = selfCopy->_reporter;
+  v109[0] = MEMORY[0x1E69E9820];
+  v75 = *(v10 + 110);
+  v109[1] = v75;
+  v109[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_2_469;
+  v109[3] = &unk_1E817E5D0;
+  v109[4] = selfCopy;
+  v76 = v15;
+  v110 = v76;
+  v111 = v5;
+  [(ARSessionMetricsReporting *)v74 sendEvent:@"com.apple.arkit.session" dictionary:v109];
   videoFormat = [(ARConfiguration *)selfCopy->_currentConfiguration videoFormat];
-  v76 = videoFormat;
+  v78 = videoFormat;
   if (videoFormat)
   {
-    v77 = selfCopy->_reporter;
-    v103[0] = MEMORY[0x1E69E9820];
-    v103[1] = v73;
-    v103[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_3_470;
-    v103[3] = &unk_1E817E668;
-    v104 = videoFormat;
-    v105 = v74;
-    v106 = selfCopy;
-    [(ARSessionMetricsReporting *)v77 sendEvent:@"com.apple.arkit.videoformat" dictionary:v103];
+    v79 = selfCopy->_reporter;
+    v105[0] = MEMORY[0x1E69E9820];
+    v105[1] = v75;
+    v105[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_3_470;
+    v105[3] = &unk_1E817E668;
+    v106 = videoFormat;
+    v107 = v76;
+    v108 = selfCopy;
+    [(ARSessionMetricsReporting *)v79 sendEvent:@"com.apple.arkit.videoformat" dictionary:v105];
   }
 
   if (s_replayStats)
   {
-    [(ARSessionMetricsReporting *)selfCopy->_reporter sendEvent:@"com.apple.arkit.ARReplay" dictionary:&__block_literal_global_111];
+    videoFormat = [(ARSessionMetricsReporting *)selfCopy->_reporter sendEvent:@"com.apple.arkit.ARReplay" dictionary:&__block_literal_global_111];
   }
 
   if (selfCopy->_coachingOverlayActivationCount)
   {
-    v78 = selfCopy->_reporter;
-    v102[0] = MEMORY[0x1E69E9820];
-    v102[1] = v73;
-    v102[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_5_476;
-    v102[3] = &unk_1E817E510;
-    v102[4] = selfCopy;
-    [(ARSessionMetricsReporting *)v78 sendEvent:@"com.apple.arkit.ARCoachingOverlay" dictionary:v102];
+    v80 = selfCopy->_reporter;
+    v104[0] = MEMORY[0x1E69E9820];
+    v104[1] = v75;
+    v104[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_5_476;
+    v104[3] = &unk_1E817E510;
+    v104[4] = selfCopy;
+    videoFormat = [(ARSessionMetricsReporting *)v80 sendEvent:@"com.apple.arkit.ARCoachingOverlay" dictionary:v104];
   }
 
-  v79 = hitTestReportingMap();
-  if ([v79 count])
+  v81 = hitTestReportingMap(videoFormat);
+  if ([v81 count])
   {
-    v101[0] = MEMORY[0x1E69E9820];
-    v101[1] = v73;
-    v101[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_6;
-    v101[3] = &unk_1E817E6B0;
-    v101[4] = selfCopy;
-    *&v101[5] = v4;
-    [v79 enumerateKeysAndObjectsUsingBlock:v101];
+    v103[0] = MEMORY[0x1E69E9820];
+    v103[1] = v75;
+    v103[2] = __37__ARSessionMetrics__recordSessionEnd__block_invoke_6;
+    v103[3] = &unk_1E817E6B0;
+    v103[4] = selfCopy;
+    *&v103[5] = v5;
+    [v81 enumerateKeysAndObjectsUsingBlock:v103];
   }
 
-  v80 = selfCopy->_currentConfiguration;
+  v82 = selfCopy->_currentConfiguration;
   selfCopy->_currentConfiguration = 0;
 
   selfCopy->_sessionWasThrottled = 0;
-  v81 = s_replayStats;
+  v83 = s_replayStats;
   s_replayStats = 0;
 
   selfCopy->_coachingOverlayActivationCount = 0;
@@ -1812,7 +1812,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke(uint64_t a1)
   v2 = [MEMORY[0x1E696AD98] numberWithFloat:v1];
   v7[1] = v2;
   v6[2] = @"bundleID";
-  v3 = bundleID();
+  v3 = bundleID(v2);
   v7[2] = v3;
   v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
@@ -1897,7 +1897,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_2(uint64_t a1, double 
   v13 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 40), "automaticImageScaleEstimationEnabled")}];
   v48[19] = v13;
   v47[20] = @"bundleID";
-  v14 = bundleID();
+  v14 = bundleID(v13);
   v48[20] = v14;
   v47[21] = @"numberOfCameraSwitches";
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(*(a1 + 32) + 184)];
@@ -1944,7 +1944,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_3(uint64_t a1)
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "maximumNumberOfTrackedImages")}];
   v11[1] = v6;
   v10[2] = @"bundleID";
-  v7 = bundleID();
+  v7 = bundleID(v6);
   v11[2] = v7;
   v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
@@ -1963,7 +1963,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_4(uint64_t a1)
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "isWorldTrackingEnabled")}];
   v10[1] = v5;
   v9[2] = @"bundleID";
-  v6 = bundleID();
+  v6 = bundleID(v5);
   v10[2] = v6;
   v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
@@ -1977,7 +1977,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_5(uint64_t a1)
   v1 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "automaticSkeletonScaleEstimationEnabled")}];
   v5[1] = @"bundleID";
   v6[0] = v1;
-  v2 = bundleID();
+  v2 = bundleID(v1);
   v6[1] = v2;
   v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
@@ -2118,7 +2118,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_465(uint64_t a1)
   v33 = [MEMORY[0x1E696AD98] numberWithFloat:v32];
   v58[28] = v33;
   v57[29] = @"bundleID";
-  v34 = bundleID();
+  v34 = bundleID(v33);
   v58[29] = v34;
   v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:30];
 
@@ -2155,7 +2155,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_2_469(uint64_t a1)
   v17[3] = v8;
   v16[3] = @"renderer";
   v16[4] = @"bundleID";
-  v9 = bundleID();
+  v9 = bundleID(v6);
   v17[4] = v9;
   v16[5] = @"frameSemantics";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(a1 + 32) + 48), "frameSemantics")}];
@@ -2217,7 +2217,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_3_470(uint64_t a1)
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "defaultColorSpace")}];
   v19[7] = v13;
   v18[8] = @"bundleID";
-  v14 = bundleID();
+  v14 = bundleID(v13);
   v19[8] = v14;
   v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:9];
 
@@ -2257,7 +2257,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_4_475()
   v5 = [s_replayStats fileName];
   v10[4] = v5;
   v9[5] = @"bundleID";
-  v6 = bundleID();
+  v6 = bundleID(v5);
   v10[5] = v6;
   v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:6];
 
@@ -2274,7 +2274,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_5_476(uint64_t a1)
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(a1 + 32) + 224)];
   v8[1] = v3;
   v7[2] = @"bundleID";
-  v4 = bundleID();
+  v4 = bundleID(v3);
   v8[2] = v4;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
@@ -2313,7 +2313,7 @@ id __37__ARSessionMetrics__recordSessionEnd__block_invoke_7(uint64_t a1)
   v7 = [v4 numberWithFloat:v6];
   v12[1] = v7;
   v11[2] = @"bundleID";
-  v8 = bundleID();
+  v8 = bundleID(v7);
   v12[2] = v8;
   v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 

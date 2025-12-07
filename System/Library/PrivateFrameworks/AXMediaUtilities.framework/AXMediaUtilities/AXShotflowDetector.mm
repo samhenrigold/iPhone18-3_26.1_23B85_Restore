@@ -72,7 +72,7 @@
 
 - (id)nmsBoxes:(id)boxes
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   boxesCopy = boxes;
   v23 = [(NSArray *)self->_filterThreshold count];
   [(AXShotflowDetector *)self nmsThreshold];
@@ -84,22 +84,23 @@
     v22 = MEMORY[0x1E69E9820];
     do
     {
-      v29[0] = v22;
-      v29[1] = 3221225472;
-      v29[2] = __31__AXShotflowDetector_nmsBoxes___block_invoke;
-      v29[3] = &__block_descriptor_40_e45_B24__0__AXElementDetection_8__NSDictionary_16l;
+      v30[0] = v22;
+      v30[1] = 3221225472;
+      v30[2] = __31__AXShotflowDetector_nmsBoxes___block_invoke;
+      v30[3] = &__block_descriptor_40_e45_B24__0__AXElementDetection_8__NSDictionary_16l;
       v25 = v6;
-      v29[4] = v6;
-      v7 = [MEMORY[0x1E696AE18] predicateWithBlock:v29];
+      v30[4] = v6;
+      v7 = [MEMORY[0x1E696AE18] predicateWithBlock:v30];
       v26 = [boxesCopy filteredArrayUsingPredicate:v7];
 
       v8 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"confidence" ascending:0];
-      v30[0] = v8;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+      v31[0] = v8;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
       v10 = [v26 sortedArrayUsingDescriptors:v9];
 
       v11 = [v10 count];
-      std::vector<BOOL>::vector(&__p, v11);
+      v28 = 0;
+      std::vector<BOOL>::vector(&__p, v11, &v28);
       if (v11)
       {
         v12 = 0;
@@ -159,15 +160,16 @@
 
 - (id)overlappingSmallFacesSuppression:(id)suppression
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   suppressionCopy = suppression;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"confidence" ascending:0];
-  v23[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v24[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
   v6 = [suppressionCopy sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 count];
-  std::vector<BOOL>::vector(&__p, v7);
+  v22 = 0;
+  std::vector<BOOL>::vector(&__p, v7, &v22);
   [(AXShotflowDetector *)self osfsThreshold];
   v9 = v8;
   [(AXShotflowDetector *)self osfsSizeRatio];
@@ -316,15 +318,16 @@ LABEL_12:
 
 - (id)overlappingLowMergeCountSuppression:(id)suppression
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   suppressionCopy = suppression;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"mergesCount" ascending:0];
-  v21[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v22[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v6 = [suppressionCopy sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 count];
-  std::vector<BOOL>::vector(&__p, v7);
+  v20 = 0;
+  std::vector<BOOL>::vector(&__p, v7, &v20);
   [(AXShotflowDetector *)self olmcsThreshold];
   v9 = v8;
   olmcsMergeCountDelta = [(AXShotflowDetector *)self olmcsMergeCountDelta];
@@ -385,15 +388,16 @@ LABEL_12:
 
 - (id)mergeBoxes:(id)boxes
 {
-  v68[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   boxesCopy = boxes;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"confidence" ascending:0];
-  v68[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:1];
+  v69[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:1];
   v66 = [boxesCopy sortedArrayUsingDescriptors:v5];
 
   v6 = [v66 count];
-  std::vector<BOOL>::vector(&__p, v6);
+  v67 = 0;
+  std::vector<BOOL>::vector(&__p, v6, &v67);
   [(AXShotflowDetector *)self nmsThreshold];
   v65 = v7;
   array = [MEMORY[0x1E695DF70] array];
@@ -501,15 +505,16 @@ LABEL_12:
 
 - (id)smartMergeBoxes:(id)boxes
 {
-  v176[1] = *MEMORY[0x1E69E9840];
+  v177[1] = *MEMORY[0x1E69E9840];
   boxesCopy = boxes;
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"smartDistance" ascending:1];
-  v176[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v176 count:1];
+  v177[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v177 count:1];
   v173 = [boxesCopy sortedArrayUsingDescriptors:v5];
 
   v6 = [v173 count];
-  std::vector<BOOL>::vector(&__p, v6);
+  v175 = 0;
+  std::vector<BOOL>::vector(&__p, v6, &v175);
   [(AXShotflowDetector *)self smartThreshold];
   v170 = v7;
   [(AXShotflowDetector *)self smartDistanceFactor];

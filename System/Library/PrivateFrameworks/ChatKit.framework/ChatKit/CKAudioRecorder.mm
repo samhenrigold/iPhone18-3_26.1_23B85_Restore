@@ -406,7 +406,7 @@ LABEL_24:
 
   if (successfullyCopy)
   {
-    [(CKAudioRecorder *)self duration];
+    objc_msgSend_duration(self);
     if (v8 < 0.5)
     {
       if (IMOSLoggingEnabled())

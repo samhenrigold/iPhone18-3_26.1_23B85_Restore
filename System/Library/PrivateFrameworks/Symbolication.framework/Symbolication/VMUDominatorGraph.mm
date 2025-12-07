@@ -1,4 +1,6 @@
 @interface VMUDominatorGraph
++ (id)callTreeWithGraph:(id)graph groupByType:(BOOL)type showRegionVirtualSize:(BOOL)size desiredAddress:(id)address debugTimer:(id)timer;
++ (id)callTreeWithGraph:(id)graph groupByType:(BOOL)type showRegionVirtualSize:(BOOL)size desiredClassesPattern:(id)pattern debugTimer:(id)timer;
 + (id)consolidate:(id)consolidate;
 - (VMUDominatorGraph)initWithDict:(id)dict;
 - (VMUDominatorGraph)initWithGraph:(id)graph debugTimer:(id)timer;
@@ -6,6 +8,7 @@
 - (id)copyDict;
 - (id)export:(id)export;
 - (id)fastDFS:(id)s graph:(id)graph;
+- (id)iterDirectDomineesForNodeName:(unsigned int)name;
 - (id)iterDominatorRoots;
 - (void)_computeDominees:(id)dominees;
 - (void)enumerateDirectDomineesForNodeName:(unsigned int)name withBlock:(id)block;
@@ -51,47 +54,46 @@
 
 - (id)copyDict
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *&self->_dominators_data;
-  v5[0] = @"dominators";
-  v5[1] = @"firstDominates";
-  v6 = v2;
-  v5[2] = @"nextDominates";
+  v4[0] = @"dominators";
+  v4[1] = @"firstDominates";
+  v5 = v2;
+  v4[2] = @"nextDominates";
   nextDominates_data = self->_nextDominates_data;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v6 forKeys:v5 count:3];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:v4 count:3];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 + (id)consolidate:(id)consolidate
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   consolidateCopy = consolidate;
-  v64 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
   obj = consolidateCopy;
-  v62 = [obj countByEnumeratingWithState:&v90 objects:v98 count:16];
-  if (v62)
+  v61 = [obj countByEnumeratingWithState:&v89 objects:v97 count:16];
+  if (v61)
   {
-    v60 = *v91;
+    v59 = *v90;
     do
     {
       v4 = 0;
       do
       {
-        if (*v91 != v60)
+        if (*v90 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v72 = MEMORY[0x1E696AEC0];
-        v68 = v4;
-        v5 = *(*(&v90 + 1) + 8 * v4);
+        v71 = MEMORY[0x1E696AEC0];
+        v67 = v4;
+        v5 = *(*(&v89 + 1) + 8 * v4);
         v6 = [v5 objectForKeyedSubscript:@"className"];
-        v76 = v6;
+        v75 = v6;
         if (v6)
         {
           v7 = v6;
@@ -104,7 +106,7 @@
 
         v8 = v7;
         v9 = [v5 objectForKeyedSubscript:@"binary"];
-        v74 = v9;
+        v73 = v9;
         if (v9)
         {
           v10 = v9;
@@ -115,9 +117,9 @@
           v10 = &stru_1F461F9C8;
         }
 
-        v66 = v10;
+        v65 = v10;
         v11 = [v5 objectForKeyedSubscript:@"stackid"];
-        v70 = v11;
+        v69 = v11;
         if (v11)
         {
           v12 = v11;
@@ -168,49 +170,49 @@
         }
 
         v24 = v8;
-        v25 = [v72 stringWithFormat:@"%@\x00%@\x00%@\x00%@\x00%@\x00%@", v8, v66, v13, v17, v21, v23];
+        v25 = [v71 stringWithFormat:@"%@\x00%@\x00%@\x00%@\x00%@\x00%@", v8, v65, v13, v17, v21, v23];
 
-        v26 = [v64 objectForKeyedSubscript:v25];
+        v26 = [v63 objectForKeyedSubscript:v25];
         if (!v26)
         {
           v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          [v64 setObject:v26 forKeyedSubscript:v25];
+          [v63 setObject:v26 forKeyedSubscript:v25];
         }
 
         [v26 addObject:v5];
 
-        v4 = v68 + 1;
+        v4 = v67 + 1;
       }
 
-      while (v62 != v68 + 1);
-      v62 = [obj countByEnumeratingWithState:&v90 objects:v98 count:16];
+      while (v61 != v67 + 1);
+      v61 = [obj countByEnumeratingWithState:&v89 objects:v97 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
-  v65 = v64;
-  v63 = [v65 countByEnumeratingWithState:&v86 objects:v97 count:16];
-  if (v63)
+  v64 = v63;
+  v62 = [v64 countByEnumeratingWithState:&v85 objects:v96 count:16];
+  if (v62)
   {
-    v59 = *v87;
+    v58 = *v86;
     do
     {
       v27 = 0;
       do
       {
-        if (*v87 != v59)
+        if (*v86 != v58)
         {
-          objc_enumerationMutation(v65);
+          objc_enumerationMutation(v64);
         }
 
-        v67 = v27;
-        v28 = [v65 objectForKeyedSubscript:*(*(&v86 + 1) + 8 * v27)];
+        v66 = v27;
+        v28 = [v64 objectForKeyedSubscript:*(*(&v85 + 1) + 8 * v27)];
         v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
         for (i = 0; i != 6; ++i)
@@ -221,55 +223,55 @@
           [v30 setObject:v34 forKeyedSubscript:v32];
         }
 
-        v73 = v30;
-        memset(v96, 0, sizeof(v96));
+        v72 = v30;
+        memset(v95, 0, sizeof(v95));
+        v81 = 0u;
         v82 = 0u;
         v83 = 0u;
         v84 = 0u;
-        v85 = 0u;
-        v69 = v28;
-        v75 = [v69 countByEnumeratingWithState:&v82 objects:v95 count:16];
-        if (v75)
+        v68 = v28;
+        v74 = [v68 countByEnumeratingWithState:&v81 objects:v94 count:16];
+        if (v74)
         {
-          v71 = *v83;
+          v70 = *v82;
           do
           {
             v35 = 0;
             do
             {
-              if (*v83 != v71)
+              if (*v82 != v70)
               {
-                objc_enumerationMutation(v69);
+                objc_enumerationMutation(v68);
               }
 
-              v77 = v35;
-              v36 = *(*(&v82 + 1) + 8 * v35);
+              v76 = v35;
+              v36 = *(*(&v81 + 1) + 8 * v35);
               v37 = [v36 objectForKeyedSubscript:@"children"];
               v38 = v37;
               if (v37)
               {
-                v80 = 0u;
-                v81 = 0u;
-                v78 = 0u;
                 v79 = 0u;
-                v39 = [v37 countByEnumeratingWithState:&v78 objects:v94 count:16];
+                v80 = 0u;
+                v77 = 0u;
+                v78 = 0u;
+                v39 = [v37 countByEnumeratingWithState:&v77 objects:v93 count:16];
                 if (v39)
                 {
                   v40 = v39;
-                  v41 = *v79;
+                  v41 = *v78;
                   do
                   {
                     for (j = 0; j != v40; ++j)
                     {
-                      if (*v79 != v41)
+                      if (*v78 != v41)
                       {
                         objc_enumerationMutation(v38);
                       }
 
-                      [v29 addObject:*(*(&v78 + 1) + 8 * j)];
+                      [v29 addObject:*(*(&v77 + 1) + 8 * j)];
                     }
 
-                    v40 = [v38 countByEnumeratingWithState:&v78 objects:v94 count:16];
+                    v40 = [v38 countByEnumeratingWithState:&v77 objects:v93 count:16];
                   }
 
                   while (v40);
@@ -290,7 +292,7 @@
 
                   if (v44)
                   {
-                    *(&v96[v43] + v45) += [v44 unsignedLongLongValue];
+                    *(&v95[v43] + v45) += [v44 unsignedLongLongValue];
                   }
 
                   v46 = 0;
@@ -303,14 +305,14 @@
 
               while (v43 != 4);
 
-              v35 = v77 + 1;
+              v35 = v76 + 1;
             }
 
-            while (v77 + 1 != v75);
-            v75 = [v69 countByEnumeratingWithState:&v82 objects:v95 count:16];
+            while (v76 + 1 != v74);
+            v74 = [v68 countByEnumeratingWithState:&v81 objects:v94 count:16];
           }
 
-          while (v75);
+          while (v74);
         }
 
         for (k = 0; k != 4; ++k)
@@ -320,10 +322,10 @@
           do
           {
             v52 = v51;
-            if (*(&v96[k] + v50))
+            if (*(&v95[k] + v50))
             {
               v53 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-              [v73 setObject:v53 forKeyedSubscript:*(&stat_keys[2 * k] + v50)];
+              [v72 setObject:v53 forKeyedSubscript:*(&stat_keys[2 * k] + v50)];
             }
 
             v51 = 0;
@@ -337,24 +339,22 @@
         v55 = v54;
         if (v54 && [v54 count])
         {
-          [v73 setObject:v55 forKeyedSubscript:@"children"];
+          [v72 setObject:v55 forKeyedSubscript:@"children"];
         }
 
-        [v61 addObject:v73];
+        [v60 addObject:v72];
 
-        v27 = v67 + 1;
+        v27 = v66 + 1;
       }
 
-      while (v67 + 1 != v63);
-      v63 = [v65 countByEnumeratingWithState:&v86 objects:v97 count:16];
+      while (v66 + 1 != v62);
+      v62 = [v64 countByEnumeratingWithState:&v85 objects:v96 count:16];
     }
 
-    while (v63);
+    while (v62);
   }
 
-  v56 = *MEMORY[0x1E69E9840];
-
-  return v61;
+  return v60;
 }
 
 - (id)export:(id)export
@@ -374,15 +374,15 @@
 
 id __28__VMUDominatorGraph_export___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, void *a6, void *a7, uint64_t a8, void *a9)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v15 = a6;
   v16 = a7;
   v17 = a9;
+  v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   if (a5 == 5 || a5 == 2)
   {
-    *(&v58 + 1) = 1;
+    *(&v57 + 1) = 1;
     if (v16)
     {
       v23 = [v16 path];
@@ -401,7 +401,7 @@ id __28__VMUDominatorGraph_export___block_invoke(uint64_t a1, uint64_t a2, uint6
       v25 = *(v16 + 13);
       if (v25 == 3 || v25 == 0)
       {
-        *(&v57 + 1) = *(v16 + 22) + *(v16 + 23);
+        *(&v56 + 1) = *(v16 + 22) + *(v16 + 23);
       }
 
       v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -440,8 +440,8 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  *&v57 = a4;
-  *&v58 = 1;
+  *&v56 = a4;
+  *&v57 = 1;
   v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v19 = v18;
   if (v15)
@@ -461,7 +461,7 @@ LABEL_20:
   }
 
 LABEL_21:
-  v49 = v16;
+  v48 = v16;
   if (a8 != -1)
   {
     v30 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a8];
@@ -472,7 +472,7 @@ LABEL_21:
   v32 = stat_keys;
   do
   {
-    if (*(&v57 + v31))
+    if (*(&v56 + v31))
     {
       v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
       [v19 setObject:v33 forKeyedSubscript:*v32];
@@ -483,39 +483,39 @@ LABEL_21:
   }
 
   while (v31 != 32);
-  v48 = v19;
-  v50 = v15;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v47 = v19;
+  v49 = v15;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v17;
-  v34 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v34 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v53;
+    v36 = *v52;
     do
     {
       for (i = 0; i != v35; ++i)
       {
-        if (*v53 != v36)
+        if (*v52 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
         v38 = 0;
         v39 = 0;
-        v40 = *(*(&v52 + 1) + 8 * i);
+        v40 = *(*(&v51 + 1) + 8 * i);
         v41 = off_1E827A218;
         do
         {
           v42 = v39;
-          v39 = [v40 objectForKeyedSubscript:{*v41, v48, v49}];
+          v39 = [v40 objectForKeyedSubscript:{*v41, v47, v48}];
 
           if (v39)
           {
-            *(&v57 + v38) += [v39 unsignedLongLongValue];
+            *(&v56 + v38) += [v39 unsignedLongLongValue];
           }
 
           v41 += 2;
@@ -525,7 +525,7 @@ LABEL_21:
         while (v38 != 32);
       }
 
-      v35 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v35 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v35);
@@ -535,10 +535,10 @@ LABEL_21:
   v44 = off_1E827A218;
   do
   {
-    if (*(&v57 + v43))
+    if (*(&v56 + v43))
     {
       v45 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-      [v48 setObject:v45 forKeyedSubscript:*v44];
+      [v47 setObject:v45 forKeyedSubscript:*v44];
     }
 
     v43 += 8;
@@ -546,39 +546,37 @@ LABEL_21:
   }
 
   while (v43 != 32);
-  [v48 setObject:obj forKeyedSubscript:@"children"];
+  [v47 setObject:obj forKeyedSubscript:@"children"];
 
-  v46 = *MEMORY[0x1E69E9840];
-
-  return v48;
+  return v47;
 }
 
 - (id)fastDFS:(id)s graph:(id)graph
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   aBlock = s;
   graphCopy = graph;
   v6 = [[VMUVMRegionIdentifier alloc] initWithGraph:graphCopy options:0];
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   regions = [(VMUVMRegionIdentifier *)v6 regions];
-  v9 = [regions countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v9 = [regions countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v9)
   {
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(regions);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         if (([v12 isSubmap] & 1) == 0)
         {
           v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v12, "address")}];
@@ -586,23 +584,23 @@ LABEL_21:
         }
       }
 
-      v9 = [regions countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [regions countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v9);
   }
 
-  v26[0] = 1;
+  v25[0] = 1;
   v14 = v7;
-  v26[1] = v14;
+  v25[1] = v14;
   v15 = graphCopy;
-  v26[2] = v15;
+  v25[2] = v15;
   v16 = v6;
-  v26[3] = v16;
-  v27 = *&self->_firstDominates;
-  v28 = _Block_copy(aBlock);
-  v29 = [v15 methodForSelector:sel_nodeDetails_];
-  v30 = [v15 methodForSelector:sel_stackIDForNode_];
+  v25[3] = v16;
+  v26 = *&self->_firstDominates;
+  v27 = _Block_copy(aBlock);
+  v28 = [v15 methodForSelector:sel_nodeDetails_];
+  v29 = [v15 methodForSelector:sel_stackIDForNode_];
   v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
   nodeNamespaceSize = self->_nodeNamespaceSize;
   if (nodeNamespaceSize < 1)
@@ -620,7 +618,7 @@ LABEL_17:
       goto LABEL_16;
     }
 
-    v20 = visit(v26, v19);
+    v20 = visit(v25, v19);
     if (!v20)
     {
       break;
@@ -638,8 +636,7 @@ LABEL_16:
   v21 = 0;
 LABEL_18:
 
-  __destructor_8_s8_s16_s24_sb48(v26);
-  v22 = *MEMORY[0x1E69E9840];
+  __destructor_8_s8_s16_s24_sb48(v25);
 
   return v21;
 }
@@ -1047,6 +1044,43 @@ void *__74__VMUDominatorGraph__computeDominators_roots_reversePostOrder_debugTim
   v2 = [[VMUDominatorRoots alloc] initWithDominatorGraph:self];
 
   return v2;
+}
+
+- (id)iterDirectDomineesForNodeName:(unsigned int)name
+{
+  v3 = [[VMUDirectDominees alloc] initWithDominatorGraph:self rootNode:*&name];
+
+  return v3;
+}
+
++ (id)callTreeWithGraph:(id)graph groupByType:(BOOL)type showRegionVirtualSize:(BOOL)size desiredAddress:(id)address debugTimer:(id)timer
+{
+  sizeCopy = size;
+  typeCopy = type;
+  timerCopy = timer;
+  addressCopy = address;
+  graphCopy = graph;
+  v14 = objc_alloc_init(VMUDominatorCallTreeCreator);
+  [(VMUDominatorCallTreeCreator *)v14 setDesiredAddress:addressCopy];
+
+  v15 = [(VMUDominatorCallTreeCreator *)v14 callTreeWithGraph:graphCopy groupByType:typeCopy showRegionVirtualSize:sizeCopy debugTimer:timerCopy];
+
+  return v15;
+}
+
++ (id)callTreeWithGraph:(id)graph groupByType:(BOOL)type showRegionVirtualSize:(BOOL)size desiredClassesPattern:(id)pattern debugTimer:(id)timer
+{
+  sizeCopy = size;
+  typeCopy = type;
+  timerCopy = timer;
+  patternCopy = pattern;
+  graphCopy = graph;
+  v14 = objc_alloc_init(VMUDominatorCallTreeCreator);
+  [(VMUDominatorCallTreeCreator *)v14 setDesiredClassesPattern:patternCopy];
+
+  v15 = [(VMUDominatorCallTreeCreator *)v14 callTreeWithGraph:graphCopy groupByType:typeCopy showRegionVirtualSize:sizeCopy debugTimer:timerCopy];
+
+  return v15;
 }
 
 @end

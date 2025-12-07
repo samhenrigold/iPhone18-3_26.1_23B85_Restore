@@ -32,15 +32,14 @@
 {
   v5 = sub_2592121D0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_259212190();
   selfCopy = self;
-  v11 = ULVisualMappingKitManager.addAnchor(identifiedBy:)(v9);
-  (*(v6 + 8))(v9, v5);
+  v10 = ULVisualMappingKitManager.addAnchor(identifiedBy:)(v8);
+  (*(v6 + 8))(v8, v5);
 
-  return v11;
+  return v10;
 }
 
 - (id)getAnchors
@@ -48,7 +47,7 @@
   selfCopy = self;
   ULVisualMappingKitManager.getAnchors()();
 
-  type metadata accessor for ULVisualMappingKitAnchor();
+  type metadata accessor for ULVisualMappingKitAnchor(0);
   v3 = sub_2592128B0();
 
   return v3;

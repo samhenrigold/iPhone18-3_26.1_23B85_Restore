@@ -55,25 +55,23 @@
 
 void __53__GKContactsIntegrationControllerSettings_allBagKeys__block_invoke()
 {
-  v3[13] = *MEMORY[0x277D85DE8];
-  v3[0] = @"gk-contactid-ids-update-interval-sec";
-  v3[1] = @"gk-contactid-ids-v2-batch-fetch-size";
-  v3[2] = @"gk-contactid-local-batch-fetch-size";
-  v3[3] = @"gk-contactid-ids-v2-fetch-size";
-  v3[4] = @"gk-contactid-ids-expiration-opted-in-sec";
-  v3[5] = @"gk-contactid-ids-expiration-opted-out-sec";
-  v3[6] = @"gk-contactid-ids-expiration-not-set-sec";
-  v3[7] = @"gk-contactid-ids-expiration-unknown-sec";
-  v3[8] = @"gk-contactid-allow-updates";
-  v3[9] = @"gk-contactid-ids-v2-batch-fetch-delay-sec";
-  v3[10] = @"gk-contactid-ids-v2-batch-fetch-jitter-sec";
-  v3[11] = @"gk-contactid-local-sync-limit";
-  v3[12] = @"gk-contactid-allow-updates-without-friends";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:13];
+  v2[13] = *MEMORY[0x277D85DE8];
+  v2[0] = @"gk-contactid-ids-update-interval-sec";
+  v2[1] = @"gk-contactid-ids-v2-batch-fetch-size";
+  v2[2] = @"gk-contactid-local-batch-fetch-size";
+  v2[3] = @"gk-contactid-ids-v2-fetch-size";
+  v2[4] = @"gk-contactid-ids-expiration-opted-in-sec";
+  v2[5] = @"gk-contactid-ids-expiration-opted-out-sec";
+  v2[6] = @"gk-contactid-ids-expiration-not-set-sec";
+  v2[7] = @"gk-contactid-ids-expiration-unknown-sec";
+  v2[8] = @"gk-contactid-allow-updates";
+  v2[9] = @"gk-contactid-ids-v2-batch-fetch-delay-sec";
+  v2[10] = @"gk-contactid-ids-v2-batch-fetch-jitter-sec";
+  v2[11] = @"gk-contactid-local-sync-limit";
+  v2[12] = @"gk-contactid-allow-updates-without-friends";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:13];
   v1 = allBagKeys_bagKeys;
   allBagKeys_bagKeys = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (double)expirationTimeForCohort:(int)cohort
@@ -127,34 +125,32 @@ LABEL_8:
   return v3;
 }
 
-void __66__GKContactsIntegrationControllerSettings_secureCodedPropertyKeys__block_invoke()
+void __66__GKContactsIntegrationControllerSettings_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[10] = *MEMORY[0x277D85DE8];
-  v3[0] = @"idsV2FetchSize";
-  v4[0] = objc_opt_class();
-  v3[1] = @"idsV2BatchFetchSize";
-  v4[1] = objc_opt_class();
-  v3[2] = @"localSyncLimit";
-  v4[2] = objc_opt_class();
-  v3[3] = @"localBatchFetchSize";
-  v4[3] = objc_opt_class();
-  v3[4] = @"idsUpdateInterval";
-  v4[4] = objc_opt_class();
-  v3[5] = @"idsBatchFetchJitterInterval";
-  v4[5] = objc_opt_class();
-  v3[6] = @"idsBatchFetchDelayInterval";
-  v4[6] = objc_opt_class();
-  v3[7] = @"notificationCoalescingWaitTime";
-  v4[7] = objc_opt_class();
-  v3[8] = @"allowUpdates";
-  v4[8] = objc_opt_class();
-  v3[9] = @"allowUpdatesWithoutFriends";
-  v4[9] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:10];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_2;
-  secureCodedPropertyKeys_sSecureCodedKeys_2 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[10] = *MEMORY[0x277D85DE8];
+  v4[0] = @"idsV2FetchSize";
+  v5[0] = objc_opt_class();
+  v4[1] = @"idsV2BatchFetchSize";
+  v5[1] = objc_opt_class();
+  v4[2] = @"localSyncLimit";
+  v5[2] = objc_opt_class();
+  v4[3] = @"localBatchFetchSize";
+  v5[3] = objc_opt_class();
+  v4[4] = @"idsUpdateInterval";
+  v5[4] = objc_opt_class();
+  v4[5] = @"idsBatchFetchJitterInterval";
+  v5[5] = objc_opt_class();
+  v4[6] = @"idsBatchFetchDelayInterval";
+  v5[6] = objc_opt_class();
+  v4[7] = @"notificationCoalescingWaitTime";
+  v5[7] = objc_opt_class();
+  v4[8] = @"allowUpdates";
+  v5[8] = objc_opt_class();
+  v4[9] = @"allowUpdatesWithoutFriends";
+  v5[9] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:10];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_2;
+  secureCodedPropertyKeys_sSecureCodedKeys_2 = v2;
 }
 
 @end

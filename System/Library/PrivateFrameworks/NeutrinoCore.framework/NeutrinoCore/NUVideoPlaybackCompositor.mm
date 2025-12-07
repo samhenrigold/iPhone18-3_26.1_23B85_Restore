@@ -88,7 +88,7 @@ LABEL_18:
   cf = newPixelBuffer;
   if (requestCopy)
   {
-    [requestCopy compositionTime];
+    objc_msgSend_compositionTime(requestCopy);
   }
 
   else
@@ -125,7 +125,7 @@ LABEL_18:
   v32 = videoComposition;
   if (videoComposition)
   {
-    [videoComposition frameDuration];
+    objc_msgSend_frameDuration(videoComposition);
   }
 
   else
@@ -158,9 +158,9 @@ LABEL_18:
   v41 = v40;
   if (requestCopy)
   {
-    [requestCopy compositionTime];
+    objc_msgSend_compositionTime(requestCopy);
     v42 = v53;
-    [requestCopy compositionTime];
+    objc_msgSend_compositionTime(requestCopy);
     v43 = v51;
   }
 

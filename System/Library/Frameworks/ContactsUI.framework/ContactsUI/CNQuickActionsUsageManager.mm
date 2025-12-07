@@ -339,7 +339,7 @@ void __56__CNQuickActionsUsageManager_sortUsingCoreDuetAvailable__block_invoke()
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNQuickActionsUsageManager.m", 67, 4, @"Missing entitlement for CoreDuet. Please add com.apple.coreduetd.allow to the entitlements of the app.", v0, v1, v2, v3, v8);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNQuickActionsUsageManager.m", 67, 4u, @"Missing entitlement for CoreDuet. Please add com.apple.coreduetd.allow to the entitlements of the app.", v0, v1, v2, v3, v8);
   }
 }
 

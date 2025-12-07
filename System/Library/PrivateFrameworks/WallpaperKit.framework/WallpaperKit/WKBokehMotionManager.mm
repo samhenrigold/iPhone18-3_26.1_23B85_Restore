@@ -15,12 +15,12 @@
 - (id)motionFilterY;
 - (id)motionFilterZ;
 - (uint64_t)createMotionManager;
-- (uint64_t)isDeviceMotionAvailable;
-- (uint64_t)setAccelerometerUpdateInterval:(uint64_t)result;
-- (uint64_t)setDeviceMotionUpdateInterval:(uint64_t)result;
 - (uint64_t)startDeviceMotionUpdates;
 - (void)_createFilters;
+- (void)isDeviceMotionAvailable;
 - (void)pauseDeviceMotionUpdates;
+- (void)setAccelerometerUpdateInterval:(void *)result;
+- (void)setDeviceMotionUpdateInterval:(void *)result;
 - (void)startDeviceAccelerometerUpdates;
 - (void)startDeviceMotionUpdates;
 - (void)stopDeviceAccelerometerUpdates;
@@ -212,29 +212,23 @@ void __55__WKBokehMotionManager_startDeviceAccelerometerUpdates__block_invoke(ui
 
 - (uint64_t)createMotionManager
 {
-  if (result)
+  if (result && !*(result + 112))
   {
-    v1 = result;
-    if (!*(result + 112))
-    {
-      v2 = objc_alloc_init(MEMORY[0x1E69634D0]);
-      v3 = *(v1 + 112);
-      *(v1 + 112) = v2;
+    *(result + 112) = objc_alloc_init(MEMORY[0x1E69634D0]);
 
-      return MEMORY[0x1EEE66BB8]();
-    }
+    return MEMORY[0x1EEE66BB8]();
   }
 
   return result;
 }
 
-- (uint64_t)setAccelerometerUpdateInterval:(uint64_t)result
+- (void)setAccelerometerUpdateInterval:(void *)result
 {
   if (result)
   {
     v3 = result;
     [(WKBokehMotionManager *)result createMotionManager];
-    v4 = *(v3 + 112);
+    v4 = v3[14];
 
     return [v4 setAccelerometerUpdateInterval:a2];
   }
@@ -256,13 +250,13 @@ void __55__WKBokehMotionManager_startDeviceAccelerometerUpdates__block_invoke(ui
   return result;
 }
 
-- (uint64_t)setDeviceMotionUpdateInterval:(uint64_t)result
+- (void)setDeviceMotionUpdateInterval:(void *)result
 {
   if (result)
   {
     v3 = result;
     [(WKBokehMotionManager *)result createMotionManager];
-    v4 = *(v3 + 112);
+    v4 = v3[14];
 
     return [v4 setDeviceMotionUpdateInterval:a2];
   }
@@ -331,16 +325,15 @@ void __55__WKBokehMotionManager_startDeviceAccelerometerUpdates__block_invoke(ui
 
 - (double)attitude
 {
-  if (!self)
+  if (self)
+  {
+    return *(self + 32);
+  }
+
+  else
   {
     return 0.0;
   }
-
-  result = *(self + 32);
-  v2 = *(self + 40);
-  v3 = *(self + 48);
-  v4 = *(self + 56);
-  return result;
 }
 
 - (double)roll
@@ -382,13 +375,13 @@ void __55__WKBokehMotionManager_startDeviceAccelerometerUpdates__block_invoke(ui
   }
 }
 
-- (uint64_t)isDeviceMotionAvailable
+- (void)isDeviceMotionAvailable
 {
   if (result)
   {
     v1 = result;
     [(WKBokehMotionManager *)result createMotionManager];
-    v2 = *(v1 + 112);
+    v2 = v1[14];
 
     return [v2 isDeviceMotionAvailable];
   }

@@ -26,7 +26,7 @@
       if (v3 != objc_opt_class())
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel__init object:v1 file:@"BKSProximityDetectionMaskChangeEvent.m" lineNumber:46 description:@"BKSProximityDetectionMaskChangeEvent cannot be subclassed"];
+        [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
       }
     }
 
@@ -59,9 +59,9 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendInteger:self->_detectionMask withName:@"detectionMask"];
-  v5 = [formatterCopy appendInteger:self->_mode withName:@"mode"];
-  v6 = [formatterCopy appendInt64:self->_timestamp withName:@"timestamp"];
+  v3 = [formatterCopy appendInteger:? withName:?];
+  v4 = [formatterCopy appendInteger:? withName:?];
+  v5 = [formatterCopy appendInt64:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -91,25 +91,24 @@
 
 - (unint64_t)hash
 {
-  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_detectionMask];
+  v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  [v2 hash];
+
+  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
   [v3 hash];
 
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_mode];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
   [v4 hash];
-
-  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_timestamp];
-  [v5 hash];
 
   return BSHashPurifyNS();
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  detectionMask = self->_detectionMask;
   coderCopy = coder;
-  [coderCopy encodeInteger:detectionMask forKey:@"detectionMask"];
-  [coderCopy encodeInteger:self->_mode forKey:@"mode"];
-  [coderCopy encodeInt64:self->_timestamp forKey:@"timestamp"];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
 }
 
 - (BKSProximityDetectionMaskChangeEvent)initWithCoder:(id)coder
@@ -118,9 +117,9 @@
   v7.super_class = BKSProximityDetectionMaskChangeEvent;
   coderCopy = coder;
   v4 = [(BKSProximityDetectionMaskChangeEvent *)&v7 init];
-  v4->_detectionMask = [coderCopy decodeInt32ForKey:{@"detectionMask", v7.receiver, v7.super_class}];
-  v4->_mode = [coderCopy decodeIntegerForKey:@"mode"];
-  v5 = [coderCopy decodeInt64ForKey:@"timestamp"];
+  v4->_detectionMask = [coderCopy decodeInt32ForKey:{v7.receiver, v7.super_class}];
+  v4->_mode = [coderCopy decodeIntegerForKey:?];
+  v5 = [coderCopy decodeInt64ForKey:?];
 
   v4->_timestamp = v5;
   return v4;
@@ -129,8 +128,8 @@
 - (BKSProximityDetectionMaskChangeEvent)init
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSProximityDetectionMaskChangeEvent init]"];
-  [currentHandler handleFailureInFunction:v4 file:@"BKSProximityDetectionMaskChangeEvent.m" lineNumber:35 description:@"cannot directly allocate BKSProximityDetectionMaskChangeEvent"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -138,8 +137,8 @@
 + (id)new
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSProximityDetectionMaskChangeEvent new]"];
-  [currentHandler handleFailureInFunction:v3 file:@"BKSProximityDetectionMaskChangeEvent.m" lineNumber:40 description:@"cannot directly allocate BKSProximityDetectionMaskChangeEvent"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }

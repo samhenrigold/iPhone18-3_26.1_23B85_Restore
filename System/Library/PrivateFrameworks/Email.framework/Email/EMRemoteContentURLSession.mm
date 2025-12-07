@@ -2,6 +2,8 @@
 + (NSDictionary)genericHTTPHeaderFields;
 - (EMRemoteContentURLSession)initWithCache:(id)cache sourceBundleIdentifier:(id)identifier;
 - (id)_configurationWithCache:(void *)cache sourceBundleIdentifier:;
+- (id)dataTaskWithRequest:(id)request isSynthetic:(BOOL)synthetic allowProxying:(BOOL)proxying failOpen:(BOOL)open background:(BOOL)background completionHandler:(id)handler;
+- (id)syntheticDataTaskWithRequest:(id)request failOpen:(BOOL)open background:(BOOL)background completionHandler:(id)handler;
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data;
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error;
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error;
@@ -99,6 +101,120 @@ void __52__EMRemoteContentURLSession_genericHTTPHeaderFields__block_invoke()
   return self;
 }
 
+- (id)dataTaskWithRequest:(id)request isSynthetic:(BOOL)synthetic allowProxying:(BOOL)proxying failOpen:(BOOL)open background:(BOOL)background completionHandler:(id)handler
+{
+  backgroundCopy = background;
+  openCopy = open;
+  proxyingCopy = proxying;
+  syntheticCopy = synthetic;
+  v55 = *MEMORY[0x1E69E9840];
+  requestCopy = request;
+  handlerCopy = handler;
+  os_unfair_lock_lock(&self->_sessionLock);
+  v17 = self->_session;
+  os_unfair_lock_unlock(&self->_sessionLock);
+  if (!v17)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"EMRemoteContentURLSession.m" lineNumber:170 description:@"New data tasks cannot be created on EMRemoteContentURLSession after it's been invalidated."];
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v18 = [requestCopy mutableCopy];
+
+    requestCopy = v18;
+  }
+
+  v19 = requestCopy;
+  if (!proxyingCopy || ([MEMORY[0x1E695E000] em_userDefaults], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "integerForKey:", @"LoadRemoteContent-v2"), v20, (v21 & 4) != 0))
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    [v19 _setKnownTracker:1];
+    v22 = 1;
+    if (!openCopy)
+    {
+      [v19 _setPrivacyProxyFailClosed:1];
+    }
+  }
+
+  [v19 _setNonAppInitiated:1];
+  genericHTTPHeaderFields = [objc_opt_class() genericHTTPHeaderFields];
+  [v19 setAllHTTPHeaderFields:genericHTTPHeaderFields];
+
+  [v19 setCachePolicy:2];
+  if (backgroundCopy)
+  {
+    [v19 setNetworkServiceType:3];
+  }
+
+  v24 = [v19 URL];
+  if ([EMInternalPreferences preferenceEnabled:10])
+  {
+    absoluteString = [v24 absoluteString];
+  }
+
+  else
+  {
+    v26 = MEMORY[0x1E699B858];
+    absoluteString2 = [v24 absoluteString];
+    absoluteString = [v26 fullyRedactedStringForString:absoluteString2];
+  }
+
+  v29 = _ef_log_EMRemoteContentURLSession(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+  {
+    allHTTPHeaderFields = [v19 allHTTPHeaderFields];
+    *buf = 134218498;
+    selfCopy2 = self;
+    v51 = 2114;
+    v52 = absoluteString;
+    v53 = 2114;
+    v54 = allHTTPHeaderFields;
+    _os_log_impl(&dword_1C6655000, v29, OS_LOG_TYPE_INFO, "[%p][Request] URL: %{public}@\nHeaders: %{public}@", buf, 0x20u);
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __113__EMRemoteContentURLSession_dataTaskWithRequest_isSynthetic_allowProxying_failOpen_background_completionHandler___block_invoke;
+  aBlock[3] = &__block_descriptor_34_e15___NSString_8__0l;
+  v47 = v22;
+  v48 = openCopy;
+  v31 = _Block_copy(aBlock);
+  v32 = _ef_log_EMRemoteContentURLSession(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  {
+    v33 = v31[2](v31);
+    *buf = 134218498;
+    selfCopy2 = self;
+    v51 = 2112;
+    v52 = v33;
+    v53 = 2114;
+    v54 = absoluteString;
+    _os_log_impl(&dword_1C6655000, v32, OS_LOG_TYPE_DEFAULT, "[%p][Proxy] %@ URL: %{public}@", buf, 0x20u);
+  }
+
+  v34 = [(NSURLSession *)v17 dataTaskWithRequest:v19];
+  [v34 ec_setActivityWithDomain:21 type:23];
+  v35 = [[_EMRemoteContentDataTaskInfo alloc] initWithDataTask:v34 isSynthetic:syntheticCopy failOpen:openCopy completion:handlerCopy];
+  activeTasks = self->_activeTasks;
+  v41 = MEMORY[0x1E69E9820];
+  v42 = 3221225472;
+  v43 = __113__EMRemoteContentURLSession_dataTaskWithRequest_isSynthetic_allowProxying_failOpen_background_completionHandler___block_invoke_140;
+  v44 = &unk_1E826CA58;
+  v37 = v35;
+  v45 = v37;
+  [(EFLocked *)activeTasks performWhileLocked:&v41];
+  v38 = [(_EMRemoteContentDataTaskInfo *)v37 dataTask:v41];
+
+  return v38;
+}
+
 __CFString *__113__EMRemoteContentURLSession_dataTaskWithRequest_isSynthetic_allowProxying_failOpen_background_completionHandler___block_invoke(uint64_t a1)
 {
   if (*(a1 + 32) != 1)
@@ -120,6 +236,13 @@ void __113__EMRemoteContentURLSession_dataTaskWithRequest_isSynthetic_allowProxy
   v3 = *(a1 + 32);
   v4 = [v3 dataTask];
   [v5 setObject:v3 forKeyedSubscript:v4];
+}
+
+- (id)syntheticDataTaskWithRequest:(id)request failOpen:(BOOL)open background:(BOOL)background completionHandler:(id)handler
+{
+  v6 = [(EMRemoteContentURLSession *)self dataTaskWithRequest:request isSynthetic:1 allowProxying:1 failOpen:open background:background completionHandler:handler];
+
+  return v6;
 }
 
 - (void)abortTask:(id)task
@@ -185,7 +308,7 @@ void __113__EMRemoteContentURLSession_dataTaskWithRequest_isSynthetic_allowProxy
     }
 
 LABEL_7:
-    v13 = self->_session;
+    v14 = self->_session;
     self->_session = 0;
 
     goto LABEL_8;
@@ -197,18 +320,16 @@ LABEL_7:
   }
 
 LABEL_3:
-  v10 = _ef_log_EMRemoteContentURLSession();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _ef_log_EMRemoteContentURLSession(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     ef_publicDescription = [errorCopy ef_publicDescription];
-    [(EMRemoteContentURLSession *)self URLSession:ef_publicDescription didBecomeInvalidWithError:v15, v10];
+    [(EMRemoteContentURLSession *)self URLSession:ef_publicDescription didBecomeInvalidWithError:v15, v11];
   }
 
   [(EMRemoteContentURLSession *)self _createURLSession];
 LABEL_8:
   os_unfair_lock_unlock(&self->_sessionLock);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
@@ -306,231 +427,230 @@ void __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics_
 
 void __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_2(uint64_t a1, void *a2)
 {
-  v65[13] = *MEMORY[0x1E69E9840];
-  v47 = a2;
-  v3 = [v47 _privacyStance];
-  v64[0] = @"isSynthetic";
-  v65[0] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "isSynthetic")}];
-  v64[1] = @"metrics_resourceFetchType";
-  v45 = v65[0];
-  v42 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v47, "resourceFetchType")}];
-  v65[1] = v42;
-  v64[2] = @"metrics_privacyStance";
-  v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
-  v65[2] = v43;
-  v64[3] = @"metrics_isCellular";
-  v41 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v47, "isCellular")}];
-  v65[3] = v41;
-  v64[4] = @"metrics_isExpensive";
-  v40 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v47, "isExpensive")}];
-  v65[4] = v40;
-  v64[5] = @"metrics_isConstrained";
-  v39 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v47, "isConstrained")}];
-  v65[5] = v39;
-  v64[6] = @"metrics_countOfResponseBodyBytesAfterDecoding";
-  v4 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v47, "countOfResponseBodyBytesAfterDecoding")}];
-  v65[6] = v4;
-  v64[7] = @"time_isGregorian";
+  v68[13] = *MEMORY[0x1E69E9840];
+  v50 = a2;
+  v3 = [v50 _privacyStance];
+  v67[0] = @"isSynthetic";
+  v68[0] = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "isSynthetic")}];
+  v67[1] = @"metrics_resourceFetchType";
+  v48 = v68[0];
+  v45 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v50, "resourceFetchType")}];
+  v68[1] = v45;
+  v67[2] = @"metrics_privacyStance";
+  v46 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  v68[2] = v46;
+  v67[3] = @"metrics_isCellular";
+  v44 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v50, "isCellular")}];
+  v68[3] = v44;
+  v67[4] = @"metrics_isExpensive";
+  v43 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v50, "isExpensive")}];
+  v68[4] = v43;
+  v67[5] = @"metrics_isConstrained";
+  v42 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v50, "isConstrained")}];
+  v68[5] = v42;
+  v67[6] = @"metrics_countOfResponseBodyBytesAfterDecoding";
+  v4 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v50, "countOfResponseBodyBytesAfterDecoding")}];
+  v68[6] = v4;
+  v67[7] = @"time_isGregorian";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 64)];
-  v65[7] = v5;
-  v64[8] = @"time_hour";
+  v68[7] = v5;
+  v67[8] = @"time_hour";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "hour")}];
-  v65[8] = v6;
-  v64[9] = @"time_month";
+  v68[8] = v6;
+  v67[9] = @"time_month";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "month")}];
-  v65[9] = v7;
-  v64[10] = @"time_day";
+  v68[9] = v7;
+  v67[10] = @"time_day";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "day")}];
-  v65[10] = v8;
-  v64[11] = @"time_weekOfYear";
+  v68[10] = v8;
+  v67[11] = @"time_weekOfYear";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "weekOfYear")}];
-  v65[11] = v9;
-  v64[12] = @"time_dayOfWeek";
+  v68[11] = v9;
+  v67[12] = @"time_dayOfWeek";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "weekday")}];
-  v65[12] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:13];
+  v68[12] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:13];
 
-  v52 = MEMORY[0x1E69E9820];
-  v53 = 3221225472;
-  v54 = __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_3;
-  v55 = &unk_1E826CA30;
-  v44 = v11;
-  v56 = v44;
+  v55 = MEMORY[0x1E69E9820];
+  v56 = 3221225472;
+  v57 = __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_3;
+  v58 = &unk_1E826CA30;
+  v47 = v11;
+  v59 = v47;
   AnalyticsSendEventLazy();
   v12 = [*(a1 + 40) originalRequest];
   v13 = [v12 URL];
   if ([EMInternalPreferences preferenceEnabled:10])
   {
-    v46 = [v13 absoluteString];
+    v49 = [v13 absoluteString];
   }
 
   else
   {
     v14 = MEMORY[0x1E699B858];
     v15 = [v13 absoluteString];
-    v46 = [v14 fullyRedactedStringForString:v15];
+    v49 = [v14 fullyRedactedStringForString:v15];
   }
 
-  v16 = _ef_log_EMRemoteContentURLSession();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _ef_log_EMRemoteContentURLSession(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v37 = *(a1 + 48);
+    v40 = *(a1 + 48);
     *buf = 134218498;
-    v59 = v37;
-    v60 = 2114;
-    v61 = v46;
-    v62 = 2114;
-    v63 = v44;
-    _os_log_debug_impl(&dword_1C6655000, v16, OS_LOG_TYPE_DEBUG, "[%p][Analytics] URL: %{public}@\n%{public}@", buf, 0x20u);
+    v62 = v40;
+    v63 = 2114;
+    v64 = v49;
+    v65 = 2114;
+    v66 = v47;
+    _os_log_debug_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEBUG, "[%p][Analytics] URL: %{public}@\n%{public}@", buf, 0x20u);
   }
 
   if (v3 == 1)
   {
-    v25 = [*(a1 + 40) originalRequest];
-    if (![v25 _isKnownTracker])
+    v28 = [*(a1 + 40) originalRequest];
+    if (![v28 _isKnownTracker])
     {
 LABEL_35:
 
       goto LABEL_36;
     }
 
-    v26 = [*(*(*(a1 + 56) + 8) + 40) failOpen];
+    v29 = [*(*(*(a1 + 56) + 8) + 40) failOpen];
 
-    if ((v26 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      v20 = _ef_log_EMRemoteContentURLSession();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = _ef_log_EMRemoteContentURLSession(v30);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = *(a1 + 48);
+        v31 = *(a1 + 48);
         *buf = 134218242;
-        v59 = v27;
-        v60 = 2114;
-        v61 = v46;
-        _os_log_impl(&dword_1C6655000, v20, OS_LOG_TYPE_DEFAULT, "[%p][Proxy] Used VPN for URL: %{public}@", buf, 0x16u);
+        v62 = v31;
+        v63 = 2114;
+        v64 = v49;
+        _os_log_impl(&dword_1C6655000, v21, OS_LOG_TYPE_DEFAULT, "[%p][Proxy] Used VPN for URL: %{public}@", buf, 0x16u);
       }
 
-      v24 = 2;
+      v27 = 2;
       goto LABEL_27;
     }
   }
 
   else if (v3 == 3)
   {
-    v17 = [*(a1 + 40) error];
-    v18 = [v17 ef_underlyingError];
-    v19 = [v18 userInfo];
-    v20 = [v19 objectForKeyedSubscript:*MEMORY[0x1E695AD00]];
+    v18 = [*(a1 + 40) error];
+    v19 = [v18 ef_underlyingError];
+    v20 = [v19 userInfo];
+    v21 = [v20 objectForKeyedSubscript:*MEMORY[0x1E695AD00]];
 
-    v21 = nw_path_copy_parameters();
-    if (v21)
+    v22 = nw_path_copy_parameters();
+    v23 = v22;
+    if (v22)
     {
-      v22 = nw_parameters_copy_effective_proxy_config();
-      if (v22)
+      v24 = nw_parameters_copy_effective_proxy_config();
+      if (v24)
       {
         if (nw_proxy_config_is_privacy_proxy())
         {
 
-          v23 = _ef_log_EMRemoteContentURLSession();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v26 = _ef_log_EMRemoteContentURLSession(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_2_cold_1(a1, v46, v23);
+            __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_2_cold_1(a1, v49, v26);
           }
 
-          v24 = 0;
+          v27 = 0;
 LABEL_26:
 
 LABEL_27:
           [*(*(a1 + 48) + 24) getObject];
-          v50 = 0u;
+          v53 = 0u;
+          v54 = 0u;
           v51 = 0u;
-          v48 = 0u;
-          v25 = v49 = 0u;
-          v29 = [v25 countByEnumeratingWithState:&v48 objects:v57 count:16];
-          if (v29)
+          v28 = v52 = 0u;
+          v33 = [v28 countByEnumeratingWithState:&v51 objects:v60 count:16];
+          if (v33)
           {
-            v30 = *v49;
+            v34 = *v52;
             do
             {
-              for (i = 0; i != v29; ++i)
+              for (i = 0; i != v33; ++i)
               {
-                if (*v49 != v30)
+                if (*v52 != v34)
                 {
-                  objc_enumerationMutation(v25);
+                  objc_enumerationMutation(v28);
                 }
 
-                v32 = *(*(&v48 + 1) + 8 * i);
-                v33 = *(a1 + 48);
-                v34 = [v47 request];
-                v35 = [v34 URL];
-                [v32 remoteContentURLSession:v33 failedToProxyURL:v35 failureReason:v24];
+                v36 = *(*(&v51 + 1) + 8 * i);
+                v37 = *(a1 + 48);
+                v38 = [v50 request];
+                v39 = [v38 URL];
+                [v36 remoteContentURLSession:v37 failedToProxyURL:v39 failureReason:v27];
               }
 
-              v29 = [v25 countByEnumeratingWithState:&v48 objects:v57 count:16];
+              v33 = [v28 countByEnumeratingWithState:&v51 objects:v60 count:16];
             }
 
-            while (v29);
+            while (v33);
           }
 
           goto LABEL_35;
         }
 
-        v28 = @"effective proxy config is not privacy proxy";
+        v32 = @"effective proxy config is not privacy proxy";
       }
 
       else
       {
-        v28 = @"no effective proxy config";
+        v32 = @"no effective proxy config";
       }
     }
 
     else
     {
-      v28 = @"no path parameters";
+      v32 = @"no path parameters";
     }
 
-    v23 = _ef_log_EMRemoteContentURLSession();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = _ef_log_EMRemoteContentURLSession(v22);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v38 = *(a1 + 48);
+      v41 = *(a1 + 48);
       *buf = 134218498;
-      v59 = v38;
-      v60 = 2114;
-      v61 = v28;
-      v62 = 2114;
-      v63 = v46;
-      _os_log_error_impl(&dword_1C6655000, v23, OS_LOG_TYPE_ERROR, "[%p][Proxy] Unavailable for URL (%{public}@): %{public}@", buf, 0x20u);
+      v62 = v41;
+      v63 = 2114;
+      v64 = v32;
+      v65 = 2114;
+      v66 = v49;
+      _os_log_error_impl(&dword_1C6655000, v26, OS_LOG_TYPE_ERROR, "[%p][Proxy] Unavailable for URL (%{public}@): %{public}@", buf, 0x20u);
     }
 
-    v24 = 1;
+    v27 = 1;
     goto LABEL_26;
   }
 
 LABEL_36:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   errorCopy = error;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__12;
-  v45 = __Block_byref_object_dispose__12;
-  v46 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__12;
+  v46 = __Block_byref_object_dispose__12;
+  v47 = 0;
   activeTasks = self->_activeTasks;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke;
-  v38[3] = &unk_1E826DD58;
-  v40 = &v41;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke;
+  v39[3] = &unk_1E826DD58;
+  v41 = &v42;
   v10 = taskCopy;
-  v39 = v10;
-  [(EFLocked *)activeTasks performWhileLocked:v38];
-  if (!v42[5])
+  v40 = v10;
+  [(EFLocked *)activeTasks performWhileLocked:v39];
+  if (!v43[5])
   {
     goto LABEL_25;
   }
@@ -550,55 +670,57 @@ LABEL_36:
   }
 
   response = [v10 response];
+  v17 = response;
   if (errorCopy)
   {
-    v17 = _ef_log_EMRemoteContentURLSession();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = _ef_log_EMRemoteContentURLSession(response);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       ef_publicDescription = [errorCopy ef_publicDescription];
       *buf = 134218498;
       selfCopy3 = self;
-      v49 = 2114;
-      v50 = absoluteString;
-      v51 = 2114;
-      v52 = ef_publicDescription;
-      _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_INFO, "[%p][Error] URL: %{public}@\nError: %{public}@", buf, 0x20u);
+      v50 = 2114;
+      v51 = absoluteString;
+      v52 = 2114;
+      v53 = ef_publicDescription;
+      _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_INFO, "[%p][Error] URL: %{public}@\nError: %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v19 = objc_opt_respondsToSelector();
-    v20 = _ef_log_EMRemoteContentURLSession();
-    v17 = v20;
-    if ((v19 & 1) == 0)
+    v20 = objc_opt_respondsToSelector();
+    v21 = v20;
+    v22 = _ef_log_EMRemoteContentURLSession(v20);
+    v18 = v22;
+    if ((v21 & 1) == 0)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v49 = 2114;
-        v50 = absoluteString;
-        _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_INFO, "[%p][Response] URL: %{public}@", buf, 0x16u);
+        v50 = 2114;
+        v51 = absoluteString;
+        _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_INFO, "[%p][Response] URL: %{public}@", buf, 0x16u);
       }
 
       goto LABEL_15;
     }
 
-    v17 = v20;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = v22;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      statusCode = [response statusCode];
-      _allHTTPHeaderFieldsAsArrays = [response _allHTTPHeaderFieldsAsArrays];
+      statusCode = [v17 statusCode];
+      _allHTTPHeaderFieldsAsArrays = [v17 _allHTTPHeaderFieldsAsArrays];
       *buf = 134218754;
       selfCopy3 = self;
-      v49 = 2114;
-      v50 = absoluteString;
-      v51 = 2048;
-      v52 = statusCode;
-      v53 = 2114;
-      v54 = _allHTTPHeaderFieldsAsArrays;
-      _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_INFO, "[%p][Response] URL: %{public}@\nStatus Code: %ld\nHeaders: %{public}@", buf, 0x2Au);
+      v50 = 2114;
+      v51 = absoluteString;
+      v52 = 2048;
+      v53 = statusCode;
+      v54 = 2114;
+      v55 = _allHTTPHeaderFieldsAsArrays;
+      _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_INFO, "[%p][Response] URL: %{public}@\nStatus Code: %ld\nHeaders: %{public}@", buf, 0x2Au);
     }
   }
 
@@ -606,24 +728,24 @@ LABEL_15:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v23 = v10;
-    if (errorCopy || !response)
+    v25 = v10;
+    if (errorCopy || !v17)
     {
       domain = [errorCopy domain];
       if ([domain isEqualToString:*MEMORY[0x1E696A978]])
       {
-        v27 = [errorCopy code] == -999;
+        v29 = [errorCopy code] == -999;
 
-        if (v27)
+        if (v29)
         {
           cache = [(EMRemoteContentURLSession *)self cache];
-          v30 = MEMORY[0x1E69E9820];
-          v31 = 3221225472;
-          v32 = __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke_208;
-          v33 = &unk_1E826F778;
+          v31 = MEMORY[0x1E69E9820];
+          v32 = 3221225472;
+          v33 = __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke_208;
+          v34 = &unk_1E826F778;
           selfCopy4 = self;
-          v35 = absoluteString;
-          [cache storeCancelationIfNeededForDataTask:v23 completionHandler:&v30];
+          v36 = absoluteString;
+          [cache storeCancelationIfNeededForDataTask:v25 completionHandler:&v31];
         }
       }
 
@@ -635,23 +757,21 @@ LABEL_15:
     else
     {
       cache2 = [(EMRemoteContentURLSession *)self cache];
-      data = [v42[5] data];
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke_206;
-      v36[3] = &unk_1E826F778;
-      v36[4] = self;
-      v37 = absoluteString;
-      [cache2 storeResponseIfNeeded:response withData:data forDataTask:v23 completionHandler:v36];
+      data = [v43[5] data];
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke_206;
+      v37[3] = &unk_1E826F778;
+      v37[4] = self;
+      v38 = absoluteString;
+      [cache2 storeResponseIfNeeded:v17 withData:data forDataTask:v25 completionHandler:v37];
     }
   }
 
-  [v42[5] finishWithError:{errorCopy, v30, v31, v32, v33, selfCopy4}];
+  [v43[5] finishWithError:{errorCopy, v31, v32, v33, v34, selfCopy4}];
 
 LABEL_25:
-  _Block_object_dispose(&v41, 8);
-
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v42, 8);
 }
 
 void __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1, void *a2)
@@ -671,44 +791,40 @@ void __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___bloc
 
 void __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke_206(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v3 = _ef_log_EMRemoteContentURLSession();
+    v3 = _ef_log_EMRemoteContentURLSession(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v7 = 134218242;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_INFO, "[%p][Cache] Forced caching of response for URL: %{public}@", &v7, 0x16u);
+      v6 = 134218242;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_INFO, "[%p][Cache] Forced caching of response for URL: %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___block_invoke_208(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v3 = _ef_log_EMRemoteContentURLSession();
+    v3 = _ef_log_EMRemoteContentURLSession(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v7 = 134218242;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_INFO, "[%p][Cache] Forced caching of cancelation for URL: %{public}@", &v7, 0x16u);
+      v6 = 134218242;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_INFO, "[%p][Cache] Forced caching of cancelation for URL: %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerObserver:(id)observer
@@ -748,14 +864,13 @@ void __66__EMRemoteContentURLSession_URLSession_task_didCompleteWithError___bloc
 
 void __72__EMRemoteContentURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 48);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1C6655000, log, OS_LOG_TYPE_ERROR, "[%p][Proxy] Failed for URL: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1C6655000, log, OS_LOG_TYPE_ERROR, "[%p][Proxy] Failed for URL: %{public}@", &v4, 0x16u);
 }
 
 @end

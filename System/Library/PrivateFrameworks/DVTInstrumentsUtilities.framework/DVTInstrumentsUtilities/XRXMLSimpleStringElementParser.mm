@@ -68,9 +68,7 @@
 
   else
   {
-    v7 = objc_msgSend_mutableCopy(characters, a2, characters, v3, v4);
-    v8 = self->accumulator;
-    self->accumulator = v7;
+    self->accumulator = objc_msgSend_mutableCopy(characters, a2, characters, v3, v4);
 
     MEMORY[0x2821F96F8]();
   }

@@ -36,7 +36,7 @@
       workerDetailedName = [worker workerDetailedName];
       worker2 = [(PLBackgroundJobWorkerCriteriaTuple *)equalCopy worker];
       workerDetailedName2 = [worker2 workerDetailedName];
-      if ([workerDetailedName isEqualToString:workerDetailedName2])
+      if (objc_msgSend_isEqualToString_(workerDetailedName))
       {
         criteria = [(PLBackgroundJobWorkerCriteriaTuple *)self criteria];
         criteria2 = [(PLBackgroundJobWorkerCriteriaTuple *)equalCopy criteria];

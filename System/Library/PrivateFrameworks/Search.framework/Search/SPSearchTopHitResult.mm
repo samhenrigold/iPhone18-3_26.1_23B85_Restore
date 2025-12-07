@@ -3,6 +3,7 @@
 - (BOOL)_contentType:(id)type orContentTypeTree:(id)tree representsType:(id)representsType;
 - (BOOL)doesQueryMatchContentForLowEngagementBundle:(__packedFieldArray *)bundle queryContext:(id)context;
 - (BOOL)videoIsRepresentedByContentType:(id)type orContentTypeTree:(id)tree;
+- (SPSearchTopHitResult)initWithRankingItem:(id)item clientData:(SPResultValueItem_s *)data;
 - (SPSearchTopHitResult)resultWithTime:(double)time searchString:(id)string isCorrectedQuery:(BOOL)query withQueryContext:(id)context;
 - (id)authorStringFromValues:(__packedFieldArray *)values;
 - (id)eventAttributesFromValues:(__packedFieldArray *)values eventGroupIdentifier:(id)identifier;
@@ -27,6 +28,20 @@
 @end
 
 @implementation SPSearchTopHitResult
+
+- (SPSearchTopHitResult)initWithRankingItem:(id)item clientData:(SPResultValueItem_s *)data
+{
+  v12.receiver = self;
+  v12.super_class = SPSearchTopHitResult;
+  result = [(SPTopHitResult *)&v12 initWithRankingItem:item, data, a5, *&a7, a9, a10, a6];
+  if (result)
+  {
+    atomic_fetch_add(&data->var0, 1u);
+    result->_clientData = data;
+  }
+
+  return result;
+}
 
 - (void)clearClientData
 {
@@ -74,13 +89,13 @@
   firstObject = 0;
   if (![0 length])
   {
-    v5 = sub_10004C1A4(values, 5);
+    v5 = sub_10004C1A4(values, 5uLL);
     firstObject = [v5 firstObject];
   }
 
   if (![firstObject length])
   {
-    v6 = sub_10004C1A4(values, 35);
+    v6 = sub_10004C1A4(values, 0x23uLL);
     firstObject2 = [v6 firstObject];
 
     firstObject = firstObject2;
@@ -88,7 +103,7 @@
 
   if (![firstObject length])
   {
-    v8 = sub_10004C1A4(values, 66);
+    v8 = sub_10004C1A4(values, 0x42uLL);
     firstObject3 = [v8 firstObject];
 
     firstObject = firstObject3;
@@ -102,12 +117,12 @@
   v5 = 0;
   if (![0 length])
   {
-    v5 = sub_10004BAE0(values, 7);
+    v5 = sub_10004BAE0(values, 7uLL);
   }
 
   if (![v5 length])
   {
-    v6 = sub_10004BAE0(values, 12);
+    v6 = sub_10004BAE0(values, 0xCuLL);
 
     v5 = v6;
   }
@@ -121,7 +136,7 @@
 
   if (![v5 length])
   {
-    v8 = sub_10004BAE0(values, 4);
+    v8 = sub_10004BAE0(values, 4uLL);
 
     v5 = v8;
   }
@@ -134,7 +149,7 @@
   v6 = v5;
   v7 = v4;
   stringCopy = string;
-  v11 = sub_10004CED8(score, 2);
+  v11 = sub_10004CED8(score, 2uLL);
   v12 = [(SPSearchTopHitResult *)self authorStringFromValues:score];
   v13 = objc_alloc_init(SPCoreSpotlightResult);
   v14 = [SFText textWithString:v12];
@@ -142,7 +157,7 @@
 
   [v13 setCompatibilityTitle:v12];
   [v13 setIdentifier:v11];
-  v15 = sub_10004BAE0(score, 10);
+  v15 = sub_10004BAE0(score, 0xAuLL);
   [v13 setSectionBundleIdentifier:v15];
 
   sectionBundleIdentifier = [v13 sectionBundleIdentifier];
@@ -155,19 +170,19 @@
   [v13 setBundleID:sectionBundleIdentifier2];
 
   [v13 setScore:{v7, v6}];
-  v19 = sub_10004CED8(score, 1);
+  v19 = sub_10004CED8(score, 1uLL);
   [v13 setItemIdentifier:v19];
 
   [v13 setUserActivityType:CSSearchableItemActionType];
   [v13 setExternalIdentifier:v11];
-  v20 = sub_10004BAE0(score, 10);
+  v20 = sub_10004BAE0(score, 0xAuLL);
   [v13 setBundleID:v20];
 
   [v13 setProtectionClass:stringCopy];
-  v21 = sub_10004CED8(score, 32);
+  v21 = sub_10004CED8(score, 0x20uLL);
   [v13 setInterestingDate:v21];
 
-  v22 = sub_10004CED8(score, 81);
+  v22 = sub_10004CED8(score, 0x51uLL);
   [v13 setMailConversationIdentifier:v22];
 
   return v13;
@@ -179,12 +194,12 @@
   v29 = v6;
   contextCopy = context;
   dataclassCopy = dataclass;
-  v10 = sub_10004CED8(result, 2);
-  v11 = sub_10004CED8(result, 177);
-  v12 = sub_10004CED8(result, 10);
-  v13 = sub_10004BAE0(result, 102);
+  v10 = sub_10004CED8(result, 2uLL);
+  v11 = sub_10004CED8(result, 0xB1uLL);
+  v12 = sub_10004CED8(result, 0xAuLL);
+  v13 = sub_10004BAE0(result, 0x66uLL);
   v34 = sub_10004BAE0(result, 0);
-  v14 = sub_10004C1A4(result, 27);
+  v14 = sub_10004C1A4(result, 0x1BuLL);
   v15 = [(SPSearchTopHitResult *)self titleStringFromValues:result];
   v16 = v12;
   v31 = v13;
@@ -193,7 +208,7 @@
   {
 
     v33 = SSSectionIdentifierSyndicatedLinks;
-    v17 = sub_10004BAE0(result, 101);
+    v17 = sub_10004BAE0(result, 0x65uLL);
     v18 = [NSURL URLWithString:v17];
     v14 = &off_1000990A8;
   }
@@ -242,11 +257,11 @@ LABEL_10:
   [v21 setIdentifier:v20];
   [v21 setScore:{v28, v29}];
   [v21 setUserActivityType:CSSearchableItemActionType];
-  v24 = sub_10004CED8(result, 32);
+  v24 = sub_10004CED8(result, 0x20uLL);
   [v21 setInterestingDate:v24];
 
   [v21 setProtectionClass:dataclassCopy];
-  v25 = sub_10004CED8(result, 50);
+  v25 = sub_10004CED8(result, 0x32uLL);
   [v21 setDomainIdentifier:v25];
 
   [v21 setContentType:v34];
@@ -265,12 +280,12 @@ LABEL_10:
   v28 = v6;
   contextCopy = context;
   dataclassCopy = dataclass;
-  v26 = sub_10004CED8(result, 2);
-  v11 = sub_10004CED8(result, 10);
+  v26 = sub_10004CED8(result, 2uLL);
+  v11 = sub_10004CED8(result, 0xAuLL);
   v12 = sub_10004BAE0(result, 0);
-  v13 = sub_10004C1A4(result, 27);
+  v13 = sub_10004C1A4(result, 0x1BuLL);
   v14 = [(SPSearchTopHitResult *)self titleStringFromValues:result];
-  v30 = sub_10004CED8(result, 177);
+  v30 = sub_10004CED8(result, 0xB1uLL);
   unsignedIntValue = [v30 unsignedIntValue];
   v16 = &SSSectionIdentifierUnsupportedSyndicatedContent;
   if (unsignedIntValue)
@@ -295,14 +310,14 @@ LABEL_10:
   [v18 setIdentifier:v26];
   [v18 setScore:{v27, v28}];
   [v18 setUserActivityType:CSSearchableItemActionType];
-  v21 = sub_10004CED8(result, 32);
+  v21 = sub_10004CED8(result, 0x20uLL);
   [v18 setInterestingDate:v21];
 
   [v18 setProtectionClass:dataclassCopy];
-  v22 = sub_10004CED8(result, 50);
+  v22 = sub_10004CED8(result, 0x32uLL);
   [v18 setDomainIdentifier:v22];
 
-  v23 = sub_10004CED8(result, 3);
+  v23 = sub_10004CED8(result, 3uLL);
   [v18 setContainerIdentifier:v23];
 
   [v18 setContentType:v12];
@@ -330,13 +345,13 @@ LABEL_10:
     sub_10006356C();
   }
 
-  v76 = sub_10004BAE0(person, 7);
-  v82 = sub_10004CED8(person, 157);
-  v77 = sub_10004CED8(person, 59);
-  v81 = sub_10004CED8(person, 40);
-  v80 = sub_10004CED8(person, 61);
-  v79 = sub_10004CED8(person, 39);
-  v78 = sub_10004CED8(person, 62);
+  v76 = sub_10004BAE0(person, 7uLL);
+  v82 = sub_10004CED8(person, 0x9DuLL);
+  v77 = sub_10004CED8(person, 0x3BuLL);
+  v81 = sub_10004CED8(person, 0x28uLL);
+  v80 = sub_10004CED8(person, 0x3DuLL);
+  v79 = sub_10004CED8(person, 0x27uLL);
+  v78 = sub_10004CED8(person, 0x3EuLL);
   v7 = +[NSMutableArray array];
   if ([v82 count])
   {
@@ -734,11 +749,11 @@ LABEL_44:
     sub_100063580();
   }
 
-  v11 = sub_10004CED8(result, 2);
-  v12 = sub_10004BAE0(result, 97);
-  v39 = sub_10004CED8(result, 10);
-  v38 = sub_10004CED8(result, 50);
-  v35 = sub_10004CED8(result, 95);
+  v11 = sub_10004CED8(result, 2uLL);
+  v12 = sub_10004BAE0(result, 0x61uLL);
+  v39 = sub_10004CED8(result, 0xAuLL);
+  v38 = sub_10004CED8(result, 0x32uLL);
+  v35 = sub_10004CED8(result, 0x5FuLL);
   sub_10004CED8(result, 0);
   v42 = v41 = @"public.contact";
   v13 = v42;
@@ -812,11 +827,11 @@ LABEL_44:
 
   [v20 setRankingScore:v27];
   [v20 setUserActivityType:CSSearchableItemActionType];
-  v28 = sub_10004CED8(result, 32);
+  v28 = sub_10004CED8(result, 0x20uLL);
   [v20 setInterestingDate:v28];
 
   [v20 setProtectionClass:dataclassCopy];
-  v29 = sub_10004CED8(result, 50);
+  v29 = sub_10004CED8(result, 0x32uLL);
   [v20 setDomainIdentifier:v29];
 
   domainIdentifier = [v20 domainIdentifier];
@@ -825,7 +840,7 @@ LABEL_44:
   [v20 setContentType:v13];
   [v20 setContentTypeTree:v34];
   [v20 setHasTextContentMatch:v18];
-  v31 = sub_10004CED8(result, 96);
+  v31 = sub_10004CED8(result, 0x60uLL);
   [v20 setPersonType:v31];
 
   return v20;
@@ -881,7 +896,7 @@ LABEL_16:
         v17 = [v7 objectAtIndexedSubscript:2];
         [v10 setObject:v17 forKeyedSubscript:@"hotelStartDate"];
 
-        v14 = sub_10004BAE0(values, 210);
+        v14 = sub_10004BAE0(values, 0xD2uLL);
         v15 = @"hotelReservationForAddress";
         goto LABEL_16;
       }
@@ -987,7 +1002,7 @@ LABEL_19:
 
   if ([firstObject isEqualToString:MDItemStartDate])
   {
-    v13 = sub_10004C300(values, 17);
+    v13 = sub_10004C300(values, 0x11uLL);
     v16 = objc_alloc_init(NSDateFormatter);
     [v16 setDateStyle:3];
     [v16 setTimeStyle:1];
@@ -1028,7 +1043,7 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    v13 = sub_10004C300(values, 18);
+    v13 = sub_10004C300(values, 0x12uLL);
     v16 = objc_alloc_init(NSDateFormatter);
     [v16 setDateStyle:3];
     [v16 setTimeStyle:1];
@@ -1076,7 +1091,7 @@ LABEL_22:
   v8 = objc_opt_new();
   [v8 setScore:{*&self->_clientData[4].var0, *&self->_clientData[6].var0}];
   [v8 setProtectionClass:*&self->_clientData[8].var0];
-  v9 = sub_10004BAE0(context, 10);
+  v9 = sub_10004BAE0(context, 0xAuLL);
   [v8 setBundleID:v9];
 
   bundleID = [v8 bundleID];
@@ -1085,7 +1100,7 @@ LABEL_22:
   bundleID2 = [v8 bundleID];
   [v8 setSectionBundleIdentifier:bundleID2];
 
-  v12 = sub_10004CED8(context, 2);
+  v12 = sub_10004CED8(context, 2uLL);
   [v8 setIdentifier:v12];
 
   bundleID3 = [v8 bundleID];
@@ -1106,7 +1121,7 @@ LABEL_22:
   v16 = [NSArray arrayWithObjects:&v21 count:1];
   [v8 setContentType:v15];
   [v8 setContentTypeTree:v16];
-  v17 = sub_10004BAE0(context, 209);
+  v17 = sub_10004BAE0(context, 0xD1uLL);
   v18 = [(SPSearchTopHitResult *)self eventAttributesFromValues:context eventGroupIdentifier:v17];
   v19 = [(SPSearchTopHitResult *)self personalAnswerStringFromValues:context queryContext:stringCopy eventAttributes:v18];
   [v8 setPersonalAnswerString:v19];
@@ -1120,7 +1135,7 @@ LABEL_22:
   v51 = v4;
   dataclassCopy = dataclass;
   v8 = SPFastApplicationsGetNoBuild();
-  v9 = sub_10004BAE0(result, 2);
+  v9 = sub_10004BAE0(result, 2uLL);
   v10 = [v8 objectForKeyedSubscript:v9];
   if (!v10)
   {
@@ -1133,10 +1148,10 @@ LABEL_22:
       }
     }
 
-    v11 = sub_10004BAE0(result, 10);
+    v11 = sub_10004BAE0(result, 0xAuLL);
     v23 = objc_alloc_init(SPCoreSpotlightResult);
     [v23 setIdentifier:v9];
-    v24 = sub_10004BAE0(result, 7);
+    v24 = sub_10004BAE0(result, 7uLL);
     v25 = objc_alloc_init(SFText);
     v26 = v25;
     v50 = v25;
@@ -1147,7 +1162,7 @@ LABEL_22:
     }
 
     [v23 setTitle:v26];
-    v27 = sub_10004BAE0(result, 156);
+    v27 = sub_10004BAE0(result, 0x9CuLL);
     v47 = v24;
     if (v27)
     {
@@ -1174,13 +1189,13 @@ LABEL_22:
       [externalIdentifier setBundleIdentifier:identifier];
 
       [v23 setThumbnail:externalIdentifier];
-      v34 = sub_10004BAE0(result, 72);
+      v34 = sub_10004BAE0(result, 0x48uLL);
       [v23 setApplicationBundleIdentifier:v34];
     }
 
     else
     {
-      if (sub_10004C634(result, 180))
+      if (sub_10004C634(result, 0xB4uLL))
       {
         [v23 setType:24];
         v41 = 10;
@@ -1194,7 +1209,7 @@ LABEL_22:
       v42 = sub_10004BAE0(result, v41);
       [v23 setApplicationBundleIdentifier:v42];
 
-      v43 = sub_10004BAE0(result, 2);
+      v43 = sub_10004BAE0(result, 2uLL);
       [v23 setExternalIdentifier:v43];
 
       applicationBundleIdentifier = [v23 applicationBundleIdentifier];
@@ -1230,7 +1245,7 @@ LABEL_22:
 
   if (!compatibilityTitle)
   {
-    v13 = sub_10004BAE0(result, 7);
+    v13 = sub_10004BAE0(result, 7uLL);
     [v11 title];
     v15 = v14 = v6;
     [v15 setText:v13];
@@ -1242,7 +1257,7 @@ LABEL_22:
 
   if (!subtitle)
   {
-    v17 = sub_10004BAE0(result, 156);
+    v17 = sub_10004BAE0(result, 0x9CuLL);
     if (v17)
     {
       [SFRichText textWithString:v17];
@@ -1290,7 +1305,7 @@ LABEL_22:
     v36 = sub_10004BAE0(result, v35);
     [v11 setApplicationBundleIdentifier:v36];
 
-    v37 = sub_10004BAE0(result, 2);
+    v37 = sub_10004BAE0(result, 2uLL);
     [v11 setExternalIdentifier:v37];
 
     applicationBundleIdentifier3 = [v11 applicationBundleIdentifier];
@@ -1325,12 +1340,12 @@ LABEL_40:
 - (void)makeDateBasedResult:(__packedFieldArray *)result result:(id)a4
 {
   v14 = a4;
-  v5 = sub_10004C300(result, 28);
-  v6 = sub_10004C300(result, 32);
-  v7 = sub_10004C300(result, 29);
-  v8 = sub_10004C300(result, 25);
-  v9 = sub_10004C300(result, 17);
-  v10 = sub_10004BAE0(result, 69);
+  v5 = sub_10004C300(result, 0x1CuLL);
+  v6 = sub_10004C300(result, 0x20uLL);
+  v7 = sub_10004C300(result, 0x1DuLL);
+  v8 = sub_10004C300(result, 0x19uLL);
+  v9 = sub_10004C300(result, 0x11uLL);
+  v10 = sub_10004BAE0(result, 0x45uLL);
   [v14 setCalendarIdentifier:v10];
   v11 = v9;
   if (v9 || (v11 = v5) != 0 || (v11 = v7) != 0 || (v11 = v8) != 0 || (v11 = v6) != 0)
@@ -1344,7 +1359,7 @@ LABEL_40:
     [v14 setInterestingDate:interestingDate];
   }
 
-  v12 = sub_10004CED8(result, 50);
+  v12 = sub_10004CED8(result, 0x32uLL);
   [v14 setDomainIdentifier:v12];
 
   if (v5)
@@ -1374,7 +1389,7 @@ LABEL_40:
 
   else
   {
-    v13 = sub_10004BAE0(result, 7);
+    v13 = sub_10004BAE0(result, 7uLL);
     [v10 setCompletion:v13];
 
     [v10 setIdentifier:identifierCopy];
@@ -1450,10 +1465,10 @@ LABEL_31:
 - (BOOL)doesQueryMatchContentForLowEngagementBundle:(__packedFieldArray *)bundle queryContext:(id)context
 {
   contextCopy = context;
-  v6 = sub_10004BAE0(bundle, 7);
+  v6 = sub_10004BAE0(bundle, 7uLL);
   if (!v6)
   {
-    v6 = sub_10004BAE0(bundle, 12);
+    v6 = sub_10004BAE0(bundle, 0xCuLL);
   }
 
   v7 = v6;
@@ -1663,11 +1678,11 @@ LABEL_39:
   itemCopy = item;
   typeCopy = type;
   dCopy = d;
-  v13 = sub_10004CED8(values, 27);
-  v14 = sub_10004CED8(values, 38);
-  v42 = sub_10004CED8(values, 83);
-  v41 = sub_10004CED8(values, 86);
-  v15 = sub_10004CED8(values, 15);
+  v13 = sub_10004CED8(values, 0x1BuLL);
+  v14 = sub_10004CED8(values, 0x26uLL);
+  v42 = sub_10004CED8(values, 0x53uLL);
+  v41 = sub_10004CED8(values, 0x56uLL);
+  v15 = sub_10004CED8(values, 0xFuLL);
   v16 = v15;
   if (v15)
   {
@@ -1676,12 +1691,12 @@ LABEL_39:
 
   else
   {
-    v17 = sub_10004CED8(values, 64);
+    v17 = sub_10004CED8(values, 0x40uLL);
   }
 
   v18 = v17;
 
-  v19 = sub_10004CED8(values, 30);
+  v19 = sub_10004CED8(values, 0x1EuLL);
   v20 = v19;
   if (v19)
   {
@@ -1690,7 +1705,7 @@ LABEL_39:
 
   else
   {
-    v21 = sub_10004CED8(values, 30);
+    v21 = sub_10004CED8(values, 0x1EuLL);
   }
 
   v22 = v21;
@@ -1719,10 +1734,10 @@ LABEL_39:
 
   [itemCopy setFileProviderIdentifier:v42];
   [itemCopy setFileProviderDomainIdentifier:v41];
-  v25 = sub_10004CED8(values, 87);
+  v25 = sub_10004CED8(values, 0x57uLL);
   [itemCopy setRelatedBundleID:v25];
 
-  v26 = sub_10004CED8(values, 165);
+  v26 = sub_10004CED8(values, 0xA5uLL);
   [itemCopy setDisplayOrder:v26];
 
   if ((-[SPSearchTopHitResult audioOrVideoIsRepresentedByContentType:orContentTypeTree:](self, "audioOrVideoIsRepresentedByContentType:orContentTypeTree:", typeCopy, v13) || -[SPSearchTopHitResult audioIsRepresentedByContentType:orContentTypeTree:](self, "audioIsRepresentedByContentType:orContentTypeTree:", typeCopy, v13) || -[SPSearchTopHitResult playlistOrAlbumIsRepresentedByContentType:orContentTypeTree:](self, "playlistOrAlbumIsRepresentedByContentType:orContentTypeTree:", typeCopy, v13) || -[SPSearchTopHitResult bookIsRepresentedByContentType:orContentTypeTree:](self, "bookIsRepresentedByContentType:orContentTypeTree:", typeCopy, v13)) && ([dCopy isEqualToString:@"com.apple.podcasts"] & 1) == 0)
@@ -1760,7 +1775,7 @@ LABEL_39:
   {
     v39 = v14;
     v40 = typeCopy;
-    v32 = sub_10004CED8(values, 7);
+    v32 = sub_10004CED8(values, 7uLL);
     v33 = v32;
     v34 = dCopy;
     if (v32)
@@ -1771,7 +1786,7 @@ LABEL_39:
 
     else
     {
-      v37 = sub_10004CED8(values, 12);
+      v37 = sub_10004CED8(values, 0xCuLL);
       if (v37)
       {
         v35 = 0;
@@ -1781,7 +1796,7 @@ LABEL_39:
 
       else
       {
-        v36 = sub_10004CED8(values, 4);
+        v36 = sub_10004CED8(values, 4uLL);
         v38 = 0;
         v35 = 1;
       }
@@ -1882,15 +1897,15 @@ LABEL_14:
     sub_1000635BC();
   }
 
-  v53 = sub_10004C1A4(values, 27);
-  v52 = sub_10004BAE0(values, 102);
+  v53 = sub_10004C1A4(values, 0x1BuLL);
+  v52 = sub_10004BAE0(values, 0x66uLL);
   v12 = sub_10004CED8(values, 0);
-  v13 = sub_10004CED8(values, 11);
-  v14 = sub_10004CED8(values, 2);
-  v58 = sub_10004CED8(values, 1);
-  v15 = sub_10004CED8(values, 13);
-  v16 = sub_10004CED8(values, 14);
-  v56 = sub_10004CED8(values, 177);
+  v13 = sub_10004CED8(values, 0xBuLL);
+  v14 = sub_10004CED8(values, 2uLL);
+  v58 = sub_10004CED8(values, 1uLL);
+  v15 = sub_10004CED8(values, 0xDuLL);
+  v16 = sub_10004CED8(values, 0xEuLL);
+  v56 = sub_10004CED8(values, 0xB1uLL);
   selfCopy = self;
   v17 = [(SPSearchTopHitResult *)self titleStringFromValues:values];
   v18 = [v17 stringByTrimmingCharactersInSet:qword_1000A85D8];
@@ -1901,26 +1916,26 @@ LABEL_14:
   [resultCopy setCompatibilityTitle:v19];
   v54 = v14;
   [resultCopy setIdentifier:v14];
-  v21 = sub_10004CED8(values, 10);
+  v21 = sub_10004CED8(values, 0xAuLL);
   [resultCopy setResultBundleId:v21];
 
   v50 = v15;
   [resultCopy setContentURL:v15];
-  v22 = sub_10004CED8(values, 51);
+  v22 = sub_10004CED8(values, 0x33uLL);
   [resultCopy setFileIdentifier:v22];
 
-  v23 = sub_10004CED8(values, 52);
+  v23 = sub_10004CED8(values, 0x34uLL);
   [resultCopy setParentFileIdentifier:v23];
 
-  v24 = sub_10004CED8(values, 53);
+  v24 = sub_10004CED8(values, 0x35uLL);
   [resultCopy setFilename:v24];
 
-  v25 = sub_10004CED8(values, 54);
+  v25 = sub_10004CED8(values, 0x36uLL);
   [resultCopy setDocumentIdentifier:v25];
 
   [resultCopy setUserActivityType:v13];
   [resultCopy setUserActivityRequiredString:v16];
-  v26 = sub_10004CED8(values, 72);
+  v26 = sub_10004CED8(values, 0x48uLL);
   [resultCopy setRelatedBundleID:v26];
 
   v27 = [dCopy isEqualToString:off_1000A7FC0];
@@ -1957,7 +1972,7 @@ LABEL_14:
     }
 
     [resultCopy setUserActivityRequiredString:v38];
-    v39 = sub_10004CED8(values, 21);
+    v39 = sub_10004CED8(values, 0x15uLL);
     v40 = v39;
     if (v39)
     {
@@ -2011,7 +2026,7 @@ LABEL_26:
       [(SPSearchTopHitResult *)selfCopy makeDateBasedResult:values result:resultCopy];
     }
 
-    v41 = sub_10004CED8(values, 30);
+    v41 = sub_10004CED8(values, 0x1EuLL);
     [(SPSearchTopHitResult *)selfCopy updateDataOwnerTypeForResult:resultCopy accountID:v41];
     goto LABEL_33;
   }
@@ -2222,14 +2237,14 @@ LABEL_27:
   v92 = queryCopy;
   v95 = v13;
   v93 = disabledApps;
-  v15 = sub_10004BAE0(&clientData[16], 10);
-  v97 = sub_10004CED8(&clientData[16], 72);
+  v15 = sub_10004BAE0(&clientData[16], 0xAuLL);
+  v97 = sub_10004CED8(&clientData[16], 0x48uLL);
   v98 = sub_10004BAE0(&clientData[16], 0);
-  v94 = sub_10004CED8(&clientData[16], 177);
-  v16 = sub_10004C300(&clientData[16], 32);
+  v94 = sub_10004CED8(&clientData[16], 0xB1uLL);
+  v16 = sub_10004C300(&clientData[16], 0x20uLL);
   [v16 timeIntervalSinceReferenceDate];
   v18 = v17;
-  v19 = sub_10004C300(&clientData[16], 25);
+  v19 = sub_10004C300(&clientData[16], 0x19uLL);
   [v19 timeIntervalSinceReferenceDate];
   if ((v18 >= time || time - v18 >= 300.0) && (v20 >= time || time - v20 >= 300.0))
   {
@@ -2241,7 +2256,7 @@ LABEL_27:
 
     else
     {
-      v43 = sub_10004BAE0(&clientData[16], 58);
+      v43 = sub_10004BAE0(&clientData[16], 0x3AuLL);
       v44 = v43;
       if (stringCopy && [v43 hasPrefix:stringCopy])
       {
@@ -2363,7 +2378,7 @@ LABEL_81:
       v60 = gSPLogInfoAsDefault;
       if (os_log_type_enabled(v31, ((gSPLogInfoAsDefault & 1) == 0)))
       {
-        v61 = sub_10004CED8(&clientData[16], 2);
+        v61 = sub_10004CED8(&clientData[16], 2uLL);
         *buf = 138412546;
         v100 = v61;
         v101 = 2112;
@@ -2414,7 +2429,7 @@ LABEL_95:
           [v27 setUserInput:v96];
           if (![v27 type])
           {
-            v64 = sub_10004CED8(&clientData[16], 14);
+            v64 = sub_10004CED8(&clientData[16], 0xEuLL);
             if (v64)
             {
               v65 = 4;
@@ -2428,18 +2443,18 @@ LABEL_95:
             [v27 setType:v65];
           }
 
-          v66 = sub_10004CED8(&clientData[16], 58);
+          v66 = sub_10004CED8(&clientData[16], 0x3AuLL);
           [v27 setLaunchString:v66];
 
           [v27 setRelatedBundleID:v97];
           [v27 setRelatedAppIdentifier:v97];
-          v67 = sub_10004CED8(&clientData[16], 67);
+          v67 = sub_10004CED8(&clientData[16], 0x43uLL);
           [v27 setLaunchDates:v67];
 
-          v68 = sub_10004CED8(&clientData[16], 79);
+          v68 = sub_10004CED8(&clientData[16], 0x4FuLL);
           [v27 setItemProviderDataTypes:v68];
 
-          v69 = sub_10004CED8(&clientData[16], 80);
+          v69 = sub_10004CED8(&clientData[16], 0x50uLL);
           [v27 setItemProviderFileTypes:v69];
 
           if ([(__CFString *)v35 isEqualToString:SSTipsBundleIdentifier]|| ([(__CFString *)v35 hasPrefix:@"com.apple"]& 1) == 0 && [SSLocalCEP isLowEngagementBundle:v35])
@@ -2458,17 +2473,17 @@ LABEL_107:
                 v74 = sub_10004CED8(&clientData[16], 0);
                 [v27 setContentType:v74];
 
-                v75 = sub_10004CED8(&clientData[16], 27);
+                v75 = sub_10004CED8(&clientData[16], 0x1BuLL);
                 [v27 setContentTypeTree:v75];
               }
 
-              v31 = sub_10004CED8(&clientData[16], 85);
+              v31 = sub_10004CED8(&clientData[16], 0x55uLL);
               [v27 setDataOwnerType:{-[NSObject integerValue](v31, "integerValue")}];
               contentCreationDate = [v27 contentCreationDate];
 
               if (!contentCreationDate)
               {
-                v77 = sub_10004CED8(&clientData[16], 32);
+                v77 = sub_10004CED8(&clientData[16], 0x20uLL);
                 [v27 setContentCreationDate:v77];
               }
 
@@ -2500,7 +2515,7 @@ LABEL_122:
                   v85 = [answerAttributes copy];
                   [v27 setAnswerAttributes:v85];
 
-                  [v27 setHasAppTopHitShortcut:{sub_10004CF54(&clientData[16], 120) != 0}];
+                  [v27 setHasAppTopHitShortcut:{sub_10004CF54(&clientData[16], 0x78uLL) != 0}];
                   [(SPSearchTopHitResult *)selfCopy3 populateAttributesForResult:v27 withValues:&clientData[16]];
                   v27 = v27;
 
@@ -2523,7 +2538,7 @@ LABEL_122:
               goto LABEL_122;
             }
 
-            v70 = sub_10004CF54(&clientData[16], 108) != 0;
+            v70 = sub_10004CF54(&clientData[16], 0x6CuLL) != 0;
           }
 
           [v27 setHasTextContentMatch:v70];
@@ -2659,9 +2674,9 @@ LABEL_69:
 
     if ([(__CFString *)v45 isEqualToString:PRSRankingPodcastsBundleString])
     {
-      v56 = sub_10004BAE0(&clientData[16], 31);
+      v56 = sub_10004BAE0(&clientData[16], 0x1FuLL);
       [v27 setStringForDedupe:v56];
-      v57 = sub_10004BAE0(&clientData[16], 50);
+      v57 = sub_10004BAE0(&clientData[16], 0x32uLL);
       [v27 setDomainIdentifier:v57];
     }
 
@@ -2677,7 +2692,7 @@ LABEL_69:
   userActivityRequiredString = [v27 userActivityRequiredString];
   v50 = [userActivityRequiredString length];
 
-  if (!v50 || (sub_10004BAE0(&clientData[16], 87), v51 = objc_claimAutoreleasedReturnValue(), v52 = [v51 isEqualToString:off_1000A7FB8[0]], v51, (v52 & 1) == 0))
+  if (!v50 || (sub_10004BAE0(&clientData[16], 0x57uLL), v51 = objc_claimAutoreleasedReturnValue(), v52 = [v51 isEqualToString:off_1000A7FB8[0]], v51, (v52 & 1) == 0))
   {
     v45 = v15;
     goto LABEL_69;
@@ -2696,9 +2711,9 @@ LABEL_126:
 - (void)populateAttributesForResult:(id)result withValues:(__packedFieldArray *)values
 {
   resultCopy = result;
-  v121 = sub_10004CF54(values, 49);
-  v70 = sub_10004C634(values, 90);
-  v6 = sub_10004CED8(values, 57);
+  v121 = sub_10004CF54(values, 0x31uLL);
+  v70 = sub_10004C634(values, 0x5AuLL);
+  v6 = sub_10004CED8(values, 0x39uLL);
   if (v6)
   {
     v7 = v6;
@@ -2711,35 +2726,35 @@ LABEL_126:
     v227 = 0;
   }
 
-  v9 = sub_10004C1A4(values, 45);
-  v225 = sub_10004C1A4(values, 374);
-  v224 = sub_10004C1A4(values, 59);
-  v223 = sub_10004CED8(values, 153);
-  v222 = sub_10004C1A4(values, 155);
-  v221 = sub_10004C1A4(values, 372);
-  v220 = sub_10004C1A4(values, 159);
-  v219 = sub_10004C1A4(values, 158);
-  v218 = sub_10004C1A4(values, 47);
-  v217 = sub_10004C1A4(values, 66);
-  v216 = sub_10004CED8(values, 152);
-  v215 = sub_10004C1A4(values, 35);
-  v214 = sub_10004C1A4(values, 5);
-  v10 = sub_10004C1A4(values, 39);
-  v119 = sub_10004CF54(values, 41);
-  v11 = sub_10004C1A4(values, 129);
-  v211 = sub_10004CED8(values, 186);
-  v210 = sub_10004C1A4(values, 162);
-  v209 = sub_10004C0D8(values, 131);
-  v208 = sub_10004C0D8(values, 132);
-  v207 = sub_10004CED8(values, 188);
-  v206 = sub_10004CED8(values, 134);
-  v205 = sub_10004C0D8(values, 185);
-  v204 = sub_10004CED8(values, 187);
-  v203 = sub_10004C1A4(values, 40);
-  v202 = sub_10004C1A4(values, 373);
-  v201 = sub_10004C1A4(values, 347);
-  v200 = sub_10004C1A4(values, 48);
-  v199 = sub_10004C1A4(values, 150);
+  v9 = sub_10004C1A4(values, 0x2DuLL);
+  v225 = sub_10004C1A4(values, 0x176uLL);
+  v224 = sub_10004C1A4(values, 0x3BuLL);
+  v223 = sub_10004CED8(values, 0x99uLL);
+  v222 = sub_10004C1A4(values, 0x9BuLL);
+  v221 = sub_10004C1A4(values, 0x174uLL);
+  v220 = sub_10004C1A4(values, 0x9FuLL);
+  v219 = sub_10004C1A4(values, 0x9EuLL);
+  v218 = sub_10004C1A4(values, 0x2FuLL);
+  v217 = sub_10004C1A4(values, 0x42uLL);
+  v216 = sub_10004CED8(values, 0x98uLL);
+  v215 = sub_10004C1A4(values, 0x23uLL);
+  v214 = sub_10004C1A4(values, 5uLL);
+  v10 = sub_10004C1A4(values, 0x27uLL);
+  v119 = sub_10004CF54(values, 0x29uLL);
+  v11 = sub_10004C1A4(values, 0x81uLL);
+  v211 = sub_10004CED8(values, 0xBAuLL);
+  v210 = sub_10004C1A4(values, 0xA2uLL);
+  v209 = sub_10004C0D8(values, 0x83uLL);
+  v208 = sub_10004C0D8(values, 0x84uLL);
+  v207 = sub_10004CED8(values, 0xBCuLL);
+  v206 = sub_10004CED8(values, 0x86uLL);
+  v205 = sub_10004C0D8(values, 0xB9uLL);
+  v204 = sub_10004CED8(values, 0xBBuLL);
+  v203 = sub_10004C1A4(values, 0x28uLL);
+  v202 = sub_10004C1A4(values, 0x175uLL);
+  v201 = sub_10004C1A4(values, 0x15BuLL);
+  v200 = sub_10004C1A4(values, 0x30uLL);
+  v199 = sub_10004C1A4(values, 0x96uLL);
   v12 = values->var0[5];
   if ((v12 & 0x1000000000000000) == 0 || (v13 = COERCE_DOUBLE(vaddvq_s64(vpadalq_u32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(*&values->var0[1])))), vpaddlq_u16(vpaddlq_u8(vcntq_s8(*&values->var0[3])))))), (v14 = *(values->var3[(LOBYTE(v13) + vaddlv_u8(vcnt_s8(values->var0[0])) + vaddlv_u8(vcnt_s8((v12 & 0xFFFFFFFFFFFFFFFLL))))] + 4)) == 0))
   {
@@ -2799,97 +2814,97 @@ LABEL_32:
 LABEL_33:
   v212 = v11;
   v213 = v10;
-  v198 = sub_10004BAE0(values, 164);
-  v197 = sub_10004CED8(values, 165);
-  v196 = sub_10004CED8(values, 163);
-  v195 = sub_10004CED8(values, 195);
-  v194 = sub_10004CED8(values, 167);
-  v193 = sub_10004BAE0(values, 168);
-  v192 = sub_10004CED8(values, 169);
-  v191 = sub_10004BAE0(values, 170);
-  v190 = sub_10004CED8(values, 171);
-  v189 = sub_10004CED8(values, 172);
-  v188 = sub_10004BAE0(values, 175);
-  v187 = sub_10004BAE0(values, 174);
-  v186 = sub_10004C3D8(values, 176);
-  v185 = sub_10004C300(values, 28);
-  v184 = sub_10004C300(values, 32);
-  v183 = sub_10004C300(values, 29);
-  v182 = sub_10004C300(values, 18);
-  v181 = sub_10004C300(values, 36);
-  v69 = sub_10004C300(values, 9);
-  v180 = sub_10004C300(values, 25);
-  v231 = sub_10004C300(values, 82);
-  v179 = sub_10004C300(values, 17);
-  v178 = sub_10004CED8(values, 151);
-  v177 = sub_10004CED8(values, 154);
-  v176 = sub_10004CED8(values, 181);
-  v175 = sub_10004CED8(values, 19);
-  v174 = sub_10004CED8(values, 42);
-  v173 = sub_10004CED8(values, 43);
-  v27 = sub_10004CF54(values, 44);
-  v172 = sub_10004CED8(values, 16);
-  v171 = sub_10004BAE0(values, 26);
-  v170 = sub_10004BAE0(values, 37);
-  v169 = sub_10004BAE0(values, 70);
-  v168 = sub_10004BAE0(values, 97);
-  v167 = sub_10004BAE0(values, 92);
-  v166 = sub_10004BAE0(values, 13);
-  v165 = sub_10004BAE0(values, 31);
-  v229 = sub_10004BAE0(values, 7);
-  v164 = sub_10004BAE0(values, 1);
-  v163 = sub_10004BAE0(values, 71);
-  v162 = sub_10004BAE0(values, 102);
-  v161 = sub_10004BAE0(values, 20);
-  v160 = sub_10004BAE0(values, 94);
-  v159 = sub_10004BAE0(values, 91);
-  v158 = sub_10004BAE0(values, 55);
-  v157 = sub_10004BAE0(values, 72);
-  v156 = sub_10004BAE0(values, 6);
-  v155 = sub_10004BAE0(values, 46);
-  v154 = sub_10004BAE0(values, 4);
-  v153 = sub_10004BAE0(values, 178);
-  v152 = sub_10004BAE0(values, 179);
-  v151 = sub_10004BAE0(values, 34);
-  v150 = sub_10004BAE0(values, 182);
-  v149 = sub_10004CED8(values, 23);
-  v148 = sub_10004CED8(values, 24);
-  v147 = sub_10004BAE0(values, 12);
-  v146 = sub_10004BAE0(values, 2);
-  v145 = sub_10004BAE0(values, 101);
-  v144 = sub_10004BAE0(values, 14);
-  v143 = sub_10004BAE0(values, 11);
+  v198 = sub_10004BAE0(values, 0xA4uLL);
+  v197 = sub_10004CED8(values, 0xA5uLL);
+  v196 = sub_10004CED8(values, 0xA3uLL);
+  v195 = sub_10004CED8(values, 0xC3uLL);
+  v194 = sub_10004CED8(values, 0xA7uLL);
+  v193 = sub_10004BAE0(values, 0xA8uLL);
+  v192 = sub_10004CED8(values, 0xA9uLL);
+  v191 = sub_10004BAE0(values, 0xAAuLL);
+  v190 = sub_10004CED8(values, 0xABuLL);
+  v189 = sub_10004CED8(values, 0xACuLL);
+  v188 = sub_10004BAE0(values, 0xAFuLL);
+  v187 = sub_10004BAE0(values, 0xAEuLL);
+  v186 = sub_10004C3D8(values, 0xB0uLL);
+  v185 = sub_10004C300(values, 0x1CuLL);
+  v184 = sub_10004C300(values, 0x20uLL);
+  v183 = sub_10004C300(values, 0x1DuLL);
+  v182 = sub_10004C300(values, 0x12uLL);
+  v181 = sub_10004C300(values, 0x24uLL);
+  v69 = sub_10004C300(values, 9uLL);
+  v180 = sub_10004C300(values, 0x19uLL);
+  v231 = sub_10004C300(values, 0x52uLL);
+  v179 = sub_10004C300(values, 0x11uLL);
+  v178 = sub_10004CED8(values, 0x97uLL);
+  v177 = sub_10004CED8(values, 0x9AuLL);
+  v176 = sub_10004CED8(values, 0xB5uLL);
+  v175 = sub_10004CED8(values, 0x13uLL);
+  v174 = sub_10004CED8(values, 0x2AuLL);
+  v173 = sub_10004CED8(values, 0x2BuLL);
+  v27 = sub_10004CF54(values, 0x2CuLL);
+  v172 = sub_10004CED8(values, 0x10uLL);
+  v171 = sub_10004BAE0(values, 0x1AuLL);
+  v170 = sub_10004BAE0(values, 0x25uLL);
+  v169 = sub_10004BAE0(values, 0x46uLL);
+  v168 = sub_10004BAE0(values, 0x61uLL);
+  v167 = sub_10004BAE0(values, 0x5CuLL);
+  v166 = sub_10004BAE0(values, 0xDuLL);
+  v165 = sub_10004BAE0(values, 0x1FuLL);
+  v229 = sub_10004BAE0(values, 7uLL);
+  v164 = sub_10004BAE0(values, 1uLL);
+  v163 = sub_10004BAE0(values, 0x47uLL);
+  v162 = sub_10004BAE0(values, 0x66uLL);
+  v161 = sub_10004BAE0(values, 0x14uLL);
+  v160 = sub_10004BAE0(values, 0x5EuLL);
+  v159 = sub_10004BAE0(values, 0x5BuLL);
+  v158 = sub_10004BAE0(values, 0x37uLL);
+  v157 = sub_10004BAE0(values, 0x48uLL);
+  v156 = sub_10004BAE0(values, 6uLL);
+  v155 = sub_10004BAE0(values, 0x2EuLL);
+  v154 = sub_10004BAE0(values, 4uLL);
+  v153 = sub_10004BAE0(values, 0xB2uLL);
+  v152 = sub_10004BAE0(values, 0xB3uLL);
+  v151 = sub_10004BAE0(values, 0x22uLL);
+  v150 = sub_10004BAE0(values, 0xB6uLL);
+  v149 = sub_10004CED8(values, 0x17uLL);
+  v148 = sub_10004CED8(values, 0x18uLL);
+  v147 = sub_10004BAE0(values, 0xCuLL);
+  v146 = sub_10004BAE0(values, 2uLL);
+  v145 = sub_10004BAE0(values, 0x65uLL);
+  v144 = sub_10004BAE0(values, 0xEuLL);
+  v143 = sub_10004BAE0(values, 0xBuLL);
   v28 = sub_10004BAE0(values, 0);
-  v142 = sub_10004CED8(values, 56);
-  v141 = sub_10004CED8(values, 395);
-  v140 = sub_10004C1A4(values, 396);
-  v230 = sub_10004BAE0(values, 397);
+  v142 = sub_10004CED8(values, 0x38uLL);
+  v141 = sub_10004CED8(values, 0x18BuLL);
+  v140 = sub_10004C1A4(values, 0x18CuLL);
+  v230 = sub_10004BAE0(values, 0x18DuLL);
   if (!v230)
   {
-    v230 = sub_10004BAE0(values, 149);
+    v230 = sub_10004BAE0(values, 0x95uLL);
   }
 
   v226 = v9;
-  v139 = sub_10004CED8(values, 103);
-  v138 = sub_10004C300(values, 398);
-  v137 = sub_10004CED8(values, 183);
-  v136 = sub_10004CED8(values, 341);
-  v135 = sub_10004CED8(values, 200);
-  v134 = sub_10004CED8(values, 201);
-  v133 = sub_10004CED8(values, 139);
-  v132 = sub_10004BAE0(values, 50);
-  v29 = sub_10004CF54(values, 358);
-  v131 = sub_10004BAE0(values, 197);
-  v130 = sub_10004C1A4(values, 196);
-  v129 = sub_10004CED8(values, 198);
-  v128 = sub_10004CED8(values, 199);
-  v30 = sub_10004CF54(values, 202);
-  v31 = sub_10004CF54(values, 203);
-  v127 = sub_10004BAE0(values, 204);
-  v126 = sub_10004BAE0(values, 205);
-  v125 = sub_10004BAE0(values, 206);
-  v124 = sub_10004BAE0(values, 207);
-  v123 = sub_10004BAE0(values, 208);
+  v139 = sub_10004CED8(values, 0x67uLL);
+  v138 = sub_10004C300(values, 0x18EuLL);
+  v137 = sub_10004CED8(values, 0xB7uLL);
+  v136 = sub_10004CED8(values, 0x155uLL);
+  v135 = sub_10004CED8(values, 0xC8uLL);
+  v134 = sub_10004CED8(values, 0xC9uLL);
+  v133 = sub_10004CED8(values, 0x8BuLL);
+  v132 = sub_10004BAE0(values, 0x32uLL);
+  v29 = sub_10004CF54(values, 0x166uLL);
+  v131 = sub_10004BAE0(values, 0xC5uLL);
+  v130 = sub_10004C1A4(values, 0xC4uLL);
+  v129 = sub_10004CED8(values, 0xC6uLL);
+  v128 = sub_10004CED8(values, 0xC7uLL);
+  v30 = sub_10004CF54(values, 0xCAuLL);
+  v31 = sub_10004CF54(values, 0xCBuLL);
+  v127 = sub_10004BAE0(values, 0xCCuLL);
+  v126 = sub_10004BAE0(values, 0xCDuLL);
+  v125 = sub_10004BAE0(values, 0xCEuLL);
+  v124 = sub_10004BAE0(values, 0xCFuLL);
+  v123 = sub_10004BAE0(values, 0xD0uLL);
   if (_os_feature_enabled_impl())
   {
     resultBundleId = [resultCopy resultBundleId];
@@ -2913,63 +2928,63 @@ LABEL_33:
   v38 = v27 != 0;
   v39 = v119 != 0;
   v40 = v121 != 0;
-  v41 = sub_10004C1A4(values, 211);
-  v122 = sub_10004BAE0(values, 212);
-  v120 = sub_10004BAE0(values, 213);
-  v118 = sub_10004BAE0(values, 214);
-  v117 = sub_10004BAE0(values, 216);
-  v116 = sub_10004CED8(values, 217);
-  v115 = sub_10004C1A4(values, 218);
-  v114 = sub_10004C1A4(values, 219);
-  v113 = sub_10004C1A4(values, 221);
-  v112 = sub_10004C1A4(values, 222);
-  v111 = sub_10004C1A4(values, 223);
-  v110 = sub_10004BAE0(values, 224);
-  v109 = sub_10004BAE0(values, 225);
-  v108 = sub_10004BAE0(values, 226);
-  v107 = sub_10004CED8(values, 227);
-  v106 = sub_10004CED8(values, 228);
-  v105 = sub_10004BAE0(values, 229);
-  v104 = sub_10004BAE0(values, 230);
-  v103 = sub_10004BAE0(values, 232);
-  v102 = sub_10004BAE0(values, 233);
-  v101 = sub_10004BAE0(values, 234);
-  v100 = sub_10004BAE0(values, 235);
-  v99 = sub_10004BAE0(values, 236);
-  v98 = sub_10004BAE0(values, 237);
-  v97 = sub_10004BAE0(values, 238);
-  v96 = sub_10004BAE0(values, 239);
-  v95 = sub_10004BAE0(values, 240);
-  v94 = sub_10004BAE0(values, 241);
-  v93 = sub_10004BAE0(values, 242);
-  v92 = sub_10004BAE0(values, 243);
-  v91 = sub_10004BAE0(values, 244);
-  v90 = sub_10004BAE0(values, 245);
-  v89 = sub_10004BAE0(values, 248);
-  v88 = sub_10004BAE0(values, 249);
-  v87 = sub_10004BAE0(values, 258);
-  v86 = sub_10004BAE0(values, 259);
-  v85 = sub_10004BAE0(values, 260);
-  v84 = sub_10004BAE0(values, 261);
-  v83 = sub_10004BAE0(values, 262);
-  v82 = sub_10004BAE0(values, 210);
-  v81 = sub_10004BAE0(values, 263);
-  v80 = sub_10004BAE0(values, 266);
-  v79 = sub_10004CED8(values, 271);
-  v78 = sub_10004BAE0(values, 272);
-  v77 = sub_10004BAE0(values, 273);
-  v76 = sub_10004BAE0(values, 274);
-  v75 = sub_10004BAE0(values, 275);
-  v74 = sub_10004BAE0(values, 276);
-  v73 = sub_10004C1A4(values, 123);
-  v72 = sub_10004BAE0(values, 141);
-  v71 = sub_10004C1A4(values, 130);
-  v67 = sub_10004C1A4(values, 135);
-  v66 = sub_10004C1A4(values, 138);
-  v65 = sub_10004BAE0(values, 279);
-  v64 = sub_10004C3D8(values, 280);
-  v63 = sub_10004BAE0(values, 294);
-  v62 = sub_10004BAE0(values, 83);
+  v41 = sub_10004C1A4(values, 0xD3uLL);
+  v122 = sub_10004BAE0(values, 0xD4uLL);
+  v120 = sub_10004BAE0(values, 0xD5uLL);
+  v118 = sub_10004BAE0(values, 0xD6uLL);
+  v117 = sub_10004BAE0(values, 0xD8uLL);
+  v116 = sub_10004CED8(values, 0xD9uLL);
+  v115 = sub_10004C1A4(values, 0xDAuLL);
+  v114 = sub_10004C1A4(values, 0xDBuLL);
+  v113 = sub_10004C1A4(values, 0xDDuLL);
+  v112 = sub_10004C1A4(values, 0xDEuLL);
+  v111 = sub_10004C1A4(values, 0xDFuLL);
+  v110 = sub_10004BAE0(values, 0xE0uLL);
+  v109 = sub_10004BAE0(values, 0xE1uLL);
+  v108 = sub_10004BAE0(values, 0xE2uLL);
+  v107 = sub_10004CED8(values, 0xE3uLL);
+  v106 = sub_10004CED8(values, 0xE4uLL);
+  v105 = sub_10004BAE0(values, 0xE5uLL);
+  v104 = sub_10004BAE0(values, 0xE6uLL);
+  v103 = sub_10004BAE0(values, 0xE8uLL);
+  v102 = sub_10004BAE0(values, 0xE9uLL);
+  v101 = sub_10004BAE0(values, 0xEAuLL);
+  v100 = sub_10004BAE0(values, 0xEBuLL);
+  v99 = sub_10004BAE0(values, 0xECuLL);
+  v98 = sub_10004BAE0(values, 0xEDuLL);
+  v97 = sub_10004BAE0(values, 0xEEuLL);
+  v96 = sub_10004BAE0(values, 0xEFuLL);
+  v95 = sub_10004BAE0(values, 0xF0uLL);
+  v94 = sub_10004BAE0(values, 0xF1uLL);
+  v93 = sub_10004BAE0(values, 0xF2uLL);
+  v92 = sub_10004BAE0(values, 0xF3uLL);
+  v91 = sub_10004BAE0(values, 0xF4uLL);
+  v90 = sub_10004BAE0(values, 0xF5uLL);
+  v89 = sub_10004BAE0(values, 0xF8uLL);
+  v88 = sub_10004BAE0(values, 0xF9uLL);
+  v87 = sub_10004BAE0(values, 0x102uLL);
+  v86 = sub_10004BAE0(values, 0x103uLL);
+  v85 = sub_10004BAE0(values, 0x104uLL);
+  v84 = sub_10004BAE0(values, 0x105uLL);
+  v83 = sub_10004BAE0(values, 0x106uLL);
+  v82 = sub_10004BAE0(values, 0xD2uLL);
+  v81 = sub_10004BAE0(values, 0x107uLL);
+  v80 = sub_10004BAE0(values, 0x10AuLL);
+  v79 = sub_10004CED8(values, 0x10FuLL);
+  v78 = sub_10004BAE0(values, 0x110uLL);
+  v77 = sub_10004BAE0(values, 0x111uLL);
+  v76 = sub_10004BAE0(values, 0x112uLL);
+  v75 = sub_10004BAE0(values, 0x113uLL);
+  v74 = sub_10004BAE0(values, 0x114uLL);
+  v73 = sub_10004C1A4(values, 0x7BuLL);
+  v72 = sub_10004BAE0(values, 0x8DuLL);
+  v71 = sub_10004C1A4(values, 0x82uLL);
+  v67 = sub_10004C1A4(values, 0x87uLL);
+  v66 = sub_10004C1A4(values, 0x8AuLL);
+  v65 = sub_10004BAE0(values, 0x117uLL);
+  v64 = sub_10004C3D8(values, 0x118uLL);
+  v63 = sub_10004BAE0(values, 0x126uLL);
+  v62 = sub_10004BAE0(values, 0x53uLL);
   contentType = [resultCopy contentType];
   v43 = contentType;
   if (contentType)

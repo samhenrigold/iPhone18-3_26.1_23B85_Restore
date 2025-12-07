@@ -33,6 +33,7 @@
 - (void)dealloc;
 - (void)encodeMaterialPropertyWithCoder:(id)coder forKey:(id)key allocator:(id)allocator;
 - (void)setColor:(CGColorRef)color;
+- (void)setFloat2Value:(vector_float2)float2Value;
 - (void)setFloat3Value:(vector_float3)float3Value;
 - (void)setFloat4Value:(vector_float4)float4Value;
 - (void)setFloatValue:(float)floatValue;
@@ -52,15 +53,15 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    v7 = objc_msgSend_textureSamplerValue(v4, v5, v6);
+    v16 = objc_msgSend_textureSamplerValue(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
   }
 
   else
   {
-    v7 = self->_textureSampler;
+    v16 = self->_textureSampler;
   }
 
-  return v7;
+  return v16;
 }
 
 - (void)clear
@@ -93,293 +94,294 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
-  v10 = objc_msgSend_init(v7, v8, v9);
-  v12 = objc_msgSend_copyWithZone_(self->_string, v11, zone);
-  v13 = *(v10 + 8);
-  *(v10 + 8) = v12;
+  v16 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+  v28 = objc_msgSend_init(v16, v17, v18, v19, v24, v25, v26, v27, v20, v21, v22, v23);
+  v39 = objc_msgSend_copyWithZone_(self->_string, v29, zone, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+  v40 = *(v28 + 8);
+  *(v28 + 8) = v39;
 
-  v15 = objc_msgSend_copyWithZone_(self->_name, v14, zone);
-  v16 = *(v10 + 16);
-  *(v10 + 16) = v15;
+  v51 = objc_msgSend_copyWithZone_(self->_name, v41, zone, v42, v47, v48, v49, v50, v43, v44, v45, v46);
+  v52 = *(v28 + 16);
+  *(v28 + 16) = v51;
 
-  v18 = objc_msgSend_copyWithZone_(self->_url, v17, zone);
-  v19 = *(v10 + 24);
-  *(v10 + 24) = v18;
+  v63 = objc_msgSend_copyWithZone_(self->_url, v53, zone, v54, v59, v60, v61, v62, v55, v56, v57, v58);
+  v64 = *(v28 + 24);
+  *(v28 + 24) = v63;
 
-  objc_storeStrong((v10 + 32), self->_textureSampler);
-  *(v10 + 48) = *self->_float;
-  v20 = *self->_anon_40;
-  v21 = *&self->_anon_40[16];
-  v22 = *&self->_anon_40[48];
-  *(v10 + 96) = *&self->_anon_40[32];
-  *(v10 + 112) = v22;
-  *(v10 + 64) = v20;
-  *(v10 + 80) = v21;
-  *(v10 + 152) = self->_semantic;
-  *(v10 + 192) = self->_type;
-  objc_msgSend_setColor_(v10, v23, self->_color);
-  return v10;
+  objc_storeStrong((v28 + 32), self->_textureSampler);
+  *(v28 + 48) = *self->_float;
+  v65 = *self->_anon_40;
+  v66 = *&self->_anon_40[16];
+  v67 = *&self->_anon_40[32];
+  v68 = *&self->_anon_40[48];
+  *(v28 + 96) = v67;
+  *(v28 + 112) = v68;
+  *(v28 + 64) = v65;
+  *(v28 + 80) = v66;
+  *(v28 + 152) = self->_semantic;
+  *(v28 + 192) = self->_type;
+  objc_msgSend_setColor_(v28, v69, self->_color, v70, v65, v66, v67, v68, v71, v72, v73, v74);
+  return v28;
 }
 
 - (void)setName:(NSString *)name
 {
   v4 = name;
-  v6 = v4;
+  v15 = v4;
   if (v4)
   {
-    v4 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v4, v4);
+    v4 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v4, v4, v5, v10, v11, v12, v13, v6, v7, v8, v9);
   }
 
-  v5 = self->_name;
+  v14 = self->_name;
   self->_name = v4;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic
 {
   v6 = name;
-  objc_msgSend_clear(self, v7, v8);
-  v21.receiver = self;
-  v21.super_class = MDLMaterialProperty;
-  v10 = [(MDLMaterialProperty *)&v21 init];
-  if (v10)
+  objc_msgSend_clear(self, v7, v8, v9, v14, v15, v16, v17, v10, v11, v12, v13);
+  v39.receiver = self;
+  v39.super_class = MDLMaterialProperty;
+  v24 = [(MDLMaterialProperty *)&v39 init];
+  if (v24)
   {
     if (v6)
     {
-      v11 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v9, v6);
-      v12 = v10->_name;
-      v10->_name = v11;
+      v29 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v18, v6, v19, v25, v26, v27, v28, v20, v21, v22, v23);
+      v30 = v24->_name;
+      v24->_name = v29;
     }
 
-    v10->_semantic = semantic;
-    v13 = MEMORY[0x277D860B8];
-    v14 = *(MEMORY[0x277D860B8] + 16);
-    *v10->_anon_40 = *MEMORY[0x277D860B8];
-    *&v10->_anon_40[16] = v14;
-    v15 = *(v13 + 48);
-    *&v10->_anon_40[32] = *(v13 + 32);
-    *&v10->_anon_40[48] = v15;
-    *v10->_float = 0;
-    *&v10->_float[8] = 0;
-    textureSampler = v10->_textureSampler;
-    v10->_textureSampler = 0;
+    v24->_semantic = semantic;
+    v31 = MEMORY[0x277D860B8];
+    v32 = *(MEMORY[0x277D860B8] + 16);
+    *v24->_anon_40 = *MEMORY[0x277D860B8];
+    *&v24->_anon_40[16] = v32;
+    v33 = *(v31 + 48);
+    *&v24->_anon_40[32] = *(v31 + 32);
+    *&v24->_anon_40[48] = v33;
+    *v24->_float = 0;
+    *&v24->_float[8] = 0;
+    textureSampler = v24->_textureSampler;
+    v24->_textureSampler = 0;
 
-    url = v10->_url;
-    v10->_url = 0;
+    url = v24->_url;
+    v24->_url = 0;
 
-    string = v10->_string;
-    v10->_string = 0;
+    string = v24->_string;
+    v24->_string = 0;
 
-    v10->_type = 5;
-    buffer = v10->_buffer;
-    v10->_buffer = 0;
+    v24->_type = 5;
+    buffer = v24->_buffer;
+    v24->_buffer = 0;
 
-    objc_storeWeak(&v10->_node, 0);
-    objc_storeWeak(&v10->_overridee, 0);
-    objc_storeWeak(&v10->_overrider, 0);
-    v10->_isDefaultValue = 1;
+    objc_storeWeak(&v24->_node, 0);
+    objc_storeWeak(&v24->_overridee, 0);
+    objc_storeWeak(&v24->_overrider, 0);
+    v24->_isDefaultValue = 1;
   }
 
-  return v10;
+  return v24;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic float:(float)value
 {
   v7 = name;
-  objc_msgSend_clear(self, v8, v9);
-  v11 = objc_msgSend_initWithName_semantic_(self, v10, v7, semantic);
-  v12 = v11;
-  if (v11)
+  objc_msgSend_clear(self, v8, v9, v10, v15, v16, v17, v18, v11, v12, v13, v14);
+  v28 = objc_msgSend_initWithName_semantic_(self, v19, v7, semantic, v24, v25, v26, v27, v20, v21, v22, v23);
+  v29 = v28;
+  if (v28)
   {
-    *(v11 + 48) = LODWORD(value);
-    *(v11 + 192) = 5;
+    *(v28 + 48) = LODWORD(value);
+    *(v28 + 192) = 5;
   }
 
-  return v12;
+  return v29;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic float2:(vector_float2)value
 {
   v8 = name;
-  objc_msgSend_clear(self, v9, v10);
-  v12 = objc_msgSend_initWithName_semantic_(self, v11, v8, semantic);
-  v14 = v12;
-  if (v12)
+  objc_msgSend_clear(self, v9, v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v29 = objc_msgSend_initWithName_semantic_(self, v20, v8, semantic, v25, v26, v27, v28, v21, v22, v23, v24);
+  v31 = v29;
+  if (v29)
   {
-    *&v13 = value;
-    *(v12 + 48) = v13;
-    *(v12 + 192) = 6;
+    *&v30 = value;
+    *(v29 + 48) = v30;
+    *(v29 + 192) = 6;
   }
 
-  return v14;
+  return v31;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic float3:(vector_float3)value
 {
-  v16 = v5;
+  v33 = v5;
   v8 = name;
-  objc_msgSend_clear(self, v9, v10);
-  v12 = objc_msgSend_initWithName_semantic_(self, v11, v8, semantic);
-  v13 = v12;
-  if (v12)
+  objc_msgSend_clear(self, v9, v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v29 = objc_msgSend_initWithName_semantic_(self, v20, v8, semantic, v25, v26, v27, v28, v21, v22, v23, v24);
+  v30 = v29;
+  if (v29)
   {
-    v14 = v16;
-    HIDWORD(v14) = 0;
-    *(v12 + 48) = v14;
-    *(v12 + 192) = 7;
+    v31 = v33;
+    HIDWORD(v31) = 0;
+    *(v29 + 48) = v31;
+    *(v29 + 192) = 7;
   }
 
-  return v13;
+  return v30;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic float4:(vector_float4)value
 {
   v7 = name;
-  objc_msgSend_clear(self, v8, v9);
-  v11 = objc_msgSend_initWithName_semantic_(self, v10, v7, semantic);
-  v12 = v11;
-  if (v11)
+  objc_msgSend_clear(self, v8, v9, v10, v15, v16, v17, v18, v11, v12, v13, v14);
+  v28 = objc_msgSend_initWithName_semantic_(self, v19, v7, semantic, v24, v25, v26, v27, v20, v21, v22, v23);
+  v29 = v28;
+  if (v28)
   {
-    v11[3] = value;
-    v11[12].i64[0] = 8;
+    v28[3] = value;
+    v28[12].i64[0] = 8;
   }
 
-  return v12;
+  return v29;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic matrix4x4:(matrix_float4x4)value
 {
   v7 = name;
-  objc_msgSend_clear(self, v8, v9);
-  v11 = objc_msgSend_initWithName_semantic_(self, v10, v7, semantic);
-  v12 = v11;
-  if (v11)
+  objc_msgSend_clear(self, v8, v9, v10, v15, v16, v17, v18, v11, v12, v13, v14);
+  v28 = objc_msgSend_initWithName_semantic_(self, v19, v7, semantic, v24, v25, v26, v27, v20, v21, v22, v23);
+  v29 = v28;
+  if (v28)
   {
-    v11[1] = value;
-    v11[3].columns[0].i64[0] = 9;
+    v28[1] = value;
+    v28[3].columns[0].i64[0] = 9;
   }
 
-  return v12;
+  return v29;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic URL:(NSURL *)URL
 {
   v8 = name;
   v9 = URL;
-  objc_msgSend_clear(self, v10, v11);
-  v13 = objc_msgSend_initWithName_semantic_(self, v12, v8, semantic);
-  v14 = v13;
-  if (v13)
+  objc_msgSend_clear(self, v10, v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v30 = objc_msgSend_initWithName_semantic_(self, v21, v8, semantic, v26, v27, v28, v29, v22, v23, v24, v25);
+  v31 = v30;
+  if (v30)
   {
-    objc_storeStrong((v13 + 24), URL);
-    v14->_type = 2;
+    objc_storeStrong((v30 + 24), URL);
+    v31->_type = 2;
   }
 
-  return v14;
+  return v31;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic string:(NSString *)string
 {
   v8 = name;
   v9 = string;
-  objc_msgSend_clear(self, v10, v11);
-  v15 = objc_msgSend_initWithName_semantic_(self, v12, v8, semantic);
-  if (v15)
+  objc_msgSend_clear(self, v10, v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v37 = objc_msgSend_initWithName_semantic_(self, v21, v8, semantic, v26, v27, v28, v29, v22, v23, v24, v25);
+  if (v37)
   {
-    v16 = objc_msgSend_copy(v9, v13, v14);
-    v17 = v15->_string;
-    v15->_string = v16;
+    v42 = objc_msgSend_copy(v9, v30, v31, v32, v38, v39, v40, v41, v33, v34, v35, v36);
+    v43 = v37->_string;
+    v37->_string = v42;
 
-    v15->_type = 1;
+    v37->_type = 1;
   }
 
-  return v15;
+  return v37;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic textureSampler:(MDLTextureSampler *)textureSampler
 {
   v8 = name;
   v9 = textureSampler;
-  objc_msgSend_clear(self, v10, v11);
-  v13 = objc_msgSend_initWithName_semantic_(self, v12, v8, semantic);
-  v14 = v13;
-  if (v13)
+  objc_msgSend_clear(self, v10, v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v30 = objc_msgSend_initWithName_semantic_(self, v21, v8, semantic, v26, v27, v28, v29, v22, v23, v24, v25);
+  v31 = v30;
+  if (v30)
   {
-    objc_storeStrong((v13 + 32), textureSampler);
-    v14->_type = 3;
+    objc_storeStrong((v30 + 32), textureSampler);
+    v31->_type = 3;
   }
 
-  return v14;
+  return v31;
 }
 
 - (MDLMaterialProperty)initWithName:(id)name semantic:(unint64_t)semantic float4WithSRGBA:
 {
-  v14 = v4;
+  v31 = v4;
   nameCopy = name;
-  objc_msgSend_clear(self, v8, v9);
-  v11 = objc_msgSend_initWithName_semantic_(self, v10, nameCopy, semantic);
-  v12 = v11;
-  if (v11)
+  objc_msgSend_clear(self, v8, v9, v10, v15, v16, v17, v18, v11, v12, v13, v14);
+  v28 = objc_msgSend_initWithName_semantic_(self, v19, nameCopy, semantic, v24, v25, v26, v27, v20, v21, v22, v23);
+  v29 = v28;
+  if (v28)
   {
-    *(v11 + 48) = v14;
-    *(v11 + 192) = 8;
+    *(v28 + 48) = v31;
+    *(v28 + 192) = 8;
   }
 
-  return v12;
+  return v29;
 }
 
 - (MDLMaterialProperty)initWithName:(NSString *)name semantic:(MDLMaterialSemantic)semantic color:(CGColorRef)color
 {
   v8 = name;
-  objc_msgSend_clear(self, v9, v10);
-  v12 = objc_msgSend_initWithName_semantic_(self, v11, v8, semantic);
-  if (v12)
+  objc_msgSend_clear(self, v9, v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v29 = objc_msgSend_initWithName_semantic_(self, v20, v8, semantic, v25, v26, v27, v28, v21, v22, v23, v24);
+  if (v29)
   {
-    v12->_color = CGColorCreateCopy(color);
-    v12->_type = 4;
+    v29->_color = CGColorCreateCopy(color);
+    v29->_type = 4;
   }
 
-  return v12;
+  return v29;
 }
 
 - (MDLMaterialProperty)initWithName:(id)name buffer:(id)buffer stride:(unint64_t)stride
 {
   nameCopy = name;
   bufferCopy = buffer;
-  objc_msgSend_clear(self, v10, v11);
-  v13 = objc_msgSend_initWithName_semantic_(self, v12, nameCopy, 32769);
-  v14 = v13;
-  if (v13)
+  objc_msgSend_clear(self, v10, v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v30 = objc_msgSend_initWithName_semantic_(self, v21, nameCopy, 32769, v26, v27, v28, v29, v22, v23, v24, v25);
+  v31 = v30;
+  if (v30)
   {
-    objc_storeStrong((v13 + 136), buffer);
-    v14->_stride = stride;
-    v14->_type = 10;
+    objc_storeStrong((v30 + 136), buffer);
+    v31->_stride = stride;
+    v31->_type = 10;
   }
 
-  return v14;
+  return v31;
 }
 
 - (MDLMaterialProperty)initWithName:(id)name buffer:(id)buffer
 {
   nameCopy = name;
   bufferCopy = buffer;
-  objc_msgSend_clear(self, v9, v10);
-  v14 = objc_msgSend_initWithName_semantic_(self, v11, nameCopy, 32769);
-  if (v14)
+  objc_msgSend_clear(self, v9, v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v36 = objc_msgSend_initWithName_semantic_(self, v20, nameCopy, 32769, v25, v26, v27, v28, v21, v22, v23, v24);
+  if (v36)
   {
-    if (objc_msgSend_type(bufferCopy, v12, v13) != 3)
+    if (objc_msgSend_type(bufferCopy, v29, v30, v31, v37, v38, v39, v40, v32, v33, v34, v35) != 3)
     {
-      v15 = NSStringFromSelector(a2);
-      v16 = MEMORY[0x277CBEAD8];
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      objc_msgSend_raise_format_(v16, v19, @"ModelIOException", @"[%@ %@]: value.type must be MDLMeshBufferTypeCustom", v18, v15);
+      v41 = NSStringFromSelector(a2);
+      v42 = MEMORY[0x277CBEAD8];
+      v43 = objc_opt_class();
+      v44 = NSStringFromClass(v43);
+      objc_msgSend_raise_format_(v42, v45, @"ModelIOException", @"[%@ %@]: value.type must be MDLMeshBufferTypeCustom", v50, v51, v52, v53, v46, v47, v48, v49, v44, v41);
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_storeStrong(&v14->_buffer, buffer);
+      objc_storeStrong(&v36->_buffer, buffer);
     }
 
     else
@@ -387,11 +389,11 @@
       NSLog(&cfstr_MdlmeshbufferI.isa);
     }
 
-    v14->_stride = 0;
-    v14->_type = 10;
+    v36->_stride = 0;
+    v36->_type = 10;
   }
 
-  return v14;
+  return v36;
 }
 
 - (void)dealloc
@@ -410,33 +412,33 @@
 
 - (void)setProperties:(MDLMaterialProperty *)property
 {
-  v14 = property;
-  if (self != v14)
+  v41 = property;
+  if (self != v41)
   {
-    objc_msgSend_clear(self, v4, v5);
-    name = v14->_name;
+    objc_msgSend_clear(self, v4, v5, v6, v11, v12, v13, v14, v7, v8, v9, v10);
+    name = v41->_name;
     if (name)
     {
-      v8 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v6, name);
-      v9 = self->_name;
-      self->_name = v8;
+      v26 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v15, name, v16, v21, v22, v23, v24, v17, v18, v19, v20);
+      v27 = self->_name;
+      self->_name = v26;
     }
 
-    self->_semantic = v14->_semantic;
-    v10 = *v14->_anon_40;
-    v11 = *&v14->_anon_40[16];
-    v12 = *&v14->_anon_40[48];
-    *&self->_anon_40[32] = *&v14->_anon_40[32];
-    *&self->_anon_40[48] = v12;
-    *self->_anon_40 = v10;
-    *&self->_anon_40[16] = v11;
-    *self->_float = *v14->_float;
-    objc_storeStrong(&self->_textureSampler, v14->_textureSampler);
-    objc_storeStrong(&self->_url, v14->_url);
-    objc_storeStrong(&self->_string, v14->_string);
-    self->_type = v14->_type;
-    self->_isDefaultValue = v14->_isDefaultValue;
-    objc_msgSend_setColor_(self, v13, v14->_color);
+    self->_semantic = v41->_semantic;
+    v28 = *v41->_anon_40;
+    v29 = *&v41->_anon_40[16];
+    v30 = *&v41->_anon_40[48];
+    *&self->_anon_40[32] = *&v41->_anon_40[32];
+    *&self->_anon_40[48] = v30;
+    *self->_anon_40 = v28;
+    *&self->_anon_40[16] = v29;
+    *self->_float = *v41->_float;
+    objc_storeStrong(&self->_textureSampler, v41->_textureSampler);
+    objc_storeStrong(&self->_url, v41->_url);
+    objc_storeStrong(&self->_string, v41->_string);
+    self->_type = v41->_type;
+    self->_isDefaultValue = v41->_isDefaultValue;
+    objc_msgSend_setColor_(self, v31, v41->_color, v32, v37, v38, v39, v40, v33, v34, v35, v36);
   }
 }
 
@@ -446,7 +448,7 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    color = objc_msgSend_color(v4, v5, v6);
+    color = objc_msgSend_color(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
   }
 
   else
@@ -480,15 +482,15 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    v7 = objc_msgSend_stringValue(v4, v5, v6);
+    v16 = objc_msgSend_stringValue(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
   }
 
   else
   {
-    v7 = self->_string;
+    v16 = self->_string;
   }
 
-  return v7;
+  return v16;
 }
 
 - (void)setStringValue:(NSString *)stringValue
@@ -504,15 +506,15 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    v7 = objc_msgSend_URLValue(v4, v5, v6);
+    v16 = objc_msgSend_URLValue(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
   }
 
   else
   {
-    v7 = self->_url;
+    v16 = self->_url;
   }
 
-  return v7;
+  return v16;
 }
 
 - (void)setURLValue:(NSURL *)URLValue
@@ -535,16 +537,16 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    objc_msgSend_floatValue(v4, v5, v6);
-    v8 = v7;
+    objc_msgSend_floatValue(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+    v17 = v16;
   }
 
   else
   {
-    v8 = *self->_float;
+    v17 = *self->_float;
   }
 
-  return v8;
+  return v17;
 }
 
 - (void)setFloatValue:(float)floatValue
@@ -561,23 +563,23 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    objc_msgSend_luminance(v4, v5, v6);
-    v8 = v7;
+    objc_msgSend_luminance(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+    v17 = v16;
 
-    return v8;
+    return v17;
   }
 
   type = self->_type;
-  v8 = 0.0;
+  v17 = 0.0;
   if (type > 6)
   {
     if ((type - 7) < 2)
     {
-      v11 = vmulq_f64(vcvtq_f64_f32(*self->_float), xmmword_239F9B940);
-      return COERCE_FLOAT(*&self->_float[8]) + 0.072187 + v11.f64[1] + v11.f64[0];
+      v20 = vmulq_f64(vcvtq_f64_f32(*self->_float), xmmword_239F9B940);
+      return COERCE_FLOAT(*&self->_float[8]) + 0.072187 + v20.f64[1] + v20.f64[0];
     }
 
-    return v8;
+    return v17;
   }
 
   if (type != 4)
@@ -592,7 +594,7 @@
       return vaddv_f32(*self->_float) * 0.5;
     }
 
-    return v8;
+    return v17;
   }
 
   color = self->_color;
@@ -606,16 +608,24 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    objc_msgSend_float2Value(v4, v5, v6);
-    v8 = v7;
+    objc_msgSend_float2Value(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+    v17 = v16;
   }
 
   else
   {
-    v8 = *self->_float;
+    v17 = *self->_float;
   }
 
-  return v8;
+  return v17;
+}
+
+- (void)setFloat2Value:(vector_float2)float2Value
+{
+  v3 = vextq_s8(*self->_float, *self->_float, 8uLL).u64[0];
+  *self->_float = *float2Value.f32;
+  self->_type = 6;
+  self->_isDefaultValue = 0;
 }
 
 - (vector_float3)float3Value
@@ -624,16 +634,11 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    objc_msgSend_float3Value(v4, v5, v6);
+    objc_msgSend_float3Value(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
   }
 
-  else
-  {
-    v9 = *self->_float;
-  }
-
-  result.i64[1] = v8;
-  result.i64[0] = v7;
+  result.i64[1] = v17;
+  result.i64[0] = v16;
   return result;
 }
 
@@ -651,16 +656,16 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    objc_msgSend_float4Value(v4, v5, v6);
-    v9 = v7;
+    objc_msgSend_float4Value(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+    v18 = v16;
   }
 
   else
   {
-    v9 = *self->_float;
+    v18 = *self->_float;
   }
 
-  return v9;
+  return v18;
 }
 
 - (void)setFloat4Value:(vector_float4)float4Value
@@ -676,29 +681,29 @@
   if (WeakRetained)
   {
     v4 = objc_loadWeakRetained(&self->_overrider);
-    objc_msgSend_matrix4x4(v4, v5, v6);
-    v17 = v8;
-    v18 = v7;
-    v15 = v10;
-    v16 = v9;
+    objc_msgSend_matrix4x4(v4, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+    v26 = v17;
+    v27 = v16;
+    v24 = v19;
+    v25 = v18;
   }
 
   else
   {
-    v17 = *&self->_anon_40[16];
-    v18 = *self->_anon_40;
-    v15 = *&self->_anon_40[48];
-    v16 = *&self->_anon_40[32];
+    v26 = *&self->_anon_40[16];
+    v27 = *self->_anon_40;
+    v24 = *&self->_anon_40[48];
+    v25 = *&self->_anon_40[32];
   }
 
-  v12 = v17;
-  v11 = v18;
-  v14 = v15;
-  v13 = v16;
-  result.columns[3] = v14;
-  result.columns[2] = v13;
-  result.columns[1] = v12;
-  result.columns[0] = v11;
+  v21 = v26;
+  v20 = v27;
+  v23 = v24;
+  v22 = v25;
+  result.columns[3] = v23;
+  result.columns[2] = v22;
+  result.columns[1] = v21;
+  result.columns[0] = v20;
   return result;
 }
 
@@ -715,21 +720,20 @@
 
 - (void)_encodeVector:(id)vector withCoder:(id)coder forKey:
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = v4;
-  objc_msgSend_encodeBytes_length_forKey_(vector, a2, &v6, 16, coder);
-  v5 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v11 = v7;
+  objc_msgSend_encodeBytes_length_forKey_(vector, a2, &v11, 16, v7, v8, v9, v10, coder, v4, v5, v6);
 }
 
 + (__n128)_decodeVectorWithCoder:(id)coder forKey:(uint64_t)key
 {
-  v9 = 0;
+  v17 = 0;
   coderCopy = coder;
-  v7 = objc_msgSend_decodeBytesForKey_returnedLength_(coderCopy, v6, key, &v9);
+  v15 = objc_msgSend_decodeBytesForKey_returnedLength_(coderCopy, v6, key, &v17, v11, v12, v13, v14, v7, v8, v9, v10);
   result.n128_u64[0] = 0;
-  if (v9 == 16)
+  if (v17 == 16)
   {
-    return *v7;
+    return *v15;
   }
 
   return result;
@@ -739,41 +743,41 @@
 {
   coderCopy = coder;
   keyCopy = key;
-  v19 = *self->_anon_40;
-  v8 = objc_msgSend_stringByAppendingString_(keyCopy, v7, @".column0");
-  objc_msgSend__encodeVector_withCoder_forKey_(self, v9, coderCopy, v8, *&v19);
+  v79 = *self->_anon_40;
+  v16 = objc_msgSend_stringByAppendingString_(keyCopy, v7, @".column0", v8, v79, v13, v14, v15, v9, v10, v11, v12);
+  objc_msgSend__encodeVector_withCoder_forKey_(self, v17, coderCopy, v16, v79, v22, v23, v24, v18, v19, v20, v21);
 
-  v20 = *&self->_anon_40[16];
-  v11 = objc_msgSend_stringByAppendingString_(keyCopy, v10, @".column1");
-  objc_msgSend__encodeVector_withCoder_forKey_(self, v12, coderCopy, v11, *&v20);
+  v80 = *&self->_anon_40[16];
+  v34 = objc_msgSend_stringByAppendingString_(keyCopy, v25, @".column1", v26, v80, v31, v32, v33, v27, v28, v29, v30);
+  objc_msgSend__encodeVector_withCoder_forKey_(self, v35, coderCopy, v34, v80, v40, v41, v42, v36, v37, v38, v39);
 
-  v21 = *&self->_anon_40[32];
-  v14 = objc_msgSend_stringByAppendingString_(keyCopy, v13, @".column2");
-  objc_msgSend__encodeVector_withCoder_forKey_(self, v15, coderCopy, v14, *&v21);
+  v81 = *&self->_anon_40[32];
+  v52 = objc_msgSend_stringByAppendingString_(keyCopy, v43, @".column2", v44, v81, v49, v50, v51, v45, v46, v47, v48);
+  objc_msgSend__encodeVector_withCoder_forKey_(self, v53, coderCopy, v52, v81, v58, v59, v60, v54, v55, v56, v57);
 
-  v22 = *&self->_anon_40[48];
-  v17 = objc_msgSend_stringByAppendingString_(keyCopy, v16, @".column3");
-  objc_msgSend__encodeVector_withCoder_forKey_(self, v18, coderCopy, v17, *&v22);
+  v82 = *&self->_anon_40[48];
+  v70 = objc_msgSend_stringByAppendingString_(keyCopy, v61, @".column3", v62, v82, v67, v68, v69, v63, v64, v65, v66);
+  objc_msgSend__encodeVector_withCoder_forKey_(self, v71, coderCopy, v70, v82, v76, v77, v78, v72, v73, v74, v75);
 }
 
 + (__n128)_decodeMatrixPropertyWithCoder:(void *)coder forKey:(void *)key
 {
   coderCopy = coder;
   keyCopy = key;
-  v9 = objc_msgSend_stringByAppendingString_(keyCopy, v8, @".column0");
-  objc_msgSend__decodeVectorWithCoder_forKey_(self, v10, coderCopy, v9);
-  v22 = v11;
+  v18 = objc_msgSend_stringByAppendingString_(keyCopy, v8, @".column0", v9, v14, v15, v16, v17, v10, v11, v12, v13);
+  objc_msgSend__decodeVectorWithCoder_forKey_(self, v19, coderCopy, v18, v24, v25, v26, v27, v20, v21, v22, v23);
+  v90 = v28;
 
-  v13 = objc_msgSend_stringByAppendingString_(keyCopy, v12, @".column1");;
-  objc_msgSend__decodeVectorWithCoder_forKey_(self, v14, coderCopy, v13);
+  v39 = objc_msgSend_stringByAppendingString_(keyCopy, v29, @".column1", v30, v35, v36, v37, v38, v31, v32, v33, v34);;
+  objc_msgSend__decodeVectorWithCoder_forKey_(self, v40, coderCopy, v39, v45, v46, v47, v48, v41, v42, v43, v44);
 
-  v16 = objc_msgSend_stringByAppendingString_(keyCopy, v15, @".column2");
-  objc_msgSend__decodeVectorWithCoder_forKey_(self, v17, coderCopy, v16);
+  v59 = objc_msgSend_stringByAppendingString_(keyCopy, v49, @".column2", v50, v55, v56, v57, v58, v51, v52, v53, v54);
+  objc_msgSend__decodeVectorWithCoder_forKey_(self, v60, coderCopy, v59, v65, v66, v67, v68, v61, v62, v63, v64);
 
-  v19 = objc_msgSend_stringByAppendingString_(keyCopy, v18, @".column3");
-  objc_msgSend__decodeVectorWithCoder_forKey_(self, v20, coderCopy, v19);
+  v79 = objc_msgSend_stringByAppendingString_(keyCopy, v69, @".column3", v70, v75, v76, v77, v78, v71, v72, v73, v74);
+  objc_msgSend__decodeVectorWithCoder_forKey_(self, v80, coderCopy, v79, v85, v86, v87, v88, v81, v82, v83, v84);
 
-  return v22;
+  return v90;
 }
 
 - (void)encodeMaterialPropertyWithCoder:(id)coder forKey:(id)key allocator:(id)allocator
@@ -782,35 +786,35 @@
   keyCopy = key;
   allocatorCopy = allocator;
   string = self->_string;
-  v12 = objc_msgSend_stringByAppendingString_(keyCopy, v11, @".string");
-  objc_msgSend_encodeObject_forKey_(coderCopy, v13, string, v12);
+  v21 = objc_msgSend_stringByAppendingString_(keyCopy, v11, @".string", v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v22, string, v21, v27, v28, v29, v30, v23, v24, v25, v26);
 
   name = self->_name;
-  v16 = objc_msgSend_stringByAppendingString_(keyCopy, v15, @".name");
-  objc_msgSend_encodeObject_forKey_(coderCopy, v17, name, v16);
+  v42 = objc_msgSend_stringByAppendingString_(keyCopy, v32, @".name", v33, v38, v39, v40, v41, v34, v35, v36, v37);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v43, name, v42, v48, v49, v50, v51, v44, v45, v46, v47);
 
   url = self->_url;
-  v20 = objc_msgSend_stringByAppendingString_(keyCopy, v19, @".url");
-  objc_msgSend_encodeObject_forKey_(coderCopy, v21, url, v20);
+  v63 = objc_msgSend_stringByAppendingString_(keyCopy, v53, @".url", v54, v59, v60, v61, v62, v55, v56, v57, v58);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v64, url, v63, v69, v70, v71, v72, v65, v66, v67, v68);
 
-  v40 = *self->_float;
-  v23 = objc_msgSend_stringByAppendingString_(keyCopy, v22, @".vector");
-  objc_msgSend__encodeVector_withCoder_forKey_(self, v24, coderCopy, v23, *&v40);
+  v173 = *self->_float;
+  v82 = objc_msgSend_stringByAppendingString_(keyCopy, v73, @".vector", v74, v173, v79, v80, v81, v75, v76, v77, v78);
+  objc_msgSend__encodeVector_withCoder_forKey_(self, v83, coderCopy, v82, v173, v88, v89, v90, v84, v85, v86, v87);
 
-  v26 = objc_msgSend_stringByAppendingString_(keyCopy, v25, @".matrix");
-  objc_msgSend__encodeMatrixPropertyWithCoder_forKey_(self, v27, coderCopy, v26);
+  v101 = objc_msgSend_stringByAppendingString_(keyCopy, v91, @".matrix", v92, v97, v98, v99, v100, v93, v94, v95, v96);
+  objc_msgSend__encodeMatrixPropertyWithCoder_forKey_(self, v102, coderCopy, v101, v107, v108, v109, v110, v103, v104, v105, v106);
 
   buffer = self->_buffer;
-  v30 = objc_msgSend_stringByAppendingString_(keyCopy, v29, @".buffer");
-  objc_msgSend_encodeBuffer_withCoder_forKey_(allocatorCopy, v31, buffer, coderCopy, v30);
+  v122 = objc_msgSend_stringByAppendingString_(keyCopy, v112, @".buffer", v113, v118, v119, v120, v121, v114, v115, v116, v117);
+  objc_msgSend_encodeBuffer_withCoder_forKey_(allocatorCopy, v123, buffer, coderCopy, v127, v128, v129, v130, v122, v124, v125, v126);
 
   stride = self->_stride;
-  v34 = objc_msgSend_stringByAppendingString_(keyCopy, v33, @".stride");
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v35, stride, v34);
+  v142 = objc_msgSend_stringByAppendingString_(keyCopy, v132, @".stride", v133, v138, v139, v140, v141, v134, v135, v136, v137);
+  objc_msgSend_encodeInteger_forKey_(coderCopy, v143, stride, v142, v148, v149, v150, v151, v144, v145, v146, v147);
 
   semantic = self->_semantic;
-  v38 = objc_msgSend_stringByAppendingString_(keyCopy, v37, @".semantic");
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v39, semantic, v38);
+  v163 = objc_msgSend_stringByAppendingString_(keyCopy, v153, @".semantic", v154, v159, v160, v161, v162, v155, v156, v157, v158);
+  objc_msgSend_encodeInteger_forKey_(coderCopy, v164, semantic, v163, v169, v170, v171, v172, v165, v166, v167, v168);
 }
 
 + (id)decodeMaterialPropertyWithCoder:(id)coder forKey:(id)key allocator:(id)allocator
@@ -820,43 +824,43 @@
   allocatorCopy = allocator;
   v11 = objc_alloc_init(MDLMaterialProperty);
   v12 = objc_opt_class();
-  v14 = objc_msgSend_stringByAppendingString_(keyCopy, v13, @".string");
-  v16 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v15, v12, v14);
+  v23 = objc_msgSend_stringByAppendingString_(keyCopy, v13, @".string", v14, v19, v20, v21, v22, v15, v16, v17, v18);
+  v33 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v24, v12, v23, v29, v30, v31, v32, v25, v26, v27, v28);
   string = v11->_string;
-  v11->_string = v16;
+  v11->_string = v33;
 
-  v18 = objc_opt_class();
-  v20 = objc_msgSend_stringByAppendingString_(keyCopy, v19, @".name");
-  v22 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v21, v18, v20);
+  v35 = objc_opt_class();
+  v46 = objc_msgSend_stringByAppendingString_(keyCopy, v36, @".name", v37, v42, v43, v44, v45, v38, v39, v40, v41);
+  v56 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v47, v35, v46, v52, v53, v54, v55, v48, v49, v50, v51);
   name = v11->_name;
-  v11->_name = v22;
+  v11->_name = v56;
 
-  v24 = objc_opt_class();
-  v26 = objc_msgSend_stringByAppendingString_(keyCopy, v25, @".url");
-  v28 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v24, v26);
+  v58 = objc_opt_class();
+  v69 = objc_msgSend_stringByAppendingString_(keyCopy, v59, @".url", v60, v65, v66, v67, v68, v61, v62, v63, v64);
+  v79 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v70, v58, v69, v75, v76, v77, v78, v71, v72, v73, v74);
   url = v11->_url;
-  v11->_url = v28;
+  v11->_url = v79;
 
-  v31 = objc_msgSend_stringByAppendingString_(keyCopy, v30, @".vector");
-  objc_msgSend__decodeVectorWithCoder_forKey_(self, v32, coderCopy, v31);
-  *v11->_float = v33;
+  v91 = objc_msgSend_stringByAppendingString_(keyCopy, v81, @".vector", v82, v87, v88, v89, v90, v83, v84, v85, v86);
+  objc_msgSend__decodeVectorWithCoder_forKey_(self, v92, coderCopy, v91, v97, v98, v99, v100, v93, v94, v95, v96);
+  *v11->_float = v101;
 
-  v35 = objc_msgSend_stringByAppendingString_(keyCopy, v34, @".matrix");
-  objc_msgSend__decodeMatrixPropertyWithCoder_forKey_(self, v36, coderCopy, v35);
-  *v11->_anon_40 = v37;
-  *&v11->_anon_40[16] = v38;
-  *&v11->_anon_40[32] = v39;
-  *&v11->_anon_40[48] = v40;
+  v112 = objc_msgSend_stringByAppendingString_(keyCopy, v102, @".matrix", v103, v108, v109, v110, v111, v104, v105, v106, v107);
+  objc_msgSend__decodeMatrixPropertyWithCoder_forKey_(self, v113, coderCopy, v112, v118, v119, v120, v121, v114, v115, v116, v117);
+  *v11->_anon_40 = v122;
+  *&v11->_anon_40[16] = v123;
+  *&v11->_anon_40[32] = v124;
+  *&v11->_anon_40[48] = v125;
 
-  v42 = objc_msgSend_stringByAppendingString_(keyCopy, v41, @".buffer");
-  v44 = objc_msgSend_decodeBufferWithCoder_forKey_(allocatorCopy, v43, coderCopy, v42);
+  v136 = objc_msgSend_stringByAppendingString_(keyCopy, v126, @".buffer", v127, v132, v133, v134, v135, v128, v129, v130, v131);
+  v146 = objc_msgSend_decodeBufferWithCoder_forKey_(allocatorCopy, v137, coderCopy, v136, v142, v143, v144, v145, v138, v139, v140, v141);
   buffer = v11->_buffer;
-  v11->_buffer = v44;
+  v11->_buffer = v146;
 
-  v47 = objc_msgSend_stringByAppendingString_(keyCopy, v46, @".stride");
-  v11->_stride = objc_msgSend_decodeIntegerForKey_(coderCopy, v48, v47);
+  v158 = objc_msgSend_stringByAppendingString_(keyCopy, v148, @".stride", v149, v154, v155, v156, v157, v150, v151, v152, v153);
+  v11->_stride = objc_msgSend_decodeIntegerForKey_(coderCopy, v159, v158, v160, v165, v166, v167, v168, v161, v162, v163, v164);
 
-  v11->_semantic = objc_msgSend_decodeIntegerForKey_(coderCopy, v49, @".semantic");
+  v11->_semantic = objc_msgSend_decodeIntegerForKey_(coderCopy, v169, @".semantic", v170, v175, v176, v177, v178, v171, v172, v173, v174);
 
   return v11;
 }

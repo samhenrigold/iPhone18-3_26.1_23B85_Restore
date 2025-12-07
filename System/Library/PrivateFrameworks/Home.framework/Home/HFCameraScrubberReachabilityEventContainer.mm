@@ -167,7 +167,7 @@
   v11 = [HFCameraUtilities fullTimeStringFromDate:dateOfOccurrence2];
 
   dateOfOccurrence3 = [(HFCameraScrubberReachabilityEventContainer *)self dateOfOccurrence];
-  [(HFCameraScrubberReachabilityEventContainer *)self duration];
+  objc_msgSend_duration(self);
   v13 = [dateOfOccurrence3 dateByAddingTimeInterval:?];
 
   v14 = [HFCameraUtilities dayStringFromDate:v13];
@@ -177,7 +177,7 @@
 
   v17 = MEMORY[0x277CCACA8];
   dateOfOccurrence4 = [(HFCameraScrubberReachabilityEventContainer *)self dateOfOccurrence];
-  [(HFCameraScrubberReachabilityEventContainer *)self duration];
+  objc_msgSend_duration(self);
   v20 = [v17 stringWithFormat:@"%@ + %f = %@", dateOfOccurrence4, v19, v13];
 
   [v3 appendString:v20 withName:@"dateInterval"];
@@ -366,14 +366,14 @@ LABEL_28:
   if (detailLevel == 2)
   {
     v11 = MEMORY[0x277CCABB0];
-    [(HFCameraScrubberReachabilityEventContainer *)self duration];
+    objc_msgSend_duration(self);
     [v11 numberWithDouble:?];
   }
 
   else
   {
     v12 = MEMORY[0x277CCACA8];
-    [(HFCameraScrubberReachabilityEventContainer *)self duration];
+    objc_msgSend_duration(self);
     [v12 stringWithFormat:@"%.2f", v13];
   }
   v14 = ;

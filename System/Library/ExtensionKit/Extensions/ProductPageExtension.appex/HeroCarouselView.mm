@@ -22,7 +22,7 @@
 - (void)setAccessibilityTraits:(unint64_t)traits
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for HeroCarouselView();
+  v4.super_class = type metadata accessor for HeroCarouselView(0);
   [(HeroCarouselView *)&v4 setAccessibilityTraits:traits];
 }
 

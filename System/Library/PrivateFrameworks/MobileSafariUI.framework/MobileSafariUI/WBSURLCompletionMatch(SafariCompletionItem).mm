@@ -55,9 +55,9 @@
     +[WBSURLCompletionMatch(SafariCompletionItem) _relativeDateTimeFormatter];
   }
 
-  v1 = +[WBSURLCompletionMatch(SafariCompletionItem) _relativeDateTimeFormatter]::formatter;
+  v2 = +[WBSURLCompletionMatch(SafariCompletionItem) _relativeDateTimeFormatter]::formatter;
 
-  return v1;
+  return v2;
 }
 
 - (void)configureCompletionTableViewCell:()SafariCompletionItem forCompletionList:
@@ -152,7 +152,7 @@
 
 - (__CFString)_promptString
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([self isTopHit] & 1) != 0 || (objc_msgSend(self, "containsBookmark"))
   {
     goto LABEL_3;
@@ -164,16 +164,16 @@
 
     if (cloudTabDeviceName)
     {
-      v5 = MEMORY[0x277CCACA8];
-      v6 = _WBSLocalizedString();
+      v7 = MEMORY[0x277CCACA8];
+      v8 = _WBSLocalizedString();
       cloudTabDeviceName2 = [self cloudTabDeviceName];
-      v2 = [v5 stringWithFormat:v6, cloudTabDeviceName2];
+      v2 = [v7 stringWithFormat:v8, cloudTabDeviceName2];
 
       goto LABEL_4;
     }
 
-    v18 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v5, v6);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       userVisibleURLString = [self userVisibleURLString];
       [(WBSURLCompletionMatch(SafariCompletionItem) *)userVisibleURLString _promptString];
@@ -187,14 +187,14 @@ LABEL_3:
   }
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v9 = v8;
-  [self lastVisitTimeInterval];
   v11 = v10;
   [self lastVisitTimeInterval];
-  if (v12 == 0.0 || (v13 = v9 - v11, v13 < 0.0))
+  v13 = v12;
+  lastVisitTimeInterval = [self lastVisitTimeInterval];
+  if (v16 == 0.0 || (v17 = v11 - v13, v17 < 0.0))
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(lastVisitTimeInterval, v15);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       userVisibleURLString2 = [self userVisibleURLString];
       [(WBSURLCompletionMatch(SafariCompletionItem) *)userVisibleURLString2 _promptString];
@@ -204,11 +204,11 @@ LABEL_3:
   }
 
   _relativeDateTimeFormatter = [MEMORY[0x277D4A0B0] _relativeDateTimeFormatter];
-  v15 = [_relativeDateTimeFormatter localizedStringFromTimeInterval:-v13];
+  v19 = [_relativeDateTimeFormatter localizedStringFromTimeInterval:-v17];
 
-  v16 = MEMORY[0x277CCACA8];
-  v17 = _WBSLocalizedString();
-  v2 = [v16 stringWithFormat:v17, v15];
+  v20 = MEMORY[0x277CCACA8];
+  v21 = _WBSLocalizedString();
+  v2 = [v20 stringWithFormat:v21, v19];
 
 LABEL_4:
 

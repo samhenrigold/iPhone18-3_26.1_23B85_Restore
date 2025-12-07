@@ -25,15 +25,15 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100018D8C(appear);
+  sub_100018D8C(appearCopy);
 }
 
 - (void)invalidate
 {
   v3 = OBJC_IVAR____TtC5Media30RadioStationListViewController_cancelSet;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.isa + v3);
   *(&self->super.super.super.isa + v3) = &_swiftEmptySetSingleton;
 }
 
@@ -52,11 +52,10 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return 1;
 }
 
@@ -64,15 +63,14 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100019FF0(viewCopy, v10);
+  sub_100019FF0(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (_TtC5Media30RadioStationListViewController)initWithNibName:(id)name bundle:(id)bundle

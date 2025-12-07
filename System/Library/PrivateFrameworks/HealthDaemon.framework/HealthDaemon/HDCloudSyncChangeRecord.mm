@@ -15,6 +15,7 @@
 - (CKRecordID)sequenceRecordID;
 - (CKReference)parentRecordReference;
 - (HDCloudSyncChangeRecord)initWithCKRecord:(id)record schemaVersion:(int64_t)version;
+- (HDCloudSyncChangeRecord)initWithSyncAnchorRangeMap:(id)map changeIndex:(int64_t)index changesetAsset:(id)asset changeSize:(int64_t)size protocolVersion:(int)version finalForSequence:(BOOL)sequence sequenceRecordID:(id)d record:(id)self0 schemaVersion:(int64_t)self1;
 - (HDCloudSyncChangeRecord)initWithSyncAnchorRangeMap:(id)map finalForSequence:(BOOL)sequence changesetArchiveFileHandle:(id)handle sequenceRecord:(id)record protocolVersion:(int)version;
 - (HDSyncAnchorRangeMap)decodedSyncAnchorRangeMap;
 - (NSNumber)changeSize;
@@ -101,6 +102,34 @@
   return v35;
 }
 
+- (HDCloudSyncChangeRecord)initWithSyncAnchorRangeMap:(id)map changeIndex:(int64_t)index changesetAsset:(id)asset changeSize:(int64_t)size protocolVersion:(int)version finalForSequence:(BOOL)sequence sequenceRecordID:(id)d record:(id)self0 schemaVersion:(int64_t)self1
+{
+  sequenceCopy = sequence;
+  recordCopy = record;
+  dCopy = d;
+  assetCopy = asset;
+  mapCopy = map;
+  v20 = objc_alloc_init(HDCloudSyncCodableChange);
+  v21 = [objc_alloc(MEMORY[0x277CBC620]) initWithRecordID:dCopy action:_os_feature_enabled_impl() ^ 1];
+
+  [recordCopy setObject:v21 forKeyedSubscript:@"SequenceRecord"];
+  [recordCopy setObject:assetCopy forKeyedSubscript:@"ChangeSet"];
+
+  v22 = [MEMORY[0x277CCABB0] numberWithInteger:schemaVersion];
+  [recordCopy setObject:v22 forKeyedSubscript:@"Version"];
+
+  [(HDCloudSyncCodableChange *)v20 setChangeIndex:index];
+  [(HDCloudSyncCodableChange *)v20 setFinalForSequence:sequenceCopy];
+  [(HDCloudSyncCodableChange *)v20 setProtocolVersion:version];
+  codableSyncAnchorRangeMap = [mapCopy codableSyncAnchorRangeMap];
+
+  [(HDCloudSyncCodableChange *)v20 setAnchorRangeMap:codableSyncAnchorRangeMap];
+  [(HDCloudSyncCodableChange *)v20 setChangeSize:size];
+  v24 = [(HDCloudSyncChangeRecord *)self initWithCKRecord:recordCopy schemaVersion:schemaVersion underlyingChange:v20];
+
+  return v24;
+}
+
 - (id)initWithCKRecord:(uint64_t)record schemaVersion:(void *)version underlyingChange:
 {
   versionCopy = version;
@@ -143,38 +172,36 @@
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = &OBJC_METACLASS___HDCloudSyncChangeRecord;
-  v2 = objc_msgSendSuper2(&v19, sel_fieldsForUnprotectedSerialization);
-  v25 = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-  v17 = [HDCloudSyncSerializedField fieldForKey:@"SequenceRecord" classes:v18 encrypted:0];
-  v26[0] = v17;
+  v25[6] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = &OBJC_METACLASS___HDCloudSyncChangeRecord;
+  v2 = objc_msgSendSuper2(&v18, sel_fieldsForUnprotectedSerialization);
   v24 = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
-  v15 = [HDCloudSyncSerializedField fieldForKey:@"EntityAnchorRangeMap" classes:v16 encrypted:1];
-  v26[1] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v16 = [HDCloudSyncSerializedField fieldForKey:@"SequenceRecord" classes:v17 encrypted:0];
+  v25[0] = v16;
   v23 = objc_opt_class();
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-  v3 = [HDCloudSyncSerializedField fieldForKey:@"CurrentChangeIndex" classes:v14 encrypted:0];
-  v26[2] = v3;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v14 = [HDCloudSyncSerializedField fieldForKey:@"EntityAnchorRangeMap" classes:v15 encrypted:1];
+  v25[1] = v14;
   v22 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-  v5 = [HDCloudSyncSerializedField fieldForKey:@"ProtocolVersion" classes:v4 encrypted:0];
-  v26[3] = v5;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v3 = [HDCloudSyncSerializedField fieldForKey:@"CurrentChangeIndex" classes:v13 encrypted:0];
+  v25[2] = v3;
   v21 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v7 = [HDCloudSyncSerializedField fieldForKey:@"Options" classes:v6 encrypted:0];
-  v26[4] = v7;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v5 = [HDCloudSyncSerializedField fieldForKey:@"ProtocolVersion" classes:v4 encrypted:0];
+  v25[3] = v5;
   v20 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v7 = [HDCloudSyncSerializedField fieldForKey:@"Options" classes:v6 encrypted:0];
+  v25[4] = v7;
+  v19 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v9 = [HDCloudSyncSerializedField fieldForKey:@"ChangeSize" classes:v8 encrypted:0];
-  v26[5] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:6];
+  v25[5] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:6];
   v11 = [v2 arrayByAddingObjectsFromArray:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -400,15 +427,15 @@ LABEL_54:
 
 + (HDSyncAnchorRangeMap)_decodedSyncAnchorRangeMapForAnchorRangeData:(uint64_t)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = [[HDCodableSyncAnchorRangeMap alloc] initWithData:v2];
   if (v3)
   {
-    v11 = 0;
-    v4 = [[HDSyncAnchorRangeMap alloc] initWithCodableSyncAnchorRangeMap:v3 error:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [[HDSyncAnchorRangeMap alloc] initWithCodableSyncAnchorRangeMap:v3 error:&v10];
+    v5 = v10;
     if (v4)
     {
       goto LABEL_10;
@@ -419,16 +446,16 @@ LABEL_54:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v13 = v3;
-      v14 = 2114;
-      v15 = v5;
+      v12 = v3;
+      v13 = 2114;
+      v14 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to decode codable sync anchor range map %{public}@: %{public}@", buf, 0x16u);
     }
   }
 
-  v10 = 0;
-  v4 = [MEMORY[0x277CCAAC8] hk_unarchivedObjectOfClass:objc_opt_class() forKey:@"EntityAnchorRangeMap" data:v2 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAC8] hk_unarchivedObjectOfClass:objc_opt_class() forKey:@"EntityAnchorRangeMap" data:v2 error:&v9];
+  v5 = v9;
   if (!v4)
   {
     _HKInitializeLogging();
@@ -436,7 +463,7 @@ LABEL_54:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = v5;
+      v12 = v5;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Invalid archive attempting to decode sync anchor range map: %{public}@", buf, 0xCu);
     }
 
@@ -444,8 +471,6 @@ LABEL_54:
   }
 
 LABEL_10:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -524,19 +549,17 @@ LABEL_10:
 
 void __39__HDCloudSyncChangeRecord_nonAssetKeys__block_invoke()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Version";
-  v3[1] = @"SequenceRecord";
-  v3[2] = @"EntityAnchorRangeMap";
-  v3[3] = @"CurrentChangeIndex";
-  v3[4] = @"ProtocolVersion";
-  v3[5] = @"Options";
-  v3[6] = @"ChangeSize";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Version";
+  v2[1] = @"SequenceRecord";
+  v2[2] = @"EntityAnchorRangeMap";
+  v2[3] = @"CurrentChangeIndex";
+  v2[4] = @"ProtocolVersion";
+  v2[5] = @"Options";
+  v2[6] = @"ChangeSize";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
   v1 = _MergedGlobals_195;
   _MergedGlobals_195 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)assetKeys
@@ -553,13 +576,11 @@ void __39__HDCloudSyncChangeRecord_nonAssetKeys__block_invoke()
 
 void __36__HDCloudSyncChangeRecord_assetKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = @"ChangeSet";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x277D85DE8];
+  v2[0] = @"ChangeSet";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:1];
   v1 = qword_280D67AC0;
   qword_280D67AC0 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)changesetArchiveContentDataForCKRecord:(id)record error:(id *)error
@@ -676,12 +697,12 @@ LABEL_9:
 
 - (HDSyncAnchorRangeMap)decodedSyncAnchorRangeMap
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [HDSyncAnchorRangeMap alloc];
   anchorRangeMap = [(HDCloudSyncCodableChange *)self->_underlyingChange anchorRangeMap];
-  v13 = 0;
-  v5 = [(HDSyncAnchorRangeMap *)v3 initWithCodableSyncAnchorRangeMap:anchorRangeMap error:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [(HDSyncAnchorRangeMap *)v3 initWithCodableSyncAnchorRangeMap:anchorRangeMap error:&v12];
+  v6 = v12;
 
   if (!v5)
   {
@@ -693,12 +714,10 @@ LABEL_9:
       v9 = v7;
       anchorRangeMap2 = [(HDCloudSyncCodableChange *)underlyingChange anchorRangeMap];
       *buf = 138412290;
-      v15 = anchorRangeMap2;
+      v14 = anchorRangeMap2;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "Failed to decode sync anchor range map: %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

@@ -11,25 +11,24 @@
 
 - (SIPersonDetector)initWithNetworkConfiguration:(id)configuration
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   kdebug_trace();
-  v11.receiver = self;
-  v11.super_class = SIPersonDetector;
-  v5 = [(SIModel *)&v11 initWithNetworkConfiguration:configurationCopy];
+  v10.receiver = self;
+  v10.super_class = SIPersonDetector;
+  v5 = [(SIModel *)&v10 initWithNetworkConfiguration:configurationCopy];
   if (v5)
   {
-    v12 = kSIME5PersonDetectorInputTensorName;
+    v11 = kSIME5PersonDetectorInputTensorName;
     v6 = [[SIPixelBuffer alloc] initWithCVPixelBuffer:0];
-    v13[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v12[0] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     [(SIModel *)v5 setInputs:v7];
 
     kdebug_trace();
     v8 = v5;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -79,11 +78,11 @@
 
 - (int64_t)copyResultsToData:(id)data
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   boundingBoxes = [data boundingBoxes];
   kdebug_trace();
   network = [(SIModel *)self network];
-  v99 = [network getOutputHeight:kSIME5PersonDetectorOutputHeatMapTensorName];
+  v98 = [network getOutputHeight:kSIME5PersonDetectorOutputHeatMapTensorName];
 
   network2 = [(SIModel *)self network];
   v6 = [network2 getOutputWidth:kSIME5PersonDetectorOutputHeatMapTensorName];
@@ -95,22 +94,22 @@
   v10 = [network4 getRawOutput:kSIME5PersonDetectorOutputHeatMapMaxPoolTensorName];
 
   network5 = [(SIModel *)self network];
-  v96 = [network5 getRawOutput:kSIME5PersonDetectorOutputBoundingBoxSizeTensorName];
+  v95 = [network5 getRawOutput:kSIME5PersonDetectorOutputBoundingBoxSizeTensorName];
 
   network6 = [(SIModel *)self network];
-  v95 = [network6 getRawOutput:kSIME5PersonDetectorOutputBoundingBoxCenterTensorName];
+  v94 = [network6 getRawOutput:kSIME5PersonDetectorOutputBoundingBoxCenterTensorName];
 
   network7 = [(SIModel *)self network];
   supportFloat16IO = [network7 supportFloat16IO];
 
-  v97 = boundingBoxes;
+  v96 = boundingBoxes;
   if (supportFloat16IO)
   {
+    v103 = 0;
     v104 = 0;
-    v105 = 0;
-    v103 = &v104;
-    v15 = &v104;
-    if (v99)
+    v102 = &v103;
+    v15 = &v103;
+    if (v98)
     {
       v16 = 0;
       v17 = 2 * v6;
@@ -133,32 +132,32 @@
 
             if ((_S1 - _S2) == 0.0)
             {
-              v100 = i;
-              LOWORD(v101) = _H0;
-              std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,half>>(&v103, &v100);
+              v99 = i;
+              LOWORD(v100) = _H0;
+              std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,half>>(&v102, &v99, &v99);
             }
           }
 
-          i += 0x100000000;
+          i += 0x40000000;
           ++v20;
           ++v18;
         }
 
-        ++v16;
+        v16 = (v16 + 1);
         v10 += v17;
         v8 += v17;
       }
 
-      while (v16 != v99);
-      v15 = v103;
+      while (v16 != v98);
+      v15 = v102;
     }
 
+    v99 = 0;
     v100 = 0;
     v101 = 0;
-    v102 = 0;
-    std::__copy_impl::operator()[abi:nn200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::back_insert_iterator<std::vector<std::pair<std::pair<int,int>,half>>>>(buf, v15, &v104, &v100);
-    v31 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v101 - v100) >> 2));
-    if (v101 == v100)
+    std::__copy_impl::operator()[abi:nn200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::back_insert_iterator<std::vector<std::pair<std::pair<int,int>,half>>>>(buf, v15, &v103, &v99);
+    v31 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v100 - v99) >> 2));
+    if (v100 == v99)
     {
       v32 = 0;
     }
@@ -168,47 +167,47 @@
       v32 = v31;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,false>(v100, v101, v32, 1);
-    v33 = v105;
-    if (v105 >= 100)
+    std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<half>(half const*,half const*,half const*,half const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,half> const&,std::pair<std::pair<int,int>,half> const&)#1} &,std::pair<std::pair<int,int>,half>*,false>(v99, v100, v32, 1);
+    v33 = v104;
+    if (v104 >= 100)
     {
       v33 = 100;
     }
 
-    v34 = v97;
-    std::vector<std::pair<std::pair<int,int>,half>>::resize(&v100, v33);
-    v35 = v100;
-    if (v101 != v100)
+    v34 = v96;
+    std::vector<std::pair<std::pair<int,int>,half>>::resize(&v99, v33);
+    v35 = v99;
+    if (v100 != v99)
     {
       v36 = 0;
       v37 = 0;
-      v38 = v99 * v6;
+      v38 = v98 * v6;
       v39 = v6;
-      v40 = v99;
+      v40 = v98;
       do
       {
-        v42 = *&v35[v36];
-        v41 = *&v35[v36 + 4];
+        v42 = SLODWORD(v35[v36]);
+        v41 = SLODWORD(v35[v36 + 1]);
         v43 = v41 + v6 * v42;
-        _H13 = *(v95 + 2 * (v43 + v38));
-        _H1 = *(v95 + 2 * v43);
+        _H13 = *(v94 + 2 * (v43 + v38));
+        _H1 = *(v94 + 2 * v43);
         __asm { FCVT            S1, H1 }
 
         v47 = v41 + _S1;
-        LOWORD(_S1) = *(v96 + 2 * v43);
+        LOWORD(_S1) = *(v95 + 2 * v43);
         __asm { FCVT            S11, H1 }
 
-        _H14 = *(v96 + 2 * (v43 + v38));
+        _H14 = *(v95 + 2 * (v43 + v38));
         v50 = v47 - (_S11 * 0.5);
         if (v50 < 0.0)
         {
-          v51 = __SceneIntelligenceLogSharedInstance();
+          v51 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 182;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 182;
             _os_log_impl(&dword_21DE0D000, v51, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] negative origin x received from the model. Set to 0 ***", buf, 0x12u);
           }
 
@@ -224,13 +223,13 @@
         v54 = (v42 + _S1) - (_S13 * 0.5);
         if (v54 < 0.0)
         {
-          v55 = __SceneIntelligenceLogSharedInstance();
+          v55 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 187;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 187;
             _os_log_impl(&dword_21DE0D000, v55, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] negative origin y received from the model. Set to 0 ***", buf, 0x12u);
           }
 
@@ -239,13 +238,13 @@
 
         if (_S11 > v39)
         {
-          v56 = __SceneIntelligenceLogSharedInstance();
+          v56 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 192;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 192;
             _os_log_impl(&dword_21DE0D000, v56, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] out of bound width received from the model. Set to max_width ***", buf, 0x12u);
           }
 
@@ -254,42 +253,42 @@
 
         if (_S13 > v40)
         {
-          v57 = __SceneIntelligenceLogSharedInstance();
+          v57 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 197;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 197;
             _os_log_impl(&dword_21DE0D000, v57, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] out of bound height received from the model. Set to max_height ***", buf, 0x12u);
           }
 
-          _S13 = v99;
+          _S13 = v98;
         }
 
         v58 = [SIPersonDetectorBoundingBox alloc];
-        _H4 = *&v100[v36 + 8];
+        _H4 = LOWORD(v99[v36 + 2]);
         __asm { FCVT            S4, H4 }
 
         v61 = [(SIPersonDetectorBoundingBox *)v58 initWithBoundingBox:(v50 / v39) confidence:(v54 / v40), (_S11 / v39), (_S13 / v40), _D4];
-        [v97 addObject:v61];
+        [v96 addObject:v61];
 
         ++v37;
-        v35 = v100;
-        v36 += 12;
+        v35 = v99;
+        v36 += 3;
       }
 
-      while (0xAAAAAAAAAAAAAAABLL * ((v101 - v100) >> 2) > v37);
+      while (0xAAAAAAAAAAAAAAABLL * ((v100 - v99) >> 2) > v37);
     }
   }
 
   else
   {
+    v103 = 0;
     v104 = 0;
-    v105 = 0;
-    v103 = &v104;
-    v62 = &v104;
-    if (v99)
+    v102 = &v103;
+    v62 = &v103;
+    if (v98)
     {
       v63 = 0;
       v64 = 4 * v6;
@@ -303,31 +302,31 @@
           v69 = *v65;
           if (*v65 > 0.36 && (v69 - *v67) == 0.0)
           {
-            v100 = j;
-            *&v101 = v69;
-            std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,float>>(&v103, &v100);
+            v99 = j;
+            *&v100 = v69;
+            std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<std::pair<int,int>,float>>(&v102, &v99, &v99);
           }
 
-          j += 0x100000000;
+          j += 0x40000000;
           ++v67;
           ++v65;
         }
 
-        ++v63;
+        v63 = (v63 + 1);
         v10 += v64;
         v8 += v64;
       }
 
-      while (v63 != v99);
-      v62 = v103;
+      while (v63 != v98);
+      v62 = v102;
     }
 
+    v99 = 0;
     v100 = 0;
     v101 = 0;
-    v102 = 0;
-    std::__copy_impl::operator()[abi:nn200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::back_insert_iterator<std::vector<std::pair<std::pair<int,int>,float>>>>(buf, v62, &v104, &v100);
-    v70 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v101 - v100) >> 2));
-    if (v101 == v100)
+    std::__copy_impl::operator()[abi:nn200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<int,int>,float>,std::__tree_node<std::__value_type<std::pair<int,int>,float>,void *> *,long>>,std::back_insert_iterator<std::vector<std::pair<std::pair<int,int>,float>>>>(buf, v62, &v103, &v99);
+    v70 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v100 - v99) >> 2));
+    if (v100 == v99)
     {
       v71 = 0;
     }
@@ -337,41 +336,41 @@
       v71 = v70;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,false>(v100, v101, v71, 1);
-    v72 = v105;
-    if (v105 >= 100)
+    std::__introsort<std::_ClassicAlgPolicy,SIResultStatus copyBoundingBoxList<float>(float const*,float const*,float const*,float const*,NSMutableArray<SIPersonDetectorBoundingBox *> *,unsigned long,unsigned long)::{lambda(std::pair<std::pair<int,int>,float> const&,std::pair<std::pair<int,int>,float> const&)#1} &,std::pair<std::pair<int,int>,float>*,false>(v99, v100, v71, 1);
+    v72 = v104;
+    if (v104 >= 100)
     {
       v72 = 100;
     }
 
-    v34 = v97;
-    std::vector<std::pair<std::pair<int,int>,float>>::resize(&v100, v72);
-    v35 = v100;
-    if (v101 != v100)
+    v34 = v96;
+    std::vector<std::pair<std::pair<int,int>,float>>::resize(&v99, v72);
+    v35 = v99;
+    if (v100 != v99)
     {
       v73 = 0;
       v74 = 0;
-      v75 = v99 * v6;
+      v75 = v98 * v6;
       v76 = v6;
-      v77 = v99;
+      v77 = v98;
       do
       {
-        v79 = *&v35[v73];
-        v78 = *&v35[v73 + 4];
+        v79 = SLODWORD(v35[v73]);
+        v78 = SLODWORD(v35[v73 + 1]);
         v80 = v78 + v6 * v79;
-        v81 = *(v95 + 4 * (v80 + v75));
-        v82 = *(v96 + 4 * v80);
-        v83 = *(v96 + 4 * (v80 + v75));
-        v84 = (*(v95 + 4 * v80) + v78) - (v82 * 0.5);
+        v81 = *(v94 + 4 * (v80 + v75));
+        v82 = *(v95 + 4 * v80);
+        v83 = *(v95 + 4 * (v80 + v75));
+        v84 = (*(v94 + 4 * v80) + v78) - (v82 * 0.5);
         if (v84 < 0.0)
         {
-          v85 = __SceneIntelligenceLogSharedInstance();
+          v85 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 182;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 182;
             _os_log_impl(&dword_21DE0D000, v85, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] negative origin x received from the model. Set to 0 ***", buf, 0x12u);
           }
 
@@ -381,13 +380,13 @@
         v86 = (v81 + v79) - (v83 * 0.5);
         if (v86 < 0.0)
         {
-          v87 = __SceneIntelligenceLogSharedInstance();
+          v87 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 187;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 187;
             _os_log_impl(&dword_21DE0D000, v87, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] negative origin y received from the model. Set to 0 ***", buf, 0x12u);
           }
 
@@ -396,13 +395,13 @@
 
         if (v82 > v76)
         {
-          v88 = __SceneIntelligenceLogSharedInstance();
+          v88 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 192;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 192;
             _os_log_impl(&dword_21DE0D000, v88, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] out of bound width received from the model. Set to max_width ***", buf, 0x12u);
           }
 
@@ -411,43 +410,42 @@
 
         if (v83 > v77)
         {
-          v89 = __SceneIntelligenceLogSharedInstance();
+          v89 = __SceneIntelligenceLogSharedInstance(v35);
           if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
           {
             *buf = 136380931;
-            v107 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
-            v108 = 1025;
-            v109 = 197;
+            v106 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetector.mm";
+            v107 = 1025;
+            v108 = 197;
             _os_log_impl(&dword_21DE0D000, v89, OS_LOG_TYPE_INFO, " %{private}s:%{private}d *** [Warning] out of bound height received from the model. Set to max_height ***", buf, 0x12u);
           }
 
-          v83 = v99;
+          v83 = v98;
         }
 
         v90 = [SIPersonDetectorBoundingBox alloc];
-        LODWORD(v91) = *&v100[v73 + 8];
+        *&v91 = v99[v73 + 2];
         v92 = [(SIPersonDetectorBoundingBox *)v90 initWithBoundingBox:(v84 / v76) confidence:(v86 / v77), (v82 / v76), (v83 / v77), v91];
-        [v97 addObject:v92];
+        [v96 addObject:v92];
 
         ++v74;
-        v35 = v100;
-        v73 += 12;
+        v35 = v99;
+        v73 += 3;
       }
 
-      while (0xAAAAAAAAAAAAAAABLL * ((v101 - v100) >> 2) > v74);
+      while (0xAAAAAAAAAAAAAAABLL * ((v100 - v99) >> 2) > v74);
     }
   }
 
   if (v35)
   {
-    v101 = v35;
+    v100 = v35;
     operator delete(v35);
   }
 
-  std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::destroy(&v103, v104);
+  std::__tree<std::__value_type<std::pair<int,int>,float>,std::__map_value_compare<std::pair<int,int>,std::__value_type<std::pair<int,int>,float>,std::less<std::pair<int,int>>,true>,std::allocator<std::__value_type<std::pair<int,int>,float>>>::destroy(&v102, v103);
 
   kdebug_trace();
-  v93 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

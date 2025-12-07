@@ -8,12 +8,12 @@
 
 - (id)debugInformationForMeaningIdentifier:(id)identifier assetUUID:(id)d
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
   v7 = MEMORY[0x277CD97A8];
-  v38[0] = dCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+  v37[0] = dCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
   v9 = [v7 fetchAssetsWithUUIDs:v8 options:librarySpecificFetchOptions];
   firstObject = [v9 firstObject];
 
@@ -51,15 +51,15 @@
         v26 = [allObjects2 componentsJoinedByString:{@", "}];
         v27 = [allObjects3 componentsJoinedByString:{@", "}];
         v28 = [allObjects4 componentsJoinedByString:{@", "}];
-        v36[0] = @"sceneNames";
-        v36[1] = @"reliableSceneNames";
-        v37[0] = v25;
-        v37[1] = v26;
-        v36[2] = @"highConfidenceSceneNames";
-        v36[3] = @"searchConfidenceSceneNames";
-        v37[2] = v27;
-        v37[3] = v28;
-        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:4];
+        v35[0] = @"sceneNames";
+        v35[1] = @"reliableSceneNames";
+        v36[0] = v25;
+        v36[1] = v26;
+        v35[2] = @"highConfidenceSceneNames";
+        v35[3] = @"searchConfidenceSceneNames";
+        v36[2] = v27;
+        v36[3] = v28;
+        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
       }
 
       else
@@ -79,22 +79,20 @@
     v29 = MEMORY[0x277CBEC10];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (unsigned)predictQuestionStateForMeaningIdentifier:(id)identifier assetUUID:(id)d params:(id)params
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dCopy = d;
   paramsCopy = params;
   librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
   v12 = MEMORY[0x277CD97A8];
-  v32[0] = dCopy;
+  v31[0] = dCopy;
   v13 = 1;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   v15 = [v12 fetchAssetsWithUUIDs:v14 options:librarySpecificFetchOptions];
   firstObject = [v15 firstObject];
 
@@ -108,27 +106,27 @@
       v19 = [(PGGraph *)self->_graph momentNodeForMoment:firstObject2];
       if (v19)
       {
-        v29 = identifierCopy;
+        v28 = identifierCopy;
         if ([paramsCopy count])
         {
-          v30 = identifierCopy;
-          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+          v29 = identifierCopy;
+          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
           v21 = [PGPhotosChallengeMeaningfulEventRequiredCriteriaFactory requiredCriteriaForIdentifiers:v20 inferenceType:0 graph:self->_graph sceneTaxonomy:self->_sceneTaxonomy params:paramsCopy];
         }
 
         else
         {
-          v31 = identifierCopy;
-          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+          v30 = identifierCopy;
+          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
           v21 = [PGMeaningfulEventRequiredCriteriaFactory requiredCriteriaForIdentifiers:v20 inferenceType:0 graph:self->_graph sceneTaxonomy:self->_sceneTaxonomy];
         }
 
-        v28 = v21;
+        v27 = v21;
 
         v22 = [PGMeaningfulEventProcessorCache alloc];
         collection = [v19 collection];
         v24 = [(PGMeaningfulEventProcessorCache *)v22 initWithMomentNodes:collection];
-        v25 = [PGMeaningfulEventProcessor processRequiredCriteria:v28 forMoment:v19 meaningfulEventProcessorCache:v24 serviceManager:self->_serviceManager];
+        v25 = [PGMeaningfulEventProcessor processRequiredCriteria:v27 forMoment:v19 meaningfulEventProcessorCache:v24 serviceManager:self->_serviceManager];
 
         if ([v25 count])
         {
@@ -140,7 +138,7 @@
           v13 = 3;
         }
 
-        identifierCopy = v29;
+        identifierCopy = v28;
       }
 
       else
@@ -155,7 +153,6 @@
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

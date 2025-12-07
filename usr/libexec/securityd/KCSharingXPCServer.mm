@@ -23,6 +23,7 @@
 - (void)updateGroupWithRequest:(id)request completion:(id)completion;
 - (void)verifyGroupsInSyncAndResyncMissingGroupsWithCompletion:(id)completion;
 - (void)verifyGroupsInSyncWithCompletion:(id)completion;
+- (void)wipe:(BOOL)wipe reply:(id)reply;
 @end
 
 @implementation KCSharingXPCServer
@@ -107,6 +108,14 @@
 
   v6 = +[KCSharingXPCListenerDelegate sharedInstance];
   [v6 groupsUpdated];
+}
+
+- (void)wipe:(BOOL)wipe reply:(id)reply
+{
+  wipeCopy = wipe;
+  replyCopy = reply;
+  syncController = [(KCSharingXPCServer *)self syncController];
+  [syncController wipe:wipeCopy completion:replyCopy];
 }
 
 - (void)saveLocalChangesWithReply:(id)reply

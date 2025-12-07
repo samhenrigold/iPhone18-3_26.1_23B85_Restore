@@ -39,41 +39,40 @@
 
 - (id)attributedStringForUnlockCount:(id)count
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB8];
   countCopy = count;
   v5 = [v3 localizedStringFromNumber:countCopy numberStyle:1];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v25 = [v6 localizedStringForKey:@"DAILY_UNLOCK_COUNT" value:&stru_28762AB68 table:@"StringsDict"];
+  v24 = [v6 localizedStringForKey:@"DAILY_UNLOCK_COUNT" value:&stru_28762AB68 table:@"StringsDict"];
 
   v7 = MEMORY[0x277CCACA8];
   integerValue = [countCopy integerValue];
 
-  v9 = [v7 localizedStringWithValidatedFormat:v25 validFormatSpecifiers:@"%lu" error:0, integerValue];
-  v28 = *MEMORY[0x277D740A8];
-  v10 = v28;
+  v9 = [v7 localizedStringWithValidatedFormat:v24 validFormatSpecifiers:@"%lu" error:0, integerValue];
+  v27 = *MEMORY[0x277D740A8];
+  v10 = v27;
   v11 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  v30[0] = v11;
-  v29 = *MEMORY[0x277D740C0];
-  v12 = v29;
+  v29[0] = v11;
+  v28 = *MEMORY[0x277D740C0];
+  v12 = v28;
   tableCellGrayTextColor = [MEMORY[0x277D75348] tableCellGrayTextColor];
-  v30[1] = tableCellGrayTextColor;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v28 count:2];
+  v29[1] = tableCellGrayTextColor;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v27 count:2];
 
   v15 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v9 attributes:v14];
   v16 = v5;
   v17 = [v9 rangeOfString:v5];
   v19 = v18;
-  v26[0] = v10;
+  v25[0] = v10;
   v20 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D769A8]];
-  v26[1] = v12;
-  v27[0] = v20;
+  v25[1] = v12;
+  v26[0] = v20;
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  v27[1] = whiteColor;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v26[1] = whiteColor;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
   [v15 setAttributes:v22 range:{v17, v19}];
-  v23 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

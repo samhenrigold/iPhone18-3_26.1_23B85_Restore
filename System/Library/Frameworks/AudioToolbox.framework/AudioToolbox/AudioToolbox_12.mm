@@ -5107,7 +5107,7 @@ LABEL_18:
   return result;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -9301,7 +9301,8 @@ const UInt8 *ReadVectorFromDictionary(const __CFDictionary *a1, CFDictionaryRef 
     v8 = v7;
   }
 
-  std::vector<float>::vector[abi:ne200100](a1, v4);
+  v12 = 0;
+  std::vector<float>::vector[abi:ne200100](a1, v4, &v12);
   result = CFDataGetBytePtr(Value);
   if (v8)
   {

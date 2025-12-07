@@ -14,7 +14,7 @@
 
 - (void)applyLayoutAttributes:(id)attributes
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0, qword_20C1510D0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for ShelfTitleView(0);
@@ -55,7 +55,7 @@
   {
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v8);
+  __swift_destroy_boxed_opaque_existential_1(v8);
 }
 
 @end

@@ -8,7 +8,6 @@
 - (_UIPhysicalButtonConfigurationSet)initWithXPCDictionary:(id)dictionary;
 - (id)_configurationForButton:(unint64_t)button;
 - (id)_configurationPassingTest:(id)test;
-- (id)_nsSetRepresentation;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
@@ -20,6 +19,7 @@
 - (unint64_t)hash;
 - (void)_enumerateConfigurationsWithBlock:(id)block;
 - (void)_initWithConfigurationsDictionary:(void *)dictionary;
+- (void)_nsSetRepresentation;
 - (void)_validateButtonRequirements;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -445,7 +445,7 @@ LABEL_28:
   return v20;
 }
 
-- (id)_nsSetRepresentation
+- (void)_nsSetRepresentation
 {
   selfCopy = self;
   if (self)
@@ -600,25 +600,25 @@ LABEL_28:
     v13 = v12;
     if (v11 == v12)
     {
-      v14 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v14 = 0;
+      isEqual = 0;
       if (v11 && v12)
       {
-        v14 = [(NSMutableDictionary *)v11 isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(v11);
       }
     }
   }
 
   else
   {
-    v14 = 0;
+    isEqual = 0;
   }
 
-  return v14;
+  return isEqual;
 }
 
 - (unint64_t)hash

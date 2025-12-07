@@ -10,9 +10,9 @@
 - (_IncomingWideLoadQueue)initWithPartialMessageTemplate:(id)template
 {
   templateCopy = template;
-  v18.receiver = self;
-  v18.super_class = _IncomingWideLoadQueue;
-  v5 = [(_IncomingWideLoadQueue *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = _IncomingWideLoadQueue;
+  v5 = [(_IncomingWideLoadQueue *)&v19 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -27,10 +27,10 @@
     uUIDString = [(NSUUID *)v5->_wideLoadId UUIDString];
     v9 = [NSString stringWithFormat:@"Incoming-%@.data", uUIDString];
 
-    v10 = sub_10002F050();
-    v11 = [v10 stringByAppendingPathComponent:v9];
+    v11 = sub_10002F050(v10);
+    v12 = [v11 stringByAppendingPathComponent:v9];
     tempFilePath = v5->_tempFilePath;
-    v5->_tempFilePath = v11;
+    v5->_tempFilePath = v12;
 
     v5->_maxPartSize = [templateCopy maxPartSize];
     v5->_partsExpected = [templateCopy numberOfParts];
@@ -45,20 +45,20 @@
     [(NTKDSyncMessage *)v5->_wideLoadMessageTemplate setMaxPartSize:0];
 
 LABEL_5:
-    v15 = v5;
+    v16 = v5;
     goto LABEL_9;
   }
 
-  v16 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     sub_10003F930();
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_9:
 
-  return v15;
+  return v16;
 }
 
 - (void)dealloc
@@ -76,8 +76,8 @@ LABEL_9:
   partCopy = part;
   if (![partCopy isPartial] || !objc_msgSend(partCopy, "numberOfParts"))
   {
-    v9 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10003FA28();
     }
@@ -85,14 +85,12 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  p_partsAdded = &self->_partsAdded;
-  p_partsExpected = &self->_partsExpected;
   if (self->_partsAdded >= self->_partsExpected)
   {
-    v11 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10003F9AC(p_partsAdded, p_partsExpected);
+      sub_10003F9AC();
     }
 
     goto LABEL_12;
@@ -111,15 +109,15 @@ LABEL_9:
   if (![partCopy getPayloadDataIntoFile:self->_tempFilePath toOffset:{objc_msgSend(partCopy, "partNumber") * maxPartSize}])
   {
 LABEL_12:
-    v8 = 0;
+    v6 = 0;
     goto LABEL_13;
   }
 
-  ++*p_partsAdded;
-  v8 = 1;
+  ++self->_partsAdded;
+  v6 = 1;
 LABEL_13:
 
-  return v8;
+  return v6;
 }
 
 - (id)getWideLoad

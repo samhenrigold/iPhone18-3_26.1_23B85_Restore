@@ -44,7 +44,7 @@
   if (!v11)
   {
     modelEspresso = self->_modelEspresso;
-    if (modelEspresso && ([(VCPCNNModelEspresso *)modelEspresso outputBlob], (value = time.value) != 0))
+    if (modelEspresso && (objc_msgSend_outputBlob(modelEspresso), (value = time.value) != 0))
     {
       v28 = runCopy;
       v13 = 0;

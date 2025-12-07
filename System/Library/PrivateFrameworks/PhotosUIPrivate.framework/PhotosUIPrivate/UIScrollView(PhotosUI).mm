@@ -1,6 +1,6 @@
 @interface UIScrollView(PhotosUI)
+- (BOOL)pu_isPerformingScrollTest;
 - (double)pu_displayFrameForRect:()PhotosUI;
-- (uint64_t)pu_isPerformingScrollTest;
 - (void)_pu_beginPageSwipeTest:()PhotosUI;
 - (void)_pu_endPageSwipeTest:()PhotosUI;
 - (void)_pu_incrementForPageSwipeTest:()PhotosUI dt:stop:;
@@ -264,7 +264,7 @@ LABEL_16:
   [(_PUScrollViewPPTScrollHelper *)v13 scrollWithStartHandler:0 incrementHandler:v15 completionHandler:v8];
 }
 
-- (uint64_t)pu_isPerformingScrollTest
+- (BOOL)pu_isPerformingScrollTest
 {
   scrollTestParameters = [self scrollTestParameters];
 

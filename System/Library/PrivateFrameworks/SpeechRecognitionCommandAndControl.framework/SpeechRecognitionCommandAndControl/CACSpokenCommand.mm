@@ -1241,16 +1241,16 @@ void __53__CACSpokenCommand_CACSpokenCommandGestures__endDrag__block_invoke_5(do
 
   if (v8)
   {
-    v10 = [CACSpokenCommandGestureManager managerForDisplayID:a4];
-    [v10 endDragAtPoint:{a1, a2}];
+    v11 = [CACSpokenCommandGestureManager managerForDisplayID:a4];
+    [v11 endDragAtPoint:{a1, a2}];
   }
 
   else
   {
-    v9 = CACLogGeneral();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = CACLogGeneral(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __53__CACSpokenCommand_CACSpokenCommandGestures__endDrag__block_invoke_5_cold_1(v9);
+      __53__CACSpokenCommand_CACSpokenCommandGestures__endDrag__block_invoke_5_cold_1(v10);
     }
   }
 }
@@ -2049,8 +2049,8 @@ LABEL_3:
       block[1] = 3221225472;
       block[2] = __66__CACSpokenCommand_displayRecognizedMessageUsingAttributedString___block_invoke;
       block[3] = &unk_279CEB2D0;
-      v9 = &v26;
-      v26 = v6;
+      v9 = &v27;
+      v27 = v6;
       if (displayRecognizedMessageUsingAttributedString__recSoundInit != -1)
       {
         dispatch_once(&displayRecognizedMessageUsingAttributedString__recSoundInit, block);
@@ -2061,15 +2061,15 @@ LABEL_3:
 
     else
     {
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __66__CACSpokenCommand_displayRecognizedMessageUsingAttributedString___block_invoke_3;
-      v23[3] = &unk_279CEB2D0;
-      v9 = &v24;
-      v24 = v6;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __66__CACSpokenCommand_displayRecognizedMessageUsingAttributedString___block_invoke_3;
+      v24[3] = &unk_279CEB2D0;
+      v9 = &v25;
+      v25 = v6;
       if (displayRecognizedMessageUsingAttributedString__recSoundInit_503 != -1)
       {
-        dispatch_once(&displayRecognizedMessageUsingAttributedString__recSoundInit_503, v23);
+        dispatch_once(&displayRecognizedMessageUsingAttributedString__recSoundInit_503, v24);
       }
 
       if (displayRecognizedMessageUsingAttributedString__gRecognizedAudioPlayer)
@@ -2113,21 +2113,22 @@ LABEL_23:
     v16 = dispatch_semaphore_create(0);
     v17 = +[CACDisplayManager sharedManager];
     string = [stringCopy string];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __66__CACSpokenCommand_displayRecognizedMessageUsingAttributedString___block_invoke_4;
-    v21[3] = &unk_279CEB2D0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __66__CACSpokenCommand_displayRecognizedMessageUsingAttributedString___block_invoke_4;
+    v22[3] = &unk_279CEB2D0;
     v13 = v16;
-    v22 = v13;
-    [v17 displayMessageString:string type:2 announcementCompletion:v21];
+    v23 = v13;
+    [v17 displayMessageString:string type:2 announcementCompletion:v22];
 
     v19 = dispatch_time(0, 15000000000);
-    if (dispatch_semaphore_wait(v13, v19))
+    v20 = dispatch_semaphore_wait(v13, v19);
+    if (v20)
     {
-      v20 = CACLogAccessibility();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = CACLogAccessibility(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(CACSpokenCommand *)stringCopy displayRecognizedMessageUsingAttributedString:v20];
+        [(CACSpokenCommand *)stringCopy displayRecognizedMessageUsingAttributedString:v21];
       }
     }
 
@@ -2281,11 +2282,11 @@ LABEL_31:
 
 - (CACSpokenCommand)initWithProperties:(id)properties
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v35.receiver = self;
-  v35.super_class = CACSpokenCommand;
-  v5 = [(CACSpokenCommand *)&v35 init];
+  v36.receiver = self;
+  v36.super_class = CACSpokenCommand;
+  v5 = [(CACSpokenCommand *)&v36 init];
   if (v5)
   {
     v6 = objc_opt_new();
@@ -2311,32 +2312,32 @@ LABEL_31:
       if (v11)
       {
         contextEvaluation = [(CACSpokenCommand *)v5 contextEvaluation];
-        v30 = propertiesCopy;
+        v31 = propertiesCopy;
         v13 = [propertiesCopy objectForKey:@"ContextEvaluation"];
         [contextEvaluation addEntriesFromDictionary:v13];
 
-        v33 = 0u;
         v34 = 0u;
-        v31 = 0u;
+        v35 = 0u;
         v32 = 0u;
+        v33 = 0u;
         contextEvaluation2 = [(CACSpokenCommand *)v5 contextEvaluation];
         allKeys = [contextEvaluation2 allKeys];
 
-        v16 = [allKeys countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v16 = [allKeys countByEnumeratingWithState:&v32 objects:v41 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v32;
+          v18 = *v33;
           while (2)
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v32 != v18)
+              if (*v33 != v18)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v20 = *(*(&v31 + 1) + 8 * i);
+              v20 = *(*(&v32 + 1) + 8 * i);
               v21 = +[CACSpokenCommandManager hardwareEvaluatorKeys];
               v22 = [v21 containsObject:v20];
 
@@ -2348,25 +2349,25 @@ LABEL_31:
 
                 if (!v25)
                 {
-                  v28 = CACLogAccessibility();
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+                  v29 = CACLogAccessibility(v26);
+                  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
                   {
                     identifier = v5->_identifier;
                     *buf = 138412546;
-                    v37 = identifier;
-                    v38 = 2112;
-                    v39 = v20;
-                    _os_log_impl(&dword_26B354000, v28, OS_LOG_TYPE_INFO, "Removing command %@ for failing evaluator %@", buf, 0x16u);
+                    v38 = identifier;
+                    v39 = 2112;
+                    v40 = v20;
+                    _os_log_impl(&dword_26B354000, v29, OS_LOG_TYPE_INFO, "Removing command %@ for failing evaluator %@", buf, 0x16u);
                   }
 
-                  v26 = 0;
-                  propertiesCopy = v30;
+                  v27 = 0;
+                  propertiesCopy = v31;
                   goto LABEL_18;
                 }
               }
             }
 
-            v17 = [allKeys countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v17 = [allKeys countByEnumeratingWithState:&v32 objects:v41 count:16];
             if (v17)
             {
               continue;
@@ -2376,15 +2377,15 @@ LABEL_31:
           }
         }
 
-        propertiesCopy = v30;
+        propertiesCopy = v31;
       }
     }
   }
 
-  v26 = v5;
+  v27 = v5;
 LABEL_18:
 
-  return v26;
+  return v27;
 }
 
 - (CACSpokenCommand)initWithSpokenCommand:(id)command
@@ -2649,35 +2650,35 @@ LABEL_18:
 
 - (void)performAction
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v3 = RXSignpostLog();
   if (os_signpost_enabled(v3))
   {
     uTF8String = [(NSString *)self->_identifier UTF8String];
     *buf = 136315138;
-    v68 = uTF8String;
+    v70 = uTF8String;
     _os_signpost_emit_with_name_impl(&dword_26B354000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CAC, CmdRec: Performing action.", "%s", buf, 0xCu);
   }
 
-  v5 = CACLogRecognition();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CACLogRecognition(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uTF8String2 = [(NSString *)self->_identifier UTF8String];
     *buf = 136315138;
-    v68 = uTF8String2;
-    _os_log_impl(&dword_26B354000, v5, OS_LOG_TYPE_DEFAULT, "CAC, CmdRec: Performing action. %s", buf, 0xCu);
+    v70 = uTF8String2;
+    _os_log_impl(&dword_26B354000, v6, OS_LOG_TYPE_DEFAULT, "CAC, CmdRec: Performing action. %s", buf, 0xCu);
   }
 
-  v7 = +[CACDisplayManager sharedManager];
-  [v7 hideDictationRecognizerModeOverlayNow];
+  v8 = +[CACDisplayManager sharedManager];
+  [v8 hideDictationRecognizerModeOverlayNow];
 
   identifier = [(CACSpokenCommand *)self identifier];
-  v9 = [identifier hasPrefix:@"Dictation."];
+  v10 = [identifier hasPrefix:@"Dictation."];
 
-  if (v9)
+  if (v10)
   {
-    v10 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    disambiguationHandler = [v10 disambiguationHandler];
+    v11 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    disambiguationHandler = [v11 disambiguationHandler];
     labeledElements = [disambiguationHandler labeledElements];
     firstObject = [labeledElements firstObject];
     textMarkerRange = [firstObject textMarkerRange];
@@ -2687,52 +2688,52 @@ LABEL_18:
       goto LABEL_20;
     }
 
-    v15 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    [v15 cancelAnyTransientOverlay];
+    v16 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    [v16 cancelAnyTransientOverlay];
   }
 
   else
   {
-    v15 = +[CACSpokenCommandGestureManager defaultGestureManager];
-    v16 = +[CACDisplayManager sharedManager];
-    [v16 defaultPortraitUpPointForGestures];
-    [v15 setDefaultPortraitUpPointForGestures:?];
+    v16 = +[CACSpokenCommandGestureManager defaultGestureManager];
+    v17 = +[CACDisplayManager sharedManager];
+    [v17 defaultPortraitUpPointForGestures];
+    [v16 setDefaultPortraitUpPointForGestures:?];
 
     if (![(NSString *)self->_identifier isEqualToString:@"VoiceOver.StopSpeaking"])
     {
       contextEvaluation = [(CACSpokenCommand *)self contextEvaluation];
-      v18 = [contextEvaluation objectForKey:kCACCommandContextDeferRecognizedStringDisplay];
-      bOOLValue = [v18 BOOLValue];
+      v19 = [contextEvaluation objectForKey:kCACCommandContextDeferRecognizedStringDisplay];
+      bOOLValue = [v19 BOOLValue];
 
       if ((bOOLValue & 1) == 0)
       {
         recognizedParameters = [(CACSpokenCommand *)self recognizedParameters];
-        v21 = [CACSpokenCommand attributedStringFromRecognizedCommandParameters:recognizedParameters variantOverrides:0];
-        [CACSpokenCommand displayRecognizedMessageUsingAttributedString:v21];
+        v22 = [CACSpokenCommand attributedStringFromRecognizedCommandParameters:recognizedParameters variantOverrides:0];
+        [CACSpokenCommand displayRecognizedMessageUsingAttributedString:v22];
       }
     }
 
-    v22 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    v23 = [v22 isActiveOverlayType:@"NumberedGrid"];
+    v23 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    v24 = [v23 isActiveOverlayType:@"NumberedGrid"];
 
-    if (v23)
+    if (v24)
     {
       if (![(NSString *)self->_identifier isEqualToString:@"System.ShowGrid"]&& ![(NSString *)self->_identifier isEqualToString:@"System.HideGrid"]&& ![(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseLabel"]&& ![(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseLabelWithoutPrefix"])
       {
-        v24 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-        [v24 cancelAnyTransientOverlay];
+        v25 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+        [v25 cancelAnyTransientOverlay];
       }
 
-      v25 = +[CACDisplayManager sharedManager];
-      [v25 resetGridIdleTimer];
+      v26 = +[CACDisplayManager sharedManager];
+      [v26 resetGridIdleTimer];
     }
 
     else
     {
-      v33 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-      v34 = [v33 isActiveOverlayType:@"NumberedElements"];
+      v34 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+      v35 = [v34 isActiveOverlayType:@"NumberedElements"];
 
-      if (v34)
+      if (v35)
       {
         if ([(NSString *)self->_identifier isEqualToString:@"System.ShowLabels"]|| [(NSString *)self->_identifier isEqualToString:@"System.HideLabels"])
         {
@@ -2741,69 +2742,69 @@ LABEL_18:
 
         if ([(NSString *)self->_identifier isEqualToString:@"System.GoHome"])
         {
-          v35 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-          [v35 setNextFetchDelayFactor:8.0];
+          v36 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+          [v36 setNextFetchDelayFactor:8.0];
         }
 
-        v36 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-        v37 = [(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseLabel"]|| [(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseLabelWithoutPrefix"]|| [(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseAllLabels"];
-        [v36 setShouldPreserveDisambiguationHandler:v37];
+        v37 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+        v38 = [(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseLabel"]|| [(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseLabelWithoutPrefix"]|| [(NSString *)self->_identifier isEqualToString:@"System.OverlayChooseAllLabels"];
+        [v37 setShouldPreserveDisambiguationHandler:v38];
 
-        v60 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-        [v60 cancelAnyTransientOverlay];
+        v62 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+        [v62 cancelAnyTransientOverlay];
 
-        v25 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-        [v25 setShouldPreserveDisambiguationHandler:0];
+        v26 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+        [v26 setShouldPreserveDisambiguationHandler:0];
       }
 
       else
       {
-        v40 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-        v41 = [v40 isActiveOverlayType:@"NamedElements"];
+        v41 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+        v42 = [v41 isActiveOverlayType:@"NamedElements"];
 
-        if (v41)
+        if (v42)
         {
           if ([(NSString *)self->_identifier isEqualToString:@"System.ShowElementNames"]|| [(NSString *)self->_identifier isEqualToString:@"System.HideElementNames"])
           {
             goto LABEL_19;
           }
 
-          v25 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-          [v25 cancelAnyTransientOverlay];
+          v26 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+          [v26 cancelAnyTransientOverlay];
         }
 
         else
         {
+          v66 = 0u;
+          v67 = 0u;
           v64 = 0u;
           v65 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v25 = +[CACSpokenCommandGestureManager allManagers];
-          v45 = [v25 countByEnumeratingWithState:&v62 objects:v66 count:16];
-          if (v45)
+          v26 = +[CACSpokenCommandGestureManager allManagers];
+          v46 = [v26 countByEnumeratingWithState:&v64 objects:v68 count:16];
+          if (v46)
           {
-            v46 = v45;
-            v47 = *v63;
+            v47 = v46;
+            v48 = *v65;
             do
             {
-              for (i = 0; i != v46; ++i)
+              for (i = 0; i != v47; ++i)
               {
-                if (*v63 != v47)
+                if (*v65 != v48)
                 {
-                  objc_enumerationMutation(v25);
+                  objc_enumerationMutation(v26);
                 }
 
-                v49 = *(*(&v62 + 1) + 8 * i);
-                if ([v49 isInDragGesture] && (objc_msgSend(&unk_287BEFF30, "containsObject:", self->_identifier) & 1) == 0)
+                v50 = *(*(&v64 + 1) + 8 * i);
+                if ([v50 isInDragGesture] && (objc_msgSend(&unk_287BEFF30, "containsObject:", self->_identifier) & 1) == 0)
                 {
-                  [v49 resetState];
+                  [v50 resetState];
                 }
               }
 
-              v46 = [v25 countByEnumeratingWithState:&v62 objects:v66 count:16];
+              v47 = [v26 countByEnumeratingWithState:&v64 objects:v68 count:16];
             }
 
-            while (v46);
+            while (v47);
           }
         }
       }
@@ -2813,30 +2814,30 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v26 = +[CACRecordedUserActionManager sharedManager];
-  if ([v26 isRecording])
+  v27 = +[CACRecordedUserActionManager sharedManager];
+  if ([v27 isRecording])
   {
     if ([(NSString *)self->_identifier isEqualToString:@"System.LockScreen"]|| [(NSString *)self->_identifier isEqualToString:@"Accessibility.DisableCommandAndControl"])
     {
 
 LABEL_24:
-      v27 = +[CACDisplayManager sharedManager];
-      v28 = [CACLocaleUtilities localizedUIStringForKey:@"CommandRecording.Warning.StoppedBecauseOfCommandIdentifier"];
-      [v27 displayMessageString:v28 type:0];
+      v28 = +[CACDisplayManager sharedManager];
+      v29 = [CACLocaleUtilities localizedUIStringForKey:@"CommandRecording.Warning.StoppedBecauseOfCommandIdentifier"];
+      [v28 displayMessageString:v29 type:0];
 
-      v29 = dispatch_time(0, 1000000000);
+      v30 = dispatch_time(0, 1000000000);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __33__CACSpokenCommand_performAction__block_invoke;
       block[3] = &unk_279CEB2D0;
       block[4] = self;
-      dispatch_after(v29, MEMORY[0x277D85CD0], block);
+      dispatch_after(v30, MEMORY[0x277D85CD0], block);
       goto LABEL_66;
     }
 
-    v39 = [(NSString *)self->_identifier isEqualToString:@"System.SleepListening"];
+    v40 = [(NSString *)self->_identifier isEqualToString:@"System.SleepListening"];
 
-    if (v39)
+    if (v40)
     {
       goto LABEL_24;
     }
@@ -2846,8 +2847,8 @@ LABEL_24:
   {
   }
 
-  v30 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-  focusedElement = [v30 focusedElement];
+  v31 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+  focusedElement = [v31 focusedElement];
 
   [(CACSpokenCommand *)self setExecuting:1];
   p_action = &self->_action;
@@ -2872,9 +2873,9 @@ LABEL_24:
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       systemWideElement = [MEMORY[0x277CE6BA0] systemWideElement];
-      v54 = objc_opt_respondsToSelector();
+      v56 = objc_opt_respondsToSelector();
 
-      if (v54)
+      if (v56)
       {
         systemWideElement2 = [MEMORY[0x277CE6BA0] systemWideElement];
       }
@@ -2882,9 +2883,9 @@ LABEL_24:
       else
       {
         WeakRetained = objc_loadWeakRetained(&self->_commandRecognizer);
-        v57 = objc_opt_respondsToSelector();
+        v59 = objc_opt_respondsToSelector();
 
-        if ((v57 & 1) == 0)
+        if ((v59 & 1) == 0)
         {
           [(CACSpokenCommand *)self handleSpokenCommand:0];
           goto LABEL_65;
@@ -2893,18 +2894,18 @@ LABEL_24:
         systemWideElement2 = objc_loadWeakRetained(&self->_commandRecognizer);
       }
 
-      v58 = systemWideElement2;
+      v60 = systemWideElement2;
       if (*p_action)
       {
-        v59 = *p_action;
+        v61 = *p_action;
       }
 
       else
       {
-        v59 = 0;
+        v61 = 0;
       }
 
-      [systemWideElement2 performSelector:v59 withObject:self];
+      [systemWideElement2 performSelector:v61 withObject:self];
 
       goto LABEL_65;
     }
@@ -2932,22 +2933,22 @@ LABEL_66:
     [(CACSpokenCommand *)self setExecuting:0];
   }
 
-  v50 = RXSignpostLog();
-  if (os_signpost_enabled(v50))
+  v51 = RXSignpostLog();
+  if (os_signpost_enabled(v51))
   {
     uTF8String3 = [(NSString *)self->_identifier UTF8String];
     *buf = 136315138;
-    v68 = uTF8String3;
-    _os_signpost_emit_with_name_impl(&dword_26B354000, v50, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CAC, CmdRec: Performing action.", "%s", buf, 0xCu);
+    v70 = uTF8String3;
+    _os_signpost_emit_with_name_impl(&dword_26B354000, v51, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CAC, CmdRec: Performing action.", "%s", buf, 0xCu);
   }
 
-  v52 = CACLogRecognition();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+  v54 = CACLogRecognition(v53);
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
     uTF8String4 = [(NSString *)self->_identifier UTF8String];
     *buf = 136315138;
-    v68 = uTF8String4;
-    _os_log_impl(&dword_26B354000, v52, OS_LOG_TYPE_DEFAULT, "CAC, CmdRec: Performed action. %s", buf, 0xCu);
+    v70 = uTF8String4;
+    _os_log_impl(&dword_26B354000, v54, OS_LOG_TYPE_DEFAULT, "CAC, CmdRec: Performed action. %s", buf, 0xCu);
   }
 }
 
@@ -2980,19 +2981,20 @@ LABEL_66:
   v12 = [recognizedParameters3 objectForKey:*v6];
   v13 = [v12 objectForKey:kCACCommandParameterMatchingApps];
 
-  if ([v13 count] == 1)
+  v14 = [v13 count];
+  if (v14 == 1)
   {
     firstObject = [v13 firstObject];
-    v15 = [firstObject objectForKey:kCACCommandParameterAppIdentifier];
-    if (v15)
+    v16 = [firstObject objectForKey:kCACCommandParameterAppIdentifier];
+    if (v16)
     {
-      [CACApplicationUtilities launchApplicationWithIdentifier:v15];
+      [CACApplicationUtilities launchApplicationWithIdentifier:v16];
     }
   }
 
   else
   {
-    firstObject = CACLogGeneral();
+    firstObject = CACLogGeneral(v14);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       [CACSpokenCommand openApplication];
@@ -3002,7 +3004,7 @@ LABEL_66:
 
 - (void)closeApplication
 {
-  v3 = CACLogDictationCommands();
+  v3 = CACLogDictationCommands(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CACSpokenCommand closeApplication];
@@ -3025,7 +3027,7 @@ LABEL_66:
 
 - (void)closeFrontApplication
 {
-  v2 = CACLogDictationCommands();
+  v2 = CACLogDictationCommands(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     [CACSpokenCommand closeFrontApplication];
@@ -3051,7 +3053,7 @@ LABEL_66:
   }
 }
 
-uint64_t __41__CACSpokenCommand_closeFrontApplication__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__41__CACSpokenCommand_closeFrontApplication__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 isEqualToString:*(a1 + 32)];
   if (result)
@@ -3350,7 +3352,7 @@ void __34__CACSpokenCommand_showVocabulary__block_invoke()
 
 - (void)showTraining
 {
-  v2 = CACLogAccessibility();
+  v2 = CACLogAccessibility(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -4487,80 +4489,80 @@ uint64_t __35__CACSpokenCommand_searchSpotlight__block_invoke(uint64_t a1, void 
 
 void __35__CACSpokenCommand_searchSpotlight__block_invoke_723(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
   v3 = [v2 focusedElement];
 
-  v4 = CACLogDictationCommands();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CACLogDictationCommands(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109120;
-    v15[1] = [v3 hasTextEntry];
-    _os_log_impl(&dword_26B354000, v4, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6. Trying to input text. hasTextEntry: %d", v15, 8u);
+    v20[0] = 67109120;
+    v20[1] = [v3 hasTextEntry];
+    _os_log_impl(&dword_26B354000, v5, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6. Trying to input text. hasTextEntry: %d", v20, 8u);
   }
 
   if (v3)
   {
-    v5 = [v3 value];
-    v6 = [v5 isEqualToString:*(a1 + 32)];
+    v7 = [v3 value];
+    v8 = [v7 isEqualToString:*(a1 + 32)];
 
-    if (v6)
+    if (v8)
     {
-      v7 = CACLogDictationCommands();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v10 = CACLogDictationCommands(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&dword_26B354000, v7, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.4. Search phrase already entered.", v15, 2u);
+        LOWORD(v20[0]) = 0;
+        _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.4. Search phrase already entered.", v20, 2u);
       }
     }
 
     else
     {
-      v8 = [v3 value];
-      v9 = [v8 length];
+      v11 = [v3 value];
+      v12 = [v11 length];
 
-      v10 = CACLogDictationCommands();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-      if (v9)
+      v14 = CACLogDictationCommands(v13);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      if (v12)
       {
-        if (v11)
+        if (v15)
         {
-          LOWORD(v15[0]) = 0;
-          _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.1. Has existing text. Deleting all.", v15, 2u);
+          LOWORD(v20[0]) = 0;
+          _os_log_impl(&dword_26B354000, v14, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.1. Has existing text. Deleting all.", v20, 2u);
         }
 
-        v12 = [[CACTextEditingProvider alloc] initWithSpokenCommand:*(a1 + 40) axElement:v3];
-        v13 = [(CACTextEditingProvider *)v12 textEditingEngine];
-        [v13 deleteAll];
+        v16 = [[CACTextEditingProvider alloc] initWithSpokenCommand:*(a1 + 40) axElement:v3];
+        v17 = [(CACTextEditingProvider *)v16 textEditingEngine];
+        [v17 deleteAll];
 
-        usleep(0x61A80u);
+        v18 = usleep(0x61A80u);
       }
 
       else
       {
-        if (v11)
+        if (v15)
         {
-          LOWORD(v15[0]) = 0;
-          _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.2. Already empty.", v15, 2u);
+          LOWORD(v20[0]) = 0;
+          _os_log_impl(&dword_26B354000, v14, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.2. Already empty.", v20, 2u);
         }
       }
 
-      v14 = CACLogDictationCommands();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v19 = CACLogDictationCommands(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&dword_26B354000, v14, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.3. Entering dictated text.", v15, 2u);
+        LOWORD(v20[0]) = 0;
+        _os_log_impl(&dword_26B354000, v19, OS_LOG_TYPE_DEFAULT, "Search Spotlight 6.3. Entering dictated text.", v20, 2u);
       }
 
-      v7 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-      [v7 enterDictatedString:*(a1 + 32)];
+      v10 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+      [v10 enterDictatedString:*(a1 + 32)];
     }
   }
 
   else
   {
-    v7 = CACLogDictationCommands();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = CACLogDictationCommands(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __35__CACSpokenCommand_searchSpotlight__block_invoke_723_cold_1();
     }
@@ -4595,7 +4597,7 @@ void __35__CACSpokenCommand_searchSpotlight__block_invoke_723(uint64_t a1)
 
 - (void)searchWeb
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   recognizedParameters = [(CACSpokenCommand *)self recognizedParameters];
   v3 = [recognizedParameters objectForKey:*MEMORY[0x277D655C8]];
   v4 = [v3 objectForKey:kCACCommandParameterText];
@@ -4609,29 +4611,29 @@ void __35__CACSpokenCommand_searchSpotlight__block_invoke_723(uint64_t a1)
     v9 = [v6 stringWithFormat:@"x-web-search://?%@", v8];
     v10 = [v5 URLWithString:v9];
 
-    v11 = CACLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = CACLogGeneral(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = v10;
-      _os_log_impl(&dword_26B354000, v11, OS_LOG_TYPE_INFO, "Asking UIApplication to open URL %@", buf, 0xCu);
+      v18 = v10;
+      _os_log_impl(&dword_26B354000, v12, OS_LOG_TYPE_INFO, "Asking UIApplication to open URL %@", buf, 0xCu);
     }
 
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __29__CACSpokenCommand_searchWeb__block_invoke;
-    v14[3] = &unk_279CEB760;
-    v15 = v10;
-    v13 = v10;
-    [mEMORY[0x277D75128] openURL:v13 options:MEMORY[0x277CBEC10] completionHandler:v14];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __29__CACSpokenCommand_searchWeb__block_invoke;
+    v15[3] = &unk_279CEB760;
+    v16 = v10;
+    v14 = v10;
+    [mEMORY[0x277D75128] openURL:v14 options:MEMORY[0x277CBEC10] completionHandler:v15];
   }
 }
 
 void __29__CACSpokenCommand_searchWeb__block_invoke(uint64_t a1, char a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = CACLogGeneral();
+  v4 = CACLogGeneral(a1);
   v5 = v4;
   if (a2)
   {
@@ -5138,62 +5140,62 @@ LABEL_19:
 - (BOOL)_performScrollingAction:(int)action
 {
   v3 = *&action;
-  v34 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v4 = [(CACSpokenCommand *)self _scrollAncestorsFromTopLevelElementsForAction:*&action categorizedElements:&v31];
-  v27 = 0u;
+  v35 = *MEMORY[0x277D85DE8];
+  v32 = 0;
+  v4 = [(CACSpokenCommand *)self _scrollAncestorsFromTopLevelElementsForAction:*&action categorizedElements:&v32];
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v20 = v31;
-  obj = [v20 allValues];
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v31 = 0u;
+  v21 = v32;
+  obj = [v21 allValues];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v28;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
-        v23 = 0u;
+        v10 = *(*(&v28 + 1) + 8 * i);
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
         reverseObjectEnumerator = [v10 reverseObjectEnumerator];
-        v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v32 count:16];
+        v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v33 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v24;
+          v14 = *v25;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v24 != v14)
+              if (*v25 != v14)
               {
                 objc_enumerationMutation(reverseObjectEnumerator);
               }
 
-              v16 = *(*(&v23 + 1) + 8 * j);
+              v16 = *(*(&v24 + 1) + 8 * j);
               if ([v16 supportsAction:v3] && objc_msgSend(v16, "performAction:", v3))
               {
                 lastObject = [v10 lastObject];
 
                 if (v16 != lastObject)
                 {
-                  v18 = CACLogElementEvaluation();
-                  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                  v19 = CACLogElementEvaluation(v18);
+                  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_26B354000, v18, OS_LOG_TYPE_DEFAULT, "Reproduced rdar://132435403.  Fell back to alternate element for scrolling.", buf, 2u);
+                    _os_log_impl(&dword_26B354000, v19, OS_LOG_TYPE_DEFAULT, "Reproduced rdar://132435403.  Fell back to alternate element for scrolling.", buf, 2u);
                   }
                 }
 
@@ -5202,7 +5204,7 @@ LABEL_19:
               }
             }
 
-            v13 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v32 count:16];
+            v13 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v33 count:16];
             if (v13)
             {
               continue;
@@ -5217,7 +5219,7 @@ LABEL_19:
 LABEL_21:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v6);
@@ -5905,7 +5907,7 @@ void __56__CACSpokenCommand_CACSpokenCommandHardware__lockScreen__block_invoke()
 void __65__CACSpokenCommand_CACSpokenCommandHardware__activateSpeakScreen__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CACLogDictationCommands();
+  v3 = CACLogDictationCommands(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __65__CACSpokenCommand_CACSpokenCommandHardware__activateSpeakScreen__block_invoke_cold_1(v2, v3);
@@ -5990,7 +5992,7 @@ void __65__CACSpokenCommand_CACSpokenCommandHardware__activateSysdiagnose__block
 void __65__CACSpokenCommand_CACSpokenCommandHardware__activateSysdiagnose__block_invoke_2(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = CACLogAccessibility();
+  v2 = CACLogAccessibility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -7169,17 +7171,17 @@ LABEL_11:
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-void __76__CACSpokenCommand_CACSpokenCommandTextEditing___activateKeyboardReturnKey___block_invoke(uint64_t a1)
+void __76__CACSpokenCommand_CACSpokenCommandTextEditing___activateKeyboardReturnKey___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (AXUIKeyboardIsOOP())
   {
-    v2 = [MEMORY[0x277CE6BA0] systemWideElement];
-    v5 = [v2 uiElement];
+    v3 = [MEMORY[0x277CE6BA0] systemWideElement];
+    v6 = [v3 uiElement];
 
-    v3 = [v5 uiElementsWithAttribute:1011];
-    v4 = [v3 lastObject];
+    v4 = [v6 uiElementsWithAttribute:1011];
+    v5 = [v4 lastObject];
 
-    if (([v4 performAXAction:2054] & 1) == 0)
+    if (([v5 performAXAction:2054] & 1) == 0)
     {
       [*(a1 + 40) postKeyboardEventWithKeyCode:40 modifierFlags:0 isKeyDown:1];
       [*(a1 + 40) postKeyboardEventWithKeyCode:40 modifierFlags:0 isKeyDown:0];
@@ -7188,8 +7190,8 @@ void __76__CACSpokenCommand_CACSpokenCommandTextEditing___activateKeyboardReturn
 
   else
   {
-    v5 = [*(a1 + 32) uiElement];
-    [v5 performAXAction:2054];
+    v6 = [*(a1 + 32) uiElement];
+    [v6 performAXAction:2054];
   }
 }
 

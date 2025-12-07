@@ -1,1175 +1,6 @@
-uint64_t glpLLVMCGRValue(uint64_t a1, uint64_t a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  SaType = glpASTNodeGetSaType(a2);
-  if (glpTypeIsAtomic(SaType))
-  {
-    glpLLVMAddLineInformation(a1, a2);
-    Base = glpRValueNodeGetBase(a2);
-    Element = glpLLVMCGNode(a1, Base, 1);
-    Offset = glpDerefNodeGetOffset(a2);
-    if (Offset)
-    {
-      v8 = Offset;
-      OffsetExpr = glpOffsetNodeGetOffsetExpr(Offset);
-      if (OffsetExpr)
-      {
-        v10 = glpLLVMCGNode(a1, OffsetExpr, 1);
-      }
-
-      else
-      {
-        v10 = 0;
-      }
-
-      v11 = glpASTNodeGetSaType(a2);
-      PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v11);
-      if (glpOffsetNodeGetPreSwizzlePrimitiveType(v8))
-      {
-        PrimitiveType = glpOffsetNodeGetPreSwizzlePrimitiveType(v8);
-      }
-
-      if (v10)
-      {
-        if ((*(a1 + 832) & 8) != 0 && glpASTNodeGetKind(Base) == 3 && (glpASTNodeGetSaFlags(Base) & 0x60) != 0)
-        {
-          if (!glpPointerHashGet(*(a1 + 344), Element))
-          {
-            v13 = *(a1 + 8);
-            LLVMTypeOf();
-            v14 = LLVMAddGlobalInAddressSpace();
-            LLVMSetGlobalConstant();
-            v15 = MEMORY[0x23EE854A0](v14, Element);
-            glpPointerHashPut(*(a1 + 344), Element, v14, v15);
-          }
-        }
-
-        else
-        {
-          LLVMTypeOf();
-          glpBuildAlloca(a1);
-          v16 = *(a1 + 16);
-          LLVMBuildStore();
-        }
-
-        if (!*(a1 + 520))
-        {
-          v17 = *(a1 + 40);
-          *(a1 + 520) = LLVMConstInt();
-        }
-
-        LLVMBuildGEP();
-        Element = LLVMBuildLoad();
-        SaFlags = glpASTNodeGetSaFlags(a2);
-        v19 = glpPrecisionIndexFromSAFlags(SaFlags);
-        glpPrimitiveTypeToLLVMType(a1, PrimitiveType, v19);
-      }
-
-      Swizzle = glpOffsetNodeGetSwizzle(v8);
-      Element = glpCGSwizzle(a1, 0, 0, Element, PrimitiveType, Swizzle);
-      VectorElementExpr = glpOffsetNodeGetVectorElementExpr(v8);
-      if (VectorElementExpr)
-      {
-        glpLLVMCGNode(a1, VectorElementExpr, 1);
-        v22 = *(a1 + 40);
-        if (LLVMTypeOf() != v22)
-        {
-          v23 = *(a1 + 16);
-          LLVMBuildIntCast();
-        }
-
-        v24 = *(a1 + 16);
-        Element = LLVMBuildExtractElement();
-      }
-    }
-  }
-
-  else
-  {
-    Element = 0;
-  }
-
-  v25 = *MEMORY[0x277D85DE8];
-  return Element;
-}
-
-unint64_t glpLLVMWriteOutput(uint64_t a1, uint64_t a2)
-{
-  result = glpWriteOutputNodeGetExtra(a2);
-  v4 = result;
-  v5 = *(a1 + 320);
-  if (v5 == 4)
-  {
-    if (!*(a1 + 208))
-    {
-      *(a1 + 208) = MEMORY[0x23EE85370](*(a1 + 200));
-    }
-
-    v6 = *(a1 + 692);
-    if (v6 >= 1)
-    {
-      v7 = 0;
-      while (*(*(a1 + 696) + 8 * v7) != v4)
-      {
-        if (v6 == ++v7)
-        {
-          v8 = *(a1 + 692);
-          break;
-        }
-      }
-    }
-
-    v9 = glpLayoutObjectFind(*(v4 + 8), 68);
-    glpLLVMGetVariablePointer(a1, v4);
-    v10 = glpPrecisionIndexFromSAFlags(*(v4 + 48));
-    v11 = glpTypeToLLVMTypeWithUnderlying(a1, *v4, v10, v4);
-    MEMORY[0x23EE85440](v11, 0);
-    v12 = *(a1 + 16);
-    LLVMBuildPointerCast();
-    LLVMBuildLoad();
-    v13 = glpLayoutObjectFind(*(v4 + 8), 77);
-    if (v13 && *(v13 + 4) == 2)
-    {
-      *(a1 + 760) |= 0x1000u;
-    }
-
-    if (*(v9 + 4) != 4)
-    {
-      goto LABEL_33;
-    }
-
-    PrimitiveType = glpPrimitiveTypeGetPrimitiveType(*v4);
-    if (glpPrimitiveTypeGetCategory(PrimitiveType) == 2)
-    {
-      Length = glpPrimitiveVectorGetLength(PrimitiveType);
-      if (Length > 3)
-      {
-LABEL_33:
-        v24 = *(a1 + 16);
-        v25 = *(a1 + 208);
-        result = LLVMBuildInsertValue();
-        *(a1 + 208) = result;
-        return result;
-      }
-
-      v16 = Length;
-      if (Length > 1)
-      {
-        v11 = LLVMGetElementType();
-      }
-    }
-
-    else
-    {
-      v16 = 1;
-    }
-
-    v17 = MEMORY[0x23EE854F0](v11, 4);
-    MEMORY[0x23EE85370](v17);
-    if (v16 >= 1)
-    {
-      v18 = 0;
-      v19 = a1 + 520;
-      do
-      {
-        if (v18 > 7)
-        {
-          v21 = *(a1 + 40);
-          LLVMConstInt();
-        }
-
-        else if (!*(v19 + 8 * v18))
-        {
-          v20 = *(a1 + 40);
-          *(v19 + 8 * v18) = LLVMConstInt();
-        }
-
-        if (v16 != 1)
-        {
-          v22 = *(a1 + 16);
-          LLVMBuildExtractElement();
-        }
-
-        v23 = *(a1 + 16);
-        LLVMBuildInsertElement();
-        ++v18;
-      }
-
-      while (v16 != v18);
-    }
-
-    goto LABEL_33;
-  }
-
-  if (v5 == 2 || !v5)
-  {
-
-    return glpLLVMCGWriteVertexOutput(a1, result);
-  }
-
-  return result;
-}
-
-void glpLLVMAddLineInformation(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 24))
-  {
-    v3 = 0uLL;
-    v4 = 0;
-    glpASTNodeGetLocation(a2, &v3);
-    if (v4 != -1)
-    {
-      glpLLVMSetCurrentLineInner(a1);
-    }
-  }
-}
-
-uint64_t glpPrimitiveTypeToLLVMType(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  Category = glpPrimitiveTypeGetCategory(a2);
-  if (Category <= 1)
-  {
-    if (!Category)
-    {
-      v12 = *a1;
-
-      return LLVMVoidTypeInContext();
-    }
-
-    if (Category != 1)
-    {
-      goto LABEL_37;
-    }
-
-    if (a2 <= 8)
-    {
-      if (a2 == 1)
-      {
-        if (a3 == 2)
-        {
-          return a1[61];
-        }
-
-        if (a3 == 1)
-        {
-          return a1[60];
-        }
-
-        return a1[62];
-      }
-
-      if (a2 != 5)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    else
-    {
-      if (a2 == 9)
-      {
-        return a1[8];
-      }
-
-      if (a2 != 36)
-      {
-        if (a2 == 62)
-        {
-          v8 = *a1;
-
-          return LLVMDoubleTypeInContext();
-        }
-
-LABEL_26:
-        glpPrimitiveVectorGetLength(a2);
-        ElementType = glpPrimitiveVectorGetElementType(a2);
-        glpPrimitiveTypeToLLVMType(a1, ElementType, a3);
-
-        JUMPOUT(0x23EE854F0);
-      }
-    }
-
-    if (a3 == 2)
-    {
-      return a1[58];
-    }
-
-    if (a3 == 1)
-    {
-      return a1[57];
-    }
-
-    return a1[59];
-  }
-
-  if (Category == 2)
-  {
-    goto LABEL_26;
-  }
-
-  if (Category != 3)
-  {
-    if (Category == 4)
-    {
-      return a1[5];
-    }
-
-LABEL_37:
-    glpPrimitiveTypeToLLVMType_cold_1(a2);
-  }
-
-  ColumnType = glpPrimitiveMatrixGetColumnType(a2);
-  PrimitiveType = glpGetPrimitiveType(a2);
-  v11 = glpABIGetTypeSize(0, PrimitiveType, 0);
-  glpTypeSizeGetSize(v11);
-  glpPrimitiveTypeToLLVMType(a1, ColumnType, a3);
-
-  return LLVMArrayType();
-}
-
-uint64_t glpLLVMBuildConversion(uint64_t *a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7)
-{
-  v50[1] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = a2;
-  v11 = glpLLVMGetTypeString(&v16, a4, a5);
-  v15 = 0;
-  v12 = glpLLVMGetTypeString(&v15, a6, a7);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v25 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  *v18 = 0u;
-  snprintf_l(v18, 0x200uLL, 0, "%s%s.%s%s.%s", "air.convert", v15, v12, v16, v11);
-  v50[0] = 0x300000001;
-  result = glpLLVMCallFunctionInner(a1, v18, a3, &v17, 1u, v50, 2u, "");
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t glpTypeGetVec4s(uint64_t a1)
-{
-  v1 = glpABIGetTypeSize(0, a1, 0);
-
-  return glpTypeSizeGetSize(v1);
-}
-
-const char *glpLLVMGetTypeString(const char **a1, int a2, int a3)
-{
-  *a1 = "";
-  if (a2 > 61)
-  {
-    if (a2 > 63)
-    {
-      if (a2 == 64)
-      {
-        *a1 = ".f";
-        return "v3f64";
-      }
-
-      else if (a2 == 65)
-      {
-        *a1 = ".f";
-        return "v4f64";
-      }
-
-      else
-      {
-        return "";
-      }
-    }
-
-    else
-    {
-      *a1 = ".f";
-      if (a2 == 62)
-      {
-        return "f64";
-      }
-
-      else
-      {
-        return "v2f64";
-      }
-    }
-  }
-
-  else
-  {
-    result = "i1";
-    switch(a2)
-    {
-      case 1:
-        *a1 = ".f";
-        v5 = a3 - 1;
-        v6 = "f32";
-        v7 = "f16";
-        break;
-      case 2:
-        *a1 = ".f";
-        v5 = a3 - 1;
-        v6 = "v2f32";
-        v7 = "v2f16";
-        break;
-      case 3:
-        *a1 = ".f";
-        v5 = a3 - 1;
-        v6 = "v3f32";
-        v7 = "v3f16";
-        break;
-      case 4:
-        *a1 = ".f";
-        v5 = a3 - 1;
-        v6 = "v4f32";
-        v7 = "v4f16";
-        break;
-      case 5:
-        v8 = ".s";
-        goto LABEL_14;
-      case 6:
-        v9 = ".s";
-        goto LABEL_20;
-      case 7:
-        v10 = ".s";
-        goto LABEL_22;
-      case 8:
-        v11 = ".s";
-        goto LABEL_25;
-      case 9:
-        return result;
-      case 10:
-        return "v2i1";
-      case 11:
-        return "v3i1";
-      case 12:
-        return "v4i1";
-      case 36:
-        v8 = ".u";
-LABEL_14:
-        *a1 = v8;
-        v5 = a3 - 1;
-        v6 = "i32";
-        v7 = "i16";
-        break;
-      case 37:
-        v9 = ".u";
-LABEL_20:
-        *a1 = v9;
-        v5 = a3 - 1;
-        v6 = "v2i32";
-        v7 = "v2i16";
-        break;
-      case 38:
-        v10 = ".u";
-LABEL_22:
-        *a1 = v10;
-        v5 = a3 - 1;
-        v6 = "v3i32";
-        v7 = "v3i16";
-        break;
-      case 39:
-        v11 = ".u";
-LABEL_25:
-        *a1 = v11;
-        v5 = a3 - 1;
-        v6 = "v4i32";
-        v7 = "v4i16";
-        break;
-      default:
-        return "";
-    }
-
-    if (v5 >= 2)
-    {
-      return v6;
-    }
-
-    else
-    {
-      return v7;
-    }
-  }
-}
-
-uint64_t glpLLVMAggregateConstant(uint64_t *a1, unsigned int *a2, unsigned int a3, uint64_t a4)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v18 = a3;
-  v19 = 1;
-  v7 = glpLLVMGetMinCommonType(a2, &v19, &v18);
-  v8 = glpABIGetTypeSize(0, a2, 0);
-  glpTypeSizeGetSize(v8);
-  v9 = v19;
-  VectorType = glpGetVectorType(v7, v19);
-  MEMORY[0x28223BE20](VectorType);
-  v12 = &v18 - v11;
-  bzero(&v18 - v11, v13);
-  v14 = v18;
-  glpLLVMCreateConstantVectors(a1, v12, 0, a4, a2, VectorType, v18);
-  v15 = glpPrimitiveTypeToLLVMType(a1, v7, v14);
-  if (v9 >= 2)
-  {
-    MEMORY[0x23EE854F0](v15, v9);
-  }
-
-  result = LLVMConstArray();
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t glpLLVMPrimitiveConstant(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v31[1] = *MEMORY[0x277D85DE8];
-  v14 = glpPrimitiveTypeToLLVMType(a1, a6, a7);
-  result = glpPrimitiveTypeGetCategory(a5);
-  if ((result - 1) >= 2)
-  {
-    if (result == 3)
-    {
-      ColumnType = glpPrimitiveMatrixGetColumnType(a5);
-      PrimitiveType = glpGetPrimitiveType(a5);
-      v19 = glpABIGetTypeSize(0, PrimitiveType, 0);
-      result = glpTypeSizeGetSize(v19);
-      if (result)
-      {
-        v20 = result;
-        do
-        {
-          result = glpLLVMPrimitiveConstant(a1, a2, a3, a4, ColumnType, a6, a7);
-          a4 = (a4 + 1);
-          a2 += 16;
-          --v20;
-        }
-
-        while (v20);
-      }
-    }
-  }
-
-  else
-  {
-    if (glpPrimitiveTypeGetCategory(a6) == 2)
-    {
-      Length = glpPrimitiveVectorGetLength(a6);
-    }
-
-    else
-    {
-      Length = 1;
-    }
-
-    if (glpPrimitiveTypeGetCategory(a5) == 2)
-    {
-      v21 = glpPrimitiveVectorGetLength(a5);
-    }
-
-    else
-    {
-      v21 = 1;
-    }
-
-    if (Length == 1)
-    {
-      result = glpGetPConst(v14, a6, a2, 0);
-      *(a3 + 8 * a4) = result;
-    }
-
-    else
-    {
-      ElementType = glpPrimitiveVectorGetElementType(a6);
-      v23 = LLVMGetElementType();
-      v31[0] = v31;
-      MEMORY[0x28223BE20](v23);
-      v25 = v31 - v24;
-      bzero(v31 - v24, v26);
-      if (v21)
-      {
-        for (i = 0; i != v21; ++i)
-        {
-          *&v25[8 * i] = glpGetPConst(v23, ElementType, a2, i);
-        }
-      }
-
-      v28 = Length - v21;
-      if (Length > v21)
-      {
-        v29 = &v25[8 * v21];
-        do
-        {
-          *v29 = MEMORY[0x23EE85370](v23);
-          v29 += 8;
-          --v28;
-        }
-
-        while (v28);
-      }
-
-      result = LLVMConstVector();
-      *(a3 + 8 * a4) = result;
-    }
-  }
-
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t glpLLVMGetMinCommonType(uint64_t ElementType, int *a2, _DWORD *a3)
-{
-LABEL_1:
-  v5 = ElementType;
-  while (1)
-  {
-    Kind = glpTypeGetKind(v5);
-    if (Kind > 2)
-    {
-      if (Kind == 3)
-      {
-        ElementType = glpBankTypeGetElementType(v5);
-        goto LABEL_1;
-      }
-
-      return 0;
-    }
-
-    if (Kind != 2)
-    {
-      break;
-    }
-
-    do
-    {
-      v5 = glpArrayTypeGetElementType(v5);
-    }
-
-    while (glpTypeGetKind(v5) == 2);
-  }
-
-  if (Kind)
-  {
-    if (Kind == 1)
-    {
-      ElementCount = glpAggregateTypeGetElementCount(v5);
-      if (ElementCount)
-      {
-        v8 = ElementCount;
-        v9 = 0;
-        LODWORD(v10) = 0;
-        do
-        {
-          v11 = glpAggregateTypeGetElementType(v5, v9);
-          ElementFlags = glpAggregateTypeGetElementFlags(v5, v9);
-          v25 = 0;
-          v24 = glpPrecisionIndexFromSAFlags(ElementFlags);
-          v13 = glpLLVMGetMinCommonType(v11, &v25, &v24);
-          if (v9)
-          {
-            if (v10 == v13)
-            {
-              v10 = v10;
-            }
-
-            else
-            {
-              v10 = 5;
-            }
-
-            if (!v24 || v24 == 3 || v24 == 2 && *a3 == 1)
-            {
-              *a3 = v24;
-            }
-
-            if (v25 > *a2)
-            {
-              *a2 = v25;
-            }
-          }
-
-          else
-          {
-            v14 = v24;
-            *a2 = v25;
-            *a3 = v14;
-            v10 = v13;
-          }
-
-          ++v9;
-        }
-
-        while (v8 != v9);
-        return v10;
-      }
-    }
-
-    return 0;
-  }
-
-  PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v5);
-  Category = glpPrimitiveTypeGetCategory(PrimitiveType);
-  v10 = 0;
-  if (Category > 2)
-  {
-    if (Category != 3)
-    {
-      if (Category != 4)
-      {
-        return v10;
-      }
-
-      *a2 = 1;
-      *a3 = 3;
-      return 5;
-    }
-
-    ColumnType = glpPrimitiveMatrixGetColumnType(PrimitiveType);
-    ScalarType = glpPrimitiveTypeGetScalarType(PrimitiveType);
-    Length = glpPrimitiveVectorGetLength(ColumnType);
-    if (ScalarType != 62)
-    {
-      *a2 = Length;
-      v19 = ColumnType;
-      goto LABEL_45;
-    }
-
-    goto LABEL_38;
-  }
-
-  if (Category == 1)
-  {
-    if (PrimitiveType != 62)
-    {
-      *a2 = 1;
-      return PrimitiveType;
-    }
-
-    v20 = 2;
-    goto LABEL_40;
-  }
-
-  if (Category != 2)
-  {
-    return v10;
-  }
-
-  v17 = glpPrimitiveVectorGetElementType(PrimitiveType);
-  Length = glpPrimitiveVectorGetLength(PrimitiveType);
-  if (v17 == 62)
-  {
-LABEL_38:
-    v20 = 2 * Length;
-    if ((2 * Length) >= 4)
-    {
-      v20 = 4;
-    }
-
-LABEL_40:
-    *a2 = v20;
-    return 5;
-  }
-
-  *a2 = Length;
-  v19 = PrimitiveType;
-LABEL_45:
-
-  return glpPrimitiveVectorGetElementType(v19);
-}
-
-uint64_t glpLLVMCreateConstantVectors(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6, uint64_t a7)
-{
-  v9 = a5;
-  Kind = glpTypeGetKind(a5);
-  if (Kind == 2)
-  {
-    ElementCount = glpArrayTypeGetElementCount(v9);
-    ElementType = glpArrayTypeGetElementType(v9);
-    v27 = glpABIGetTypeSize(0, ElementType, 0);
-    result = glpTypeSizeGetSize(v27);
-    if (ElementCount)
-    {
-      v28 = result;
-      v29 = 16 * result;
-      do
-      {
-        result = glpLLVMCreateConstantVectors(a1, a2, a3, a4, ElementType, a6, a7);
-        a3 = (a3 + v28);
-        a4 += v29;
-        --ElementCount;
-      }
-
-      while (ElementCount);
-    }
-  }
-
-  else if (Kind == 1)
-  {
-    result = glpAggregateTypeGetElementCount(v9);
-    if (result)
-    {
-      v17 = 0;
-      v30 = result;
-      do
-      {
-        v18 = a6;
-        v19 = a7;
-        v20 = glpAggregateTypeGetElementType(v9, v17);
-        v21 = glpABIGetTypeSize(0, v20, 0);
-        v22 = v9;
-        Size = glpTypeSizeGetSize(v21);
-        v24 = v20;
-        a7 = v19;
-        a6 = v18;
-        glpLLVMCreateConstantVectors(a1, a2, a3, a4, v24, v18, a7);
-        result = v30;
-        a4 += 16 * Size;
-        a3 = Size + a3;
-        v9 = v22;
-        ++v17;
-      }
-
-      while (v30 != v17);
-    }
-  }
-
-  else
-  {
-    if (Kind)
-    {
-      abort();
-    }
-
-    PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v9);
-
-    return glpLLVMPrimitiveConstant(a1, a4, a2, a3, PrimitiveType, a6, a7);
-  }
-
-  return result;
-}
-
-uint64_t glpGetComponentCount(uint64_t a1)
-{
-  if (glpPrimitiveTypeGetCategory(a1) != 2)
-  {
-    return 1;
-  }
-
-  return glpPrimitiveVectorGetLength(a1);
-}
-
-uint64_t glpGetPConst(uint64_t a1, int a2, uint64_t a3, int a4)
-{
-  if (a2 <= 8)
-  {
-    if (a2 == 1)
-    {
-      v8 = *(a3 + 4 * a4);
-      return llvm::ConstantFP::get();
-    }
-
-    if (a2 != 5)
-    {
-      return 0;
-    }
-
-    v5 = *(a3 + 4 * a4);
-    return LLVMConstInt();
-  }
-
-  switch(a2)
-  {
-    case 9:
-      v6 = *(a3 + 4 * a4);
-      return LLVMConstInt();
-    case 36:
-      v7 = *(a3 + 4 * a4);
-      return LLVMConstInt();
-    case 62:
-      v4 = *(a3 + 8 * a4);
-      return llvm::ConstantFP::get();
-  }
-
-  return 0;
-}
-
-uint64_t glpBuildAlloca(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  LLVMGetInsertBlock();
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 176);
-  LLVMPositionBuilderAtEnd();
-  v5 = *(a1 + 16);
-  v6 = LLVMBuildAlloca();
-  v7 = *(a1 + 16);
-  LLVMPositionBuilderAtEnd();
-  return v6;
-}
-
-uint64_t glpLLVMCGSamplerNode(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  v67[2] = *MEMORY[0x277D85DE8];
-  VariableExtra = glpLValueNodeGetVariableExtra(a2);
-  Offset = glpDerefNodeGetOffset(a2);
-  if (Offset)
-  {
-    OffsetExpr = glpOffsetNodeGetOffsetExpr(Offset);
-  }
-
-  else
-  {
-    OffsetExpr = 0;
-  }
-
-  if (*(VariableExtra + 52))
-  {
-    v16 = *(*(VariableExtra + 144) + 8);
-    v17 = *(v16 + 4);
-    if (OffsetExpr)
-    {
-      if (!glpIsConstantNode(OffsetExpr))
-      {
-LABEL_20:
-        v21 = 0;
-        goto LABEL_47;
-      }
-
-      v18 = *(VariableExtra + 156);
-      v19 = *glpConstantNodeGetValue(OffsetExpr) + v18;
-    }
-
-    else
-    {
-      v19 = *(VariableExtra + 156);
-    }
-
-    if (v17 >= 1)
-    {
-      v20 = (*(v16 + 8) + 8);
-      while (v19 != *v20)
-      {
-        v20 += 4;
-        if (!--v17)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      v22 = (*(a1 + 600) + 48 * *(v20 - 1));
-      goto LABEL_32;
-    }
-
-    goto LABEL_20;
-  }
-
-  glpLLVMGetVariablePointer(a1, VariableExtra);
-  v9 = *(a1 + 40);
-  LLVMTypeOf();
-  if (LLVMGetElementType() != v9)
-  {
-    MEMORY[0x23EE85440](v9, 0);
-    if (OffsetExpr)
-    {
-      Value = glpConstantNodeGetValue(OffsetExpr);
-      v11 = *(a1 + 520);
-      if (!v11)
-      {
-        v12 = *(a1 + 40);
-        v11 = LLVMConstInt();
-        *(a1 + 520) = v11;
-      }
-
-      v67[0] = v11;
-      v13 = *Value;
-      if (v13 > 7)
-      {
-        v23 = *(a1 + 40);
-        v14 = LLVMConstInt();
-      }
-
-      else
-      {
-        v14 = *(a1 + 520 + 8 * v13);
-        if (!v14)
-        {
-          v15 = *(a1 + 40);
-          v14 = LLVMConstInt();
-          *(a1 + 520 + 8 * v13) = v14;
-        }
-      }
-
-      v67[1] = v14;
-      LLVMBuildGEP();
-    }
-
-    v24 = *(a1 + 16);
-    LLVMBuildPointerCast();
-  }
-
-  LLVMBuildLoad();
-  v25 = *(a1 + 596);
-  SaType = glpASTNodeGetSaType(a2);
-  PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
-  v28 = PrimitiveType;
-  if (v25 < 1)
-  {
-    v30 = 0;
-  }
-
-  else
-  {
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = (*(a1 + 600) + 36);
-    do
-    {
-      v33 = *v32;
-      v32 += 12;
-      if (v33 == PrimitiveType)
-      {
-        v31 = v29;
-        ++v30;
-      }
-
-      ++v29;
-    }
-
-    while (v25 != v29);
-    if (v30 == 1)
-    {
-      v22 = (*(a1 + 600) + 48 * v31);
-LABEL_32:
-      *a3 = v22[1];
-      v21 = *v22;
-      goto LABEL_47;
-    }
-  }
-
-  v61 = a3;
-  v67[0] = 0;
-  glpLLVMGetTextureTypeFromSampler(a1, v67, PrimitiveType);
-  v60[1] = v34;
-  v35 = glpLLVMCGInsertBasicBlock(a1);
-  v60[0] = *(a1 + 432);
-  *(a1 + 432) = v35;
-  v36 = *(a1 + 16);
-  inserted = LLVMGetInsertBlock();
-  v37 = *(a1 + 16);
-  v65 = v35;
-  v64 = LLVMBuildSwitch();
-  v60[2] = v60;
-  MEMORY[0x28223BE20](v64);
-  v38 = (8 * v30 + 15) & 0xFFFFFFFF0;
-  v66 = (v60 - v38);
-  bzero(v60 - v38, 8 * v30);
-  MEMORY[0x28223BE20](v39);
-  v40 = (v60 - v38);
-  bzero(v60 - v38, 8 * v30);
-  MEMORY[0x28223BE20](v41);
-  v42 = (v60 - v38);
-  bzero(v60 - v38, 8 * v30);
-  if (v25 >= 1)
-  {
-    v43 = 0;
-    v44 = 0;
-    v63 = a1 + 520;
-    v45 = 48 * v25;
-    do
-    {
-      v46 = *(a1 + 600);
-      if (*(v46 + v43 + 36) == v28)
-      {
-        if (v44)
-        {
-          v47 = glpLLVMCGInsertBasicBlock(a1);
-          v48 = *(a1 + 16);
-          LLVMPositionBuilderAtEnd();
-          v66[v44] = v47;
-          v49 = v46 + v43;
-          v40[v44] = *v49;
-          v42[v44] = *(v49 + 8);
-          glpLLVMEmitBranchInnerReal(a1);
-          *(a1 + 332) = 0;
-          v50 = *(v49 + 32);
-          if (v50 > 7)
-          {
-            v53 = *(a1 + 40);
-            v51 = LLVMConstInt();
-          }
-
-          else
-          {
-            v51 = *(v63 + 8 * v50);
-            if (!v51)
-            {
-              v52 = *(a1 + 40);
-              v51 = LLVMConstInt();
-              *(v63 + 8 * v50) = v51;
-            }
-          }
-
-          MEMORY[0x23EE84E40](v64, v51, v47);
-        }
-
-        else
-        {
-          *v66 = inserted;
-          *v40 = *(v46 + v43);
-          *v42 = *(v46 + v43 + 8);
-        }
-
-        ++v44;
-      }
-
-      v43 += 48;
-    }
-
-    while (v45 != v43);
-  }
-
-  *(a1 + 432) = v60[0];
-  v54 = *(a1 + 16);
-  LLVMPositionBuilderAtEnd();
-  v55 = *(a1 + 16);
-  v21 = LLVMBuildPhi();
-  LLVMAddIncoming();
-  v56 = *(a1 + 16);
-  v57 = LLVMBuildPhi();
-  LLVMAddIncoming();
-  *v61 = v57;
-LABEL_47:
-  v58 = *MEMORY[0x277D85DE8];
-  return v21;
-}
-
 uint64_t glpMatchInputSize(uint64_t result, uint64_t a2, unsigned int *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *a3;
   if (v3 != a3[1])
   {
@@ -1184,7 +15,7 @@ uint64_t glpMatchInputSize(uint64_t result, uint64_t a2, unsigned int *a3)
       Length = 1;
     }
 
-    v10[0] = Length;
+    v9[0] = Length;
     v8 = a3[1];
     if (glpPrimitiveTypeGetCategory(v8) == 2)
     {
@@ -1196,62 +27,59 @@ uint64_t glpMatchInputSize(uint64_t result, uint64_t a2, unsigned int *a3)
       result = 1;
     }
 
-    v10[1] = result;
+    v9[1] = result;
     if (Length != result)
     {
-      result = glpLLVMSplatScalar(v6, *(a2 + 8 * (Length > 1)), v10[Length < 2]);
+      result = glpLLVMSplatScalar(v6, *(a2 + 8 * (Length > 1)), v9[Length < 2]);
       *(a2 + 8 * (Length > 1)) = result;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t glpLLVMBuildBuiltinNoPrefix(uint64_t *a1, const char *a2, unsigned int a3, uint64_t *a4, uint64_t a5, int a6, int a7)
+uint64_t glpLLVMBuildBuiltinNoPrefix(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint64_t a5, int a6, int a7)
 {
-  v48[1] = *MEMORY[0x277D85DE8];
-  v12 = glpLLVMGetTypeString(&v15, a6, a7);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v47[1] = *MEMORY[0x277D85DE8];
+  v12 = glpLLVMGetTypeString(&v14, a6, a7);
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  *v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  snprintf_l(v16, 0x200uLL, 0, "%s.%s", a2, v12);
-  v48[0] = 0x300000001;
-  result = glpLLVMCallFunctionInner(a1, v16, a5, a4, a3, v48, 2u, "");
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v18 = 0u;
+  *v15 = 0u;
+  v16 = 0u;
+  snprintf_l(v15, 0x200uLL, 0, "%s.%s", a2, v12);
+  v47[0] = 0x300000001;
+  return glpLLVMCallFunctionInner(a1, v15, a5, a4, a3, v47, 2u, "");
 }
 
-uint64_t glpBuildConstantIntVector(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t glpBuildConstantIntVector(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v21[1] = *MEMORY[0x277D85DE8];
   if (glpPrimitiveTypeGetCategory(a2) == 2)
@@ -1266,59 +94,56 @@ uint64_t glpBuildConstantIntVector(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   ScalarType = glpPrimitiveTypeGetScalarType(a2);
   glpPrimitiveTypeToLLVMType(a1, ScalarType, a3);
-  v8 = LLVMConstInt();
-  v9 = v8;
+  v9 = LLVMConstInt();
+  v10 = v9;
   if (Length >= 2)
   {
-    MEMORY[0x28223BE20](v8);
-    v11 = v21 - v10;
-    bzero(v21 - v10, v12);
-    v13 = (Length + 1) & 0xFFFFFFFE;
-    v14 = vdupq_n_s64(Length - 1);
-    v15 = (v11 + 8);
-    v16 = xmmword_23A300E20;
-    v17 = vdupq_n_s64(2uLL);
+    MEMORY[0x28223BE20](v9, 8 * Length);
+    v12 = v21 - v11;
+    bzero(v21 - v11, v13);
+    v14 = (Length + 1) & 0xFFFFFFFE;
+    v15 = vdupq_n_s64(Length - 1);
+    v16 = (v12 + 8);
+    v17 = xmmword_23A300E20;
+    v18 = vdupq_n_s64(2uLL);
     do
     {
-      v18 = vmovn_s64(vcgeq_u64(v14, v16));
-      if (v18.i8[0])
+      v19 = vmovn_s64(vcgeq_u64(v15, v17));
+      if (v19.i8[0])
       {
-        *(v15 - 1) = v9;
+        *(v16 - 1) = v10;
       }
 
-      if (v18.i8[4])
+      if (v19.i8[4])
       {
-        *v15 = v9;
+        *v16 = v10;
       }
 
-      v16 = vaddq_s64(v16, v17);
-      v15 += 2;
-      v13 -= 2;
+      v17 = vaddq_s64(v17, v18);
+      v16 += 2;
+      v14 -= 2;
     }
 
-    while (v13);
-    v9 = LLVMConstVector();
+    while (v14);
+    return LLVMConstVector();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
-uint64_t glpLLVMCastToHalf(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t glpLLVMCastToHalf(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v46[1] = *MEMORY[0x277D85DE8];
-  v13 = a2;
+  v44[1] = *MEMORY[0x277D85DE8];
+  v11 = a2;
   if (a4 == 3 || !a4)
   {
-    v6 = glpLLVMGetTypeString(&v12, a3, a4);
+    v6 = glpLLVMGetTypeString(&v10, a3, a4);
     v7 = "v2f16";
     if (glpPrimitiveTypeGetCategory(a3) == 2 && glpPrimitiveVectorGetLength(a3) == 4)
     {
       v7 = "v4f16";
     }
 
-    v44 = 0u;
-    v45 = 0u;
     v42 = 0u;
     v43 = 0u;
     v40 = 0u;
@@ -1347,16 +172,16 @@ uint64_t glpLLVMCastToHalf(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    *v14 = 0u;
+    v14 = 0u;
     v15 = 0u;
-    snprintf_l(v14, 0x200uLL, 0, "air.convert.f.%s.f.%s", v7, v6);
-    v8 = *a1;
-    v9 = LLVMHalfTypeInContext();
-    v46[0] = 0x300000001;
-    a2 = glpLLVMCallFunctionInner(a1, v14, v9, &v13, 1u, v46, 2u, "");
+    *v12 = 0u;
+    v13 = 0u;
+    snprintf_l(v12, 0x200uLL, 0, "air.convert.f.%s.f.%s", v7, v6);
+    v8 = LLVMHalfTypeInContext();
+    v44[0] = 0x300000001;
+    return glpLLVMCallFunctionInner(a1, v12, v8, &v11, 1, v44, 2u, "");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -1398,11 +223,312 @@ uint64_t glpMatchInputSize3(uint64_t result, uint64_t a2, unsigned int *a3)
   return result;
 }
 
-uint64_t glpLLVMBuildBuiltinWithPrefix(uint64_t *a1, const char *a2, unsigned int a3, uint64_t *a4, uint64_t a5, int a6, int a7)
+uint64_t glpLLVMBuildBuiltinWithPrefix(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint64_t a5, int a6, int a7)
+{
+  v47[1] = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v12 = glpLLVMGetTypeString(&v14, a6, a7);
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  *v15 = 0u;
+  v16 = 0u;
+  snprintf_l(v15, 0x200uLL, 0, "%s%s.%s", a2, v14, v12);
+  v47[0] = 0x300000001;
+  return glpLLVMCallFunctionInner(a1, v15, a5, a4, a3, v47, 2u, "");
+}
+
+uint64_t glpLLVMBuildLength(void *a1, uint64_t *a2, int *a3, int a4, uint64_t a5)
+{
+  v60[1] = *MEMORY[0x277D85DE8];
+  if (glpPrimitiveTypeGetCategory(*a3) == 1)
+  {
+    v10 = glpLLVMGetTypeString(&v27, *a3, a4);
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    *v28 = 0u;
+    v29 = 0u;
+    snprintf_l(v28, 0x200uLL, 0, "%s.%s", "air.fabs", v10);
+    v60[0] = 0x300000001;
+    v11 = a1;
+    v12 = a5;
+    v13 = a2;
+  }
+
+  else
+  {
+    v14 = *a3;
+    if (glpPrimitiveTypeGetCategory(*a3) == 1)
+    {
+      v15 = LLVMBuildFMul();
+    }
+
+    else
+    {
+      Length = glpPrimitiveVectorGetLength(v14);
+      if (Length < 1)
+      {
+        v15 = 0;
+      }
+
+      else
+      {
+        v17 = 0;
+        v18 = 0;
+        v19 = a1 + 65;
+        v20 = Length;
+        do
+        {
+          if (v17 > 7)
+          {
+            LLVMConstInt();
+          }
+
+          else if (!v19[v17])
+          {
+            v19[v17] = LLVMConstInt();
+          }
+
+          LLVMBuildExtractElement();
+          v15 = LLVMBuildFMul();
+          if (v18)
+          {
+            v15 = LLVMBuildFAdd();
+          }
+
+          ++v17;
+          v18 = v15;
+        }
+
+        while (v20 != v17);
+      }
+    }
+
+    v26 = v15;
+    ScalarType = glpPrimitiveTypeGetScalarType(*a3);
+    if (a4)
+    {
+      v22 = a4 == 3;
+    }
+
+    else
+    {
+      v22 = 1;
+    }
+
+    if (v22)
+    {
+      v23 = "air.fast_sqrt";
+    }
+
+    else
+    {
+      v23 = "air.sqrt";
+    }
+
+    v24 = glpLLVMGetTypeString(&v27, ScalarType, a4);
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    *v28 = 0u;
+    v29 = 0u;
+    snprintf_l(v28, 0x200uLL, 0, "%s.%s", v23, v24);
+    v60[0] = 0x300000001;
+    v13 = &v26;
+    v11 = a1;
+    v12 = a5;
+  }
+
+  return glpLLVMCallFunctionInner(v11, v28, v12, v13, 1, v60, 2u, "");
+}
+
+uint64_t glpLLVMBuildNormalize(void *a1, uint64_t *a2, int *a3, int a4, uint64_t a5)
+{
+  if (glpPrimitiveTypeGetCategory(*a3) == 1)
+  {
+    v9 = LLVMTypeOf();
+    MEMORY[0x23EE85200](v9);
+    LLVMBuildFCmp();
+    llvm::ConstantFP::get();
+    llvm::ConstantFP::get();
+
+    return LLVMBuildSelect();
+  }
+
+  else
+  {
+    Length = glpPrimitiveVectorGetLength(*a3);
+    v12 = LLVMGetElementType();
+    v13 = glpLLVMBuildLength(a1, a2, a3, a4, v12);
+    glpLLVMSplatElement(a1, v13, Length);
+
+    return LLVMBuildFDiv();
+  }
+}
+
+uint64_t glpLLVMBuildConvert(void *a1, void *a2, unsigned int *a3, double a4)
+{
+  if (glpPrimitiveTypeGetCategory(*a3) == 1)
+  {
+    LLVMTypeOf();
+    llvm::ConstantFP::get();
+  }
+
+  else
+  {
+    Length = glpPrimitiveVectorGetLength(*a3);
+    LLVMTypeOf();
+    LLVMGetElementType();
+    v7 = llvm::ConstantFP::get();
+    glpLLVMSplatElement(a1, v7, Length);
+  }
+
+  return LLVMBuildFMul();
+}
+
+uint64_t glpLLVMBuildCross(uint64_t a1, void *a2)
+{
+  v2 = 0;
+  v8[3] = *MEMORY[0x277D85DE8];
+  memset(v8, 0, 24);
+  memset(v7, 0, sizeof(v7));
+  v3 = a1 + 520;
+  do
+  {
+    if (!*(v3 + 8 * v2))
+    {
+      *(v3 + 8 * v2) = LLVMConstInt();
+    }
+
+    v8[v2] = LLVMBuildExtractElement();
+    v7[v2++] = LLVMBuildExtractElement();
+  }
+
+  while (v2 != 3);
+  v4 = LLVMTypeOf();
+  MEMORY[0x23EE85370](v4);
+  for (i = 0; i != 3; ++i)
+  {
+    LLVMBuildFMul();
+    LLVMBuildFMul();
+    LLVMBuildFSub();
+    LLVMConstInt();
+    result = LLVMBuildInsertElement();
+  }
+
+  return result;
+}
+
+uint64_t glpLLVMBuildReflect(void *a1, uint64_t *a2, uint64_t a3, int a4)
 {
   v48[1] = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v12 = glpLLVMGetTypeString(&v15, a6, a7);
+  v8 = *(a3 + 4);
+  if (glpPrimitiveTypeGetCategory(*(a3 + 4)) == 2)
+  {
+    Length = glpPrimitiveVectorGetLength(v8);
+    v10 = LLVMTypeOf();
+    if (Length < 2)
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v10 = LLVMGetElementType();
+      v11 = 1;
+    }
+  }
+
+  else
+  {
+    v10 = LLVMTypeOf();
+    v11 = 0;
+    Length = 1;
+  }
+
+  v12 = glpLLVMGetTypeString(&v15, *a3, a4);
   v46 = 0u;
   v47 = 0u;
   v44 = 0u;
@@ -1435,474 +561,98 @@ uint64_t glpLLVMBuildBuiltinWithPrefix(uint64_t *a1, const char *a2, unsigned in
   v19 = 0u;
   *v16 = 0u;
   v17 = 0u;
-  snprintf_l(v16, 0x200uLL, 0, "%s%s.%s", a2, v15, v12);
+  snprintf_l(v16, 0x200uLL, 0, "%s.%s", "air.dot", v12);
   v48[0] = 0x300000001;
-  result = glpLLVMCallFunctionInner(a1, v16, a5, a4, a3, v48, 2u, "");
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t glpLLVMBuildLength(uint64_t *a1, uint64_t *a2, int *a3, int a4, uint64_t a5)
-{
-  v68[1] = *MEMORY[0x277D85DE8];
-  if (glpPrimitiveTypeGetCategory(*a3) == 1)
-  {
-    v10 = glpLLVMGetTypeString(&v35, *a3, a4);
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    *v36 = 0u;
-    v37 = 0u;
-    snprintf_l(v36, 0x200uLL, 0, "%s.%s", "air.fabs", v10);
-    v68[0] = 0x300000001;
-    v11 = a1;
-    v12 = a5;
-    v13 = a2;
-  }
-
-  else
-  {
-    v14 = *a2;
-    v15 = *a3;
-    if (glpPrimitiveTypeGetCategory(*a3) == 1)
-    {
-      v16 = a1[2];
-      v17 = LLVMBuildFMul();
-    }
-
-    else
-    {
-      Length = glpPrimitiveVectorGetLength(v15);
-      if (Length < 1)
-      {
-        v17 = 0;
-      }
-
-      else
-      {
-        v19 = 0;
-        v20 = 0;
-        v21 = a1 + 65;
-        v22 = Length;
-        do
-        {
-          if (v19 > 7)
-          {
-            v24 = a1[5];
-            LLVMConstInt();
-          }
-
-          else if (!v21[v19])
-          {
-            v23 = a1[5];
-            v21[v19] = LLVMConstInt();
-          }
-
-          v25 = a1[2];
-          LLVMBuildExtractElement();
-          v26 = a1[2];
-          v17 = LLVMBuildFMul();
-          if (v20)
-          {
-            v27 = a1[2];
-            v17 = LLVMBuildFAdd();
-          }
-
-          ++v19;
-          v20 = v17;
-        }
-
-        while (v22 != v19);
-      }
-    }
-
-    v34 = v17;
-    ScalarType = glpPrimitiveTypeGetScalarType(*a3);
-    if (a4)
-    {
-      v29 = a4 == 3;
-    }
-
-    else
-    {
-      v29 = 1;
-    }
-
-    if (v29)
-    {
-      v30 = "air.fast_sqrt";
-    }
-
-    else
-    {
-      v30 = "air.sqrt";
-    }
-
-    v31 = glpLLVMGetTypeString(&v35, ScalarType, a4);
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    *v36 = 0u;
-    v37 = 0u;
-    snprintf_l(v36, 0x200uLL, 0, "%s.%s", v30, v31);
-    v68[0] = 0x300000001;
-    v13 = &v34;
-    v11 = a1;
-    v12 = a5;
-  }
-
-  result = glpLLVMCallFunctionInner(v11, v36, v12, v13, 1u, v68, 2u, "");
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t glpLLVMBuildNormalize(uint64_t *a1, uint64_t *a2, int *a3, int a4)
-{
-  if (glpPrimitiveTypeGetCategory(*a3) == 1)
-  {
-    v8 = *a2;
-    v9 = LLVMTypeOf();
-    v10 = a1[2];
-    v11 = *a2;
-    MEMORY[0x23EE85200](v9);
-    LLVMBuildFCmp();
-    v12 = a1[2];
-    llvm::ConstantFP::get();
-    llvm::ConstantFP::get();
-
-    return LLVMBuildSelect();
-  }
-
-  else
-  {
-    Length = glpPrimitiveVectorGetLength(*a3);
-    v15 = LLVMGetElementType();
-    v16 = glpLLVMBuildLength(a1, a2, a3, a4, v15);
-    glpLLVMSplatElement(a1, v16, Length);
-    v17 = a1[2];
-    v18 = *a2;
-
-    return LLVMBuildFDiv();
-  }
-}
-
-uint64_t glpLLVMBuildConvert(void *a1, uint64_t *a2, unsigned int *a3)
-{
-  if (glpPrimitiveTypeGetCategory(*a3) == 1)
-  {
-    v6 = *a2;
-    LLVMTypeOf();
-    llvm::ConstantFP::get();
-  }
-
-  else
-  {
-    Length = glpPrimitiveVectorGetLength(*a3);
-    v8 = *a2;
-    LLVMTypeOf();
-    LLVMGetElementType();
-    v9 = llvm::ConstantFP::get();
-    glpLLVMSplatElement(a1, v9, Length);
-  }
-
-  v10 = a1[2];
-  v11 = *a2;
-
-  return LLVMBuildFMul();
-}
-
-uint64_t glpLLVMBuildCross(uint64_t a1, uint64_t *a2)
-{
-  v4 = 0;
-  v29[3] = *MEMORY[0x277D85DE8];
-  memset(v29, 0, 24);
-  memset(v28, 0, sizeof(v28));
-  v5 = a1 + 520;
-  do
-  {
-    if (!*(v5 + 8 * v4))
-    {
-      v6 = *(a1 + 40);
-      *(v5 + 8 * v4) = LLVMConstInt();
-    }
-
-    v7 = *(a1 + 16);
-    v8 = *a2;
-    v29[v4] = LLVMBuildExtractElement();
-    v9 = *(a1 + 16);
-    v10 = a2[1];
-    v28[v4++] = LLVMBuildExtractElement();
-  }
-
-  while (v4 != 3);
-  v11 = *a2;
-  v12 = LLVMTypeOf();
-  MEMORY[0x23EE85370](v12);
-  v13 = 0;
-  v27 = *(a1 + 40);
-  do
-  {
-    v14 = v13 + 1;
-    v15 = *(a1 + 16);
-    if (v13 == 2)
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = v13 + 1;
-    }
-
-    v17 = v29[v16];
-    if (v13)
-    {
-      v18 = v13 - 1;
-    }
-
-    else
-    {
-      v18 = 2;
-    }
-
-    v19 = v28[v18];
-    LLVMBuildFMul();
-    v20 = *(a1 + 16);
-    v21 = v28[v16];
-    v22 = v29[v18];
-    LLVMBuildFMul();
-    v23 = *(a1 + 16);
-    LLVMBuildFSub();
-    v24 = *(a1 + 16);
-    LLVMConstInt();
-    result = LLVMBuildInsertElement();
-    ++v13;
-  }
-
-  while (v14 != 3);
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t glpLLVMBuildReflect(uint64_t *a1, uint64_t *a2, uint64_t a3, int a4)
-{
-  v54[1] = *MEMORY[0x277D85DE8];
-  v8 = *a2;
-  v9 = a2[1];
-  v10 = *(a3 + 4);
-  if (glpPrimitiveTypeGetCategory(*(a3 + 4)) == 2)
-  {
-    Length = glpPrimitiveVectorGetLength(v10);
-    v12 = LLVMTypeOf();
-    if (Length < 2)
-    {
-      v13 = 0;
-    }
-
-    else
-    {
-      v12 = LLVMGetElementType();
-      v13 = 1;
-    }
-  }
-
-  else
-  {
-    v12 = LLVMTypeOf();
-    v13 = 0;
-    Length = 1;
-  }
-
-  v14 = glpLLVMGetTypeString(&v21, *a3, a4);
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  *v22 = 0u;
-  v23 = 0u;
-  snprintf_l(v22, 0x200uLL, 0, "%s.%s", "air.dot", v14);
-  v54[0] = 0x300000001;
-  glpLLVMCallFunctionInner(a1, v22, v12, a2, 2u, v54, 2u, "");
+  glpLLVMCallFunctionInner(a1, v16, v10, a2, 2, v48, 2u, "");
   llvm::ConstantFP::get();
-  v15 = a1[2];
-  v16 = LLVMBuildFMul();
-  if (v13)
+  v13 = LLVMBuildFMul();
+  if (v11)
   {
-    glpLLVMSplatElement(a1, v16, Length);
+    glpLLVMSplatElement(a1, v13, Length);
   }
 
-  v17 = a1[2];
   LLVMBuildFMul();
-  v18 = a1[2];
-  result = LLVMBuildFSub();
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildFSub();
 }
 
-uint64_t glpLLVMBuildFaceForward(uint64_t *a1, uint64_t *a2, unsigned int *a3, int a4)
+uint64_t glpLLVMBuildFaceForward(void *a1, uint64_t *a2, unsigned int *a3, int a4)
 {
-  v53[1] = *MEMORY[0x277D85DE8];
-  v8 = *a2;
-  v9 = *a3;
+  v48[1] = *MEMORY[0x277D85DE8];
+  v8 = *a3;
   if (glpPrimitiveTypeGetCategory(*a3) == 2)
   {
-    Length = glpPrimitiveVectorGetLength(v9);
-    v11 = LLVMTypeOf();
+    Length = glpPrimitiveVectorGetLength(v8);
+    v10 = LLVMTypeOf();
     if (Length < 2)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v11 = LLVMGetElementType();
-      v12 = 1;
+      v10 = LLVMGetElementType();
+      v11 = 1;
     }
   }
 
   else
   {
-    v11 = LLVMTypeOf();
-    v12 = 0;
+    v10 = LLVMTypeOf();
+    v11 = 0;
     Length = 1;
   }
 
-  v13 = glpLLVMGetTypeString(&v20, *a3, a4);
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
+  v12 = glpLLVMGetTypeString(&v15, *a3, a4);
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  *v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  snprintf_l(v21, 0x200uLL, 0, "%s.%s", "air.dot", v13);
-  v53[0] = 0x300000001;
-  glpLLVMCallFunctionInner(a1, v21, v11, a2 + 1, 2u, v53, 2u, "");
-  v14 = a1[2];
-  MEMORY[0x23EE85200](v11);
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  *v16 = 0u;
+  v17 = 0u;
+  snprintf_l(v16, 0x200uLL, 0, "%s.%s", "air.dot", v12);
+  v48[0] = 0x300000001;
+  glpLLVMCallFunctionInner(a1, v16, v10, a2 + 1, 2, v48, 2u, "");
+  MEMORY[0x23EE85200](v10);
   LLVMBuildFCmp();
-  v15 = llvm::ConstantFP::get();
-  if (v12)
+  v13 = llvm::ConstantFP::get();
+  if (v11)
   {
-    glpLLVMSplatElement(a1, v15, Length);
+    glpLLVMSplatElement(a1, v13, Length);
   }
 
-  v16 = a1[2];
   LLVMBuildFMul();
-  v17 = a1[2];
-  result = LLVMBuildSelect();
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildSelect();
 }
 
-uint64_t glpLLVMBuildMix(uint64_t *a1, uint64_t *a2, unsigned int *a3, uint64_t a4, int a5)
+uint64_t glpLLVMBuildMix(void *a1, uint64_t *a2, unsigned int *a3, uint64_t a4, int a5)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   v10 = *a2;
   v9 = a2[1];
   v11 = a2[2];
@@ -1925,9 +675,6 @@ uint64_t glpLLVMBuildMix(uint64_t *a1, uint64_t *a2, unsigned int *a3, uint64_t 
       glpLLVMSplatElement(a1, v10, Length);
     }
 
-    v15 = a1[2];
-    v16 = *MEMORY[0x277D85DE8];
-
     return LLVMBuildSelect();
   }
 
@@ -1938,55 +685,51 @@ uint64_t glpLLVMBuildMix(uint64_t *a1, uint64_t *a2, unsigned int *a3, uint64_t 
       v10 = glpLLVMSplatElement(a1, v10, Length);
     }
 
-    v21[0] = v11;
-    v21[1] = v9;
-    v21[2] = v10;
-    v18 = glpLLVMGetTypeString(&v20, a3[2], a5);
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
+    v18[0] = v11;
+    v18[1] = v9;
+    v18[2] = v10;
+    v16 = glpLLVMGetTypeString(&v17, a3[2], a5);
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
-    v42 = 0u;
+    v46 = 0u;
     v43 = 0u;
-    v40 = 0u;
+    v44 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    *v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    snprintf_l(v22, 0x200uLL, 0, "%s.%s", "air.mix", v18);
-    v54[0] = 0x300000001;
-    result = glpLLVMCallFunctionInner(a1, v22, a4, v21, 3u, v54, 2u, "");
-    v19 = *MEMORY[0x277D85DE8];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    *v19 = 0u;
+    v20 = 0u;
+    snprintf_l(v19, 0x200uLL, 0, "%s.%s", "air.mix", v16);
+    v51[0] = 0x300000001;
+    return glpLLVMCallFunctionInner(a1, v19, a4, v18, 3, v51, 2u, "");
   }
-
-  return result;
 }
 
-uint64_t glpLLVMBuildSmoothStep(uint64_t *a1, uint64_t *a2, unsigned int *a3, int a4, uint64_t a5)
+uint64_t glpLLVMBuildSmoothStep(void *a1, uint64_t *a2, unsigned int *a3, int a4, uint64_t a5)
 {
-  v64[1] = *MEMORY[0x277D85DE8];
-  v9 = a2[2];
+  v51[1] = *MEMORY[0x277D85DE8];
   LLVMTypeOf();
   if (glpPrimitiveTypeGetCategory(a3[2]) == 2)
   {
@@ -2001,99 +744,86 @@ uint64_t glpLLVMBuildSmoothStep(uint64_t *a1, uint64_t *a2, unsigned int *a3, in
 
   else
   {
-    LODWORD(Length) = 1;
+    Length = 1;
   }
 
-  v11 = a1[2];
-  v12 = a2[2];
-  v13 = *a2;
   LLVMBuildFSub();
-  v14 = a1[2];
-  v16 = *a2;
-  v15 = a2[1];
   LLVMBuildFSub();
-  v17 = llvm::ConstantFP::get();
-  v18 = llvm::ConstantFP::get();
+  v10 = llvm::ConstantFP::get();
+  v11 = llvm::ConstantFP::get();
   if (Length >= 2)
   {
-    v17 = glpLLVMSplatConstantVector(v17, Length);
-    v18 = glpLLVMSplatConstantVector(v18, Length);
+    v10 = glpLLVMSplatConstantVector(v10, Length);
+    v11 = glpLLVMSplatConstantVector(v11, Length);
   }
 
-  v19 = a1[2];
-  v31[0] = LLVMBuildFDiv();
-  v31[1] = v17;
-  v31[2] = v18;
-  v20 = glpLLVMGetTypeString(&v30, a3[2], a4);
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v18[0] = LLVMBuildFDiv();
+  v18[1] = v10;
+  v18[2] = v11;
+  v12 = glpLLVMGetTypeString(&v17, a3[2], a4);
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  *v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  snprintf_l(v32, 0x200uLL, 0, "%s.%s", "air.clamp", v20);
-  v64[0] = 0x300000001;
-  glpLLVMCallFunctionInner(a1, v32, a5, v31, 3u, v64, 2u, "");
-  v21 = a1[2];
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  *v19 = 0u;
+  v20 = 0u;
+  snprintf_l(v19, 0x200uLL, 0, "%s.%s", "air.clamp", v12);
+  v51[0] = 0x300000001;
+  glpLLVMCallFunctionInner(a1, v19, a5, v18, 3, v51, 2u, "");
   LLVMBuildFMul();
-  v22 = llvm::ConstantFP::get();
-  v23 = llvm::ConstantFP::get();
+  v13 = llvm::ConstantFP::get();
+  v14 = llvm::ConstantFP::get();
   if (Length >= 2)
   {
-    glpLLVMSplatConstantVector(v22, Length);
-    glpLLVMSplatConstantVector(v23, Length);
+    glpLLVMSplatConstantVector(v13, Length);
+    glpLLVMSplatConstantVector(v14, Length);
   }
 
-  v24 = a1[2];
   LLVMBuildFMul();
-  v25 = a1[2];
   LLVMBuildFSub();
-  v26 = a1[2];
-  result = LLVMBuildFMul();
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildFMul();
 }
 
-uint64_t glpBuildTextureOperation(uint64_t a1, uint64_t a2, const char **a3, unsigned int *a4, int *a5, int a6)
+uint64_t glpBuildTextureOperation(uint64_t *a1, uint64_t a2, const char **a3, unsigned int *a4, int *a5, int a6)
 {
-  v228 = a5;
-  v273[1] = *MEMORY[0x277D85DE8];
+  v168 = a5;
+  v213[1] = *MEMORY[0x277D85DE8];
   Opcode = glpPPStreamOpNodeGetOpcode(a2);
   ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
   SaFlags = glpASTNodeGetSaFlags(a2);
   v13 = glpPrecisionIndexFromSAFlags(SaFlags);
-  v239 = 0;
-  v238 = 0u;
-  v237 = 0u;
-  v236 = 0u;
-  v235 = 0u;
-  v234 = 0u;
+  v179 = 0;
+  v178 = 0u;
+  v177 = 0u;
+  v176 = 0u;
+  v175 = 0u;
+  v174 = 0u;
   v14 = a3[a6 - 2];
   if (Opcode == 130)
   {
@@ -2102,15 +832,15 @@ uint64_t glpBuildTextureOperation(uint64_t a1, uint64_t a2, const char **a3, uns
 
   else
   {
-    *&v234 = a3[a6 - 1];
+    *&v174 = a3[a6 - 1];
     v15 = 2;
   }
 
-  v222 = v15;
-  v206 = a6;
-  v219 = v13;
-  v233 = v14;
-  v214 = *a3;
+  v162 = v15;
+  v146 = a6;
+  v159 = v13;
+  v173 = v14;
+  v154 = *a3;
   ChildCount = glpASTNodeGetChildCount(a2);
   Child = glpASTNodeGetChild(a2, ChildCount - 1);
   SaType = glpASTNodeGetSaType(Child);
@@ -2118,9 +848,9 @@ uint64_t glpBuildTextureOperation(uint64_t a1, uint64_t a2, const char **a3, uns
   PPTextarget = glpPrimitiveSamplerGetPPTextarget(PrimitiveType);
   v20 = PPTextarget;
   v21 = (PPTextarget - 5) < 8 && ((0xCFu >> (PPTextarget - 5)) & 1) != 0 || PPTextarget == 17;
-  v230 = v21;
+  v170 = v21;
   v24 = Opcode == 99 || (Opcode & 0xFFFFFFFB) == 67 || Opcode == 69;
-  v221 = v24 & ((PPTextarget > 0x11) | (0xFEFEu >> PPTextarget));
+  v161 = v24 & ((PPTextarget > 0x11) | (0xFEFEu >> PPTextarget));
   v25 = *a4;
   if (glpPrimitiveTypeGetCategory(*a4) == 2)
   {
@@ -2133,27 +863,24 @@ uint64_t glpBuildTextureOperation(uint64_t a1, uint64_t a2, const char **a3, uns
   }
 
   v27 = (Length - 1);
-  v229 = v20;
-  v226 = a4;
-  if (v221)
+  v169 = v20;
+  v166 = a4;
+  if (v161)
   {
-    v28 = *(a1 + 16);
     if (v27 > 7)
     {
-      v30 = *(a1 + 40);
       LLVMConstInt();
     }
 
-    else if (!*(a1 + 520 + 8 * v27))
+    else if (!a1[v27 + 65])
     {
-      v29 = *(a1 + 40);
-      *(a1 + 520 + 8 * v27) = LLVMConstInt();
+      a1[v27 + 65] = LLVMConstInt();
     }
 
     Element = LLVMBuildExtractElement();
     v27 = (Length - 2);
-    LODWORD(v20) = v229;
-    a4 = v226;
+    LODWORD(v20) = v169;
+    a4 = v166;
   }
 
   else
@@ -2161,229 +888,223 @@ uint64_t glpBuildTextureOperation(uint64_t a1, uint64_t a2, const char **a3, uns
     Element = 0;
   }
 
-  v208 = v27;
+  v148 = v27;
   if (v21)
   {
-    v31 = *(a1 + 528);
-    if (!v31)
+    v28 = a1[66];
+    if (!v28)
     {
-      v32 = *(a1 + 40);
-      v31 = LLVMConstInt();
-      *(a1 + 528) = v31;
+      v28 = LLVMConstInt();
+      a1[66] = v28;
     }
 
-    v33 = v222;
-    *(&v233 + v222) = v31;
-    v222 = v33 + 1;
+    v29 = v162;
+    (&v173)[v162] = v28;
+    v162 = v29 + 1;
   }
 
-  v215 = v20 > 0x11;
-  TextureSize = glpGetTextureSize(v20, &v230);
-  v211 = (v20 > 0x10 || ((1 << v20) & 0x10101) == 0) && v20 != 17;
-  v210 = *(a1 + 832);
+  v155 = v20 > 0x11;
+  TextureSize = glpGetTextureSize(v20, &v170);
+  v151 = (v20 > 0x10 || ((1 << v20) & 0x10101) == 0) && v20 != 17;
+  v150 = *(a1 + 416);
   HasOffset = glpPPStreamOpNodeGetHasOffset(a2);
-  v220 = 0;
-  HIDWORD(v217) = 1;
-  v216 = HasOffset;
+  v160 = 0;
+  HIDWORD(v157) = 1;
+  v156 = HasOffset;
   if (Opcode > 97)
   {
     if (Opcode > 164)
     {
       if (Opcode == 165)
       {
-        if (v216)
+        if (v156)
         {
-          v46 = v206 - 3;
+          v41 = v146 - 3;
         }
 
         else
         {
-          v46 = 0;
+          v41 = 0;
         }
 
-        v220 = v230 == 0;
-        v217 = v230 | 0x100000000;
-        v212 = 1;
-        v213 = v46;
+        v160 = v170 == 0;
+        v157 = v170 | 0x100000000;
+        v152 = 1;
+        v153 = v41;
         goto LABEL_48;
       }
 
-      v212 = v220;
-      v213 = v220;
-      v36 = 1;
-      LODWORD(v217) = v220;
+      v152 = v160;
+      v153 = v160;
+      v32 = 1;
+      LODWORD(v157) = v160;
       if (Opcode != 166)
       {
         goto LABEL_55;
       }
 
-      v211 = 0;
-      v213 = 0;
-      v217 = v230;
-      v220 = v230 == 0;
+      v151 = 0;
+      v153 = 0;
+      v157 = v170;
+      v160 = v170 == 0;
     }
 
     else
     {
       if ((Opcode - 98) >= 2)
       {
-        v212 = v220;
-        v213 = v220;
-        v36 = 1;
-        LODWORD(v217) = v220;
+        v152 = v160;
+        v153 = v160;
+        v32 = 1;
+        LODWORD(v157) = v160;
         if (Opcode != 130)
         {
           goto LABEL_55;
         }
 
-        v220 = 0;
-        v211 = 0;
+        v160 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v220 = 0;
-        v36 = 0;
+        v160 = 0;
+        v32 = 0;
       }
 
-      v37 = v206 - 3;
+      v33 = v146 - 3;
       if (!HasOffset)
       {
-        v37 = 0;
+        v33 = 0;
       }
 
-      v213 = v37;
-      v217 = 0x100000000;
+      v153 = v33;
+      v157 = 0x100000000;
     }
 
-    v212 = 1;
+    v152 = 1;
   }
 
   else
   {
     if ((Opcode - 66) < 2)
     {
-      v220 = 0;
-      v212 = 0;
-      LODWORD(v217) = 0;
-      v35 = HasOffset != 0;
+      v160 = 0;
+      v152 = 0;
+      LODWORD(v157) = 0;
+      v31 = HasOffset != 0;
       goto LABEL_47;
     }
 
     if ((Opcode - 68) < 2 || (Opcode - 70) < 2)
     {
-      v220 = 0;
-      v212 = 0;
-      LODWORD(v217) = 0;
-      v35 = 2 * (HasOffset != 0);
+      v160 = 0;
+      v152 = 0;
+      LODWORD(v157) = 0;
+      v31 = 2 * (HasOffset != 0);
 LABEL_47:
-      v213 = v35;
-      HIDWORD(v217) = 1;
+      v153 = v31;
+      HIDWORD(v157) = 1;
 LABEL_48:
-      v36 = 1;
+      v32 = 1;
       goto LABEL_55;
     }
 
-    v212 = v220;
-    v213 = v220;
-    v36 = 1;
-    LODWORD(v217) = v220;
+    v152 = v160;
+    v153 = v160;
+    v32 = 1;
+    LODWORD(v157) = v160;
   }
 
 LABEL_55:
-  memset(v240, 0, sizeof(v240));
-  v38 = *a3;
-  v227 = a3;
-  v224 = Opcode;
-  if (v221)
+  memset(v180, 0, sizeof(v180));
+  v34 = *a3;
+  v167 = a3;
+  v164 = Opcode;
+  if (v161)
   {
-    v39 = *a4;
-    v40 = *v228;
-    v232 = v38;
-    v41 = glpLLVMGetTypeString(&v231, v39, 3);
-    v42 = glpPrimitiveTypeToLLVMType(a1, v39, 3);
-    v271 = 0u;
-    v272 = 0u;
-    v269 = 0u;
-    v270 = 0u;
-    v267 = 0u;
-    v268 = 0u;
-    v265 = 0u;
-    v266 = 0u;
-    v263 = 0u;
-    v264 = 0u;
-    v261 = 0u;
-    v262 = 0u;
-    v259 = 0u;
-    v260 = 0u;
-    v257 = 0u;
-    v258 = 0u;
-    v255 = 0u;
-    v256 = 0u;
-    v253 = 0u;
-    v254 = 0u;
-    v251 = 0u;
-    v252 = 0u;
-    v249 = 0u;
-    v250 = 0u;
-    v247 = 0u;
-    v248 = 0u;
-    v245 = 0u;
-    v246 = 0u;
-    v243 = 0u;
-    v244 = 0u;
-    v241 = 0u;
-    v242 = 0u;
-    snprintf_l(&v241, 0x200uLL, 0, "%s.%s", "air.projective_coordinates", v41);
-    if (v40)
+    v35 = *a4;
+    v36 = *v168;
+    v172 = v34;
+    v37 = glpLLVMGetTypeString(&v171, v35, 3);
+    v38 = glpPrimitiveTypeToLLVMType(a1, v35, 3);
+    v211 = 0u;
+    v212 = 0u;
+    v209 = 0u;
+    v210 = 0u;
+    v207 = 0u;
+    v208 = 0u;
+    v205 = 0u;
+    v206 = 0u;
+    v203 = 0u;
+    v204 = 0u;
+    v201 = 0u;
+    v202 = 0u;
+    v199 = 0u;
+    v200 = 0u;
+    v197 = 0u;
+    v198 = 0u;
+    v195 = 0u;
+    v196 = 0u;
+    v193 = 0u;
+    v194 = 0u;
+    v191 = 0u;
+    v192 = 0u;
+    v189 = 0u;
+    v190 = 0u;
+    v187 = 0u;
+    v188 = 0u;
+    v185 = 0u;
+    v186 = 0u;
+    v183 = 0u;
+    v184 = 0u;
+    v181 = 0u;
+    v182 = 0u;
+    snprintf_l(&v181, 0x200uLL, 0, "%s.%s", "air.projective_coordinates", v37);
+    if (v36)
     {
-      a4 = v226;
-      if (v40 != 3)
+      a4 = v166;
+      if (v36 != 3)
       {
-        v43 = *a1;
-        v44 = LLVMFloatTypeInContext();
-        if (glpPrimitiveTypeGetCategory(v39) == 2)
+        v39 = LLVMFloatTypeInContext();
+        if (glpPrimitiveTypeGetCategory(v35) == 2)
         {
-          v45 = glpPrimitiveVectorGetLength(v39);
+          v40 = glpPrimitiveVectorGetLength(v35);
         }
 
         else
         {
-          v45 = 1;
+          v40 = 1;
         }
 
-        v42 = MEMORY[0x23EE854F0](v44, v45);
-        v47 = *(a1 + 16);
-        v232 = LLVMBuildFPExt();
+        v38 = MEMORY[0x23EE854F0](v39, v40);
+        v172 = LLVMBuildFPExt();
       }
     }
 
     else
     {
-      a4 = v226;
+      a4 = v166;
     }
 
-    v273[0] = 0x300000001;
-    v38 = glpLLVMCallFunctionInner(a1, &v241, v42, &v232, 1u, v273, 2u, "");
-    a3 = v227;
-    Opcode = v224;
+    v213[0] = 0x300000001;
+    v34 = glpLLVMCallFunctionInner(a1, &v181, v38, &v172, 1, v213, 2u, "");
+    Opcode = v164;
   }
 
-  v48 = *a4;
+  v42 = *a4;
   Category = glpPrimitiveTypeGetCategory(*a4);
-  v50 = TextureSize;
+  v44 = TextureSize;
   if (TextureSize == 1)
   {
-    if (Category == 2 && glpPrimitiveVectorGetLength(v48) >= 2)
+    if (Category == 2 && glpPrimitiveVectorGetLength(v42) >= 2)
     {
-      v51 = *(a1 + 16);
-      if (!*(a1 + 520))
+      if (!a1[65])
       {
-        v52 = *(a1 + 40);
-        *(a1 + 520) = LLVMConstInt();
+        a1[65] = LLVMConstInt();
       }
 
-      v38 = LLVMBuildExtractElement();
+      v34 = LLVMBuildExtractElement();
     }
   }
 
@@ -2391,749 +1112,687 @@ LABEL_55:
   {
     if (Category == 2)
     {
-      Category = glpPrimitiveVectorGetLength(v48);
-      v50 = TextureSize;
+      Category = glpPrimitiveVectorGetLength(v42);
+      v44 = TextureSize;
     }
 
-    v53 = v50;
-    MEMORY[0x28223BE20](Category);
-    v55 = &Element - v54;
-    bzero(&Element - v54, v56);
-    v57 = 0;
-    v58 = a1 + 520;
+    v45 = v44;
+    MEMORY[0x28223BE20](Category, 8 * v44);
+    v47 = &Element - v46;
+    bzero(&Element - v46, v48);
+    v49 = 0;
+    v50 = a1 + 65;
     do
     {
-      v59 = *(v58 + 8 * v57);
-      if (!v59)
+      v51 = v50[v49];
+      if (!v51)
       {
-        v60 = *(a1 + 40);
-        v59 = LLVMConstInt();
-        *(v58 + 8 * v57) = v59;
+        v51 = LLVMConstInt();
+        v50[v49] = v51;
       }
 
-      *&v55[8 * v57++] = v59;
+      *&v47[8 * v49++] = v51;
     }
 
-    while (v53 != v57);
+    while (v45 != v49);
     LLVMConstVector();
-    v61 = *(a1 + 16);
-    v62 = LLVMTypeOf();
-    MEMORY[0x23EE85370](v62);
-    v38 = LLVMBuildShuffleVector();
-    a3 = v227;
-    Opcode = v224;
-    LOBYTE(v20) = v229;
+    v52 = LLVMTypeOf();
+    MEMORY[0x23EE85370](v52);
+    v34 = LLVMBuildShuffleVector();
+    Opcode = v164;
+    LOBYTE(v20) = v169;
   }
 
-  ScalarType = glpPrimitiveTypeGetScalarType(*v226);
-  if (!*v228)
+  ScalarType = glpPrimitiveTypeGetScalarType(*v166);
+  if (!*v168)
   {
     goto LABEL_94;
   }
 
-  v64 = v216;
-  if (*v228 != 3)
+  v54 = v156;
+  if (*v168 != 3)
   {
     if (ScalarType == 5)
     {
-      v65 = *(a1 + 40);
       if (TextureSize >= 2)
       {
-        MEMORY[0x23EE854F0](*(a1 + 40));
+        MEMORY[0x23EE854F0](a1[5]);
       }
 
-      v66 = *(a1 + 16);
-      v67 = LLVMBuildSExt();
+      v55 = LLVMBuildSExt();
 LABEL_93:
-      v38 = v67;
+      v34 = v55;
 LABEL_94:
-      v64 = v216;
+      v54 = v156;
       goto LABEL_95;
     }
 
     if (ScalarType == 1)
     {
-      if (v221)
+      if (v161)
       {
-        v205 = v216 != 0;
+        v145 = v156 != 0;
 LABEL_100:
-        v73 = v222;
+        v58 = v162;
         goto LABEL_105;
       }
 
-      v68 = *a1;
-      v69 = LLVMFloatTypeInContext();
+      v56 = LLVMFloatTypeInContext();
       if (TextureSize >= 2)
       {
-        MEMORY[0x23EE854F0](v69);
+        MEMORY[0x23EE854F0](v56);
       }
 
-      v70 = *(a1 + 16);
-      v67 = LLVMBuildFPExt();
+      v55 = LLVMBuildFPExt();
       goto LABEL_93;
     }
   }
 
 LABEL_95:
-  v205 = v64 != 0;
-  if (Opcode != 130 || !v64)
+  v145 = v54 != 0;
+  if (Opcode != 130 || !v54)
   {
     goto LABEL_100;
   }
 
-  v71 = a3[v213];
-  v72 = v228[v213];
-  if (v72 && v72 != 3)
+  v57 = v168[v153];
+  if (v57 && v57 != 3)
   {
-    v74 = *(a1 + 40);
-    v73 = v222;
+    v58 = v162;
     if (TextureSize >= 2)
     {
-      MEMORY[0x23EE854F0](*(a1 + 40));
+      MEMORY[0x23EE854F0](a1[5]);
     }
 
-    v75 = *(a1 + 16);
     LLVMBuildSExt();
   }
 
   else
   {
-    v73 = v222;
+    v58 = v162;
   }
 
-  v76 = *(a1 + 16);
-  v38 = LLVMBuildAdd();
-  v205 = 1;
+  v34 = LLVMBuildAdd();
+  v145 = 1;
 LABEL_105:
-  v77 = 0x61FFu >> v20;
-  *(&v233 + v73) = v38;
-  v218 = v230;
-  v207 = v36;
-  if (!v230)
+  v59 = 0x61FFu >> v20;
+  (&v173)[v58] = v34;
+  v158 = v170;
+  v147 = v32;
+  if (!v170)
   {
     switch(Opcode)
     {
       case 130:
-        v81 = glpTextureNameFromSamplerType(PrimitiveType);
-        v79 = "air.read_";
+        v63 = glpTextureNameFromSamplerType(PrimitiveType);
+        v61 = "air.read_";
         goto LABEL_123;
       case 165:
-        v79 = "air.gather_";
+        v61 = "air.gather_";
         break;
       case 166:
-        v79 = "air.gather_offsets_";
+        v61 = "air.gather_offsets_";
         break;
       default:
-        v79 = "air.sample_";
+        v61 = "air.sample_";
         goto LABEL_111;
     }
 
-    v81 = glpTextureNameFromSamplerType(PrimitiveType);
-    v203 = 0;
-    v204 = 0;
-    v82 = "";
+    v63 = glpTextureNameFromSamplerType(PrimitiveType);
+    v143 = 0;
+    v144 = 0;
+    v64 = "";
     goto LABEL_124;
   }
 
-  v78 = "air.sample_compare_";
+  v60 = "air.sample_compare_";
   if (Opcode == 166)
   {
-    v78 = "air.gather_compare_offsets_";
+    v60 = "air.gather_compare_offsets_";
   }
 
   if (Opcode == 165)
   {
-    v79 = "air.gather_compare_";
+    v61 = "air.gather_compare_";
   }
 
   else
   {
-    v79 = v78;
+    v61 = v60;
   }
 
 LABEL_111:
-  v80 = Opcode;
-  v81 = glpTextureNameFromSamplerType(PrimitiveType);
-  v82 = "";
-  v83 = v80 - 70;
-  if ((v80 - 70) > 0x3C)
+  v62 = Opcode;
+  v63 = glpTextureNameFromSamplerType(PrimitiveType);
+  v64 = "";
+  v65 = v62 - 70;
+  if ((v62 - 70) > 0x3C)
   {
-    v203 = 0;
-    v204 = 0;
+    v143 = 0;
+    v144 = 0;
     goto LABEL_124;
   }
 
-  if (((1 << v83) & 0x1000000000000003) != 0)
+  if (((1 << v65) & 0x1000000000000003) != 0)
   {
 LABEL_123:
-    v82 = "";
-    v204 = 1;
-    v203 = 1;
+    v64 = "";
+    v144 = 1;
+    v143 = 1;
     goto LABEL_124;
   }
 
-  v204 = 0;
-  v203 = 0;
-  if (((1 << v83) & 0x30000000) != 0)
+  v144 = 0;
+  v143 = 0;
+  if (((1 << v65) & 0x30000000) != 0)
   {
-    v82 = "_grad";
+    v64 = "_grad";
   }
 
 LABEL_124:
-  v84 = v73 + 1;
-  v85 = v215 | v77;
-  v232 = 0;
-  v86 = ReturnPrimitiveType;
-  if (v218)
+  v66 = v58 + 1;
+  v67 = v155 | v59;
+  v172 = 0;
+  v68 = ReturnPrimitiveType;
+  if (v158)
   {
-    v87 = 1;
+    v69 = 1;
   }
 
   else
   {
-    v87 = ReturnPrimitiveType;
+    v69 = ReturnPrimitiveType;
   }
 
   if (glpPrimitiveTypeGetScalarType(ReturnPrimitiveType) == 1)
   {
-    v88 = v219;
+    v70 = v159;
   }
 
   else
   {
-    v88 = 3;
+    v70 = 3;
   }
 
-  PrimitiveType = v88;
-  v89 = glpLLVMGetTypeString(&v232, v87, v88);
-  if (glpPrimitiveTypeGetScalarType(v86) == 1)
+  PrimitiveType = v70;
+  v71 = glpLLVMGetTypeString(&v172, v69, v70);
+  if (glpPrimitiveTypeGetScalarType(v68) == 1)
   {
-    v90 = "";
-    v232 = "";
+    v72 = "";
+    v172 = "";
   }
 
   else
   {
-    v90 = v232;
+    v72 = v172;
   }
 
-  snprintf_l(v240, 0x200uLL, 0, "%s%s%s%s.%s", v79, v81, v82, v90, v89);
-  v91 = v227;
-  v92 = v229;
-  if ((v85 & 1) == 0)
+  snprintf_l(v180, 0x200uLL, 0, "%s%s%s%s.%s", v61, v63, v64, v72, v71);
+  v73 = v167;
+  v74 = v169;
+  if ((v67 & 1) == 0)
   {
-    if (!*(a1 + 520 + 8 * TextureSize))
+    if (!a1[TextureSize + 65])
     {
-      v93 = TextureSize;
-      v94 = *(a1 + 40);
-      *(a1 + 520 + 8 * v93) = LLVMConstInt();
+      v75 = TextureSize;
+      a1[v75 + 65] = LLVMConstInt();
     }
 
-    v95 = *(a1 + 16);
-    v231 = LLVMBuildExtractElement();
-    v96 = v226;
-    v97 = glpPrimitiveTypeGetScalarType(*v226);
-    v98 = v222;
-    if (v97 == 1)
+    v171 = LLVMBuildExtractElement();
+    v76 = v166;
+    v77 = glpPrimitiveTypeGetScalarType(*v166);
+    v78 = v162;
+    if (v77 == 1)
     {
-      v99 = LLVMTypeOf();
-      v100 = *(a1 + 16);
+      v79 = LLVMTypeOf();
       llvm::ConstantFP::get();
-      v91 = v227;
-      v92 = v229;
-      v231 = LLVMBuildFAdd();
-      v271 = 0u;
-      v272 = 0u;
-      v269 = 0u;
-      v270 = 0u;
-      v267 = 0u;
-      v268 = 0u;
-      v265 = 0u;
-      v266 = 0u;
-      v263 = 0u;
-      v264 = 0u;
-      v261 = 0u;
-      v262 = 0u;
-      v259 = 0u;
-      v260 = 0u;
-      v257 = 0u;
-      v258 = 0u;
-      v255 = 0u;
-      v256 = 0u;
-      v253 = 0u;
-      v254 = 0u;
-      v251 = 0u;
-      v252 = 0u;
-      v249 = 0u;
-      v250 = 0u;
-      v247 = 0u;
-      v248 = 0u;
-      v245 = 0u;
-      v246 = 0u;
-      v243 = 0u;
-      v244 = 0u;
-      v241 = 0u;
-      v242 = 0u;
-      snprintf_l(&v241, 0x200uLL, 0, "%s.%s", "air.floor", "f32");
-      v273[0] = 0x300000001;
-      v231 = glpLLVMCallFunctionInner(a1, &v241, v99, &v231, 1u, v273, 2u, "");
-      v101 = glpLLVMBuildConversion(a1, v231, *(a1 + 40), 1, 0, 36, 0);
+      v73 = v167;
+      v74 = v169;
+      v171 = LLVMBuildFAdd();
+      v211 = 0u;
+      v212 = 0u;
+      v209 = 0u;
+      v210 = 0u;
+      v207 = 0u;
+      v208 = 0u;
+      v205 = 0u;
+      v206 = 0u;
+      v203 = 0u;
+      v204 = 0u;
+      v201 = 0u;
+      v202 = 0u;
+      v199 = 0u;
+      v200 = 0u;
+      v197 = 0u;
+      v198 = 0u;
+      v195 = 0u;
+      v196 = 0u;
+      v193 = 0u;
+      v194 = 0u;
+      v191 = 0u;
+      v192 = 0u;
+      v189 = 0u;
+      v190 = 0u;
+      v187 = 0u;
+      v188 = 0u;
+      v185 = 0u;
+      v186 = 0u;
+      v183 = 0u;
+      v184 = 0u;
+      v181 = 0u;
+      v182 = 0u;
+      snprintf_l(&v181, 0x200uLL, 0, "%s.%s", "air.floor", "f32");
+      v213[0] = 0x300000001;
+      v171 = glpLLVMCallFunctionInner(a1, &v181, v79, &v171, 1, v213, 2u, "");
+      v80 = glpLLVMBuildConversion(a1, v171, a1[5], 1, 0, 36, 0);
     }
 
     else
     {
-      v102 = glpPrimitiveTypeGetScalarType(*v96);
-      v101 = v231;
-      if (v102 == 5)
+      v81 = glpPrimitiveTypeGetScalarType(*v76);
+      v80 = v171;
+      if (v81 == 5)
       {
-        v103 = LLVMTypeOf();
-        MEMORY[0x23EE85200](v103);
-        v104 = *(a1 + 16);
+        v82 = LLVMTypeOf();
+        MEMORY[0x23EE85200](v82);
         LLVMBuildICmp();
-        v105 = *(a1 + 16);
-        v101 = LLVMBuildSelect();
+        v80 = LLVMBuildSelect();
       }
     }
 
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = v101;
-    v84 = v98 + 2;
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = v80;
+    v66 = v78 + 2;
   }
 
-  if (v218)
+  if (v158)
   {
-    if (v92 == 17 || v217)
+    if (v74 == 17 || v157)
     {
-      v109 = v91[1];
-      v110 = v228[1];
-      if (v110)
+      v85 = v73[1];
+      v86 = v168[1];
+      if (v86)
       {
-        v108 = ReturnPrimitiveType;
-        if (v110 != 3)
+        v84 = ReturnPrimitiveType;
+        if (v86 != 3)
         {
-          v111 = v226[1];
-          v112 = *a1;
-          v113 = LLVMFloatTypeInContext();
-          if (glpPrimitiveTypeGetCategory(v111) == 2)
+          v87 = v166[1];
+          v88 = LLVMFloatTypeInContext();
+          if (glpPrimitiveTypeGetCategory(v87) == 2)
           {
-            v114 = glpPrimitiveVectorGetLength(v111);
-            MEMORY[0x23EE854F0](v113, v114);
+            v89 = glpPrimitiveVectorGetLength(v87);
+            MEMORY[0x23EE854F0](v88, v89);
           }
 
-          v115 = *(a1 + 16);
-          v109 = LLVMBuildFPCast();
-          v91 = v227;
+          v85 = LLVMBuildFPCast();
+          v73 = v167;
         }
       }
 
       else
       {
-        v108 = ReturnPrimitiveType;
+        v84 = ReturnPrimitiveType;
       }
     }
 
     else
     {
-      if (v208 > 7)
+      if (v148 > 7)
       {
-        v116 = *(a1 + 40);
         LLVMConstInt();
       }
 
-      else if (!*(a1 + 520 + 8 * v208))
+      else if (!a1[v148 + 65])
       {
-        v106 = v208;
-        v107 = *(a1 + 40);
-        *(a1 + 520 + 8 * v106) = LLVMConstInt();
+        v83 = v148;
+        a1[v83 + 65] = LLVMConstInt();
       }
 
-      v117 = *(a1 + 16);
-      v109 = LLVMBuildExtractElement();
-      v108 = ReturnPrimitiveType;
-      if (v221)
+      v85 = LLVMBuildExtractElement();
+      v84 = ReturnPrimitiveType;
+      if (v161)
       {
-        v118 = *(a1 + 16);
-        v109 = LLVMBuildFDiv();
+        v85 = LLVMBuildFDiv();
       }
     }
 
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = v109;
-    ++v84;
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = v85;
+    ++v66;
   }
 
   else
   {
-    v108 = ReturnPrimitiveType;
+    v84 = ReturnPrimitiveType;
   }
 
-  if ((v207 & 1) == 0)
+  if ((v147 & 1) == 0)
   {
-    v119 = v91[1];
-    v120 = v228[1];
-    if (v120 && v120 != 3)
+    v90 = v73[1];
+    v91 = v168[1];
+    if (v91 && v91 != 3)
     {
-      v121 = v226[1];
-      v122 = *a1;
-      v123 = LLVMFloatTypeInContext();
-      if (glpPrimitiveTypeGetCategory(v121) == 2)
+      v92 = v166[1];
+      v93 = LLVMFloatTypeInContext();
+      if (glpPrimitiveTypeGetCategory(v92) == 2)
       {
-        v124 = glpPrimitiveVectorGetLength(v121);
-        MEMORY[0x23EE854F0](v123, v124);
+        v94 = glpPrimitiveVectorGetLength(v92);
+        MEMORY[0x23EE854F0](v93, v94);
       }
 
-      v91 = v227;
-      v125 = *(a1 + 16);
-      v119 = LLVMBuildFPCast();
+      v73 = v167;
+      v90 = LLVMBuildFPCast();
     }
 
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = v119;
-    v126 = v91[2];
-    v127 = v228[2];
-    if (v127 && v127 != 3)
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = v90;
+    v95 = v73[2];
+    v96 = v168[2];
+    if (v96 && v96 != 3)
     {
-      v128 = v226[2];
-      v129 = *a1;
-      v130 = LLVMFloatTypeInContext();
-      if (glpPrimitiveTypeGetCategory(v128) == 2)
+      v97 = v166[2];
+      v98 = LLVMFloatTypeInContext();
+      if (glpPrimitiveTypeGetCategory(v97) == 2)
       {
-        v131 = glpPrimitiveVectorGetLength(v128);
-        MEMORY[0x23EE854F0](v130, v131);
+        v99 = glpPrimitiveVectorGetLength(v97);
+        MEMORY[0x23EE854F0](v98, v99);
       }
 
-      v132 = *(a1 + 16);
-      v126 = LLVMBuildFPCast();
-      v91 = v227;
+      v95 = LLVMBuildFPCast();
+      v73 = v167;
     }
 
-    *(&v233 + (v84 + 1 - 12 * ((357913942 * (v84 + 1)) >> 32))) = v126;
-    v133 = *a1;
-    v134 = LLVMFloatTypeInContext();
-    *(&v233 + (v84 + 2 - 12 * ((357913942 * (v84 + 2)) >> 32))) = MEMORY[0x23EE85200](v134);
-    v84 += 3;
-    v108 = ReturnPrimitiveType;
-    v92 = v229;
+    (&v173)[(v66 + 1 - 12 * ((357913942 * (v66 + 1)) >> 32))] = v95;
+    v100 = LLVMFloatTypeInContext();
+    (&v173)[(v66 + 2 - 12 * ((357913942 * (v66 + 2)) >> 32))] = MEMORY[0x23EE85200](v100);
+    v66 += 3;
+    v84 = ReturnPrimitiveType;
+    v74 = v169;
   }
 
-  if (v211)
+  if (v151)
   {
-    v135 = *(a1 + 64);
-    v136 = v213;
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = LLVMConstInt();
-    if (v136 < 1)
+    v101 = v153;
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = LLVMConstInt();
+    if (v101 < 1)
     {
-      v138 = *(a1 + 40);
+      v103 = a1[5];
       if (TextureSize >= 2)
       {
-        v138 = MEMORY[0x23EE854F0](v138);
+        v103 = MEMORY[0x23EE854F0](v103);
       }
 
-      v137 = MEMORY[0x23EE85200](v138);
+      v102 = MEMORY[0x23EE85200](v103);
     }
 
     else
     {
-      v137 = v91[v136];
+      v102 = v73[v101];
     }
 
-    *(&v233 + (v84 + 1 - 12 * ((357913942 * (v84 + 1)) >> 32))) = v137;
-    v84 += 2;
+    (&v173)[(v66 + 1 - 12 * ((357913942 * (v66 + 1)) >> 32))] = v102;
+    v66 += 2;
   }
 
-  if ((v217 & 0x100000000) == 0)
+  if ((v157 & 0x100000000) == 0)
   {
-    if (v230)
-    {
-      v139 = 2;
-    }
-
-    else
-    {
-      v139 = 1;
-    }
-
-    MEMORY[0x23EE854F0](*(a1 + 40), 2);
-    v140 = LLVMArrayType();
-    MEMORY[0x23EE85370](v140);
-    v141 = 0;
-    v142 = v91;
-    v143 = 0;
-    v144 = &v142[v139];
-    v145 = (a1 + 528);
+    MEMORY[0x23EE854F0](a1[5], 2);
+    v104 = LLVMArrayType();
+    MEMORY[0x23EE85370](v104);
+    v105 = 0;
+    v106 = 0;
+    v107 = a1 + 66;
     do
     {
-      v241 = 0uLL;
-      v146 = *(v145 - 1);
-      if (!v146)
+      v181 = 0uLL;
+      v108 = *(v107 - 1);
+      if (!v108)
       {
-        v147 = *(a1 + 40);
-        v146 = LLVMConstInt();
-        *(v145 - 1) = v146;
+        v108 = LLVMConstInt();
+        *(v107 - 1) = v108;
       }
 
-      *&v241 = v146;
-      v148 = *v145;
-      if (!*v145)
+      *&v181 = v108;
+      v109 = *v107;
+      if (!*v107)
       {
-        v149 = *(a1 + 40);
-        v148 = LLVMConstInt();
-        *v145 = v148;
+        v109 = LLVMConstInt();
+        *v107 = v109;
       }
 
-      *(&v241 + 1) = v148;
+      *(&v181 + 1) = v109;
       LLVMConstVector();
-      v150 = *(a1 + 16);
-      v151 = *v144;
-      v152 = v144[1];
       LLVMBuildShuffleVector();
-      v153 = *(a1 + 16);
       inserted = LLVMBuildInsertValue();
-      ++v143;
-      v141 += 2;
-      v145 += 2;
+      ++v106;
+      v105 += 2;
+      v107 += 2;
     }
 
-    while (v143 != 4);
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = inserted;
-    ++v84;
-    v108 = ReturnPrimitiveType;
-    v91 = v227;
-    v92 = v229;
+    while (v106 != 4);
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = inserted;
+    ++v66;
+    v84 = ReturnPrimitiveType;
+    v73 = v167;
+    v74 = v169;
   }
 
-  if ((v212 & 1) == 0)
+  if ((v152 & 1) == 0)
   {
-    v155 = v215 | (0x1EFDBu >> v92);
-    v156 = (v224 & 0xFFFFFFFE) == 68;
-    v157 = *(a1 + 64);
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = LLVMConstInt();
-    if ((v204 | v156 & v155) == 1)
+    v111 = v155 | (0x1EFDBu >> v74);
+    v112 = (v164 & 0xFFFFFFFE) == 68;
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = LLVMConstInt();
+    if ((v144 | v112 & v111) == 1)
     {
-      v158 = v91[1];
-      v159 = v228[1];
-      if (!v159 || v159 == 3)
+      v113 = v73[1];
+      v114 = v168[1];
+      if (!v114 || v114 == 3)
       {
-        goto LABEL_197;
+        goto LABEL_194;
       }
 
-      v160 = v226[1];
-      v161 = *a1;
-      v162 = LLVMFloatTypeInContext();
-      if (glpPrimitiveTypeGetCategory(v160) == 2)
+      v115 = v166[1];
+      v116 = LLVMFloatTypeInContext();
+      if (glpPrimitiveTypeGetCategory(v115) == 2)
       {
-        v163 = glpPrimitiveVectorGetLength(v160);
-        MEMORY[0x23EE854F0](v162, v163);
+        v117 = glpPrimitiveVectorGetLength(v115);
+        MEMORY[0x23EE854F0](v116, v117);
       }
 
-      v164 = *(a1 + 16);
-      v165 = LLVMBuildFPCast();
+      v118 = LLVMBuildFPCast();
     }
 
     else
     {
-      v166 = *a1;
-      v167 = LLVMFloatTypeInContext();
-      v165 = MEMORY[0x23EE85200](v167);
+      v119 = LLVMFloatTypeInContext();
+      v118 = MEMORY[0x23EE85200](v119);
     }
 
-    v158 = v165;
-LABEL_197:
-    *(&v233 + (v84 + 1 - 12 * ((357913942 * (v84 + 1)) >> 32))) = v158;
-    v168 = *a1;
-    v169 = LLVMFloatTypeInContext();
-    *(&v233 + (v84 + 2 - 12 * ((357913942 * (v84 + 2)) >> 32))) = MEMORY[0x23EE85200](v169);
-    v84 += 3;
-    v92 = v229;
+    v113 = v118;
+LABEL_194:
+    (&v173)[(v66 + 1 - 12 * ((357913942 * (v66 + 1)) >> 32))] = v113;
+    v120 = LLVMFloatTypeInContext();
+    (&v173)[(v66 + 2 - 12 * ((357913942 * (v66 + 2)) >> 32))] = MEMORY[0x23EE85200](v120);
+    v66 += 3;
+    v74 = v169;
   }
 
-  if (!v220)
-  {
-    goto LABEL_214;
-  }
-
-  if (v224 == 165)
-  {
-    v170 = v205;
-    if (v206 != 5)
-    {
-      v170 = 0;
-    }
-
-    if (v216)
-    {
-      v171 = 0;
-    }
-
-    else
-    {
-      v171 = v206 == 4;
-    }
-
-    v172 = 1;
-    if (v171 || v170)
-    {
-      goto LABEL_210;
-    }
-
-LABEL_211:
-    v173 = *(a1 + 520);
-    if (!v173)
-    {
-      v174 = *(a1 + 40);
-      v173 = LLVMConstInt();
-      *(a1 + 520) = v173;
-    }
-
-    goto LABEL_213;
-  }
-
-  if (v206 != 6)
+  if (!v160)
   {
     goto LABEL_211;
   }
 
-  v172 = 3;
-LABEL_210:
-  v173 = v91[v172];
-LABEL_213:
-  *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = v173;
-  ++v84;
-LABEL_214:
-  if (v224 == 130)
+  if (v164 == 165)
   {
-    if (v92 == 13 || v92 == 2)
+    v121 = v145;
+    if (v146 != 5)
     {
-      v175 = *(a1 + 520);
-      v177 = PrimitiveType;
-      v176 = v210;
-      if (!v175)
+      v121 = 0;
+    }
+
+    if (v156)
+    {
+      v122 = 0;
+    }
+
+    else
+    {
+      v122 = v146 == 4;
+    }
+
+    v123 = 1;
+    if (v122 || v121)
+    {
+      goto LABEL_207;
+    }
+
+LABEL_208:
+    v124 = a1[65];
+    if (!v124)
+    {
+      v124 = LLVMConstInt();
+      a1[65] = v124;
+    }
+
+    goto LABEL_210;
+  }
+
+  if (v146 != 6)
+  {
+    goto LABEL_208;
+  }
+
+  v123 = 3;
+LABEL_207:
+  v124 = v73[v123];
+LABEL_210:
+  (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = v124;
+  ++v66;
+LABEL_211:
+  if (v164 == 130)
+  {
+    if (v74 == 13 || v74 == 2)
+    {
+      v125 = a1[65];
+      v127 = PrimitiveType;
+      v126 = v150;
+      if (!v125)
       {
-        v178 = *(a1 + 40);
-        v175 = LLVMConstInt();
-        *(a1 + 520) = v175;
+        v125 = LLVMConstInt();
+        a1[65] = v125;
       }
     }
 
     else
     {
-      v175 = v91[1];
-      v179 = v228[1];
-      if (v179)
+      v125 = v73[1];
+      v128 = v168[1];
+      if (v128)
       {
-        v177 = PrimitiveType;
-        v176 = v210;
-        if (v179 != 3)
+        v127 = PrimitiveType;
+        v126 = v150;
+        if (v128 != 3)
         {
-          v180 = *(a1 + 40);
-          v181 = *(a1 + 16);
-          v175 = LLVMBuildSExt();
+          v125 = LLVMBuildSExt();
         }
       }
 
       else
       {
-        v177 = PrimitiveType;
-        v176 = v210;
+        v127 = PrimitiveType;
+        v126 = v150;
       }
     }
 
-    *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = v175;
-    ++v84;
+    (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = v125;
+    ++v66;
   }
 
   else
   {
-    v177 = PrimitiveType;
-    v176 = v210;
+    v127 = PrimitiveType;
+    v126 = v150;
   }
 
-  v182 = *(a1 + 520);
-  if (!v182)
+  v129 = a1[65];
+  if (!v129)
   {
-    v183 = *(a1 + 40);
-    v182 = LLVMConstInt();
-    *(a1 + 520) = v182;
+    v129 = LLVMConstInt();
+    a1[65] = v129;
   }
 
-  *(&v233 + (v84 - 12 * ((357913942 * v84) >> 32))) = v182;
-  if (v230)
+  (&v173)[(v66 - 12 * ((357913942 * v66) >> 32))] = v129;
+  if (v170)
   {
-    v184 = v217 == 0;
-  }
-
-  else
-  {
-    v184 = 0;
-  }
-
-  v185 = !v184;
-  if (v184)
-  {
-    v186 = 1;
+    v130 = v157 == 0;
   }
 
   else
   {
-    v186 = v108;
+    v130 = 0;
   }
 
-  v187 = glpPrimitiveTypeToLLVMType(a1, v186, v177);
-  if (v176)
+  v131 = !v130;
+  if (v130)
   {
-    *&v241 = v187;
-    v189 = *a1;
-    *(&v241 + 1) = LLVMInt8TypeInContext();
-    v190 = *a1;
-    v191 = LLVMStructTypeInContext();
-    *&v241 = 0x400000001;
-    glpLLVMCallFunctionInner(a1, v240, v191, &v233, v84 + 1, &v241, 2u, "");
-    v192 = *(a1 + 16);
+    v132 = 1;
+  }
+
+  else
+  {
+    v132 = v84;
+  }
+
+  v133 = glpPrimitiveTypeToLLVMType(a1, v132, v127);
+  if (v126)
+  {
+    *&v181 = v133;
+    *(&v181 + 1) = LLVMInt8TypeInContext();
+    v135 = LLVMStructTypeInContext();
+    *&v181 = 0x400000001;
+    glpLLVMCallFunctionInner(a1, v180, v135, &v173, v66 + 1, &v181, 2u, "");
     Value = LLVMBuildExtractValue();
   }
 
   else
   {
-    *&v241 = 0x400000001;
-    Value = glpLLVMCallFunctionInner(a1, v240, v187, &v233, v84 + 1, &v241, 2u, "");
+    *&v181 = 0x400000001;
+    Value = glpLLVMCallFunctionInner(a1, v180, v133, &v173, v66 + 1, &v181, 2u, "");
   }
 
-  v193 = Value;
-  if (v108 == 1)
+  v136 = Value;
+  if (v84 == 1)
   {
-    v194 = 1;
+    v137 = 1;
   }
 
   else
   {
-    v194 = v185;
+    v137 = v131;
   }
 
-  v195 = v219;
-  if ((v194 & 1) == 0)
+  v138 = v159;
+  if ((v137 & 1) == 0)
   {
-    v196 = glpPrimitiveTypeToLLVMType(a1, v108, v177);
-    MEMORY[0x23EE85370](v196);
-    v197 = *(a1 + 16);
-    if (!*(a1 + 520))
+    v139 = glpPrimitiveTypeToLLVMType(a1, v84, v127);
+    MEMORY[0x23EE85370](v139);
+    if (!a1[65])
     {
-      v198 = *(a1 + 40);
-      *(a1 + 520) = LLVMConstInt();
+      a1[65] = LLVMConstInt();
     }
 
-    v193 = LLVMBuildInsertElement();
+    v136 = LLVMBuildInsertElement();
   }
 
-  if (!glpLLVMTypesEqual(a1, v108, v177, v108, v195))
+  if (!glpLLVMTypesEqual(a1, v84, v127, v84, v138))
   {
-    v199 = glpPrimitiveTypeToLLVMType(a1, v108, v195);
-    v193 = glpLLVMBuildConversion(a1, v193, v199, v108, v177, v108, v195);
+    v140 = glpPrimitiveTypeToLLVMType(a1, v84, v138);
+    return glpLLVMBuildConversion(a1, v136, v140, v84, v127, v84, v138);
   }
 
-  v200 = *MEMORY[0x277D85DE8];
-  return v193;
+  return v136;
 }
 
 uint64_t glpBuildTextureSizeOperation(uint64_t *a1, uint64_t a2, uint64_t *a3, int a4)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
   SaFlags = glpASTNodeGetSaFlags(a2);
   v10 = glpPrecisionIndexFromSAFlags(SaFlags);
@@ -3142,15 +1801,14 @@ uint64_t glpBuildTextureSizeOperation(uint64_t *a1, uint64_t a2, uint64_t *a3, i
   SaType = glpASTNodeGetSaType(Child);
   PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
   PPTextarget = glpPrimitiveSamplerGetPPTextarget(PrimitiveType);
-  v54 = 0;
-  v53 = 0;
+  v49 = 0;
+  v48 = 0;
   if (a4 == 1)
   {
-    v53 = *a3;
+    v48 = *a3;
     v16 = a1[65];
     if (!v16)
     {
-      v17 = a1[5];
       v16 = LLVMConstInt();
       a1[65] = v16;
     }
@@ -3159,131 +1817,123 @@ uint64_t glpBuildTextureSizeOperation(uint64_t *a1, uint64_t a2, uint64_t *a3, i
   else
   {
     v16 = *a3;
-    v53 = a3[1];
+    v48 = a3[1];
   }
 
-  v54 = v16;
+  v49 = v16;
   if (PPTextarget - 13 < 3)
   {
-    v18 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v18 = 2;
+    v17 = 2;
   }
 
-  v49 = glpPrimitiveTypeToLLVMType(a1, ReturnPrimitiveType, v10);
-  TextureSize = glpGetTextureSize(PPTextarget, &v51);
-  v20 = TextureSize;
+  v44 = glpPrimitiveTypeToLLVMType(a1, ReturnPrimitiveType, v10);
+  TextureSize = glpGetTextureSize(PPTextarget, &v46);
+  v19 = TextureSize;
   if (PPTextarget <= 0x11 && ((1 << PPTextarget) & 0x30101) != 0)
   {
-    v20 = TextureSize - 1;
+    v19 = TextureSize - 1;
   }
 
-  memset(v52, 0, sizeof(v52));
-  v21 = glpTextureNameFromSamplerType(PrimitiveType);
-  snprintf_l(v52, 0x200uLL, 0, "%s%s", "air.get_width_", v21);
-  v50 = PrimitiveType;
+  memset(v47, 0, sizeof(v47));
+  v20 = glpTextureNameFromSamplerType(PrimitiveType);
+  snprintf_l(v47, 0x200uLL, 0, "%s%s", "air.get_width_", v20);
+  v45 = PrimitiveType;
   if (PPTextarget <= 0x11 && ((1 << PPTextarget) & 0x39E00) != 0)
   {
-    v22 = v18;
-    v23 = v20 > 1;
-    v24 = 1;
-  }
-
-  else
-  {
-    if (v20 <= 1)
-    {
-      v55[0] = 0x400000001;
-      inserted = glpLLVMCallFunctionInner(a1, v52, v49, &v53, v18, v55, 2u, "");
-      goto LABEL_25;
-    }
-
-    v22 = v18;
-    v24 = 0;
+    v21 = v17;
+    v22 = v19 > 1;
     v23 = 1;
   }
 
-  v25 = v20;
-  v26 = v49;
-  v27 = LLVMGetElementType();
-  v55[0] = 0x400000001;
-  v28 = glpLLVMCallFunctionInner(a1, v52, v27, &v53, v22, v55, 2u, "");
-  v48 = &v46;
-  v46 = v24;
-  v47 = v25;
-  v29 = v25 + v24;
-  MEMORY[0x28223BE20](v28);
-  v31 = (&v46 - v30);
-  bzero(&v46 - v30, v32);
-  *v31 = v28;
-  v33 = v22;
-  inserted = MEMORY[0x23EE85370](v26);
-  if (v23)
+  else
   {
-    v35 = glpTextureNameFromSamplerType(v50);
-    snprintf_l(v52, 0x200uLL, 0, "%s%s", "air.get_height_", v35);
-    v55[0] = 0x400000001;
-    v31[1] = glpLLVMCallFunctionInner(a1, v52, v27, &v53, v33, v55, 2u, "");
-  }
-
-  if (v46)
-  {
-    v36 = glpTextureNameFromSamplerType(v50);
-    snprintf_l(v52, 0x200uLL, 0, "%s%s", "air.get_array_size_", v36);
-    v55[0] = 0x400000001;
-    v37 = glpLLVMCallFunctionInner(a1, v52, v27, &v53, v33, v55, 2u, "");
-    v31[v47] = v37;
-  }
-
-  else if (v47 >= 3)
-  {
-    v38 = glpTextureNameFromSamplerType(v50);
-    snprintf_l(v52, 0x200uLL, 0, "%s%s", "air.get_depth_", v38);
-    v55[0] = 0x400000001;
-    v31[2] = glpLLVMCallFunctionInner(a1, v52, v27, &v53, v33, v55, 2u, "");
-  }
-
-  if (v29)
-  {
-    v39 = 0;
-    v40 = a1 + 65;
-    do
+    if (v19 <= 1)
     {
-      if (!v40[v39])
-      {
-        v41 = a1[5];
-        v40[v39] = LLVMConstInt();
-      }
-
-      v42 = a1[2];
-      v43 = v31[v39];
-      inserted = LLVMBuildInsertElement();
-      ++v39;
+      v50[0] = 0x400000001;
+      return glpLLVMCallFunctionInner(a1, v47, v44, &v48, v17, v50, 2u, "");
     }
 
-    while (v29 != v39);
+    v21 = v17;
+    v23 = 0;
+    v22 = 1;
   }
 
-LABEL_25:
-  v44 = *MEMORY[0x277D85DE8];
+  v24 = v19;
+  v25 = v44;
+  v26 = LLVMGetElementType();
+  v50[0] = 0x400000001;
+  v27 = glpLLVMCallFunctionInner(a1, v47, v26, &v48, v21, v50, 2u, "");
+  v43 = &v41;
+  v41 = v23;
+  v42 = v24;
+  v28 = v24 + v23;
+  MEMORY[0x28223BE20](v27, 8 * v28);
+  v30 = (&v41 - v29);
+  bzero(&v41 - v29, v31);
+  *v30 = v27;
+  v32 = v21;
+  inserted = MEMORY[0x23EE85370](v25);
+  if (v22)
+  {
+    v34 = glpTextureNameFromSamplerType(v45);
+    snprintf_l(v47, 0x200uLL, 0, "%s%s", "air.get_height_", v34);
+    v50[0] = 0x400000001;
+    v30[1] = glpLLVMCallFunctionInner(a1, v47, v26, &v48, v32, v50, 2u, "");
+  }
+
+  if (v41)
+  {
+    v35 = glpTextureNameFromSamplerType(v45);
+    snprintf_l(v47, 0x200uLL, 0, "%s%s", "air.get_array_size_", v35);
+    v50[0] = 0x400000001;
+    v36 = glpLLVMCallFunctionInner(a1, v47, v26, &v48, v32, v50, 2u, "");
+    v30[v42] = v36;
+  }
+
+  else if (v42 >= 3)
+  {
+    v37 = glpTextureNameFromSamplerType(v45);
+    snprintf_l(v47, 0x200uLL, 0, "%s%s", "air.get_depth_", v37);
+    v50[0] = 0x400000001;
+    v30[2] = glpLLVMCallFunctionInner(a1, v47, v26, &v48, v32, v50, 2u, "");
+  }
+
+  if (v28)
+  {
+    v38 = 0;
+    v39 = a1 + 65;
+    do
+    {
+      if (!v39[v38])
+      {
+        v39[v38] = LLVMConstInt();
+      }
+
+      inserted = LLVMBuildInsertElement();
+      ++v38;
+    }
+
+    while (v28 != v38);
+  }
+
   return inserted;
 }
 
-uint64_t glpLLVMBuildRefract(uint64_t *a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t glpLLVMBuildRefract(void *a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v70[1] = *MEMORY[0x277D85DE8];
-  v34 = *a2;
+  v55[1] = *MEMORY[0x277D85DE8];
   v9 = a2[2];
   v10 = *(a3 + 4);
-  v33 = a2[1];
   if (glpPrimitiveTypeGetCategory(*(a3 + 4)) == 2)
   {
     Length = glpPrimitiveVectorGetLength(v10);
     v12 = LLVMTypeOf();
-    v32 = Length;
+    v19 = Length;
     if (Length >= 2)
     {
       v12 = LLVMGetElementType();
@@ -3293,176 +1943,151 @@ uint64_t glpLLVMBuildRefract(uint64_t *a1, uint64_t *a2, uint64_t a3, int a4, ui
   else
   {
     v12 = LLVMTypeOf();
-    v32 = 1;
+    v19 = 1;
   }
 
-  v13 = glpLLVMGetTypeString(&v37, *a3, a4);
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v13 = glpLLVMGetTypeString(&v22, *a3, a4);
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  *v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  snprintf_l(v38, 0x200uLL, 0, "%s.%s", "air.dot", v13);
-  v70[0] = 0x300000001;
-  glpLLVMCallFunctionInner(a1, v38, v12, a2, 2u, v70, 2u, "");
-  v14 = a1[2];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  *v23 = 0u;
+  v24 = 0u;
+  snprintf_l(v23, 0x200uLL, 0, "%s.%s", "air.dot", v13);
+  v55[0] = 0x300000001;
+  glpLLVMCallFunctionInner(a1, v23, v12, a2, 2, v55, 2u, "");
   LLVMBuildFMul();
   llvm::ConstantFP::get();
-  v15 = a1[2];
   LLVMBuildFMul();
-  v16 = a1[2];
   LLVMBuildFSub();
-  v17 = a1[2];
   LLVMBuildFMul();
-  v18 = a1[2];
-  v36 = LLVMBuildFSub();
-  v19 = a1[2];
+  v21 = LLVMBuildFSub();
   MEMORY[0x23EE85200](v12);
   LLVMBuildFCmp();
   if (a4)
   {
-    v20 = a4 == 3;
+    v14 = a4 == 3;
   }
 
   else
   {
-    v20 = 1;
+    v14 = 1;
   }
 
-  if (v20)
+  if (v14)
   {
-    v21 = "air.fast_sqrt";
+    v15 = "air.fast_sqrt";
   }
 
   else
   {
-    v21 = "air.sqrt";
+    v15 = "air.sqrt";
   }
 
-  v22 = glpLLVMGetTypeString(&v37, *(a3 + 8), a4);
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v16 = glpLLVMGetTypeString(&v22, *(a3 + 8), a4);
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  *v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  snprintf_l(v38, 0x200uLL, 0, "%s.%s", v21, v22);
-  v70[0] = 0x300000001;
-  glpLLVMCallFunctionInner(a1, v38, v12, &v36, 1u, v70, 2u, "");
-  v23 = a1[2];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  *v23 = 0u;
+  v24 = 0u;
+  snprintf_l(v23, 0x200uLL, 0, "%s.%s", v15, v16);
+  v55[0] = 0x300000001;
+  glpLLVMCallFunctionInner(a1, v23, v12, &v21, 1, v55, 2u, "");
   LLVMBuildFMul();
-  v24 = a1[2];
-  v25 = LLVMBuildFAdd();
-  glpLLVMSplatElement(a1, v25, v32);
-  v26 = a1[2];
-  glpLLVMSplatElement(a1, v9, v32);
+  v17 = LLVMBuildFAdd();
+  glpLLVMSplatElement(a1, v17, v19);
+  glpLLVMSplatElement(a1, v9, v19);
   LLVMBuildFMul();
-  v27 = a1[2];
   LLVMBuildFMul();
-  v28 = a1[2];
   LLVMBuildFSub();
-  v29 = a1[2];
   MEMORY[0x23EE85200](a5);
-  result = LLVMBuildSelect();
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildSelect();
 }
 
-uint64_t glpLLVMBuildDistance(uint64_t *a1, uint64_t *a2, int *a3, int a4, uint64_t a5)
-{
-  v9 = a1[2];
-  v11 = *a2;
-  v10 = a2[1];
-  v13 = LLVMBuildFSub();
-  return glpLLVMBuildLength(a1, &v13, a3, a4, a5);
-}
-
-uint64_t glpLLVMf32Extend(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t glpLLVMf32Extend(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!a4 || a4 == 3)
   {
     return a2;
   }
 
-  v7 = *a1;
-  v8 = LLVMFloatTypeInContext();
+  v6 = LLVMFloatTypeInContext();
   if (glpPrimitiveTypeGetCategory(a3) == 2)
   {
     Length = glpPrimitiveVectorGetLength(a3);
-    MEMORY[0x23EE854F0](v8, Length);
+    MEMORY[0x23EE854F0](v6, Length);
   }
-
-  v10 = a1[2];
 
   return LLVMBuildFPCast();
 }
 
-uint64_t glpLLVMSplatConstantVector(uint64_t a1, int a2)
+uint64_t glpLLVMSplatConstantVector(uint64_t a1, uint64_t a2)
 {
   v2 = a1;
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (a2 != 1)
   {
-    MEMORY[0x28223BE20](a1);
-    v5 = v15 - v4;
-    bzero(v15 - v4, v6);
-    if (a2 >= 1)
+    v3 = a2;
+    MEMORY[0x28223BE20](a1, 8 * a2);
+    v5 = v14 - v4;
+    bzero(v14 - v4, v6);
+    if (v3 >= 1)
     {
-      v7 = (a2 + 1) & 0xFFFFFFFE;
-      v8 = vdupq_n_s64(a2 - 1);
+      v7 = (v3 + 1) & 0xFFFFFFFE;
+      v8 = vdupq_n_s64(v3 - 1);
       v9 = xmmword_23A300E20;
       v10 = (v5 + 8);
       v11 = vdupq_n_s64(2uLL);
@@ -3487,84 +2112,77 @@ uint64_t glpLLVMSplatConstantVector(uint64_t a1, int a2)
       while (v7);
     }
 
-    v2 = LLVMConstVector();
+    return LLVMConstVector();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-uint64_t glpBuildGetLODOperation(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int *a4)
+uint64_t glpBuildGetLODOperation(uint64_t *a1, uint64_t a2, void *a3, unsigned int *a4)
 {
   v6 = a2;
-  v43[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
   SaFlags = glpASTNodeGetSaFlags(v6);
   v10 = glpPrecisionIndexFromSAFlags(SaFlags);
-  v41 = 0u;
-  v42 = 0u;
-  *v39 = 0u;
-  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  *v35 = 0u;
+  v36 = 0u;
   v11 = 1;
   Child = glpASTNodeGetChild(v6, 1u);
   SaType = glpASTNodeGetSaType(Child);
-  LODWORD(v6) = glpPrimitiveTypeGetPrimitiveType(SaType);
-  v14 = glpTextureNameFromSamplerType(v6);
-  snprintf_l(v39, 0x40uLL, 0, "air.compute_lod_%s", v14);
+  PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
+  LODWORD(v6) = PrimitiveType;
+  v15 = glpTextureNameFromSamplerType(PrimitiveType);
+  snprintf_l(v35, 0x40uLL, 0, "air.compute_lod_%s", v15);
   PPTextarget = glpPrimitiveSamplerGetPPTextarget(v6);
-  TextureSize = glpGetTextureSize(PPTextarget, &v35);
-  v17 = *a3;
-  v18 = *a4;
-  Category = glpPrimitiveTypeGetCategory(v18);
+  TextureSize = glpGetTextureSize(PPTextarget, &v31);
+  v18 = *a3;
+  v19 = *a4;
+  Category = glpPrimitiveTypeGetCategory(v19);
   if (Category == 2)
   {
-    Category = glpPrimitiveVectorGetLength(v18);
+    Category = glpPrimitiveVectorGetLength(v19);
     v11 = Category;
   }
 
   if (TextureSize != v11)
   {
-    MEMORY[0x28223BE20](Category);
-    v21 = &v34[-v20];
-    bzero(&v34[-v20], v22);
-    v23 = 0;
-    v24 = a1 + 65;
+    MEMORY[0x28223BE20](Category, 8 * TextureSize);
+    v22 = &v30[-v21];
+    bzero(&v30[-v21], v23);
+    v24 = 0;
+    v25 = a1 + 65;
     do
     {
-      v25 = v24[v23];
-      if (!v25)
+      v26 = v25[v24];
+      if (!v26)
       {
-        v26 = a1[5];
-        v25 = LLVMConstInt();
-        v24[v23] = v25;
+        v26 = LLVMConstInt();
+        v25[v24] = v26;
       }
 
-      *&v21[8 * v23++] = v25;
+      *&v22[8 * v24++] = v26;
     }
 
-    while (TextureSize != v23);
+    while (TextureSize != v24);
     LLVMConstVector();
-    v27 = a1[2];
-    v28 = *a3;
-    v29 = LLVMTypeOf();
-    MEMORY[0x23EE85370](v29);
-    v17 = LLVMBuildShuffleVector();
+    v27 = LLVMTypeOf();
+    MEMORY[0x23EE85370](v27);
+    v18 = LLVMBuildShuffleVector();
   }
 
-  v36 = *(a3 + 8);
-  v37 = v17;
-  v30 = a1[8];
-  v38 = LLVMConstInt();
-  v31 = glpPrimitiveTypeToLLVMType(a1, ReturnPrimitiveType, v10);
-  v43[0] = 0x400000001;
-  result = glpLLVMCallFunctionInner(a1, v39, v31, &v36, 4u, v43, 2u, "");
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
+  v32 = *(a3 + 1);
+  v33 = v18;
+  v34 = LLVMConstInt();
+  v28 = glpPrimitiveTypeToLLVMType(a1, ReturnPrimitiveType, v10);
+  v39[0] = 0x400000001;
+  return glpLLVMCallFunctionInner(a1, v35, v28, &v32, 4, v39, 2u, "");
 }
 
 uint64_t glpLLVMGetVariablePointer(uint64_t a1, unint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 144);
   v3 = *v2;
   if (*v2 && (*(a2 + 51) & 0x86) != 0)
@@ -3574,15 +2192,13 @@ uint64_t glpLLVMGetVariablePointer(uint64_t a1, unint64_t a2)
     {
       if (*(a1 + 324))
       {
-        v6 = *v2;
-        LLVMGetElementType();
-        v7 = glpBuildAlloca(a1);
+        v6 = LLVMGetElementType();
+        v7 = glpBuildAlloca(a1, v6);
       }
 
       else
       {
         glpPointerHashGet(*(a1 + 336), a2);
-        v9 = *(a1 + 160);
         v7 = LLVMGetParam();
       }
 
@@ -3592,30 +2208,27 @@ uint64_t glpLLVMGetVariablePointer(uint64_t a1, unint64_t a2)
 
     if ((*(v2 + 32) & 4) != 0)
     {
-      v10 = *(a1 + 584);
       LLVMBuildLoad();
       if (!*(a1 + 520))
       {
-        v11 = *(a1 + 40);
         *(a1 + 520) = LLVMConstInt();
       }
 
-      v3 = LLVMBuildGEP();
+      return LLVMBuildGEP();
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t glpBuildInterpolateAt(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6)
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   v10 = *(a3 + 144);
   v11 = *(v10 + 24);
   v12 = *(v10 + 28);
   v13 = glpPrimitiveTypeToLLVMType(a1, v11, v12);
-  v53 = LLVMBuildLoad();
+  v52 = LLVMBuildLoad();
   v14 = a4 & 0x46000800000;
   if ((a4 & 0x46000800000uLL) > 0x3FFFFFFFFFLL)
   {
@@ -3689,43 +2302,43 @@ LABEL_24:
   }
 
 LABEL_20:
-  v54 = 0;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v53 = 0;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  *v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  snprintf_l(v21, 0x200uLL, 0, "%s%s", v15, a5);
+  v23 = 0u;
+  *v20 = 0u;
+  v21 = 0u;
+  snprintf_l(v20, 0x200uLL, 0, "%s%s", v15, a5);
   if (a6)
   {
-    v54 = a6;
+    v53 = a6;
     v16 = 2;
   }
 
@@ -3734,21 +2347,19 @@ LABEL_20:
     v16 = 1;
   }
 
-  v17 = glpLLVMGetTypeString(&v20, v11, v12);
-  memset(v55, 0, sizeof(v55));
-  snprintf_l(v55, 0x200uLL, 0, "%s.%s", v21, v17);
-  v56[0] = 0x300000001;
-  result = glpLLVMCallFunctionInner(a1, v55, v13, &v53, v16, v56, 2u, "");
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  v17 = glpLLVMGetTypeString(&v19, v11, v12);
+  memset(v54, 0, sizeof(v54));
+  snprintf_l(v54, 0x200uLL, 0, "%s.%s", v20, v17);
+  v55[0] = 0x300000001;
+  return glpLLVMCallFunctionInner(a1, v54, v13, &v52, v16, v55, 2u, "");
 }
 
-uint64_t glpCGSwizzle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
+uint64_t glpCGSwizzle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t inserted, uint64_t a5, unsigned int a6)
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   if (!a6)
   {
-    goto LABEL_107;
+    return inserted;
   }
 
   Category = glpPrimitiveTypeGetCategory(a5);
@@ -3756,47 +2367,44 @@ uint64_t glpCGSwizzle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   v14 = a6 & 7;
   if (!a2)
   {
-    MEMORY[0x28223BE20](Category);
-    v46 = (v113 - v45);
-    bzero(v113 - v45, v47);
+    MEMORY[0x28223BE20](Category, 8 * (a6 & 7));
+    v44 = v95 - v43;
+    bzero(v95 - v43, v45);
     if ((a6 & 7) == 0)
     {
       goto LABEL_47;
     }
 
-    v115 = a4;
-    v116 = v113;
-    v48 = 0;
-    v49 = a1 + 520;
-    v50 = 3;
+    v97 = inserted;
+    v98 = v95;
+    v46 = 0;
+    v47 = a1 + 520;
+    v48 = 3;
     do
     {
-      v51 = (a6 >> v50) & 3;
-      v52 = *(v49 + 8 * v51);
-      if (!v52)
+      v49 = (a6 >> v48) & 3;
+      v50 = *(v47 + 8 * v49);
+      if (!v50)
       {
-        v53 = *(a1 + 40);
-        v52 = LLVMConstInt();
-        *(v49 + 8 * v51) = v52;
+        v50 = LLVMConstInt();
+        *(v47 + 8 * v49) = v50;
       }
 
-      v46[v48] = v52;
-      v50 += 2;
-      ++v48;
+      *&v44[v46] = v50;
+      v48 += 2;
+      v46 += 8;
     }
 
-    while (v14 != v48);
-    a4 = v115;
+    while (8 * v14 != v46);
+    inserted = v97;
     if (v14 == 1)
     {
       if (v13 != 2)
       {
-        goto LABEL_107;
+        return inserted;
       }
 
-      v54 = *(a1 + 16);
-      v55 = *v46;
-      Element = LLVMBuildExtractElement();
+      return LLVMBuildExtractElement();
     }
 
     else
@@ -3804,21 +2412,15 @@ uint64_t glpCGSwizzle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
 LABEL_47:
       if (v13 != 2)
       {
-        v62 = LLVMTypeOf();
-        v63 = MEMORY[0x23EE854F0](v62, a6 & 7);
-        v64 = *(a1 + 16);
-        MEMORY[0x23EE85370](v63);
-        v65 = *v46;
+        v54 = LLVMTypeOf();
+        v55 = MEMORY[0x23EE854F0](v54, a6 & 7);
+        MEMORY[0x23EE85370](v55);
         LLVMBuildInsertElement();
       }
 
       LLVMConstVector();
-      v66 = *(a1 + 16);
-      Element = LLVMBuildShuffleVector();
+      return LLVMBuildShuffleVector();
     }
-
-    a4 = Element;
-    goto LABEL_107;
   }
 
   v15 = glpPrimitiveTypeGetCategory(a3);
@@ -3826,14 +2428,14 @@ LABEL_47:
   {
     Length = glpPrimitiveVectorGetLength(a3);
     v17 = Length;
-    MEMORY[0x28223BE20](Length);
-    v116 = (v113 - v18);
-    bzero(v113 - v18, v19);
-    MEMORY[0x28223BE20](v20);
-    v22 = (v113 - v21);
-    bzero(v113 - v21, v23);
+    MEMORY[0x28223BE20](Length, 8 * Length);
+    v98 = (v95 - v18);
+    bzero(v95 - v18, v19);
+    MEMORY[0x28223BE20](v20, 4 * Length);
+    v22 = (v95 - v21);
+    bzero(v95 - v21, v23);
     v24 = glpPrimitiveVectorGetLength(a5);
-    v114 = Length;
+    v96 = Length;
     if (Length == v24)
     {
       if (Length)
@@ -3914,14 +2516,13 @@ LABEL_47:
       if (Length)
       {
         v38 = a1 + 520;
-        v39 = v116;
+        v39 = v98;
         do
         {
           v41 = *v22++;
           v40 = v41;
           if (v41 > 7)
           {
-            v44 = *(a1 + 40);
             v42 = LLVMConstInt();
           }
 
@@ -3930,7 +2531,6 @@ LABEL_47:
             v42 = *(v38 + 8 * v40);
             if (!v42)
             {
-              v43 = *(a1 + 40);
               v42 = LLVMConstInt();
               *(v38 + 8 * v40) = v42;
             }
@@ -3948,223 +2548,218 @@ LABEL_47:
     {
       if (Length)
       {
-        v67 = (Length + 3) & 0x1FFFFFFFCLL;
-        v68 = vdupq_n_s64(Length - 1);
-        v69 = xmmword_23A300E30;
-        v70 = xmmword_23A300E20;
-        v71 = v22 + 2;
-        v72 = vdupq_n_s64(4uLL);
+        v56 = (Length + 3) & 0x1FFFFFFFCLL;
+        v57 = vdupq_n_s64(Length - 1);
+        v58 = xmmword_23A300E30;
+        v59 = xmmword_23A300E20;
+        v60 = v22 + 2;
+        v61 = vdupq_n_s64(4uLL);
         do
         {
-          v73 = vmovn_s64(vcgeq_u64(v68, v70));
-          if (vuzp1_s16(v73, *v68.i8).u8[0])
+          v62 = vmovn_s64(vcgeq_u64(v57, v59));
+          if (vuzp1_s16(v62, *v57.i8).u8[0])
           {
-            *(v71 - 2) = v14;
+            *(v60 - 2) = v14;
           }
 
-          if (vuzp1_s16(v73, *&v68).i8[2])
+          if (vuzp1_s16(v62, *&v57).i8[2])
           {
-            *(v71 - 1) = v14;
+            *(v60 - 1) = v14;
           }
 
-          if (vuzp1_s16(*&v68, vmovn_s64(vcgeq_u64(v68, *&v69))).i32[1])
+          if (vuzp1_s16(*&v57, vmovn_s64(vcgeq_u64(v57, *&v58))).i32[1])
           {
-            *v71 = v14;
-            v71[1] = v14;
+            *v60 = v14;
+            v60[1] = v14;
           }
 
-          v69 = vaddq_s64(v69, v72);
-          v70 = vaddq_s64(v70, v72);
-          v71 += 4;
-          v67 -= 4;
+          v58 = vaddq_s64(v58, v61);
+          v59 = vaddq_s64(v59, v61);
+          v60 += 4;
+          v56 -= 4;
         }
 
-        while (v67);
+        while (v56);
       }
 
       if ((a6 & 7) != 0)
       {
-        v74 = vdupq_n_s32(v14 - 1);
-        v75 = xmmword_23A300DF0;
-        v76 = 9;
-        v77 = 3;
-        v78.i64[0] = 0x400000004;
-        v78.i64[1] = 0x400000004;
+        v63 = vdupq_n_s32(v14 - 1);
+        v64 = xmmword_23A300DF0;
+        v65 = 9;
+        v66 = 3;
+        v67.i64[0] = 0x400000004;
+        v67.i64[1] = 0x400000004;
         do
         {
-          v79 = vmovn_s32(vcgeq_u32(v74, v75));
-          if (v79.i8[0])
+          v68 = vmovn_s32(vcgeq_u32(v63, v64));
+          if (v68.i8[0])
           {
-            v22[(a6 >> (v76 - 6)) & 3] = v77 - 3;
+            v22[(a6 >> (v65 - 6)) & 3] = v66 - 3;
           }
 
-          if (v79.i8[2])
+          if (v68.i8[2])
           {
-            v22[(a6 >> (v76 - 4)) & 3] = v77 - 2;
+            v22[(a6 >> (v65 - 4)) & 3] = v66 - 2;
           }
 
-          if (v79.i8[4])
+          if (v68.i8[4])
           {
-            v22[(a6 >> (v76 - 2)) & 3] = v77 - 1;
+            v22[(a6 >> (v65 - 2)) & 3] = v66 - 1;
           }
 
-          if (v79.i8[6])
+          if (v68.i8[6])
           {
-            v22[(a6 >> v76) & 3] = v77;
+            v22[(a6 >> v65) & 3] = v66;
           }
 
-          v75 = vaddq_s32(v75, v78);
-          v76 += 8;
-          v77 += 4;
+          v64 = vaddq_s32(v64, v67);
+          v65 += 8;
+          v66 += 4;
         }
 
-        while (v77 - (((a6 & 7) + 3) & 0xC) != 3);
+        while (v66 - (((a6 & 7) + 3) & 0xC) != 3);
       }
 
-      v115 = a4;
-      v113[0] = v113;
-      v113[1] = a2;
+      v97 = inserted;
+      v95[0] = v95;
+      v95[1] = a2;
       if (Length)
       {
-        v80 = a1 + 520;
+        v69 = a1 + 520;
         Length = Length;
-        v81 = v116;
-        v82 = v22;
+        v70 = v98;
+        v71 = v22;
         do
         {
-          v84 = *v82++;
-          v83 = v84;
-          if (v84 > 7)
+          v73 = *v71++;
+          v72 = v73;
+          if (v73 > 7)
           {
-            v87 = *(a1 + 40);
-            v85 = LLVMConstInt();
+            v74 = LLVMConstInt();
           }
 
           else
           {
-            v85 = *(v80 + 8 * v83);
-            if (!v85)
+            v74 = *(v69 + 8 * v72);
+            if (!v74)
             {
-              v86 = *(a1 + 40);
-              v85 = LLVMConstInt();
-              *(v80 + 8 * v83) = v85;
+              v74 = LLVMConstInt();
+              *(v69 + 8 * v72) = v74;
             }
           }
 
-          *v81++ = v85;
+          *v70++ = v74;
           --Length;
         }
 
         while (Length);
       }
 
-      v88 = v114;
+      v75 = v96;
       LLVMConstVector();
-      v89 = *(a1 + 16);
-      v90 = LLVMTypeOf();
-      MEMORY[0x23EE85370](v90);
+      v76 = LLVMTypeOf();
+      MEMORY[0x23EE85370](v76);
       LLVMBuildShuffleVector();
-      if (v88)
+      if (v75)
       {
-        v91 = 0;
-        v92 = vdupq_n_s64(v17 - 1);
-        v93 = xmmword_23A300E30;
-        v94 = xmmword_23A300E20;
-        v95 = v22 + 2;
-        v96 = vdupq_n_s64(4uLL);
+        v77 = 0;
+        v78 = vdupq_n_s64(v17 - 1);
+        v79 = xmmword_23A300E30;
+        v80 = xmmword_23A300E20;
+        v81 = v22 + 2;
+        v82 = vdupq_n_s64(4uLL);
         do
         {
-          v97 = vmovn_s64(vcgeq_u64(v92, v94));
-          if (vuzp1_s16(v97, *v92.i8).u8[0])
+          v83 = vmovn_s64(vcgeq_u64(v78, v80));
+          if (vuzp1_s16(v83, *v78.i8).u8[0])
           {
-            *(v95 - 2) = v91;
+            *(v81 - 2) = v77;
           }
 
-          if (vuzp1_s16(v97, *&v92).i8[2])
+          if (vuzp1_s16(v83, *&v78).i8[2])
           {
-            *(v95 - 1) = v91 + 1;
+            *(v81 - 1) = v77 + 1;
           }
 
-          if (vuzp1_s16(*&v92, vmovn_s64(vcgeq_u64(v92, *&v93))).i32[1])
+          if (vuzp1_s16(*&v78, vmovn_s64(vcgeq_u64(v78, *&v79))).i32[1])
           {
-            *v95 = v91 + 2;
-            v95[1] = v91 + 3;
+            *v81 = v77 + 2;
+            v81[1] = v77 + 3;
           }
 
-          v91 += 4;
-          v93 = vaddq_s64(v93, v96);
-          v94 = vaddq_s64(v94, v96);
-          v95 += 4;
+          v77 += 4;
+          v79 = vaddq_s64(v79, v82);
+          v80 = vaddq_s64(v80, v82);
+          v81 += 4;
         }
 
-        while (((v17 + 3) & 0x1FFFFFFFCLL) != v91);
+        while (((v17 + 3) & 0x1FFFFFFFCLL) != v77);
       }
 
       if ((a6 & 7) != 0)
       {
-        v98 = ((a6 & 7) + 3) & 0xC;
-        v99 = xmmword_23A300DF0;
-        v100 = vdupq_n_s32(v14 - 1);
-        v101 = 9;
-        v102.i64[0] = 0x400000004;
-        v102.i64[1] = 0x400000004;
+        v84 = ((a6 & 7) + 3) & 0xC;
+        v85 = xmmword_23A300DF0;
+        v86 = vdupq_n_s32(v14 - 1);
+        v87 = 9;
+        v88.i64[0] = 0x400000004;
+        v88.i64[1] = 0x400000004;
         do
         {
-          v103 = vmovn_s32(vcgeq_u32(v100, v99));
-          if (v103.i8[0])
+          v89 = vmovn_s32(vcgeq_u32(v86, v85));
+          if (v89.i8[0])
           {
-            v22[(a6 >> (v101 - 6)) & 3] = ((a6 >> (v101 - 6)) & 3) + v88;
+            v22[(a6 >> (v87 - 6)) & 3] = ((a6 >> (v87 - 6)) & 3) + v75;
           }
 
-          if (v103.i8[2])
+          if (v89.i8[2])
           {
-            v22[(a6 >> (v101 - 4)) & 3] = ((a6 >> (v101 - 4)) & 3) + v88;
+            v22[(a6 >> (v87 - 4)) & 3] = ((a6 >> (v87 - 4)) & 3) + v75;
           }
 
-          if (v103.i8[4])
+          if (v89.i8[4])
           {
-            v22[(a6 >> (v101 - 2)) & 3] = ((a6 >> (v101 - 2)) & 3) + v88;
+            v22[(a6 >> (v87 - 2)) & 3] = ((a6 >> (v87 - 2)) & 3) + v75;
           }
 
-          if (v103.i8[6])
+          if (v89.i8[6])
           {
-            v22[(a6 >> v101) & 3] = ((a6 >> v101) & 3) + v88;
+            v22[(a6 >> v87) & 3] = ((a6 >> v87) & 3) + v75;
           }
 
-          v99 = vaddq_s32(v99, v102);
-          v101 += 8;
-          v98 -= 4;
+          v85 = vaddq_s32(v85, v88);
+          v87 += 8;
+          v84 -= 4;
         }
 
-        while (v98);
+        while (v84);
       }
 
-      if (v88)
+      if (v75)
       {
-        v104 = a1 + 520;
-        v105 = v116;
+        v90 = a1 + 520;
+        v91 = v98;
         do
         {
-          v107 = *v22++;
-          v106 = v107;
-          if (v107 > 7)
+          v93 = *v22++;
+          v92 = v93;
+          if (v93 > 7)
           {
-            v110 = *(a1 + 40);
-            v108 = LLVMConstInt();
+            v94 = LLVMConstInt();
           }
 
           else
           {
-            v108 = *(v104 + 8 * v106);
-            if (!v108)
+            v94 = *(v90 + 8 * v92);
+            if (!v94)
             {
-              v109 = *(a1 + 40);
-              v108 = LLVMConstInt();
-              *(v104 + 8 * v106) = v108;
+              v94 = LLVMConstInt();
+              *(v90 + 8 * v92) = v94;
             }
           }
 
-          *v105++ = v108;
+          *v91++ = v94;
           --v17;
         }
 
@@ -4173,27 +2768,19 @@ LABEL_47:
     }
 
     LLVMConstVector();
-    v111 = *(a1 + 16);
-    a4 = LLVMBuildShuffleVector();
-    goto LABEL_107;
+    return LLVMBuildShuffleVector();
   }
 
   if (v15 != 2)
   {
-LABEL_107:
-    v112 = *MEMORY[0x277D85DE8];
-    return a4;
+    return inserted;
   }
 
-  v57 = (a6 >> 3) & 3;
-  if (!*(a1 + 520 + 8 * v57))
+  v52 = (a6 >> 3) & 3;
+  if (!*(a1 + 520 + 8 * v52))
   {
-    v58 = *(a1 + 40);
-    *(a1 + 520 + 8 * v57) = LLVMConstInt();
+    *(a1 + 520 + 8 * v52) = LLVMConstInt();
   }
-
-  v59 = *(a1 + 16);
-  v60 = *MEMORY[0x277D85DE8];
 
   return LLVMBuildInsertElement();
 }
@@ -4210,32 +2797,26 @@ BOOL glpGetConstantOffset(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t glpBuildUniformElementPtr(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6)
+uint64_t glpBuildUniformElementPtr(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v6 = a6;
+  v7 = a5;
   Gep = glpFindGep(a1, a2, a5, a6);
   if (!Gep)
   {
-    v12 = a1[5];
     LLVMConstInt();
-    v13 = a1[2];
     LLVMGetInsertBlock();
-    v14 = a1[2];
-    v15 = a1[23];
     LLVMPositionBuilderAtEnd();
     if (a4)
     {
-      v16 = a1[2];
       LLVMBuildPointerCast();
     }
 
     Gep = LLVMBuildGEP();
-    v17 = a1[2];
     LLVMPositionBuilderAtEnd();
-    glpAddGep(a1, a2, a5, a6, Gep);
+    glpAddGep(a1, a2, v7, v6, Gep);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return Gep;
 }
 
@@ -4284,7 +2865,7 @@ uint64_t glpFindGep(uint64_t a1, unint64_t a2, int a3, int a4)
   return result;
 }
 
-void *glpAddGep(uint64_t *a1, unint64_t a2, int a3, int a4, uint64_t a5)
+void *glpAddGep(void *a1, unint64_t a2, int a3, int a4, uint64_t a5)
 {
   v10 = glpPointerHashGet(a1[44], a2);
   if (!v10)
@@ -4340,9 +2921,8 @@ void *glpAddGep(uint64_t *a1, unint64_t a2, int a3, int a4, uint64_t a5)
   return result;
 }
 
-uint64_t glpLLVMCGInsertBasicBlock(uint64_t a1)
+uint64_t glpLLVMCGInsertBasicBlock(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 160);
   v3 = LLVMAppendBasicBlock();
   if (*(a1 + 432))
   {
@@ -4354,61 +2934,56 @@ uint64_t glpLLVMCGInsertBasicBlock(uint64_t a1)
 
 uint64_t glpLLVMSplatScalar(void *a1, uint64_t a2, uint64_t a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v5 = a1[65];
   if (!v5)
   {
-    v6 = a1[5];
     v5 = LLVMConstInt();
     a1[65] = v5;
   }
 
-  v7 = LLVMTypeOf();
-  v8 = MEMORY[0x23EE854F0](v7, a3);
-  MEMORY[0x23EE85370](v8);
-  v9 = a1[2];
+  v6 = LLVMTypeOf();
+  v7 = MEMORY[0x23EE854F0](v6, a3);
+  MEMORY[0x23EE85370](v7);
   inserted = LLVMBuildInsertElement();
-  MEMORY[0x28223BE20](inserted);
-  v12 = v23 - v11;
-  bzero(v23 - v11, v13);
+  MEMORY[0x28223BE20](inserted, 8 * a3);
+  v10 = v19 - v9;
+  bzero(v19 - v9, v11);
   if (a3)
   {
-    v14 = (a3 + 1) & 0x1FFFFFFFELL;
-    v15 = vdupq_n_s64(a3 - 1);
-    v16 = xmmword_23A300E20;
-    v17 = (v12 + 8);
-    v18 = vdupq_n_s64(2uLL);
+    v12 = (a3 + 1) & 0x1FFFFFFFELL;
+    v13 = vdupq_n_s64(a3 - 1);
+    v14 = xmmword_23A300E20;
+    v15 = (v10 + 8);
+    v16 = vdupq_n_s64(2uLL);
     do
     {
-      v19 = vmovn_s64(vcgeq_u64(v15, v16));
-      if (v19.i8[0])
+      v17 = vmovn_s64(vcgeq_u64(v13, v14));
+      if (v17.i8[0])
       {
-        *(v17 - 1) = v5;
+        *(v15 - 1) = v5;
       }
 
-      if (v19.i8[4])
+      if (v17.i8[4])
       {
-        *v17 = v5;
+        *v15 = v5;
       }
 
-      v16 = vaddq_s64(v16, v18);
-      v17 += 2;
-      v14 -= 2;
+      v14 = vaddq_s64(v14, v16);
+      v15 += 2;
+      v12 -= 2;
     }
 
-    while (v14);
+    while (v12);
   }
 
   LLVMConstVector();
-  v20 = a1[2];
-  result = LLVMBuildShuffleVector();
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildShuffleVector();
 }
 
 uint64_t glpLLVMSplatElement(void *a1, uint64_t a2, uint64_t a3)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if (a3 != 1)
   {
     v6 = LLVMTypeOf();
@@ -4417,50 +2992,46 @@ uint64_t glpLLVMSplatElement(void *a1, uint64_t a2, uint64_t a3)
     v8 = a1[65];
     if (!v8)
     {
-      v9 = a1[5];
       v8 = LLVMConstInt();
       a1[65] = v8;
     }
 
-    v10 = a1[2];
     inserted = LLVMBuildInsertElement();
-    MEMORY[0x28223BE20](inserted);
-    v13 = v24 - v12;
-    bzero(v24 - v12, v14);
+    MEMORY[0x28223BE20](inserted, 8 * a3);
+    v11 = v20 - v10;
+    bzero(v20 - v10, v12);
     if (a3 >= 1)
     {
-      v15 = (a3 + 1) & 0xFFFFFFFE;
-      v16 = vdupq_n_s64(a3 - 1);
-      v17 = xmmword_23A300E20;
-      v18 = (v13 + 8);
-      v19 = vdupq_n_s64(2uLL);
+      v13 = (a3 + 1) & 0xFFFFFFFE;
+      v14 = vdupq_n_s64(a3 - 1);
+      v15 = xmmword_23A300E20;
+      v16 = (v11 + 8);
+      v17 = vdupq_n_s64(2uLL);
       do
       {
-        v20 = vmovn_s64(vcgeq_u64(v16, v17));
-        if (v20.i8[0])
+        v18 = vmovn_s64(vcgeq_u64(v14, v15));
+        if (v18.i8[0])
         {
-          *(v18 - 1) = v8;
+          *(v16 - 1) = v8;
         }
 
-        if (v20.i8[4])
+        if (v18.i8[4])
         {
-          *v18 = v8;
+          *v16 = v8;
         }
 
-        v17 = vaddq_s64(v17, v19);
-        v18 += 2;
-        v15 -= 2;
+        v15 = vaddq_s64(v15, v17);
+        v16 += 2;
+        v13 -= 2;
       }
 
-      while (v15);
+      while (v13);
     }
 
     LLVMConstVector();
-    v21 = a1[2];
-    a2 = LLVMBuildShuffleVector();
+    return LLVMBuildShuffleVector();
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -4557,7 +3128,7 @@ LABEL_24:
   return result;
 }
 
-char *glpTextureNameFromSamplerType(int a1)
+char *glpTextureNameFromSamplerType(uint64_t a1)
 {
   PPTextarget = glpPrimitiveSamplerGetPPTextarget(a1);
   if (PPTextarget >= 0x12)
@@ -4662,18 +3233,17 @@ LABEL_27:
   return result;
 }
 
-uint64_t glpBuildArrayElementPtr(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t glpBuildArrayElementPtr(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
-  v21 = *MEMORY[0x277D85DE8];
   if (glpIsConstantNode(a4) && (Value = glpConstantNodeGetValue(a4), !a6))
   {
-    v18 = *Value;
-    v14 = glpBuildArrayElementPtrCst(a1, a2, a3, *Value);
+    v15 = *Value;
+    v13 = glpBuildArrayElementPtrCst(a1, a2, a3, *Value);
     if (a5)
     {
-      v17 = glpBuildArrayElementPtrCst(a1, a2, a3, v18 + 1);
+      v14 = glpBuildArrayElementPtrCst(a1, a2, a3, v15 + 1);
 LABEL_11:
-      *a5 = v17;
+      *a5 = v14;
     }
   }
 
@@ -4681,29 +3251,25 @@ LABEL_11:
   {
     if (!a1[65])
     {
-      v13 = a1[5];
       a1[65] = LLVMConstInt();
     }
 
     glpLLVMCGNode(a1, a4, 1);
-    v14 = LLVMBuildGEP();
+    v13 = LLVMBuildGEP();
     if (a5)
     {
-      v15 = a1[2];
       if (!a1[66])
       {
-        v16 = a1[5];
         a1[66] = LLVMConstInt();
       }
 
       LLVMBuildAdd();
-      v17 = LLVMBuildGEP();
+      v14 = LLVMBuildGEP();
       goto LABEL_11;
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 uint64_t glpLLVMLoadVector(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
@@ -4724,59 +3290,47 @@ uint64_t glpLLVMLoadVector(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   return glpLLVMUnpackTypeInner(a1, SourceVariable, v14);
 }
 
-uint64_t glpBuildArrayElementPtrCst(uint64_t *a1, unint64_t a2, uint64_t a3, int a4)
+uint64_t glpBuildArrayElementPtrCst(void *a1, unint64_t a2, uint64_t a3, int a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
   Gep = glpFindGep(a1, a2, 0, a4);
   if (!Gep)
   {
     if (!a1[65])
     {
-      v8 = a1[5];
       a1[65] = LLVMConstInt();
     }
 
-    v9 = a1[5];
     LLVMConstInt();
-    v10 = a1[2];
     LLVMGetInsertBlock();
-    v11 = a1[2];
-    v12 = a1[23];
     LLVMPositionBuilderAtEnd();
     Gep = LLVMBuildGEP();
-    v13 = a1[2];
     LLVMPositionBuilderAtEnd();
     glpAddGep(a1, a2, 0, a4, Gep);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return Gep;
 }
 
 uint64_t glpLoadSourceVariable(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a3 + 51))
   {
-    v8 = glpLayoutObjectFind(*(a3 + 8), 35);
+    v7 = glpLayoutObjectFind(*(a3 + 8), 35);
     *__str = 0u;
-    v11 = 0u;
-    snprintf(__str, 0x1FuLL, "user(slot%u)", *(v8 + 4));
-    result = glpBuildInterpolateAt(a1, a2, a3, *(a3 + 48), __str, 0);
-    v9 = *MEMORY[0x277D85DE8];
+    v9 = 0u;
+    snprintf(__str, 0x1FuLL, "user(slot%u)", *(v7 + 4));
+    return glpBuildInterpolateAt(a1, a2, a3, *(a3 + 48), __str, 0);
   }
 
   else
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     return LLVMBuildLoad();
   }
-
-  return result;
 }
 
-uint64_t glpIsComponentAssigment(uint64_t result, unsigned int ***a2, _DWORD *a3, _DWORD *a4, int *a5, int a6)
+uint64_t glpIsComponentAssigment(uint64_t result, unsigned int ***a2, _DWORD *a3, _DWORD *a4, unsigned int *a5, int a6)
 {
   if (result)
   {
@@ -4848,22 +3402,22 @@ LABEL_20:
   return result;
 }
 
-uint64_t glpProcessComponentWiseVectorAssignment(uint64_t a1, unsigned int **a2, int a3, uint64_t *a4, unsigned int *a5, int a6, uint64_t a7)
+uint64_t glpProcessComponentWiseVectorAssignment(void *a1, unsigned int **a2, int a3, uint64_t *a4, unsigned int *a5, int a6, void *a7)
 {
   v7 = a7;
   v10 = a3;
-  v121 = a2;
-  v124 = *MEMORY[0x277D85DE8];
+  v107 = a2;
+  v110 = *MEMORY[0x277D85DE8];
   v11 = (a7 - 1);
-  v122 = a1;
+  v108 = a1;
   if (a7 >= 1)
   {
-    LODWORD(v120) = a6;
-    LODWORD(v118) = a3;
+    LODWORD(v106) = a6;
+    LODWORD(v104) = a3;
     v12 = 0;
-    v123 = 0;
+    v109 = 0;
     v13 = 1;
-    v119 = a7;
+    v105 = a7;
     v14 = a7;
     while (1)
     {
@@ -4883,7 +3437,7 @@ uint64_t glpProcessComponentWiseVectorAssignment(uint64_t a1, unsigned int **a2,
           {
             v27 = *a4++;
             v26 = v27;
-            if (v120)
+            if (v106)
             {
               v28 = v11 == 0;
             }
@@ -4894,60 +3448,59 @@ uint64_t glpProcessComponentWiseVectorAssignment(uint64_t a1, unsigned int **a2,
             }
 
             v29 = v28;
-            v30 = glpLLVMCGNode(v122, v26, v29);
+            v30 = glpLLVMCGNode(v108, v26, v29);
             --v11;
             --v14;
           }
 
           while (v14);
-          inserted = v30;
-          goto LABEL_110;
+          return v30;
         }
 
         v13 = 0;
-        v23 = v123 == VariableExtra || v123 == 0;
+        v23 = v109 == VariableExtra || v109 == 0;
         if (v23 && (v15 & 1) != 0)
         {
           glpOffsetNodeGetSwizzle(Offset);
           v13 = 1;
-          v123 = VariableExtra;
+          v109 = VariableExtra;
         }
       }
 
       if (++v12 >= v14)
       {
         v24 = v13 == 0;
-        v25 = v122;
-        v7 = v119;
-        v10 = v118;
+        v25 = v108;
+        v7 = v105;
+        v10 = v104;
         goto LABEL_30;
       }
     }
   }
 
   v25 = a1;
-  v123 = 0;
+  v109 = 0;
   v24 = 0;
 LABEL_30:
-  v32 = glpLLVMGetVariablePointer(v25, v121);
-  v33 = *v121;
-  v34 = glpTypeGetKind(*v121);
+  v32 = glpLLVMGetVariablePointer(v25, v107);
+  v33 = *v107;
+  v34 = glpTypeGetKind(*v107);
   if (v34)
   {
-    v35 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v36 = glpPrimitiveTypeGetPrimitiveType(v33);
-    Category = glpPrimitiveTypeGetCategory(v36);
+    v37 = glpPrimitiveTypeGetPrimitiveType(v33);
+    Category = glpPrimitiveTypeGetCategory(v37);
     if (Category == 3)
     {
-      ColumnType = glpPrimitiveMatrixGetColumnType(v36);
+      ColumnType = glpPrimitiveMatrixGetColumnType(v37);
       Length = glpPrimitiveVectorGetLength(ColumnType);
-      v40 = v10;
-      v35 = Length;
-      v34 = glpBuildArrayElementPtrCst(v25, v121, v32, v40);
+      v41 = v10;
+      v36 = Length;
+      v34 = glpBuildArrayElementPtrCst(v25, v107, v32, v41);
       v32 = v34;
     }
 
@@ -4958,95 +3511,95 @@ LABEL_30:
         abort();
       }
 
-      v34 = glpPrimitiveVectorGetLength(v36);
-      v35 = v34;
+      v34 = glpPrimitiveVectorGetLength(v37);
+      v36 = v34;
     }
   }
 
-  v120 = v32;
-  if (v35 != v7)
+  v106 = v32;
+  if (v36 != v7)
   {
     goto LABEL_45;
   }
 
   if (v7 < 1)
   {
-    v41 = 0;
+    v42 = 0;
   }
 
   else
   {
-    v41 = 0;
-    v42 = v7 - 1;
+    v42 = 0;
+    v43 = v7 - 1;
     do
     {
-      v43 = 1 << a5[v42];
-      if ((v43 & v41) != 0)
+      v44 = 1 << a5[v43];
+      if ((v44 & v42) != 0)
       {
-        a4[v42] = 0;
+        a4[v43] = 0;
       }
 
-      v41 |= v43;
-      v44 = v42-- + 1;
+      v42 |= v44;
+      v45 = v43-- + 1;
     }
 
-    while (v44 > 1);
+    while (v45 > 1);
   }
 
-  if ((((v41 ^ (-1 << v7)) == -1) & ~v24) != 0)
+  if ((((v42 ^ (-1 << v7)) == -1) & ~v24) != 0)
   {
-    v54 = v7;
-    MEMORY[0x28223BE20](v34);
-    v56 = (v117 - v55);
-    bzero(v117 - v55, 8 * v7);
+    v51 = v7;
+    MEMORY[0x28223BE20](v34, v35);
+    v53 = (v103 - v52);
+    bzero(v103 - v52, 8 * v7);
     if (v7 < 1)
     {
-      v58 = 0;
+      v56 = 0;
     }
 
     else
     {
-      v58 = 0;
-      v59 = v7;
+      v56 = 0;
+      v57 = v7;
       do
       {
-        v57 = *a4;
+        v54 = *a4;
         if (*a4)
         {
-          v60 = glpBinaryOperatorNodeGetRhs(v57);
-          v56[*a5] = v60;
-          v57 = glpASTNodeGetKind(v60);
-          if (v57 == 3)
+          v58 = glpBinaryOperatorNodeGetRhs(v54);
+          v53[*a5] = v58;
+          v54 = glpASTNodeGetKind(v58);
+          if (v54 == 3)
           {
-            ++v58;
+            ++v56;
           }
         }
 
         ++a5;
         ++a4;
-        --v59;
+        --v57;
       }
 
-      while (v59);
+      while (v57);
     }
 
-    v61 = 8 * v7;
-    if (v58 == v7)
+    v59 = 8 * v7;
+    if (v56 == v7)
     {
-      MEMORY[0x28223BE20](v57);
-      bzero(v117 - ((v61 + 15) & 0xFFFFFFFF0), 8 * v7);
-      v62 = v122;
+      MEMORY[0x28223BE20](v54, v55);
+      bzero(v103 - ((v59 + 15) & 0xFFFFFFFF0), 8 * v7);
+      v60 = v108;
       if (v7)
       {
-        v63 = (v117 - ((v61 + 15) & 0xFFFFFFFF0));
+        v61 = (v103 - ((v59 + 15) & 0xFFFFFFFF0));
         do
         {
-          v64 = *v56++;
-          *v63++ = glpLLVMCGNode(v62, v64, 0);
-          --v54;
+          v62 = *v53++;
+          *v61++ = glpLLVMCGNode(v60, v62, 0);
+          --v51;
         }
 
-        while (v54);
+        while (v51);
       }
 
       LLVMConstVector();
@@ -5054,203 +3607,192 @@ LABEL_30:
 
     else
     {
-      v117[4] = v117;
-      v65 = v122;
-      v66 = v123;
-      v67 = glpLLVMGetVariablePointer(v122, v123);
-      SourceVariable = glpLoadSourceVariable(v65, v67, v66);
-      v69 = LLVMTypeOf();
-      v117[3] = v117;
-      MEMORY[0x28223BE20](v69);
-      bzero(v117 - ((v61 + 15) & 0xFFFFFFFF0), 8 * v7);
-      v121 = (v117 - ((v61 + 15) & 0xFFFFFFFF0));
-      bzero(v121, 8 * v7);
-      v70 = glpPrimitiveTypeGetPrimitiveType(*v66);
-      v71 = glpPrimitiveVectorGetLength(v70);
-      v72 = MEMORY[0x23EE85370](v69);
-      v73 = 0;
-      v123 = v71;
-      v119 = v7;
-      if (v58 && v71 >= v58)
+      v103[4] = v103;
+      v63 = v108;
+      v64 = v109;
+      v65 = glpLLVMGetVariablePointer(v108, v109);
+      SourceVariable = glpLoadSourceVariable(v63, v65, v64);
+      v67 = LLVMTypeOf();
+      v103[3] = v103;
+      MEMORY[0x28223BE20](v67, v68);
+      bzero(v103 - ((v59 + 15) & 0xFFFFFFFF0), 8 * v7);
+      v107 = (v103 - ((v59 + 15) & 0xFFFFFFFF0));
+      bzero(v107, 8 * v7);
+      v69 = glpPrimitiveTypeGetPrimitiveType(*v64);
+      v70 = glpPrimitiveVectorGetLength(v69);
+      v71 = MEMORY[0x23EE85370](v67);
+      v72 = 0;
+      v109 = v70;
+      v105 = v7;
+      if (v56 && v70 >= v56)
       {
-        v117[1] = v117;
-        v117[2] = SourceVariable;
-        MEMORY[0x28223BE20](v72);
-        v74 = v7;
-        v76 = (v117 - v75);
-        bzero(v117 - v75, v77);
-        if (v74)
+        v103[1] = v103;
+        v103[2] = SourceVariable;
+        MEMORY[0x28223BE20](v71, 8 * v70);
+        v73 = v7;
+        v75 = v103 - v74;
+        bzero(v103 - v74, v76);
+        if (v73)
         {
-          v78 = 0;
-          v79 = v121;
-          v118 = (v122 + 65);
-          v80 = v54;
-          v81 = v56;
+          v77 = 0;
+          v78 = v107;
+          v104 = (v108 + 65);
+          v79 = v51;
+          v80 = v53;
           do
           {
-            v82 = *v81;
-            if (glpASTNodeGetKind(*v81) == 3)
+            v81 = *v80;
+            if (glpASTNodeGetKind(*v80) == 3)
             {
-              v83 = v122;
-              v76[v78] = glpLLVMCGNode(v122, v82, 0);
-              v84 = (v78 + v123);
-              if (v84 > 7)
+              *&v75[8 * v77] = glpLLVMCGNode(v108, v81, 0);
+              v82 = (v77 + v109);
+              if (v82 > 7)
               {
-                v87 = *(v83 + 40);
-                v85 = LLVMConstInt();
+                v83 = LLVMConstInt();
               }
 
               else
               {
-                v85 = *(v118 + 8 * v84);
-                if (!v85)
+                v83 = *(v104 + 8 * v82);
+                if (!v83)
                 {
-                  v86 = v122[5];
-                  v85 = LLVMConstInt();
-                  *(v118 + 8 * v84) = v85;
+                  v83 = LLVMConstInt();
+                  *(v104 + 8 * v82) = v83;
                 }
               }
 
-              *v79 = v85;
-              ++v78;
+              *v78 = v83;
+              ++v77;
             }
 
-            ++v79;
-            ++v81;
-            --v80;
+            ++v78;
+            ++v80;
+            --v79;
           }
 
-          while (v80);
+          while (v79);
         }
 
-        v88 = v123 - v58;
-        if (v123 > v58)
+        v84 = v109 - v56;
+        if (v109 > v56)
         {
-          v89 = v58;
+          v85 = 8 * v56;
           do
           {
-            v90 = *v76;
-            v91 = LLVMTypeOf();
-            v76[v89++] = MEMORY[0x23EE85370](v91);
-            --v88;
+            v86 = LLVMTypeOf();
+            *&v75[v85] = MEMORY[0x23EE85370](v86);
+            v85 += 8;
+            --v84;
           }
 
-          while (v88);
+          while (v84);
         }
 
-        LODWORD(v71) = v123;
-        v72 = LLVMConstVector();
-        v73 = 1;
-        LODWORD(v7) = v119;
+        LODWORD(v70) = v109;
+        v71 = LLVMConstVector();
+        v72 = 1;
+        LODWORD(v7) = v105;
       }
 
-      v118 = v72;
+      v104 = v71;
       if (v7)
       {
-        v92 = 0;
-        v93 = (2 * v71 - 1);
-        v94 = 2 * v71 - 1;
-        v95 = v122 + 65;
+        v87 = 0;
+        v88 = (2 * v70 - 1);
+        v89 = 2 * v70 - 1;
+        v90 = v108 + 65;
         do
         {
-          v96 = v56[v92];
-          if (glpASTNodeGetKind(v96) == 81)
+          v91 = v53[v87];
+          if (glpASTNodeGetKind(v91) == 81)
           {
-            v97 = glpDerefNodeGetOffset(v96);
-            v98 = (glpOffsetNodeGetSwizzle(v97) >> 3) & 3;
-            v99 = v95[v98];
-            if (!v99)
+            v92 = glpDerefNodeGetOffset(v91);
+            v93 = (glpOffsetNodeGetSwizzle(v92) >> 3) & 3;
+            v94 = v90[v93];
+            if (!v94)
             {
-              v100 = v122[5];
-              v99 = LLVMConstInt();
-              v95[v98] = v99;
+              v94 = LLVMConstInt();
+              v90[v93] = v94;
             }
 
-            v121[v92] = v99;
-            if (v92 != v98)
+            v107[v87] = v94;
+            if (v87 != v93)
             {
-              v73 = 1;
+              v72 = 1;
             }
           }
 
-          else if (!v121[v92])
+          else if (!v107[v87])
           {
-            if (v94 > 7)
+            if (v89 > 7)
             {
-              v103 = v122[5];
-              v101 = LLVMConstInt();
+              v95 = LLVMConstInt();
             }
 
             else
             {
-              v101 = v95[v93];
-              if (!v101)
+              v95 = v90[v88];
+              if (!v95)
               {
-                v102 = v122[5];
-                v101 = LLVMConstInt();
-                v95[v93] = v101;
+                v95 = LLVMConstInt();
+                v90[v88] = v95;
               }
             }
 
-            v121[v92] = v101;
-            v73 = 1;
+            v107[v87] = v95;
+            v72 = 1;
           }
 
-          ++v92;
+          ++v87;
         }
 
-        while (v54 != v92);
+        while (v51 != v87);
       }
 
-      v104 = v119;
-      v105 = v123;
-      if (v73 || v123 != v119)
+      v96 = v105;
+      v97 = v109;
+      if (v72 || v109 != v105)
       {
         LLVMConstVector();
-        v106 = v122[2];
         LLVMBuildShuffleVector();
       }
 
-      if (v58 && v105 < v58 && v104)
+      if (v56 && v97 < v56 && v96)
       {
-        v107 = 0;
+        v98 = 0;
         do
         {
-          v108 = v56[v107];
-          if (glpASTNodeGetKind(v108) == 3)
+          v99 = v53[v98];
+          if (glpASTNodeGetKind(v99) == 3)
           {
-            v109 = v122;
-            glpLLVMCGNode(v122, v108, 0);
-            v110 = *(v109 + 16);
-            if (v107 > 7)
+            v100 = v108;
+            glpLLVMCGNode(v108, v99, 0);
+            if (v98 > 7)
             {
-              v113 = *(v109 + 40);
               LLVMConstInt();
             }
 
             else
             {
-              v111 = v109 + 8 * v107;
-              if (!*(v111 + 520))
+              v101 = v100 + 8 * v98;
+              if (!*(v101 + 520))
               {
-                v112 = v122[5];
-                *(v111 + 520) = LLVMConstInt();
+                *(v101 + 520) = LLVMConstInt();
               }
             }
 
             LLVMBuildInsertElement();
           }
 
-          ++v107;
+          ++v98;
         }
 
-        while (v54 != v107);
+        while (v51 != v98);
       }
     }
 
-    v114 = v122[2];
     LLVMBuildStore();
-    inserted = 0;
+    return 0;
   }
 
   else
@@ -5259,45 +3801,39 @@ LABEL_45:
     inserted = LLVMBuildLoad();
     if (v7 >= 1)
     {
-      v45 = v25 + 65;
-      v46 = v7;
+      v46 = v25 + 65;
+      v47 = v7;
       do
       {
-        v47 = glpBinaryOperatorNodeGetRhs(*a4);
-        glpLLVMCGNode(v25, v47, 1);
-        v48 = v25[2];
+        v48 = glpBinaryOperatorNodeGetRhs(*a4);
+        glpLLVMCGNode(v25, v48, 1);
         v50 = *a5++;
         v49 = v50;
         if (v50 > 7)
         {
-          v52 = v25[5];
           LLVMConstInt();
         }
 
-        else if (!v45[v49])
+        else if (!v46[v49])
         {
-          v51 = v25[5];
-          v45[v49] = LLVMConstInt();
+          v46[v49] = LLVMConstInt();
         }
 
         inserted = LLVMBuildInsertElement();
         ++a4;
-        --v46;
+        --v47;
       }
 
-      while (v46);
+      while (v47);
     }
 
-    v53 = v25[2];
     LLVMBuildStore();
   }
 
-LABEL_110:
-  v115 = *MEMORY[0x277D85DE8];
   return inserted;
 }
 
-uint64_t glpGetVectorSwizzle(uint64_t a1, int *a2)
+uint64_t glpGetVectorSwizzle(uint64_t a1, unsigned int *a2)
 {
   result = glpDerefNodeGetOffset(a1);
   if (result)
@@ -5360,7 +3896,6 @@ LABEL_41:
         }
 
         v36 = 0;
-        v38 = *(a1 + 792);
         break;
       case 2:
         if (!v16)
@@ -5369,15 +3904,14 @@ LABEL_41:
         }
 
         v36 = 0;
-        *(*(a1 + 128) + 320);
         if ((*(a2 + 53) & 2) != 0 || !v34)
         {
           v37 = 0;
 LABEL_60:
           result = MEMORY[0x23EE85440](v32, v36);
-          v39 = *(a2 + 144);
-          *v39 = result;
-          *(v39 + 32) = *(v39 + 32) & 0xFFFFFFFB | v37;
+          v38 = *(a2 + 144);
+          *v38 = result;
+          *(v38 + 32) = *(v38 + 32) & 0xFFFFFFFB | v37;
           return result;
         }
 
@@ -5569,7 +4103,7 @@ LABEL_39:
 
 uint64_t glpTypeToLLVMTypeWithUnderlying(uint64_t *a1, unsigned int *a2, uint64_t a3, void *a4)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   if (a4)
   {
     *(a4[18] + 24) = 0;
@@ -5585,7 +4119,7 @@ LABEL_37:
     }
 
 LABEL_16:
-    v15 = glpLLVMGetAggregateType(a1, a2, a3, a4);
+    v16 = glpLLVMGetAggregateType(a1, a2, a3, a4);
     goto LABEL_20;
   }
 
@@ -5594,12 +4128,12 @@ LABEL_16:
     PrimitiveType = glpPrimitiveTypeGetPrimitiveType(a2);
     if (glpPrimitiveTypeGetCategory(PrimitiveType) != 3 || glpPrimitiveTypeGetScalarType(PrimitiveType) != 62)
     {
-      v15 = glpPrimitiveTypeToLLVMType(a1, PrimitiveType, a3);
+      v16 = glpPrimitiveTypeToLLVMType(a1, PrimitiveType, a3);
 LABEL_20:
-      v17 = v15;
+      v18 = v16;
       if (!a4)
       {
-        goto LABEL_33;
+        return v18;
       }
 
       goto LABEL_28;
@@ -5614,66 +4148,65 @@ LABEL_20:
   }
 
   ElementCount = glpAggregateTypeGetElementCount(a2);
-  v10 = ElementCount;
+  v11 = ElementCount;
   if (!ElementCount)
   {
-    MEMORY[0x28223BE20](ElementCount);
+    MEMORY[0x28223BE20](ElementCount, v10);
     goto LABEL_27;
   }
 
-  v11 = 0;
-  v12 = 1;
+  v12 = 0;
+  v13 = 1;
   do
   {
     while (1)
     {
-      ElementType = glpAggregateTypeGetElementType(a2, v11);
+      ElementType = glpAggregateTypeGetElementType(a2, v12);
       if (glpTypeIsAtomic(ElementType))
       {
         break;
       }
 
-      v12 = 0;
-      if (++v11 == v10)
+      v13 = 0;
+      if (++v12 == v11)
       {
         goto LABEL_16;
       }
     }
 
-    v14 = glpPrimitiveTypeGetPrimitiveType(ElementType);
-    if ((v14 & 0xFFFFFFFE) == 0x40)
+    v15 = glpPrimitiveTypeGetPrimitiveType(ElementType);
+    if ((v15 & 0xFFFFFFFE) == 0x40)
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    ++v11;
+    ++v12;
   }
 
-  while (v11 != v10);
-  if (!v12)
+  while (v12 != v11);
+  if (!v13)
   {
     goto LABEL_16;
   }
 
-  MEMORY[0x28223BE20](v14);
-  v19 = v33 - v18;
-  bzero(v33 - v18, v20);
-  v21 = 0;
+  MEMORY[0x28223BE20](v15, 8 * v11);
+  v20 = v32 - v19;
+  bzero(v32 - v19, v21);
+  v22 = 0;
   do
   {
-    v22 = glpAggregateTypeGetElementType(a2, v21);
-    ElementFlags = glpAggregateTypeGetElementFlags(a2, v21);
-    v24 = glpPrecisionIndexFromSAFlags(ElementFlags);
-    *&v19[8 * v21++] = glpTypeToLLVMTypeWithUnderlying(a1, v22, v24, a4);
+    v23 = glpAggregateTypeGetElementType(a2, v22);
+    ElementFlags = glpAggregateTypeGetElementFlags(a2, v22);
+    v25 = glpPrecisionIndexFromSAFlags(ElementFlags);
+    *&v20[8 * v22++] = glpTypeToLLVMTypeWithUnderlying(a1, v23, v25, a4);
   }
 
-  while (v10 != v21);
+  while (v11 != v22);
 LABEL_27:
-  v25 = *a1;
-  v17 = LLVMStructTypeInContext();
+  v18 = LLVMStructTypeInContext();
   if (!a4)
   {
-    goto LABEL_33;
+    return v18;
   }
 
 LABEL_28:
@@ -5682,11 +4215,11 @@ LABEL_28:
   {
     v28 = a4[6];
 LABEL_35:
-    v32 = v28 & 0xFFFFFFFFFEFFFFFFLL;
-    a4[6] = v32;
-    if ((v32 & 0x1000000) == 0)
+    v31 = v28 & 0xFFFFFFFFFEFFFFFFLL;
+    a4[6] = v31;
+    if ((v31 & 0x1000000) == 0)
     {
-      goto LABEL_33;
+      return v18;
     }
 
     goto LABEL_32;
@@ -5702,70 +4235,67 @@ LABEL_35:
   {
 LABEL_32:
     *(a4[18] + 24) = glpPrimitiveTypeGetPrimitiveType(a2);
-    v29 = glpLLVMGetNamedTypeInner(a1);
-    v17 = MEMORY[0x23EE85440](v29, 1);
+    v29 = glpLLVMGetNamedTypeInner(a1, "struct._interpolant_t");
+    return MEMORY[0x23EE85440](v29, 1);
   }
 
-LABEL_33:
-  v30 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v18;
 }
 
 uint64_t glpLLVMGetAggregateType(uint64_t *a1, unsigned int *a2, unsigned int a3, uint64_t a4)
 {
-  v17 = a3;
-  v18 = 1;
-  v7 = glpLLVMGetMinCommonType(a2, &v18, &v17);
+  v15 = a3;
+  v16 = 1;
+  v7 = glpLLVMGetMinCommonType(a2, &v16, &v15);
   if (glpTypeGetKind(a2) == 3)
   {
     glpBankTypeGetElementCount(a2);
     ElementType = glpBankTypeGetElementType(a2);
-    v9 = glpABIGetTypeSize(0, ElementType, 0);
-    glpTypeSizeGetSize(v9);
+    glpABIGetTypeSize(0, ElementType, 0);
+    glpTypeSizeGetSize();
     if (a4)
     {
 LABEL_3:
-      v10 = v18;
-      VectorType = glpGetVectorType(v7, v18);
-      v12 = *(a4 + 144);
-      v13 = v17;
-      *(v12 + 24) = VectorType;
-      *(v12 + 28) = v13;
+      v9 = v16;
+      VectorType = glpGetVectorType(v7, v16);
+      v11 = *(a4 + 144);
+      v12 = v15;
+      *(v11 + 24) = VectorType;
+      *(v11 + 28) = v12;
       goto LABEL_6;
     }
   }
 
   else
   {
-    v14 = glpABIGetTypeSize(0, a2, 0);
-    glpTypeSizeGetSize(v14);
+    glpABIGetTypeSize(0, a2, 0);
+    glpTypeSizeGetSize();
     if (a4)
     {
       goto LABEL_3;
     }
   }
 
-  v13 = v17;
-  v10 = v18;
+  v12 = v15;
+  v9 = v16;
 LABEL_6:
-  v15 = glpPrimitiveTypeToLLVMType(a1, v7, v13);
-  if (v10 >= 2)
+  v13 = glpPrimitiveTypeToLLVMType(a1, v7, v12);
+  if (v9 >= 2)
   {
-    MEMORY[0x23EE854F0](v15, v10);
+    MEMORY[0x23EE854F0](v13, v9);
   }
 
   return LLVMArrayType();
 }
 
-uint64_t glpLLVMBuildFunctionType(uint64_t a1, uint64_t a2, int a3, int a4, int a5, char a6)
+uint64_t glpLLVMBuildFunctionType(void *a1, uint64_t a2, int a3, int a4, int a5, char a6)
 {
-  v87 = *MEMORY[0x277D85DE8];
-  v12 = *a1;
-  v13 = LLVMVoidTypeInContext();
-  v14 = v13;
+  v84 = *MEMORY[0x277D85DE8];
+  v12 = LLVMVoidTypeInContext();
+  v13 = v12;
   if ((a6 & 2) != 0)
   {
-    v15 = *(a1 + 708);
+    v14 = *(a1 + 177);
     if ((a6 & 4) != 0)
     {
       goto LABEL_3;
@@ -5774,45 +4304,45 @@ uint64_t glpLLVMBuildFunctionType(uint64_t a1, uint64_t a2, int a3, int a4, int 
 
   else
   {
-    v15 = 0;
+    v14 = 0;
     if ((a6 & 4) != 0)
     {
 LABEL_3:
-      v16 = *(a1 + 724);
+      v15 = *(a1 + 181);
       goto LABEL_6;
     }
   }
 
-  v16 = 0;
+  v15 = 0;
 LABEL_6:
-  v17 = a5 + a4;
-  v18 = *(a1 + 832);
-  v20 = (v18 & 2) == 0 || v16 < 1;
-  v21 = (v18 & 1) == 0 || v20;
-  v22 = (v18 & 1) != 0 && !v20;
-  v84 = v21;
+  v16 = a5 + a4;
+  v17 = *(a1 + 416);
+  v19 = (v17 & 2) == 0 || v15 < 1;
+  v20 = (v17 & 1) == 0 || v19;
+  v21 = (v17 & 1) != 0 && !v19;
+  v81 = v20;
   if ((a6 & 8) != 0)
   {
-    v23 = *(a1 + 596);
+    v22 = *(a1 + 149);
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  v83 = a6 & 1;
-  v85 = v23;
-  v79 = v83 + v17 + v15 + v16 + v22;
-  v24 = (v79 + 2 * v23);
-  MEMORY[0x28223BE20](v13);
-  v86 = &v76 - v25;
-  bzero(&v76 - v25, v26);
+  v80 = a6 & 1;
+  v82 = v22;
+  v76 = v80 + v16 + v14 + v15 + v21;
+  v23 = (v76 + 2 * v22);
+  MEMORY[0x28223BE20](v12, 8 * v23);
+  v83 = &v73 - v24;
+  bzero(&v73 - v24, v25);
   if (a3)
   {
-    v80 = v17;
-    v81 = v24;
-    v28 = *(a1 + 676);
+    v77 = v16;
+    v78 = v23;
+    v28 = *(a1 + 169);
     if (v28 >= 1)
     {
       v29 = 0;
@@ -5820,10 +4350,10 @@ LABEL_6:
       v31 = 8 * v28;
       while (1)
       {
-        v32 = *(*(a1 + 680) + v29);
+        v32 = *(a1[85] + v29);
         v33 = glpLayoutObjectFind(*(v32 + 8), 34);
-        v27 = glpPrecisionIndexFromSAFlags(*(v32 + 48));
-        v34 = *(a1 + 320);
+        v26 = glpPrecisionIndexFromSAFlags(*(v32 + 48));
+        v34 = *(a1 + 80);
         if ((v34 - 1) < 3)
         {
           break;
@@ -5847,26 +4377,26 @@ LABEL_6:
               goto LABEL_35;
             }
 
-            v27 = glpTypeToLLVMTypeWithUnderlying(a1, *v32, v27, v32);
-            if ((*(a1 + 832) & 1) == 0)
+            v26 = glpTypeToLLVMTypeWithUnderlying(a1, *v32, v26, v32);
+            if ((a1[104] & 1) == 0)
             {
-              v27 = MEMORY[0x23EE85440](v27, 1);
+              v26 = MEMORY[0x23EE85440](v26, 1);
             }
           }
 
           else
           {
-            if ((*(a1 + 832) & 1) == 0)
+            if ((a1[104] & 1) == 0)
             {
               goto LABEL_35;
             }
 
 LABEL_33:
-            v27 = glpTypeToLLVMTypeWithUnderlying(a1, *v32, v27, v32);
+            v26 = glpTypeToLLVMTypeWithUnderlying(a1, *v32, v26, v32);
           }
 
 LABEL_34:
-          *&v86[8 * v30++] = v27;
+          *&v83[8 * v30++] = v26;
         }
 
 LABEL_35:
@@ -5878,10 +4408,10 @@ LABEL_35:
       }
 
       v35 = *(v32 + 144);
-      v27 = *v35;
+      v26 = *v35;
       if ((*(v35 + 32) & 4) == 0)
       {
-        v27 = LLVMGetElementType();
+        v26 = LLVMGetElementType();
       }
 
       goto LABEL_34;
@@ -5889,38 +4419,38 @@ LABEL_35:
 
     v30 = 0;
 LABEL_49:
-    if (*(a1 + 804))
+    if (*(a1 + 201))
     {
-      *&v86[8 * v30++] = *(a1 + 40);
+      *&v83[8 * v30++] = a1[5];
     }
 
-    if (*(a1 + 812))
+    if (*(a1 + 203))
     {
-      *&v86[8 * v30++] = *(a1 + 40);
+      *&v83[8 * v30++] = a1[5];
     }
 
-    v45 = *(a1 + 820);
-    v82 = v14;
+    v45 = *(a1 + 205);
+    v79 = v13;
     if (v45)
     {
-      *&v86[8 * v30++] = *(a1 + 40);
+      *&v83[8 * v30++] = a1[5];
     }
 
-    v78 = &v76;
-    v46 = *(a1 + 692);
+    v75 = &v73;
+    v46 = *(a1 + 173);
     v47 = 8 * v46;
-    MEMORY[0x28223BE20](v27);
-    v48 = &v76 - ((8 * v46 + 15) & 0xFFFFFFFF0);
+    MEMORY[0x28223BE20](v26, v27);
+    v48 = &v73 - ((8 * v46 + 15) & 0xFFFFFFFF0);
     bzero(v48, 8 * v46);
-    v77 = v46;
+    v74 = v46;
     if (v46 >= 1)
     {
       v49 = 0;
       while (1)
       {
-        v50 = *(*(a1 + 696) + v49);
+        v50 = *(a1[87] + v49);
         v51 = glpPrecisionIndexFromSAFlags(*(v50 + 48));
-        v52 = *(a1 + 320);
+        v52 = *(a1 + 80);
         if (v52 > 1)
         {
           break;
@@ -5968,7 +4498,7 @@ LABEL_64:
           break;
         case 2:
 LABEL_65:
-          if ((*(a1 + 832) & 1) == 0)
+          if ((a1[104] & 1) == 0)
           {
             goto LABEL_76;
           }
@@ -6011,19 +4541,18 @@ LABEL_76:
     }
 
 LABEL_79:
-    if ((*(a1 + 320) | 2) == 3)
+    if ((*(a1 + 80) | 2) == 3)
     {
-      memcpy(&v86[8 * v30], &v76 - ((v47 + 15) & 0xFFFFFFFF0), v47);
+      memcpy(&v83[8 * v30], &v73 - ((v47 + 15) & 0xFFFFFFFF0), v47);
       v60 = 0;
-      v17 = v80;
+      v16 = v77;
     }
 
     else
     {
-      v17 = v80;
-      if (v77)
+      v16 = v77;
+      if (v74)
       {
-        v61 = *a1;
         v60 = LLVMStructTypeInContext();
       }
 
@@ -6033,7 +4562,7 @@ LABEL_79:
       }
     }
 
-    *(a1 + 200) = v60;
+    a1[25] = v60;
   }
 
   else
@@ -6041,9 +4570,9 @@ LABEL_79:
     v37 = *(a2 + 32);
     if (v37)
     {
-      v80 = v17;
-      v81 = v24;
-      v82 = v14;
+      v77 = v16;
+      v78 = v23;
+      v79 = v13;
       v38 = 0;
       for (i = 0; i < v37; ++i)
       {
@@ -6055,7 +4584,7 @@ LABEL_79:
           v43 = *(v42 + 144);
           if (!v43)
           {
-            v44 = (*(*(a1 + 152) + 8))(**(a1 + 152), 40, "llvm codegen extra");
+            v44 = (*(a1[19] + 8))(*a1[19], 40, "llvm codegen extra");
             *(v42 + 144) = v44;
             *v44 = 0u;
             *(v44 + 16) = 0u;
@@ -6065,86 +4594,85 @@ LABEL_79:
             v37 = *(a2 + 32);
           }
 
-          *&v86[((v41 << 32) - 0x100000000) >> 29] = *v43;
+          *&v83[((v41 << 32) - 0x100000000) >> 29] = *v43;
         }
 
         v38 += 24;
       }
 
-      v17 = v80;
+      v16 = v77;
     }
   }
 
-  v62 = *a1;
-  v63 = LLVMFloatTypeInContext();
-  v64 = MEMORY[0x23EE854F0](v63, 4);
-  v65 = v64;
-  if (v83)
+  v61 = LLVMFloatTypeInContext();
+  v62 = MEMORY[0x23EE854F0](v61, 4);
+  v63 = v62;
+  if (v80)
   {
-    v66 = MEMORY[0x23EE85440](v64, 2);
-    *&v86[8 * v17++] = v66;
+    v64 = MEMORY[0x23EE85440](v62, 2);
+    *&v83[8 * v16++] = v64;
+  }
+
+  if (v14 >= 1)
+  {
+    v65 = &v83[8 * v16];
+    v16 += v14;
+    do
+    {
+      *v65 = MEMORY[0x23EE85440](v63, 2);
+      v65 += 8;
+      --v14;
+    }
+
+    while (v14);
   }
 
   if (v15 >= 1)
   {
-    v67 = &v86[8 * v17];
-    v17 += v15;
+    v66 = &v83[8 * v16];
+    v16 += v15;
     do
     {
-      *v67 = MEMORY[0x23EE85440](v65, 2);
-      v67 += 8;
+      *v66 = MEMORY[0x23EE85440](v63, 1);
+      v66 += 8;
       --v15;
     }
 
     while (v15);
   }
 
-  if (v16 >= 1)
+  if ((v81 & 1) == 0)
   {
-    v68 = &v86[8 * v17];
-    v17 += v16;
+    v67 = MEMORY[0x23EE85440](a1[5], 1);
+    *&v83[8 * v16] = v67;
+  }
+
+  if (v82 >= 1)
+  {
+    v68 = v82;
+    v69 = &v83[8 * v76];
+    v70 = &v83[8 * v82 + 8 * v76];
+    v71 = (a1[75] + 24);
     do
     {
-      *v68 = MEMORY[0x23EE85440](v65, 1);
-      v68 += 8;
-      --v16;
+      *v69 = *v71;
+      v69 += 8;
+      *v70 = *(v71 - 1);
+      v70 += 8;
+      v71 += 6;
+      --v68;
     }
 
-    while (v16);
+    while (v68);
   }
 
-  if ((v84 & 1) == 0)
-  {
-    v69 = MEMORY[0x23EE85440](*(a1 + 40), 1);
-    *&v86[8 * v17] = v69;
-  }
-
-  if (v85 >= 1)
-  {
-    v70 = v85;
-    v71 = &v86[8 * v79];
-    v72 = &v86[8 * v85 + 8 * v79];
-    v73 = (*(a1 + 600) + 24);
-    do
-    {
-      *v71 = *v73;
-      v71 += 8;
-      *v72 = *(v73 - 1);
-      v72 += 8;
-      v73 += 6;
-      --v70;
-    }
-
-    while (v70);
-  }
-
-  result = LLVMFunctionType();
-  v75 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMFunctionType();
 }
 
-uint64_t glpMetalGetArgTypeNameFromASTType(char *a1, unsigned int *a2, int a3, int a4)
+uint64_t glpMetalGetArgTypeNameFromASTType(char *a1, unsigned int *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   result = glpTypeGetKind(a2);
   if (!result)
   {
@@ -6156,7 +4684,7 @@ uint64_t glpMetalGetArgTypeNameFromASTType(char *a1, unsigned int *a2, int a3, i
       {
         glpPrimitiveVectorGetLength(PrimitiveType);
         ElementType = glpPrimitiveVectorGetElementType(PrimitiveType);
-        glpScalarTypeGetMetalArgType(ElementType, a3, 0);
+        glpScalarTypeGetMetalArgType(ElementType, v5, 0);
         return snprintf_l(a1, 0x200uLL, 0, "%s%u");
       }
 
@@ -6165,7 +4693,7 @@ uint64_t glpMetalGetArgTypeNameFromASTType(char *a1, unsigned int *a2, int a3, i
         ColumnType = glpPrimitiveMatrixGetColumnType(PrimitiveType);
         glpPrimitiveMatrixGetColumns(PrimitiveType);
         glpPrimitiveMatrixGetRows(PrimitiveType);
-        glpScalarTypeGetMetalArgType(ColumnType, a3, 0);
+        glpScalarTypeGetMetalArgType(ColumnType, v5, 0);
         return snprintf_l(a1, 0x200uLL, 0, "%s%ux%u");
       }
     }
@@ -6174,7 +4702,7 @@ uint64_t glpMetalGetArgTypeNameFromASTType(char *a1, unsigned int *a2, int a3, i
     {
       if (result == 1)
       {
-        glpScalarTypeGetMetalArgType(PrimitiveType, a3, a4);
+        glpScalarTypeGetMetalArgType(PrimitiveType, v5, v4);
         return snprintf_l(a1, 0x200uLL, 0, "%s");
       }
     }
@@ -6189,253 +4717,220 @@ uint64_t glpMetalGetArgTypeNameFromASTType(char *a1, unsigned int *a2, int a3, i
   return result;
 }
 
-uint64_t glpLLVMVertexGeometryMetadata(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t glpLLVMVertexGeometryMetadata(void *a1, uint64_t a2, unsigned int a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = glpLayoutObjectFind(*(a2 + 8), 68);
-  memset(v56, 0, sizeof(v56));
-  if ((*(a1 + 320) | 2) == 3)
+  memset(v30, 0, sizeof(v30));
+  if ((*(a1 + 80) | 2) == 3)
   {
     if (a3 > 7)
     {
-      v10 = *(a1 + 40);
       v7 = LLVMConstInt();
     }
 
     else
     {
-      v7 = *(a1 + 520 + 8 * a3);
+      v7 = a1[a3 + 65];
       if (!v7)
       {
-        v8 = *(a1 + 40);
         v7 = LLVMConstInt();
-        *(a1 + 520 + 8 * a3) = v7;
+        a1[a3 + 65] = v7;
       }
     }
 
-    *&v56[0] = v7;
-    v11 = *a1;
-    *(&v56[0] + 1) = LLVMMDStringInContext();
-    v9 = 2;
+    *&v30[0] = v7;
+    *(&v30[0] + 1) = LLVMMDStringInContext();
+    v8 = 2;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v12 = *(v6 + 4);
-  if (v12 > 10)
+  v9 = *(v6 + 4);
+  if (v9 > 10)
   {
-    if (v12 <= 13)
+    if (v9 <= 14 || v9 == 16)
     {
-      v15 = *a1;
-      goto LABEL_43;
+      goto LABEL_41;
     }
 
-    switch(v12)
+    if (v9 == 17)
     {
-      case 14:
-        v29 = *a1;
-        goto LABEL_43;
-      case 16:
-        v32 = *a1;
-        goto LABEL_43;
-      case 17:
-        v21 = glpLayoutObjectFind(*(a2 + 8), 69);
-        v22 = *(a2 + 48);
-        v23 = "air.no_perspective";
-        if ((v22 & 0x2000000000) == 0)
+      v13 = glpLayoutObjectFind(*(a2 + 8), 69);
+      v14 = *(a2 + 48);
+      v15 = "air.no_perspective";
+      if ((v14 & 0x2000000000) == 0)
+      {
+        v15 = "air.perspective";
+      }
+
+      if ((v14 & 0x1000000000) != 0)
+      {
+        v16 = "air.flat";
+      }
+
+      else
+      {
+        v16 = v15;
+      }
+
+      v17 = "air.center";
+      if ((v14 & 0x1000000000) == 0)
+      {
+        if ((v14 & 0x4000000000) != 0)
         {
-          v23 = "air.perspective";
+          v17 = "air.centroid";
         }
 
-        if ((v22 & 0x1000000000) != 0)
+        else if ((v14 & 0x40000000000) != 0)
         {
-          v24 = "air.flat";
+          v17 = "air.sample";
+        }
+      }
+
+      if ((*(a1 + 80) | 2) == 2)
+      {
+        *(v30 + v8) = LLVMMDStringInContext();
+        v8 |= 1u;
+      }
+
+      if (a1[104])
+      {
+        *__str = 0u;
+        v29 = 0u;
+        v21 = *(v13 + 4);
+        v22 = glpLayoutObjectFind(*(a2 + 8), 70);
+        if (v22)
+        {
+          v23 = *(v22 + 4) == 0;
         }
 
         else
         {
-          v24 = v23;
+          v23 = 1;
         }
 
-        v25 = "air.center";
-        if ((v22 & 0x1000000000) == 0)
+        if (v23 && (v21 & 0xFFFFFFF8) == 8)
         {
-          if ((v22 & 0x4000000000) != 0)
-          {
-            v25 = "air.centroid";
-          }
-
-          else if ((v22 & 0x40000000000) != 0)
-          {
-            v25 = "air.sample";
-          }
+          snprintf(__str, 0x1FuLL, "user(tex_coord%u)");
         }
 
-        if ((*(a1 + 320) | 2) == 2)
+        else if ((*(a2 + 53) & 2) != 0)
         {
-          v37 = *a1;
-          *(v56 + v9) = LLVMMDStringInContext();
-          v9 |= 1u;
-        }
-
-        if (*(a1 + 832))
-        {
-          *__str = 0u;
-          v55 = 0u;
-          v43 = *(v21 + 4);
-          v44 = glpLayoutObjectFind(*(a2 + 8), 70);
-          if (v44)
-          {
-            v45 = *(v44 + 4) == 0;
-          }
-
-          else
-          {
-            v45 = 1;
-          }
-
-          if (v45 && (v43 & 0xFFFFFFF8) == 8)
-          {
-            snprintf(__str, 0x1FuLL, "user(tex_coord%u)");
-          }
-
-          else if ((*(a2 + 53) & 2) != 0)
-          {
-            snprintf(__str, 0x1FuLL, "user(patch%u)");
-          }
-
-          else
-          {
-            snprintf(__str, 0x1FuLL, "user(slot%u)");
-          }
-
-          v48 = *a1;
-          strlen(__str);
-          v49 = v9 + 1;
-          *(v56 + v9) = LLVMMDStringInContext();
-          if (*(a1 + 320) == 1)
-          {
-            ElementType = *a2;
-            if (glpTypeGetKind(ElementType) == 3)
-            {
-              ElementType = glpBankTypeGetElementType(ElementType);
-            }
-
-            *(v56 + v49) = glpLLVMStringMetadata(a1, "air.vec4_size");
-            Vec4s = glpTypeGetVec4s(ElementType);
-            *(&v56[1] + v9) = glpGetConstantInt32(a1, Vec4s);
-            v49 = v9 + 3;
-          }
-
-          v47 = v49;
+          snprintf(__str, 0x1FuLL, "user(patch%u)");
         }
 
         else
         {
-          v38 = *a1;
-          *(v56 + v9) = LLVMMDStringInContext();
-          v39 = *(v21 + 4);
-          if (v39 > 7)
-          {
-            v46 = *(a1 + 40);
-            v40 = LLVMConstInt();
-          }
-
-          else
-          {
-            v40 = *(a1 + 520 + 8 * v39);
-            if (!v40)
-            {
-              v41 = *(a1 + 40);
-              v42 = *(v21 + 4);
-              v40 = LLVMConstInt();
-              *(a1 + 520 + 8 * v39) = v40;
-            }
-          }
-
-          *(v56 + v9 + 1) = v40;
-          v47 = v9 + 2;
+          snprintf(__str, 0x1FuLL, "user(slot%u)");
         }
 
-        if ((*(a1 + 320) | 2) != 2 || (*(a1 + 832) & 1) == 0)
+        strlen(__str);
+        v25 = v8 + 1;
+        *(v30 + v8) = LLVMMDStringInContext();
+        if (*(a1 + 80) == 1)
         {
-          v52 = *a1;
-          strlen(v24);
-          *(v56 + v47) = LLVMMDStringInContext();
-          v53 = *a1;
-          strlen(v25);
-          *(v56 + v47 + 1) = LLVMMDStringInContext();
+          ElementType = *a2;
+          if (glpTypeGetKind(ElementType) == 3)
+          {
+            ElementType = glpBankTypeGetElementType(ElementType);
+          }
+
+          *(v30 + v25) = glpLLVMStringMetadata(a1, "air.vec4_size");
+          glpTypeGetVec4s(ElementType);
+          *(&v30[1] + v8) = glpGetConstantInt32(a1, v27);
+          v25 = v8 + 3;
         }
 
-        break;
+        v24 = v25;
+      }
+
+      else
+      {
+        *(v30 + v8) = LLVMMDStringInContext();
+        v19 = *(v13 + 4);
+        if (v19 > 7)
+        {
+          v20 = LLVMConstInt();
+        }
+
+        else
+        {
+          v20 = a1[v19 + 65];
+          if (!v20)
+          {
+            v20 = LLVMConstInt();
+            a1[v19 + 65] = v20;
+          }
+        }
+
+        *(v30 + v8 + 1) = v20;
+        v24 = v8 + 2;
+      }
+
+      if ((*(a1 + 80) | 2) != 2 || (a1[104] & 1) == 0)
+      {
+        strlen(v16);
+        *(v30 + v24) = LLVMMDStringInContext();
+        strlen(v17);
+        *(v30 + v24 + 1) = LLVMMDStringInContext();
+      }
     }
   }
 
-  else if (v12 > 4)
+  else if (v9 > 4)
   {
-    switch(v12)
+    switch(v9)
     {
       case 5:
-        v27 = *(glpLayoutObjectFind(*(a2 + 8), 74) + 4);
-        v28 = *a1;
-        goto LABEL_43;
+        glpLayoutObjectFind(*(a2 + 8), 74);
+        goto LABEL_41;
       case 9:
-        *(a1 + 744) |= 4uLL;
-        v31 = *a1;
-        goto LABEL_43;
+        a1[93] |= 4uLL;
+        goto LABEL_41;
       case 10:
-        v16 = glpLayoutObjectFind(*(a2 + 8), 75);
-        v17 = *a1;
-        *(v56 + v9) = LLVMMDStringInContext();
-        v18 = *(v16 + 4);
-        if (v18 > 7)
+        v10 = glpLayoutObjectFind(*(a2 + 8), 75);
+        *(v30 + v8) = LLVMMDStringInContext();
+        v11 = *(v10 + 4);
+        if (v11 > 7)
         {
-          v33 = *(a1 + 40);
-          v19 = LLVMConstInt();
+          v12 = LLVMConstInt();
         }
 
         else
         {
-          v19 = *(a1 + 520 + 8 * v18);
-          if (!v19)
+          v12 = a1[v11 + 65];
+          if (!v12)
           {
-            v20 = *(a1 + 40);
-            v19 = LLVMConstInt();
-            *(a1 + 520 + 8 * v18) = v19;
+            v12 = LLVMConstInt();
+            a1[v11 + 65] = v12;
           }
         }
 
-        *(v56 + (v9 | 1)) = v19;
+        *(v30 + (v8 | 1)) = v12;
         break;
     }
   }
 
   else
   {
-    switch(v12)
+    if (v9 == 1 || v9 == 3)
     {
-      case 1:
-        v26 = *a1;
-        goto LABEL_43;
-      case 3:
-        v30 = *a1;
-        goto LABEL_43;
-      case 4:
-        v13 = *(glpLayoutObjectFind(*(a2 + 8), 71) + 4);
-        v14 = *a1;
-LABEL_43:
-        *(v56 + v9) = LLVMMDStringInContext();
-        break;
+      goto LABEL_41;
+    }
+
+    if (v9 == 4)
+    {
+      glpLayoutObjectFind(*(a2 + 8), 71);
+LABEL_41:
+      *(v30 + v8) = LLVMMDStringInContext();
     }
   }
 
-  v34 = *a1;
-  result = LLVMMDNodeInContext();
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMMDNodeInContext();
 }
 
 const char *glpScalarTypeGetMetalArgType(int a1, int a2, int a3)
@@ -6549,8 +5044,8 @@ uint64_t glpLLVMCGDeclareVariable(uint64_t a1, uint64_t a2)
     if ((v8 & 0x80000000) == 0)
     {
       v9 = glpPrecisionIndexFromSAFlags(v8);
-      glpTypeToLLVMTypeWithUnderlying(a1, *a2, v9, a2);
-      result = glpBuildAlloca(a1);
+      v10 = glpTypeToLLVMTypeWithUnderlying(a1, *a2, v9, a2);
+      result = glpBuildAlloca(a1, v10);
       **(a2 + 144) = result;
       return result;
     }
@@ -6568,7 +5063,7 @@ uint64_t glpLLVMCGDeclareVariable(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t glpIsSimpleComponentAssigment(uint64_t a1, unsigned int ***a2, uint64_t **a3, int *a4, int *a5)
+uint64_t glpIsSimpleComponentAssigment(uint64_t a1, unsigned int ***a2, uint64_t **a3, unsigned int *a4, unsigned int *a5)
 {
   v9 = *a2;
   v15 = 0;
@@ -6617,7 +5112,7 @@ LABEL_8:
 uint64_t glpLLVMSharedRawCall(uint64_t a1, char a2, uint64_t a3, unint64_t *a4, int a5)
 {
   v5 = a5;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if ((a2 & 2) != 0)
   {
     v8 = *(a1 + 708);
@@ -6644,7 +5139,7 @@ LABEL_6:
   v11 = *(a1 + 832);
   v13 = (v11 & 2) == 0 || v9 < 1;
   v14 = (v11 & 1) == 0 || v13;
-  v42 = a3;
+  v41 = a3;
   if ((a2 & 8) != 0)
   {
     v15 = *(a1 + 596);
@@ -6656,9 +5151,9 @@ LABEL_6:
   }
 
   v16 = v10 + a5 + v8 + v9 + 2 * v15;
-  MEMORY[0x28223BE20](a1);
-  v18 = (&v39 - v17);
-  bzero(&v39 - v17, v19);
+  MEMORY[0x28223BE20](a1, 8 * v16);
+  v18 = (&v38 - v17);
+  bzero(&v38 - v17, v19);
   if (v5 < 1)
   {
     v5 = 0;
@@ -6666,8 +5161,8 @@ LABEL_6:
 
   else
   {
-    v40 = v14;
-    v41 = v15;
+    v39 = v14;
+    v40 = v15;
     v20 = v10 + v5 + v8 + v9 + 2 * v15;
     v21 = v5;
     v22 = v18;
@@ -6680,11 +5175,11 @@ LABEL_6:
 
     while (v21);
     v16 = v20;
-    LOBYTE(v14) = v40;
-    v15 = v41;
+    LOBYTE(v14) = v39;
+    v15 = v40;
   }
 
-  v24 = v42;
+  v24 = v41;
   if (v10)
   {
     v18[v5++] = *(a1 + 440);
@@ -6747,9 +5242,7 @@ LABEL_6:
     while (v35);
   }
 
-  result = glpLLVMBuildFunctionCallInner(a1, *(a1 + 160), v24, v18, v16);
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return glpLLVMBuildFunctionCallInner(a1, *(a1 + 160), v24, v18, v16);
 }
 
 uint64_t glpLLVMReadUniform(uint64_t *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
@@ -6769,32 +5262,26 @@ LABEL_12:
     v10 = v12;
 LABEL_13:
     MEMORY[0x23EE85440](v10, 2);
-    v16 = a1[2];
     LLVMBuildPointerCast();
     LLVMBuildLoad();
     glpPrimitiveTypeToLLVMType(a1, a4, a5);
     if (ScalarType == 9)
     {
-      v17 = a1[2];
       MEMORY[0x23EE85200](v10);
 
       return LLVMBuildICmp();
     }
 
+    else if (ScalarType == 1)
+    {
+
+      return LLVMBuildFPCast();
+    }
+
     else
     {
-      v18 = a1[2];
-      if (ScalarType == 1)
-      {
 
-        return LLVMBuildFPCast();
-      }
-
-      else
-      {
-
-        return LLVMBuildIntCast();
-      }
+      return LLVMBuildIntCast();
     }
   }
 
@@ -6808,14 +5295,13 @@ LABEL_13:
   MEMORY[0x23EE85440](v13, 2);
   if (a3 != a4)
   {
-    v14 = a1[2];
     LLVMBuildPointerCast();
   }
 
   return LLVMBuildLoad();
 }
 
-uint64_t glpLLVMCGWriteVertexOutput(uint64_t result, unint64_t a2)
+uint64_t glpLLVMCGWriteVertexOutput(uint64_t result, unsigned int **a2)
 {
   if ((~*(result + 832) & 3) != 0)
   {
@@ -6828,69 +5314,62 @@ uint64_t glpLLVMCGWriteVertexOutput(uint64_t result, unint64_t a2)
     v4 = *(v3 + 692);
     if (v4 >= 1)
     {
-      v5 = 0;
-      while (*(*(v3 + 696) + 8 * v5) != a2)
+      for (i = 0; i != v4; ++i)
       {
-        if (v4 == ++v5)
+        if (*(*(v3 + 696) + 8 * i) == a2)
         {
-          v6 = *(v3 + 692);
           break;
         }
       }
     }
 
     glpLLVMGetVariablePointer(v3, a2);
-    v7 = glpPrecisionIndexFromSAFlags(*(a2 + 48));
-    v8 = glpTypeToLLVMTypeWithUnderlying(v3, *a2, v7, a2);
-    MEMORY[0x23EE85440](v8, 0);
-    v9 = *(v3 + 16);
+    v6 = glpPrecisionIndexFromSAFlags(a2[6]);
+    v7 = glpTypeToLLVMTypeWithUnderlying(v3, *a2, v6, a2);
+    MEMORY[0x23EE85440](v7, 0);
     LLVMBuildPointerCast();
     LLVMBuildLoad();
     if ((*(v3 + 832) & 1) == 0)
     {
-      goto LABEL_18;
+      goto LABEL_17;
     }
 
-    v10 = glpLayoutObjectFind(*(a2 + 8), 69);
-    v11 = glpLayoutObjectFind(*(a2 + 8), 70);
-    if (v11)
+    v8 = glpLayoutObjectFind(a2[1], 69);
+    v9 = glpLayoutObjectFind(a2[1], 70);
+    if (v9)
     {
-      v12 = *(v11 + 4) == 0;
-      if (!v10)
+      v10 = *(v9 + 4) == 0;
+      if (!v8)
       {
-        goto LABEL_18;
+        goto LABEL_17;
       }
     }
 
     else
     {
-      v12 = 1;
-      if (!v10)
+      v10 = 1;
+      if (!v8)
       {
-LABEL_18:
-        v16 = *(v3 + 16);
-        v17 = *(v3 + 208);
+LABEL_17:
         result = LLVMBuildInsertValue();
         *(v3 + 208) = result;
         return result;
       }
     }
 
-    if (*(v10 + 4) == 5 && v12)
+    if (*(v8 + 4) == 5 && v10)
     {
-      v13 = *(v3 + 16);
-      v14 = MEMORY[0x23EE854F0](v8, 4);
-      MEMORY[0x23EE85370](v14);
+      v11 = MEMORY[0x23EE854F0](v7, 4);
+      MEMORY[0x23EE85370](v11);
       if (!*(v3 + 520))
       {
-        v15 = *(v3 + 40);
         *(v3 + 520) = LLVMConstInt();
       }
 
       LLVMBuildInsertElement();
     }
 
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   return result;
@@ -6904,10 +5383,11 @@ void _glpSetCrashLogMessage(uint64_t a1)
   }
 }
 
-void glpSetCrashLogMessagef(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void glpSetCrashLogMessagef(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   os_unfair_lock_lock(&message_lock);
-  vsnprintf_l(message, 0x400uLL, 0, a1, &a9);
+  vsnprintf_l(message, 0x400uLL, 0, a1, va);
   os_unfair_lock_unlock(&message_lock);
   _glpSetCrashLogMessage(message);
 }
@@ -6996,18 +5476,18 @@ uint64_t glpMangleTypeName(char *a1, size_t a2, uint64_t a3, uint64_t a4, int *a
   {
     if (v10 == 12)
     {
-      v27 = snprintf_l(a1, a2, 0, "P");
+      v24 = snprintf_l(a1, a2, 0, "P");
 LABEL_37:
-      if ((v27 & 0x80000000) == 0)
+      if ((v24 & 0x80000000) == 0)
       {
-        v28 = v27;
-        if (a2 > v27)
+        v25 = v24;
+        if (a2 > v24)
         {
-          v29 = LLVMGetElementType();
-          v30 = glpMangleTypeName(&a1[v28], a2 - v28, v29, a4, a5);
-          if ((v30 & 0x80000000) == 0)
+          v26 = LLVMGetElementType();
+          v27 = glpMangleTypeName(&a1[v25], a2 - v25, v26, a4, a5);
+          if ((v27 & 0x80000000) == 0)
           {
-            return v30 + v28;
+            return v27 + v25;
           }
         }
       }
@@ -7032,16 +5512,10 @@ LABEL_37:
         v22 = 0;
         while (1)
         {
-          v23 = &a5[2 * v22];
-          v24 = *(v23 + 1);
           LLVMGetElementType();
-          if (v18 == LLVMGetTypeKind())
+          if (v18 == LLVMGetTypeKind() && v21 == LLVMGetVectorSize() && a5[v22 + 42] == a4)
           {
-            v25 = *(v23 + 1);
-            if (v21 == LLVMGetVectorSize() && a5[v22 + 42] == a4)
-            {
-              break;
-            }
+            break;
           }
 
           ++v22;
@@ -7077,14 +5551,14 @@ LABEL_34:
     ++*a5;
 LABEL_36:
     LLVMGetVectorSize();
-    v27 = snprintf_l(a1, a2, 0, "Dv%d_");
+    v24 = snprintf_l(a1, a2, 0, "Dv%d_");
     goto LABEL_37;
   }
 
   if (v10 == 8)
   {
-    v26 = LLVMGetIntTypeWidth();
-    if (v26 == 16)
+    v23 = LLVMGetIntTypeWidth();
+    if (v23 == 16)
     {
       if (a4 == 2)
       {
@@ -7097,7 +5571,7 @@ LABEL_36:
       }
     }
 
-    else if (v26 == 1)
+    else if (v23 == 1)
     {
       v17 = "b";
     }
@@ -7142,17 +5616,14 @@ LABEL_30:
     }
   }
 
-  v31 = glpOpaqueTypeMangling[(v15 & 0xFFFFFFFE) + 1];
   return snprintf_l(a1, a2, 0, "%s");
 }
 
-uint64_t glpLLVMGetNamedTypeInner(uint64_t *a1)
+uint64_t glpLLVMGetNamedTypeInner(uint64_t *a1, uint64_t a2)
 {
-  v2 = a1[1];
   result = LLVMGetTypeByName();
   if (!result)
   {
-    v4 = *a1;
 
     return LLVMStructCreateNamed();
   }
@@ -7160,24 +5631,21 @@ uint64_t glpLLVMGetNamedTypeInner(uint64_t *a1)
   return result;
 }
 
-uint64_t glpLLVMEmitBranchInnerReal(uint64_t a1)
+uint64_t glpLLVMEmitBranchInnerReal(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
   inserted = LLVMGetInsertBlock();
   if (inserted && !glpLLVMBasicBlockGetTerminator(inserted))
   {
-    v4 = *(a1 + 16);
     LLVMSetCurrentDebugLocation();
-    v5 = *(a1 + 16);
     LLVMBuildBr();
   }
 
-  v6 = *(a1 + 16);
+  v4 = *(a1 + 16);
 
-  return MEMORY[0x2821F1618](v6);
+  return MEMORY[0x2821F1618](v4);
 }
 
-uint64_t glpLLVMPackVectorInner(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t glpLLVMPackVectorInner(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = LLVMTypeOf();
   if (LLVMGetTypeKind() == 13)
@@ -7218,8 +5686,6 @@ uint64_t glpLLVMPackVectorInner(uint64_t *a1, uint64_t a2, uint64_t a3)
     inserted = MEMORY[0x23EE85370](v12);
     if (v7 == 1)
     {
-      v13 = a1[2];
-      v14 = a1[5];
       LLVMConstInt();
       inserted = LLVMBuildInsertElement();
     }
@@ -7228,11 +5694,8 @@ uint64_t glpLLVMPackVectorInner(uint64_t *a1, uint64_t a2, uint64_t a3)
     {
       for (i = 0; i != v7; ++i)
       {
-        v16 = a1[5];
         LLVMConstInt();
-        v17 = a1[2];
         LLVMBuildExtractElement();
-        v18 = a1[2];
         inserted = LLVMBuildInsertElement();
       }
     }
@@ -7248,21 +5711,20 @@ uint64_t glpLLVMPackVectorInner(uint64_t *a1, uint64_t a2, uint64_t a3)
     LLVMGetElementType();
   }
 
-  v19 = LLVMGetTypeKind();
+  v14 = LLVMGetTypeKind();
   if (LLVMGetTypeKind() == 13)
   {
     LLVMGetElementType();
   }
 
-  v20 = LLVMGetTypeKind();
-  if (v19 != 1)
+  v15 = LLVMGetTypeKind();
+  if (v14 != 1)
   {
-    if (v19 != 8)
+    if (v14 != 8)
     {
-      if (v19 == 2)
+      if (v14 == 2)
       {
-        v21 = a1[2];
-LABEL_43:
+LABEL_42:
 
         return LLVMBuildBitCast();
       }
@@ -7270,78 +5732,67 @@ LABEL_43:
       return inserted;
     }
 
-    if (v20 == 1)
+    if (v15 == 1)
     {
-      v31 = a1[2];
-      v32 = *a1;
-      v23 = LLVMInt16TypeInContext();
-      goto LABEL_40;
+      v16 = LLVMInt16TypeInContext();
+      goto LABEL_39;
     }
 
-    if (v20 == 2)
+    if (v15 == 2)
     {
-      v22 = a1[2];
-      v23 = a1[5];
-LABEL_40:
+      v16 = a1[5];
+LABEL_39:
       if (v8 != 1)
       {
-        MEMORY[0x23EE854F0](v23, v8);
+        MEMORY[0x23EE854F0](v16, v8);
       }
 
       LLVMBuildIntCast();
-      v33 = a1[2];
-      goto LABEL_43;
+      goto LABEL_42;
     }
 
-    v34 = a1[2];
-    goto LABEL_47;
+    goto LABEL_45;
   }
 
-  if (v20 != 2)
+  if (v15 != 2)
   {
     if (LLVMGetTypeKind() == 13)
     {
       LLVMGetElementType();
     }
 
-    v26 = LLVMGetIntTypeWidth();
-    v27 = *a1;
-    v28 = LLVMInt16TypeInContext();
-    v29 = a1[2];
+    v18 = LLVMGetIntTypeWidth();
+    v19 = LLVMInt16TypeInContext();
     if (v8 != 1)
     {
-      MEMORY[0x23EE854F0](v28, v8);
+      MEMORY[0x23EE854F0](v19, v8);
     }
 
     inserted = LLVMBuildBitCast();
-    if (v26 < 0x11)
+    if (v18 < 0x11)
     {
       return inserted;
     }
 
-    v30 = a1[2];
-LABEL_47:
+LABEL_45:
 
     return LLVMBuildIntCast();
   }
 
-  v24 = a1[2];
-
   return LLVMBuildFPCast();
 }
 
-uint64_t glpLLVMAddFunctionAttrInner(uint64_t *a1, uint64_t a2, int a3)
+uint64_t glpLLVMAddFunctionAttrInner(void *a1, uint64_t a2, int a3)
 {
-  v4 = (&glpLLVMConvertAttribute_functionAttribStrings)[a3];
-  v5 = strlen(v4);
-  MEMORY[0x23EE852E0](v4, v5);
-  v6 = *a1;
+  v3 = (&glpLLVMConvertAttribute_functionAttribStrings)[a3];
+  v4 = strlen(v3);
+  MEMORY[0x23EE852E0](v3, v4);
   LLVMCreateEnumAttribute();
 
   return LLVMAddAttributeAtIndex();
 }
 
-uint64_t glpLLVMUnpackTypeInner(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t glpLLVMUnpackTypeInner(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = LLVMTypeOf();
   if (LLVMGetTypeKind() == 13)
@@ -7352,8 +5803,6 @@ uint64_t glpLLVMUnpackTypeInner(uint64_t *a1, uint64_t a2, uint64_t a3)
       if (v7 > 1)
       {
 LABEL_14:
-        v15 = a1[2];
-        v16 = a1[5];
         LLVMConstInt();
         Element = LLVMBuildExtractElement();
         goto LABEL_15;
@@ -7408,159 +5857,145 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v35 = v13;
-  v36 = LLVMGetElementType();
-  v37 = MEMORY[0x23EE854F0](v36, v35);
-  Element = MEMORY[0x23EE85370](v37);
-  if (v35 >= 1)
+  v24 = v13;
+  v25 = LLVMGetElementType();
+  v26 = MEMORY[0x23EE854F0](v25, v24);
+  Element = MEMORY[0x23EE85370](v26);
+  if (v24 >= 1)
   {
-    v38 = 0;
+    v27 = 0;
     do
     {
-      v39 = a1[2];
-      v40 = a1[5];
       LLVMConstInt();
       LLVMBuildExtractElement();
-      v41 = a1[2];
-      v42 = a1[5];
       LLVMConstInt();
       Element = LLVMBuildInsertElement();
-      ++v38;
+      ++v27;
     }
 
-    while (v35 != v38);
+    while (v24 != v27);
   }
 
 LABEL_15:
   LLVMTypeOf();
   if (LLVMGetTypeKind() == 13)
   {
-    v17 = LLVMGetVectorSize();
+    v15 = LLVMGetVectorSize();
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
-  v18 = v6;
+  v16 = v6;
   if (LLVMGetTypeKind() == 13)
   {
-    v18 = LLVMGetElementType();
+    v16 = LLVMGetElementType();
   }
 
-  v19 = a3;
+  v17 = a3;
   if (LLVMGetTypeKind() == 13)
   {
-    v19 = LLVMGetElementType();
+    v17 = LLVMGetElementType();
   }
 
-  if (v18 == v19)
+  if (v16 == v17)
   {
     return Element;
   }
 
-  v20 = LLVMGetTypeKind();
-  v21 = LLVMGetTypeKind();
-  if (v21 != 1)
+  v18 = LLVMGetTypeKind();
+  v19 = LLVMGetTypeKind();
+  if (v19 != 1)
   {
-    if (v21 != 8)
+    if (v19 != 8)
     {
-      if (v21 == 2)
+      if (v19 != 2)
       {
-        v22 = a1[2];
-LABEL_42:
-
-        return LLVMBuildBitCast();
+        return Element;
       }
 
-      return Element;
+      goto LABEL_40;
     }
 
-    if (v20 == 1)
+    if (v18 == 1)
     {
-      v32 = a1[2];
-      v33 = *a1;
-      v25 = LLVMInt16TypeInContext();
+      v21 = LLVMInt16TypeInContext();
     }
 
     else
     {
-      if (v20 != 2)
+      if (v18 != 2)
       {
-LABEL_49:
-        v34 = a1[2];
+LABEL_47:
 
         return LLVMBuildIntCast();
       }
 
-      v24 = a1[2];
-      v25 = a1[5];
+      v21 = a1[5];
     }
 
-    if (v17 != 1)
+    if (v15 != 1)
     {
-      MEMORY[0x23EE854F0](v25, v17);
+      MEMORY[0x23EE854F0](v21, v15);
     }
 
     LLVMBuildBitCast();
-    goto LABEL_49;
+    goto LABEL_47;
   }
 
-  if (v20 != 2)
+  if (v18 != 2)
   {
     if (LLVMGetTypeKind() == 13)
     {
       LLVMGetElementType();
     }
 
-    v27 = LLVMGetIntTypeWidth();
-    v28 = *a1;
-    v29 = LLVMInt16TypeInContext();
-    if (v27 >= 0x11)
+    v22 = LLVMGetIntTypeWidth();
+    v23 = LLVMInt16TypeInContext();
+    if (v22 >= 0x11)
     {
-      v30 = a1[2];
-      if (v17 != 1)
+      if (v15 != 1)
       {
-        MEMORY[0x23EE854F0](v29, v17);
+        MEMORY[0x23EE854F0](v23, v15);
       }
 
       LLVMBuildTrunc();
     }
 
-    v31 = a1[2];
-    goto LABEL_42;
-  }
+LABEL_40:
 
-  v26 = a1[2];
+    return LLVMBuildBitCast();
+  }
 
   return LLVMBuildFPCast();
 }
 
-uint64_t glpLLVMSetCurrentLineInner(uint64_t a1)
+uint64_t glpLLVMSetCurrentLineInner(uint64_t a1, uint64_t a2)
 {
-  glpLLVMGetDebugLocation(*(a1 + 24));
-  v2 = *(a1 + 16);
+  glpLLVMGetDebugLocation(*(a1 + 24), a2);
 
   return LLVMSetCurrentDebugLocation();
 }
 
-uint64_t glpLLVMCallFunctionInner(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, unsigned int a5, int *a6, unsigned int a7, uint64_t a8)
+uint64_t glpLLVMCallFunctionInner(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, int *a6, unsigned int a7, uint64_t a8)
 {
-  v30 = a8;
-  v29 = a7;
-  v31 = *MEMORY[0x277D85DE8];
-  MEMORY[0x28223BE20](a1);
-  v13 = &v28[-v12];
-  bzero(&v28[-v12], v14);
-  if (a5)
+  v25 = a8;
+  v24 = a7;
+  v9 = a5;
+  v26 = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](a1, 8 * a5);
+  v13 = &v23[-v12];
+  bzero(&v23[-v12], v14);
+  if (v9)
   {
-    v15 = a5;
+    v15 = v9;
     v16 = v13;
     v17 = a4;
     do
     {
-      v18 = *v17++;
+      ++v17;
       *v16++ = LLVMTypeOf();
       --v15;
     }
@@ -7568,47 +6003,42 @@ uint64_t glpLLVMCallFunctionInner(uint64_t *a1, uint64_t a2, uint64_t a3, uint64
     while (v15);
   }
 
-  v19 = a1[1];
-  v20 = LLVMGetNamedFunction();
+  v18 = LLVMGetNamedFunction();
   LLVMFunctionType();
-  if (!v20)
+  if (!v18)
   {
-    v21 = a1[1];
-    v22 = LLVMAddFunction();
-    if (v29)
+    v19 = LLVMAddFunction();
+    if (v24)
     {
-      v23 = v29;
+      v20 = v24;
       do
       {
-        v24 = *a6++;
-        glpLLVMAddFunctionAttrInner(a1, v22, v24);
-        --v23;
+        v21 = *a6++;
+        glpLLVMAddFunctionAttrInner(a1, v19, v21);
+        --v20;
       }
 
-      while (v23);
+      while (v20);
     }
   }
 
-  v25 = a1[2];
-  result = LLVMBuildCall();
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildCall();
 }
 
 uint64_t glpLLVMBuildFunctionCallInner(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, int a5)
 {
   LODWORD(v5) = a5;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
+  LLVMTypeOf();
+  LLVMGetElementType();
+  v7 = LLVMCountParamTypes();
   LLVMTypeOf();
   LLVMGetElementType();
   v8 = LLVMCountParamTypes();
-  LLVMTypeOf();
-  LLVMGetElementType();
-  v9 = LLVMCountParamTypes();
-  v10 = v9 - v5;
-  MEMORY[0x28223BE20](v9);
-  v12 = v19 - v11;
-  bzero(v19 - v11, v13);
+  v9 = v8 - v5;
+  MEMORY[0x28223BE20](v8, 8 * v8);
+  v11 = v16 - v10;
+  bzero(v16 - v10, v12);
   if (v5 < 1)
   {
     v5 = 0;
@@ -7617,30 +6047,27 @@ uint64_t glpLLVMBuildFunctionCallInner(uint64_t a1, uint64_t a2, uint64_t a3, co
   else
   {
     v5 = v5;
-    memcpy(v12, a4, 8 * v5);
+    memcpy(v11, a4, 8 * v5);
   }
 
-  if (v10 >= 1)
+  if (v9 >= 1)
   {
-    v14 = v8 - v10;
-    v15 = &v12[8 * v5];
+    v13 = v7 - v9;
+    v14 = &v11[8 * v5];
     do
     {
-      *v15++ = LLVMGetParam();
-      ++v14;
-      --v10;
+      *v14++ = LLVMGetParam();
+      ++v13;
+      --v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
-  v16 = *(a1 + 16);
-  result = LLVMBuildCall();
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMBuildCall();
 }
 
-uint64_t glpLLVMXXXXTypeInContext(uint64_t *a1, int a2)
+uint64_t glpLLVMXXXXTypeInContext(void *a1, int a2)
 {
   if (a2 <= 3)
   {
@@ -7648,14 +6075,12 @@ uint64_t glpLLVMXXXXTypeInContext(uint64_t *a1, int a2)
     {
       if (!a2)
       {
-        v8 = *a1;
         result = LLVMInt64TypeInContext();
         goto LABEL_20;
       }
 
       if (a2 == 1)
       {
-        v5 = *a1;
         result = LLVMInt32TypeInContext();
         goto LABEL_20;
       }
@@ -7663,7 +6088,6 @@ uint64_t glpLLVMXXXXTypeInContext(uint64_t *a1, int a2)
       goto LABEL_21;
     }
 
-    v6 = *a1;
     if (a2 == 2)
     {
       result = LLVMInt16TypeInContext();
@@ -7682,15 +6106,12 @@ uint64_t glpLLVMXXXXTypeInContext(uint64_t *a1, int a2)
       switch(a2)
       {
         case 6:
-          v9 = *a1;
           result = LLVMHalfTypeInContext();
           goto LABEL_20;
         case 7:
-          v10 = *a1;
           result = LLVMVoidTypeInContext();
           goto LABEL_20;
         case 8:
-          v3 = *a1;
           result = LLVMDoubleTypeInContext();
           goto LABEL_20;
       }
@@ -7699,7 +6120,6 @@ LABEL_21:
       abort();
     }
 
-    v7 = *a1;
     if (a2 == 4)
     {
       result = LLVMInt1TypeInContext();
@@ -7712,9 +6132,9 @@ LABEL_21:
   }
 
 LABEL_20:
-  v11 = *(a1 + 95);
-  *(a1 + 95) = v11 + 1;
-  *(a1[50] + 8 * v11) = result;
+  v4 = *(a1 + 95);
+  *(a1 + 95) = v4 + 1;
+  *(a1[50] + 8 * v4) = result;
   return result;
 }
 
@@ -7742,14 +6162,14 @@ uint64_t glpLLVMPointerType(uint64_t a1)
 
 uint64_t glpLLVMFunctionType(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   glpDeserializeLLVMType(a1);
   v2 = glpDeserializeArraySize(a1);
   v3 = v2;
   v4 = v2;
-  MEMORY[0x28223BE20](v2);
-  v6 = (v13 - v5);
-  bzero(v13 - v5, v7);
+  MEMORY[0x28223BE20](v2, 8 * v2);
+  v6 = (v12 - v5);
+  bzero(v12 - v5, v7);
   if (v3)
   {
     v8 = v6;
@@ -7767,11 +6187,10 @@ uint64_t glpLLVMFunctionType(uint64_t a1)
   *(a1 + 380) = v10 + 1;
   result = LLVMFunctionType();
   *(*(a1 + 400) + 8 * v10) = result;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t glpLLVMAddFunctionAttr(uint64_t *a1)
+uint64_t glpLLVMAddFunctionAttr(void *a1)
 {
   v2 = glpDeserializeLLVMValue(a1);
   v3 = glpDeserializeuint32(a1);
@@ -7784,11 +6203,10 @@ uint64_t glpLLVMAddFunction(uint64_t a1)
   v2 = *(a1 + 364);
   *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   glpDeserializeLLVMType(a1);
-  v3 = *(a1 + 8);
   result = LLVMAddFunction();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -7796,11 +6214,10 @@ uint64_t glpLLVMGetNamedFunction(uint64_t a1)
 {
   v2 = *(a1 + 364);
   *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
-  v3 = *(a1 + 8);
   result = LLVMGetNamedFunction();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -7831,27 +6248,25 @@ uint64_t glpLLVMGetParam(uint64_t a1)
   return result;
 }
 
-uint64_t glpLLVMCreateBuilderInContext(uint64_t *a1)
+uint64_t glpLLVMCreateBuilderInContext(uint64_t a1)
 {
-  v2 = *a1;
-  v3 = LLVMCreateBuilderInContext();
-  a1[2] = v3;
-  v4 = *(a1 + 91);
-  if (v4 >= *(a1 + 90))
+  v2 = LLVMCreateBuilderInContext();
+  *(a1 + 16) = v2;
+  v3 = *(a1 + 364);
+  if (v3 >= *(a1 + 360))
   {
-    glpDeserialError((a1 + 13), 1u);
+    glpDeserialError(a1 + 104, 1u);
   }
 
-  v5 = *(a1[44] + v4);
-  *(a1 + 91) = v4 + 1;
-  v6 = *(a1 + 99);
+  v4 = *(*(a1 + 352) + v3);
+  *(a1 + 364) = v3 + 1;
+  v5 = *(a1 + 396);
 
-  return glpLLVMSetFastMathFlags(v3, v6, v5);
+  return glpLLVMSetFastMathFlags(v2, v5, v4);
 }
 
 uint64_t glpLLVMDisposeBuilder(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   result = LLVMDisposeBuilder();
   *(a1 + 16) = 0;
   return result;
@@ -7864,7 +6279,6 @@ uint64_t glpLLVMAppendBasicBlock(uint64_t a1)
   *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   v3 = *(a1 + 388);
   *(a1 + 388) = v3 + 1;
-  v4 = *a1;
   result = LLVMAppendBasicBlockInContext();
   *(*(a1 + 416) + 8 * v3) = result;
   return result;
@@ -7872,11 +6286,10 @@ uint64_t glpLLVMAppendBasicBlock(uint64_t a1)
 
 uint64_t glpLLVMGetInsertBlock(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   result = LLVMGetInsertBlock();
-  v4 = *(a1 + 388);
-  *(a1 + 388) = v4 + 1;
-  *(*(a1 + 416) + 8 * v4) = result;
+  v3 = *(a1 + 388);
+  *(a1 + 388) = v3 + 1;
+  *(*(a1 + 416) + 8 * v3) = result;
   return result;
 }
 
@@ -7891,7 +6304,6 @@ uint64_t glpLLVMMoveBasicBlockBefore(uint64_t a1)
 uint64_t glpLLVMPositionBuilderAtEnd(uint64_t a1)
 {
   glpDeserializeLLVMBlock(a1);
-  v2 = *(a1 + 16);
 
   return LLVMPositionBuilderAtEnd();
 }
@@ -7917,20 +6329,20 @@ uint64_t glpLLVMBuildRet(uint64_t a1)
 
 uint64_t glpLLVMEmitBranch(uint64_t a1)
 {
-  glpDeserializeLLVMBlock(a1);
+  v2 = glpDeserializeLLVMBlock(a1);
 
-  return glpLLVMEmitBranchInnerReal(a1);
+  return glpLLVMEmitBranchInnerReal(a1, v2);
 }
 
 uint64_t glpLLVMMDNodeInContext(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = glpDeserializeArraySize(a1);
   v3 = v2;
   v4 = v2;
-  MEMORY[0x28223BE20](v2);
-  v6 = (v14 - v5);
-  bzero(v14 - v5, v7);
+  MEMORY[0x28223BE20](v2, 8 * v2);
+  v6 = (v12 - v5);
+  bzero(v12 - v5, v7);
   if (v3)
   {
     v8 = v6;
@@ -7946,24 +6358,21 @@ uint64_t glpLLVMMDNodeInContext(uint64_t a1)
 
   v10 = *(a1 + 384);
   *(a1 + 384) = v10 + 1;
-  v11 = *a1;
   result = LLVMMDNodeInContext();
   *(*(a1 + 408) + 8 * v10) = result;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t glpLLVMMDStringInContext(uint64_t *a1)
+uint64_t glpLLVMMDStringInContext(uint64_t a1)
 {
-  v2 = a1[44];
-  v3 = *(a1 + 91);
-  *(a1 + 91) = v3 + strnlen((v2 + v3), *(a1 + 90)) + 1;
-  v4 = *(a1 + 96);
-  *(a1 + 96) = v4 + 1;
-  v5 = *a1;
+  v2 = *(a1 + 352);
+  v3 = *(a1 + 364);
+  *(a1 + 364) = v3 + strnlen((v2 + v3), *(a1 + 360)) + 1;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
   strlen((v2 + v3));
   result = LLVMMDStringInContext();
-  *(a1[51] + 8 * v4) = result;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -7989,58 +6398,52 @@ uint64_t glpLLVMConstInt(uint64_t a1)
   }
 
   v4 = *(a1 + 352);
-  v5 = *(v4 + v2);
   *(a1 + 364) = v2 + 1;
   if (v2 + 1 >= v3)
   {
     goto LABEL_33;
   }
 
+  v5 = *(v4 + v2 + 1);
   v6 = *(v4 + v2 + 1);
-  v7 = *(v4 + v2 + 1);
-  v8 = v2 + 2;
   *(a1 + 364) = v2 + 2;
-  if (v6 < 0)
+  if (v5 < 0)
   {
-    v9 = (v7 >> 1) & 7;
-    if (((v7 >> 1) & 7) <= 3)
+    v7 = (v6 >> 1) & 7;
+    if (((v6 >> 1) & 7) <= 3)
     {
-      if (((v7 >> 1) & 7) > 1)
+      if (((v6 >> 1) & 7) > 1)
       {
-        if (v9 == 2)
+        if (v7 == 2)
         {
-          v11 = v2 + 5;
-          if (v11 <= v3)
+          v8 = v2 + 5;
+          if (v8 <= v3)
           {
-            v16 = *(v4 + v8) | (*(v4 + v8 + 2) << 16);
             goto LABEL_31;
           }
         }
 
         else if (v2 + 6 <= v3)
         {
-          v24 = *(v4 + v8);
-          v11 = v2 + 6;
+          v8 = v2 + 6;
           goto LABEL_31;
         }
       }
 
-      else if (v9)
+      else if (v7)
       {
         if (v2 + 4 <= v3)
         {
-          v20 = *(v4 + v8);
-          v11 = v2 + 4;
+          v8 = v2 + 4;
           goto LABEL_31;
         }
       }
 
-      else if (v8 < v3)
+      else if (v2 + 2 < v3)
       {
-        v10 = *(v4 + v8);
-        v11 = v2 + 3;
+        v8 = v2 + 3;
 LABEL_31:
-        *(a1 + 364) = v11;
+        *(a1 + 364) = v8;
         goto LABEL_32;
       }
 
@@ -8048,14 +6451,13 @@ LABEL_33:
       glpDeserialError(a1 + 104, 1u);
     }
 
-    if (((v7 >> 1) & 7) > 5)
+    if (((v6 >> 1) & 7) > 5)
     {
-      if (v9 != 6)
+      if (v7 != 6)
       {
         if (v2 + 10 <= v3)
         {
-          v25 = *(v4 + v8);
-          v11 = v2 + 10;
+          v8 = v2 + 10;
           goto LABEL_31;
         }
 
@@ -8067,86 +6469,76 @@ LABEL_33:
         goto LABEL_33;
       }
 
-      v17 = *(v4 + v8);
-      v18 = v2 + 6;
       *(a1 + 364) = v2 + 6;
-      v15 = v2 + 9;
-      if (v15 > v3)
+      v10 = v2 + 9;
+      if (v10 > v3)
       {
         goto LABEL_33;
       }
-
-      v19 = *(v4 + v18) | (*(v4 + v18 + 2) << 16);
     }
 
     else
     {
-      v12 = v2 + 6;
-      if (v9 == 4)
+      v9 = v2 + 6;
+      if (v7 == 4)
       {
-        if (v12 > v3)
+        if (v9 > v3)
         {
           goto LABEL_33;
         }
 
-        v13 = *(v4 + v8);
         *(a1 + 364) = v2 + 6;
         if (v2 + 6 >= v3)
         {
           goto LABEL_33;
         }
 
-        v14 = *(v4 + (v2 + 6));
-        v15 = v2 + 7;
+        v10 = v2 + 7;
       }
 
       else
       {
-        if (v12 > v3)
+        if (v9 > v3)
         {
           goto LABEL_33;
         }
 
-        v21 = *(v4 + v8);
-        v22 = (v2 + 6);
-        *(a1 + 364) = v22;
-        if (v22 + 2 > v3)
+        v11 = (v2 + 6);
+        *(a1 + 364) = v11;
+        if (v11 + 2 > v3)
         {
           goto LABEL_33;
         }
 
-        v23 = *(v4 + v22);
-        v15 = v2 + 8;
+        v10 = v2 + 8;
       }
     }
 
-    *(a1 + 364) = v15;
+    *(a1 + 364) = v10;
   }
 
 LABEL_32:
   result = LLVMConstInt();
-  v27 = *(a1 + 384);
-  *(a1 + 384) = v27 + 1;
-  *(*(a1 + 408) + 8 * v27) = result;
+  v13 = *(a1 + 384);
+  *(a1 + 384) = v13 + 1;
+  *(*(a1 + 408) + 8 * v13) = result;
   return result;
 }
 
-uint64_t glpLLVMConstUint64(uint64_t *a1)
+uint64_t glpLLVMConstUint64(uint64_t a1)
 {
-  v2 = *(a1 + 91);
-  if (v2 + 8 > *(a1 + 90))
+  v2 = *(a1 + 364);
+  if (v2 + 8 > *(a1 + 360))
   {
-    glpDeserialError((a1 + 13), 1u);
+    glpDeserialError(a1 + 104, 1u);
   }
 
-  v3 = *(a1[44] + v2);
-  *(a1 + 91) = v2 + 8;
-  v4 = *a1;
+  *(a1 + 364) = v2 + 8;
   LLVMInt64TypeInContext();
   result = LLVMConstInt();
-  v6 = *(a1 + 96);
-  *(a1 + 96) = v6 + 1;
-  *(a1[51] + 8 * v6) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -8163,13 +6555,13 @@ uint64_t glpLLVMConstReal(uint64_t a1)
 
 uint64_t glpLLVMConstVector(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = glpDeserializeArraySize(a1);
   v3 = v2;
   v4 = v2;
-  MEMORY[0x28223BE20](v2);
-  v6 = (v13 - v5);
-  bzero(v13 - v5, v7);
+  MEMORY[0x28223BE20](v2, 8 * v2);
+  v6 = (v12 - v5);
+  bzero(v12 - v5, v7);
   if (v3)
   {
     v8 = v6;
@@ -8187,20 +6579,19 @@ uint64_t glpLLVMConstVector(uint64_t a1)
   v11 = *(a1 + 384);
   *(a1 + 384) = v11 + 1;
   *(*(a1 + 408) + 8 * v11) = result;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t glpLLVMConstArray(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   glpDeserializeLLVMType(a1);
   v2 = glpDeserializeArraySize(a1);
   v3 = v2;
   v4 = v2;
-  MEMORY[0x28223BE20](v2);
-  v6 = (v13 - v5);
-  bzero(v13 - v5, v7);
+  MEMORY[0x28223BE20](v2, 8 * v2);
+  v6 = (v12 - v5);
+  bzero(v12 - v5, v7);
   if (v3)
   {
     v8 = v6;
@@ -8218,14 +6609,13 @@ uint64_t glpLLVMConstArray(uint64_t a1)
   v11 = *(a1 + 384);
   *(a1 + 384) = v11 + 1;
   *(*(a1 + 408) + 8 * v11) = result;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t glpLLVMConstFromType(uint64_t a1, unsigned int a2)
 {
   v4 = glpDeserializeLLVMType(a1);
-  result = (gOperations[4 * a2 + 3])(v4);
+  result = gOperations[4 * a2 + 3](v4);
   v6 = *(a1 + 384);
   *(a1 + 384) = v6 + 1;
   *(*(a1 + 408) + 8 * v6) = result;
@@ -8245,13 +6635,13 @@ uint64_t glpLLVMArrayType(uint64_t a1)
 
 uint64_t glpLLVMStructTypeInContext(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = glpDeserializeuint32(a1);
   v3 = v2;
   v4 = v2;
-  MEMORY[0x28223BE20](v2);
-  v6 = (v32 - v5);
-  bzero(v32 - v5, v7);
+  MEMORY[0x28223BE20](v2, 8 * v2);
+  v6 = (v21 - v5);
+  bzero(v21 - v5, v7);
   if (v3)
   {
     v8 = v4;
@@ -8275,23 +6665,21 @@ uint64_t glpLLVMStructTypeInContext(uint64_t a1)
   v12 = *(a1 + 352);
   v13 = *(v12 + v10);
   v14 = *(v12 + v10);
-  v15 = v10 + 1;
   *(a1 + 364) = v10 + 1;
   if (v13 < 0)
   {
-    v16 = (v14 >> 1) & 7;
+    v15 = (v14 >> 1) & 7;
     if (((v14 >> 1) & 7) > 3)
     {
       if (((v14 >> 1) & 7) > 5)
       {
-        if (v16 == 6)
+        if (v15 == 6)
         {
           if (v10 + 5 <= v11)
           {
-            v22 = *(v12 + v15);
             *(a1 + 364) = v10 + 5;
-            v18 = v10 + 8;
-            if (v18 <= v11)
+            v16 = v10 + 8;
+            if (v16 <= v11)
             {
               goto LABEL_32;
             }
@@ -8300,37 +6688,34 @@ uint64_t glpLLVMStructTypeInContext(uint64_t a1)
 
         else if (v10 + 9 <= v11)
         {
-          v27 = *(v12 + v15);
-          v18 = v10 + 9;
+          v16 = v10 + 9;
           goto LABEL_32;
         }
       }
 
       else
       {
-        v19 = v10 + 5;
-        if (v16 == 4)
+        v17 = v10 + 5;
+        if (v15 == 4)
         {
-          if (v19 <= v11)
+          if (v17 <= v11)
           {
-            v20 = *(v12 + v15);
             *(a1 + 364) = v10 + 5;
             if (v10 + 5 < v11)
             {
-              v18 = v10 + 6;
+              v16 = v10 + 6;
               goto LABEL_32;
             }
           }
         }
 
-        else if (v19 <= v11)
+        else if (v17 <= v11)
         {
-          v24 = *(v12 + v15);
-          v25 = (v10 + 5);
-          *(a1 + 364) = v25;
-          if (v25 + 2 <= v11)
+          v18 = (v10 + 5);
+          *(a1 + 364) = v18;
+          if (v18 + 2 <= v11)
           {
-            v18 = v10 + 7;
+            v16 = v10 + 7;
             goto LABEL_32;
           }
         }
@@ -8339,40 +6724,36 @@ uint64_t glpLLVMStructTypeInContext(uint64_t a1)
 
     else if (((v14 >> 1) & 7) > 1)
     {
-      if (v16 == 2)
+      if (v15 == 2)
       {
-        v18 = v10 + 4;
-        if (v18 <= v11)
+        v16 = v10 + 4;
+        if (v16 <= v11)
         {
-          v21 = *(v12 + v15) | (*(v12 + v15 + 2) << 16);
           goto LABEL_32;
         }
       }
 
       else if (v10 + 5 <= v11)
       {
-        v26 = *(v12 + v15);
-        v18 = v10 + 5;
+        v16 = v10 + 5;
         goto LABEL_32;
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       if (v10 + 3 <= v11)
       {
-        v23 = *(v12 + v15);
-        v18 = v10 + 3;
+        v16 = v10 + 3;
         goto LABEL_32;
       }
     }
 
-    else if (v15 < v11)
+    else if (v10 + 1 < v11)
     {
-      v17 = *(v12 + v15);
-      v18 = v10 + 2;
+      v16 = v10 + 2;
 LABEL_32:
-      *(a1 + 364) = v18;
+      *(a1 + 364) = v16;
       goto LABEL_33;
     }
 
@@ -8381,12 +6762,10 @@ LABEL_34:
   }
 
 LABEL_33:
-  v28 = *a1;
   result = LLVMStructTypeInContext();
-  v30 = *(a1 + 380);
-  *(a1 + 380) = v30 + 1;
-  *(*(a1 + 400) + 8 * v30) = result;
-  v31 = *MEMORY[0x277D85DE8];
+  v20 = *(a1 + 380);
+  *(a1 + 380) = v20 + 1;
+  *(*(a1 + 400) + 8 * v20) = result;
   return result;
 }
 
@@ -8412,26 +6791,27 @@ uint64_t glpLLVMGetElementType(uint64_t a1)
 
 uint64_t glpLLVMGetNamedType(uint64_t a1)
 {
-  v2 = *(a1 + 364);
-  *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
-  result = glpLLVMGetNamedTypeInner(a1);
-  v4 = *(a1 + 380);
-  *(a1 + 380) = v4 + 1;
-  *(*(a1 + 400) + 8 * v4) = result;
+  v2 = *(a1 + 352);
+  v3 = *(a1 + 364);
+  *(a1 + 364) = v3 + strnlen((v2 + v3), *(a1 + 360)) + 1;
+  result = glpLLVMGetNamedTypeInner(a1, v2 + v3);
+  v5 = *(a1 + 380);
+  *(a1 + 380) = v5 + 1;
+  *(*(a1 + 400) + 8 * v5) = result;
   return result;
 }
 
 uint64_t glpLLVMBuildFunctionCall(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = glpDeserializeLLVMValue(a1);
   v3 = glpDeserializeLLVMValue(a1);
   v4 = glpDeserializeArraySize(a1);
   v5 = v4;
   v6 = v4;
-  MEMORY[0x28223BE20](v4);
-  v8 = (v15 - v7);
-  bzero(v15 - v7, v9);
+  MEMORY[0x28223BE20](v4, 8 * v4);
+  v8 = (v14 - v7);
+  bzero(v14 - v7, v9);
   if (v5)
   {
     v10 = v8;
@@ -8449,7 +6829,6 @@ uint64_t glpLLVMBuildFunctionCall(uint64_t a1)
   v13 = *(a1 + 384);
   *(a1 + 384) = v13 + 1;
   *(*(a1 + 408) + 8 * v13) = result;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8462,11 +6841,10 @@ uint64_t glpLLVMBuildAlloca(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildAlloca();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -8479,11 +6857,10 @@ uint64_t glpLLVMBuildLoad(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildLoad();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -8491,7 +6868,6 @@ uint64_t glpLLVMBuildStore(uint64_t a1)
 {
   glpDeserializeLLVMValue(a1);
   glpDeserializeLLVMValue(a1);
-  v2 = *(a1 + 16);
 
   return LLVMBuildStore();
 }
@@ -8506,11 +6882,10 @@ uint64_t glpLLVMBuildExtractElement(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildExtractElement();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -8525,11 +6900,10 @@ uint64_t glpLLVMBuildInsertElement(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildInsertElement();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -8544,24 +6918,23 @@ uint64_t glpLLVMBuildShuffleVector(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildShuffleVector();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
 uint64_t glpLLVMBuildGEP(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   glpDeserializeLLVMValue(a1);
   v2 = glpDeserializeArraySize(a1);
   v3 = v2;
   v4 = v2;
-  MEMORY[0x28223BE20](v2);
-  v6 = (v15 - v5);
-  bzero(v15 - v5, v7);
+  MEMORY[0x28223BE20](v2, 8 * v2);
+  v6 = (v13 - v5);
+  bzero(v13 - v5, v7);
   if (v3)
   {
     v8 = v6;
@@ -8581,12 +6954,10 @@ uint64_t glpLLVMBuildGEP(uint64_t a1)
     *(a1 + 364) = v10 + strnlen((*(a1 + 352) + v10), *(a1 + 360)) + 1;
   }
 
-  v11 = *(a1 + 16);
   result = LLVMBuildGEP();
-  v13 = *(a1 + 384);
-  *(a1 + 384) = v13 + 1;
-  *(*(a1 + 408) + 8 * v13) = result;
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *(a1 + 384);
+  *(a1 + 384) = v12 + 1;
+  *(*(a1 + 408) + 8 * v12) = result;
   return result;
 }
 
@@ -8620,9 +6991,8 @@ uint64_t glpLLVMBuildInsertValue(uint64_t a1)
       {
         if (v2 + 5 <= v3)
         {
-          v14 = *(v4 + v7);
           *(a1 + 364) = v2 + 5;
-          LODWORD(v7) = v2 + 8;
+          v7 = v2 + 8;
           if (v2 + 8 <= v3)
           {
             goto LABEL_29;
@@ -8632,37 +7002,34 @@ uint64_t glpLLVMBuildInsertValue(uint64_t a1)
 
       else if (v2 + 9 <= v3)
       {
-        v19 = *(v4 + v7);
-        LODWORD(v7) = v2 + 9;
+        v7 = v2 + 9;
         goto LABEL_29;
       }
     }
 
     else
     {
-      v10 = v2 + 5;
+      v9 = v2 + 5;
       if (v8 == 4)
       {
-        if (v10 <= v3)
+        if (v9 <= v3)
         {
-          v11 = *(v4 + v7);
           *(a1 + 364) = v2 + 5;
           if (v2 + 5 < v3)
           {
-            LODWORD(v7) = v2 + 6;
+            v7 = v2 + 6;
             goto LABEL_29;
           }
         }
       }
 
-      else if (v10 <= v3)
+      else if (v9 <= v3)
       {
-        v16 = *(v4 + v7);
-        v17 = (v2 + 5);
-        *(a1 + 364) = v17;
-        if (v17 + 2 <= v3)
+        v11 = (v2 + 5);
+        *(a1 + 364) = v11;
+        if (v11 + 2 <= v3)
         {
-          LODWORD(v7) = v2 + 7;
+          v7 = v2 + 7;
           goto LABEL_29;
         }
       }
@@ -8676,20 +7043,18 @@ LABEL_33:
   {
     if (v8 == 2)
     {
-      v12 = v2 + 4;
-      if (v12 <= v3)
+      v10 = v2 + 4;
+      if (v10 <= v3)
       {
-        v13 = *(v4 + v7) | (*(v4 + v7 + 2) << 16);
-        *(a1 + 364) = v12;
-        LODWORD(v7) = v12;
+        *(a1 + 364) = v10;
+        v7 = v10;
         goto LABEL_30;
       }
     }
 
     else if (v2 + 5 <= v3)
     {
-      v18 = *(v4 + v7);
-      LODWORD(v7) = v2 + 5;
+      v7 = v2 + 5;
       goto LABEL_29;
     }
 
@@ -8700,8 +7065,7 @@ LABEL_33:
   {
     if (v2 + 3 <= v3)
     {
-      v15 = *(v4 + v7);
-      LODWORD(v7) = v2 + 3;
+      v7 = v2 + 3;
       goto LABEL_29;
     }
 
@@ -8713,8 +7077,7 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v9 = *(v4 + v7);
-  LODWORD(v7) = v2 + 2;
+  v7 = v2 + 2;
 LABEL_29:
   *(a1 + 364) = v7;
 LABEL_30:
@@ -8723,11 +7086,10 @@ LABEL_30:
     *(a1 + 364) = v7 + strnlen((v4 + v7), v3) + 1;
   }
 
-  v20 = *(a1 + 16);
   result = LLVMBuildInsertValue();
-  v22 = *(a1 + 384);
-  *(a1 + 384) = v22 + 1;
-  *(*(a1 + 408) + 8 * v22) = result;
+  v13 = *(a1 + 384);
+  *(a1 + 384) = v13 + 1;
+  *(*(a1 + 408) + 8 * v13) = result;
   return result;
 }
 
@@ -8760,9 +7122,8 @@ uint64_t glpLLVMBuildExtractValue(uint64_t a1)
       {
         if (v2 + 5 <= v3)
         {
-          v14 = *(v4 + v7);
           *(a1 + 364) = v2 + 5;
-          LODWORD(v7) = v2 + 8;
+          v7 = v2 + 8;
           if (v2 + 8 <= v3)
           {
             goto LABEL_29;
@@ -8772,37 +7133,34 @@ uint64_t glpLLVMBuildExtractValue(uint64_t a1)
 
       else if (v2 + 9 <= v3)
       {
-        v19 = *(v4 + v7);
-        LODWORD(v7) = v2 + 9;
+        v7 = v2 + 9;
         goto LABEL_29;
       }
     }
 
     else
     {
-      v10 = v2 + 5;
+      v9 = v2 + 5;
       if (v8 == 4)
       {
-        if (v10 <= v3)
+        if (v9 <= v3)
         {
-          v11 = *(v4 + v7);
           *(a1 + 364) = v2 + 5;
           if (v2 + 5 < v3)
           {
-            LODWORD(v7) = v2 + 6;
+            v7 = v2 + 6;
             goto LABEL_29;
           }
         }
       }
 
-      else if (v10 <= v3)
+      else if (v9 <= v3)
       {
-        v16 = *(v4 + v7);
-        v17 = (v2 + 5);
-        *(a1 + 364) = v17;
-        if (v17 + 2 <= v3)
+        v11 = (v2 + 5);
+        *(a1 + 364) = v11;
+        if (v11 + 2 <= v3)
         {
-          LODWORD(v7) = v2 + 7;
+          v7 = v2 + 7;
           goto LABEL_29;
         }
       }
@@ -8816,20 +7174,18 @@ LABEL_33:
   {
     if (v8 == 2)
     {
-      v12 = v2 + 4;
-      if (v12 <= v3)
+      v10 = v2 + 4;
+      if (v10 <= v3)
       {
-        v13 = *(v4 + v7) | (*(v4 + v7 + 2) << 16);
-        *(a1 + 364) = v12;
-        LODWORD(v7) = v12;
+        *(a1 + 364) = v10;
+        v7 = v10;
         goto LABEL_30;
       }
     }
 
     else if (v2 + 5 <= v3)
     {
-      v18 = *(v4 + v7);
-      LODWORD(v7) = v2 + 5;
+      v7 = v2 + 5;
       goto LABEL_29;
     }
 
@@ -8840,8 +7196,7 @@ LABEL_33:
   {
     if (v2 + 3 <= v3)
     {
-      v15 = *(v4 + v7);
-      LODWORD(v7) = v2 + 3;
+      v7 = v2 + 3;
       goto LABEL_29;
     }
 
@@ -8853,8 +7208,7 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v9 = *(v4 + v7);
-  LODWORD(v7) = v2 + 2;
+  v7 = v2 + 2;
 LABEL_29:
   *(a1 + 364) = v7;
 LABEL_30:
@@ -8863,11 +7217,10 @@ LABEL_30:
     *(a1 + 364) = v7 + strnlen((v4 + v7), v3) + 1;
   }
 
-  v20 = *(a1 + 16);
   result = LLVMBuildExtractValue();
-  v22 = *(a1 + 384);
-  *(a1 + 384) = v22 + 1;
-  *(*(a1 + 408) + 8 * v22) = result;
+  v13 = *(a1 + 384);
+  *(a1 + 384) = v13 + 1;
+  *(*(a1 + 408) + 8 * v13) = result;
   return result;
 }
 
@@ -8947,41 +7300,37 @@ uint64_t glpLLVMCastOperation(uint64_t a1, unsigned int a2)
 
 uint64_t glpLLVMBuildICmp(uint64_t a1)
 {
-  v2 = glpDeserializeuint32(a1);
+  glpDeserializeuint32(a1);
   glpDeserializeLLVMValue(a1);
   glpDeserializeLLVMValue(a1);
   if (*(a1 + 392))
   {
-    v3 = *(a1 + 364);
-    *(a1 + 364) = v3 + strnlen((*(a1 + 352) + v3), *(a1 + 360)) + 1;
+    v2 = *(a1 + 364);
+    *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v4 = *(a1 + 16);
-  v5 = glpLLVMBuildICmp_predicate[v2];
   result = LLVMBuildICmp();
-  v7 = *(a1 + 384);
-  *(a1 + 384) = v7 + 1;
-  *(*(a1 + 408) + 8 * v7) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
 uint64_t glpLLVMBuildFCmp(uint64_t a1)
 {
-  v2 = glpDeserializeuint32(a1);
+  glpDeserializeuint32(a1);
   glpDeserializeLLVMValue(a1);
   glpDeserializeLLVMValue(a1);
   if (*(a1 + 392))
   {
-    v3 = *(a1 + 364);
-    *(a1 + 364) = v3 + strnlen((*(a1 + 352) + v3), *(a1 + 360)) + 1;
+    v2 = *(a1 + 364);
+    *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v4 = *(a1 + 16);
-  v5 = glpLLVMBuildFCmp_predicate[v2];
   result = LLVMBuildFCmp();
-  v7 = *(a1 + 384);
-  *(a1 + 384) = v7 + 1;
-  *(*(a1 + 408) + 8 * v7) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -8996,11 +7345,10 @@ uint64_t glpLLVMBuildSelect(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildSelect();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
@@ -9009,11 +7357,10 @@ uint64_t glpLLVMBuildSwitch(uint64_t a1)
   glpDeserializeLLVMValue(a1);
   glpDeserializeLLVMBlock(a1);
   glpDeserializeuint32(a1);
-  v2 = *(a1 + 16);
   result = LLVMBuildSwitch();
-  v4 = *(a1 + 384);
-  *(a1 + 384) = v4 + 1;
-  *(*(a1 + 408) + 8 * v4) = result;
+  v3 = *(a1 + 384);
+  *(a1 + 384) = v3 + 1;
+  *(*(a1 + 408) + 8 * v3) = result;
   return result;
 }
 
@@ -9035,45 +7382,42 @@ uint64_t glpLLVMBuildPhi(uint64_t a1)
     *(a1 + 364) = v2 + strnlen((*(a1 + 352) + v2), *(a1 + 360)) + 1;
   }
 
-  v3 = *(a1 + 16);
   result = LLVMBuildPhi();
-  v5 = *(a1 + 384);
-  *(a1 + 384) = v5 + 1;
-  *(*(a1 + 408) + 8 * v5) = result;
+  v4 = *(a1 + 384);
+  *(a1 + 384) = v4 + 1;
+  *(*(a1 + 408) + 8 * v4) = result;
   return result;
 }
 
 uint64_t glpLLVMAddIncoming(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   glpDeserializeLLVMValue(a1);
   v2 = glpDeserializeuint32(a1);
   v3 = v2;
   v4 = v2;
   v5 = 8 * v2;
-  MEMORY[0x28223BE20](v2);
-  bzero(v13 - ((v5 + 15) & 0xFFFFFFFF0), v5);
-  MEMORY[0x28223BE20](v6);
-  v7 = v13 - ((v5 + 15) & 0xFFFFFFFF0);
-  bzero(v7, v5);
+  MEMORY[0x28223BE20](v2, v6);
+  bzero(v14 - ((v5 + 15) & 0xFFFFFFFF0), v5);
+  MEMORY[0x28223BE20](v7, v8);
+  v9 = v14 - ((v5 + 15) & 0xFFFFFFFF0);
+  bzero(v9, v5);
   if (v3)
   {
-    v8 = v4;
-    v9 = (v13 - ((v5 + 15) & 0xFFFFFFFF0));
-    v10 = v7;
+    v10 = v4;
+    v11 = (v14 - ((v5 + 15) & 0xFFFFFFFF0));
+    v12 = v9;
     do
     {
-      *v9++ = glpDeserializeLLVMValue(a1);
-      *v10++ = glpDeserializeLLVMBlock(a1);
-      --v8;
+      *v11++ = glpDeserializeLLVMValue(a1);
+      *v12++ = glpDeserializeLLVMBlock(a1);
+      --v10;
     }
 
-    while (v8);
+    while (v10);
   }
 
-  result = LLVMAddIncoming();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return LLVMAddIncoming();
 }
 
 uint64_t glpLLVMGetSwitchDefaultDest(uint64_t a1)
@@ -9088,9 +7432,9 @@ uint64_t glpLLVMGetSwitchDefaultDest(uint64_t a1)
 
 uint64_t glpLLVMBuildBr(uint64_t a1)
 {
-  glpDeserializeLLVMBlock(a1);
+  v2 = glpDeserializeLLVMBlock(a1);
 
-  return glpLLVMEmitBranchInnerReal(a1);
+  return glpLLVMEmitBranchInnerReal(a1, v2);
 }
 
 uint64_t glpLLVMBuildCondBr(uint64_t a1)
@@ -9098,7 +7442,6 @@ uint64_t glpLLVMBuildCondBr(uint64_t a1)
   glpDeserializeLLVMValue(a1);
   glpDeserializeLLVMBlock(a1);
   glpDeserializeLLVMBlock(a1);
-  v2 = *(a1 + 16);
 
   return LLVMBuildCondBr();
 }
@@ -9143,130 +7486,135 @@ void glpLLVMDIBuilderCreateSubProgramStub(uint64_t a1)
 
 uint64_t glpLLVMSetCurrentLineStub(uint64_t a1)
 {
-  v2 = *(a1 + 364);
-  v3 = *(a1 + 360);
-  if (v2 >= v3)
+  v1 = *(a1 + 364);
+  v2 = *(a1 + 360);
+  if (v1 >= v2)
   {
-    goto LABEL_33;
+    goto LABEL_36;
   }
 
-  v4 = *(a1 + 352);
-  v5 = *(v4 + v2);
-  v6 = *(v4 + v2);
-  v7 = v2 + 1;
-  *(a1 + 364) = v2 + 1;
-  if ((v5 & 0x80000000) == 0)
+  v3 = *(a1 + 352);
+  v4 = *(v3 + v1);
+  v5 = *(v3 + v1);
+  v6 = v1 + 1;
+  *(a1 + 364) = v1 + 1;
+  if (v4 < 0)
   {
-    goto LABEL_30;
-  }
-
-  v8 = (v6 >> 1) & 7;
-  if (((v6 >> 1) & 7) > 3)
-  {
-    if (((v6 >> 1) & 7) > 5)
+    v7 = (v5 >> 1) & 7;
+    if (((v5 >> 1) & 7) > 3)
     {
-      if (v8 == 6)
+      if (((v5 >> 1) & 7) > 5)
       {
-        if (v2 + 5 <= v3)
+        if (v7 == 6)
         {
-          v14 = *(v4 + v7);
-          *(a1 + 364) = v2 + 5;
-          v10 = v2 + 8;
-          if (v10 <= v3)
+          if (v1 + 5 <= v2)
           {
-            goto LABEL_29;
+            v8 = *(v3 + v6);
+            *(a1 + 364) = v1 + 5;
+            v9 = v1 + 8;
+            if (v9 <= v2)
+            {
+LABEL_29:
+              *(a1 + 364) = v9;
+              v12 = -256 << (8 * v7);
+              if (v4)
+              {
+                v13 = v12;
+              }
+
+              else
+              {
+                v13 = 0;
+              }
+
+              v5 = v8 | v13;
+              goto LABEL_33;
+            }
           }
         }
-      }
 
-      else if (v2 + 9 <= v3)
-      {
-        v19 = *(v4 + v7);
-        v10 = v2 + 9;
-        goto LABEL_29;
-      }
-    }
-
-    else
-    {
-      v11 = v2 + 5;
-      if (v8 == 4)
-      {
-        if (v11 <= v3)
+        else if (v1 + 9 <= v2)
         {
-          v12 = *(v4 + v7);
-          *(a1 + 364) = v2 + 5;
-          if (v2 + 5 < v3)
-          {
-            v10 = v2 + 6;
-            goto LABEL_29;
-          }
-        }
-      }
-
-      else if (v11 <= v3)
-      {
-        v16 = *(v4 + v7);
-        v17 = (v2 + 5);
-        *(a1 + 364) = v17;
-        if (v17 + 2 <= v3)
-        {
-          v10 = v2 + 7;
+          v8 = *(v3 + v6);
+          v9 = v1 + 9;
           goto LABEL_29;
         }
       }
+
+      else
+      {
+        v10 = v1 + 5;
+        if (v7 == 4)
+        {
+          if (v10 <= v2)
+          {
+            v8 = *(v3 + v6);
+            *(a1 + 364) = v1 + 5;
+            if (v1 + 5 < v2)
+            {
+              v9 = v1 + 6;
+              goto LABEL_29;
+            }
+          }
+        }
+
+        else if (v10 <= v2)
+        {
+          v8 = *(v3 + v6);
+          v11 = (v1 + 5);
+          *(a1 + 364) = v11;
+          if (v11 + 2 <= v2)
+          {
+            v9 = v1 + 7;
+            goto LABEL_29;
+          }
+        }
+      }
     }
 
-LABEL_33:
-    glpDeserialError(a1 + 104, 1u);
-  }
-
-  if (((v6 >> 1) & 7) > 1)
-  {
-    if (v8 == 2)
+    else if (((v5 >> 1) & 7) > 1)
     {
-      v10 = v2 + 4;
-      if (v10 <= v3)
+      if (v7 == 2)
       {
-        v13 = *(v4 + v7) | (*(v4 + v7 + 2) << 16);
+        v9 = v1 + 4;
+        if (v9 <= v2)
+        {
+          v8 = *(v3 + v6) | (*(v3 + v6 + 2) << 16);
+          goto LABEL_29;
+        }
+      }
+
+      else if (v1 + 5 <= v2)
+      {
+        v8 = *(v3 + v6);
+        v9 = v1 + 5;
         goto LABEL_29;
       }
     }
 
-    else if (v2 + 5 <= v3)
+    else if (v7)
     {
-      v18 = *(v4 + v7);
-      v10 = v2 + 5;
+      if (v1 + 3 <= v2)
+      {
+        v8 = *(v3 + v6);
+        v9 = v1 + 3;
+        goto LABEL_29;
+      }
+    }
+
+    else if (v6 < v2)
+    {
+      v8 = *(v3 + v6);
+      v9 = v1 + 2;
       goto LABEL_29;
     }
 
-    goto LABEL_33;
+LABEL_36:
+    glpDeserialError(a1 + 104, 1u);
   }
 
-  if (v8)
-  {
-    if (v2 + 3 <= v3)
-    {
-      v15 = *(v4 + v7);
-      v10 = v2 + 3;
-      goto LABEL_29;
-    }
-
-    goto LABEL_33;
-  }
-
-  if (v7 >= v3)
-  {
-    goto LABEL_33;
-  }
-
-  v9 = *(v4 + v7);
-  v10 = v2 + 2;
-LABEL_29:
-  *(a1 + 364) = v10;
-LABEL_30:
-  glpLLVMGetDebugLocation(*(a1 + 24));
-  v20 = *(a1 + 16);
+LABEL_33:
+  glpLLVMGetDebugLocation(*(a1 + 24), v5);
 
   return LLVMSetCurrentDebugLocation();
 }
@@ -9295,7 +7643,7 @@ uint64_t glpLLVMUnpackVector(uint64_t a1)
 
 uint64_t glpLLVMCallFunction(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 352);
   v3 = *(a1 + 364);
   *(a1 + 364) = v3 + strnlen((v2 + v3), *(a1 + 360)) + 1;
@@ -9303,9 +7651,9 @@ uint64_t glpLLVMCallFunction(uint64_t a1)
   v5 = glpDeserializeArraySize(a1);
   v6 = v5;
   v7 = v5;
-  MEMORY[0x28223BE20](v5);
-  v9 = (v26 - v8);
-  bzero(v26 - v8, v10);
+  MEMORY[0x28223BE20](v5, 8 * v5);
+  v9 = (v25 - v8);
+  bzero(v25 - v8, v10);
   if (v6)
   {
     v11 = v9;
@@ -9322,9 +7670,9 @@ uint64_t glpLLVMCallFunction(uint64_t a1)
   v13 = glpDeserializeuint32(a1);
   v14 = v13;
   v15 = v13;
-  MEMORY[0x28223BE20](v13);
-  v17 = (v26 - v16);
-  bzero(v26 - v16, v18);
+  MEMORY[0x28223BE20](v13, 4 * v13);
+  v17 = (v25 - v16);
+  bzero(v25 - v16, v18);
   if (v14)
   {
     v19 = v15;
@@ -9354,7 +7702,6 @@ uint64_t glpLLVMCallFunction(uint64_t a1)
   v24 = *(a1 + 384);
   *(a1 + 384) = v24 + 1;
   *(*(a1 + 408) + 8 * v24) = result;
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9378,88 +7725,85 @@ uint64_t glpLLVMAddGlobalInAddressSpace(uint64_t a1)
   }
 
   glpDeserializeuint32(a1);
-  v3 = *(a1 + 8);
-  v4 = LLVMAddGlobalInAddressSpace();
+  v3 = LLVMAddGlobalInAddressSpace();
   result = LLVMSetGlobalConstant();
-  v6 = *(a1 + 384);
-  *(a1 + 384) = v6 + 1;
-  *(*(a1 + 408) + 8 * v6) = v4;
+  v5 = *(a1 + 384);
+  *(a1 + 384) = v5 + 1;
+  *(*(a1 + 408) + 8 * v5) = v3;
   return result;
 }
 
 uint64_t glpGenerateLLVMIRModule(int *a1, int a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v26 = 0u;
-  v27 = 0;
-  memset(v25, 0, sizeof(v25));
-  v24 = 0u;
+  v37 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
+  v26 = 0;
+  memset(v24, 0, sizeof(v24));
   v23 = 0u;
   v22 = 0u;
   v21 = 0u;
   v20 = 0u;
   v19 = 0u;
+  v18 = 0u;
   v6 = a1[1];
-  v28 = a1[2];
-  v29 = v6;
-  v30 = a1[3];
+  v27 = a1[2];
+  v28 = v6;
+  v29 = a1[3];
   v7 = malloc_type_malloc(8 * v6, 0x75808E6AuLL);
-  if (!v7 || (v8 = v7, v36 = v7, (v9 = malloc_type_malloc(8 * a1[2], 0x75808E6AuLL)) == 0) || (v10 = v9, v35 = v9, (v11 = malloc_type_malloc(8 * a1[3], 0x75808E6AuLL)) == 0))
+  if (!v7 || (v8 = v7, v35 = v7, (v9 = malloc_type_malloc(8 * a1[2], 0x75808E6AuLL)) == 0) || (v10 = v9, v34 = v9, (v11 = malloc_type_malloc(8 * a1[3], 0x75808E6AuLL)) == 0))
   {
     abort();
   }
 
-  v37 = v11;
+  v36 = v11;
   *v8 = 0;
   *v10 = 0;
   *v11 = 0;
-  v31 = 1;
-  v32 = 0x100000001;
+  v30 = 1;
+  v31 = 0x100000001;
   v12 = a1[4];
-  v33 = v12 & 1;
-  v34 = (v12 >> 1) & 1;
-  v18 = a3;
-  *(&v20 + 1) = LLVMInt64TypeInContext();
-  *&v21 = LLVMInt32TypeInContext();
-  *(&v21 + 1) = LLVMInt16TypeInContext();
-  *&v22 = LLVMInt8TypeInContext();
-  *(&v22 + 1) = LLVMInt1TypeInContext();
-  *&v23 = LLVMFloatTypeInContext();
-  *(&v23 + 1) = LLVMHalfTypeInContext();
-  *&v24 = LLVMVoidTypeInContext();
-  *(&v24 + 1) = LLVMDoubleTypeInContext();
-  memset(v17, 0, sizeof(v17));
-  glpInitPoolAllocator(4096, 4096, v17);
-  glpInitDeserialContext(v25, v17, &GLP_MALLOC_ALLOCATOR, (a1 + 6), a2 - 24);
-  *&v19 = LLVMModuleCreateWithNameInContext();
-  glpLLVMSetupModule(v19);
+  v32 = v12 & 1;
+  v33 = (v12 >> 1) & 1;
+  v17 = a3;
+  *(&v19 + 1) = LLVMInt64TypeInContext();
+  *&v20 = LLVMInt32TypeInContext();
+  *(&v20 + 1) = LLVMInt16TypeInContext();
+  *&v21 = LLVMInt8TypeInContext();
+  *(&v21 + 1) = LLVMInt1TypeInContext();
+  *&v22 = LLVMFloatTypeInContext();
+  *(&v22 + 1) = LLVMHalfTypeInContext();
+  *&v23 = LLVMVoidTypeInContext();
+  *(&v23 + 1) = LLVMDoubleTypeInContext();
+  memset(v16, 0, sizeof(v16));
+  glpInitPoolAllocator(4096, 4096, v16);
+  glpInitDeserialContext(v24, v16, GLP_MALLOC_ALLOCATOR, (a1 + 6), a2 - 24);
+  *&v18 = LLVMModuleCreateWithNameInContext();
+  glpLLVMSetupModule(v18);
   v13 = *a1;
   if (v13 >= 1)
   {
     do
     {
-      if (HIDWORD(v27) >= v27)
+      if (HIDWORD(v26) >= v26)
       {
-        glpDeserialError(v25, 1u);
+        glpDeserialError(v24, 1u);
       }
 
-      v14 = *(*(&v26 + 1) + HIDWORD(v27));
-      ++HIDWORD(v27);
-      gOperations[4 * v14 + 1](&v18);
+      v14 = *(*(&v25 + 1) + HIDWORD(v26));
+      ++HIDWORD(v26);
+      gOperations[4 * v14 + 1](&v17);
       --v13;
     }
 
     while (v13);
   }
 
-  glpDestroyDeserialContext(v25);
-  glpDestroyPoolAllocator(v17);
-  free(v36);
+  glpDestroyDeserialContext(v24);
+  glpDestroyPoolAllocator(v16);
   free(v35);
-  free(v37);
-  result = v19;
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  free(v34);
+  free(v36);
+  return v18;
 }
 
 uint64_t glpDeserializeLLVMType(uint64_t a1)
@@ -9861,4 +8205,1606 @@ LABEL_29:
   }
 
   return v8 | v12;
+}
+
+uint64_t glpDeserializeLLVMValue(uint64_t a1)
+{
+  v1 = *(a1 + 364);
+  v2 = *(a1 + 360);
+  if (v1 >= v2)
+  {
+    goto LABEL_34;
+  }
+
+  v3 = *(a1 + 352);
+  v4 = *(v3 + v1);
+  v5 = *(v3 + v1);
+  v6 = v1 + 1;
+  *(a1 + 364) = v1 + 1;
+  if ((v4 & 0x80000000) == 0)
+  {
+    return *(*(a1 + 408) + 8 * v5);
+  }
+
+  v7 = (v5 >> 1) & 7;
+  if (v7 <= 3)
+  {
+    if (v7 > 1)
+    {
+      if (v7 == 2)
+      {
+        v8 = v1 + 4;
+        if (v8 <= v2)
+        {
+          LODWORD(v3) = *(v3 + v6) | (*(v3 + v6 + 2) << 16);
+          goto LABEL_29;
+        }
+      }
+
+      else if (v1 + 5 <= v2)
+      {
+        LODWORD(v3) = *(v3 + v6);
+        v8 = v1 + 5;
+        goto LABEL_29;
+      }
+    }
+
+    else if (v7)
+    {
+      if (v1 + 3 <= v2)
+      {
+        LODWORD(v3) = *(v3 + v6);
+        v8 = v1 + 3;
+        goto LABEL_29;
+      }
+    }
+
+    else if (v6 < v2)
+    {
+      LODWORD(v3) = *(v3 + v6);
+      v8 = v1 + 2;
+      goto LABEL_29;
+    }
+
+LABEL_34:
+    glpDeserialError(a1 + 104, 1u);
+  }
+
+  if (v7 <= 5)
+  {
+    v9 = v1 + 5;
+    if (v7 == 4)
+    {
+      if (v9 <= v2)
+      {
+        LODWORD(v3) = *(v3 + v6);
+        *(a1 + 364) = v1 + 5;
+        if (v1 + 5 < v2)
+        {
+          v8 = v1 + 6;
+          goto LABEL_29;
+        }
+      }
+    }
+
+    else if (v9 <= v2)
+    {
+      LODWORD(v3) = *(v3 + v6);
+      v10 = (v1 + 5);
+      *(a1 + 364) = v10;
+      if (v10 + 2 <= v2)
+      {
+        v8 = v1 + 7;
+        goto LABEL_29;
+      }
+    }
+
+    goto LABEL_34;
+  }
+
+  if (v7 != 6)
+  {
+    if (v1 + 9 <= v2)
+    {
+      v3 = *(v3 + v6);
+      v8 = v1 + 9;
+      goto LABEL_29;
+    }
+
+    goto LABEL_34;
+  }
+
+  if (v1 + 5 > v2)
+  {
+    goto LABEL_34;
+  }
+
+  LODWORD(v3) = *(v3 + v6);
+  *(a1 + 364) = v1 + 5;
+  v8 = v1 + 8;
+  if (v8 > v2)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_29:
+  *(a1 + 364) = v8;
+  v11 = -256 << (8 * v7);
+  if (v4)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  LODWORD(v5) = v3 | v12;
+  return *(*(a1 + 408) + 8 * v5);
+}
+
+uint64_t glpDeserializeLLVMBlock(uint64_t a1)
+{
+  v1 = *(a1 + 364);
+  v2 = *(a1 + 360);
+  if (v1 >= v2)
+  {
+    goto LABEL_34;
+  }
+
+  v3 = *(a1 + 352);
+  v4 = *(v3 + v1);
+  v5 = *(v3 + v1);
+  v6 = v1 + 1;
+  *(a1 + 364) = v1 + 1;
+  if ((v4 & 0x80000000) == 0)
+  {
+    return *(*(a1 + 416) + 8 * v5);
+  }
+
+  v7 = (v5 >> 1) & 7;
+  if (v7 <= 3)
+  {
+    if (v7 > 1)
+    {
+      if (v7 == 2)
+      {
+        v8 = v1 + 4;
+        if (v8 <= v2)
+        {
+          LODWORD(v3) = *(v3 + v6) | (*(v3 + v6 + 2) << 16);
+          goto LABEL_29;
+        }
+      }
+
+      else if (v1 + 5 <= v2)
+      {
+        LODWORD(v3) = *(v3 + v6);
+        v8 = v1 + 5;
+        goto LABEL_29;
+      }
+    }
+
+    else if (v7)
+    {
+      if (v1 + 3 <= v2)
+      {
+        LODWORD(v3) = *(v3 + v6);
+        v8 = v1 + 3;
+        goto LABEL_29;
+      }
+    }
+
+    else if (v6 < v2)
+    {
+      LODWORD(v3) = *(v3 + v6);
+      v8 = v1 + 2;
+      goto LABEL_29;
+    }
+
+LABEL_34:
+    glpDeserialError(a1 + 104, 1u);
+  }
+
+  if (v7 <= 5)
+  {
+    v9 = v1 + 5;
+    if (v7 == 4)
+    {
+      if (v9 <= v2)
+      {
+        LODWORD(v3) = *(v3 + v6);
+        *(a1 + 364) = v1 + 5;
+        if (v1 + 5 < v2)
+        {
+          v8 = v1 + 6;
+          goto LABEL_29;
+        }
+      }
+    }
+
+    else if (v9 <= v2)
+    {
+      LODWORD(v3) = *(v3 + v6);
+      v10 = (v1 + 5);
+      *(a1 + 364) = v10;
+      if (v10 + 2 <= v2)
+      {
+        v8 = v1 + 7;
+        goto LABEL_29;
+      }
+    }
+
+    goto LABEL_34;
+  }
+
+  if (v7 != 6)
+  {
+    if (v1 + 9 <= v2)
+    {
+      v3 = *(v3 + v6);
+      v8 = v1 + 9;
+      goto LABEL_29;
+    }
+
+    goto LABEL_34;
+  }
+
+  if (v1 + 5 > v2)
+  {
+    goto LABEL_34;
+  }
+
+  LODWORD(v3) = *(v3 + v6);
+  *(a1 + 364) = v1 + 5;
+  v8 = v1 + 8;
+  if (v8 > v2)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_29:
+  *(a1 + 364) = v8;
+  v11 = -256 << (8 * v7);
+  if (v4)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  LODWORD(v5) = v3 | v12;
+  return *(*(a1 + 416) + 8 * v5);
+}
+
+uint64_t glpPrecisionIndexFromSAFlags(char a1)
+{
+  result = 0;
+  v3 = a1 & 0x1F;
+  if (v3 <= 7)
+  {
+    if (!v3)
+    {
+      return result;
+    }
+
+    if (v3 == 4)
+    {
+      return 1;
+    }
+
+LABEL_11:
+    abort();
+  }
+
+  if (v3 == 8)
+  {
+    return 2;
+  }
+
+  if (v3 == 16)
+  {
+    return 3;
+  }
+
+  if (v3 != 31)
+  {
+    goto LABEL_11;
+  }
+
+  return result;
+}
+
+uint64_t glpGetIBVariableObjectCount(uint64_t a1, unsigned int *a2)
+{
+  ElementType = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  Kind = glpTypeGetKind(a2);
+  v6 = a1 == 0x20000000 || a1 == 0x40000000;
+  v9 = xmmword_23A300DF0;
+  v7 = *(&v9 | (8 * (Kind == 3)) | (4 * v6));
+  if (v7 != 1)
+  {
+    if (v7 != 3)
+    {
+      return 1;
+    }
+
+    ElementType = glpBankTypeGetElementType(ElementType);
+  }
+
+  return glpAggregateTypeGetElementCount(ElementType);
+}
+
+uint64_t *glpLayoutObjectFind(uint64_t *result, int a2)
+{
+  do
+  {
+    result = *result;
+  }
+
+  while (result && *(result + 2) != a2);
+  return result;
+}
+
+uint64_t *glpLayoutObjectGetGeomInOut(uint64_t *result, _DWORD *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
+{
+  v6 = result;
+  while (1)
+  {
+    v6 = *v6;
+    if (!v6)
+    {
+      break;
+    }
+
+    if (!*(v6 + 2))
+    {
+      if (a4)
+      {
+        *a4 = 0;
+      }
+
+      if (a5)
+      {
+        *a5 = 0;
+      }
+
+      if (a2)
+      {
+        *a2 = 1;
+      }
+
+      break;
+    }
+  }
+
+  v7 = result;
+  while (1)
+  {
+    v7 = *v7;
+    if (!v7)
+    {
+      break;
+    }
+
+    if (*(v7 + 2) == 1)
+    {
+      if (a4)
+      {
+        *a4 = 1;
+      }
+
+      if (a2)
+      {
+        *a2 = 2;
+      }
+
+      break;
+    }
+  }
+
+  v8 = result;
+  while (1)
+  {
+    v8 = *v8;
+    if (!v8)
+    {
+      break;
+    }
+
+    if (*(v8 + 2) == 2)
+    {
+      if (a4)
+      {
+        *a4 = 10;
+      }
+
+      if (a2)
+      {
+        *a2 = 4;
+      }
+
+      break;
+    }
+  }
+
+  v9 = result;
+  while (1)
+  {
+    v9 = *v9;
+    if (!v9)
+    {
+      break;
+    }
+
+    if (*(v9 + 2) == 3)
+    {
+      if (a4)
+      {
+        *a4 = 4;
+      }
+
+      if (a2)
+      {
+        *a2 = 3;
+      }
+
+      break;
+    }
+  }
+
+  v10 = result;
+  while (1)
+  {
+    v10 = *v10;
+    if (!v10)
+    {
+      break;
+    }
+
+    if (*(v10 + 2) == 4)
+    {
+      if (a4)
+      {
+        *a4 = 12;
+      }
+
+      if (a2)
+      {
+        *a2 = 6;
+      }
+
+      break;
+    }
+  }
+
+  v11 = result;
+  do
+  {
+    v11 = *v11;
+    if (!v11)
+    {
+      v12 = a5 != 0;
+      goto LABEL_45;
+    }
+  }
+
+  while (*(v11 + 2) != 6);
+  if (a5)
+  {
+    *a5 = 3;
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+LABEL_45:
+  v13 = result;
+  while (1)
+  {
+    v13 = *v13;
+    if (!v13)
+    {
+      break;
+    }
+
+    if (*(v13 + 2) == 7)
+    {
+      if (v12)
+      {
+        *a5 = 5;
+      }
+
+      break;
+    }
+  }
+
+  v14 = result;
+  while (1)
+  {
+    v14 = *v14;
+    if (!v14)
+    {
+      break;
+    }
+
+    if (*(v14 + 2) == 8)
+    {
+      if (a3)
+      {
+        v15 = result;
+        do
+        {
+          v15 = *v15;
+        }
+
+        while (v15 && *(v15 + 2) != 8);
+        *a3 = *(v15 + 4);
+      }
+
+      break;
+    }
+  }
+
+  v16 = result;
+  while (1)
+  {
+    v16 = *v16;
+    if (!v16)
+    {
+      break;
+    }
+
+    if (*(v16 + 2) == 5)
+    {
+      if (a6)
+      {
+        do
+        {
+          result = *result;
+        }
+
+        while (result && *(result + 2) != 5);
+        *a6 = *(result + 4);
+      }
+
+      return result;
+    }
+  }
+
+  return result;
+}
+
+uint64_t glpLinkedProgramGetSubroutineUniformLocationCount(uint64_t a1, unsigned int a2)
+{
+  v2 = *(a1 + 8 * a2 + 144);
+  v3 = *(v2 + 32);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = 0;
+  v5 = 0;
+  v6 = 0;
+  do
+  {
+    v7 = *(*(v2 + 40) + v4);
+    if (v7)
+    {
+      glpABIGetTypeSize(0, *(v7 + 24), 0);
+      glpTypeSizeGetSize();
+      v6 = (v8 + v6);
+      v3 = *(v2 + 32);
+    }
+
+    ++v5;
+    v4 += 32;
+  }
+
+  while (v5 < v3);
+  return v6;
+}
+
+__n128 glpLinkedProgramGetOverrides(uint64_t a1, uint64_t a2)
+{
+  result = *(a1 + 272);
+  v3 = *(a1 + 304);
+  *(a2 + 16) = *(a1 + 288);
+  *(a2 + 32) = v3;
+  *a2 = result;
+  return result;
+}
+
+char *glpPrimitiveTypeToString(unsigned int a1)
+{
+  if (a1 >= 0x4F)
+  {
+    abort();
+  }
+
+  return (&off_278B4DFF0)[a1];
+}
+
+uint64_t glpGetVectorType(int a1, int a2)
+{
+  if ((a2 - 5) <= 0xFFFFFFFB)
+  {
+    goto LABEL_14;
+  }
+
+  if (a1 <= 8)
+  {
+    if (a1 == 1)
+    {
+      v2 = &GLP_VECTOR_TYPES;
+      return v2[a2 - 1];
+    }
+
+    if (a1 == 5)
+    {
+      v2 = &unk_23A300F20;
+      return v2[a2 - 1];
+    }
+
+LABEL_14:
+    abort();
+  }
+
+  if (a1 == 9)
+  {
+    v2 = &unk_23A300F30;
+    return v2[a2 - 1];
+  }
+
+  if (a1 == 36)
+  {
+    v2 = &unk_23A300F40;
+    return v2[a2 - 1];
+  }
+
+  if (a1 != 62)
+  {
+    goto LABEL_14;
+  }
+
+  v2 = &unk_23A300F10;
+  return v2[a2 - 1];
+}
+
+uint64_t glpPrimitiveTypeGetCategory(unsigned int a1)
+{
+  if (a1 >= 0x4F)
+  {
+    abort();
+  }
+
+  return dword_23A300F50[a1];
+}
+
+uint64_t glpPrimitiveVectorGetLength(uint64_t a1)
+{
+  v1 = a1;
+  result = 2;
+  switch(v1)
+  {
+    case 2:
+    case 6:
+    case 10:
+    case 37:
+    case 63:
+      return result;
+    case 3:
+    case 4:
+      result = a1;
+      break;
+    case 7:
+    case 11:
+    case 38:
+    case 64:
+      result = 3;
+      break;
+    case 8:
+    case 12:
+    case 39:
+    case 65:
+      result = 4;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveVectorGetElementType(int a1)
+{
+  result = 1;
+  switch(a1)
+  {
+    case 2:
+    case 3:
+    case 4:
+      return result;
+    case 6:
+    case 7:
+    case 8:
+      result = 5;
+      break;
+    case 10:
+    case 11:
+    case 12:
+      result = 9;
+      break;
+    case 37:
+    case 38:
+    case 39:
+      result = 36;
+      break;
+    case 63:
+    case 64:
+    case 65:
+      result = 62;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveMatrixGetColumns(int a1)
+{
+  result = 2;
+  switch(a1)
+  {
+    case 13:
+    case 22:
+    case 23:
+    case 66:
+    case 69:
+    case 70:
+      return result;
+    case 14:
+    case 24:
+    case 25:
+    case 67:
+    case 71:
+    case 72:
+      result = 3;
+      break;
+    case 15:
+    case 26:
+    case 27:
+    case 68:
+    case 73:
+    case 74:
+      result = 4;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveMatrixGetRows(int a1)
+{
+  result = 2;
+  switch(a1)
+  {
+    case 13:
+    case 24:
+    case 26:
+    case 66:
+    case 71:
+    case 73:
+      return result;
+    case 14:
+    case 22:
+    case 27:
+    case 67:
+    case 69:
+    case 74:
+      result = 3;
+      break;
+    case 15:
+    case 23:
+    case 25:
+    case 68:
+    case 70:
+    case 72:
+      result = 4;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveMatrixGetColumnType(int a1)
+{
+  result = 2;
+  switch(a1)
+  {
+    case 13:
+    case 24:
+    case 26:
+      return result;
+    case 14:
+    case 22:
+    case 27:
+      result = 3;
+      break;
+    case 15:
+    case 23:
+    case 25:
+      result = 4;
+      break;
+    case 66:
+    case 71:
+    case 73:
+      result = 63;
+      break;
+    case 67:
+    case 69:
+    case 74:
+      result = 64;
+      break;
+    case 68:
+    case 70:
+    case 72:
+      result = 65;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveMatrixGetRowType(int a1)
+{
+  result = 2;
+  switch(a1)
+  {
+    case 13:
+    case 22:
+    case 23:
+      return result;
+    case 14:
+    case 24:
+    case 25:
+      result = 3;
+      break;
+    case 15:
+    case 26:
+    case 27:
+      result = 4;
+      break;
+    case 66:
+    case 69:
+    case 70:
+      result = 63;
+      break;
+    case 67:
+    case 71:
+    case 72:
+      result = 64;
+      break;
+    case 68:
+    case 73:
+    case 74:
+      result = 65;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveMatrixGetElementType(int a1)
+{
+  result = 1;
+  switch(a1)
+  {
+    case 13:
+    case 14:
+    case 15:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+      return result;
+    case 66:
+    case 67:
+    case 68:
+    case 69:
+    case 70:
+    case 71:
+    case 72:
+    case 73:
+    case 74:
+      result = 62;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveSamplerGetPPTextarget(int a1)
+{
+  result = 4;
+  switch(a1)
+  {
+    case 16:
+    case 40:
+    case 48:
+      return result;
+    case 17:
+    case 41:
+    case 49:
+      result = 3;
+      break;
+    case 18:
+    case 42:
+    case 50:
+      result = 1;
+      break;
+    case 19:
+    case 43:
+    case 51:
+      result = 0;
+      break;
+    case 20:
+      result = 7;
+      break;
+    case 21:
+      result = 6;
+      break;
+    case 28:
+    case 44:
+    case 52:
+      result = 2;
+      break;
+    case 29:
+      result = 5;
+      break;
+    case 30:
+    case 45:
+    case 53:
+      result = 9;
+      break;
+    case 31:
+    case 46:
+    case 54:
+      result = 10;
+      break;
+    case 32:
+    case 47:
+    case 55:
+      result = 13;
+      break;
+    case 33:
+      result = 11;
+      break;
+    case 34:
+      result = 12;
+      break;
+    case 35:
+      result = 8;
+      break;
+    case 56:
+    case 58:
+    case 60:
+      result = 14;
+      break;
+    case 57:
+    case 59:
+    case 61:
+      result = 15;
+      break;
+    case 75:
+    case 77:
+    case 78:
+      result = 16;
+      break;
+    case 76:
+      result = 17;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveSamplerGetPPDatatype(int a1)
+{
+  result = 0;
+  switch(a1)
+  {
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 56:
+    case 57:
+    case 75:
+    case 76:
+      return result;
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 58:
+    case 59:
+    case 77:
+      result = 2;
+      break;
+    case 48:
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 60:
+    case 61:
+    case 78:
+      result = 3;
+      break;
+    default:
+      abort();
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveTypeGetScalarType(uint64_t a1)
+{
+  Category = glpPrimitiveTypeGetCategory(a1);
+  if (Category <= 1)
+  {
+    if (Category == 1)
+    {
+      return a1;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (Category != 2)
+  {
+    if (Category == 3)
+    {
+
+      return glpPrimitiveMatrixGetElementType(a1);
+    }
+
+LABEL_12:
+    abort();
+  }
+
+  return glpPrimitiveVectorGetElementType(a1);
+}
+
+uint64_t glpPrimitiveTypeGetScalarCount(uint64_t a1)
+{
+  result = glpPrimitiveTypeGetCategory(a1);
+  if (result <= 1)
+  {
+    if (result != 1)
+    {
+      abort();
+    }
+  }
+
+  else if (result == 2)
+  {
+
+    return glpPrimitiveVectorGetLength(a1);
+  }
+
+  else
+  {
+    if (result != 3)
+    {
+      abort();
+    }
+
+    Columns = glpPrimitiveMatrixGetColumns(a1);
+    return glpPrimitiveMatrixGetRows(a1) * Columns;
+  }
+
+  return result;
+}
+
+uint64_t glpPrimitiveTypeGetMaxComponentsPerVec4(uint64_t a1)
+{
+  ScalarType = glpPrimitiveTypeGetScalarType(a1);
+  if (ScalarType > 0x3E)
+  {
+    goto LABEL_7;
+  }
+
+  if (((1 << ScalarType) & 0x1000000222) == 0)
+  {
+    if (ScalarType == 62)
+    {
+      v2 = 8;
+      return 0x10 / v2;
+    }
+
+LABEL_7:
+    abort();
+  }
+
+  v2 = 4;
+  return 0x10 / v2;
+}
+
+uint64_t glpPrimitiveTypeGetNumVec4s(uint64_t a1)
+{
+  ColumnType = a1;
+  Category = glpPrimitiveTypeGetCategory(a1);
+  if ((Category - 1) >= 2)
+  {
+    if (Category != 3)
+    {
+      abort();
+    }
+
+    Columns = glpPrimitiveMatrixGetColumns(ColumnType);
+    ColumnType = glpPrimitiveMatrixGetColumnType(ColumnType);
+  }
+
+  else
+  {
+    Columns = 1;
+  }
+
+  ScalarCount = glpPrimitiveTypeGetScalarCount(ColumnType);
+  MaxComponentsPerVec4 = glpPrimitiveTypeGetMaxComponentsPerVec4(ColumnType);
+  return Columns * ((ScalarCount + MaxComponentsPerVec4 - 1) / MaxComponentsPerVec4);
+}
+
+char *deserialErrorString(unsigned int a1)
+{
+  if (a1 >= 7)
+  {
+    abort();
+  }
+
+  return (&off_278B4E268)[a1];
+}
+
+uint64_t glpInitDeserialContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  *(a1 + 200) = a2;
+  *(a1 + 208) = 4096;
+  result = (*(a2 + 8))(*a2, 0x8000, "Vector Storage (void *)");
+  *(a1 + 216) = result;
+  *(a1 + 224) = 0;
+  *(a1 + 232) = 0;
+  *(a1 + 240) = a3;
+  *(a1 + 248) = a4;
+  *(a1 + 256) = a5;
+  *(a1 + 260) = 0;
+  return result;
+}
+
+uint64_t glpDestroyDeserialContext(void *a1)
+{
+  for (i = a1[28]; i; i = a1[28])
+  {
+    a1[28] = *i;
+    (*(a1[25] + 24))(*a1[25]);
+  }
+
+  v3 = a1[25];
+  v4 = v3[3];
+  v5 = *v3;
+  v6 = a1[27];
+
+  return v4(v5, v6);
+}
+
+double deserialize_double(uint64_t a1)
+{
+  v1 = *(a1 + 260);
+  if (v1 + 8 > *(a1 + 256))
+  {
+    glpDeserialError(a1, 1u);
+  }
+
+  result = *(*(a1 + 248) + v1);
+  *(a1 + 260) = v1 + 8;
+  return result;
+}
+
+void glpDeserialError(uint64_t a1, unsigned int a2)
+{
+  *md = 0;
+  v6 = 0;
+  v7 = 0;
+  CC_SHA1(*(a1 + 248), *(a1 + 256), md);
+  v4 = deserialErrorString(a2);
+  glpSetCrashLogMessagef("GLProgrammability: deserial error (%s) at offset %u into data of length %u with SHA1 %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", BYTE2(v6), BYTE3(v6), BYTE4(v6), BYTE5(v6), BYTE6(v6), HIBYTE(v6), v7, v4, *(a1 + 260), *(a1 + 256), md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v6, BYTE1(v6), BYTE2(v6), BYTE3(v6), BYTE4(v6), BYTE5(v6), BYTE6(v6), HIBYTE(v6), v7, BYTE1(v7), BYTE2(v7), HIBYTE(v7));
+  _longjmp(a1, a2);
+}
+
+uint64_t glpTypeGetSamplerCount(uint64_t a1)
+{
+  v2 = *a1;
+  if (*a1 <= 1)
+  {
+    if (v2)
+    {
+      if (v2 != 1)
+      {
+        goto LABEL_27;
+      }
+
+      v3 = *(a1 + 4);
+      if (!v3)
+      {
+        return 0;
+      }
+
+      v4 = 0;
+      LODWORD(v5) = 0;
+      v6 = 8 * v3;
+      do
+      {
+        SamplerCount = glpTypeGetSamplerCount(*(*(a1 + 8) + v4));
+        if (SamplerCount == -1)
+        {
+          v5 = 0xFFFFFFFFLL;
+        }
+
+        else
+        {
+          v5 = (SamplerCount + v5);
+        }
+
+        v4 += 8;
+      }
+
+      while (v6 != v4);
+    }
+
+    else
+    {
+      Category = glpPrimitiveTypeGetCategory(*(a1 + 4));
+      if (Category >= 5)
+      {
+        goto LABEL_27;
+      }
+
+      return dword_23A301098[Category];
+    }
+  }
+
+  else
+  {
+    if (v2 != 2 && v2 != 3)
+    {
+      if (v2 != 5)
+      {
+LABEL_27:
+        abort();
+      }
+
+      return 0;
+    }
+
+    v8 = glpTypeGetSamplerCount(*(a1 + 16));
+    v9 = *(a1 + 4);
+    if (v8)
+    {
+      v10 = -1;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v11 = v9 * v8;
+    if (v8 == -1)
+    {
+      v11 = -1;
+    }
+
+    if (v9 == -1)
+    {
+      return v10;
+    }
+
+    else
+    {
+      return v11;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t glpTypeIsAtomic(_DWORD *a1)
+{
+  if ((*a1 - 1) < 2)
+  {
+    return 0;
+  }
+
+  if (*a1)
+  {
+    goto LABEL_10;
+  }
+
+  Category = glpPrimitiveTypeGetCategory(a1[1]);
+  result = 1;
+  if (Category > 2)
+  {
+    if (Category == 3)
+    {
+      return 0;
+    }
+
+    if (Category == 4)
+    {
+      return result;
+    }
+
+LABEL_10:
+    abort();
+  }
+
+  if ((Category - 1) >= 2)
+  {
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+uint64_t glpGetPrimitiveType(uint64_t a1)
+{
+  if (glpGetPrimitiveType_glProgrammabilityHandle)
+  {
+    v2 = glpGetPrimitiveType_LIB_glpGetPrimitiveType;
+  }
+
+  else
+  {
+    glpGetPrimitiveType_glProgrammabilityHandle = dlopen("/System/Library/Frameworks/OpenGLES.framework/libGLProgrammability.dylib", 5);
+    v2 = dlsym(glpGetPrimitiveType_glProgrammabilityHandle, "glpGetPrimitiveType");
+    glpGetPrimitiveType_LIB_glpGetPrimitiveType = v2;
+  }
+
+  return (v2)(a1);
+}
+
+uint64_t glpStructTypeGetSizesAndAlignments(unsigned int a1, uint64_t a2, uint64_t a3, _DWORD *a4, int *a5, unsigned int *a6)
+{
+  glpMakeTypeSize();
+  v11 = v10;
+  v31 = glpABIGetMinimumStructAlignment(a1);
+  v12 = *(a2 + 4);
+  if (v12 >= 1)
+  {
+    v30 = a3;
+    v13 = 0;
+    v29 = a6;
+    do
+    {
+      if (glpTypeSizeIsValid(v11))
+      {
+        v14 = *(*(a2 + 8) + 8 * v13);
+        v15 = *(*(a2 + 16) + 8 * v13);
+        v16 = glpABIGetTypeSize(a1, v14, v15 | v30);
+        if (glpTypeSizeIsValid(v16))
+        {
+          v17 = glpABIGetTypeAlign(a1, v14, v15 | v30);
+          glpTypeSizeGetSize();
+          v19 = (v17 + v18 - 1) / v17 * v17;
+          glpTypeSizeGetSize();
+          v21 = v20;
+          v22 = v31;
+          if (v17 > v31)
+          {
+            v22 = v17;
+          }
+
+          v31 = v22;
+          glpMakeTypeSize();
+          v11 = v23;
+          if (v29)
+          {
+            *a6 = v19;
+            a6[1] = v21;
+          }
+        }
+
+        else
+        {
+          v11 = glpInvalidTypeSize();
+        }
+      }
+
+      ++v13;
+      a6 += 2;
+    }
+
+    while (v12 != v13);
+  }
+
+  result = glpTypeSizeIsValid(v11);
+  if (result)
+  {
+    v25 = v31;
+    if (a4)
+    {
+      result = glpAlignTypeSize(v11, v31);
+      *a4 = result;
+    }
+
+    v26 = a5;
+    if (!a5)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *v26 = v25;
+    return result;
+  }
+
+  if (a4)
+  {
+    result = glpInvalidTypeSize();
+    *a4 = result;
+  }
+
+  v26 = a5;
+  if (a5)
+  {
+    v25 = -1;
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t writeByteCode(uint64_t a1, uint64_t a2)
+{
+  v10 = a2;
+  v6 = 0uLL;
+  v8 = 0u;
+  v9 = 1;
+  v7 = 0uLL;
+  v5 = MEMORY[0x277D82200] + 16;
+  llvm::raw_ostream::SetUnbuffered(&v5);
+  llvm::WriteBitcodeToFile();
+  v3 = *(a2 + 8);
+  llvm::raw_ostream::~raw_ostream(&v5);
+  return v3;
+}
+
+void *copyBitCodeStorage(void *a1, _DWORD *a2, unint64_t a3, int a4)
+{
+  if (a1[1] + 8 > a3)
+  {
+    copyBitCodeStorage_cold_1();
+  }
+
+  v7 = llvm::SmallString<0u>::c_str(a1);
+  result = memcpy(a2 + 2, v7, a1[1]);
+  *a2 = *(a1 + 2) + 4;
+  a2[1] = a4;
+  return result;
+}
+
+uint64_t llvm::SmallString<0u>::c_str(void *a1)
+{
+  llvm::SmallVectorTemplateBase<char,true>::push_back(a1, 0);
+  v2 = a1[1] - 1;
+  if (a1[2] < v2)
+  {
+    llvm::SmallString<0u>::c_str();
+  }
+
+  a1[1] = v2;
+  return *a1;
+}
+
+void **deleteBitCodeStorage(void **result)
+{
+  if (result)
+  {
+    v2 = result + 3;
+    v1 = *result;
+    if (v1 != v2)
+    {
+      free(v1);
+    }
+
+    JUMPOUT(0x23EE856F0);
+  }
+
+  return result;
+}
+
+uint64_t glpLLVMSetupModule(uint64_t a1)
+{
+  LLVMSetTarget();
+
+  return MEMORY[0x2821F17D0](a1, "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v16:16:16-v24:32:32-v32:32:32-v48:64:64-v64:64:64-v96:128:128-v128:128:128-v192:256:256-v256:256:256-v512:512:512-v1024:1024:1024-n8:16:32");
+}
+
+uint64_t glpAddNamedMetadataOperand(uint64_t a1, char *__s, uint64_t a3)
+{
+  if (__s)
+  {
+    strlen(__s);
+  }
+
+  result = llvm::Module::getOrInsertNamedMetadata();
+  if (a3 && result)
+  {
+    if (*(a3 + 16) == 23)
+    {
+      v6 = a3;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    v7 = *(v6 + 24);
+    v8 = v7;
+    result = llvm::isa_impl_wrap<llvm::MDNode,llvm::Metadata const*,llvm::Metadata const*>::doit(&v8, v5);
+    if ((result & 1) == 0)
+    {
+      glpAddNamedMetadataOperand_cold_1();
+    }
+
+    if (v7)
+    {
+      return llvm::NamedMDNode::addOperand();
+    }
+  }
+
+  return result;
 }

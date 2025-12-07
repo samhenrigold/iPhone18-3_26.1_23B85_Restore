@@ -537,7 +537,7 @@ void __118__MADManagedBackgroundActivitySchedule__querySchedulingHistoryRecords_
           v11 = [v9 startTimestamp];
           [(MADActivitySchedulingRecord *)v10 setStartTime:v11];
 
-          [v9 duration];
+          objc_msgSend_duration(v9);
           [(MADActivitySchedulingRecord *)v10 setDuration:?];
           -[MADActivitySchedulingRecord setExitStatus:](v10, "setExitStatus:", [v9 exitStatus]);
           v12 = [MEMORY[0x1E695DF90] dictionary];
@@ -759,7 +759,7 @@ LABEL_28:
 
 void __87__MADManagedBackgroundActivitySchedule_Migration__migrateDataWithManagedObjectContext___block_invoke(uint64_t a1)
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF00] now];
   v3 = [MEMORY[0x1E69789B0] vcp_defaultPhotoLibrary];
   v4 = [MEMORY[0x1E696AC08] defaultManager];
@@ -772,9 +772,9 @@ void __87__MADManagedBackgroundActivitySchedule_Migration__migrateDataWithManage
     v8 = [objc_alloc(MEMORY[0x1E695D538]) initWithFetchRequest:v7];
     [v8 setResultType:2];
     v9 = *(a1 + 32);
-    v104 = 0;
-    v10 = [v9 executeRequest:v8 error:&v104];
-    v11 = v104;
+    v106 = 0;
+    v10 = [v9 executeRequest:v8 error:&v106];
+    v11 = v106;
     if (v11)
     {
       v12 = v11;
@@ -784,9 +784,9 @@ void __87__MADManagedBackgroundActivitySchedule_Migration__migrateDataWithManage
       }
 
       *buf = 138412546;
-      v107 = @"[ScheduleMigration]";
-      v108 = 2112;
-      *v109 = v12;
+      v109 = @"[ScheduleMigration]";
+      v110 = 2112;
+      *v111 = v12;
       v13 = MEMORY[0x1E69E9C10];
       v14 = "%@ Failed to clean current CoreData table - %@";
       goto LABEL_6;
@@ -795,9 +795,9 @@ void __87__MADManagedBackgroundActivitySchedule_Migration__migrateDataWithManage
     if ([*(a1 + 32) hasChanges])
     {
       v15 = *(a1 + 32);
-      v103 = 0;
-      v16 = [v15 save:&v103];
-      v12 = v103;
+      v105 = 0;
+      v16 = [v15 save:&v105];
+      v12 = v105;
       if ((v16 & 1) == 0)
       {
         if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -806,9 +806,9 @@ void __87__MADManagedBackgroundActivitySchedule_Migration__migrateDataWithManage
         }
 
         *buf = 138412546;
-        v107 = @"[ScheduleMigration]";
-        v108 = 2112;
-        *v109 = v12;
+        v109 = @"[ScheduleMigration]";
+        v110 = 2112;
+        *v111 = v12;
         v13 = MEMORY[0x1E69E9C10];
         v14 = "%@ Failed to delete from CoreData table - %@";
 LABEL_6:
@@ -828,40 +828,40 @@ LABEL_103:
     {
       v17 = [v10 result];
       *buf = 138412546;
-      v107 = @"[ScheduleMigration]";
-      v108 = 2112;
-      *v109 = v17;
+      v109 = @"[ScheduleMigration]";
+      v110 = 2112;
+      *v111 = v17;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Removed %@ records from CoreData table before migration", buf, 0x16u);
     }
 
-    v84 = v10;
+    v86 = v10;
     v18 = [v3 photoLibraryURL];
     v19 = [VCPClientDatabaseManager sharedDatabaseForPhotoLibraryURL:v18];
 
-    v102 = 0;
+    v104 = 0;
     v20 = [MEMORY[0x1E695DF00] distantPast];
     v21 = [MEMORY[0x1E695DF00] distantFuture];
-    v83 = v19;
-    LODWORD(v19) = [v19 migration_querySchedulingHistoryRecords:&v102 startDate:v20 endDate:v21];
-    v22 = v102;
+    v85 = v19;
+    LODWORD(v19) = [v19 migration_querySchedulingHistoryRecords:&v104 startDate:v20 endDate:v21];
+    v22 = v104;
 
-    v87 = v22;
+    v89 = v22;
     if (v19)
     {
       if (MediaAnalysisLogLevel() < 3)
       {
-        v23 = v83;
-        v10 = v84;
+        v23 = v85;
+        v10 = v86;
       }
 
       else
       {
-        v23 = v83;
-        v10 = v84;
+        v23 = v85;
+        v10 = v86;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v107 = @"[ScheduleMigration]";
+          v109 = @"[ScheduleMigration]";
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to load existing data from legacy database", buf, 0xCu);
         }
       }
@@ -870,320 +870,321 @@ LABEL_103:
     }
 
     v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d records", objc_msgSend(v22, "count")];
-    v25 = VCPSignPostLog();
+    v25 = VCPSignPostLog(v24);
     v26 = os_signpost_id_generate(v25);
 
-    v27 = VCPSignPostLog();
-    v28 = v27;
-    v75 = v26 - 1;
-    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    v28 = VCPSignPostLog(v27);
+    v29 = v28;
+    v77 = v26 - 1;
+    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 138412290;
-      v107 = v24;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v26, "MADActivityScheduleMigration", "%@", buf, 0xCu);
+      v109 = v24;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v26, "MADActivityScheduleMigration", "%@", buf, 0xCu);
     }
 
     spid = v26;
-    v79 = v2;
-    v80 = v24;
-    v76 = v8;
-    v77 = v7;
-    v78 = v3;
+    v81 = v2;
+    v82 = v24;
+    v78 = v8;
+    v79 = v7;
+    v80 = v3;
 
-    v29 = v22;
+    v30 = v22;
     if ([v22 count])
     {
-      v30 = 0;
-      v85 = 0;
       v31 = 0;
-      v32 = MEMORY[0x1E69E9C10];
-      v33 = 0x1E695D000uLL;
-      v81 = v12;
-      v93 = a1;
+      v87 = 0;
+      v32 = 0;
+      v33 = MEMORY[0x1E69E9C10];
+      v34 = 0x1E695D000uLL;
+      v83 = v12;
+      v95 = a1;
       while (1)
       {
         context = objc_autoreleasePoolPush();
-        v34 = [v29 objectAtIndexedSubscript:v31];
-        if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v35 = [v30 objectAtIndexedSubscript:v32];
+        if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v107 = @"[ScheduleMigration]";
-          v108 = 2112;
-          *v109 = v34;
-          _os_log_impl(&dword_1C9B70000, v32, OS_LOG_TYPE_DEBUG, "%@ Migrating scheduling %@", buf, 0x16u);
+          v109 = @"[ScheduleMigration]";
+          v110 = 2112;
+          *v111 = v35;
+          _os_log_impl(&dword_1C9B70000, v33, OS_LOG_TYPE_DEBUG, "%@ Migrating scheduling %@", buf, 0x16u);
         }
 
-        v88 = v31;
-        v92 = v34;
-        v35 = [v34 sessionLog];
-        v36 = [v35 dataUsingEncoding:4];
+        v90 = v32;
+        v94 = v35;
+        v36 = [v35 sessionLog];
+        v37 = [v36 dataUsingEncoding:4];
 
-        v89 = v36;
-        if (v36)
+        v91 = v37;
+        if (v37)
         {
-          v101 = 0;
-          v36 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v36 options:0 error:&v101];
-          v37 = v101;
+          v103 = 0;
+          v37 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v37 options:0 error:&v103];
+          v38 = v103;
           if (v12)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              [v34 sessionLog];
-              v39 = v38 = v30;
+              [v35 sessionLog];
+              v40 = v39 = v31;
               *buf = 138412802;
-              v107 = @"[ScheduleMigration]";
-              v108 = 2112;
-              *v109 = v39;
-              *&v109[8] = 2112;
-              *&v109[10] = v37;
+              v109 = @"[ScheduleMigration]";
+              v110 = 2112;
+              *v111 = v40;
+              *&v111[8] = 2112;
+              *&v111[10] = v38;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to serialize JSON object from %@ - %@", buf, 0x20u);
 
-              v30 = v38;
+              v31 = v39;
             }
 
-            v36 = 0;
+            v37 = 0;
           }
         }
 
-        v40 = v34;
-        v95 = [[MADManagedBackgroundActivitySchedule alloc] initWithContext:*(a1 + 32)];
-        if (v95)
+        v41 = v35;
+        v97 = [[MADManagedBackgroundActivitySchedule alloc] initWithContext:*(a1 + 32)];
+        if (v97)
         {
-          v94 = [MEMORY[0x1E695DFA8] set];
-          v91 = [*(v33 + 3840) distantPast];
-          if (v36)
+          v96 = [MEMORY[0x1E695DFA8] set];
+          v93 = [*(v34 + 3840) distantPast];
+          if (v37)
           {
-            v41 = [v36 objectForKeyedSubscript:@"timestamp"];
+            v42 = [v37 objectForKeyedSubscript:@"timestamp"];
 
-            if (v41)
+            if (v42)
             {
-              v42 = +[VCPLogManager dateFormatterDateTime];
-              [v36 objectForKeyedSubscript:@"timestamp"];
-              v44 = v43 = v30;
-              v45 = [v42 dateFromString:v44];
+              v43 = +[VCPLogManager dateFormatterDateTime];
+              [v37 objectForKeyedSubscript:@"timestamp"];
+              v45 = v44 = v31;
+              v46 = [v43 dateFromString:v45];
 
-              v30 = v43;
-              v91 = v45;
+              v31 = v44;
+              v93 = v46;
             }
 
-            v46 = [v36 objectForKeyedSubscript:@"PID"];
+            v47 = [v37 objectForKeyedSubscript:@"PID"];
 
-            if (v46)
+            if (v47)
             {
-              v47 = [v36 objectForKeyedSubscript:@"PID"];
-              v48 = [v47 intValue];
+              v48 = [v37 objectForKeyedSubscript:@"PID"];
+              v49 = [v48 intValue];
             }
 
             else
             {
-              v48 = -1;
+              v49 = -1;
             }
 
-            v86 = v48;
+            v88 = v49;
+            v101 = 0u;
+            v102 = 0u;
             v99 = 0u;
             v100 = 0u;
-            v97 = 0u;
-            v98 = 0u;
-            v52 = [&unk_1F49BEF98 countByEnumeratingWithState:&v97 objects:v105 count:16];
-            if (v52)
+            v53 = [&unk_1F49BEF98 countByEnumeratingWithState:&v99 objects:v107 count:16];
+            if (v53)
             {
-              v53 = v52;
-              v82 = v30;
-              v54 = *v98;
-              v55 = v85;
+              v54 = v53;
+              v84 = v31;
+              v55 = *v100;
+              v56 = v87;
               do
               {
-                for (i = 0; i != v53; ++i)
+                for (i = 0; i != v54; ++i)
                 {
-                  if (*v98 != v54)
+                  if (*v100 != v55)
                   {
                     objc_enumerationMutation(&unk_1F49BEF98);
                   }
 
-                  v57 = *(*(&v97 + 1) + 8 * i);
-                  v58 = objc_autoreleasePoolPush();
-                  v59 = VCPTaskIDDescription([v57 unsignedIntValue]);
-                  v60 = [v36 objectForKeyedSubscript:v59];
+                  v58 = *(*(&v99 + 1) + 8 * i);
+                  v59 = objc_autoreleasePoolPush();
+                  v60 = VCPTaskIDDescription([v58 unsignedIntValue]);
+                  v61 = [v37 objectForKeyedSubscript:v60];
 
-                  if (v60)
+                  if (v61)
                   {
-                    v61 = v55;
+                    v62 = v56;
                     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412546;
-                      v107 = @"[ScheduleMigration]";
-                      v108 = 2112;
-                      *v109 = v59;
+                      v109 = @"[ScheduleMigration]";
+                      v110 = 2112;
+                      *v111 = v60;
                       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Migrating SessionLog for %@", buf, 0x16u);
                     }
 
-                    v62 = [[MADManagedBackgroundActivitySessionLog alloc] initWithContext:*(v93 + 32)];
-                    -[MADManagedBackgroundActivitySessionLog setTaskID:](v62, "setTaskID:", [v57 intValue]);
-                    [(MADManagedBackgroundActivitySessionLog *)v62 setScheduling:v95];
-                    v63 = [v36 objectForKeyedSubscript:v59];
-                    v64 = MediaAnalysisJSONStringFromObject(v63);
+                    v63 = [[MADManagedBackgroundActivitySessionLog alloc] initWithContext:*(v95 + 32)];
+                    -[MADManagedBackgroundActivitySessionLog setTaskID:](v63, "setTaskID:", [v58 intValue]);
+                    [(MADManagedBackgroundActivitySessionLog *)v63 setScheduling:v97];
+                    v64 = [v37 objectForKeyedSubscript:v60];
+                    v65 = MediaAnalysisJSONStringFromObject(v64);
 
-                    if (v64)
+                    if (v65)
                     {
-                      v65 = v64;
+                      v66 = v65;
                     }
 
                     else
                     {
-                      v65 = @"Failed during migration";
+                      v66 = @"Failed during migration";
                     }
 
-                    [(MADManagedBackgroundActivitySessionLog *)v62 setPayload:v65];
-                    v55 = v61 + 1;
+                    [(MADManagedBackgroundActivitySessionLog *)v63 setPayload:v66];
+                    v56 = v62 + 1;
                     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412802;
-                      v107 = @"[ScheduleMigration]";
-                      v108 = 1024;
-                      *v109 = v61 + 1;
-                      *&v109[4] = 2112;
-                      *&v109[6] = v62;
+                      v109 = @"[ScheduleMigration]";
+                      v110 = 1024;
+                      *v111 = v62 + 1;
+                      *&v111[4] = 2112;
+                      *&v111[6] = v63;
                       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@[%d] SessionLog created - %@", buf, 0x1Cu);
                     }
 
-                    [v94 addObject:v62];
+                    [v96 addObject:v63];
                   }
 
-                  objc_autoreleasePoolPop(v58);
+                  objc_autoreleasePoolPop(v59);
                 }
 
-                v53 = [&unk_1F49BEF98 countByEnumeratingWithState:&v97 objects:v105 count:16];
+                v54 = [&unk_1F49BEF98 countByEnumeratingWithState:&v99 objects:v107 count:16];
               }
 
-              while (v53);
-              v85 = v55;
-              a1 = v93;
-              v12 = v81;
-              v30 = v82;
-              v29 = v87;
+              while (v54);
+              v87 = v56;
+              a1 = v95;
+              v12 = v83;
+              v31 = v84;
+              v30 = v89;
             }
 
-            v33 = 0x1E695D000;
-            v40 = v92;
-            v51 = v86;
+            v34 = 0x1E695D000;
+            v41 = v94;
+            v52 = v88;
           }
 
           else if (MediaAnalysisLogLevel() < 6)
           {
-            v51 = 0xFFFFFFFFLL;
+            v52 = 0xFFFFFFFFLL;
           }
 
           else
           {
-            v50 = MEMORY[0x1E69E9C10];
+            v51 = MEMORY[0x1E69E9C10];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v107 = @"[ScheduleMigration]";
-              _os_log_impl(&dword_1C9B70000, v50, OS_LOG_TYPE_INFO, "%@ Scheduling does not have SessionLog", buf, 0xCu);
+              v109 = @"[ScheduleMigration]";
+              _os_log_impl(&dword_1C9B70000, v51, OS_LOG_TYPE_INFO, "%@ Scheduling does not have SessionLog", buf, 0xCu);
             }
 
-            v51 = 0xFFFFFFFFLL;
-            v40 = v34;
+            v52 = 0xFFFFFFFFLL;
+            v41 = v35;
           }
 
-          -[MADManagedBackgroundActivitySchedule setActivityID:](v95, "setActivityID:", [v40 activityID]);
-          v66 = [v40 startTime];
-          [(MADManagedBackgroundActivitySchedule *)v95 setStartTimestamp:v66];
+          -[MADManagedBackgroundActivitySchedule setActivityID:](v97, "setActivityID:", [v41 activityID]);
+          v67 = objc_msgSend_startTime(v41);
+          [(MADManagedBackgroundActivitySchedule *)v97 setStartTimestamp:v67];
 
-          v40 = v92;
-          [(MADManagedBackgroundActivitySchedule *)v95 setLastUpdateTimestamp:v91];
-          [(MADManagedBackgroundActivitySchedule *)v95 setPid:v51];
-          [(MADManagedBackgroundActivitySchedule *)v95 setInitialQoS:0];
-          -[MADManagedBackgroundActivitySchedule setExitStatus:](v95, "setExitStatus:", [v92 exitStatus]);
-          [(MADManagedBackgroundActivitySchedule *)v95 setSessionLog:v94];
-          ++v30;
+          v41 = v94;
+          [(MADManagedBackgroundActivitySchedule *)v97 setLastUpdateTimestamp:v93];
+          [(MADManagedBackgroundActivitySchedule *)v97 setPid:v52];
+          [(MADManagedBackgroundActivitySchedule *)v97 setInitialQoS:0];
+          -[MADManagedBackgroundActivitySchedule setExitStatus:](v97, "setExitStatus:", [v94 exitStatus]);
+          [(MADManagedBackgroundActivitySchedule *)v97 setSessionLog:v96];
+          ++v31;
           if (MediaAnalysisLogLevel() > 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v107 = @"[ScheduleMigration]";
-            v108 = 1024;
-            *v109 = v30;
-            *&v109[4] = 2112;
-            *&v109[6] = v95;
+            v109 = @"[ScheduleMigration]";
+            v110 = 1024;
+            *v111 = v31;
+            *&v111[4] = 2112;
+            *&v111[6] = v97;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@[%d] Scheduling created - %@", buf, 0x1Cu);
           }
         }
 
         else if (MediaAnalysisLogLevel() >= 3)
         {
-          v49 = MEMORY[0x1E69E9C10];
+          v50 = MEMORY[0x1E69E9C10];
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v107 = @"[ScheduleMigration]";
-            _os_log_impl(&dword_1C9B70000, v49, OS_LOG_TYPE_ERROR, "%@ Failed to create scheduling record", buf, 0xCu);
+            v109 = @"[ScheduleMigration]";
+            _os_log_impl(&dword_1C9B70000, v50, OS_LOG_TYPE_ERROR, "%@ Failed to create scheduling record", buf, 0xCu);
           }
 
-          v40 = v34;
+          v41 = v35;
         }
 
         objc_autoreleasePoolPop(context);
-        if (!v95)
+        if (!v97)
         {
           break;
         }
 
-        v31 = v88 + 1;
-        v67 = [v29 count];
-        v32 = MEMORY[0x1E69E9C10];
-        if (v88 + 1 >= v67)
+        v32 = v90 + 1;
+        v68 = [v30 count];
+        v33 = MEMORY[0x1E69E9C10];
+        if (v90 + 1 >= v68)
         {
           goto LABEL_85;
         }
       }
 
-      v70 = v12;
+      v72 = v12;
       goto LABEL_100;
     }
 
-    LODWORD(v85) = 0;
-    LODWORD(v30) = 0;
+    LODWORD(v87) = 0;
+    LODWORD(v31) = 0;
 LABEL_85:
-    if ([*(a1 + 32) hasChanges])
+    v69 = [*(a1 + 32) hasChanges];
+    if (v69)
     {
-      v68 = *(a1 + 32);
-      v96 = v12;
-      v69 = [v68 save:&v96];
-      v70 = v96;
+      v70 = *(a1 + 32);
+      v98 = v12;
+      v71 = [v70 save:&v98];
+      v72 = v98;
 
-      if ((v69 & 1) == 0)
+      if ((v71 & 1) == 0)
       {
         if (MediaAnalysisLogLevel() >= 3)
         {
-          v3 = v78;
-          v2 = v79;
-          v8 = v76;
-          v7 = v77;
-          v10 = v84;
+          v3 = v80;
+          v2 = v81;
+          v8 = v78;
+          v7 = v79;
+          v10 = v86;
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v107 = @"[ScheduleMigration]";
-            v108 = 2112;
-            *v109 = v70;
+            v109 = @"[ScheduleMigration]";
+            v110 = 2112;
+            *v111 = v72;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to save to CoreData table - %@", buf, 0x16u);
           }
 
-          v23 = v83;
+          v23 = v85;
           goto LABEL_101;
         }
 
 LABEL_100:
-        v3 = v78;
-        v2 = v79;
-        v8 = v76;
-        v7 = v77;
-        v23 = v83;
-        v10 = v84;
+        v3 = v80;
+        v2 = v81;
+        v8 = v78;
+        v7 = v79;
+        v23 = v85;
+        v10 = v86;
 LABEL_101:
 
-        v12 = v70;
+        v12 = v72;
 LABEL_102:
 
         goto LABEL_103;
@@ -1192,29 +1193,29 @@ LABEL_102:
 
     else
     {
-      v70 = v12;
+      v72 = v12;
     }
 
-    v71 = VCPSignPostLog();
-    v72 = v71;
-    if (v75 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v71))
+    v73 = VCPSignPostLog(v69);
+    v74 = v73;
+    if (v77 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v73))
     {
       *buf = 138412290;
-      v107 = v80;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v72, OS_SIGNPOST_INTERVAL_END, spid, "MADActivityScheduleMigration", "%@", buf, 0xCu);
+      v109 = v82;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v74, OS_SIGNPOST_INTERVAL_END, spid, "MADActivityScheduleMigration", "%@", buf, 0xCu);
     }
 
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      [v79 timeIntervalSinceNow];
+      [v81 timeIntervalSinceNow];
       *buf = 138413058;
-      v107 = @"[ScheduleMigration]";
-      v108 = 1024;
-      *v109 = v30;
-      *&v109[4] = 1024;
-      *&v109[6] = v85;
-      *&v109[10] = 1024;
-      *&v109[12] = -v73;
+      v109 = @"[ScheduleMigration]";
+      v110 = 1024;
+      *v111 = v31;
+      *&v111[4] = 1024;
+      *&v111[6] = v87;
+      *&v111[10] = 1024;
+      *&v111[12] = -v75;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Migrated %d scheduling and %d SessionLog in %d seconds", buf, 0x1Eu);
     }
 
@@ -1225,7 +1226,7 @@ LABEL_102:
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v107 = @"[ScheduleMigration]";
+    v109 = @"[ScheduleMigration]";
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%@ Legacy Database does not exist. Migration is unnecessary", buf, 0xCu);
   }
 
@@ -1245,7 +1246,7 @@ LABEL_104:
   [string appendFormat:@"%@: %@, ", activityIDColumnName, v7];
 
   durationColumnName = [objc_opt_class() durationColumnName];
-  [(MADManagedBackgroundActivitySchedule *)self duration];
+  objc_msgSend_duration(self);
   [string appendFormat:@"%@: %lf, ", durationColumnName, v9];
 
   startTimestampColumnName = [objc_opt_class() startTimestampColumnName];
@@ -1253,7 +1254,7 @@ LABEL_104:
   [string appendFormat:@"%@: %@, ", startTimestampColumnName, startTimestamp];
 
   exitStatusColumnName = [objc_opt_class() exitStatusColumnName];
-  [(MADManagedBackgroundActivitySchedule *)self duration];
+  objc_msgSend_duration(self);
   if (v13 == -1.0)
   {
     [string appendFormat:@"%@: %@, ", exitStatusColumnName, @"Crashed"];

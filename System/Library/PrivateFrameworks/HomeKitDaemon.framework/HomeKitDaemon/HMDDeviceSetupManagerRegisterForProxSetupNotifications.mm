@@ -5,7 +5,7 @@
 
 void ____HMDDeviceSetupManagerRegisterForProxSetupNotifications_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -32,22 +32,20 @@ void ____HMDDeviceSetupManagerRegisterForProxSetupNotifications_block_invoke(uin
         v10 = HMFBooleanToString();
         *buf = 138543618;
         *&buf[4] = v9;
-        v17 = 2112;
-        v18 = v10;
+        v16 = 2112;
+        v17 = v10;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received notification ProxSetup is running: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
       v11 = [(os_unfair_lock_s *)v7 notificationCenter];
-      v15 = @"running";
+      v14 = @"running";
       v12 = [MEMORY[0x277CCABB0] numberWithBool:v5];
       *buf = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v15 count:1];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v14 count:1];
       [v11 postNotificationName:@"HMDDeviceSetupManagerUpdatedRunningNotification" object:v7 userInfo:v13];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

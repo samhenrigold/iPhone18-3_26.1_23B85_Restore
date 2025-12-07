@@ -6,17 +6,17 @@
 
 - (void)enumerateGroups:(void *)groups withBlock:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v32 = __42__VMUGroupType_enumerateGroups_withBlock___block_invoke;
-  v33 = &unk_1E8278D70;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v31 = __42__VMUGroupType_enumerateGroups_withBlock___block_invoke;
+  v32 = &unk_1E8278D70;
   selfCopy = self;
   v8 = v7;
-  v35 = v8;
-  v9 = v31;
+  v34 = v8;
+  v9 = v30;
   v12 = *groups;
   v10 = groups + 4;
   v11 = v12;
@@ -34,7 +34,7 @@
         {
           if (v15)
           {
-            v32(v9, v16);
+            v31(v9, v16);
           }
 
           if (v15 < 2)
@@ -55,29 +55,29 @@
     while (v13 < v11);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   allKeys = [v8 allKeys];
   v18 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v19 = [v18 countByEnumeratingWithState:&v27 objects:v36 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v26 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v28;
+    v21 = *v27;
     do
     {
       v22 = 0;
       do
       {
-        if (*v28 != v21)
+        if (*v27 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v27 + 1) + 8 * v22);
+        v23 = *(*(&v26 + 1) + 8 * v22);
         v24 = objc_autoreleasePoolPush();
         v25 = [v8 objectForKeyedSubscript:v23];
         blockCopy[2](blockCopy, v25);
@@ -87,13 +87,11 @@
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v27 objects:v36 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
     while (v20);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __42__VMUGroupType_enumerateGroups_withBlock___block_invoke(uint64_t a1, uint64_t a2)

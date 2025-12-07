@@ -1,42 +1,45 @@
 @interface IsolatedCoreAudioClientNSXPCListenerDelegate
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (IsolatedCoreAudioClientNSXPCListenerDelegate)initWithInterface:(id)interface andEntitlement:(id)entitlement;
+- (id)lookupConnectionForPID:(int)d;
 - (uint64_t)initWithInterface:andEntitlement:;
+- (unsigned)getUseCaseIDForPID:(int)d;
 - (void)setClientReaper:(function<void)(int;
 - (void)setMClientReaper:(function<void)(int;
+- (void)setUseCaseIDForCurrentConnection:(unsigned int)connection;
 @end
 
 @implementation IsolatedCoreAudioClientNSXPCListenerDelegate
 
 - (void)setMClientReaper:(function<void)(int
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v8, a3);
+  v9[3] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v7, a3);
   p_mClientReaper = &self->_mClientReaper;
-  if (&self->_mClientReaper != v8)
+  if (&self->_mClientReaper != v7)
   {
-    v5 = v9;
+    v5 = v8;
     f = self->_mClientReaper.__f_.__f_;
-    if (v9 == v8)
+    if (v8 == v7)
     {
       if (f == p_mClientReaper)
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = 0;
-        (*(*self->_mClientReaper.__f_.__f_ + 24))(self->_mClientReaper.__f_.__f_, v8);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = 0;
+        (*(*self->_mClientReaper.__f_.__f_ + 24))(self->_mClientReaper.__f_.__f_, v7);
         (*(*self->_mClientReaper.__f_.__f_ + 32))(self->_mClientReaper.__f_.__f_);
         self->_mClientReaper.__f_.__f_ = 0;
-        v9 = v8;
-        (*(v10[0] + 24))(v10, &self->_mClientReaper);
-        (*(v10[0] + 32))(v10);
+        v8 = v7;
+        (*(v9[0] + 24))(v9, &self->_mClientReaper);
+        (*(v9[0] + 32))(v9);
       }
 
       else
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = self->_mClientReaper.__f_.__f_;
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = self->_mClientReaper.__f_.__f_;
       }
 
       self->_mClientReaper.__f_.__f_ = p_mClientReaper;
@@ -44,35 +47,58 @@
 
     else if (f == p_mClientReaper)
     {
-      (*(*f->__f_.__buf_.__data + 24))(self->_mClientReaper.__f_.__f_, v8);
+      (*(*f->__f_.__buf_.__data + 24))(self->_mClientReaper.__f_.__f_, v7);
       (*(*self->_mClientReaper.__f_.__f_ + 32))(self->_mClientReaper.__f_.__f_);
-      self->_mClientReaper.__f_.__f_ = v9;
-      v9 = v8;
+      self->_mClientReaper.__f_.__f_ = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = self->_mClientReaper.__f_.__f_;
+      v8 = self->_mClientReaper.__f_.__f_;
       self->_mClientReaper.__f_.__f_ = v5;
     }
   }
 
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v7);
+}
+
+- (unsigned)getUseCaseIDForPID:(int)d
+{
+  v3 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self lookupConnectionForPID:*&d];
+  useCaseID = [v3 useCaseID];
+
+  return useCaseID;
+}
+
+- (void)setUseCaseIDForCurrentConnection:(unsigned int)connection
+{
+  v3 = *&connection;
+  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
+  v5 = -[IsolatedCoreAudioClientNSXPCListenerDelegate lookupConnectionForPID:](self, "lookupConnectionForPID:", [currentConnection getProcessID]);
+  [v5 setUseCaseID:v3];
+}
+
+- (id)lookupConnectionForPID:(int)d
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&d];
+  mConnections = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self mConnections];
+  v6 = [mConnections objectForKey:v4];
+
+  return v6;
 }
 
 - (void)setClientReaper:(function<void)(int
 {
-  v6 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v5, a3);
-  [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self setMClientReaper:v5];
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v4, a3);
+  [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self setMClientReaper:v4];
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v4);
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   mEntitlementString = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self mEntitlementString];
 
@@ -105,29 +131,29 @@ LABEL_4:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    *&v30 = __Block_byref_object_copy_;
-    *(&v30 + 1) = __Block_byref_object_dispose_;
-    v31 = [[IsolatedCoreAudioUseCaseConnection alloc] initWithConnection:connectionCopy];
+    *&v29 = __Block_byref_object_copy_;
+    *(&v29 + 1) = __Block_byref_object_dispose_;
+    v30 = [[IsolatedCoreAudioUseCaseConnection alloc] initWithConnection:connectionCopy];
     mInterface = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self mInterface];
     [connectionCopy setExportedInterface:mInterface];
 
     [connectionCopy setExportedObject:self];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke;
-    v28[3] = &unk_2797ED2F0;
-    v28[4] = buf;
-    [connectionCopy setInterruptionHandler:v28];
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke_3;
-    v24 = &unk_2797ED318;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke;
+    v27[3] = &unk_2797ED2F0;
+    v27[4] = buf;
+    [connectionCopy setInterruptionHandler:v27];
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke_3;
+    v23 = &unk_2797ED318;
     selfCopy = self;
-    v27 = v12;
+    v26 = v12;
     mEntitlementString2 = v13;
-    v26 = mEntitlementString2;
-    [connectionCopy setInvalidationHandler:&v21];
-    v15 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self mConnections:v21];
+    v25 = mEntitlementString2;
+    [connectionCopy setInvalidationHandler:&v20];
+    v15 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self mConnections:v20];
     objc_sync_enter(v15);
     mConnections = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self mConnections];
     [mConnections setObject:*(*&buf[8] + 40) forKey:mEntitlementString2];
@@ -149,80 +175,76 @@ LABEL_4:
     *&buf[14] = 36;
     *&buf[18] = 1024;
     *&buf[20] = [connectionCopy processIdentifier];
-    LOWORD(v30) = 2112;
-    *(&v30 + 2) = mEntitlementString2;
+    LOWORD(v29) = 2112;
+    *(&v29 + 2) = mEntitlementString2;
     _os_log_impl(&dword_255576000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d Process %i does not have the %@ entitlement", buf, 0x22u);
   }
 
   v17 = 0;
 LABEL_10:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 uint64_t __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = sIsolatedCoreAudioServerLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-  {
-    v5 = 136315394;
-    v6 = "IsolatedCoreAudioClientNSXPCListenerDelegate.mm";
-    v7 = 1024;
-    v8 = 49;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientNSXPCListenerDelegate - interruptionHandler", &v5, 0x12u);
-  }
-
-  result = [*(*(*(a1 + 32) + 8) + 40) invalidate];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke_3(uint64_t a1)
-{
   v8 = *MEMORY[0x277D85DE8];
   v2 = sIsolatedCoreAudioServerLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    LODWORD(v7[0]) = 136315394;
-    *(v7 + 4) = "IsolatedCoreAudioClientNSXPCListenerDelegate.mm";
-    WORD6(v7[0]) = 1024;
-    *(v7 + 14) = 54;
-    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientNSXPCListenerDelegate - invalidationHandler", v7, 0x12u);
+    v4 = 136315394;
+    v5 = "IsolatedCoreAudioClientNSXPCListenerDelegate.mm";
+    v6 = 1024;
+    v7 = 49;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientNSXPCListenerDelegate - interruptionHandler", &v4, 0x12u);
+  }
+
+  return [*(*(*(a1 + 32) + 8) + 40) invalidate];
+}
+
+void __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNewConnection___block_invoke_3(uint64_t a1)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = sIsolatedCoreAudioServerLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v6[0]) = 136315394;
+    *(v6 + 4) = "IsolatedCoreAudioClientNSXPCListenerDelegate.mm";
+    WORD6(v6[0]) = 1024;
+    *(v6 + 14) = 54;
+    _os_log_impl(&dword_255576000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientNSXPCListenerDelegate - invalidationHandler", v6, 0x12u);
   }
 
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 mClientReaper];
-    v3 = *(&v7[1] + 1);
+    objc_msgSend_mClientReaper(v3);
+    v3 = *(&v6[1] + 1);
   }
 
   else
   {
-    memset(v7, 0, sizeof(v7));
+    memset(v6, 0, sizeof(v6));
   }
 
   std::function<void ()(int)>::operator()(v3, *(a1 + 48));
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v7);
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v6);
   v4 = [*(a1 + 32) mConnections];
   objc_sync_enter(v4);
   v5 = [*(a1 + 32) mConnections];
   [v5 removeObjectForKey:*(a1 + 40)];
 
   objc_sync_exit(v4);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (IsolatedCoreAudioClientNSXPCListenerDelegate)initWithInterface:(id)interface andEntitlement:(id)entitlement
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   entitlementCopy = entitlement;
-  v13.receiver = self;
-  v13.super_class = IsolatedCoreAudioClientNSXPCListenerDelegate;
-  v8 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = IsolatedCoreAudioClientNSXPCListenerDelegate;
+  v8 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v12 init];
   v9 = v8;
   if (v8)
   {
@@ -231,13 +253,12 @@ void __83__IsolatedCoreAudioClientNSXPCListenerDelegate_listener_shouldAcceptNew
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     [(IsolatedCoreAudioClientNSXPCListenerDelegate *)v9 setMConnections:dictionary];
 
-    v14[0] = &unk_286775780;
-    v14[3] = v14;
-    [(IsolatedCoreAudioClientNSXPCListenerDelegate *)v9 setMClientReaper:v14];
-    std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v14);
+    v13[0] = &unk_286775780;
+    v13[3] = v13;
+    [(IsolatedCoreAudioClientNSXPCListenerDelegate *)v9 setMClientReaper:v13];
+    std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v13);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

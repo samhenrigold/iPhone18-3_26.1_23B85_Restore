@@ -7,27 +7,27 @@
 
 - (id)ams_installCDPUIWithPresentingViewController:()AppleMediaServicesUI
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a3;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2050000000;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
   v4 = getCDPUIControllerClass_softClass;
-  v36 = getCDPUIControllerClass_softClass;
+  v35 = getCDPUIControllerClass_softClass;
   if (!getCDPUIControllerClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getCDPUIControllerClass_block_invoke;
-    v38 = &unk_1E7F241B0;
-    v39 = &v33;
+    v37 = &unk_1E7F241B0;
+    v38 = &v32;
     __getCDPUIControllerClass_block_invoke(buf);
-    v4 = v34[3];
+    v4 = v33[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v33, 8);
-  v32 = [[v4 alloc] initWithPresentingViewController:v3];
+  _Block_object_dispose(&v32, 8);
+  v31 = [[v4 alloc] initWithPresentingViewController:v3];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -60,31 +60,31 @@
     *&buf[12] = 2114;
     *&buf[14] = v14;
     *&buf[22] = 2114;
-    v38 = v15;
+    v37 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@Created CDP UI controller: %{public}@ for view controller: %{public}@", buf, 0x20u);
     if (v8)
     {
     }
   }
 
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2050000000;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
   v16 = getAAUISignInFlowControllerDelegateClass_softClass;
-  v36 = getAAUISignInFlowControllerDelegateClass_softClass;
+  v35 = getAAUISignInFlowControllerDelegateClass_softClass;
   if (!getAAUISignInFlowControllerDelegateClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAAUISignInFlowControllerDelegateClass_block_invoke;
-    v38 = &unk_1E7F241B0;
-    v39 = &v33;
+    v37 = &unk_1E7F241B0;
+    v38 = &v32;
     __getAAUISignInFlowControllerDelegateClass_block_invoke(buf);
-    v16 = v34[3];
+    v16 = v33[3];
   }
 
   v17 = v16;
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
   v18 = [[v16 alloc] initWithPresentingViewController:v3];
   mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968]2)
@@ -118,22 +118,21 @@
     *&buf[12] = 2114;
     *&buf[14] = v27;
     *&buf[22] = 2114;
-    v38 = v28;
+    v37 = v28;
     _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_INFO, "%{public}@Created sign in flow controller delegate: %{public}@ for view controller: %{public}@", buf, 0x20u);
     if (v21)
     {
     }
   }
 
-  [self _ams_installCDPUIWithCDPUIController:v32 flowControllerDelegate:v18];
-  v29 = *MEMORY[0x1E69E9840];
+  [self _ams_installCDPUIWithCDPUIController:v31 flowControllerDelegate:v18];
 
-  return v32;
+  return v31;
 }
 
 - (void)_ams_installCDPUIWithCDPUIController:()AppleMediaServicesUI flowControllerDelegate:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -181,23 +180,23 @@
     v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v19 = getAIDAServiceTypeCloudSymbolLoc_ptr;
-  v25 = getAIDAServiceTypeCloudSymbolLoc_ptr;
+  v24 = getAIDAServiceTypeCloudSymbolLoc_ptr;
   if (!getAIDAServiceTypeCloudSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAIDAServiceTypeCloudSymbolLoc_block_invoke;
-    v27 = &unk_1E7F241B0;
-    v28 = &v22;
+    v26 = &unk_1E7F241B0;
+    v27 = &v21;
     __getAIDAServiceTypeCloudSymbolLoc_block_invoke(buf);
-    v19 = v23[3];
+    v19 = v22[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (!v19)
   {
     [AIDAMutableServiceContext(AppleMediaServicesUI) _ams_installCDPUIWithCDPUIController:flowControllerDelegate:];
@@ -207,14 +206,12 @@
   [v18 setObject:v7 forKeyedSubscript:*v19];
   v20 = [v18 copy];
   [self setSignInContexts:v20];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_ams_installCDPUIWithCDPUIController:()AppleMediaServicesUI flowControllerDelegate:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getCDPUIControllerClass_block_invoke_cold_1();
 }
 

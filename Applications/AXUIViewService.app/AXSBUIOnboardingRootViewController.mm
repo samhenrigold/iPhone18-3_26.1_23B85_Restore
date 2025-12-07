@@ -3,6 +3,7 @@
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)dismiss;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -83,6 +84,30 @@ LABEL_9:
   v2.receiver = self;
   v2.super_class = AXSBUIOnboardingRootViewController;
   [(AXSBUIOnboardingRootViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = AXSBUIOnboardingRootViewController;
+  [(AXSBUIOnboardingRootViewController *)&v9 viewDidAppear:appear];
+  [(AXSBUIOnboardingRootViewController *)self _setupRemoteProxy];
+  v4 = [UINavigationController alloc];
+  hostingController = [(AXSBUIOnboardingRootViewController *)self hostingController];
+  v6 = [v4 initWithRootViewController:hostingController];
+
+  [v6 setModalPresentationStyle:0];
+  [v6 setModalTransitionStyle:0];
+  if (AXDeviceIsPhone())
+  {
+    [v6 setModalPresentationStyle:1];
+  }
+
+  hostingController2 = [(AXSBUIOnboardingRootViewController *)self hostingController];
+  presentationController = [v6 presentationController];
+  [presentationController setDelegate:hostingController2];
+
+  [(AXSBUIOnboardingRootViewController *)self presentViewController:v6 animated:1 completion:&stru_100028E58];
 }
 
 - (void)dismiss

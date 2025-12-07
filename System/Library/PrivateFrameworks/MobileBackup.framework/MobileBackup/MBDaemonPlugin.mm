@@ -17,7 +17,7 @@
     {
       *v5 = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Starting sync spinner for backup", v5, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Starting sync spinner for backup");
     }
 
     SBSSetStatusBarShowsSyncActivity();
@@ -35,7 +35,7 @@
     {
       *v5 = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Stopping sync spinner for backup", v5, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Stopping sync spinner for backup");
     }
 
     SBSSetStatusBarShowsSyncActivity();
@@ -55,7 +55,7 @@
     {
       *v28 = 0;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Not sending notification that a restore has started", v28, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Not sending notification that a restore has started");
     }
 
     goto LABEL_14;
@@ -85,7 +85,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Sending notification that a restore has started", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Sending notification that a restore has started");
   }
 
   v14 = +[MBNotificationCenter sharedNotificationCenter];
@@ -100,7 +100,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Waiting for notification from SpringBoard that it's ready for a restore", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Waiting for notification from SpringBoard that it's ready for a restore");
   }
 
   Current = CFAbsoluteTimeGetCurrent();
@@ -147,10 +147,10 @@ LABEL_15:
   v2 = 0;
   for (i = 0; ; ++i)
   {
-    v10 = 0;
-    v4 = [MBPersona personalPersonaWithError:0, v8, v9];
-    v5 = [v4 getBooleanValueForKey:@"RestoreShouldReboot" keyExists:&v10];
-    if (!v10 || v5 != 0)
+    v8 = 0;
+    v4 = [MBPersona personalPersonaWithError:0];
+    v5 = [v4 getBooleanValueForKey:@"RestoreShouldReboot" keyExists:&v8];
+    if (!v8 || v5 != 0)
     {
       break;
     }
@@ -161,13 +161,11 @@ LABEL_15:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v12 = @"com.apple.MobileBackup";
-        v13 = 2112;
-        v14 = @"RestoreShouldReboot";
+        v10 = @"com.apple.MobileBackup";
+        v11 = 2112;
+        v12 = @"RestoreShouldReboot";
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Not rebooting after restore because %@ %@ preference is set - unset this preference to finish the restore", buf, 0x16u);
-        v8 = @"com.apple.MobileBackup";
-        v9 = @"RestoreShouldReboot";
-        _MBLog();
+        _MBLog(@"Df", "Not rebooting after restore because %@ %@ preference is set - unset this preference to finish the restore", @"com.apple.MobileBackup", @"RestoreShouldReboot");
       }
     }
 
@@ -188,7 +186,7 @@ LABEL_15:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Sending notification that a restore has ended", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Sending notification that a restore has ended");
     }
 
     v10 = +[MBNotificationCenter sharedNotificationCenter];
@@ -202,7 +200,7 @@ LABEL_15:
     {
       *v12 = 0;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Not sending notification that a restore has ended", v12, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Not sending notification that a restore has ended");
     }
   }
 

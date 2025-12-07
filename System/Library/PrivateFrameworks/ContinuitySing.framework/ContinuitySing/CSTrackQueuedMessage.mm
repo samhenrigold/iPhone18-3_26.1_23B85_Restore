@@ -60,7 +60,7 @@
         v12 = [[CSQueuedTrack alloc] initWithDictionary:*(*(&v22 + 1) + 8 * v11)];
         if (!v12)
         {
-          v18 = ContinuitySingLog();
+          v18 = ContinuitySingLog(0);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             [CSTrackQueuedMessage initWithMessage:];
@@ -101,7 +101,7 @@ LABEL_12:
     goto LABEL_17;
   }
 
-  v19 = ContinuitySingLog();
+  v19 = ContinuitySingLog(0);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [CSTrackQueuedMessage initWithMessage:];

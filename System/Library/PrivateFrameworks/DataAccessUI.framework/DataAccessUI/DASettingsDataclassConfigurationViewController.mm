@@ -11,8 +11,11 @@
 - (void)cancelButtonClicked:(id)clicked;
 - (void)dealloc;
 - (void)loadView;
+- (void)operationsHelper:(id)helper didRemoveAccount:(id)account withSuccess:(BOOL)success error:(id)error;
 - (void)reloadAccount;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DASettingsDataclassConfigurationViewController
@@ -72,6 +75,18 @@
   [navigationItem setTitle:_navTitle];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CB8B78] object:0];
+
+  self->_haveRegisteredForAccountsChanged = 0;
+  v6.receiver = self;
+  v6.super_class = DASettingsDataclassConfigurationViewController;
+  [(ACUIDataclassConfigurationViewController *)&v6 viewWillDisappear:disappearCopy];
+}
+
 - (void)_listenForAccountsChangedNotifications
 {
   if (!self->_haveRegisteredForAccountsChanged)
@@ -80,6 +95,17 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:self selector:sel__accountsChanged_ name:*MEMORY[0x277CB8B78] object:0];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = DASettingsDataclassConfigurationViewController;
+  [(ACUIDataclassConfigurationViewController *)&v6 viewWillAppear:appear];
+  [(DASettingsDataclassConfigurationViewController *)self _listenForAccountsChangedNotifications];
+  navigationItem = [(DASettingsDataclassConfigurationViewController *)self navigationItem];
+  _navTitle = [(DASettingsDataclassConfigurationViewController *)self _navTitle];
+  [navigationItem setTitle:_navTitle];
 }
 
 - (DAAccount)daAccount
@@ -186,6 +212,23 @@
   [currentHandler handleFailureInMethod:a2 object:self file:@"DASettingsDataclassConfigurationViewController.m" lineNumber:158 description:{@"You need to subclass %@", v6}];
 
   return 0;
+}
+
+- (void)operationsHelper:(id)helper didRemoveAccount:(id)account withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  helperCopy = helper;
+  accountCopy = account;
+  errorCopy = error;
+  if (successCopy)
+  {
+    daAccount = [(DASettingsDataclassConfigurationViewController *)self daAccount];
+    [daAccount cleanupAccountFiles];
+  }
+
+  v14.receiver = self;
+  v14.super_class = DASettingsDataclassConfigurationViewController;
+  [(ACUIDataclassConfigurationViewController *)&v14 operationsHelper:helperCopy didRemoveAccount:accountCopy withSuccess:successCopy error:errorCopy];
 }
 
 - (void)cancelButtonClicked:(id)clicked

@@ -9,35 +9,31 @@
 
 + (id)errorNotArmedWithRatchetState:(id)state
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = [[LARatchetState alloc] initWithState:stateCopy];
 
   v6 = *MEMORY[0x1E696A278];
-  v11[0] = @"RatchetState";
-  v11[1] = v6;
-  v12[0] = v5;
-  v12[1] = @"Ratchet not ready";
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[0] = @"RatchetState";
+  v10[1] = v6;
+  v11[0] = v5;
+  v11[1] = @"Ratchet not ready";
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v8 = [self _errorWithCode:0 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)genericErrorWithUnderlyingError:(id)error
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = *MEMORY[0x1E696AA08];
-  v11[0] = error;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E696AA08];
+  v10[0] = error;
   v4 = MEMORY[0x1E695DF20];
   errorCopy = error;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [self _errorWithCode:1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -107,16 +103,14 @@ LABEL_17:
 
 + (id)_errorWithCode:(int64_t)code debugDescription:(id)description
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v12 = *MEMORY[0x1E696A278];
-  v13[0] = description;
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A278];
+  v12[0] = description;
   v6 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [self _errorWithCode:code userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

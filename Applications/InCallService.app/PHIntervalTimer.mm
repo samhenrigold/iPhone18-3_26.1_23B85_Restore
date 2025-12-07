@@ -164,16 +164,16 @@
     {
     }
 
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Creating interval timer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Creating interval timer", buf, 2u);
     }
 
     [(PHIntervalTimer *)self interval];
-    v9 = [NSTimer scheduledTimerWithTimeInterval:self target:"_postNotification" selector:0 userInfo:1 repeats:?];
-    [(PHIntervalTimer *)self setTimer:v9];
+    v10 = [NSTimer scheduledTimerWithTimeInterval:self target:"_postNotification" selector:0 userInfo:1 repeats:?];
+    [(PHIntervalTimer *)self setTimer:v10];
   }
 
   else

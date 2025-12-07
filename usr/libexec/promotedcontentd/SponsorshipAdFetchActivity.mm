@@ -49,7 +49,7 @@
 
 + (void)isFetchFeatureFlagEnabledWithCompletionHandler:(id)handler
 {
-  v5 = sub_1001E27A8(&qword_1004D70F0);
+  v5 = sub_1001E27A8(&qword_1004D70F0, &qword_1003C9960);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -73,7 +73,7 @@
 
 + (BOOL)saveWithItems:(id)items fetchedUsingContext:(id)context error:(id *)error
 {
-  sub_100004218(0, &qword_1004D4828);
+  sub_100004218(0, &qword_1004D4828, APContentData_ptr);
   v6 = sub_100399198();
   contextCopy = context;
   sub_1001FBAD4(v6, contextCopy);

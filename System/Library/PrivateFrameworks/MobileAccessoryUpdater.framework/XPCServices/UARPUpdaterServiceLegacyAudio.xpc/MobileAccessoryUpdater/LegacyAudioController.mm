@@ -274,7 +274,7 @@ LABEL_7:
   v30 = 0u;
   v25 = v31 = 0u;
   allValues = [v25 allValues];
-  v3 = [allValues countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v28 objects:v39 count:16];
   if (v3)
   {
     v4 = v3;
@@ -359,14 +359,14 @@ LABEL_7:
 
         else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_10001502C(v38, v12, &v39);
+          sub_10001502C(v38, v12, &v38[4]);
         }
 
         v7 = v7 + 1;
       }
 
       while (v4 != v7);
-      v4 = [allValues countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v28 objects:v39 count:16];
     }
 
     while (v4);

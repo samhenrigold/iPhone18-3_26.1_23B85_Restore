@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
+- (id)scenarioDecisionAsString:(int)string;
+- (id)txBandAsString:(int)string;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsScenarioDecision:(id)decision;
 - (int)StringAsTxBand:(id)band;
@@ -49,6 +52,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string < 0x11 && ((0x19FFFu >> string) & 1) != 0)
+  {
+    v4 = off_279A101B8[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -163,6 +181,627 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)txBandAsString:(int)string
+{
+  v4 = @"SYS_BAND_BC0";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_456;
+    case 1:
+      v4 = @"SYS_BAND_BC1";
+
+      break;
+    case 3:
+      v4 = @"SYS_BAND_BC3";
+
+      break;
+    case 4:
+      v4 = @"SYS_BAND_BC4";
+
+      break;
+    case 5:
+      v4 = @"SYS_BAND_BC5";
+
+      break;
+    case 6:
+      v4 = @"SYS_BAND_BC6";
+
+      break;
+    case 7:
+      v4 = @"SYS_BAND_BC7";
+
+      break;
+    case 8:
+      v4 = @"SYS_BAND_BC8";
+
+      break;
+    case 9:
+      v4 = @"SYS_BAND_BC9";
+
+      break;
+    case 10:
+      v4 = @"SYS_BAND_BC10";
+
+      break;
+    case 11:
+      v4 = @"SYS_BAND_BC11";
+
+      break;
+    case 12:
+      v4 = @"SYS_BAND_BC12";
+
+      break;
+    case 13:
+      v4 = @"SYS_BAND_BC13";
+
+      break;
+    case 14:
+      v4 = @"SYS_BAND_BC14";
+
+      break;
+    case 15:
+      v4 = @"SYS_BAND_BC15";
+
+      break;
+    case 16:
+      v4 = @"SYS_BAND_BC16";
+
+      break;
+    case 17:
+      v4 = @"SYS_BAND_BC17";
+
+      break;
+    case 18:
+      v4 = @"SYS_BAND_BC18";
+
+      break;
+    case 19:
+      v4 = @"SYS_BAND_BC19";
+
+      break;
+    case 40:
+      v4 = @"SYS_BAND_GSM_450";
+
+      break;
+    case 41:
+      v4 = @"SYS_BAND_GSM_480";
+
+      break;
+    case 42:
+      v4 = @"SYS_BAND_GSM_750";
+
+      break;
+    case 43:
+      v4 = @"SYS_BAND_GSM_850";
+
+      break;
+    case 44:
+      v4 = @"SYS_BAND_GSM_EGSM_900";
+
+      break;
+    case 45:
+      v4 = @"SYS_BAND_GSM_PGSM_900";
+
+      break;
+    case 46:
+      v4 = @"SYS_BAND_GSM_RGSM_900";
+
+      break;
+    case 47:
+      v4 = @"SYS_BAND_GSM_DCS_1800";
+
+      break;
+    case 48:
+      v4 = @"SYS_BAND_GSM_PCS_1900";
+
+      break;
+    case 80:
+      v4 = @"SYS_BAND_WCDMA_I_IMT_2000";
+
+      break;
+    case 81:
+      v4 = @"SYS_BAND_WCDMA_II_PCS_1900";
+
+      break;
+    case 82:
+      v4 = @"SYS_BAND_WCDMA_III_1700";
+
+      break;
+    case 83:
+      v4 = @"SYS_BAND_WCDMA_IV_1700";
+
+      break;
+    case 84:
+      v4 = @"SYS_BAND_WCDMA_V_850";
+
+      break;
+    case 85:
+      v4 = @"SYS_BAND_WCDMA_VI_800";
+
+      break;
+    case 86:
+      v4 = @"SYS_BAND_WCDMA_VII_2600";
+
+      break;
+    case 87:
+      v4 = @"SYS_BAND_WCDMA_VIII_900";
+
+      break;
+    case 88:
+      v4 = @"SYS_BAND_WCDMA_IX_1700";
+
+      break;
+    case 90:
+      v4 = @"SYS_BAND_WCDMA_XI_1500";
+
+      break;
+    case 91:
+      v4 = @"SYS_BAND_WCDMA_XIX_850";
+
+      break;
+    case 120:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND1";
+
+      break;
+    case 121:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND2";
+
+      break;
+    case 122:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND3";
+
+      break;
+    case 123:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND4";
+
+      break;
+    case 124:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND5";
+
+      break;
+    case 125:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND6";
+
+      break;
+    case 126:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND7";
+
+      break;
+    case 127:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND8";
+
+      break;
+    case 128:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND9";
+
+      break;
+    case 129:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND10";
+
+      break;
+    case 130:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND11";
+
+      break;
+    case 131:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND12";
+
+      break;
+    case 132:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND13";
+
+      break;
+    case 133:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND14";
+
+      break;
+    case 136:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND17";
+
+      break;
+    case 137:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND18";
+
+      break;
+    case 138:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND19";
+
+      break;
+    case 139:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND20";
+
+      break;
+    case 140:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND21";
+
+      break;
+    case 143:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND24";
+
+      break;
+    case 144:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND25";
+
+      break;
+    case 145:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND26";
+
+      break;
+    case 146:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND27";
+
+      break;
+    case 147:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND28";
+
+      break;
+    case 148:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND29";
+
+      break;
+    case 149:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND30";
+
+      break;
+    case 150:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND31";
+
+      break;
+    case 151:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND32";
+
+      break;
+    case 152:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND33";
+
+      break;
+    case 153:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND34";
+
+      break;
+    case 154:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND35";
+
+      break;
+    case 155:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND36";
+
+      break;
+    case 156:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND37";
+
+      break;
+    case 157:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND38";
+
+      break;
+    case 158:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND39";
+
+      break;
+    case 159:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND40";
+
+      break;
+    case 160:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND41";
+
+      break;
+    case 161:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND42";
+
+      break;
+    case 162:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND43";
+
+      break;
+    case 163:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND125";
+
+      break;
+    case 164:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND126";
+
+      break;
+    case 165:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND127";
+
+      break;
+    case 166:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND252";
+
+      break;
+    case 167:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND255";
+
+      break;
+    case 168:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND66";
+
+      break;
+    case 169:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND250";
+
+      break;
+    case 170:
+      v4 = @"SYS_BAND_UMTS_BAND1";
+
+      break;
+    case 171:
+      v4 = @"SYS_BAND_UMTS_BAND2";
+
+      break;
+    case 172:
+      v4 = @"SYS_BAND_UMTS_BAND3";
+
+      break;
+    case 173:
+      v4 = @"SYS_BAND_UMTS_BAND4";
+
+      break;
+    case 174:
+      v4 = @"SYS_BAND_UMTS_BAND5";
+
+      break;
+    case 175:
+      v4 = @"SYS_BAND_UMTS_BAND6";
+
+      break;
+    case 176:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND46";
+
+      break;
+    case 177:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND47";
+
+      break;
+    case 178:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND48";
+
+      break;
+    case 179:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND71";
+
+      break;
+    case 180:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND67";
+
+      break;
+    case 181:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND68";
+
+      break;
+    case 182:
+      v4 = @"SYS_BAND_NR5G_BAND1";
+
+      break;
+    case 183:
+      v4 = @"SYS_BAND_NR5G_BAND2";
+
+      break;
+    case 184:
+      v4 = @"SYS_BAND_NR5G_BAND3";
+
+      break;
+    case 185:
+      v4 = @"SYS_BAND_NR5G_BAND5";
+
+      break;
+    case 186:
+      v4 = @"SYS_BAND_NR5G_BAND7";
+
+      break;
+    case 187:
+      v4 = @"SYS_BAND_NR5G_BAND8";
+
+      break;
+    case 188:
+      v4 = @"SYS_BAND_NR5G_BAND20";
+
+      break;
+    case 189:
+      v4 = @"SYS_BAND_NR5G_BAND28";
+
+      break;
+    case 190:
+      v4 = @"SYS_BAND_NR5G_BAND38";
+
+      break;
+    case 191:
+      v4 = @"SYS_BAND_NR5G_BAND41";
+
+      break;
+    case 192:
+      v4 = @"SYS_BAND_NR5G_BAND50";
+
+      break;
+    case 193:
+      v4 = @"SYS_BAND_NR5G_BAND51";
+
+      break;
+    case 194:
+      v4 = @"SYS_BAND_NR5G_BAND66";
+
+      break;
+    case 195:
+      v4 = @"SYS_BAND_NR5G_BAND70";
+
+      break;
+    case 196:
+      v4 = @"SYS_BAND_NR5G_BAND71";
+
+      break;
+    case 197:
+      v4 = @"SYS_BAND_NR5G_BAND74";
+
+      break;
+    case 198:
+      v4 = @"SYS_BAND_NR5G_BAND75";
+
+      break;
+    case 199:
+      v4 = @"SYS_BAND_NR5G_BAND76";
+
+      break;
+    case 200:
+      v4 = @"SYS_BAND_NR5G_BAND77";
+
+      break;
+    case 201:
+      v4 = @"SYS_BAND_NR5G_BAND78";
+
+      break;
+    case 202:
+      v4 = @"SYS_BAND_NR5G_BAND79";
+
+      break;
+    case 203:
+      v4 = @"SYS_BAND_NR5G_BAND80";
+
+      break;
+    case 204:
+      v4 = @"SYS_BAND_NR5G_BAND81";
+
+      break;
+    case 205:
+      v4 = @"SYS_BAND_NR5G_BAND82";
+
+      break;
+    case 206:
+      v4 = @"SYS_BAND_NR5G_BAND83";
+
+      break;
+    case 207:
+      v4 = @"SYS_BAND_NR5G_BAND84";
+
+      break;
+    case 208:
+      v4 = @"SYS_BAND_NR5G_BAND85";
+
+      break;
+    case 209:
+      v4 = @"SYS_BAND_NR5G_BAND257";
+
+      break;
+    case 210:
+      v4 = @"SYS_BAND_NR5G_BAND258";
+
+      break;
+    case 211:
+      v4 = @"SYS_BAND_NR5G_BAND259";
+
+      break;
+    case 212:
+      v4 = @"SYS_BAND_NR5G_BAND260";
+
+      break;
+    case 213:
+      v4 = @"SYS_BAND_NR5G_BAND261";
+
+      break;
+    case 214:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND49";
+
+      break;
+    case 215:
+      v4 = @"SYS_BAND_NR5G_BAND12";
+
+      break;
+    case 216:
+      v4 = @"SYS_BAND_NR5G_BAND25";
+
+      break;
+    case 217:
+      v4 = @"SYS_BAND_NR5G_BAND34";
+
+      break;
+    case 218:
+      v4 = @"SYS_BAND_NR5G_BAND39";
+
+      break;
+    case 219:
+      v4 = @"SYS_BAND_NR5G_BAND40";
+
+      break;
+    case 220:
+      v4 = @"SYS_BAND_NR5G_BAND65";
+
+      break;
+    case 221:
+      v4 = @"SYS_BAND_NR5G_BAND86";
+
+      break;
+    case 222:
+      v4 = @"SYS_BAND_NR5G_BAND48";
+
+      break;
+    case 223:
+      v4 = @"SYS_BAND_NR5G_BAND14";
+
+      break;
+    case 224:
+      v4 = @"SYS_BAND_NR5G_BAND13";
+
+      break;
+    case 225:
+      v4 = @"SYS_BAND_NR5G_BAND18";
+
+      break;
+    case 226:
+      v4 = @"SYS_BAND_NR5G_BAND26";
+
+      break;
+    case 227:
+      v4 = @"SYS_BAND_NR5G_BAND30";
+
+      break;
+    case 228:
+      v4 = @"SYS_BAND_NR5G_BAND29";
+
+      break;
+    case 229:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND53";
+
+      break;
+    case 230:
+      v4 = @"SYS_BAND_NR5G_BAND53";
+
+      break;
+    case 231:
+      v4 = @"SYS_BAND_RESERVED_1";
+
+      break;
+    case 232:
+      v4 = @"SYS_BAND_NR5G_BAND46";
+
+      break;
+    case 233:
+      v4 = @"SYS_BAND_NR5G_BAND91";
+
+      break;
+    case 234:
+      v4 = @"SYS_BAND_NR5G_BAND92";
+
+      break;
+    case 235:
+      v4 = @"SYS_BAND_NR5G_BAND93";
+
+      break;
+    case 236:
+      v4 = @"SYS_BAND_NR5G_BAND94";
+
+      break;
+    default:
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_456:
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsTxBand:(id)band
@@ -979,6 +1618,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)scenarioDecisionAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10240[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsScenarioDecision:(id)decision
 {
   decisionCopy = decision;
@@ -1680,7 +2334,6 @@ LABEL_168:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    rat = self->_rat;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -1700,7 +2353,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txBand = self->_txBand;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -1715,7 +2367,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  port = self->_port;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -1730,7 +2381,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  scenarioDecision = self->_scenarioDecision;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -1745,7 +2395,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -1760,12 +2409,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  workMode = self->_workMode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    ftQualInd = self->_ftQualInd;
     PBDataWriterWriteUint32Field();
   }
 

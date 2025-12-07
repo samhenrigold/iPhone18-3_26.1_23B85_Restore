@@ -41,12 +41,12 @@
 
   objc_autoreleasePoolPop(v5);
   delegate = [(HMIAnalysisStateManager *)selfCopy delegate];
-  [delegate stateManager:selfCopy didReceiveLocalUpdate:stateCopy];
+  [delegate stateManager:? didReceiveLocalUpdate:?];
 }
 
 - (void)handleRemoteStateUpdate:(id)update completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   handlerCopy = handler;
   v8 = +[HMIPreference sharedInstance];
@@ -55,7 +55,7 @@
   if (shouldEnableTorsoRecognition)
   {
     torsoAnnotations = [updateCopy torsoAnnotations];
-    v11 = [torsoAnnotations na_filter:&__block_literal_global_40];
+    v11 = [torsoAnnotations na_filter:?];
 
     torsoAnnotations2 = [updateCopy torsoAnnotations];
     v13 = [torsoAnnotations2 count];
@@ -77,11 +77,11 @@
       v20 = v19 - [v11 count];
       torsoAnnotations4 = [updateCopy torsoAnnotations];
       *buf = 138543874;
-      v40 = v18;
-      v41 = 2048;
-      v42 = v20;
-      v43 = 2048;
-      v44 = [torsoAnnotations4 count];
+      v37 = v18;
+      v38 = 2048;
+      v39 = v20;
+      v40 = 2048;
+      v41 = [torsoAnnotations4 count];
       _os_log_impl(&dword_22D12F000, v17, OS_LOG_TYPE_INFO, "%{public}@Dropped %lu incompatible torsoprint annotations out of %lu total", buf, 0x20u);
     }
 
@@ -90,36 +90,25 @@
     {
 LABEL_10:
       v26 = +[HMITaskService taskServiceClient];
-      v38[0] = HMITaskTypeUpdateTorsoModelTask;
-      v37[0] = @"taskType";
-      v37[1] = @"homeUUID";
       homeUUID = [(HMIAnalysisStateManager *)self homeUUID];
-      v37[2] = @"torsoAnnotations";
-      v38[1] = homeUUID;
-      v38[2] = v11;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __69__HMIAnalysisStateManager_handleRemoteStateUpdate_completionHandler___block_invoke_44;
-      v35[3] = &unk_2787545F0;
-      v35[4] = self;
-      v36 = handlerCopy;
-      v29 = [v26 submitTaskWithOptions:v28 progressHandler:0 completionHandler:v35];
-      v30 = objc_autoreleasePoolPush();
+      v34 = handlerCopy;
+      v28 = [v26 submitTaskWithOptions:? progressHandler:? completionHandler:?];
+      v29 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v31 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v33 = HMFGetLogIdentifier();
+        v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v40 = v33;
-        v41 = 1024;
-        LODWORD(v42) = v29;
-        _os_log_impl(&dword_22D12F000, v32, OS_LOG_TYPE_INFO, "%{public}@Submitted torso model update task, taskID:%u", buf, 0x12u);
+        v37 = v32;
+        v38 = 1024;
+        LODWORD(v39) = v28;
+        _os_log_impl(&dword_22D12F000, v31, OS_LOG_TYPE_INFO, "%{public}@Submitted torso model update task, taskID:%u", buf, 0x12u);
       }
 
-      objc_autoreleasePoolPop(v30);
+      objc_autoreleasePoolPop(v29);
     }
 
     else
@@ -137,7 +126,7 @@ LABEL_10:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v25;
+      v37 = v25;
       _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_INFO, "%{public}@Dropping remote analysis torso update since torso rec is not enabled on this device", buf, 0xCu);
     }
 
@@ -145,11 +134,11 @@ LABEL_10:
   }
 }
 
-uint64_t __69__HMIAnalysisStateManager_handleRemoteStateUpdate_completionHandler___block_invoke(uint64_t a1, void *a2)
+void *__69__HMIAnalysisStateManager_handleRemoteStateUpdate_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 torsoModelVersion];
   v3 = +[HMITorsoprinter currentModelUUID];
-  v4 = [v2 hmf_isEqualToUUID:v3];
+  v4 = [v2 hmf_isEqualToUUID:?];
 
   return v4;
 }
@@ -159,9 +148,9 @@ void __69__HMIAnalysisStateManager_handleRemoteStateUpdate_completionHandler___b
   v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = [v5 objectForKeyedSubscript:@"resultCode"];
+  v7 = [v5 objectForKeyedSubscript:?];
   v8 = HMITaskResultCodeAsString(0);
-  v9 = [v7 isEqualToString:v8];
+  v9 = [v7 isEqualToString:?];
 
   v10 = objc_autoreleasePoolPush();
   v11 = *(a1 + 32);
@@ -204,12 +193,12 @@ LABEL_6:
 - (id)stateUpdateFromFaceEvents:(id)events
 {
   v3 = MEMORY[0x277CBEB98];
-  v4 = [events na_map:&__block_literal_global_48];
-  v5 = [v3 setWithArray:v4];
+  v4 = [events na_map:?];
+  v5 = [v3 setWithArray:?];
 
   if (v5 && ([v5 hmf_isEmpty] & 1) == 0)
   {
-    v6 = [[HMIAnalysisStateUpdate alloc] initWithTorsoAnnotations:v5];
+    v6 = [[HMIAnalysisStateUpdate alloc] initWithTorsoAnnotations:?];
   }
 
   else

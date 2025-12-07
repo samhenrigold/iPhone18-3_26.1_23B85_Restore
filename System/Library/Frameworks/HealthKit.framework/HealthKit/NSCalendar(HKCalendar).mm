@@ -123,9 +123,9 @@
 - (id)hk_startOfFitnessWeekBeforeDate:()HKCalendar
 {
   v4 = a3;
-  v5 = [self hk_startOfWeekWithFirstWeekday:HKFirstDayOfWeekForWeeklyGoalCalculations() beforeDate:v4 addingWeeks:0];
+  v6 = [self hk_startOfWeekWithFirstWeekday:HKFirstDayOfWeekForWeeklyGoalCalculations(v4 beforeDate:v5) addingWeeks:{v4, 0}];
 
-  return v5;
+  return v6;
 }
 
 - (id)hk_startOfWeekWithFirstWeekday:()HKCalendar beforeDate:addingWeeks:
@@ -259,7 +259,7 @@
 
 - (id)hk_startOfMonthForDate:()HKCalendar addingMonths:
 {
-  v6 = [self hk_startOfMonthForDate:?];
+  v6 = [self hk_startOfMonthForDate:a3];
   if (a4)
   {
     v7 = objc_alloc_init(MEMORY[0x1E695DF10]);
@@ -292,51 +292,45 @@
 
 - (id)hk_nearestStartOfDayForDate:()HKCalendar
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self startOfDayForDate:v4];
-  v11[0] = v5;
+  v10[0] = v5;
   v6 = [self hk_startOfDateByAddingDays:1 toDate:v4];
-  v11[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v8 = [v4 hk_nearestDate:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)hk_nearestStartOfWeekWithFirstWeekDay:()HKCalendar date:
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = [self hk_startOfWeekWithFirstWeekday:a3 beforeDate:v6 addingWeeks:0];
   v8 = [self hk_startOfDateByAddingDays:7 toDate:v7];
-  v13[0] = v7;
-  v13[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = v7;
+  v12[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v10 = [v6 hk_nearestDate:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)hk_nearestStartOfMonthForDate:()HKCalendar
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self hk_startOfMonthForDate:v4];
   v6 = objc_alloc_init(MEMORY[0x1E695DF10]);
   [v6 setCalendar:self];
   [v6 setMonth:1];
   v7 = [self dateByAddingComponents:v6 toDate:v5 options:0];
-  v12[0] = v5;
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = v5;
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v9 = [v4 hk_nearestDate:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -43,16 +43,17 @@
   v5 = [(NWConnectionManager *)self init];
   if (v5)
   {
-    if (sub_1000423E0())
+    v6 = sub_1000423E0();
+    if (v6)
     {
-      v6 = sub_100042E68();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100042E68(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315394;
-        v13 = "[NWConnectionManager initWithNWConnection:]";
-        v14 = 1024;
-        v15 = 60;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%s:%d] init with initWithNWConnection", &v12, 0x12u);
+        v13 = 136315394;
+        v14 = "[NWConnectionManager initWithNWConnection:]";
+        v15 = 1024;
+        v16 = 60;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] init with initWithNWConnection", &v13, 0x12u);
       }
     }
 
@@ -79,22 +80,23 @@
   connection = [(NWConnectionManager *)self connection];
   connectionState = [connection connectionState];
 
-  if (sub_1000423E0())
+  v7 = sub_1000423E0();
+  if (v7)
   {
-    v7 = sub_100042E68();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100042E68(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       connection2 = [(NWConnectionManager *)self connection];
       stateString = [(NWConnectionManager *)self stateString];
       *buf = 136315906;
-      v20 = "[NWConnectionManager waitForConnection:]";
-      v21 = 1024;
-      v22 = 91;
-      v23 = 2048;
-      v24 = connection2;
-      v25 = 2080;
+      v23 = "[NWConnectionManager waitForConnection:]";
+      v24 = 1024;
+      v25 = 91;
+      v26 = 2048;
+      v27 = connection2;
+      v28 = 2080;
       uTF8String = [stateString UTF8String];
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] connection state for %p is %s", buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%s:%d] connection state for %p is %s", buf, 0x26u);
     }
   }
 
@@ -104,16 +106,17 @@
 
   if (connectionState != 3)
   {
-    if (sub_1000423E0())
+    v13 = sub_1000423E0();
+    if (v13)
     {
-      v12 = sub_100042E68();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100042E68(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v20 = "[NWConnectionManager waitForConnection:]";
-        v21 = 1024;
-        v22 = 94;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%s:%d] going to wait for connection to be ready", buf, 0x12u);
+        v23 = "[NWConnectionManager waitForConnection:]";
+        v24 = 1024;
+        v25 = 94;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%s:%d] going to wait for connection to be ready", buf, 0x12u);
       }
     }
 
@@ -121,29 +124,30 @@
     networkConnectionReadySemaphore = self->networkConnectionReadySemaphore;
     if (connection)
     {
-      v14 = dispatch_time(0, 1000000 * connection);
+      v16 = dispatch_time(0, 1000000 * connection);
     }
 
     else
     {
-      v14 = -1;
+      v16 = -1;
     }
 
-    dispatch_semaphore_wait(networkConnectionReadySemaphore, v14);
-    if (sub_1000423E0())
+    dispatch_semaphore_wait(networkConnectionReadySemaphore, v16);
+    v17 = sub_1000423E0();
+    if (v17)
     {
-      v15 = sub_100042E68();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100042E68(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         stateString3 = [(NWConnectionManager *)self stateString];
         uTF8String2 = [stateString3 UTF8String];
         *buf = 136315650;
-        v20 = "[NWConnectionManager waitForConnection:]";
-        v21 = 1024;
-        v22 = 96;
-        v23 = 2080;
-        v24 = uTF8String2;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[%s:%d] done waiting connection state is %s", buf, 0x1Cu);
+        v23 = "[NWConnectionManager waitForConnection:]";
+        v24 = 1024;
+        v25 = 96;
+        v26 = 2080;
+        v27 = uTF8String2;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[%s:%d] done waiting connection state is %s", buf, 0x1Cu);
       }
     }
 
@@ -203,19 +207,20 @@
 
   if (connection != objectCopy)
   {
-    if (sub_1000423E0())
+    v11 = sub_1000423E0();
+    if (v11)
     {
-      v11 = sub_100042E68();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100042E68(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [objectCopy description];
+        v13 = [objectCopy description];
         *buf = 136315650;
-        v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
-        v45 = 1024;
-        v46 = 151;
-        v47 = 2080;
-        uTF8String = [v12 UTF8String];
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[%s:%d] Connection %s not recognized", buf, 0x1Cu);
+        v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+        v53 = 1024;
+        v54 = 151;
+        v55 = 2080;
+        uTF8String = [v13 UTF8String];
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%s:%d] Connection %s not recognized", buf, 0x1Cu);
       }
     }
 
@@ -228,25 +233,26 @@ LABEL_7:
 
   if ([pathCopy isEqualToString:@"connectionState"])
   {
-    if (sub_1000423E0())
+    v15 = sub_1000423E0();
+    if (v15)
     {
-      v14 = sub_100042E68();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100042E68(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         stateString = [(NWConnectionManager *)self stateString];
         uTF8String2 = [stateString UTF8String];
         connection2 = [(NWConnectionManager *)self connection];
         *buf = 136316162;
-        v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
-        v45 = 1024;
-        v46 = 157;
-        v47 = 2048;
+        v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+        v53 = 1024;
+        v54 = 157;
+        v55 = 2048;
         uTF8String = objectCopy;
-        v49 = 2080;
-        v50 = uTF8String2;
-        v51 = 2048;
+        v57 = 2080;
+        v58 = uTF8String2;
+        v59 = 2048;
         connectionState = [connection2 connectionState];
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%s:%d] NWConnection State for %p: %s %ld", buf, 0x30u);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[%s:%d] NWConnection State for %p: %s %ld", buf, 0x30u);
       }
     }
 
@@ -257,60 +263,63 @@ LABEL_7:
 
     if ([objectCopy connectionState] == 3)
     {
-      if (sub_1000423E0())
+      v23 = sub_1000423E0();
+      if (v23)
       {
-        v21 = sub_100042E68();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_100042E68(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           connectedLocalEndpoint = [objectCopy connectedLocalEndpoint];
-          v23 = [connectedLocalEndpoint description];
-          uTF8String4 = [v23 UTF8String];
+          v26 = [connectedLocalEndpoint description];
+          uTF8String4 = [v26 UTF8String];
           *buf = 136315650;
-          v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
-          v45 = 1024;
-          v46 = 161;
-          v47 = 2080;
+          v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+          v53 = 1024;
+          v54 = 161;
+          v55 = 2080;
           uTF8String = uTF8String4;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[%s:%d] Local Endpoint: %s", buf, 0x1Cu);
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[%s:%d] Local Endpoint: %s", buf, 0x1Cu);
         }
       }
 
       connectedLocalEndpoint2 = [objectCopy connectedLocalEndpoint];
-      v26 = [connectedLocalEndpoint2 description];
-      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 161, "-[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]", 7, 0, "Local Endpoint: %s", [v26 UTF8String]);
+      v29 = [connectedLocalEndpoint2 description];
+      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 161, "-[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]", 7, 0, "Local Endpoint: %s", [v29 UTF8String]);
 
-      if (sub_1000423E0())
+      v30 = sub_1000423E0();
+      if (v30)
       {
-        v27 = sub_100042E68();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v31 = sub_100042E68(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           connectedRemoteEndpoint = [objectCopy connectedRemoteEndpoint];
-          v29 = [connectedRemoteEndpoint description];
-          uTF8String5 = [v29 UTF8String];
+          v33 = [connectedRemoteEndpoint description];
+          uTF8String5 = [v33 UTF8String];
           *buf = 136315650;
-          v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
-          v45 = 1024;
-          v46 = 162;
-          v47 = 2080;
+          v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+          v53 = 1024;
+          v54 = 162;
+          v55 = 2080;
           uTF8String = uTF8String5;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[%s:%d] Remote Endpoint: %s", buf, 0x1Cu);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "[%s:%d] Remote Endpoint: %s", buf, 0x1Cu);
         }
       }
 
       connectedRemoteEndpoint2 = [objectCopy connectedRemoteEndpoint];
-      v32 = [connectedRemoteEndpoint2 description];
-      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 162, "-[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]", 7, 0, "Remote Endpoint: %s", [v32 UTF8String]);
+      v36 = [connectedRemoteEndpoint2 description];
+      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 162, "-[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]", 7, 0, "Remote Endpoint: %s", [v36 UTF8String]);
 
-      if (sub_1000423E0())
+      v37 = sub_1000423E0();
+      if (v37)
       {
-        v33 = sub_100042E68();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v38 = sub_100042E68(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
-          v45 = 1024;
-          v46 = 163;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[%s:%d] signal semaphore", buf, 0x12u);
+          v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+          v53 = 1024;
+          v54 = 163;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[%s:%d] signal semaphore", buf, 0x12u);
         }
       }
 
@@ -321,25 +330,26 @@ LABEL_7:
 
   else if ([pathCopy isEqualToString:@"hasBetterPath"])
   {
-    if (sub_1000423E0())
+    v39 = sub_1000423E0();
+    if (v39)
     {
-      v34 = sub_100042E68();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v40 = sub_100042E68(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         hasBetterPath = [objectCopy hasBetterPath];
-        v36 = "No";
-        v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+        v42 = "No";
+        v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
         *buf = 136315650;
         if (hasBetterPath)
         {
-          v36 = "Yes";
+          v42 = "Yes";
         }
 
-        v45 = 1024;
-        v46 = 170;
-        v47 = 2080;
-        uTF8String = v36;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[%s:%d] Better Path Available: %s", buf, 0x1Cu);
+        v53 = 1024;
+        v54 = 170;
+        v55 = 2080;
+        uTF8String = v42;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[%s:%d] Better Path Available: %s", buf, 0x1Cu);
       }
     }
 
@@ -356,52 +366,54 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      if (sub_1000423E0())
+      v46 = sub_1000423E0();
+      if (v46)
       {
-        v39 = sub_100042E68();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v47 = sub_100042E68(v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
           error = [objectCopy error];
-          v41 = [error description];
+          v49 = [error description];
           *buf = 136315650;
-          v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
-          v45 = 1024;
-          v46 = 178;
-          v47 = 2080;
-          uTF8String = [v41 UTF8String];
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[%s:%d] Error: %s", buf, 0x1Cu);
+          v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+          v53 = 1024;
+          v54 = 178;
+          v55 = 2080;
+          uTF8String = [v49 UTF8String];
+          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[%s:%d] Error: %s", buf, 0x1Cu);
         }
       }
 
       error2 = [objectCopy error];
-      v42 = [error2 description];
-      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 178, "-[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]", 7, 0, "Error: %s", [v42 UTF8String]);
+      v50 = [error2 description];
+      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 178, "-[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]", 7, 0, "Error: %s", [v50 UTF8String]);
 
       goto LABEL_7;
     }
 
-    if (sub_1000423E0())
+    v43 = sub_1000423E0();
+    if (v43)
     {
-      v37 = sub_100042E68();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v44 = sub_100042E68(v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v44 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
+        v52 = "[NWConnectionManager observeValueForKeyPath:ofObject:change:context:]";
         if ([objectCopy isViable])
         {
-          v38 = "Yes";
+          v45 = "Yes";
         }
 
         else
         {
-          v38 = "No";
+          v45 = "No";
         }
 
-        v45 = 1024;
-        v46 = 174;
-        v47 = 2080;
-        uTF8String = v38;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%s:%d] Viable: %s", buf, 0x1Cu);
+        v53 = 1024;
+        v54 = 174;
+        v55 = 2080;
+        uTF8String = v45;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[%s:%d] Viable: %s", buf, 0x1Cu);
       }
     }
 
@@ -416,31 +428,32 @@ LABEL_8:
 {
   readCopy = read;
   connection = [(NWConnectionManager *)self connection];
-  v8 = _NSConcreteStackBlock;
-  v9 = 3221225472;
-  v10 = sub_10000320C;
-  v11 = &unk_100068B40;
+  v9 = _NSConcreteStackBlock;
+  v10 = 3221225472;
+  v11 = sub_10000320C;
+  v12 = &unk_100068B40;
   selfCopy = self;
-  v13 = readCopy;
+  v14 = readCopy;
   v6 = readCopy;
-  LOBYTE(readCopy) = [connection readDatagramsWithMinimumCount:1 maximumCount:1 completionHandler:&v8];
+  LOBYTE(readCopy) = [connection readDatagramsWithMinimumCount:1 maximumCount:1 completionHandler:&v9];
 
   if ((readCopy & 1) == 0)
   {
-    if (sub_1000423E0())
+    v7 = sub_1000423E0();
+    if (v7)
     {
-      v7 = sub_100042E68();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100042E68(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v15 = "[NWConnectionManager startRead:]";
-        v16 = 1024;
-        v17 = 210;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] unable to read data", buf, 0x12u);
+        v16 = "[NWConnectionManager startRead:]";
+        v17 = 1024;
+        v18 = 210;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%s:%d] unable to read data", buf, 0x12u);
       }
     }
 
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 210, "[NWConnectionManager startRead:]", 7, 0, "unable to read data", v8, v9, v10, v11, selfCopy, v13);
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/RFBCommon/NWConnectionManager.m", 98, 210, "[NWConnectionManager startRead:]", 7, 0, "unable to read data", v9, v10, v11, v12, selfCopy, v14);
   }
 }
 
@@ -454,31 +467,32 @@ LABEL_8:
   [v8 addObject:v9];
 
   connection = [(NWConnectionManager *)self connection];
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_1000036C8;
-  v17 = &unk_100068B68;
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_1000036C8;
+  v18 = &unk_100068B68;
   v11 = v8;
-  v18 = v11;
+  v19 = v11;
   selfCopy = self;
-  LOBYTE(v8) = [connection writeDatagrams:v11 completionHandler:&v14];
+  LOBYTE(v8) = [connection writeDatagrams:v11 completionHandler:&v15];
 
   dispatch_semaphore_wait(self->sendSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  v12 = [(NWConnectionManager *)self writeLock:v14];
+  v12 = [(NWConnectionManager *)self writeLock:v15];
   [v12 unlock];
 
   if ((v8 & 1) == 0)
   {
-    if (sub_1000423E0())
+    v13 = sub_1000423E0();
+    if (v13)
     {
-      v13 = sub_100042E68();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100042E68(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v21 = "[NWConnectionManager writeData:size:]";
-        v22 = 1024;
-        v23 = 245;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[%s:%d] error when writing ", buf, 0x12u);
+        v22 = "[NWConnectionManager writeData:size:]";
+        v23 = 1024;
+        v24 = 245;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%s:%d] error when writing ", buf, 0x12u);
       }
     }
 

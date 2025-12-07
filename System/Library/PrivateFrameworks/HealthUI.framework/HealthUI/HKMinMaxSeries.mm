@@ -237,7 +237,7 @@ LABEL_9:
   v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   v32[0] = MEMORY[0x1E69E9820];
   v32[1] = 3221225472;
   v32[2] = __82__HKMinMaxSeries__drawStrokeWithBlockCoordinates_pointTransform_context_axisRect___block_invoke;
@@ -345,7 +345,7 @@ void __82__HKMinMaxSeries__drawStrokeWithBlockCoordinates_pointTransform_context
   v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
   v31[2] = __79__HKMinMaxSeries__drawPointMarkersWithBlockCoordinates_pointTransform_context___block_invoke;

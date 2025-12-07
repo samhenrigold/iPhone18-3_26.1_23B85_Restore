@@ -7,17 +7,17 @@
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   optionsCopy = options;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x2020000000;
-  v32[3] = mach_absolute_time();
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x2020000000;
+  v31[3] = mach_absolute_time();
   v10 = [featuresCopy featureValueForName:self->_inputName];
   stringValue = [v10 stringValue];
 
@@ -25,63 +25,61 @@
   {
     regex = self->_regex;
     v13 = [stringValue length];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __53__PPRegexModel_predictionFromFeatures_options_error___block_invoke;
-    v27[3] = &unk_278979378;
-    v30 = &v33;
-    v31 = v32;
-    v28 = stringValue;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __53__PPRegexModel_predictionFromFeatures_options_error___block_invoke;
+    v26[3] = &unk_278979378;
+    v29 = &v32;
+    v30 = v31;
+    v27 = stringValue;
     selfCopy = self;
-    [(NSRegularExpression *)regex enumerateMatchesInString:v28 options:1 range:0 usingBlock:v13, v27];
+    [(NSRegularExpression *)regex enumerateMatchesInString:v27 options:1 range:0 usingBlock:v13, v26];
     v14 = objc_alloc(MEMORY[0x277CBFED0]);
     outputName = self->_outputName;
-    v15 = [MEMORY[0x277CCABB0] numberWithBool:*(v34 + 24)];
-    v37 = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:*(v33 + 24)];
+    v36 = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
     v17 = [PPCoreMLUtils _multiArrayForNumberArray:v16];
-    v39 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&outputName count:1];
+    v38 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&outputName count:1];
     v19 = [v14 initWithDictionary:v18 error:error];
 
-    v20 = v28;
+    v20 = v27;
   }
 
   else
   {
-    *(v34 + 24) = 1;
+    *(v33 + 24) = 1;
     v21 = objc_alloc(MEMORY[0x277CBFED0]);
-    v41 = self->_outputName;
-    v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v34 + 24)];
-    v40 = v20;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+    v40 = self->_outputName;
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v33 + 24)];
+    v39 = v20;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
     v23 = [PPCoreMLUtils _multiArrayForNumberArray:v22];
-    v42[0] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v41[0] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     v19 = [v21 initWithDictionary:v24 error:error];
   }
 
-  _Block_object_dispose(v32, 8);
-  _Block_object_dispose(&v33, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v31, 8);
+  _Block_object_dispose(&v32, 8);
 
   return v19;
 }
 
 void __53__PPRegexModel_predictionFromFeatures_options_error___block_invoke(void *a1, void *a2, char a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (v7)
   {
     v8 = pp_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = a1[4];
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "Blocked (pattern): %@", &v14, 0xCu);
+      v12 = a1[4];
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "Blocked (pattern): %@", &v13, 0xCu);
     }
 
     *(*(a1[6] + 8) + 24) = 1;
@@ -97,19 +95,17 @@ LABEL_5:
     {
       v10 = a1[4];
       v11 = *(a1[5] + 8);
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "WARNING: aborting blocking regex %@ due to long-running match against %@.", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "WARNING: aborting blocking regex %@ due to long-running match against %@.", &v13, 0x16u);
     }
 
     goto LABEL_5;
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (PPRegexModel)initWithModelDescription:(id)description parameterDictionary:(id)dictionary error:(id *)error

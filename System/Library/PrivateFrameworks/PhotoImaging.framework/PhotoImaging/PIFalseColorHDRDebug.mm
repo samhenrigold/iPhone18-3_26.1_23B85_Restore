@@ -119,7 +119,7 @@ void __30__PIFalseColorHDRDebug_kernel__block_invoke()
 
   imageByUnpremultiplyingAlpha = [(CIImage *)inputImage imageByUnpremultiplyingAlpha];
   kernel = [objc_opt_class() kernel];
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v7 = v6;
   v9 = v8;
   v11 = v10;

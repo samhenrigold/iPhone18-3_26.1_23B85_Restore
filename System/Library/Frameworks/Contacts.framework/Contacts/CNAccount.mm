@@ -116,10 +116,10 @@ uint64_t __31__CNAccount_identifierProvider__block_invoke()
         }
 
         v11 = *(*(&v15 + 1) + 8 * i);
-        sharedConnection = [getDADConnectionClass() sharedConnection];
+        sharedConnection = [(objc_class *)getDADConnectionClass() sharedConnection];
         [sharedConnection updateContentsOfAllFoldersForAccountID:v11 andDataclasses:2 isUserRequested:optionsCopy & 1];
 
-        sharedConnection2 = [getDADConnectionClass() sharedConnection];
+        sharedConnection2 = [(objc_class *)getDADConnectionClass() sharedConnection];
         [sharedConnection2 updateFolderListForAccountID:v11 andDataclasses:2 isUserRequested:optionsCopy & 1];
       }
 

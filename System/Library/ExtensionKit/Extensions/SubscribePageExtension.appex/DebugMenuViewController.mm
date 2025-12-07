@@ -75,7 +75,7 @@
   sub_100741744();
   viewCopy = view;
   selfCopy = self;
-  sub_10073EC08();
+  sub_10073EC08(v9);
   LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);

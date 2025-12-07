@@ -38,69 +38,69 @@
   [v7 timeIntervalSinceNow];
   v9 = v8;
 
-  [(FMDXPCJanitor *)self gracePeriod];
-  v11 = v10;
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  gracePeriod = [(FMDXPCJanitor *)self gracePeriod];
+  v12 = v11;
+  v13 = sub_100002880(gracePeriod);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134217984;
-    v19 = v9;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDXPCJanitor: Scheduling cleanup XPC activity in %lld", &v18, 0xCu);
+    v19 = 134217984;
+    v20 = v9;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDXPCJanitor: Scheduling cleanup XPC activity in %lld", &v19, 0xCu);
   }
 
-  v13 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v13, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
-  xpc_dictionary_set_BOOL(v13, XPC_ACTIVITY_REPEATING, 0);
-  xpc_dictionary_set_BOOL(v13, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_BOOL(v13, XPC_ACTIVITY_POWER_NAP, 1);
-  xpc_dictionary_set_int64(v13, XPC_ACTIVITY_DELAY, v9);
-  xpc_dictionary_set_int64(v13, XPC_ACTIVITY_GRACE_PERIOD, v11);
+  v14 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v14, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
+  xpc_dictionary_set_BOOL(v14, XPC_ACTIVITY_REPEATING, 0);
+  xpc_dictionary_set_BOOL(v14, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+  xpc_dictionary_set_BOOL(v14, XPC_ACTIVITY_POWER_NAP, 1);
+  xpc_dictionary_set_int64(v14, XPC_ACTIVITY_DELAY, v9);
+  xpc_dictionary_set_int64(v14, XPC_ACTIVITY_GRACE_PERIOD, v12);
   name = [(FMDXPCJanitor *)self name];
-  v15 = [name cStringUsingEncoding:4];
+  v16 = [name cStringUsingEncoding:4];
 
   if (class)
   {
-    v16 = &XPC_ACTIVITY_REQUIRES_CLASS_A;
+    v17 = &XPC_ACTIVITY_REQUIRES_CLASS_A;
     if (class != 1)
     {
-      v16 = &XPC_ACTIVITY_REQUIRES_CLASS_C;
+      v17 = &XPC_ACTIVITY_REQUIRES_CLASS_C;
     }
 
-    xpc_dictionary_set_BOOL(v13, *v16, 1);
+    xpc_dictionary_set_BOOL(v14, *v17, 1);
   }
 
   activityHandler = [(FMDXPCJanitor *)self activityHandler];
-  xpc_activity_register(v15, v13, activityHandler);
+  xpc_activity_register(v16, v14, activityHandler);
 }
 
 - (void)deactivate
 {
   name = [(FMDXPCJanitor *)self name];
 
-  v4 = sub_100002880();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = sub_100002880(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (name)
   {
-    if (v5)
+    if (v6)
     {
       name2 = [(FMDXPCJanitor *)self name];
-      v9 = 138412290;
-      v10 = name2;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDXPCJanitor Unregistering XPC activity %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = name2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDXPCJanitor Unregistering XPC activity %@", &v10, 0xCu);
     }
 
     name3 = [(FMDXPCJanitor *)self name];
-    v8 = [name3 cStringUsingEncoding:4];
+    v9 = [name3 cStringUsingEncoding:4];
 
-    xpc_activity_unregister(v8);
+    xpc_activity_unregister(v9);
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Cannot unregister unnamed XPC activity", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Cannot unregister unnamed XPC activity", &v10, 2u);
     }
   }
 }
@@ -138,11 +138,11 @@
 
   else
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDXPCJanitor initialized without cleanupTask. No work to do.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDXPCJanitor initialized without cleanupTask. No work to do.", buf, 2u);
     }
   }
 }

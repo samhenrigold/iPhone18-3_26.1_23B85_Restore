@@ -74,7 +74,7 @@
 
 - (void)setInputElementMatching:(id)matching
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -82,7 +82,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [(HIDManager *)&v8 setInputElementMatching:v9];
+      [(HIDManager *)&v7 setInputElementMatching:v8];
     }
   }
 
@@ -120,8 +120,6 @@
       IOHIDManagerSetInputValueMatchingMultiple(self->_manager, v5);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInputElementHandler:(id)handler
@@ -143,7 +141,7 @@
 
 - (void)setDeviceMatching:(id)matching
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -151,7 +149,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [(HIDManager *)&v8 setInputElementMatching:v9];
+      [(HIDManager *)&v7 setInputElementMatching:v8];
     }
   }
 
@@ -189,8 +187,6 @@
       IOHIDManagerSetDeviceMatchingMultiple(self->_manager, v5);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceNotificationHandler:(id)handler
@@ -274,9 +270,17 @@ void __22__HIDManager_activate__block_invoke(uint64_t a1)
 - (void)setInputElementMatching:(void *)a1 .cold.1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_1(a1, a2);
-  os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *v2;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_22DF7D000);
   _os_crash_msg();
   __break(1u);
 }

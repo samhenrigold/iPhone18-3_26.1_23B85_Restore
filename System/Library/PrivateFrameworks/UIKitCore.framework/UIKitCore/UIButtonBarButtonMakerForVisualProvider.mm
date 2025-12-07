@@ -26,10 +26,10 @@ LABEL_6:
   }
 
   v12 = [v10 visualProvider];
-  v13 = [v12 isEqual:*(a1 + 32)];
+  isEqual = objc_msgSend_isEqual_(v12);
 
   v14 = v11;
-  if ((v13 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_6;
   }

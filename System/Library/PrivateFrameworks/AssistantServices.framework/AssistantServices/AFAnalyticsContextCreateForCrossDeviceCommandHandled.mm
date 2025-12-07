@@ -5,7 +5,7 @@
 
 __CFString *__AFAnalyticsContextCreateForCrossDeviceCommandHandled_block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if ([v2 hasPrefix:@"iPhone"] & 1) != 0 || (objc_msgSend(v2, "hasPrefix:", @"iPad") & 1) != 0 || (objc_msgSend(v2, "hasPrefix:", @"iPod") & 1) != 0 || (objc_msgSend(v2, "hasPrefix:", @"Watch"))
   {
@@ -20,14 +20,14 @@ __CFString *__AFAnalyticsContextCreateForCrossDeviceCommandHandled_block_invoke(
       v3 = @"AudioAccessory";
       if (([v2 hasPrefix:@"AudioAccessory"] & 1) == 0)
       {
-        v6 = AFSiriLogContextService;
+        v5 = AFSiriLogContextService;
         if (os_log_type_enabled(AFSiriLogContextService, OS_LOG_TYPE_ERROR))
         {
-          v7 = 136315394;
-          v8 = "AFAnalyticsContextCreateForCrossDeviceCommandHandled_block_invoke";
-          v9 = 2112;
-          v10 = v2;
-          _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s Unexpected product type for CrossDeviceCommandHandled metric: %@", &v7, 0x16u);
+          v6 = 136315394;
+          v7 = "AFAnalyticsContextCreateForCrossDeviceCommandHandled_block_invoke";
+          v8 = 2112;
+          v9 = v2;
+          _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s Unexpected product type for CrossDeviceCommandHandled metric: %@", &v6, 0x16u);
         }
 
         v3 = @"Unknown";
@@ -35,7 +35,6 @@ __CFString *__AFAnalyticsContextCreateForCrossDeviceCommandHandled_block_invoke(
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

@@ -29,29 +29,29 @@
 
 - (BOOL)isLandscape
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   windows = [mEMORY[0x277D75128] windows];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = windows;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v14 != v6)
+      if (*v13 != v6)
       {
         objc_enumerationMutation(v4);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v7);
+      v8 = *(*(&v12 + 1) + 8 * v7);
       if ([v8 isKeyWindow])
       {
         break;
@@ -59,7 +59,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -89,7 +89,6 @@ LABEL_9:
 LABEL_12:
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

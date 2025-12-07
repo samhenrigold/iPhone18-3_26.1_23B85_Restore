@@ -147,12 +147,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v17 = toCopy;
+  v11 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    joinSuccessRate = self->_joinSuccessRate;
     PBDataWriterWriteFloatField();
-    toCopy = v17;
+    toCopy = v11;
     if ((*&self->_has & 1) == 0)
     {
 LABEL_3:
@@ -171,9 +170,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  joinAttempts = self->_joinAttempts;
   PBDataWriterWriteUint32Field();
-  toCopy = v17;
+  toCopy = v11;
   p_attachLatencyHistograms = &self->_attachLatencyHistograms;
   if (!self->_attachLatencyHistograms.count)
   {
@@ -181,58 +179,54 @@ LABEL_3:
   }
 
 LABEL_7:
-  v8 = 0;
+  v6 = 0;
   do
   {
-    v9 = p_attachLatencyHistograms->list[v8];
     PBDataWriterWriteUint32Field();
-    toCopy = v17;
-    ++v8;
+    toCopy = v11;
+    ++v6;
   }
 
-  while (v8 < p_attachLatencyHistograms->count);
+  while (v6 < p_attachLatencyHistograms->count);
 LABEL_9:
   if (self->_joinerLatencyHistograms.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_joinerLatencyHistograms.list[v10];
       PBDataWriterWriteUint32Field();
-      toCopy = v17;
-      ++v10;
+      toCopy = v11;
+      ++v7;
     }
 
-    while (v10 < self->_joinerLatencyHistograms.count);
+    while (v7 < self->_joinerLatencyHistograms.count);
   }
 
   if (self->_attachFailLatencyHistograms.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_attachFailLatencyHistograms.list[v12];
       PBDataWriterWriteUint32Field();
-      toCopy = v17;
-      ++v12;
+      toCopy = v11;
+      ++v8;
     }
 
-    while (v12 < self->_attachFailLatencyHistograms.count);
+    while (v8 < self->_attachFailLatencyHistograms.count);
   }
 
   p_joinerFailLatencyHistograms = &self->_joinerFailLatencyHistograms;
   if (p_joinerFailLatencyHistograms->count)
   {
-    v15 = 0;
+    v10 = 0;
     do
     {
-      v16 = p_joinerFailLatencyHistograms->list[v15];
       PBDataWriterWriteUint32Field();
-      toCopy = v17;
-      ++v15;
+      toCopy = v11;
+      ++v10;
     }
 
-    while (v15 < p_joinerFailLatencyHistograms->count);
+    while (v10 < p_joinerFailLatencyHistograms->count);
   }
 }
 
@@ -361,7 +355,6 @@ LABEL_10:
     goto LABEL_16;
   }
 
-  v5 = *(equalCopy + 112);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 112) & 2) == 0 || self->_joinSuccessRate != *(equalCopy + 27))

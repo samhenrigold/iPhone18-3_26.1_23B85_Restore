@@ -1267,7 +1267,7 @@ LABEL_47:
 
 - (double)mainDuration
 {
-  [(MPLayer *)self duration];
+  objc_msgSend_duration(self, a2);
   v4 = v3;
   [(MPLayer *)self phaseInDuration];
   v6 = v4 - v5;

@@ -53,7 +53,7 @@
   *(self + OBJC_IVAR___BKLibraryBookUpdateCountOperation_result) = 0;
   *(self + OBJC_IVAR___BKLibraryBookUpdateCountOperation_libraryAssetProvider) = provider;
   (*(v7 + 16))(self + OBJC_IVAR___BKLibraryBookUpdateCountOperation_updatesURL, v9, v6);
-  updated = type metadata accessor for LibraryBookUpdateCountOperation();
+  updated = type metadata accessor for LibraryBookUpdateCountOperation(0);
   v13.receiver = self;
   v13.super_class = updated;
   swift_unknownObjectRetain();

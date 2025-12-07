@@ -5,6 +5,7 @@
 + (void)initialize;
 - (NSDictionary)providedVideoRequirementsByAttachedMediaKey;
 - (NSString)description;
+- (id)_configureInferenceCachingPolicyForEligibleAdapters:(id *)result;
 - (id)_initWithScheduler:(uint64_t)scheduler priority:(uint64_t)priority shareIntermediateBuffer:(void *)buffer processingConfiguration:(void *)configuration name:;
 - (id)espressoContextForExecutionTarget:(int)target;
 - (id)metalCommandBuffer;
@@ -19,7 +20,6 @@
 - (int)prewarmInferencesUsingLimitedMemory:(BOOL)memory;
 - (int)reconfigure;
 - (uint64_t)_addInferenceOfType:(uint64_t)type version:(void *)version configuration:(uint64_t)configuration engineConfiguration:;
-- (uint64_t)_configureInferenceCachingPolicyForEligibleAdapters:(uint64_t)result;
 - (uint64_t)_fetchCachedProvidersFromInferenceAdapters;
 - (void)_addInferenceRequirementForProvider:configuration:engineConfiguration:;
 - (void)_prepareDependenciesByRequirementIfNecessary;
@@ -63,29 +63,29 @@
       dependencyProvider = [v1 dependencyProvider];
       if (![dependencyProvider providedVideoRequirementsByAttachedMediaKey] && !objc_msgSend(objc_msgSend(v1, "unresolvedAttachedMediaKeysPreventingProvidedVideoRequirements"), "count"))
       {
-        [dependencyProvider setSupportedPixelBufferCompressionType:+[BWInferenceEngine allowedPixelBufferCompressionType]()];
+        [dependencyProvider setSupportedPixelBufferCompressionType:+[BWInferenceEngine allowedPixelBufferCompressionType](BWInferenceEngine)];
         [BWInferenceEngine _prepareDependenciesByRequirementIfNecessary];
         v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v23 = 0u;
-        v24 = 0u;
-        v25 = 0u;
-        v26 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         videoRequirementsPossiblyProvidingAttachedMedia = [v1 videoRequirementsPossiblyProvidingAttachedMedia];
-        v5 = [videoRequirementsPossiblyProvidingAttachedMedia countByEnumeratingWithState:&v23 objects:v22 count:16];
+        v5 = [videoRequirementsPossiblyProvidingAttachedMedia countByEnumeratingWithState:&v31 objects:v30 count:16];
         if (v5)
         {
           v6 = v5;
-          v7 = *v24;
+          v7 = *v32;
           do
           {
             for (i = 0; i != v6; ++i)
             {
-              if (*v24 != v7)
+              if (*v32 != v7)
               {
                 objc_enumerationMutation(videoRequirementsPossiblyProvidingAttachedMedia);
               }
 
-              v9 = *(*(&v23 + 1) + 8 * i);
+              v9 = *(*(&v31 + 1) + 8 * i);
               v10 = [objc_msgSend(dependencyProvider "dependenciesByInputVideoRequirements")];
               if ([objc_msgSend(objc_msgSend(dependencyProvider "dependenciesByOutputVideoRequirements")] && !objc_msgSend(v10, "count"))
               {
@@ -93,7 +93,7 @@
               }
             }
 
-            v6 = [videoRequirementsPossiblyProvidingAttachedMedia countByEnumeratingWithState:&v23 objects:v22 count:16];
+            v6 = [videoRequirementsPossiblyProvidingAttachedMedia countByEnumeratingWithState:&v31 objects:v30 count:16];
           }
 
           while (v6);
@@ -145,7 +145,7 @@
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v22, v23, v24, v25, v26, v27, v28, v29);
     }
   }
 }
@@ -153,43 +153,43 @@
 - (void)_prepareDependenciesByRequirementIfNecessary
 {
   OUTLINED_FUNCTION_84();
-  v76 = v0;
+  v82 = v0;
   if (v0)
   {
     v1 = *(v0 + 56);
-    if (v1 || (v1 = *(v76 + 48)) != 0)
+    if (v1 || (v1 = *(v82 + 48)) != 0)
     {
-      v72 = v1;
+      v78 = v1;
       dependencyProvider = [v1 dependencyProvider];
       if (![objc_msgSend(dependencyProvider "dependenciesByInputVideoRequirements")] && !objc_msgSend(objc_msgSend(dependencyProvider, "dependenciesByOutputVideoRequirements"), "count"))
       {
-        HIDWORD(v74) = [dependencyProvider supportedPixelBufferCompressionType];
+        HIDWORD(v80) = [dependencyProvider supportedPixelBufferCompressionType];
         objc_opt_self();
-        memset(v122, 0, 64);
-        LODWORD(v74) = FigCapturePlatformSupportsUniversalLossyCompression() != 0;
-        obj = [v72 inferenceRequirements];
-        v66 = [obj countByEnumeratingWithState:v122 objects:v121 count:16];
-        if (v66)
+        memset(v128, 0, 64);
+        LODWORD(v80) = FigCapturePlatformSupportsUniversalLossyCompression() != 0;
+        obja = [v78 inferenceRequirements];
+        v69 = [obja countByEnumeratingWithState:v128 objects:v127 count:16];
+        if (v69)
         {
           OUTLINED_FUNCTION_13_1();
-          v64 = v3;
+          v66 = v3;
           do
           {
             v4 = 0;
             do
             {
               OUTLINED_FUNCTION_13_1();
-              if (v5 != v64)
+              if (v5 != v66)
               {
-                objc_enumerationMutation(obj);
+                objc_enumerationMutation(obja);
               }
 
-              v68 = v4;
-              v6 = *(v122[1] + 8 * v4);
+              v72 = v4;
+              v6 = *(v128[1] + 8 * v4);
               provider = [v6 provider];
               allowedPixelBufferCompressionDirection = [provider allowedPixelBufferCompressionDirection];
               inputVideoRequirements = [provider inputVideoRequirements];
-              v17 = OUTLINED_FUNCTION_5_74(inputVideoRequirements, v10, v11, v12, v13, v14, v15, v16, v58, v60, obj, v64, v66, v68, provider, v72, v74, v76, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, *(&v94 + 1), v95, *(&v95 + 1), v96, *(&v96 + 1), v97, *(&v97 + 1), v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, *(&v114 + 1), v115, *(&v115 + 1), v116);
+              v17 = OUTLINED_FUNCTION_5_74(inputVideoRequirements, v10, v11, v12, v13, v14, v15, v16, v58, v60, obja, v66, v69, v72, provider, v78, v80, v82, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, *(&v100 + 1), v101, *(&v101 + 1), v102, *(&v102 + 1), v103, *(&v103 + 1), v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, *(&v120 + 1), v121, *(&v121 + 1), v122);
               if (v17)
               {
                 v18 = v17;
@@ -203,14 +203,14 @@
                       objc_enumerationMutation(inputVideoRequirements);
                     }
 
-                    v21 = *(v120 + 8 * i);
+                    v21 = *(v126 + 8 * i);
                     if (allowedPixelBufferCompressionDirection)
                     {
-                      v22 = [BWInferenceCompressedVideoRequirement newRequirementWithUncompressedRequirement:*(v120 + 8 * i) supportedCompressionType:HIDWORD(v75) supportedLossyCompressionLevel:v75];
+                      v22 = [BWInferenceCompressedVideoRequirement newRequirementWithUncompressedRequirement:*(v126 + 8 * i) supportedCompressionType:HIDWORD(v81) supportedLossyCompressionLevel:v81];
                       if (v22)
                       {
                         v23 = v22;
-                        [objc_msgSend(v73 "videoRequirementsPossiblyReceivingAttachedMedia")];
+                        [objc_msgSend(v79 "videoRequirementsPossiblyReceivingAttachedMedia")];
                         v21 = v23;
                       }
                     }
@@ -225,24 +225,24 @@
                     v25 = [[BWInferenceDataDependency alloc] initWithInferenceRequirement:v6 dependentOnDataRequirement:v21];
                     [v24 addObject:v25];
 
-                    if ((*(v77 + 177) & 1) == 0)
+                    if ((*(v83 + 177) & 1) == 0)
                     {
                       v26 = [objc_msgSend(v21 "videoFormat")];
-                      *(v77 + 177) = v26;
+                      *(v83 + 177) = v26;
                     }
                   }
 
-                  v18 = OUTLINED_FUNCTION_21_10(v26, v27, v119, v118);
+                  v18 = OUTLINED_FUNCTION_21_10(v26, v27, v125, v124);
                 }
 
                 while (v18);
               }
 
-              outputVideoRequirements = [v71 outputVideoRequirements];
-              v114 = 0u;
-              v115 = 0u;
-              v116 = 0u;
-              v117 = 0u;
+              outputVideoRequirements = [v76 outputVideoRequirements];
+              v120 = 0u;
+              v121 = 0u;
+              v122 = 0u;
+              v123 = 0u;
               OUTLINED_FUNCTION_122();
               v30 = [v29 countByEnumeratingWithState:? objects:? count:?];
               if (v30)
@@ -258,14 +258,14 @@
                       objc_enumerationMutation(outputVideoRequirements);
                     }
 
-                    v33 = *(*(&v114 + 1) + 8 * j);
+                    v33 = *(*(&v120 + 1) + 8 * j);
                     if ((allowedPixelBufferCompressionDirection & 2) != 0)
                     {
-                      v34 = [BWInferenceCompressedVideoRequirement newRequirementWithUncompressedRequirement:*(*(&v114 + 1) + 8 * j) supportedCompressionType:HIDWORD(v75) supportedLossyCompressionLevel:v75];
+                      v34 = [BWInferenceCompressedVideoRequirement newRequirementWithUncompressedRequirement:*(*(&v120 + 1) + 8 * j) supportedCompressionType:HIDWORD(v81) supportedLossyCompressionLevel:v81];
                       if (v34)
                       {
                         v35 = v34;
-                        [objc_msgSend(v73 "videoRequirementsPossiblyReceivingAttachedMedia")];
+                        [objc_msgSend(v79 "videoRequirementsPossiblyReceivingAttachedMedia")];
                         v33 = v35;
                       }
                     }
@@ -288,8 +288,8 @@
                 while (v31);
               }
 
-              cloneVideoRequirements = [v71 cloneVideoRequirements];
-              v50 = OUTLINED_FUNCTION_4_81(cloneVideoRequirements, v43, v44, v45, v46, v47, v48, v49, v59, v61, obja, v65, v67, v69, v71, v73, v75, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97);
+              cloneVideoRequirements = [v76 cloneVideoRequirements];
+              v50 = OUTLINED_FUNCTION_4_81(cloneVideoRequirements, v43, v44, v45, v46, v47, v48, v49, v59, v61, objb, v67, v70, v73, v76, v79, v81, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103);
               if (v50)
               {
                 v51 = v50;
@@ -303,7 +303,7 @@
                       objc_enumerationMutation(cloneVideoRequirements);
                     }
 
-                    v53 = *(*(&v94 + 1) + 8 * k);
+                    v53 = *(*(&v100 + 1) + 8 * k);
                     v54 = [objc_msgSend(dependencyProvider "dependenciesByOutputVideoRequirements")];
                     if (!v54)
                     {
@@ -315,20 +315,20 @@
                     [v54 addObject:v55];
                   }
 
-                  v51 = OUTLINED_FUNCTION_21_10(v56, v57, &v94, &v78);
+                  v51 = OUTLINED_FUNCTION_21_10(v56, v57, &v100, &v84);
                 }
 
                 while (v51);
               }
 
-              v4 = v70 + 1;
+              v4 = v74 + 1;
             }
 
-            while (v70 + 1 != v66);
-            v66 = [obj countByEnumeratingWithState:v122 objects:v121 count:16];
+            while (v74 + 1 != v69);
+            v69 = [obja countByEnumeratingWithState:v128 objects:v127 count:16];
           }
 
-          while (v66);
+          while (v69);
         }
       }
     }
@@ -336,7 +336,7 @@
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v58, v60, obj, v65, v68, v71, v75, v77);
     }
   }
 
@@ -509,14 +509,14 @@ LABEL_14:
 - (int)reconfigure
 {
   [MEMORY[0x1E696AEC0] stringWithFormat:@"Re-preparing %@", self];
-  mach_absolute_time();
+  v3 = mach_absolute_time();
   if (self->_engineConfigurationForReconfiguration)
   {
     [(BWInferenceEngine *)self _unprepare];
     [(BWInferenceEngine *)self _resurrectEngineWithCachedProviders];
-    if (v3)
+    if (v4)
     {
-      v5 = v3;
+      v6 = v4;
       [BWInferenceEngine reconfigure];
     }
 
@@ -538,11 +538,11 @@ LABEL_14:
 
   else
   {
-    [BWInferenceEngine reconfigure];
+    [(BWInferenceEngine *)v3 reconfigure];
     return -31781;
   }
 
-  return v5;
+  return v6;
 }
 
 - (int)prewarmInferencesUsingLimitedMemory:(BOOL)memory
@@ -819,12 +819,12 @@ LABEL_24:
   if (!v5 || (v8 = v7, v9 = v6, v10 = v5, (v50 = *(v5 + 56)) == 0) && (v50 = *(v5 + 48)) == 0)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v47, v48, v49, v50, v52, v53, v54, v55);
     goto LABEL_31;
   }
 
-  v11 = [v7 isEqualToString:@"PrimaryFormat"];
-  if (!v11)
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
+  if (!isEqualToString)
   {
     goto LABEL_14;
   }
@@ -835,7 +835,7 @@ LABEL_24:
   v72 = 0u;
   v73 = 0u;
   v13 = *(v10 + 24);
-  v14 = OUTLINED_FUNCTION_1_0(v11, v12, &v72, v71);
+  v14 = OUTLINED_FUNCTION_1_0(isEqualToString, v12, &v72, v71);
   if (!v14)
   {
 LABEL_13:
@@ -881,7 +881,7 @@ LABEL_16:
     {
 LABEL_22:
       v33 = [objc_msgSend(v50 "lazyOutputVideoRequirementsByAttachedMediaKey")];
-      v41 = OUTLINED_FUNCTION_3_90(v33, v34, v35, v36, v37, v38, v39, v40, v47, v48, v49, v50, v52[0], v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68[0], v68[1], v68[2], v68[3]);
+      v41 = OUTLINED_FUNCTION_3_90(v33, v34, v35, v36, v37, v38, v39, v40, v47, v48, v49, v50, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68[0], v68[1], v68[2], v68[3]);
       if (v41)
       {
         v42 = v41;
@@ -903,7 +903,7 @@ LABEL_24:
 
           if (v42 == ++v43)
           {
-            v42 = OUTLINED_FUNCTION_1_0(v44, v45, v68, v52);
+            v42 = OUTLINED_FUNCTION_1_0(v44, v45, v68, &v52);
             if (v42)
             {
               goto LABEL_24;
@@ -972,11 +972,11 @@ LABEL_31:
 {
   if (result)
   {
-    v33 = 0;
+    v41 = 0;
     if (!configuration)
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v33, v34, v35, v36, v37, v38, v39, v40);
       return -31710;
     }
 
@@ -1019,7 +1019,7 @@ LABEL_31:
         has_factory_content = os_variant_has_factory_content();
         if (has_factory_content)
         {
-          return v33;
+          return v41;
         }
 
         goto LABEL_26;
@@ -1103,7 +1103,7 @@ LABEL_32:
                 }
               }
 
-              return v33;
+              return v41;
             }
           }
         }
@@ -1117,7 +1117,7 @@ LABEL_30:
     v15 = [v13 inferenceProvidersForType:v14 version:? configuration:? resourceProvider:? status:?];
     if (!v15)
     {
-      return v33;
+      return v41;
     }
 
     [array addObjectsFromArray:v15];
@@ -1139,7 +1139,7 @@ LABEL_30:
     v6 = objc_alloc_init(BWInferenceEngineConfiguration);
     self->_engineConfigurationForReconfiguration = v6;
     inferences = self->_inferences;
-    v15 = OUTLINED_FUNCTION_0_0(v6, v8, v9, v10, v11, v12, v13, v14, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, 0);
+    v15 = OUTLINED_FUNCTION_0_0(v6, v8, v9, v10, v11, v12, v13, v14, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
     if (v15)
     {
       v16 = v15;
@@ -1165,7 +1165,7 @@ LABEL_4:
 
         if (v16 == ++v18)
         {
-          v15 = OUTLINED_FUNCTION_0_0(v15, v21, v22, v23, v24, v25, v26, v27, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v61);
+          v15 = OUTLINED_FUNCTION_0_0(v15, v21, v22, v23, v24, v25, v26, v27, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
           v16 = v15;
           if (v15)
           {
@@ -1445,14 +1445,14 @@ LABEL_17:
       [objc_msgSend(v5 "inferenceRequirements")];
 
       allowedPixelBufferCompressionDirection = [v6 allowedPixelBufferCompressionDirection];
-      v38 = v6;
+      v39 = v6;
       [v6 inputVideoRequirements];
       v9 = OUTLINED_FUNCTION_10_48();
-      v11 = [v10 countByEnumeratingWithState:v60 objects:v59 count:{16, v9}];
+      v11 = [v10 countByEnumeratingWithState:v61 objects:v60 count:{16, v9}];
       if (v11)
       {
         v12 = v11;
-        v13 = *v60[2];
+        v13 = *v61[2];
         do
         {
           for (i = 0; i != v12; ++i)
@@ -1463,7 +1463,7 @@ LABEL_17:
               objc_enumerationMutation(v0);
             }
 
-            v16 = *(v60[1] + 8 * i);
+            v16 = *(v61[1] + 8 * i);
             [objc_msgSend(v5 "videoRequirementsPossiblyReceivingAttachedMedia")];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -1486,29 +1486,29 @@ LABEL_17:
             }
           }
 
-          v12 = [v0 countByEnumeratingWithState:v60 objects:v59 count:16];
+          v12 = [v0 countByEnumeratingWithState:v61 objects:v60 count:16];
         }
 
         while (v12);
       }
 
-      v19 = v38;
-      outputVideoRequirements = [v38 outputVideoRequirements];
-      v28 = OUTLINED_FUNCTION_3_90(outputVideoRequirements, v21, v22, v23, v24, v25, v26, v27, v35, v36, v37, v38, v39[0], v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58);
+      v19 = v39;
+      outputVideoRequirements = [v39 outputVideoRequirements];
+      v28 = OUTLINED_FUNCTION_3_90(outputVideoRequirements, v21, v22, v23, v24, v25, v26, v27, v35, v36, v37, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59);
       if (v28)
       {
         v29 = v28;
-        v30 = *v56;
+        v30 = *v57;
         do
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v56 != v30)
+            if (*v57 != v30)
             {
               objc_enumerationMutation(outputVideoRequirements);
             }
 
-            v32 = *(*(&v55 + 1) + 8 * j);
+            v32 = *(*(&v56 + 1) + 8 * j);
             [objc_msgSend(v5 "videoRequirementsPossiblyProvidingAttachedMedia")];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -1526,7 +1526,7 @@ LABEL_17:
             }
           }
 
-          v29 = [outputVideoRequirements countByEnumeratingWithState:&v55 objects:v39 count:16];
+          v29 = [outputVideoRequirements countByEnumeratingWithState:&v56 objects:&v40 count:16];
         }
 
         while (v29);
@@ -1538,23 +1538,23 @@ LABEL_17:
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35, v36, v37, v38, v40, v41, v42, v43);
     }
   }
 
   OUTLINED_FUNCTION_81();
 }
 
-- (uint64_t)_configureInferenceCachingPolicyForEligibleAdapters:(uint64_t)result
+- (id)_configureInferenceCachingPolicyForEligibleAdapters:(id *)result
 {
   if (result)
   {
     v3 = result;
-    [*(result + 72) setShouldCacheInferenceProvider:a2];
-    [*(v3 + 80) setShouldCacheInferenceProvider:a2];
-    [*(v3 + 128) setShouldCacheInferenceProvider:a2];
-    [*(v3 + 168) setShouldCacheInferenceProvider:a2];
-    v4 = *(v3 + 160);
+    [result[9] setShouldCacheInferenceProvider:a2];
+    [v3[10] setShouldCacheInferenceProvider:a2];
+    [v3[16] setShouldCacheInferenceProvider:a2];
+    [v3[21] setShouldCacheInferenceProvider:a2];
+    v4 = v3[20];
 
     return [v4 setShouldCacheInferenceProvider:a2];
   }

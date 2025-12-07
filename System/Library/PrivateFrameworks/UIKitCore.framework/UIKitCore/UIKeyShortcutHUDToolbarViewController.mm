@@ -61,7 +61,7 @@ id __63___UIKeyShortcutHUDToolbarViewController__collectionViewLayout__block_inv
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = [WeakRetained menu];
+    v7 = objc_msgSend_menu(WeakRetained);
     v8 = [v7 children];
     v9 = [v8 count];
 

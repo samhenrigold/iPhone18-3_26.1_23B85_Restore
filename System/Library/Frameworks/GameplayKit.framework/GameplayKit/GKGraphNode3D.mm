@@ -14,7 +14,6 @@
 
 - (vector_float3)position
 {
-  v2 = *(self->_cGraphNode3D + 4);
   result.i64[1] = a2;
   result.i64[0] = self;
   return result;

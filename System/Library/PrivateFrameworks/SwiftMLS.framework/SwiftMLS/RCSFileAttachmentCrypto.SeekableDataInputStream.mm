@@ -67,7 +67,7 @@
     selfCopy2 = self;
   }
 
-  v10 = sub_26BFA55E0(v12);
+  v10 = sub_26BFA55E0(v12, key);
 
   sub_26BE2E258(v12, &qword_28045FB48, &qword_26C01FCF8);
   return v10 & 1;
@@ -77,28 +77,27 @@
 {
   keyCopy = key;
   selfCopy = self;
-  sub_26BFA57B8(v14);
+  sub_26BFA57B8(v13);
 
-  v6 = v15;
-  if (v15)
+  v6 = v14;
+  if (v14)
   {
-    v7 = __swift_project_boxed_opaque_existential_1(v14, v15);
+    v7 = __swift_project_boxed_opaque_existential_1(v13, v14);
     v8 = *(v6 - 8);
-    v9 = *(v8 + 64);
     MEMORY[0x28223BE20](v7);
-    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v11);
-    v12 = sub_26C00AF1C();
-    (*(v8 + 8))(v11, v6);
-    __swift_destroy_boxed_opaque_existential_1(v14);
+    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v10);
+    v11 = sub_26C00AF1C();
+    (*(v8 + 8))(v10, v6);
+    __swift_destroy_boxed_opaque_existential_1(v13);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (_TtCO8SwiftMLS23RCSFileAttachmentCrypto23SeekableDataInputStream)initWithData:(id)data
@@ -114,7 +113,6 @@
 - (_TtCO8SwiftMLS23RCSFileAttachmentCrypto23SeekableDataInputStream)initWithURL:(id)l
 {
   v3 = sub_26C008FDC();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
   sub_26C008FAC();
   result = _swift_stdlib_reportUnimplementedInitializer();

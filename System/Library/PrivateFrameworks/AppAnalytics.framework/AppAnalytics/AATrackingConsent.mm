@@ -62,27 +62,26 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  sub_1B69949E8();
-  v5 = *(*(v4 - 8) + 64);
+  sub_1B69949E8(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_1B6AB9680();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = *(&self->super.isa + OBJC_IVAR___AATrackingConsent_userDefaultsObservationTask);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1B6AB9680();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = *(&self->super.isa + OBJC_IVAR___AATrackingConsent_userDefaultsObservationTask);
   type metadata accessor for AnalyticsActor();
   inited = swift_initStaticObject();
-  v11 = sub_1B69F18A0();
-  v12 = swift_allocObject();
-  v12[2] = inited;
-  v12[3] = v11;
-  v12[4] = v9;
+  v10 = sub_1B69F18A0();
+  v11 = swift_allocObject();
+  v11[2] = inited;
+  v11[3] = v10;
+  v11[4] = v8;
 
   selfCopy = self;
-  sub_1B69EE268(0, 0, v7, &unk_1B6ABE558, v12);
+  sub_1B69EE268(0, 0, v6, &unk_1B6ABE558, v11);
 
-  v14.receiver = selfCopy;
-  v14.super_class = ObjectType;
-  [(AATrackingConsent *)&v14 dealloc];
+  v13.receiver = selfCopy;
+  v13.super_class = ObjectType;
+  [(AATrackingConsent *)&v13 dealloc];
 }
 
 - (void)push

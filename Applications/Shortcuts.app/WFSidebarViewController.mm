@@ -49,13 +49,13 @@
 - (void)startEditing
 {
   selfCopy = self;
-  sub_1000A3404(1);
+  sub_1000A3404(1, sub_1000A5024);
 }
 
 - (void)endEditing
 {
   selfCopy = self;
-  sub_1000A3404(0);
+  sub_1000A3404(0, sub_1000A4F84);
 }
 
 - (void)addFolder
@@ -84,7 +84,7 @@
 
 - (void)databaseDidChange:(id)change modified:(id)modified inserted:(id)inserted removed:(id)removed
 {
-  sub_100002FC4(0, &qword_1001002D8);
+  sub_100002FC4(0, &qword_1001002D8, WFDatabaseObjectDescriptor_ptr);
   sub_1000A4FA8();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();

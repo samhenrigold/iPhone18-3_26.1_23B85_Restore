@@ -19,9 +19,9 @@
 
 - (id)heuristicResultWithEnvironment:(id)environment
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v3 = __atxlog_handle_context_heuristic();
+  v3 = __atxlog_handle_context_heuristic(environmentCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -34,260 +34,266 @@
   heuristicDevice = [environmentCopy heuristicDevice];
   v8 = [(ATXCalendarEventsDataSource *)v6 initWithDevice:heuristicDevice];
 
-  v65 = v8;
+  v66 = v8;
   v9 = [(ATXCalendarEventsDataSource *)v8 eventsFromStartDate:date endDate:v5 reason:@"upcoming event heuristic"];
   v10 = MEMORY[0x277CCAC30];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __60__ATXHeuristicUpcomingEvent_heuristicResultWithEnvironment___block_invoke;
-  v83[3] = &unk_278C3D340;
-  v63 = date;
-  v84 = v63;
-  v66 = v5;
-  v85 = v66;
-  v11 = [v10 predicateWithBlock:v83];
-  v64 = v9;
+  v84[0] = MEMORY[0x277D85DD0];
+  v84[1] = 3221225472;
+  v84[2] = __60__ATXHeuristicUpcomingEvent_heuristicResultWithEnvironment___block_invoke;
+  v84[3] = &unk_278C3D340;
+  v64 = date;
+  v85 = v64;
+  v67 = v5;
+  v86 = v67;
+  v11 = [v10 predicateWithBlock:v84];
+  v65 = v9;
   v12 = [v9 filteredArrayUsingPredicate:v11];
 
-  v62 = v12;
+  v63 = v12;
   v13 = [v12 sortedArrayUsingComparator:&__block_literal_global_7];
   v14 = objc_opt_new();
-  v67 = objc_opt_new();
-  v79 = 0u;
+  v68 = objc_opt_new();
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
   obj = v13;
-  v15 = [obj countByEnumeratingWithState:&v79 objects:v95 count:16];
+  v15 = [obj countByEnumeratingWithState:&v80 objects:v96 count:16];
   if (v15)
   {
     v16 = v15;
     v17 = 0x278C3C000uLL;
-    v18 = *v80;
-    v73 = *v80;
+    v18 = *v81;
+    v74 = *v81;
     do
     {
       v19 = 0;
-      v68 = v16;
+      v69 = v16;
       do
       {
-        if (*v80 != v18)
+        if (*v81 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v79 + 1) + 8 * v19);
+        v20 = *(*(&v80 + 1) + 8 * v19);
         v21 = [*(v17 + 856) allowSuggestionsForEvent:v20];
-        v22 = __atxlog_handle_context_heuristic();
-        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-        if (v21)
+        v22 = v21;
+        v23 = __atxlog_handle_context_heuristic(v21);
+        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+        if (v22)
         {
-          if (v23)
+          if (v24)
           {
             eventIdentifier = [v20 eventIdentifier];
             title = [v20 title];
-            v26 = [title hash];
+            v27 = [title hash];
             startDate = [v20 startDate];
             organizer = [v20 organizer];
             *buf = 138413058;
-            v88 = eventIdentifier;
-            v89 = 2048;
-            v90 = v26;
-            v18 = v73;
-            v91 = 2112;
-            v92 = startDate;
-            v93 = 1024;
-            v94 = organizer != 0;
-            _os_log_impl(&dword_23E3EA000, v22, OS_LOG_TYPE_DEFAULT, "Event id: %@ title.hash: %lu start:%@ has organizer:%{BOOL}i", buf, 0x26u);
+            v89 = eventIdentifier;
+            v90 = 2048;
+            v91 = v27;
+            v18 = v74;
+            v92 = 2112;
+            v93 = startDate;
+            v94 = 1024;
+            v95 = organizer != 0;
+            _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "Event id: %@ title.hash: %lu start:%@ has organizer:%{BOOL}i", buf, 0x26u);
           }
 
           startDate2 = [v20 startDate];
-          v22 = [startDate2 dateByAddingTimeInterval:-1800.0];
+          v23 = [startDate2 dateByAddingTimeInterval:-1800.0];
 
           startDate3 = [v20 startDate];
-          if ([v22 compare:startDate3]== 1)
+          if ([v23 compare:startDate3]== 1)
           {
-            v31 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(&v31->super, OS_LOG_TYPE_FAULT))
+            v32 = __atxlog_handle_context_heuristic(1);
+            if (os_log_type_enabled(&v32->super, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v88 = v22;
-              v89 = 2112;
-              v90 = startDate3;
-              _os_log_fault_impl(&dword_23E3EA000, &v31->super, OS_LOG_TYPE_FAULT, "ATXHeuristicUpcomingEvent: validStartDate %@ is after validEndDate %@. Skipping event", buf, 0x16u);
+              v89 = v23;
+              v90 = 2112;
+              v91 = startDate3;
+              _os_log_fault_impl(&dword_23E3EA000, &v32->super, OS_LOG_TYPE_FAULT, "ATXHeuristicUpcomingEvent: validStartDate %@ is after validEndDate %@. Skipping event", buf, 0x16u);
             }
           }
 
           else
           {
-            v31 = [[ATXContextEventSuggestionProducer alloc] initWithEvent:v20 validFromStartDate:v22 validToEndDate:startDate3 environment:environmentCopy];
-            v32 = [(ATXContextEventSuggestionProducer *)v31 suggestionForConferenceWithScore:0x100000 predictionReasons:80.0];
-            v33 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+            v32 = [[ATXContextEventSuggestionProducer alloc] initWithEvent:v20 validFromStartDate:v23 validToEndDate:startDate3 environment:environmentCopy];
+            v33 = [(ATXContextEventSuggestionProducer *)v32 suggestionForConferenceWithScore:0x100000 predictionReasons:80.0];
+            v34 = __atxlog_handle_context_heuristic(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v88 = v32;
-              _os_log_impl(&dword_23E3EA000, v33, OS_LOG_TYPE_DEFAULT, "conferenceSuggestion: %@", buf, 0xCu);
+              v89 = v33;
+              _os_log_impl(&dword_23E3EA000, v34, OS_LOG_TYPE_DEFAULT, "conferenceSuggestion: %@", buf, 0xCu);
             }
 
-            if (v32)
+            if (v33)
             {
-              [v14 addObject:v32];
+              [v14 addObject:v33];
             }
 
-            v34 = [(ATXContextEventSuggestionProducer *)v31 suggestionForEventOrganizerWithScore:0x100000 predictionReasons:50.0];
-            v35 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412290;
-              v88 = v34;
-              _os_log_impl(&dword_23E3EA000, v35, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
-            }
-
-            if (v34)
-            {
-              [v14 addObject:v34];
-            }
-
-            v70 = v34;
-            v36 = [(ATXContextEventSuggestionProducer *)v31 suggestionForEventParticipantWithScore:0x100000 predictionReasons:50.0];
-            v37 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+            v35 = [(ATXContextEventSuggestionProducer *)v32 suggestionForEventOrganizerWithScore:0x100000 predictionReasons:50.0];
+            v36 = __atxlog_handle_context_heuristic(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v88 = v36;
-              _os_log_impl(&dword_23E3EA000, v37, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
+              v89 = v35;
+              _os_log_impl(&dword_23E3EA000, v36, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
             }
 
-            v71 = v32;
-
-            if (v36)
+            if (v35)
             {
-              [v14 addObject:v36];
+              [v14 addObject:v35];
             }
 
-            v38 = v14;
-            v39 = [ATXHeuristicNavigationUtilities locationFromEvent:v20 schemaType:2];
-            v40 = [ATXHeuristicNavigationUtilities allowNavigationSuggestionForLocation:v39 maxDistance:250000];
-            v41 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            v71 = v35;
+            v37 = [(ATXContextEventSuggestionProducer *)v32 suggestionForEventParticipantWithScore:0x100000 predictionReasons:50.0];
+            v38 = __atxlog_handle_context_heuristic(v37);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v89 = v37;
+              _os_log_impl(&dword_23E3EA000, v38, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
+            }
+
+            v72 = v33;
+
+            if (v37)
+            {
+              [v14 addObject:v37];
+            }
+
+            v39 = v14;
+            v40 = [ATXHeuristicNavigationUtilities locationFromEvent:v20 schemaType:2];
+            v41 = [ATXHeuristicNavigationUtilities allowNavigationSuggestionForLocation:v40 maxDistance:250000];
+            v42 = v41;
+            v43 = __atxlog_handle_context_heuristic(v41);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
-              LODWORD(v88) = v40;
-              _os_log_impl(&dword_23E3EA000, v41, OS_LOG_TYPE_DEFAULT, "ATXHeuristicUpcomingEvent: For upcoming event, can we navigate to event: (%{BOOL}d)", buf, 8u);
+              LODWORD(v89) = v42;
+              _os_log_impl(&dword_23E3EA000, v43, OS_LOG_TYPE_DEFAULT, "ATXHeuristicUpcomingEvent: For upcoming event, can we navigate to event: (%{BOOL}d)", buf, 8u);
             }
 
-            if (v40)
+            if (v42)
             {
               heuristicDevice2 = [environmentCopy heuristicDevice];
-              v43 = [ATXHeuristicNavigationUtilities navigationSuggestionActionForEvent:v20 schemaForEvent:0 transportType:@"AUTOMOBILE" predictionReasons:0x100000 heuristicDevice:heuristicDevice2 score:v22 validStartDate:80.0 validEndDate:startDate3];
+              v45 = [ATXHeuristicNavigationUtilities navigationSuggestionActionForEvent:v20 schemaForEvent:0 transportType:@"AUTOMOBILE" predictionReasons:0x100000 heuristicDevice:heuristicDevice2 score:v23 validStartDate:80.0 validEndDate:startDate3];
 
-              if (v43)
+              if (v45)
               {
-                [v38 addObject:v43];
-                v44 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
-                [v39 coordinate];
-                v45 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v44 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
-                [v67 addObject:v45];
+                [v39 addObject:v45];
+                v46 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
+                [v40 coordinate];
+                v47 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v46 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
+                [v68 addObject:v47];
               }
             }
 
-            v14 = v38;
-            if ([v38 count])
+            v14 = v39;
+            if ([v39 count])
             {
-              v46 = [(ATXContextEventSuggestionProducer *)v31 suggestionForDNDWithScore:0x100000 predictionReasons:30.0];
-              v47 = __atxlog_handle_context_heuristic();
-              v18 = v73;
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+              v48 = [(ATXContextEventSuggestionProducer *)v32 suggestionForDNDWithScore:0x100000 predictionReasons:30.0];
+              v49 = __atxlog_handle_context_heuristic(v48);
+              v18 = v74;
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v88 = v46;
-                _os_log_impl(&dword_23E3EA000, v47, OS_LOG_TYPE_DEFAULT, "DND Suggestion: %@", buf, 0xCu);
+                v89 = v48;
+                _os_log_impl(&dword_23E3EA000, v49, OS_LOG_TYPE_DEFAULT, "DND Suggestion: %@", buf, 0xCu);
               }
 
-              [v14 addObject:v46];
+              [v14 addObject:v48];
             }
 
             else
             {
-              v46 = __atxlog_handle_context_heuristic();
-              v18 = v73;
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+              v48 = __atxlog_handle_context_heuristic(0);
+              v18 = v74;
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23E3EA000, v46, OS_LOG_TYPE_DEFAULT, "Skipping DND Suggestion: No other event suggestions", buf, 2u);
+                _os_log_impl(&dword_23E3EA000, v48, OS_LOG_TYPE_DEFAULT, "Skipping DND Suggestion: No other event suggestions", buf, 2u);
               }
             }
 
-            v16 = v68;
+            v16 = v69;
           }
 
           v17 = 0x278C3C000;
         }
 
-        else if (v23)
+        else if (v24)
         {
           *buf = 0;
-          _os_log_impl(&dword_23E3EA000, v22, OS_LOG_TYPE_DEFAULT, "Upcoming Event: Skipping event suggestions, event is unsupported", buf, 2u);
+          _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "Upcoming Event: Skipping event suggestions, event is unsupported", buf, 2u);
         }
 
         ++v19;
       }
 
       while (v16 != v19);
-      v16 = [obj countByEnumeratingWithState:&v79 objects:v95 count:16];
+      v16 = [obj countByEnumeratingWithState:&v80 objects:v96 count:16];
     }
 
     while (v16);
   }
 
-  v72 = [[ATXInformationHeuristicRefreshTimeTrigger alloc] initWithFireDate:v66];
-  [v67 addObject:?];
-  v77 = 0u;
+  v73 = [[ATXInformationHeuristicRefreshTimeTrigger alloc] initWithFireDate:v67];
+  [v68 addObject:?];
   v78 = 0u;
-  v75 = 0u;
+  v79 = 0u;
   v76 = 0u;
-  v48 = v14;
-  v49 = [v48 countByEnumeratingWithState:&v75 objects:v86 count:16];
-  if (v49)
+  v77 = 0u;
+  v50 = v14;
+  v51 = [v50 countByEnumeratingWithState:&v76 objects:v87 count:16];
+  if (v51)
   {
-    v50 = v49;
-    v51 = *v76;
+    v52 = v51;
+    v53 = *v77;
     do
     {
-      for (i = 0; i != v50; ++i)
+      v54 = 0;
+      do
       {
-        if (*v76 != v51)
+        if (*v77 != v53)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v50);
         }
 
-        v53 = *(*(&v75 + 1) + 8 * i);
-        v54 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v55 = *(*(&v76 + 1) + 8 * v54);
+        v56 = __atxlog_handle_context_heuristic(v51);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
-          uiSpecification = [v53 uiSpecification];
+          uiSpecification = [v55 uiSpecification];
           contextStartDate = [uiSpecification contextStartDate];
-          uiSpecification2 = [v53 uiSpecification];
+          uiSpecification2 = [v55 uiSpecification];
           contextEndDate = [uiSpecification2 contextEndDate];
           *buf = 138412546;
-          v88 = contextStartDate;
-          v89 = 2112;
-          v90 = contextEndDate;
-          _os_log_impl(&dword_23E3EA000, v54, OS_LOG_TYPE_DEFAULT, "Suggestion: context from %@ to %@", buf, 0x16u);
+          v89 = contextStartDate;
+          v90 = 2112;
+          v91 = contextEndDate;
+          _os_log_impl(&dword_23E3EA000, v56, OS_LOG_TYPE_DEFAULT, "Suggestion: context from %@ to %@", buf, 0x16u);
         }
+
+        ++v54;
       }
 
-      v50 = [v48 countByEnumeratingWithState:&v75 objects:v86 count:16];
+      while (v52 != v54);
+      v51 = [v50 countByEnumeratingWithState:&v76 objects:v87 count:16];
+      v52 = v51;
     }
 
-    while (v50);
+    while (v51);
   }
 
-  v59 = [[ATXContextHeuristicResult alloc] initWithSuggestions:v48 additionalRefreshTriggers:v67];
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = [[ATXContextHeuristicResult alloc] initWithSuggestions:v50 additionalRefreshTriggers:v68];
 
-  return v59;
+  return v61;
 }
 
 BOOL __60__ATXHeuristicUpcomingEvent_heuristicResultWithEnvironment___block_invoke(uint64_t a1, void *a2)

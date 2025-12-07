@@ -1,4 +1,5 @@
 @interface IOGPUMetalCommandBuffer
+- (IOGPUMetalCommandBuffer)initWithQueue:(id)queue retainedReferences:(BOOL)references synchronousDebugMode:(BOOL)mode;
 - (void)_debugBytes:(const char *)bytes length:(unint64_t)length output_type:(unsigned int)output_type;
 - (void)_encodePurgedResources;
 - (void)_reserveKernelCommandBufferSpace:(unint64_t)space;
@@ -14,6 +15,7 @@
 - (void)encodeSignalEventScheduled:(id)scheduled value:(unint64_t)value;
 - (void)encodeSubmitSleepMS:(unsigned int)s;
 - (void)encodeWaitForEvent:(id)event value:(unint64_t)value;
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout;
 - (void)fillCommandBufferArgs:(IOGPUCommandQueueCommandBufferArgs *)args commandQueue:(id)queue;
 - (void)getCurrentKernelCommandBufferPointer:(void *)pointer end:(void *)end;
 - (void)getCurrentKernelCommandBufferStart:(void *)start current:(void *)current end:(void *)end;
@@ -39,9 +41,9 @@
 {
   if (*(&self->super.super.super.isa + *MEMORY[0x1E69742A0]) == 1)
   {
-    v5.receiver = self;
-    v5.super_class = IOGPUMetalCommandBuffer;
-    [(_MTLCommandBuffer *)&v5 bindLogState];
+    v4.receiver = self;
+    v4.super_class = IOGPUMetalCommandBuffer;
+    [(_MTLCommandBuffer *)&v4 bindLogState];
   }
 
   if ([(_MTLCommandBuffer *)self isProfilingEnabled])
@@ -57,13 +59,12 @@
   IOGPUMetalCommandBufferStorageFinalizeShmemHeader(self->_storage);
   if (*__globalGPUCommPage)
   {
-    v3 = *(&self->super.super.super.isa + *MEMORY[0x1E6974280]);
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 7, *(&self->super.super.super.isa + *MEMORY[0x1E6974280]), 0, 0, 0);
   }
 
-  v4.receiver = self;
-  v4.super_class = IOGPUMetalCommandBuffer;
-  [(_MTLCommandBuffer *)&v4 commit];
+  v3.receiver = self;
+  v3.super_class = IOGPUMetalCommandBuffer;
+  [(_MTLCommandBuffer *)&v3 commit];
 }
 
 - (void)validate
@@ -106,19 +107,62 @@
   [(_MTLCommandBuffer *)&v6 dealloc];
 }
 
+- (IOGPUMetalCommandBuffer)initWithQueue:(id)queue retainedReferences:(BOOL)references synchronousDebugMode:(BOOL)mode
+{
+  modeCopy = mode;
+  referencesCopy = references;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    [IOGPUMetalCommandBuffer initWithQueue:retainedReferences:synchronousDebugMode:];
+  }
+
+  v15.receiver = self;
+  v15.super_class = IOGPUMetalCommandBuffer;
+  v9 = [(_MTLCommandBuffer *)&v15 initWithQueue:queue retainedReferences:referencesCopy synchronousDebugMode:modeCopy];
+  if (v9)
+  {
+    v10 = *(queue + 49);
+    v9->_device = v10;
+    iogpumetal_atomic_add(v10 + 189, 1u);
+    NextGlobalTraceID = IOGPUDeviceGetNextGlobalTraceID([(MTLDevice *)v9->_device deviceRef]);
+    v12 = *MEMORY[0x1E6974280];
+    *(&v9->super.super.super.isa + v12) = NextGlobalTraceID;
+    Storage = IOGPUMetalCommandBufferStoragePoolCreateStorage(*(v9->_device + 89), NextGlobalTraceID, referencesCopy);
+    v9->_storage = Storage;
+    if (Storage)
+    {
+      if (modeCopy)
+      {
+        v9->_commitAndResetSem = dispatch_semaphore_create(1);
+      }
+
+      if (*__globalGPUCommPage)
+      {
+        IOGPUDeviceTraceEvent(0, 8, 6, *(&v9->super.super.super.isa + v12), 0, 0, 0);
+      }
+    }
+
+    else
+    {
+
+      return 0;
+    }
+  }
+
+  return v9;
+}
+
 - (void)setLabel:(id)label
 {
-  v9.receiver = self;
-  v9.super_class = IOGPUMetalCommandBuffer;
-  [(_MTLObjectWithLabel *)&v9 setLabel:?];
+  v7.receiver = self;
+  v7.super_class = IOGPUMetalCommandBuffer;
+  [(_MTLObjectWithLabel *)&v7 setLabel:?];
   if (*__globalGPUCommPage)
   {
     deviceRef = [(MTLDevice *)self->_device deviceRef];
-    v6 = *(&self->super.super.super.isa + *MEMORY[0x1E6974280]);
-    v7 = *MEMORY[0x1E6974288];
-    v8 = *(&self->super.super.super.isa + v7);
-    [label cStringUsingEncoding:1];
-    *(&self->super.super.super.isa + v7) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, v6, v8);
+    v6 = *MEMORY[0x1E6974288];
+    *(&self->super.super.super.isa + v6) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, *(&self->super.super.super.isa + *MEMORY[0x1E6974280]), *(&self->super.super.super.isa + v6), [label cStringUsingEncoding:1]);
   }
 }
 
@@ -167,16 +211,15 @@
     *(&self->super.super.super.isa + *MEMORY[0x1E69742B8]) = (*self->_submitToHardwareTimeStampPointer * *algn_1ED5DB184 / _iogpuTimebaseInfo);
   }
 
-  device = self->_device;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [IOGPUMetalCommandBuffer didCompleteWithStartTime:endTime:error:];
   }
 
-  v12.receiver = self;
-  v12.super_class = IOGPUMetalCommandBuffer;
-  [(_MTLCommandBuffer *)&v12 didCompleteWithStartTime:time endTime:endTime error:error];
+  v11.receiver = self;
+  v11.super_class = IOGPUMetalCommandBuffer;
+  [(_MTLCommandBuffer *)&v11 didCompleteWithStartTime:time endTime:endTime error:error];
   storage = self->_storage;
   var0 = storage->var0;
   IOGPUMetalCommandBufferStorageDealloc(storage);
@@ -259,15 +302,15 @@
     [IOGPUMetalCommandBuffer setCurrentCommandEncoder:];
   }
 
-  v7.receiver = self;
-  v7.super_class = IOGPUMetalCommandBuffer;
-  [(_MTLCommandBuffer *)&v7 setCurrentCommandEncoder:?];
+  v9.receiver = self;
+  v9.super_class = IOGPUMetalCommandBuffer;
+  [(_MTLCommandBuffer *)&v9 setCurrentCommandEncoder:?];
   if (*__globalGPUCommPage)
   {
     v5 = *(&self->super.super.super.isa + *MEMORY[0x1E6974280]);
-    [encoder globalTraceObjectID];
-    getpid();
-    IOGPUDeviceTraceEvent();
+    globalTraceObjectID = [encoder globalTraceObjectID];
+    v7 = getpid();
+    IOGPUDeviceTraceEvent(0, 8, 1, v5, globalTraceObjectID, v7, 0);
   }
 
   storage = self->_storage;
@@ -281,24 +324,19 @@
 {
   if (*__globalGPUCommPage)
   {
-    deviceRef = [(MTLDevice *)self->_device deviceRef];
-    globalTraceObjectID = [(_MTLCommandBuffer *)self globalTraceObjectID];
-    [group cStringUsingEncoding:1];
-    IOGPUDeviceTraceObjectLabel(deviceRef, 48, 5, globalTraceObjectID, 0);
+    IOGPUDeviceTraceObjectLabel(-[MTLDevice deviceRef](self->_device, "deviceRef"), 48, 5, -[_MTLCommandBuffer globalTraceObjectID](self, "globalTraceObjectID"), 0, [group cStringUsingEncoding:1]);
   }
 
-  v7.receiver = self;
-  v7.super_class = IOGPUMetalCommandBuffer;
-  [(_MTLCommandBuffer *)&v7 pushDebugGroup:group];
+  v5.receiver = self;
+  v5.super_class = IOGPUMetalCommandBuffer;
+  [(_MTLCommandBuffer *)&v5 pushDebugGroup:group];
 }
 
 - (void)popDebugGroup
 {
   if (*__globalGPUCommPage)
   {
-    [(MTLDevice *)self->_device deviceRef];
-    [(_MTLCommandBuffer *)self globalTraceObjectID];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent([(MTLDevice *)self->_device deviceRef], 48, 6, [(_MTLCommandBuffer *)self globalTraceObjectID], 0, 0, 0);
   }
 
   v3.receiver = self;
@@ -446,6 +484,27 @@
   }
 }
 
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout
+{
+  v5 = *&timeout;
+  if (*(&self->super.super.super.isa + *MEMORY[0x1E6974278]))
+  {
+    [IOGPUMetalCommandBuffer encodeWaitForEvent:value:timeout:];
+  }
+
+  [(IOGPUMetalCommandBuffer *)self commitEncoder];
+  v9 = [(IOGPUMetalCommandBuffer *)self _reserveKernelCommandBufferSpace:24];
+  *v9 = [event _encodeIOGPUKernelWaitEventCommandArgs:v9 + 2 value:value timeout:v5];
+  v9[1] = 24;
+  IOGPUMetalCommandBufferStorageBeginKernelCommands(self->_storage, v9);
+  IOGPUMetalCommandBufferStorageEndKernelCommands(self->_storage, v9 + 24);
+  if (*(&self->super.super.super.isa + *MEMORY[0x1E69742A8]) == 1)
+  {
+
+    [(_MTLCommandBuffer *)self _addRetainedObject:event];
+  }
+}
+
 - (void)encodeConditionalAbortEvent:(id)event
 {
   if (*(&self->super.super.super.isa + *MEMORY[0x1E6974278]))
@@ -522,40 +581,40 @@
 
 - (void)_encodePurgedResources
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = 4 * [(NSMutableSet *)self->_purgedResources count]+ 12;
   v4 = [(IOGPUMetalCommandBuffer *)self _reserveKernelCommandBufferSpace:v3];
   *v4 = 8;
   v4[1] = v3;
-  v13 = v3;
+  v12 = v3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   purgedResources = self->_purgedResources;
-  v6 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(purgedResources);
         }
 
         v8 = v11 + 1;
-        v4[v11++ + 3] = *(*(*(&v14 + 1) + 8 * v10++) + 80);
+        v4[v11++ + 3] = *(*(*(&v13 + 1) + 8 * v10++) + 80);
       }
 
       while (v7 != v10);
-      v7 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -568,10 +627,9 @@
 
   v4[2] = v8;
   IOGPUMetalCommandBufferStorageBeginKernelCommands(self->_storage, v4);
-  IOGPUMetalCommandBufferStorageEndKernelCommands(self->_storage, v4 + v13);
+  IOGPUMetalCommandBufferStorageEndKernelCommands(self->_storage, v4 + v12);
 
   self->_purgedResources = 0;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fillCommandBufferArgs:(IOGPUCommandQueueCommandBufferArgs *)args commandQueue:(id)queue
@@ -616,8 +674,7 @@ void __62__IOGPUMetalCommandBuffer_fillCommandBufferArgs_commandQueue___block_in
 {
   if (*__globalGPUCommPage)
   {
-    [*(a1 + 32) globalTraceObjectID];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 5, [*(a1 + 32) globalTraceObjectID], a3, a4, 0);
   }
 
   if (a4)
@@ -638,8 +695,7 @@ void __62__IOGPUMetalCommandBuffer_fillCommandBufferArgs_commandQueue___block_in
 {
   if (*__globalGPUCommPage)
   {
-    [*(a1 + 32) globalTraceObjectID];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 4, [*(a1 + 32) globalTraceObjectID], a3, a4, 0);
   }
 
   if (a4)
@@ -707,9 +763,7 @@ void __62__IOGPUMetalCommandBuffer_fillCommandBufferArgs_commandQueue___block_in
   IOGPUMetalCommandBufferStorageAddResidencySets(self->_storage, &setCopy, 1, 0);
   if (*__globalGPUCommPage)
   {
-    v4 = *(&self->super.super.super.isa + *MEMORY[0x1E6974280]);
-    v5 = setCopy[6];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 36, *(&self->super.super.super.isa + *MEMORY[0x1E6974280]), setCopy[6], 0, 0);
   }
 }
 
@@ -736,9 +790,7 @@ void __62__IOGPUMetalCommandBuffer_fillCommandBufferArgs_commandQueue___block_in
     {
       if (*v7)
       {
-        v10 = *(&self->super.super.super.isa + *v9);
-        v11 = *(*setsCopy + 6);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 36, *(&self->super.super.super.isa + *v9), *(*setsCopy + 6), 0, 0);
         v7 = __globalGPUCommPage;
       }
 
@@ -756,9 +808,7 @@ void __62__IOGPUMetalCommandBuffer_fillCommandBufferArgs_commandQueue___block_in
   IOGPUMetalCommandBufferStorageAddResidencySets(self->_storage, &setCopy, 1, 1u);
   if (*__globalGPUCommPage)
   {
-    v4 = *(&self->super.super.super.isa + *MEMORY[0x1E6974280]);
-    v5 = setCopy[6];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 36, *(&self->super.super.super.isa + *MEMORY[0x1E6974280]), setCopy[6], 0, 0);
   }
 }
 
@@ -785,9 +835,7 @@ void __62__IOGPUMetalCommandBuffer_fillCommandBufferArgs_commandQueue___block_in
     {
       if (*v7)
       {
-        v10 = *(&self->super.super.super.isa + *v9);
-        v11 = *(*setsCopy + 6);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 36, *(&self->super.super.super.isa + *v9), *(*setsCopy + 6), 0, 0);
         v7 = __globalGPUCommPage;
       }
 

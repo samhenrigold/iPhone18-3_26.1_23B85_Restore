@@ -6,48 +6,48 @@
 
 - (SLGoogleLegacyTokenMigrationTokenResponse)initWithData:(id)data urlResponse:(id)response error:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = SLGoogleLegacyTokenMigrationTokenResponse;
-  v7 = [(SLGoogleLegacyTokenMigrationResponse *)&v24 initWithData:data urlResponse:response error:?];
+  v31 = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = SLGoogleLegacyTokenMigrationTokenResponse;
+  v7 = [(SLGoogleLegacyTokenMigrationResponse *)&v29 initWithData:data urlResponse:response error:?];
   v8 = v7;
   if (!error && v7)
   {
     responseBody = [(SLGoogleLegacyTokenMigrationResponse *)v7 responseBody];
     v10 = [responseBody componentsSeparatedByString:@"\n"];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v26;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
-          if ([v16 hasPrefix:{@"Auth=", v20}])
+          v16 = *(*(&v25 + 1) + 8 * i);
+          if ([v16 hasPrefix:{@"Auth=", v25}])
           {
             v17 = [v16 substringFromIndex:5];
             token = v8->_token;
             v8->_token = v17;
 
-            _SLLog(v5, 5, @"Successfully got a token");
+            _SLLog(v5, 5, @"Successfully got a token", v19, v20, v21, v22, v23, v25);
             goto LABEL_13;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v13)
         {
           continue;

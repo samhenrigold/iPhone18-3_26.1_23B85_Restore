@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self->state != 2)
   {
     v3 = SESDefaultLogObject();
@@ -47,7 +47,7 @@
     {
       state = self->state;
       *buf = 134217984;
-      v8 = state;
+      v7 = state;
       _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_INFO, "Deallocating session in state %lu", buf, 0xCu);
     }
   }
@@ -57,10 +57,9 @@
     dispatch_resume(self->_queue);
   }
 
-  v6.receiver = self;
-  v6.super_class = SESSession;
-  [(SESSession *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = SESSession;
+  [(SESSession *)&v5 dealloc];
 }
 
 - (void)resume
@@ -88,10 +87,7 @@
 
 uint64_t __34__SESSession_setDidStartCallback___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(*(a1 + 32) + 24) = [*(a1 + 40) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -112,10 +108,7 @@ uint64_t __34__SESSession_setDidStartCallback___block_invoke(uint64_t a1)
 
 uint64_t __32__SESSession_setDidEndCallback___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
+  *(*(a1 + 32) + 32) = [*(a1 + 40) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -134,62 +127,59 @@ uint64_t __32__SESSession_setDidEndCallback___block_invoke(uint64_t a1)
   dispatch_async(queue, v7);
 }
 
-void __30__SESSession_didStartSession___block_invoke(uint64_t a1)
+void __30__SESSession_didStartSession___block_invoke(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v2 = SESDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = SESDefaultLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v15 = 138412290;
-    v16 = v3;
-    _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_INFO, "didStartSession %@", &v15, 0xCu);
+    v16 = v4;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_INFO, "didStartSession %@", &v15, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  if (!*(v4 + 48))
+  v5 = *(a1 + 32);
+  if (!*(v5 + 48))
   {
-    if (*(a1 + 40))
+    if (!*(a1 + 40))
     {
-      *(v4 + 48) = 2;
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 24);
-      if (v6)
+      *(v5 + 48) = 1;
+      v12 = *(*(a1 + 32) + 24);
+      if (!v12)
       {
-        (*(v6 + 16))(v6, 0, *(a1 + 40));
-        v7 = *(a1 + 32);
-        v8 = *(v7 + 24);
-        *(v7 + 24) = 0;
-
-        v5 = *(a1 + 32);
+        return;
       }
 
-      v9 = *(v5 + 32);
-      if (v9)
-      {
-        (*(v9 + 16))();
-        v10 = 32;
-LABEL_11:
-        v12 = *(a1 + 32);
-        v13 = *(v12 + v10);
-        *(v12 + v10) = 0;
-      }
+      (*(v12 + 16))();
+      v11 = 24;
+      goto LABEL_11;
     }
 
-    else
+    *(v5 + 48) = 2;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 24);
+    if (v7)
     {
-      *(v4 + 48) = 1;
-      v11 = *(*(a1 + 32) + 24);
-      if (v11)
-      {
-        (*(v11 + 16))();
-        v10 = 24;
-        goto LABEL_11;
-      }
+      (*(v7 + 16))(v7, 0, *(a1 + 40));
+      v8 = *(a1 + 32);
+      v9 = *(v8 + 24);
+      *(v8 + 24) = 0;
+
+      v6 = *(a1 + 32);
+    }
+
+    v10 = *(v6 + 32);
+    if (v10)
+    {
+      (*(v10 + 16))();
+      v11 = 32;
+LABEL_11:
+      v13 = *(a1 + 32);
+      v14 = *(v13 + v11);
+      *(v13 + v11) = 0;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endSessionWithError:(id)error
@@ -206,60 +196,59 @@ LABEL_11:
   dispatch_async(queue, v7);
 }
 
-void __34__SESSession_endSessionWithError___block_invoke(uint64_t a1)
+void __34__SESSession_endSessionWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v2 = SESDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = SESDefaultLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     *buf = 138412546;
-    v22 = v3;
-    v23 = 2112;
-    v24 = v4;
-    _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_INFO, "endSession %@ with error %@", buf, 0x16u);
+    v21 = v4;
+    v22 = 2112;
+    v23 = v5;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_INFO, "endSession %@ with error %@", buf, 0x16u);
   }
 
-  v5 = *(a1 + 32);
-  v6 = v5[6];
-  if (v6 != 2)
+  v6 = *(a1 + 32);
+  v7 = v6[6];
+  if (v7 != 2)
   {
-    if (!v6)
+    if (!v7)
     {
-      v7 = v5[3];
-      if (v7)
+      v8 = v6[3];
+      if (v8)
       {
         if (*(a1 + 40))
         {
-          (*(v7 + 16))(v5[3], 0);
+          (*(v8 + 16))(v6[3], 0);
         }
 
         else
         {
-          v8 = SESDefaultLogObject();
-          v9 = *MEMORY[0x1E69E5148];
-          v20 = *(a1 + 32);
+          v9 = SESDefaultLogObject();
+          v19 = *(a1 + 32);
           v10 = SESCreateAndLogError();
-          (*(v7 + 16))(v7, 0, v10);
+          (*(v8 + 16))(v8, 0, v10);
         }
 
         v11 = *(a1 + 32);
         v12 = *(v11 + 24);
         *(v11 + 24) = 0;
 
-        v5 = *(a1 + 32);
+        v6 = *(a1 + 32);
       }
     }
 
-    v13 = [v5 endRemoteSession];
+    v13 = [v6 endRemoteSession];
     if (v13)
     {
       v14 = SESDefaultLogObject();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = v13;
+        v21 = v13;
         _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_ERROR, "Failed to end remote session %@", buf, 0xCu);
       }
     }
@@ -278,8 +267,6 @@ void __34__SESSession_endSessionWithError___block_invoke(uint64_t a1)
 
     *(v15 + 48) = 2;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)endRemoteSession
@@ -318,20 +305,19 @@ void __34__SESSession_endSessionWithError___block_invoke(uint64_t a1)
 
 - (void)didEndUnexpectedly:(id)unexpectedly
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   unexpectedlyCopy = unexpectedly;
   v5 = SESDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = unexpectedlyCopy;
-    _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Session %@ ended unexpectedly with error %@", &v7, 0x16u);
+    v8 = 2112;
+    v9 = unexpectedlyCopy;
+    _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Session %@ ended unexpectedly with error %@", &v6, 0x16u);
   }
 
   [(SESSession *)self endSession];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)proxy
@@ -364,9 +350,8 @@ void __34__SESSession_endSessionWithError___block_invoke(uint64_t a1)
   if (!v6)
   {
     v7 = SESDefaultLogObject();
-    v8 = *MEMORY[0x1E69E5148];
-    v9 = SESCreateAndLogError();
-    handlerCopy[2](handlerCopy, v9);
+    v8 = SESCreateAndLogError();
+    handlerCopy[2](handlerCopy, v8);
   }
 
   return v6;
@@ -381,9 +366,8 @@ void __34__SESSession_endSessionWithError___block_invoke(uint64_t a1)
   if (!v6)
   {
     v7 = SESDefaultLogObject();
-    v8 = *MEMORY[0x1E69E5148];
-    v9 = SESCreateAndLogError();
-    handlerCopy[2](handlerCopy, v9);
+    v8 = SESCreateAndLogError();
+    handlerCopy[2](handlerCopy, v8);
   }
 
   return v6;

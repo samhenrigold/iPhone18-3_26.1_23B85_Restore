@@ -6,13 +6,6 @@ void GCFrameworkStaticInitializer()
   objc_autoreleasePoolPop(v0);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance GCPhysicalInputElementName()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return String.hash(into:)();
-}
-
 uint64_t static GCDirectionPadElementName.directionPad.getter@<X0>(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *a4@<X8>)
 {
   if (*a1 != -1)
@@ -31,7 +24,7 @@ uint64_t static GCDirectionPadElementName.directionPad.getter@<X0>(void *a1@<X0>
   a4[1] = v5;
 }
 
-uint64_t gc_isInternalBuild()
+uint64_t gc_isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (gc_isInternalBuild_onceToken != -1)
   {
@@ -41,16 +34,16 @@ uint64_t gc_isInternalBuild()
   return gc_isInternalBuild_isInternalBuild;
 }
 
-id getGCLogger()
+id getGCLogger(uint64_t a1)
 {
   if (getGCLogger_onceToken != -1)
   {
     getGCLogger_cold_1();
   }
 
-  v1 = gcLogger;
+  v2 = gcLogger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_1D2CD7740()
@@ -67,70 +60,68 @@ uint64_t sub_1D2CD7778()
 
 void __HIDServicesChangedCallback(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = a1;
   v7 = a3;
   v8 = a4;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v6 onHIDServiceRemoved:*(*(&v23 + 1) + 8 * v12++)];
+        [v6 onHIDServiceRemoved:*(*(&v22 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v10);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v6 onHIDServiceAdded:{*(*(&v19 + 1) + 8 * v17++), v19}];
+        [v6 onHIDServiceAdded:{*(*(&v18 + 1) + 8 * v17++), v18}];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 BOOL OUTLINED_FUNCTION_9(NSObject *a1)
@@ -422,7 +413,7 @@ void sub_1D2CDDC14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCBatteryXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4E929B0];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -431,7 +422,7 @@ id GCBatteryXPCProxyRemoteClientEndpointInterface()
 id GCBatteryXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4E92B40];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -449,10 +440,11 @@ id GCBatteryXPCProxyServiceRemoteServerInterface()
   return v0;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 __CFString *GCSystemGestureModeToString(unint64_t a1)
@@ -468,10 +460,11 @@ __CFString *GCSystemGestureModeToString(unint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 uint64_t HapticSharedMemory::allocate(HapticSharedMemory *a1, void **a2, _DWORD *a3)
@@ -481,58 +474,59 @@ uint64_t HapticSharedMemory::allocate(HapticSharedMemory *a1, void **a2, _DWORD 
   *a2 = v6;
 
   *a3 = 0;
-  v14 = 1;
-  v13 = &unk_1F4E38A38;
-  v15 = 0;
-  inited = SharableMemoryBlock::InitServer(a1, 0x189C0uLL, &v13);
+  v15 = 1;
+  v14 = &unk_1F4E38A38;
+  v16 = 0;
+  inited = SharableMemoryBlock::InitServer(a1, 0x189C0uLL, &v14);
   if (!inited)
   {
-    HapticSharedMemory::clear(a1);
-    v9 = v15;
-    v10 = v9;
-    if (!v9)
+    HapticSharedMemory::clear(a1, v8);
+    v10 = v16;
+    v11 = v10;
+    if (!v10)
     {
-      v10 = xpc_null_create();
+      v11 = xpc_null_create();
     }
 
-    v11 = *a2;
-    *a2 = v10;
+    v12 = *a2;
+    *a2 = v11;
 
-    *a3 = HIDWORD(v14);
+    *a3 = HIDWORD(v15);
   }
 
-  SharableMemoryBlock::XPCServerToken::~XPCServerToken(&v13);
+  SharableMemoryBlock::XPCServerToken::~XPCServerToken(&v14);
   return inited;
 }
 
-void sub_1D2CE03A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2CE03A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SharableMemoryBlock::XPCServerToken::~XPCServerToken(va);
   _Unwind_Resume(a1);
 }
 
-void HapticSharedMemory::clear(HapticSharedMemory *this)
+void HapticSharedMemory::clear(HapticSharedMemory *this, uint64_t a2)
 {
   mBuffer = this->mBuffer;
   if (mBuffer)
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(this, a2);
+    if (isInternalBuild)
     {
-      HapticSharedMemory::clear();
+      HapticSharedMemory::clear(isInternalBuild);
     }
 
-    v3 = LODWORD(this->mSize) - 16;
+    v5 = LODWORD(this->mSize) - 16;
     mBuffer[1] = 0;
     mBuffer[2] = 0;
-    *mBuffer = v3;
+    *mBuffer = v5;
   }
 }
 
-void sub_1D2CE36C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1D2CE36C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  __destructor_8_s0_s8_s16(v17 + 40);
+  va_start(va, a24);
+  __destructor_8_s0_s8_s16(v24 + 40);
   __destructor_8_s0_s8_s16(va);
   _Unwind_Resume(a1);
 }
@@ -557,9 +551,9 @@ void __destructor_8_s0_s8_s16(uint64_t a1)
   v2 = *(a1 + 16);
 }
 
-void sub_1D2CE5FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1D2CE5FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -640,16 +634,18 @@ void sub_1D2CE7678(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_signpost_emit_with_name_impl(a1, v10, OS_SIGNPOST_INTERVAL_BEGIN, v9, a5, a6, &a9, 0x20u);
+  _os_signpost_emit_with_name_impl(a1, v9, OS_SIGNPOST_INTERVAL_BEGIN, v8, a5, a6, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_signpost_emit_with_name_impl(a1, v10, OS_SIGNPOST_INTERVAL_END, v9, a5, a6, &a9, 2u);
+  _os_signpost_emit_with_name_impl(a1, v9, OS_SIGNPOST_INTERVAL_END, v8, a5, a6, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_7_0(NSObject *a1)
@@ -679,33 +675,25 @@ void sub_1D2CE973C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-uint64_t OUTLINED_FUNCTION_7_1(void *a1, const char *a2, ...)
+uint64_t OUTLINED_FUNCTION_7_1(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va, a17);
 
-  return [a1 countByEnumeratingWithState:va objects:va1 count:16];
+  return [a1 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_8_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+uint64_t OUTLINED_FUNCTION_8_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t OUTLINED_FUNCTION_5_2()
@@ -714,23 +702,23 @@ uint64_t OUTLINED_FUNCTION_5_2()
   return objc_opt_class();
 }
 
-uint64_t OUTLINED_FUNCTION_6_2(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+void *OUTLINED_FUNCTION_6_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a1 + 8 * (a4 - 1) + 24);
+  v5 = a1[(a4 - 1) + 3];
 
   return [(_GCDevicePhysicalInputInitializationContext *)a1 _stateMagic:v5];
 }
 
-id _gc_log_system_button()
+id _gc_log_system_button(uint64_t a1)
 {
   if (_gc_log_system_button_onceToken != -1)
   {
     _gc_log_system_button_cold_1();
   }
 
-  v1 = _gc_log_system_button_Log;
+  v2 = _gc_log_system_button_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_system_button_block_invoke()
@@ -740,7 +728,7 @@ void ___gc_log_system_button_block_invoke()
   _gc_log_system_button_Log = v0;
 }
 
-void SetupVirtualGameControllerIfForced()
+void SetupVirtualGameControllerIfForced(uint64_t result, uint64_t a2)
 {
   if (SetupVirtualGameControllerIfForced_onceToken != -1)
   {
@@ -748,91 +736,91 @@ void SetupVirtualGameControllerIfForced()
   }
 }
 
-id VirtualControllerBundle()
+id VirtualControllerBundle(uint64_t a1)
 {
-  v0 = VirtualControllerBundle_Bundle;
+  v1 = VirtualControllerBundle_Bundle;
   if (VirtualControllerBundle_Bundle)
   {
     goto LABEL_2;
   }
 
-  v3 = GCFrameworkBundle();
-  v4 = [v3 URLForResource:@"VirtualGameController" withExtension:@"bundle"];
-  if (v4)
+  v4 = GCFrameworkBundle(a1);
+  v5 = [v4 URLForResource:@"VirtualGameController" withExtension:@"bundle"];
+  if (v5)
   {
-    v5 = v4;
-    v6 = [MEMORY[0x1E696AAE8] bundleWithURL:v4];
-    if (v6)
+    v6 = v5;
+    v7 = [MEMORY[0x1E696AAE8] bundleWithURL:v5];
+    if (v7)
     {
-      v7 = v6;
-      v12 = 0;
-      v8 = [v6 loadAndReturnError:&v12];
-      v9 = v12;
-      if (v8)
+      v8 = v7;
+      v14 = 0;
+      v9 = [v7 loadAndReturnError:&v14];
+      v10 = v14;
+      v11 = v10;
+      if (v9)
       {
-        v10 = v7;
-        v11 = VirtualControllerBundle_Bundle;
-        VirtualControllerBundle_Bundle = v10;
+        v12 = v8;
+        v13 = VirtualControllerBundle_Bundle;
+        VirtualControllerBundle_Bundle = v12;
       }
 
       else
       {
-        v11 = _gc_log_virtualcontroller();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v13 = _gc_log_virtualcontroller(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
-          VirtualControllerBundle_cold_1(v9, v11);
+          VirtualControllerBundle_cold_1(v11, v13);
         }
       }
 
-      if (v8)
+      if (v9)
       {
-        v0 = VirtualControllerBundle_Bundle;
+        v1 = VirtualControllerBundle_Bundle;
 LABEL_2:
-        v1 = v0;
+        v2 = v1;
         goto LABEL_3;
       }
     }
 
     else
     {
-      VirtualControllerBundle_cold_2(v5, v3);
+      VirtualControllerBundle_cold_2(v6, v4);
     }
   }
 
   else
   {
-    VirtualControllerBundle_cold_3(v3);
+    VirtualControllerBundle_cold_3(v4);
   }
 
-  v1 = 0;
+  v2 = 0;
 LABEL_3:
 
-  return v1;
+  return v2;
 }
 
 void __ControllerAxisInputSetValue_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 48) + 16))(*(a1 + 64));
-  v3 = _gc_log_signpost();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  v2 = _gc_log_signpost();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
-  if (v4)
+  if (v3)
   {
     __ControllerAxisInputSetValue_block_invoke_cold_1(a1);
   }
 }
 
-id gcBundle()
+id gcBundle(uint64_t a1)
 {
   if (gcBundle_onceToken != -1)
   {
     gcBundle_cold_1();
   }
 
-  v1 = _gcBundle;
+  v2 = _gcBundle;
 
-  return v1;
+  return v2;
 }
 
 void __gcBundle_block_invoke()
@@ -842,52 +830,51 @@ void __gcBundle_block_invoke()
   _gcBundle = v0;
 }
 
-id GCExecutablePathWithPID()
+id GCExecutablePathWithPID(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
+  v1 = MEMORY[0x1EEE9AC00](a1);
   v5 = *MEMORY[0x1E69E9840];
-  v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:proc_pidpath(v0 encoding:{buffer, 0x1000u), 4}];
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:proc_pidpath(v1 encoding:{buffer, 0x1000u), 4}];
 
-  return v1;
+  return v2;
 }
 
-id GCBundleWithPID()
+id GCBundleWithPID(uint64_t a1)
 {
-  v0 = GCExecutablePathWithPID();
-  v1 = [MEMORY[0x1E695DFF8] fileURLWithPath:v0];
-  if (v1)
+  v1 = GCExecutablePathWithPID(a1);
+  v2 = [MEMORY[0x1E695DFF8] fileURLWithPath:v1];
+  if (v2)
   {
-    v2 = _CFBundleCopyBundleURLForExecutableURL();
-    if (v2)
+    v3 = _CFBundleCopyBundleURLForExecutableURL();
+    if (v3)
     {
-      v3 = [MEMORY[0x1E696AAE8] bundleWithURL:v2];
+      v4 = [MEMORY[0x1E696AAE8] bundleWithURL:v3];
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
-id GCFrameworkBundle()
+id GCFrameworkBundle(uint64_t a1)
 {
   if (GCFrameworkBundle_onceToken != -1)
   {
     GCFrameworkBundle_cold_1();
   }
 
-  v1 = GCFrameworkBundle_bundle;
+  v2 = GCFrameworkBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 void __GCFrameworkBundle_block_invoke()
@@ -897,16 +884,16 @@ void __GCFrameworkBundle_block_invoke()
   GCFrameworkBundle_bundle = v0;
 }
 
-id GCGameIntentBlocklist()
+id GCGameIntentBlocklist(uint64_t a1)
 {
   if (GCGameIntentBlocklist_onceToken != -1)
   {
     GCGameIntentBlocklist_cold_1();
   }
 
-  v1 = GCGameIntentBlocklist__gameIntentBlockList;
+  v2 = GCGameIntentBlocklist__gameIntentBlockList;
 
-  return v1;
+  return v2;
 }
 
 void __GCGameIntentBlocklist_block_invoke()
@@ -1091,50 +1078,52 @@ uint64_t isDeviceParentAuthenticated(__IOHIDServiceClient *a1)
     MatchingService = IOServiceGetMatchingService(v4, v5);
     if (MatchingService)
     {
-      v7 = MatchingService;
-      if (gc_isInternalBuild())
+      v8 = MatchingService;
+      if (gc_isInternalBuild(MatchingService, v7))
       {
         isDeviceParentAuthenticated_cold_1(v3);
       }
 
-      v8 = IORegistryEntrySearchCFProperty(v7, "IOService", @"Authenticated", 0, 3u);
-      if (v8)
+      v9 = IORegistryEntrySearchCFProperty(v8, "IOService", @"Authenticated", 0, 3u);
+      v11 = v9;
+      if (v9)
       {
-        if (gc_isInternalBuild())
+        isInternalBuild = gc_isInternalBuild(v9, v10);
+        if (isInternalBuild)
         {
-          isDeviceParentAuthenticated_cold_2();
+          isDeviceParentAuthenticated_cold_2(isInternalBuild);
         }
 
-        v9 = [v8 BOOLValue];
+        v13 = [v11 BOOLValue];
       }
 
       else
       {
-        v9 = 0;
+        v13 = 0;
       }
 
-      IOObjectRelease(v7);
+      IOObjectRelease(v8);
     }
 
     else
     {
-      v9 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v13 = 0;
   }
 
-  return v9;
+  return v13;
 }
 
 uint64_t isDeviceMFiGamepadCompliantForDeviceRef(__IOHIDDevice *a1)
 {
   v24 = *MEMORY[0x1E69E9840];
   v1 = IOHIDDeviceCopyMatchingElements(a1, 0, 0);
-  v2 = v1;
+  v3 = v1;
   if (v1)
   {
     v21 = 0u;
@@ -1142,32 +1131,32 @@ uint64_t isDeviceMFiGamepadCompliantForDeviceRef(__IOHIDDevice *a1)
     v19 = 0u;
     v20 = 0u;
     v18 = v1;
-    v3 = v1;
-    v4 = [(__CFArray *)v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v4)
+    v4 = v1;
+    v5 = [(__CFArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v5)
     {
-      v5 = v4;
-      v6 = 0;
+      v6 = v5;
       v7 = 0;
       v8 = 0;
-      v9 = *v20;
+      v9 = 0;
+      v10 = *v20;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v9)
+          if (*v20 != v10)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
-          UsagePage = IOHIDElementGetUsagePage(v11);
-          Usage = IOHIDElementGetUsage(v11);
+          v12 = *(*(&v19 + 1) + 8 * i);
+          UsagePage = IOHIDElementGetUsagePage(v12);
+          Usage = IOHIDElementGetUsage(v12);
           if (UsagePage == 9)
           {
             if (Usage <= 8)
             {
-              v8 |= 1 << (Usage - 1);
+              v9 |= 1 << (Usage - 1);
             }
           }
 
@@ -1175,47 +1164,46 @@ uint64_t isDeviceMFiGamepadCompliantForDeviceRef(__IOHIDDevice *a1)
           {
             if (Usage - 144 <= 3)
             {
-              v7 |= 1 << (Usage + 112);
+              v8 |= 1 << (Usage + 112);
             }
           }
 
           else
           {
-            v15 = UsagePage == 12 && Usage == 547;
-            v6 |= v15;
+            v16 = UsagePage == 12 && Usage == 547;
+            v7 |= v16;
           }
         }
 
-        v5 = [(__CFArray *)v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [(__CFArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
       v8 = 0;
+      v9 = 0;
     }
 
-    v2 = v18;
+    v3 = v18;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
     v8 = 0;
+    v9 = 0;
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v1, v2))
   {
-    isDeviceMFiGamepadCompliantForDeviceRef_cold_1();
+    isDeviceMFiGamepadCompliantForDeviceRef_cold_1(v7 & 1);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-  return ((~v8 | (~v7 & 0xF)) == 0) & v6;
+  return ((~v9 | (~v8 & 0xF)) == 0) & v7;
 }
 
 uint64_t isDeviceKeyboard(__IOHIDServiceClient *a1)
@@ -1244,7 +1232,7 @@ uint64_t isDeviceAppleDirectionalRemote(__IOHIDServiceClient *a1)
   return v10 & v7 | ((v5 & 0xFFFFFFFE) == 788 && v8);
 }
 
-uint64_t isDeviceAppleSiriRemote(__IOHIDServiceClient *a1)
+BOOL isDeviceAppleSiriRemote(__IOHIDServiceClient *a1)
 {
   v2 = GC_IOHIDServiceClientGetStringProperty(a1, @"VendorID");
   v3 = [v2 unsignedIntValue];
@@ -1320,30 +1308,31 @@ __CFString *VendorNameForATVProfile(void *a1)
 
 BOOL currentProcessHasEntitlement(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   [v1 UTF8String];
   v2 = xpc_copy_entitlement_for_self();
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     value = xpc_BOOL_get_value(v2);
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(value, v6);
+    if (isInternalBuild)
     {
-      v5 = getGCLogger();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v8 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v6 = @"NO";
+        v9 = @"NO";
         if (value)
         {
-          v6 = @"YES";
+          v9 = @"YES";
         }
 
-        v9 = 138412546;
-        v10 = v1;
-        v11 = 2112;
-        v12 = v6;
-        _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "Does the current process have entitlement (%@)? %@", &v9, 0x16u);
+        v12 = 138412546;
+        v13 = v1;
+        v14 = 2112;
+        v15 = v9;
+        _os_log_impl(&dword_1D2CD5000, v8, OS_LOG_TYPE_INFO, "Does the current process have entitlement (%@)? %@", &v12, 0x16u);
       }
 
 LABEL_13:
@@ -1352,14 +1341,15 @@ LABEL_13:
 
   else
   {
-    if (gc_isInternalBuild())
+    v10 = gc_isInternalBuild(0, v3);
+    if (v10)
     {
-      v5 = getGCLogger();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v8 = getGCLogger(v10);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v9 = 138412290;
-        v10 = v1;
-        _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "Unable to find entitlement %@", &v9, 0xCu);
+        v12 = 138412290;
+        v13 = v1;
+        _os_log_impl(&dword_1D2CD5000, v8, OS_LOG_TYPE_INFO, "Unable to find entitlement %@", &v12, 0xCu);
       }
 
       value = 0;
@@ -1369,11 +1359,10 @@ LABEL_13:
     value = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return value;
 }
 
-uint64_t currentProcessIsGameControllerDaemon()
+uint64_t currentProcessIsGameControllerDaemon(uint64_t a1, uint64_t a2)
 {
   if (currentProcessIsGameControllerDaemon_onceToken != -1)
   {
@@ -1390,16 +1379,16 @@ void __currentProcessIsGameControllerDaemon_block_invoke()
   currentProcessIsGameControllerDaemon_IsGameControllerDaemon = [v0 isEqualToString:@"com.apple.GameController.gamecontrollerd"];
 }
 
-id currentProcessBundleIdentifier()
+id currentProcessBundleIdentifier(uint64_t a1)
 {
   if (currentProcessBundleIdentifier_onceToken != -1)
   {
     currentProcessBundleIdentifier_cold_1();
   }
 
-  v1 = currentProcessBundleIdentifier_currentProcessBundleIdentifier;
+  v2 = currentProcessBundleIdentifier_currentProcessBundleIdentifier;
 
-  return v1;
+  return v2;
 }
 
 void __currentProcessBundleIdentifier_block_invoke()
@@ -1438,417 +1427,415 @@ __CFString *nameForKeyCode(uint64_t a1)
 
 void __nameForKeyCode_block_invoke()
 {
-  v138[134] = *MEMORY[0x1E69E9840];
-  v136 = [MEMORY[0x1E696AD98] numberWithLong:4];
-  v137[0] = v136;
-  v138[0] = @"A";
-  v135 = [MEMORY[0x1E696AD98] numberWithLong:5];
-  v137[1] = v135;
-  v138[1] = @"B";
-  v134 = [MEMORY[0x1E696AD98] numberWithLong:6];
-  v137[2] = v134;
-  v138[2] = @"C";
-  v133 = [MEMORY[0x1E696AD98] numberWithLong:7];
-  v137[3] = v133;
-  v138[3] = @"D";
-  v132 = [MEMORY[0x1E696AD98] numberWithLong:8];
-  v137[4] = v132;
-  v138[4] = @"E";
-  v131 = [MEMORY[0x1E696AD98] numberWithLong:9];
-  v137[5] = v131;
-  v138[5] = @"F";
-  v130 = [MEMORY[0x1E696AD98] numberWithLong:10];
-  v137[6] = v130;
-  v138[6] = @"G";
-  v129 = [MEMORY[0x1E696AD98] numberWithLong:11];
-  v137[7] = v129;
-  v138[7] = @"H";
-  v128 = [MEMORY[0x1E696AD98] numberWithLong:12];
-  v137[8] = v128;
-  v138[8] = @"I";
-  v127 = [MEMORY[0x1E696AD98] numberWithLong:13];
-  v137[9] = v127;
-  v138[9] = @"J";
-  v126 = [MEMORY[0x1E696AD98] numberWithLong:14];
-  v137[10] = v126;
-  v138[10] = @"K";
-  v125 = [MEMORY[0x1E696AD98] numberWithLong:15];
-  v137[11] = v125;
-  v138[11] = @"L";
-  v124 = [MEMORY[0x1E696AD98] numberWithLong:16];
-  v137[12] = v124;
-  v138[12] = @"M";
-  v123 = [MEMORY[0x1E696AD98] numberWithLong:17];
-  v137[13] = v123;
-  v138[13] = @"N";
-  v122 = [MEMORY[0x1E696AD98] numberWithLong:18];
-  v137[14] = v122;
-  v138[14] = @"O";
-  v121 = [MEMORY[0x1E696AD98] numberWithLong:19];
-  v137[15] = v121;
-  v138[15] = @"P";
-  v120 = [MEMORY[0x1E696AD98] numberWithLong:20];
-  v137[16] = v120;
-  v138[16] = @"Q";
-  v119 = [MEMORY[0x1E696AD98] numberWithLong:21];
-  v137[17] = v119;
-  v138[17] = @"R";
-  v118 = [MEMORY[0x1E696AD98] numberWithLong:22];
-  v137[18] = v118;
-  v138[18] = @"S";
-  v117 = [MEMORY[0x1E696AD98] numberWithLong:23];
-  v137[19] = v117;
-  v138[19] = @"T";
-  v116 = [MEMORY[0x1E696AD98] numberWithLong:24];
-  v137[20] = v116;
-  v138[20] = @"U";
-  v115 = [MEMORY[0x1E696AD98] numberWithLong:25];
-  v137[21] = v115;
-  v138[21] = @"V";
-  v114 = [MEMORY[0x1E696AD98] numberWithLong:26];
-  v137[22] = v114;
-  v138[22] = @"W";
-  v113 = [MEMORY[0x1E696AD98] numberWithLong:27];
-  v137[23] = v113;
-  v138[23] = @"X";
-  v112 = [MEMORY[0x1E696AD98] numberWithLong:28];
-  v137[24] = v112;
-  v138[24] = @"Y";
-  v111 = [MEMORY[0x1E696AD98] numberWithLong:29];
-  v137[25] = v111;
-  v138[25] = @"Z";
-  v110 = [MEMORY[0x1E696AD98] numberWithLong:30];
-  v137[26] = v110;
-  v138[26] = @"One";
-  v109 = [MEMORY[0x1E696AD98] numberWithLong:31];
-  v137[27] = v109;
-  v138[27] = @"Two";
-  v108 = [MEMORY[0x1E696AD98] numberWithLong:32];
-  v137[28] = v108;
-  v138[28] = @"Three";
-  v107 = [MEMORY[0x1E696AD98] numberWithLong:33];
-  v137[29] = v107;
-  v138[29] = @"Four";
-  v106 = [MEMORY[0x1E696AD98] numberWithLong:34];
-  v137[30] = v106;
-  v138[30] = @"Five";
-  v105 = [MEMORY[0x1E696AD98] numberWithLong:35];
-  v137[31] = v105;
-  v138[31] = @"Six";
-  v104 = [MEMORY[0x1E696AD98] numberWithLong:36];
-  v137[32] = v104;
-  v138[32] = @"Seven";
-  v103 = [MEMORY[0x1E696AD98] numberWithLong:37];
-  v137[33] = v103;
-  v138[33] = @"Eight";
-  v102 = [MEMORY[0x1E696AD98] numberWithLong:38];
-  v137[34] = v102;
-  v138[34] = @"Nine";
-  v101 = [MEMORY[0x1E696AD98] numberWithLong:39];
-  v137[35] = v101;
-  v138[35] = @"Zero";
-  v100 = [MEMORY[0x1E696AD98] numberWithLong:40];
-  v137[36] = v100;
-  v138[36] = @"ReturnOrEnter";
-  v99 = [MEMORY[0x1E696AD98] numberWithLong:41];
-  v137[37] = v99;
-  v138[37] = @"Escape";
-  v98 = [MEMORY[0x1E696AD98] numberWithLong:42];
-  v137[38] = v98;
-  v138[38] = @"DeleteOrBackspace";
-  v97 = [MEMORY[0x1E696AD98] numberWithLong:43];
-  v137[39] = v97;
-  v138[39] = @"Tab";
-  v96 = [MEMORY[0x1E696AD98] numberWithLong:44];
-  v137[40] = v96;
-  v138[40] = @"Spacebar";
-  v95 = [MEMORY[0x1E696AD98] numberWithLong:45];
-  v137[41] = v95;
-  v138[41] = @"Hyphen";
-  v94 = [MEMORY[0x1E696AD98] numberWithLong:46];
-  v137[42] = v94;
-  v138[42] = @"EqualSign";
-  v93 = [MEMORY[0x1E696AD98] numberWithLong:47];
-  v137[43] = v93;
-  v138[43] = @"OpenBracket";
-  v92 = [MEMORY[0x1E696AD98] numberWithLong:48];
-  v137[44] = v92;
-  v138[44] = @"CloseBracket";
-  v91 = [MEMORY[0x1E696AD98] numberWithLong:49];
-  v137[45] = v91;
-  v138[45] = @"Backslash";
-  v90 = [MEMORY[0x1E696AD98] numberWithLong:50];
-  v137[46] = v90;
-  v138[46] = @"NonUSPound";
-  v89 = [MEMORY[0x1E696AD98] numberWithLong:51];
-  v137[47] = v89;
-  v138[47] = @"Semicolon";
-  v88 = [MEMORY[0x1E696AD98] numberWithLong:52];
-  v137[48] = v88;
-  v138[48] = @"Quote";
-  v87 = [MEMORY[0x1E696AD98] numberWithLong:53];
-  v137[49] = v87;
-  v138[49] = @"GraveAccentAndTilde";
-  v86 = [MEMORY[0x1E696AD98] numberWithLong:54];
-  v137[50] = v86;
-  v138[50] = @"Comma";
-  v85 = [MEMORY[0x1E696AD98] numberWithLong:55];
-  v137[51] = v85;
-  v138[51] = @"Period";
-  v84 = [MEMORY[0x1E696AD98] numberWithLong:56];
-  v137[52] = v84;
-  v138[52] = @"Slash";
-  v83 = [MEMORY[0x1E696AD98] numberWithLong:57];
-  v137[53] = v83;
-  v138[53] = @"CapsLock";
-  v82 = [MEMORY[0x1E696AD98] numberWithLong:58];
-  v137[54] = v82;
-  v138[54] = @"F1";
-  v81 = [MEMORY[0x1E696AD98] numberWithLong:59];
-  v137[55] = v81;
-  v138[55] = @"F2";
-  v80 = [MEMORY[0x1E696AD98] numberWithLong:60];
-  v137[56] = v80;
-  v138[56] = @"F3";
-  v79 = [MEMORY[0x1E696AD98] numberWithLong:61];
-  v137[57] = v79;
-  v138[57] = @"F4";
-  v78 = [MEMORY[0x1E696AD98] numberWithLong:62];
-  v137[58] = v78;
-  v138[58] = @"F5";
-  v77 = [MEMORY[0x1E696AD98] numberWithLong:63];
-  v137[59] = v77;
-  v138[59] = @"F6";
-  v76 = [MEMORY[0x1E696AD98] numberWithLong:64];
-  v137[60] = v76;
-  v138[60] = @"F7";
-  v75 = [MEMORY[0x1E696AD98] numberWithLong:65];
-  v137[61] = v75;
-  v138[61] = @"F8";
-  v74 = [MEMORY[0x1E696AD98] numberWithLong:66];
-  v137[62] = v74;
-  v138[62] = @"F9";
-  v73 = [MEMORY[0x1E696AD98] numberWithLong:67];
-  v137[63] = v73;
-  v138[63] = @"F10";
-  v72 = [MEMORY[0x1E696AD98] numberWithLong:68];
-  v137[64] = v72;
-  v138[64] = @"F11";
-  v71 = [MEMORY[0x1E696AD98] numberWithLong:69];
-  v137[65] = v71;
-  v138[65] = @"F12";
-  v70 = [MEMORY[0x1E696AD98] numberWithLong:104];
-  v137[66] = v70;
-  v138[66] = @"F13";
-  v69 = [MEMORY[0x1E696AD98] numberWithLong:105];
-  v137[67] = v69;
-  v138[67] = @"F14";
-  v68 = [MEMORY[0x1E696AD98] numberWithLong:106];
-  v137[68] = v68;
-  v138[68] = @"F15";
-  v67 = [MEMORY[0x1E696AD98] numberWithLong:107];
-  v137[69] = v67;
-  v138[69] = @"F16";
-  v66 = [MEMORY[0x1E696AD98] numberWithLong:108];
-  v137[70] = v66;
-  v138[70] = @"F17";
-  v65 = [MEMORY[0x1E696AD98] numberWithLong:109];
-  v137[71] = v65;
-  v138[71] = @"F18";
-  v64 = [MEMORY[0x1E696AD98] numberWithLong:110];
-  v137[72] = v64;
-  v138[72] = @"F19";
-  v63 = [MEMORY[0x1E696AD98] numberWithLong:111];
-  v137[73] = v63;
-  v138[73] = @"F20";
-  v62 = [MEMORY[0x1E696AD98] numberWithLong:70];
-  v137[74] = v62;
-  v138[74] = @"PrintScreen";
-  v61 = [MEMORY[0x1E696AD98] numberWithLong:71];
-  v137[75] = v61;
-  v138[75] = @"ScrollLock";
-  v60 = [MEMORY[0x1E696AD98] numberWithLong:72];
-  v137[76] = v60;
-  v138[76] = @"Pause";
-  v59 = [MEMORY[0x1E696AD98] numberWithLong:73];
-  v137[77] = v59;
-  v138[77] = @"Insert";
-  v58 = [MEMORY[0x1E696AD98] numberWithLong:74];
-  v137[78] = v58;
-  v138[78] = @"Home";
-  v57 = [MEMORY[0x1E696AD98] numberWithLong:75];
-  v137[79] = v57;
-  v138[79] = @"PageUp";
-  v56 = [MEMORY[0x1E696AD98] numberWithLong:76];
-  v137[80] = v56;
-  v138[80] = @"DeleteForward";
-  v55 = [MEMORY[0x1E696AD98] numberWithLong:77];
-  v137[81] = v55;
-  v138[81] = @"End";
-  v54 = [MEMORY[0x1E696AD98] numberWithLong:78];
-  v137[82] = v54;
-  v138[82] = @"PageDown";
-  v53 = [MEMORY[0x1E696AD98] numberWithLong:79];
-  v137[83] = v53;
-  v138[83] = @"RightArrow";
-  v52 = [MEMORY[0x1E696AD98] numberWithLong:80];
-  v137[84] = v52;
-  v138[84] = @"LeftArrow";
-  v51 = [MEMORY[0x1E696AD98] numberWithLong:81];
-  v137[85] = v51;
-  v138[85] = @"DownArrow";
-  v50 = [MEMORY[0x1E696AD98] numberWithLong:82];
-  v137[86] = v50;
-  v138[86] = @"UpArrow";
-  v49 = [MEMORY[0x1E696AD98] numberWithLong:83];
-  v137[87] = v49;
-  v138[87] = @"KeypadNumLock";
-  v48 = [MEMORY[0x1E696AD98] numberWithLong:84];
-  v137[88] = v48;
-  v138[88] = @"KeypadSlash";
-  v47 = [MEMORY[0x1E696AD98] numberWithLong:85];
-  v137[89] = v47;
-  v138[89] = @"KeypadAsterisk";
-  v46 = [MEMORY[0x1E696AD98] numberWithLong:45];
-  v137[90] = v46;
-  v138[90] = @"Hyphen";
-  v45 = [MEMORY[0x1E696AD98] numberWithLong:87];
-  v137[91] = v45;
-  v138[91] = @"KeypadPlus";
-  v44 = [MEMORY[0x1E696AD98] numberWithLong:88];
-  v137[92] = v44;
-  v138[92] = @"KeypadEnter";
-  v43 = [MEMORY[0x1E696AD98] numberWithLong:89];
-  v137[93] = v43;
-  v138[93] = @"Keypad1";
-  v42 = [MEMORY[0x1E696AD98] numberWithLong:90];
-  v137[94] = v42;
-  v138[94] = @"Keypad2";
-  v41 = [MEMORY[0x1E696AD98] numberWithLong:91];
-  v137[95] = v41;
-  v138[95] = @"Keypad3";
-  v40 = [MEMORY[0x1E696AD98] numberWithLong:92];
-  v137[96] = v40;
-  v138[96] = @"Keypad4";
-  v39 = [MEMORY[0x1E696AD98] numberWithLong:93];
-  v137[97] = v39;
-  v138[97] = @"Keypad5";
-  v38 = [MEMORY[0x1E696AD98] numberWithLong:94];
-  v137[98] = v38;
-  v138[98] = @"Keypad6";
-  v37 = [MEMORY[0x1E696AD98] numberWithLong:95];
-  v137[99] = v37;
-  v138[99] = @"Keypad7";
-  v36 = [MEMORY[0x1E696AD98] numberWithLong:96];
-  v137[100] = v36;
-  v138[100] = @"Keypad8";
-  v35 = [MEMORY[0x1E696AD98] numberWithLong:97];
-  v137[101] = v35;
-  v138[101] = @"Keypad9";
-  v34 = [MEMORY[0x1E696AD98] numberWithLong:98];
-  v137[102] = v34;
-  v138[102] = @"Keypad0";
-  v33 = [MEMORY[0x1E696AD98] numberWithLong:99];
-  v137[103] = v33;
-  v138[103] = @"KeypadPeriod";
-  v32 = [MEMORY[0x1E696AD98] numberWithLong:103];
-  v137[104] = v32;
-  v138[104] = @"KeypadEqualSign";
-  v31 = [MEMORY[0x1E696AD98] numberWithLong:100];
-  v137[105] = v31;
-  v138[105] = @"NonUSBackslash";
-  v30 = [MEMORY[0x1E696AD98] numberWithLong:101];
-  v137[106] = v30;
-  v138[106] = @"Application";
-  v29 = [MEMORY[0x1E696AD98] numberWithLong:102];
-  v137[107] = v29;
-  v138[107] = @"Power";
-  v28 = [MEMORY[0x1E696AD98] numberWithLong:135];
-  v137[108] = v28;
-  v138[108] = @"International1";
-  v27 = [MEMORY[0x1E696AD98] numberWithLong:136];
-  v137[109] = v27;
-  v138[109] = @"International2";
-  v26 = [MEMORY[0x1E696AD98] numberWithLong:137];
-  v137[110] = v26;
-  v138[110] = @"International3";
-  v25 = [MEMORY[0x1E696AD98] numberWithLong:138];
-  v137[111] = v25;
-  v138[111] = @"International4";
-  v24 = [MEMORY[0x1E696AD98] numberWithLong:139];
-  v137[112] = v24;
-  v138[112] = @"International5";
-  v23 = [MEMORY[0x1E696AD98] numberWithLong:140];
-  v137[113] = v23;
-  v138[113] = @"International6";
-  v22 = [MEMORY[0x1E696AD98] numberWithLong:141];
-  v137[114] = v22;
-  v138[114] = @"International7";
-  v21 = [MEMORY[0x1E696AD98] numberWithLong:142];
-  v137[115] = v21;
-  v138[115] = @"International8";
-  v20 = [MEMORY[0x1E696AD98] numberWithLong:143];
-  v137[116] = v20;
-  v138[116] = @"International9";
-  v19 = [MEMORY[0x1E696AD98] numberWithLong:144];
-  v137[117] = v19;
-  v138[117] = @"LANG1";
-  v18 = [MEMORY[0x1E696AD98] numberWithLong:145];
-  v137[118] = v18;
-  v138[118] = @"LANG2";
-  v17 = [MEMORY[0x1E696AD98] numberWithLong:146];
-  v137[119] = v17;
-  v138[119] = @"LANG3";
-  v16 = [MEMORY[0x1E696AD98] numberWithLong:147];
-  v137[120] = v16;
-  v138[120] = @"LANG4";
-  v15 = [MEMORY[0x1E696AD98] numberWithLong:148];
-  v137[121] = v15;
-  v138[121] = @"LANG5";
-  v14 = [MEMORY[0x1E696AD98] numberWithLong:149];
-  v137[122] = v14;
-  v138[122] = @"LANG6";
-  v13 = [MEMORY[0x1E696AD98] numberWithLong:150];
-  v137[123] = v13;
-  v138[123] = @"LANG7";
+  v137[134] = *MEMORY[0x1E69E9840];
+  v135 = [MEMORY[0x1E696AD98] numberWithLong:4];
+  v136[0] = v135;
+  v137[0] = @"A";
+  v134 = [MEMORY[0x1E696AD98] numberWithLong:5];
+  v136[1] = v134;
+  v137[1] = @"B";
+  v133 = [MEMORY[0x1E696AD98] numberWithLong:6];
+  v136[2] = v133;
+  v137[2] = @"C";
+  v132 = [MEMORY[0x1E696AD98] numberWithLong:7];
+  v136[3] = v132;
+  v137[3] = @"D";
+  v131 = [MEMORY[0x1E696AD98] numberWithLong:8];
+  v136[4] = v131;
+  v137[4] = @"E";
+  v130 = [MEMORY[0x1E696AD98] numberWithLong:9];
+  v136[5] = v130;
+  v137[5] = @"F";
+  v129 = [MEMORY[0x1E696AD98] numberWithLong:10];
+  v136[6] = v129;
+  v137[6] = @"G";
+  v128 = [MEMORY[0x1E696AD98] numberWithLong:11];
+  v136[7] = v128;
+  v137[7] = @"H";
+  v127 = [MEMORY[0x1E696AD98] numberWithLong:12];
+  v136[8] = v127;
+  v137[8] = @"I";
+  v126 = [MEMORY[0x1E696AD98] numberWithLong:13];
+  v136[9] = v126;
+  v137[9] = @"J";
+  v125 = [MEMORY[0x1E696AD98] numberWithLong:14];
+  v136[10] = v125;
+  v137[10] = @"K";
+  v124 = [MEMORY[0x1E696AD98] numberWithLong:15];
+  v136[11] = v124;
+  v137[11] = @"L";
+  v123 = [MEMORY[0x1E696AD98] numberWithLong:16];
+  v136[12] = v123;
+  v137[12] = @"M";
+  v122 = [MEMORY[0x1E696AD98] numberWithLong:17];
+  v136[13] = v122;
+  v137[13] = @"N";
+  v121 = [MEMORY[0x1E696AD98] numberWithLong:18];
+  v136[14] = v121;
+  v137[14] = @"O";
+  v120 = [MEMORY[0x1E696AD98] numberWithLong:19];
+  v136[15] = v120;
+  v137[15] = @"P";
+  v119 = [MEMORY[0x1E696AD98] numberWithLong:20];
+  v136[16] = v119;
+  v137[16] = @"Q";
+  v118 = [MEMORY[0x1E696AD98] numberWithLong:21];
+  v136[17] = v118;
+  v137[17] = @"R";
+  v117 = [MEMORY[0x1E696AD98] numberWithLong:22];
+  v136[18] = v117;
+  v137[18] = @"S";
+  v116 = [MEMORY[0x1E696AD98] numberWithLong:23];
+  v136[19] = v116;
+  v137[19] = @"T";
+  v115 = [MEMORY[0x1E696AD98] numberWithLong:24];
+  v136[20] = v115;
+  v137[20] = @"U";
+  v114 = [MEMORY[0x1E696AD98] numberWithLong:25];
+  v136[21] = v114;
+  v137[21] = @"V";
+  v113 = [MEMORY[0x1E696AD98] numberWithLong:26];
+  v136[22] = v113;
+  v137[22] = @"W";
+  v112 = [MEMORY[0x1E696AD98] numberWithLong:27];
+  v136[23] = v112;
+  v137[23] = @"X";
+  v111 = [MEMORY[0x1E696AD98] numberWithLong:28];
+  v136[24] = v111;
+  v137[24] = @"Y";
+  v110 = [MEMORY[0x1E696AD98] numberWithLong:29];
+  v136[25] = v110;
+  v137[25] = @"Z";
+  v109 = [MEMORY[0x1E696AD98] numberWithLong:30];
+  v136[26] = v109;
+  v137[26] = @"One";
+  v108 = [MEMORY[0x1E696AD98] numberWithLong:31];
+  v136[27] = v108;
+  v137[27] = @"Two";
+  v107 = [MEMORY[0x1E696AD98] numberWithLong:32];
+  v136[28] = v107;
+  v137[28] = @"Three";
+  v106 = [MEMORY[0x1E696AD98] numberWithLong:33];
+  v136[29] = v106;
+  v137[29] = @"Four";
+  v105 = [MEMORY[0x1E696AD98] numberWithLong:34];
+  v136[30] = v105;
+  v137[30] = @"Five";
+  v104 = [MEMORY[0x1E696AD98] numberWithLong:35];
+  v136[31] = v104;
+  v137[31] = @"Six";
+  v103 = [MEMORY[0x1E696AD98] numberWithLong:36];
+  v136[32] = v103;
+  v137[32] = @"Seven";
+  v102 = [MEMORY[0x1E696AD98] numberWithLong:37];
+  v136[33] = v102;
+  v137[33] = @"Eight";
+  v101 = [MEMORY[0x1E696AD98] numberWithLong:38];
+  v136[34] = v101;
+  v137[34] = @"Nine";
+  v100 = [MEMORY[0x1E696AD98] numberWithLong:39];
+  v136[35] = v100;
+  v137[35] = @"Zero";
+  v99 = [MEMORY[0x1E696AD98] numberWithLong:40];
+  v136[36] = v99;
+  v137[36] = @"ReturnOrEnter";
+  v98 = [MEMORY[0x1E696AD98] numberWithLong:41];
+  v136[37] = v98;
+  v137[37] = @"Escape";
+  v97 = [MEMORY[0x1E696AD98] numberWithLong:42];
+  v136[38] = v97;
+  v137[38] = @"DeleteOrBackspace";
+  v96 = [MEMORY[0x1E696AD98] numberWithLong:43];
+  v136[39] = v96;
+  v137[39] = @"Tab";
+  v95 = [MEMORY[0x1E696AD98] numberWithLong:44];
+  v136[40] = v95;
+  v137[40] = @"Spacebar";
+  v94 = [MEMORY[0x1E696AD98] numberWithLong:45];
+  v136[41] = v94;
+  v137[41] = @"Hyphen";
+  v93 = [MEMORY[0x1E696AD98] numberWithLong:46];
+  v136[42] = v93;
+  v137[42] = @"EqualSign";
+  v92 = [MEMORY[0x1E696AD98] numberWithLong:47];
+  v136[43] = v92;
+  v137[43] = @"OpenBracket";
+  v91 = [MEMORY[0x1E696AD98] numberWithLong:48];
+  v136[44] = v91;
+  v137[44] = @"CloseBracket";
+  v90 = [MEMORY[0x1E696AD98] numberWithLong:49];
+  v136[45] = v90;
+  v137[45] = @"Backslash";
+  v89 = [MEMORY[0x1E696AD98] numberWithLong:50];
+  v136[46] = v89;
+  v137[46] = @"NonUSPound";
+  v88 = [MEMORY[0x1E696AD98] numberWithLong:51];
+  v136[47] = v88;
+  v137[47] = @"Semicolon";
+  v87 = [MEMORY[0x1E696AD98] numberWithLong:52];
+  v136[48] = v87;
+  v137[48] = @"Quote";
+  v86 = [MEMORY[0x1E696AD98] numberWithLong:53];
+  v136[49] = v86;
+  v137[49] = @"GraveAccentAndTilde";
+  v85 = [MEMORY[0x1E696AD98] numberWithLong:54];
+  v136[50] = v85;
+  v137[50] = @"Comma";
+  v84 = [MEMORY[0x1E696AD98] numberWithLong:55];
+  v136[51] = v84;
+  v137[51] = @"Period";
+  v83 = [MEMORY[0x1E696AD98] numberWithLong:56];
+  v136[52] = v83;
+  v137[52] = @"Slash";
+  v82 = [MEMORY[0x1E696AD98] numberWithLong:57];
+  v136[53] = v82;
+  v137[53] = @"CapsLock";
+  v81 = [MEMORY[0x1E696AD98] numberWithLong:58];
+  v136[54] = v81;
+  v137[54] = @"F1";
+  v80 = [MEMORY[0x1E696AD98] numberWithLong:59];
+  v136[55] = v80;
+  v137[55] = @"F2";
+  v79 = [MEMORY[0x1E696AD98] numberWithLong:60];
+  v136[56] = v79;
+  v137[56] = @"F3";
+  v78 = [MEMORY[0x1E696AD98] numberWithLong:61];
+  v136[57] = v78;
+  v137[57] = @"F4";
+  v77 = [MEMORY[0x1E696AD98] numberWithLong:62];
+  v136[58] = v77;
+  v137[58] = @"F5";
+  v76 = [MEMORY[0x1E696AD98] numberWithLong:63];
+  v136[59] = v76;
+  v137[59] = @"F6";
+  v75 = [MEMORY[0x1E696AD98] numberWithLong:64];
+  v136[60] = v75;
+  v137[60] = @"F7";
+  v74 = [MEMORY[0x1E696AD98] numberWithLong:65];
+  v136[61] = v74;
+  v137[61] = @"F8";
+  v73 = [MEMORY[0x1E696AD98] numberWithLong:66];
+  v136[62] = v73;
+  v137[62] = @"F9";
+  v72 = [MEMORY[0x1E696AD98] numberWithLong:67];
+  v136[63] = v72;
+  v137[63] = @"F10";
+  v71 = [MEMORY[0x1E696AD98] numberWithLong:68];
+  v136[64] = v71;
+  v137[64] = @"F11";
+  v70 = [MEMORY[0x1E696AD98] numberWithLong:69];
+  v136[65] = v70;
+  v137[65] = @"F12";
+  v69 = [MEMORY[0x1E696AD98] numberWithLong:104];
+  v136[66] = v69;
+  v137[66] = @"F13";
+  v68 = [MEMORY[0x1E696AD98] numberWithLong:105];
+  v136[67] = v68;
+  v137[67] = @"F14";
+  v67 = [MEMORY[0x1E696AD98] numberWithLong:106];
+  v136[68] = v67;
+  v137[68] = @"F15";
+  v66 = [MEMORY[0x1E696AD98] numberWithLong:107];
+  v136[69] = v66;
+  v137[69] = @"F16";
+  v65 = [MEMORY[0x1E696AD98] numberWithLong:108];
+  v136[70] = v65;
+  v137[70] = @"F17";
+  v64 = [MEMORY[0x1E696AD98] numberWithLong:109];
+  v136[71] = v64;
+  v137[71] = @"F18";
+  v63 = [MEMORY[0x1E696AD98] numberWithLong:110];
+  v136[72] = v63;
+  v137[72] = @"F19";
+  v62 = [MEMORY[0x1E696AD98] numberWithLong:111];
+  v136[73] = v62;
+  v137[73] = @"F20";
+  v61 = [MEMORY[0x1E696AD98] numberWithLong:70];
+  v136[74] = v61;
+  v137[74] = @"PrintScreen";
+  v60 = [MEMORY[0x1E696AD98] numberWithLong:71];
+  v136[75] = v60;
+  v137[75] = @"ScrollLock";
+  v59 = [MEMORY[0x1E696AD98] numberWithLong:72];
+  v136[76] = v59;
+  v137[76] = @"Pause";
+  v58 = [MEMORY[0x1E696AD98] numberWithLong:73];
+  v136[77] = v58;
+  v137[77] = @"Insert";
+  v57 = [MEMORY[0x1E696AD98] numberWithLong:74];
+  v136[78] = v57;
+  v137[78] = @"Home";
+  v56 = [MEMORY[0x1E696AD98] numberWithLong:75];
+  v136[79] = v56;
+  v137[79] = @"PageUp";
+  v55 = [MEMORY[0x1E696AD98] numberWithLong:76];
+  v136[80] = v55;
+  v137[80] = @"DeleteForward";
+  v54 = [MEMORY[0x1E696AD98] numberWithLong:77];
+  v136[81] = v54;
+  v137[81] = @"End";
+  v53 = [MEMORY[0x1E696AD98] numberWithLong:78];
+  v136[82] = v53;
+  v137[82] = @"PageDown";
+  v52 = [MEMORY[0x1E696AD98] numberWithLong:79];
+  v136[83] = v52;
+  v137[83] = @"RightArrow";
+  v51 = [MEMORY[0x1E696AD98] numberWithLong:80];
+  v136[84] = v51;
+  v137[84] = @"LeftArrow";
+  v50 = [MEMORY[0x1E696AD98] numberWithLong:81];
+  v136[85] = v50;
+  v137[85] = @"DownArrow";
+  v49 = [MEMORY[0x1E696AD98] numberWithLong:82];
+  v136[86] = v49;
+  v137[86] = @"UpArrow";
+  v48 = [MEMORY[0x1E696AD98] numberWithLong:83];
+  v136[87] = v48;
+  v137[87] = @"KeypadNumLock";
+  v47 = [MEMORY[0x1E696AD98] numberWithLong:84];
+  v136[88] = v47;
+  v137[88] = @"KeypadSlash";
+  v46 = [MEMORY[0x1E696AD98] numberWithLong:85];
+  v136[89] = v46;
+  v137[89] = @"KeypadAsterisk";
+  v45 = [MEMORY[0x1E696AD98] numberWithLong:45];
+  v136[90] = v45;
+  v137[90] = @"Hyphen";
+  v44 = [MEMORY[0x1E696AD98] numberWithLong:87];
+  v136[91] = v44;
+  v137[91] = @"KeypadPlus";
+  v43 = [MEMORY[0x1E696AD98] numberWithLong:88];
+  v136[92] = v43;
+  v137[92] = @"KeypadEnter";
+  v42 = [MEMORY[0x1E696AD98] numberWithLong:89];
+  v136[93] = v42;
+  v137[93] = @"Keypad1";
+  v41 = [MEMORY[0x1E696AD98] numberWithLong:90];
+  v136[94] = v41;
+  v137[94] = @"Keypad2";
+  v40 = [MEMORY[0x1E696AD98] numberWithLong:91];
+  v136[95] = v40;
+  v137[95] = @"Keypad3";
+  v39 = [MEMORY[0x1E696AD98] numberWithLong:92];
+  v136[96] = v39;
+  v137[96] = @"Keypad4";
+  v38 = [MEMORY[0x1E696AD98] numberWithLong:93];
+  v136[97] = v38;
+  v137[97] = @"Keypad5";
+  v37 = [MEMORY[0x1E696AD98] numberWithLong:94];
+  v136[98] = v37;
+  v137[98] = @"Keypad6";
+  v36 = [MEMORY[0x1E696AD98] numberWithLong:95];
+  v136[99] = v36;
+  v137[99] = @"Keypad7";
+  v35 = [MEMORY[0x1E696AD98] numberWithLong:96];
+  v136[100] = v35;
+  v137[100] = @"Keypad8";
+  v34 = [MEMORY[0x1E696AD98] numberWithLong:97];
+  v136[101] = v34;
+  v137[101] = @"Keypad9";
+  v33 = [MEMORY[0x1E696AD98] numberWithLong:98];
+  v136[102] = v33;
+  v137[102] = @"Keypad0";
+  v32 = [MEMORY[0x1E696AD98] numberWithLong:99];
+  v136[103] = v32;
+  v137[103] = @"KeypadPeriod";
+  v31 = [MEMORY[0x1E696AD98] numberWithLong:103];
+  v136[104] = v31;
+  v137[104] = @"KeypadEqualSign";
+  v30 = [MEMORY[0x1E696AD98] numberWithLong:100];
+  v136[105] = v30;
+  v137[105] = @"NonUSBackslash";
+  v29 = [MEMORY[0x1E696AD98] numberWithLong:101];
+  v136[106] = v29;
+  v137[106] = @"Application";
+  v28 = [MEMORY[0x1E696AD98] numberWithLong:102];
+  v136[107] = v28;
+  v137[107] = @"Power";
+  v27 = [MEMORY[0x1E696AD98] numberWithLong:135];
+  v136[108] = v27;
+  v137[108] = @"International1";
+  v26 = [MEMORY[0x1E696AD98] numberWithLong:136];
+  v136[109] = v26;
+  v137[109] = @"International2";
+  v25 = [MEMORY[0x1E696AD98] numberWithLong:137];
+  v136[110] = v25;
+  v137[110] = @"International3";
+  v24 = [MEMORY[0x1E696AD98] numberWithLong:138];
+  v136[111] = v24;
+  v137[111] = @"International4";
+  v23 = [MEMORY[0x1E696AD98] numberWithLong:139];
+  v136[112] = v23;
+  v137[112] = @"International5";
+  v22 = [MEMORY[0x1E696AD98] numberWithLong:140];
+  v136[113] = v22;
+  v137[113] = @"International6";
+  v21 = [MEMORY[0x1E696AD98] numberWithLong:141];
+  v136[114] = v21;
+  v137[114] = @"International7";
+  v20 = [MEMORY[0x1E696AD98] numberWithLong:142];
+  v136[115] = v20;
+  v137[115] = @"International8";
+  v19 = [MEMORY[0x1E696AD98] numberWithLong:143];
+  v136[116] = v19;
+  v137[116] = @"International9";
+  v18 = [MEMORY[0x1E696AD98] numberWithLong:144];
+  v136[117] = v18;
+  v137[117] = @"LANG1";
+  v17 = [MEMORY[0x1E696AD98] numberWithLong:145];
+  v136[118] = v17;
+  v137[118] = @"LANG2";
+  v16 = [MEMORY[0x1E696AD98] numberWithLong:146];
+  v136[119] = v16;
+  v137[119] = @"LANG3";
+  v15 = [MEMORY[0x1E696AD98] numberWithLong:147];
+  v136[120] = v15;
+  v137[120] = @"LANG4";
+  v14 = [MEMORY[0x1E696AD98] numberWithLong:148];
+  v136[121] = v14;
+  v137[121] = @"LANG5";
+  v13 = [MEMORY[0x1E696AD98] numberWithLong:149];
+  v136[122] = v13;
+  v137[122] = @"LANG6";
+  v12 = [MEMORY[0x1E696AD98] numberWithLong:150];
+  v136[123] = v12;
+  v137[123] = @"LANG7";
   v0 = [MEMORY[0x1E696AD98] numberWithLong:151];
-  v137[124] = v0;
-  v138[124] = @"LANG8";
+  v136[124] = v0;
+  v137[124] = @"LANG8";
   v1 = [MEMORY[0x1E696AD98] numberWithLong:152];
-  v137[125] = v1;
-  v138[125] = @"LANG9";
+  v136[125] = v1;
+  v137[125] = @"LANG9";
   v2 = [MEMORY[0x1E696AD98] numberWithLong:224];
-  v137[126] = v2;
-  v138[126] = @"LeftControl";
+  v136[126] = v2;
+  v137[126] = @"LeftControl";
   v3 = [MEMORY[0x1E696AD98] numberWithLong:225];
-  v137[127] = v3;
-  v138[127] = @"LeftShift";
+  v136[127] = v3;
+  v137[127] = @"LeftShift";
   v4 = [MEMORY[0x1E696AD98] numberWithLong:226];
-  v137[128] = v4;
-  v138[128] = @"LeftAlt";
+  v136[128] = v4;
+  v137[128] = @"LeftAlt";
   v5 = [MEMORY[0x1E696AD98] numberWithLong:227];
-  v137[129] = v5;
-  v138[129] = @"LeftGUI";
+  v136[129] = v5;
+  v137[129] = @"LeftGUI";
   v6 = [MEMORY[0x1E696AD98] numberWithLong:228];
-  v137[130] = v6;
-  v138[130] = @"RightControl";
+  v136[130] = v6;
+  v137[130] = @"RightControl";
   v7 = [MEMORY[0x1E696AD98] numberWithLong:229];
-  v137[131] = v7;
-  v138[131] = @"RightShift";
+  v136[131] = v7;
+  v137[131] = @"RightShift";
   v8 = [MEMORY[0x1E696AD98] numberWithLong:230];
-  v137[132] = v8;
-  v138[132] = @"RightAlt";
+  v136[132] = v8;
+  v137[132] = @"RightAlt";
   v9 = [MEMORY[0x1E696AD98] numberWithLong:231];
-  v137[133] = v9;
-  v138[133] = @"RightGUI";
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v138 forKeys:v137 count:134];
+  v136[133] = v9;
+  v137[133] = @"RightGUI";
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v137 forKeys:v136 count:134];
   v11 = nameForKeyCode_dict;
   nameForKeyCode_dict = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-BOOL GCCallerAddressIsGameControllerFramework()
+BOOL GCCallerAddressIsGameControllerFramework(uint64_t a1)
 {
   if (GCCallerAddressIsGameControllerFramework_onceToken != -1)
   {
@@ -1971,7 +1958,7 @@ id loadNSDictionaryFromJSON(uint64_t a1, void *a2)
   return v7;
 }
 
-uint64_t GCBypassMFiAuthentication()
+uint64_t GCBypassMFiAuthentication(uint64_t a1, uint64_t a2)
 {
   if (GCBypassMFiAuthentication_onceToken != -1)
   {
@@ -1984,10 +1971,12 @@ uint64_t GCBypassMFiAuthentication()
 void __GCBypassMFiAuthentication_block_invoke()
 {
   v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.GameController"];
-  GCBypassMFiAuthentication_bypassMFiAuthentication = [v0 BOOLForKey:@"GCMFiAuthBypassEnable"];
-  if (gc_isInternalBuild())
+  v1 = [v0 BOOLForKey:@"GCMFiAuthBypassEnable"];
+  GCBypassMFiAuthentication_bypassMFiAuthentication = v1;
+  isInternalBuild = gc_isInternalBuild(v1, v2);
+  if (isInternalBuild)
   {
-    __GCBypassMFiAuthentication_block_invoke_cold_1();
+    __GCBypassMFiAuthentication_block_invoke_cold_1(isInternalBuild);
   }
 }
 
@@ -2151,10 +2140,10 @@ uint64_t touchUpdateContext(uint64_t a1)
   return a1 + v3 + v2;
 }
 
-uint64_t OUTLINED_FUNCTION_15_0(uint64_t a1)
+BOOL OUTLINED_FUNCTION_15_0(uint64_t a1, __n128 a2, __n128 a3)
 {
 
-  return [_GCDevicePhysicalInputPressInput update:v1 withValue:a1 timestamp:v3];
+  return [_GCDevicePhysicalInputPressInput update:v3 withValue:a1 timestamp:v5];
 }
 
 uint64_t OUTLINED_FUNCTION_20(uint64_t a1)
@@ -2166,10 +2155,10 @@ uint64_t OUTLINED_FUNCTION_20(uint64_t a1)
 uint64_t OUTLINED_FUNCTION_27@<X0>(unsigned int a1@<W0>, uint64_t a2@<X8>)
 {
 
-  return [(_GCDevicePhysicalInputAxis2DInput *)v2 update:v5 withValue:v6 timestamp:?];
+  return [(_GCDevicePhysicalInputAxis2DInput *)v5 update:v8 withValue:v9 timestamp:?];
 }
 
-uint64_t OUTLINED_FUNCTION_32@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_32@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _primitiveValueForSlot:?];
@@ -2181,58 +2170,51 @@ void OUTLINED_FUNCTION_36(uint64_t a1, const char *a2, uint64_t a3, ptrdiff_t a4
   objc_setProperty_nonatomic_copy(v4, a2, v5, a4);
 }
 
-uint64_t OUTLINED_FUNCTION_41(uint64_t result)
-{
-  *(v2 + 1400) = result;
-  v3 = *(v1 + 3904) == 0;
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_48(uint64_t result)
 {
 
   return [(_GCDevicePhysicalInputJoystickElement *)result _xy];
 }
 
-uint64_t OUTLINED_FUNCTION_49@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_49@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _primitiveValueForSlot:?];
 }
 
-uint64_t OUTLINED_FUNCTION_50@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_50@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _primitiveValueForSlot:?];
 }
 
-uint64_t OUTLINED_FUNCTION_51@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_51@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _primitiveValueForSlot:?];
 }
 
-uint64_t OUTLINED_FUNCTION_52@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+id *OUTLINED_FUNCTION_52@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v2 _testAndSetPrimitiveValue:a1 forSlot:v2 + a2];
 }
 
-uint64_t OUTLINED_FUNCTION_53(uint64_t a1, uint64_t a2)
+uint64_t OUTLINED_FUNCTION_53(__n128 a1, __n128 a2, uint64_t a3, uint64_t a4)
 {
 
-  return [_GCDevicePhysicalInputAxisInput update:a1 withValue:a2 timestamp:v3];
+  return [_GCDevicePhysicalInputAxisInput update:a3 withValue:a4 timestamp:v5];
 }
 
-uint64_t OUTLINED_FUNCTION_54@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+id *OUTLINED_FUNCTION_54@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v2 _testAndSetPrimitiveValue:a1 forSlot:v2 + a2];
 }
 
-uint64_t _dependentNotificationInit()
+uint64_t _dependentNotificationInit(uint64_t a1, uint64_t a2)
 {
-  result = currentProcessIsGameControllerDaemon();
+  result = currentProcessIsGameControllerDaemon(a1, a2);
   if ((result & 1) == 0)
   {
     return +[_GCLegacyDeviceSession sharedInstance];
@@ -2241,23 +2223,23 @@ uint64_t _dependentNotificationInit()
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2_4@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_2_4@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _primitiveValueForSlot:?];
 }
 
-uint64_t OUTLINED_FUNCTION_4_4@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_4_4@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _primitiveValueForSlot:?];
 }
 
-void HandleReport(void *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7)
+void HandleReport(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v12 = a1;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v12, v13))
   {
     HandleReport_cold_1(a5, a7);
     if (a4)
@@ -2273,24 +2255,25 @@ void HandleReport(void *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a
 
   if (*(v12 + 7) == a3)
   {
-    v13 = objc_opt_new();
-    v15 = v13;
-    v16 = v12[19];
-    if (v16 > 1)
+    v14 = objc_opt_new();
+    v17 = v14;
+    v18 = v12[19];
+    if (v18 > 1)
     {
-      if (v16 != 2)
+      if (v18 != 2)
       {
-        if (v16 != 3)
+        if (v18 != 3)
         {
           goto LABEL_236;
         }
 
         if (a5)
         {
-          if (gc_isInternalBuild())
+          isInternalBuild = gc_isInternalBuild(v14, v15);
+          if (isInternalBuild)
           {
-            v17 = getGCLogger();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+            v20 = getGCLogger(isInternalBuild);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_207;
             }
@@ -2306,10 +2289,11 @@ void HandleReport(void *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a
 
       if (a5 != 1)
       {
-        if (gc_isInternalBuild())
+        v91 = gc_isInternalBuild(v14, v15);
+        if (v91)
         {
-          v17 = getGCLogger();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v20 = getGCLogger(v91);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
 LABEL_207:
             HandleReport_cold_2();
@@ -2323,59 +2307,25 @@ LABEL_236:
         goto LABEL_237;
       }
 
-      LODWORD(v14) = 1.0;
-      v41 = *(a6 + 1) & 0xF;
+      LODWORD(v16) = 1.0;
+      v45 = *(a6 + 1) & 0xF;
       if ((*(a6 + 1) & 0xF) != 0)
       {
-        v14 = 0.0;
-        if (v41 == 1)
+        v16 = 0.0;
+        if (v45 == 1)
         {
-          *&v14 = 1.0;
+          *&v16 = 1.0;
         }
 
-        if (v41 == 7)
+        if (v45 == 7)
         {
-          *&v14 = 1.0;
+          *&v16 = 1.0;
         }
       }
 
-      [v13 setDpadUpValue:v14];
-      v43 = *(a6 + 1) & 0xF;
-      if (v43 == 5)
-      {
-        *&v42 = 1.0;
-      }
-
-      else
-      {
-        *&v42 = 0.0;
-      }
-
-      if ((v43 - 3) < 2)
-      {
-        *&v42 = 1.0;
-      }
-
-      [v15 setDpadDownValue:v42];
-      v45 = *(a6 + 1) & 0xF;
-      if (v45 == 7)
-      {
-        *&v44 = 1.0;
-      }
-
-      else
-      {
-        *&v44 = 0.0;
-      }
-
-      if ((v45 - 5) < 2)
-      {
-        *&v44 = 1.0;
-      }
-
-      [v15 setDpadLeftValue:v44];
+      [v14 setDpadUpValue:v16];
       v47 = *(a6 + 1) & 0xF;
-      if (v47 == 3)
+      if (v47 == 5)
       {
         *&v46 = 1.0;
       }
@@ -2385,13 +2335,14 @@ LABEL_236:
         *&v46 = 0.0;
       }
 
-      if ((v47 - 1) < 2)
+      if ((v47 - 3) < 2)
       {
         *&v46 = 1.0;
       }
 
-      [v15 setDpadRightValue:v46];
-      if ((*(a6 + 1) & 0x10) != 0)
+      [v17 setDpadDownValue:v46];
+      v49 = *(a6 + 1) & 0xF;
+      if (v49 == 7)
       {
         *&v48 = 1.0;
       }
@@ -2401,19 +2352,14 @@ LABEL_236:
         *&v48 = 0.0;
       }
 
-      [v15 setButtonAValue:v48];
-      if ((*(a6 + 1) & 0x20) != 0)
+      if ((v49 - 5) < 2)
       {
-        *&v49 = 1.0;
+        *&v48 = 1.0;
       }
 
-      else
-      {
-        *&v49 = 0.0;
-      }
-
-      [v15 setButtonBValue:v49];
-      if (*(a6 + 1) < 0)
+      [v17 setDpadLeftValue:v48];
+      v51 = *(a6 + 1) & 0xF;
+      if (v51 == 3)
       {
         *&v50 = 1.0;
       }
@@ -2423,19 +2369,13 @@ LABEL_236:
         *&v50 = 0.0;
       }
 
-      [v15 setButtonYValue:v50];
-      if ((*(a6 + 1) & 0x40) != 0)
+      if ((v51 - 1) < 2)
       {
-        *&v51 = 1.0;
+        *&v50 = 1.0;
       }
 
-      else
-      {
-        *&v51 = 0.0;
-      }
-
-      [v15 setButtonXValue:v51];
-      if ((*(a6 + 2) & 8) != 0)
+      [v17 setDpadRightValue:v50];
+      if ((*(a6 + 1) & 0x10) != 0)
       {
         *&v52 = 1.0;
       }
@@ -2445,8 +2385,8 @@ LABEL_236:
         *&v52 = 0.0;
       }
 
-      [v15 setLeftTrigger:v52];
-      if ((*(a6 + 2) & 4) != 0)
+      [v17 setButtonAValue:v52];
+      if ((*(a6 + 1) & 0x20) != 0)
       {
         *&v53 = 1.0;
       }
@@ -2456,8 +2396,8 @@ LABEL_236:
         *&v53 = 0.0;
       }
 
-      [v15 setRightTrigger:v53];
-      if ((*(a6 + 2) & 0x20) != 0)
+      [v17 setButtonBValue:v53];
+      if (*(a6 + 1) < 0)
       {
         *&v54 = 1.0;
       }
@@ -2467,8 +2407,8 @@ LABEL_236:
         *&v54 = 0.0;
       }
 
-      [v15 setLeftThumbstickButton:v54];
-      if ((*(a6 + 2) & 0x10) != 0)
+      [v17 setButtonYValue:v54];
+      if ((*(a6 + 1) & 0x40) != 0)
       {
         *&v55 = 1.0;
       }
@@ -2478,8 +2418,8 @@ LABEL_236:
         *&v55 = 0.0;
       }
 
-      [v15 setRightThumbstickButton:v55];
-      if ((*(a6 + 2) & 2) != 0)
+      [v17 setButtonXValue:v55];
+      if ((*(a6 + 2) & 8) != 0)
       {
         *&v56 = 1.0;
       }
@@ -2489,8 +2429,8 @@ LABEL_236:
         *&v56 = 0.0;
       }
 
-      [v15 setButtonLeftShoulder:v56];
-      if (*(a6 + 2))
+      [v17 setLeftTrigger:v56];
+      if ((*(a6 + 2) & 4) != 0)
       {
         *&v57 = 1.0;
       }
@@ -2500,8 +2440,8 @@ LABEL_236:
         *&v57 = 0.0;
       }
 
-      [v15 setButtonRightShoulder:v57];
-      if ((*(a6 + 2) & 0x40) != 0)
+      [v17 setRightTrigger:v57];
+      if ((*(a6 + 2) & 0x20) != 0)
       {
         *&v58 = 1.0;
       }
@@ -2511,33 +2451,78 @@ LABEL_236:
         *&v58 = 0.0;
       }
 
-      [v15 setButtonHome:v58];
-      *&v59 = (*(a6 + 6) ^ 0xFFu) / 255.0;
-      [v15 setButtonSpecial0:v59];
-      *&v60 = ~(*(a6 + 6) >> 8) / 255.0;
-      [v15 setButtonSpecial1:v60];
-      *&v61 = (*(a6 + 8) ^ 0xFFu) / 255.0;
-      [v15 setButtonSpecial2:v61];
-      *&v62 = (*(a6 + 4) - 0x7FFF) / 32767.0;
-      [v15 setButtonSpecial3:v62];
-      v40 = (*(a6 + 2) >> 7) & 0x7F;
+      [v17 setLeftThumbstickButton:v58];
+      if ((*(a6 + 2) & 0x10) != 0)
+      {
+        *&v59 = 1.0;
+      }
+
+      else
+      {
+        *&v59 = 0.0;
+      }
+
+      [v17 setRightThumbstickButton:v59];
+      if ((*(a6 + 2) & 2) != 0)
+      {
+        *&v60 = 1.0;
+      }
+
+      else
+      {
+        *&v60 = 0.0;
+      }
+
+      [v17 setButtonLeftShoulder:v60];
+      if (*(a6 + 2))
+      {
+        *&v61 = 1.0;
+      }
+
+      else
+      {
+        *&v61 = 0.0;
+      }
+
+      [v17 setButtonRightShoulder:v61];
+      if ((*(a6 + 2) & 0x40) != 0)
+      {
+        *&v62 = 1.0;
+      }
+
+      else
+      {
+        *&v62 = 0.0;
+      }
+
+      [v17 setButtonHome:v62];
+      *&v63 = (*(a6 + 6) ^ 0xFFu) / 255.0;
+      [v17 setButtonSpecial0:v63];
+      *&v64 = ~(*(a6 + 6) >> 8) / 255.0;
+      [v17 setButtonSpecial1:v64];
+      *&v65 = (*(a6 + 8) ^ 0xFFu) / 255.0;
+      [v17 setButtonSpecial2:v65];
+      *&v66 = (*(a6 + 4) - 0x7FFF) / 32767.0;
+      [v17 setButtonSpecial3:v66];
+      v44 = (*(a6 + 2) >> 7) & 0x7F;
     }
 
     else
     {
-      if (v16)
+      if (v18)
       {
-        if (v16 != 1)
+        if (v18 != 1)
         {
           goto LABEL_236;
         }
 
         if (a5)
         {
-          if (gc_isInternalBuild())
+          v19 = gc_isInternalBuild(v14, v15);
+          if (v19)
           {
-            v17 = getGCLogger();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+            v20 = getGCLogger(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_207;
             }
@@ -2549,84 +2534,25 @@ LABEL_236:
         }
 
 LABEL_138:
-        v63 = 1.0;
-        LODWORD(v14) = 1.0;
-        v64 = *a6 & 0xF;
-        if (v64)
+        v67 = 1.0;
+        LODWORD(v16) = 1.0;
+        v68 = *a6 & 0xF;
+        if (v68)
         {
-          v14 = 0.0;
-          if (v64 == 1)
+          v16 = 0.0;
+          if (v68 == 1)
           {
-            *&v14 = 1.0;
+            *&v16 = 1.0;
           }
 
-          if (v64 == 7)
+          if (v68 == 7)
           {
-            *&v14 = 1.0;
+            *&v16 = 1.0;
           }
         }
 
-        [v13 setDpadUpValue:v14];
+        [v14 setDpadUpValue:v16];
         if ((*a6 & 0xF) == 5)
-        {
-          *&v65 = 1.0;
-        }
-
-        else
-        {
-          *&v65 = 0.0;
-        }
-
-        if ((*a6 & 0xFu) - 3 < 2)
-        {
-          *&v65 = 1.0;
-        }
-
-        [v15 setDpadDownValue:v65];
-        if ((*a6 & 0xF) == 7)
-        {
-          *&v66 = 1.0;
-        }
-
-        else
-        {
-          *&v66 = 0.0;
-        }
-
-        if ((*a6 & 0xFu) - 5 < 2)
-        {
-          *&v66 = 1.0;
-        }
-
-        [v15 setDpadLeftValue:v66];
-        if ((*a6 & 0xF) == 3)
-        {
-          *&v67 = 1.0;
-        }
-
-        else
-        {
-          *&v67 = 0.0;
-        }
-
-        if ((*a6 & 0xFu) - 1 < 2)
-        {
-          *&v67 = 1.0;
-        }
-
-        [v15 setDpadRightValue:v67];
-        if ((*a6 & 0x10) != 0)
-        {
-          *&v68 = 1.0;
-        }
-
-        else
-        {
-          *&v68 = 0.0;
-        }
-
-        [v15 setButtonAValue:v68];
-        if ((*a6 & 0x40) != 0)
         {
           *&v69 = 1.0;
         }
@@ -2636,8 +2562,13 @@ LABEL_138:
           *&v69 = 0.0;
         }
 
-        [v15 setButtonBValue:v69];
-        if ((*a6 & 0x80) != 0)
+        if ((*a6 & 0xFu) - 3 < 2)
+        {
+          *&v69 = 1.0;
+        }
+
+        [v17 setDpadDownValue:v69];
+        if ((*a6 & 0xF) == 7)
         {
           *&v70 = 1.0;
         }
@@ -2647,8 +2578,13 @@ LABEL_138:
           *&v70 = 0.0;
         }
 
-        [v15 setButtonYValue:v70];
-        if ((*a6 & 0x20) != 0)
+        if ((*a6 & 0xFu) - 5 < 2)
+        {
+          *&v70 = 1.0;
+        }
+
+        [v17 setDpadLeftValue:v70];
+        if ((*a6 & 0xF) == 3)
         {
           *&v71 = 1.0;
         }
@@ -2658,8 +2594,13 @@ LABEL_138:
           *&v71 = 0.0;
         }
 
-        [v15 setButtonXValue:v71];
-        if ((*a6 & 0x800) != 0)
+        if ((*a6 & 0xFu) - 1 < 2)
+        {
+          *&v71 = 1.0;
+        }
+
+        [v17 setDpadRightValue:v71];
+        if ((*a6 & 0x10) != 0)
         {
           *&v72 = 1.0;
         }
@@ -2669,8 +2610,8 @@ LABEL_138:
           *&v72 = 0.0;
         }
 
-        [v15 setLeftTrigger:v72];
-        if ((*a6 & 0x400) != 0)
+        [v17 setButtonAValue:v72];
+        if ((*a6 & 0x40) != 0)
         {
           *&v73 = 1.0;
         }
@@ -2680,8 +2621,8 @@ LABEL_138:
           *&v73 = 0.0;
         }
 
-        [v15 setRightTrigger:v73];
-        if ((*a6 & 0x8000) != 0)
+        [v17 setButtonBValue:v73];
+        if ((*a6 & 0x80) != 0)
         {
           *&v74 = 1.0;
         }
@@ -2691,8 +2632,8 @@ LABEL_138:
           *&v74 = 0.0;
         }
 
-        [v15 setLeftThumbstickButton:v74];
-        if ((*a6 & 0x4000) != 0)
+        [v17 setButtonYValue:v74];
+        if ((*a6 & 0x20) != 0)
         {
           *&v75 = 1.0;
         }
@@ -2702,8 +2643,8 @@ LABEL_138:
           *&v75 = 0.0;
         }
 
-        [v15 setRightThumbstickButton:v75];
-        if ((*a6 & 0x200) != 0)
+        [v17 setButtonXValue:v75];
+        if ((*a6 & 0x800) != 0)
         {
           *&v76 = 1.0;
         }
@@ -2713,8 +2654,8 @@ LABEL_138:
           *&v76 = 0.0;
         }
 
-        [v15 setButtonLeftShoulder:v76];
-        if ((*a6 & 0x100) != 0)
+        [v17 setLeftTrigger:v76];
+        if ((*a6 & 0x400) != 0)
         {
           *&v77 = 1.0;
         }
@@ -2724,8 +2665,8 @@ LABEL_138:
           *&v77 = 0.0;
         }
 
-        [v15 setButtonRightShoulder:v77];
-        if ((*a6 & 0x10000000) != 0)
+        [v17 setRightTrigger:v77];
+        if ((*a6 & 0x8000) != 0)
         {
           *&v78 = 1.0;
         }
@@ -2735,8 +2676,8 @@ LABEL_138:
           *&v78 = 0.0;
         }
 
-        [v15 setButtonHome:v78];
-        if ((*a6 & 0x2000) != 0)
+        [v17 setLeftThumbstickButton:v78];
+        if ((*a6 & 0x4000) != 0)
         {
           *&v79 = 1.0;
         }
@@ -2746,8 +2687,8 @@ LABEL_138:
           *&v79 = 0.0;
         }
 
-        [v15 setButtonOptions:v79];
-        if ((*a6 & 0x1000) != 0)
+        [v17 setRightThumbstickButton:v79];
+        if ((*a6 & 0x200) != 0)
         {
           *&v80 = 1.0;
         }
@@ -2757,60 +2698,104 @@ LABEL_138:
           *&v80 = 0.0;
         }
 
-        [v15 setButtonSpecial15:v80];
-        *&v81 = (*(a6 + 6) ^ 0xFFu) / 255.0;
-        [v15 setButtonSpecial0:v81];
-        *&v82 = (~*(a6 + 6) >> 8) / 255.0;
-        [v15 setButtonSpecial1:v82];
-        *&v83 = (*(a6 + 8) ^ 0xFFu) / 255.0;
-        [v15 setButtonSpecial2:v83];
-        *&v84 = (*(a6 + 4) - 0x7FFF) / 32767.0;
-        [v15 setButtonSpecial3:v84];
-        v85 = *(a6 + 2) & 0x7F;
-        if (v85 > 7)
+        [v17 setButtonLeftShoulder:v80];
+        if ((*a6 & 0x100) != 0)
+        {
+          *&v81 = 1.0;
+        }
+
+        else
+        {
+          *&v81 = 0.0;
+        }
+
+        [v17 setButtonRightShoulder:v81];
+        if ((*a6 & 0x10000000) != 0)
+        {
+          *&v82 = 1.0;
+        }
+
+        else
+        {
+          *&v82 = 0.0;
+        }
+
+        [v17 setButtonHome:v82];
+        if ((*a6 & 0x2000) != 0)
+        {
+          *&v83 = 1.0;
+        }
+
+        else
+        {
+          *&v83 = 0.0;
+        }
+
+        [v17 setButtonOptions:v83];
+        if ((*a6 & 0x1000) != 0)
+        {
+          *&v84 = 1.0;
+        }
+
+        else
+        {
+          *&v84 = 0.0;
+        }
+
+        [v17 setButtonSpecial15:v84];
+        *&v85 = (*(a6 + 6) ^ 0xFFu) / 255.0;
+        [v17 setButtonSpecial0:v85];
+        *&v86 = (~*(a6 + 6) >> 8) / 255.0;
+        [v17 setButtonSpecial1:v86];
+        *&v87 = (*(a6 + 8) ^ 0xFFu) / 255.0;
+        [v17 setButtonSpecial2:v87];
+        *&v88 = (*(a6 + 4) - 0x7FFF) / 32767.0;
+        [v17 setButtonSpecial3:v88];
+        v89 = *(a6 + 2) & 0x7F;
+        if (v89 > 7)
         {
           if ((*(a6 + 2) & 0x7Fu) <= 0x1F)
           {
-            if (v85 != 8)
+            if (v89 != 8)
             {
-              if (v85 != 16)
+              if (v89 != 16)
               {
                 goto LABEL_225;
               }
 
 LABEL_220:
-              v63 = 5.0;
+              v67 = 5.0;
               goto LABEL_228;
             }
 
 LABEL_221:
-            v63 = 4.0;
+            v67 = 4.0;
             goto LABEL_228;
           }
 
-          if (v85 != 32)
+          if (v89 != 32)
           {
-            if (v85 == 64)
+            if (v89 == 64)
             {
               goto LABEL_224;
             }
 
 LABEL_225:
-            v63 = 0.0;
+            v67 = 0.0;
             goto LABEL_228;
           }
 
           goto LABEL_226;
         }
 
-        if (v85 == 1)
+        if (v89 == 1)
         {
           goto LABEL_228;
         }
 
-        if (v85 != 2)
+        if (v89 != 2)
         {
-          if (v85 != 4)
+          if (v89 != 4)
           {
             goto LABEL_225;
           }
@@ -2823,10 +2808,11 @@ LABEL_225:
 
       if (a5 != 1)
       {
-        if (gc_isInternalBuild())
+        v90 = gc_isInternalBuild(v14, v15);
+        if (v90)
         {
-          v17 = getGCLogger();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v20 = getGCLogger(v90);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_207;
           }
@@ -2837,83 +2823,24 @@ LABEL_225:
         goto LABEL_236;
       }
 
-      LODWORD(v14) = 1.0;
-      v18 = *(a6 + 1) & 0xF;
-      if (v18)
+      LODWORD(v16) = 1.0;
+      v22 = *(a6 + 1) & 0xF;
+      if (v22)
       {
-        v14 = 0.0;
-        if (v18 == 1)
+        v16 = 0.0;
+        if (v22 == 1)
         {
-          *&v14 = 1.0;
+          *&v16 = 1.0;
         }
 
-        if (v18 == 7)
+        if (v22 == 7)
         {
-          *&v14 = 1.0;
+          *&v16 = 1.0;
         }
       }
 
-      [v13 setDpadUpValue:v14];
+      [v14 setDpadUpValue:v16];
       if ((*(a6 + 1) & 0xF) == 5)
-      {
-        *&v19 = 1.0;
-      }
-
-      else
-      {
-        *&v19 = 0.0;
-      }
-
-      if ((*(a6 + 1) & 0xFu) - 3 < 2)
-      {
-        *&v19 = 1.0;
-      }
-
-      [v15 setDpadDownValue:v19];
-      if ((*(a6 + 1) & 0xF) == 7)
-      {
-        *&v20 = 1.0;
-      }
-
-      else
-      {
-        *&v20 = 0.0;
-      }
-
-      if ((*(a6 + 1) & 0xFu) - 5 < 2)
-      {
-        *&v20 = 1.0;
-      }
-
-      [v15 setDpadLeftValue:v20];
-      if ((*(a6 + 1) & 0xF) == 3)
-      {
-        *&v21 = 1.0;
-      }
-
-      else
-      {
-        *&v21 = 0.0;
-      }
-
-      if ((*(a6 + 1) & 0xFu) - 1 < 2)
-      {
-        *&v21 = 1.0;
-      }
-
-      [v15 setDpadRightValue:v21];
-      if ((*(a6 + 1) & 0x10) != 0)
-      {
-        *&v22 = 1.0;
-      }
-
-      else
-      {
-        *&v22 = 0.0;
-      }
-
-      [v15 setButtonAValue:v22];
-      if ((*(a6 + 1) & 0x20) != 0)
       {
         *&v23 = 1.0;
       }
@@ -2923,8 +2850,13 @@ LABEL_225:
         *&v23 = 0.0;
       }
 
-      [v15 setButtonBValue:v23];
-      if ((*(a6 + 1) & 0x80) != 0)
+      if ((*(a6 + 1) & 0xFu) - 3 < 2)
+      {
+        *&v23 = 1.0;
+      }
+
+      [v17 setDpadDownValue:v23];
+      if ((*(a6 + 1) & 0xF) == 7)
       {
         *&v24 = 1.0;
       }
@@ -2934,8 +2866,13 @@ LABEL_225:
         *&v24 = 0.0;
       }
 
-      [v15 setButtonYValue:v24];
-      if ((*(a6 + 1) & 0x40) != 0)
+      if ((*(a6 + 1) & 0xFu) - 5 < 2)
+      {
+        *&v24 = 1.0;
+      }
+
+      [v17 setDpadLeftValue:v24];
+      if ((*(a6 + 1) & 0xF) == 3)
       {
         *&v25 = 1.0;
       }
@@ -2945,8 +2882,13 @@ LABEL_225:
         *&v25 = 0.0;
       }
 
-      [v15 setButtonXValue:v25];
-      if ((*(a6 + 1) & 0x800) != 0)
+      if ((*(a6 + 1) & 0xFu) - 1 < 2)
+      {
+        *&v25 = 1.0;
+      }
+
+      [v17 setDpadRightValue:v25];
+      if ((*(a6 + 1) & 0x10) != 0)
       {
         *&v26 = 1.0;
       }
@@ -2956,8 +2898,8 @@ LABEL_225:
         *&v26 = 0.0;
       }
 
-      [v15 setLeftTrigger:v26];
-      if ((*(a6 + 1) & 0x400) != 0)
+      [v17 setButtonAValue:v26];
+      if ((*(a6 + 1) & 0x20) != 0)
       {
         *&v27 = 1.0;
       }
@@ -2967,8 +2909,8 @@ LABEL_225:
         *&v27 = 0.0;
       }
 
-      [v15 setRightTrigger:v27];
-      if ((*(a6 + 1) & 0x2000) != 0)
+      [v17 setButtonBValue:v27];
+      if ((*(a6 + 1) & 0x80) != 0)
       {
         *&v28 = 1.0;
       }
@@ -2978,8 +2920,8 @@ LABEL_225:
         *&v28 = 0.0;
       }
 
-      [v15 setLeftThumbstickButton:v28];
-      if ((*(a6 + 1) & 0x1000) != 0)
+      [v17 setButtonYValue:v28];
+      if ((*(a6 + 1) & 0x40) != 0)
       {
         *&v29 = 1.0;
       }
@@ -2989,8 +2931,8 @@ LABEL_225:
         *&v29 = 0.0;
       }
 
-      [v15 setRightThumbstickButton:v29];
-      if ((*(a6 + 1) & 0x200) != 0)
+      [v17 setButtonXValue:v29];
+      if ((*(a6 + 1) & 0x800) != 0)
       {
         *&v30 = 1.0;
       }
@@ -3000,8 +2942,8 @@ LABEL_225:
         *&v30 = 0.0;
       }
 
-      [v15 setButtonLeftShoulder:v30];
-      if ((*(a6 + 1) & 0x100) != 0)
+      [v17 setLeftTrigger:v30];
+      if ((*(a6 + 1) & 0x400) != 0)
       {
         *&v31 = 1.0;
       }
@@ -3011,8 +2953,8 @@ LABEL_225:
         *&v31 = 0.0;
       }
 
-      [v15 setButtonRightShoulder:v31];
-      if ((*(a6 + 1) & 0x4000) != 0)
+      [v17 setRightTrigger:v31];
+      if ((*(a6 + 1) & 0x2000) != 0)
       {
         *&v32 = 1.0;
       }
@@ -3022,8 +2964,8 @@ LABEL_225:
         *&v32 = 0.0;
       }
 
-      [v15 setButtonHome:v32];
-      if ((*(a6 + 1) & 0x400) != 0)
+      [v17 setLeftThumbstickButton:v32];
+      if ((*(a6 + 1) & 0x1000) != 0)
       {
         *&v33 = 1.0;
       }
@@ -3033,8 +2975,8 @@ LABEL_225:
         *&v33 = 0.0;
       }
 
-      [v15 setButtonMenu:v33];
-      if ((*(a6 + 1) & 0x800) != 0)
+      [v17 setRightThumbstickButton:v33];
+      if ((*(a6 + 1) & 0x200) != 0)
       {
         *&v34 = 1.0;
       }
@@ -3044,40 +2986,84 @@ LABEL_225:
         *&v34 = 0.0;
       }
 
-      [v15 setButtonOptions:v34];
-      *&v35 = (*(a6 + 7) ^ 0xFFu) / 255.0;
-      [v15 setButtonSpecial0:v35];
-      *&v36 = ~(*(a6 + 7) >> 8) / 255.0;
-      [v15 setButtonSpecial1:v36];
-      *&v37 = (*(a6 + 9) ^ 0xFFu) / 255.0;
-      [v15 setButtonSpecial2:v37];
-      *&v38 = (*(a6 + 5) - 0x7FFF) / 32767.0;
-      [v15 setButtonSpecial3:v38];
-      v40 = (*(a6 + 1) >> 15) & 0x7F;
+      [v17 setButtonLeftShoulder:v34];
+      if ((*(a6 + 1) & 0x100) != 0)
+      {
+        *&v35 = 1.0;
+      }
+
+      else
+      {
+        *&v35 = 0.0;
+      }
+
+      [v17 setButtonRightShoulder:v35];
+      if ((*(a6 + 1) & 0x4000) != 0)
+      {
+        *&v36 = 1.0;
+      }
+
+      else
+      {
+        *&v36 = 0.0;
+      }
+
+      [v17 setButtonHome:v36];
+      if ((*(a6 + 1) & 0x400) != 0)
+      {
+        *&v37 = 1.0;
+      }
+
+      else
+      {
+        *&v37 = 0.0;
+      }
+
+      [v17 setButtonMenu:v37];
+      if ((*(a6 + 1) & 0x800) != 0)
+      {
+        *&v38 = 1.0;
+      }
+
+      else
+      {
+        *&v38 = 0.0;
+      }
+
+      [v17 setButtonOptions:v38];
+      *&v39 = (*(a6 + 7) ^ 0xFFu) / 255.0;
+      [v17 setButtonSpecial0:v39];
+      *&v40 = ~(*(a6 + 7) >> 8) / 255.0;
+      [v17 setButtonSpecial1:v40];
+      *&v41 = (*(a6 + 9) ^ 0xFFu) / 255.0;
+      [v17 setButtonSpecial2:v41];
+      *&v42 = (*(a6 + 5) - 0x7FFF) / 32767.0;
+      [v17 setButtonSpecial3:v42];
+      v44 = (*(a6 + 1) >> 15) & 0x7F;
     }
 
-    if (v40 > 7)
+    if (v44 > 7)
     {
-      if (v40 > 31)
+      if (v44 > 31)
       {
-        if (v40 == 32)
+        if (v44 == 32)
         {
           goto LABEL_220;
         }
 
-        if (v40 != 64)
+        if (v44 != 64)
         {
           goto LABEL_225;
         }
 
 LABEL_226:
-        v63 = 6.0;
+        v67 = 6.0;
         goto LABEL_228;
       }
 
-      if (v40 != 8)
+      if (v44 != 8)
       {
-        if (v40 == 16)
+        if (v44 == 16)
         {
           goto LABEL_221;
         }
@@ -3086,73 +3072,72 @@ LABEL_226:
       }
 
 LABEL_215:
-      v63 = 3.0;
+      v67 = 3.0;
       goto LABEL_228;
     }
 
-    if (v40 == 1)
+    if (v44 == 1)
     {
 LABEL_224:
-      v63 = -1.0;
+      v67 = -1.0;
       goto LABEL_228;
     }
 
-    if (v40 == 2)
+    if (v44 == 2)
     {
-      v63 = 1.0;
+      v67 = 1.0;
 LABEL_228:
-      *&v39 = v63;
-      [v15 setButtonSpecial4:v39];
-      v17 = objc_getProperty(v12, v86, 144, 1);
-      v92 = 0u;
-      v93 = 0u;
-      v94 = 0u;
-      v95 = 0u;
-      v87 = [v17 countByEnumeratingWithState:&v92 objects:v96 count:16];
-      if (v87)
+      *&v43 = v67;
+      [v17 setButtonSpecial4:v43];
+      v20 = objc_getProperty(v12, v92, 144, 1);
+      v97 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v100 = 0u;
+      v93 = [v20 countByEnumeratingWithState:&v97 objects:v101 count:16];
+      if (v93)
       {
-        v88 = v87;
-        v89 = *v93;
+        v94 = v93;
+        v95 = *v98;
         do
         {
-          for (i = 0; i != v88; ++i)
+          for (i = 0; i != v94; ++i)
           {
-            if (*v93 != v89)
+            if (*v98 != v95)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v20);
             }
 
-            (*(*(*(&v92 + 1) + 8 * i) + 16))();
+            (*(*(*(&v97 + 1) + 8 * i) + 16))();
           }
 
-          v88 = [v17 countByEnumeratingWithState:&v92 objects:v96 count:16];
+          v94 = [v20 countByEnumeratingWithState:&v97 objects:v101 count:16];
         }
 
-        while (v88);
+        while (v94);
       }
 
       goto LABEL_235;
     }
 
-    if (v40 != 4)
+    if (v44 != 4)
     {
       goto LABEL_225;
     }
 
 LABEL_219:
-    v63 = 2.0;
+    v67 = 2.0;
     goto LABEL_228;
   }
 
 LABEL_237:
-
-  v91 = *MEMORY[0x1E69E9840];
 }
 
-void OUTLINED_FUNCTION_0_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 __CFString *GCInputBackLeftButton(uint64_t a1)
@@ -3217,13 +3202,6 @@ void OUTLINED_FUNCTION_0_9(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_impl(a1, v4, OS_LOG_TYPE_DEFAULT, a4, v5, 0xCu);
 }
 
-uint64_t OUTLINED_FUNCTION_1_8(uint64_t result)
-{
-  *(v2 + 1640) = result;
-  v3 = *(v1 + 3944) == 0;
-  return result;
-}
-
 id GCControllerServiceRemoteClientInterface()
 {
   v9[1] = *MEMORY[0x1E69E9840];
@@ -3233,13 +3211,11 @@ id GCControllerServiceRemoteClientInterface()
   v3 = [v1 setWithObjects:{v2, objc_opt_class(), 0}];
   [v0 setClasses:v3 forSelector:sel_publishControllers_ argumentIndex:0 ofReply:0];
 
-  v4 = GCIPCObjectIdentifier_Classes();
+  v5 = GCIPCObjectIdentifier_Classes(v4);
   v9[0] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-  v6 = [v4 setByAddingObjectsFromArray:v5];
-  [v0 setClasses:v6 forSelector:sel_unpublishControllersWithIdentifiers_ argumentIndex:0 ofReply:0];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v7 = [v5 setByAddingObjectsFromArray:v6];
+  [v0 setClasses:v7 forSelector:sel_unpublishControllersWithIdentifiers_ argumentIndex:0 ofReply:0];
 
   return v0;
 }
@@ -3272,7 +3248,7 @@ void sub_1D2CFECD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCMotionXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4E98F30];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -3281,7 +3257,7 @@ id GCMotionXPCProxyRemoteClientEndpointInterface()
 id GCMotionXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4E99020];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -3299,30 +3275,31 @@ id GCMotionXPCProxyServiceRemoteServerInterface()
   return v0;
 }
 
-id GCIPCObjectIdentifier_Classes()
+id GCIPCObjectIdentifier_Classes(uint64_t a1)
 {
   if (GCIPCObjectIdentifier_Classes_onceToken != -1)
   {
     GCIPCObjectIdentifier_Classes_cold_1();
   }
 
-  v1 = GCIPCObjectIdentifier_Classes_IPCObjectIdentifierTypes;
+  v2 = GCIPCObjectIdentifier_Classes_IPCObjectIdentifierTypes;
 
-  return v1;
+  return v2;
 }
 
-void sub_1D2CFFC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1D2CFFC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v11);
+  objc_sync_exit(v18);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0x16u);
 }
 
 void sub_1D2D02AA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3332,9 +3309,9 @@ void sub_1D2D02AA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D02C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D02C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3346,16 +3323,18 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_2_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_0_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0xCu);
 }
 
 id GCUserDefaultsXPCProxyServiceRemoteServerInterface()
@@ -3367,16 +3346,16 @@ id GCUserDefaultsXPCProxyServiceRemoteServerInterface()
   return v0;
 }
 
-id _GCHIDEventSourceDescription_Classes()
+id _GCHIDEventSourceDescription_Classes(uint64_t a1)
 {
   if (_GCHIDEventSourceDescription_Classes_onceToken != -1)
   {
     _GCHIDEventSourceDescription_Classes_cold_1();
   }
 
-  v1 = _GCHIDEventSourceDescription_Classes_Classes;
+  v2 = _GCHIDEventSourceDescription_Classes_Classes;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D2D086B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -3386,16 +3365,16 @@ void sub_1D2D086B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D0A284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D2D0A284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3449,9 +3428,9 @@ void sub_1D2D0B8D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D0CDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D0CDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3483,16 +3462,16 @@ void __getGCLogger_block_invoke()
   gcLogger = v0;
 }
 
-id getGCAppStateMonitorLogger()
+id getGCAppStateMonitorLogger(uint64_t a1)
 {
   if (getGCAppStateMonitorLogger_onceToken != -1)
   {
     getGCAppStateMonitorLogger_cold_1();
   }
 
-  v1 = gcAppStateMonitorLogger;
+  v2 = gcAppStateMonitorLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCAppStateMonitorLogger_block_invoke()
@@ -3502,16 +3481,16 @@ void __getGCAppStateMonitorLogger_block_invoke()
   gcAppStateMonitorLogger = v0;
 }
 
-id getGCAnalyticsLogger()
+id getGCAnalyticsLogger(uint64_t a1)
 {
   if (getGCAnalyticsLogger_onceToken != -1)
   {
     getGCAnalyticsLogger_cold_1();
   }
 
-  v1 = gcAnalyticsLogger;
+  v2 = gcAnalyticsLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCAnalyticsLogger_block_invoke()
@@ -3521,16 +3500,16 @@ void __getGCAnalyticsLogger_block_invoke()
   gcAnalyticsLogger = v0;
 }
 
-id getGCDLogger()
+id getGCDLogger(uint64_t a1)
 {
   if (getGCDLogger_onceToken != -1)
   {
     getGCDLogger_cold_1();
   }
 
-  v1 = gcdLogger;
+  v2 = gcdLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCDLogger_block_invoke()
@@ -3547,16 +3526,16 @@ void setGCHIDLoggerCategory(char *category)
   gcHIDLogger = v1;
 }
 
-id getGCHIDLogger()
+id getGCHIDLogger(uint64_t a1)
 {
   if (getGCHIDLogger_onceToken != -1)
   {
     getGCHIDLogger_cold_1();
   }
 
-  v1 = gcHIDLogger;
+  v2 = gcHIDLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCHIDLogger_block_invoke()
@@ -3567,16 +3546,16 @@ void __getGCHIDLogger_block_invoke()
   }
 }
 
-id getGCSettingsLogger()
+id getGCSettingsLogger(uint64_t a1)
 {
   if (getGCSettingsLogger_onceToken != -1)
   {
     getGCSettingsLogger_cold_1();
   }
 
-  v1 = gcSettingsLogger;
+  v2 = gcSettingsLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCSettingsLogger_block_invoke()
@@ -3586,16 +3565,16 @@ void __getGCSettingsLogger_block_invoke()
   gcSettingsLogger = v0;
 }
 
-id getGCHapticsLogger()
+id getGCHapticsLogger(uint64_t a1)
 {
   if (getGCHapticsLogger_onceToken != -1)
   {
     getGCHapticsLogger_cold_1();
   }
 
-  v1 = gcHapticsLogger;
+  v2 = gcHapticsLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCHapticsLogger_block_invoke()
@@ -3605,16 +3584,16 @@ void __getGCHapticsLogger_block_invoke()
   gcHapticsLogger = v0;
 }
 
-id getGCRuntimeIssuesLogger()
+id getGCRuntimeIssuesLogger(uint64_t a1)
 {
   if (getGCRuntimeIssuesLogger_onceToken != -1)
   {
     getGCRuntimeIssuesLogger_cold_1();
   }
 
-  v1 = gcRuntimeIssuesLogger;
+  v2 = gcRuntimeIssuesLogger;
 
-  return v1;
+  return v2;
 }
 
 void __getGCRuntimeIssuesLogger_block_invoke()
@@ -3732,11 +3711,11 @@ void ConnectToDriverService(void *a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_1D2D12078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1D2D12078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3747,9 +3726,9 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D2D12908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D12908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3881,22 +3860,23 @@ LABEL_18:
 
     if (v16)
     {
-      if (CFBundleLoadExecutableAndReturnError(v16, &error))
+      v18 = CFBundleLoadExecutableAndReturnError(v16, &error);
+      if (v18)
       {
         goto LABEL_29;
       }
 
-      v17 = _gc_log_bundle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v19 = _gc_log_bundle(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        LoadGameControllerUIFramework_cold_3(v16, &error);
+        LoadGameControllerUIFramework_cold_3(v16);
       }
     }
 
     else
     {
-      v17 = _gc_log_bundle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v19 = _gc_log_bundle(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         LoadGameControllerUIFramework_cold_4();
       }
@@ -3913,13 +3893,14 @@ LABEL_29:
       CFRelease(v16);
     }
 
-    if ([GameControllerUIBundle load])
+    v20 = [GameControllerUIBundle load];
+    if (v20)
     {
-      v18 = _gc_log_bundle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v21 = _gc_log_bundle(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        *v19 = 0;
-        _os_log_impl(&dword_1D2CD5000, v18, OS_LOG_TYPE_INFO, "#NOTE GameControllerUI support has loaded.", v19, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_1D2CD5000, v21, OS_LOG_TYPE_INFO, "#NOTE GameControllerUI support has loaded.", v22, 2u);
       }
 
       v2 = 1;
@@ -3936,16 +3917,16 @@ LABEL_39:
   return 0;
 }
 
-id _gc_log_bundle()
+id _gc_log_bundle(uint64_t a1)
 {
   if (_gc_log_bundle_onceToken != -1)
   {
     _gc_log_bundle_cold_1();
   }
 
-  v1 = _gc_log_bundle_Log;
+  v2 = _gc_log_bundle_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_bundle_block_invoke()
@@ -3955,10 +3936,11 @@ void ___gc_log_bundle_block_invoke()
   _gc_log_bundle_Log = v0;
 }
 
-void OUTLINED_FUNCTION_0_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_1_11(NSObject *a1)
@@ -3967,10 +3949,11 @@ BOOL OUTLINED_FUNCTION_1_11(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_FAULT);
 }
 
-void OUTLINED_FUNCTION_2_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_3_5(void *a1, const char *a2, uint64_t a3, uint64_t a4)
@@ -3979,36 +3962,36 @@ uint64_t OUTLINED_FUNCTION_3_5(void *a1, const char *a2, uint64_t a3, uint64_t a
   return [a1 addObserver:a3 forKeyPath:a4 options:1 context:0];
 }
 
-id GCControllerComponent_Classes()
+id GCControllerComponent_Classes(uint64_t a1)
 {
   if (GCControllerComponent_Classes_onceToken != -1)
   {
     GCControllerComponent_Classes_cold_1();
   }
 
-  v1 = GCControllerComponent_Classes_Classes;
+  v2 = GCControllerComponent_Classes_Classes;
 
-  return v1;
+  return v2;
 }
 
-id _GCControllerComponentDescription_Classes()
+id _GCControllerComponentDescription_Classes(uint64_t a1)
 {
   if (_GCControllerComponentDescription_Classes_onceToken != -1)
   {
     _GCControllerComponentDescription_Classes_cold_1();
   }
 
-  v1 = _GCControllerComponentDescription_Classes_Classes;
+  v2 = _GCControllerComponentDescription_Classes_Classes;
 
-  return v1;
+  return v2;
 }
 
-void sub_1D2D16478(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1D2D16478(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = _GCHapticServerManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4038,9 +4021,9 @@ BOOL HapticSharedMemory::readCommand(HapticSharedMemory *this, HapticCommand *a2
   }
 
   v6 = mBuffer + 4;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(this, a2))
   {
-    HapticSharedMemory::readCommand((v6 + v4));
+    HapticSharedMemory::readCommand(v6 + v4);
   }
 
   v7 = *(v6 + v4);
@@ -4049,45 +4032,44 @@ BOOL HapticSharedMemory::readCommand(HapticSharedMemory *this, HapticCommand *a2
     HapticSharedMemory::readCommand();
   }
 
-  v8 = v4 + v7;
   if (v4 + v7 >= *mBuffer)
   {
-    v9 = *mBuffer;
+    v8 = *mBuffer;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = v8 - v9;
-  if (v8 - v9 > v4)
+  v9 = (v4 + v7 - v8);
+  if (v9 > v4)
   {
-    v11 = v6 + v4;
-    v12 = a2;
+    v10 = v6 + v4;
+    v11 = a2;
 LABEL_12:
-    memcpy(v12, v11, v7);
+    v13 = memcpy(v11, v10, v7);
     goto LABEL_13;
   }
 
-  v13 = (*mBuffer - v4);
-  memcpy(a2, v6 + v4, v13);
-  v14 = *(v6 + v4);
-  if (v13 < v14)
+  v12 = (*mBuffer - v4);
+  v13 = memcpy(a2, v6 + v4, v12);
+  v15 = *(v6 + v4);
+  if (v12 < v15)
   {
-    v7 = v14 - v13;
-    v12 = (a2 + v13);
-    v11 = (mBuffer + 4);
+    v7 = v15 - v12;
+    v11 = (a2 + v12);
+    v10 = (mBuffer + 4);
     goto LABEL_12;
   }
 
 LABEL_13:
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v13, v14))
   {
-    HapticSharedMemory::readCommand();
+    HapticSharedMemory::readCommand(v9);
   }
 
-  mBuffer[2] = v10;
+  mBuffer[2] = v9;
   return v4 != v3;
 }
 
@@ -4122,16 +4104,16 @@ void sub_1D2D1B3D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _gc_log_device_physicalinput()
+id _gc_log_device_physicalinput(uint64_t a1)
 {
   if (_gc_log_device_physicalinput_onceToken != -1)
   {
     _gc_log_device_physicalinput_cold_1();
   }
 
-  v1 = _gc_log_device_physicalinput_Log;
+  v2 = _gc_log_device_physicalinput_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_device_physicalinput_block_invoke()
@@ -4141,7 +4123,7 @@ void ___gc_log_device_physicalinput_block_invoke()
   _gc_log_device_physicalinput_Log = v0;
 }
 
-uint64_t OUTLINED_FUNCTION_2_9@<X0>(uint64_t a1@<X8>)
+id *OUTLINED_FUNCTION_2_9@<X0>(uint64_t a1@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v1 _testAndSetObjectValue:v2 forSlot:v1 + a1 policy:771];
@@ -4250,88 +4232,85 @@ void sub_1D2D24734(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void __handleAncillaryButtonEvent_block_invoke(uint64_t a1)
+void __handleAncillaryButtonEvent_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __handleAncillaryButtonEvent_block_invoke_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) controller];
-  v3 = [v2 __deprecated_controllerPausedHandler];
+  v3 = [*(a1 + 32) controller];
+  v4 = [v3 __deprecated_controllerPausedHandler];
 
+  if (v4)
+  {
+    v5 = [*(a1 + 32) controller];
+    v6 = [v5 __deprecated_controllerPausedHandler];
+    v7 = [*(a1 + 32) controller];
+    (v6)[2](v6, v7);
+  }
+}
+
+void __handleAncillaryButtonEvent_block_invoke_104(uint64_t a1, uint64_t a2)
+{
+  if (gc_isInternalBuild(a1, a2))
+  {
+    __handleAncillaryButtonEvent_block_invoke_104_cold_1(a1);
+  }
+
+  v3 = [*(a1 + 32) valueDidChangeHandler];
+  v4 = v3;
   if (v3)
   {
-    v4 = [*(a1 + 32) controller];
-    v5 = [v4 __deprecated_controllerPausedHandler];
-    v6 = [*(a1 + 32) controller];
-    (v5)[2](v5, v6);
+    (*(v3 + 16))(v3, *(a1 + 32), *(a1 + 40));
+  }
+
+  v5 = *(*(a1 + 32) + 672);
+  if (v5)
+  {
+    (*(v5 + 16))();
   }
 }
 
-void __handleAncillaryButtonEvent_block_invoke_104(uint64_t a1)
+void __handleGameControllerExtendedEvent_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __handleAncillaryButtonEvent_block_invoke_104_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) valueDidChangeHandler];
-  v3 = v2;
-  if (v2)
+  v3 = [*(a1 + 32) valueDidChangeHandler];
+  v4 = v3;
+  if (v3)
   {
-    (*(v2 + 16))(v2, *(a1 + 32), *(a1 + 40));
+    (*(v3 + 16))(v3, *(a1 + 32), *(a1 + 40));
   }
 
-  v4 = *(*(a1 + 32) + 672);
-  if (v4)
+  v5 = *(*(a1 + 32) + 672);
+  if (v5)
   {
-    v5 = *(a1 + 40);
-    (*(v4 + 16))();
+    (*(v5 + 16))();
   }
 }
 
-void __handleGameControllerExtendedEvent_block_invoke(uint64_t a1)
+void __handleGameControllerEvent_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __handleAncillaryButtonEvent_block_invoke_104_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) valueDidChangeHandler];
-  v3 = v2;
-  if (v2)
+  v3 = [*(a1 + 32) valueDidChangeHandler];
+  v4 = v3;
+  if (v3)
   {
-    (*(v2 + 16))(v2, *(a1 + 32), *(a1 + 40));
+    (*(v3 + 16))(v3, *(a1 + 32), *(a1 + 40));
   }
 
-  v4 = *(*(a1 + 32) + 672);
-  if (v4)
+  v5 = *(*(a1 + 32) + 672);
+  if (v5)
   {
-    v5 = *(a1 + 40);
-    (*(v4 + 16))();
-  }
-}
-
-void __handleGameControllerEvent_block_invoke(uint64_t a1)
-{
-  if (gc_isInternalBuild())
-  {
-    __handleAncillaryButtonEvent_block_invoke_104_cold_1(a1);
-  }
-
-  v2 = [*(a1 + 32) valueDidChangeHandler];
-  v3 = v2;
-  if (v2)
-  {
-    (*(v2 + 16))(v2, *(a1 + 32), *(a1 + 40));
-  }
-
-  v4 = *(*(a1 + 32) + 672);
-  if (v4)
-  {
-    v5 = *(a1 + 40);
-    (*(v4 + 16))();
+    (*(v5 + 16))();
   }
 }
 
@@ -4515,17 +4494,10 @@ void OUTLINED_FUNCTION_22_0(char *newValue)
   [(_GCDevicePhysicalInputPressInputParameters *)v1 setSources:?];
 }
 
-uint64_t OUTLINED_FUNCTION_26_0(uint64_t result)
-{
-  *(v2 + 24) = result;
-  v3 = *(v1 + 96) == 0;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_27_0(uint64_t result)
+uint64_t OUTLINED_FUNCTION_27_0(uint64_t a1)
 {
 
-  return [(_GCDevicePhysicalInputDirectionPadElement *)result _xy];
+  return [(_GCDevicePhysicalInputDirectionPadElement *)a1 _xy];
 }
 
 void sub_1D2D2D758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -4569,7 +4541,7 @@ void sub_1D2D330A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCLightXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4E9EC70];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -4578,7 +4550,7 @@ id GCLightXPCProxyRemoteClientEndpointInterface()
 id GCLightXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4E9ED90];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -4596,23 +4568,16 @@ id GCLightXPCProxyServiceRemoteServerInterface()
   return v0;
 }
 
-id _GCGamepadEventSourceDescription_Classes()
+id _GCGamepadEventSourceDescription_Classes(uint64_t a1)
 {
   if (_GCGamepadEventSourceDescription_Classes_onceToken != -1)
   {
     _GCGamepadEventSourceDescription_Classes_cold_1();
   }
 
-  v1 = _GCGamepadEventSourceDescription_Classes_Classes;
+  v2 = _GCGamepadEventSourceDescription_Classes_Classes;
 
-  return v1;
-}
-
-uint64_t OUTLINED_FUNCTION_2_11(uint64_t result)
-{
-  *(v2 + 1496) = result;
-  v3 = *(v1 + 168) == 0;
-  return result;
+  return v2;
 }
 
 id GCPhotoVideoXPCProxyServiceRemoteServerInterface()
@@ -4655,9 +4620,9 @@ void sub_1D2D35268(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D3612C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D2D3612C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(location, a16);
+  va_start(location, a23);
   objc_destroyWeak(location);
   _Unwind_Resume(a1);
 }
@@ -4686,9 +4651,9 @@ id getGPUserExperienceProxyClass()
   return v1;
 }
 
-void sub_1D2D368BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D368BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4705,28 +4670,28 @@ void sub_1D2D38A30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 Class __getGPUserExperienceProxyClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!GamePolicyLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __GamePolicyLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E841A670;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __GamePolicyLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E841A670;
+    v5 = 0;
     GamePolicyLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!GamePolicyLibraryCore_frameworkLibrary)
   {
-    __getGPUserExperienceProxyClass_block_invoke_cold_2(v4);
+    __getGPUserExperienceProxyClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("GPUserExperienceProxy");
@@ -4737,24 +4702,21 @@ Class __getGPUserExperienceProxyClass_block_invoke(uint64_t a1)
   }
 
   getGPUserExperienceProxyClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __GamePolicyLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   GamePolicyLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_1_17(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_17(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t OUTLINED_FUNCTION_6_7(uint64_t result, uint64_t a2, uint64_t a3, float a4)
@@ -4784,16 +4746,16 @@ void OUTLINED_FUNCTION_11_5(void *a1, NSObject *a2, uint64_t a3, const char *a4,
   _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, a5, 2u);
 }
 
-id getLogger()
+id getLogger(uint64_t a1)
 {
   if (getLogger_once != -1)
   {
     getLogger_cold_1();
   }
 
-  v1 = getLogger_logger;
+  v2 = getLogger_logger;
 
-  return v1;
+  return v2;
 }
 
 void __onqueue_3PSyntheticControllersChanged(void *a1, uint64_t a2)
@@ -4844,26 +4806,27 @@ void __onqueue_3PSyntheticControllersScan(void *a1)
   existing = 0;
   v2 = *MEMORY[0x1E696CD60];
   v3 = CFRetain(v1[8]);
-  if (IOServiceGetMatchingServices(v2, v3, &existing))
+  MatchingServices = IOServiceGetMatchingServices(v2, v3, &existing);
+  if (MatchingServices)
   {
-    v4 = getLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = getLogger(MatchingServices);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __onqueue_3PSyntheticControllersScan_cold_1();
     }
   }
 
-  v5 = existing;
+  v6 = existing;
   if (existing)
   {
-    v6 = 0;
+    v7 = 0;
     while (1)
     {
-      v7 = IOIteratorNext(v5);
-      if (v7)
+      v8 = IOIteratorNext(v6);
+      if (v8)
       {
-        ++v6;
-        IOObjectRelease(v7);
+        ++v7;
+        IOObjectRelease(v8);
       }
 
       else
@@ -4874,16 +4837,16 @@ void __onqueue_3PSyntheticControllersScan(void *a1)
         }
 
         MEMORY[0x1D38AC3D0](existing);
-        v6 = 0;
+        v7 = 0;
       }
 
-      v5 = existing;
+      v6 = existing;
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_7:
-  v1[10] = v6;
+  v1[10] = v7;
   [(GCSyntheticDeviceManager *)v1 _onqueue_refreshSyntheticControllersEnabled];
 }
 
@@ -4900,22 +4863,23 @@ BOOL OUTLINED_FUNCTION_5_8(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_1_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
-void sub_1D2D40AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D40AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D40F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D40F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4927,16 +4891,16 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D2D41404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D41404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D419E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D419E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4954,16 +4918,16 @@ void OUTLINED_FUNCTION_6_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, a5, 0x20u);
 }
 
-id _gc_log_bluetooth()
+id _gc_log_bluetooth(uint64_t a1)
 {
   if (_gc_log_bluetooth_onceToken != -1)
   {
     _gc_log_bluetooth_cold_1();
   }
 
-  v1 = _gc_log_bluetooth_Log;
+  v2 = _gc_log_bluetooth_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_bluetooth_block_invoke()
@@ -4983,16 +4947,16 @@ void sub_1D2D42FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id _gc_log_virtualcontroller()
+id _gc_log_virtualcontroller(uint64_t a1)
 {
   if (_gc_log_virtualcontroller_onceToken != -1)
   {
     _gc_log_virtualcontroller_cold_1();
   }
 
-  v1 = _gc_log_virtualcontroller_Log;
+  v2 = _gc_log_virtualcontroller_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_virtualcontroller_block_invoke()
@@ -5019,7 +4983,7 @@ void GCAnalyticsSendVirtualControllerConnectedEvent(void *a1, void *a2, char a3)
 
 xpc_object_t __GCAnalyticsSendVirtualControllerConnectedEvent_block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] mainBundle];
   v3 = [v2 bundleIdentifier];
   v4 = v3;
@@ -5059,15 +5023,15 @@ xpc_object_t __GCAnalyticsSendVirtualControllerConnectedEvent_block_invoke(uint6
   }
 
   *keys = xmmword_1E841A870;
-  v19 = *&off_1E841A880;
-  v20 = xmmword_1E841A890;
-  v17[0] = xpc_BOOL_create(v7);
-  v17[1] = xpc_BOOL_create(v8);
-  v17[2] = xpc_BOOL_create(v9);
-  v17[3] = xpc_BOOL_create(v10);
-  v17[4] = xpc_BOOL_create(v11);
-  v17[5] = xpc_BOOL_create(v12);
-  v13 = xpc_dictionary_create(keys, v17, 6uLL);
+  v18 = *&off_1E841A880;
+  v19 = xmmword_1E841A890;
+  v16[0] = xpc_BOOL_create(v7);
+  v16[1] = xpc_BOOL_create(v8);
+  v16[2] = xpc_BOOL_create(v9);
+  v16[3] = xpc_BOOL_create(v10);
+  v16[4] = xpc_BOOL_create(v11);
+  v16[5] = xpc_BOOL_create(v12);
+  v13 = xpc_dictionary_create(keys, v16, 6uLL);
   if (v13)
   {
     __GCAnalyticsSendVirtualControllerConnectedEvent_block_invoke_cold_1(v5, v13);
@@ -5077,7 +5041,6 @@ xpc_object_t __GCAnalyticsSendVirtualControllerConnectedEvent_block_invoke(uint6
   {
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -5118,7 +5081,7 @@ void sub_1D2D4610C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCSettingsXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA0B50];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -5127,7 +5090,7 @@ id GCSettingsXPCProxyRemoteClientEndpointInterface()
 id GCSettingsXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA0C30];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -5152,16 +5115,16 @@ void sub_1D2D47BC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D4C2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1D2D4C2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D4CCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D4CCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5189,71 +5152,73 @@ void OUTLINED_FUNCTION_16_2(void *a1, uint64_t a2, os_log_t log, const char *a4,
 uint64_t _publishCustomController(void *a1)
 {
   v1 = a1;
-  if (currentProcessIsGameControllerDaemon())
+  if (currentProcessIsGameControllerDaemon(v1, v2))
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v3 = +[_GCLegacyPublishedControllerStore sharedInstance];
-    if (v3)
+    v4 = +[_GCLegacyPublishedControllerStore sharedInstance];
+    if (v4)
     {
-      v5 = [v1 physicalInputProfile];
-      v6 = [_GCXRComponent componentWithPhysicalInputProfile:v5];
+      v6 = [v1 physicalInputProfile];
+      v7 = [_GCXRComponent componentWithPhysicalInputProfile:v6];
 
-      if (v6)
+      if (v7)
       {
-        if (gc_isInternalBuild())
+        isInternalBuild = gc_isInternalBuild(v8, v9);
+        if (isInternalBuild)
         {
-          _publishCustomController_cold_1();
+          _publishCustomController_cold_1(isInternalBuild);
         }
 
-        [v1 _addComponent:v6];
+        [v1 _addComponent:v7];
       }
 
-      v2 = [(_GCLegacyPublishedControllerStore *)v3 _publishCustomController:v1];
+      v3 = [(_GCLegacyPublishedControllerStore *)v4 _publishCustomController:v1];
     }
 
     else
     {
-      v2 = 0;
+      v3 = 0;
     }
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t _unpublishCustomController(void *a1)
 {
   v1 = a1;
-  if (currentProcessIsGameControllerDaemon())
+  if (currentProcessIsGameControllerDaemon(v1, v2))
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v3 = +[_GCLegacyPublishedControllerStore sharedInstance];
-    v4 = v3;
-    if (v3)
+    v4 = +[_GCLegacyPublishedControllerStore sharedInstance];
+    v5 = v4;
+    if (v4)
     {
-      v2 = [(_GCLegacyPublishedControllerStore *)v3 _unpublishCustomController:v1];
+      v3 = [(_GCLegacyPublishedControllerStore *)v4 _unpublishCustomController:v1];
     }
 
     else
     {
-      v2 = 0;
+      v3 = 0;
     }
   }
 
-  return v2;
+  return v3;
 }
 
-void OUTLINED_FUNCTION_3_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0xCu);
 }
 
 uint64_t clientParamToSynthParam(int a1, float a2, unsigned int *a3, float *a4)
@@ -5611,16 +5576,16 @@ uint64_t OUTLINED_FUNCTION_3_9(uint64_t result, double a2, float a3)
   return result;
 }
 
-id _GCCollectionEventSourceDescription_Classes()
+id _GCCollectionEventSourceDescription_Classes(uint64_t a1)
 {
   if (_GCCollectionEventSourceDescription_Classes_onceToken != -1)
   {
     _GCCollectionEventSourceDescription_Classes_cold_1();
   }
 
-  v1 = _GCCollectionEventSourceDescription_Classes_Classes;
+  v2 = _GCCollectionEventSourceDescription_Classes_Classes;
 
-  return v1;
+  return v2;
 }
 
 void _HIDEventCallback(void *a1, uint64_t a2, uint64_t a3)
@@ -5664,57 +5629,60 @@ void DeviceMatched(void *a1, io_iterator_t a2)
     while (1)
     {
       entryID = 0;
-      IORegistryEntryGetRegistryEntryID(v5, &entryID);
+      RegistryEntryID = IORegistryEntryGetRegistryEntryID(v5, &entryID);
       if (!entryID)
       {
         break;
       }
 
-      v6 = *(v3 + 5);
-      v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-      v8 = [v6 objectForKeyedSubscript:v7];
+      v8 = *(v3 + 5);
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+      v10 = [v8 objectForKeyedSubscript:v9];
 
-      if (v8)
+      if (v10)
       {
         goto LABEL_16;
       }
 
-      v9 = [[_GCLogitechRacingWheel alloc] initWithService:v5];
-      if (!v9)
+      v11 = [[_GCLogitechRacingWheel alloc] initWithService:v5];
+      if (!v11)
       {
-        if (gc_isInternalBuild())
+        isInternalBuild = gc_isInternalBuild(0, v12);
+        if (isInternalBuild)
         {
-          DeviceMatched_cold_2();
+          DeviceMatched_cold_2(isInternalBuild);
         }
 
         goto LABEL_16;
       }
 
-      v10 = v9;
+      v13 = v11;
       notification = 0;
-      if (IOServiceAddInterestNotification([*(v3 + 2) port], v5, "IOGeneralInterest", DeviceGeneralNotification, v3, &notification))
+      v14 = IOServiceAddInterestNotification([*(v3 + 2) port], v5, "IOGeneralInterest", DeviceGeneralNotification, v3, &notification);
+      if (v14)
       {
-        if (gc_isInternalBuild())
+        v22 = gc_isInternalBuild(v14, v15);
+        if (v22)
         {
-          DeviceMatched_cold_1();
+          DeviceMatched_cold_1(v22);
         }
 
         goto LABEL_16;
       }
 
       CFSetAddValue(*(v3 + 4), notification);
-      v11 = [MEMORY[0x1E695DFD8] setWithObject:v10];
-      [v3 willChangeValueForKey:@"racingWheels" withSetMutation:1 usingObjects:v11];
-      [v3 willChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v11];
-      v12 = v3;
-      objc_sync_enter(v12);
-      v13 = *(v3 + 5);
-      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:entryID];
-      [v13 setObject:v10 forKeyedSubscript:v14];
+      v16 = [MEMORY[0x1E695DFD8] setWithObject:v13];
+      [v3 willChangeValueForKey:@"racingWheels" withSetMutation:1 usingObjects:v16];
+      [v3 willChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v16];
+      v17 = v3;
+      objc_sync_enter(v17);
+      v18 = *(v3 + 5);
+      v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:entryID];
+      [v18 setObject:v13 forKeyedSubscript:v19];
 
-      objc_sync_exit(v12);
-      [v12 didChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v11];
-      [v12 didChangeValueForKey:@"racingWheels" withSetMutation:1 usingObjects:v11];
+      objc_sync_exit(v17);
+      [v17 didChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v16];
+      [v17 didChangeValueForKey:@"racingWheels" withSetMutation:1 usingObjects:v16];
 
       v5 = IOIteratorNext(a2);
       if (!v5)
@@ -5723,9 +5691,10 @@ void DeviceMatched(void *a1, io_iterator_t a2)
       }
     }
 
-    if (gc_isInternalBuild())
+    v20 = gc_isInternalBuild(RegistryEntryID, v7);
+    if (v20)
     {
-      DeviceMatched_cold_3();
+      DeviceMatched_cold_3(v20);
     }
   }
 
@@ -5739,46 +5708,47 @@ void DeviceGeneralNotification(void *a1, io_registry_entry_t a2, int a3)
   if (a3 == -536870896)
   {
     entryID = 0;
-    IORegistryEntryGetRegistryEntryID(a2, &entryID);
+    RegistryEntryID = IORegistryEntryGetRegistryEntryID(a2, &entryID);
     if (entryID)
     {
-      v6 = v5[5];
-      v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-      v8 = [v6 objectForKeyedSubscript:v7];
+      v8 = v5[5];
+      v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+      v10 = [v8 objectForKeyedSubscript:v9];
 
-      if (v8)
+      if (v10)
       {
-        if (gc_isInternalBuild())
+        if (gc_isInternalBuild(v11, v12))
         {
-          DeviceGeneralNotification_cold_1();
+          DeviceGeneralNotification_cold_1(v10);
         }
 
-        v9 = [MEMORY[0x1E695DFD8] setWithObject:v8];
-        [(dispatch_queue_t *)v5 willChangeValueForKey:@"racingWheels" withSetMutation:2 usingObjects:v9];
-        [(dispatch_queue_t *)v5 willChangeValueForKey:@"devices" withSetMutation:2 usingObjects:v9];
-        v10 = v5;
-        objc_sync_enter(v10);
-        v11 = v5[5];
-        v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:entryID];
-        [v11 setObject:0 forKeyedSubscript:v12];
+        v13 = [MEMORY[0x1E695DFD8] setWithObject:v10];
+        [(dispatch_queue_t *)v5 willChangeValueForKey:@"racingWheels" withSetMutation:2 usingObjects:v13];
+        [(dispatch_queue_t *)v5 willChangeValueForKey:@"devices" withSetMutation:2 usingObjects:v13];
+        v14 = v5;
+        objc_sync_enter(v14);
+        v15 = v5[5];
+        v16 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:entryID];
+        [v15 setObject:0 forKeyedSubscript:v16];
 
-        objc_sync_exit(v10);
-        [(dispatch_queue_t *)v10 didChangeValueForKey:@"devices" withSetMutation:2 usingObjects:v9];
-        [(dispatch_queue_t *)v10 didChangeValueForKey:@"racingWheels" withSetMutation:2 usingObjects:v9];
+        objc_sync_exit(v14);
+        [(dispatch_queue_t *)v14 didChangeValueForKey:@"devices" withSetMutation:2 usingObjects:v13];
+        [(dispatch_queue_t *)v14 didChangeValueForKey:@"racingWheels" withSetMutation:2 usingObjects:v13];
       }
     }
 
     else
     {
-      if (!gc_isInternalBuild())
+      isInternalBuild = gc_isInternalBuild(RegistryEntryID, v7);
+      if (!isInternalBuild)
       {
         goto LABEL_9;
       }
 
-      v8 = getGCLogger();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        DeviceGeneralNotification_cold_2(v8);
+        DeviceGeneralNotification_cold_2(v10);
       }
     }
   }
@@ -6043,10 +6013,11 @@ void sub_1D2D584A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D587CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_1D2D587CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  __destructor_8_s0_s48_s56_s64(&a38);
-  __destructor_8_s0_s48_s56_s64(v38 - 160);
+  va_start(va, a37);
+  __destructor_8_s0_s48_s56_s64(va);
+  __destructor_8_s0_s48_s56_s64(v37 - 160);
   _Unwind_Resume(a1);
 }
 
@@ -6067,16 +6038,16 @@ void sub_1D2D5AF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id allCodes()
+id allCodes(uint64_t a1)
 {
   if (allCodes_onceToken != -1)
   {
     allCodes_cold_1();
   }
 
-  v1 = allCodes_codes;
+  v2 = allCodes_codes;
 
-  return v1;
+  return v2;
 }
 
 void __allCodes_block_invoke()
@@ -6095,10 +6066,11 @@ double __timestampToSecondsMultiplier_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_2_16(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_16(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_signpost_emit_with_name_impl(a1, v9, OS_SIGNPOST_INTERVAL_END, v10, a5, a6, &a9, 2u);
+  _os_signpost_emit_with_name_impl(a1, v8, OS_SIGNPOST_INTERVAL_END, v9, a5, a6, va, 2u);
 }
 
 id OUTLINED_FUNCTION_4_9(uint64_t a1)
@@ -6108,16 +6080,18 @@ id OUTLINED_FUNCTION_4_9(uint64_t a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_0_29(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_29(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_5_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 void sub_1D2D60D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -6144,16 +6118,16 @@ void sub_1D2D66AC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _GCKeyboardEventSourceDescription_Classes()
+id _GCKeyboardEventSourceDescription_Classes(uint64_t a1)
 {
   if (_GCKeyboardEventSourceDescription_Classes_onceToken != -1)
   {
     _GCKeyboardEventSourceDescription_Classes_cold_1();
   }
 
-  v1 = _GCKeyboardEventSourceDescription_Classes_Classes;
+  v2 = _GCKeyboardEventSourceDescription_Classes_Classes;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D2D682CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -6166,16 +6140,16 @@ void sub_1D2D682CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id _gc_log_ui()
+id _gc_log_ui(uint64_t a1)
 {
   if (_gc_log_ui_onceToken != -1)
   {
     _gc_log_ui_cold_1();
   }
 
-  v1 = _gc_log_ui_Log;
+  v2 = _gc_log_ui_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_ui_block_invoke()
@@ -6202,7 +6176,7 @@ void sub_1D2D6A684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCAdaptiveTriggersXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA5730];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   v2 = MEMORY[0x1E695DFD8];
@@ -6216,7 +6190,7 @@ id GCAdaptiveTriggersXPCProxyRemoteClientEndpointInterface()
 id GCAdaptiveTriggersXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA5838];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   v2 = MEMORY[0x1E695DFD8];
@@ -6239,16 +6213,16 @@ id GCAdaptiveTriggersXPCProxyServiceRemoteServerInterface()
   return v0;
 }
 
-id _gc_log_physical_device()
+id _gc_log_physical_device(uint64_t a1)
 {
   if (_gc_log_physical_device_onceToken != -1)
   {
     _gc_log_physical_device_cold_1();
   }
 
-  v1 = _gc_log_physical_device_Log;
+  v2 = _gc_log_physical_device_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_physical_device_block_invoke()
@@ -6258,16 +6232,16 @@ void ___gc_log_physical_device_block_invoke()
   _gc_log_physical_device_Log = v0;
 }
 
-id _gc_log_logical_device()
+id _gc_log_logical_device(uint64_t a1)
 {
   if (_gc_log_logical_device_onceToken != -1)
   {
     _gc_log_logical_device_cold_1();
   }
 
-  v1 = _gc_log_logical_device_Log;
+  v2 = _gc_log_logical_device_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_logical_device_block_invoke()
@@ -6277,22 +6251,25 @@ void ___gc_log_logical_device_block_invoke()
   _gc_log_logical_device_Log = v0;
 }
 
-uint64_t OUTLINED_FUNCTION_3_11()
+double OUTLINED_FUNCTION_3_11(uint64_t a1)
 {
 
-  return kdebug_trace();
+  kdebug_trace();
+  return result;
 }
 
-uint64_t OUTLINED_FUNCTION_4_10()
+double OUTLINED_FUNCTION_4_10(uint64_t a1)
 {
 
-  return kdebug_trace();
+  kdebug_trace();
+  return result;
 }
 
-uint64_t OUTLINED_FUNCTION_5_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+uint64_t OUTLINED_FUNCTION_5_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
 
-  return [v47 countByEnumeratingWithState:&a15 objects:&a47 count:16];
+  return [v46 countByEnumeratingWithState:&a15 objects:va count:{16, a6, a7, a8}];
 }
 
 void sub_1D2D6E8CC(_Unwind_Exception *a1)
@@ -6302,44 +6279,44 @@ void sub_1D2D6E8CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D70048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D70048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D70460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D70460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getRPScreenRecorderClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!ReplayKitLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __ReplayKitLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E841AF10;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ReplayKitLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E841AF10;
+    v5 = 0;
     ReplayKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!ReplayKitLibraryCore_frameworkLibrary)
   {
-    __getRPScreenRecorderClass_block_invoke_cold_2(v4);
+    __getRPScreenRecorderClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("RPScreenRecorder");
@@ -6350,44 +6327,40 @@ Class __getRPScreenRecorderClass_block_invoke(uint64_t a1)
   }
 
   getRPScreenRecorderClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ReplayKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ReplayKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getSSUIServiceClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!ScreenshotServicesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __ScreenshotServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E841AF28;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ScreenshotServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E841AF28;
+    v5 = 0;
     ScreenshotServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!ScreenshotServicesLibraryCore_frameworkLibrary)
   {
-    __getSSUIServiceClass_block_invoke_cold_2(v4);
+    __getSSUIServiceClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("SSUIService");
@@ -6398,23 +6371,19 @@ Class __getSSUIServiceClass_block_invoke(uint64_t a1)
   }
 
   getSSUIServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ScreenshotServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ScreenshotServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1D2D72E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D72E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6426,66 +6395,67 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D2D73094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D73094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D732EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D732EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D73544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D73544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D7379C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D7379C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D73A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D73A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D73CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D73CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D73F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D73F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D741B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2D741B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_4_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_11_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -6528,7 +6498,7 @@ void sub_1D2D78684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCSystemGestureXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA6E58];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -6537,7 +6507,7 @@ id GCSystemGestureXPCProxyRemoteClientEndpointInterface()
 id GCSystemGestureXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA6EB8];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -6555,10 +6525,11 @@ id GCSystemGestureXPCProxyServiceRemoteServerInterface()
   return v0;
 }
 
-void OUTLINED_FUNCTION_2_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 2u);
 }
 
 void sub_1D2D79980(_Unwind_Exception *a1)
@@ -6581,10 +6552,11 @@ void sub_1D2D79AEC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_32(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_32(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id GCDriverClientInterface()
@@ -6659,16 +6631,16 @@ float32x4_t dqMakeDualQuaternion(float32x4_t a1)
   }
 }
 
-double dqNormalize(float32x4_t a1)
+double dqNormalize(uint64_t a1, uint64_t a2, float32x4_t a3)
 {
-  v1 = vmulq_f32(a1, a1);
-  v2 = vaddv_f32(vadd_f32(*v1.i8, *&vextq_s8(v1, v1, 8uLL)));
-  if (v2 <= 0.000001)
+  v3 = vmulq_f32(a3, a3);
+  v4 = vaddv_f32(vadd_f32(*v3.i8, *&vextq_s8(v3, v3, 8uLL)));
+  if (v4 <= 0.000001)
   {
     dqNormalize_cold_1();
   }
 
-  *&result = vmulq_n_f32(a1, 1.0 / v2).u64[0];
+  *&result = vmulq_n_f32(a3, 1.0 / v4).u64[0];
   return result;
 }
 
@@ -6683,17 +6655,17 @@ double dqMul(float32x4_t a1, double a2, float32x4_t a3)
   return result;
 }
 
-double dqDLB(float32x4_t a1, double a2, float32x4_t a3, double a4, float a5)
+double dqDLB(uint64_t a1, uint64_t a2, float32x4_t a3, double a4, float32x4_t a5, double a6, float a7)
 {
-  v5 = vaddq_f32(vmulq_n_f32(a3, a5), vmulq_n_f32(a1, 1.0 - a5));
-  v6 = vmulq_f32(v5, v5);
-  v7 = vaddv_f32(vadd_f32(*v6.i8, *&vextq_s8(v6, v6, 8uLL)));
-  if (v7 <= 0.000001)
+  v7 = vaddq_f32(vmulq_n_f32(a5, a7), vmulq_n_f32(a3, 1.0 - a7));
+  v8 = vmulq_f32(v7, v7);
+  v9 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL)));
+  if (v9 <= 0.000001)
   {
     dqNormalize_cold_1();
   }
 
-  *&result = vmulq_n_f32(v5, 1.0 / v7).u64[0];
+  *&result = vmulq_n_f32(v7, 1.0 / v9).u64[0];
   return result;
 }
 
@@ -6733,19 +6705,16 @@ double dqGetTranslation(float32x4_t a1, float32x4_t a2)
   return result;
 }
 
-__n64 dqGetMatrix(float32x4_t a1)
+__n64 dqGetMatrix(uint64_t a1, uint64_t a2, float32x4_t a3)
 {
-  v2 = vmulq_f32(a1, a1);
-  v3 = vaddv_f32(vadd_f32(*v2.i8, *&vextq_s8(v2, v2, 8uLL)));
-  if (v3 <= 0.000001)
+  v4 = vmulq_f32(a3, a3);
+  v5 = vaddv_f32(vadd_f32(*v4.i8, *&vextq_s8(v4, v4, 8uLL)));
+  if (v5 <= 0.000001)
   {
     dqNormalize_cold_1();
   }
 
-  v4 = *(MEMORY[0x1E69E9B18] + 16);
-  v5 = *(MEMORY[0x1E69E9B18] + 32);
-  v6 = HIDWORD(*MEMORY[0x1E69E9B18]);
-  _Q4 = vmulq_n_f32(a1, 1.0 / v3);
+  _Q4 = vmulq_n_f32(a3, 1.0 / v5);
   _S6 = _Q4.i32[3];
   _S5 = _Q4.f32[1];
   _S16 = _Q4.i32[2];
@@ -6779,7 +6748,6 @@ __n64 dqGetMatrix(float32x4_t a1)
     FMLS            S6, S5, V4.S[1]
   }
 
-  v31 = *(MEMORY[0x1E69E9B18] + 60);
   return result;
 }
 
@@ -6820,61 +6788,52 @@ uint64_t forceUpdateContext(uint64_t a1)
   return a1 + v3 + v2;
 }
 
-uint64_t OUTLINED_FUNCTION_6_9@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+id *OUTLINED_FUNCTION_6_9@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
 
   return [(_GCDevicePhysicalInputView *)v2 _testAndSetPrimitiveValue:a1 forSlot:v2 + a2];
 }
 
-uint64_t OUTLINED_FUNCTION_14_2(uint64_t result)
-{
-  *(v2 + 560) = result;
-  v3 = *(v1 + 512) == 0;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_20_0(uint64_t result)
+uint64_t OUTLINED_FUNCTION_20_0(uint64_t a1)
 {
 
-  return [(_GCDevicePhysicalInputButtonElement *)result _touch];
+  return [(_GCDevicePhysicalInputButtonElement *)a1 _touch];
 }
 
-id AllControllerProfiles()
+id AllControllerProfiles(uint64_t a1)
 {
   if (AllControllerProfiles_onceToken != -1)
   {
     AllControllerProfiles_cold_1();
   }
 
-  v1 = AllControllerProfiles_ControllerProfiles;
+  v2 = AllControllerProfiles_ControllerProfiles;
 
-  return v1;
+  return v2;
 }
 
 void __AllControllerProfiles_block_invoke()
 {
-  v3[11] = *MEMORY[0x1E69E9840];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:11];
+  v2[11] = *MEMORY[0x1E69E9840];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v2[9] = objc_opt_class();
+  v2[10] = objc_opt_class();
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:11];
   v1 = AllControllerProfiles_ControllerProfiles;
   AllControllerProfiles_ControllerProfiles = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [MEMORY[0x1E696AD60] stringWithCapacity:2 * a2];
+  v4 = [MEMORY[0x1E696AD60] stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -6905,7 +6864,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (isPartnerSupportEnabled_onceToken != -1)
   {
@@ -6919,16 +6878,15 @@ void __isPartnerSupportEnabled_block_invoke()
 {
   v4 = *MEMORY[0x1E69E9840];
   v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.GameController"];
-  isPartnerSupportEnabled__partnerSupportEnabled = [v0 BOOLForKey:@"GCPartnersEnable"];
-  v1 = getGCHIDLogger();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v1 = [v0 BOOLForKey:@"GCPartnersEnable"];
+  isPartnerSupportEnabled__partnerSupportEnabled = v1;
+  v2 = getGCHIDLogger(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3[0] = 67109120;
     v3[1] = isPartnerSupportEnabled__partnerSupportEnabled;
-    _os_log_impl(&dword_1D2CD5000, v1, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SharableMemoryBase::AllocNonShared(SharableMemoryBase *this, size_t size)
@@ -6988,7 +6946,7 @@ uint64_t SharableMemoryBlock::InitServer(uint64_t a1, size_t a2, _DWORD *a3)
         close(*(a1 + 36));
         *(a1 + 36) = -1;
         shm_unlink(address);
-        goto LABEL_19;
+        return v11;
       }
 
       v11 = 0;
@@ -6997,12 +6955,10 @@ uint64_t SharableMemoryBlock::InitServer(uint64_t a1, size_t a2, _DWORD *a3)
       v19 = *(a1 + 36);
 LABEL_18:
       a3[4] = v19;
-      goto LABEL_19;
+      return v11;
     }
 
-LABEL_13:
-    v11 = *__error();
-    goto LABEL_19;
+    return *__error();
   }
 
   if (v6 == 1)
@@ -7018,16 +6974,15 @@ LABEL_13:
       *(a1 + 48) = v14;
       a3[3] = *(a1 + 16);
       *(a3 + 2) = v14;
-      goto LABEL_19;
+      return v11;
     }
 
-    goto LABEL_13;
+    return *__error();
   }
 
   if (v6)
   {
-    v11 = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   v7 = a2 + *MEMORY[0x1E69E9AC8] - 1;
@@ -7058,7 +7013,7 @@ LABEL_16:
     {
       v11 = memory_entry_64;
       MEMORY[0x1D38AD500](*v10, address[0], v9);
-      goto LABEL_19;
+      return v11;
     }
 
     ++debugSerial;
@@ -7068,8 +7023,6 @@ LABEL_16:
     goto LABEL_16;
   }
 
-LABEL_19:
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -7148,7 +7101,7 @@ LABEL_11:
 
 void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(this + 3);
   if (v2)
   {
@@ -7157,12 +7110,11 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
       if (*(this + 8))
       {
         v3 = MEMORY[0x1E69E9A60];
-        v4 = *(this + 2);
         MEMORY[0x1D38AD500](*MEMORY[0x1E69E9A60]);
-        v5 = *(this + 8);
-        if (v5)
+        v4 = *(this + 8);
+        if (v4)
         {
-          mach_port_deallocate(*v3, v5);
+          mach_port_deallocate(*v3, v4);
         }
 
         *(this + 9) = 0;
@@ -7171,10 +7123,10 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 
       else
       {
-        v6 = *(this + 6);
-        if (v6)
+        v5 = *(this + 6);
+        if (v5)
         {
-          xpc_release(v6);
+          xpc_release(v5);
           *(this + 6) = 0;
           munmap(*(this + 3), *(this + 2));
         }
@@ -7185,9 +7137,9 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
           close(*(this + 9));
           if (*(this + 8) == 1)
           {
-            v7 = *(this + 10);
-            v8 = getpid();
-            snprintf(__str, 0x40uLL, "AppleABL.%x.%x", v8, v7);
+            v6 = *(this + 10);
+            v7 = getpid();
+            snprintf(__str, 0x40uLL, "AppleABL.%x.%x", v7, v6);
             shm_unlink(__str);
           }
 
@@ -7204,7 +7156,6 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 
   *(this + 2) = 0;
   *(this + 3) = 0;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SharableMemoryBlock::MachClientToken::Reset(uint64_t this)
@@ -7507,16 +7458,16 @@ void OUTLINED_FUNCTION_1_27(void *a1, uint64_t a2, os_log_t log, const char *a4,
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id _GCMotionEventSourceDescription_Classes()
+id _GCMotionEventSourceDescription_Classes(uint64_t a1)
 {
   if (_GCMotionEventSourceDescription_Classes_onceToken != -1)
   {
     _GCMotionEventSourceDescription_Classes_cold_1();
   }
 
-  v1 = _GCMotionEventSourceDescription_Classes_Classes;
+  v2 = _GCMotionEventSourceDescription_Classes_Classes;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D2D92AB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -7536,7 +7487,7 @@ void sub_1D2D93254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id GCPlayerIndicatorXPCProxyRemoteClientEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA87D8];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -7545,7 +7496,7 @@ id GCPlayerIndicatorXPCProxyRemoteClientEndpointInterface()
 id GCPlayerIndicatorXPCProxyRemoteServerEndpointInterface()
 {
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EA88B8];
-  v1 = GCIPCObjectIdentifier_Classes();
+  v1 = GCIPCObjectIdentifier_Classes(v0);
   [v0 setClasses:v1 forSelector:sel_fetchObjectIdentifierWithReply_ argumentIndex:0 ofReply:1];
 
   return v0;
@@ -7593,69 +7544,67 @@ __CFString *stringFromState(int a1)
   }
 }
 
-id convertToDict(unsigned int *a1, void (*a2)(void))
+id convertToDict(unsigned int *a1, uint64_t (*a2)(void))
 {
-  v23[15] = *MEMORY[0x1E69E9840];
-  v22[0] = @"buttonA";
-  v21 = a2(*a1);
-  v23[0] = v21;
-  v22[1] = @"buttonB";
-  v20 = a2(a1[1]);
-  v23[1] = v20;
-  v22[2] = @"buttonX";
-  v19 = a2(a1[2]);
-  v23[2] = v19;
-  v22[3] = @"buttonY";
-  v18 = a2(a1[3]);
-  v23[3] = v18;
-  v22[4] = @"buttonMenu";
-  v17 = a2(a1[4]);
-  v23[4] = v17;
-  v22[5] = @"buttonOptions";
-  v16 = a2(a1[5]);
-  v23[5] = v16;
-  v22[6] = @"leftShoulder";
+  v22[15] = *MEMORY[0x1E69E9840];
+  v21[0] = @"buttonA";
+  v20 = a2(*a1);
+  v22[0] = v20;
+  v21[1] = @"buttonB";
+  v19 = a2(a1[1]);
+  v22[1] = v19;
+  v21[2] = @"buttonX";
+  v18 = a2(a1[2]);
+  v22[2] = v18;
+  v21[3] = @"buttonY";
+  v17 = a2(a1[3]);
+  v22[3] = v17;
+  v21[4] = @"buttonMenu";
+  v16 = a2(a1[4]);
+  v22[4] = v16;
+  v21[5] = @"buttonOptions";
+  v15 = a2(a1[5]);
+  v22[5] = v15;
+  v21[6] = @"leftShoulder";
   v4 = a2(a1[6]);
-  v23[6] = v4;
-  v22[7] = @"rightShoulder";
+  v22[6] = v4;
+  v21[7] = @"rightShoulder";
   v5 = a2(a1[7]);
-  v23[7] = v5;
-  v22[8] = @"leftTrigger";
+  v22[7] = v5;
+  v21[8] = @"leftTrigger";
   v6 = a2(a1[8]);
-  v23[8] = v6;
-  v22[9] = @"rightTrigger";
+  v22[8] = v6;
+  v21[9] = @"rightTrigger";
   v7 = a2(a1[9]);
-  v23[9] = v7;
-  v22[10] = @"dpad";
+  v22[9] = v7;
+  v21[10] = @"dpad";
   v8 = a2(a1[10]);
-  v23[10] = v8;
-  v22[11] = @"leftThumbstick";
+  v22[10] = v8;
+  v21[11] = @"leftThumbstick";
   v9 = a2(a1[11]);
-  v23[11] = v9;
-  v22[12] = @"rightThumbstick";
+  v22[11] = v9;
+  v21[12] = @"rightThumbstick";
   v10 = a2(a1[12]);
-  v23[12] = v10;
-  v22[13] = @"leftThumbstickButton";
+  v22[12] = v10;
+  v21[13] = @"leftThumbstickButton";
   v11 = a2(a1[13]);
-  v23[13] = v11;
-  v22[14] = @"rightThumbstickButton";
+  v22[13] = v11;
+  v21[14] = @"rightThumbstickButton";
   v12 = a2(a1[14]);
-  v23[14] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v22[14] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:15];
 
   return v13;
 }
 
-void *getElementTimePressed(void *a1, const char *a2)
+void *getElementTimePressed(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 getAndResetTimesPressed];
+    return [result getAndResetTimesPressed];
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t getElementCapability(uint64_t result)
@@ -7676,7 +7625,7 @@ uint64_t getElementCapability(uint64_t result)
   return result;
 }
 
-void mapToAnalytics(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void mapToAnalytics(void *a1@<X0>, uint64_t (*a2)(void *)@<X1>, uint64_t a3@<X8>)
 {
   v5 = a1;
   *a3 = 0u;
@@ -7690,59 +7639,59 @@ void mapToAnalytics(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
   {
     v7 = [v59 extendedGamepad];
     v8 = [v7 buttonA];
-    *a3 = a2();
+    *a3 = (a2)();
 
     v9 = [v59 extendedGamepad];
     v10 = [v9 buttonB];
-    *(a3 + 4) = a2();
+    *(a3 + 4) = (a2)();
 
     v11 = [v59 extendedGamepad];
     v12 = [v11 buttonX];
-    *(a3 + 8) = a2();
+    *(a3 + 8) = (a2)();
 
     v13 = [v59 extendedGamepad];
     v14 = [v13 buttonY];
-    *(a3 + 12) = a2();
+    *(a3 + 12) = (a2)();
 
     v15 = [v59 extendedGamepad];
     v16 = [v15 buttonMenu];
-    *(a3 + 16) = a2();
+    *(a3 + 16) = (a2)();
 
     v17 = [v59 extendedGamepad];
     v18 = [v17 buttonOptions];
-    *(a3 + 20) = a2();
+    *(a3 + 20) = (a2)();
 
     v19 = [v59 extendedGamepad];
     v20 = [v19 leftShoulder];
-    *(a3 + 24) = a2();
+    *(a3 + 24) = (a2)();
 
     v21 = [v59 extendedGamepad];
     v22 = [v21 rightShoulder];
-    *(a3 + 28) = a2();
+    *(a3 + 28) = (a2)();
 
     v23 = [v59 extendedGamepad];
     v24 = [v23 leftTrigger];
-    *(a3 + 32) = a2();
+    *(a3 + 32) = (a2)();
 
     v25 = [v59 extendedGamepad];
     v26 = [v25 rightTrigger];
-    *(a3 + 36) = a2();
+    *(a3 + 36) = (a2)();
 
     v27 = [v59 extendedGamepad];
     v28 = [v27 dpad];
-    *(a3 + 40) = a2();
+    *(a3 + 40) = (a2)();
 
     v29 = [v59 extendedGamepad];
     v30 = [v29 leftThumbstick];
-    *(a3 + 44) = a2();
+    *(a3 + 44) = (a2)();
 
     v31 = [v59 extendedGamepad];
     v32 = [v31 rightThumbstick];
-    *(a3 + 48) = a2();
+    *(a3 + 48) = (a2)();
 
     v33 = [v59 extendedGamepad];
     v34 = [v33 leftThumbstickButton];
-    *(a3 + 52) = a2();
+    *(a3 + 52) = (a2)();
 
     v35 = [v59 extendedGamepad];
     v36 = [v35 rightThumbstickButton];
@@ -7757,27 +7706,27 @@ void mapToAnalytics(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
     {
       v39 = [v59 gamepad];
       v40 = [v39 buttonA];
-      *a3 = a2();
+      *a3 = (a2)();
 
       v41 = [v59 gamepad];
       v42 = [v41 buttonB];
-      *(a3 + 4) = a2();
+      *(a3 + 4) = (a2)();
 
       v43 = [v59 gamepad];
       v44 = [v43 buttonX];
-      *(a3 + 8) = a2();
+      *(a3 + 8) = (a2)();
 
       v45 = [v59 gamepad];
       v46 = [v45 buttonY];
-      *(a3 + 12) = a2();
+      *(a3 + 12) = (a2)();
 
       v47 = [v59 gamepad];
       v48 = [v47 leftShoulder];
-      *(a3 + 24) = a2();
+      *(a3 + 24) = (a2)();
 
       v49 = [v59 gamepad];
       v50 = [v49 rightShoulder];
-      *(a3 + 28) = a2();
+      *(a3 + 28) = (a2)();
 
       v51 = [v59 gamepad];
     }
@@ -7793,15 +7742,15 @@ void mapToAnalytics(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
 
       v53 = [v59 microGamepad];
       v54 = [v53 buttonA];
-      *a3 = a2();
+      *a3 = (a2)();
 
       v55 = [v59 microGamepad];
       v56 = [v55 buttonX];
-      *(a3 + 8) = a2();
+      *(a3 + 8) = (a2)();
 
       v57 = [v59 microGamepad];
       v58 = [v57 buttonMenu];
-      *(a3 + 16) = a2();
+      *(a3 + 16) = (a2)();
 
       v51 = [v59 microGamepad];
     }
@@ -7811,7 +7760,7 @@ void mapToAnalytics(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
     v37 = 40;
   }
 
-  *(a3 + v37) = (a2)(v36);
+  *(a3 + v37) = a2(v36);
 
 LABEL_9:
 }
@@ -7992,16 +7941,16 @@ void sub_1D2D9A00C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D9AD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1D2D9AD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   __destructor_8_s0_s48_s56_s64(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1D2D9B118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1D2D9B118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   __destructor_8_s0_s48_s56_s64(va);
   _Unwind_Resume(a1);
 }
@@ -8013,16 +7962,16 @@ void sub_1D2D9D2A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _gc_log_session()
+id _gc_log_session(uint64_t a1)
 {
   if (_gc_log_session_onceToken != -1)
   {
     _gc_log_session_cold_1();
   }
 
-  v1 = _gc_log_session_Log;
+  v2 = _gc_log_session_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_session_block_invoke()
@@ -8070,7 +8019,7 @@ void *GCPhysicalInputElementCollection.index(after:)@<X0>(void *result@<X0>, voi
   return result;
 }
 
-void (*protocol witness for Collection.subscript.read in conformance GCPhysicalInputElementCollection<A>(void *a1, void *a2))(void *a1)
+uint64_t (*protocol witness for Collection.subscript.read in conformance GCPhysicalInputElementCollection<A>(void *a1, void *a2))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -8114,18 +8063,17 @@ uint64_t protocol witness for Sequence.underestimatedCount.getter in conformance
   return MEMORY[0x1EEE698E0](a1, WitnessTable);
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance GCPhysicalInputElementCollection<A>()
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance GCPhysicalInputElementCollection<A>(uint64_t a1)
 {
   swift_getWitnessTable();
-  v1 = specialized Collection._copyToContiguousArray()();
+  v2 = specialized Collection._copyToContiguousArray()();
 
-  return v1;
+  return v2;
 }
 
 uint64_t GCPhysicalInputElementName.rawValue.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -8179,17 +8127,13 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance GC
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance GCPhysicalInputElementName()
 {
-  v1 = *v0;
-  v2 = v0[1];
   Hasher.init(_seed:)();
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GCPhysicalInputElementName()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GCPhysicalInputElementName(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
   Hasher.init(_seed:)();
   String.hash(into:)();
   return Hasher._finalize()();
@@ -8221,67 +8165,20 @@ id GCPhysicalInputElementCollection<>.subscript.getter(uint64_t *a1)
   return v6;
 }
 
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v6 = *v1;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo06GCAxisE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo06GCAxisE0_pGMR);
-  v4 = GCPhysicalInputElementCollection.subscript.getter();
-
-  return v4;
-}
-
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v6 = *v1;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo014GCDirectionPadE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo014GCDirectionPadE0_pGMR);
-  v4 = GCPhysicalInputElementCollection.subscript.getter();
-
-  return v4;
-}
-
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v6 = *v1;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo08GCSwitchE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo08GCSwitchE0_pGMR);
-  v4 = GCPhysicalInputElementCollection.subscript.getter();
-
-  return v4;
-}
-
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v6 = *v1;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo08GCButtonE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo08GCButtonE0_pGMR);
-  v4 = GCPhysicalInputElementCollection.subscript.getter();
-
-  return v4;
-}
-
 uint64_t GCPhysicalInputElementCollection.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *v4;
-  v7 = *(a4 + 16);
   dispatch thunk of RawRepresentable.rawValue.getter();
-  v8 = GCPhysicalInputElementCollection.subscript.getter();
+  v4 = GCPhysicalInputElementCollection.subscript.getter();
 
-  if (!v8)
+  if (!v4)
   {
     return 0;
   }
 
-  v9 = *(a2 + 16);
   swift_getAssociatedTypeWitness();
   if (swift_dynamicCast())
   {
-    return v11;
+    return v6;
   }
 
   else
@@ -8293,13 +8190,12 @@ uint64_t GCPhysicalInputElementCollection.subscript.getter(uint64_t a1, uint64_t
 id GCPhysicalInputElementCollection.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *v3;
-  v5 = *(a3 + 16);
   dispatch thunk of RawRepresentable.rawValue.getter();
-  v6 = MEMORY[0x1D38ABB70]();
+  v5 = MEMORY[0x1D38ABB70]();
 
-  v7 = [v4 elementForAlias_];
+  v6 = [v4 elementForAlias_];
 
-  return v7;
+  return v6;
 }
 
 unint64_t lazy protocol witness table accessor for type GCPhysicalInputElementName and conformance GCPhysicalInputElementName()
@@ -8344,7 +8240,7 @@ unint64_t instantiation function for generic protocol witness table for GCPhysic
   return result;
 }
 
-uint64_t type metadata instantiation function for GCPhysicalInputElementCollection()
+uint64_t type metadata instantiation function for GCPhysicalInputElementCollection(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -8407,7 +8303,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata instantiation function for GCPhysicalInputElementCollection.Index()
+uint64_t type metadata instantiation function for GCPhysicalInputElementCollection.Index(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -8518,7 +8414,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)()
+uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
@@ -8529,7 +8425,7 @@ uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)()
     goto LABEL_5;
   }
 
-  v1 = *(type metadata accessor for Range() + 36);
+  type metadata accessor for Range();
   result = dispatch thunk of static Comparable.<= infix(_:_:)();
   if ((result & 1) == 0)
   {
@@ -8647,7 +8543,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -8668,7 +8563,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -8679,7 +8573,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 uint64_t GCAxisElementName.rawValue.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -8714,6 +8607,39 @@ uint64_t static GCAxisElementName.steeringWheel.getter@<X0>(void *a1@<X8>)
   v2 = unk_1EC736720;
   *a1 = static GCAxisElementName.steeringWheel;
   a1[1] = v2;
+}
+
+id GCPhysicalInputElementCollection<>.subscript.getter(uint64_t a1)
+{
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo06GCAxisE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo06GCAxisE0_pGMR);
+  v1 = GCPhysicalInputElementCollection.subscript.getter();
+
+  return v1;
+}
+
+{
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo014GCDirectionPadE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo014GCDirectionPadE0_pGMR);
+  v1 = GCPhysicalInputElementCollection.subscript.getter();
+
+  return v1;
+}
+
+{
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo08GCSwitchE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo08GCSwitchE0_pGMR);
+  v1 = GCPhysicalInputElementCollection.subscript.getter();
+
+  return v1;
+}
+
+{
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14GameController32GCPhysicalInputElementCollectionVySo08GCButtonE0_pGMd, &_s14GameController32GCPhysicalInputElementCollectionVySo08GCButtonE0_pGMR);
+  v1 = GCPhysicalInputElementCollection.subscript.getter();
+
+  return v1;
 }
 
 unint64_t lazy protocol witness table accessor for type GCAxisElementName and conformance GCAxisElementName()
@@ -9052,12 +8978,6 @@ id variable initialization expression of GCOverlaySettingsStore.userDefaults()
   return v4;
 }
 
-uint64_t GCOverlaySettingsStore.connectedControllerIdentifiers.setter(uint64_t a1)
-{
-  v2 = *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_connectedControllerIdentifiers);
-  *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_connectedControllerIdentifiers) = a1;
-}
-
 uint64_t key path getter for GCOverlaySettingsStore.connectedControllerIdentifiers : GCOverlaySettingsStore@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
 {
   result = (*((*MEMORY[0x1E69E7D40] & **a1) + 0xA0))();
@@ -9065,18 +8985,11 @@ uint64_t key path getter for GCOverlaySettingsStore.connectedControllerIdentifie
   return result;
 }
 
-uint64_t key path setter for GCOverlaySettingsStore.connectedControllerIdentifiers : GCOverlaySettingsStore(uint64_t *a1, void **a2)
+uint64_t key path setter for GCOverlaySettingsStore.connectedControllerIdentifiers : GCOverlaySettingsStore(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xA8);
+  v2 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xA8);
 
-  return v3(v4);
-}
-
-uint64_t GCOverlaySettingsStore.allControllers.setter(uint64_t a1)
-{
-  v2 = *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_allControllers);
-  *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_allControllers) = a1;
+  return v2(v3);
 }
 
 uint64_t key path getter for GCOverlaySettingsStore.allControllers : GCOverlaySettingsStore@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
@@ -9086,12 +8999,11 @@ uint64_t key path getter for GCOverlaySettingsStore.allControllers : GCOverlaySe
   return result;
 }
 
-uint64_t key path setter for GCOverlaySettingsStore.allControllers : GCOverlaySettingsStore(uint64_t *a1, void **a2)
+uint64_t key path setter for GCOverlaySettingsStore.allControllers : GCOverlaySettingsStore(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xC0);
+  v2 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xC0);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 void *GCOverlaySettingsStore.curentController.getter()
@@ -9122,28 +9034,19 @@ uint64_t key path setter for GCOverlaySettingsStore.curentController : GCOverlay
   return v3(v2);
 }
 
-Class @objc GCOverlaySettingsStore.allControllers.getter(uint64_t a1, uint64_t a2, void *a3, unint64_t *a4, uint64_t *a5)
-{
-  v5 = *(a1 + *a3);
-  type metadata accessor for OS_dispatch_queue(0, a4, a5);
-
-  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
-
-  return v6.super.isa;
-}
-
-uint64_t @objc GCOverlaySettingsStore.allControllers.setter(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t *a5, void *a6)
+Class @objc GCOverlaySettingsStore.allControllers.getter(uint64_t a1, uint64_t a2, void *a3, unint64_t *a4, void *a5)
 {
   type metadata accessor for OS_dispatch_queue(0, a4, a5);
-  v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = *(a1 + *a6);
-  *(a1 + *a6) = v8;
+
+  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+
+  return v5.super.isa;
 }
 
-uint64_t GCOverlaySettingsStore.profiles.setter(uint64_t a1)
+uint64_t @objc GCOverlaySettingsStore.allControllers.setter(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void *a5, void *a6)
 {
-  v2 = *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_profiles);
-  *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_profiles) = a1;
+  type metadata accessor for OS_dispatch_queue(0, a4, a5);
+  *(a1 + *a6) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 uint64_t key path getter for GCOverlaySettingsStore.profiles : GCOverlaySettingsStore@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
@@ -9153,28 +9056,20 @@ uint64_t key path getter for GCOverlaySettingsStore.profiles : GCOverlaySettings
   return result;
 }
 
-uint64_t key path setter for GCOverlaySettingsStore.profiles : GCOverlaySettingsStore(uint64_t *a1, void **a2)
+uint64_t key path setter for GCOverlaySettingsStore.profiles : GCOverlaySettingsStore(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xF0);
+  v2 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xF0);
 
-  return v3(v4);
+  return v2(v3);
 }
 
-uint64_t variable initialization expression of GCOverlaySettingsStore.profiles(uint64_t *a1, SEL *a2)
+uint64_t variable initialization expression of GCOverlaySettingsStore.profiles(void *a1, SEL *a2)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1D2DF13F0;
-  v5 = *a1;
-  *(v4 + 32) = [objc_opt_self() *a2];
-  return v4;
-}
-
-uint64_t GCOverlaySettingsStore.games.setter(uint64_t a1)
-{
-  v2 = *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_games);
-  *(v1 + OBJC_IVAR____TtC14GameController22GCOverlaySettingsStore_games) = a1;
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_1D2DF13F0;
+  *(v3 + 32) = [objc_opt_self() *a2];
+  return v3;
 }
 
 uint64_t key path getter for GCOverlaySettingsStore.games : GCOverlaySettingsStore@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
@@ -9184,32 +9079,31 @@ uint64_t key path getter for GCOverlaySettingsStore.games : GCOverlaySettingsSto
   return result;
 }
 
-uint64_t key path setter for GCOverlaySettingsStore.games : GCOverlaySettingsStore(uint64_t *a1, void **a2)
+uint64_t key path setter for GCOverlaySettingsStore.games : GCOverlaySettingsStore(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *((*MEMORY[0x1E69E7D40] & **a2) + 0x108);
+  v2 = *((*MEMORY[0x1E69E7D40] & **a2) + 0x108);
 
-  return v3(v4);
+  return v2(v3);
 }
 
-uint64_t GCOverlaySettingsStore.defaultGame.getter()
+id GCOverlaySettingsStore.defaultGame.getter()
 {
   v1 = (*((*MEMORY[0x1E69E7D40] & *v0) + 0x100))();
   v2 = v1;
-  v24 = MEMORY[0x1E69E7CC0];
+  v23 = MEMORY[0x1E69E7CC0];
   if (v1 >> 62)
   {
     goto LABEL_21;
   }
 
-  for (i = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x1D38ABE20](v20))
+  for (i = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x1D38ABE20](v19))
   {
     v4 = 0;
     while (1)
     {
       if ((v2 & 0xC000000000000001) != 0)
       {
-        v6 = MEMORY[0x1D38ABDB0](v4, v2);
+        v5 = MEMORY[0x1D38ABDB0](v4, v2);
       }
 
       else
@@ -9219,33 +9113,33 @@ uint64_t GCOverlaySettingsStore.defaultGame.getter()
           goto LABEL_20;
         }
 
-        v6 = *(v2 + 8 * v4 + 32);
+        v5 = *(v2 + 8 * v4 + 32);
       }
 
-      v7 = v6;
-      v8 = v4 + 1;
+      v6 = v5;
+      v7 = v4 + 1;
       if (__OFADD__(v4, 1))
       {
         break;
       }
 
-      v9 = [v6 bundleIdentifier];
-      v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v12 = v11;
+      v8 = [v5 bundleIdentifier];
+      v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v11 = v10;
 
-      v13 = [objc_opt_self() defaultIdentifier];
-      v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v16 = v15;
+      v12 = [objc_opt_self() defaultIdentifier];
+      v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v15 = v14;
 
-      if (v10 == v14 && v12 == v16)
+      if (v9 == v13 && v11 == v15)
       {
       }
 
       else
       {
-        v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v18 & 1) == 0)
+        if ((v17 & 1) == 0)
         {
 
           goto LABEL_6;
@@ -9253,15 +9147,14 @@ uint64_t GCOverlaySettingsStore.defaultGame.getter()
       }
 
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v5 = *(v24 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
 LABEL_6:
       ++v4;
-      if (v8 == i)
+      if (v7 == i)
       {
-        v19 = v24;
+        v18 = v23;
         goto LABEL_26;
       }
     }
@@ -9272,21 +9165,21 @@ LABEL_20:
 LABEL_21:
     if (v2 < 0)
     {
-      v20 = v2;
+      v19 = v2;
     }
 
     else
     {
-      v20 = v2 & 0xFFFFFFFFFFFFFF8;
+      v19 = v2 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v19 = MEMORY[0x1E69E7CC0];
+  v18 = MEMORY[0x1E69E7CC0];
 LABEL_26:
 
-  if (v19 < 0 || (v19 & 0x4000000000000000) != 0)
+  if (v18 < 0 || (v18 & 0x4000000000000000) != 0)
   {
-    result = MEMORY[0x1D38ABE20](v19);
+    result = MEMORY[0x1D38ABE20](v18);
     if (result)
     {
       goto LABEL_29;
@@ -9298,25 +9191,25 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if (!*(v19 + 16))
+  if (!*(v18 + 16))
   {
     goto LABEL_35;
   }
 
 LABEL_29:
-  if ((v19 & 0xC000000000000001) != 0)
+  if ((v18 & 0xC000000000000001) != 0)
   {
-    v22 = MEMORY[0x1D38ABDB0](0, v19);
+    v21 = MEMORY[0x1D38ABDB0](0, v18);
     goto LABEL_32;
   }
 
-  if (*(v19 + 16))
+  if (*(v18 + 16))
   {
-    v22 = *(v19 + 32);
+    v21 = *(v18 + 32);
 LABEL_32:
-    v23 = v22;
+    v22 = v21;
 
-    return v23;
+    return v22;
   }
 
 LABEL_36:
@@ -9327,28 +9220,28 @@ LABEL_36:
 uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t (*a1)(id *), uint64_t a2, unint64_t a3)
 {
   v4 = a3;
-  v24 = MEMORY[0x1E69E7CC0];
+  v20 = MEMORY[0x1E69E7CC0];
   if (a3 >> 62)
   {
     goto LABEL_18;
   }
 
-  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x1D38ABE20](v18))
+  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x1D38ABE20](v14))
   {
     v8 = 0;
-    v21 = v4 & 0xFFFFFFFFFFFFFF8;
-    v22 = v4 & 0xC000000000000001;
-    v20 = v4;
+    v17 = v4 & 0xFFFFFFFFFFFFFF8;
+    v18 = v4 & 0xC000000000000001;
+    v16 = v4;
     while (1)
     {
-      if (v22)
+      if (v18)
       {
         v9 = MEMORY[0x1D38ABDB0](v8, v4);
       }
 
       else
       {
-        if (v8 >= *(v21 + 16))
+        if (v8 >= *(v17 + 16))
         {
           goto LABEL_17;
         }
@@ -9363,9 +9256,9 @@ uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t (*a1)(id *), uint64_t a2
         break;
       }
 
-      v23 = v9;
+      v19 = v9;
       v12 = a2;
-      v13 = a1(&v23);
+      v13 = a1(&v19);
       if (v3)
       {
 
@@ -9375,15 +9268,8 @@ uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t (*a1)(id *), uint64_t a2
       if (v13)
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v14 = i;
-        v15 = a1;
-        v16 = a2;
-        v17 = *(v24 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-        a2 = v16;
-        a1 = v15;
-        i = v14;
-        v4 = v20;
+        v4 = v16;
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
       }
@@ -9395,7 +9281,7 @@ uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t (*a1)(id *), uint64_t a2
       ++v8;
       if (v11 == i)
       {
-        v12 = v24;
+        v12 = v20;
         goto LABEL_23;
       }
     }
@@ -9406,12 +9292,12 @@ LABEL_17:
 LABEL_18:
     if (v4 < 0)
     {
-      v18 = v4;
+      v14 = v4;
     }
 
     else
     {
-      v18 = v4 & 0xFFFFFFFFFFFFFF8;
+      v14 = v4 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
@@ -9421,71 +9307,69 @@ LABEL_23:
   return v12;
 }
 
-uint64_t GCOverlaySettingsStore.defaultProfile.getter()
+id GCOverlaySettingsStore.defaultProfile.getter()
 {
-  v32 = type metadata accessor for UUID();
-  v1 = *(v32 - 8);
-  v2 = v1[8];
-  v3 = (MEMORY[0x1EEE9AC00])();
-  v31 = &v28 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = MEMORY[0x1EEE9AC00](v3);
-  v7 = &v28 - v6;
-  v8 = (*((*MEMORY[0x1E69E7D40] & *v0) + 0xE8))(v5);
-  v9 = v8;
-  v33 = MEMORY[0x1E69E7CC0];
-  if (v8 >> 62)
+  v30 = type metadata accessor for UUID();
+  v1 = *(v30 - 8);
+  v2 = MEMORY[0x1EEE9AC00](v30);
+  v29 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v6 = &v26 - v5;
+  v7 = (*((*MEMORY[0x1E69E7D40] & *v0) + 0xE8))(v4);
+  v8 = v7;
+  v31 = MEMORY[0x1E69E7CC0];
+  if (v7 >> 62)
   {
     goto LABEL_16;
   }
 
-  for (i = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x1D38ABE20](v24))
+  for (i = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x1D38ABE20](v22))
   {
-    v11 = 0;
-    v29 = v9 & 0xFFFFFFFFFFFFFF8;
-    v30 = v9 & 0xC000000000000001;
-    v12 = v1 + 1;
+    v10 = 0;
+    v27 = v8 & 0xFFFFFFFFFFFFFF8;
+    v28 = v8 & 0xC000000000000001;
+    v11 = v1 + 1;
     while (1)
     {
-      if (v30)
+      if (v28)
       {
-        v13 = MEMORY[0x1D38ABDB0](v11, v9);
+        v12 = MEMORY[0x1D38ABDB0](v10, v8);
       }
 
       else
       {
-        if (v11 >= *(v29 + 16))
+        if (v10 >= *(v27 + 16))
         {
           goto LABEL_15;
         }
 
-        v13 = *(v9 + 8 * v11 + 32);
+        v12 = *(v8 + 8 * v10 + 32);
       }
 
-      v1 = v13;
-      v14 = v11 + 1;
-      if (__OFADD__(v11, 1))
+      v1 = v12;
+      v13 = v10 + 1;
+      if (__OFADD__(v10, 1))
       {
         break;
       }
 
-      v15 = v9;
-      v16 = [v13 uuid];
+      v14 = v8;
+      v15 = [v12 uuid];
       static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v17 = [objc_opt_self() defaultProfileUUID];
-      v18 = v31;
+      v16 = [objc_opt_self() defaultProfileUUID];
+      v17 = v29;
       static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-      LOBYTE(v17) = static UUID.== infix(_:_:)();
-      v19 = *v12;
-      v20 = v18;
-      v21 = v32;
-      (*v12)(v20, v32);
-      v19(v7, v21);
-      if (v17)
+      LOBYTE(v16) = static UUID.== infix(_:_:)();
+      v18 = *v11;
+      v19 = v17;
+      v20 = v30;
+      (*v11)(v19, v30);
+      v18(v6, v20);
+      if (v16)
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v22 = *(v33 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
@@ -9495,11 +9379,11 @@ uint64_t GCOverlaySettingsStore.defaultProfile.getter()
       {
       }
 
-      v9 = v15;
-      ++v11;
-      if (v14 == i)
+      v8 = v14;
+      ++v10;
+      if (v13 == i)
       {
-        v23 = v33;
+        v21 = v31;
         goto LABEL_21;
       }
     }
@@ -9508,23 +9392,23 @@ uint64_t GCOverlaySettingsStore.defaultProfile.getter()
 LABEL_15:
     __break(1u);
 LABEL_16:
-    if (v9 < 0)
+    if (v8 < 0)
     {
-      v24 = v9;
+      v22 = v8;
     }
 
     else
     {
-      v24 = v9 & 0xFFFFFFFFFFFFFF8;
+      v22 = v8 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v23 = MEMORY[0x1E69E7CC0];
+  v21 = MEMORY[0x1E69E7CC0];
 LABEL_21:
 
-  if (v23 < 0 || (v23 & 0x4000000000000000) != 0)
+  if (v21 < 0 || (v21 & 0x4000000000000000) != 0)
   {
-    result = MEMORY[0x1D38ABE20](v23);
+    result = MEMORY[0x1D38ABE20](v21);
     if (result)
     {
       goto LABEL_24;
@@ -9536,25 +9420,25 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (!*(v23 + 16))
+  if (!*(v21 + 16))
   {
     goto LABEL_30;
   }
 
 LABEL_24:
-  if ((v23 & 0xC000000000000001) != 0)
+  if ((v21 & 0xC000000000000001) != 0)
   {
-    v26 = MEMORY[0x1D38ABDB0](0, v23);
+    v24 = MEMORY[0x1D38ABDB0](0, v21);
     goto LABEL_27;
   }
 
-  if (*(v23 + 16))
+  if (*(v21 + 16))
   {
-    v26 = *(v23 + 32);
+    v24 = *(v21 + 32);
 LABEL_27:
-    v27 = v26;
+    v25 = v24;
 
-    return v27;
+    return v25;
   }
 
 LABEL_31:

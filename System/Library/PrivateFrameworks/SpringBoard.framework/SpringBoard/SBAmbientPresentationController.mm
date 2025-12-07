@@ -128,25 +128,25 @@
         suppressionManager = self->_suppressionManager;
         self->_suppressionManager = v13;
 
-        objc_initWeak(location, self);
-        v15 = SBLogAmbientPresentation();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        inited = objc_initWeak(location, self);
+        v16 = SBLogAmbientPresentation(inited);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Starting view obstructed suppression monitoring", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Starting view obstructed suppression monitoring", buf, 2u);
         }
 
         [(CMSuppressionManager *)self->_suppressionManager startService];
-        v16 = self->_suppressionManager;
+        v17 = self->_suppressionManager;
         mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __74__SBAmbientPresentationController__updateViewObstructedSuppressionManager__block_invoke;
-        v20[3] = &unk_2783C1908;
-        objc_copyWeak(&v21, location);
-        [(CMSuppressionManager *)v16 startSuppressionUpdatesToQueue:mainQueue withOptions:1 withHandler:v20];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __74__SBAmbientPresentationController__updateViewObstructedSuppressionManager__block_invoke;
+        v21[3] = &unk_2783C1908;
+        objc_copyWeak(&v22, location);
+        [(CMSuppressionManager *)v17 startSuppressionUpdatesToQueue:mainQueue withOptions:1 withHandler:v21];
 
-        objc_destroyWeak(&v21);
+        objc_destroyWeak(&v22);
         objc_destroyWeak(location);
       }
 
@@ -156,21 +156,21 @@
 
   else
   {
-    [MEMORY[0x277CC1D50] isAvailable];
+    isAvailable = [MEMORY[0x277CC1D50] isAvailable];
   }
 
   if (self->_suppressionManager)
   {
-    v18 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogAmbientPresentation(isAvailable);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Stopping view obstructed suppression monitoring", location, 2u);
+      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Stopping view obstructed suppression monitoring", location, 2u);
     }
 
     [(CMSuppressionManager *)self->_suppressionManager stopSuppressionUpdates];
     [(CMSuppressionManager *)self->_suppressionManager stopService];
-    v19 = self->_suppressionManager;
+    v20 = self->_suppressionManager;
     self->_suppressionManager = 0;
 
     self->_isViewObstructedSuppressionActive = 0;
@@ -426,28 +426,28 @@ LABEL_15:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = SBLogAmbientPresentation();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogAmbientPresentation(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Requesting ambient presentation on device lock", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Requesting ambient presentation on device lock", buf, 2u);
   }
 
   objc_initWeak(buf, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __73__SBAmbientPresentationController_presentIfAllowedAndLockWithCompletion___block_invoke;
-  v10[3] = &unk_2783B8488;
-  v8 = v6;
-  v11 = v8;
-  objc_copyWeak(&v13, buf);
-  v12 = completionCopy;
-  v5 = [(SBAmbientPresentationController *)self _evaluatePresentationStateIgnoreLockState:1 animated:1 withCompletion:v10];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __73__SBAmbientPresentationController_presentIfAllowedAndLockWithCompletion___block_invoke;
+  v11[3] = &unk_2783B8488;
+  v9 = v6;
+  v12 = v9;
+  objc_copyWeak(&v14, buf);
+  v13 = completionCopy;
+  v5 = [(SBAmbientPresentationController *)self _evaluatePresentationStateIgnoreLockState:1 animated:1 withCompletion:v11];
   self->_shouldSuppressTransientLockIfKeyBagLocks = v5;
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__resetTransientLockSuppressionFlag object:0];
   [(SBAmbientPresentationController *)self performSelector:sel__resetTransientLockSuppressionFlag withObject:0 afterDelay:5.0];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
   os_activity_scope_leave(&state);
 
@@ -467,33 +467,33 @@ LABEL_9:
 
 void __73__SBAmbientPresentationController_presentIfAllowedAndLockWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.opaque[0] = 0;
-  v8.opaque[1] = 0;
-  os_activity_scope_enter(*(a1 + 32), &v8);
-  v4 = SBLogAmbientPresentation();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x277D85DE8];
+  v9.opaque[0] = 0;
+  v9.opaque[1] = 0;
+  os_activity_scope_enter(*(a1 + 32), &v9);
+  v5 = SBLogAmbientPresentation(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = a2;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "presentIfAllowedAndLockWithCompletion: completion called (finished: %{BOOL}u)", buf, 8u);
+    v11 = a2;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "presentIfAllowedAndLockWithCompletion: completion called (finished: %{BOOL}u)", buf, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (a2)
   {
     [WeakRetained _presentLockUIAnimated:0 withCompletion:0];
   }
 
-  [v6 _evaluateTriggerDetectionState];
-  v7 = *(a1 + 40);
-  if (v7)
+  [v7 _evaluateTriggerDetectionState];
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, a2);
+    (*(v8 + 16))(v8, a2);
   }
 
-  os_activity_scope_leave(&v8);
+  os_activity_scope_leave(&v9);
 }
 
 - (BOOL)suppressNotificationPresentation
@@ -513,7 +513,7 @@ void __73__SBAmbientPresentationController_presentIfAllowedAndLockWithCompletion
 {
   stateCopy = state;
   v8 = *MEMORY[0x277D85DE8];
-  v6 = SBLogAmbientPresentation();
+  v6 = SBLogAmbientPresentation(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -621,13 +621,14 @@ void __75__SBAmbientPresentationController_updatePreferencesForParticipant_updat
 - (void)scheduledAlarmObserver:(id)observer timerFiredForReason:(id)reason
 {
   reasonCopy = reason;
-  if ([reasonCopy isEqualToString:@"SBAmbientAlarmScheduledTimerReasonRedModeOverride"])
+  v6 = [reasonCopy isEqualToString:@"SBAmbientAlarmScheduledTimerReasonRedModeOverride"];
+  if (v6)
   {
-    v6 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogAmbientPresentation(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Suppressing ambient red mode for upcoming alarm", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Suppressing ambient red mode for upcoming alarm", buf, 2u);
     }
 
     self->_suppressRedModeDisplayStyleForUpcomingAlarm = 1;
@@ -635,37 +636,42 @@ void __75__SBAmbientPresentationController_updatePreferencesForParticipant_updat
     [(SBAmbientPresentationController *)self _evaluateRedModeTriggerDetectionState];
   }
 
-  else if ([reasonCopy isEqualToString:@"SBAmbientAlarmScheduledTimerReasonDisplayWake"] && -[SBAmbientSettings enableSuppression](self->_ambientSettings, "enableSuppression"))
+  else if ([reasonCopy isEqualToString:@"SBAmbientAlarmScheduledTimerReasonDisplayWake"])
   {
-    v7 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    enableSuppression = [(SBAmbientSettings *)self->_ambientSettings enableSuppression];
+    if (enableSuppression)
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Waking up display for upcoming alarm", v8, 2u);
-    }
+      v9 = SBLogAmbientPresentation(enableSuppression);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        *v10 = 0;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Waking up display for upcoming alarm", v10, 2u);
+      }
 
-    self->_suppressIdleTimerForUpcomingAlarm = 1;
-    [(SBAmbientPresentationController *)self _evaluateIdleTimerEnablement];
-    [(SBAmbientPresentationController *)self _evaluateIdleTimerDisablement];
-    if ([(SBBacklightController *)self->_backlightController shouldTurnOnScreenForBacklightSource:42])
-    {
-      [(SBBacklightController *)self->_backlightController setBacklightState:1 source:42];
+      self->_suppressIdleTimerForUpcomingAlarm = 1;
+      [(SBAmbientPresentationController *)self _evaluateIdleTimerEnablement];
+      [(SBAmbientPresentationController *)self _evaluateIdleTimerDisablement];
+      if ([(SBBacklightController *)self->_backlightController shouldTurnOnScreenForBacklightSource:42])
+      {
+        [(SBBacklightController *)self->_backlightController setBacklightState:1 source:42];
+      }
     }
   }
 }
 
 - (void)secureAppOfTypeDidBegin:(unint64_t)begin
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if ([(SBAmbientPresentationController *)self isPresented])
+  v9 = *MEMORY[0x277D85DE8];
+  isPresented = [(SBAmbientPresentationController *)self isPresented];
+  if (isPresented)
   {
-    v4 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogAmbientPresentation(isPresented);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = secureAppTypeName();
-      v6 = 138543362;
-      v7 = v5;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Dismissing Ambient for secure app %{public}@ begin", &v6, 0xCu);
+      v6 = secureAppTypeName();
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Dismissing Ambient for secure app %{public}@ begin", &v7, 0xCu);
     }
 
     [(SBAmbientPresentationController *)self _setPresented:0 animated:1];
@@ -761,14 +767,14 @@ LABEL_5:
 - (BOOL)_isAmbientPresentationAllowedIgnoreLockState:(BOOL)state
 {
   stateCopy = state;
-  v70 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
   _isAmbientModeUserSettingEnabled = [(SBAmbientPresentationController *)self _isAmbientModeUserSettingEnabled];
   v5 = +[SBLockStateAggregator sharedInstance];
   lockState = [v5 lockState];
 
   v8 = (lockState & 4) == 0 && lockState != 0;
-  v35 = v8;
+  v36 = v8;
   authenticationController = [SBApp authenticationController];
   hasAuthenticatedAtLeastOnceSinceBoot = [authenticationController hasAuthenticatedAtLeastOnceSinceBoot];
 
@@ -813,8 +819,9 @@ LABEL_5:
   isSpotlightPresented = [coverSheetSpotlightPresenter isSpotlightPresented];
 
   isShowingTodayView = [coverSheetViewController isShowingTodayView];
-  v22 = WeakRetained;
-  if ([(SBAmbientPresentationController *)self isPresented])
+  isPresented = [(SBAmbientPresentationController *)self isPresented];
+  v23 = WeakRetained;
+  if (isPresented)
   {
     hasActivePresentation = 0;
   }
@@ -827,60 +834,60 @@ LABEL_5:
 
   if (_isAmbientModeUserSettingEnabled)
   {
-    v25 = isCarDestinationActive;
-    if (!(((v35 || stateCopy) & hasAuthenticatedAtLeastOnceSinceBoot ^ 1 | isCarDestinationActive | isConnectedToWindowedAccessory | isHostingAnApp) & 1 | isInSetupMode & 1 | (pocketState != 0) | isViewObstructedSuppressionActive | isInteractingWithNotificationList & 1 | _isCoverSheetPresentedByUserGesture | isSpotlightPresented & 1))
+    v26 = isCarDestinationActive;
+    if (!(((v36 || stateCopy) & hasAuthenticatedAtLeastOnceSinceBoot ^ 1 | isCarDestinationActive | isConnectedToWindowedAccessory | isHostingAnApp) & 1 | isInSetupMode & 1 | (pocketState != 0) | isViewObstructedSuppressionActive | isInteractingWithNotificationList & 1 | _isCoverSheetPresentedByUserGesture | isSpotlightPresented & 1))
     {
-      v26 = (isShowingTodayView | hasActivePresentation) ^ 1;
+      v27 = (isShowingTodayView | hasActivePresentation) ^ 1;
       goto LABEL_21;
     }
   }
 
   else
   {
-    v25 = isCarDestinationActive;
+    v26 = isCarDestinationActive;
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_21:
-  v27 = SBLogAmbientPresentation();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = SBLogAmbientPresentation(isPresented);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67112960;
-    v39 = v26 & 1;
-    v40 = 1024;
-    v41 = _isAmbientModeUserSettingEnabled;
-    v42 = 1024;
-    v43 = v35;
-    v44 = 1024;
-    v45 = stateCopy;
-    v46 = 1024;
-    v47 = hasAuthenticatedAtLeastOnceSinceBoot;
-    v48 = 1024;
-    v49 = v25;
-    v50 = 1024;
-    v51 = isConnectedToWindowedAccessory;
-    v52 = 1024;
-    v53 = isHostingAnApp;
-    v54 = 1024;
-    v55 = isInSetupMode;
-    v56 = 1024;
-    v57 = pocketState == 0;
-    v58 = 1024;
-    v59 = isViewObstructedSuppressionActive;
-    v60 = 1024;
-    v61 = isInteractingWithNotificationList;
-    v62 = 1024;
-    v63 = _isCoverSheetPresentedByUserGesture;
-    v64 = 1024;
-    v65 = isSpotlightPresented;
-    v66 = 1024;
-    v67 = isShowingTodayView;
-    v68 = 1024;
-    v69 = hasActivePresentation;
-    _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Ambient presentation allowed = %{BOOL}d [ enabled:%{BOOL}d ; lockedButNotBlocked:%{BOOL}d ; ignoreLockState:%{BOOL}d ; unlockedSinceBoot:%{BOOL}d ; carplay:%{BOOL}d ; screenOccludingAccessory:%{BOOL}d ; hostingApp:%{BOOL}d ; isInSetupMode:%{BOOL}d ; isOutOfPocket:%{BOOL}d ; isViewObstructed:%{BOOL}d ; listInteraction:%{BOOL}d ; pullDownCoverSheet:%{BOOL}d ; spotlight:%{BOOL}d ; todayView:%{BOOL}d ; transientOverlayPreventsPresentation:%{BOOL}d ]", buf, 0x62u);
+    v40 = v27 & 1;
+    v41 = 1024;
+    v42 = _isAmbientModeUserSettingEnabled;
+    v43 = 1024;
+    v44 = v36;
+    v45 = 1024;
+    v46 = stateCopy;
+    v47 = 1024;
+    v48 = hasAuthenticatedAtLeastOnceSinceBoot;
+    v49 = 1024;
+    v50 = v26;
+    v51 = 1024;
+    v52 = isConnectedToWindowedAccessory;
+    v53 = 1024;
+    v54 = isHostingAnApp;
+    v55 = 1024;
+    v56 = isInSetupMode;
+    v57 = 1024;
+    v58 = pocketState == 0;
+    v59 = 1024;
+    v60 = isViewObstructedSuppressionActive;
+    v61 = 1024;
+    v62 = isInteractingWithNotificationList;
+    v63 = 1024;
+    v64 = _isCoverSheetPresentedByUserGesture;
+    v65 = 1024;
+    v66 = isSpotlightPresented;
+    v67 = 1024;
+    v68 = isShowingTodayView;
+    v69 = 1024;
+    v70 = hasActivePresentation;
+    _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Ambient presentation allowed = %{BOOL}d [ enabled:%{BOOL}d ; lockedButNotBlocked:%{BOOL}d ; ignoreLockState:%{BOOL}d ; unlockedSinceBoot:%{BOOL}d ; carplay:%{BOOL}d ; screenOccludingAccessory:%{BOOL}d ; hostingApp:%{BOOL}d ; isInSetupMode:%{BOOL}d ; isOutOfPocket:%{BOOL}d ; isViewObstructed:%{BOOL}d ; listInteraction:%{BOOL}d ; pullDownCoverSheet:%{BOOL}d ; spotlight:%{BOOL}d ; todayView:%{BOOL}d ; transientOverlayPreventsPresentation:%{BOOL}d ]", buf, 0x62u);
   }
 
-  return v26 & 1;
+  return v27 & 1;
 }
 
 - (void)_updateAmbientTriggerState:(int64_t)state analogousTriggerEvents:(BOOL)events withReason:(id)reason
@@ -888,7 +895,7 @@ LABEL_21:
   eventsCopy = events;
   v17 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v9 = SBLogAmbientPresentation();
+  v9 = SBLogAmbientPresentation(reasonCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = AMStringForAmbientTriggerState();
@@ -910,7 +917,7 @@ LABEL_21:
 {
   v13 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v7 = SBLogAmbientPresentation();
+  v7 = SBLogAmbientPresentation(reasonCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = AMStringForAmbientMountState();
@@ -928,7 +935,7 @@ LABEL_21:
 {
   v7 = *MEMORY[0x277D85DE8];
   v4 = [(SBAmbientPresentationController *)self _isAmbientPresentationAllowedIgnoreLockState:state];
-  v5 = SBLogAmbientPresentation();
+  v5 = SBLogAmbientPresentation(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -981,23 +988,24 @@ LABEL_21:
 
 - (void)_evaluateBumpToWakeEnablement
 {
-  if (![(SBBacklightController *)self->_backlightController screenIsOn]&& self->_presentationRequested && [(SBAmbientPresentationController *)self _isBumpToWakeUserSettingEnabled])
+  screenIsOn = [(SBBacklightController *)self->_backlightController screenIsOn];
+  if ((screenIsOn & 1) == 0 && self->_presentationRequested && (screenIsOn = [(SBAmbientPresentationController *)self _isBumpToWakeUserSettingEnabled], screenIsOn))
   {
     if (self->_bumpToWakeAssertion)
     {
       return;
     }
 
-    v3 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogAmbientPresentation(screenIsOn);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Enabling bump-to-wake", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Enabling bump-to-wake", buf, 2u);
     }
 
-    v4 = [(SBLiftToWakeController *)self->_liftToWakeController acquireBumpToWakeEnableAssertionForReason:@"Ambient"];
+    v5 = [(SBLiftToWakeController *)self->_liftToWakeController acquireBumpToWakeEnableAssertionForReason:@"Ambient"];
     bumpToWakeAssertion = self->_bumpToWakeAssertion;
-    self->_bumpToWakeAssertion = v4;
+    self->_bumpToWakeAssertion = v5;
   }
 
   else
@@ -1007,11 +1015,11 @@ LABEL_21:
       return;
     }
 
-    v6 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogAmbientPresentation(screenIsOn);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Disabling bump-to-wake", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Disabling bump-to-wake", v8, 2u);
     }
 
     [(BSInvalidatable *)self->_bumpToWakeAssertion invalidate];
@@ -1022,10 +1030,12 @@ LABEL_21:
 
 - (void)_evaluateIdleTimerEnablement
 {
+  selfCopy = self;
   v26 = *MEMORY[0x277D85DE8];
   if (self->_presentationRequested && !self->_suppressIdleTimerForUpcomingAlarm)
   {
-    v3 = ![(SBAmbientPresentationController *)self _isAmbientAlwaysOnUserSettingEnabled];
+    self = [(SBAmbientPresentationController *)self _isAmbientAlwaysOnUserSettingEnabled];
+    v3 = self ^ 1;
   }
 
   else
@@ -1033,13 +1043,13 @@ LABEL_21:
     v3 = 0;
   }
 
-  v4 = SBLogAmbientPresentation();
+  v4 = SBLogAmbientPresentation(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    presentationRequested = self->_presentationRequested;
-    suppressIdleTimerForUpcomingAlarm = self->_suppressIdleTimerForUpcomingAlarm;
-    _isAmbientAlwaysOnUserSettingEnabled = [(SBAmbientPresentationController *)self _isAmbientAlwaysOnUserSettingEnabled];
-    v8 = self->_enableIdleTimerAssertion != 0;
+    presentationRequested = selfCopy->_presentationRequested;
+    suppressIdleTimerForUpcomingAlarm = selfCopy->_suppressIdleTimerForUpcomingAlarm;
+    _isAmbientAlwaysOnUserSettingEnabled = [(SBAmbientPresentationController *)selfCopy _isAmbientAlwaysOnUserSettingEnabled];
+    v8 = selfCopy->_enableIdleTimerAssertion != 0;
     *buf = 67110144;
     v17 = v3;
     v18 = 1024;
@@ -1053,7 +1063,7 @@ LABEL_21:
     _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Evaluating idle timer enablement - Enable = %{BOOL}d [ presentationRequested:%{BOOL}d ; suppressForAlarm:%{BOOL}d ; userSetting:%{BOOL}d ; assertion=%{BOOL}d ]", buf, 0x20u);
   }
 
-  enableIdleTimerAssertion = self->_enableIdleTimerAssertion;
+  enableIdleTimerAssertion = selfCopy->_enableIdleTimerAssertion;
   if (v3)
   {
     if (enableIdleTimerAssertion)
@@ -1066,8 +1076,8 @@ LABEL_21:
     v15 = allowAmbientIdleTimer;
     v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     v13 = [v10 acquireWithExplanation:@"Ambient Always-On Setting" observer:0 attributes:v12];
-    v14 = self->_enableIdleTimerAssertion;
-    self->_enableIdleTimerAssertion = v13;
+    v14 = selfCopy->_enableIdleTimerAssertion;
+    selfCopy->_enableIdleTimerAssertion = v13;
   }
 
   else
@@ -1078,24 +1088,35 @@ LABEL_21:
     }
 
     [(BLSAssertion *)enableIdleTimerAssertion invalidate];
-    allowAmbientIdleTimer = self->_enableIdleTimerAssertion;
-    self->_enableIdleTimerAssertion = 0;
+    allowAmbientIdleTimer = selfCopy->_enableIdleTimerAssertion;
+    selfCopy->_enableIdleTimerAssertion = 0;
   }
 }
 
 - (void)_evaluateIdleTimerDisablement
 {
+  selfCopy = self;
   v22 = *MEMORY[0x277D85DE8];
-  v3 = self->_presentationRequested && self->_suppressIdleTimerForUpcomingAlarm && [(SBAmbientSettings *)self->_ambientSettings enableSuppression];
-  v4 = SBLogAmbientPresentation();
+  if (self->_presentationRequested && self->_suppressIdleTimerForUpcomingAlarm)
+  {
+    self = [(SBAmbientSettings *)self->_ambientSettings enableSuppression];
+    selfCopy2 = self;
+  }
+
+  else
+  {
+    selfCopy2 = 0;
+  }
+
+  v4 = SBLogAmbientPresentation(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    presentationRequested = self->_presentationRequested;
-    suppressIdleTimerForUpcomingAlarm = self->_suppressIdleTimerForUpcomingAlarm;
-    enableSuppression = [(SBAmbientSettings *)self->_ambientSettings enableSuppression];
-    v8 = self->_disableIdleTimerAssertion != 0;
+    presentationRequested = selfCopy->_presentationRequested;
+    suppressIdleTimerForUpcomingAlarm = selfCopy->_suppressIdleTimerForUpcomingAlarm;
+    enableSuppression = [(SBAmbientSettings *)selfCopy->_ambientSettings enableSuppression];
+    v8 = selfCopy->_disableIdleTimerAssertion != 0;
     v13[0] = 67110144;
-    v13[1] = v3;
+    v13[1] = selfCopy2;
     v14 = 1024;
     v15 = presentationRequested;
     v16 = 1024;
@@ -1107,8 +1128,8 @@ LABEL_21:
     _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Evaluating idle timer disablement - Disable = %{BOOL}d [ presentationRequested:%{BOOL}d ; suppressForAlarm:%{BOOL}d ; suppressionEnabled:%{BOOL}d ; assertion=%{BOOL}d ]", v13, 0x20u);
   }
 
-  disableIdleTimerAssertion = self->_disableIdleTimerAssertion;
-  if (v3)
+  disableIdleTimerAssertion = selfCopy->_disableIdleTimerAssertion;
+  if (selfCopy2)
   {
     if (disableIdleTimerAssertion)
     {
@@ -1117,8 +1138,8 @@ LABEL_21:
 
     v10 = +[SBIdleTimerGlobalCoordinator sharedInstanceIfExists];
     v11 = [v10 acquireIdleTimerDisableAssertionForReason:@"Ambient Suppression"];
-    v12 = self->_disableIdleTimerAssertion;
-    self->_disableIdleTimerAssertion = v11;
+    v12 = selfCopy->_disableIdleTimerAssertion;
+    selfCopy->_disableIdleTimerAssertion = v11;
   }
 
   else
@@ -1129,8 +1150,8 @@ LABEL_21:
     }
 
     [(BSInvalidatable *)disableIdleTimerAssertion invalidate];
-    v10 = self->_disableIdleTimerAssertion;
-    self->_disableIdleTimerAssertion = 0;
+    v10 = selfCopy->_disableIdleTimerAssertion;
+    selfCopy->_disableIdleTimerAssertion = 0;
   }
 }
 
@@ -1232,7 +1253,7 @@ LABEL_21:
     self->_presentationGeneration = v10;
     [(SBAmbientPresentationController *)self _updateTraitsArbiterParticipantForPresented:presentedCopy];
     _connectedChargerIdentifier = [(SBAmbientPresentationController *)self _connectedChargerIdentifier];
-    v12 = SBLogAmbientPresentation();
+    v12 = SBLogAmbientPresentation(_connectedChargerIdentifier);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
@@ -1481,7 +1502,7 @@ BOOL __73__SBAmbientPresentationController__setPresented_animated_withCompletion
   v2 = *(*(a1 + 32) + 280);
   if (v2 != v1)
   {
-    v4 = SBLogAmbientPresentation();
+    v4 = SBLogAmbientPresentation(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
@@ -1542,7 +1563,7 @@ uint64_t __73__SBAmbientPresentationController__setPresented_animated_withComple
   if (*(*(a1 + 32) + 280) != *(a1 + 40))
   {
     v3 = a2;
-    v4 = SBLogAmbientPresentation();
+    v4 = SBLogAmbientPresentation(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
@@ -1583,56 +1604,57 @@ uint64_t __73__SBAmbientPresentationController__setPresented_animated_withComple
 
 - (void)_setAmbientDisplayStyle:(int64_t)style forReason:(id)reason
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v7 = reasonCopy;
   if (self->_ambientDisplayStyle != style)
   {
-    v7 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogAmbientPresentation(reasonCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = AMUIAmbientDisplayStyleString();
+      v9 = AMUIAmbientDisplayStyleString();
       *buf = 138543618;
-      v21 = v8;
-      v22 = 2114;
-      v23 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Setting ambient display style to %{public}@ for reason %{public}@", buf, 0x16u);
+      v22 = v9;
+      v23 = 2114;
+      v24 = v7;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Setting ambient display style to %{public}@ for reason %{public}@", buf, 0x16u);
     }
 
     self->_ambientDisplayStyle = style;
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v9 = self->_observers;
-    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v10)
+    v19 = 0u;
+    v10 = self->_observers;
+    v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v16;
+      v12 = v11;
+      v13 = *v17;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v17 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v15 + 1) + 8 * v13);
+          v15 = *(*(&v16 + 1) + 8 * v14);
           if (objc_opt_respondsToSelector())
           {
-            [v14 ambientPresentationController:self didUpdateAmbientDisplayStyle:{style, v15}];
+            [v15 ambientPresentationController:self didUpdateAmbientDisplayStyle:{style, v16}];
           }
 
-          ++v13;
+          ++v14;
         }
 
-        while (v11 != v13);
-        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        while (v12 != v14);
+        v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     if ([(SBAmbientPresentationController *)self isPresented])
@@ -1817,42 +1839,43 @@ void __76__SBAmbientPresentationController__updatePresentationPossibleForMountSt
 
 - (void)_updatePosterBoardWithChargerIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
   v6 = [uUIDString substringToIndex:7];
 
-  v7 = SBLogAmbientPresentation();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogAmbientPresentation(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2112;
-    v16 = identifierCopy;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) Pushing chargerId '%@' to PosterBoard", buf, 0x16u);
+    v16 = v6;
+    v17 = 2112;
+    v18 = identifierCopy;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) Pushing chargerId '%@' to PosterBoard", buf, 0x16u);
   }
 
-  v8 = objc_alloc_init(MEMORY[0x277D3EA00]);
-  if (objc_opt_respondsToSelector())
+  v9 = objc_alloc_init(MEMORY[0x277D3EA00]);
+  v10 = objc_opt_respondsToSelector();
+  if (v10)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __75__SBAmbientPresentationController__updatePosterBoardWithChargerIdentifier___block_invoke;
-    v10[3] = &unk_2783B2F80;
-    v11 = v6;
-    v12 = identifierCopy;
-    [v8 notifyActiveChargerIdentifierDidUpdate:v12 completion:v10];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __75__SBAmbientPresentationController__updatePosterBoardWithChargerIdentifier___block_invoke;
+    v12[3] = &unk_2783B2F80;
+    v13 = v6;
+    v14 = identifierCopy;
+    [v9 notifyActiveChargerIdentifierDidUpdate:v14 completion:v12];
 
-    v9 = v11;
+    v11 = v13;
   }
 
   else
   {
-    v9 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = SBLogAmbientPresentation(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SBAmbientPresentationController *)v6 _updatePosterBoardWithChargerIdentifier:v9];
+      [(SBAmbientPresentationController *)v6 _updatePosterBoardWithChargerIdentifier:v11];
     }
   }
 }
@@ -1861,7 +1884,7 @@ void __75__SBAmbientPresentationController__updatePosterBoardWithChargerIdentifi
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogAmbientPresentation();
+  v4 = SBLogAmbientPresentation(v3);
   v5 = v4;
   if (v3)
   {
@@ -2067,7 +2090,7 @@ uint64_t __73__SBAmbientPresentationController__presentLockUIAnimated_withComple
 void __60__SBAmbientPresentationController__fetchDefaultWidgetStacks__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CEB450] sharedInstance];
-  v3 = SBLogAmbientPresentation();
+  v3 = SBLogAmbientPresentation(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2084,54 +2107,55 @@ void __60__SBAmbientPresentationController__fetchDefaultWidgetStacks__block_invo
 
 void __60__SBAmbientPresentationController__fetchDefaultWidgetStacks__block_invoke_186(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if (v5 && [v5 count] > 1)
+  v7 = v6;
+  if (v5 && (v6 = [v5 count], v6 > 1))
   {
-    v7 = [v5 objectAtIndexedSubscript:0];
-    v8 = [v5 objectAtIndexedSubscript:1];
-    v9 = [*(a1 + 32) _widgetDescriptorsForATXStack:v7];
+    v8 = [v5 objectAtIndexedSubscript:0];
+    v9 = [v5 objectAtIndexedSubscript:1];
     v10 = [*(a1 + 32) _widgetDescriptorsForATXStack:v8];
-    v11 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = [*(a1 + 32) _widgetDescriptorsForATXStack:v9];
+    v12 = SBLogAmbientPresentation(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Setting ambient default proactive stacks: Leading:%@ Trailing:%@", buf, 0x16u);
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Setting ambient default proactive stacks: Leading:%@ Trailing:%@", buf, 0x16u);
     }
 
-    if (v9 && v10)
+    if (v10 && v11)
     {
-      v12 = *(a1 + 32);
-      v14[0] = v9;
-      v14[1] = v10;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-      [v12 setDefaultWidgetStacks:v13];
+      v13 = *(a1 + 32);
+      v15[0] = v10;
+      v15[1] = v11;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+      [v13 setDefaultWidgetStacks:v14];
     }
   }
 
   else
   {
-    v7 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SBLogAmbientPresentation(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __60__SBAmbientPresentationController__fetchDefaultWidgetStacks__block_invoke_186_cold_1(v6, v7);
+      __60__SBAmbientPresentationController__fetchDefaultWidgetStacks__block_invoke_186_cold_1(v7, v8);
     }
   }
 }
 
 - (id)_widgetDescriptorsForATXStack:(id)stack
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stackCopy = stack;
   smallDefaultStack = [stackCopy smallDefaultStack];
   v5 = smallDefaultStack;
-  if (!smallDefaultStack || ![smallDefaultStack count])
+  if (!smallDefaultStack || (smallDefaultStack = [smallDefaultStack count]) == 0)
   {
-    v6 = SBLogAmbientPresentation();
+    v6 = SBLogAmbientPresentation(smallDefaultStack);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(SBAmbientPresentationController *)v5 _widgetDescriptorsForATXStack:v6];
@@ -2140,12 +2164,12 @@ void __60__SBAmbientPresentationController__fetchDefaultWidgetStacks__block_invo
     goto LABEL_20;
   }
 
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (!v7)
   {
 LABEL_20:
@@ -2154,20 +2178,20 @@ LABEL_20:
   }
 
   v8 = v7;
-  v17 = v5;
-  v18 = stackCopy;
+  v18 = v5;
+  v19 = stackCopy;
   v9 = 0;
-  v10 = *v20;
+  v10 = *v21;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v20 != v10)
+      if (*v21 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * i);
+      v12 = *(*(&v20 + 1) + 8 * i);
       avocadoDescriptor = [v12 avocadoDescriptor];
       sanitizedDescriptor = [avocadoDescriptor sanitizedDescriptor];
 
@@ -2183,22 +2207,22 @@ LABEL_20:
 
       else
       {
-        v15 = SBLogAmbientPresentation();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = SBLogAmbientPresentation(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v24 = v12;
-          _os_log_error_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_ERROR, "Widget in proactive default stack is missing a descriptor:%@", buf, 0xCu);
+          v25 = v12;
+          _os_log_error_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_ERROR, "Widget in proactive default stack is missing a descriptor:%@", buf, 0xCu);
         }
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   }
 
   while (v8);
-  v5 = v17;
-  stackCopy = v18;
+  v5 = v18;
+  stackCopy = v19;
 LABEL_21:
 
   return v9;
@@ -2483,31 +2507,32 @@ void __68__SBAmbientPresentationController__observeAmbientUserSettingChanges__bl
 
 - (void)_clearUpcomingAlarmSuppressionsIfNecessary
 {
+  selfCopy = self;
   if (self->_suppressRedModeDisplayStyleForUpcomingAlarm)
   {
-    v3 = SBLogAmbientPresentation();
+    v3 = SBLogAmbientPresentation(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Clearing ambient red mode suppression for upcoming alarm", buf, 2u);
     }
 
-    self->_suppressRedModeDisplayStyleForUpcomingAlarm = 0;
-    [(SBAmbientPresentationController *)self _evaluateRedModeTriggerDetectionState];
+    selfCopy->_suppressRedModeDisplayStyleForUpcomingAlarm = 0;
+    self = [(SBAmbientPresentationController *)selfCopy _evaluateRedModeTriggerDetectionState];
   }
 
-  if (self->_suppressIdleTimerForUpcomingAlarm)
+  if (selfCopy->_suppressIdleTimerForUpcomingAlarm)
   {
-    v4 = SBLogAmbientPresentation();
+    v4 = SBLogAmbientPresentation(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
       _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Clearing idle timer suppression for upcoming alarm", v5, 2u);
     }
 
-    self->_suppressIdleTimerForUpcomingAlarm = 0;
-    [(SBAmbientPresentationController *)self _evaluateIdleTimerEnablement];
-    [(SBAmbientPresentationController *)self _evaluateIdleTimerDisablement];
+    selfCopy->_suppressIdleTimerForUpcomingAlarm = 0;
+    [(SBAmbientPresentationController *)selfCopy _evaluateIdleTimerEnablement];
+    [(SBAmbientPresentationController *)selfCopy _evaluateIdleTimerDisablement];
   }
 }
 
@@ -2581,7 +2606,7 @@ void __74__SBAmbientPresentationController__updateViewObstructedSuppressionManag
   if (v3 && WeakRetained && ([v3 reason] & 1) != 0)
   {
     v6 = [v3 type];
-    v7 = SBLogAmbientPresentation();
+    v7 = SBLogAmbientPresentation(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109120;

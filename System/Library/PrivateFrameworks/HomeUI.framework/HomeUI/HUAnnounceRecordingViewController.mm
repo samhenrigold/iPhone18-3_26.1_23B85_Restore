@@ -801,18 +801,18 @@ LABEL_6:
   [v33 layoutIfNeeded];
 }
 
-uint64_t __48__HUAnnounceRecordingViewController_viewDidLoad__block_invoke_3(uint64_t result, int a2)
+id *__48__HUAnnounceRecordingViewController_viewDidLoad__block_invoke_3(id *result, int a2)
 {
   v26 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) _areAllHomePodsOffline];
-    if ([*(v2 + 32) _isRoomContext])
+    v3 = [result[4] _areAllHomePodsOffline];
+    if ([v2[4] _isRoomContext])
     {
-      v4 = [*(v2 + 32) currentHome];
+      v4 = [v2[4] currentHome];
       v5 = objc_alloc(MEMORY[0x277CCAD78]);
-      v6 = [*(v2 + 32) serviceContext];
+      v6 = [v2[4] serviceContext];
       v7 = [v6 roomIdentifier];
       v8 = [v5 initWithUUIDString:v7];
       v9 = [v4 hf_roomWithIdentifier:v8];
@@ -851,7 +851,7 @@ uint64_t __48__HUAnnounceRecordingViewController_viewDidLoad__block_invoke_3(uin
       v13 = 1;
     }
 
-    if ([*(v2 + 32) _isRoomContext])
+    if ([v2[4] _isRoomContext])
     {
       v16 = v12 | (v12 | v13) ^ 1;
     }
@@ -861,7 +861,7 @@ uint64_t __48__HUAnnounceRecordingViewController_viewDidLoad__block_invoke_3(uin
       v16 = 0;
     }
 
-    v17 = [*(v2 + 32) _isHomeContext] & (v3 ^ 1);
+    v17 = [v2[4] _isHomeContext] & (v3 ^ 1);
     v18 = HFLogForCategory();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
@@ -872,13 +872,13 @@ uint64_t __48__HUAnnounceRecordingViewController_viewDidLoad__block_invoke_3(uin
       _os_log_impl(&dword_20CEB6000, v18, OS_LOG_TYPE_DEFAULT, "shouldBeginRecordingForRoom:%{BOOL}d, shouldBeginRecordingForHome:%{BOOL}d", &v21, 0xEu);
     }
 
-    v19 = *(v2 + 32);
+    v19 = v2[4];
     if ((v16 | v17))
     {
       v20 = [v19 feedbackGenerator];
       [v20 prepare];
 
-      return [*(v2 + 32) beginRecording:0];
+      return [v2[4] beginRecording:0];
     }
 
     else
@@ -1429,22 +1429,22 @@ void __63__HUAnnounceRecordingViewController__dismissDownRecordingView___block_i
   [v13 layoutIfNeeded];
 }
 
-uint64_t __63__HUAnnounceRecordingViewController__dismissDownRecordingView___block_invoke_3(uint64_t result, int a2)
+id *__63__HUAnnounceRecordingViewController__dismissDownRecordingView___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) contentView];
+    v3 = [result[4] contentView];
     [v3 setAlpha:0.0];
 
-    v4 = [*(v2 + 32) closeButton];
+    v4 = [v2[4] closeButton];
     [v4 setAlpha:0.0];
 
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = __63__HUAnnounceRecordingViewController__dismissDownRecordingView___block_invoke_4;
     v6[3] = &unk_277DB8488;
-    v7 = *(v2 + 32);
+    v7 = v2[4];
     v5[0] = MEMORY[0x277D85DD0];
     v5[1] = 3221225472;
     v5[2] = __63__HUAnnounceRecordingViewController__dismissDownRecordingView___block_invoke_6;

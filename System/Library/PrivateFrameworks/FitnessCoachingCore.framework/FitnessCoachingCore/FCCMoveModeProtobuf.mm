@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    notificationType = self->_notificationType;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  nextActivityMoveMode = self->_nextActivityMoveMode;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  nextActivityMoveModeStartDate = self->_nextActivityMoveModeStartDate;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    delay = self->_delay;
     PBDataWriterWriteInt32Field();
   }
 

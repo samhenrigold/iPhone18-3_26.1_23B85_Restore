@@ -163,10 +163,7 @@ uint64_t __48__CPSImageStore_keyForGEOStyleAttributes_error___block_invoke_15(ui
   v7 = [v6 key];
   v8 = [v6 value];
 
-  v9 = [v4 stringByAppendingFormat:@"%@%d(%d)", v5, v7, v8];
-  v10 = *(*(a1 + 32) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  *(*(*(a1 + 32) + 8) + 40) = [v4 stringByAppendingFormat:@"%@%d(%d)", v5, v7, v8];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -206,12 +203,13 @@ uint64_t __48__CPSImageStore_keyForGEOStyleAttributes_error___block_invoke_15(ui
   dataCopy = data;
   keyCopy = key;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CPS_LOG_CHANNEL_PREFIXClipServices(isKindOfClass, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [CPSImageStore storeImageData:v11 forKey:? error:?];
+      [CPSImageStore storeImageData:v13 forKey:? error:?];
       if (error)
       {
         goto LABEL_8;
@@ -222,63 +220,64 @@ uint64_t __48__CPSImageStore_keyForGEOStyleAttributes_error___block_invoke_15(ui
     {
 LABEL_8:
       [MEMORY[0x277CCA9B8] cps_errorWithCode:1];
-      *error = v9 = 0;
+      *error = v11 = 0;
       goto LABEL_11;
     }
 
-    v9 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
-  v9 = keyCopy;
-  v13 = 0;
-  [dataCopy writeToURL:v9 options:1 error:&v13];
-  v10 = v13;
-  if (error && v10)
+  v11 = keyCopy;
+  v15 = 0;
+  [dataCopy writeToURL:v11 options:1 error:&v15];
+  v12 = v15;
+  if (error && v12)
   {
-    v10 = v10;
-    *error = v10;
+    v12 = v12;
+    *error = v12;
   }
 
 LABEL_11:
 
-  return v9;
+  return v11;
 }
 
 - (id)storedImageForKey:(id)key
 {
   keyCopy = key;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = keyCopy;
+    v6 = keyCopy;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    path = [v4 path];
-    v7 = [defaultManager fileExistsAtPath:path];
+    path = [v6 path];
+    v9 = [defaultManager fileExistsAtPath:path];
 
-    if (v7)
+    if (v9)
     {
-      v8 = v4;
+      v10 = v6;
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v9 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CPS_LOG_CHANNEL_PREFIXClipServices(isKindOfClass, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [CPSImageStore storeImageData:v9 forKey:? error:?];
+      [CPSImageStore storeImageData:v11 forKey:? error:?];
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (void)purgeOldImagesWithCompletionHandler:(id)handler
@@ -313,20 +312,20 @@ uint64_t __53__CPSImageStore_purgeOldImagesWithCompletionHandler___block_invoke(
 
   v6 = [v5 URLByAppendingPathComponent:@"com.apple.ClipServices/Images" isDirectory:1];
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v14 = 0;
-  v8 = [defaultManager2 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v14];
-  v9 = v14;
+  v16 = 0;
+  v8 = [defaultManager2 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v16];
+  v9 = v16;
 
   if (v8)
   {
-    v10 = v6;
+    v12 = v6;
     goto LABEL_8;
   }
 
-  v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(CPSImageStore *)v11 _storeDirectoryURL:v9];
+    [(CPSImageStore *)v13 _storeDirectoryURL:v9];
     if (l)
     {
       goto LABEL_5;
@@ -336,30 +335,30 @@ uint64_t __53__CPSImageStore_purgeOldImagesWithCompletionHandler___block_invoke(
   else if (l)
   {
 LABEL_5:
-    v12 = v9;
-    v10 = 0;
+    v14 = v9;
+    v12 = 0;
     *l = v9;
     goto LABEL_8;
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_8:
 
-  return v10;
+  return v12;
 }
 
 - (void)_purgeOldFilesInDirectory:(id)directory timeToLive:(double)live
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   if (directoryCopy)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v7 = *MEMORY[0x277CBE7C0];
     v8 = *MEMORY[0x277CBE7B0];
-    v38[0] = *MEMORY[0x277CBE7C0];
-    v38[1] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+    v37[0] = *MEMORY[0x277CBE7C0];
+    v37[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
     v10 = [defaultManager enumeratorAtURL:directoryCopy includingPropertiesForKeys:v9 options:0 errorHandler:0];
 
     date = [MEMORY[0x277CBEAA8] date];
@@ -373,12 +372,12 @@ LABEL_8:
       v16 = nextObject;
       do
       {
-        v36 = 0;
-        [v16 getResourceValue:&v36 forKey:v7 error:0];
-        v17 = v36;
         v35 = 0;
-        [v16 getResourceValue:&v35 forKey:v8 error:0];
-        v18 = v35;
+        [v16 getResourceValue:&v35 forKey:v7 error:0];
+        v17 = v35;
+        v34 = 0;
+        [v16 getResourceValue:&v34 forKey:v8 error:0];
+        v18 = v34;
         [v17 timeIntervalSinceReferenceDate];
         v20 = v19;
         [v18 timeIntervalSinceReferenceDate];
@@ -407,50 +406,46 @@ LABEL_8:
       while (nextObject2);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v25 = array;
-    v26 = [v25 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v32;
+      v28 = *v31;
       do
       {
         v29 = 0;
         do
         {
-          if (*v32 != v28)
+          if (*v31 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          [defaultManager removeItemAtURL:*(*(&v31 + 1) + 8 * v29++) error:{0, v31}];
+          [defaultManager removeItemAtURL:*(*(&v30 + 1) + 8 * v29++) error:{0, v30}];
         }
 
         while (v27 != v29);
-        v27 = [v25 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
       while (v27);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_storeDirectoryURL:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 cps_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_2436ED000, v3, OS_LOG_TYPE_ERROR, "Cannot create image store folder with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_2436ED000, v3, OS_LOG_TYPE_ERROR, "Cannot create image store folder with error: %{public}@", &v5, 0xCu);
 }
 
 @end

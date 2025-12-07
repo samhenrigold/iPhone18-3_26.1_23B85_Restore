@@ -22,11 +22,10 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  v6.receiver = self;
-  v6.super_class = STKTextInputSessionData;
+  v5.receiver = self;
+  v5.super_class = STKTextInputSessionData;
   dictionaryCopy = dictionary;
-  [(STKTextSessionData *)&v6 encodeWithXPCDictionary:dictionaryCopy];
-  defaultText = self->_defaultText;
+  [(STKTextSessionData *)&v5 encodeWithXPCDictionary:dictionaryCopy];
   BSSerializeStringToXPCDictionaryWithKey();
   xpc_dictionary_set_BOOL(dictionaryCopy, "_isSecure", self->_isSecure);
   xpc_dictionary_set_BOOL(dictionaryCopy, "_isDigits", self->_isDigitsOnly);

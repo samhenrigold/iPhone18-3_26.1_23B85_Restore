@@ -266,7 +266,7 @@ const char *textcat_Classify(uint64_t a1, uint64_t a2, unint64_t a3)
   return 0;
 }
 
-const char *langid_languagecode(uint64_t *a1, int a2)
+const char *langid_languagecode(uint64_t *a1, unsigned int a2)
 {
   v2 = &_env;
   if (a1)
@@ -354,7 +354,7 @@ uint64_t langid_identify(uint64_t a1, unint64_t a2)
 
 uint64_t *langid_consume_string(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (a4 && a3)
   {
     v4 = *a1;
@@ -385,7 +385,7 @@ uint64_t *langid_consume_string(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t
             v15 = v14[1];
             if (v15 <= 0)
             {
-              v24[v8++] = -v15;
+              v23[v8++] = -v15;
               if (v8 > 7)
               {
                 goto LABEL_13;
@@ -406,7 +406,7 @@ LABEL_13:
         v16 = 0;
         v17 = *(v4 + 296);
         v18 = *v4;
-        v19 = v24;
+        v19 = v23;
         do
         {
           if (v18 >= 1)
@@ -444,7 +444,6 @@ LABEL_18:
     while (a3);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return a1 + 1;
 }
 

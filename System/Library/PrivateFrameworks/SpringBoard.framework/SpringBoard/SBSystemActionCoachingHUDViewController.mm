@@ -12,6 +12,8 @@
 - (id)_controlCoachingLabelTextForAction:(void *)action;
 - (id)_flashlightCoachingLabelText;
 - (id)_focusCoachingLabelText;
+- (id)_layoutCoachingContentView;
+- (id)_layoutDimmingView;
 - (id)_makeCoachingButton;
 - (id)_makeCoachingLabel;
 - (id)_makeCoachingLabelWrapperView;
@@ -25,8 +27,6 @@
 - (id)delegate;
 - (id)initWithRingerControl:(void *)control activityManager:(void *)manager applicationController:(void *)controller doNotDisturbStateMonitor:(void *)monitor flashlightActivityManager:;
 - (id)setDelegate:(id *)result;
-- (uint64_t)_layoutCoachingContentView;
-- (uint64_t)_layoutDimmingView;
 - (uint64_t)_updateContentVisibilityAssertion;
 - (uint64_t)action;
 - (uint64_t)activityManager;
@@ -47,7 +47,6 @@
 - (uint64_t)isRotating;
 - (uint64_t)liveRenderingAssertion;
 - (uint64_t)ringerControl;
-- (uint64_t)setCoachingLabelOrientation:(uint64_t)result;
 - (uint64_t)settings;
 - (uint64_t)shouldLayoutForButtonHints;
 - (uint64_t)state;
@@ -66,6 +65,7 @@
 - (void)controlSystemAction:(id)action propertiesDidChange:(id)change;
 - (void)setAction:(id *)action;
 - (void)setAttachmentDelegate:(id)delegate;
+- (void)setCoachingLabelOrientation:(void *)result;
 - (void)setIsAttached:(uint64_t)attached;
 - (void)setPositionOffset:(CGPoint)offset;
 - (void)setShouldLayoutForButtonHints:(uint64_t)hints;
@@ -594,29 +594,30 @@ uint64_t __71__SBSystemActionCoachingHUDViewController__updateCoachingLabelOcclu
 
   v1 = result;
   controlAction = [*(result + 1032) controlAction];
+  v3 = controlAction;
   if (controlAction)
   {
-    v3 = *(v1 + 1104);
+    controlAction = *(v1 + 1104);
     if (*(v1 + 1048))
     {
-      if (!v3)
+      if (!controlAction)
       {
-        v4 = [(SBControlSystemAction *)controlAction acquireContentVisibilityAssertionForReason:?];
+        v4 = [(SBControlSystemAction *)v3 acquireContentVisibilityAssertionForReason:?];
 LABEL_8:
         v5 = *(v1 + 1104);
         *(v1 + 1104) = v4;
       }
     }
 
-    else if (v3)
+    else if (controlAction)
     {
-      [v3 invalidate];
+      [controlAction invalidate];
       v4 = 0;
       goto LABEL_8;
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](controlAction);
 }
 
 - (void)_setNeedsUpdateCoachingLabelText
@@ -841,16 +842,16 @@ LABEL_8:
   }
 }
 
-- (uint64_t)_layoutCoachingContentView
+- (id)_layoutCoachingContentView
 {
   if (result)
   {
     v1 = result;
-    [*(result + 1136) bounds];
-    v2 = *(v1 + 1152);
+    [result[142] bounds];
+    v2 = v1[144];
     UIRectGetCenter();
     [v2 setCenter:?];
-    v3 = *(v1 + 1152);
+    v3 = v1[144];
     BSRectWithSize();
 
     return [v3 setBounds:?];
@@ -987,36 +988,36 @@ LABEL_8:
     OUTLINED_FUNCTION_13();
     UIRectCenteredAboutPointScale();
     OUTLINED_FUNCTION_9_5();
-    v42 = 0u;
     v43 = 0u;
-    v41 = 0u;
+    v44 = 0u;
+    v42 = 0u;
     SBFTransformFromOrientationToOrientation();
-    memset(&v40, 0, sizeof(v40));
+    memset(&v41, 0, sizeof(v41));
     BSFloatRoundForScale();
-    Translation = CGAffineTransformMakeTranslation(&v40, v5, 0.0);
-    v14 = OUTLINED_FUNCTION_15(Translation, v7, v8, v9, v10, v11, v12, v43, v13, v26, v28, v30, v4, v41, *(&v41 + 1), v42.n128_i64[0], v42.n128_i64[1], v42, v33, v35, *MEMORY[0x277CBF2C0], *(MEMORY[0x277CBF2C0] + 8), *(MEMORY[0x277CBF2C0] + 16), *(MEMORY[0x277CBF2C0] + 24), *(MEMORY[0x277CBF2C0] + 32));
-    OUTLINED_FUNCTION_15(v14, v15, v16, v17, v18, v19, v20, *&v40.tx, v21, v27, v29, v31, v32, *&v40.a, *&v40.b, *&v40.c, *&v40.d, *&v40.c, v34, v36, v37, *(&v37 + 1), v38.n128_i64[0], v38.n128_i64[1], v39.n128_i64[0]);
-    v41 = v37;
+    Translation = CGAffineTransformMakeTranslation(&v41, v5, 0.0);
+    v15 = OUTLINED_FUNCTION_15(Translation, v7, v8, v9, v10, v11, v12, v44, v13, v43, v27, v29, v31, v4, v42, *(&v42 + 1), v43.n128_i64[0], v43.n128_i64[1], v14, v34, v36, *MEMORY[0x277CBF2C0], *(MEMORY[0x277CBF2C0] + 8), *(MEMORY[0x277CBF2C0] + 16), *(MEMORY[0x277CBF2C0] + 24), *(MEMORY[0x277CBF2C0] + 32));
+    OUTLINED_FUNCTION_15(v15, v16, v17, v18, v19, v20, v21, *&v41.tx, v22, *&v41.c, v28, v30, v32, v33, *&v41.a, *&v41.b, *&v41.c, *&v41.d, v40, v35, v37, v38, *(&v38 + 1), v39.n128_i64[0], v39.n128_i64[1], v40.n128_i64[0]);
     v42 = v38;
     v43 = v39;
+    v44 = v40;
     OUTLINED_FUNCTION_4_12();
-    CGRectApplyAffineTransform(v44, v22);
+    CGRectApplyAffineTransform(v45, v23);
     OUTLINED_FUNCTION_4_12();
     UIRectGetCenter();
     OUTLINED_FUNCTION_8_4();
     SBUnintegralizedRectCenteredAboutPoint();
     BSPointRoundForScale();
-    v23 = self[147];
-    UIRectGetCenter();
-    [v23 setCenter:?];
     v24 = self[147];
-    BSRectWithSize();
-    [v24 setBounds:?];
+    UIRectGetCenter();
+    [v24 setCenter:?];
     v25 = self[147];
-    v41 = v37;
+    BSRectWithSize();
+    [v25 setBounds:?];
+    v26 = self[147];
     v42 = v38;
     v43 = v39;
-    [v25 setTransform:&v41];
+    v44 = v40;
+    [v26 setTransform:&v42];
     [(SBSystemActionCoachingHUDViewController *)self _updateCoachingLabelOccluded];
   }
 }
@@ -1207,11 +1208,11 @@ LABEL_8:
   [(SBSystemActionCoachingHUDViewController *)self transitionToState:0 animated:0 completion:?];
 }
 
-- (uint64_t)setCoachingLabelOrientation:(uint64_t)result
+- (void)setCoachingLabelOrientation:(void *)result
 {
-  if (result && *(result + 1128) != a2)
+  if (result && *(result + 141) != a2)
   {
-    *(result + 1128) = a2;
+    *(result + 141) = a2;
     if ((a2 - 3) < 2)
     {
       v2 = 1;
@@ -1222,7 +1223,7 @@ LABEL_8:
       v2 = 4;
     }
 
-    return [*(result + 1176) setTextAlignment:v2];
+    return [*(result + 147) setTextAlignment:v2];
   }
 
   return result;
@@ -1322,21 +1323,21 @@ LABEL_11:
   v3.super_class = SBSystemActionCoachingHUDViewController;
   [(SBSystemActionCoachingHUDViewController *)&v3 viewDidLayoutSubviews];
   [(SBSystemActionCoachingHUDViewController *)self _updateCoachingLabelTextIfNeeded];
-  [(SBSystemActionCoachingHUDViewController *)self _layoutDimmingView];
-  [(SBSystemActionCoachingHUDViewController *)self _layoutCoachingContentView];
+  [(SBSystemActionCoachingHUDViewController *)&self->super.super.super.super.isa _layoutDimmingView];
+  [(SBSystemActionCoachingHUDViewController *)&self->super.super.super.super.isa _layoutCoachingContentView];
   [(SBSystemActionCoachingHUDViewController *)self _layoutCoachingButton];
   [(SBSystemActionCoachingHUDViewController *)self _layoutCoachingLabelWrapperView];
   [(SBSystemActionCoachingHUDViewController *)&self->super.super.super.super.isa _layoutCoachingLabel];
 }
 
-- (uint64_t)_layoutDimmingView
+- (id)_layoutDimmingView
 {
   if (result)
   {
     v1 = result;
-    [*(result + 1136) bounds];
+    [result[142] bounds];
     OUTLINED_FUNCTION_9_5();
-    v2 = *(v1 + 1144);
+    v2 = v1[143];
     UIRectGetCenter();
     [v2 setCenter:?];
     OUTLINED_FUNCTION_4_12();
@@ -1458,7 +1459,7 @@ uint64_t __94__SBSystemActionCoachingHUDViewController_viewWillTransitionToSize_
   selfCopy = self;
   if (self)
   {
-    configuredAction = [self[129] configuredAction];
+    configuredAction = [self[32].info configuredAction];
     sectionIdentifier = [configuredAction sectionIdentifier];
     if ([sectionIdentifier isEqualToString:@"SilentMode"])
     {
@@ -2384,7 +2385,7 @@ LABEL_11:
 
 - (void)initWithRingerControl:(char *)a1 activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"flashlightActivityManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2392,7 +2393,7 @@ LABEL_11:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"flashlightActivityManager != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2402,7 +2403,7 @@ LABEL_11:
 
 - (void)initWithRingerControl:(char *)a1 activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"doNotDisturbStateMonitor != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2410,7 +2411,7 @@ LABEL_11:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"doNotDisturbStateMonitor != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2420,7 +2421,7 @@ LABEL_11:
 
 - (void)initWithRingerControl:(char *)a1 activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"applicationController != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2428,7 +2429,7 @@ LABEL_11:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"applicationController != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2438,7 +2439,7 @@ LABEL_11:
 
 - (void)initWithRingerControl:(char *)a1 activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"activityManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2446,7 +2447,7 @@ LABEL_11:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"activityManager != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2456,7 +2457,7 @@ LABEL_11:
 
 - (void)initWithRingerControl:(char *)a1 activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"ringerControl != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2464,7 +2465,7 @@ LABEL_11:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"ringerControl != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

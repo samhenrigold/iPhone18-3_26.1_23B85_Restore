@@ -8,10 +8,10 @@
 + (void)registerWithICCRCoder
 {
   v2 = objc_opt_self();
-  type metadata accessor for RealtimeCollaborationSelectionDocument.State();
+  type metadata accessor for RealtimeCollaborationSelectionDocument.State(v2, v3);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v4 = sub_2150A4A90();
-  [v2 registerClass:ObjCClassFromMetadata forType:v4];
+  v5 = sub_2150A4A90();
+  [v2 registerClass:ObjCClassFromMetadata forType:v5];
 }
 
 - (ICRealtimeCollaborationSelectionState)init

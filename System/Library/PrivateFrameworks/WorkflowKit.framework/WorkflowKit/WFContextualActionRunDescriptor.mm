@@ -15,23 +15,23 @@ void __104__WFContextualActionRunDescriptor_Conversion__createWorkflowWithEnviro
   v4 = [WFWorkflow alloc];
   v5 = objc_opt_new();
   v6 = *(a1 + 56);
-  v23 = 0;
-  v7 = [(WFWorkflow *)v4 initWithRecord:v5 reference:0 storageProvider:0 migrateIfNecessary:0 environment:v6 error:&v23];
-  v8 = v23;
+  v22 = 0;
+  v7 = [(WFWorkflow *)v4 initWithRecord:v5 reference:0 storageProvider:0 migrateIfNecessary:0 environment:v6 error:&v22];
+  v8 = v22;
 
   v9 = [v3 localizedName];
   [(WFWorkflow *)v7 setName:v9];
 
   v10 = [*(a1 + 32) identifier];
-  if (([v10 isEqualToString:@"is.workflow.actions.runworkflow"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
   {
     v11 = [*(a1 + 32) associatedAppBundleIdentifier];
-    if (![v11 isEqualToString:*MEMORY[0x1E69E0EC0]])
+    if (!objc_msgSend_isEqualToString_(v11))
     {
-      v21 = [*(a1 + 32) associatedAppBundleIdentifier];
-      v22 = [v21 isEqualToString:*MEMORY[0x1E69E0EE8]];
+      v20 = [*(a1 + 32) associatedAppBundleIdentifier];
+      isEqualToString = objc_msgSend_isEqualToString_(v20);
 
-      if ((v22 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_7;
       }
@@ -50,35 +50,34 @@ LABEL_7:
   if (v7)
   {
     [(WFWorkflow *)v7 addAction:v3];
-    v15 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(WFWorkflow *)v7 setSource:@"ShortcutSourceAppShortcut"];
     }
 
-    v16 = [*(a1 + 32) outputsFiles];
+    v15 = [*(a1 + 32) outputsFiles];
     [*(a1 + 40) surface];
-    v17 = WFContextualActionSurfaceSupportsOutput();
-    if (v16 && (v17 & 1) == 0)
+    v16 = WFContextualActionSurfaceSupportsOutput();
+    if (v15 && (v16 & 1) == 0)
     {
-      v18 = +[WFActionRegistry sharedRegistry];
-      v19 = [v18 createActionWithIdentifier:@"is.workflow.actions.showresult" serializedParameters:0];
+      v17 = +[WFActionRegistry sharedRegistry];
+      v18 = [v17 createActionWithIdentifier:@"is.workflow.actions.showresult" serializedParameters:0];
 
-      [(WFWorkflow *)v7 addAction:v19];
-      [v19 unlockInputParameter];
-      [v19 snapInputParameterIfNecessary];
+      [(WFWorkflow *)v7 addAction:v18];
+      [v18 unlockInputParameter];
+      [v18 snapInputParameterIfNecessary];
     }
 
-    v20 = *(*(a1 + 48) + 16);
+    v19 = *(*(a1 + 48) + 16);
   }
 
   else
   {
-    v20 = *(*(a1 + 48) + 16);
+    v19 = *(*(a1 + 48) + 16);
   }
 
-  v20();
+  v19();
 
 LABEL_17:
 }

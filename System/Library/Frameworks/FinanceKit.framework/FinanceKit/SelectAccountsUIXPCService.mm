@@ -9,16 +9,17 @@
 - (void)updated:(id)updated
 {
   v3 = *(updated + OBJC_IVAR___XPCAccountSelectionResult_value);
-  v4 = *self->continuationState;
-  v5 = *(*v4 + *MEMORY[0x1E69E6B68] + 16);
-  v6 = (*(*v4 + 48) + 3) & 0x1FFFFFFFCLL;
+  v4 = *(updated + OBJC_IVAR___XPCAccountSelectionResult_value + 8);
+  v5 = *self->continuationState;
+  v6 = *(*v5 + *MEMORY[0x1E69E6B68] + 16);
+  v7 = (*(*v5 + 48) + 3) & 0x1FFFFFFFCLL;
   updatedCopy = updated;
 
-  sub_1B720A65C(v3);
-  os_unfair_lock_lock((v4 + v6));
-  sub_1B754B8CC(v4 + v5);
-  os_unfair_lock_unlock((v4 + v6));
-  sub_1B720A6F0(v3);
+  sub_1B720A65C(v3, v4);
+  os_unfair_lock_lock((v5 + v7));
+  sub_1B754B8CC(v5 + v6);
+  os_unfair_lock_unlock((v5 + v7));
+  sub_1B720A6F0(v3, v4);
 }
 
 - (void)cancelled

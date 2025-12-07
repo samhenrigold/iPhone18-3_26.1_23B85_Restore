@@ -19,14 +19,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   dateInterval = [(HMYearDayScheduleRule *)self dateInterval];
   v5 = [v3 initWithName:@"Date Interval" value:dateInterval];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -40,7 +38,7 @@
 
 - (HMYearDayScheduleRule)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMYearDayScheduleCodingKeyDateInterval"];
   if (v5)
@@ -57,18 +55,17 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = 0;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from dateInterval: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = 0;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from dateInterval: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -115,28 +112,26 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   dateInterval = [(HMYearDayScheduleRule *)self dateInterval];
 
   if (dateInterval)
   {
-    v11[0] = @"HMDStartDateKey";
+    v10[0] = @"HMDStartDateKey";
     dateInterval2 = [(HMYearDayScheduleRule *)self dateInterval];
     startDate = [dateInterval2 startDate];
-    v11[1] = @"HMDEndDateKey";
-    v12[0] = startDate;
+    v10[1] = @"HMDEndDateKey";
+    v11[0] = startDate;
     dateInterval3 = [(HMYearDayScheduleRule *)self dateInterval];
     endDate = [dateInterval3 endDate];
-    v12[1] = endDate;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v11[1] = endDate;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   }
 
   else
   {
     v8 = MEMORY[0x1E695E0F8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

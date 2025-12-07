@@ -94,7 +94,7 @@ void __62__HDSPSleepScheduleModelMigrationManager_performDataMigration__block_in
 
 void __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v5 = [WeakRetained behavior];
@@ -103,14 +103,13 @@ void __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invo
 
   if ((v7 & 1) == 0)
   {
-    v14 = HKSPLogForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = HKSPLogForCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
       *buf = 138543362;
-      v22 = objc_opt_class();
-      v16 = v22;
-      _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping CloudKit migration because feature is disabled", buf, 0xCu);
+      v19 = objc_opt_class();
+      v14 = v19;
+      _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping CloudKit migration because feature is disabled", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -122,8 +121,8 @@ void __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invo
   if (v9)
   {
 LABEL_9:
-    v17 = NAEmptyResult();
-    [v3 finishWithResult:v17];
+    v15 = NAEmptyResult();
+    [v3 finishWithResult:v15];
 
     goto LABEL_10;
   }
@@ -131,23 +130,21 @@ LABEL_9:
   v10 = HKSPLogForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
     *buf = 138543362;
-    v22 = objc_opt_class();
-    v12 = v22;
+    v19 = objc_opt_class();
+    v11 = v19;
     _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing CloudKit migration", buf, 0xCu);
   }
 
-  v13 = [WeakRetained sleepStorage];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invoke_294;
-  v19[3] = &unk_279C7C0C8;
-  v20 = v3;
-  [v13 performInitialSyncWithCompletion:v19];
+  v12 = [WeakRetained sleepStorage];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invoke_294;
+  v16[3] = &unk_279C7C0C8;
+  v17 = v3;
+  [v12 performInitialSyncWithCompletion:v16];
 
 LABEL_10:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invoke_294(uint64_t a1, uint64_t a2, void *a3)
@@ -160,21 +157,19 @@ void __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invo
 
 id __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = HKSPLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = HKSPLogForCategory();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v7 = v9;
-    _os_log_error_impl(&dword_269B11000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] initial sync failed, continuing anyway", &v8, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_error_impl(&dword_269B11000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] initial sync failed, continuing anyway", &v5, 0xCu);
   }
 
-  v3 = [MEMORY[0x277D2C900] futureWithNoResult];
-  v4 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277D2C900] futureWithNoResult];
 
-  return v3;
+  return v2;
 }
 
 - (id)_migrateSleepScheduleFromMobileTimer
@@ -191,7 +186,7 @@ id __60__HDSPSleepScheduleModelMigrationManager__migrateToCloudKit__block_invoke
 
 void __78__HDSPSleepScheduleModelMigrationManager__migrateSleepScheduleFromMobileTimer__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v5 = [WeakRetained sleepStorage];
@@ -200,8 +195,8 @@ void __78__HDSPSleepScheduleModelMigrationManager__migrateSleepScheduleFromMobil
   if (v6)
   {
 LABEL_9:
-    v21 = NAEmptyResult();
-    [v3 finishWithResult:v21];
+    v19 = NAEmptyResult();
+    [v3 finishWithResult:v19];
 
     goto LABEL_10;
   }
@@ -211,14 +206,13 @@ LABEL_9:
 
   if ((v8 & 1) == 0)
   {
-    v18 = HKSPLogForCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = HKSPLogForCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
       *buf = 138543362;
-      v28 = objc_opt_class();
-      v20 = v28;
-      _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping MobileTimer migration because this device doesn't support legacy alarms", buf, 0xCu);
+      v25 = objc_opt_class();
+      v18 = v25;
+      _os_log_impl(&dword_269B11000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping MobileTimer migration because this device doesn't support legacy alarms", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -227,70 +221,64 @@ LABEL_9:
   v9 = HKSPLogForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
     *buf = 138543362;
-    v28 = objc_opt_class();
-    v11 = v28;
+    v25 = objc_opt_class();
+    v10 = v25;
     _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] migrating from MobileTimer", buf, 0xCu);
   }
 
-  v12 = [WeakRetained sleepAlarmManager];
-  v13 = [v12 sleepAlarmProvider];
+  v11 = [WeakRetained sleepAlarmManager];
+  v12 = [v11 sleepAlarmProvider];
 
-  v14 = [v13 sleepAlarmsFuture];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __78__HDSPSleepScheduleModelMigrationManager__migrateSleepScheduleFromMobileTimer__block_invoke_298;
-  v23[3] = &unk_279C7C140;
-  v15 = v3;
-  v16 = *(a1 + 32);
-  v24 = v15;
-  v25 = v16;
-  v26 = WeakRetained;
-  v17 = [v14 addCompletionBlock:v23];
+  v13 = [v12 sleepAlarmsFuture];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __78__HDSPSleepScheduleModelMigrationManager__migrateSleepScheduleFromMobileTimer__block_invoke_298;
+  v20[3] = &unk_279C7C140;
+  v14 = v3;
+  v15 = *(a1 + 32);
+  v21 = v14;
+  v22 = v15;
+  v23 = WeakRetained;
+  v16 = [v13 addCompletionBlock:v20];
 
 LABEL_10:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDSPSleepScheduleModelMigrationManager__migrateSleepScheduleFromMobileTimer__block_invoke_298(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v4 = *(a1 + 32);
-    v5 = *MEMORY[0x277D85DE8];
 
     [v4 finishWithError:?];
   }
 
   else
   {
-    v6 = HKSPNilify();
-    v7 = [v6 firstObject];
-    v8 = HKSPLogForCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v5 = HKSPNilify();
+    v6 = [v5 firstObject];
+    v7 = HKSPLogForCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
       *buf = 138543618;
-      v19 = objc_opt_class();
-      v20 = 2114;
-      v21 = v7;
-      v10 = v19;
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] migrating from sleep alarm %{public}@", buf, 0x16u);
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v6;
+      v8 = v16;
+      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] migrating from sleep alarm %{public}@", buf, 0x16u);
     }
 
-    v11 = [HDSPMobileTimerBridge sleepScheduleModelFromSleepAlarm:v7];
-    v12 = [*(a1 + 48) sleepStorage];
-    v17 = 0;
-    [v12 saveSleepScheduleModel:v11 error:&v17];
-    v13 = v17;
+    v9 = [HDSPMobileTimerBridge sleepScheduleModelFromSleepAlarm:v6];
+    v10 = [*(a1 + 48) sleepStorage];
+    v14 = 0;
+    [v10 saveSleepScheduleModel:v9 error:&v14];
+    v11 = v14;
 
-    v14 = *(a1 + 32);
-    v15 = NAEmptyResult();
-    [v14 finishWithResult:v15 error:v13];
-
-    v16 = *MEMORY[0x277D85DE8];
+    v12 = *(a1 + 32);
+    v13 = NAEmptyResult();
+    [v12 finishWithResult:v13 error:v11];
   }
 }
 
@@ -308,7 +296,7 @@ void __78__HDSPSleepScheduleModelMigrationManager__migrateSleepScheduleFromMobil
 
 void __68__HDSPSleepScheduleModelMigrationManager__migrateOnboardingSettings__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v5 = [WeakRetained sleepStorage];
@@ -319,78 +307,75 @@ void __68__HDSPSleepScheduleModelMigrationManager__migrateOnboardingSettings__bl
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
       *buf = 138543362;
-      v34 = objc_opt_class();
-      v10 = v34;
+      v30 = objc_opt_class();
+      v9 = v30;
       _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] migrating settings based on onboarding", buf, 0xCu);
     }
 
-    v11 = [WeakRetained sleepStorage];
-    v32 = 0;
-    v12 = [v11 loadSleepEventRecord:&v32];
-    v13 = v32;
+    v10 = [WeakRetained sleepStorage];
+    v28 = 0;
+    v11 = [v10 loadSleepEventRecord:&v28];
+    v12 = v28;
 
-    if (v12)
+    if (v11)
     {
-      v14 = [WeakRetained sleepStorage];
-      v31 = v13;
-      v15 = [v14 loadSleepSettings:&v31];
-      v16 = v31;
+      v13 = [WeakRetained sleepStorage];
+      v27 = v12;
+      v14 = [v13 loadSleepSettings:&v27];
+      v15 = v27;
 
-      v17 = [v15 mutableCopy];
-      if (v17)
+      v16 = [v14 mutableCopy];
+      if (v16)
       {
-        if ([v12 isAnySleepCoachingOnboardingCompleted])
+        if ([v11 isAnySleepCoachingOnboardingCompleted])
         {
-          v18 = HKSPLogForCategory();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v17 = HKSPLogForCategory();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = *(a1 + 32);
-            v20 = objc_opt_class();
+            v18 = objc_opt_class();
             *buf = 138543362;
-            v34 = v20;
-            v21 = v20;
-            _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep coaching completed, enabling dnd during wind down", buf, 0xCu);
+            v30 = v18;
+            v19 = v18;
+            _os_log_impl(&dword_269B11000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep coaching completed, enabling dnd during wind down", buf, 0xCu);
           }
 
-          [v17 setSleepModeOptions:{objc_msgSend(v17, "sleepModeOptions") | 0x840}];
+          [v16 setSleepModeOptions:{objc_msgSend(v16, "sleepModeOptions") | 0x840}];
         }
 
-        if ([v12 isAnySleepTrackingOnboardingCompleted])
+        if ([v11 isAnySleepTrackingOnboardingCompleted])
         {
-          v22 = HKSPLogForCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v20 = HKSPLogForCategory();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = *(a1 + 32);
-            v24 = objc_opt_class();
+            v21 = objc_opt_class();
             *buf = 138543362;
-            v34 = v24;
-            v25 = v24;
-            _os_log_impl(&dword_269B11000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep tracking completed, enabling watch face", buf, 0xCu);
+            v30 = v21;
+            v22 = v21;
+            _os_log_impl(&dword_269B11000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep tracking completed, enabling watch face", buf, 0xCu);
           }
 
-          [v17 setSleepModeOptions:{objc_msgSend(v17, "sleepModeOptions") | 4}];
+          [v16 setSleepModeOptions:{objc_msgSend(v16, "sleepModeOptions") | 4}];
         }
 
-        v26 = [WeakRetained sleepStorage];
-        v30 = v16;
-        [v26 saveSleepSettings:v17 error:&v30];
-        v27 = v30;
+        v23 = [WeakRetained sleepStorage];
+        v26 = v15;
+        [v23 saveSleepSettings:v16 error:&v26];
+        v24 = v26;
 
-        v16 = v27;
+        v15 = v24;
       }
 
-      v28 = NAEmptyResult();
-      [v3 finishWithResult:v28 error:v16];
+      v25 = NAEmptyResult();
+      [v3 finishWithResult:v25 error:v15];
 
-      v13 = v16;
+      v12 = v15;
     }
 
     else
     {
-      v17 = NAEmptyResult();
-      [v3 finishWithResult:v17 error:v13];
+      v16 = NAEmptyResult();
+      [v3 finishWithResult:v16 error:v12];
     }
   }
 
@@ -399,8 +384,6 @@ void __68__HDSPSleepScheduleModelMigrationManager__migrateOnboardingSettings__bl
     v7 = NAEmptyResult();
     [v3 finishWithResult:v7];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_migrateSleepFocus
@@ -417,7 +400,7 @@ void __68__HDSPSleepScheduleModelMigrationManager__migrateOnboardingSettings__bl
 
 void __60__HDSPSleepScheduleModelMigrationManager__migrateSleepFocus__block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v5 = [WeakRetained sleepStorage];
@@ -428,96 +411,92 @@ void __60__HDSPSleepScheduleModelMigrationManager__migrateSleepFocus__block_invo
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
       *buf = 138543362;
-      v37 = objc_opt_class();
-      v10 = v37;
+      v32 = objc_opt_class();
+      v9 = v32;
       _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] migrating sleep focus", buf, 0xCu);
     }
 
-    v11 = [WeakRetained sleepStorage];
-    v35 = 0;
-    v12 = [v11 loadSleepEventRecord:&v35];
-    v13 = v35;
+    v10 = [WeakRetained sleepStorage];
+    v30 = 0;
+    v11 = [v10 loadSleepEventRecord:&v30];
+    v12 = v30;
 
-    if (!v12)
+    if (!v11)
     {
-      v15 = NAEmptyResult();
-      [v3 finishWithResult:v15 error:v13];
-      v16 = v13;
+      v14 = NAEmptyResult();
+      [v3 finishWithResult:v14 error:v12];
+      v15 = v12;
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    v14 = [WeakRetained sleepStorage];
-    v34 = v13;
-    v15 = [v14 loadSleepSettings:&v34];
-    v16 = v34;
+    v13 = [WeakRetained sleepStorage];
+    v29 = v12;
+    v14 = [v13 loadSleepSettings:&v29];
+    v15 = v29;
 
-    if (!v15)
+    if (!v14)
     {
-      v23 = NAEmptyResult();
-      [v3 finishWithResult:v23 error:v16];
+      v21 = NAEmptyResult();
+      [v3 finishWithResult:v21 error:v15];
 LABEL_21:
 
       goto LABEL_22;
     }
 
-    if (([v12 isAnySleepCoachingOnboardingCompleted] & 1) != 0 || objc_msgSend(v15, "scheduledSleepMode"))
+    if (([v11 isAnySleepCoachingOnboardingCompleted] & 1) != 0 || objc_msgSend(v14, "scheduledSleepMode"))
     {
-      v17 = HKSPLogForCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = HKSPLogForCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(a1 + 32);
-        v19 = objc_opt_class();
+        v17 = objc_opt_class();
         *buf = 138543362;
-        v37 = v19;
-        v20 = v19;
-        _os_log_impl(&dword_269B11000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating sleep focus because we've already onboarded or enabled scheduledSleepMode", buf, 0xCu);
+        v32 = v17;
+        v18 = v17;
+        _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating sleep focus because we've already onboarded or enabled scheduledSleepMode", buf, 0xCu);
       }
 
-      v21 = [WeakRetained sleepModeManager];
-      v33 = 0;
-      v22 = [v21 createFocusModeInState:objc_msgSend(MEMORY[0x277D624E8] error:{"defaultConfigurationState"), &v33}];
-      v23 = v33;
+      v19 = [WeakRetained sleepModeManager];
+      v28 = 0;
+      v20 = [v19 createFocusModeInState:objc_msgSend(MEMORY[0x277D624E8] error:{"defaultConfigurationState"), &v28}];
+      v21 = v28;
 
-      if (v22)
+      if (v20)
       {
         goto LABEL_20;
       }
 
-      v24 = HKSPLogForCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v22 = HKSPLogForCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 32);
-        v26 = objc_opt_class();
+        v23 = objc_opt_class();
         *buf = 138543362;
-        v37 = v26;
-        v27 = v26;
-        _os_log_error_impl(&dword_269B11000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] failed to migrate sleep focus", buf, 0xCu);
+        v32 = v23;
+        v24 = v23;
+        _os_log_error_impl(&dword_269B11000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] failed to migrate sleep focus", buf, 0xCu);
       }
     }
 
     else
     {
-      v24 = HKSPLogForCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v22 = HKSPLogForCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = *(a1 + 32);
-        v29 = objc_opt_class();
+        v25 = objc_opt_class();
         *buf = 138543362;
-        v37 = v29;
-        v30 = v29;
-        _os_log_impl(&dword_269B11000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping focus creation", buf, 0xCu);
+        v32 = v25;
+        v26 = v25;
+        _os_log_impl(&dword_269B11000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping focus creation", buf, 0xCu);
       }
 
-      v23 = 0;
+      v21 = 0;
     }
 
 LABEL_20:
-    v31 = NAEmptyResult();
-    [v3 finishWithResult:v31 error:v23];
+    v27 = NAEmptyResult();
+    [v3 finishWithResult:v27 error:v21];
 
     goto LABEL_21;
   }
@@ -526,7 +505,6 @@ LABEL_20:
   [v3 finishWithResult:v7];
 
 LABEL_23:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_migrateHomeScreenPage
@@ -543,7 +521,7 @@ LABEL_23:
 
 void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v5 = [WeakRetained sleepStorage];
@@ -559,65 +537,62 @@ void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
       *buf = 138543362;
-      v37 = objc_opt_class();
-      v9 = v37;
+      v33 = objc_opt_class();
+      v8 = v33;
       _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] migrating home screen", buf, 0xCu);
     }
 
-    v10 = [WeakRetained sleepStorage];
-    v35 = 0;
-    v11 = [v10 loadSleepEventRecord:&v35];
-    v12 = v35;
+    v9 = [WeakRetained sleepStorage];
+    v31 = 0;
+    v10 = [v9 loadSleepEventRecord:&v31];
+    v11 = v31;
 
-    if (v11)
+    if (v10)
     {
-      v13 = [WeakRetained sleepStorage];
-      v34 = v12;
-      v14 = [v13 loadSleepSettings:&v34];
-      v15 = v34;
+      v12 = [WeakRetained sleepStorage];
+      v30 = v11;
+      v13 = [v12 loadSleepSettings:&v30];
+      v14 = v30;
 
-      v16 = [v14 mutableCopy];
-      if (v16)
+      v15 = [v13 mutableCopy];
+      if (v15)
       {
-        if ([v11 isAnySleepWindDownShortcutsOnboardingCompleted] && (objc_msgSend(MEMORY[0x277CBEBD0], "hksp_springBoardUserDefaults"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "hksp_BOOLForKey:", *MEMORY[0x277D62028]), v17, v18))
+        if ([v10 isAnySleepWindDownShortcutsOnboardingCompleted] && (objc_msgSend(MEMORY[0x277CBEBD0], "hksp_springBoardUserDefaults"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "hksp_BOOLForKey:", *MEMORY[0x277D62028]), v16, v17))
         {
-          v19 = HKSPLogForCategory();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v18 = HKSPLogForCategory();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = *(a1 + 32);
-            v21 = objc_opt_class();
+            v19 = objc_opt_class();
             *buf = 138543362;
-            v37 = v21;
-            v22 = v21;
-            _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating home screen page because we've already onboarded shortcuts", buf, 0xCu);
+            v33 = v19;
+            v20 = v19;
+            _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] creating home screen page because we've already onboarded shortcuts", buf, 0xCu);
           }
 
-          v23 = [WeakRetained sleepModeManager];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_invoke_303;
-          v30[3] = &unk_279C7C168;
-          v30[4] = *(a1 + 32);
-          v31 = v3;
-          v16 = v16;
-          v32 = v16;
-          v33 = WeakRetained;
-          [v23 createHomeScreenPageWithCompletion:v30];
+          v21 = [WeakRetained sleepModeManager];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_invoke_303;
+          v26[3] = &unk_279C7C168;
+          v26[4] = *(a1 + 32);
+          v27 = v3;
+          v15 = v15;
+          v28 = v15;
+          v29 = WeakRetained;
+          [v21 createHomeScreenPageWithCompletion:v26];
         }
 
         else
         {
-          v24 = HKSPLogForCategory();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v22 = HKSPLogForCategory();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = *(a1 + 32);
-            v26 = objc_opt_class();
+            v23 = objc_opt_class();
             *buf = 138543362;
-            v37 = v26;
-            v27 = v26;
-            _os_log_impl(&dword_269B11000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping home screen page creation because we haven't onboarded shortcuts", buf, 0xCu);
+            v33 = v23;
+            v24 = v23;
+            _os_log_impl(&dword_269B11000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] skipping home screen page creation because we haven't onboarded shortcuts", buf, 0xCu);
           }
 
           [v3 finishWithNoResult];
@@ -626,25 +601,23 @@ void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_
 
       else
       {
-        v28 = NAEmptyResult();
-        [v3 finishWithResult:v28 error:v15];
+        v25 = NAEmptyResult();
+        [v3 finishWithResult:v25 error:v14];
       }
     }
 
     else
     {
-      v16 = NAEmptyResult();
-      [v3 finishWithResult:v16 error:v12];
-      v15 = v12;
+      v15 = NAEmptyResult();
+      [v3 finishWithResult:v15 error:v11];
+      v14 = v11;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_invoke_303(uint64_t a1, int a2, void *a3)
+void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_invoke_303(id *a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -652,28 +625,27 @@ void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = v6;
-      v12 = v15;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = v6;
+      v10 = v13;
       _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to migrate home screen: %{public}@", buf, 0x16u);
     }
 
-    [*(a1 + 40) finishWithError:v6];
+    [a1[5] finishWithError:v6];
   }
 
   else
   {
     if (a2)
     {
-      [*(a1 + 48) setSpringBoardSuggestedPageCreated:1];
-      v8 = [*(a1 + 56) sleepStorage];
-      v9 = *(a1 + 48);
-      v13 = 0;
-      [v8 saveSleepSettings:v9 error:&v13];
-      v6 = v13;
+      [a1[6] setSpringBoardSuggestedPageCreated:1];
+      v8 = [a1[7] sleepStorage];
+      v9 = a1[6];
+      v11 = 0;
+      [v8 saveSleepSettings:v9 error:&v11];
+      v6 = v11;
     }
 
     else
@@ -681,10 +653,8 @@ void __64__HDSPSleepScheduleModelMigrationManager__migrateHomeScreenPage__block_
       v6 = 0;
     }
 
-    [*(a1 + 40) finishWithNoResult];
+    [a1[5] finishWithNoResult];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)sourceIdentifier

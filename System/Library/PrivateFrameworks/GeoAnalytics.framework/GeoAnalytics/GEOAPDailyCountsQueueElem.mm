@@ -18,68 +18,8 @@
     usageString2 = [v5 usageString];
     v8 = (usageString != 0) ^ (usageString2 != 0);
 
-    if (v8)
+    if (v8 & 1) != 0 || (-[GEOAPDailyCountsQueueElem usageBool](self, "usageBool"), v9 = objc_claimAutoreleasedReturnValue(), [v5 usageBool], v10 = objc_claimAutoreleasedReturnValue(), v11 = (v9 != 0) ^ (v10 != 0), v10, v9, (v11) || (-[GEOAPDailyCountsQueueElem usageString](self, "usageString"), (v12 = objc_claimAutoreleasedReturnValue()) != 0) && (v13 = v12, objc_msgSend(v5, "usageString"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v14) && (-[GEOAPDailyCountsQueueElem usageString](self, "usageString"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "usageString"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, v15, !v17) || (-[GEOAPDailyCountsQueueElem usageBool](self, "usageBool"), (v18 = objc_claimAutoreleasedReturnValue()) != 0) && (v19 = v18, objc_msgSend(v5, "usageBool"), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v20) && (-[GEOAPDailyCountsQueueElem usageBool](self, "usageBool"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "BOOLValue"), objc_msgSend(v5, "usageBool"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "BOOLValue"), v23, v21, v22 != v24) || (objc_msgSend(v5, "createTime"), v25 = objc_claimAutoreleasedReturnValue(), -[GEOAPQueueElem createTime](self, "createTime"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "timeIntervalSinceDate:", v26), v28 = v27, v26, v25, LODWORD(v25) = -[GEOAPDailyCountsQueueElem countType](self, "countType"), v25 != objc_msgSend(v5, "countType")))
     {
-      goto LABEL_18;
-    }
-
-    usageBool = [(GEOAPDailyCountsQueueElem *)self usageBool];
-    usageBool2 = [v5 usageBool];
-    v11 = (usageBool != 0) ^ (usageBool2 != 0);
-
-    if (v11)
-    {
-      goto LABEL_18;
-    }
-
-    usageString3 = [(GEOAPDailyCountsQueueElem *)self usageString];
-    if (usageString3)
-    {
-      v13 = usageString3;
-      usageString4 = [v5 usageString];
-
-      if (usageString4)
-      {
-        usageString5 = [(GEOAPDailyCountsQueueElem *)self usageString];
-        usageString6 = [v5 usageString];
-        v17 = [usageString5 isEqualToString:usageString6];
-
-        if (!v17)
-        {
-          goto LABEL_18;
-        }
-      }
-    }
-
-    usageBool3 = [(GEOAPDailyCountsQueueElem *)self usageBool];
-    if (usageBool3)
-    {
-      v19 = usageBool3;
-      usageBool4 = [v5 usageBool];
-
-      if (usageBool4)
-      {
-        usageBool5 = [(GEOAPDailyCountsQueueElem *)self usageBool];
-        bOOLValue = [usageBool5 BOOLValue];
-        usageBool6 = [v5 usageBool];
-        bOOLValue2 = [usageBool6 BOOLValue];
-
-        if (bOOLValue != bOOLValue2)
-        {
-          goto LABEL_18;
-        }
-      }
-    }
-
-    createTime = [v5 createTime];
-    createTime2 = [(GEOAPQueueElem *)self createTime];
-    [createTime timeIntervalSinceDate:createTime2];
-    v28 = v27;
-
-    LODWORD(createTime) = [(GEOAPDailyCountsQueueElem *)self countType];
-    if (createTime != [v5 countType])
-    {
-LABEL_18:
       v32 = 0;
     }
 

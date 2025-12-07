@@ -124,7 +124,7 @@
   entitlementCopy = entitlement;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   v6 = tcc_authorization_check_audit_token() == 2;
@@ -137,21 +137,21 @@
   v11 = *MEMORY[0x277D85DE8];
   error = 0;
   v4 = SecTaskCopyValueForEntitlement(task, entitlement, &error);
+  v5 = v4;
   if (error)
   {
-    v5 = shcore_log_object();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = shcore_log_object(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v10 = error;
-      _os_log_impl(&dword_231025000, v5, OS_LOG_TYPE_ERROR, "Client does not have entitlement: %@", buf, 0xCu);
+      _os_log_impl(&dword_231025000, v6, OS_LOG_TYPE_ERROR, "Client does not have entitlement: %@", buf, 0xCu);
     }
 
     CFRelease(error);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 - (BOOL)BOOLValueOfEntitlement:(id)entitlement fromSecTask:(__SecTask *)task

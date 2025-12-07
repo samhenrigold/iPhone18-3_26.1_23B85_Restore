@@ -1,7683 +1,4437 @@
-void sub_2726E0488(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_2726CEDD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   if (a2)
   {
-    if (a30 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(a16) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a17, a14, a16 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if (SHIBYTE(a22) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a23, a20, a22 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x250] & 1) == 0 && SLOBYTE(STACK[0x247]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x248], STACK[0x230], STACK[0x240] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x2C0] & 1) == 0 && SLOBYTE(STACK[0x2B7]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x2B8], STACK[0x2A0], STACK[0x2B0] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x2F8] & 1) == 0 && SLOBYTE(STACK[0x2EF]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x2F0], STACK[0x2D8], STACK[0x2E8] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x330] & 1) == 0 && SLOBYTE(STACK[0x327]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x328], STACK[0x310], STACK[0x320] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x368] & 1) == 0 && SLOBYTE(STACK[0x35F]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x360], STACK[0x348], STACK[0x358] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x3A0] & 1) == 0 && SLOBYTE(STACK[0x397]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x398], STACK[0x380], STACK[0x390] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x3D8] & 1) == 0 && SLOBYTE(STACK[0x3CF]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x3D0], STACK[0x3B8], STACK[0x3C8] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x410] & 1) == 0 && SLOBYTE(STACK[0x407]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x408], STACK[0x3F0], STACK[0x400] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x448] & 1) == 0 && SLOBYTE(STACK[0x43F]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x440], STACK[0x428], STACK[0x438] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x480] & 1) == 0 && SLOBYTE(STACK[0x477]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x478], STACK[0x460], STACK[0x470] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((STACK[0x4B8] & 1) == 0 && SLOBYTE(STACK[0x4AF]) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](STACK[0x4B0], STACK[0x498], STACK[0x4A8] & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((*(v32 - 112) & 1) == 0 && *(v32 - 121) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](*(v32 - 120), *(v32 - 144), *(v32 - 128) & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    std::shared_lock<caulk::concurrent::shared_spin_lock>::~shared_lock[abi:ne200100](v32 - 256);
-    v34 = __cxa_begin_catch(a1);
-    log = vp::get_log(v34);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
-    {
-      log_context_info = vp::get_log_context_info(v32 - 160, v31, "vp::vx::Voice_Processor]", 23);
-      v37 = *(v32 - 137);
-      if (v37 >= 0)
-      {
-        v38 = *(v32 - 137);
-      }
-
-      else
-      {
-        v38 = *(v32 - 152);
-      }
-
-      v39 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-      {
-        v40 = *(v32 - 160);
-        vp::get_log_exception_info(&STACK[0x450]);
-      }
-
-      if ((v37 & 0x80) != 0)
-      {
-        operator delete(*(v32 - 160));
-      }
-    }
-
-    *v30 = 11;
-    *(v30 + 4) = 0;
-    __cxa_end_catch();
-    JUMPOUT(0x2726DC184);
+    __clang_call_terminate(exception_object);
   }
 
-  _Unwind_Resume(a1);
+  _Unwind_Resume(exception_object);
 }
 
-void vp::vx::Voice_Processor::components_end_process<vp::vx::Downlink_Node_ID,vp::Expected<void,vp::vx::Error_Code>>(uint64_t *a1, uint64_t *a2, uint64_t a3, int *a4)
+unint64_t std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>(float *a1, const void **a2, uint64_t a3)
 {
-  if (a1 != a2)
+  v7 = std::hash<applesauce::CF::StringRef>::operator()(*a2);
+  v8 = v7;
+  v9 = *(a1 + 1);
+  if (v9)
   {
-    v7 = a1;
-    do
+    v10 = vcnt_s8(v9);
+    v10.i16[0] = vaddlv_u8(v10);
+    v11 = v10.u32[0];
+    if (v10.u32[0] > 1uLL)
     {
-      v8 = *v7;
-      v9 = v7[1];
-      if (v9)
+      v3 = v7;
+      if (v7 >= v9)
       {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v10 = *a4;
-      v11 = *(a4 + 4);
-      (*(*v8 + 280))(v8, a3, &v10);
-      if (v9)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      }
-
-      v7 += 2;
-    }
-
-    while (v7 != a2);
-  }
-}
-
-void sub_2726E122C(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
-{
-  va_start(va2, a3);
-  va_start(__pa, a3);
-  va_start(va, a3);
-  v14 = va_arg(__pa, void);
-  v16 = va_arg(__pa, void);
-  v17 = va_arg(__pa, void);
-  v18 = va_arg(__pa, void *);
-  v19 = va_arg(__pa, void);
-  v20 = va_arg(__pa, void);
-  va_copy(va2, __pa);
-  __p = va_arg(va2, void *);
-  v23 = va_arg(va2, void);
-  v24 = va_arg(va2, void);
-  v25 = va_arg(va2, void);
-  v26 = va_arg(va2, void);
-  v27 = va_arg(va2, void);
-  v28 = va_arg(va2, void);
-  if (a2)
-  {
-    if (v7 < 0)
-    {
-      operator delete(v6);
-    }
-
-    if (v5 < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v27, v24, v26 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    std::shared_lock<caulk::concurrent::shared_spin_lock>::~shared_lock[abi:ne200100](va2);
-    v9 = __cxa_begin_catch(a1);
-    log = vp::get_log(v9);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
-    {
-      log_context_info = vp::get_log_context_info(__pa, v4, "vp::vx::Voice_Processor]", 23);
-      v12 = HIBYTE(v24);
-      v13 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        vp::get_log_exception_info(va);
-      }
-
-      if (v12 < 0)
-      {
-        operator delete(__p);
+        v3 = v7 % v9;
       }
     }
 
-    *v3 = 11;
-    *(v3 + 4) = 0;
-    __cxa_end_catch();
-    JUMPOUT(0x2726E0ECCLL);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void vp::vx::Voice_Processor::run_all_of_uplink_dsp(vp::vx::Voice_Processor *this, uint64_t a2)
-{
-  v437 = *MEMORY[0x277D85DE8];
-  v419 = (a2 + 1128);
-  v3 = atomic_load((a2 + 1128));
-  if (v3 > 0x7FFFFFFE)
-  {
-LABEL_5:
-    *this = 8;
-    *(this + 4) = 0;
-    goto LABEL_81;
-  }
-
-  v5 = v3;
-  while (1)
-  {
-    atomic_compare_exchange_strong((a2 + 1128), &v5, v3 + 1);
-    if (v5 == v3)
+    else
     {
-      break;
+      v3 = (v9 - 1) & v7;
     }
 
-    v3 = v5;
-    if (v5 >= 0x7FFFFFFF)
+    v12 = *(*a1 + 8 * v3);
+    if (v12)
     {
-      goto LABEL_5;
-    }
-  }
-
-  v420 = 1;
-  v6 = *(a2 + 2400);
-  if (!v6)
-  {
-    log = vp::get_log(this);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
-    {
-      log_context_info = vp::get_log_context_info(v421, a2, "vp::vx::Voice_Processor]", 23);
-      v30 = v421[23];
-      v31 = v421[23];
-      v32 = *&v421[8];
-      v33 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+      for (i = *v12; i; i = *i)
       {
-        if (v31 >= 0)
+        v14 = i[1];
+        if (v14 == v8)
         {
-          v34 = v30;
+          result = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(i[2], a2);
+          if (!result)
+          {
+            return result;
+          }
         }
 
         else
         {
-          v34 = v32;
-        }
+          if (v11 > 1)
+          {
+            if (v14 >= v9)
+            {
+              v14 %= v9;
+            }
+          }
 
-        v35 = *v421;
-        if (v31 >= 0)
+          else
+          {
+            v14 &= v9 - 1;
+          }
+
+          if (v14 != v3)
+          {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  result = (*(**(a1 + 4) + 16))(*(a1 + 4), 32, 8);
+  v16 = result;
+  *result = 0;
+  *(result + 8) = v8;
+  *(result + 16) = *a3;
+  *a3 = 0;
+  *(result + 24) = *(a3 + 8);
+  v17 = (*(a1 + 5) + 1);
+  v18 = a1[12];
+  if (!v9 || (v18 * v9) < v17)
+  {
+    v19 = 1;
+    if (v9 >= 3)
+    {
+      v19 = (v9 & (v9 - 1)) != 0;
+    }
+
+    v20 = v19 | (2 * v9);
+    v21 = vcvtps_u32_f32(v17 / v18);
+    if (v20 <= v21)
+    {
+      v22 = v21;
+    }
+
+    else
+    {
+      v22 = v20;
+    }
+
+    if (v22 == 1)
+    {
+      v22 = 2;
+    }
+
+    else if ((v22 & (v22 - 1)) != 0)
+    {
+      result = std::__next_prime(v22);
+      v22 = result;
+    }
+
+    v23 = *(a1 + 2);
+    if (v22 > *&v23)
+    {
+LABEL_30:
+      if (v22 >> 61)
+      {
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      result = (*(**(a1 + 2) + 16))(*(a1 + 2), 8 * v22, 8);
+      v24 = *a1;
+      *a1 = result;
+      if (v24)
+      {
+        result = std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *> *> *>>::deallocate[abi:ne200100](*(a1 + 2), v24, *(a1 + 1));
+      }
+
+      v25 = 0;
+      *(a1 + 1) = v22;
+      do
+      {
+        *(*a1 + 8 * v25++) = 0;
+      }
+
+      while (v22 != v25);
+      v26 = *(a1 + 3);
+      if (v26)
+      {
+        v27 = v26[1];
+        v28 = vcnt_s8(v22);
+        v28.i16[0] = vaddlv_u8(v28);
+        if (v28.u32[0] > 1uLL)
         {
-          v35 = v421;
+          if (v27 >= v22)
+          {
+            v27 %= v22;
+          }
         }
 
+        else
+        {
+          v27 &= v22 - 1;
+        }
+
+        *(*a1 + 8 * v27) = a1 + 6;
+        v31 = *v26;
+        if (*v26)
+        {
+          while (1)
+          {
+            v32 = v31[1];
+            if (v28.u32[0] > 1uLL)
+            {
+              if (v32 >= v22)
+              {
+                v32 %= v22;
+              }
+            }
+
+            else
+            {
+              v32 &= v22 - 1;
+            }
+
+            if (v32 != v27)
+            {
+              v33 = *a1;
+              if (!*(*a1 + 8 * v32))
+              {
+                *(v33 + 8 * v32) = v26;
+                goto LABEL_55;
+              }
+
+              *v26 = *v31;
+              *v31 = **(v33 + 8 * v32);
+              **(v33 + 8 * v32) = v31;
+              v31 = v26;
+            }
+
+            v32 = v27;
+LABEL_55:
+            v26 = v31;
+            v31 = *v31;
+            v27 = v32;
+            if (!v31)
+            {
+              goto LABEL_66;
+            }
+          }
+        }
+      }
+
+      goto LABEL_66;
+    }
+
+    if (v22 < *&v23)
+    {
+      result = vcvtps_u32_f32(*(a1 + 5) / a1[12]);
+      if (*&v23 < 3uLL || (v29 = vcnt_s8(v23), v29.i16[0] = vaddlv_u8(v29), v29.u32[0] > 1uLL))
+      {
+        result = std::__next_prime(result);
+      }
+
+      else
+      {
+        v30 = 1 << -__clz(result - 1);
+        if (result >= 2)
+        {
+          result = v30;
+        }
+      }
+
+      if (v22 <= result)
+      {
+        v22 = result;
+      }
+
+      if (v22 < *&v23)
+      {
+        if (v22)
+        {
+          goto LABEL_30;
+        }
+
+        v34 = *a1;
+        *a1 = 0;
         if (v34)
         {
-          v36 = " ";
+          result = std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *> *> *>>::deallocate[abi:ne200100](*(a1 + 2), v34, *(a1 + 1));
         }
 
-        else
-        {
-          v36 = "";
-        }
-
-        *buf = 136315394;
-        v431 = v35;
-        v432 = 2080;
-        *v433 = v36;
-        _os_log_impl(&dword_2724B4000, v33, OS_LOG_TYPE_FAULT, "%s%scannot run uplink DSP with uninitialized VoiceProcessor", buf, 0x16u);
-        LOBYTE(v31) = v421[23];
-      }
-
-      if ((v31 & 0x80) != 0)
-      {
-        operator delete(*v421);
+        *(a1 + 1) = 0;
       }
     }
 
-    goto LABEL_77;
-  }
-
-  v7 = *(a2 + 780);
-  if (!v7)
-  {
-LABEL_77:
-    v27 = 0;
-    *this = 8;
-    *(this + 4) = 0;
-    goto LABEL_78;
-  }
-
-  if (v7 != 2)
-  {
-    if (v7 != 1)
+LABEL_66:
+    v9 = *(a1 + 1);
+    if ((v9 & (v9 - 1)) != 0)
     {
-      goto LABEL_16;
-    }
-
-    *(a2 + 780) = 2;
-  }
-
-  if (*(a2 + 2433) == 1)
-  {
-    *(a2 + 2433) = 0;
-  }
-
-  else
-  {
-    vp::vx::io::Graph::reset(v421, v6[8], v6[9], *(a2 + 2512));
-    if ((v424 & 1) == 0 && SBYTE7(v423) < 0)
-    {
-      (*(**(&v423 + 1) + 24))(*(&v423 + 1), *&v421[16], v423 & 0x7FFFFFFFFFFFFFFFLL, 1);
-    }
-  }
-
-LABEL_16:
-  v8 = *(a2 + 2512);
-  v9 = v6[8];
-  if (0x86BCA1AF286BCA1BLL * ((v6[9] - v9) >> 4) <= v8)
-  {
-    *v421 = 0x10003A00000006;
-    *&v421[8] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/io/Graph.cpp";
-    v422 = 0;
-    *&v423 = 0;
-    *&v421[16] = 0;
-    vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v423 + 1);
-    _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(buf, v421);
-    if (SBYTE7(v423) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](*(&v423 + 1), *&v421[16], v423 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-  }
-
-  else
-  {
-    vp::vx::io::Node_Socket::get_terminal_buffered_frame_count(buf, v9 + 304 * v8, 0, 0);
-  }
-
-  if (v436)
-  {
-    vp::vx::io::Graph::process(&v411, v6, *(a2 + 2512), *buf);
-    if (v418)
-    {
-      vp::vx::io::Graph::get_buffered_frame_count(&v405, v6[8], v6[9], *(a2 + 2516), 0);
-      v10 = v410;
-      if (v410)
+      if (v8 >= v9)
       {
-        vp::vx::io::Graph::process(&__p, v6, *(a2 + 2516), v405);
-        v11 = v404;
-        if (v404)
-        {
-          vp::vx::io::Graph::get_buffered_frame_count(&__dst, v6[8], v6[9], *(a2 + 2520), 0);
-          v12 = v398;
-          if (v398)
-          {
-            v13 = *(a2 + 2520);
-            v14 = v6[8];
-            if (0x86BCA1AF286BCA1BLL * ((v6[9] - v14) >> 4) <= v13)
-            {
-LABEL_44:
-              *v421 = 0x1000A800000006;
-              *&v421[8] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/io/Graph.cpp";
-              v422 = 0;
-              *&v423 = 0;
-              *&v421[16] = 0;
-              vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v423 + 1);
-              v24 = _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(&v387, v421);
-              if (SBYTE7(v423) < 0)
-              {
-                (*(**(&v423 + 1) + 24))(*(&v423 + 1), *&v421[16], v423 & 0x7FFFFFFFFFFFFFFFLL, 1, v24);
-              }
-
-LABEL_46:
-              if (v392)
-              {
-                vp::vx::io::Graph::process(&v381, v6, *(a2 + 2520), v387);
-                v25 = v386;
-                if (v386)
-                {
-                  vp::vx::io::Graph::get_buffered_frame_count(&v375, v6[8], v6[9], *(a2 + 2524), 0);
-                  v26 = v380;
-                  if (v380)
-                  {
-                    vp::vx::io::Graph::process(&v366, v6, *(a2 + 2524), v375);
-                    v27 = v371;
-                    if (v371)
-                    {
-LABEL_50:
-                      if ((v392 & 1) == 0 && SHIBYTE(v390) < 0)
-                      {
-                        (*(*v391 + 24))(v391, v389[0], v390 & 0x7FFFFFFFFFFFFFFFLL, 1);
-                      }
-
-                      goto LABEL_53;
-                    }
-
-                    v214 = vp::vx::io::Error::Error(&v361, &v366);
-                    if (v364 >= 0)
-                    {
-                      v215 = HIBYTE(v364);
-                    }
-
-                    else
-                    {
-                      v215 = v363[1];
-                    }
-
-                    v216 = vp::get_log(v214);
-                    v217 = os_log_type_enabled(v216, OS_LOG_TYPE_ERROR);
-                    if (v215)
-                    {
-                      if (v217)
-                      {
-                        v218 = vp::get_log_context_info(&v372, a2, "vp::vx::Voice_Processor]", 23);
-                        if ((v374 & 0x80u) == 0)
-                        {
-                          v219 = v374;
-                        }
-
-                        else
-                        {
-                          v219 = v373;
-                        }
-
-                        v220 = vp::get_log(v218);
-                        if (os_log_type_enabled(v220, OS_LOG_TYPE_ERROR))
-                        {
-                          v221 = v374;
-                          v222 = v372;
-                          v223 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v361);
-                          std::string::basic_string<std::string_view,0>(v359, v223, v224);
-                          if (v221 >= 0)
-                          {
-                            v226 = &v372;
-                          }
-
-                          else
-                          {
-                            v226 = v222;
-                          }
-
-                          if (v219)
-                          {
-                            v227 = " ";
-                          }
-
-                          else
-                          {
-                            v227 = "";
-                          }
-
-                          if (v360 >= 0)
-                          {
-                            v228 = v359;
-                          }
-
-                          else
-                          {
-                            v228 = v359[0];
-                          }
-
-                          v229 = WORD2(v361);
-                          v230 = HIWORD(v361);
-                          log_source_file_path = vp::get_log_source_file_path(v362, v225);
-                          if (v364 >= 0)
-                          {
-                            v232 = v363;
-                          }
-
-                          else
-                          {
-                            v232 = v363[0];
-                          }
-
-                          *v421 = 136316930;
-                          *&v421[4] = v226;
-                          *&v421[12] = 2080;
-                          *&v421[14] = v227;
-                          *&v421[22] = 2080;
-                          v422 = "process uplink content DSP";
-                          LOWORD(v423) = 2080;
-                          *(&v423 + 2) = v228;
-                          WORD5(v423) = 1024;
-                          HIDWORD(v423) = v229;
-                          v424 = 1024;
-                          v425 = v230;
-                          v426 = 2080;
-                          v427 = log_source_file_path;
-                          v428 = 2080;
-                          v429 = v232;
-                          v233 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-                          v234 = v220;
-                          v235 = 74;
-                          goto LABEL_487;
-                        }
-
-                        goto LABEL_489;
-                      }
-                    }
-
-                    else if (v217)
-                    {
-                      v345 = vp::get_log_context_info(&v372, a2, "vp::vx::Voice_Processor]", 23);
-                      if ((v374 & 0x80u) == 0)
-                      {
-                        v346 = v374;
-                      }
-
-                      else
-                      {
-                        v346 = v373;
-                      }
-
-                      v347 = vp::get_log(v345);
-                      if (os_log_type_enabled(v347, OS_LOG_TYPE_ERROR))
-                      {
-                        v348 = v374;
-                        v349 = v372;
-                        v350 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v361);
-                        std::string::basic_string<std::string_view,0>(v359, v350, v351);
-                        if (v348 >= 0)
-                        {
-                          v353 = &v372;
-                        }
-
-                        else
-                        {
-                          v353 = v349;
-                        }
-
-                        if (v346)
-                        {
-                          v354 = " ";
-                        }
-
-                        else
-                        {
-                          v354 = "";
-                        }
-
-                        if (v360 >= 0)
-                        {
-                          v355 = v359;
-                        }
-
-                        else
-                        {
-                          v355 = v359[0];
-                        }
-
-                        v356 = WORD2(v361);
-                        v357 = HIWORD(v361);
-                        v358 = vp::get_log_source_file_path(v362, v352);
-                        *v421 = 136316674;
-                        *&v421[4] = v353;
-                        *&v421[12] = 2080;
-                        *&v421[14] = v354;
-                        *&v421[22] = 2080;
-                        v422 = "process uplink content DSP";
-                        LOWORD(v423) = 2080;
-                        *(&v423 + 2) = v355;
-                        WORD5(v423) = 1024;
-                        HIDWORD(v423) = v356;
-                        v424 = 1024;
-                        v425 = v357;
-                        v426 = 2080;
-                        v427 = v358;
-                        v233 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-                        v234 = v347;
-                        v235 = 64;
-LABEL_487:
-                        _os_log_impl(&dword_2724B4000, v234, OS_LOG_TYPE_ERROR, v233, v421, v235);
-                        if (v360 < 0)
-                        {
-                          operator delete(v359[0]);
-                        }
-                      }
-
-LABEL_489:
-                      if (v374 < 0)
-                      {
-                        operator delete(v372);
-                      }
-                    }
-
-                    *this = 7;
-                    *(this + 4) = 0;
-                    if (SHIBYTE(v364) < 0)
-                    {
-                      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v365, v363[0], v364 & 0x7FFFFFFFFFFFFFFFLL);
-                    }
-
-                    if (SHIBYTE(v369) < 0)
-                    {
-                      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v370, v368[0], v369 & 0x7FFFFFFFFFFFFFFFLL);
-                    }
-
-                    goto LABEL_50;
-                  }
-
-                  v192 = vp::vx::io::Error::Error(&v366, &v375);
-                  if (v369 >= 0)
-                  {
-                    v193 = HIBYTE(v369);
-                  }
-
-                  else
-                  {
-                    v193 = v368[1];
-                  }
-
-                  v194 = vp::get_log(v192);
-                  v195 = os_log_type_enabled(v194, OS_LOG_TYPE_ERROR);
-                  if (v193)
-                  {
-                    if (v195)
-                    {
-                      v196 = vp::get_log_context_info(&v361, a2, "vp::vx::Voice_Processor]", 23);
-                      if (v363[0] >= 0)
-                      {
-                        v197 = HIBYTE(v363[0]);
-                      }
-
-                      else
-                      {
-                        v197 = v362;
-                      }
-
-                      v198 = vp::get_log(v196);
-                      if (os_log_type_enabled(v198, OS_LOG_TYPE_ERROR))
-                      {
-                        v199 = SHIBYTE(v363[0]);
-                        v200 = v361;
-                        v201 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v366);
-                        std::string::basic_string<std::string_view,0>(&v372, v201, v202);
-                        if (v199 >= 0)
-                        {
-                          v204 = &v361;
-                        }
-
-                        else
-                        {
-                          v204 = v200;
-                        }
-
-                        if (v197)
-                        {
-                          v205 = " ";
-                        }
-
-                        else
-                        {
-                          v205 = "";
-                        }
-
-                        if ((v374 & 0x80u) == 0)
-                        {
-                          v206 = &v372;
-                        }
-
-                        else
-                        {
-                          v206 = v372;
-                        }
-
-                        v207 = WORD2(v366);
-                        v208 = HIWORD(v366);
-                        v209 = vp::get_log_source_file_path(v367, v203);
-                        if (v369 >= 0)
-                        {
-                          v210 = v368;
-                        }
-
-                        else
-                        {
-                          v210 = v368[0];
-                        }
-
-                        *v421 = 136316930;
-                        *&v421[4] = v204;
-                        *&v421[12] = 2080;
-                        *&v421[14] = v205;
-                        *&v421[22] = 2080;
-                        v422 = "get buffered input frame count for uplink content DSP node";
-                        LOWORD(v423) = 2080;
-                        *(&v423 + 2) = v206;
-                        WORD5(v423) = 1024;
-                        HIDWORD(v423) = v207;
-                        v424 = 1024;
-                        v425 = v208;
-                        v426 = 2080;
-                        v427 = v209;
-                        v428 = 2080;
-                        v429 = v210;
-                        v211 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-                        v212 = v198;
-                        v213 = 74;
-                        goto LABEL_462;
-                      }
-
-                      goto LABEL_464;
-                    }
-                  }
-
-                  else if (v195)
-                  {
-                    v331 = vp::get_log_context_info(&v361, a2, "vp::vx::Voice_Processor]", 23);
-                    if (v363[0] >= 0)
-                    {
-                      v332 = HIBYTE(v363[0]);
-                    }
-
-                    else
-                    {
-                      v332 = v362;
-                    }
-
-                    v333 = vp::get_log(v331);
-                    if (os_log_type_enabled(v333, OS_LOG_TYPE_ERROR))
-                    {
-                      v334 = SHIBYTE(v363[0]);
-                      v335 = v361;
-                      v336 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v366);
-                      std::string::basic_string<std::string_view,0>(&v372, v336, v337);
-                      if (v334 >= 0)
-                      {
-                        v339 = &v361;
-                      }
-
-                      else
-                      {
-                        v339 = v335;
-                      }
-
-                      if (v332)
-                      {
-                        v340 = " ";
-                      }
-
-                      else
-                      {
-                        v340 = "";
-                      }
-
-                      if ((v374 & 0x80u) == 0)
-                      {
-                        v341 = &v372;
-                      }
-
-                      else
-                      {
-                        v341 = v372;
-                      }
-
-                      v342 = WORD2(v366);
-                      v343 = HIWORD(v366);
-                      v344 = vp::get_log_source_file_path(v367, v338);
-                      *v421 = 136316674;
-                      *&v421[4] = v339;
-                      *&v421[12] = 2080;
-                      *&v421[14] = v340;
-                      *&v421[22] = 2080;
-                      v422 = "get buffered input frame count for uplink content DSP node";
-                      LOWORD(v423) = 2080;
-                      *(&v423 + 2) = v341;
-                      WORD5(v423) = 1024;
-                      HIDWORD(v423) = v342;
-                      v424 = 1024;
-                      v425 = v343;
-                      v426 = 2080;
-                      v427 = v344;
-                      v211 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-                      v212 = v333;
-                      v213 = 64;
-LABEL_462:
-                      _os_log_impl(&dword_2724B4000, v212, OS_LOG_TYPE_ERROR, v211, v421, v213);
-                      if (v374 < 0)
-                      {
-                        operator delete(v372);
-                      }
-                    }
-
-LABEL_464:
-                    if (SHIBYTE(v363[0]) < 0)
-                    {
-                      operator delete(v361);
-                    }
-                  }
-
-                  *this = 7;
-                  *(this + 4) = 0;
-                  if (SHIBYTE(v369) < 0)
-                  {
-                    std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v370, v368[0], v369 & 0x7FFFFFFFFFFFFFFFLL);
-                  }
-
-                  v27 = 0;
-                  if ((v26 & 1) != 0 || (SHIBYTE(v378) & 0x80000000) == 0)
-                  {
-                    goto LABEL_50;
-                  }
-
-                  (*(*v379 + 24))(v379, v377[0], v378 & 0x7FFFFFFFFFFFFFFFLL, 1);
-                  goto LABEL_471;
-                }
-
-                v170 = vp::vx::io::Error::Error(&v375, &v381);
-                if (v378 >= 0)
-                {
-                  v171 = HIBYTE(v378);
-                }
-
-                else
-                {
-                  v171 = v377[1];
-                }
-
-                v172 = vp::get_log(v170);
-                v173 = os_log_type_enabled(v172, OS_LOG_TYPE_ERROR);
-                if (v171)
-                {
-                  if (v173)
-                  {
-                    v174 = vp::get_log_context_info(&v366, a2, "vp::vx::Voice_Processor]", 23);
-                    if (v368[0] >= 0)
-                    {
-                      v175 = HIBYTE(v368[0]);
-                    }
-
-                    else
-                    {
-                      v175 = v367;
-                    }
-
-                    v176 = vp::get_log(v174);
-                    if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
-                    {
-                      v177 = SHIBYTE(v368[0]);
-                      v178 = v366;
-                      v179 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v375);
-                      std::string::basic_string<std::string_view,0>(&v361, v179, v180);
-                      if (v177 >= 0)
-                      {
-                        v182 = &v366;
-                      }
-
-                      else
-                      {
-                        v182 = v178;
-                      }
-
-                      if (v175)
-                      {
-                        v183 = " ";
-                      }
-
-                      else
-                      {
-                        v183 = "";
-                      }
-
-                      if (v363[0] >= 0)
-                      {
-                        v184 = &v361;
-                      }
-
-                      else
-                      {
-                        v184 = v361;
-                      }
-
-                      v185 = WORD2(v375);
-                      v186 = HIWORD(v375);
-                      v187 = vp::get_log_source_file_path(v376, v181);
-                      if (v378 >= 0)
-                      {
-                        v188 = v377;
-                      }
-
-                      else
-                      {
-                        v188 = v377[0];
-                      }
-
-                      *v421 = 136316930;
-                      *&v421[4] = v182;
-                      *&v421[12] = 2080;
-                      *&v421[14] = v183;
-                      *&v421[22] = 2080;
-                      v422 = "process uplink echo DSP";
-                      LOWORD(v423) = 2080;
-                      *(&v423 + 2) = v184;
-                      WORD5(v423) = 1024;
-                      HIDWORD(v423) = v185;
-                      v424 = 1024;
-                      v425 = v186;
-                      v426 = 2080;
-                      v427 = v187;
-                      v428 = 2080;
-                      v429 = v188;
-                      v189 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-                      v190 = v176;
-                      v191 = 74;
-                      goto LABEL_438;
-                    }
-
-                    goto LABEL_440;
-                  }
-                }
-
-                else if (v173)
-                {
-                  v317 = vp::get_log_context_info(&v366, a2, "vp::vx::Voice_Processor]", 23);
-                  if (v368[0] >= 0)
-                  {
-                    v318 = HIBYTE(v368[0]);
-                  }
-
-                  else
-                  {
-                    v318 = v367;
-                  }
-
-                  v319 = vp::get_log(v317);
-                  if (os_log_type_enabled(v319, OS_LOG_TYPE_ERROR))
-                  {
-                    v320 = SHIBYTE(v368[0]);
-                    v321 = v366;
-                    v322 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v375);
-                    std::string::basic_string<std::string_view,0>(&v361, v322, v323);
-                    if (v320 >= 0)
-                    {
-                      v325 = &v366;
-                    }
-
-                    else
-                    {
-                      v325 = v321;
-                    }
-
-                    if (v318)
-                    {
-                      v326 = " ";
-                    }
-
-                    else
-                    {
-                      v326 = "";
-                    }
-
-                    if (v363[0] >= 0)
-                    {
-                      v327 = &v361;
-                    }
-
-                    else
-                    {
-                      v327 = v361;
-                    }
-
-                    v328 = WORD2(v375);
-                    v329 = HIWORD(v375);
-                    v330 = vp::get_log_source_file_path(v376, v324);
-                    *v421 = 136316674;
-                    *&v421[4] = v325;
-                    *&v421[12] = 2080;
-                    *&v421[14] = v326;
-                    *&v421[22] = 2080;
-                    v422 = "process uplink echo DSP";
-                    LOWORD(v423) = 2080;
-                    *(&v423 + 2) = v327;
-                    WORD5(v423) = 1024;
-                    HIDWORD(v423) = v328;
-                    v424 = 1024;
-                    v425 = v329;
-                    v426 = 2080;
-                    v427 = v330;
-                    v189 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-                    v190 = v319;
-                    v191 = 64;
-LABEL_438:
-                    _os_log_impl(&dword_2724B4000, v190, OS_LOG_TYPE_ERROR, v189, v421, v191);
-                    if (SHIBYTE(v363[0]) < 0)
-                    {
-                      operator delete(v361);
-                    }
-                  }
-
-LABEL_440:
-                  if (SHIBYTE(v368[0]) < 0)
-                  {
-                    operator delete(v366);
-                  }
-                }
-
-                *this = 7;
-                *(this + 4) = 0;
-                if (SHIBYTE(v378) < 0)
-                {
-                  std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v379, v377[0], v378 & 0x7FFFFFFFFFFFFFFFLL);
-                }
-
-                v27 = 0;
-                if ((v25 & 1) != 0 || (SHIBYTE(v384) & 0x80000000) == 0)
-                {
-                  goto LABEL_50;
-                }
-
-                (*(*v385 + 24))(v385, v383[0], v384 & 0x7FFFFFFFFFFFFFFFLL, 1);
-                goto LABEL_471;
-              }
-
-              v148 = vp::vx::io::Error::Error(&v381, &v387);
-              if (v384 >= 0)
-              {
-                v149 = HIBYTE(v384);
-              }
-
-              else
-              {
-                v149 = v383[1];
-              }
-
-              v150 = vp::get_log(v148);
-              v151 = os_log_type_enabled(v150, OS_LOG_TYPE_ERROR);
-              if (v149)
-              {
-                if (v151)
-                {
-                  v152 = vp::get_log_context_info(&v375, a2, "vp::vx::Voice_Processor]", 23);
-                  if (v377[0] >= 0)
-                  {
-                    v153 = HIBYTE(v377[0]);
-                  }
-
-                  else
-                  {
-                    v153 = v376;
-                  }
-
-                  v154 = vp::get_log(v152);
-                  if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
-                  {
-                    v155 = SHIBYTE(v377[0]);
-                    v156 = v375;
-                    v157 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v381);
-                    std::string::basic_string<std::string_view,0>(&v366, v157, v158);
-                    if (v155 >= 0)
-                    {
-                      v160 = &v375;
-                    }
-
-                    else
-                    {
-                      v160 = v156;
-                    }
-
-                    if (v153)
-                    {
-                      v161 = " ";
-                    }
-
-                    else
-                    {
-                      v161 = "";
-                    }
-
-                    if (v368[0] >= 0)
-                    {
-                      v162 = &v366;
-                    }
-
-                    else
-                    {
-                      v162 = v366;
-                    }
-
-                    v163 = WORD2(v381);
-                    v164 = HIWORD(v381);
-                    v165 = vp::get_log_source_file_path(v382, v159);
-                    if (v384 >= 0)
-                    {
-                      v166 = v383;
-                    }
-
-                    else
-                    {
-                      v166 = v383[0];
-                    }
-
-                    *v421 = 136316930;
-                    *&v421[4] = v160;
-                    *&v421[12] = 2080;
-                    *&v421[14] = v161;
-                    *&v421[22] = 2080;
-                    v422 = "get uplink echo DSP I/O block size";
-                    LOWORD(v423) = 2080;
-                    *(&v423 + 2) = v162;
-                    WORD5(v423) = 1024;
-                    HIDWORD(v423) = v163;
-                    v424 = 1024;
-                    v425 = v164;
-                    v426 = 2080;
-                    v427 = v165;
-                    v428 = 2080;
-                    v429 = v166;
-                    v167 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-                    v168 = v154;
-                    v169 = 74;
-                    goto LABEL_417;
-                  }
-
-                  goto LABEL_419;
-                }
-              }
-
-              else if (v151)
-              {
-                v303 = vp::get_log_context_info(&v375, a2, "vp::vx::Voice_Processor]", 23);
-                if (v377[0] >= 0)
-                {
-                  v304 = HIBYTE(v377[0]);
-                }
-
-                else
-                {
-                  v304 = v376;
-                }
-
-                v305 = vp::get_log(v303);
-                if (os_log_type_enabled(v305, OS_LOG_TYPE_ERROR))
-                {
-                  v306 = SHIBYTE(v377[0]);
-                  v307 = v375;
-                  v308 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v381);
-                  std::string::basic_string<std::string_view,0>(&v366, v308, v309);
-                  if (v306 >= 0)
-                  {
-                    v311 = &v375;
-                  }
-
-                  else
-                  {
-                    v311 = v307;
-                  }
-
-                  if (v304)
-                  {
-                    v312 = " ";
-                  }
-
-                  else
-                  {
-                    v312 = "";
-                  }
-
-                  if (v368[0] >= 0)
-                  {
-                    v313 = &v366;
-                  }
-
-                  else
-                  {
-                    v313 = v366;
-                  }
-
-                  v314 = WORD2(v381);
-                  v315 = HIWORD(v381);
-                  v316 = vp::get_log_source_file_path(v382, v310);
-                  *v421 = 136316674;
-                  *&v421[4] = v311;
-                  *&v421[12] = 2080;
-                  *&v421[14] = v312;
-                  *&v421[22] = 2080;
-                  v422 = "get uplink echo DSP I/O block size";
-                  LOWORD(v423) = 2080;
-                  *(&v423 + 2) = v313;
-                  WORD5(v423) = 1024;
-                  HIDWORD(v423) = v314;
-                  v424 = 1024;
-                  v425 = v315;
-                  v426 = 2080;
-                  v427 = v316;
-                  v167 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-                  v168 = v305;
-                  v169 = 64;
-LABEL_417:
-                  _os_log_impl(&dword_2724B4000, v168, OS_LOG_TYPE_ERROR, v167, v421, v169);
-                  if (SHIBYTE(v368[0]) < 0)
-                  {
-                    operator delete(v366);
-                  }
-                }
-
-LABEL_419:
-                if (SHIBYTE(v377[0]) < 0)
-                {
-                  operator delete(v375);
-                }
-              }
-
-              *this = 7;
-              *(this + 4) = 0;
-              if (SHIBYTE(v384) < 0)
-              {
-                std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v385, v383[0], v384 & 0x7FFFFFFFFFFFFFFFLL);
-              }
-
-LABEL_471:
-              v27 = 0;
-              goto LABEL_50;
-            }
-
-            v15 = __dst;
-            v16 = (v14 + 304 * v13);
-            v18 = *v16;
-            v17 = v16[1];
-            if (v17)
-            {
-              atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-            }
-
-            v19 = (*(*v18 + 40))(v18);
-            v20 = 1;
-            if (v19 <= 1)
-            {
-              if (v19)
-              {
-                if (v19 == 1)
-                {
-                  v20 = 0;
-                  LODWORD(v387) = v15;
-                  goto LABEL_62;
-                }
-
-LABEL_41:
-                if (!v17)
-                {
-                  goto LABEL_43;
-                }
-
-                goto LABEL_42;
-              }
-
-              v21 = (*(*v18 + 32))(v18);
-              if (!v21 || (v22 = v15 / v21 * v21, v15 == v22))
-              {
-                v22 = v15;
-              }
-
-              v20 = 0;
-              LODWORD(v387) = v22;
-LABEL_62:
-              v392 = 1;
-              if (!v17)
-              {
-LABEL_43:
-                if (!v20)
-                {
-                  goto LABEL_46;
-                }
-
-                goto LABEL_44;
-              }
-
-LABEL_42:
-              std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-              goto LABEL_43;
-            }
-
-            if (v19 == 2)
-            {
-              *v421 = 0x1C00A30000000DLL;
-              *&v421[8] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/io/Graph.cpp";
-              v422 = 0;
-              *&v423 = 0;
-              *&v421[16] = 0;
-              vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v423 + 1);
-              v23 = _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(&v387, v421);
-              if (SBYTE7(v423) < 0)
-              {
-                (*(**(&v423 + 1) + 24))(*(&v423 + 1), *&v421[16], v423 & 0x7FFFFFFFFFFFFFFFLL, 1, v23);
-              }
-            }
-
-            else
-            {
-              if (v19 != 3)
-              {
-                goto LABEL_41;
-              }
-
-              if (!v15)
-              {
-                v20 = 0;
-                LODWORD(v387) = 0;
-                goto LABEL_62;
-              }
-
-              (*(*v18 + 72))(&v387, v18, v15);
-            }
-
-            v20 = 0;
-            goto LABEL_41;
-          }
-
-          v126 = vp::vx::io::Error::Error(&v387, &__dst);
-          if (v390 >= 0)
-          {
-            v127 = HIBYTE(v390);
-          }
-
-          else
-          {
-            v127 = v389[1];
-          }
-
-          v128 = vp::get_log(v126);
-          v129 = os_log_type_enabled(v128, OS_LOG_TYPE_ERROR);
-          if (v127)
-          {
-            if (!v129)
-            {
-              goto LABEL_396;
-            }
-
-            v130 = vp::get_log_context_info(&v381, a2, "vp::vx::Voice_Processor]", 23);
-            if (v383[0] >= 0)
-            {
-              v131 = HIBYTE(v383[0]);
-            }
-
-            else
-            {
-              v131 = v382;
-            }
-
-            v132 = vp::get_log(v130);
-            if (!os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_394;
-            }
-
-            v133 = SHIBYTE(v383[0]);
-            v134 = v381;
-            v135 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v387);
-            std::string::basic_string<std::string_view,0>(&v375, v135, v136);
-            if (v133 >= 0)
-            {
-              v138 = &v381;
-            }
-
-            else
-            {
-              v138 = v134;
-            }
-
-            if (v131)
-            {
-              v139 = " ";
-            }
-
-            else
-            {
-              v139 = "";
-            }
-
-            if (v377[0] >= 0)
-            {
-              v140 = &v375;
-            }
-
-            else
-            {
-              v140 = v375;
-            }
-
-            v141 = WORD2(v387);
-            v142 = HIWORD(v387);
-            v143 = vp::get_log_source_file_path(v388, v137);
-            if (v390 >= 0)
-            {
-              v144 = v389;
-            }
-
-            else
-            {
-              v144 = v389[0];
-            }
-
-            *v421 = 136316930;
-            *&v421[4] = v138;
-            *&v421[12] = 2080;
-            *&v421[14] = v139;
-            *&v421[22] = 2080;
-            v422 = "get buffered input frame count for uplink echo DSP node";
-            LOWORD(v423) = 2080;
-            *(&v423 + 2) = v140;
-            WORD5(v423) = 1024;
-            HIDWORD(v423) = v141;
-            v424 = 1024;
-            v425 = v142;
-            v426 = 2080;
-            v427 = v143;
-            v428 = 2080;
-            v429 = v144;
-            v145 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-            v146 = v132;
-            v147 = 74;
-          }
-
-          else
-          {
-            if (!v129)
-            {
-              goto LABEL_396;
-            }
-
-            v289 = vp::get_log_context_info(&v381, a2, "vp::vx::Voice_Processor]", 23);
-            if (v383[0] >= 0)
-            {
-              v290 = HIBYTE(v383[0]);
-            }
-
-            else
-            {
-              v290 = v382;
-            }
-
-            v291 = vp::get_log(v289);
-            if (!os_log_type_enabled(v291, OS_LOG_TYPE_ERROR))
-            {
-LABEL_394:
-              if (SHIBYTE(v383[0]) < 0)
-              {
-                operator delete(v381);
-              }
-
-LABEL_396:
-              *this = 7;
-              *(this + 4) = 0;
-              if (SHIBYTE(v390) < 0)
-              {
-                std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v391, v389[0], v390 & 0x7FFFFFFFFFFFFFFFLL);
-              }
-
-              v27 = 0;
-              if ((v12 & 1) == 0 && SHIBYTE(v396) < 0)
-              {
-                (*(*v397 + 24))(v397, v395[0], v396 & 0x7FFFFFFFFFFFFFFFLL, 1);
-                goto LABEL_401;
-              }
-
-LABEL_53:
-              if (v418)
-              {
-                goto LABEL_56;
-              }
-
-              goto LABEL_54;
-            }
-
-            v292 = SHIBYTE(v383[0]);
-            v293 = v381;
-            v294 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v387);
-            std::string::basic_string<std::string_view,0>(&v375, v294, v295);
-            if (v292 >= 0)
-            {
-              v297 = &v381;
-            }
-
-            else
-            {
-              v297 = v293;
-            }
-
-            if (v290)
-            {
-              v298 = " ";
-            }
-
-            else
-            {
-              v298 = "";
-            }
-
-            if (v377[0] >= 0)
-            {
-              v299 = &v375;
-            }
-
-            else
-            {
-              v299 = v375;
-            }
-
-            v300 = WORD2(v387);
-            v301 = HIWORD(v387);
-            v302 = vp::get_log_source_file_path(v388, v296);
-            *v421 = 136316674;
-            *&v421[4] = v297;
-            *&v421[12] = 2080;
-            *&v421[14] = v298;
-            *&v421[22] = 2080;
-            v422 = "get buffered input frame count for uplink echo DSP node";
-            LOWORD(v423) = 2080;
-            *(&v423 + 2) = v299;
-            WORD5(v423) = 1024;
-            HIDWORD(v423) = v300;
-            v424 = 1024;
-            v425 = v301;
-            v426 = 2080;
-            v427 = v302;
-            v145 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-            v146 = v291;
-            v147 = 64;
-          }
-
-          _os_log_impl(&dword_2724B4000, v146, OS_LOG_TYPE_ERROR, v145, v421, v147);
-          if (SHIBYTE(v377[0]) < 0)
-          {
-            operator delete(v375);
-          }
-
-          goto LABEL_394;
-        }
-
-        v104 = vp::vx::io::Error::Error(&__dst, &__p);
-        if (v396 >= 0)
-        {
-          v105 = HIBYTE(v396);
-        }
-
-        else
-        {
-          v105 = v395[1];
-        }
-
-        v106 = vp::get_log(v104);
-        v107 = os_log_type_enabled(v106, OS_LOG_TYPE_ERROR);
-        if (v105)
-        {
-          if (v107)
-          {
-            v108 = vp::get_log_context_info(&v387, a2, "vp::vx::Voice_Processor]", 23);
-            if (v389[0] >= 0)
-            {
-              v109 = HIBYTE(v389[0]);
-            }
-
-            else
-            {
-              v109 = v388;
-            }
-
-            v110 = vp::get_log(v108);
-            if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
-            {
-              v111 = SHIBYTE(v389[0]);
-              v112 = v387;
-              v113 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__dst);
-              std::string::basic_string<std::string_view,0>(&v381, v113, v114);
-              if (v111 >= 0)
-              {
-                v116 = &v387;
-              }
-
-              else
-              {
-                v116 = v112;
-              }
-
-              if (v109)
-              {
-                v117 = " ";
-              }
-
-              else
-              {
-                v117 = "";
-              }
-
-              if (v383[0] >= 0)
-              {
-                v118 = &v381;
-              }
-
-              else
-              {
-                v118 = v381;
-              }
-
-              v119 = WORD2(__dst);
-              v120 = HIWORD(__dst);
-              v121 = vp::get_log_source_file_path(v394, v115);
-              if (v396 >= 0)
-              {
-                v122 = v395;
-              }
-
-              else
-              {
-                v122 = v395[0];
-              }
-
-              *v421 = 136316930;
-              *&v421[4] = v116;
-              *&v421[12] = 2080;
-              *&v421[14] = v117;
-              *&v421[22] = 2080;
-              v422 = "process uplink hardware DSP";
-              LOWORD(v423) = 2080;
-              *(&v423 + 2) = v118;
-              WORD5(v423) = 1024;
-              HIDWORD(v423) = v119;
-              v424 = 1024;
-              v425 = v120;
-              v426 = 2080;
-              v427 = v121;
-              v428 = 2080;
-              v429 = v122;
-              v123 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-              v124 = v110;
-              v125 = 74;
-              goto LABEL_368;
-            }
-
-            goto LABEL_370;
-          }
-        }
-
-        else if (v107)
-        {
-          v275 = vp::get_log_context_info(&v387, a2, "vp::vx::Voice_Processor]", 23);
-          if (v389[0] >= 0)
-          {
-            v276 = HIBYTE(v389[0]);
-          }
-
-          else
-          {
-            v276 = v388;
-          }
-
-          v277 = vp::get_log(v275);
-          if (os_log_type_enabled(v277, OS_LOG_TYPE_ERROR))
-          {
-            v278 = SHIBYTE(v389[0]);
-            v279 = v387;
-            v280 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__dst);
-            std::string::basic_string<std::string_view,0>(&v381, v280, v281);
-            if (v278 >= 0)
-            {
-              v283 = &v387;
-            }
-
-            else
-            {
-              v283 = v279;
-            }
-
-            if (v276)
-            {
-              v284 = " ";
-            }
-
-            else
-            {
-              v284 = "";
-            }
-
-            if (v383[0] >= 0)
-            {
-              v285 = &v381;
-            }
-
-            else
-            {
-              v285 = v381;
-            }
-
-            v286 = WORD2(__dst);
-            v287 = HIWORD(__dst);
-            v288 = vp::get_log_source_file_path(v394, v282);
-            *v421 = 136316674;
-            *&v421[4] = v283;
-            *&v421[12] = 2080;
-            *&v421[14] = v284;
-            *&v421[22] = 2080;
-            v422 = "process uplink hardware DSP";
-            LOWORD(v423) = 2080;
-            *(&v423 + 2) = v285;
-            WORD5(v423) = 1024;
-            HIDWORD(v423) = v286;
-            v424 = 1024;
-            v425 = v287;
-            v426 = 2080;
-            v427 = v288;
-            v123 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-            v124 = v277;
-            v125 = 64;
-LABEL_368:
-            _os_log_impl(&dword_2724B4000, v124, OS_LOG_TYPE_ERROR, v123, v421, v125);
-            if (SHIBYTE(v383[0]) < 0)
-            {
-              operator delete(v381);
-            }
-          }
-
-LABEL_370:
-          if (SHIBYTE(v389[0]) < 0)
-          {
-            operator delete(v387);
-          }
-        }
-
-        *this = 7;
-        *(this + 4) = 0;
-        if (SHIBYTE(v396) < 0)
-        {
-          std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v397, v395[0], v396 & 0x7FFFFFFFFFFFFFFFLL);
-        }
-
-        v27 = 0;
-        if ((v11 & 1) != 0 || (SHIBYTE(v402) & 0x80000000) == 0)
-        {
-          goto LABEL_53;
-        }
-
-        (*(*v403 + 24))(v403, v401[0], v402 & 0x7FFFFFFFFFFFFFFFLL, 1);
-        goto LABEL_401;
-      }
-
-      v82 = vp::vx::io::Error::Error(&__p, &v405);
-      if (v402 >= 0)
-      {
-        v83 = HIBYTE(v402);
+        v3 = v8 % v9;
       }
 
       else
       {
-        v83 = v401[1];
+        v3 = v8;
       }
-
-      v84 = vp::get_log(v82);
-      v85 = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
-      if (v83)
-      {
-        if (v85)
-        {
-          v86 = vp::get_log_context_info(&__dst, a2, "vp::vx::Voice_Processor]", 23);
-          v87 = SHIBYTE(v395[0]);
-          if (v395[0] >= 0)
-          {
-            v88 = HIBYTE(v395[0]);
-          }
-
-          else
-          {
-            v88 = v394;
-          }
-
-          v89 = vp::get_log(v86);
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
-          {
-            v90 = __dst;
-            v91 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__p);
-            std::string::basic_string<std::string_view,0>(&v387, v91, v92);
-            if (v87 >= 0)
-            {
-              p_dst = &__dst;
-            }
-
-            else
-            {
-              p_dst = v90;
-            }
-
-            if (v88)
-            {
-              v95 = " ";
-            }
-
-            else
-            {
-              v95 = "";
-            }
-
-            if (v389[0] >= 0)
-            {
-              v96 = &v387;
-            }
-
-            else
-            {
-              v96 = v387;
-            }
-
-            v97 = WORD2(__p);
-            v98 = HIWORD(__p);
-            v99 = vp::get_log_source_file_path(v400, v93);
-            if (v402 >= 0)
-            {
-              v100 = v401;
-            }
-
-            else
-            {
-              v100 = v401[0];
-            }
-
-            *v421 = 136316930;
-            *&v421[4] = p_dst;
-            *&v421[12] = 2080;
-            *&v421[14] = v95;
-            *&v421[22] = 2080;
-            v422 = "get buffered input frame count for uplink hardware DSP node";
-            LOWORD(v423) = 2080;
-            *(&v423 + 2) = v96;
-            WORD5(v423) = 1024;
-            HIDWORD(v423) = v97;
-            v424 = 1024;
-            v425 = v98;
-            v426 = 2080;
-            v427 = v99;
-            v428 = 2080;
-            v429 = v100;
-            v101 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-            v102 = v89;
-            v103 = 74;
-LABEL_343:
-            _os_log_impl(&dword_2724B4000, v102, OS_LOG_TYPE_ERROR, v101, v421, v103);
-            if (SHIBYTE(v389[0]) < 0)
-            {
-              operator delete(v387);
-            }
-
-            LOBYTE(v87) = HIBYTE(v395[0]);
-            goto LABEL_346;
-          }
-
-          goto LABEL_346;
-        }
-      }
-
-      else if (v85)
-      {
-        v262 = vp::get_log_context_info(&__dst, a2, "vp::vx::Voice_Processor]", 23);
-        v87 = SHIBYTE(v395[0]);
-        if (v395[0] >= 0)
-        {
-          v263 = HIBYTE(v395[0]);
-        }
-
-        else
-        {
-          v263 = v394;
-        }
-
-        v264 = vp::get_log(v262);
-        if (os_log_type_enabled(v264, OS_LOG_TYPE_ERROR))
-        {
-          v265 = __dst;
-          v266 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__p);
-          std::string::basic_string<std::string_view,0>(&v387, v266, v267);
-          if (v87 >= 0)
-          {
-            v269 = &__dst;
-          }
-
-          else
-          {
-            v269 = v265;
-          }
-
-          if (v263)
-          {
-            v270 = " ";
-          }
-
-          else
-          {
-            v270 = "";
-          }
-
-          if (v389[0] >= 0)
-          {
-            v271 = &v387;
-          }
-
-          else
-          {
-            v271 = v387;
-          }
-
-          v272 = WORD2(__p);
-          v273 = HIWORD(__p);
-          v274 = vp::get_log_source_file_path(v400, v268);
-          *v421 = 136316674;
-          *&v421[4] = v269;
-          *&v421[12] = 2080;
-          *&v421[14] = v270;
-          *&v421[22] = 2080;
-          v422 = "get buffered input frame count for uplink hardware DSP node";
-          LOWORD(v423) = 2080;
-          *(&v423 + 2) = v271;
-          WORD5(v423) = 1024;
-          HIDWORD(v423) = v272;
-          v424 = 1024;
-          v425 = v273;
-          v426 = 2080;
-          v427 = v274;
-          v101 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-          v102 = v264;
-          v103 = 64;
-          goto LABEL_343;
-        }
-
-LABEL_346:
-        if ((v87 & 0x80) != 0)
-        {
-          operator delete(__dst);
-        }
-      }
-
-      *this = 7;
-      *(this + 4) = 0;
-      if (SHIBYTE(v402) < 0)
-      {
-        std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v403, v401[0], v402 & 0x7FFFFFFFFFFFFFFFLL);
-      }
-
-      v27 = 0;
-      if ((v10 & 1) != 0 || (SHIBYTE(v408) & 0x80000000) == 0)
-      {
-        goto LABEL_53;
-      }
-
-      (*(*v409 + 24))(v409, v407[0], v408 & 0x7FFFFFFFFFFFFFFFLL, 1);
-LABEL_401:
-      v27 = 0;
-      goto LABEL_53;
-    }
-
-    v60 = vp::vx::io::Error::Error(&v405, &v411);
-    if (v408 >= 0)
-    {
-      v61 = HIBYTE(v408);
     }
 
     else
     {
-      v61 = v407[1];
-    }
-
-    v62 = vp::get_log(v60);
-    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
-    if (v61)
-    {
-      if (v63)
-      {
-        v64 = vp::get_log_context_info(&__p, a2, "vp::vx::Voice_Processor]", 23);
-        v65 = SHIBYTE(v401[0]);
-        if (v401[0] >= 0)
-        {
-          v66 = HIBYTE(v401[0]);
-        }
-
-        else
-        {
-          v66 = v400;
-        }
-
-        v67 = vp::get_log(v64);
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
-        {
-          v68 = __p;
-          v69 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v405);
-          std::string::basic_string<std::string_view,0>(&__dst, v69, v70);
-          if (v65 >= 0)
-          {
-            p_p = &__p;
-          }
-
-          else
-          {
-            p_p = v68;
-          }
-
-          if (v66)
-          {
-            v73 = " ";
-          }
-
-          else
-          {
-            v73 = "";
-          }
-
-          if (v395[0] >= 0)
-          {
-            v74 = &__dst;
-          }
-
-          else
-          {
-            v74 = __dst;
-          }
-
-          v75 = WORD2(v405);
-          v76 = HIWORD(v405);
-          v77 = vp::get_log_source_file_path(v406, v71);
-          if (v408 >= 0)
-          {
-            v78 = v407;
-          }
-
-          else
-          {
-            v78 = v407[0];
-          }
-
-          *v421 = 136316930;
-          *&v421[4] = p_p;
-          *&v421[12] = 2080;
-          *&v421[14] = v73;
-          *&v421[22] = 2080;
-          v422 = "process uplink mic-ref-sync DSP";
-          LOWORD(v423) = 2080;
-          *(&v423 + 2) = v74;
-          WORD5(v423) = 1024;
-          HIDWORD(v423) = v75;
-          v424 = 1024;
-          v425 = v76;
-          v426 = 2080;
-          v427 = v77;
-          v428 = 2080;
-          v429 = v78;
-          v79 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-          v80 = v67;
-          v81 = 74;
-LABEL_320:
-          _os_log_impl(&dword_2724B4000, v80, OS_LOG_TYPE_ERROR, v79, v421, v81);
-          if (SHIBYTE(v395[0]) < 0)
-          {
-            operator delete(__dst);
-          }
-
-          LOBYTE(v65) = HIBYTE(v401[0]);
-          goto LABEL_323;
-        }
-
-        goto LABEL_323;
-      }
-    }
-
-    else if (v63)
-    {
-      v249 = vp::get_log_context_info(&__p, a2, "vp::vx::Voice_Processor]", 23);
-      v65 = SHIBYTE(v401[0]);
-      if (v401[0] >= 0)
-      {
-        v250 = HIBYTE(v401[0]);
-      }
-
-      else
-      {
-        v250 = v400;
-      }
-
-      v251 = vp::get_log(v249);
-      if (os_log_type_enabled(v251, OS_LOG_TYPE_ERROR))
-      {
-        v252 = __p;
-        v253 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v405);
-        std::string::basic_string<std::string_view,0>(&__dst, v253, v254);
-        if (v65 >= 0)
-        {
-          v256 = &__p;
-        }
-
-        else
-        {
-          v256 = v252;
-        }
-
-        if (v250)
-        {
-          v257 = " ";
-        }
-
-        else
-        {
-          v257 = "";
-        }
-
-        if (v395[0] >= 0)
-        {
-          v258 = &__dst;
-        }
-
-        else
-        {
-          v258 = __dst;
-        }
-
-        v259 = WORD2(v405);
-        v260 = HIWORD(v405);
-        v261 = vp::get_log_source_file_path(v406, v255);
-        *v421 = 136316674;
-        *&v421[4] = v256;
-        *&v421[12] = 2080;
-        *&v421[14] = v257;
-        *&v421[22] = 2080;
-        v422 = "process uplink mic-ref-sync DSP";
-        LOWORD(v423) = 2080;
-        *(&v423 + 2) = v258;
-        WORD5(v423) = 1024;
-        HIDWORD(v423) = v259;
-        v424 = 1024;
-        v425 = v260;
-        v426 = 2080;
-        v427 = v261;
-        v79 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-        v80 = v251;
-        v81 = 64;
-        goto LABEL_320;
-      }
-
-LABEL_323:
-      if ((v65 & 0x80) != 0)
-      {
-        operator delete(__p);
-      }
-    }
-
-    *this = 7;
-    *(this + 4) = 0;
-    if (SHIBYTE(v408) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v409, v407[0], v408 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    v27 = 0;
-LABEL_54:
-    if (SHIBYTE(v416) < 0)
-    {
-      (*(*v417 + 24))(v417, v415[0], v416 & 0x7FFFFFFFFFFFFFFFLL, 1);
-    }
-
-LABEL_56:
-    if (v436)
-    {
-      goto LABEL_59;
-    }
-
-    goto LABEL_57;
-  }
-
-  v38 = vp::vx::io::Error::Error(&v411, buf);
-  if (v416 >= 0)
-  {
-    v39 = HIBYTE(v416);
-  }
-
-  else
-  {
-    v39 = v415[1];
-  }
-
-  v40 = vp::get_log(v38);
-  v41 = os_log_type_enabled(v40, OS_LOG_TYPE_ERROR);
-  if (v39)
-  {
-    if (v41)
-    {
-      v42 = vp::get_log_context_info(&v405, a2, "vp::vx::Voice_Processor]", 23);
-      v43 = SHIBYTE(v407[0]);
-      if (v407[0] >= 0)
-      {
-        v44 = HIBYTE(v407[0]);
-      }
-
-      else
-      {
-        v44 = v406;
-      }
-
-      v45 = vp::get_log(v42);
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-      {
-        v46 = v405;
-        v47 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v411);
-        std::string::basic_string<std::string_view,0>(&__p, v47, v48);
-        if (v43 >= 0)
-        {
-          v50 = &v405;
-        }
-
-        else
-        {
-          v50 = v46;
-        }
-
-        if (v44)
-        {
-          v51 = " ";
-        }
-
-        else
-        {
-          v51 = "";
-        }
-
-        if (v401[0] >= 0)
-        {
-          v52 = &__p;
-        }
-
-        else
-        {
-          v52 = __p;
-        }
-
-        v53 = v412;
-        v54 = v413;
-        v55 = vp::get_log_source_file_path(v414, v49);
-        if (v416 >= 0)
-        {
-          v56 = v415;
-        }
-
-        else
-        {
-          v56 = v415[0];
-        }
-
-        *v421 = 136316930;
-        *&v421[4] = v50;
-        *&v421[12] = 2080;
-        *&v421[14] = v51;
-        *&v421[22] = 2080;
-        v422 = "get buffered input frame count for uplink mic-ref sync node";
-        LOWORD(v423) = 2080;
-        *(&v423 + 2) = v52;
-        WORD5(v423) = 1024;
-        HIDWORD(v423) = v53;
-        v424 = 1024;
-        v425 = v54;
-        v426 = 2080;
-        v427 = v55;
-        v428 = 2080;
-        v429 = v56;
-        v57 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-        v58 = v45;
-        v59 = 74;
-LABEL_297:
-        _os_log_impl(&dword_2724B4000, v58, OS_LOG_TYPE_ERROR, v57, v421, v59);
-        if (SHIBYTE(v401[0]) < 0)
-        {
-          operator delete(__p);
-        }
-
-        LOBYTE(v43) = HIBYTE(v407[0]);
-        goto LABEL_300;
-      }
-
-      goto LABEL_300;
+      v3 = (v9 - 1) & v8;
     }
   }
 
-  else if (v41)
+  v35 = *a1;
+  v36 = *(*a1 + 8 * v3);
+  if (v36)
   {
-    v236 = vp::get_log_context_info(&v405, a2, "vp::vx::Voice_Processor]", 23);
-    v43 = SHIBYTE(v407[0]);
-    if (v407[0] >= 0)
-    {
-      v237 = HIBYTE(v407[0]);
-    }
-
-    else
-    {
-      v237 = v406;
-    }
-
-    v238 = vp::get_log(v236);
-    if (os_log_type_enabled(v238, OS_LOG_TYPE_ERROR))
-    {
-      v239 = v405;
-      v240 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v411);
-      std::string::basic_string<std::string_view,0>(&__p, v240, v241);
-      if (v43 >= 0)
-      {
-        v243 = &v405;
-      }
-
-      else
-      {
-        v243 = v239;
-      }
-
-      if (v237)
-      {
-        v244 = " ";
-      }
-
-      else
-      {
-        v244 = "";
-      }
-
-      if (v401[0] >= 0)
-      {
-        v245 = &__p;
-      }
-
-      else
-      {
-        v245 = __p;
-      }
-
-      v246 = v412;
-      v247 = v413;
-      v248 = vp::get_log_source_file_path(v414, v242);
-      *v421 = 136316674;
-      *&v421[4] = v243;
-      *&v421[12] = 2080;
-      *&v421[14] = v244;
-      *&v421[22] = 2080;
-      v422 = "get buffered input frame count for uplink mic-ref sync node";
-      LOWORD(v423) = 2080;
-      *(&v423 + 2) = v245;
-      WORD5(v423) = 1024;
-      HIDWORD(v423) = v246;
-      v424 = 1024;
-      v425 = v247;
-      v426 = 2080;
-      v427 = v248;
-      v57 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-      v58 = v238;
-      v59 = 64;
-      goto LABEL_297;
-    }
-
-LABEL_300:
-    if ((v43 & 0x80) != 0)
-    {
-      operator delete(v405);
-    }
-  }
-
-  *this = 7;
-  *(this + 4) = 0;
-  if (SHIBYTE(v416) < 0)
-  {
-    std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v417, v415[0], v416 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  v27 = 0;
-LABEL_57:
-  if (SHIBYTE(v434) < 0)
-  {
-    (*(*v435 + 24))(v435, *&v433[2], v434 & 0x7FFFFFFFFFFFFFFFLL, 1);
-  }
-
-LABEL_59:
-  if (v420)
-  {
-LABEL_78:
-    caulk::concurrent::shared_spin_lock::unlock_shared(v419);
-  }
-
-  if (v27)
-  {
-    *this = 0;
-    *(this + 4) = 1;
-  }
-
-LABEL_81:
-  v37 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726E3740(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  if (a2)
-  {
-    if (a30 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(a16) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a17, a14, a16 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if (SHIBYTE(a22) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a23, a20, a22 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if ((a51 & 1) == 0 && SHIBYTE(a49) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a50, a47, a49 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    std::shared_lock<caulk::concurrent::shared_spin_lock>::~shared_lock[abi:ne200100](v68 - 240);
-    v70 = __cxa_begin_catch(a1);
-    log = vp::get_log(v70);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
-    {
-      log_context_info = vp::get_log_context_info(v68 - 144, v67, "vp::vx::Voice_Processor]", 23);
-      v73 = *(v68 - 121);
-      if (v73 >= 0)
-      {
-        v74 = *(v68 - 121);
-      }
-
-      else
-      {
-        v74 = *(v68 - 136);
-      }
-
-      v75 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
-      {
-        v76 = *(v68 - 144);
-        vp::get_log_exception_info(&a66);
-      }
-
-      if ((v73 & 0x80) != 0)
-      {
-        operator delete(*(v68 - 144));
-      }
-    }
-
-    *v66 = 11;
-    *(v66 + 4) = 0;
-    __cxa_end_catch();
-    JUMPOUT(0x2726E1B10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void vp::vx::Voice_Processor::components_end_process<vp::vx::Uplink_Node_ID,vp::Expected<void,vp::vx::Error_Code>>(uint64_t *a1, uint64_t *a2, uint64_t a3, int *a4)
-{
-  if (a1 != a2)
-  {
-    v7 = a1;
-    do
-    {
-      v8 = *v7;
-      v9 = v7[1];
-      if (v9)
-      {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v10 = *a4;
-      v11 = *(a4 + 4);
-      (*(*v8 + 232))(v8, a3, &v10);
-      if (v9)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      }
-
-      v7 += 2;
-    }
-
-    while (v7 != a2);
-  }
-}
-
-uint64_t vp::vx::Voice_Processor::read_dsp_data(uint64_t a1, uint64_t a2, const AudioBufferList *a3, const AudioTimeStamp *a4, uint64_t a5)
-{
-  v52 = *MEMORY[0x277D85DE8];
-  v10 = *(a1 + 520);
-  for (i = *(a1 + 528); v10 != i; v10 += 2)
-  {
-    v12 = *v10;
-    v13 = v10[1];
-    if (v13)
-    {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v12 + 304))(v12, a2, a4);
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-  }
-
-  v14 = atomic_load((a1 + 1128));
-  if (v14 > 0x7FFFFFFE)
-  {
-    goto LABEL_43;
-  }
-
-  v15 = v14;
-  while (1)
-  {
-    atomic_compare_exchange_strong((a1 + 1128), &v15, v14 + 1);
-    if (v15 == v14)
-    {
-      break;
-    }
-
-    v14 = v15;
-    if (v15 >= 0x7FFFFFFF)
-    {
-      goto LABEL_43;
-    }
-  }
-
-  v16 = *(a1 + 2584);
-  if (!v16)
-  {
-    goto LABEL_52;
-  }
-
-  if (a2)
-  {
-    v17 = 0;
-    v18 = 0;
-    v19 = 9;
-    goto LABEL_42;
-  }
-
-  if (*(a1 + 2732) == -1)
-  {
-LABEL_52:
-    v19 = 0;
-    v17 = 0;
-    v18 = 1;
-    goto LABEL_42;
-  }
-
-  a4->mFlags &= ~1u;
-  if ((a5 & 0x100000000) != 0)
-  {
-    if (*(a1 + 2736) != a5)
-    {
-      v17 = 0;
-      v18 = 0;
-      v19 = 1;
-      goto LABEL_42;
-    }
-  }
-
-  else
-  {
-    a5 = *(a1 + 2736);
-  }
-
-  v21.n128_f64[0] = vp::vx::io::Graph::copy_output(v41, *(v16 + 96), *(v16 + 104), *(a1 + 2732), a3, a4, a5);
-  if (v45)
-  {
-    v19 = v41[0];
-    v17 = 0x100000000;
-  }
-
-  else
-  {
-    log = vp::get_log(v20);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
-    {
-      log_context_info = vp::get_log_context_info(__p, a1, "vp::vx::Voice_Processor]", 23);
-      v24 = v40;
-      v25 = v40;
-      v26 = __p[1];
-      v27 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-      {
-        if (v25 >= 0)
-        {
-          v28 = v24;
-        }
-
-        else
-        {
-          v28 = v26;
-        }
-
-        v29 = __p[0];
-        if (v25 >= 0)
-        {
-          v29 = __p;
-        }
-
-        if (v28)
-        {
-          v30 = " ";
-        }
-
-        else
-        {
-          v30 = "";
-        }
-
-        *buf = 136315650;
-        v47 = v29;
-        v48 = 2080;
-        if (v43 >= 0)
-        {
-          v31 = &v42;
-        }
-
-        else
-        {
-          v31 = v42;
-        }
-
-        v49 = v30;
-        v50 = 2080;
-        v51 = v31;
-        _os_log_impl(&dword_2724B4000, v27, OS_LOG_TYPE_ERROR, "%s%sfailed to read downlink hardware DSP output - %s", buf, 0x20u);
-        LOBYTE(v25) = v40;
-      }
-
-      if ((v25 & 0x80) != 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v17 = 0;
-    v19 = 7;
-  }
-
-  if ((v45 & 1) == 0 && SHIBYTE(v43) < 0)
-  {
-    (*(*v44 + 24))(v44, v42, v43 & 0x7FFFFFFFFFFFFFFFLL, 1, v21);
-  }
-
-  v18 = 0;
-LABEL_42:
-  caulk::concurrent::shared_spin_lock::unlock_shared((a1 + 1128));
-  if (v18)
-  {
-LABEL_43:
-    v32 = 8;
-    goto LABEL_45;
-  }
-
-  v32 = v17 | v19;
-LABEL_45:
-  v33 = *(a1 + 520);
-  for (j = *(a1 + 528); v33 != j; v33 += 2)
-  {
-    v35 = *v33;
-    v36 = v33[1];
-    if (v36)
-    {
-      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v35 + 312))(v35, a2, a4, v32);
-    if (v36)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
-    }
-  }
-
-  v37 = *MEMORY[0x277D85DE8];
-  return v32;
-}
-
-{
-  v99 = *MEMORY[0x277D85DE8];
-  v10 = *(a1 + 520);
-  for (i = *(a1 + 528); v10 != i; v10 += 2)
-  {
-    v12 = *v10;
-    v13 = v10[1];
-    if (v13)
-    {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v12 + 256))(v12, a2, a4);
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-  }
-
-  v89 = (a1 + 1128);
-  v14 = atomic_load((a1 + 1128));
-  if (v14 > 0x7FFFFFFE)
-  {
+    *v16 = *v36;
+LABEL_79:
+    *v36 = v16;
     goto LABEL_80;
   }
 
-  v15 = v14;
-  while (1)
+  *v16 = *(a1 + 3);
+  *(a1 + 3) = v16;
+  *(v35 + 8 * v3) = a1 + 6;
+  if (*v16)
   {
-    atomic_compare_exchange_strong((a1 + 1128), &v15, v14 + 1);
-    if (v15 == v14)
+    v37 = *(*v16 + 8);
+    if ((v9 & (v9 - 1)) != 0)
     {
-      break;
-    }
-
-    v14 = v15;
-    if (v15 >= 0x7FFFFFFF)
-    {
-      goto LABEL_80;
-    }
-  }
-
-  v16 = 1;
-  v90 = 1;
-  v17 = *(a1 + 2400);
-  if (!v17)
-  {
-    goto LABEL_89;
-  }
-
-  if (a2 != 4)
-  {
-    v28 = 0;
-    v16 = 0;
-    v27 = 9;
-    goto LABEL_79;
-  }
-
-  v18 = *(a1 + 2576);
-  if (v18 == -1)
-  {
-LABEL_89:
-    v27 = 0;
-    v28 = 0;
-    goto LABEL_79;
-  }
-
-  v19 = *(v17 + 96);
-  if (v18 < (*(v17 + 104) - v19) >> 4)
-  {
-    v20 = 16 * v18;
-    (*(**(v19 + 16 * v18) + 56))(buf);
-    v21 = *buf;
-    v22 = v96;
-    (*(**(*(v17 + 96) + v20) + 56))(buf);
-    v23 = (((v22 & v96) << 31) >> 31) & vabdd_f64(*buf, v21);
-    v83[0] = v23;
-    v88 = 1;
-    LOBYTE(v93) = 1;
-    *buf = v23;
-    goto LABEL_17;
-  }
-
-  *buf = 0x10004A00000006;
-  *&buf[8] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/io/Graph.cpp";
-  *&buf[24] = 0;
-  *&v92 = 0;
-  *&buf[16] = 0;
-  vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v92 + 1);
-  _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(v83, buf);
-  if (SBYTE7(v92) < 0)
-  {
-    std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](*(&v92 + 1), *&buf[16], v92 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  v23 = v83[0];
-  LOBYTE(v93) = v88;
-  *buf = v83[0];
-  if ((v88 & 1) == 0)
-  {
-    *&buf[4] = v83[1];
-    *&buf[8] = v84;
-    *(&v92 + 1) = v87;
-    if ((SHIBYTE(v86) & 0x80000000) == 0)
-    {
-      *&buf[16] = v85;
-      *&v92 = v86;
-LABEL_95:
-      _os_crash();
-      __break(1u);
-    }
-
-    std::basic_string<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::__init_copy_ctor_external(&buf[16], v85, *(&v85 + 1));
-    if ((v93 & 1) == 0)
-    {
-      goto LABEL_95;
-    }
-  }
-
-LABEL_17:
-  if ((a5 & 0x100000000) != 0)
-  {
-    v24 = a5;
-  }
-
-  else
-  {
-    v24 = v23;
-  }
-
-  if (v24)
-  {
-    v26.n128_f64[0] = vp::vx::io::Graph::copy_output(&v75, *(*(a1 + 2400) + 96), *(*(a1 + 2400) + 104), *(a1 + 2576), a3, a4, v24);
-    if (v82)
-    {
-      v27 = v75;
-      v28 = 0x100000000;
-LABEL_72:
-      if ((v82 & 1) == 0 && SHIBYTE(v80) < 0)
+      if (v37 >= v9)
       {
-        (*(*v81 + 24))(v81, v79[0], v80 & 0x7FFFFFFFFFFFFFFFLL, 1, v26);
+        v37 %= v9;
       }
-
-      goto LABEL_75;
-    }
-
-    if (v80 >= 0)
-    {
-      v29 = HIBYTE(v80);
     }
 
     else
     {
-      v29 = v79[1];
+      v37 &= v9 - 1;
     }
 
-    log = vp::get_log(v25);
-    v31 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
-    if (v29)
-    {
-      if (v31)
-      {
-        log_context_info = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-        if ((v74 & 0x80u) == 0)
-        {
-          v33 = v74;
-        }
-
-        else
-        {
-          v33 = v73;
-        }
-
-        v34 = vp::get_log(log_context_info);
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
-        {
-          v35 = v74;
-          v36 = __p;
-          v37 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v75);
-          if (v38 >= 0x7FFFFFFFFFFFFFF8)
-          {
-            std::string::__throw_length_error[abi:ne200100]();
-          }
-
-          v39 = v38;
-          if (v38 >= 0x17)
-          {
-            operator new();
-          }
-
-          v71 = v38;
-          if (v38)
-          {
-            memmove(&__dst, v37, v38);
-          }
-
-          *(&__dst + v39) = 0;
-          if (v35 >= 0)
-          {
-            p_p = &__p;
-          }
-
-          else
-          {
-            p_p = v36;
-          }
-
-          if (v33)
-          {
-            v57 = " ";
-          }
-
-          else
-          {
-            v57 = "";
-          }
-
-          if (v71 >= 0)
-          {
-            p_dst = &__dst;
-          }
-
-          else
-          {
-            p_dst = __dst;
-          }
-
-          v59 = v76;
-          v60 = v77;
-          log_source_file_path = vp::get_log_source_file_path(v78, v38);
-          if (v80 >= 0)
-          {
-            v62 = v79;
-          }
-
-          else
-          {
-            v62 = v79[0];
-          }
-
-          *buf = 136316930;
-          *&buf[4] = p_p;
-          *&buf[12] = 2080;
-          *&buf[14] = v57;
-          *&buf[22] = 2080;
-          *&buf[24] = "read uplink content DSP client output";
-          LOWORD(v92) = 2080;
-          *(&v92 + 2) = p_dst;
-          WORD5(v92) = 1024;
-          HIDWORD(v92) = v59;
-          v93 = 1024;
-          v94 = v60;
-          v95 = 2080;
-          v96 = log_source_file_path;
-          v97 = 2080;
-          v98 = v62;
-          v53 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-          v54 = v34;
-          v55 = 74;
-LABEL_67:
-          _os_log_impl(&dword_2724B4000, v54, OS_LOG_TYPE_ERROR, v53, buf, v55);
-          if (v71 < 0)
-          {
-            operator delete(__dst);
-          }
-
-          goto LABEL_69;
-        }
-
-        goto LABEL_69;
-      }
-    }
-
-    else if (v31)
-    {
-      v40 = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-      if ((v74 & 0x80u) == 0)
-      {
-        v41 = v74;
-      }
-
-      else
-      {
-        v41 = v73;
-      }
-
-      v42 = vp::get_log(v40);
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-      {
-        v43 = v74;
-        v44 = __p;
-        v45 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v75);
-        std::string::basic_string<std::string_view,0>(&__dst, v45, v46);
-        if (v43 >= 0)
-        {
-          v44 = &__p;
-        }
-
-        if (v41)
-        {
-          v48 = " ";
-        }
-
-        else
-        {
-          v48 = "";
-        }
-
-        if (v71 >= 0)
-        {
-          v49 = &__dst;
-        }
-
-        else
-        {
-          v49 = __dst;
-        }
-
-        v50 = v76;
-        v51 = v77;
-        v52 = vp::get_log_source_file_path(v78, v47);
-        *buf = 136316674;
-        *&buf[4] = v44;
-        *&buf[12] = 2080;
-        *&buf[14] = v48;
-        *&buf[22] = 2080;
-        *&buf[24] = "read uplink content DSP client output";
-        LOWORD(v92) = 2080;
-        *(&v92 + 2) = v49;
-        WORD5(v92) = 1024;
-        HIDWORD(v92) = v50;
-        v93 = 1024;
-        v94 = v51;
-        v95 = 2080;
-        v96 = v52;
-        v53 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-        v54 = v42;
-        v55 = 64;
-        goto LABEL_67;
-      }
-
-LABEL_69:
-      if (v74 < 0)
-      {
-        operator delete(__p);
-      }
-    }
-
-    v28 = 0;
-    v27 = 7;
-    goto LABEL_72;
+    v36 = (*a1 + 8 * v37);
+    goto LABEL_79;
   }
 
-  v27 = 0;
-  v28 = 0x100000000;
-LABEL_75:
-  if ((v88 & 1) == 0 && SHIBYTE(v86) < 0)
-  {
-    (*(*v87 + 24))(v87, v85, v86 & 0x7FFFFFFFFFFFFFFFLL, 1);
-  }
-
-  v16 = 0;
-LABEL_79:
-  caulk::concurrent::shared_spin_lock::unlock_shared(v89);
-  if (v16)
-  {
 LABEL_80:
-    v63 = 8;
-    goto LABEL_82;
-  }
-
-  v63 = v28 | v27;
-LABEL_82:
-  v64 = *(a1 + 520);
-  for (j = *(a1 + 528); v64 != j; v64 += 2)
-  {
-    v66 = *v64;
-    v67 = v64[1];
-    if (v67)
-    {
-      atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v66 + 264))(v66, a2, a4, v63);
-    if (v67)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v67);
-    }
-  }
-
-  v68 = *MEMORY[0x277D85DE8];
-  return v63;
+  ++*(a1 + 5);
+  return result;
 }
 
-void sub_2726E3FDC(_Unwind_Exception *a1, int a2)
+void sub_2726CF278(_Unwind_Exception *a1)
 {
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
+  std::pmr::polymorphic_allocator<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *>>::destroy[abi:ne200100]<std::pair<applesauce::CF::StringRef const,unsigned int>>(*(v2 + 16));
+  std::allocator_traits<vp::Allocator<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *>>>::deallocate[abi:ne200100](*(v1 + 32), v2);
   _Unwind_Resume(a1);
 }
 
-void sub_2726E47BC(_Unwind_Exception *a1, int a2)
+const void **std::pair<applesauce::CF::StringRef,unsigned int>::~pair(const void **a1)
 {
-  if (a2)
+  v2 = *a1;
+  if (v2)
   {
-    __cxa_begin_catch(a1);
-    __cxa_rethrow();
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_2726E47D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, char a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void vp::vx::Voice_Processor::write_dsp_data(uint64_t a1@<X0>, uint64_t a2@<X1>, const AudioBufferList *a3@<X2>, const AudioTimeStamp *a4@<X3>, uint64_t a5@<X4>, _BYTE *a6@<X8>)
-{
-  v112[20] = *MEMORY[0x277D85DE8];
-  *a6 = 0;
-  a6[4] = 1;
-  v13 = *(a1 + 520);
-  for (i = *(a1 + 528); v13 != i; v13 += 2)
-  {
-    v15 = *v13;
-    v6 = v13[1];
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v15 + 288))(v15, a2, a4);
-    if (v6)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    }
-  }
-
-  v88 = (a1 + 1128);
-  v16 = atomic_load((a1 + 1128));
-  if (v16 <= 0x7FFFFFFE)
-  {
-    v17 = v16;
-    while (1)
-    {
-      atomic_compare_exchange_strong((a1 + 1128), &v17, v16 + 1);
-      if (v17 == v16)
-      {
-        break;
-      }
-
-      v16 = v17;
-      if (v17 >= 0x7FFFFFFF)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v89 = 1;
-    v18 = *(a1 + 2584);
-    if (v18 && *(a1 + 780) == 2)
-    {
-      if (a2 > 3)
-      {
-        v20 = a5;
-        if (a3)
-        {
-          goto LABEL_29;
-        }
-
-        goto LABEL_23;
-      }
-
-      v19 = a1 + (8 * a2);
-      LODWORD(v6) = *(v19 + 2700);
-      if (v6 == -1)
-      {
-        v65 = 9;
-        if ((a6[4] & 1) == 0)
-        {
-          goto LABEL_116;
-        }
-      }
-
-      else
-      {
-        v20 = *(v19 + 2704);
-        if ((a5 & 0x100000000) == 0 || v20 == a5)
-        {
-          if (a3)
-          {
-            goto LABEL_29;
-          }
-
-LABEL_23:
-          if (a2 > 2)
-          {
-            a3 = 0;
-          }
-
-          else
-          {
-            v21 = a1 + (8 * a2);
-            vp::Audio_Buffer::prepare((v21 + 2760), v20);
-            v22 = *(v21 + 2760);
-            if (v22)
-            {
-              a3 = *(v22 + 80);
-            }
-
-            else
-            {
-              a3 = 0;
-            }
-
-            v18 = *(a1 + 2584);
-          }
-
-LABEL_29:
-          vp::vx::io::Graph::copy_input(&v80, *(v18 + 96), *(v18 + 104), v6, a3, a4, v20);
-          if (v87 == 1)
-          {
-            if (a2 >= 8)
-            {
-              std::__throw_out_of_range[abi:ne200100]("bitset set argument out of range");
-            }
-
-            *(a1 + 2592) |= 1 << a2;
-            goto LABEL_105;
-          }
-
-          std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::basic_stringstream[abi:ne200100](v106);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v107, "write downlink ", 15);
-          if ((a2 - 1) > 2)
-          {
-            v23 = "dynamics DSP default audio input";
-          }
-
-          else
-          {
-            v23 = off_279E4A4C8[(a2 - 1)];
-          }
-
-          v24 = strlen(v23);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v107, v23, v24);
-          v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v107, " input", 6);
-          if (v85 >= 0)
-          {
-            v26 = HIBYTE(v85);
-          }
-
-          else
-          {
-            v26 = v84[1];
-          }
-
-          log = vp::get_log(v25);
-          v28 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
-          if (v26)
-          {
-            if (v28)
-            {
-              log_context_info = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-              v30 = v79;
-              v31 = v78;
-              v32 = vp::get_log(log_context_info);
-              if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_96;
-              }
-
-              if ((v30 & 0x80u) == 0)
-              {
-                v33 = v30;
-              }
-
-              else
-              {
-                v33 = v31;
-              }
-
-              if ((v79 & 0x80u) == 0)
-              {
-                p_p = &__p;
-              }
-
-              else
-              {
-                p_p = __p;
-              }
-
-              if (v33)
-              {
-                v35 = " ";
-              }
-
-              else
-              {
-                v35 = "";
-              }
-
-              exception_object = v35;
-              std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::str[abi:ne200100](v74, v106);
-              if (v75 >= 0)
-              {
-                v36 = v74;
-              }
-
-              else
-              {
-                v36 = v74[0];
-              }
-
-              v68 = v36;
-              v37 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v80);
-              if (v38 > 0x7FFFFFFFFFFFFFF7)
-              {
-                std::string::__throw_length_error[abi:ne200100]();
-              }
-
-              v39 = v38;
-              v66 = p_p;
-              if (v38 >= 0x17)
-              {
-                operator new();
-              }
-
-              v73 = v38;
-              if (v38)
-              {
-                memmove(&__dst, v37, v38);
-              }
-
-              *(&__dst + v39) = 0;
-              if (v73 >= 0)
-              {
-                p_dst = &__dst;
-              }
-
-              else
-              {
-                p_dst = __dst;
-              }
-
-              v52 = v81;
-              v53 = v82;
-              log_source_file_path = vp::get_log_source_file_path(v83, v38);
-              if (v85 >= 0)
-              {
-                v55 = v84;
-              }
-
-              else
-              {
-                v55 = v84[0];
-              }
-
-              *buf = 136316930;
-              v91 = v66;
-              v92 = 2080;
-              v93 = exception_object;
-              v94 = 2080;
-              v95 = v68;
-              v96 = 2080;
-              v97 = p_dst;
-              v98 = 1024;
-              v99 = v52;
-              v100 = 1024;
-              v101 = v53;
-              v102 = 2080;
-              v103 = log_source_file_path;
-              v104 = 2080;
-              v105 = v55;
-              _os_log_impl(&dword_2724B4000, v32, OS_LOG_TYPE_ERROR, "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s", buf, 0x4Au);
-              if (v73 < 0)
-              {
-                operator delete(__dst);
-              }
-
-              if ((SHIBYTE(v75) & 0x80000000) == 0)
-              {
-                goto LABEL_96;
-              }
-
-              goto LABEL_95;
-            }
-          }
-
-          else if (v28)
-          {
-            v40 = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-            v41 = v79;
-            v42 = v78;
-            v43 = vp::get_log(v40);
-            if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_96;
-            }
-
-            if ((v41 & 0x80u) == 0)
-            {
-              v44 = v41;
-            }
-
-            else
-            {
-              v44 = v42;
-            }
-
-            if ((v79 & 0x80u) == 0)
-            {
-              v45 = &__p;
-            }
-
-            else
-            {
-              v45 = __p;
-            }
-
-            if (v44)
-            {
-              v46 = " ";
-            }
-
-            else
-            {
-              v46 = "";
-            }
-
-            exception_objecta = v46;
-            std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::str[abi:ne200100](v74, v106);
-            if (v75 >= 0)
-            {
-              v47 = v74;
-            }
-
-            else
-            {
-              v47 = v74[0];
-            }
-
-            v69 = v47;
-            v48 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v80);
-            if (v49 > 0x7FFFFFFFFFFFFFF7)
-            {
-              std::string::__throw_length_error[abi:ne200100]();
-            }
-
-            v50 = v49;
-            v67 = v45;
-            if (v49 >= 0x17)
-            {
-              operator new();
-            }
-
-            v73 = v49;
-            if (v49)
-            {
-              memmove(&__dst, v48, v49);
-            }
-
-            *(&__dst + v50) = 0;
-            if (v73 >= 0)
-            {
-              v56 = &__dst;
-            }
-
-            else
-            {
-              v56 = __dst;
-            }
-
-            v57 = v81;
-            v58 = v82;
-            v59 = vp::get_log_source_file_path(v83, v49);
-            *buf = 136316674;
-            v91 = v67;
-            v92 = 2080;
-            v93 = exception_objecta;
-            v94 = 2080;
-            v95 = v69;
-            v96 = 2080;
-            v97 = v56;
-            v98 = 1024;
-            v99 = v57;
-            v100 = 1024;
-            v101 = v58;
-            v102 = 2080;
-            v103 = v59;
-            _os_log_impl(&dword_2724B4000, v43, OS_LOG_TYPE_ERROR, "%s%sfailed to %s due to '%s' error at line %u column %u in %s", buf, 0x40u);
-            if (v73 < 0)
-            {
-              operator delete(__dst);
-            }
-
-            if ((SHIBYTE(v75) & 0x80000000) == 0)
-            {
-              goto LABEL_96;
-            }
-
-LABEL_95:
-            (*(*v76 + 24))(v76, v74[0], v75 & 0x7FFFFFFFFFFFFFFFLL, 1);
-LABEL_96:
-            if (v79 < 0)
-            {
-              operator delete(__p);
-            }
-          }
-
-          if (a6[4] == 1)
-          {
-            a6[4] = 0;
-          }
-
-          *a6 = 7;
-          v106[0] = &unk_2881BF070;
-          v112[0] = &unk_2881BF0C0;
-          v107 = &unk_2881BF098;
-          v108 = &unk_2881BF248;
-          if (SHIBYTE(v110) < 0)
-          {
-            (*(*v111 + 24))(v111, v109[7].__locale_, v110 & 0x7FFFFFFFFFFFFFFFLL, 1);
-          }
-
-          v108 = (MEMORY[0x277D82868] + 16);
-          std::locale::~locale(v109);
-          std::iostream::~basic_iostream();
-          MEMORY[0x2743CBE30](v112);
-          if ((v87 & 1) == 0 && SHIBYTE(v85) < 0)
-          {
-            (*(*v86 + 24))(v86, v84[0], v85 & 0x7FFFFFFFFFFFFFFFLL, 1);
-          }
-
-LABEL_105:
-          if ((v89 & 1) == 0)
-          {
-            goto LABEL_107;
-          }
-
-          goto LABEL_106;
-        }
-
-        v65 = 1;
-        if ((a6[4] & 1) == 0)
-        {
-LABEL_116:
-          *a6 = v65;
-LABEL_106:
-          caulk::concurrent::shared_spin_lock::unlock_shared(v88);
-          goto LABEL_107;
-        }
-      }
-    }
-
-    else
-    {
-      v65 = 8;
-      if ((a6[4] & 1) == 0)
-      {
-        goto LABEL_116;
-      }
-    }
-
-    a6[4] = 0;
-    goto LABEL_116;
-  }
-
-LABEL_11:
-  if (a6[4] == 1)
-  {
-    a6[4] = 0;
-  }
-
-  *a6 = 8;
-LABEL_107:
-  *buf = *a6;
-  LOBYTE(v91) = a6[4];
-  v60 = *(a1 + 520);
-  for (j = *(a1 + 528); v60 != j; v60 += 2)
-  {
-    v62 = *v60;
-    v63 = v60[1];
-    if (v63)
-    {
-      atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    LODWORD(v106[0]) = *buf;
-    BYTE4(v106[0]) = v91;
-    (*(*v62 + 296))(v62, a2, a4, v106);
-    if (v63)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
-    }
-  }
-
-  v64 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726E5244(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(v56);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void sub_2726E52CC(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    JUMPOUT(0x2726E52D4);
-  }
-
-  _Unwind_Resume(v2);
-}
-
-uint64_t std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::str[abi:ne200100](void *a1, uint64_t a2)
-{
-  v3 = *(a2 + 112);
-  result = std::basic_stringbuf<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::view[abi:ne200100](a2 + 24);
-  a1[3] = v3;
-  if (v5 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v6 = result;
-  v7 = v5;
-  if (v5 >= 0x17)
-  {
-    if ((v5 | 7) == 0x17)
-    {
-      v8 = 25;
-    }
-
-    else
-    {
-      v8 = (v5 | 7) + 1;
-    }
-
-    v9 = (*(*v3 + 16))(v3, v8, 1);
-    a1[1] = v7;
-    a1[2] = v8 | 0x8000000000000000;
-    *a1 = v9;
-    a1 = v9;
-  }
-
-  else
-  {
-    *(a1 + 23) = v5;
-    if (!v5)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  result = memmove(a1, v6, v7);
-LABEL_10:
-  *(a1 + v7) = 0;
-  return result;
-}
-
-void vp::vx::Voice_Processor::write_dsp_data(uint64_t a1@<X0>, uint64_t a2@<X1>, const AudioBufferList *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, _BYTE *a6@<X8>)
-{
-  v123 = *MEMORY[0x277D85DE8];
-  *a6 = 0;
-  a6[4] = 1;
-  v12 = *(a1 + 520);
-  for (i = *(a1 + 528); v12 != i; v12 += 2)
-  {
-    v14 = *v12;
-    v15 = v12[1];
-    if (v15)
-    {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v14 + 240))(v14, a2, a4);
-    if (v15)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-    }
-  }
-
-  v99 = (a1 + 1128);
-  v16 = atomic_load((a1 + 1128));
-  if (v16 <= 0x7FFFFFFE)
-  {
-    v17 = v16;
-    while (1)
-    {
-      atomic_compare_exchange_strong((a1 + 1128), &v17, v16 + 1);
-      if (v17 == v16)
-      {
-        break;
-      }
-
-      v16 = v17;
-      if (v17 >= 0x7FFFFFFF)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v100 = 1;
-    v18 = *(a1 + 2400);
-    if (!v18 || !*(a1 + 780))
-    {
-      if (a6[4] == 1)
-      {
-        a6[4] = 0;
-      }
-
-      v20 = 8;
-      goto LABEL_34;
-    }
-
-    if (a2)
-    {
-      if (a2 != 1)
-      {
-        goto LABEL_31;
-      }
-
-      v19 = 2552;
-    }
-
-    else
-    {
-      v19 = 2528;
-    }
-
-    v21 = *(a1 + v19);
-    if (v21 != -1)
-    {
-      v22 = 2556;
-      if (!a2)
-      {
-        v22 = 2532;
-      }
-
-      v23 = *(a1 + v22);
-      if ((a5 & 0x100000000) != 0 && v23 != a5)
-      {
-        if (a6[4] == 1)
-        {
-          a6[4] = 0;
-        }
-
-        v20 = 1;
-LABEL_34:
-        *a6 = v20;
-LABEL_35:
-        caulk::concurrent::shared_spin_lock::unlock_shared(v99);
-        goto LABEL_36;
-      }
-
-      if (*(a4 + 56))
-      {
-        v31 = *(a1 + v22);
-        v32 = 2560;
-        if (!a2)
-        {
-          v32 = 2536;
-        }
-
-        v33 = 2568;
-        if (!a2)
-        {
-          v33 = 2544;
-        }
-
-        v34 = *a4;
-        if (*(a1 + v33))
-        {
-          v35 = *a4;
-          if (*(a1 + v32) != v34)
-          {
-            vp::vx::io::Graph::reset(&v117, v18[8], v18[9], *(a1 + 2512));
-            if ((v122 & 1) == 0 && SHIBYTE(v120) < 0)
-            {
-              std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v121, v119[0], v120 & 0x7FFFFFFFFFFFFFFFLL);
-            }
-
-            v18 = *(a1 + 2400);
-          }
-
-          v34 = v35;
-        }
-
-        v23 = v31;
-        v30 = v34 + v31;
-        v29 = 1;
-      }
-
-      else
-      {
-        v29 = 0;
-        v30 = 0.0;
-      }
-
-      vp::vx::io::Graph::copy_input(&v91, v18[12], v18[13], v21, a3, a4, v23);
-      if (v98 == 1)
-      {
-        v36 = 2560;
-        if (!a2)
-        {
-          v36 = 2536;
-        }
-
-        v37 = a1 + v36;
-        *v37 = v30;
-        *(v37 + 8) = v29;
-        if (a2 == 1)
-        {
-          *(a1 + 2433) = 1;
-        }
-
-        goto LABEL_35;
-      }
-
-      std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::basic_stringstream[abi:ne200100](&v117);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v119, "write uplink ", 13);
-      if (a2 == 1)
-      {
-        v38 = "hardware DSP ref input";
-      }
-
-      else
-      {
-        v38 = "hardware DSP mic input";
-      }
-
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v119, v38, 22);
-      v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v119, " input", 6);
-      if (v96 >= 0)
-      {
-        v40 = HIBYTE(v96);
-      }
-
-      else
-      {
-        v40 = v95[1];
-      }
-
-      log = vp::get_log(v39);
-      v42 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
-      if (v40)
-      {
-        if (v42)
-        {
-          log_context_info = vp::get_log_context_info(&v88, a1, "vp::vx::Voice_Processor]", 23);
-          v44 = v90;
-          v45 = v89;
-          v46 = vp::get_log(log_context_info);
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
-          {
-            if ((v44 & 0x80u) == 0)
-            {
-              v47 = v44;
-            }
-
-            else
-            {
-              v47 = v45;
-            }
-
-            if ((v90 & 0x80u) == 0)
-            {
-              v48 = &v88;
-            }
-
-            else
-            {
-              v48 = v88;
-            }
-
-            if (v47)
-            {
-              v49 = " ";
-            }
-
-            else
-            {
-              v49 = "";
-            }
-
-            v79 = v49;
-            exception_object = v48;
-            std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::str[abi:ne200100](v85, &v117);
-            v50 = SHIBYTE(v86);
-            v51 = v85[0];
-            v52 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v91);
-            v53 = __p;
-            std::string::basic_string<std::string_view,0>(__p, v52, v54);
-            if (v50 >= 0)
-            {
-              v51 = v85;
-            }
-
-            if (v84 < 0)
-            {
-              v53 = __p[0];
-            }
-
-            v56 = v92;
-            v57 = v93;
-            log_source_file_path = vp::get_log_source_file_path(v94, v55);
-            if (v96 >= 0)
-            {
-              v59 = v95;
-            }
-
-            else
-            {
-              v59 = v95[0];
-            }
-
-            *buf = 136316930;
-            v102 = exception_object;
-            v103 = 2080;
-            v104 = v79;
-            v105 = 2080;
-            v106 = v51;
-            v107 = 2080;
-            v108 = v53;
-            v109 = 1024;
-            v110 = v56;
-            v111 = 1024;
-            v112 = v57;
-            v113 = 2080;
-            v114 = log_source_file_path;
-            v115 = 2080;
-            v116 = v59;
-            v60 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
-            v61 = v46;
-            v62 = 74;
-LABEL_104:
-            _os_log_impl(&dword_2724B4000, v61, OS_LOG_TYPE_ERROR, v60, buf, v62);
-            if (v84 < 0)
-            {
-              operator delete(__p[0]);
-            }
-
-            if (SHIBYTE(v86) < 0)
-            {
-              std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v87, v85[0], v86 & 0x7FFFFFFFFFFFFFFFLL);
-            }
-
-            goto LABEL_108;
-          }
-
-          goto LABEL_108;
-        }
-      }
-
-      else if (v42)
-      {
-        v63 = vp::get_log_context_info(&v88, a1, "vp::vx::Voice_Processor]", 23);
-        v64 = v90;
-        v65 = v89;
-        v66 = vp::get_log(v63);
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
-        {
-          if ((v64 & 0x80u) == 0)
-          {
-            v67 = v64;
-          }
-
-          else
-          {
-            v67 = v65;
-          }
-
-          if ((v90 & 0x80u) == 0)
-          {
-            v68 = &v88;
-          }
-
-          else
-          {
-            v68 = v88;
-          }
-
-          if (v67)
-          {
-            v69 = " ";
-          }
-
-          else
-          {
-            v69 = "";
-          }
-
-          v80 = v69;
-          exception_objecta = v68;
-          std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::str[abi:ne200100](v85, &v117);
-          v70 = SHIBYTE(v86);
-          v71 = v85[0];
-          v72 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v91);
-          v73 = __p;
-          std::string::basic_string<std::string_view,0>(__p, v72, v74);
-          if (v70 >= 0)
-          {
-            v71 = v85;
-          }
-
-          if (v84 < 0)
-          {
-            v73 = __p[0];
-          }
-
-          v76 = v92;
-          v77 = v93;
-          v78 = vp::get_log_source_file_path(v94, v75);
-          *buf = 136316674;
-          v102 = exception_objecta;
-          v103 = 2080;
-          v104 = v80;
-          v105 = 2080;
-          v106 = v71;
-          v107 = 2080;
-          v108 = v73;
-          v109 = 1024;
-          v110 = v76;
-          v111 = 1024;
-          v112 = v77;
-          v113 = 2080;
-          v114 = v78;
-          v60 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
-          v61 = v66;
-          v62 = 64;
-          goto LABEL_104;
-        }
-
-LABEL_108:
-        if (v90 < 0)
-        {
-          operator delete(v88);
-        }
-      }
-
-      if (a6[4] == 1)
-      {
-        a6[4] = 0;
-      }
-
-      *a6 = 7;
-      std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::~basic_stringstream(&v117);
-      if ((v98 & 1) == 0 && SHIBYTE(v96) < 0)
-      {
-        std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v97, v95[0], v96 & 0x7FFFFFFFFFFFFFFFLL);
-      }
-
-      goto LABEL_35;
-    }
-
-LABEL_31:
-    if (a6[4] == 1)
-    {
-      a6[4] = 0;
-    }
-
-    v20 = 9;
-    goto LABEL_34;
-  }
-
-LABEL_11:
-  if (a6[4] == 1)
-  {
-    a6[4] = 0;
-  }
-
-  *a6 = 8;
-LABEL_36:
-  *buf = *a6;
-  LOBYTE(v102) = a6[4];
-  v24 = *(a1 + 520);
-  for (j = *(a1 + 528); v24 != j; v24 += 2)
-  {
-    v26 = *v24;
-    v27 = v24[1];
-    if (v27)
-    {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v117 = *buf;
-    v118 = v102;
-    (*(*v26 + 248))(v26, a2, a4, &v117);
-    if (v27)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-    }
-  }
-
-  v28 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726E5CA8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, int buf, int a51, int a52, __int16 a53, int a54, __int16 a55, __int16 a56, uint64_t a57, __int16 a58)
-{
-  if (a2)
-  {
-    if (v61 < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a18, v60, a17 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    if (a24 < 0)
-    {
-      operator delete(__p);
-    }
-
-    std::basic_stringstream<char,std::char_traits<char>,vp::Real_Time_Safe_Allocator<char>>::~basic_stringstream(&buf);
-    if ((a31 & 1) == 0 && SHIBYTE(a29) < 0)
-    {
-      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a30, a27, a29 & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    std::shared_lock<caulk::concurrent::shared_spin_lock>::~shared_lock[abi:ne200100](&a33);
-    v62 = __cxa_begin_catch(a1);
-    log = vp::get_log(v62);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
-    {
-      log_context_info = vp::get_log_context_info(&a37, v58, "vp::vx::Voice_Processor]", 23);
-      v65 = a42;
-      v66 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
-      {
-        vp::get_log_exception_info(&a15);
-      }
-
-      if (v65 < 0)
-      {
-        operator delete(a37);
-      }
-    }
-
-    if (*(v59 + 4) == 1)
-    {
-      *(v59 + 4) = 0;
-    }
-
-    *v59 = 11;
-    __cxa_end_catch();
-    JUMPOUT(0x2726E572CLL);
-  }
-
-  _Unwind_Resume(v67);
-}
-
-void sub_2726E5E8C(void *a1, int a2)
-{
-  if (!a2)
-  {
-    JUMPOUT(0x2726E5EA0);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void vp::vx::Voice_Processor::end_initialization(vp *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
-{
-  v53 = *MEMORY[0x277D85DE8];
-  if (a2 == 1)
-  {
-    log = vp::get_log(a1);
-    v17 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
-    if (v17)
-    {
-      log_context_info = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-      v19 = HIBYTE(v47);
-      v20 = SHIBYTE(v47);
-      v21 = v46;
-      v22 = vp::get_log(log_context_info);
-      v17 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-      if (v17)
-      {
-        if (v20 >= 0)
-        {
-          v23 = v19;
-        }
-
-        else
-        {
-          v23 = v21;
-        }
-
-        p_p = __p;
-        if (v20 >= 0)
-        {
-          p_p = &__p;
-        }
-
-        if (v23)
-        {
-          v25 = " ";
-        }
-
-        else
-        {
-          v25 = "";
-        }
-
-        *buf = 136315394;
-        v50 = p_p;
-        v51 = 2080;
-        v52 = v25;
-        _os_log_impl(&dword_2724B4000, v22, OS_LOG_TYPE_DEFAULT, "%s%send downlink initialization", buf, 0x16u);
-        LOBYTE(v20) = HIBYTE(v47);
-      }
-
-      if ((v20 & 0x80) != 0)
-      {
-        operator delete(__p);
-      }
-    }
-
-    if (*(a1 + 194) == 4)
-    {
-      *a3 = 11;
-      *(a3 + 4) = 0;
-      __p = &unk_2881C1BD8;
-      v46 = a3;
-      v47 = a1;
-      v48 = &__p;
-      vp::vx::Voice_Processor::call_sync(a1, &__p);
-      std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::~__value_func[abi:ne200100](&__p);
-    }
-
-    else
-    {
-      v35 = vp::get_log(v17);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
-      {
-        v36 = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-        v37 = HIBYTE(v47);
-        v38 = SHIBYTE(v47);
-        v39 = v46;
-        v40 = vp::get_log(v36);
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
-        {
-          if (v38 >= 0)
-          {
-            v41 = v37;
-          }
-
-          else
-          {
-            v41 = v39;
-          }
-
-          v42 = __p;
-          if (v38 >= 0)
-          {
-            v42 = &__p;
-          }
-
-          if (v41)
-          {
-            v43 = " ";
-          }
-
-          else
-          {
-            v43 = "";
-          }
-
-          *buf = 136315394;
-          v50 = v42;
-          v51 = 2080;
-          v52 = v43;
-          _os_log_impl(&dword_2724B4000, v40, OS_LOG_TYPE_FAULT, "%s%sfailed to end downlink initialization", buf, 0x16u);
-          LOBYTE(v38) = HIBYTE(v47);
-        }
-
-        if ((v38 & 0x80) != 0)
-        {
-          operator delete(__p);
-        }
-      }
-
-      *a3 = 8;
-      *(a3 + 4) = 0;
-    }
-  }
-
-  else if (!a2)
-  {
-    v5 = vp::get_log(a1);
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (v6)
-    {
-      v7 = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-      v8 = HIBYTE(v47);
-      v9 = SHIBYTE(v47);
-      v10 = v46;
-      v11 = vp::get_log(v7);
-      v6 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (v6)
-      {
-        if (v9 >= 0)
-        {
-          v12 = v8;
-        }
-
-        else
-        {
-          v12 = v10;
-        }
-
-        v13 = __p;
-        if (v9 >= 0)
-        {
-          v13 = &__p;
-        }
-
-        if (v12)
-        {
-          v14 = " ";
-        }
-
-        else
-        {
-          v14 = "";
-        }
-
-        *buf = 136315394;
-        v50 = v13;
-        v51 = 2080;
-        v52 = v14;
-        _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_DEFAULT, "%s%send uplink initialization", buf, 0x16u);
-        LOBYTE(v9) = HIBYTE(v47);
-      }
-
-      if ((v9 & 0x80) != 0)
-      {
-        operator delete(__p);
-      }
-    }
-
-    if (*(a1 + 194) == 2)
-    {
-      __p = &unk_2881C1B48;
-      v48 = &__p;
-      vp::vx::Voice_Processor::call_sync(a1, &__p);
-      std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::~__value_func[abi:ne200100](&__p);
-      *a3 = 0;
-      v15 = 1;
-    }
-
-    else
-    {
-      v26 = vp::get_log(v6);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
-      {
-        v27 = vp::get_log_context_info(&__p, a1, "vp::vx::Voice_Processor]", 23);
-        v28 = HIBYTE(v47);
-        v29 = SHIBYTE(v47);
-        v30 = v46;
-        v31 = vp::get_log(v27);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
-        {
-          if (v29 >= 0)
-          {
-            v32 = v28;
-          }
-
-          else
-          {
-            v32 = v30;
-          }
-
-          v33 = __p;
-          if (v29 >= 0)
-          {
-            v33 = &__p;
-          }
-
-          if (v32)
-          {
-            v34 = " ";
-          }
-
-          else
-          {
-            v34 = "";
-          }
-
-          *buf = 136315394;
-          v50 = v33;
-          v51 = 2080;
-          v52 = v34;
-          _os_log_impl(&dword_2724B4000, v31, OS_LOG_TYPE_FAULT, "%s%sfailed to end uplink initialization", buf, 0x16u);
-          LOBYTE(v29) = HIBYTE(v47);
-        }
-
-        if ((v29 & 0x80) != 0)
-        {
-          operator delete(__p);
-        }
-      }
-
-      v15 = 0;
-      *a3 = 8;
-    }
-
-    *(a3 + 4) = v15;
-  }
-
-  v44 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t vp::vx::Voice_Processor::call_sync(uint64_t a1, uint64_t a2)
-{
-  v8[4] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 24);
-  if (v4)
-  {
-    dispatch_retain(*(a1 + 24));
-  }
-
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 1174405120;
-  v7[2] = ___ZN2vp2vx15Voice_Processor9call_syncENSt3__18functionIFvRS1_EEE_block_invoke;
-  v7[3] = &__block_descriptor_tmp_11019;
-  v7[4] = a1;
-  std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::__value_func[abi:ne200100](v8, a2);
-  dispatch_sync(v4, v7);
-  if (v4)
-  {
-    dispatch_release(v4);
-  }
-
-  result = std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-{
-  v8[4] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 24);
-  if (v4)
-  {
-    dispatch_retain(*(a1 + 24));
-  }
-
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 1174405120;
-  v7[2] = ___ZNK2vp2vx15Voice_Processor9call_syncENSt3__18functionIFvRKS1_EEE_block_invoke;
-  v7[3] = &__block_descriptor_tmp_133;
-  v7[4] = a1;
-  std::__function::__value_func<void ()(vp::vx::Voice_Processor const&)>::__value_func[abi:ne200100](v8, a2);
-  dispatch_sync(v4, v7);
-  if (v4)
-  {
-    dispatch_release(v4);
-  }
-
-  result = std::__function::__value_func<void ()(vp::vx::Voice_Processor const&)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_2726E63E4(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
+    CFRelease(v2);
   }
 
   return a1;
 }
 
-uint64_t ___ZN2vp2vx15Voice_Processor9call_syncENSt3__18functionIFvRS1_EEE_block_invoke(uint64_t a1)
+void std::pmr::polymorphic_allocator<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *>>::destroy[abi:ne200100]<std::pair<applesauce::CF::StringRef const,unsigned int>>(const void *a1)
 {
-  v2 = *(a1 + 64);
-  if (!v2)
+  if (a1)
   {
-    std::__throw_bad_function_call[abi:ne200100]();
+    CFRelease(a1);
   }
-
-  return (*(*v2 + 48))(v2, *(a1 + 32));
 }
 
-void sub_2726E64C0(void *a1)
+_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E0_JdjdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JdjdEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
 {
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x2726E64B0);
-}
-
-uint64_t std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
   {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
   }
 
   else
   {
-    *(a1 + 24) = 0;
+    v7 = 0;
   }
 
-  return a1;
+  v8 = v4[1];
+  if (v8[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v9 = vp::vx::data_flow::Value::view_storage(v8);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = vp::vx::data_flow::Value::view_storage(v4[2]);
+  v11 = (*(**(a1 + 8) + 40))(*(a1 + 8), *v9, *v7, *v10);
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v12);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v11;
+  return result;
 }
 
-void std::__function::__func<vp::vx::Voice_Processor::end_downlink_initialization(void)::$_0,std::allocator<vp::vx::Voice_Processor::end_downlink_initialization(void)::$_0>,void ()(vp::vx::Voice_Processor&)>::operator()(uint64_t a1, uint64_t a2)
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E0_JdjdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JdjdEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, void *a2)
 {
-  v4 = *(a1 + 16);
-  vp::vx::data_flow::State_Transaction::commit(*(a2 + 784), *(a2 + 792));
-  vp::vx::Voice_Processor::handle_configuration_changes(&v15, v4);
-  v5 = *(a1 + 8);
-  v6 = v16;
-  v7 = *(v5 + 4);
+  v2 = *(result + 8);
+  *a2 = &unk_2881BFFB0;
+  a2[1] = v2;
+  return result;
+}
+
+_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JNS3_30DSP_Node_Configuration_OptionsEdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JSG_dEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EEclEOSZ_OS10_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<vp::vx::DSP_Node_Configuration_Options>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v4[1];
+  if (v8[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
+  {
+    v9 = vp::vx::data_flow::Value::view_storage(v8);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = v7[1];
+  v19[0] = *v7;
+  v19[1] = v10;
+  v11 = v7[2];
+  v12 = v7[3];
+  v13 = v7[4];
+  *&v20[9] = *(v7 + 73);
+  v19[3] = v12;
+  *v20 = v13;
+  v19[2] = v11;
+  std::unordered_map<std::string,unsigned int>::unordered_map(v21, (v7 + 6));
+  std::unordered_map<std::string,unsigned int>::unordered_map(__p, v7 + 136);
+  v14 = (*(**(a1 + 8) + 32))(*(a1 + 8), v19, a1 + 16, *v9);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(__p[2]);
+  v15 = __p[0];
+  __p[0] = 0;
+  if (v15)
+  {
+    operator delete(v15);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(v21[2]);
+  v16 = v21[0];
+  v21[0] = 0;
   if (v16)
   {
-    if (!*(v5 + 4))
-    {
-      *(v5 + 4) = v16;
-    }
-
-    *(a2 + 776) = 5;
-    v8 = *(v4 + 520);
-    v9 = *(v4 + 528);
-
-    vp::vx::Voice_Processor::components_end_initialization<vp::Domain>(v8, v9, 1);
+    operator delete(v16);
   }
 
-  else
-  {
-    v10 = v15;
-    *v5 = v15;
-    if (v7)
-    {
-      *(v5 + 4) = v6;
-    }
-
-    *(a2 + 776) = 6;
-    v11 = *(v4 + 520);
-    for (i = *(v4 + 528); v11 != i; v11 += 2)
-    {
-      v13 = *v11;
-      v14 = v11[1];
-      if (v14)
-      {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      (*(*v13 + 80))(v13, 1, v10);
-      if (v14)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-      }
-    }
-  }
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v17);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v14;
+  return result;
 }
 
-void vp::vx::Voice_Processor::handle_configuration_changes(vp::vx::Voice_Processor *this, uint64_t a2)
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::DSP_Node_Configuration_Options>::compare_value(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v89 = *MEMORY[0x277D85DE8];
-  if (!(*(a2 + 952) | *(a2 + 912)))
+  v3 = *a2;
+  v4 = *a3;
+  v5 = *(*a2 + 8);
+  v6 = *(*a3 + 8);
+  if (v5 != v6 || v5 == 0)
   {
-LABEL_93:
-    *this = 0;
-    *(this + 4) = 1;
-    goto LABEL_94;
-  }
-
-  *buf = 0;
-  *__p = a2;
-  *&__p[8] = buf;
-  vp::vx::Voice_Processor::exception_guard(a2, "log configuration changes", caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::log_configuration_changes(vp::Domain)::$_0>, __p);
-  *buf = 1;
-  *__p = a2;
-  *&__p[8] = buf;
-  vp::vx::Voice_Processor::exception_guard(a2, "log configuration changes", caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::log_configuration_changes(vp::Domain)::$_0>, __p);
-  vp::rpb::Server::get_shared_instance(&v81);
-  *__p = a2;
-  vp::vx::Voice_Processor::exception_guard(a2, "disconnect RPB server", caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::disconnect(vp::rpb::Server)::$_0>, __p);
-  vp::objc::ID::~ID(&v81);
-  v3 = caulk::concurrent::shared_spin_lock::lock((a2 + 1128));
-  log = vp::get_log(v3);
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
-  {
-    log_context_info = vp::get_log_context_info(__p, a2, "vp::vx::Voice_Processor]", 23);
-    v6 = HIBYTE(v83);
-    v7 = *&__p[8];
-    v8 = vp::get_log(log_context_info);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (v5 != v6)
     {
-      if ((v6 & 0x80u) == 0)
-      {
-        v9 = v6;
-      }
-
-      else
-      {
-        v9 = v7;
-      }
-
-      if (v83 >= 0)
-      {
-        v10 = __p;
-      }
-
-      else
-      {
-        v10 = *__p;
-      }
-
-      v11 = v9 == 0;
-      v12 = " ";
-      if (v11)
-      {
-        v12 = "";
-      }
-
-      *buf = 136315394;
-      *&buf[4] = v10;
-      *&buf[12] = 2080;
-      *&buf[14] = v12;
-      _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_DEFAULT, "%s%sbegin configuration change", buf, 0x16u);
-    }
-
-    if (SHIBYTE(v83) < 0)
-    {
-      operator delete(*__p);
+      return 0;
     }
   }
 
-  *(a2 + 780) = 0;
-  *__p = std::chrono::system_clock::now();
-  v13 = std::chrono::system_clock::to_time_t(__p);
-  v14 = v13;
-  v15 = *(a2 + 520);
-  v16 = *(a2 + 528);
-  if (v15 != v16)
+  else if (*v3 != *v4)
   {
-    do
-    {
-      v17 = *v15;
-      v18 = v15[1];
-      if (v18)
-      {
-        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v13 = (*(*v17 + 48))(v17, v14);
-      if (v18)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-      }
-
-      v15 += 2;
-    }
-
-    while (v15 != v16);
-    v15 = *(a2 + 520);
-    v16 = *(a2 + 528);
+    return 0;
   }
 
-  for (; v15 != v16; v15 += 2)
+  v8 = *(v3 + 24);
+  v9 = *(v4 + 24);
+  if (v8 != v9 || v8 == 0)
   {
-    v19 = *v15;
-    v20 = v15[1];
-    if (v20)
+    if (v8 != v9)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v13 = (*(*v19 + 104))(v19);
-    if (v20)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      return 0;
     }
   }
 
-  v21 = *(a2 + 1512);
-  v22 = *(a2 + 1520);
-  if (!v21 && v22)
+  else if (*(v3 + 16) != *(v4 + 16))
   {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+    return 0;
   }
 
-  if (v22)
+  v11 = *(v3 + 40);
+  v12 = *(v4 + 40);
+  if (v11 != v12 || v11 == 0)
   {
-    v23 = v21 + 24 * v22;
-    do
+    if (v11 != v12)
     {
-      if (!v21)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
+      return 0;
+    }
+  }
 
-      *(*(v21 + 8) + 1240) = v14;
-      v21 += 24;
+  else if (*(v3 + 32) != *(v4 + 32))
+  {
+    return 0;
+  }
+
+  v14 = *(v3 + 56);
+  v15 = *(v4 + 56);
+  if (v14 != v15 || v14 == 0)
+  {
+    if (v14 != v15)
+    {
+      return 0;
+    }
+  }
+
+  else if (*(v3 + 48) != *(v4 + 48))
+  {
+    return 0;
+  }
+
+  v17 = *(v3 + 72);
+  v18 = *(v4 + 72);
+  if (v17 == v18 && *(v3 + 72))
+  {
+    if (*(v3 + 64) != *(v4 + 64))
+    {
+      return 0;
+    }
+  }
+
+  else if (v17 != v18)
+  {
+    return 0;
+  }
+
+  v19 = *(v3 + 88);
+  v20 = *(v4 + 88);
+  if (v19 != v20 || !*(v3 + 88))
+  {
+    if (v19 == v20)
+    {
+      goto LABEL_43;
     }
 
-    while (v21 != v23);
+    return 0;
   }
 
-  v24 = 0;
-  v25 = a2 + 888;
-  v26 = vp::domains(void)::s_domains;
+  if (*(v3 + 80) != *(v4 + 80))
+  {
+    return 0;
+  }
+
+LABEL_43:
+  if (!std::operator==[abi:ne200100]<std::string,unsigned int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<std::string const,unsigned int>>>(v3 + 96, (v4 + 96)))
+  {
+    return 0;
+  }
+
+  return std::operator==[abi:ne200100]<std::string,unsigned int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<std::string const,unsigned int>>>(v3 + 136, (v4 + 136));
+}
+
+uint64_t std::operator==[abi:ne200100]<std::string,unsigned int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<std::string const,unsigned int>>>(uint64_t a1, void *a2)
+{
+  if (*(a1 + 24) != a2[3])
+  {
+    return 0;
+  }
+
+  v3 = (a1 + 16);
   while (1)
   {
-    v27 = v26[v24];
-    v28 = 40;
-    if (!v27)
-    {
-      v28 = 0;
-    }
-
-    v29 = v25 + v28;
-    if (!*(v25 + v28 + 24))
-    {
-      goto LABEL_71;
-    }
-
-    std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::__deallocate_node(*(v29 + 16));
-    *(v29 + 16) = 0;
-    v30 = *(v29 + 8);
-    if (v30)
-    {
-      for (i = 0; i != v30; ++i)
-      {
-        *(*v29 + 8 * i) = 0;
-      }
-    }
-
-    *(v29 + 24) = 0;
-    v32 = *(a2 + 520);
-    v33 = *(a2 + 528);
-    while (v32 != v33)
-    {
-      v34 = *v32;
-      v35 = v32[1];
-      if (v35)
-      {
-        atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      (*(*v34 + 128))(v34, v27);
-      if (v35)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-      }
-
-      v32 += 2;
-    }
-
-    v36.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    v37 = vp::vx::Voice_Processor::build_dsp(this, a2, v27);
-    if ((*(this + 4) & 1) == 0)
+    v3 = *v3;
+    result = v3 == 0;
+    if (!v3)
     {
       break;
     }
 
-    v38.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    v39 = vp::get_log(v38.__d_.__rep_);
-    v13 = os_log_type_enabled(v39, OS_LOG_TYPE_INFO);
-    if (v13)
+    result = std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>(a2, v3 + 2);
+    if (!result)
     {
-      v40 = v26;
-      v41 = vp::get_log_context_info(buf, a2, "vp::vx::Voice_Processor]", 23);
-      v42 = v88;
-      v43 = *&buf[8];
-      v44 = vp::get_log(v41);
-      v13 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
-      if (v13)
+      break;
+    }
+
+    v5 = result;
+    v6 = *(v3 + 39);
+    if (v6 >= 0)
+    {
+      v7 = *(v3 + 39);
+    }
+
+    else
+    {
+      v7 = v3[3];
+    }
+
+    v8 = *(result + 39);
+    v9 = v8;
+    if ((v8 & 0x80u) != 0)
+    {
+      v8 = *(result + 24);
+    }
+
+    if (v7 == v8)
+    {
+      v10 = v6 >= 0 ? v3 + 2 : v3[2];
+      v13 = *(v5 + 16);
+      v12 = v5 + 16;
+      v11 = v13;
+      v14 = (v9 >= 0 ? v12 : v11);
+      if (!memcmp(v10, v14, v7) && *(v3 + 10) == *(v12 + 24))
       {
-        if ((v42 & 0x80u) == 0)
+        continue;
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void *std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>(void *a1, void *a2)
+{
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    return 0;
+  }
+
+  v6 = v4;
+  v7 = vcnt_s8(v5);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
+  {
+    v9 = v4;
+    if (v4 >= *&v5)
+    {
+      v9 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v9 = (*&v5 - 1) & v4;
+  }
+
+  v10 = *(*a1 + 8 * v9);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v11 = *v10;
+  if (*v10)
+  {
+    do
+    {
+      v12 = v11[1];
+      if (v6 == v12)
+      {
+        if (std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2))
         {
-          v45 = v42;
+          return v11;
+        }
+      }
+
+      else
+      {
+        if (v8 > 1)
+        {
+          if (v12 >= *&v5)
+          {
+            v12 %= *&v5;
+          }
         }
 
         else
         {
-          v45 = v43;
+          v12 &= *&v5 - 1;
         }
 
-        v46 = buf;
-        if ((v88 & 0x80u) != 0)
+        if (v12 != v9)
         {
-          v46 = *buf;
+          return 0;
         }
-
-        v11 = v45 == 0;
-        v47 = " ";
-        if (v11)
-        {
-          v47 = "";
-        }
-
-        v48 = "downlink";
-        if (!v27)
-        {
-          v48 = "uplink";
-        }
-
-        *__p = 136315906;
-        *&__p[4] = v46;
-        *&__p[12] = 2080;
-        *&__p[14] = v47;
-        v83 = 2080;
-        v84 = v48;
-        v85 = 2048;
-        v86 = (v38.__d_.__rep_ - v36.__d_.__rep_) / 1000;
-        _os_log_impl(&dword_2724B4000, v44, OS_LOG_TYPE_INFO, "%s%smanaged to build %s DSP in %lld milliseconds", __p, 0x2Au);
       }
 
-      if (v88 < 0)
-      {
-        operator delete(*buf);
-      }
-
-      v26 = v40;
-      v25 = a2 + 888;
+      v11 = *v11;
     }
 
-    v49 = *(a2 + 520);
-    v50 = *(a2 + 528);
-    while (v49 != v50)
-    {
-      v51 = *v49;
-      v52 = v49[1];
-      if (v52)
-      {
-        atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v13 = (*(*v51 + 136))(v51, v27);
-      if (v52)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v52);
-      }
-
-      v49 += 2;
-    }
-
-LABEL_71:
-    if (++v24 == 2)
-    {
-      v53 = *(a2 + 520);
-      for (j = *(a2 + 528); v53 != j; v53 += 2)
-      {
-        v55 = *v53;
-        v56 = v53[1];
-        if (v56)
-        {
-          atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v13 = (*(*v55 + 112))(v55);
-        if (v56)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v56);
-        }
-      }
-
-      v57 = 1;
-      *(a2 + 780) = 1;
-      v58 = vp::get_log(v13);
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-      {
-        v59 = vp::get_log_context_info(__p, a2, "vp::vx::Voice_Processor]", 23);
-        v60 = HIBYTE(v83);
-        v61 = SHIBYTE(v83);
-        v62 = *&__p[8];
-        v63 = vp::get_log(v59);
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
-        {
-          if (v61 >= 0)
-          {
-            v64 = v60;
-          }
-
-          else
-          {
-            v64 = v62;
-          }
-
-          v65 = *__p;
-          if (v61 >= 0)
-          {
-            v65 = __p;
-          }
-
-          v11 = v64 == 0;
-          v66 = " ";
-          if (v11)
-          {
-            v66 = "";
-          }
-
-          *buf = 136315394;
-          *&buf[4] = v65;
-          *&buf[12] = 2080;
-          *&buf[14] = v66;
-          _os_log_impl(&dword_2724B4000, v63, OS_LOG_TYPE_DEFAULT, "%s%send configuration change", buf, 0x16u);
-          LOBYTE(v61) = HIBYTE(v83);
-        }
-
-        if ((v61 & 0x80) != 0)
-        {
-          operator delete(*__p);
-        }
-
-        v57 = 1;
-      }
-
-      goto LABEL_91;
-    }
+    while (v11);
   }
 
-  v68 = vp::get_log(v37);
-  if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
-  {
-    v69 = vp::get_log_context_info(buf, a2, "vp::vx::Voice_Processor]", 23);
-    v70 = v88;
-    v71 = v88;
-    v72 = *&buf[8];
-    v73 = vp::get_log(v69);
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
-    {
-      if (v71 >= 0)
-      {
-        v74 = v70;
-      }
-
-      else
-      {
-        v74 = v72;
-      }
-
-      v75 = *buf;
-      if (v71 >= 0)
-      {
-        v75 = buf;
-      }
-
-      v11 = v74 == 0;
-      v76 = " ";
-      if (v11)
-      {
-        v76 = "";
-      }
-
-      *__p = 136315650;
-      *&__p[4] = v75;
-      v77 = "downlink";
-      if (!v27)
-      {
-        v77 = "uplink";
-      }
-
-      *&__p[12] = 2080;
-      *&__p[14] = v76;
-      v83 = 2080;
-      v84 = v77;
-      _os_log_impl(&dword_2724B4000, v73, OS_LOG_TYPE_ERROR, "%s%sfailed to build %s DSP", __p, 0x20u);
-      LOBYTE(v71) = v88;
-    }
-
-    if ((v71 & 0x80) != 0)
-    {
-      operator delete(*buf);
-    }
-  }
-
-  v78 = *this;
-  vp::vx::Voice_Processor::components_end_configuration_change<vp::Domain,vp::vx::Error_Code>(*(a2 + 520), *(a2 + 528), v27, v78);
-  vp::vx::Voice_Processor::components_end_configuration_changes<vp::vx::Error_Code>(*(a2 + 520), *(a2 + 528), v78);
-  v57 = 0;
-LABEL_91:
-  caulk::concurrent::shared_spin_lock::unlock((a2 + 1128));
-  if (v57)
-  {
-    vp::rpb::Server::get_shared_instance(&v80);
-    *__p = &v80;
-    *&__p[8] = a2;
-    vp::vx::Voice_Processor::exception_guard(a2, "connect RPB server", caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::connect(vp::rpb::Server)::$_0>, __p);
-    vp::objc::ID::~ID(&v80);
-    goto LABEL_93;
-  }
-
-LABEL_94:
-  v67 = *MEMORY[0x277D85DE8];
+  return v11;
 }
 
-void sub_2726E6F7C(_Unwind_Exception *a1, int a2)
+void **vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::DSP_Node_Configuration_Options>::destroy_value(uint64_t a1, uint64_t *a2)
 {
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
+  v2 = *a2;
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table((*a2 + 136));
 
+  return std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table((v2 + 96));
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::DSP_Node_Configuration_Options>::move_value(uint64_t a1, _OWORD **a2, uint64_t *a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v6 = *(*a3 + 48);
+  v5 = *(*a3 + 64);
+  v7 = *(*a3 + 32);
+  *(v3 + 73) = *(*a3 + 73);
+  v3[3] = v6;
+  v3[4] = v5;
+  v3[2] = v7;
+  v8 = *(v4 + 16);
+  *v3 = *v4;
+  v3[1] = v8;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__hash_table((v3 + 6), (v4 + 96));
+
+  return std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__hash_table(v3 + 136, (v4 + 136));
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::DSP_Node_Configuration_Options>::copy_value(uint64_t a1, _OWORD **a2, uint64_t a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v6 = *(*a3 + 48);
+  v5 = *(*a3 + 64);
+  v7 = *(*a3 + 32);
+  *(v3 + 73) = *(*a3 + 73);
+  v3[3] = v6;
+  v3[4] = v5;
+  v3[2] = v7;
+  v8 = v4[1];
+  *v3 = *v4;
+  v3[1] = v8;
+  std::unordered_map<std::string,unsigned int>::unordered_map((v3 + 6), (v4 + 6));
+  return std::unordered_map<std::string,unsigned int>::unordered_map(v3 + 136, v4 + 136);
+}
+
+void sub_2726CFAB4(_Unwind_Exception *a1)
+{
+  v2 = v1;
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table((v2 + 96));
   _Unwind_Resume(a1);
 }
 
-void vp::vx::Voice_Processor::components_end_initialization<vp::Domain>(uint64_t *a1, uint64_t *a2, uint64_t a3)
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::DSP_Node_Configuration_Options>::view_storage(uint64_t a1, uint64_t a2)
 {
-  if (a1 != a2)
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::DSP_Node_Configuration_Options>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 176, 8);
+  *a2 = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JNS3_30DSP_Node_Configuration_OptionsEdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JSG_dEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
   {
-    v5 = a1;
-    do
-    {
-      v6 = *v5;
-      v7 = v5[1];
-      if (v7)
-      {
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
+    __p[3] = v2;
+    operator delete(v2);
+  }
 
-      (*(*v6 + 72))(v6, a3);
-      if (v7)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-      }
+  operator delete(__p);
+}
 
-      v5 += 2;
-    }
-
-    while (v5 != a2);
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JNS3_30DSP_Node_Configuration_OptionsEdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JSG_dEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE7destroyEv(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    *(a1 + 24) = v2;
+    operator delete(v2);
   }
 }
 
-uint64_t vp::vx::Voice_Processor::build_dsp(uint64_t result, uint64_t a2, int a3)
+uint64_t *_ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JNS3_30DSP_Node_Configuration_OptionsEdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JSG_dEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE7__cloneEPNS0_6__baseIS14_EE(uint64_t a1, void *a2)
 {
-  v169 = *MEMORY[0x277D85DE8];
-  if (a3 == 1)
+  v2 = *(a1 + 8);
+  *a2 = &unk_2881BFF68;
+  a2[1] = v2;
+  a2[3] = 0;
+  a2[4] = 0;
+  a2[2] = 0;
+  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a2 + 2, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JNS3_30DSP_Node_Configuration_OptionsEdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JSG_dEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881BFF68;
+  v2 = a1[2];
+  if (v2)
   {
-    v29 = *(a2 + 2584);
-    if (v29)
-    {
-      vp::vx::io::Graph::notify(v154, *(v29 + 64), *(v29 + 72), 1);
-      if ((v158 & 1) == 0 && SHIBYTE(v156) < 0)
-      {
-        (*(*v157 + 24))(v157, v155, v156 & 0x7FFFFFFFFFFFFFFFLL, 1);
-      }
-
-      v30 = *(a2 + 2584);
-      *(a2 + 2584) = 0;
-      if (v30)
-      {
-        (*(*v30 + 8))(v30);
-      }
-    }
-
-    v31 = std::string::basic_string[abi:ne200100]<0>(v161, "DL");
-    default_resource = std::pmr::get_default_resource(v31);
-    vp::vx::io::Graph_Builder::Graph_Builder(v154, 1, v161, default_resource);
-    if (v162 < 0)
-    {
-      operator delete(v161[0]);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1192);
-    *v114 = *v165;
-    vp::vx::io::Graph_Builder::add_node_command(v154, v114);
-    if (*&v114[8])
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*&v114[8]);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1256);
-    *cf = *v165;
-    vp::vx::io::Graph_Builder::add_node_delegate(v154, cf);
-    if (cf[1])
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](cf[1]);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1136);
-    v33 = *v165;
-    v34 = *&v165[8];
-    if (*&v165[8])
-    {
-      atomic_fetch_add_explicit((*&v165[8] + 16), 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v34->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v35 = v158;
-    v157 = v33;
-    v158 = v34;
-    if (v35)
-    {
-      std::__shared_weak_count::__release_weak(v35);
-    }
-
-    if (v34)
-    {
-      std::__shared_weak_count::__release_weak(v34);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1376);
-    *__p = *v165;
-    vp::vx::io::Graph_Builder::add_node_command(v154, __p);
-    if (__p[1])
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](__p[1]);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1440);
-    v153 = *v165;
-    vp::vx::io::Graph_Builder::add_node_delegate(v154, &v153);
-    if (*(&v153 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v153 + 1));
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1320);
-    v36 = *v165;
-    v37 = *&v165[8];
-    if (*&v165[8])
-    {
-      atomic_fetch_add_explicit((*&v165[8] + 16), 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v37->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v38 = v160;
-    v159 = v36;
-    v160 = v37;
-    if (v38)
-    {
-      std::__shared_weak_count::__release_weak(v38);
-    }
-
-    if (v37)
-    {
-      std::__shared_weak_count::__release_weak(v37);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v37);
-    }
-
-    v39 = *(a2 + 2608);
-    *&v152 = *(a2 + 2600);
-    *(&v152 + 1) = v39;
-    if (v39)
-    {
-      atomic_fetch_add_explicit((v39 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v40 = vp::vx::io::Graph_Builder::add_node(v154, &v152);
-    if (*(&v152 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v152 + 1));
-    }
-
-    *v165 = 0x100000000;
-    v41 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v42 = v41[1];
-    *&v151 = *v41;
-    *(&v151 + 1) = v42;
-    if (v42)
-    {
-      atomic_fetch_add_explicit((v42 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v43 = vp::vx::io::Graph_Builder::add_node(v154, &v151);
-    if (*(&v151 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v151 + 1));
-    }
-
-    *v165 = 0x100000001;
-    v44 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v45 = v44[1];
-    *&v150 = *v44;
-    *(&v150 + 1) = v45;
-    if (v45)
-    {
-      atomic_fetch_add_explicit((v45 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v106 = vp::vx::io::Graph_Builder::add_node(v154, &v150);
-    if (*(&v150 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v150 + 1));
-    }
-
-    *v165 = 0x100000002;
-    v46 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v47 = v46[1];
-    v148 = *v46;
-    v149 = v47;
-    if (v47)
-    {
-      atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v108 = vp::vx::io::Graph_Builder::add_node(v154, &v148);
-    if (v149)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v149);
-    }
-
-    *v165 = 0x100000003;
-    v48 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v49 = v48[1];
-    v146 = *v48;
-    v147 = v49;
-    if (v49)
-    {
-      atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v50 = vp::vx::io::Graph_Builder::add_node(v154, &v146);
-    if (v147)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v147);
-    }
-
-    if (*(a2 + 264) != 3)
-    {
-      *v165 = 0x100000000;
-      v51 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-      v52 = v51[1];
-      v144 = *v51;
-      v145 = v52;
-      if (v52)
-      {
-        atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      vp::vx::io::Graph_Builder::add_port(v154, v108, 1, &v144);
-      if (v145)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v145);
-      }
-
-      *v165 = 0x100000001;
-      v53 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-      v54 = v53[1];
-      v142 = *v53;
-      v143 = v54;
-      if (v54)
-      {
-        atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      vp::vx::io::Graph_Builder::add_port(v154, v108, 2, &v142);
-      if (v143)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v143);
-      }
-
-      *v165 = 0x100000002;
-      v55 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-      v56 = v55[1];
-      v140 = *v55;
-      v141 = v56;
-      if (v56)
-      {
-        atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      vp::vx::io::Graph_Builder::add_port(v154, v108, 3, &v140);
-      if (v141)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v141);
-      }
-    }
-
-    *v165 = 0x100000003;
-    v57 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-    v58 = *v57;
-    v59 = v57[1];
-    if (v59)
-    {
-      atomic_fetch_add_explicit(&v59->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v60 = vp::vx::detail::get_value<BOOL>(v58 + 32);
-    if (v60)
-    {
-      log = vp::get_log(v60);
-      if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
-      {
-        log_context_info = vp::get_log_context_info(v165, a2, "vp::vx::Voice_Processor]", 23);
-        v63 = v165[23];
-        v64 = *&v165[8];
-        v65 = vp::get_log(log_context_info);
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
-        {
-          if ((v63 & 0x80u) == 0)
-          {
-            v66 = v63;
-          }
-
-          else
-          {
-            v66 = v64;
-          }
-
-          v67 = *v165;
-          if (v165[23] >= 0)
-          {
-            v67 = v165;
-          }
-
-          if (v66)
-          {
-            v68 = " ";
-          }
-
-          else
-          {
-            v68 = "";
-          }
-
-          buf = 136315394;
-          *buf_4 = v67;
-          *&buf_4[8] = 2080;
-          *&buf_4[10] = v68;
-          _os_log_impl(&dword_2724B4000, v65, OS_LOG_TYPE_DEFAULT, "%s%sspeaker telemetry input port is enabled!", &buf, 0x16u);
-        }
-
-        if ((v165[23] & 0x80000000) != 0)
-        {
-          operator delete(*v165);
-        }
-      }
-
-      v138 = v58;
-      v139 = v59;
-      if (v59)
-      {
-        atomic_fetch_add_explicit(&v59->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      vp::vx::io::Graph_Builder::add_port(v154, v50, 1, &v138);
-      if (v139)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v139);
-      }
-    }
-
-    *v165 = 0x300000000;
-    v69 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-    v70 = v69[1];
-    v136 = *v69;
-    v137 = v70;
-    if (v70)
-    {
-      atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_port(v154, v50 | 0x100000000, 0, &v136);
-    if (v137)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v137);
-    }
-
-    v71 = *(a2 + 2352);
-    v72 = *(a2 + 2360);
-    if (v72)
-    {
-      atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-      v135 = v72;
-      atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v135 = 0;
-    }
-
-    v134 = v71;
-    vp::vx::io::Graph_Builder::add_wire(v154, v40 | 0x100000000, 0, v43, 0, &v134);
-    if (v135)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v135);
-    }
-
-    v132 = v71;
-    v133 = v72;
-    if (v72)
-    {
-      atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_wire(v154, v43 | 0x100000000, 0, v106, 0, &v132);
-    if (v133)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v133);
-    }
-
-    v130 = v71;
-    v131 = v72;
-    if (v72)
-    {
-      atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_wire(v154, v106 | 0x100000000, 0, v108, 0, &v130);
-    if (v131)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v131);
-    }
-
-    v128 = v71;
-    v129 = v72;
-    if (v72)
-    {
-      atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_wire(v154, v108 | 0x100000000, 0, v50, 0, &v128);
-    if (v129)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v129);
-    }
-
-    v87 = *(a2 + 520);
-    for (i = *(a2 + 528); v87 != i; v87 += 2)
-    {
-      v89 = *v87;
-      v90 = v87[1];
-      if (v90)
-      {
-        atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v91 = (*(*v89 + 184))(v89, 1);
-      if (v91)
-      {
-        v126 = v91;
-        v127 = v90;
-        if (v90)
-        {
-          atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        vp::vx::io::Graph_Builder::add_node_command(v154, &v126);
-        if (v127)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v127);
-        }
-      }
-
-      v92 = (*(*v89 + 192))(v89, 1);
-      if (v92)
-      {
-        v124 = v92;
-        v125 = v90;
-        if (v90)
-        {
-          atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        vp::vx::io::Graph_Builder::add_node_decorator(v154, &v124);
-        if (v125)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v125);
-        }
-      }
-
-      v93 = (*(*v89 + 200))(v89, 1);
-      if (v93)
-      {
-        v122 = v93;
-        v123 = v90;
-        if (v90)
-        {
-          atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        vp::vx::io::Graph_Builder::add_node_delegate(v154, &v122);
-        if (v123)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v123);
-        }
-      }
-
-      v94 = (*(*v89 + 208))(v89, 1);
-      if (v94)
-      {
-        v120 = v94;
-        v121 = v90;
-        if (v90)
-        {
-          atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        vp::vx::io::Graph_Builder::add_port_decorator(v154, &v120);
-        if (v121)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v121);
-        }
-      }
-
-      v95 = (*(*v89 + 216))(v89, 1);
-      if (v95)
-      {
-        v118 = v95;
-        v119 = v90;
-        if (v90)
-        {
-          atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        vp::vx::io::Graph_Builder::add_wire_decorator(v154, &v118);
-        if (v119)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v119);
-        }
-      }
-
-      if (v90)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v90);
-      }
-    }
-
-    if (*(a2 + 2672))
-    {
-      v96 = *(a2 + 744);
-      if (v96)
-      {
-        atomic_fetch_add_explicit(&v96->__shared_owners_, 1uLL, memory_order_relaxed);
-        atomic_fetch_add_explicit(&v96->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:ne200100](v96);
-        v97 = std::__shared_weak_count::lock(v96);
-        std::__shared_weak_count::__release_weak(v96);
-        *&v98 = a2 + 2616;
-        *(&v98 + 1) = v97;
-        if (v97)
-        {
-          atomic_fetch_add_explicit(&v97->__shared_owners_, 1uLL, memory_order_relaxed);
-          v102 = v98;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v97);
-          v98 = v102;
-        }
-      }
-
-      else
-      {
-        v98 = (a2 + 2616);
-      }
-
-      v117 = v98;
-      vp::vx::io::Graph_Builder::add_node_command(v154, &v117);
-      if (*(&v117 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v117 + 1));
-      }
-    }
-
-    v99 = *(a2 + 16);
-    v109 = v99;
-    if (v99)
-    {
-      dispatch_retain(v99);
-      vp::vx::io::Graph_Builder::build(&buf, v154);
-    }
-
-    vp::vx::io::Graph_Builder::build(&buf, v154);
+    a1[3] = v2;
+    operator delete(v2);
   }
 
-  if (!a3)
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JNS3_30DSP_Node_Configuration_OptionsEdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JSG_dEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881BFF68;
+  v2 = a1[2];
+  if (v2)
   {
-    v4 = *(a2 + 2400);
-    if (v4)
-    {
-      vp::vx::io::Graph::notify(v154, *(v4 + 64), *(v4 + 72), 1);
-      if ((v158 & 1) == 0 && SHIBYTE(v156) < 0)
-      {
-        (*(*v157 + 24))(v157, v155, v156 & 0x7FFFFFFFFFFFFFFFLL, 1);
-      }
+    a1[3] = v2;
+    operator delete(v2);
+  }
 
-      v5 = *(a2 + 2400);
-      *(a2 + 2400) = 0;
-      if (v5)
-      {
-        (*(*v5 + 8))(v5);
-      }
-    }
+  return a1;
+}
 
-    v6 = std::string::basic_string[abi:ne200100]<0>(__p, "UL");
-    v7 = std::pmr::get_default_resource(v6);
-    vp::vx::io::Graph_Builder::Graph_Builder(v154, 0, __p, v7);
-    if (v112 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1192);
-    v153 = *v165;
-    vp::vx::io::Graph_Builder::add_node_command(v154, &v153);
-    if (*(&v153 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v153 + 1));
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1256);
-    v152 = *v165;
-    vp::vx::io::Graph_Builder::add_node_delegate(v154, &v152);
-    if (*(&v152 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v152 + 1));
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1136);
-    v8 = *v165;
-    v9 = *&v165[8];
-    if (*&v165[8])
-    {
-      atomic_fetch_add_explicit((*&v165[8] + 16), 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v10 = v158;
-    v157 = v8;
-    v158 = v9;
-    if (v10)
-    {
-      std::__shared_weak_count::__release_weak(v10);
-    }
-
-    if (v9)
-    {
-      std::__shared_weak_count::__release_weak(v9);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1376);
-    v151 = *v165;
-    vp::vx::io::Graph_Builder::add_node_command(v154, &v151);
-    if (*(&v151 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v151 + 1));
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1440);
-    v150 = *v165;
-    vp::vx::io::Graph_Builder::add_node_delegate(v154, &v150);
-    if (*(&v150 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v150 + 1));
-    }
-
-    vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(v165, *(a2 + 744), a2 + 1320);
-    v11 = *v165;
-    v12 = *&v165[8];
-    if (*&v165[8])
-    {
-      atomic_fetch_add_explicit((*&v165[8] + 16), 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v13 = v160;
-    v159 = v11;
-    v160 = v12;
-    if (v13)
-    {
-      std::__shared_weak_count::__release_weak(v13);
-    }
-
-    if (v12)
-    {
-      std::__shared_weak_count::__release_weak(v12);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-    }
-
-    v14 = *(a2 + 2504);
-    v148 = *(a2 + 2496);
-    v149 = v14;
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v107 = vp::vx::io::Graph_Builder::add_node(v154, &v148);
-    if (v149)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v149);
-    }
-
-    *v165 = 0;
-    v15 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v16 = v15[1];
-    v146 = *v15;
-    v147 = v16;
-    if (v16)
-    {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v105 = vp::vx::io::Graph_Builder::add_node(v154, &v146);
-    if (v147)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v147);
-    }
-
-    *v165 = 1;
-    v17 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v18 = v17[1];
-    v144 = *v17;
-    v145 = v18;
-    if (v18)
-    {
-      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v104 = vp::vx::io::Graph_Builder::add_node(v154, &v144);
-    if (v145)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v145);
-    }
-
-    *v165 = 2;
-    v19 = boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript((a2 + 1504), v165);
-    v20 = v19[1];
-    v142 = *v19;
-    v143 = v20;
-    if (v20)
-    {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v103 = vp::vx::io::Graph_Builder::add_node(v154, &v142);
-    if (v143)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v143);
-    }
-
-    *v165 = 0;
-    v21 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-    v22 = v21[1];
-    v140 = *v21;
-    v141 = v22;
-    if (v22)
-    {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_port(v154, v107, 0, &v140);
-    if (v141)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v141);
-    }
-
-    *v165 = 1;
-    v23 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-    v24 = v23[1];
-    v138 = *v23;
-    v139 = v24;
-    if (v24)
-    {
-      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_port(v154, v107, 1, &v138);
-    if (v139)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v139);
-    }
-
-    *v165 = 0x200000004;
-    v25 = boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript((a2 + 1920), v165);
-    v26 = v25[1];
-    v136 = *v25;
-    v137 = v26;
-    if (v26)
-    {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_port(v154, v103 | 0x100000000, 0, &v136);
-    if (v137)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v137);
-    }
-
-    v27 = *(a2 + 2336);
-    v28 = *(a2 + 2344);
-    if (v28)
-    {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-      v135 = v28;
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v135 = 0;
-    }
-
-    v134 = v27;
-    vp::vx::io::Graph_Builder::add_wire(v154, v107 | 0x100000000, 0, v105, 0, &v134);
-    if (v135)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v135);
-    }
-
-    v132 = v27;
-    v133 = v28;
-    if (v28)
-    {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_wire(v154, v107 | 0x100000000, 1, v105, 1, &v132);
-    if (v133)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v133);
-    }
-
-    v130 = v27;
-    v131 = v28;
-    if (v28)
-    {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_wire(v154, v105 | 0x100000000, 0, v104, 0, &v130);
-    if (v131)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v131);
-    }
-
-    v128 = v27;
-    v129 = v28;
-    if (v28)
-    {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    vp::vx::io::Graph_Builder::add_wire(v154, v105 | 0x100000000, 1, v104, 1, &v128);
-    if (v129)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v129);
-    }
-
-    cf[0] = CFStringCreateWithBytes(0, "should wire uplink microphone clip data", 39, 0x8000100u, 0);
-    if (cf[0])
-    {
-      LODWORD(__dst) = 0;
-      v116 = 0uLL;
-      std::recursive_mutex::lock((a2 + 184));
-      v73 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), cf);
-      if (v73)
-      {
-        vp::vx::data_flow::State_Manager::find_state(&buf, (a2 + 64), *(v73 + 6));
-        *v165 = buf;
-        *&v165[8] = *&buf_4[4];
-        *&buf_4[4] = 0;
-        *&buf_4[12] = 0;
-        vp::vx::data_flow::State<void>::~State(&__dst);
-        LODWORD(__dst) = *v165;
-        v116 = *&v165[8];
-        *&v165[8] = 0;
-        *&v165[16] = 0;
-        vp::vx::data_flow::State<void>::~State(v165);
-        vp::vx::data_flow::State<void>::~State(&buf);
-      }
-
-      if (!v116)
-      {
-        vp::vx::Voice_Processor::get_uplink_configuration(v161, a2);
-        *v165 = &unk_2881C0DC8;
-        v165[8] = 0;
-        v166 = v165;
-        LODWORD(v126) = v161[0];
-        vp::vx::data_flow::State_Manager::create_state(&buf, (a2 + 64), v165);
-        LODWORD(v163) = buf;
-        v164 = *&buf_4[4];
-        *&buf_4[4] = 0;
-        *&buf_4[12] = 0;
-        vp::vx::data_flow::State<void>::~State(&buf);
-        std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](v165);
-        *v165 = v163;
-        *&v165[8] = v164;
-        v164 = 0uLL;
-        vp::vx::data_flow::State<void>::~State(&v163);
-        *v114 = *v165;
-        *&v114[8] = *&v165[8];
-        *&v165[8] = 0;
-        *&v165[16] = 0;
-        vp::vx::data_flow::State<void>::~State(v165);
-        vp::vx::data_flow::State<void>::~State(v161);
-        vp::vx::Voice_Processor::make_weak_state_observer(v161, *(a2 + 728), *(a2 + 744));
-        if (v161[1])
-        {
-          atomic_fetch_add_explicit(v161[1] + 2, 1uLL, memory_order_relaxed);
-        }
-
-        operator new();
-      }
-
-      *v165 = __dst;
-      *&v165[8] = v116;
-      v116 = 0uLL;
-      std::recursive_mutex::unlock((a2 + 184));
-      vp::vx::data_flow::State<void>::~State(&__dst);
-      if (cf[0])
-      {
-        CFRelease(cf[0]);
-      }
-
-      vp::vx::data_flow::State<void>::~State((a2 + 2472));
-      *(a2 + 2472) = *v165;
-      *(a2 + 2480) = *&v165[8];
-      *&v165[8] = 0;
-      *&v165[16] = 0;
-      v74 = vp::vx::data_flow::State<void>::~State(v165);
-      v75 = std::pmr::get_default_resource(v74);
-      *&v165[8] = 0;
-      *&v165[16] = 0;
-      *v165 = v75;
-      vp::vx::data_flow::State<void>::get_value((a2 + 2472), v165);
-      v76 = *vp::vx::data_flow::Value::view_storage(v165);
-      vp::vx::data_flow::Value::~Value(v165);
-      if (v76 == 1)
-      {
-        v126 = v27;
-        v127 = v28;
-        if (v28)
-        {
-          atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        vp::vx::io::Graph_Builder::add_wire(v154, v105 | 0x100000000, 2, v104, 2, &v126);
-        if (v127)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v127);
-        }
-      }
-
-      v124 = v27;
-      v125 = v28;
-      if (v28)
-      {
-        atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      vp::vx::io::Graph_Builder::add_wire(v154, v104 | 0x100000000, 0, v103, 0, &v124);
-      if (v125)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v125);
-      }
-
-      v77 = *(a2 + 520);
-      for (j = *(a2 + 528); v77 != j; v77 += 2)
-      {
-        v80 = *v77;
-        v79 = v77[1];
-        if (v79)
-        {
-          atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v81 = (*(*v80 + 184))(v80, 0);
-        if (v81)
-        {
-          v122 = v81;
-          v123 = v79;
-          if (v79)
-          {
-            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          vp::vx::io::Graph_Builder::add_node_command(v154, &v122);
-          if (v123)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v123);
-          }
-        }
-
-        v82 = (*(*v80 + 192))(v80, 0);
-        if (v82)
-        {
-          v120 = v82;
-          v121 = v79;
-          if (v79)
-          {
-            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          vp::vx::io::Graph_Builder::add_node_decorator(v154, &v120);
-          if (v121)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v121);
-          }
-        }
-
-        v83 = (*(*v80 + 200))(v80, 0);
-        if (v83)
-        {
-          v118 = v83;
-          v119 = v79;
-          if (v79)
-          {
-            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          vp::vx::io::Graph_Builder::add_node_delegate(v154, &v118);
-          if (v119)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v119);
-          }
-        }
-
-        v84 = (*(*v80 + 208))(v80, 0);
-        if (v84)
-        {
-          *&v117 = v84;
-          *(&v117 + 1) = v79;
-          if (v79)
-          {
-            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          vp::vx::io::Graph_Builder::add_port_decorator(v154, &v117);
-          if (*(&v117 + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v117 + 1));
-          }
-        }
-
-        v85 = (*(*v80 + 216))(v80, 0);
-        if (v85)
-        {
-          v109 = v85;
-          v110 = v79;
-          if (v79)
-          {
-            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          vp::vx::io::Graph_Builder::add_wire_decorator(v154, &v109);
-          if (v110)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v110);
-          }
-        }
-
-        if (v79)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v79);
-        }
-      }
-
-      v86 = *(a2 + 16);
-      if (v86)
-      {
-        dispatch_retain(v86);
-        vp::vx::io::Graph_Builder::build(v165, v154);
-      }
-
-      vp::vx::io::Graph_Builder::build(v165, v154);
-    }
-
+void vp::vx::Voice_Processor::get_configuration_context(vp::vx::Voice_Processor *this, uint64_t a2)
+{
+  v163 = *MEMORY[0x277D85DE8];
+  v25 = CFStringCreateWithBytes(0, "configuration context", 21, 0x8000100u, 0);
+  if (!v25)
+  {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "Could not construct");
   }
 
-  v100 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_2726E9B6C(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void vp::vx::Voice_Processor::components_end_configuration_change<vp::Domain,vp::vx::Error_Code>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  if (a1 != a2)
-  {
-    v7 = a1;
-    do
-    {
-      v8 = *v7;
-      v9 = v7[1];
-      if (v9)
-      {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      (*(*v8 + 144))(v8, a3, a4);
-      if (v9)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      }
-
-      v7 += 2;
-    }
-
-    while (v7 != a2);
-  }
-}
-
-void vp::vx::Voice_Processor::components_end_configuration_changes<vp::vx::Error_Code>(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  if (a1 != a2)
-  {
-    v5 = a1;
-    do
-    {
-      v6 = *v5;
-      v7 = v5[1];
-      if (v7)
-      {
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      (*(*v6 + 120))(v6, a3);
-      if (v7)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-      }
-
-      v5 += 2;
-    }
-
-    while (v5 != a2);
-  }
-}
-
-void vp::vx::Voice_Processor::connect(vp::rpb::Server)::$_0::operator()(uint64_t a1)
-{
-  v234 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 8);
-  v3 = **a1;
-  v4 = [v3 isRunning];
-
+  v28 = 0;
+  v29 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v4 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &v25);
   if (v4)
   {
-    log = vp::get_log(v5);
-    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
-    {
-      log_context_info = vp::get_log_context_info(__p, v2, "vp::vx::Voice_Processor]", 23);
-      v8 = BYTE7(v168);
-      v9 = SBYTE7(v168);
-      v10 = __p[1];
-      v11 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        if (v9 >= 0)
-        {
-          v12 = v8;
-        }
+    vp::vx::data_flow::State_Manager::find_state(&v157, (a2 + 64), *(v4 + 6));
+    LODWORD(v123) = v157;
+    v124 = v158;
+    v158 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v28);
+    v28 = v123;
+    v29 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    vp::vx::data_flow::State<void>::~State(&v157);
+  }
 
-        else
-        {
-          v12 = v10;
-        }
-
-        v13 = __p[0];
-        if (v9 >= 0)
-        {
-          v13 = __p;
-        }
-
-        if (v12)
-        {
-          v14 = " ";
-        }
-
-        else
-        {
-          v14 = "";
-        }
-
-        *buf = 136315394;
-        *&buf[4] = v13;
-        *&buf[12] = 2080;
-        *&buf[14] = v14;
-        _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_DEFAULT, "%s%sconnect RPB", buf, 0x16u);
-        LOBYTE(v9) = BYTE7(v168);
-      }
-
-      if ((v9 & 0x80) != 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    cf = CFStringCreateWithBytes(0, "VoiceProcessor", 14, 0x8000100u, 0);
+  if (!v29)
+  {
+    v5 = a2 + 8;
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 58);
+    v117 = v123;
+    v118 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 59);
+    v113 = v123;
+    v114 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    cf = CFStringCreateWithBytes(0, "vp_chat_flavor", 14, 0x8000100u, 0);
     if (!cf)
     {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
+      v21 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v21, "Could not construct");
     }
 
-    v15 = objc_alloc(MEMORY[0x277D46110]);
-    v216 = [v15 initWithName:cf];
+    vp::Service_Provider::get<vp::services::User_Defaults,(decltype(nullptr))0>(&v119, *(a2 + 456));
+    if (v119)
+    {
+      if (cf)
+      {
+        CFRetain(cf);
+      }
 
+      if (v120)
+      {
+        atomic_fetch_add_explicit((v120 + 8), 1uLL, memory_order_relaxed);
+      }
+
+      vp::vx::Voice_Processor_State_Manager::create_state_for_SIGHUP_signal(&v160, a2 + 16);
+      operator new();
+    }
+
+    if (v120)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v120);
+    }
+
+    v157 = 0;
+    vp::vx::Voice_Processor_State_Manager::create_state<applesauce::CF::StringRef>(&v123, (a2 + 16), &v157);
+    v111 = v123;
+    v112 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    if (v157)
+    {
+      CFRelease(v157);
+    }
+
+    v123 = &unk_2881BF8E8;
+    LOBYTE(v124) = 0;
+    v125 = &v123;
+    v160 = v113;
+    v161 = v111;
+    vp::vx::data_flow::State_Manager::create_state(&v157, (a2 + 64), &v123);
+    v121 = v157;
+    v122 = v158;
+    v158 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v157);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v123);
+    v115 = v121;
+    v116 = v122;
+    v122 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v121);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 10);
+    v108 = v123;
+    v109 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 16);
+    v106 = v123;
+    v107 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 17);
+    v104 = v123;
+    v105 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 18);
+    v102 = v123;
+    v103 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 19);
+    v100 = v123;
+    v101 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 20);
+    v98 = v123;
+    v99 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 26);
+    v96 = v123;
+    v97 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 39);
+    v94 = v123;
+    v95 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 40);
+    v92 = v123;
+    v93 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 41);
+    v90 = v123;
+    v91 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 44);
+    v88 = v123;
+    v89 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 45);
+    v86 = v123;
+    v87 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 46);
+    v84 = v123;
+    v85 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 47);
+    v82 = v123;
+    v83 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 77);
+    v80 = v123;
+    v81 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    vp::vx::Voice_Processor::get_spatial_head_tracking_enabled(v79, a2);
+    (*(*v5 + 16))(&v123, a2 + 8, 80);
+    v77 = v123;
+    v78 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 88);
+    v75 = v123;
+    v76 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 0);
+    v73 = v123;
+    v74 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 1);
+    v71 = v123;
+    v72 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 61);
+    v69 = v123;
+    v70 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    v65 = CFStringCreateWithBytes(0, "spatial mode", 12, 0x8000100u, 0);
+    if (!v65)
+    {
+      v22 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v22, "Could not construct");
+    }
+
+    LODWORD(v119) = 0;
+    v120 = 0uLL;
+    std::recursive_mutex::lock((a2 + 184));
+    v6 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &v65);
+    if (v6)
+    {
+      vp::vx::data_flow::State_Manager::find_state(&v157, (a2 + 64), *(v6 + 6));
+      LODWORD(v123) = v157;
+      v124 = v158;
+      v158 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v119);
+      LODWORD(v119) = v123;
+      v120 = v124;
+      v124 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v123);
+      vp::vx::data_flow::State<void>::~State(&v157);
+    }
+
+    if (!v120)
+    {
+      (*(*v5 + 16))(&v123, a2 + 8, 79);
+      v160 = v123;
+      v162 = v124;
+      v124 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v123);
+      v123 = &unk_2881C0930;
+      LOBYTE(v124) = 0;
+      v125 = &v123;
+      v64[0] = v160;
+      vp::vx::data_flow::State_Manager::create_state(&v157, (a2 + 64), &v123);
+      v121 = v157;
+      v122 = v158;
+      v158 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v157);
+      std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v123);
+      LODWORD(v123) = v121;
+      v124 = v122;
+      v122 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v121);
+      vp::vx::data_flow::State<void>::~State(&v160);
+      vp::vx::data_flow::State<void>::~State(&v119);
+      LODWORD(v119) = v123;
+      v120 = v124;
+      v124 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v123);
+      v7 = v119;
+      v8 = v65;
+      if (v65)
+      {
+        CFRetain(v65);
+      }
+
+      v123 = v8;
+      LODWORD(v124) = v7;
+      std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v123, &v123);
+      if (v123)
+      {
+        CFRelease(v123);
+      }
+    }
+
+    v67 = v119;
+    v68 = v120;
+    v120 = 0uLL;
+    std::recursive_mutex::unlock((a2 + 184));
+    vp::vx::data_flow::State<void>::~State(&v119);
+    if (v65)
+    {
+      CFRelease(v65);
+    }
+
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 8);
+    v9 = v123;
+    LODWORD(v65) = v123;
+    v66 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    _ZN2vp2vx29Voice_Processor_State_Manager12create_stateIRKZNS0_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKS5_E_JN2CA17StreamDescriptionEEEES6_OS7_DpRKNS0_9data_flow5StateIT0_EE(&v119, a2 + 16, v9);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 24);
+    v10 = v123;
+    v62 = v123;
+    v63 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    _ZN2vp2vx29Voice_Processor_State_Manager12create_stateIRKZNS0_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKS5_E_JN2CA17StreamDescriptionEEEES6_OS7_DpRKNS0_9data_flow5StateIT0_EE(v64, a2 + 16, v10);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 51);
+    v11 = v123;
+    v59 = v123;
+    v60 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    _ZN2vp2vx29Voice_Processor_State_Manager12create_stateIRKZNS0_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKS5_E_JN2CA17StreamDescriptionEEEES6_OS7_DpRKNS0_9data_flow5StateIT0_EE(v61, a2 + 16, v11);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 52);
+    v12 = v123;
+    v56 = v123;
+    v57 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    _ZN2vp2vx29Voice_Processor_State_Manager12create_stateIRKZNS0_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKS5_E_JN2CA17StreamDescriptionEEEES6_OS7_DpRKNS0_9data_flow5StateIT0_EE(v58, a2 + 16, v12);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 54);
+    v13 = v123;
+    v53 = v123;
+    v54 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    _ZN2vp2vx29Voice_Processor_State_Manager12create_stateIRKZNS0_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKS5_E_JN2CA17StreamDescriptionEEEES6_OS7_DpRKNS0_9data_flow5StateIT0_EE(v55, a2 + 16, v13);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 69);
+    v51 = v123;
+    v52 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 70);
+    v49 = v123;
+    v50 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 62);
+    v47 = v123;
+    v48 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*(a2 + 8) + 16))(&v123, a2 + 8, 89);
+    v45 = v123;
+    v46 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    vp::vx::Voice_Processor::get_other_audio_advanced_ducking_enabled(v44, a2);
+    (*(*v5 + 16))(&v123, a2 + 8, 91);
+    v42 = v123;
+    v43 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 92);
+    v40 = v123;
+    v41 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 93);
+    v14 = v123;
+    v36 = v123;
+    v37 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 94);
+    v15 = v123;
+    v34 = v123;
+    v35 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    v123 = &unk_2881BFA28;
+    LOBYTE(v124) = 0;
+    v125 = &v123;
+    v160 = v14;
+    v161 = v15;
+    vp::vx::data_flow::State_Manager::create_state(&v157, (a2 + 64), &v123);
+    v16 = v157;
+    v121 = v157;
+    v23 = v158;
+    v158 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v157);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v123);
+    v38 = v16;
+    v39 = v23;
+    v122 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v121);
+    (*(*v5 + 16))(&v123, a2 + 8, 95);
+    v32 = v123;
+    v33 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    (*(*v5 + 16))(&v123, a2 + 8, 94);
+    v30 = v123;
+    v31 = v124;
+    v124 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v123);
+    v157 = &unk_2881BF490;
+    LOBYTE(v158) = 0;
+    v159 = &v157;
+    v123 = __PAIR64__(v115, v117);
+    *&v124 = __PAIR64__(v106, v108);
+    *(&v124 + 1) = __PAIR64__(v102, v104);
+    v125 = __PAIR64__(v98, v100);
+    v126 = v96;
+    v127 = v94;
+    v128 = v92;
+    v129 = v90;
+    v130 = v88;
+    v131 = v86;
+    v132 = v84;
+    v133 = v82;
+    v134 = v80;
+    v135 = v79[0];
+    v136 = v77;
+    v137 = v75;
+    v138 = v73;
+    v139 = v71;
+    v140 = v69;
+    v141 = v67;
+    v142 = v119;
+    v143 = v64[0];
+    v144 = v61[0];
+    v145 = v58[0];
+    v146 = v55[0];
+    v147 = v51;
+    v148 = v49;
+    v149 = v47;
+    v150 = v45;
+    v151 = v44[0];
+    v152 = v42;
+    v153 = v40;
+    v154 = v38;
+    v155 = v32;
+    v156 = v30;
+    vp::vx::data_flow::State_Manager::create_state(&v121, (a2 + 64), &v157);
+    v17 = v121;
+    v160 = v121;
+    v24 = v122;
+    v122 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v121);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v157);
+    v26 = v17;
+    v27 = v24;
+    v162 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v160);
+    vp::vx::data_flow::State<void>::~State(&v30);
+    vp::vx::data_flow::State<void>::~State(&v32);
+    vp::vx::data_flow::State<void>::~State(&v38);
+    vp::vx::data_flow::State<void>::~State(&v34);
+    vp::vx::data_flow::State<void>::~State(&v36);
+    vp::vx::data_flow::State<void>::~State(&v40);
+    vp::vx::data_flow::State<void>::~State(&v42);
+    vp::vx::data_flow::State<void>::~State(v44);
+    vp::vx::data_flow::State<void>::~State(&v45);
+    vp::vx::data_flow::State<void>::~State(&v47);
+    vp::vx::data_flow::State<void>::~State(&v49);
+    vp::vx::data_flow::State<void>::~State(&v51);
+    vp::vx::data_flow::State<void>::~State(v55);
+    vp::vx::data_flow::State<void>::~State(&v53);
+    vp::vx::data_flow::State<void>::~State(v58);
+    vp::vx::data_flow::State<void>::~State(&v56);
+    vp::vx::data_flow::State<void>::~State(v61);
+    vp::vx::data_flow::State<void>::~State(&v59);
+    vp::vx::data_flow::State<void>::~State(v64);
+    vp::vx::data_flow::State<void>::~State(&v62);
+    vp::vx::data_flow::State<void>::~State(&v119);
+    vp::vx::data_flow::State<void>::~State(&v65);
+    vp::vx::data_flow::State<void>::~State(&v67);
+    vp::vx::data_flow::State<void>::~State(&v69);
+    vp::vx::data_flow::State<void>::~State(&v71);
+    vp::vx::data_flow::State<void>::~State(&v73);
+    vp::vx::data_flow::State<void>::~State(&v75);
+    vp::vx::data_flow::State<void>::~State(&v77);
+    vp::vx::data_flow::State<void>::~State(v79);
+    vp::vx::data_flow::State<void>::~State(&v80);
+    vp::vx::data_flow::State<void>::~State(&v82);
+    vp::vx::data_flow::State<void>::~State(&v84);
+    vp::vx::data_flow::State<void>::~State(&v86);
+    vp::vx::data_flow::State<void>::~State(&v88);
+    vp::vx::data_flow::State<void>::~State(&v90);
+    vp::vx::data_flow::State<void>::~State(&v92);
+    vp::vx::data_flow::State<void>::~State(&v94);
+    vp::vx::data_flow::State<void>::~State(&v96);
+    vp::vx::data_flow::State<void>::~State(&v98);
+    vp::vx::data_flow::State<void>::~State(&v100);
+    vp::vx::data_flow::State<void>::~State(&v102);
+    vp::vx::data_flow::State<void>::~State(&v104);
+    vp::vx::data_flow::State<void>::~State(&v106);
+    vp::vx::data_flow::State<void>::~State(&v108);
+    vp::vx::data_flow::State<void>::~State(&v115);
+    vp::vx::data_flow::State<void>::~State(&v111);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    v16 = CFStringCreateWithBytes(0, "Operating System", 16, 0x8000100u, 0);
-    v17 = v16;
-    v214 = v16;
-    if (!v16)
+    vp::vx::data_flow::State<void>::~State(&v113);
+    vp::vx::data_flow::State<void>::~State(&v117);
+    vp::vx::data_flow::State<void>::~State(&v28);
+    v28 = v17;
+    v29 = v24;
+    v27 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v26);
+    v18 = v28;
+    v19 = v25;
+    if (v25)
     {
-      v127 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v127, "Could not construct");
+      CFRetain(v25);
     }
 
-    v18 = *(v2 + 264) - 1;
-    if (v18 > 2)
+    v123 = v19;
+    LODWORD(v124) = v18;
+    std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v123, &v123);
+    if (v123)
     {
-      v19 = "iOS";
+      CFRelease(v123);
     }
+  }
 
-    else
-    {
-      v19 = off_279E4A4E0[v18];
-    }
+  *this = v28;
+  *(this + 8) = v29;
+  v29 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v28);
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+}
 
-    CFRetain(v16);
-    __p[0] = v17;
-    applesauce::CF::TypeRef::TypeRef(buf, v19);
-    vp::rpb::Object::add_user_info(&v216, __p, buf);
-    if (*buf)
-    {
-      CFRelease(*buf);
-    }
+void sub_2726D13E8(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
 
-    CFRelease(v17);
-    if (v214)
-    {
-      CFRelease(v214);
-    }
+  _Unwind_Resume(a1);
+}
 
-    v20 = CFStringCreateWithBytes(0, "Operating System Release Type", 29, 0x8000100u, 0);
-    v21 = v20;
-    v213 = v20;
-    if (!v20)
-    {
-      v128 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v128, "Could not construct");
-    }
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_30DSP_Node_Configuration_OptionsEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_optionsENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESE_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v64 = *MEMORY[0x277D85DE8];
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Configuration_Context>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
 
-    CFRetain(v20);
-    __p[0] = v21;
-    v22 = *(v2 + 272);
-    if (v22)
-    {
-      CFRetain(*(v2 + 272));
-    }
+  else
+  {
+    v6 = 0;
+  }
 
-    *buf = v22;
-    vp::rpb::Object::add_user_info(&v216, __p, buf);
-    if (v22)
-    {
-      CFRelease(v22);
-    }
+  v7 = *(a1 + 16);
+  if (!v7)
+  {
+    goto LABEL_41;
+  }
 
-    CFRelease(v21);
-    if (v213)
+  v8 = *(a1 + 8);
+  LOBYTE(v47) = 0;
+  BYTE8(v47) = 0;
+  LOBYTE(v48) = 0;
+  BYTE8(v48) = 0;
+  LOBYTE(v49) = 0;
+  BYTE8(v49) = 0;
+  LOBYTE(v50) = 0;
+  BYTE8(v50) = 0;
+  v51[0] = 0;
+  v51[8] = 0;
+  v51[16] = 0;
+  v51[24] = 0;
+  *v52 = 0u;
+  *v53 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v54 = 1065353216;
+  v57 = 1065353216;
+  v9 = (*(*v7 + 56))(v7, v6, *(a1 + 32), &v47);
+  v10 = v9;
+  if (v9)
+  {
+    v36 = v49;
+    v37 = v50;
+    *v38 = *v51;
+    *&v38[9] = *&v51[9];
+    v34 = v47;
+    v35 = v48;
+    v11 = v52[0];
+    v12 = v52[1];
+    v52[0] = 0;
+    v52[1] = 0;
+    v39[0] = v11;
+    v39[1] = v12;
+    v40[0] = v53[0];
+    v40[1] = v53[1];
+    v41 = v54;
+    if (v53[1])
     {
-      CFRelease(v213);
-    }
-
-    v23 = CFStringCreateWithBytes(0, "AppleInternal Build", 19, 0x8000100u, 0);
-    v212 = v23;
-    if (!v23)
-    {
-      v129 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v129, "Could not construct");
-    }
-
-    vp::rpb::Object::add_user_info<BOOL const&>(&v216, v23, (v2 + 280));
-    if (v212)
-    {
-      CFRelease(v212);
-    }
-
-    v24 = CFStringCreateWithBytes(0, "UI Build", 8, 0x8000100u, 0);
-    v211 = v24;
-    if (!v24)
-    {
-      v130 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v130, "Could not construct");
-    }
-
-    vp::rpb::Object::add_user_info<BOOL const&>(&v216, v24, (v2 + 281));
-    if (v211)
-    {
-      CFRelease(v211);
-    }
-
-    v25 = CFStringCreateWithBytes(0, "Tuning Directory Path", 21, 0x8000100u, 0);
-    v210 = v25;
-    if (!v25)
-    {
-      v131 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v131, "Could not construct");
-    }
-
-    if (*(v2 + 311) < 0)
-    {
-      std::string::__init_copy_ctor_external(__p, *(v2 + 288), *(v2 + 296));
-      v25 = v210;
-    }
-
-    else
-    {
-      *__p = *(v2 + 288);
-      *&v168 = *(v2 + 304);
-    }
-
-    vp::rpb::Object::add_user_info<std::string>(&v216, v25, __p);
-    if (SBYTE7(v168) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v210)
-    {
-      CFRelease(v210);
-    }
-
-    v26 = CFStringCreateWithBytes(0, "Temporary Directory Path", 24, 0x8000100u, 0);
-    v209 = v26;
-    if (!v26)
-    {
-      v132 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v132, "Could not construct");
-    }
-
-    if (*(v2 + 335) < 0)
-    {
-      std::string::__init_copy_ctor_external(__p, *(v2 + 312), *(v2 + 320));
-      v26 = v209;
-    }
-
-    else
-    {
-      *__p = *(v2 + 312);
-      *&v168 = *(v2 + 328);
-    }
-
-    vp::rpb::Object::add_user_info<std::string>(&v216, v26, __p);
-    if (SBYTE7(v168) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v209)
-    {
-      CFRelease(v209);
-    }
-
-    v27 = CFStringCreateWithBytes(0, "Secret Directory Path", 21, 0x8000100u, 0);
-    v208 = v27;
-    if (!v27)
-    {
-      v133 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v133, "Could not construct");
-    }
-
-    if (*(v2 + 359) < 0)
-    {
-      std::string::__init_copy_ctor_external(__p, *(v2 + 336), *(v2 + 344));
-      v27 = v208;
-    }
-
-    else
-    {
-      *__p = *(v2 + 336);
-      *&v168 = *(v2 + 352);
-    }
-
-    vp::rpb::Object::add_user_info<std::string>(&v216, v27, __p);
-    if (SBYTE7(v168) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v208)
-    {
-      CFRelease(v208);
-    }
-
-    v28 = CFStringCreateWithBytes(0, "Hardware Model", 14, 0x8000100u, 0);
-    v29 = v28;
-    v207 = v28;
-    if (!v28)
-    {
-      v134 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v134, "Could not construct");
-    }
-
-    CFRetain(v28);
-    __p[0] = v29;
-    v30 = *(v2 + 391);
-    if (v30 >= 0)
-    {
-      v31 = (v2 + 368);
-    }
-
-    else
-    {
-      v31 = *(v2 + 368);
-    }
-
-    if (v30 >= 0)
-    {
-      v32 = *(v2 + 391);
-    }
-
-    else
-    {
-      v32 = *(v2 + 376);
-    }
-
-    *buf = CFStringCreateWithBytes(0, v31, v32, 0x8000100u, 0);
-    if (!*buf)
-    {
-      v135 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v135, "Could not construct");
-    }
-
-    vp::rpb::Object::add_user_info(&v216, __p, buf);
-    if (*buf)
-    {
-      CFRelease(*buf);
-    }
-
-    CFRelease(v29);
-    if (v207)
-    {
-      CFRelease(v207);
-    }
-
-    v33 = CFStringCreateWithBytes(0, "Hardware Layout ID", 18, 0x8000100u, 0);
-    v206 = v33;
-    if (!v33)
-    {
-      v136 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v136, "Could not construct");
-    }
-
-    if (*(v2 + 396) == 1)
-    {
-      v34 = *(v2 + 392);
-    }
-
-    else
-    {
-      v34 = 0;
-    }
-
-    LODWORD(__p[0]) = v34;
-    vp::rpb::Object::add_user_info<unsigned int>(&v216, v33, __p);
-    if (v206)
-    {
-      CFRelease(v206);
-    }
-
-    v35 = CFStringCreateWithBytes(0, "Product Type", 12, 0x8000100u, 0);
-    v205 = v35;
-    if (!v35)
-    {
-      v137 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v137, "Could not construct");
-    }
-
-    if (*(v2 + 404) == 1)
-    {
-      v36 = *(v2 + 400);
-    }
-
-    else
-    {
-      v36 = 0;
-    }
-
-    LODWORD(__p[0]) = v36;
-    vp::rpb::Object::add_user_info<unsigned int>(&v216, v35, __p);
-    if (v205)
-    {
-      CFRelease(v205);
-    }
-
-    v37 = CFStringCreateWithBytes(0, "Acoustic ID", 11, 0x8000100u, 0);
-    v38 = v37;
-    v204 = v37;
-    if (!v37)
-    {
-      v138 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v138, "Could not construct");
-    }
-
-    if (*(v2 + 416) == 1)
-    {
-      v39 = *(v2 + 412);
-    }
-
-    else
-    {
-      v39 = 0;
-    }
-
-    CFRetain(v37);
-    __p[0] = v38;
-    *valuePtr = v39;
-    *buf = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-    if (!*buf)
-    {
-      v139 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v139, "Could not construct");
-    }
-
-    vp::rpb::Object::add_user_info(&v216, __p, buf);
-    if (*buf)
-    {
-      CFRelease(*buf);
-    }
-
-    CFRelease(v38);
-    if (v204)
-    {
-      CFRelease(v204);
-    }
-
-    vp::rpb::Host::new_delegate(&v203);
-    v40 = *(v2 + 728);
-    v41 = *(v2 + 744);
-    if (v41)
-    {
-      atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v41->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v41);
-    }
-
-    v230[0] = &unk_2881C5D48;
-    v230[1] = v40;
-    v230[2] = v41;
-    v230[3] = v230;
-    vp::rpb::Host::Delegate::on_get_property_info(v203, v230);
-    std::__function::__value_func<vp::Expected<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>,vp::rpb::Error> ()(vp::rpb::Scope)>::~__value_func[abi:ne200100](v230);
-    v42 = *(v2 + 728);
-    v43 = *(v2 + 744);
-    if (v43)
-    {
-      atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v43->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
-    }
-
-    v229[0] = &unk_2881C5DD8;
-    v229[1] = v42;
-    v229[2] = v43;
-    v229[3] = v229;
-    vp::rpb::Host::Delegate::on_get_property(v203, v229);
-    std::__function::__value_func<vp::Expected<applesauce::CF::TypeRef,vp::rpb::Error> ()(unsigned int,vp::rpb::Scope,unsigned int)>::~__value_func[abi:ne200100](v229);
-    v202 = v203;
-    vp::rpb::Host::set_delegate(v216, &v202);
-    vp::objc::ID::~ID(&v202);
-    v200 = CFStringCreateWithBytes(0, "Audio Client", 12, 0x8000100u, 0);
-    if (!v200)
-    {
-      v140 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v140, "Could not construct");
-    }
-
-    v44 = v2 + 8;
-    (*(*(v2 + 8) + 16))(buf, v2 + 8, 51);
-    *v218 = *buf;
-    *&v218[8] = *&buf[8];
-    *&buf[8] = 0;
-    *&buf[16] = 0;
-    v45 = vp::vx::data_flow::State<void>::~State(buf);
-    default_resource = std::pmr::get_default_resource(v45);
-    *&valuePtr[16] = 0;
-    *valuePtr = default_resource;
-    *v179 = *v218;
-    *buf = *&v218[8];
-    *&buf[8] = v179;
-    *&buf[16] = valuePtr;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v218[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-    v47 = vp::vx::data_flow::Value::view_storage(valuePtr);
-    *__p = *v47;
-    v168 = *(v47 + 16);
-    v169 = *(v47 + 32);
-    vp::vx::data_flow::Value::~Value(valuePtr);
-    vp::rpb::Terminal::Terminal(v233, __p);
-    (*(*(v2 + 8) + 16))(valuePtr, v2 + 8, 52);
-    *v225 = *valuePtr;
-    *&v225[8] = *&valuePtr[8];
-    *&valuePtr[8] = 0;
-    *&valuePtr[16] = 0;
-    v48 = vp::vx::data_flow::State<void>::~State(valuePtr);
-    v49 = std::pmr::get_default_resource(v48);
-    *&v179[8] = 0;
-    *&v179[16] = 0;
-    *v179 = v49;
-    LODWORD(v223) = *v225;
-    *valuePtr = *&v225[8];
-    *&valuePtr[8] = &v223;
-    *&valuePtr[16] = v179;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v225[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, valuePtr);
-    v50 = vp::vx::data_flow::Value::view_storage(v179);
-    *buf = *v50;
-    *&buf[16] = *(v50 + 16);
-    v228 = *(v50 + 32);
-    vp::vx::data_flow::Value::~Value(v179);
-    vp::rpb::Terminal::Terminal(&v231, buf);
-    vp::rpb::Item::Item(&v201, &v200, v233, 1, &v231, 1);
-    vp::objc::ID::~ID(&v231);
-    vp::vx::data_flow::State<void>::~State(v225);
-    vp::objc::ID::~ID(v233);
-    vp::vx::data_flow::State<void>::~State(v218);
-    if (v200)
-    {
-      CFRelease(v200);
-    }
-
-    vp::rpb::Host::add_item(v216, &v201);
-    v198 = CFStringCreateWithBytes(0, "Hardware Microphone Input", 25, 0x8000100u, 0);
-    if (!v198)
-    {
-      v141 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v141, "Could not construct");
-    }
-
-    (*(*v44 + 16))(buf, v2 + 8, 8);
-    *v179 = *buf;
-    *&v179[8] = *&buf[8];
-    *&buf[8] = 0;
-    *&buf[16] = 0;
-    v51 = vp::vx::data_flow::State<void>::~State(buf);
-    v52 = std::pmr::get_default_resource(v51);
-    *&valuePtr[16] = 0;
-    *valuePtr = v52;
-    *v225 = *v179;
-    *buf = *&v179[8];
-    *&buf[8] = v225;
-    *&buf[16] = valuePtr;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v179[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-    v53 = vp::vx::data_flow::Value::view_storage(valuePtr);
-    *__p = *v53;
-    v168 = *(v53 + 16);
-    v169 = *(v53 + 32);
-    vp::vx::data_flow::Value::~Value(valuePtr);
-    vp::rpb::Terminal::Terminal(v218, __p);
-    vp::rpb::Item::Item(&v199, &v198, 0, 0, v218, 1);
-    vp::objc::ID::~ID(v218);
-    vp::vx::data_flow::State<void>::~State(v179);
-    if (v198)
-    {
-      CFRelease(v198);
-    }
-
-    vp::rpb::Host::add_item(v216, &v199);
-    v196 = CFStringCreateWithBytes(0, "Hardware Reference Input", 24, 0x8000100u, 0);
-    if (!v196)
-    {
-      v142 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v142, "Could not construct");
-    }
-
-    (*(*v44 + 16))(buf, v2 + 8, 24);
-    *v179 = *buf;
-    *&v179[8] = *&buf[8];
-    *&buf[8] = 0;
-    *&buf[16] = 0;
-    v54 = vp::vx::data_flow::State<void>::~State(buf);
-    v55 = std::pmr::get_default_resource(v54);
-    *&valuePtr[16] = 0;
-    *valuePtr = v55;
-    *v225 = *v179;
-    *buf = *&v179[8];
-    *&buf[8] = v225;
-    *&buf[16] = valuePtr;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v179[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-    v56 = vp::vx::data_flow::Value::view_storage(valuePtr);
-    *__p = *v56;
-    v168 = *(v56 + 16);
-    v169 = *(v56 + 32);
-    vp::vx::data_flow::Value::~Value(valuePtr);
-    vp::rpb::Terminal::Terminal(v218, __p);
-    vp::rpb::Item::Item(&v197, &v196, 0, 0, v218, 1);
-    vp::objc::ID::~ID(v218);
-    vp::vx::data_flow::State<void>::~State(v179);
-    if (v196)
-    {
-      CFRelease(v196);
-    }
-
-    vp::rpb::Host::add_item(v216, &v197);
-    v194 = CFStringCreateWithBytes(0, "Hardware Mix Output", 19, 0x8000100u, 0);
-    if (!v194)
-    {
-      v143 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v143, "Could not construct");
-    }
-
-    (*(*v44 + 16))(buf, v2 + 8, 54);
-    *v179 = *buf;
-    *&v179[8] = *&buf[8];
-    *&buf[8] = 0;
-    *&buf[16] = 0;
-    v57 = vp::vx::data_flow::State<void>::~State(buf);
-    v58 = std::pmr::get_default_resource(v57);
-    *&valuePtr[16] = 0;
-    *valuePtr = v58;
-    *v225 = *v179;
-    *buf = *&v179[8];
-    *&buf[8] = v225;
-    *&buf[16] = valuePtr;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v179[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-    v59 = vp::vx::data_flow::Value::view_storage(valuePtr);
-    *__p = *v59;
-    v168 = *(v59 + 16);
-    v169 = *(v59 + 32);
-    vp::vx::data_flow::Value::~Value(valuePtr);
-    vp::rpb::Terminal::Terminal(v218, __p);
-    vp::rpb::Item::Item(&v195, &v194, v218, 1, 0, 0);
-    vp::objc::ID::~ID(v218);
-    vp::vx::data_flow::State<void>::~State(v179);
-    if (v194)
-    {
-      CFRelease(v194);
-    }
-
-    vp::rpb::Host::add_item(v216, &v195);
-    v157 = *(v2 + 2400);
-    v192 = CFStringCreateWithBytes(0, "Uplink", 6, 0x8000100u, 0);
-    if (!v192)
-    {
-      v144 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v144, "Could not construct");
-    }
-
-    (*(*v44 + 16))(buf, v2 + 8, 8);
-    *v225 = *buf;
-    *&v225[8] = *&buf[8];
-    *&buf[8] = 0;
-    *&buf[16] = 0;
-    v60 = vp::vx::data_flow::State<void>::~State(buf);
-    v61 = std::pmr::get_default_resource(v60);
-    *&valuePtr[16] = 0;
-    *valuePtr = v61;
-    *v179 = *v225;
-    *buf = *&v225[8];
-    *&buf[8] = v179;
-    *&buf[16] = valuePtr;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v225[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-    v62 = vp::vx::data_flow::Value::view_storage(valuePtr);
-    *__p = *v62;
-    v168 = *(v62 + 16);
-    v169 = *(v62 + 32);
-    vp::vx::data_flow::Value::~Value(valuePtr);
-    vp::rpb::Terminal::Terminal(&v223, __p);
-    (*(*v44 + 16))(valuePtr, v2 + 8, 24);
-    *v233 = *valuePtr;
-    *&v233[8] = *&valuePtr[8];
-    *&valuePtr[8] = 0;
-    *&valuePtr[16] = 0;
-    v63 = vp::vx::data_flow::State<void>::~State(valuePtr);
-    v64 = std::pmr::get_default_resource(v63);
-    *&v179[8] = 0;
-    *&v179[16] = 0;
-    *v179 = v64;
-    *v218 = *v233;
-    *valuePtr = *&v233[8];
-    *&valuePtr[8] = v218;
-    *&valuePtr[16] = v179;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v233[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, valuePtr);
-    v65 = vp::vx::data_flow::Value::view_storage(v179);
-    *buf = *v65;
-    *&buf[16] = *(v65 + 16);
-    v228 = *(v65 + 32);
-    vp::vx::data_flow::Value::~Value(v179);
-    vp::rpb::Terminal::Terminal(&v224, buf);
-    (*(*v44 + 16))(v179, v2 + 8, 51);
-    LODWORD(v231) = *v179;
-    v232 = *&v179[8];
-    *&v179[8] = 0;
-    *&v179[16] = 0;
-    v66 = vp::vx::data_flow::State<void>::~State(v179);
-    v67 = std::pmr::get_default_resource(v66);
-    *&v218[16] = 0;
-    *v218 = v67;
-    LODWORD(v181) = v231;
-    *v179 = v232;
-    *&v179[8] = &v181;
-    *&v179[16] = v218;
-    vp::vx::data_flow::Engine::do_with_shared_state_lock(v232, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, v179);
-    v68 = vp::vx::data_flow::Value::view_storage(v218);
-    *valuePtr = *v68;
-    *&valuePtr[16] = *(v68 + 16);
-    v191 = *(v68 + 32);
-    vp::vx::data_flow::Value::~Value(v218);
-    vp::rpb::Terminal::Terminal(&v221, valuePtr);
-    vp::rpb::Item::Item(&v193, &v192, &v223, 2, &v221, 1);
-    vp::objc::ID::~ID(&v221);
-    vp::vx::data_flow::State<void>::~State(&v231);
-    for (i = 8; i != -8; i -= 8)
-    {
-      vp::objc::ID::~ID((&v223 + i));
-    }
-
-    vp::vx::data_flow::State<void>::~State(v233);
-    vp::vx::data_flow::State<void>::~State(v225);
-    if (v192)
-    {
-      CFRelease(v192);
-    }
-
-    vp::rpb::Host::add_item(v216, &v193);
-    vp::rpb::Wire::Wire(&v189, &v193, 0, &v201, 0);
-    vp::rpb::Host::add_wire(v216, &v189);
-    vp::rpb::Wire::Wire(&v188, &v199, 0, &v193, 0);
-    vp::rpb::Host::add_wire(v216, &v188);
-    vp::rpb::Wire::Wire(&v187, &v197, 0, &v193, 1);
-    vp::rpb::Host::add_wire(v216, &v187);
-    v158 = *(v2 + 2584);
-    v186 = 0;
-    if (*(v2 + 264) == 3)
-    {
-      v185 = CFStringCreateWithBytes(0, "Downlink", 8, 0x8000100u, 0);
-      if (!v185)
+      v13 = *(v53[0] + 1);
+      if ((v12 & (v12 - 1)) != 0)
       {
-        v147 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v147, "Could not construct");
-      }
-
-      (*(*v44 + 16))(buf, v2 + 8, 52);
-      *v218 = *buf;
-      *&v218[8] = *&buf[8];
-      *&buf[8] = 0;
-      *&buf[16] = 0;
-      v70 = vp::vx::data_flow::State<void>::~State(buf);
-      v71 = std::pmr::get_default_resource(v70);
-      *&valuePtr[16] = 0;
-      *valuePtr = v71;
-      *v179 = *v218;
-      *buf = *&v218[8];
-      *&buf[8] = v179;
-      *&buf[16] = valuePtr;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v218[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-      v72 = vp::vx::data_flow::Value::view_storage(valuePtr);
-      *__p = *v72;
-      v168 = *(v72 + 16);
-      v169 = *(v72 + 32);
-      vp::vx::data_flow::Value::~Value(valuePtr);
-      vp::rpb::Terminal::Terminal(&v231, __p);
-      (*(*v44 + 16))(valuePtr, v2 + 8, 54);
-      *v225 = *valuePtr;
-      *&v225[8] = *&valuePtr[8];
-      *&valuePtr[8] = 0;
-      *&valuePtr[16] = 0;
-      v73 = vp::vx::data_flow::State<void>::~State(valuePtr);
-      v74 = std::pmr::get_default_resource(v73);
-      *&v179[8] = 0;
-      *&v179[16] = 0;
-      *v179 = v74;
-      LODWORD(v221) = *v225;
-      *valuePtr = *&v225[8];
-      *&valuePtr[8] = &v221;
-      *&valuePtr[16] = v179;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v225[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, valuePtr);
-      v75 = vp::vx::data_flow::Value::view_storage(v179);
-      *buf = *v75;
-      *&buf[16] = *(v75 + 16);
-      v228 = *(v75 + 32);
-      vp::vx::data_flow::Value::~Value(v179);
-      vp::rpb::Terminal::Terminal(&v223, buf);
-      vp::rpb::Item::Item(v233, &v185, &v231, 1, &v223, 1);
-      vp::objc::ID::operator=(&v186, v233);
-      vp::objc::ID::~ID(v233);
-      vp::objc::ID::~ID(&v223);
-      vp::vx::data_flow::State<void>::~State(v225);
-      vp::objc::ID::~ID(&v231);
-      vp::vx::data_flow::State<void>::~State(v218);
-      if (v185)
-      {
-        CFRelease(v185);
-      }
-
-      vp::rpb::Host::add_item(v216, &v186);
-    }
-
-    else
-    {
-      v183 = CFStringCreateWithBytes(0, "Downlink", 8, 0x8000100u, 0);
-      if (!v183)
-      {
-        v148 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v148, "Could not construct");
-      }
-
-      (*(*v44 + 16))(buf, v2 + 8, 52);
-      LODWORD(v223) = *buf;
-      v224 = *&buf[8];
-      *&buf[8] = 0;
-      *&buf[16] = 0;
-      v76 = vp::vx::data_flow::State<void>::~State(buf);
-      v77 = std::pmr::get_default_resource(v76);
-      *&valuePtr[16] = 0;
-      *valuePtr = v77;
-      *v179 = v223;
-      *buf = v224;
-      *&buf[8] = v179;
-      *&buf[16] = valuePtr;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(v224, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-      v78 = vp::vx::data_flow::Value::view_storage(valuePtr);
-      *__p = *v78;
-      v168 = *(v78 + 16);
-      v169 = *(v78 + 32);
-      vp::vx::data_flow::Value::~Value(valuePtr);
-      vp::rpb::Terminal::Terminal(v225, __p);
-      (*(*v44 + 16))(valuePtr, v2 + 8, 54);
-      LODWORD(v221) = *valuePtr;
-      v222 = *&valuePtr[8];
-      *&valuePtr[8] = 0;
-      *&valuePtr[16] = 0;
-      v79 = vp::vx::data_flow::State<void>::~State(valuePtr);
-      v80 = std::pmr::get_default_resource(v79);
-      *&v179[8] = 0;
-      *&v179[16] = 0;
-      *v179 = v80;
-      *v218 = v221;
-      *valuePtr = v222;
-      *&valuePtr[8] = v218;
-      *&valuePtr[16] = v179;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(v222, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, valuePtr);
-      v81 = vp::vx::data_flow::Value::view_storage(v179);
-      *buf = *v81;
-      *&buf[16] = *(v81 + 16);
-      v228 = *(v81 + 32);
-      vp::vx::data_flow::Value::~Value(v179);
-      vp::rpb::Terminal::Terminal(&v225[8], buf);
-      (*(*v44 + 16))(v179, v2 + 8, 54);
-      LODWORD(v181) = *v179;
-      v182 = *&v179[8];
-      *&v179[8] = 0;
-      *&v179[16] = 0;
-      v82 = vp::vx::data_flow::State<void>::~State(v179);
-      v83 = std::pmr::get_default_resource(v82);
-      *&v218[16] = 0;
-      *v218 = v83;
-      *v233 = v181;
-      *v179 = v182;
-      *&v179[8] = v233;
-      *&v179[16] = v218;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(v182, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, v179);
-      v84 = vp::vx::data_flow::Value::view_storage(v218);
-      *valuePtr = *v84;
-      *&valuePtr[16] = *(v84 + 16);
-      v191 = *(v84 + 32);
-      vp::vx::data_flow::Value::~Value(v218);
-      vp::rpb::Terminal::Terminal(&v225[16], valuePtr);
-      (*(*v44 + 16))(v218, v2 + 8, 54);
-      LODWORD(v177) = *v218;
-      v178 = *&v218[8];
-      *&v218[8] = 0;
-      *&v218[16] = 0;
-      v85 = vp::vx::data_flow::State<void>::~State(v218);
-      v86 = std::pmr::get_default_resource(v85);
-      *&v233[8] = 0;
-      *&v233[16] = 0;
-      *v233 = v86;
-      LODWORD(v231) = v177;
-      *v218 = v178;
-      *&v218[8] = &v231;
-      *&v218[16] = v233;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(v178, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, v218);
-      v87 = vp::vx::data_flow::Value::view_storage(v233);
-      *v179 = *v87;
-      *&v179[16] = *(v87 + 16);
-      v180 = *(v87 + 32);
-      vp::vx::data_flow::Value::~Value(v233);
-      vp::rpb::Terminal::Terminal(&v226, v179);
-      (*(*v44 + 16))(v233, v2 + 8, 54);
-      LODWORD(v175) = *v233;
-      v176 = *&v233[8];
-      *&v233[8] = 0;
-      *&v233[16] = 0;
-      v88 = vp::vx::data_flow::State<void>::~State(v233);
-      v89 = std::pmr::get_default_resource(v88);
-      v232 = 0uLL;
-      v231 = v89;
-      v217 = v175;
-      *v233 = v176;
-      *&v233[8] = &v217;
-      *&v233[16] = &v231;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(v176, caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, v233);
-      v90 = vp::vx::data_flow::Value::view_storage(&v231);
-      *v218 = *v90;
-      *&v218[16] = *(v90 + 16);
-      v219 = *(v90 + 32);
-      vp::vx::data_flow::Value::~Value(&v231);
-      vp::rpb::Terminal::Terminal(&v220, v218);
-      vp::rpb::Item::Item(&v184, &v183, v225, 4, &v220, 1);
-      vp::objc::ID::operator=(&v186, &v184);
-      vp::objc::ID::~ID(&v184);
-      vp::objc::ID::~ID(&v220);
-      vp::vx::data_flow::State<void>::~State(&v175);
-      for (j = 24; j != -8; j -= 8)
-      {
-        vp::objc::ID::~ID(&v225[j]);
-      }
-
-      vp::vx::data_flow::State<void>::~State(&v177);
-      vp::vx::data_flow::State<void>::~State(&v181);
-      vp::vx::data_flow::State<void>::~State(&v221);
-      vp::vx::data_flow::State<void>::~State(&v223);
-      if (v183)
-      {
-        CFRelease(v183);
-      }
-
-      vp::rpb::Host::add_item(v216, &v186);
-      v174 = CFStringCreateWithBytes(0, "Default Audio Output", 20, 0x8000100u, 0);
-      if (!v174)
-      {
-        v149 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v149, "Could not construct");
-      }
-
-      (*(*v44 + 16))(buf, v2 + 8, 54);
-      *v179 = *buf;
-      *&v179[8] = *&buf[8];
-      *&buf[8] = 0;
-      *&buf[16] = 0;
-      v92 = vp::vx::data_flow::State<void>::~State(buf);
-      v93 = std::pmr::get_default_resource(v92);
-      *&valuePtr[16] = 0;
-      *valuePtr = v93;
-      *v233 = *v179;
-      *buf = *&v179[8];
-      *&buf[8] = v233;
-      *&buf[16] = valuePtr;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v179[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-      v94 = vp::vx::data_flow::Value::view_storage(valuePtr);
-      *__p = *v94;
-      v168 = *(v94 + 16);
-      v169 = *(v94 + 32);
-      vp::vx::data_flow::Value::~Value(valuePtr);
-      vp::rpb::Terminal::Terminal(v225, __p);
-      vp::rpb::Item::Item(v218, &v174, 0, 0, v225, 1);
-      vp::objc::ID::~ID(v225);
-      vp::vx::data_flow::State<void>::~State(v179);
-      if (v174)
-      {
-        CFRelease(v174);
-      }
-
-      vp::rpb::Host::add_item(v216, v218);
-      vp::rpb::Wire::Wire(__p, v218, 0, &v186, 1);
-      vp::rpb::Host::add_wire(v216, __p);
-      vp::objc::ID::~ID(__p);
-      v173 = CFStringCreateWithBytes(0, "System Audio Output", 19, 0x8000100u, 0);
-      if (!v173)
-      {
-        v150 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v150, "Could not construct");
-      }
-
-      (*(*v44 + 16))(buf, v2 + 8, 54);
-      *v179 = *buf;
-      *&v179[8] = *&buf[8];
-      *&buf[8] = 0;
-      *&buf[16] = 0;
-      v95 = vp::vx::data_flow::State<void>::~State(buf);
-      v96 = std::pmr::get_default_resource(v95);
-      *&valuePtr[16] = 0;
-      *valuePtr = v96;
-      LODWORD(v231) = *v179;
-      *buf = *&v179[8];
-      *&buf[8] = &v231;
-      *&buf[16] = valuePtr;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v179[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-      v97 = vp::vx::data_flow::Value::view_storage(valuePtr);
-      *__p = *v97;
-      v168 = *(v97 + 16);
-      v169 = *(v97 + 32);
-      vp::vx::data_flow::Value::~Value(valuePtr);
-      vp::rpb::Terminal::Terminal(v233, __p);
-      vp::rpb::Item::Item(v225, &v173, 0, 0, v233, 1);
-      vp::objc::ID::~ID(v233);
-      vp::vx::data_flow::State<void>::~State(v179);
-      if (v173)
-      {
-        CFRelease(v173);
-      }
-
-      vp::rpb::Host::add_item(v216, v225);
-      vp::rpb::Wire::Wire(__p, v225, 0, &v186, 2);
-      vp::rpb::Host::add_wire(v216, __p);
-      vp::objc::ID::~ID(__p);
-      v172 = CFStringCreateWithBytes(0, "Other Audio Output", 18, 0x8000100u, 0);
-      if (!v172)
-      {
-        v151 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v151, "Could not construct");
-      }
-
-      (*(*v44 + 16))(buf, v2 + 8, 54);
-      *v179 = *buf;
-      *&v179[8] = *&buf[8];
-      *&buf[8] = 0;
-      *&buf[16] = 0;
-      v98 = vp::vx::data_flow::State<void>::~State(buf);
-      v99 = std::pmr::get_default_resource(v98);
-      *&valuePtr[16] = 0;
-      *valuePtr = v99;
-      LODWORD(v223) = *v179;
-      *buf = *&v179[8];
-      *&buf[8] = &v223;
-      *&buf[16] = valuePtr;
-      vp::vx::data_flow::Engine::do_with_shared_state_lock(*&v179[8], caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::data_flow::Engine::get_state_value(unsigned int,vp::vx::data_flow::Value &)::$_0>, buf);
-      v100 = vp::vx::data_flow::Value::view_storage(valuePtr);
-      *__p = *v100;
-      v168 = *(v100 + 16);
-      v169 = *(v100 + 32);
-      vp::vx::data_flow::Value::~Value(valuePtr);
-      vp::rpb::Terminal::Terminal(&v231, __p);
-      vp::rpb::Item::Item(v233, &v172, 0, 0, &v231, 1);
-      vp::objc::ID::~ID(&v231);
-      vp::vx::data_flow::State<void>::~State(v179);
-      if (v172)
-      {
-        CFRelease(v172);
-      }
-
-      vp::rpb::Host::add_item(v216, v233);
-      vp::rpb::Wire::Wire(__p, v233, 0, &v186, 3);
-      vp::rpb::Host::add_wire(v216, __p);
-      vp::objc::ID::~ID(__p);
-      vp::objc::ID::~ID(v233);
-      vp::objc::ID::~ID(v225);
-      vp::objc::ID::~ID(v218);
-    }
-
-    vp::rpb::Wire::Wire(&v231, &v201, 0, &v186, 0);
-    vp::rpb::Host::add_wire(v216, &v231);
-    vp::rpb::Wire::Wire(&v223, &v186, 0, &v195, 0);
-    v156 = v2;
-    vp::rpb::Host::add_wire(v216, &v223);
-    vp::rpb::Server::add_host(**a1, &v216);
-    v155 = a1;
-    memset(buf, 0, 24);
-    *&buf[24] = std::pmr::get_default_resource(v101);
-    memset(valuePtr, 0, 24);
-    *&valuePtr[24] = std::pmr::get_default_resource(*&buf[24]);
-    *v218 = v193;
-    v102 = 0;
-    *&v218[8] = v186;
-    v221 = 0x100000000;
-    v103 = v157;
-    do
-    {
-      if (*(&v221 + v102))
-      {
-        v104 = v158;
+        if (v13 >= v12)
+        {
+          v13 %= v12;
+        }
       }
 
       else
       {
-        v104 = v103;
+        v13 &= v12 - 1;
       }
 
-      if (v104)
-      {
-        v105 = *(&v221 + v102) != 0;
-        v106 = (*(&v221 + v102) ? &v218[8] : v218);
-        v107 = *&v218[8 * (*(&v221 + v102) != 0)];
-        if (v107)
-        {
-          v166 = v107;
-          vp::vx::io::Graph::connect(__p, v104, &v166);
-          if (v171)
-          {
-            v108 = 8 * v105;
-            vp::objc::ID::~ID(&v166);
-            vp::rpb::Item::get_parameter_info(__p, *&v218[v108], 1);
-            caulk::expected<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>,vp::rpb::Error>::value_or<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>> const&>(v179, __p, buf);
-            v109 = *v179;
-            v110 = *&v179[8];
-            while (v109 != v110)
-            {
-              *v225 = *v109;
-              *&v225[4] = 4;
-              *v233 = *v225;
-              *&v233[4] = 1;
-              vp::rpb::Host::add_parameter_wire(v216, v225, v106, v233);
-              v109 += 8;
-            }
-
-            *v225 = v179;
-            std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>::__destroy_vector::operator()[abi:ne200100](v225);
-            caulk::__expected_detail::base<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>,vp::rpb::Error>::~base(__p);
-            vp::rpb::Item::get_parameter_info(__p, *&v218[v108], 2);
-            caulk::expected<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>,vp::rpb::Error>::value_or<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>> const&>(v179, __p, buf);
-            v111 = *v179;
-            v112 = *&v179[8];
-            while (v111 != v112)
-            {
-              *v225 = *v111;
-              *&v225[4] = 2;
-              *v233 = *v225;
-              *&v233[4] = 4;
-              vp::rpb::Host::add_parameter_wire(v216, v106, v225, v233);
-              v111 += 8;
-            }
-
-            *v225 = v179;
-            std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>::__destroy_vector::operator()[abi:ne200100](v225);
-            caulk::__expected_detail::base<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>,vp::rpb::Error>::~base(__p);
-            vp::rpb::Item::get_property_info(__p, *&v218[v108], 1);
-            caulk::expected<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>,vp::rpb::Error>::value_or<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>> const&>(v179, __p, valuePtr);
-            v113 = *v179;
-            v114 = *&v179[8];
-            while (v113 != v114)
-            {
-              *v225 = *v113;
-              *&v225[4] = 4;
-              *v233 = *v225;
-              *&v233[4] = 1;
-              vp::rpb::Host::add_property_wire(v216, v225, v106, v233);
-              v113 += 8;
-            }
-
-            *v225 = v179;
-            std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__destroy_vector::operator()[abi:ne200100](v225);
-            caulk::__expected_detail::base<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>,vp::rpb::Error>::~base(__p);
-            vp::rpb::Item::get_property_info(__p, *&v218[v108], 2);
-            caulk::expected<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>,vp::rpb::Error>::value_or<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>> const&>(v179, __p, valuePtr);
-            v103 = v157;
-            v115 = *v179;
-            v116 = *&v179[8];
-            while (v115 != v116)
-            {
-              *v225 = *v115;
-              *&v225[4] = 2;
-              *v233 = *v225;
-              *&v233[4] = 4;
-              vp::rpb::Host::add_property_wire(v216, v106, v225, v233);
-              v115 += 8;
-            }
-
-            *v225 = v179;
-            std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__destroy_vector::operator()[abi:ne200100](v225);
-            caulk::__expected_detail::base<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>,vp::rpb::Error>::~base(__p);
-          }
-
-          else
-          {
-            if (SHIBYTE(v169) < 0)
-            {
-              (*(*v170 + 24))(v170, v168, v169 & 0x7FFFFFFFFFFFFFFFLL, 1);
-            }
-
-            vp::objc::ID::~ID(&v166);
-          }
-        }
-      }
-
-      v102 += 4;
+      *(v11 + v13) = v40;
+      v53[0] = 0;
+      v53[1] = 0;
     }
 
-    while (v102 != 8);
-    vp::rpb::Item::get_sub_host(v225, v186);
-    if (*v225)
+    v26 = v55;
+    v55 = 0uLL;
+    *v42 = v26;
+    *v43 = v56;
+    v44 = v57;
+    if (*(&v56 + 1))
     {
-      vp::rpb::Item::get_inputs(&v221, v186);
-      vp::rpb::Array<vp::rpb::Terminal>::operator[](v233, v221);
-      v165 = CFStringCreateWithBytes(0, "RGBRPBTerminalSubHostPeerUUIDString", 35, 0x8000100u, 0);
-      if (!v165)
+      v27 = *(v56 + 8);
+      if ((*(&v26 + 1) & (*(&v26 + 1) - 1)) != 0)
       {
-        v145 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v145, "Could not construct");
-      }
-
-      v164 = CFStringCreateWithBytes(0, "Voice_Proc", 10, 0x8000100u, 0);
-      if (!v164)
-      {
-        v146 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v146, "Could not construct");
-      }
-
-      vp::rpb::Host::find_item_by_name(&v184, *v225, &v164);
-      v117 = v184;
-      v175 = [v117 outputs];
-
-      vp::rpb::Array<vp::rpb::Terminal>::operator[](&v177, v175);
-      v118 = [v177 UUID];
-      v119 = [v118 UUIDString];
-      applesauce::CF::StringRef::from_get(&v181, v119);
-
-      v120 = v165;
-      if (v165)
-      {
-        CFRetain(v165);
-      }
-
-      __p[0] = v120;
-      v121 = v181;
-      if (v181)
-      {
-        CFRetain(v181);
-      }
-
-      *v179 = v121;
-      vp::rpb::Object::add_user_info(v233, __p, v179);
-      if (*v179)
-      {
-        CFRelease(*v179);
-      }
-
-      if (__p[0])
-      {
-        CFRelease(__p[0]);
-      }
-
-      if (v181)
-      {
-        CFRelease(v181);
-      }
-
-      vp::objc::ID::~ID(&v177);
-      vp::objc::ID::~ID(&v175);
-      vp::objc::ID::~ID(&v184);
-      if (v164)
-      {
-        CFRelease(v164);
-      }
-
-      if (v165)
-      {
-        CFRelease(v165);
-      }
-
-      vp::objc::ID::~ID(v233);
-      vp::objc::ID::~ID(&v221);
-      if (*(v156 + 264) != 3)
-      {
-        vp::rpb::Item::get_inputs(v179, v186);
-        vp::rpb::Array<vp::rpb::Terminal>::operator[](__p, *v179);
-        v122 = CFStringCreateWithBytes(0, "RGBRPBTerminalSubHostPeerIndex", 30, 0x8000100u, 0);
-        v163 = v122;
-        if (!v122)
+        if (v27 >= *(&v26 + 1))
         {
-          v152 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v152, "Could not construct");
+          v27 %= *(&v26 + 1);
         }
-
-        *v233 = 0;
-        vp::rpb::Object::add_user_info<unsigned int>(__p, v122, v233);
-        CFRelease(v163);
-        vp::objc::ID::~ID(__p);
-        vp::objc::ID::~ID(v179);
-        vp::rpb::Item::get_inputs(v179, v186);
-        vp::rpb::Array<vp::rpb::Terminal>::operator[](__p, *v179);
-        v123 = CFStringCreateWithBytes(0, "RGBRPBTerminalSubHostPeerIndex", 30, 0x8000100u, 0);
-        v162 = v123;
-        if (!v123)
-        {
-          v153 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v153, "Could not construct");
-        }
-
-        *v233 = 1;
-        vp::rpb::Object::add_user_info<unsigned int>(__p, v123, v233);
-        CFRelease(v162);
-        vp::objc::ID::~ID(__p);
-        vp::objc::ID::~ID(v179);
-        vp::rpb::Item::get_inputs(v179, v186);
-        vp::rpb::Array<vp::rpb::Terminal>::operator[](__p, *v179);
-        v124 = CFStringCreateWithBytes(0, "RGBRPBTerminalSubHostPeerIndex", 30, 0x8000100u, 0);
-        v161 = v124;
-        if (!v124)
-        {
-          v154 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v154, "Could not construct");
-        }
-
-        *v233 = 2;
-        vp::rpb::Object::add_user_info<unsigned int>(__p, v124, v233);
-        CFRelease(v161);
-        vp::objc::ID::~ID(__p);
-        vp::objc::ID::~ID(v179);
       }
+
+      else
+      {
+        v27 &= *(&v26 + 1) - 1;
+      }
+
+      *(v26 + 8 * v27) = v43;
+      v56 = 0uLL;
     }
-
-    vp::objc::ID::~ID(v225);
-    v160 = **v155;
-    v159 = v216;
-    vp::rpb::Connection::Connection(__p, &v160, &v159);
-    vp::objc::ID::operator=((v156 + 2368), __p);
-    vp::objc::ID::operator=((v156 + 2376), &__p[1]);
-    vp::rpb::Connection::~Connection(__p);
-    vp::objc::ID::~ID(&v159);
-    vp::objc::ID::~ID(&v160);
-    vp::objc::ID::operator=((v156 + 2384), &v203);
-    vp::objc::ID::~ID(&v218[8]);
-    vp::objc::ID::~ID(v218);
-    __p[0] = valuePtr;
-    std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__destroy_vector::operator()[abi:ne200100](__p);
-    __p[0] = buf;
-    std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>::__destroy_vector::operator()[abi:ne200100](__p);
-    vp::objc::ID::~ID(&v223);
-    vp::objc::ID::~ID(&v231);
-    vp::objc::ID::~ID(&v186);
-    vp::objc::ID::~ID(&v187);
-    vp::objc::ID::~ID(&v188);
-    vp::objc::ID::~ID(&v189);
-    vp::objc::ID::~ID(&v193);
-    vp::objc::ID::~ID(&v195);
-    vp::objc::ID::~ID(&v197);
-    vp::objc::ID::~ID(&v199);
-    vp::objc::ID::~ID(&v201);
-    vp::objc::ID::~ID(&v203);
-    vp::objc::ID::~ID(&v216);
-  }
-
-  v125 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2726EC880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id *a13, uint64_t a14, uint64_t a15, uint64_t a16, const void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, id a51, id a52, id a53, id a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, id a62, uint64_t a63)
-{
-  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a17);
-  vp::objc::ID::~ID(&__p);
-  vp::objc::ID::~ID(&a39);
-  vp::objc::ID::~ID(&STACK[0x2D0]);
-  vp::objc::ID::~ID(a13);
-  vp::objc::ID::~ID(&STACK[0x270]);
-  STACK[0x270] = &a55;
-  std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__destroy_vector::operator()[abi:ne200100](&STACK[0x270]);
-  a55 = &STACK[0x2F0];
-  std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>::__destroy_vector::operator()[abi:ne200100](&a55);
-  vp::objc::ID::~ID(&STACK[0x2B8]);
-  vp::objc::ID::~ID((v72 - 184));
-  vp::objc::ID::~ID(&a51);
-  vp::objc::ID::~ID(&a52);
-  vp::objc::ID::~ID(&a53);
-  vp::objc::ID::~ID(&a54);
-  vp::objc::ID::~ID(&a62);
-  vp::objc::ID::~ID(&a64);
-  vp::objc::ID::~ID(&a66);
-  vp::objc::ID::~ID(&a68);
-  vp::objc::ID::~ID(&a70);
-  vp::objc::ID::~ID(&a72);
-  vp::objc::ID::~ID(&STACK[0x260]);
-  _Unwind_Resume(a1);
-}
-
-void vp::rpb::Object::add_user_info<BOOL const&>(id *a1, CFTypeRef cf, _BYTE *a3)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  v9 = cf;
-  if (*a3)
-  {
-    v6 = MEMORY[0x277CBED28];
   }
 
   else
   {
-    v6 = MEMORY[0x277CBED10];
+    log = vp::get_log(v9);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      log_context_info = vp::get_log_context_info(__p, v8, "vp::vx::Voice_Processor]", 23);
+      v16 = v46;
+      v17 = v46;
+      v18 = __p[1];
+      v19 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        if (v17 >= 0)
+        {
+          v20 = v16;
+        }
+
+        else
+        {
+          v20 = v18;
+        }
+
+        v21 = __p[0];
+        if (v17 >= 0)
+        {
+          v21 = __p;
+        }
+
+        if (v20)
+        {
+          v22 = " ";
+        }
+
+        else
+        {
+          v22 = "";
+        }
+
+        v23 = "hardware";
+        v24 = *(a1 + 32);
+        if (v24 == 1)
+        {
+          v23 = "echo";
+        }
+
+        *buf = 136315650;
+        v59 = v21;
+        v60 = 2080;
+        v61 = v22;
+        if (v24 == 2)
+        {
+          v25 = "content";
+        }
+
+        else
+        {
+          v25 = v23;
+        }
+
+        v62 = 2080;
+        v63 = v25;
+        _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_ERROR, "%s%sfailed to get configuration options for uplink %s DSP node", buf, 0x20u);
+        LOBYTE(v17) = v46;
+      }
+
+      if ((v17 & 0x80) != 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
   }
 
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(v56);
+  v28 = v55;
+  *&v55 = 0;
+  if (v28)
+  {
+    operator delete(v28);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(v53[0]);
+  v29 = v52[0];
+  v52[0] = 0;
+  if (v29)
+  {
+    operator delete(v29);
+  }
+
+  if ((v10 & 1) == 0)
+  {
+LABEL_41:
+    LOBYTE(v34) = 0;
+    BYTE8(v34) = 0;
+    LOBYTE(v35) = 0;
+    BYTE8(v35) = 0;
+    LOBYTE(v36) = 0;
+    BYTE8(v36) = 0;
+    LOBYTE(v37) = 0;
+    BYTE8(v37) = 0;
+    v38[0] = 0;
+    v38[8] = 0;
+    v38[16] = 0;
+    v38[24] = 0;
+    *v39 = 0u;
+    *v40 = 0u;
+    *v42 = 0u;
+    *v43 = 0u;
+    v41 = 1065353216;
+    v44 = 1065353216;
+  }
+
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v30);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<vp::vx::DSP_Node_Configuration_Options>(void)::s_type_id;
+  storage = vp::vx::data_flow::Value::allocate_storage(v4);
+  *storage = v34;
+  storage[1] = v35;
+  *(storage + 73) = *&v38[9];
+  storage[3] = v37;
+  storage[4] = *v38;
+  storage[2] = v36;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__hash_table((storage + 6), v39);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__hash_table(storage + 136, v42);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(v43[0]);
+  v32 = v42[0];
+  v42[0] = 0;
+  if (v32)
+  {
+    operator delete(v32);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(v40[0]);
+  v33 = v39[0];
+  v39[0] = 0;
+  if (v33)
+  {
+    operator delete(v33);
+  }
+}
+
+void sub_2726D1A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26)
+{
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(&a26);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(&a21);
+  _Unwind_Resume(a1);
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Configuration_Context>::destroy_value(uint64_t a1, uint64_t *a2)
+{
+  v2 = *a2;
+  v3 = *(*a2 + 72);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = *(v2 + 32);
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Configuration_Context>::move_value(uint64_t a1, uint64_t *a2, __int128 **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a3;
+  *(v3 + 12) = *(*a3 + 12);
+  *v3 = v5;
+  *(v3 + 32) = *(v4 + 4);
+  *(v4 + 4) = 0;
+  v6 = *(v4 + 40);
+  *(v3 + 52) = *(v4 + 52);
+  *(v3 + 40) = v6;
+  *(v3 + 72) = *(v4 + 9);
+  *(v4 + 9) = 0;
+  result = v4[5];
+  v8 = v4[6];
+  v9 = v4[8];
+  *(v3 + 112) = v4[7];
+  *(v3 + 128) = v9;
+  *(v3 + 80) = result;
+  *(v3 + 96) = v8;
+  return result;
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Configuration_Context>::copy_value(uint64_t a1, uint64_t *a2, __int128 **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a3;
+  *(v3 + 12) = *(*a3 + 12);
+  *v3 = v5;
+  v6 = *(v4 + 4);
+  if (v6)
+  {
+    CFRetain(*(v4 + 4));
+  }
+
+  *(v3 + 32) = v6;
+  v7 = *(v4 + 40);
+  *(v3 + 52) = *(v4 + 52);
+  *(v3 + 40) = v7;
+  v8 = *(v4 + 9);
+  if (v8)
+  {
+    CFRetain(*(v4 + 9));
+  }
+
+  *(v3 + 72) = v8;
+  result = v4[5];
+  v10 = v4[6];
+  v11 = v4[8];
+  *(v3 + 112) = v4[7];
+  *(v3 + 128) = v11;
+  *(v3 + 80) = result;
+  *(v3 + 96) = v10;
+  return result;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Configuration_Context>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Configuration_Context>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 144, 8);
+  *a2 = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_30DSP_Node_Configuration_OptionsEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_optionsENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESE_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_30DSP_Node_Configuration_OptionsEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_optionsENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESE_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_30DSP_Node_Configuration_OptionsEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_optionsENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESE_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BFE70;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a2 + 32) = *(result + 32);
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_30DSP_Node_Configuration_OptionsEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_optionsENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESE_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881BFE70;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_30DSP_Node_Configuration_OptionsEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_optionsENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESE_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881BFE70;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void vp::vx::Voice_Processor::get_spatial_head_tracking_enabled(vp::vx::Voice_Processor *this, uint64_t a2)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  cf = CFStringCreateWithBytes(0, "spatial head-tracking enabled", 29, 0x8000100u, 0);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v14 = 0;
+  v15 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v4 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &cf);
+  if (v4)
+  {
+    vp::vx::data_flow::State_Manager::find_state(&v22, (a2 + 64), *(v4 + 6));
+    v5 = v22;
+    LODWORD(v24) = v22;
+    v11 = v23;
+    v23 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v14);
+    v14 = v5;
+    v15 = v11;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    vp::vx::data_flow::State<void>::~State(&v22);
+  }
+
+  if (!v15)
+  {
+    (*(*(a2 + 8) + 16))(&v24, a2 + 8, 79);
+    v6 = v24;
+    v16 = v24;
+    v17 = v25;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    v24 = &unk_2881C0A28;
+    LOBYTE(v25) = 0;
+    v26 = &v24;
+    v21 = v6;
+    vp::vx::data_flow::State_Manager::create_state(&v22, (a2 + 64), &v24);
+    v7 = v22;
+    v18 = v22;
+    v12 = v23;
+    v23 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v22);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v24);
+    LODWORD(v24) = v7;
+    v19 = 0;
+    v20 = 0;
+    vp::vx::data_flow::State<void>::~State(&v18);
+    vp::vx::data_flow::State<void>::~State(&v16);
+    vp::vx::data_flow::State<void>::~State(&v14);
+    v14 = v7;
+    v15 = v12;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    v8 = v14;
+    v9 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+
+    v24 = v9;
+    LODWORD(v25) = v8;
+    std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v24, &v24);
+    if (v24)
+    {
+      CFRelease(v24);
+    }
+  }
+
+  *this = v14;
+  *(this + 8) = v15;
+  v15 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v14);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_2726D20C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+int *_ZN2vp2vx29Voice_Processor_State_Manager12create_stateIRKZNS0_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKS5_E_JN2CA17StreamDescriptionEEEES6_OS7_DpRKNS0_9data_flow5StateIT0_EE(uint64_t a1, uint64_t a2, int a3)
+{
+  v13[4] = *MEMORY[0x277D85DE8];
+  v13[0] = &unk_2881BF978;
+  v13[1] = 28;
+  v13[3] = v13;
+  v10 = a3;
+  vp::vx::data_flow::State_Manager::create_state(&v11, (a2 + 48), v13);
+  v4 = v11;
+  v7 = v11;
+  v6 = v12;
+  v12 = 0uLL;
+  vp::vx::data_flow::State<void>::~State(&v11);
+  std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](v13);
+  *a1 = v4;
+  *(a1 + 8) = v6;
+  v8 = 0;
+  v9 = 0;
+  return vp::vx::data_flow::State<void>::~State(&v7);
+}
+
+void vp::vx::Voice_Processor::get_other_audio_advanced_ducking_enabled(vp::vx::Voice_Processor *this, uint64_t a2)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  cf = CFStringCreateWithBytes(0, "other audio advanced ducking enabled", 36, 0x8000100u, 0);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v14 = 0;
+  v15 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v4 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &cf);
+  if (v4)
+  {
+    vp::vx::data_flow::State_Manager::find_state(&v22, (a2 + 64), *(v4 + 6));
+    v5 = v22;
+    LODWORD(v24) = v22;
+    v11 = v23;
+    v23 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v14);
+    v14 = v5;
+    v15 = v11;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    vp::vx::data_flow::State<void>::~State(&v22);
+  }
+
+  if (!v15)
+  {
+    (*(*(a2 + 8) + 16))(&v24, a2 + 8, 90);
+    v6 = v24;
+    v16 = v24;
+    v17 = v25;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    v24 = &unk_2881C0A70;
+    LOBYTE(v25) = 0;
+    v26 = &v24;
+    v21 = v6;
+    vp::vx::data_flow::State_Manager::create_state(&v22, (a2 + 64), &v24);
+    v7 = v22;
+    v18 = v22;
+    v12 = v23;
+    v23 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v22);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v24);
+    LODWORD(v24) = v7;
+    v19 = 0;
+    v20 = 0;
+    vp::vx::data_flow::State<void>::~State(&v18);
+    vp::vx::data_flow::State<void>::~State(&v16);
+    vp::vx::data_flow::State<void>::~State(&v14);
+    v14 = v7;
+    v15 = v12;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    v8 = v14;
+    v9 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+
+    v24 = v9;
+    LODWORD(v25) = v8;
+    std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v24, &v24);
+    if (v24)
+    {
+      CFRelease(v24);
+    }
+  }
+
+  *this = v14;
+  *(this + 8) = v15;
+  v15 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v14);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_2726D24A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+__n128 _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_21Configuration_ContextEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIS6_ZNS3_12_GLOBAL__N_123make_constructor_lambdaIS6_EEDavEUlDpRKT_E_JNS3_14Operation_ModeENS3_11Chat_FlavorENS3_15Input_Port_TypeENS3_13Port_Sub_TypeEjjjN10applesauce2CF9StringRefENS3_16Output_Port_TypeESM_NS3_18Port_Endpoint_TypeEbjjjSP_bbbbbbbjjjjjjjdbbbbjbbNS3_20AirPods_Offload_ModeEEEESD_OT0_DpRKNS4_5StateIT1_EEEUlSH_E_JSJ_SK_SL_SM_jjjSP_SQ_SM_SR_bjjjSP_bbbbbbbjjjjjjjdbbbbjbbSS_EEERNS4_13State_ManagerET_DpRKNSV_IT0_EEEUlPPKNS4_5ValueEPS1A_E_NS_9allocatorIS1F_EEFvS1D_S1E_EEclEOS1D_OS1E_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v71 = *a3;
+  if (*(**a2 + 2) == &vp::vx::data_flow::Value::type_id<vp::vx::Operation_Mode>(void)::s_type_id)
+  {
+    v4 = vp::vx::data_flow::Value::view_storage(**a2);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = v3[1];
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id)
+  {
+    v86 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v86 = 0;
+  }
+
+  v6 = v3[2];
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Input_Port_Type>(void)::s_type_id)
+  {
+    v85 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v85 = 0;
+  }
+
+  v7 = v3[3];
+  if (v7[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Port_Sub_Type>(void)::s_type_id)
+  {
+    v84 = vp::vx::data_flow::Value::view_storage(v7);
+  }
+
+  else
+  {
+    v84 = 0;
+  }
+
+  v8 = v3[4];
+  if (v8[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v83 = vp::vx::data_flow::Value::view_storage(v8);
+  }
+
+  else
+  {
+    v83 = 0;
+  }
+
+  v9 = v3[5];
+  if (v9[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v82 = vp::vx::data_flow::Value::view_storage(v9);
+  }
+
+  else
+  {
+    v82 = 0;
+  }
+
+  v10 = v3[6];
+  if (v10[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v81 = vp::vx::data_flow::Value::view_storage(v10);
+  }
+
+  else
+  {
+    v81 = 0;
+  }
+
+  v11 = v3[7];
+  if (v11[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v80 = vp::vx::data_flow::Value::view_storage(v11);
+  }
+
+  else
+  {
+    v80 = 0;
+  }
+
+  v12 = v3[8];
+  if (v12[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Output_Port_Type>(void)::s_type_id)
+  {
+    v79 = vp::vx::data_flow::Value::view_storage(v12);
+  }
+
+  else
+  {
+    v79 = 0;
+  }
+
+  v13 = v3[9];
+  if (v13[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Port_Sub_Type>(void)::s_type_id)
+  {
+    v78 = vp::vx::data_flow::Value::view_storage(v13);
+  }
+
+  else
+  {
+    v78 = 0;
+  }
+
+  v14 = v3[10];
+  if (v14[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Port_Endpoint_Type>(void)::s_type_id)
+  {
+    v77 = vp::vx::data_flow::Value::view_storage(v14);
+  }
+
+  else
+  {
+    v77 = 0;
+  }
+
+  v15 = v3[11];
+  if (v15[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v76 = vp::vx::data_flow::Value::view_storage(v15);
+  }
+
+  else
+  {
+    v76 = 0;
+  }
+
+  v16 = v3[12];
+  if (v16[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v75 = vp::vx::data_flow::Value::view_storage(v16);
+  }
+
+  else
+  {
+    v75 = 0;
+  }
+
+  v17 = v3[13];
+  if (v17[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v74 = vp::vx::data_flow::Value::view_storage(v17);
+  }
+
+  else
+  {
+    v74 = 0;
+  }
+
+  v18 = v3[14];
+  if (v18[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v73 = vp::vx::data_flow::Value::view_storage(v18);
+  }
+
+  else
+  {
+    v73 = 0;
+  }
+
+  v19 = v3[15];
+  if (v19[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id)
+  {
+    v72 = vp::vx::data_flow::Value::view_storage(v19);
+  }
+
+  else
+  {
+    v72 = 0;
+  }
+
+  v20 = v3[16];
+  if (v20[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v70 = vp::vx::data_flow::Value::view_storage(v20);
+  }
+
+  else
+  {
+    v70 = 0;
+  }
+
+  v21 = v3[17];
+  if (v21[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v69 = vp::vx::data_flow::Value::view_storage(v21);
+  }
+
+  else
+  {
+    v69 = 0;
+  }
+
+  v22 = v3[18];
+  if (v22[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v68 = vp::vx::data_flow::Value::view_storage(v22);
+  }
+
+  else
+  {
+    v68 = 0;
+  }
+
+  v23 = v3[19];
+  if (v23[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v67 = vp::vx::data_flow::Value::view_storage(v23);
+  }
+
+  else
+  {
+    v67 = 0;
+  }
+
+  v24 = v3[20];
+  if (v24[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v66 = vp::vx::data_flow::Value::view_storage(v24);
+  }
+
+  else
+  {
+    v66 = 0;
+  }
+
+  v25 = v3[21];
+  if (v25[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v65 = vp::vx::data_flow::Value::view_storage(v25);
+  }
+
+  else
+  {
+    v65 = 0;
+  }
+
+  v26 = v3[22];
+  if (v26[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v64 = vp::vx::data_flow::Value::view_storage(v26);
+  }
+
+  else
+  {
+    v64 = 0;
+  }
+
+  v27 = v3[23];
+  if (v27[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v63 = vp::vx::data_flow::Value::view_storage(v27);
+  }
+
+  else
+  {
+    v63 = 0;
+  }
+
+  v28 = v3[24];
+  if (v28[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v62 = vp::vx::data_flow::Value::view_storage(v28);
+  }
+
+  else
+  {
+    v62 = 0;
+  }
+
+  v29 = v3[25];
+  if (v29[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v61 = vp::vx::data_flow::Value::view_storage(v29);
+  }
+
+  else
+  {
+    v61 = 0;
+  }
+
+  v30 = v3[26];
+  if (v30[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v60 = vp::vx::data_flow::Value::view_storage(v30);
+  }
+
+  else
+  {
+    v60 = 0;
+  }
+
+  v31 = v3[27];
+  if (v31[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v59 = vp::vx::data_flow::Value::view_storage(v31);
+  }
+
+  else
+  {
+    v59 = 0;
+  }
+
+  v32 = v3[28];
+  if (v32[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v58 = vp::vx::data_flow::Value::view_storage(v32);
+  }
+
+  else
+  {
+    v58 = 0;
+  }
+
+  v33 = v3[29];
+  if (v33[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v57 = vp::vx::data_flow::Value::view_storage(v33);
+  }
+
+  else
+  {
+    v57 = 0;
+  }
+
+  v34 = v3[30];
+  if (v34[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
+  {
+    v56 = vp::vx::data_flow::Value::view_storage(v34);
+  }
+
+  else
+  {
+    v56 = 0;
+  }
+
+  v35 = v3[31];
+  if (v35[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v36 = vp::vx::data_flow::Value::view_storage(v35);
+  }
+
+  else
+  {
+    v36 = 0;
+  }
+
+  v37 = v3[32];
+  if (v37[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v38 = vp::vx::data_flow::Value::view_storage(v37);
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
+  v39 = v3[33];
+  if (v39[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v40 = vp::vx::data_flow::Value::view_storage(v39);
+  }
+
+  else
+  {
+    v40 = 0;
+  }
+
+  v41 = v3[34];
+  if (v41[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v42 = vp::vx::data_flow::Value::view_storage(v41);
+  }
+
+  else
+  {
+    v42 = 0;
+  }
+
+  v43 = v3[35];
+  if (v43[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v44 = vp::vx::data_flow::Value::view_storage(v43);
+  }
+
+  else
+  {
+    v44 = 0;
+  }
+
+  v45 = v3[36];
+  if (v45[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v46 = vp::vx::data_flow::Value::view_storage(v45);
+  }
+
+  else
+  {
+    v46 = 0;
+  }
+
+  v47 = v3[37];
+  if (v47[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v48 = vp::vx::data_flow::Value::view_storage(v47);
+  }
+
+  else
+  {
+    v48 = 0;
+  }
+
+  v49 = v3[38];
+  if (v49[2] == &vp::vx::data_flow::Value::type_id<vp::vx::AirPods_Offload_Mode>(void)::s_type_id)
+  {
+    v50 = vp::vx::data_flow::Value::view_storage(v49);
+  }
+
+  else
+  {
+    v50 = 0;
+  }
+
+  *v87 = *v4;
+  *&v87[4] = *v86;
+  *&v87[8] = *v85;
+  *&v87[12] = *v84;
+  *&v87[16] = *v83;
+  *&v87[20] = *v82;
+  *&v87[24] = *v81;
+  v51 = *v80;
+  if (*v80)
+  {
+    CFRetain(*v80);
+  }
+
+  *v88 = *v79;
+  *&v88[4] = *v78;
+  *&v88[8] = *v77;
+  v88[12] = *v76;
+  *&v88[16] = *v75;
+  *&v88[20] = *v74;
+  *&v88[24] = *v73;
+  v52 = *v72;
+  if (*v72)
+  {
+    CFRetain(*v72);
+  }
+
+  v89.n128_u8[0] = *v70;
+  v89.n128_u8[1] = *v69;
+  v89.n128_u8[2] = *v68;
+  v89.n128_u8[3] = *v67;
+  v89.n128_u8[4] = *v66;
+  v89.n128_u8[5] = *v65;
+  v89.n128_u8[6] = *v64;
+  v89.n128_u32[2] = *v63;
+  v89.n128_u32[3] = *v62;
+  LODWORD(v90) = *v61;
+  DWORD1(v90) = *v60;
+  DWORD2(v90) = *v59;
+  HIDWORD(v90) = *v58;
+  LODWORD(v91) = *v57;
+  *(&v91 + 1) = *v56;
+  LOBYTE(v92) = *v36;
+  BYTE1(v92) = *v38;
+  BYTE2(v92) = *v40;
+  BYTE3(v92) = *v42;
+  DWORD1(v92) = *v44;
+  BYTE8(v92) = *v46;
+  BYTE9(v92) = *v48;
+  HIDWORD(v92) = *v50;
+  vp::vx::data_flow::Value::~Value(v71);
+  *v71 = std::pmr::get_default_resource(v53);
+  *(v71 + 1) = 0;
+  *(v71 + 2) = &vp::vx::data_flow::Value::type_id<vp::vx::Configuration_Context>(void)::s_type_id;
+  storage = vp::vx::data_flow::Value::allocate_storage(v71);
+  *(storage + 12) = *&v87[12];
+  *storage = *v87;
+  *(storage + 32) = v51;
+  *(storage + 52) = *&v88[12];
+  *(storage + 40) = *v88;
+  *(storage + 72) = v52;
+  result = v89;
+  *(storage + 112) = v91;
+  *(storage + 128) = v92;
+  *(storage + 80) = v89;
+  *(storage + 96) = v90;
+  return result;
+}
+
+void vp::vx::Configuration_Context::~Configuration_Context(vp::vx::Configuration_Context *this)
+{
+  v2 = *(this + 9);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  v3 = *(this + 4);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_21Configuration_ContextEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIS6_ZNS3_12_GLOBAL__N_123make_constructor_lambdaIS6_EEDavEUlDpRKT_E_JNS3_14Operation_ModeENS3_11Chat_FlavorENS3_15Input_Port_TypeENS3_13Port_Sub_TypeEjjjN10applesauce2CF9StringRefENS3_16Output_Port_TypeESM_NS3_18Port_Endpoint_TypeEbjjjSP_bbbbbbbjjjjjjjdbbbbjbbNS3_20AirPods_Offload_ModeEEEESD_OT0_DpRKNS4_5StateIT1_EEEUlSH_E_JSJ_SK_SL_SM_jjjSP_SQ_SM_SR_bjjjSP_bbbbbbbjjjjjjjdbbbbjbbSS_EEERNS4_13State_ManagerET_DpRKNSV_IT0_EEEUlPPKNS4_5ValueEPS1A_E_NS_9allocatorIS1F_EEFvS1D_S1E_EE7__cloneEPNS0_6__baseIS1I_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BF490;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+_BYTE *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_contextEvENK3__0clEvEUlT_T0_E0_JbNS3_20AirPods_Offload_ModeEEEEDaOSC_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JbSF_EEERNS4_13State_ManagerESC_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = (*vp::vx::data_flow::Value::view_storage(v3[1]) != 0) | *v6;
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v8);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v7;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_contextEvENK3__0clEvEUlT_T0_E0_JbNS3_20AirPods_Offload_ModeEEEEDaOSC_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JbSF_EEERNS4_13State_ManagerESC_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BFA28;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+BOOL *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor40get_other_audio_advanced_ducking_enabledEvENK3__0clEvEUlRK39AUVoiceIOOtherAudioDuckingConfigurationE_JSC_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_EEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EEclEOSZ_OS10_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2) != 0;
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor40get_other_audio_advanced_ducking_enabledEvENK3__0clEvEUlRK39AUVoiceIOOtherAudioDuckingConfigurationE_JSC_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_EEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE7__cloneEPNS0_6__baseIS14_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C0A70;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIRKZNS3_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKSC_E_JN2CA17StreamDescriptionEEEESD_OSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSN_EEERNS4_13State_ManagerESE_SU_EUlPPKNS4_5ValueEPS12_E_NS_9allocatorIS17_EEFvS15_S16_EEclEOS15_OS16_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *(vp::vx::data_flow::Value::view_storage(**a2) + *(a1 + 8));
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIRKZNS3_12_GLOBAL__N_125make_member_getter_lambdaI27AudioStreamBasicDescriptionjEEDaMT_T0_EUlRKSC_E_JN2CA17StreamDescriptionEEEESD_OSE_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSN_EEERNS4_13State_ManagerESE_SU_EUlPPKNS4_5ValueEPS12_E_NS_9allocatorIS17_EEFvS15_S16_EE7__cloneEPNS0_6__baseIS1A_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881BF978;
+  a2[1] = v2;
+  return result;
+}
+
+_DWORD *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor16get_spatial_modeEvENK3__0clEvEUlNS3_35Spatial_Head_Tracking_ConfigurationEE_JSC_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_EEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EEclEOSX_OSY_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor16get_spatial_modeEvENK3__0clEvEUlNS3_35Spatial_Head_Tracking_ConfigurationEE_JSC_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_EEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EE7__cloneEPNS0_6__baseIS12_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C0930;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+_BYTE *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor33get_spatial_head_tracking_enabledEvENK3__0clEvEUlNS3_35Spatial_Head_Tracking_ConfigurationEE_JSC_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_EEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EEclEOSX_OSY_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *(vp::vx::data_flow::Value::view_storage(**a2) + 4) & 1;
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<BOOL>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIbEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor33get_spatial_head_tracking_enabledEvENK3__0clEvEUlNS3_35Spatial_Head_Tracking_ConfigurationEE_JSC_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_EEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EE7__cloneEPNS0_6__baseIS12_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C0A28;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_11Chat_FlavorEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_contextEvENK3__0clEvEUlT_T0_E_JS6_N10applesauce2CF9StringRefEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JS6_SI_EEERNS4_13State_ManagerESD_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = vp::vx::data_flow::Value::view_storage(v3[1]);
   v8 = *v6;
-  v7 = v8;
-  vp::rpb::Object::add_user_info(a1, &v9, &v8);
+  v9 = *v7;
+  if (*v7)
+  {
+    CFRetain(*v7);
+    v10 = CFStringCreateWithBytes(0, "Standard", 8, 0x8000100u, 0);
+    v21 = v10;
+    if (!v10)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+    }
+
+    v11 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v9, &v21);
+    CFRelease(v10);
+    if (v11)
+    {
+      v12 = CFStringCreateWithBytes(0, "VoiceIsolation", 14, 0x8000100u, 0);
+      v21 = v12;
+      if (!v12)
+      {
+        v19 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v19, "Could not construct");
+      }
+
+      v13 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v9, &v21);
+      CFRelease(v12);
+      if (v13)
+      {
+        v14 = CFStringCreateWithBytes(0, "WideSpectrum", 12, 0x8000100u, 0);
+        v21 = v14;
+        if (!v14)
+        {
+          v20 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v20, "Could not construct");
+        }
+
+        v15 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v9, &v21);
+        CFRelease(v14);
+        if (v15 == kCFCompareEqualTo)
+        {
+          v8 = 1;
+        }
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    CFRelease(v9);
+  }
+
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v16);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<vp::vx::Chat_Flavor>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v8;
+  return result;
+}
+
+void sub_2726D3510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+{
+  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a10);
+  applesauce::CF::StringRef::~StringRef(&a9);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_11Chat_FlavorEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor25get_configuration_contextEvENK3__0clEvEUlT_T0_E_JS6_N10applesauce2CF9StringRefEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JS6_SI_EEERNS4_13State_ManagerESD_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BF8E8;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void *vp::Service_Provider::get<vp::services::User_Defaults,(decltype(nullptr))0>(void *a1, uint64_t a2)
+{
+  result = boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::find(&v11, a2 + 16, &vp::Service_Interface<1970496627u>::k_service_type_id);
+  v5 = *(a2 + 24);
+  v6 = *(a2 + 32);
+  if (v5)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = v6 == 0;
+  }
+
+  if (!v7)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v8 = v11;
+  if (v11 == (v5 + 16 * v6))
+  {
+    *a1 = 0;
+    a1[1] = 0;
+  }
+
+  else
+  {
+    result = std::shared_ptr<vp::Service_Provider const>::shared_ptr[abi:ne200100]<vp::Service_Provider,0>(v10, *a2, *(a2 + 8));
+    v9 = v10[1];
+    *a1 = *(v8 + 1);
+    a1[1] = v9;
+  }
+
+  return result;
+}
+
+int *vp::vx::Voice_Processor_State_Manager::create_state_for_SIGHUP_signal(vp::vx::Voice_Processor_State_Manager *this, uint64_t a2)
+{
+  if (!*(a2 + 32))
+  {
+    v4 = dispatch_source_create(MEMORY[0x277D85D30], 1uLL, 0, *(a2 + 8));
+    v5 = *(a2 + 16);
+    *(a2 + 16) = v4;
+    if (v5)
+    {
+      dispatch_release(v5);
+    }
+
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x4002000000;
+    v14 = __Block_byref_object_copy__10728;
+    v15 = __Block_byref_object_dispose__10729;
+    v10 = 0;
+    vp::vx::Voice_Processor_State_Manager::create_state<unsigned int>(v16, a2, &v10);
+    v6 = *(a2 + 16);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 0x40000000;
+    v9[2] = ___ZN2vp2vx29Voice_Processor_State_Manager30create_state_for_SIGHUP_signalEv_block_invoke;
+    v9[3] = &unk_279E4A438;
+    v9[4] = &v11;
+    dispatch_source_set_event_handler(v6, v9);
+    v7 = v12;
+    vp::vx::data_flow::State<void>::~State((a2 + 24));
+    vp::vx::data_flow::State<void>::State((a2 + 24), v7 + 10);
+    dispatch_resume(*(a2 + 16));
+    _Block_object_dispose(&v11, 8);
+    vp::vx::data_flow::State<void>::~State(v16);
+  }
+
+  return vp::vx::data_flow::State<void>::State(this, (a2 + 24));
+}
+
+int *vp::vx::Voice_Processor_State_Manager::create_state<applesauce::CF::StringRef>(uint64_t a1, __n128 *a2, void *a3)
+{
+  v11[0] = std::pmr::get_default_resource(a1);
+  v11[1] = 0;
+  v11[2] = &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(v11) = *a3;
+  *a3 = 0;
+  vp::vx::data_flow::State_Manager::create_state(&v12, a2 + 3, v11);
+  LODWORD(a2) = v12;
+  v8 = v12;
+  v7 = v13;
+  v13 = 0uLL;
+  vp::vx::data_flow::State<void>::~State(&v12);
+  vp::vx::data_flow::Value::~Value(v11);
+  *a1 = a2;
+  *(a1 + 8) = v7;
+  v9 = 0;
+  v10 = 0;
+  return vp::vx::data_flow::State<void>::~State(&v8);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EEclEOS12_OS13_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  v6.n128_f64[0] = vp::services::User_Defaults::default_app(&v13, *(a1 + 16));
+  v7 = *(a1 + 8);
   if (v7)
   {
-    CFRelease(v7);
+    CFRetain(v7);
   }
 
+  v17 = v7;
+  (*(*v13 + 32))(&cf, v6);
   if (cf)
   {
-    CFRelease(cf);
-  }
-}
-
-void sub_2726ED58C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
-{
-  applesauce::CF::TypeRef::~TypeRef(&a9);
-  applesauce::CF::StringRef::~StringRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void vp::rpb::Object::add_user_info<std::string>(id *a1, CFTypeRef cf, uint64_t a3)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  v11 = cf;
-  v6 = *(a3 + 23);
-  if (v6 >= 0)
-  {
-    v7 = a3;
-  }
-
-  else
-  {
-    v7 = *a3;
-  }
-
-  if (v6 >= 0)
-  {
-    v8 = *(a3 + 23);
-  }
-
-  else
-  {
-    v8 = *(a3 + 8);
-  }
-
-  cfa = CFStringCreateWithBytes(0, v7, v8, 0x8000100u, 0);
-  if (!cfa)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  vp::rpb::Object::add_user_info(a1, &v11, &cfa);
-  if (cfa)
-  {
-    CFRelease(cfa);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_2726ED688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
-{
-  applesauce::CF::ObjectRef<void const*>::~ObjectRef(&a9);
-  applesauce::CF::StringRef::~StringRef(&a10);
-  _Unwind_Resume(a1);
-}
-
-void vp::rpb::Object::add_user_info<unsigned int>(id *a1, CFTypeRef cf, int *a3)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  v8 = cf;
-  valuePtr = *a3;
-  cfa = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  if (!cfa)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  vp::rpb::Object::add_user_info(a1, &v8, &cfa);
-  if (cfa)
-  {
-    CFRelease(cfa);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-}
-
-void sub_2726ED7A4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  applesauce::CF::ObjectRef<void const*>::~ObjectRef(va);
-  applesauce::CF::StringRef::~StringRef(va1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t caulk::expected<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>,vp::rpb::Error>::value_or<std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>> const&>(uint64_t result, uint64_t a2, uint64_t *a3)
-{
-  if (*(a2 + 32) == 1)
-  {
-    *result = *a2;
-    v3 = *(a2 + 24);
-    *(result + 16) = *(a2 + 16);
-    *(result + 24) = v3;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-  }
-
-  else
-  {
-    *result = 0;
-    *(result + 8) = 0;
-    v4 = a3[3];
-    *(result + 16) = 0;
-    *(result + 24) = v4;
-    return std::vector<vp::rpb::Parameter_Info,vp::Allocator<vp::rpb::Parameter_Info>>::__init_with_size[abi:ne200100]<vp::rpb::Parameter_Info*,vp::rpb::Parameter_Info*>(result, *a3, a3[1], (a3[1] - *a3) >> 5);
-  }
-
-  return result;
-}
-
-uint64_t caulk::expected<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>,vp::rpb::Error>::value_or<std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>> const&>(uint64_t result, uint64_t a2, uint64_t *a3)
-{
-  if (*(a2 + 32) == 1)
-  {
-    *result = *a2;
-    v3 = *(a2 + 24);
-    *(result + 16) = *(a2 + 16);
-    *(result + 24) = v3;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-  }
-
-  else
-  {
-    *result = 0;
-    *(result + 8) = 0;
-    v4 = a3[3];
-    *(result + 16) = 0;
-    *(result + 24) = v4;
-    return std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__init_with_size[abi:ne200100]<vp::rpb::Property_Info*,vp::rpb::Property_Info*>(result, *a3, a3[1], (a3[1] - *a3) >> 5);
-  }
-
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_T0_T1_E_NS_9allocatorISB_EEFNS2_8ExpectedIN10applesauce2CF7TypeRefENS5_5ErrorEEEjNS5_5ScopeEjEEclEOjOSK_SN_(uint64_t a1@<X0>, int *a2@<X1>, int *a3@<X2>, int *a4@<X3>, uint64_t a5@<X8>)
-{
-  v17[4] = *MEMORY[0x277D85DE8];
-  v6 = *a3;
-  v7 = *a4;
-  v16 = *a2;
-  v15 = 0;
-  if (!(v7 | v6) && (v11 = *(a1 + 16)) != 0 && (v12 = std::__shared_weak_count::lock(v11)) != 0)
-  {
-    v13 = v12;
-    v14 = *(a1 + 8);
-    if (v14)
+    v8 = CFGetTypeID(cf);
+    if (v8 != CFStringGetTypeID())
     {
-      v17[0] = &unk_2881C5E20;
-      v17[1] = &v16;
-      v17[2] = &v15;
-      v17[3] = v17;
-      vp::vx::Voice_Processor::call_sync(v14, v17);
-      std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::~__value_func[abi:ne200100](v17);
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
     }
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    v8 = v15;
+    applesauce::CF::StringRef::from_get(&v12, cf);
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (v17)
+  {
+    CFRelease(v17);
+  }
+
+  if (v15)
+  {
+    CFRelease(v15);
+  }
+
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  }
+
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v9);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::StringRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v12;
+  return result;
+}
+
+void sub_2726D3A30(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+{
+  __cxa_free_exception(v9);
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x2726D397CLL);
+}
+
+double vp::services::User_Defaults::default_app(vp::services::User_Defaults *this, void *a2)
+{
+  (*(*a2 + 16))(&cf, a2);
+  v4 = a2[1];
+  vp::Service::get_service_provider(v4);
+  vp::Service_Provider::get<vp::services::User_Defaults,(decltype(nullptr))0>(&v9, v4);
+  v5 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+    v6 = cf;
+    result = *&v9;
+    *this = v9;
+    *(this + 2) = v5;
+    if (v6)
+    {
+      CFRelease(v6);
+    }
+  }
+
+  else
+  {
+    result = *&v9;
+    *this = v9;
+    *(this + 2) = 0;
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE18destroy_deallocateEv(char *a1)
+{
+  _ZNSt3__110__function12__alloc_funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE7destroyB8ne200100Ev((a1 + 8));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function12__alloc_funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE7destroyB8ne200100Ev(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  if (*a1)
+  {
+    CFRelease(*a1);
+  }
+}
+
+CFTypeRef *_ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EE7__cloneEPNS0_6__baseIS17_EE(CFTypeRef *result, void *a2)
+{
+  v3 = result;
+  *a2 = &unk_2881BF930;
+  v4 = result[1];
+  if (v4)
+  {
+    result = CFRetain(result[1]);
+  }
+
+  v6 = v3[2];
+  v5 = v3[3];
+  a2[1] = v4;
+  a2[2] = v6;
+  a2[3] = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881BF930;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9StringRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor26create_user_defaults_stateIS8_S8_EENS4_5StateIT_EEOT0_EUlSG_E_JjEEEDaOSG_DpRKNSF_IT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SR_EUlPPKNS4_5ValueEPSZ_E_NS_9allocatorIS14_EEFvS12_S13_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881BF930;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  return a1;
+}
+
+__n128 __Block_byref_object_copy__10728(__n128 *a1, __n128 *a2)
+{
+  a1[2].n128_u32[2] = a2[2].n128_u32[2];
+  result = a2[3];
+  a1[3] = result;
+  a2[3] = 0uLL;
+  return result;
+}
+
+int *vp::vx::Voice_Processor_State_Manager::create_state<unsigned int>(uint64_t a1, __n128 *a2, _DWORD *a3)
+{
+  v11[0] = std::pmr::get_default_resource(a1);
+  v11[1] = 0;
+  v11[2] = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(v11) = *a3;
+  vp::vx::data_flow::State_Manager::create_state(&v12, a2 + 3, v11);
+  LODWORD(a2) = v12;
+  v8 = v12;
+  v7 = v13;
+  v13 = 0uLL;
+  vp::vx::data_flow::State<void>::~State(&v12);
+  vp::vx::data_flow::Value::~Value(v11);
+  *a1 = a2;
+  *(a1 + 8) = v7;
+  v9 = 0;
+  v10 = 0;
+  return vp::vx::data_flow::State<void>::~State(&v8);
+}
+
+void ___ZN2vp2vx29Voice_Processor_State_Manager30create_state_for_SIGHUP_signalEv_block_invoke(std::pmr *a1)
+{
+  v1 = *(*(a1 + 4) + 8);
+  v5 = 0;
+  v6 = 0;
+  default_resource = std::pmr::get_default_resource(a1);
+  vp::vx::data_flow::State<void>::get_value((v1 + 40), &default_resource);
+  v2 = *vp::vx::data_flow::Value::view_storage(&default_resource);
+  vp::vx::data_flow::Value::~Value(&default_resource);
+  default_resource = std::pmr::get_default_resource(v3);
+  v5 = 0;
+  v6 = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(&default_resource) = v2 + 1;
+  vp::vx::data_flow::State<void>::set_value((v1 + 40), &default_resource);
+  vp::vx::data_flow::Value::~Value(&default_resource);
+}
+
+void sub_2726D3EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  vp::vx::data_flow::Value::~Value(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2726D3F08(void *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  vp::vx::data_flow::Value::~Value(va);
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x2726D3EB0);
+}
+
+unsigned int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUljjE_JjjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JjjEEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EEclEOSX_OSY_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = vp::vx::data_flow::Value::view_storage(v4[1]);
+  v9 = *v7;
+  v10 = *v8;
+  if (v9 != *v8)
+  {
+    v11 = *(a1 + 8);
+    log = vp::get_log(v8);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      log_context_info = vp::get_log_context_info(__p, v11, "vp::vx::Voice_Processor]", 23);
+      v14 = v25;
+      v15 = v25;
+      v16 = __p[1];
+      v17 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        if (v15 >= 0)
+        {
+          v18 = v14;
+        }
+
+        else
+        {
+          v18 = v16;
+        }
+
+        v19 = __p[0];
+        if (v15 >= 0)
+        {
+          v19 = __p;
+        }
+
+        if (v18)
+        {
+          v20 = " ";
+        }
+
+        else
+        {
+          v20 = "";
+        }
+
+        *buf = 136315394;
+        v27 = v19;
+        v28 = 2080;
+        v29 = v20;
+        _os_log_impl(&dword_2724B4000, v17, OS_LOG_TYPE_ERROR, "%s%smicrophone and reference sample rates must be equal", buf, 0x16u);
+        LOBYTE(v15) = v25;
+      }
+
+      if ((v15 & 0x80) != 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+  }
+
+  if (v9 <= v10)
+  {
+    v21 = v10;
+  }
+
+  else
+  {
+    v21 = v9;
+  }
+
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v22);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v21;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor14get_block_sizeENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUljjE_JjjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JjjEEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EE7__cloneEPNS0_6__baseIS12_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881BFF20;
+  a2[1] = v2;
+  return result;
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor30get_dsp_node_property_overrideENS_7variantIJNS3_18Uplink_DSP_Node_IDENS3_20Downlink_DSP_Node_IDEEEENS3_17Graph_Property_IDEE3__0JdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JdEEERNS4_13State_ManagerESL_SS_EUlPPKNS4_5ValueEPS10_E_NS_9allocatorIS15_EEFvS13_S14_EEclEOS13_OS14_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  applesauce::CF::TypeRef::TypeRef(&v11, "Float64");
+  valuePtr = v4;
+  cf = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v9[0] = &v11;
+  v9[1] = 1;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v9);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v11)
+  {
+    CFRelease(v11);
+  }
+
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v6);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = CFDictionaryRef;
+  return result;
+}
+
+void sub_2726D42A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, const void *);
+  applesauce::CF::ObjectRef<void const*>::~ObjectRef(va1);
+  applesauce::CF::TypeRef::~TypeRef(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor30get_dsp_node_property_overrideENS_7variantIJNS3_18Uplink_DSP_Node_IDENS3_20Downlink_DSP_Node_IDEEEENS3_17Graph_Property_IDEE3__0JdEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JdEEERNS4_13State_ManagerESL_SS_EUlPPKNS4_5ValueEPS10_E_NS_9allocatorIS15_EEFvS13_S14_EE7__cloneEPNS0_6__baseIS18_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C16B0;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void vp::vx::Voice_Processor::get_uplink_mic_sample_rate(vp::vx::Voice_Processor *this, uint64_t a2)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  cf = CFStringCreateWithBytes(0, "uplink microphone sample rate (Hz)", 34, 0x8000100u, 0);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v14 = 0;
+  v15 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v4 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &cf);
+  if (v4)
+  {
+    vp::vx::data_flow::State_Manager::find_state(&v22, (a2 + 64), *(v4 + 6));
+    v5 = v22;
+    LODWORD(v24) = v22;
+    v11 = v23;
+    v23 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v14);
+    v14 = v5;
+    v15 = v11;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    vp::vx::data_flow::State<void>::~State(&v22);
+  }
+
+  if (!v15)
+  {
+    (*(*(a2 + 8) + 16))(&v24, a2 + 8, 8);
+    v6 = v24;
+    v16 = v24;
+    v17 = v25;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    v24 = &unk_2881C03B8;
+    LOBYTE(v25) = 0;
+    v26 = &v24;
+    v21 = v6;
+    vp::vx::data_flow::State_Manager::create_state(&v22, (a2 + 64), &v24);
+    v7 = v22;
+    v18 = v22;
+    v12 = v23;
+    v23 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v22);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v24);
+    LODWORD(v24) = v7;
+    v19 = 0;
+    v20 = 0;
+    vp::vx::data_flow::State<void>::~State(&v18);
+    vp::vx::data_flow::State<void>::~State(&v16);
+    vp::vx::data_flow::State<void>::~State(&v14);
+    v14 = v7;
+    v15 = v12;
+    v25 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v24);
+    v8 = v14;
+    v9 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+
+    v24 = v9;
+    LODWORD(v25) = v8;
+    std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v24, &v24);
+    if (v24)
+    {
+      CFRelease(v24);
+    }
+  }
+
+  *this = v14;
+  *(this + 8) = v15;
+  v15 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v14);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_2726D4658(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void vp::vx::Voice_Processor::get_client_sample_rate(uint64_t a1, uint64_t a2, int a3)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v6 = "downlink";
+  if (!a3)
+  {
+    v6 = "uplink";
+  }
+
+  applesauce::CF::make_StringRef(&cf, @"%s client sample rate (Hz)", a2, v6);
+  v17 = 0;
+  v18 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v7 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &cf);
+  if (v7)
+  {
+    vp::vx::data_flow::State_Manager::find_state(&v25, (a2 + 64), *(v7 + 6));
+    v8 = v25;
+    LODWORD(v27) = v25;
+    v14 = v26;
+    v26 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v17);
+    v17 = v8;
+    v18 = v14;
+    v28 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v27);
+    vp::vx::data_flow::State<void>::~State(&v25);
+  }
+
+  if (!v18)
+  {
+    (*(*(a2 + 8) + 16))(&v27);
+    v9 = v27;
+    v19 = v27;
+    v20 = v28;
+    v28 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v27);
+    if (a3)
+    {
+      v10 = &unk_2881BFC18;
+    }
+
+    else
+    {
+      v10 = &unk_2881BFBD0;
+    }
+
+    v27 = v10;
+    LOBYTE(v28) = 0;
+    v29 = &v27;
+    v24 = v9;
+    vp::vx::data_flow::State_Manager::create_state(&v25, (a2 + 64), &v27);
+    v11 = v25;
+    v21 = v25;
+    v15 = v26;
+    v26 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v25);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v27);
+    LODWORD(v27) = v11;
+    v22 = 0;
+    v23 = 0;
+    vp::vx::data_flow::State<void>::~State(&v21);
+    vp::vx::data_flow::State<void>::~State(&v19);
+    vp::vx::data_flow::State<void>::~State(&v17);
+    v17 = v11;
+    v18 = v15;
+    v28 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v27);
+    v12 = v17;
+    v13 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+
+    v27 = v13;
+    LODWORD(v28) = v12;
+    std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v27, &v27);
+    if (v27)
+    {
+      CFRelease(v27);
+    }
+  }
+
+  *a1 = v17;
+  *(a1 + 8) = v18;
+  v18 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v17);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_2726D498C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void vp::vx::Voice_Processor::get_client_sample_rate_preference(vp::vx::Voice_Processor *this, uint64_t a2)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  cf = CFStringCreateWithBytes(0, "client sample rate preference (Hz)", 34, 0x8000100u, 0);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v16 = 0;
+  v17 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v4 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &cf);
+  if (v4)
+  {
+    vp::vx::data_flow::State_Manager::find_state(&v23, (a2 + 64), *(v4 + 6));
+    v5 = v23;
+    LODWORD(v25) = v23;
+    v10 = v24;
+    v24 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v16);
+    v16 = v5;
+    v17 = v10;
+    v26 = 0;
+    v27 = 0;
+    vp::vx::data_flow::State<void>::~State(&v25);
+    vp::vx::data_flow::State<void>::~State(&v23);
+  }
+
+  if (!v17)
+  {
+    vp::vx::Voice_Processor::get_global_configuration(v18, a2);
+    v25 = &unk_2881BFC60;
+    LOBYTE(v26) = 0;
+    v28 = &v25;
+    v22 = v18[0];
+    vp::vx::data_flow::State_Manager::create_state(&v23, (a2 + 64), &v25);
+    v6 = v23;
+    v19 = v23;
+    v11 = v24;
+    v24 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v23);
+    std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v25);
+    v13 = v6;
+    v20 = 0;
+    v21 = 0;
+    vp::vx::data_flow::State<void>::~State(&v19);
+    vp::vx::data_flow::State<void>::~State(v18);
+    vp::vx::data_flow::State<void>::~State(&v16);
+    v16 = v6;
+    v17 = v11;
+    v14 = 0;
+    v15 = 0;
+    vp::vx::data_flow::State<void>::~State(&v13);
+    v7 = v16;
+    v8 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+
+    v25 = v8;
+    LODWORD(v26) = v7;
+    std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::__emplace_unique_key_args<applesauce::CF::StringRef,std::pair<applesauce::CF::StringRef,unsigned int>>((a2 + 128), &v25, &v25);
+    if (v25)
+    {
+      CFRelease(v25);
+    }
+  }
+
+  *this = v16;
+  *(this + 8) = v17;
+  v17 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v16);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_2726D4C34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+double *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor15get_sample_rateENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JdjNS3_30DSP_Node_Configuration_OptionsEddNS_8optionalIdEEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JdjSG_ddSI_EEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v4[1];
+  if (v8[2] == &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id)
+  {
+    v9 = vp::vx::data_flow::Value::view_storage(v8);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = v4[2];
+  if (v10[2] == &vp::vx::data_flow::Value::type_id<vp::vx::DSP_Node_Configuration_Options>(void)::s_type_id)
+  {
+    v11 = vp::vx::data_flow::Value::view_storage(v10);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = v4[3];
+  if (v12[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
+  {
+    v13 = vp::vx::data_flow::Value::view_storage(v12);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = v4[4];
+  if (v14[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
+  {
+    v15 = vp::vx::data_flow::Value::view_storage(v14);
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = v4[5];
+  if (v16[2] == &vp::vx::data_flow::Value::type_id<std::optional<double>>(void)::s_type_id)
+  {
+    v17 = vp::vx::data_flow::Value::view_storage(v16);
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = *v7;
+  v19 = *v9;
+  v21 = v11[3];
+  v20 = v11[4];
+  v22 = v11[2];
+  *&v30[9] = *(v11 + 73);
+  v29[3] = v21;
+  *v30 = v20;
+  v29[2] = v22;
+  v23 = v11[1];
+  v29[0] = *v11;
+  v29[1] = v23;
+  std::unordered_map<std::string,unsigned int>::unordered_map(v31, (v11 + 6));
+  std::unordered_map<std::string,unsigned int>::unordered_map(__p, v11 + 136);
+  v24 = (*(**(a1 + 8) + 24))(*(a1 + 8), 1, v19, v29, *v17, v17[1], v18, *v13, *v15);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(__p[2]);
+  v25 = __p[0];
+  __p[0] = 0;
+  if (v25)
+  {
+    operator delete(v25);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__deallocate_node(v31[2]);
+  v26 = v31[0];
+  v31[0] = 0;
+  if (v26)
+  {
+    operator delete(v26);
+  }
+
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v27);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v24;
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<std::optional<double>>::compare_value(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(*a3 + 8);
+  v4 = *(*a2 + 8);
+  result = v4 == v3;
+  if (v4 == v3 && v4 != 0)
+  {
+    return **a2 == **a3;
+  }
+
+  return result;
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<std::optional<double>>::move_value(uint64_t a1, __n128 **a2, __n128 **a3)
+{
+  result = **a3;
+  **a2 = result;
+  return result;
+}
+
+__n128 vp::vx::data_flow::Value::Type_ID_Eraser<std::optional<double>>::copy_value(uint64_t a1, __n128 **a2, __n128 **a3)
+{
+  result = **a3;
+  **a2 = result;
+  return result;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::optional<double>>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<std::optional<double>>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 16, 8);
+  *a2 = result;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor15get_sample_rateENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlDpT_E_JdjNS3_30DSP_Node_Configuration_OptionsEddNS_8optionalIdEEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKSD_E_JdjSG_ddSI_EEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881C0040;
+  a2[1] = v2;
+  return result;
+}
+
+void vp::vx::Voice_Processor::get_global_configuration(vp::vx::Voice_Processor *this, uint64_t a2)
+{
+  v15[4] = *MEMORY[0x277D85DE8];
+  cf = CFStringCreateWithBytes(0, "global configuration", 20, 0x8000100u, 0);
+  if (!cf)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v10 = 0;
+  v11 = 0uLL;
+  std::recursive_mutex::lock((a2 + 184));
+  v4 = std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,vp::Allocator<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>>>::find<applesauce::CF::StringRef>((a2 + 128), &cf);
+  if (v4)
+  {
+    vp::vx::data_flow::State_Manager::find_state(&v13, (a2 + 64), *(v4 + 6));
+    v5 = v13;
+    LODWORD(v15[0]) = v13;
+    v8 = v14;
+    v14 = 0uLL;
+    vp::vx::data_flow::State<void>::~State(&v10);
+    v10 = v5;
+    v11 = v8;
+    v15[1] = 0;
+    v15[2] = 0;
+    vp::vx::data_flow::State<void>::~State(v15);
+    vp::vx::data_flow::State<void>::~State(&v13);
+  }
+
+  if (!v11)
+  {
+    v6 = *(a2 + 480);
+    if (v6)
+    {
+      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    vp::vx::Voice_Processor::get_configuration_context(v12, a2);
+    operator new();
+  }
+
+  *this = v10;
+  *(this + 8) = v11;
+  v11 = 0uLL;
+  std::recursive_mutex::unlock((a2 + 184));
+  vp::vx::data_flow::State<void>::~State(&v10);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_2726D52F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_8optionalIdEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor33get_client_sample_rate_preferenceEvENK3__0clEvEUlRKNS3_20Global_ConfigurationEE_JSE_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSE_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = vp::vx::data_flow::Value::view_storage(**a2);
+  v5 = *v4;
+  v6 = v4[1];
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v7);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<std::optional<double>>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v5;
+  *(result + 8) = v6;
+  return result;
+}
+
+BOOL vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Global_Configuration>::compare_value(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = *(*a2 + 8);
+  v6 = *(*a3 + 8);
+  if (v5 != v6 || v5 == 0)
+  {
+    if (v5 != v6)
+    {
+      return 0;
+    }
+  }
+
+  else if (*v3 != *v4)
+  {
+    return 0;
+  }
+
+  v8 = *(v3 + 32);
+  if (v8 != *(v4 + 32))
+  {
+    return 0;
+  }
+
+  v9 = *(v3 + 24);
+  if (v8)
+  {
+    v10 = v9 == 0;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  if (v10)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v11 = *(v4 + 24);
+  v17 = &v9[v8];
+  v18 = v9;
+  v16 = v11;
+  result = boost::intrusive::algo_equal<boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::intrusive::algo_pred_equal>(&v18, &v17, &v16);
+  if (!result)
+  {
+    return result;
+  }
+
+  v13 = *(v3 + 72);
+  if (v13 != *(v4 + 72))
+  {
+    return 0;
+  }
+
+  v14 = *(v3 + 64);
+  if (v13 && !v14)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v15 = *(v4 + 64);
+  v17 = &v14[v13];
+  v18 = v14;
+  v16 = v15;
+  result = boost::intrusive::algo_equal<boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::container::vec_iterator<vp::vx::Chat_Flavor *,true>,boost::intrusive::algo_pred_equal>(&v18, &v17, &v16);
+  if (result)
+  {
+    if (*(v3 + 96) == *(v4 + 96) && ((*(v4 + 100) ^ *(v3 + 100)) & 1) == 0)
+    {
+      return *(v3 + 104) == *(v4 + 104);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Global_Configuration>::destroy_value(uint64_t a1, uint64_t *a2)
+{
+  v2 = *a2;
+  if (*(*a2 + 80))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate((v2 + 56), *(v2 + 64));
+  }
+
+  if (*(v2 + 40))
+  {
+    v3 = *(v2 + 24);
+
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate((v2 + 16), v3);
+  }
+}
+
+char *vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Global_Configuration>::move_value(uint64_t a1, uint64_t *a2, _OWORD **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *(v3 + 16) = *(v4 + 2);
+  *(v3 + 24) = v3 + 48;
+  *(v3 + 32) = xmmword_2727565D0;
+  boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl((v3 + 16), (v4 + 1));
+  *(v3 + 56) = *(v4 + 7);
+  *(v3 + 64) = v3 + 88;
+  *(v3 + 72) = xmmword_2727565D0;
+  result = boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl((v3 + 56), v4 + 56);
+  v6 = *(v4 + 12);
+  *(v3 + 104) = *(v4 + 26);
+  *(v3 + 96) = v6;
+  return result;
+}
+
+char *vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Global_Configuration>::copy_value(uint64_t a1, uint64_t *a2, _OWORD **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  *v3 = **a3;
+  *(v3 + 16) = *(v4 + 2);
+  *(v3 + 24) = v3 + 48;
+  *(v3 + 32) = xmmword_2727565D0;
+  v5 = *(v4 + 3);
+  v6 = *(v4 + 4);
+  v13 = v5;
+  if (v5)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = v6 == 0;
+  }
+
+  if (!v7)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v12 = &v5[4 * v6];
+  boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>((v3 + 16), &v13, &v12);
+  *(v3 + 56) = *(v4 + 7);
+  *(v3 + 64) = v3 + 88;
+  *(v3 + 72) = xmmword_2727565D0;
+  v8 = *(v4 + 8);
+  v9 = *(v4 + 9);
+  v13 = v8;
+  if (!v8 && v9)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v12 = &v8[4 * v9];
+  result = boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<boost::container::vec_iterator<vp::vx::Chat_Flavor*,true>>((v3 + 56), &v13, &v12);
+  v11 = *(v4 + 12);
+  *(v3 + 104) = *(v4 + 26);
+  *(v3 + 96) = v11;
+  return result;
+}
+
+void sub_2726D576C(_Unwind_Exception *exception_object)
+{
+  v4 = v2;
+  v6 = v4;
+  if (*(v4 + 80))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v3, *(v4 + 64));
+  }
+
+  if (*(v6 + 40))
+  {
+    boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(v1, *(v6 + 24));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Global_Configuration>::view_storage(uint64_t a1, uint64_t a2)
+{
+  return *a2;
+}
+
+{
+  return *a2;
+}
+
+uint64_t vp::vx::data_flow::Value::Type_ID_Eraser<vp::vx::Global_Configuration>::allocate_storage(uint64_t a1, uint64_t *a2, void *a3)
+{
+  result = (*(**a3 + 16))(*a3, 112, 8);
+  *a2 = result;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS_8optionalIdEEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor33get_client_sample_rate_preferenceEvENK3__0clEvEUlRKNS3_20Global_ConfigurationEE_JSE_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSE_EEERNS4_13State_ManagerESJ_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BFC60;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_20Global_ConfigurationEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor24get_global_configurationEvENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESD_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EEclEOS10_OS11_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v52 = *MEMORY[0x277D85DE8];
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Configuration_Context>(void)::s_type_id)
+  {
+    v5 = vp::vx::data_flow::Value::view_storage(v5);
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (!*(a1 + 16))
+  {
+    goto LABEL_25;
+  }
+
+  v7 = *(a1 + 8);
+  LOBYTE(__src) = 0;
+  BYTE8(__src) = 0;
+  default_resource = std::pmr::get_default_resource(v5);
+  v39 = &v41;
+  v40 = xmmword_2727565D0;
+  LODWORD(__p[0]) = 0;
+  v42 = std::pmr::get_default_resource(default_resource);
+  v43 = &v45;
+  v44 = xmmword_2727565D0;
+  boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<vp::vx::Chat_Flavor*>(&v42, __p, __p + 4);
+  LODWORD(v46) = 0;
+  BYTE4(v46) |= 1u;
+  v47 = 1065353216;
+  v8 = (*(**(a1 + 16) + 24))(*(a1 + 16), v6, &__src);
+  v9 = v8;
+  if (v8)
+  {
+    v24 = __src;
+    v25 = default_resource;
+    v26 = &v28;
+    v27 = xmmword_2727565D0;
+    boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl(&v25, &default_resource);
+    v29 = v42;
+    v30 = &v32;
+    v31 = xmmword_2727565D0;
+    v5 = boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl(&v29, &v42);
+    v33 = v46;
+    v34 = v47;
+  }
+
+  else
+  {
+    log = vp::get_log(v8);
+    v5 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
+    if (v5)
+    {
+      log_context_info = vp::get_log_context_info(__p, v7, "vp::vx::Voice_Processor]", 23);
+      v12 = v36;
+      v13 = v36;
+      v14 = __p[1];
+      v15 = vp::get_log(log_context_info);
+      v5 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      if (v5)
+      {
+        if (v13 >= 0)
+        {
+          v16 = v12;
+        }
+
+        else
+        {
+          v16 = v14;
+        }
+
+        v17 = __p[0];
+        if (v13 >= 0)
+        {
+          v17 = __p;
+        }
+
+        if (v16)
+        {
+          v18 = " ";
+        }
+
+        else
+        {
+          v18 = "";
+        }
+
+        *buf = 136315394;
+        v49 = v17;
+        v50 = 2080;
+        v51 = v18;
+        _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_ERROR, "%s%sfailed to get global configuration", buf, 0x16u);
+        LOBYTE(v13) = v36;
+      }
+
+      if ((v13 & 0x80) != 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+  }
+
+  if (*(&v44 + 1))
+  {
+    v5 = boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&v42, v43);
+  }
+
+  if (*(&v40 + 1))
+  {
+    v5 = boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&default_resource, v39);
+  }
+
+  if ((v9 & 1) == 0)
+  {
+LABEL_25:
+    LOBYTE(v24) = 0;
+    BYTE8(v24) = 0;
+    v25 = std::pmr::get_default_resource(v5);
+    v26 = &v28;
+    v27 = xmmword_2727565D0;
+    LODWORD(__src) = 0;
+    v29 = std::pmr::get_default_resource(v25);
+    v30 = &v32;
+    v31 = xmmword_2727565D0;
+    boost::container::vector<vp::vx::Chat_Flavor,boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>,void>::assign<vp::vx::Chat_Flavor*>(&v29, &__src, &__src + 4);
+    LODWORD(v33) = 0;
+    BYTE4(v33) |= 1u;
+    v34 = 1065353216;
+  }
+
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v19);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<vp::vx::Global_Configuration>(void)::s_type_id;
+  storage = vp::vx::data_flow::Value::allocate_storage(v4);
+  *storage = v24;
+  *(storage + 16) = v25;
+  *(storage + 24) = storage + 48;
+  *(storage + 32) = xmmword_2727565D0;
+  boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl((storage + 16), &v25);
+  *(storage + 56) = v29;
+  *(storage + 64) = storage + 88;
+  *(storage + 72) = xmmword_2727565D0;
+  result = boost::container::small_vector_base<vp::vx::Chat_Flavor,vp::Allocator<vp::vx::Chat_Flavor>,void>::move_construct_impl((storage + 56), &v29);
+  v22 = v33;
+  v23 = *(&v31 + 1);
+  *(storage + 104) = v34;
+  *(storage + 96) = v22;
+  if (v23)
+  {
+    result = boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&v29, v30);
+  }
+
+  if (*(&v27 + 1))
+  {
+    return boost::container::small_vector_allocator<vp::vx::Chat_Flavor,vp::Allocator<void>,void>::deallocate(&v25, v26);
+  }
+
+  return result;
+}
+
+void sub_2726D5CE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_20Global_ConfigurationEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor24get_global_configurationEvENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESD_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_20Global_ConfigurationEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor24get_global_configurationEvENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESD_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_20Global_ConfigurationEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor24get_global_configurationEvENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESD_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EE7__cloneEPNS0_6__baseIS15_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BFA70;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_20Global_ConfigurationEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor24get_global_configurationEvENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESD_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881BFA70;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionINS3_20Global_ConfigurationEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor24get_global_configurationEvENK3__0clEvEUlRKT_E_JNS3_21Configuration_ContextEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSH_EEERNS4_13State_ManagerESD_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881BFA70;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor22get_client_sample_rateENS2_6DomainEENK3__0clEvEUlRKT_E0_JN2CA17StreamDescriptionEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESD_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor22get_client_sample_rateENS2_6DomainEENK3__0clEvEUlRKT_E0_JN2CA17StreamDescriptionEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESD_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BFC18;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor22get_client_sample_rateENS2_6DomainEENK3__0clEvEUlRKT_E_JN2CA17StreamDescriptionEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESD_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EEclEOS11_OS12_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor22get_client_sample_rateENS2_6DomainEENK3__0clEvEUlRKT_E_JN2CA17StreamDescriptionEEEEDaOSD_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESD_SQ_EUlPPKNS4_5ValueEPSY_E_NS_9allocatorIS13_EEFvS11_S12_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881BFBD0;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+double *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor15get_sample_rateENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlddE_JddEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JddEEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EEclEOSX_OSY_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = vp::vx::data_flow::Value::view_storage(v4[1]);
+  v9 = *v7;
+  v10 = *v8;
+  if (*v7 != *v8)
+  {
+    v11 = *(a1 + 8);
+    log = vp::get_log(v8);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      log_context_info = vp::get_log_context_info(__p, v11, "vp::vx::Voice_Processor]", 23);
+      v14 = v24;
+      v15 = v24;
+      v16 = __p[1];
+      v17 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        if (v15 >= 0)
+        {
+          v18 = v14;
+        }
+
+        else
+        {
+          v18 = v16;
+        }
+
+        v19 = __p[0];
+        if (v15 >= 0)
+        {
+          v19 = __p;
+        }
+
+        if (v18)
+        {
+          v20 = " ";
+        }
+
+        else
+        {
+          v20 = "";
+        }
+
+        *buf = 136315394;
+        v26 = v19;
+        v27 = 2080;
+        v28 = v20;
+        _os_log_impl(&dword_2724B4000, v17, OS_LOG_TYPE_ERROR, "%s%smicrophone and reference block sizes must be equal", buf, 0x16u);
+        LOBYTE(v15) = v24;
+      }
+
+      if ((v15 & 0x80) != 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+  }
+
+  if (v9 < v10)
+  {
+    v9 = v10;
+  }
+
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v21);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v9;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor15get_sample_rateENS3_18Uplink_DSP_Node_IDEENK3__0clEvEUlddE_JddEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JddEEERNS4_13State_ManagerESF_SM_EUlPPKNS4_5ValueEPSU_E_NS_9allocatorISZ_EEFvSX_SY_EE7__cloneEPNS0_6__baseIS12_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2881BFFF8;
+  a2[1] = v2;
+  return result;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor26get_uplink_ref_sample_rateEvENK3__0clEvEUlT_E_JN2CA17StreamDescriptionEEEEDaOSC_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_EEERNS4_13State_ManagerESC_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor26get_uplink_ref_sample_rateEvENK3__0clEvEUlT_E_JN2CA17StreamDescriptionEEEEDaOSC_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_EEERNS4_13State_ManagerESC_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C0400;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor26get_uplink_mic_sample_rateEvENK3__0clEvEUlT_E_JN2CA17StreamDescriptionEEEEDaOSC_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_EEERNS4_13State_ManagerESC_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<double>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = v4;
+  return result;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIdEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor26get_uplink_mic_sample_rateEvENK3__0clEvEUlT_E_JN2CA17StreamDescriptionEEEEDaOSC_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_EEERNS4_13State_ManagerESC_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C03B8;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor60create_spatial_head_tracking_enabled_property_override_stateEvE3__0JbEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JbEEERNS4_13State_ManagerESG_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v4 = *vp::vx::data_flow::Value::view_storage(**a2);
+  applesauce::CF::TypeRef::TypeRef(&v10, "UInt32");
+  v5 = MEMORY[0x277CBED28];
+  if ((v4 & 1) == 0)
+  {
+    v5 = MEMORY[0x277CBED10];
+  }
+
+  cf = *v5;
+  v9[0] = &v10;
+  v9[1] = 1;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v9);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v10)
+  {
+    CFRelease(v10);
+  }
+
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v7);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = CFDictionaryRef;
+  return result;
+}
+
+void sub_2726D6678(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor60create_spatial_head_tracking_enabled_property_override_stateEvE3__0JbEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JbEEERNS4_13State_ManagerESG_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C15E0;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor57create_spatial_head_tracking_mode_property_override_stateEvE3__0JjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v8 = *vp::vx::data_flow::Value::view_storage(**a2);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[7],unsigned int &>(&v9, &v8);
+  v7[0] = &v9;
+  v7[1] = 1;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v7);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v5);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = CFDictionaryRef;
+  return result;
+}
+
+void sub_2726D682C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor57create_spatial_head_tracking_mode_property_override_stateEvE3__0JjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JjEEERNS4_13State_ManagerESG_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_2881C1598;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+int *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor30get_spatial_head_tracking_modeEvENK3__0clEvEUlNS3_14Operation_ModeENS3_35Spatial_Head_Tracking_ConfigurationEE_JSC_SD_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_SD_EEERNS4_13State_ManagerESG_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EEclEOSY_OSZ_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v3 = *a2;
+  v4 = *a3;
+  v5 = **a2;
+  if (v5[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Operation_Mode>(void)::s_type_id)
+  {
+    v6 = vp::vx::data_flow::Value::view_storage(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *vp::vx::data_flow::Value::view_storage(v3[1]);
+  if (*v6 == 4)
+  {
+    v8 = 5;
   }
 
   else
@@ -7685,446 +4439,3480 @@ void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6Se
     v8 = 0;
   }
 
-  *a5 = v8;
-  *(a5 + 8) = 1;
-  v9 = *MEMORY[0x277D85DE8];
+  if (*v6 == 2)
+  {
+    v9 = 4;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  if ((v7 & 0x100000000) != 0)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  vp::vx::data_flow::Value::~Value(v4);
+  *v4 = std::pmr::get_default_resource(v11);
+  *(v4 + 1) = 0;
+  *(v4 + 2) = &vp::vx::data_flow::Value::type_id<unsigned int>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v4);
+  *result = v10;
+  return result;
 }
 
-void _ZNSt3__110__function6__funcIZZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvENKUlT_T0_T1_E_clIjNS5_5ScopeEjEEDaS8_S9_SA_EUlRKS4_E_NS_9allocatorISH_EEFvRS4_EEclESK_(uint64_t a1, uint64_t a2)
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIjEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZZNS3_15Voice_Processor30get_spatial_head_tracking_modeEvENK3__0clEvEUlNS3_14Operation_ModeENS3_35Spatial_Head_Tracking_ConfigurationEE_JSC_SD_EEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSC_SD_EEERNS4_13State_ManagerESG_SN_EUlPPKNS4_5ValueEPSV_E_NS_9allocatorIS10_EEFvSY_SZ_EE7__cloneEPNS0_6__baseIS13_EE(uint64_t result, uint64_t a2)
 {
-  v3 = *(a1 + 16);
-  v4 = **(a1 + 8);
-  v9 = 0;
-  v10 = 0;
-  vp::vx::data_flow::State_Transaction::State_Transaction(v11, &v9);
+  *a2 = &unk_2881C09E0;
+  *(a2 + 8) = *(result + 8);
+  return result;
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor54create_metric_reporter_ids_dsp_property_override_stateEvE3__0JNS_6vectorIxNS_9allocatorIxEEEEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSZ_E_NSG_IS14_EEFvS12_S13_EEclEOS12_OS13_(uint64_t a1, vp::vx::data_flow::Value ***a2, vp::vx::data_flow::Value **a3)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = *a3;
+  v4 = vp::vx::data_flow::Value::view_storage(**a2);
+  applesauce::CF::make_DataRef(&v8, *v4, *(v4 + 8) - *v4);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[5],applesauce::CF::DataRef>(&v10, "Data", &v8);
+  v9[0] = &v10;
+  v9[1] = 1;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v9);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
   if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    CFRelease(v10);
   }
 
-  v12[0] = v4;
-  v5 = boost::container::flat_map<vp::vx::Property_ID,vp::vx::Property,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,vp::vx::Property>>>::at(a2 + 968, v12);
-  v6 = (*(**(v5 + 4) + 24))(*(v5 + 4));
-  if (v6)
+  if (v8)
   {
-    v7 = v6;
-    vp::vx::Property::read(v12, v5, v11);
-    (*(*v7 + 24))(&v13, v7, v12);
-    v8 = *v3;
-    *v3 = v13;
-    v13 = v8;
-    if (v8)
-    {
-      CFRelease(v8);
-    }
-
-    vp::vx::data_flow::Value::~Value(v12);
+    CFRelease(v8);
   }
 
-  vp::vx::data_flow::State_Transaction::~State_Transaction(v11);
-}
-
-void sub_2726EDA74(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  vp::vx::data_flow::Value::~Value(va);
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x2726EDA54);
-}
-
-void sub_2726EDA9C(void *a1)
-{
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x2726EDA54);
-}
-
-__n128 _ZNKSt3__110__function6__funcIZZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvENKUlT_T0_T1_E_clIjNS5_5ScopeEjEEDaS8_S9_SA_EUlRKS4_E_NS_9allocatorISH_EEFvRS4_EE7__cloneEPNS0_6__baseISL_EE(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_2881C5E20;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
+  vp::vx::data_flow::Value::~Value(v3);
+  *v3 = std::pmr::get_default_resource(v6);
+  *(v3 + 1) = 0;
+  *(v3 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v3);
+  *result = CFDictionaryRef;
   return result;
 }
 
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_T0_T1_E_NS_9allocatorISB_EEFNS2_8ExpectedIN10applesauce2CF7TypeRefENS5_5ErrorEEEjNS5_5ScopeEjEE18destroy_deallocateEv(void *__p)
+void sub_2726D6B4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17)
 {
-  v2 = __p[2];
-  if (v2)
+  if (a2)
   {
-    std::__shared_weak_count::__release_weak(v2);
+    __clang_call_terminate(exception_object);
   }
 
-  operator delete(__p);
+  _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_T0_T1_E_NS_9allocatorISB_EEFNS2_8ExpectedIN10applesauce2CF7TypeRefENS5_5ErrorEEEjNS5_5ScopeEjEE7destroyEv(uint64_t a1)
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor54create_metric_reporter_ids_dsp_property_override_stateEvE3__0JNS_6vectorIxNS_9allocatorIxEEEEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSI_EEERNS4_13State_ManagerESK_SR_EUlPPKNS4_5ValueEPSZ_E_NSG_IS14_EEFvS12_S13_EE7__cloneEPNS0_6__baseIS16_EE(uint64_t result, uint64_t a2)
 {
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_T0_T1_E_NS_9allocatorISB_EEFNS2_8ExpectedIN10applesauce2CF7TypeRefENS5_5ErrorEEEjNS5_5ScopeEjEE7__cloneEPNS0_6__baseISL_EE(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881C5DD8;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
+  *a2 = &unk_2881C14A0;
+  *(a2 + 8) = *(result + 8);
   return result;
 }
 
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_T0_T1_E_NS_9allocatorISB_EEFNS2_8ExpectedIN10applesauce2CF7TypeRefENS5_5ErrorEEEjNS5_5ScopeEjEED0Ev(void *a1)
+uint64_t std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
 {
-  *a1 = &unk_2881C5DD8;
-  v1 = a1[2];
-  if (v1)
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  if (*(a2 + 24) == 1)
   {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *_ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_T0_T1_E_NS_9allocatorISB_EEFNS2_8ExpectedIN10applesauce2CF7TypeRefENS5_5ErrorEEEjNS5_5ScopeEjEED1Ev(void *a1)
-{
-  *a1 = &unk_2881C5DD8;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
+    *(a1 + 24) = 1;
   }
 
   return a1;
 }
 
-uint64_t **_ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_E_NS_9allocatorIS9_EEFNS2_8ExpectedINS_6vectorINS5_13Property_InfoENS2_9AllocatorISE_EEEENS5_5ErrorEEENS5_5ScopeEEEclEOSK_@<X0>(std::pmr *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
+void sub_2726D6CA4(_Unwind_Exception *exception_object)
 {
-  v18[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  v15 = 0;
-  v12 = 0u;
-  v14 = 0u;
-  default_resource = std::pmr::get_default_resource(a1);
-  v16 = default_resource;
-  if (v5 || (v10 = *(a1 + 2)) == 0)
+  if (*(v1 + 24) == 1)
+  {
+    v3 = *v1;
+    if (*v1)
+    {
+      *(v1 + 8) = v3;
+      operator delete(v3);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+CFDictionaryRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor49create_mic_trim_gains_dsp_property_override_stateEvE3__0JNS3_15Input_Port_TypeEN2CA17StreamDescriptionENS_6vectorIfNS_9allocatorIfEEEENS7_8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SH_SL_SM_EEERNS4_13State_ManagerESO_SV_EUlPPKNS4_5ValueEPS13_E_NSJ_IS18_EEFvS16_S17_EEclEOS16_OS17_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v35 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Input_Port_Type>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
   {
     v7 = 0;
   }
 
+  v8 = v4[1];
+  if (v8[2] == &vp::vx::data_flow::Value::type_id<CA::StreamDescription>(void)::s_type_id)
+  {
+    v9 = vp::vx::data_flow::Value::view_storage(v8);
+  }
+
   else
   {
-    v7 = std::__shared_weak_count::lock(v10);
-    if (v7)
+    v9 = 0;
+  }
+
+  v10 = v4[2];
+  if (v10[2] == &vp::vx::data_flow::Value::type_id<std::vector<float>>(void)::s_type_id)
+  {
+    v11 = vp::vx::data_flow::Value::view_storage(v10);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = v4[3];
+  if (v12[2] == &vp::vx::data_flow::Value::type_id<applesauce::CF::ArrayRef>(void)::s_type_id)
+  {
+    v13 = vp::vx::data_flow::Value::view_storage(v12);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  if (*v7 != 1)
+  {
+    goto LABEL_52;
+  }
+
+  if (*(a1 + 32) != 1 || ((v14 = *(a1 + 8), v15 = *(a1 + 16) - v14, LODWORD(v16) = *(v9 + 28), (*(v9 + 12) & 0x20) == 0) ? (v16 = 1) : (v16 = v16), v16 != v15 >> 2))
+  {
+    if (*v13)
     {
-      v11 = *(a1 + 1);
-      if (v11)
+      vp::vx::trim_gains_parse_cf(&v28, v13);
+      if (v30 == 1)
       {
-        v18[0] = &unk_2881C5D90;
-        v18[1] = &v14;
-        v18[3] = v18;
-        vp::vx::Voice_Processor::call_sync(v11, v18);
-        std::__function::__value_func<void ()(vp::vx::Voice_Processor &)>::~__value_func[abi:ne200100](v18);
+        v19 = v28;
+        v20 = v29 - v28;
+        LODWORD(v21) = *(v9 + 28);
+        if ((*(v9 + 12) & 0x20) != 0)
+        {
+          v21 = v21;
+        }
+
+        else
+        {
+          v21 = 1;
+        }
+
+        if (v21 == v20 >> 2)
+        {
+          applesauce::CF::make_DataRef(&v27, v28, v20);
+          applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[5],applesauce::CF::DataRef>(&v31, "Data", &v27);
+          v33 = &v31;
+          cf = 1;
+          CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&v33);
+          if (v32)
+          {
+            CFRelease(v32);
+          }
+
+          if (v31)
+          {
+            CFRelease(v31);
+          }
+
+          if (v27)
+          {
+            CFRelease(v27);
+          }
+
+          if (v19)
+          {
+            operator delete(v19);
+          }
+
+          goto LABEL_53;
+        }
+
+        if (v28)
+        {
+          operator delete(v28);
+        }
       }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-      v12 = v14;
-      v7 = v15;
-      default_resource = v16;
     }
-  }
 
-  v13[3] = default_resource;
-  v14 = 0uLL;
-  v15 = 0;
-  v17 = &v14;
-  std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__destroy_vector::operator()[abi:ne200100](&v17);
-  *a3 = v12;
-  *(a3 + 16) = v7;
-  *(a3 + 24) = default_resource;
-  memset(v13, 0, 24);
-  *(a3 + 32) = 1;
-  *&v14 = v13;
-  result = std::vector<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info>>::__destroy_vector::operator()[abi:ne200100](&v14);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t _ZNSt3__110__function6__funcIZZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvENKUlT_E_clINS5_5ScopeEEEDaS8_EUlRKS4_E_NS_9allocatorISF_EEFvRS4_EEclESI_(uint64_t result, uint64_t a2)
-{
-  v7 = *(result + 8);
-  v8 = _ZN5caulk12function_refIFvN2vp2vx11Property_IDERKNS2_8PropertyEEE15functor_invokerIZZZZNS2_15Voice_Processor7connectENS1_3rpb6ServerEENK3__0clEvENKUlT_E_clINSB_5ScopeEEEDaSE_ENKUlRKSA_E_clESK_EUlS3_S6_E_EEvRKNS_7details15erased_callableIS7_EES3_S6_;
-  v9 = &v7;
-  v2 = *(a2 + 976);
-  v3 = *(a2 + 984);
-  if (v2)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  if (v3)
-  {
-    v5 = &v2[12 * v3];
-    do
+    v22 = *v11;
+    v23 = *(v11 + 8);
+    if (*v11 != v23)
     {
-      if (!v2)
+      v24 = v23 - v22;
+      LODWORD(v23) = *(v9 + 28);
+      v23 = (*(v9 + 12) & 0x20) != 0 ? v23 : 1;
+      if (v23 == v24 >> 2)
       {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+        applesauce::CF::make_DataRef(&v31, v22, v24);
+        applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[5],applesauce::CF::DataRef>(&v33, "Data", &v31);
+        v28 = &v33;
+        v29 = 1;
+        CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&v28);
+        if (cf)
+        {
+          CFRelease(cf);
+        }
+
+        if (v33)
+        {
+          CFRelease(v33);
+        }
+
+        v18 = v31;
+        if (v31)
+        {
+          goto LABEL_24;
+        }
+
+        goto LABEL_53;
       }
-
-      v6 = v2 + 12;
-      result = (v8)(&v9, *v2, v2 + 2);
-      v2 = v6;
     }
 
-    while (v6 != v5);
+LABEL_52:
+    CFDictionaryRef = 0;
+    goto LABEL_53;
   }
 
-  return result;
-}
-
-void _ZN5caulk12function_refIFvN2vp2vx11Property_IDERKNS2_8PropertyEEE15functor_invokerIZZZZNS2_15Voice_Processor7connectENS1_3rpb6ServerEENK3__0clEvENKUlT_E_clINSB_5ScopeEEEDaSE_ENKUlRKSA_E_clESK_EUlS3_S6_E_EEvRKNS_7details15erased_callableIS7_EES3_S6_(uint64_t ***a1, int a2)
-{
-  v2 = *a1;
-  cf = 0;
-  v37 = 0;
-  v35 = a2;
-  v3 = vp::reflect_value_name_tag<vp::vx::Property_ID,128ul>(a2);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  v34 = v4;
-  if (v4)
-  {
-    memmove(&__dst, v3, v4);
-  }
-
-  *(&__dst + v5) = 0;
-  v6 = v34;
-  v8 = __dst;
-  v7 = v33;
-  if (v34 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  if (v34 >= 0)
-  {
-    v10 = v34;
-  }
-
-  else
-  {
-    v10 = v33;
-  }
-
-  if (v10)
-  {
-    do
-    {
-      v11 = *p_dst;
-      if (v11 == 95)
-      {
-        LOBYTE(v11) = 32;
-      }
-
-      *p_dst = v11;
-      p_dst = (p_dst + 1);
-      --v10;
-    }
-
-    while (v10);
-    v6 = v34;
-    v8 = __dst;
-    v7 = v33;
-  }
-
-  if ((v6 & 0x80u) == 0)
-  {
-    v12 = &__dst;
-  }
-
-  else
-  {
-    v12 = v8;
-  }
-
-  if (v12)
-  {
-    if ((v6 & 0x80u) == 0)
-    {
-      v13 = v6;
-    }
-
-    else
-    {
-      v13 = v7;
-    }
-
-    v14 = CFStringCreateWithBytes(0, v12, v13, 0x8000100u, 0);
-    v39 = v14;
-    if (!v14)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-    }
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v16 = cf;
-  cf = v14;
-  v39 = v16;
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
-  v38 = 1;
-  v17 = *v2;
-  v18 = (*v2)[1];
-  v19 = (*v2)[2];
-  if (v18 >= v19)
-  {
-    v21 = (v18 - *v17) >> 5;
-    v22 = v21 + 1;
-    if ((v21 + 1) >> 59)
-    {
-      std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v23 = v19 - *v17;
-    if (v23 >> 4 > v22)
-    {
-      v22 = v23 >> 4;
-    }
-
-    if (v23 >= 0x7FFFFFFFFFFFFFE0)
-    {
-      v24 = 0x7FFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v24 = v22;
-    }
-
-    v42 = v17 + 3;
-    if (v24)
-    {
-      v25 = std::pmr::polymorphic_allocator<std::unique_ptr<vp::vx::components::Audio_Statistics::Payload_Key_State,vp::Allocator_Delete<vp::vx::components::Audio_Statistics::Payload_Key_State>>>::allocate[abi:ne200100]((v17 + 3), v24);
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v26 = v25 + 32 * v21;
-    v39 = v25;
-    v40 = v26;
-    *(&v41 + 1) = v25 + 32 * v24;
-    *v26 = v35;
-    *(v26 + 8) = v14;
-    cf = 0;
-    *(v26 + 16) = v37;
-    v37 = 0;
-    *(v26 + 24) = v38;
-    *&v41 = v26 + 32;
-    v27 = v17[1];
-    v28 = v26 + *v17 - v27;
-    std::__uninitialized_allocator_relocate[abi:ne200100]<vp::Allocator<vp::rpb::Property_Info>,vp::rpb::Property_Info*>((v17 + 3), *v17, v27, v28);
-    v29 = *v17;
-    *v17 = v28;
-    v30 = v17[2];
-    v31 = v41;
-    v40 = v29;
-    *&v41 = v29;
-    *(v17 + 1) = v31;
-    *(&v41 + 1) = v30;
-    v39 = v29;
-    std::__split_buffer<vp::rpb::Property_Info,vp::Allocator<vp::rpb::Property_Info> &>::~__split_buffer(&v39);
-    v20 = v31;
-  }
-
-  else
-  {
-    *v18 = v35;
-    *(v18 + 8) = v14;
-    *(v18 + 16) = v37;
-    cf = 0;
-    v37 = 0;
-    *(v18 + 24) = v38;
-    v20 = v18 + 32;
-  }
-
-  v17[1] = v20;
-  if (v34 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  if (v37)
-  {
-    CFRelease(v37);
-  }
-
+  applesauce::CF::make_DataRef(&v31, v14, v15);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[5],applesauce::CF::DataRef>(&v33, "Data", &v31);
+  v28 = &v33;
+  v29 = 1;
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&v28);
   if (cf)
   {
     CFRelease(cf);
   }
-}
 
-void sub_2726EE20C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, const void *a21)
-{
-  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a21);
-  if (a16 < 0)
+  if (v33)
   {
-    operator delete(__p);
+    CFRelease(v33);
   }
 
-  vp::rpb::Property_Info::~Property_Info(&a17);
+  v18 = v31;
+  if (v31)
+  {
+LABEL_24:
+    CFRelease(v18);
+  }
+
+LABEL_53:
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v25);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::DictionaryRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = CFDictionaryRef;
+  return result;
+}
+
+void sub_2726D6FE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor49create_mic_trim_gains_dsp_property_override_stateEvE3__0JNS3_15Input_Port_TypeEN2CA17StreamDescriptionENS_6vectorIfNS_9allocatorIfEEEENS7_8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SH_SL_SM_EEERNS4_13State_ManagerESO_SV_EUlPPKNS4_5ValueEPS13_E_NSJ_IS18_EEFvS16_S17_EE18destroy_deallocateEv(void *__p)
+{
+  if (*(__p + 32) == 1)
+  {
+    v2 = __p[1];
+    if (v2)
+    {
+      __p[2] = v2;
+      operator delete(v2);
+    }
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor49create_mic_trim_gains_dsp_property_override_stateEvE3__0JNS3_15Input_Port_TypeEN2CA17StreamDescriptionENS_6vectorIfNS_9allocatorIfEEEENS7_8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SH_SL_SM_EEERNS4_13State_ManagerESO_SV_EUlPPKNS4_5ValueEPS13_E_NSJ_IS18_EEFvS16_S17_EE7destroyEv(uint64_t a1)
+{
+  if (*(a1 + 32) == 1)
+  {
+    v1 = *(a1 + 8);
+    if (v1)
+    {
+      *(a1 + 16) = v1;
+      operator delete(v1);
+    }
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor49create_mic_trim_gains_dsp_property_override_stateEvE3__0JNS3_15Input_Port_TypeEN2CA17StreamDescriptionENS_6vectorIfNS_9allocatorIfEEEENS7_8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SH_SL_SM_EEERNS4_13State_ManagerESO_SV_EUlPPKNS4_5ValueEPS13_E_NSJ_IS18_EEFvS16_S17_EED0Ev(uint64_t a1)
+{
+  *a1 = &unk_2881C0F30;
+  if (*(a1 + 32) == 1)
+  {
+    v2 = *(a1 + 8);
+    if (v2)
+    {
+      *(a1 + 16) = v2;
+      operator delete(v2);
+    }
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+uint64_t _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF13DictionaryRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor49create_mic_trim_gains_dsp_property_override_stateEvE3__0JNS3_15Input_Port_TypeEN2CA17StreamDescriptionENS_6vectorIfNS_9allocatorIfEEEENS7_8ArrayRefEEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SH_SL_SM_EEERNS4_13State_ManagerESO_SV_EUlPPKNS4_5ValueEPS13_E_NSJ_IS18_EEFvS16_S17_EED1Ev(uint64_t a1)
+{
+  *a1 = &unk_2881C0F30;
+  if (*(a1 + 32) == 1)
+  {
+    v2 = *(a1 + 8);
+    if (v2)
+    {
+      *(a1 + 16) = v2;
+      operator delete(v2);
+    }
+  }
+
+  return a1;
+}
+
+void vp::vx::Voice_Processor::get_dsp_node_parameter_override(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  v46 = *MEMORY[0x277D85DE8];
+  v28 = a2;
+  if (a3 == 1885433961)
+  {
+    if (*(a1 + 264))
+    {
+      goto LABEL_13;
+    }
+
+    vp::Service_Provider::get<vp::services::Audio_Hardware,(decltype(nullptr))0>(&v38, *(a1 + 456));
+    v19 = v38;
+    if (v38)
+    {
+      v20 = v39;
+      if (v39)
+      {
+        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      (*(*(a1 + 8) + 16))(&v43, a1 + 8, 26);
+      v21 = v43;
+      LODWORD(p_cf) = v43;
+      v34 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      (*(*(a1 + 8) + 16))(&v43, a1 + 8, 39);
+      v22 = v43;
+      v31 = v43;
+      v32 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      (*(*(a1 + 8) + 16))(&v43, a1 + 8, 27);
+      v23 = v43;
+      LODWORD(v29) = v43;
+      v30 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      v43 = &unk_2881C1458;
+      *&v44 = v19;
+      *(&v44 + 1) = v20;
+      v45 = &v43;
+      v40 = v21;
+      v41 = v22;
+      v42 = v23;
+      vp::vx::data_flow::State_Manager::create_state(&v25, (a1 + 64), &v43);
+      v4 = v25;
+      LODWORD(cf) = v25;
+      v24 = v26;
+      v26 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v25);
+      std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v43);
+      LODWORD(v43) = v4;
+      v36 = 0;
+      v37 = 0;
+      vp::vx::data_flow::State<void>::~State(&cf);
+      LODWORD(v25) = v4;
+      v26 = v24;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      vp::vx::data_flow::State<void>::~State(&v29);
+      vp::vx::data_flow::State<void>::~State(&v31);
+      vp::vx::data_flow::State<void>::~State(&p_cf);
+    }
+
+    if (v39)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+    }
+
+    if (!v19)
+    {
+LABEL_13:
+      cf = 0;
+      vp::vx::Voice_Processor_State_Manager::create_state<applesauce::CF::NumberRef>(&v43, (a1 + 16), &cf);
+      v4 = v43;
+      LODWORD(v25) = v43;
+      v24 = v44;
+      v26 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      if (cf)
+      {
+        CFRelease(cf);
+      }
+    }
+
+    *a4 = v4;
+    goto LABEL_53;
+  }
+
+  if (a3 == 1684829029)
+  {
+    vp::Service_Provider::get<vp::services::Audio_Hardware,(decltype(nullptr))0>(&v29, *(a1 + 456));
+    v9 = v29;
+    if (v29)
+    {
+      v10 = v30;
+      if (v30)
+      {
+        atomic_fetch_add_explicit((v30 + 8), 1uLL, memory_order_relaxed);
+      }
+
+      (*(*(a1 + 8) + 16))(&v43, a1 + 8, 39);
+      v11 = v43;
+      LODWORD(p_cf) = v43;
+      v34 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      (*(*(a1 + 8) + 16))(&v43, a1 + 8, 27);
+      v12 = v43;
+      v31 = v43;
+      v32 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      v43 = &unk_2881C10B0;
+      *&v44 = v9;
+      *(&v44 + 1) = v10;
+      v45 = &v43;
+      v38 = __PAIR64__(v12, v11);
+      vp::vx::data_flow::State_Manager::create_state(&v25, (a1 + 64), &v43);
+      v5 = v25;
+      LODWORD(cf) = v25;
+      v24 = v26;
+      v26 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v25);
+      std::__function::__value_func<void ()(vp::vx::data_flow::Value const**,vp::vx::data_flow::Value*)>::~__value_func[abi:ne200100](&v43);
+      LODWORD(v43) = v5;
+      v36 = 0;
+      v37 = 0;
+      vp::vx::data_flow::State<void>::~State(&cf);
+      LODWORD(v25) = v5;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      vp::vx::data_flow::State<void>::~State(&v31);
+      vp::vx::data_flow::State<void>::~State(&p_cf);
+      if (!v10)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+      v10 = v30;
+      if (!v30)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+LABEL_8:
+    if (!v9)
+    {
+      cf = 0;
+      vp::vx::Voice_Processor_State_Manager::create_state<applesauce::CF::NumberRef>(&v43, (a1 + 16), &cf);
+      v5 = v43;
+      LODWORD(v25) = v43;
+      v24 = v44;
+      v26 = v44;
+      v44 = 0uLL;
+      vp::vx::data_flow::State<void>::~State(&v43);
+      if (cf)
+      {
+        CFRelease(cf);
+      }
+    }
+
+    *a4 = v5;
+LABEL_53:
+    *(a4 + 8) = v24;
+    v26 = 0uLL;
+    *(a4 + 24) = 1;
+    vp::vx::data_flow::State<void>::~State(&v25);
+    return;
+  }
+
+  v13 = *(a1 + 520);
+  v14 = *(a1 + 528);
+  if (v13 == v14)
+  {
+LABEL_42:
+    *a4 = 0;
+    *(a4 + 24) = 0;
+  }
+
+  else
+  {
+    while (1)
+    {
+      v15 = *v13;
+      v16 = *(v13 + 8);
+      if (v16)
+      {
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        v27 = 0;
+        v36 = v16;
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      else
+      {
+        v27 = 0;
+        v36 = 0;
+      }
+
+      cf = v15;
+      LODWORD(v37) = a3;
+      if (HIDWORD(v28) == -1)
+      {
+        std::__throw_bad_variant_access[abi:ne200100]();
+      }
+
+      p_cf = &cf;
+      (off_2881C1678[HIDWORD(v28)])(&v43, &p_cf, &v28);
+      if (v27 != -1 || v45 != -1)
+      {
+        if (v45 == -1)
+        {
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,applesauce::CF::NumberRef,vp::vx::data_flow::State<applesauce::CF::NumberRef>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v25);
+        }
+
+        else
+        {
+          p_cf = &v25;
+          (off_2881C1688[v45])(&p_cf, &v25, &v43);
+        }
+      }
+
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,applesauce::CF::NumberRef,vp::vx::data_flow::State<applesauce::CF::NumberRef>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v43);
+      if (v36)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+      }
+
+      if (v27)
+      {
+        if (v27 == 2)
+        {
+          vp::vx::data_flow::State<void>::State(a4, &v25);
+          v18 = 1;
+          *(a4 + 24) = 1;
+        }
+
+        else if (v27 == 1)
+        {
+          v17 = v25;
+          if (v25)
+          {
+            CFRetain(v25);
+          }
+
+          *a4 = v17;
+          *(a4 + 24) = 0;
+          v18 = 1;
+        }
+
+        else
+        {
+          v18 = 0;
+        }
+      }
+
+      else
+      {
+        v18 = 4;
+      }
+
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,applesauce::CF::NumberRef,vp::vx::data_flow::State<applesauce::CF::NumberRef>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v25);
+      if (v16)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      }
+
+      if ((v18 | 4) != 4)
+      {
+        break;
+      }
+
+      v13 += 16;
+      if (v13 == v14)
+      {
+        goto LABEL_42;
+      }
+    }
+  }
+}
+
+void sub_2726D78C0(void *a1, int a2)
+{
+  if (!a2)
+  {
+    JUMPOUT(0x2726D78D8);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN10applesauce2CF9NumberRefEN2vp2vx9data_flow5StateISB_EEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISH_LNS0_6_TraitE1EEEEEvOT_EUlRSN_OT0_E_JRNS0_6__baseILSL_1EJS8_SB_SG_EEEOSV_EEEDcSN_DpT0_(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *a1;
+  if (*(*a1 + 24) == 2)
+  {
+    vp::vx::data_flow::State<void>::~State(a2);
+    *a2 = *a3;
+    result = *(a3 + 8);
+    *(a2 + 8) = result;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 0;
+  }
+
+  else
+  {
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,applesauce::CF::NumberRef,vp::vx::data_flow::State<applesauce::CF::NumberRef>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
+    *v4 = *a3;
+    result = *(a3 + 8);
+    *(v4 + 8) = result;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 0;
+    *(v4 + 24) = 2;
+  }
+
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN10applesauce2CF9NumberRefEN2vp2vx9data_flow5StateISB_EEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISH_LNS0_6_TraitE1EEEEEvOT_EUlRSN_OT0_E_JRNS0_6__baseILSL_1EJS8_SB_SG_EEEOSV_EEEDcSN_DpT0_(uint64_t *result, uint64_t *a2, uint64_t *a3)
+{
+  v4 = *result;
+  if (*(*result + 24) == 1)
+  {
+    v5 = *a2;
+    *a2 = *a3;
+  }
+
+  else
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,applesauce::CF::NumberRef,vp::vx::data_flow::State<applesauce::CF::NumberRef>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    v5 = 0;
+    *v4 = *a3;
+    *(v4 + 24) = 1;
+  }
+
+  *a3 = v5;
+  return result;
+}
+
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN10applesauce2CF9NumberRefEN2vp2vx9data_flow5StateISB_EEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISH_LNS0_6_TraitE1EEEEEvOT_EUlRSN_OT0_E_JRNS0_6__baseILSL_1EJS8_SB_SG_EEEOSV_EEEDcSN_DpT0_(uint64_t *result)
+{
+  v1 = *result;
+  if (*(*result + 24))
+  {
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,applesauce::CF::NumberRef,vp::vx::data_flow::State<applesauce::CF::NumberRef>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*result);
+    *(v1 + 24) = 0;
+  }
+
+  return result;
+}
+
+int *vp::vx::Voice_Processor_State_Manager::create_state<applesauce::CF::NumberRef>(uint64_t a1, __n128 *a2, void *a3)
+{
+  v11[0] = std::pmr::get_default_resource(a1);
+  v11[1] = 0;
+  v11[2] = &vp::vx::data_flow::Value::type_id<applesauce::CF::NumberRef>(void)::s_type_id;
+  *vp::vx::data_flow::Value::allocate_storage(v11) = *a3;
+  *a3 = 0;
+  vp::vx::data_flow::State_Manager::create_state(&v12, a2 + 3, v11);
+  LODWORD(a2) = v12;
+  v8 = v12;
+  v7 = v13;
+  v13 = 0uLL;
+  vp::vx::data_flow::State<void>::~State(&v12);
+  vp::vx::data_flow::Value::~Value(v11);
+  *a1 = a2;
+  *(a1 + 8) = v7;
+  v9 = 0;
+  v10 = 0;
+  return vp::vx::data_flow::State<void>::~State(&v8);
+}
+
+CFNumberRef *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor61create_personal_audio_HLC_product_id_parameter_override_stateEvE3__0JNS3_16Output_Port_TypeENS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SG_jEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EEclEOS10_OS11_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Output_Port_Type>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v4[1];
+  if (v8[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Port_Sub_Type>(void)::s_type_id)
+  {
+    v9 = vp::vx::data_flow::Value::view_storage(v8);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = vp::vx::data_flow::Value::view_storage(v4[2]);
+  v11 = *v9;
+  if (*v7 - 3) <= 1 && (v12 = *v10, v13 = *(a1 + 8), is_apple_made_bluetooth_product = vp::vx::get_output_device_is_apple_made_bluetooth_product(v13, v12), (is_apple_made_bluetooth_product & 0x100000000) != 0) && (is_apple_made_bluetooth_product)
+  {
+    port_owning_device_id = vp::vx::get_port_owning_device_id(v13, v12, 1869968496);
+    v16 = port_owning_device_id;
+    v29 = port_owning_device_id;
+    v30 = BYTE4(port_owning_device_id);
+    if ((port_owning_device_id & 0x100000000) != 0)
+    {
+      caulk::expected<unsigned int,int>::value(&v29);
+      valuePtr = 0x676C6F6262616964;
+      v32 = 0;
+      v33 = 4;
+      v34 = 0;
+      v19 = (*(*v13 + 24))(v13, v16, &valuePtr, 0, 0, &v33, &v34);
+      if (v19)
+      {
+        v20 = v19;
+      }
+
+      else
+      {
+        v20 = v34;
+      }
+
+      v17 = v20 | ((v19 == 0) << 32);
+      valuePtr = v17;
+      LOBYTE(v32) = 1;
+      caulk::expected<CA::AudioSampleRateConverter,int>::value(&valuePtr);
+    }
+
+    else
+    {
+      v17 = port_owning_device_id;
+    }
+
+    v27 = v17;
+    v28 = BYTE4(v17);
+    if ((v17 & 0x100000000) == 0)
+    {
+      goto LABEL_20;
+    }
+
+    caulk::expected<unsigned int,int>::value(&v27);
+    v29 = v17;
+    v23 = CFNumberCreate(0, kCFNumberIntType, &v29);
+    valuePtr = v23;
+    if (!v23)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+    }
+
+    v24 = v23;
+    caulk::__expected_detail::destroy<applesauce::CF::NumberRef,(void *)0>(0);
+    v26 = v24;
+    caulk::__expected_detail::destroy<applesauce::CF::NumberRef,(void *)0>(0);
+  }
+
+  else
+  {
+    if ((v11 & 0xFFFFFFFE) != 6)
+    {
+LABEL_20:
+      v26 = 0;
+      goto LABEL_21;
+    }
+
+    LODWORD(valuePtr) = 8210;
+    v26 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    if (!v26)
+    {
+      v18 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v18, "Could not construct");
+    }
+  }
+
+LABEL_21:
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v21);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::NumberRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v26;
+  return result;
+}
+
+void sub_2726D7DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-char *vp::reflect_value_name_tag<vp::vx::Property_ID,128ul>(int a1)
+void caulk::__expected_detail::destroy<applesauce::CF::NumberRef,(void *)0>(const void *a1)
 {
-  v1 = vp::detail::reflect_value_name<(vp::vx::Property_ID)0,128ul>(a1);
+  if (a1)
+  {
+    CFRelease(a1);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor61create_personal_audio_HLC_product_id_parameter_override_stateEvE3__0JNS3_16Output_Port_TypeENS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SG_jEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor61create_personal_audio_HLC_product_id_parameter_override_stateEvE3__0JNS3_16Output_Port_TypeENS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SG_jEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor61create_personal_audio_HLC_product_id_parameter_override_stateEvE3__0JNS3_16Output_Port_TypeENS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SG_jEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EE7__cloneEPNS0_6__baseIS15_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881C1458;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor61create_personal_audio_HLC_product_id_parameter_override_stateEvE3__0JNS3_16Output_Port_TypeENS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SG_jEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881C1458;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor61create_personal_audio_HLC_product_id_parameter_override_stateEvE3__0JNS3_16Output_Port_TypeENS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_SG_jEEERNS4_13State_ManagerESI_SP_EUlPPKNS4_5ValueEPSX_E_NS_9allocatorIS12_EEFvS10_S11_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881C1458;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor52create_ref_port_sensitivity_parameter_override_stateEvE3__0JNS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_jEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EEclEOSZ_OS10_(uint64_t a1, uint64_t (******a2)(), vp::vx::data_flow::Value **a3)
+{
+  v4 = *a2;
+  v5 = *a3;
+  v6 = **a2;
+  if (v6[2] == &vp::vx::data_flow::Value::type_id<vp::vx::Port_Sub_Type>(void)::s_type_id)
+  {
+    v7 = vp::vx::data_flow::Value::view_storage(v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = vp::vx::data_flow::Value::view_storage(v4[1]);
+  v9 = *v7;
+  v10 = *(a1 + 8);
+  port_owning_device_id = vp::vx::get_port_owning_device_id(v10, *v8, 1869968496);
+  valuePtr = *&port_owning_device_id;
+  v27 = BYTE4(port_owning_device_id);
+  if ((port_owning_device_id & 0x100000000) == 0)
+  {
+    v12 = port_owning_device_id;
+LABEL_6:
+    LODWORD(v25) = v12;
+    goto LABEL_18;
+  }
+
+  caulk::expected<unsigned int,int>::value(&valuePtr);
+  cf = 0x676C6F62646F7365;
+  v29 = 0;
+  v31 = 0;
+  v30 = 4;
+  v13 = (*(*v10 + 24))(v10, LODWORD(valuePtr), &cf, 0, 0, &v30, &v31);
+  if (v13)
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = v31;
+  }
+
+  v12 = v14 | ((v13 == 0) << 32);
+  if ((v12 & 0x100000000) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v15 = 150.0;
+  if (*&v14 <= 150.0)
+  {
+    v15 = *&v14;
+  }
+
+  if (*&v14 >= 50.0)
+  {
+    v16 = v15;
+  }
+
+  else
+  {
+    v16 = 50.0;
+  }
+
+  valuePtr = v16;
+  v17 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+  cf = v17;
+  if (!v17)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+  }
+
+  v25 = v17;
+  caulk::__expected_detail::destroy<applesauce::CF::NumberRef,(void *)0>(0);
+LABEL_18:
+  if ((v9 - 2) > 0xB)
+  {
+    v18 = 1121058816;
+  }
+
+  else
+  {
+    v18 = *&vp::Service_Interface<1668443507u>::k_service_type_id[4 * (v9 - 2) + 4];
+  }
+
+  valuePtr = *&v18;
+  cf = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+  if (!cf)
+  {
+    v23 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v23, "Could not construct");
+  }
+
+  p_cf = &v25;
+  if ((v12 & 0x100000000) == 0)
+  {
+    p_cf = &cf;
+  }
+
+  v20 = *p_cf;
+  *p_cf = 0;
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if ((v12 & 0x100000000) != 0)
+  {
+    caulk::__expected_detail::destroy<applesauce::CF::NumberRef,(void *)0>(v25);
+  }
+
+  vp::vx::data_flow::Value::~Value(v5);
+  *v5 = std::pmr::get_default_resource(v21);
+  *(v5 + 1) = 0;
+  *(v5 + 2) = &vp::vx::data_flow::Value::type_id<applesauce::CF::NumberRef>(void)::s_type_id;
+  result = vp::vx::data_flow::Value::allocate_storage(v5);
+  *result = v20;
+  return result;
+}
+
+void sub_2726D8258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor52create_ref_port_sensitivity_parameter_override_stateEvE3__0JNS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_jEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor52create_ref_port_sensitivity_parameter_override_stateEvE3__0JNS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_jEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor52create_ref_port_sensitivity_parameter_override_stateEvE3__0JNS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_jEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EE7__cloneEPNS0_6__baseIS14_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_2881C10B0;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor52create_ref_port_sensitivity_parameter_override_stateEvE3__0JNS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_jEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EED0Ev(void *a1)
+{
+  *a1 = &unk_2881C10B0;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void *_ZNSt3__110__function6__funcIZN2vp2vx9data_flow8FunctionIN10applesauce2CF9NumberRefEEC1IZNS3_29Voice_Processor_State_Manager12create_stateIZNS3_15Voice_Processor52create_ref_port_sensitivity_parameter_override_stateEvE3__0JNS3_13Port_Sub_TypeEjEEEDaOT_DpRKNS4_5StateIT0_EEEUlDpRKT_E_JSF_jEEERNS4_13State_ManagerESH_SO_EUlPPKNS4_5ValueEPSW_E_NS_9allocatorIS11_EEFvSZ_S10_EED1Ev(void *a1)
+{
+  *a1 = &unk_2881C10B0;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void non-virtual thunk tovp::vx::Voice_Processor::~Voice_Processor(vp::vx::Voice_Processor *this)
+{
+  vp::vx::Voice_Processor::~Voice_Processor((this - 256));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  vp::vx::Voice_Processor::~Voice_Processor((this - 256));
+}
+
+{
+  vp::vx::Voice_Processor::~Voice_Processor((this - 248));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  vp::vx::Voice_Processor::~Voice_Processor((this - 248));
+}
+
+{
+  vp::vx::Voice_Processor::~Voice_Processor((this - 8));
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+{
+  vp::vx::Voice_Processor::~Voice_Processor((this - 8));
+}
+
+void vp::vx::Voice_Processor::~Voice_Processor(vp::vx::Voice_Processor *this)
+{
+  v100 = *MEMORY[0x277D85DE8];
+  *this = &unk_2881BEBF8;
+  *(this + 1) = &unk_2881BECE8;
+  *(this + 31) = &unk_2881BED18;
+  *(this + 32) = &unk_2881BED50;
+  if (*(this + 92))
+  {
+    _ZNSt3__18optionalIN5caulk9semaphoreEE7emplaceB8ne200100IJEvEERS2_DpOT_((this + 752));
+    v2 = *(this + 93);
+    *(this + 46) = 0u;
+    if (v2)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    }
+
+    caulk::semaphore::timed_wait((this + 752), -1.0);
+    __dmb(9u);
+  }
+
+  vp::rpb::Server::get_shared_instance(buf);
+  if (*buf)
+  {
+    v90 = *buf;
+    __p[0] = this;
+    vp::vx::Voice_Processor::exception_guard(this, "disconnect RPB server", caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::disconnect(vp::rpb::Server)::$_0>, __p);
+    vp::objc::ID::~ID(&v90);
+    v89 = *buf;
+    __p[0] = this;
+    vp::vx::Voice_Processor::exception_guard(this, "unregister RPB server listener", caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::unregister_listener(vp::rpb::Server)::$_0>, __p);
+    vp::objc::ID::~ID(&v89);
+  }
+
+  vp::objc::ID::~ID(buf);
+  v3 = *(this + 190);
+  if (v3)
+  {
+    v4 = (*(this + 189) + 16);
+    do
+    {
+      if (*v4)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*v4);
+      }
+
+      v4 += 3;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  *(this + 190) = 0;
+  v5 = *(this + 242);
+  if (v5)
+  {
+    v6 = (*(this + 241) + 16);
+    do
+    {
+      if (*v6)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*v6);
+      }
+
+      v6 += 3;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  *(this + 242) = 0;
+  v7 = *(this + 300);
+  *(this + 300) = 0;
+  if (v7)
+  {
+    (*(*v7 + 8))(v7);
+  }
+
+  v8 = *(this + 293);
+  v9 = 0uLL;
+  *(this + 146) = 0u;
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    v9 = 0uLL;
+  }
+
+  v10 = *(this + 313);
+  *(this + 156) = v9;
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  v11 = *(this + 293);
+  *(this + 146) = 0u;
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  }
+
+  v12 = *(this + 323);
+  *(this + 323) = 0;
+  if (v12)
+  {
+    (*(*v12 + 8))(v12);
+  }
+
+  v13 = *(this + 295);
+  v14 = 0uLL;
+  *(this + 147) = 0u;
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    v14 = 0uLL;
+  }
+
+  v15 = *(this + 326);
+  *(this + 2600) = v14;
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  std::vector<std::shared_ptr<vp::vx::io::Node_Delegate>>::clear[abi:ne200100](this + 65);
+  log = vp::get_log(v16);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    log_context_info = vp::get_log_context_info(__p, this, "vp::vx::Voice_Processor]", 23);
+    v19 = BYTE7(v93);
+    v20 = __p[1];
+    v21 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      if (v19 >= 0)
+      {
+        v22 = v19;
+      }
+
+      else
+      {
+        v22 = v20;
+      }
+
+      v23 = __p[0];
+      if ((SBYTE7(v93) & 0x80u) == 0)
+      {
+        v23 = __p;
+      }
+
+      if (v22)
+      {
+        v24 = " ";
+      }
+
+      else
+      {
+        v24 = "";
+      }
+
+      *buf = 136315394;
+      *&buf[4] = v23;
+      v98 = 2080;
+      v99 = v24;
+      _os_log_impl(&dword_2724B4000, v21, OS_LOG_TYPE_DEFAULT, "%s%sdestroyed", buf, 0x16u);
+    }
+
+    if (SBYTE7(v93) < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  std::unique_ptr<vp::vx::Orientation_Manager>::reset[abi:ne200100](this + 350, 0);
+  std::unique_ptr<vp::vx::System_Status_Manager>::reset[abi:ne200100]((this + 2792), 0);
+  v25 = *(this + 348);
+  *(this + 348) = 0;
+  if (v25)
+  {
+    std::default_delete<vp::vx::Control_Center_Manager>::operator()[abi:ne200100](v25);
+  }
+
+  std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](this + 347, 0);
+  std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](this + 346, 0);
+  std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](this + 345, 0);
+  if (*(this + 2672) == 1)
+  {
+    vp::vx::IO_Personal_Audio_Command_Factory::~IO_Personal_Audio_Command_Factory((this + 2616));
+  }
+
+  v26 = *(this + 326);
+  if (v26)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+  }
+
+  v27 = *(this + 323);
+  *(this + 323) = 0;
+  if (v27)
+  {
+    (*(*v27 + 8))(v27);
+  }
+
+  v28 = *(this + 313);
+  if (v28)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+  }
+
+  vp::vx::data_flow::State<void>::~State(this + 618);
+  vp::vx::data_flow::State<void>::~State(this + 610);
+  vp::vx::data_flow::State<void>::~State(this + 602);
+  v29 = *(this + 300);
+  *(this + 300) = 0;
+  if (v29)
+  {
+    (*(*v29 + 8))(v29);
+  }
+
+  vp::objc::ID::~ID(this + 299);
+  vp::objc::ID::~ID(this + 298);
+  vp::rpb::Connection::~Connection(this + 296);
+  v30 = *(this + 295);
+  if (v30)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+  }
+
+  v31 = *(this + 293);
+  if (v31)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+  }
+
+  v32 = *(this + 242);
+  if (v32)
+  {
+    v33 = (*(this + 241) + 16);
+    do
+    {
+      if (*v33)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*v33);
+      }
+
+      v33 += 3;
+      --v32;
+    }
+
+    while (v32);
+  }
+
+  if (*(this + 243))
+  {
+    boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>::deallocate(this + 240, *(this + 241));
+  }
+
+  v34 = *(this + 190);
+  if (v34)
+  {
+    v35 = (*(this + 189) + 16);
+    do
+    {
+      if (*v35)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*v35);
+      }
+
+      v35 += 3;
+      --v34;
+    }
+
+    while (v34);
+  }
+
+  if (*(this + 191))
+  {
+    boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>::deallocate(this + 188, *(this + 189));
+  }
+
+  boost::container::vector<boost::container::dtl::pair<vp::vx::Graph_Property_ID,caulk::inplace_function<std::unique_ptr<vp::vx::io::Node_Delegate,vp::Allocator_Delete<vp::vx::io::Node_Delegate>> ()(vp::Allocator<std::byte>),32ul,8ul,caulk::inplace_function_detail::vtable>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Graph_Property_ID,caulk::inplace_function<std::unique_ptr<vp::vx::io::Node_Delegate,vp::Allocator_Delete<vp::vx::io::Node_Delegate>> ()(vp::Allocator<std::byte>),32ul,8ul,caulk::inplace_function_detail::vtable>>>,void>::~vector(this + 181);
+  *(this + 185) = &unk_2881C6630;
+  v36 = *(this + 187);
+  if (v36)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+  }
+
+  boost::container::vector<boost::container::dtl::pair<vp::vx::Graph_Property_ID,caulk::inplace_function<std::unique_ptr<vp::vx::io::Node_Command,vp::Allocator_Delete<vp::vx::io::Node_Command>> ()(vp::Allocator<std::byte>),32ul,8ul,caulk::inplace_function_detail::vtable>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Graph_Property_ID,caulk::inplace_function<std::unique_ptr<vp::vx::io::Node_Command,vp::Allocator_Delete<vp::vx::io::Node_Command>> ()(vp::Allocator<std::byte>),32ul,8ul,caulk::inplace_function_detail::vtable>>>,void>::~vector(this + 173);
+  *(this + 177) = &unk_2881C6630;
+  v37 = *(this + 179);
+  if (v37)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+  }
+
+  v38 = *(this + 168);
+  if (v38)
+  {
+    do
+    {
+      v39 = *v38;
+      v40 = v38[3];
+      if (v40)
+      {
+        v38[4] = v40;
+        std::allocator_traits<vp::Allocator<unsigned char>>::deallocate[abi:ne200100](v38[6], v40, v38[5] - v40);
+      }
+
+      std::allocator_traits<vp::Allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::pair<std::vector<unsigned char,vp::Allocator<unsigned char>>,unsigned long>>,void *>>>::deallocate[abi:ne200100](*(this + 169), v38);
+      v38 = v39;
+    }
+
+    while (v39);
+  }
+
+  v41 = *(this + 165);
+  *(this + 165) = 0;
+  if (v41)
+  {
+    std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<std::__hash_value_type<unsigned int,std::pair<std::vector<unsigned char,vp::Allocator<unsigned char>>,unsigned long>>,void *> *> *>>::deallocate[abi:ne200100](*(this + 167), v41, *(this + 166));
+  }
+
+  boost::container::vector<boost::container::dtl::pair<vp::vx::Graph_Parameter_ID,vp::vx::data_flow::State<float>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Graph_Parameter_ID,vp::vx::data_flow::State<float>>>,void>::~vector(this + 158);
+  *(this + 162) = &unk_2881C6630;
+  v42 = *(this + 164);
+  if (v42)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+  }
+
+  boost::container::vector<boost::container::dtl::pair<vp::vx::Graph_Parameter_ID,vp::vx::data_flow::State<float>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Graph_Parameter_ID,vp::vx::data_flow::State<float>>>,void>::~vector(this + 150);
+  *(this + 154) = &unk_2881C6630;
+  v43 = *(this + 156);
+  if (v43)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+  }
+
+  v44 = *(this + 145);
+  if (v44)
+  {
+    do
+    {
+      v45 = *v44;
+      std::allocator_traits<vp::Allocator<std::__hash_node<std::__hash_value_type<unsigned int,float>,void *>>>::deallocate[abi:ne200100](*(this + 146), v44);
+      v44 = v45;
+    }
+
+    while (v45);
+  }
+
+  v46 = *(this + 142);
+  *(this + 142) = 0;
+  if (v46)
+  {
+    std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<std::__hash_value_type<unsigned int,float>,void *> *> *>>::deallocate[abi:ne200100](*(this + 144), v46, *(this + 143));
+  }
+
+  caulk::concurrent::shared_spin_lock::~shared_spin_lock((this + 1128));
+  v47 = *(this + 130);
+  v48 = *(this + 131);
+  if (!v47 && v48)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  if (v48)
+  {
+    v49 = &v47[2 * v48];
+    do
+    {
+      if (!v47)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      v50 = v47[1];
+      v51 = boost::container::flat_map<vp::vx::Property_ID,vp::vx::Property,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,vp::vx::Property>>>::at(*(this + 122), *(this + 123), *v47);
+      vp::vx::data_flow::State<void>::unregister_listener(v51, v50);
+      v47 += 2;
+    }
+
+    while (v47 != v49);
+  }
+
+  v52 = *(this + 127);
+  if (v52)
+  {
+    v53 = (*(this + 126) + 8);
+    do
+    {
+      --v52;
+      __p[0] = v53;
+      std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>::__destroy_vector::operator()[abi:ne200100](__p);
+      v53 += 40;
+    }
+
+    while (v52);
+  }
+
+  *(this + 127) = 0;
+  std::__hash_table<vp::vx::Property_ID,std::hash<vp::vx::Property_ID>,std::equal_to<vp::vx::Property_ID>,vp::Allocator<vp::vx::Property_ID>>::~__hash_table(this + 133);
+  v54 = *(this + 132);
+  if (v54)
+  {
+    (*(**(this + 129) + 24))(*(this + 129), *(this + 130), 8 * v54, 4);
+  }
+
+  boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,std::vector<vp::vx::Property_Manager::Listener,vp::Allocator<vp::vx::Property_Manager::Listener>>>>,void>::~vector(this + 125);
+  boost::container::vector<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>,vp::Allocator<boost::container::dtl::pair<vp::vx::Property_ID,vp::vx::Property>>,void>::~vector(this + 121);
+  std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::~__hash_table(this + 116);
+  std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::~__hash_table(this + 111);
+  v55 = *(this + 109);
+  if (v55)
+  {
+    v56 = (*(this + 108) + 8);
+    do
+    {
+      --v55;
+      v56 = vp::vx::data_flow::State<void>::~State(v56) + 8;
+    }
+
+    while (v55);
+  }
+
+  v57 = *(this + 110);
+  if (v57)
+  {
+    (*(**(this + 107) + 24))(*(this + 107), *(this + 108), 32 * v57, 8);
+  }
+
+  vp::vx::data_flow::State<void>::~State(this + 208);
+  vp::vx::data_flow::State<void>::~State(this + 202);
+  vp::vx::data_flow::State_Transaction::~State_Transaction((this + 784));
+  if (*(this + 92))
+  {
+    *&v91 = 0;
+    v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    *__p = 0u;
+    v87 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v88 = 3;
+    }
+
+    else
+    {
+      v88 = 2;
+    }
+
+    *buf = 134217984;
+    *&buf[4] = 0;
+    _os_log_send_and_compose_impl(v88, &v91, __p, 80, &dword_2724B4000, v87, 16, "assertion failure: mControlBlock == nullptr -> %llu", buf);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (*(this + 768) == 1)
+  {
+    MEMORY[0x2743CB750](this + 752);
+  }
+
+  v58 = *(this + 93);
+  if (v58)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+  }
+
+  v59 = *(this + 80);
+  if (v59)
+  {
+    v60 = *(this + 79);
+    do
+    {
+      if (*(v60 + 23) < 0)
+      {
+        operator delete(*v60);
+      }
+
+      v60 += 24;
+      --v59;
+    }
+
+    while (v59);
+  }
+
+  if (*(this + 81))
+  {
+    boost::container::small_vector_allocator<std::__fs::filesystem::path,vp::Allocator<void>,void>::deallocate(this + 78, *(this + 79));
+  }
+
+  v61 = *(this + 77);
+  if (v61)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v61);
+  }
+
+  if (*(this + 65))
+  {
+    std::vector<std::shared_ptr<vp::vx::io::Node_Delegate>>::clear[abi:ne200100](this + 65);
+    std::allocator_traits<vp::Allocator<std::shared_ptr<vp::vx::Component>>>::deallocate[abi:ne200100](*(this + 68), *(this + 65), (*(this + 67) - *(this + 65)) >> 4);
+  }
+
+  v62 = *(this + 62);
+  if (v62)
+  {
+    *(this + 63) = v62;
+    operator delete(v62);
+  }
+
+  v63 = *(this + 60);
+  if (v63)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+  }
+
+  v64 = *(this + 58);
+  if (v64)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+  }
+
+  vp::Context::~Context((this + 264));
+  v65 = *(this + 4);
+  if (v65)
+  {
+    dispatch_source_cancel(v65);
+  }
+
+  v66 = *(this + 11);
+  *(this + 10) = 0;
+  *(this + 11) = 0;
+  if (v66)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v66);
+    v67 = *(this + 11);
+    *&v91 = *(this + 10);
+    *(&v91 + 1) = v67;
+    if (v67)
+    {
+      atomic_fetch_add_explicit((v67 + 16), 1uLL, memory_order_relaxed);
+    }
+  }
+
+  else
+  {
+    v91 = 0uLL;
+  }
+
+  vp::vx::data_flow::State_Manager::set_delegate(*(this + 8), &v91);
+  if (*(&v91 + 1))
+  {
+    std::__shared_weak_count::__release_weak(*(&v91 + 1));
+  }
+
+  std::recursive_mutex::~recursive_mutex((this + 184));
+  v68 = *(this + 19);
+  if (v68)
+  {
+    do
+    {
+      v69 = *v68;
+      std::pmr::polymorphic_allocator<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *>>::destroy[abi:ne200100]<std::pair<applesauce::CF::StringRef const,unsigned int>>(*(v68 + 16));
+      std::allocator_traits<vp::Allocator<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *>>>::deallocate[abi:ne200100](*(this + 20), v68);
+      v68 = v69;
+    }
+
+    while (v69);
+  }
+
+  v70 = *(this + 16);
+  *(this + 16) = 0;
+  if (v70)
+  {
+    std::allocator_traits<vp::Allocator<std::__hash_node_base<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,unsigned int>,void *> *> *>>::deallocate[abi:ne200100](*(this + 18), v70, *(this + 17));
+  }
+
+  v71 = *(this + 15);
+  if (v71)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+  }
+
+  v72 = *(this + 13);
+  if (v72)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+  }
+
+  v73 = *(this + 11);
+  if (v73)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v73);
+  }
+
+  v74 = vp::get_log(v73);
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+  {
+    v75 = vp::get_log_context_info(__p, this + 64, "vp::vx::data_flow::State_Manager]", 32);
+    v76 = BYTE7(v93);
+    v77 = SBYTE7(v93);
+    v78 = __p[1];
+    v79 = vp::get_log(v75);
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+    {
+      if (v77 >= 0)
+      {
+        v80 = v76;
+      }
+
+      else
+      {
+        v80 = v78;
+      }
+
+      v81 = __p[0];
+      if (v77 >= 0)
+      {
+        v81 = __p;
+      }
+
+      if (v80)
+      {
+        v82 = " ";
+      }
+
+      else
+      {
+        v82 = "";
+      }
+
+      *buf = 136315394;
+      *&buf[4] = v81;
+      v98 = 2080;
+      v99 = v82;
+      _os_log_impl(&dword_2724B4000, v79, OS_LOG_TYPE_DEFAULT, "%s%sdestroyed", buf, 0x16u);
+      LOBYTE(v77) = BYTE7(v93);
+    }
+
+    if ((v77 & 0x80) != 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v83 = *(this + 9);
+  if (v83)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+  }
+
+  vp::vx::data_flow::State<void>::~State(this + 10);
+  v84 = *(this + 4);
+  if (v84)
+  {
+    dispatch_release(v84);
+  }
+
+  v85 = *(this + 3);
+  if (v85)
+  {
+    dispatch_release(v85);
+  }
+
+  v86 = *(this + 2);
+  if (v86)
+  {
+    dispatch_release(v86);
+  }
+}
+
+{
+  vp::vx::Voice_Processor::~Voice_Processor(this);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void sub_2726D8FF0(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t vp::vx::Voice_Processor::exception_guard(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t a4)
+{
+  v6[8] = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  v6[0] = a4;
+  return a3(v6);
+}
+
+void sub_2726D90A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a2)
+  {
+    v20 = __cxa_begin_catch(a1);
+    log = vp::get_log(v20);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      log_context_info = vp::get_log_context_info(&__p, v19, "vp::vx::Voice_Processor]", 23);
+      v23 = a19;
+      v24 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        vp::get_log_exception_info(&a9);
+      }
+
+      if (v23 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2726D906CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::unique_ptr<vp::vx::Orientation_Manager>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+{
+  v31 = *MEMORY[0x277D85DE8];
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = (*(**v2 + 24))();
+    if ((v3 & 1) == 0)
+    {
+      log = vp::get_log(v3);
+      if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+      {
+        log_context_info = vp::get_log_context_info(&__p, v2, "vp::vx::Orientation_Manager]", 27);
+        v8 = v26;
+        v9 = v26;
+        v10 = v25;
+        v11 = vp::get_log(log_context_info);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          if (v9 >= 0)
+          {
+            v12 = v8;
+          }
+
+          else
+          {
+            v12 = v10;
+          }
+
+          p_p = __p;
+          if (v9 >= 0)
+          {
+            p_p = &__p;
+          }
+
+          if (v12)
+          {
+            v14 = " ";
+          }
+
+          else
+          {
+            v14 = "";
+          }
+
+          *buf = 136315394;
+          v28 = p_p;
+          v29 = 2080;
+          v30 = v14;
+          _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_ERROR, "%s%sfailed to unregister device orientation listener", buf, 0x16u);
+          LOBYTE(v9) = v26;
+        }
+
+        if ((v9 & 0x80) != 0)
+        {
+          operator delete(__p);
+        }
+      }
+    }
+
+    v4 = (*(**v2 + 40))();
+    if ((v4 & 1) == 0)
+    {
+      v15 = vp::get_log(v4);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = vp::get_log_context_info(&__p, v2, "vp::vx::Orientation_Manager]", 27);
+        v17 = v26;
+        v18 = v26;
+        v19 = v25;
+        v20 = vp::get_log(v16);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          if (v18 >= 0)
+          {
+            v21 = v17;
+          }
+
+          else
+          {
+            v21 = v19;
+          }
+
+          v22 = __p;
+          if (v18 >= 0)
+          {
+            v22 = &__p;
+          }
+
+          if (v21)
+          {
+            v23 = " ";
+          }
+
+          else
+          {
+            v23 = "";
+          }
+
+          *buf = 136315394;
+          v28 = v22;
+          v29 = 2080;
+          v30 = v23;
+          _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_ERROR, "%s%sfailed to unregister UI orientation listener", buf, 0x16u);
+          LOBYTE(v18) = v26;
+        }
+
+        if ((v18 & 0x80) != 0)
+        {
+          operator delete(__p);
+        }
+      }
+    }
+
+    vp::vx::data_flow::State<void>::~State((v2 + 40));
+    vp::vx::data_flow::State<void>::~State((v2 + 16));
+    v5 = *(v2 + 8);
+    if (v5)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    }
+
+    JUMPOUT(0x2743CBFA0);
+  }
+
+  return result;
+}
+
+vp *std::unique_ptr<vp::vx::System_Status_Manager>::reset[abi:ne200100](vp *result, uint64_t a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    log = vp::get_log(result);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      log_context_info = vp::get_log_context_info(__p, v2, "vp::vx::System_Status_Manager]", 29);
+      v5 = v14;
+      v6 = v14;
+      v7 = __p[1];
+      v8 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        if (v6 >= 0)
+        {
+          v9 = v5;
+        }
+
+        else
+        {
+          v9 = v7;
+        }
+
+        v10 = __p[0];
+        if (v6 >= 0)
+        {
+          v10 = __p;
+        }
+
+        if (v9)
+        {
+          v11 = " ";
+        }
+
+        else
+        {
+          v11 = "";
+        }
+
+        *buf = 136315394;
+        v16 = v10;
+        v17 = 2080;
+        v18 = v11;
+        _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_DEFAULT, "%s%sdestroyed", buf, 0x16u);
+        LOBYTE(v6) = v14;
+      }
+
+      if ((v6 & 0x80) != 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    v12 = *(v2 + 8);
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    }
+
+    JUMPOUT(0x2743CBFA0);
+  }
+
+  return result;
+}
+
+void std::default_delete<vp::vx::Control_Center_Manager>::operator()[abi:ne200100](uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+void **std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::~__hash_table(void **a1)
+{
+  std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::__deallocate_node(a1[2]);
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void *boost::container::small_vector_allocator<std::__fs::filesystem::path,vp::Allocator<void>,void>::deallocate(void *result, void *a2)
+{
+  if (result + 4 != a2)
+  {
+    return (*(**result + 24))(*result);
+  }
+
+  return result;
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::__deallocate_node(void *__p)
+{
+  if (__p)
+  {
+    v1 = __p;
+    do
+    {
+      v2 = v1;
+      v1 = *v1;
+      if (*(v2 + 48) == 1 && *(v2 + 47) < 0)
+      {
+        operator delete(v2[3]);
+      }
+
+      operator delete(v2);
+    }
+
+    while (v1);
+  }
+}
+
+void *boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>::deallocate(void *result, void *a2)
+{
+  if (result + 4 != a2)
+  {
+    return (*(**result + 24))(*result);
+  }
+
+  return result;
+}
+
+void *boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>::deallocate(void *result, void *a2)
+{
+  if (result + 4 != a2)
+  {
+    return (*(**result + 24))(*result);
+  }
+
+  return result;
+}
+
+void **caulk::function_ref<void ()(void)>::functor_invoker<vp::vx::Voice_Processor::disconnect(vp::rpb::Server)::$_0>(uint64_t **a1)
+{
+  v76 = *MEMORY[0x277D85DE8];
+  v1 = **a1;
+  log = vp::get_log(a1);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    log_context_info = vp::get_log_context_info(__p, v1, "vp::vx::Voice_Processor]", 23);
+    v4 = HIBYTE(v65);
+    v5 = SHIBYTE(v65);
+    v6 = __p[1];
+    v7 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      if (v5 >= 0)
+      {
+        v8 = v4;
+      }
+
+      else
+      {
+        v8 = v6;
+      }
+
+      v9 = __p[0];
+      if (v5 >= 0)
+      {
+        v9 = __p;
+      }
+
+      if (v8)
+      {
+        v10 = " ";
+      }
+
+      else
+      {
+        v10 = "";
+      }
+
+      *buf = 136315394;
+      *&buf[4] = v9;
+      *&buf[12] = 2080;
+      *&buf[14] = v10;
+      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEFAULT, "%s%sdisconnect RPB", buf, 0x16u);
+      LOBYTE(v5) = HIBYTE(v65);
+    }
+
+    if ((v5 & 0x80) != 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v61 = *(v1 + 2376);
+  if (v61)
+  {
+    v11 = *(v1 + 2400);
+    cf = CFStringCreateWithBytes(0, "Uplink", 6, 0x8000100u, 0);
+    if (!cf)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+    }
+
+    vp::rpb::Host::find_item_by_name(&v60, v61, &cf);
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+
+    v12 = *(v1 + 2584);
+    v57 = CFStringCreateWithBytes(0, "Downlink", 8, 0x8000100u, 0);
+    if (!v57)
+    {
+      v52 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v52, "Could not construct");
+    }
+
+    vp::rpb::Host::find_item_by_name(&v58, v61, &v57);
+    v53 = v1;
+    if (v57)
+    {
+      CFRelease(v57);
+    }
+
+    *buf = v60;
+    v13 = 0;
+    *&buf[8] = v58;
+    v74 = 0x100000000;
+    v54 = v12;
+    v55 = v11;
+    while (1)
+    {
+      v14 = *&buf[v13 - 8];
+      if (v14)
+      {
+        v15 = v12;
+      }
+
+      else
+      {
+        v15 = v11;
+      }
+
+      if (v15)
+      {
+        v16 = (v14 ? &buf[8] : buf);
+        v17 = *v16;
+        if (v17)
+        {
+          v56 = v17;
+          caulk::autorelease_pool::autorelease_pool(v72);
+          v18 = *(v15 + 64);
+          if (*(v15 + 72) != v18)
+          {
+            v19 = 0;
+            v20 = 1;
+            do
+            {
+              v21 = v18 + 304 * v19;
+              v22 = *v21;
+              v23 = *(v21 + 8);
+              if (v23)
+              {
+                atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
+              v24 = v22 + *(*v22 - 24);
+              v25 = *(v24 + 1);
+              v26 = *(v24 + 2);
+              if (v26)
+              {
+                atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
+              v27 = *(v25 + 23);
+              if ((v27 & 0x80u) == 0)
+              {
+                v28 = v25;
+              }
+
+              else
+              {
+                v28 = *v25;
+              }
+
+              if (v28)
+              {
+                v29 = *(v25 + 8);
+                if ((v27 & 0x80u) == 0)
+                {
+                  v30 = v27;
+                }
+
+                else
+                {
+                  v30 = v29;
+                }
+
+                v31 = CFStringCreateWithBytes(0, v28, v30, 0x8000100u, 0);
+                v71 = v31;
+                if (!v31)
+                {
+                  v49 = __cxa_allocate_exception(0x10uLL);
+                  std::runtime_error::runtime_error(v49, "Could not construct");
+                }
+
+                if (!v26)
+                {
+                  goto LABEL_46;
+                }
+              }
+
+              else
+              {
+                v31 = 0;
+                v71 = 0;
+                if (!v26)
+                {
+                  goto LABEL_46;
+                }
+              }
+
+              std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+LABEL_46:
+              if (v23)
+              {
+                std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+              }
+
+              vp::rpb::Item::get_sub_host(__p, v56);
+              if (v31)
+              {
+                CFRetain(v31);
+              }
+
+              v69 = v31;
+              vp::rpb::Host::find_item_by_name(&v70, __p[0], &v69);
+              if (v31)
+              {
+                CFRelease(v31);
+              }
+
+              vp::objc::ID::~ID(__p);
+              if (v70)
+              {
+                v32 = *(v15 + 64);
+                v63 = v70;
+                v33 = *(v32 + 304 * v19);
+                v73 = v63;
+                (*(*v33 + 104))(__p, v33, &v73);
+                vp::objc::ID::~ID(&v73);
+                if ((v68 & 1) == 0 && SHIBYTE(v66) < 0)
+                {
+                  (*(*v67 + 24))(v67, v65, v66 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                }
+
+                vp::objc::ID::~ID(&v63);
+              }
+
+              vp::objc::ID::~ID(&v70);
+              if (v31)
+              {
+                CFRelease(v31);
+              }
+
+              v19 = v20;
+              v18 = *(v15 + 64);
+            }
+
+            while (0x86BCA1AF286BCA1BLL * ((*(v15 + 72) - v18) >> 4) > v20++);
+          }
+
+          v35 = *(v15 + 192);
+          if (*(v15 + 200) != v35)
+          {
+            v36 = 0;
+            v37 = 1;
+            do
+            {
+              v38 = 16 * v36;
+              v39 = *(v35 + 16 * v36) + *(**(v35 + 16 * v36) - 24);
+              v40 = *(v39 + 8);
+              v41 = *(v39 + 16);
+              if (v41)
+              {
+                atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
+              v42 = *(v40 + 23);
+              if ((v42 & 0x80u) == 0)
+              {
+                v43 = v40;
+              }
+
+              else
+              {
+                v43 = *v40;
+              }
+
+              if (v43)
+              {
+                v44 = *(v40 + 8);
+                if ((v42 & 0x80u) == 0)
+                {
+                  v45 = v42;
+                }
+
+                else
+                {
+                  v45 = v44;
+                }
+
+                v46 = CFStringCreateWithBytes(0, v43, v45, 0x8000100u, 0);
+                v73 = v46;
+                if (!v46)
+                {
+                  v50 = __cxa_allocate_exception(0x10uLL);
+                  std::runtime_error::runtime_error(v50, "Could not construct");
+                }
+
+                if (!v41)
+                {
+                  goto LABEL_77;
+                }
+              }
+
+              else
+              {
+                v46 = 0;
+                v73 = 0;
+                if (!v41)
+                {
+                  goto LABEL_77;
+                }
+              }
+
+              std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+LABEL_77:
+              vp::rpb::Item::get_sub_host(__p, v56);
+              if (v46)
+              {
+                CFRetain(v46);
+              }
+
+              v70 = v46;
+              vp::rpb::Host::find_wire_by_name(&v71, __p[0], &v70);
+              if (v46)
+              {
+                CFRelease(v46);
+              }
+
+              vp::objc::ID::~ID(__p);
+              if (v71)
+              {
+                v47 = *(*(v15 + 192) + v38);
+                v62 = v71;
+                (*(*v47 + 40))(__p, v47, &v62);
+                if ((v68 & 1) == 0 && SHIBYTE(v66) < 0)
+                {
+                  (*(*v67 + 24))(v67, v65, v66 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                }
+
+                vp::objc::ID::~ID(&v62);
+              }
+
+              vp::objc::ID::~ID(&v71);
+              if (v46)
+              {
+                CFRelease(v46);
+              }
+
+              v36 = v37;
+              v35 = *(v15 + 192);
+              ++v37;
+            }
+
+            while (v36 < (*(v15 + 200) - v35) >> 4);
+          }
+
+          vp::rpb::Connection::operator=((v15 + 256));
+          caulk::autorelease_pool::~autorelease_pool(v72);
+          vp::objc::ID::~ID(&v56);
+          v12 = v54;
+          v11 = v55;
+        }
+      }
+
+      v13 += 4;
+      if (v13 == 8)
+      {
+        vp::objc::ID::~ID(&buf[8]);
+        vp::objc::ID::~ID(buf);
+        vp::objc::ID::~ID(&v58);
+        vp::objc::ID::~ID(&v60);
+        v1 = v53;
+        break;
+      }
+    }
+  }
+
+  vp::objc::ID::~ID(&v61);
+  vp::rpb::Connection::operator=((v1 + 2368));
+  return vp::objc::ID::operator=((v1 + 2384));
+}
+
+void sub_2726D9FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, const void *);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v14 = va_arg(va2, id);
+  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
+  vp::objc::ID::~ID(va1);
+  vp::objc::ID::~ID(va2);
+  _Unwind_Resume(a1);
+}
+
+double vp::vx::Voice_Processor::observe_downlink_state_change(uint64_t a1, uint64_t a2, __n128 *a3)
+{
+  v6 = a2;
+  v7 = &v6;
+  v4 = std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 928), a2, &v7);
+  *&result = std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v4 + 3), a3).n128_u64[0];
+  return result;
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(float *a1, unsigned int a2, _DWORD **a3)
+{
+  v3 = *(a1 + 1);
+  if (!v3)
+  {
+    goto LABEL_18;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (v3 <= a2)
+    {
+      v5 = a2 % v3;
+    }
+  }
+
+  else
+  {
+    v5 = (v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v8 = v7[1];
+    if (v8 == a2)
+    {
+      break;
+    }
+
+    if (v4.u32[0] > 1uLL)
+    {
+      if (v8 >= v3)
+      {
+        v8 %= v3;
+      }
+    }
+
+    else
+    {
+      v8 &= v3 - 1;
+    }
+
+    if (v8 != v5)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v7 = *v7;
+    if (!v7)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (*(v7 + 4) != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v7;
+}
+
+__n128 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(uint64_t a1, __n128 *a2)
+{
+  if (*(a1 + 24) == a2[1].n128_u8[8])
+  {
+    if (*(a1 + 24))
+    {
+      if (*(a1 + 23) < 0)
+      {
+        operator delete(*a1);
+      }
+
+      result = *a2;
+      *(a1 + 16) = a2[1].n128_u64[0];
+      *a1 = result;
+      a2[1].n128_u8[7] = 0;
+      a2->n128_u8[0] = 0;
+    }
+  }
+
+  else if (*(a1 + 24))
+  {
+    if (*(a1 + 23) < 0)
+    {
+      operator delete(*a1);
+    }
+
+    *(a1 + 24) = 0;
+  }
+
+  else
+  {
+    result = *a2;
+    *(a1 + 16) = a2[1].n128_u64[0];
+    *a1 = result;
+    *(a2 + 8) = 0uLL;
+    a2->n128_u64[0] = 0;
+    *(a1 + 24) = 1;
+  }
+
+  return result;
+}
+
+void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::optional<std::string>>,void *>>>::operator()[abi:ne200100](char a1, void **__p)
+{
+  if (a1)
+  {
+    if (*(__p + 48) == 1 && *(__p + 47) < 0)
+    {
+      operator delete(__p[3]);
+    }
+  }
+
+  else if (!__p)
+  {
+    return;
+  }
+
+  operator delete(__p);
+}
+
+double vp::vx::Voice_Processor::observe_uplink_state_change(uint64_t a1, unsigned int a2, __n128 *a3)
+{
+  v6 = a2;
+  v7 = &v6;
+  v4 = std::__hash_table<std::__hash_value_type<unsigned int,std::optional<std::string>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::optional<std::string>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::optional<std::string>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 888), a2, &v7);
+  *&result = std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v4 + 3), a3).n128_u64[0];
+  return result;
+}
+
+void vp::vx::Voice_Processor::observe_global_state_change(uint64_t a1, uint64_t a2, __int128 *a3)
+{
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, a3);
+  (*(*a1 + 184))(a1, a2, &__p);
+  if (v9 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v6, a3);
+  (*(*a1 + 192))(a1, a2, &v6);
+  if (v7 == 1 && SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v6.__r_.__value_.__l.__data_);
+  }
+}
+
+int *vp::vx::Voice_Processor::find_user_defaults_state@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int *a3@<X8>)
+{
+  v16 = 0;
+  v17 = 0;
+  v18 = 0;
+  v4 = *(a1 + 864);
+  v20 = v4;
+  v5 = *(a1 + 872);
+  if (v4)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = v5 == 0;
+  }
+
+  if (!v6)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v7 = a2;
+  boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::User_Defaults_Key,vp::vx::data_flow::State<void>>,boost::container::dtl::select1st<vp::vx::User_Defaults_Key>,std::less<vp::vx::User_Defaults_Key>,vp::Allocator<boost::container::dtl::pair<vp::vx::User_Defaults_Key,vp::vx::data_flow::State<void>>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::User_Defaults_Key,vp::vx::data_flow::State<void>>*,true>,vp::vx::User_Defaults_Key>(&v19, &v20, v4 + 32 * v5, a2);
+  v10 = *(a1 + 864);
+  v11 = *(a1 + 872);
+  if (v10)
+  {
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = v11 == 0;
+  }
+
+  if (!v12)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v13 = (v10 + 32 * v11);
+  v14 = v19;
+  if (v19 != v13)
+  {
+    if (!v19)
+    {
+      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+    }
+
+    if (*v19 > v7)
+    {
+      v14 = v13;
+    }
+  }
+
+  if (v14 == v13)
+  {
+    boost::container::throw_length_error("flat_map::at key not found", v9);
+  }
+
+  vp::vx::data_flow::State<void>::~State(&v16);
+  vp::vx::data_flow::State<void>::State(&v16, v14 + 2);
+  vp::vx::data_flow::State<void>::State(a3, &v16);
+  return vp::vx::data_flow::State<void>::~State(&v16);
+}
+
+void sub_2726DA930(void *a1)
+{
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x2726DA88CLL);
+}
+
+void *boost::container::dtl::flat_tree<boost::container::dtl::pair<vp::vx::User_Defaults_Key,vp::vx::data_flow::State<void>>,boost::container::dtl::select1st<vp::vx::User_Defaults_Key>,std::less<vp::vx::User_Defaults_Key>,vp::Allocator<boost::container::dtl::pair<vp::vx::User_Defaults_Key,vp::vx::data_flow::State<void>>>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<vp::vx::User_Defaults_Key,vp::vx::data_flow::State<void>>*,true>,vp::vx::User_Defaults_Key>(void *result, void *a2, uint64_t a3, int a4)
+{
+  v4 = *a2;
+  if (*a2 != a3)
+  {
+    v5 = (a3 - v4) >> 5;
+    do
+    {
+      if (v5 != 1 && !v4)
+      {
+        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+      }
+
+      if (!v4)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      v6 = v5 >> 1;
+      v7 = &v4[8 * (v5 >> 1)];
+      if (*v7 < a4)
+      {
+        v4 = v7 + 8;
+        *a2 = v7 + 8;
+        v6 = v5 + ~v6;
+      }
+
+      v5 = v6;
+    }
+
+    while (v6);
+  }
+
+  *result = v4;
+  return result;
+}
+
+int *vp::vx::Voice_Processor::find_property_state@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, int *a3@<X8>)
+{
+  v6 = 0;
+  v7 = 0uLL;
+  v11 = a2;
+  v4 = boost::container::flat_map<vp::vx::Property_ID,vp::vx::Property,std::less<vp::vx::Property_ID>,vp::Allocator<std::pair<vp::vx::Property_ID,vp::vx::Property>>>::at(a1 + 968, &v11);
+  vp::vx::data_flow::State<void>::State(&v8, v4);
+  v10 = 1;
+  vp::vx::data_flow::State<void>::~State(&v6);
+  v6 = v8;
+  v7 = v9;
+  v9 = 0uLL;
+  if (v10 == 1)
+  {
+    vp::vx::data_flow::State<void>::~State(&v8);
+  }
+
+  vp::vx::data_flow::State<void>::State(a3, &v6);
+  return vp::vx::data_flow::State<void>::~State(&v6);
+}
+
+void sub_2726DAAA4(void *a1)
+{
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  exception = __cxa_allocate_exception(0x10uLL);
+  *exception = &unk_2881C5FF8;
+  exception[2] = 2;
+}
+
+void sub_2726DAB04(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, char a15)
+{
+  if (a15 == 1)
+  {
+    vp::vx::data_flow::State<void>::~State(&a12);
+  }
+
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x2726DAA80);
+}
+
+void caulk::bad_expected_access<vp::vx::Error_Code>::~bad_expected_access(std::exception *a1)
+{
+  std::exception::~exception(a1);
+
+  JUMPOUT(0x2743CBFA0);
+}
+
+unsigned int *vp::vx::Voice_Processor::reset_dsp@<X0>(unsigned int *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+{
+  v77 = *MEMORY[0x277D85DE8];
+  if (a2)
+  {
+    v4 = 9;
+LABEL_3:
+    *a3 = v4;
+    *(a3 + 4) = 0;
+    return result;
+  }
+
+  v5 = result;
+  v59 = (result + 282);
+  v6 = atomic_load(result + 282);
+  if (v6 > 0x7FFFFFFE)
+  {
+LABEL_8:
+    v4 = 8;
+    goto LABEL_3;
+  }
+
+  v7 = v6;
+  while (1)
+  {
+    atomic_compare_exchange_strong(result + 282, &v7, v6 + 1);
+    if (v7 == v6)
+    {
+      break;
+    }
+
+    v6 = v7;
+    if (v7 >= 0x7FFFFFFF)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v60 = 1;
+  v8 = *(result + 323);
+  if (v8)
+  {
+    *(result + 324) &= 0xFFFFFFFFFFFFFF00;
+    vp::vx::io::Graph::reset(&v51, v8);
+    v10 = v58;
+    if (v58)
+    {
+      goto LABEL_11;
+    }
+
+    v11 = SHIBYTE(v56);
+    if (v56 >= 0)
+    {
+      v12 = HIBYTE(v56);
+    }
+
+    else
+    {
+      v12 = v55[1];
+    }
+
+    log = vp::get_log(v9);
+    v14 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
+    if (v12)
+    {
+      if (v14)
+      {
+        v45 = v10;
+        log_context_info = vp::get_log_context_info(&v48, v5, "vp::vx::Voice_Processor]", 23);
+        v16 = v50;
+        if ((v50 & 0x80u) == 0)
+        {
+          v17 = v50;
+        }
+
+        else
+        {
+          v17 = v49;
+        }
+
+        v18 = vp::get_log(log_context_info);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          v19 = v48;
+          v20 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v51);
+          std::string::basic_string<std::string_view,0>(__p, v20, v21);
+          if (v16 >= 0)
+          {
+            v23 = &v48;
+          }
+
+          else
+          {
+            v23 = v19;
+          }
+
+          if (v17)
+          {
+            v24 = " ";
+          }
+
+          else
+          {
+            v24 = "";
+          }
+
+          if (v47 >= 0)
+          {
+            v25 = __p;
+          }
+
+          else
+          {
+            v25 = __p[0];
+          }
+
+          v26 = v52;
+          v27 = v53;
+          log_source_file_path = vp::get_log_source_file_path(v54, v22);
+          v29 = v55;
+          *buf = 136316930;
+          if (v11 < 0)
+          {
+            v29 = v55[0];
+          }
+
+          v62 = v23;
+          v63 = 2080;
+          v64 = v24;
+          v65 = 2080;
+          v66 = "reset downlink DSP";
+          v67 = 2080;
+          v68 = v25;
+          v69 = 1024;
+          v70 = v26;
+          v71 = 1024;
+          v72 = v27;
+          v73 = 2080;
+          v74 = log_source_file_path;
+          v75 = 2080;
+          v76 = v29;
+          _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_ERROR, "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s", buf, 0x4Au);
+          if (v47 < 0)
+          {
+            operator delete(__p[0]);
+          }
+
+          LOBYTE(v16) = v50;
+        }
+
+        if ((v16 & 0x80) != 0)
+        {
+          operator delete(v48);
+        }
+
+        v30 = v58;
+        v10 = v45;
+        goto LABEL_61;
+      }
+    }
+
+    else if (v14)
+    {
+      v31 = vp::get_log_context_info(&v48, v5, "vp::vx::Voice_Processor]", 23);
+      v32 = v50;
+      if ((v50 & 0x80u) == 0)
+      {
+        v33 = v50;
+      }
+
+      else
+      {
+        v33 = v49;
+      }
+
+      v34 = vp::get_log(v31);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        v35 = v48;
+        v36 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v51);
+        std::string::basic_string<std::string_view,0>(__p, v36, v37);
+        if (v32 >= 0)
+        {
+          v39 = &v48;
+        }
+
+        else
+        {
+          v39 = v35;
+        }
+
+        if (v33)
+        {
+          v40 = " ";
+        }
+
+        else
+        {
+          v40 = "";
+        }
+
+        if (v47 >= 0)
+        {
+          v41 = __p;
+        }
+
+        else
+        {
+          v41 = __p[0];
+        }
+
+        v42 = v52;
+        v43 = v53;
+        v44 = vp::get_log_source_file_path(v54, v38);
+        *buf = 136316674;
+        v62 = v39;
+        v63 = 2080;
+        v64 = v40;
+        v65 = 2080;
+        v66 = "reset downlink DSP";
+        v67 = 2080;
+        v68 = v41;
+        v69 = 1024;
+        v70 = v42;
+        v71 = 1024;
+        v72 = v43;
+        v73 = 2080;
+        v74 = v44;
+        _os_log_impl(&dword_2724B4000, v34, OS_LOG_TYPE_ERROR, "%s%sfailed to %s due to '%s' error at line %u column %u in %s", buf, 0x40u);
+        if (v47 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        LOBYTE(v32) = v50;
+      }
+
+      if ((v32 & 0x80) != 0)
+      {
+        operator delete(v48);
+      }
+    }
+
+    v30 = 0;
+LABEL_61:
+    *a3 = 5;
+    *(a3 + 4) = 0;
+    if ((v30 & 1) == 0 && SHIBYTE(v56) < 0)
+    {
+      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v57, v55[0], v56 & 0x7FFFFFFFFFFFFFFFLL);
+    }
+
+    goto LABEL_11;
+  }
+
+  v10 = 0;
+  *a3 = 8;
+  *(a3 + 4) = 0;
+LABEL_11:
+  result = caulk::concurrent::shared_spin_lock::unlock_shared(v59);
+  if (v10)
+  {
+    *a3 = 0;
+    *(a3 + 4) = 1;
+  }
+
+  return result;
+}
+
+{
+  v77 = *MEMORY[0x277D85DE8];
+  if (a2)
+  {
+    v4 = 9;
+LABEL_3:
+    *a3 = v4;
+    *(a3 + 4) = 0;
+    return result;
+  }
+
+  v5 = result;
+  v59 = (result + 282);
+  v6 = atomic_load(result + 282);
+  if (v6 > 0x7FFFFFFE)
+  {
+LABEL_8:
+    v4 = 8;
+    goto LABEL_3;
+  }
+
+  v7 = v6;
+  while (1)
+  {
+    atomic_compare_exchange_strong(result + 282, &v7, v6 + 1);
+    if (v7 == v6)
+    {
+      break;
+    }
+
+    v6 = v7;
+    if (v7 >= 0x7FFFFFFF)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v60 = 1;
+  v8 = *(result + 300);
+  if (v8)
+  {
+    *(result + 2433) = 0;
+    vp::vx::io::Graph::reset(&v51, v8);
+    v10 = v58;
+    if (v58)
+    {
+      goto LABEL_11;
+    }
+
+    v11 = SHIBYTE(v56);
+    if (v56 >= 0)
+    {
+      v12 = HIBYTE(v56);
+    }
+
+    else
+    {
+      v12 = v55[1];
+    }
+
+    log = vp::get_log(v9);
+    v14 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
+    if (v12)
+    {
+      if (v14)
+      {
+        v45 = v10;
+        log_context_info = vp::get_log_context_info(&v48, v5, "vp::vx::Voice_Processor]", 23);
+        v16 = v50;
+        if ((v50 & 0x80u) == 0)
+        {
+          v17 = v50;
+        }
+
+        else
+        {
+          v17 = v49;
+        }
+
+        v18 = vp::get_log(log_context_info);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          v19 = v48;
+          v20 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v51);
+          std::string::basic_string<std::string_view,0>(__p, v20, v21);
+          if (v16 >= 0)
+          {
+            v23 = &v48;
+          }
+
+          else
+          {
+            v23 = v19;
+          }
+
+          if (v17)
+          {
+            v24 = " ";
+          }
+
+          else
+          {
+            v24 = "";
+          }
+
+          if (v47 >= 0)
+          {
+            v25 = __p;
+          }
+
+          else
+          {
+            v25 = __p[0];
+          }
+
+          v26 = v52;
+          v27 = v53;
+          log_source_file_path = vp::get_log_source_file_path(v54, v22);
+          v29 = v55;
+          *buf = 136316930;
+          if (v11 < 0)
+          {
+            v29 = v55[0];
+          }
+
+          v62 = v23;
+          v63 = 2080;
+          v64 = v24;
+          v65 = 2080;
+          v66 = "reset uplink DSP";
+          v67 = 2080;
+          v68 = v25;
+          v69 = 1024;
+          v70 = v26;
+          v71 = 1024;
+          v72 = v27;
+          v73 = 2080;
+          v74 = log_source_file_path;
+          v75 = 2080;
+          v76 = v29;
+          _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_ERROR, "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s", buf, 0x4Au);
+          if (v47 < 0)
+          {
+            operator delete(__p[0]);
+          }
+
+          LOBYTE(v16) = v50;
+        }
+
+        if ((v16 & 0x80) != 0)
+        {
+          operator delete(v48);
+        }
+
+        v30 = v58;
+        v10 = v45;
+        goto LABEL_61;
+      }
+    }
+
+    else if (v14)
+    {
+      v31 = vp::get_log_context_info(&v48, v5, "vp::vx::Voice_Processor]", 23);
+      v32 = v50;
+      if ((v50 & 0x80u) == 0)
+      {
+        v33 = v50;
+      }
+
+      else
+      {
+        v33 = v49;
+      }
+
+      v34 = vp::get_log(v31);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        v35 = v48;
+        v36 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v51);
+        std::string::basic_string<std::string_view,0>(__p, v36, v37);
+        if (v32 >= 0)
+        {
+          v39 = &v48;
+        }
+
+        else
+        {
+          v39 = v35;
+        }
+
+        if (v33)
+        {
+          v40 = " ";
+        }
+
+        else
+        {
+          v40 = "";
+        }
+
+        if (v47 >= 0)
+        {
+          v41 = __p;
+        }
+
+        else
+        {
+          v41 = __p[0];
+        }
+
+        v42 = v52;
+        v43 = v53;
+        v44 = vp::get_log_source_file_path(v54, v38);
+        *buf = 136316674;
+        v62 = v39;
+        v63 = 2080;
+        v64 = v40;
+        v65 = 2080;
+        v66 = "reset uplink DSP";
+        v67 = 2080;
+        v68 = v41;
+        v69 = 1024;
+        v70 = v42;
+        v71 = 1024;
+        v72 = v43;
+        v73 = 2080;
+        v74 = v44;
+        _os_log_impl(&dword_2724B4000, v34, OS_LOG_TYPE_ERROR, "%s%sfailed to %s due to '%s' error at line %u column %u in %s", buf, 0x40u);
+        if (v47 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        LOBYTE(v32) = v50;
+      }
+
+      if ((v32 & 0x80) != 0)
+      {
+        operator delete(v48);
+      }
+    }
+
+    v30 = 0;
+LABEL_61:
+    *a3 = 5;
+    *(a3 + 4) = 0;
+    if ((v30 & 1) == 0 && SHIBYTE(v56) < 0)
+    {
+      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v57, v55[0], v56 & 0x7FFFFFFFFFFFFFFFLL);
+    }
+
+    goto LABEL_11;
+  }
+
+  v10 = 0;
+  *a3 = 8;
+  *(a3 + 4) = 0;
+LABEL_11:
+  result = caulk::concurrent::shared_spin_lock::unlock_shared(v59);
+  if (v10)
+  {
+    *a3 = 0;
+    *(a3 + 4) = 1;
+  }
+
+  return result;
+}
+
+void sub_2726DB000(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va2, a4);
+  va_start(__pa, a4);
+  va_start(va, a4);
+  v15 = va_arg(__pa, void);
+  v17 = va_arg(__pa, void);
+  v18 = va_arg(__pa, void);
+  v19 = va_arg(__pa, void *);
+  v20 = va_arg(__pa, void);
+  v21 = va_arg(__pa, void);
+  va_copy(va2, __pa);
+  __p = va_arg(va2, void *);
+  v24 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
+  v26 = va_arg(va2, void);
+  v27 = va_arg(va2, void);
+  v28 = va_arg(va2, void);
+  v29 = va_arg(va2, void);
+  if (a2)
+  {
+    if (v8 < 0)
+    {
+      operator delete(v7);
+    }
+
+    if (v6 < 0)
+    {
+      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v28, v25, v27 & 0x7FFFFFFFFFFFFFFFLL);
+    }
+
+    std::shared_lock<caulk::concurrent::shared_spin_lock>::~shared_lock[abi:ne200100](va2);
+    v10 = __cxa_begin_catch(a1);
+    log = vp::get_log(v10);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      log_context_info = vp::get_log_context_info(__pa, v5, "vp::vx::Voice_Processor]", 23);
+      v13 = HIBYTE(v25);
+      v14 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        vp::get_log_exception_info(va);
+      }
+
+      if (v13 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    *v4 = 11;
+    *(v4 + 4) = 0;
+    __cxa_end_catch();
+    JUMPOUT(0x2726DACA0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+char *vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(int a1)
+{
+  v1 = vp::detail::reflect_value_name<(vp::vx::io::Error_Code)0,128ul>(a1);
   if (v2)
   {
     v3 = &v1[v2];
@@ -8148,413 +7936,408 @@ char *vp::reflect_value_name_tag<vp::vx::Property_ID,128ul>(int a1)
   return &v1[v6];
 }
 
-void vp::rpb::Property_Info::~Property_Info(vp::rpb::Property_Info *this)
+uint64_t std::shared_lock<caulk::concurrent::shared_spin_lock>::~shared_lock[abi:ne200100](uint64_t a1)
 {
-  v2 = *(this + 2);
-  if (v2)
+  if (*(a1 + 8) == 1)
   {
-    CFRelease(v2);
+    caulk::concurrent::shared_spin_lock::unlock_shared(*a1);
   }
 
-  v3 = *(this + 1);
-  if (v3)
-  {
-    CFRelease(v3);
-  }
+  return a1;
 }
 
-char *vp::detail::reflect_value_name<(vp::vx::Property_ID)0,128ul>(int a1)
+char *vp::detail::reflect_value_name<(vp::vx::io::Error_Code)0,128ul>(int a1)
 {
-  result = "vp::vx::Property_ID::Bypass_Voice_Processing]";
+  result = "vp::vx::io::Error_Code::Unknown]";
   switch(a1)
   {
     case 0:
       return result;
     case 1:
-      result = "vp::vx::Property_ID::Disable_Voice_Processing]";
+      result = "vp::vx::io::Error_Code::Bad_Allocation]";
       break;
     case 2:
-      result = "vp::vx::Property_ID::Enable_Acoustic_Gain_Control]";
+      result = "vp::vx::io::Error_Code::Bad_Frame_Count]";
       break;
     case 3:
-      result = "vp::vx::Property_ID::Mute_Uplink_Near_End_Voice_Output]";
+      result = "vp::vx::io::Error_Code::Bad_Data]";
       break;
     case 4:
-      result = "vp::vx::Property_ID::Mute_Downlink_Far_End_Voice_Input]";
+      result = "vp::vx::io::Error_Code::Bad_Direction]";
       break;
     case 5:
-      result = "vp::vx::Property_ID::Maximum_Number_Of_Uplink_Output_Frames]";
+      result = "vp::vx::io::Error_Code::Bad_Sample_Time]";
       break;
     case 6:
-      result = "vp::vx::Property_ID::Maximum_Number_Of_Far_End_Voice_Input_Frames]";
+      result = "vp::vx::io::Error_Code::Bad_Node_ID]";
       break;
     case 7:
-      result = "vp::vx::Property_ID::Pre_Processing_Input_Gain_dB]";
+      result = "vp::vx::io::Error_Code::Bad_Port_ID]";
       break;
     case 8:
-      result = "vp::vx::Property_ID::Mic_Stream_Format]";
+      result = "vp::vx::io::Error_Code::Bad_Wire_ID]";
       break;
     case 9:
-      result = "vp::vx::Property_ID::Mic_Block_Size]";
+      result = "vp::vx::io::Error_Code::Bad_Terminal_Index]";
       break;
     case 10:
-      result = "vp::vx::Property_ID::Mic_Port_Type]";
+      result = "vp::vx::io::Error_Code::Bad_Parameter_ID]";
       break;
     case 11:
-      result = "vp::vx::Property_ID::Mic_Device_ID]";
+      result = "vp::vx::io::Error_Code::Bad_Property_ID]";
       break;
     case 12:
-      result = "vp::vx::Property_ID::Mic_Physical_Device_ID]";
+      result = "vp::vx::io::Error_Code::Operation_Not_Implemented]";
       break;
     case 13:
-      result = "vp::vx::Property_ID::Mic_Hardware_Physical_Sample_Rate]";
+      result = "vp::vx::io::Error_Code::Operation_Not_Supported]";
       break;
     case 14:
-      result = "vp::vx::Property_ID::Mic_Hardware_Input_Latency]";
+      result = "(vp::vx::io::Error_Code)14]";
       break;
     case 15:
-      result = "vp::vx::Property_ID::Mic_Hardware_Input_Safety_Offset]";
+      result = "(vp::vx::io::Error_Code)15]";
       break;
     case 16:
-      result = "vp::vx::Property_ID::Mic_Port_Sub_Type]";
+      result = "(vp::vx::io::Error_Code)16]";
       break;
     case 17:
-      result = "vp::vx::Property_ID::Mic_Hardware_Transport_Type]";
+      result = "(vp::vx::io::Error_Code)17]";
       break;
     case 18:
-      result = "vp::vx::Property_ID::Mic_Hardware_Bluetooth_Device_Category]";
+      result = "(vp::vx::io::Error_Code)18]";
       break;
     case 19:
-      result = "vp::vx::Property_ID::Mic_Hardware_Data_Source]";
+      result = "(vp::vx::io::Error_Code)19]";
       break;
     case 20:
-      result = "vp::vx::Property_ID::Mic_Hardware_Model_UID]";
+      result = "(vp::vx::io::Error_Code)20]";
       break;
     case 21:
-      result = "vp::vx::Property_ID::Mic_Trim_Gains]";
+      result = "(vp::vx::io::Error_Code)21]";
       break;
     case 22:
-      result = "vp::vx::Property_ID::Mic_Trim_Gains_CF]";
+      result = "(vp::vx::io::Error_Code)22]";
       break;
     case 23:
-      result = "vp::vx::Property_ID::Mic_DSP_Settings]";
+      result = "(vp::vx::io::Error_Code)23]";
       break;
     case 24:
-      result = "vp::vx::Property_ID::Ref_Stream_Format]";
+      result = "(vp::vx::io::Error_Code)24]";
       break;
     case 25:
-      result = "vp::vx::Property_ID::Ref_Block_Size]";
+      result = "(vp::vx::io::Error_Code)25]";
       break;
     case 26:
-      result = "vp::vx::Property_ID::Ref_Port_Type]";
+      result = "(vp::vx::io::Error_Code)26]";
       break;
     case 27:
-      result = "vp::vx::Property_ID::Ref_Device_ID]";
+      result = "(vp::vx::io::Error_Code)27]";
       break;
     case 28:
-      result = "vp::vx::Property_ID::Ref_Physical_Device_ID]";
+      result = "(vp::vx::io::Error_Code)28]";
       break;
     case 29:
-      result = "vp::vx::Property_ID::Ref_Hardware_Physical_Sample_Rate]";
+      result = "(vp::vx::io::Error_Code)29]";
       break;
     case 30:
-      result = "vp::vx::Property_ID::Ref_Hardware_Input_Latency]";
+      result = "(vp::vx::io::Error_Code)30]";
       break;
     case 31:
-      result = "vp::vx::Property_ID::Ref_Hardware_Physical_Input_Latency]";
+      result = "(vp::vx::io::Error_Code)31]";
       break;
     case 32:
-      result = "vp::vx::Property_ID::Ref_Hardware_Input_Safety_Offset]";
+      result = "(vp::vx::io::Error_Code)32]";
       break;
     case 33:
-      result = "vp::vx::Property_ID::Ref_Hardware_Physical_Input_Safety_Offset]";
+      result = "(vp::vx::io::Error_Code)33]";
       break;
     case 34:
-      result = "vp::vx::Property_ID::Ref_Hardware_Output_Latency]";
+      result = "(vp::vx::io::Error_Code)34]";
       break;
     case 35:
-      result = "vp::vx::Property_ID::Ref_Hardware_Physical_Output_Latency]";
+      result = "(vp::vx::io::Error_Code)35]";
       break;
     case 36:
-      result = "vp::vx::Property_ID::Ref_Hardware_Output_Safety_Offset]";
+      result = "(vp::vx::io::Error_Code)36]";
       break;
     case 37:
-      result = "vp::vx::Property_ID::Ref_Hardware_Physical_Output_Safety_Offset]";
+      result = "(vp::vx::io::Error_Code)37]";
       break;
     case 38:
-      result = "vp::vx::Property_ID::Ref_Virtual_Audio_Stream_Physical_Stream_Latency]";
+      result = "(vp::vx::io::Error_Code)38]";
       break;
     case 39:
-      result = "vp::vx::Property_ID::Ref_Port_Sub_Type]";
+      result = "(vp::vx::io::Error_Code)39]";
       break;
     case 40:
-      result = "vp::vx::Property_ID::Ref_Port_Endpoint_Type]";
+      result = "(vp::vx::io::Error_Code)40]";
       break;
     case 41:
-      result = "vp::vx::Property_ID::Ref_Port_Is_Apple_Made_Bluetooth_Product]";
+      result = "(vp::vx::io::Error_Code)41]";
       break;
     case 42:
-      result = "vp::vx::Property_ID::Ref_Port_UID]";
+      result = "(vp::vx::io::Error_Code)42]";
       break;
     case 43:
-      result = "vp::vx::Property_ID::Ref_Port_Bluetooth_HLC_2ch_State]";
+      result = "(vp::vx::io::Error_Code)43]";
       break;
     case 44:
-      result = "vp::vx::Property_ID::Ref_Hardware_Transport_Type]";
+      result = "(vp::vx::io::Error_Code)44]";
       break;
     case 45:
-      result = "vp::vx::Property_ID::Ref_Hardware_Bluetooth_Device_Category]";
+      result = "(vp::vx::io::Error_Code)45]";
       break;
     case 46:
-      result = "vp::vx::Property_ID::Ref_Hardware_Data_Source]";
+      result = "(vp::vx::io::Error_Code)46]";
       break;
     case 47:
-      result = "vp::vx::Property_ID::Ref_Hardware_Model_UID]";
+      result = "(vp::vx::io::Error_Code)47]";
       break;
     case 48:
-      result = "vp::vx::Property_ID::Ref_Trim_Gains]";
+      result = "(vp::vx::io::Error_Code)48]";
       break;
     case 49:
-      result = "vp::vx::Property_ID::Ref_Trim_Gains_CF]";
+      result = "(vp::vx::io::Error_Code)49]";
       break;
     case 50:
-      result = "vp::vx::Property_ID::Ref_DSP_Settings]";
+      result = "(vp::vx::io::Error_Code)50]";
       break;
     case 51:
-      result = "vp::vx::Property_ID::Client_Near_End_Voice_Output_Stream_Format]";
+      result = "(vp::vx::io::Error_Code)51]";
       break;
     case 52:
-      result = "vp::vx::Property_ID::Client_Far_End_Voice_Input_Stream_Format]";
+      result = "(vp::vx::io::Error_Code)52]";
       break;
     case 53:
-      result = "vp::vx::Property_ID::Client_Far_End_Voice_Input_Block]";
+      result = "(vp::vx::io::Error_Code)53]";
       break;
     case 54:
-      result = "vp::vx::Property_ID::Hardware_Mix_Output_Stream_Format]";
+      result = "(vp::vx::io::Error_Code)54]";
       break;
     case 55:
-      result = "vp::vx::Property_ID::Hardware_Mix_Output_Block_Size]";
+      result = "(vp::vx::io::Error_Code)55]";
       break;
     case 56:
-      result = "vp::vx::Property_ID::Hardware_Mix_Output_Channel_Layout]";
+      result = "(vp::vx::io::Error_Code)56]";
       break;
     case 57:
-      result = "vp::vx::Property_ID::Beam_Direction]";
+      result = "(vp::vx::io::Error_Code)57]";
       break;
     case 58:
-      result = "vp::vx::Property_ID::Operation_Mode]";
+      result = "(vp::vx::io::Error_Code)58]";
       break;
     case 59:
-      result = "vp::vx::Property_ID::Preferred_Chat_Flavor]";
+      result = "(vp::vx::io::Error_Code)59]";
       break;
     case 60:
-      result = "vp::vx::Property_ID::Active_Chat_Flavor]";
+      result = "(vp::vx::io::Error_Code)60]";
       break;
     case 61:
-      result = "vp::vx::Property_ID::Hardware_Has_Voice_Processor]";
+      result = "(vp::vx::io::Error_Code)61]";
       break;
     case 62:
-      result = "vp::vx::Property_ID::Tap_Stream_Enabled]";
+      result = "(vp::vx::io::Error_Code)62]";
       break;
     case 63:
-      result = "vp::vx::Property_ID::Downlink_Software_Volume]";
+      result = "(vp::vx::io::Error_Code)63]";
       break;
     case 64:
-      result = "vp::vx::Property_ID::Downlink_Hardware_Volume_dB]";
+      result = "(vp::vx::io::Error_Code)64]";
       break;
     case 65:
-      result = "vp::vx::Property_ID::Speaker_Telemetry_Input_Stream_Format]";
+      result = "(vp::vx::io::Error_Code)65]";
       break;
     case 66:
-      result = "vp::vx::Property_ID::Speaker_Telemetry_Input_Block_Size]";
+      result = "(vp::vx::io::Error_Code)66]";
       break;
     case 67:
-      result = "vp::vx::Property_ID::Speaker_Telemetry_Input_Data_Source_IDs]";
+      result = "(vp::vx::io::Error_Code)67]";
       break;
     case 68:
-      result = "vp::vx::Property_ID::Speaker_Calibration_Data_CF]";
+      result = "(vp::vx::io::Error_Code)68]";
       break;
     case 69:
-      result = "vp::vx::Property_ID::Codec_Type]";
+      result = "(vp::vx::io::Error_Code)69]";
       break;
     case 70:
-      result = "vp::vx::Property_ID::Codec_Sample_Rate]";
+      result = "(vp::vx::io::Error_Code)70]";
       break;
     case 71:
-      result = "vp::vx::Property_ID::CPMS_Budget]";
+      result = "(vp::vx::io::Error_Code)71]";
       break;
     case 72:
-      result = "vp::vx::Property_ID::Metrics_Reporter_IDs]";
+      result = "(vp::vx::io::Error_Code)72]";
       break;
     case 73:
-      result = "vp::vx::Property_ID::IO_Cycle_Usage]";
+      result = "(vp::vx::io::Error_Code)73]";
       break;
     case 74:
-      result = "vp::vx::Property_ID::Preferred_IO_Cycle_Usage]";
+      result = "(vp::vx::io::Error_Code)74]";
       break;
     case 75:
-      result = "vp::vx::Property_ID::Device_Orientation]";
+      result = "(vp::vx::io::Error_Code)75]";
       break;
     case 76:
-      result = "vp::vx::Property_ID::UI_Orientation]";
+      result = "(vp::vx::io::Error_Code)76]";
       break;
     case 77:
-      result = "vp::vx::Property_ID::Enable_Spatial_Chat]";
+      result = "(vp::vx::io::Error_Code)77]";
       break;
     case 78:
-      result = "vp::vx::Property_ID::Spatial_Chat_Metadata]";
+      result = "(vp::vx::io::Error_Code)78]";
       break;
     case 79:
-      result = "vp::vx::Property_ID::Spatial_Chat_Head_Tracking_Configuration]";
+      result = "(vp::vx::io::Error_Code)79]";
       break;
     case 80:
-      result = "vp::vx::Property_ID::Enable_Media_Chat]";
+      result = "(vp::vx::io::Error_Code)80]";
       break;
     case 81:
-      result = "vp::vx::Property_ID::Media_Chat_Software_Volume]";
+      result = "(vp::vx::io::Error_Code)81]";
       break;
     case 82:
-      result = "vp::vx::Property_ID::Media_Chat_Ducking_Action]";
+      result = "(vp::vx::io::Error_Code)82]";
       break;
     case 83:
-      result = "vp::vx::Property_ID::Media_Chat_Ducking_Level]";
+      result = "(vp::vx::io::Error_Code)83]";
       break;
     case 84:
-      result = "vp::vx::Property_ID::Media_Chat_Ducking_Ramp_Time_In_Seconds]";
+      result = "(vp::vx::io::Error_Code)84]";
       break;
     case 85:
-      result = "vp::vx::Property_ID::Media_Chat_Unducking_Ramp_Time_In_Seconds]";
+      result = "(vp::vx::io::Error_Code)85]";
       break;
     case 86:
-      result = "vp::vx::Property_ID::Speech_Activity_Event_Listener_Block]";
+      result = "(vp::vx::io::Error_Code)86]";
       break;
     case 87:
-      result = "vp::vx::Property_ID::Dynamic_Ducking_Volume_Handler_Block]";
+      result = "(vp::vx::io::Error_Code)87]";
       break;
     case 88:
-      result = "vp::vx::Property_ID::Enable_Stereo_To_Mono_Mix]";
+      result = "(vp::vx::io::Error_Code)88]";
       break;
     case 89:
-      result = "vp::vx::Property_ID::Enable_Media_Playback_On_External_Device]";
+      result = "(vp::vx::io::Error_Code)89]";
       break;
     case 90:
-      result = "vp::vx::Property_ID::Other_Audio_Ducking_Configuration]";
+      result = "(vp::vx::io::Error_Code)90]";
       break;
     case 91:
-      result = "vp::vx::Property_ID::Is_In_Emergency_Call]";
+      result = "(vp::vx::io::Error_Code)91]";
       break;
     case 92:
-      result = "vp::vx::Property_ID::Virtual_Audio_Plugin_Mode]";
+      result = "(vp::vx::io::Error_Code)92]";
       break;
     case 93:
-      result = "vp::vx::Property_ID::Offload_AirPods_Noise_Suppression]";
+      result = "(vp::vx::io::Error_Code)93]";
       break;
     case 94:
-      result = "vp::vx::Property_ID::AirPods_Offload_Mode]";
+      result = "(vp::vx::io::Error_Code)94]";
       break;
     case 95:
-      result = "vp::vx::Property_ID::Enable_Automatic_Mic_Mode]";
+      result = "(vp::vx::io::Error_Code)95]";
       break;
     case 96:
-      result = "vp::vx::Property_ID::Is_Camera_Active]";
+      result = "(vp::vx::io::Error_Code)96]";
       break;
     case 97:
-      result = "vp::vx::Property_ID::Host_Application_Display_ID]";
+      result = "(vp::vx::io::Error_Code)97]";
       break;
     case 98:
-      result = "vp::vx::Property_ID::Mic_FilterIDs_Array_CF]";
+      result = "(vp::vx::io::Error_Code)98]";
       break;
     case 99:
-      result = "(vp::vx::Property_ID)99]";
+      result = "(vp::vx::io::Error_Code)99]";
       break;
     case 100:
-      result = "(vp::vx::Property_ID)100]";
+      result = "(vp::vx::io::Error_Code)100]";
       break;
     case 101:
-      result = "(vp::vx::Property_ID)101]";
+      result = "(vp::vx::io::Error_Code)101]";
       break;
     case 102:
-      result = "(vp::vx::Property_ID)102]";
+      result = "(vp::vx::io::Error_Code)102]";
       break;
     case 103:
-      result = "(vp::vx::Property_ID)103]";
+      result = "(vp::vx::io::Error_Code)103]";
       break;
     case 104:
-      result = "(vp::vx::Property_ID)104]";
+      result = "(vp::vx::io::Error_Code)104]";
       break;
     case 105:
-      result = "(vp::vx::Property_ID)105]";
+      result = "(vp::vx::io::Error_Code)105]";
       break;
     case 106:
-      result = "(vp::vx::Property_ID)106]";
+      result = "(vp::vx::io::Error_Code)106]";
       break;
     case 107:
-      result = "(vp::vx::Property_ID)107]";
+      result = "(vp::vx::io::Error_Code)107]";
       break;
     case 108:
-      result = "(vp::vx::Property_ID)108]";
+      result = "(vp::vx::io::Error_Code)108]";
       break;
     case 109:
-      result = "(vp::vx::Property_ID)109]";
+      result = "(vp::vx::io::Error_Code)109]";
       break;
     case 110:
-      result = "(vp::vx::Property_ID)110]";
+      result = "(vp::vx::io::Error_Code)110]";
       break;
     case 111:
-      result = "(vp::vx::Property_ID)111]";
+      result = "(vp::vx::io::Error_Code)111]";
       break;
     case 112:
-      result = "(vp::vx::Property_ID)112]";
+      result = "(vp::vx::io::Error_Code)112]";
       break;
     case 113:
-      result = "(vp::vx::Property_ID)113]";
+      result = "(vp::vx::io::Error_Code)113]";
       break;
     case 114:
-      result = "(vp::vx::Property_ID)114]";
+      result = "(vp::vx::io::Error_Code)114]";
       break;
     case 115:
-      result = "(vp::vx::Property_ID)115]";
+      result = "(vp::vx::io::Error_Code)115]";
       break;
     case 116:
-      result = "(vp::vx::Property_ID)116]";
+      result = "(vp::vx::io::Error_Code)116]";
       break;
     case 117:
-      result = "(vp::vx::Property_ID)117]";
+      result = "(vp::vx::io::Error_Code)117]";
       break;
     case 118:
-      result = "(vp::vx::Property_ID)118]";
+      result = "(vp::vx::io::Error_Code)118]";
       break;
     case 119:
-      result = "(vp::vx::Property_ID)119]";
+      result = "(vp::vx::io::Error_Code)119]";
       break;
     case 120:
-      result = "(vp::vx::Property_ID)120]";
+      result = "(vp::vx::io::Error_Code)120]";
       break;
     case 121:
-      result = "(vp::vx::Property_ID)121]";
+      result = "(vp::vx::io::Error_Code)121]";
       break;
     case 122:
-      result = "(vp::vx::Property_ID)122]";
+      result = "(vp::vx::io::Error_Code)122]";
       break;
     case 123:
-      result = "(vp::vx::Property_ID)123]";
+      result = "(vp::vx::io::Error_Code)123]";
       break;
     case 124:
-      result = "(vp::vx::Property_ID)124]";
+      result = "(vp::vx::io::Error_Code)124]";
       break;
     case 125:
-      result = "(vp::vx::Property_ID)125]";
+      result = "(vp::vx::io::Error_Code)125]";
       break;
     case 126:
-      result = "(vp::vx::Property_ID)126]";
+      result = "(vp::vx::io::Error_Code)126]";
       break;
     case 127:
-      result = "(vp::vx::Property_ID)127]";
+      result = "(vp::vx::io::Error_Code)127]";
       break;
     default:
       if (a1 == 128)
       {
-        result = "(vp::vx::Property_ID)128]";
+        result = "(vp::vx::io::Error_Code)128]";
       }
 
       else
@@ -8568,1380 +8351,4868 @@ char *vp::detail::reflect_value_name<(vp::vx::Property_ID)0,128ul>(int a1)
   return result;
 }
 
-uint64_t _ZNKSt3__110__function6__funcIZZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvENKUlT_E_clINS5_5ScopeEEEDaS8_EUlRKS4_E_NS_9allocatorISF_EEFvRS4_EE7__cloneEPNS0_6__baseISJ_EE(uint64_t result, void *a2)
+void vp::vx::Voice_Processor::run_dsp(uint64_t a1@<X0>, uint64_t a2@<X1>, int *a3@<X8>)
 {
-  v2 = *(result + 8);
-  *a2 = &unk_2881C5D90;
-  a2[1] = v2;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_E_NS_9allocatorIS9_EEFNS2_8ExpectedINS_6vectorINS5_13Property_InfoENS2_9AllocatorISE_EEEENS5_5ErrorEEENS5_5ScopeEEE18destroy_deallocateEv(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
+  *a3 = 9;
+  *(a3 + 4) = 0;
+  v6 = *(a1 + 520);
+  for (i = *(a1 + 528); v6 != i; v6 += 2)
   {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  operator delete(__p);
-}
-
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_E_NS_9allocatorIS9_EEFNS2_8ExpectedINS_6vectorINS5_13Property_InfoENS2_9AllocatorISE_EEEENS5_5ErrorEEENS5_5ScopeEEE7destroyEv(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_E_NS_9allocatorIS9_EEFNS2_8ExpectedINS_6vectorINS5_13Property_InfoENS2_9AllocatorISE_EEEENS5_5ErrorEEENS5_5ScopeEEE7__cloneEPNS0_6__baseISL_EE(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_2881C5D48;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_E_NS_9allocatorIS9_EEFNS2_8ExpectedINS_6vectorINS5_13Property_InfoENS2_9AllocatorISE_EEEENS5_5ErrorEEENS5_5ScopeEEED0Ev(void *a1)
-{
-  *a1 = &unk_2881C5D48;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-
-  JUMPOUT(0x2743CBFA0);
-}
-
-void *_ZNSt3__110__function6__funcIZZN2vp2vx15Voice_Processor7connectENS2_3rpb6ServerEENK3__0clEvEUlT_E_NS_9allocatorIS9_EEFNS2_8ExpectedINS_6vectorINS5_13Property_InfoENS2_9AllocatorISE_EEEENS5_5ErrorEEENS5_5ScopeEEED1Ev(void *a1)
-{
-  *a1 = &unk_2881C5D48;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  return a1;
-}
-
-void vp::vx::Voice_Processor::make_shared_member<vp::vx::IO_Parameter_Setter_Command_Factory>(void *a1, std::__shared_weak_count *a2, uint64_t a3)
-{
-  if (a2)
-  {
-    atomic_fetch_add_explicit(&a2->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&a2->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](a2);
-    v6 = std::__shared_weak_count::lock(a2);
-    std::__shared_weak_count::__release_weak(a2);
-    *a1 = a3;
-    a1[1] = v6;
-    if (v6)
+    v8 = *v6;
+    v9 = v6[1];
+    if (v9)
     {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    (*(*v8 + 272))(v8, a2);
+    if (v9)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
   }
 
-  else
+  if (!a2)
   {
-    *a1 = a3;
-    a1[1] = 0;
-  }
-}
-
-unint64_t boost::container::flat_map<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_subscript(void *a1, uint64_t *a2)
-{
-  v34 = *MEMORY[0x277D85DE8];
-  v2 = a1[1];
-  v3 = a1[2];
-  if (v2)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  if (v3)
-  {
-    do
+    vp::vx::Voice_Processor::run_all_of_downlink_dsp(&v10, a1);
+    if (v11)
     {
-      if (v3 != 1 && !v2)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!v2)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>(v2 + 24 * (v3 >> 1), a2) & 0x80u) == 0)
-      {
-        v3 >>= 1;
-      }
-
-      else
-      {
-        v2 += 24 * (v3 >> 1) + 24;
-        v3 += ~(v3 >> 1);
-      }
-    }
-
-    while (v3);
-    v7 = a1[1];
-    v3 = a1[2];
-    if (!v7 && v3)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-  }
-
-  else
-  {
-    v7 = a1[1];
-  }
-
-  if (v2 == v7 + 24 * v3)
-  {
-LABEL_22:
-    v8 = *a2;
-    v33 = 0uLL;
-    v32 = v8;
-    if (v7 > v2)
-    {
-      goto LABEL_54;
-    }
-
-    v9 = a1[2];
-    if (!v7 && v9)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-
-    if (v2 > v7 + 24 * v9)
-    {
-LABEL_54:
-      v25 = "this->priv_in_range_or_end(hint)";
-      v26 = 879;
-      v27 = "flat_tree.hpp";
-      v28 = "insert_unique";
+      *(a3 + 4) = v11;
     }
 
     else
     {
-      v30 = v2;
-      v31 = 0;
-      if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_insert_unique_prepare(a1, &v30, &v32, &v31))
-      {
-        if (!a1[1] && v31)
-        {
-          __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
-        }
-
-        v29 = v31;
-        goto LABEL_46;
-      }
-
-      v10 = v31;
-      v11 = a1[1];
-      if (v11 > v31)
-      {
-        goto LABEL_56;
-      }
-
-      v12 = a1[2];
-      if (!v11 && v12)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      v13 = v11 + 24 * v12;
-      if (v31 > v13)
-      {
-LABEL_56:
-        v25 = "this->priv_in_range_or_end(position)";
-        v26 = 1862;
-        v27 = "vector.hpp";
-        v28 = "emplace";
-      }
-
-      else
-      {
-        v14 = a1[3];
-        if (v14 >= v12)
-        {
-          if (v14 == v12)
-          {
-            boost::container::vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>,boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>*,boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>>(&v29, a1, v31, &v32);
-          }
-
-          else
-          {
-            if (v13 == v31)
-            {
-              *v13 = v32;
-              *(v13 + 8) = v33;
-              v33 = 0uLL;
-              ++a1[2];
-            }
-
-            else
-            {
-              v15 = v13 - 24;
-              v16 = *(v13 - 24);
-              *(v13 + 8) = *(v13 - 16);
-              *(v13 - 16) = 0;
-              *(v13 - 8) = 0;
-              *v13 = v16;
-              ++a1[2];
-              if (v13 - 24 != v10)
-              {
-                v17 = v13 - 24;
-                do
-                {
-                  v18 = *(v17 - 24);
-                  v17 -= 24;
-                  v19 = *(v15 - 16);
-                  *(v15 - 16) = 0;
-                  *(v15 - 8) = 0;
-                  *v15 = v18;
-                  v20 = *(v15 + 16);
-                  *(v15 + 8) = v19;
-                  if (v20)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-                  }
-
-                  v15 = v17;
-                }
-
-                while (v17 != v10);
-              }
-
-              *v10 = v32;
-              v21 = v33;
-              v33 = 0uLL;
-              v22 = *(v10 + 16);
-              *(v10 + 8) = v21;
-              if (v22)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v22);
-              }
-            }
-
-            v29 = v10;
-          }
-
-LABEL_46:
-          if (*(&v33 + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v33 + 1));
-          }
-
-          v2 = v29;
-          if (!v29)
-          {
-            __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-          }
-
-          goto LABEL_49;
-        }
-
-        v25 = "this->m_holder.capacity() >= this->m_holder.m_size";
-        v26 = 2821;
-        v27 = "vector.hpp";
-        v28 = "priv_insert_forward_range";
-      }
+      *a3 = v10;
     }
 
-    __assert_rtn(v28, v27, v26, v25);
+    a2 = 0;
   }
 
-  if (!v2)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>(a2, v2) & 0x80) != 0)
-  {
-    v7 = a1[1];
-    goto LABEL_22;
-  }
-
-LABEL_49:
-  v23 = *MEMORY[0x277D85DE8];
-  return v2 + 8;
+  v10 = *a3;
+  v11 = *(a3 + 4);
+  vp::vx::Voice_Processor::components_end_process<vp::vx::Downlink_Node_ID,vp::Expected<void,vp::vx::Error_Code>>(*(a1 + 520), *(a1 + 528), a2, &v10);
 }
 
-void sub_2726EF100(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
+  *a3 = 9;
+  *(a3 + 4) = 0;
+  v6 = *(a1 + 520);
+  for (i = *(a1 + 528); v6 != i; v6 += 2)
+  {
+    v8 = *v6;
+    v9 = v6[1];
+    if (v9)
+    {
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    (*(*v8 + 224))(v8, a2);
+    if (v9)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    }
+  }
+
   if (!a2)
   {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-unint64_t boost::container::flat_map<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<std::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_subscript(void *a1, uint64_t *a2)
-{
-  v34 = *MEMORY[0x277D85DE8];
-  v2 = a1[1];
-  v3 = a1[2];
-  if (v2)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  if (v3)
-  {
-    do
+    vp::vx::Voice_Processor::run_all_of_uplink_dsp(&v10, a1);
+    if (v11)
     {
-      if (v3 != 1 && !v2)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!v2)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(v2 + 24 * (v3 >> 1), a2) & 0x80u) == 0)
-      {
-        v3 >>= 1;
-      }
-
-      else
-      {
-        v2 += 24 * (v3 >> 1) + 24;
-        v3 += ~(v3 >> 1);
-      }
-    }
-
-    while (v3);
-    v7 = a1[1];
-    v3 = a1[2];
-    if (!v7 && v3)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-  }
-
-  else
-  {
-    v7 = a1[1];
-  }
-
-  if (v2 == v7 + 24 * v3)
-  {
-LABEL_22:
-    v8 = *a2;
-    v33 = 0uLL;
-    v32 = v8;
-    if (v7 > v2)
-    {
-      goto LABEL_54;
-    }
-
-    v9 = a1[2];
-    if (!v7 && v9)
-    {
-      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-    }
-
-    if (v2 > v7 + 24 * v9)
-    {
-LABEL_54:
-      v25 = "this->priv_in_range_or_end(hint)";
-      v26 = 879;
-      v27 = "flat_tree.hpp";
-      v28 = "insert_unique";
+      *(a3 + 4) = v11;
     }
 
     else
     {
-      v30 = v2;
-      v31 = 0;
-      if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_insert_unique_prepare(a1, &v30, &v32, &v31))
-      {
-        if (!a1[1] && v31)
-        {
-          __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
-        }
-
-        v29 = v31;
-        goto LABEL_46;
-      }
-
-      v10 = v31;
-      v11 = a1[1];
-      if (v11 > v31)
-      {
-        goto LABEL_56;
-      }
-
-      v12 = a1[2];
-      if (!v11 && v12)
-      {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      v13 = v11 + 24 * v12;
-      if (v31 > v13)
-      {
-LABEL_56:
-        v25 = "this->priv_in_range_or_end(position)";
-        v26 = 1862;
-        v27 = "vector.hpp";
-        v28 = "emplace";
-      }
-
-      else
-      {
-        v14 = a1[3];
-        if (v14 >= v12)
-        {
-          if (v14 == v12)
-          {
-            boost::container::vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>,boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>*,boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>>(&v29, a1, v31, &v32);
-          }
-
-          else
-          {
-            if (v13 == v31)
-            {
-              *v13 = v32;
-              *(v13 + 8) = v33;
-              v33 = 0uLL;
-              ++a1[2];
-            }
-
-            else
-            {
-              v15 = v13 - 24;
-              v16 = *(v13 - 24);
-              *(v13 + 8) = *(v13 - 16);
-              *(v13 - 16) = 0;
-              *(v13 - 8) = 0;
-              *v13 = v16;
-              ++a1[2];
-              if (v13 - 24 != v10)
-              {
-                v17 = v13 - 24;
-                do
-                {
-                  v18 = *(v17 - 24);
-                  v17 -= 24;
-                  v19 = *(v15 - 16);
-                  *(v15 - 16) = 0;
-                  *(v15 - 8) = 0;
-                  *v15 = v18;
-                  v20 = *(v15 + 16);
-                  *(v15 + 8) = v19;
-                  if (v20)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-                  }
-
-                  v15 = v17;
-                }
-
-                while (v17 != v10);
-              }
-
-              *v10 = v32;
-              v21 = v33;
-              v33 = 0uLL;
-              v22 = *(v10 + 16);
-              *(v10 + 8) = v21;
-              if (v22)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v22);
-              }
-            }
-
-            v29 = v10;
-          }
-
-LABEL_46:
-          if (*(&v33 + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v33 + 1));
-          }
-
-          v2 = v29;
-          if (!v29)
-          {
-            __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-          }
-
-          goto LABEL_49;
-        }
-
-        v25 = "this->m_holder.capacity() >= this->m_holder.m_size";
-        v26 = 2821;
-        v27 = "vector.hpp";
-        v28 = "priv_insert_forward_range";
-      }
+      *a3 = v10;
     }
 
-    __assert_rtn(v28, v27, v26, v25);
+    a2 = 0;
   }
 
-  if (!v2)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(a2, v2) & 0x80) != 0)
-  {
-    v7 = a1[1];
-    goto LABEL_22;
-  }
-
-LABEL_49:
-  v23 = *MEMORY[0x277D85DE8];
-  return v2 + 8;
+  v10 = *a3;
+  v11 = *(a3 + 4);
+  vp::vx::Voice_Processor::components_end_process<vp::vx::Uplink_Node_ID,vp::Expected<void,vp::vx::Error_Code>>(*(a1 + 520), *(a1 + 528), a2, &v10);
 }
 
-void sub_2726EF578(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void vp::vx::Voice_Processor::run_all_of_downlink_dsp(vp::vx::Voice_Processor *this, uint64_t a2)
 {
-  if (!a2)
+  v956 = *MEMORY[0x277D85DE8];
+  v940 = (a2 + 1128);
+  v3 = atomic_load((a2 + 1128));
+  if (v3 > 0x7FFFFFFE)
   {
-    _Unwind_Resume(exception_object);
+LABEL_5:
+    *this = 8;
+    *(this + 4) = 0;
+    return;
   }
 
-  __clang_call_terminate(exception_object);
-}
-
-uint64_t *caulk::__expected_detail::base<std::unique_ptr<vp::vx::io::Graph>,vp::vx::io::Error>::~base(uint64_t *a1)
-{
-  if (*(a1 + 48) == 1)
+  v5 = v3;
+  while (1)
   {
-    v2 = *a1;
-    *a1 = 0;
-    if (v2)
+    atomic_compare_exchange_strong((a2 + 1128), &v5, v3 + 1);
+    if (v5 == v3)
     {
-      (*(*v2 + 8))(v2);
+      break;
+    }
+
+    v3 = v5;
+    if (v5 >= 0x7FFFFFFF)
+    {
+      goto LABEL_5;
     }
   }
 
-  else if (*(a1 + 39) < 0)
+  v941 = 1;
+  v6 = *(a2 + 2584);
+  if (!v6)
   {
-    std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](a1[5], a1[2], a1[4] & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  return a1;
-}
-
-void vp::vx::io::Graph_Builder::~Graph_Builder(vp::vx::io::Graph_Builder *this)
-{
-  v2 = *(this + 52);
-  if (v2)
-  {
-    v3 = *(this + 53);
-    v4 = *(this + 52);
-    if (v3 != v2)
+    log = vp::get_log(this);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
     {
-      do
+      log_context_info = vp::get_log_context_info(v942, a2, "vp::vx::Voice_Processor]", 23);
+      v48 = v942[23];
+      v49 = v942[23];
+      v50 = *&v942[8];
+      v51 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
       {
-        v5 = *(v3 - 8);
-        if (v5)
+        if (v49 >= 0)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+          v52 = v48;
         }
 
-        v3 -= 16;
+        else
+        {
+          v52 = v50;
+        }
+
+        v53 = *v942;
+        if (v49 >= 0)
+        {
+          v53 = v942;
+        }
+
+        if (v52)
+        {
+          v54 = " ";
+        }
+
+        else
+        {
+          v54 = "";
+        }
+
+        *buf = 136315394;
+        *&buf[4] = v53;
+        *&buf[12] = 2080;
+        *&buf[14] = v54;
+        _os_log_impl(&dword_2724B4000, v51, OS_LOG_TYPE_FAULT, "%s%scannot run downlink DSP with uninitialized VoiceProcessor", buf, 0x16u);
+        LOBYTE(v49) = v942[23];
       }
 
-      while (v3 != v2);
-      v4 = *(this + 52);
-    }
-
-    *(this + 53) = v2;
-    std::allocator_traits<vp::Allocator<std::shared_ptr<vp::vx::io::Wire_Decorator_Factory>>>::deallocate[abi:ne200100](*(this + 55), v4, (*(this + 54) - v4) >> 4);
-  }
-
-  v6 = *(this + 50);
-  if (v6)
-  {
-    v7 = (*(this + 49) + 16);
-    do
-    {
-      if (*v7)
+      if ((v49 & 0x80) != 0)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*v7);
+        operator delete(*v942);
       }
-
-      v7 += 3;
-      --v6;
     }
 
-    while (v6);
+    goto LABEL_8;
   }
 
-  v8 = *(this + 51);
-  if (v8)
+  v7 = *(a2 + 780);
+  if (v7 >= 2)
   {
-    (*(**(this + 48) + 24))(*(this + 48), *(this + 49), 24 * v8, 8);
-  }
-
-  v9 = *(this + 47);
-  if (v9)
-  {
-    (*(**(this + 44) + 24))(*(this + 44), *(this + 45), 28 * v9, 4);
-  }
-
-  v10 = *(this + 39);
-  if (v10)
-  {
-    v11 = *(this + 40);
-    v12 = *(this + 39);
-    if (v11 != v10)
+    if (v7 != 2 || *(a2 + 264) == 3)
     {
-      do
+LABEL_11:
+      v9 = *(a2 + 2696);
+      v10 = v6[8];
+      if (0x86BCA1AF286BCA1BLL * ((v6[9] - v10) >> 4) > v9)
       {
-        v13 = *(v11 - 8);
+        v11 = (v10 + 304 * v9);
+        v12 = *v11;
+        v13 = v11[1];
+        if (v13)
+        {
+          atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+        }
+
+        *buf = (*(*v12 + 32))(v12);
+        v955 = 1;
         if (v13)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v13);
         }
 
-        v11 -= 16;
+        goto LABEL_16;
       }
 
-      while (v11 != v10);
-      v12 = *(this + 39);
-    }
-
-    *(this + 40) = v10;
-    std::allocator_traits<vp::Allocator<std::shared_ptr<vp::vx::io::Port_Decorator_Factory>>>::deallocate[abi:ne200100](*(this + 42), v12, (*(this + 41) - v12) >> 4);
-  }
-
-  v14 = *(this + 37);
-  if (v14)
-  {
-    v15 = (*(this + 36) + 16);
-    do
-    {
-      if (*v15)
+      *v942 = 0x10002800000006;
+      *&v942[8] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/io/Graph.cpp";
+      v943 = 0;
+      *&v944 = 0;
+      *&v942[16] = 0;
+      vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v944 + 1);
+      _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(buf, v942);
+      if (SBYTE7(v944) < 0)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*v15);
+        std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](*(&v944 + 1), *&v942[16], v944 & 0x7FFFFFFFFFFFFFFFLL);
       }
 
-      v15 += 3;
-      --v14;
-    }
-
-    while (v14);
-  }
-
-  v16 = *(this + 38);
-  if (v16)
-  {
-    (*(**(this + 35) + 24))(*(this + 35), *(this + 36), 24 * v16, 8);
-  }
-
-  v17 = *(this + 34);
-  if (v17)
-  {
-    (*(**(this + 31) + 24))(*(this + 31), *(this + 32), 16 * v17, 4);
-  }
-
-  v18 = *(this + 30);
-  if (v18)
-  {
-    (*(**(this + 27) + 24))(*(this + 27), *(this + 28), 16 * v18, 4);
-  }
-
-  v19 = *(this + 22);
-  if (v19)
-  {
-    v20 = *(this + 23);
-    v21 = *(this + 22);
-    if (v20 != v19)
-    {
-      do
+      if (v955)
       {
-        v22 = *(v20 - 8);
-        if (v22)
+LABEL_16:
+        v14 = *buf;
+        vp::vx::io::Graph::get_buffered_frame_count(&v932, v6[8], v6[9], *(a2 + 2696), 0);
+        if (v939)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+          if (v14 >= v932)
+          {
+            v15 = v14 - v932;
+          }
+
+          else
+          {
+            v15 = 0;
+          }
+
+          vp::vx::io::Graph::get_required_input_frame_count(&v926, v6[24], v6[25], *(a2 + 2752), v15);
+          if (v931)
+          {
+            v16 = v926;
+            vp::vx::io::Graph::get_buffered_frame_count(&__p, v6[8], v6[9], *(a2 + 2692), 1);
+            if (v925)
+            {
+              if (v16 >= __p)
+              {
+                v17 = v16 - __p;
+              }
+
+              else
+              {
+                v17 = 0;
+              }
+
+              vp::vx::io::Graph::get_required_input_frame_count(&__dst, v6[8], v6[9], *(a2 + 2692), v17);
+              if (v919)
+              {
+                v18 = __dst;
+                vp::vx::io::Graph::get_buffered_frame_count(&v908, v6[8], v6[9], *(a2 + 2692), 0);
+                if (v913)
+                {
+                  if (v18 >= v908)
+                  {
+                    v19 = v18 - v908;
+                  }
+
+                  else
+                  {
+                    v19 = 0;
+                  }
+
+                  vp::vx::io::Graph::get_required_input_frame_count(&v902, v6[24], v6[25], *(a2 + 2748), v19);
+                  if (v907)
+                  {
+                    v20 = v902;
+                    vp::vx::io::Graph::get_buffered_frame_count(&v896, v6[8], v6[9], *(a2 + 2688), 1);
+                    if (v901)
+                    {
+                      if (v20 >= v896)
+                      {
+                        v21 = v20 - v896;
+                      }
+
+                      else
+                      {
+                        v21 = 0;
+                      }
+
+                      vp::vx::io::Graph::get_required_input_frame_count(&v890, v6[8], v6[9], *(a2 + 2688), v21);
+                      if (v895)
+                      {
+                        v22 = v890;
+                        vp::vx::io::Graph::get_buffered_frame_count(&v884, v6[8], v6[9], *(a2 + 2688), 0);
+                        if (v889)
+                        {
+                          if (v22 >= v884)
+                          {
+                            v23 = v22 - v884;
+                          }
+
+                          else
+                          {
+                            v23 = 0;
+                          }
+
+                          vp::vx::io::Graph::get_required_input_frame_count(&v878, v6[24], v6[25], *(a2 + 2744), v23);
+                          if (v883)
+                          {
+                            v24 = v878;
+                            vp::vx::io::Graph::get_buffered_frame_count(&v872, v6[8], v6[9], *(a2 + 2684), 1);
+                            if (v877)
+                            {
+                              if (v24 >= v872)
+                              {
+                                v25 = v24 - v872;
+                              }
+
+                              else
+                              {
+                                v25 = 0;
+                              }
+
+                              vp::vx::io::Graph::get_required_input_frame_count(&v866, v6[8], v6[9], *(a2 + 2684), v25);
+                              if (v871)
+                              {
+                                v26 = v866;
+                                vp::vx::io::Graph::get_buffered_frame_count(&v860, v6[8], v6[9], *(a2 + 2684), 0);
+                                v27 = v865;
+                                if (v865)
+                                {
+                                  if (v26 >= v860)
+                                  {
+                                    v28 = v26 - v860;
+                                  }
+
+                                  else
+                                  {
+                                    v28 = 0;
+                                  }
+
+                                  vp::vx::io::Graph::get_required_input_frame_count(&v854, v6[24], v6[25], *(a2 + 2740), v28);
+                                  v29 = v859;
+                                  if (v859)
+                                  {
+                                    v30 = v854;
+                                    vp::vx::io::Graph::get_buffered_frame_count(&v848, v6[8], v6[9], *(a2 + 2680), 1);
+                                    v31 = v853;
+                                    if (v853)
+                                    {
+                                      v32 = v30 - v848;
+                                      if (v30 < v848)
+                                      {
+                                        v32 = 0;
+                                      }
+
+                                      if (v30 <= v848)
+                                      {
+                                        v33 = 1;
+                                      }
+
+                                      else
+                                      {
+                                        v33 = v32;
+                                      }
+
+                                      vp::vx::io::Graph::process(&v842, v6, *(a2 + 2680), v33);
+                                      v34 = v847;
+                                      if (v847)
+                                      {
+                                        vp::vx::io::Graph::process(&v836, v6, *(a2 + 2684), v26);
+                                        v35 = v841;
+                                        if (v841)
+                                        {
+                                          vp::vx::io::Graph::process(&v830, v6, *(a2 + 2688), v22);
+                                          v36 = v835;
+                                          if (v835)
+                                          {
+                                            vp::vx::io::Graph::process(&v824, v6, *(a2 + 2692), v18);
+                                            v37 = v829;
+                                            if (v829)
+                                            {
+                                              vp::vx::io::Graph::process(&v815, v6, *(a2 + 2696), v14);
+                                              v8 = v820;
+                                              if (v820)
+                                              {
+                                                goto LABEL_62;
+                                              }
+
+                                              v495 = vp::vx::io::Error::Error(&v810, &v815);
+                                              if (v813 >= 0)
+                                              {
+                                                v496 = HIBYTE(v813);
+                                              }
+
+                                              else
+                                              {
+                                                v496 = v812[1];
+                                              }
+
+                                              v497 = vp::get_log(v495);
+                                              v498 = os_log_type_enabled(v497, OS_LOG_TYPE_ERROR);
+                                              if (v496)
+                                              {
+                                                if (v498)
+                                                {
+                                                  v499 = vp::get_log_context_info(&v821, a2, "vp::vx::Voice_Processor]", 23);
+                                                  if ((v823 & 0x80u) == 0)
+                                                  {
+                                                    v500 = v823;
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v500 = v822;
+                                                  }
+
+                                                  v501 = vp::get_log(v499);
+                                                  if (os_log_type_enabled(v501, OS_LOG_TYPE_ERROR))
+                                                  {
+                                                    v502 = v823;
+                                                    v503 = v821;
+                                                    v504 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v810);
+                                                    std::string::basic_string<std::string_view,0>(v808, v504, v505);
+                                                    if (v502 >= 0)
+                                                    {
+                                                      v507 = &v821;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v507 = v503;
+                                                    }
+
+                                                    if (v500)
+                                                    {
+                                                      v508 = " ";
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v508 = "";
+                                                    }
+
+                                                    if (v809 >= 0)
+                                                    {
+                                                      v509 = v808;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v509 = v808[0];
+                                                    }
+
+                                                    v510 = WORD2(v810);
+                                                    v511 = HIWORD(v810);
+                                                    log_source_file_path = vp::get_log_source_file_path(v811, v506);
+                                                    if (v813 >= 0)
+                                                    {
+                                                      v513 = v812;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v513 = v812[0];
+                                                    }
+
+                                                    *v942 = 136316930;
+                                                    *&v942[4] = v507;
+                                                    *&v942[12] = 2080;
+                                                    *&v942[14] = v508;
+                                                    *&v942[22] = 2080;
+                                                    v943 = "process downlink hardware DSP";
+                                                    LOWORD(v944) = 2080;
+                                                    *(&v944 + 2) = v509;
+                                                    WORD5(v944) = 1024;
+                                                    HIDWORD(v944) = v510;
+                                                    v945 = 1024;
+                                                    v946 = v511;
+                                                    v947 = 2080;
+                                                    v948 = log_source_file_path;
+                                                    v949 = 2080;
+                                                    v950 = v513;
+                                                    v514 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                                    v515 = v501;
+                                                    v516 = 74;
+                                                    goto LABEL_1074;
+                                                  }
+
+                                                  goto LABEL_1076;
+                                                }
+                                              }
+
+                                              else if (v498)
+                                              {
+                                                v794 = vp::get_log_context_info(&v821, a2, "vp::vx::Voice_Processor]", 23);
+                                                if ((v823 & 0x80u) == 0)
+                                                {
+                                                  v795 = v823;
+                                                }
+
+                                                else
+                                                {
+                                                  v795 = v822;
+                                                }
+
+                                                v796 = vp::get_log(v794);
+                                                if (os_log_type_enabled(v796, OS_LOG_TYPE_ERROR))
+                                                {
+                                                  v797 = v823;
+                                                  v798 = v821;
+                                                  v799 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v810);
+                                                  std::string::basic_string<std::string_view,0>(v808, v799, v800);
+                                                  if (v797 >= 0)
+                                                  {
+                                                    v802 = &v821;
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v802 = v798;
+                                                  }
+
+                                                  if (v795)
+                                                  {
+                                                    v803 = " ";
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v803 = "";
+                                                  }
+
+                                                  if (v809 >= 0)
+                                                  {
+                                                    v804 = v808;
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v804 = v808[0];
+                                                  }
+
+                                                  v805 = WORD2(v810);
+                                                  v806 = HIWORD(v810);
+                                                  v807 = vp::get_log_source_file_path(v811, v801);
+                                                  *v942 = 136316674;
+                                                  *&v942[4] = v802;
+                                                  *&v942[12] = 2080;
+                                                  *&v942[14] = v803;
+                                                  *&v942[22] = 2080;
+                                                  v943 = "process downlink hardware DSP";
+                                                  LOWORD(v944) = 2080;
+                                                  *(&v944 + 2) = v804;
+                                                  WORD5(v944) = 1024;
+                                                  HIDWORD(v944) = v805;
+                                                  v945 = 1024;
+                                                  v946 = v806;
+                                                  v947 = 2080;
+                                                  v948 = v807;
+                                                  v514 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                                  v515 = v796;
+                                                  v516 = 64;
+LABEL_1074:
+                                                  _os_log_impl(&dword_2724B4000, v515, OS_LOG_TYPE_ERROR, v514, v942, v516);
+                                                  if (v809 < 0)
+                                                  {
+                                                    operator delete(v808[0]);
+                                                  }
+                                                }
+
+LABEL_1076:
+                                                if (v823 < 0)
+                                                {
+                                                  operator delete(v821);
+                                                }
+                                              }
+
+                                              *this = 7;
+                                              *(this + 4) = 0;
+                                              if (SHIBYTE(v813) < 0)
+                                              {
+                                                std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v814, v812[0], v813 & 0x7FFFFFFFFFFFFFFFLL);
+                                              }
+
+                                              if (SHIBYTE(v818) < 0)
+                                              {
+                                                std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v819, v817[0], v818 & 0x7FFFFFFFFFFFFFFFLL);
+                                              }
+
+                                              goto LABEL_62;
+                                            }
+
+                                            v473 = vp::vx::io::Error::Error(&v815, &v824);
+                                            if (v818 >= 0)
+                                            {
+                                              v474 = HIBYTE(v818);
+                                            }
+
+                                            else
+                                            {
+                                              v474 = v817[1];
+                                            }
+
+                                            v475 = vp::get_log(v473);
+                                            v476 = os_log_type_enabled(v475, OS_LOG_TYPE_ERROR);
+                                            if (v474)
+                                            {
+                                              if (!v476)
+                                              {
+                                                goto LABEL_1053;
+                                              }
+
+                                              v477 = vp::get_log_context_info(&v810, a2, "vp::vx::Voice_Processor]", 23);
+                                              if (v812[0] >= 0)
+                                              {
+                                                v478 = HIBYTE(v812[0]);
+                                              }
+
+                                              else
+                                              {
+                                                v478 = v811;
+                                              }
+
+                                              v479 = vp::get_log(v477);
+                                              if (!os_log_type_enabled(v479, OS_LOG_TYPE_ERROR))
+                                              {
+                                                goto LABEL_1051;
+                                              }
+
+                                              v480 = SHIBYTE(v812[0]);
+                                              v481 = v810;
+                                              v482 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v815);
+                                              std::string::basic_string<std::string_view,0>(&v821, v482, v483);
+                                              if (v480 >= 0)
+                                              {
+                                                v485 = &v810;
+                                              }
+
+                                              else
+                                              {
+                                                v485 = v481;
+                                              }
+
+                                              if (v478)
+                                              {
+                                                v486 = " ";
+                                              }
+
+                                              else
+                                              {
+                                                v486 = "";
+                                              }
+
+                                              if ((v823 & 0x80u) == 0)
+                                              {
+                                                v487 = &v821;
+                                              }
+
+                                              else
+                                              {
+                                                v487 = v821;
+                                              }
+
+                                              v488 = WORD2(v815);
+                                              v489 = HIWORD(v815);
+                                              v490 = vp::get_log_source_file_path(v816, v484);
+                                              if (v818 >= 0)
+                                              {
+                                                v491 = v817;
+                                              }
+
+                                              else
+                                              {
+                                                v491 = v817[0];
+                                              }
+
+                                              *v942 = 136316930;
+                                              *&v942[4] = v485;
+                                              *&v942[12] = 2080;
+                                              *&v942[14] = v486;
+                                              *&v942[22] = 2080;
+                                              v943 = "process downlink dynamics DSP";
+                                              LOWORD(v944) = 2080;
+                                              *(&v944 + 2) = v487;
+                                              WORD5(v944) = 1024;
+                                              HIDWORD(v944) = v488;
+                                              v945 = 1024;
+                                              v946 = v489;
+                                              v947 = 2080;
+                                              v948 = v490;
+                                              v949 = 2080;
+                                              v950 = v491;
+                                              v492 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                              v493 = v479;
+                                              v494 = 74;
+                                            }
+
+                                            else
+                                            {
+                                              if (!v476)
+                                              {
+                                                goto LABEL_1053;
+                                              }
+
+                                              v780 = vp::get_log_context_info(&v810, a2, "vp::vx::Voice_Processor]", 23);
+                                              if (v812[0] >= 0)
+                                              {
+                                                v781 = HIBYTE(v812[0]);
+                                              }
+
+                                              else
+                                              {
+                                                v781 = v811;
+                                              }
+
+                                              v782 = vp::get_log(v780);
+                                              if (!os_log_type_enabled(v782, OS_LOG_TYPE_ERROR))
+                                              {
+LABEL_1051:
+                                                if (SHIBYTE(v812[0]) < 0)
+                                                {
+                                                  operator delete(v810);
+                                                }
+
+LABEL_1053:
+                                                *this = 7;
+                                                *(this + 4) = 0;
+                                                if (SHIBYTE(v818) < 0)
+                                                {
+                                                  std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v819, v817[0], v818 & 0x7FFFFFFFFFFFFFFFLL);
+                                                }
+
+                                                v8 = 0;
+                                                if ((v37 & 1) == 0 && SHIBYTE(v827) < 0)
+                                                {
+                                                  (*(*v828 + 24))(v828, v826[0], v827 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                                  goto LABEL_1058;
+                                                }
+
+LABEL_62:
+                                                if ((v871 & 1) == 0 && SHIBYTE(v869) < 0)
+                                                {
+                                                  (*(*v870 + 24))(v870, v868[0], v869 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                                }
+
+                                                if (v877)
+                                                {
+LABEL_68:
+                                                  if (v883)
+                                                  {
+                                                    goto LABEL_71;
+                                                  }
+
+                                                  goto LABEL_69;
+                                                }
+
+LABEL_66:
+                                                if (SHIBYTE(v875) < 0)
+                                                {
+                                                  (*(*v876 + 24))(v876, v874[0], v875 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                                }
+
+                                                goto LABEL_68;
+                                              }
+
+                                              v783 = SHIBYTE(v812[0]);
+                                              v784 = v810;
+                                              v785 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v815);
+                                              std::string::basic_string<std::string_view,0>(&v821, v785, v786);
+                                              if (v783 >= 0)
+                                              {
+                                                v788 = &v810;
+                                              }
+
+                                              else
+                                              {
+                                                v788 = v784;
+                                              }
+
+                                              if (v781)
+                                              {
+                                                v789 = " ";
+                                              }
+
+                                              else
+                                              {
+                                                v789 = "";
+                                              }
+
+                                              if ((v823 & 0x80u) == 0)
+                                              {
+                                                v790 = &v821;
+                                              }
+
+                                              else
+                                              {
+                                                v790 = v821;
+                                              }
+
+                                              v791 = WORD2(v815);
+                                              v792 = HIWORD(v815);
+                                              v793 = vp::get_log_source_file_path(v816, v787);
+                                              *v942 = 136316674;
+                                              *&v942[4] = v788;
+                                              *&v942[12] = 2080;
+                                              *&v942[14] = v789;
+                                              *&v942[22] = 2080;
+                                              v943 = "process downlink dynamics DSP";
+                                              LOWORD(v944) = 2080;
+                                              *(&v944 + 2) = v790;
+                                              WORD5(v944) = 1024;
+                                              HIDWORD(v944) = v791;
+                                              v945 = 1024;
+                                              v946 = v792;
+                                              v947 = 2080;
+                                              v948 = v793;
+                                              v492 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                              v493 = v782;
+                                              v494 = 64;
+                                            }
+
+                                            _os_log_impl(&dword_2724B4000, v493, OS_LOG_TYPE_ERROR, v492, v942, v494);
+                                            if (v823 < 0)
+                                            {
+                                              operator delete(v821);
+                                            }
+
+                                            goto LABEL_1051;
+                                          }
+
+                                          v451 = vp::vx::io::Error::Error(&v824, &v830);
+                                          if (v827 >= 0)
+                                          {
+                                            v452 = HIBYTE(v827);
+                                          }
+
+                                          else
+                                          {
+                                            v452 = v826[1];
+                                          }
+
+                                          v453 = vp::get_log(v451);
+                                          v454 = os_log_type_enabled(v453, OS_LOG_TYPE_ERROR);
+                                          if (v452)
+                                          {
+                                            if (v454)
+                                            {
+                                              v455 = vp::get_log_context_info(&v815, a2, "vp::vx::Voice_Processor]", 23);
+                                              if (v817[0] >= 0)
+                                              {
+                                                v456 = HIBYTE(v817[0]);
+                                              }
+
+                                              else
+                                              {
+                                                v456 = v816;
+                                              }
+
+                                              v457 = vp::get_log(v455);
+                                              if (os_log_type_enabled(v457, OS_LOG_TYPE_ERROR))
+                                              {
+                                                v458 = SHIBYTE(v817[0]);
+                                                v459 = v815;
+                                                v460 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v824);
+                                                std::string::basic_string<std::string_view,0>(&v810, v460, v461);
+                                                if (v458 >= 0)
+                                                {
+                                                  v463 = &v815;
+                                                }
+
+                                                else
+                                                {
+                                                  v463 = v459;
+                                                }
+
+                                                if (v456)
+                                                {
+                                                  v464 = " ";
+                                                }
+
+                                                else
+                                                {
+                                                  v464 = "";
+                                                }
+
+                                                if (v812[0] >= 0)
+                                                {
+                                                  v465 = &v810;
+                                                }
+
+                                                else
+                                                {
+                                                  v465 = v810;
+                                                }
+
+                                                v466 = WORD2(v824);
+                                                v467 = HIWORD(v824);
+                                                v468 = vp::get_log_source_file_path(v825, v462);
+                                                if (v827 >= 0)
+                                                {
+                                                  v469 = v826;
+                                                }
+
+                                                else
+                                                {
+                                                  v469 = v826[0];
+                                                }
+
+                                                *v942 = 136316930;
+                                                *&v942[4] = v463;
+                                                *&v942[12] = 2080;
+                                                *&v942[14] = v464;
+                                                *&v942[22] = 2080;
+                                                v943 = "process downlink voice DSP";
+                                                LOWORD(v944) = 2080;
+                                                *(&v944 + 2) = v465;
+                                                WORD5(v944) = 1024;
+                                                HIDWORD(v944) = v466;
+                                                v945 = 1024;
+                                                v946 = v467;
+                                                v947 = 2080;
+                                                v948 = v468;
+                                                v949 = 2080;
+                                                v950 = v469;
+                                                v470 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                                v471 = v457;
+                                                v472 = 74;
+                                                goto LABEL_1025;
+                                              }
+
+                                              goto LABEL_1027;
+                                            }
+                                          }
+
+                                          else if (v454)
+                                          {
+                                            v766 = vp::get_log_context_info(&v815, a2, "vp::vx::Voice_Processor]", 23);
+                                            if (v817[0] >= 0)
+                                            {
+                                              v767 = HIBYTE(v817[0]);
+                                            }
+
+                                            else
+                                            {
+                                              v767 = v816;
+                                            }
+
+                                            v768 = vp::get_log(v766);
+                                            if (os_log_type_enabled(v768, OS_LOG_TYPE_ERROR))
+                                            {
+                                              v769 = SHIBYTE(v817[0]);
+                                              v770 = v815;
+                                              v771 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v824);
+                                              std::string::basic_string<std::string_view,0>(&v810, v771, v772);
+                                              if (v769 >= 0)
+                                              {
+                                                v774 = &v815;
+                                              }
+
+                                              else
+                                              {
+                                                v774 = v770;
+                                              }
+
+                                              if (v767)
+                                              {
+                                                v775 = " ";
+                                              }
+
+                                              else
+                                              {
+                                                v775 = "";
+                                              }
+
+                                              if (v812[0] >= 0)
+                                              {
+                                                v776 = &v810;
+                                              }
+
+                                              else
+                                              {
+                                                v776 = v810;
+                                              }
+
+                                              v777 = WORD2(v824);
+                                              v778 = HIWORD(v824);
+                                              v779 = vp::get_log_source_file_path(v825, v773);
+                                              *v942 = 136316674;
+                                              *&v942[4] = v774;
+                                              *&v942[12] = 2080;
+                                              *&v942[14] = v775;
+                                              *&v942[22] = 2080;
+                                              v943 = "process downlink voice DSP";
+                                              LOWORD(v944) = 2080;
+                                              *(&v944 + 2) = v776;
+                                              WORD5(v944) = 1024;
+                                              HIDWORD(v944) = v777;
+                                              v945 = 1024;
+                                              v946 = v778;
+                                              v947 = 2080;
+                                              v948 = v779;
+                                              v470 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                              v471 = v768;
+                                              v472 = 64;
+LABEL_1025:
+                                              _os_log_impl(&dword_2724B4000, v471, OS_LOG_TYPE_ERROR, v470, v942, v472);
+                                              if (SHIBYTE(v812[0]) < 0)
+                                              {
+                                                operator delete(v810);
+                                              }
+                                            }
+
+LABEL_1027:
+                                            if (SHIBYTE(v817[0]) < 0)
+                                            {
+                                              operator delete(v815);
+                                            }
+                                          }
+
+                                          *this = 7;
+                                          *(this + 4) = 0;
+                                          if (SHIBYTE(v827) < 0)
+                                          {
+                                            std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v828, v826[0], v827 & 0x7FFFFFFFFFFFFFFFLL);
+                                          }
+
+                                          v8 = 0;
+                                          if ((v36 & 1) != 0 || (SHIBYTE(v833) & 0x80000000) == 0)
+                                          {
+                                            goto LABEL_62;
+                                          }
+
+                                          (*(*v834 + 24))(v834, v832[0], v833 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                          goto LABEL_1058;
+                                        }
+
+                                        v429 = vp::vx::io::Error::Error(&v830, &v836);
+                                        if (v833 >= 0)
+                                        {
+                                          v430 = HIBYTE(v833);
+                                        }
+
+                                        else
+                                        {
+                                          v430 = v832[1];
+                                        }
+
+                                        v431 = vp::get_log(v429);
+                                        v432 = os_log_type_enabled(v431, OS_LOG_TYPE_ERROR);
+                                        if (v430)
+                                        {
+                                          if (v432)
+                                          {
+                                            v433 = vp::get_log_context_info(&v824, a2, "vp::vx::Voice_Processor]", 23);
+                                            if (v826[0] >= 0)
+                                            {
+                                              v434 = HIBYTE(v826[0]);
+                                            }
+
+                                            else
+                                            {
+                                              v434 = v825;
+                                            }
+
+                                            v435 = vp::get_log(v433);
+                                            if (os_log_type_enabled(v435, OS_LOG_TYPE_ERROR))
+                                            {
+                                              v436 = SHIBYTE(v826[0]);
+                                              v437 = v824;
+                                              v438 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v830);
+                                              std::string::basic_string<std::string_view,0>(&v815, v438, v439);
+                                              if (v436 >= 0)
+                                              {
+                                                v441 = &v824;
+                                              }
+
+                                              else
+                                              {
+                                                v441 = v437;
+                                              }
+
+                                              if (v434)
+                                              {
+                                                v442 = " ";
+                                              }
+
+                                              else
+                                              {
+                                                v442 = "";
+                                              }
+
+                                              if (v817[0] >= 0)
+                                              {
+                                                v443 = &v815;
+                                              }
+
+                                              else
+                                              {
+                                                v443 = v815;
+                                              }
+
+                                              v444 = WORD2(v830);
+                                              v445 = HIWORD(v830);
+                                              v446 = vp::get_log_source_file_path(v831, v440);
+                                              if (v833 >= 0)
+                                              {
+                                                v447 = v832;
+                                              }
+
+                                              else
+                                              {
+                                                v447 = v832[0];
+                                              }
+
+                                              *v942 = 136316930;
+                                              *&v942[4] = v441;
+                                              *&v942[12] = 2080;
+                                              *&v942[14] = v442;
+                                              *&v942[22] = 2080;
+                                              v943 = "process downlink voice mix DSP";
+                                              LOWORD(v944) = 2080;
+                                              *(&v944 + 2) = v443;
+                                              WORD5(v944) = 1024;
+                                              HIDWORD(v944) = v444;
+                                              v945 = 1024;
+                                              v946 = v445;
+                                              v947 = 2080;
+                                              v948 = v446;
+                                              v949 = 2080;
+                                              v950 = v447;
+                                              v448 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                              v449 = v435;
+                                              v450 = 74;
+                                              goto LABEL_1001;
+                                            }
+
+                                            goto LABEL_1003;
+                                          }
+                                        }
+
+                                        else if (v432)
+                                        {
+                                          v752 = vp::get_log_context_info(&v824, a2, "vp::vx::Voice_Processor]", 23);
+                                          if (v826[0] >= 0)
+                                          {
+                                            v753 = HIBYTE(v826[0]);
+                                          }
+
+                                          else
+                                          {
+                                            v753 = v825;
+                                          }
+
+                                          v754 = vp::get_log(v752);
+                                          if (os_log_type_enabled(v754, OS_LOG_TYPE_ERROR))
+                                          {
+                                            v755 = SHIBYTE(v826[0]);
+                                            v756 = v824;
+                                            v757 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v830);
+                                            std::string::basic_string<std::string_view,0>(&v815, v757, v758);
+                                            if (v755 >= 0)
+                                            {
+                                              v760 = &v824;
+                                            }
+
+                                            else
+                                            {
+                                              v760 = v756;
+                                            }
+
+                                            if (v753)
+                                            {
+                                              v761 = " ";
+                                            }
+
+                                            else
+                                            {
+                                              v761 = "";
+                                            }
+
+                                            if (v817[0] >= 0)
+                                            {
+                                              v762 = &v815;
+                                            }
+
+                                            else
+                                            {
+                                              v762 = v815;
+                                            }
+
+                                            v763 = WORD2(v830);
+                                            v764 = HIWORD(v830);
+                                            v765 = vp::get_log_source_file_path(v831, v759);
+                                            *v942 = 136316674;
+                                            *&v942[4] = v760;
+                                            *&v942[12] = 2080;
+                                            *&v942[14] = v761;
+                                            *&v942[22] = 2080;
+                                            v943 = "process downlink voice mix DSP";
+                                            LOWORD(v944) = 2080;
+                                            *(&v944 + 2) = v762;
+                                            WORD5(v944) = 1024;
+                                            HIDWORD(v944) = v763;
+                                            v945 = 1024;
+                                            v946 = v764;
+                                            v947 = 2080;
+                                            v948 = v765;
+                                            v448 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                            v449 = v754;
+                                            v450 = 64;
+LABEL_1001:
+                                            _os_log_impl(&dword_2724B4000, v449, OS_LOG_TYPE_ERROR, v448, v942, v450);
+                                            if (SHIBYTE(v817[0]) < 0)
+                                            {
+                                              operator delete(v815);
+                                            }
+                                          }
+
+LABEL_1003:
+                                          if (SHIBYTE(v826[0]) < 0)
+                                          {
+                                            operator delete(v824);
+                                          }
+                                        }
+
+                                        *this = 7;
+                                        *(this + 4) = 0;
+                                        if (SHIBYTE(v833) < 0)
+                                        {
+                                          std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v834, v832[0], v833 & 0x7FFFFFFFFFFFFFFFLL);
+                                        }
+
+                                        v8 = 0;
+                                        if ((v35 & 1) != 0 || (SHIBYTE(v839) & 0x80000000) == 0)
+                                        {
+                                          goto LABEL_62;
+                                        }
+
+                                        (*(*v840 + 24))(v840, v838[0], v839 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                        goto LABEL_1058;
+                                      }
+
+                                      v407 = vp::vx::io::Error::Error(&v836, &v842);
+                                      if (v839 >= 0)
+                                      {
+                                        v408 = HIBYTE(v839);
+                                      }
+
+                                      else
+                                      {
+                                        v408 = v838[1];
+                                      }
+
+                                      v409 = vp::get_log(v407);
+                                      v410 = os_log_type_enabled(v409, OS_LOG_TYPE_ERROR);
+                                      if (v408)
+                                      {
+                                        if (v410)
+                                        {
+                                          v411 = vp::get_log_context_info(&v830, a2, "vp::vx::Voice_Processor]", 23);
+                                          if (v832[0] >= 0)
+                                          {
+                                            v412 = HIBYTE(v832[0]);
+                                          }
+
+                                          else
+                                          {
+                                            v412 = v831;
+                                          }
+
+                                          v413 = vp::get_log(v411);
+                                          if (os_log_type_enabled(v413, OS_LOG_TYPE_ERROR))
+                                          {
+                                            v414 = SHIBYTE(v832[0]);
+                                            v415 = v830;
+                                            v416 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v836);
+                                            std::string::basic_string<std::string_view,0>(&v824, v416, v417);
+                                            if (v414 >= 0)
+                                            {
+                                              v419 = &v830;
+                                            }
+
+                                            else
+                                            {
+                                              v419 = v415;
+                                            }
+
+                                            if (v412)
+                                            {
+                                              v420 = " ";
+                                            }
+
+                                            else
+                                            {
+                                              v420 = "";
+                                            }
+
+                                            if (v826[0] >= 0)
+                                            {
+                                              v421 = &v824;
+                                            }
+
+                                            else
+                                            {
+                                              v421 = v824;
+                                            }
+
+                                            v422 = WORD2(v836);
+                                            v423 = HIWORD(v836);
+                                            v424 = vp::get_log_source_file_path(v837, v418);
+                                            if (v839 >= 0)
+                                            {
+                                              v425 = v838;
+                                            }
+
+                                            else
+                                            {
+                                              v425 = v838[0];
+                                            }
+
+                                            *v942 = 136316930;
+                                            *&v942[4] = v419;
+                                            *&v942[12] = 2080;
+                                            *&v942[14] = v420;
+                                            *&v942[22] = 2080;
+                                            v943 = "process downlink voice proc";
+                                            LOWORD(v944) = 2080;
+                                            *(&v944 + 2) = v421;
+                                            WORD5(v944) = 1024;
+                                            HIDWORD(v944) = v422;
+                                            v945 = 1024;
+                                            v946 = v423;
+                                            v947 = 2080;
+                                            v948 = v424;
+                                            v949 = 2080;
+                                            v950 = v425;
+                                            v426 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                            v427 = v413;
+                                            v428 = 74;
+                                            goto LABEL_977;
+                                          }
+
+                                          goto LABEL_979;
+                                        }
+                                      }
+
+                                      else if (v410)
+                                      {
+                                        v738 = vp::get_log_context_info(&v830, a2, "vp::vx::Voice_Processor]", 23);
+                                        if (v832[0] >= 0)
+                                        {
+                                          v739 = HIBYTE(v832[0]);
+                                        }
+
+                                        else
+                                        {
+                                          v739 = v831;
+                                        }
+
+                                        v740 = vp::get_log(v738);
+                                        if (os_log_type_enabled(v740, OS_LOG_TYPE_ERROR))
+                                        {
+                                          v741 = SHIBYTE(v832[0]);
+                                          v742 = v830;
+                                          v743 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v836);
+                                          std::string::basic_string<std::string_view,0>(&v824, v743, v744);
+                                          if (v741 >= 0)
+                                          {
+                                            v746 = &v830;
+                                          }
+
+                                          else
+                                          {
+                                            v746 = v742;
+                                          }
+
+                                          if (v739)
+                                          {
+                                            v747 = " ";
+                                          }
+
+                                          else
+                                          {
+                                            v747 = "";
+                                          }
+
+                                          if (v826[0] >= 0)
+                                          {
+                                            v748 = &v824;
+                                          }
+
+                                          else
+                                          {
+                                            v748 = v824;
+                                          }
+
+                                          v749 = WORD2(v836);
+                                          v750 = HIWORD(v836);
+                                          v751 = vp::get_log_source_file_path(v837, v745);
+                                          *v942 = 136316674;
+                                          *&v942[4] = v746;
+                                          *&v942[12] = 2080;
+                                          *&v942[14] = v747;
+                                          *&v942[22] = 2080;
+                                          v943 = "process downlink voice proc";
+                                          LOWORD(v944) = 2080;
+                                          *(&v944 + 2) = v748;
+                                          WORD5(v944) = 1024;
+                                          HIDWORD(v944) = v749;
+                                          v945 = 1024;
+                                          v946 = v750;
+                                          v947 = 2080;
+                                          v948 = v751;
+                                          v426 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                          v427 = v740;
+                                          v428 = 64;
+LABEL_977:
+                                          _os_log_impl(&dword_2724B4000, v427, OS_LOG_TYPE_ERROR, v426, v942, v428);
+                                          if (SHIBYTE(v826[0]) < 0)
+                                          {
+                                            operator delete(v824);
+                                          }
+                                        }
+
+LABEL_979:
+                                        if (SHIBYTE(v832[0]) < 0)
+                                        {
+                                          operator delete(v830);
+                                        }
+                                      }
+
+                                      *this = 7;
+                                      *(this + 4) = 0;
+                                      if (SHIBYTE(v839) < 0)
+                                      {
+                                        std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v840, v838[0], v839 & 0x7FFFFFFFFFFFFFFFLL);
+                                      }
+
+                                      v8 = 0;
+                                      if ((v34 & 1) != 0 || (SHIBYTE(v845) & 0x80000000) == 0)
+                                      {
+                                        goto LABEL_62;
+                                      }
+
+                                      (*(*v846 + 24))(v846, v844[0], v845 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                      goto LABEL_1058;
+                                    }
+
+                                    v385 = vp::vx::io::Error::Error(&v842, &v848);
+                                    if (v845 >= 0)
+                                    {
+                                      v386 = HIBYTE(v845);
+                                    }
+
+                                    else
+                                    {
+                                      v386 = v844[1];
+                                    }
+
+                                    v387 = vp::get_log(v385);
+                                    v388 = os_log_type_enabled(v387, OS_LOG_TYPE_ERROR);
+                                    if (v386)
+                                    {
+                                      if (v388)
+                                      {
+                                        v389 = vp::get_log_context_info(&v836, a2, "vp::vx::Voice_Processor]", 23);
+                                        if (v838[0] >= 0)
+                                        {
+                                          v390 = HIBYTE(v838[0]);
+                                        }
+
+                                        else
+                                        {
+                                          v390 = v837;
+                                        }
+
+                                        v391 = vp::get_log(v389);
+                                        if (os_log_type_enabled(v391, OS_LOG_TYPE_ERROR))
+                                        {
+                                          v392 = SHIBYTE(v838[0]);
+                                          v393 = v836;
+                                          v394 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v842);
+                                          std::string::basic_string<std::string_view,0>(&v830, v394, v395);
+                                          if (v392 >= 0)
+                                          {
+                                            v397 = &v836;
+                                          }
+
+                                          else
+                                          {
+                                            v397 = v393;
+                                          }
+
+                                          if (v390)
+                                          {
+                                            v398 = " ";
+                                          }
+
+                                          else
+                                          {
+                                            v398 = "";
+                                          }
+
+                                          if (v832[0] >= 0)
+                                          {
+                                            v399 = &v830;
+                                          }
+
+                                          else
+                                          {
+                                            v399 = v830;
+                                          }
+
+                                          v400 = WORD2(v842);
+                                          v401 = HIWORD(v842);
+                                          v402 = vp::get_log_source_file_path(v843, v396);
+                                          if (v845 >= 0)
+                                          {
+                                            v403 = v844;
+                                          }
+
+                                          else
+                                          {
+                                            v403 = v844[0];
+                                          }
+
+                                          *v942 = 136316930;
+                                          *&v942[4] = v397;
+                                          *&v942[12] = 2080;
+                                          *&v942[14] = v398;
+                                          *&v942[22] = 2080;
+                                          v943 = "get buffered output frame count for downlink voice proc";
+                                          LOWORD(v944) = 2080;
+                                          *(&v944 + 2) = v399;
+                                          WORD5(v944) = 1024;
+                                          HIDWORD(v944) = v400;
+                                          v945 = 1024;
+                                          v946 = v401;
+                                          v947 = 2080;
+                                          v948 = v402;
+                                          v949 = 2080;
+                                          v950 = v403;
+                                          v404 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                          v405 = v391;
+                                          v406 = 74;
+                                          goto LABEL_953;
+                                        }
+
+                                        goto LABEL_955;
+                                      }
+                                    }
+
+                                    else if (v388)
+                                    {
+                                      v724 = vp::get_log_context_info(&v836, a2, "vp::vx::Voice_Processor]", 23);
+                                      if (v838[0] >= 0)
+                                      {
+                                        v725 = HIBYTE(v838[0]);
+                                      }
+
+                                      else
+                                      {
+                                        v725 = v837;
+                                      }
+
+                                      v726 = vp::get_log(v724);
+                                      if (os_log_type_enabled(v726, OS_LOG_TYPE_ERROR))
+                                      {
+                                        v727 = SHIBYTE(v838[0]);
+                                        v728 = v836;
+                                        v729 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v842);
+                                        std::string::basic_string<std::string_view,0>(&v830, v729, v730);
+                                        if (v727 >= 0)
+                                        {
+                                          v732 = &v836;
+                                        }
+
+                                        else
+                                        {
+                                          v732 = v728;
+                                        }
+
+                                        if (v725)
+                                        {
+                                          v733 = " ";
+                                        }
+
+                                        else
+                                        {
+                                          v733 = "";
+                                        }
+
+                                        if (v832[0] >= 0)
+                                        {
+                                          v734 = &v830;
+                                        }
+
+                                        else
+                                        {
+                                          v734 = v830;
+                                        }
+
+                                        v735 = WORD2(v842);
+                                        v736 = HIWORD(v842);
+                                        v737 = vp::get_log_source_file_path(v843, v731);
+                                        *v942 = 136316674;
+                                        *&v942[4] = v732;
+                                        *&v942[12] = 2080;
+                                        *&v942[14] = v733;
+                                        *&v942[22] = 2080;
+                                        v943 = "get buffered output frame count for downlink voice proc";
+                                        LOWORD(v944) = 2080;
+                                        *(&v944 + 2) = v734;
+                                        WORD5(v944) = 1024;
+                                        HIDWORD(v944) = v735;
+                                        v945 = 1024;
+                                        v946 = v736;
+                                        v947 = 2080;
+                                        v948 = v737;
+                                        v404 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                        v405 = v726;
+                                        v406 = 64;
+LABEL_953:
+                                        _os_log_impl(&dword_2724B4000, v405, OS_LOG_TYPE_ERROR, v404, v942, v406);
+                                        if (SHIBYTE(v832[0]) < 0)
+                                        {
+                                          operator delete(v830);
+                                        }
+                                      }
+
+LABEL_955:
+                                      if (SHIBYTE(v838[0]) < 0)
+                                      {
+                                        operator delete(v836);
+                                      }
+                                    }
+
+                                    *this = 7;
+                                    *(this + 4) = 0;
+                                    if (SHIBYTE(v845) < 0)
+                                    {
+                                      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v846, v844[0], v845 & 0x7FFFFFFFFFFFFFFFLL);
+                                    }
+
+                                    v8 = 0;
+                                    if ((v31 & 1) != 0 || (SHIBYTE(v851) & 0x80000000) == 0)
+                                    {
+                                      goto LABEL_62;
+                                    }
+
+                                    (*(*v852 + 24))(v852, v850[0], v851 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                    goto LABEL_1058;
+                                  }
+
+                                  v363 = vp::vx::io::Error::Error(&v848, &v854);
+                                  if (v851 >= 0)
+                                  {
+                                    v364 = HIBYTE(v851);
+                                  }
+
+                                  else
+                                  {
+                                    v364 = v850[1];
+                                  }
+
+                                  v365 = vp::get_log(v363);
+                                  v366 = os_log_type_enabled(v365, OS_LOG_TYPE_ERROR);
+                                  if (v364)
+                                  {
+                                    if (v366)
+                                    {
+                                      v367 = vp::get_log_context_info(&v842, a2, "vp::vx::Voice_Processor]", 23);
+                                      if (v844[0] >= 0)
+                                      {
+                                        v368 = HIBYTE(v844[0]);
+                                      }
+
+                                      else
+                                      {
+                                        v368 = v843;
+                                      }
+
+                                      v369 = vp::get_log(v367);
+                                      if (os_log_type_enabled(v369, OS_LOG_TYPE_ERROR))
+                                      {
+                                        v370 = SHIBYTE(v844[0]);
+                                        v371 = v842;
+                                        v372 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v848);
+                                        std::string::basic_string<std::string_view,0>(&v836, v372, v373);
+                                        if (v370 >= 0)
+                                        {
+                                          v375 = &v842;
+                                        }
+
+                                        else
+                                        {
+                                          v375 = v371;
+                                        }
+
+                                        if (v368)
+                                        {
+                                          v376 = " ";
+                                        }
+
+                                        else
+                                        {
+                                          v376 = "";
+                                        }
+
+                                        if (v838[0] >= 0)
+                                        {
+                                          v377 = &v836;
+                                        }
+
+                                        else
+                                        {
+                                          v377 = v836;
+                                        }
+
+                                        v378 = WORD2(v848);
+                                        v379 = HIWORD(v848);
+                                        v380 = vp::get_log_source_file_path(v849, v374);
+                                        if (v851 >= 0)
+                                        {
+                                          v381 = v850;
+                                        }
+
+                                        else
+                                        {
+                                          v381 = v850[0];
+                                        }
+
+                                        *v942 = 136316930;
+                                        *&v942[4] = v375;
+                                        *&v942[12] = 2080;
+                                        *&v942[14] = v376;
+                                        *&v942[22] = 2080;
+                                        v943 = "get frame count deficit for downlink voice mix DSP";
+                                        LOWORD(v944) = 2080;
+                                        *(&v944 + 2) = v377;
+                                        WORD5(v944) = 1024;
+                                        HIDWORD(v944) = v378;
+                                        v945 = 1024;
+                                        v946 = v379;
+                                        v947 = 2080;
+                                        v948 = v380;
+                                        v949 = 2080;
+                                        v950 = v381;
+                                        v382 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                        v383 = v369;
+                                        v384 = 74;
+                                        goto LABEL_929;
+                                      }
+
+                                      goto LABEL_931;
+                                    }
+                                  }
+
+                                  else if (v366)
+                                  {
+                                    v710 = vp::get_log_context_info(&v842, a2, "vp::vx::Voice_Processor]", 23);
+                                    if (v844[0] >= 0)
+                                    {
+                                      v711 = HIBYTE(v844[0]);
+                                    }
+
+                                    else
+                                    {
+                                      v711 = v843;
+                                    }
+
+                                    v712 = vp::get_log(v710);
+                                    if (os_log_type_enabled(v712, OS_LOG_TYPE_ERROR))
+                                    {
+                                      v713 = SHIBYTE(v844[0]);
+                                      v714 = v842;
+                                      v715 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v848);
+                                      std::string::basic_string<std::string_view,0>(&v836, v715, v716);
+                                      if (v713 >= 0)
+                                      {
+                                        v718 = &v842;
+                                      }
+
+                                      else
+                                      {
+                                        v718 = v714;
+                                      }
+
+                                      if (v711)
+                                      {
+                                        v719 = " ";
+                                      }
+
+                                      else
+                                      {
+                                        v719 = "";
+                                      }
+
+                                      if (v838[0] >= 0)
+                                      {
+                                        v720 = &v836;
+                                      }
+
+                                      else
+                                      {
+                                        v720 = v836;
+                                      }
+
+                                      v721 = WORD2(v848);
+                                      v722 = HIWORD(v848);
+                                      v723 = vp::get_log_source_file_path(v849, v717);
+                                      *v942 = 136316674;
+                                      *&v942[4] = v718;
+                                      *&v942[12] = 2080;
+                                      *&v942[14] = v719;
+                                      *&v942[22] = 2080;
+                                      v943 = "get frame count deficit for downlink voice mix DSP";
+                                      LOWORD(v944) = 2080;
+                                      *(&v944 + 2) = v720;
+                                      WORD5(v944) = 1024;
+                                      HIDWORD(v944) = v721;
+                                      v945 = 1024;
+                                      v946 = v722;
+                                      v947 = 2080;
+                                      v948 = v723;
+                                      v382 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                      v383 = v712;
+                                      v384 = 64;
+LABEL_929:
+                                      _os_log_impl(&dword_2724B4000, v383, OS_LOG_TYPE_ERROR, v382, v942, v384);
+                                      if (SHIBYTE(v838[0]) < 0)
+                                      {
+                                        operator delete(v836);
+                                      }
+                                    }
+
+LABEL_931:
+                                    if (SHIBYTE(v844[0]) < 0)
+                                    {
+                                      operator delete(v842);
+                                    }
+                                  }
+
+                                  *this = 7;
+                                  *(this + 4) = 0;
+                                  if (SHIBYTE(v851) < 0)
+                                  {
+                                    std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v852, v850[0], v851 & 0x7FFFFFFFFFFFFFFFLL);
+                                  }
+
+                                  v8 = 0;
+                                  if ((v29 & 1) != 0 || (SHIBYTE(v857) & 0x80000000) == 0)
+                                  {
+                                    goto LABEL_62;
+                                  }
+
+                                  (*(*v858 + 24))(v858, v856[0], v857 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                                  goto LABEL_1058;
+                                }
+
+                                v341 = vp::vx::io::Error::Error(&v854, &v860);
+                                if (v857 >= 0)
+                                {
+                                  v342 = HIBYTE(v857);
+                                }
+
+                                else
+                                {
+                                  v342 = v856[1];
+                                }
+
+                                v343 = vp::get_log(v341);
+                                v344 = os_log_type_enabled(v343, OS_LOG_TYPE_ERROR);
+                                if (v342)
+                                {
+                                  if (v344)
+                                  {
+                                    v345 = vp::get_log_context_info(&v848, a2, "vp::vx::Voice_Processor]", 23);
+                                    if (v850[0] >= 0)
+                                    {
+                                      v346 = HIBYTE(v850[0]);
+                                    }
+
+                                    else
+                                    {
+                                      v346 = v849;
+                                    }
+
+                                    v347 = vp::get_log(v345);
+                                    if (os_log_type_enabled(v347, OS_LOG_TYPE_ERROR))
+                                    {
+                                      v348 = SHIBYTE(v850[0]);
+                                      v349 = v848;
+                                      v350 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v854);
+                                      std::string::basic_string<std::string_view,0>(&v842, v350, v351);
+                                      if (v348 >= 0)
+                                      {
+                                        v353 = &v848;
+                                      }
+
+                                      else
+                                      {
+                                        v353 = v349;
+                                      }
+
+                                      if (v346)
+                                      {
+                                        v354 = " ";
+                                      }
+
+                                      else
+                                      {
+                                        v354 = "";
+                                      }
+
+                                      if (v844[0] >= 0)
+                                      {
+                                        v355 = &v842;
+                                      }
+
+                                      else
+                                      {
+                                        v355 = v842;
+                                      }
+
+                                      v356 = WORD2(v854);
+                                      v357 = HIWORD(v854);
+                                      v358 = vp::get_log_source_file_path(v855, v352);
+                                      if (v857 >= 0)
+                                      {
+                                        v359 = v856;
+                                      }
+
+                                      else
+                                      {
+                                        v359 = v856[0];
+                                      }
+
+                                      *v942 = 136316930;
+                                      *&v942[4] = v353;
+                                      *&v942[12] = 2080;
+                                      *&v942[14] = v354;
+                                      *&v942[22] = 2080;
+                                      v943 = "get buffered input frame count for downlink voice mix DSP";
+                                      LOWORD(v944) = 2080;
+                                      *(&v944 + 2) = v355;
+                                      WORD5(v944) = 1024;
+                                      HIDWORD(v944) = v356;
+                                      v945 = 1024;
+                                      v946 = v357;
+                                      v947 = 2080;
+                                      v948 = v358;
+                                      v949 = 2080;
+                                      v950 = v359;
+                                      v360 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                      v361 = v347;
+                                      v362 = 74;
+                                      goto LABEL_905;
+                                    }
+
+                                    goto LABEL_907;
+                                  }
+                                }
+
+                                else if (v344)
+                                {
+                                  v696 = vp::get_log_context_info(&v848, a2, "vp::vx::Voice_Processor]", 23);
+                                  if (v850[0] >= 0)
+                                  {
+                                    v697 = HIBYTE(v850[0]);
+                                  }
+
+                                  else
+                                  {
+                                    v697 = v849;
+                                  }
+
+                                  v698 = vp::get_log(v696);
+                                  if (os_log_type_enabled(v698, OS_LOG_TYPE_ERROR))
+                                  {
+                                    v699 = SHIBYTE(v850[0]);
+                                    v700 = v848;
+                                    v701 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v854);
+                                    std::string::basic_string<std::string_view,0>(&v842, v701, v702);
+                                    if (v699 >= 0)
+                                    {
+                                      v704 = &v848;
+                                    }
+
+                                    else
+                                    {
+                                      v704 = v700;
+                                    }
+
+                                    if (v697)
+                                    {
+                                      v705 = " ";
+                                    }
+
+                                    else
+                                    {
+                                      v705 = "";
+                                    }
+
+                                    if (v844[0] >= 0)
+                                    {
+                                      v706 = &v842;
+                                    }
+
+                                    else
+                                    {
+                                      v706 = v842;
+                                    }
+
+                                    v707 = WORD2(v854);
+                                    v708 = HIWORD(v854);
+                                    v709 = vp::get_log_source_file_path(v855, v703);
+                                    *v942 = 136316674;
+                                    *&v942[4] = v704;
+                                    *&v942[12] = 2080;
+                                    *&v942[14] = v705;
+                                    *&v942[22] = 2080;
+                                    v943 = "get buffered input frame count for downlink voice mix DSP";
+                                    LOWORD(v944) = 2080;
+                                    *(&v944 + 2) = v706;
+                                    WORD5(v944) = 1024;
+                                    HIDWORD(v944) = v707;
+                                    v945 = 1024;
+                                    v946 = v708;
+                                    v947 = 2080;
+                                    v948 = v709;
+                                    v360 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                    v361 = v698;
+                                    v362 = 64;
+LABEL_905:
+                                    _os_log_impl(&dword_2724B4000, v361, OS_LOG_TYPE_ERROR, v360, v942, v362);
+                                    if (SHIBYTE(v844[0]) < 0)
+                                    {
+                                      operator delete(v842);
+                                    }
+                                  }
+
+LABEL_907:
+                                  if (SHIBYTE(v850[0]) < 0)
+                                  {
+                                    operator delete(v848);
+                                  }
+                                }
+
+                                *this = 7;
+                                *(this + 4) = 0;
+                                if (SHIBYTE(v857) < 0)
+                                {
+                                  std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v858, v856[0], v857 & 0x7FFFFFFFFFFFFFFFLL);
+                                }
+
+                                v8 = 0;
+                                if ((v27 & 1) != 0 || (SHIBYTE(v863) & 0x80000000) == 0)
+                                {
+                                  goto LABEL_62;
+                                }
+
+                                (*(*v864 + 24))(v864, v862[0], v863 & 0x7FFFFFFFFFFFFFFFLL, 1);
+LABEL_1058:
+                                v8 = 0;
+                                goto LABEL_62;
+                              }
+
+                              v319 = vp::vx::io::Error::Error(&v860, &v866);
+                              if (v863 >= 0)
+                              {
+                                v320 = HIBYTE(v863);
+                              }
+
+                              else
+                              {
+                                v320 = v862[1];
+                              }
+
+                              v321 = vp::get_log(v319);
+                              v322 = os_log_type_enabled(v321, OS_LOG_TYPE_ERROR);
+                              if (v320)
+                              {
+                                if (v322)
+                                {
+                                  v323 = vp::get_log_context_info(&v854, a2, "vp::vx::Voice_Processor]", 23);
+                                  if (v856[0] >= 0)
+                                  {
+                                    v324 = HIBYTE(v856[0]);
+                                  }
+
+                                  else
+                                  {
+                                    v324 = v855;
+                                  }
+
+                                  v325 = vp::get_log(v323);
+                                  if (os_log_type_enabled(v325, OS_LOG_TYPE_ERROR))
+                                  {
+                                    v326 = SHIBYTE(v856[0]);
+                                    v327 = v854;
+                                    v328 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v860);
+                                    std::string::basic_string<std::string_view,0>(&v848, v328, v329);
+                                    if (v326 >= 0)
+                                    {
+                                      v331 = &v854;
+                                    }
+
+                                    else
+                                    {
+                                      v331 = v327;
+                                    }
+
+                                    if (v324)
+                                    {
+                                      v332 = " ";
+                                    }
+
+                                    else
+                                    {
+                                      v332 = "";
+                                    }
+
+                                    if (v850[0] >= 0)
+                                    {
+                                      v333 = &v848;
+                                    }
+
+                                    else
+                                    {
+                                      v333 = v848;
+                                    }
+
+                                    v334 = WORD2(v860);
+                                    v335 = HIWORD(v860);
+                                    v336 = vp::get_log_source_file_path(v861, v330);
+                                    if (v863 >= 0)
+                                    {
+                                      v337 = v862;
+                                    }
+
+                                    else
+                                    {
+                                      v337 = v862[0];
+                                    }
+
+                                    *v942 = 136316930;
+                                    *&v942[4] = v331;
+                                    *&v942[12] = 2080;
+                                    *&v942[14] = v332;
+                                    *&v942[22] = 2080;
+                                    v943 = "get required input frame count for downlink voice mix DSP";
+                                    LOWORD(v944) = 2080;
+                                    *(&v944 + 2) = v333;
+                                    WORD5(v944) = 1024;
+                                    HIDWORD(v944) = v334;
+                                    v945 = 1024;
+                                    v946 = v335;
+                                    v947 = 2080;
+                                    v948 = v336;
+                                    v949 = 2080;
+                                    v950 = v337;
+                                    v338 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                    v339 = v325;
+                                    v340 = 74;
+                                    goto LABEL_884;
+                                  }
+
+                                  goto LABEL_886;
+                                }
+                              }
+
+                              else if (v322)
+                              {
+                                v682 = vp::get_log_context_info(&v854, a2, "vp::vx::Voice_Processor]", 23);
+                                if (v856[0] >= 0)
+                                {
+                                  v683 = HIBYTE(v856[0]);
+                                }
+
+                                else
+                                {
+                                  v683 = v855;
+                                }
+
+                                v684 = vp::get_log(v682);
+                                if (os_log_type_enabled(v684, OS_LOG_TYPE_ERROR))
+                                {
+                                  v685 = SHIBYTE(v856[0]);
+                                  v686 = v854;
+                                  v687 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v860);
+                                  std::string::basic_string<std::string_view,0>(&v848, v687, v688);
+                                  if (v685 >= 0)
+                                  {
+                                    v690 = &v854;
+                                  }
+
+                                  else
+                                  {
+                                    v690 = v686;
+                                  }
+
+                                  if (v683)
+                                  {
+                                    v691 = " ";
+                                  }
+
+                                  else
+                                  {
+                                    v691 = "";
+                                  }
+
+                                  if (v850[0] >= 0)
+                                  {
+                                    v692 = &v848;
+                                  }
+
+                                  else
+                                  {
+                                    v692 = v848;
+                                  }
+
+                                  v693 = WORD2(v860);
+                                  v694 = HIWORD(v860);
+                                  v695 = vp::get_log_source_file_path(v861, v689);
+                                  *v942 = 136316674;
+                                  *&v942[4] = v690;
+                                  *&v942[12] = 2080;
+                                  *&v942[14] = v691;
+                                  *&v942[22] = 2080;
+                                  v943 = "get required input frame count for downlink voice mix DSP";
+                                  LOWORD(v944) = 2080;
+                                  *(&v944 + 2) = v692;
+                                  WORD5(v944) = 1024;
+                                  HIDWORD(v944) = v693;
+                                  v945 = 1024;
+                                  v946 = v694;
+                                  v947 = 2080;
+                                  v948 = v695;
+                                  v338 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                  v339 = v684;
+                                  v340 = 64;
+LABEL_884:
+                                  _os_log_impl(&dword_2724B4000, v339, OS_LOG_TYPE_ERROR, v338, v942, v340);
+                                  if (SHIBYTE(v850[0]) < 0)
+                                  {
+                                    operator delete(v848);
+                                  }
+                                }
+
+LABEL_886:
+                                if (SHIBYTE(v856[0]) < 0)
+                                {
+                                  operator delete(v854);
+                                }
+                              }
+
+                              *this = 7;
+                              *(this + 4) = 0;
+                              if (SHIBYTE(v863) < 0)
+                              {
+                                std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v864, v862[0], v863 & 0x7FFFFFFFFFFFFFFFLL);
+                              }
+
+                              goto LABEL_1058;
+                            }
+
+                            v297 = vp::vx::io::Error::Error(&v866, &v872);
+                            if (v869 >= 0)
+                            {
+                              v298 = HIBYTE(v869);
+                            }
+
+                            else
+                            {
+                              v298 = v868[1];
+                            }
+
+                            v299 = vp::get_log(v297);
+                            v300 = os_log_type_enabled(v299, OS_LOG_TYPE_ERROR);
+                            if (v298)
+                            {
+                              if (v300)
+                              {
+                                v301 = vp::get_log_context_info(&v860, a2, "vp::vx::Voice_Processor]", 23);
+                                if (v862[0] >= 0)
+                                {
+                                  v302 = HIBYTE(v862[0]);
+                                }
+
+                                else
+                                {
+                                  v302 = v861;
+                                }
+
+                                v303 = vp::get_log(v301);
+                                if (os_log_type_enabled(v303, OS_LOG_TYPE_ERROR))
+                                {
+                                  v304 = SHIBYTE(v862[0]);
+                                  v305 = v860;
+                                  v306 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v866);
+                                  std::string::basic_string<std::string_view,0>(&v854, v306, v307);
+                                  if (v304 >= 0)
+                                  {
+                                    v309 = &v860;
+                                  }
+
+                                  else
+                                  {
+                                    v309 = v305;
+                                  }
+
+                                  if (v302)
+                                  {
+                                    v310 = " ";
+                                  }
+
+                                  else
+                                  {
+                                    v310 = "";
+                                  }
+
+                                  if (v856[0] >= 0)
+                                  {
+                                    v311 = &v854;
+                                  }
+
+                                  else
+                                  {
+                                    v311 = v854;
+                                  }
+
+                                  v312 = WORD2(v866);
+                                  v313 = HIWORD(v866);
+                                  v314 = vp::get_log_source_file_path(v867, v308);
+                                  if (v869 >= 0)
+                                  {
+                                    v315 = v868;
+                                  }
+
+                                  else
+                                  {
+                                    v315 = v868[0];
+                                  }
+
+                                  *v942 = 136316930;
+                                  *&v942[4] = v309;
+                                  *&v942[12] = 2080;
+                                  *&v942[14] = v310;
+                                  *&v942[22] = 2080;
+                                  v943 = "get buffered output frame count for downlink voice mix DSP";
+                                  LOWORD(v944) = 2080;
+                                  *(&v944 + 2) = v311;
+                                  WORD5(v944) = 1024;
+                                  HIDWORD(v944) = v312;
+                                  v945 = 1024;
+                                  v946 = v313;
+                                  v947 = 2080;
+                                  v948 = v314;
+                                  v949 = 2080;
+                                  v950 = v315;
+                                  v316 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                  v317 = v303;
+                                  v318 = 74;
+                                  goto LABEL_862;
+                                }
+
+                                goto LABEL_864;
+                              }
+                            }
+
+                            else if (v300)
+                            {
+                              v668 = vp::get_log_context_info(&v860, a2, "vp::vx::Voice_Processor]", 23);
+                              if (v862[0] >= 0)
+                              {
+                                v669 = HIBYTE(v862[0]);
+                              }
+
+                              else
+                              {
+                                v669 = v861;
+                              }
+
+                              v670 = vp::get_log(v668);
+                              if (os_log_type_enabled(v670, OS_LOG_TYPE_ERROR))
+                              {
+                                v671 = SHIBYTE(v862[0]);
+                                v672 = v860;
+                                v673 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v866);
+                                std::string::basic_string<std::string_view,0>(&v854, v673, v674);
+                                if (v671 >= 0)
+                                {
+                                  v676 = &v860;
+                                }
+
+                                else
+                                {
+                                  v676 = v672;
+                                }
+
+                                if (v669)
+                                {
+                                  v677 = " ";
+                                }
+
+                                else
+                                {
+                                  v677 = "";
+                                }
+
+                                if (v856[0] >= 0)
+                                {
+                                  v678 = &v854;
+                                }
+
+                                else
+                                {
+                                  v678 = v854;
+                                }
+
+                                v679 = WORD2(v866);
+                                v680 = HIWORD(v866);
+                                v681 = vp::get_log_source_file_path(v867, v675);
+                                *v942 = 136316674;
+                                *&v942[4] = v676;
+                                *&v942[12] = 2080;
+                                *&v942[14] = v677;
+                                *&v942[22] = 2080;
+                                v943 = "get buffered output frame count for downlink voice mix DSP";
+                                LOWORD(v944) = 2080;
+                                *(&v944 + 2) = v678;
+                                WORD5(v944) = 1024;
+                                HIDWORD(v944) = v679;
+                                v945 = 1024;
+                                v946 = v680;
+                                v947 = 2080;
+                                v948 = v681;
+                                v316 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                                v317 = v670;
+                                v318 = 64;
+LABEL_862:
+                                _os_log_impl(&dword_2724B4000, v317, OS_LOG_TYPE_ERROR, v316, v942, v318);
+                                if (SHIBYTE(v856[0]) < 0)
+                                {
+                                  operator delete(v854);
+                                }
+                              }
+
+LABEL_864:
+                              if (SHIBYTE(v862[0]) < 0)
+                              {
+                                operator delete(v860);
+                              }
+                            }
+
+                            *this = 7;
+                            *(this + 4) = 0;
+                            if (SHIBYTE(v869) < 0)
+                            {
+                              std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v870, v868[0], v869 & 0x7FFFFFFFFFFFFFFFLL);
+                            }
+
+                            v8 = 0;
+                            goto LABEL_66;
+                          }
+
+                          v275 = vp::vx::io::Error::Error(&v872, &v878);
+                          if (v875 >= 0)
+                          {
+                            v276 = HIBYTE(v875);
+                          }
+
+                          else
+                          {
+                            v276 = v874[1];
+                          }
+
+                          v277 = vp::get_log(v275);
+                          v278 = os_log_type_enabled(v277, OS_LOG_TYPE_ERROR);
+                          if (v276)
+                          {
+                            if (v278)
+                            {
+                              v279 = vp::get_log_context_info(&v866, a2, "vp::vx::Voice_Processor]", 23);
+                              if (v868[0] >= 0)
+                              {
+                                v280 = HIBYTE(v868[0]);
+                              }
+
+                              else
+                              {
+                                v280 = v867;
+                              }
+
+                              v281 = vp::get_log(v279);
+                              if (os_log_type_enabled(v281, OS_LOG_TYPE_ERROR))
+                              {
+                                v282 = SHIBYTE(v868[0]);
+                                v283 = v866;
+                                v284 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v872);
+                                std::string::basic_string<std::string_view,0>(&v860, v284, v285);
+                                if (v282 >= 0)
+                                {
+                                  v287 = &v866;
+                                }
+
+                                else
+                                {
+                                  v287 = v283;
+                                }
+
+                                if (v280)
+                                {
+                                  v288 = " ";
+                                }
+
+                                else
+                                {
+                                  v288 = "";
+                                }
+
+                                if (v862[0] >= 0)
+                                {
+                                  v289 = &v860;
+                                }
+
+                                else
+                                {
+                                  v289 = v860;
+                                }
+
+                                v290 = WORD2(v872);
+                                v291 = HIWORD(v872);
+                                v292 = vp::get_log_source_file_path(v873, v286);
+                                if (v875 >= 0)
+                                {
+                                  v293 = v874;
+                                }
+
+                                else
+                                {
+                                  v293 = v874[0];
+                                }
+
+                                *v942 = 136316930;
+                                *&v942[4] = v287;
+                                *&v942[12] = 2080;
+                                *&v942[14] = v288;
+                                *&v942[22] = 2080;
+                                v943 = "get frame count deficit for downlink voice DSP";
+                                LOWORD(v944) = 2080;
+                                *(&v944 + 2) = v289;
+                                WORD5(v944) = 1024;
+                                HIDWORD(v944) = v290;
+                                v945 = 1024;
+                                v946 = v291;
+                                v947 = 2080;
+                                v948 = v292;
+                                v949 = 2080;
+                                v950 = v293;
+                                v294 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                                v295 = v281;
+                                v296 = 74;
+                                goto LABEL_840;
+                              }
+
+                              goto LABEL_842;
+                            }
+                          }
+
+                          else if (v278)
+                          {
+                            v654 = vp::get_log_context_info(&v866, a2, "vp::vx::Voice_Processor]", 23);
+                            if (v868[0] >= 0)
+                            {
+                              v655 = HIBYTE(v868[0]);
+                            }
+
+                            else
+                            {
+                              v655 = v867;
+                            }
+
+                            v656 = vp::get_log(v654);
+                            if (os_log_type_enabled(v656, OS_LOG_TYPE_ERROR))
+                            {
+                              v657 = SHIBYTE(v868[0]);
+                              v658 = v866;
+                              v659 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v872);
+                              std::string::basic_string<std::string_view,0>(&v860, v659, v660);
+                              if (v657 >= 0)
+                              {
+                                v662 = &v866;
+                              }
+
+                              else
+                              {
+                                v662 = v658;
+                              }
+
+                              if (v655)
+                              {
+                                v663 = " ";
+                              }
+
+                              else
+                              {
+                                v663 = "";
+                              }
+
+                              if (v862[0] >= 0)
+                              {
+                                v664 = &v860;
+                              }
+
+                              else
+                              {
+                                v664 = v860;
+                              }
+
+                              v665 = WORD2(v872);
+                              v666 = HIWORD(v872);
+                              v667 = vp::get_log_source_file_path(v873, v661);
+                              *v942 = 136316674;
+                              *&v942[4] = v662;
+                              *&v942[12] = 2080;
+                              *&v942[14] = v663;
+                              *&v942[22] = 2080;
+                              v943 = "get frame count deficit for downlink voice DSP";
+                              LOWORD(v944) = 2080;
+                              *(&v944 + 2) = v664;
+                              WORD5(v944) = 1024;
+                              HIDWORD(v944) = v665;
+                              v945 = 1024;
+                              v946 = v666;
+                              v947 = 2080;
+                              v948 = v667;
+                              v294 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                              v295 = v656;
+                              v296 = 64;
+LABEL_840:
+                              _os_log_impl(&dword_2724B4000, v295, OS_LOG_TYPE_ERROR, v294, v942, v296);
+                              if (SHIBYTE(v862[0]) < 0)
+                              {
+                                operator delete(v860);
+                              }
+                            }
+
+LABEL_842:
+                            if (SHIBYTE(v868[0]) < 0)
+                            {
+                              operator delete(v866);
+                            }
+                          }
+
+                          *this = 7;
+                          *(this + 4) = 0;
+                          if (SHIBYTE(v875) < 0)
+                          {
+                            std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v876, v874[0], v875 & 0x7FFFFFFFFFFFFFFFLL);
+                          }
+
+                          v8 = 0;
+LABEL_69:
+                          if (SHIBYTE(v881) < 0)
+                          {
+                            (*(*v882 + 24))(v882, v880[0], v881 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                          }
+
+LABEL_71:
+                          if (v889)
+                          {
+                            goto LABEL_74;
+                          }
+
+                          goto LABEL_72;
+                        }
+
+                        v253 = vp::vx::io::Error::Error(&v878, &v884);
+                        if (v881 >= 0)
+                        {
+                          v254 = HIBYTE(v881);
+                        }
+
+                        else
+                        {
+                          v254 = v880[1];
+                        }
+
+                        v255 = vp::get_log(v253);
+                        v256 = os_log_type_enabled(v255, OS_LOG_TYPE_ERROR);
+                        if (v254)
+                        {
+                          if (v256)
+                          {
+                            v257 = vp::get_log_context_info(&v872, a2, "vp::vx::Voice_Processor]", 23);
+                            if (v874[0] >= 0)
+                            {
+                              v258 = HIBYTE(v874[0]);
+                            }
+
+                            else
+                            {
+                              v258 = v873;
+                            }
+
+                            v259 = vp::get_log(v257);
+                            if (os_log_type_enabled(v259, OS_LOG_TYPE_ERROR))
+                            {
+                              v260 = SHIBYTE(v874[0]);
+                              v261 = v872;
+                              v262 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v878);
+                              std::string::basic_string<std::string_view,0>(&v866, v262, v263);
+                              if (v260 >= 0)
+                              {
+                                v265 = &v872;
+                              }
+
+                              else
+                              {
+                                v265 = v261;
+                              }
+
+                              if (v258)
+                              {
+                                v266 = " ";
+                              }
+
+                              else
+                              {
+                                v266 = "";
+                              }
+
+                              if (v868[0] >= 0)
+                              {
+                                v267 = &v866;
+                              }
+
+                              else
+                              {
+                                v267 = v866;
+                              }
+
+                              v268 = WORD2(v878);
+                              v269 = HIWORD(v878);
+                              v270 = vp::get_log_source_file_path(v879, v264);
+                              if (v881 >= 0)
+                              {
+                                v271 = v880;
+                              }
+
+                              else
+                              {
+                                v271 = v880[0];
+                              }
+
+                              *v942 = 136316930;
+                              *&v942[4] = v265;
+                              *&v942[12] = 2080;
+                              *&v942[14] = v266;
+                              *&v942[22] = 2080;
+                              v943 = "get buffered input frame count for downlink voice DSP";
+                              LOWORD(v944) = 2080;
+                              *(&v944 + 2) = v267;
+                              WORD5(v944) = 1024;
+                              HIDWORD(v944) = v268;
+                              v945 = 1024;
+                              v946 = v269;
+                              v947 = 2080;
+                              v948 = v270;
+                              v949 = 2080;
+                              v950 = v271;
+                              v272 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                              v273 = v259;
+                              v274 = 74;
+                              goto LABEL_818;
+                            }
+
+                            goto LABEL_820;
+                          }
+                        }
+
+                        else if (v256)
+                        {
+                          v640 = vp::get_log_context_info(&v872, a2, "vp::vx::Voice_Processor]", 23);
+                          if (v874[0] >= 0)
+                          {
+                            v641 = HIBYTE(v874[0]);
+                          }
+
+                          else
+                          {
+                            v641 = v873;
+                          }
+
+                          v642 = vp::get_log(v640);
+                          if (os_log_type_enabled(v642, OS_LOG_TYPE_ERROR))
+                          {
+                            v643 = SHIBYTE(v874[0]);
+                            v644 = v872;
+                            v645 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v878);
+                            std::string::basic_string<std::string_view,0>(&v866, v645, v646);
+                            if (v643 >= 0)
+                            {
+                              v648 = &v872;
+                            }
+
+                            else
+                            {
+                              v648 = v644;
+                            }
+
+                            if (v641)
+                            {
+                              v649 = " ";
+                            }
+
+                            else
+                            {
+                              v649 = "";
+                            }
+
+                            if (v868[0] >= 0)
+                            {
+                              v650 = &v866;
+                            }
+
+                            else
+                            {
+                              v650 = v866;
+                            }
+
+                            v651 = WORD2(v878);
+                            v652 = HIWORD(v878);
+                            v653 = vp::get_log_source_file_path(v879, v647);
+                            *v942 = 136316674;
+                            *&v942[4] = v648;
+                            *&v942[12] = 2080;
+                            *&v942[14] = v649;
+                            *&v942[22] = 2080;
+                            v943 = "get buffered input frame count for downlink voice DSP";
+                            LOWORD(v944) = 2080;
+                            *(&v944 + 2) = v650;
+                            WORD5(v944) = 1024;
+                            HIDWORD(v944) = v651;
+                            v945 = 1024;
+                            v946 = v652;
+                            v947 = 2080;
+                            v948 = v653;
+                            v272 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                            v273 = v642;
+                            v274 = 64;
+LABEL_818:
+                            _os_log_impl(&dword_2724B4000, v273, OS_LOG_TYPE_ERROR, v272, v942, v274);
+                            if (SHIBYTE(v868[0]) < 0)
+                            {
+                              operator delete(v866);
+                            }
+                          }
+
+LABEL_820:
+                          if (SHIBYTE(v874[0]) < 0)
+                          {
+                            operator delete(v872);
+                          }
+                        }
+
+                        *this = 7;
+                        *(this + 4) = 0;
+                        if (SHIBYTE(v881) < 0)
+                        {
+                          std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v882, v880[0], v881 & 0x7FFFFFFFFFFFFFFFLL);
+                        }
+
+                        v8 = 0;
+LABEL_72:
+                        if (SHIBYTE(v887) < 0)
+                        {
+                          (*(*v888 + 24))(v888, v886[0], v887 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                        }
+
+                        goto LABEL_74;
+                      }
+
+                      v231 = vp::vx::io::Error::Error(&v884, &v890);
+                      if (v887 >= 0)
+                      {
+                        v232 = HIBYTE(v887);
+                      }
+
+                      else
+                      {
+                        v232 = v886[1];
+                      }
+
+                      v233 = vp::get_log(v231);
+                      v234 = os_log_type_enabled(v233, OS_LOG_TYPE_ERROR);
+                      if (v232)
+                      {
+                        if (v234)
+                        {
+                          v235 = vp::get_log_context_info(&v878, a2, "vp::vx::Voice_Processor]", 23);
+                          if (v880[0] >= 0)
+                          {
+                            v236 = HIBYTE(v880[0]);
+                          }
+
+                          else
+                          {
+                            v236 = v879;
+                          }
+
+                          v237 = vp::get_log(v235);
+                          if (os_log_type_enabled(v237, OS_LOG_TYPE_ERROR))
+                          {
+                            v238 = SHIBYTE(v880[0]);
+                            v239 = v878;
+                            v240 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v884);
+                            std::string::basic_string<std::string_view,0>(&v872, v240, v241);
+                            if (v238 >= 0)
+                            {
+                              v243 = &v878;
+                            }
+
+                            else
+                            {
+                              v243 = v239;
+                            }
+
+                            if (v236)
+                            {
+                              v244 = " ";
+                            }
+
+                            else
+                            {
+                              v244 = "";
+                            }
+
+                            if (v874[0] >= 0)
+                            {
+                              v245 = &v872;
+                            }
+
+                            else
+                            {
+                              v245 = v872;
+                            }
+
+                            v246 = WORD2(v884);
+                            v247 = HIWORD(v884);
+                            v248 = vp::get_log_source_file_path(v885, v242);
+                            if (v887 >= 0)
+                            {
+                              v249 = v886;
+                            }
+
+                            else
+                            {
+                              v249 = v886[0];
+                            }
+
+                            *v942 = 136316930;
+                            *&v942[4] = v243;
+                            *&v942[12] = 2080;
+                            *&v942[14] = v244;
+                            *&v942[22] = 2080;
+                            v943 = "get required input frame count for downlink voice DSP";
+                            LOWORD(v944) = 2080;
+                            *(&v944 + 2) = v245;
+                            WORD5(v944) = 1024;
+                            HIDWORD(v944) = v246;
+                            v945 = 1024;
+                            v946 = v247;
+                            v947 = 2080;
+                            v948 = v248;
+                            v949 = 2080;
+                            v950 = v249;
+                            v250 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                            v251 = v237;
+                            v252 = 74;
+                            goto LABEL_796;
+                          }
+
+                          goto LABEL_798;
+                        }
+                      }
+
+                      else if (v234)
+                      {
+                        v626 = vp::get_log_context_info(&v878, a2, "vp::vx::Voice_Processor]", 23);
+                        if (v880[0] >= 0)
+                        {
+                          v627 = HIBYTE(v880[0]);
+                        }
+
+                        else
+                        {
+                          v627 = v879;
+                        }
+
+                        v628 = vp::get_log(v626);
+                        if (os_log_type_enabled(v628, OS_LOG_TYPE_ERROR))
+                        {
+                          v629 = SHIBYTE(v880[0]);
+                          v630 = v878;
+                          v631 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v884);
+                          std::string::basic_string<std::string_view,0>(&v872, v631, v632);
+                          if (v629 >= 0)
+                          {
+                            v634 = &v878;
+                          }
+
+                          else
+                          {
+                            v634 = v630;
+                          }
+
+                          if (v627)
+                          {
+                            v635 = " ";
+                          }
+
+                          else
+                          {
+                            v635 = "";
+                          }
+
+                          if (v874[0] >= 0)
+                          {
+                            v636 = &v872;
+                          }
+
+                          else
+                          {
+                            v636 = v872;
+                          }
+
+                          v637 = WORD2(v884);
+                          v638 = HIWORD(v884);
+                          v639 = vp::get_log_source_file_path(v885, v633);
+                          *v942 = 136316674;
+                          *&v942[4] = v634;
+                          *&v942[12] = 2080;
+                          *&v942[14] = v635;
+                          *&v942[22] = 2080;
+                          v943 = "get required input frame count for downlink voice DSP";
+                          LOWORD(v944) = 2080;
+                          *(&v944 + 2) = v636;
+                          WORD5(v944) = 1024;
+                          HIDWORD(v944) = v637;
+                          v945 = 1024;
+                          v946 = v638;
+                          v947 = 2080;
+                          v948 = v639;
+                          v250 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                          v251 = v628;
+                          v252 = 64;
+LABEL_796:
+                          _os_log_impl(&dword_2724B4000, v251, OS_LOG_TYPE_ERROR, v250, v942, v252);
+                          if (SHIBYTE(v874[0]) < 0)
+                          {
+                            operator delete(v872);
+                          }
+                        }
+
+LABEL_798:
+                        if (SHIBYTE(v880[0]) < 0)
+                        {
+                          operator delete(v878);
+                        }
+                      }
+
+                      *this = 7;
+                      *(this + 4) = 0;
+                      if (SHIBYTE(v887) < 0)
+                      {
+                        std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v888, v886[0], v887 & 0x7FFFFFFFFFFFFFFFLL);
+                      }
+
+                      v8 = 0;
+LABEL_74:
+                      if ((v895 & 1) == 0 && SHIBYTE(v893) < 0)
+                      {
+                        (*(*v894 + 24))(v894, v892[0], v893 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                      }
+
+                      if (v901)
+                      {
+LABEL_80:
+                        if (v907)
+                        {
+                          goto LABEL_83;
+                        }
+
+                        goto LABEL_81;
+                      }
+
+LABEL_78:
+                      if (SHIBYTE(v899) < 0)
+                      {
+                        (*(*v900 + 24))(v900, v898[0], v899 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                      }
+
+                      goto LABEL_80;
+                    }
+
+                    v209 = vp::vx::io::Error::Error(&v890, &v896);
+                    if (v893 >= 0)
+                    {
+                      v210 = HIBYTE(v893);
+                    }
+
+                    else
+                    {
+                      v210 = v892[1];
+                    }
+
+                    v211 = vp::get_log(v209);
+                    v212 = os_log_type_enabled(v211, OS_LOG_TYPE_ERROR);
+                    if (v210)
+                    {
+                      if (v212)
+                      {
+                        v213 = vp::get_log_context_info(&v884, a2, "vp::vx::Voice_Processor]", 23);
+                        if (v886[0] >= 0)
+                        {
+                          v214 = HIBYTE(v886[0]);
+                        }
+
+                        else
+                        {
+                          v214 = v885;
+                        }
+
+                        v215 = vp::get_log(v213);
+                        if (os_log_type_enabled(v215, OS_LOG_TYPE_ERROR))
+                        {
+                          v216 = SHIBYTE(v886[0]);
+                          v217 = v884;
+                          v218 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v890);
+                          std::string::basic_string<std::string_view,0>(&v878, v218, v219);
+                          if (v216 >= 0)
+                          {
+                            v221 = &v884;
+                          }
+
+                          else
+                          {
+                            v221 = v217;
+                          }
+
+                          if (v214)
+                          {
+                            v222 = " ";
+                          }
+
+                          else
+                          {
+                            v222 = "";
+                          }
+
+                          if (v880[0] >= 0)
+                          {
+                            v223 = &v878;
+                          }
+
+                          else
+                          {
+                            v223 = v878;
+                          }
+
+                          v224 = WORD2(v890);
+                          v225 = HIWORD(v890);
+                          v226 = vp::get_log_source_file_path(v891, v220);
+                          if (v893 >= 0)
+                          {
+                            v227 = v892;
+                          }
+
+                          else
+                          {
+                            v227 = v892[0];
+                          }
+
+                          *v942 = 136316930;
+                          *&v942[4] = v221;
+                          *&v942[12] = 2080;
+                          *&v942[14] = v222;
+                          *&v942[22] = 2080;
+                          v943 = "get buffered output frame count for downlink voice DSP";
+                          LOWORD(v944) = 2080;
+                          *(&v944 + 2) = v223;
+                          WORD5(v944) = 1024;
+                          HIDWORD(v944) = v224;
+                          v945 = 1024;
+                          v946 = v225;
+                          v947 = 2080;
+                          v948 = v226;
+                          v949 = 2080;
+                          v950 = v227;
+                          v228 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                          v229 = v215;
+                          v230 = 74;
+                          goto LABEL_774;
+                        }
+
+                        goto LABEL_776;
+                      }
+                    }
+
+                    else if (v212)
+                    {
+                      v612 = vp::get_log_context_info(&v884, a2, "vp::vx::Voice_Processor]", 23);
+                      if (v886[0] >= 0)
+                      {
+                        v613 = HIBYTE(v886[0]);
+                      }
+
+                      else
+                      {
+                        v613 = v885;
+                      }
+
+                      v614 = vp::get_log(v612);
+                      if (os_log_type_enabled(v614, OS_LOG_TYPE_ERROR))
+                      {
+                        v615 = SHIBYTE(v886[0]);
+                        v616 = v884;
+                        v617 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v890);
+                        std::string::basic_string<std::string_view,0>(&v878, v617, v618);
+                        if (v615 >= 0)
+                        {
+                          v620 = &v884;
+                        }
+
+                        else
+                        {
+                          v620 = v616;
+                        }
+
+                        if (v613)
+                        {
+                          v621 = " ";
+                        }
+
+                        else
+                        {
+                          v621 = "";
+                        }
+
+                        if (v880[0] >= 0)
+                        {
+                          v622 = &v878;
+                        }
+
+                        else
+                        {
+                          v622 = v878;
+                        }
+
+                        v623 = WORD2(v890);
+                        v624 = HIWORD(v890);
+                        v625 = vp::get_log_source_file_path(v891, v619);
+                        *v942 = 136316674;
+                        *&v942[4] = v620;
+                        *&v942[12] = 2080;
+                        *&v942[14] = v621;
+                        *&v942[22] = 2080;
+                        v943 = "get buffered output frame count for downlink voice DSP";
+                        LOWORD(v944) = 2080;
+                        *(&v944 + 2) = v622;
+                        WORD5(v944) = 1024;
+                        HIDWORD(v944) = v623;
+                        v945 = 1024;
+                        v946 = v624;
+                        v947 = 2080;
+                        v948 = v625;
+                        v228 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                        v229 = v614;
+                        v230 = 64;
+LABEL_774:
+                        _os_log_impl(&dword_2724B4000, v229, OS_LOG_TYPE_ERROR, v228, v942, v230);
+                        if (SHIBYTE(v880[0]) < 0)
+                        {
+                          operator delete(v878);
+                        }
+                      }
+
+LABEL_776:
+                      if (SHIBYTE(v886[0]) < 0)
+                      {
+                        operator delete(v884);
+                      }
+                    }
+
+                    *this = 7;
+                    *(this + 4) = 0;
+                    if (SHIBYTE(v893) < 0)
+                    {
+                      std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v894, v892[0], v893 & 0x7FFFFFFFFFFFFFFFLL);
+                    }
+
+                    v8 = 0;
+                    goto LABEL_78;
+                  }
+
+                  v187 = vp::vx::io::Error::Error(&v896, &v902);
+                  if (v899 >= 0)
+                  {
+                    v188 = HIBYTE(v899);
+                  }
+
+                  else
+                  {
+                    v188 = v898[1];
+                  }
+
+                  v189 = vp::get_log(v187);
+                  v190 = os_log_type_enabled(v189, OS_LOG_TYPE_ERROR);
+                  if (v188)
+                  {
+                    if (v190)
+                    {
+                      v191 = vp::get_log_context_info(&v890, a2, "vp::vx::Voice_Processor]", 23);
+                      if (v892[0] >= 0)
+                      {
+                        v192 = HIBYTE(v892[0]);
+                      }
+
+                      else
+                      {
+                        v192 = v891;
+                      }
+
+                      v193 = vp::get_log(v191);
+                      if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
+                      {
+                        v194 = SHIBYTE(v892[0]);
+                        v195 = v890;
+                        v196 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v896);
+                        std::string::basic_string<std::string_view,0>(&v884, v196, v197);
+                        if (v194 >= 0)
+                        {
+                          v199 = &v890;
+                        }
+
+                        else
+                        {
+                          v199 = v195;
+                        }
+
+                        if (v192)
+                        {
+                          v200 = " ";
+                        }
+
+                        else
+                        {
+                          v200 = "";
+                        }
+
+                        if (v886[0] >= 0)
+                        {
+                          v201 = &v884;
+                        }
+
+                        else
+                        {
+                          v201 = v884;
+                        }
+
+                        v202 = WORD2(v896);
+                        v203 = HIWORD(v896);
+                        v204 = vp::get_log_source_file_path(v897, v198);
+                        if (v899 >= 0)
+                        {
+                          v205 = v898;
+                        }
+
+                        else
+                        {
+                          v205 = v898[0];
+                        }
+
+                        *v942 = 136316930;
+                        *&v942[4] = v199;
+                        *&v942[12] = 2080;
+                        *&v942[14] = v200;
+                        *&v942[22] = 2080;
+                        v943 = "get frame deficit for downlink dynamics DSP";
+                        LOWORD(v944) = 2080;
+                        *(&v944 + 2) = v201;
+                        WORD5(v944) = 1024;
+                        HIDWORD(v944) = v202;
+                        v945 = 1024;
+                        v946 = v203;
+                        v947 = 2080;
+                        v948 = v204;
+                        v949 = 2080;
+                        v950 = v205;
+                        v206 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                        v207 = v193;
+                        v208 = 74;
+                        goto LABEL_752;
+                      }
+
+                      goto LABEL_754;
+                    }
+                  }
+
+                  else if (v190)
+                  {
+                    v598 = vp::get_log_context_info(&v890, a2, "vp::vx::Voice_Processor]", 23);
+                    if (v892[0] >= 0)
+                    {
+                      v599 = HIBYTE(v892[0]);
+                    }
+
+                    else
+                    {
+                      v599 = v891;
+                    }
+
+                    v600 = vp::get_log(v598);
+                    if (os_log_type_enabled(v600, OS_LOG_TYPE_ERROR))
+                    {
+                      v601 = SHIBYTE(v892[0]);
+                      v602 = v890;
+                      v603 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v896);
+                      std::string::basic_string<std::string_view,0>(&v884, v603, v604);
+                      if (v601 >= 0)
+                      {
+                        v606 = &v890;
+                      }
+
+                      else
+                      {
+                        v606 = v602;
+                      }
+
+                      if (v599)
+                      {
+                        v607 = " ";
+                      }
+
+                      else
+                      {
+                        v607 = "";
+                      }
+
+                      if (v886[0] >= 0)
+                      {
+                        v608 = &v884;
+                      }
+
+                      else
+                      {
+                        v608 = v884;
+                      }
+
+                      v609 = WORD2(v896);
+                      v610 = HIWORD(v896);
+                      v611 = vp::get_log_source_file_path(v897, v605);
+                      *v942 = 136316674;
+                      *&v942[4] = v606;
+                      *&v942[12] = 2080;
+                      *&v942[14] = v607;
+                      *&v942[22] = 2080;
+                      v943 = "get frame deficit for downlink dynamics DSP";
+                      LOWORD(v944) = 2080;
+                      *(&v944 + 2) = v608;
+                      WORD5(v944) = 1024;
+                      HIDWORD(v944) = v609;
+                      v945 = 1024;
+                      v946 = v610;
+                      v947 = 2080;
+                      v948 = v611;
+                      v206 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                      v207 = v600;
+                      v208 = 64;
+LABEL_752:
+                      _os_log_impl(&dword_2724B4000, v207, OS_LOG_TYPE_ERROR, v206, v942, v208);
+                      if (SHIBYTE(v886[0]) < 0)
+                      {
+                        operator delete(v884);
+                      }
+                    }
+
+LABEL_754:
+                    if (SHIBYTE(v892[0]) < 0)
+                    {
+                      operator delete(v890);
+                    }
+                  }
+
+                  *this = 7;
+                  *(this + 4) = 0;
+                  if (SHIBYTE(v899) < 0)
+                  {
+                    std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v900, v898[0], v899 & 0x7FFFFFFFFFFFFFFFLL);
+                  }
+
+                  v8 = 0;
+LABEL_81:
+                  if (SHIBYTE(v905) < 0)
+                  {
+                    (*(*v906 + 24))(v906, v904[0], v905 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                  }
+
+LABEL_83:
+                  if (v913)
+                  {
+                    goto LABEL_86;
+                  }
+
+                  goto LABEL_84;
+                }
+
+                v165 = vp::vx::io::Error::Error(&v902, &v908);
+                if (v905 >= 0)
+                {
+                  v166 = HIBYTE(v905);
+                }
+
+                else
+                {
+                  v166 = v904[1];
+                }
+
+                v167 = vp::get_log(v165);
+                v168 = os_log_type_enabled(v167, OS_LOG_TYPE_ERROR);
+                if (v166)
+                {
+                  if (v168)
+                  {
+                    v169 = vp::get_log_context_info(&v896, a2, "vp::vx::Voice_Processor]", 23);
+                    if (v898[0] >= 0)
+                    {
+                      v170 = HIBYTE(v898[0]);
+                    }
+
+                    else
+                    {
+                      v170 = v897;
+                    }
+
+                    v171 = vp::get_log(v169);
+                    if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
+                    {
+                      v172 = SHIBYTE(v898[0]);
+                      v173 = v896;
+                      v174 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v902);
+                      std::string::basic_string<std::string_view,0>(&v890, v174, v175);
+                      if (v172 >= 0)
+                      {
+                        v177 = &v896;
+                      }
+
+                      else
+                      {
+                        v177 = v173;
+                      }
+
+                      if (v170)
+                      {
+                        v178 = " ";
+                      }
+
+                      else
+                      {
+                        v178 = "";
+                      }
+
+                      if (v892[0] >= 0)
+                      {
+                        v179 = &v890;
+                      }
+
+                      else
+                      {
+                        v179 = v890;
+                      }
+
+                      v180 = WORD2(v902);
+                      v181 = HIWORD(v902);
+                      v182 = vp::get_log_source_file_path(v903, v176);
+                      if (v905 >= 0)
+                      {
+                        v183 = v904;
+                      }
+
+                      else
+                      {
+                        v183 = v904[0];
+                      }
+
+                      *v942 = 136316930;
+                      *&v942[4] = v177;
+                      *&v942[12] = 2080;
+                      *&v942[14] = v178;
+                      *&v942[22] = 2080;
+                      v943 = "get buffered input frame count for downlink dynamics DSP";
+                      LOWORD(v944) = 2080;
+                      *(&v944 + 2) = v179;
+                      WORD5(v944) = 1024;
+                      HIDWORD(v944) = v180;
+                      v945 = 1024;
+                      v946 = v181;
+                      v947 = 2080;
+                      v948 = v182;
+                      v949 = 2080;
+                      v950 = v183;
+                      v184 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                      v185 = v171;
+                      v186 = 74;
+                      goto LABEL_730;
+                    }
+
+                    goto LABEL_732;
+                  }
+                }
+
+                else if (v168)
+                {
+                  v584 = vp::get_log_context_info(&v896, a2, "vp::vx::Voice_Processor]", 23);
+                  if (v898[0] >= 0)
+                  {
+                    v585 = HIBYTE(v898[0]);
+                  }
+
+                  else
+                  {
+                    v585 = v897;
+                  }
+
+                  v586 = vp::get_log(v584);
+                  if (os_log_type_enabled(v586, OS_LOG_TYPE_ERROR))
+                  {
+                    v587 = SHIBYTE(v898[0]);
+                    v588 = v896;
+                    v589 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v902);
+                    std::string::basic_string<std::string_view,0>(&v890, v589, v590);
+                    if (v587 >= 0)
+                    {
+                      v592 = &v896;
+                    }
+
+                    else
+                    {
+                      v592 = v588;
+                    }
+
+                    if (v585)
+                    {
+                      v593 = " ";
+                    }
+
+                    else
+                    {
+                      v593 = "";
+                    }
+
+                    if (v892[0] >= 0)
+                    {
+                      v594 = &v890;
+                    }
+
+                    else
+                    {
+                      v594 = v890;
+                    }
+
+                    v595 = WORD2(v902);
+                    v596 = HIWORD(v902);
+                    v597 = vp::get_log_source_file_path(v903, v591);
+                    *v942 = 136316674;
+                    *&v942[4] = v592;
+                    *&v942[12] = 2080;
+                    *&v942[14] = v593;
+                    *&v942[22] = 2080;
+                    v943 = "get buffered input frame count for downlink dynamics DSP";
+                    LOWORD(v944) = 2080;
+                    *(&v944 + 2) = v594;
+                    WORD5(v944) = 1024;
+                    HIDWORD(v944) = v595;
+                    v945 = 1024;
+                    v946 = v596;
+                    v947 = 2080;
+                    v948 = v597;
+                    v184 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                    v185 = v586;
+                    v186 = 64;
+LABEL_730:
+                    _os_log_impl(&dword_2724B4000, v185, OS_LOG_TYPE_ERROR, v184, v942, v186);
+                    if (SHIBYTE(v892[0]) < 0)
+                    {
+                      operator delete(v890);
+                    }
+                  }
+
+LABEL_732:
+                  if (SHIBYTE(v898[0]) < 0)
+                  {
+                    operator delete(v896);
+                  }
+                }
+
+                *this = 7;
+                *(this + 4) = 0;
+                if (SHIBYTE(v905) < 0)
+                {
+                  std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v906, v904[0], v905 & 0x7FFFFFFFFFFFFFFFLL);
+                }
+
+                v8 = 0;
+LABEL_84:
+                if (SHIBYTE(v911) < 0)
+                {
+                  (*(*v912 + 24))(v912, v910[0], v911 & 0x7FFFFFFFFFFFFFFFLL, 1);
+                }
+
+                goto LABEL_86;
+              }
+
+              v143 = vp::vx::io::Error::Error(&v908, &__dst);
+              if (v911 >= 0)
+              {
+                v144 = HIBYTE(v911);
+              }
+
+              else
+              {
+                v144 = v910[1];
+              }
+
+              v145 = vp::get_log(v143);
+              v146 = os_log_type_enabled(v145, OS_LOG_TYPE_ERROR);
+              if (v144)
+              {
+                if (v146)
+                {
+                  v147 = vp::get_log_context_info(&v902, a2, "vp::vx::Voice_Processor]", 23);
+                  if (v904[0] >= 0)
+                  {
+                    v148 = HIBYTE(v904[0]);
+                  }
+
+                  else
+                  {
+                    v148 = v903;
+                  }
+
+                  v149 = vp::get_log(v147);
+                  if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+                  {
+                    v150 = SHIBYTE(v904[0]);
+                    v151 = v902;
+                    v152 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v908);
+                    std::string::basic_string<std::string_view,0>(&v896, v152, v153);
+                    if (v150 >= 0)
+                    {
+                      v155 = &v902;
+                    }
+
+                    else
+                    {
+                      v155 = v151;
+                    }
+
+                    if (v148)
+                    {
+                      v156 = " ";
+                    }
+
+                    else
+                    {
+                      v156 = "";
+                    }
+
+                    if (v898[0] >= 0)
+                    {
+                      v157 = &v896;
+                    }
+
+                    else
+                    {
+                      v157 = v896;
+                    }
+
+                    v158 = WORD2(v908);
+                    v159 = HIWORD(v908);
+                    v160 = vp::get_log_source_file_path(v909, v154);
+                    if (v911 >= 0)
+                    {
+                      v161 = v910;
+                    }
+
+                    else
+                    {
+                      v161 = v910[0];
+                    }
+
+                    *v942 = 136316930;
+                    *&v942[4] = v155;
+                    *&v942[12] = 2080;
+                    *&v942[14] = v156;
+                    *&v942[22] = 2080;
+                    v943 = "get required input frame count for downlink dynamics DSP";
+                    LOWORD(v944) = 2080;
+                    *(&v944 + 2) = v157;
+                    WORD5(v944) = 1024;
+                    HIDWORD(v944) = v158;
+                    v945 = 1024;
+                    v946 = v159;
+                    v947 = 2080;
+                    v948 = v160;
+                    v949 = 2080;
+                    v950 = v161;
+                    v162 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                    v163 = v149;
+                    v164 = 74;
+                    goto LABEL_708;
+                  }
+
+                  goto LABEL_710;
+                }
+              }
+
+              else if (v146)
+              {
+                v570 = vp::get_log_context_info(&v902, a2, "vp::vx::Voice_Processor]", 23);
+                if (v904[0] >= 0)
+                {
+                  v571 = HIBYTE(v904[0]);
+                }
+
+                else
+                {
+                  v571 = v903;
+                }
+
+                v572 = vp::get_log(v570);
+                if (os_log_type_enabled(v572, OS_LOG_TYPE_ERROR))
+                {
+                  v573 = SHIBYTE(v904[0]);
+                  v574 = v902;
+                  v575 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v908);
+                  std::string::basic_string<std::string_view,0>(&v896, v575, v576);
+                  if (v573 >= 0)
+                  {
+                    v578 = &v902;
+                  }
+
+                  else
+                  {
+                    v578 = v574;
+                  }
+
+                  if (v571)
+                  {
+                    v579 = " ";
+                  }
+
+                  else
+                  {
+                    v579 = "";
+                  }
+
+                  if (v898[0] >= 0)
+                  {
+                    v580 = &v896;
+                  }
+
+                  else
+                  {
+                    v580 = v896;
+                  }
+
+                  v581 = WORD2(v908);
+                  v582 = HIWORD(v908);
+                  v583 = vp::get_log_source_file_path(v909, v577);
+                  *v942 = 136316674;
+                  *&v942[4] = v578;
+                  *&v942[12] = 2080;
+                  *&v942[14] = v579;
+                  *&v942[22] = 2080;
+                  v943 = "get required input frame count for downlink dynamics DSP";
+                  LOWORD(v944) = 2080;
+                  *(&v944 + 2) = v580;
+                  WORD5(v944) = 1024;
+                  HIDWORD(v944) = v581;
+                  v945 = 1024;
+                  v946 = v582;
+                  v947 = 2080;
+                  v948 = v583;
+                  v162 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                  v163 = v572;
+                  v164 = 64;
+LABEL_708:
+                  _os_log_impl(&dword_2724B4000, v163, OS_LOG_TYPE_ERROR, v162, v942, v164);
+                  if (SHIBYTE(v898[0]) < 0)
+                  {
+                    operator delete(v896);
+                  }
+                }
+
+LABEL_710:
+                if (SHIBYTE(v904[0]) < 0)
+                {
+                  operator delete(v902);
+                }
+              }
+
+              *this = 7;
+              *(this + 4) = 0;
+              if (SHIBYTE(v911) < 0)
+              {
+                std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v912, v910[0], v911 & 0x7FFFFFFFFFFFFFFFLL);
+              }
+
+              v8 = 0;
+LABEL_86:
+              if ((v919 & 1) == 0 && SHIBYTE(v917) < 0)
+              {
+                (*(*v918 + 24))(v918, v916[0], v917 & 0x7FFFFFFFFFFFFFFFLL, 1);
+              }
+
+              if (v925)
+              {
+LABEL_92:
+                if (v931)
+                {
+                  goto LABEL_95;
+                }
+
+                goto LABEL_93;
+              }
+
+LABEL_90:
+              if (SHIBYTE(v923) < 0)
+              {
+                (*(*v924 + 24))(v924, v922[0], v923 & 0x7FFFFFFFFFFFFFFFLL, 1);
+              }
+
+              goto LABEL_92;
+            }
+
+            v121 = vp::vx::io::Error::Error(&__dst, &__p);
+            if (v917 >= 0)
+            {
+              v122 = HIBYTE(v917);
+            }
+
+            else
+            {
+              v122 = v916[1];
+            }
+
+            v123 = vp::get_log(v121);
+            v124 = os_log_type_enabled(v123, OS_LOG_TYPE_ERROR);
+            if (v122)
+            {
+              if (v124)
+              {
+                v125 = vp::get_log_context_info(&v908, a2, "vp::vx::Voice_Processor]", 23);
+                if (v910[0] >= 0)
+                {
+                  v126 = HIBYTE(v910[0]);
+                }
+
+                else
+                {
+                  v126 = v909;
+                }
+
+                v127 = vp::get_log(v125);
+                if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+                {
+                  v128 = SHIBYTE(v910[0]);
+                  v129 = v908;
+                  v130 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__dst);
+                  std::string::basic_string<std::string_view,0>(&v902, v130, v131);
+                  if (v128 >= 0)
+                  {
+                    v133 = &v908;
+                  }
+
+                  else
+                  {
+                    v133 = v129;
+                  }
+
+                  if (v126)
+                  {
+                    v134 = " ";
+                  }
+
+                  else
+                  {
+                    v134 = "";
+                  }
+
+                  if (v904[0] >= 0)
+                  {
+                    v135 = &v902;
+                  }
+
+                  else
+                  {
+                    v135 = v902;
+                  }
+
+                  v136 = WORD2(__dst);
+                  v137 = HIWORD(__dst);
+                  v138 = vp::get_log_source_file_path(v915, v132);
+                  if (v917 >= 0)
+                  {
+                    v139 = v916;
+                  }
+
+                  else
+                  {
+                    v139 = v916[0];
+                  }
+
+                  *v942 = 136316930;
+                  *&v942[4] = v133;
+                  *&v942[12] = 2080;
+                  *&v942[14] = v134;
+                  *&v942[22] = 2080;
+                  v943 = "get buffered output frame count for downlink dynamics DSP";
+                  LOWORD(v944) = 2080;
+                  *(&v944 + 2) = v135;
+                  WORD5(v944) = 1024;
+                  HIDWORD(v944) = v136;
+                  v945 = 1024;
+                  v946 = v137;
+                  v947 = 2080;
+                  v948 = v138;
+                  v949 = 2080;
+                  v950 = v139;
+                  v140 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                  v141 = v127;
+                  v142 = 74;
+                  goto LABEL_686;
+                }
+
+                goto LABEL_688;
+              }
+            }
+
+            else if (v124)
+            {
+              v556 = vp::get_log_context_info(&v908, a2, "vp::vx::Voice_Processor]", 23);
+              if (v910[0] >= 0)
+              {
+                v557 = HIBYTE(v910[0]);
+              }
+
+              else
+              {
+                v557 = v909;
+              }
+
+              v558 = vp::get_log(v556);
+              if (os_log_type_enabled(v558, OS_LOG_TYPE_ERROR))
+              {
+                v559 = SHIBYTE(v910[0]);
+                v560 = v908;
+                v561 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__dst);
+                std::string::basic_string<std::string_view,0>(&v902, v561, v562);
+                if (v559 >= 0)
+                {
+                  v564 = &v908;
+                }
+
+                else
+                {
+                  v564 = v560;
+                }
+
+                if (v557)
+                {
+                  v565 = " ";
+                }
+
+                else
+                {
+                  v565 = "";
+                }
+
+                if (v904[0] >= 0)
+                {
+                  v566 = &v902;
+                }
+
+                else
+                {
+                  v566 = v902;
+                }
+
+                v567 = WORD2(__dst);
+                v568 = HIWORD(__dst);
+                v569 = vp::get_log_source_file_path(v915, v563);
+                *v942 = 136316674;
+                *&v942[4] = v564;
+                *&v942[12] = 2080;
+                *&v942[14] = v565;
+                *&v942[22] = 2080;
+                v943 = "get buffered output frame count for downlink dynamics DSP";
+                LOWORD(v944) = 2080;
+                *(&v944 + 2) = v566;
+                WORD5(v944) = 1024;
+                HIDWORD(v944) = v567;
+                v945 = 1024;
+                v946 = v568;
+                v947 = 2080;
+                v948 = v569;
+                v140 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+                v141 = v558;
+                v142 = 64;
+LABEL_686:
+                _os_log_impl(&dword_2724B4000, v141, OS_LOG_TYPE_ERROR, v140, v942, v142);
+                if (SHIBYTE(v904[0]) < 0)
+                {
+                  operator delete(v902);
+                }
+              }
+
+LABEL_688:
+              if (SHIBYTE(v910[0]) < 0)
+              {
+                operator delete(v908);
+              }
+            }
+
+            *this = 7;
+            *(this + 4) = 0;
+            if (SHIBYTE(v917) < 0)
+            {
+              std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v918, v916[0], v917 & 0x7FFFFFFFFFFFFFFFLL);
+            }
+
+            v8 = 0;
+            goto LABEL_90;
+          }
+
+          v99 = vp::vx::io::Error::Error(&__p, &v926);
+          if (v923 >= 0)
+          {
+            v100 = HIBYTE(v923);
+          }
+
+          else
+          {
+            v100 = v922[1];
+          }
+
+          v101 = vp::get_log(v99);
+          v102 = os_log_type_enabled(v101, OS_LOG_TYPE_ERROR);
+          if (v100)
+          {
+            if (v102)
+            {
+              v103 = vp::get_log_context_info(&__dst, a2, "vp::vx::Voice_Processor]", 23);
+              v104 = SHIBYTE(v916[0]);
+              if (v916[0] >= 0)
+              {
+                v105 = HIBYTE(v916[0]);
+              }
+
+              else
+              {
+                v105 = v915;
+              }
+
+              v106 = vp::get_log(v103);
+              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+              {
+                v107 = __dst;
+                v108 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__p);
+                std::string::basic_string<std::string_view,0>(&v908, v108, v109);
+                if (v104 >= 0)
+                {
+                  p_dst = &__dst;
+                }
+
+                else
+                {
+                  p_dst = v107;
+                }
+
+                if (v105)
+                {
+                  v112 = " ";
+                }
+
+                else
+                {
+                  v112 = "";
+                }
+
+                if (v910[0] >= 0)
+                {
+                  v113 = &v908;
+                }
+
+                else
+                {
+                  v113 = v908;
+                }
+
+                v114 = WORD2(__p);
+                v115 = HIWORD(__p);
+                v116 = vp::get_log_source_file_path(v921, v110);
+                if (v923 >= 0)
+                {
+                  v117 = v922;
+                }
+
+                else
+                {
+                  v117 = v922[0];
+                }
+
+                *v942 = 136316930;
+                *&v942[4] = p_dst;
+                *&v942[12] = 2080;
+                *&v942[14] = v112;
+                *&v942[22] = 2080;
+                v943 = "get required input frame count for downlink hardware DSP";
+                LOWORD(v944) = 2080;
+                *(&v944 + 2) = v113;
+                WORD5(v944) = 1024;
+                HIDWORD(v944) = v114;
+                v945 = 1024;
+                v946 = v115;
+                v947 = 2080;
+                v948 = v116;
+                v949 = 2080;
+                v950 = v117;
+                v118 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+                v119 = v106;
+                v120 = 74;
+LABEL_663:
+                _os_log_impl(&dword_2724B4000, v119, OS_LOG_TYPE_ERROR, v118, v942, v120);
+                if (SHIBYTE(v910[0]) < 0)
+                {
+                  operator delete(v908);
+                }
+
+                LOBYTE(v104) = HIBYTE(v916[0]);
+                goto LABEL_666;
+              }
+
+              goto LABEL_666;
+            }
+          }
+
+          else if (v102)
+          {
+            v543 = vp::get_log_context_info(&__dst, a2, "vp::vx::Voice_Processor]", 23);
+            v104 = SHIBYTE(v916[0]);
+            if (v916[0] >= 0)
+            {
+              v544 = HIBYTE(v916[0]);
+            }
+
+            else
+            {
+              v544 = v915;
+            }
+
+            v545 = vp::get_log(v543);
+            if (os_log_type_enabled(v545, OS_LOG_TYPE_ERROR))
+            {
+              v546 = __dst;
+              v547 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(__p);
+              std::string::basic_string<std::string_view,0>(&v908, v547, v548);
+              if (v104 >= 0)
+              {
+                v550 = &__dst;
+              }
+
+              else
+              {
+                v550 = v546;
+              }
+
+              if (v544)
+              {
+                v551 = " ";
+              }
+
+              else
+              {
+                v551 = "";
+              }
+
+              if (v910[0] >= 0)
+              {
+                v552 = &v908;
+              }
+
+              else
+              {
+                v552 = v908;
+              }
+
+              v553 = WORD2(__p);
+              v554 = HIWORD(__p);
+              v555 = vp::get_log_source_file_path(v921, v549);
+              *v942 = 136316674;
+              *&v942[4] = v550;
+              *&v942[12] = 2080;
+              *&v942[14] = v551;
+              *&v942[22] = 2080;
+              v943 = "get required input frame count for downlink hardware DSP";
+              LOWORD(v944) = 2080;
+              *(&v944 + 2) = v552;
+              WORD5(v944) = 1024;
+              HIDWORD(v944) = v553;
+              v945 = 1024;
+              v946 = v554;
+              v947 = 2080;
+              v948 = v555;
+              v118 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+              v119 = v545;
+              v120 = 64;
+              goto LABEL_663;
+            }
+
+LABEL_666:
+            if ((v104 & 0x80) != 0)
+            {
+              operator delete(__dst);
+            }
+          }
+
+          *this = 7;
+          *(this + 4) = 0;
+          if (SHIBYTE(v923) < 0)
+          {
+            std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v924, v922[0], v923 & 0x7FFFFFFFFFFFFFFFLL);
+          }
+
+          v8 = 0;
+LABEL_93:
+          if (SHIBYTE(v929) < 0)
+          {
+            (*(*v930 + 24))(v930, v928[0], v929 & 0x7FFFFFFFFFFFFFFFLL, 1);
+          }
+
+LABEL_95:
+          if (v939)
+          {
+            goto LABEL_98;
+          }
+
+          goto LABEL_96;
         }
 
-        v20 -= 16;
-      }
-
-      while (v20 != v19);
-      v21 = *(this + 22);
-    }
-
-    *(this + 23) = v19;
-    std::allocator_traits<vp::Allocator<std::shared_ptr<vp::vx::io::Node_Command_Factory>>>::deallocate[abi:ne200100](*(this + 25), v21, (*(this + 24) - v21) >> 4);
-  }
-
-  v23 = *(this + 18);
-  if (v23)
-  {
-    v24 = *(this + 19);
-    v25 = *(this + 18);
-    if (v24 != v23)
-    {
-      do
-      {
-        v26 = *(v24 - 8);
-        if (v26)
+        v77 = vp::vx::io::Error::Error(&v926, &v932);
+        if (v929 >= 0)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+          v78 = HIBYTE(v929);
         }
 
-        v24 -= 16;
-      }
-
-      while (v24 != v23);
-      v25 = *(this + 18);
-    }
-
-    *(this + 19) = v23;
-    std::allocator_traits<vp::Allocator<std::shared_ptr<vp::vx::io::Node_Delegate_Factory>>>::deallocate[abi:ne200100](*(this + 21), v25, (*(this + 20) - v25) >> 4);
-  }
-
-  v27 = *(this + 14);
-  if (v27)
-  {
-    v28 = *(this + 15);
-    v29 = *(this + 14);
-    if (v28 != v27)
-    {
-      do
-      {
-        v30 = *(v28 - 8);
-        if (v30)
+        else
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+          v78 = v928[1];
         }
 
-        v28 -= 16;
-      }
-
-      while (v28 != v27);
-      v29 = *(this + 14);
-    }
-
-    *(this + 15) = v27;
-    std::allocator_traits<vp::Allocator<std::shared_ptr<vp::vx::io::Node_Decorator_Factory>>>::deallocate[abi:ne200100](*(this + 17), v29, (*(this + 16) - v29) >> 4);
-  }
-
-  v31 = *(this + 12);
-  if (v31)
-  {
-    v32 = (*(this + 11) + 16);
-    do
-    {
-      if (*v32)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*v32);
-      }
-
-      v32 += 3;
-      --v31;
-    }
-
-    while (v31);
-  }
-
-  v33 = *(this + 13);
-  if (v33)
-  {
-    (*(**(this + 10) + 24))(*(this + 10), *(this + 11), 24 * v33, 8);
-  }
-
-  v34 = *(this + 8);
-  if (v34)
-  {
-    std::__shared_weak_count::__release_weak(v34);
-  }
-
-  v35 = *(this + 6);
-  if (v35)
-  {
-    std::__shared_weak_count::__release_weak(v35);
-  }
-
-  if (*(this + 31) < 0)
-  {
-    operator delete(*(this + 1));
-  }
-}
-
-uint64_t std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a1 + 4);
-  v6 = *(a2 + 4);
-  if (v5 == -1)
-  {
-    if (v6 == -1)
-    {
-      return 0;
-    }
-
-    else
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  else if (v6 == -1)
-  {
-    return 1;
-  }
-
-  else
-  {
-    if (v5 < v6)
-    {
-      result = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      result = 1;
-    }
-
-    if (v5 == v6)
-    {
-      v10[1] = v2;
-      v10[2] = v3;
-      v9 = 0;
-      v10[0] = &v9;
-      return (off_2881C5B18[v5])(v10, a1, a2);
-    }
-  }
-
-  return result;
-}
-
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_insert_unique_prepare(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = v4 == 0;
-  }
-
-  if (!v6)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v10 = v5 + 24 * v4;
-  v11 = *a2;
-  if (v11 != v10)
-  {
-    if (!v11)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(a3, v11) & 0x80) == 0)
-    {
-      v13 = *a2;
-      v17 = v10;
-      return boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_insert_unique_prepare(v13, &v17, a3, a4);
-    }
-
-    v5 = *(a1 + 8);
-    v11 = *a2;
-  }
-
-  *a4 = v11;
-  v15 = *a2;
-  if (*a2 == v5)
-  {
-    return 1;
-  }
-
-  if (!v15)
-  {
-    __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
-  }
-
-  v16 = v15 - 24;
-  if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(v15 - 24, a3) & 0x80) != 0)
-  {
-    return 1;
-  }
-
-  if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(a3, v16) & 0x80) != 0)
-  {
-    v17 = v16;
-    v13 = v5;
-    return boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_insert_unique_prepare(v13, &v17, a3, a4);
-  }
-
-  result = 0;
-  *a4 = v16;
-  return result;
-}
-
-void *boost::container::vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>,boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>*,boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>>(void *a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v8 = a2[1];
-  v9 = boost::container::vector_alloc_holder<boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a2[2], a2[3]);
-  if (v9 >= 0xAAAAAAAAAAAAAABLL)
-  {
-    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", v10);
-  }
-
-  v11 = v9;
-  result = (*(**a2 + 16))(*a2, 24 * v9, 8);
-  v13 = result;
-  v14 = a2[1];
-  v15 = v14 + 24 * a2[2];
-  v16 = result;
-  if (v14 != a3)
-  {
-    v17 = a2[1];
-    v16 = result;
-    do
-    {
-      *v16 = *v17;
-      *(v16 + 1) = *(v17 + 8);
-      *(v17 + 8) = 0;
-      *(v17 + 16) = 0;
-      v17 += 24;
-      v16 += 3;
-    }
-
-    while (v17 != a3);
-  }
-
-  *v16 = *a4;
-  *(v16 + 1) = *(a4 + 8);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  if (v15 != a3)
-  {
-    v18 = v16 + 4;
-    v19 = a3;
-    do
-    {
-      *(v18 - 1) = *v19;
-      *v18 = *(v19 + 8);
-      v18 = (v18 + 24);
-      *(v19 + 8) = 0;
-      *(v19 + 16) = 0;
-      v19 += 24;
-    }
-
-    while (v19 != v15);
-  }
-
-  if (v14)
-  {
-    v20 = a2[2];
-    if (v20)
-    {
-      v21 = (v14 + 16);
-      do
-      {
-        if (*v21)
+        v79 = vp::get_log(v77);
+        v80 = os_log_type_enabled(v79, OS_LOG_TYPE_ERROR);
+        if (v78)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*v21);
+          if (v80)
+          {
+            v81 = vp::get_log_context_info(&__p, a2, "vp::vx::Voice_Processor]", 23);
+            v82 = SHIBYTE(v922[0]);
+            if (v922[0] >= 0)
+            {
+              v83 = HIBYTE(v922[0]);
+            }
+
+            else
+            {
+              v83 = v921;
+            }
+
+            v84 = vp::get_log(v81);
+            if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+            {
+              v85 = __p;
+              v86 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v926);
+              std::string::basic_string<std::string_view,0>(&__dst, v86, v87);
+              if (v82 >= 0)
+              {
+                p_p = &__p;
+              }
+
+              else
+              {
+                p_p = v85;
+              }
+
+              if (v83)
+              {
+                v90 = " ";
+              }
+
+              else
+              {
+                v90 = "";
+              }
+
+              if (v916[0] >= 0)
+              {
+                v91 = &__dst;
+              }
+
+              else
+              {
+                v91 = __dst;
+              }
+
+              v92 = WORD2(v926);
+              v93 = HIWORD(v926);
+              v94 = vp::get_log_source_file_path(v927, v88);
+              if (v929 >= 0)
+              {
+                v95 = v928;
+              }
+
+              else
+              {
+                v95 = v928[0];
+              }
+
+              *v942 = 136316930;
+              *&v942[4] = p_p;
+              *&v942[12] = 2080;
+              *&v942[14] = v90;
+              *&v942[22] = 2080;
+              v943 = "get buffered input frame count for downlink hardware DSP";
+              LOWORD(v944) = 2080;
+              *(&v944 + 2) = v91;
+              WORD5(v944) = 1024;
+              HIDWORD(v944) = v92;
+              v945 = 1024;
+              v946 = v93;
+              v947 = 2080;
+              v948 = v94;
+              v949 = 2080;
+              v950 = v95;
+              v96 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+              v97 = v84;
+              v98 = 74;
+LABEL_640:
+              _os_log_impl(&dword_2724B4000, v97, OS_LOG_TYPE_ERROR, v96, v942, v98);
+              if (SHIBYTE(v916[0]) < 0)
+              {
+                operator delete(__dst);
+              }
+
+              LOBYTE(v82) = HIBYTE(v922[0]);
+              goto LABEL_643;
+            }
+
+            goto LABEL_643;
+          }
         }
 
-        v21 += 3;
-        --v20;
+        else if (v80)
+        {
+          v530 = vp::get_log_context_info(&__p, a2, "vp::vx::Voice_Processor]", 23);
+          v82 = SHIBYTE(v922[0]);
+          if (v922[0] >= 0)
+          {
+            v531 = HIBYTE(v922[0]);
+          }
+
+          else
+          {
+            v531 = v921;
+          }
+
+          v532 = vp::get_log(v530);
+          if (os_log_type_enabled(v532, OS_LOG_TYPE_ERROR))
+          {
+            v533 = __p;
+            v534 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v926);
+            std::string::basic_string<std::string_view,0>(&__dst, v534, v535);
+            if (v82 >= 0)
+            {
+              v537 = &__p;
+            }
+
+            else
+            {
+              v537 = v533;
+            }
+
+            if (v531)
+            {
+              v538 = " ";
+            }
+
+            else
+            {
+              v538 = "";
+            }
+
+            if (v916[0] >= 0)
+            {
+              v539 = &__dst;
+            }
+
+            else
+            {
+              v539 = __dst;
+            }
+
+            v540 = WORD2(v926);
+            v541 = HIWORD(v926);
+            v542 = vp::get_log_source_file_path(v927, v536);
+            *v942 = 136316674;
+            *&v942[4] = v537;
+            *&v942[12] = 2080;
+            *&v942[14] = v538;
+            *&v942[22] = 2080;
+            v943 = "get buffered input frame count for downlink hardware DSP";
+            LOWORD(v944) = 2080;
+            *(&v944 + 2) = v539;
+            WORD5(v944) = 1024;
+            HIDWORD(v944) = v540;
+            v945 = 1024;
+            v946 = v541;
+            v947 = 2080;
+            v948 = v542;
+            v96 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+            v97 = v532;
+            v98 = 64;
+            goto LABEL_640;
+          }
+
+LABEL_643:
+          if ((v82 & 0x80) != 0)
+          {
+            operator delete(__p);
+          }
+        }
+
+        *this = 7;
+        *(this + 4) = 0;
+        if (SHIBYTE(v929) < 0)
+        {
+          std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v930, v928[0], v929 & 0x7FFFFFFFFFFFFFFFLL);
+        }
+
+        v8 = 0;
+LABEL_96:
+        if (SHIBYTE(v937) < 0)
+        {
+          (*(*v938 + 24))(v938, v936[0], v937 & 0x7FFFFFFFFFFFFFFFLL, 1);
+        }
+
+        goto LABEL_98;
       }
 
-      while (v20);
-    }
-
-    v22 = a2[3];
-    result = boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,vp::Allocator<void>,void>::deallocate(a2, a2[1]);
-  }
-
-  v23 = a2[2] + 1;
-  a2[1] = v13;
-  a2[2] = v23;
-  a2[3] = v11;
-  *a1 = v13 + a3 - v8;
-  return result;
-}
-
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,std::less<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>,std::shared_ptr<vp::vx::IO_Port_Factory>>>,void>>::priv_insert_unique_prepare(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
-{
-  v7 = a1;
-  if (*a2 != a1)
-  {
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((*a2 - a1) >> 3);
-    do
-    {
-      if (v8 != 1 && !v7)
+      v55 = vp::vx::io::Error::Error(&v932, buf);
+      if (v937 >= 0)
       {
-        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-      }
-
-      if (!v7)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(v7 + 24 * (v8 >> 1), a3) & 0x80u) == 0)
-      {
-        v8 >>= 1;
+        v56 = HIBYTE(v937);
       }
 
       else
       {
-        v7 += 24 * (v8 >> 1) + 24;
-        v8 += ~(v8 >> 1);
+        v56 = v936[1];
       }
-    }
 
-    while (v8);
-  }
-
-  *a4 = v7;
-  if (v7 == *a2)
-  {
-    return 1;
-  }
-
-  if (!v7)
-  {
-    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-  }
-
-  return (std::operator<=>[abi:ne200100]<vp::vx::Uplink_Input_Port_ID,vp::vx::Downlink_Input_Port_ID,vp::vx::Uplink_Output_Port_ID,vp::vx::Downlink_Output_Port_ID>(a3, v7) & 0x80u) != 0;
-}
-
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3ELm3EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIRZNS_ssB8ne200100IJN2vp2vx20Uplink_Input_Port_IDENSA_22Downlink_Input_Port_IDENSA_21Uplink_Output_Port_IDENSA_23Downlink_Output_Port_IDEEEENS_26common_comparison_categoryIJDpNS_24compare_three_way_resultIT_SH_E4typeEEE4typeERKNS_7variantIJDpSH_EEESR_EUlTyRKT_SU_E_EEJRKNS0_6__baseILNS0_6_TraitE0EJSB_SC_SD_SE_EEES13_EEEDcSS_DpT0_(uint64_t a1, _DWORD *a2, _DWORD *a3)
-{
-  if (*a2 < *a3)
-  {
-    v3 = -1;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (*a2 == *a3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIRZNS_ssB8ne200100IJN2vp2vx20Uplink_Input_Port_IDENSA_22Downlink_Input_Port_IDENSA_21Uplink_Output_Port_IDENSA_23Downlink_Output_Port_IDEEEENS_26common_comparison_categoryIJDpNS_24compare_three_way_resultIT_SH_E4typeEEE4typeERKNS_7variantIJDpSH_EEESR_EUlTyRKT_SU_E_EEJRKNS0_6__baseILNS0_6_TraitE0EJSB_SC_SD_SE_EEES13_EEEDcSS_DpT0_(uint64_t a1, _DWORD *a2, _DWORD *a3)
-{
-  if (*a2 < *a3)
-  {
-    v3 = -1;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (*a2 == *a3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIRZNS_ssB8ne200100IJN2vp2vx20Uplink_Input_Port_IDENSA_22Downlink_Input_Port_IDENSA_21Uplink_Output_Port_IDENSA_23Downlink_Output_Port_IDEEEENS_26common_comparison_categoryIJDpNS_24compare_three_way_resultIT_SH_E4typeEEE4typeERKNS_7variantIJDpSH_EEESR_EUlTyRKT_SU_E_EEJRKNS0_6__baseILNS0_6_TraitE0EJSB_SC_SD_SE_EEES13_EEEDcSS_DpT0_(uint64_t a1, _DWORD *a2, _DWORD *a3)
-{
-  if (*a2 < *a3)
-  {
-    v3 = -1;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (*a2 == *a3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIRZNS_ssB8ne200100IJN2vp2vx20Uplink_Input_Port_IDENSA_22Downlink_Input_Port_IDENSA_21Uplink_Output_Port_IDENSA_23Downlink_Output_Port_IDEEEENS_26common_comparison_categoryIJDpNS_24compare_three_way_resultIT_SH_E4typeEEE4typeERKNS_7variantIJDpSH_EEESR_EUlTyRKT_SU_E_EEJRKNS0_6__baseILNS0_6_TraitE0EJSB_SC_SD_SE_EEES13_EEEDcSS_DpT0_(uint64_t a1, _DWORD *a2, _DWORD *a3)
-{
-  if (*a2 < *a3)
-  {
-    v3 = -1;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (*a2 == *a3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t std::operator<=>[abi:ne200100]<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a1 + 4);
-  v6 = *(a2 + 4);
-  if (v5 == -1)
-  {
-    if (v6 == -1)
-    {
-      return 0;
-    }
-
-    else
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  else if (v6 == -1)
-  {
-    return 1;
-  }
-
-  else
-  {
-    if (v5 < v6)
-    {
-      result = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      result = 1;
-    }
-
-    if (v5 == v6)
-    {
-      v10[1] = v2;
-      v10[2] = v3;
-      v9 = 0;
-      v10[0] = &v9;
-      return (off_2881C4970[v5])(v10, a1, a2);
-    }
-  }
-
-  return result;
-}
-
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_insert_unique_prepare(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = v4 == 0;
-  }
-
-  if (!v6)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v10 = v5 + 24 * v4;
-  v11 = *a2;
-  if (v11 != v10)
-  {
-    if (!v11)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>(a3, v11) & 0x80) == 0)
-    {
-      v13 = *a2;
-      v17 = v10;
-      return boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_insert_unique_prepare(v13, &v17, a3, a4);
-    }
-
-    v5 = *(a1 + 8);
-    v11 = *a2;
-  }
-
-  *a4 = v11;
-  v15 = *a2;
-  if (*a2 == v5)
-  {
-    return 1;
-  }
-
-  if (!v15)
-  {
-    __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
-  }
-
-  v16 = v15 - 24;
-  if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>(v15 - 24, a3) & 0x80) != 0)
-  {
-    return 1;
-  }
-
-  if ((std::operator<=>[abi:ne200100]<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>(a3, v16) & 0x80) != 0)
-  {
-    v17 = v16;
-    v13 = v5;
-    return boost::container::dtl::flat_tree<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,boost::container::dtl::select1st<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,std::less<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>>,boost::container::small_vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,16ul,vp::Allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>,void>>::priv_insert_unique_prepare(v13, &v17, a3, a4);
-  }
-
-  result = 0;
-  *a4 = v16;
-  return result;
-}
-
-void *boost::container::vector<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>,boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>*,boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>>>(void *a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v8 = a2[1];
-  v9 = boost::container::vector_alloc_holder<boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a2[2], a2[3]);
-  if (v9 >= 0xAAAAAAAAAAAAAABLL)
-  {
-    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", v10);
-  }
-
-  v11 = v9;
-  result = (*(**a2 + 16))(*a2, 24 * v9, 8);
-  v13 = result;
-  v14 = a2[1];
-  v15 = v14 + 24 * a2[2];
-  v16 = result;
-  if (v14 != a3)
-  {
-    v17 = a2[1];
-    v16 = result;
-    do
-    {
-      *v16 = *v17;
-      *(v16 + 1) = *(v17 + 8);
-      *(v17 + 8) = 0;
-      *(v17 + 16) = 0;
-      v17 += 24;
-      v16 += 3;
-    }
-
-    while (v17 != a3);
-  }
-
-  *v16 = *a4;
-  *(v16 + 1) = *(a4 + 8);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  if (v15 != a3)
-  {
-    v18 = v16 + 4;
-    v19 = a3;
-    do
-    {
-      *(v18 - 1) = *v19;
-      *v18 = *(v19 + 8);
-      v18 = (v18 + 24);
-      *(v19 + 8) = 0;
-      *(v19 + 16) = 0;
-      v19 += 24;
-    }
-
-    while (v19 != v15);
-  }
-
-  if (v14)
-  {
-    v20 = a2[2];
-    if (v20)
-    {
-      v21 = (v14 + 16);
-      do
+      v57 = vp::get_log(v55);
+      v58 = os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
+      if (v56)
       {
-        if (*v21)
+        if (v58)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*v21);
+          v59 = vp::get_log_context_info(&v926, a2, "vp::vx::Voice_Processor]", 23);
+          v60 = SHIBYTE(v928[0]);
+          if (v928[0] >= 0)
+          {
+            v61 = HIBYTE(v928[0]);
+          }
+
+          else
+          {
+            v61 = v927;
+          }
+
+          v62 = vp::get_log(v59);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          {
+            v63 = v926;
+            v64 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v932);
+            std::string::basic_string<std::string_view,0>(&__p, v64, v65);
+            if (v60 >= 0)
+            {
+              v67 = &v926;
+            }
+
+            else
+            {
+              v67 = v63;
+            }
+
+            if (v61)
+            {
+              v68 = " ";
+            }
+
+            else
+            {
+              v68 = "";
+            }
+
+            if (v922[0] >= 0)
+            {
+              v69 = &__p;
+            }
+
+            else
+            {
+              v69 = __p;
+            }
+
+            v70 = v933;
+            v71 = v934;
+            v72 = vp::get_log_source_file_path(v935, v66);
+            if (v937 >= 0)
+            {
+              v73 = v936;
+            }
+
+            else
+            {
+              v73 = v936[0];
+            }
+
+            *v942 = 136316930;
+            *&v942[4] = v67;
+            *&v942[12] = 2080;
+            *&v942[14] = v68;
+            *&v942[22] = 2080;
+            v943 = "get downlink hardware DSP I/O block size";
+            LOWORD(v944) = 2080;
+            *(&v944 + 2) = v69;
+            WORD5(v944) = 1024;
+            HIDWORD(v944) = v70;
+            v945 = 1024;
+            v946 = v71;
+            v947 = 2080;
+            v948 = v72;
+            v949 = 2080;
+            v950 = v73;
+            v74 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s - %s";
+            v75 = v62;
+            v76 = 74;
+LABEL_617:
+            _os_log_impl(&dword_2724B4000, v75, OS_LOG_TYPE_ERROR, v74, v942, v76);
+            if (SHIBYTE(v922[0]) < 0)
+            {
+              operator delete(__p);
+            }
+
+            LOBYTE(v60) = HIBYTE(v928[0]);
+            goto LABEL_620;
+          }
+
+          goto LABEL_620;
+        }
+      }
+
+      else if (v58)
+      {
+        v517 = vp::get_log_context_info(&v926, a2, "vp::vx::Voice_Processor]", 23);
+        v60 = SHIBYTE(v928[0]);
+        if (v928[0] >= 0)
+        {
+          v518 = HIBYTE(v928[0]);
         }
 
-        v21 += 3;
-        --v20;
+        else
+        {
+          v518 = v927;
+        }
+
+        v519 = vp::get_log(v517);
+        if (os_log_type_enabled(v519, OS_LOG_TYPE_ERROR))
+        {
+          v520 = v926;
+          v521 = vp::reflect_value_name_tag<vp::vx::io::Error_Code,128ul>(v932);
+          std::string::basic_string<std::string_view,0>(&__p, v521, v522);
+          if (v60 >= 0)
+          {
+            v524 = &v926;
+          }
+
+          else
+          {
+            v524 = v520;
+          }
+
+          if (v518)
+          {
+            v525 = " ";
+          }
+
+          else
+          {
+            v525 = "";
+          }
+
+          if (v922[0] >= 0)
+          {
+            v526 = &__p;
+          }
+
+          else
+          {
+            v526 = __p;
+          }
+
+          v527 = v933;
+          v528 = v934;
+          v529 = vp::get_log_source_file_path(v935, v523);
+          *v942 = 136316674;
+          *&v942[4] = v524;
+          *&v942[12] = 2080;
+          *&v942[14] = v525;
+          *&v942[22] = 2080;
+          v943 = "get downlink hardware DSP I/O block size";
+          LOWORD(v944) = 2080;
+          *(&v944 + 2) = v526;
+          WORD5(v944) = 1024;
+          HIDWORD(v944) = v527;
+          v945 = 1024;
+          v946 = v528;
+          v947 = 2080;
+          v948 = v529;
+          v74 = "%s%sfailed to %s due to '%s' error at line %u column %u in %s";
+          v75 = v519;
+          v76 = 64;
+          goto LABEL_617;
+        }
+
+LABEL_620:
+        if ((v60 & 0x80) != 0)
+        {
+          operator delete(v926);
+        }
       }
 
-      while (v20);
+      *this = 7;
+      *(this + 4) = 0;
+      if (SHIBYTE(v937) < 0)
+      {
+        std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v938, v936[0], v937 & 0x7FFFFFFFFFFFFFFFLL);
+      }
+
+      v8 = 0;
+LABEL_98:
+      if ((v955 & 1) == 0 && SHIBYTE(v953) < 0)
+      {
+        (*(*v954 + 24))(v954, *&buf[16], v953 & 0x7FFFFFFFFFFFFFFFLL, 1);
+      }
+
+      if ((v941 & 1) == 0)
+      {
+        goto LABEL_103;
+      }
+
+      goto LABEL_102;
     }
 
-    v22 = a2[3];
-    result = boost::container::small_vector_allocator<boost::container::dtl::pair<std::variant<vp::vx::Uplink_DSP_Node_ID,vp::vx::Downlink_DSP_Node_ID>,std::shared_ptr<vp::vx::DSP_Node_Factory>>,vp::Allocator<void>,void>::deallocate(a2, a2[1]);
+    v38 = 0;
+    v39 = a2 + 2700;
+    while (1)
+    {
+      v40 = *(&xmmword_272756540 + v38);
+      if (v40 > 3)
+      {
+        break;
+      }
+
+      v41 = 8 * v40;
+      if (*(v39 + 8 * v40) != -1)
+      {
+        v42 = 1 << v40;
+        v43 = *(a2 + 2592);
+        if ((v43 & v42) == 0)
+        {
+          v44 = *(v39 + v41);
+LABEL_115:
+          v45 = v6[12];
+          if (v44 >= (v6[13] - v45) >> 4)
+          {
+            *buf = 0x10012400000007;
+            *&buf[8] = "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Library/VoiceProcessor/vp/vx/io/Graph.cpp";
+            v952 = 0;
+            v953 = 0;
+            *&buf[16] = 0;
+            vp::Real_Time_Safe_Allocator<char>::Real_Time_Safe_Allocator(&v954);
+            _ZNO2vp2vx2io5ErrorcvNS_8ExpectedIT_S2_EEIjEEv(v942, buf);
+            if (SHIBYTE(v953) < 0)
+            {
+              std::allocator_traits<vp::Real_Time_Safe_Allocator<char>>::deallocate[abi:ne200100](v954, *&buf[16], v953 & 0x7FFFFFFFFFFFFFFFLL);
+            }
+          }
+
+          else
+          {
+            (*(**(v45 + 16 * v44) + 88))(v942);
+          }
+
+          if ((v945 & 1) == 0 && SBYTE7(v944) < 0)
+          {
+            (*(**(&v944 + 1) + 24))(*(&v944 + 1), *&v942[16], v944 & 0x7FFFFFFFFFFFFFFFLL, 1);
+          }
+
+          goto LABEL_120;
+        }
+
+LABEL_113:
+        *(a2 + 2592) = v43 & ~v42;
+      }
+
+LABEL_120:
+      v38 += 4;
+      if (v38 == 16)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    if (v40 >= 8)
+    {
+      std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
+    }
+
+    v42 = 1 << v40;
+    v43 = *(a2 + 2592);
+    if ((v43 & v42) == 0)
+    {
+      v44 = 0;
+      goto LABEL_115;
+    }
+
+    goto LABEL_113;
   }
 
-  v23 = a2[2] + 1;
-  a2[1] = v13;
-  a2[2] = v23;
-  a2[3] = v11;
-  *a1 = v13 + a3 - v8;
-  return result;
+LABEL_8:
+  v8 = 0;
+  *this = 8;
+  *(this + 4) = 0;
+LABEL_102:
+  caulk::concurrent::shared_spin_lock::unlock_shared(v940);
+LABEL_103:
+  if (v8)
+  {
+    *this = 0;
+    *(this + 4) = 1;
+  }
 }

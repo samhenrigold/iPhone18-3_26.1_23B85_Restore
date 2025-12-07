@@ -14,9 +14,9 @@
     +[NSBundle(IconServicesAdditions) __IS__frameworkBundle];
   }
 
-  v1 = __IS__frameworkBundle_frameworkBundle;
+  v2 = __IS__frameworkBundle_frameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 + (id)__IS__iconsetResourceBundle
@@ -26,9 +26,9 @@
     +[NSBundle(IconServicesAdditions) __IS__iconsetResourceBundle];
   }
 
-  v1 = __IS__iconsetResourceBundle_resourceBundle;
+  v2 = __IS__iconsetResourceBundle_resourceBundle;
 
-  return v1;
+  return v2;
 }
 
 + (id)__IS__iconsetResourceAssetsCatalogURL

@@ -58,8 +58,8 @@ void __83__SBUISystemApertureElementSourceContainerViewController_setElementView
 - (id)_transitionCoordinator
 {
   systemApertureElementContext = [(UIViewController *)self systemApertureElementContext];
-  transitionContext = [systemApertureElementContext transitionContext];
-  transitionCoordinator = [transitionContext transitionCoordinator];
+  v4 = objc_msgSend_transitionContext(systemApertureElementContext);
+  transitionCoordinator = [v4 transitionCoordinator];
   v6 = transitionCoordinator;
   if (transitionCoordinator)
   {

@@ -157,90 +157,90 @@ LABEL_13:
     goto LABEL_21;
   }
 
-  v5 = [JavaUtilMap_class_() isInstance:equal];
+  v5 = [JavaUtilMap_class_(self a2)];
   if (!v5)
   {
     return v5;
   }
 
-  v6 = JavaUtilMap_class_();
+  v7 = JavaUtilMap_class_(v5, v6);
   if (!equal)
   {
     [(JavaUtilAbstractMap *)self size];
     JreThrowNullPointerException();
   }
 
-  if (([v6 isInstance:equal] & 1) == 0)
+  if (([v7 isInstance:equal] & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  v7 = [(JavaUtilAbstractMap *)self size];
-  if (v7 != [equal size])
+  v8 = [(JavaUtilAbstractMap *)self size];
+  if (v8 != [equal size])
   {
 LABEL_26:
     LOBYTE(v5) = 0;
     return v5;
   }
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   entrySet = [(JavaUtilAbstractMap *)self entrySet];
-  v9 = entrySet;
+  v10 = entrySet;
   if (!entrySet)
   {
     JreThrowNullPointerException();
   }
 
-  v10 = [entrySet countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (!v10)
+  v11 = [entrySet countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (!v11)
   {
 LABEL_21:
     LOBYTE(v5) = 1;
     return v5;
   }
 
-  v11 = *v19;
+  v12 = *v20;
   do
   {
-    for (i = 0; i != v10; i = i + 1)
+    for (i = 0; i != v11; i = i + 1)
     {
-      if (*v19 != v11)
+      if (*v20 != v12)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v10);
       }
 
-      v13 = *(*(&v18 + 1) + 8 * i);
-      if (!v13)
+      v14 = *(*(&v19 + 1) + 8 * i);
+      if (!v14)
       {
         JreThrowNullPointerException();
       }
 
-      getKey = [*(*(&v18 + 1) + 8 * i) getKey];
-      getValue = [v13 getValue];
-      v16 = [equal getWithId:getKey];
+      getKey = [*(*(&v19 + 1) + 8 * i) getKey];
+      getValue = [v14 getValue];
+      v17 = [equal getWithId:getKey];
       if (getValue)
       {
-        v5 = [getValue isEqual:v16];
+        LODWORD(v5) = [getValue isEqual:v17];
         if (!v5)
         {
           return v5;
         }
       }
 
-      else if (v16 || ([equal containsKeyWithId:getKey] & 1) == 0)
+      else if (v17 || ([equal containsKeyWithId:getKey] & 1) == 0)
       {
         goto LABEL_26;
       }
     }
 
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     LOBYTE(v5) = 1;
   }
 
-  while (v10);
+  while (v11);
   return v5;
 }
 
@@ -541,7 +541,7 @@ LABEL_19:
   {
     v5 = [JavaUtilAbstractMap_1AbstractMapValuesCollection alloc];
     objc_storeWeak(&v5->this$0_, self);
-    JavaUtilAbstractCollection_init(v5, v6);
+    JavaUtilAbstractCollection_init();
     JreStrongAssignAndConsume(p_valuesCollection, v5);
     return self->valuesCollection_;
   }

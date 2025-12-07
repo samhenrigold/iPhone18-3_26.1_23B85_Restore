@@ -804,8 +804,8 @@ LABEL_19:
   v6 = MKManeuverArrowImage();
 
   v7 = [UITraitCollection traitCollectionWithUserInterfaceStyle:2];
-  configuration = [v6 configuration];
-  v9 = [configuration configurationWithTraitCollection:v7];
+  v8 = objc_msgSend_configuration(v6);
+  v9 = [v8 configurationWithTraitCollection:v7];
 
   return v6;
 }

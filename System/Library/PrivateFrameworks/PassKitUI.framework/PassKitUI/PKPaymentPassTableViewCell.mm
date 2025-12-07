@@ -124,13 +124,14 @@
   v10 = +[PKPassSnapshotter sharedInstance];
   pass = self->_pass;
   PKPassFrontFaceContentSize();
-  PKFloatRoundToPixel();
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __38__PKPaymentPassTableViewCell_setPass___block_invoke;
-  v13[3] = &unk_1E8010A38;
-  v13[4] = self;
-  [v10 snapshotWithPass:pass size:v13 completion:{66.0, v12}];
+  v14.n128_f64[0] = v13.n128_f64[0] / v12 * 66.0;
+  PKFloatRoundToPixel(v14, v13);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __38__PKPaymentPassTableViewCell_setPass___block_invoke;
+  v16[3] = &unk_1E8010A38;
+  v16[4] = self;
+  [v10 snapshotWithPass:pass size:v16 completion:{66.0, v15}];
 }
 
 void __38__PKPaymentPassTableViewCell_setPass___block_invoke(uint64_t a1, void *a2)
@@ -235,9 +236,9 @@ uint64_t __38__PKPaymentPassTableViewCell_setPass___block_invoke_2(uint64_t a1)
 
 - (void)layoutSubviews
 {
-  v36.receiver = self;
-  v36.super_class = PKPaymentPassTableViewCell;
-  [(PKPaymentPassTableViewCell *)&v36 layoutSubviews];
+  v61.receiver = self;
+  v61.super_class = PKPaymentPassTableViewCell;
+  [(PKPaymentPassTableViewCell *)&v61 layoutSubviews];
   contentView = [(PKPaymentPassTableViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -257,79 +258,115 @@ uint64_t __38__PKPaymentPassTableViewCell_setPass___block_invoke_2(uint64_t a1)
     v12 = CGRectMinXEdge;
   }
 
-  v37.origin.x = v5;
-  v37.origin.y = v7;
-  v37.size.width = v9;
-  v37.size.height = v11;
-  CGRectDivide(v37, &slice, &remainder, 20.0, v12);
+  v62.origin.x = v5;
+  v62.origin.y = v7;
+  v62.size.width = v9;
+  v62.size.height = v11;
+  CGRectDivide(v62, &slice, &remainder, 20.0, v12);
   [(UIView *)self->_cardSnapshotView frame];
-  [(PKPaymentPassTableViewCell *)self _shouldReverseLayoutDirection];
-  PKSizeAlignedInRect();
-  remainder.origin.x = v13;
-  remainder.origin.y = v14;
-  remainder.size.width = v15;
-  remainder.size.height = v16;
+  v14 = v13;
+  v16 = v15;
+  _shouldReverseLayoutDirection = [(PKPaymentPassTableViewCell *)self _shouldReverseLayoutDirection];
+  v21.n128_u64[0] = *&remainder.origin.x;
+  v22.n128_u64[0] = *&remainder.origin.y;
+  v23.n128_u64[0] = *&remainder.size.width;
+  v24.n128_u64[0] = *&remainder.size.height;
+  if (_shouldReverseLayoutDirection)
+  {
+    v25 = 0x100000002;
+  }
+
+  else
+  {
+    v25 = 0x100000000;
+  }
+
+  v18.n128_u64[0] = v14;
+  v19.n128_u64[0] = v16;
+  PKSizeAlignedInRect(v25, v18, v19, v21, v22, v23, v24, v20);
+  remainder.origin.x = v26;
+  remainder.origin.y = v27;
+  remainder.size.width = v28;
+  remainder.size.height = v29;
   [(UIView *)self->_cardSnapshotView setFrame:?];
-  memset(&v33, 0, sizeof(v33));
+  memset(&v58, 0, sizeof(v58));
   if ([(PKPaymentPassTableViewCell *)self _shouldReverseLayoutDirection])
   {
-    v17 = CGRectMaxXEdge;
+    v30 = CGRectMaxXEdge;
   }
 
   else
   {
-    v17 = CGRectMinXEdge;
+    v30 = CGRectMinXEdge;
   }
 
-  v38.origin.x = v5;
-  v38.origin.y = v7;
-  v38.size.width = v9;
-  v38.size.height = v11;
-  CGRectDivide(v38, &slice, &v33, 96.0, v17);
+  v63.origin.x = v5;
+  v63.origin.y = v7;
+  v63.size.width = v9;
+  v63.size.height = v11;
+  CGRectDivide(v63, &slice, &v58, 96.0, v30);
   if ([(PKPaymentPassTableViewCell *)self _shouldReverseLayoutDirection])
   {
-    v18 = CGRectMinXEdge;
+    v31 = CGRectMinXEdge;
   }
 
   else
   {
-    v18 = CGRectMaxXEdge;
+    v31 = CGRectMaxXEdge;
   }
 
-  CGRectDivide(v33, &slice, &v33, 0.0, v18);
+  CGRectDivide(v58, &slice, &v58, 0.0, v31);
   [(UILabel *)self->_mainLabel frame];
-  [(PKPaymentPassTableViewCell *)self _shouldReverseLayoutDirection];
-  PKSizeAlignedInRect();
-  v33.origin.x = v19;
-  v33.origin.y = v20;
-  v33.size.width = v21;
-  v33.size.height = v22;
+  v33 = v32;
+  width = v58.size.width;
+  _shouldReverseLayoutDirection2 = [(PKPaymentPassTableViewCell *)self _shouldReverseLayoutDirection];
+  v40.n128_u64[0] = *&v58.origin.y;
+  v39.n128_u64[0] = *&v58.origin.x;
+  v42.n128_u64[0] = *&v58.size.height;
+  v41.n128_u64[0] = *&v58.size.width;
+  if (_shouldReverseLayoutDirection2)
+  {
+    v43 = 0x100000002;
+  }
+
+  else
+  {
+    v43 = 0x100000000;
+  }
+
+  v36.n128_f64[0] = width;
+  v37.n128_u64[0] = v33;
+  PKSizeAlignedInRect(v43, v36, v37, v39, v40, v41, v42, v38);
+  v58.origin.x = v44;
+  v58.origin.y = v45;
+  v58.size.width = v46;
+  v58.size.height = v47;
   [(UILabel *)self->_mainLabel setFrame:?];
   [(UILabel *)self->_subTextLabel frame];
-  v24 = v23;
-  height = v33.size.height;
-  v26 = v11 * 0.5 - (v33.size.height + v24) * 0.5;
-  if (v26 <= 8.0)
+  v49 = v48;
+  height = v58.size.height;
+  v51 = v11 * 0.5 - (v58.size.height + v49) * 0.5;
+  if (v51 <= 8.0)
   {
-    v33.origin.y = v11 * 0.5 - (v33.size.height + v24) * 0.5;
-    width = v33.size.width;
-    x = v33.origin.x;
-    v30 = v33.origin.x;
-    v31 = v26;
-    v32 = v33.size.width;
+    v58.origin.y = v11 * 0.5 - (v58.size.height + v49) * 0.5;
+    v54 = v58.size.width;
+    x = v58.origin.x;
+    v55 = v58.origin.x;
+    v56 = v51;
+    v57 = v58.size.width;
     MaxY = CGRectGetMaxY(*(&height - 3));
   }
 
   else
   {
-    v33.origin.y = 8.0;
-    MaxY = v11 + -8.0 - v24;
-    x = v33.origin.x;
-    width = v33.size.width;
+    v58.origin.y = 8.0;
+    MaxY = v11 + -8.0 - v49;
+    x = v58.origin.x;
+    v54 = v58.size.width;
   }
 
   [(UILabel *)self->_mainLabel setFrame:?];
-  [(UILabel *)self->_subTextLabel setFrame:x, MaxY, width, v24];
+  [(UILabel *)self->_subTextLabel setFrame:x, MaxY, v54, v49];
 }
 
 - (void)_updateLabelText

@@ -5,6 +5,7 @@
 - (CPMessageGridItemConfiguration)initWithConversationIdentifier:(id)identifier unread:(BOOL)unread;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
+- (void)setUnread:(BOOL)unread;
 @end
 
 @implementation CPMessageGridItemConfiguration
@@ -62,6 +63,22 @@
   isUnread = [(CPMessageGridItemConfiguration *)self isUnread];
 
   return v4 ^ isUnread;
+}
+
+- (void)setUnread:(BOOL)unread
+{
+  if (self->_unread != unread)
+  {
+    unreadCopy = unread;
+    self->_unread = unread;
+    unreadChangeHandler = [(CPMessageGridItemConfiguration *)self unreadChangeHandler];
+
+    if (unreadChangeHandler)
+    {
+      unreadChangeHandler2 = [(CPMessageGridItemConfiguration *)self unreadChangeHandler];
+      unreadChangeHandler2[2](unreadChangeHandler2, unreadCopy);
+    }
+  }
 }
 
 - (CPMessageGridItemConfiguration)initWithCoder:(id)coder

@@ -1,6 +1,7 @@
 @interface CalDAVUpdateGrantedDelegatesTaskGroup
 - (CalDAVUpdateGrantedDelegatesTaskGroup)initWithAccountInfoProvider:(id)provider addWriteURLs:(id)ls addReadURLs:(id)rLs removeURLs:(id)uRLs taskManager:(id)manager;
 - (void)_fetchExistingGrantedDelegates;
+- (void)_finishWithError:(id)error state:(int)state;
 - (void)_populateUpdatesFromFetched:(id)fetched allowWrite:(BOOL)write;
 - (void)_updateDelegatesWithAllowWrite:(BOOL)write;
 - (void)propPatchTask:(id)task parsedResponses:(id)responses error:(id)error;
@@ -29,6 +30,30 @@
   return v16;
 }
 
+- (void)_finishWithError:(id)error state:(int)state
+{
+  v4 = *&state;
+  v14 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  [(CalDAVUpdateGrantedDelegatesTaskGroup *)self setState:v4];
+  if (v4 == 6)
+  {
+    mEMORY[0x277CFDC18] = [MEMORY[0x277CFDC18] sharedLogging];
+    v8 = [mEMORY[0x277CFDC18] logHandleForAccountInfoProvider:0];
+    v9 = v8;
+    if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_242742000, v9, OS_LOG_TYPE_ERROR, "Finishing %{public}@ early because state machine reached an unexpected state.", &v12, 0xCu);
+    }
+  }
+
+  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:errorCopy delegateCallbackBlock:0];
+}
+
 - (void)_fetchExistingGrantedDelegates
 {
   [(CalDAVUpdateGrantedDelegatesTaskGroup *)self setState:1];
@@ -54,7 +79,7 @@
 - (void)_updateDelegatesWithAllowWrite:(BOOL)write
 {
   selfCopy = self;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (write)
   {
     [(CalDAVUpdateGrantedDelegatesTaskGroup *)self setState:3];
@@ -76,20 +101,20 @@
   v9 = objc_alloc(MEMORY[0x277CFDBE0]);
   v10 = *MEMORY[0x277CFDEF8];
   v11 = [v9 initWithNameSpace:*MEMORY[0x277CFDEF8] andName:*MEMORY[0x277CFDF28]];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v12 = v5;
-  v13 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
-    v31 = v8;
-    v32 = selfCopy;
-    v33 = v4;
+    v30 = v8;
+    v31 = selfCopy;
+    v32 = v4;
     v15 = 0;
-    v16 = *v35;
+    v16 = *v34;
     v17 = *MEMORY[0x277CFDF38];
     do
     {
@@ -97,12 +122,12 @@
       v19 = v15;
       do
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v34 + 1) + 8 * v18);
+        v20 = *(*(&v33 + 1) + 8 * v18);
         v15 = [objc_alloc(MEMORY[0x277CFDBE0]) initWithNameSpace:v10 andName:v17];
 
         cDVRawPath = [v20 CDVRawPath];
@@ -117,14 +142,14 @@
       }
 
       while (v14 != v18);
-      v14 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v14);
 
-    selfCopy = v32;
-    v4 = v33;
-    v8 = v31;
+    selfCopy = v31;
+    v4 = v32;
+    v8 = v30;
   }
 
   v24 = objc_alloc(MEMORY[0x277CFDC70]);
@@ -140,8 +165,6 @@
   [v26 setDelegate:selfCopy];
   taskManager = [(CoreDAVTaskGroup *)selfCopy taskManager];
   [taskManager submitQueuedCoreDAVTask:v26];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateUpdatesFromFetched:(id)fetched allowWrite:(BOOL)write
@@ -193,35 +216,35 @@
 
 - (void)taskGroup:(id)group didFinishWithError:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   if (!error)
   {
     v7 = [MEMORY[0x277CBEB58] set];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     readWritePrincipalDetails = [groupCopy readWritePrincipalDetails];
-    v9 = [readWritePrincipalDetails countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [readWritePrincipalDetails countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(readWritePrincipalDetails);
           }
 
-          principalURL = [*(*(&v29 + 1) + 8 * i) principalURL];
+          principalURL = [*(*(&v28 + 1) + 8 * i) principalURL];
           [v7 addObject:principalURL];
         }
 
-        v10 = [readWritePrincipalDetails countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [readWritePrincipalDetails countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v10);
@@ -229,30 +252,30 @@
 
     [(CalDAVUpdateGrantedDelegatesTaskGroup *)self _populateUpdatesFromFetched:v7 allowWrite:1];
     [v7 removeAllObjects];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     readOnlyPrincipalDetails = [groupCopy readOnlyPrincipalDetails];
-    v15 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v15 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(readOnlyPrincipalDetails);
           }
 
-          principalURL2 = [*(*(&v25 + 1) + 8 * j) principalURL];
+          principalURL2 = [*(*(&v24 + 1) + 8 * j) principalURL];
           [v7 addObject:principalURL2];
         }
 
-        v16 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v16 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v16);
@@ -289,8 +312,6 @@ LABEL_22:
 
   [(CalDAVUpdateGrantedDelegatesTaskGroup *)self _finishWithError:error state:4];
 LABEL_23:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propPatchTask:(id)task parsedResponses:(id)responses error:(id)error

@@ -71,7 +71,7 @@
                 v31 = localizedAttributedRestrictedAlertTitle;
                 v17 = [localizedAttributedRestrictedAlertTitle isEqualToAttributedString:?];
                 localizedTitle = v37;
-                if (v17 && (-[MPVoicemailMessageViewModel duration](self, "duration"), v19 = v18, [modelCopy duration], v19 == v20) && (v24 = -[MPVoicemailMessageViewModel showsPlayerControls](self, "showsPlayerControls"), v24 == objc_msgSend(modelCopy, "showsPlayerControls")) && (v25 = -[MPVoicemailMessageViewModel showsRestrictedAlertView](self, "showsRestrictedAlertView"), v25 == objc_msgSend(modelCopy, "showsRestrictedAlertView")) && (v26 = -[MPVoicemailMessageViewModel showsTranscriptionView](self, "showsTranscriptionView"), v26 == objc_msgSend(modelCopy, "showsTranscriptionView")) && (v27 = -[MPVoicemailMessageViewModel isRead](self, "isRead"), v27 == objc_msgSend(modelCopy, "isRead")) && (v28 = -[MPVoicemailMessageViewModel isDeleted](self, "isDeleted"), v28 == objc_msgSend(modelCopy, "isDeleted")))
+                if (v17 && (objc_msgSend_duration(self), v19 = v18, objc_msgSend_duration(modelCopy), v19 == v20) && (v24 = -[MPVoicemailMessageViewModel showsPlayerControls](self, "showsPlayerControls"), v24 == [modelCopy showsPlayerControls]) && (v25 = -[MPVoicemailMessageViewModel showsRestrictedAlertView](self, "showsRestrictedAlertView"), v25 == objc_msgSend(modelCopy, "showsRestrictedAlertView")) && (v26 = -[MPVoicemailMessageViewModel showsTranscriptionView](self, "showsTranscriptionView"), v26 == objc_msgSend(modelCopy, "showsTranscriptionView")) && (v27 = -[MPVoicemailMessageViewModel isRead](self, "isRead"), v27 == objc_msgSend(modelCopy, "isRead")) && (v28 = -[MPVoicemailMessageViewModel isDeleted](self, "isDeleted"), v28 == objc_msgSend(modelCopy, "isDeleted")))
                 {
                   transcriptViewModel = [(MPVoicemailMessageViewModel *)self transcriptViewModel];
                   transcriptViewModel2 = [modelCopy transcriptViewModel];
@@ -149,7 +149,7 @@
   v25 = [localizedSenderIdentityTitle hash];
   localizedAttributedRestrictedAlertTitle = [(MPVoicemailMessageViewModel *)self localizedAttributedRestrictedAlertTitle];
   v24 = [localizedAttributedRestrictedAlertTitle hash];
-  [(MPVoicemailMessageViewModel *)self duration];
+  objc_msgSend_duration(self);
   if (v7 < 0.0)
   {
     v7 = -v7;

@@ -199,7 +199,7 @@ void __56__ASVInlineHostViewController_requestNewShareSheetFrame__block_invoke_2
     v9 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
+      ASVInitLogging(self, a2);
       v9 = _asvLogHandle;
     }
 

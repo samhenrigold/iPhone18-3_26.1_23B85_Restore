@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsStatus:(id)status;
 - (int)status;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27843E0B8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -175,7 +191,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
@@ -187,14 +202,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    retryIntervalSeconds = self->_retryIntervalSeconds;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    serverTimestampSeconds = self->_serverTimestampSeconds;
     PBDataWriterWriteUint64Field();
   }
 }
@@ -270,7 +283,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 32) & 4) == 0 || self->_status != *(equalCopy + 7))
@@ -290,7 +302,7 @@
     if (![(ChannelIdentity *)channelIdentity isEqual:?])
     {
 LABEL_19:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_20;
     }
 
@@ -310,7 +322,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v8 = (*(equalCopy + 32) & 1) == 0;
+  v7 = (*(equalCopy + 32) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_serverTimestampSeconds != *(equalCopy + 1))
@@ -318,12 +330,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_20:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

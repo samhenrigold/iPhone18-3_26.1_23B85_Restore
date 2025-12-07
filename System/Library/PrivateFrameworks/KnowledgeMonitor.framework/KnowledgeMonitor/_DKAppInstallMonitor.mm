@@ -1,4 +1,6 @@
 @interface _DKAppInstallMonitor
++ (id)_eventWithAppProxy:(id)proxy didInstall:(BOOL)install;
++ (id)_metadataFromProxy:(id)proxy didInstall:(BOOL)install;
 - (_DKAppInstallMonitor)init;
 - (void)_applicationsDidChange:(id)change didInstall:(BOOL)install;
 @end
@@ -32,6 +34,105 @@
   }
 
   return v2;
+}
+
++ (id)_metadataFromProxy:(id)proxy didInstall:(BOOL)install
+{
+  installCopy = install;
+  v32 = *MEMORY[0x277D85DE8];
+  proxyCopy = proxy;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  itemName = [proxyCopy itemName];
+  if (itemName)
+  {
+    title = [MEMORY[0x277CFE160] title];
+    [dictionary setObject:itemName forKeyedSubscript:title];
+  }
+
+  genre = [proxyCopy genre];
+  if (genre)
+  {
+    primaryCategory = [MEMORY[0x277CFE160] primaryCategory];
+    [dictionary setObject:genre forKeyedSubscript:primaryCategory];
+  }
+
+  subgenres = [proxyCopy subgenres];
+  array = [MEMORY[0x277CBEB18] array];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v24 = subgenres;
+    v25 = genre;
+    v26 = itemName;
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v13 = subgenres;
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v28;
+      do
+      {
+        for (i = 0; i != v15; ++i)
+        {
+          if (*v28 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v18 = *(*(&v27 + 1) + 8 * i);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v19 = [v18 objectForKeyedSubscript:@"genre"];
+            if (v19)
+            {
+              [array addObject:v19];
+            }
+          }
+        }
+
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      }
+
+      while (v15);
+    }
+
+    itemName = v26;
+    installCopy = installCopy;
+    genre = v25;
+  }
+
+  if ([array count])
+  {
+    subCategories = [MEMORY[0x277CFE160] subCategories];
+    [dictionary setObject:array forKeyedSubscript:subCategories];
+  }
+
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:installCopy];
+  isInstall = [MEMORY[0x277CFE160] isInstall];
+  [dictionary setObject:v21 forKeyedSubscript:isInstall];
+
+  return dictionary;
+}
+
++ (id)_eventWithAppProxy:(id)proxy didInstall:(BOOL)install
+{
+  installCopy = install;
+  proxyCopy = proxy;
+  v7 = [self _metadataFromProxy:proxyCopy didInstall:installCopy];
+  v8 = [self _identifierFromProxy:proxyCopy];
+  v9 = [self _dateFromProxy:proxyCopy];
+
+  v10 = MEMORY[0x277CFE1D8];
+  appInstallStream = [MEMORY[0x277CFE298] appInstallStream];
+  v12 = [MEMORY[0x277CFE1A8] withBundle:v8];
+  v13 = [v10 eventWithStream:appInstallStream startDate:v9 endDate:v9 value:v12 metadata:v7];
+
+  return v13;
 }
 
 - (void)_applicationsDidChange:(id)change didInstall:(BOOL)install

@@ -60,7 +60,7 @@ LABEL_3:
     v7 = PSEnabledKey;
     do
     {
-      v8 = AXLocalizedNameForMIDINote();
+      v8 = AXLocalizedNameForMIDINote(v6);
       v9 = [PSSpecifier preferenceSpecifierNamed:v8 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
       v10 = [NSNumber numberWithInteger:v6];

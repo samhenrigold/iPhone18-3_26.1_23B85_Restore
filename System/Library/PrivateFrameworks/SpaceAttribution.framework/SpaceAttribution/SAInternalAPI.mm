@@ -3,6 +3,7 @@
 + (void)adjustDenomAgeBy:(unint64_t)by reply:(id)reply;
 + (void)clearLastTelemetryData:(id)data;
 + (void)disableAppSizerResultsFilteringWithReply:(id)reply;
++ (void)getAppPaths:(id)paths options:(int)options reply:(id)reply;
 + (void)getAppPathsWithReplyBlock:(id)block;
 + (void)getLastTelemetryData:(id)data;
 + (void)getPurgeableInfo:(id)info options:(unint64_t)options reply:(id)reply;
@@ -12,11 +13,59 @@
 + (void)setAppPathListPathOnDisk:(id)disk reply:(id)reply;
 + (void)setAppPathListPathOnDisktoDefaultWithReply:(id)reply;
 + (void)setAppSizerFilteringOptionsToDefaultWithReply:(id)reply;
++ (void)setAppSizerMaxRerunTimeout:(unsigned int)timeout reply:(id)reply;
++ (void)setEnableTTR:(BOOL)r reply:(id)reply;
 + (void)setForceSDAAbort:(id)abort;
++ (void)setForceTTR:(BOOL)r reply:(id)reply;
 + (void)setForceTelemetry:(id)telemetry;
 @end
 
 @implementation SAInternalAPI
+
++ (void)getAppPaths:(id)paths options:(int)options reply:(id)reply
+{
+  v6 = *&options;
+  pathsCopy = paths;
+  replyCopy = reply;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__3;
+  v28 = __Block_byref_object_dispose__3;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __43__SAInternalAPI_getAppPaths_options_reply___block_invoke;
+  v21[3] = &unk_279CD6F48;
+  v23 = v30;
+  v9 = replyCopy;
+  v22 = v9;
+  v29 = [SADaemonXPC newWithInvalidationHandler:v21];
+  v10 = v25[5];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __43__SAInternalAPI_getAppPaths_options_reply___block_invoke_2;
+  v17[3] = &unk_279CD6F70;
+  v19 = v30;
+  v11 = v9;
+  v18 = v11;
+  v20 = &v24;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v17];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __43__SAInternalAPI_getAppPaths_options_reply___block_invoke_3;
+  v14[3] = &unk_279CD6F98;
+  v13 = v11;
+  v15 = v13;
+  v16 = &v24;
+  [v12 getAppPaths:0 options:v6 reply:v14];
+
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(v30, 8);
+}
 
 uint64_t __43__SAInternalAPI_getAppPaths_options_reply___block_invoke(uint64_t result)
 {
@@ -30,15 +79,15 @@ uint64_t __43__SAInternalAPI_getAppPaths_options_reply___block_invoke(uint64_t r
   return result;
 }
 
-uint64_t __43__SAInternalAPI_getAppPaths_options_reply___block_invoke_2(uint64_t result)
+void *__43__SAInternalAPI_getAppPaths_options_reply___block_invoke_2(void *result)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(result[5] + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    (*(*(result + 32) + 16))();
-    v4 = *(*(*(v3 + 48) + 8) + 40);
+    (*(result[4] + 16))();
+    v4 = *(*(v3[6] + 8) + 40);
 
     return [v4 invalidate];
   }
@@ -113,7 +162,7 @@ uint64_t __43__SAInternalAPI_getAppPathsWithReplyBlock___block_invoke_2(uint64_t
 
 void __43__SAInternalAPI_getAppPathsWithReplyBlock___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -123,45 +172,43 @@ void __43__SAInternalAPI_getAppPathsWithReplyBlock___block_invoke_3(uint64_t a1,
   else
   {
     v6 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v16 = v5;
+    v15 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           v13 = [v12 objectForKeyedSubscript:@"bundles"];
           v14 = [v12 objectForKeyedSubscript:@"path"];
           [v6 setObject:v13 forKeyedSubscript:v14];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
     }
 
     (*(*(a1 + 32) + 16))();
-    v5 = v16;
+    v5 = v15;
   }
 
   [*(*(*(a1 + 40) + 8) + 40) invalidate];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)runAppSizerWithReplyBlock:(id)block
@@ -219,15 +266,15 @@ uint64_t __43__SAInternalAPI_runAppSizerWithReplyBlock___block_invoke(uint64_t r
   return result;
 }
 
-uint64_t __43__SAInternalAPI_runAppSizerWithReplyBlock___block_invoke_2(uint64_t result)
+void *__43__SAInternalAPI_runAppSizerWithReplyBlock___block_invoke_2(void *result)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(result[5] + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    (*(*(result + 32) + 16))();
-    v4 = *(*(*(v3 + 48) + 8) + 40);
+    (*(result[4] + 16))();
+    v4 = *(*(v3[6] + 8) + 40);
 
     return [v4 invalidate];
   }
@@ -299,15 +346,15 @@ uint64_t __48__SAInternalAPI_getPurgeableInfo_options_reply___block_invoke(uint6
   return result;
 }
 
-uint64_t __48__SAInternalAPI_getPurgeableInfo_options_reply___block_invoke_2(uint64_t result)
+void *__48__SAInternalAPI_getPurgeableInfo_options_reply___block_invoke_2(void *result)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(result[5] + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    (*(*(result + 32) + 16))();
-    v4 = *(*(*(v3 + 48) + 8) + 40);
+    (*(result[4] + 16))();
+    v4 = *(*(v3[6] + 8) + 40);
 
     return [v4 invalidate];
   }
@@ -357,15 +404,15 @@ uint64_t __48__SAInternalAPI_getPurgeableInfo_options_reply___block_invoke_3(uin
   _Block_object_dispose(v21, 8);
 }
 
-uint64_t __42__SAInternalAPI_addAppSizerHandler_reply___block_invoke(uint64_t result)
+void *__42__SAInternalAPI_addAppSizerHandler_reply___block_invoke(void *result)
 {
-  v2 = *(*(result + 48) + 8);
+  v2 = *(result[6] + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    (*(*(result + 40) + 16))();
-    v4 = *(v3 + 32);
+    (*(result[5] + 16))();
+    v4 = v3[4];
 
     return [v4 invalidate];
   }
@@ -406,15 +453,15 @@ void __42__SAInternalAPI_addAppSizerHandler_reply___block_invoke_2(uint64_t a1, 
   _Block_object_dispose(v15, 8);
 }
 
-uint64_t __45__SAInternalAPI_removeAppSizerHandler_reply___block_invoke(uint64_t result)
+void *__45__SAInternalAPI_removeAppSizerHandler_reply___block_invoke(void *result)
 {
-  v2 = *(*(result + 48) + 8);
+  v2 = *(result[6] + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    (*(*(result + 40) + 16))();
-    v4 = *(v3 + 32);
+    (*(result[5] + 16))();
+    v4 = v3[4];
 
     return [v4 invalidate];
   }
@@ -676,6 +723,37 @@ uint64_t __40__SAInternalAPI_adjustDenomAgeBy_reply___block_invoke_3(uint64_t a1
   return [v2 invalidate];
 }
 
++ (void)setForceTTR:(BOOL)r reply:(id)reply
+{
+  rCopy = r;
+  replyCopy = reply;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = [SADaemonXPC newWithInvalidationHandler:replyCopy];
+  v6 = v17[5];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __35__SAInternalAPI_setForceTTR_reply___block_invoke;
+  v13[3] = &unk_279CD6EA8;
+  v7 = replyCopy;
+  v14 = v7;
+  v15 = &v16;
+  v8 = [v6 remoteObjectProxyWithErrorHandler:v13];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __35__SAInternalAPI_setForceTTR_reply___block_invoke_2;
+  v10[3] = &unk_279CD6EA8;
+  v9 = v7;
+  v11 = v9;
+  v12 = &v16;
+  [v8 setForceTTR:rCopy reply:v10];
+
+  _Block_object_dispose(&v16, 8);
+}
+
 uint64_t __35__SAInternalAPI_setForceTTR_reply___block_invoke(uint64_t a1)
 {
   (*(*(a1 + 32) + 16))();
@@ -692,6 +770,37 @@ uint64_t __35__SAInternalAPI_setForceTTR_reply___block_invoke_2(uint64_t a1)
   return [v2 invalidate];
 }
 
++ (void)setEnableTTR:(BOOL)r reply:(id)reply
+{
+  rCopy = r;
+  replyCopy = reply;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = [SADaemonXPC newWithInvalidationHandler:replyCopy];
+  v6 = v17[5];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __36__SAInternalAPI_setEnableTTR_reply___block_invoke;
+  v13[3] = &unk_279CD6EA8;
+  v7 = replyCopy;
+  v14 = v7;
+  v15 = &v16;
+  v8 = [v6 remoteObjectProxyWithErrorHandler:v13];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __36__SAInternalAPI_setEnableTTR_reply___block_invoke_2;
+  v10[3] = &unk_279CD6EA8;
+  v9 = v7;
+  v11 = v9;
+  v12 = &v16;
+  [v8 setEnableTTR:rCopy reply:v10];
+
+  _Block_object_dispose(&v16, 8);
+}
+
 uint64_t __36__SAInternalAPI_setEnableTTR_reply___block_invoke(uint64_t a1)
 {
   (*(*(a1 + 32) + 16))();
@@ -706,6 +815,37 @@ uint64_t __36__SAInternalAPI_setEnableTTR_reply___block_invoke_2(uint64_t a1)
   v2 = *(*(*(a1 + 40) + 8) + 40);
 
   return [v2 invalidate];
+}
+
++ (void)setAppSizerMaxRerunTimeout:(unsigned int)timeout reply:(id)reply
+{
+  v4 = *&timeout;
+  replyCopy = reply;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = [SADaemonXPC newWithInvalidationHandler:replyCopy];
+  v6 = v17[5];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __50__SAInternalAPI_setAppSizerMaxRerunTimeout_reply___block_invoke;
+  v13[3] = &unk_279CD6EA8;
+  v7 = replyCopy;
+  v14 = v7;
+  v15 = &v16;
+  v8 = [v6 remoteObjectProxyWithErrorHandler:v13];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__SAInternalAPI_setAppSizerMaxRerunTimeout_reply___block_invoke_2;
+  v10[3] = &unk_279CD6EA8;
+  v9 = v7;
+  v11 = v9;
+  v12 = &v16;
+  [v8 setAppSizerMaxRerunTimeout:v4 reply:v10];
+
+  _Block_object_dispose(&v16, 8);
 }
 
 uint64_t __50__SAInternalAPI_setAppSizerMaxRerunTimeout_reply___block_invoke(uint64_t a1)

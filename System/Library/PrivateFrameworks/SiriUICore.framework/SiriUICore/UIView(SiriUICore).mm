@@ -1,11 +1,11 @@
 @interface UIView(SiriUICore)
 - (uint64_t)suic_recursiveSetSemanticContentAttribute:()SiriUICore;
-- (uint64_t)suic_updateViewHierarchyToUseSiriLanguageSemanticContentAttribute;
+- (void)suic_updateViewHierarchyToUseSiriLanguageSemanticContentAttribute;
 @end
 
 @implementation UIView(SiriUICore)
 
-- (uint64_t)suic_updateViewHierarchyToUseSiriLanguageSemanticContentAttribute
+- (void)suic_updateViewHierarchyToUseSiriLanguageSemanticContentAttribute
 {
   result = [self conformsToProtocol:&unk_1F43ECB00];
   if (result)

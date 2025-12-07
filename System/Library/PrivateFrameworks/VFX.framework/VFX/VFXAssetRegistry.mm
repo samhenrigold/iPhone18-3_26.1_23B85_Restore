@@ -12,15 +12,15 @@
 
 - (VFXAssetRegistry)init
 {
-  v7.receiver = self;
-  v7.super_class = VFXAssetRegistry;
-  v5 = [(VFXAssetRegistry *)&v7 init];
-  if (v5)
+  v6.receiver = self;
+  v6.super_class = VFXAssetRegistry;
+  v4 = [(VFXAssetRegistry *)&v6 init];
+  if (v4)
   {
-    v5->_root = objc_msgSend_group(VFXAssetNode, v2, v3, v4);
+    v4->_root = objc_msgSend_group(VFXAssetNode, v2, v3);
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)dealloc
@@ -28,13 +28,13 @@
   world = self->_world;
   if (world)
   {
-    objc_msgSend_removeWorldReference_(self->_root, a2, world, v2);
+    objc_msgSend_removeWorldReference_(self->_root, a2, world);
     self->_world = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = VFXAssetRegistry;
-  [(VFXAssetRegistry *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = VFXAssetRegistry;
+  [(VFXAssetRegistry *)&v4 dealloc];
 }
 
 - (VFXAssetRegistry)initWithCoder:(id)coder
@@ -55,7 +55,7 @@
 {
   if (self->_world != reference)
   {
-    objc_msgSend_setWorld_(self, a2, reference, v3);
+    objc_msgSend_setWorld_(self, a2, reference);
   }
 }
 
@@ -96,7 +96,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -108,9 +108,9 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 @end

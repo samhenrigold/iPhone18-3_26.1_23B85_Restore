@@ -230,7 +230,8 @@ void __76__VUIAccountSettingsViewController__fetchMySportsSyncSettingWithComplet
 - (id)specifiers
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (+[VUIAuthenticationManager userHasActiveAccount])
+  v4 = +[VUIAuthenticationManager userHasActiveAccount];
+  if (v4)
   {
     _accountSpecifiers = [(VUIAccountSettingsViewController *)self _accountSpecifiers];
     [v3 addObjectsFromArray:_accountSpecifiers];
@@ -283,8 +284,8 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v13 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [VUIAccountSettingsViewController specifiers];
   }
@@ -292,9 +293,9 @@ LABEL_13:
   [(VUIAccountSettingsViewController *)self _dismissViewController];
 LABEL_19:
   [(VUIAccountSettingsViewController *)self setSpecifiers:v3];
-  v14 = [v3 copy];
+  v15 = [v3 copy];
 
-  return v14;
+  return v15;
 }
 
 - (void)viewDidLoad
@@ -992,7 +993,8 @@ uint64_t __74__VUIAccountSettingsViewController__didSelectSpecifier_isManualSele
   v6 = errorCopy;
   if (errorCopy)
   {
-    v7 = [errorCopy description];
+    errorCopy = [(__CFString *)errorCopy description];
+    v7 = errorCopy;
   }
 
   else
@@ -1000,7 +1002,7 @@ uint64_t __74__VUIAccountSettingsViewController__didSelectSpecifier_isManualSele
     v7 = &stru_1F5DB25C0;
   }
 
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"NO";
@@ -1427,7 +1429,7 @@ void __73__VUIAccountSettingsViewController__checkConnectedAppsWithDispatchGroup
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(WeakRetained);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6 || !WeakRetained)
   {
@@ -1617,38 +1619,38 @@ LABEL_6:
 
   if (keyCopy)
   {
-    v14 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = VUIDefaultLogObject(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - Falling back to legacy StoreServices key", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - Falling back to legacy StoreServices key", buf, 2u);
     }
 
     selfCopy2 = self;
-    v16 = 0;
-    v17 = keyCopy;
+    v17 = 0;
+    v18 = keyCopy;
 LABEL_11:
-    [(VUIAccountSettingsViewController *)selfCopy2 _handleAccountSettingsEventWithUrl:v16 amsBagKey:v17 useAMSWebView:0];
+    [(VUIAccountSettingsViewController *)selfCopy2 _handleAccountSettingsEventWithUrl:v17 amsBagKey:v18 useAMSWebView:0];
     goto LABEL_12;
   }
 
-  v18 = VUIDefaultLogObject();
-  v19 = v18;
+  v19 = VUIDefaultLogObject(v14);
+  v20 = v19;
   if (urlCopy)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - Falling back to legacy StoreServices URL", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - Falling back to legacy StoreServices URL", v21, 2u);
     }
 
     selfCopy2 = self;
-    v16 = urlCopy;
-    v17 = 0;
+    v17 = urlCopy;
+    v18 = 0;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [VUIAccountSettingsViewController _handleAccountSettingsEventWithAmsWebView:storeServicesBagKey:storeServicesUrl:];
   }
@@ -1680,29 +1682,31 @@ LABEL_12:
 
 void __46__VUIAccountSettingsViewController__parseUrl___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__VUIAccountSettingsViewController__parseUrl___block_invoke_cold_1(a1);
     }
   }
 
-  v8 = [v5 intValue];
-  v9 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = [v5 intValue];
+  v10 = v9;
+  v11 = VUIDefaultLogObject(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = v8 == 0;
-    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - AMSURLParser for Account Settings URL. useAMSWebView=%d", v11, 8u);
+    v13[0] = 67109120;
+    v13[1] = v10 == 0;
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - AMSURLParser for Account Settings URL. useAMSWebView=%d", v13, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained _handleAccountSettingsEventWithUrl:*(a1 + 32) amsBagKey:0 useAMSWebView:v8 == 0];
+  [WeakRetained _handleAccountSettingsEventWithUrl:*(a1 + 32) amsBagKey:0 useAMSWebView:v10 == 0];
 }
 
 - (void)_handleAccountSettingsEventWithUrl:(id)url amsBagKey:(id)key useAMSWebView:(BOOL)view
@@ -1864,26 +1868,26 @@ void __63__VUIAccountSettingsViewController__promptForNotificationsAuth__block_i
 - (void)_navigateToSubsection:(int64_t)subsection clearSubsection:(BOOL)clearSubsection
 {
   clearSubsectionCopy = clearSubsection;
-  v14 = *MEMORY[0x1E69E9840];
-  v7 = VUIDefaultLogObject();
+  v15 = *MEMORY[0x1E69E9840];
+  v7 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
+    v13 = 134217984;
     initialSubsection = [(VUIAccountSettingsViewController *)self initialSubsection];
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - Navigating to initial subsection: %ld", &v12, 0xCu);
+    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIAccountSettings - Navigating to initial subsection: %ld", &v13, 0xCu);
   }
 
   if (subsection == 1)
   {
-    v8 = @"connectedApps";
+    v9 = @"connectedApps";
   }
 
   else
   {
     if (subsection != 2)
     {
-      v11 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = VUIDefaultLogObject(v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [VUIAccountSettingsViewController _navigateToSubsection:clearSubsection:];
       }
@@ -1891,20 +1895,20 @@ void __63__VUIAccountSettingsViewController__promptForNotificationsAuth__block_i
       goto LABEL_12;
     }
 
-    v8 = @"manageSubscriptions";
+    v9 = @"manageSubscriptions";
   }
 
-  v9 = [(VUIAccountSettingsViewController *)self specifierForID:v8];
-  if (v9)
+  v10 = [(VUIAccountSettingsViewController *)self specifierForID:v9];
+  if (v10)
   {
-    v10 = v9;
-    [(VUIAccountSettingsViewController *)self _didSelectSpecifier:v9 isManualSelection:0];
+    v11 = v10;
+    [(VUIAccountSettingsViewController *)self _didSelectSpecifier:v10 isManualSelection:0];
     goto LABEL_14;
   }
 
 LABEL_12:
-  v10 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = VUIDefaultLogObject(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [VUIAccountSettingsViewController _navigateToSubsection:clearSubsection:];
   }

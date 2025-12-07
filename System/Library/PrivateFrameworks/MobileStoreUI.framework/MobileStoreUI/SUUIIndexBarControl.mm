@@ -191,7 +191,7 @@
 - (void)setTransform:(CGAffineTransform *)transform
 {
   memset(&v9, 0, sizeof(v9));
-  [(SUUIIndexBarControl *)self transform];
+  objc_msgSend_transform(self, a2);
   v8.receiver = self;
   v8.super_class = SUUIIndexBarControl;
   v5 = *&transform->c;
@@ -199,7 +199,7 @@
   *&t2.c = v5;
   *&t2.tx = *&transform->tx;
   [(SUUIIndexBarControl *)&v8 setTransform:&t2];
-  [(SUUIIndexBarControl *)self transform];
+  objc_msgSend_transform(self);
   v6 = v9;
   if (!CGAffineTransformEqualToTransform(&v6, &t2))
   {

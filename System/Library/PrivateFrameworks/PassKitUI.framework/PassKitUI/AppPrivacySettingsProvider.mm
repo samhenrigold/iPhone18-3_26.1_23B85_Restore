@@ -36,11 +36,13 @@
 {
   selfCopy = self;
   sub_1BD4684D0();
+  v4 = v3;
 
   sub_1BD469708();
-  v3 = sub_1BE052724();
+  v5 = sub_1BE052724();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (void)setBackgroundAddAuthorization:(id)authorization :(id)a4

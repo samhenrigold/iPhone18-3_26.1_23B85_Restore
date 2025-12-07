@@ -24,10 +24,10 @@
 
 - (NWURLSessionMultipartPartBoundarySuffixRecognizer)init
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = NWURLSessionMultipartPartBoundarySuffixRecognizer;
-  result = [(NWURLSessionMultipartPartBoundarySuffixRecognizer *)&v7 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = NWURLSessionMultipartPartBoundarySuffixRecognizer;
+  result = [(NWURLSessionMultipartPartBoundarySuffixRecognizer *)&v9 init];
   if (result)
   {
     result->_nextState = 4;
@@ -39,19 +39,29 @@
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
       v5 = gLogObj;
-      os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-      v8 = 136446210;
-      v9 = "[NWURLSessionMultipartPartBoundarySuffixRecognizer init]";
-      v6 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = 3;
+      }
 
-      result = __nwlog_should_abort(v6);
+      else
+      {
+        v6 = 2;
+      }
+
+      v10 = 136446210;
+      v11 = "[NWURLSessionMultipartPartBoundarySuffixRecognizer init]";
+      v8 = 12;
+      v7 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s strict allocator failed", &v10, v8);
+
+      result = __nwlog_should_abort(v7);
       if (result)
       {
         __break(1u);
         return result;
       }
 
-      free(v6);
+      free(v7);
       v4 = 0;
     }
 

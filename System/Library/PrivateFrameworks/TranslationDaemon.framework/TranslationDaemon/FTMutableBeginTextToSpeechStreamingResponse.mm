@@ -6,6 +6,7 @@
 - (int64_t)audio_type;
 - (void)setAudio_type:(int64_t)audio_type;
 - (void)setDecoder_description:(id)decoder_description;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
 - (void)setMeta_info:(id)meta_info;
 - (void)setPlayback_description:(id)playback_description;
@@ -60,6 +61,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&error_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setError_str:(id)error_str

@@ -20,9 +20,9 @@
 - (W5PeerDiagnosticsManager)initWithStatusManager:(id)manager
 {
   self->_discoveryClientStatus = 0;
-  v9.receiver = self;
-  v9.super_class = W5PeerDiagnosticsManager;
-  v4 = [(W5PeerDiagnosticsManager *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = W5PeerDiagnosticsManager;
+  v4 = [(W5PeerDiagnosticsManager *)&v10 init];
   v5 = v4;
   if (!manager || !v4 || (v4->_status = manager, v6 = dispatch_queue_create("com.apple.wifid.peerdiagnosticsmanager", 0), (v5->_queue = v6) == 0))
   {
@@ -30,13 +30,14 @@
     v7 = sub_100098A04();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315650;
-      v11 = "[W5PeerDiagnosticsManager initWithStatusManager:]";
-      v12 = 2080;
-      v13 = "W5PeerDiagnosticsManager.m";
-      v14 = 1024;
-      v15 = 95;
-      _os_log_send_and_compose_impl();
+      v11 = 136315650;
+      v12 = "[W5PeerDiagnosticsManager initWithStatusManager:]";
+      v13 = 2080;
+      v14 = "W5PeerDiagnosticsManager.m";
+      v15 = 1024;
+      v16 = 95;
+      LODWORD(v9) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) init error!", &v11, v9, LODWORD(v10.receiver));
     }
 
     return 0;
@@ -78,14 +79,15 @@
     v3 = sub_100098A04();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]";
-      v13 = 2080;
-      v14 = "W5PeerDiagnosticsManager.m";
-      v15 = 1024;
-      v16 = 127;
+      v12 = 136315650;
+      v13 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]";
+      v14 = 2080;
+      v15 = "W5PeerDiagnosticsManager.m";
+      v16 = 1024;
+      v17 = 127;
+      LODWORD(v10) = 28;
       discoveryClientStatus = 1;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v3, 0, "[wifivelocity] %s (%s:%u) Failed to configure discovery client, it's already active", &v12, v10, LODWORD(block[0]));
     }
 
     else
@@ -123,13 +125,14 @@
       v8 = sub_100098A04();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315650;
-        v12 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]";
-        v13 = 2080;
-        v14 = "W5PeerDiagnosticsManager.m";
-        v15 = 1024;
-        v16 = 169;
-        _os_log_send_and_compose_impl();
+        v12 = 136315650;
+        v13 = "[W5PeerDiagnosticsManager configureDiscoveryClientAndActivate]";
+        v14 = 2080;
+        v15 = "W5PeerDiagnosticsManager.m";
+        v16 = 1024;
+        v17 = 169;
+        LODWORD(v10) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) discovery client activated successfully", &v12, v10, LODWORD(block[0]));
       }
     }
 
@@ -227,7 +230,14 @@
     v2 = sub_100098A04();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v5 = 136315650;
+      v6 = "[W5PeerDiagnosticsManager getLQMSummary]";
+      v7 = 2080;
+      v8 = "W5PeerDiagnosticsManager.m";
+      v9 = 1024;
+      v10 = 316;
+      v4 = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v2, 0, "[wifivelocity] %s (%s:%u) Failed to obtain LQM Summary", &v5, v4);
     }
 
     return 0;
@@ -236,55 +246,56 @@
 
 - (id)getDPSSummary
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3052000000;
-  v16 = sub_10009C3D0;
-  v17 = sub_10009C3E0;
-  v18 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3052000000;
+  v24 = sub_10009C3D0;
+  v25 = sub_10009C3E0;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   if (sub_10009C3EC())
   {
     v3 = dispatch_semaphore_create(0);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10009C4D8;
-    v8[3] = &unk_1000E3838;
-    v8[4] = v3;
-    v8[5] = self;
-    v8[6] = &v9;
-    v8[7] = &v13;
-    [objc_msgSend(sub_10009C3EC() sharedClientWithIdentifier:{@"wifivelocityd", "getDpsStatsandReply:", v8}];
+    v9 = _NSConcreteStackBlock;
+    v10 = 3221225472;
+    v11 = sub_10009C4D8;
+    v12 = &unk_1000E3838;
+    v13 = v3;
+    selfCopy = self;
+    v15 = &v17;
+    v16 = &v21;
+    [objc_msgSend(sub_10009C3EC() sharedClientWithIdentifier:{@"wifivelocityd", "getDpsStatsandReply:", &v9}];
     v4 = dispatch_time(0, 2000000000);
     if (dispatch_semaphore_wait(v3, v4))
     {
       objc_sync_enter(self);
-      *(v10 + 24) = 1;
+      *(v18 + 24) = 1;
       objc_sync_exit(self);
       v5 = sub_100098A04();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315906;
-        v20 = "[W5PeerDiagnosticsManager getDPSSummary]";
-        v21 = 2080;
-        v22 = "W5PeerDiagnosticsManager.m";
-        v23 = 1024;
-        v24 = 350;
-        v25 = 1024;
-        v26 = 2;
-        _os_log_send_and_compose_impl();
+        v27 = 136315906;
+        v28 = "[W5PeerDiagnosticsManager getDPSSummary]";
+        v29 = 2080;
+        v30 = "W5PeerDiagnosticsManager.m";
+        v31 = 1024;
+        v32 = 350;
+        v33 = 1024;
+        v34 = 2;
+        LODWORD(v8) = 34;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) %d sec timeout waiting for summarized logs from wifianalyticsd", &v27, v8, v9, v10);
       }
     }
 
     dispatch_release(v3);
   }
 
-  v6 = v14[5];
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v13, 8);
+  v6 = v22[5];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
   return v6;
 }
 
@@ -303,33 +314,34 @@
   v6 = sub_100098A04();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315906;
-    v11 = "[W5PeerDiagnosticsManager requestDiagnostics:completionBlock:]";
-    v12 = 2080;
-    v13 = "W5PeerDiagnosticsManager.m";
-    v14 = 1024;
-    v15 = 372;
-    v16 = 2114;
+    v11 = 136315906;
+    v12 = "[W5PeerDiagnosticsManager requestDiagnostics:completionBlock:]";
+    v13 = 2080;
+    v14 = "W5PeerDiagnosticsManager.m";
+    v15 = 1024;
+    v16 = 372;
+    v17 = 2114;
     diagnosticsCopy = diagnostics;
-    _os_log_send_and_compose_impl();
+    v8 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) sending peerdiagnostic request to %{public}@ ", &v11, v8);
   }
 
   v7 = objc_alloc_init(RPCompanionLinkClient);
   [v7 setControlFlags:{objc_msgSend(v7, "controlFlags") | 0x8102}];
   [v7 setDestinationDevice:diagnostics];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10009C8DC;
+  v10[3] = &unk_1000E1CE8;
+  v10[4] = diagnostics;
+  [v7 setInvalidationHandler:v10];
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
-  v9[2] = sub_10009C8DC;
-  v9[3] = &unk_1000E1CE8;
-  v9[4] = diagnostics;
-  [v7 setInvalidationHandler:v9];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10009C9CC;
-  v8[3] = &unk_1000E1E38;
-  v8[4] = v7;
-  v8[5] = block;
-  [v7 activateWithCompletion:v8];
+  v9[2] = sub_10009C9CC;
+  v9[3] = &unk_1000E1E38;
+  v9[4] = v7;
+  v9[5] = block;
+  [v7 activateWithCompletion:v9];
 }
 
 - (id)gatherPeerDiagnostics
@@ -339,107 +351,109 @@
     return 0;
   }
 
-  v24 = objc_alloc_init(NSMutableArray);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v25 = objc_alloc_init(NSMutableArray);
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   if ([-[RPCompanionLinkClient activeDevices](self->_discoveryClient "activeDevices")])
   {
     v3 = dispatch_group_create();
-    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
     activeDevices = [(RPCompanionLinkClient *)self->_discoveryClient activeDevices];
-    v5 = [activeDevices countByEnumeratingWithState:&v27 objects:v47 count:16];
-    v6 = 0;
+    v5 = [activeDevices countByEnumeratingWithState:&v28 objects:v48 count:16];
+    v7 = 0;
     if (v5)
     {
-      v7 = *v28;
+      v8 = *v29;
+      *&v6 = 136315906;
+      v24 = v6;
       do
       {
-        v8 = 0;
+        v9 = 0;
         do
         {
-          if (*v28 != v7)
+          if (*v29 != v8)
           {
             objc_enumerationMutation(activeDevices);
           }
 
-          v9 = *(*(&v27 + 1) + 8 * v8);
-          if (![v9 model] || (objc_msgSend(objc_msgSend(v9, "model"), "containsString:", @"iPhone") & 1) != 0 || (objc_msgSend(objc_msgSend(v9, "model"), "containsString:", @"iPad") & 1) != 0 || (objc_msgSend(objc_msgSend(v9, "model"), "containsString:", @"Mac") & 1) != 0)
+          v10 = *(*(&v28 + 1) + 8 * v9);
+          if (![v10 model] || (objc_msgSend(objc_msgSend(v10, "model"), "containsString:", @"iPhone") & 1) != 0 || (objc_msgSend(objc_msgSend(v10, "model"), "containsString:", @"iPad") & 1) != 0 || (objc_msgSend(objc_msgSend(v10, "model"), "containsString:", @"Mac") & 1) != 0)
           {
             dispatch_group_enter(v3);
-            ++v6;
+            ++v7;
             queue = self->_queue;
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_10009D144;
             block[3] = &unk_1000E38B0;
             block[4] = self;
-            block[5] = v9;
+            block[5] = v10;
             block[7] = v3;
-            block[8] = &v31;
-            block[6] = v24;
+            block[8] = &v32;
+            block[6] = v25;
             dispatch_async(queue, block);
           }
 
           else
           {
-            v11 = sub_100098A04();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v12 = sub_100098A04();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              v35 = 136315906;
-              v36 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
-              v37 = 2080;
-              v38 = "W5PeerDiagnosticsManager.m";
-              v39 = 1024;
-              v40 = 434;
-              v41 = 2114;
-              v42 = v9;
+              v36 = v24;
+              v37 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
+              v38 = 2080;
+              v39 = "W5PeerDiagnosticsManager.m";
+              v40 = 1024;
+              v41 = 434;
+              v42 = 2114;
+              v43 = v10;
               LODWORD(v23) = 38;
-              v22 = &v35;
-              _os_log_send_and_compose_impl();
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) skipping device %{public}@", &v36, v23);
             }
           }
 
-          v8 = v8 + 1;
+          v9 = v9 + 1;
         }
 
-        while (v5 != v8);
-        v12 = [activeDevices countByEnumeratingWithState:&v27 objects:v47 count:16];
-        v5 = v12;
+        while (v5 != v9);
+        v13 = [activeDevices countByEnumeratingWithState:&v28 objects:v48 count:16];
+        v5 = v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
     dispatch_group_enter(v3);
-    v13 = self->_queue;
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10009D3D8;
-    v25[3] = &unk_1000E1948;
-    v25[4] = self;
-    v25[5] = v24;
-    v25[6] = v3;
-    dispatch_async(v13, v25);
-    v14 = dispatch_time(0, 5000000000);
-    if (dispatch_group_wait(v3, v14))
+    v14 = self->_queue;
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10009D3D8;
+    v26[3] = &unk_1000E1948;
+    v26[4] = self;
+    v26[5] = v25;
+    v26[6] = v3;
+    dispatch_async(v14, v26);
+    v15 = dispatch_time(0, 5000000000);
+    if (dispatch_group_wait(v3, v15))
     {
-      v15 = sub_100098A04();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100098A04();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = 136315906;
-        v36 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
-        v37 = 2080;
-        v38 = "W5PeerDiagnosticsManager.m";
-        v39 = 1024;
-        v40 = 473;
-        v41 = 1024;
-        LODWORD(v42) = 5;
-        _os_log_send_and_compose_impl();
+        v36 = 136315906;
+        v37 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
+        v38 = 2080;
+        v39 = "W5PeerDiagnosticsManager.m";
+        v40 = 1024;
+        v41 = 473;
+        v42 = 1024;
+        LODWORD(v43) = 5;
+        LODWORD(v23) = 34;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) %d sec timeout waiting for diagnosctic logs from peers", &v36, v23, v24, DWORD2(v24));
       }
     }
 
@@ -448,51 +462,48 @@
       dispatch_release(v3);
     }
 
-    v16 = sub_100098A04();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100098A04();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_26;
+      v18 = [-[RPCompanionLinkClient activeDevices](self->_discoveryClient "activeDevices")];
+      v19 = v33[3];
+      v36 = 136316418;
+      v37 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
+      v38 = 2080;
+      v39 = "W5PeerDiagnosticsManager.m";
+      v40 = 1024;
+      v41 = 478;
+      v42 = 2048;
+      v43 = v18;
+      v44 = 2048;
+      v45 = v7;
+      v46 = 2048;
+      v47 = v19;
+      LODWORD(v23) = 58;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] %s (%s:%u) active peers %lu, requested peers %lu, responses %lu", &v36, v23);
     }
-
-    v17 = [-[RPCompanionLinkClient activeDevices](self->_discoveryClient "activeDevices")];
-    v18 = v32[3];
-    v35 = 136316418;
-    v36 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
-    v37 = 2080;
-    v38 = "W5PeerDiagnosticsManager.m";
-    v39 = 1024;
-    v40 = 478;
-    v41 = 2048;
-    v42 = v17;
-    v43 = 2048;
-    v44 = v6;
-    v45 = 2048;
-    v46 = v18;
   }
 
   else
   {
-    v21 = sub_100098A04();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100098A04();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_26;
+      v36 = 136315650;
+      v37 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
+      v38 = 2080;
+      v39 = "W5PeerDiagnosticsManager.m";
+      v40 = 1024;
+      v41 = 424;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) No active clients, returning", &v36, 28);
     }
-
-    v35 = 136315650;
-    v36 = "[W5PeerDiagnosticsManager gatherPeerDiagnostics]";
-    v37 = 2080;
-    v38 = "W5PeerDiagnosticsManager.m";
-    v39 = 1024;
-    v40 = 424;
   }
 
-  _os_log_send_and_compose_impl();
-LABEL_26:
   objc_sync_enter(self);
-  v19 = [v24 copy];
+  v20 = [v25 copy];
   objc_sync_exit(self);
-  _Block_object_dispose(&v31, 8);
-  return v19;
+  _Block_object_dispose(&v32, 8);
+  return v20;
 }
 
 @end

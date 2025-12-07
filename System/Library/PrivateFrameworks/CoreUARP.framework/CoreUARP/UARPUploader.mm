@@ -3,6 +3,8 @@
 - (UARPController)controller;
 - (UARPUploader)init;
 - (void)firmwareStagingComplete:(id)complete assetID:(id)d withStatus:(unint64_t)status;
+- (void)firmwareStagingDataBlockTransferred:(id)transferred assetID:(id)d offset:(unsigned int)offset blockSize:(unsigned int)size;
+- (void)firmwareStagingProgress:(id)progress assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total filterProgress:(BOOL)filterProgress;
 - (void)stagedFirmwareApplicationComplete:(id)complete withStatus:(unint64_t)status;
 - (void)stagedFirmwareRescindComplete:(id)complete withStatus:(unint64_t)status;
 @end
@@ -39,26 +41,24 @@
 
 - (void)firmwareStagingComplete:(id)complete assetID:(id)d withStatus:(unint64_t)status
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   dCopy = d;
   xpcLog = self->_xpcLog;
   if (os_log_type_enabled(xpcLog, OS_LOG_TYPE_INFO))
   {
     v11 = xpcLog;
-    v14 = 136315650;
-    v15 = UARPFirmwareStagingCompletionStatusToString(status);
-    v16 = 2112;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = completeCopy;
-    _os_log_impl(&dword_247AA7000, v11, OS_LOG_TYPE_INFO, "Firmware Staging Complete Status = %s for Asset = %@ Accessory = %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = UARPFirmwareStagingCompletionStatusToString(status);
+    v15 = 2112;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = completeCopy;
+    _os_log_impl(&dword_247AA7000, v11, OS_LOG_TYPE_INFO, "Firmware Staging Complete Status = %s for Asset = %@ Accessory = %@", &v13, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_controller);
   [WeakRetained firmwareStagingComplete:completeCopy assetID:dCopy withStatus:status];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stagedFirmwareApplicationComplete:(id)complete withStatus:(unint64_t)status
@@ -73,6 +73,25 @@
   completeCopy = complete;
   WeakRetained = objc_loadWeakRetained(&self->_controller);
   [WeakRetained stagedFirmwareRescindComplete:completeCopy withStatus:6];
+}
+
+- (void)firmwareStagingProgress:(id)progress assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total filterProgress:(BOOL)filterProgress
+{
+  filterProgressCopy = filterProgress;
+  dCopy = d;
+  progressCopy = progress;
+  WeakRetained = objc_loadWeakRetained(&self->_controller);
+  [WeakRetained firmwareStagingProgress:progressCopy assetID:dCopy bytesSent:sent bytesTotal:total filterProgress:filterProgressCopy];
+}
+
+- (void)firmwareStagingDataBlockTransferred:(id)transferred assetID:(id)d offset:(unsigned int)offset blockSize:(unsigned int)size
+{
+  v6 = *&size;
+  v7 = *&offset;
+  dCopy = d;
+  transferredCopy = transferred;
+  WeakRetained = objc_loadWeakRetained(&self->_controller);
+  [WeakRetained firmwareStagingDataBlockTransferred:transferredCopy assetID:dCopy offset:v7 blockSize:v6];
 }
 
 - (UARPController)controller

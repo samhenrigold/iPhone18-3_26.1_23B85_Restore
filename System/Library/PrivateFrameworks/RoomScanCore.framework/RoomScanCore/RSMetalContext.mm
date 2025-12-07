@@ -4,13 +4,14 @@
 - (id)beginCommandBufferWithError:(id *)error;
 - (id)newComputePipelineStateWithFunctionName:(id)name constantValues:(id)values error:(id *)error;
 - (id)newTextureByBindingIOSurface:(__IOSurface *)surface pixelFormat:(unint64_t)format width:(unint64_t)width height:(unint64_t)height usage:(unint64_t)usage plane:(unint64_t)plane error:(id *)error;
+- (void)commitCommandBufferShouldWaitUntilCompleted:(BOOL)completed;
 @end
 
 @implementation RSMetalContext
 
 - (id)newTextureByBindingIOSurface:(__IOSurface *)surface pixelFormat:(unint64_t)format width:(unint64_t)width height:(unint64_t)height usage:(unint64_t)usage plane:(unint64_t)plane error:(id *)error
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v13 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], a2, format, width, height, 0);
   v15 = v13;
   if (v13)
@@ -28,9 +29,9 @@
       if (error)
       {
         v23 = MEMORY[0x277CCA9B8];
-        v28 = *MEMORY[0x277CBEE30];
-        v29 = @"Unable to create MTLTexture.";
-        v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, &v29, &v28, 1);
+        v27 = *MEMORY[0x277CBEE30];
+        v28 = @"Unable to create MTLTexture.";
+        v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, &v28, &v27, 1);
         *error = objc_msgSend_errorWithDomain_code_userInfo_(v23, v25, @"com.apple.RoomScanCoreError", -2006, v24);
       }
 
@@ -48,21 +49,20 @@
     }
 
     v21 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CBEE30];
-    v31[0] = @"Unable to create MTLTextureDescriptor.";
-    v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v31, &v30, 1);
+    v29 = *MEMORY[0x277CBEE30];
+    v30[0] = @"Unable to create MTLTextureDescriptor.";
+    v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v30, &v29, 1);
     objc_msgSend_errorWithDomain_code_userInfo_(v21, v22, @"com.apple.RoomScanCoreError", -2005, v19);
     *error = v20 = 0;
   }
 
 LABEL_10:
-  v26 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)newComputePipelineStateWithFunctionName:(id)name constantValues:(id)values error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   valuesCopy = values;
   library = self->_library;
@@ -76,11 +76,11 @@ LABEL_10:
         goto LABEL_7;
       }
 
-      v17 = MEMORY[0x277CCA9B8];
+      v16 = MEMORY[0x277CCA9B8];
       v14 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v13, @"Unable to create MTLFunction named %@.", nameCopy, *MEMORY[0x277CBEE30]);
-      v22[0] = v14;
-      v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v22, &v21, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v17, v20, @"com.apple.RoomScanCoreError", -2004, v19);
+      v21[0] = v14;
+      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v21, &v20, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v19, @"com.apple.RoomScanCoreError", -2004, v18);
 
       error = 0;
       goto LABEL_6;
@@ -103,13 +103,25 @@ LABEL_6:
   error = 0;
 LABEL_7:
 
-  v15 = *MEMORY[0x277D85DE8];
   return error;
+}
+
+- (void)commitCommandBufferShouldWaitUntilCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  objc_msgSend_commit(self->_currentCommandBuffer, a2, completed);
+  if (completedCopy)
+  {
+    objc_msgSend_waitUntilCompleted(self->_currentCommandBuffer, v5, v6);
+  }
+
+  currentCommandBuffer = self->_currentCommandBuffer;
+  self->_currentCommandBuffer = 0;
 }
 
 - (id)beginCommandBufferWithError:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_commandBuffer(self->_commandQueue, a2, error);
   currentCommandBuffer = self->_currentCommandBuffer;
   self->_currentCommandBuffer = v5;
@@ -123,25 +135,23 @@ LABEL_7:
   else if (error)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CBEE30];
-    v16[0] = @"Unable to create MTLCommandBuffer.";
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v16, &v15, 1);
+    v14 = *MEMORY[0x277CBEE30];
+    v15[0] = @"Unable to create MTLCommandBuffer.";
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v15, &v14, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v10, v12, @"com.apple.RoomScanCoreError", -2003, v11);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (RSMetalContext)initWithDevice:(id)device libraryURL:(id)l error:(id *)error
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   lCopy = l;
-  v43.receiver = self;
-  v43.super_class = RSMetalContext;
-  v10 = [(RSMetalContext *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = RSMetalContext;
+  v10 = [(RSMetalContext *)&v42 init];
   if (!v10)
   {
     goto LABEL_19;
@@ -194,9 +204,9 @@ LABEL_19:
       }
 
       v39 = MEMORY[0x277CCA9B8];
-      v44 = *MEMORY[0x277CBEE30];
-      v45 = @"Unable to create MTLCommandQueue.";
-      v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, &v45, &v44, 1);
+      v43 = *MEMORY[0x277CBEE30];
+      v44 = @"Unable to create MTLCommandQueue.";
+      v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, &v44, &v43, 1);
       objc_msgSend_errorWithDomain_code_userInfo_(v39, v40, @"com.apple.RoomScanCoreError", -2002, v17);
       *error = LABEL_22:;
 
@@ -237,16 +247,15 @@ LABEL_19:
   if (error)
   {
     v16 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CBEE30];
-    v47[0] = @"Unable to create MTLDevice.";
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v47, &v46, 1);
+    v45 = *MEMORY[0x277CBEE30];
+    v46[0] = @"Unable to create MTLDevice.";
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v46, &v45, 1);
     objc_msgSend_errorWithDomain_code_userInfo_(v16, v18, @"com.apple.RoomScanCoreError", -2001, v17);
     goto LABEL_22;
   }
 
 LABEL_24:
 
-  v41 = *MEMORY[0x277D85DE8];
   return error;
 }
 

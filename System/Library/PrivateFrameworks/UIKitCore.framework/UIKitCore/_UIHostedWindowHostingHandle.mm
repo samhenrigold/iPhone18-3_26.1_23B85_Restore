@@ -34,7 +34,7 @@
     v5->_contextID = [coderCopy decodeInt32ForKey:@"contextID"];
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"rootLayerTransform"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else

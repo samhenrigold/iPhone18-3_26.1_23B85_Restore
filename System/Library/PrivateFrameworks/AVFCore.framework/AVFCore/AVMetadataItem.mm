@@ -94,7 +94,7 @@
   v35 = *MEMORY[0x1E69E9840];
   if (!type)
   {
-    typeCopy = 0;
+    MetadataObjectFromBoxedMetadata = 0;
     goto LABEL_30;
   }
 
@@ -102,19 +102,19 @@
   if (v5 == FigBoxedMetadataGetTypeID())
   {
     dataType = self->_priv->dataType;
-    [(AVMetadataItem *)self time];
-    [(AVMetadataItem *)self duration];
+    objc_msgSend_time(self);
+    objc_msgSend_duration(self);
     point.origin = v30;
     point.size.width = v31;
     v32 = v28;
     v33 = v29;
-    typeCopy = (softLinkAVMetadataMakeMetadataObjectFromBoxedMetadata[0])(type, dataType, &point, &v32);
-    if (!typeCopy)
+    MetadataObjectFromBoxedMetadata = softLinkAVMetadataMakeMetadataObjectFromBoxedMetadata(type, dataType, &point, &v32);
+    if (!MetadataObjectFromBoxedMetadata)
     {
       BlockBuffer = FigBoxedMetadataGetBlockBuffer();
       DataLength = CMBlockBufferGetDataLength(BlockBuffer);
-      typeCopy = [MEMORY[0x1E695DF88] dataWithLength:DataLength];
-      mutableBytes = [typeCopy mutableBytes];
+      MetadataObjectFromBoxedMetadata = [MEMORY[0x1E695DF88] dataWithLength:DataLength];
+      mutableBytes = [MetadataObjectFromBoxedMetadata mutableBytes];
       if (mutableBytes)
       {
         CMBlockBufferCopyDataBytes(BlockBuffer, 0, DataLength, mutableBytes);
@@ -134,7 +134,7 @@
   {
     v12 = [MEMORY[0x1E696ACB0] JSONObjectWithData:type options:0 error:0];
 LABEL_28:
-    typeCopy = v12;
+    MetadataObjectFromBoxedMetadata = v12;
     goto LABEL_30;
   }
 
@@ -168,7 +168,7 @@ LABEL_28:
     }
 
 LABEL_29:
-    typeCopy = type;
+    MetadataObjectFromBoxedMetadata = type;
     goto LABEL_30;
   }
 
@@ -178,7 +178,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  typeCopy = [MEMORY[0x1E695DF70] array];
+  MetadataObjectFromBoxedMetadata = [MEMORY[0x1E695DF70] array];
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
@@ -201,7 +201,7 @@ LABEL_29:
         v19 = *(*(&v23 + 1) + 8 * i);
         point.origin = v22;
         CGPointMakeWithDictionaryRepresentation(v19, &point.origin);
-        [typeCopy addObject:{AVNSValueWithCGPoint(point.origin.x, point.origin.y)}];
+        [MetadataObjectFromBoxedMetadata addObject:{AVNSValueWithCGPoint(point.origin.x, point.origin.y)}];
       }
 
       v16 = [type countByEnumeratingWithState:&v23 objects:v34 count:16];
@@ -211,9 +211,9 @@ LABEL_29:
   }
 
 LABEL_30:
-  if ([typeCopy conformsToProtocol:{&unk_1F0AD4538, v22}] && objc_msgSend(typeCopy, "conformsToProtocol:", &unk_1F0AD72A8))
+  if ([MetadataObjectFromBoxedMetadata conformsToProtocol:{&unk_1F0AD4538, v22}] && objc_msgSend(MetadataObjectFromBoxedMetadata, "conformsToProtocol:", &unk_1F0AD72A8))
   {
-    return [typeCopy copyWithZone:{-[AVMetadataItem zone](self, "zone")}];
+    return [MetadataObjectFromBoxedMetadata copyWithZone:{-[AVMetadataItem zone](self, "zone")}];
   }
 
   else
@@ -979,7 +979,7 @@ uint64_t __88__AVMetadataItem_metadataItemsFromArray_filteredAndSortedAccordingT
   return [v6 isEqualToString:v5];
 }
 
-uint64_t __88__AVMetadataItem_metadataItemsFromArray_filteredAndSortedAccordingToPreferredLanguages___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__88__AVMetadataItem_metadataItemsFromArray_filteredAndSortedAccordingToPreferredLanguages___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if ((result & 1) == 0)
@@ -1479,22 +1479,22 @@ uint64_t __86__AVMetadataItem__metadataItemWithFigMetadataDictionary_containerUR
     memset(&v27[1], 0, sizeof(CMTime));
     if (self)
     {
-      [(AVMetadataItem *)self time];
+      objc_msgSend_time(self);
       memset(v27, 0, 24);
-      [equal time];
+      objc_msgSend_time(equal);
       memset(&v26, 0, sizeof(v26));
-      [(AVMetadataItem *)self duration];
+      objc_msgSend_duration(self);
     }
 
     else
     {
       memset(v27, 0, 24);
-      [equal time];
+      objc_msgSend_time(equal);
       memset(&v26, 0, sizeof(v26));
     }
 
     memset(&v25, 0, sizeof(v25));
-    [equal duration];
+    objc_msgSend_duration(equal);
     startDate = [(AVMetadataItem *)self startDate];
     startDate2 = [equal startDate];
     value = [(AVMetadataItem *)self value];
@@ -1540,7 +1540,7 @@ LABEL_17:
   v5 = [(NSLocale *)[(AVMetadataItem *)self locale] hash];
   if (self)
   {
-    [(AVMetadataItem *)self time];
+    objc_msgSend_time(self);
   }
 
   else
@@ -1552,7 +1552,7 @@ LABEL_17:
   v7 = [(__CFDictionary *)CMTimeCopyAsDictionary(&time hash];
   if (self)
   {
-    [(AVMetadataItem *)self duration];
+    objc_msgSend_duration(self);
   }
 
   else
@@ -1621,7 +1621,7 @@ LABEL_17:
   memset(&v28[1], 0, sizeof(CMTime));
   if (self)
   {
-    [(AVMetadataItem *)self time];
+    objc_msgSend_time(self);
     if (v28[1].flags)
     {
       v28[0] = v28[1];
@@ -1629,7 +1629,7 @@ LABEL_17:
     }
 
     memset(v28, 0, 24);
-    [(AVMetadataItem *)self duration];
+    objc_msgSend_duration(self);
     if (v28[0].flags)
     {
       v27 = v28[0];
@@ -2037,7 +2037,7 @@ LABEL_24:
   return _isoUserDataKeysRequiringKeySpaceConversion_conversionList;
 }
 
-uint64_t __61__AVMetadataItem__isoUserDataKeysRequiringKeySpaceConversion__block_invoke()
+void *__61__AVMetadataItem__isoUserDataKeysRequiringKeySpaceConversion__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"cprt", @"auth", @"perf", @"gnre", @"yrrc", @"loci", @"titl", @"dscp", 0}];
   _isoUserDataKeysRequiringKeySpaceConversion_conversionList = result;
@@ -2564,10 +2564,10 @@ LABEL_39:
   }
 }
 
-uint64_t __86__AVMetadataItem__metadataItemWithFigMetadataDictionary_containerURL_securityOptions___block_invoke_2(uint64_t a1, void *a2)
+void *__86__AVMetadataItem__metadataItemWithFigMetadataDictionary_containerURL_securityOptions___block_invoke_2(void *a1, void *a2)
 {
-  v3 = *(a1 + 48);
-  if (([*(a1 + 32) isFileURL] & 1) == 0)
+  v3 = a1[6];
+  if (([a1[4] isFileURL] & 1) == 0)
   {
     v10 = -11822;
 LABEL_18:

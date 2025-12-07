@@ -410,7 +410,7 @@ void __91__NTKMediaComplicationController__resolveIntentionalRoutingPlayerPathWi
   v2 = [OUTLINED_FUNCTION_1_11(a1 a2)];
   v3 = [v2 bundleIdentifier];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_3(&dword_22D9C5000, v4, v5, "%@ Complication does not support current proactiveRecommended '%@', falling back to local", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_3(&dword_22D9C5000, v4, v5, "%@ Complication does not support current proactiveRecommended '%@', falling back to local", v6, v7, v8, v9);
 }
 
 void __91__NTKMediaComplicationController__resolveIntentionalRoutingPlayerPathWithQueue_completion___block_invoke_cold_2(uint64_t a1, uint64_t a2)
@@ -418,7 +418,7 @@ void __91__NTKMediaComplicationController__resolveIntentionalRoutingPlayerPathWi
   v2 = [OUTLINED_FUNCTION_1_11(a1 a2)];
   v3 = [v2 bundleIdentifier];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_3(&dword_22D9C5000, v4, v5, "%@ Complication supports proactiveRecommended '%@'", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_3(&dword_22D9C5000, v4, v5, "%@ Complication supports proactiveRecommended '%@'", v6, v7, v8, v9);
 }
 
 void __91__NTKMediaComplicationController__resolveIntentionalRoutingPlayerPathWithQueue_completion___block_invoke_cold_3(uint64_t a1, NSObject *a2)

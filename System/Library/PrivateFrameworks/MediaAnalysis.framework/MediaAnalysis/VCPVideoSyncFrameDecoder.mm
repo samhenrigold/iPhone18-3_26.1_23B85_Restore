@@ -10,11 +10,11 @@
 
 - (VCPVideoSyncFrameDecoder)initWithDecoderSettings:(id)settings formatDescription:(opaqueCMFormatDescription *)description rotationAngle:(int)angle
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
-  v42.receiver = self;
-  v42.super_class = VCPVideoSyncFrameDecoder;
-  v9 = [(VCPVideoSyncFrameDecoder *)&v42 init];
+  v48.receiver = self;
+  v48.super_class = VCPVideoSyncFrameDecoder;
+  v9 = [(VCPVideoSyncFrameDecoder *)&v48 init];
   if (v9)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -30,26 +30,31 @@
     v16 = [settingsCopy objectForKeyedSubscript:*MEMORY[0x1E6966130]];
     [dictionary setObject:v16 forKeyedSubscript:v15];
 
-    if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+    v17 = MediaAnalysisLogLevel();
+    if (v17 >= 6)
     {
-      v17 = objc_opt_class();
-      *buf = 138412546;
-      v44 = v17;
-      v45 = 2112;
-      v46 = dictionary;
-      v18 = v17;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Creating VTDecompressionSession with pixelBufferAttributes %@", buf, 0x16u);
+      v17 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+      if (v17)
+      {
+        v18 = objc_opt_class();
+        *buf = 138412546;
+        v50 = v18;
+        v51 = 2112;
+        v52 = dictionary;
+        v19 = v18;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Creating VTDecompressionSession with pixelBufferAttributes %@", buf, 0x16u);
+      }
     }
 
-    v19 = VCPSignPostLog();
-    v20 = os_signpost_id_generate(v19);
+    v20 = VCPSignPostLog(v17);
+    v21 = os_signpost_id_generate(v20);
 
-    v21 = VCPSignPostLog();
-    v22 = v21;
-    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v23 = VCPSignPostLog(v22);
+    v24 = v23;
+    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "VTDecompressionSession_Create", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v21, "VTDecompressionSession_Create", "", buf, 2u);
     }
 
     value = v9->_decompressionSession.value_;
@@ -59,89 +64,95 @@
       v9->_decompressionSession.value_ = 0;
     }
 
-    if (VTDecompressionSessionCreate(*MEMORY[0x1E695E480], description, 0, dictionary, 0, &v9->_decompressionSession.value_))
+    v26 = VTDecompressionSessionCreate(*MEMORY[0x1E695E480], description, 0, dictionary, 0, &v9->_decompressionSession.value_);
+    if (v26)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = objc_opt_class();
+        v27 = objc_opt_class();
         *buf = 138412290;
-        v44 = v24;
-        v25 = v24;
+        v50 = v27;
+        v28 = v27;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to create VTDecompressionSession", buf, 0xCu);
       }
 
 LABEL_34:
 
-      v38 = 0;
+      v44 = 0;
       goto LABEL_35;
     }
 
-    v26 = VCPSignPostLog();
-    v27 = v26;
-    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v29 = VCPSignPostLog(v26);
+    v30 = v29;
+    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v20, "VTDecompressionSession_Create", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v21, "VTDecompressionSession_Create", "", buf, 2u);
     }
 
     v9->_requiresRotation = angle != 0;
     if (angle)
     {
-      if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+      v31 = MediaAnalysisLogLevel();
+      if (v31 >= 6)
       {
-        v28 = objc_opt_class();
-        *buf = 138412546;
-        v44 = v28;
-        v45 = 1024;
-        LODWORD(v46) = angle;
-        v29 = v28;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Creating ma::Rotator with rotation angle %d", buf, 0x12u);
+        v31 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+        if (v31)
+        {
+          v32 = objc_opt_class();
+          *buf = 138412546;
+          v50 = v32;
+          v51 = 1024;
+          LODWORD(v52) = angle;
+          v33 = v32;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Creating ma::Rotator with rotation angle %d", buf, 0x12u);
+        }
       }
 
-      v30 = VCPSignPostLog();
-      v31 = os_signpost_id_generate(v30);
+      v34 = VCPSignPostLog(v31);
+      v35 = os_signpost_id_generate(v34);
 
-      v32 = VCPSignPostLog();
-      v33 = v32;
-      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+      v37 = VCPSignPostLog(v36);
+      v38 = v37;
+      if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_BEGIN, v31, "MARotator_Create", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_BEGIN, v35, "MARotator_Create", "", buf, 2u);
       }
 
-      v34 = operator new(0x20uLL, MEMORY[0x1E69E5398]);
-      if (!v34)
+      v39 = operator new(0x20uLL, MEMORY[0x1E69E5398]);
+      if (!v39)
       {
         v9->_rotator = 0;
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v39 = objc_opt_class();
+          v45 = objc_opt_class();
           *buf = 138412290;
-          v44 = v39;
-          v40 = v39;
+          v50 = v45;
+          v46 = v45;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to create ma::Rotator", buf, 0xCu);
         }
 
         goto LABEL_34;
       }
 
-      v35 = v34;
-      ma::Rotator::Rotator(v34, angle);
-      v9->_rotator = v35;
-      v36 = VCPSignPostLog();
-      v37 = v36;
-      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      v40 = v39;
+      v41 = ma::Rotator::Rotator(v39, angle);
+      v9->_rotator = v40;
+      v42 = VCPSignPostLog(v41);
+      v43 = v42;
+      if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_END, v31, "MARotator_Create", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, v35, "MARotator_Create", "", buf, 2u);
       }
     }
   }
 
-  v38 = v9;
+  v44 = v9;
 LABEL_35:
 
-  return v38;
+  return v44;
 }
 
 - (void)dealloc
@@ -524,17 +535,17 @@ LABEL_55:
 
 - (BOOL)decodeCMSampleBuffer:(opaqueCMSampleBuffer *)buffer toCMSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer error:(id *)error
 {
-  v80[1] = *MEMORY[0x1E69E9840];
+  v85[1] = *MEMORY[0x1E69E9840];
   if (!buffer)
   {
     if (error)
     {
-      v19 = MEMORY[0x1E696ABC0];
-      v79 = *MEMORY[0x1E696A578];
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] No CMSampleBuffer", objc_opt_class()];
-      v80[0] = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:&v79 count:1];
-      *error = [v19 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v21];
+      v21 = MEMORY[0x1E696ABC0];
+      v84 = *MEMORY[0x1E696A578];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] No CMSampleBuffer", objc_opt_class()];
+      v85[0] = v22;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:&v84 count:1];
+      *error = [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v23];
     }
 
     return 0;
@@ -544,62 +555,63 @@ LABEL_55:
   {
     if (error)
     {
-      v22 = MEMORY[0x1E696ABC0];
-      v77 = *MEMORY[0x1E696A578];
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] No VTDecompressionSession", objc_opt_class()];
-      v78 = v23;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-      *error = [v22 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v24];
+      v24 = MEMORY[0x1E696ABC0];
+      v82 = *MEMORY[0x1E696A578];
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] No VTDecompressionSession", objc_opt_class()];
+      v83 = v25;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+      *error = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v26];
     }
 
     return 0;
   }
 
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3812000000;
-  v60 = __Block_byref_object_copy__33;
-  v61 = __Block_byref_object_dispose__33;
-  v62 = &unk_1CA01F5A2;
-  v63 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3812000000;
+  v65 = __Block_byref_object_copy__33;
+  v66 = __Block_byref_object_dispose__33;
+  v67 = &unk_1CA01F5A2;
+  v68 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __72__VCPVideoSyncFrameDecoder_decodeCMSampleBuffer_toCMSampleBuffer_error___block_invoke;
   aBlock[3] = &unk_1E834E548;
-  aBlock[4] = &v57;
+  aBlock[4] = &v62;
   v9 = _Block_copy(aBlock);
-  v10 = VCPSignPostLog();
+  v10 = VCPSignPostLog(v9);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = VCPSignPostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     LOWORD(buf.duration.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VTDecompressionSession_Decode", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VTDecompressionSession_Decode", "", &buf, 2u);
   }
 
-  v14 = VTDecompressionSessionDecodeFrameWithOutputHandler(self->_decompressionSession.value_, buffer, 0, 0, v9);
-  if (!v14)
+  v15 = VTDecompressionSessionDecodeFrameWithOutputHandler(self->_decompressionSession.value_, buffer, 0, 0, v9);
+  v16 = v15;
+  if (!v15)
   {
-    v26 = VCPSignPostLog();
-    v27 = v26;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v28 = VCPSignPostLog(v15);
+    v29 = v28;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       LOWORD(buf.duration.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v11, "VTDecompressionSession_Decode", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v11, "VTDecompressionSession_Decode", "", &buf, 2u);
     }
 
-    if (!v58[6])
+    if (!v63[6])
     {
       if (error)
       {
-        v38 = MEMORY[0x1E696ABC0];
-        v73 = *MEMORY[0x1E696A578];
-        v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to decode sync frame", objc_opt_class()];
-        v74 = v39;
-        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        *error = [v38 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v40];
+        v43 = MEMORY[0x1E696ABC0];
+        v78 = *MEMORY[0x1E696A578];
+        v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to decode sync frame", objc_opt_class()];
+        v79 = v44;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+        *error = [v43 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v45];
       }
 
       goto LABEL_9;
@@ -611,82 +623,83 @@ LABEL_55:
       {
         if (error)
         {
-          v41 = MEMORY[0x1E696ABC0];
-          v71 = *MEMORY[0x1E696A578];
-          v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] No ma::Rotator", objc_opt_class()];
-          v72 = v42;
-          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-          *error = [v41 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v43];
+          v46 = MEMORY[0x1E696ABC0];
+          v76 = *MEMORY[0x1E696A578];
+          v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] No ma::Rotator", objc_opt_class()];
+          v77 = v47;
+          v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+          *error = [v46 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v48];
         }
 
         goto LABEL_9;
       }
 
       buf.duration.value = 0;
-      v28 = VCPSignPostLog();
-      v29 = os_signpost_id_generate(v28);
+      v31 = VCPSignPostLog(v30);
+      v32 = os_signpost_id_generate(v31);
 
-      v30 = VCPSignPostLog();
-      v31 = v30;
-      if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+      v34 = VCPSignPostLog(v33);
+      v35 = v34;
+      if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
       {
-        LOWORD(v55.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v29, "MARotator_Rotate", "", &v55, 2u);
+        LOWORD(v60.value) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_BEGIN, v32, "MARotator_Rotate", "", &v60, 2u);
       }
 
       rotator = self->_rotator;
-      v33 = v58[6];
+      v37 = v63[6];
       if (buf.duration.value)
       {
         CFRelease(buf.duration.value);
         buf.duration.value = 0;
       }
 
-      v34 = ma::Rotator::Rotate(rotator, v33, &buf);
-      if (v34)
+      v38 = ma::Rotator::Rotate(rotator, v37, &buf);
+      v39 = v38;
+      if (v38)
       {
         if (error)
         {
-          v35 = MEMORY[0x1E696ABC0];
-          v69 = *MEMORY[0x1E696A578];
-          v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to perform rotation", objc_opt_class()];
-          v70 = v36;
-          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-          *error = [v35 errorWithDomain:*MEMORY[0x1E696A768] code:v34 userInfo:v37];
+          v40 = MEMORY[0x1E696ABC0];
+          v74 = *MEMORY[0x1E696A578];
+          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to perform rotation", objc_opt_class()];
+          v75 = v41;
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+          *error = [v40 errorWithDomain:*MEMORY[0x1E696A768] code:v39 userInfo:v42];
         }
 
         CF<__CVBuffer *>::~CF(&buf);
         goto LABEL_9;
       }
 
-      v44 = VCPSignPostLog();
-      v45 = v44;
-      if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+      v49 = VCPSignPostLog(v38);
+      v50 = v49;
+      if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
       {
-        LOWORD(v55.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_END, v29, "MARotator_Rotate", "", &v55, 2u);
+        LOWORD(v60.value) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v50, OS_SIGNPOST_INTERVAL_END, v32, "MARotator_Rotate", "", &v60, 2u);
       }
 
-      CF<__CVBuffer *>::operator=(v58 + 6, &buf);
+      CF<__CVBuffer *>::operator=(v63 + 6, &buf);
       CF<__CVBuffer *>::~CF(&buf);
     }
 
-    memset(&v55, 0, sizeof(v55));
-    CMSampleBufferGetPresentationTimeStamp(&v55, buffer);
-    v46 = v58[6];
-    v54 = v55;
+    memset(&v60, 0, sizeof(v60));
+    CMSampleBufferGetPresentationTimeStamp(&v60, buffer);
+    v51 = v63[6];
+    v59 = v60;
     formatDescriptionOut = 0;
-    v47 = CMVideoFormatDescriptionCreateForImageBuffer(0, v46, &formatDescriptionOut);
-    if (v47)
+    v52 = CMVideoFormatDescriptionCreateForImageBuffer(0, v51, &formatDescriptionOut);
+    if (v52)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.duration.value) = 0;
-        v48 = MEMORY[0x1E69E9C10];
-        v49 = "[CVPixelBuffer->CMSampleBuffer] Failed to create format description";
+        v53 = MEMORY[0x1E69E9C10];
+        v54 = "[CVPixelBuffer->CMSampleBuffer] Failed to create format description";
         p_buf = &buf;
 LABEL_48:
-        _os_log_impl(&dword_1C9B70000, v48, OS_LOG_TYPE_ERROR, v49, p_buf, 2u);
+        _os_log_impl(&dword_1C9B70000, v53, OS_LOG_TYPE_ERROR, v54, p_buf, 2u);
       }
     }
 
@@ -694,29 +707,29 @@ LABEL_48:
     {
       *&buf.duration.value = *MEMORY[0x1E6960C70];
       buf.duration.epoch = *(MEMORY[0x1E6960C70] + 16);
-      buf.presentationTimeStamp = v54;
+      buf.presentationTimeStamp = v59;
       buf.decodeTimeStamp = buf.duration;
-      v47 = CMSampleBufferCreateReadyWithImageBuffer(*MEMORY[0x1E695E480], v46, formatDescriptionOut, &buf, sampleBuffer);
-      if (v47 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v52 = CMSampleBufferCreateReadyWithImageBuffer(*MEMORY[0x1E695E480], v51, formatDescriptionOut, &buf, sampleBuffer);
+      if (v52 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        *v64 = 0;
-        v48 = MEMORY[0x1E69E9C10];
-        v49 = "[CVPixelBuffer->CMSampleBuffer] Failed to create CMSampleBuffer";
-        p_buf = v64;
+        *v69 = 0;
+        v53 = MEMORY[0x1E69E9C10];
+        v54 = "[CVPixelBuffer->CMSampleBuffer] Failed to create CMSampleBuffer";
+        p_buf = v69;
         goto LABEL_48;
       }
     }
 
     CF<__CVBuffer *>::~CF(&formatDescriptionOut);
-    v18 = v47 == 0;
-    if (error && v47)
+    v20 = v52 == 0;
+    if (error && v52)
     {
-      v51 = MEMORY[0x1E696ABC0];
-      v67 = *MEMORY[0x1E696A578];
-      v52 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to perform CMSampleBuffer_CreateWithCVPixelBuffer", objc_opt_class()];
-      v68 = v52;
-      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-      *error = [v51 errorWithDomain:*MEMORY[0x1E696A768] code:v47 userInfo:v53];
+      v56 = MEMORY[0x1E696ABC0];
+      v72 = *MEMORY[0x1E696A578];
+      v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to perform CMSampleBuffer_CreateWithCVPixelBuffer", objc_opt_class()];
+      v73 = v57;
+      v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+      *error = [v56 errorWithDomain:*MEMORY[0x1E696A768] code:v52 userInfo:v58];
     }
 
     goto LABEL_10;
@@ -724,21 +737,21 @@ LABEL_48:
 
   if (error)
   {
-    v15 = MEMORY[0x1E696ABC0];
-    v75 = *MEMORY[0x1E696A578];
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to perform VTDecompressionSessionDecodeFrameWithOutputHandler", objc_opt_class()];
-    v76 = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-    *error = [v15 errorWithDomain:*MEMORY[0x1E696A768] code:v14 userInfo:v17];
+    v17 = MEMORY[0x1E696ABC0];
+    v80 = *MEMORY[0x1E696A578];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to perform VTDecompressionSessionDecodeFrameWithOutputHandler", objc_opt_class()];
+    v81 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    *error = [v17 errorWithDomain:*MEMORY[0x1E696A768] code:v16 userInfo:v19];
   }
 
 LABEL_9:
-  v18 = 0;
+  v20 = 0;
 LABEL_10:
 
-  _Block_object_dispose(&v57, 8);
-  CF<__CVBuffer *>::~CF(&v63);
-  return v18;
+  _Block_object_dispose(&v62, 8);
+  CF<__CVBuffer *>::~CF(&v68);
+  return v20;
 }
 
 void __72__VCPVideoSyncFrameDecoder_decodeCMSampleBuffer_toCMSampleBuffer_error___block_invoke(uint64_t a1, int a2, int a3, CFTypeRef cf)

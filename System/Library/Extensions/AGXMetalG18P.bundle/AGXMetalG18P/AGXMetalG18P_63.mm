@@ -2413,132 +2413,132 @@ BOOL _ZNSt3__17__sort3B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEnc
   return result;
 }
 
-__n128 _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEvT1_SL_SL_SL_SL_SB_(uint64_t a1, unsigned __int16 *a2, uint64_t a3, unsigned __int16 *a4, uint64_t a5, unsigned __int16 *a6, uint64_t a7, unsigned __int16 *a8, uint64_t a9, unsigned __int16 *a10)
+__n128 _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEvT1_SL_SL_SL_SL_SB_(uint64_t a1, __n128 *a2, uint64_t a3, __n128 *a4, uint64_t a5, __n128 *a6, uint64_t a7, __n128 *a8, uint64_t a9, __n128 *a10)
 {
   _ZNSt3__17__sort3B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEbT1_SL_SL_SB_(a1, a2, a3, a4, a5, a6);
-  if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a8 + 8, a6, a6 + 8, a8))
+  if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a8[1], a6, &a6[1], a8))
   {
-    v15 = *(a6 + 2);
-    v14 = *(a6 + 3);
+    v15 = a6[2];
+    v14 = a6[3];
     v17 = *a6;
-    v16 = *(a6 + 1);
-    v18 = *(a8 + 3);
+    v16 = a6[1];
+    v18 = a8[3];
     v20 = *a8;
-    v19 = *(a8 + 1);
-    *(a6 + 2) = *(a8 + 2);
-    *(a6 + 3) = v18;
+    v19 = a8[1];
+    a6[2] = a8[2];
+    a6[3] = v18;
     *a6 = v20;
-    *(a6 + 1) = v19;
+    a6[1] = v19;
     *a8 = v17;
-    *(a8 + 1) = v16;
-    *(a8 + 2) = v15;
-    *(a8 + 3) = v14;
-    if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a6 + 8, a4, a4 + 8, a6))
+    a8[1] = v16;
+    a8[2] = v15;
+    a8[3] = v14;
+    if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a6[1], a4, &a4[1], a6))
     {
-      v22 = *(a4 + 2);
-      v21 = *(a4 + 3);
+      v22 = a4[2];
+      v21 = a4[3];
       v24 = *a4;
-      v23 = *(a4 + 1);
-      v25 = *(a6 + 3);
+      v23 = a4[1];
+      v25 = a6[3];
       v27 = *a6;
-      v26 = *(a6 + 1);
-      *(a4 + 2) = *(a6 + 2);
-      *(a4 + 3) = v25;
+      v26 = a6[1];
+      a4[2] = a6[2];
+      a4[3] = v25;
       *a4 = v27;
-      *(a4 + 1) = v26;
+      a4[1] = v26;
       *a6 = v24;
-      *(a6 + 1) = v23;
-      *(a6 + 2) = v22;
-      *(a6 + 3) = v21;
-      if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a4 + 8, a2, a2 + 8, a4))
+      a6[1] = v23;
+      a6[2] = v22;
+      a6[3] = v21;
+      if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a4[1], a2, &a2[1], a4))
       {
-        v29 = *(a2 + 2);
-        v28 = *(a2 + 3);
+        v29 = a2[2];
+        v28 = a2[3];
         v31 = *a2;
-        v30 = *(a2 + 1);
-        v32 = *(a4 + 3);
+        v30 = a2[1];
+        v32 = a4[3];
         v34 = *a4;
-        v33 = *(a4 + 1);
-        *(a2 + 2) = *(a4 + 2);
-        *(a2 + 3) = v32;
+        v33 = a4[1];
+        a2[2] = a4[2];
+        a2[3] = v32;
         *a2 = v34;
-        *(a2 + 1) = v33;
+        a2[1] = v33;
         *a4 = v31;
-        *(a4 + 1) = v30;
-        *(a4 + 2) = v29;
-        *(a4 + 3) = v28;
+        a4[1] = v30;
+        a4[2] = v29;
+        a4[3] = v28;
       }
     }
   }
 
-  if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a10 + 8, a8, a8 + 8, a10))
+  if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a10[1], a8, &a8[1], a10))
   {
-    v37 = *(a8 + 2);
-    v36 = *(a8 + 3);
+    v37 = a8[2];
+    v36 = a8[3];
     v39 = *a8;
-    v38 = *(a8 + 1);
-    v40 = *(a10 + 3);
+    v38 = a8[1];
+    v40 = a10[3];
     v42 = *a10;
-    v41 = *(a10 + 1);
-    *(a8 + 2) = *(a10 + 2);
-    *(a8 + 3) = v40;
+    v41 = a10[1];
+    a8[2] = a10[2];
+    a8[3] = v40;
     *a8 = v42;
-    *(a8 + 1) = v41;
+    a8[1] = v41;
     *a10 = v39;
-    *(a10 + 1) = v38;
-    *(a10 + 2) = v37;
-    *(a10 + 3) = v36;
-    if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a8 + 8, a6, a6 + 8, a8))
+    a10[1] = v38;
+    a10[2] = v37;
+    a10[3] = v36;
+    if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a8[1], a6, &a6[1], a8))
     {
-      v44 = *(a6 + 2);
-      v43 = *(a6 + 3);
+      v44 = a6[2];
+      v43 = a6[3];
       v46 = *a6;
-      v45 = *(a6 + 1);
-      v47 = *(a8 + 3);
+      v45 = a6[1];
+      v47 = a8[3];
       v49 = *a8;
-      v48 = *(a8 + 1);
-      *(a6 + 2) = *(a8 + 2);
-      *(a6 + 3) = v47;
+      v48 = a8[1];
+      a6[2] = a8[2];
+      a6[3] = v47;
       *a6 = v49;
-      *(a6 + 1) = v48;
+      a6[1] = v48;
       *a8 = v46;
-      *(a8 + 1) = v45;
-      *(a8 + 2) = v44;
-      *(a8 + 3) = v43;
-      if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a6 + 8, a4, a4 + 8, a6))
+      a8[1] = v45;
+      a8[2] = v44;
+      a8[3] = v43;
+      if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a6[1], a4, &a4[1], a6))
       {
-        v51 = *(a4 + 2);
-        v50 = *(a4 + 3);
+        v51 = a4[2];
+        v50 = a4[3];
         v53 = *a4;
-        v52 = *(a4 + 1);
-        v54 = *(a6 + 3);
+        v52 = a4[1];
+        v54 = a6[3];
         v56 = *a6;
-        v55 = *(a6 + 1);
-        *(a4 + 2) = *(a6 + 2);
-        *(a4 + 3) = v54;
+        v55 = a6[1];
+        a4[2] = a6[2];
+        a4[3] = v54;
         *a4 = v56;
-        *(a4 + 1) = v55;
+        a4[1] = v55;
         *a6 = v53;
-        *(a6 + 1) = v52;
-        *(a6 + 2) = v51;
-        *(a6 + 3) = v50;
-        if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(a4 + 8, a2, a2 + 8, a4))
+        a6[1] = v52;
+        a6[2] = v51;
+        a6[3] = v50;
+        if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(&a4[1], a2, &a2[1], a4))
         {
-          v57 = *(a2 + 2);
-          result = *(a2 + 3);
+          v57 = a2[2];
+          result = a2[3];
           v59 = *a2;
-          v58 = *(a2 + 1);
-          v60 = *(a4 + 3);
+          v58 = a2[1];
+          v60 = a4[3];
           v62 = *a4;
-          v61 = *(a4 + 1);
-          *(a2 + 2) = *(a4 + 2);
-          *(a2 + 3) = v60;
+          v61 = a4[1];
+          a2[2] = a4[2];
+          a2[3] = v60;
           *a2 = v62;
-          *(a2 + 1) = v61;
+          a2[1] = v61;
           *a4 = v59;
-          *(a4 + 1) = v58;
-          *(a4 + 2) = v57;
-          *(a4 + 3) = result;
+          a4[1] = v58;
+          a4[2] = v57;
+          a4[3] = result;
         }
       }
     }
@@ -2547,7 +2547,7 @@ __n128 _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadE
   return result;
 }
 
-BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEEEEbT1_SL_SB_(char *a1, __int128 *a2, char *a3, uint64_t a4)
+BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEEEEbT1_SL_SB_(char *a1, __n128 *a2, char *a3, __int128 *a4)
 {
   if (a4 == a2)
   {
@@ -2579,8 +2579,8 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN
 
       if (v9 == a4)
       {
-        v36 = (a3 - 8);
-        v7 = *(a3 - 1) + 4096;
+        v36 = a3 - 8;
+        v7 = (*(a3 - 1) + 4096);
       }
 
       else
@@ -2588,7 +2588,7 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN
         v36 = a3;
       }
 
-      _ZNSt3__17__sort3B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEbT1_SL_SL_SB_(a1, a2, v25, (*v25 + ((v11 & 0x3F) << 6)), v36, (v7 - 64));
+      _ZNSt3__17__sort3B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEbT1_SL_SL_SB_(a1, a2, v25, (*v25 + ((v11 & 0x3F) << 6)), v36, v7 - 32);
       return 1;
     }
 
@@ -2628,14 +2628,14 @@ LABEL_32:
           if (v9 != v7)
           {
 LABEL_34:
-            _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEvT1_SL_SL_SL_SL_SB_(a1, a2, v22, v23, v37, v38, v40, v41, v21, (v7 - 64));
+            _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEvT1_SL_SL_SL_SL_SB_(a1, a2, v22, v23, v37, v38, v40, v41, v21, v7 - 4);
             return 1;
           }
 
 LABEL_33:
-          v42 = *(v21 - 8);
+          v42 = *(v21 - 1);
           v21 -= 8;
-          v7 = v42 + 4096;
+          v7 = (v42 + 4096);
           goto LABEL_34;
         }
 
@@ -2687,25 +2687,25 @@ LABEL_33:
     if (v9 != a4)
     {
 LABEL_39:
-      v45 = (v7 - 64);
+      v45 = v7 - 4;
       _ZNSt3__17__sort3B8nn200100INS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELi0EEEbT1_SL_SL_SB_(a1, a2, v30, v31, v43, v44);
-      if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>((v7 - 48), v44, (v44 + 16), (v7 - 64)))
+      if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(v7 - 24, v44, (v44 + 16), v7 - 32))
       {
         v47 = *(v44 + 32);
         v46 = *(v44 + 48);
         v49 = *v44;
         v48 = *(v44 + 16);
-        v50 = *(v7 - 16);
+        v50 = *(v7 - 1);
         v52 = *v45;
-        v51 = *(v7 - 48);
-        *(v44 + 32) = *(v7 - 32);
+        v51 = *(v7 - 3);
+        *(v44 + 32) = *(v7 - 2);
         *(v44 + 48) = v50;
         *v44 = v52;
         *(v44 + 16) = v51;
         *v45 = v49;
-        *(v7 - 48) = v48;
-        *(v7 - 32) = v47;
-        *(v7 - 16) = v46;
+        *(v7 - 3) = v48;
+        *(v7 - 2) = v47;
+        *(v7 - 1) = v46;
         if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>((v44 + 16), v31, (v31 + 16), v44))
         {
           v53 = *v31;
@@ -2728,7 +2728,7 @@ LABEL_39:
           v60 = v97;
           *(v44 + 32) = v96;
           *(v44 + 48) = v60;
-          if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>((v31 + 16), a2, a2 + 8, v31))
+          if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>((v31 + 16), a2, &a2[1], v31))
           {
             v62 = a2[1];
             v94 = *a2;
@@ -2757,7 +2757,7 @@ LABEL_39:
     }
 
 LABEL_38:
-    v7 = *(a3 - 1) + 4096;
+    v7 = (*(a3 - 1) + 4096);
     goto LABEL_39;
   }
 
@@ -2770,28 +2770,28 @@ LABEL_38:
   {
     if (v9 == a4)
     {
-      v7 = *(a3 - 1) + 4096;
+      v7 = (*(a3 - 1) + 4096);
     }
 
-    v13 = (v7 - 64);
-    if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>((v7 - 48), a2, a2 + 8, (v7 - 64)))
+    v13 = v7 - 4;
+    if (std::__tuple_less<2ul>::operator()[abi:nn200100]<std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>,std::tuple<AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &,AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Register &>>(v7 - 24, a2, &a2[1], v7 - 32))
     {
       v15 = a2[2];
       v14 = a2[3];
       v17 = *a2;
       v16 = a2[1];
-      v18 = *(v7 - 16);
+      v18 = *(v7 - 1);
       v20 = *v13;
-      v19 = *(v7 - 48);
-      a2[2] = *(v7 - 32);
+      v19 = *(v7 - 3);
+      a2[2] = *(v7 - 2);
       a2[3] = v18;
       *a2 = v20;
       a2[1] = v19;
       *v13 = v17;
-      *(v7 - 48) = v16;
+      *(v7 - 3) = v16;
       result = 1;
-      *(v7 - 32) = v15;
-      *(v7 - 16) = v14;
+      *(v7 - 2) = v15;
+      *(v7 - 1) = v14;
       return result;
     }
 
@@ -2838,7 +2838,7 @@ LABEL_44:
   }
 
   v72 = *v70;
-  v73 = &(*v70)[32 * (v69 & 0x3F)];
+  v73 = (*v70 + ((v69 & 0x3F) << 6));
   if (v73 == v7)
   {
     return 1;
@@ -2859,8 +2859,8 @@ LABEL_59:
     v70 = v76;
     if ((v75 + 32) - v72 == 4096)
     {
-      v70 = v76 + 1;
-      v72 = v76[1];
+      v70 = v76 + 8;
+      v72 = *(v76 + 1);
       v73 = v72;
     }
 
@@ -2927,10 +2927,10 @@ LABEL_59:
     goto LABEL_59;
   }
 
-  v91 = v75 + 32;
-  if ((v75 + 32) - *v76 == 4096)
+  v91 = (v75 + 32);
+  if ((v75 - *v76 + 64) == 4096)
   {
-    v91 = v76[1];
+    v91 = *(v76 + 1);
   }
 
   return v91 == v7;
@@ -2938,7 +2938,7 @@ LABEL_59:
 
 void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::loadImmediate(uint64_t a1, int a2, int a3, unint64_t a4, double a5, double a6, double a7, int8x16_t a8)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   if (a3)
   {
     v9 = a3;
@@ -2946,31 +2946,31 @@ void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::E
     do
     {
       v12 = *(a1 + 48);
-      memset(v16, 0, sizeof(v16));
-      v17 = 0;
-      v18 = 0x300000069;
-      *&v19[24] = 0;
-      *&v19[28] = a4;
-      *&v19[32] = -1;
-      *v19 = xmmword_29D2F1D30;
-      *&v19[16] = 0x800000000;
+      memset(v17, 0, sizeof(v17));
+      v18 = 0;
+      v19 = 0x300000069;
+      *&v20[24] = 0;
+      *&v20[28] = a4;
+      *&v20[32] = -1;
+      *v20 = xmmword_29D2F1D30;
+      *&v20[16] = 0x800000000;
       *__src = 0u;
-      v23 = 0u;
-      v13 = AGXIotoInstruction_LDIMM::emit(v16, __src, 0.0, 0.0, a7, a8);
+      v24 = 0u;
+      v13 = AGXIotoInstruction_LDIMM::emit(v17, __src, 0.0, 0.0, a7, a8);
       std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v12, *(v12 + 8), __src, v13, v13 - __src);
       v14 = *(a1 + 48);
-      v17 = 0;
-      memset(v16, 0, sizeof(v16));
-      *v19 = v11 & 0xFFFE;
-      *&v19[4] = xmmword_29D2F1F20;
-      *&v19[20] = xmmword_29D2F1F30;
-      v20 = xmmword_29D2F1B60;
-      v21 = 0xFFFFFFFF00000000;
-      v18 = 0x100000023;
+      v18 = 0;
+      memset(v17, 0, sizeof(v17));
+      *v20 = v11 & 0xFFFE;
+      *&v20[4] = xmmword_29D2F1F20;
+      *&v20[20] = xmmword_29D2F1F30;
+      v21 = xmmword_29D2F1B60;
+      v22 = 0xFFFFFFFF00000000;
+      v19 = 0x100000023;
       *__src = 0u;
-      v23 = 0u;
-      v15 = AGXIotoInstruction_COPY::emit(v16, __src);
-      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v14, *(v14 + 8), __src, v15, v15 - __src);
+      v24 = 0u;
+      v16 = AGXIotoInstruction_COPY::emit(v17, __src, v15);
+      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v14, *(v14 + 8), __src, v16, v16 - __src);
       a4 >>= 32;
       v11 += 2;
       --v9;
@@ -3281,7 +3281,7 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
   return result;
 }
 
-double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::loadFromUserBuffer(uint64_t a1, __int16 a2, unsigned int a3, unsigned int a4, unsigned int a5, char a6, __int16 a7)
+double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::loadFromUserBuffer(uint64_t a1, __int16 a2, unsigned int a3, uint64_t a4, uint64_t a5, char a6, __int16 a7)
 {
   v9 = a3;
   if (a3 <= 2)
@@ -3295,7 +3295,7 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
   }
 
   v13 = *(a1 + 56);
-  if ((v12 + v13) >= 0x7F)
+  if (v12 + v13 >= 0x7F)
   {
     v14 = a4;
     v15 = a5;
@@ -3305,9 +3305,9 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
       v13 = *(a1 + 56);
     }
 
-    while ((v12 + v13) > 0x7E);
-    a5 = v15;
-    a4 = v14;
+    while (v12 + v13 > 0x7E);
+    LODWORD(a5) = v15;
+    LODWORD(a4) = v14;
   }
 
   *(a1 + 56) = v13 + v12;
@@ -3360,28 +3360,28 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
   return result;
 }
 
-__n128 AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::loadBufferPointer(uint64_t a1, uint64_t a2, unint64_t *a3, unsigned int a4, unsigned int a5)
+__n128 AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::loadBufferPointer(uint64_t a1, uint64_t **a2, unint64_t *a3, unsigned int a4, unsigned int a5)
 {
   v6 = a3;
   if (HIWORD(a4))
   {
-    AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::addBufferPointerLoad(*(a2 + 48), *a3, a3[1], a4, a5);
+    AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::addBufferPointerLoad(a2[6], *a3, a3[1], a4, a5);
     v9 = 0;
   }
 
   else
   {
     v9 = a4 ^ 0x8000;
-    v10 = *(a2 + 8);
+    v10 = a2[1];
     if (!v10)
     {
       goto LABEL_10;
     }
 
-    v11 = a2 + 8;
+    v11 = a2 + 1;
     do
     {
-      v12 = *(v10 + 28);
+      v12 = *(v10 + 7);
       v13 = v12 >= a5;
       v14 = v12 < a5;
       if (v13)
@@ -3389,20 +3389,20 @@ __n128 AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
         v11 = v10;
       }
 
-      v10 = *(v10 + 8 * v14);
+      v10 = v10[v14];
     }
 
     while (v10);
-    if (v11 != a2 + 8 && *(v11 + 28) <= a5)
+    if (v11 != a2 + 1 && *(v11 + 7) <= a5)
     {
-      v6 = (v11 + 32);
+      v6 = (v11 + 4);
     }
 
     else
     {
 LABEL_10:
-      AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::addBufferPointerLoad(*(a2 + 48), *a3, a3[1], 0x8000u, a5);
-      v15 = *(a2 + 8);
+      AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::addBufferPointerLoad(a2[6], *a3, a3[1], 0x8000u, a5);
+      v15 = a2[1];
       if (!v15)
       {
 LABEL_16:
@@ -3414,7 +3414,7 @@ LABEL_16:
         while (1)
         {
           v16 = v15;
-          v17 = *(v15 + 28);
+          v17 = *(v15 + 7);
           if (v17 <= a5)
           {
             break;
@@ -3671,7 +3671,7 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
   }
 
   v15 = *(a1 + 56);
-  if ((v14 + v15) >= 0x7F)
+  if (v14 + v15 >= 0x7F)
   {
     v16 = a4;
     do
@@ -3680,7 +3680,7 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
       v15 = *(a1 + 56);
     }
 
-    while ((v14 + v15) > 0x7E);
+    while (v14 + v15 > 0x7E);
     a4 = v16;
   }
 
@@ -3908,7 +3908,7 @@ double AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>:
 
 void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::loadABIBufferBase(uint64_t a1, __int16 a2, int a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v4 = 2 * a2;
   v5 = (2 * (a2 & 0x7FFF)) | 0x100000000;
   v6 = v4 + 2;
@@ -3962,27 +3962,27 @@ void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::E
 
   v9 = v6 & 0xFFFE;
   v10 = *(a1 + 48);
-  AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Copy::Copy(v14, v5, 8, v8 | 0x300000000, 8);
-  if ((v16 - 3) <= 1)
+  AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Copy::Copy(v16, v5, 8, v8 | 0x300000000, 8);
+  if ((v18 - 3) <= 1)
   {
-    v15 = 1;
+    v17 = 1;
   }
 
   __src = 0u;
-  v18 = 0u;
-  v11 = AGXIotoInstruction_COPY::emit(v14, &__src);
-  std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v10, *(v10 + 8), &__src, v11, v11 - &__src);
-  v12 = *(a1 + 48);
-  AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Copy::Copy(v14, v9 | 0x100000000, 8, v8 | 0x300000002, 8);
-  if ((v16 - 3) <= 1)
+  v20 = 0u;
+  v12 = AGXIotoInstruction_COPY::emit(v16, &__src, v11);
+  std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v10, *(v10 + 8), &__src, v12, v12 - &__src);
+  v13 = *(a1 + 48);
+  AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Copy::Copy(v16, v9 | 0x100000000, 8, v8 | 0x300000002, 8);
+  if ((v18 - 3) <= 1)
   {
-    v15 = 1;
+    v17 = 1;
   }
 
   __src = 0u;
-  v18 = 0u;
-  v13 = AGXIotoInstruction_COPY::emit(v14, &__src);
-  std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v12, *(v12 + 8), &__src, v13, v13 - &__src);
+  v20 = 0u;
+  v15 = AGXIotoInstruction_COPY::emit(v16, &__src, v14);
+  std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v13, *(v13 + 8), &__src, v15, v15 - &__src);
 }
 
 uint64_t AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::Copy::Copy(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
@@ -4098,17 +4098,17 @@ LABEL_23:
   return result;
 }
 
-void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::finish(uint64_t a1)
+void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::finish(uint64_t *a1)
 {
   v52 = *MEMORY[0x29EDCA608];
   *(a1 + 222) = 1;
-  if (*(a1 + 216) == 20)
+  if (*(a1 + 54) == 20)
   {
     return;
   }
 
-  v2 = *(a1 + 8) - *a1 + 16;
-  if (*(a1 + 16) - *a1 < v2)
+  v2 = a1[1] - *a1 + 16;
+  if (a1[2] - *a1 < v2)
   {
     if ((v2 & 0x8000000000000000) == 0)
     {
@@ -4118,10 +4118,10 @@ void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::f
     goto LABEL_53;
   }
 
-  AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShader::emit((a1 + 48), *(a1 + 312), *a1 + *(a1 + 316));
-  if (*(a1 + 216) == 1 || *(a1 + 220))
+  AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShader::emit((a1 + 6), *(a1 + 78), *a1 + *(a1 + 158));
+  if (*(a1 + 54) == 1 || *(a1 + 110))
   {
-    v6 = *(a1 + 8);
+    v6 = a1[1];
     v7 = v6 - *a1;
     v8 = v7 + 6;
     if (v7 > 0xFFFFFFFFFFFFFFF9)
@@ -4131,7 +4131,7 @@ void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::f
 
     else
     {
-      v9 = *(a1 + 16);
+      v9 = a1[2];
       if ((v9 - v6) < 6)
       {
         if ((v8 & 0x8000000000000000) == 0)
@@ -4148,29 +4148,29 @@ LABEL_53:
       *v6 = 0;
     }
 
-    *(a1 + 8) = v10;
+    a1[1] = v10;
     v11 = *a1;
-    v12 = *(a1 + 220);
+    v12 = *(a1 + 110);
     memset(v45, 0, 32);
     *&v45[28] = 0x100000079;
     LODWORD(v46) = v12 & 0x3FF;
-    AGXIotoInstruction_PIXREL_0::emit(v45, &v11[v7]);
-    if (*(a1 + 216) == 1)
+    AGXIotoInstruction_PIXREL_0::emit(v45, (v11 + v7));
+    if (*(a1 + 54) == 1)
     {
-      *(a1 + 318) = v7;
+      *(a1 + 159) = v7;
     }
   }
 
-  v14 = *(a1 + 24);
-  v13 = *(a1 + 32);
+  v14 = a1[3];
+  v13 = a1[4];
   v15 = v13 - v14;
   if (v13 == v14)
   {
-    if (*(a1 + 288) == 0xFFFFFFFFLL)
+    if (a1[36] == 0xFFFFFFFFLL)
     {
       memset(&v45[4], 0, 28);
       *v45 = 14;
-      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a1, *(a1 + 8), v45, &v45[4], 4);
+      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a1, a1[1], v45, &v45[4], 4uLL);
     }
 
     else
@@ -4184,10 +4184,10 @@ LABEL_53:
       *__src = 0u;
       v51 = 0u;
       v23 = AGXIotoInstruction_LDIMM::emit(v45, __src, 0.0, v3, v4, v5);
-      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a1, *(a1 + 8), __src, v23, v23 - __src);
-      v24 = *(a1 + 8);
-      *(a1 + 308) = v24 - *a1;
-      v25 = *(a1 + 288);
+      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a1, a1[1], __src, v23, v23 - __src);
+      v24 = a1[1];
+      *(a1 + 154) = v24 - *a1;
+      v25 = a1[36];
       memset(v45, 0, 32);
       *(&v46 + 4) = v25 & 0xFFFFFFFFFFFFLL;
       *&v45[28] = 0x300000008;
@@ -4202,12 +4202,12 @@ LABEL_53:
   }
 
   v17 = *a1;
-  v16 = *(a1 + 8);
+  v16 = a1[1];
   v18 = &v16[-*a1];
-  *(a1 + 304) = v18;
+  *(a1 + 76) = v18;
   if (v15 >= 1)
   {
-    v19 = *(a1 + 16);
+    v19 = a1[2];
     if (v19 - v16 < v15)
     {
       v20 = &v18[v15];
@@ -4280,7 +4280,7 @@ LABEL_40:
           v28 = &v18[v15 & 0x7FFFFFFFFFFFFFF8];
           v35 = v29 - (v15 & 0x7FFFFFFFFFFFFFF8);
           v36 = &v14[v29];
-          v37 = (&v16[v29] - v17);
+          v37 = &v16[v29 - v17];
           do
           {
             v38 = *v36++;
@@ -4297,16 +4297,16 @@ LABEL_40:
           }
 
 LABEL_46:
-          v40 = *(a1 + 8) - v16;
+          v40 = a1[1] - v16;
           memcpy(&v18[v15], v16, v40);
           v41 = &v27[v40];
-          *(a1 + 8) = v16;
+          a1[1] = v16;
           v42 = *a1;
           v43 = &v18[*a1 - v16];
           memcpy(v43, *a1, &v16[-*a1]);
           *a1 = v43;
-          *(a1 + 8) = v41;
-          *(a1 + 16) = 0;
+          a1[1] = v41;
+          a1[2] = 0;
           if (v42)
           {
             operator delete(v42);
@@ -4331,17 +4331,17 @@ LABEL_45:
     }
 
     memmove(v16, v14, v15);
-    *(a1 + 8) = &v16[v15];
+    a1[1] = &v16[v15];
   }
 
 LABEL_48:
-  v44 = *(a1 + 24);
-  *(a1 + 32) = v44;
-  if (*(a1 + 40) != v44)
+  v44 = a1[3];
+  a1[4] = v44;
+  if (a1[5] != v44)
   {
-    *(a1 + 24) = 0;
-    *(a1 + 32) = 0;
-    *(a1 + 40) = 0;
+    a1[3] = 0;
+    a1[4] = 0;
+    a1[5] = 0;
     if (v44)
     {
 
@@ -4350,7 +4350,7 @@ LABEL_48:
   }
 }
 
-unsigned __int8 *AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShader::emit(unsigned __int8 *result, int a2, uint64_t a3)
+unint64_t AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShader::emit(unint64_t result, int a2, uint64_t a3)
 {
   v659 = result;
   if (a2 == 1)
@@ -4363,10 +4363,10 @@ unsigned __int8 *AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShad
     return result;
   }
 
-  v3 = *(result + 38);
-  v4 = *(result + 39);
+  v3 = *(result + 152);
+  v4 = *(result + 156);
   v5 = v3 == 0;
-  v472 = *(result + 19) == 0;
+  v472 = *(result + 152) == 0;
   v6 = v4 == 10 && v3 == 0;
   v475 = v6;
   v7 = v3 == 1;
@@ -4591,12 +4591,12 @@ unsigned __int8 *AGX::ESLInstructionEncoderGen3<AGX::HAL300::Encoders>::LoadShad
   }
 
   v548 = v77;
-  v79 = *(result + 31);
-  v78 = *(result + 32);
+  v79 = *(result + 124);
+  v78 = *(result + 128);
   v80 = v78 != 0;
-  v81 = *(result + 28);
-  v82 = *(result + 29);
-  v83 = *(result + 30);
+  v81 = *(result + 112);
+  v82 = *(result + 116);
+  v83 = *(result + 120);
   v84 = v82 == 0;
   v85 = v78 | v79 | v83;
   v86 = v82 | v81;
@@ -6902,12 +6902,12 @@ LABEL_471:
   *a3 = (v197 << 48) | (v198 << 32) | (v196 << 16) | v654;
   a3 += 8;
 LABEL_472:
-  v205 = *(result + 4);
-  v204 = *(result + 5);
-  v207 = *(result + 2);
-  v206 = *(result + 3);
+  v205 = *(result + 16);
+  v204 = *(result + 20);
+  v207 = *(result + 8);
+  v206 = *(result + 12);
   v208 = v204 != 0;
-  v209 = *(result + 1);
+  v209 = *(result + 4);
   v210 = (v204 | v205) != 0;
   v211 = v207 == 1;
   v212 = v204 | v205 | v206;
@@ -8799,12 +8799,12 @@ LABEL_683:
   *(a3 + 4) = v281;
   *(a3 + 6) = v310;
   *(a3 + 8) = v311;
-  v316 = v277[18];
-  v315 = v277[19];
-  v318 = v277[16];
-  v317 = v277[17];
+  v316 = *(v277 + 18);
+  v315 = *(v277 + 19);
+  v318 = *(v277 + 16);
+  v317 = *(v277 + 17);
   v319 = v315 != 0;
-  v320 = v277[15];
+  v320 = *(v277 + 15);
   v321 = *(v277 + 9) != 0;
   v322 = v318 == 1;
   v323 = v315 | v316 | v317;

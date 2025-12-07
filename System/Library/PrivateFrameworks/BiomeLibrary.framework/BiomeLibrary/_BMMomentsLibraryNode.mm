@@ -7,14 +7,12 @@
 
 + (id)sublibraries
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   events = [self Events];
-  v8[0] = events;
+  v7[0] = events;
   stats = [self Stats];
-  v8[1] = stats;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = stats;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
 }

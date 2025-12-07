@@ -125,7 +125,7 @@ LABEL_9:
 
   if (_overrideCornerRadii)
   {
-    [_overrideCornerRadii radii];
+    objc_msgSend_radii(_overrideCornerRadii);
     target = [(UITargetedPreview *)self target];
     [target _contentScale];
     v56 = vmulq_n_f64(v61, v6);
@@ -281,13 +281,13 @@ LABEL_24:
     goto LABEL_22;
   }
 
-  [curve cornerRadii];
+  objc_msgSend_cornerRadii(curve);
   if (CACornerRadiiEqualToRadii())
   {
     goto LABEL_7;
   }
 
-  [curve cornerRadii];
+  objc_msgSend_cornerRadii(curve);
 LABEL_15:
   target3 = [(UITargetedPreview *)self target];
   [target3 _contentScale];
@@ -716,7 +716,7 @@ LABEL_4:
   memset(&v79, 0, sizeof(v79));
   if (v22)
   {
-    [v22 transform];
+    objc_msgSend_transform(v22);
   }
 
   CATransform3DGetDecomposition_();
@@ -760,7 +760,7 @@ LABEL_4:
   {
     if (viewCopy)
     {
-      [viewCopy transform];
+      objc_msgSend_transform(viewCopy);
     }
 
     else
@@ -828,7 +828,7 @@ LABEL_4:
   view = self->_view;
   if (view)
   {
-    [(UIView *)view transform];
+    objc_msgSend_transform(view);
   }
 
   else
@@ -1173,9 +1173,9 @@ LABEL_7:
     v5 = equalCopy;
     _internalIdentifier = [(UITargetedPreview *)self _internalIdentifier];
     _internalIdentifier2 = [v5 _internalIdentifier];
-    v8 = [_internalIdentifier isEqual:_internalIdentifier2];
+    isEqual = objc_msgSend_isEqual_(_internalIdentifier);
 
-    if (v8)
+    if (isEqual)
     {
       v9 = 1;
     }
@@ -1197,16 +1197,16 @@ LABEL_7:
             target = [v5 target];
             target2 = [(UITargetedPreview *)self target];
             v29 = target;
-            if ([target isEqual:target2])
+            if (objc_msgSend_isEqual_(target))
             {
               parameters = [v5 parameters];
               parameters2 = [(UITargetedPreview *)self parameters];
               v27 = parameters;
-              if ([parameters isEqual:parameters2])
+              if (objc_msgSend_isEqual_(parameters))
               {
                 _accessoryViews = [v5 _accessoryViews];
                 _accessoryViews2 = [(UITargetedPreview *)self _accessoryViews];
-                v9 = [_accessoryViews isEqual:?];
+                v9 = objc_msgSend_isEqual_(_accessoryViews);
               }
 
               else

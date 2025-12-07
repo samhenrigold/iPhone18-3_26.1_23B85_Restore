@@ -22,7 +22,7 @@
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7_179();
   selfCopy = self;
-  sub_1E3E0C424();
+  sub_1E3E0C424(v3, v10);
 
   (*(v7 + 8))(v3, v5);
 }

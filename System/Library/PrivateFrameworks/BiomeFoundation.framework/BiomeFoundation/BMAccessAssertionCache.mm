@@ -135,7 +135,7 @@ LABEL_9:
 
 - (id)_sandboxExtensionWithDescriptor:(id)descriptor extensionToken:(id)token container:(id)container path:(id)path
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   tokenCopy = token;
   containerCopy = container;
@@ -149,8 +149,8 @@ LABEL_9:
     v18 = __biome_log_for_category(6);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_1AC15D000, v18, OS_LOG_TYPE_INFO, "Process not sandboxed, returning access descriptor with container information but no sandbox extension", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_1AC15D000, v18, OS_LOG_TYPE_INFO, "Process not sandboxed, returning access descriptor with container information but no sandbox extension", &v25, 2u);
     }
 
     goto LABEL_10;
@@ -173,11 +173,11 @@ LABEL_9:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = BMAccessModePrintableDescription([descriptorCopy mode]);
-      v26 = 138412546;
-      v27 = v22;
-      v28 = 2112;
-      v29 = pathCopy;
-      _os_log_impl(&dword_1AC15D000, v21, OS_LOG_TYPE_INFO, "Process already has %@ access to %@", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = v22;
+      v27 = 2112;
+      v28 = pathCopy;
+      _os_log_impl(&dword_1AC15D000, v21, OS_LOG_TYPE_INFO, "Process already has %@ access to %@", &v25, 0x16u);
     }
 
 LABEL_10:
@@ -187,8 +187,6 @@ LABEL_10:
 
   v23 = [[_BMSandboxExtension alloc] initWithDescriptor:descriptorCopy extensionToken:tokenCopy container:containerCopy path:pathCopy];
 LABEL_12:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

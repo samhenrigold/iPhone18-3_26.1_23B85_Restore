@@ -67,9 +67,11 @@
 
 uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
 {
-  __loggerInstance = objc_alloc_init(SBWakeLogger);
+  v0 = objc_alloc_init(SBWakeLogger);
+  v1 = __loggerInstance;
+  __loggerInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)wakeDidEnd
@@ -81,7 +83,7 @@ uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
   {
     self->_trackingWake = 0;
     v3 = IORegistryEntrySearchCFProperty(self->_backlightService, "IOService", @"displayOnContinuousTimestamp", *MEMORY[0x1E695E480], 1u);
-    v4 = SBLogTailspinSignposts();
+    v4 = SBLogTailspinSignposts(v3);
     if (os_signpost_enabled(v4))
     {
       v5 = 134349056;
@@ -136,16 +138,16 @@ uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
 
 - (void)_lock_wakeDidBegin:(int64_t)begin
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (self->_backlightService)
   {
-    v55 = 0;
-    v56 = 0;
+    v57 = 0;
+    v58 = 0;
     mach_get_times();
     v5 = 0uLL;
     valuePtr = 0u;
-    v54 = 0u;
+    v56 = 0u;
     timesyncService = self->_timesyncService;
     if (timesyncService)
     {
@@ -158,15 +160,15 @@ uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
         v11 = CFDictionaryGetValue(v8, @"ap-cont");
         v12 = v10 & CFNumberGetValue(v11, kCFNumberLongLongType, &valuePtr + 8);
         v13 = CFDictionaryGetValue(v8, @"spu");
-        v14 = CFNumberGetValue(v13, kCFNumberLongLongType, &v54);
+        v14 = CFNumberGetValue(v13, kCFNumberLongLongType, &v56);
         v15 = CFDictionaryGetValue(v8, @"calendar");
-        v48 = v12 & (v14 & CFNumberGetValue(v15, kCFNumberLongLongType, &v54 + 8)) & 1;
+        v50 = v12 & (v14 & CFNumberGetValue(v15, kCFNumberLongLongType, &v56 + 8)) & 1;
         CFRelease(v8);
       }
 
       else
       {
-        v48 = 0;
+        v50 = 0;
       }
 
       v5 = 0uLL;
@@ -174,34 +176,34 @@ uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
 
     else
     {
-      v48 = 0;
+      v50 = 0;
     }
 
+    v53 = v5;
+    v54 = v5;
     v51 = v5;
     v52 = v5;
-    v49 = v5;
-    v50 = v5;
     obj = self->_wakeSouceToEventDict;
-    v16 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v49 objects:v61 count:16];
+    v16 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v16)
     {
       v18 = v16;
-      v19 = *v50;
+      v19 = *v52;
       *&v17 = 134349056;
-      v45 = v17;
+      v47 = v17;
       beginCopy = begin;
       do
       {
         v20 = 0;
         do
         {
-          if (*v50 != v19)
+          if (*v52 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v49 + 1) + 8 * v20);
-          v22 = [(NSMutableDictionary *)self->_wakeSouceToEventDict objectForKey:v21, v45];
+          v21 = *(*(&v51 + 1) + 8 * v20);
+          v22 = [(NSMutableDictionary *)self->_wakeSouceToEventDict objectForKey:v21, v47];
           integerValue = [v21 integerValue];
           eventRecvContTimestamp = [v22 eventRecvContTimestamp];
           eventAbsTimestamp = [v22 eventAbsTimestamp];
@@ -210,13 +212,13 @@ uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
             v26 = eventAbsTimestamp;
             if (((1 << integerValue) & 0x66) != 0)
             {
-              if (!v48)
+              if (!v50)
               {
                 goto LABEL_33;
               }
 
               v27 = valuePtr;
-              v28 = v54;
+              v28 = v56;
               *info = 0;
               mach_timebase_info(info);
               v29 = v26 * *info / *&info[4];
@@ -237,24 +239,24 @@ uint64_t __30__SBWakeLogger_sharedInstance__block_invoke()
                 goto LABEL_23;
               }
 
-              if (!v48)
+              if (!v50)
               {
                 goto LABEL_33;
               }
 
-              v42 = valuePtr;
-              v43 = v54;
+              v44 = valuePtr;
+              v45 = v56;
               *info = 0;
               mach_timebase_info(info);
               v29 = v26 * *info / *&info[4];
-              v30 = v43 - v42;
+              v30 = v45 - v44;
 LABEL_17:
               v31 = (v30 + v29) / 0x3E8;
               *info = 0;
-              mach_timebase_info(info);
-              v32 = v31 * *&info[4];
+              times = mach_timebase_info(info);
+              v33 = v31 * *&info[4];
               begin = beginCopy;
-              v33 = 1000 * v32 / *info;
+              v34 = 1000 * v33 / *info;
             }
 
             else
@@ -265,46 +267,46 @@ LABEL_17:
               }
 
 LABEL_23:
-              v57 = 0;
+              v59 = 0;
               *info = 0;
-              mach_get_times();
-              v33 = v57 + v26 - *info;
+              times = mach_get_times();
+              v34 = v59 + v26 - *info;
             }
 
             if (integerValue == begin)
             {
               self->_trackingWake = 1;
-              v35 = SBLogTailspinSignposts();
-              if (os_signpost_enabled(v35))
+              v36 = SBLogTailspinSignposts(times);
+              if (os_signpost_enabled(v36))
               {
-                v36 = SBWakeLoggerSourceDescription(begin);
-                uTF8String = [v36 UTF8String];
+                v37 = SBWakeLoggerSourceDescription(begin);
+                uTF8String = [v37 UTF8String];
                 *info = 134349314;
-                *&info[4] = v33;
-                v59 = 2082;
-                v60 = uTF8String;
-                _os_signpost_emit_with_name_impl(&dword_1BEA11000, v35, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_WAKE_EVENT", "%{public,signpost.description:begin_time,public}llu WakeReason=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", info, 0x16u);
+                *&info[4] = v34;
+                v61 = 2082;
+                v62 = uTF8String;
+                _os_signpost_emit_with_name_impl(&dword_1BEA11000, v36, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_WAKE_EVENT", "%{public,signpost.description:begin_time,public}llu WakeReason=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", info, 0x16u);
               }
             }
 
-            v38 = SBLogTailspinSignposts();
-            if (os_signpost_enabled(v38))
+            v39 = SBLogTailspinSignposts(times);
+            if (os_signpost_enabled(v39))
             {
-              v39 = SBWakeLoggerSourceDescription(begin);
-              uTF8String2 = [v39 UTF8String];
+              v40 = SBWakeLoggerSourceDescription(begin);
+              uTF8String2 = [v40 UTF8String];
               *info = 134349314;
-              *&info[4] = v33;
-              v59 = 2082;
-              v60 = uTF8String2;
-              _os_signpost_emit_with_name_impl(&dword_1BEA11000, v38, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_WAKE_EVENT_HID_LATENCY", "%{public,signpost.description:begin_time}llu WakeReason=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", info, 0x16u);
+              *&info[4] = v34;
+              v61 = 2082;
+              v62 = uTF8String2;
+              _os_signpost_emit_with_name_impl(&dword_1BEA11000, v39, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_WAKE_EVENT_HID_LATENCY", "%{public,signpost.description:begin_time}llu WakeReason=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", info, 0x16u);
             }
 
-            v41 = SBLogTailspinSignposts();
-            if (os_signpost_enabled(v41))
+            v43 = SBLogTailspinSignposts(v42);
+            if (os_signpost_enabled(v43))
             {
-              *info = v45;
+              *info = v47;
               *&info[4] = eventRecvContTimestamp;
-              _os_signpost_emit_with_name_impl(&dword_1BEA11000, v41, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_WAKE_EVENT_HID_LATENCY", "%{public,signpost.description:end_time}llu enableTelemetry=YES ", info, 0xCu);
+              _os_signpost_emit_with_name_impl(&dword_1BEA11000, v43, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_WAKE_EVENT_HID_LATENCY", "%{public,signpost.description:end_time}llu enableTelemetry=YES ", info, 0xCu);
             }
           }
 
@@ -314,11 +316,11 @@ LABEL_33:
         }
 
         while (v18 != v20);
-        v44 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v49 objects:v61 count:16];
-        v18 = v44;
+        v46 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v18 = v46;
       }
 
-      while (v44);
+      while (v46);
     }
 
     [(NSMutableDictionary *)self->_wakeSouceToEventDict removeAllObjects];

@@ -265,7 +265,7 @@ LABEL_20:
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](dictionaryCopy);
 }
 
 @end

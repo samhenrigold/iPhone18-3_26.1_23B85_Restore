@@ -7,7 +7,7 @@
 - (_TtC13familycircled23AgeRangeDaemonAnalytics)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for AgeRangeDaemonAnalytics();
+  v3.super_class = type metadata accessor for AgeRangeDaemonAnalytics(self, a2);
   return [(AgeRangeDaemonAnalytics *)&v3 init];
 }
 

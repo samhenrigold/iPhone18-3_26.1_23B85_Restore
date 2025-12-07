@@ -25,16 +25,16 @@ BOOL sub_1A14(void *a1, void *a2)
   return v4;
 }
 
-id sub_1AE0()
+id sub_1AE0(uint64_t a1)
 {
   if (qword_11BA0 != -1)
   {
     sub_5940();
   }
 
-  v1 = qword_11BA8;
+  v2 = qword_11BA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B24(id a1)
@@ -47,7 +47,7 @@ void sub_1B24(id a1)
 id sub_1B80(void *a1)
 {
   v1 = a1;
-  v2 = sub_1AE0();
+  v2 = sub_1AE0(v1);
   v3 = [v2 localizedStringForKey:v1 value:v1 table:0];
 
   return v3;
@@ -231,14 +231,13 @@ void sub_5288(uint64_t a1)
 {
   *(*(a1 + 32) + 55) = 1;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_5344;
-  v5[3] = &unk_C3B0;
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_5344;
+  v4[3] = &unk_C3B0;
   v3 = *(a1 + 40);
-  v5[4] = *(a1 + 32);
-  [WeakRetained _setCollaborationFooterViewModel:v3 action:v5];
-  v4 = *(a1 + 32);
+  v4[4] = *(a1 + 32);
+  [WeakRetained _setCollaborationFooterViewModel:v3 action:v4];
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) pluginPayloadShouldSendCollaboration];
@@ -250,7 +249,6 @@ void sub_534C(uint64_t a1)
   *(*(a1 + 32) + 55) = 1;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _setCollaborationFooterViewModel:0 action:0];
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) pluginPayloadShouldSendCopy];

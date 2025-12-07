@@ -9,9 +9,9 @@
 {
   _typeOfCurrentDevice = [MEMORY[0x1E6982C38] _typeOfCurrentDevice];
   identifier = [_typeOfCurrentDevice identifier];
-  v18 = 0;
-  v2 = [MEMORY[0x1E69A8A40] symbolForTypeIdentifier:identifier error:&v18];
-  v3 = v18;
+  v20 = 0;
+  v2 = [MEMORY[0x1E69A8A40] symbolForTypeIdentifier:identifier error:&v20];
+  v3 = v20;
   v4 = v3;
   if (v2)
   {
@@ -46,13 +46,13 @@
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
     model = [currentDevice model];
 
-    HasHomeButton = DOCDeviceHasHomeButton();
+    HasHomeButton = DOCDeviceHasHomeButton(v11, v12);
     if (([model isEqualToString:@"iPhone"] & 1) != 0 || objc_msgSend(model, "isEqualToString:", @"iPod touch"))
     {
-      v12 = @"iphone.homebutton";
+      v14 = @"iphone.homebutton";
       if (!HasHomeButton)
       {
-        v12 = @"iphone";
+        v14 = @"iphone";
       }
     }
 
@@ -62,50 +62,50 @@
       {
         if ([model isEqualToString:@"Apple Vision"])
         {
-          v13 = @"visionpro";
+          v15 = @"visionpro";
         }
 
         else
         {
-          v16 = MEMORY[0x1E699A450];
-          v17 = *MEMORY[0x1E699A450];
+          v18 = MEMORY[0x1E699A450];
+          v19 = *MEMORY[0x1E699A450];
           if (!*MEMORY[0x1E699A450])
           {
             DOCInitLogging();
-            v17 = *v16;
+            v19 = *v18;
           }
 
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [(UIDevice(DOCDeviceSymbol) *)model doc_symbolName];
           }
 
-          v13 = 0;
+          v15 = 0;
         }
 
         goto LABEL_15;
       }
 
-      v12 = @"ipad";
+      v14 = @"ipad";
       if (HasHomeButton)
       {
-        v12 = @"ipad.homebutton";
+        v14 = @"ipad.homebutton";
       }
     }
 
-    v13 = v12;
+    v15 = v14;
 LABEL_15:
-    if (v13)
+    if (v15)
     {
-      v14 = v13;
+      v16 = v15;
     }
 
     else
     {
-      v14 = @"iphone";
+      v16 = @"iphone";
     }
 
-    name = v14;
+    name = v16;
   }
 
   return name;

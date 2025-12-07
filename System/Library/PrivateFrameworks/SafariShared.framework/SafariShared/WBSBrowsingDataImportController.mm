@@ -400,21 +400,21 @@ id __68__WBSBrowsingDataImportController_scanImportURLs_completionHandler___bloc
 
   if (v4)
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v4 length:strlen(v4) encoding:4 freeWhenDone:1];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v4 length:strlen(v4) encoding:4 freeWhenDone:1];
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __68__WBSBrowsingDataImportController_scanImportURLs_completionHandler___block_invoke_cold_1(v2, v6);
+      __68__WBSBrowsingDataImportController_scanImportURLs_completionHandler___block_invoke_cold_1(v2, v8);
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 void __68__WBSBrowsingDataImportController_scanImportURLs_completionHandler___block_invoke_95(uint64_t a1, void *a2, void *a3)
@@ -538,61 +538,62 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v14 = v12;
   if (v12)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXImport(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_cold_1(v13);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_cold_1(v15);
     }
 
-    v14 = *(*(a1 + 40) + 16);
+    v16 = *(*(a1 + 40) + 16);
   }
 
   else
   {
     if ([v9 count])
     {
-      v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v16 = dispatch_group_create();
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_101;
-      v28[3] = &unk_1E7FC6D20;
-      v17 = *(a1 + 32);
-      v29 = v16;
-      v30 = v17;
-      v18 = v15;
-      v31 = v18;
-      v19 = v16;
-      [v9 enumerateKeysAndObjectsUsingBlock:v28];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_120;
-      v23[3] = &unk_1E7FC6D48;
-      v23[4] = *(a1 + 32);
-      v24 = v10;
-      v25 = v11;
-      v20 = *(a1 + 40);
-      v26 = v18;
-      v27 = v20;
+      v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v19 = dispatch_group_create();
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_101;
+      v31[3] = &unk_1E7FC6D20;
+      v20 = *(a1 + 32);
+      v32 = v19;
+      v33 = v20;
       v21 = v18;
-      dispatch_group_notify(v19, MEMORY[0x1E69E96A0], v23);
+      v34 = v21;
+      v22 = v19;
+      [v9 enumerateKeysAndObjectsUsingBlock:v31];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_120;
+      v26[3] = &unk_1E7FC6D48;
+      v26[4] = *(a1 + 32);
+      v27 = v10;
+      v28 = v11;
+      v23 = *(a1 + 40);
+      v29 = v21;
+      v30 = v23;
+      v24 = v21;
+      dispatch_group_notify(v22, MEMORY[0x1E69E96A0], v26);
 
       goto LABEL_8;
     }
 
-    v22 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v25 = WBS_LOG_CHANNEL_PREFIXImport(0, v17);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_INFO, "Didn't find any importable files.", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v25, OS_LOG_TYPE_INFO, "Didn't find any importable files.", buf, 2u);
     }
 
-    v14 = *(*(a1 + 40) + 16);
+    v16 = *(*(a1 + 40) + 16);
   }
 
-  v14();
+  v16();
 LABEL_8:
 }
 
@@ -730,12 +731,13 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_cold_1(v7);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_cold_1(v9);
       if (v5)
       {
         goto LABEL_5;
@@ -747,23 +749,23 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
     if (!v5)
     {
 LABEL_4:
-      v8 = [WBSBrowsingDataImportData alloc];
-      v9 = [v6 localizedDescription];
-      v5 = [(WBSBrowsingDataImportData *)v8 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v9];
+      v10 = [WBSBrowsingDataImportData alloc];
+      v11 = [v8 localizedDescription];
+      v5 = [(WBSBrowsingDataImportData *)v10 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v11];
     }
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_103;
-  v11[3] = &unk_1E7FC6CA8;
-  v12 = a1[4];
-  v13 = a1[5];
-  v14 = v5;
-  v15 = a1[6];
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_103;
+  v13[3] = &unk_1E7FC6CA8;
+  v14 = a1[4];
+  v15 = a1[5];
+  v16 = v5;
+  v17 = a1[6];
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_103(uint64_t a1)
@@ -782,12 +784,13 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_105_cold_1(v7);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_105_cold_1(v9);
       if (v5)
       {
         goto LABEL_5;
@@ -799,23 +802,23 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
     if (!v5)
     {
 LABEL_4:
-      v8 = [WBSBrowsingDataImportData alloc];
-      v9 = [v6 localizedDescription];
-      v5 = [(WBSBrowsingDataImportData *)v8 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v9];
+      v10 = [WBSBrowsingDataImportData alloc];
+      v11 = [v8 localizedDescription];
+      v5 = [(WBSBrowsingDataImportData *)v10 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v11];
     }
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_106;
-  v11[3] = &unk_1E7FC6CA8;
-  v12 = a1[4];
-  v13 = a1[5];
-  v14 = v5;
-  v15 = a1[6];
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_106;
+  v13[3] = &unk_1E7FC6CA8;
+  v14 = a1[4];
+  v15 = a1[5];
+  v16 = v5;
+  v17 = a1[6];
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_106(uint64_t a1)
@@ -834,12 +837,13 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_107_cold_1(v7);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_107_cold_1(v9);
       if (v5)
       {
         goto LABEL_5;
@@ -851,23 +855,23 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
     if (!v5)
     {
 LABEL_4:
-      v8 = [WBSBrowsingDataImportData alloc];
-      v9 = [v6 localizedDescription];
-      v5 = [(WBSBrowsingDataImportData *)v8 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v9];
+      v10 = [WBSBrowsingDataImportData alloc];
+      v11 = [v8 localizedDescription];
+      v5 = [(WBSBrowsingDataImportData *)v10 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v11];
     }
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_108;
-  v11[3] = &unk_1E7FC6CA8;
-  v12 = a1[4];
-  v13 = a1[5];
-  v14 = v5;
-  v15 = a1[6];
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_108;
+  v13[3] = &unk_1E7FC6CA8;
+  v14 = a1[4];
+  v15 = a1[5];
+  v16 = v5;
+  v17 = a1[6];
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_108(uint64_t a1)
@@ -886,12 +890,13 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_109_cold_1(v7);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_109_cold_1(v9);
       if (v5)
       {
         goto LABEL_5;
@@ -903,23 +908,23 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
     if (!v5)
     {
 LABEL_4:
-      v8 = [WBSBrowsingDataImportData alloc];
-      v9 = [v6 localizedDescription];
-      v5 = [(WBSBrowsingDataImportData *)v8 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v9];
+      v10 = [WBSBrowsingDataImportData alloc];
+      v11 = [v8 localizedDescription];
+      v5 = [(WBSBrowsingDataImportData *)v10 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v11];
     }
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_110;
-  v11[3] = &unk_1E7FC6CA8;
-  v12 = a1[4];
-  v13 = a1[5];
-  v14 = v5;
-  v15 = a1[6];
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_110;
+  v13[3] = &unk_1E7FC6CA8;
+  v14 = a1[4];
+  v15 = a1[5];
+  v16 = v5;
+  v17 = a1[6];
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_110(uint64_t a1)
@@ -938,12 +943,13 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_111_cold_1(v7);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_111_cold_1(v9);
       if (v5)
       {
         goto LABEL_5;
@@ -955,23 +961,23 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
     if (!v5)
     {
 LABEL_4:
-      v8 = [WBSBrowsingDataImportData alloc];
-      v9 = [v6 localizedDescription];
-      v5 = [(WBSBrowsingDataImportData *)v8 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v9];
+      v10 = [WBSBrowsingDataImportData alloc];
+      v11 = [v8 localizedDescription];
+      v5 = [(WBSBrowsingDataImportData *)v10 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v11];
     }
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_112;
-  v11[3] = &unk_1E7FC6CA8;
-  v12 = a1[4];
-  v13 = a1[5];
-  v14 = v5;
-  v15 = a1[6];
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_112;
+  v13[3] = &unk_1E7FC6CA8;
+  v14 = a1[4];
+  v15 = a1[5];
+  v16 = v5;
+  v17 = a1[6];
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_112(uint64_t a1)
@@ -1047,21 +1053,21 @@ LABEL_5:
   }
 }
 
-void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_4(uint64_t a1)
+void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXImport();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXImport(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_4_cold_1(a1, v2);
+    __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_4_cold_1(a1, v3);
   }
 
-  v3 = [WBSBrowsingDataImportData alloc];
-  v4 = [*(a1 + 32) localizedDescription];
-  v5 = [(WBSBrowsingDataImportData *)v3 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v4];
+  v4 = [WBSBrowsingDataImportData alloc];
+  v5 = [*(a1 + 32) localizedDescription];
+  v6 = [(WBSBrowsingDataImportData *)v4 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v5];
 
-  v6 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
-  v7 = [(WBSBrowsingDataImportData *)v5 combine:v6];
-  [*(a1 + 40) setObject:v7 forKeyedSubscript:*(a1 + 48)];
+  v7 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
+  v8 = [(WBSBrowsingDataImportData *)v6 combine:v7];
+  [*(a1 + 40) setObject:v8 forKeyedSubscript:*(a1 + 48)];
 
   dispatch_group_leave(*(a1 + 56));
 }
@@ -1086,12 +1092,13 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_105_cold_1(v7);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_2_105_cold_1(v9);
       if (v5)
       {
         goto LABEL_5;
@@ -1103,23 +1110,23 @@ void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompl
     if (!v5)
     {
 LABEL_4:
-      v8 = [WBSBrowsingDataImportData alloc];
-      v9 = [v6 localizedDescription];
-      v5 = [(WBSBrowsingDataImportData *)v8 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v9];
+      v10 = [WBSBrowsingDataImportData alloc];
+      v11 = [v8 localizedDescription];
+      v5 = [(WBSBrowsingDataImportData *)v10 initWithNumberOfItemsSuccessfullyImported:0 numberOfItemsFailedToImport:0 errorMessage:v11];
     }
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_119;
-  v11[3] = &unk_1E7FC6CA8;
-  v12 = a1[4];
-  v13 = a1[5];
-  v14 = v5;
-  v15 = a1[6];
-  v10 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_119;
+  v13[3] = &unk_1E7FC6CA8;
+  v14 = a1[4];
+  v15 = a1[5];
+  v16 = v5;
+  v17 = a1[6];
+  v12 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_119(uint64_t a1)
@@ -1215,12 +1222,13 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v14 = v12;
   if (v12)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXImport(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_cold_1(v13);
+      __85__WBSBrowsingDataImportController_importBrowsingDataFromFiles_withCompletionHandler___block_invoke_cold_1(v15);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1228,31 +1236,31 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 
   else
   {
-    v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v15 = dispatch_group_create();
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_122;
-    v26[3] = &unk_1E7FC6D20;
-    v16 = *(a1 + 32);
-    v27 = v15;
-    v28 = v16;
-    v17 = v14;
+    v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v17 = dispatch_group_create();
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_122;
+    v28[3] = &unk_1E7FC6D20;
+    v18 = *(a1 + 32);
     v29 = v17;
-    v18 = v15;
-    [v9 enumerateKeysAndObjectsUsingBlock:v26];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_137;
-    v21[3] = &unk_1E7FC6D48;
-    v21[4] = *(a1 + 32);
-    v22 = v10;
-    v23 = v11;
-    v19 = *(a1 + 40);
-    v24 = v17;
-    v25 = v19;
+    v30 = v18;
+    v19 = v16;
+    v31 = v19;
     v20 = v17;
-    dispatch_group_notify(v18, MEMORY[0x1E69E96A0], v21);
+    [v9 enumerateKeysAndObjectsUsingBlock:v28];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_137;
+    v23[3] = &unk_1E7FC6D48;
+    v23[4] = *(a1 + 32);
+    v24 = v10;
+    v25 = v11;
+    v21 = *(a1 + 40);
+    v26 = v19;
+    v27 = v21;
+    v22 = v19;
+    dispatch_group_notify(v20, MEMORY[0x1E69E96A0], v23);
   }
 }
 
@@ -1389,24 +1397,25 @@ LABEL_16:
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_123;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_123;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_123(uint64_t a1)
@@ -1424,24 +1433,25 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_125(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_125_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_125_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_126;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_126;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_126(uint64_t a1)
@@ -1459,24 +1469,25 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_127(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_127_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_127_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_128;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_128;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_128(uint64_t a1)
@@ -1494,24 +1505,25 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_129(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_130;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_130;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_130(uint64_t a1)
@@ -1529,24 +1541,25 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_131(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_131_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_131_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_132;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_132;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_132(uint64_t a1)
@@ -1578,24 +1591,25 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_3(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_3_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_3_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_134;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_134;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_134(uint64_t a1)
@@ -1613,24 +1627,25 @@ void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromF
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_135(id *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXImport(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_cold_1(v6);
+      __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_2_cold_1(v8);
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_136;
-  v7[3] = &unk_1E7FC6D98;
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = a2;
-  v10 = a1[6];
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_136;
+  v9[3] = &unk_1E7FC6D98;
+  v10 = a1[4];
+  v11 = a1[5];
+  v13 = a2;
+  v12 = a1[6];
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 void __99__WBSBrowsingDataImportController_computeNumberOfItemsToBeImportedFromFiles_withCompletionHandler___block_invoke_136(uint64_t a1)

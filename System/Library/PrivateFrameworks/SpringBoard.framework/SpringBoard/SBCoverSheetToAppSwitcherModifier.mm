@@ -108,7 +108,7 @@
   if (![(SBCoverSheetToAppSwitcherModifier *)self _isFlyOutAnimation])
   {
     v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:2];
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+    v5 = SBAppendSwitcherModifierResponse();
 
     if (self->_supportsBlur)
     {
@@ -117,7 +117,7 @@
       _blurParameters = [(SBCoverSheetToAppSwitcherModifier *)self _blurParameters];
       v9 = [(SBBlurItemContainerSwitcherEventResponse *)v6 initWithAppLayout:appLayout shouldBlur:1 blurParameters:_blurParameters animationUpdateMode:2];
 
-      v10 = SBAppendSwitcherModifierResponse(v9, v5);
+      v10 = SBAppendSwitcherModifierResponse();
 
       v5 = v10;
     }
@@ -141,7 +141,7 @@
     _blurParameters = [(SBCoverSheetToAppSwitcherModifier *)self _blurParameters];
     v8 = [(SBBlurItemContainerSwitcherEventResponse *)v4 initWithAppLayout:appLayout shouldBlur:_isFlyOutAnimation blurParameters:_blurParameters animationUpdateMode:3];
 
-    v9 = SBAppendSwitcherModifierResponse(v8, transitionWillUpdate);
+    v9 = SBAppendSwitcherModifierResponse();
 
     transitionWillUpdate = v9;
   }
@@ -157,7 +157,7 @@
   v13 = [MEMORY[0x277CCAE60] valueWithCATransform3D:v17];
   v14 = [(SBInjectVelocitySwitcherEventResponse *)v12 initWithVelocity:v13 forKey:@"transform" appLayout:self->_appLayout];
 
-  v15 = SBAppendSwitcherModifierResponse(v14, transitionWillUpdate);
+  v15 = SBAppendSwitcherModifierResponse();
 
   return v15;
 }
@@ -174,7 +174,7 @@
     _blurParameters = [(SBCoverSheetToAppSwitcherModifier *)self _blurParameters];
     v7 = [(SBBlurItemContainerSwitcherEventResponse *)v4 initWithAppLayout:appLayout shouldBlur:0 blurParameters:_blurParameters animationUpdateMode:2];
 
-    v8 = SBAppendSwitcherModifierResponse(v7, transitionDidEnd);
+    v8 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v8;
   }

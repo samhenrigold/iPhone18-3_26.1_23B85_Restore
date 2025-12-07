@@ -19,12 +19,15 @@
   if (*&self->_delegateCapabilites)
   {
     v4 = [(MPUHTMLParserDelegate *)self->_delegate defaultAttributesForParser:self->_parser];
+    v5 = v4;
     if (v4)
     {
-      [(NSMutableArray *)self->_attributeDictionaries addObject:v4];
+      v6 = v4;
+      v4 = [(NSMutableArray *)self->_attributeDictionaries addObject:v4];
+      v5 = v6;
     }
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, v5);
   }
 }
 

@@ -71,7 +71,7 @@
 
 - (void)sendMessage:(id)message completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   completionCopy = completion;
   v8 = HKSPLogForCategory();
@@ -79,16 +79,16 @@
   {
     _loggingDescription = [(_HDSPIDSService *)self _loggingDescription];
     *buf = 138543618;
-    v20 = _loggingDescription;
-    v21 = 2114;
-    v22 = messageCopy;
+    v19 = _loggingDescription;
+    v20 = 2114;
+    v21 = messageCopy;
     _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending message %{public}@", buf, 0x16u);
   }
 
   v10 = objc_alloc_init(MEMORY[0x277D62458]);
-  v18 = 0;
-  v11 = [v10 serialize:messageCopy error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [v10 serialize:messageCopy error:&v17];
+  v12 = v17;
   if (v11)
   {
     serializedDictionary = [v10 serializedDictionary];
@@ -103,18 +103,16 @@
     {
       _loggingDescription2 = [(_HDSPIDSService *)self _loggingDescription];
       *buf = 138543874;
-      v20 = _loggingDescription2;
-      v21 = 2114;
-      v22 = messageCopy;
-      v23 = 2114;
-      v24 = v12;
+      v19 = _loggingDescription2;
+      v20 = 2114;
+      v21 = messageCopy;
+      v22 = 2114;
+      v23 = v12;
       _os_log_error_impl(&dword_269B11000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] failed to serialize message %{public}@ with error %{public}@", buf, 0x20u);
     }
 
     completionCopy[2](completionCopy, 0, v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendSerializedMessage:(id)message identifier:(id)identifier completion:(id)completion
@@ -160,16 +158,16 @@
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v9 = HKSPLogForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     _loggingDescription = [(_HDSPIDSService *)self _loggingDescription];
     *buf = 138543618;
-    v23 = _loggingDescription;
-    v24 = 2114;
-    v25 = messageCopy;
+    v22 = _loggingDescription;
+    v23 = 2114;
+    v24 = messageCopy;
     _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] received incoming message %{public}@", buf, 0x16u);
   }
 
@@ -180,9 +178,9 @@
   hksp_serializedClassName = [messageCopy hksp_serializedClassName];
   v15 = NSClassFromString(hksp_serializedClassName);
 
-  v21 = 0;
-  v16 = [v13 deserializeObjectOfClass:v15 error:&v21];
-  v17 = v21;
+  v20 = 0;
+  v16 = [v13 deserializeObjectOfClass:v15 error:&v20];
+  v17 = v20;
   if (v16)
   {
     delegate = [(_HDSPIDSService *)self delegate];
@@ -196,20 +194,18 @@
     {
       _loggingDescription2 = [(_HDSPIDSService *)self _loggingDescription];
       *buf = 138543618;
-      v23 = _loggingDescription2;
-      v24 = 2114;
-      v25 = v17;
+      v22 = _loggingDescription2;
+      v23 = 2114;
+      v24 = v17;
       _os_log_error_impl(&dword_269B11000, delegate, OS_LOG_TYPE_ERROR, "[%{public}@] failed to deserialize incoming message with error %{public}@", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
 {
   successCopy = success;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   errorCopy = error;
   v13 = HKSPLogForCategory();
@@ -222,30 +218,28 @@
     }
 
     _loggingDescription = [(_HDSPIDSService *)self _loggingDescription];
-    v17 = 138543874;
-    v18 = _loggingDescription;
-    v19 = 2114;
-    v20 = identifierCopy;
-    v21 = 2114;
-    v22 = errorCopy;
-    _os_log_error_impl(&dword_269B11000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] failed to send message %{public}@ with error %{public}@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = _loggingDescription;
+    v18 = 2114;
+    v19 = identifierCopy;
+    v20 = 2114;
+    v21 = errorCopy;
+    _os_log_error_impl(&dword_269B11000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] failed to send message %{public}@ with error %{public}@", &v16, 0x20u);
     goto LABEL_4;
   }
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     _loggingDescription = [(_HDSPIDSService *)self _loggingDescription];
-    v17 = 138543618;
-    v18 = _loggingDescription;
-    v19 = 2114;
-    v20 = identifierCopy;
-    _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully sent message %{public}@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = _loggingDescription;
+    v18 = 2114;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully sent message %{public}@", &v16, 0x16u);
 LABEL_4:
   }
 
 LABEL_6:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSPIDSServiceDelegate)delegate

@@ -1,5 +1,5 @@
 @interface UIToolbar(_UIToolbarConfiguration)
-- (id)configuration;
+- (_UIToolbarConfiguration)configuration;
 - (void)configureTransparent;
 - (void)configureWithConfiguration:()_UIToolbarConfiguration;
 @end
@@ -45,7 +45,7 @@
   }
 }
 
-- (id)configuration
+- (_UIToolbarConfiguration)configuration
 {
   v2 = objc_opt_new();
   [v2 setBarStyle:{objc_msgSend(self, "barStyle")}];

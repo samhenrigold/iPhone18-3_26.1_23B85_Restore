@@ -227,10 +227,11 @@ LABEL_30:
   objc_autoreleasePoolPop(context);
 }
 
-void sub_100001850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100001850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -243,20 +244,14 @@ uint64_t sub_1000018A4(uint64_t result, uint64_t a2)
 
 uint64_t sub_1000018BC(uint64_t a1, char *string)
 {
-  v3 = xpc_string_create(string);
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = xpc_string_create(string);
 
   return _objc_release_x1();
 }
 
 uint64_t sub_100001904(uint64_t a1, char *string)
 {
-  v3 = xpc_string_create(string);
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = xpc_string_create(string);
 
   return _objc_release_x1();
 }
@@ -348,7 +343,7 @@ void sub_100001BE8(void *a1)
   _Block_object_dispose(&v3, 8);
 }
 
-void sub_100001CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_100001CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -584,11 +579,11 @@ uint64_t sub_100002308(const __CFDictionary *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100002370(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t sub_100002370(uint64_t result, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a3 == 1)
   {
-    result = sub_1000023C0(result, a2, *(a3 + 16));
+    result = sub_1000023C0(result, a2, *(a3 + 16), a4, a5);
     if (result)
     {
       *(a3 + 8) += result;
@@ -603,9 +598,9 @@ uint64_t sub_100002370(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_1000023C0(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_1000023C0(const void *a1, const void *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
-  if (sub_1000030B0(a1, a3) && sub_1000030B0(a2, a3))
+  if (sub_1000030B0(a1, a3, a3, a4, a5) && sub_1000030B0(a2, a3, v8, v9, v10))
   {
 
     return ccder_sizeof();
@@ -613,21 +608,21 @@ uint64_t sub_1000023C0(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 
   else
   {
-    sub_100002FE0(-6, v5, v6, a3, v7, @"null input");
+    sub_100002FE0(-6, v7, v8, a3, v10, @"null input");
     return 0;
   }
 }
 
-uint64_t sub_100002450(const __CFDictionary *a1, CFTypeRef *a2, char a3)
+uint64_t sub_100002450(const __CFDictionary *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v14[0] = 0xAAAAAAAAAAAAAA01;
-  v14[1] = a2;
-  BYTE1(v14[0]) = a3;
-  v14[2] = Mutable;
-  v14[3] = 0;
-  CFDictionaryApplyFunction(a1, sub_100002688, v14);
-  if ((v14[0] & 1) == 0)
+  v16[0] = 0xAAAAAAAAAAAAAA01;
+  v16[1] = a2;
+  BYTE1(v16[0]) = a3;
+  v16[2] = Mutable;
+  v16[3] = 0;
+  CFDictionaryApplyFunction(a1, sub_100002688, v16);
+  if ((v16[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -637,23 +632,23 @@ uint64_t sub_100002450(const __CFDictionary *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v15.length = CFArrayGetCount(Mutable);
-  v15.location = 0;
-  CFArraySortValues(Mutable, v15, sub_1000025CC, 0);
+  v17.length = CFArrayGetCount(Mutable);
+  v17.location = 0;
+  CFArraySortValues(Mutable, v17, sub_1000025CC, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -664,7 +659,7 @@ uint64_t sub_100002450(const __CFDictionary *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_100002FE0(-7, v11, v12, a2, v13, @"ccder failed to encode");
+    sub_100002FE0(-7, v13, v14, a2, v15, @"ccder failed to encode");
     return 0;
   }
 
@@ -737,31 +732,31 @@ uint64_t sub_1000025CC(const __CFData *a1, const __CFData *a2)
   }
 }
 
-void sub_100002688(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100002688(const void *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a3 == 1)
   {
-    v6 = sub_1000023C0(a1, a2, *(a3 + 8));
-    if (!v6)
+    v8 = sub_1000023C0(a1, a2, *(a3 + 8), a4, a5);
+    if (!v8)
     {
       *a3 = 0;
       return;
     }
 
-    v7 = v6;
-    Mutable = CFDataCreateMutable(*(a3 + 24), v6);
-    CFDataSetLength(Mutable, v7);
+    v9 = v8;
+    Mutable = CFDataCreateMutable(*(a3 + 24), v8);
+    CFDataSetLength(Mutable, v9);
     MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-    v10 = *(a3 + 8);
-    v11 = *(a3 + 1);
-    v12 = sub_100003344(a2, v10, v11, MutableBytePtr, &MutableBytePtr[v7]);
-    sub_100003344(a1, v10, v11, MutableBytePtr, v12);
-    v13 = ccder_encode_constructed_tl();
-    if (v13)
+    v12 = *(a3 + 8);
+    v13 = *(a3 + 1);
+    v14 = sub_100003344(a2, v12, v13, MutableBytePtr, &MutableBytePtr[v9]);
+    sub_100003344(a1, v12, v13, MutableBytePtr, v14);
+    v15 = ccder_encode_constructed_tl();
+    if (v15)
     {
-      v18.length = v13 - MutableBytePtr;
-      v18.location = 0;
-      CFDataDeleteBytes(Mutable, v18);
+      v20.length = v15 - MutableBytePtr;
+      v20.location = 0;
+      CFDataDeleteBytes(Mutable, v20);
       CFArrayAppendValue(*(a3 + 16), Mutable);
       if (!Mutable)
       {
@@ -771,7 +766,7 @@ void sub_100002688(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      sub_100002FE0(-7, v14, v15, v10, v16, @"ccder failed to encode");
+      sub_100002FE0(-7, v16, v17, v12, v18, @"ccder failed to encode");
       *a3 = 0;
       if (!Mutable)
       {
@@ -868,7 +863,7 @@ uint64_t sub_100002AC0(uint64_t a1, CFCalendarRef calendar)
   return result;
 }
 
-uint64_t sub_100002B24(const __CFNumber *a1, CFTypeRef *a2)
+uint64_t sub_100002B24(const __CFNumber *a1, CFErrorRef *a2)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -902,7 +897,7 @@ uint64_t sub_100002B24(const __CFNumber *a1, CFTypeRef *a2)
   }
 }
 
-uint64_t sub_100002BF4(const __CFNumber *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100002BF4(const __CFNumber *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (!CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -993,7 +988,7 @@ LABEL_22:
   return result;
 }
 
-void sub_100002D2C(CFIndex a1, const __CFString *a2, __CFString *cf, CFTypeRef *a4, CFStringRef format, va_list arguments)
+void sub_100002D2C(CFIndex a1, const __CFString *a2, __CFString *cf, CFErrorRef *a4, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -1128,28 +1123,29 @@ LABEL_44:
   }
 }
 
-void sub_10000301C(uint64_t a1, __CFString **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10000301C(uint64_t a1, __CFString **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   cf = 0;
   if (a2)
   {
-    sub_100002D2C(-1, kCFErrorDomainOSStatus, *a2, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", &a9);
+    sub_100002D2C(-1, kCFErrorDomainOSStatus, *a2, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", va);
     *a2 = cf;
   }
 
   else
   {
-    sub_100002D2C(-1, kCFErrorDomainOSStatus, 0, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", &a9);
-    v10 = cf;
+    sub_100002D2C(-1, kCFErrorDomainOSStatus, 0, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", va);
+    v9 = cf;
     if (cf)
     {
       cf = 0;
-      CFRelease(v10);
+      CFRelease(v9);
     }
   }
 }
 
-uint64_t sub_1000030B0(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_1000030B0(const __CFString *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
@@ -1168,7 +1164,7 @@ uint64_t sub_1000030B0(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a1, v10 - 2);
-        v9 += sub_1000030B0(ValueAtIndex, a2);
+        v9 += sub_1000030B0(ValueAtIndex, a2, v12, v13, v14);
         --v10;
       }
 
@@ -1225,14 +1221,14 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    sub_100002FE0(-5, v14, v15, a2, v16, @"Unsupported CFType");
+    sub_100002FE0(-5, v17, v18, a2, v19, @"Unsupported CFType");
     return 0;
   }
 
   return sub_100002B24(a1, a2);
 }
 
-uint64_t sub_100003344(const __CFString *a1, CFTypeRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
+uint64_t sub_100003344(const __CFString *a1, CFErrorRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
 {
   if (!a1)
   {
@@ -1381,7 +1377,7 @@ LABEL_14:
 
     v41 = HIDWORD(v70);
     v42 = HIDWORD(v69);
-    if (v69 > 61 || SHIDWORD(v69) > 59 || v70 > 23 || (v71 - 13) < 0xFFFFFFF4 || (HIDWORD(v70) - 32) < 0xFFFFFFE1 || v71 == 2 && (v35 | 0x1Cu) < HIDWORD(v70))
+    if (v69 > 61 || SHIDWORD(v69) > 59 || v70 > 23 || (v71 - 13) < 0xFFFFFFF4 || (HIDWORD(v70) - 32) < 0xFFFFFFE1 || v71 == 2 && (v35 | 0x1C) < HIDWORD(v70))
     {
       goto LABEL_54;
     }
@@ -1395,7 +1391,7 @@ LABEL_14:
     if (dword_100005488[v71] - dword_100005488[(v71 - 1)] < SHIDWORD(v70))
     {
 LABEL_54:
-      sub_10000301C(v25, block, v26, v27, v28, v29, v30, v31, SBYTE4(v71));
+      sub_10000301C(v25, block, v26, v27, v28, v29, v30, v31, HIDWORD(v71), v71, HIDWORD(v70), v70, HIDWORD(v69), v69, v35);
       v43 = CFErrorCopyDescription(block[0]);
       v44 = sub_100002278("SecError");
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
@@ -1542,41 +1538,7 @@ LABEL_70:
 
 LABEL_94:
     __freedtoa();
-    if (!v48)
-    {
-      goto LABEL_102;
-    }
-
-    v64 = (a4 + 2);
-    if ((a4 + 2) > v48)
-    {
-      goto LABEL_102;
-    }
-
-    *(v48 - 2) = v68 / 10 + 48;
-    *(v48 - 1) = v68 % 10 + 48;
-    if (v64 > v48 - 2)
-    {
-      goto LABEL_102;
-    }
-
-    *(v48 - 4) = v42 / 10 + 48;
-    *(v48 - 3) = v42 % 10 + 48;
-    if (v64 > v48 - 4)
-    {
-      goto LABEL_102;
-    }
-
-    *(v48 - 6) = v67 / 10 + 48;
-    *(v48 - 5) = v67 % 10 + 48;
-    if (v64 > v48 - 6)
-    {
-      goto LABEL_102;
-    }
-
-    *(v48 - 8) = v41 / 10 + 48;
-    *(v48 - 7) = v41 % 10 + 48;
-    if (v64 <= v48 - 8 && (*(v48 - 10) = v34 / 10 + 48, *(v48 - 9) = v34 % 10 + 48, v64 <= v48 - 10) && (v65 = (((103 * (v33 % 100)) >> 15) & 1) + ((103 * (v33 % 100)) >> 10), *(v48 - 12) = v65 + 48, *(v48 - 11) = v33 % 100 - 10 * v65 + 48, v64 <= v48 - 12))
+    if (v48 && (v64 = (a4 + 2), (a4 + 2) <= v48) && (*(v48 - 2) = v68 / 10 + 48, *(v48 - 1) = v68 % 10 + 48, v64 <= v48 - 2) && (*(v48 - 4) = v42 / 10 + 48, *(v48 - 3) = v42 % 10 + 48, v64 <= v48 - 4) && (*(v48 - 6) = v67 / 10 + 48, *(v48 - 5) = v67 % 10 + 48, v64 <= v48 - 6) && (*(v48 - 8) = v41 / 10 + 48, *(v48 - 7) = v41 % 10 + 48, v64 <= v48 - 8) && (*(v48 - 10) = v34 / 10 + 48, *(v48 - 9) = v34 % 10 + 48, v64 <= v48 - 10) && (v65 = (((103 * (v33 % 100)) >> 15) & 1) + ((103 * (v33 % 100)) >> 10), *(v48 - 12) = v65 + 48, *(v48 - 11) = v33 % 100 - 10 * v65 + 48, v64 <= v48 - 12))
     {
       *(v48 - 14) = v33 / 1000 + 48;
       *(v48 - 13) = v33 / 100 % 10 + 48;
@@ -1584,7 +1546,6 @@ LABEL_94:
 
     else
     {
-LABEL_102:
       sub_100002FE0(-7, v61, v62, a2, v63, @"ccder failed to encode");
     }
 
@@ -1594,13 +1555,13 @@ LABEL_102:
   if (CFDictionaryGetTypeID() == v10)
   {
 
-    return sub_100002450(a1, a2, a3);
+    return sub_100002450(a1, a2, a3, a4, a5);
   }
 
   if (CFSetGetTypeID() == v10)
   {
 
-    return sub_100004128(a1, a2, a3);
+    return sub_100004128(a1, a2, a3, a4, a5);
   }
 
   if (CFStringGetTypeID() == v10)
@@ -1635,7 +1596,7 @@ uint64_t sub_100003EAC(const __CFString *a1)
   return ccder_sizeof();
 }
 
-uint64_t sub_100003F2C(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_100003F2C(const __CFString *a1, CFErrorRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -1669,7 +1630,7 @@ uint64_t sub_100003F2C(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t 
   return 0;
 }
 
-uint64_t sub_10000401C(CFTypeRef *a1)
+uint64_t sub_10000401C(CFErrorRef *a1)
 {
   v5 = ccder_encode_tl();
   if (!v5)
@@ -1696,11 +1657,11 @@ uint64_t sub_100004070(const __CFSet *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000040D8(uint64_t result, uint64_t a2)
+uint64_t sub_1000040D8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a2 == 1)
   {
-    result = sub_1000030B0(result, *(a2 + 16));
+    result = sub_1000030B0(result, *(a2 + 16), a3, a4, a5);
     if (result)
     {
       *(a2 + 8) += result;
@@ -1715,16 +1676,16 @@ uint64_t sub_1000040D8(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100004128(const __CFSet *a1, CFTypeRef *a2, char a3)
+uint64_t sub_100004128(const __CFSet *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v14[0] = 0xAAAAAAAAAAAAAA01;
-  v14[1] = a2;
-  BYTE1(v14[0]) = a3;
-  v14[2] = Mutable;
-  v14[3] = 0;
-  CFSetApplyFunction(a1, sub_100004360, v14);
-  if ((v14[0] & 1) == 0)
+  v16[0] = 0xAAAAAAAAAAAAAA01;
+  v16[1] = a2;
+  BYTE1(v16[0]) = a3;
+  v16[2] = Mutable;
+  v16[3] = 0;
+  CFSetApplyFunction(a1, sub_100004360, v16);
+  if ((v16[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -1734,23 +1695,23 @@ uint64_t sub_100004128(const __CFSet *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v15.length = CFArrayGetCount(Mutable);
-  v15.location = 0;
-  CFArraySortValues(Mutable, v15, sub_1000042A4, 0);
+  v17.length = CFArrayGetCount(Mutable);
+  v17.location = 0;
+  CFArraySortValues(Mutable, v17, sub_1000042A4, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -1761,7 +1722,7 @@ uint64_t sub_100004128(const __CFSet *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_100002FE0(-7, v11, v12, a2, v13, @"ccder failed to encode");
+    sub_100002FE0(-7, v13, v14, a2, v15, @"ccder failed to encode");
     return 0;
   }
 

@@ -82,10 +82,9 @@
 
 - (void)_reload
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 - (id)springboardPageNumbersWithAppPredictionPanels

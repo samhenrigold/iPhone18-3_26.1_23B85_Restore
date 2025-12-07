@@ -7,6 +7,7 @@
 + (void)initialize;
 + (void)listAgentBundleIDs:(id)ds;
 + (void)listAgentClients:(id)clients;
++ (void)removeAgentClient:(id)client isFlowHandler:(BOOL)handler;
 - (RPNWAgentClient)init;
 - (const)getTypeDescription;
 - (id)description;
@@ -15,6 +16,7 @@
 - (void)dealloc;
 - (void)handleStatusCode:(int)code;
 - (void)removeCachedBundleID;
+- (void)startDiscovery:(id)discovery deviceTypes:(unsigned int)types controlFlags:(unint64_t)flags deviceFilter:(id)filter agentUUID:(id)d rssiThreshold:(int64_t)threshold applicationService:(id)service predicate:(id)self0;
 - (void)startNearbyInvitationDiscovery:(id)discovery agentUUID:(id)d applicationService:(id)service;
 - (void)startPairingDiscovery:(id)discovery agentUUID:(id)d applicationService:(id)service browseMode:(unint64_t)mode;
 - (void)stopAgentClient;
@@ -209,7 +211,7 @@
   v4 = browseToken;
   if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001222A0(self);
+    sub_1001222A0(self, v4);
   }
 
   p_discoverySession = &self->_discoverySession;
@@ -437,6 +439,48 @@ LABEL_7:
   }
 }
 
+- (void)startDiscovery:(id)discovery deviceTypes:(unsigned int)types controlFlags:(unint64_t)flags deviceFilter:(id)filter agentUUID:(id)d rssiThreshold:(int64_t)threshold applicationService:(id)service predicate:(id)self0
+{
+  v14 = *&types;
+  discoveryCopy = discovery;
+  filterCopy = filter;
+  dCopy = d;
+  serviceCopy = service;
+  predicateCopy = predicate;
+  if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
+  {
+    sub_100122718(self);
+  }
+
+  v20 = objc_alloc_init(RPNWDiscoverySession);
+  discoverySession = self->_discoverySession;
+  self->_discoverySession = v20;
+
+  [(RPNWDiscoverySession *)self->_discoverySession setAgentClientID:self->_agentClientID];
+  [(RPNWDiscoverySession *)self->_discoverySession setBrowseAgentClient:self];
+  [(RPNWDiscoverySession *)self->_discoverySession setBrowseClient:self->_browseClient];
+  [(RPNWDiscoverySession *)self->_discoverySession setBrowseResponse:discoveryCopy];
+  if (self->_isUsingQUIC)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    v22 = dCopy;
+  }
+
+  [(RPNWDiscoverySession *)self->_discoverySession setAgentUUID:v22];
+  [(RPNWDiscoverySession *)self->_discoverySession setPid:self->_pid];
+  [(RPNWDiscoverySession *)self->_discoverySession setApplicationService:serviceCopy];
+  [(RPNWDiscoverySession *)self->_discoverySession setPredicate:predicateCopy];
+  [(RPNWDiscoverySession *)self->_discoverySession setRssiThreshold:threshold];
+  discoverySessionID = [(RPNWDiscoverySession *)self->_discoverySession discoverySessionID];
+  [RPNWEndpoint addDiscoverySessionID:discoverySessionID forAgentClientID:self->_agentClientID];
+
+  [(RPNWDiscoverySession *)self->_discoverySession startDiscovery:v14 controlFlags:flags deviceFilter:filterCopy];
+}
+
 - (void)startNearbyInvitationDiscovery:(id)discovery agentUUID:(id)d applicationService:(id)service
 {
   serviceCopy = service;
@@ -512,7 +556,7 @@ LABEL_7:
   browseDescriptorCopy = browseDescriptor;
   personaCopy = persona;
   parametersCopy = parameters;
-  v54 = personaCopy;
+  v57 = personaCopy;
   if (personaCopy)
   {
     objc_storeStrong(&self->_persona, persona);
@@ -525,18 +569,19 @@ LABEL_7:
   }
 
   objc_storeStrong((&self->super.isa + v25), info);
-  v26 = responseCopy;
+  v29 = responseCopy;
   if (responseCopy)
   {
-    v27 = objc_retainBlock(responseCopy);
+    v30 = objc_retainBlock(responseCopy);
     browseResponse = self->_browseResponse;
-    self->_browseResponse = v27;
+    self->_browseResponse = v30;
   }
 
   self->_isUsingQUIC = c;
   if (!self->_port)
   {
-    self->_port = [RPNWAgentClient findAgentClientPort:infoCopy];
+    invitation_scope = [RPNWAgentClient findAgentClientPort:infoCopy];
+    self->_port = invitation_scope;
   }
 
   if (!self->_pid)
@@ -549,64 +594,60 @@ LABEL_7:
   {
     objc_storeStrong(&self->_advertiseDescriptor, descriptor);
     self->_advertiseInvitationRoute = nw_advertise_descriptor_get_invitation_route();
-    self->_advertiseInvitationScope = nw_advertise_descriptor_get_invitation_scope();
+    invitation_scope = nw_advertise_descriptor_get_invitation_scope();
+    self->_advertiseInvitationScope = invitation_scope;
   }
 
   if (browseDescriptorCopy)
   {
     objc_storeStrong(&self->_browseDescriptor, obj);
     self->_browseInvitationScope = nw_browse_descriptor_get_invitation_scope();
-    application_service_name = nw_browse_descriptor_get_application_service_name(self->_browseDescriptor);
-    if (application_service_name)
+    invitation_scope = nw_browse_descriptor_get_application_service_name(self->_browseDescriptor);
+    if (invitation_scope)
     {
-      v30 = [NSString stringWithUTF8String:application_service_name];
+      v32 = [NSString stringWithUTF8String:invitation_scope];
       applicationService = self->_applicationService;
-      self->_applicationService = v30;
+      self->_applicationService = v32;
     }
   }
 
   if (self->_advertiseDescriptor)
   {
-    if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D46B8 <= 30)
     {
-      sub_100122898();
+      if (dword_1001D46B8 != -1 || (invitation_scope = _LogCategory_Initialize(), invitation_scope))
+      {
+        sub_100122898(invitation_scope, v27, v28);
+      }
     }
 
     self->_isEntitled = [RPNWUtils checkPid:d hasEntitlement:@"com.apple.private.application-service-browse"];
-    v32 = nw_advertise_descriptor_get_application_service_name(self->_advertiseDescriptor);
-    if (!v32)
+    application_service_name = nw_advertise_descriptor_get_application_service_name(self->_advertiseDescriptor);
+    if (!application_service_name)
     {
-      goto LABEL_55;
+      goto LABEL_56;
     }
 
     p_applicationService = &self->_applicationService;
     if (self->_applicationService)
     {
-      goto LABEL_55;
+      goto LABEL_56;
     }
 
-    v34 = [NSString stringWithUTF8String:v32];
-    if (self->_isEntitled && [RPNWUtils shouldBypassPrefixBundleIDFromParameters:parametersCopy])
+    v36 = [NSString stringWithUTF8String:application_service_name];
+    if (self->_isEntitled && (v37 = [RPNWUtils shouldBypassPrefixBundleIDFromParameters:parametersCopy], v37))
     {
-      v35 = &unk_1001D4000;
+      v40 = &unk_1001D4000;
       if (dword_1001D46B8 <= 30)
       {
-        v26 = responseCopy;
-        if (dword_1001D46B8 != -1 || _LogCategory_Initialize())
+        v29 = responseCopy;
+        if (dword_1001D46B8 != -1 || (v37 = _LogCategory_Initialize(), v37))
         {
-          sub_1001228B4();
+          sub_1001228B4(v37, v38, v39);
         }
 
         obja = 0;
-LABEL_44:
-        objc_storeStrong(&self->_applicationService, v34);
-        v42 = v35[430];
-        if (v42 > 30 || v42 == -1 && !_LogCategory_Initialize())
-        {
-          goto LABEL_50;
-        }
-
-        goto LABEL_46;
+        goto LABEL_44;
       }
 
       obja = 0;
@@ -618,94 +659,98 @@ LABEL_44:
       obja = getCachedBundleID;
       if (context == 2)
       {
-        v26 = responseCopy;
-        v35 = &unk_1001D4000;
-        goto LABEL_44;
+        v29 = responseCopy;
+        v40 = &unk_1001D4000;
+LABEL_44:
+        objc_storeStrong(&self->_applicationService, v36);
+        v47 = v40[430];
+        if (v47 <= 30 && (v47 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1001D46B8, "[RPNWAgentClient updateAgentClientInfo:browseResponse:listener:advertiseDescriptor:browseDescriptor:isFlowHandler:isUsingQUIC:isTCP:agentClientPID:persona:context:parameters:]", 30, "%@ Using appSvc without bundleID=%@", self->_browseToken, self->_applicationService);
+        }
+
+LABEL_51:
+        applicationServiceServer = self->_applicationServiceServer;
+        if (!applicationServiceServer)
+        {
+          v54 = v36;
+          v49 = objc_alloc_init(RPServer);
+          v50 = +[RPNWNetworkAgent sharedNetworkAgentNoCreate];
+          dispatchQueue = [v50 dispatchQueue];
+
+          if (dispatchQueue)
+          {
+            [v49 setDispatchQueue:dispatchQueue];
+          }
+
+          v62[0] = _NSConcreteStackBlock;
+          v62[1] = 3221225472;
+          v62[2] = sub_10008A8F0;
+          v62[3] = &unk_1001AB2C8;
+          v62[4] = self;
+          [v49 setErrorHandler:v62];
+          v61[0] = _NSConcreteStackBlock;
+          v61[1] = 3221225472;
+          v61[2] = sub_10008A978;
+          v61[3] = &unk_1001AA970;
+          v61[4] = self;
+          [v49 setInterruptionHandler:v61];
+          [v49 activate];
+          v52 = self->_applicationServiceServer;
+          self->_applicationServiceServer = v49;
+          v53 = v49;
+
+          applicationServiceServer = self->_applicationServiceServer;
+          v29 = responseCopy;
+          v36 = v54;
+        }
+
+        [(RPServer *)applicationServiceServer setServiceType:*p_applicationService];
+
+LABEL_56:
+        self->_type = 1;
+        [RPNWListener addListenerAgentClient:self];
+        goto LABEL_57;
       }
 
-      v35 = &unk_1001D4000;
+      v40 = &unk_1001D4000;
       if (getCachedBundleID)
       {
-        v40 = [NSString stringWithFormat:@"%@.%@", getCachedBundleID, v34];
-        v41 = *p_applicationService;
-        *p_applicationService = v40;
+        v45 = [NSString stringWithFormat:@"%@.%@", getCachedBundleID, v36];
+        v46 = *p_applicationService;
+        *p_applicationService = v45;
 
         if (dword_1001D46B8 > 30)
         {
-          v26 = responseCopy;
-LABEL_50:
-          applicationServiceServer = self->_applicationServiceServer;
-          if (!applicationServiceServer)
-          {
-            v51 = v34;
-            v44 = objc_alloc_init(RPServer);
-            v45 = +[RPNWNetworkAgent sharedNetworkAgentNoCreate];
-            dispatchQueue = [v45 dispatchQueue];
-
-            if (dispatchQueue)
-            {
-              [v44 setDispatchQueue:dispatchQueue];
-            }
-
-            v59[0] = _NSConcreteStackBlock;
-            v59[1] = 3221225472;
-            v59[2] = sub_10008A8F0;
-            v59[3] = &unk_1001AB2C8;
-            v59[4] = self;
-            [v44 setErrorHandler:v59];
-            v58[0] = _NSConcreteStackBlock;
-            v58[1] = 3221225472;
-            v58[2] = sub_10008A978;
-            v58[3] = &unk_1001AA970;
-            v58[4] = self;
-            [v44 setInterruptionHandler:v58];
-            [v44 activate];
-            v47 = self->_applicationServiceServer;
-            self->_applicationServiceServer = v44;
-            v48 = v44;
-
-            applicationServiceServer = self->_applicationServiceServer;
-            v26 = responseCopy;
-            v34 = v51;
-          }
-
-          [(RPServer *)applicationServiceServer setServiceType:*p_applicationService, browseToken, v50];
-
-LABEL_55:
-          self->_type = 1;
-          [RPNWListener addListenerAgentClient:self];
-          goto LABEL_56;
+          v29 = responseCopy;
         }
 
-        if (dword_1001D46B8 == -1)
+        else if (dword_1001D46B8 == -1)
         {
-          v26 = responseCopy;
-          if (!_LogCategory_Initialize())
+          v29 = responseCopy;
+          if (_LogCategory_Initialize())
           {
-            goto LABEL_50;
+            LogPrintF(&dword_1001D46B8, "[RPNWAgentClient updateAgentClientInfo:browseResponse:listener:advertiseDescriptor:browseDescriptor:isFlowHandler:isUsingQUIC:isTCP:agentClientPID:persona:context:parameters:]", 30, "%@ Constructing bundleID+appSvc=%@", self->_browseToken, self->_applicationService);
           }
         }
 
         else
         {
-          v26 = responseCopy;
+          v29 = responseCopy;
+          LogPrintF(&dword_1001D46B8, "[RPNWAgentClient updateAgentClientInfo:browseResponse:listener:advertiseDescriptor:browseDescriptor:isFlowHandler:isUsingQUIC:isTCP:agentClientPID:persona:context:parameters:]", 30, "%@ Constructing bundleID+appSvc=%@", self->_browseToken, self->_applicationService);
         }
 
-LABEL_46:
-        browseToken = self->_browseToken;
-        v50 = self->_applicationService;
-        LogPrintF();
-        goto LABEL_50;
+        goto LABEL_51;
       }
     }
 
-    v26 = responseCopy;
+    v29 = responseCopy;
     goto LABEL_44;
   }
 
   if (self->_browseDescriptor)
   {
-    v36 = 2;
+    v41 = 2;
   }
 
   else
@@ -717,14 +762,14 @@ LABEL_46:
       advertiseDescriptor = self->_advertiseDescriptor;
       self->_advertiseDescriptor = advertiseDescriptor;
 
-      goto LABEL_56;
+      goto LABEL_57;
     }
 
-    v36 = 4;
+    v41 = 4;
   }
 
-  self->_type = v36;
-LABEL_56:
+  self->_type = v41;
+LABEL_57:
   [(RPNWAgentClient *)self updateListenerPairingStateIfNeeded:context];
   if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
   {
@@ -796,7 +841,7 @@ LABEL_56:
 LABEL_17:
     if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
     {
-      sub_100122B34(self, connection);
+      sub_100122B34(self, connection, v15);
     }
 
     connection2 = [(RPNWAgentClient *)self connection];
@@ -845,28 +890,28 @@ LABEL_21:
       sub_100122D38(clientCopy);
     }
 
-    v32 = 0u;
-    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v13 = qword_1001D6400;
-    v14 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (!v14)
     {
       goto LABEL_40;
     }
 
-    v15 = *v31;
+    v15 = *v29;
 LABEL_13:
     v16 = 0;
     while (1)
     {
-      if (*v31 != v15)
+      if (*v29 != v15)
       {
         objc_enumerationMutation(v13);
       }
 
-      v17 = *(*(&v30 + 1) + 8 * v16);
+      v17 = *(*(&v28 + 1) + 8 * v16);
       if (handlerCopy)
       {
         [v17 flowClient];
@@ -885,7 +930,7 @@ LABEL_13:
 
       if (v14 == ++v16)
       {
-        v14 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v14)
         {
           goto LABEL_13;
@@ -912,31 +957,29 @@ LABEL_13:
       v12 = @"YES";
     }
 
-    v24 = v11;
-    v25 = v12;
-    LogPrintF();
+    LogPrintF(&dword_1001D46B8, "+[RPNWAgentClient findAgentClient:tryPort:isTCP:isFlowHandler:]", 30, "Looking up agent client from port=%d/isTCP=%@", v11, v12);
   }
 
-  v28 = 0u;
-  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v13 = qword_1001D6400;
-  v19 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v19 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v25;
 LABEL_27:
     v22 = 0;
     while (1)
     {
-      if (*v27 != v21)
+      if (*v25 != v21)
       {
         objc_enumerationMutation(v13);
       }
 
-      v17 = *(*(&v26 + 1) + 8 * v22);
+      v17 = *(*(&v24 + 1) + 8 * v22);
       if ([v17 port] == v11 && objc_msgSend(v17, "isTCP") == pCopy)
       {
         break;
@@ -944,7 +987,7 @@ LABEL_27:
 
       if (v20 == ++v22)
       {
-        v20 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v20 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v20)
         {
           goto LABEL_27;
@@ -957,7 +1000,7 @@ LABEL_27:
 LABEL_35:
     if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D46B8, "+[RPNWAgentClient findAgentClient:tryPort:isTCP:isFlowHandler:]", 30, "Found matching client %@", v17);
     }
 
     v14 = v17;
@@ -978,7 +1021,7 @@ LABEL_41:
   nameCopy = name;
   if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
   {
-    sub_100122DC0();
+    sub_100122DC0(nameCopy);
   }
 
   v16 = 0u;
@@ -1046,7 +1089,7 @@ LABEL_21:
   dCopy = d;
   if (dword_1001D46B8 <= 30 && (dword_1001D46B8 != -1 || _LogCategory_Initialize()))
   {
-    sub_100122EAC();
+    sub_100122EAC(dCopy);
   }
 
   v19 = 0u;
@@ -1114,6 +1157,59 @@ LABEL_18:
 LABEL_22:
 
   return v14;
+}
+
++ (void)removeAgentClient:(id)client isFlowHandler:(BOOL)handler
+{
+  handlerCopy = handler;
+  v5 = [self findAgentClient:client tryPort:0 isTCP:0 isFlowHandler:handler];
+  v6 = v5;
+  if (v5)
+  {
+    v11 = v5;
+    if (handlerCopy)
+    {
+      [v5 setFlowClient:0];
+    }
+
+    else
+    {
+      [v5 setBrowseClient:0];
+    }
+
+    flowClient = [v11 flowClient];
+    if (flowClient)
+    {
+      goto LABEL_6;
+    }
+
+    browseClient = [v11 browseClient];
+
+    v6 = v11;
+    if (!browseClient)
+    {
+      if (dword_1001D46B8 <= 30)
+      {
+        if (dword_1001D46B8 != -1 || (v9 = _LogCategory_Initialize(), v6 = v11, v9))
+        {
+          sub_100122F98(handlerCopy, v6);
+        }
+      }
+
+      [qword_1001D6400 removeObject:v11];
+      [v11 stopAgentClient];
+      type = [v11 type];
+      v6 = v11;
+      if (type == 1)
+      {
+        flowClient = [v11 applicationService];
+        [RPNWListener startListenerMappingTimeout:flowClient];
+LABEL_6:
+
+        v6 = v11;
+      }
+    }
+  }
 }
 
 + (void)listAgentClients:(id)clients

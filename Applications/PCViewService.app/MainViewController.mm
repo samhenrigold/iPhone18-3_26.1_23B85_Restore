@@ -16,14 +16,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_10000EEE4;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_10000B524(context, v6);
-  sub_10000B17C(v6);
+  sub_10000B17C(v6, v7);
 }
 
 - (void)didInvalidateForRemoteAlert

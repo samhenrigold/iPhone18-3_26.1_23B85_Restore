@@ -2326,9 +2326,9 @@ LABEL_16:
 
     if (v25)
     {
-      v28 = [v25 isEqual:v26];
+      isEqual = objc_msgSend_isEqual_(v25);
 
-      if (v28)
+      if (isEqual)
       {
         goto LABEL_16;
       }
@@ -2452,12 +2452,12 @@ LABEL_16:
     v86 = v13;
     if ((dyld_program_sdk_at_least() & 1) == 0)
     {
-      [v8 transform];
+      objc_msgSend_transform(v8);
       if (!CGAffineTransformIsIdentity(&v88))
       {
         v32 = *MEMORY[0x1E695EFF8];
         v33 = *(MEMORY[0x1E695EFF8] + 8);
-        [v8 transform];
+        objc_msgSend_transform(v8);
         v90.origin.x = v32;
         v90.origin.y = v33;
         v13 = v86;

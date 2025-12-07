@@ -13,13 +13,13 @@
 - (PTHumanDetections)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v11.receiver = self;
-  v11.super_class = PTHumanDetections;
-  v5 = [(PTHumanDetections *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = PTHumanDetections;
+  v5 = [(PTHumanDetections *)&v12 init];
   if (!v5)
   {
 LABEL_7:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
@@ -29,20 +29,20 @@ LABEL_7:
 
   if (!v5->_util)
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [PTHumanDetections initWithMetalContext:v9];
+      [PTHumanDetections initWithMetalContext:v10];
     }
 
     goto LABEL_7;
   }
 
   memset_pattern16(v5->_faceDetectionsFilteredState, &unk_2244C5F70, 0x10uLL);
-  v8 = v5;
+  v9 = v5;
 LABEL_8:
 
-  return v8;
+  return v9;
 }
 
 - (int)faceDetectionsFilteredState:(BOOL)state
@@ -252,12 +252,12 @@ LABEL_8:
   }
 }
 
-void __38__PTHumanDetections_unpackDetections___block_invoke()
+void __38__PTHumanDetections_unpackDetections___block_invoke(uint64_t a1)
 {
-  v0 = _PTLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _PTLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __38__PTHumanDetections_unpackDetections___block_invoke_cold_1(v0);
+    __38__PTHumanDetections_unpackDetections___block_invoke_cold_1(v1);
   }
 }
 

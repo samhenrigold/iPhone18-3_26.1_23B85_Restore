@@ -10,7 +10,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMFriendLocationAlertsViewController();
+  v7.super_class = type metadata accessor for FMFriendLocationAlertsViewController(0);
   v4 = v7.receiver;
   [(FMSettingsUpdateViewController *)&v7 viewWillAppear:appearCopy];
   v5 = *(*&v4[OBJC_IVAR____TtC6FindMy24FMMediatedViewController_mediator] + 48);
@@ -23,7 +23,7 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_10015917C(disappear);
+  sub_10015917C(disappear, selfCopy);
 }
 
 - (void)handleFenceTapWithGestureRecognizer:(id)recognizer

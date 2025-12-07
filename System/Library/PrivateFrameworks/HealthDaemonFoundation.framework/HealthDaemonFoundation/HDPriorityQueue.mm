@@ -1,5 +1,5 @@
 @interface HDPriorityQueue
-- (BOOL)_lock_isObject:(uint64_t)object greaterThan:(uint64_t)than;
+- (BOOL)_lock_isObject:(id *)object greaterThan:(uint64_t)than;
 - (BOOL)_lock_isObject:(uint64_t)object greaterThanOrEqualTo:;
 - (BOOL)isEmpty;
 - (HDPriorityQueue)initWithComparisonBlock:(id)block;
@@ -25,7 +25,7 @@
     [(NSMutableArray *)self->_heap setObject:v5 atIndexedSubscript:0];
 
     [(NSMutableArray *)self->_heap removeLastObject];
-    [(HDPriorityQueue *)self _lock_heapifyDown];
+    [(HDPriorityQueue *)&self->super.isa _lock_heapifyDown];
   }
 
   else
@@ -40,16 +40,16 @@
 
 - (void)_lock_heapifyUp
 {
-  if (self)
+  if (result)
   {
-    v2 = [*(self + 8) count];
+    v2 = [result[1] count];
     if (v2 >= 2)
     {
       v3 = v2 - 1;
       do
       {
         v4 = v3 - 1;
-        if ([(HDPriorityQueue *)self _lock_isObject:v3 greaterThanOrEqualTo:?])
+        if ([(HDPriorityQueue *)result _lock_isObject:v3 greaterThanOrEqualTo:?])
         {
           break;
         }
@@ -66,9 +66,9 @@
 
 - (void)_lock_heapifyDown
 {
-  if (self)
+  if (result)
   {
-    v2 = [*(self + 8) count];
+    v2 = [result[1] count];
     if (v2 >= 2)
     {
       v3 = 0;
@@ -83,7 +83,7 @@
 
         v6 = (2 * v3) | 1;
         v7 = v5 + 2;
-        if (v5 + 2 <= v4 && [HDPriorityQueue _lock_isObject:self greaterThan:v5 + 2])
+        if (v5 + 2 <= v4 && [HDPriorityQueue _lock_isObject:v5 + 2 greaterThan:?])
         {
           v6 = v7;
         }
@@ -185,7 +185,7 @@ uint64_t __50__HDPriorityQueue_initMinHeapWithComparisonBlock___block_invoke(uin
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableArray *)self->_heap addObject:insertCopy];
 
-  [(HDPriorityQueue *)self _lock_heapifyUp];
+  [(HDPriorityQueue *)&self->super.isa _lock_heapifyUp];
 
   os_unfair_lock_unlock(&self->_lock);
 }
@@ -224,21 +224,20 @@ uint64_t __50__HDPriorityQueue_initMinHeapWithComparisonBlock___block_invoke(uin
   return v3;
 }
 
-- (BOOL)_lock_isObject:(uint64_t)object greaterThan:(uint64_t)than
+- (BOOL)_lock_isObject:(id *)object greaterThan:(uint64_t)than
 {
   if (!object)
   {
     return 0;
   }
 
-  v4 = *(object + 24);
-  v5 = [*(object + 8) objectAtIndexedSubscript:?];
-  [*(object + 8) objectAtIndexedSubscript:than];
+  v4 = [object[1] objectAtIndexedSubscript:?];
+  [object[1] objectAtIndexedSubscript:than];
   objc_claimAutoreleasedReturnValue();
-  v6 = OUTLINED_FUNCTION_0_5();
-  v8 = v7(v6) == -1;
+  v5 = OUTLINED_FUNCTION_0_5();
+  v7 = v6(v5) == -1;
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)_lock_isObject:(uint64_t)object greaterThanOrEqualTo:
@@ -248,14 +247,13 @@ uint64_t __50__HDPriorityQueue_initMinHeapWithComparisonBlock___block_invoke(uin
     return 0;
   }
 
-  v5 = *(self + 24);
-  v6 = [*(self + 8) objectAtIndexedSubscript:a2];
-  [*(self + 8) objectAtIndexedSubscript:object];
+  v5 = [self[1] objectAtIndexedSubscript:a2];
+  [self[1] objectAtIndexedSubscript:object];
   objc_claimAutoreleasedReturnValue();
-  v7 = OUTLINED_FUNCTION_0_5();
-  v9 = v8(v7) != -1;
+  v6 = OUTLINED_FUNCTION_0_5();
+  v8 = v7(v6) != -1;
 
-  return v9;
+  return v8;
 }
 
 - (void)_lock_swapIndicies:(uint64_t)indicies with:

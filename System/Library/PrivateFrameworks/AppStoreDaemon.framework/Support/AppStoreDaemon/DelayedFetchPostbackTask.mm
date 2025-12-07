@@ -16,7 +16,7 @@
   {
     objc_storeStrong((v8 + 82), d);
     v10 = [InstallAttributionDatabaseStore alloc];
-    v11 = sub_1001C0DF0();
+    v11 = sub_1001C0DF0(Environment);
     v12 = sub_1001C0FB8(v11);
     v13 = [(SQLiteDatabaseStore *)v10 initWithDatabase:v12];
     v14 = *(v9 + 98);

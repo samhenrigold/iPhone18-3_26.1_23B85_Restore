@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)propertyAsString:(int)string;
 - (int)StringAsProperty:(id)property;
 - (int)property;
 - (unint64_t)hash;
@@ -76,7 +77,6 @@ LABEL_3:
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_property != *(equalCopy + 4))
@@ -88,7 +88,7 @@ LABEL_3:
   else if ((*(equalCopy + 32) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -108,17 +108,17 @@ LABEL_14:
   string = self->_string;
   if (string | *(equalCopy + 3))
   {
-    v7 = [(NSString *)string isEqual:?];
+    v6 = [(NSString *)string isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -174,18 +174,17 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    integer = self->_integer;
     PBDataWriterWriteInt64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_string)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -241,7 +240,6 @@ LABEL_15:
   self->_property = 0;
   *&self->_has &= ~1u;
   self->_integer = 0;
-  string = self->_string;
   self->_string = 0;
   MEMORY[0x1EEE66BB8]();
 }
@@ -267,6 +265,21 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)propertyAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E70D5030[string];
   }
 
   return v4;

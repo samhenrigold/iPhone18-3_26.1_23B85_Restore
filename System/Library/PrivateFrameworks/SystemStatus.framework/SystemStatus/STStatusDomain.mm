@@ -65,29 +65,28 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (![(STStatusDomain *)self isInvalidated])
   {
     v3 = STSystemStatusLogObservation();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       statusDomainName = [objc_opt_class() statusDomainName];
-      v6 = STSystemStatusDescriptionForDomain(statusDomainName);
+      v5 = STSystemStatusDescriptionForDomain(statusDomainName);
       *buf = 138543362;
-      v9 = v6;
+      v8 = v5;
       _os_log_fault_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_FAULT, "SYSTEMSTATUS CLIENT ERROR: %{public}@ domain was deallocated without being invalidated", buf, 0xCu);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = STStatusDomain;
-  [(STStatusDomain *)&v7 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = STStatusDomain;
+  [(STStatusDomain *)&v6 dealloc];
 }
 
 - (void)invalidate
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   lock_invalidated = self->_lock_invalidated;
   self->_lock_invalidated = 1;
@@ -98,20 +97,17 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       statusDomainName = [objc_opt_class() statusDomainName];
-      v8 = STSystemStatusDescriptionForDomain(statusDomainName);
+      v6 = STSystemStatusDescriptionForDomain(statusDomainName);
       *buf = 138543362;
-      v11 = v8;
+      v9 = v6;
       _os_log_fault_impl(&dword_1DA9C2000, v4, OS_LOG_TYPE_FAULT, "Attempted to invalidate %{public}@ domain which was already invalidated", buf, 0xCu);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     serverHandle = [(STStatusDomain *)self serverHandle];
     [serverHandle removeClient:self forDomain:{objc_msgSend(objc_opt_class(), "statusDomainName")}];
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 

@@ -221,9 +221,7 @@ LABEL_13:
 
 - (void)setAffordanceLabel:(id)label
 {
-  v4 = [label copy];
-  affordanceLabel = self->_affordanceLabel;
-  self->_affordanceLabel = v4;
+  self->_affordanceLabel = [label copy];
 
   MEMORY[0x1EEE66BB8]();
 }

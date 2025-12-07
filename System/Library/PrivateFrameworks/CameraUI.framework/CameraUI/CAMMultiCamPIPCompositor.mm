@@ -181,7 +181,7 @@
 
     if (metricsCopy)
     {
-      [metricsCopy timestamp];
+      objc_msgSend_timestamp(metricsCopy);
     }
 
     else
@@ -210,10 +210,10 @@
 - (BOOL)_pipFrameEqualsMostRecentlyAdded:(id)added
 {
   addedCopy = added;
-  [(CAMMultiCamPIPCompositor *)self _mostRecentlyAddedPIPMetricsTimestamp];
+  objc_msgSend__mostRecentlyAddedPIPMetricsTimestamp(self);
   if (v12)
   {
-    [(CAMMultiCamPIPCompositor *)self _mostRecentlyAddedPIPMetricsTimestamp];
+    objc_msgSend__mostRecentlyAddedPIPMetricsTimestamp(self);
     Seconds = CMTimeGetSeconds(&v11);
     _pipMetricsByTimestamp = [(CAMMultiCamPIPCompositor *)self _pipMetricsByTimestamp];
     v8 = [MEMORY[0x1E696AD98] numberWithDouble:Seconds];
@@ -407,7 +407,7 @@
     v23 = [CAMMultiCamPIPMetrics alloc];
     if (metricsCopy)
     {
-      [(CAMMultiCamPIPMetrics *)metricsCopy timestamp];
+      objc_msgSend_timestamp(metricsCopy);
     }
 
     else
@@ -538,9 +538,9 @@ LABEL_15:
   else
   {
     memset(&v70, 0, sizeof(v70));
-    [(CAMMultiCamPIPCompositor *)self _debugLastCompositedMovieFilePrimaryBufferPTS];
+    objc_msgSend__debugLastCompositedMovieFilePrimaryBufferPTS(self);
     memset(&v68, 0, sizeof(v68));
-    [(CAMMultiCamPIPCompositor *)self _debugLastCompositedMovieFileSecondaryBufferPTS];
+    objc_msgSend__debugLastCompositedMovieFileSecondaryBufferPTS(self);
     if (v70.flags)
     {
       time1 = v70;

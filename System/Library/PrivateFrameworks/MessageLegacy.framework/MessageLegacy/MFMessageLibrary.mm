@@ -72,7 +72,7 @@
 
 - (void)postOldFlags:(unint64_t)flags newFlags:(unint64_t)newFlags forMessage:(id)message
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   if (flags == newFlags)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEAC0]);
@@ -273,10 +273,10 @@
 
                             v8 = 0;
 LABEL_72:
-                            v29[0] = message;
-                            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
-                            v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{flags, message}];
-                            -[MFMessageLibrary postFlagsChangedForMessages:flags:oldFlagsByMessage:](self, "postFlagsChangedForMessages:flags:oldFlagsByMessage:", v25, v8, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1]);
+                            v28[0] = message;
+                            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+                            v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{flags, message}];
+                            -[MFMessageLibrary postFlagsChangedForMessages:flags:oldFlagsByMessage:](self, "postFlagsChangedForMessages:flags:oldFlagsByMessage:", v25, v8, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1]);
                             goto LABEL_73;
                           }
                         }
@@ -298,8 +298,6 @@ LABEL_72:
   }
 
 LABEL_73:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountForMessage:(id)message

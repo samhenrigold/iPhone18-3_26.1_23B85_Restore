@@ -292,91 +292,92 @@ uint64_t __60__HKCountrySet_initWithDictionaryRepresentation_provenance___block_
 - (HKCountrySet)initWithCountryBitmasks:(id)bitmasks compatibilityVersion:(int64_t)version contentVersion:(int64_t)contentVersion provenance:(int64_t)provenance
 {
   bitmasksCopy = bitmasks;
-  v18.receiver = self;
-  v18.super_class = HKCountrySet;
-  v12 = [(HKCountrySet *)&v18 init];
+  v22.receiver = self;
+  v22.super_class = HKCountrySet;
+  v12 = [(HKCountrySet *)&v22 init];
   if (!v12)
   {
     goto LABEL_9;
   }
 
-  if ([bitmasksCopy count] != 5)
+  v13 = [bitmasksCopy count];
+  if (v13 != 5)
   {
     [HKCountrySet initWithCountryBitmasks:a2 compatibilityVersion:v12 contentVersion:? provenance:?];
   }
 
   if (version < 2)
   {
-    v15 = [bitmasksCopy copy];
+    v19 = [bitmasksCopy copy];
     countryBitmasks = v12->_countryBitmasks;
-    v12->_countryBitmasks = v15;
+    v12->_countryBitmasks = v19;
 
     v12->_compatibilityVersion = version;
     v12->_contentVersion = contentVersion;
     v12->_provenance = provenance;
 LABEL_9:
-    v14 = v12;
+    v18 = v12;
     goto LABEL_10;
   }
 
-  _HKInitializeLogging();
-  v13 = HKLogInfrastructure();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v13, v14);
+  v17 = HKLogInfrastructure(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    [HKCountrySet initWithCountryBitmasks:v12 compatibilityVersion:version contentVersion:v13 provenance:?];
+    [HKCountrySet initWithCountryBitmasks:v12 compatibilityVersion:version contentVersion:v17 provenance:?];
   }
 
-  v14 = 0;
+  v18 = 0;
 LABEL_10:
 
-  return v14;
+  return v18;
 }
 
 - (HKCountrySet)initWithSupportedCountryCodes:(id)codes contentVersion:(int64_t)version provenance:(int64_t)provenance
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v40 = 0;
+  v40 = *MEMORY[0x1E69E9840];
+  v39 = 0;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   codesCopy = codes;
-  v8 = [codesCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v8 = [codesCopy countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v8)
   {
     versionCopy = version;
     provenanceCopy = provenance;
-    v10 = *v33;
+    v10 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(codesCopy);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = [HKCountrySet bitmaskPathForCountryCode:v12];
         bitmask = [v14 bitmask];
         index = [v14 index];
-        *(&v38 + index) |= bitmask;
+        *(&v37 + index) |= bitmask;
 
         objc_autoreleasePoolPop(v13);
       }
 
-      v8 = [codesCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [codesCopy countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v8);
-    v17 = *(&v38 + 1);
-    v8 = v38;
-    v19 = *(&v39 + 1);
-    v18 = v39;
-    v20 = v40;
+    v17 = *(&v37 + 1);
+    v8 = v37;
+    v19 = *(&v38 + 1);
+    v18 = v38;
+    v20 = v39;
     provenance = provenanceCopy;
     version = versionCopy;
   }
@@ -390,19 +391,18 @@ LABEL_10:
   }
 
   v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v8];
-  v36[0] = v21;
+  v35[0] = v21;
   v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17];
-  v36[1] = v22;
+  v35[1] = v22;
   v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v18];
-  v36[2] = v23;
+  v35[2] = v23;
   v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v19];
-  v36[3] = v24;
+  v35[3] = v24;
   v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v20];
-  v36[4] = v25;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:5];
+  v35[4] = v25;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:5];
   v27 = [(HKCountrySet *)self initWithCountryBitmasks:v26 compatibilityVersion:1 contentVersion:version provenance:provenance];
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -416,19 +416,17 @@ LABEL_10:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   compatibilityVersion = self->_compatibilityVersion;
-  v10[0] = self->_countryBitmasks;
-  v9[0] = @"countryBitmasks";
-  v9[1] = @"compatibilityVersion";
+  v9[0] = self->_countryBitmasks;
+  v8[0] = @"countryBitmasks";
+  v8[1] = @"compatibilityVersion";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:compatibilityVersion];
-  v10[1] = v4;
-  v9[2] = @"contentVersion";
+  v9[1] = v4;
+  v8[2] = @"contentVersion";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_contentVersion];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -601,7 +599,7 @@ LABEL_10:
 
 + (id)_decodePlistDictionary:(uint64_t)dictionary
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = [v2 objectForKeyedSubscript:@"AvailableRegionsVersion"];
@@ -613,10 +611,10 @@ LABEL_10:
     do
     {
       v7 = [v4 objectAtIndexedSubscript:v6];
-      v13 = 0;
-      [v7 getBytes:&v13 length:8];
-      v13 = bswap64(v13);
-      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v13];
+      v12 = 0;
+      [v7 getBytes:&v12 length:8];
+      v12 = bswap64(v12);
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v12];
       [v5 addObject:v8];
 
       ++v6;
@@ -625,14 +623,12 @@ LABEL_10:
     while ([v4 count] > v6);
   }
 
-  v14[0] = @"countryBitmasks";
+  v13[0] = @"countryBitmasks";
   v9 = [v5 copy];
-  v14[1] = @"compatibilityVersion";
-  v15[0] = v9;
-  v15[1] = v3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[1] = @"compatibilityVersion";
+  v14[0] = v9;
+  v14[1] = v3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v10;
 }
@@ -796,18 +792,16 @@ LABEL_10:
 
 - (void)initWithCountryBitmasks:(NSObject *)a3 compatibilityVersion:contentVersion:provenance:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = MEMORY[0x1E696AD98];
   v7 = v5;
   v8 = [v6 numberWithInteger:a2];
-  v10 = 138543618;
-  v11 = v5;
-  v12 = 2114;
-  v13 = v8;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Attempted to decode unsupported version: %{public}@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138543618;
+  v10 = v5;
+  v11 = 2114;
+  v12 = v8;
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Attempted to decode unsupported version: %{public}@", &v9, 0x16u);
 }
 
 @end

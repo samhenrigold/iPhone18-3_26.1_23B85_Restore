@@ -173,7 +173,7 @@ void DYTraceEncode_CAMetalLayer_setBounds_contentsScale_windowBounds_windowPrope
   }
 }
 
-void DYTraceEncode_EnterStateGroup(uint64_t a1, unsigned int *a2, unint64_t a3, uint64_t a4, int *a5)
+void DYTraceEncode_EnterStateGroup(void *a1, unsigned int *a2, unint64_t a3, uint64_t a4, int *a5)
 {
   if (a5 && a3 <= 0x23)
   {
@@ -195,15 +195,15 @@ void DYTraceEncode_EnterStateGroup(uint64_t a1, unsigned int *a2, unint64_t a3, 
   *a2 = 44;
   *(a2 + 11) = *a1;
   *a2 = 52;
-  AppendString(*(a1 + 8), a2);
+  AppendString(a1[1], a2);
   v9 = *a2;
   v10 = (v9 + 3) & 0xFFFFFFFC;
   bzero(a2 + v9, v10 - v9);
   *a2 = v10;
-  *(a2 + v10) = *(a1 + 16);
+  *(a2 + v10) = a1[2];
   v11 = *a2 + 8;
   *a2 = v11;
-  *(a2 + v11) = *(a1 + 24);
+  *(a2 + v11) = a1[3];
   v12 = *a2 + 8;
   *a2 = v12;
   if (a5)
@@ -220,7 +220,7 @@ void DYTraceEncode_EnterStateGroup(uint64_t a1, unsigned int *a2, unint64_t a3, 
   }
 }
 
-const char *AppendString(const char *result, int *a2)
+const char *AppendString(const char *result, unsigned int *a2)
 {
   if (result)
   {
@@ -1726,7 +1726,7 @@ void DYTraceEncode_MTLDevice_newLibraryWithImageFilterFunctionsSPI_imageFilterFu
   a2[8] = v10;
   v11 = snprintf(a2 + 36, a3 - 36, "C@%llutU<b>t", *(a1 + 24)) + *a2;
   v12 = (v11 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v11 + 1), v12 - (v11 + 1));
+  bzero(a2 + v11 + 1, v12 - (v11 + 1));
   *a2 = v12;
   *(a2 + v12) = *a1;
   v13 = *a2 + 8;

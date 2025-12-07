@@ -116,42 +116,66 @@
 
 - (id)description
 {
-  objc_opt_class();
-  NSAppendPrintF();
-  v18 = 0;
-  transferIdentifier = self->_transferIdentifier;
-  NSAppendPrintF();
-  v3 = v18;
+  v27 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v27, "<%@", v3);
+  v4 = v27;
+  v26 = v4;
+  NSAppendPrintF(&v26, ", transferIdentifier: %@", self->_transferIdentifier);
+  v5 = v26;
 
-  actionIdentifier = self->_actionIdentifier;
-  NSAppendPrintF();
-  v4 = v3;
+  v25 = v5;
+  NSAppendPrintF(&v25, ", actionIdentifier: %@", self->_actionIdentifier);
+  v6 = v25;
 
-  localizedTitle = self->_localizedTitle;
-  NSAppendPrintF();
-  v5 = v4;
+  v24 = v6;
+  NSAppendPrintF(&v24, ", title: %@", self->_localizedTitle);
+  v7 = v24;
 
-  singleItemLocalizedTitle = self->_singleItemLocalizedTitle;
-  NSAppendPrintF();
-  v6 = v5;
+  v23 = v7;
+  NSAppendPrintF(&v23, ", singleItemTitle: %@", self->_singleItemLocalizedTitle);
+  v8 = v23;
 
-  v7 = SFAirDropTransferStateToString(self->_minRequiredTransferState);
-  v17 = SFAirDropTransferStateToString(self->_maxTransferState);
-  NSAppendPrintF();
-  v8 = v6;
+  v22 = v8;
+  v9 = SFAirDropTransferStateToString(self->_minRequiredTransferState);
+  v10 = SFAirDropTransferStateToString(self->_maxTransferState);
+  NSAppendPrintF(&v22, ", requiredTransferState: %@-%@", v9, v10);
+  v11 = v22;
 
-  self->_requiresUnlockedUI;
-  NSAppendPrintF();
-  v9 = v8;
+  v21 = v11;
+  if (self->_requiresUnlockedUI)
+  {
+    v12 = "yes";
+  }
 
-  self->_shouldUpdateUserResponse;
-  NSAppendPrintF();
-  v10 = v9;
+  else
+  {
+    v12 = "no";
+  }
 
-  NSAppendPrintF();
-  v11 = v10;
+  NSAppendPrintF(&v21, ", requiresUnlockedUI: %s", v12);
+  v13 = v21;
 
-  return v10;
+  v20 = v13;
+  if (self->_shouldUpdateUserResponse)
+  {
+    v14 = "yes";
+  }
+
+  else
+  {
+    v14 = "no";
+  }
+
+  NSAppendPrintF(&v20, ", shouldUpdateUserResponse: %s", v14);
+  v15 = v20;
+
+  v19 = v15;
+  NSAppendPrintF(&v19, ">");
+  v16 = v19;
+  v17 = v19;
+
+  return v16;
 }
 
 - (unint64_t)hash

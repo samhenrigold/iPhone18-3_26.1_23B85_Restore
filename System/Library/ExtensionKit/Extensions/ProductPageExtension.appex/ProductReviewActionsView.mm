@@ -9,7 +9,7 @@
 - (_TtC20ProductPageExtension24ProductReviewActionsView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC20ProductPageExtension24ProductReviewActionsView_writeReviewAction;
-  v5 = sub_10000A5D4(&qword_100955BD0);
+  v5 = sub_10000A5D4(&qword_100955BD0, &unk_10079B700);
   v6 = *(*(v5 - 8) + 56);
   v6(self + v4, 1, 1, v5);
   v6(self + OBJC_IVAR____TtC20ProductPageExtension24ProductReviewActionsView_supportAction, 1, 1, v5);
@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ProductReviewActionsView();
+  v5.super_class = type metadata accessor for ProductReviewActionsView(0);
   v2 = v5.receiver;
   [(ProductReviewActionsView *)&v5 layoutSubviews];
   sub_100741F94(v4);

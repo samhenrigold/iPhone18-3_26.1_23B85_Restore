@@ -107,7 +107,7 @@ LABEL_18:
 
 - (void)registerLevelOfService:(int)service oneDataSource:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v4 = self[1].i32[1];
@@ -156,12 +156,12 @@ LABEL_20:
             {
               v11 = [(HVBudget *)self sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:1 levelOfService:?];
               v12 = HVDataSourceDescription(v11);
-              v14 = 138412290;
-              v15 = v12;
-              _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v14, 0xCu);
+              v13 = 138412290;
+              v14 = v12;
+              _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v13, 0xCu);
             }
 
-            goto LABEL_23;
+            return;
           }
 
           v6 = v9;
@@ -184,9 +184,6 @@ LABEL_20:
       goto LABEL_20;
     }
   }
-
-LABEL_23:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__HVBudget_performWorkForOneDataSource_levelOfService_requireRegistrations_block___block_invoke_2(uint64_t a1)

@@ -1,4 +1,5 @@
 @interface NTKSimpleRichFaceView
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKSimpleRichFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (void)_addDetailedMinutesToView:(id)view;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
@@ -44,6 +45,42 @@
     [v7 transitionToMonochromeWithFraction:1.0];
     [v7 updateMonochromeColor];
   }
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  slotCopy = slot;
+  if ([slotCopy isEqualToString:NTKComplicationSlotDate])
+  {
+    v24.receiver = self;
+    v24.super_class = NTKSimpleRichFaceView;
+    [(NTKSimpleRichFaceView *)&v24 _keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
+    v14 = v13;
+  }
+
+  else
+  {
+    complicationFactory = [(NTKSimpleRichFaceView *)self complicationFactory];
+    [complicationFactory keylineFrameForCornerComplicationSlot:slotCopy selected:selectedCopy faceView:self];
+    v8 = v16;
+    v10 = v17;
+    v12 = v18;
+    v14 = v19;
+  }
+
+  v20 = v8;
+  v21 = v10;
+  v22 = v12;
+  v23 = v14;
+  result.size.height = v23;
+  result.size.width = v22;
+  result.origin.y = v21;
+  result.origin.x = v20;
+  return result;
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot
@@ -130,47 +167,47 @@
 {
   viewCopy = view;
   device = [(NTKSimpleRichFaceView *)self device];
-  v38 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v37 = 0;
   v35 = 0u;
-  memset(v33, 0, sizeof(v33));
-  sub_6044(device, v33);
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  memset(v32, 0, sizeof(v32));
+  sub_6044(device, v32);
   [NTKAnalogUtilities dialDiameterForDevice:device];
   v7 = v6 * 0.5;
-  v8 = *(&v34 + 1);
-  v9 = [CLKFont systemFontOfSize:*&v35];
+  v8 = *(&v33 + 1);
+  v9 = [CLKFont systemFontOfSize:*&v34];
   [viewCopy center];
-  v27 = v11;
-  v28 = v10;
+  v26 = v11;
+  v27 = v10;
   outerDigits = [viewCopy outerDigits];
 
   if (outerDigits)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     outerDigits2 = [viewCopy outerDigits];
-    v14 = [outerDigits2 countByEnumeratingWithState:&v29 objects:v39 count:16];
+    v14 = [outerDigits2 countByEnumeratingWithState:&v28 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(outerDigits2);
           }
 
-          [*(*(&v29 + 1) + 8 * i) removeFromSuperview];
+          [*(*(&v28 + 1) + 8 * i) removeFromSuperview];
         }
 
-        v15 = [outerDigits2 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v15 = [outerDigits2 countByEnumeratingWithState:&v28 objects:v38 count:16];
       }
 
       while (v15);
@@ -180,35 +217,34 @@
   v18 = objc_opt_new();
   v19 = 0;
   height = CGSizeZero.height;
-  y = CGPointZero.y;
   do
   {
     v19 += 5;
     if (v19 != 15 && v19 != 45)
     {
-      v22 = objc_opt_new();
-      v23 = [NSString localizedStringWithFormat:@"%02ld", v19];
-      [v22 setText:v23];
+      v21 = objc_opt_new();
+      v22 = [NSString localizedStringWithFormat:@"%02ld", v19];
+      [v21 setText:v22];
 
-      [v22 setFont:v9];
-      v24 = +[UIColor whiteColor];
-      [v22 setTextColor:v24];
+      [v21 setFont:v9];
+      v23 = +[UIColor whiteColor];
+      [v21 setTextColor:v23];
 
-      [v22 setTag:v19];
-      [v22 sizeThatFits:{CGSizeZero.width, height}];
+      [v21 setTag:v19];
+      [v21 sizeThatFits:{CGSizeZero.width, height}];
       [v9 lineHeight];
       CLKPixelAlignRectForDevice();
-      [v22 setBounds:?];
-      v25 = __sincos_stret(v19 * -6.28318531 / 60.0 + 1.57079633);
-      [v22 setCenter:{v28 + round((v7 + v8) * v25.__cosval), v27 - round((v7 + v8) * v25.__sinval)}];
-      [viewCopy addSubview:v22];
-      [v18 addObject:v22];
+      [v21 setBounds:?];
+      v24 = __sincos_stret(v19 * -6.28318531 / 60.0 + 1.57079633);
+      [v21 setCenter:{v27 + round((v7 + v8) * v24.__cosval), v26 - round((v7 + v8) * v24.__sinval)}];
+      [viewCopy addSubview:v21];
+      [v18 addObject:v21];
     }
   }
 
   while (v19 < 0x38);
-  v26 = [NSArray arrayWithArray:v18];
-  [viewCopy setOuterDigits:v26];
+  v25 = [NSArray arrayWithArray:v18];
+  [viewCopy setOuterDigits:v25];
 }
 
 - (void)_updateComplicationOverlapHiding

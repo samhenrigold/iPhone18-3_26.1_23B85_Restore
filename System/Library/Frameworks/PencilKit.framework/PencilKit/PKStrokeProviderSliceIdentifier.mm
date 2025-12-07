@@ -66,8 +66,8 @@
 {
   strokeUUID = [(PKStrokeProviderSliceIdentifier *)self strokeUUID];
   v4 = [strokeUUID hash];
-  v5 = PKHashBytes(&self->_tStart, 8);
-  v6 = PKHashBytes(&self->_tEnd, 8);
+  v5 = PKHashBytes(&self->_tStart, 8u);
+  v6 = PKHashBytes(&self->_tEnd, 8u);
 
   return v5 ^ v4 ^ v6;
 }

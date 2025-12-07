@@ -14,10 +14,9 @@
 
 - (HMDDemoModeManagerDataSource)demoModeDataSource
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon15DemoModeManager_demoModeDataSource);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)handleRequestMessage:(id)message
@@ -31,14 +30,13 @@
 {
   v4 = sub_22A4DB21C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB1DC();
   selfCopy = self;
-  sub_22987480C(v8);
+  sub_22987480C(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC13HomeKitDaemon15DemoModeManager)init
@@ -52,21 +50,20 @@
 {
   v3 = sub_22A4DB7DC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon15DemoModeManager_homeManager);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon15DemoModeManager_homeManager);
   selfCopy = self;
-  result = [v8 uuid];
+  result = [v7 uuid];
   if (result)
   {
-    v11 = result;
+    v10 = result;
     sub_22A4DB79C();
 
-    v12 = sub_22A4DB77C();
-    (*(v4 + 8))(v7, v3);
+    v11 = sub_22A4DB77C();
+    (*(v4 + 8))(v6, v3);
 
-    return v12;
+    return v11;
   }
 
   else

@@ -47,7 +47,7 @@
 
 - (void)doReceive:(id)receive context:(id)context isComplete:(BOOL)complete error:(id)error
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   applier[0] = MEMORY[0x277D85DD0];
   applier[1] = 3221225472;
   applier[2] = __48___MLServer_doReceive_context_isComplete_error___block_invoke;
@@ -135,13 +135,13 @@
       [packet15 setBuffer:v44];
 
       q = self->_q;
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __48___MLServer_doReceive_context_isComplete_error___block_invoke_8;
-      v54[3] = &unk_279AFCAD8;
-      v54[4] = self;
-      v54[5] = a2;
-      dispatch_sync(q, v54);
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __48___MLServer_doReceive_context_isComplete_error___block_invoke_8;
+      v53[3] = &unk_279AFCAD8;
+      v53[4] = self;
+      v53[5] = a2;
+      dispatch_sync(q, v53);
     }
 
     else
@@ -149,56 +149,49 @@
       v31 = +[_MLLog serverFramework];
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v48 = NSStringFromSelector(a2);
+        v47 = NSStringFromSelector(a2);
         packet16 = [(_MLServer *)self packet];
         sizeOfPacket3 = [packet16 sizeOfPacket];
         packet17 = [(_MLServer *)self packet];
         buffer6 = [packet17 buffer];
-        v53 = [buffer6 length];
+        v52 = [buffer6 length];
         *buf = 138413058;
-        v57 = v48;
-        v58 = 2048;
-        v59 = sizeOfPacket3;
-        v60 = 2048;
-        v61 = v53;
-        v62 = 2048;
-        v63 = v28;
+        v56 = v47;
+        v57 = 2048;
+        v58 = sizeOfPacket3;
+        v59 = 2048;
+        v60 = v52;
+        v61 = 2048;
+        v62 = v28;
         _os_log_debug_impl(&dword_261D92000, v31, OS_LOG_TYPE_DEBUG, "%@: Size of Packet: %zu < Size of current %zu buffer_length %zu.", buf, 0x2Au);
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doReceive:(NSObject *)a3 context:isComplete:error:.cold.1(const char *a1, void *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = [a2 packet];
   v7 = [v6 sizeOfPacket];
   v8 = [a2 packet];
-  v10 = 138412802;
-  v11 = v5;
-  v12 = 2048;
-  v13 = v7;
-  v14 = 2048;
-  v15 = [v8 command];
-  _os_log_debug_impl(&dword_261D92000, a3, OS_LOG_TYPE_DEBUG, "%@: Begin Packet size = %lu command %lu", &v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412802;
+  v10 = v5;
+  v11 = 2048;
+  v12 = v7;
+  v13 = 2048;
+  v14 = [v8 command];
+  _os_log_debug_impl(&dword_261D92000, a3, OS_LOG_TYPE_DEBUG, "%@: Begin Packet size = %lu command %lu", &v9, 0x20u);
 }
 
 - (void)doReceive:(const char *)a1 context:(void *)a2 isComplete:error:.cold.2(const char *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 packet];
   [v4 command];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

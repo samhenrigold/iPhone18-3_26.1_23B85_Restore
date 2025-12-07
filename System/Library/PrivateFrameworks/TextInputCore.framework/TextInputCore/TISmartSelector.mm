@@ -53,33 +53,33 @@
 
 - (void)loadStaticPhraseDictionary
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   localeIdentifier = [(NSLocale *)self->_locale localeIdentifier];
-  KB::utf8_string(localeIdentifier, v8);
+  KB::utf8_string(localeIdentifier, v7);
   localeIdentifier2 = [(NSLocale *)self->_locale localeIdentifier];
   v5 = [TIInputMode inputModeWithIdentifier:localeIdentifier2];
   v6 = UIKeyboardPhraseLexiconPathForInputMode(v5);
-  KB::utf8_string(v6, &v9);
-  v10 = 0x100000;
+  KB::utf8_string(v6, &v8);
+  v9 = 0x100000;
+  v10 = 0;
   v11 = 0;
   v12 = 0;
   v13 = 0;
-  v14 = 0;
-  v15 = 0x100000;
+  v14 = 0x100000;
+  v15 = 0;
   v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v20 = 0x100000;
+  v19 = 0x100000;
+  v20 = 0;
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  v24 = 0;
-  v25 = 1;
-  v26 = 0;
-  v27 = 1065353216;
+  v24 = 1;
+  v25 = 0;
+  v26 = 1065353216;
 
-  KB::StaticDictionary::create(v7);
+  KB::StaticDictionary::create();
 }
 
 - (_NSRange)longestRangeEncapsulatingSubstringInDocument:(id)document containingRange:(_NSRange)range tokenizedRanges:(id)ranges meetingCondition:(id)condition
@@ -164,27 +164,27 @@
 {
   length = range.length;
   location = range.location;
-  v106[5] = *MEMORY[0x277D85DE8];
+  v104[5] = *MEMORY[0x277D85DE8];
   documentCopy = document;
   languageCopy = language;
   rangesCopy = ranges;
   v16 = [documentCopy length];
-  v107.location = 0;
-  v107.length = v16;
-  v109.location = location;
-  v109.length = length;
-  if (v16 >= NSUnionRange(v107, v109).length)
+  v105.location = 0;
+  v105.length = v16;
+  v107.location = location;
+  v107.length = length;
+  if (v16 >= NSUnionRange(v105, v107).length)
   {
-    v62 = languageCopy;
-    v97 = 0;
-    v98 = &v97;
-    v99 = 0x4012000000;
-    v100 = __Block_byref_object_copy__3300;
-    v101 = __Block_byref_object_dispose__3301;
-    v102 = "";
-    v103 = xmmword_22CC889D0;
+    v60 = languageCopy;
+    v95 = 0;
+    v96 = &v95;
+    v97 = 0x4012000000;
+    v98 = __Block_byref_object_copy__3300;
+    v99 = __Block_byref_object_dispose__3301;
+    v100 = "";
+    v101 = xmmword_22CC889D0;
     v17 = dispatch_semaphore_create(0);
-    v61 = rangesCopy;
+    v59 = rangesCopy;
     dsema = v17;
     if ((options & self->_options & 0x1FLL) != 0)
     {
@@ -192,19 +192,19 @@
       v19 = [objc_alloc(MEMORY[0x277D04228]) initWithScannerType:0 passiveIntent:1];
       [v19 setResultsOptions:1601];
       v20 = MEMORY[0x277D04220];
-      v91[0] = MEMORY[0x277D85DD0];
-      v91[1] = 3221225472;
-      v91[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke;
-      v91[3] = &unk_27872FB50;
-      v94 = location;
-      v95 = length;
+      v89[0] = MEMORY[0x277D85DD0];
+      v89[1] = 3221225472;
+      v89[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke;
+      v89[3] = &unk_27872FB50;
+      v92 = location;
+      v93 = length;
       optionsCopy = options;
-      v91[4] = self;
-      v93 = &v97;
-      v92 = v18;
-      [v20 scanString:documentCopy range:0 configuration:v16 completionBlock:{v19, v91}];
+      v89[4] = self;
+      v91 = &v95;
+      v90 = v18;
+      [v20 scanString:documentCopy range:0 configuration:v16 completionBlock:{v19, v89}];
 
-      rangesCopy = v61;
+      rangesCopy = v59;
     }
 
     else
@@ -215,13 +215,40 @@
     options = self->_options;
     if ((options & options & 0x20) != 0)
     {
-      v90[0] = MEMORY[0x277D85DD0];
-      v90[1] = 3221225472;
-      v90[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_2;
-      v90[3] = &unk_278731200;
-      v90[4] = self;
-      v56 = [(TISmartSelector *)self longestRangeEncapsulatingSubstringInDocument:documentCopy containingRange:location tokenizedRanges:length meetingCondition:rangesCopy, v90];
-      v57 = v22;
+      v88[0] = MEMORY[0x277D85DD0];
+      v88[1] = 3221225472;
+      v88[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_2;
+      v88[3] = &unk_278731200;
+      v88[4] = self;
+      v54 = [(TISmartSelector *)self longestRangeEncapsulatingSubstringInDocument:documentCopy containingRange:location tokenizedRanges:length meetingCondition:rangesCopy, v88];
+      v55 = v22;
+      options = self->_options;
+    }
+
+    else
+    {
+      v54 = 0x7FFFFFFFFFFFFFFFLL;
+      v55 = 0;
+    }
+
+    if ((options & options & 0x40) != 0)
+    {
+      localeIdentifier = [(NSLocale *)self->_locale localeIdentifier];
+      isEqualToString = objc_msgSend_isEqualToString_(languageCopy);
+
+      if ((isEqualToString & 1) == 0)
+      {
+        [(TISmartSelector *)self setLanguage:languageCopy];
+      }
+
+      v87[0] = MEMORY[0x277D85DD0];
+      v87[1] = 3221225472;
+      v87[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_3;
+      v87[3] = &unk_278731200;
+      v87[4] = self;
+      rangesCopy = v59;
+      v56 = [(TISmartSelector *)self longestRangeEncapsulatingSubstringInDocument:documentCopy containingRange:location tokenizedRanges:length meetingCondition:v59, v87];
+      v57 = v25;
       options = self->_options;
     }
 
@@ -231,86 +258,58 @@
       v57 = 0;
     }
 
-    if ((options & options & 0x40) != 0)
-    {
-      localeIdentifier = [(NSLocale *)self->_locale localeIdentifier];
-      v24 = [languageCopy isEqualToString:localeIdentifier];
-
-      if ((v24 & 1) == 0)
-      {
-        [(TISmartSelector *)self setLanguage:languageCopy];
-      }
-
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_3;
-      v89[3] = &unk_278731200;
-      v89[4] = self;
-      rangesCopy = v61;
-      v58 = [(TISmartSelector *)self longestRangeEncapsulatingSubstringInDocument:documentCopy containingRange:location tokenizedRanges:length meetingCondition:v61, v89];
-      v59 = v25;
-      options = self->_options;
-    }
-
-    else
-    {
-      v58 = 0x7FFFFFFFFFFFFFFFLL;
-      v59 = 0;
-    }
-
     if ((options & options & 0x80) != 0)
     {
-      v88[0] = MEMORY[0x277D85DD0];
-      v88[1] = 3221225472;
-      v88[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_4;
-      v88[3] = &unk_278731200;
-      v88[4] = self;
-      v26 = [(TISmartSelector *)self longestRangeEncapsulatingSubstringInDocument:documentCopy containingRange:location tokenizedRanges:length meetingCondition:rangesCopy, v88];
-      v55 = v27;
+      v86[0] = MEMORY[0x277D85DD0];
+      v86[1] = 3221225472;
+      v86[2] = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_4;
+      v86[3] = &unk_278731200;
+      v86[4] = self;
+      v26 = [(TISmartSelector *)self longestRangeEncapsulatingSubstringInDocument:documentCopy containingRange:location tokenizedRanges:length meetingCondition:rangesCopy, v86];
+      v53 = v27;
     }
 
     else
     {
-      v55 = 0;
+      v53 = 0;
       v26 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x4012000000;
-    v84 = __Block_byref_object_copy__3300;
-    v85 = __Block_byref_object_dispose__3301;
-    v86 = "";
-    v87 = xmmword_22CC889D0;
+    v79 = 0;
+    v80 = &v79;
+    v81 = 0x4012000000;
+    v82 = __Block_byref_object_copy__3300;
+    v83 = __Block_byref_object_dispose__3301;
+    v84 = "";
+    v85 = xmmword_22CC889D0;
     v28 = dispatch_semaphore_create(0);
     v29 = v28;
     if ((options & self->_options & 0x100) != 0)
     {
       localeIdentifier2 = [(NSLocale *)self->_locale localeIdentifier];
-      v31 = [languageCopy isEqualToString:localeIdentifier2];
+      v31 = objc_msgSend_isEqualToString_(languageCopy);
 
       if ((v31 & 1) == 0)
       {
-        [(TISmartSelector *)self setLanguage:v62];
+        [(TISmartSelector *)self setLanguage:v60];
       }
 
       v32 = objc_alloc(MEMORY[0x277CBEB98]);
       v33 = [v32 initWithObjects:{*MEMORY[0x277CD8920], *MEMORY[0x277CD8928], *MEMORY[0x277CD8908], 0}];
-      dispatchQueue = self->_dispatchQueue;
-      v68 = MEMORY[0x277D85DD0];
-      v69 = 3221225472;
-      v70 = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_5;
-      v71 = &unk_27872FBA0;
+      v66 = MEMORY[0x277D85DD0];
+      v67 = 3221225472;
+      v68 = __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_5;
+      v69 = &unk_27872FBA0;
       selfCopy = self;
-      v78 = v16;
-      v79 = location;
-      v80 = length;
-      v73 = documentCopy;
-      v74 = v33;
-      v76 = &v81;
-      v77 = 0;
-      v75 = v29;
-      v35 = v33;
+      v76 = v16;
+      v77 = location;
+      v78 = length;
+      v71 = documentCopy;
+      v72 = v33;
+      v74 = &v79;
+      v75 = 0;
+      v73 = v29;
+      v34 = v33;
       TIDispatchAsync();
     }
 
@@ -319,116 +318,115 @@
       dispatch_semaphore_signal(v28);
     }
 
-    v36 = dispatch_time(0, 3000000000);
-    v37 = dispatch_semaphore_wait(dsema, v36);
-    v38 = dispatch_semaphore_wait(v29, v36);
+    v35 = dispatch_time(0, 3000000000);
+    v36 = dispatch_semaphore_wait(dsema, v35);
+    v37 = dispatch_semaphore_wait(v29, v35);
+    if (v36)
+    {
+      *(v96 + 3) = xmmword_22CC889D0;
+    }
+
     if (v37)
     {
-      *(v98 + 3) = xmmword_22CC889D0;
+      *(v80 + 3) = xmmword_22CC889D0;
     }
 
-    if (v38)
-    {
-      *(v82 + 3) = xmmword_22CC889D0;
-    }
-
-    *&v104 = location;
-    *(&v104 + 1) = length;
-    v39 = [MEMORY[0x277CCAE60] valueWithRange:{v98[6], v98[7]}];
-    v106[0] = v39;
+    *&v102 = location;
+    *(&v102 + 1) = length;
+    v38 = [MEMORY[0x277CCAE60] valueWithRange:{v96[6], v96[7]}];
+    v104[0] = v38;
+    v39 = [MEMORY[0x277CCAE60] valueWithRange:{v54, v55}];
+    v104[1] = v39;
     v40 = [MEMORY[0x277CCAE60] valueWithRange:{v56, v57}];
-    v106[1] = v40;
-    v41 = [MEMORY[0x277CCAE60] valueWithRange:{v58, v59}];
-    v106[2] = v41;
-    v42 = [MEMORY[0x277CCAE60] valueWithRange:{v26, v55}];
-    v106[3] = v42;
-    v43 = [MEMORY[0x277CCAE60] valueWithRange:{v82[6], v82[7]}];
-    v106[4] = v43;
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:5];
+    v104[2] = v40;
+    v41 = [MEMORY[0x277CCAE60] valueWithRange:{v26, v53}];
+    v104[3] = v41;
+    v42 = [MEMORY[0x277CCAE60] valueWithRange:{v80[6], v80[7]}];
+    v104[4] = v42;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:5];
 
-    v66 = 0u;
-    v67 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v45 = v44;
-    v46 = [v45 countByEnumeratingWithState:&v64 objects:v105 count:16];
-    if (v46)
+    v62 = 0u;
+    v63 = 0u;
+    v44 = v43;
+    v45 = [v44 countByEnumeratingWithState:&v62 objects:v103 count:16];
+    if (v45)
     {
-      v47 = v46;
-      v48 = *v65;
+      v46 = v45;
+      v47 = *v63;
       do
       {
-        for (i = 0; i != v47; ++i)
+        for (i = 0; i != v46; ++i)
         {
-          if (*v65 != v48)
+          if (*v63 != v47)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v44);
           }
 
-          v63[0] = [*(*(&v64 + 1) + 8 * i) rangeValue];
-          v63[1] = v50;
-          if (*(&v104 + 1) >= v50)
+          v61[0] = [*(*(&v62 + 1) + 8 * i) rangeValue];
+          v61[1] = v49;
+          if (*(&v102 + 1) >= v49)
           {
-            v51 = &v104;
+            v50 = &v102;
           }
 
           else
           {
-            v51 = v63;
+            v50 = v61;
           }
 
-          v104 = *v51;
+          v102 = *v50;
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v64 objects:v105 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v62 objects:v103 count:16];
       }
 
-      while (v47);
-      length = *(&v104 + 1);
-      location = v104;
+      while (v46);
+      length = *(&v102 + 1);
+      location = v102;
     }
 
-    _Block_object_dispose(&v81, 8);
-    _Block_object_dispose(&v97, 8);
-    rangesCopy = v61;
-    languageCopy = v62;
+    _Block_object_dispose(&v79, 8);
+    _Block_object_dispose(&v95, 8);
+    rangesCopy = v59;
+    languageCopy = v60;
   }
 
-  v52 = *MEMORY[0x277D85DE8];
-  v53 = location;
-  v54 = length;
-  result.length = v54;
-  result.location = v53;
+  v51 = location;
+  v52 = length;
+  result.length = v52;
+  result.location = v51;
   return result;
 }
 
 void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v14 + 1) + 8 * i) coreResult];
-        v20.location = DDResultGetRangeForURLification();
-        location = v20.location;
-        length = v20.length;
-        if (v20.length >= NSUnionRange(v20, *(a1 + 56)).length)
+        [*(*(&v13 + 1) + 8 * i) coreResult];
+        v19.location = DDResultGetRangeForURLification();
+        location = v19.location;
+        length = v19.length;
+        if (v19.length >= NSUnionRange(v19, *(a1 + 56)).length)
         {
           if ((Category = DDResultGetCategory(), v11 = *(a1 + 72) & *(*(a1 + 32) + 32), (v11 & 8) != 0) && (Category & 1) != 0 || (v11 & 4) != 0 && (Category & 2) != 0 || (v11 & 2) != 0 && (Category & 3) != 0 || (v11 & 1) != 0 && (Category & 4) != 0 || (v11 & 0x10) != 0 && (Category & 6) != 0)
           {
@@ -440,7 +438,7 @@ void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -453,7 +451,6 @@ void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
 LABEL_21:
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_2(uint64_t a1, void *a2)
@@ -468,13 +465,13 @@ BOOL __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
 
 BOOL __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_tokenizedRanges_options___block_invoke_3(uint64_t a1, KB *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
-  KB::utf8_string(this, v7);
-  v3 = KB::StaticDictionary::contains(v2, v7, 0, 0.0);
-  if (v8)
+  KB::utf8_string(this, v6);
+  v3 = KB::StaticDictionary::contains(v2, v6, 0, 0.0);
+  if (v7)
   {
-    v4 = v7[6] == 1;
+    v4 = v6[6] == 1;
   }
 
   else
@@ -484,10 +481,9 @@ BOOL __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
 
   if (v4)
   {
-    free(v8);
+    free(v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -541,13 +537,13 @@ void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = TIPersonalizationContactOSLogFacility();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISmartSelector:dealloc - removing observer", "-[TISmartSelector dealloc]"];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_22CA55000, v3, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -558,20 +554,19 @@ void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
     CFRelease(contactDictionary);
   }
 
-  v7.receiver = self;
-  v7.super_class = TISmartSelector;
-  [(TISmartSelector *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = TISmartSelector;
+  [(TISmartSelector *)&v6 dealloc];
 }
 
 - (TISmartSelector)initWithOptions:(unint64_t)options language:(id)language dataChangedHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   handlerCopy = handler;
-  v36.receiver = self;
-  v36.super_class = TISmartSelector;
-  v10 = [(TISmartSelector *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = TISmartSelector;
+  v10 = [(TISmartSelector *)&v35 init];
   v11 = v10;
   if (v10)
   {
@@ -613,21 +608,21 @@ void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
       {
         v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISmartSelector:initWithOptions - adding observer", "-[TISmartSelector initWithOptions:language:dataChangedHandler:]"];
         *buf = 138412290;
-        v39 = v23;
+        v38 = v23;
         _os_log_impl(&dword_22CA55000, v22, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
       }
 
       v24 = v11->_transientLexiconManager;
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __63__TISmartSelector_initWithOptions_language_dataChangedHandler___block_invoke;
-      v33[3] = &unk_278732270;
-      objc_copyWeak(&v34, &location);
-      v25 = [(TITransientLexiconManager *)v24 addContactObserver:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __63__TISmartSelector_initWithOptions_language_dataChangedHandler___block_invoke;
+      v32[3] = &unk_278732270;
+      objc_copyWeak(&v33, &location);
+      v25 = [(TITransientLexiconManager *)v24 addContactObserver:v32];
       contactObserver = v11->_contactObserver;
       v11->_contactObserver = v25;
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(&location);
       options = v11->_options;
     }
@@ -635,28 +630,27 @@ void __92__TISmartSelector_selectionRangeForTextInDocument_inRange_language_toke
     if ((options & 0x100) != 0)
     {
       v27 = objc_alloc(MEMORY[0x277CD89D8]);
-      v37 = *MEMORY[0x277CD8968];
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+      v36 = *MEMORY[0x277CD8968];
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
       v29 = [v27 initWithTagSchemes:v28];
       namedEntityTagger = v11->_namedEntityTagger;
       v11->_namedEntityTagger = v29;
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 void __63__TISmartSelector_initWithOptions_language_dataChangedHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TIPersonalizationContactOSLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISmartSelector:initWithOptions - processing %lu contacts", "-[TISmartSelector initWithOptions:language:dataChangedHandler:]_block_invoke", objc_msgSend(v3, "count")];
     *buf = 138412290;
-    v77 = v5;
+    v76 = v5;
     _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -665,182 +659,182 @@ void __63__TISmartSelector_initWithOptions_language_dataChangedHandler___block_i
   CFDictionarySetValue(Mutable, *MEMORY[0x277D23178], @"TextInput-SmartSelectionContacts");
   err = 0;
   Transient = LXLexiconCreateTransient();
-  v10 = [v6 allValues];
-  v11 = [v10 sortedArrayUsingComparator:&__block_literal_global_8];
-  v53 = v6;
-  v54 = a1;
-  v52 = Mutable;
+  v9 = [v6 allValues];
+  v10 = [v9 sortedArrayUsingComparator:&__block_literal_global_8];
+  v52 = v6;
+  v53 = a1;
+  v51 = Mutable;
   if ([v6 count] > 0x1F3)
   {
-    v12 = 500;
+    v11 = 500;
   }
 
   else
   {
-    v12 = [v6 count];
+    v11 = [v6 count];
   }
 
-  v13 = [v11 subarrayWithRange:{0, v12}];
+  v12 = [v10 subarrayWithRange:{0, v11}];
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
-  obj = v13;
-  v57 = [obj countByEnumeratingWithState:&v68 objects:buf count:16];
-  if (v57)
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  obj = v12;
+  v56 = [obj countByEnumeratingWithState:&v67 objects:buf count:16];
+  if (v56)
   {
-    v56 = *v69;
+    v55 = *v68;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v69 != v56)
+        if (*v68 != v55)
         {
           objc_enumerationMutation(obj);
         }
 
-        v59 = v14;
-        v15 = *(*(&v68 + 1) + 8 * v14);
-        v16 = [v15 firstName];
-        v17 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v16);
+        v58 = v13;
+        v14 = *(*(&v67 + 1) + 8 * v13);
+        v15 = [v14 firstName];
+        v16 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v15);
 
-        v18 = [v15 lastName];
-        v62 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v18);
+        v17 = [v14 lastName];
+        v61 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v17);
 
-        v19 = [v15 nickname];
-        v20 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v19);
+        v18 = [v14 nickname];
+        v19 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v18);
 
-        v21 = [v15 middleName];
-        v22 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v21);
+        v20 = [v14 middleName];
+        v21 = ___Z34nameVariationsForContactCollectionP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke(v20);
 
-        if ([v22 length])
+        if ([v21 length])
         {
-          v23 = [v22 rangeOfComposedCharacterSequenceAtIndex:0];
-          v60 = [v22 substringWithRange:{v23, v24}];
+          v22 = [v21 rangeOfComposedCharacterSequenceAtIndex:0];
+          v59 = [v21 substringWithRange:{v22, v23}];
         }
 
         else
         {
-          v60 = 0;
+          v59 = 0;
         }
 
-        v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v26 = v25;
-        v27 = v62;
-        if (v17)
+        v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v25 = v24;
+        v26 = v61;
+        if (v16)
         {
-          [v25 addObject:v17];
+          [v24 addObject:v16];
         }
 
-        if (v20)
+        if (v19)
         {
-          [v26 addObject:v20];
+          [v25 addObject:v19];
         }
 
-        if (v22)
+        if (v21)
         {
-          [v26 addObject:v22];
+          [v25 addObject:v21];
         }
 
-        v61 = v20;
-        if (v62)
+        v60 = v19;
+        if (v61)
         {
-          [v26 addObject:v62];
-          if (v17)
+          [v25 addObject:v61];
+          if (v16)
           {
-            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v17, v62];
-            [v26 addObject:v28];
+            v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v16, v61];
+            [v25 addObject:v27];
 
-            v27 = v62;
-            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v62, v17];
-            [v26 addObject:v29];
+            v26 = v61;
+            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v61, v16];
+            [v25 addObject:v28];
 
-            v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@", v62, v17];
-            [v26 addObject:v30];
+            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@", v61, v16];
+            [v25 addObject:v29];
           }
 
-          if (v20)
+          if (v19)
           {
-            v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v20, v27];
-            [v26 addObject:v31];
+            v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v19, v26];
+            [v25 addObject:v30];
 
-            v27 = v62;
-            v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v62, v20];
-            [v26 addObject:v32];
+            v26 = v61;
+            v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v61, v19];
+            [v25 addObject:v31];
 
-            v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@", v62, v20];
-            [v26 addObject:v33];
+            v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@", v61, v19];
+            [v25 addObject:v32];
           }
 
-          if (v17 && v22)
+          if (v16 && v21)
           {
-            v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v17, v22, v27];
-            [v26 addObject:v34];
+            v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v16, v21, v26];
+            [v25 addObject:v33];
 
-            v27 = v62;
-            v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v62, v17, v22];
-            [v26 addObject:v35];
+            v26 = v61;
+            v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v61, v16, v21];
+            [v25 addObject:v34];
 
-            v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@ %@", v62, v17, v22];
-            [v26 addObject:v36];
+            v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@ %@", v61, v16, v21];
+            [v25 addObject:v35];
           }
 
-          if (v20 && v22)
+          if (v19 && v21)
           {
-            v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v20, v22, v27];
-            [v26 addObject:v37];
+            v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v19, v21, v26];
+            [v25 addObject:v36];
 
-            v27 = v62;
-            v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v62, v20, v22];
-            [v26 addObject:v38];
+            v26 = v61;
+            v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v61, v19, v21];
+            [v25 addObject:v37];
 
-            v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@ %@", v62, v20, v22];
-            [v26 addObject:v39];
+            v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@ %@", v61, v19, v21];
+            [v25 addObject:v38];
           }
 
-          if (v17 && v60)
+          if (v16 && v59)
           {
-            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v17, v60, v27];
-            [v26 addObject:v40];
+            v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v16, v59, v26];
+            [v25 addObject:v39];
 
-            v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@. %@", v17, v60, v27];
-            [v26 addObject:v41];
+            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@. %@", v16, v59, v26];
+            [v25 addObject:v40];
           }
 
-          if (v20 && v60)
+          if (v19 && v59)
           {
-            v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v20, v60, v27];
-            [v26 addObject:v42];
+            v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v19, v59, v26];
+            [v25 addObject:v41];
 
-            v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@. %@", v20, v60, v27];
-            [v26 addObject:v43];
+            v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@. %@", v19, v59, v26];
+            [v25 addObject:v42];
           }
         }
 
-        v58 = v17;
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
+        v57 = v16;
         v65 = 0u;
-        v44 = v26;
-        v45 = [v44 countByEnumeratingWithState:&v64 objects:v75 count:16];
-        if (v45)
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v43 = v25;
+        v44 = [v43 countByEnumeratingWithState:&v63 objects:v74 count:16];
+        if (v44)
         {
-          v46 = v45;
-          v47 = *v65;
+          v45 = v44;
+          v46 = *v64;
           do
           {
-            v48 = 0;
+            v47 = 0;
             do
             {
-              if (*v65 != v47)
+              if (*v64 != v46)
               {
-                objc_enumerationMutation(v44);
+                objc_enumerationMutation(v43);
               }
 
-              v49 = *(*(&v64 + 1) + 8 * v48);
+              v48 = *(*(&v63 + 1) + 8 * v47);
               if (!LXLexiconAdd())
               {
                 if (TICanLogMessageAtLevel_onceToken != -1)
@@ -850,83 +844,87 @@ void __63__TISmartSelector_initWithOptions_language_dataChangedHandler___block_i
 
                 if (TICanLogMessageAtLevel_logLevel >= 2)
                 {
-                  v50 = TIOSLogFacility();
-                  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+                  v49 = TIOSLogFacility();
+                  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
                   {
-                    v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISmartSelection: Failed to add %@ to the contact name variations lexicon.", "nameVariationsForContactCollection", v49];
-                    *v73 = 138412290;
-                    v74 = v51;
-                    _os_log_debug_impl(&dword_22CA55000, v50, OS_LOG_TYPE_DEBUG, "%@", v73, 0xCu);
+                    v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TISmartSelection: Failed to add %@ to the contact name variations lexicon.", "nameVariationsForContactCollection", v48];
+                    *v72 = 138412290;
+                    v73 = v50;
+                    _os_log_debug_impl(&dword_22CA55000, v49, OS_LOG_TYPE_DEBUG, "%@", v72, 0xCu);
                   }
                 }
               }
 
-              ++v48;
+              ++v47;
             }
 
-            while (v46 != v48);
-            v46 = [v44 countByEnumeratingWithState:&v64 objects:v75 count:16];
+            while (v45 != v47);
+            v45 = [v43 countByEnumeratingWithState:&v63 objects:v74 count:16];
           }
 
-          while (v46);
+          while (v45);
         }
 
-        v14 = v59 + 1;
+        v13 = v58 + 1;
       }
 
-      while (v59 + 1 != v57);
-      v57 = [obj countByEnumeratingWithState:&v68 objects:buf count:16];
+      while (v58 + 1 != v56);
+      v56 = [obj countByEnumeratingWithState:&v67 objects:buf count:16];
     }
 
-    while (v57);
+    while (v56);
   }
 
-  if (v52)
+  if (v51)
   {
-    CFRelease(v52);
+    CFRelease(v51);
   }
 
-  objc_copyWeak(v63, (v54 + 32));
-  v63[1] = Transient;
+  objc_copyWeak(v62, (v53 + 32));
+  v62[1] = Transient;
   TIDispatchAsync();
-  objc_destroyWeak(v63);
-
-  v9 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(v62);
 }
 
 uint64_t __63__TISmartSelector_initWithOptions_language_dataChangedHandler___block_invoke_38(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v9 = WeakRetained;
+  v3 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _Block_copy(WeakRetained[9]);
-    v4 = v9;
-    v5 = v3;
-    v6 = v9[2];
-    if (v6)
+    v4 = _Block_copy(WeakRetained[9]);
+    v5 = v10;
+    v6 = v4;
+    v7 = v10[2];
+    if (v7)
     {
-      CFRelease(v6);
-      v4 = v9;
+      CFRelease(v7);
+      v5 = v10;
     }
 
-    v4[2] = *(a1 + 40);
-    if (v5)
+    v5[2] = *(a1 + 40);
+    if (v6)
     {
-      v5[2](v5);
+      v6[2](v6);
     }
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    if (v7)
+    v8 = *(a1 + 40);
+    if (!v8)
     {
-      CFRelease(v7);
+      goto LABEL_10;
     }
+
+    CFRelease(v8);
   }
 
-  return MEMORY[0x2821F96F8]();
+  v3 = v10;
+LABEL_10:
+
+  return MEMORY[0x2821F96F8](v8, v3);
 }
 
 @end

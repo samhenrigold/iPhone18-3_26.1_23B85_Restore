@@ -32,7 +32,7 @@
 
 - (NSAttributedString)attributedString
 {
-  if (UIKitLibraryCore())
+  if (UIKitLibraryCore(0))
   {
     v7 = 0;
     v8 = &v7;
@@ -149,8 +149,8 @@ void __39__HMPlainTextDocument_attributedString__block_invoke(uint64_t a1)
   if (!v16)
   {
 LABEL_15:
-    dlerror();
-    abort_report_np();
+    v31 = dlerror();
+    abort_report_np("%s", v31);
     __break(1u);
   }
 
@@ -184,8 +184,6 @@ LABEL_15:
 
     objc_autoreleasePoolPop(v27);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)stringValue
@@ -324,12 +322,11 @@ LABEL_15:
 
 uint64_t __34__HMPlainTextDocument_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_27043;
-  logCategory__hmf_once_v3_27043 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_27043;
+  logCategory__hmf_once_v3_27043 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

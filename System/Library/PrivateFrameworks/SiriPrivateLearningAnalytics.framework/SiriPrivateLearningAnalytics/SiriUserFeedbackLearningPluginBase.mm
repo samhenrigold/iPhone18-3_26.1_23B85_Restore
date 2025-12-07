@@ -19,7 +19,7 @@
   v5 = __swift_project_value_buffer(v4, qword_280CB7BB0);
   (*(*(v4 - 8) + 16))(self + OBJC_IVAR____TtC28SiriPrivateLearningAnalytics34SiriUserFeedbackLearningPluginBase_timeout, v5, v4);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SiriUserFeedbackLearningPluginBase();
+  v7.super_class = type metadata accessor for SiriUserFeedbackLearningPluginBase(0);
   return [(SiriUserFeedbackLearningPluginBase *)&v7 init];
 }
 

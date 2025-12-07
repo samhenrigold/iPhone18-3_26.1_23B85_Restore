@@ -411,35 +411,36 @@ LABEL_13:
 
   if (v8)
   {
-    v18 = pqlConnection;
+    v20 = pqlConnection;
     [v8 enumerateObjectsOfClass:objc_opt_class()];
-    v23 = 0;
-    v19 = 0u;
-    v20 = 0u;
+    v25 = 0;
     v21 = 0u;
-    v9 = v22 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v26 count:16];
-    if (v10)
+    v22 = 0u;
+    v23 = 0u;
+    v10 = v24 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v28 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v20;
+      v12 = v11;
+      v13 = *v22;
       do
       {
-        for (i = 0; i != v11; i = i + 1)
+        for (i = 0; i != v12; i = i + 1)
         {
-          if (*v20 != v12)
+          if (*v22 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
-          v15 = [CPLResourceIdentity identityFromStoredIdentity:v14];
-          if (v15)
+          v15 = *(*(&v21 + 1) + 8 * i);
+          v16 = [CPLResourceIdentity identityFromStoredIdentity:v15];
+          v17 = v16;
+          if (v16)
           {
-            blockCopy[2](blockCopy, v15, &v23);
-            if (v23)
+            blockCopy[2](blockCopy, v16, &v25);
+            if (v25)
             {
-              [v9 close];
+              [v10 close];
 
               goto LABEL_20;
             }
@@ -447,37 +448,37 @@ LABEL_13:
 
           else if ((_CPLSilentLogging & 1) == 0)
           {
-            v16 = sub_10016A144();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v18 = sub_10016A144(0);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v25 = v14;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Can't read identity from storage: %@", buf, 0xCu);
+              v27 = v15;
+              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Can't read identity from storage: %@", buf, 0xCu);
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v28 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
 LABEL_20:
 
-    pqlConnection = v18;
+    pqlConnection = v20;
     goto LABEL_21;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10016A144();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10016A144(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       lastCPLError = [pqlConnection lastCPLError];
       *buf = 138412290;
-      v25 = lastCPLError;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Can't get an enumerator for retained identifies: %@", buf, 0xCu);
+      v27 = lastCPLError;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Can't get an enumerator for retained identifies: %@", buf, 0xCu);
     }
 
 LABEL_21:

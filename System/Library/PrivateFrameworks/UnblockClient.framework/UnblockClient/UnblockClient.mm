@@ -98,10 +98,11 @@ void __61__UBUnblockClient_recover_stackshotData_replyQueue_callback___block_inv
   (*(a1[6] + 16))();
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -111,10 +112,11 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id _UBCopySanitizedString(void *a1, char a2, void *a3)
@@ -165,16 +167,16 @@ LABEL_10:
   return v15;
 }
 
-id _ublogt()
+id _ublogt(uint64_t a1)
 {
   if (_ublogt_onceToken != -1)
   {
     _ublogt_cold_1();
   }
 
-  v1 = _ublogt_myLogger;
+  v2 = _ublogt_myLogger;
 
-  return v1;
+  return v2;
 }
 
 void ___ublogt_block_invoke()

@@ -78,19 +78,19 @@
 
 - (void)activateSessionWithDuration:(double)duration accidentalActivationMitigationSessionCancellationPolicyClassName:(id)name
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  BSDispatchQueueAssert();
-  v7 = SBLogCameraCaptureAccidentalActivationMitigationSession();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = BSDispatchQueueAssert();
+  v8 = SBLogCameraCaptureAccidentalActivationMitigationSession(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412802;
+    v9 = 138412802;
     selfCopy = self;
-    v10 = 2048;
+    v11 = 2048;
     durationCopy = duration;
-    v12 = 2112;
-    v13 = nameCopy;
-    _os_log_impl(&dword_19169D000, v7, OS_LOG_TYPE_DEFAULT, "%@ activated session with duration: %f and cancellation policy: %@", &v8, 0x20u);
+    v13 = 2112;
+    v14 = nameCopy;
+    _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_DEFAULT, "%@ activated session with duration: %f and cancellation policy: %@", &v9, 0x20u);
   }
 
   [(SBSAccidentalActivationMitigationSessionServiceClient *)self->_client activateSessionForBundleIdentifier:self->_bundleIdentifier duration:nameCopy accidentalActivationMitigationSessionCancellationPolicyClassName:duration];
@@ -98,29 +98,30 @@
 
 - (void)requestSessionCancellation
 {
-  v7 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssert();
-  v3 = SBLogCameraCaptureAccidentalActivationMitigationSession();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = BSDispatchQueueAssert();
+  v4 = SBLogCameraCaptureAccidentalActivationMitigationSession(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v7 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_19169D000, v3, OS_LOG_TYPE_DEFAULT, "%@ requested session cancellation", &v5, 0xCu);
+    _os_log_impl(&dword_19169D000, v4, OS_LOG_TYPE_DEFAULT, "%@ requested session cancellation", &v7, 0xCu);
   }
 
-  if ([(SBSAccidentalActivationMitigationClientSession *)self state]== 1)
+  state = [(SBSAccidentalActivationMitigationClientSession *)self state];
+  if (state == 1)
   {
     [(SBSAccidentalActivationMitigationSessionServiceClient *)self->_client requestSessionCancellation];
   }
 
   else
   {
-    v4 = SBLogCameraCaptureAccidentalActivationMitigationSession();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogCameraCaptureAccidentalActivationMitigationSession(state);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_19169D000, v4, OS_LOG_TYPE_DEFAULT, "%@ is not able to cancel the session because it is not active", &v5, 0xCu);
+      _os_log_impl(&dword_19169D000, v6, OS_LOG_TYPE_DEFAULT, "%@ is not able to cancel the session because it is not active", &v7, 0xCu);
     }
   }
 }

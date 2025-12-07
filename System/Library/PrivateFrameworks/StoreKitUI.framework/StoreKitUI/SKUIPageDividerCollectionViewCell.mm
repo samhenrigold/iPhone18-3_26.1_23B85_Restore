@@ -171,15 +171,15 @@ LABEL_8:
     }
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v13 = objc_msgSend_primaryTextColor(schemeCopy);
   topDividerLine = self->_topDividerLine;
-  if (primaryTextColor)
+  if (v13)
   {
-    [(UIView *)self->_topDividerLine setBackgroundColor:primaryTextColor];
+    [(UIView *)self->_topDividerLine setBackgroundColor:v13];
     bottomDividerLine = self->_bottomDividerLine;
     if (bottomDividerLine)
     {
-      [(UIView *)bottomDividerLine setBackgroundColor:primaryTextColor];
+      [(UIView *)bottomDividerLine setBackgroundColor:v13];
     }
   }
 
@@ -440,85 +440,80 @@ LABEL_8:
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIPageDividerCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell layoutSubviews]";
+}
 
-  v37.receiver = self;
-  v37.super_class = SKUIPageDividerCollectionViewCell;
-  [(SKUIPageDividerCollectionViewCell *)&v37 layoutSubviews];
-  contentView = [(SKUIPageDividerCollectionViewCell *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageDividerCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
 
-  dividerType = [(SKUIPageDividerCollectionViewCell *)self dividerType];
-  traitCollection = [(SKUIPageDividerCollectionViewCell *)self traitCollection];
-  [traitCollection displayScale];
-  v19 = v18;
-  if (v18 <= 0.00000011920929)
-  {
-    mainScreen = [MEMORY[0x277D759A0] mainScreen];
-    [mainScreen scale];
-    v19 = v21;
-  }
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageDividerCollectionViewCell preferredSizeForViewElement:context:]";
+}
 
-  v22 = 1.0 / v19;
-  if (dividerType != 2)
-  {
-    verticalAlignment = self->_verticalAlignment;
-    if (verticalAlignment)
-    {
-      if (verticalAlignment != 1)
-      {
-        v34 = *(MEMORY[0x277CBF3A0] + 16);
-        v22 = *(MEMORY[0x277CBF3A0] + 24);
-        leftEdgeInset = *MEMORY[0x277CBF3A0];
-        v32 = *(MEMORY[0x277CBF3A0] + 8);
-        goto LABEL_15;
-      }
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageDividerCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
 
-      v32 = v15 - v22;
-    }
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPageDividerCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
+}
 
-    else
-    {
-      v32 = 0.0;
-    }
+- (void)setColoringWithColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setColoringWithColorScheme:]";
+}
 
-    leftEdgeInset = self->_leftEdgeInset;
-    v34 = v13 - leftEdgeInset - self->_rightEdgeInset;
-LABEL_15:
-    top = self->_contentInset.top;
-    left = self->_contentInset.left;
-    v26 = leftEdgeInset + left;
-    v28 = v32 + top;
-    v29 = v34 - (left + self->_contentInset.right);
-    v22 = v22 - (top + self->_contentInset.bottom);
-    v30 = &OBJC_IVAR___SKUIPageDividerCollectionViewCell__topDividerLine;
-    goto LABEL_16;
-  }
+- (void)setColoringWithStyle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setColoringWithStyle:]";
+}
 
-  [(UIView *)self->_topDividerLine setFrame:self->_leftEdgeInset, 0.0, v13 - self->_leftEdgeInset - self->_rightEdgeInset, v22];
-  v23 = self->_leftEdgeInset;
-  v24 = v13 - v23 - self->_rightEdgeInset;
-  [(SKUIPageDividerCollectionViewCell *)self dividerHeight];
-  [(UIView *)self->_insetView setFrame:v23, v22, v24, v25 + v22 * -2.0];
-  v26 = self->_leftEdgeInset;
-  [(SKUIPageDividerCollectionViewCell *)self dividerHeight];
-  v28 = v27;
-  v29 = v13 - self->_leftEdgeInset - self->_rightEdgeInset;
-  v30 = &OBJC_IVAR___SKUIPageDividerCollectionViewCell__bottomDividerLine;
-LABEL_16:
-  [*(&self->super.super.super.super.super.isa + *v30) setFrame:{v26, v28, v29, v22}];
+- (void)setDividerType:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setDividerType:]";
+}
+
+- (void)setInsetColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setInsetColor:]";
+}
+
+- (void)setLeftEdgeInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setLeftEdgeInset:]";
+}
+
+- (void)setRightEdgeInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setRightEdgeInset:]";
+}
+
+- (void)setVerticalAlignment:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell setVerticalAlignment:]";
+}
+
+- (void)applyLayoutAttributes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageDividerCollectionViewCell applyLayoutAttributes:]";
 }
 
 @end

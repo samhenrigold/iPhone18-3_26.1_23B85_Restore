@@ -9,7 +9,7 @@
 
 - (NSString)debugString
 {
-  sub_232B5588C();
+  sub_232B5588C(self);
   v2 = sub_232CE9D20();
 
   return v2;

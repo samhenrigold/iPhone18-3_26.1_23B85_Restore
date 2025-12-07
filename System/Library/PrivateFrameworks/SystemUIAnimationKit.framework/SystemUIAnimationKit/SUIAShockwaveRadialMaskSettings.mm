@@ -199,12 +199,12 @@
   width = size.width;
   v17 = sub_26C614E48();
   v19 = v18;
-  sub_26C5CC548(0, &unk_28125E420);
-  sub_26C614EC8();
-  sub_26C5CC548(0, &qword_28125E430);
-  sub_26C614EC8();
+  sub_26C5CC548(0, &unk_28125E420, 0x277CCABB0);
+  v20 = sub_26C614EC8();
+  sub_26C5CC548(0, &qword_28125E430, 0x277D75348);
+  v21 = sub_26C614EC8();
   selfCopy = self;
-  SUIAShockwaveRadialMaskSettings.setDefaultValuesWithName(_:majorDiameter:ringWidth:blurRadius:sampleCount:locations:colors:gradientLayerSize:)(diameter, width, radius, width, height, v17, v19, count);
+  SUIAShockwaveRadialMaskSettings.setDefaultValuesWithName(_:majorDiameter:ringWidth:blurRadius:sampleCount:locations:colors:gradientLayerSize:)(v17, v19, count, v20, v21, diameter, width, radius, width, height);
 }
 
 + (id)settingsControllerModule

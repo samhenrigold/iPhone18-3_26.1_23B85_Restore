@@ -316,58 +316,57 @@ LABEL_20:
 - (void)ttrPressed
 {
   v3 = [(NSString *)self->_IssueDomain isEqualToString:@"NET"];
-  IssueProcess = self->_IssueProcess;
-  v5 = [NSString stringWithFormat:@"[%@ Issue Detected] %@: %@", self->_IssueDomain, IssueProcess, self->_IssueType];
+  v4 = [NSString stringWithFormat:@"[%@ Issue Detected] %@: %@", self->_IssueDomain, self->_IssueProcess, self->_IssueType];
   if ([(NSString *)self->_IssueAttachments length]< 4)
   {
-    [NSString stringWithFormat:@"%@\n", v5, v16];
+    [NSString stringWithFormat:@"%@\n", v4, v15];
   }
 
   else
   {
-    [NSString stringWithFormat:@"%@\nLogs attached from %@", v5, self->_IssueAttachments];
+    [NSString stringWithFormat:@"%@\nLogs attached from %@", v4, self->_IssueAttachments];
   }
-  v6 = ;
-  v7 = v6;
-  v17[0] = @"ComponentName";
-  v17[1] = @"ComponentVersion";
-  v8 = @"Purple Battery UI";
+  v5 = ;
+  v6 = v5;
+  v16[0] = @"ComponentName";
+  v16[1] = @"ComponentVersion";
+  v7 = @"Purple Battery UI";
   if (v3)
   {
-    v8 = @"SymptomFramework";
+    v7 = @"SymptomFramework";
   }
 
-  v18[0] = v8;
-  v18[1] = @"1.0";
-  v17[2] = @"ComponentID";
-  v17[3] = @"Reproducibility";
-  v9 = @"606186";
+  v17[0] = v7;
+  v17[1] = @"1.0";
+  v16[2] = @"ComponentID";
+  v16[3] = @"Reproducibility";
+  v8 = @"606186";
   if (!v3)
   {
-    v9 = @"485067";
+    v8 = @"485067";
   }
 
-  v18[2] = v9;
-  v18[3] = @"I Didn't Try";
-  v17[4] = @"Classification";
-  v17[5] = @"Keywords";
-  v18[4] = @"Serious Bug";
-  v18[5] = @"RadarFromBatteryUsageUI";
-  v17[6] = @"Title";
-  v17[7] = @"Description";
-  v18[6] = v5;
-  v18[7] = v6;
-  v17[8] = @"Attachments";
+  v17[2] = v8;
+  v17[3] = @"I Didn't Try";
+  v16[4] = @"Classification";
+  v16[5] = @"Keywords";
+  v17[4] = @"Serious Bug";
+  v17[5] = @"RadarFromBatteryUsageUI";
+  v16[6] = @"Title";
+  v16[7] = @"Description";
+  v17[6] = v4;
+  v17[7] = v5;
+  v16[8] = @"Attachments";
   IssueAttachments = self->_IssueAttachments;
-  v10 = IssueAttachments;
-  v11 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:9];
-  v12 = [(PLBatteryUIDisplayTableCell *)self urlEncodedString:v11];
+  v9 = IssueAttachments;
+  v10 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:9];
+  v11 = [(PLBatteryUIDisplayTableCell *)self urlEncodedString:v10];
 
-  v13 = [@"tap-to-radar://new?" stringByAppendingString:v12];
+  v12 = [@"tap-to-radar://new?" stringByAppendingString:v11];
 
-  v14 = [NSURL URLWithString:v13];
-  v15 = +[LSApplicationWorkspace defaultWorkspace];
-  [v15 openURL:v14];
+  v13 = [NSURL URLWithString:v12];
+  v14 = +[LSApplicationWorkspace defaultWorkspace];
+  [v14 openURL:v13];
 }
 
 - (PLBatteryUIDisplayTableCellDelegate)delegate

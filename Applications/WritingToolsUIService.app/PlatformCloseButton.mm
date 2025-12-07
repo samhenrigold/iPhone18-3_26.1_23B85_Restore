@@ -30,10 +30,10 @@
   {
     v3 = *&self->perform[OBJC_IVAR____TtC21WritingToolsUIService19PlatformCloseButton_perform];
     selfCopy = self;
-    v5 = sub_100058574(v2);
+    v5 = sub_100058574(v2, v3);
     v2(v5);
 
-    sub_1000F3AB4(v2);
+    sub_1000F3AB4(v2, v3);
   }
 }
 

@@ -3,6 +3,7 @@
 - (WLDaemonController)init;
 - (void)getLocalImportOptionsWithCompletion:(id)completion;
 - (void)importLocalContent;
+- (void)setStashDataLocally:(BOOL)locally;
 @end
 
 @implementation WLDaemonController
@@ -21,9 +22,10 @@
 
 uint64_t __36__WLDaemonController_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(WLDaemonController);
+  v0 = objc_alloc_init(WLDaemonController);
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (WLDaemonController)init
@@ -65,17 +67,15 @@ uint64_t __36__WLDaemonController_sharedInstance__block_invoke()
 
 void __58__WLDaemonController_getLocalImportOptionsWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   _WLLog(v8, 0, @"%@: XPC error attempting to get local import options - %@", a4, a5, a6, a7, a8, *(a1 + 32));
   v10 = *(a1 + 40);
   v11 = MEMORY[0x277CCA9B8];
-  v15 = *MEMORY[0x277CCA450];
-  v16[0] = @"Daemon interrupted";
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = *MEMORY[0x277CCA450];
+  v15[0] = @"Daemon interrupted";
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v13 = [v11 errorWithDomain:@"com.apple.welcomekit" code:1 userInfo:v12];
   (*(v10 + 16))(v10, 0, 0, v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__WLDaemonController_getLocalImportOptionsWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -101,6 +101,20 @@ uint64_t __58__WLDaemonController_getLocalImportOptionsWithCompletion___block_in
   v4 = [connection daemonWithErrorHandler:v5];
 
   [v4 importLocalContent];
+}
+
+- (void)setStashDataLocally:(BOOL)locally
+{
+  locallyCopy = locally;
+  connection = [(WLDaemonController *)self connection];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __42__WLDaemonController_setStashDataLocally___block_invoke;
+  v7[3] = &unk_279EB4128;
+  v7[4] = self;
+  v6 = [connection daemonWithErrorHandler:v7];
+
+  [v6 setStashDataLocally:locallyCopy];
 }
 
 @end

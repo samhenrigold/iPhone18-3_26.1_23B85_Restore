@@ -70,7 +70,7 @@ LABEL_5:
   v11.super_class = SBOverrideParentAppLayoutSwitcherModifier;
   layoutCopy = layout;
   v5 = [(SBOverrideParentAppLayoutSwitcherModifier *)&v11 appLayoutsContainedWithinAppLayout:layoutCopy];
-  v6 = [v5 containsObject:{self->_childAppLayout, v11.receiver, v11.super_class}];
+  v6 = objc_msgSend_containsObject_(v5, v11.receiver, v11.super_class);
   v7 = [layoutCopy isEqual:self->_parentAppLayout];
 
   if (v6)
@@ -84,7 +84,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if (v7 && ([v5 containsObject:self->_childAppLayout] & 1) == 0)
+  if (v7 && (objc_msgSend_containsObject_(v5) & 1) == 0)
   {
     v8 = [v5 arrayByAddingObject:self->_childAppLayout];
 LABEL_7:

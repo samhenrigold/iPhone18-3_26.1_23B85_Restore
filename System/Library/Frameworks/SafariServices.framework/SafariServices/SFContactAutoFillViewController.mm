@@ -39,7 +39,7 @@
 
 - (id)_valueForProperty:(id)property identifier:(id)identifier
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   identifierCopy = identifier;
   v8 = [MEMORY[0x1E69E30A8] contactKeyForString:propertyCopy];
@@ -52,25 +52,25 @@
   if ([v8 isEqualToString:*MEMORY[0x1E695C360]])
   {
     [(CNContact *)self->_contact postalAddresses];
-    v58 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    birthday = v61 = 0u;
-    v11 = [birthday countByEnumeratingWithState:&v58 objects:v65 count:16];
+    v61 = 0u;
+    v62 = 0u;
+    birthday = v63 = 0u;
+    v11 = [birthday countByEnumeratingWithState:&v60 objects:v67 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v59;
+      v13 = *v61;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v59 != v13)
+          if (*v61 != v13)
           {
             objc_enumerationMutation(birthday);
           }
 
-          v15 = *(*(&v58 + 1) + 8 * i);
+          v15 = *(*(&v60 + 1) + 8 * i);
           identifier = [v15 identifier];
           v17 = [identifier isEqualToString:identifierCopy];
 
@@ -83,7 +83,7 @@
           }
         }
 
-        v12 = [birthday countByEnumeratingWithState:&v58 objects:v65 count:16];
+        v12 = [birthday countByEnumeratingWithState:&v60 objects:v67 count:16];
         if (v12)
         {
           continue;
@@ -112,25 +112,25 @@ LABEL_18:
   if ([v8 isEqualToString:*MEMORY[0x1E695C330]])
   {
     [(CNContact *)self->_contact phoneNumbers];
-    v54 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    birthday = v57 = 0u;
-    v24 = [birthday countByEnumeratingWithState:&v54 objects:v64 count:16];
+    v57 = 0u;
+    v58 = 0u;
+    birthday = v59 = 0u;
+    v24 = [birthday countByEnumeratingWithState:&v56 objects:v66 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v55;
+      v26 = *v57;
       while (2)
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v55 != v26)
+          if (*v57 != v26)
           {
             objc_enumerationMutation(birthday);
           }
 
-          v28 = *(*(&v54 + 1) + 8 * j);
+          v28 = *(*(&v56 + 1) + 8 * j);
           identifier2 = [v28 identifier];
           v30 = [identifier2 isEqualToString:identifierCopy];
 
@@ -145,7 +145,7 @@ LABEL_16:
           }
         }
 
-        v25 = [birthday countByEnumeratingWithState:&v54 objects:v64 count:16];
+        v25 = [birthday countByEnumeratingWithState:&v56 objects:v66 count:16];
         if (v25)
         {
           continue;
@@ -161,25 +161,25 @@ LABEL_16:
   if ([v8 isEqualToString:*MEMORY[0x1E695C208]])
   {
     [(CNContact *)self->_contact emailAddresses];
-    v50 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    birthday = v53 = 0u;
-    v31 = [birthday countByEnumeratingWithState:&v50 objects:v63 count:16];
+    v53 = 0u;
+    v54 = 0u;
+    birthday = v55 = 0u;
+    v31 = [birthday countByEnumeratingWithState:&v52 objects:v65 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v51;
+      v33 = *v53;
 LABEL_32:
       v34 = 0;
       while (1)
       {
-        if (*v51 != v33)
+        if (*v53 != v33)
         {
           objc_enumerationMutation(birthday);
         }
 
-        v35 = *(*(&v50 + 1) + 8 * v34);
+        v35 = *(*(&v52 + 1) + 8 * v34);
         identifier3 = [v35 identifier];
         v37 = [identifier3 isEqualToString:identifierCopy];
 
@@ -190,7 +190,7 @@ LABEL_32:
 
         if (v32 == ++v34)
         {
-          v32 = [birthday countByEnumeratingWithState:&v50 objects:v63 count:16];
+          v32 = [birthday countByEnumeratingWithState:&v52 objects:v65 count:16];
           if (v32)
           {
             goto LABEL_32;
@@ -210,40 +210,41 @@ LABEL_17:
     goto LABEL_49;
   }
 
-  if ([v8 isEqualToString:*MEMORY[0x1E695C418]])
+  v38 = [v8 isEqualToString:*MEMORY[0x1E695C418]];
+  if (v38)
   {
     [(CNContact *)self->_contact urlAddresses];
-    v46 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    birthday = v49 = 0u;
-    v38 = [birthday countByEnumeratingWithState:&v46 objects:v62 count:16];
-    if (v38)
+    v49 = 0u;
+    v50 = 0u;
+    birthday = v51 = 0u;
+    v40 = [birthday countByEnumeratingWithState:&v48 objects:v64 count:16];
+    if (v40)
     {
-      v39 = v38;
-      v40 = *v47;
+      v41 = v40;
+      v42 = *v49;
 LABEL_43:
-      v41 = 0;
+      v43 = 0;
       while (1)
       {
-        if (*v47 != v40)
+        if (*v49 != v42)
         {
           objc_enumerationMutation(birthday);
         }
 
-        v35 = *(*(&v46 + 1) + 8 * v41);
+        v35 = *(*(&v48 + 1) + 8 * v43);
         identifier4 = [v35 identifier];
-        v43 = [identifier4 isEqualToString:identifierCopy];
+        v45 = [identifier4 isEqualToString:identifierCopy];
 
-        if (v43)
+        if (v45)
         {
           goto LABEL_56;
         }
 
-        if (v39 == ++v41)
+        if (v41 == ++v43)
         {
-          v39 = [birthday countByEnumeratingWithState:&v46 objects:v62 count:16];
-          if (v39)
+          v41 = [birthday countByEnumeratingWithState:&v48 objects:v64 count:16];
+          if (v41)
           {
             goto LABEL_43;
           }
@@ -256,10 +257,10 @@ LABEL_43:
 LABEL_49:
   }
 
-  v44 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  v46 = WBS_LOG_CHANNEL_PREFIXAutoFill(v38, v39);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
-    [SFContactAutoFillViewController _valueForProperty:propertyCopy identifier:v44];
+    [SFContactAutoFillViewController _valueForProperty:propertyCopy identifier:v46];
   }
 
   value2 = 0;

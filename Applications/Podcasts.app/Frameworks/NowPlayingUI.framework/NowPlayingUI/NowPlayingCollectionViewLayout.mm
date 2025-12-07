@@ -30,20 +30,21 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v8 = sub_A23AC(x, y, width, height);
+  v8.n128_f64[0] = x;
+  v9 = sub_A23AC(v8, y, width, height);
 
-  if (v8)
+  if (v9)
   {
     sub_A3FC8();
-    v9.super.isa = sub_1449CC().super.isa;
+    v10.super.isa = sub_1449CC().super.isa;
   }
 
   else
   {
-    v9.super.isa = 0;
+    v10.super.isa = 0;
   }
 
-  return v9.super.isa;
+  return v10.super.isa;
 }
 
 - (id)layoutAttributesForDecorationViewOfKind:(id)kind atIndexPath:(id)path
@@ -51,16 +52,16 @@
   v5 = sub_140C2C();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = sub_1448DC();
   v11 = v10;
   sub_140BAC();
   selfCopy = self;
-  v13 = sub_A2640(v9, v11);
+  v14 = sub_A2640(v9, v11, v13);
 
   (*(v6 + 8))(v8, v5);
 
-  return v13;
+  return v14;
 }
 
 - (id)gestureRecognizerViewForSwipeActionController:(id)controller

@@ -23,8 +23,7 @@
 
     [v56 setAdjustsFontForContentSizeCategory:1];
     [v56 setTextAlignment:1];
-    [v56 setNumberOfLines:0];
-    v5 = PRBundle();
+    v5 = PRBundle([v56 setNumberOfLines:0]);
     v6 = [v5 localizedStringForKey:@"WIDGET_EDUCATION_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
     [v56 setText:v6];
 
@@ -37,14 +36,12 @@
     [v57 setTextColor:secondaryLabelColor];
 
     [v57 setTextAlignment:1];
-    [v57 setNumberOfLines:0];
-    v9 = PRBundle();
+    v9 = PRBundle([v57 setNumberOfLines:0]);
     v10 = [v9 localizedStringForKey:@"WIDGET_EDUCATION_BODY" value:&stru_1F1C13D90 table:@"PosterKit"];
     [v57 setText:v10];
 
     filledButtonConfiguration = [MEMORY[0x1E69DC740] filledButtonConfiguration];
-    [filledButtonConfiguration setButtonSize:3];
-    v11 = PRBundle();
+    v11 = PRBundle([filledButtonConfiguration setButtonSize:3]);
     v12 = [v11 localizedStringForKey:@"OK" value:&stru_1F1C13D90 table:@"PosterKit"];
     [filledButtonConfiguration setTitle:v12];
 

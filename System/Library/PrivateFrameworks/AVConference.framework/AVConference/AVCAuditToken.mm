@@ -284,7 +284,7 @@ LABEL_22:
         v9 = *(*(&v13 + 1) + 8 * v8);
         if (v9)
         {
-          [v9 token];
+          objc_msgSend_token(v9);
         }
 
         else
@@ -321,7 +321,7 @@ LABEL_22:
   v8 = v5;
   if (equal)
   {
-    [equal token];
+    objc_msgSend_token(equal, v7, v8);
   }
 
   else

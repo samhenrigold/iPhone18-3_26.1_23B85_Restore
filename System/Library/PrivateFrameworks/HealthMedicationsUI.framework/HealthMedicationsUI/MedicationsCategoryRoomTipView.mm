@@ -29,10 +29,10 @@
   {
     v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC19HealthMedicationsUI30MedicationsCategoryRoomTipView_onDismiss);
     selfCopy = self;
-    v5 = sub_228176FA8(v2);
+    v5 = sub_228176FA8(v2, v3);
     v2(v5);
 
-    sub_228176EC8(v2);
+    sub_228176EC8(v2, v3);
   }
 }
 

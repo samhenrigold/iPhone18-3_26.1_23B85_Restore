@@ -4,6 +4,7 @@
 - (void)_setActionButtonView:(id)view animated:(BOOL)animated actionButtonLabel:(id)label informationVisible:(BOOL)visible;
 - (void)_updateInformation;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setInformation:(id)information;
 - (void)setState:(id)state animated:(BOOL)animated;
 - (void)viewDidLoad;
@@ -72,33 +73,33 @@ void __48__QLDetailItemViewController_setState_animated___block_invoke(uint64_t 
 
 - (void)_updateInformation
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(QLDetailItemViewController *)self loadViewIfNeeded];
   arrangedSubviews = [(UIStackView *)self->_informationStackView arrangedSubviews];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [arrangedSubviews countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v4 = [arrangedSubviews countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        [*(*(&v12 + 1) + 8 * v7++) removeFromSuperview];
+        [*(*(&v11 + 1) + 8 * v7++) removeFromSuperview];
       }
 
       while (v5 != v7);
-      v5 = [arrangedSubviews countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v5 = [arrangedSubviews countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
@@ -116,14 +117,12 @@ void __48__QLDetailItemViewController_setState_animated___block_invoke(uint64_t 
     v9 = self->_information;
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __48__QLDetailItemViewController__updateInformation__block_invoke;
-  v11[3] = &unk_278B587F0;
-  v11[4] = self;
-  [(NSArray *)v9 enumerateObjectsUsingBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __48__QLDetailItemViewController__updateInformation__block_invoke;
+  v10[3] = &unk_278B587F0;
+  v10[4] = self;
+  [(NSArray *)v9 enumerateObjectsUsingBlock:v10];
 }
 
 void __48__QLDetailItemViewController__updateInformation__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -161,7 +160,7 @@ void __48__QLDetailItemViewController__updateInformation__block_invoke(uint64_t 
 
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   contextCopy = context;
   [(QLDetailItemViewController *)self setInformation:MEMORY[0x277CBEBF8]];
@@ -173,12 +172,12 @@ void __48__QLDetailItemViewController__updateInformation__block_invoke(uint64_t 
 
   [(QLFileIconImageView *)self->_filePreviewImageView setImage:v14];
   thumbnailGenerator2 = [contextCopy thumbnailGenerator];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __90__QLDetailItemViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke;
-  v23[3] = &unk_278B57B68;
-  v23[4] = self;
-  [thumbnailGenerator2 generateThumbnailWithSize:v23 completionBlock:{v10, v12}];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __90__QLDetailItemViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke;
+  v22[3] = &unk_278B57B68;
+  v22[4] = self;
+  [thumbnailGenerator2 generateThumbnailWithSize:v22 completionBlock:{v10, v12}];
 
   previewTitle = [contextCopy previewTitle];
   previewTitle = self->_previewTitle;
@@ -193,26 +192,23 @@ void __48__QLDetailItemViewController__updateInformation__block_invoke(uint64_t 
     v20 = v19;
   }
 
-  v24[0] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   [(QLDetailItemViewController *)self setInformation:v21];
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __90__QLDetailItemViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke(uint64_t a1, void *a2, int a3)
 {
-  v5 = a2;
-  v6 = v5;
+  v4 = a2;
+  v5 = v4;
   if (a3)
   {
-    v7 = *(a1 + 32);
-    v8 = v5;
+    v6 = v4;
     QLRunInMainThread();
   }
 }
@@ -231,6 +227,18 @@ void __90__QLDetailItemViewController_loadPreviewControllerWithContents_context_
   v5 = [v7 CGColor];
   v6 = [*(*(a1 + 32) + 1128) layer];
   [v6 setBorderColor:v5];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v8.receiver = self;
+  v8.super_class = QLDetailItemViewController;
+  appearanceCopy = appearance;
+  [(QLItemViewController *)&v8 setAppearance:appearanceCopy animated:animatedCopy];
+  presentationMode = [appearanceCopy presentationMode];
+
+  [(UIButton *)self->_actionButton setHidden:presentationMode == 4];
 }
 
 - (void)_setActionButtonView:(id)view animated:(BOOL)animated actionButtonLabel:(id)label informationVisible:(BOOL)visible
@@ -340,7 +348,7 @@ uint64_t __97__QLDetailItemViewController__setActionButtonView_animated_actionBu
   return [*(*(a1 + 48) + 1152) setTitle:*(a1 + 56) forState:0];
 }
 
-uint64_t __97__QLDetailItemViewController__setActionButtonView_animated_actionButtonLabel_informationVisible___block_invoke_2(uint64_t a1)
+void *__97__QLDetailItemViewController__setActionButtonView_animated_actionButtonLabel_informationVisible___block_invoke_2(uint64_t a1)
 {
   [*(*(a1 + 32) + 1152) setUserInteractionEnabled:1];
   result = [*(*(a1 + 32) + 1144) setUserInteractionEnabled:1];

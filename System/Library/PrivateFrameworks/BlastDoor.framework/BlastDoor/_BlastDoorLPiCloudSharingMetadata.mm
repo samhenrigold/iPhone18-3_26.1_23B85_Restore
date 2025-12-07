@@ -13,11 +13,11 @@
 
 - (_BlastDoorLPiCloudSharingMetadata)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = _BlastDoorLPiCloudSharingMetadata;
-  v5 = [(_BlastDoorLPiCloudSharingMetadata *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = _BlastDoorLPiCloudSharingMetadata;
+  v5 = [(_BlastDoorLPiCloudSharingMetadata *)&v21 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"application");
@@ -48,7 +48,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -95,11 +94,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v15.receiver = self;
-  v15.super_class = _BlastDoorLPiCloudSharingMetadata;
-  if ([(_BlastDoorLPiCloudSharingMetadata *)&v15 isEqual:equalCopy])
+  v14.receiver = self;
+  v14.super_class = _BlastDoorLPiCloudSharingMetadata;
+  if ([(_BlastDoorLPiCloudSharingMetadata *)&v14 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -137,7 +136,6 @@
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

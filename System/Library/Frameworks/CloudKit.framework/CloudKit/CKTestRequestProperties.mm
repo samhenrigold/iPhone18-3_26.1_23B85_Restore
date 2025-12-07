@@ -77,11 +77,11 @@
 
 - (CKTestRequestProperties)initWithCoder:(id)coder
 {
-  v115[2] = *MEMORY[0x1E69E9840];
+  v114[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v105.receiver = self;
-  v105.super_class = CKTestRequestProperties;
-  v5 = [(CKTestRequestProperties *)&v105 init];
+  v104.receiver = self;
+  v104.super_class = CKTestRequestProperties;
+  v5 = [(CKTestRequestProperties *)&v104 init];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -91,9 +91,9 @@
     v5->_equivalencyProperties = v9;
 
     v11 = MEMORY[0x1E695DFD8];
-    v115[0] = objc_opt_class();
-    v115[1] = objc_opt_class();
-    v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v115, 2);
+    v114[0] = objc_opt_class();
+    v114[1] = objc_opt_class();
+    v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v114, 2);
     v15 = objc_msgSend_setWithArray_(v11, v14, v13);
     v16 = NSStringFromSelector(sel_modifyRecordIDs);
     v18 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v17, v15, v16);
@@ -101,9 +101,9 @@
     v5->_modifyRecordIDs = v18;
 
     v20 = MEMORY[0x1E695DFD8];
-    v114[0] = objc_opt_class();
-    v114[1] = objc_opt_class();
-    v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v114, 2);
+    v113[0] = objc_opt_class();
+    v113[1] = objc_opt_class();
+    v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v113, 2);
     v24 = objc_msgSend_setWithArray_(v20, v23, v22);
     v25 = NSStringFromSelector(sel_deleteRecordIDs);
     v27 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v26, v24, v25);
@@ -111,9 +111,9 @@
     v5->_deleteRecordIDs = v27;
 
     v29 = MEMORY[0x1E695DFD8];
-    v113[0] = objc_opt_class();
-    v113[1] = objc_opt_class();
-    v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, v113, 2);
+    v112[0] = objc_opt_class();
+    v112[1] = objc_opt_class();
+    v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, v112, 2);
     v33 = objc_msgSend_setWithArray_(v29, v32, v31);
     v34 = NSStringFromSelector(sel_fetchRecordIDs);
     v36 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v35, v33, v34);
@@ -121,9 +121,9 @@
     v5->_fetchRecordIDs = v36;
 
     v38 = MEMORY[0x1E695DFD8];
-    v112[0] = objc_opt_class();
-    v112[1] = objc_opt_class();
-    v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v39, v112, 2);
+    v111[0] = objc_opt_class();
+    v111[1] = objc_opt_class();
+    v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v39, v111, 2);
     v42 = objc_msgSend_setWithArray_(v38, v41, v40);
     v43 = NSStringFromSelector(sel_modifyRecordZoneIDs);
     v45 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v44, v42, v43);
@@ -131,9 +131,9 @@
     v5->_modifyRecordZoneIDs = v45;
 
     v47 = MEMORY[0x1E695DFD8];
-    v111[0] = objc_opt_class();
-    v111[1] = objc_opt_class();
-    v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v48, v111, 2);
+    v110[0] = objc_opt_class();
+    v110[1] = objc_opt_class();
+    v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v48, v110, 2);
     v51 = objc_msgSend_setWithArray_(v47, v50, v49);
     v52 = NSStringFromSelector(sel_deleteRecordZoneIDs);
     v54 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v53, v51, v52);
@@ -141,9 +141,9 @@
     v5->_deleteRecordZoneIDs = v54;
 
     v56 = MEMORY[0x1E695DFD8];
-    v110[0] = objc_opt_class();
-    v110[1] = objc_opt_class();
-    v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v57, v110, 2);
+    v109[0] = objc_opt_class();
+    v109[1] = objc_opt_class();
+    v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v57, v109, 2);
     v60 = objc_msgSend_setWithArray_(v56, v59, v58);
     v61 = NSStringFromSelector(sel_fetchRecordZoneIDs);
     v63 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v62, v60, v61);
@@ -151,9 +151,9 @@
     v5->_fetchRecordZoneIDs = v63;
 
     v65 = MEMORY[0x1E695DFD8];
-    v109[0] = objc_opt_class();
-    v109[1] = objc_opt_class();
-    v67 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v66, v109, 2);
+    v108[0] = objc_opt_class();
+    v108[1] = objc_opt_class();
+    v67 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v66, v108, 2);
     v69 = objc_msgSend_setWithArray_(v65, v68, v67);
     v70 = NSStringFromSelector(sel_modifyMergeableValueIDs);
     v72 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v71, v69, v70);
@@ -161,9 +161,9 @@
     v5->_modifyMergeableValueIDs = v72;
 
     v74 = MEMORY[0x1E695DFD8];
-    v108[0] = objc_opt_class();
-    v108[1] = objc_opt_class();
-    v76 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v75, v108, 2);
+    v107[0] = objc_opt_class();
+    v107[1] = objc_opt_class();
+    v76 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v75, v107, 2);
     v78 = objc_msgSend_setWithArray_(v74, v77, v76);
     v79 = NSStringFromSelector(sel_deleteMergeableValueIDs);
     v81 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v80, v78, v79);
@@ -171,9 +171,9 @@
     v5->_deleteMergeableValueIDs = v81;
 
     v83 = MEMORY[0x1E695DFD8];
-    v107[0] = objc_opt_class();
-    v107[1] = objc_opt_class();
-    v85 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v84, v107, 2);
+    v106[0] = objc_opt_class();
+    v106[1] = objc_opt_class();
+    v85 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v84, v106, 2);
     v87 = objc_msgSend_setWithArray_(v83, v86, v85);
     v88 = NSStringFromSelector(sel_fetchMergeableValueIDs);
     v90 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v89, v87, v88);
@@ -181,9 +181,9 @@
     v5->_fetchMergeableValueIDs = v90;
 
     v92 = MEMORY[0x1E695DFD8];
-    v106[0] = objc_opt_class();
-    v106[1] = objc_opt_class();
-    v94 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v93, v106, 2);
+    v105[0] = objc_opt_class();
+    v105[1] = objc_opt_class();
+    v94 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v93, v105, 2);
     v96 = objc_msgSend_setWithArray_(v92, v95, v94);
     v97 = NSStringFromSelector(sel_modifySubscriptionRecordZoneIDs);
     v99 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v98, v96, v97);
@@ -194,7 +194,6 @@
     v5->_databaseScope = objc_msgSend_decodeIntegerForKey_(coderCopy, v102, v101);
   }
 
-  v103 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

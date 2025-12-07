@@ -201,9 +201,9 @@ uint64_t __23__CNMemojiMetadata_log__block_invoke()
 
 - (NSData)avatarRecordData
 {
-  AVTAvatarRecordSerializerClass = getAVTAvatarRecordSerializerClass();
+  AVTAvatarRecordSerializerClass = getAVTAvatarRecordSerializerClass(self, a2);
   avatarRecord = [(CNMemojiMetadata *)self avatarRecord];
-  v5 = [(objc_class *)AVTAvatarRecordSerializerClass dataFromAvatarRecord:avatarRecord];
+  v5 = [AVTAvatarRecordSerializerClass dataFromAvatarRecord:avatarRecord];
 
   return v5;
 }
@@ -242,11 +242,11 @@ uint64_t __23__CNMemojiMetadata_log__block_invoke()
   v5 = [coderCopy decodeIntForKey:@"version"];
   if (v5 >= 3)
   {
-    v44 = v5;
-    v45 = [objc_opt_class() log];
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v45 = v5;
+    v46 = [objc_opt_class() log];
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      [(CNMemojiMetadata *)v44 initWithCoder:v45];
+      [(CNMemojiMetadata *)v45 initWithCoder:v46];
     }
 
     selfCopy2 = 0;
@@ -255,93 +255,93 @@ uint64_t __23__CNMemojiMetadata_log__block_invoke()
   else
   {
     selfCopy = self;
-    v52 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"backgroundColorDescription"];
-    v51 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"avatarRecordData"];
-    v50 = [(objc_class *)getAVTAvatarRecordSerializerClass() avatarRecordFromData:v51];
-    v49 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"poseName"];
-    v6 = MEMORY[0x1E695DFD8];
-    v7 = objc_opt_class();
+    v53 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"backgroundColorDescription"];
+    v52 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"avatarRecordData"];
+    v51 = [getAVTAvatarRecordSerializerClass(v52 v6)];
+    v50 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"poseName"];
+    v7 = MEMORY[0x1E695DFD8];
     v8 = objc_opt_class();
     v9 = objc_opt_class();
     v10 = objc_opt_class();
-    v11 = [v6 setWithObjects:{v7, v8, v9, v10, objc_opt_class(), 0}];
-    v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"poseRepresentation"];
+    v11 = objc_opt_class();
+    v12 = [v7 setWithObjects:{v8, v9, v10, v11, objc_opt_class(), 0}];
+    v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"poseRepresentation"];
 
-    v13 = MEMORY[0x1E695DFD8];
-    v14 = objc_opt_class();
+    v14 = MEMORY[0x1E695DFD8];
     v15 = objc_opt_class();
     v16 = objc_opt_class();
     v17 = objc_opt_class();
-    v18 = [v13 setWithObjects:{v14, v15, v16, v17, objc_opt_class(), 0}];
-    v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"posePhysicsStatesRepresentation"];
+    v18 = objc_opt_class();
+    v19 = [v14 setWithObjects:{v15, v16, v17, v18, objc_opt_class(), 0}];
+    v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"posePhysicsStatesRepresentation"];
 
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x2050000000;
-    v20 = getAVTAvatarPhysicalizedPoseClass_softClass_0;
-    v63 = getAVTAvatarPhysicalizedPoseClass_softClass_0;
+    v61 = 0;
+    v62 = &v61;
+    v63 = 0x2050000000;
+    v21 = getAVTAvatarPhysicalizedPoseClass_softClass_0;
+    v64 = getAVTAvatarPhysicalizedPoseClass_softClass_0;
     if (!getAVTAvatarPhysicalizedPoseClass_softClass_0)
     {
-      v54 = MEMORY[0x1E69E9820];
-      v55 = 3221225472;
-      v56 = __getAVTAvatarPhysicalizedPoseClass_block_invoke_0;
-      v57 = &unk_1E7412110;
-      v58 = &v60;
-      __getAVTAvatarPhysicalizedPoseClass_block_invoke_0(&v54);
-      v20 = v61[3];
+      v55 = MEMORY[0x1E69E9820];
+      v56 = 3221225472;
+      v57 = __getAVTAvatarPhysicalizedPoseClass_block_invoke_0;
+      v58 = &unk_1E7412110;
+      v59 = &v61;
+      __getAVTAvatarPhysicalizedPoseClass_block_invoke_0(&v55);
+      v21 = v62[3];
     }
 
-    v21 = v20;
-    _Block_object_dispose(&v60, 8);
-    v22 = [[v20 alloc] initWithPoseRepresentation:v12 physicsStatesRepresentation:v19];
-    v23 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-    v24 = [coderCopy decodeArrayOfObjectsOfClasses:v23 forKey:@"cropTransformValues"];
+    v22 = v21;
+    _Block_object_dispose(&v61, 8);
+    v23 = [[v21 alloc] initWithPoseRepresentation:v13 physicsStatesRepresentation:v20];
+    v24 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+    v25 = [coderCopy decodeArrayOfObjectsOfClasses:v24 forKey:@"cropTransformValues"];
 
-    if (v24)
+    if (v25)
     {
-      v25 = [v24 objectAtIndexedSubscript:0];
-      [v25 doubleValue];
-      v27 = v26;
-      v28 = [v24 objectAtIndexedSubscript:1];
-      [v28 doubleValue];
-      v30 = v29;
-      [v24 objectAtIndexedSubscript:2];
-      v31 = v48 = v19;
-      [v31 doubleValue];
-      v33 = v32;
-      [v24 objectAtIndexedSubscript:3];
-      v35 = v34 = v12;
-      [v35 doubleValue];
-      v37 = v36;
-      v38 = [v24 objectAtIndexedSubscript:4];
-      [v38 doubleValue];
-      v40 = v39;
-      v41 = [v24 objectAtIndexedSubscript:5];
-      [v41 doubleValue];
-      v43 = v42;
+      v26 = [v25 objectAtIndexedSubscript:0];
+      [v26 doubleValue];
+      v28 = v27;
+      v29 = [v25 objectAtIndexedSubscript:1];
+      [v29 doubleValue];
+      v31 = v30;
+      [v25 objectAtIndexedSubscript:2];
+      v32 = v49 = v20;
+      [v32 doubleValue];
+      v34 = v33;
+      [v25 objectAtIndexedSubscript:3];
+      v36 = v35 = v13;
+      [v36 doubleValue];
+      v38 = v37;
+      v39 = [v25 objectAtIndexedSubscript:4];
+      [v39 doubleValue];
+      v41 = v40;
+      v42 = [v25 objectAtIndexedSubscript:5];
+      [v42 doubleValue];
+      v44 = v43;
 
-      v12 = v34;
-      v19 = v48;
+      v13 = v35;
+      v20 = v49;
     }
 
     else
     {
-      v27 = *MEMORY[0x1E695EFD0];
-      v30 = *(MEMORY[0x1E695EFD0] + 8);
-      v33 = *(MEMORY[0x1E695EFD0] + 16);
-      v37 = *(MEMORY[0x1E695EFD0] + 24);
-      v40 = *(MEMORY[0x1E695EFD0] + 32);
-      v43 = *(MEMORY[0x1E695EFD0] + 40);
+      v28 = *MEMORY[0x1E695EFD0];
+      v31 = *(MEMORY[0x1E695EFD0] + 8);
+      v34 = *(MEMORY[0x1E695EFD0] + 16);
+      v38 = *(MEMORY[0x1E695EFD0] + 24);
+      v41 = *(MEMORY[0x1E695EFD0] + 32);
+      v44 = *(MEMORY[0x1E695EFD0] + 40);
     }
 
-    v45 = v52;
-    v54 = v27;
-    v55 = v30;
-    v56 = v33;
-    v57 = v37;
-    v58 = v40;
-    v59 = v43;
-    self = [(CNMemojiMetadata *)selfCopy initWithAvatarRecord:v50 poseName:v49 pose:v22 backgroundColorDescription:v52 cropTransform:&v54];
+    v46 = v53;
+    v55 = v28;
+    v56 = v31;
+    v57 = v34;
+    v58 = v38;
+    v59 = v41;
+    v60 = v44;
+    self = [(CNMemojiMetadata *)selfCopy initWithAvatarRecord:v51 poseName:v50 pose:v23 backgroundColorDescription:v53 cropTransform:&v55];
 
     selfCopy2 = self;
   }
@@ -351,14 +351,14 @@ uint64_t __23__CNMemojiMetadata_log__block_invoke()
 
 - (void)encodeWithCoder:(id)coder
 {
-  v16[6] = *MEMORY[0x1E69E9840];
+  v18[6] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeInt:2 forKey:@"version"];
-  [coderCopy encodeObject:self->_backgroundColorDescription forKey:@"backgroundColorDescription"];
+  v5 = [coderCopy encodeObject:self->_backgroundColorDescription forKey:@"backgroundColorDescription"];
   if (self->_avatarRecord)
   {
-    v5 = [(objc_class *)getAVTAvatarRecordSerializerClass() dataFromAvatarRecord:self->_avatarRecord];
-    [coderCopy encodeObject:v5 forKey:@"avatarRecordData"];
+    v7 = [getAVTAvatarRecordSerializerClass(v5 v6)];
+    [coderCopy encodeObject:v7 forKey:@"avatarRecordData"];
   }
 
   [coderCopy encodeObject:self->_poseName forKey:@"poseName"];
@@ -366,24 +366,24 @@ uint64_t __23__CNMemojiMetadata_log__block_invoke()
   dictionaryRepresentation = [pose dictionaryRepresentation];
   [coderCopy encodeObject:dictionaryRepresentation forKey:@"poseRepresentation"];
 
-  v8 = [CNMemojiMetadataUtilities physicsStatesDictionaryRepresentationForPose:self->_pose];
-  [coderCopy encodeObject:v8 forKey:@"posePhysicsStatesRepresentation"];
+  v10 = [CNMemojiMetadataUtilities physicsStatesDictionaryRepresentationForPose:self->_pose];
+  [coderCopy encodeObject:v10 forKey:@"posePhysicsStatesRepresentation"];
 
-  v9 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.a];
-  v16[0] = v9;
-  v10 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.b];
-  v16[1] = v10;
-  v11 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.c];
-  v16[2] = v11;
-  v12 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.d];
-  v16[3] = v12;
-  v13 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.tx];
-  v16[4] = v13;
-  v14 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.ty];
-  v16[5] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:6];
+  v11 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.a];
+  v18[0] = v11;
+  v12 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.b];
+  v18[1] = v12;
+  v13 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.c];
+  v18[2] = v13;
+  v14 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.d];
+  v18[3] = v14;
+  v15 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.tx];
+  v18[4] = v15;
+  v16 = [MEMORY[0x1E696AD98] numberWithDouble:self->_cropTransform.ty];
+  v18[5] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:6];
 
-  [coderCopy encodeObject:v15 forKey:@"cropTransformValues"];
+  [coderCopy encodeObject:v17 forKey:@"cropTransformValues"];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -393,7 +393,7 @@ uint64_t __23__CNMemojiMetadata_log__block_invoke()
   poseName = [(CNMemojiMetadata *)self poseName];
   pose = [(CNMemojiMetadata *)self pose];
   backgroundColorDescription = [(CNMemojiMetadata *)self backgroundColorDescription];
-  [(CNMemojiMetadata *)self cropTransform];
+  objc_msgSend_cropTransform(self);
   v9 = [(CNMemojiMetadata *)v4 initWithAvatarRecord:avatarRecord poseName:poseName pose:pose backgroundColorDescription:backgroundColorDescription cropTransform:&v11];
 
   return v9;

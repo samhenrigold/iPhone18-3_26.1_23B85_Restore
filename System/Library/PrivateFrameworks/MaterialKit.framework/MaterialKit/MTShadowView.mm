@@ -2,7 +2,6 @@
 - ($850582C412A153471A31AA7BEC9075BC)shadowAttributes;
 - (CGRect)frameWithContentWithFrame:(CGRect)frame;
 - (CGSize)sizeThatFits:(CGSize)fits;
-- (MTShadowView)initWithShadowAttributes:(id *)attributes maskCornerRadius:(double)radius;
 - (MTShadowView)initWithShadowAttributes:(id *)attributes maskCornerRadius:(double)radius continuousCorners:(BOOL)corners;
 - (UIEdgeInsets)shadowOutsets;
 - (void)_dynamicUserInterfaceTraitDidChange;
@@ -51,14 +50,11 @@
     p_shadowAttributes = &self->_shadowAttributes;
     traitCollection = [(MTShadowView *)self traitCollection];
     [traitCollection displayScale];
-    v6 = *&p_shadowAttributes->offset.height;
-    v11[0] = *&p_shadowAttributes->opacity;
-    v11[1] = v6;
-    [v3 mt_edgeOutsetsForShadowProperties:v11 scale:?];
-    p_shadowOutsets->top = v7;
-    p_shadowOutsets->left = v8;
-    p_shadowOutsets->bottom = v9;
-    p_shadowOutsets->right = v10;
+    [v3 mt_edgeOutsetsForShadowProperties:*&p_shadowAttributes->opacity scale:{*&p_shadowAttributes->offset.height, *&p_shadowAttributes->radius}];
+    p_shadowOutsets->top = v6;
+    p_shadowOutsets->left = v7;
+    p_shadowOutsets->bottom = v8;
+    p_shadowOutsets->right = v9;
   }
 }
 
@@ -88,17 +84,12 @@
   [(MTShadowView *)self shadowOutsets];
   v16 = v11 - (v14 + v15);
   v19 = v13 - (v17 + v18);
-  if (!image || v6 != v9 || (MTDimensionsForContinuousCornerRadiusInBounds(), v26 = v21, v27 = v20, MTResizableAreaForCornerDimensionsInBounds(), MTDimensionsForContinuousCornerRadiusInBounds(), MTResizableAreaForCornerDimensionsInBounds(), !BSSizeEqualToSize()) || (BSSizeEqualToSize() & 1) == 0)
+  if (!image || v6 != v9 || (MTDimensionsForContinuousCornerRadiusInBounds(), v23 = v21, v24 = v20, MTResizableAreaForCornerDimensionsInBounds(), MTDimensionsForContinuousCornerRadiusInBounds(), MTResizableAreaForCornerDimensionsInBounds(), !BSSizeEqualToSize()) || (BSSizeEqualToSize() & 1) == 0)
   {
     self->_maskSizeForCurrentImage.width = v16;
     self->_maskSizeForCurrentImage.height = v19;
-    maskCornerRadius = self->_maskCornerRadius;
-    continuousCorners = self->_continuousCorners;
-    v24 = *&self->_shadowAttributes.offset.height;
-    v28[0] = *&self->_shadowAttributes.opacity;
-    v28[1] = v24;
-    v25 = [MEMORY[0x277D755B8] mt_resizableShadowTemplateImageWithAttributes:v28 scale:continuousCorners maskCornerRadius:v9 continuousCorners:maskCornerRadius maskSize:{v16, v19, v26, v27}];
-    [(MTShadowView *)self setImage:v25];
+    v22 = [MEMORY[0x277D755B8] mt_resizableShadowTemplateImageWithAttributes:v23 scale:v24 maskCornerRadius:*&self->_shadowAttributes.opacity continuousCorners:*&self->_shadowAttributes.offset.height maskSize:*&self->_shadowAttributes.radius];
+    [(MTShadowView *)self setImage:?];
   }
 }
 
@@ -116,18 +107,10 @@
     *(v8 + 67) = radius;
     v8[528] = corners;
     layer = [v8 layer];
-    [layer setAllowsHitTesting:0];
+    [layer setAllowsHitTesting:?];
   }
 
   return v9;
-}
-
-- (MTShadowView)initWithShadowAttributes:(id *)attributes maskCornerRadius:(double)radius
-{
-  v4 = *&attributes->var1.height;
-  v6[0] = *&attributes->var0;
-  v6[1] = v4;
-  return [(MTShadowView *)self initWithShadowAttributes:v6 maskCornerRadius:1 continuousCorners:radius];
 }
 
 - (void)setShadowColor:(id)color
@@ -206,8 +189,8 @@
     [(MTShadowView *)self setNeedsLayout];
   }
 
-  v11 = [MEMORY[0x277D75D28] bs_nextViewControllerForView:self];
-  [v11 bs_traitCollectionDidChange:changeCopy forManagedTraitEnvironment:self];
+  v11 = [MEMORY[0x277D75D28] bs_nextViewControllerForView:?];
+  [v11 bs_traitCollectionDidChange:? forManagedTraitEnvironment:?];
 }
 
 - (void)_updateShadowVisualStyling
@@ -215,29 +198,30 @@
   if (self->_shadowColor)
   {
     [(UIView *)self mt_removeAllVisualStyling];
-    shadowColor = self->_shadowColor;
 
-    [(MTShadowView *)self setTintColor:shadowColor];
+    [(MTShadowView *)self setTintColor:?];
   }
 
   else
   {
-    [(MTShadowView *)self setTintColor:0];
+    [(MTShadowView *)self setTintColor:?];
     traitCollection = [(MTShadowView *)self traitCollection];
     userInterfaceStyle = [traitCollection userInterfaceStyle];
-    v6 = @"platterVibrantShadowLight";
+    v5 = @"platterVibrantShadowLight";
     if (userInterfaceStyle == 2)
     {
-      v6 = @"platterVibrantShadowDark";
+      v5 = @"platterVibrantShadowDark";
     }
 
-    v7 = v6;
+    v6 = v5;
 
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v10 = [MTVisualStylingProvider _visualStylingProviderForStyleSetNamed:v7 inBundle:v8];
+    v7 = MEMORY[0x277CCA8D8];
+    objc_opt_class();
+    v8 = [v7 bundleForClass:?];
+    v10 = [MTVisualStylingProvider _visualStylingProviderForStyleSetNamed:"_visualStylingProviderForStyleSetNamed:inBundle:" inBundle:?];
 
-    v9 = [v10 _visualStylingForStyle:1];
-    [(UIView *)self mt_replaceVisualStyling:v9];
+    v9 = [v10 _visualStylingForStyle:?];
+    [(UIView *)self mt_replaceVisualStyling:?];
   }
 }
 

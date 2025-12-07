@@ -246,19 +246,19 @@ void __74__SBUISystemApertureTextContentProvider_swapInText_textColor_fittingSiz
   [v6 preferredContentSizeDidInvalidateForContentViewProvider:*(a1 + 40)];
 }
 
-uint64_t __74__SBUISystemApertureTextContentProvider_swapInText_textColor_fittingSize___block_invoke_2(uint64_t result)
+void *__74__SBUISystemApertureTextContentProvider_swapInText_textColor_fittingSize___block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   v2 = *(v1 + 16);
-  if (!v2 || (*(v1 + 16) = v2 - 1, !*(*(result + 32) + 16)))
+  if (!v2 || (*(v1 + 16) = v2 - 1, !*(*(result + 4) + 16)))
   {
-    result = *(result + 40);
+    result = *(result + 5);
     if (result)
     {
       v3 = *(MEMORY[0x1E695F060] + 8);
-      if (*(result + 416) != *MEMORY[0x1E695F060] || *(result + 424) != v3)
+      if (*(result + 52) != *MEMORY[0x1E695F060] || *(result + 53) != v3)
       {
-        return OUTLINED_FUNCTION_0(result, (result + 416), *MEMORY[0x1E695F060], v3);
+        return OUTLINED_FUNCTION_0(result, result + 52, *MEMORY[0x1E695F060], v3);
       }
     }
   }

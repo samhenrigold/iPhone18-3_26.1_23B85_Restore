@@ -68,11 +68,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:513 commandID:253 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v15)
   {
     sub_2393C5AAC(v14);
-    sub_2393C5ADC(v14, *(v15 + 1), *(v15 + 3));
+    sub_2393C5ADC(v14, *(v15 + 8), *(v15 + 24));
     v8 = sub_2393C6FD0(v14, 256);
     if (!v8)
     {
@@ -133,34 +133,34 @@ LABEL_6:
   [(MTRThermostatClusterAtomicResponseParams *)self setStatusCode:v5];
 
   v6 = objc_opt_new();
-  sub_2393C5AAC(v20);
-  v18 = 0;
+  sub_2393C5AAC(v21);
   v19 = 0;
-  sub_2393C5BDC(v20, struct + 8);
-  v21 = 0;
+  v20 = 0;
+  sub_2393C5BDC(v21, struct + 8);
   v22 = 0;
-  while (sub_238EA1A80(&v18) && sub_238EA3444(&v18))
+  v23 = 0;
+  while (sub_238EA1A80(&v19) && sub_238EA3444(&v19))
   {
     v7 = objc_opt_new();
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v21];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v22];
     [v7 setAttributeID:v8];
 
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v22];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v23];
     [v7 setStatusCode:v9];
 
     [v6 addObject:v7];
   }
 
-  if (v18 == 33 || (v10 = v18, !v18))
+  if (v19 == 33 || (v10 = v19, !v19))
   {
-    [(MTRThermostatClusterAtomicResponseParams *)self setAttributeStatus:v6, v18];
+    [(MTRThermostatClusterAtomicResponseParams *)self setAttributeStatus:v6, v19];
 
-    v14 = *(struct + 80);
-    v13 = struct + 80;
-    if (v14 == 1)
+    v15 = *(struct + 80);
+    v14 = struct + 80;
+    if (v15 == 1)
     {
-      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*sub_238E0A934(v13)];
-      [(MTRThermostatClusterAtomicResponseParams *)self setTimeout:v15];
+      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{LOWORD(sub_238E0A934(v14, v13)->super.isa)}];
+      [(MTRThermostatClusterAtomicResponseParams *)self setTimeout:v16];
     }
 
     else
@@ -175,15 +175,15 @@ LABEL_6:
 
   else
   {
-    v11 = v19;
-    v12 = v18 & 0xFFFFFFFF00000000;
+    v11 = v20;
+    v12 = v19 & 0xFFFFFFFF00000000;
   }
 
-  v16 = v10 | v12;
-  v17 = v11;
-  result.mFile = v17;
-  result.mError = v16;
-  result.mLine = HIDWORD(v16);
+  v17 = v10 | v12;
+  v18 = v11;
+  result.mFile = v18;
+  result.mError = v17;
+  result.mLine = HIDWORD(v17);
   return result;
 }
 

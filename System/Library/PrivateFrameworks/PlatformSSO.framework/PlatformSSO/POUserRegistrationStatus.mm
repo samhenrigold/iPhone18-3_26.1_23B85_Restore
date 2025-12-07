@@ -8,7 +8,7 @@
 
 - (id)description
 {
-  v20[8] = *MEMORY[0x277D85DE8];
+  v19[8] = *MEMORY[0x277D85DE8];
   if (self->_platformSSOEnabled)
   {
     v3 = @"YES";
@@ -19,9 +19,9 @@
     v3 = @"NO";
   }
 
-  v20[0] = v3;
-  v19[0] = @"platformSSOEnabled";
-  v19[1] = @"loginUserName";
+  v19[0] = v3;
+  v18[0] = @"platformSSOEnabled";
+  v18[1] = @"loginUserName";
   v4 = [MEMORY[0x277D3D1E0] maskName:self->_loginUserName];
   v5 = v4;
   v6 = @"nil";
@@ -30,11 +30,11 @@
     v6 = v4;
   }
 
-  v20[1] = v6;
-  v19[2] = @"authenticationMethod";
+  v19[1] = v6;
+  v18[2] = @"authenticationMethod";
   v7 = [MEMORY[0x277D3D1D0] stringForLoginType:self->_authenticationMethod];
-  v20[2] = v7;
-  v19[3] = @"userRegistrationStatus";
+  v19[2] = v7;
+  v18[3] = @"userRegistrationStatus";
   v8 = [POConstantUtil stringForRegistrationStatus:self->_userRegistrationStatus];
   v9 = v8;
   if (self->_actionButtonEnabled)
@@ -47,16 +47,16 @@
     v10 = @"NO";
   }
 
-  v20[3] = v8;
-  v20[4] = v10;
-  v19[4] = @"actionButtonEnabled";
-  v19[5] = @"actionButtonAction";
+  v19[3] = v8;
+  v19[4] = v10;
+  v18[4] = @"actionButtonEnabled";
+  v18[5] = @"actionButtonAction";
   v11 = [POConstantUtil stringForUserAction:self->_actionButtonAction];
-  v20[5] = v11;
-  v19[6] = @"userTokenStatus";
+  v19[5] = v11;
+  v18[6] = @"userTokenStatus";
   v12 = [POConstantUtil stringForTokenStatus:self->_userTokenStatus];
   v13 = v12;
-  v19[7] = @"authenticateButtonEnabled";
+  v18[7] = @"authenticateButtonEnabled";
   if (self->_authenticateButtonEnabled)
   {
     v14 = @"YES";
@@ -67,12 +67,10 @@
     v14 = @"NO";
   }
 
-  v20[6] = v12;
-  v20[7] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
+  v19[6] = v12;
+  v19[7] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
   v16 = [v15 description];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

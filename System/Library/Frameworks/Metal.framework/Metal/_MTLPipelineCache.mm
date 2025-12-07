@@ -21,17 +21,19 @@
 
 - (_MTLPipelineCache)initWithFilePath:(id)path readOnly:(BOOL)only deviceInfo:(const MTLTargetDeviceArch *)info
 {
-  v11.receiver = self;
-  v11.super_class = _MTLPipelineCache;
-  v8 = [(_MTLPipelineCache *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = _MTLPipelineCache;
+  v8 = [(_MTLPipelineCache *)&v13 init];
   v8->_compilerCache = 0;
-  v8->_writable = !only;
+  v9 = !only;
+  v8->_writable = v9;
   v8->_disableRunTimeCompilation = 0;
   if (path)
   {
     var1 = info->var1;
-    [path UTF8String];
-    MTLCompilerCache::createPipelineDataCache();
+    LODWORD(v12) = 1;
+    HIDWORD(v12) = var1;
+    MTLCompilerCache::createPipelineDataCache(v9, [path UTF8String], &v12);
   }
 
   return v8;

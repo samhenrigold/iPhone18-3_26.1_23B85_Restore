@@ -1,5 +1,6 @@
 @interface MTLIOAccelResourcePool
 - (BOOL)updateResourcePurgeability;
+- (MTLIOAccelResourcePool)initWithDevice:(id)device resourceClass:(Class)class resourceArgs:(const IOAccelNewResourceArgs *)args resourceArgsSize:(unsigned int)size options:(id)options;
 - (void)dealloc;
 - (void)purge;
 - (void)purgeWithLock;
@@ -7,6 +8,34 @@
 @end
 
 @implementation MTLIOAccelResourcePool
+
+- (MTLIOAccelResourcePool)initWithDevice:(id)device resourceClass:(Class)class resourceArgs:(const IOAccelNewResourceArgs *)args resourceArgsSize:(unsigned int)size options:(id)options
+{
+  v16.receiver = self;
+  v16.super_class = MTLIOAccelResourcePool;
+  v11 = [(MTLIOAccelResourcePool *)&v16 init:device];
+  v12 = v11;
+  if (v11)
+  {
+    v11->_priv.volatileQueue.tqh_first = 0;
+    v11->_priv.nonvolatileQueue.tqh_first = 0;
+    v11->_priv.volatileQueue.tqh_last = &v11->_priv.volatileQueue.tqh_first;
+    v11->_priv.nonvolatileQueue.tqh_last = &v11->_priv.nonvolatileQueue.tqh_first;
+    *&v11->_priv.lock._os_unfair_lock_opaque = 0;
+    v11->_resourceClass = class;
+    v11->_device = device;
+    v11->_resourceArgsSize = size;
+    v13 = malloc_type_malloc(size, 0x10000407488EC78uLL);
+    v12->_resourceArgs = v13;
+    memcpy(v13, args, v12->_resourceArgsSize);
+    info = 0;
+    mach_timebase_info(&info);
+    v12->age_to_purge = 1000000000 * info.denom / info.numer;
+    v12->generation = 0;
+  }
+
+  return v12;
+}
 
 - (void)setResourceArgs:(const IOAccelNewResourceArgs *)args resourceArgsSize:(unsigned int)size
 {

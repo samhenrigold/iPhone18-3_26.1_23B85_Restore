@@ -830,10 +830,10 @@ LABEL_8:
   else
   {
     colorScheme2 = [(SKUIUber *)self->_uber colorScheme];
-    primaryTextColor = [colorScheme2 primaryTextColor];
-    if (primaryTextColor)
+    v14 = objc_msgSend_primaryTextColor(colorScheme2);
+    if (v14)
     {
-      [cellCopy setBottomBorderColor:primaryTextColor];
+      [cellCopy setBottomBorderColor:v14];
     }
 
     else

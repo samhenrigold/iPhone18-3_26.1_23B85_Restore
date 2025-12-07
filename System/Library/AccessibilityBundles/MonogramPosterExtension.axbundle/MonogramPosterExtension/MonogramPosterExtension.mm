@@ -22,3 +22,13 @@ void sub_29C047448(_Unwind_Exception *a1)
   objc_destroyWeak((v3 - 72));
   _Unwind_Resume(a1);
 }
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2A1C59B50](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
+}

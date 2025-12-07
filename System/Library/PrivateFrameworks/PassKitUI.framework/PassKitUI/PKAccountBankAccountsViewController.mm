@@ -1020,9 +1020,9 @@ LABEL_9:
   }
 }
 
-void __76__PKAccountBankAccountsViewController__presentContactSupportWithSourceItem___block_invoke()
+void __76__PKAccountBankAccountsViewController__presentContactSupportWithSourceItem___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = PKTelephoneURLFromPhoneNumber();
+  v2 = PKTelephoneURLFromPhoneNumber();
   PKOpenURL();
 }
 

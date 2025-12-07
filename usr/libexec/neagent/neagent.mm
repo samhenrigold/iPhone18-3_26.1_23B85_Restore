@@ -1018,7 +1018,7 @@ LABEL_25:
   return v1;
 }
 
-uint64_t sub_100005A04(uint64_t a1, const char *a2)
+uint64_t sub_100005A04(void *a1, const char *a2)
 {
   if (!a1)
   {
@@ -1046,7 +1046,7 @@ LABEL_12:
 
   v4 = [NEProcessIdentity alloc];
   v5 = [v3 processIdentifier];
-  [v3 auditToken];
+  objc_msgSend_auditToken(v3);
   v6 = [v4 initWithPID:v5 auditToken:buf];
   objc_setProperty_atomic(a1, v7, v6, 64);
 
@@ -1068,8 +1068,8 @@ LABEL_12:
   v11 = [objc_getProperty(a1 v9];
   v16 = v11;
   v12 = [NSArray arrayWithObjects:&v16 count:1];
-  v13 = *(a1 + 72);
-  *(a1 + 72) = v12;
+  v13 = a1[9];
+  a1[9] = v12;
 
 LABEL_9:
   return v10;
@@ -1487,7 +1487,7 @@ void sub_100007EB4(id a1)
 uint64_t start()
 {
   v0 = objc_autoreleasePoolPush();
-  v1 = sub_100015AF4();
+  v1 = sub_100015AF4(NEAgentServer);
   if (v1)
   {
     v2 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.neagent"];
@@ -1578,7 +1578,7 @@ void sub_1000085D0(uint64_t a1, const char *a2)
       {
         v5 = *(a1 + 40);
         *buf = 138412290;
-        v14 = v5;
+        v13 = v5;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Filter App updating - ignore extension failure/exit for %@", buf, 0xCu);
       }
 
@@ -1594,16 +1594,15 @@ void sub_1000085D0(uint64_t a1, const char *a2)
     if (v7)
     {
       objc_getProperty(v7, v6, 24, 1);
-      v8 = *(a1 + 32);
     }
   }
 
-  v12 = *(a1 + 40);
-  v10 = NECreateTimerSource();
-  v11 = *(a1 + 32);
-  if (v11)
+  v11 = *(a1 + 40);
+  v9 = NECreateTimerSource();
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    objc_setProperty_atomic(v11, v9, v10, 56);
+    objc_setProperty_atomic(v10, v8, v9, 56);
   }
 }
 
@@ -1856,8 +1855,10 @@ void sub_100009058(uint64_t a1, int a2, void *a3)
   }
 }
 
-void sub_10000925C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned int a6, unsigned int a7, unsigned int a8, void *a9)
+void sub_10000925C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned int a6, uint64_t a7, uint64_t a8, void *a9)
 {
+  v9 = a8;
+  v10 = a7;
   v15 = a2;
   v16 = a3;
   v17 = a4;
@@ -1867,7 +1868,7 @@ void sub_10000925C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = v18;
-    v22 = a8;
+    v22 = v9;
     v23 = *(a1 + 32);
     v24 = [v15 length];
     v45 = a1;
@@ -1878,7 +1879,7 @@ void sub_10000925C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned
     v29 = "present";
     *buf = 138414594;
     v50 = v23;
-    a8 = v22;
+    v9 = v22;
     v18 = v21;
     v52 = "[NEAgentURLFilterExtension startURLFilter]_block_invoke";
     v53 = 2048;
@@ -1902,9 +1903,9 @@ void sub_10000925C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned
     v61 = 1024;
     v62 = a6;
     v63 = 1024;
-    v64 = a7;
+    v64 = v10;
     v65 = 1024;
-    v66 = a8;
+    v66 = v9;
     v67 = 2112;
     v68 = v19;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@: %s - fetchPreFilterDataWithCompletion - data <%lu bytes>, file %@, sb_extension <%s>, tag <%@> numberOfBits %d, numberOfHashes %d, murmurSeed %d, error %@", buf, 0x5Au);
@@ -1956,7 +1957,7 @@ void sub_10000925C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned
 
     [v39 setUrlConfiguration:v38];
 
-    if (sub_10000963C(*(a1 + 40), v15, v16, v17, a6, a7, a8, v18))
+    if (sub_10000963C(*(a1 + 40), v15, v16, v17, a6, v10, v9, v18))
     {
       v47[0] = _NSConcreteStackBlock;
       v47[1] = 3221225472;
@@ -2756,13 +2757,13 @@ void sub_10000AE34(uint64_t a1, int a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v10 = 138412802;
-    v11 = v5;
-    v12 = 2080;
-    v13 = "[NEAgentURLFilterExtension schedulePrefilterFetch]_block_invoke";
-    v14 = 1024;
-    v15 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@: %s - updatePrefilterWithCompletionHandler - result %d", &v10, 0x1Cu);
+    v11 = 138412802;
+    v12 = v5;
+    v13 = 2080;
+    v14 = "[NEAgentURLFilterExtension schedulePrefilterFetch]_block_invoke";
+    v15 = 1024;
+    v16 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@: %s - updatePrefilterWithCompletionHandler - result %d", &v11, 0x1Cu);
   }
 
   if (a2)
@@ -2774,20 +2775,20 @@ void sub_10000AE34(uint64_t a1, int a2)
     }
 
     [Property getPrefilter];
-    sub_10000A75C(*(a1 + 40));
+    sub_10000A75C(*(a1 + 40), v8);
   }
 
   else
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412546;
-      v11 = v9;
-      v12 = 2080;
-      v13 = "[NEAgentURLFilterExtension schedulePrefilterFetch]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%@: %s - Failed to update session with fetched pre-filter data", &v10, 0x16u);
+      v10 = *(a1 + 32);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2080;
+      v14 = "[NEAgentURLFilterExtension schedulePrefilterFetch]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%@: %s - Failed to update session with fetched pre-filter data", &v11, 0x16u);
     }
 
     sub_100008254(*(a1 + 32), 3, 1);
@@ -3305,7 +3306,7 @@ LABEL_20:
         {
           v29 = [NEProcessIdentity alloc];
           v30 = [v28 processIdentifier];
-          [v28 auditToken];
+          objc_msgSend_auditToken(v28);
           v31 = [v29 initWithPID:v30 auditToken:buf];
           objc_setProperty_atomic(v27, v32, v31, 80);
 
@@ -3536,7 +3537,7 @@ id *sub_10000CAEC(id *result)
   v2 = result[4];
   if (v2)
   {
-    if (*(v2 + 8))
+    if (v2[8])
     {
       return result;
     }
@@ -3735,7 +3736,7 @@ void sub_10000D11C(uint64_t a1, int a2, void *a3)
   sub_1000084D4(v9);
 }
 
-id sub_10000D374(uint64_t a1, const char *a2)
+void *sub_10000D374(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   if (v3 && objc_getProperty(v3, a2, 104, 1))
@@ -3829,7 +3830,7 @@ LABEL_23:
   result = *(a1 + 40);
   if (result)
   {
-    v18 = *(result + 2);
+    v18 = result[2];
 
     return v18();
   }
@@ -3837,11 +3838,12 @@ LABEL_23:
   return result;
 }
 
-void sub_10000E3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_10000E3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v51 - 256), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v50 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4150,7 +4152,7 @@ uint64_t sub_10000EA6C(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10000EA84(uint64_t *a1, void *a2, void *a3)
+void sub_10000EA84(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -4159,13 +4161,13 @@ void sub_10000EA84(uint64_t *a1, void *a2, void *a3)
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v32 = a1[4];
+      v31 = a1[4];
       *buf = 138412802;
-      v36 = v32;
-      v37 = 2080;
-      v38 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
-      v39 = 2112;
-      v40 = v6;
+      v35 = v31;
+      v36 = 2080;
+      v37 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
+      v38 = 2112;
+      v39 = v6;
       _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@: %s - request returned error: %@", buf, 0x20u);
     }
 
@@ -4184,13 +4186,13 @@ LABEL_23:
     v24 = ne_log_obj();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v33 = a1[4];
+      v32 = a1[4];
       *buf = 138412802;
-      v36 = v33;
-      v37 = 2080;
-      v38 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
-      v39 = 2112;
-      v40 = v5;
+      v35 = v32;
+      v36 = 2080;
+      v37 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
+      v38 = 2112;
+      v39 = v5;
       _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%@: %s - request returned with wrong number of results: %@", buf, 0x20u);
     }
 
@@ -4205,10 +4207,10 @@ LABEL_23:
   {
     v13 = 0;
     *&v12 = 138412802;
-    v34 = v12;
+    v33 = v12;
     do
     {
-      v14 = [*(*(a1[9] + 8) + 40) objectAtIndexedSubscript:{v13, v34}];
+      v14 = [*(*(a1[9] + 8) + 40) objectAtIndexedSubscript:{v13, v33}];
       v15 = [v5 objectAtIndexedSubscript:v13];
       v16 = ne_log_obj();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
@@ -4226,15 +4228,15 @@ LABEL_23:
 
         v21 = a1[5];
         *buf = 138413314;
-        v36 = v19;
-        v37 = 2080;
-        v38 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
-        v39 = 2112;
-        v40 = v20;
-        v41 = 2112;
-        v42 = v21;
-        v43 = 2112;
-        v44 = v15;
+        v35 = v19;
+        v36 = 2080;
+        v37 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
+        v38 = 2112;
+        v39 = v20;
+        v40 = 2112;
+        v41 = v21;
+        v42 = 2112;
+        v43 = v15;
         _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "%@: %s - Received response - useCase: %@ for <%@>: result %@", buf, 0x34u);
       }
 
@@ -4247,12 +4249,12 @@ LABEL_23:
         {
           v22 = a1[4];
           v23 = [v17 length];
-          *buf = v34;
-          v36 = v22;
-          v37 = 2080;
-          v38 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
-          v39 = 2048;
-          v40 = v23;
+          *buf = v33;
+          v35 = v22;
+          v36 = 2080;
+          v37 = "[NEPIRChecker check:sourceAppBundleId:responseQueue:redactSensitiveLogs:completionHandler:]_block_invoke";
+          v38 = 2048;
+          v39 = v23;
           _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%@: %s - valid response data <%lu bytes>", buf, 0x20u);
         }
 
@@ -4272,36 +4274,31 @@ LABEL_23:
   }
 
 LABEL_24:
-  if (!*(*(a1[8] + 8) + 40))
-  {
-    v27 = *(*(a1[10] + 8) + 24);
-  }
-
   (*(a1[7] + 16))();
-  v28 = a1[6];
-  if (v28)
+  v27 = a1[6];
+  if (v27)
   {
-    v29 = *(v28 + 16);
+    v28 = *(v27 + 16);
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
-  dispatch_group_leave(v29);
-  v30 = a1[4];
-  if (v30)
+  dispatch_group_leave(v28);
+  v29 = a1[4];
+  if (v29)
   {
-    v31 = *(v30 + 48);
+    v30 = *(v29 + 48);
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  [v31 removeObject:a1[6]];
+  [v30 removeObject:a1[6]];
 }
 
 void sub_10000EEC8(uint64_t a1, void *a2, uint64_t a3)
@@ -6369,7 +6366,7 @@ void sub_1000136C4(uint64_t a1)
   }
 }
 
-uint64_t sub_100013EFC(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+uint64_t sub_100013EFC(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   objc_opt_self();
   v16 = a3;
@@ -6822,7 +6819,7 @@ LABEL_24:
   }
 }
 
-id sub_100015AF4()
+id sub_100015AF4(uint64_t a1)
 {
   objc_opt_self();
   if (qword_10002B780 != -1)
@@ -6830,9 +6827,9 @@ id sub_100015AF4()
     dispatch_once(&qword_10002B780, &stru_1000249F8);
   }
 
-  v0 = qword_10002B778;
+  v1 = qword_10002B778;
 
-  return v0;
+  return v1;
 }
 
 void sub_100015B4C(id a1)
@@ -6932,7 +6929,7 @@ void sub_100015DCC(uint64_t a1, const char *a2)
     objc_setProperty_atomic(v14, v13, 0, 40);
   }
 
-  v15 = sub_100015AF4();
+  v15 = sub_100015AF4(NEAgentServer);
   if (v15)
   {
     v16 = *(a1 + 32);
@@ -7028,139 +7025,101 @@ void sub_1000163AC(uint64_t a1)
   v5 = *(a1 + 72);
   if (v5 > 5)
   {
-    if (v5 > 7)
+    if (v5 > 10)
     {
-      switch(v5)
-      {
-        case 8:
-          v6 = off_100024418;
-          break;
-        case 9:
-          v6 = &off_100024428;
-          break;
-        case 10:
-          v6 = off_100024420;
-          break;
-        default:
-          goto LABEL_28;
-      }
-
-      goto LABEL_27;
+      goto LABEL_17;
     }
 
-    if (v5 != 6)
-    {
-      v6 = off_100024410;
-      goto LABEL_27;
-    }
-
-    goto LABEL_20;
+    goto LABEL_16;
   }
 
   if (v5 > 2)
   {
-    if (v5 == 3)
-    {
-      v6 = NEAgentDNSProxyExtension_ptr;
-      goto LABEL_27;
-    }
-
-    if (v5 != 4)
-    {
-      v6 = NEAgentPacketTunnelExtension_ptr;
-LABEL_27:
-      v9 = *v6;
-      v4 = objc_opt_class();
-      goto LABEL_28;
-    }
-
-LABEL_20:
-    v6 = NEAgentFilterExtension_ptr;
-    goto LABEL_27;
+    goto LABEL_16;
   }
 
   if (v5 == 1)
   {
-    v7 = ne_log_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = ne_log_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Legacy plugins are not supported on iOS", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Legacy plugins are not supported on iOS", buf, 2u);
     }
 
-    v8 = [[NSError alloc] initWithDomain:@"NEAgentErrorDomain" code:2 userInfo:0];
-    goto LABEL_40;
+    v7 = [[NSError alloc] initWithDomain:@"NEAgentErrorDomain" code:2 userInfo:0];
+    goto LABEL_29;
   }
 
   if (v5 == 2)
   {
-    v6 = NEAgentAppProxyExtension_ptr;
-    goto LABEL_27;
+LABEL_16:
+    v4 = objc_opt_class();
   }
 
-LABEL_28:
-  v11 = [v4 alloc];
-  v12 = *(a1 + 72);
-  v14 = *(a1 + 40);
-  v13 = *(a1 + 48);
-  v15 = *(a1 + 32);
-  if (v15)
+LABEL_17:
+  v9 = [v4 alloc];
+  v10 = *(a1 + 72);
+  v12 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v13 = *(a1 + 32);
+  if (v13)
   {
-    Property = objc_getProperty(v15, v10, 16, 1);
-    v17 = *(a1 + 32);
+    Property = objc_getProperty(v13, v8, 16, 1);
+    v15 = *(a1 + 32);
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
     Property = 0;
   }
 
-  v19 = [v11 initWithPluginType:v14 pluginClass:v12 pluginInfo:v13 queue:Property factory:v17];
-  v20 = *(a1 + 32);
-  if (v20)
+  v17 = [v9 initWithPluginType:v12 pluginClass:v10 pluginInfo:v11 queue:Property factory:v15];
+  v18 = *(a1 + 32);
+  if (v18)
   {
-    objc_setProperty_atomic(v20, v18, v19, 8);
+    objc_setProperty_atomic(v18, v16, v17, 8);
   }
 
   kdebug_trace();
-  v22 = *(a1 + 32);
-  if (!v22 || !objc_getProperty(v22, v21, 8, 1))
+  v20 = *(a1 + 32);
+  if (!v20 || !objc_getProperty(v20, v19, 8, 1))
   {
-    v8 = [[NSError alloc] initWithDomain:@"NEAgentErrorDomain" code:2 userInfo:0];
-    v27 = ne_log_obj();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v7 = [[NSError alloc] initWithDomain:@"NEAgentErrorDomain" code:2 userInfo:0];
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "NEAgentSession: failed to create the delegate", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "NEAgentSession: failed to create the delegate", buf, 2u);
     }
 
-LABEL_40:
+LABEL_29:
     (*(*(a1 + 56) + 16))();
-    goto LABEL_41;
+    goto LABEL_30;
   }
 
-  v24 = *(a1 + 32);
-  if (v24)
+  v22 = *(a1 + 32);
+  if (v22)
   {
-    v25 = objc_getProperty(v24, v23, 8, 1);
+    v23 = objc_getProperty(v22, v21, 8, 1);
   }
 
   else
   {
-    v25 = 0;
+    v23 = 0;
   }
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_10001672C;
-  v28[3] = &unk_100024A48;
-  v26 = *(a1 + 56);
-  v28[4] = *(a1 + 32);
-  v29 = v26;
-  [v25 handleInitWithCompletionHandler:v28];
-  v8 = v29;
-LABEL_41:
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10001672C;
+  v26[3] = &unk_100024A48;
+  v24 = *(a1 + 56);
+  v26[4] = *(a1 + 32);
+  v27 = v24;
+  [v23 handleInitWithCompletionHandler:v26];
+  v7 = v27;
+LABEL_30:
 }
 
 void sub_10001672C(uint64_t a1, char a2, int a3)

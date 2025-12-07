@@ -70,27 +70,27 @@
 
 - (void)loadCertificateDataForURI:(id)i withCallback:(id)callback
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   iCopy = i;
   callbackCopy = callback;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __56__IKJSMediaItem_loadCertificateDataForURI_withCallback___block_invoke;
-  v21 = &unk_27979B898;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __56__IKJSMediaItem_loadCertificateDataForURI_withCallback___block_invoke;
+  v20 = &unk_27979B898;
   v8 = callbackCopy;
-  v22 = v8;
-  v9 = MEMORY[0x259C21BA0](&v18);
+  v21 = v8;
+  v9 = MEMORY[0x259C21BA0](&v17);
   v10 = MEMORY[0x277CD4658];
-  v11 = [(IKJSObject *)self appContext:v18];
+  v11 = [(IKJSObject *)self appContext:v17];
   jsContext = [v11 jsContext];
   v13 = [v10 valueWithObject:self inContext:jsContext];
 
   if ([v13 hasProperty:@"loadCertificate"])
   {
-    v23[0] = iCopy;
+    v22[0] = iCopy;
     v14 = MEMORY[0x259C21BA0](v9);
-    v23[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v16 = [(IKJSObject *)self invokeMethod:@"loadCertificate" withArguments:v15];
   }
 
@@ -99,8 +99,6 @@
     v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ITMLKitErrorDomain" code:103 userInfo:0];
     (*(v8 + 2))(v8, 0, 0, v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __56__IKJSMediaItem_loadCertificateDataForURI_withCallback___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -134,27 +132,27 @@ void __56__IKJSMediaItem_loadCertificateDataForURI_withCallback___block_invoke(u
 
 - (void)loadContentIdentifierDataForURI:(id)i withCallback:(id)callback
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   iCopy = i;
   callbackCopy = callback;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __62__IKJSMediaItem_loadContentIdentifierDataForURI_withCallback___block_invoke;
-  v21 = &unk_27979B898;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __62__IKJSMediaItem_loadContentIdentifierDataForURI_withCallback___block_invoke;
+  v20 = &unk_27979B898;
   v8 = callbackCopy;
-  v22 = v8;
-  v9 = MEMORY[0x259C21BA0](&v18);
+  v21 = v8;
+  v9 = MEMORY[0x259C21BA0](&v17);
   v10 = MEMORY[0x277CD4658];
-  v11 = [(IKJSObject *)self appContext:v18];
+  v11 = [(IKJSObject *)self appContext:v17];
   jsContext = [v11 jsContext];
   v13 = [v10 valueWithObject:self inContext:jsContext];
 
   if ([v13 hasProperty:@"loadAssetID"])
   {
-    v23[0] = iCopy;
+    v22[0] = iCopy;
     v14 = MEMORY[0x259C21BA0](v9);
-    v23[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v16 = [(IKJSObject *)self invokeMethod:@"loadAssetID" withArguments:v15];
   }
 
@@ -163,8 +161,6 @@ void __56__IKJSMediaItem_loadCertificateDataForURI_withCallback___block_invoke(u
     v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ITMLKitErrorDomain" code:103 userInfo:0];
     (*(v8 + 2))(v8, 0, 0, v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __62__IKJSMediaItem_loadContentIdentifierDataForURI_withCallback___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -198,17 +194,17 @@ void __62__IKJSMediaItem_loadContentIdentifierDataForURI_withCallback___block_in
 
 - (void)loadKeyDataForURI:(id)i requestData:(id)data withCallback:(id)callback
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   iCopy = i;
   dataCopy = data;
   callbackCopy = callback;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __60__IKJSMediaItem_loadKeyDataForURI_requestData_withCallback___block_invoke;
-  v21[3] = &unk_27979B8C0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __60__IKJSMediaItem_loadKeyDataForURI_requestData_withCallback___block_invoke;
+  v20[3] = &unk_27979B8C0;
   v11 = callbackCopy;
-  v22 = v11;
-  v12 = MEMORY[0x259C21BA0](v21);
+  v21 = v11;
+  v12 = MEMORY[0x259C21BA0](v20);
   v13 = MEMORY[0x277CD4658];
   appContext = [(IKJSObject *)self appContext];
   jsContext = [appContext jsContext];
@@ -216,11 +212,11 @@ void __62__IKJSMediaItem_loadContentIdentifierDataForURI_withCallback___block_in
 
   if ([v16 hasProperty:@"loadKey"])
   {
-    v23[0] = iCopy;
-    v23[1] = dataCopy;
+    v22[0] = iCopy;
+    v22[1] = dataCopy;
     v17 = MEMORY[0x259C21BA0](v12);
-    v23[2] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+    v22[2] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
     v19 = [(IKJSObject *)self invokeMethod:@"loadKey" withArguments:v18];
   }
 
@@ -229,8 +225,6 @@ void __62__IKJSMediaItem_loadContentIdentifierDataForURI_withCallback___block_in
     v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ITMLKitErrorDomain" code:103 userInfo:0];
     (*(v11 + 2))(v11, 0, 0, v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __60__IKJSMediaItem_loadKeyDataForURI_requestData_withCallback___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

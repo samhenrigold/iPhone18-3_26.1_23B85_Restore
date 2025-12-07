@@ -8,30 +8,30 @@
 {
   y = test.y;
   x = test.x;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   eventCopy = event;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   subviews = [(MUPassthroughView *)self subviews];
   reverseObjectEnumerator = [subviews reverseObjectEnumerator];
 
-  v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         if ([v14 isUserInteractionEnabled])
         {
           if (([v14 isHidden] & 1) == 0)
@@ -56,7 +56,7 @@
         }
       }
 
-      v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         continue;
@@ -68,8 +68,6 @@
 
   v21 = 0;
 LABEL_15:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

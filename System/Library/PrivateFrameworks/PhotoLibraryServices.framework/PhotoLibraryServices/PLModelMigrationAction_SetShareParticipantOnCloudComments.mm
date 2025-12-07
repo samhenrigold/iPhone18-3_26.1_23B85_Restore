@@ -51,20 +51,20 @@
 
     if (v18)
     {
-      v26 = PLMigrationGetLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = PLMigrationGetLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
-        v29 = v43[3];
-        v30 = v39[3];
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
+        v30 = v43[3];
+        v31 = v39[3];
         *buf = 138543874;
-        *&buf[4] = v28;
+        *&buf[4] = v29;
         *&buf[12] = 2048;
-        *&buf[14] = v29;
+        *&buf[14] = v30;
         *&buf[22] = 2048;
-        *&buf[24] = v30;
-        _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: summary - countOfCommentsWithParticipant: %ld, countOfCommentsWithoutParticipant: %ld", buf, 0x20u);
+        *&buf[24] = v31;
+        _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: summary - countOfCommentsWithParticipant: %ld, countOfCommentsWithoutParticipant: %ld", buf, 0x20u);
       }
     }
 
@@ -102,37 +102,45 @@
       v54 = 0u;
       memset(buf, 0, sizeof(buf));
       v19 = PLMigrationGetLog();
-      os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = v43[3];
-      v23 = v39[3];
-      v46 = 138543874;
-      v47 = v21;
-      v48 = 2048;
-      v49 = v22;
-      v50 = 2048;
-      v51 = v23;
-      LODWORD(v35) = 32;
-      v24 = _os_log_send_and_compose_impl();
-
-      v25 = [(PLModelMigrationActionCore *)self logger:&v46];
-      [v25 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1320, 0}];
-
-      if (v24 != buf)
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        free(v24);
+        v20 = 3;
+      }
+
+      else
+      {
+        v20 = 2;
+      }
+
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = v43[3];
+      v24 = v39[3];
+      v46 = 138543874;
+      v47 = v22;
+      v48 = 2048;
+      v49 = v23;
+      v50 = 2048;
+      v51 = v24;
+      v25 = _os_log_send_and_compose_impl(v20, 0, buf, 512, &dword_19BF1F000, v19, 0, "%{public}@: summary - countOfCommentsWithParticipant: %ld, countOfCommentsWithoutParticipant: %ld", &v46, 32);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v25 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1320, 0}];
+
+      if (v25 != buf)
+      {
+        free(v25);
       }
     }
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v31 = v12;
-  v32 = v31;
+  v32 = v12;
+  v33 = v32;
   if (v11 != 1 && error)
   {
-    v33 = v31;
-    *error = v32;
+    v34 = v32;
+    *error = v33;
   }
 
   _Block_object_dispose(&v38, 8);

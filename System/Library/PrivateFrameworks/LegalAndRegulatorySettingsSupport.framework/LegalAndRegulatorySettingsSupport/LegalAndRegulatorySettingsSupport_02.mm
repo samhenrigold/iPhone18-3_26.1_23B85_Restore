@@ -7437,7 +7437,7 @@ unint64_t _scan_footnote_definition(unint64_t result)
     return 0;
   }
 
-  v1 = (result + 2);
+  v1 = result + 2;
   v2 = *(result + 2);
   if (v2 == 93)
   {
@@ -7545,13 +7545,13 @@ LABEL_24:
     v2 = v9;
   }
 
-  if (v2 - 33 >= 0x3D || v1[1] != 58)
+  if (v2 - 33 >= 0x3D || *(v1 + 1) != 58)
   {
     return 0;
   }
 
   LODWORD(result) = v1 - result + 1;
-  v11 = v1 + 2;
+  v11 = (v1 + 2);
   do
   {
     v12 = *v11++;
@@ -7562,7 +7562,7 @@ LABEL_24:
   return result;
 }
 
-_DWORD *S_outc(uint64_t a1, uint64_t a2, int a3, int a4)
+_DWORD *S_outc(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -7590,13 +7590,13 @@ _DWORD *S_outc(uint64_t a1, uint64_t a2, int a3, int a4)
     {
       switch(a4)
       {
-        case 8217:
+        case 0x2019:
           v4 = "\\[cq]";
           return cmark_render_ascii(a1, v4);
-        case 8220:
+        case 0x201C:
           v4 = "\\[lq]";
           return cmark_render_ascii(a1, v4);
-        case 8221:
+        case 0x201D:
           v4 = "\\[rq]";
           return cmark_render_ascii(a1, v4);
       }
@@ -8102,7 +8102,7 @@ LABEL_43:
       break;
     }
 
-    result = cmark_strbuf_put(v5, &encode_unknown_repl, 3);
+    result = cmark_strbuf_put(v5, &encode_unknown_repl, 3u);
     v6 = v7 + v8;
   }
 
@@ -8263,7 +8263,7 @@ LABEL_10:
     return cmark_strbuf_put(a2, &v5, v2);
   }
 
-  return cmark_strbuf_put(a2, &encode_unknown_repl, 3);
+  return cmark_strbuf_put(a2, &encode_unknown_repl, 3u);
 }
 
 _DWORD *cmark_utf8proc_case_fold(_DWORD *result, unsigned __int8 *a2, int a3)
@@ -8280,7 +8280,7 @@ _DWORD *cmark_utf8proc_case_fold(_DWORD *result, unsigned __int8 *a2, int a3)
       v8 = cmark_utf8proc_iterate(a2, v5, &v117);
       if ((v8 & 0x80000000) != 0)
       {
-        result = cmark_strbuf_put(v7, &encode_unknown_repl, 3);
+        result = cmark_strbuf_put(v7, &encode_unknown_repl, 3u);
         v9 = 1;
       }
 
@@ -10316,7 +10316,7 @@ LABEL_1159:
                     v65 = 102;
 LABEL_1194:
                     LOBYTE(v118) = v65;
-                    cmark_strbuf_put(v7, &v118, 1);
+                    cmark_strbuf_put(v7, &v118, 1u);
                     LOBYTE(v118) = v65;
                     goto LABEL_886;
                   }
@@ -10331,7 +10331,7 @@ LABEL_1194:
               }
 
 LABEL_138:
-              cmark_strbuf_put(v7, &v118, 1);
+              cmark_strbuf_put(v7, &v118, 1u);
               LOBYTE(v118) = 105;
               goto LABEL_886;
             }
@@ -10587,7 +10587,7 @@ LABEL_1218:
                   }
 
                   LOWORD(v118) = -19243;
-                  cmark_strbuf_put(v7, &v118, 2);
+                  cmark_strbuf_put(v7, &v118, 2u);
                   v10 = -21035;
                   break;
               }
@@ -10602,14 +10602,14 @@ LABEL_1218:
                 if (v117 == 64260)
                 {
                   LOBYTE(v118) = 102;
-                  cmark_strbuf_put(v7, &v118, 1);
+                  cmark_strbuf_put(v7, &v118, 1u);
                   LOBYTE(v118) = 102;
                   goto LABEL_196;
                 }
 
 LABEL_125:
                 LOBYTE(v118) = 115;
-                cmark_strbuf_put(v7, &v118, 1);
+                cmark_strbuf_put(v7, &v118, 1u);
 LABEL_126:
                 v14 = 116;
               }
@@ -10619,14 +10619,14 @@ LABEL_126:
                 if (v117 != 64258)
                 {
                   LOBYTE(v118) = 102;
-                  cmark_strbuf_put(v7, &v118, 1);
+                  cmark_strbuf_put(v7, &v118, 1u);
                   LOBYTE(v118) = 102;
                   goto LABEL_138;
                 }
 
                 LOBYTE(v118) = 102;
 LABEL_196:
-                cmark_strbuf_put(v7, &v118, 1);
+                cmark_strbuf_put(v7, &v118, 1u);
 LABEL_197:
                 v14 = 108;
               }
@@ -10646,13 +10646,13 @@ LABEL_1522:
               LOWORD(v118) = -19243;
               if (v117 == 64276)
               {
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -23083;
               }
 
               else
               {
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -21547;
               }
 
@@ -10669,7 +10669,7 @@ LABEL_1522:
               v22 = -19243;
 LABEL_1213:
               LOWORD(v118) = v22;
-              cmark_strbuf_put(v7, &v118, 2);
+              cmark_strbuf_put(v7, &v118, 2u);
               v10 = -18731;
               goto LABEL_988;
             }
@@ -11748,7 +11748,7 @@ LABEL_1213:
                 goto LABEL_988;
               case 1415:
                 LOWORD(v118) = -23083;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 break;
               default:
                 switch(v117)
@@ -11996,7 +11996,7 @@ LABEL_1213:
                     goto LABEL_988;
                   case 304:
                     LOBYTE(v118) = 105;
-                    cmark_strbuf_put(v7, &v118, 1);
+                    cmark_strbuf_put(v7, &v118, 1u);
                     v10 = -30772;
                     goto LABEL_988;
                   case 306:
@@ -12034,7 +12034,7 @@ LABEL_1213:
                     goto LABEL_988;
                   case 329:
                     LOWORD(v118) = -17206;
-                    cmark_strbuf_put(v7, &v118, 2);
+                    cmark_strbuf_put(v7, &v118, 2u);
                     break;
                   case 330:
                     v10 = -29755;
@@ -12290,7 +12290,7 @@ LABEL_1213:
                     goto LABEL_988;
                   case 496:
                     LOBYTE(v118) = 106;
-                    cmark_strbuf_put(v7, &v118, 1);
+                    cmark_strbuf_put(v7, &v118, 1u);
                     v10 = -29492;
                     goto LABEL_988;
                   case 497:
@@ -12910,12 +12910,12 @@ LABEL_1213:
                 goto LABEL_1490;
               case 7830:
                 LOBYTE(v118) = 104;
-                cmark_strbuf_put(v7, &v118, 1);
+                cmark_strbuf_put(v7, &v118, 1u);
                 v10 = -20020;
                 goto LABEL_988;
               case 7831:
                 LOBYTE(v118) = 116;
-                cmark_strbuf_put(v7, &v118, 1);
+                cmark_strbuf_put(v7, &v118, 1u);
                 v10 = -30516;
                 goto LABEL_988;
               case 7832:
@@ -12925,12 +12925,12 @@ LABEL_1213:
                 v102 = 121;
 LABEL_1084:
                 LOBYTE(v118) = v102;
-                cmark_strbuf_put(v7, &v118, 1);
+                cmark_strbuf_put(v7, &v118, 1u);
                 v10 = -30004;
                 goto LABEL_988;
               case 7834:
                 LOBYTE(v118) = 97;
-                cmark_strbuf_put(v7, &v118, 1);
+                cmark_strbuf_put(v7, &v118, 1u);
                 v10 = -16694;
                 goto LABEL_988;
               case 7838:
@@ -13191,22 +13191,22 @@ LABEL_155:
                 goto LABEL_1496;
               case 8016:
                 LOWORD(v118) = -31281;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -27700;
                 goto LABEL_988;
               case 8018:
                 LOWORD(v118) = -31281;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v101 = -27700;
                 goto LABEL_1059;
               case 8020:
                 LOWORD(v118) = -31281;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v64 = -27700;
                 goto LABEL_154;
               case 8022:
                 LOWORD(v118) = -31281;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v93 = -27700;
                 goto LABEL_1013;
               case 8025:
@@ -13426,7 +13426,7 @@ LABEL_985:
                 v94 = -18482;
 LABEL_1028:
                 LOWORD(v118) = v94;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v74 = -32051;
 LABEL_1036:
                 LOWORD(v118) = v74;
@@ -13478,11 +13478,11 @@ LABEL_152:
                 v95 = -31281;
 LABEL_1040:
                 LOWORD(v118) = v95;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v101 = -30516;
 LABEL_1059:
                 LOWORD(v118) = v101;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -32564;
                 goto LABEL_988;
               case 8163:
@@ -13490,16 +13490,16 @@ LABEL_151:
                 v63 = -31281;
 LABEL_153:
                 LOWORD(v118) = v63;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v64 = -30516;
 LABEL_154:
                 LOWORD(v118) = v64;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -32308;
                 goto LABEL_988;
               case 8164:
                 LOWORD(v118) = -32305;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -27700;
                 goto LABEL_988;
               case 8166:
@@ -13509,7 +13509,7 @@ LABEL_154:
                 v100 = -31281;
 LABEL_1003:
                 LOWORD(v118) = v100;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v93 = -30516;
                 goto LABEL_1013;
               case 8168:
@@ -13544,12 +13544,12 @@ LABEL_1003:
                 v93 = -30257;
 LABEL_1013:
                 LOWORD(v118) = v93;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v10 = -32051;
                 goto LABEL_988;
               case 8183:
                 LOWORD(v118) = -30257;
-                cmark_strbuf_put(v7, &v118, 2);
+                cmark_strbuf_put(v7, &v118, 2u);
                 v73 = -32051;
 LABEL_1017:
                 LOWORD(v118) = v73;

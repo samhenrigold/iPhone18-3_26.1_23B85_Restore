@@ -58,9 +58,9 @@ LABEL_6:
   selfCopy = self;
   sub_188FEAD2C(0, 3, v6, v9, v11, v10);
 
-  sub_188A55B8C(v11);
+  sub_188A55B8C(v11, v10);
 
-  sub_188A55B8C(v6);
+  sub_188A55B8C(v6, v9);
 }
 
 - (void)scheduleCollapsedWillChangeHandler:(id)handler didChangeHandler:(id)changeHandler
@@ -98,9 +98,9 @@ LABEL_6:
   selfCopy = self;
   sub_188FEAD2C(1, 3, v6, v9, v11, v10);
 
-  sub_188A55B8C(v11);
+  sub_188A55B8C(v11, v10);
 
-  sub_188A55B8C(v6);
+  sub_188A55B8C(v6, v9);
 }
 
 - (void)scheduleSplitViewControllerColumnVisibilityWillChangeHandler:(id)handler didChangeHandler:(id)changeHandler splitViewControllerColumn:(int64_t)column
@@ -137,9 +137,9 @@ LABEL_6:
   selfCopy = self;
   sub_188FEAD2C(column, 2, v8, v11, v10, v12);
 
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v10, v12);
 
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v11);
 }
 
 - (void)scheduleSplitViewControllerColumnSizeWillChangeHandler:(id)handler didChangeHandler:(id)changeHandler splitViewControllerColumn:(int64_t)column
@@ -176,9 +176,9 @@ LABEL_6:
   selfCopy = self;
   sub_188FEAD2C(column, 1, v8, v11, v10, v12);
 
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v10, v12);
 
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v11);
 }
 
 - (_UISplitViewControllerAdaptiveLayout)previousLayout
@@ -333,9 +333,9 @@ LABEL_6:
   selfCopy = self;
   sub_188FEAD2C(column, 0, v8, v11, v10, v12);
 
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v10, v12);
 
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v11);
 }
 
 - (void)scheduleSplitViewControllerColumnSuspendingDelegateUpdates:(int64_t)updates

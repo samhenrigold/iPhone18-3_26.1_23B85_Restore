@@ -3,10 +3,11 @@
 
 @implementation LSUnregisterBundle
 
-uint64_t ___LSUnregisterBundle_block_invoke(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
+uint64_t ___LSUnregisterBundle_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
+  v5 = a3;
   result = _LSBundleGet(**(a1 + 40), a3);
-  v8 = *(a1 + 56) == a3 || result == 0;
+  v8 = *(a1 + 56) == v5 || result == 0;
   if (!v8 && *(result + 168) == 2 && *(result + 12) == *(*(a1 + 48) + 12))
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;

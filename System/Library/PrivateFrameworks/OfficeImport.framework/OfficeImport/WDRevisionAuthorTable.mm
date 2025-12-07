@@ -27,18 +27,19 @@
 
 - (id)authorAt:(unint64_t)at
 {
-  if ([(NSMutableArray *)self->mAuthors count]<= at)
+  v5 = [(NSMutableArray *)self->mAuthors count];
+  if (v5 <= at)
   {
-    v6 = TCBundle();
-    v5 = [v6 localizedStringForKey:@"Unknown" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v7 = TCBundle(v5);
+    v6 = [v7 localizedStringForKey:@"Unknown" value:&stru_286EE1130 table:@"TCCompatibility"];
   }
 
   else
   {
-    v5 = [(NSMutableArray *)self->mAuthors objectAtIndex:at];
+    v6 = [(NSMutableArray *)self->mAuthors objectAtIndex:at];
   }
 
-  return v5;
+  return v6;
 }
 
 - (unint64_t)authorAddLookup:(id)lookup

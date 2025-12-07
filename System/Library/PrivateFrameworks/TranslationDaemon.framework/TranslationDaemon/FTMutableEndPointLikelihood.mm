@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)end_point_likelihood;
 - (int)return_code;
+- (void)setEnd_point_likelihood:(int)end_point_likelihood;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
@@ -55,6 +57,12 @@
   return intValue;
 }
 
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
@@ -67,6 +75,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setEnd_point_likelihood:(int)end_point_likelihood
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&end_point_likelihood];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

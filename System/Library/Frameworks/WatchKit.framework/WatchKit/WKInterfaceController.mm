@@ -100,38 +100,36 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
 
 - (void)didRegisterWithRemoteInterface
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   topLevelObjects = [(WKInterfaceController *)self topLevelObjects];
-  v3 = [topLevelObjects countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [topLevelObjects countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(topLevelObjects);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) didRegisterWithRemoteInterface];
+        [*(*(&v7 + 1) + 8 * v6++) didRegisterWithRemoteInterface];
       }
 
       while (v4 != v6);
-      v4 = [topLevelObjects countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [topLevelObjects countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActionWithIdentifier:(id)identifier forNotification:(id)notification remoteNotification:(id)remoteNotification localNotification:(id)localNotification
@@ -142,10 +140,11 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
   remoteNotificationCopy = remoteNotification;
   localNotificationCopy = localNotification;
   v14 = objc_opt_class();
-  if (spUtils_subclassForObjectOverridesSelectorFromSuperclass(self, sel_handleActionWithIdentifier_forNotification_, v14))
+  v15 = spUtils_subclassForObjectOverridesSelectorFromSuperclass(self, sel_handleActionWithIdentifier_forNotification_, v14);
+  if (v15)
   {
-    v15 = wk_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = wk_default_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v23 = 136446978;
       v24 = "[WKInterfaceController _handleActionWithIdentifier:forNotification:remoteNotification:localNotification:]";
@@ -155,7 +154,7 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
       selfCopy5 = self;
       v29 = 2114;
       v30 = identifierCopy;
-      _os_log_impl(&dword_23B338000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
+      _os_log_impl(&dword_23B338000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
     }
 
     [(WKInterfaceController *)self handleActionWithIdentifier:identifierCopy forNotification:notificationCopy];
@@ -163,8 +162,8 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
 
   else if (localNotificationCopy)
   {
-    v16 = wk_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = wk_default_log(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v23 = 136446978;
       v24 = "[WKInterfaceController _handleActionWithIdentifier:forNotification:remoteNotification:localNotification:]";
@@ -174,7 +173,7 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
       selfCopy5 = self;
       v29 = 2114;
       v30 = identifierCopy;
-      _os_log_impl(&dword_23B338000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forLocalNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
+      _os_log_impl(&dword_23B338000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forLocalNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
     }
 
     [(WKInterfaceController *)self handleActionWithIdentifier:identifierCopy forLocalNotification:localNotificationCopy];
@@ -182,11 +181,11 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
 
   else
   {
-    v17 = wk_default_log();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v18 = wk_default_log(v15);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
     if (remoteNotificationCopy)
     {
-      if (v18)
+      if (v19)
       {
         v23 = 136446978;
         v24 = "[WKInterfaceController _handleActionWithIdentifier:forNotification:remoteNotification:localNotification:]";
@@ -196,17 +195,17 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
         selfCopy5 = self;
         v29 = 2114;
         v30 = identifierCopy;
-        _os_log_impl(&dword_23B338000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forRemoteNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
+        _os_log_impl(&dword_23B338000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forRemoteNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
       }
 
       selfCopy6 = self;
-      v20 = identifierCopy;
-      v21 = remoteNotificationCopy;
+      v21 = identifierCopy;
+      v22 = remoteNotificationCopy;
     }
 
     else
     {
-      if (v18)
+      if (v19)
       {
         v23 = 136446978;
         v24 = "[WKInterfaceController _handleActionWithIdentifier:forNotification:remoteNotification:localNotification:]";
@@ -216,40 +215,39 @@ uint64_t __29__WKInterfaceController_init__block_invoke()
         selfCopy5 = self;
         v29 = 2114;
         v30 = identifierCopy;
-        _os_log_impl(&dword_23B338000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forRemoteNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
+        _os_log_impl(&dword_23B338000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling handleActionWithIdentifier:forRemoteNotification: on %{public}@ with identifier %{public}@", &v23, 0x26u);
       }
 
-      v21 = MEMORY[0x277CBEC10];
+      v22 = MEMORY[0x277CBEC10];
       selfCopy6 = self;
-      v20 = identifierCopy;
+      v21 = identifierCopy;
     }
 
-    [(WKInterfaceController *)selfCopy6 handleActionWithIdentifier:v20 forRemoteNotification:v21];
+    [(WKInterfaceController *)selfCopy6 handleActionWithIdentifier:v21 forRemoteNotification:v22];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTitle:(id)title
 {
   titleCopy = title;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __34__WKInterfaceController_setTitle___block_invoke;
-  v8[3] = &unk_278B7E2F0;
-  v8[4] = self;
-  v9 = titleCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __34__WKInterfaceController_setTitle___block_invoke;
+  v9[3] = &unk_278B7E2F0;
+  v9[4] = self;
+  v10 = titleCopy;
   v5 = titleCopy;
-  v6 = MEMORY[0x23EE9A9D0](v8);
-  if (isRunningOnMainQueue())
+  v6 = MEMORY[0x23EE9A9D0](v9);
+  v7 = isRunningOnMainQueue();
+  if (v7)
   {
     v6[2](v6);
   }
 
   else
   {
-    v7 = wk_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = wk_default_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController setTitle:];
     }
@@ -269,25 +267,26 @@ void __34__WKInterfaceController_setTitle___block_invoke(uint64_t a1)
 {
   nameCopy = name;
   contextCopy = context;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __56__WKInterfaceController_pushControllerWithName_context___block_invoke;
-  v12[3] = &unk_278B7E278;
-  v12[4] = self;
-  v13 = nameCopy;
-  v14 = contextCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __56__WKInterfaceController_pushControllerWithName_context___block_invoke;
+  v13[3] = &unk_278B7E278;
+  v13[4] = self;
+  v14 = nameCopy;
+  v15 = contextCopy;
   v8 = contextCopy;
   v9 = nameCopy;
-  v10 = MEMORY[0x23EE9A9D0](v12);
-  if (isRunningOnMainQueue())
+  v10 = MEMORY[0x23EE9A9D0](v13);
+  v11 = isRunningOnMainQueue();
+  if (v11)
   {
     v10[2](v10);
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController pushControllerWithName:context:];
     }
@@ -305,44 +304,43 @@ void __56__WKInterfaceController_pushControllerWithName_context___block_invoke(u
 
 - (void)popController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)popToRootController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 + (void)reloadRootControllersWithNames:(id)names contexts:(id)contexts
 {
   namesCopy = names;
   contextsCopy = contexts;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__WKInterfaceController_reloadRootControllersWithNames_contexts___block_invoke;
-  v11[3] = &unk_278B7E2F0;
-  v12 = namesCopy;
-  v13 = contextsCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__WKInterfaceController_reloadRootControllersWithNames_contexts___block_invoke;
+  v12[3] = &unk_278B7E2F0;
+  v13 = namesCopy;
+  v14 = contextsCopy;
   v7 = contextsCopy;
   v8 = namesCopy;
-  v9 = MEMORY[0x23EE9A9D0](v11);
-  if (isRunningOnMainQueue())
+  v9 = MEMORY[0x23EE9A9D0](v12);
+  v10 = isRunningOnMainQueue();
+  if (v10)
   {
     v9[2](v9);
   }
 
   else
   {
-    v10 = wk_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = wk_default_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[WKInterfaceController reloadRootControllersWithNames:contexts:];
     }
@@ -362,7 +360,7 @@ void __65__WKInterfaceController_reloadRootControllersWithNames_contexts___block
 
   else
   {
-    v3 = wk_default_log();
+    v3 = wk_default_log(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __65__WKInterfaceController_reloadRootControllersWithNames_contexts___block_invoke_cold_1();
@@ -391,36 +389,36 @@ void __65__WKInterfaceController_reloadRootControllersWithNames_contexts___block
 
 - (void)becomeCurrentPage
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)presentControllerWithName:(id)name context:(id)context
 {
   nameCopy = name;
   contextCopy = context;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __59__WKInterfaceController_presentControllerWithName_context___block_invoke;
-  v12[3] = &unk_278B7E278;
-  v12[4] = self;
-  v13 = nameCopy;
-  v14 = contextCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59__WKInterfaceController_presentControllerWithName_context___block_invoke;
+  v13[3] = &unk_278B7E278;
+  v13[4] = self;
+  v14 = nameCopy;
+  v15 = contextCopy;
   v8 = contextCopy;
   v9 = nameCopy;
-  v10 = MEMORY[0x23EE9A9D0](v12);
-  if (isRunningOnMainQueue())
+  v10 = MEMORY[0x23EE9A9D0](v13);
+  v11 = isRunningOnMainQueue();
+  if (v11)
   {
     v10[2](v10);
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController presentControllerWithName:context:];
     }
@@ -440,25 +438,26 @@ void __59__WKInterfaceController_presentControllerWithName_context___block_invok
 {
   namesCopy = names;
   contextsCopy = contexts;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__WKInterfaceController_presentControllerWithNames_contexts___block_invoke;
-  v12[3] = &unk_278B7E278;
-  v12[4] = self;
-  v13 = namesCopy;
-  v14 = contextsCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__WKInterfaceController_presentControllerWithNames_contexts___block_invoke;
+  v13[3] = &unk_278B7E278;
+  v13[4] = self;
+  v14 = namesCopy;
+  v15 = contextsCopy;
   v8 = contextsCopy;
   v9 = namesCopy;
-  v10 = MEMORY[0x23EE9A9D0](v12);
-  if (isRunningOnMainQueue())
+  v10 = MEMORY[0x23EE9A9D0](v13);
+  v11 = isRunningOnMainQueue();
+  if (v11)
   {
     v10[2](v10);
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController presentControllerWithNames:contexts:];
     }
@@ -477,37 +476,37 @@ void __61__WKInterfaceController_presentControllerWithNames_contexts___block_inv
 
 - (void)dismissController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)presentTextInputControllerWithSuggestions:(id)suggestions allowedInputMode:(int64_t)mode completion:(id)completion
 {
   suggestionsCopy = suggestions;
   completionCopy = completion;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __95__WKInterfaceController_presentTextInputControllerWithSuggestions_allowedInputMode_completion___block_invoke;
-  v14[3] = &unk_278B7F338;
-  v14[4] = self;
-  v15 = suggestionsCopy;
-  v16 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __95__WKInterfaceController_presentTextInputControllerWithSuggestions_allowedInputMode_completion___block_invoke;
+  v15[3] = &unk_278B7F338;
+  v15[4] = self;
+  v16 = suggestionsCopy;
+  v17 = completionCopy;
   modeCopy = mode;
   v10 = suggestionsCopy;
   v11 = completionCopy;
-  v12 = MEMORY[0x23EE9A9D0](v14);
-  if (isRunningOnMainQueue())
+  v12 = MEMORY[0x23EE9A9D0](v15);
+  v13 = isRunningOnMainQueue();
+  if (v13)
   {
     v12[2](v12);
   }
 
   else
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController presentTextInputControllerWithSuggestions:allowedInputMode:completion:];
     }
@@ -528,7 +527,7 @@ void __95__WKInterfaceController_presentTextInputControllerWithSuggestions_allow
 
   else
   {
-    v4 = wk_default_log();
+    v4 = wk_default_log(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __95__WKInterfaceController_presentTextInputControllerWithSuggestions_allowedInputMode_completion___block_invoke_cold_1();
@@ -540,26 +539,27 @@ void __95__WKInterfaceController_presentTextInputControllerWithSuggestions_allow
 {
   languageCopy = language;
   completionCopy = completion;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLanguage_allowedInputMode_completion___block_invoke;
-  v14[3] = &unk_278B7F360;
-  v14[4] = self;
-  v15 = completionCopy;
-  v16 = languageCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLanguage_allowedInputMode_completion___block_invoke;
+  v15[3] = &unk_278B7F360;
+  v15[4] = self;
+  v16 = completionCopy;
+  v17 = languageCopy;
   modeCopy = mode;
   v10 = languageCopy;
   v11 = completionCopy;
-  v12 = MEMORY[0x23EE9A9D0](v14);
-  if (isRunningOnMainQueue())
+  v12 = MEMORY[0x23EE9A9D0](v15);
+  v13 = isRunningOnMainQueue();
+  if (v13)
   {
     v12[2](v12);
   }
 
   else
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController presentTextInputControllerWithSuggestionsForLanguage:allowedInputMode:completion:];
     }
@@ -580,7 +580,7 @@ void __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLa
 
   else
   {
-    v4 = wk_default_log();
+    v4 = wk_default_log(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLanguage_allowedInputMode_completion___block_invoke_cold_1();
@@ -590,36 +590,36 @@ void __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLa
 
 - (void)dismissTextInputController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)presentAddPassesControllerWithPasses:(id)passes completion:(id)completion
 {
   passesCopy = passes;
   completionCopy = completion;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__WKInterfaceController_presentAddPassesControllerWithPasses_completion___block_invoke;
-  v12[3] = &unk_278B7F1F0;
-  v12[4] = self;
-  v13 = passesCopy;
-  v14 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __73__WKInterfaceController_presentAddPassesControllerWithPasses_completion___block_invoke;
+  v13[3] = &unk_278B7F1F0;
+  v13[4] = self;
+  v14 = passesCopy;
+  v15 = completionCopy;
   v8 = completionCopy;
   v9 = passesCopy;
-  v10 = MEMORY[0x23EE9A9D0](v12);
-  if (isRunningOnMainQueue())
+  v10 = MEMORY[0x23EE9A9D0](v13);
+  v11 = isRunningOnMainQueue();
+  if (v11)
   {
     v10[2](v10);
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController presentAddPassesControllerWithPasses:completion:];
     }
@@ -630,11 +630,10 @@ void __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLa
 
 - (void)dismissAddPassesController
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)animateWithDuration:(double)duration animations:(id)animations
@@ -669,26 +668,27 @@ void __56__WKInterfaceController_animateWithDuration_animations___block_invoke(u
 {
   imageCopy = image;
   titleCopy = title;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invoke;
-  v14[3] = &unk_278B7F3B0;
-  v15 = imageCopy;
-  v16 = titleCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invoke;
+  v15[3] = &unk_278B7F3B0;
+  v16 = imageCopy;
+  v17 = titleCopy;
   selfCopy = self;
   actionCopy = action;
   v10 = titleCopy;
   v11 = imageCopy;
-  v12 = MEMORY[0x23EE9A9D0](v14);
-  if (isRunningOnMainQueue())
+  v12 = MEMORY[0x23EE9A9D0](v15);
+  v13 = isRunningOnMainQueue();
+  if (v13)
   {
     v12[2](v12);
   }
 
   else
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController addMenuItemWithImage:title:action:];
     }
@@ -699,12 +699,12 @@ void __56__WKInterfaceController_animateWithDuration_animations___block_invoke(u
 
 void __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(*(a1 + 56));
   v3 = v2;
   if (!*(a1 + 32) || (*(a1 + 40) ? (v4 = v2 == 0) : (v4 = 1), v4))
   {
-    v5 = wk_default_log();
+    v5 = wk_default_log(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invoke_cold_1();
@@ -715,39 +715,38 @@ void __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invok
   {
     v5 = [*(a1 + 48) viewControllerID];
     v6 = [*(a1 + 40) copy];
-    v9[1] = v6;
-    v9[2] = v3;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+    v8[1] = v6;
+    v8[2] = v3;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
     [SPRemoteInterface setController:v5 key:@"#item" property:&stru_284DFE9D8 value:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMenuItemWithImageNamed:(id)named title:(id)title action:(SEL)action
 {
   namedCopy = named;
   titleCopy = title;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_invoke;
-  v14[3] = &unk_278B7F3B0;
-  v15 = namedCopy;
-  v16 = titleCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_invoke;
+  v15[3] = &unk_278B7F3B0;
+  v16 = namedCopy;
+  v17 = titleCopy;
   selfCopy = self;
   actionCopy = action;
   v10 = titleCopy;
   v11 = namedCopy;
-  v12 = MEMORY[0x23EE9A9D0](v14);
-  if (isRunningOnMainQueue())
+  v12 = MEMORY[0x23EE9A9D0](v15);
+  v13 = isRunningOnMainQueue();
+  if (v13)
   {
     v12[2](v12);
   }
 
   else
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController addMenuItemWithImageNamed:title:action:];
     }
@@ -758,12 +757,12 @@ void __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invok
 
 void __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(*(a1 + 56));
   v3 = v2;
   if (!*(a1 + 32) || (*(a1 + 40) ? (v4 = v2 == 0) : (v4 = 1), v4))
   {
-    v5 = wk_default_log();
+    v5 = wk_default_log(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_invoke_cold_1();
@@ -775,37 +774,36 @@ void __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_
     v5 = [*(a1 + 48) viewControllerID];
     v6 = [*(a1 + 32) copy];
     v7 = [*(a1 + 40) copy];
-    v10[1] = v7;
-    v10[2] = v3;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+    v9[1] = v7;
+    v9[2] = v3;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
     [SPRemoteInterface setController:v5 key:@"#item" property:&stru_284DFE9D8 value:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMenuItemWithItemIcon:(int64_t)icon title:(id)title action:(SEL)action
 {
   titleCopy = title;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_invoke;
-  v12[3] = &unk_278B7E368;
-  v13 = titleCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_invoke;
+  v13[3] = &unk_278B7E368;
+  v14 = titleCopy;
   selfCopy = self;
   actionCopy = action;
   iconCopy = icon;
   v9 = titleCopy;
-  v10 = MEMORY[0x23EE9A9D0](v12);
-  if (isRunningOnMainQueue())
+  v10 = MEMORY[0x23EE9A9D0](v13);
+  v11 = isRunningOnMainQueue();
+  if (v11)
   {
     v10[2](v10);
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController addMenuItemWithItemIcon:title:action:];
     }
@@ -816,7 +814,7 @@ void __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_
 
 void __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(*(a1 + 48));
   v3 = v2;
   if (*(a1 + 32))
@@ -831,7 +829,7 @@ void __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_in
 
   if (v4)
   {
-    v5 = wk_default_log();
+    v5 = wk_default_log(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_invoke_cold_1();
@@ -843,22 +841,19 @@ void __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_in
     v5 = [*(a1 + 40) viewControllerID];
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
     v7 = [*(a1 + 32) copy];
-    v10[1] = v7;
-    v10[2] = v3;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+    v9[1] = v7;
+    v9[2] = v3;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
     [SPRemoteInterface setController:v5 key:@"#item" property:&stru_284DFE9D8 value:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllMenuItems
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __42__WKInterfaceController_clearAllMenuItems__block_invoke(uint64_t a1)
@@ -871,25 +866,26 @@ void __42__WKInterfaceController_clearAllMenuItems__block_invoke(uint64_t a1)
 {
   activityCopy = activity;
   infoCopy = info;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke;
-  v12[3] = &unk_278B7E278;
-  v12[4] = self;
-  v13 = activityCopy;
-  v14 = infoCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke;
+  v13[3] = &unk_278B7E278;
+  v13[4] = self;
+  v14 = activityCopy;
+  v15 = infoCopy;
   v8 = infoCopy;
   v9 = activityCopy;
-  v10 = MEMORY[0x23EE9A9D0](v12);
-  if (isRunningOnMainQueue())
+  v10 = MEMORY[0x23EE9A9D0](v13);
+  v11 = isRunningOnMainQueue();
+  if (v11)
   {
     v10[2](v10);
   }
 
   else
   {
-    v11 = wk_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = wk_default_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController updateUserActivity:userInfo:];
     }
@@ -900,7 +896,7 @@ void __42__WKInterfaceController_clearAllMenuItems__block_invoke(uint64_t a1)
 
 void __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke(uint64_t a1)
 {
-  v2 = wk_default_log();
+  v2 = wk_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke_cold_1();
@@ -917,27 +913,28 @@ void __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke(uint
   activityCopy = activity;
   infoCopy = info;
   lCopy = l;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke;
-  v16[3] = &unk_278B7E2C8;
-  v17 = activityCopy;
-  v18 = infoCopy;
-  v19 = lCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke;
+  v17[3] = &unk_278B7E2C8;
+  v18 = activityCopy;
+  v19 = infoCopy;
+  v20 = lCopy;
   selfCopy = self;
   v11 = lCopy;
   v12 = infoCopy;
   v13 = activityCopy;
-  v14 = MEMORY[0x23EE9A9D0](v16);
-  if (isRunningOnMainQueue())
+  v14 = MEMORY[0x23EE9A9D0](v17);
+  v15 = isRunningOnMainQueue();
+  if (v15)
   {
     v14[2](v14);
   }
 
   else
   {
-    v15 = wk_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = wk_default_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [WKInterfaceController updateUserActivity:userInfo:webpageURL:];
     }
@@ -948,28 +945,29 @@ void __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke(uint
 
 void __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) length] && (*(a1 + 40) || *(a1 + 48)))
+  v2 = [*(a1 + 32) length];
+  if (v2 && (*(a1 + 40) || *(a1 + 48)))
   {
-    v7 = [*(a1 + 32) copy];
-    v2 = [*(a1 + 40) copy];
-    v3 = [*(a1 + 48) copy];
-    [SPRemoteInterface updateUserActivity:v7 userInfo:v2 webpageURL:v3 interfaceController:*(a1 + 56)];
+    v8 = [*(a1 + 32) copy];
+    v3 = [*(a1 + 40) copy];
+    v4 = [*(a1 + 48) copy];
+    [SPRemoteInterface updateUserActivity:v8 userInfo:v3 webpageURL:v4 interfaceController:*(a1 + 56)];
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = wk_default_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    if (v4)
+    v5 = *(a1 + 32);
+    v6 = wk_default_log(v2);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
         __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke_cold_1();
       }
     }
 
-    else if (v6)
+    else if (v7)
     {
       __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke_cold_2();
     }
@@ -978,11 +976,10 @@ void __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_
 
 - (void)invalidateUserActivity
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (CGRect)contentFrame
@@ -1000,200 +997,169 @@ void __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_
 
 - (void)setTitle:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)pushControllerWithName:context:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 + (void)reloadRootControllersWithNames:contexts:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __65__WKInterfaceController_reloadRootControllersWithNames_contexts___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentControllerWithName:context:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)presentControllerWithNames:contexts:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)presentTextInputControllerWithSuggestions:allowedInputMode:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __95__WKInterfaceController_presentTextInputControllerWithSuggestions_allowedInputMode_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentTextInputControllerWithSuggestionsForLanguage:allowedInputMode:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __106__WKInterfaceController_presentTextInputControllerWithSuggestionsForLanguage_allowedInputMode_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentAddPassesControllerWithPasses:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 - (void)addMenuItemWithImage:title:action:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __59__WKInterfaceController_addMenuItemWithImage_title_action___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMenuItemWithImageNamed:title:action:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __64__WKInterfaceController_addMenuItemWithImageNamed_title_action___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMenuItemWithItemIcon:title:action:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __62__WKInterfaceController_addMenuItemWithItemIcon_title_action___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUserActivity:userInfo:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __53__WKInterfaceController_updateUserActivity_userInfo___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUserActivity:userInfo:webpageURL:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: %{public}s: called from queue other than main. This is not supported and may fail in the future.", v2, v3, v4, v5, v6);
 }
 
 void __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WKInterfaceController_updateUserActivity_userInfo_webpageURL___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

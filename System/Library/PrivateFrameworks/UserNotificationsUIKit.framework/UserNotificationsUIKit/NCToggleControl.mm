@@ -53,7 +53,7 @@
   textCopy = text;
   v6 = objc_msgSendSuper2(&v14, sel_dismissControlWithMaterialRecipe_, recipe);
   v6[67] = 1;
-  v7 = NCUserNotificationsUIKitFrameworkBundle();
+  v7 = NCUserNotificationsUIKitFrameworkBundle(v6);
   v8 = [v7 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR" value:&stru_282FE84F8 table:{0, v14.receiver, v14.super_class}];
   [v6 setTitle:v8];
 
@@ -92,8 +92,7 @@
   [v13 scale];
   v16 = [v15 imageWithCGImage:cGImage scale:orientation orientation:?];
 
-  [v9 setGlyph:v16];
-  v17 = NCUserNotificationsUIKitFrameworkBundle();
+  v17 = NCUserNotificationsUIKitFrameworkBundle([v9 setGlyph:v16]);
   v18 = [v17 localizedStringForKey:@"NOTIFICATION_LIST_SHOW_LESS" value:&stru_282FE84F8 table:0];
   [v9 setTitle:v18];
 
@@ -232,9 +231,9 @@
 
 - (void)layoutSubviews
 {
-  v58.receiver = self;
-  v58.super_class = NCToggleControl;
-  [(PLGlyphControl *)&v58 layoutSubviews];
+  v60.receiver = self;
+  v60.super_class = NCToggleControl;
+  [(PLGlyphControl *)&v60 layoutSubviews];
   expanded = self->_expanded;
   _shouldReverseLayoutDirection = [(NCToggleControl *)self _shouldReverseLayoutDirection];
   _isInRetargetableAnimationBlock = [MEMORY[0x277D75D18] _isInRetargetableAnimationBlock];
@@ -251,7 +250,7 @@
   v21 = v20;
   v23 = v22;
   v24 = v13;
-  v57 = v11;
+  v59 = v11;
   v25 = v11;
   v26 = v19;
   v27 = v7;
@@ -259,31 +258,31 @@
   if (_glyphView)
   {
     [(NCToggleControl *)self _effectiveGlyphSize];
-    BSRectWithSize();
-    v49 = _NCMainScreenScale();
+    v28 = BSRectWithSize();
+    v51 = _NCMainScreenScale(v28, v29);
     UIRectCenteredIntegralRectScale();
-    v28 = [_glyphView setFrame:*&v49];
+    v30 = [_glyphView setFrame:*&v51];
     if (!self->_glyphAlwaysVisible)
     {
-      v29 = 1.0;
+      v31 = 1.0;
       if (expanded)
       {
-        v29 = 0.0;
+        v31 = 0.0;
       }
 
       if (_isInRetargetableAnimationBlock)
       {
-        __33__NCToggleControl_layoutSubviews__block_invoke(v29, 1.0, v28, _glyphView);
+        __33__NCToggleControl_layoutSubviews__block_invoke(v31, 1.0, v30, _glyphView);
       }
 
       else
       {
-        [_glyphView setAlpha:v29];
+        [_glyphView setAlpha:v31];
       }
     }
 
     v24 = v13;
-    v25 = v57;
+    v25 = v59;
     v19 = rect;
     v26 = rect;
     v27 = v7;
@@ -296,86 +295,86 @@
     }
   }
 
-  v55 = v26;
-  v56 = v25;
+  v57 = v26;
+  v58 = v25;
   titleLabel = self->_titleLabel;
   if (titleLabel)
   {
-    v51 = v24;
-    v52 = v18;
-    v53 = v16;
+    v53 = v24;
+    v54 = v18;
+    v55 = v16;
     if (self->_glyphAlwaysVisible)
     {
-      v31 = self->_anchorEdge == 0;
-      [(UILabel *)titleLabel sizeThatFits:v57, v13];
+      v33 = self->_anchorEdge == 0;
+      [(UILabel *)titleLabel sizeThatFits:v59, v13];
       BSRectWithSize();
       UIRectCenteredIntegralRect();
-      v34 = v33;
-      v35 = v13;
-      v37 = v36;
+      v36 = v35;
+      v37 = v13;
       v39 = v38;
-      if ((_shouldReverseLayoutDirection ^ v31))
+      v41 = v40;
+      if ((_shouldReverseLayoutDirection ^ v33))
       {
-        v50 = v32;
-        v59.origin.x = v7;
-        v59.origin.y = rect;
-        v59.size.width = v57;
-        v59.size.height = v35;
-        Width = CGRectGetWidth(v59);
+        v52 = v34;
+        v61.origin.x = v7;
+        v61.origin.y = rect;
+        v61.size.width = v59;
+        v61.size.height = v37;
+        Width = CGRectGetWidth(v61);
         [(NCToggleControl *)self _effectiveLeadingTrailingPadding];
-        v42 = Width - v41;
-        v60.origin.x = v50;
-        v60.origin.y = v34;
-        v60.size.width = v37;
-        v60.size.height = v39;
-        v7 = v42 - CGRectGetWidth(v60);
+        v44 = Width - v43;
+        v62.origin.x = v52;
+        v62.origin.y = v36;
+        v62.size.width = v39;
+        v62.size.height = v41;
+        v7 = v44 - CGRectGetWidth(v62);
       }
 
       else
       {
         [(NCToggleControl *)self _effectiveLeadingTrailingPadding];
-        v7 = v43;
+        v7 = v45;
       }
     }
 
     else
     {
-      v34 = v19;
-      v39 = v13;
-      v37 = v57;
+      v36 = v19;
+      v41 = v13;
+      v39 = v59;
     }
 
-    [(UILabel *)self->_titleLabel setFrame:v7, v34, v37, v39];
+    [(UILabel *)self->_titleLabel setFrame:v7, v36, v39, v41];
     if (expanded)
     {
-      v44 = 1.0;
+      v46 = 1.0;
     }
 
     else
     {
-      v44 = 0.0;
+      v46 = 0.0;
     }
 
-    v45 = self->_titleLabel;
+    v47 = self->_titleLabel;
     if (_isInRetargetableAnimationBlock)
     {
       text = [(UILabel *)self->_titleLabel text];
-      v47 = [text length];
-      __33__NCToggleControl_layoutSubviews__block_invoke(v44, v47, v47, v45);
+      v49 = [text length];
+      __33__NCToggleControl_layoutSubviews__block_invoke(v46, v49, v49, v47);
     }
 
     else
     {
-      [(UILabel *)self->_titleLabel setAlpha:v44];
+      [(UILabel *)self->_titleLabel setAlpha:v46];
     }
 
-    v18 = v52;
-    v16 = v53;
-    v24 = v51;
+    v18 = v54;
+    v16 = v55;
+    v24 = v53;
   }
 
   _backgroundMaterialView = [(PLGlyphControl *)self _backgroundMaterialView];
-  [_backgroundMaterialView setFrame:{v27, v55, v56, v24}];
+  [_backgroundMaterialView setFrame:{v27, v57, v58, v24}];
 
   [(NCClickInteractionPresenter *)self->_previewInteractionPlatterPresenter setSourceViewVisibleRect:v16, v18, v21, v23];
 }
@@ -939,16 +938,16 @@ LABEL_5:
   }
 
 LABEL_20:
-  [(NCToggleControl *)self _effectiveHeight];
-  _NCMainScreenScale();
+  _effectiveHeight = [(NCToggleControl *)self _effectiveHeight];
+  _NCMainScreenScale(_effectiveHeight, v13);
   UISizeRoundToScale();
-  v13 = v12;
   v15 = v14;
+  v17 = v16;
 
-  v16 = v13;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  v18 = v15;
+  v19 = v17;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 

@@ -29,9 +29,9 @@
 - (NTKMargaritaBackgroundView)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v25.receiver = self;
-  v25.super_class = NTKMargaritaBackgroundView;
-  v6 = [(NTKMargaritaBackgroundView *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = NTKMargaritaBackgroundView;
+  v6 = [(NTKMargaritaBackgroundView *)&v26 init];
   v7 = v6;
   if (v6)
   {
@@ -59,10 +59,10 @@
     stripeContainerLayer = v7->_stripeContainerLayer;
     v7->_stripeContainerLayer = v13;
 
-    [(CALayer *)v7->_stripeContainerLayer setMasksToBounds:1];
-    v15 = v7->_stripeContainerLayer;
-    v16 = sub_73A8();
-    [(CALayer *)v15 setActions:v16];
+    v15 = [(CALayer *)v7->_stripeContainerLayer setMasksToBounds:1];
+    v16 = v7->_stripeContainerLayer;
+    v17 = sub_73A8(v15);
+    [(CALayer *)v16 setActions:v17];
 
     layer = [(NTKMargaritaBackgroundView *)v7 layer];
     [layer addSublayer:v7->_stripeContainerLayer];
@@ -78,11 +78,11 @@
     [layer4 setMasksToBounds:1];
 
     layer5 = [(NTKMargaritaBackgroundView *)v7 layer];
-    v22 = sub_73A8();
-    [layer5 setActions:v22];
+    v23 = sub_73A8(layer5);
+    [layer5 setActions:v23];
 
     [(NTKMargaritaBackgroundView *)v7 _recreateStripeLayers];
-    v23 = v7;
+    v24 = v7;
   }
 
   return v7;

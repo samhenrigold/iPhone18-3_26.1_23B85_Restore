@@ -159,15 +159,15 @@
 - (id)connectionMediaTypes
 {
   v2 = [MEMORY[0x1E695DF70] arrayWithObjects:{*MEMORY[0x1E6987608], *MEMORY[0x1E69875A0], 0}];
-  if (AVMediaTypeMetadataObjectAndAVMediaTypeMetadataAreDefined())
+  if (AVMediaTypeMetadataObjectAndAVMediaTypeMetadataAreDefined(v2, v3))
   {
     [v2 addObject:*MEMORY[0x1E69875D0]];
   }
 
   [v2 addObject:*MEMORY[0x1E69875C0]];
-  v3 = [v2 copy];
+  v4 = [v2 copy];
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)canAddConnection:(id)connection failureReason:(id *)reason
@@ -627,9 +627,9 @@ LABEL_17:
       liveConnections = [(AVCaptureOutput *)self liveConnections];
       if ([liveConnections count])
       {
-        v22 = 0;
+        v23 = 0;
         v8 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
-        if (!v8 || (v9 = v8, -[AVCaptureMovieFileOutput outputSizeForSourceFormat:](self, "outputSizeForSourceFormat:", [-[AVCaptureConnection sourceDevice](v8 "sourceDevice")]), (AVCaptureMovieFileURLIsValidForConnection(v9, v10, v11, l, &v22) & 1) != 0))
+        if (!v8 || (v9 = v8, -[AVCaptureMovieFileOutput outputSizeForSourceFormat:](self, "outputSizeForSourceFormat:", [-[AVCaptureConnection sourceDevice](v8 "sourceDevice")]), (AVCaptureMovieFileURLIsValidForConnection(v9, l, &v23, v10, v11) & 1) != 0))
         {
           if (([l isEqual:{-[AVCaptureMovieFileOutput outputFileURL](self, "outputFileURL")}] & 1) == 0)
           {
@@ -678,7 +678,7 @@ LABEL_17:
   v19 = v16;
 LABEL_18:
   v20 = [v18 exceptionWithName:v19 reason:v17 userInfo:{0, lCopy}];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v20, v21))
   {
     objc_exception_throw(v20);
   }
@@ -720,7 +720,7 @@ LABEL_5:
   }
 
   v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v8);
   }
@@ -829,7 +829,7 @@ LABEL_6:
   else
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -867,7 +867,7 @@ LABEL_7:
       v9 = *MEMORY[0x1E695D940];
 LABEL_8:
       v10 = [v8 exceptionWithName:v9 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v10, v11))
       {
         objc_exception_throw(v10);
       }
@@ -1000,7 +1000,7 @@ uint64_t __73__AVCaptureMovieFileOutput__propagateBravoSwitchingBehaviorWhenReco
 
     else
     {
-      v13 = [(NSDictionary *)outputSettings objectForKeyedSubscript:*MEMORY[0x1E6987CB0]];
+      v13 = objc_msgSend_objectForKeyedSubscript_(outputSettings);
       if (!v13 || [(NSArray *)[(AVCaptureMovieFileOutput *)self availableVideoCodecTypes] containsObject:v13])
       {
         if (outputSettings)
@@ -1024,8 +1024,7 @@ uint64_t __73__AVCaptureMovieFileOutput__propagateBravoSwitchingBehaviorWhenReco
         }
 
         self->_internal->videoCodec = v13;
-        outputSettingsDictionary = [(NSDictionary *)outputSettings outputSettingsDictionary];
-        self->_internal->videoCompressionProperties = [objc_msgSend(outputSettingsDictionary objectForKeyedSubscript:{*MEMORY[0x1E6987D30]), "copy"}];
+        self->_internal->videoCompressionProperties = [objc_msgSend_objectForKeyedSubscript_(-[NSDictionary outputSettingsDictionary](outputSettings "outputSettingsDictionary"))];
         return;
       }
 
@@ -1035,13 +1034,13 @@ uint64_t __73__AVCaptureMovieFileOutput__propagateBravoSwitchingBehaviorWhenReco
   }
 
 LABEL_19:
-  v16 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v15 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+  if (AVCaptureShouldThrowForAPIViolations(v15, v16))
   {
-    objc_exception_throw(v16);
+    objc_exception_throw(v15);
   }
 
-  NSLog(&cfstr_SuppressingExc.isa, v16);
+  NSLog(&cfstr_SuppressingExc.isa, v15);
 }
 
 - (NSDictionary)outputSettingsForConnection:(AVCaptureConnection *)connection
@@ -1049,7 +1048,7 @@ LABEL_19:
   if (![(NSArray *)[(AVCaptureOutput *)self connections] containsObject:connection])
   {
     v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v16, v17))
     {
       objc_exception_throw(v16);
     }
@@ -1080,16 +1079,16 @@ LABEL_19:
       }
 
       v13 = *MEMORY[0x1E6987DD0];
-      v25[0] = *MEMORY[0x1E6966130];
-      v26[0] = [MEMORY[0x1E696AD98] numberWithInt:MediaSubType];
-      v25[1] = *MEMORY[0x1E6966208];
-      v26[1] = [MEMORY[0x1E696AD98] numberWithInt:previewDimensions];
-      v25[2] = *MEMORY[0x1E69660B8];
+      v26[0] = *MEMORY[0x1E6966130];
+      v27[0] = [MEMORY[0x1E696AD98] numberWithInt:MediaSubType];
+      v26[1] = *MEMORY[0x1E6966208];
+      v27[1] = [MEMORY[0x1E696AD98] numberWithInt:previewDimensions];
+      v26[2] = *MEMORY[0x1E69660B8];
       v14 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(previewDimensions)];
-      v25[3] = *MEMORY[0x1E6987DC8];
-      v26[2] = v14;
-      v26[3] = v13;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
+      v26[3] = *MEMORY[0x1E6987DC8];
+      v27[2] = v14;
+      v27[3] = v13;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
     }
 
     else
@@ -1097,27 +1096,27 @@ LABEL_19:
       v15 = 0;
     }
 
-    LODWORD(v22) = -65536;
-    v17 = [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:connection sourceSettings:v15 videoCodecType:videoCodec fileType:*MEMORY[0x1E69874C0] isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v22];
+    LODWORD(v23) = -65536;
+    v18 = [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:connection sourceSettings:v15 videoCodecType:videoCodec fileType:*MEMORY[0x1E69874C0] isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v23];
     if (videoCodec)
     {
       videoCompressionProperties = self->_internal->videoCompressionProperties;
       if (videoCompressionProperties)
       {
-        v23 = *MEMORY[0x1E6987D30];
-        v24 = videoCompressionProperties;
-        v20 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v24, &v23, 1)}];
-        DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v17, 1uLL);
-        [DeepCopy mfo_addEntriesFromDictionaryWithRecursion:v20];
+        v24 = *MEMORY[0x1E6987D30];
+        v25 = videoCompressionProperties;
+        v21 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v25, &v24, 1)}];
+        DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v18, 1uLL);
+        [DeepCopy mfo_addEntriesFromDictionaryWithRecursion:v21];
         return DeepCopy;
       }
     }
 
-    return v17;
+    return v18;
   }
 
-  LODWORD(v22) = -65536;
-  return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:connection sourceSettings:0 videoCodecType:0 fileType:*MEMORY[0x1E69874C0] isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v22];
+  LODWORD(v23) = -65536;
+  return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:connection sourceSettings:0 videoCodecType:0 fileType:*MEMORY[0x1E69874C0] isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v23];
 }
 
 - (NSArray)metadata
@@ -1287,9 +1286,9 @@ uint64_t __40__AVCaptureMovieFileOutput_setMetadata___block_invoke(uint64_t resu
 
             else if (v6)
             {
-              v17 = self->_internal->connectionsThatRecordVideoOrientationAndMirroringChangesAsMetadataTrack;
+              v18 = self->_internal->connectionsThatRecordVideoOrientationAndMirroringChangesAsMetadataTrack;
 
-              [(NSMutableArray *)v17 addObject:connection];
+              [(NSMutableArray *)v18 addObject:connection];
             }
 
             return;
@@ -1297,14 +1296,14 @@ uint64_t __40__AVCaptureMovieFileOutput_setMetadata___block_invoke(uint64_t resu
 
           v14 = MEMORY[0x1E695DF30];
           v15 = *MEMORY[0x1E695D940];
-          v18 = connection;
+          v19 = connection;
         }
 
         else
         {
           v14 = MEMORY[0x1E695DF30];
           v15 = *MEMORY[0x1E695D940];
-          v18 = connection;
+          v19 = connection;
         }
       }
 
@@ -1312,7 +1311,7 @@ uint64_t __40__AVCaptureMovieFileOutput_setMetadata___block_invoke(uint64_t resu
       {
         v14 = MEMORY[0x1E695DF30];
         v15 = *MEMORY[0x1E695D940];
-        v18 = connection;
+        v19 = connection;
       }
     }
 
@@ -1320,7 +1319,7 @@ uint64_t __40__AVCaptureMovieFileOutput_setMetadata___block_invoke(uint64_t resu
     {
       v14 = MEMORY[0x1E695DF30];
       v15 = *MEMORY[0x1E695D940];
-      v18 = connection;
+      v19 = connection;
     }
 
     v11 = AVMethodExceptionReasonWithObjectAndSelector();
@@ -1337,8 +1336,8 @@ uint64_t __40__AVCaptureMovieFileOutput_setMetadata___block_invoke(uint64_t resu
     v13 = v10;
   }
 
-  v16 = [v12 exceptionWithName:v13 reason:v11 userInfo:{0, v18}];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v16 = [v12 exceptionWithName:v13 reason:v11 userInfo:{0, v19}];
+  if (AVCaptureShouldThrowForAPIViolations(v16, v17))
   {
     objc_exception_throw(v16);
   }
@@ -1348,23 +1347,81 @@ uint64_t __40__AVCaptureMovieFileOutput_setMetadata___block_invoke(uint64_t resu
 
 - (void)startRecordingMovieWithSettings:(id)settings delegate:(id)delegate
 {
-  v11 = 0;
-  if (!settings || !self || !-[NSArray containsObject:](-[AVCaptureMovieFileOutput availableVideoCodecTypes](self, "availableVideoCodecTypes"), "containsObject:", [settings videoCodecType]) || !objc_msgSend(settings, "movieFileURL") || !objc_msgSend(objc_msgSend(settings, "movieFileURL"), "isFileURL") || !delegate || (objc_opt_respondsToSelector() & 1) == 0)
+  v13 = 0;
+  if (!settings)
   {
-    goto LABEL_30;
+    v9 = @"Settings may not be nil";
+    goto LABEL_34;
   }
 
-  v7 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
+  if (!self)
+  {
+    v9 = @"Movie file output may not be nil";
+    goto LABEL_34;
+  }
+
+  if (!-[NSArray containsObject:](-[AVCaptureMovieFileOutput availableVideoCodecTypes](self, "availableVideoCodecTypes"), "containsObject:", [settings videoCodecType]))
+  {
+    v9 = @"videoCodecType must be present in self.availableVideoCodecs";
+    goto LABEL_34;
+  }
+
+  if (![settings movieFileURL])
+  {
+    v9 = @"movieFileURL must not be nil";
+    goto LABEL_34;
+  }
+
+  if (![objc_msgSend(settings "movieFileURL")])
+  {
+    v9 = @"movieFileURL must be a file url";
+    goto LABEL_34;
+  }
+
+  if (!delegate)
+  {
+    v9 = @"Delegate may not be nil";
+    goto LABEL_34;
+  }
+
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    v9 = @"your delegate must respond to the selector captureOutput:didFinishWritingMovie:error:";
+    goto LABEL_34;
+  }
+
+  v8 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
   if ([settings isAutoSpatialOverCaptureEnabled])
   {
-    if (!v7 || ![-[AVCaptureConnection sourceDevice](v7 "sourceDevice")] || !objc_msgSend(settings, "spatialOverCaptureMovieFileURL") || (objc_msgSend(objc_msgSend(settings, "spatialOverCaptureMovieFileURL"), "isFileURL") & 1) == 0)
+    if (!v8)
     {
-      goto LABEL_30;
+      v9 = @"Movie file output must have a video connection in order to deliver spatial overcapture";
+      goto LABEL_34;
+    }
+
+    if (![-[AVCaptureConnection sourceDevice](v8 "sourceDevice")])
+    {
+      v9 = @"If you set autoSpatialOverCaptureEnabled to YES, the source device's spatialOverCaptureEnabled property must also be set to YES";
+      goto LABEL_34;
+    }
+
+    if (![settings spatialOverCaptureMovieFileURL])
+    {
+      v9 = @"spatialOverCaptureMovieFileURL must not be nil if autoSpatialOverCaptureEnabled is YES";
+      goto LABEL_34;
+    }
+
+    if (([objc_msgSend(settings "spatialOverCaptureMovieFileURL")] & 1) == 0)
+    {
+      v9 = @"spatialOverCaptureMovieFileURL must be a file url";
+LABEL_34:
+      [(AVCaptureMovieFileOutput *)&v13 startRecordingMovieWithSettings:a2 delegate:v9];
+      return;
     }
 
 LABEL_15:
-    -[AVCaptureMovieFileOutput outputSizeForSourceFormat:](self, "outputSizeForSourceFormat:", [-[AVCaptureConnection sourceDevice](v7 "sourceDevice")]);
-    if (!AVCaptureMovieFileURLIsValidForConnection(v7, v8, v9, [settings movieFileURL], &v11))
+    -[AVCaptureMovieFileOutput outputSizeForSourceFormat:](self, "outputSizeForSourceFormat:", [-[AVCaptureConnection sourceDevice](v8 "sourceDevice")]);
+    if (!AVCaptureMovieFileURLIsValidForConnection(v8, [settings movieFileURL], &v13, v10, v11))
     {
       goto LABEL_17;
     }
@@ -1372,7 +1429,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (v7)
+  if (v8)
   {
     goto LABEL_15;
   }
@@ -1380,18 +1437,18 @@ LABEL_15:
 LABEL_16:
   if (![-[AVCaptureOutput liveConnections](self "liveConnections")])
   {
-LABEL_30:
-    [AVCaptureMovieFileOutput startRecordingMovieWithSettings:delegate:];
-    return;
+    v9 = @"No active/enabled connections";
+    goto LABEL_34;
   }
 
 LABEL_17:
-  if (v11)
+  v9 = v13;
+  if (v13)
   {
-    goto LABEL_30;
+    goto LABEL_34;
   }
 
-  v10 = [AVMomentCaptureMovieFileOutputDelegateWrapper wrapperWithSettings:settings delegate:delegate connections:[(AVCaptureOutput *)self liveConnections]];
+  v12 = [AVMomentCaptureMovieFileOutputDelegateWrapper wrapperWithSettings:settings delegate:delegate connections:[(AVCaptureOutput *)self liveConnections]];
   if (!-[AVCaptureMovieFileOutput _totalNANDBandwidthAllowed:videoCodecType:](self, "_totalNANDBandwidthAllowed:videoCodecType:", [settings movieFileURL], objc_msgSend(settings, "videoCodecType")) || AVGestaltGetBoolAnswer(@"AVGQCaptureCheckIfFileAlreadyExistForMFO") && (objc_msgSend(objc_msgSend(MEMORY[0x1E696AC08], "defaultManager"), "fileExistsAtPath:", objc_msgSend(objc_msgSend(settings, "movieFileURL"), "path")) & 1) != 0)
   {
     [AVCaptureMovieFileOutput startRecordingToOutputFileURL:recordingDelegate:];
@@ -1399,14 +1456,14 @@ LABEL_17:
 
   else
   {
-    [(AVCaptureMovieFileOutput *)self _startRecording:v10];
+    [(AVCaptureMovieFileOutput *)self _startRecording:v12];
   }
 }
 
 - (id)_avErrorUserInfoDictionaryForError:(int)error wrapper:(id)wrapper payload:(id)payload
 {
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v10 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCC8]];
+  v10 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (v10)
   {
     [dictionary setObject:v10 forKeyedSubscript:*MEMORY[0x1E6987420]];
@@ -1417,7 +1474,7 @@ LABEL_17:
   {
     if (error == -16411)
     {
-      v15 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FA98]), "BOOLValue"}];
+      bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1429,7 +1486,7 @@ LABEL_17:
         wrapperCopy = 0;
       }
 
-      if (v15)
+      if (bOOLValue)
       {
         v17 = wrapperCopy == 0;
       }
@@ -1467,7 +1524,7 @@ LABEL_17:
       v14 = MEMORY[0x1E696B098];
       if (self)
       {
-        [(AVCaptureFileOutput *)self maxRecordedDuration];
+        objc_msgSend_maxRecordedDuration(self);
       }
 
       else
@@ -1656,7 +1713,7 @@ LABEL_11:
   }
 }
 
-uint64_t __53__AVCaptureMovieFileOutput__cleanupDelegateWrappers___block_invoke(uint64_t a1)
+void *__53__AVCaptureMovieFileOutput__cleanupDelegateWrappers___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E698FC40];
   v14 = &unk_1F1CEA040;
@@ -1681,7 +1738,8 @@ uint64_t __53__AVCaptureMovieFileOutput__cleanupDelegateWrappers___block_invoke(
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 40) handleDidStopRecordingNotificationForWrapper:*(*(&v9 + 1) + 8 * v7++) withPayload:v2 demoof:1 addMetadata:1];
+        [*(a1 + 40) handleDidStopRecordingNotificationForWrapper:*(*(&v9 + 1) + 8 * v7) withPayload:v2 demoof:1 addMetadata:1];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -1780,10 +1838,10 @@ LABEL_9:
 uint64_t __86__AVCaptureMovieFileOutput_handleDidStartRecordingNotificationForWrapper_withPayload___block_invoke(id *a1, void *a2)
 {
   [a1[4] setRecording:1];
-  v4 = [objc_msgSend(a1[5] objectForKeyedSubscript:{*MEMORY[0x1E698FA80]), "intValue"}];
-  v5 = [objc_msgSend(a1[5] objectForKeyedSubscript:{*MEMORY[0x1E698FA78]), "intValue"}];
-  v6 = [objc_msgSend(a1[5] objectForKeyedSubscript:{*MEMORY[0x1E698FA90]), "BOOLValue"}];
-  if ([objc_msgSend(a1[5] objectForKeyedSubscript:{*MEMORY[0x1E698FFC0]), "BOOLValue"}])
+  v4 = [objc_msgSend_objectForKeyedSubscript_(a1[5]) intValue];
+  v5 = [objc_msgSend_objectForKeyedSubscript_(a1[5]) intValue];
+  v6 = [objc_msgSend_objectForKeyedSubscript_(a1[5]) BOOLValue];
+  if ([objc_msgSend_objectForKeyedSubscript_(a1[5]) BOOLValue])
   {
     v7 = [a1[4] spatialOverCaptureMovieFileURL];
   }
@@ -1831,13 +1889,14 @@ uint64_t __86__AVCaptureMovieFileOutput_handleDidStartRecordingNotificationForWr
   objc_sync_exit(v4);
   if (objc_opt_respondsToSelector())
   {
-    memset(&v15, 0, sizeof(v15));
-    CMTimeMakeFromDictionary(&v15, [a1[6] objectForKeyedSubscript:*MEMORY[0x1E698FA88]]);
-    v7 = a1[5];
-    v8 = [a1[4] outputFileURL];
-    v9 = [a1[4] connections];
-    v14 = v15;
-    return [a2 captureOutput:v7 didStartRecordingToOutputFileAtURL:v8 startPTS:&v14 fromConnections:v9];
+    memset(&v16, 0, sizeof(v16));
+    v7 = objc_msgSend_objectForKeyedSubscript_(a1[6]);
+    CMTimeMakeFromDictionary(&v16, v7);
+    v8 = a1[5];
+    v9 = [a1[4] outputFileURL];
+    v10 = [a1[4] connections];
+    v15 = v16;
+    return [a2 captureOutput:v8 didStartRecordingToOutputFileAtURL:v9 startPTS:&v15 fromConnections:v10];
   }
 
   else
@@ -1845,11 +1904,11 @@ uint64_t __86__AVCaptureMovieFileOutput_handleDidStartRecordingNotificationForWr
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v11 = a1[5];
-      v12 = [a1[4] outputFileURL];
-      v13 = [a1[4] connections];
+      v12 = a1[5];
+      v13 = [a1[4] outputFileURL];
+      v14 = [a1[4] connections];
 
-      return [a2 captureOutput:v11 didStartRecordingToOutputFileAtURL:v12 fromConnections:v13];
+      return [a2 captureOutput:v12 didStartRecordingToOutputFileAtURL:v13 fromConnections:v14];
     }
   }
 
@@ -1870,9 +1929,9 @@ uint64_t __86__AVCaptureMovieFileOutput_handleDidStartRecordingNotificationForWr
 
   else
   {
-    v12 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-    v13 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCB8]];
-    v14 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCB0]];
+    intValue = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+    v13 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v14 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v14)
     {
       v15 = v13 == 0;
@@ -1914,9 +1973,9 @@ uint64_t __86__AVCaptureMovieFileOutput_handleDidStartRecordingNotificationForWr
       }
     }
 
-    if (v12)
+    if (intValue)
     {
-      if (v12 == -15439)
+      if (intValue == -15439)
       {
         v23 = *MEMORY[0x1E696A278];
         v24 = @"AWB needs to be locked for this configuration. Please set AVCaptureWhiteBalanceModeLocked on AVCaptureDevice.";
@@ -1926,7 +1985,7 @@ uint64_t __86__AVCaptureMovieFileOutput_handleDidStartRecordingNotificationForWr
 
       else
       {
-        [(AVCaptureMovieFileOutput *)self _avErrorUserInfoDictionaryForError:v12 wrapper:wrapper payload:payload];
+        [(AVCaptureMovieFileOutput *)self _avErrorUserInfoDictionaryForError:intValue wrapper:wrapper payload:payload];
         v20 = AVLocalizedErrorWithUnderlyingOSStatus();
       }
 
@@ -1963,7 +2022,7 @@ uint64_t __104__AVCaptureMovieFileOutput_handleDidStopRecordingNotificationForWr
   objc_sync_exit(v4);
   if (objc_opt_respondsToSelector())
   {
-    v5 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x1E698FC00]];
+    v5 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48));
     if (v5)
     {
       v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:v5];
@@ -2003,10 +2062,10 @@ uint64_t __104__AVCaptureMovieFileOutput_handleDidStopRecordingNotificationForWr
 {
   demoofCopy = demoof;
   payloadCopy = payload;
-  v10 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  v11 = [objc_msgSend(payloadCopy objectForKeyedSubscript:{*MEMORY[0x1E698FA98]), "BOOLValue"}];
-  v12 = v11;
-  if (v11)
+  v10 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payloadCopy) BOOLValue];
+  v12 = bOOLValue;
+  if (bOOLValue)
   {
     spatialOverCaptureMovieFileURL = [wrapper spatialOverCaptureMovieFileURL];
   }
@@ -2076,8 +2135,8 @@ uint64_t __117__AVCaptureMovieFileOutput_handleDidStopRecordingNotificationForMo
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v8 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x1E698FCB0]];
-    v9 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x1E698FC00]];
+    v8 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48));
+    v9 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48));
     if (v9)
     {
       v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:v9];
@@ -2119,7 +2178,7 @@ uint64_t __117__AVCaptureMovieFileOutput_handleDidStopRecordingNotificationForMo
       }
     }
 
-    v15 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x1E698FAA0]];
+    v15 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48));
     if (v15)
     {
       memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
@@ -2214,7 +2273,7 @@ uint64_t __87__AVCaptureMovieFileOutput_handleDidResumeRecordingNotificationForW
 
 - (void)handleDidDropFrameWhileRecordingNotificationForWrapper:(id)wrapper withPayload:(id)payload
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
   if (v7)
   {
     [(AVCaptureMovieFileOutput *)self _avErrorUserInfoDictionaryForError:v7 wrapper:wrapper payload:payload];
@@ -2244,14 +2303,14 @@ uint64_t __95__AVCaptureMovieFileOutput_handleDidDropFrameWhileRecordingNotifica
   {
     if (dword_1ED806920)
     {
-      v9 = 0;
-      v8 = 0;
+      v7 = 0;
+      v6 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    return [a2 captureOutput:*(a1 + 32) didDropFrameWhileRecordingToOutputFileAtURL:objc_msgSend(*(a1 + 48) fromConnections:"outputFileURL" error:{v6, v7), objc_msgSend(*(a1 + 48), "connections"), *(a1 + 40)}];
+    return [a2 captureOutput:*(a1 + 32) didDropFrameWhileRecordingToOutputFileAtURL:objc_msgSend(*(a1 + 48) fromConnections:"outputFileURL") error:{objc_msgSend(*(a1 + 48), "connections"), *(a1 + 40)}];
   }
 
   return result;
@@ -2261,22 +2320,22 @@ uint64_t __95__AVCaptureMovieFileOutput_handleDidDropFrameWhileRecordingNotifica
 {
   v7 = *MEMORY[0x1E698FD48];
   v8 = [notification isEqual:*MEMORY[0x1E698FD48]];
-  if (([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}] & 1) != 0 || v8)
+  if (([objc_msgSend_objectForKeyedSubscript_(payload) isEqual:{-[AVCaptureOutput sinkID](self, "sinkID")}] & 1) != 0 || v8)
   {
-    v9 = -[AVCaptureMovieFileOutput _delegateWrapperForSettingsID:](self, "_delegateWrapperForSettingsID:", [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCE0]), "longLongValue"}]);
+    v9 = -[AVCaptureMovieFileOutput _delegateWrapperForSettingsID:](self, "_delegateWrapperForSettingsID:", [objc_msgSend_objectForKeyedSubscript_(payload) longLongValue]);
     if ((v9 != 0) | v8 & 1)
     {
       v10 = v9;
       if (dword_1ED806920)
       {
-        v15 = 0;
-        v14 = 0;
+        v13 = 0;
+        v12 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if ([notification isEqualToString:{*MEMORY[0x1E698FAC0], v12, v13}])
+      if ([notification isEqualToString:*MEMORY[0x1E698FAC0]])
       {
         [(AVCaptureMovieFileOutput *)self handleDidStartRecordingNotificationForWrapper:v10 withPayload:payload];
       }
@@ -2411,7 +2470,7 @@ uint64_t __95__AVCaptureMovieFileOutput_handleDidDropFrameWhileRecordingNotifica
         [v9 setOutputURL:{objc_msgSend(recording, "outputFileURL")}];
         v10 = *MEMORY[0x1E6987468];
         [v9 setOutputFileType:*MEMORY[0x1E6987468]];
-        [(AVCaptureFileOutput *)self maxRecordedDuration];
+        objc_msgSend_maxRecordedDuration(self);
         *buf = v58;
         *&buf[16] = v59;
         [v9 setMaxDuration:buf];
@@ -2434,13 +2493,13 @@ uint64_t __95__AVCaptureMovieFileOutput_handleDidDropFrameWhileRecordingNotifica
       [v9 setOutputURL:{objc_msgSend(recording, "outputFileURL")}];
       v42 = *MEMORY[0x1E69874C0];
       [v9 setOutputFileType:?];
-      [(AVCaptureFileOutput *)self maxRecordedDuration];
+      objc_msgSend_maxRecordedDuration(self);
       *buf = v56;
       *&buf[16] = v57;
       [v9 setMaxDuration:buf];
       [v9 setMaxFileSize:{-[AVCaptureFileOutput maxRecordedFileSize](self, "maxRecordedFileSize")}];
       [v9 setMinFreeDiskSpaceLimit:{-[AVCaptureFileOutput minFreeDiskSpaceLimit](self, "minFreeDiskSpaceLimit")}];
-      [(AVCaptureMovieFileOutput *)self movieFragmentInterval];
+      objc_msgSend_movieFragmentInterval(self);
       *buf = v54;
       *&buf[16] = v55;
       [v9 setMovieFragmentInterval:buf];
@@ -2969,18 +3028,18 @@ LABEL_14:
   enabledCopy = enabled;
   if ([(AVCaptureMovieFileOutput *)self isSpatialVideoCaptureSupported]|| !enabledCopy)
   {
-    v6 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
-    if (v6)
+    v7 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
+    if (v7)
     {
-      [-[AVCaptureConnection sourceDevice](v6 "sourceDevice")];
+      [-[AVCaptureConnection sourceDevice](v7 "sourceDevice")];
     }
 
     internal = self->_internal;
     objc_sync_enter(internal);
-    v8 = self->_internal;
-    if (v8->spatialVideoCaptureEnabled != enabledCopy)
+    v9 = self->_internal;
+    if (v9->spatialVideoCaptureEnabled != enabledCopy)
     {
-      v8->spatialVideoCaptureEnabled = enabledCopy;
+      v9->spatialVideoCaptureEnabled = enabledCopy;
       [(AVCaptureOutput *)self bumpChangeSeed];
     }
 
@@ -2990,7 +3049,7 @@ LABEL_14:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -3047,7 +3106,7 @@ LABEL_14:
   }
 
   v7 = [v5 exceptionWithName:v6 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v7, v8))
   {
     objc_exception_throw(v7);
   }
@@ -3119,7 +3178,7 @@ LABEL_14:
   }
 
   v11 = [v9 exceptionWithName:v10 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v11, v12))
   {
     objc_exception_throw(v11);
   }
@@ -3256,7 +3315,7 @@ LABEL_9:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -3284,10 +3343,10 @@ LABEL_9:
   {
     internal = self->_internal;
     objc_sync_enter(internal);
-    v7 = self->_internal;
-    if (v7->trueVideoCaptureEnabled != enabledCopy)
+    v8 = self->_internal;
+    if (v8->trueVideoCaptureEnabled != enabledCopy)
     {
-      v7->trueVideoCaptureEnabled = enabledCopy;
+      v8->trueVideoCaptureEnabled = enabledCopy;
       [(AVCaptureOutput *)self bumpChangeSeed];
     }
 
@@ -3297,7 +3356,7 @@ LABEL_9:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -3365,15 +3424,15 @@ LABEL_9:
   return OUTLINED_FUNCTION_0_3([MEMORY[0x1E695DF20] dictionaryWithObjects:v0 forKeys:v1 count:1]);
 }
 
-- (void)startRecordingMovieWithSettings:delegate:.cold.2()
+- (void)startRecordingMovieWithSettings:(uint64_t)a3 delegate:(uint64_t)a4 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
-    objc_exception_throw(v0);
+    objc_exception_throw(v4);
   }
 
-  NSLog(&cfstr_SuppressingExc.isa, v0);
+  NSLog(&cfstr_SuppressingExc.isa, v4);
 }
 
 @end

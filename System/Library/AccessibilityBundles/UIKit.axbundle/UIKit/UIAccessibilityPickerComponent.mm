@@ -684,7 +684,7 @@ double __68__UIAccessibilityPickerComponent__accessibilityDateTimePickerValues__
   return result;
 }
 
-uint64_t __68__UIAccessibilityPickerComponent__accessibilityDateTimePickerValues__block_invoke_349(uint64_t a1)
+void *__68__UIAccessibilityPickerComponent__accessibilityDateTimePickerValues__block_invoke_349(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfRowsForCalendarUnit:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1217,7 +1217,7 @@ __n128 __55__UIAccessibilityPickerComponent_accessibilityRowRange__block_invoke(
   return result;
 }
 
-uint64_t __55__UIAccessibilityPickerComponent_accessibilityRowRange__block_invoke_2(uint64_t a1)
+void *__55__UIAccessibilityPickerComponent_accessibilityRowRange__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfRowsForCalendarUnit:32];
   *(*(*(a1 + 40) + 8) + 24) = result;

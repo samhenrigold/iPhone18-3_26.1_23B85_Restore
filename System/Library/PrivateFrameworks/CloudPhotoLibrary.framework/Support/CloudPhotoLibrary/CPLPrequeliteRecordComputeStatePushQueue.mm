@@ -353,28 +353,28 @@ LABEL_14:
     mainTable = [(CPLPrequeliteStorage *)self mainTable];
     identifier = [identifierCopy identifier];
     v24 = identifier;
-    v41 = fingerprintCopy;
+    v42 = fingerprintCopy;
     if (fingerprintCopy)
     {
-      v38 = v18;
-      v39 = fingerprintCopy;
-      v35 = v17;
-      v37 = identifier;
-      v34 = mainTable;
+      v39 = v18;
+      v40 = fingerprintCopy;
+      v36 = v17;
+      v38 = identifier;
+      v35 = mainTable;
       v25 = @"SELECT fileStorageIdentifier FROM %@ WHERE scopeIndex = %ld AND localIdentifier = %@ AND version = %@ AND adjustmentFingerprint = %@";
     }
 
     else
     {
-      v37 = identifier;
-      v38 = v18;
-      v34 = mainTable;
-      v35 = v17;
+      v38 = identifier;
+      v39 = v18;
+      v35 = mainTable;
+      v36 = v17;
       v25 = @"SELECT fileStorageIdentifier FROM %@ WHERE scopeIndex = %ld AND localIdentifier = %@ AND version = %@ AND adjustmentFingerprint IS NULL";
     }
 
     v26 = pqlConnection;
-    v27 = [pqlConnection cplFetchObjectOfClass:v21 sql:{v25, v34, v35, v37, v38, v39}];
+    v27 = [pqlConnection cplFetchObjectOfClass:v21 sql:{v25, v35, v36, v38, v39, v40}];
 
     versionCopy = v18;
     if (v27)
@@ -382,16 +382,16 @@ LABEL_14:
       *storageIdentifierCopy = sub_100171CB8(v27);
       mainTable2 = [(CPLPrequeliteStorage *)self mainTable];
       identifier2 = [identifierCopy identifier];
-      v36 = v17;
-      v30 = v26;
-      v16 = [v26 cplExecute:{@"DELETE FROM %@ WHERE scopeIndex = %ld AND localIdentifier = %@", mainTable2, v36, identifier2}];
+      v37 = v17;
+      v31 = v26;
+      v16 = [v26 cplExecute:{@"DELETE FROM %@ WHERE scopeIndex = %ld AND localIdentifier = %@", mainTable2, v37, identifier2}];
 
       if (error)
       {
-        fingerprintCopy = v41;
+        fingerprintCopy = v42;
         if ((v16 & 1) == 0)
         {
-          [v30 lastError];
+          [v31 lastError];
           *error = v16 = 0;
         }
 
@@ -403,21 +403,21 @@ LABEL_14:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v31 = sub_1001718C0();
-        v30 = v26;
-        fingerprintCopy = v41;
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v32 = sub_1001718C0(v28);
+        v31 = v26;
+        fingerprintCopy = v42;
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           mainTable3 = [(CPLPrequeliteStorage *)self mainTable];
           *buf = 138413058;
-          v43 = identifierCopy;
-          v44 = 2112;
-          v45 = v18;
-          v46 = 2112;
-          v47 = v41;
-          v48 = 2112;
-          v49 = mainTable3;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "No payload found with localScopedIdentifier: %@ version: %@ and adjustmentFingerprint: %@ to be removed from %@", buf, 0x2Au);
+          v44 = identifierCopy;
+          v45 = 2112;
+          v46 = v18;
+          v47 = 2112;
+          v48 = v42;
+          v49 = 2112;
+          v50 = mainTable3;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "No payload found with localScopedIdentifier: %@ version: %@ and adjustmentFingerprint: %@ to be removed from %@", buf, 0x2Au);
         }
 
         v16 = 1;
@@ -425,10 +425,10 @@ LABEL_14:
       }
 
       v16 = 1;
-      v30 = v26;
+      v31 = v26;
     }
 
-    fingerprintCopy = v41;
+    fingerprintCopy = v42;
 LABEL_18:
 
     goto LABEL_19;

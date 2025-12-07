@@ -33,11 +33,11 @@
 
   [(OBImage *)v14 setName:namedCopy];
   [(OBImage *)v14 setBundle:bundleCopy];
-  -[OBImage setStyle:](v14, "setStyle:", [self rootInterfaceStyle]);
+  v15 = -[OBImage setStyle:](v14, "setStyle:", [self rootInterfaceStyle]);
   if (!v14)
   {
-    v15 = _OBLoggingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _OBLoggingFacility(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v18 = [bundleCopy description];
       *buf = 138413058;
@@ -48,11 +48,9 @@
       v25 = styleCopy;
       v26 = 2112;
       v27 = v11;
-      _os_log_error_impl(&dword_1B4FB6000, v15, OS_LOG_TYPE_ERROR, "OBImage unable to create image \ninputs: [name: %@ \nbundle: %@\ncomputeCoronaName: %i\ncomputedName:%@\n]", buf, 0x26u);
+      _os_log_error_impl(&dword_1B4FB6000, v16, OS_LOG_TYPE_ERROR, "OBImage unable to create image \ninputs: [name: %@ \nbundle: %@\ncomputeCoronaName: %i\ncomputedName:%@\n]", buf, 0x26u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

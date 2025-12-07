@@ -267,12 +267,12 @@ void __27__AFUIBridgeClient_preheat__block_invoke(uint64_t a1)
 
 void __31__AFUIBridgeClient__connection__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v10 = "[AFUIBridgeClient _connection]_block_invoke";
+    v9 = "[AFUIBridgeClient _connection]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s UIBridge Connection Invalidated", buf, 0xCu);
   }
 
@@ -285,22 +285,20 @@ void __31__AFUIBridgeClient__connection__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __31__AFUIBridgeClient__connection__block_invoke_67;
     block[3] = &unk_1E7348A80;
-    objc_copyWeak(&v8, (a1 + 32));
+    objc_copyWeak(&v7, (a1 + 32));
     dispatch_async(v5, block);
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __31__AFUIBridgeClient__connection__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v10 = "[AFUIBridgeClient _connection]_block_invoke_2";
+    v9 = "[AFUIBridgeClient _connection]_block_invoke_2";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s UIBridge Connection Interrupted", buf, 0xCu);
   }
 
@@ -313,12 +311,10 @@ void __31__AFUIBridgeClient__connection__block_invoke_2(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __31__AFUIBridgeClient__connection__block_invoke_69;
     block[3] = &unk_1E7348A80;
-    objc_copyWeak(&v8, (a1 + 32));
+    objc_copyWeak(&v7, (a1 + 32));
     dispatch_async(v5, block);
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __31__AFUIBridgeClient__connection__block_invoke_69(uint64_t a1)

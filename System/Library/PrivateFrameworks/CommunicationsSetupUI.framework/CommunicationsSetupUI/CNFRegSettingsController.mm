@@ -13,6 +13,7 @@
 - (BOOL)captioningSupported;
 - (BOOL)deviceHWSupportsAlwaysFullBleed;
 - (BOOL)oppositeServiceTypeEnabled;
+- (BOOL)popToFirstRunControllerAnimated:(BOOL)animated;
 - (BOOL)refreshiMessageAccountFooterText:(BOOL)text;
 - (BOOL)shouldShowAlwaysFullBleedSpecifiers;
 - (BOOL)shouldShowBlocklistSettings;
@@ -29,6 +30,9 @@
 - (BOOL)shouldShowSharePlaySpecifiers;
 - (BOOL)shouldShowSharedNameAndPhotoSpecifiers;
 - (BOOL)shouldShowSiriSpecifiers;
+- (BOOL)showAccounts:(BOOL)accounts animated:(BOOL)animated;
+- (BOOL)showAliases:(BOOL)aliases animated:(BOOL)animated;
+- (BOOL)showCallerId:(BOOL)id animated:(BOOL)animated;
 - (CNFRegSettingsController)initWithNibName:(id)name bundle:(id)bundle;
 - (id)_appleIDAccounts;
 - (id)_localeChooserForAccount:(id)account;
@@ -93,11 +97,11 @@
 - (void)_showRemoveTravelPhoneAlertForAlias:(id)alias simIdentifier:(id)identifier;
 - (void)_showSignInController;
 - (void)_showViewAccountControllerForAccount:(id)account;
+- (void)_updateControllerStateAnimated:(BOOL)animated;
 - (void)_updateSwitch;
 - (void)_updateSwitchDelayed;
 - (void)_updateUnlocalizedBackendIdentifier;
 - (void)accountTappedWithSpecifier:(id)specifier;
-- (void)clearAccountCache;
 - (void)clearFooterFromSpecifier:(id)specifier;
 - (void)configureAccountFooterForGroupSpecifier:(id)specifier;
 - (void)configureSignOutForSpecifier:(id)specifier;
@@ -112,31 +116,67 @@
 - (void)goToCellularSettings:(id)settings;
 - (void)handleCallStatusChanged;
 - (void)openOnlineSafetyURL;
+- (void)refreshAccountsAnimated:(BOOL)animated;
 - (void)refreshAliasSpecifier:(id)specifier;
+- (void)refreshAliasesAnimated:(BOOL)animated;
 - (void)refreshAllAliasSpecifiers;
 - (void)refreshAllCallerIdAliasSpecifiers;
+- (void)refreshAlwaysFullBleedSettingsAnimated:(BOOL)animated;
+- (void)refreshBlocklistSettingsAnimated:(BOOL)animated;
+- (void)refreshCallerIdAliasesAnimated:(BOOL)animated;
 - (void)refreshCallerIdSpecifier:(id)specifier;
+- (void)refreshEnabledStateAnimated:(BOOL)animated;
+- (void)refreshFaceTimeCaptionsSettingsAnimated:(BOOL)animated;
+- (void)refreshFaceTimePhotosSettingsAnimated:(BOOL)animated;
+- (void)refreshFaceTimeSettingsAnimated:(BOOL)animated;
+- (void)refreshFaceTimeSettingsWithDelayAnimated:(BOOL)animated;
+- (void)refreshFaceTimeVPCSettingsAnimated:(BOOL)animated;
+- (void)refreshGFTProminenceSettingsAnimated:(BOOL)animated;
 - (void)refreshMDMRestrictionStatusWithCompletion:(BOOL)completion;
+- (void)refreshReceiveRelayCallsSettingsAnimated:(BOOL)animated;
+- (void)refreshSharePlaySettingsAnimated:(BOOL)animated;
+- (void)refreshSharedNameAndPhotoSettingsAnimated:(BOOL)animated;
 - (void)refreshTemporaryPhoneAnimated:(BOOL)animated;
+- (void)refreshTravelPhoneAnimated:(BOOL)animated;
 - (void)setAliasSelected:(id)selected;
 - (void)setAlwaysFullBleedEnabled:(id)enabled specifier:(id)specifier;
 - (void)setCallerId:(id)id;
 - (void)setFaceTimeCaptionsEnabled:(id)enabled specifier:(id)specifier;
+- (void)setFaceTimeEnabled:(id)enabled specifier:(id)specifier animated:(BOOL)animated;
 - (void)setFaceTimePhotosEnabled:(id)enabled specifier:(id)specifier;
 - (void)setFaceTimeVPCEnabled:(id)enabled specifier:(id)specifier;
 - (void)setGFTAudioProminenceEnabled:(id)enabled specifier:(id)specifier;
 - (void)setReceiveRelayedCallsEnabled:(id)enabled specifier:(id)specifier;
 - (void)setShowEnableSwitch:(BOOL)switch;
+- (void)showAllSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showAlwaysFullBleedSpecifiers:(BOOL)specifiers animated:(BOOL)animated;
+- (void)showBlocklistSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showFaceTimeCaptionsSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showFaceTimePhotosSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showFaceTimeSpecifiers:(id)specifiers afterGroupId:(id)id animated:(BOOL)animated;
+- (void)showFaceTimeVPCSpecifiers:(BOOL)specifiers animated:(BOOL)animated;
+- (void)showGFTProminenceSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showReceiveRelayCallsSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showReplyWithMessage:(BOOL)message animated:(BOOL)animated;
+- (void)showSharePlaySettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showSharedNameAndPhotoSettings:(BOOL)settings animated:(BOOL)animated;
+- (void)showSpecifiers:(id)specifiers afterGroupId:(id)id animated:(BOOL)animated;
 - (void)signoutAccount:(id)account;
 - (void)systemApplicationDidEnterBackground;
 - (void)systemApplicationDidResume;
 - (void)systemApplicationDidSuspend;
 - (void)systemApplicationWillEnterForeground;
+- (void)systemSettingsSpecifiersProvider:(id)provider presentViewController:(id)controller animated:(BOOL)animated;
 - (void)systemSettingsSpecifiersProviderDidReloadSpecifiers:(id)specifiers;
 - (void)updateSpecifier:(id)specifier withAlias:(id)alias;
 - (void)updateSpecifier:(id)specifier withCallerIdAlias:(id)alias;
 - (void)viewAccountControllerDidFinish:(id)finish withAppleId:(id)id;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -144,12 +184,12 @@
 
 - (CNFRegSettingsController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bundleCopy = bundle;
-  v22.receiver = self;
-  v22.super_class = CNFRegSettingsController;
-  v8 = [(CNFRegSettingsController *)&v22 initWithNibName:nameCopy bundle:bundleCopy];
+  v21.receiver = self;
+  v21.super_class = CNFRegSettingsController;
+  v8 = [(CNFRegSettingsController *)&v21 initWithNibName:nameCopy bundle:bundleCopy];
   v9 = v8;
   if (v8)
   {
@@ -176,14 +216,14 @@
     handler[1] = 3221225472;
     handler[2] = __51__CNFRegSettingsController_initWithNibName_bundle___block_invoke;
     handler[3] = &unk_278DE8368;
-    objc_copyWeak(&v20, &location);
+    objc_copyWeak(&v19, &location);
     notify_register_dispatch(CStringPtr, &v9->_captionsSubscriptionToken, MEMORY[0x277D85CD0], handler);
 
     v16 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v9;
+      v23 = v9;
       _os_log_impl(&dword_243BE5000, v16, OS_LOG_TYPE_DEFAULT, "Instantiated CNFRegSettingsController %@", buf, 0xCu);
     }
 
@@ -192,11 +232,10 @@
       IMLogString();
     }
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -249,55 +288,54 @@ uint64_t __50__CNFRegSettingsController__hasActiveFaceTimeCall__block_invoke(uin
 
 - (BOOL)_isTravelAlias:(id)alias
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   regController = [(CNFRegListController *)self regController];
   travelAliases = [regController travelAliases];
 
-  v7 = [travelAliases countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [travelAliases countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     v10 = *MEMORY[0x277D18AC8];
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(travelAliases);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * i);
         alias = [aliasCopy alias];
         alias2 = [v12 alias];
         v15 = [alias isEqualToString:alias2];
 
-        if (v15)
+        if ((v15 & 1) == 0)
         {
-          goto LABEL_11;
+          account = [aliasCopy account];
+          v17 = [account objectForKey:v10];
+
+          deviceAliasIdentifier = [v12 deviceAliasIdentifier];
+          LOBYTE(account) = [v17 isEqualToString:deviceAliasIdentifier];
+
+          if ((account & 1) == 0)
+          {
+            continue;
+          }
         }
 
-        account = [aliasCopy account];
-        v17 = [account objectForKey:v10];
-
-        deviceAliasIdentifier = [v12 deviceAliasIdentifier];
-        LOBYTE(account) = [v17 isEqualToString:deviceAliasIdentifier];
-
-        if (account)
-        {
-LABEL_11:
-          v19 = 1;
-          goto LABEL_13;
-        }
+        v19 = 1;
+        goto LABEL_13;
       }
 
-      v8 = [travelAliases countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [travelAliases countByEnumeratingWithState:&v21 objects:v25 count:16];
       v19 = 0;
       if (v8)
       {
@@ -315,7 +353,6 @@ LABEL_11:
 
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -354,73 +391,92 @@ LABEL_13:
   [(CNFRegSettingsController *)self reloadSpecifiers];
 }
 
+- (void)systemSettingsSpecifiersProvider:(id)provider presentViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  providerCopy = provider;
+  controllerCopy = controller;
+  v10 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "FACETIME SETTINGS > DEFAULT APP: Calling systemSettingsSpecifiersProvider presentViewController", v11, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    IMLogString();
+  }
+
+  [(CNFRegSettingsController *)self presentViewController:controllerCopy animated:animatedCopy completion:0];
+}
+
 - (id)loadSpecifiersFromPlistName:(id)name target:(id)target bundle:(id)bundle
 {
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   bundleCopy = bundle;
   targetCopy = target;
   v10 = [bundleCopy pathForResource:name ofType:@"plist"];
   v11 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfFile:v10];
   v12 = objc_opt_new();
-  v13 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FD20]);
-  v14 = CNFRegStringTableName();
-  v25 = &v26;
-  v26 = v12;
-  v15 = SpecifiersFromPlist();
+  v13 = CNFRegStringTableName();
+  v24 = &v25;
+  v25 = v12;
+  v14 = SpecifiersFromPlist();
 
-  v16 = v26;
-  v17 = v26;
+  v15 = v25;
+  v16 = v25;
 
-  v18 = *MEMORY[0x277D3FC20];
-  v19 = *(&self->super.super.super.super.super.super.isa + v18);
-  if (v19)
+  v17 = *MEMORY[0x277D3FC20];
+  v18 = *(&self->super.super.super.super.super.super.isa + v17);
+  if (v18)
   {
-    [v19 addObjectsFromArray:{v17, &v26}];
+    [v18 addObjectsFromArray:{v16, &v25}];
   }
 
   else
   {
-    objc_storeStrong((&self->super.super.super.super.super.super.isa + v18), v16);
+    objc_storeStrong((&self->super.super.super.super.super.super.isa + v17), v15);
   }
 
-  if (!v28)
+  if (!v27)
   {
     regController = [(CNFRegListController *)self regController];
     serviceType = [regController serviceType];
 
-    v22 = @"com.apple.preferences.imessage";
-    v23 = v28;
+    v21 = @"com.apple.preferences.imessage";
+    v22 = v27;
     if (!serviceType)
     {
-      v22 = @"com.apple.preferences.facetime";
+      v21 = @"com.apple.preferences.facetime";
     }
 
-    v28 = v22;
+    v27 = v21;
   }
 
-  [(CNFRegSettingsController *)self setSpecifierID:v28, v25];
-  [(CNFRegSettingsController *)self setTitle:v27];
+  [(CNFRegSettingsController *)self setSpecifierID:v27, v24];
+  [(CNFRegSettingsController *)self setTitle:v26];
 
-  return v15;
+  return v14;
 }
 
 - (id)specifierList
 {
-  v268[2] = *MEMORY[0x277D85DE8];
+  v267[2] = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (v3)
   {
     goto LABEL_224;
   }
 
-  v193 = *MEMORY[0x277D3FC48];
+  v192 = *MEMORY[0x277D3FC48];
   selfCopy = self;
   bundle = [(CNFRegSettingsController *)self bundle];
   v5 = [(CNFRegSettingsController *)selfCopy loadSpecifiersFromPlistName:@"ConferenceRegistrationSettings" target:selfCopy bundle:bundle];
 
-  v192 = [v5 specifierForID:@"INCOMING_CALL_STYLE"];
-  v191 = [v5 specifierForID:@"ANNOUNCE_CALLS"];
+  v191 = [v5 specifierForID:@"INCOMING_CALL_STYLE"];
+  v190 = [v5 specifierForID:@"ANNOUNCE_CALLS"];
   v6 = (*&selfCopy->_settingsFlags & 8) == 0;
   v7 = [v5 specifierForID:@"FACETIME_ENABLED_GROUP_ID"];
   if (v6)
@@ -445,8 +501,8 @@ LABEL_13:
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@" %@", v12];
     v15 = [_switchFooterText stringByAppendingString:v14];
 
-    v270.location = [v15 rangeOfString:v12];
-    v16 = NSStringFromRange(v270);
+    v269.location = [v15 rangeOfString:v12];
+    v16 = NSStringFromRange(v269);
     [v7 setProperty:v16 forKey:*MEMORY[0x277D3FF58]];
 
     [v7 setProperty:v15 forKey:*MEMORY[0x277D3FF70]];
@@ -460,29 +516,29 @@ LABEL_13:
   v19 = selfCopy;
   if (![(CNFRegSettingsController *)selfCopy shouldShowOnlineSafetyLink])
   {
-    v268[0] = @"ONLINE_SAFETY_GROUP_ID";
-    v268[1] = @"ONLINE_SAFETY_BUTTON_ID";
-    [MEMORY[0x277CBEA60] arrayWithObjects:v268 count:2];
+    v267[0] = @"ONLINE_SAFETY_GROUP_ID";
+    v267[1] = @"ONLINE_SAFETY_BUTTON_ID";
+    [MEMORY[0x277CBEA60] arrayWithObjects:v267 count:2];
+    v253 = 0u;
     v254 = 0u;
-    v255 = 0u;
-    v252 = 0u;
-    v20 = v253 = 0u;
-    v21 = [v20 countByEnumeratingWithState:&v252 objects:v267 count:16];
+    v251 = 0u;
+    v20 = v252 = 0u;
+    v21 = [v20 countByEnumeratingWithState:&v251 objects:v266 count:16];
     if (v21)
     {
-      v22 = *v253;
+      v22 = *v252;
       v23 = *MEMORY[0x277D3FFF0];
       v24 = *MEMORY[0x277D40170];
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v253 != v22)
+          if (*v252 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v26 = [v5 specifierForID:*(*(&v252 + 1) + 8 * i)];
+          v26 = [v5 specifierForID:*(*(&v251 + 1) + 8 * i)];
           if (v26)
           {
             [v5 removeObject:v26];
@@ -492,7 +548,7 @@ LABEL_13:
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v252 objects:v267 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v251 objects:v266 count:16];
       }
 
       while (v21);
@@ -506,34 +562,34 @@ LABEL_13:
 
   if (!v28)
   {
-    v266[0] = @"FACETIME_BLOCKLIST_GROUP_ID";
-    v266[1] = @"DIRECT_TO_VOICEMAIL";
-    v266[2] = @"INTELLIGENT_CALL_SCREENING";
-    v266[3] = @"FILTER_AS_NEW_CALLERS";
-    v266[4] = @"FILTER_SPAM";
-    v266[5] = @"CALL_FILTERING_GROUP_SPACER";
-    v266[6] = @"CALLS_FROM_UNKNOWN_NUMBERS_GROUP_SPACER";
-    [MEMORY[0x277CBEA60] arrayWithObjects:v266 count:7];
+    v265[0] = @"FACETIME_BLOCKLIST_GROUP_ID";
+    v265[1] = @"DIRECT_TO_VOICEMAIL";
+    v265[2] = @"INTELLIGENT_CALL_SCREENING";
+    v265[3] = @"FILTER_AS_NEW_CALLERS";
+    v265[4] = @"FILTER_SPAM";
+    v265[5] = @"CALL_FILTERING_GROUP_SPACER";
+    v265[6] = @"CALLS_FROM_UNKNOWN_NUMBERS_GROUP_SPACER";
+    [MEMORY[0x277CBEA60] arrayWithObjects:v265 count:7];
+    v249 = 0u;
     v250 = 0u;
-    v251 = 0u;
-    v248 = 0u;
-    v29 = v249 = 0u;
-    v30 = [v29 countByEnumeratingWithState:&v248 objects:v265 count:16];
+    v247 = 0u;
+    v29 = v248 = 0u;
+    v30 = [v29 countByEnumeratingWithState:&v247 objects:v264 count:16];
     if (v30)
     {
-      v31 = *v249;
+      v31 = *v248;
       v32 = *MEMORY[0x277D3FFF0];
       v33 = *MEMORY[0x277D40170];
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v249 != v31)
+          if (*v248 != v31)
           {
             objc_enumerationMutation(v29);
           }
 
-          v35 = [v5 specifierForID:*(*(&v248 + 1) + 8 * j)];
+          v35 = [v5 specifierForID:*(*(&v247 + 1) + 8 * j)];
           if (v35)
           {
             [v5 removeObject:v35];
@@ -543,7 +599,7 @@ LABEL_13:
           }
         }
 
-        v30 = [v29 countByEnumeratingWithState:&v248 objects:v265 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v247 objects:v264 count:16];
       }
 
       while (v30);
@@ -604,14 +660,14 @@ LABEL_13:
 
   if (![(CNFRegSettingsController *)selfCopy shouldShowIncomingCallSettingsBundleSpecifiers])
   {
-    if (v192)
-    {
-      [v5 removeObject:v192];
-    }
-
     if (v191)
     {
       [v5 removeObject:v191];
+    }
+
+    if (v190)
+    {
+      [v5 removeObject:v190];
     }
 
     v49 = [v5 specifierForID:@"CALL_PROVIDERS"];
@@ -621,19 +677,19 @@ LABEL_13:
     }
   }
 
-  v199 = [v5 specifierForID:@"FACETIME_ALIAS_GROUP_ID"];
-  if (v199)
+  v198 = [v5 specifierForID:@"FACETIME_ALIAS_GROUP_ID"];
+  if (v198)
   {
     v50 = CommunicationsSetupUIBundle();
     v51 = CNFStringKeyForIdiom(@"FACETIME_SETTINGS_ALIAS_LABEL");
     v52 = CNFRegStringTableName();
     v53 = [v50 localizedStringForKey:v51 value:&stru_2856D3978 table:v52];
 
-    [v199 setProperty:v53 forKey:*MEMORY[0x277D40170]];
-    [v199 setName:v53];
+    [v198 setProperty:v53 forKey:*MEMORY[0x277D40170]];
+    [v198 setName:v53];
     if ([(NSArray *)selfCopy->_aliasGroupSpecifiers count]>= 2)
     {
-      v54 = [v5 indexOfObject:v199];
+      v54 = [v5 indexOfObject:v198];
       if (v54 != 0x7FFFFFFFFFFFFFFFLL && [(NSArray *)selfCopy->_aliasGroupSpecifiers count]>= 2)
       {
         v55 = v54 + 1;
@@ -652,17 +708,17 @@ LABEL_13:
     }
   }
 
-  v196 = [v5 specifierForID:@"FACETIME_ACCOUNT_GROUP_ID"];
+  v195 = [v5 specifierForID:@"FACETIME_ACCOUNT_GROUP_ID"];
   if ([(CNFRegSettingsController *)selfCopy hideAppleIDLogin])
   {
 LABEL_56:
-    [v5 removeObject:v196];
+    [v5 removeObject:v195];
     goto LABEL_61;
   }
 
-  if (v196)
+  if (v195)
   {
-    v58 = [v5 indexOfObject:v196];
+    v58 = [v5 indexOfObject:v195];
     if (v58 != 0x7FFFFFFFFFFFFFFFLL)
     {
       accountToShowInCallerIDFooter = [(CNFRegSettingsController *)selfCopy accountToShowInCallerIDFooter];
@@ -681,26 +737,26 @@ LABEL_56:
   }
 
 LABEL_61:
-  v194 = [v5 specifierForID:@"FACETIME_CALLERID_GROUP_ID"];
-  if (v194)
+  v193 = [v5 specifierForID:@"FACETIME_CALLERID_GROUP_ID"];
+  if (v193)
   {
-    v62 = [v5 indexOfObject:v194];
+    v62 = [v5 indexOfObject:v193];
     if (v62 != 0x7FFFFFFFFFFFFFFFLL)
     {
       possibleCallerIdAliases = [(CNFRegSettingsController *)selfCopy possibleCallerIdAliases];
-      v245[0] = MEMORY[0x277D85DD0];
-      v245[1] = 3221225472;
-      v245[2] = __41__CNFRegSettingsController_specifierList__block_invoke;
-      v245[3] = &unk_278DE83B0;
-      v245[4] = selfCopy;
-      v246 = v5;
-      v247 = v62 + 1;
-      [possibleCallerIdAliases enumerateObjectsWithOptions:2 usingBlock:v245];
+      v244[0] = MEMORY[0x277D85DD0];
+      v244[1] = 3221225472;
+      v244[2] = __41__CNFRegSettingsController_specifierList__block_invoke;
+      v244[3] = &unk_278DE83B0;
+      v244[4] = selfCopy;
+      v245 = v5;
+      v246 = v62 + 1;
+      [possibleCallerIdAliases enumerateObjectsWithOptions:2 usingBlock:v244];
     }
   }
 
   [(CNFRegSettingsController *)selfCopy _buildSpecifierCache:v5];
-  if (v199)
+  if (v198)
   {
     regController2 = [(CNFRegListController *)selfCopy regController];
     regController3 = [(CNFRegListController *)selfCopy regController];
@@ -743,50 +799,50 @@ LABEL_61:
 
     if (!(([v67 count] != 0) | v74 & 1))
     {
-      [v5 removeObject:v199];
+      [v5 removeObject:v198];
     }
   }
 
   if (![(NSArray *)selfCopy->_accountGroupSpecifiers count])
   {
-    v75 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v196, 0}];
+    v75 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v195, 0}];
     accountGroupSpecifiers = selfCopy->_accountGroupSpecifiers;
     selfCopy->_accountGroupSpecifiers = v75;
   }
 
-  v243 = 0u;
-  v244 = 0u;
-  v241 = 0u;
   v242 = 0u;
+  v243 = 0u;
+  v240 = 0u;
+  v241 = 0u;
   regController8 = [(CNFRegListController *)selfCopy regController];
   regController9 = [(CNFRegListController *)selfCopy regController];
   accounts2 = [regController9 accounts];
   v80 = [regController8 allAvailableAliasesForAccounts:accounts2];
 
-  v81 = [v80 countByEnumeratingWithState:&v241 objects:v264 count:16];
+  v81 = [v80 countByEnumeratingWithState:&v240 objects:v263 count:16];
   if (v81)
   {
-    v215 = 0;
-    v82 = *v242;
+    v214 = 0;
+    v82 = *v241;
     do
     {
       for (k = 0; k != v81; ++k)
       {
-        if (*v242 != v82)
+        if (*v241 != v82)
         {
           objc_enumerationMutation(v80);
         }
 
-        v84 = *(*(&v241 + 1) + 8 * k);
+        v84 = *(*(&v240 + 1) + 8 * k);
         if ([v84 isTemporaryPhoneNumberAlias])
         {
           v85 = v84;
 
-          v215 = v85;
+          v214 = v85;
         }
       }
 
-      v81 = [v80 countByEnumeratingWithState:&v241 objects:v264 count:16];
+      v81 = [v80 countByEnumeratingWithState:&v240 objects:v263 count:16];
     }
 
     while (v81);
@@ -794,22 +850,22 @@ LABEL_61:
 
   else
   {
-    v215 = 0;
+    v214 = 0;
   }
 
-  v197 = [v5 specifierForID:@"FACETIME_TEMPORARY_PHONE_GROUP_ID"];
-  v195 = [v5 specifierForID:@"FACETIME_TEMPORARY_PHONE_ID"];
-  v198 = [v5 specifierForID:@"FACETIME_TEMPORARY_PHONE_REMOVE"];
+  v196 = [v5 specifierForID:@"FACETIME_TEMPORARY_PHONE_GROUP_ID"];
+  v194 = [v5 specifierForID:@"FACETIME_TEMPORARY_PHONE_ID"];
+  v197 = [v5 specifierForID:@"FACETIME_TEMPORARY_PHONE_REMOVE"];
   v86 = MEMORY[0x277D3FE58];
-  if (v197 && v195 && v198)
+  if (v196 && v194 && v197)
   {
-    if (v215)
+    if (v214)
     {
       v87 = OSLogHandleForIDSCategory();
       if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v263 = v215;
+        v262 = v214;
         _os_log_impl(&dword_243BE5000, v87, OS_LOG_TYPE_DEFAULT, "Initial load found temporary phone alias %@", buf, 0xCu);
       }
 
@@ -823,12 +879,12 @@ LABEL_61:
       v90 = [v88 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_LABEL" value:&stru_2856D3978 table:v89];
 
       v91 = *MEMORY[0x277D40170];
-      [v197 setProperty:v90 forKey:*MEMORY[0x277D40170]];
-      [v197 setName:v90];
+      [v196 setProperty:v90 forKey:*MEMORY[0x277D40170]];
+      [v196 setName:v90];
       v92 = objc_opt_class();
       v93 = *v86;
-      [v195 setProperty:v92 forKey:*v86];
-      [v195 setProperty:v215 forKey:@"cnfreg-temp-alias"];
+      [v194 setProperty:v92 forKey:*v86];
+      [v194 setProperty:v214 forKey:@"cnfreg-temp-alias"];
       ftImServiceString = [(CNFRegSettingsController *)selfCopy ftImServiceString];
       v95 = MEMORY[0x277CCACA8];
       v96 = CommunicationsSetupUIBundle();
@@ -836,17 +892,17 @@ LABEL_61:
       v98 = [v96 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_REMOVE" value:&stru_2856D3978 table:v97];
       v99 = [v95 stringWithFormat:v98, ftImServiceString];
 
-      [v198 setName:v99];
-      [v198 setProperty:v99 forKey:v91];
+      [v197 setName:v99];
+      [v197 setProperty:v99 forKey:v91];
       v100 = [MEMORY[0x277CCABB0] numberWithBool:1];
-      [v198 setProperty:v100 forKey:*MEMORY[0x277D3FF38]];
+      [v197 setProperty:v100 forKey:*MEMORY[0x277D3FF38]];
 
-      [v198 setProperty:objc_opt_class() forKey:v93];
-      [v198 setButtonAction:sel_deleteTemporaryPhoneAliasSelected_];
+      [v197 setProperty:objc_opt_class() forKey:v93];
+      [v197 setButtonAction:sel_deleteTemporaryPhoneAliasSelected_];
       v101 = NSStringFromSelector(sel_deleteTemporaryPhoneAliasSelected_);
-      [v198 setProperty:v101 forKey:*MEMORY[0x277D3FE10]];
+      [v197 setProperty:v101 forKey:*MEMORY[0x277D3FE10]];
 
-      [v198 setProperty:v215 forKey:@"cnfreg-temp-alias"];
+      [v197 setProperty:v214 forKey:@"cnfreg-temp-alias"];
     }
 
     else
@@ -863,9 +919,9 @@ LABEL_61:
         IMLogString();
       }
 
+      [v5 removeObject:v196];
+      [v5 removeObject:v194];
       [v5 removeObject:v197];
-      [v5 removeObject:v195];
-      [v5 removeObject:v198];
     }
   }
 
@@ -875,42 +931,42 @@ LABEL_61:
   accounts3 = [regController11 accounts];
   v106 = [regController10 allAvailableAliasesForAccounts:accounts3];
 
-  v239 = 0u;
-  v240 = 0u;
-  v237 = 0u;
   v238 = 0u;
+  v239 = 0u;
+  v236 = 0u;
+  v237 = 0u;
   obj = v106;
-  v107 = [obj countByEnumeratingWithState:&v237 objects:v261 count:16];
+  v107 = [obj countByEnumeratingWithState:&v236 objects:v260 count:16];
   if (v107)
   {
-    v108 = *v238;
+    v108 = *v237;
     do
     {
       for (m = 0; m != v107; ++m)
       {
-        if (*v238 != v108)
+        if (*v237 != v108)
         {
           objc_enumerationMutation(obj);
         }
 
-        v110 = *(*(&v237 + 1) + 8 * m);
+        v110 = *(*(&v236 + 1) + 8 * m);
         if ([(CNFRegSettingsController *)selfCopy _isTravelAlias:v110])
         {
           [array addObject:v110];
         }
       }
 
-      v107 = [obj countByEnumeratingWithState:&v237 objects:v261 count:16];
+      v107 = [obj countByEnumeratingWithState:&v236 objects:v260 count:16];
     }
 
     while (v107);
   }
 
   v111 = 0;
-  v203 = *v86;
-  v204 = *MEMORY[0x277D40170];
-  v201 = *MEMORY[0x277D3FF38];
-  v200 = *MEMORY[0x277D3FE10];
+  v202 = *v86;
+  v203 = *MEMORY[0x277D40170];
+  v200 = *MEMORY[0x277D3FF38];
+  v199 = *MEMORY[0x277D3FE10];
   do
   {
     v112 = [MEMORY[0x277CCACA8] stringWithFormat:@"SIM_%lu", v111 + 1];
@@ -919,20 +975,20 @@ LABEL_61:
     v1123 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_REMOVE", v112];
     v1124 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_CELLULAR_SETTINGS", v112];
     v113 = [v5 specifierForID:v112];
-    v212 = [v5 specifierForID:v1122];
+    v211 = [v5 specifierForID:v1122];
     v114 = [v5 specifierForID:v1123];
     v115 = [v5 specifierForID:v1124];
     v116 = v115;
-    if (v113 && v212 && v114 && v115)
+    if (v113 && v211 && v114 && v115)
     {
       if ([array count] >= (v111 + 1))
       {
-        v207 = [array objectAtIndexedSubscript:v111];
+        v206 = [array objectAtIndexedSubscript:v111];
         v118 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v263 = v207;
+          v262 = v206;
           _os_log_impl(&dword_243BE5000, v118, OS_LOG_TYPE_DEFAULT, "Initial load found travel phone alias %@", buf, 0xCu);
         }
 
@@ -943,45 +999,45 @@ LABEL_61:
 
         v119 = CommunicationsSetupUIBundle();
         v120 = CNFRegStringTableName();
-        v206 = [v119 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_LABEL" value:&stru_2856D3978 table:v120];
+        v205 = [v119 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_LABEL" value:&stru_2856D3978 table:v120];
 
-        [v113 setProperty:v206 forKey:v204];
-        [v113 setName:v206];
-        [v113 setProperty:v207 forKey:@"cnfreg-travel-sim"];
-        [v212 setProperty:objc_opt_class() forKey:v203];
-        [v212 setProperty:v207 forKey:@"cnfreg-travel-sim"];
+        [v113 setProperty:v205 forKey:v203];
+        [v113 setName:v205];
+        [v113 setProperty:v206 forKey:@"cnfreg-travel-sim"];
+        [v211 setProperty:objc_opt_class() forKey:v202];
+        [v211 setProperty:v206 forKey:@"cnfreg-travel-sim"];
         ftImServiceString2 = [(CNFRegSettingsController *)selfCopy ftImServiceString];
         v121 = MEMORY[0x277CCACA8];
         v122 = CommunicationsSetupUIBundle();
         v123 = CNFRegStringTableName();
         v124 = [v122 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_REMOVE" value:&stru_2856D3978 table:v123];
-        v202 = [v121 localizedStringWithFormat:v124, ftImServiceString2];
+        v201 = [v121 localizedStringWithFormat:v124, ftImServiceString2];
 
-        [v114 setName:v202];
-        [v114 setProperty:v202 forKey:v204];
+        [v114 setName:v201];
+        [v114 setProperty:v201 forKey:v203];
         v125 = [MEMORY[0x277CCABB0] numberWithBool:1];
-        [v114 setProperty:v125 forKey:v201];
+        [v114 setProperty:v125 forKey:v200];
 
-        [v114 setProperty:objc_opt_class() forKey:v203];
+        [v114 setProperty:objc_opt_class() forKey:v202];
         [v114 setButtonAction:sel_deleteTravelPhoneAliasSelected_];
         v126 = NSStringFromSelector(sel_deleteTravelPhoneAliasSelected_);
-        [v114 setProperty:v126 forKey:v200];
+        [v114 setProperty:v126 forKey:v199];
 
-        [v114 setProperty:v207 forKey:@"cnfreg-travel-sim"];
+        [v114 setProperty:v206 forKey:@"cnfreg-travel-sim"];
         [v114 setProperty:v112 forKey:@"cnfreg-sim-identifier"];
         v127 = CommunicationsSetupUIBundle();
         v128 = CNFRegStringTableName();
         v129 = [v127 localizedStringForKey:@"FACETIME_SETTINGS_TRAVEL_PHONE_CELLULAR_SETTINGS" value:&stru_2856D3978 table:v128];
 
         [v116 setName:v129];
-        [v116 setProperty:v129 forKey:v204];
+        [v116 setProperty:v129 forKey:v203];
         v130 = [MEMORY[0x277CCABB0] numberWithBool:1];
-        [v116 setProperty:v130 forKey:v201];
+        [v116 setProperty:v130 forKey:v200];
 
-        [v116 setProperty:objc_opt_class() forKey:v203];
+        [v116 setProperty:objc_opt_class() forKey:v202];
         [v116 setButtonAction:sel_goToCellularSettings_];
         v131 = NSStringFromSelector(sel_goToCellularSettings_);
-        [v116 setProperty:v131 forKey:v200];
+        [v116 setProperty:v131 forKey:v199];
       }
 
       else
@@ -990,18 +1046,18 @@ LABEL_61:
         if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v263 = v112;
+          v262 = v112;
           _os_log_impl(&dword_243BE5000, v117, OS_LOG_TYPE_DEFAULT, "%@ is not in travel mode. Removing specifiers", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
         {
-          v190 = v112;
+          v189 = v112;
           IMLogString();
         }
 
-        [v5 removeObject:{v113, v190}];
-        [v5 removeObject:v212];
+        [v5 removeObject:{v113, v189}];
+        [v5 removeObject:v211];
         [v5 removeObject:v114];
         [v5 removeObject:v116];
       }
@@ -1027,28 +1083,28 @@ LABEL_61:
 
   if (![(CNFRegSettingsController *)selfCopy shouldShowReplyWithMessage])
   {
-    v235 = 0u;
-    v236 = 0u;
-    v233 = 0u;
     v234 = 0u;
+    v235 = 0u;
+    v232 = 0u;
+    v233 = 0u;
     v136 = selfCopy->_replyWithMessageGroupSpecifiers;
-    v137 = [(NSArray *)v136 countByEnumeratingWithState:&v233 objects:v260 count:16];
+    v137 = [(NSArray *)v136 countByEnumeratingWithState:&v232 objects:v259 count:16];
     if (v137)
     {
-      v138 = *v234;
+      v138 = *v233;
       do
       {
         for (n = 0; n != v137; ++n)
         {
-          if (*v234 != v138)
+          if (*v233 != v138)
           {
             objc_enumerationMutation(v136);
           }
 
-          [v5 removeObject:*(*(&v233 + 1) + 8 * n)];
+          [v5 removeObject:*(*(&v232 + 1) + 8 * n)];
         }
 
-        v137 = [(NSArray *)v136 countByEnumeratingWithState:&v233 objects:v260 count:16];
+        v137 = [(NSArray *)v136 countByEnumeratingWithState:&v232 objects:v259 count:16];
       }
 
       while (v137);
@@ -1067,34 +1123,34 @@ LABEL_61:
 
   else
   {
-    v231 = 0u;
-    v232 = 0u;
-    v229 = 0u;
     v230 = 0u;
+    v231 = 0u;
+    v228 = 0u;
+    v229 = 0u;
     v143 = selfCopy->_callerIdGroupSpecifiers;
-    v144 = [(NSArray *)v143 countByEnumeratingWithState:&v229 objects:v259 count:16];
+    v144 = [(NSArray *)v143 countByEnumeratingWithState:&v228 objects:v258 count:16];
     if (v144)
     {
-      v145 = *v230;
+      v145 = *v229;
       do
       {
         for (ii = 0; ii != v144; ++ii)
         {
-          if (*v230 != v145)
+          if (*v229 != v145)
           {
             objc_enumerationMutation(v143);
           }
 
-          [v5 removeObject:*(*(&v229 + 1) + 8 * ii)];
+          [v5 removeObject:*(*(&v228 + 1) + 8 * ii)];
         }
 
-        v144 = [(NSArray *)v143 countByEnumeratingWithState:&v229 objects:v259 count:16];
+        v144 = [(NSArray *)v143 countByEnumeratingWithState:&v228 objects:v258 count:16];
       }
 
       while (v144);
     }
 
-    [(CNFRegSettingsController *)selfCopy configureAccountFooterForGroupSpecifier:v199];
+    [(CNFRegSettingsController *)selfCopy configureAccountFooterForGroupSpecifier:v198];
   }
 
   v148 = [v5 specifierForID:@"MESSAGES_SIGN_OUT_GROUP_ID"];
@@ -1157,28 +1213,28 @@ LABEL_182:
       IMLogString();
     }
 
-    v227 = 0u;
-    v228 = 0u;
-    v225 = 0u;
     v226 = 0u;
+    v227 = 0u;
+    v224 = 0u;
+    v225 = 0u;
     v156 = selfCopy->_receiveRelayCallsGroupSpecifiers;
-    v158 = [(NSArray *)v156 countByEnumeratingWithState:&v225 objects:v258 count:16];
+    v158 = [(NSArray *)v156 countByEnumeratingWithState:&v224 objects:v257 count:16];
     if (v158)
     {
-      v159 = *v226;
+      v159 = *v225;
       do
       {
         for (jj = 0; jj != v158; ++jj)
         {
-          if (*v226 != v159)
+          if (*v225 != v159)
           {
             objc_enumerationMutation(v156);
           }
 
-          [v5 removeObject:*(*(&v225 + 1) + 8 * jj)];
+          [v5 removeObject:*(*(&v224 + 1) + 8 * jj)];
         }
 
-        v158 = [(NSArray *)v156 countByEnumeratingWithState:&v225 objects:v258 count:16];
+        v158 = [(NSArray *)v156 countByEnumeratingWithState:&v224 objects:v257 count:16];
       }
 
       while (v158);
@@ -1235,28 +1291,28 @@ LABEL_183:
 
   if (![(CNFRegSettingsController *)selfCopy shouldShowSharePlaySpecifiers])
   {
-    v223 = 0u;
-    v224 = 0u;
-    v221 = 0u;
     v222 = 0u;
+    v223 = 0u;
+    v220 = 0u;
+    v221 = 0u;
     v171 = selfCopy->_sharePlaySpecifiers;
-    v172 = [(NSArray *)v171 countByEnumeratingWithState:&v221 objects:v257 count:16];
+    v172 = [(NSArray *)v171 countByEnumeratingWithState:&v220 objects:v256 count:16];
     if (v172)
     {
-      v173 = *v222;
+      v173 = *v221;
       do
       {
         for (kk = 0; kk != v172; ++kk)
         {
-          if (*v222 != v173)
+          if (*v221 != v173)
           {
             objc_enumerationMutation(v171);
           }
 
-          [v5 removeObject:*(*(&v221 + 1) + 8 * kk)];
+          [v5 removeObject:*(*(&v220 + 1) + 8 * kk)];
         }
 
-        v172 = [(NSArray *)v171 countByEnumeratingWithState:&v221 objects:v257 count:16];
+        v172 = [(NSArray *)v171 countByEnumeratingWithState:&v220 objects:v256 count:16];
       }
 
       while (v172);
@@ -1265,28 +1321,28 @@ LABEL_183:
 
   if (![(CNFRegSettingsController *)selfCopy shouldShowSharedNameAndPhotoSpecifiers])
   {
-    v219 = 0u;
-    v220 = 0u;
-    v217 = 0u;
     v218 = 0u;
+    v219 = 0u;
+    v216 = 0u;
+    v217 = 0u;
     v175 = selfCopy->_sharedNameAndPhotoSpecifiers;
-    v176 = [(NSArray *)v175 countByEnumeratingWithState:&v217 objects:v256 count:16];
+    v176 = [(NSArray *)v175 countByEnumeratingWithState:&v216 objects:v255 count:16];
     if (v176)
     {
-      v177 = *v218;
+      v177 = *v217;
       do
       {
         for (mm = 0; mm != v176; ++mm)
         {
-          if (*v218 != v177)
+          if (*v217 != v177)
           {
             objc_enumerationMutation(v175);
           }
 
-          [v5 removeObject:*(*(&v217 + 1) + 8 * mm)];
+          [v5 removeObject:*(*(&v216 + 1) + 8 * mm)];
         }
 
-        v176 = [(NSArray *)v175 countByEnumeratingWithState:&v217 objects:v256 count:16];
+        v176 = [(NSArray *)v175 countByEnumeratingWithState:&v216 objects:v255 count:16];
       }
 
       while (v176);
@@ -1334,12 +1390,11 @@ LABEL_183:
   }
 
   v186 = [v5 copy];
-  v187 = *(&selfCopy->super.super.super.super.super.super.isa + v193);
-  *(&selfCopy->super.super.super.super.super.super.isa + v193) = v186;
+  v187 = *(&selfCopy->super.super.super.super.super.super.isa + v192);
+  *(&selfCopy->super.super.super.super.super.super.isa + v192) = v186;
 
-  v3 = *(&selfCopy->super.super.super.super.super.super.isa + v193);
+  v3 = *(&selfCopy->super.super.super.super.super.super.isa + v192);
 LABEL_224:
-  v188 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1381,10 +1436,10 @@ void __41__CNFRegSettingsController_specifierList__block_invoke(uint64_t a1, uin
 
 - (void)emitNavigationEvent
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D6EF78];
-  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"settings-navigation://com.apple.Settings.Apps/%@", *MEMORY[0x277D6EF78]];
-  v4 = [MEMORY[0x277CBEBC0] URLWithString:v17];
+  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"settings-navigation://com.apple.Settings.Apps/%@", *MEMORY[0x277D6EF78]];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:v16];
   v5 = objc_alloc(MEMORY[0x277CCAEB8]);
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -1397,11 +1452,43 @@ void __41__CNFRegSettingsController_specifierList__block_invoke(uint64_t a1, uin
   bundleURL2 = [v12 bundleURL];
   v14 = [v10 initWithKey:@"Apps" table:0 locale:currentLocale2 bundleURL:bundleURL2];
 
-  v18[0] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   [(CNFRegSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:v3 title:v9 localizedNavigationComponents:v15 deepLink:v4];
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(CNFRegListController *)self _updateTitle];
+  [(CNFRegSettingsController *)self _updateUnlocalizedBackendIdentifier];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __43__CNFRegSettingsController_viewWillAppear___block_invoke;
+  v6[3] = &unk_278DE7E08;
+  v6[4] = self;
+  [MEMORY[0x277D75D18] performWithoutAnimation:v6];
+  v5.receiver = self;
+  v5.super_class = CNFRegSettingsController;
+  [(CNFRegListController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v5.receiver = self;
+  v5.super_class = CNFRegSettingsController;
+  [(CNFRegSettingsController *)&v5 viewIsAppearing:appearing];
+  if (*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
+  {
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __44__CNFRegSettingsController_viewIsAppearing___block_invoke;
+    v4[3] = &unk_278DE7E08;
+    v4[4] = self;
+    [MEMORY[0x277D75D18] performWithoutAnimation:v4];
+  }
+
+  [(CNFRegListController *)self showAuthKitSignInIfNecessary];
 }
 
 uint64_t __44__CNFRegSettingsController_viewIsAppearing___block_invoke(uint64_t a1)
@@ -1411,6 +1498,47 @@ uint64_t __44__CNFRegSettingsController_viewIsAppearing___block_invoke(uint64_t 
   v2 = *(a1 + 32);
 
   return [v2 refreshAllCallerIdAliasSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CNFRegSettingsController;
+  [(CNFRegListController *)&v5 viewDidAppear:appear];
+  [(CNFRegSettingsController *)self _setupAllListeners];
+  *&self->_settingsFlags |= 2u;
+  mEMORY[0x277D18D68] = [MEMORY[0x277D18D68] sharedInstance];
+  [mEMORY[0x277D18D68] _setBlocksConnectionAtResume:1];
+
+  [(CNFRegSettingsController *)self emitNavigationEvent];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  *&self->_settingsFlags &= ~2u;
+  v6.receiver = self;
+  v6.super_class = CNFRegSettingsController;
+  [(CNFRegListController *)&v6 viewWillDisappear:disappear];
+  v4 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEFAULT, "Removing all event handlers", v5, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    IMLogString();
+  }
+
+  [(CNFRegListController *)self removeAllHandlers];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = CNFRegSettingsController;
+  [(CNFRegListController *)&v3 viewDidDisappear:disappear];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -1514,10 +1642,10 @@ uint64_t __44__CNFRegSettingsController_viewIsAppearing___block_invoke(uint64_t 
 
 - (void)systemApplicationDidSuspend
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CNFRegSettingsController;
-  [(CNFRegListController *)&v9 systemApplicationDidSuspend];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CNFRegSettingsController;
+  [(CNFRegListController *)&v8 systemApplicationDidSuspend];
   presentedViewController = [(CNFRegSettingsController *)self presentedViewController];
 
   if (presentedViewController)
@@ -1527,21 +1655,22 @@ uint64_t __44__CNFRegSettingsController_viewIsAppearing___block_invoke(uint64_t 
     {
       presentedViewController2 = [(CNFRegSettingsController *)self presentedViewController];
       *buf = 138412290;
-      v11 = presentedViewController2;
+      v10 = presentedViewController2;
       _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEFAULT, "Dismissing presented view controller (%@) due to suspension", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    if (os_log_shim_legacy_logging_enabled())
     {
-      presentedViewController3 = [(CNFRegSettingsController *)self presentedViewController];
-      IMLogString();
+      if (IMShouldLog())
+      {
+        presentedViewController3 = [(CNFRegSettingsController *)self presentedViewController];
+        IMLogString();
+      }
     }
 
     presentedViewController4 = [(CNFRegSettingsController *)self presentedViewController];
     [presentedViewController4 dismissViewControllerAnimated:0 completion:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemApplicationDidResume
@@ -1553,7 +1682,7 @@ uint64_t __44__CNFRegSettingsController_viewIsAppearing___block_invoke(uint64_t 
 
 - (void)_handleDeactivation:(id)deactivation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   deactivationCopy = deactivation;
   userInfo = [deactivationCopy userInfo];
   v6 = [userInfo objectForKey:*MEMORY[0x277D77300]];
@@ -1569,13 +1698,13 @@ uint64_t __44__CNFRegSettingsController_viewIsAppearing___block_invoke(uint64_t 
       if (objc_opt_isKindOfClass())
       {
 LABEL_16:
-        v14 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           presentedViewController3 = [(CNFRegSettingsController *)self presentedViewController];
           *buf = 138412290;
-          v24 = presentedViewController3;
-          _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "Dismissing presented view controller (%@) due to deactivation (suspension)", buf, 0xCu);
+          v22 = presentedViewController3;
+          _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Dismissing presented view controller (%@) due to deactivation (suspension)", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -1598,25 +1727,24 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v21 = 0u;
-        v22 = 0u;
         v19 = 0u;
         v20 = 0u;
+        v17 = 0u;
+        v18 = 0u;
         viewControllers = [presentedViewController2 viewControllers];
-        v10 = [viewControllers countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v10 = [viewControllers countByEnumeratingWithState:&v17 objects:v23 count:16];
         if (v10)
         {
-          v11 = *v20;
+          v11 = *v18;
           while (2)
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v20 != v11)
+              if (*v18 != v11)
               {
                 objc_enumerationMutation(viewControllers);
               }
 
-              v13 = *(*(&v19 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -1630,7 +1758,7 @@ LABEL_23:
               goto LABEL_16;
             }
 
-            v10 = [viewControllers countByEnumeratingWithState:&v19 objects:v25 count:16];
+            v10 = [viewControllers countByEnumeratingWithState:&v17 objects:v23 count:16];
             if (v10)
             {
               continue;
@@ -1647,8 +1775,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)customTitle
@@ -1718,30 +1844,30 @@ LABEL_24:
 
 - (void)_buildSpecifierCache:(id)cache
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = cache;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v17;
+    v8 = *v16;
     v9 = MEMORY[0x277D3FC90];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         _cacheSpecifierMatchingID(@"FACETIME_ENABLED_GROUP_ID", v11, &self->_faceTimeEnabledGroupSpecifier);
         _cacheSpecifierMatchingID(@"FACETIME_ENABLED_ID", v11, &self->_faceTimeEnabledSpecifier);
         if (*&v11[*v9])
@@ -1760,7 +1886,7 @@ LABEL_24:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -1773,13 +1899,11 @@ LABEL_24:
   }
 
   [(CNFRegSettingsController *)self _cacheSpecifierGroup:v7 withSpecifiers:v6];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_switchFooterText
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = CommunicationsSetupUIBundle();
   v4 = CNFRegStringTableName();
   v5 = [v3 localizedStringForKey:@"FACETIME_SWITCH_STATUS_DEFAULT" value:&stru_2856D3978 table:v4];
@@ -1790,12 +1914,12 @@ LABEL_24:
     v9 = CommunicationsSetupUIBundle();
     v10 = CNFLocalizedStringFromTableInBundleWithFallback(@"FACETIME_SWITCH_STATUS_DEFAULT_WITH_WARNING", v8, v9);
 
-    v45 = v10;
+    v44 = v10;
   }
 
   else
   {
-    v45 = v5;
+    v44 = v5;
   }
 
   SIMStatus = CTSIMSupportGetSIMStatus();
@@ -1820,28 +1944,28 @@ LABEL_24:
   }
 
   v20 = *v11;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v21 = v12;
-  v22 = [v21 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v22)
   {
     v23 = v22;
     v24 = 0;
     v25 = 0;
-    v26 = *v51;
+    v26 = *v50;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v51 != v26)
+        if (*v50 != v26)
         {
           objc_enumerationMutation(v21);
         }
 
-        v28 = *(*(&v50 + 1) + 8 * i);
+        v28 = *(*(&v49 + 1) + 8 * i);
         registrationStatus = [v28 registrationStatus];
         if (registrationStatus == -1)
         {
@@ -1860,7 +1984,7 @@ LABEL_24:
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v23);
@@ -1874,35 +1998,35 @@ LABEL_24:
 
   if (SIMStatus == v20)
   {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     regController4 = [(CNFRegListController *)self regController];
     v34 = [regController4 accountsWithFilter:4];
 
-    v38 = [v34 countByEnumeratingWithState:&v46 objects:v54 count:16];
+    v38 = [v34 countByEnumeratingWithState:&v45 objects:v53 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v47;
+      v40 = *v46;
       while (2)
       {
         for (j = 0; j != v39; ++j)
         {
-          if (*v47 != v40)
+          if (*v46 != v40)
           {
             objc_enumerationMutation(v34);
           }
 
-          if ([*(*(&v46 + 1) + 8 * j) registrationStatus] == 5)
+          if ([*(*(&v45 + 1) + 8 * j) registrationStatus] == 5)
           {
-            v36 = v45;
+            v36 = v44;
             goto LABEL_40;
           }
         }
 
-        v39 = [v34 countByEnumeratingWithState:&v46 objects:v54 count:16];
+        v39 = [v34 countByEnumeratingWithState:&v45 objects:v53 count:16];
         if (v39)
         {
           continue;
@@ -1934,10 +2058,8 @@ LABEL_40:
 
   else
   {
-    v36 = v45;
+    v36 = v44;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -1964,6 +2086,131 @@ LABEL_40:
   }
 }
 
+- (void)setFaceTimeEnabled:(id)enabled specifier:(id)specifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v37[2] = *MEMORY[0x277D85DE8];
+  enabledCopy = enabled;
+  specifierCopy = specifier;
+  regController = [(CNFRegListController *)self regController];
+  if (![enabledCopy BOOLValue])
+  {
+    if ([(CNFRegSettingsController *)self _shouldDisableAccountConfigurationUI])
+    {
+      [(CNFRegSettingsController *)self reloadSpecifierID:@"FACETIME_ENABLED_ID"];
+    }
+
+    else
+    {
+      [(CNFRegSettingsController *)self _setupAccountHandlersForDisabling];
+      [regController setServiceEnabled:0];
+      [(CNFRegSettingsController *)self refreshFaceTimeSettingsAnimated:animatedCopy];
+    }
+
+    goto LABEL_25;
+  }
+
+  if (MGGetBoolAnswer())
+  {
+    if (([regController serviceType] | 2) == 2)
+    {
+      v11 = _CTServerConnectionCreateOnTargetQueue();
+      if (v11)
+      {
+        v12 = v11;
+        v13 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Enabling data usage for FaceTime", buf, 2u);
+        }
+
+        if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+        {
+          IMLogString();
+        }
+
+        v14 = *MEMORY[0x277CC3990];
+        v15 = *MEMORY[0x277CC3988];
+        v36[0] = *MEMORY[0x277CC4368];
+        v36[1] = v15;
+        v37[0] = v14;
+        v37[1] = v14;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+        v17 = _CTServerConnectionSetCellularUsagePolicy();
+        if (HIDWORD(v17))
+        {
+          v18 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109376;
+            v33 = HIDWORD(v17);
+            v34 = 1024;
+            v35 = v17;
+            _os_log_impl(&dword_243BE5000, v18, OS_LOG_TYPE_DEFAULT, "Could not enable data usage. error: %d domain: (%d)", buf, 0xEu);
+          }
+
+          if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+          {
+            v30 = HIDWORD(v17);
+            v31 = v17;
+            IMLogString();
+          }
+        }
+
+        CFRelease(v12);
+      }
+    }
+  }
+
+  if (![(CNFRegListController *)self _showWiFiAlertIfNecessary:v30])
+  {
+    [(CNFRegSettingsController *)self _setupAccountHandlers];
+    accounts = [regController accounts];
+    v20 = accounts == 0;
+
+    if (v20)
+    {
+      [(CNFRegSettingsController *)self popToFirstRunControllerAnimated:1];
+      v21 = [[CNFRegController alloc] initWithServiceType:0];
+      [(CNFRegController *)v21 connect:1];
+      v22 = [(CNFRegListController *)[CNFRegSettingsController alloc] initWithRegController:v21];
+      rootController = [(CNFRegSettingsController *)self rootController];
+      [(CNFRegSettingsController *)v22 setRootController:rootController];
+
+      [(CNFRegSettingsController *)v22 setParentController:self];
+      specifier = [(CNFRegSettingsController *)self specifier];
+      [(CNFRegListController *)v22 setSpecifier:specifier];
+
+      [(CNFRegSettingsController *)v22 setShowEnableSwitch:0];
+      [(CNFRegSettingsController *)v22 setShowDeviceAliases:1];
+      [(CNFRegSettingsController *)v22 setHideAppleIDLogin:1];
+      v25 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v22];
+      v26 = +[CNFRegAppearanceController globalAppearanceController];
+      navigationBarStyle = [v26 navigationBarStyle];
+      navigationBar = [v25 navigationBar];
+      [navigationBar setBarStyle:navigationBarStyle];
+
+      regController2 = [(CNFRegListController *)self regController];
+      [regController2 connect:1];
+
+      [(CNFRegSettingsController *)self presentModalViewController:v25 withTransition:3];
+    }
+
+    else
+    {
+      [regController activateAccounts];
+    }
+
+LABEL_25:
+    [(CNFRegSettingsController *)self _updateSwitch];
+    goto LABEL_26;
+  }
+
+  [(CNFRegSettingsController *)self reloadSpecifier:specifierCopy];
+LABEL_26:
+}
+
 - (id)getFaceTimeEnabledForSpecifier:(id)specifier
 {
   v3 = MEMORY[0x277CCABB0];
@@ -1975,7 +2222,7 @@ LABEL_40:
 
 - (void)setReceiveRelayedCallsEnabled:(id)enabled specifier:(id)specifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v8 = OSLogHandleForIDSCategory();
@@ -2018,12 +2265,12 @@ LABEL_40:
     v18 = CommunicationsSetupUIBundle();
     v19 = CNFRegStringTableName();
     v20 = [v18 localizedStringForKey:@"FACETIME_ALERT_OK" value:&stru_2856D3978 table:v19];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __68__CNFRegSettingsController_setReceiveRelayedCallsEnabled_specifier___block_invoke;
-    v24[3] = &unk_278DE8328;
-    v24[4] = self;
-    v21 = [v17 actionWithTitle:v20 style:0 handler:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __68__CNFRegSettingsController_setReceiveRelayedCallsEnabled_specifier___block_invoke;
+    v23[3] = &unk_278DE8328;
+    v23[4] = self;
+    v21 = [v17 actionWithTitle:v20 style:0 handler:v23];
     [v16 addAction:v21];
 
     [(CNFRegSettingsController *)self presentViewController:v16 animated:1 completion:0];
@@ -2033,8 +2280,6 @@ LABEL_40:
   {
     [MEMORY[0x277D6EDE8] setRelayCallingEnabled:{objc_msgSend(enabledCopy, "BOOLValue")}];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getReceiveRelayedCallsEnabledForSpecifier:(id)specifier
@@ -2057,6 +2302,368 @@ LABEL_40:
   -[CNFRegSettingsController refreshFaceTimeSettingsAnimated:](self, "refreshFaceTimeSettingsAnimated:", [delayed BOOLValue]);
   delayedRefreshAnimatedFlag = self->_delayedRefreshAnimatedFlag;
   self->_delayedRefreshAnimatedFlag = 0;
+}
+
+- (void)refreshFaceTimeSettingsWithDelayAnimated:(BOOL)animated
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:animated];
+  [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__refreshFaceTimeSettingsDelayed_ object:self->_delayedRefreshAnimatedFlag];
+  [(CNFRegSettingsController *)self performSelector:sel__refreshFaceTimeSettingsDelayed_ withObject:v4 afterDelay:0.75];
+  delayedRefreshAnimatedFlag = self->_delayedRefreshAnimatedFlag;
+  self->_delayedRefreshAnimatedFlag = v4;
+}
+
+- (void)refreshFaceTimeSettingsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v27 = *MEMORY[0x277D85DE8];
+  _operationalAccounts = [(CNFRegSettingsController *)self _operationalAccounts];
+  if ([_operationalAccounts count])
+  {
+    [(CNFRegSettingsController *)self refreshAccountsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshAliasesAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshCallerIdAliasesAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshTemporaryPhoneAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshTravelPhoneAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshGFTProminenceSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshSharedNameAndPhotoSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshSharePlaySettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshFaceTimeCaptionsSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshFaceTimePhotosSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshAlwaysFullBleedSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshFaceTimeVPCSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshBlocklistSettingsAnimated:animatedCopy];
+    [(CNFRegSettingsController *)self refreshReceiveRelayCallsSettingsAnimated:animatedCopy];
+    goto LABEL_27;
+  }
+
+  regController = [(CNFRegListController *)self regController];
+  v7 = [regController accountsWithFilter:49156];
+
+  if ([v7 count])
+  {
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v8 = v7;
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v23;
+      while (2)
+      {
+        v12 = 0;
+        do
+        {
+          if (*v23 != v11)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          if ([*(*(&v22 + 1) + 8 * v12) CNFRegSignInFailed])
+          {
+
+            goto LABEL_14;
+          }
+
+          ++v12;
+        }
+
+        while (v10 != v12);
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        if (v10)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    [(CNFRegSettingsController *)self showAccounts:0 animated:animatedCopy];
+  }
+
+  else
+  {
+LABEL_14:
+    [(CNFRegSettingsController *)self refreshAccountsAnimated:animatedCopy];
+  }
+
+  if ([(CNFRegSettingsController *)self showDeviceAliases])
+  {
+    isServiceEnabled = 1;
+  }
+
+  else
+  {
+    regController2 = [(CNFRegListController *)self regController];
+    if ([regController2 serviceType])
+    {
+      isServiceEnabled = 1;
+    }
+
+    else
+    {
+      regController3 = [(CNFRegListController *)self regController];
+      isServiceEnabled = [regController3 isServiceEnabled];
+    }
+  }
+
+  regController4 = [(CNFRegListController *)self regController];
+  usableDeviceAliases = [regController4 usableDeviceAliases];
+  if (![usableDeviceAliases count])
+  {
+
+    goto LABEL_25;
+  }
+
+  regController5 = [(CNFRegListController *)self regController];
+  v19 = [regController5 serviceSupportsDeviceAliasEnablement] & isServiceEnabled;
+
+  if (v19 != 1)
+  {
+LABEL_25:
+    [(CNFRegSettingsController *)self showAliases:0 animated:animatedCopy];
+    goto LABEL_26;
+  }
+
+  [(CNFRegSettingsController *)self refreshAliasesAnimated:animatedCopy];
+LABEL_26:
+  [(CNFRegSettingsController *)self showCallerId:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showBlocklistSettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showReceiveRelayCallsSettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showGFTProminenceSettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showSharedNameAndPhotoSettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showSharePlaySettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showFaceTimeCaptionsSettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showFaceTimePhotosSettings:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showAlwaysFullBleedSpecifiers:0 animated:animatedCopy];
+  [(CNFRegSettingsController *)self showFaceTimeVPCSpecifiers:0 animated:animatedCopy];
+
+LABEL_27:
+  [(CNFRegSettingsController *)self _updateSwitch];
+  [(CNFRegSettingsController *)self reloadSpecifier:self->_faceTimeEnabledSpecifier animated:animatedCopy];
+  [(CNFRegSettingsController *)self refreshEnabledStateAnimated:animatedCopy];
+  regController6 = [(CNFRegListController *)self regController];
+  isServiceSupported = [regController6 isServiceSupported];
+
+  if ((isServiceSupported & 1) == 0)
+  {
+    [(CNFRegSettingsController *)self _popFromSettingsAnimated:animatedCopy];
+  }
+}
+
+- (void)refreshEnabledStateAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v80 = *MEMORY[0x277D85DE8];
+  _shouldDisableAccountConfigurationUI = [(CNFRegSettingsController *)self _shouldDisableAccountConfigurationUI];
+  v5 = !_shouldDisableAccountConfigurationUI;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  regController = [(CNFRegListController *)self regController];
+  accounts = [regController accounts];
+
+  v8 = [accounts countByEnumeratingWithState:&v70 objects:v79 count:16];
+  v9 = v5;
+  if (v8)
+  {
+    v10 = v8;
+    v11 = *v71;
+    while (2)
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v71 != v11)
+        {
+          objc_enumerationMutation(accounts);
+        }
+
+        v13 = *(*(&v70 + 1) + 8 * i);
+        if ([v13 accountType] == 1 && objc_msgSend(v13, "registrationStatus") == 4)
+        {
+          v9 = 0;
+          goto LABEL_12;
+        }
+      }
+
+      v10 = [accounts countByEnumeratingWithState:&v70 objects:v79 count:16];
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    v9 = !_shouldDisableAccountConfigurationUI;
+  }
+
+LABEL_12:
+
+  v14 = [(CNFRegSettingsController *)self specifierForID:@"FACETIME_ENABLED_ID"];
+  [(CNFRegListController *)self _setSpecifierEnabled:v14 enabled:v5 animated:animatedCopy];
+
+  v15 = [(CNFRegSettingsController *)self specifierForID:@"FACETIME_ACCOUNT_ID"];
+  [(CNFRegListController *)self _setSpecifierEnabled:v15 enabled:v9 animated:animatedCopy];
+
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v16 = self->_accountGroupSpecifiers;
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v66 objects:v78 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v67;
+    do
+    {
+      for (j = 0; j != v18; ++j)
+      {
+        if (*v67 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        [(CNFRegListController *)self _setSpecifierEnabled:*(*(&v66 + 1) + 8 * j) enabled:v9 animated:animatedCopy];
+      }
+
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v66 objects:v78 count:16];
+    }
+
+    while (v18);
+  }
+
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v21 = self->_aliasGroupSpecifiers;
+  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v62 objects:v77 count:16];
+  if (v22)
+  {
+    v23 = v22;
+    v24 = *v63;
+    do
+    {
+      for (k = 0; k != v23; ++k)
+      {
+        if (*v63 != v24)
+        {
+          objc_enumerationMutation(v21);
+        }
+
+        v26 = *(*(&v62 + 1) + 8 * k);
+        cNFRegAlias = [v26 CNFRegAlias];
+        v28 = [(CNFRegSettingsController *)self _canDeselectAlias:cNFRegAlias];
+
+        if (v28 || _shouldDisableAccountConfigurationUI)
+        {
+          [(CNFRegListController *)self _setSpecifierEnabled:v26 enabled:v28 & v5 animated:animatedCopy];
+        }
+      }
+
+      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v62 objects:v77 count:16];
+    }
+
+    while (v23);
+  }
+
+  v47 = v5;
+
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  obj = self->_callerIdGroupSpecifiers;
+  v29 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v76 count:16];
+  if (v29)
+  {
+    v30 = v29;
+    v31 = *v59;
+    do
+    {
+      for (m = 0; m != v30; ++m)
+      {
+        if (*v59 != v31)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v33 = *(*(&v58 + 1) + 8 * m);
+        regController2 = [(CNFRegListController *)self regController];
+        cNFRegCallerIdAlias = [v33 CNFRegCallerIdAlias];
+        v36 = [regController2 isAliasMDMRestricted:cNFRegCallerIdAlias];
+
+        [(CNFRegListController *)self _setSpecifierEnabled:v33 enabled:((_shouldDisableAccountConfigurationUI | v36) & 1) == 0 animated:animatedCopy];
+      }
+
+      v30 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v76 count:16];
+    }
+
+    while (v30);
+  }
+
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v37 = self->_faceTimePhotosGroupSpecifiers;
+  v38 = [(NSArray *)v37 countByEnumeratingWithState:&v54 objects:v75 count:16];
+  if (v38)
+  {
+    v39 = v38;
+    v40 = *v55;
+    do
+    {
+      for (n = 0; n != v39; ++n)
+      {
+        if (*v55 != v40)
+        {
+          objc_enumerationMutation(v37);
+        }
+
+        [(CNFRegListController *)self _setSpecifierEnabled:*(*(&v54 + 1) + 8 * n) enabled:v47 animated:animatedCopy];
+      }
+
+      v39 = [(NSArray *)v37 countByEnumeratingWithState:&v54 objects:v75 count:16];
+    }
+
+    while (v39);
+  }
+
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v42 = self->_alwaysFullBleedGroupSpecifiers;
+  v43 = [(NSArray *)v42 countByEnumeratingWithState:&v50 objects:v74 count:16];
+  if (v43)
+  {
+    v44 = v43;
+    v45 = *v51;
+    do
+    {
+      for (ii = 0; ii != v44; ++ii)
+      {
+        if (*v51 != v45)
+        {
+          objc_enumerationMutation(v42);
+        }
+
+        [(CNFRegListController *)self _setSpecifierEnabled:*(*(&v50 + 1) + 8 * ii) enabled:v47 animated:animatedCopy];
+      }
+
+      v44 = [(NSArray *)v42 countByEnumeratingWithState:&v50 objects:v74 count:16];
+    }
+
+    while (v44);
+  }
 }
 
 - (void)setShowEnableSwitch:(BOOL)switch
@@ -2293,6 +2900,182 @@ uint64_t __61__CNFRegSettingsController_refreshiMessageAccountFooterText___block
   [specifierCopy setProperty:v11 forKey:*MEMORY[0x277D3FE10]];
 }
 
+- (void)showReceiveRelayCallsSettings:(BOOL)settings animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v43 = *MEMORY[0x277D85DE8];
+  if (settings)
+  {
+    [(CNFRegSettingsController *)self showSpecifiers:self->_receiveRelayCallsGroupSpecifiers afterGroupId:@"FACETIME_ENABLED_GROUP_ID" animated:animated];
+    v37 = [*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) specifierForID:@"RECEIVE_RELAYED_PHONE_CALLS_GROUP_ID"];
+    mEMORY[0x277D07DB0] = [MEMORY[0x277D07DB0] sharedInstance];
+    isTelephonyDevice = [mEMORY[0x277D07DB0] isTelephonyDevice];
+
+    if (isTelephonyDevice)
+    {
+      outgoingRelayCallerID = CommunicationsSetupUIBundle();
+      displayAlias = CNFStringKeyForNetwork(@"RELAY_CALLS_HOST_FOOTER");
+      v10 = CNFRegStringTableName();
+      v11 = [outgoingRelayCallerID localizedStringForKey:displayAlias value:&stru_2856D3978 table:v10];
+LABEL_30:
+
+      [(CNFRegListController *)self _setLabel:v11 forSpecifier:v37 header:0];
+
+      return;
+    }
+
+    outgoingRelayCallerID = [MEMORY[0x277D6EDE8] outgoingRelayCallerID];
+    regController = [(CNFRegListController *)self regController];
+    displayAlias = [regController displayAlias];
+
+    if ([MEMORY[0x277D6EDE8] isThumperCallingEnabled])
+    {
+      if (!outgoingRelayCallerID || ([displayAlias alias], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", outgoingRelayCallerID), v18, (v19 & 1) != 0))
+      {
+        supportsThumperCallingOverCellularData = [MEMORY[0x277D6EDE8] supportsThumperCallingOverCellularData];
+        v10 = CommunicationsSetupUIBundle();
+        if (supportsThumperCallingOverCellularData)
+        {
+          v21 = @"RELAY_CALLS_CLIENT_FOOTER_THUMPER_CELLULAR";
+        }
+
+        else
+        {
+          v21 = @"RELAY_CALLS_CLIENT_FOOTER_THUMPER";
+        }
+
+        v24 = CNFStringKeyForNetworkAndProduct(v21);
+        goto LABEL_22;
+      }
+
+      supportsThumperCallingOverCellularData2 = [MEMORY[0x277D6EDE8] supportsThumperCallingOverCellularData];
+      v28 = CommunicationsSetupUIBundle();
+      if (supportsThumperCallingOverCellularData2)
+      {
+        v29 = @"RELAY_CALLS_CLIENT_FOOTER_WITH_CALLER_ID_THUMPER_CELLULAR_%@";
+      }
+
+      else
+      {
+        v29 = @"RELAY_CALLS_CLIENT_FOOTER_WITH_CALLER_ID_THUMPER_%@";
+      }
+
+      v30 = CNFStringKeyForNetworkAndProduct(v29);
+      v31 = CNFRegStringTableName();
+      v10 = [v28 localizedStringForKey:v30 value:&stru_2856D3978 table:v31];
+
+      v32 = MEMORY[0x277CCACA8];
+      v25 = CommunicationsSetupUIBundle();
+      v26 = CNFRegStringTableName();
+      v33 = v25;
+      v34 = v10;
+    }
+
+    else
+    {
+      if (!outgoingRelayCallerID || ([displayAlias alias], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", outgoingRelayCallerID), v22, (v23 & 1) != 0))
+      {
+        v10 = CommunicationsSetupUIBundle();
+        v24 = CNFStringKeyForNetwork(@"RELAY_CALLS_CLIENT_FOOTER");
+LABEL_22:
+        v25 = v24;
+        v26 = CNFRegStringTableName();
+        v11 = [v10 localizedStringForKey:v25 value:&stru_2856D3978 table:v26];
+LABEL_29:
+
+        goto LABEL_30;
+      }
+
+      v32 = MEMORY[0x277CCACA8];
+      v10 = CommunicationsSetupUIBundle();
+      v25 = CNFStringKeyForNetwork(@"RELAY_CALLS_CLIENT_FOOTER_WITH_CALLER_ID_%@");
+      v26 = CNFRegStringTableName();
+      v33 = v10;
+      v34 = v25;
+    }
+
+    v35 = [v33 localizedStringForKey:v34 value:&stru_2856D3978 table:v26];
+    v36 = CNFRegFormattedPhoneNumberForString(outgoingRelayCallerID);
+    v11 = [v32 stringWithFormat:v35, v36];
+
+    goto LABEL_29;
+  }
+
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v12 = self->_receiveRelayCallsGroupSpecifiers;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v39;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v39 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        [(CNFRegSettingsController *)self removeSpecifier:*(*(&v38 + 1) + 8 * i) animated:animatedCopy];
+      }
+
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    }
+
+    while (v14);
+  }
+}
+
+- (void)refreshReceiveRelayCallsSettingsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = self->_receiveRelayCallsGroupSpecifiers;
+  if (v5)
+  {
+    v6 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Refreshing receive relay calls settings", v7, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    {
+      IMLogString();
+    }
+
+    if ([(CNFRegSettingsController *)self shouldShowReceiveRelayCalls])
+    {
+      [(CNFRegSettingsController *)self showReceiveRelayCallsSettings:1 animated:animatedCopy];
+      if ([(CNFRegSettingsController *)self shouldShowReceiveThumperCalls])
+      {
+        [(CNFRegSettingsController *)self removeSpecifierID:@"RECEIVE_RELAYED_PHONE_CALLS_ID" animated:animatedCopy];
+      }
+
+      [(CNFRegSettingsController *)self reloadSpecifierID:@"RECEIVE_RELAYED_PHONE_CALLS_ID" animated:animatedCopy];
+    }
+
+    else
+    {
+      [(CNFRegSettingsController *)self showReceiveRelayCallsSettings:0 animated:animatedCopy];
+    }
+  }
+}
+
+- (void)showAllSettings:(BOOL)settings animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  settingsCopy = settings;
+  [CNFRegSettingsController showAccounts:"showAccounts:animated:" animated:?];
+  [(CNFRegSettingsController *)self showAliases:settingsCopy animated:animatedCopy];
+
+  [(CNFRegSettingsController *)self showCallerId:settingsCopy animated:animatedCopy];
+}
+
 - (id)getAccountNameForSpecifier:(id)specifier
 {
   specifierCopy = specifier;
@@ -2365,7 +3148,7 @@ uint64_t __61__CNFRegSettingsController_refreshiMessageAccountFooterText___block
 
 void __56__CNFRegSettingsController__showAccountAlertForAccount___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!_os_feature_enabled_impl())
   {
     goto LABEL_15;
@@ -2384,26 +3167,26 @@ void __56__CNFRegSettingsController__showAccountAlertForAccount___block_invoke_2
     v4 = [*(a1 + 32) regController];
     v5 = [v4 accounts];
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v2 = v5;
-    v6 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v2);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([v10 accountType] == 2 && objc_msgSend(v10, "loginStatus") == 4)
           {
             block[0] = MEMORY[0x277D85DD0];
@@ -2417,7 +3200,7 @@ void __56__CNFRegSettingsController__showAccountAlertForAccount___block_invoke_2
           }
         }
 
-        v7 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -2434,8 +3217,6 @@ LABEL_15:
   v2 = [*(a1 + 32) regController];
   [v2 signoutAccount:*(a1 + 40)];
 LABEL_16:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showAccountSignOutCKVAlert
@@ -2475,7 +3256,7 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
 
 - (BOOL)_isEnrolledInContactKeyVerification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = CUTWeakLinkSymbol();
   if (v2)
   {
@@ -2492,17 +3273,16 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:v3];
     *buf = 138412290;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEFAULT, "_isEnrolledInContactKeyVerification: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithBool:v3];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:v3];
     IMLogString();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2635,10 +3415,254 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
   return v14;
 }
 
+- (void)refreshAccountsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v60 = *MEMORY[0x277D85DE8];
+  if (![(CNFRegSettingsController *)self hideAppleIDLogin])
+  {
+    v5 = [(CNFRegSettingsController *)self refreshiMessageAccountFooterText:animatedCopy];
+    accountToShowInCallerIDFooter = [(CNFRegSettingsController *)self accountToShowInCallerIDFooter];
+    accountSpecifiers = [(CNFRegSettingsController *)self accountSpecifiers];
+    v7 = [accountSpecifiers mutableCopy];
+    v8 = v7;
+    if (accountToShowInCallerIDFooter)
+    {
+      v9 = v5;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    v10 = [v7 count];
+    v11 = v10;
+    if (v9 == 1)
+    {
+      if (v10)
+      {
+        v12 = [v8 copy];
+        [v8 removeAllObjects];
+        if (accountToShowInCallerIDFooter)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      else
+      {
+        v12 = 0;
+        if (accountToShowInCallerIDFooter)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      if ([v8 count])
+      {
+LABEL_13:
+        if (v11)
+        {
+          v47 = v12;
+          array = 0;
+LABEL_18:
+          v46 = [(NSArray *)self->_accountGroupSpecifiers objectAtIndex:0];
+          v15 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            specifiers = [(CNFRegListController *)self specifiers];
+            v17 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:specifiers];
+            v18 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:v47];
+            v19 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:array];
+            *buf = 138412802;
+            v55 = v17;
+            v56 = 2112;
+            v57 = v18;
+            v58 = 2112;
+            v59 = v19;
+            _os_log_impl(&dword_243BE5000, v15, OS_LOG_TYPE_DEFAULT, "CNFRegSettingsController: before batch updates: current: %@, removed: %@, added: %@", buf, 0x20u);
+          }
+
+          if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+          {
+            specifiers2 = [(CNFRegListController *)self specifiers];
+            v21 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:specifiers2];
+            v22 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:v47];
+            [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:array];
+            v44 = v42 = v22;
+            v40 = v21;
+            IMLogString();
+          }
+
+          [(CNFRegSettingsController *)self beginUpdates:v40];
+          if (v47)
+          {
+            v23 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            {
+              v24 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:self->_accountGroupSpecifiers];
+              *buf = 138412290;
+              v55 = v24;
+              _os_log_impl(&dword_243BE5000, v23, OS_LOG_TYPE_DEFAULT, "CNFRegSettingsController: removing via removeContiguousSpecifiers %@", buf, 0xCu);
+            }
+
+            if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+            {
+              v41 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:self->_accountGroupSpecifiers];
+              IMLogString();
+            }
+
+            [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_accountGroupSpecifiers animated:animatedCopy, v41];
+          }
+
+          if (array)
+          {
+            v25 = [(CNFRegSettingsController *)self specifierForID:@"FACETIME_CALLERID_GROUP_ID"];
+            v26 = @"FACETIME_ALIAS_GROUP_ID";
+            if (v25)
+            {
+              v26 = @"FACETIME_CALLERID_GROUP_ID";
+            }
+
+            v27 = v26;
+
+            [array insertObject:v46 atIndex:0];
+            v28 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            {
+              v29 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:array];
+              v30 = [(CNFRegSettingsController *)self _makeRedactedIdentifierFromSpecifierId:v27];
+              *buf = 138412802;
+              v55 = v29;
+              v56 = 2112;
+              v57 = v30;
+              v58 = 1024;
+              LODWORD(v59) = animatedCopy;
+              _os_log_impl(&dword_243BE5000, v28, OS_LOG_TYPE_DEFAULT, "CNFRegSettingsController: adding via showSpecifiers %@ afterGroupId %@ animated %d", buf, 0x1Cu);
+            }
+
+            if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+            {
+              v31 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:array];
+              v43 = [(CNFRegSettingsController *)self _makeRedactedIdentifierFromSpecifierId:v27];
+              v45 = animatedCopy;
+              v41 = v31;
+              IMLogString();
+            }
+
+            [(CNFRegSettingsController *)self showSpecifiers:array afterGroupId:v27 animated:animatedCopy, v41, v43, v45];
+          }
+
+          [(CNFRegSettingsController *)self endUpdates];
+          v32 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          {
+            specifiers3 = [(CNFRegListController *)self specifiers];
+            v34 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:specifiers3];
+            *buf = 138412290;
+            v55 = v34;
+            _os_log_impl(&dword_243BE5000, v32, OS_LOG_TYPE_DEFAULT, "CNFRegSettingsController: after batch updates: current: %@", buf, 0xCu);
+          }
+
+          if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+          {
+            specifiers4 = [(CNFRegListController *)self specifiers];
+            v41 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:specifiers4];
+            IMLogString();
+          }
+
+          [v8 insertObject:v46 atIndex:{0, v41}];
+          objc_storeStrong(&self->_accountGroupSpecifiers, v8);
+
+          if (array)
+          {
+            v51 = 0u;
+            v52 = 0u;
+            v49 = 0u;
+            v50 = 0u;
+            v36 = array;
+            v37 = [v36 countByEnumeratingWithState:&v49 objects:v53 count:16];
+            if (v37)
+            {
+              v38 = *v50;
+              do
+              {
+                for (i = 0; i != v37; ++i)
+                {
+                  if (*v50 != v38)
+                  {
+                    objc_enumerationMutation(v36);
+                  }
+
+                  [(CNFRegSettingsController *)self reloadSpecifier:*(*(&v49 + 1) + 8 * i)];
+                }
+
+                v37 = [v36 countByEnumeratingWithState:&v49 objects:v53 count:16];
+              }
+
+              while (v37);
+            }
+          }
+
+          v12 = v47;
+        }
+
+LABEL_54:
+
+        return;
+      }
+
+      v47 = v12;
+      v14 = [(CNFRegSettingsController *)self createSpecifierForAccount:0];
+    }
+
+    else
+    {
+      if (v10)
+      {
+        v12 = 0;
+        goto LABEL_54;
+      }
+
+      v14 = [(CNFRegSettingsController *)self createSpecifierForAccount:accountToShowInCallerIDFooter];
+      v47 = 0;
+    }
+
+    [v8 addObject:v14];
+    array = [MEMORY[0x277CBEB18] array];
+    [array addObject:v14];
+
+    goto LABEL_18;
+  }
+}
+
+- (BOOL)showAccounts:(BOOL)accounts animated:(BOOL)animated
+{
+  if (accounts)
+  {
+    [(CNFRegSettingsController *)self refreshAccountsAnimated:1, animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_accountGroupSpecifiers animated:animated];
+    v5 = *MEMORY[0x277D3FC48];
+    v6 = [*(&self->super.super.super.super.super.super.isa + v5) specifierForID:@"FACETIME_CALLERID_GROUP_ID"];
+    v7 = [*(&self->super.super.super.super.super.super.isa + v5) specifierForID:@"FACETIME_ALIAS_GROUP_ID"];
+    [(CNFRegSettingsController *)self clearFooterFromSpecifier:v6];
+    [(CNFRegSettingsController *)self clearFooterFromSpecifier:v7];
+    [(CNFRegSettingsController *)self reloadSpecifier:v6];
+    [(CNFRegSettingsController *)self reloadSpecifier:v7];
+  }
+
+  return 1;
+}
+
 - (void)firstRunControllerDidFinish:(id)finish finished:(BOOL)finished
 {
   finishedCopy = finished;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   v7 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -2658,7 +3682,7 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
     navigationController = [(CNFRegSettingsController *)self navigationController];
     visibleViewController = [navigationController visibleViewController];
     *buf = 138412290;
-    v22 = visibleViewController;
+    v21 = visibleViewController;
     _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Visible controller: %@", buf, 0xCu);
   }
 
@@ -2674,7 +3698,7 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
   {
     presentedViewController = [(CNFRegSettingsController *)self presentedViewController];
     *buf = 138412290;
-    v22 = presentedViewController;
+    v21 = presentedViewController;
     _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, "Presented view controller: %@", buf, 0xCu);
   }
 
@@ -2700,13 +3724,11 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
     v18 = [MEMORY[0x277CCABB0] numberWithBool:1];
     [(CNFRegSettingsController *)self setFaceTimeEnabled:v18 specifier:0];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)authenticationController:(id)controller shouldContinueWithAuthenticationResults:(id)results error:(id)error forContext:(id)context
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   resultsCopy = results;
   errorCopy = error;
@@ -2719,8 +3741,8 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
     v16 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v41 = 0x2020000000;
-    v42 = 0;
+    v40 = 0x2020000000;
+    v41 = 0;
     if (v17)
     {
       v20 = v18 == 0;
@@ -2739,8 +3761,8 @@ void __55__CNFRegSettingsController__showAccountSignOutCKVAlert__block_invoke()
     v21 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_243BE5000, v21, OS_LOG_TYPE_DEFAULT, "Obtained user/pass from AuthKit.", v38, 2u);
+      *v37 = 0;
+      _os_log_impl(&dword_243BE5000, v21, OS_LOG_TYPE_DEFAULT, "Obtained user/pass from AuthKit.", v37, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -2760,13 +3782,13 @@ LABEL_27:
         v25 = iMessageService;
         if (iMessageService)
         {
-          v34 = dispatch_semaphore_create(0);
+          v33 = dispatch_semaphore_create(0);
           v26 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            *v38 = 138412290;
-            v39 = v25;
-            _os_log_impl(&dword_243BE5000, v26, OS_LOG_TYPE_DEFAULT, "Registering for service: %@", v38, 0xCu);
+            *v37 = 138412290;
+            v38 = v25;
+            _os_log_impl(&dword_243BE5000, v26, OS_LOG_TYPE_DEFAULT, "Registering for service: %@", v37, 0xCu);
           }
 
           if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -2778,15 +3800,15 @@ LABEL_27:
           regController2 = [(CNFRegListController *)self regController];
           v29 = -[CNFAccountRegistrar initWithServiceType:presentationViewController:](v27, "initWithServiceType:presentationViewController:", [regController2 serviceType], self);
 
-          v35[0] = MEMORY[0x277D85DD0];
-          v35[1] = 3221225472;
-          v35[2] = __110__CNFRegSettingsController_authenticationController_shouldContinueWithAuthenticationResults_error_forContext___block_invoke;
-          v35[3] = &unk_278DE8468;
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __110__CNFRegSettingsController_authenticationController_shouldContinueWithAuthenticationResults_error_forContext___block_invoke;
+          v34[3] = &unk_278DE8468;
           p_buf = &buf;
-          v35[4] = self;
-          v30 = v34;
-          v36 = v30;
-          [(CNFAccountRegistrar *)v29 registerAccountWithUsername:v17 password:v19 service:v25 completionBlock:v35];
+          v34[4] = self;
+          v30 = v33;
+          v35 = v30;
+          [(CNFAccountRegistrar *)v29 registerAccountWithUsername:v17 password:v19 service:v25 completionBlock:v34];
           dispatch_semaphore_wait(v30, 0xFFFFFFFFFFFFFFFFLL);
 
 LABEL_39:
@@ -2801,8 +3823,8 @@ LABEL_34:
         v31 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          *v38 = 0;
-          _os_log_impl(&dword_243BE5000, v31, OS_LOG_TYPE_DEFAULT, "Couldn't determine a service from the regController.", v38, 2u);
+          *v37 = 0;
+          _os_log_impl(&dword_243BE5000, v31, OS_LOG_TYPE_DEFAULT, "Couldn't determine a service from the regController.", v37, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -2851,7 +3873,6 @@ LABEL_34:
   v16 = 0;
 LABEL_41:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
@@ -2968,7 +3989,7 @@ void __110__CNFRegSettingsController_authenticationController_shouldContinueWith
 
 void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (v5)
@@ -2977,7 +3998,7 @@ void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = v5;
+      v8 = v5;
       _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Error getting credentials using AuthKit: %@", buf, 0xCu);
     }
 
@@ -2986,8 +4007,6 @@ void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t
       IMLogString();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)primaryAppleAccount
@@ -3003,13 +4022,13 @@ void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t
 
 - (void)_showViewAccountControllerForAccount:(id)account
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = accountCopy;
+    v16 = accountCopy;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "_showViewAccountControllerForAccount: %@", buf, 0xCu);
   }
 
@@ -3039,8 +4058,6 @@ void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t
     [(CNFRegSettingsController *)self _tearDownAllListeners];
     [(CNFRegSettingsController *)self presentViewController:v10 animated:1 completion:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hideLocaleChooser
@@ -3057,7 +4074,7 @@ void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t
 
 - (id)_localeChooserForAccount:(id)account
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D3FAC8];
   accountCopy = account;
   v6 = objc_alloc_init(v4);
@@ -3083,11 +4100,9 @@ void __49__CNFRegSettingsController__showSignInController__block_invoke(uint64_t
   view = [v6 view];
   [view setClipsToBounds:1];
 
-  v18[0] = v10;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v10;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   [v6 setViewControllers:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3126,13 +4141,6 @@ uint64_t __71__CNFRegSettingsController_viewAccountControllerDidFinish_withApple
   return [v2 _updateControllerStateAnimated:1];
 }
 
-- (void)clearAccountCache
-{
-  addresses = self->_addresses;
-  self->_addresses = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (id)aliasSpecifiers
 {
   v3 = [(NSArray *)self->_aliasGroupSpecifiers count]- 1;
@@ -3143,62 +4151,326 @@ uint64_t __71__CNFRegSettingsController_viewAccountControllerDidFinish_withApple
 
 - (BOOL)_shouldShowAliasInfo
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _appleIDAccounts = [(CNFRegSettingsController *)self _appleIDAccounts];
   v4 = [_appleIDAccounts count];
 
   if (v4)
   {
-    serviceSupportsDeviceAliasEnablement = 1;
+    return 1;
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  regController = [(CNFRegListController *)self regController];
+  phoneAccounts = [regController phoneAccounts];
+
+  v8 = [phoneAccounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v14 != v10)
+        {
+          objc_enumerationMutation(phoneAccounts);
+        }
+
+        if ([*(*(&v13 + 1) + 8 * i) CNFRegSignInComplete])
+        {
+          serviceSupportsDeviceAliasEnablement = 1;
+          goto LABEL_13;
+        }
+      }
+
+      v9 = [phoneAccounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  phoneAccounts = [(CNFRegListController *)self regController];
+  serviceSupportsDeviceAliasEnablement = [phoneAccounts serviceSupportsDeviceAliasEnablement];
+LABEL_13:
+
+  return serviceSupportsDeviceAliasEnablement;
+}
+
+- (void)refreshAliasesAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v65 = *MEMORY[0x277D85DE8];
+  if ([(CNFRegSettingsController *)self _shouldShowAliasInfo])
+  {
+    v44 = animatedCopy;
+    [(CNFRegSettingsController *)self showAliases:1 animated:animatedCopy];
+    selfCopy = self;
+    _useableAccounts = [(CNFRegSettingsController *)self _useableAccounts];
+    regController = [(CNFRegListController *)self regController];
+    v46 = [regController allAvailableAliasesForAccounts:_useableAccounts];
+
+    v47 = [v46 count];
+    if (_CNFRegShouldLog())
+    {
+      v6 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Refreshing alias specifiers for accounts:", buf, 2u);
+      }
+
+      if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+      {
+        IMLogString();
+      }
+
+      v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      obj = _useableAccounts;
+      v7 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+      if (v7)
+      {
+        v8 = *v56;
+        do
+        {
+          for (i = 0; i != v7; ++i)
+          {
+            if (*v56 != v8)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v10 = *(*(&v55 + 1) + 8 * i);
+            v11 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            {
+              v12 = CNFRegStringForAccount(v10);
+              *buf = 138412290;
+              v63 = v12;
+              _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "  => Account: %@", buf, 0xCu);
+            }
+
+            if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+            {
+              usableDeviceAliases2 = CNFRegStringForAccount(v10);
+              IMLogString();
+            }
+
+            v13 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            {
+              regController2 = [(CNFRegListController *)selfCopy regController];
+              v61 = v10;
+              v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+              v16 = [regController2 allAvailableAliasesForAccounts:v15];
+              *buf = 138412290;
+              v63 = v16;
+              _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "    => Aliases: %@", buf, 0xCu);
+            }
+
+            if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+            {
+              regController3 = [(CNFRegListController *)selfCopy regController];
+              v60 = v10;
+              v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+              usableDeviceAliases2 = [regController3 allAvailableAliasesForAccounts:v18];
+              IMLogString();
+            }
+          }
+
+          v7 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+        }
+
+        while (v7);
+      }
+
+      v19 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        regController4 = [(CNFRegListController *)selfCopy regController];
+        usableDeviceAliases = [regController4 usableDeviceAliases];
+        *buf = 138412290;
+        v63 = usableDeviceAliases;
+        _os_log_impl(&dword_243BE5000, v19, OS_LOG_TYPE_DEFAULT, "All device aliases: %@", buf, 0xCu);
+      }
+
+      if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+      {
+        regController5 = [(CNFRegListController *)selfCopy regController];
+        usableDeviceAliases2 = [regController5 usableDeviceAliases];
+        IMLogString();
+      }
+
+      v23 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v63 = v46;
+        _os_log_impl(&dword_243BE5000, v23, OS_LOG_TYPE_DEFAULT, "All aliases: %@", buf, 0xCu);
+      }
+
+      if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+      {
+        usableDeviceAliases2 = v46;
+        IMLogString();
+      }
+    }
+
+    aliasSpecifiers = [(CNFRegSettingsController *)selfCopy aliasSpecifiers];
+    v24 = [aliasSpecifiers mutableCopy];
+    v25 = [v24 count];
+    v26 = v25 > v47;
+    if (v25 > v47)
+    {
+      v27 = [v24 count] - v47;
+      v28 = [v24 subarrayWithRange:?];
+      [v24 removeObjectsInRange:{v47, v27}];
+      v29 = 1;
+    }
+
+    else
+    {
+      v28 = 0;
+      v29 = 0;
+    }
+
+    if ([v24 count] > v47)
+    {
+      [CNFRegSettingsController refreshAliasesAnimated:];
+    }
+
+    v30 = [v24 count];
+    if (v47)
+    {
+      v31 = v30;
+      v32 = 0;
+      v33 = 0;
+      array = 0;
+      do
+      {
+        v35 = [v46 objectAtIndex:v32];
+        if (v32 >= v31)
+        {
+          if (v28)
+          {
+            [CNFRegSettingsController refreshAliasesAnimated:];
+          }
+
+          v37 = [(CNFRegSettingsController *)selfCopy createSpecifierForAlias:v35];
+          [v24 addObject:v37];
+          if (!array)
+          {
+            array = [MEMORY[0x277CBEB18] array];
+            ++v29;
+          }
+
+          [array addObject:v37];
+          v26 = 1;
+        }
+
+        else
+        {
+          v36 = [v24 objectAtIndex:v32];
+          [(CNFRegSettingsController *)selfCopy updateSpecifier:v36 withAlias:v35];
+          v37 = v36;
+
+          v33 = v37;
+        }
+
+        ++v32;
+      }
+
+      while (v47 != v32);
+    }
+
+    else
+    {
+      array = 0;
+      v33 = 0;
+    }
+
+    if (v29)
+    {
+      v38 = [(NSArray *)selfCopy->_aliasGroupSpecifiers objectAtIndex:0];
+      if (v29 != 1)
+      {
+        [(CNFRegSettingsController *)selfCopy beginUpdates];
+      }
+
+      if (v28)
+      {
+        [(CNFRegSettingsController *)selfCopy removeContiguousSpecifiers:v28 animated:v44];
+      }
+
+      if (array)
+      {
+        if (!v33)
+        {
+          v33 = v38;
+        }
+
+        [(CNFRegSettingsController *)selfCopy insertContiguousSpecifiers:array afterSpecifier:v33 animated:v44];
+      }
+
+      if (v29 != 1)
+      {
+        [(CNFRegSettingsController *)selfCopy endUpdates];
+      }
+
+      if (v26)
+      {
+        [v24 insertObject:v38 atIndex:0];
+        objc_storeStrong(&selfCopy->_aliasGroupSpecifiers, v24);
+      }
+    }
+
+    if (array)
+    {
+      v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v39 = array;
+      v40 = [v39 countByEnumeratingWithState:&v51 objects:v59 count:16];
+      if (v40)
+      {
+        v41 = *v52;
+        do
+        {
+          for (j = 0; j != v40; ++j)
+          {
+            if (*v52 != v41)
+            {
+              objc_enumerationMutation(v39);
+            }
+
+            [(CNFRegSettingsController *)selfCopy reloadSpecifier:*(*(&v51 + 1) + 8 * j)];
+          }
+
+          v40 = [v39 countByEnumeratingWithState:&v51 objects:v59 count:16];
+        }
+
+        while (v40);
+      }
+    }
   }
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    regController = [(CNFRegListController *)self regController];
-    phoneAccounts = [regController phoneAccounts];
 
-    v8 = [phoneAccounts countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v15;
-      while (2)
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v15 != v10)
-          {
-            objc_enumerationMutation(phoneAccounts);
-          }
-
-          if ([*(*(&v14 + 1) + 8 * i) CNFRegSignInComplete])
-          {
-            serviceSupportsDeviceAliasEnablement = 1;
-            goto LABEL_13;
-          }
-        }
-
-        v9 = [phoneAccounts countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v9)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    phoneAccounts = [(CNFRegListController *)self regController];
-    serviceSupportsDeviceAliasEnablement = [phoneAccounts serviceSupportsDeviceAliasEnablement];
-LABEL_13:
+    [(CNFRegSettingsController *)self showAliases:0 animated:animatedCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return serviceSupportsDeviceAliasEnablement;
 }
 
 - (void)refreshAliasSpecifier:(id)specifier
@@ -3213,7 +4485,7 @@ LABEL_13:
 
 void __50__CNFRegSettingsController_refreshAliasSpecifier___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 CNFRegAlias];
   v5 = [*(a1 + 32) regController];
@@ -3229,16 +4501,16 @@ void __50__CNFRegSettingsController_refreshAliasSpecifier___block_invoke(uint64_
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v37 = v9;
-      v38 = 2048;
-      v39 = v10;
+      v36 = v9;
+      v37 = 2048;
+      v38 = v10;
       _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "refreshAliasSpecifier phone number account: [%@], registrationStatus: [%ld]", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v34 = v9;
-      v35 = v10;
+      v33 = v9;
+      v34 = v10;
       IMLogString();
     }
 
@@ -3273,7 +4545,7 @@ void __50__CNFRegSettingsController_refreshAliasSpecifier___block_invoke(uint64_
     }
 
     v15 = v6 ^ 1;
-    v20 = [MEMORY[0x277CCABB0] numberWithBool:{(v18 | v19) & (v6 ^ 1) & 1, v34, v35}];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:{(v18 | v19) & (v6 ^ 1) & 1, v33, v34}];
     [v3 setProperty:v20 forKey:@"cnfreg-alias-spinning"];
   }
 
@@ -3291,13 +4563,13 @@ void __50__CNFRegSettingsController_refreshAliasSpecifier___block_invoke(uint64_
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v37 = v21;
+    v36 = v21;
     _os_log_impl(&dword_243BE5000, v22, OS_LOG_TYPE_DEFAULT, "refreshAliasSpecifier account validationStatus is: [%ld]", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v34 = v21;
+    v33 = v21;
     IMLogString();
   }
 
@@ -3349,8 +4621,8 @@ void __50__CNFRegSettingsController_refreshAliasSpecifier___block_invoke(uint64_
 
   if (v21 == 3)
   {
-    v33 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    [v3 setProperty:v33 forKey:@"cnfreg-alias-checked"];
+    v32 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    [v3 setProperty:v32 forKey:@"cnfreg-alias-checked"];
 
     goto LABEL_44;
   }
@@ -3358,38 +4630,36 @@ void __50__CNFRegSettingsController_refreshAliasSpecifier___block_invoke(uint64_
   if (v21 == -1)
   {
 LABEL_43:
-    [v3 removePropertyForKey:{@"cnfreg-alias-checked", v34}];
+    [v3 removePropertyForKey:{@"cnfreg-alias-checked", v33}];
   }
 
 LABEL_44:
-  [*(a1 + 32) _setSpecifierEnabled:v3 enabled:v13 & v15 animated:{1, v34}];
-
-  v32 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) _setSpecifierEnabled:v3 enabled:v13 & v15 animated:{1, v33}];
 }
 
 - (void)refreshAllAliasSpecifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         cNFRegAlias = [v8 CNFRegAlias];
 
         if (cNFRegAlias)
@@ -3398,13 +4668,11 @@ LABEL_44:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSpecifier:(id)specifier withAlias:(id)alias
@@ -3425,10 +4693,113 @@ LABEL_44:
   }
 }
 
+- (void)refreshTravelPhoneAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v35 = *MEMORY[0x277D85DE8];
+  v5 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Refreshing travel phone settings", buf, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    IMLogString();
+  }
+
+  firstObject = [(NSArray *)self->_travelPhoneSIMOneGroupSpecifiers firstObject];
+  v7 = [firstObject propertyForKey:@"cnfreg-travel-sim"];
+  regController = [(CNFRegListController *)self regController];
+  allAvailableAliases = [regController allAvailableAliases];
+  v10 = [allAvailableAliases containsObject:v7];
+
+  if (v10)
+  {
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v11 = self->_travelPhoneSIMOneGroupSpecifiers;
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    if (v12)
+    {
+      v13 = *v29;
+      do
+      {
+        v14 = 0;
+        do
+        {
+          if (*v29 != v13)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          [(CNFRegSettingsController *)self reloadSpecifier:*(*(&v28 + 1) + 8 * v14++)];
+        }
+
+        while (v12 != v14);
+        v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      }
+
+      while (v12);
+    }
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_travelPhoneSIMOneGroupSpecifiers animated:animatedCopy];
+  }
+
+  firstObject2 = [(NSArray *)self->_travelPhoneSIMTwoGroupSpecifiers firstObject];
+  v16 = [firstObject2 propertyForKey:@"cnfreg-travel-sim"];
+  regController2 = [(CNFRegListController *)self regController];
+  allAvailableAliases2 = [regController2 allAvailableAliases];
+  v19 = [allAvailableAliases2 containsObject:v16];
+
+  if (v19)
+  {
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v20 = self->_travelPhoneSIMTwoGroupSpecifiers;
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    if (v21)
+    {
+      v22 = *v25;
+      do
+      {
+        v23 = 0;
+        do
+        {
+          if (*v25 != v22)
+          {
+            objc_enumerationMutation(v20);
+          }
+
+          [(CNFRegSettingsController *)self reloadSpecifier:*(*(&v24 + 1) + 8 * v23++), v24];
+        }
+
+        while (v21 != v23);
+        v21 = [(NSArray *)v20 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      }
+
+      while (v21);
+    }
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_travelPhoneSIMTwoGroupSpecifiers animated:animatedCopy];
+  }
+}
+
 - (void)refreshTemporaryPhoneAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -3441,30 +4812,30 @@ LABEL_44:
     IMLogString();
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   regController = [(CNFRegListController *)self regController];
   regController2 = [(CNFRegListController *)self regController];
   accounts = [regController2 accounts];
   v8 = [regController allAvailableAliasesForAccounts:accounts];
 
   v9 = 0;
-  v10 = [v8 countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v10 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v10)
   {
-    v11 = *v41;
+    v11 = *v40;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v41 != v11)
+        if (*v40 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v40 + 1) + 8 * i);
+        v13 = *(*(&v39 + 1) + 8 * i);
         if ([v13 isTemporaryPhoneNumberAlias])
         {
           v14 = v13;
@@ -3473,7 +4844,7 @@ LABEL_44:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v10);
@@ -3485,23 +4856,23 @@ LABEL_44:
   v18 = firstObject3;
   if (firstObject && firstObject2 && firstObject3)
   {
-    v47[0] = firstObject3;
-    v47[1] = firstObject2;
-    v47[2] = firstObject;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+    v46[0] = firstObject3;
+    v46[1] = firstObject2;
+    v46[2] = firstObject;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
     [(CNFRegSettingsController *)self removeContiguousSpecifiers:v19 animated:animatedCopy];
 
     if (v9)
     {
       v20 = CommunicationsSetupUIBundle();
       v21 = CNFRegStringTableName();
-      v38 = [v20 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_LABEL" value:&stru_2856D3978 table:v21];
+      v37 = [v20 localizedStringForKey:@"FACETIME_SETTINGS_TEMPORARY_PHONE_LABEL" value:&stru_2856D3978 table:v21];
 
       v22 = *MEMORY[0x277D40170];
-      [firstObject setProperty:v38 forKey:*MEMORY[0x277D40170]];
-      [firstObject setName:v38];
+      [firstObject setProperty:v37 forKey:*MEMORY[0x277D40170]];
+      [firstObject setName:v37];
       v23 = objc_opt_class();
-      v36 = *MEMORY[0x277D3FE58];
+      v35 = *MEMORY[0x277D3FE58];
       [firstObject2 setProperty:v23 forKey:?];
       [firstObject2 setProperty:v9 forKey:@"cnfreg-temp-alias"];
       ftImServiceString = [(CNFRegSettingsController *)self ftImServiceString];
@@ -3516,23 +4887,23 @@ LABEL_44:
       v29 = [MEMORY[0x277CCABB0] numberWithBool:1];
       [v18 setProperty:v29 forKey:*MEMORY[0x277D3FF38]];
 
-      [v18 setProperty:objc_opt_class() forKey:v36];
+      [v18 setProperty:objc_opt_class() forKey:v35];
       [v18 setButtonAction:sel_deleteTemporaryPhoneAliasSelected_];
       v30 = NSStringFromSelector(sel_deleteTemporaryPhoneAliasSelected_);
       [v18 setProperty:v30 forKey:*MEMORY[0x277D3FE10]];
 
       [v18 setProperty:v9 forKey:@"cnfreg-temp-alias"];
-      v46[0] = firstObject;
-      v46[1] = firstObject2;
-      v46[2] = v18;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
+      v45[0] = firstObject;
+      v45[1] = firstObject2;
+      v45[2] = v18;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
       [(CNFRegSettingsController *)self insertContiguousSpecifiers:v31 atIndex:0 animated:animatedCopy];
 
       v32 = OSLogHandleForIDSCategory();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = v9;
+        v44 = v9;
         _os_log_impl(&dword_243BE5000, v32, OS_LOG_TYPE_DEFAULT, "Inserted temporary phone specifiers for %@", buf, 0xCu);
       }
 
@@ -3574,42 +4945,59 @@ LABEL_34:
   }
 
 LABEL_35:
+}
 
-  v35 = *MEMORY[0x277D85DE8];
+- (BOOL)showAliases:(BOOL)aliases animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if (aliases)
+  {
+    [(CNFRegSettingsController *)self showSpecifiers:self->_aliasGroupSpecifiers afterGroupId:@"FACETIME_ACCOUNT_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self resignFirstResponder];
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_aliasGroupSpecifiers animated:animatedCopy];
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_travelPhoneSIMOneGroupSpecifiers animated:animatedCopy];
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:self->_travelPhoneSIMTwoGroupSpecifiers animated:animatedCopy];
+  }
+
+  return 1;
 }
 
 - (BOOL)additionalAliasesAvailable
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   regController = [(CNFRegListController *)self regController];
   _useableAccounts = [(CNFRegSettingsController *)self _useableAccounts];
   v5 = [regController vettedAliasesForAccounts:_useableAccounts];
 
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) validationStatus] != 3)
+        if ([*(*(&v10 + 1) + 8 * i) validationStatus] != 3)
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -3621,7 +5009,6 @@ LABEL_35:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3670,7 +5057,7 @@ LABEL_5:
 
 - (id)statusForAlias:(id)alias
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   regController = [(CNFRegListController *)self regController];
   v6 = [regController isAliasMDMRestricted:aliasCopy];
@@ -3708,17 +5095,16 @@ LABEL_5:
       }
     }
 
-    [aliasCopy type];
-    v8 = CNFRegStringForAliasValidationStatus(v10);
+    v8 = CNFRegStringForAliasValidationStatus(v10, [aliasCopy type]);
     v12 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v16 = aliasCopy;
-      v17 = 2048;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v8;
+      v15 = aliasCopy;
+      v16 = 2048;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v8;
       _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, "Verification status for {%@} : <%ld>%@", buf, 0x20u);
     }
 
@@ -3728,36 +5114,34 @@ LABEL_5:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)aliasWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   regController = [(CNFRegListController *)self regController];
   aliases = [regController aliases];
 
-  v7 = [aliases countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(aliases);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         v12 = [identifier isEqualToString:identifierCopy];
 
@@ -3768,7 +5152,7 @@ LABEL_5:
         }
       }
 
-      v7 = [aliases countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -3779,8 +5163,6 @@ LABEL_5:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -4012,27 +5394,27 @@ LABEL_23:
 
 - (void)_showRemoveAlertForAlias:(id)alias specifier:(id)specifier
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   specifierCopy = specifier;
   v8 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v46 = aliasCopy;
-    v47 = 2112;
-    v48 = specifierCopy;
+    v45 = aliasCopy;
+    v46 = 2112;
+    v47 = specifierCopy;
     _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Showing alias remove alert {alias: %@, specifier: %@}", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v32 = aliasCopy;
-    v33 = specifierCopy;
+    v31 = aliasCopy;
+    v32 = specifierCopy;
     IMLogString();
   }
 
-  v38 = [(CNFRegSettingsController *)self ftImServiceString:v32];
+  v37 = [(CNFRegSettingsController *)self ftImServiceString:v31];
   v9 = [(CNFRegSettingsController *)self _isTravelAlias:aliasCopy];
   isTemporaryPhoneNumberAlias = [aliasCopy isTemporaryPhoneNumberAlias];
   v11 = CommunicationsSetupUIBundle();
@@ -4047,9 +5429,9 @@ LABEL_23:
     v13 = @"FACETIME_REMOVE_ALERT_TITLE";
   }
 
-  v37 = [v11 localizedStringForKey:v13 value:&stru_2856D3978 table:v12];
+  v36 = [v11 localizedStringForKey:v13 value:&stru_2856D3978 table:v12];
 
-  v35 = [MEMORY[0x277CCACA8] stringWithFormat:v37, v38];
+  v34 = [MEMORY[0x277CCACA8] stringWithFormat:v36, v37];
   v14 = CommunicationsSetupUIBundle();
   v15 = CNFRegStringTableName();
   v16 = @"FACETIME_REMOVE_ALERT_MESSAGE";
@@ -4068,9 +5450,9 @@ LABEL_23:
     v17 = v16;
   }
 
-  v36 = [v14 localizedStringForKey:v17 value:&stru_2856D3978 table:v15];
+  v35 = [v14 localizedStringForKey:v17 value:&stru_2856D3978 table:v15];
 
-  v34 = [MEMORY[0x277CCACA8] stringWithFormat:v36, v38];
+  v33 = [MEMORY[0x277CCACA8] stringWithFormat:v35, v37];
   if (isTemporaryPhoneNumberAlias)
   {
     v18 = @"FACETIME_ALERT_OK";
@@ -4090,20 +5472,20 @@ LABEL_23:
   v24 = [v22 localizedStringForKey:@"FACETIME_REMOVE_ALERT_CANCEL_BUTTON" value:&stru_2856D3978 table:v23];
 
   objc_initWeak(buf, specifierCopy);
-  v25 = [MEMORY[0x277D75110] alertControllerWithTitle:v35 message:v34 preferredStyle:1];
+  v25 = [MEMORY[0x277D75110] alertControllerWithTitle:v34 message:v33 preferredStyle:1];
   v26 = MEMORY[0x277D750F8];
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __63__CNFRegSettingsController__showRemoveAlertForAlias_specifier___block_invoke;
-  v39[3] = &unk_278DE84E0;
-  objc_copyWeak(&v43, buf);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __63__CNFRegSettingsController__showRemoveAlertForAlias_specifier___block_invoke;
+  v38[3] = &unk_278DE84E0;
+  objc_copyWeak(&v42, buf);
   v27 = aliasCopy;
-  v44 = isTemporaryPhoneNumberAlias;
-  v40 = v27;
+  v43 = isTemporaryPhoneNumberAlias;
+  v39 = v27;
   selfCopy = self;
   v28 = specifierCopy;
-  v42 = v28;
-  v29 = [v26 actionWithTitle:v21 style:0 handler:v39];
+  v41 = v28;
+  v29 = [v26 actionWithTitle:v21 style:0 handler:v38];
   [v25 addAction:v29];
 
   if ((isTemporaryPhoneNumberAlias & 1) == 0)
@@ -4114,15 +5496,13 @@ LABEL_23:
 
   [(CNFRegSettingsController *)self presentViewController:v25 animated:1 completion:0];
 
-  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(buf);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CNFRegSettingsController__showRemoveAlertForAlias_specifier___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = OSLogHandleForIDSCategory();
@@ -4130,27 +5510,16 @@ void __63__CNFRegSettingsController__showRemoveAlertForAlias_specifier___block_i
   {
     v6 = *(a1 + 32);
     *buf = 138412290;
-    v25 = v6;
+    v23 = v6;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Selected remove! Removing %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v23 = *(a1 + 32);
     IMLogString();
   }
 
-  if (!WeakRetained)
-  {
-    goto LABEL_10;
-  }
-
-  v7 = [WeakRetained CNFRegAlias];
-  v8 = [v7 alias];
-  v9 = [*(a1 + 32) alias];
-  v10 = [v8 isEqualToString:v9];
-
-  if (v10)
+  if (WeakRetained && ([WeakRetained CNFRegAlias], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "alias"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "alias"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, (v10 & 1) != 0))
   {
     v11 = *(a1 + 64);
     v12 = [*(a1 + 40) regController];
@@ -4181,7 +5550,6 @@ void __63__CNFRegSettingsController__showRemoveAlertForAlias_specifier___block_i
 
   else
   {
-LABEL_10:
     v15 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
@@ -4194,43 +5562,41 @@ LABEL_10:
       IMLogString();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showRemoveTravelPhoneAlertForAlias:(id)alias simIdentifier:(id)identifier
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   identifierCopy = identifier;
   v7 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v38 = aliasCopy;
-    v39 = 2112;
-    v40 = identifierCopy;
+    v37 = aliasCopy;
+    v38 = 2112;
+    v39 = identifierCopy;
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Showing alias remove travel phone alert {alias: %@ simIdentifier: %@}", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v27 = aliasCopy;
-    v28 = identifierCopy;
+    v26 = aliasCopy;
+    v27 = identifierCopy;
     IMLogString();
   }
 
-  v31 = [(CNFRegSettingsController *)self ftImServiceString:v27];
+  v30 = [(CNFRegSettingsController *)self ftImServiceString:v26];
   v8 = CommunicationsSetupUIBundle();
   v9 = CNFRegStringTableName();
-  v30 = [v8 localizedStringForKey:@"FACETIME_REMOVE_ALERT_TITLE" value:&stru_2856D3978 table:v9];
+  v29 = [v8 localizedStringForKey:@"FACETIME_REMOVE_ALERT_TITLE" value:&stru_2856D3978 table:v9];
 
-  v29 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v30, v31];
+  v28 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v29, v30];
   v10 = CommunicationsSetupUIBundle();
   v11 = CNFRegStringTableName();
   v12 = [v10 localizedStringForKey:@"FACETIME_REMOVE_ALERT_MESSAGE_TRAVEL" value:&stru_2856D3978 table:v11];
 
-  v13 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v12, v31];
+  v13 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v12, v30];
   v14 = CommunicationsSetupUIBundle();
   v15 = CNFRegStringTableName();
   v16 = [v14 localizedStringForKey:@"FACETIME_REMOVE_ALERT_REMOVE_BUTTON" value:&stru_2856D3978 table:v15];
@@ -4239,61 +5605,60 @@ LABEL_10:
   v18 = CNFRegStringTableName();
   v19 = [v17 localizedStringForKey:@"FACETIME_REMOVE_ALERT_CANCEL_BUTTON" value:&stru_2856D3978 table:v18];
 
-  v20 = [MEMORY[0x277D75110] alertControllerWithTitle:v29 message:v13 preferredStyle:1];
+  v20 = [MEMORY[0x277D75110] alertControllerWithTitle:v28 message:v13 preferredStyle:1];
   v21 = MEMORY[0x277D750F8];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __78__CNFRegSettingsController__showRemoveTravelPhoneAlertForAlias_simIdentifier___block_invoke;
-  v33[3] = &unk_278DE8508;
-  v34 = aliasCopy;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __78__CNFRegSettingsController__showRemoveTravelPhoneAlertForAlias_simIdentifier___block_invoke;
+  v32[3] = &unk_278DE8508;
+  v33 = aliasCopy;
   selfCopy = self;
-  v36 = identifierCopy;
+  v35 = identifierCopy;
   v22 = identifierCopy;
   v23 = aliasCopy;
-  v24 = [v21 actionWithTitle:v16 style:0 handler:v33];
+  v24 = [v21 actionWithTitle:v16 style:0 handler:v32];
   [v20 addAction:v24];
 
   v25 = [MEMORY[0x277D750F8] actionWithTitle:v19 style:1 handler:0];
   [v20 addAction:v25];
 
   [(CNFRegSettingsController *)self presentViewController:v20 animated:1 completion:0];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CNFRegSettingsController__showRemoveTravelPhoneAlertForAlias_simIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = a2;
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = a2;
   v3 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v26 = v4;
+    v25 = v4;
     _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Selected remove! Removing %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v20 = *(a1 + 32);
+    v19 = *(a1 + 32);
     IMLogString();
   }
 
   v5 = [*(a1 + 40) specifiers];
   v6 = [v5 mutableCopy];
 
-  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_GROUP_ID", *(a1 + 48)];
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_ID", *(a1 + 48)];
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_REMOVE", *(a1 + 48)];
+  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_GROUP_ID", *(a1 + 48)];
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_ID", *(a1 + 48)];
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_REMOVE", *(a1 + 48)];
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"FACETIME_TRAVEL_PHONE_%@_CELLULAR_SETTINGS", *(a1 + 48)];
   v8 = [*(a1 + 40) specifiers];
-  v9 = [v8 specifierForID:v24];
+  v9 = [v8 specifierForID:v23];
 
   v10 = [*(a1 + 40) specifiers];
-  v11 = [v10 specifierForID:v23];
+  v11 = [v10 specifierForID:v22];
 
   v12 = [*(a1 + 40) specifiers];
-  v13 = [v12 specifierForID:v22];
+  v13 = [v12 specifierForID:v21];
 
   v14 = [*(a1 + 40) specifiers];
   v15 = [v14 specifierForID:v7];
@@ -4324,34 +5689,32 @@ void __78__CNFRegSettingsController__showRemoveTravelPhoneAlertForAlias_simIdent
 
   v18 = [*(a1 + 40) regController];
   [v18 removeDeviceAlias:*(a1 + 32)];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showRemoveTemporaryPhoneAlertForAlias:(id)alias
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = aliasCopy;
+    v31 = aliasCopy;
     _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEFAULT, "Showing alias remove temporary phone alert {alias: %@}", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v24 = aliasCopy;
+    v23 = aliasCopy;
     IMLogString();
   }
 
   ftImServiceString = [(CNFRegSettingsController *)self ftImServiceString];
   v6 = CommunicationsSetupUIBundle();
   v7 = CNFRegStringTableName();
-  v26 = [v6 localizedStringForKey:@"FACETIME_REMOVE_ALERT_TITLE" value:&stru_2856D3978 table:v7];
+  v25 = [v6 localizedStringForKey:@"FACETIME_REMOVE_ALERT_TITLE" value:&stru_2856D3978 table:v7];
 
-  v25 = [MEMORY[0x277CCACA8] stringWithFormat:v26, ftImServiceString];
+  v24 = [MEMORY[0x277CCACA8] stringWithFormat:v25, ftImServiceString];
   v8 = CommunicationsSetupUIBundle();
   v9 = CNFRegStringTableName();
   v10 = [v8 localizedStringForKey:@"FACETIME_REMOVE_ALERT_MESSAGE_TEMP" value:&stru_2856D3978 table:v9];
@@ -4365,41 +5728,40 @@ void __78__CNFRegSettingsController__showRemoveTravelPhoneAlertForAlias_simIdent
   v16 = CNFRegStringTableName();
   v17 = [v15 localizedStringForKey:@"FACETIME_REMOVE_ALERT_CANCEL_BUTTON" value:&stru_2856D3978 table:v16];
 
-  v18 = [MEMORY[0x277D75110] alertControllerWithTitle:v25 message:v11 preferredStyle:1];
+  v18 = [MEMORY[0x277D75110] alertControllerWithTitle:v24 message:v11 preferredStyle:1];
   v19 = MEMORY[0x277D750F8];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___block_invoke;
-  v28[3] = &unk_278DE8420;
-  v29 = aliasCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___block_invoke;
+  v27[3] = &unk_278DE8420;
+  v28 = aliasCopy;
   selfCopy = self;
   v20 = aliasCopy;
-  v21 = [v19 actionWithTitle:v14 style:0 handler:v28];
+  v21 = [v19 actionWithTitle:v14 style:0 handler:v27];
   [v18 addAction:v21];
 
   v22 = [MEMORY[0x277D750F8] actionWithTitle:v17 style:1 handler:0];
   [v18 addAction:v22];
 
   [(CNFRegSettingsController *)self presentViewController:v18 animated:1 completion:0];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v24 = a2;
+  v27 = *MEMORY[0x277D85DE8];
+  v23 = a2;
   v3 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v27 = v4;
+    v26 = v4;
     _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Selected remove! Removing %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v23 = *(a1 + 32);
+    v22 = *(a1 + 32);
     IMLogString();
   }
 
@@ -4407,7 +5769,7 @@ void __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___blo
   v6 = [v5 mutableCopy];
 
   v7 = [*(a1 + 40) specifiers];
-  v25 = [v7 specifierForID:@"FACETIME_TEMPORARY_PHONE_GROUP_ID"];
+  v24 = [v7 specifierForID:@"FACETIME_TEMPORARY_PHONE_GROUP_ID"];
 
   v8 = [*(a1 + 40) specifiers];
   v9 = [v8 specifierForID:@"FACETIME_TEMPORARY_PHONE_ID"];
@@ -4415,9 +5777,9 @@ void __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___blo
   v10 = [*(a1 + 40) specifiers];
   v11 = [v10 specifierForID:@"FACETIME_TEMPORARY_PHONE_REMOVE"];
 
-  if (v25)
+  if (v24)
   {
-    [v6 removeObject:v25];
+    [v6 removeObject:v24];
   }
 
   if (v9)
@@ -4460,25 +5822,23 @@ void __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___blo
 
   v21 = [*(a1 + 40) regController];
   [v21 removeDeviceAlias:*(a1 + 32)];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showAliasValidationError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = errorCopy;
+    v34 = errorCopy;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Showing alias validation error: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v30 = errorCopy;
+    v29 = errorCopy;
     IMLogString();
   }
 
@@ -4536,24 +5896,22 @@ void __67__CNFRegSettingsController__showRemoveTemporaryPhoneAlertForAlias___blo
   if (v26)
   {
     v27 = MEMORY[0x277D750F8];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __54__CNFRegSettingsController__showAliasValidationError___block_invoke;
-    v31[3] = &unk_278DE8420;
-    v32 = errorCopy;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __54__CNFRegSettingsController__showAliasValidationError___block_invoke;
+    v30[3] = &unk_278DE8420;
+    v31 = errorCopy;
     selfCopy = self;
-    v28 = [v27 actionWithTitle:v26 style:0 handler:v31];
+    v28 = [v27 actionWithTitle:v26 style:0 handler:v30];
     [v23 addAction:v28];
   }
 
   [(CNFRegSettingsController *)self presentViewController:v23 animated:1 completion:0];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __54__CNFRegSettingsController__showAliasValidationError___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) userInfo];
   v5 = [v4 objectForKey:@"cnf-customActionURLString"];
@@ -4567,13 +5925,13 @@ void __54__CNFRegSettingsController__showAliasValidationError___block_invoke(uin
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v12 = v6;
+        v11 = v6;
         _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Launching URL : %@", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
       {
-        v10 = v6;
+        v9 = v6;
         IMLogString();
       }
 
@@ -4581,8 +5939,6 @@ void __54__CNFRegSettingsController__showAliasValidationError___block_invoke(uin
       [v8 openURL:v6];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshMDMRestrictionStatusWithCompletion:(BOOL)completion
@@ -4633,6 +5989,32 @@ void __70__CNFRegSettingsController_refreshMDMRestrictionStatusWithCompletion___
   [WeakRetained refreshFaceTimeSettingsAnimated:0];
 }
 
+- (void)showFaceTimeCaptionsSettings:(BOOL)settings animated:(BOOL)animated
+{
+  settingsCopy = settings;
+  faceTimeCaptionsGroupSpecifiers = self->_faceTimeCaptionsGroupSpecifiers;
+  if (settingsCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:faceTimeCaptionsGroupSpecifiers afterGroupId:@"GFT_PROMINENCE_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:faceTimeCaptionsGroupSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshFaceTimeCaptionsSettingsAnimated:(BOOL)animated
+{
+  if (self->_faceTimeCaptionsGroupSpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowFaceTimeCaptionsSpecifiers = [(CNFRegSettingsController *)self shouldShowFaceTimeCaptionsSpecifiers];
+
+    [(CNFRegSettingsController *)self showFaceTimeCaptionsSettings:shouldShowFaceTimeCaptionsSpecifiers animated:animatedCopy];
+  }
+}
+
 - (BOOL)shouldShowFaceTimeCaptionsSpecifiers
 {
   regController = [(CNFRegListController *)self regController];
@@ -4657,7 +6039,7 @@ void __70__CNFRegSettingsController_refreshMDMRestrictionStatusWithCompletion___
 
 - (id)getFaceTimeCaptionsEnabledForSpecifier:(id)specifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:_AXSFaceTimeCaptionsEnabled()];
   v5 = OSLogHandleForIDSCategory();
@@ -4674,14 +6056,12 @@ void __70__CNFRegSettingsController_refreshMDMRestrictionStatusWithCompletion___
     IMLogString();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)setFaceTimeCaptionsEnabled:(id)enabled specifier:(id)specifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v7 = OSLogHandleForIDSCategory();
@@ -4700,13 +6080,11 @@ void __70__CNFRegSettingsController_refreshMDMRestrictionStatusWithCompletion___
 
   [enabledCopy BOOLValue];
   _AXSSetFaceTimeCaptionsEnabled();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)captioningSupported
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   isCaptioningSupported = [MEMORY[0x277CE56F8] isCaptioningSupported];
   if (_os_feature_enabled_impl())
   {
@@ -4716,25 +6094,25 @@ void __70__CNFRegSettingsController_refreshMDMRestrictionStatusWithCompletion___
   else
   {
     v4 = [MEMORY[0x277CBEB98] setWithArray:&unk_2856EB910];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     activeInputModes = [MEMORY[0x277D75BF0] activeInputModes];
-    v3 = [activeInputModes countByEnumeratingWithState:&v13 objects:v23 count:16];
+    v3 = [activeInputModes countByEnumeratingWithState:&v12 objects:v22 count:16];
     if (v3)
     {
-      v6 = *v14;
+      v6 = *v13;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(activeInputModes);
           }
 
-          primaryLanguage = [*(*(&v13 + 1) + 8 * i) primaryLanguage];
+          primaryLanguage = [*(*(&v12 + 1) + 8 * i) primaryLanguage];
           v9 = [v4 containsObject:primaryLanguage];
 
           if (v9)
@@ -4744,7 +6122,7 @@ void __70__CNFRegSettingsController_refreshMDMRestrictionStatusWithCompletion___
           }
         }
 
-        v3 = [activeInputModes countByEnumeratingWithState:&v13 objects:v23 count:16];
+        v3 = [activeInputModes countByEnumeratingWithState:&v12 objects:v22 count:16];
         if (v3)
         {
           continue;
@@ -4761,11 +6139,11 @@ LABEL_13:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    v18 = isCaptioningSupported & v3;
-    v19 = 1024;
-    v20 = isCaptioningSupported;
-    v21 = 1024;
-    v22 = v3;
+    v17 = isCaptioningSupported & v3;
+    v18 = 1024;
+    v19 = isCaptioningSupported;
+    v20 = 1024;
+    v21 = v3;
     _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "captioningSupported: %d, hardwareSupported: %d, localeSupported: %d", buf, 0x14u);
   }
 
@@ -4774,8 +6152,33 @@ LABEL_13:
     IMLogString();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return isCaptioningSupported & v3;
+}
+
+- (void)showFaceTimePhotosSettings:(BOOL)settings animated:(BOOL)animated
+{
+  settingsCopy = settings;
+  faceTimePhotosGroupSpecifiers = self->_faceTimePhotosGroupSpecifiers;
+  if (settingsCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:faceTimePhotosGroupSpecifiers afterGroupId:@"FACETIME_CAPTIONS_ENABLED_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:faceTimePhotosGroupSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshFaceTimePhotosSettingsAnimated:(BOOL)animated
+{
+  if (self->_faceTimePhotosGroupSpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowFaceTimePhotosSpecifiers = [(CNFRegSettingsController *)self shouldShowFaceTimePhotosSpecifiers];
+
+    [(CNFRegSettingsController *)self showFaceTimePhotosSettings:shouldShowFaceTimePhotosSpecifiers animated:animatedCopy];
+  }
 }
 
 - (BOOL)shouldShowFaceTimePhotosSpecifiers
@@ -4800,7 +6203,7 @@ LABEL_13:
 
 - (id)getFaceTimePhotosEnabledForSpecifier:(id)specifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D6EF08], "isFaceTimePhotosEnabled")}];
   v5 = OSLogHandleForIDSCategory();
@@ -4817,14 +6220,12 @@ LABEL_13:
     IMLogString();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)setFaceTimePhotosEnabled:(id)enabled specifier:(id)specifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v7 = OSLogHandleForIDSCategory();
@@ -4843,8 +6244,32 @@ LABEL_13:
 
   bOOLValue3 = [enabledCopy BOOLValue];
   [MEMORY[0x277D6EF08] setFaceTimePhotosEnabled:bOOLValue3];
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)showAlwaysFullBleedSpecifiers:(BOOL)specifiers animated:(BOOL)animated
+{
+  specifiersCopy = specifiers;
+  alwaysFullBleedGroupSpecifiers = self->_alwaysFullBleedGroupSpecifiers;
+  if (specifiersCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:alwaysFullBleedGroupSpecifiers afterGroupId:@"FACETIME_PHOTOS_ENABLED_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:alwaysFullBleedGroupSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshAlwaysFullBleedSettingsAnimated:(BOOL)animated
+{
+  if (self->_alwaysFullBleedGroupSpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowAlwaysFullBleedSpecifiers = [(CNFRegSettingsController *)self shouldShowAlwaysFullBleedSpecifiers];
+
+    [(CNFRegSettingsController *)self showAlwaysFullBleedSpecifiers:shouldShowAlwaysFullBleedSpecifiers animated:animatedCopy];
+  }
 }
 
 - (BOOL)shouldShowAlwaysFullBleedSpecifiers
@@ -4862,22 +6287,21 @@ LABEL_13:
 
 - (BOOL)deviceHWSupportsAlwaysFullBleed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D07DB0] = [MEMORY[0x277D07DB0] sharedInstance];
   deviceType = [mEMORY[0x277D07DB0] deviceType];
 
-  v4 = *MEMORY[0x277CE59F8];
   BoolAnswer = AVGestaltGetBoolAnswer();
-  v6 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    v10 = (deviceType == 2) & BoolAnswer;
+    v8 = (deviceType == 2) & BoolAnswer;
+    v9 = 1024;
+    v10 = deviceType == 2;
     v11 = 1024;
-    v12 = deviceType == 2;
-    v13 = 1024;
-    v14 = BoolAnswer & 1;
-    _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "FaceTime AlwaysFullBleed availability is %d since deviceIsiPhone = %d and deviceSupportsDynamicAspectRatio = %d", buf, 0x14u);
+    v12 = BoolAnswer & 1;
+    _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "FaceTime AlwaysFullBleed availability is %d since deviceIsiPhone = %d and deviceSupportsDynamicAspectRatio = %d", buf, 0x14u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -4885,42 +6309,39 @@ LABEL_13:
     IMLogString();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return (deviceType == 2) & BoolAnswer;
 }
 
 - (id)getAlwaysFullBleedEnabledForSpecifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v4 = CNFGetDomainBooleanValueForKeyDefaultValue(@"com.apple.VideoConference", @"userPreferTxAFBDisabled", 0);
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v12 = v4 ^ 1;
-    v13 = 1024;
-    v14 = v4;
+    v11 = v4 ^ 1;
+    v12 = 1024;
+    v13 = v4;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "FaceTime AlwaysFullBleed enabled is %d since kAFBDisabledDefaultsKey is %d", buf, 0xEu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v9 = v4 ^ 1;
-    v10 = v4;
+    v8 = v4 ^ 1;
+    v9 = v4;
     IMLogString();
   }
 
-  v6 = [MEMORY[0x277CCABB0] numberWithBool:{v4 ^ 1, v9, v10}];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:{v4 ^ 1, v8, v9}];
 
   return v6;
 }
 
 - (void)setAlwaysFullBleedEnabled:(id)enabled specifier:(id)specifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v7 = OSLogHandleForIDSCategory();
@@ -4952,8 +6373,32 @@ LABEL_13:
     CNFGetDomainBooleanValueForKeyDefaultValue(@"com.apple.VideoConference", @"userPreferTxAFBDisabled", 1u);
     IMLogString();
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)showFaceTimeVPCSpecifiers:(BOOL)specifiers animated:(BOOL)animated
+{
+  specifiersCopy = specifiers;
+  faceTimeVPCGroupSpecifiers = self->_faceTimeVPCGroupSpecifiers;
+  if (specifiersCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:faceTimeVPCGroupSpecifiers afterGroupId:@"FACETIME_ALWAYS_FULL_BLEED_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:faceTimeVPCGroupSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshFaceTimeVPCSettingsAnimated:(BOOL)animated
+{
+  if (self->_faceTimeVPCGroupSpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowFaceTimeVPCSpecifiers = [(CNFRegSettingsController *)self shouldShowFaceTimeVPCSpecifiers];
+
+    [(CNFRegSettingsController *)self showFaceTimeVPCSpecifiers:shouldShowFaceTimeVPCSpecifiers animated:animatedCopy];
+  }
 }
 
 - (BOOL)shouldShowFaceTimeVPCSpecifiers
@@ -5013,33 +6458,31 @@ LABEL_13:
 
 - (id)getFaceTimeVPCEnabledForSpecifier:(id)specifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v4 = CNFGetDomainBooleanValueForKeyDefaultValue(@"com.apple.VideoConference", @"VPCEnabled", 1u);
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v4;
+    v10 = v4;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Viewpoint correction enabled: %d", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v9 = v4;
+    v8 = v4;
     IMLogString();
   }
 
-  v6 = [MEMORY[0x277CCABB0] numberWithBool:{v4, v9}];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:{v4, v8}];
 
   return v6;
 }
 
 - (void)setFaceTimeVPCEnabled:(id)enabled specifier:(id)specifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v7 = OSLogHandleForIDSCategory();
@@ -5057,8 +6500,32 @@ LABEL_13:
   }
 
   CNFSetDomainIntegerForKey(@"com.apple.VideoConference", @"VPCEnabled", [enabledCopy integerValue]);
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)showGFTProminenceSettings:(BOOL)settings animated:(BOOL)animated
+{
+  settingsCopy = settings;
+  GFTProminenceGroupSpecifiers = self->_GFTProminenceGroupSpecifiers;
+  if (settingsCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:GFTProminenceGroupSpecifiers afterGroupId:@"SHAREPLAY_SETTINGS_GROUP" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:GFTProminenceGroupSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshGFTProminenceSettingsAnimated:(BOOL)animated
+{
+  if (self->_GFTProminenceGroupSpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowGFTProminenceSpecifiers = [(CNFRegSettingsController *)self shouldShowGFTProminenceSpecifiers];
+
+    [(CNFRegSettingsController *)self showGFTProminenceSettings:shouldShowGFTProminenceSpecifiers animated:animatedCopy];
+  }
 }
 
 - (BOOL)shouldShowGFTProminenceSpecifiers
@@ -5082,33 +6549,31 @@ LABEL_13:
 
 - (id)getGFTAudioProminenceEnabledForSpecifier:(id)specifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v4 = CNFGetDomainBooleanValueForKeyDefaultValue(*MEMORY[0x277D6EF80], @"allowAudioProminence", 1u);
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v4;
+    v10 = v4;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "GFT audio prominence enabled: %d", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v9 = v4;
+    v8 = v4;
     IMLogString();
   }
 
-  v6 = [MEMORY[0x277CCABB0] numberWithBool:{v4, v9}];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:{v4, v8}];
 
   return v6;
 }
 
 - (void)setGFTAudioProminenceEnabled:(id)enabled specifier:(id)specifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v7 = OSLogHandleForIDSCategory();
@@ -5127,8 +6592,32 @@ LABEL_13:
 
   bOOLValue3 = [enabledCopy BOOLValue];
   CNFSetDomainBooleanForKey(*MEMORY[0x277D6EF80], @"allowAudioProminence", bOOLValue3);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)showSharePlaySettings:(BOOL)settings animated:(BOOL)animated
+{
+  settingsCopy = settings;
+  sharePlaySpecifiers = self->_sharePlaySpecifiers;
+  if (settingsCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:sharePlaySpecifiers afterGroupId:@"SHARED_NAME_AND_PHOTO_SETTINGS_GROUP" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:sharePlaySpecifiers animated:animated];
+  }
+}
+
+- (void)refreshSharePlaySettingsAnimated:(BOOL)animated
+{
+  if (self->_sharePlaySpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowSharePlaySpecifiers = [(CNFRegSettingsController *)self shouldShowSharePlaySpecifiers];
+
+    [(CNFRegSettingsController *)self showSharePlaySettings:shouldShowSharePlaySpecifiers animated:animatedCopy];
+  }
 }
 
 - (BOOL)shouldShowSharePlaySpecifiers
@@ -5150,6 +6639,32 @@ LABEL_13:
   return multiwaySupported;
 }
 
+- (void)showSharedNameAndPhotoSettings:(BOOL)settings animated:(BOOL)animated
+{
+  settingsCopy = settings;
+  sharedNameAndPhotoSpecifiers = self->_sharedNameAndPhotoSpecifiers;
+  if (settingsCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:sharedNameAndPhotoSpecifiers afterGroupId:@"FACETIME_CALLERID_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:sharedNameAndPhotoSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshSharedNameAndPhotoSettingsAnimated:(BOOL)animated
+{
+  if (self->_sharedNameAndPhotoSpecifiers)
+  {
+    animatedCopy = animated;
+    shouldShowSharedNameAndPhotoSpecifiers = [(CNFRegSettingsController *)self shouldShowSharedNameAndPhotoSpecifiers];
+
+    [(CNFRegSettingsController *)self showSharedNameAndPhotoSettings:shouldShowSharedNameAndPhotoSpecifiers animated:animatedCopy];
+  }
+}
+
 - (BOOL)shouldShowSharedNameAndPhotoSpecifiers
 {
   regController = [(CNFRegListController *)self regController];
@@ -5161,9 +6676,28 @@ LABEL_13:
   return v4 & regController;
 }
 
+- (BOOL)showCallerId:(BOOL)id animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  idCopy = id;
+  callerIdGroupSpecifiers = self->_callerIdGroupSpecifiers;
+  if (idCopy)
+  {
+    [(CNFRegSettingsController *)self showSpecifiers:callerIdGroupSpecifiers afterGroupId:@"FACETIME_ALIAS_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:callerIdGroupSpecifiers animated:animated];
+  }
+
+  [(CNFRegSettingsController *)self refreshiMessageAccountFooterText:animatedCopy];
+  return 1;
+}
+
 - (id)possibleCallerIdAliases
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   regController = [(CNFRegListController *)self regController];
   _useableAccounts = [(CNFRegSettingsController *)self _useableAccounts];
   v5 = [regController useableAliasesForAccounts:_useableAccounts];
@@ -5171,35 +6705,33 @@ LABEL_13:
   v6 = [v5 sortedArrayUsingSelector:sel_localizedCaseInsensitiveCompare_];
 
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 addObject:{*(*(&v15 + 1) + 8 * i), v15}];
+        [v7 addObject:{*(*(&v14 + 1) + 8 * i), v14}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -5212,9 +6744,177 @@ LABEL_13:
   return [(NSArray *)callerIdGroupSpecifiers subarrayWithRange:1, v3];
 }
 
+- (void)refreshCallerIdAliasesAnimated:(BOOL)animated
+{
+  v37 = *MEMORY[0x277D85DE8];
+  if ((*&self->_settingsFlags & 0x10) == 0)
+  {
+    animatedCopy = animated;
+    *&self->_settingsFlags |= 0x10u;
+    possibleCallerIdAliases = [(CNFRegSettingsController *)self possibleCallerIdAliases];
+    v6 = [possibleCallerIdAliases count];
+    if (!possibleCallerIdAliases || (v7 = v6, v6 <= 1))
+    {
+      [(CNFRegSettingsController *)self showCallerId:0 animated:animatedCopy];
+LABEL_44:
+      *&self->_settingsFlags &= ~0x10u;
+
+      return;
+    }
+
+    [(CNFRegSettingsController *)self showCallerId:1 animated:animatedCopy];
+    callerIdAliasSpecifiers = [(CNFRegSettingsController *)self callerIdAliasSpecifiers];
+    v8 = [callerIdAliasSpecifiers mutableCopy];
+    v9 = [v8 count];
+    v30 = v9 > v7;
+    if (v9 > v7)
+    {
+      v10 = [v8 count];
+      v11 = v10 - v7;
+      v31 = [v8 subarrayWithRange:{v7, v10 - v7}];
+      [v8 removeObjectsInRange:{v7, v11}];
+      v12 = 1;
+    }
+
+    else
+    {
+      v31 = 0;
+      v12 = 0;
+    }
+
+    v29 = v12;
+    v27 = animatedCopy;
+    if ([v8 count] > v7)
+    {
+      [CNFRegSettingsController refreshCallerIdAliasesAnimated:];
+    }
+
+    v13 = [v8 count];
+    array = 0;
+    v15 = 0;
+    v16 = 0;
+    do
+    {
+      v17 = [possibleCallerIdAliases objectAtIndex:v15];
+      if (v15 >= v13)
+      {
+        if (v31)
+        {
+          [CNFRegSettingsController refreshCallerIdAliasesAnimated:];
+        }
+
+        v19 = [(CNFRegSettingsController *)self createSpecifierForCallerIdAlias:v17];
+        [v8 addObject:v19];
+        if (!array)
+        {
+          array = [MEMORY[0x277CBEB18] array];
+          ++v29;
+        }
+
+        [array addObject:v19];
+        v30 = 1;
+      }
+
+      else
+      {
+        v18 = [v8 objectAtIndex:v15];
+        [(CNFRegSettingsController *)self updateSpecifier:v18 withCallerIdAlias:v17];
+        v19 = v18;
+
+        v16 = v19;
+      }
+
+      ++v15;
+    }
+
+    while (v7 != v15);
+    if (v29)
+    {
+      v20 = [(NSArray *)self->_callerIdGroupSpecifiers objectAtIndex:0];
+      v21 = v31;
+      if (v29 != 1)
+      {
+        [(CNFRegSettingsController *)self beginUpdates];
+      }
+
+      if (v31)
+      {
+        [(CNFRegSettingsController *)self removeContiguousSpecifiers:v31 animated:v27];
+      }
+
+      if (array)
+      {
+        if (!v16)
+        {
+          v16 = v20;
+        }
+
+        [(CNFRegSettingsController *)self insertContiguousSpecifiers:array afterSpecifier:v16 animated:v27];
+      }
+
+      if (v29 != 1)
+      {
+        [(CNFRegSettingsController *)self endUpdates];
+      }
+
+      if (v30)
+      {
+        [v8 insertObject:v20 atIndex:0];
+        objc_storeStrong(&self->_callerIdGroupSpecifiers, v8);
+      }
+
+      if (!array)
+      {
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      v21 = v31;
+      if (!array)
+      {
+LABEL_43:
+
+        goto LABEL_44;
+      }
+    }
+
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v22 = array;
+    v23 = [v22 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v23)
+    {
+      v24 = v23;
+      v25 = *v33;
+      do
+      {
+        for (i = 0; i != v24; ++i)
+        {
+          if (*v33 != v25)
+          {
+            objc_enumerationMutation(v22);
+          }
+
+          [(CNFRegSettingsController *)self reloadSpecifier:*(*(&v32 + 1) + 8 * i)];
+        }
+
+        v24 = [v22 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      }
+
+      while (v24);
+    }
+
+    goto LABEL_43;
+  }
+}
+
 - (void)setCallerId:(id)id
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   idCopy = id;
   cNFRegCallerIdAlias = [idCopy CNFRegCallerIdAlias];
   v6 = cNFRegCallerIdAlias;
@@ -5234,7 +6934,7 @@ LABEL_13:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "Can't set caller ID with alias %@ because it is not validated", buf, 0xCu);
     }
 
@@ -5251,7 +6951,7 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = idCopy;
+      v11 = idCopy;
       _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "No alias found for specifier: %@", buf, 0xCu);
     }
 
@@ -5262,8 +6962,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshCallerIdSpecifier:(id)specifier
@@ -5355,30 +7053,30 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
 
 - (void)refreshAllCallerIdAliasSpecifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ((*&self->_settingsFlags & 0x10) == 0)
   {
     *&self->_settingsFlags |= 0x10u;
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
+          v8 = *(*(&v10 + 1) + 8 * i);
           cNFRegCallerIdAlias = [v8 CNFRegCallerIdAlias];
 
           if (cNFRegCallerIdAlias)
@@ -5387,7 +7085,7 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -5395,8 +7093,6 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
 
     *&self->_settingsFlags &= ~0x10u;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSpecifier:(id)specifier withCallerIdAlias:(id)alias
@@ -5466,6 +7162,21 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
   return v13 & (isTelephonyDevice ^ 1);
 }
 
+- (void)showReplyWithMessage:(BOOL)message animated:(BOOL)animated
+{
+  messageCopy = message;
+  replyWithMessageGroupSpecifiers = self->_replyWithMessageGroupSpecifiers;
+  if (messageCopy)
+  {
+    [(CNFRegSettingsController *)self showSpecifiers:replyWithMessageGroupSpecifiers afterGroupId:@"FACETIME_ACCOUNT_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:replyWithMessageGroupSpecifiers animated:animated];
+  }
+}
+
 - (BOOL)shouldShowBlocklistSettings
 {
   regController = [(CNFRegListController *)self regController];
@@ -5484,6 +7195,80 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
   }
 
   return v7;
+}
+
+- (void)showBlocklistSettings:(BOOL)settings animated:(BOOL)animated
+{
+  settingsCopy = settings;
+  blocklistGroupSpecifiers = self->_blocklistGroupSpecifiers;
+  if (settingsCopy)
+  {
+    [(CNFRegSettingsController *)self showFaceTimeSpecifiers:blocklistGroupSpecifiers afterGroupId:@"FACETIME_VPC_GROUP_ID" animated:animated];
+  }
+
+  else
+  {
+    [(CNFRegSettingsController *)self removeContiguousSpecifiers:blocklistGroupSpecifiers animated:animated];
+  }
+}
+
+- (void)refreshBlocklistSettingsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v17 = *MEMORY[0x277D85DE8];
+  v5 = self->_blocklistGroupSpecifiers;
+  if (v5)
+  {
+    v6 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Refreshing blocklist settings", buf, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    {
+      IMLogString();
+    }
+
+    if ([(CNFRegSettingsController *)self shouldShowBlocklistSettings])
+    {
+      [(CNFRegSettingsController *)self showBlocklistSettings:1 animated:animatedCopy];
+      v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
+      v7 = self->_blocklistGroupSpecifiers;
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      if (v8)
+      {
+        v9 = *v12;
+        do
+        {
+          v10 = 0;
+          do
+          {
+            if (*v12 != v9)
+            {
+              objc_enumerationMutation(v7);
+            }
+
+            [(CNFRegSettingsController *)self reloadSpecifier:*(*(&v11 + 1) + 8 * v10++), v11];
+          }
+
+          while (v8 != v10);
+          v8 = [(NSArray *)v7 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        }
+
+        while (v8);
+      }
+    }
+
+    else
+    {
+      [(CNFRegSettingsController *)self showBlocklistSettings:0 animated:animatedCopy];
+    }
+  }
 }
 
 - (int64_t)indexOfLastSpecifierInGroup:(id)group
@@ -5559,35 +7344,239 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
   return v3;
 }
 
+- (void)showSpecifiers:(id)specifiers afterGroupId:(id)id animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v18 = *MEMORY[0x277D85DE8];
+  specifiersCopy = specifiers;
+  idCopy = id;
+  if (specifiersCopy && [specifiersCopy count])
+  {
+    v10 = [specifiersCopy objectAtIndex:0];
+    if (([(CNFRegSettingsController *)self containsSpecifier:v10]& 1) == 0)
+    {
+      v11 = [(CNFRegSettingsController *)self specifierForID:idCopy];
+      v12 = [(CNFRegSettingsController *)self indexOfLastSpecifierInGroup:v11];
+      if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v12 = [*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) count] - 1;
+      }
+
+      v13 = [(CNFRegSettingsController *)self _makeRedactedIdentifiersFromSpecifiers:specifiersCopy];
+      v14 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v17 = v13;
+        _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "CNFRegSettingsController: insertContiguousSpecifiers %@", buf, 0xCu);
+      }
+
+      if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+      {
+        v15 = v13;
+        IMLogString();
+      }
+
+      [(CNFRegSettingsController *)self insertContiguousSpecifiers:specifiersCopy atIndex:v12 + 1 animated:animatedCopy, v15];
+    }
+  }
+}
+
+- (void)showFaceTimeSpecifiers:(id)specifiers afterGroupId:(id)id animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v23[10] = *MEMORY[0x277D85DE8];
+  specifiersCopy = specifiers;
+  idCopy = id;
+  v23[0] = @"FACETIME_BLOCKLIST_GROUP_ID";
+  v23[1] = @"FACETIME_VPC_GROUP_ID";
+  v23[2] = @"FACETIME_ALWAYS_FULL_BLEED_GROUP_ID";
+  v23[3] = @"FACETIME_PHOTOS_ENABLED_GROUP_ID";
+  v23[4] = @"FACETIME_CAPTIONS_ENABLED_GROUP_ID";
+  v23[5] = @"GFT_PROMINENCE_GROUP_ID";
+  v23[6] = @"SHAREPLAY_SETTINGS_GROUP";
+  v23[7] = @"SHARED_NAME_AND_PHOTO_SETTINGS_GROUP";
+  v23[8] = @"FACETIME_CALLERID_GROUP_ID";
+  v23[9] = @"FACETIME_ALIAS_GROUP_ID";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:10];
+  v11 = [v10 indexOfObject:idCopy];
+  v12 = MEMORY[0x277D3FC48];
+  if (v11 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v14 = [v10 count];
+    while (v11 < v14)
+    {
+      v15 = [v10 objectAtIndexedSubscript:v11];
+      v16 = [*(&self->super.super.super.super.super.super.isa + *v12) specifierForID:v15];
+
+      if (v16)
+      {
+        [(CNFRegSettingsController *)self showSpecifiers:specifiersCopy afterGroupId:v15 animated:animatedCopy];
+
+        goto LABEL_8;
+      }
+
+      v14 = [v10 count];
+      ++v11;
+    }
+  }
+
+  v13 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v20 = idCopy;
+    v21 = 2112;
+    v22 = specifiersCopy;
+    _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Unable to insert FaceTime specifiers after %@. Inserting at end. %@", buf, 0x16u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    v17 = idCopy;
+    v18 = specifiersCopy;
+    IMLogString();
+  }
+
+  -[CNFRegSettingsController insertContiguousSpecifiers:atIndex:animated:](self, "insertContiguousSpecifiers:atIndex:animated:", specifiersCopy, [*(&self->super.super.super.super.super.super.isa + *v12) count], animatedCopy);
+LABEL_8:
+}
+
+- (void)_updateControllerStateAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  _operationalAccounts = [(CNFRegSettingsController *)self _operationalAccounts];
+  v6 = [_operationalAccounts count];
+
+  if (v6 || (*&self->_settingsFlags & 8) != 0 && (-[CNFRegListController regController](self, "regController"), v7 = objc_claimAutoreleasedReturnValue(), [v7 accountsWithFilter:16386], v8 = objc_claimAutoreleasedReturnValue(), v7, v9 = objc_msgSend(v8, "count"), v8, v9))
+  {
+
+    [(CNFRegSettingsController *)self refreshFaceTimeSettingsAnimated:animatedCopy];
+  }
+
+  else
+  {
+
+    [(CNFRegSettingsController *)self _popFromSettingsAnimated:animatedCopy];
+  }
+}
+
+- (BOOL)popToFirstRunControllerAnimated:(BOOL)animated
+{
+  v26 = *MEMORY[0x277D85DE8];
+  regController = [(CNFRegListController *)self regController];
+  accountState = [regController accountState];
+
+  if ((accountState & 0x40000000) != 0)
+  {
+    return 0;
+  }
+
+  regController2 = [(CNFRegListController *)self regController];
+  serviceType = [regController2 serviceType];
+
+  if (serviceType == 1)
+  {
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v8 = *MEMORY[0x277D3FD10];
+    WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v8));
+    viewControllers = [WeakRetained viewControllers];
+
+    v11 = [viewControllers countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v11)
+    {
+      v12 = *v22;
+      while (2)
+      {
+        v13 = 0;
+        do
+        {
+          if (*v22 != v12)
+          {
+            objc_enumerationMutation(viewControllers);
+          }
+
+          v14 = *(*(&v21 + 1) + 8 * v13);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v18 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v8));
+            v19 = [v18 popToViewController:v14 animated:0];
+
+            return 1;
+          }
+
+          ++v13;
+        }
+
+        while (v11 != v13);
+        v11 = [viewControllers countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v11)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v15 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *v20 = 0;
+      _os_log_impl(&dword_243BE5000, v15, OS_LOG_TYPE_DEFAULT, "Trying to pop to first run controller but couldn't find CKSettingsMessagesController. Popping to root instead", v20, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled())
+    {
+      if (IMShouldLog())
+      {
+        IMLogString();
+      }
+    }
+
+    v16 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v8));
+    [v16 popRecursivelyToRootController];
+
+    return 0;
+  }
+
+  [(CNFRegListController *)self showAuthKitSignInIfNecessary];
+  return 1;
+}
+
 - (BOOL)_shouldUseDisabledHandlers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   regController = [(CNFRegListController *)self regController];
   accounts = [regController accounts];
 
-  v4 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v6 |= [*(*(&v11 + 1) + 8 * i) isActive] ^ 1;
+        v6 |= [*(*(&v10 + 1) + 8 * i) isActive] ^ 1;
       }
 
-      v5 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -5598,7 +7587,6 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
     LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
@@ -5619,7 +7607,7 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
 
 - (void)_handleFailedAccountReactivation:(id)reactivation error:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   reactivationCopy = reactivation;
   errorCopy = error;
   regController = [(CNFRegListController *)self regController];
@@ -5630,16 +7618,16 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
   {
     localizedDescription = [errorCopy localizedDescription];
     *buf = 138412546;
-    v28 = reactivationCopy;
-    v29 = 2112;
-    v30 = localizedDescription;
+    v27 = reactivationCopy;
+    v28 = 2112;
+    v29 = localizedDescription;
     _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "Failed to re-register account {%@} : %@", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
     [errorCopy localizedDescription];
-    v26 = v25 = reactivationCopy;
+    v25 = v24 = reactivationCopy;
     IMLogString();
   }
 
@@ -5679,8 +7667,6 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
       [(CNFRegSettingsController *)self presentViewController:v22 animated:1 completion:0];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSuccessfulAccountReactivation:(id)reactivation
@@ -5707,29 +7693,29 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
 
 - (BOOL)_allAccountsAreDeactivated
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   regController = [(CNFRegListController *)self regController];
   accounts = [regController accounts];
 
-  v4 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (([v8 isActive] & 1) != 0 || objc_msgSend(v8, "registrationStatus") > 1)
         {
           v9 = 0;
@@ -5737,7 +7723,7 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
         }
       }
 
-      v5 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
       v9 = 1;
       if (v5)
       {
@@ -5755,7 +7741,6 @@ void __53__CNFRegSettingsController_refreshCallerIdSpecifier___block_invoke(uint
 
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -5837,7 +7822,7 @@ void __61__CNFRegSettingsController__setupAccountHandlersForDisabling__block_inv
   }
 }
 
-uint64_t __61__CNFRegSettingsController__setupAccountHandlersForDisabling__block_invoke_3(uint64_t a1)
+void *__61__CNFRegSettingsController__setupAccountHandlersForDisabling__block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) _updateSwitchDelayed];
   result = [*(a1 + 32) _allAccountsAreDeactivated];
@@ -5851,7 +7836,7 @@ uint64_t __61__CNFRegSettingsController__setupAccountHandlersForDisabling__block
   return result;
 }
 
-uint64_t __61__CNFRegSettingsController__setupAccountHandlersForDisabling__block_invoke_4(uint64_t a1)
+void *__61__CNFRegSettingsController__setupAccountHandlersForDisabling__block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) _updateSwitchDelayed];
   result = [*(a1 + 32) _allAccountsAreDeactivated];
@@ -5936,20 +7921,20 @@ void __69__CNFRegSettingsController__setupAccountHandlersForDisabledOperation__b
 
 void __69__CNFRegSettingsController__setupAccountHandlersForDisabledOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = CNFRegStringForAccount(v3);
     *buf = 138412290;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEFAULT, "Handling activation state change on account: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v8 = CNFRegStringForAccount(v3);
+    v7 = CNFRegStringForAccount(v3);
     IMLogString();
   }
 
@@ -5970,8 +7955,6 @@ void __69__CNFRegSettingsController__setupAccountHandlersForDisabledOperation__b
 
     [*(a1 + 32) _handleSuccessfulAccountReactivation:v3];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CNFRegSettingsController__setupAccountHandlersForDisabledOperation__block_invoke_891(uint64_t a1, void *a2, void *a3)
@@ -6191,7 +8174,7 @@ void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__blo
 
 void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__block_invoke_903(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = OSLogHandleForIDSCategory();
@@ -6207,9 +8190,9 @@ void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__blo
     }
 
     *buf = 138412546;
-    v39 = v11;
-    v40 = 2112;
-    v41 = v9;
+    v38 = v11;
+    v39 = 2112;
+    v40 = v9;
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Account status changed (isActive=%@): %@", buf, 0x16u);
   }
 
@@ -6226,7 +8209,7 @@ void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__blo
     }
 
     CNFRegStringForAccount(v5);
-    v36 = v34 = v12;
+    v35 = v33 = v12;
     IMLogString();
   }
 
@@ -6259,9 +8242,9 @@ void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__blo
     }
 
     *buf = 138412546;
-    v39 = v19;
-    v40 = 2112;
-    v41 = v17;
+    v38 = v19;
+    v39 = 2112;
+    v40 = v17;
     _os_log_impl(&dword_243BE5000, v15, OS_LOG_TYPE_DEFAULT, "Account no longer signed in (isActive=%@): %@", buf, 0x16u);
   }
 
@@ -6278,7 +8261,7 @@ void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__blo
     }
 
     CNFRegStringForAccount(v5);
-    v37 = v35 = v20;
+    v36 = v34 = v20;
     IMLogString();
   }
 
@@ -6305,7 +8288,7 @@ void __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__blo
     IMLogString();
   }
 
-  if ([*(a1 + 32) _popFromSettingsAnimated:{1, v35, v37}])
+  if ([*(a1 + 32) _popFromSettingsAnimated:{1, v34, v36}])
   {
     if ((v14 & 1) == 0)
     {
@@ -6339,8 +8322,6 @@ LABEL_34:
 
   [*(a1 + 32) presentViewController:v31 animated:1 completion:0];
 LABEL_37:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation__block_invoke_922(uint64_t a1)
@@ -6391,7 +8372,7 @@ uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation_
 
 - (BOOL)shouldShowOnlineSafetyLink
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _safetyURLForCurrentRegionIfAny = [(CNFRegSettingsController *)self _safetyURLForCurrentRegionIfAny];
 
   regController = [(CNFRegListController *)self regController];
@@ -6412,10 +8393,10 @@ uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation_
   {
     regController2 = [(CNFRegListController *)self regController];
     *buf = 67109632;
-    v13 = v6;
-    v14 = 1024;
-    v15 = _safetyURLForCurrentRegionIfAny != 0;
-    v16 = 2048;
+    v12 = v6;
+    v13 = 1024;
+    v14 = _safetyURLForCurrentRegionIfAny != 0;
+    v15 = 2048;
     serviceType2 = [regController2 serviceType];
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "ONLINE SAFETY: shouldShowOnlineSafetyLink = %d since safety URL = %d and current service = %ld", buf, 0x18u);
   }
@@ -6427,7 +8408,6 @@ uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation_
     IMLogString();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -6481,7 +8461,7 @@ uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation_
 
 - (id)_safetyURLForCurrentRegionIfAny
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _onlineSafetyRegionCodesURLMapping = [(CNFRegSettingsController *)self _onlineSafetyRegionCodesURLMapping];
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   regionCode = [currentLocale regionCode];
@@ -6490,17 +8470,17 @@ uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation_
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = regionCode;
+    v16 = regionCode;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "ONLINE SAFETY: Checking if region %@ requires safety URL to be shown...", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v14 = regionCode;
+    v13 = regionCode;
     IMLogString();
   }
 
-  v6 = [_onlineSafetyRegionCodesURLMapping objectForKey:{regionCode, v14}];
+  v6 = [_onlineSafetyRegionCodesURLMapping objectForKey:{regionCode, v13}];
   v7 = v6 == 0;
 
   if (v7)
@@ -6526,34 +8506,31 @@ uint64_t __67__CNFRegSettingsController__setupAccountHandlersForNormalOperation_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = regionCode;
+      v16 = regionCode;
       _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "ONLINE SAFETY: Valid safety URL found for region %@!", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v15 = regionCode;
+      v14 = regionCode;
       IMLogString();
     }
 
-    v9 = [_onlineSafetyRegionCodesURLMapping objectForKeyedSubscript:{regionCode, v15}];
+    v9 = [_onlineSafetyRegionCodesURLMapping objectForKeyedSubscript:{regionCode, v14}];
     v10 = [MEMORY[0x277CBEBC0] URLWithString:v9];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_onlineSafetyRegionCodesURLMapping
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"AU";
-  v5[1] = @"GB";
-  v6[0] = @"https://www.apple.com/au/legal/online-safety/";
-  v6[1] = @"https://www.apple.com/uk/legal/online-safety/";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"AU";
+  v4[1] = @"GB";
+  v5[0] = @"https://www.apple.com/au/legal/online-safety/";
+  v5[1] = @"https://www.apple.com/uk/legal/online-safety/";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }

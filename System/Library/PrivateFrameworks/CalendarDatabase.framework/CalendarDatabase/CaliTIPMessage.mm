@@ -58,7 +58,7 @@
 
 - (ICSEvent)event
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   event = self->_event;
   if (event)
   {
@@ -71,81 +71,80 @@ LABEL_2:
   componentKeys = [calendar componentKeys];
   if ([componentKeys count])
   {
-    v43 = 0u;
-    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v7 = componentKeys;
-    v8 = [v7 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v42;
-      v35 = componentKeys;
-      v36 = v7;
-      v33 = *v42;
+      v10 = *v40;
+      v33 = componentKeys;
+      v34 = v7;
+      v31 = *v40;
       while (2)
       {
         v11 = 0;
-        v34 = v9;
+        v32 = v9;
         do
         {
-          if (*v42 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v41 + 1) + 8 * v11);
+          v12 = *(*(&v39 + 1) + 8 * v11);
           v13 = [calendar componentForKey:v12];
           if (v13)
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v30 = objc_opt_class();
-              v31 = objc_opt_class();
-              NSLog(&cfstr_ComponentNotSu.isa, v30, v31);
+              v28 = objc_opt_class();
+              v29 = objc_opt_class();
+              NSLog(&cfstr_ComponentNotSu.isa, v28, v29);
 LABEL_24:
 
-              componentKeys = v35;
+              componentKeys = v33;
               goto LABEL_26;
             }
           }
 
           v14 = [calendar componentOccurrencesForKey:v12];
+          v35 = 0u;
+          v36 = 0u;
           v37 = 0u;
           v38 = 0u;
-          v39 = 0u;
-          v40 = 0u;
           v15 = v14;
-          v16 = [v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v38;
+            v18 = *v36;
             while (2)
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v38 != v18)
+                if (*v36 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = *(*(&v37 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
+                  v21 = objc_opt_class();
                   v22 = objc_opt_class();
-                  v23 = objc_opt_class();
-                  NSLog(&cfstr_ComponentNotSu.isa, v22, v23);
+                  NSLog(&cfstr_ComponentNotSu.isa, v21, v22);
 
-                  v7 = v36;
+                  v7 = v34;
                   goto LABEL_24;
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
               if (v17)
               {
                 continue;
@@ -156,13 +155,13 @@ LABEL_24:
           }
 
           ++v11;
-          v10 = v33;
-          v7 = v36;
+          v10 = v31;
+          v7 = v34;
         }
 
-        while (v11 != v34);
-        v9 = [v36 countByEnumeratingWithState:&v41 objects:v46 count:16];
-        componentKeys = v35;
+        while (v11 != v32);
+        v9 = [v34 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        componentKeys = v33;
         if (v9)
         {
           continue;
@@ -174,44 +173,43 @@ LABEL_24:
 
     if ([v7 count] < 2)
     {
-      v26 = [v7 objectAtIndexedSubscript:0];
-      v27 = [calendar componentForKey:v26];
-      if (!v27)
+      v24 = [v7 objectAtIndexedSubscript:0];
+      v25 = [calendar componentForKey:v24];
+      if (!v25)
       {
-        v28 = [calendar componentOccurrencesForKey:v26];
-        if ([v28 count])
+        v26 = [calendar componentOccurrencesForKey:v24];
+        if ([v26 count])
         {
-          v27 = [v28 objectAtIndexedSubscript:0];
+          v25 = [v26 objectAtIndexedSubscript:0];
         }
 
         else
         {
-          v27 = 0;
+          v25 = 0;
         }
       }
 
-      v29 = self->_event;
-      self->_event = v27;
+      v27 = self->_event;
+      self->_event = v25;
 
       event = self->_event;
       goto LABEL_2;
     }
 
-    v21 = objc_opt_class();
-    NSLog(&cfstr_MoreThanOneEve.isa, v21, [v7 count]);
+    v20 = objc_opt_class();
+    NSLog(&cfstr_MoreThanOneEve.isa, v20, [v7 count]);
   }
 
   else
   {
-    v32 = objc_opt_class();
-    NSLog(&cfstr_ItipMessageCon.isa, v32);
+    v30 = objc_opt_class();
+    NSLog(&cfstr_ItipMessageCon.isa, v30);
   }
 
 LABEL_26:
 
   v3 = 0;
 LABEL_27:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

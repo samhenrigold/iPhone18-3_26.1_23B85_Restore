@@ -942,13 +942,13 @@ LABEL_12:
   v14.super_class = RAPWebBundleBaseViewController;
   [(RAPWebBundleBaseViewController *)&v14 viewDidLoad];
   v3 = objc_alloc_init(RAPWebBundleConfigurationManager);
-  configuration = [(RAPWebBundleConfigurationManager *)v3 configuration];
+  v4 = objc_msgSend_configuration(v3);
   configuration = self->_configuration;
-  self->_configuration = configuration;
+  self->_configuration = v4;
 
   v6 = [WebBundleManager alloc];
-  configuration2 = [(RAPWebBundleConfigurationManager *)v3 configuration];
-  v8 = [(WebBundleManager *)v6 initWithConfiguration:configuration2 delegate:self];
+  v7 = objc_msgSend_configuration(v3);
+  v8 = [(WebBundleManager *)v6 initWithConfiguration:v7 delegate:self];
   webBundleManager = self->_webBundleManager;
   self->_webBundleManager = v8;
 

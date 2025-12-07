@@ -15,7 +15,6 @@
 - (uint64_t)setVerboseLatencyAnalysisLogging:(uint64_t)result;
 - (uint64_t)shouldReceiveAudioListenerPose;
 - (uint64_t)shouldReceiveDummyData;
-- (uint64_t)stopReceivingAudioListenerPose;
 - (uint64_t)verboseLatencyAnalysisLogging;
 - (void)dealloc;
 - (void)resetAudioListenerPoseTrackingForAllClients;
@@ -33,11 +32,11 @@
 
 - (RMRelativeMotionManager)initWithQueue:(id)queue
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v19.receiver = self;
-  v19.super_class = RMRelativeMotionManager;
-  v6 = [(RMRelativeMotionManager *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = RMRelativeMotionManager;
+  v6 = [(RMRelativeMotionManager *)&v18 init];
   v7 = v6;
   if (v6)
   {
@@ -71,7 +70,7 @@
     {
       verboseLatencyAnalysisLogging = v7->_verboseLatencyAnalysisLogging;
       *buf = 67240192;
-      v21 = verboseLatencyAnalysisLogging;
+      v20 = verboseLatencyAnalysisLogging;
       _os_log_impl(&dword_261A9A000, v15, OS_LOG_TYPE_DEFAULT, "[RelativeMotionManager] verbose latency logging: %{public}d", buf, 8u);
     }
 
@@ -86,35 +85,33 @@
     *&v7->_audioListenerPoseBuffer[1].timestamp = *&v7->_audioListenerPoseBuffer[0].timestamp;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)startReceivingDummyData
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v1 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_8(v1))
+  v2 = _CLLogObjectForCategory_RelativeMotionManager_Default(self);
+  if (OUTLINED_FUNCTION_8(v2))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Called startReceivingDummyData while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v3, v4, "{msg%{public}.0s:Called startReceivingDummyData while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8, v24, v25, v26, v27);
   }
 
-  v8 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (os_signpost_enabled(v8))
+  v10 = _CLLogObjectForCategory_RelativeMotionManager_Default(v9);
+  if (os_signpost_enabled(v10))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v9, v10, v11, "Called startReceivingDummyData while already registered to receive data", "{msg%{public}.0s:Called startReceivingDummyData while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v11, v12, v13, "Called startReceivingDummyData while already registered to receive data", "{msg%{public}.0s:Called startReceivingDummyData while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15, v24, v25, v26, v27);
   }
 
-  v14 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_7(v14))
+  v17 = _CLLogObjectForCategory_RelativeMotionManager_Default(v16);
+  if (OUTLINED_FUNCTION_7(v17))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v15, v16, "{msg%{public}.0s:Called startReceivingDummyData while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v18, v19, "{msg%{public}.0s:Called startReceivingDummyData while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23, v24, v25, v26, v27);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/RelativeMotion/RMRelativeMotionManager.m", 86, "[RMRelativeMotionManager startReceivingDummyData]");
   __break(1u);
 }
 
@@ -175,30 +172,29 @@ void __50__RMRelativeMotionManager_startReceivingDummyData__block_invoke_2(uint6
 
 - (void)stopReceivingDummyData
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v1 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_8(v1))
+  v2 = _CLLogObjectForCategory_RelativeMotionManager_Default(self);
+  if (OUTLINED_FUNCTION_8(v2))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Called stopReceivingDummyData while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v3, v4, "{msg%{public}.0s:Called stopReceivingDummyData while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8, v25, v26, v27, v28);
   }
 
-  v8 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (os_signpost_enabled(v8))
+  v10 = _CLLogObjectForCategory_RelativeMotionManager_Default(v9);
+  if (os_signpost_enabled(v10))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v9, v10, v11, "Called stopReceivingDummyData while not registered to receive data", "{msg%{public}.0s:Called stopReceivingDummyData while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v11, v12, v13, "Called stopReceivingDummyData while not registered to receive data", "{msg%{public}.0s:Called stopReceivingDummyData while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15, v25, v26, v27, v28);
   }
 
-  v14 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_7(v14))
+  v17 = _CLLogObjectForCategory_RelativeMotionManager_Default(v16);
+  if (OUTLINED_FUNCTION_7(v17))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v15, v16, "{msg%{public}.0s:Called stopReceivingDummyData while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v18, v19, "{msg%{public}.0s:Called stopReceivingDummyData while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23, v25, v26, v27, v28);
   }
 
-  v21 = abort_report_np();
-  [RMRelativeMotionManager startReceivingAudioListenerPoseWithForceSessionRestart:v21];
+  v24 = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/RelativeMotion/RMRelativeMotionManager.m", 109, "[RMRelativeMotionManager stopReceivingDummyData]");
+  [RMRelativeMotionManager startReceivingAudioListenerPoseWithForceSessionRestart:v24];
 }
 
 - (id)getCurrentDummyData
@@ -226,7 +222,7 @@ void __50__RMRelativeMotionManager_startReceivingDummyData__block_invoke_2(uint6
   {
     if (val[225])
     {
-      [RMRelativeMotionManager startReceivingAudioListenerPoseWithForceSessionRestart:];
+      [RMRelativeMotionManager startReceivingAudioListenerPoseWithForceSessionRestart:?];
     }
 
     val[225] = 1;
@@ -248,7 +244,7 @@ void __50__RMRelativeMotionManager_startReceivingDummyData__block_invoke_2(uint6
 
 void __82__RMRelativeMotionManager_startReceivingAudioListenerPoseWithForceSessionRestart___block_invoke_2(uint64_t a1, double *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained;
@@ -299,50 +295,41 @@ void __82__RMRelativeMotionManager_startReceivingAudioListenerPoseWithForceSessi
       if (os_log_type_enabled(logObject_RelativeMotionManager_Default, OS_LOG_TYPE_INFO))
       {
         v22 = *(a2 + 4);
-        v24 = 134349312;
-        v25 = v22;
-        v26 = 2050;
-        v27 = (MachTime - v20) * 1000.0;
-        _os_log_impl(&dword_261A9A000, v21, OS_LOG_TYPE_INFO, "[RelativeMotionManager] receivingAudioListenerPose %{public}f, xpcLatency %{public}.2f ms", &v24, 0x16u);
+        v23 = 134349312;
+        v24 = v22;
+        v25 = 2050;
+        v26 = (MachTime - v20) * 1000.0;
+        _os_log_impl(&dword_261A9A000, v21, OS_LOG_TYPE_INFO, "[RelativeMotionManager] receivingAudioListenerPose %{public}f, xpcLatency %{public}.2f ms", &v23, 0x16u);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopReceivingAudioListenerPose
 {
-  if (self && self->_shouldReceiveAudioListenerPose)
+  v2 = _CLLogObjectForCategory_RelativeMotionManager_Default(self);
+  if (OUTLINED_FUNCTION_8(v2))
   {
-    self->_shouldReceiveAudioListenerPose = 0;
-    v3 = self->_audioListenerPoseManager;
-    queue = self->_queue;
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __57__RMRelativeMotionManager_stopReceivingAudioListenerPose__block_invoke;
-    block[3] = &unk_279AF5258;
-    v8 = v3;
-    v5 = v3;
-    dispatch_async(queue, block);
-    os_unfair_lock_lock(&self->_audioListenerPoseBufferLock);
-    self->_audioListenerPoseBuffer[0].quaternion.y = 0.0;
-    self->_audioListenerPoseBuffer[0].quaternion.z = 0.0;
-    self->_audioListenerPoseBuffer[0].quaternion.x = 0.0;
-    *&self->_audioListenerPoseBuffer[0].quaternion.w = xmmword_261AA5E00;
-    *&self->_audioListenerPoseBuffer[1].consumedAuxTimestamp = *&self->_audioListenerPoseBuffer[0].consumedAuxTimestamp;
-    *&self->_audioListenerPoseBuffer[1].machAbsTimestamp = *&self->_audioListenerPoseBuffer[0].machAbsTimestamp;
-    *&self->_audioListenerPoseBuffer[1].quaternion.z = *&self->_audioListenerPoseBuffer[0].quaternion.z;
-    *&self->_audioListenerPoseBuffer[1].timestamp = *&self->_audioListenerPoseBuffer[0].timestamp;
-    *&self->_audioListenerPoseBuffer[1].quaternion.x = *&self->_audioListenerPoseBuffer[0].quaternion.x;
-    os_unfair_lock_unlock(&self->_audioListenerPoseBufferLock);
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v3, v4, "{msg%{public}.0s:Called stopReceivingAudioListenerPose while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8, v26, v27, v28, v29);
   }
 
-  else
+  v10 = _CLLogObjectForCategory_RelativeMotionManager_Default(v9);
+  if (os_signpost_enabled(v10))
   {
-    stopReceivingAudioListenerPose = [RMRelativeMotionManager stopReceivingAudioListenerPose];
-    __57__RMRelativeMotionManager_stopReceivingAudioListenerPose__block_invoke(stopReceivingAudioListenerPose);
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v11, v12, v13, "Called stopReceivingAudioListenerPose while not registered to receive data", "{msg%{public}.0s:Called stopReceivingAudioListenerPose while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15, v26, v27, v28, v29);
   }
+
+  v17 = _CLLogObjectForCategory_RelativeMotionManager_Default(v16);
+  if (OUTLINED_FUNCTION_7(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v18, v19, "{msg%{public}.0s:Called stopReceivingAudioListenerPose while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23, v26, v27, v28, v29);
+  }
+
+  v24 = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/RelativeMotion/RMRelativeMotionManager.m", 170, "[RMRelativeMotionManager stopReceivingAudioListenerPose]");
+  [(RMAudioListenerPoseManager *)v24 setQueue:v25];
 }
 
 - (void)dealloc
@@ -594,17 +581,17 @@ void __82__RMRelativeMotionManager_startReceivingAudioListenerPoseWithForceSessi
 
 - (int64_t)getCurrentAudioListenerPose:(id *)pose timestamp:(double *)timestamp
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v11 = OUTLINED_FUNCTION_5(self, a2, pose, timestamp, v4, v5, v6, v7, v15, v17, v19, v21, v24);
+  v44 = *MEMORY[0x277D85DE8];
+  v11 = OUTLINED_FUNCTION_5(self, a2, pose, timestamp, v4, v5, v6, v7, v14, v16, v18, v20, v23);
   if (pose)
   {
-    *&pose->var0 = v16;
-    *&pose->var2 = v18;
+    *&pose->var0 = v15;
+    *&pose->var2 = v17;
   }
 
   if (timestamp)
   {
-    *timestamp = v20;
+    *timestamp = v19;
   }
 
   if (self && self->_verboseLatencyAnalysisLogging)
@@ -618,28 +605,27 @@ void __82__RMRelativeMotionManager_startReceivingAudioListenerPoseWithForceSessi
     if (os_log_type_enabled(logObject_RelativeMotionManager_Default, OS_LOG_TYPE_INFO))
     {
       *buf = 134285569;
-      v28 = v16;
-      v29 = 2049;
-      v30 = *(&v16 + 1);
-      v31 = 2049;
-      v32 = v18;
-      v33 = 2049;
-      v34 = *(&v18 + 1);
-      v35 = 2049;
-      v36 = v22;
-      v37 = 2049;
-      v38 = v23;
-      v39 = 2049;
-      v40 = v25;
-      v41 = 2049;
-      v42 = v26;
-      v43 = 2049;
-      v44 = v20;
+      v27 = v15;
+      v28 = 2049;
+      v29 = *(&v15 + 1);
+      v30 = 2049;
+      v31 = v17;
+      v32 = 2049;
+      v33 = *(&v17 + 1);
+      v34 = 2049;
+      v35 = v21;
+      v36 = 2049;
+      v37 = v22;
+      v38 = 2049;
+      v39 = v24;
+      v40 = 2049;
+      v41 = v25;
+      v42 = 2049;
+      v43 = v19;
       _os_log_impl(&dword_261A9A000, v12, OS_LOG_TYPE_INFO, "[RelativeMotionManager] currentAudioListenerPose RMPose,q.x,%{private}f,q.y,%{private}f,q.z,%{private}f,q.w,%{private}f,consumedAuxTimestamp,%{private}f,receivedAuxTimestamp,%{private}f,machAbsTimestamp,%{private}f,presentationTimestamp,%{private}f,timestamp,%{private}f", buf, 0x5Cu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -677,60 +663,31 @@ void __82__RMRelativeMotionManager_startReceivingAudioListenerPoseWithForceSessi
   return result;
 }
 
-- (void)startReceivingAudioListenerPoseWithForceSessionRestart:.cold.1()
+- (void)startReceivingAudioListenerPoseWithForceSessionRestart:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v1 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_8(v1))
+  v2 = _CLLogObjectForCategory_RelativeMotionManager_Default(a1);
+  if (OUTLINED_FUNCTION_8(v2))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Called startReceivingAudioListenerPose while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v3, v4, "{msg%{public}.0s:Called startReceivingAudioListenerPose while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8, v24, v25, v26, v27);
   }
 
-  v8 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (os_signpost_enabled(v8))
+  v10 = _CLLogObjectForCategory_RelativeMotionManager_Default(v9);
+  if (os_signpost_enabled(v10))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v9, v10, v11, "Called startReceivingAudioListenerPose while already registered to receive data", "{msg%{public}.0s:Called startReceivingAudioListenerPose while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v11, v12, v13, "Called startReceivingAudioListenerPose while already registered to receive data", "{msg%{public}.0s:Called startReceivingAudioListenerPose while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15, v24, v25, v26, v27);
   }
 
-  v14 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_7(v14))
+  v17 = _CLLogObjectForCategory_RelativeMotionManager_Default(v16);
+  if (OUTLINED_FUNCTION_7(v17))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v15, v16, "{msg%{public}.0s:Called startReceivingAudioListenerPose while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v18, v19, "{msg%{public}.0s:Called startReceivingAudioListenerPose while already registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23, v24, v25, v26, v27);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/RelativeMotion/RMRelativeMotionManager.m", 141, "[RMRelativeMotionManager startReceivingAudioListenerPoseWithForceSessionRestart:]");
   __break(1u);
-}
-
-- (uint64_t)stopReceivingAudioListenerPose
-{
-  v28 = *MEMORY[0x277D85DE8];
-  v1 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_8(v1))
-  {
-    OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Called stopReceivingAudioListenerPose while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26, v27);
-  }
-
-  v8 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (os_signpost_enabled(v8))
-  {
-    OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v9, v10, v11, "Called stopReceivingAudioListenerPose while not registered to receive data", "{msg%{public}.0s:Called stopReceivingAudioListenerPose while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v23, v24, v25, v26, v27);
-  }
-
-  v14 = _CLLogObjectForCategory_RelativeMotionManager_Default();
-  if (OUTLINED_FUNCTION_7(v14))
-  {
-    OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v15, v16, "{msg%{public}.0s:Called stopReceivingAudioListenerPose while not registered to receive data, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v23, v24, v25, v26, v27);
-  }
-
-  v21 = abort_report_np();
-  return [RMAudioListenerPoseManager setQueue:v21];
 }
 
 @end

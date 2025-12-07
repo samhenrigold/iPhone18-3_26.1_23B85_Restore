@@ -6,52 +6,52 @@
 
 + (id)formatRecords:(id)records
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   if ([recordsCopy count])
   {
-    v34 = recordsCopy;
+    v33 = recordsCopy;
     v4 = [recordsCopy sortedArrayUsingComparator:&__block_literal_global_8];
     v5 = objc_opt_new();
     v6 = [MEMORY[0x277CBEBB0] timeZoneWithAbbreviation:@"UTC"];
     [v5 setTimeZone:v6];
-    v37 = v5;
+    v36 = v5;
     [v5 setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
 
     v7 = [&unk_28436FB40 mutableCopy];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     obj = v4;
-    v38 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v38)
+    v37 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v37)
     {
       deploymentId = -1;
-      v36 = *v44;
+      v35 = *v43;
       treatmentId2 = &stru_28435FC98;
       experimentId2 = &stru_28435FC98;
       do
       {
-        for (i = 0; i != v38; ++i)
+        for (i = 0; i != v37; ++i)
         {
-          if (*v44 != v36)
+          if (*v43 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v43 + 1) + 8 * i);
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __47__TRISysdiagnoseOutputFormatter_formatRecords___block_invoke_2;
-          v39[3] = &unk_27885EBC8;
-          v39[4] = v12;
+          v12 = *(*(&v42 + 1) + 8 * i);
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __47__TRISysdiagnoseOutputFormatter_formatRecords___block_invoke_2;
+          v38[3] = &unk_27885EBC8;
+          v38[4] = v12;
           v13 = experimentId2;
-          v40 = v13;
-          v42 = deploymentId;
+          v39 = v13;
+          v41 = deploymentId;
           v14 = treatmentId2;
-          v41 = v14;
-          if (__47__TRISysdiagnoseOutputFormatter_formatRecords___block_invoke_2(v39))
+          v40 = v14;
+          if (__47__TRISysdiagnoseOutputFormatter_formatRecords___block_invoke_2(v38))
           {
             v15 = objc_alloc(MEMORY[0x277CCACA8]);
             experimentId = [v12 experimentId];
@@ -83,7 +83,7 @@
           }
 
           eventDate = [v12 eventDate];
-          v30 = [v37 stringFromDate:eventDate];
+          v30 = [v36 stringFromDate:eventDate];
           v31 = [v26 initWithFormat:@"        - %@ -> %@", v28, v30];
 
           [v7 addObject:v31];
@@ -94,10 +94,10 @@
           treatmentId2 = [v12 treatmentId];
         }
 
-        v38 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v37 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
-      while (v38);
+      while (v37);
     }
 
     else
@@ -106,15 +106,13 @@
       experimentId2 = &stru_28435FC98;
     }
 
-    recordsCopy = v34;
+    recordsCopy = v33;
   }
 
   else
   {
     v7 = &unk_28436FB28;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -24,21 +24,22 @@
 - (id)usageSections;
 - (void)carrierSpaceChanged;
 - (void)simStatusChanged;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PSUICarrierSpaceUsageController
 
 - (void)simStatusChanged
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceUsageController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[PSUICarrierSpaceUsageController simStatusChanged]";
-    v11 = 2112;
-    v12 = 0x287737BB8;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[PSUICarrierSpaceUsageController simStatusChanged]";
+    v10 = 2112;
+    v11 = 0x287737BB8;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", &v8, 0x16u);
   }
 
   mEMORY[0x277D4D868] = [MEMORY[0x277D4D868] sharedInstance];
@@ -49,25 +50,22 @@
     WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD10]));
     v7 = [WeakRetained popViewControllerAnimated:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)carrierSpaceChanged
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceUsageController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[PSUICarrierSpaceUsageController carrierSpaceChanged]";
-    v7 = 2112;
-    v8 = 0x287737B98;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[PSUICarrierSpaceUsageController carrierSpaceChanged]";
+    v6 = 2112;
+    v7 = 0x287737B98;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification: %@", &v4, 0x16u);
   }
 
   [(PSUICarrierSpaceUsageController *)self reloadSpecifiers];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (PSUICarrierSpaceUsageController)initWithNibName:(id)name bundle:(id)bundle
@@ -87,6 +85,49 @@
   return v4;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v18 = *MEMORY[0x277D85DE8];
+  getLogger = [(PSUICarrierSpaceUsageController *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 136315138;
+    *(&buf + 4) = "[PSUICarrierSpaceUsageController viewDidAppear:]";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
+  }
+
+  v9.receiver = self;
+  v9.super_class = PSUICarrierSpaceUsageController;
+  [(PSUICarrierSpaceUsageController *)&v9 viewDidAppear:appearCopy];
+  v6 = @"com.apple.Preferences.CarrierSpaceUsageEvent";
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v7 = off_28156A6C8;
+  v13 = off_28156A6C8;
+  if (!off_28156A6C8)
+  {
+    *&buf = MEMORY[0x277D85DD0];
+    *(&buf + 1) = 3221225472;
+    v15 = __getAnalyticsSendEventSymbolLoc_block_invoke_0;
+    v16 = &unk_279BA9F68;
+    v17 = &v10;
+    __getAnalyticsSendEventSymbolLoc_block_invoke_0(&buf);
+    v7 = v11[3];
+  }
+
+  _Block_object_dispose(&v10, 8);
+  if (!v7)
+  {
+    v8 = dlerror();
+    abort_report_np("%s", v8);
+    __break(1u);
+  }
+
+  v7(v6, MEMORY[0x277CBEC10]);
+}
+
 - (id)barGraphColors
 {
   if (_MergedGlobals_61 != -1)
@@ -101,52 +142,50 @@
 
 void __49__PSUICarrierSpaceUsageController_barGraphColors__block_invoke()
 {
-  v8[5] = *MEMORY[0x277D85DE8];
+  v7[5] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75348] colorWithRed:0.105882353 green:0.678431373 blue:0.97254902 alpha:1.0];
   v1 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.8 blue:0.0 alpha:{1.0, v0}];
-  v8[1] = v1;
+  v7[1] = v1;
   v2 = [MEMORY[0x277D75348] colorWithRed:0.8 green:0.450980392 blue:0.960784314 alpha:1.0];
-  v8[2] = v2;
+  v7[2] = v2;
   v3 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.584313725 blue:0.0 alpha:1.0];
-  v8[3] = v3;
+  v7[3] = v3;
   v4 = [MEMORY[0x277D75348] colorWithRed:0.298039216 green:0.850980392 blue:0.392156863 alpha:1.0];
-  v8[4] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
+  v7[4] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
   v6 = qword_28156A6C0;
   qword_28156A6C0 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)usageCategories
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v20 = objc_opt_new();
+  v33 = *MEMORY[0x277D85DE8];
+  v19 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [(PSUICarrierSpaceUsageController *)self usageSections];
-  v21 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v20)
   {
-    v19 = *v29;
+    v18 = *v28;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v29 != v19)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v28 + 1) + 8 * i);
+        v4 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
-        v5 = v20;
-        v6 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v5 = v19;
+        v6 = [v5 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (!v6)
         {
 
@@ -158,19 +197,19 @@ LABEL_18:
         }
 
         v7 = v6;
-        v22 = i;
-        v23 = 0;
-        v8 = *v25;
+        v21 = i;
+        v22 = 0;
+        v8 = *v24;
         do
         {
           for (j = 0; j != v7; ++j)
           {
-            if (*v25 != v8)
+            if (*v24 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v24 + 1) + 8 * j);
+            v10 = *(*(&v23 + 1) + 8 * j);
             v11 = [v10 objectAtIndexedSubscript:0];
             accountMetrics = [v11 accountMetrics];
             accountMetrics2 = [v4 accountMetrics];
@@ -179,104 +218,102 @@ LABEL_18:
             if (v14)
             {
               [v10 addObject:v4];
-              v23 = 1;
+              v22 = 1;
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v23 objects:v31 count:16];
         }
 
         while (v7);
 
-        i = v22;
-        if ((v23 & 1) == 0)
+        i = v21;
+        if ((v22 & 1) == 0)
         {
           goto LABEL_18;
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v20 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (id)usageSections
 {
-  v92 = *MEMORY[0x277D85DE8];
-  v61 = objc_opt_new();
+  v91 = *MEMORY[0x277D85DE8];
+  v60 = objc_opt_new();
   +[PSUICarrierSpaceManager sharedManager];
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
-  v55 = v85 = 0u;
-  usageInfo = [v55 usageInfo];
+  v54 = v84 = 0u;
+  usageInfo = [v54 usageInfo];
   accountMetrics = [usageInfo accountMetrics];
 
   obj = accountMetrics;
-  v58 = [accountMetrics countByEnumeratingWithState:&v82 objects:v91 count:16];
-  if (v58)
+  v57 = [accountMetrics countByEnumeratingWithState:&v81 objects:v90 count:16];
+  if (v57)
   {
-    v57 = *v83;
+    v56 = *v82;
     do
     {
       v4 = 0;
       do
       {
-        if (*v83 != v57)
+        if (*v82 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v59 = v4;
-        v5 = *(*(&v82 + 1) + 8 * v4);
+        v58 = v4;
+        v5 = *(*(&v81 + 1) + 8 * v4);
+        v77 = 0u;
         v78 = 0u;
         v79 = 0u;
         v80 = 0u;
-        v81 = 0u;
-        v69 = v5;
+        v68 = v5;
         applicablePlans = [v5 applicablePlans];
-        v63 = [applicablePlans countByEnumeratingWithState:&v78 objects:v90 count:16];
-        if (v63)
+        v62 = [applicablePlans countByEnumeratingWithState:&v77 objects:v89 count:16];
+        if (v62)
         {
-          v62 = *v79;
+          v61 = *v78;
           do
           {
-            for (i = 0; i != v63; ++i)
+            for (i = 0; i != v62; ++i)
             {
-              if (*v79 != v62)
+              if (*v78 != v61)
               {
                 objc_enumerationMutation(applicablePlans);
               }
 
-              v7 = *(*(&v78 + 1) + 8 * i);
+              v7 = *(*(&v77 + 1) + 8 * i);
               dataUsage = [v7 dataUsage];
               sharedPlanIdentifier = [dataUsage sharedPlanIdentifier];
 
               dataUsage2 = [v7 dataUsage];
               thisDeviceDataUsed = [dataUsage2 thisDeviceDataUsed];
-              v68 = v7;
+              v67 = v7;
               dataUsage3 = [v7 dataUsage];
               v13 = +[PSUICarrierSpaceManager bytesFromString:carrierSpaceUnits:](PSUICarrierSpaceManager, "bytesFromString:carrierSpaceUnits:", thisDeviceDataUsed, [dataUsage3 units]);
 
-              networkUsageLabel = [v69 networkUsageLabel];
+              networkUsageLabel = [v68 networkUsageLabel];
               v15 = objc_alloc(MEMORY[0x277D3F998]);
-              networkUsageLabel2 = [v69 networkUsageLabel];
+              networkUsageLabel2 = [v68 networkUsageLabel];
               greenColor = [MEMORY[0x277D75348] greenColor];
-              v66 = networkUsageLabel;
-              v65 = [v15 initWithIdentifier:networkUsageLabel2 title:networkUsageLabel color:greenColor bytes:v13];
+              v65 = networkUsageLabel;
+              v64 = [v15 initWithIdentifier:networkUsageLabel2 title:networkUsageLabel color:greenColor bytes:v13];
 
-              v76 = 0u;
-              v77 = 0u;
-              v74 = 0u;
               v75 = 0u;
-              v18 = v61;
-              v19 = [v18 countByEnumeratingWithState:&v74 objects:v89 count:16];
+              v76 = 0u;
+              v73 = 0u;
+              v74 = 0u;
+              v18 = v60;
+              v19 = [v18 countByEnumeratingWithState:&v73 objects:v88 count:16];
               if (!v19)
               {
 
@@ -285,10 +322,10 @@ LABEL_32:
                 v34 = v22;
                 v22 = objc_opt_new();
 
-                if ([v69 localDevice])
+                if ([v68 localDevice])
                 {
                   [v22 setSharedPlanIdentifier:sharedPlanIdentifier];
-                  [v22 setPrimaryMetrics:v68];
+                  [v22 setPrimaryMetrics:v67];
                 }
 
                 else
@@ -302,29 +339,29 @@ LABEL_32:
                   }
 
                   otherMetrics2 = [v22 otherMetrics];
-                  [otherMetrics2 addObject:v68];
+                  [otherMetrics2 addObject:v67];
                 }
 
-                [v22 setAccountMetrics:v69];
+                [v22 setAccountMetrics:v68];
                 [v18 addObject:v22];
                 goto LABEL_38;
               }
 
               v20 = v19;
-              v64 = i;
+              v63 = i;
               v21 = 0;
               v22 = 0;
-              v23 = *v75;
+              v23 = *v74;
               do
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v75 != v23)
+                  if (*v74 != v23)
                   {
                     objc_enumerationMutation(v18);
                   }
 
-                  v25 = *(*(&v74 + 1) + 8 * j);
+                  v25 = *(*(&v73 + 1) + 8 * j);
                   sharedPlanIdentifier2 = [v25 sharedPlanIdentifier];
                   v27 = [sharedPlanIdentifier isEqualToString:sharedPlanIdentifier2];
 
@@ -332,7 +369,7 @@ LABEL_32:
                   {
                     v28 = v25;
 
-                    if ([v69 localDevice])
+                    if ([v68 localDevice])
                     {
                       primaryMetrics = [v28 primaryMetrics];
 
@@ -342,13 +379,13 @@ LABEL_32:
                         if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412290;
-                          v88 = sharedPlanIdentifier;
+                          v87 = sharedPlanIdentifier;
                           _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "More than one primary plan for shared plan identifier: %@", buf, 0xCu);
                         }
                       }
 
-                      [v28 setPrimaryMetrics:v68];
-                      [v28 setAccountMetrics:v69];
+                      [v28 setPrimaryMetrics:v67];
+                      [v28 setAccountMetrics:v68];
                     }
 
                     else
@@ -362,7 +399,7 @@ LABEL_32:
                       }
 
                       otherMetrics4 = [v28 otherMetrics];
-                      [otherMetrics4 addObject:v68];
+                      [otherMetrics4 addObject:v67];
                     }
 
                     v21 = 1;
@@ -370,12 +407,12 @@ LABEL_32:
                   }
                 }
 
-                v20 = [v18 countByEnumeratingWithState:&v74 objects:v89 count:16];
+                v20 = [v18 countByEnumeratingWithState:&v73 objects:v88 count:16];
               }
 
               while (v20);
 
-              i = v64;
+              i = v63;
               if ((v21 & 1) == 0)
               {
                 goto LABEL_32;
@@ -391,45 +428,45 @@ LABEL_38:
               }
 
               barCategories2 = [v22 barCategories];
-              [barCategories2 addObject:v65];
+              [barCategories2 addObject:v64];
             }
 
-            v63 = [applicablePlans countByEnumeratingWithState:&v78 objects:v90 count:16];
+            v62 = [applicablePlans countByEnumeratingWithState:&v77 objects:v89 count:16];
           }
 
-          while (v63);
+          while (v62);
         }
 
-        v4 = v59 + 1;
+        v4 = v58 + 1;
       }
 
-      while (v59 + 1 != v58);
-      v58 = [obj countByEnumeratingWithState:&v82 objects:v91 count:16];
+      while (v58 + 1 != v57);
+      v57 = [obj countByEnumeratingWithState:&v81 objects:v90 count:16];
     }
 
-    while (v58);
+    while (v57);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v41 = v61;
-  v42 = [v41 countByEnumeratingWithState:&v70 objects:v86 count:16];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v41 = v60;
+  v42 = [v41 countByEnumeratingWithState:&v69 objects:v85 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v71;
+    v44 = *v70;
     do
     {
       for (k = 0; k != v43; ++k)
       {
-        if (*v71 != v44)
+        if (*v70 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = *(*(&v70 + 1) + 8 * k);
+        v46 = *(*(&v69 + 1) + 8 * k);
         primaryMetrics2 = [v46 primaryMetrics];
         if (primaryMetrics2)
         {
@@ -451,14 +488,13 @@ LABEL_38:
         }
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v70 objects:v86 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v69 objects:v85 count:16];
     }
 
     while (v43);
   }
 
   v52 = [v41 copy];
-  v53 = *MEMORY[0x277D85DE8];
 
   return v52;
 }
@@ -536,51 +572,51 @@ LABEL_9:
 
 - (BOOL)hasMultipleDevicesOfTheSameType
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = [(PSUICarrierSpaceUsageController *)self usageCategories];
-  v26 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v25)
   {
-    v29 = 0;
-    v25 = *v35;
+    v28 = 0;
+    v24 = *v34;
     v4 = 0x277CCA000uLL;
     do
     {
       v5 = 0;
       do
       {
-        if (*v35 != v25)
+        if (*v34 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v5;
-        v6 = *(*(&v34 + 1) + 8 * v5);
+        v26 = v5;
+        v6 = *(*(&v33 + 1) + 8 * v5);
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
-        v28 = v6;
-        v7 = [v28 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v27 = v6;
+        v7 = [v27 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v31;
+          v9 = *v30;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v31 != v9)
+              if (*v30 != v9)
               {
-                objc_enumerationMutation(v28);
+                objc_enumerationMutation(v27);
               }
 
-              v11 = *(*(&v30 + 1) + 8 * i);
+              v11 = *(*(&v29 + 1) + 8 * i);
               accountMetrics = [v11 accountMetrics];
               networkUsageLabel = [accountMetrics networkUsageLabel];
 
@@ -592,7 +628,7 @@ LABEL_9:
 
               if (v18)
               {
-                v29 |= [v18 isEqualToString:networkUsageLabel] ^ 1;
+                v28 |= [v18 isEqualToString:networkUsageLabel] ^ 1;
               }
 
               v4 = v14;
@@ -602,106 +638,13 @@ LABEL_9:
               [v3 setObject:networkUsageLabel forKeyedSubscript:v21];
             }
 
-            v8 = [v28 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v8 = [v27 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v8);
         }
 
-        v5 = v27 + 1;
-      }
-
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-    }
-
-    while (v26);
-  }
-
-  else
-  {
-    LOBYTE(v29) = 0;
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
-  return v29 & 1;
-}
-
-- (BOOL)hasMultiplePlansOfTheSameTypeInTheSameSectionCategory
-{
-  v39 = *MEMORY[0x277D85DE8];
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  obj = [(PSUICarrierSpaceUsageController *)self usageCategories];
-  v25 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v25)
-  {
-    v28 = 0;
-    v24 = *v34;
-    v2 = 0x277CCA000uLL;
-    do
-    {
-      v3 = 0;
-      do
-      {
-        if (*v34 != v24)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v26 = v3;
-        v4 = *(*(&v33 + 1) + 8 * v3);
-        v5 = objc_opt_new();
-        v29 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v27 = v4;
-        v6 = [v27 countByEnumeratingWithState:&v29 objects:v37 count:16];
-        if (v6)
-        {
-          v7 = v6;
-          v8 = *v30;
-          do
-          {
-            for (i = 0; i != v7; ++i)
-            {
-              if (*v30 != v8)
-              {
-                objc_enumerationMutation(v27);
-              }
-
-              v10 = *(*(&v29 + 1) + 8 * i);
-              primaryMetrics = [v10 primaryMetrics];
-              planLabel = [primaryMetrics planLabel];
-
-              v13 = v2;
-              v14 = *(v2 + 2992);
-              primaryMetrics2 = [v10 primaryMetrics];
-              v16 = [v14 numberWithInteger:{objc_msgSend(primaryMetrics2, "planCategory")}];
-              v17 = [v5 objectForKeyedSubscript:v16];
-
-              if (v17)
-              {
-                v28 |= [v17 isEqualToString:planLabel] ^ 1;
-              }
-
-              v2 = v13;
-              v18 = *(v13 + 2992);
-              primaryMetrics3 = [v10 primaryMetrics];
-              v20 = [v18 numberWithInteger:{objc_msgSend(primaryMetrics3, "planCategory")}];
-              [v5 setObject:planLabel forKeyedSubscript:v20];
-            }
-
-            v7 = [v27 countByEnumeratingWithState:&v29 objects:v37 count:16];
-          }
-
-          while (v7);
-        }
-
-        v3 = v26 + 1;
+        v5 = v26 + 1;
       }
 
       while (v26 + 1 != v25);
@@ -716,71 +659,162 @@ LABEL_9:
     LOBYTE(v28) = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v28 & 1;
+}
+
+- (BOOL)hasMultiplePlansOfTheSameTypeInTheSameSectionCategory
+{
+  v38 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  obj = [(PSUICarrierSpaceUsageController *)self usageCategories];
+  v24 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v24)
+  {
+    v27 = 0;
+    v23 = *v33;
+    v2 = 0x277CCA000uLL;
+    do
+    {
+      v3 = 0;
+      do
+      {
+        if (*v33 != v23)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v25 = v3;
+        v4 = *(*(&v32 + 1) + 8 * v3);
+        v5 = objc_opt_new();
+        v28 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v31 = 0u;
+        v26 = v4;
+        v6 = [v26 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        if (v6)
+        {
+          v7 = v6;
+          v8 = *v29;
+          do
+          {
+            for (i = 0; i != v7; ++i)
+            {
+              if (*v29 != v8)
+              {
+                objc_enumerationMutation(v26);
+              }
+
+              v10 = *(*(&v28 + 1) + 8 * i);
+              primaryMetrics = [v10 primaryMetrics];
+              planLabel = [primaryMetrics planLabel];
+
+              v13 = v2;
+              v14 = *(v2 + 2992);
+              primaryMetrics2 = [v10 primaryMetrics];
+              v16 = [v14 numberWithInteger:{objc_msgSend(primaryMetrics2, "planCategory")}];
+              v17 = [v5 objectForKeyedSubscript:v16];
+
+              if (v17)
+              {
+                v27 |= [v17 isEqualToString:planLabel] ^ 1;
+              }
+
+              v2 = v13;
+              v18 = *(v13 + 2992);
+              primaryMetrics3 = [v10 primaryMetrics];
+              v20 = [v18 numberWithInteger:{objc_msgSend(primaryMetrics3, "planCategory")}];
+              [v5 setObject:planLabel forKeyedSubscript:v20];
+            }
+
+            v7 = [v26 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          }
+
+          while (v7);
+        }
+
+        v3 = v25 + 1;
+      }
+
+      while (v25 + 1 != v24);
+      v24 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+    }
+
+    while (v24);
+  }
+
+  else
+  {
+    LOBYTE(v27) = 0;
+  }
+
+  return v27 & 1;
 }
 
 - (BOOL)hasMultiplePlansOfSameTypeForNetworkUsageLabel:(id)label
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if (labelCopy)
   {
     v4 = objc_opt_new();
     +[PSUICarrierSpaceManager sharedManager];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v27 = v40 = 0u;
-    usageInfo = [v27 usageInfo];
+    v26 = v39 = 0u;
+    usageInfo = [v26 usageInfo];
     accountMetrics = [usageInfo accountMetrics];
 
-    v7 = [accountMetrics countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v7 = [accountMetrics countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v38;
-      v28 = *v38;
-      v29 = labelCopy;
+      v10 = *v37;
+      v27 = *v37;
+      v28 = labelCopy;
       do
       {
         v11 = 0;
-        v30 = v8;
+        v29 = v8;
         do
         {
-          if (*v38 != v10)
+          if (*v37 != v10)
           {
             objc_enumerationMutation(accountMetrics);
           }
 
-          v12 = *(*(&v37 + 1) + 8 * v11);
+          v12 = *(*(&v36 + 1) + 8 * v11);
           networkUsageLabel = [v12 networkUsageLabel];
           v14 = [networkUsageLabel isEqualToString:labelCopy];
 
           if (v14)
           {
-            v31 = v11;
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
+            v30 = v11;
             v34 = 0u;
+            v35 = 0u;
+            v32 = 0u;
+            v33 = 0u;
             applicablePlans = [v12 applicablePlans];
-            v15 = [applicablePlans countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v15 = [applicablePlans countByEnumeratingWithState:&v32 objects:v40 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v34;
+              v17 = *v33;
               do
               {
                 for (i = 0; i != v16; ++i)
                 {
-                  if (*v34 != v17)
+                  if (*v33 != v17)
                   {
                     objc_enumerationMutation(applicablePlans);
                   }
 
-                  v19 = *(*(&v33 + 1) + 8 * i);
+                  v19 = *(*(&v32 + 1) + 8 * i);
                   planCategory = [v19 planCategory];
                   planLabel = [v19 planLabel];
                   v22 = [MEMORY[0x277CCABB0] numberWithInteger:planCategory];
@@ -795,23 +829,23 @@ LABEL_9:
                   [v4 setObject:planLabel forKeyedSubscript:v24];
                 }
 
-                v16 = [applicablePlans countByEnumeratingWithState:&v33 objects:v41 count:16];
+                v16 = [applicablePlans countByEnumeratingWithState:&v32 objects:v40 count:16];
               }
 
               while (v16);
             }
 
-            v10 = v28;
-            labelCopy = v29;
-            v8 = v30;
-            v11 = v31;
+            v10 = v27;
+            labelCopy = v28;
+            v8 = v29;
+            v11 = v30;
           }
 
           ++v11;
         }
 
         while (v11 != v8);
-        v8 = [accountMetrics countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v8 = [accountMetrics countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v8);
@@ -828,71 +862,70 @@ LABEL_9:
     LOBYTE(v9) = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 - (id)specifiers
 {
   selfCopy = self;
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v96 = *MEMORY[0x277D3FC48];
-    v110 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v95 = *MEMORY[0x277D3FC48];
+    v109 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v4 = +[PSUICoreTelephonyCarrierBundleCache sharedInstance];
     activeDataCarrierName = [v4 activeDataCarrierName];
 
     hasMultipleDevicesOfTheSameType = [(PSUICarrierSpaceUsageController *)selfCopy hasMultipleDevicesOfTheSameType];
     hasMultiplePlansOfTheSameTypeInTheSameSectionCategory = [(PSUICarrierSpaceUsageController *)selfCopy hasMultiplePlansOfTheSameTypeInTheSameSectionCategory];
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
     obj = [(PSUICarrierSpaceUsageController *)selfCopy usageCategories];
-    v99 = [obj countByEnumeratingWithState:&v116 objects:v123 count:16];
-    if (!v99)
+    v98 = [obj countByEnumeratingWithState:&v115 objects:v122 count:16];
+    if (!v98)
     {
       goto LABEL_90;
     }
 
-    v98 = *v117;
-    v107 = *MEMORY[0x277D3FF88];
-    v108 = selfCopy;
+    v97 = *v116;
+    v106 = *MEMORY[0x277D3FF88];
+    v107 = selfCopy;
     while (1)
     {
       v5 = 0;
       do
       {
-        if (*v117 != v98)
+        if (*v116 != v97)
         {
           objc_enumerationMutation(obj);
         }
 
-        v100 = v5;
-        v6 = *(*(&v116 + 1) + 8 * v5);
+        v99 = v5;
+        v6 = *(*(&v115 + 1) + 8 * v5);
+        v111 = 0u;
         v112 = 0u;
         v113 = 0u;
         v114 = 0u;
-        v115 = 0u;
-        v105 = v6;
-        v109 = [v105 countByEnumeratingWithState:&v112 objects:v122 count:16];
-        if (v109)
+        v104 = v6;
+        v108 = [v104 countByEnumeratingWithState:&v111 objects:v121 count:16];
+        if (v108)
         {
-          v7 = *v113;
+          v7 = *v112;
           v8 = 1;
-          v104 = *v113;
+          v103 = *v112;
           do
           {
-            for (i = 0; i != v109; ++i)
+            for (i = 0; i != v108; ++i)
             {
-              if (*v113 != v7)
+              if (*v112 != v7)
               {
-                objc_enumerationMutation(v105);
+                objc_enumerationMutation(v104);
               }
 
-              v10 = *(*(&v112 + 1) + 8 * i);
+              v10 = *(*(&v111 + 1) + 8 * i);
               primaryMetrics = [v10 primaryMetrics];
               accountMetrics = [v10 accountMetrics];
               if ([(PSUICarrierSpaceUsageController *)selfCopy shouldShowPlanSection:primaryMetrics])
@@ -901,11 +934,11 @@ LABEL_9:
                 if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v121 = v10;
+                  v120 = v10;
                   _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Next Section: %@", buf, 0xCu);
                 }
 
-                v106 = v10;
+                v105 = v10;
                 if (v8)
                 {
                   networkUsageLabel = [accountMetrics networkUsageLabel];
@@ -918,7 +951,7 @@ LABEL_9:
                     {
                       networkUsageLabel2 = [accountMetrics networkUsageLabel];
                       *buf = 138412290;
-                      v121 = networkUsageLabel2;
+                      v120 = networkUsageLabel2;
                       _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Multiple plans of same type for network usage label:%@, using plan label", buf, 0xCu);
                     }
 
@@ -983,7 +1016,7 @@ LABEL_9:
                   }
 
                   *buf = 138412290;
-                  v121 = accountMetrics;
+                  v120 = accountMetrics;
                   v20 = getLogger3;
                   v21 = "Device type is ambiguous, using network usage label, account metrics: %@";
                   v28 = 12;
@@ -1018,7 +1051,7 @@ LABEL_20:
                     {
                       networkUsageLabel5 = [accountMetrics networkUsageLabel];
                       *buf = 138412290;
-                      v121 = networkUsageLabel5;
+                      v120 = networkUsageLabel5;
                       _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "Multiple same type plans for network usage label:%@, using plan name", buf, 0xCu);
                     }
 
@@ -1035,7 +1068,7 @@ LABEL_41:
                     if (os_log_type_enabled(getLogger4, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v121 = networkUsageLabel3;
+                      v120 = networkUsageLabel3;
                       _os_log_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEFAULT, "Resolved group title: %@", buf, 0xCu);
                     }
 
@@ -1085,13 +1118,13 @@ LABEL_41:
                       v46 = [v45 localizedStringForKey:v38 value:&stru_287733598 table:@"CarrierSpaceUsage"];
                       v47 = [v41 stringWithFormat:v46, activeDataCarrierName, v40];
 
-                      v111 = v47;
-                      [v30 setProperty:v47 forKey:v107];
+                      v110 = v47;
+                      [v30 setProperty:v47 forKey:v106];
                     }
 
                     else
                     {
-                      v111 = 0;
+                      v110 = 0;
                     }
 
                     billingCycleEndDate = [accountMetrics billingCycleEndDate];
@@ -1131,9 +1164,9 @@ LABEL_41:
                       v58 = [v57 localizedStringForKey:v53 value:&stru_287733598 table:@"CarrierSpaceUsage"];
                       v59 = [v56 stringWithFormat:v58, v55];
 
-                      if (v111)
+                      if (v110)
                       {
-                        v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n%@", v111, v59];
+                        v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n%@", v110, v59];
                       }
 
                       else
@@ -1141,17 +1174,17 @@ LABEL_41:
                         v60 = v59;
                       }
 
-                      selfCopy = v108;
-                      v111 = v60;
-                      [v30 setProperty:v60 forKey:v107];
+                      selfCopy = v107;
+                      v110 = v60;
+                      [v30 setProperty:v60 forKey:v106];
                     }
 
                     else
                     {
-                      selfCopy = v108;
+                      selfCopy = v107;
                     }
 
-                    [v110 addObject:v30];
+                    [v109 addObject:v30];
                     if ([(PSUICarrierSpaceUsageController *)selfCopy shouldShowData:primaryMetrics])
                     {
                       dataUsage = [primaryMetrics dataUsage];
@@ -1164,15 +1197,15 @@ LABEL_41:
 
                       if (v63 == 1 && v66 == 1)
                       {
-                        selfCopy = v108;
-                        v67 = [(PSUICarrierSpaceUsageController *)v108 usageGraphSpecifierForSection:v106];
-                        [v110 addObject:v67];
+                        selfCopy = v107;
+                        v67 = [(PSUICarrierSpaceUsageController *)v107 usageGraphSpecifierForSection:v105];
+                        [v109 addObject:v67];
                       }
 
                       else
                       {
-                        selfCopy = v108;
-                        v68 = [(PSUICarrierSpaceUsageController *)v108 shouldShowOnlyRemainingData:primaryMetrics];
+                        selfCopy = v107;
+                        v68 = [(PSUICarrierSpaceUsageController *)v107 shouldShowOnlyRemainingData:primaryMetrics];
                         v69 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
                         v70 = networkUsageLabel3;
                         v71 = accountMetrics;
@@ -1191,9 +1224,9 @@ LABEL_41:
 
                         accountMetrics = v71;
                         networkUsageLabel3 = v70;
-                        v74 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v67 target:v108 set:0 get:sel_dataUsageDescription_ detail:0 cell:4 edit:0];
+                        v74 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v67 target:v107 set:0 get:sel_dataUsageDescription_ detail:0 cell:4 edit:0];
                         [v74 setProperty:primaryMetrics forKey:@"PSUICarrierSpaceMetricsKey"];
-                        [v110 addObject:v74];
+                        [v109 addObject:v74];
                       }
                     }
 
@@ -1216,7 +1249,7 @@ LABEL_41:
 
                       v80 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v79 target:selfCopy set:0 get:sel_callsDescription_ detail:0 cell:4 edit:0];
                       [v80 setProperty:primaryMetrics forKey:@"PSUICarrierSpaceMetricsKey"];
-                      [v110 addObject:v80];
+                      [v109 addObject:v80];
                     }
 
                     if ([(PSUICarrierSpaceUsageController *)selfCopy shouldShowMessages:primaryMetrics])
@@ -1238,7 +1271,7 @@ LABEL_41:
 
                       v86 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v85 target:selfCopy set:0 get:sel_messagesDescription_ detail:0 cell:4 edit:0];
                       [v86 setProperty:primaryMetrics forKey:@"PSUICarrierSpaceMetricsKey"];
-                      [v110 addObject:v86];
+                      [v109 addObject:v86];
                     }
 
                     if ([(PSUICarrierSpaceUsageController *)selfCopy shouldShowRemainingCredit:primaryMetrics])
@@ -1254,11 +1287,11 @@ LABEL_41:
                       networkUsageLabel3 = v89;
 
                       [v92 setProperty:primaryMetrics forKey:@"PSUICarrierSpaceMetricsKey"];
-                      [v110 addObject:v92];
+                      [v109 addObject:v92];
                     }
 
                     v8 = 0;
-                    v7 = v104;
+                    v7 = v103;
                     goto LABEL_86;
                   }
 
@@ -1276,42 +1309,40 @@ LABEL_39:
 LABEL_86:
             }
 
-            v109 = [v105 countByEnumeratingWithState:&v112 objects:v122 count:16];
+            v108 = [v104 countByEnumeratingWithState:&v111 objects:v121 count:16];
           }
 
-          while (v109);
+          while (v108);
         }
 
-        v5 = v100 + 1;
+        v5 = v99 + 1;
       }
 
-      while (v100 + 1 != v99);
-      v99 = [obj countByEnumeratingWithState:&v116 objects:v123 count:16];
-      if (!v99)
+      while (v99 + 1 != v98);
+      v98 = [obj countByEnumeratingWithState:&v115 objects:v122 count:16];
+      if (!v98)
       {
 LABEL_90:
 
-        [MEMORY[0x277D4D878] logSpecifiers:v110 origin:@"[PSUICarrierSpaceUsageController specifiers] end"];
-        v93 = *(&selfCopy->super.super.super.super.super.isa + v96);
-        *(&selfCopy->super.super.super.super.super.isa + v96) = v110;
+        [MEMORY[0x277D4D878] logSpecifiers:v109 origin:@"[PSUICarrierSpaceUsageController specifiers] end"];
+        v93 = *(&selfCopy->super.super.super.super.super.isa + v95);
+        *(&selfCopy->super.super.super.super.super.isa + v95) = v109;
 
-        v3 = *(&selfCopy->super.super.super.super.super.isa + v96);
+        v3 = *(&selfCopy->super.super.super.super.super.isa + v95);
         break;
       }
     }
   }
-
-  v94 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)usageGraphSpecifierForSection:(id)section
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   primaryMetrics = [sectionCopy primaryMetrics];
-  v59 = objc_opt_new();
+  v58 = objc_opt_new();
   selfCopy = self;
   barGraphColors = [(PSUICarrierSpaceUsageController *)self barGraphColors];
   v7 = [barGraphColors count];
@@ -1329,9 +1360,9 @@ LABEL_90:
   dataUsage5 = [primaryMetrics dataUsage];
   capacity = [dataUsage5 capacity];
   dataUsage6 = [primaryMetrics dataUsage];
-  v58 = +[PSUICarrierSpaceManager bytesFromString:carrierSpaceUnits:](PSUICarrierSpaceManager, "bytesFromString:carrierSpaceUnits:", capacity, [dataUsage6 units]);
+  v57 = +[PSUICarrierSpaceManager bytesFromString:carrierSpaceUnits:](PSUICarrierSpaceManager, "bytesFromString:carrierSpaceUnits:", capacity, [dataUsage6 units]);
 
-  v52 = primaryMetrics;
+  v51 = primaryMetrics;
   dataUsage7 = [primaryMetrics dataUsage];
   sharedDataUsed2 = [dataUsage7 sharedDataUsed];
   if ([sharedDataUsed2 length])
@@ -1345,30 +1376,30 @@ LABEL_90:
   }
 
   [MEMORY[0x277D75348] systemRedColor];
-  v54 = v53 = sectionCopy;
+  v53 = v52 = sectionCopy;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   obj = [sectionCopy barCategories];
-  v22 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v22 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
   if (v22)
   {
     v23 = v22;
     v24 = 0;
     v25 = 0;
-    v26 = *v61;
+    v26 = *v60;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v61 != v26)
+        if (*v60 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v60 + 1) + 8 * i);
-        if (v21 <= v58)
+        v28 = *(*(&v59 + 1) + 8 * i);
+        if (v21 <= v57)
         {
           [(PSUICarrierSpaceUsageController *)selfCopy barGraphColors];
           v30 = v29 = v21;
@@ -1380,15 +1411,15 @@ LABEL_90:
 
         else
         {
-          [*(*(&v60 + 1) + 8 * i) setColor:v54];
+          [*(*(&v59 + 1) + 8 * i) setColor:v53];
         }
 
-        [v59 addObject:v28];
+        [v58 addObject:v28];
         v25 = (v25 + 1) % v7;
         v24 += [v28 bytes];
       }
 
-      v23 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v23 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
     while (v23);
@@ -1401,12 +1432,12 @@ LABEL_90:
   }
 
   v32 = objc_opt_new();
-  [v32 setCapacity:v58];
+  [v32 setCapacity:v57];
   [v32 setBytesUsed:v21];
   [v32 setSortStyle:0];
-  [v32 setCategories:v59];
-  v33 = [v59 count] < 2;
-  if (v21 > v58)
+  [v32 setCategories:v58];
+  v33 = [v58 count] < 2;
+  if (v21 > v57)
   {
     v33 = 1;
   }
@@ -1419,7 +1450,7 @@ LABEL_90:
   v38 = [v37 localizedStringForKey:@"DATA" value:&stru_287733598 table:@"CarrierSpaceUsage"];
   v39 = [v36 specifierWithTitle:v38 useStandardFontSizeForSizeLabel:1];
 
-  [v39 setProperty:v52 forKey:@"PSUICarrierSpaceMetricsKey"];
+  [v39 setProperty:v51 forKey:@"PSUICarrierSpaceMetricsKey"];
   clearColor = [MEMORY[0x277D75348] clearColor];
   [v39 setProperty:clearColor forKey:*MEMORY[0x277D3FE40]];
 
@@ -1429,20 +1460,20 @@ LABEL_90:
   v42 = [MEMORY[0x277CCABB0] numberWithInt:obja];
   [v39 setProperty:v42 forKey:*MEMORY[0x277D3FE28]];
 
-  if (v35 <= v58)
+  if (v35 <= v57)
   {
     v44 = selfCopy;
     barGraphColors2 = [(PSUICarrierSpaceUsageController *)selfCopy barGraphColors];
     v46 = [barGraphColors2 objectAtIndexedSubscript:v25];
     [v39 setProperty:v46 forKey:*MEMORY[0x277D3FE30]];
 
-    v43 = v54;
+    v43 = v53;
   }
 
   else
   {
-    v43 = v54;
-    [v39 setProperty:v54 forKey:*MEMORY[0x277D3FE30]];
+    v43 = v53;
+    [v39 setProperty:v53 forKey:*MEMORY[0x277D3FE30]];
     v44 = selfCopy;
   }
 
@@ -1454,7 +1485,6 @@ LABEL_90:
   [v39 setProperty:v49 forKey:*MEMORY[0x277D3FE50]];
 
   [v39 setProperty:v32 forKey:*MEMORY[0x277D3FE20]];
-  v50 = *MEMORY[0x277D85DE8];
 
   return v39;
 }

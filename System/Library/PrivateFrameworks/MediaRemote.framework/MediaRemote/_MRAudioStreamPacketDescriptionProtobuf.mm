@@ -101,12 +101,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    startOffset = self->_startOffset;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -125,15 +124,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  variableFramesInPacket = self->_variableFramesInPacket;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    dataByteSize = self->_dataByteSize;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

@@ -69,8 +69,8 @@
 
 + (uint64_t)articleFinderScriptForContext:(const OpaqueJSContext *)a1 .cold.1(const OpaqueJSContext *a1, uint64_t *a2)
 {
-  JSContextGetGroup(a1);
-  result = OUTLINED_FUNCTION_0_16();
+  Group = JSContextGetGroup(a1);
+  result = OUTLINED_FUNCTION_0_16(Group, v4, v5, readerArticleFinderSource, 111273);
   *a2 = result;
   qword_1EBC79480 = result;
   _MergedGlobals_1 = 1;
@@ -79,8 +79,8 @@
 
 + (uint64_t)sharedUIScriptForContext:(const OpaqueJSContext *)a1 .cold.1(const OpaqueJSContext *a1, uint64_t *a2)
 {
-  JSContextGetGroup(a1);
-  result = OUTLINED_FUNCTION_0_16();
+  Group = JSContextGetGroup(a1);
+  result = OUTLINED_FUNCTION_0_16(Group, v4, v5, readerSharedUISource, 77539);
   *a2 = result;
   qword_1EBC79488 = result;
   byte_1EBC79479 = 1;
@@ -89,8 +89,8 @@
 
 + (uint64_t)sharedUINormalWorldScriptForContext:(const OpaqueJSContext *)a1 .cold.1(const OpaqueJSContext *a1, uint64_t *a2)
 {
-  JSContextGetGroup(a1);
-  result = OUTLINED_FUNCTION_0_16();
+  Group = JSContextGetGroup(a1);
+  result = OUTLINED_FUNCTION_0_16(Group, v4, v5, readerSharedUINormalWorldSource, 868);
   *a2 = result;
   qword_1EBC79490 = result;
   byte_1EBC7947A = 1;

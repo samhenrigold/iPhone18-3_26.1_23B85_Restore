@@ -378,11 +378,11 @@ uint64_t __67__SBVideoOutController_displayPortObserver_connectionStateChanged__
   }
 }
 
-void __76__SBVideoOutController__main_updateScreenSharingBackgroundActivityAssertion__block_invoke(uint64_t a1, char a2)
+void __76__SBVideoOutController__main_updateScreenSharingBackgroundActivityAssertion__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = SBLogVideoOut();
+    v2 = SBLogVideoOut(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       *v3 = 0;
@@ -519,11 +519,11 @@ void __76__SBVideoOutController__main_updateScreenSharingBackgroundActivityAsser
   objc_destroyWeak(&location);
 }
 
-void __70__SBVideoOutController__main_startVideoOutBackgroundActivityAssertion__block_invoke(uint64_t a1, char a2)
+void __70__SBVideoOutController__main_startVideoOutBackgroundActivityAssertion__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = SBLogVideoOut();
+    v2 = SBLogVideoOut(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       *v3 = 0;

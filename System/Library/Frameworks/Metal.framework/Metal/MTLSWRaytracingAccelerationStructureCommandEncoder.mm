@@ -23,39 +23,37 @@ uint64_t __105___MTLSWRaytracingAccelerationStructureCommandEncoder_substreamSyn
   }
 }
 
-uint64_t __77___MTLSWRaytracingAccelerationStructureCommandEncoder_initWithCommandBuffer___block_invoke(uint64_t a1)
+void *__77___MTLSWRaytracingAccelerationStructureCommandEncoder_initWithCommandBuffer___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(*(a1 + 32) + 24) maximumComputeSubstreams];
+    v2 = [*(*(a1 + 32) + 24) maximumComputeSubstreams];
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:]::numSubstreams = v3;
+  [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:]::numSubstreams = v2;
   result = [*(*(a1 + 32) + 24) supportsFamily:1006];
   [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:]::useConcurrentDispatch = result;
   return result;
 }
 
-uint64_t __88___MTLSWRaytracingAccelerationStructureCommandEncoder_initWithCommandBuffer_descriptor___block_invoke(uint64_t a1)
+void *__88___MTLSWRaytracingAccelerationStructureCommandEncoder_initWithCommandBuffer_descriptor___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(*(a1 + 32) + 24) maximumComputeSubstreams];
+    v2 = [*(*(a1 + 32) + 24) maximumComputeSubstreams];
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::numSubstreams = v3;
+  [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::numSubstreams = v2;
   result = [*(*(a1 + 32) + 24) supportsFamily:1006];
   [_MTLSWRaytracingAccelerationStructureCommandEncoder initWithCommandBuffer:descriptor:]::useConcurrentDispatch = result;
   return result;

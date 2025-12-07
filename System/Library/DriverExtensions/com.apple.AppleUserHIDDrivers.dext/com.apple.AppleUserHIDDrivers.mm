@@ -822,37 +822,36 @@ OSDictionaryPtr AppleUserHIDEventDriver::setLEDProperties(AppleUserHIDEventDrive
   if (result)
   {
     v5 = result;
-    v6 = *(*(this + 14) + 8);
-    if (v6)
+    if (*(*(this + 14) + 8))
     {
-      v7 = sub_100001C10(v6);
-      v9 = (*(v8 + 72))(v7);
-      v10 = OSArray::withCapacity(v9);
-      if (v10)
+      sub_100001C10();
+      v7 = (*(v6 + 72))();
+      v8 = OSArray::withCapacity(v7);
+      if (v8)
       {
-        v11 = v10;
-        v12 = sub_100001C10(*(*(this + 14) + 8));
-        v14 = (*(v13 + 72))(v12);
-        if (v14)
+        v9 = v8;
+        sub_100001C10();
+        v11 = (*(v10 + 72))();
+        if (v11)
         {
-          v15 = v14;
-          for (i = 0; i != v15; ++i)
+          v12 = v11;
+          for (i = 0; i != v12; ++i)
           {
-            v17 = *&OSArray::getObject(*(*(this + 14) + 8), i)[1].refcount;
-            v18 = (*v17)();
-            v19 = OSNumber::withNumber(v18, 0x20uLL);
-            OSArray::setObject(v11, v19);
-            if (v19)
+            v14 = *&OSArray::getObject(*(*(this + 14) + 8), i)[1].refcount;
+            v15 = (*v14)();
+            v16 = OSNumber::withNumber(v15, 0x20uLL);
+            OSArray::setObject(v9, v16);
+            if (v16)
             {
               sub_100001BF0();
-              (*(v20 + 16))(v19);
+              (*(v17 + 16))(v16);
             }
           }
         }
 
-        OSDictionary::setObject(v5, "Elements", v11);
+        OSDictionary::setObject(v5, "Elements", v9);
         OSDictionary::setObject(a2, "LED", v5);
-        (v11->release)(v11);
+        (v9->release)(v9);
       }
     }
 
@@ -998,55 +997,54 @@ uint64_t non-virtual thunk toAppleUserHIDEventDriver::handleStart(AppleUserHIDEv
 uint64_t AppleUserHIDEventDriver::SetLEDState_Impl(IOService *this, int a2, int a3, uint64_t a4)
 {
   v5 = 3758097095;
-  v6 = *&this[2].meta->OSObject::OSObjectInterface::refcount;
-  if (v6)
+  if (*&this[2].meta->OSObject::OSObjectInterface::refcount)
   {
-    v10 = sub_100001C10(v6);
-    if ((*(v11 + 72))(v10))
+    sub_100001C10();
+    if ((*(v9 + 72))())
     {
-      v12 = 0;
+      v10 = 0;
       while (1)
       {
-        p_refcount = &OSArray::getObject(*&this[2].meta->OSObject::OSObjectInterface::refcount, v12)[1].refcount;
+        p_refcount = &OSArray::getObject(*&this[2].meta->OSObject::OSObjectInterface::refcount, v10)[1].refcount;
         if ((*(*p_refcount + 40))(p_refcount) == a2)
         {
           sub_100001BF0();
-          if ((*(v14 + 48))(p_refcount) == a3)
+          if ((*(v12 + 48))(p_refcount) == a3)
           {
             break;
           }
         }
 
-        ++v12;
-        v15 = sub_100001C10(*&this[2].meta->OSObject::OSObjectInterface::refcount);
-        if (v12 >= (*(v16 + 72))(v15))
+        ++v10;
+        sub_100001C10();
+        if (v10 >= (*(v13 + 72))())
         {
           return v5;
         }
       }
 
       sub_100001BF0();
-      (*(v17 + 144))(p_refcount, a4);
+      (*(v14 + 144))(p_refcount, a4);
       sub_100001BF0();
-      v5 = (*(v18 + 192))(p_refcount, 1);
+      v5 = (*(v15 + 192))(p_refcount, 1);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         sub_100001BC4();
         *registryEntryID = 0;
         IOService::GetRegistryEntryID(this, registryEntryID, 0);
-        v19 = *registryEntryID;
+        v16 = *registryEntryID;
         *registryEntryID = 136447490;
         *&registryEntryID[4] = "AppleUserHIDEventDriver.cpp";
-        v22 = 1024;
-        v23 = 351;
-        v24 = 2048;
-        v25 = v19;
-        v26 = 1024;
-        v27 = a3;
-        v28 = 1024;
-        v29 = a4;
-        v30 = 1024;
-        v31 = v5;
+        v19 = 1024;
+        v20 = 351;
+        v21 = 2048;
+        v22 = v16;
+        v23 = 1024;
+        v24 = a3;
+        v25 = 1024;
+        v26 = a4;
+        v27 = 1024;
+        v28 = v5;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[%{public}s:%d][0x%llx] Set LED 0x%x: %d 0x%x\n\n", registryEntryID, 0x2Eu);
       }
     }

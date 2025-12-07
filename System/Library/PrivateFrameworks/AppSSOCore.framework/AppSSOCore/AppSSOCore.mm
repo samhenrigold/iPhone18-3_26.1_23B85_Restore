@@ -145,33 +145,33 @@ id SO_LOG_SOConfigurationClient()
   return v1;
 }
 
-id SO_LOG_SOConfiguration()
+id SO_LOG_SOConfiguration(uint64_t a1)
 {
   if (SO_LOG_SOConfiguration_once != -1)
   {
     SO_LOG_SOConfiguration_cold_1();
   }
 
-  v1 = SO_LOG_SOConfiguration_log;
+  v2 = SO_LOG_SOConfiguration_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOClient()
+id SO_LOG_SOClient(uint64_t a1)
 {
   if (SO_LOG_SOClient_once != -1)
   {
     SO_LOG_SOClient_cold_1();
   }
 
-  v1 = SO_LOG_SOClient_log;
+  v2 = SO_LOG_SOClient_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_1CA23A5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA23A5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -188,16 +188,16 @@ id SO_LOG_SOServiceConnection()
   return v1;
 }
 
-id SO_LOG_SOConfigurationVersion()
+id SO_LOG_SOConfigurationVersion(uint64_t a1)
 {
   if (SO_LOG_SOConfigurationVersion_once != -1)
   {
     SO_LOG_SOConfigurationVersion_cold_1();
   }
 
-  v1 = SO_LOG_SOConfigurationVersion_log;
+  v2 = SO_LOG_SOConfigurationVersion_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -214,22 +214,23 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-id SO_LOG_SOErrorHelper()
+id SO_LOG_SOErrorHelper(uint64_t a1)
 {
   if (SO_LOG_SOErrorHelper_once != -1)
   {
     SO_LOG_SOErrorHelper_cold_1();
   }
 
-  v1 = SO_LOG_SOErrorHelper_log;
+  v2 = SO_LOG_SOErrorHelper_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t _isStaticCodeSignedBy(const __SecCode *a1, uint64_t a2, uint64_t a3)
@@ -332,46 +333,47 @@ LABEL_22:
   return a3;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id SO_LOG_SOFullProfile()
+id SO_LOG_SOFullProfile(uint64_t a1)
 {
   if (SO_LOG_SOFullProfile_once != -1)
   {
     SO_LOG_SOFullProfile_cold_1();
   }
 
-  v1 = SO_LOG_SOFullProfile_log;
+  v2 = SO_LOG_SOFullProfile_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOAuthorizationCore()
+id SO_LOG_SOAuthorizationCore(uint64_t a1)
 {
   if (SO_LOG_SOAuthorizationCore_once != -1)
   {
     SO_LOG_SOAuthorizationCore_cold_1();
   }
 
-  v1 = SO_LOG_SOAuthorizationCore_log;
+  v2 = SO_LOG_SOAuthorizationCore_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_1CA246DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA246DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1CA247074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA247074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -401,7 +403,7 @@ BOOL appSSO_willPerform(uint64_t a1, uint64_t a2)
 
 void appSSO_performResponse(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, void *a6)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v11 = a6;
   v12 = v11;
   if (_useAppSSO)
@@ -419,9 +421,9 @@ void appSSO_performResponse(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint
     [(SOAuthorizationResultClientImpl *)v15 setAuthorizationHandleResponseCompletion:v12];
     if (a4)
     {
-      v18 = @"noUserInterface";
-      v19[0] = MEMORY[0x1E695E118];
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = @"noUserInterface";
+      v18[0] = MEMORY[0x1E695E118];
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       [(SOAuthorizationCore *)v14 setAuthorizationOptions:v16];
     }
 
@@ -441,13 +443,11 @@ void appSSO_performResponse(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint
   {
     (*(v11 + 2))(v11, 0, 0, _noAppSSOError);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void appSSO_performResponseCredential(uint64_t a1, uint64_t a2, char a3, uint64_t a4, void *a5)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v9 = a5;
   v10 = v9;
   if (_useAppSSO)
@@ -467,9 +467,9 @@ void appSSO_performResponseCredential(uint64_t a1, uint64_t a2, char a3, uint64_
     [(SOAuthorizationResultClientImpl *)v14 setAuthorizationHandleCredentialCompletion:v10];
     if (a3)
     {
-      v17 = @"noUserInterface";
-      v18[0] = MEMORY[0x1E695E118];
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = @"noUserInterface";
+      v17[0] = MEMORY[0x1E695E118];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       [(SOAuthorizationCore *)v13 setAuthorizationOptions:v15];
     }
 
@@ -489,13 +489,11 @@ void appSSO_performResponseCredential(uint64_t a1, uint64_t a2, char a3, uint64_
   {
     (*(v9 + 2))(v9, 0, _noAppSSOError);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void appSSO_handleResponse(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, void *a6)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v11 = a6;
   v12 = v11;
   if (_useAppSSO)
@@ -513,9 +511,9 @@ void appSSO_handleResponse(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint6
     [(SOAuthorizationResultClientImpl *)v15 setAuthorizationHandleResponseCompletion:v12];
     if (a4)
     {
-      v18 = @"noUserInterface";
-      v19[0] = MEMORY[0x1E695E118];
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = @"noUserInterface";
+      v18[0] = MEMORY[0x1E695E118];
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       [(SOAuthorizationCore *)v14 setAuthorizationOptions:v16];
     }
 
@@ -535,13 +533,11 @@ void appSSO_handleResponse(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint6
   {
     (*(v11 + 2))(v11, 0, 0, _noAppSSOError);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void appSSO_handleResponseImpersonationCredential(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7, void *a8)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v15 = a8;
   v16 = v15;
   if (_useAppSSO)
@@ -564,9 +560,9 @@ void appSSO_handleResponseImpersonationCredential(uint64_t a1, uint64_t a2, uint
       [(SOAuthorizationResultClientImpl *)v22 setAuthorizationHandleCredentialCompletion:v16];
       if (a5)
       {
-        v25 = @"noUserInterface";
-        v26[0] = MEMORY[0x1E695E118];
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        v24 = @"noUserInterface";
+        v25[0] = MEMORY[0x1E695E118];
+        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
         [(SOAuthorizationCore *)v21 setAuthorizationOptions:v23];
       }
 
@@ -604,21 +600,19 @@ LABEL_9:
     v18 = _noAppSSOError;
     goto LABEL_9;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void appSSO_handleResponseImpersonationCredential_cold_1(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = 3;
-  _os_log_error_impl(&dword_1CA238000, log, OS_LOG_TYPE_ERROR, "Authorization retry limit (%d) exceeded.", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = 3;
+  _os_log_error_impl(&dword_1CA238000, log, OS_LOG_TYPE_ERROR, "Authorization retry limit (%d) exceeded.", v1, 8u);
 }

@@ -57,9 +57,9 @@
   v3 = *MEMORY[0x1E6982F98];
   v4 = a3;
   identifier = [v3 identifier];
-  v6 = [v4 isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  return v6;
+  return isEqualToString;
 }
 
 + (id)_objectWithRTFDAtURL:()UINSItemProvider userInfo:error:
@@ -268,9 +268,9 @@ LABEL_13:
   v30 = __Block_byref_object_dispose__149;
   v31 = 0;
   identifier = [*MEMORY[0x1E6982F98] identifier];
-  v13 = [v11 isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if (v13)
+  if (isEqualToString)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -354,9 +354,9 @@ LABEL_13:
   v3 = *MEMORY[0x1E6982F98];
   v4 = a3;
   identifier = [v3 identifier];
-  v6 = [v4 isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (uint64_t)_preferredRepresentationForItemProviderWritableTypeIdentifier:()UINSItemProvider
@@ -372,7 +372,7 @@ LABEL_13:
   v28[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  if ([v6 isEqualToString:@"com.apple.uikit.attributedstring"])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     v24 = 0;
     v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v24];
@@ -383,9 +383,9 @@ LABEL_13:
   else
   {
     identifier = [*MEMORY[0x1E6982DC0] identifier];
-    v11 = [v6 isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v11)
+    if (isEqualToString)
     {
       v12 = [self length];
       v27 = *off_1E70EC8F0;
@@ -399,7 +399,7 @@ LABEL_13:
     else
     {
       identifier2 = [*MEMORY[0x1E6983060] identifier];
-      v18 = [v6 isEqualToString:identifier2];
+      v18 = objc_msgSend_isEqualToString_(v6);
 
       if (!v18)
       {
@@ -438,9 +438,9 @@ LABEL_9:
   v7 = *MEMORY[0x1E6982F98];
   v8 = a3;
   identifier = [v7 identifier];
-  v10 = [v8 isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v10)
+  if (isEqualToString)
   {
     v11 = [self length];
     v24 = *off_1E70EC8F0;

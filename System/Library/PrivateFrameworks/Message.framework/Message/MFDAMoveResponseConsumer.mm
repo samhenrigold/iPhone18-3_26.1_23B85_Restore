@@ -51,29 +51,29 @@
 
 - (void)resultsForMessageMove:(id)move
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   moveCopy = move;
-  v5 = [moveCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v5 = [moveCopy countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v5)
   {
-    v7 = *v17;
+    v7 = *v16;
     *&v6 = 138543362;
-    v15 = v6;
+    v14 = v6;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(moveCopy);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         sourceID = [v9 sourceID];
         if (!sourceID || ![(NSSet *)self->_sourceRemoteIDs containsObject:sourceID])
         {
@@ -81,9 +81,9 @@
           if (os_log_type_enabled(destID, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v21 = v9;
-            v22 = 2112;
-            v23 = sourceID;
+            v20 = v9;
+            v21 = 2112;
+            v22 = sourceID;
             _os_log_impl(&dword_1B0389000, destID, OS_LOG_TYPE_DEFAULT, "got %@ with untracked sourceID %@", buf, 0x16u);
           }
 
@@ -103,8 +103,8 @@
             v12 = DALoggingwithCategory();
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v15;
-              v21 = sourceID;
+              *buf = v14;
+              v20 = sourceID;
               _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "Move succeeded but missing new remote ID for message ID: %{public}@", buf, 0xCu);
             }
           }
@@ -121,7 +121,7 @@ LABEL_14:
       }
 
       while (v5 != v8);
-      v13 = [moveCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v13 = [moveCopy countByEnumeratingWithState:&v15 objects:v23 count:16];
       v5 = v13;
     }
 
@@ -129,7 +129,6 @@ LABEL_14:
   }
 
   [(MFDAMailAccountConsumer *)self setDone:1];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -31,7 +31,6 @@
 - (void)interfaceConstraintChanged:(id)changed;
 - (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality;
 - (void)interfaceReachabilityChanged:(id)changed;
-- (void)networkCode;
 - (void)setDelegate:(id)delegate;
 - (void)setThresholdOffTransitionCount:(unint64_t)count;
 - (void)setTrackUsability:(BOOL)usability;
@@ -190,76 +189,71 @@ void *__45__PCWWANUsabilityMonitor_interfaceConstraint__block_invoke(uint64_t a1
 
 void __39__PCWWANUsabilityMonitor_isLTEWithCDRX__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v2 = *(*(a1 + 32) + 88);
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0;
   _CTServerConnectionGetCDRXWithLTEState();
   if (!*MEMORY[0x277CC3A68])
   {
-    v8 = +[PCLog usabilityMonitor];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = +[PCLog usabilityMonitor];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v9;
-      _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "%@ isLTEWithCDRX? On", buf, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%@ isLTEWithCDRX? On", buf, 0xCu);
     }
 
-LABEL_12:
-    *(*(*(a1 + 40) + 8) + 24) = 1;
-    goto LABEL_17;
-  }
-
-  if (v15 != *MEMORY[0x277CC3A70])
-  {
-    v3 = *MEMORY[0x277CC3A60];
-    v4 = +[PCLog usabilityMonitor];
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (v3)
-    {
-      if (v5)
-      {
-        v6 = *(a1 + 32);
-        *buf = 138412290;
-        v17 = v6;
-        v7 = "%@ isLTEWithCDRX? Got invalid value from CT";
-LABEL_15:
-        _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
-      }
-    }
-
-    else if (v5)
-    {
-      v12 = *(a1 + 32);
-      *buf = 138412290;
-      v17 = v12;
-      v7 = "%@ isLTEWithCDRX? Off";
-      goto LABEL_15;
-    }
-
-    goto LABEL_17;
-  }
-
-  v14 = 0;
-  notify_get_state(*(*(a1 + 32) + 80), &v14);
-  v10 = +[PCLog usabilityMonitor];
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    v11 = *(a1 + 32);
-    *buf = 138412546;
-    v17 = v11;
-    v18 = 2048;
-    v19 = v14;
-    _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%@ isLTEWithCDRX? Unknown  --  powerlog value %llu", buf, 0x16u);
-  }
-
-  if (v14)
-  {
     goto LABEL_12;
   }
 
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
+  if (v13 != *MEMORY[0x277CC3A70])
+  {
+    v2 = *MEMORY[0x277CC3A60];
+    v3 = +[PCLog usabilityMonitor];
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    if (v2)
+    {
+      if (v4)
+      {
+        v5 = *(a1 + 32);
+        *buf = 138412290;
+        v15 = v5;
+        v6 = "%@ isLTEWithCDRX? Got invalid value from CT";
+LABEL_15:
+        _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
+      }
+    }
+
+    else if (v4)
+    {
+      v11 = *(a1 + 32);
+      *buf = 138412290;
+      v15 = v11;
+      v6 = "%@ isLTEWithCDRX? Off";
+      goto LABEL_15;
+    }
+
+    return;
+  }
+
+  v12 = 0;
+  notify_get_state(*(*(a1 + 32) + 80), &v12);
+  v9 = +[PCLog usabilityMonitor];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = *(a1 + 32);
+    *buf = 138412546;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v12;
+    _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "%@ isLTEWithCDRX? Unknown  --  powerlog value %llu", buf, 0x16u);
+  }
+
+  if (v12)
+  {
+LABEL_12:
+    *(*(*(a1 + 40) + 8) + 24) = 1;
+  }
 }
 
 - (BOOL)isBadLinkQuality
@@ -296,18 +290,16 @@ LABEL_17:
 
 void __48__PCWWANUsabilityMonitor_initWithDelegateQueue___block_invoke(int a1, int token)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   v2 = +[PCLog usabilityMonitor];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v6 = state64;
+    v5 = state64;
     _os_log_impl(&dword_25E3EF000, v2, OS_LOG_TYPE_DEFAULT, "kPCWWANPowerlogCDRXNotification - state = %llu", buf, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -319,23 +311,22 @@ void __48__PCWWANUsabilityMonitor_initWithDelegateQueue___block_invoke(int a1, i
 
   if (self->_ctServerConnection)
   {
-    v4 = *MEMORY[0x277CC37E8];
     _CTServerConnectionUnregisterForNotification();
     CFRelease(self->_ctServerConnection);
     self->_ctServerConnection = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = PCWWANUsabilityMonitor;
-  [(PCWWANUsabilityMonitor *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = PCWWANUsabilityMonitor;
+  [(PCWWANUsabilityMonitor *)&v4 dealloc];
 }
 
 - (void)_setupWWANMonitor
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_25E3EF000, v0, v1, "Unable to setup WWAN monitor. {connectionStatusError: %@; dataStatusError: %@}.");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  selfCopy = self;
+  _os_log_error_impl(&dword_25E3EF000, a2, OS_LOG_TYPE_ERROR, "Unable to setup WWAN monitor. {dataSimContextError: %@}.", &v2, 0xCu);
 }
 
 uint64_t __43__PCWWANUsabilityMonitor__setupWWANMonitor__block_invoke(uint64_t a1)
@@ -371,7 +362,7 @@ uint64_t __43__PCWWANUsabilityMonitor__setupWWANMonitor__block_invoke(uint64_t a
 
 void __88__PCWWANUsabilityMonitor__adjustInterfaceNameForWWANContextID_interfaceName_forContext___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) _isCurrentDataSimContextOnIvarQueue:*(a1 + 40)])
   {
     v2 = objc_autoreleasePoolPush();
@@ -391,13 +382,13 @@ void __88__PCWWANUsabilityMonitor__adjustInterfaceNameForWWANContextID_interface
         v8 = *(a1 + 32);
         v9 = *(a1 + 56);
         v10 = *(a1 + 48);
-        v15 = 138543874;
-        v16 = v8;
-        v17 = 2048;
-        v18 = v9;
-        v19 = 2114;
-        v20 = v10;
-        _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ _adjustInterfaceNameForWWANContextID contextID %ld  interfaceName %{public}@", &v15, 0x20u);
+        v14 = 138543874;
+        v15 = v8;
+        v16 = 2048;
+        v17 = v9;
+        v18 = 2114;
+        v19 = v10;
+        _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ _adjustInterfaceNameForWWANContextID contextID %ld  interfaceName %{public}@", &v14, 0x20u);
       }
 
       if (*(*(a1 + 32) + 104) != -1)
@@ -414,8 +405,6 @@ void __88__PCWWANUsabilityMonitor__adjustInterfaceNameForWWANContextID_interface
 
     objc_autoreleasePoolPop(v2);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isCurrentDataSimContextOnIvarQueue:(id)queue
@@ -489,7 +478,7 @@ void __88__PCWWANUsabilityMonitor__adjustInterfaceNameForWWANContextID_interface
   dispatch_async(ivarQueue, v13);
 }
 
-uint64_t __56__PCWWANUsabilityMonitor__processDataStatus_forContext___block_invoke(uint64_t a1)
+void *__56__PCWWANUsabilityMonitor__processDataStatus_forContext___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isCurrentDataSimContextOnIvarQueue:*(a1 + 40)];
   if (result)
@@ -537,65 +526,60 @@ void __56__PCWWANUsabilityMonitor__processDataStatus_forContext___block_invoke_2
 
 - (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   infoCopy = info;
   v10 = +[PCLog usabilityMonitor];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = changedCopy;
-    _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "connectionStateChanged - %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = changedCopy;
+    _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "connectionStateChanged - %@", &v11, 0xCu);
   }
 
   if (!connection)
   {
     [(PCWWANUsabilityMonitor *)self _processDataConnectionStatus:infoCopy forContext:changedCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStatus:(id)status dataStatusInfo:(id)info
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   infoCopy = info;
   v8 = +[PCLog usabilityMonitor];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = statusCopy;
-    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "dataStatus changed - %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = statusCopy;
+    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "dataStatus changed - %@", &v9, 0xCu);
   }
 
   [(PCWWANUsabilityMonitor *)self _processDataStatus:infoCopy forContext:statusCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentDataSimChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = +[PCLog usabilityMonitor];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = changedCopy;
+    v11 = changedCopy;
     _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "currentDataSimChanged - %@", buf, 0xCu);
   }
 
   ivarQueue = self->_ivarQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__PCWWANUsabilityMonitor_currentDataSimChanged___block_invoke;
-  v9[3] = &unk_279A19D48;
-  v9[4] = self;
-  v10 = changedCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__PCWWANUsabilityMonitor_currentDataSimChanged___block_invoke;
+  v8[3] = &unk_279A19D48;
+  v8[4] = self;
+  v9 = changedCopy;
   v7 = changedCopy;
-  dispatch_async(ivarQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(ivarQueue, v8);
 }
 
 - (void)_processCallStatusChanged:(id)changed
@@ -629,7 +613,7 @@ void __56__PCWWANUsabilityMonitor__processDataStatus_forContext___block_invoke_2
 
 void __52__PCWWANUsabilityMonitor__processCallStatusChanged___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40) != *(*(a1 + 32) + 40))
   {
     v2 = +[PCLog usabilityMonitor];
@@ -642,17 +626,15 @@ void __52__PCWWANUsabilityMonitor__processCallStatusChanged___block_invoke(uint6
         v4 = @"YES";
       }
 
-      v6 = 138412546;
-      v7 = v3;
-      v8 = 2112;
-      v9 = v4;
-      _os_log_impl(&dword_25E3EF000, v2, OS_LOG_TYPE_DEFAULT, "%@ call status changed. isInCall = %@", &v6, 0x16u);
+      v5 = 138412546;
+      v6 = v3;
+      v7 = 2112;
+      v8 = v4;
+      _os_log_impl(&dword_25E3EF000, v2, OS_LOG_TYPE_DEFAULT, "%@ call status changed. isInCall = %@", &v5, 0x16u);
     }
 
     *(*(a1 + 32) + 40) = *(a1 + 40);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)interface5GMode
@@ -676,15 +658,15 @@ void __52__PCWWANUsabilityMonitor__processCallStatusChanged___block_invoke(uint6
 
 void __41__PCWWANUsabilityMonitor_interface5GMode__block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 72) == 10)
   {
     v3 = *(v2 + 96);
-    v23 = 0;
-    v4 = [v3 isSmartDataModeSupported:&v23];
-    v5 = v23;
-    if (v4 && ([MEMORY[0x277CC3718] descriptorWithSubscriptionContext:*(*(a1 + 32) + 120)], v6 = objc_claimAutoreleasedReturnValue(), v7 = *(*(a1 + 32) + 96), v22 = 0, v8 = objc_msgSend(v7, "smartDataMode:error:", v6, &v22), v6, v8))
+    v22 = 0;
+    v4 = [v3 isSmartDataModeSupported:&v22];
+    v5 = v22;
+    if (v4 && ([MEMORY[0x277CC3718] descriptorWithSubscriptionContext:*(*(a1 + 32) + 120)], v6 = objc_claimAutoreleasedReturnValue(), v7 = *(*(a1 + 32) + 96), v21 = 0, v8 = objc_msgSend(v7, "smartDataMode:error:", v6, &v21), v6, v8))
     {
       v9 = 1;
       *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -741,15 +723,15 @@ void __41__PCWWANUsabilityMonitor_interface5GMode__block_invoke(uint64_t a1)
 
       v20 = *(v16 + 76);
       *buf = 138413314;
-      v25 = v16;
-      v26 = 1024;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v18;
-      v32 = 2048;
-      v33 = v20;
+      v24 = v16;
+      v25 = 1024;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v18;
+      v31 = 2048;
+      v32 = v20;
       _os_log_impl(&dword_25E3EF000, v15, OS_LOG_TYPE_DEFAULT, "%@ interface5GMode? 5G mode is %d {isSmartDataModeEnabled: %@, isSmartDataModeSupported: %@, currentDataBearerSoMask: %llu}", buf, 0x30u);
     }
   }
@@ -762,14 +744,12 @@ void __41__PCWWANUsabilityMonitor_interface5GMode__block_invoke(uint64_t a1)
       v10 = *(a1 + 32);
       v11 = *(v10 + 72);
       *buf = 138412546;
-      v25 = v10;
-      v26 = 1024;
-      v27 = v11;
+      v24 = v10;
+      v25 = 1024;
+      v26 = v11;
       _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ interface5GMode? Current RAT is not 5G %d", buf, 0x12u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)networkCode
@@ -868,10 +848,7 @@ void __41__PCWWANUsabilityMonitor_interface5GMode__block_invoke(uint64_t a1)
 
 uint64_t __43__PCWWANUsabilityMonitor_wwanInterfaceName__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 64) currentInterfaceName];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 64) currentInterfaceName];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -898,26 +875,26 @@ uint64_t __43__PCWWANUsabilityMonitor_wwanInterfaceName__block_invoke(uint64_t a
   dispatch_async(ivarQueue, v4);
 }
 
-uint64_t __44__PCWWANUsabilityMonitor_setTrackUsability___block_invoke(uint64_t result)
+void *__44__PCWWANUsabilityMonitor_setTrackUsability___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(result + 40);
   if (*(v1 + 42) != v2)
   {
     *(v1 + 42) = v2;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (*(v3 + 42) == 1)
     {
       if (!*(v3 + 48))
       {
         *(v3 + 48) = 2;
-        v3 = *(result + 32);
+        v3 = result[4];
       }
 
       if (*(v3 + 56) == 0.0)
       {
         *(v3 + 56) = 0x4082C00000000000;
-        v3 = *(result + 32);
+        v3 = result[4];
       }
     }
 
@@ -939,14 +916,14 @@ uint64_t __44__PCWWANUsabilityMonitor_setTrackUsability___block_invoke(uint64_t 
   dispatch_async(ivarQueue, v4);
 }
 
-uint64_t __57__PCWWANUsabilityMonitor_setThresholdOffTransitionCount___block_invoke(uint64_t result)
+void *__57__PCWWANUsabilityMonitor_setThresholdOffTransitionCount___block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  v1 = *(result + 40);
+  v2 = *(result + 4);
+  v1 = *(result + 5);
   if (v1 != *(v2 + 48))
   {
     *(v2 + 48) = v1;
-    return [*(result + 32) _forwardConfigurationOnIvarQueue];
+    return [*(result + 4) _forwardConfigurationOnIvarQueue];
   }
 
   return result;
@@ -964,14 +941,14 @@ uint64_t __57__PCWWANUsabilityMonitor_setThresholdOffTransitionCount___block_inv
   dispatch_async(ivarQueue, v4);
 }
 
-uint64_t __49__PCWWANUsabilityMonitor_setTrackedTimeInterval___block_invoke(uint64_t result)
+void *__49__PCWWANUsabilityMonitor_setTrackedTimeInterval___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = *(result + 5);
+  v2 = *(result + 4);
   if (v1 != *(v2 + 56))
   {
     *(v2 + 56) = v1;
-    return [*(result + 32) _forwardConfigurationOnIvarQueue];
+    return [*(result + 4) _forwardConfigurationOnIvarQueue];
   }
 
   return result;
@@ -1109,10 +1086,7 @@ void *__45__PCWWANUsabilityMonitor_isInternetReachable__block_invoke(uint64_t a1
 
 uint64_t __34__PCWWANUsabilityMonitor_delegate__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) object];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) object];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1139,10 +1113,7 @@ void __38__PCWWANUsabilityMonitor_setDelegate___block_invoke(uint64_t a1)
 
   if (*(a1 + 40))
   {
-    v4 = [MEMORY[0x277CFB990] weakRefWithObject:?];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 32);
-    *(v5 + 32) = v4;
+    *(*(a1 + 32) + 32) = [MEMORY[0x277CFB990] weakRefWithObject:?];
 
     MEMORY[0x2821F96F8]();
   }
@@ -1305,14 +1276,6 @@ void __53__PCWWANUsabilityMonitor_interfaceConstraintChanged___block_invoke_2(ui
   {
     [v3 interfaceConstraintChanged:*(a1 + 32)];
   }
-}
-
-- (void)networkCode
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_25E3EF000, v0, v1, "Failed to copy mobile network code. {MCC error: %@; MNC error: %@}");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

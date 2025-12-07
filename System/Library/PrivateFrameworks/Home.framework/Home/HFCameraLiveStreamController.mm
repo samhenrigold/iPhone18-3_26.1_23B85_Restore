@@ -59,7 +59,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!+[HFUtilities isInternalTest])
   {
     v3 = HFLogForCategory(0x1CuLL);
@@ -70,18 +70,17 @@
       name = [accessory name];
       *buf = 138412546;
       selfCopy = self;
-      v11 = 2112;
-      v12 = name;
+      v10 = 2112;
+      v11 = name;
       _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%@ dealloc for name:%@. Stop streaming requested.", buf, 0x16u);
     }
 
     [(HFCameraLiveStreamController *)self stopStreaming];
   }
 
-  v8.receiver = self;
-  v8.super_class = HFCameraLiveStreamController;
-  [(HFCameraLiveStreamController *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = HFCameraLiveStreamController;
+  [(HFCameraLiveStreamController *)&v7 dealloc];
 }
 
 - (unint64_t)streamState
@@ -95,7 +94,7 @@
 
 - (HMCameraSource)liveCameraSource
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   streamState = [(HFCameraLiveStreamController *)self streamState];
   v4 = HFLogForCategory(0x18uLL);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -108,13 +107,13 @@
       cameraProfile2 = [(HFCameraLiveStreamController *)self cameraProfile];
       accessory = [cameraProfile2 accessory];
       name = [accessory name];
-      v19 = 138412802;
+      v18 = 138412802;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = uniqueIdentifier;
-      v23 = 2112;
-      v24 = name;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ Displaying stream control for profile:%@/%@", &v19, 0x20u);
+      v20 = 2112;
+      v21 = uniqueIdentifier;
+      v22 = 2112;
+      v23 = name;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ Displaying stream control for profile:%@/%@", &v18, 0x20u);
     }
 
     activeStream = [(HFCameraLiveStreamController *)self activeStream];
@@ -129,19 +128,17 @@
       cameraProfile4 = [(HFCameraLiveStreamController *)self cameraProfile];
       accessory2 = [cameraProfile4 accessory];
       name2 = [accessory2 name];
-      v19 = 138412802;
+      v18 = 138412802;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = uniqueIdentifier2;
-      v23 = 2112;
-      v24 = name2;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ Displaying liveCameraSource snapshot for profile:%@/%@", &v19, 0x20u);
+      v20 = 2112;
+      v21 = uniqueIdentifier2;
+      v22 = 2112;
+      v23 = name2;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ Displaying liveCameraSource snapshot for profile:%@/%@", &v18, 0x20u);
     }
 
     activeStream = [(HFCameraLiveStreamController *)self mostRecentSnapshot];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return activeStream;
 }
@@ -196,7 +193,7 @@
 
 - (void)setStreamAudioEnabled:(BOOL)enabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_streamAudioEnabled != enabled)
   {
     enabledCopy = enabled;
@@ -204,22 +201,20 @@
     v5 = HFLogForCategory(0x1CuLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 1024;
-      v10 = enabledCopy;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Updating stream audio state to %d", &v7, 0x12u);
+      v8 = 1024;
+      v9 = enabledCopy;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Updating stream audio state to %d", &v6, 0x12u);
     }
 
     [(HFCameraLiveStreamController *)self _updateAudioManagerState];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMicrophoneEnabled:(BOOL)enabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_microphoneEnabled != enabled)
   {
     enabledCopy = enabled;
@@ -227,39 +222,35 @@
     v5 = HFLogForCategory(0x1CuLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 1024;
-      v10 = enabledCopy;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Updating microphone state to %d", &v7, 0x12u);
+      v8 = 1024;
+      v9 = enabledCopy;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Updating microphone state to %d", &v6, 0x12u);
     }
 
     [(HFCameraLiveStreamController *)self _updateAudioManagerState];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStreamAudioVolume:(float)volume
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_streamAudioVolume != volume)
   {
     self->_streamAudioVolume = volume;
     v5 = HFLogForCategory(0x1CuLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 2048;
+      v8 = 2048;
       volumeCopy = volume;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Updating stream audio volume to %f", &v7, 0x16u);
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Updating stream audio volume to %f", &v6, 0x16u);
     }
 
     [(HFCameraLiveStreamController *)self _updateAudioManagerState];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)activeStream
@@ -282,7 +273,7 @@
 
 - (void)_updateAudioManagerState
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   activeStream = [(HFCameraLiveStreamController *)self activeStream];
 
   if (activeStream)
@@ -294,8 +285,8 @@
       v5 = [HFCameraAudioManager alloc];
       cameraProfile = [(HFCameraLiveStreamController *)self cameraProfile];
       activeStream2 = [(HFCameraLiveStreamController *)self activeStream];
-      home = [(HFCameraLiveStreamController *)self home];
-      hf_characteristicValueManager = [home hf_characteristicValueManager];
+      v8 = objc_msgSend_home(self);
+      hf_characteristicValueManager = [v8 hf_characteristicValueManager];
       v10 = [(HFCameraAudioManager *)v5 initWithCameraProfile:cameraProfile cameraStream:activeStream2 valueManager:hf_characteristicValueManager];
       [(HFCameraLiveStreamController *)self setAudioManager:v10];
     }
@@ -314,17 +305,17 @@
     isStreamAudioEnabled = [(HFCameraLiveStreamController *)self isStreamAudioEnabled];
     isMicrophoneEnabled = [(HFCameraLiveStreamController *)self isMicrophoneEnabled];
     [(HFCameraLiveStreamController *)self streamAudioVolume];
-    v33 = 138413314;
+    v32 = 138413314;
     selfCopy2 = self;
-    v35 = 2112;
-    v36 = v12;
-    v37 = 1024;
-    v38 = isStreamAudioEnabled;
-    v39 = 1024;
-    v40 = isMicrophoneEnabled;
-    v41 = 2048;
-    v42 = v15;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@ Updating audio manager state with manager: %@, stream audio enabled: %d, microphone enabled: %d, stream audio volume: %f", &v33, 0x2Cu);
+    v34 = 2112;
+    v35 = v12;
+    v36 = 1024;
+    v37 = isStreamAudioEnabled;
+    v38 = 1024;
+    v39 = isMicrophoneEnabled;
+    v40 = 2048;
+    v41 = v15;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@ Updating audio manager state with manager: %@, stream audio enabled: %d, microphone enabled: %d, stream audio volume: %f", &v32, 0x2Cu);
   }
 
   audioManager2 = [(HFCameraLiveStreamController *)self audioManager];
@@ -355,11 +346,11 @@
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           [(HFCameraLiveStreamController *)self streamAudioVolume];
-          v33 = 138412546;
+          v32 = 138412546;
           selfCopy2 = self;
-          v35 = 2048;
-          v36 = v28;
-          _os_log_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_DEFAULT, "%@ Performing volume update to %.02f on Mac", &v33, 0x16u);
+          v34 = 2048;
+          v35 = v28;
+          _os_log_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_DEFAULT, "%@ Performing volume update to %.02f on Mac", &v32, 0x16u);
         }
 
         audioManager6 = [(HFCameraLiveStreamController *)self audioManager];
@@ -375,8 +366,6 @@
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_derivedAudioStreamSetting
@@ -457,19 +446,17 @@
 
 - (void)cameraUserSettingsDidUpdate:(id)update
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = HFLogForCategory(0x1AuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = updateCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_INFO, "%@ settings updated:%@", &v7, 0x16u);
+    v8 = 2112;
+    v9 = updateCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_INFO, "%@ settings updated:%@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HFCameraLiveStreamControllerDelegate)delegate

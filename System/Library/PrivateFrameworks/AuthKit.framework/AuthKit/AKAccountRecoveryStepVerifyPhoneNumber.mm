@@ -179,7 +179,6 @@
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __81__AKAccountRecoveryStepVerifyPhoneNumber__verifyPhoneNumberWithModel_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -368,7 +367,6 @@ void __81__AKAccountRecoveryStepVerifyPhoneNumber__verifyPhoneNumberWithModel_co
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v5;
 }

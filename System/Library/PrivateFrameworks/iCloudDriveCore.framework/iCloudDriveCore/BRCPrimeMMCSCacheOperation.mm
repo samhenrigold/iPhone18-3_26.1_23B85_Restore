@@ -57,16 +57,14 @@
 
 - (void)main
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __34__BRCPrimeMMCSCacheOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -80,18 +78,18 @@ void __34__BRCPrimeMMCSCacheOperation_main__block_invoke(uint64_t a1, void *a2, 
   v12 = brc_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(a1 + 40);
-    v18 = [WeakRetained metrics];
-    v19 = [v18 MMCSMetrics];
-    v20 = 138413058;
-    v21 = v17;
-    v22 = 2048;
-    v23 = [v19 bytesUploaded];
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v11;
-    _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Completed priming mmcs cache for %@ (uploaded %lu) - %@%@", &v20, 0x2Au);
+    v16 = *(a1 + 40);
+    v17 = [WeakRetained metrics];
+    v18 = [v17 MMCSMetrics];
+    v19 = 138413058;
+    v20 = v16;
+    v21 = 2048;
+    v22 = [v18 bytesUploaded];
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v11;
+    _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Completed priming mmcs cache for %@ (uploaded %lu) - %@%@", &v19, 0x2Au);
   }
 
   v13 = [WeakRetained metrics];
@@ -104,13 +102,10 @@ void __34__BRCPrimeMMCSCacheOperation_main__block_invoke(uint64_t a1, void *a2, 
   }
 
   [*(a1 + 48) completedWithResult:0 error:v9];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __34__BRCPrimeMMCSCacheOperation_main__block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -118,10 +113,8 @@ void __34__BRCPrimeMMCSCacheOperation_main__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sop.metrics.MMCSMetrics.bytesUploaded == 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sop.metrics.MMCSMetrics.bytesUploaded == 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

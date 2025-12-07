@@ -9,7 +9,7 @@
 
 - (id)subPageWithIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identifier = [(WFGalleryPage *)self identifier];
   v6 = [identifier isEqual:identifierCopy];
@@ -21,28 +21,28 @@
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     banners = [(WFGalleryPage *)self banners];
     v9 = [banners valueForKey:@"detailPage"];
 
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [*(*(&v17 + 1) + 8 * i) subPageWithIdentifier:identifierCopy];
+          v14 = [*(*(&v16 + 1) + 8 * i) subPageWithIdentifier:identifierCopy];
           if (v14)
           {
             selfCopy = v14;
@@ -51,7 +51,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v11)
         {
           continue;
@@ -66,42 +66,40 @@
 
 LABEL_13:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
 - (id)subPageMatchingName:(id)name
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   name = [(WFGalleryPage *)self name];
   v6 = [name rangeOfString:nameCopy options:129];
 
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     banners = [(WFGalleryPage *)self banners];
     v8 = [banners valueForKey:@"detailPage"];
 
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [*(*(&v17 + 1) + 8 * i) subPageMatchingName:nameCopy];
+          v13 = [*(*(&v16 + 1) + 8 * i) subPageMatchingName:nameCopy];
           if (v13)
           {
             selfCopy = v13;
@@ -110,7 +108,7 @@ LABEL_13:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -129,8 +127,6 @@ LABEL_13:
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -190,34 +186,32 @@ LABEL_13:
 
 + (NSDictionary)properties
 {
-  v14[8] = *MEMORY[0x1E69E9840];
-  v13[0] = @"name";
+  v13[8] = *MEMORY[0x1E69E9840];
+  v12[0] = @"name";
   v2 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v14[0] = v2;
-  v13[1] = @"minVersion";
+  v13[0] = v2;
+  v12[1] = @"minVersion";
   v3 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v14[1] = v3;
-  v13[2] = @"isRoot";
+  v13[1] = v3;
+  v12[2] = @"isRoot";
   v4 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v14[2] = v4;
-  v13[3] = @"banners";
+  v13[2] = v4;
+  v12[3] = @"banners";
   v5 = [WFCloudKitItemProperty itemPropertyWithName:@"banners" itemClass:objc_opt_class()];
-  v14[3] = v5;
-  v13[4] = @"collections";
+  v13[3] = v5;
+  v12[4] = @"collections";
   v6 = [WFCloudKitItemProperty itemPropertyWithName:@"collections" itemClass:objc_opt_class()];
-  v14[4] = v6;
-  v13[5] = @"language";
+  v13[4] = v6;
+  v12[5] = @"language";
   v7 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v14[5] = v7;
-  v13[6] = @"base";
+  v13[5] = v7;
+  v12[6] = @"base";
   v8 = [WFCloudKitItemProperty itemReferencePropertyWithName:@"base" itemClass:objc_opt_class()];
-  v14[6] = v8;
-  v13[7] = @"persistentIdentifier";
+  v13[6] = v8;
+  v12[7] = @"persistentIdentifier";
   v9 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v14[7] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[7] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:8];
 
   return v10;
 }

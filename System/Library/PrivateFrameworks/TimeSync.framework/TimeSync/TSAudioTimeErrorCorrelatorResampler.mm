@@ -1,6 +1,5 @@
 @interface TSAudioTimeErrorCorrelatorResampler
 - (TSAudioTimeErrorCorrelatorResampler)initWithMaxCorrelationLength:(int64_t)length andUpscaleFactor:(int64_t)factor forSamplingRate:(double)rate;
-- (void)_makeBlock;
 - (void)dealloc;
 @end
 
@@ -14,7 +13,7 @@
   v6 = v5;
   if (v5)
   {
-    [(TSAudioTimeErrorCorrelator *)v5 _calculateUpsamplerCoefficients:&v5->_upsamplerFilterCoefficientsBuffer length:&v5->_upsamplerFilterCoefficientsLength];
+    [TSAudioTimeErrorCorrelator _calculateUpsamplerCoefficients:v5 length:"_calculateUpsamplerCoefficients:length:"];
     v6->_scratchBuffer = malloc_type_calloc(v6->_upsamplerFilterCoefficientsLength + v6->super._maxCorrelationLength * v6->super._upscaleFactor, 4uLL, 0x100004052888210uLL);
     v6->_channelABuffer = malloc_type_calloc(2 * v6->super._upscaleFactor * v6->super._maxCorrelationLength, 4uLL, 0x100004052888210uLL);
     v6->_channelBBuffer = malloc_type_calloc(v6->super._maxCorrelationLength * v6->super._upscaleFactor, 4uLL, 0x100004052888210uLL);
@@ -38,31 +37,6 @@
   }
 
   return v6;
-}
-
-- (void)_makeBlock
-{
-  scratchBuffer = self->_scratchBuffer;
-  channelABuffer = self->_channelABuffer;
-  channelBBuffer = self->_channelBBuffer;
-  correlationBuffer = self->_correlationBuffer;
-  upsamplerFilterCoefficientsBuffer = self->_upsamplerFilterCoefficientsBuffer;
-  upsamplerFilterCoefficientsLength = self->_upsamplerFilterCoefficientsLength;
-  samplingRate = self->super._samplingRate;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__TSAudioTimeErrorCorrelatorResampler__makeBlock__block_invoke;
-  v9[3] = &__block_descriptor_112_e18_d32__0r_f8r_f16q24l;
-  v10 = *&self->super._maxCorrelationLength;
-  v11 = channelABuffer;
-  v12 = scratchBuffer;
-  v13 = upsamplerFilterCoefficientsLength;
-  v14 = channelBBuffer;
-  v15 = correlationBuffer;
-  v16 = upsamplerFilterCoefficientsLength / 2;
-  v17 = upsamplerFilterCoefficientsBuffer;
-  v18 = samplingRate;
-  [(TSAudioTimeErrorCorrelator *)self setCorrelationBlock:v9];
 }
 
 void __49__TSAudioTimeErrorCorrelatorResampler__makeBlock__block_invoke(uint64_t a1, const float *__A, const float *a3, int64_t __N)
@@ -142,10 +116,6 @@ void __49__TSAudioTimeErrorCorrelatorResampler__makeBlock__block_invoke(uint64_t
           vDSP_conv(v15, 1, (*(a1 + 96) + 4 * *(a1 + 64) - 4), -1, *(a1 + 72), 1, v9, *(a1 + 64));
           vDSP_conv(*(a1 + 48), 1, *(a1 + 72), 1, *(a1 + 80), 1, v9, v9);
           vDSP_maxvi(*(a1 + 80), 1, &__C, &__I, v9);
-          if (__I)
-          {
-            v19 = (__I - v9 / 2) / (*(a1 + 104) * *(a1 + 40));
-          }
         }
       }
     }

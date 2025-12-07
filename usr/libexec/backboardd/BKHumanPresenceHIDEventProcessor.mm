@@ -15,49 +15,48 @@
 - (int64_t)processEvent:(__IOHIDEvent *)event sender:(id)sender dispatcher:(id)dispatcher
 {
   senderCopy = sender;
-  v8 = *event;
   IntegerValue = IOHIDEventGetIntegerValue();
   if (!IntegerValue)
   {
     IOHIDEventGetFloatValue();
-    v17 = v16;
-    v18 = BKLogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v15 = v14;
+    v16 = BKLogCommon();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      *v22 = 138543618;
-      *&v22[4] = objc_opt_class();
-      *&v22[12] = 2048;
-      *&v22[14] = v17;
-      v19 = *&v22[4];
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%{public}@: human proximity event %g", v22, 0x16u);
+      *v20 = 138543618;
+      *&v20[4] = objc_opt_class();
+      *&v20[12] = 2048;
+      *&v20[14] = v15;
+      v17 = *&v20[4];
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%{public}@: human proximity event %g", v20, 0x16u);
     }
 
     displayUUID = [senderCopy displayUUID];
-    v15 = sub_10000A9C8(displayUUID);
+    v13 = sub_10000A9C8(displayUUID);
 
-    [(BKHumanPresenceHIDEventProcessor *)self _setProximityInCentimeters:v15 forDisplayUUID:v17];
+    [(BKHumanPresenceHIDEventProcessor *)self _setProximityInCentimeters:v13 forDisplayUUID:v15];
     goto LABEL_9;
   }
 
   if (IntegerValue == 3)
   {
     IOHIDEventGetFloatValue();
-    v11 = v10;
-    v12 = BKLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v9 = v8;
+    v10 = BKLogCommon();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v22 = 138543618;
-      *&v22[4] = objc_opt_class();
-      *&v22[12] = 2048;
-      *&v22[14] = v11;
-      v13 = *&v22[4];
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%{public}@: human presence event %g", v22, 0x16u);
+      *v20 = 138543618;
+      *&v20[4] = objc_opt_class();
+      *&v20[12] = 2048;
+      *&v20[14] = v9;
+      v11 = *&v20[4];
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%{public}@: human presence event %g", v20, 0x16u);
     }
 
     displayUUID2 = [senderCopy displayUUID];
-    v15 = sub_10000A9C8(displayUUID2);
+    v13 = sub_10000A9C8(displayUUID2);
 
-    [(BKHumanPresenceHIDEventProcessor *)self _setPresence:v11 > 0.0 forDisplayUUID:v15, *v22, *&v22[16]];
+    [(BKHumanPresenceHIDEventProcessor *)self _setPresence:v9 > 0.0 forDisplayUUID:v13, *v20, *&v20[8]];
 LABEL_9:
   }
 

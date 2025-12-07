@@ -194,14 +194,12 @@ LABEL_14:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startTimeIntervalSinceReferenceDate = self->_startTimeIntervalSinceReferenceDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -215,16 +213,15 @@ LABEL_14:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    scheduleStartHour = self->_scheduleStartHour;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((v7 & 0x20) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x20) == 0)
     {
 LABEL_11:
-      if ((v7 & 4) == 0)
+      if ((v5 & 4) == 0)
       {
         goto LABEL_12;
       }
@@ -238,13 +235,12 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  scheduleStartMinute = self->_scheduleStartMinute;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 4) == 0)
+  v5 = self->_has;
+  if ((v5 & 4) == 0)
   {
 LABEL_12:
-    if ((v7 & 8) == 0)
+    if ((v5 & 8) == 0)
     {
       goto LABEL_14;
     }
@@ -253,12 +249,10 @@ LABEL_12:
   }
 
 LABEL_19:
-  scheduleEndHour = self->_scheduleEndHour;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_13:
-    scheduleEndMinute = self->_scheduleEndMinute;
     PBDataWriterWriteUint32Field();
   }
 
@@ -429,7 +423,6 @@ LABEL_9:
     goto LABEL_35;
   }
 
-  v5 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_startTimeIntervalSinceReferenceDate != *(equalCopy + 2))
@@ -441,7 +434,7 @@ LABEL_9:
   else if ((*(equalCopy + 56) & 2) != 0)
   {
 LABEL_35:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_36;
   }
 
@@ -512,7 +505,7 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v8 = (*(equalCopy + 56) & 8) == 0;
+  v7 = (*(equalCopy + 56) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 56) & 8) == 0 || self->_scheduleEndMinute != *(equalCopy + 9))
@@ -520,12 +513,12 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_36:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

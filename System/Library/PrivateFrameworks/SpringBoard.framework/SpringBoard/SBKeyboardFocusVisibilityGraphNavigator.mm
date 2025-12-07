@@ -79,7 +79,7 @@ LABEL_6:
         }
 
         v26 = *(*(&v32 + 1) + 8 * i);
-        if (([v18 containsObject:v26] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v18) & 1) == 0)
         {
           v27 = [(SBKeyboardFocusVisibilityGraphNavigator *)self _ancestorPathForTargetEnvironment:v11 orTargetPid:environment withinEndowmentTree:pidCopy root:v26 visitedLinks:v18];
           if (v27)

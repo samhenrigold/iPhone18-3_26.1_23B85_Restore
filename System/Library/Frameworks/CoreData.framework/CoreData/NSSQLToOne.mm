@@ -155,10 +155,11 @@
   v3 = objc_autoreleasePoolPush();
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
-  v6 = [v4 stringWithFormat:@"<%@ %@ (%@)>", NSStringFromClass(v5), -[NSSQLRelationship name](self, "name"), objc_msgSend(-[NSSQLRelationship destinationEntity](self, "destinationEntity"), "name")];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_msgSend_stringWithFormat_(v4, v6, -[NSSQLRelationship name](self, "name"), [-[NSSQLRelationship destinationEntity](self "destinationEntity")]);
   objc_autoreleasePoolPop(v3);
 
-  return v6;
+  return v7;
 }
 
 - (void)copyValuesForReadOnlyFetch:(id)fetch

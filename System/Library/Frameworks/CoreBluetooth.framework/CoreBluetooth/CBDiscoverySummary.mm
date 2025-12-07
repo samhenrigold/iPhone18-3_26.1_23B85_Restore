@@ -19,22 +19,34 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v3 = 8;
   }
 
   else
   {
-    v8 = [objc_opt_class() description];
-    CUAppendF();
-    v4 = 0;
+    v3 = 12;
   }
 
-  scanTime = self->_scanTime;
-  v9 = CUPrintDurationDouble();
-  CUAppendF();
-  v6 = v4;
+  v11 = v3;
+  if ((level & 0x8000000) != 0)
+  {
+    v5 = 0;
+  }
 
-  return v6;
+  else
+  {
+    v10 = 0;
+    v4 = [objc_opt_class() description];
+    CUAppendF(&v10, &v11, "%@", v4);
+    v5 = v10;
+  }
+
+  v9 = v5;
+  v6 = CUPrintDurationDouble();
+  CUAppendF(&v9, &v11, "scanTime: %@", v6);
+  v7 = v9;
+
+  return v7;
 }
 
 - (CBDiscoverySummary)initWithXPCObject:(id)object error:(id *)error

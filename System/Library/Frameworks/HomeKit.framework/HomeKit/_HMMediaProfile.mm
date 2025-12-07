@@ -130,20 +130,20 @@
 
 - (void)_notifyDelegateOfUpdatedMediaSession:(id)session
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   context = [(_HMAccessoryProfile *)self context];
   v6 = context;
   if (context)
   {
     queue = [context queue];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __56___HMMediaProfile__notifyDelegateOfUpdatedMediaSession___block_invoke;
-    v13[3] = &unk_1E754E5C0;
-    v13[4] = self;
-    v14 = sessionCopy;
-    dispatch_async(queue, v13);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __56___HMMediaProfile__notifyDelegateOfUpdatedMediaSession___block_invoke;
+    v12[3] = &unk_1E754E5C0;
+    v12[4] = self;
+    v13 = sessionCopy;
+    dispatch_async(queue, v12);
   }
 
   else
@@ -155,23 +155,20 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v11;
-      v17 = 2080;
-      v18 = "[_HMMediaProfile _notifyDelegateOfUpdatedMediaSession:]";
+      v15 = v11;
+      v16 = 2080;
+      v17 = "[_HMMediaProfile _notifyDelegateOfUpdatedMediaSession:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMediaSession:(id)session
 {
   sessionCopy = session;
   os_unfair_lock_lock_with_options();
-  mediaSession = self->_mediaSession;
   if ((HMFEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_mediaSession, session);
@@ -192,7 +189,7 @@
 
 - (void)__configureWithContext:(id)context accessory:(id)accessory
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   accessoryCopy = accessory;
   v8 = objc_autoreleasePoolPush();
@@ -202,21 +199,19 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v17 = v11;
-    v18 = 2112;
-    v19 = contextCopy;
+    v16 = v11;
+    v17 = 2112;
+    v18 = contextCopy;
     _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v15.receiver = selfCopy;
-  v15.super_class = _HMMediaProfile;
-  [(_HMAccessoryProfile *)&v15 __configureWithContext:contextCopy accessory:accessoryCopy];
+  v14.receiver = selfCopy;
+  v14.super_class = _HMMediaProfile;
+  [(_HMAccessoryProfile *)&v14 __configureWithContext:contextCopy accessory:accessoryCopy];
   mediaSession = [(_HMMediaProfile *)selfCopy mediaSession];
   messageTargetUUID = [(_HMAccessoryProfile *)selfCopy messageTargetUUID];
   [mediaSession configure:contextCopy messageTargetUUID:messageTargetUUID];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

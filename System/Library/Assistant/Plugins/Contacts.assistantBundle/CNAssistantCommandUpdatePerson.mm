@@ -38,7 +38,7 @@
 
 - (id)validate
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_identifier(self, a2, v2);
 
   if (!v4)
@@ -78,8 +78,8 @@ LABEL_27:
     }
 
     v22 = objc_msgSend_contactStore(self, v20, v21);
-    v53[0] = *MEMORY[0x277CBD160];
-    v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v53, 1);
+    v52[0] = *MEMORY[0x277CBD160];
+    v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v52, 1);
     v26 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v22, v25, v19, v24, 0);
 
     if (!v26)
@@ -158,7 +158,6 @@ LABEL_24:
 LABEL_29:
 
 LABEL_30:
-  v51 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

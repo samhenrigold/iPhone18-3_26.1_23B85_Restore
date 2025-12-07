@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"accountID";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"accountID";
   accountID = [(ICASAccountSnapshotItemData *)self accountID];
   if (accountID)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = accountID2;
-  v16[0] = accountID2;
-  v15[1] = @"accountType";
+  v15[0] = accountID2;
+  v14[1] = @"accountType";
   accountType = [(ICASAccountSnapshotItemData *)self accountType];
   if (accountType)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = accountType2;
-  v16[1] = accountType2;
-  v15[2] = @"accountPurpose";
+  v15[1] = accountType2;
+  v14[2] = @"accountPurpose";
   accountPurpose = [(ICASAccountSnapshotItemData *)self accountPurpose];
   if (accountPurpose)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = accountPurpose2;
-  v16[2] = accountPurpose2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = accountPurpose2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

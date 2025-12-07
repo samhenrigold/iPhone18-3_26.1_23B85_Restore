@@ -1401,9 +1401,10 @@ id PLLogPLIOReportAgentIOReportStats()
 
 uint64_t __PLLogPLIOReportAgentIOReportStats_block_invoke()
 {
-  qword_2811F3ED8 = os_log_create("com.apple.powerlog", "PLIOReportAgentIOReportStats");
+  v0 = os_log_create("com.apple.powerlog", "PLIOReportAgentIOReportStats");
+  qword_2811F3ED8 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t PowerlogMetricLogReadFrom(void *a1, void *a2)
@@ -4149,9 +4150,10 @@ LABEL_62:
 
 uint64_t __PLLogPerformance_block_invoke()
 {
-  qword_2811F3098 = os_log_create("com.apple.powerlog", "performance");
+  v0 = os_log_create("com.apple.powerlog", "performance");
+  qword_2811F3098 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void sub_21A61DA44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
@@ -5464,9 +5466,10 @@ LABEL_163:
 
 uint64_t __PLLogCamera_block_invoke()
 {
-  _MergedGlobals_1_8 = os_log_create("com.apple.powerlog", "camera");
+  v0 = os_log_create("com.apple.powerlog", "camera");
+  _MergedGlobals_1_8 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularNrSDMActivationReadFrom(uint64_t a1, void *a2)

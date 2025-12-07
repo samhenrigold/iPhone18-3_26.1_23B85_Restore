@@ -114,8 +114,8 @@
 
 - (void)updateSliceFramesForRecordingTime:(double)time
 {
-  timeWindow = [(RCPlatterWaveformView *)self timeWindow];
-  RCTimeRangeMake(timeWindow, v7, time - v6, time);
+  [(RCPlatterWaveformView *)self timeWindow];
+  RCTimeRangeMake();
   [(RCPlatterWaveformView *)self setCurrentTimeWindow:?];
 
   [(RCPlatterWaveformView *)self updateSliceFrames];
@@ -354,7 +354,7 @@
 
 - ($F24F406B2B787EFB06265DBA3D28CBD5)_sliceTimeRangeForIndex:(int64_t)index sliceDuration:(double)duration
 {
-  RCTimeRangeMake(self, a2, index * duration, index * duration + duration);
+  RCTimeRangeMake();
   result.var1 = v5;
   result.var0 = v4;
   return result;

@@ -28,7 +28,7 @@
 
 - (void)propagateUsingSetter
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   getterMethodSignature = [(WFRecordPropertyMapping *)self getterMethodSignature];
   if ([getterMethodSignature methodReturnType])
   {
@@ -46,27 +46,27 @@
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
         sourceObject = [(WFRecordPropertyMapping *)self sourceObject];
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         sourceProperty = [(WFRecordPropertyMapping *)self sourceProperty];
         getter = [sourceProperty getter];
         destinationObject = [(WFRecordPropertyMapping *)self destinationObject];
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
         destinationProperty = [(WFRecordPropertyMapping *)self destinationProperty];
         setter = [destinationProperty setter];
-        [currentHandler handleFailureInMethod:a2 object:self file:@"WFRecordPropertyMapping.m" lineNumber:82 description:{@"Property type mismatch between %@ - %@ and %@ - %@.", v26, getter, v31, setter}];
+        [currentHandler handleFailureInMethod:a2 object:self file:@"WFRecordPropertyMapping.m" lineNumber:82 description:{@"Property type mismatch between %@ - %@ and %@ - %@.", v25, getter, v30, setter}];
       }
 
       getterMethodSignature3 = [(WFRecordPropertyMapping *)self getterMethodSignature];
       methodReturnLength = [getterMethodSignature3 methodReturnLength];
 
-      v35 = methodReturnLength;
+      v34 = methodReturnLength;
       *buf = malloc_type_malloc(methodReturnLength, 0xDFA3FD25uLL);
-      [(WFRecordPropertyMapping *)self invokeGetterWithBuffer:buf length:&v35];
-      [(WFRecordPropertyMapping *)self invokeSetterWithBuffer:buf length:&v35];
+      [(WFRecordPropertyMapping *)self invokeGetterWithBuffer:buf length:&v34];
+      [(WFRecordPropertyMapping *)self invokeSetterWithBuffer:buf length:&v34];
       free(*buf);
-      goto LABEL_10;
+      return;
     }
   }
 
@@ -89,19 +89,16 @@
     setter2 = [destinationProperty2 setter];
     *buf = 136316162;
     *&buf[4] = "[WFRecordPropertyMapping propagateUsingSetter]";
-    v37 = 2114;
-    v38 = v15;
-    v39 = 2114;
-    v40 = getter2;
-    v41 = 2114;
-    v42 = v20;
-    v43 = 2114;
-    v44 = setter2;
+    v36 = 2114;
+    v37 = v15;
+    v38 = 2114;
+    v39 = getter2;
+    v40 = 2114;
+    v41 = v20;
+    v42 = 2114;
+    v43 = setter2;
     _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s PROPERTY NOT SET: %{public}@ - %{public}@ and %{public}@ - %{public}@. Invalid setter or getter", buf, 0x34u);
   }
-
-LABEL_10:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)setterMethodSignature
@@ -145,7 +142,7 @@ LABEL_10:
 
 - (void)propagateUsingKVC
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   sourceObject = [(WFRecordPropertyMapping *)self sourceObject];
   sourceProperty = [(WFRecordPropertyMapping *)self sourceProperty];
   name = [sourceProperty name];
@@ -167,17 +164,15 @@ LABEL_10:
       sourceProperty2 = [(WFRecordPropertyMapping *)self sourceProperty];
       name3 = [sourceProperty2 name];
       sourceObject2 = [(WFRecordPropertyMapping *)self sourceObject];
-      v14 = 136315650;
-      v15 = "[WFRecordPropertyMapping propagateUsingKVC]";
-      v16 = 2114;
-      v17 = name3;
-      v18 = 2114;
-      v19 = sourceObject2;
-      _os_log_impl(&dword_1CA256000, destinationObject, OS_LOG_TYPE_FAULT, "%s PROPERTY NOT SET: value nil for key: %{public}@ on %{public}@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[WFRecordPropertyMapping propagateUsingKVC]";
+      v15 = 2114;
+      v16 = name3;
+      v17 = 2114;
+      v18 = sourceObject2;
+      _os_log_impl(&dword_1CA256000, destinationObject, OS_LOG_TYPE_FAULT, "%s PROPERTY NOT SET: value nil for key: %{public}@ on %{public}@", &v13, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash

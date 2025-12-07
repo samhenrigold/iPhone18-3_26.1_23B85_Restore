@@ -169,14 +169,14 @@
   return result;
 }
 
-double __74__SBFlexibleWindowingExposeToHomePeekWindowingModifier_titleStyleForItem___block_invoke(void *a1)
+double __74__SBFlexibleWindowingExposeToHomePeekWindowingModifier_titleStyleForItem___block_invoke(void *a1, const char *a2)
 {
-  [*(a1[4] + 184) titleStyleForItem:a1[5]];
-  v2 = *(a1[6] + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
-  *(v2 + 64) = v6;
+  objc_msgSend_titleStyleForItem_(*(a1[4] + 184), a2, a1[5]);
+  v3 = *(a1[6] + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
+  *(v3 + 64) = v7;
   return result;
 }
 
@@ -214,7 +214,7 @@ double __74__SBFlexibleWindowingExposeToHomePeekWindowingModifier_titleStyleForI
   return v7;
 }
 
-uint64_t __71__SBFlexibleWindowingExposeToHomePeekWindowingModifier_opacityForItem___block_invoke(void *a1)
+void *__71__SBFlexibleWindowingExposeToHomePeekWindowingModifier_opacityForItem___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) opacityForItem:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -285,7 +285,7 @@ uint64_t __71__SBFlexibleWindowingExposeToHomePeekWindowingModifier_opacityForIt
   return result;
 }
 
-uint64_t __98__SBFlexibleWindowingExposeToHomePeekWindowingModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__98__SBFlexibleWindowingExposeToHomePeekWindowingModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 184) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -320,7 +320,7 @@ uint64_t __98__SBFlexibleWindowingExposeToHomePeekWindowingModifier_frameForLayo
   return v9;
 }
 
-uint64_t __87__SBFlexibleWindowingExposeToHomePeekWindowingModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__87__SBFlexibleWindowingExposeToHomePeekWindowingModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) scaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -357,14 +357,14 @@ uint64_t __87__SBFlexibleWindowingExposeToHomePeekWindowingModifier_scaleForLayo
   return result;
 }
 
-double __71__SBFlexibleWindowingExposeToHomePeekWindowingModifier_cornersForItem___block_invoke(void *a1)
+double __71__SBFlexibleWindowingExposeToHomePeekWindowingModifier_cornersForItem___block_invoke(void *a1, const char *a2)
 {
-  [*(a1[4] + 184) cornersForItem:a1[5]];
-  v2 = *(a1[6] + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
-  *(v2 + 64) = v6;
+  objc_msgSend_cornersForItem_(*(a1[4] + 184), a2, a1[5]);
+  v3 = *(a1[6] + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
+  *(v3 + 64) = v7;
   return result;
 }
 

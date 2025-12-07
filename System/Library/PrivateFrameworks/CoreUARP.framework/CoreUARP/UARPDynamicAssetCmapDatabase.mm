@@ -13,7 +13,6 @@
 - (id)initCmapDatabase:(id)database;
 - (void)cleanUpCmapDatabaseFiles;
 - (void)createCmapDatabaseFile;
-- (void)flushToDisk;
 @end
 
 @implementation UARPDynamicAssetCmapDatabase
@@ -86,17 +85,17 @@ LABEL_12:
 
 - (UARPDynamicAssetCmapDatabase)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = UARPDynamicAssetCmapDatabase;
-  v5 = [(UARPDynamicAssetCmapDatabase *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = UARPDynamicAssetCmapDatabase;
+  v5 = [(UARPDynamicAssetCmapDatabase *)&v15 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"cmap"];
 
@@ -109,7 +108,6 @@ LABEL_12:
     v5->_log = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -139,100 +137,96 @@ LABEL_12:
 
 - (BOOL)decomposeUARP
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = [[UARPSuperBinaryAsset alloc] initWithURL:self->_url];
   asset = self->_asset;
   self->_asset = v3;
 
-  if ([(UARPSuperBinaryAsset *)self->_asset expandHeadersAndTLVs:0])
+  if (![(UARPSuperBinaryAsset *)self->_asset expandHeadersAndTLVs:0])
   {
-    v5 = +[UARPDynamicAssetCmapMapping tag];
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    obj = [(UARPSuperBinaryAsset *)self->_asset payloads];
-    v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v6)
+    return 0;
+  }
+
+  v5 = +[UARPDynamicAssetCmapMapping tag];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  obj = [(UARPSuperBinaryAsset *)self->_asset payloads];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v29;
+    v26 = v5;
+    while (2)
     {
-      v7 = v6;
-      v8 = *v30;
-      v27 = v5;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v29 != v8)
         {
-          if (*v30 != v8)
+          objc_enumerationMutation(obj);
+        }
+
+        v10 = *(*(&v28 + 1) + 8 * i);
+        payloadTag = [v10 payloadTag];
+        v12 = [payloadTag tag];
+        v13 = [v5 tag];
+
+        if (v12 == v13)
+        {
+          [v10 rangePayload];
+          v15 = [(UARPSuperBinaryAsset *)self->_asset payloadData:v10 range:0 error:v14, 0];
+          if (!v15)
           {
-            objc_enumerationMutation(obj);
+            goto LABEL_19;
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
-          payloadTag = [v10 payloadTag];
-          v12 = [payloadTag tag];
-          v13 = [v5 tag];
-
-          if (v12 == v13)
+          v16 = v15;
+          v17 = MEMORY[0x277CBEB98];
+          v18 = objc_opt_class();
+          v19 = objc_opt_class();
+          v25 = objc_opt_class();
+          v20 = [v17 setWithObjects:{v18, v19, v25, objc_opt_class(), 0}];
+          v21 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v20 fromData:v16 error:0];
+          if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            [v10 rangePayload];
-            v15 = [(UARPSuperBinaryAsset *)self->_asset payloadData:v10 range:0 error:v14, 0];
-            if (!v15)
-            {
-              goto LABEL_19;
-            }
 
-            v16 = v15;
-            v17 = MEMORY[0x277CBEB98];
-            v18 = objc_opt_class();
-            v19 = objc_opt_class();
-            v26 = objc_opt_class();
-            v20 = [v17 setWithObjects:{v18, v19, v26, objc_opt_class(), 0}];
-            v21 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v20 fromData:v16 error:0];
-            if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-            {
-
-              v5 = v27;
+            v5 = v26;
 LABEL_19:
 
-              v23 = 0;
-              goto LABEL_20;
-            }
+            v23 = 0;
+            goto LABEL_20;
+          }
 
-            v22 = [(UARPDynamicAssetCmapDatabase *)self addCmapMapping:v21];
+          v22 = [(UARPDynamicAssetCmapDatabase *)self addCmapMapping:v21];
 
-            v5 = v27;
-            if (!v22)
-            {
-              goto LABEL_19;
-            }
+          v5 = v26;
+          if (!v22)
+          {
+            goto LABEL_19;
           }
         }
-
-        v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-        if (v7)
-        {
-          continue;
-        }
-
-        break;
       }
-    }
 
-    if (self->_cmapDatabase)
-    {
-      [(UARPDynamicAssetCmapDatabase *)self flushToDisk];
-    }
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v7)
+      {
+        continue;
+      }
 
-    v23 = 1;
-LABEL_20:
+      break;
+    }
   }
 
-  else
+  if (self->_cmapDatabase)
   {
-    v23 = 0;
+    [(UARPDynamicAssetCmapDatabase *)self flushToDisk];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = 1;
+LABEL_20:
+
   return v23;
 }
 
@@ -303,35 +297,35 @@ LABEL_17:
 
 - (id)findCmapforAppleModel:(id)model
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   modelCopy = model;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_cmapDatabase;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if ([v9 isEqualAppleModel:{modelCopy, v12}])
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if ([v9 isEqualAppleModel:{modelCopy, v11}])
         {
           v6 = v9;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -342,8 +336,6 @@ LABEL_17:
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -374,36 +366,38 @@ LABEL_11:
 
 - (id)findCmapDatabaseFileUrl
 {
-  if ([(UARPDynamicAssetCmapDatabase *)self cmapDatabaseFileExists]|| [(UARPDynamicAssetCmapDatabase *)self createCmapDatabaseFile])
+  cmapDatabaseFileExists = [(UARPDynamicAssetCmapDatabase *)self cmapDatabaseFileExists];
+  if ((cmapDatabaseFileExists & 1) != 0 || (cmapDatabaseFileExists = [(UARPDynamicAssetCmapDatabase *)self createCmapDatabaseFile], cmapDatabaseFileExists))
   {
-    v3 = MEMORY[0x277CBEBC0];
-    v4 = UARPStringCmapDatabaseFilePath();
-    v5 = [v3 fileURLWithPath:v4];
+    v4 = MEMORY[0x277CBEBC0];
+    v5 = UARPStringCmapDatabaseFilePath(cmapDatabaseFileExists);
+    v6 = [v4 fileURLWithPath:v5];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)createCmapDatabaseFile
 {
-  if ([(UARPDynamicAssetCmapDatabase *)self cmapDatabaseFileExists])
+  cmapDatabaseFileExists = [(UARPDynamicAssetCmapDatabase *)self cmapDatabaseFileExists];
+  if (cmapDatabaseFileExists)
   {
     return 1;
   }
 
-  v4 = UARPStringCmapDirectoryPath();
-  UARPUtilsCreateTemporaryFolder(v4);
+  v5 = UARPStringCmapDirectoryPath(cmapDatabaseFileExists);
+  UARPUtilsCreateTemporaryFolder(v5);
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v6 = UARPStringCmapDatabaseFilePath();
-  v3 = [defaultManager createFileAtPath:v6 contents:0 attributes:0];
+  v7 = UARPStringCmapDatabaseFilePath(defaultManager);
+  v4 = [defaultManager createFileAtPath:v7 contents:0 attributes:0];
 
-  if ((v3 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -412,13 +406,13 @@ LABEL_11:
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)cmapDatabaseFileExists
 {
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v3 = UARPStringCmapDatabaseFilePath();
+  v3 = UARPStringCmapDatabaseFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   return v4;
@@ -427,7 +421,7 @@ LABEL_11:
 - (BOOL)cleanUpCmapDatabaseFiles
 {
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v4 = UARPStringCmapDirectoryPath();
+  v4 = UARPStringCmapDirectoryPath(defaultManager);
   v9 = 0;
   v5 = [defaultManager removeItemAtPath:v4 error:&v9];
   v6 = v9;
@@ -444,27 +438,11 @@ LABEL_11:
   return v5;
 }
 
-- (void)initCmapDatabase:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initCmapDatabase:.cold.2()
 {
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)flushToDisk
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCmapMapping:.cold.1()
@@ -488,38 +466,26 @@ LABEL_11:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)expandCrshData:withAppleModelNumber:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)createCmapDatabaseFile
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = UARPStringCmapDatabaseFilePath();
-  v4[0] = 136315394;
+  v2 = UARPStringCmapDatabaseFilePath(selfCopy);
+  v3[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_247AA7000, selfCopy, OS_LOG_TYPE_ERROR, "%s: Unable to create file at %@", v4, 0x16u);
-
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_247AA7000, selfCopy, OS_LOG_TYPE_ERROR, "%s: Unable to create file at %@", v3, 0x16u);
 }
 
 - (void)cleanUpCmapDatabaseFiles
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v4 = UARPStringCmapDirectoryPath();
-  v7[0] = 136315650;
+  v4 = UARPStringCmapDirectoryPath(selfCopy);
+  v6[0] = 136315650;
   OUTLINED_FUNCTION_2();
-  v8 = v5;
-  v9 = a2;
-  _os_log_error_impl(&dword_247AA7000, selfCopy, OS_LOG_TYPE_ERROR, "%s: Unable to remove files at %@ (%@)", v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = v5;
+  v8 = a2;
+  _os_log_error_impl(&dword_247AA7000, selfCopy, OS_LOG_TYPE_ERROR, "%s: Unable to remove files at %@ (%@)", v6, 0x20u);
 }
 
 @end

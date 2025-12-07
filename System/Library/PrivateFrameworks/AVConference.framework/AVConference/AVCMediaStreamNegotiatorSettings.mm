@@ -13,10 +13,10 @@
 
 - (AVCMediaStreamNegotiatorSettings)initWithOptions:(id)options deviceRole:(unsigned __int8)role defaultDirection:(int64_t)direction error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = AVCMediaStreamNegotiatorSettings;
-  v8 = [(AVCMediaStreamNegotiatorSettings *)&v11 init:options];
+  v13 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = AVCMediaStreamNegotiatorSettings;
+  v8 = [(AVCMediaStreamNegotiatorSettings *)&v12 init:options];
   v9 = v8;
   if (!v8)
   {
@@ -26,13 +26,14 @@ LABEL_7:
     return 0;
   }
 
-  if (![(AVCMediaStreamNegotiatorSettings *)v8 setUpDirection:direction withOptions:options])
+  v10 = [(AVCMediaStreamNegotiatorSettings *)v8 setUpDirection:direction withOptions:options];
+  if ((v10 & 1) == 0)
   {
     [AVCMediaStreamNegotiatorSettings initWithOptions:v9 deviceRole:? defaultDirection:? error:?];
     goto LABEL_7;
   }
 
-  v9->_localSSRC = RTPGenerateSSRC();
+  v9->_localSSRC = RTPGenerateSSRC(v10);
   v9->_tilesPerFrame = 1;
   v9->_ltrpEnabled = 1;
   v9->_bitrateArbiterMode = VCBitrateArbiter_ModeFromOperatingMode([(AVCMediaStreamNegotiatorSettings *)v9 operatingMode]);

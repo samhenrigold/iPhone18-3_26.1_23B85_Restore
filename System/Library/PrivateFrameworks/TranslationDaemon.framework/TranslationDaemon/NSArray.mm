@@ -110,47 +110,45 @@ void __52__NSArray__LTAsyncMap___ltSequentialMap_completion___block_invoke(uint6
   v2 = [*(a1 + 32) nextObject];
   if (v2)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __52__NSArray__LTAsyncMap___ltSequentialMap_completion___block_invoke_2;
-    v9[3] = &unk_2789B53A0;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __52__NSArray__LTAsyncMap___ltSequentialMap_completion___block_invoke_2;
+    v8[3] = &unk_2789B53A0;
     v3 = *(a1 + 56);
-    v11 = *(a1 + 48);
+    v10 = *(a1 + 48);
     v4 = *(a1 + 40);
     v5 = *(a1 + 64);
-    v10 = v4;
-    v12 = v5;
-    (*(v3 + 16))(v3, v2, v9);
+    v9 = v4;
+    v11 = v5;
+    (*(v3 + 16))(v3, v2, v8);
   }
 
   else
   {
-    v6 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
-    v7 = *(*(a1 + 64) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = 0;
+    v6 = *(*(a1 + 64) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = 0;
   }
 }
 
 void __52__NSArray__LTAsyncMap___ltSequentialMap_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v8 = a2;
   v5 = a3;
   if (v5)
   {
-    v6 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = 0;
+    v6 = *(*(a1 + 48) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = 0;
   }
 
   else
   {
-    if (v9)
+    if (v8)
     {
-      [*(a1 + 32) addObject:v9];
+      [*(a1 + 32) addObject:v8];
     }
 
     (*(*(*(*(a1 + 48) + 8) + 40) + 16))();

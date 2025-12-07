@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000026B8();
+  sub_1000026B8(selfCopy);
 }
 
 - (_TtC8Closures22ClosuresViewController)initWithNibName:(id)name bundle:(id)bundle

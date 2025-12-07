@@ -111,13 +111,11 @@
 
 - (void)generateSequenceNumber
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v4[0] = 67109120;
-  v4[1] = [OUTLINED_FUNCTION_9() txSeqNum];
-  _os_log_debug_impl(&dword_272965000, v1, OS_LOG_TYPE_DEBUG, "WPPM: tx Seq num %d", v4, 8u);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [OUTLINED_FUNCTION_9() txSeqNum];
+  _os_log_debug_impl(&dword_272965000, v1, OS_LOG_TYPE_DEBUG, "WPPM: tx Seq num %d", v3, 8u);
 }
 
 @end

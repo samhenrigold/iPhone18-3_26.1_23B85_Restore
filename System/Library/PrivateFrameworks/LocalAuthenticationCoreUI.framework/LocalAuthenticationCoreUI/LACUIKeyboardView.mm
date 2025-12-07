@@ -2,6 +2,7 @@
 - (CGSize)intrinsicContentSize;
 - (LACUIKeyboardView)initWithKeyboard:(id)keyboard;
 - (void)_setup;
+- (void)setRenderInProcess:(BOOL)process;
 @end
 
 @implementation LACUIKeyboardView
@@ -34,6 +35,13 @@
   result.height = v8;
   result.width = v7;
   return result;
+}
+
+- (void)setRenderInProcess:(BOOL)process
+{
+  processCopy = process;
+  WeakRetained = objc_loadWeakRetained(&self->_keyboard);
+  [WeakRetained setRenderInProcess:processCopy];
 }
 
 - (void)_setup

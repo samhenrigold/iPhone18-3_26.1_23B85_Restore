@@ -155,9 +155,7 @@
 
 - (void)requestCapabilitiesSet:(id)set
 {
-  v4 = [set setByAddingObject:@"classic"];
-  requestedCapabilities = self->_requestedCapabilities;
-  self->_requestedCapabilities = v4;
+  self->_requestedCapabilities = [set setByAddingObject:@"classic"];
 
   MEMORY[0x2821F96F8]();
 }
@@ -630,20 +628,18 @@ LABEL_6:
 
 - (void)secureArchive
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to archive config with error: [%{public}@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to archive config with error: [%{public}@]", &v2, 0xCu);
 }
 
 + (void)secureUnarchiveWithData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to unarchive config data with error: [%{public}@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to unarchive config data with error: [%{public}@]", &v2, 0xCu);
 }
 
 @end

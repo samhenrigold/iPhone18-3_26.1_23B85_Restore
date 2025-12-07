@@ -30,34 +30,33 @@
   dispatch_async(v5, v7);
 }
 
-void __71__ATXNPlusOneStudyUploader_uploadStudyDataToCoreAnalyticsWithActivity___block_invoke(uint64_t a1)
+void __71__ATXNPlusOneStudyUploader_uploadStudyDataToCoreAnalyticsWithActivity___block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v8) = 0;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "ATXNPlusOneStudyUploader: Start to prepare N+1 study data.", &v8, 2u);
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXNPlusOneStudyUploader: Start to prepare N+1 study data.", &v8, 2u);
   }
 
   if (([*(a1 + 32) didDefer] & 1) == 0)
   {
-    v3 = [*(a1 + 40) _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:*(a1 + 32)];
-    if ([v3 count] && (objc_msgSend(*(a1 + 32), "didDefer") & 1) == 0)
+    v4 = [*(a1 + 40) _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:*(a1 + 32)];
+    if ([v4 count] && (objc_msgSend(*(a1 + 32), "didDefer") & 1) == 0)
     {
-      v4 = [*(a1 + 40) _preparedEventsFromEmptyEvents:v3 activity:*(a1 + 32)];
+      v5 = [*(a1 + 40) _preparedEventsFromEmptyEvents:v4 activity:*(a1 + 32)];
 
-      if ([v4 count] && (objc_msgSend(*(a1 + 32), "didDefer") & 1) == 0)
+      if ([v5 count] && (objc_msgSend(*(a1 + 32), "didDefer") & 1) == 0)
       {
-        v3 = [*(a1 + 40) _applyPrivacyFilterToEvents:v4];
+        v4 = [*(a1 + 40) _applyPrivacyFilterToEvents:v5];
 
-        if ([v3 count] && (objc_msgSend(*(a1 + 32), "didDefer") & 1) == 0)
+        if ([v4 count] && (objc_msgSend(*(a1 + 32), "didDefer") & 1) == 0)
         {
-          [*(a1 + 40) _sendEventsToCoreAnalytics:v3];
-          v6 = __atxlog_handle_home_screen();
+          v6 = __atxlog_handle_home_screen([*(a1 + 40) _sendEventsToCoreAnalytics:v4]);
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
-            v7 = [v3 count];
+            v7 = [v4 count];
             v8 = 134217984;
             v9 = v7;
             _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXNPlusOneStudyUploader: Sent %lu events to CoreAnalytics.", &v8, 0xCu);
@@ -67,12 +66,10 @@ void __71__ATXNPlusOneStudyUploader_uploadStudyDataToCoreAnalyticsWithActivity__
 
       else
       {
-        v3 = v4;
+        v4 = v5;
       }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dryRunResultFilterByExtensionBundleId:(id)id completionHandler:(id)handler
@@ -92,159 +89,157 @@ void __71__ATXNPlusOneStudyUploader_uploadStudyDataToCoreAnalyticsWithActivity__
   dispatch_async(v8, block);
 }
 
-void __84__ATXNPlusOneStudyUploader_dryRunResultFilterByExtensionBundleId_completionHandler___block_invoke(uint64_t a1)
+void __84__ATXNPlusOneStudyUploader_dryRunResultFilterByExtensionBundleId_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v40 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __84__ATXNPlusOneStudyUploader_dryRunResultFilterByExtensionBundleId_completionHandler___block_invoke_cold_1();
   }
 
-  v3 = [*(a1 + 32) _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:0];
-  v4 = v3;
+  v4 = [*(a1 + 32) _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:0];
+  v5 = v4;
   if (*(a1 + 40))
   {
-    v5 = objc_opt_new();
-    v33 = 0u;
+    v6 = objc_opt_new();
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
-    if (v7)
+    v37 = 0u;
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v34;
+      v9 = v8;
+      v10 = *v35;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v34 != v9)
+          if (*v35 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * i);
-          v12 = [v11 extensionBundleId];
-          v13 = [v12 isEqualToString:*(a1 + 40)];
+          v12 = *(*(&v34 + 1) + 8 * i);
+          v13 = [v12 extensionBundleId];
+          v14 = [v13 isEqualToString:*(a1 + 40)];
 
-          if (v13)
+          if (v14)
           {
-            [v5 addObject:v11];
+            [v6 addObject:v12];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 
   else
   {
-    v5 = v3;
+    v6 = v4;
   }
 
-  v14 = [*(a1 + 32) _preparedEventsFromEmptyEvents:v5 activity:0];
+  v15 = [*(a1 + 32) _preparedEventsFromEmptyEvents:v6 activity:0];
 
-  v15 = [*(a1 + 32) _applyPrivacyFilterToEvents:v14];
+  v16 = [*(a1 + 32) _applyPrivacyFilterToEvents:v15];
 
-  v16 = objc_opt_new();
-  v29 = 0u;
+  v17 = objc_opt_new();
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v18)
+  v33 = 0u;
+  v18 = v16;
+  v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = *v30;
+    v20 = v19;
+    v21 = *v31;
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v30 != v20)
+        if (*v31 != v21)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v29 + 1) + 8 * j);
-        v23 = [v22 coreAnalyticsEvent];
-        v24 = [v23 mutableCopy];
+        v23 = *(*(&v30 + 1) + 8 * j);
+        v24 = [v23 coreAnalyticsEvent];
+        v25 = [v24 mutableCopy];
 
-        v25 = [v22 appScreenTimeCategory] - 1;
-        v26 = @"Unknown";
-        if (v25 <= 0xE)
+        v26 = [v23 appScreenTimeCategory] - 1;
+        v27 = @"Unknown";
+        if (v26 <= 0xE)
         {
-          v26 = off_27859D940[v25];
+          v27 = off_27859D940[v26];
         }
 
-        [v24 setObject:v26 forKeyedSubscript:@"appScreenTimeCategory"];
-        [v16 addObject:v24];
+        [v25 setObject:v27 forKeyedSubscript:@"appScreenTimeCategory"];
+        [v17 addObject:v25];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 
-  v27 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v29 = __atxlog_handle_home_screen(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    __84__ATXNPlusOneStudyUploader_dryRunResultFilterByExtensionBundleId_completionHandler___block_invoke_cold_2(v17);
+    __84__ATXNPlusOneStudyUploader_dryRunResultFilterByExtensionBundleId_completionHandler___block_invoke_cold_2(v18);
   }
 
   (*(*(a1 + 48) + 16))();
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:(id)activity
 {
   activityCopy = activity;
   mEMORY[0x277CEB998] = [MEMORY[0x277CEB998] sharedInstance];
-  v17 = 0;
-  v5 = [mEMORY[0x277CEB998] fetchHomeScreenWidgetDescriptorMetadataWithError:&v17];
-  v6 = v17;
+  v18 = 0;
+  v5 = [mEMORY[0x277CEB998] fetchHomeScreenWidgetDescriptorMetadataWithError:&v18];
+  v6 = v18;
 
   if (v6)
   {
-    v7 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXNPlusOneStudyUploader _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = objc_opt_new();
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity___block_invoke;
-    v14[3] = &unk_27859D858;
-    v15 = activityCopy;
-    v10 = v9;
-    v16 = v10;
-    [v5 enumerateKeysAndObjectsUsingBlock:v14];
-    v11 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v10 = objc_opt_new();
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity___block_invoke;
+    v15[3] = &unk_27859D858;
+    v16 = activityCopy;
+    v11 = v10;
+    v17 = v11;
+    v12 = __atxlog_handle_home_screen([v5 enumerateKeysAndObjectsUsingBlock:v15]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [ATXNPlusOneStudyUploader _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:v10];
+      [ATXNPlusOneStudyUploader _emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:v11];
     }
 
-    v12 = v16;
-    v7 = v10;
+    v13 = v17;
+    v8 = v11;
 
-    v8 = v7;
+    v9 = v8;
   }
 
-  return v8;
+  return v9;
 }
 
 void __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -270,14 +265,14 @@ void __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceW
 
     if (v13)
     {
-      v14 = [v8 containerBundleId];
-      [v9 setAppBundleId:v14];
+      v15 = [v8 containerBundleId];
+      [v9 setAppBundleId:v15];
     }
 
     else
     {
-      v14 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_home_screen(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity___block_invoke_cold_1(v9);
       }
@@ -289,48 +284,46 @@ void __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceW
 
 - (void)_sendEventsToCoreAnalytics:(id)analytics
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   analyticsCopy = analytics;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(analyticsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _sendEventsToCoreAnalytics:];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = analyticsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        coreAnalyticsEvent = [*(*(&v12 + 1) + 8 * v9) coreAnalyticsEvent];
+        coreAnalyticsEvent = [*(*(&v11 + 1) + 8 * v9) coreAnalyticsEvent];
         AnalyticsSendEvent();
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_preparedEventsFromEmptyEvents:(id)events activity:(id)activity
@@ -377,8 +370,8 @@ LABEL_3:
 
   v11 = [(ATXNPlusOneStudyUploader *)self _preparedEvents_suggestionCounts:v7 activity:activityCopy];
 
-  v12 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_home_screen(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEventsFromEmptyEvents:activity:];
   }
@@ -392,20 +385,20 @@ LABEL_7:
 
 - (id)_preparedEvents_widgetExistsOnScreen:(id)screen activity:(id)activity
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   screenCopy = screen;
   activityCopy = activity;
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen(activityCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEvents_widgetExistsOnScreen:activity:];
   }
 
-  v68 = 0;
-  v42 = objc_opt_new();
-  v7 = [v42 loadHomeScreenAndTodayPageConfigurationsWithError:&v68];
-  v8 = v68;
-  v43 = v8;
+  v67 = 0;
+  v41 = objc_opt_new();
+  v7 = [v41 loadHomeScreenAndTodayPageConfigurationsWithError:&v67];
+  v8 = v67;
+  v42 = v8;
   if (v7)
   {
     v9 = v8 == 0;
@@ -416,79 +409,79 @@ LABEL_7:
     v9 = 0;
   }
 
-  v41 = v7;
+  v40 = v7;
   if (v9)
   {
-    v40 = screenCopy;
+    v39 = screenCopy;
     v10 = objc_opt_new();
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     obj = v7;
-    v46 = [obj countByEnumeratingWithState:&v64 objects:v72 count:16];
-    if (v46)
+    v45 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+    if (v45)
     {
-      v45 = *v65;
+      v44 = *v64;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v65 != v45)
+          if (*v64 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v64 + 1) + 8 * v12);
+          v13 = *(*(&v63 + 1) + 8 * v12);
           if ([activityCopy didDefer])
           {
-            screenCopy = v40;
-            v11 = v40;
+            screenCopy = v39;
+            v11 = v39;
 
             goto LABEL_43;
           }
 
-          v48 = v12;
-          v62 = 0u;
-          v63 = 0u;
-          v60 = 0u;
+          v47 = v12;
           v61 = 0u;
+          v62 = 0u;
+          v59 = 0u;
+          v60 = 0u;
           stacks = [v13 stacks];
-          v51 = [stacks countByEnumeratingWithState:&v60 objects:v71 count:16];
-          if (v51)
+          v50 = [stacks countByEnumeratingWithState:&v59 objects:v70 count:16];
+          if (v50)
           {
-            v50 = *v61;
+            v49 = *v60;
             do
             {
-              for (i = 0; i != v51; ++i)
+              for (i = 0; i != v50; ++i)
               {
-                if (*v61 != v50)
+                if (*v60 != v49)
                 {
                   objc_enumerationMutation(stacks);
                 }
 
-                v15 = *(*(&v60 + 1) + 8 * i);
+                v15 = *(*(&v59 + 1) + 8 * i);
+                v55 = 0u;
                 v56 = 0u;
                 v57 = 0u;
                 v58 = 0u;
-                v59 = 0u;
                 widgets = [v15 widgets];
-                v17 = [widgets countByEnumeratingWithState:&v56 objects:v70 count:16];
+                v17 = [widgets countByEnumeratingWithState:&v55 objects:v69 count:16];
                 if (v17)
                 {
                   v18 = v17;
-                  v19 = *v57;
+                  v19 = *v56;
                   do
                   {
                     for (j = 0; j != v18; ++j)
                     {
-                      if (*v57 != v19)
+                      if (*v56 != v19)
                       {
                         objc_enumerationMutation(widgets);
                       }
 
-                      v21 = *(*(&v56 + 1) + 8 * j);
+                      v21 = *(*(&v55 + 1) + 8 * j);
                       extensionBundleId = [v21 extensionBundleId];
                       v23 = [v10 objectForKeyedSubscript:extensionBundleId];
 
@@ -505,25 +498,25 @@ LABEL_7:
                       [v27 addObject:widgetKind];
                     }
 
-                    v18 = [widgets countByEnumeratingWithState:&v56 objects:v70 count:16];
+                    v18 = [widgets countByEnumeratingWithState:&v55 objects:v69 count:16];
                   }
 
                   while (v18);
                 }
               }
 
-              v51 = [stacks countByEnumeratingWithState:&v60 objects:v71 count:16];
+              v50 = [stacks countByEnumeratingWithState:&v59 objects:v70 count:16];
             }
 
-            while (v51);
+            while (v50);
           }
 
-          v12 = v48 + 1;
+          v12 = v47 + 1;
         }
 
-        while (v48 + 1 != v46);
-        v46 = [obj countByEnumeratingWithState:&v64 objects:v72 count:16];
-        if (v46)
+        while (v47 + 1 != v45);
+        v45 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+        if (v45)
         {
           continue;
         }
@@ -532,45 +525,45 @@ LABEL_7:
       }
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
-    v29 = v40;
-    v30 = [v29 countByEnumeratingWithState:&v52 objects:v69 count:16];
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v29 = v39;
+    v30 = [v29 countByEnumeratingWithState:&v51 objects:v68 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v53;
+      v32 = *v52;
       do
       {
         for (k = 0; k != v31; ++k)
         {
-          if (*v53 != v32)
+          if (*v52 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v52 + 1) + 8 * k);
+          v34 = *(*(&v51 + 1) + 8 * k);
           extensionBundleId4 = [v34 extensionBundleId];
           v36 = [v10 objectForKeyedSubscript:extensionBundleId4];
           widgetKind2 = [v34 widgetKind];
           [v34 setWidgetExistsOnScreen:{objc_msgSend(v36, "containsObject:", widgetKind2)}];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v52 objects:v69 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v51 objects:v68 count:16];
       }
 
       while (v31);
     }
 
     v11 = v29;
-    screenCopy = v40;
+    screenCopy = v39;
   }
 
   else
   {
-    v10 = __atxlog_handle_home_screen();
+    v10 = __atxlog_handle_home_screen(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXNPlusOneStudyUploader _preparedEvents_widgetExistsOnScreen:activity:];
@@ -581,44 +574,42 @@ LABEL_7:
 
 LABEL_43:
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_preparedEvents_appPushNotificationEnabled:(id)enabled activity:(id)activity
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   activityCopy = activity;
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(activityCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEvents_appPushNotificationEnabled:activity:];
   }
 
   currentNotificationSettingsCenter = [MEMORY[0x277D77F68] currentNotificationSettingsCenter];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v9 = enabledCopy;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
 LABEL_5:
     v13 = 0;
-    v28 = v11;
+    v27 = v11;
     while (1)
     {
-      if (*v30 != v12)
+      if (*v29 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v29 + 1) + 8 * v13);
+      v14 = *(*(&v28 + 1) + 8 * v13);
       if ([activityCopy didDefer])
       {
         break;
@@ -631,27 +622,8 @@ LABEL_5:
         appBundleId2 = [v14 appBundleId];
         v17 = [currentNotificationSettingsCenter notificationSourceWithIdentifier:appBundleId2];
 
-        if ([v17 isHiddenFromSettings])
+        if (([v17 isHiddenFromSettings] & 1) != 0 || (objc_msgSend(v17, "sourceSettings"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "notificationSettings"), v19 = v9, v20 = currentNotificationSettingsCenter, v21 = objc_claimAutoreleasedReturnValue(), v22 = v12, v23 = objc_msgSend(v21, "authorizationStatus"), v21, currentNotificationSettingsCenter = v20, v9 = v19, v18, v24 = v23 == 1, v12 = v22, v11 = v27, !v24))
         {
-          goto LABEL_12;
-        }
-
-        sourceSettings = [v17 sourceSettings];
-        [sourceSettings notificationSettings];
-        v19 = v9;
-        v21 = v20 = currentNotificationSettingsCenter;
-        v22 = v12;
-        authorizationStatus = [v21 authorizationStatus];
-
-        currentNotificationSettingsCenter = v20;
-        v9 = v19;
-
-        v24 = authorizationStatus == 1;
-        v12 = v22;
-        v11 = v28;
-        if (!v24)
-        {
-LABEL_12:
           [v14 setAppPushNotificationEnabled:1];
         }
       }
@@ -663,7 +635,7 @@ LABEL_12:
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v11)
         {
           goto LABEL_5;
@@ -681,17 +653,15 @@ LABEL_17:
     v25 = v9;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)_preparedEvents_appLaunchPopularity:(id)popularity activity:(id)activity
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   popularityCopy = popularity;
   activityCopy = activity;
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(activityCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEvents_appLaunchPopularity:activity:];
@@ -700,26 +670,26 @@ LABEL_17:
   v8 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v9 = [v8 histogramForLaunchType:0];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v10 = popularityCopy;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
 LABEL_5:
     v14 = 0;
     while (1)
     {
-      if (*v22 != v13)
+      if (*v21 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v21 + 1) + 8 * v14);
+      v15 = *(*(&v20 + 1) + 8 * v14);
       if ([activityCopy didDefer])
       {
         break;
@@ -741,7 +711,7 @@ LABEL_5:
 
       if (v12 == ++v14)
       {
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v12)
         {
           goto LABEL_5;
@@ -759,8 +729,6 @@ LABEL_14:
     v18 = v10;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -768,7 +736,7 @@ LABEL_14:
 {
   categoryCopy = category;
   activityCopy = activity;
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(activityCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEvents_appScreenTimeCategory:activity:];
@@ -843,10 +811,11 @@ void __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activi
 void __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_home_screen(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_2_cold_1(a1);
     }
@@ -856,97 +825,97 @@ void __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activi
 
   else
   {
-    v7 = [a2 identifier];
-    if ([v7 isEqualToString:*MEMORY[0x277CF9618]])
+    v8 = [a2 identifier];
+    if ([v8 isEqualToString:*MEMORY[0x277CF9618]])
     {
-      v8 = 1;
+      v9 = 1;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF9610]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF9610]])
     {
-      v8 = 2;
+      v9 = 2;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF9620]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF9620]])
     {
-      v8 = 3;
+      v9 = 3;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95D8]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95D8]])
     {
-      v8 = 4;
+      v9 = 4;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF9608]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF9608]])
     {
-      v8 = 5;
+      v9 = 5;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95D0]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95D0]])
     {
-      v8 = 6;
+      v9 = 6;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95C0]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95C0]])
     {
-      v8 = 7;
+      v9 = 7;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95F0]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95F0]])
     {
-      v8 = 8;
+      v9 = 8;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95C8]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95C8]])
     {
-      v8 = 9;
+      v9 = 9;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95F8]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95F8]])
     {
-      v8 = 10;
+      v9 = 10;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95E0]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95E0]])
     {
-      v8 = 11;
+      v9 = 11;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF95E8]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF95E8]])
     {
-      v8 = 12;
+      v9 = 12;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF9630]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF9630]])
     {
-      v8 = 13;
+      v9 = 13;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF9600]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF9600]])
     {
-      v8 = 14;
+      v9 = 14;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x277CF9628]])
+    else if ([v8 isEqualToString:*MEMORY[0x277CF9628]])
     {
-      v8 = 15;
+      v9 = 15;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    [*(a1 + 32) setAppScreenTimeCategory:v8];
+    [*(a1 + 32) setAppScreenTimeCategory:v9];
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
-uint64_t __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_213(uint64_t a1)
+uint64_t __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_213(uint64_t a1, uint64_t a2)
 {
-  v2 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_213_cold_1(a1);
   }
@@ -956,35 +925,35 @@ uint64_t __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_ac
 
 - (id)_preparedEvents_numAppLaunches:(id)launches activity:(id)activity
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   launchesCopy = launches;
   activityCopy = activity;
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(activityCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEvents_numAppLaunches:activity:];
   }
 
   v8 = objc_opt_new();
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v9 = launchesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (v10)
   {
-    v11 = *v57;
+    v11 = *v56;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v57 != v11)
+        if (*v56 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v56 + 1) + 8 * i);
+        v13 = *(*(&v55 + 1) + 8 * i);
         appBundleId = [v13 appBundleId];
         v15 = appBundleId == 0;
 
@@ -1013,7 +982,7 @@ uint64_t __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_ac
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
     while (v10);
@@ -1036,39 +1005,37 @@ uint64_t __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_ac
 
   else
   {
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__57;
-    v54 = __Block_byref_object_dispose__57;
-    v55 = v9;
+    v49 = 0;
+    v50 = &v49;
+    v51 = 0x3032000000;
+    v52 = __Block_byref_object_copy__57;
+    v53 = __Block_byref_object_dispose__57;
+    v54 = v9;
     v34 = BiomeLibrary();
     v35 = [v34 App];
     inFocus = [v35 InFocus];
     v37 = [MEMORY[0x277CCABB0] numberWithDouble:v32 + -2419200.0];
     v38 = [inFocus atx_publisherFromStartTime:v37];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke;
-    v49[3] = &unk_278597540;
-    v49[4] = &v50;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke_218;
-    v42[3] = &unk_27859D8D0;
-    v43 = activityCopy;
-    v44 = v8;
-    v45 = v30 + -1209600.0;
-    v46 = v28 + -604800.0;
-    v47 = v26 + -259200.0;
-    v48 = v24 + -86400.0;
-    v39 = [v38 sinkWithCompletion:v49 receiveInput:v42];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke;
+    v48[3] = &unk_278597540;
+    v48[4] = &v49;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke_218;
+    v41[3] = &unk_27859D8D0;
+    v42 = activityCopy;
+    v43 = v8;
+    v44 = v30 + -1209600.0;
+    v45 = v28 + -604800.0;
+    v46 = v26 + -259200.0;
+    v47 = v24 + -86400.0;
+    v39 = [v38 sinkWithCompletion:v48 receiveInput:v41];
 
-    v33 = v51[5];
-    _Block_object_dispose(&v50, 8);
+    v33 = v50[5];
+    _Block_object_dispose(&v49, 8);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -1076,17 +1043,18 @@ uint64_t __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_ac
 void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 state])
+  v4 = [v3 state];
+  if (v4)
   {
-    v4 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_home_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke_cold_1(v3);
     }
 
-    v5 = *(*(a1 + 32) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = 0;
+    v6 = *(*(a1 + 32) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = 0;
   }
 }
 
@@ -1099,58 +1067,58 @@ void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___bl
 
     if (v4)
     {
-      v5 = [v3 eventBody];
-      if ([v5 starting])
+      v6 = [v3 eventBody];
+      if ([v6 starting])
       {
-        v6 = *(a1 + 40);
-        v7 = [v5 bundleID];
-        v8 = [v6 objectForKeyedSubscript:v7];
+        v7 = *(a1 + 40);
+        v8 = [v6 bundleID];
+        v9 = [v7 objectForKeyedSubscript:v8];
 
-        if (v8)
+        if (v9)
         {
-          v9 = *(a1 + 40);
-          v10 = [v5 bundleID];
-          v11 = [v9 objectForKeyedSubscript:v10];
+          v10 = *(a1 + 40);
+          v11 = [v6 bundleID];
+          v12 = [v10 objectForKeyedSubscript:v11];
 
-          [v11 setNumAppLaunchPast28Day:{objc_msgSend(v11, "numAppLaunchPast28Day") + 1}];
-          v12 = [v5 absoluteTimestamp];
-          [v12 timeIntervalSinceReferenceDate];
-          v14 = v13;
-          v15 = *(a1 + 48);
+          [v12 setNumAppLaunchPast28Day:{objc_msgSend(v12, "numAppLaunchPast28Day") + 1}];
+          v13 = [v6 absoluteTimestamp];
+          [v13 timeIntervalSinceReferenceDate];
+          v15 = v14;
+          v16 = *(a1 + 48);
 
-          if (v14 > v15)
+          if (v15 > v16)
           {
-            [v11 setNumAppLaunchPast14Day:{objc_msgSend(v11, "numAppLaunchPast14Day") + 1}];
+            [v12 setNumAppLaunchPast14Day:{objc_msgSend(v12, "numAppLaunchPast14Day") + 1}];
           }
 
-          v16 = [v5 absoluteTimestamp];
-          [v16 timeIntervalSinceReferenceDate];
-          v18 = v17;
-          v19 = *(a1 + 56);
+          v17 = [v6 absoluteTimestamp];
+          [v17 timeIntervalSinceReferenceDate];
+          v19 = v18;
+          v20 = *(a1 + 56);
 
-          if (v18 > v19)
+          if (v19 > v20)
           {
-            [v11 setNumAppLaunchPast7Day:{objc_msgSend(v11, "numAppLaunchPast7Day") + 1}];
+            [v12 setNumAppLaunchPast7Day:{objc_msgSend(v12, "numAppLaunchPast7Day") + 1}];
           }
 
-          v20 = [v5 absoluteTimestamp];
-          [v20 timeIntervalSinceReferenceDate];
-          v22 = v21;
-          v23 = *(a1 + 64);
+          v21 = [v6 absoluteTimestamp];
+          [v21 timeIntervalSinceReferenceDate];
+          v23 = v22;
+          v24 = *(a1 + 64);
 
-          if (v22 > v23)
+          if (v23 > v24)
           {
-            [v11 setNumAppLaunchPast3Day:{objc_msgSend(v11, "numAppLaunchPast3Day") + 1}];
+            [v12 setNumAppLaunchPast3Day:{objc_msgSend(v12, "numAppLaunchPast3Day") + 1}];
           }
 
-          v24 = [v5 absoluteTimestamp];
-          [v24 timeIntervalSinceReferenceDate];
-          v26 = v25;
-          v27 = *(a1 + 72);
+          v25 = [v6 absoluteTimestamp];
+          [v25 timeIntervalSinceReferenceDate];
+          v27 = v26;
+          v28 = *(a1 + 72);
 
-          if (v26 > v27)
+          if (v27 > v28)
           {
-            [v11 setNumAppLaunchPastDay:{objc_msgSend(v11, "numAppLaunchPastDay") + 1}];
+            [v12 setNumAppLaunchPastDay:{objc_msgSend(v12, "numAppLaunchPastDay") + 1}];
           }
         }
       }
@@ -1158,8 +1126,8 @@ void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___bl
 
     else
     {
-      v28 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v29 = __atxlog_handle_home_screen(v5);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke_218_cold_1(v3);
       }
@@ -1172,7 +1140,7 @@ void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___bl
   v99 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   activityCopy = activity;
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen(activityCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [ATXNPlusOneStudyUploader _preparedEvents_suggestionCounts:activity:];
@@ -1276,10 +1244,11 @@ void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___bl
   }
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  if ([(ATXNPlusOneStudyUploader *)self _processClientModelUpdateStreamFromStartTime:v20 shortcutSuggestionHandler:v23 infoSuggestionHandler:activityCopy activity:v24 + -86400.0])
+  v25 = [(ATXNPlusOneStudyUploader *)self _processClientModelUpdateStreamFromStartTime:v20 shortcutSuggestionHandler:v23 infoSuggestionHandler:activityCopy activity:v24 + -86400.0];
+  if (v25)
   {
-    v25 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v26 = __atxlog_handle_home_screen(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       v29 = v79[3];
       v30 = v75[3];
@@ -1299,15 +1268,15 @@ void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___bl
       v95 = v33;
       v96 = 2048;
       v97 = v34;
-      _os_log_debug_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEBUG, "ATXNPlusOneStudyUploader: totalShortcutConversionCount %lu (high threshold) %lu (med threshold) %lu (low threshold), totalInfoHeuristicsCount %lu (high threshold) %lu (med threshold) %lu (low threshold).", buf, 0x3Eu);
+      _os_log_debug_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEBUG, "ATXNPlusOneStudyUploader: totalShortcutConversionCount %lu (high threshold) %lu (med threshold) %lu (low threshold), totalInfoHeuristicsCount %lu (high threshold) %lu (med threshold) %lu (low threshold).", buf, 0x3Eu);
     }
 
 LABEL_15:
-    v26 = v53[5];
+    v27 = v53[5];
     goto LABEL_17;
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_17:
 
   _Block_object_dispose(&v52, 8);
@@ -1318,9 +1287,7 @@ LABEL_17:
   _Block_object_dispose(&v74, 8);
   _Block_object_dispose(&v78, 8);
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v27;
 }
 
 void __70__ATXNPlusOneStudyUploader__preparedEvents_suggestionCounts_activity___block_invoke(uint64_t a1, void *a2)
@@ -1391,7 +1358,7 @@ void __70__ATXNPlusOneStudyUploader__preparedEvents_suggestionCounts_activity___
 
               else
               {
-                v30 = __atxlog_handle_home_screen();
+                v30 = __atxlog_handle_home_screen(0);
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
                 {
                   __70__ATXNPlusOneStudyUploader__preparedEvents_suggestionCounts_activity___block_invoke_cold_1();
@@ -1460,7 +1427,7 @@ void __70__ATXNPlusOneStudyUploader__preparedEvents_suggestionCounts_activity___
 
       else
       {
-        v21 = __atxlog_handle_home_screen();
+        v21 = __atxlog_handle_home_screen(0);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           __70__ATXNPlusOneStudyUploader__preparedEvents_suggestionCounts_activity___block_invoke_223_cold_1();
@@ -1479,54 +1446,55 @@ void __70__ATXNPlusOneStudyUploader__preparedEvents_suggestionCounts_activity___
   handlerCopy = handler;
   suggestionHandlerCopy = suggestionHandler;
   activityCopy = activity;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 1;
-  v27 = 0;
-  v28[0] = &v27;
-  v28[1] = 0x2020000000;
-  v28[2] = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 1;
+  v28 = 0;
+  v29[0] = &v28;
+  v29[1] = 0x2020000000;
+  v29[2] = 0;
   v12 = objc_opt_new();
   v13 = [v12 publisherFromStartTime:time];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke;
-  v26[3] = &unk_278597540;
-  v26[4] = &v29;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_225;
-  v21[3] = &unk_27859D920;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke;
+  v27[3] = &unk_278597540;
+  v27[4] = &v30;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_225;
+  v22[3] = &unk_27859D920;
   v14 = activityCopy;
-  v22 = v14;
+  v23 = v14;
   v15 = handlerCopy;
-  v23 = v15;
-  v25 = &v27;
+  v24 = v15;
+  v26 = &v28;
   v16 = suggestionHandlerCopy;
-  v24 = v16;
-  v17 = [v13 sinkWithCompletion:v26 receiveInput:v21];
+  v25 = v16;
+  v17 = [v13 sinkWithCompletion:v27 receiveInput:v22];
 
-  v18 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = __atxlog_handle_home_screen(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    [ATXNPlusOneStudyUploader _processClientModelUpdateStreamFromStartTime:v28 shortcutSuggestionHandler:v18 infoSuggestionHandler:? activity:?];
+    [ATXNPlusOneStudyUploader _processClientModelUpdateStreamFromStartTime:v29 shortcutSuggestionHandler:v19 infoSuggestionHandler:? activity:?];
   }
 
-  v19 = *(v30 + 24);
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v29, 8);
+  v20 = *(v31 + 24);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v30, 8);
 
-  return v19;
+  return v20;
 }
 
 void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 state])
+  v4 = [v3 state];
+  if (v4)
   {
-    v4 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_home_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_cold_1(v3);
     }
@@ -1537,7 +1505,7 @@ void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTim
 
 void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_225(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([*(a1 + 32) didDefer] & 1) == 0)
   {
@@ -1545,8 +1513,8 @@ void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTim
 
     if (!v4)
     {
-      v5 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_home_screen(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_225_cold_1(v3);
       }
@@ -1554,83 +1522,81 @@ void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTim
       goto LABEL_15;
     }
 
-    v5 = [v3 eventBody];
-    v6 = MEMORY[0x277D42070];
-    v7 = [v5 clientModelId];
-    v8 = [v6 clientModelTypeFromClientModelId:v7];
+    v6 = [v3 eventBody];
+    v7 = MEMORY[0x277D42070];
+    v8 = [v6 clientModelId];
+    v9 = [v7 clientModelTypeFromClientModelId:v8];
 
-    if (v8 <= 0x12)
+    if (v9 <= 0x12)
     {
-      if (((1 << v8) & 0x88A) != 0)
+      if (((1 << v9) & 0x88A) != 0)
       {
-        v29 = 0u;
-        v30 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v9 = [v5 suggestions];
-        v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
-        if (v10)
+        v25 = 0u;
+        v26 = 0u;
+        v10 = [v6 suggestions];
+        v11 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        if (v11)
         {
-          v11 = v10;
-          v12 = *v28;
+          v12 = v11;
+          v13 = *v26;
           do
           {
-            for (i = 0; i != v11; ++i)
+            for (i = 0; i != v12; ++i)
             {
-              if (*v28 != v12)
+              if (*v26 != v13)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v10);
               }
 
-              v14 = *(*(&v27 + 1) + 8 * i);
               v15 = objc_autoreleasePoolPush();
               (*(*(a1 + 40) + 16))();
               objc_autoreleasePoolPop(v15);
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
           }
 
-          while (v11);
+          while (v12);
         }
       }
 
       else
       {
-        if (v8 != 18)
+        if (v9 != 18)
         {
           goto LABEL_15;
         }
 
-        v25 = 0u;
-        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v9 = [v5 suggestions];
-        v17 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
-        if (v17)
+        v21 = 0u;
+        v22 = 0u;
+        v10 = [v6 suggestions];
+        v16 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        if (v16)
         {
-          v18 = v17;
-          v19 = *v24;
+          v17 = v16;
+          v18 = *v22;
           do
           {
-            for (j = 0; j != v18; ++j)
+            for (j = 0; j != v17; ++j)
             {
-              if (*v24 != v19)
+              if (*v22 != v18)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v10);
               }
 
-              v21 = *(*(&v23 + 1) + 8 * j);
-              v22 = objc_autoreleasePoolPush();
+              v20 = objc_autoreleasePoolPush();
               (*(*(a1 + 48) + 16))();
-              objc_autoreleasePoolPop(v22);
+              objc_autoreleasePoolPop(v20);
             }
 
-            v18 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v17 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
-          while (v18);
+          while (v17);
         }
       }
 
@@ -1639,13 +1605,11 @@ void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTim
 
 LABEL_15:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_applyPrivacyFilterToEvents:(id)events
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if ([MEMORY[0x277D42590] isInternalBuild])
   {
@@ -1655,26 +1619,26 @@ LABEL_15:
   else
   {
     v4 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = eventsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           appBundleId = [v10 appBundleId];
           if (appBundleId)
           {
@@ -1691,133 +1655,105 @@ LABEL_15:
           [v4 addObject:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 void __84__ATXNPlusOneStudyUploader_dryRunResultFilterByExtensionBundleId_completionHandler___block_invoke_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "ATXNPlusOneStudyUploader: Sent %lu events to atxtool.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "ATXNPlusOneStudyUploader: Sent %lu events to atxtool.", v3, v4, v5, v6);
 }
 
 - (void)_emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNPlusOneStudyUploader: Error fetching widget descriptors - %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNPlusOneStudyUploader: Error fetching widget descriptors - %{public}@", v1, 0xCu);
 }
 
 - (void)_emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "ATXNPlusOneStudyUploader: There are %lu widgets eligible for N+1 on this device.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "ATXNPlusOneStudyUploader: There are %lu widgets eligible for N+1 on this device.", v3, v4, v5, v6);
 }
 
 void __84__ATXNPlusOneStudyUploader__emptyEventsForAllWidgetDescriptorsOnDeviceWithActivity___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 extensionBundleId];
-  v9 = [a1 widgetKind];
+  v8 = [a1 widgetKind];
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preparedEvents_widgetExistsOnScreen:activity:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "ATXNPlusOneStudyUploader: Error loading Home Screen config - %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "ATXNPlusOneStudyUploader: Error loading Home Screen config - %{public}@", v1, 0xCu);
 }
 
 void __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_2_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) appBundleId];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __75__ATXNPlusOneStudyUploader__preparedEvents_appScreenTimeCategory_activity___block_invoke_213_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) appBundleId];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__ATXNPlusOneStudyUploader__preparedEvents_numAppLaunches_activity___block_invoke_218_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 error];
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processClientModelUpdateStreamFromStartTime:(uint64_t)a1 shortcutSuggestionHandler:(NSObject *)a2 infoSuggestionHandler:activity:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 24);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXNPlusOneStudyUploader: Processed %lu relevant client model updates in the past 24 hrs.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXNPlusOneStudyUploader: Processed %lu relevant client model updates in the past 24 hrs.", &v3, 0xCu);
 }
 
 void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __130__ATXNPlusOneStudyUploader__processClientModelUpdateStreamFromStartTime_shortcutSuggestionHandler_infoSuggestionHandler_activity___block_invoke_225_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 error];
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

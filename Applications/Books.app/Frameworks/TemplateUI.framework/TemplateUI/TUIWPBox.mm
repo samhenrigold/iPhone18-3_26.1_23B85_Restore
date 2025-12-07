@@ -101,7 +101,7 @@
     goto LABEL_9;
   }
 
-  DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super.super._storage, 0xDu, 4uLL, 1);
+  DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super.super._storage, 13, 4, 1);
   if (DataForKey)
   {
 LABEL_9:

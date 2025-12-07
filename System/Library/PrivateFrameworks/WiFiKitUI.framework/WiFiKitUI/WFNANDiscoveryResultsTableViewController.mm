@@ -9,6 +9,7 @@
 - (void)dataSessionRequestStarted:(id)started;
 - (void)passphraseTextFieldDidChange:(id)change;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -62,20 +63,27 @@
   [(WFNANDiscoveryResultsTableViewController *)self _configureDataSource];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = WFNANDiscoveryResultsTableViewController;
+  [(WFNANDiscoveryResultsTableViewController *)&v3 viewDidDisappear:disappear];
+}
+
 - (void)_configureDataSource
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v3 = [WFNANDiscoveryResultsTableViewDataSource alloc];
   tableView = [(WFNANDiscoveryResultsTableViewController *)self tableView];
   context = [(WFNANDiscoveryResultsTableViewController *)self context];
   subscriber = [(WFNANDiscoveryResultsTableViewController *)self subscriber];
   sections = [(WFNANDiscoveryResultsTableViewController *)self sections];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_invoke;
-  v36[3] = &unk_279EC5440;
-  v36[4] = self;
-  v8 = [(WFNANDiscoveryResultsTableViewDataSource *)v3 initWithTableView:tableView context:context subscriber:subscriber sections:sections cellProvider:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_invoke;
+  v35[3] = &unk_279EC5440;
+  v35[4] = self;
+  v8 = [(WFNANDiscoveryResultsTableViewDataSource *)v3 initWithTableView:tableView context:context subscriber:subscriber sections:sections cellProvider:v35];
   [(WFNANDiscoveryResultsTableViewController *)self setDataSource:v8];
 
   v9 = objc_alloc_init(MEMORY[0x277CFB890]);
@@ -110,8 +118,8 @@
 
   if (v22 <= 0)
   {
-    v38[0] = @"WFNANDiscoveryResultsNoDiscoveryResultsIdentifier";
-    subscriber3 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+    v37[0] = @"WFNANDiscoveryResultsNoDiscoveryResultsIdentifier";
+    subscriber3 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
     v25 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:0];
     [v9 appendItemsWithIdentifiers:subscriber3 intoSectionWithIdentifier:v25];
   }
@@ -131,8 +139,8 @@
 
   if (v29 < 1)
   {
-    v37 = @"WFNANDiscoveryResultsNoDataSessionsIdentifier";
-    subscriber5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+    v36 = @"WFNANDiscoveryResultsNoDataSessionsIdentifier";
+    subscriber5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
     v32 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:1];
     [v9 appendItemsWithIdentifiers:subscriber5 intoSectionWithIdentifier:v32];
   }
@@ -148,8 +156,6 @@
 
   dataSource = [(WFNANDiscoveryResultsTableViewController *)self dataSource];
   [dataSource applySnapshot:v9 animatingDifferences:1];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 id __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -174,8 +180,8 @@ id __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_in
     if ([*(*(a1 + 32) + 1056) getDataSessionsCountForSubscriber:*(*(a1 + 32) + 1064)] >= 1)
     {
       v13 = [*(*(a1 + 32) + 1056) getDataSessionAtIndex:objc_msgSend(v6 forSubscriber:{"row"), *(*(a1 + 32) + 1064)}];
-      v30 = [v13 discoveryResult];
-      v17 = [v30 serviceSpecificInfo];
+      v28 = [v13 discoveryResult];
+      v17 = [v28 serviceSpecificInfo];
       v18 = [v17 instanceName];
       v19 = [v18 length];
       if (v19)
@@ -191,8 +197,8 @@ id __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_in
         [v20 description];
       }
       v21 = ;
-      v28 = [v12 textLabel];
-      [v28 setText:v21];
+      v26 = [v12 textLabel];
+      [v26 setText:v21];
 
       if (v19)
       {
@@ -203,15 +209,14 @@ id __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_in
       v14 = [v13 localDataAddress];
       v15 = [v14 ipv6LinkLocalAddress];
       v16 = stringForIpv6LinkLocalAddress(v15);
-      v26 = [v12 detailTextLabel];
-      [v26 setText:v16];
+      v24 = [v12 detailTextLabel];
+      [v24 setText:v16];
       goto LABEL_20;
     }
 
-    v25 = *(a1 + 32);
-    v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = v23;
-    v24 = @"kWFLocNANNoActiveDataSessions";
+    v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v13 = v22;
+    v23 = @"kWFLocNANNoActiveDataSessions";
   }
 
   else
@@ -237,21 +242,20 @@ id __64__WFNANDiscoveryResultsTableViewController__configureDataSource__block_in
         v16 = [v13 publisherAddress];
         [v16 description];
       }
-      v26 = ;
-      v27 = [v12 textLabel];
-      [v27 setText:v26];
+      v24 = ;
+      v25 = [v12 textLabel];
+      [v25 setText:v24];
 
 LABEL_20:
       goto LABEL_21;
     }
 
-    v22 = *(a1 + 32);
-    v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = v23;
-    v24 = @"kWFLocNANNoDiscoveryResults";
+    v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v13 = v22;
+    v23 = @"kWFLocNANNoDiscoveryResults";
   }
 
-  v14 = [v23 localizedStringForKey:v24 value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+  v14 = [v22 localizedStringForKey:v23 value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
   v15 = [v12 textLabel];
   [v15 setText:v14];
 LABEL_21:
@@ -263,7 +267,7 @@ LABEL_22:
 
 - (void)_handleDiscoveryResultsChangedNotification:(id)notification
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANDiscoveryResultsTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -291,8 +295,8 @@ LABEL_22:
       unsignedIntegerValue = [v12 unsignedIntegerValue];
       if (unsignedIntegerValue == 1)
       {
-        v24 = v10;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+        v23 = v10;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
         [snapshot deleteItemsWithIdentifiers:v19];
 
         if ([(WFNANTableViewContext *)self->_context getDiscoveryResultsCountForSubscriber:v8])
@@ -304,8 +308,8 @@ LABEL_15:
           goto LABEL_16;
         }
 
-        v23 = @"WFNANDiscoveryResultsNoDiscoveryResultsIdentifier";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+        v22 = @"WFNANDiscoveryResultsNoDiscoveryResultsIdentifier";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
         v20 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:0];
         [snapshot appendItemsWithIdentifiers:v18 intoSectionWithIdentifier:v20];
       }
@@ -317,8 +321,8 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v26[0] = v10;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+        v25[0] = v10;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
         v17 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:0];
         [snapshot appendItemsWithIdentifiers:v16 intoSectionWithIdentifier:v17];
 
@@ -327,8 +331,8 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v25 = @"WFNANDiscoveryResultsNoDiscoveryResultsIdentifier";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+        v24 = @"WFNANDiscoveryResultsNoDiscoveryResultsIdentifier";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
         [snapshot deleteItemsWithIdentifiers:v18];
       }
 
@@ -337,13 +341,11 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDataSessionsChangedNotification:(id)notification
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANDiscoveryResultsTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -370,14 +372,14 @@ LABEL_16:
     {
       if ([v12 unsignedIntegerValue] == 1)
       {
-        v21[0] = v10;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+        v20[0] = v10;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
         [snapshot deleteItemsWithIdentifiers:v15];
 
         if (![(WFNANTableViewContext *)self->_context getDataSessionsCountForSubscriber:self->_subscriber])
         {
-          v20 = @"WFNANDiscoveryResultsNoDataSessionsIdentifier";
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+          v19 = @"WFNANDiscoveryResultsNoDataSessionsIdentifier";
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
           v17 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:1];
           [snapshot appendItemsWithIdentifiers:v16 intoSectionWithIdentifier:v17];
         }
@@ -387,8 +389,6 @@ LABEL_16:
       [dataSource2 applySnapshot:snapshot animatingDifferences:1];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)passphraseTextFieldDidChange:(id)change
@@ -441,108 +441,106 @@ LABEL_16:
 void __78__WFNANDiscoveryResultsTableViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1, void *a2)
 {
   v3 = MEMORY[0x277CCA8D8];
-  v4 = *(a1 + 32);
-  v7 = a2;
-  v5 = [v3 bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"kWFLocNANPassphrase" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-  [v7 setPlaceholder:v6];
+  v6 = a2;
+  v4 = [v3 bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"kWFLocNANPassphrase" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+  [v6 setPlaceholder:v5];
 
-  [v7 addTarget:*(a1 + 32) action:sel_passphraseTextFieldDidChange_ forControlEvents:0x20000];
+  [v6 addTarget:*(a1 + 32) action:sel_passphraseTextFieldDidChange_ forControlEvents:0x20000];
 }
 
 void __78__WFNANDiscoveryResultsTableViewController_tableView_didSelectRowAtIndexPath___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 1056) getDiscoveryResultAtIndex:objc_msgSend(*(a1 + 40) forSubscriber:{"row"), *(*(a1 + 32) + 1064)}];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3)
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3)
   {
-    v5 = v3;
-    if (os_log_type_enabled(v5, v4))
+    v7 = v3;
+    if (os_log_type_enabled(v7, v5))
     {
-      v6 = [v2 description];
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_273FB9000, v5, v4, "Establishing a data session with discovery result %@", &v12, 0xCu);
+      v8 = [v2 description];
+      v13 = 138412290;
+      v14 = v8;
+      _os_log_impl(&dword_273FB9000, v7, v5, "Establishing a data session with discovery result %@", &v13, 0xCu);
     }
   }
 
-  v7 = [objc_alloc(MEMORY[0x277D7BA78]) initWithDiscoveryResult:v2 serviceType:0 serviceSpecificInfo:0 passphrase:*(*(a1 + 32) + 1072)];
-  [v7 setDelegate:*(a1 + 32)];
-  [v7 start];
-  v8 = *(a1 + 32);
-  v9 = v8[132];
-  v10 = [v8 subscriber];
-  [v9 addDataSession:v7 forSubscriber:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = [objc_alloc(MEMORY[0x277D7BA78]) initWithDiscoveryResult:v2 serviceType:0 serviceSpecificInfo:0 passphrase:*(*(a1 + 32) + 1072)];
+  [v9 setDelegate:*(a1 + 32)];
+  [v9 start];
+  v10 = *(a1 + 32);
+  v11 = v10[132];
+  v12 = [v10 subscriber];
+  [v11 addDataSession:v9 forSubscriber:v12];
 }
 
 - (void)dataSession:(id)session confirmedForPeerDataAddress:(id)address serviceSpecificInfo:(id)info
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   addressCopy = address;
   infoCopy = info;
   v11 = WFLogForCategory(0);
   v12 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v11)
+  v13 = v12;
+  if (WFCurrentLogLevel(v12, v14) >= 3 && v11)
   {
-    v13 = v11;
-    if (os_log_type_enabled(v13, v12))
+    v15 = v11;
+    if (os_log_type_enabled(v15, v13))
     {
-      v14 = [sessionCopy description];
-      v15 = [addressCopy description];
-      v16 = [infoCopy description];
+      v16 = [sessionCopy description];
+      v17 = [addressCopy description];
+      v18 = [infoCopy description];
       *buf = 138412802;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v16;
-      _os_log_impl(&dword_273FB9000, v13, v12, "NAN data session %@ confirmed for peer (address: %@, serviceSpecificInfo: %@)", buf, 0x20u);
+      v28 = v16;
+      v29 = 2112;
+      v30 = v17;
+      v31 = 2112;
+      v32 = v18;
+      _os_log_impl(&dword_273FB9000, v15, v13, "NAN data session %@ confirmed for peer (address: %@, serviceSpecificInfo: %@)", buf, 0x20u);
     }
   }
 
   dataSource = [(WFNANDiscoveryResultsTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
 
-  v25 = sessionCopy;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-  v20 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:1];
-  [snapshot appendItemsWithIdentifiers:v19 intoSectionWithIdentifier:v20];
+  v26 = sessionCopy;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v22 = [(WFNANDiscoveryResultsTableViewController *)self _identifierForSection:1];
+  [snapshot appendItemsWithIdentifiers:v21 intoSectionWithIdentifier:v22];
 
   if ([(WFNANTableViewContext *)self->_context getDataSessionsCountForSubscriber:self->_subscriber]== 1)
   {
-    v24 = @"WFNANDiscoveryResultsNoDataSessionsIdentifier";
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
-    [snapshot deleteItemsWithIdentifiers:v21];
+    v25 = @"WFNANDiscoveryResultsNoDataSessionsIdentifier";
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    [snapshot deleteItemsWithIdentifiers:v23];
   }
 
   dataSource2 = [(WFNANDiscoveryResultsTableViewController *)self dataSource];
   [dataSource2 applySnapshot:snapshot animatingDifferences:1];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataSession:(id)session failedToStartWithError:(int64_t)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
-      v10 = [sessionCopy description];
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2048;
+      v12 = [sessionCopy description];
+      v15 = 138412546;
+      v16 = v12;
+      v17 = 2048;
       errorCopy = error;
-      _os_log_impl(&dword_273FB9000, v9, v8, "NAN data session %@ failed to start with error %ld", &v14, 0x16u);
+      _os_log_impl(&dword_273FB9000, v11, v9, "NAN data session %@ failed to start with error %ld", &v15, 0x16u);
     }
   }
 
@@ -550,27 +548,26 @@ void __78__WFNANDiscoveryResultsTableViewController_tableView_didSelectRowAtInde
   context = self->_context;
   subscriber = [(WFNANDiscoveryResultsTableViewController *)self subscriber];
   [(WFNANTableViewContext *)context removeDataSession:sessionCopy forSubscriber:subscriber];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataSession:(id)session terminatedWithReason:(int64_t)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
-      v10 = [sessionCopy description];
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2048;
+      v12 = [sessionCopy description];
+      v15 = 138412546;
+      v16 = v12;
+      v17 = 2048;
       reasonCopy = reason;
-      _os_log_impl(&dword_273FB9000, v9, v8, "NAN data session %@ terminated with reason %ld", &v14, 0x16u);
+      _os_log_impl(&dword_273FB9000, v11, v9, "NAN data session %@ terminated with reason %ld", &v15, 0x16u);
     }
   }
 
@@ -578,29 +575,26 @@ void __78__WFNANDiscoveryResultsTableViewController_tableView_didSelectRowAtInde
   context = self->_context;
   subscriber = [(WFNANDiscoveryResultsTableViewController *)self subscriber];
   [(WFNANTableViewContext *)context removeDataSession:sessionCopy forSubscriber:subscriber];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataSessionRequestStarted:(id)started
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
-      v7 = [startedCopy description];
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_273FB9000, v6, v5, "NAN data session %@ started", &v9, 0xCu);
+      v9 = [startedCopy description];
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_273FB9000, v8, v6, "NAN data session %@ started", &v10, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

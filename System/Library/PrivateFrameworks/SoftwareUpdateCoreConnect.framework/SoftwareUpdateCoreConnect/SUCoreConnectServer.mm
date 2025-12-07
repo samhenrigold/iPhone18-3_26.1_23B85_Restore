@@ -69,7 +69,7 @@
 
 - (BOOL)isConnectionEntitled:(id)entitled
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   entitledCopy = entitled;
   connectionPolicy = [(SUCoreConnectServer *)self connectionPolicy];
 
@@ -115,14 +115,14 @@ LABEL_30:
     goto LABEL_20;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   connectionPolicy4 = [(SUCoreConnectServer *)self connectionPolicy];
   oslog = [connectionPolicy4 entitlements];
 
-  v14 = [oslog countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v14 = [oslog countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (!v14)
   {
     v23 = 1;
@@ -130,28 +130,28 @@ LABEL_30:
   }
 
   v16 = v14;
-  v17 = *v34;
+  v17 = *v33;
   *&v15 = 138543618;
-  v32 = v15;
+  v31 = v15;
   while (2)
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v34 != v17)
+      if (*v33 != v17)
       {
         objc_enumerationMutation(oslog);
       }
 
-      v19 = *(*(&v33 + 1) + 8 * i);
+      v19 = *(*(&v32 + 1) + 8 * i);
       logger3 = [(SUCoreConnectServer *)self logger];
       oslog2 = [logger3 oslog];
 
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v32;
-        v38 = entitledCopy;
-        v39 = 2112;
-        v40 = v19;
+        *buf = v31;
+        v37 = entitledCopy;
+        v38 = 2112;
+        v39 = v19;
         _os_log_impl(&dword_22E2D6000, oslog2, OS_LOG_TYPE_DEFAULT, "[EntitlementValidation](%{public}@)(%@) Checking for entitlement", buf, 0x16u);
       }
 
@@ -199,7 +199,7 @@ LABEL_29:
       }
     }
 
-    v16 = [oslog countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v16 = [oslog countByEnumeratingWithState:&v32 objects:v40 count:16];
     v23 = 1;
     if (v16)
     {
@@ -211,7 +211,6 @@ LABEL_29:
 
 LABEL_31:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -336,7 +335,7 @@ LABEL_10:
 
 void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(*(a1 + 32) + 8) + 40));
   v3 = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
   v4 = v3;
@@ -350,20 +349,20 @@ void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v16 = v4;
+        v15 = v4;
         _os_log_impl(&dword_22E2D6000, v6, OS_LOG_TYPE_DEFAULT, "[InterruptedHandler](%{public}@) Client connection interrupted, removing from connections list", buf, 0xCu);
       }
 
       v7 = [WeakRetained connectionsAccessQueue];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_13;
-      v12[3] = &unk_2787BC990;
-      v13 = WeakRetained;
-      v14 = v4;
-      dispatch_async(v7, v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_13;
+      v11[3] = &unk_2787BC990;
+      v12 = WeakRetained;
+      v13 = v4;
+      dispatch_async(v7, v11);
 
-      v8 = v13;
+      v8 = v12;
     }
 
     else
@@ -388,13 +387,11 @@ void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke
       __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_cold_2();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(*(a1 + 32) + 8) + 40));
   v3 = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
   v4 = v3;
@@ -408,20 +405,20 @@ void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v16 = v4;
+        v15 = v4;
         _os_log_impl(&dword_22E2D6000, v6, OS_LOG_TYPE_DEFAULT, "[InvalidatedHandler](%{public}@) Client connection invalidated, removing from connections list", buf, 0xCu);
       }
 
       v7 = [WeakRetained connectionsAccessQueue];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_15;
-      v12[3] = &unk_2787BC990;
-      v13 = WeakRetained;
-      v14 = v4;
-      dispatch_async(v7, v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_15;
+      v11[3] = &unk_2787BC990;
+      v12 = WeakRetained;
+      v13 = v4;
+      dispatch_async(v7, v11);
 
-      v8 = v13;
+      v8 = v12;
     }
 
     else
@@ -446,8 +443,6 @@ void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke
       __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_2_cold_2();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_2_85(int8x16_t *a1)
@@ -517,7 +512,7 @@ void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke
 
 void __55__SUCoreConnectServer_setupListenerAndResumeConnection__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) logger];
   v3 = [v2 oslog];
 
@@ -525,7 +520,7 @@ void __55__SUCoreConnectServer_setupListenerAndResumeConnection__block_invoke(ui
   {
     v4 = [*(a1 + 32) connectionPolicy];
     *buf = 138543362;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[ListenerStartup] Setting up listener, enabling transactions, and resuming connection using policy: %{public}@", buf, 0xCu);
   }
 
@@ -536,8 +531,6 @@ void __55__SUCoreConnectServer_setupListenerAndResumeConnection__block_invoke(ui
   block[3] = &unk_2787BCA58;
   block[4] = *(a1 + 32);
   dispatch_sync(v5, block);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SUCoreConnectServer_setupListenerAndResumeConnection__block_invoke_90(uint64_t a1)
@@ -613,7 +606,7 @@ void __51__SUCoreConnectServer_suspendListenerAndInvalidate__block_invoke_2(uint
 
 - (void)connectProtocolFromClientSendServerMessage:(id)message proxyObject:(id)object withReply:(id)reply
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   objectCopy = object;
   replyCopy = reply;
@@ -722,17 +715,17 @@ LABEL_30:
 
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
+    v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
   }
 
-  *buf = v49;
-  *&buf[16] = v50;
+  *buf = v48;
+  *&buf[16] = v49;
   [messageCopy setClientConnectionAuditToken:buf];
   connectionPolicy2 = [(SUCoreConnectServer *)self connectionPolicy];
   serverDelegate2 = [connectionPolicy2 serverDelegate];
@@ -778,23 +771,22 @@ LABEL_30:
   [messageCopy setBoostable:1];
   connectionPolicy4 = [(SUCoreConnectServer *)self connectionPolicy];
   serverDelegate4 = [connectionPolicy4 serverDelegate];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __88__SUCoreConnectServer_connectProtocolFromClientSendServerMessage_proxyObject_withReply___block_invoke;
-  v45[3] = &unk_2787BCA80;
-  v45[4] = self;
-  v46 = messageCopy;
-  v48 = replyCopy;
-  v47 = currentConnection;
-  [serverDelegate4 handleMessage:v46 proxyObject:objectCopy reply:v45];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __88__SUCoreConnectServer_connectProtocolFromClientSendServerMessage_proxyObject_withReply___block_invoke;
+  v44[3] = &unk_2787BCA80;
+  v44[4] = self;
+  v45 = messageCopy;
+  v47 = replyCopy;
+  v46 = currentConnection;
+  [serverDelegate4 handleMessage:v45 proxyObject:objectCopy reply:v44];
 
 LABEL_37:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SUCoreConnectServer_connectProtocolFromClientSendServerMessage_proxyObject_withReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) _informObserversOfCompletionReplyWithMessage:*(a1 + 40) error:v6];
@@ -810,13 +802,13 @@ void __88__SUCoreConnectServer_connectProtocolFromClientSendServerMessage_proxyO
     {
       v11 = *(a1 + 48);
       v12 = [v6 checkedDescription];
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v12;
-      _os_log_impl(&dword_22E2D6000, v9, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) connectProtocolFromClientSendServerMessage calling completion block, response:%{public}@ error:%{public}@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v12;
+      _os_log_impl(&dword_22E2D6000, v9, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) connectProtocolFromClientSendServerMessage calling completion block, response:%{public}@ error:%{public}@", &v15, 0x20u);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -828,17 +820,15 @@ void __88__SUCoreConnectServer_connectProtocolFromClientSendServerMessage_proxyO
     {
       v13 = *(a1 + 48);
       v14 = [v6 checkedDescription];
-      v16 = 138543874;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v14;
-      _os_log_impl(&dword_22E2D6000, v9, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) connectProtocolFromClientSendServerMessage was not provided a reply block, response:%{public}@ error:%{public}@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v14;
+      _os_log_impl(&dword_22E2D6000, v9, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) connectProtocolFromClientSendServerMessage was not provided a reply block, response:%{public}@ error:%{public}@", &v15, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_informObserversOfCompletionReplyWithMessage:(id)message error:(id)error
@@ -860,7 +850,7 @@ void __88__SUCoreConnectServer_connectProtocolFromClientSendServerMessage_proxyO
 
 void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_error___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v2 setSafeObject:*(a1 + 32) forKey:@"SUCoreConnectMonitorReplyMessage"];
   [v2 setSafeObject:*(a1 + 40) forKey:@"SUCoreConnectMonitorReplyError"];
@@ -875,35 +865,35 @@ void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_erro
   v10 = v9;
   if (v9 && [v9 count])
   {
-    v21 = v10;
-    v22 = v2;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v20 = v10;
+    v21 = v2;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     obj = v10;
-    v11 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v11 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * i);
+          v15 = *(*(&v25 + 1) + 8 * i);
           v16 = [*(a1 + 48) logger];
           v17 = [v16 oslog];
 
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v31 = v15;
+            v30 = v15;
             _os_log_impl(&dword_22E2D6000, v17, OS_LOG_TYPE_DEFAULT, "[InformObserversOfReplyCompletion] Attempting to send message (no reply expected) to observer client with connection %{public}@", buf, 0xCu);
           }
 
@@ -915,21 +905,19 @@ void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_erro
           v19 = *(a1 + 48);
           block[4] = v15;
           block[5] = v19;
-          v25 = v8;
+          v24 = v8;
           dispatch_async(v18, block);
         }
 
-        v12 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v12 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v12);
     }
 
-    v10 = v21;
-    v2 = v22;
+    v10 = v20;
+    v2 = v21;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_error___block_invoke_114(int8x16_t *a1)
@@ -946,7 +934,7 @@ void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_erro
 
 void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) logger];
   v5 = [v4 oslog];
@@ -955,15 +943,14 @@ void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_erro
   {
     v6 = *(a1 + 40);
     v7 = [v3 checkedDescription];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_22E2D6000, v5, OS_LOG_TYPE_DEFAULT, "[InformObserversOfReplyCompletion] ErrorHandler: Connection failed (no completion was expected to be called) for observer client connection %{public}@ with error %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_22E2D6000, v5, OS_LOG_TYPE_DEFAULT, "[InformObserversOfReplyCompletion] ErrorHandler: Connection failed (no completion was expected to be called) for observer client connection %{public}@ with error %{public}@", &v8, 0x16u);
   }
 
   [*(a1 + 40) invalidate];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectServerSendClientMessage:(id)message
@@ -982,7 +969,7 @@ void __74__SUCoreConnectServer__informObserversOfCompletionReplyWithMessage_erro
 
 void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) logger];
   v3 = [v2 oslog];
 
@@ -990,48 +977,48 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke(uin
   {
     v4 = *(a1 + 40);
     *buf = 138543362;
-    v53 = v4;
+    v52 = v4;
     _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[SendClientMessage] Method called to send message: %{public}@", buf, 0xCu);
   }
 
-  v36 = (a1 + 40);
+  v35 = (a1 + 40);
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) clientID];
   v7 = [v5 _connectionsForClientID:v6];
 
   if (v7)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = v7;
-    v8 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v8 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
     if (v8)
     {
       v9 = v8;
-      v34 = v7;
-      v10 = *v48;
+      v33 = v7;
+      v10 = *v47;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v48 != v10)
+          if (*v47 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v47 + 1) + 8 * i);
+          v12 = *(*(&v46 + 1) + 8 * i);
           v13 = [*(a1 + 32) logger];
           v14 = [v13 oslog];
 
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = [*v36 clientID];
+            v15 = [*v35 clientID];
             *buf = 138543618;
-            v53 = v15;
-            v54 = 2114;
-            v55 = v12;
+            v52 = v15;
+            v53 = 2114;
+            v54 = v12;
             _os_log_impl(&dword_22E2D6000, v14, OS_LOG_TYPE_DEFAULT, "[SendClientMessage] Attempting to send message (no reply expected) to client %{public}@ with connection %{public}@", buf, 0x16u);
           }
 
@@ -1044,15 +1031,15 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke(uin
           v18 = *(a1 + 40);
           block[4] = v12;
           block[5] = v17;
-          v46 = v18;
+          v45 = v18;
           dispatch_async(v16, block);
         }
 
-        v9 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v9 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
       }
 
       while (v9);
-      v7 = v34;
+      v7 = v33;
     }
   }
 
@@ -1064,7 +1051,7 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke(uin
     obj = v20;
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_cold_1(v36);
+      __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_cold_1(v35);
     }
   }
 
@@ -1072,60 +1059,58 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke(uin
   v22 = v21;
   if (v21 && [v21 count])
   {
-    v35 = v7;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
+    v34 = v7;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obja = v22;
-    v23 = [obja countByEnumeratingWithState:&v41 objects:v51 count:16];
+    v23 = [obja countByEnumeratingWithState:&v40 objects:v50 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v42;
+      v25 = *v41;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v42 != v25)
+          if (*v41 != v25)
           {
             objc_enumerationMutation(obja);
           }
 
-          v27 = *(*(&v41 + 1) + 8 * j);
+          v27 = *(*(&v40 + 1) + 8 * j);
           v28 = [*(a1 + 32) logger];
           v29 = [v28 oslog];
 
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v53 = v27;
+            v52 = v27;
             _os_log_impl(&dword_22E2D6000, v29, OS_LOG_TYPE_DEFAULT, "[SendClientMessage] Attempting to send message (no reply expected) to observer client with connection %{public}@", buf, 0xCu);
           }
 
           v30 = [*(a1 + 32) connectionSendMessageQueue];
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_116;
-          v39[3] = &unk_2787BCA08;
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_116;
+          v38[3] = &unk_2787BCA08;
           v31 = *(a1 + 32);
           v32 = *(a1 + 40);
-          v39[4] = v27;
-          v39[5] = v31;
-          v40 = v32;
-          dispatch_async(v30, v39);
+          v38[4] = v27;
+          v38[5] = v31;
+          v39 = v32;
+          dispatch_async(v30, v38);
         }
 
-        v24 = [obja countByEnumeratingWithState:&v41 objects:v51 count:16];
+        v24 = [obja countByEnumeratingWithState:&v40 objects:v50 count:16];
       }
 
       while (v24);
     }
 
-    v7 = v35;
+    v7 = v34;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_115(void *a1)
@@ -1187,7 +1172,7 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_1
 
 - (void)_setConnection:(id)connection forClientID:(id)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dCopy = d;
   connectionsAccessQueue = [(SUCoreConnectServer *)self connectionsAccessQueue];
@@ -1197,12 +1182,12 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_1
   {
     if ([dCopy isEqualToString:@"*"])
     {
-      objc_initWeak(&v25, connectionCopy);
+      objc_initWeak(&v24, connectionCopy);
       observerConnections = [(SUCoreConnectServer *)self observerConnections];
-      WeakRetained = objc_loadWeakRetained(&v25);
+      WeakRetained = objc_loadWeakRetained(&v24);
       [observerConnections addObject:WeakRetained];
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
     }
 
     else
@@ -1217,35 +1202,35 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_1
 
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 134218242;
-          v26 = [v14 count];
-          v27 = 2114;
-          v28 = dCopy;
-          _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SetConnection] Found %lu existing connections for clientID: %{public}@", &v25, 0x16u);
+          v24 = 134218242;
+          v25 = [v14 count];
+          v26 = 2114;
+          v27 = dCopy;
+          _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SetConnection] Found %lu existing connections for clientID: %{public}@", &v24, 0x16u);
         }
 
         if (([v14 containsObject:connectionCopy] & 1) == 0)
         {
-          objc_initWeak(&v25, connectionCopy);
+          objc_initWeak(&v24, connectionCopy);
           connections2 = [(SUCoreConnectServer *)self connections];
-          v18 = objc_loadWeakRetained(&v25);
+          v18 = objc_loadWeakRetained(&v24);
           v19 = [v14 setByAddingObject:v18];
           [connections2 setSafeObject:v19 forKey:dCopy];
 
-          objc_destroyWeak(&v25);
+          objc_destroyWeak(&v24);
         }
       }
 
       else
       {
-        objc_initWeak(&v25, connectionCopy);
+        objc_initWeak(&v24, connectionCopy);
         connections3 = [(SUCoreConnectServer *)self connections];
         v21 = MEMORY[0x277CBEB98];
-        v22 = objc_loadWeakRetained(&v25);
+        v22 = objc_loadWeakRetained(&v24);
         v23 = [v21 setWithObject:v22];
         [connections3 setSafeObject:v23 forKey:dCopy];
 
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
       }
     }
   }
@@ -1260,8 +1245,6 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_1
       [SUCoreConnectServer _setConnection:forClientID:];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeConnection:(id)connection
@@ -1381,56 +1364,56 @@ void __41__SUCoreConnectServer__removeConnection___block_invoke(uint64_t a1)
 
 - (id)_clientIDForConnection:(id)connection
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   connectionsAccessQueue = [(SUCoreConnectServer *)self connectionsAccessQueue];
   dispatch_assert_queue_V2(connectionsAccessQueue);
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   selfCopy = self;
   obj = [(SUCoreConnectServer *)self connections];
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         connections = [(SUCoreConnectServer *)selfCopy connections];
         v13 = [connections safeObjectForKey:v11 ofClass:objc_opt_class()];
 
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v25;
+          v17 = *v24;
           while (2)
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v25 != v17)
+              if (*v24 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              if ([connectionCopy isEqual:*(*(&v24 + 1) + 8 * j)])
+              if ([connectionCopy isEqual:*(*(&v23 + 1) + 8 * j)])
               {
                 v19 = v11;
 
@@ -1439,7 +1422,7 @@ void __41__SUCoreConnectServer__removeConnection___block_invoke(uint64_t a1)
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
             if (v16)
             {
               continue;
@@ -1452,7 +1435,7 @@ void __41__SUCoreConnectServer__removeConnection___block_invoke(uint64_t a1)
 LABEL_16:
       }
 
-      v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
@@ -1462,8 +1445,6 @@ LABEL_16:
   {
     v8 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1477,64 +1458,32 @@ LABEL_16:
   return v4;
 }
 
-- (void)isConnectionEntitled:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_22E2D6000, v0, v1, "[EntitlementValidation](%{public}@)(%@) New connection's entitlement is not a BOOLean");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isConnectionEntitled:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_22E2D6000, v0, v1, "[EntitlementValidation](%{public}@)(%@) New connection's value for entitlement is false");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isConnectionEntitled:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_22E2D6000, v0, v1, "[EntitlementValidation](%{public}@)(%@) Client process does not have the entitlement");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)isConnectionEntitled:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isConnectionEntitled:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_cold_1()
@@ -1567,94 +1516,71 @@ void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke
 
 void __58__SUCoreConnectServer_listener_shouldAcceptNewConnection___block_invoke_3_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 40);
+  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 40);
   OUTLINED_FUNCTION_5();
-  *v5 = v1;
-  OUTLINED_FUNCTION_2(&dword_22E2D6000, v1, v2, "[ListenerNewConnection](%{public}@) ErrorHandler: Failed to receive clientID when requested for new connection, error: %{public}@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x277D85DE8];
+  *v4 = v1;
+  OUTLINED_FUNCTION_2(&dword_22E2D6000, v1, v2, "[ListenerNewConnection](%{public}@) ErrorHandler: Failed to receive clientID when requested for new connection, error: %{public}@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 - (void)connectProtocolFromClientSendServerMessage:proxyObject:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_9(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_9(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)connectProtocolFromClientSendServerMessage:proxyObject:withReply:.cold.2()
 {
   OUTLINED_FUNCTION_7();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_9(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_9(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)connectProtocolFromClientSendServerMessage:proxyObject:withReply:.cold.5()
 {
   OUTLINED_FUNCTION_7();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_9(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_9(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)connectProtocolFromClientSendServerMessage:proxyObject:withReply:.cold.6()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2(&dword_22E2D6000, v0, v1, "[SendServerMessage](%{public}@) Observer clients cannot send messages to server, error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 clientID];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = [*(a1 + 40) clientID];
-  v5 = *(a1 + 48);
-  v6 = [a2 checkedDescription];
+  v3 = [*(a1 + 40) clientID];
+  v4 = [a2 checkedDescription];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_117_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = [a2 checkedDescription];
+  v2 = [a2 checkedDescription];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_setConnection:forClientID:.cold.1()
@@ -1666,24 +1592,19 @@ void __54__SUCoreConnectServer_connectServerSendClientMessage___block_invoke_2_1
 
 - (void)_removeConnection:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionsForClientID:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 connections];
   [v1 count];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

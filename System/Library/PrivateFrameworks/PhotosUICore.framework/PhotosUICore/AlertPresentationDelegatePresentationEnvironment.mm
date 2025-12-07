@@ -11,6 +11,7 @@
 
 - (void)presentViewController:(id)controller animated:(BOOL)animated completionHandler:(id)handler
 {
+  animatedCopy = animated;
   v8 = _Block_copy(handler);
   if (v8)
   {
@@ -26,12 +27,13 @@
 
   controllerCopy = controller;
   selfCopy = self;
-  sub_1A4A35490(controllerCopy, animated, v8, v9);
+  sub_1A4A35490(controllerCopy, animatedCopy, v8, v9, v11);
   sub_1A3C784D4(v8, v9);
 }
 
 - (void)dismissViewController:(id)controller animated:(BOOL)animated completionHandler:(id)handler
 {
+  animatedCopy = animated;
   v8 = _Block_copy(handler);
   if (v8)
   {
@@ -47,7 +49,7 @@
 
   controllerCopy = controller;
   selfCopy = self;
-  sub_1A4A3557C(controllerCopy, animated, v8, v9);
+  sub_1A4A3557C(controllerCopy, animatedCopy, v8, v9, v11);
   sub_1A3C784D4(v8, v9);
 }
 
@@ -61,12 +63,13 @@
 - (id)presentAlertWithConfigurationHandler:(id)handler
 {
   v4 = _Block_copy(handler);
-  v8[2] = v4;
+  v9[2] = v4;
   selfCopy = self;
-  v6 = sub_1A4A358F8(sub_1A3E79128, v8);
+  sub_1A4A358F8(sub_1A3E79128, v9);
+  v7 = v6;
   _Block_release(v4);
 
-  return v6;
+  return v7;
 }
 
 - (void)dismissAlertWithToken:(id)token completionHandler:(id)handler
@@ -86,7 +89,7 @@
 
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1A4A35CB0(token, v6, v7);
+  sub_1A4A35CB0(token, v6, v7, v8);
   sub_1A3C784D4(v6, v7);
   swift_unknownObjectRelease();
 }

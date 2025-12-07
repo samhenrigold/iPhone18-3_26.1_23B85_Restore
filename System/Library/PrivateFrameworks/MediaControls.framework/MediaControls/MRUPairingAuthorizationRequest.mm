@@ -26,7 +26,7 @@
 {
   v13 = *MEMORY[0x1E69E9840];
   passcodeCopy = passcode;
-  v5 = _MPAVLog();
+  v5 = _MPAVLog(passcodeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -45,7 +45,7 @@
 - (void)cancel
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _MPAVLog();
+  v3 = _MPAVLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();

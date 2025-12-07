@@ -102,7 +102,7 @@ LABEL_9:
 
 - (void)setIdentities:(id)identities
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   v5 = [identitiesCopy copy];
   identities = self->_identities;
@@ -111,27 +111,27 @@ LABEL_9:
   if ([identitiesCopy count] >= 2)
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v8 = identitiesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           certificateRef = 0;
           if (!SecIdentityCopyCertificate(v13, &certificateRef))
           {
@@ -149,7 +149,7 @@ LABEL_9:
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -158,8 +158,6 @@ LABEL_9:
     titles = self->_titles;
     self->_titles = v7;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)selectedIdentity

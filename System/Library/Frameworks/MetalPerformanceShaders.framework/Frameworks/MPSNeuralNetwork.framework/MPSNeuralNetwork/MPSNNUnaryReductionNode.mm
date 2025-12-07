@@ -30,7 +30,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNReductionNodes.mm", 0x23, @"Gradient filter not implemented for reduction kernels.", v3, v4, v5, v6);
   }
 
   return 0;

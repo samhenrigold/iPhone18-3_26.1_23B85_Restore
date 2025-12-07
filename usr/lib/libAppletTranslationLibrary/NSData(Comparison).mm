@@ -86,7 +86,6 @@
     }
 
     v7 = bytes[v5++];
-    v8 = bytes[v6] == 255;
   }
 
   while (v7 == 255);
@@ -116,7 +115,7 @@
       break;
     }
 
-    v7 = bytes[v5++];
+    ++v5;
   }
 
   while (!bytes[v6]);

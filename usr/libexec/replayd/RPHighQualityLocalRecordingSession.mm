@@ -13,6 +13,7 @@
 - (void)clearBackgroundActivityUI;
 - (void)clearFrontmostAudioOrVideoCall;
 - (void)clearSystemRecordingUI;
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags;
 - (void)executeOnMainQueue:(id)queue;
 - (void)handleDeviceLockedWarning;
 - (void)handleMediaServicesReset:(id)reset;
@@ -323,6 +324,25 @@
   v3 = qword_1000B6968;
 
   return v3;
+}
+
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags
+{
+  v6 = *&type;
+  if ([(RPSession *)self sessionState:*&type]== 1)
+  {
+    [(RPSession *)self updateReportingSampleCount:v6];
+    if (!self->_waitingForFirstVideoSample || !v6 || self->_audioOnly)
+    {
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_100041BE0;
+      v8[3] = &unk_1000A2378;
+      v9 = v6;
+      v8[4] = self;
+      [(RPSession *)self updatePauseOffsetForSampleBuffer:buffer withSampleType:v6 handler:v8];
+    }
+  }
 }
 
 - (void)processSampleBuffer:(opaqueCMSampleBuffer *)buffer transform:(CGAffineTransform *)transform

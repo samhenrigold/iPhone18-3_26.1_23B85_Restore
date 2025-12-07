@@ -50,95 +50,95 @@
 
 - (void)applyConfiguration:(RMSubscribedConfigurationReference *)configuration replaceKey:(RMStoreDeclarationKey *)key scope:(int64_t)scope completionHandler:(id)handler
 {
-  v11 = (*(*(sub_1000014B8(&qword_100014908, &qword_10000B678) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000014B8(&qword_100014908, &qword_10000B678);
   __chkstk_darwin();
-  v13 = &v22 - v12;
-  v14 = _Block_copy(handler);
-  v15 = swift_allocObject();
-  v15[2] = configuration;
-  v15[3] = key;
-  v15[4] = scope;
-  v15[5] = v14;
-  v15[6] = self;
-  v16 = sub_10000AB5C();
-  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v12 = &v21 - v11;
+  v13 = _Block_copy(handler);
+  v14 = swift_allocObject();
+  v14[2] = configuration;
+  v14[3] = key;
+  v14[4] = scope;
+  v14[5] = v13;
+  v14[6] = self;
+  v15 = sub_10000AB5C();
+  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_10000B6C8;
+  v16[5] = v14;
   v17 = swift_allocObject();
   v17[2] = 0;
   v17[3] = 0;
-  v17[4] = &unk_10000B6C8;
-  v17[5] = v15;
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = &unk_10000B6D0;
-  v18[5] = v17;
+  v17[4] = &unk_10000B6D0;
+  v17[5] = v16;
   configurationCopy = configuration;
   keyCopy = key;
   selfCopy = self;
-  sub_100008414(0, 0, v13, &unk_10000B6D8, v18);
+  sub_100008414(0, 0, v12, &unk_10000B6D8, v17);
 }
 
 - (void)removeDeclarationKey:(RMStoreDeclarationKey *)key scope:(int64_t)scope completionHandler:(id)handler
 {
-  v9 = (*(*(sub_1000014B8(&qword_100014908, &qword_10000B678) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000014B8(&qword_100014908, &qword_10000B678);
   __chkstk_darwin();
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = key;
-  v13[3] = scope;
-  v13[4] = v12;
-  v13[5] = self;
-  v14 = sub_10000AB5C();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v10 = &v18 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  v12[2] = key;
+  v12[3] = scope;
+  v12[4] = v11;
+  v12[5] = self;
+  v13 = sub_10000AB5C();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_10000B6A8;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_10000B6A8;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_10000B6B0;
-  v16[5] = v15;
+  v15[4] = &unk_10000B6B0;
+  v15[5] = v14;
   keyCopy = key;
   selfCopy = self;
-  sub_100008414(0, 0, v11, &unk_10000B6B8, v16);
+  sub_100008414(0, 0, v10, &unk_10000B6B8, v15);
 }
 
 - (void)configurationUIForConfiguration:(RMSubscribedConfigurationReference *)configuration scope:(int64_t)scope completionHandler:(id)handler
 {
-  v9 = (*(*(sub_1000014B8(&qword_100014908, &qword_10000B678) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000014B8(&qword_100014908, &qword_10000B678);
   __chkstk_darwin();
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = configuration;
-  v13[3] = scope;
-  v13[4] = v12;
-  v13[5] = self;
-  v14 = sub_10000AB5C();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v10 = &v18 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  v12[2] = configuration;
+  v12[3] = scope;
+  v12[4] = v11;
+  v12[5] = self;
+  v13 = sub_10000AB5C();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_10000B688;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_10000B688;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_10000B690;
-  v16[5] = v15;
+  v15[4] = &unk_10000B690;
+  v15[5] = v14;
   configurationCopy = configuration;
   selfCopy = self;
-  sub_100008414(0, 0, v11, &unk_10000B698, v16);
+  sub_100008414(0, 0, v10, &unk_10000B698, v15);
 }
 
 - (_TtC26PasscodeSettingsSubscriber23PasscodeSettingsAdapter)init
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for PasscodeSettingsAdapter();
-  return [(PasscodeSettingsAdapter *)&v3 init];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for PasscodeSettingsAdapter(self, a2, v2);
+  return [(PasscodeSettingsAdapter *)&v4 init];
 }
 
 @end

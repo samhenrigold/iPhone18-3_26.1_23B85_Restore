@@ -14,7 +14,7 @@
     data2 = [dataCopy data];
     v7 = [(ATXGEOTileDataReader *)self readTileData:data2];
 LABEL_5:
-    v9 = v7;
+    v10 = v7;
 
     goto LABEL_6;
   }
@@ -28,16 +28,16 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v11 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = __atxlog_handle_hero(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [ATXGEOTileDataReader appAndClipEntryForTileData:v11];
+    [ATXGEOTileDataReader appAndClipEntryForTileData:v12];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_6:
 
-  return v9;
+  return v10;
 }
 
 @end

@@ -119,7 +119,7 @@
   if (result)
   {
     v8 = result;
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIAction);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIAction, 0x277D750C8);
     static String._unconditionallyBridgeFromObjectiveC(_:)();
 
     v9 = swift_allocObject();

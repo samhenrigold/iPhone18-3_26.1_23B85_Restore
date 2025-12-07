@@ -14,37 +14,35 @@
   itemCopy = item;
   handlesCopy = handles;
   senderCopy = sender;
-  v45.receiver = self;
-  v45.super_class = IMMessageRetractionChatItem;
-  v17 = [(IMChatItem *)&v45 _initWithItem:itemCopy];
+  v32.receiver = self;
+  v32.super_class = IMMessageRetractionChatItem;
+  v17 = [(IMChatItem *)&v32 _initWithItem:itemCopy];
   if (v17)
   {
     v18 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v21 = objc_msgSend_guid(itemCopy, v19, v20);
+    guid = [itemCopy guid];
     obj = sender;
-    v23 = objc_msgSend_initWithFormat_(v18, v22, @"p:%ld/%@", index, v21);
+    v20 = [v18 initWithFormat:@"p:%ld/%@", index, guid];
 
     meCopy = me;
-    v24 = MEMORY[0x1E696AD98];
-    v27 = objc_msgSend_count(v17[10], v25, v26);
-    v29 = objc_msgSend_numberWithUnsignedInteger_(v24, v28, v27);
-    objc_msgSend_stringValue(v29, v30, v31);
+    v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17[10], "count")}];
+    [v21 stringValue];
     indexCopy = index;
-    v33 = handlesCopy;
-    v35 = v34 = senderCopy;
-    v36 = sub_1A83AC604();
+    v23 = handlesCopy;
+    v25 = v24 = senderCopy;
+    v26 = sub_1A83AC604();
 
-    senderCopy = v34;
-    handlesCopy = v33;
+    senderCopy = v24;
+    handlesCopy = v23;
 
-    objc_msgSend__setGUID_(v17, v37, v36);
+    [v17 _setGUID:v26];
     v17[9] = indexCopy;
     objc_storeStrong(v17 + 8, obj);
     *(v17 + 56) = meCopy;
     *(v17 + 57) = retraction;
-    v40 = objc_msgSend_copy(v33, v38, v39);
-    v41 = v17[10];
-    v17[10] = v40;
+    v27 = [v23 copy];
+    v28 = v17[10];
+    v17[10] = v27;
   }
 
   return v17;
@@ -52,66 +50,66 @@
 
 - (BOOL)canRetryFailedRetraction
 {
-  v3 = objc_msgSend__retractedMessageItem(self, a2, v2);
-  canRetryFailedRetraction = objc_msgSend_canRetryFailedRetraction(v3, v4, v5);
+  _retractedMessageItem = [(IMMessageRetractionChatItem *)self _retractedMessageItem];
+  canRetryFailedRetraction = [_retractedMessageItem canRetryFailedRetraction];
 
   return canRetryFailedRetraction;
 }
 
 - (IMMessage)message
 {
-  v3 = objc_msgSend__retractedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_message(v3, v4, v5);
+  _retractedMessageItem = [(IMMessageRetractionChatItem *)self _retractedMessageItem];
+  message = [_retractedMessageItem message];
 
-  return v6;
+  return message;
 }
 
 - (NSString)messageGUID
 {
-  v3 = objc_msgSend__retractedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_guid(v3, v4, v5);
+  _retractedMessageItem = [(IMMessageRetractionChatItem *)self _retractedMessageItem];
+  guid = [_retractedMessageItem guid];
 
-  return v6;
+  return guid;
 }
 
 - (unint64_t)replyCount
 {
-  v4 = objc_msgSend__retractedMessageItem(self, a2, v2);
-  v7 = objc_msgSend_partIndex(self, v5, v6);
-  v10 = objc_msgSend_replyCountsByPart(v4, v8, v9);
-  if (objc_msgSend_count(v10, v11, v12))
+  _retractedMessageItem = [(IMMessageRetractionChatItem *)self _retractedMessageItem];
+  partIndex = [(IMMessageRetractionChatItem *)self partIndex];
+  replyCountsByPart = [_retractedMessageItem replyCountsByPart];
+  if ([replyCountsByPart count])
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x3032000000;
-    v22 = sub_1A8259B40;
-    v23 = sub_1A825AECC;
-    v24 = 0;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_1A82E3B08;
-    v18[3] = &unk_1E7811A98;
-    v18[4] = &v19;
-    v18[5] = v7;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v10, v13, v18);
-    v16 = objc_msgSend_unsignedIntegerValue(v20[5], v14, v15);
-    _Block_object_dispose(&v19, 8);
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = sub_1A8259B40;
+    v13 = sub_1A825AECC;
+    v14 = 0;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1A82E3B08;
+    v8[3] = &unk_1E7811A98;
+    v8[4] = &v9;
+    v8[5] = partIndex;
+    [replyCountsByPart enumerateKeysAndObjectsUsingBlock:v8];
+    unsignedIntegerValue = [v10[5] unsignedIntegerValue];
+    _Block_object_dispose(&v9, 8);
   }
 
   else
   {
-    v16 = 0;
+    unsignedIntegerValue = 0;
   }
 
-  return v16;
+  return unsignedIntegerValue;
 }
 
 - (NSString)threadIdentifier
 {
-  v3 = objc_msgSend__retractedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_threadIdentifier(v3, v4, v5);
+  _retractedMessageItem = [(IMMessageRetractionChatItem *)self _retractedMessageItem];
+  threadIdentifier = [_retractedMessageItem threadIdentifier];
 
-  return v6;
+  return threadIdentifier;
 }
 
 @end

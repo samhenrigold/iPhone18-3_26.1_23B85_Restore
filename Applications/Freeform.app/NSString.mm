@@ -1733,15 +1733,15 @@ LABEL_18:
       v11 = [NSString stringWithFormat:@"%@"], v10);
       goto LABEL_73;
     case 0xCuLL:
-      v7 = sub_10021D308(value);
+      v7 = sub_10021D308(*&value);
       v8 = [NSString stringWithFormat:@"%@.", v7];
       goto LABEL_70;
     case 0xDuLL:
-      v7 = sub_10021D308(value);
+      v7 = sub_10021D308(*&value);
       v8 = [NSString stringWithFormat:@"(%@)", v7];
       goto LABEL_70;
     case 0xEuLL:
-      v7 = sub_10021D308(value);
+      v7 = sub_10021D308(*&value);
       v8 = [NSString stringWithFormat:@"%@"], v7);
       goto LABEL_70;
     case 0xFuLL:
@@ -1805,63 +1805,63 @@ LABEL_18:
       v11 = [NSString stringWithFormat:@"%@"], v10);
       goto LABEL_73;
     case 0x1EuLL:
-      v7 = sub_10021D420(*&value, 1u);
+      v7 = sub_10021D420(*&value, 1);
       v8 = [NSString stringWithFormat:@"%@.", v7];
       goto LABEL_70;
     case 0x1FuLL:
-      v7 = sub_10021D420(*&value, 1u);
+      v7 = sub_10021D420(*&value, 1);
       v8 = [NSString stringWithFormat:@"(%@)", v7];
       goto LABEL_70;
     case 0x20uLL:
-      v7 = sub_10021D420(*&value, 1u);
+      v7 = sub_10021D420(*&value, 1);
       v8 = [NSString stringWithFormat:@"%@"], v7);
       goto LABEL_70;
     case 0x21uLL:
-      v7 = sub_10021D420(*&value, 2u);
+      v7 = sub_10021D420(*&value, 2);
       v8 = [NSString stringWithFormat:@"%@.", v7];
       goto LABEL_70;
     case 0x22uLL:
-      v7 = sub_10021D420(*&value, 2u);
+      v7 = sub_10021D420(*&value, 2);
       v8 = [NSString stringWithFormat:@"(%@)", v7];
       goto LABEL_70;
     case 0x23uLL:
-      v7 = sub_10021D420(*&value, 2u);
+      v7 = sub_10021D420(*&value, 2);
       v8 = [NSString stringWithFormat:@"%@"], v7);
       goto LABEL_70;
     case 0x24uLL:
-      v7 = sub_10021D420(*&value, 3u);
+      v7 = sub_10021D420(*&value, 3);
       v8 = [NSString stringWithFormat:@"%@.", v7];
       goto LABEL_70;
     case 0x25uLL:
-      v7 = sub_10021D420(*&value, 3u);
+      v7 = sub_10021D420(*&value, 3);
       v8 = [NSString stringWithFormat:@"(%@)", v7];
       goto LABEL_70;
     case 0x26uLL:
-      v7 = sub_10021D420(*&value, 3u);
+      v7 = sub_10021D420(*&value, 3);
       v8 = [NSString stringWithFormat:@"%@"], v7);
       goto LABEL_70;
     case 0x27uLL:
-      v7 = sub_10021D420(*&value, 4u);
+      v7 = sub_10021D420(*&value, 4);
       v8 = [NSString stringWithFormat:@"%@.", v7];
       goto LABEL_70;
     case 0x28uLL:
-      v7 = sub_10021D420(*&value, 4u);
+      v7 = sub_10021D420(*&value, 4);
       v8 = [NSString stringWithFormat:@"(%@)", v7];
       goto LABEL_70;
     case 0x29uLL:
-      v7 = sub_10021D420(*&value, 4u);
+      v7 = sub_10021D420(*&value, 4);
       v8 = [NSString stringWithFormat:@"%@"], v7);
       goto LABEL_70;
     case 0x2AuLL:
-      v7 = sub_10021D420(*&value, 5u);
+      v7 = sub_10021D420(*&value, 5);
       v8 = [NSString stringWithFormat:@"%@.", v7];
       goto LABEL_70;
     case 0x2BuLL:
-      v7 = sub_10021D420(*&value, 5u);
+      v7 = sub_10021D420(*&value, 5);
       v8 = [NSString stringWithFormat:@"(%@)", v7];
       goto LABEL_70;
     case 0x2CuLL:
-      v7 = sub_10021D420(*&value, 5u);
+      v7 = sub_10021D420(*&value, 5);
       v8 = [NSString stringWithFormat:@"%@"], v7);
       goto LABEL_70;
     case 0x2DuLL:
@@ -2295,7 +2295,7 @@ LABEL_22:
         v4 = sub_10021FFCC(value, aAbcdefghijklmn_0, 0x1AuLL);
         break;
       case 4:
-        v4 = sub_10021D308(value);
+        v4 = sub_10021D308(*&value);
         break;
       case 5:
         v4 = sub_10021D918(value, @"ar");
@@ -4671,10 +4671,10 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([(NSString *)self isEqualToString:@"\\\\""])
+  if ([(NSString *)self isEqualToString:@"\\\"])
   {
-    v8 = [@"\\"" stringByAppendingPathExtension:extensionCopy];
-    v9 = [@"\\"" stringByAppendingString:v8];
+    v8 = [@"\" stringByAppendingPathExtension:extensionCopy];
+    v9 = [@"\" stringByAppendingString:v8];
   }
 
   else
@@ -5422,7 +5422,7 @@ LABEL_31:
           }
 
           v10 = stringCopy;
-          v11 = @"\\"";
+          v11 = @"\";
         }
       }
 
@@ -5432,7 +5432,7 @@ LABEL_31:
         {
           case 0x5C:
             v10 = stringCopy;
-            v11 = @"\\\\"";
+            v11 = @"\\\";
             break;
           case 0x2028:
             v10 = stringCopy;
@@ -5677,29 +5677,29 @@ LABEL_24:
   }
 
   v6 = v5;
-  __chkstk_darwin(v5);
-  v8 = (&v16 - ((v7 + 17) & 0xFFFFFFFFFFFFFFF0));
-  [v4 getCharacters:v8 range:{0, v6}];
-  v9 = 0;
-  v10 = 1;
-  v11 = v6;
+  *&v7 = __chkstk_darwin(v5).n128_u64[0];
+  v9 = (&v17 - ((v8 + 17) & 0xFFFFFFFFFFFFFFF0));
+  [v4 getCharacters:v9 range:{0, v6, v7}];
+  v10 = 0;
+  v11 = 1;
+  v12 = v6;
   do
   {
-    v13 = *v8++;
-    v12 = v13;
-    v14 = vdup_n_s16(v13);
-    if ((vmaxv_u16(vorr_s8(vcgt_u16(0x56D019B6015000E0, vadd_s16(v14, 0xB200CC00CFC0D100)), vceq_s16(vand_s8(v14, 0xFFF0FFC0FF80FF00), 0x319030002E801100))) & 1) == 0 && ((v12 + 21504) >> 2) >= 0xAE9u && (v12 + 1792) >= 0x200u && (v12 + 464) >= 0x20u && (v12 & 0xFFE0) != 0x31A0 && (v12 & 0xFE00) != 0x3200)
+    v14 = *v9++;
+    v13 = v14;
+    v15 = vdup_n_s16(v14);
+    if ((vmaxv_u16(vorr_s8(vcgt_u16(0x56D019B6015000E0, vadd_s16(v15, 0xB200CC00CFC0D100)), vceq_s16(vand_s8(v15, 0xFFF0FFC0FF80FF00), 0x319030002E801100))) & 1) == 0 && ((v13 + 21504) >> 2) >= 0xAE9u && (v13 + 1792) >= 0x200u && (v13 + 464) >= 0x20u && (v13 & 0xFFE0) != 0x31A0 && (v13 & 0xFE00) != 0x3200)
     {
       break;
     }
 
-    v9 = v10++ >= v6;
-    --v11;
+    v10 = v11++ >= v6;
+    --v12;
   }
 
-  while (v11);
+  while (v12);
 
-  return v9;
+  return v10;
 }
 
 + (id)crl_localizedDisplayNameWithPersonNameComponents:(id)components

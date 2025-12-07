@@ -13,18 +13,17 @@
 
 void __51__PLThermalMonitorService_initOperatorDependancies__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PLLogThermal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Received ThermalChangeNotification from SMC Agent: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Received ThermalChangeNotification from SMC Agent: %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) handleSMCCallback:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -260,52 +259,49 @@ LABEL_42:
 
 - (id)handleSysdiagnoseCallback:(id)callback
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = PLLogThermal();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412290;
-    v9 = callbackCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Received event from Sysdiagnose: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = callbackCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Received event from Sysdiagnose: %@", &v7, 0xCu);
   }
 
   [(PLThermalMonitorService *)self performLogging:&unk_282C16D20];
-  v6 = *MEMORY[0x277D85DE8];
   return &unk_282C16D48;
 }
 
 - (id)handlePowerHUDCallback:(id)callback
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = PLLogThermal();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412290;
-    v9 = callbackCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Received event from PowerHUD: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = callbackCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Received event from PowerHUD: %@", &v7, 0xCu);
   }
 
   [(PLThermalMonitorService *)self performLogging:&unk_282C16D70];
-  v6 = *MEMORY[0x277D85DE8];
   return &unk_282C16D98;
 }
 
 - (void)performLogging:(id)logging
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   loggingCopy = logging;
   v5 = PLLogThermal();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = loggingCopy;
-    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "Sent notification to submodules: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = loggingCopy;
+    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "Sent notification to submodules: %{public}@", &v6, 0xCu);
   }
 
   [MEMORY[0x277D3F258] postNotificationName:@"PLThermalMonitorNotification" object:self userInfo:loggingCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

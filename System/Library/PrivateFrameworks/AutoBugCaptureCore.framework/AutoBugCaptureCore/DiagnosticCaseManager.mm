@@ -1,7 +1,9 @@
 @interface DiagnosticCaseManager
++ (int)symptomDiagnosticErrorForDiagnosticCaseDampeningType:(signed __int16)type;
 - (ABCConfigurationManager)configManager;
 - (BOOL)closeCase:(id)case;
 - (BOOL)disableDampening;
+- (BOOL)finalizeDiagnosticCaseWithId:(id)id closureType:(signed __int16)type onlyIfReady:(BOOL)ready;
 - (BOOL)hasOpenCases;
 - (BOOL)isAdmissible:(id)admissible dampenedBy:(signed __int16 *)by;
 - (BOOL)isAllowedTransientException:(id)exception;
@@ -20,8 +22,10 @@
 - (id)casesMatchingDomain:(id)domain type:(id)type subtype:(id)subtype process:(id)process withinLast:(double)last;
 - (id)createDiagnosticCaseWithSignature:(id)signature flags:(unint64_t)flags events:(id)events payload:(id)payload actions:(id)actions;
 - (id)createTemporaryDiagnosticCaseStorageForUUID:(id)d;
+- (id)diagnosticCaseDictionariesFromIdentifier:(id)identifier withEvents:(BOOL)events count:(unint64_t)count;
 - (id)diagnosticCaseWithId:(id)id;
 - (id)lookUpDiagnosticCaseStorageForUUID:(id)d;
+- (id)responseDictWithSuccess:(BOOL)success sessionId:(id)id reasonCode:(int64_t)code;
 - (int)addSignatureContentToCaseWithId:(id)id key:(id)key content:(id)content;
 - (int)addToCaseWithId:(id)id events:(id)events payload:(id)payload;
 - (int)cancelCaseWithId:(id)id;
@@ -49,6 +53,7 @@
 - (void)caseAllowanceForSignature:(id)signature timestamp:(id)timestamp result:(id)result;
 - (void)configureWithWorkspace:(id)workspace;
 - (void)countOfCasesMatchingDomain:(id)domain type:(id)type subtype:(id)subtype process:(id)process groupCaseIDIsPresent:(BOOL)present withinLast:(double)last reply:(id)reply;
+- (void)endSession:(id)session forced:(BOOL)forced onlyIfReady:(BOOL)ready;
 - (void)endSessionIfProbesCompletedFor:(id)for;
 - (void)endSessionWithIdentifier:(id)identifier forced:(BOOL)forced onlyIfReady:(BOOL)ready;
 - (void)endSessions:(id)sessions forced:(BOOL)forced;
@@ -88,7 +93,7 @@
 
 @implementation DiagnosticCaseManager
 
-uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
+void *__37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveAllCases];
   *(*(a1 + 32) + 32) = 0;
@@ -97,7 +102,7 @@ uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
 
 - (void)_saveAllCases
 {
-  v3 = casemanagementLogHandle();
+  v3 = casemanagementLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -109,18 +114,18 @@ uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
   [(AnalyticsWorkspace *)self->_workspace save];
   if (![(NSMutableArray *)self->_totalCases count]&& self->_shouldPurgeStorageAfterSave)
   {
-    v4 = casemanagementLogHandle();
+    v4 = casemanagementLogHandle(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEBUG, "No active cases remain", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEBUG, "No active cases remain", v9, 2u);
     }
 
-    v5 = casemanagementLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = casemanagementLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "Requesting purge of attachments to meet disk usage limits", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Requesting purge of attachments to meet disk usage limits", v8, 2u);
     }
 
     storageDelegate = [(DiagnosticCaseManager *)self storageDelegate];
@@ -143,37 +148,37 @@ uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
 
 - (void)removeClosedCasesFromTotalCases
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_totalCases count])
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     v4 = self->_totalCases;
-    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v11 + 1) + 8 * i);
+          v9 = *(*(&v10 + 1) + 8 * i);
           if ([v9 caseState] == 6)
           {
             [v3 addObject:v9];
           }
         }
 
-        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -181,8 +186,32 @@ uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
 
     [(NSMutableArray *)self->_totalCases removeObjectsInArray:v3];
   }
+}
 
++ (int)symptomDiagnosticErrorForDiagnosticCaseDampeningType:(signed __int16)type
+{
   v10 = *MEMORY[0x277D85DE8];
+  if ((type + 2) >= 0xB)
+  {
+    typeCopy = type;
+    v5 = casemanagementLogHandle(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = [DiagnosticCase descriptionForDampeningType:typeCopy];
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Unrecognized dampeningType value: %{public}@", &v8, 0xCu);
+    }
+
+    v3 = &kSymptomDiagnosticErrorNotSupported;
+  }
+
+  else
+  {
+    v3 = *(&off_278CF13A8 + (type + 2));
+  }
+
+  return *v3;
 }
 
 - (DiagnosticCaseManager)initWithWorkspace:(id)workspace liaison:(id)liaison
@@ -223,8 +252,7 @@ uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
     v8->activeProbes = dictionary;
 
     objc_storeStrong(&v8->_liaison, liaison);
-    [(DiagnosticLiaison *)v8->_liaison setDelegate:v8];
-    v23 = casemanagementLogHandle();
+    v23 = casemanagementLogHandle([(DiagnosticLiaison *)v8->_liaison setDelegate:v8]);
     [CaseDampeningExceptions setLoggingHandle:v23];
 
     v24 = +[SystemProperties sharedInstance];
@@ -314,11 +342,11 @@ uint64_t __37__DiagnosticCaseManager_saveAllCases__block_invoke(uint64_t a1)
   [dictionaryCopy setObject:v11 forKeyedSubscript:@"reportOutlets"];
 }
 
-void __54__DiagnosticCaseManager_addToInternalStateDictionary___block_invoke(uint64_t a1)
+void __54__DiagnosticCaseManager_addToInternalStateDictionary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  [*(a1 + 32) addObject:v3];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [*(a1 + 32) addObject:v4];
 }
 
 - (BOOL)disableDampening
@@ -331,88 +359,92 @@ void __54__DiagnosticCaseManager_addToInternalStateDictionary___block_invoke(uin
 
 - (int64_t)dailyCountLimitForDomain:(id)domain type:(id)type subtype:(id)subtype domainPredicates:(id)predicates
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   typeCopy = type;
   subtypeCopy = subtype;
   predicatesCopy = predicates;
-  if ([domainCopy isEqualToString:@"UIPerformance"])
+  v14 = [domainCopy isEqualToString:@"UIPerformance"];
+  if (v14)
   {
-    v14 = casemanagementLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = casemanagementLogHandle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v26 = 10;
-      v27 = 2112;
-      v28 = @"UIPerformance";
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, " Applying daily case limit of %ld for %@ domain", buf, 0x16u);
+      v29 = 10;
+      v30 = 2112;
+      v31 = @"UIPerformance";
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEFAULT, " Applying daily case limit of %ld for %@ domain", buf, 0x16u);
     }
 
-    v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@", @"UIPerformance"];
+    v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@", @"UIPerformance"];
     arbitratorDailyCountLimit = 10;
-  }
-
-  else if ([domainCopy isEqualToString:@"Performance"])
-  {
-    v17 = casemanagementLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134218242;
-      v26 = 7;
-      v27 = 2112;
-      v28 = @"Performance";
-      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, " Applying daily case limit of %ld for %@ domain", buf, 0x16u);
-    }
-
-    v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@", @"Performance"];
-    arbitratorDailyCountLimit = 7;
-  }
-
-  else if ([domainCopy isEqualToString:@"Responsiveness"] && objc_msgSend(typeCopy, "isEqualToString:", @"CoreAnimation") && objc_msgSend(subtypeCopy, "isEqualToString:", @"Stall Tailspin"))
-  {
-    v18 = casemanagementLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134218754;
-      v26 = 3;
-      v27 = 2112;
-      v28 = @"Responsiveness";
-      v29 = 2112;
-      v30 = @"CoreAnimation";
-      v31 = 2112;
-      v32 = @"Stall Tailspin";
-      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEFAULT, " Applying daily case limit of %ld for %@/%@/%@", buf, 0x2Au);
-    }
-
-    v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@ AND caseType == %@ AND caseSubtype == %@", @"Responsiveness", @"CoreAnimation", @"Stall Tailspin"];
-    arbitratorDailyCountLimit = 3;
   }
 
   else
   {
-    configManager = [(DiagnosticCaseManager *)self configManager];
-    arbitratorDailyCountLimit = [configManager arbitratorDailyCountLimit];
-
-    v20 = casemanagementLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v18 = [domainCopy isEqualToString:@"Performance"];
+    if (v18)
     {
-      *buf = 134217984;
-      v26 = arbitratorDailyCountLimit;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEFAULT, " Applying default daily case limit of %ld", buf, 0xCu);
+      v19 = casemanagementLogHandle(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218242;
+        v29 = 7;
+        v30 = 2112;
+        v31 = @"Performance";
+        _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, " Applying daily case limit of %ld for %@ domain", buf, 0x16u);
+      }
+
+      v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@", @"Performance"];
+      arbitratorDailyCountLimit = 7;
     }
 
-    v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain != %@", @"UIPerformance"];
-    [predicatesCopy addObject:v21];
+    else if ([domainCopy isEqualToString:@"Responsiveness"] && objc_msgSend(typeCopy, "isEqualToString:", @"CoreAnimation") && (v20 = objc_msgSend(subtypeCopy, "isEqualToString:", @"Stall Tailspin"), v20))
+    {
+      v21 = casemanagementLogHandle(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218754;
+        v29 = 3;
+        v30 = 2112;
+        v31 = @"Responsiveness";
+        v32 = 2112;
+        v33 = @"CoreAnimation";
+        v34 = 2112;
+        v35 = @"Stall Tailspin";
+        _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEFAULT, " Applying daily case limit of %ld for %@/%@/%@", buf, 0x2Au);
+      }
 
-    v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain != %@", @"Performance"];
-    [predicatesCopy addObject:v22];
+      v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@ AND caseType == %@ AND caseSubtype == %@", @"Responsiveness", @"CoreAnimation", @"Stall Tailspin"];
+      arbitratorDailyCountLimit = 3;
+    }
 
-    v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain != %@ AND caseType != %@ AND caseSubtype != %@", @"Responsiveness", @"CoreAnimation", @"Stall Tailspin"];
+    else
+    {
+      configManager = [(DiagnosticCaseManager *)self configManager];
+      arbitratorDailyCountLimit = [configManager arbitratorDailyCountLimit];
+
+      v24 = casemanagementLogHandle(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134217984;
+        v29 = arbitratorDailyCountLimit;
+        _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEFAULT, " Applying default daily case limit of %ld", buf, 0xCu);
+      }
+
+      v25 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain != %@", @"UIPerformance"];
+      [predicatesCopy addObject:v25];
+
+      v26 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain != %@", @"Performance"];
+      [predicatesCopy addObject:v26];
+
+      v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain != %@ AND caseType != %@ AND caseSubtype != %@", @"Responsiveness", @"CoreAnimation", @"Stall Tailspin"];
+    }
   }
 
-  [predicatesCopy addObject:v15];
+  [predicatesCopy addObject:v16];
 
-  v23 = *MEMORY[0x277D85DE8];
   return arbitratorDailyCountLimit;
 }
 
@@ -427,23 +459,21 @@ void __54__DiagnosticCaseManager_addToInternalStateDictionary___block_invoke(uin
 
     if (defaultDiagnosticActions)
     {
-      v6 = casemanagementLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = casemanagementLogHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 138412290;
         v12 = defaultDiagnosticActions;
-        _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "default actions: %@", &v11, 0xCu);
+        _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "default actions: %@", &v11, 0xCu);
       }
 
-      v7 = [[DiagnosticsController alloc] initWithConfiguration:defaultDiagnosticActions];
-      v8 = self->_diagnosticsController;
-      self->_diagnosticsController = v7;
+      v8 = [[DiagnosticsController alloc] initWithConfiguration:defaultDiagnosticActions];
+      v9 = self->_diagnosticsController;
+      self->_diagnosticsController = v8;
     }
 
     diagnosticsController = self->_diagnosticsController;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return diagnosticsController;
 }
@@ -480,101 +510,100 @@ void __54__DiagnosticCaseManager_addToInternalStateDictionary___block_invoke(uin
 {
   v36 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
+  v7 = signatureCopy;
   if (time <= 100000000.0)
   {
-    v7 = casemanagementLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = casemanagementLogHandle(signatureCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
       timeCopy = time;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Invalid timestamp (%.0lf) passed to removeTransientCasesWithSignature:beforeTime:", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Invalid timestamp (%.0lf) passed to removeTransientCasesWithSignature:beforeTime:", buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:time];
-    v9 = [signatureCopy objectForKeyedSubscript:@"domain"];
-    v10 = [signatureCopy objectForKeyedSubscript:@"type"];
-    v11 = [signatureCopy objectForKeyedSubscript:@"subtype"];
-    v12 = [signatureCopy objectForKeyedSubscript:@"detected"];
+    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:time];
+    v10 = [v7 objectForKeyedSubscript:@"domain"];
+    v11 = [v7 objectForKeyedSubscript:@"type"];
+    v12 = [v7 objectForKeyedSubscript:@"subtype"];
+    v13 = [v7 objectForKeyedSubscript:@"detected"];
     0xFFFFFFFFLL = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %d", @"caseDampeningType", 0xFFFFFFFFLL];
-    [v7 addObject:?];
-    v29 = v8;
-    v25 = v8;
-    v13 = v9;
+    [v8 addObject:?];
+    v29 = v9;
+    v25 = v9;
+    v14 = v10;
     v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K < %@", @"timeStamp", v25];
-    [v7 addObject:?];
-    if ([v9 length])
-    {
-      v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDomain", v9];
-      [v7 addObject:v14];
-
-      v13 = v9;
-    }
-
+    [v8 addObject:?];
     if ([v10 length])
     {
-      v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseType", v10];
-      [v7 addObject:v15];
+      v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDomain", v10];
+      [v8 addObject:v15];
 
-      v13 = v9;
+      v14 = v10;
     }
 
     if ([v11 length])
     {
-      v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseSubtype", v11];
-      [v7 addObject:v16];
+      v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseType", v11];
+      [v8 addObject:v16];
 
-      v13 = v9;
+      v14 = v10;
     }
 
     if ([v12 length])
     {
-      v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDetectedProcess", v12];
-      [v7 addObject:v17];
+      v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseSubtype", v12];
+      [v8 addObject:v17];
 
-      v13 = v9;
+      v14 = v10;
     }
 
-    if ([v7 count]>= 5)
+    if ([v13 length])
     {
-      v18 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v7];
-      v19 = [(ObjectAnalytics *)self->_caseStorageAnalytics fetchEntitiesFreeForm:v18 sortDesc:0];
-      if ([v19 count])
+      v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDetectedProcess", v13];
+      [v8 addObject:v18];
+
+      v14 = v10;
+    }
+
+    if ([v8 count]>= 5)
+    {
+      v19 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v8];
+      v20 = [(ObjectAnalytics *)self->_caseStorageAnalytics fetchEntitiesFreeForm:v19 sortDesc:0];
+      if ([v20 count])
       {
         storageDelegate = [(DiagnosticCaseManager *)self storageDelegate];
         if (objc_opt_respondsToSelector())
         {
-          v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
           v30[0] = MEMORY[0x277D85DD0];
           v30[1] = 3221225472;
           v30[2] = __70__DiagnosticCaseManager_removeTransientCasesWithSignature_beforeTime___block_invoke;
           v30[3] = &unk_278CF0EB8;
-          v31 = v20;
-          v21 = v20;
-          [v19 enumerateObjectsUsingBlock:v30];
-          [storageDelegate purgeAttachmentsAtPaths:v21];
+          v31 = v21;
+          v22 = v21;
+          [v20 enumerateObjectsUsingBlock:v30];
+          [storageDelegate purgeAttachmentsAtPaths:v22];
         }
 
-        v22 = [(ObjectAnalytics *)self->_caseStorageAnalytics removeEntitiesMatching:v18];
-        v23 = casemanagementLogHandle();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v23 = [(ObjectAnalytics *)self->_caseStorageAnalytics removeEntitiesMatching:v19];
+        v24 = casemanagementLogHandle(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 134218242;
-          timeCopy = *&v22;
+          timeCopy = *&v23;
           v34 = 2112;
-          v35 = v18;
-          _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_INFO, "Removed %ld transient cases matching %@", buf, 0x16u);
+          v35 = v19;
+          _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_INFO, "Removed %ld transient cases matching %@", buf, 0x16u);
         }
       }
 
-      v13 = v9;
+      v14 = v10;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DiagnosticCaseManager_removeTransientCasesWithSignature_beforeTime___block_invoke(uint64_t a1, void *a2)
@@ -587,97 +616,96 @@ void __70__DiagnosticCaseManager_removeTransientCasesWithSignature_beforeTime___
 
 - (unsigned)dampeningFactorForSignature:(id)signature caseTime:(id)time limit:(int64_t)limit
 {
-  v59[2] = *MEMORY[0x277D85DE8];
+  v58[2] = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   timeCopy = time;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = [(DiagnosticCaseManager *)self defaultDampeningFactorForSignature:signatureCopy limit:limit];
-  v48 = [signatureCopy objectForKeyedSubscript:@"domain"];
-  v47 = [signatureCopy objectForKeyedSubscript:@"type"];
-  v46 = [signatureCopy objectForKeyedSubscript:@"subtype"];
-  v44 = [signatureCopy objectForKeyedSubscript:@"additional"];
-  v43 = [signatureCopy objectForKeyedSubscript:@"detected"];
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = [(DiagnosticCaseManager *)self defaultDampeningFactorForSignature:signatureCopy limit:limit];
+  v47 = [signatureCopy objectForKeyedSubscript:@"domain"];
+  v46 = [signatureCopy objectForKeyedSubscript:@"type"];
+  v45 = [signatureCopy objectForKeyedSubscript:@"subtype"];
+  v43 = [signatureCopy objectForKeyedSubscript:@"additional"];
+  v42 = [signatureCopy objectForKeyedSubscript:@"detected"];
   [timeCopy timeIntervalSince1970];
   v10 = v9;
   configManager = [(DiagnosticCaseManager *)self configManager];
   dampeningRestrictionFactor = [configManager dampeningRestrictionFactor];
 
-  v35 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v10 + sqrt(dampeningRestrictionFactor) * -86400.0];
-  v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"timeStamp >= %@", v35];
+  v34 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v10 + sqrt(dampeningRestrictionFactor) * -86400.0];
+  v36 = [MEMORY[0x277CCAC30] predicateWithFormat:@"timeStamp >= %@", v34];
   v13 = MEMORY[0x277CBEC28];
-  v45 = [MEMORY[0x277CCAC30] predicateWithFormat:@"remoteTrigger == %@", MEMORY[0x277CBEC28]];
+  v44 = [MEMORY[0x277CCAC30] predicateWithFormat:@"remoteTrigger == %@", MEMORY[0x277CBEC28]];
   v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"remoteTrigger == nil"];
   v15 = MEMORY[0x277CCA920];
-  v59[0] = v45;
-  v59[1] = v14;
-  v34 = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
-  v36 = [v15 orPredicateWithSubpredicates:v16];
+  v58[0] = v44;
+  v58[1] = v14;
+  v33 = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+  v35 = [v15 orPredicateWithSubpredicates:v16];
 
-  v42 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@", v48];
-  v41 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseType == %@", v47];
-  v40 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseSubtype == %@", v46];
-  v39 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseSubtypeContext == %@", v44];
-  v38 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDetectedProcess == %@", v43];
+  v41 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDomain == %@", v47];
+  v40 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseType == %@", v46];
+  v39 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseSubtype == %@", v45];
+  v38 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseSubtypeContext == %@", v43];
+  v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDetectedProcess == %@", v42];
   v17 = objc_alloc(MEMORY[0x277CCA920]);
-  v58[0] = v42;
-  v58[1] = v41;
-  v58[2] = v40;
-  v58[3] = v39;
-  v58[4] = v38;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:5];
+  v57[0] = v41;
+  v57[1] = v40;
+  v57[2] = v39;
+  v57[3] = v38;
+  v57[4] = v37;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:5];
   v19 = [v17 initWithType:1 subpredicates:v18];
 
   v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseDampeningType == %@", &unk_28537A230];
   v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseAttachments != nil"];
   v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"attachmentsIncomplete == %@", v13];
   v23 = objc_alloc(MEMORY[0x277CCA920]);
-  v57[0] = v37;
-  v57[1] = v36;
-  v57[2] = v19;
-  v57[3] = v20;
-  v57[4] = v21;
-  v57[5] = v22;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:6];
+  v56[0] = v36;
+  v56[1] = v35;
+  v56[2] = v19;
+  v56[3] = v20;
+  v56[4] = v21;
+  v56[5] = v22;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:6];
   v25 = [v23 initWithType:1 subpredicates:v24];
 
   v26 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timeStamp" ascending:0];
   v27 = [(ObjectAnalytics *)self->_caseStorageAnalytics fetchEntitiesFreeForm:v25 sortDesc:v26];
-  v28 = casemanagementLogHandle();
+  v28 = casemanagementLogHandle(v27);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
     v29 = [v27 count];
     *buf = 134217984;
-    v56 = v29;
+    v55 = v29;
     _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_INFO, "There are %ld records of accepted cases with logs matching this signature", buf, 0xCu);
   }
 
   v30 = objc_autoreleasePoolPush();
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___block_invoke;
-  v50[3] = &unk_278CF0F08;
-  v50[4] = self;
-  v50[5] = &v51;
-  [v27 enumerateObjectsUsingBlock:v50];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___block_invoke;
+  v49[3] = &unk_278CF0F08;
+  v49[4] = self;
+  v49[5] = &v50;
+  [v27 enumerateObjectsUsingBlock:v49];
   objc_autoreleasePoolPop(v30);
-  v31 = *(v52 + 6);
+  v31 = *(v51 + 6);
 
-  _Block_object_dispose(&v51, 8);
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
   return v31;
 }
 
 void __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [v6 caseID];
   v8 = [v6 caseAttachments];
   v9 = [DiagnosticCase attachmentsFromStringRepresentation:v8];
-  v10 = casemanagementLogHandle();
+  v10 = casemanagementLogHandle(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543618;
@@ -687,52 +715,53 @@ void __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___bl
     _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "Inspecting case %{public}@ [dbSubmissionState: %d]", buf, 0x12u);
   }
 
-  if ([v6 dpSubmissionState] == 1)
+  v11 = [v6 dpSubmissionState];
+  if (v11 == 1)
   {
-    v11 = casemanagementLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = casemanagementLogHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
       *&buf[4] = v7;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "Found case ID %{public}@ which was submitted to DP", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found case ID %{public}@ which was submitted to DP", buf, 0xCu);
     }
 
 LABEL_11:
-    v16 = [v6 timeStamp];
-    [v16 timeIntervalSinceNow];
-    v18 = floor(v17 / -86400.0) + 1.0;
-    if (v18 == 0.0)
+    v18 = [v6 timeStamp];
+    [v18 timeIntervalSinceNow];
+    v20 = floor(v19 / -86400.0) + 1.0;
+    if (v20 == 0.0)
     {
-      v19 = 1.0;
+      v21 = 1.0;
     }
 
     else
     {
-      v19 = v18;
+      v21 = v20;
     }
 
-    v20 = [*(a1 + 32) configManager];
-    v21 = [v20 dampeningRestrictionFactor];
-    v22 = v19;
-    v23 = exp2((v19 - 1));
+    v22 = [*(a1 + 32) configManager];
+    v23 = [v22 dampeningRestrictionFactor];
+    v24 = v21;
+    v25 = exp2((v21 - 1));
 
-    v24 = vcvtad_u64_f64(1.0 / v23 * v21);
-    *(*(*(a1 + 40) + 8) + 24) *= v24;
-    v25 = casemanagementLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = vcvtad_u64_f64(1.0 / v25 * v23);
+    *(*(*(a1 + 40) + 8) + 24) *= v26;
+    v28 = casemanagementLogHandle(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = *(*(*(a1 + 40) + 8) + 24);
+      v29 = *(*(*(a1 + 40) + 8) + 24);
       *buf = 138544386;
       *&buf[4] = v7;
       *&buf[12] = 2112;
-      *&buf[14] = v16;
+      *&buf[14] = v18;
       *&buf[22] = 2048;
-      v34 = v22;
-      v35 = 2048;
       v36 = v24;
       v37 = 2048;
       v38 = v26;
-      _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEFAULT, "Found fully valid case %{public}@ from %@ (within %lu days ago). Adjusted dampening factor by %ld to %ld", buf, 0x34u);
+      v39 = 2048;
+      v40 = v29;
+      _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEFAULT, "Found fully valid case %{public}@ from %@ (within %lu days ago). Adjusted dampening factor by %ld to %ld", buf, 0x34u);
     }
 
     *a4 = 1;
@@ -742,45 +771,43 @@ LABEL_11:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v34) = 1;
-  v12 = [MEMORY[0x277CCAA00] defaultManager];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___block_invoke_120;
-  v29[3] = &unk_278CF0EE0;
-  v13 = v12;
-  v30 = v13;
-  v14 = v7;
-  v31 = v14;
-  v32 = buf;
-  [v9 enumerateObjectsUsingBlock:v29];
+  LOBYTE(v36) = 1;
+  v13 = [MEMORY[0x277CCAA00] defaultManager];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___block_invoke_120;
+  v31[3] = &unk_278CF0EE0;
+  v14 = v13;
+  v32 = v14;
+  v15 = v7;
+  v33 = v15;
+  v34 = buf;
+  v16 = [v9 enumerateObjectsUsingBlock:v31];
   if (*(*&buf[8] + 24))
   {
-    v15 = casemanagementLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = casemanagementLogHandle(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      *v39 = 138543362;
-      v40 = v14;
-      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Case ID %{public}@ matched signature with all attachment files present", v39, 0xCu);
+      *v41 = 138543362;
+      v42 = v15;
+      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEBUG, "Case ID %{public}@ matched signature with all attachment files present", v41, 0xCu);
     }
 
     _Block_object_dispose(buf, 8);
     goto LABEL_11;
   }
 
-  v28 = casemanagementLogHandle();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v30 = casemanagementLogHandle(v16);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    *v39 = 138543362;
-    v40 = v14;
-    _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEFAULT, "Case ID %{public}@ matches signature but is missing attachment files on disk", v39, 0xCu);
+    *v41 = 138543362;
+    v42 = v15;
+    _os_log_impl(&dword_241804000, v30, OS_LOG_TYPE_DEFAULT, "Case ID %{public}@ matches signature but is missing attachment files on disk", v41, 0xCu);
   }
 
   [v6 setAttachmentsIncomplete:1];
   _Block_object_dispose(buf, 8);
 LABEL_17:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___block_invoke_120(void *a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -796,44 +823,41 @@ void __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___bl
 
   if ((v9 & 1) == 0)
   {
-    v11 = casemanagementLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = casemanagementLogHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = a1[5];
-      v13 = [v8 path];
+      v13 = a1[5];
+      v14 = [v8 path];
       v15 = 138543618;
-      v16 = v12;
+      v16 = v13;
       v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "Case ID %{public}@ is missing attached logs on disk: %@", &v15, 0x16u);
+      v18 = v14;
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "Case ID %{public}@ is missing attached logs on disk: %@", &v15, 0x16u);
     }
 
     *(*(a1[6] + 8) + 24) = 0;
     *a4 = 1;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)defaultDampeningFactorForSignature:(id)signature limit:(int64_t)limit
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = [(DiagnosticCaseManager *)self avgCasesPerDay:signature];
-  v5 = casemanagementLogHandle();
+  v5 = casemanagementLogHandle(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109120;
-    v8[1] = v4;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Configuring initial dampening factor to %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v4;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Configuring initial dampening factor to %d", v7, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)buildSpecificRestrictionsForSignature:(id)signature result:(id)result
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   resultCopy = result;
   if (resultCopy)
@@ -849,11 +873,11 @@ void __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___bl
 
         if ((submitToDiagnosticPipeline & 1) == 0)
         {
-          v12 = casemanagementLogHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = casemanagementLogHandle(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v24) = 0;
-            _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Not allowing case due to invalid configuration (no valid upload mechanism configured).", &v24, 2u);
+            LOWORD(v27) = 0;
+            _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Not allowing case due to invalid configuration (no valid upload mechanism configured).", &v27, 2u);
           }
 
           resultCopy[2](resultCopy, 1, 4);
@@ -869,25 +893,29 @@ void __68__DiagnosticCaseManager_dampeningFactorForSignature_caseTime_limit___bl
     if ([v8 carrierSeedBuild])
     {
       configManager = [signatureCopy objectForKeyedSubscript:@"domain"];
-      v13 = [signatureCopy objectForKeyedSubscript:@"type"];
-      v14 = [signatureCopy objectForKeyedSubscript:@"subtype"];
-      v15 = [signatureCopy objectForKeyedSubscript:@"detected"];
-      if (([configManager isEqualToString:@"Cellular"] & 1) == 0 && (objc_msgSend(configManager, "isEqualToString:", @"Energy") & 1) == 0 && (objc_msgSend(v15, "isEqualToString:", @"Baseband") & 1) == 0 && (!objc_msgSend(configManager, "isEqualToString:", @"UIPerformance") || !objc_msgSend(v13, "isEqualToString:", @"Responsiveness") || !objc_msgSend(v14, "isEqualToString:", @"com.apple.signpost_emitter.emitter_category.emitter_name") || (objc_msgSend(v15, "isEqualToString:", @"signpost_emitter") & 1) == 0))
+      v14 = [signatureCopy objectForKeyedSubscript:@"type"];
+      v15 = [signatureCopy objectForKeyedSubscript:@"subtype"];
+      v16 = [signatureCopy objectForKeyedSubscript:@"detected"];
+      if (([configManager isEqualToString:@"Cellular"] & 1) == 0 && (objc_msgSend(configManager, "isEqualToString:", @"Energy") & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"Baseband") & 1) == 0)
       {
-        v16 = casemanagementLogHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = [configManager isEqualToString:@"UIPerformance"];
+        if (!v17 || (v17 = [v14 isEqualToString:@"Responsiveness"], !v17) || (v17 = objc_msgSend(v15, "isEqualToString:", @"com.apple.signpost_emitter.emitter_category.emitter_name"), !v17) || (v17 = objc_msgSend(v16, "isEqualToString:", @"signpost_emitter"), (v17 & 1) == 0))
         {
-          logSignatureDescription = [signatureCopy logSignatureDescription];
-          v24 = 138543362;
-          v25 = logSignatureDescription;
-          _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, "Cases not explicitly permitted will be dampened on Carrier Seed builds: %{public}@", &v24, 0xCu);
-        }
+          v18 = casemanagementLogHandle(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          {
+            logSignatureDescription = [signatureCopy logSignatureDescription];
+            v27 = 138543362;
+            v28 = logSignatureDescription;
+            _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEFAULT, "Cases not explicitly permitted will be dampened on Carrier Seed builds: %{public}@", &v27, 0xCu);
+          }
 
-        resultCopy[2](resultCopy, 1, 7);
+          resultCopy[2](resultCopy, 1, 7);
 LABEL_19:
 
 LABEL_37:
-        goto LABEL_38;
+          goto LABEL_38;
+        }
       }
     }
 
@@ -895,15 +923,16 @@ LABEL_37:
     {
       if (![v8 customerSeedBuild])
       {
-        if ([v8 vendorBuild])
+        vendorBuild = [v8 vendorBuild];
+        if (vendorBuild)
         {
-          v20 = casemanagementLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v22 = casemanagementLogHandle(vendorBuild);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             logSignatureDescription2 = [signatureCopy logSignatureDescription];
-            v24 = 138543362;
-            v25 = logSignatureDescription2;
-            _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_INFO, "All cases will be dampened on Vendor builds: %{public}@", &v24, 0xCu);
+            v27 = 138543362;
+            v28 = logSignatureDescription2;
+            _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_INFO, "All cases will be dampened on Vendor builds: %{public}@", &v27, 0xCu);
           }
 
           resultCopy[2](resultCopy, 1, 6);
@@ -914,23 +943,27 @@ LABEL_37:
       }
 
       configManager = [signatureCopy objectForKeyedSubscript:@"domain"];
-      v13 = [signatureCopy objectForKeyedSubscript:@"type"];
-      v14 = [signatureCopy objectForKeyedSubscript:@"subtype"];
-      v15 = [signatureCopy objectForKeyedSubscript:@"additional"];
-      v18 = [signatureCopy objectForKeyedSubscript:@"detected"];
-      if ((![configManager isEqualToString:@"Energy"] || (objc_msgSend(v13, "isEqualToString:", @"CPU") & 1) == 0) && (!objc_msgSend(configManager, "isEqualToString:", @"UIPerformance") || (objc_msgSend(v13, "isEqualToString:", @"Responsiveness") & 1) == 0) && (objc_msgSend(configManager, "isEqualToString:", @"Performance") & 1) == 0 && (!objc_msgSend(configManager, "isEqualToString:", @"Responsiveness") || !objc_msgSend(v13, "isEqualToString:", @"CoreAnimation") || (objc_msgSend(v14, "isEqualToString:", @"Stall Tailspin") & 1) == 0) && (objc_msgSend(configManager, "isEqualToString:", @"Cellular") & 1) == 0 && (objc_msgSend(configManager, "isEqualToString:", @"Telephony") & 1) == 0 && (objc_msgSend(v13, "isEqualToString:", @"IMSReg") & 1) == 0 && (objc_msgSend(v13, "isEqualToString:", @"IMS Call KPI") & 1) == 0 && (!objc_msgSend(configManager, "isEqualToString:", @"Location") || !objc_msgSend(v13, "isEqualToString:", @"GNSS") || !objc_msgSend(v14, "isEqualToString:", @"Emergency") || !objc_msgSend(v15, "isEqualToString:", @"long_EEM") || (objc_msgSend(v18, "isEqualToString:", @"locationd") & 1) == 0) && (!objc_msgSend(configManager, "isEqualToString:", @"iCloudDrive") || (objc_msgSend(v13, "isEqualToString:", @"Ciconia") & 1) == 0) && (!objc_msgSend(configManager, "isEqualToString:", @"SpotlightIndex") || (objc_msgSend(v13, "isEqualToString:", @"IndexCorruption") & 1) == 0))
+      v14 = [signatureCopy objectForKeyedSubscript:@"type"];
+      v15 = [signatureCopy objectForKeyedSubscript:@"subtype"];
+      v16 = [signatureCopy objectForKeyedSubscript:@"additional"];
+      v20 = [signatureCopy objectForKeyedSubscript:@"detected"];
+      if ((![configManager isEqualToString:@"Energy"] || (objc_msgSend(v14, "isEqualToString:", @"CPU") & 1) == 0) && (!objc_msgSend(configManager, "isEqualToString:", @"UIPerformance") || (objc_msgSend(v14, "isEqualToString:", @"Responsiveness") & 1) == 0) && (objc_msgSend(configManager, "isEqualToString:", @"Performance") & 1) == 0 && (!objc_msgSend(configManager, "isEqualToString:", @"Responsiveness") || !objc_msgSend(v14, "isEqualToString:", @"CoreAnimation") || (objc_msgSend(v15, "isEqualToString:", @"Stall Tailspin") & 1) == 0) && (objc_msgSend(configManager, "isEqualToString:", @"Cellular") & 1) == 0 && (objc_msgSend(configManager, "isEqualToString:", @"Telephony") & 1) == 0 && (objc_msgSend(v14, "isEqualToString:", @"IMSReg") & 1) == 0 && (objc_msgSend(v14, "isEqualToString:", @"IMS Call KPI") & 1) == 0 && (!objc_msgSend(configManager, "isEqualToString:", @"Location") || !objc_msgSend(v14, "isEqualToString:", @"GNSS") || !objc_msgSend(v15, "isEqualToString:", @"Emergency") || !objc_msgSend(v16, "isEqualToString:", @"long_EEM") || (objc_msgSend(v20, "isEqualToString:", @"locationd") & 1) == 0) && (!objc_msgSend(configManager, "isEqualToString:", @"iCloudDrive") || (objc_msgSend(v14, "isEqualToString:", @"Ciconia") & 1) == 0))
       {
-        v22 = casemanagementLogHandle();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = [configManager isEqualToString:@"SpotlightIndex"];
+        if (!v24 || (v24 = [v14 isEqualToString:@"IndexCorruption"], (v24 & 1) == 0))
         {
-          logSignatureDescription3 = [signatureCopy logSignatureDescription];
-          v24 = 138543362;
-          v25 = logSignatureDescription3;
-          _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEFAULT, "Cases not explicitly permitted will be dampened on Seed builds: %{public}@", &v24, 0xCu);
-        }
+          v25 = casemanagementLogHandle(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          {
+            logSignatureDescription3 = [signatureCopy logSignatureDescription];
+            v27 = 138543362;
+            v28 = logSignatureDescription3;
+            _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEFAULT, "Cases not explicitly permitted will be dampened on Seed builds: %{public}@", &v27, 0xCu);
+          }
 
-        resultCopy[2](resultCopy, 1, 7);
-        goto LABEL_19;
+          resultCopy[2](resultCopy, 1, 7);
+          goto LABEL_19;
+        }
       }
     }
 
@@ -941,13 +974,11 @@ LABEL_36:
   }
 
 LABEL_38:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)caseAllowanceForSignature:(id)signature timestamp:(id)timestamp result:(id)result
 {
-  v69[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   timestampCopy = timestamp;
   resultCopy = result;
@@ -966,189 +997,194 @@ LABEL_38:
       v13 = [signatureCopy objectForKeyedSubscript:@"subtype"];
       v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
       selfCopy = self;
-      v60 = v12;
-      v61 = v11;
-      v59 = v13;
-      v48 = [(DiagnosticCaseManager *)self dailyCountLimitForDomain:v11 type:v12 subtype:v13 domainPredicates:v14];
+      v65 = v12;
+      v66 = v11;
+      v64 = v13;
+      v53 = [(DiagnosticCaseManager *)self dailyCountLimitForDomain:v11 type:v12 subtype:v13 domainPredicates:v14];
       [timestampCopy timeIntervalSince1970];
       v16 = v15;
-      v51 = timestampCopy;
+      v56 = timestampCopy;
       [timestampCopy timeIntervalSince1970];
-      v63 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v16 - (v17 % 0x15180)];
-      v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"timeStamp >= %@", v63];
+      v68 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v16 - (v17 % 0x15180)];
+      v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"timeStamp >= %@", v68];
       v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"remoteTrigger == %@", MEMORY[0x277CBEC28]];
       v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"remoteTrigger == nil"];
       v21 = objc_alloc(MEMORY[0x277CCA920]);
-      v56 = v20;
-      v57 = v19;
-      v69[0] = v19;
-      v69[1] = v20;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+      v61 = v20;
+      v62 = v19;
+      v74[0] = v19;
+      v74[1] = v20;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
       v23 = [v21 initWithType:2 subpredicates:v22];
 
       v24 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseClosureType == %@", &unk_28537A248];
       v25 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseClosureType == %@", &unk_28537A260];
       v26 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseClosureType == %@", &unk_28537A278];
       v27 = objc_alloc(MEMORY[0x277CCA920]);
-      v52 = v25;
-      v53 = v24;
-      v68[0] = v24;
-      v68[1] = v25;
-      v50 = v26;
-      v68[2] = v26;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
+      v57 = v25;
+      v58 = v24;
+      v73[0] = v24;
+      v73[1] = v25;
+      v55 = v26;
+      v73[2] = v26;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
       v29 = [v27 initWithType:2 subpredicates:v28];
 
-      v49 = v29;
-      v55 = v23;
-      v58 = v18;
+      v54 = v29;
+      v60 = v23;
+      v63 = v18;
       v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v18, v23, v29, 0}];
-      if ([v14 count])
+      v31 = [v14 count];
+      if (v31)
       {
-        [v30 addObjectsFromArray:v14];
+        v31 = [v30 addObjectsFromArray:v14];
       }
 
-      v31 = casemanagementLogHandle();
-      timestampCopy = v51;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v32 = casemanagementLogHandle(v31);
+      timestampCopy = v56;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        *v65 = v63;
-        *&v65[8] = 2112;
-        *&v65[10] = v51;
-        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEBUG, "Current window is from %@ to %@ (now)", buf, 0x16u);
+        *v70 = v68;
+        *&v70[8] = 2112;
+        *&v70[10] = v56;
+        _os_log_impl(&dword_241804000, v32, OS_LOG_TYPE_DEBUG, "Current window is from %@ to %@ (now)", buf, 0x16u);
       }
 
-      v32 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:1 subpredicates:v30];
-      v33 = [(ObjectAnalytics *)selfCopy->_caseStorageAnalytics countEntitiesMatching:v32];
-      v34 = casemanagementLogHandle();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v33 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:1 subpredicates:v30];
+      v34 = [(ObjectAnalytics *)selfCopy->_caseStorageAnalytics countEntitiesMatching:v33];
+      v35 = casemanagementLogHandle(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         *buf = 134218498;
-        *v65 = v33;
-        *&v65[8] = 2112;
-        *&v65[10] = v63;
-        v66 = 2048;
-        v67 = v48;
-        _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_INFO, "Accepted %ld case(s) since %@ (limit = %ld).", buf, 0x20u);
+        *v70 = v34;
+        *&v70[8] = 2112;
+        *&v70[10] = v68;
+        v71 = 2048;
+        v72 = v53;
+        _os_log_impl(&dword_241804000, v35, OS_LOG_TYPE_INFO, "Accepted %ld case(s) since %@ (limit = %ld).", buf, 0x20u);
       }
 
-      v35 = casemanagementLogHandle();
-      v36 = v35;
-      if (v48 <= v33)
+      v37 = casemanagementLogHandle(v36);
+      v38 = v37;
+      if (v53 <= v34)
       {
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v42 = 2;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEFAULT, "Reached daily limit, no more cases can be accepted.", buf, 2u);
+          v46 = 2;
+          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEFAULT, "Reached daily limit, no more cases can be accepted.", buf, 2u);
         }
 
         else
         {
-          v42 = 2;
+          v46 = 2;
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218498;
-          *v65 = v33;
-          *&v65[8] = 2112;
-          *&v65[10] = v63;
-          v66 = 2048;
-          v67 = v48;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEBUG, "Found %ld case(s) after %@ (limit = %ld), admissible.", buf, 0x20u);
+          *v70 = v34;
+          *&v70[8] = 2112;
+          *&v70[10] = v68;
+          v71 = 2048;
+          v72 = v53;
+          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEBUG, "Found %ld case(s) after %@ (limit = %ld), admissible.", buf, 0x20u);
         }
 
-        v37 = [(DiagnosticCaseManager *)selfCopy dampeningFactorForSignature:signatureCopy caseTime:v51 limit:v48 - v33];
-        v38 = casemanagementLogHandle();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v39 = [(DiagnosticCaseManager *)selfCopy dampeningFactorForSignature:signatureCopy caseTime:v56 limit:v53 - v34];
+        v40 = v39;
+        v41 = casemanagementLogHandle(v39);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *v65 = v37;
-          *&v65[4] = 2048;
-          *&v65[6] = v48 - v33;
-          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEFAULT, "Current dampening probability is %u to %ld against.", buf, 0x12u);
+          *v70 = v40;
+          *&v70[4] = 2048;
+          *&v70[6] = v53 - v34;
+          _os_log_impl(&dword_241804000, v41, OS_LOG_TYPE_DEFAULT, "Current dampening probability is %u to %ld against.", buf, 0x12u);
         }
 
-        v39 = arc4random_uniform(v37);
-        v36 = casemanagementLogHandle();
-        v40 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
-        if ((v48 - v33) > v39)
+        v42 = arc4random_uniform(v40);
+        v43 = v42;
+        v38 = casemanagementLogHandle(v42);
+        v44 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+        if ((v53 - v34) > v43)
         {
-          if (v40)
+          if (v44)
           {
             logSignatureDescription = [signatureCopy logSignatureDescription];
             *buf = 67109378;
-            *v65 = v39;
-            *&v65[4] = 2114;
-            *&v65[6] = logSignatureDescription;
-            _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEFAULT, "Randomizer check passed [%d]. Accepting case: %{public}@", buf, 0x12u);
+            *v70 = v43;
+            *&v70[4] = 2114;
+            *&v70[6] = logSignatureDescription;
+            _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEFAULT, "Randomizer check passed [%d]. Accepting case: %{public}@", buf, 0x12u);
           }
 
-          v42 = 0;
+          v46 = 0;
           goto LABEL_36;
         }
 
-        if (v40)
+        if (v44)
         {
           logSignatureDescription2 = [signatureCopy logSignatureDescription];
           *buf = 67109378;
-          *v65 = v39;
-          *&v65[4] = 2114;
-          *&v65[6] = logSignatureDescription2;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEFAULT, "Failed to pass randomizer check [%d]. Not accepting this case: %{public}@", buf, 0x12u);
+          *v70 = v43;
+          *&v70[4] = 2114;
+          *&v70[6] = logSignatureDescription2;
+          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEFAULT, "Failed to pass randomizer check [%d]. Not accepting this case: %{public}@", buf, 0x12u);
         }
 
-        v42 = 3;
+        v46 = 3;
       }
 
-      v44 = [CaseDampeningExceptions allowDampeningExceptionFor:signatureCopy];
-      v45 = casemanagementLogHandle();
-      v36 = v45;
-      if (v44)
+      v48 = [CaseDampeningExceptions allowDampeningExceptionFor:signatureCopy];
+      v49 = v48;
+      v50 = casemanagementLogHandle(v48);
+      v38 = v50;
+      if (v49)
       {
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEFAULT, "Dampening Exceptions: Allowing this case is as an exception.", buf, 2u);
+          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEFAULT, "Dampening Exceptions: Allowing this case is as an exception.", buf, 2u);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_INFO, "Dampening Exceptions: This case is not allowed as an exception.", buf, 2u);
+          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_INFO, "Dampening Exceptions: This case is not allowed as an exception.", buf, 2u);
         }
 
-        if (![(DiagnosticCaseManager *)selfCopy isAllowedTransientException:signatureCopy])
+        v51 = [(DiagnosticCaseManager *)selfCopy isAllowedTransientException:signatureCopy];
+        if (!v51)
         {
-          v46 = 0;
+          v52 = 0;
           goto LABEL_37;
         }
 
-        v36 = casemanagementLogHandle();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v38 = casemanagementLogHandle(v51);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEFAULT, "Allowing this case as a transient exception.", buf, 2u);
+          _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEFAULT, "Allowing this case as a transient exception.", buf, 2u);
         }
 
-        v42 = -1;
+        v46 = -1;
       }
 
 LABEL_36:
 
-      v46 = 1;
+      v52 = 1;
 LABEL_37:
 
       objc_autoreleasePoolPop(context);
-      resultCopy[2](resultCopy, v46, v42);
+      resultCopy[2](resultCopy, v52, v46);
       goto LABEL_38;
     }
 
@@ -1156,18 +1192,16 @@ LABEL_37:
   }
 
 LABEL_38:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAdmissible:(id)admissible dampenedBy:(signed __int16 *)by
 {
   admissibleCopy = admissible;
   v7 = admissibleCopy;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   if (by)
   {
     *by = 4;
@@ -1178,43 +1212,44 @@ LABEL_38:
   if (signature)
   {
     *buf = 0;
-    v23 = buf;
-    v24 = 0x2020000000;
-    v25 = 0;
+    v27 = buf;
+    v28 = 0x2020000000;
+    v29 = 0;
     signature2 = [v7 signature];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke;
-    v21[3] = &unk_278CF0F30;
-    v21[5] = buf;
-    v21[6] = by;
-    v21[4] = &v26;
-    [(DiagnosticCaseManager *)self buildSpecificRestrictionsForSignature:signature2 result:v21];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke;
+    v25[3] = &unk_278CF0F30;
+    v25[5] = buf;
+    v25[6] = by;
+    v25[4] = &v30;
+    [(DiagnosticCaseManager *)self buildSpecificRestrictionsForSignature:signature2 result:v25];
 
-    if (v23[24] == 1)
+    if (v27[24] == 1)
     {
 LABEL_5:
-      v10 = *(v27 + 24);
+      v11 = *(v31 + 24);
 LABEL_25:
       _Block_object_dispose(buf, 8);
       goto LABEL_26;
     }
 
-    if ([(NSMutableArray *)self->_totalCases count])
+    v13 = [(NSMutableArray *)self->_totalCases count];
+    if (v13)
     {
       if (by)
       {
         *by = 5;
       }
 
-      v12 = casemanagementLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = casemanagementLogHandle(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Not allowing a new case while another case is currently active.", v20, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, "Not allowing a new case while another case is currently active.", v24, 2u);
       }
 
-      v10 = 0;
+      v11 = 0;
       goto LABEL_25;
     }
 
@@ -1223,66 +1258,68 @@ LABEL_25:
       *by = 0;
     }
 
-    if ([(DiagnosticCaseManager *)self disableDampening])
+    disableDampening = [(DiagnosticCaseManager *)self disableDampening];
+    if (disableDampening)
     {
-      v13 = casemanagementLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = casemanagementLogHandle(disableDampening);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        v14 = "Dampening is disabled, allowing case.";
+        *v24 = 0;
+        v17 = "Dampening is disabled, allowing case.";
 LABEL_23:
-        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, v14, v20, 2u);
+        _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, v17, v24, 2u);
       }
     }
 
     else
     {
-      if (![v7 isRemoteTrigger])
+      isRemoteTrigger = [v7 isRemoteTrigger];
+      if (!isRemoteTrigger)
       {
         signature3 = [v7 signature];
         caseStorage = [v7 caseStorage];
         timeStamp = [caseStorage timeStamp];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187;
-        v19[3] = &unk_278CF0F58;
-        v19[4] = &v26;
-        v19[5] = by;
-        [(DiagnosticCaseManager *)self caseAllowanceForSignature:signature3 timestamp:timeStamp result:v19];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187;
+        v23[3] = &unk_278CF0F58;
+        v23[4] = &v30;
+        v23[5] = by;
+        [(DiagnosticCaseManager *)self caseAllowanceForSignature:signature3 timestamp:timeStamp result:v23];
 
         goto LABEL_5;
       }
 
-      v13 = casemanagementLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = casemanagementLogHandle(isRemoteTrigger);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        v14 = "Allowing as a remotely triggered case.";
+        *v24 = 0;
+        v17 = "Allowing as a remotely triggered case.";
         goto LABEL_23;
       }
     }
 
-    v10 = 1;
+    v11 = 1;
     goto LABEL_25;
   }
 
-  v11 = casemanagementLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = casemanagementLogHandle(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Not allowing case due to missing signature.", buf, 2u);
+    _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Not allowing case due to missing signature.", buf, 2u);
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_26:
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
 
-  return v10 & 1;
+  return v11 & 1;
 }
 
 void __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke(void *a1, int a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = a1[6];
@@ -1293,17 +1330,15 @@ void __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke(void *a1
 
     *(*(a1[4] + 8) + 24) = 0;
     *(*(a1[5] + 8) + 24) = 1;
-    v5 = casemanagementLogHandle();
+    v5 = casemanagementLogHandle(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [DiagnosticCase descriptionForDampeningType:a3];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Case denied by restriction, dampening: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Case denied by restriction, dampening: %{public}@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187(uint64_t result, char a2, __int16 a3)
@@ -1320,30 +1355,30 @@ uint64_t __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187(
 
 - (id)casesDiagnosedInTheLast:(double)last from:(double)from matchingDomain:(id)domain
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   reverseObjectEnumerator = [(NSMutableArray *)self->_totalCases reverseObjectEnumerator];
-  v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     v13 = from - last;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         [v15 caseOpenedTime];
         if (v16 < from)
         {
@@ -1361,20 +1396,18 @@ uint64_t __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187(
         }
       }
 
-      v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)requestGroupCaseIdentifierForSignature:(id)signature reply:(id)reply
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   replyCopy = reply;
   if (replyCopy)
@@ -1382,91 +1415,92 @@ uint64_t __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187(
     if ([signatureCopy count])
     {
       *buf = 0;
-      v29 = buf;
-      v30 = 0x2020000000;
-      v31 = 0;
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = 4;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___block_invoke;
-      v23[3] = &unk_278CF0F80;
-      v23[4] = &v24;
-      v23[5] = buf;
-      [(DiagnosticCaseManager *)self buildSpecificRestrictionsForSignature:signatureCopy result:v23];
-      if (v29[24] == 1)
+      v30 = buf;
+      v31 = 0x2020000000;
+      v32 = 0;
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x2020000000;
+      v28 = 4;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___block_invoke;
+      v24[3] = &unk_278CF0F80;
+      v24[4] = &v25;
+      v24[5] = buf;
+      [(DiagnosticCaseManager *)self buildSpecificRestrictionsForSignature:signatureCopy result:v24];
+      if (v30[24] == 1)
       {
-        (*(replyCopy + 2))(replyCopy, 0, *(v25 + 12), 0);
+        (*(replyCopy + 2))(replyCopy, 0, *(v26 + 12), 0);
       }
 
       else
       {
-        v19 = 0;
-        v20 = &v19;
-        v21 = 0x2020000000;
-        v22 = 0;
-        if ([(DiagnosticCaseManager *)self disableDampening])
+        v20 = 0;
+        v21 = &v20;
+        v22 = 0x2020000000;
+        v23 = 0;
+        disableDampening = [(DiagnosticCaseManager *)self disableDampening];
+        if (disableDampening)
         {
-          *(v20 + 24) = 1;
-          *(v25 + 12) = 0;
-          v9 = casemanagementLogHandle();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+          *(v21 + 24) = 1;
+          *(v26 + 12) = 0;
+          v10 = casemanagementLogHandle(disableDampening);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
           {
-            *v32 = 0;
-            _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: Dampening is disabled, allowing case.", v32, 2u);
+            *v33 = 0;
+            _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: Dampening is disabled, allowing case.", v33, 2u);
           }
         }
 
         else
         {
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___block_invoke_188;
-          v18[3] = &unk_278CF0F80;
-          v18[4] = &v19;
-          v18[5] = &v24;
-          [(DiagnosticCaseManager *)self caseAllowanceForSignature:signatureCopy timestamp:0 result:v18];
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___block_invoke_188;
+          v19[3] = &unk_278CF0F80;
+          v19[4] = &v20;
+          v19[5] = &v25;
+          [(DiagnosticCaseManager *)self caseAllowanceForSignature:signatureCopy timestamp:0 result:v19];
         }
 
-        if (*(v20 + 24) == 1)
+        if (*(v21 + 24) == 1)
         {
           uUID = [MEMORY[0x277CCAD78] UUID];
           uUIDString = [uUID UUIDString];
           uUID2 = [MEMORY[0x277CCAD78] UUID];
           uUIDString2 = [uUID2 UUIDString];
-          v14 = [uUIDString stringByAppendingFormat:@"_%@", uUIDString2];
+          v15 = [uUIDString stringByAppendingFormat:@"_%@", uUIDString2];
 
-          v15 = casemanagementLogHandle();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v17 = casemanagementLogHandle(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            *v32 = 138543362;
-            v33 = v14;
-            _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: Generating group identifier: %{public}@", v32, 0xCu);
+            *v33 = 138543362;
+            v34 = v15;
+            _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: Generating group identifier: %{public}@", v33, 0xCu);
           }
 
-          v16 = *(v20 + 24);
+          v18 = *(v21 + 24);
         }
 
         else
         {
-          v16 = 0;
-          v14 = 0;
+          v18 = 0;
+          v15 = 0;
         }
 
-        (*(replyCopy + 2))(replyCopy, v16 & 1, *(v25 + 12), v14);
+        (*(replyCopy + 2))(replyCopy, v18 & 1, *(v26 + 12), v15);
 
-        _Block_object_dispose(&v19, 8);
+        _Block_object_dispose(&v20, 8);
       }
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v25, 8);
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      v8 = casemanagementLogHandle();
+      v8 = casemanagementLogHandle(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -1476,36 +1510,32 @@ uint64_t __49__DiagnosticCaseManager_isAdmissible_dampenedBy___block_invoke_187(
       (*(replyCopy + 2))(replyCopy, 0, 4, 0);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     *(*(*(a1 + 32) + 8) + 24) = a3;
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    v4 = casemanagementLogHandle();
+    v4 = casemanagementLogHandle(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = [DiagnosticCase descriptionForDampeningType:a3];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: case denied by restriction, dampening: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: case denied by restriction, dampening: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___block_invoke_188(uint64_t a1, int a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 32) + 8) + 24) = a2;
   *(*(*(a1 + 40) + 8) + 24) = a3;
-  v5 = casemanagementLogHandle();
+  v5 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     if (a2)
@@ -1519,19 +1549,17 @@ void __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___
     }
 
     v7 = [DiagnosticCase descriptionForDampeningType:a3];
-    v9 = 136315394;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: case: %s, dampening: %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "groupCaseIdentifierForSignature: case: %s, dampening: %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createDiagnosticCaseWithSignature:(id)signature flags:(unint64_t)flags events:(id)events payload:(id)payload actions:(id)actions
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (!signature)
   {
     v16 = 0;
@@ -1544,27 +1572,28 @@ void __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___
   signatureCopy = signature;
   v16 = [[DiagnosticCase alloc] initWithSignature:signatureCopy flags:flags events:eventsCopy payload:payloadCopy actions:actionsCopy manager:self];
 
-  v38 = 0;
-  LODWORD(eventsCopy) = [(DiagnosticCaseManager *)self isAdmissible:v16 dampenedBy:&v38];
-  v17 = casemanagementLogHandle();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v39 = 0;
+  v17 = [(DiagnosticCaseManager *)self isAdmissible:v16 dampenedBy:&v39];
+  LODWORD(eventsCopy) = v17;
+  v18 = casemanagementLogHandle(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (eventsCopy)
   {
-    if (v18)
+    if (v19)
     {
       caseId = [(DiagnosticCase *)v16 caseId];
       uUIDString = [caseId UUIDString];
       signature = [(DiagnosticCase *)v16 signature];
       logSignatureDescription = [signature logSignatureDescription];
       *buf = 138543618;
-      v40 = uUIDString;
-      v41 = 2114;
-      v42 = logSignatureDescription;
-      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, "Accepting case id %{public}@ with signature %{public}@", buf, 0x16u);
+      v41 = uUIDString;
+      v42 = 2114;
+      v43 = logSignatureDescription;
+      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEFAULT, "Accepting case id %{public}@ with signature %{public}@", buf, 0x16u);
     }
 
     [(NSMutableArray *)self->_activeCases addObject:v16];
-    if (v38 == -1)
+    if (v39 == -1)
     {
       [(DiagnosticCase *)v16 setDampeningType:0xFFFFFFFFLL];
     }
@@ -1580,35 +1609,35 @@ void __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___
     goto LABEL_14;
   }
 
-  if (v18)
+  if (v19)
   {
     caseId2 = [(DiagnosticCase *)v16 caseId];
     uUIDString2 = [caseId2 UUIDString];
     signature2 = [(DiagnosticCase *)v16 signature];
     logSignatureDescription2 = [signature2 logSignatureDescription];
-    v27 = [DiagnosticCase descriptionForDampeningType:v38];
+    v28 = [DiagnosticCase descriptionForDampeningType:v39];
     *buf = 138543874;
-    v40 = uUIDString2;
-    v41 = 2114;
-    v42 = logSignatureDescription2;
-    v43 = 2114;
-    v44 = v27;
-    _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, "Rejecting case id %{public}@ with signature %{public}@ (%{public}@)", buf, 0x20u);
+    v41 = uUIDString2;
+    v42 = 2114;
+    v43 = logSignatureDescription2;
+    v44 = 2114;
+    v45 = v28;
+    _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEFAULT, "Rejecting case id %{public}@ with signature %{public}@ (%{public}@)", buf, 0x20u);
   }
 
-  [(DiagnosticCase *)v16 setDampeningType:v38];
+  [(DiagnosticCase *)v16 setDampeningType:v39];
   [(DiagnosticCase *)v16 setClosureType:3];
   queue = [(DiagnosticCaseManager *)self queue];
 
   if (queue)
   {
     queue2 = [(DiagnosticCaseManager *)self queue];
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = __88__DiagnosticCaseManager_createDiagnosticCaseWithSignature_flags_events_payload_actions___block_invoke;
-    v36 = &unk_278CEFE88;
-    v37 = v16;
-    dispatch_async(queue2, &v33);
+    v34 = MEMORY[0x277D85DD0];
+    v35 = 3221225472;
+    v36 = __88__DiagnosticCaseManager_createDiagnosticCaseWithSignature_flags_events_payload_actions___block_invoke;
+    v37 = &unk_278CEFE88;
+    v38 = v16;
+    dispatch_async(queue2, &v34);
 
     if (!v16)
     {
@@ -1618,50 +1647,49 @@ void __70__DiagnosticCaseManager_requestGroupCaseIdentifierForSignature_reply___
     goto LABEL_14;
   }
 
-  v32 = casemanagementLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v33 = casemanagementLogHandle(v30);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_241804000, v32, OS_LOG_TYPE_DEFAULT, "No queue assigned! Finalizing case immediately.", buf, 2u);
+    _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEFAULT, "No queue assigned! Finalizing case immediately.", buf, 2u);
   }
 
   [(DiagnosticCase *)v16 setCaseState:3];
   if (v16)
   {
 LABEL_14:
-    [(NSMutableArray *)self->_totalCases addObject:v16, v33, v34, v35, v36];
+    [(NSMutableArray *)self->_totalCases addObject:v16, v34, v35, v36, v37];
   }
 
 LABEL_15:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)diagnosticCaseWithId:(id)id
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   v5 = self->_totalCases;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v22;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v21 != v8)
+      if (*v22 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v20 + 1) + 8 * v9);
+      v10 = *(*(&v21 + 1) + 8 * v9);
       caseId = [v10 caseId];
       v12 = [caseId isEqual:idCopy];
 
@@ -1672,7 +1700,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1682,17 +1710,17 @@ LABEL_3:
       }
     }
 
-    v13 = casemanagementLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = casemanagementLogHandle(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       uUIDString = [idCopy UUIDString];
       *buf = 138412290;
-      v25 = uUIDString;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Found case with ID %@{public} in totalCases", buf, 0xCu);
+      v26 = uUIDString;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Found case with ID %@{public} in totalCases", buf, 0xCu);
     }
 
-    v15 = v10;
-    if (v15)
+    v17 = v10;
+    if (v17)
     {
       goto LABEL_16;
     }
@@ -1703,40 +1731,188 @@ LABEL_3:
 LABEL_9:
   }
 
-  v16 = casemanagementLogHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v18 = casemanagementLogHandle(v14);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     uUIDString2 = [idCopy UUIDString];
     *buf = 138412290;
-    v25 = uUIDString2;
-    _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_INFO, "Looking up case with ID %@{public} from persistent store", buf, 0xCu);
+    v26 = uUIDString2;
+    _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_INFO, "Looking up case with ID %@{public} from persistent store", buf, 0xCu);
   }
 
-  v15 = [[DiagnosticCase alloc] initWithCaseId:idCopy manager:self];
+  v17 = [[DiagnosticCase alloc] initWithCaseId:idCopy manager:self];
 LABEL_16:
 
-  v18 = *MEMORY[0x277D85DE8];
+  return v17;
+}
 
-  return v15;
+- (BOOL)finalizeDiagnosticCaseWithId:(id)id closureType:(signed __int16)type onlyIfReady:(BOOL)ready
+{
+  readyCopy = ready;
+  typeCopy = type;
+  v51 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v8 = self->_activeCases;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v41;
+LABEL_3:
+    v12 = 0;
+    while (1)
+    {
+      if (*v41 != v11)
+      {
+        objc_enumerationMutation(v8);
+      }
+
+      v13 = *(*(&v40 + 1) + 8 * v12);
+      caseId = [v13 caseId];
+      v15 = [caseId isEqual:idCopy];
+
+      if (v15)
+      {
+        break;
+      }
+
+      if (v10 == ++v12)
+      {
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v40 objects:v50 count:16];
+        if (v10)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    if (readyCopy)
+    {
+      readyToEndSession = [v13 readyToEndSession];
+      if (!readyToEndSession)
+      {
+        v25 = casemanagementLogHandle(readyToEndSession);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        {
+          uUIDString = [idCopy UUIDString];
+          *buf = 138543362;
+          v45 = uUIDString;
+          _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_INFO, "Case %{public}@ is not yet ready for finalizing.", buf, 0xCu);
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    v17 = casemanagementLogHandle(readyToEndSession);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      uUIDString2 = [idCopy UUIDString];
+      *buf = 138412290;
+      v45 = uUIDString2;
+      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "Ready to finalize case %@.", buf, 0xCu);
+    }
+
+    if (typeCopy == 2 && (v19 = [v13 isSnapshot], (v19 & 1) == 0))
+    {
+      v20 = casemanagementLogHandle(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        [v13 preferredDuration];
+        v29 = v28;
+        signature = [v13 signature];
+        logSignatureDescription = [signature logSignatureDescription];
+        caseId2 = [v13 caseId];
+        uUIDString3 = [caseId2 UUIDString];
+        *buf = 134218498;
+        v45 = v29;
+        v46 = 2114;
+        v47 = logSignatureDescription;
+        v48 = 2114;
+        v49 = uUIDString3;
+        _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEFAULT, "Timeout exceeded (%.0f) Forcibly removing active case with signature %{public}@ (case ID = %{public}@)", buf, 0x20u);
+      }
+    }
+
+    else
+    {
+      v20 = casemanagementLogHandle(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        signature2 = [v13 signature];
+        logSignatureDescription2 = [signature2 logSignatureDescription];
+        caseId3 = [v13 caseId];
+        uUIDString4 = [caseId3 UUIDString];
+        *buf = 138543618;
+        v45 = logSignatureDescription2;
+        v46 = 2114;
+        v47 = uUIDString4;
+        _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEBUG, "Removing active case with signature %{public}@ (case ID = %{public}@)", buf, 0x16u);
+      }
+    }
+
+    [v13 setClosureType:typeCopy];
+    [v13 setCaseState:3];
+    v34 = v13;
+
+    if (v34)
+    {
+      [(NSMutableArray *)self->_activeCases removeObject:v34];
+      v35 = 1;
+      goto LABEL_31;
+    }
+  }
+
+  else
+  {
+LABEL_21:
+  }
+
+  v35 = 0;
+  if (typeCopy != 2 && !readyCopy)
+  {
+    v34 = casemanagementLogHandle(v27);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    {
+      uUIDString5 = [idCopy UUIDString];
+      activeCases = self->_activeCases;
+      *buf = 138543618;
+      v45 = uUIDString5;
+      v46 = 2112;
+      v47 = activeCases;
+      _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_INFO, "Couldn't find case %{public}@ in active cases %@", buf, 0x16u);
+    }
+
+    v35 = 0;
+LABEL_31:
+  }
+
+  return v35;
 }
 
 - (void)_updateCaseStatisticsWithCase:(id)case
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   caseStorage = [caseCopy caseStorage];
   caseClosureType = [caseStorage caseClosureType];
 
   if (caseClosureType != 4)
   {
-    v7 = casemanagementLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = casemanagementLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       caseId = [caseCopy caseId];
       uUIDString = [caseId UUIDString];
       LODWORD(buf) = 138412290;
       *(&buf + 4) = uUIDString;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Updating statistics for case %@", &buf, 0xCu);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Updating statistics for case %@", &buf, 0xCu);
     }
 
     [(NSMutableArray *)self->_pendingStatisticsUpdateCases addObject:caseCopy];
@@ -1744,106 +1920,110 @@ LABEL_16:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__4;
-  v50 = __Block_byref_object_dispose__4;
-  v51 = 0;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__4;
+  v52 = __Block_byref_object_dispose__4;
+  v53 = 0;
   totalCases = self->_totalCases;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke;
-  v41[3] = &unk_278CF0FA8;
-  v41[4] = self;
-  v11 = caseCopy;
-  v42 = v11;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke;
+  v43[3] = &unk_278CF0FA8;
+  v43[4] = self;
+  v12 = caseCopy;
+  v44 = v12;
   p_buf = &buf;
-  [(NSMutableArray *)totalCases enumerateObjectsUsingBlock:v41];
+  v13 = [(NSMutableArray *)totalCases enumerateObjectsUsingBlock:v43];
   if (*(*(&buf + 1) + 40))
   {
-    v12 = casemanagementLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = casemanagementLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v13 = *(*(&buf + 1) + 40);
+      v15 = *(*(&buf + 1) + 40);
       currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-      v15 = [v13 descriptionWithLocale:currentLocale];
-      *v45 = 138412290;
-      v46 = v15;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Oldest unclosed case was created at %@", v45, 0xCu);
+      v17 = [v15 descriptionWithLocale:currentLocale];
+      *v47 = 138412290;
+      v48 = v17;
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Oldest unclosed case was created at %@", v47, 0xCu);
     }
   }
 
   else
   {
-    v16 = casemanagementLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = casemanagementLogHandle(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      *v45 = 0;
-      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEBUG, "No unclosed case, using the current time.", v45, 2u);
+      *v47 = 0;
+      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "No unclosed case, using the current time.", v47, 2u);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
-    v12 = *(*(&buf + 1) + 40);
+    v14 = *(*(&buf + 1) + 40);
     *(*(&buf + 1) + 40) = date;
   }
 
   array = [MEMORY[0x277CBEB18] array];
   pendingStatisticsUpdateCases = self->_pendingStatisticsUpdateCases;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke_196;
-  v37[3] = &unk_278CF0FD0;
-  v37[4] = self;
-  v29 = v11;
-  v38 = v29;
-  v40 = &buf;
-  v32 = array;
-  v39 = v32;
-  [(NSMutableArray *)pendingStatisticsUpdateCases enumerateObjectsUsingBlock:v37];
-  v31 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"caseOpenedTime" ascending:1];
-  v30 = [MEMORY[0x277CBEA60] arrayWithObject:?];
-  [v32 sortedArrayUsingDescriptors:?];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke_196;
+  v39[3] = &unk_278CF0FD0;
+  v39[4] = self;
+  v31 = v12;
+  v40 = v31;
+  v42 = &buf;
+  v34 = array;
+  v41 = v34;
+  [(NSMutableArray *)pendingStatisticsUpdateCases enumerateObjectsUsingBlock:v39];
+  v33 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"caseOpenedTime" ascending:1];
+  v32 = [MEMORY[0x277CBEA60] arrayWithObject:?];
+  [v34 sortedArrayUsingDescriptors:?];
+  v37 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v20 = v34 = 0u;
-  v21 = [v20 countByEnumeratingWithState:&v33 objects:v44 count:16];
-  if (v21)
+  v22 = v36 = 0u;
+  v23 = [v22 countByEnumeratingWithState:&v35 objects:v46 count:16];
+  v24 = v23;
+  if (v23)
   {
-    v22 = *v34;
+    v25 = *v36;
     do
     {
-      for (i = 0; i != v21; ++i)
+      v26 = 0;
+      do
       {
-        if (*v34 != v22)
+        if (*v36 != v25)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v22);
         }
 
-        v24 = *(*(&v33 + 1) + 8 * i);
-        v25 = casemanagementLogHandle();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v27 = *(*(&v35 + 1) + 8 * v26);
+        v28 = casemanagementLogHandle(v23);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
-          caseId2 = [v24 caseId];
+          caseId2 = [v27 caseId];
           uUIDString2 = [caseId2 UUIDString];
-          *v45 = 138412290;
-          v46 = uUIDString2;
-          _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "Updating statistics for case %@.", v45, 0xCu);
+          *v47 = 138412290;
+          v48 = uUIDString2;
+          _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEBUG, "Updating statistics for case %@.", v47, 0xCu);
         }
 
-        [(DiagnosticStatisticsManager *)self->_statsManager updateCaseStatisticsWith:v24];
+        v23 = [(DiagnosticStatisticsManager *)self->_statsManager updateCaseStatisticsWith:v27];
+        ++v26;
       }
 
-      v21 = [v20 countByEnumeratingWithState:&v33 objects:v44 count:16];
+      while (v24 != v26);
+      v23 = [v22 countByEnumeratingWithState:&v35 objects:v46 count:16];
+      v24 = v23;
     }
 
-    while (v21);
+    while (v23);
   }
 
-  [(NSMutableArray *)self->_pendingStatisticsUpdateCases removeObjectsInArray:v20];
-  [v32 removeAllObjects];
+  [(NSMutableArray *)self->_pendingStatisticsUpdateCases removeObjectsInArray:v22];
+  [v34 removeAllObjects];
 
   _Block_object_dispose(&buf, 8);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke(uint64_t a1, void *a2)
@@ -1869,9 +2049,10 @@ void __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke_19
 {
   v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([*(a1 + 32) statisticsRowForDiagnosticCase:v3 matchesWith:*(a1 + 40)] && (objc_msgSend(v3, "caseStorage"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "timeStamp"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "compare:", *(*(*(a1 + 56) + 8) + 40)), v5, v4, v6 == -1))
+  v4 = [*(a1 + 32) statisticsRowForDiagnosticCase:v3 matchesWith:*(a1 + 40)];
+  if (v4 && ([v3 caseStorage], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "timeStamp"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "compare:", *(*(*(a1 + 56) + 8) + 40)), v6, v5, v7 == -1))
   {
-    v15 = casemanagementLogHandle();
+    v15 = casemanagementLogHandle(v4);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = [v3 caseId];
@@ -1892,24 +2073,22 @@ void __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke_19
 
   else
   {
-    v7 = casemanagementLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = casemanagementLogHandle(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v8 = [v3 caseId];
-      v9 = [v8 UUIDString];
-      v10 = [v3 caseStorage];
-      v11 = [v10 timeStamp];
-      v12 = [MEMORY[0x277CBEAF8] currentLocale];
-      v13 = [v11 descriptionWithLocale:v12];
+      v9 = [v3 caseId];
+      v10 = [v9 UUIDString];
+      v11 = [v3 caseStorage];
+      v12 = [v11 timeStamp];
+      v13 = [MEMORY[0x277CBEAF8] currentLocale];
+      v14 = [v12 descriptionWithLocale:v13];
       v22 = 138412546;
-      v23 = v9;
+      v23 = v10;
       v24 = 2112;
-      v25 = v13;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Candidate case %@ was created at %@, still blocked", &v22, 0x16u);
+      v25 = v14;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, "Candidate case %@ was created at %@, still blocked", &v22, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int)addToCaseWithId:(id)id events:(id)events payload:(id)payload
@@ -1918,53 +2097,54 @@ void __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke_19
   idCopy = id;
   eventsCopy = events;
   payloadCopy = payload;
-  if (idCopy && ([eventsCopy count] || objc_msgSend(payloadCopy, "count")))
+  v11 = payloadCopy;
+  if (idCopy && ([eventsCopy count] || (payloadCopy = objc_msgSend(v11, "count")) != 0))
   {
-    v11 = 40;
+    v12 = 40;
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v12 = self->_activeCases;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v13)
+    v13 = self->_activeCases;
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v23 = payloadCopy;
-      v15 = *v25;
+      v15 = v14;
+      v23 = v11;
+      v16 = *v25;
       while (2)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v15)
+          if (*v25 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
-          caseId = [v17 caseId];
-          v19 = [caseId isEqual:idCopy];
+          v18 = *(*(&v24 + 1) + 8 * i);
+          caseId = [v18 caseId];
+          v20 = [caseId isEqual:idCopy];
 
-          if (v19)
+          if (v20)
           {
             if ([eventsCopy count])
             {
-              [v17 addEvents:eventsCopy];
+              [v18 addEvents:eventsCopy];
             }
 
-            payloadCopy = v23;
+            v11 = v23;
             if ([v23 count])
             {
-              [v17 addPayload:v23];
+              [v18 addPayload:v23];
             }
 
-            v11 = 0;
+            v12 = 0;
             goto LABEL_21;
           }
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
-        if (v14)
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v15)
         {
           continue;
         }
@@ -1972,7 +2152,7 @@ void __55__DiagnosticCaseManager__updateCaseStatisticsWithCase___block_invoke_19
         break;
       }
 
-      payloadCopy = v23;
+      v11 = v23;
     }
 
 LABEL_21:
@@ -1980,21 +2160,20 @@ LABEL_21:
 
   else
   {
-    v20 = casemanagementLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = casemanagementLogHandle(payloadCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
       v30 = eventsCopy;
       v31 = 2112;
-      v32 = payloadCopy;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_INFO, "invalid parameters: event or payload must not be empty (events: %@, payload: %@)", buf, 0x16u);
+      v32 = v11;
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "invalid parameters: event or payload must not be empty (events: %@, payload: %@)", buf, 0x16u);
     }
 
-    v11 = 20;
+    v12 = 20;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (int)addSignatureContentToCaseWithId:(id)id key:(id)key content:(id)content
@@ -2003,63 +2182,64 @@ LABEL_21:
   idCopy = id;
   keyCopy = key;
   contentCopy = content;
-  if (idCopy && [keyCopy length] && objc_msgSend(contentCopy, "length"))
+  v11 = contentCopy;
+  if (idCopy && (contentCopy = [keyCopy length]) != 0 && (contentCopy = objc_msgSend(v11, "length")) != 0)
   {
-    v11 = 40;
+    v12 = 40;
     v30 = 0u;
     v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v12 = self->_activeCases;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
-    if (v13)
+    v13 = self->_activeCases;
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v27 = contentCopy;
-      v15 = *v29;
+      v15 = v14;
+      v27 = v11;
+      v16 = *v29;
       while (2)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v15)
+          if (*v29 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * i);
-          caseId = [v17 caseId];
-          v19 = [caseId isEqual:idCopy];
+          v18 = *(*(&v28 + 1) + 8 * i);
+          caseId = [v18 caseId];
+          v20 = [caseId isEqual:idCopy];
 
-          if (v19)
+          if (v20)
           {
-            signature = [v17 signature];
-            v22 = [signature objectForKey:keyCopy];
+            signature = [v18 signature];
+            v23 = [signature objectForKey:keyCopy];
 
-            contentCopy = v27;
-            if (v22)
+            v11 = v27;
+            if (v23)
             {
-              [v22 stringByAppendingString:v27];
+              [v23 stringByAppendingString:v27];
             }
 
             else
             {
               [MEMORY[0x277CCACA8] stringWithString:v27];
             }
-            v23 = ;
-            if (v23)
+            v24 = ;
+            if (v24)
             {
-              signature2 = [v17 signature];
-              [signature2 setObject:v23 forKey:keyCopy];
+              signature2 = [v18 signature];
+              [signature2 setObject:v24 forKey:keyCopy];
             }
 
-            v11 = 0;
+            v12 = 0;
 
             goto LABEL_22;
           }
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
-        if (v14)
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        if (v15)
         {
           continue;
         }
@@ -2067,7 +2247,7 @@ LABEL_21:
         break;
       }
 
-      contentCopy = v27;
+      v11 = v27;
     }
 
 LABEL_22:
@@ -2075,50 +2255,49 @@ LABEL_22:
 
   else
   {
-    v20 = casemanagementLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = casemanagementLogHandle(contentCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
       v34 = keyCopy;
       v35 = 2112;
-      v36 = contentCopy;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_INFO, "invalid parameters: empty or missing key/content (key: %@, content: %@)", buf, 0x16u);
+      v36 = v11;
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "invalid parameters: empty or missing key/content (key: %@, content: %@)", buf, 0x16u);
     }
 
-    v11 = 20;
+    v12 = 20;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (int)cancelCaseWithId:(id)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (idCopy)
   {
     v5 = 40;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = self->_activeCases;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           caseId = [v11 caseId];
           v13 = [caseId isEqual:idCopy];
 
@@ -2138,7 +2317,7 @@ LABEL_22:
           }
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
         if (v8)
         {
           continue;
@@ -2153,7 +2332,7 @@ LABEL_12:
 
   else
   {
-    v16 = casemanagementLogHandle();
+    v16 = casemanagementLogHandle(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -2163,7 +2342,6 @@ LABEL_12:
     v5 = 20;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2203,7 +2381,7 @@ LABEL_12:
 
   else
   {
-    v12 = casemanagementLogHandle();
+    v12 = casemanagementLogHandle(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *v13 = 0;
@@ -2244,10 +2422,10 @@ void __37__DiagnosticCaseManager_hasOpenCases__block_invoke(uint64_t a1, void *a
 
 - (void)addTransactionForCaseID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
-  if (dCopy && [dCopy length])
+  if (dCopy && (dCopy = [dCopy length]) != 0)
   {
     if (!self->_activeTransactions)
     {
@@ -2256,76 +2434,72 @@ void __37__DiagnosticCaseManager_hasOpenCases__block_invoke(uint64_t a1, void *a
       self->_activeTransactions = v6;
     }
 
-    v8 = casemanagementLogHandle();
+    v8 = casemanagementLogHandle(dCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Taking transaction for case identifier: %@", buf, 0xCu);
     }
 
     v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"com.apple.autobugcapture.case.%@", v5];
     [v9 UTF8String];
     v10 = os_transaction_create();
-    [(NSMutableDictionary *)self->_activeTransactions setObject:v10 forKeyedSubscript:v5];
-    v11 = casemanagementLogHandle();
+    v11 = casemanagementLogHandle([(NSMutableDictionary *)self->_activeTransactions setObject:v10 forKeyedSubscript:v5]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = [(NSMutableDictionary *)self->_activeTransactions count];
       *buf = 134217984;
-      v15 = v12;
+      v14 = v12;
       _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "Currently holding %ld transaction(s)", buf, 0xCu);
     }
   }
 
   else
   {
-    v9 = casemanagementLogHandle();
+    v9 = casemanagementLogHandle(dCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "Will not add a transaction for an invalid case identifier: %@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTransactionForCaseID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
-  if (!dCopy || ![dCopy length])
+  if (!dCopy || (dCopy = [dCopy length]) == 0)
   {
-    p_super = casemanagementLogHandle();
+    p_super = casemanagementLogHandle(dCopy);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_241804000, p_super, OS_LOG_TYPE_ERROR, "Unable to remove a transaction for an invalid case identifier: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_241804000, p_super, OS_LOG_TYPE_ERROR, "Unable to remove a transaction for an invalid case identifier: %@", &v10, 0xCu);
     }
 
     goto LABEL_11;
   }
 
-  v6 = casemanagementLogHandle();
+  v6 = casemanagementLogHandle(dCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Releasing transaction for case identifier: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Releasing transaction for case identifier: %@", &v10, 0xCu);
   }
 
-  [(NSMutableDictionary *)self->_activeTransactions setObject:0 forKeyedSubscript:v5];
-  v7 = casemanagementLogHandle();
+  v7 = casemanagementLogHandle([(NSMutableDictionary *)self->_activeTransactions setObject:0 forKeyedSubscript:v5]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = [(NSMutableDictionary *)self->_activeTransactions count];
-    v11 = 134217984;
-    v12 = v8;
-    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Currently holding %ld transaction(s)", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v8;
+    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Currently holding %ld transaction(s)", &v10, 0xCu);
   }
 
   if (![(NSMutableDictionary *)self->_activeTransactions count])
@@ -2334,8 +2508,6 @@ void __37__DiagnosticCaseManager_hasOpenCases__block_invoke(uint64_t a1, void *a
     self->_activeTransactions = 0;
 LABEL_11:
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)avgCasesPerDay
@@ -2353,39 +2525,38 @@ LABEL_11:
 
 - (id)lookUpDiagnosticCaseStorageForUUID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   uUIDString = [dCopy UUIDString];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__4;
-  v20 = __Block_byref_object_dispose__4;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__4;
+  v19 = __Block_byref_object_dispose__4;
+  v20 = 0;
   v6 = [(DiagnosticCaseStorageAnalytics *)self->_caseStorageAnalytics diagnosticCaseStorageWithId:dCopy];
-  v7 = casemanagementLogHandle();
+  v7 = casemanagementLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [v6 count];
     *buf = 134218242;
-    v23 = v8;
-    v24 = 2112;
-    v25 = uUIDString;
+    v22 = v8;
+    v23 = 2112;
+    v24 = uUIDString;
     _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Found %ld persisted case(s) for %@", buf, 0x16u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __60__DiagnosticCaseManager_lookUpDiagnosticCaseStorageForUUID___block_invoke;
-  v13[3] = &unk_278CF0FF8;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __60__DiagnosticCaseManager_lookUpDiagnosticCaseStorageForUUID___block_invoke;
+  v12[3] = &unk_278CF0FF8;
   v9 = uUIDString;
-  v14 = v9;
-  v15 = &v16;
-  [v6 enumerateObjectsUsingBlock:v13];
-  v10 = v17[5];
+  v13 = v9;
+  v14 = &v15;
+  [v6 enumerateObjectsUsingBlock:v12];
+  v10 = v16[5];
 
-  _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 
   return v10;
 }
@@ -2424,13 +2595,13 @@ void __60__DiagnosticCaseManager_lookUpDiagnosticCaseStorageForUUID___block_invo
 
   if (!caseClosedTime)
   {
-    v7 = casemanagementLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = casemanagementLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       caseStorage2 = [caseCopy caseStorage];
       *buf = 138412290;
       v25 = caseStorage2;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Encountered a case with a nil caseClosedTime! (caseStorage: %@)", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Encountered a case with a nil caseClosedTime! (caseStorage: %@)", buf, 0xCu);
     }
   }
 
@@ -2440,34 +2611,34 @@ void __60__DiagnosticCaseManager_lookUpDiagnosticCaseStorageForUUID___block_invo
   v20 = __35__DiagnosticCaseManager_closeCase___block_invoke;
   v21 = &unk_278CF04F8;
   selfCopy = self;
-  v10 = caseCopy;
-  v23 = v10;
+  v11 = caseCopy;
+  v23 = v11;
   dispatch_async(queue, &v18);
-  [(NSMutableArray *)self->_activeCases removeObject:v10, v18, v19, v20, v21, selfCopy];
-  [(DiagnosticCaseManager *)self _updateCaseStatisticsWithCase:v10];
-  closureType = [v10 closureType];
+  [(NSMutableArray *)self->_activeCases removeObject:v11, v18, v19, v20, v21, selfCopy];
+  [(DiagnosticCaseManager *)self _updateCaseStatisticsWithCase:v11];
+  closureType = [v11 closureType];
   if (closureType == 4)
   {
-    caseId = [v10 caseId];
+    caseId = [v11 caseId];
     [(DiagnosticCaseManager *)self removeCaseStorageWithID:caseId];
 
-    [(NSMutableArray *)self->_totalCases removeObject:v10];
+    [(NSMutableArray *)self->_totalCases removeObject:v11];
   }
 
   else
   {
-    if ([v10 dampeningType] == -1)
+    if ([v11 dampeningType] == -1)
     {
-      signature = [v10 signature];
-      [v10 caseOpenedTime];
+      signature = [v11 signature];
+      [v11 caseOpenedTime];
       [(DiagnosticCaseManager *)self removeTransientCasesWithSignature:signature beforeTime:?];
     }
 
-    if ([v10 dampeningType] <= 0)
+    if ([v11 dampeningType] <= 0)
     {
       self->_shouldPurgeStorageAfterSave = 1;
       [(DiagnosticCaseManager *)self saveAllCases];
-      caseId2 = [v10 caseId];
+      caseId2 = [v11 caseId];
       uUIDString = [caseId2 UUIDString];
       [(DiagnosticCaseManager *)self removeTransactionForCaseID:uUIDString];
     }
@@ -2478,7 +2649,6 @@ void __60__DiagnosticCaseManager_lookUpDiagnosticCaseStorageForUUID___block_invo
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return closureType == 4;
 }
 
@@ -2500,43 +2670,42 @@ void __60__DiagnosticCaseManager_lookUpDiagnosticCaseStorageForUUID___block_invo
 
 - (unint64_t)collectDiagnosticExtensionLogsWithParameters:(id)parameters options:(id)options diagCase:(id)case reply:(id)reply
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   replyCopy = reply;
   caseCopy = case;
   optionsCopy = options;
-  v14 = casemanagementLogHandle();
+  v14 = casemanagementLogHandle(optionsCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v24 = parametersCopy;
+    v23 = parametersCopy;
     _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Ready to collect from diagnostic extensions with parameters: %@", buf, 0xCu);
   }
 
   diagnosticsController = [(DiagnosticCaseManager *)self diagnosticsController];
   queue = [(DiagnosticCaseManager *)self queue];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_options_diagCase_reply___block_invoke;
-  v21[3] = &unk_278CF1020;
-  v22 = replyCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_options_diagCase_reply___block_invoke;
+  v20[3] = &unk_278CF1020;
+  v21 = replyCopy;
   v17 = replyCopy;
-  v18 = [diagnosticsController collectDiagnosticExtensionFilesForDiagnosticCase:caseCopy parameters:parametersCopy options:optionsCopy queue:queue reply:v21];
+  v18 = [diagnosticsController collectDiagnosticExtensionFilesForDiagnosticCase:caseCopy parameters:parametersCopy options:optionsCopy queue:queue reply:v20];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 void __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_options_diagCase_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = casemanagementLogHandle();
+  v4 = casemanagementLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7 = 134217984;
-    v8 = [v3 count];
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Received %ld results from Diagnostic Extensions", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v3 count];
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Received %ld results from Diagnostic Extensions", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -2544,32 +2713,28 @@ void __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_op
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordDiagnosticCaseSummaryForCase:(id)case
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   caseCopy = case;
-  v5 = casemanagementLogHandle();
+  v5 = casemanagementLogHandle(caseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     caseId = [caseCopy caseId];
     uUIDString = [caseId UUIDString];
     signature = [caseCopy signature];
     logSignatureDescription = [signature logSignatureDescription];
-    v11 = 138543618;
-    v12 = uUIDString;
-    v13 = 2114;
-    v14 = logSignatureDescription;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Saving summary for case id %{public}@ with signature %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = uUIDString;
+    v12 = 2114;
+    v13 = logSignatureDescription;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Saving summary for case id %{public}@ with signature %{public}@", &v10, 0x16u);
   }
 
   [(DiagnosticCaseSummaryAnalytics *)self->_caseSummaryAnalytics insertEntityForDiagnosticCase:caseCopy];
   [(DiagnosticCaseManager *)self saveAllCases];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)requestReportGenerator:(id)generator options:(id)options
@@ -2596,37 +2761,39 @@ void __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_op
     }
   }
 
-  else if (([generatorCopy isEqualToString:@"diagext"] & 1) == 0)
+  else
   {
-    v12 = casemanagementLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v12 = [generatorCopy isEqualToString:@"diagext"];
+    if ((v12 & 1) == 0)
     {
-      v15 = 138412290;
-      v16 = generatorCopy;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Could not find requested report generator named %@", &v15, 0xCu);
+      v13 = casemanagementLogHandle(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v15 = 138412290;
+        v16 = generatorCopy;
+        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Could not find requested report generator named %@", &v15, 0xCu);
+      }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9 != 0;
 }
 
 - (void)startCollectingNextReportForDiagnosticCase:(id)case
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   if ([(NSMutableArray *)self->_requestedReportGenerators count])
   {
     firstObject = [(NSMutableArray *)self->_requestedReportGenerators firstObject];
-    [firstObject setDelegate:self];
-    v6 = casemanagementLogHandle();
+    v6 = casemanagementLogHandle([firstObject setDelegate:self]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "About to generate report by %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "About to generate report by %@", &v11, 0xCu);
     }
 
     caseId = [caseCopy caseId];
@@ -2636,15 +2803,13 @@ void __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_op
 
   else
   {
-    firstObject = casemanagementLogHandle();
+    firstObject = casemanagementLogHandle(0);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_241804000, firstObject, OS_LOG_TYPE_ERROR, "No reports requested, but we were asked to collect reports...?", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_241804000, firstObject, OS_LOG_TYPE_ERROR, "No reports requested, but we were asked to collect reports...?", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sendReportsForCase:(id)case
@@ -2673,29 +2838,30 @@ void __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_op
         }
 
         v11 = [*(*(&v19 + 1) + 8 * i) publishReportForCase:caseCopy options:0];
-        v12 = casemanagementLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v12 = v11;
+        v13 = casemanagementLogHandle(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          if (v11)
+          if (v12)
           {
-            v13 = "Successfully published";
+            v14 = "Successfully published";
           }
 
           else
           {
-            v13 = "Failed to publish";
+            v14 = "Failed to publish";
           }
 
-          v14 = objc_opt_class();
-          v15 = NSStringFromClass(v14);
+          v15 = objc_opt_class();
+          v16 = NSStringFromClass(v15);
           *buf = 136315394;
-          v24 = v13;
+          v24 = v14;
           v25 = 2112;
-          v26 = v15;
-          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "%s report to %@", buf, 0x16u);
+          v26 = v16;
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "%s report to %@", buf, 0x16u);
         }
 
-        v5 &= v11;
+        v5 &= v12;
       }
 
       v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
@@ -2705,7 +2871,6 @@ void __93__DiagnosticCaseManager_collectDiagnosticExtensionLogsWithParameters_op
   }
 
   [(NSMutableArray *)selfCopy->_activeCases removeObject:caseCopy];
-  v16 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -2836,6 +3001,43 @@ LABEL_20:
 LABEL_21:
 
   return v15;
+}
+
+- (id)diagnosticCaseDictionariesFromIdentifier:(id)identifier withEvents:(BOOL)events count:(unint64_t)count
+{
+  eventsCopy = events;
+  v22 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = v9;
+  if (count - 21 <= 0xFFFFFFFFFFFFFFEBLL)
+  {
+    v11 = casemanagementLogHandle(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      v19 = 20;
+      v20 = 2048;
+      v21 = 20;
+      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Constraining cases listing to a max of %d (was requested %ld)", buf, 0x12u);
+    }
+
+    count = 20;
+  }
+
+  v12 = objc_autoreleasePoolPush();
+  v13 = [(DiagnosticCaseStorageAnalytics *)self->_caseStorageAnalytics historicalDiagnosticCaseStorageDictionaryFromIdentifier:identifierCopy withEvents:eventsCopy count:count];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __83__DiagnosticCaseManager_diagnosticCaseDictionariesFromIdentifier_withEvents_count___block_invoke;
+  v16[3] = &unk_278CF1048;
+  v14 = v10;
+  v17 = v14;
+  [v13 enumerateObjectsUsingBlock:v16];
+
+  objc_autoreleasePoolPop(v12);
+
+  return v14;
 }
 
 uint64_t __83__DiagnosticCaseManager_diagnosticCaseDictionariesFromIdentifier_withEvents_count___block_invoke(uint64_t a1, void *a2)
@@ -2987,35 +3189,35 @@ void __76__DiagnosticCaseManager_listCaseSummariesOfType_fromIdentifier_count_re
   typeCopy = type;
   identifierCopy = identifier;
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = v10;
   if (count - 21 <= 0xFFFFFFFFFFFFFFEBLL)
   {
-    v11 = casemanagementLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = casemanagementLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
       v20 = 20;
       v21 = 2048;
       v22 = 20;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Constraining cases listing to a max of %d (was requested %ld)", buf, 0x12u);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Constraining cases listing to a max of %d (was requested %ld)", buf, 0x12u);
     }
 
     count = 20;
   }
 
-  v12 = objc_autoreleasePoolPush();
-  v13 = [(DiagnosticCaseSummaryAnalytics *)self->_caseSummaryAnalytics fetchCaseSummariesOfType:typeCopy fromIdentifier:identifierCopy count:count];
+  v13 = objc_autoreleasePoolPush();
+  v14 = [(DiagnosticCaseSummaryAnalytics *)self->_caseSummaryAnalytics fetchCaseSummariesOfType:typeCopy fromIdentifier:identifierCopy count:count];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __66__DiagnosticCaseManager_caseSummariesOfType_fromIdentifier_count___block_invoke;
   v17[3] = &unk_278CF1048;
-  v14 = v10;
-  v18 = v14;
-  [v13 enumerateObjectsUsingBlock:v17];
+  v15 = v11;
+  v18 = v15;
+  [v14 enumerateObjectsUsingBlock:v17];
 
-  objc_autoreleasePoolPop(v12);
-  v15 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v13);
 
-  return v14;
+  return v15;
 }
 
 void __66__DiagnosticCaseManager_caseSummariesOfType_fromIdentifier_count___block_invoke(uint64_t a1, void *a2)
@@ -3036,7 +3238,7 @@ void __66__DiagnosticCaseManager_caseSummariesOfType_fromIdentifier_count___bloc
   v4 = [flags mutableCopy];
   v5 = +[SystemProperties sharedInstance];
   buildVariant = [v5 buildVariant];
-  v7 = casemanagementLogHandle();
+  v7 = casemanagementLogHandle(buildVariant);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v13 = 138412290;
@@ -3052,39 +3254,37 @@ void __66__DiagnosticCaseManager_caseSummariesOfType_fromIdentifier_count___bloc
 
     if (isDeviceUnderTest)
     {
-      v10 = casemanagementLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = casemanagementLogHandle(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         LOWORD(v13) = 0;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Flagging this case as generated from an ABC DUT device.", &v13, 2u);
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "Flagging this case as generated from an ABC DUT device.", &v13, 2u);
       }
 
       [v4 setObject:@"isABCDUT" forKey:@"internal_flags"];
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_processRemoteIDSTriggers:(id)triggers validFor:(double)for signature:(id)signature sessionID:(id)d reply:(id)reply
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   triggersCopy = triggers;
   signatureCopy = signature;
   dCopy = d;
   replyCopy = reply;
   v16 = [signatureCopy objectForKeyedSubscript:@"groupID"];
   v17 = [v16 length];
-  v18 = casemanagementLogHandle();
+  v18 = casemanagementLogHandle(v17);
   v19 = v18;
   if (v17)
   {
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v33 = dCopy;
+      v32 = dCopy;
       _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEBUG, "Ready to trigger a remote case for session %{public}@", buf, 0xCu);
     }
 
@@ -3095,17 +3295,17 @@ void __66__DiagnosticCaseManager_caseSummariesOfType_fromIdentifier_count___bloc
 
     liaison = [(DiagnosticCaseManager *)self liaison];
     queue = self->_queue;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke_215;
-    v26[3] = &unk_278CF10E8;
-    v22 = v27;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke_215;
+    v25[3] = &unk_278CF10E8;
+    v22 = v26;
     v23 = triggersCopy;
-    v27[0] = v23;
-    v27[1] = self;
-    v28 = dCopy;
-    v29 = replyCopy;
-    [liaison remotelyTriggerSessionWithSignature:signatureCopy forDestinations:v23 groupIdentifier:v16 validFor:queue queue:v26 reply:for];
+    v26[0] = v23;
+    v26[1] = self;
+    v27 = dCopy;
+    v28 = replyCopy;
+    [liaison remotelyTriggerSessionWithSignature:signatureCopy forDestinations:v23 groupIdentifier:v16 validFor:queue queue:v25 reply:for];
 
     goto LABEL_11;
   }
@@ -3123,29 +3323,25 @@ void __66__DiagnosticCaseManager_caseSummariesOfType_fromIdentifier_count___bloc
     block[1] = 3221225472;
     block[2] = __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke;
     block[3] = &unk_278CF0A58;
-    v22 = &v31;
-    v31 = replyCopy;
+    v22 = &v30;
+    v30 = replyCopy;
     dispatch_async(queue, block);
 
 LABEL_11:
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke(uint64_t a1)
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v4[0] = @"name";
-  v4[1] = @"result";
-  v5[0] = @"IDSRemoteTrigger";
-  v5[1] = @"failure";
-  v4[2] = @"status";
-  v5[2] = @"Cancelled";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v3[0] = @"name";
+  v3[1] = @"result";
+  v4[0] = @"IDSRemoteTrigger";
+  v4[1] = @"failure";
+  v3[2] = @"status";
+  v4[2] = @"Cancelled";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
   (*(*(a1 + 32) + 16))();
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke_215(id *a1, int a2, void *a3)
@@ -3153,7 +3349,7 @@ void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_se
   v34 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [v5 objectForKeyedSubscript:@"errorObj"];
-  v7 = casemanagementLogHandle();
+  v7 = casemanagementLogHandle(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -3190,54 +3386,52 @@ void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_se
   _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
 LABEL_7:
 
-  v14 = casemanagementLogHandle();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = casemanagementLogHandle(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
     v31 = v5;
-    _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Liaison result was: %@", buf, 0xCu);
+    _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Liaison result was: %@", buf, 0xCu);
   }
 
-  v15 = [v5 objectForKeyedSubscript:@"IDSMessageIdentifier"];
-  if ([v15 length])
+  v16 = [v5 objectForKeyedSubscript:@"IDSMessageIdentifier"];
+  if ([v16 length])
   {
-    v16 = *(a1[5] + 15);
-    if (!v16)
+    v17 = *(a1[5] + 15);
+    if (!v17)
     {
-      v17 = [MEMORY[0x277CBEB38] dictionary];
-      v18 = a1[5];
-      v19 = v18[15];
-      v18[15] = v17;
+      v18 = [MEMORY[0x277CBEB38] dictionary];
+      v19 = a1[5];
+      v20 = v19[15];
+      v19[15] = v18;
 
-      v16 = *(a1[5] + 15);
+      v17 = *(a1[5] + 15);
     }
 
-    [v16 setObject:a1[6] forKeyedSubscript:v15];
+    [v17 setObject:a1[6] forKeyedSubscript:v16];
   }
 
-  v20 = a1[5];
-  v21 = a1[6];
-  v22 = [v20 queue];
+  v21 = a1[5];
+  v22 = a1[6];
+  v23 = [v21 queue];
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 3221225472;
   v28[2] = __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke_216;
   v28[3] = &unk_278CF10C0;
   v29 = a1[6];
-  [v20 addToSession:v21 event:v5 payload:0 queue:v22 reply:v28];
+  [v21 addToSession:v22 event:v5 payload:0 queue:v23 reply:v28];
 
   if (a1[7])
   {
-    v23 = [a1[5] queue];
+    v24 = [a1[5] queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke_219;
     block[3] = &unk_278CEFF50;
     v27 = a1[7];
     v26 = v5;
-    dispatch_async(v23, block);
+    dispatch_async(v24, block);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_sessionID_reply___block_invoke_216(uint64_t a1, void *a2)
@@ -3247,35 +3441,33 @@ void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_se
   v4 = [v3 objectForKeyedSubscript:@"success"];
   v5 = [v3 objectForKeyedSubscript:@"reason"];
 
-  v6 = casemanagementLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = casemanagementLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
     if ([v4 BOOLValue])
     {
-      v8 = "was successful";
+      v9 = "was successful";
     }
 
     else
     {
-      v8 = "failed";
+      v9 = "failed";
     }
 
     v10 = 138543874;
-    v11 = v7;
+    v11 = v8;
     v12 = 2080;
-    v13 = v8;
+    v13 = v9;
     v14 = 2048;
     v15 = [v5 integerValue];
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Adding remote trigger event status to session %{public}@ %s. (Reason code %ld)", &v10, 0x20u);
+    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Adding remote trigger event status to session %{public}@ %s. (Reason code %ld)", &v10, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processReportActions:(id)actions session:(id)session
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   sessionCopy = session;
   v6 = [actionsCopy objectForKeyedSubscript:?];
@@ -3283,7 +3475,7 @@ void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_se
   if (objc_opt_isKindOfClass())
   {
     bOOLValue = [v6 BOOLValue];
-    v8 = casemanagementLogHandle();
+    v8 = casemanagementLogHandle(bOOLValue);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = "disabled";
@@ -3293,7 +3485,7 @@ void __86__DiagnosticCaseManager__processRemoteIDSTriggers_validFor_signature_se
       }
 
       *buf = 136315138;
-      v45 = v9;
+      v52 = v9;
       _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "DiagnosticExtensions action is %s by client request", buf, 0xCu);
     }
 
@@ -3304,17 +3496,18 @@ LABEL_14:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     v10 = v6;
-    v8 = casemanagementLogHandle();
-    bOOLValue = 1;
+    v8 = casemanagementLogHandle(v10);
+    LODWORD(bOOLValue) = 1;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v45 = "enabled";
-      v46 = 2112;
-      v47 = v10;
+      v52 = "enabled";
+      v53 = 2112;
+      v54 = v10;
       _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "DiagnosticExtensions action is %s by client request with options %@", buf, 0x16u);
     }
 
@@ -3323,44 +3516,46 @@ LABEL_14:
 
   if (v6)
   {
-    v8 = casemanagementLogHandle();
+    v8 = casemanagementLogHandle(isKindOfClass);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138412546;
-      v45 = v6;
-      v46 = 2112;
-      v47 = v12;
+      v52 = v6;
+      v53 = 2112;
+      v54 = v13;
       _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for DiagnosticExtensions action parameter. Enabled by default", buf, 0x16u);
     }
 
     v10 = 0;
-    bOOLValue = 1;
+    LODWORD(bOOLValue) = 1;
     goto LABEL_14;
   }
 
   v10 = 0;
-  bOOLValue = 1;
+  LODWORD(bOOLValue) = 1;
 LABEL_15:
-  v13 = [actionsCopy objectForKeyedSubscript:@"logarchive"];
+  v14 = [actionsCopy objectForKeyedSubscript:@"logarchive"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v15 = objc_opt_isKindOfClass();
+  if (v15)
   {
-    bOOLValue2 = [v13 BOOLValue];
-    v15 = casemanagementLogHandle();
-    v41 = bOOLValue2;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    bOOLValue2 = [v14 BOOLValue];
+    v17 = bOOLValue2;
+    v18 = casemanagementLogHandle(bOOLValue2);
+    v48 = v17;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v16 = "disabled";
-      if (bOOLValue2)
+      v19 = "disabled";
+      if (v17)
       {
-        v16 = "enabled";
+        v19 = "enabled";
       }
 
       *buf = 136315138;
-      v45 = v16;
-      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Log archive collection is %s by client request", buf, 0xCu);
+      v52 = v19;
+      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_INFO, "Log archive collection is %s by client request", buf, 0xCu);
     }
 
 LABEL_24:
@@ -3368,95 +3563,99 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  if (v13)
+  if (v14)
   {
-    v15 = casemanagementLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = casemanagementLogHandle(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       *buf = 138412546;
-      v45 = v13;
-      v46 = 2112;
-      v47 = v18;
-      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for log archive action parameter. Enabled by default", buf, 0x16u);
+      v52 = v14;
+      v53 = 2112;
+      v54 = v21;
+      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for log archive action parameter. Enabled by default", buf, 0x16u);
     }
 
-    v41 = 1;
+    v48 = 1;
     goto LABEL_24;
   }
 
-  v41 = 1;
+  v48 = 1;
 LABEL_25:
-  v19 = [actionsCopy objectForKeyedSubscript:@"cnslogs"];
+  v22 = [actionsCopy objectForKeyedSubscript:@"cnslogs"];
   objc_opt_class();
-  v42 = v13;
-  if (objc_opt_isKindOfClass())
+  v23 = objc_opt_isKindOfClass();
+  v49 = v14;
+  if (v23)
   {
-    bOOLValue3 = [v19 BOOLValue];
-    v21 = casemanagementLogHandle();
-    v22 = actionsCopy;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    bOOLValue3 = [v22 BOOLValue];
+    v25 = bOOLValue3;
+    v26 = casemanagementLogHandle(bOOLValue3);
+    v27 = actionsCopy;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v23 = "disabled";
+      v28 = "disabled";
       if (bOOLValue)
       {
-        v23 = "enabled";
+        v28 = "enabled";
       }
 
       *buf = 136315138;
-      v45 = v23;
-      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "Crashes and Spins log collection is %s by client request", buf, 0xCu);
+      v52 = v28;
+      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_INFO, "Crashes and Spins log collection is %s by client request", buf, 0xCu);
     }
 
 LABEL_34:
-    v26 = bOOLValue;
+    v31 = bOOLValue;
 
     goto LABEL_35;
   }
 
-  if (v19)
+  if (v22)
   {
-    v21 = casemanagementLogHandle();
-    v22 = actionsCopy;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v26 = casemanagementLogHandle(v23);
+    v27 = actionsCopy;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       *buf = 138412546;
-      v45 = v19;
-      v46 = 2112;
-      v47 = v25;
-      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for crashes and spin logs action parameter. Enabled by default", buf, 0x16u);
+      v52 = v22;
+      v53 = 2112;
+      v54 = v30;
+      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for crashes and spin logs action parameter. Enabled by default", buf, 0x16u);
     }
 
-    bOOLValue3 = 1;
+    v25 = 1;
     goto LABEL_34;
   }
 
-  v22 = actionsCopy;
-  v26 = bOOLValue;
-  bOOLValue3 = 1;
+  v27 = actionsCopy;
+  v31 = bOOLValue;
+  v25 = 1;
 LABEL_35:
-  v27 = v6;
-  v28 = [v22 objectForKeyedSubscript:@"gni"];
+  v32 = v6;
+  v33 = [v27 objectForKeyedSubscript:@"gni"];
   objc_opt_class();
-  v29 = v10;
-  if (objc_opt_isKindOfClass())
+  v34 = objc_opt_isKindOfClass();
+  v35 = v10;
+  if (v34)
   {
-    bOOLValue4 = [v28 BOOLValue];
-    v31 = casemanagementLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    bOOLValue4 = [v33 BOOLValue];
+    v37 = bOOLValue4;
+    v38 = casemanagementLogHandle(bOOLValue4);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
-      v32 = "disabled";
-      if (v26)
+      v39 = "disabled";
+      if (v31)
       {
-        v32 = "enabled";
+        v39 = "enabled";
       }
 
       *buf = 136315138;
-      v45 = v32;
-      _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_INFO, "get-network-info log collection action is %s by client request", buf, 0xCu);
+      v52 = v39;
+      _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_INFO, "get-network-info log collection action is %s by client request", buf, 0xCu);
     }
 
 LABEL_44:
@@ -3464,59 +3663,59 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  if (v28)
+  if (v33)
   {
-    v31 = casemanagementLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v38 = casemanagementLogHandle(v34);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v33 = objc_opt_class();
-      v34 = NSStringFromClass(v33);
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
       *buf = 138412546;
-      v45 = v28;
-      v46 = 2112;
-      v47 = v34;
-      _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for get-network-info action parameter. Enabled by default", buf, 0x16u);
+      v52 = v33;
+      v53 = 2112;
+      v54 = v41;
+      _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_ERROR, "Found unexpected object %@ (class %@) for get-network-info action parameter. Enabled by default", buf, 0x16u);
     }
 
-    bOOLValue4 = 1;
+    v37 = 1;
     goto LABEL_44;
   }
 
-  bOOLValue4 = 1;
+  v37 = 1;
 LABEL_45:
-  v35 = +[SystemProperties sharedInstance];
-  customerSeedBuild = [v35 customerSeedBuild];
+  v42 = +[SystemProperties sharedInstance];
+  customerSeedBuild = [v42 customerSeedBuild];
 
-  v37 = v29;
-  v38 = v41;
+  v45 = v35;
+  v46 = v48;
   if (customerSeedBuild)
   {
-    v39 = casemanagementLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    v47 = casemanagementLogHandle(v44);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v39, OS_LOG_TYPE_INFO, "Customer Seed installs will only enable DiagnosticExtension collection", buf, 2u);
+      _os_log_impl(&dword_241804000, v47, OS_LOG_TYPE_INFO, "Customer Seed installs will only enable DiagnosticExtension collection", buf, 2u);
     }
 
-    bOOLValue3 = 0;
-    bOOLValue4 = 0;
-    v38 = 0;
+    v25 = 0;
+    v37 = 0;
+    v46 = 0;
   }
 
-  if (v26)
+  if (v31)
   {
-    [sessionCopy addRequiredAction:@"diagext" option:v37 attachmentType:@"diagext" pattern:0];
-    if (!v38)
+    [sessionCopy addRequiredAction:@"diagext" option:v45 attachmentType:@"diagext" pattern:0];
+    if (!v46)
     {
 LABEL_51:
-      if (!bOOLValue3)
+      if (!v25)
       {
         goto LABEL_52;
       }
 
 LABEL_57:
       [sessionCopy addRequiredAction:@"CrashesAndSpinsReporter" option:0 attachmentType:@"cnslogs" pattern:@"crashes_and_spins"];
-      if (!bOOLValue4)
+      if (!v37)
       {
         goto LABEL_54;
       }
@@ -3525,128 +3724,126 @@ LABEL_57:
     }
   }
 
-  else if (!v38)
+  else if (!v46)
   {
     goto LABEL_51;
   }
 
   [sessionCopy addRequiredAction:@"FetchLogArchiveReporter" option:0 attachmentType:@"logarchive" pattern:@"logs-"];
-  if (bOOLValue3)
+  if (v25)
   {
     goto LABEL_57;
   }
 
 LABEL_52:
-  if (bOOLValue4)
+  if (v37)
   {
 LABEL_53:
     [sessionCopy addRequiredAction:@"GetNetworkInfoReporter" option:0 attachmentType:@"gni" pattern:@"get_network_info"];
   }
 
 LABEL_54:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_processProbeActions:(id)actions session:(id)session
 {
   actionsCopy = actions;
   sessionCopy = session;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   caseId = [sessionCopy caseId];
 
   if (caseId)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __54__DiagnosticCaseManager__processProbeActions_session___block_invoke;
-    v12[3] = &unk_278CF1110;
-    v12[4] = self;
-    v13 = sessionCopy;
-    v14 = &v16;
-    [actionsCopy enumerateKeysAndObjectsUsingBlock:v12];
-    v9 = v17[3];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __54__DiagnosticCaseManager__processProbeActions_session___block_invoke;
+    v13[3] = &unk_278CF1110;
+    v13[4] = self;
+    v14 = sessionCopy;
+    v15 = &v17;
+    [actionsCopy enumerateKeysAndObjectsUsingBlock:v13];
+    v10 = v18[3];
   }
 
   else
   {
-    v10 = casemanagementLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = casemanagementLogHandle(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Cannot process probe actions for a session with no identifier.", buf, 2u);
+      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Cannot process probe actions for a session with no identifier.", buf, 2u);
     }
 
-    v9 = v17[3];
+    v10 = v18[3];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
 
-  return v9;
+  return v10;
 }
 
 void __54__DiagnosticCaseManager__processProbeActions_session___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = casemanagementLogHandle();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = casemanagementLogHandle(isKindOfClass);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_10;
     }
 
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v15 = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v9;
-    v10 = "Found unexpected object %@ of class %@ as key in actions dictionary.";
-    v11 = v7;
-    v12 = OS_LOG_TYPE_ERROR;
-    v13 = 22;
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v16 = 138412546;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v11;
+    v12 = "Found unexpected object %@ of class %@ as key in actions dictionary.";
+    v13 = v8;
+    v14 = OS_LOG_TYPE_ERROR;
+    v15 = 22;
     goto LABEL_8;
   }
 
-  v7 = v5;
-  if (![v7 isEqualToString:@"pcap"])
+  v8 = v5;
+  v9 = [v8 isEqualToString:@"pcap"];
+  if (!v9)
   {
-    v9 = casemanagementLogHandle();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = casemanagementLogHandle(v9);
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
 LABEL_9:
 
       goto LABEL_10;
     }
 
-    v15 = 138412290;
-    v16 = v7;
-    v10 = "Skip processing actions key %@ (unsupported, or not a probe)";
-    v11 = v9;
-    v12 = OS_LOG_TYPE_DEBUG;
-    v13 = 12;
+    v16 = 138412290;
+    v17 = v8;
+    v12 = "Skip processing actions key %@ (unsupported, or not a probe)";
+    v13 = v11;
+    v14 = OS_LOG_TYPE_DEBUG;
+    v15 = 12;
 LABEL_8:
-    _os_log_impl(&dword_241804000, v11, v12, v10, &v15, v13);
+    _os_log_impl(&dword_241804000, v13, v14, v12, &v16, v15);
     goto LABEL_9;
   }
 
   [*(a1 + 32) _processActionsForPacketCaptureProbe:v6 session:*(a1 + 40)];
   ++*(*(*(a1 + 48) + 8) + 24);
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processActionsForPacketCaptureProbe:(id)probe session:(id)session
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   probeCopy = probe;
   sessionCopy = session;
   configManager = [(DiagnosticCaseManager *)self configManager];
@@ -3654,11 +3851,11 @@ LABEL_10:
 
   if (!autoBugCaptureSensitivePayloads)
   {
-    v13 = casemanagementLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = casemanagementLogHandle(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "Will not collect packet capture since collecting sensitive payloads are not allowed.", &v22, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEFAULT, "Will not collect packet capture since collecting sensitive payloads are not allowed.", &v25, 2u);
     }
 
     goto LABEL_7;
@@ -3668,10 +3865,12 @@ LABEL_10:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v12 = &unk_28537A290;
-      if (![probeCopy BOOLValue])
+      bOOLValue = [probeCopy BOOLValue];
+      v14 = &unk_28537A290;
+      if (!bOOLValue)
       {
         goto LABEL_18;
       }
@@ -3679,63 +3878,62 @@ LABEL_10:
       goto LABEL_15;
     }
 
-    v13 = casemanagementLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = casemanagementLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = 138412546;
-      v23 = probeCopy;
-      v24 = 2112;
-      v25 = v21;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Found unexpected object %@ of class %@ as object in actions dictionary.", &v22, 0x16u);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = 138412546;
+      v26 = probeCopy;
+      v27 = 2112;
+      v28 = v24;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Found unexpected object %@ of class %@ as object in actions dictionary.", &v25, 0x16u);
     }
 
 LABEL_7:
 
-    v12 = &unk_28537A290;
+    v14 = &unk_28537A290;
     goto LABEL_18;
   }
 
-  v10 = probeCopy;
-  v11 = [v10 objectForKeyedSubscript:@"duration"];
+  v11 = probeCopy;
+  v12 = [v11 objectForKeyedSubscript:@"duration"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v13 = objc_opt_isKindOfClass();
+  if (v13)
   {
-    v12 = v11;
+    v14 = v12;
   }
 
   else
   {
-    v14 = casemanagementLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = casemanagementLogHandle(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v22 = 138412546;
-      v23 = v11;
-      v24 = 2112;
-      v25 = v16;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_ERROR, "Found unexpected object %@ of class %@ for value of duration in probe parameter dictionary.", &v22, 0x16u);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v25 = 138412546;
+      v26 = v12;
+      v27 = 2112;
+      v28 = v20;
+      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, "Found unexpected object %@ of class %@ for value of duration in probe parameter dictionary.", &v25, 0x16u);
     }
 
-    v12 = &unk_28537A290;
+    v14 = &unk_28537A290;
   }
 
 LABEL_15:
-  v17 = casemanagementLogHandle();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v21 = casemanagementLogHandle(bOOLValue);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     caseId = [sessionCopy caseId];
-    v22 = 138543362;
-    v23 = caseId;
-    _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, "Packet capture probe requested for case %{public}@", &v22, 0xCu);
+    v25 = 138543362;
+    v26 = caseId;
+    _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEFAULT, "Packet capture probe requested for case %{public}@", &v25, 0xCu);
   }
 
-  [(DiagnosticCaseManager *)self startPacketCaptureForSession:sessionCopy duration:v12];
+  [(DiagnosticCaseManager *)self startPacketCaptureForSession:sessionCopy duration:v14];
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPeriodicTimer
@@ -3744,7 +3942,7 @@ LABEL_18:
   {
     v14 = v2;
     v15 = v3;
-    v5 = casemanagementLogHandle();
+    v5 = casemanagementLogHandle(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3774,7 +3972,7 @@ LABEL_18:
 {
   if (self->periodicTimer)
   {
-    v3 = casemanagementLogHandle();
+    v3 = casemanagementLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *v5 = 0;
@@ -3789,32 +3987,32 @@ LABEL_18:
 
 - (void)periodicSessionManagement
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v5 = v4;
 
   array = [MEMORY[0x277CBEB18] array];
   activeCases = [(DiagnosticCaseManager *)self activeCases];
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v8 = [activeCases countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v31 = 0u;
+  v8 = [activeCases countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(activeCases);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         [v12 caseOpenedTime];
         if (v5 > v13 + 900.0)
         {
@@ -3822,50 +4020,49 @@ LABEL_18:
         }
       }
 
-      v9 = [activeCases countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v9 = [activeCases countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v9);
   }
 
-  if ([array count])
+  v14 = [array count];
+  if (v14)
   {
-    v14 = casemanagementLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = casemanagementLogHandle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v15 = [array count];
+      v16 = [array count];
       *buf = 134217984;
-      v32 = v15;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "Found %ld overdue sessions. Force closing...", buf, 0xCu);
+      v33 = v16;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Found %ld overdue sessions. Force closing...", buf, 0xCu);
     }
 
     queue = [(DiagnosticCaseManager *)self queue];
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __50__DiagnosticCaseManager_periodicSessionManagement__block_invoke;
-    v24 = &unk_278CF04F8;
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __50__DiagnosticCaseManager_periodicSessionManagement__block_invoke;
+    v25 = &unk_278CF04F8;
     selfCopy = self;
-    v26 = array;
-    dispatch_async(queue, &v21);
+    v27 = array;
+    dispatch_async(queue, &v22);
   }
 
-  v17 = [(DiagnosticCaseManager *)self activeCases:v21];
-  v18 = [v17 count];
+  v18 = [(DiagnosticCaseManager *)self activeCases:v22];
+  v19 = [v18 count];
 
-  if (!v18)
+  if (!v19)
   {
-    v19 = casemanagementLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v21 = casemanagementLogHandle(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_INFO, "No diagnostic sessions are currently active.", buf, 2u);
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "No diagnostic sessions are currently active.", buf, 2u);
     }
 
     [(DiagnosticCaseManager *)self stopPeriodicTimer];
     [(NSMutableDictionary *)self->activeProbes removeAllObjects];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSignatureWithBundleIdentifier:(id)identifier reply:(id)reply
@@ -3891,7 +4088,7 @@ LABEL_18:
 
 - (void)startPacketCaptureForSession:(id)session duration:(id)duration
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   durationCopy = duration;
   v8 = [TCPDumpProbe alloc];
@@ -3916,10 +4113,10 @@ LABEL_18:
   aBlock[1] = 3221225472;
   aBlock[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke;
   aBlock[3] = &unk_278CF1160;
-  v43 = v12;
+  v42 = v12;
   selfCopy = self;
-  v45 = dictionary;
-  v32 = dictionary;
+  v44 = dictionary;
+  v31 = dictionary;
   v16 = v12;
   v17 = _Block_copy(aBlock);
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
@@ -3933,15 +4130,15 @@ LABEL_18:
   [dictionary2 setObject:v21 forKeyedSubscript:@"timestamp"];
 
   [dictionary2 setObject:durationCopy forKeyedSubscript:@"requestedDuration"];
-  v46[0] = dictionary2;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_2;
-  v40[3] = &unk_278CF1138;
+  v45[0] = dictionary2;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_2;
+  v39[3] = &unk_278CF1138;
   v23 = uUIDString;
-  v41 = v23;
-  [(DiagnosticCaseManager *)self addToSession:v23 events:v22 payload:0 reply:v40];
+  v40 = v23;
+  [(DiagnosticCaseManager *)self addToSession:v23 events:v22 payload:0 reply:v39];
 
   [sessionCopy addRequiredAttachmentType:@"pcap" pattern:@".pcapng"];
   [durationCopy doubleValue];
@@ -3949,90 +4146,89 @@ LABEL_18:
 
   configManager = [(DiagnosticCaseManager *)self configManager];
   logArchivePath = [configManager logArchivePath];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_247;
-  v37[3] = &unk_278CF11B0;
-  v37[4] = self;
-  v38 = v23;
-  v39 = v17;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_251;
-  v33[3] = &unk_278CF1200;
-  v33[4] = self;
-  v34 = v10;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_247;
+  v36[3] = &unk_278CF11B0;
+  v36[4] = self;
+  v37 = v23;
+  v38 = v17;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_251;
+  v32[3] = &unk_278CF1200;
+  v32[4] = self;
+  v33 = v10;
+  v34 = v37;
   v35 = v38;
-  v36 = v39;
-  v28 = v39;
-  v29 = v38;
+  v28 = v38;
+  v29 = v37;
   v30 = v10;
-  [(TCPDumpProbe *)v30 startTCPDumpWithDuration:logArchivePath destinationPath:v37 tcpDumpStarted:v33 tcpDumpCompleted:v25];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [(TCPDumpProbe *)v30 startTCPDumpWithDuration:logArchivePath destinationPath:v36 tcpDumpStarted:v32 tcpDumpCompleted:v25];
 }
 
 void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke(uint64_t a1, void *a2, int a3, int a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = a2;
+  v8 = v7;
   if (a3 > 2)
   {
     switch(a3)
     {
       case 3:
-        v13 = casemanagementLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-        {
-          *buf = 138543362;
-          v35 = v7;
-          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ failed.", buf, 0xCu);
-        }
-
-        v10 = @"Finished";
-        v12 = 0;
-        v11 = 1;
-        break;
-      case 4:
-        v14 = casemanagementLogHandle();
+        v14 = casemanagementLogHandle(v7);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v35 = v7;
-          _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ cancelled.", buf, 0xCu);
+          v36 = v8;
+          _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ failed.", buf, 0xCu);
         }
 
-        v10 = @"Cancelled";
-        v11 = 0;
-        v12 = 0;
+        v11 = @"Finished";
+        v13 = 0;
+        v12 = 1;
         break;
-      case 5:
-        v8 = casemanagementLogHandle();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      case 4:
+        v15 = casemanagementLogHandle(v7);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v35 = v7;
-          _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ pending cancellation.", buf, 0xCu);
+          v36 = v8;
+          _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ cancelled.", buf, 0xCu);
+        }
+
+        v11 = @"Cancelled";
+        v12 = 0;
+        v13 = 0;
+        break;
+      case 5:
+        v9 = casemanagementLogHandle(v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543362;
+          v36 = v8;
+          _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ pending cancellation.", buf, 0xCu);
         }
 
         goto LABEL_28;
       default:
 LABEL_25:
-        v17 = casemanagementLogHandle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v18 = casemanagementLogHandle(v7);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 138543618;
-          v35 = v7;
-          v36 = 1024;
-          v37 = a3;
-          _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ returned unexpected status update (%d)", buf, 0x12u);
+          v36 = v8;
+          v37 = 1024;
+          v38 = a3;
+          _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ returned unexpected status update (%d)", buf, 0x12u);
         }
 
         goto LABEL_28;
     }
 
 LABEL_20:
-    v15 = 1;
+    v16 = 1;
     goto LABEL_29;
   }
 
@@ -4045,25 +4241,25 @@ LABEL_20:
 
     if (a4)
     {
-      v9 = casemanagementLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = casemanagementLogHandle(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v35 = v7;
-        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ completed successfully.", buf, 0xCu);
+        v36 = v8;
+        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ completed successfully.", buf, 0xCu);
       }
 
-      v10 = @"success";
-      v11 = 0;
-      v12 = 1;
+      v11 = @"success";
+      v12 = 0;
+      v13 = 1;
       goto LABEL_20;
     }
 
 LABEL_28:
-    v11 = 0;
     v12 = 0;
-    v15 = 0;
-    v10 = 0;
+    v13 = 0;
+    v16 = 0;
+    v11 = 0;
     goto LABEL_29;
   }
 
@@ -4072,123 +4268,116 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v16 = casemanagementLogHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = casemanagementLogHandle(v7);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v35 = v7;
-    _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ started successfully.", buf, 0xCu);
+    v36 = v8;
+    _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "TCPDumpProbe for session %{public}@ started successfully.", buf, 0xCu);
   }
 
-  v10 = @"In Progress";
-  v11 = 0;
+  v11 = @"In Progress";
   v12 = 0;
-  v15 = 0;
+  v13 = 0;
+  v16 = 0;
 LABEL_29:
-  if ([(__CFString *)v10 length])
+  if ([(__CFString *)v11 length])
   {
-    v18 = [MEMORY[0x277CBEB38] dictionary];
-    [v18 setObject:@"probe" forKeyedSubscript:@"type"];
-    [v18 setObject:*(a1 + 32) forKeyedSubscript:@"name"];
-    [v18 setObject:v10 forKeyedSubscript:@"status"];
-    v19 = MEMORY[0x277CCABB0];
-    v20 = [MEMORY[0x277CBEAA8] date];
-    [v20 timeIntervalSince1970];
-    v21 = [v19 numberWithDouble:?];
-    [v18 setObject:v21 forKeyedSubscript:@"timestamp"];
+    v19 = [MEMORY[0x277CBEB38] dictionary];
+    [v19 setObject:@"probe" forKeyedSubscript:@"type"];
+    [v19 setObject:*(a1 + 32) forKeyedSubscript:@"name"];
+    [v19 setObject:v11 forKeyedSubscript:@"status"];
+    v20 = MEMORY[0x277CCABB0];
+    v21 = [MEMORY[0x277CBEAA8] date];
+    [v21 timeIntervalSince1970];
+    v22 = [v20 numberWithDouble:?];
+    [v19 setObject:v22 forKeyedSubscript:@"timestamp"];
 
-    if (v15)
+    if (v16)
     {
-      v22 = kSymptomDiagnosticEventResultSuccess;
-      if (!v12)
+      v23 = kSymptomDiagnosticEventResultSuccess;
+      if (!v13)
       {
-        v22 = kSymptomDiagnosticEventResultFailure;
+        v23 = kSymptomDiagnosticEventResultFailure;
       }
 
-      [v18 setObject:*v22 forKeyedSubscript:@"result"];
+      [v19 setObject:*v23 forKeyedSubscript:@"result"];
     }
 
-    v23 = *(a1 + 40);
-    v33 = v18;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_237;
-    v31[3] = &unk_278CF1138;
-    v32 = v7;
-    [v23 addToSession:v32 events:v24 payload:0 reply:v31];
+    v24 = *(a1 + 40);
+    v34 = v19;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_237;
+    v32[3] = &unk_278CF1138;
+    v33 = v8;
+    [v24 addToSession:v33 events:v25 payload:0 reply:v32];
   }
 
-  if (v15)
+  if (v16)
   {
-    [*(a1 + 48) setObject:0 forKeyedSubscript:*(a1 + 32)];
-    v25 = casemanagementLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v26 = casemanagementLogHandle([*(a1 + 48) setObject:0 forKeyedSubscript:*(a1 + 32)]);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_INFO, "TCPDumpProbe is finished.", buf, 2u);
+      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_INFO, "TCPDumpProbe is finished.", buf, 2u);
     }
 
-    if (v11)
+    if (v12)
     {
-      v26 = casemanagementLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = casemanagementLogHandle(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEFAULT, "Canceling session due to TCPDump already being in progress", buf, 2u);
+        _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEFAULT, "Canceling session due to TCPDump already being in progress", buf, 2u);
       }
 
-      [*(a1 + 40) cancelSessionWithIdentifier:v7];
+      [*(a1 + 40) cancelSessionWithIdentifier:v8];
     }
 
     else
     {
-      v27 = [*(a1 + 40) queue];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_239;
-      v29[3] = &unk_278CF04F8;
-      v29[4] = *(a1 + 40);
-      v30 = v7;
-      dispatch_async(v27, v29);
+      v29 = [*(a1 + 40) queue];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_239;
+      v30[3] = &unk_278CF04F8;
+      v30[4] = *(a1 + 40);
+      v31 = v8;
+      dispatch_async(v29, v30);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_237(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = casemanagementLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Result for adding probe status event to %{public}@: %d", &v7, 0x12u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Result for adding probe status event to %{public}@: %d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_2(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = casemanagementLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Result for adding probe status event to %@: %d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Result for adding probe status event to %@: %d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_247(id *a1, int a2)
@@ -4206,24 +4395,20 @@ void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_i
 
 uint64_t __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_2_248(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = [TestProbe testProbeStatusString:*(a1 + 48)];
-    v9 = 138543618;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "tcpDumpStarted status for session %{public}@: %@", &v9, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "tcpDumpStarted status for session %{public}@: %@", &v6, 0x16u);
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
-  result = (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_251(id *a1, int a2)
@@ -4249,19 +4434,19 @@ void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_i
 
 uint64_t __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_2_252(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 2)
   {
     v2 = [*(a1 + 32) probeOutputFilePaths];
-    v3 = casemanagementLogHandle();
+    v3 = casemanagementLogHandle(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [v2 count];
       v5 = *(a1 + 40);
       *buf = 134218242;
-      v21 = v4;
-      v22 = 2114;
-      v23 = v5;
+      v18 = v4;
+      v19 = 2114;
+      v20 = v5;
       _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "Ready to add %ld files generated from a probe as payload to session %{public}@", buf, 0x16u);
     }
 
@@ -4269,54 +4454,48 @@ uint64_t __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___blo
     {
       v7 = *(a1 + 40);
       v6 = *(a1 + 48);
-      v18[0] = @"path";
-      v18[1] = @"sandbox_ext_token_dict";
-      v19[0] = v2;
-      v19[1] = MEMORY[0x277CBEC10];
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_253;
-      v16[3] = &unk_278CF1138;
-      v17 = *(a1 + 40);
-      [v6 addToSession:v7 events:0 payload:v8 reply:v16];
+      v15[0] = @"path";
+      v15[1] = @"sandbox_ext_token_dict";
+      v16[0] = v2;
+      v16[1] = MEMORY[0x277CBEC10];
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_253;
+      v13[3] = &unk_278CF1138;
+      v14 = *(a1 + 40);
+      [v6 addToSession:v7 events:0 payload:v8 reply:v13];
     }
   }
 
-  v9 = casemanagementLogHandle();
+  v9 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = *(a1 + 40);
     v11 = [TestProbe testProbeStatusString:*(a1 + 64)];
     *buf = 138543618;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v11;
     _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "tcpDumpCompleted status for session %{public}@: %@", buf, 0x16u);
   }
 
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 64);
-  result = (*(*(a1 + 56) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_invoke_253(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = casemanagementLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Result for adding probe output files to %{public}@: %d", &v7, 0x12u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Result for adding probe output files to %{public}@: %d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelProbesForSession:(id)session
@@ -4324,16 +4503,17 @@ void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_i
   v22 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v5 = [(NSMutableDictionary *)self->activeProbes objectForKeyedSubscript:sessionCopy];
-  if ([v5 count])
+  v6 = [v5 count];
+  if (v6)
   {
-    v6 = casemanagementLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = casemanagementLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
       v19 = [v5 count];
       v20 = 2114;
       v21 = sessionCopy;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Cancelling all %lu probes for session: %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Cancelling all %lu probes for session: %{public}@", buf, 0x16u);
     }
 
     v15 = 0u;
@@ -4341,52 +4521,50 @@ void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_i
     v13 = 0u;
     v14 = 0u;
     allValues = [v5 allValues];
-    v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v14;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) cancelTest:0];
+          [*(*(&v13 + 1) + 8 * v12++) cancelTest:0];
         }
 
-        while (v9 != v11);
-        v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+        while (v10 != v12);
+        v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSessionIfProbesCompletedFor:(id)for
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   forCopy = for;
   v5 = [(NSMutableDictionary *)self->activeProbes objectForKeyedSubscript:forCopy];
   v6 = [v5 count];
-  v7 = casemanagementLogHandle();
+  v7 = casemanagementLogHandle(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
   if (v6)
   {
     if (v8)
     {
-      v10 = 134218242;
-      v11 = [v5 count];
-      v12 = 2114;
-      v13 = forCopy;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Waiting for %ld requested probes to complete before ending session %{public}@", &v10, 0x16u);
+      v9 = 134218242;
+      v10 = [v5 count];
+      v11 = 2114;
+      v12 = forCopy;
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Waiting for %ld requested probes to complete before ending session %{public}@", &v9, 0x16u);
     }
   }
 
@@ -4394,64 +4572,60 @@ void __63__DiagnosticCaseManager_startPacketCaptureForSession_duration___block_i
   {
     if (v8)
     {
-      v10 = 138543362;
-      v11 = forCopy;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "All requested probes completed for session %{public}@. Ready to end.", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = forCopy;
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "All requested probes completed for session %{public}@. Ready to end.", &v9, 0xCu);
     }
 
     [(NSMutableDictionary *)self->activeProbes setObject:0 forKeyedSubscript:forCopy];
     [(DiagnosticCaseManager *)self endSessionWithIdentifier:forCopy forced:0 onlyIfReady:1];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteTriggerDeliveryUpdateEvent:(id)event
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v5 = casemanagementLogHandle();
+  v5 = casemanagementLogHandle(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = eventCopy;
+    v14 = eventCopy;
     _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "IDS remote trigger send message update: %@", buf, 0xCu);
   }
 
   v6 = [eventCopy objectForKeyedSubscript:@"IDSMessageIdentifier"];
   v7 = [(NSMutableDictionary *)self->activeIDSMessages objectForKeyedSubscript:v6];
-  v8 = casemanagementLogHandle();
+  v8 = casemanagementLogHandle(v7);
   v9 = v8;
   if (v7)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v6;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "Found session identifier %@ for IDS message identifier %@", buf, 0x16u);
     }
 
     queue = [(DiagnosticCaseManager *)self queue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __58__DiagnosticCaseManager_remoteTriggerDeliveryUpdateEvent___block_invoke;
-    v12[3] = &unk_278CF10C0;
-    v13 = v7;
-    [(DiagnosticCaseManager *)self addToSession:v13 event:eventCopy payload:0 queue:queue reply:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __58__DiagnosticCaseManager_remoteTriggerDeliveryUpdateEvent___block_invoke;
+    v11[3] = &unk_278CF10C0;
+    v12 = v7;
+    [(DiagnosticCaseManager *)self addToSession:v12 event:eventCopy payload:0 queue:queue reply:v11];
 
-    v9 = v13;
+    v9 = v12;
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Could not find session identifier for IDS message identifier %{public}@ (most likely received this update after the session was closed)", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__DiagnosticCaseManager_remoteTriggerDeliveryUpdateEvent___block_invoke(uint64_t a1, void *a2)
@@ -4461,69 +4635,66 @@ void __58__DiagnosticCaseManager_remoteTriggerDeliveryUpdateEvent___block_invoke
   v4 = [v3 objectForKeyedSubscript:@"success"];
   v5 = [v3 objectForKeyedSubscript:@"reason"];
 
-  v6 = casemanagementLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = casemanagementLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
     if ([v4 BOOLValue])
     {
-      v8 = "was successful";
+      v9 = "was successful";
     }
 
     else
     {
-      v8 = "failed";
+      v9 = "failed";
     }
 
     v10 = 138543874;
-    v11 = v7;
+    v11 = v8;
     v12 = 2080;
-    v13 = v8;
+    v13 = v9;
     v14 = 2048;
     v15 = [v5 integerValue];
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Adding remote trigger event update to session %{public}@ %s. (Reason code %ld)", &v10, 0x20u);
+    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Adding remote trigger event update to session %{public}@ %s. (Reason code %ld)", &v10, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSnapshotWithSignature:(id)signature flags:(unint64_t)flags events:(id)events
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   eventsCopy = events;
-  v10 = casemanagementLogHandle();
+  v10 = casemanagementLogHandle(eventsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = signatureCopy;
-    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Ready to request remotely triggered case with signature: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = signatureCopy;
+    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Ready to request remotely triggered case with signature: %@", &v11, 0xCu);
   }
 
   [(DiagnosticCaseManager *)self startSessionWithSignature:signatureCopy flags:flags preferredTimeout:eventsCopy events:0 payload:0 actions:&__block_literal_global_256 reply:0.0];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__DiagnosticCaseManager_requestSnapshotWithSignature_flags_events___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, int a5)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a3;
   v10 = a4;
-  v11 = casemanagementLogHandle();
+  v11 = casemanagementLogHandle(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (a5)
   {
     if (v12)
     {
-      v17 = 138544130;
-      v18 = v8;
-      v19 = 2114;
-      v20 = v9;
-      v21 = 1024;
-      LODWORD(v22[0]) = a5;
-      WORD2(v22[0]) = 2112;
-      *(v22 + 6) = v10;
+      v16 = 138544130;
+      v17 = v8;
+      v18 = 2114;
+      v19 = v9;
+      v20 = 1024;
+      LODWORD(v21[0]) = a5;
+      WORD2(v21[0]) = 2112;
+      *(v21 + 6) = v10;
       v13 = "RemoteTrigger: Session %{public}@ [groupID: %{public}@] was NOT accepted. (Reason code: %d) (%@)";
       v14 = v11;
       v15 = 38;
@@ -4533,20 +4704,40 @@ void __67__DiagnosticCaseManager_requestSnapshotWithSignature_flags_events___blo
 
   else if (v12)
   {
-    v17 = 138543874;
-    v18 = v8;
-    v19 = 2114;
-    v20 = v9;
-    v21 = 2112;
-    v22[0] = v10;
+    v16 = 138543874;
+    v17 = v8;
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2112;
+    v21[0] = v10;
     v13 = "RemoteTrigger: Session %{public}@ [groupID: %{public}@] accepted. (%@)";
     v14 = v11;
     v15 = 32;
 LABEL_6:
-    _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, v13, &v17, v15);
+    _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, v13, &v16, v15);
+  }
+}
+
+- (id)responseDictWithSuccess:(BOOL)success sessionId:(id)id reasonCode:(int64_t)code
+{
+  successCopy = success;
+  idCopy = id;
+  v8 = MEMORY[0x277CBEB38];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+  v10 = [v8 dictionaryWithObject:v9 forKey:@"success"];
+
+  if ([idCopy length])
+  {
+    [v10 setObject:idCopy forKey:@"session"];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  if (code)
+  {
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:code];
+    [v10 setObject:v11 forKey:@"reason"];
+  }
+
+  return v10;
 }
 
 - (void)startSessionWithSignature:(id)signature duration:(double)duration events:(id)events payload:(id)payload triggerRemote:(BOOL)remote queue:(id)queue reply:(id)reply
@@ -4623,7 +4814,7 @@ void __101__DiagnosticCaseManager_startSessionWithSignature_duration_events_payl
 
 - (void)addToSession:(id)session event:(id)event payload:(id)payload queue:(id)queue reply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   payloadCopy = payload;
   queueCopy = queue;
@@ -4636,9 +4827,7 @@ void __101__DiagnosticCaseManager_startSessionWithSignature_duration_events_payl
     event = [v16 arrayWithObjects:&eventCopy count:1];
   }
 
-  [(DiagnosticCaseManager *)self addToSession:sessionCopy events:event payload:payloadCopy queue:queueCopy reply:replyCopy, eventCopy, v20];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(DiagnosticCaseManager *)self addToSession:sessionCopy events:event payload:payloadCopy queue:queueCopy reply:replyCopy, eventCopy, v19];
 }
 
 - (void)addToSession:(id)session events:(id)events payload:(id)payload queue:(id)queue reply:(id)reply
@@ -4697,36 +4886,32 @@ void __65__DiagnosticCaseManager_addToSession_events_payload_queue_reply___block
 
 void __65__DiagnosticCaseManager_addToSession_events_payload_queue_reply___block_invoke_2(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v8[0] = @"success";
+  v7[0] = @"success";
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) == 0];
-  v9[0] = v3;
-  v8[1] = @"reason";
+  v8[0] = v3;
+  v7[1] = @"reason";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
-  v9[1] = v4;
-  v8[2] = @"reasonStr";
+  v8[1] = v4;
+  v7[2] = @"reasonStr";
   v5 = diagnosticErrorStringForCode(*(a1 + 40));
-  v9[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   (*(v2 + 16))(v2, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DiagnosticCaseManager_addToSession_events_payload_queue_reply___block_invoke_3(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v6[0] = MEMORY[0x277CBEC28];
-  v5[0] = @"success";
-  v5[1] = @"reason";
+  v5[0] = MEMORY[0x277CBEC28];
+  v4[0] = @"success";
+  v4[1] = @"reason";
   v2 = [MEMORY[0x277CCABB0] numberWithInt:20];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   (*(v1 + 16))(v1, v3);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSessionWithSignature:(id)signature flags:(unint64_t)flags preferredTimeout:(double)timeout events:(id)events payload:(id)payload actions:(id)actions reply:(id)reply
@@ -4770,7 +4955,7 @@ void __65__DiagnosticCaseManager_addToSession_events_payload_queue_reply___block
 
 void __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeout_events_payload_actions_reply___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _updateSignatureWithBuildVariantInfoAndFlags:*(a1 + 40)];
   v3 = [*(a1 + 32) createDiagnosticCaseWithSignature:v2 flags:*(a1 + 88) events:*(a1 + 48) payload:*(a1 + 56) actions:*(a1 + 64)];
   v4 = +[DiagnosticCaseManager symptomDiagnosticErrorForDiagnosticCaseDampeningType:](DiagnosticCaseManager, "symptomDiagnosticErrorForDiagnosticCaseDampeningType:", [v3 dampeningType]);
@@ -4779,58 +4964,59 @@ void __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeo
     v5 = v4;
     [*(*(a1 + 32) + 64) _checkFileWritingLimits:v3];
     [v3 setPreferredDuration:*(a1 + 96)];
-    if ([v3 dampeningType] > 0)
+    v6 = [v3 dampeningType];
+    if (v6 > 0)
     {
       goto LABEL_30;
     }
 
-    v6 = [v3 caseId];
-    v7 = [v6 UUIDString];
+    v7 = [v3 caseId];
+    v8 = [v7 UUIDString];
 
-    v8 = casemanagementLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = casemanagementLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v48 = *&v7;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Starting an ABC session with identifier: %{public}@", buf, 0xCu);
+      v52 = *&v8;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Starting an ABC session with identifier: %{public}@", buf, 0xCu);
     }
 
-    [*(a1 + 32) addTransactionForCaseID:v7];
-    v9 = *(a1 + 96);
-    if (v9 <= 0.0)
+    [*(a1 + 32) addTransactionForCaseID:v8];
+    v11 = *(a1 + 96);
+    if (v11 <= 0.0)
     {
-      v10 = 100000000;
+      v12 = 100000000;
     }
 
     else
     {
-      v10 = (v9 * 1000000000.0);
+      v12 = (v11 * 1000000000.0);
     }
 
-    v11 = dispatch_time(0, v10);
-    v12 = [*(a1 + 32) queue];
+    v13 = dispatch_time(0, v12);
+    v14 = [*(a1 + 32) queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeout_events_payload_actions_reply___block_invoke_258;
     block[3] = &unk_278CF00E0;
-    v13 = v7;
-    v44 = v13;
-    v14 = v3;
-    v15 = *(a1 + 32);
-    v45 = v14;
-    v46 = v15;
-    dispatch_after(v11, v12, block);
+    v15 = v8;
+    v48 = v15;
+    v16 = v3;
+    v17 = *(a1 + 32);
+    v49 = v16;
+    v50 = v17;
+    dispatch_after(v13, v14, block);
 
-    [*(a1 + 32) _processReportActions:*(a1 + 64) session:v14];
+    [*(a1 + 32) _processReportActions:*(a1 + 64) session:v16];
     if (![*(a1 + 64) count])
     {
       goto LABEL_29;
     }
 
-    if (![v14 wantsRemote])
+    if (![v16 wantsRemote])
     {
 LABEL_27:
-      if ([*(a1 + 32) _processProbeActions:*(a1 + 64) session:{v14, v36, v37, v38, v39}])
+      if ([*(a1 + 32) _processProbeActions:*(a1 + 64) session:{v16, v40, v41, v42, v43}])
       {
         [*(a1 + 32) startPeriodicTimer];
       }
@@ -4840,115 +5026,116 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v16 = [*(a1 + 64) objectForKeyedSubscript:@"idsdest"];
+    v18 = [*(a1 + 64) objectForKeyedSubscript:@"idsdest"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v17 = 3600.0;
-      v18 = [*(a1 + 64) objectForKeyedSubscript:@"remotewindow"];
+      v20 = 3600.0;
+      v21 = [*(a1 + 64) objectForKeyedSubscript:@"remotewindow"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v22 = objc_opt_isKindOfClass();
+      if (v22)
       {
-        [v18 doubleValue];
-        if (v19 >= 1.0)
+        v22 = [v21 doubleValue];
+        if (v23 >= 1.0)
         {
-          [v18 doubleValue];
-          v17 = v20;
-          v21 = casemanagementLogHandle();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v24 = [v21 doubleValue];
+          v20 = v25;
+          v26 = casemanagementLogHandle(v24);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134217984;
-            v48 = v17;
-            _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "(Remote trigger window is %.0lf seconds)", buf, 0xCu);
+            v52 = v20;
+            _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "(Remote trigger window is %.0lf seconds)", buf, 0xCu);
           }
         }
       }
 
-      v22 = casemanagementLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v27 = casemanagementLogHandle(v22);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_INFO, "Ready to trigger remote cases via IDS", buf, 2u);
+        _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_INFO, "Ready to trigger remote cases via IDS", buf, 2u);
       }
 
       *(*(*(a1 + 80) + 8) + 24) = 1;
-      v23 = *(a1 + 32);
-      v24 = [v14 signature];
-      v36 = MEMORY[0x277D85DD0];
-      v37 = 3221225472;
-      v38 = __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeout_events_payload_actions_reply___block_invoke_259;
-      v39 = &unk_278CF1298;
-      v41 = *(a1 + 72);
-      v40 = v14;
-      v42 = v5;
-      [v23 _processRemoteIDSTriggers:v16 validFor:v24 signature:v13 sessionID:&v36 reply:v17];
+      v28 = *(a1 + 32);
+      v29 = [v16 signature];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeout_events_payload_actions_reply___block_invoke_259;
+      v43 = &unk_278CF1298;
+      v45 = *(a1 + 72);
+      v44 = v16;
+      v46 = v5;
+      [v28 _processRemoteIDSTriggers:v18 validFor:v29 signature:v15 sessionID:&v40 reply:v20];
     }
 
     else
     {
-      if (!v16)
+      if (!v18)
       {
 LABEL_26:
 
         goto LABEL_27;
       }
 
-      v18 = casemanagementLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = casemanagementLogHandle(isKindOfClass);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
         *buf = 138412546;
-        v48 = *&v27;
-        v49 = 2112;
-        v50 = v16;
-        _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, "Found unsupported class for remote IDS destinations: %@ (%@)", buf, 0x16u);
+        v52 = *&v32;
+        v53 = 2112;
+        v54 = v18;
+        _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_ERROR, "Found unsupported class for remote IDS destinations: %@ (%@)", buf, 0x16u);
       }
     }
 
     goto LABEL_26;
   }
 
-  v25 = casemanagementLogHandle();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v30 = casemanagementLogHandle(v4);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "DiagnosticCase is nil", buf, 2u);
+    _os_log_impl(&dword_241804000, v30, OS_LOG_TYPE_DEBUG, "DiagnosticCase is nil", buf, 2u);
   }
 
   v5 = 8;
 LABEL_30:
-  v28 = *(*(*(a1 + 80) + 8) + 24);
   if (*(a1 + 72))
   {
     if ((*(*(*(a1 + 80) + 8) + 24) & 1) == 0)
     {
-      v29 = [v3 signature];
-      v30 = [v29 objectForKeyedSubscript:@"groupID"];
+      v33 = [v3 signature];
+      v34 = [v33 objectForKeyedSubscript:@"groupID"];
 
-      v31 = casemanagementLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v36 = casemanagementLogHandle(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v48 = *&v30;
-        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEBUG, "Found group id %{public}@", buf, 0xCu);
+        v52 = *&v34;
+        _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEBUG, "Found group id %{public}@", buf, 0xCu);
       }
 
-      v32 = *(a1 + 72);
-      v33 = [v3 caseId];
-      v34 = [v33 UUIDString];
-      (*(v32 + 16))(v32, v34, v30, 0, v5);
+      v37 = *(a1 + 72);
+      v38 = [v3 caseId];
+      v39 = [v38 UUIDString];
+      (*(v37 + 16))(v37, v39, v34, 0, v5);
 
 LABEL_38:
       goto LABEL_39;
     }
 
 LABEL_36:
-    v30 = casemanagementLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v34 = casemanagementLogHandle(v6);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v30, OS_LOG_TYPE_INFO, "Waiting for asynchronous operation to finish.", buf, 2u);
+      _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_INFO, "Waiting for asynchronous operation to finish.", buf, 2u);
     }
 
     goto LABEL_38;
@@ -4960,26 +5147,22 @@ LABEL_36:
   }
 
 LABEL_39:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeout_events_payload_actions_reply___block_invoke_258(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Case duration timer fired for %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Case duration timer fired for %{public}@", &v5, 0xCu);
   }
 
   [*(a1 + 40) setReadyToEndSession:1];
-  result = [*(a1 + 48) endSessionIfProbesCompletedFor:*(a1 + 32)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) endSessionIfProbesCompletedFor:*(a1 + 32)];
 }
 
 void __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeout_events_payload_actions_reply___block_invoke_259(uint64_t a1, void *a2)
@@ -4991,50 +5174,48 @@ void __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeo
     v4 = [*(a1 + 32) signature];
     v5 = [v4 objectForKeyedSubscript:@"groupID"];
 
-    v6 = casemanagementLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = casemanagementLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v18 = 138543362;
       v19 = v5;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Found group id %{public}@", &v18, 0xCu);
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Found group id %{public}@", &v18, 0xCu);
     }
 
-    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v8 = [v3 objectForKeyedSubscript:@"result"];
-    v9 = [v8 isEqualToString:@"failure"];
+    v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v9 = [v3 objectForKeyedSubscript:@"result"];
+    v10 = [v9 isEqualToString:@"failure"];
 
-    if (v9)
+    if (v10)
     {
-      v10 = MEMORY[0x277CBEC28];
+      v11 = MEMORY[0x277CBEC28];
     }
 
     else
     {
-      v10 = MEMORY[0x277CBEC38];
+      v11 = MEMORY[0x277CBEC38];
     }
 
-    if (v9)
+    if (v10)
     {
-      v11 = kSymptomDiagnosticKeyError;
+      v12 = kSymptomDiagnosticKeyError;
     }
 
     else
     {
-      v11 = kSymptomDiagnosticKeyIDSMessageIdentifier;
+      v12 = kSymptomDiagnosticKeyIDSMessageIdentifier;
     }
 
-    [v7 setObject:v10 forKeyedSubscript:@"IDSRemoteTrigger"];
-    v12 = *v11;
-    v13 = [v3 objectForKeyedSubscript:v12];
-    [v7 setObject:v13 forKeyedSubscript:v12];
+    [v8 setObject:v11 forKeyedSubscript:@"IDSRemoteTrigger"];
+    v13 = *v12;
+    v14 = [v3 objectForKeyedSubscript:v13];
+    [v8 setObject:v14 forKeyedSubscript:v13];
 
-    v14 = *(a1 + 40);
-    v15 = [*(a1 + 32) caseId];
-    v16 = [v15 UUIDString];
-    (*(v14 + 16))(v14, v16, v5, v7, *(a1 + 48));
+    v15 = *(a1 + 40);
+    v16 = [*(a1 + 32) caseId];
+    v17 = [v16 UUIDString];
+    (*(v15 + 16))(v15, v17, v5, v8, *(a1 + 48));
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addToSession:(id)session events:(id)events payload:(id)payload reply:(id)reply
@@ -5060,22 +5241,22 @@ void __103__DiagnosticCaseManager_startSessionWithSignature_flags_preferredTimeo
   dispatch_async(queue, block);
 }
 
-uint64_t __59__DiagnosticCaseManager_addToSession_events_payload_reply___block_invoke(uint64_t a1)
+void *__59__DiagnosticCaseManager_addToSession_events_payload_reply___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v13 = 138543874;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Adding to session with identifier: %{public}@.\n\tevents: %@\n\tpayload: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Adding to session with identifier: %{public}@.\n\tevents: %@\n\tpayload: %@", &v12, 0x20u);
   }
 
   result = [*(a1 + 32) length];
@@ -5086,31 +5267,34 @@ uint64_t __59__DiagnosticCaseManager_addToSession_events_payload_reply___block_i
     [v7 addToCaseWithId:v8 events:*(a1 + 40) payload:*(a1 + 48)];
 
     result = *(a1 + 64);
-    if (result)
+    if (!result)
     {
-      v9 = *(result + 16);
-LABEL_10:
-      result = v9();
+      return result;
     }
+
+    v9 = result[2];
   }
 
-  else if (*(a1 + 64))
+  else
   {
-    v10 = casemanagementLogHandle();
+    if (!*(a1 + 64))
+    {
+      return result;
+    }
+
+    v10 = casemanagementLogHandle(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "invalid parameters: empty or missing session identifier (%{public}@)", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "invalid parameters: empty or missing session identifier (%{public}@)", &v12, 0xCu);
     }
 
     v9 = *(*(a1 + 64) + 16);
-    goto LABEL_10;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9();
 }
 
 - (void)addSignatureContentForSession:(id)session key:(id)key content:(id)content reply:(id)reply
@@ -5136,22 +5320,22 @@ LABEL_10:
   dispatch_async(queue, block);
 }
 
-uint64_t __73__DiagnosticCaseManager_addSignatureContentForSession_key_content_reply___block_invoke(uint64_t a1)
+void *__73__DiagnosticCaseManager_addSignatureContentForSession_key_content_reply___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v13 = 138543874;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Updating signature of session with identifier: %{public}@. key: %@ content: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Updating signature of session with identifier: %{public}@. key: %@ content: %@", &v12, 0x20u);
   }
 
   result = [*(a1 + 32) length];
@@ -5162,31 +5346,76 @@ uint64_t __73__DiagnosticCaseManager_addSignatureContentForSession_key_content_r
     [v7 addSignatureContentToCaseWithId:v8 key:*(a1 + 40) content:*(a1 + 48)];
 
     result = *(a1 + 64);
-    if (result)
+    if (!result)
     {
-      v9 = *(result + 16);
-LABEL_10:
-      result = v9();
+      return result;
     }
+
+    v9 = result[2];
   }
 
-  else if (*(a1 + 64))
+  else
   {
-    v10 = casemanagementLogHandle();
+    if (!*(a1 + 64))
+    {
+      return result;
+    }
+
+    v10 = casemanagementLogHandle(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "invalid parameters: empty or missing session identifier (%{public}@)", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "invalid parameters: empty or missing session identifier (%{public}@)", &v12, 0xCu);
     }
 
     v9 = *(*(a1 + 64) + 16);
-    goto LABEL_10;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9();
+}
+
+- (void)endSession:(id)session forced:(BOOL)forced onlyIfReady:(BOOL)ready
+{
+  readyCopy = ready;
+  forcedCopy = forced;
+  v19 = *MEMORY[0x277D85DE8];
+  sessionCopy = session;
+  uUIDString = [sessionCopy UUIDString];
+  v10 = casemanagementLogHandle([(DiagnosticCaseManager *)self cancelProbesForSession:uUIDString]);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = "";
+    if (readyCopy)
+    {
+      v11 = "(only if ready to end)";
+    }
+
+    v15 = 138543618;
+    v16 = uUIDString;
+    v17 = 2080;
+    v18 = v11;
+    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "Ending session with identifier: %{public}@ %s", &v15, 0x16u);
+  }
+
+  if (forcedCopy)
+  {
+    v12 = 2;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  v13 = [(DiagnosticCaseManager *)self finalizeDiagnosticCaseWithId:sessionCopy closureType:v12 onlyIfReady:readyCopy];
+
+  if (v13)
+  {
+    v14 = [(NSMutableDictionary *)self->activeIDSMessages allKeysForObject:uUIDString];
+    [(NSMutableDictionary *)self->activeIDSMessages removeObjectsForKeys:v14];
+  }
 }
 
 - (void)endSessions:(id)sessions forced:(BOOL)forced
@@ -5206,8 +5435,8 @@ LABEL_10:
 
 void __44__DiagnosticCaseManager_endSessions_forced___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = [*(a1 + 32) count];
@@ -5218,47 +5447,45 @@ void __44__DiagnosticCaseManager_endSessions_forced___block_invoke(uint64_t a1)
     }
 
     *buf = 134218242;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v4;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v4;
     _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEBUG, "Ending %ld sessions%@", buf, 0x16u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         v10 = *(a1 + 40);
-        v11 = [*(*(&v13 + 1) + 8 * v9) caseId];
+        v11 = [*(*(&v12 + 1) + 8 * v9) caseId];
         [v10 endSession:v11 forced:*(a1 + 48) onlyIfReady:0];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSessionWithIdentifier:(id)identifier forced:(BOOL)forced onlyIfReady:(BOOL)ready
@@ -5296,14 +5523,14 @@ void __44__DiagnosticCaseManager_endSessions_forced___block_invoke(uint64_t a1)
 
 void __53__DiagnosticCaseManager_cancelSessionWithIdentifier___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Cancelling session with identifier: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Cancelling session with identifier: %{public}@", &v6, 0xCu);
   }
 
   if ([*(a1 + 32) length])
@@ -5313,8 +5540,6 @@ void __53__DiagnosticCaseManager_cancelSessionWithIdentifier___block_invoke(uint
     v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(a1 + 32)];
     [v4 cancelCaseWithId:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shutdown
@@ -5328,7 +5553,7 @@ void __53__DiagnosticCaseManager_cancelSessionWithIdentifier___block_invoke(uint
   dispatch_sync(queue, block);
 }
 
-uint64_t __33__DiagnosticCaseManager_shutdown__block_invoke(uint64_t a1)
+void *__33__DiagnosticCaseManager_shutdown__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasOpenCases];
   if (result)
@@ -5367,36 +5592,34 @@ uint64_t __33__DiagnosticCaseManager_shutdown__block_invoke(uint64_t a1)
 uint64_t __49__DiagnosticCaseManager_updateAverageCasesPerDay__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
-  [*(*(a1 + 32) + 64) _calculateAverageCasesPerDayFromDailyAggregatedStatistics];
-  v3 = v2;
-  v4 = casemanagementLogHandle();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (v3 <= 0.0)
+  v2 = [*(*(a1 + 32) + 64) _calculateAverageCasesPerDayFromDailyAggregatedStatistics];
+  v4 = v3;
+  v5 = casemanagementLogHandle(v2);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4 <= 0.0)
   {
-    if (v5)
+    if (v6)
     {
       LOWORD(v9) = 0;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "Average cases seen per day is 0.", &v9, 2u);
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Average cases seen per day is 0.", &v9, 2u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
       v9 = 134217984;
-      v10 = v3;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "Average cases seen per day is %.4f", &v9, 0xCu);
+      v10 = v4;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Average cases seen per day is %.4f", &v9, 0xCu);
     }
 
-    LODWORD(v6) = vcvtpd_u64_f64(v3);
+    LODWORD(v7) = vcvtpd_u64_f64(v4);
   }
 
-  result = [*(a1 + 32) setAvgCasesPerDay:v6];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setAvgCasesPerDay:v7];
 }
 
 - (void)resetDiagnosticCaseStorage
@@ -5412,7 +5635,7 @@ uint64_t __49__DiagnosticCaseManager_updateAverageCasesPerDay__block_invoke(uint
 
 uint64_t __51__DiagnosticCaseManager_resetDiagnosticCaseStorage__block_invoke(uint64_t a1)
 {
-  v2 = casemanagementLogHandle();
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -5441,7 +5664,7 @@ uint64_t __51__DiagnosticCaseManager_resetDiagnosticCaseStorage__block_invoke(ui
 
 void __50__DiagnosticCaseManager_resetAllForCustomerBuilds__block_invoke(uint64_t a1)
 {
-  v2 = casemanagementLogHandle();
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -5466,7 +5689,7 @@ void __50__DiagnosticCaseManager_resetAllForCustomerBuilds__block_invoke(uint64_
 
 uint64_t __33__DiagnosticCaseManager_resetAll__block_invoke(uint64_t a1)
 {
-  v2 = casemanagementLogHandle();
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -5508,7 +5731,7 @@ void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke(uint
   v22 = &v21;
   v23 = 0x2020000000;
   v24 = 0;
-  v3 = casemanagementLogHandle();
+  v3 = casemanagementLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = [*(a1 + 32) count];
@@ -5530,184 +5753,182 @@ void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke(uint
   v7 = v2;
   v18 = v7;
   v20 = &v25;
-  [v6 enumerateObjectsUsingBlock:&v13];
+  v8 = [v6 enumerateObjectsUsingBlock:&v13];
   if (!v26[5] && (v22[3] & 1) == 0)
   {
-    v8 = casemanagementLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = casemanagementLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412290;
-      v32 = v9;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Did not find any collected cases that matched the provided signatures: %@", buf, 0xCu);
+      v32 = v10;
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Did not find any collected cases that matched the provided signatures: %@", buf, 0xCu);
     }
   }
 
-  v10 = *(a1 + 48);
-  if (v10)
+  v11 = *(a1 + 48);
+  if (v11)
   {
     if ([v7 count])
     {
-      v11 = v7;
+      v12 = v7;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    (*(v10 + 16))(v10, v11, v26[5]);
+    (*(v11 + 16))(v11, v12, v26[5]);
   }
 
   _Block_object_dispose(&v21, 8);
   _Block_object_dispose(&v25, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke_274(void *a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
-    v5 = [(DiagnosticCase *)v4 objectForKeyedSubscript:@"domain"];
-    v6 = [(DiagnosticCase *)v4 objectForKeyedSubscript:@"type"];
-    v7 = [(DiagnosticCase *)v4 objectForKeyedSubscript:@"subtype"];
-    v8 = [(DiagnosticCase *)v4 objectForKeyedSubscript:@"detected"];
-    v9 = [(DiagnosticCase *)v4 objectForKeyedSubscript:@"window"];
-    if (v9)
+    v5 = v3;
+    v6 = [(DiagnosticCase *)v5 objectForKeyedSubscript:@"domain"];
+    v7 = [(DiagnosticCase *)v5 objectForKeyedSubscript:@"type"];
+    v8 = [(DiagnosticCase *)v5 objectForKeyedSubscript:@"subtype"];
+    v9 = [(DiagnosticCase *)v5 objectForKeyedSubscript:@"detected"];
+    v10 = [(DiagnosticCase *)v5 objectForKeyedSubscript:@"window"];
+    if (v10)
     {
-      v10 = v9;
+      v11 = v10;
     }
 
     else
     {
-      v10 = &unk_28537A720;
+      v11 = &unk_28537A720;
     }
 
-    v11 = casemanagementLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = casemanagementLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413058;
-      v46 = v5;
-      v47 = 2112;
-      v48 = v6;
-      v49 = 2112;
-      v50 = v7;
-      v51 = 2112;
-      v52 = v8;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "  Searching for cases matching d:%@ t:%@ st:%@ p:%@", buf, 0x2Au);
+      v47 = v6;
+      v48 = 2112;
+      v49 = v7;
+      v50 = 2112;
+      v51 = v8;
+      v52 = 2112;
+      v53 = v9;
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "  Searching for cases matching d:%@ t:%@ st:%@ p:%@", buf, 0x2Au);
     }
 
-    v12 = a1[4];
-    [v10 doubleValue];
-    v39 = [v12 casesMatchingDomain:v5 type:v6 subtype:v7 process:v8 withinLast:?];
-    if ([v39 count])
+    v13 = a1[4];
+    [v11 doubleValue];
+    v40 = [v13 casesMatchingDomain:v6 type:v7 subtype:v8 process:v9 withinLast:?];
+    v14 = [v40 count];
+    if (v14)
     {
-      v33 = v10;
-      v34 = v8;
-      v35 = v7;
-      v36 = v6;
-      v37 = v4;
-      v38 = v3;
+      v34 = v11;
+      v35 = v9;
+      v36 = v8;
+      v37 = v7;
+      v38 = v5;
+      v39 = v3;
       *(*(a1[6] + 8) + 24) = 1;
-      v13 = casemanagementLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = casemanagementLogHandle(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v14 = [v39 count];
+        v16 = [v40 count];
         *buf = 134217984;
-        v46 = v14;
-        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "  Found %ld matching cases.", buf, 0xCu);
+        v47 = v16;
+        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "  Found %ld matching cases.", buf, 0xCu);
       }
 
-      v42 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v15 = v39;
-      v16 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
-      if (v16)
+      v42 = 0u;
+      v17 = v40;
+      v18 = [v17 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      if (v18)
       {
-        v17 = v16;
-        v18 = *v41;
+        v19 = v18;
+        v20 = *v42;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v41 != v18)
+            if (*v42 != v20)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v17);
             }
 
-            v20 = *(*(&v40 + 1) + 8 * i);
-            v21 = [[DiagnosticCase alloc] initWithCaseStorage:v20 manager:a1[4]];
-            v22 = casemanagementLogHandle();
-            v23 = v22;
-            if (v21)
+            v22 = *(*(&v41 + 1) + 8 * i);
+            v23 = [[DiagnosticCase alloc] initWithCaseStorage:v22 manager:a1[4]];
+            v24 = casemanagementLogHandle(v23);
+            v25 = v24;
+            if (v23)
             {
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
               {
-                v24 = [(DiagnosticCase *)v21 attachments];
-                v25 = [v24 count];
+                v26 = [(DiagnosticCase *)v23 attachments];
+                v27 = [v26 count];
                 *buf = 134218242;
-                v46 = v25;
-                v47 = 2112;
-                v48 = v21;
-                _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "    Adding %ld attachments from: %@", buf, 0x16u);
+                v47 = v27;
+                v48 = 2112;
+                v49 = v23;
+                _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "    Adding %ld attachments from: %@", buf, 0x16u);
               }
 
-              v26 = a1[5];
-              v23 = [(DiagnosticCase *)v21 attachments];
-              [v26 addObjectsFromArray:v23];
+              v28 = a1[5];
+              v25 = [(DiagnosticCase *)v23 attachments];
+              [v28 addObjectsFromArray:v25];
             }
 
-            else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v46 = v20;
-              _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_ERROR, "  Failed to allocate DiagnosticCase from DiagnosticCaseStorage: %@", buf, 0xCu);
+              v47 = v22;
+              _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_ERROR, "  Failed to allocate DiagnosticCase from DiagnosticCaseStorage: %@", buf, 0xCu);
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v41 objects:v45 count:16];
         }
 
-        while (v17);
+        while (v19);
       }
 
-      v4 = v37;
-      v3 = v38;
-      v6 = v36;
-      v8 = v34;
-      v7 = v35;
-      v10 = v33;
+      v5 = v38;
+      v3 = v39;
+      v7 = v37;
+      v9 = v35;
+      v8 = v36;
+      v11 = v34;
     }
   }
 
   else
   {
-    v27 = casemanagementLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = casemanagementLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138412546;
-      v46 = v29;
-      v47 = 2112;
-      v48 = v3;
-      _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_ERROR, "Found unexpected object (%@) of class (%@) in signature list.", buf, 0x16u);
+      v47 = v31;
+      v48 = 2112;
+      v49 = v3;
+      _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_ERROR, "Found unexpected object (%@) of class (%@) in signature list.", buf, 0x16u);
     }
 
-    v30 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
-    v31 = *(a1[7] + 8);
-    v4 = *(v31 + 40);
-    *(v31 + 40) = v30;
+    v32 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
+    v33 = *(a1[7] + 8);
+    v5 = *(v33 + 40);
+    *(v33 + 40) = v32;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createTemporaryDiagnosticCaseStorageForUUID:(id)d
@@ -5715,7 +5936,7 @@ void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke_274(
   v13 = *MEMORY[0x277D85DE8];
   uUIDString = [d UUIDString];
   createTemporaryEntity = [(ObjectAnalytics *)self->_caseStorageAnalytics createTemporaryEntity];
-  v6 = casemanagementLogHandle();
+  v6 = casemanagementLogHandle(createTemporaryEntity);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v11 = 136315138;
@@ -5730,17 +5951,15 @@ void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke_274(
 
   else
   {
-    v7 = casemanagementLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = casemanagementLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       uTF8String2 = [uUIDString UTF8String];
       v11 = 136315138;
       uTF8String = uTF8String2;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Couldn't create a temporary case storage entry of %s", &v11, 0xCu);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Couldn't create a temporary case storage entry of %s", &v11, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return createTemporaryEntity;
 }
@@ -5751,11 +5970,11 @@ void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke_274(
   caseCopy = case;
   caseStorage = [caseCopy caseStorage];
 
-  v6 = casemanagementLogHandle();
-  caseStorage2 = v6;
+  v7 = casemanagementLogHandle(v6);
+  caseStorage2 = v7;
   if (caseStorage)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v10 = 138412290;
       v11 = caseCopy;
@@ -5767,14 +5986,12 @@ void __53__DiagnosticCaseManager_payloadsForSignatures_reply___block_invoke_274(
     [(ObjectAnalytics *)caseStorageAnalytics moveTemporaryEntityToMainContext:caseStorage2];
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v10 = 138412290;
     v11 = caseCopy;
     _os_log_impl(&dword_241804000, caseStorage2, OS_LOG_TYPE_ERROR, "No temporary DiagnosticCaseStorage for case %@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)countOfCasesMatchingDomain:(id)domain type:(id)type subtype:(id)subtype process:(id)process groupCaseIDIsPresent:(BOOL)present withinLast:(double)last reply:(id)reply
@@ -5823,18 +6040,18 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
       v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"caseGroupID"];
       v5 = [v3 arrayByAddingObject:v4];
 
-      v6 = casemanagementLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = casemanagementLogHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEBUG, "Adding predicate for caseGroupID being non-NULL", buf, 2u);
+        _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Adding predicate for caseGroupID being non-NULL", buf, 2u);
       }
 
       v3 = v5;
     }
 
-    v7 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v3];
-    *(*(*(a1 + 80) + 8) + 24) = [*(*(a1 + 32) + 48) countEntitiesMatching:v7];
+    v8 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v3];
+    *(*(*(a1 + 80) + 8) + 24) = [*(*(a1 + 32) + 48) countEntitiesMatching:v8];
   }
 
   result = *(a1 + 72);
@@ -5848,20 +6065,20 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
 
 - (id)casesMatchingDomain:(id)domain type:(id)type subtype:(id)subtype process:(id)process withinLast:(double)last
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v9 = [(DiagnosticCaseManager *)self _predicatesForCasesMatchingDomain:domain type:type subtype:subtype process:process withinLast:?];
   if (v9)
   {
     v10 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v9];
     v11 = [(ObjectAnalytics *)self->_caseStorageAnalytics fetchEntitiesFreeForm:v10 sortDesc:0];
-    v12 = casemanagementLogHandle();
+    v12 = casemanagementLogHandle(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 134218240;
-      v16 = [v11 count];
-      v17 = 2048;
+      v14 = 134218240;
+      v15 = [v11 count];
+      v16 = 2048;
       lastCopy = last;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found %lu matching case(s) in the past %.0lf seconds.", &v15, 0x16u);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found %lu matching case(s) in the past %.0lf seconds.", &v14, 0x16u);
     }
   }
 
@@ -5869,8 +6086,6 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
   {
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -5886,97 +6101,91 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
   if (domainCopy || typeCopy || subtypeCopy || processCopy || last > 0.0)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v17 = array;
     if (last <= 0.0)
     {
-      v18 = casemanagementLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = casemanagementLogHandle(array);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "No window provided. Using default window of 24 hours.", buf, 2u);
+        _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEBUG, "No window provided. Using default window of 24 hours.", buf, 2u);
       }
 
       last = 86400.0;
     }
 
     v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-last];
-    v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K >= %@", @"timeStamp", v16];
-    [array addObject:v19];
-    v20 = casemanagementLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K >= %@", @"timeStamp", v16];
+    v21 = casemanagementLogHandle([v17 addObject:v20]);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
       lastCopy = last;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEBUG, "Adding predicate for window of %.0lf seconds", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "Adding predicate for window of %.0lf seconds", buf, 0xCu);
     }
 
     if ([domainCopy length])
     {
       domainCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDomain", domainCopy];
-      [array addObject:domainCopy];
-      v22 = casemanagementLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v23 = casemanagementLogHandle([v17 addObject:domainCopy]);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         lastCopy = *&domainCopy;
-        _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEBUG, "Adding predicate for domain %@", buf, 0xCu);
+        _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "Adding predicate for domain %@", buf, 0xCu);
       }
     }
 
     if ([typeCopy length])
     {
       typeCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseType", typeCopy];
-      [array addObject:typeCopy];
-      v24 = casemanagementLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v25 = casemanagementLogHandle([v17 addObject:typeCopy]);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         lastCopy = *&typeCopy;
-        _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEBUG, "Adding predicate for type %@", buf, 0xCu);
+        _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "Adding predicate for type %@", buf, 0xCu);
       }
     }
 
     if ([subtypeCopy length])
     {
       subtypeCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseSubtype", subtypeCopy];
-      [array addObject:subtypeCopy];
-      v26 = casemanagementLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v27 = casemanagementLogHandle([v17 addObject:subtypeCopy]);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         lastCopy = *&subtypeCopy;
-        _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "Adding predicate for subtype %@", buf, 0xCu);
+        _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_DEBUG, "Adding predicate for subtype %@", buf, 0xCu);
       }
     }
 
     if ([v15 length])
     {
-      v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDetectedProcess", v15];
-      [array addObject:v27];
-      v28 = casemanagementLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v28 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"caseDetectedProcess", v15];
+      v29 = casemanagementLogHandle([v17 addObject:v28]);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         lastCopy = *&v15;
-        _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEBUG, "Adding predicate for process %@", buf, 0xCu);
+        _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEBUG, "Adding predicate for process %@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v16 = casemanagementLogHandle();
+    v16 = casemanagementLogHandle(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "No matching criteria provided! Provide at least one criteria to perform a query.", buf, 2u);
     }
 
-    array = 0;
+    v17 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return array;
+  return v17;
 }
 
 - (void)forceCloseDiagnosticCaseStorage
@@ -5992,8 +6201,8 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
 
 - (void)_forceCloseDiagnosticCaseStorage
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = casemanagementLogHandle();
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = casemanagementLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -6015,13 +6224,13 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
     v13 = [v9 dictionaryWithObjectsAndKeys:{date, @"caseClosedTime", v11, @"caseState", v12, @"caseClosureType", 0}];
 
     v14 = [(ObjectAnalytics *)self->_caseStorageAnalytics updateEntitiesMatching:v6 properties:v13];
-    v15 = casemanagementLogHandle();
+    v15 = casemanagementLogHandle(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
-      v18 = v14;
-      v19 = 2048;
-      v20 = v8;
+      v17 = v14;
+      v18 = 2048;
+      v19 = v8;
       _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Force closed %ld un-closed diagnostic case(s) out of %ld un-closed cases.", buf, 0x16u);
     }
 
@@ -6030,8 +6239,6 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
       [(DiagnosticCaseManager *)self saveAllCases];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAllowedTransientException:(id)exception
@@ -6056,29 +6263,28 @@ uint64_t __111__DiagnosticCaseManager_countOfCasesMatchingDomain_type_subtype_pr
 
 - (void)removeAllCases
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [(NSMutableArray *)self->_activeCases removeAllObjects];
   [(NSMutableArray *)self->_totalCases removeAllObjects];
   removeAllDiagnosticCaseStorages = [(DiagnosticCaseStorageAnalytics *)self->_caseStorageAnalytics removeAllDiagnosticCaseStorages];
-  v4 = casemanagementLogHandle();
+  v4 = casemanagementLogHandle(removeAllDiagnosticCaseStorages);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
-    v9 = removeAllDiagnosticCaseStorages;
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Removed %ld cases from persistent store", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = removeAllDiagnosticCaseStorages;
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "Removed %ld cases from persistent store", &v7, 0xCu);
   }
 
   removeAllDiagnosticCaseSummaries = [(DiagnosticCaseSummaryAnalytics *)self->_caseSummaryAnalytics removeAllDiagnosticCaseSummaries];
-  v6 = casemanagementLogHandle();
+  v6 = casemanagementLogHandle(removeAllDiagnosticCaseSummaries);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
-    v9 = removeAllDiagnosticCaseSummaries;
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "DiagnosticCaseSummaryLog: Removed %ld case summaries from persistent store", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = removeAllDiagnosticCaseSummaries;
+    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "DiagnosticCaseSummaryLog: Removed %ld case summaries from persistent store", &v7, 0xCu);
   }
 
   [(DiagnosticCaseManager *)self saveAllCases];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (DiagnosticCaseManagerStorageDelegate)storageDelegate

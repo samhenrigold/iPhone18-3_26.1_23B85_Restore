@@ -1,18 +1,38 @@
 @interface OrgApacheLuceneIndexTermContext
 - (BOOL)hasOnlyRealTerms;
+- (OrgApacheLuceneIndexTermContext)initWithOrgApacheLuceneIndexIndexReaderContext:(id)context withOrgApacheLuceneIndexTermState:(id)state withInt:(int)int withInt:(int)withInt withLong:(int64_t)long;
 - (id)description;
+- (id)getWithInt:(int)int;
 - (void)accumulateStatisticsWithInt:(int)int withLong:(int64_t)long;
 - (void)clear;
 - (void)dealloc;
+- (void)register__WithOrgApacheLuceneIndexTermState:(id)state withInt:(int)int withInt:(int)withInt withLong:(int64_t)long;
 @end
 
 @implementation OrgApacheLuceneIndexTermContext
+
+- (OrgApacheLuceneIndexTermContext)initWithOrgApacheLuceneIndexIndexReaderContext:(id)context withOrgApacheLuceneIndexTermState:(id)state withInt:(int)int withInt:(int)withInt withLong:(int64_t)long
+{
+  v8 = *&withInt;
+  v9 = *&int;
+  OrgApacheLuceneIndexTermContext_initWithOrgApacheLuceneIndexIndexReaderContext_(self, context);
+  [(OrgApacheLuceneIndexTermContext *)self register__WithOrgApacheLuceneIndexTermState:state withInt:v9 withInt:v8 withLong:long];
+  return self;
+}
 
 - (void)clear
 {
   self->docFreq_ = 0;
   self->totalTermFreq_ = 0;
   JavaUtilArrays_fillWithNSObjectArray_withId_(self->states_, 0);
+}
+
+- (void)register__WithOrgApacheLuceneIndexTermState:(id)state withInt:(int)int withInt:(int)withInt withLong:(int64_t)long
+{
+  v7 = *&withInt;
+  [(OrgApacheLuceneIndexTermContext *)self register__WithOrgApacheLuceneIndexTermState:state withInt:*&int];
+
+  [(OrgApacheLuceneIndexTermContext *)self accumulateStatisticsWithInt:v7 withLong:long];
 }
 
 - (void)accumulateStatisticsWithInt:(int)int withLong:(int64_t)long
@@ -27,6 +47,23 @@
   }
 
   self->totalTermFreq_ = v6;
+}
+
+- (id)getWithInt:(int)int
+{
+  states = self->states_;
+  if (!states)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = states->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return (&states->elementType_)[int];
 }
 
 - (BOOL)hasOnlyRealTerms

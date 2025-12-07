@@ -1,12 +1,12 @@
 @interface CABasicAnimation(TSDCAAnimationAdditions)
 - (double)TSD_animationPercentByApplyingTimingFunctionForKeyPath:()TSDCAAnimationAdditions atTime:;
 - (uint64_t)TSD_valueAtTime:()TSDCAAnimationAdditions initialValue:;
-- (uint64_t)p_getValue:()TSDCAAnimationAdditions animationPercent:atTime:initialValue:;
+- (void)p_getValue:()TSDCAAnimationAdditions animationPercent:atTime:initialValue:;
 @end
 
 @implementation CABasicAnimation(TSDCAAnimationAdditions)
 
-- (uint64_t)p_getValue:()TSDCAAnimationAdditions animationPercent:atTime:initialValue:
+- (void)p_getValue:()TSDCAAnimationAdditions animationPercent:atTime:initialValue:
 {
   [self TSD_animationPercentFromAnimationTime:?];
   v10 = v9;

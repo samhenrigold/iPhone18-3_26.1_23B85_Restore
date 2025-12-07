@@ -8,6 +8,8 @@
 - (TUConversation)nph_conversation;
 - (unint64_t)nph_audioMessageType;
 - (void)setNph_audioMessageType:(unint64_t)type;
+- (void)setNph_manuallyDisconnectedSOSCall:(BOOL)call;
+- (void)setNph_wasDestinationID:(id)d rung:(BOOL)rung;
 @end
 
 @implementation TUCall
@@ -68,6 +70,18 @@
   return unsignedIntegerValue;
 }
 
+- (void)setNph_wasDestinationID:(id)d rung:(BOOL)rung
+{
+  rungCopy = rung;
+  dCopy = d;
+  if ([(TUCall *)self nph_wasDestinationIDRung:?]!= rungCopy)
+  {
+    v6 = objc_getAssociatedObject(self, "nph_wasDestinationIDRung:");
+    v7 = [NSNumber numberWithBool:rungCopy];
+    [v6 setObject:v7 forKeyedSubscript:dCopy];
+  }
+}
+
 - (BOOL)nph_wasDestinationIDRung:(id)rung
 {
   rungCopy = rung;
@@ -82,6 +96,12 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setNph_manuallyDisconnectedSOSCall:(BOOL)call
+{
+  v4 = [NSNumber numberWithBool:call];
+  objc_setAssociatedObject(self, "nph_isManuallyDisconnectedSOSCall", v4, 1);
 }
 
 - (BOOL)nph_isManuallyDisconnectedSOSCall

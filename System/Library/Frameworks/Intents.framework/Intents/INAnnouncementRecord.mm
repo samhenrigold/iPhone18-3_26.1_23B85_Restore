@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"originator";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"originator";
   originator = self->_originator;
   null = originator;
   if (!originator)
@@ -23,8 +23,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"identifier";
+  v12[0] = null;
+  v11[1] = @"identifier";
   identifier = self->_identifier;
   null2 = identifier;
   if (!identifier)
@@ -32,8 +32,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"duration";
+  v12[1] = null2;
+  v11[2] = @"duration";
   duration = self->_duration;
   null3 = duration;
   if (!duration)
@@ -41,8 +41,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (duration)
   {
     if (identifier)
@@ -74,7 +74,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

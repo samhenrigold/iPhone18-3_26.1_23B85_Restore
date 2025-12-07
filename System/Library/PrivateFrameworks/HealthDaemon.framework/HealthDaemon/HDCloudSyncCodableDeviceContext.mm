@@ -85,43 +85,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_currentOSName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_currentOSVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_productTypeName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -217,7 +215,6 @@
     }
   }
 
-  v6 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_type != *(equalCopy + 2))
@@ -229,7 +226,7 @@
   else if ((*(equalCopy + 56) & 2) != 0)
   {
 LABEL_19:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_20;
   }
 
@@ -257,7 +254,7 @@ LABEL_19:
     }
   }
 
-  v10 = (*(equalCopy + 56) & 1) == 0;
+  v9 = (*(equalCopy + 56) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_modificationDate != *(equalCopy + 1))
@@ -265,12 +262,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -338,7 +335,7 @@ LABEL_20:
       goto LABEL_7;
     }
 
-    [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
   else
@@ -348,7 +345,7 @@ LABEL_20:
       goto LABEL_7;
     }
 
-    [(HDCloudSyncCodableDeviceContext *)self setSyncIdentity:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceContext *)self setSyncIdentity:?];
   }
 
   fromCopy = v7;
@@ -361,19 +358,19 @@ LABEL_7:
 
   if (*(fromCopy + 3))
   {
-    [(HDCloudSyncCodableDeviceContext *)self setCurrentOSName:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceContext *)self setCurrentOSName:?];
     fromCopy = v7;
   }
 
   if (*(fromCopy + 4))
   {
-    [(HDCloudSyncCodableDeviceContext *)self setCurrentOSVersion:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceContext *)self setCurrentOSVersion:?];
     fromCopy = v7;
   }
 
   if (*(fromCopy + 5))
   {
-    [(HDCloudSyncCodableDeviceContext *)self setProductTypeName:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceContext *)self setProductTypeName:?];
     fromCopy = v7;
   }
 
@@ -383,7 +380,7 @@ LABEL_7:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](syncIdentity, fromCopy);
 }
 
 @end

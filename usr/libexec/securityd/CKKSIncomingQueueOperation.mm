@@ -8,6 +8,7 @@
 - (BOOL)processNewCurrentItemPointers:(id)pointers viewState:(id)state;
 - (CKKSIncomingQueueOperation)initWithDependencies:(id)dependencies intending:(id)intending pendingClassAItemsRemainingState:(id)state errorState:(id)errorState handleMismatchedViewItems:(BOOL)items;
 - (void)_onqueueGenerateNewUUIDPersistentRefOnSecItem:(SecDbItem *)item viewState:(id)state;
+- (void)_onqueueHandleIQEChange:(id)change attributes:(id)attributes class:(const SecDbClass *)class viewState:(id)state sortedForThisView:(BOOL)view keyCache:(id)cache;
 - (void)_onqueueHandleIQEDelete:(id)delete class:(const SecDbClass *)class viewState:(id)state;
 - (void)_onqueueHandleMismatchedViewItem:(id)item secDbClass:(const SecDbClass *)class attributes:(id)attributes intendedView:(id)view viewState:(id)state keyCache:(id)cache;
 - (void)main;
@@ -566,6 +567,51 @@ LABEL_45:
 
   _Block_object_dispose(&v127, 8);
   return v70 & 1;
+}
+
+- (void)_onqueueHandleIQEChange:(id)change attributes:(id)attributes class:(const SecDbClass *)class viewState:(id)state sortedForThisView:(BOOL)view keyCache:(id)cache
+{
+  viewCopy = view;
+  changeCopy = change;
+  stateCopy = state;
+  cacheCopy = cache;
+  cf = 0;
+  v17 = sub_10001A690(class, attributes, dword_10039E2F8, &cf);
+  [(CKKSIncomingQueueOperation *)self _onqueueGenerateNewUUIDPersistentRefOnSecItem:v17 viewState:stateCopy];
+  if (v17)
+  {
+    v18 = cf == 0;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if (v18)
+  {
+    [(CKKSIncomingQueueOperation *)self _onqueueHandleIQEChange:changeCopy item:v17 viewState:stateCopy sortedForThisView:viewCopy keyCache:cacheCopy];
+    goto LABEL_10;
+  }
+
+  zoneID = [stateCopy zoneID];
+  zoneName = [zoneID zoneName];
+  v21 = sub_100019104(@"ckksincoming", zoneName);
+
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v24 = cf;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Unable to make SecDbItemRef out of attributes: %@", buf, 0xCu);
+  }
+
+  v17 = cf;
+  if (cf)
+  {
+    cf = 0;
+LABEL_10:
+    CFRelease(v17);
+  }
 }
 
 - (void)_onqueueGenerateNewUUIDPersistentRefOnSecItem:(SecDbItem *)item viewState:(id)state
@@ -1417,30 +1463,30 @@ LABEL_17:
 {
   intransactionCopy = intransaction;
   entriesCopy = entries;
-  v101 = objc_alloc_init(NSMutableArray);
   v100 = objc_alloc_init(NSMutableArray);
-  v105 = objc_alloc_init(CKKSMemoryKeyCache);
+  v99 = objc_alloc_init(NSMutableArray);
+  v104 = objc_alloc_init(CKKSMemoryKeyCache);
+  v113 = 0u;
   v114 = 0u;
   v115 = 0u;
   v116 = 0u;
-  v117 = 0u;
   obj = entriesCopy;
-  v104 = [obj countByEnumeratingWithState:&v114 objects:v126 count:16];
-  if (v104)
+  v103 = [obj countByEnumeratingWithState:&v113 objects:v125 count:16];
+  if (v103)
   {
-    v103 = *v115;
+    v102 = *v114;
     v8 = &swift_errorRelease_ptr;
     do
     {
-      for (i = 0; i != v104; i = i + 1)
+      for (i = 0; i != v103; i = i + 1)
       {
         selfCopy = self;
-        if (*v115 != v103)
+        if (*v114 != v102)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v114 + 1) + 8 * i);
+        v11 = *(*(&v113 + 1) + 8 * i);
         context = objc_autoreleasePoolPush();
         v12 = v11;
         zoneID = [intransactionCopy zoneID];
@@ -1452,54 +1498,54 @@ LABEL_17:
           uuid = [v12 uuid];
           action = [v12 action];
           *buf = 138412802;
-          v121 = v12;
-          v122 = 2112;
-          v123 = uuid;
-          v124 = 2112;
-          v125 = action;
+          v120 = v12;
+          v121 = 2112;
+          v122 = uuid;
+          v123 = 2112;
+          v124 = action;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "ready to process an incoming queue entry: %@ %@ %@", buf, 0x20u);
         }
 
         item = [v12 item];
         self = selfCopy;
         deps = [(CKKSIncomingQueueOperation *)selfCopy deps];
-        v113 = 0;
-        v20 = [CKKSIncomingQueueOperation decryptCKKSItemToAttributes:item keyCache:v105 ckksOperationalDependencies:deps error:&v113];
-        v21 = v113;
+        v112 = 0;
+        v20 = [CKKSIncomingQueueOperation decryptCKKSItemToAttributes:item keyCache:v104 ckksOperationalDependencies:deps error:&v112];
+        v21 = v112;
 
-        v107 = v20;
-        v108 = v12;
+        v106 = v20;
+        v107 = v12;
         if (!v20 || v21)
         {
           deps2 = [(CKKSIncomingQueueOperation *)selfCopy deps];
           lockStateTracker = [deps2 lockStateTracker];
-          v37 = [lockStateTracker isLockedError:v21];
+          v36 = [lockStateTracker isLockedError:v21];
 
-          if (v37)
+          if (v36)
           {
             zoneID2 = [intransactionCopy zoneID];
             zoneName2 = [zoneID2 zoneName];
-            v40 = sub_100019104(@"ckksincoming", zoneName2);
+            v39 = sub_100019104(@"ckksincoming", zoneName2);
 
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v121 = v12;
-              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Keychain is locked; can't decrypt IQE %@", buf, 0xCu);
+              v120 = v12;
+              _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Keychain is locked; can't decrypt IQE %@", buf, 0xCu);
             }
 
             item2 = [v12 item];
             parentKeyUUID = [item2 parentKeyUUID];
             contextID = [intransactionCopy contextID];
-            v44 = intransactionCopy;
-            v45 = contextID;
-            v46 = v44;
-            zoneID3 = [v44 zoneID];
-            v112 = 0;
-            v48 = [CKKSKey tryFromDatabase:parentKeyUUID contextID:v45 zoneID:zoneID3 error:&v112];
-            v49 = v112;
+            v43 = intransactionCopy;
+            v44 = contextID;
+            v45 = v43;
+            zoneID3 = [v43 zoneID];
+            v111 = 0;
+            v47 = [CKKSKey tryFromDatabase:parentKeyUUID contextID:v44 zoneID:zoneID3 error:&v111];
+            v48 = v111;
 
-            keyclass = [v48 keyclass];
+            keyclass = [v47 keyclass];
             LODWORD(parentKeyUUID) = [keyclass isEqualToString:@"classA"];
 
             if (parentKeyUUID)
@@ -1508,11 +1554,11 @@ LABEL_17:
               [(CKKSIncomingQueueOperation *)selfCopy setPendingClassAEntriesError:v21];
             }
 
-            intransactionCopy = v46;
+            intransactionCopy = v45;
             self = selfCopy;
             v8 = &swift_errorRelease_ptr;
-            v22 = v107;
-            v51 = v108;
+            v22 = v106;
+            v50 = v107;
 LABEL_45:
             [(CKKSIncomingQueueOperation *)self setErrorItemsProcessed:[(CKKSIncomingQueueOperation *)self errorItemsProcessed]+ 1];
             goto LABEL_63;
@@ -1523,23 +1569,23 @@ LABEL_45:
           {
             code = [v21 code];
 
-            v22 = v107;
+            v22 = v106;
             if (code == -25300)
             {
               zoneID4 = [intransactionCopy zoneID];
               zoneName3 = [zoneID4 zoneName];
-              v56 = sub_100019104(@"ckksincoming", zoneName3);
+              v55 = sub_100019104(@"ckksincoming", zoneName3);
 
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v121 = v21;
-                _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Coudn't find key in keychain; will attempt to poke key hierarchy: %@", buf, 0xCu);
+                v120 = v21;
+                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Coudn't find key in keychain; will attempt to poke key hierarchy: %@", buf, 0xCu);
               }
 
               [(CKKSIncomingQueueOperation *)self setMissingKey:1];
               [(CKKSResultOperation *)self setError:v21];
-              v51 = v108;
+              v50 = v107;
               goto LABEL_45;
             }
           }
@@ -1547,41 +1593,41 @@ LABEL_45:
           else
           {
 
-            v22 = v107;
+            v22 = v106;
           }
 
           zoneID5 = [intransactionCopy zoneID];
           zoneName4 = [zoneID5 zoneName];
-          v72 = sub_100019104(@"ckksincoming", zoneName4);
+          v71 = sub_100019104(@"ckksincoming", zoneName4);
 
-          v51 = v108;
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+          v50 = v107;
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v121 = v108;
-            v122 = 2112;
-            v123 = v21;
-            _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "Couldn't decrypt IQE %@ for some reason: %@", buf, 0x16u);
+            v120 = v107;
+            v121 = 2112;
+            v122 = v21;
+            _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "Couldn't decrypt IQE %@ for some reason: %@", buf, 0x16u);
           }
 
-          [v108 setState:@"error"];
-          v111 = 0;
-          [v108 saveToDatabase:&v111];
-          v73 = v111;
-          if (v73)
+          [v107 setState:@"error"];
+          v110 = 0;
+          [v107 saveToDatabase:&v110];
+          v72 = v110;
+          if (v72)
           {
             zoneID6 = [intransactionCopy zoneID];
             zoneName5 = [zoneID6 zoneName];
-            v76 = sub_100019104(@"ckksincoming", zoneName5);
+            v75 = sub_100019104(@"ckksincoming", zoneName5);
 
-            v51 = v108;
-            if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+            v50 = v107;
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v121 = v108;
-              v122 = 2112;
-              v123 = v73;
-              _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "Couldn't save IQE %@ as error for some reason: %@", buf, 0x16u);
+              v120 = v107;
+              v121 = 2112;
+              v122 = v72;
+              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "Couldn't save IQE %@ as error for some reason: %@", buf, 0x16u);
             }
 
             v8 = &swift_errorRelease_ptr;
@@ -1594,71 +1640,70 @@ LABEL_45:
 
         v22 = v20;
         v23 = [v20 objectForKey:kSecClass];
-        v24 = v8[332];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v118 = NSLocalizedDescriptionKey;
-          v57 = [v8[332] stringWithFormat:@"Item did not have a reasonable class: %@", v23];
-          v119 = v57;
-          v58 = [NSDictionary dictionaryWithObjects:&v119 forKeys:&v118 count:1];
-          v59 = [NSError errorWithDomain:@"securityd" code:-67671 userInfo:v58];
-          [(CKKSResultOperation *)self setError:v59];
+          v117 = NSLocalizedDescriptionKey;
+          v56 = [v8[332] stringWithFormat:@"Item did not have a reasonable class: %@", v23];
+          v118 = v56;
+          v57 = [NSDictionary dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+          v58 = [NSError errorWithDomain:@"securityd" code:-67671 userInfo:v57];
+          [(CKKSResultOperation *)self setError:v58];
 
           zoneID7 = [intransactionCopy zoneID];
           zoneName6 = [zoneID7 zoneName];
-          v62 = sub_100019104(@"ckksincoming", zoneName6);
+          v61 = sub_100019104(@"ckksincoming", zoneName6);
 
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
             error = [(CKKSResultOperation *)self error];
             *buf = 138412290;
-            v121 = error;
-            _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "Synced item seems wrong: %@", buf, 0xCu);
+            v120 = error;
+            _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "Synced item seems wrong: %@", buf, 0xCu);
           }
 
           [(CKKSIncomingQueueOperation *)self setErrorItemsProcessed:[(CKKSIncomingQueueOperation *)self errorItemsProcessed]+ 1];
           v21 = 0;
           v8 = &swift_errorRelease_ptr;
-          v51 = v108;
+          v50 = v107;
           goto LABEL_62;
         }
 
-        if (!v23 || (v25 = sub_1000074BC(v23)) == 0)
+        if (!v23 || (v24 = sub_1000074BC(v23)) == 0)
         {
           zoneID8 = [intransactionCopy zoneID];
           zoneName7 = [zoneID8 zoneName];
-          v66 = sub_100019104(@"ckksincoming", zoneName7);
+          v65 = sub_100019104(@"ckksincoming", zoneName7);
 
-          v51 = v108;
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+          v50 = v107;
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v121 = v23;
-            v122 = 2112;
-            v123 = v108;
-            _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "unknown class in object: %@ %@", buf, 0x16u);
+            v120 = v23;
+            v121 = 2112;
+            v122 = v107;
+            _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "unknown class in object: %@ %@", buf, 0x16u);
           }
 
-          [v108 setState:@"error"];
-          v110 = 0;
-          [v108 saveToDatabase:&v110];
-          v21 = v110;
+          [v107 setState:@"error"];
+          v109 = 0;
+          [v107 saveToDatabase:&v109];
+          v21 = v109;
           if (v21)
           {
             zoneID9 = [intransactionCopy zoneID];
             zoneName8 = [zoneID9 zoneName];
-            v69 = sub_100019104(@"ckksincoming", zoneName8);
+            v68 = sub_100019104(@"ckksincoming", zoneName8);
 
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v121 = v21;
-              _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "Couldn't save errored IQE to database: %@", buf, 0xCu);
+              v120 = v21;
+              _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Couldn't save errored IQE to database: %@", buf, 0xCu);
             }
 
             [(CKKSResultOperation *)self setError:v21];
-            v51 = v108;
+            v50 = v107;
           }
 
           [(CKKSIncomingQueueOperation *)self setErrorItemsProcessed:[(CKKSIncomingQueueOperation *)self errorItemsProcessed]+ 1];
@@ -1666,61 +1711,61 @@ LABEL_45:
           goto LABEL_62;
         }
 
-        v26 = v25;
+        v25 = v24;
         deps3 = [(CKKSIncomingQueueOperation *)self deps];
         syncingPolicy = [deps3 syncingPolicy];
-        v29 = [syncingPolicy mapDictionaryToView:v107];
+        v28 = [syncingPolicy mapDictionaryToView:v106];
 
         zoneID10 = [intransactionCopy zoneID];
         zoneName9 = [zoneID10 zoneName];
-        v32 = [zoneName9 isEqualToString:v29];
+        v31 = [zoneName9 isEqualToString:v28];
 
-        if (v32)
+        if (v31)
         {
-          v33 = v108;
-          action2 = [v108 action];
+          v32 = v107;
+          action2 = [v107 action];
           if ([action2 isEqualToString:@"add"])
           {
           }
 
           else
           {
-            action3 = [v108 action];
-            v78 = [action3 isEqualToString:@"modify"];
+            action3 = [v107 action];
+            v77 = [action3 isEqualToString:@"modify"];
 
-            v33 = v108;
-            if (!v78)
+            v32 = v107;
+            if (!v77)
             {
-              action4 = [v108 action];
-              v93 = [action4 isEqualToString:@"delete"];
+              action4 = [v107 action];
+              v92 = [action4 isEqualToString:@"delete"];
 
-              if (v93)
+              if (v92)
               {
-                [(CKKSIncomingQueueOperation *)self _onqueueHandleIQEDelete:v108 class:v26 viewState:intransactionCopy];
-                v94 = [CKRecordID alloc];
-                uuid2 = [v108 uuid];
+                [(CKKSIncomingQueueOperation *)self _onqueueHandleIQEDelete:v107 class:v25 viewState:intransactionCopy];
+                v93 = [CKRecordID alloc];
+                uuid2 = [v107 uuid];
                 zoneID11 = [intransactionCopy zoneID];
-                v97 = [v94 initWithRecordName:uuid2 zoneID:zoneID11];
-                [v100 addObject:v97];
+                v96 = [v93 initWithRecordName:uuid2 zoneID:zoneID11];
+                [v99 addObject:v96];
               }
 
               v21 = 0;
               v8 = &swift_errorRelease_ptr;
-              v51 = v108;
-              v22 = v107;
+              v50 = v107;
+              v22 = v106;
               goto LABEL_61;
             }
           }
 
-          [(CKKSIncomingQueueOperation *)self _onqueueHandleIQEChange:v33 attributes:v107 class:v26 viewState:intransactionCopy sortedForThisView:1 keyCache:v105];
-          v79 = v33;
-          v22 = v107;
-          item3 = [v79 item];
+          [(CKKSIncomingQueueOperation *)self _onqueueHandleIQEChange:v32 attributes:v106 class:v25 viewState:intransactionCopy sortedForThisView:1 keyCache:v104];
+          v78 = v32;
+          v22 = v106;
+          item3 = [v78 item];
           zoneID12 = [intransactionCopy zoneID];
-          v82 = [item3 CKRecordWithZoneID:zoneID12];
-          [v101 addObject:v82];
+          v81 = [item3 CKRecordWithZoneID:zoneID12];
+          [v100 addObject:v81];
 
-          v51 = v108;
+          v50 = v107;
         }
 
         else
@@ -1729,32 +1774,32 @@ LABEL_45:
           {
             zoneID13 = [intransactionCopy zoneID];
             zoneName10 = [zoneID13 zoneName];
-            v85 = sub_100019104(@"ckksincoming", zoneName10);
+            v84 = sub_100019104(@"ckksincoming", zoneName10);
 
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
             {
-              uuid3 = [v108 uuid];
+              uuid3 = [v107 uuid];
               *buf = 138412546;
-              v121 = uuid3;
-              v122 = 2112;
-              v123 = v29;
-              _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "Received an item (%@), but our current policy claims it should be in view %@", buf, 0x16u);
+              v120 = uuid3;
+              v121 = 2112;
+              v122 = v28;
+              _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "Received an item (%@), but our current policy claims it should be in view %@", buf, 0x16u);
             }
 
-            v109 = 0;
-            [(CKKSIncomingQueueOperation *)self _onqueueUpdateIQE:v108 withState:@"mismatched_view" error:&v109];
-            v21 = v109;
+            v108 = 0;
+            [(CKKSIncomingQueueOperation *)self _onqueueUpdateIQE:v107 withState:@"mismatched_view" error:&v108];
+            v21 = v108;
             if (v21)
             {
               zoneID14 = [intransactionCopy zoneID];
               zoneName11 = [zoneID14 zoneName];
-              v89 = sub_100019104(@"ckksincoming", zoneName11);
+              v88 = sub_100019104(@"ckksincoming", zoneName11);
 
-              if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v121 = v21;
-                _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "Couldn't save mismatched IQE to database: %@", buf, 0xCu);
+                v120 = v21;
+                _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "Couldn't save mismatched IQE to database: %@", buf, 0xCu);
               }
 
               [(CKKSIncomingQueueOperation *)self setErrorItemsProcessed:[(CKKSIncomingQueueOperation *)self errorItemsProcessed]+ 1];
@@ -1766,12 +1811,12 @@ LABEL_45:
             [requestPolicyCheck trigger];
 
             v8 = &swift_errorRelease_ptr;
-            v51 = v108;
+            v50 = v107;
             goto LABEL_61;
           }
 
-          v51 = v108;
-          [(CKKSIncomingQueueOperation *)self _onqueueHandleMismatchedViewItem:v108 secDbClass:v26 attributes:v107 intendedView:v29 viewState:intransactionCopy keyCache:v105];
+          v50 = v107;
+          [(CKKSIncomingQueueOperation *)self _onqueueHandleMismatchedViewItem:v107 secDbClass:v25 attributes:v106 intendedView:v28 viewState:intransactionCopy keyCache:v104];
         }
 
         v21 = 0;
@@ -1784,19 +1829,19 @@ LABEL_63:
         objc_autoreleasePoolPop(context);
       }
 
-      v104 = [obj countByEnumeratingWithState:&v114 objects:v126 count:16];
+      v103 = [obj countByEnumeratingWithState:&v113 objects:v125 count:16];
     }
 
-    while (v104);
+    while (v103);
   }
 
-  if ([v101 count] || objc_msgSend(v100, "count"))
+  if ([v100 count] || objc_msgSend(v99, "count"))
   {
     notifyViewChangedScheduler = [intransactionCopy notifyViewChangedScheduler];
     [notifyViewChangedScheduler trigger];
   }
 
-  -[CKKSIncomingQueueOperation setDeletedRecordCount:](self, "setDeletedRecordCount:", [v100 count] + -[CKKSIncomingQueueOperation deletedRecordCount](self, "deletedRecordCount"));
+  -[CKKSIncomingQueueOperation setDeletedRecordCount:](self, "setDeletedRecordCount:", [v99 count] + -[CKKSIncomingQueueOperation deletedRecordCount](self, "deletedRecordCount"));
 
   return 1;
 }

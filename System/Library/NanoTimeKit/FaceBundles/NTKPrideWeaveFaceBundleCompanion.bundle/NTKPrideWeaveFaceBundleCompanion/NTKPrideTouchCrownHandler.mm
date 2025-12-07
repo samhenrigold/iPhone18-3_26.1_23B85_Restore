@@ -8,6 +8,7 @@
 - (void)dealloc;
 - (void)fadeStrumByAmount:(float)amount;
 - (void)iterateTouchesWithBlock:(id)block;
+- (void)startWaveAtX:(float)x y:(float)y atTime:(double)time;
 - (void)strumToOffset:(double)offset withVelocity:(double)velocity;
 @end
 
@@ -355,6 +356,18 @@
 
   self->_previousCrownIndex = v6;
   self->_previousCrownOffset = offset;
+}
+
+- (void)startWaveAtX:(float)x y:(float)y atTime:(double)time
+{
+  v5 = (self->_touchIndex + 1) % 0xA;
+  if (time - self->_touchTimes[v5] > 1.75)
+  {
+    self->_touchIndex = v5;
+    v6 = time + 0.05;
+    self->_touchTimes[v5] = v6;
+    *&self->_touchCoords[8 * v5] = *&x;
+  }
 }
 
 - (void)clearTouches

@@ -10,7 +10,7 @@
 - (id)operationForRedoing
 {
   selfCopy = self;
-  v3 = DOC_FPCreateFolderOperation.operationForRedoing()();
+  v3 = DOC_FPCreateFolderOperation.operationForRedoing()(selfCopy);
 
   return v3;
 }

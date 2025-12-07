@@ -23,7 +23,7 @@
 
 - (NSArray)accessibilityElements
 {
-  sub_10000A5D4(&unk_1009434B0);
+  sub_10000A5D4(&unk_1009434B0, &unk_100785550);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100783DD0;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension45MediumAdLockupWithAlignedRegionBackgroundView_lockupView);

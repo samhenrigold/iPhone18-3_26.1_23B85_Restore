@@ -56,44 +56,50 @@
   v5 = dictionaryCopy;
   if (dictionaryCopy && ([dictionaryCopy objectForKeyedSubscript:@"id"], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
   {
-    _SLLog(v3, 6, @"Creating album with dict %@");
-    v7 = objc_alloc_init(SLFacebookAlbum);
-    v8 = [v5 objectForKeyedSubscript:{@"id", v5}];
-    [(SLFacebookAlbum *)v7 setIdentifier:v8];
+    _SLLog(v3, 6, @"Creating album with dict %@", v7, v8, v9, v10, v11, v5);
+    v12 = objc_alloc_init(SLFacebookAlbum);
+    v13 = [v5 objectForKeyedSubscript:@"id"];
+    [(SLFacebookAlbum *)v12 setIdentifier:v13];
 
-    v9 = [v5 objectForKeyedSubscript:@"name"];
-    [(SLFacebookAlbum *)v7 setName:v9];
+    v14 = [v5 objectForKeyedSubscript:@"name"];
+    [(SLFacebookAlbum *)v12 setName:v14];
 
-    v10 = [v5 objectForKeyedSubscript:@"photo_count"];
-    -[SLFacebookAlbum setCount:](v7, "setCount:", [v10 intValue]);
+    v15 = [v5 objectForKeyedSubscript:@"photo_count"];
+    -[SLFacebookAlbum setCount:](v12, "setCount:", [v15 intValue]);
 
-    v11 = [v5 objectForKeyedSubscript:@"cover_photo"];
-    [(SLFacebookAlbum *)v7 setCoverPhotoIdentifier:v11];
+    v16 = [v5 objectForKeyedSubscript:@"cover_photo"];
+    [(SLFacebookAlbum *)v12 setCoverPhotoIdentifier:v16];
 
-    v12 = [v5 objectForKeyedSubscript:@"can_upload"];
+    v17 = [v5 objectForKeyedSubscript:@"can_upload"];
 
-    if (v12)
+    if (v17)
     {
-      v13 = [v5 objectForKeyedSubscript:@"can_upload"];
-      -[SLFacebookAlbum setCanUpload:](v7, "setCanUpload:", [v13 BOOLValue]);
+      v23 = [v5 objectForKeyedSubscript:@"can_upload"];
+      -[SLFacebookAlbum setCanUpload:](v12, "setCanUpload:", [v23 BOOLValue]);
 
-      [(SLFacebookAlbum *)v7 canUpload];
-      _SLLog(v3, 6, @"Setting canUpload=%s");
+      canUpload = [(SLFacebookAlbum *)v12 canUpload];
+      v30 = "NO";
+      if (canUpload)
+      {
+        v30 = "YES";
+      }
+
+      _SLLog(v3, 6, @"Setting canUpload=%s", v25, v26, v27, v28, v29, v30);
     }
 
     else
     {
-      _SLLog(v3, 6, @"Assuming can_upload");
-      [(SLFacebookAlbum *)v7 setCanUpload:1];
+      _SLLog(v3, 6, @"Assuming can_upload", v18, v19, v20, v21, v22, v32);
+      [(SLFacebookAlbum *)v12 setCanUpload:1];
     }
   }
 
   else
   {
-    v7 = 0;
+    v12 = 0;
   }
 
-  return v7;
+  return v12;
 }
 
 + (id)albumsWithAlbumDataDictionaries:(id)dictionaries

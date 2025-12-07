@@ -196,7 +196,7 @@
     [(NSMutableArray *)iconViews lastObject];
   }
   v6 = ;
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v8 = v7;
   v10 = v9;
 
@@ -212,7 +212,7 @@
     [(NSMutableArray *)titleLabels lastObject];
   }
   v13 = ;
-  [v13 frame];
+  objc_msgSend_frame(v13);
   v15 = v14;
   v17 = v16;
 
@@ -228,7 +228,7 @@
     [(NSMutableArray *)v19 firstObject];
   }
   v20 = ;
-  [v20 frame];
+  objc_msgSend_frame(v20);
   v22 = v21;
 
   userInterfaceLayoutDirection4 = [*v3 userInterfaceLayoutDirection];
@@ -243,7 +243,7 @@
     [(NSMutableArray *)v24 firstObject];
   }
   v25 = ;
-  [v25 frame];
+  objc_msgSend_frame(v25);
   v27 = v26;
 
   v28 = v15 + v17;
@@ -755,7 +755,7 @@
           displayItem = [v10 displayItem];
           bundleIdentifier = [displayItem bundleIdentifier];
 
-          if (([v3 containsObject:bundleIdentifier] & 1) == 0)
+          if ((objc_msgSend_containsObject_(v3) & 1) == 0)
           {
             [(NSArray *)v4 addObject:v10];
             [v3 addObject:bundleIdentifier];

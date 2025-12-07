@@ -131,7 +131,7 @@
 
 - (id)_recentlyDeletedDisclosureAttributedText
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"RECENTLY_DELETED_DISCLOSURE_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
   v5 = [(CKRecoverableSectionDisclosureView *)self _disclosureAttributedText:v4];
 
@@ -140,7 +140,7 @@
 
 - (id)_junkFilteringDisclosureAttributedText
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"OSCAR_DISCLOSURE_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
   v5 = [(CKRecoverableSectionDisclosureView *)self _disclosureAttributedText:v4];
 

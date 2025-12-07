@@ -25,84 +25,85 @@
 
 - (void)executionDidBegin
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   userAccounts = [(VSIdentityProviderUserAccountUpdateOperation *)self userAccounts];
-  if ([userAccounts count])
+  v3 = [userAccounts count];
+  if (v3)
   {
-    v3 = VSDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VSDefaultLogObject(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [userAccounts count];
+      v5 = [userAccounts count];
       provider = [(VSIdentityProviderUserAccountUpdateOperation *)self provider];
       *buf = 134218242;
-      v27 = v4;
-      v28 = 2112;
-      v29 = provider;
-      _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "%lu user accounts to write for provider %@", buf, 0x16u);
+      v28 = v5;
+      v29 = 2112;
+      v30 = provider;
+      _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "%lu user accounts to write for provider %@", buf, 0x16u);
     }
 
-    v6 = objc_alloc_init(VSUserAccountServiceConnection);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke;
-    v24[3] = &unk_278B732E0;
-    v24[4] = self;
-    v15 = v6;
-    v7 = [(VSUserAccountServiceConnection *)v6 serviceWithErrorHandler:v24];
-    v8 = objc_alloc_init(VSWaitGroup);
-    v20 = 0u;
+    v7 = objc_alloc_init(VSUserAccountServiceConnection);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke;
+    v25[3] = &unk_278B732E0;
+    v25[4] = self;
+    v16 = v7;
+    v8 = [(VSUserAccountServiceConnection *)v7 serviceWithErrorHandler:v25];
+    v9 = objc_alloc_init(VSWaitGroup);
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v16 = userAccounts;
-    v9 = userAccounts;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
-    if (v10)
+    v24 = 0u;
+    v17 = userAccounts;
+    v10 = userAccounts;
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v21;
+      v12 = v11;
+      v13 = *v22;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v21 != v12)
+          if (*v22 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * v13);
-          [(VSWaitGroup *)v8 enter];
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_2;
-          v18[3] = &unk_278B74DC0;
-          v18[4] = self;
-          v18[5] = v14;
-          v19 = v8;
-          [v7 updateUserAccount:v14 completion:v18];
+          v15 = *(*(&v21 + 1) + 8 * v14);
+          [(VSWaitGroup *)v9 enter];
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_2;
+          v19[3] = &unk_278B74DC0;
+          v19[4] = self;
+          v19[5] = v15;
+          v20 = v9;
+          [v8 updateUserAccount:v15 completion:v19];
 
-          ++v13;
+          ++v14;
         }
 
-        while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        while (v12 != v14);
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
-    [(VSWaitGroup *)v8 waitWithMilliseconds:0];
+    [(VSWaitGroup *)v9 waitWithMilliseconds:0];
     [(VSAsyncOperation *)self finishExecutionIfPossible];
 
-    userAccounts = v16;
+    userAccounts = v17;
   }
 }
 
 void __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_cold_1(v3, v4);
@@ -114,28 +115,29 @@ void __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block
 
 void __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = VSErrorLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = VSErrorLogObject(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_2_cold_1(v3, v4);
+      __65__VSIdentityProviderUserAccountUpdateOperation_executionDidBegin__block_invoke_2_cold_1(v4, v5);
     }
 
-    [*(a1 + 32) setError:v3];
+    [*(a1 + 32) setError:v4];
   }
 
   else
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VSDefaultLogObject(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Successfully updated user account for provider: %@", &v7, 0xCu);
+      v7 = *(a1 + 40);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Successfully updated user account for provider: %@", &v8, 0xCu);
     }
   }
 

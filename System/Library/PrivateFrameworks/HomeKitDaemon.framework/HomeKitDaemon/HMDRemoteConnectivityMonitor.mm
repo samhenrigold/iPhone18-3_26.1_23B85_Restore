@@ -24,17 +24,16 @@
 {
   v5 = sub_22A4DD2FC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = (&v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon28HMDRemoteConnectivityMonitor_workQueue);
-  *v9 = v10;
-  (*(v6 + 104))(v9, *MEMORY[0x277D85200], v5);
+  v8 = (&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon28HMDRemoteConnectivityMonitor_workQueue);
+  *v8 = v9;
+  (*(v6 + 104))(v8, *MEMORY[0x277D85200], v5);
   selfCopy = self;
-  v12 = v10;
-  LOBYTE(v10) = sub_22A4DD31C();
-  (*(v6 + 8))(v9, v5);
-  if (v10)
+  v11 = v9;
+  LOBYTE(v9) = sub_22A4DD31C();
+  (*(v6 + 8))(v8, v5);
+  if (v9)
   {
     *(&selfCopy->super.isa + OBJC_IVAR____TtC13HomeKitDaemon28HMDRemoteConnectivityMonitor_hasUnderlyingConnection) = changed;
     sub_22967651C();

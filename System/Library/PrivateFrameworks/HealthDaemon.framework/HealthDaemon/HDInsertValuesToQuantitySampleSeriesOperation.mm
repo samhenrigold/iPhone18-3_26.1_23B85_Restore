@@ -16,11 +16,11 @@
   v8 = [(HDInsertValuesToQuantitySampleSeriesOperation *)&v14 init];
   if (v8)
   {
-    v9 = [seriesCopy copy];
+    v9 = objc_msgSend_copy(seriesCopy);
     series = v8->_series;
     v8->_series = v9;
 
-    v11 = [valuesCopy copy];
+    v11 = objc_msgSend_copy(valuesCopy);
     values = v8->_values;
     v8->_values = v11;
   }
@@ -101,11 +101,11 @@ LABEL_16:
 
 - (HDInsertValuesToQuantitySampleSeriesOperation)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = HDInsertValuesToQuantitySampleSeriesOperation;
-  v5 = [(HDInsertValuesToQuantitySampleSeriesOperation *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HDInsertValuesToQuantitySampleSeriesOperation;
+  v5 = [(HDInsertValuesToQuantitySampleSeriesOperation *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"series"];
@@ -117,9 +117,9 @@ LABEL_16:
     v5->_legacySeriesIdentifier = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"values"];
     values = v5->_values;
@@ -128,7 +128,6 @@ LABEL_16:
     v5->_didAwakeFromJournal = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

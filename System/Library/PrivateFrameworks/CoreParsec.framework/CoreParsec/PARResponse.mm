@@ -38,7 +38,7 @@
 
 + (id)responseFromReply:(id)reply
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   task = [replyCopy task];
   request = [task request];
@@ -74,84 +74,84 @@
     v12 = objc_alloc_init(PARDefaultFactory);
   }
 
-  v96 = v12;
+  v95 = v12;
 
   v13 = [[PARResponse alloc] initWithReply:replyCopy];
   rawResponse = [(PARResponse *)v13 rawResponse];
   firstObject = [rawResponse firstObject];
-  v102 = firstObject;
+  v101 = firstObject;
   if (firstObject)
   {
     v15 = [firstObject parsec_stringForKey:@"prefix"];
     prefix = v13->_prefix;
     v13->_prefix = v15;
 
-    v17 = [v102 parsec_stringForKey:@"query"];
+    v17 = [v101 parsec_stringForKey:@"query"];
     query = v13->_query;
     v13->_query = v17;
 
-    v19 = [v102 parsec_stringForKey:@"server_completion"];
+    v19 = [v101 parsec_stringForKey:@"server_completion"];
     serverCompletion = v13->_serverCompletion;
     v13->_serverCompletion = v19;
 
-    v101 = [v102 parsec_dictionaryForKey:@"engagement_scores"];
-    v90 = [v101 parsec_numberForKey:@"version"];
-    v89 = [v101 parsec_numberForKey:@"serverScore"];
-    v88 = [v101 parsec_numberForKey:@"serverScoreConfidence"];
-    v87 = [v101 parsec_numberForKey:@"localScore"];
-    v86 = [v101 parsec_numberForKey:@"localScoreConfidence"];
-    v91 = [v101 parsec_arrayForKey:@"domainEngagementScores"];
-    v85 = [v91 parsec_mapObjectsUsingBlock:&__block_literal_global_1896];
-    v21 = [objc_alloc(MEMORY[0x1E69CA070]) initWithVersion:v90 serverScore:v89 severScoreConfidence:v88 localScore:v87 localScoreConfidence:v86 domainScores:v85];
+    v100 = [v101 parsec_dictionaryForKey:@"engagement_scores"];
+    v89 = [v100 parsec_numberForKey:@"version"];
+    v88 = [v100 parsec_numberForKey:@"serverScore"];
+    v87 = [v100 parsec_numberForKey:@"serverScoreConfidence"];
+    v86 = [v100 parsec_numberForKey:@"localScore"];
+    v85 = [v100 parsec_numberForKey:@"localScoreConfidence"];
+    v90 = [v100 parsec_arrayForKey:@"domainEngagementScores"];
+    v84 = [v90 parsec_mapObjectsUsingBlock:&__block_literal_global_1896];
+    v21 = [objc_alloc(MEMORY[0x1E69CA070]) initWithVersion:v89 serverScore:v88 severScoreConfidence:v87 localScore:v86 localScoreConfidence:v85 domainScores:v84];
     engagementSignal = v13->_engagementSignal;
     v13->_engagementSignal = v21;
 
-    v23 = [v102 parsec_stringForKey:@"sqf"];
+    v23 = [v101 parsec_stringForKey:@"sqf"];
     parsec_base64DecodedData = [v23 parsec_base64DecodedData];
 
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v80 = 0;
+      v79 = 0;
 LABEL_32:
-      v40 = [v102 parsec_dictionaryForKey:@"l3b"];
+      v40 = [v101 parsec_dictionaryForKey:@"l3b"];
       serverFeatures = v13->_serverFeatures;
       v13->_serverFeatures = v40;
 
-      v84 = [v102 parsec_arrayForKey:@"suggestions"];
-      v118[0] = MEMORY[0x1E69E9820];
-      v118[1] = 3221225472;
-      v118[2] = __33__PARResponse_responseFromReply___block_invoke_2;
-      v118[3] = &unk_1E7AC67F0;
+      v83 = [v101 parsec_arrayForKey:@"suggestions"];
+      v117[0] = MEMORY[0x1E69E9820];
+      v117[1] = 3221225472;
+      v117[2] = __33__PARResponse_responseFromReply___block_invoke_2;
+      v117[3] = &unk_1E7AC67F0;
       v42 = replyCopy;
-      v119 = v42;
-      v43 = [v84 parsec_mapObjectsUsingBlock:v118];
+      v118 = v42;
+      v43 = [v83 parsec_mapObjectsUsingBlock:v117];
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v116 = 0u;
-      v117 = 0u;
-      v114 = 0u;
       v115 = 0u;
+      v116 = 0u;
+      v113 = 0u;
+      v114 = 0u;
       v45 = v43;
-      v46 = [v45 countByEnumeratingWithState:&v114 objects:v125 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v113 objects:v124 count:16];
       if (v46)
       {
-        v47 = *v115;
+        v47 = *v114;
         do
         {
           for (i = 0; i != v46; ++i)
           {
-            if (*v115 != v47)
+            if (*v114 != v47)
             {
               objc_enumerationMutation(v45);
             }
 
-            v49 = *(*(&v114 + 1) + 8 * i);
+            v49 = *(*(&v113 + 1) + 8 * i);
             detailText = [v49 detailText];
             suggestion = [v49 suggestion];
             [dictionary setObject:detailText forKeyedSubscript:suggestion];
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v114 objects:v125 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v113 objects:v124 count:16];
         }
 
         while (v46);
@@ -171,36 +171,36 @@ LABEL_32:
       }
 
       objc_storeStrong(&v13->_suggestions, obj);
-      v13->_suggestionsAreBlended = [v102 parsec_BOOLForKey:@"suggestions_are_blended"];
-      v83 = [v102 parsec_arrayForKey:@"corrections"];
-      v54 = [v83 parsec_mapObjectsUsingBlock:&__block_literal_global_64];
+      v13->_suggestionsAreBlended = [v101 parsec_BOOLForKey:@"suggestions_are_blended"];
+      v82 = [v101 parsec_arrayForKey:@"corrections"];
+      v54 = [v82 parsec_mapObjectsUsingBlock:&__block_literal_global_64];
       corrections = v13->_corrections;
       v13->_corrections = v54;
 
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
       array = [MEMORY[0x1E695DF70] array];
-      v95 = [v102 parsec_arrayForKey:@"results"];
-      v58 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v95, "count")}];
-      v103[0] = MEMORY[0x1E69E9820];
-      v103[1] = 3221225472;
-      v103[2] = __33__PARResponse_responseFromReply___block_invoke_4;
-      v103[3] = &unk_1E7AC6818;
-      v104 = v42;
-      v105 = v96;
-      v112 = queryId;
-      v78 = v80;
-      v106 = v78;
-      v107 = session;
-      v113 = v7;
-      v81 = v58;
-      v108 = v81;
-      v79 = dictionary2;
-      v109 = v79;
+      v94 = [v101 parsec_arrayForKey:@"results"];
+      v58 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v94, "count")}];
+      v102[0] = MEMORY[0x1E69E9820];
+      v102[1] = 3221225472;
+      v102[2] = __33__PARResponse_responseFromReply___block_invoke_4;
+      v102[3] = &unk_1E7AC6818;
+      v103 = v42;
+      v104 = v95;
+      v111 = queryId;
+      v77 = v79;
+      v105 = v77;
+      v106 = session;
+      v112 = v7;
+      v80 = v58;
+      v107 = v80;
+      v78 = dictionary2;
+      v108 = v78;
       v59 = array;
-      v110 = v59;
+      v109 = v59;
       v60 = v13;
-      v111 = v60;
-      v61 = [v95 parsec_mapObjectsUsingBlock:v103];
+      v110 = v60;
+      v61 = [v94 parsec_mapObjectsUsingBlock:v102];
       results = v60->_results;
       v60->_results = v61;
 
@@ -213,7 +213,7 @@ LABEL_32:
       v63 = PARLogHandleForCategory_logHandles_2_1899;
       if (os_log_type_enabled(PARLogHandleForCategory_logHandles_2_1899, OS_LOG_TYPE_INFO))
       {
-        v76 = v13->_prefix;
+        v75 = v13->_prefix;
         v64 = v63;
         suggestions = [(PARResponse *)v60 suggestions];
         v65 = [suggestions count];
@@ -224,13 +224,13 @@ LABEL_32:
         *buf = 134219011;
         *&buf[4] = queryId;
         *&buf[12] = 2117;
-        *&buf[14] = v76;
+        *&buf[14] = v75;
         *&buf[22] = 2048;
-        v123 = v65;
-        *v124 = 2048;
-        *&v124[2] = v67;
-        *&v124[10] = 2048;
-        *&v124[12] = v69;
+        v122 = v65;
+        *v123 = 2048;
+        *&v123[2] = v67;
+        *&v123[10] = 2048;
+        *&v123[12] = v69;
         _os_log_impl(&dword_1B1064000, v64, OS_LOG_TYPE_INFO, "Response for qid:%llu[%{sensitive}@] processed with %lu suggestions, %lu results and %lu alternative results", buf, 0x34u);
       }
 
@@ -238,10 +238,10 @@ LABEL_32:
       v60->_sections = v59;
       v71 = v59;
 
-      v72 = v111;
+      v72 = v110;
       v73 = v60;
 
-      firstObject = v102;
+      firstObject = v101;
       goto LABEL_47;
     }
 
@@ -255,9 +255,9 @@ LABEL_32:
       if (v27)
       {
         v29 = v27;
-        v121 = 0;
-        v30 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v26 options:0 error:&v121];
-        v31 = v121;
+        v120 = 0;
+        v30 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v26 options:0 error:&v120];
+        v31 = v120;
         if (v31)
         {
           if (PARLogHandleForCategory_onceToken_1898 != -1)
@@ -286,16 +286,16 @@ LABEL_32:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v123 = __Block_byref_object_copy_;
-            *v124 = __Block_byref_object_dispose_;
-            *&v124[8] = 0;
-            v120[0] = MEMORY[0x1E69E9820];
-            v120[1] = 3221225472;
-            v120[2] = __decodeSqf_block_invoke;
-            v120[3] = &unk_1E7AC6860;
-            v120[4] = v29;
-            v120[5] = buf;
-            [v30 enumerateObjectsUsingBlock:v120];
+            v122 = __Block_byref_object_copy_;
+            *v123 = __Block_byref_object_dispose_;
+            *&v123[8] = 0;
+            v119[0] = MEMORY[0x1E69E9820];
+            v119[1] = 3221225472;
+            v119[2] = __decodeSqf_block_invoke;
+            v119[3] = &unk_1E7AC6860;
+            v119[4] = v29;
+            v119[5] = buf;
+            [v30 enumerateObjectsUsingBlock:v119];
             v37 = *(*&buf[8] + 40);
             _Block_object_dispose(buf, 8);
 
@@ -345,7 +345,7 @@ LABEL_29:
 
     v37 = 0;
 LABEL_31:
-    v80 = v28;
+    v79 = v28;
 
     rawSqf = v13->_rawSqf;
     v13->_rawSqf = v37;
@@ -356,14 +356,13 @@ LABEL_31:
 LABEL_47:
 
   objc_autoreleasePoolPop(context);
-  v74 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 id __33__PARResponse_responseFromReply___block_invoke_4(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 sf_asSearchResult:*(a1 + 32) factory:*(a1 + 40)];
   [v4 setQueryId:*(a1 + 96)];
@@ -493,28 +492,28 @@ id __33__PARResponse_responseFromReply___block_invoke_4(uint64_t a1, void *a2)
 
     if (!v41)
     {
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
       v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       v42 = [v4 inlineCard];
       v43 = [v42 cardSections];
 
-      v44 = [v43 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (v44)
       {
         v45 = v44;
-        v46 = *v58;
+        v46 = *v57;
         while (2)
         {
           for (i = 0; i != v45; ++i)
           {
-            if (*v58 != v46)
+            if (*v57 != v46)
             {
               objc_enumerationMutation(v43);
             }
 
-            v48 = *(*(&v57 + 1) + 8 * i);
+            v48 = *(*(&v56 + 1) + 8 * i);
             v49 = [v48 nextCard];
 
             if (v49)
@@ -526,7 +525,7 @@ id __33__PARResponse_responseFromReply___block_invoke_4(uint64_t a1, void *a2)
             }
           }
 
-          v45 = [v43 countByEnumeratingWithState:&v57 objects:v61 count:16];
+          v45 = [v43 countByEnumeratingWithState:&v56 objects:v60 count:16];
           if (v45)
           {
             continue;
@@ -553,8 +552,6 @@ LABEL_40:
 
     v10 = v4;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

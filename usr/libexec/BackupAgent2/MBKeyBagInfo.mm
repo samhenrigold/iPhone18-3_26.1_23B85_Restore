@@ -1,10 +1,18 @@
 @interface MBKeyBagInfo
++ (id)infoWithID:(unsigned int)d uuid:(const char *)uuid;
 - (BOOL)isEqual:(id)equal;
 - (MBKeyBagInfo)initWithID:(unsigned int)d uuid:(const char *)uuid;
 - (void)setUUID:(const char *)d;
 @end
 
 @implementation MBKeyBagInfo
+
++ (id)infoWithID:(unsigned int)d uuid:(const char *)uuid
+{
+  v4 = [[self alloc] initWithID:*&d uuid:uuid];
+
+  return v4;
+}
 
 - (MBKeyBagInfo)initWithID:(unsigned int)d uuid:(const char *)uuid
 {

@@ -16,12 +16,12 @@
   dCopy = d;
   if (self->_UUID != dCopy)
   {
-    v9 = dCopy;
-    objc_msgSend_willModify(self, dCopy, v5);
-    v8 = objc_msgSend_copy(v9, v6, v7);
+    v6 = dCopy;
+    [(KNClassicThemeRecord *)self willModify];
+    v5 = [(NSString *)v6 copy];
 
-    objc_storeStrong(&self->_UUID, v8);
-    dCopy = v8;
+    objc_storeStrong(&self->_UUID, v5);
+    dCopy = v5;
   }
 }
 
@@ -30,7 +30,7 @@
   recordCopy = record;
   if (self->_stylesheetRecord != recordCopy)
   {
-    objc_msgSend_willModify(self, v5, v6);
+    [(KNClassicThemeRecord *)self willModify];
     objc_storeStrong(&self->_stylesheetRecord, record);
   }
 }
@@ -54,8 +54,8 @@
 - (void)addMaster:(id)master
 {
   masterCopy = master;
-  objc_msgSend_willModify(self, v4, v5);
-  objc_msgSend_addObject_(self->_masters, v6, masterCopy);
+  [(KNClassicThemeRecord *)self willModify];
+  [(NSMutableArray *)self->_masters addObject:masterCopy];
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -64,93 +64,88 @@
   v7 = *(archive + 4);
   if (v7)
   {
-    v8 = objc_alloc(MEMORY[0x277CCACA8]);
-    v10 = objc_msgSend_tsp_initWithProtobufString_(v8, v9, *(archive + 6) & 0xFFFFFFFFFFFFFFFELL);
+    0xFFFFFFFFFFFFFFFELL = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(archive + 6) & 0xFFFFFFFFFFFFFFFELL];
     UUID = self->_UUID;
-    self->_UUID = v10;
+    self->_UUID = 0xFFFFFFFFFFFFFFFELL;
 
     v7 = *(archive + 4);
   }
 
   if ((v7 & 2) != 0)
   {
-    v12 = *(archive + 7);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = sub_275DC7974;
-    v20[3] = &unk_27A697FC8;
-    v20[4] = self;
-    v13 = unarchiverCopy;
-    v14 = objc_opt_class();
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v13, v15, v12, v14, 0, v20);
+    v10 = *(archive + 7);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_275DC7974;
+    v14[3] = &unk_27A697FC8;
+    v14[4] = self;
+    v11 = unarchiverCopy;
+    [v11 readReferenceMessage:v10 class:objc_opt_class() protocol:0 completion:v14];
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_275DC7980;
-  v19[3] = &unk_27A697A10;
-  v19[4] = self;
-  v16 = unarchiverCopy;
-  v17 = objc_opt_class();
-  objc_msgSend_readRepeatedReferenceMessage_class_protocol_completion_(v16, v18, archive + 24, v17, 0, v19);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_275DC7980;
+  v13[3] = &unk_27A697A10;
+  v13[4] = self;
+  v12 = unarchiverCopy;
+  [v12 readRepeatedReferenceMessage:archive + 24 class:objc_opt_class() protocol:0 completion:v13];
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v8 = objc_msgSend_UUID(self, v6, v7);
-  v11 = objc_msgSend_length(v8, v9, v10);
+  uUID = [(KNClassicThemeRecord *)self UUID];
+  v7 = [uUID length];
 
-  if (v11)
+  if (v7)
   {
-    v14 = objc_msgSend_UUID(self, v12, v13);
-    v15 = v14;
-    v18 = objc_msgSend_UTF8String(v15, v16, v17);
-    sub_275DC7AF0(archive, v18);
+    uUID2 = [(KNClassicThemeRecord *)self UUID];
+    sub_275DC7AF0(archive, [uUID2 UTF8String]);
   }
 
-  v19 = objc_msgSend_stylesheetRecord(self, v12, v13);
+  stylesheetRecord = [(KNClassicThemeRecord *)self stylesheetRecord];
 
-  if (v19)
+  if (stylesheetRecord)
   {
-    v23 = objc_msgSend_stylesheetRecord(self, v20, v21);
+    stylesheetRecord2 = [(KNClassicThemeRecord *)self stylesheetRecord];
     *(archive + 4) |= 2u;
-    v24 = *(archive + 7);
-    if (!v24)
+    v11 = *(archive + 7);
+    if (!v11)
     {
-      v25 = *(archive + 1);
-      if (v25)
+      v12 = *(archive + 1);
+      if (v12)
       {
-        v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v24 = MEMORY[0x277C8F050](v25);
-      *(archive + 7) = v24;
+      v11 = MEMORY[0x277C8F050](v12);
+      *(archive + 7) = v11;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v22, v23, v24);
+    [archiverCopy setStrongReference:stylesheetRecord2 message:v11];
   }
 
-  v26 = objc_msgSend_masters(self, v20, v21);
-  objc_msgSend_setStrongReferenceArray_message_(archiverCopy, v27, v26, archive + 24);
+  masters = [(KNClassicThemeRecord *)self masters];
+  [archiverCopy setStrongReferenceArray:masters message:archive + 24];
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[24]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[24]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v6, v5, unarchiverCopy);
+  [(KNClassicThemeRecord *)self loadFromArchive:v4 unarchiver:unarchiverCopy];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275DC7DD4, off_2812EA908[24]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275DC7DD4 descriptor:off_2812EA908[24]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNClassicThemeRecord *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 @end

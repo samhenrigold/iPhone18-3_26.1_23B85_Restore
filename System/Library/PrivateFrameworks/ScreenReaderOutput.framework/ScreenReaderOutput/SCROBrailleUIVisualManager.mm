@@ -77,21 +77,20 @@ void __58__SCROBrailleUIVisualManager__sendMessage_withIdentifier___block_invoke
 {
   v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _SCROD_LOG();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _SCROD_LOG(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
+      v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
       v8 = 138412546;
-      v9 = v6;
+      v9 = v7;
       v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "BrailleUI's AXClient received an error after sending a message with identifier %@: %@", &v8, 0x16u);
+      v11 = v5;
+      _os_log_impl(&dword_26490B000, v6, OS_LOG_TYPE_DEFAULT, "BrailleUI's AXClient received an error after sending a message with identifier %@: %@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (SCROBrailleUIAppDelegate)delegate

@@ -13,44 +13,44 @@
 
 - (void)enumeratePropertiesUsingBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   properties = selfCopy->_properties;
   if (properties)
   {
-    v18 = 0;
+    v17 = 0;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     keyEnumerator = [(NSMutableDictionary *)properties keyEnumerator];
-    v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v8 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = [(NSMutableDictionary *)selfCopy->_properties objectForKeyedSubscript:v11];
-        blockCopy[2](blockCopy, v11, v12, &v18);
+        blockCopy[2](blockCopy, v11, v12, &v17);
 
-        if (v18)
+        if (v17)
         {
           break;
         }
 
         if (v8 == ++v10)
         {
-          v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
+          v8 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -63,8 +63,6 @@ LABEL_4:
   }
 
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)propertyDictionary
@@ -142,7 +140,7 @@ LABEL_4:
 
 - (id)_stringValueForPropertyWithKey:(id)key
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [(PGGraphConcreteNode *)self propertyForKey:keyCopy];
   if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -159,22 +157,20 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = +[PGLogging sharedLogging];
-  loggingConnection = [v10 loggingConnection];
+  v9 = +[PGLogging sharedLogging];
+  loggingConnection = [v9 loggingConnection];
 
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412546;
-    v13 = keyCopy;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Unsupported type for property %@: %@. Returning nil.", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = keyCopy;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Unsupported type for property %@: %@. Returning nil.", &v11, 0x16u);
   }
 
   v7 = 0;
 LABEL_5:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

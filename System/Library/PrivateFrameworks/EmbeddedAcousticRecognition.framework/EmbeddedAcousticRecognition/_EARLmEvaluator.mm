@@ -19,13 +19,13 @@
 
 - (_EARLmEvaluator)initWithConfiguration:(id)configuration root:(id)root recognizerConfiguration:(id)recognizerConfiguration
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   rootCopy = root;
   recognizerConfigurationCopy = recognizerConfiguration;
-  v17.receiver = self;
-  v17.super_class = _EARLmEvaluator;
-  v11 = [(_EARLmEvaluator *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = _EARLmEvaluator;
+  v11 = [(_EARLmEvaluator *)&v18 init];
   if (v11)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -35,7 +35,7 @@
     {
       if (configurationCopy)
       {
-        [configurationCopy ear_toString];
+        objc_msgSend_ear_toString(configurationCopy);
         if (rootCopy)
         {
           goto LABEL_5;
@@ -45,11 +45,11 @@
       else
       {
         buf = 0uLL;
-        v19 = 0;
+        v20 = 0;
         if (rootCopy)
         {
 LABEL_5:
-          [rootCopy ear_toString];
+          objc_msgSend_ear_toString(rootCopy);
           if (!recognizerConfigurationCopy)
           {
             goto LABEL_12;
@@ -66,32 +66,32 @@ LABEL_12:
       }
 
 LABEL_6:
-      [recognizerConfigurationCopy ear_toString];
+      objc_msgSend_ear_toString(recognizerConfigurationCopy);
       goto LABEL_12;
     }
 
-    v14 = EarLmLogger();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = EarLmLogger(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = configurationCopy;
-      _os_log_impl(&dword_1B501D000, v14, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B501D000, v15, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)runEvaluationWithData:(id)data handle:(id)handle result:(id *)result bestWeight:(float *)weight
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v21[9] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handleCopy = handle;
   if (result)
@@ -99,39 +99,40 @@ LABEL_6:
     *result = 0;
   }
 
-  v12 = quasar::PTree::PTree(v20);
+  v12 = quasar::PTree::PTree(v21);
   if (handleCopy)
   {
-    [handleCopy handle];
+    objc_msgSend_handle(handleCopy, v12);
   }
 
   else
   {
-    v18 = 0;
     v19 = 0;
+    v20 = 0;
   }
 
   ptr = self->_evaluator.__ptr_;
-  [dataCopy data];
-  v14 = quasar::LmEvaluator::runEvaluation(ptr, v16, &v18, v20, weight, self->_roundingEnabled, 0);
-  if (v17)
+  objc_msgSend_data(dataCopy);
+  quasar::LmEvaluator::runEvaluation(ptr, v17, &v19, v21, weight, self->_roundingEnabled, 0);
+  v15 = v14;
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   if (result)
   {
-    *result = EARHelpers::dictFromPTree(v20, 1);
+    *result = EARHelpers::dictFromPTree(v21, 1);
   }
 
-  if (v19)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  quasar::PTree::~PTree(v20);
+  quasar::PTree::~PTree(v21);
 
-  return v14;
+  return v15;
 }
 
 - (id).cxx_construct

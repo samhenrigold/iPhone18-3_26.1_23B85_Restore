@@ -2436,11 +2436,12 @@ LABEL_15:
       v101 = v30;
       if (var1 >= 1)
       {
-        for (j = 0; j != var1; ++j)
+        v35 = 0;
+        do
         {
-          if (bitValueFromBitmask(inited, j, v108))
+          if (bitValueFromBitmask(inited, v35, v108))
           {
-            if (!seedFill(inited, v24, j, v108, 0, bitIsSet_0))
+            if (!seedFill(inited, v24, v35, v108, 0, bitIsSet_0))
             {
               termBitmask(inited);
               termBitmask(v24);
@@ -2529,7 +2530,11 @@ LABEL_15:
             v24 = v104;
             bitmaskMinus(v109, v104);
           }
+
+          v35 = (v35 + 1);
         }
+
+        while (v35 != var1);
       }
 
       v30 = ++v108 >= v19;
@@ -2565,7 +2570,8 @@ LABEL_15:
       p_var0 = &hopperCopy3->var1[v68].var0;
       v76 = p_var0[6] - var0;
       v77 = p_var0[7] - var2;
-      *v111 = __PAIR64__(v77, v76);
+      v111[0] = v76;
+      v111[1] = v77;
       v78 = p_var0[1];
       v79 = 256;
       v80 = -1;
@@ -3053,7 +3059,8 @@ LABEL_22:
   v65 = 0u;
   v64 = 0u;
   v63 = 0u;
-  v61 = 0;
+  *&v61.lo = 0;
+  *&v61.hi = 0;
   v60 = 0;
   memset(v59, 0, sizeof(v59));
   v58 = 0;
@@ -3079,7 +3086,7 @@ LABEL_22:
   {
     if (self)
     {
-      [(CIRedEyeRepair *)self repairDecisionWithFaceRecord:data left:1 redHopper:&v92 whiteHopper:&v72];
+      objc_msgSend_repairDecisionWithFaceRecord_left_redHopper_whiteHopper_(self);
       v51 = v49;
       v52 = v50;
       if (![(CIRedEyeRepair *)self extractAndGatherProminencesWithRect:v11 face:v10 faceIndex:data left:index maxwindowsize:0 repairsize:&v82 returningRedHopper:COERCE_DOUBLE(__PAIR64__(DWORD1(v49) whiteHopper:LODWORD(v20))) redChannel:COERCE_DOUBLE(__PAIR64__(DWORD1(v50) redChannelMask:LODWORD(v21))), &v62, v55, v53])
@@ -3087,7 +3094,7 @@ LABEL_22:
         return;
       }
 
-      [(CIRedEyeRepair *)self repairDecisionWithFaceRecord:data left:0 redHopper:&v82 whiteHopper:&v62];
+      objc_msgSend_repairDecisionWithFaceRecord_left_redHopper_whiteHopper_(self);
     }
 
     else
@@ -3549,7 +3556,7 @@ LABEL_18:
   v70 = 0;
   memset(v69, 0, sizeof(v69));
   v64 = v16;
-  v65 = recomputeBitmask(v16, data->var4 - v6, (data->var5 - v11), data->var6, &v80);
+  v65 = recomputeBitmask(v16, (data->var4 - v6), (data->var5 - v11), data->var6, &v80);
   if (!v65)
   {
     v80 = 0uLL;
@@ -3564,7 +3571,7 @@ LABEL_18:
     var9 = data->var9;
     if (var9)
     {
-      v27 = recomputeBitmask(v66, data->var7 - v6, (data->var8 - v11), var9, 0);
+      v27 = recomputeBitmask(v66, (data->var7 - v6), (data->var8 - v11), var9, 0);
     }
 
     else

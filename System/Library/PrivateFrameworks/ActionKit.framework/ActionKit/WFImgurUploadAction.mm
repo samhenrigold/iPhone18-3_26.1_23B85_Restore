@@ -289,7 +289,7 @@ void __47__WFImgurUploadAction_uploadInput_withAccount___block_invoke_4(uint64_t
 
 void __50__WFImgurUploadAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -297,29 +297,26 @@ void __50__WFImgurUploadAction_runAsynchronouslyWithInput___block_invoke(uint64_
     if (!+[(WFAccount *)WFImgurAccount])
     {
       v5 = *MEMORY[0x277CCA450];
-      v13[0] = *MEMORY[0x277CCA470];
-      v13[1] = v5;
-      v14[0] = @"Upload Failed";
-      v14[1] = @"Please sign in to your Imgur account.";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+      v11[0] = *MEMORY[0x277CCA470];
+      v11[1] = v5;
+      v12[0] = @"Upload Failed";
+      v12[1] = @"Please sign in to your Imgur account.";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WFOAuth2ErrorDomain" code:-1 userInfo:v6];
 
       v4 = v7;
     }
 
     [*(a1 + 32) finishRunningWithError:v4];
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v12 = *MEMORY[0x277D85DE8];
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
 
-    [v9 uploadInput:v10 withAccount:v11];
+    [v8 uploadInput:v9 withAccount:v10];
   }
 }
 

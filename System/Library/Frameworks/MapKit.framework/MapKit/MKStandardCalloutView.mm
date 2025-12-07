@@ -796,7 +796,7 @@ LABEL_19:
   v13 = fmin(fmax(v8 * 30.0 + 6.0, 0.0), 10.0);
   if (updateCopy)
   {
-    [updateCopy transformWithTranslationScale:v13 rotationScale:{v13, v12, v12}];
+    objc_msgSend_transformWithTranslationScale_rotationScale_(updateCopy, v13, v13, v12, v12);
   }
 
   else
@@ -824,7 +824,7 @@ LABEL_19:
 
   if (updateCopy)
   {
-    [updateCopy transformWithTranslationScale:v13 / -3.0 rotationScale:{v13 / -3.0, v12 / -3.0, v12 / -3.0}];
+    objc_msgSend_transformWithTranslationScale_rotationScale_(updateCopy, v13 / -3.0, v13 / -3.0, v12 / -3.0, v12 / -3.0);
   }
 
   else

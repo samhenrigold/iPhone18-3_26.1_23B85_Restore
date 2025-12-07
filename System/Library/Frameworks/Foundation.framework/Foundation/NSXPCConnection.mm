@@ -11,6 +11,7 @@
 - (NSXPCConnection)initWithMachServiceName:(NSString *)name options:(NSXPCConnectionOptions)options;
 - (NSXPCConnection)initWithServiceName:(id)name options:(unint64_t)options;
 - (NSXPCListenerEndpoint)endpoint;
+- (atomic_uint)_initWithRemotePeerConnection:(void *)connection name:(uint64_t)name options:(__CFString *)options;
 - (au_asid_t)auditSessionIdentifier;
 - (gid_t)effectiveGroupIdentifier;
 - (id)_additionalInvalidationHandler;
@@ -32,15 +33,14 @@
 - (pid_t)processIdentifier;
 - (uid_t)effectiveUserIdentifier;
 - (uint64_t)_initWithPeerConnection:(void *)connection name:(_xpc_connection_s *)name options:(__CFString *)options;
-- (uint64_t)_initWithRemotePeerConnection:(void *)connection name:(uint64_t)name options:(__CFString *)options;
-- (uint64_t)_removeImportedProxy:(uint64_t)result;
-- (uint64_t)_sendProgressMessage:(uint64_t)message forSequence:;
+- (unsigned)_sendProgressMessage:(uint64_t)message forSequence:;
 - (void)_cancelProgress:(unint64_t)progress;
 - (void)_decodeAndInvokeMessageWithEvent:(id)event reply:(id)reply flags:(unint64_t)flags;
 - (void)_decodeAndInvokeReplyBlockWithEvent:(id)event sequence:(unint64_t)sequence replyInfo:(id)info;
 - (void)_decodeProgressMessageWithData:(id)data flags:(unint64_t)flags;
 - (void)_killConnection:(int)connection;
 - (void)_pauseProgress:(unint64_t)progress;
+- (void)_removeImportedProxy:(void *)result;
 - (void)_resumeProgress:(unint64_t)progress;
 - (void)_sendDesistForProxy:(id)proxy;
 - (void)_sendInvocation:(id)invocation orArguments:(id *)arguments count:(unint64_t)count methodSignature:(id)signature selector:(SEL)selector withProxy:(id)proxy;
@@ -80,7 +80,7 @@
     result = self->_transport;
     if (result)
     {
-      return [($115C4C562B26FF47E01F9F4EA65B5887 *)result auditToken];
+      return objc_msgSend_auditToken(result, a3);
     }
 
     else
@@ -424,9 +424,9 @@
   result = _CFGetTSD();
   if (result)
   {
-    v1 = [[_NSXPCBoost alloc] _initWithEvent:?];
+    v2 = [[_NSXPCBoost alloc] _initWithEvent:?];
 
-    return v1;
+    return v2;
   }
 
   return result;
@@ -1069,29 +1069,29 @@ LABEL_92:
   _Block_object_dispose(v63, 8);
 }
 
-void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke(void *a1)
+void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke(void *result)
 {
   v3[8] = *MEMORY[0x1E69E9840];
-  if (!atomic_exchange((*(a1[6] + 8) + 24), 1u))
+  if (!atomic_exchange((*(result[6] + 8) + 24), 1u))
   {
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
     v3[2] = __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_2;
     v3[3] = &unk_1E69F4640;
-    v1 = a1[7];
-    v2 = a1[9];
-    v3[6] = a1[8];
+    v1 = result[7];
+    v2 = result[9];
+    v3[6] = result[8];
     v3[7] = v2;
-    [(_NSXPCConnectionRequestedReplies *)*(a1[4] + 64) endTransactionForSequence:v1 completionHandler:v3];
+    [(_NSXPCConnectionRequestedReplies *)*(result[4] + 64) endTransactionForSequence:v1 completionHandler:v3];
   }
 }
 
-void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_3(uint64_t a1, uint64_t a2)
+void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_3(uint64_t result, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  if (!atomic_exchange((*(*(a1 + 56) + 8) + 24), 1u))
+  if (!atomic_exchange((*(*(result + 56) + 8) + 24), 1u))
   {
-    v2 = *(a1 + 32);
+    v2 = *(result + 32);
     v3 = *(v2 + 64);
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
@@ -1099,11 +1099,11 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
     v6[3] = &unk_1E69F9670;
     v6[4] = v2;
     v6[5] = a2;
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 80);
-    v8 = *(a1 + 72);
+    v4 = *(result + 64);
+    v5 = *(result + 80);
+    v8 = *(result + 72);
     v9 = v5;
-    v7 = *(a1 + 40);
+    v7 = *(result + 40);
     [(_NSXPCConnectionRequestedReplies *)v3 endTransactionForSequence:v4 completionHandler:v6];
   }
 }
@@ -1115,12 +1115,12 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
   _sendReplyArgumentsOnly(*(a1 + 32), "v@?@", v2, 1, *(a1 + 64), *(a1 + 72), *(a1 + 56));
 }
 
-void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_5(void *a1, uint64_t a2, uint64_t a3)
+void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_5(void *result, uint64_t a2, uint64_t a3)
 {
   v8[11] = *MEMORY[0x1E69E9840];
-  if (!atomic_exchange((*(a1[7] + 8) + 24), 1u))
+  if (!atomic_exchange((*(result[7] + 8) + 24), 1u))
   {
-    v3 = a1[4];
+    v3 = result[4];
     v4 = *(v3 + 64);
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -1128,12 +1128,12 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
     v8[3] = &unk_1E69FA220;
     v8[4] = v3;
     v8[5] = a2;
-    v5 = a1[6];
-    v8[6] = a1[5];
+    v5 = result[6];
+    v8[6] = result[5];
     v8[7] = a3;
-    v6 = a1[8];
-    v7 = a1[10];
-    v8[9] = a1[9];
+    v6 = result[8];
+    v7 = result[10];
+    v8[9] = result[9];
     v8[10] = v7;
     v8[8] = v5;
     [(_NSXPCConnectionRequestedReplies *)v4 endTransactionForSequence:v6 completionHandler:v8];
@@ -1148,12 +1148,12 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
   _sendReplyArgumentsOnly(*(a1 + 32), "v@?@@", v2, 2, *(a1 + 72), *(a1 + 80), *(a1 + 64));
 }
 
-void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_7(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_7(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9[12] = *MEMORY[0x1E69E9840];
-  if (!atomic_exchange((*(a1[7] + 8) + 24), 1u))
+  if (!atomic_exchange((*(result[7] + 8) + 24), 1u))
   {
-    v4 = a1[4];
+    v4 = result[4];
     v5 = *(v4 + 64);
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
@@ -1161,12 +1161,12 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
     v9[3] = &unk_1E69FA270;
     v9[4] = v4;
     v9[5] = a2;
-    v6 = a1[6];
-    v9[6] = a1[5];
+    v6 = result[6];
+    v9[6] = result[5];
     v9[7] = a3;
-    v7 = a1[8];
-    v8 = a1[10];
-    v9[10] = a1[9];
+    v7 = result[8];
+    v8 = result[10];
+    v9[10] = result[9];
     v9[11] = v8;
     v9[8] = a4;
     v9[9] = v6;
@@ -1183,24 +1183,24 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
   _sendReplyArgumentsOnly(*(a1 + 32), "v@?@@@", v2, 3, *(a1 + 80), *(a1 + 88), *(a1 + 72));
 }
 
-void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_9(uint64_t a1, uint64_t a2)
+void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_9(uint64_t result, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  if (!atomic_exchange((*(*(a1 + 64) + 8) + 24), 1u))
+  if (!atomic_exchange((*(*(result + 64) + 8) + 24), 1u))
   {
-    v2 = *(a1 + 32);
+    v2 = *(result + 32);
     v3 = *(v2 + 64);
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_invoke_10;
     v6[3] = &unk_1E69FA220;
-    v6[4] = *(a1 + 40);
+    v6[4] = *(result + 40);
     v6[5] = a2;
     v6[6] = v2;
-    v7 = *(a1 + 48);
-    v4 = *(a1 + 72);
-    v5 = *(a1 + 88);
-    v8 = *(a1 + 80);
+    v7 = *(result + 48);
+    v4 = *(result + 72);
+    v5 = *(result + 88);
+    v8 = *(result + 80);
     v9 = v5;
     [(_NSXPCConnectionRequestedReplies *)v3 endTransactionForSequence:v4 completionHandler:v6];
   }
@@ -1311,7 +1311,7 @@ void __64__NSXPCConnection__decodeAndInvokeMessageWithEvent_reply_flags___block_
   return v5;
 }
 
-- (uint64_t)_initWithRemotePeerConnection:(void *)connection name:(uint64_t)name options:(__CFString *)options
+- (atomic_uint)_initWithRemotePeerConnection:(void *)connection name:(uint64_t)name options:(__CFString *)options
 {
   v17[5] = *MEMORY[0x1E69E9840];
   if (!connection)
@@ -2605,7 +2605,7 @@ LABEL_7:
   v9 = 0u;
   if (self)
   {
-    [(NSXPCConnection *)self auditToken];
+    objc_msgSend_auditToken(self, a2);
   }
 
   importInfo = self->_importInfo;
@@ -2729,14 +2729,14 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_removeImportedProxy:(uint64_t)result
+- (void)_removeImportedProxy:(void *)result
 {
   if (result)
   {
     v3 = result;
     if (!a2 || *(a2 + 40) != 1)
     {
-      result = [(_NSXPCConnectionImportInfo *)*(result + 72) removeProxy:a2];
+      result = [(_NSXPCConnectionImportInfo *)result[9] removeProxy:a2];
       if (result)
       {
 
@@ -2792,17 +2792,17 @@ LABEL_7:
   MEMORY[0x1EEE74A88](xpc, *&connection);
 }
 
-- (uint64_t)_sendProgressMessage:(uint64_t)message forSequence:
+- (unsigned)_sendProgressMessage:(uint64_t)message forSequence:
 {
   if (result)
   {
     v5 = result;
     xpc_dictionary_set_uint64(xdict, "f", 0x15uLL);
     xpc_dictionary_set_uint64(xdict, "sequence", message);
-    v6 = atomic_load((v5 + 36));
+    v6 = atomic_load(v5 + 9);
     if ((v6 & 0x40) != 0)
     {
-      v7 = *(v5 + 152);
+      v7 = *(v5 + 19);
 
       return [v7 sendNotification:xdict];
     }

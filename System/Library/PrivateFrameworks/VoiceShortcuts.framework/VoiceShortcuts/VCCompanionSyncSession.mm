@@ -46,7 +46,7 @@
 
 - (void)syncSession:(id)session didEndWithError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   session = [(VCCompanionSyncSession *)self session];
@@ -65,11 +65,11 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v21 = "[VCCompanionSyncSession syncSession:didEndWithError:]";
-      v22 = 2114;
-      v23 = sessionCopy;
-      v24 = 2114;
-      v25 = errorCopy;
+      v20 = "[VCCompanionSyncSession syncSession:didEndWithError:]";
+      v21 = 2114;
+      v22 = sessionCopy;
+      v23 = 2114;
+      v24 = errorCopy;
       v13 = "%s finished session %{public}@ with error %{public}@";
       v14 = v12;
       v15 = OS_LOG_TYPE_ERROR;
@@ -82,9 +82,9 @@ LABEL_8:
   else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v21 = "[VCCompanionSyncSession syncSession:didEndWithError:]";
-    v22 = 2114;
-    v23 = sessionCopy;
+    v20 = "[VCCompanionSyncSession syncSession:didEndWithError:]";
+    v21 = 2114;
+    v22 = sessionCopy;
     v13 = "%s finished session %{public}@";
     v14 = v12;
     v15 = OS_LOG_TYPE_DEFAULT;
@@ -94,8 +94,6 @@ LABEL_8:
 
   delegate = [(VCCompanionSyncSession *)self delegate];
   [delegate companionSyncSession:self didFinishWithError:errorCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncSession:(id)session applyChanges:(id)changes completion:(id)completion
@@ -150,7 +148,7 @@ LABEL_8:
 
 - (VCCompanionSyncSession)initWithSYSession:(id)session service:(id)service syncDataHandlers:(id)handlers
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   serviceCopy = service;
   handlersCopy = handlers;
@@ -196,9 +194,9 @@ LABEL_20:
   v13 = 0;
 LABEL_5:
   VCAssertUniqueMessageTypes(v13);
-  v35.receiver = self;
-  v35.super_class = VCCompanionSyncSession;
-  v14 = [(VCCompanionSyncSession *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = VCCompanionSyncSession;
+  v14 = [(VCCompanionSyncSession *)&v34 init];
   if (v14)
   {
     direction = [objc_opt_class() direction];
@@ -250,25 +248,24 @@ LABEL_5:
     {
       v28 = @"outgoing";
       *buf = 136315906;
-      v37 = "[VCCompanionSyncSession initWithSYSession:service:syncDataHandlers:]";
-      v38 = 2114;
-      v39 = v14;
+      v36 = "[VCCompanionSyncSession initWithSYSession:service:syncDataHandlers:]";
+      v37 = 2114;
+      v38 = v14;
       if (direction == 1)
       {
         v28 = @"incoming";
       }
 
-      v40 = 2114;
-      v41 = v28;
-      v42 = 2114;
-      v43 = sessionCopy;
+      v39 = 2114;
+      v40 = v28;
+      v41 = 2114;
+      v42 = sessionCopy;
       _os_log_impl(&dword_23103C000, v27, OS_LOG_TYPE_DEFAULT, "%s %{public}@ %{public}@ session created with SYSession: %{public}@", buf, 0x2Au);
     }
 
     v29 = v14;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

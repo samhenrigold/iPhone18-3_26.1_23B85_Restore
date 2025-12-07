@@ -249,30 +249,30 @@ LABEL_16:
 
 void __50__LPAppleMapsMetadataProviderSpecialization_start__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2050000000;
     v8 = getMKLinkPreviewFrameMetadataClass(void)::softClass;
-    v31 = getMKLinkPreviewFrameMetadataClass(void)::softClass;
+    v33 = getMKLinkPreviewFrameMetadataClass(void)::softClass;
     if (!getMKLinkPreviewFrameMetadataClass(void)::softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = ___ZL34getMKLinkPreviewFrameMetadataClassv_block_invoke;
-      v34 = &unk_1E7A35518;
-      v35 = &v28;
+      v35 = ___ZL34getMKLinkPreviewFrameMetadataClassv_block_invoke;
+      v36 = &unk_1E7A35518;
+      v37 = &v30;
       ___ZL34getMKLinkPreviewFrameMetadataClassv_block_invoke(&buf);
-      v8 = v29[3];
+      v8 = v31[3];
     }
 
     v9 = v8;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
     isKindOfClass = objc_opt_isKindOfClass();
     v11 = *(a1 + 32);
     if (isKindOfClass)
@@ -280,48 +280,48 @@ void __50__LPAppleMapsMetadataProviderSpecialization_start__block_invoke_3(uint6
       goto LABEL_5;
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2050000000;
     v13 = getMKLinkPreviewSearchMetadataClass(void)::softClass;
-    v31 = getMKLinkPreviewSearchMetadataClass(void)::softClass;
+    v33 = getMKLinkPreviewSearchMetadataClass(void)::softClass;
     if (!getMKLinkPreviewSearchMetadataClass(void)::softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = ___ZL35getMKLinkPreviewSearchMetadataClassv_block_invoke;
-      v34 = &unk_1E7A35518;
-      v35 = &v28;
+      v35 = ___ZL35getMKLinkPreviewSearchMetadataClassv_block_invoke;
+      v36 = &unk_1E7A35518;
+      v37 = &v30;
       ___ZL35getMKLinkPreviewSearchMetadataClassv_block_invoke(&buf);
-      v13 = v29[3];
+      v13 = v31[3];
     }
 
     v14 = v13;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
     if (objc_opt_isKindOfClass())
     {
-      v12 = [WeakRetained mapMetadataWithSearch:*(a1 + 32) snapshot:{v5, v28}];
+      v12 = [WeakRetained mapMetadataWithSearch:*(a1 + 32) snapshot:{v5, v30}];
       goto LABEL_10;
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2050000000;
     v18 = getMKLinkPreviewPlaceMetadataClass(void)::softClass;
-    v31 = getMKLinkPreviewPlaceMetadataClass(void)::softClass;
+    v33 = getMKLinkPreviewPlaceMetadataClass(void)::softClass;
     if (!getMKLinkPreviewPlaceMetadataClass(void)::softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = ___ZL34getMKLinkPreviewPlaceMetadataClassv_block_invoke;
-      v34 = &unk_1E7A35518;
-      v35 = &v28;
+      v35 = ___ZL34getMKLinkPreviewPlaceMetadataClassv_block_invoke;
+      v36 = &unk_1E7A35518;
+      v37 = &v30;
       ___ZL34getMKLinkPreviewPlaceMetadataClassv_block_invoke(&buf);
-      v18 = v29[3];
+      v18 = v31[3];
     }
 
     v19 = v18;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
     v20 = objc_opt_isKindOfClass();
     v11 = *(a1 + 32);
     if (v20)
@@ -329,30 +329,30 @@ void __50__LPAppleMapsMetadataProviderSpecialization_start__block_invoke_3(uint6
       goto LABEL_5;
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2050000000;
     v21 = getMKLinkPreviewLookAroundMetadataClass(void)::softClass;
-    v31 = getMKLinkPreviewLookAroundMetadataClass(void)::softClass;
+    v33 = getMKLinkPreviewLookAroundMetadataClass(void)::softClass;
     if (!getMKLinkPreviewLookAroundMetadataClass(void)::softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = ___ZL39getMKLinkPreviewLookAroundMetadataClassv_block_invoke;
-      v34 = &unk_1E7A35518;
-      v35 = &v28;
+      v35 = ___ZL39getMKLinkPreviewLookAroundMetadataClassv_block_invoke;
+      v36 = &unk_1E7A35518;
+      v37 = &v30;
       ___ZL39getMKLinkPreviewLookAroundMetadataClassv_block_invoke(&buf);
-      v21 = v29[3];
+      v21 = v31[3];
     }
 
     v22 = v21;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
     v23 = objc_opt_isKindOfClass();
     v11 = *(a1 + 32);
     if (v23)
     {
 LABEL_5:
-      v12 = [WeakRetained mapMetadataWithLocationInfo:v11 snapshot:{v5, v28}];
+      v12 = [WeakRetained mapMetadataWithLocationInfo:v11 snapshot:{v5, v30}];
 LABEL_10:
       v15 = &OBJC_IVAR___LPAppleMapsMetadataProviderSpecialization__mapMetadata;
 LABEL_11:
@@ -364,38 +364,39 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2050000000;
     v24 = getMKLinkPreviewGuidesMetadataClass(void)::softClass;
-    v31 = getMKLinkPreviewGuidesMetadataClass(void)::softClass;
+    v33 = getMKLinkPreviewGuidesMetadataClass(void)::softClass;
     if (!getMKLinkPreviewGuidesMetadataClass(void)::softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = ___ZL35getMKLinkPreviewGuidesMetadataClassv_block_invoke;
-      v34 = &unk_1E7A35518;
-      v35 = &v28;
+      v35 = ___ZL35getMKLinkPreviewGuidesMetadataClassv_block_invoke;
+      v36 = &unk_1E7A35518;
+      v37 = &v30;
       ___ZL35getMKLinkPreviewGuidesMetadataClassv_block_invoke(&buf);
-      v24 = v29[3];
+      v24 = v31[3];
     }
 
     v25 = v24;
-    _Block_object_dispose(&v28, 8);
-    if (objc_opt_isKindOfClass())
+    _Block_object_dispose(&v30, 8);
+    v26 = objc_opt_isKindOfClass();
+    if (v26)
     {
-      v12 = [WeakRetained mapMetadataWithGuide:*(a1 + 32) snapshot:{v5, v28}];
+      v12 = [WeakRetained mapMetadataWithGuide:*(a1 + 32) snapshot:{v5, v30}];
       v15 = &OBJC_IVAR___LPAppleMapsMetadataProviderSpecialization__collectionMetadata;
       goto LABEL_11;
     }
 
-    v26 = LPLogChannelFetching();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = LPLogChannelFetching(v26, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = objc_opt_class();
+      v29 = objc_opt_class();
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v27;
-      _os_log_impl(&dword_1AE886000, v26, OS_LOG_TYPE_DEFAULT, "LPAppleMapsMetadataProviderSpecialization: unhandled map metadata class '%@'", &buf, 0xCu);
+      *(&buf + 4) = v29;
+      _os_log_impl(&dword_1AE886000, v28, OS_LOG_TYPE_DEFAULT, "LPAppleMapsMetadataProviderSpecialization: unhandled map metadata class '%@'", &buf, 0xCu);
     }
 
     [WeakRetained fail];

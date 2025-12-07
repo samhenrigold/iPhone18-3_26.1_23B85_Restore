@@ -44,23 +44,23 @@
 
 uint64_t __42__HDHeartRateDataCollectionForwarder_init__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v10 = WeakRetained;
+    v9 = WeakRetained;
     dispatch_assert_queue_V2(*(WeakRetained + 8));
     WeakRetained = HKIsHeartRateEnabled();
-    v2 = v10;
-    if (*(v10 + 16) != WeakRetained)
+    v2 = v9;
+    if (*(v9 + 16) != WeakRetained)
     {
       v3 = WeakRetained;
-      *(v10 + 16) = WeakRetained;
+      *(v9 + 16) = WeakRetained;
       _HKInitializeLogging();
       v4 = *MEMORY[0x277CCC2D0];
       WeakRetained = os_log_type_enabled(*MEMORY[0x277CCC2D0], OS_LOG_TYPE_DEFAULT);
-      v2 = v10;
+      v2 = v9;
       if (WeakRetained)
       {
         v5 = "disabled";
@@ -70,9 +70,9 @@ uint64_t __42__HDHeartRateDataCollectionForwarder_init__block_invoke(uint64_t a1
         }
 
         *buf = 136315138;
-        v12 = v5;
+        v11 = v5;
         _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "heart rate privacy setting changed to %s", buf, 0xCu);
-        v2 = v10;
+        v2 = v9;
       }
     }
 
@@ -95,17 +95,16 @@ uint64_t __42__HDHeartRateDataCollectionForwarder_init__block_invoke(uint64_t a1
       }
 
       v7 = [v2 _newCatherineFeeder];
-      v2 = v10;
-      v6 = *(v10 + 24);
+      v2 = v9;
+      v6 = *(v9 + 24);
     }
 
     *(v2 + 24) = v7;
 
-    v2 = v10;
+    v2 = v9;
   }
 
 LABEL_13:
-  v8 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
@@ -139,7 +138,7 @@ LABEL_13:
 
 void __66__HDHeartRateDataCollectionForwarder_insertSamples_device_source___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 quantity];
   v5 = [MEMORY[0x277CCDAB0] _countPerMinuteUnit];
@@ -171,17 +170,15 @@ void __66__HDHeartRateDataCollectionForwarder_insertSamples_device_source___bloc
       v14 = v12;
       v15 = [v13 numberWithDouble:v7];
       v16 = HKSensitiveLogItem();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2048;
-      v21 = v11;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_INFO, "feeding %{public}@ with confidence:%f@ to catherine", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2048;
+      v20 = v11;
+      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_INFO, "feeding %{public}@ with confidence:%f@ to catherine", &v17, 0x16u);
     }
   }
 
   [*(*(a1 + 32) + 24) feedCatherine:v7 confidence:v11];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -18,7 +18,7 @@
 
 - (void)submitMigrationEventMetricsForModel:(id)model reason:(id)reason
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   reasonCopy = reason;
   v8 = objc_autoreleasePoolPush();
@@ -27,21 +27,19 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = modelCopy;
-    v19 = 2112;
-    v20 = reasonCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Submitting migration event metric for model: %@ reason: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = modelCopy;
+    v18 = 2112;
+    v19 = reasonCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Submitting migration event metric for model: %@ reason: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [[HMDHomeMigrationEvent alloc] initWithModel:modelCopy reason:reasonCopy];
   logEventSubmitter = [(HMDHomeMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitMigrationEventMetricsForModels:(id)models reason:(id)reason
@@ -88,10 +86,9 @@
 
 void __39__HMDHomeMetricsDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_10596;
-  logCategory__hmf_once_v2_10596 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_10596;
+  logCategory__hmf_once_v2_10596 = v0;
 }
 
 @end

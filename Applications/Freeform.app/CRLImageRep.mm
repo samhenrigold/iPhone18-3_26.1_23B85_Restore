@@ -425,7 +425,7 @@
     memset(&v37, 0, sizeof(v37));
     if (canvas)
     {
-      [canvas layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(canvas);
     }
 
     imageGeometryInRoot = [canvas imageGeometryInRoot];
@@ -566,7 +566,7 @@ LABEL_23:
     v12 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -893,7 +893,7 @@ LABEL_17:
       memset(&transform, 0, sizeof(transform));
       if (imageLayout)
       {
-        [imageLayout layoutToMaskTransform];
+        objc_msgSend_layoutToMaskTransform(imageLayout);
       }
 
       [maskLayout pathBounds];
@@ -922,7 +922,7 @@ LABEL_17:
 
     if (imageLayout)
     {
-      [imageLayout layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(imageLayout);
     }
 
     else
@@ -947,7 +947,7 @@ LABEL_17:
   {
     if (imageLayout)
     {
-      [imageLayout layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(imageLayout);
     }
 
     else
@@ -974,7 +974,7 @@ LABEL_17:
     v53 = pathToStroke2;
     if (imageLayout)
     {
-      [imageLayout layoutToMaskTransform];
+      objc_msgSend_layoutToMaskTransform(imageLayout);
     }
 
     else
@@ -1029,8 +1029,8 @@ LABEL_54:
         memset(&v24, 0, sizeof(v24));
         if (imageLayout)
         {
-          [imageLayout layoutToMaskTransform];
-          [imageLayout transformInRoot];
+          objc_msgSend_layoutToMaskTransform(imageLayout);
+          objc_msgSend_transformInRoot(imageLayout);
         }
 
         else
@@ -1119,7 +1119,7 @@ LABEL_54:
   v6 = imageGeometryInRoot;
   if (imageGeometryInRoot)
   {
-    [imageGeometryInRoot transform];
+    objc_msgSend_transform(imageGeometryInRoot);
   }
 
   else
@@ -1270,7 +1270,7 @@ LABEL_54:
   v13 = imageLayout;
   if (imageLayout)
   {
-    [imageLayout layoutToImageTransform];
+    objc_msgSend_layoutToImageTransform(imageLayout);
   }
 
   else
@@ -1844,8 +1844,8 @@ LABEL_14:
   precisionCopy = precision;
   x = point.x;
   y = point.y;
-  v66.receiver = self;
-  v66.super_class = CRLImageRep;
+  v59.receiver = self;
+  v59.super_class = CRLImageRep;
   v6 = [CRLCanvasRep containsPoint:"containsPoint:withPrecision:" withPrecision:?];
   v7 = x;
   v8 = y;
@@ -1875,10 +1875,10 @@ LABEL_14:
     }
   }
 
-  v65 = 0;
-  if ([(CRLImageRep *)self p_hitCacheGetCachedValue:&v65 forPoint:v7, v8])
+  v58 = 0;
+  if ([(CRLImageRep *)self p_hitCacheGetCachedValue:&v58 forPoint:v7, v8])
   {
-    LOBYTE(isInMaskEditMode) = v65;
+    LOBYTE(isInMaskEditMode) = v58;
   }
 
   else
@@ -1904,20 +1904,20 @@ LABEL_14:
       {
         if (imageLayout)
         {
-          [imageLayout layoutToImageTransform];
+          objc_msgSend_layoutToImageTransform(imageLayout);
         }
 
         else
         {
-          memset(&v63, 0, sizeof(v63));
+          memset(&v56, 0, sizeof(v56));
         }
 
-        CGAffineTransformInvert(&v64, &v63);
-        pointa = vaddq_f64(*&v64.tx, vmlaq_n_f64(vmulq_n_f64(*&v64.c, y), *&v64.a, x));
+        CGAffineTransformInvert(&v57, &v56);
+        pointa = vaddq_f64(*&v57.tx, vmlaq_n_f64(vmulq_n_f64(*&v57.c, y), *&v57.a, x));
         imageGeometry = [imageLayout imageGeometry];
         [imageGeometry size];
-        v68.origin.x = sub_10011ECB4();
-        isInMaskEditMode = CGRectContainsPoint(v68, pointa);
+        v61.origin.x = sub_10011ECB4();
+        isInMaskEditMode = CGRectContainsPoint(v61, pointa);
 
         if (isInMaskEditMode)
         {
@@ -1928,17 +1928,17 @@ LABEL_50:
           }
 
           CGContextSaveGState(qword_101A34E88);
-          v67.origin.x = 0.0;
-          v67.origin.y = 0.0;
-          v67.size.width = 1.0;
-          v67.size.height = 1.0;
-          CGContextClearRect(qword_101A34E88, v67);
+          v60.origin.x = 0.0;
+          v60.origin.y = 0.0;
+          v60.size.width = 1.0;
+          v60.size.height = 1.0;
+          CGContextClearRect(qword_101A34E88, v60);
           CGContextTranslateCTM(qword_101A34E88, -x, -y);
           v17 = qword_101A34E88;
           imageLayout3 = [(CRLImageRep *)self imageLayout];
           isInMaskEditMode = 1;
-          LOBYTE(v54) = 1;
-          -[CRLImageRep p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:](self, "p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:", v17, 1, 7, [imageLayout3 isInMaskEditMode] ^ 1, 0, 0, 1.0, v54);
+          LOBYTE(v47) = 1;
+          -[CRLImageRep p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:](self, "p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:", v17, 1, 7, [imageLayout3 isInMaskEditMode] ^ 1, 0, 0, 1.0, v47);
 
           CGContextRestoreGState(qword_101A34E88);
           if (!*qword_101A34E80)
@@ -1962,8 +1962,8 @@ LABEL_50:
             CGContextTranslateCTM(v25, v23, v23);
             CGContextTranslateCTM(v25, -x, -y);
             imageLayout4 = [(CRLImageRep *)self imageLayout];
-            LOBYTE(v55) = 1;
-            -[CRLImageRep p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:](self, "p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:", v25, 1, 7, [imageLayout4 isInMaskEditMode] ^ 1, 0, 0, 1.0, v55);
+            LOBYTE(v48) = 1;
+            -[CRLImageRep p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:](self, "p_drawInContext:withContent:strokeDrawOptions:withOpacity:withMask:forLayer:forShadow:forHitTest:", v25, 1, 7, [imageLayout4 isInMaskEditMode] ^ 1, 0, 0, 1.0, v48);
 
             CGContextRestoreGState(v25);
             Width = CGBitmapContextGetWidth(v25);
@@ -1972,20 +1972,20 @@ LABEL_50:
             BitsPerPixel = CGBitmapContextGetBitsPerPixel(v25);
             if (Height)
             {
-              v56 = v25;
-              v57 = imageLayout;
+              v49 = v25;
+              v50 = imageLayout;
               v32 = 0;
               v33 = vcvtpd_u64_f64(vcvtd_n_f64_u64(BitsPerPixel, 3uLL));
               v34 = BytesPerRow * Height;
               v35 = v33;
-              v58 = BytesPerRow;
+              v51 = BytesPerRow;
               point = Height;
               while (!Width)
               {
 LABEL_25:
                 ++v32;
-                Data += v58;
-                v35 += v58;
+                Data += v51;
+                v35 += v51;
                 if (v32 == point)
                 {
                   isInMaskEditMode = 0;
@@ -2024,12 +2024,12 @@ LABEL_25:
                       sub_10130DA10(v42);
                     }
 
-                    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should not try to read outside the context's memory.", v43, v44, v45, v46, v47, v48, v49, "[CRLImageRep containsPoint:withPrecision:]");
-                    v50 = [NSString stringWithUTF8String:"[CRLImageRep containsPoint:withPrecision:]"];
-                    v51 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLImageRep.m"];
-                    [CRLAssertionHandler handleFailureInFunction:v50 file:v51 lineNumber:1051 isFatal:1 description:"Should not try to read outside the context's memory."];
+                    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should not try to read outside the context's memory.", "[CRLImageRep containsPoint:withPrecision:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLImageRep.m", 1051);
+                    v43 = [NSString stringWithUTF8String:"[CRLImageRep containsPoint:withPrecision:]"];
+                    v44 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLImageRep.m"];
+                    [CRLAssertionHandler handleFailureInFunction:v43 file:v44 lineNumber:1051 isFatal:1 description:"Should not try to read outside the context's memory."];
 
-                    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v52, v53);
+                    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v45, v46);
                     abort();
                   }
 
@@ -2050,8 +2050,8 @@ LABEL_25:
 
               isInMaskEditMode = 1;
 LABEL_31:
-              v25 = v56;
-              imageLayout = v57;
+              v25 = v49;
+              imageLayout = v50;
             }
 
             else
@@ -2307,52 +2307,52 @@ LABEL_4:
 
 - (id)overlayRenderables
 {
-  v29.receiver = self;
-  v29.super_class = CRLImageRep;
-  overlayRenderables = [(CRLCanvasRep *)&v29 overlayRenderables];
+  v30.receiver = self;
+  v30.super_class = CRLImageRep;
+  overlayRenderables = [(CRLCanvasRep *)&v30 overlayRenderables];
   v4 = [NSMutableArray arrayWithArray:overlayRenderables];
 
   interactiveCanvasController = [(CRLCanvasRep *)self interactiveCanvasController];
   if (self->_showImageHighlight)
   {
     v6 = +[CRLCanvasShapeRenderable renderable];
-    v7 = sub_1000CCEA0(0.458, 0.697, 0.916, 0.53);
-    [v6 setFillColor:v7];
-    CGColorRelease(v7);
+    v8 = sub_1000CCEA0(v6, v7, 0.458, 0.697, 0.916, 0.53);
+    [v6 setFillColor:v8];
+    CGColorRelease(v8);
     [v6 setLineWidth:1.0];
     [v6 setStrokeColor:0];
     canvas = [(CRLCanvasRep *)self canvas];
     [canvas viewScale];
-    v10 = v9;
+    v11 = v10;
 
     [(CRLImageRep *)self boundsForStandardKnobs];
-    v12 = v11;
-    v14 = v13;
-    v16 = v15;
-    v18 = v17;
-    memset(&v28, 0, sizeof(v28));
+    v13 = v12;
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
+    memset(&v29, 0, sizeof(v29));
     layout = [(CRLCanvasRep *)self layout];
-    v20 = layout;
+    v21 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
     {
-      memset(&v28, 0, sizeof(v28));
+      memset(&v29, 0, sizeof(v29));
     }
 
-    CGAffineTransformMakeScale(&t2, v10, v10);
-    v25 = v28;
-    CGAffineTransformConcat(&v27, &v25, &t2);
-    v28 = v27;
+    CGAffineTransformMakeScale(&t2, v11, v11);
+    v26 = v29;
+    CGAffineTransformConcat(&v28, &v26, &t2);
+    v29 = v28;
     canvas2 = [(CRLCanvasRep *)self canvas];
     [canvas2 contentsScale];
-    v23 = sub_10018F420(&v28.a, v12, v14, v16, v18, 1.0, v22);
+    v24 = sub_10018F420(&v29.a, v13, v15, v17, v19, 1.0, v23);
 
-    [v6 setPath:v23];
-    CGPathRelease(v23);
+    [v6 setPath:v24];
+    CGPathRelease(v24);
     [v6 setDelegate:interactiveCanvasController];
     [v4 addObject:v6];
   }
@@ -2449,7 +2449,7 @@ LABEL_6:
     imageLayout = imageLayout3;
     if (imageLayout3)
     {
-      [imageLayout3 layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(imageLayout3);
       v20 = v33;
       v19 = v34;
       v22 = v35;
@@ -2535,7 +2535,7 @@ LABEL_11:
     if (currentKnobTracker2)
     {
       v11 = currentKnobTracker2;
-      [currentKnobTracker2 transformInRootForStandardKnobs];
+      objc_msgSend_transformInRootForStandardKnobs(currentKnobTracker2);
       currentKnobTracker2 = v11;
     }
 
@@ -2706,7 +2706,7 @@ LABEL_11:
       v27 = imageLayout2;
       if (imageLayout2)
       {
-        [imageLayout2 layoutToMaskTransform];
+        objc_msgSend_layoutToMaskTransform(imageLayout2);
       }
 
       else
@@ -2752,7 +2752,7 @@ LABEL_11:
     v7 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -2817,7 +2817,7 @@ LABEL_11:
     v7 = imageGeometryInRoot;
     if (imageGeometryInRoot)
     {
-      [imageGeometryInRoot transform];
+      objc_msgSend_transform(imageGeometryInRoot);
     }
 
     else
@@ -2891,8 +2891,8 @@ LABEL_11:
     memset(&v47, 0, sizeof(v47));
     if (v9)
     {
-      [v9 layoutToImageTransform];
-      [v9 transformInRoot];
+      objc_msgSend_layoutToImageTransform(v9);
+      objc_msgSend_transformInRoot(v9);
     }
 
     else
@@ -2934,7 +2934,7 @@ LABEL_11:
       v29 = imageLayout3;
       if (imageLayout3)
       {
-        [imageLayout3 layoutToMaskTransform];
+        objc_msgSend_layoutToMaskTransform(imageLayout3);
       }
 
       else
@@ -2946,7 +2946,7 @@ LABEL_11:
       v39 = imageLayout4;
       if (imageLayout4)
       {
-        [imageLayout4 transformInRoot];
+        objc_msgSend_transformInRoot(imageLayout4);
       }
 
       else
@@ -3349,7 +3349,7 @@ LABEL_10:
     v12 = maskLayout2;
     if (maskLayout2)
     {
-      [maskLayout2 transform];
+      objc_msgSend_transform(maskLayout2);
     }
 
     else
@@ -3440,7 +3440,7 @@ LABEL_5:
   v17 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -3458,7 +3458,7 @@ LABEL_5:
   v21 = geometry2;
   if (geometry2)
   {
-    [geometry2 transform];
+    objc_msgSend_transform(geometry2);
   }
 
   else
@@ -3479,7 +3479,7 @@ LABEL_6:
   v10 = originalImageGeometry;
   if (originalImageGeometry)
   {
-    [originalImageGeometry fullTransform];
+    objc_msgSend_fullTransform(originalImageGeometry);
   }
 
   else
@@ -3602,7 +3602,7 @@ LABEL_6:
     v15 = imageLayout3;
     if (imageLayout3)
     {
-      [imageLayout3 layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(imageLayout3);
       v16 = v25;
       v17 = v26;
       v18 = v27;
@@ -3679,7 +3679,7 @@ LABEL_6:
   v7 = imageLayout;
   if (imageLayout)
   {
-    [imageLayout layoutToMaskTransform];
+    objc_msgSend_layoutToMaskTransform(imageLayout, v10, toCopy);
   }
 
   else
@@ -3961,7 +3961,7 @@ LABEL_26:
   v9 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
   }
 
   else
@@ -3978,7 +3978,7 @@ LABEL_26:
   v14 = imageGeometry;
   if (imageGeometry)
   {
-    [imageGeometry transform];
+    objc_msgSend_transform(imageGeometry);
   }
 
   else
@@ -3991,7 +3991,7 @@ LABEL_26:
   v17 = pureGeometry2;
   if (pureGeometry2)
   {
-    [pureGeometry2 transform];
+    objc_msgSend_transform(pureGeometry2);
   }
 
   else
@@ -4009,7 +4009,7 @@ LABEL_26:
   v21 = pureGeometry3;
   if (pureGeometry3)
   {
-    [pureGeometry3 transform];
+    objc_msgSend_transform(pureGeometry3);
   }
 
   else
@@ -4127,11 +4127,11 @@ LABEL_26:
       t2 = v21;
       CGAffineTransformConcat(&v19, &t1, &t2);
       v21 = v19;
-      [(CRLCanvasRep *)self antiAliasDefeatLayerTransform:&v21 forFrame:v22, *v23];
+      [(CRLCanvasRep *)self antiAliasDefeatLayerTransform:&v21 forFrame:v22, v23[0], v23[1]];
     }
 
     v20 = v21;
-    [layoutCopy setIfDifferentFrame:&v20 orTransform:{v22, *v23}];
+    [layoutCopy setIfDifferentFrame:&v20 orTransform:{v22, v23[0], v23[1]}];
   }
 
   else
@@ -4378,7 +4378,7 @@ LABEL_43:
     v17 = imageGeometryInRoot;
     if (imageGeometryInRoot)
     {
-      [imageGeometryInRoot transform];
+      objc_msgSend_transform(imageGeometryInRoot);
     }
 
     else
@@ -4563,7 +4563,7 @@ LABEL_55:
       v58 = pureGeometry;
       if (pureGeometry)
       {
-        [pureGeometry transform];
+        objc_msgSend_transform(pureGeometry);
       }
 
       else
@@ -4791,7 +4791,7 @@ LABEL_63:
     {
       [maskLayout pathBounds];
       CGAffineTransformMakeTranslation(&v53, -v22, -v23);
-      [maskLayout transform];
+      objc_msgSend_transform(maskLayout);
       t1 = v53;
       CGAffineTransformConcat(&v52, &t1, &t2);
       v53 = v52;
@@ -4977,7 +4977,7 @@ LABEL_14:
   if (pathToStroke)
   {
     memset(&v39, 0, sizeof(v39));
-    [maskLayout transform];
+    objc_msgSend_transform(maskLayout);
     CGAffineTransformMakeScale(&v37, v10, v10);
     CGAffineTransformConcat(&v39, &t1, &v37);
     t1 = v39;
@@ -4994,7 +4994,7 @@ LABEL_16:
   v36 = self->_strokeRenderable;
   if (v36)
   {
-    [(CRLCanvasRenderable *)v36 affineTransform];
+    objc_msgSend_affineTransform(v36);
   }
 
   else
@@ -5051,7 +5051,7 @@ LABEL_16:
     v9 = imageGeometryInRoot;
     if (imageGeometryInRoot)
     {
-      [imageGeometryInRoot transform];
+      objc_msgSend_transform(imageGeometryInRoot);
     }
 
     else
@@ -5365,7 +5365,7 @@ LABEL_16:
     CGAffineTransformConcat(&v28, &t1, &t2);
     if (layoutCopy)
     {
-      [layoutCopy layoutToMaskTransform];
+      objc_msgSend_layoutToMaskTransform(layoutCopy);
     }
 
     else
@@ -5380,7 +5380,7 @@ LABEL_16:
     v28 = t2;
     if (layoutCopy)
     {
-      [layoutCopy layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(layoutCopy);
     }
 
     else
@@ -5983,7 +5983,7 @@ LABEL_33:
   v42 = v17;
   if (v12)
   {
-    [v12 pureTransformInRoot];
+    objc_msgSend_pureTransformInRoot(v12);
   }
 
   else
@@ -6041,7 +6041,7 @@ LABEL_33:
 
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
     v9 = v17;
     v10 = v18;
     v11 = v19;
@@ -6303,7 +6303,7 @@ LABEL_7:
             v15 = imageLayout;
             if (imageLayout)
             {
-              [imageLayout layoutToMaskTransform];
+              objc_msgSend_layoutToMaskTransform(imageLayout, v19, v20);
               v16 = v22;
               v17 = v23;
               v18 = v24;
@@ -6385,7 +6385,7 @@ LABEL_7:
         v15 = imageLayout;
         if (imageLayout)
         {
-          [imageLayout layoutToMaskTransform];
+          objc_msgSend_layoutToMaskTransform(imageLayout, v20, v21);
           v16 = v23;
           v17 = v24;
           v18 = v25;
@@ -6436,7 +6436,7 @@ LABEL_7:
     v9 = maskLayout;
     if (maskLayout)
     {
-      [maskLayout transform];
+      objc_msgSend_transform(maskLayout);
     }
 
     else
@@ -7044,7 +7044,7 @@ LABEL_6:
   v26 = imageLayout3;
   if (imageLayout3)
   {
-    [imageLayout3 layoutToImageTransform];
+    objc_msgSend_layoutToImageTransform(imageLayout3);
   }
 
   else

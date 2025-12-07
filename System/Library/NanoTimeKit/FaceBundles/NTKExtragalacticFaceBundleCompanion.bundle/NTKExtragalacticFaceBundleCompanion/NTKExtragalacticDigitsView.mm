@@ -35,7 +35,7 @@
 
 - (void)_setupShapeLayers
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   if (qword_27E1DC290 != -1)
   {
     sub_23BE552CC();
@@ -63,28 +63,28 @@
   layer4 = [(NTKExtragalacticDigitsView *)self layer];
   [layer4 addSublayer:self->_strokeContainerLayer];
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = sub_23BE51E40;
-  v58[3] = &unk_278B9B6B0;
-  v37 = v2;
-  v59 = v37;
-  v9 = MEMORY[0x23EEBF4B0](v58);
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = sub_23BE51EC8;
-  v56[3] = &unk_278B9B6D8;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = sub_23BE51E40;
+  v57[3] = &unk_278B9B6B0;
+  v36 = v2;
+  v58 = v36;
+  v9 = MEMORY[0x23EEBF4B0](v57);
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = sub_23BE51EC8;
+  v55[3] = &unk_278B9B6D8;
   v10 = v9;
-  v57 = v10;
-  v44 = MEMORY[0x23EEBF4B0](v56);
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = sub_23BE51FA4;
-  v54[3] = &unk_278B9B700;
-  v36 = v10;
-  v54[4] = self;
-  v55 = v36;
-  v43 = MEMORY[0x23EEBF4B0](v54);
+  v56 = v10;
+  v43 = MEMORY[0x23EEBF4B0](v55);
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = sub_23BE51FA4;
+  v53[3] = &unk_278B9B700;
+  v35 = v10;
+  v53[4] = self;
+  v54 = v35;
+  v42 = MEMORY[0x23EEBF4B0](v53);
   v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:4];
   glyphFillLayers = self->_glyphFillLayers;
   self->_glyphFillLayers = v11;
@@ -93,28 +93,28 @@
   glyphStrokeLayers = self->_glyphStrokeLayers;
   self->_glyphStrokeLayers = v13;
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   obj = +[NTKExtragalacticLayoutHelper allCorners];
-  v40 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
-  if (v40)
+  v39 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+  if (v39)
   {
-    v39 = *v51;
+    v38 = *v50;
     do
     {
       v15 = 0;
       do
       {
-        if (*v51 != v39)
+        if (*v50 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v41 = *(*(&v50 + 1) + 8 * v15);
-        v42 = v15;
-        unsignedIntegerValue = [v41 unsignedIntegerValue];
+        v40 = *(*(&v49 + 1) + 8 * v15);
+        v41 = v15;
+        unsignedIntegerValue = [v40 unsignedIntegerValue];
         [(NTKExtragalacticDigitsView *)self bounds];
         [NTKExtragalacticLayoutHelper frameForCorner:unsignedIntegerValue screenBounds:?];
         v18 = v17;
@@ -123,59 +123,57 @@
         v24 = v23;
         v25 = objc_opt_new();
         v26 = objc_opt_new();
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
-        v27 = [&unk_284E9BC00 countByEnumeratingWithState:&v46 objects:v60 count:16];
+        v27 = [&unk_284E9BC00 countByEnumeratingWithState:&v45 objects:v59 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v47;
+          v29 = *v46;
           do
           {
             for (i = 0; i != v28; ++i)
             {
-              if (*v47 != v29)
+              if (*v46 != v29)
               {
                 objc_enumerationMutation(&unk_284E9BC00);
               }
 
-              unsignedIntegerValue2 = [*(*(&v46 + 1) + 8 * i) unsignedIntegerValue];
+              unsignedIntegerValue2 = [*(*(&v45 + 1) + 8 * i) unsignedIntegerValue];
               v32 = [NTKExtragalacticColors identityColorForGlyphColor:unsignedIntegerValue2];
-              v33 = (v44)[2](v44, v32, v18, v20, v22, v24);
+              v33 = (v43)[2](v43, v32, v18, v20, v22, v24);
               [(CALayer *)self->_fillContainerLayer addSublayer:v33];
               [v25 setShapeLayer:v33 atGlyphColor:unsignedIntegerValue2];
-              v34 = (v43)[2](v43, v32, v18, v20, v22, v24);
+              v34 = (v42)[2](v42, v32, v18, v20, v22, v24);
               [(CALayer *)self->_strokeContainerLayer addSublayer:v34];
               [v26 setShapeLayer:v34 atGlyphColor:unsignedIntegerValue2];
             }
 
-            v28 = [&unk_284E9BC00 countByEnumeratingWithState:&v46 objects:v60 count:16];
+            v28 = [&unk_284E9BC00 countByEnumeratingWithState:&v45 objects:v59 count:16];
           }
 
           while (v28);
         }
 
-        [(NSMutableDictionary *)self->_glyphFillLayers setObject:v25 forKeyedSubscript:v41];
-        [(NSMutableDictionary *)self->_glyphStrokeLayers setObject:v26 forKeyedSubscript:v41];
+        [(NSMutableDictionary *)self->_glyphFillLayers setObject:v25 forKeyedSubscript:v40];
+        [(NSMutableDictionary *)self->_glyphStrokeLayers setObject:v26 forKeyedSubscript:v40];
 
-        v15 = v42 + 1;
+        v15 = v41 + 1;
       }
 
-      while (v42 + 1 != v40);
-      v40 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
+      while (v41 + 1 != v39);
+      v39 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDigitNumbers:(id)numbers
 {
-  v68[3] = *MEMORY[0x277D85DE8];
+  v67[3] = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   selfCopy = self;
   if (self->_digitNumbers == numbersCopy)
@@ -188,7 +186,7 @@
     sub_23BE552E0();
   }
 
-  v46 = qword_27E1DC298;
+  v45 = qword_27E1DC298;
   v5 = [(NSMutableDictionary *)numbersCopy objectForKeyedSubscript:&unk_284E9B950];
   v6 = [v5 isEqual:&unk_284E9B980];
 
@@ -201,14 +199,14 @@
 
     v7 = qword_27E1DC2A8;
 
-    v67[0] = &unk_284E9B920;
-    v67[1] = &unk_284E9B938;
-    v68[0] = &unk_284E9B950;
-    v68[1] = &unk_284E9B920;
-    v67[2] = &unk_284E9B950;
-    v68[2] = &unk_284E9B938;
-    v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
-    v46 = v7;
+    v66[0] = &unk_284E9B920;
+    v66[1] = &unk_284E9B938;
+    v67[0] = &unk_284E9B950;
+    v67[1] = &unk_284E9B920;
+    v66[2] = &unk_284E9B950;
+    v67[2] = &unk_284E9B938;
+    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
+    v45 = v7;
     goto LABEL_13;
   }
 
@@ -225,53 +223,53 @@
   if (!v10)
   {
 LABEL_12:
-    v53 = 0;
+    v52 = 0;
     goto LABEL_13;
   }
 
-  v65[0] = &unk_284E9B920;
+  v64[0] = &unk_284E9B920;
+  v64[1] = &unk_284E9B938;
+  v65[0] = &unk_284E9B950;
   v65[1] = &unk_284E9B938;
-  v66[0] = &unk_284E9B950;
-  v66[1] = &unk_284E9B938;
-  v65[2] = &unk_284E9B950;
-  v66[2] = &unk_284E9B920;
-  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+  v64[2] = &unk_284E9B950;
+  v65[2] = &unk_284E9B920;
+  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
 LABEL_13:
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = +[NTKExtragalacticLayoutHelper allCorners];
-  v48 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
-  if (v48)
+  v47 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+  if (v47)
   {
-    v47 = *v60;
-    v44 = numbersCopy;
+    v46 = *v59;
+    v43 = numbersCopy;
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v47; ++i)
       {
-        if (*v60 != v47)
+        if (*v59 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v59 + 1) + 8 * i);
+        v12 = *(*(&v58 + 1) + 8 * i);
         v13 = [(NSMutableDictionary *)selfCopy->_digitNumbers objectForKeyedSubscript:v12];
         v14 = [(NSMutableDictionary *)numbersCopy objectForKeyedSubscript:v12];
 
         if (v13 != v14)
         {
-          v50 = i;
+          v49 = i;
           unsignedIntegerValue = [v12 unsignedIntegerValue];
           [(NTKExtragalacticDigitsView *)selfCopy bounds];
           [NTKExtragalacticLayoutHelper frameForCorner:unsignedIntegerValue screenBounds:?];
           v16 = [(NSMutableDictionary *)numbersCopy objectForKeyedSubscript:v12];
           [(NSMutableDictionary *)selfCopy->_digitNumbers setObject:v16 forKeyedSubscript:v12];
-          v17 = [v46 objectForKeyedSubscript:v12];
+          v17 = [v45 objectForKeyedSubscript:v12];
           unsignedIntegerValue2 = [v17 unsignedIntegerValue];
 
-          v49 = v16;
+          v48 = v16;
           v19 = [(NTKExtragalacticDigitLoader *)selfCopy->_digitLoader digitDrawInfoForNumber:v16 style:unsignedIntegerValue2];
           v20 = v19;
           if (v19)
@@ -286,36 +284,36 @@ LABEL_13:
             v26 = [(NSMutableDictionary *)selfCopy->_glyphStrokeLayers objectForKeyedSubscript:v12];
             [v26 removeAllPaths];
 
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
             v56 = 0u;
+            v57 = 0u;
+            v54 = 0u;
+            v55 = 0u;
             paths = [v20 paths];
             allKeys = [paths allKeys];
 
-            v51 = allKeys;
-            v29 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
+            v50 = allKeys;
+            v29 = [allKeys countByEnumeratingWithState:&v54 objects:v62 count:16];
             if (v29)
             {
               v30 = v29;
-              v54 = *v56;
+              v53 = *v55;
               do
               {
                 for (j = 0; j != v30; ++j)
                 {
-                  if (*v56 != v54)
+                  if (*v55 != v53)
                   {
-                    objc_enumerationMutation(v51);
+                    objc_enumerationMutation(v50);
                   }
 
-                  v32 = *(*(&v55 + 1) + 8 * j);
+                  v32 = *(*(&v54 + 1) + 8 * j);
                   unsignedIntegerValue3 = [v32 unsignedIntegerValue];
                   paths2 = [v20 paths];
                   v35 = [paths2 objectForKeyedSubscript:v32];
 
-                  if ([v12 isEqual:&unk_284E9B950] && v53)
+                  if ([v12 isEqual:&unk_284E9B950] && v52)
                   {
-                    v36 = [v53 objectForKeyedSubscript:v32];
+                    v36 = [v52 objectForKeyedSubscript:v32];
                     paths3 = [v20 paths];
                     v38 = [paths3 objectForKeyedSubscript:v36];
 
@@ -338,27 +336,26 @@ LABEL_13:
                   }
                 }
 
-                v30 = [v51 countByEnumeratingWithState:&v55 objects:v63 count:16];
+                v30 = [v50 countByEnumeratingWithState:&v54 objects:v62 count:16];
               }
 
               while (v30);
             }
 
-            numbersCopy = v44;
+            numbersCopy = v43;
           }
 
-          i = v50;
+          i = v49;
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v47 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
 LABEL_37:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -46,23 +46,23 @@
 
 - (void)startTrackingCaptureRequestUsingPhotoSettings:(AVCapturePhotoSettings *)settings
 {
-  v8 = 0;
-  if (po_photoSettingsAreValid(settings, 0, 0, 0, &v8))
+  v9 = 0;
+  if (po_photoSettingsAreValid(settings, 0, 0, 0, &v9))
   {
     v5 = [(AVCapturePhotoSettings *)settings copy];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __90__AVCapturePhotoOutputReadinessCoordinator_startTrackingCaptureRequestUsingPhotoSettings___block_invoke;
-    v7[3] = &unk_1E7876268;
-    v7[4] = self;
-    v7[5] = v5;
-    [(AVCapturePhotoOutputReadinessCoordinator *)self _invokeDelegateCallbackWithBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __90__AVCapturePhotoOutputReadinessCoordinator_startTrackingCaptureRequestUsingPhotoSettings___block_invoke;
+    v8[3] = &unk_1E7876268;
+    v8[4] = self;
+    v8[5] = v5;
+    [(AVCapturePhotoOutputReadinessCoordinator *)self _invokeDelegateCallbackWithBlock:v8];
   }
 
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -84,7 +84,7 @@ uint64_t __90__AVCapturePhotoOutputReadinessCoordinator_startTrackingCaptureRequ
   if (settingsUniqueID <= 0)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -94,17 +94,17 @@ uint64_t __90__AVCapturePhotoOutputReadinessCoordinator_startTrackingCaptureRequ
 
   else
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __97__AVCapturePhotoOutputReadinessCoordinator_stopTrackingCaptureRequestUsingPhotoSettingsUniqueID___block_invoke;
-    v4[3] = &unk_1E78762B0;
-    v4[4] = self;
-    v4[5] = settingsUniqueID;
-    [(AVCapturePhotoOutputReadinessCoordinator *)self _invokeDelegateCallbackWithBlock:v4];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __97__AVCapturePhotoOutputReadinessCoordinator_stopTrackingCaptureRequestUsingPhotoSettingsUniqueID___block_invoke;
+    v5[3] = &unk_1E78762B0;
+    v5[4] = self;
+    v5[5] = settingsUniqueID;
+    [(AVCapturePhotoOutputReadinessCoordinator *)self _invokeDelegateCallbackWithBlock:v5];
   }
 }
 
-uint64_t __97__AVCapturePhotoOutputReadinessCoordinator_stopTrackingCaptureRequestUsingPhotoSettingsUniqueID___block_invoke(uint64_t a1, uint64_t a2)
+void *__97__AVCapturePhotoOutputReadinessCoordinator_stopTrackingCaptureRequestUsingPhotoSettingsUniqueID___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(*(a1 + 32) + 64);
   v7[0] = MEMORY[0x1E69E9820];

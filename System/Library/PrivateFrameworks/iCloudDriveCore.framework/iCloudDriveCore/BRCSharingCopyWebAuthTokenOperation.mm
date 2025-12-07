@@ -52,7 +52,7 @@
 
 void __43__BRCSharingCopyWebAuthTokenOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -61,20 +61,18 @@ void __43__BRCSharingCopyWebAuthTokenOperation_main__block_invoke(uint64_t a1, v
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v10 = *(*(a1 + 32) + 520);
-      v11 = 138412802;
-      v12 = v10;
-      v13 = 2112;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] failed fetching webauth token for %@: %@%@", &v11, 0x20u);
+      v9 = *(*(a1 + 32) + 520);
+      v10 = 138412802;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] failed fetching webauth token for %@: %@%@", &v10, 0x20u);
     }
   }
 
   [*(a1 + 32) completedWithResult:v5 error:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

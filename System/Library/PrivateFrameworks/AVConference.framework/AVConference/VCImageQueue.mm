@@ -1067,7 +1067,7 @@ LABEL_48:
         v15 = xmmword_1DBD49550;
         v11 = xmmword_1DBD49510;
         v12 = unk_1DBD49520;
-        [(VCPixelBufferOverlay *)pixelBufferOverlay currentDetails];
+        objc_msgSend_currentDetails(pixelBufferOverlay);
         *(&v15 + 1) = self->_storedAttributes;
         v9[2] = v13;
         v9[3] = v14;
@@ -1271,21 +1271,21 @@ uint64_t __36__VCImageQueue_setVideoDestination___block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5);
 }
 
 - (void)stop
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5);
 }
 
 - (void)pause
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5);
 }
 
 - (void)createAndCopyPerformanceDictionary:(const __CFDictionary *)dictionary
@@ -2165,7 +2165,7 @@ void ___VCImageQueue_setFenceWithCompletionHandler_block_invoke(uint64_t a1)
       v40 = 1607;
       v41 = 2112;
       *v42 = description;
-      OUTLINED_FUNCTION_7_2(&dword_1DB56E000, v7, v8, " [%s] %s:%d videoBufferDescription=%@", v9, v10, v11, v12, v36);
+      OUTLINED_FUNCTION_7_2(&dword_1DB56E000, v7, v8, " [%s] %s:%d videoBufferDescription=%@", v9, v10, v11, v12);
     }
   }
 
@@ -2411,10 +2411,10 @@ LABEL_20:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d drawingContext sContext is now [CAContext localContext]", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d drawingContext sContext is now [CAContext localContext]", v2, v3, v4, v5);
 }
 
-- (uint64_t)createCAContextWithSize:(id *)a3 .cold.1(uint64_t a1, uint64_t a2, id *a3)
+- (void)createCAContextWithSize:(id *)a3 .cold.1(uint64_t a1, uint64_t a2, id *a3)
 {
   [a1 configureCALayerWithRect:a2 name:?];
   *(a1 + 168) = [*a3 contextId];
@@ -2766,7 +2766,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d ", v2, v3, v4, v5);
 }
 
 - (void)createAndCopyPerformanceDictionary:.cold.1()

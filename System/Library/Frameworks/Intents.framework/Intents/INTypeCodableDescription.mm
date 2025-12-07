@@ -96,13 +96,13 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v23[3] = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = INTypeCodableDescription;
+  v22[3] = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = INTypeCodableDescription;
   localizerCopy = localizer;
-  v5 = [(INCodableDescription *)&v21 dictionaryRepresentationWithLocalizer:localizerCopy];
+  v5 = [(INCodableDescription *)&v20 dictionaryRepresentationWithLocalizer:localizerCopy];
   __ClassNameKey = [objc_opt_class() __ClassNameKey];
-  v22[0] = __ClassNameKey;
+  v21[0] = __ClassNameKey;
   className = [(INCodableDescription *)self className];
   v7 = className;
   if (!className)
@@ -110,10 +110,10 @@
     className = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = className;
-  v23[0] = className;
+  v18 = className;
+  v22[0] = className;
   __DisplayNameKey = [objc_opt_class() __DisplayNameKey];
-  v22[1] = __DisplayNameKey;
+  v21[1] = __DisplayNameKey;
   v9 = [(INTypeCodableDescription *)self localizedDisplayNameWithLocalizer:localizerCopy];
 
   null = v9;
@@ -122,9 +122,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null;
+  v22[1] = null;
   __DisplayNameIDKey = [objc_opt_class() __DisplayNameIDKey];
-  v22[2] = __DisplayNameIDKey;
+  v21[2] = __DisplayNameIDKey;
   displayNameLocID = [(INTypeCodableDescription *)self displayNameLocID];
   null2 = displayNameLocID;
   if (!displayNameLocID)
@@ -132,8 +132,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null2;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v22[2] = null2;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
   v15 = [v5 if_dictionaryByAddingEntriesFromDictionary:v14];
 
   if (!displayNameLocID)
@@ -149,8 +149,6 @@
   }
 
   if_dictionaryWithNonEmptyValues = [v15 if_dictionaryWithNonEmptyValues];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

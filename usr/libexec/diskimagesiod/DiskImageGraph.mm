@@ -8,6 +8,9 @@
 + (BOOL)validateWithDictionary:(id)dictionary error:(id *)error;
 + (id)createGraphDictWithNode:(id)node;
 - (BOOL)checkStackValidityWithError:(id *)error;
+- (BOOL)removeNodeWithTag:(id)tag recursive:(BOOL)recursive error:(id *)error;
+- (BOOL)removeNodeWithUUID:(id)d recursive:(BOOL)recursive error:(id *)error;
+- (BOOL)removeWithNode:(id)node recursive:(BOOL)recursive error:(id *)error;
 - (BOOL)savePstackWithURL:(id)l error:(id *)error;
 - (BOOL)setActiveNodeWithTag:(id)tag error:(id *)error;
 - (BOOL)setActiveNodeWithUUID:(id)d error:(id *)error;
@@ -44,41 +47,51 @@
           v10 = v8;
           *dict = v8;
           v11 = 1;
-LABEL_15:
+LABEL_18:
 
-          goto LABEL_16;
+          goto LABEL_19;
         }
 
         v12 = *__error();
-        if (sub_1000E95F0())
+        v13 = sub_1000E95F0();
+        if (v13)
         {
-          v13 = sub_1000E957C();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-          *buf = 68157954;
-          v20 = 57;
-          v21 = 2080;
-          v22 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
-          LODWORD(v18) = 18;
-          v17 = buf;
-          v14 = _os_log_send_and_compose_impl();
-
-          if (v14)
+          v21 = 0;
+          v15 = sub_1000E957C(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            fprintf(__stderrp, "%s\n", v14);
-            free(v14);
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          *buf = 68157954;
+          v23 = 57;
+          v24 = 2080;
+          v25 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
+          LODWORD(v20) = 18;
+          v17 = _os_log_send_and_compose_impl(v16, &v21, 0, 0, &_mh_execute_header, v15, 0, "%.*s: A valid plist was given, but it has no pstack version key", buf, v20);
+
+          if (v17)
+          {
+            fprintf(__stderrp, "%s\n", v17);
+            free(v17);
           }
         }
 
         else
         {
-          v15 = sub_1000E957C();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_1000E957C(v13, v14);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68157954;
-            v20 = 57;
-            v21 = 2080;
-            v22 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: A valid plist was given, but it has no pstack version key", buf, 0x12u);
+            v23 = 57;
+            v24 = 2080;
+            v25 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%.*s: A valid plist was given, but it has no pstack version key", buf, 0x12u);
           }
         }
 
@@ -86,12 +99,12 @@ LABEL_15:
       }
     }
 
-    v11 = [DiskImageGraph failWithNoPstackError:error, v17, v18];
-    goto LABEL_15;
+    v11 = [DiskImageGraph failWithNoPstackError:error];
+    goto LABEL_18;
   }
 
   v11 = 0;
-LABEL_16:
+LABEL_19:
 
   return v11;
 }
@@ -128,9 +141,9 @@ LABEL_16:
   nameCopy = name;
   paramsCopy = params;
   tagCopy = tag;
-  v32.receiver = self;
-  v32.super_class = DiskImageGraph;
-  v12 = [(DiskImageGraph *)&v32 init];
+  v37.receiver = self;
+  v37.super_class = DiskImageGraph;
+  v12 = [(DiskImageGraph *)&v37 init];
   if (!v12)
   {
     goto LABEL_4;
@@ -140,8 +153,8 @@ LABEL_16:
   if (v13)
   {
     v14 = v13;
-    LOBYTE(v31) = 0;
-    v15 = [[PluginDiskImageGraphNode alloc] initWithPluginName:nameCopy pluginParams:paramsCopy tag:tagCopy UUID:v13 parentNode:0 metadata:0 isCache:v31];
+    LOBYTE(v34) = 0;
+    v15 = [[PluginDiskImageGraphNode alloc] initWithPluginName:nameCopy pluginParams:paramsCopy tag:tagCopy UUID:v13 parentNode:0 metadata:0 isCache:v34];
     activeNode = v12->_activeNode;
     v12->_activeNode = &v15->super;
     v17 = v15;
@@ -161,43 +174,55 @@ LABEL_16:
 
 LABEL_4:
     v25 = v12;
-    goto LABEL_12;
+    goto LABEL_15;
   }
 
   v26 = *__error();
-  if (sub_1000E95F0())
+  v27 = sub_1000E95F0();
+  if (v27)
   {
-    v27 = sub_1000E957C();
-    os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v34 = 60;
-    v35 = 2080;
-    v36 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
-    v28 = _os_log_send_and_compose_impl();
-
-    if (v28)
+    v36 = 0;
+    v29 = sub_1000E957C(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      fprintf(__stderrp, "%s\n", v28);
-      free(v28);
+      v30 = 3;
+    }
+
+    else
+    {
+      v30 = 2;
+    }
+
+    *buf = 68157954;
+    v39 = 60;
+    v40 = 2080;
+    v41 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
+    LODWORD(v35) = 18;
+    v31 = _os_log_send_and_compose_impl(v30, &v36, 0, 0, &_mh_execute_header, v29, 16, "%.*s: Failed to get UUID info of provided image.", buf, v35);
+
+    if (v31)
+    {
+      fprintf(__stderrp, "%s\n", v31);
+      free(v31);
     }
   }
 
   else
   {
-    v29 = sub_1000E957C();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v32 = sub_1000E957C(v27, v28);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
-      v34 = 60;
-      v35 = 2080;
-      v36 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
+      v39 = 60;
+      v40 = 2080;
+      v41 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
     }
   }
 
   v25 = 0;
   *__error() = v26;
-LABEL_12:
+LABEL_15:
 
   return v25;
 }
@@ -206,9 +231,9 @@ LABEL_12:
 {
   lCopy = l;
   tagCopy = tag;
-  v25.receiver = self;
-  v25.super_class = DiskImageGraph;
-  v10 = [(DiskImageGraph *)&v25 init];
+  v30.receiver = self;
+  v30.super_class = DiskImageGraph;
+  v10 = [(DiskImageGraph *)&v30 init];
   if (!v10)
   {
     goto LABEL_4;
@@ -233,43 +258,55 @@ LABEL_12:
 
 LABEL_4:
     v19 = v10;
-    goto LABEL_12;
+    goto LABEL_15;
   }
 
   v20 = *__error();
-  if (sub_1000E95F0())
+  v21 = sub_1000E95F0();
+  if (v21)
   {
-    v21 = sub_1000E957C();
-    os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v27 = 49;
-    v28 = 2080;
-    v29 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
-    v22 = _os_log_send_and_compose_impl();
-
-    if (v22)
+    v29 = 0;
+    v23 = sub_1000E957C(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      fprintf(__stderrp, "%s\n", v22);
-      free(v22);
+      v24 = 3;
+    }
+
+    else
+    {
+      v24 = 2;
+    }
+
+    *buf = 68157954;
+    v32 = 49;
+    v33 = 2080;
+    v34 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
+    LODWORD(v28) = 18;
+    v25 = _os_log_send_and_compose_impl(v24, &v29, 0, 0, &_mh_execute_header, v23, 16, "%.*s: Failed to get UUID info of provided image.", buf, v28);
+
+    if (v25)
+    {
+      fprintf(__stderrp, "%s\n", v25);
+      free(v25);
     }
   }
 
   else
   {
-    v23 = sub_1000E957C();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = sub_1000E957C(v21, v22);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
-      v27 = 49;
-      v28 = 2080;
-      v29 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
+      v32 = 49;
+      v33 = 2080;
+      v34 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
     }
   }
 
   v19 = 0;
   *__error() = v20;
-LABEL_12:
+LABEL_15:
 
   return v19;
 }
@@ -752,6 +789,136 @@ LABEL_7:
   }
 
   return v5 != 0;
+}
+
+- (BOOL)removeNodeWithUUID:(id)d recursive:(BOOL)recursive error:(id *)error
+{
+  recursiveCopy = recursive;
+  dCopy = d;
+  nodes = [(DiskImageGraph *)self nodes];
+  uUIDString = [dCopy UUIDString];
+
+  v11 = [nodes objectForKeyedSubscript:uUIDString];
+
+  if (v11)
+  {
+    v12 = [(DiskImageGraph *)self removeWithNode:v11 recursive:recursiveCopy error:error];
+  }
+
+  else
+  {
+    v12 = [DIError failWithPOSIXCode:22 verboseInfo:@"Cannot find image with provided UUID." error:error];
+  }
+
+  v13 = v12;
+
+  return v13;
+}
+
+- (BOOL)removeNodeWithTag:(id)tag recursive:(BOOL)recursive error:(id *)error
+{
+  recursiveCopy = recursive;
+  v8 = [(DiskImageGraph *)self getImageWithTag:tag error:error];
+  if (v8)
+  {
+    v9 = [(DiskImageGraph *)self removeWithNode:v8 recursive:recursiveCopy error:error];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (BOOL)removeWithNode:(id)node recursive:(BOOL)recursive error:(id *)error
+{
+  recursiveCopy = recursive;
+  nodeCopy = node;
+  parent = [nodeCopy parent];
+
+  if (parent)
+  {
+    getDescendants = [nodeCopy getDescendants];
+    if (![getDescendants count] || recursiveCopy)
+    {
+      activeNode = [(DiskImageGraph *)self activeNode];
+      v15 = activeNode;
+      if (activeNode == nodeCopy)
+      {
+      }
+
+      else
+      {
+        activeNode2 = [(DiskImageGraph *)self activeNode];
+        v17 = [getDescendants containsObject:activeNode2];
+
+        if (!v17)
+        {
+          v31 = 0u;
+          v32 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          mutableChildren = [nodeCopy mutableChildren];
+          v19 = [mutableChildren countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v19)
+          {
+            v20 = v19;
+            v21 = *v30;
+            do
+            {
+              for (i = 0; i != v20; i = i + 1)
+              {
+                if (*v30 != v21)
+                {
+                  objc_enumerationMutation(mutableChildren);
+                }
+
+                [(DiskImageGraph *)self removeWithNode:*(*(&v29 + 1) + 8 * i) recursive:recursiveCopy error:0];
+              }
+
+              v20 = [mutableChildren countByEnumeratingWithState:&v29 objects:v33 count:16];
+            }
+
+            while (v20);
+          }
+
+          [nodeCopy deleteImage];
+          imagesDictsArray = [(DiskImageGraph *)self imagesDictsArray];
+          pstackDict = [nodeCopy pstackDict];
+          [imagesDictsArray removeObject:pstackDict];
+
+          nodes = [(DiskImageGraph *)self nodes];
+          uUID = [nodeCopy UUID];
+          uUIDString = [uUID UUIDString];
+          [nodes removeObjectForKey:uUIDString];
+
+          v13 = 1;
+          goto LABEL_19;
+        }
+      }
+
+      v11 = @"The requested operation will delete the active node, please set another one first.";
+      v12 = 22;
+    }
+
+    else
+    {
+      v11 = @"The requested operation will delete all children of the provided node. use recursive removal to surpress this error.";
+      v12 = 1;
+    }
+
+    v13 = [DIError failWithPOSIXCode:v12 verboseInfo:v11 error:error];
+LABEL_19:
+
+    goto LABEL_20;
+  }
+
+  v13 = [DIError failWithPOSIXCode:22 verboseInfo:@"Cannot delete base image node." error:error];
+LABEL_20:
+
+  return v13;
 }
 
 - (BOOL)savePstackWithURL:(id)l error:(id *)error

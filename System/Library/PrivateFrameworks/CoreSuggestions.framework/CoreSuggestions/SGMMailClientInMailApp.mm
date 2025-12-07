@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar isSynced:(SGMTypeSafeBool_)synced service:(SGMEventICSSourceType_)service
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   if (synced.var0)
   {
     if (synced.var0 == 1)
@@ -45,34 +45,31 @@
   }
 
   tracker = self->_tracker;
-  v18[0] = v9;
-  v18[1] = v12;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = v9;
+  v17[1] = v12;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v16 value:scalar];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMMailClientInMailApp)init
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = SGMMailClientInMailApp;
-  v2 = [(SGMMailClientInMailApp *)&v11 init];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = SGMMailClientInMailApp;
+  v2 = [(SGMMailClientInMailApp *)&v10 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"IsSynced"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Service"];
     v5 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v12[0] = v3;
-    v12[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = v3;
+    v11[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v7 = [v5 initWithFeatureId:@"Found" event:@"MailSyncedViaMaild" registerProperties:v6 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -142,7 +142,7 @@ void __44__SBSceneDisconnectionManager_sharedManager__block_invoke()
 
             else
             {
-              v24 = SBLogWorkspace();
+              v24 = SBLogWorkspace(0);
               if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
@@ -165,7 +165,7 @@ void __44__SBSceneDisconnectionManager_sharedManager__block_invoke()
       else
       {
         self->_isExecuting = 0;
-        v23 = SBLogWorkspace();
+        v23 = SBLogWorkspace(0);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -192,7 +192,7 @@ uint64_t __79__SBSceneDisconnectionManager__beginSceneCleanupWithBackgroundedSce
 uint64_t __79__SBSceneDisconnectionManager__beginSceneCleanupWithBackgroundedSceneEntities___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 0;
   }
@@ -220,7 +220,7 @@ uint64_t __79__SBSceneDisconnectionManager__beginSceneCleanupWithBackgroundedSce
 void __79__SBSceneDisconnectionManager__beginSceneCleanupWithBackgroundedSceneEntities___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = SBLogWorkspace();
+  v5 = SBLogWorkspace(v4);
   v6 = v5;
   if (v4)
   {
@@ -242,8 +242,7 @@ void __79__SBSceneDisconnectionManager__beginSceneCleanupWithBackgroundedSceneEn
 - (BOOL)shouldDisconnectScene:(id)scene inSwitcher:(id)switcher
 {
   switcherCopy = switcher;
-  sceneIfExists = [scene sceneIfExists];
-  v11 = [sceneIfExists isValid] && (objc_msgSend(sceneIfExists, "settings"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isForeground"), v8, (v9 & 1) == 0) && (v10 = -[SBSceneDisconnectionManager positionOf:inSwitcher:](self, "positionOf:inSwitcher:", sceneIfExists, switcherCopy), v10 != 0x7FFFFFFFFFFFFFFFLL) && v10 >= self->_numberOfRecentScenesExcludedFromDisconnection;
+  v11 = [sceneIfExists isValid] && (objc_msgSend(sceneIfExists, "settings"), v8 = sceneIfExists = [scene sceneIfExists];
 
   return v11;
 }

@@ -76,7 +76,7 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   sub_1000D9628(&v9, &v11);
   if (v10)
   {
@@ -90,7 +90,7 @@
   v6 = v11;
   v7 = [v5 initWithFileDescriptor:(*(*v11 + 192))(v11)];
   [coderCopy encodeObject:v7 forKey:@"file_handle"];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   [coderCopy encodeBool:(*(*v9 + 48))(v9) forKey:@"is_writable"];
   if (v10)
   {

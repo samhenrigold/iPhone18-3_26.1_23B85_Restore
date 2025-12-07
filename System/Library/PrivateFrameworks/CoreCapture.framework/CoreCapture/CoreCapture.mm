@@ -44,7 +44,7 @@ double __CCPipeRelease(uint64_t a1)
 
 uint64_t CCPipe_create(uint64_t *a1, uint64_t a2, mach_port_t *a3, const char *a4)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if (!__kCCPipeTypeID)
   {
     pthread_once(&__gCCPipeTypeInit, __CCPipeRegister);
@@ -56,7 +56,7 @@ uint64_t CCPipe_create(uint64_t *a1, uint64_t a2, mach_port_t *a3, const char *a
     v14 = 3825187585;
     if (!a3)
     {
-      goto LABEL_9;
+      return v14;
     }
 
     goto LABEL_15;
@@ -72,8 +72,8 @@ uint64_t CCPipe_create(uint64_t *a1, uint64_t a2, mach_port_t *a3, const char *a
   *(Instance + 56) = 0u;
   *(Instance + 16) = a3;
   CFRetain(a3);
-  v17 = 8;
-  v10 = IOConnectCallMethod(a3[5], 2u, 0, 0, a4, 0x448uLL, 0, 0, outputStruct, &v17);
+  v16 = 8;
+  v10 = IOConnectCallMethod(a3[5], 2u, 0, 0, a4, 0x448uLL, 0, 0, outputStruct, &v16);
   if (v10)
   {
     goto LABEL_10;
@@ -87,8 +87,8 @@ uint64_t CCPipe_create(uint64_t *a1, uint64_t a2, mach_port_t *a3, const char *a
   *(v8 + 48) = 0;
   if (!v12)
   {
-    v18[0] = 24;
-    v10 = IOConnectCallMethod(*(*(v8 + 16) + 20), 6u, 0, 0, outputStruct, 8uLL, 0, 0, (v8 + 64), v18);
+    v17[0] = 24;
+    v10 = IOConnectCallMethod(*(*(v8 + 16) + 20), 6u, 0, 0, outputStruct, 8uLL, 0, 0, (v8 + 64), v17);
     if (!v10)
     {
       v13 = os_log_create(a4 + 580, a4 + 836);
@@ -108,62 +108,58 @@ LABEL_14:
     CFRelease(v8);
 LABEL_15:
     CFRelease(a3);
-    goto LABEL_9;
+    return v14;
   }
 
 LABEL_8:
   v14 = 0;
   *(v8 + 56) = 0;
   *(v8 + 88) = 1;
-LABEL_9:
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-uint64_t CCPipe_capture(uint64_t a1)
+uint64_t CCPipe_capture(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x277D85DE8];
-  *&v2 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v13 = v2;
-  v12 = v2;
-  v11 = v2;
-  v10 = v2;
-  v9 = v2;
-  v8 = v2;
-  v7 = v2;
-  v6 = v2;
+  *&v3 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v13 = v3;
+  v12 = v3;
+  v11 = v3;
+  v10 = v3;
+  v9 = v3;
+  v8 = v3;
+  v7 = v3;
+  v6 = v3;
   inputStruct = *(a1 + 24);
   __strlcpy_chk();
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0xAu, 0, 0, &inputStruct, 0x88uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0xAu, 0, 0, &inputStruct, 0x88uLL, 0, 0, 0, 0);
 }
 
-uint64_t CCPipe_logw(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unint64_t a5, uint64_t a6, int a7)
+uint64_t CCPipe_logw(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unint64_t a5, uint64_t a6, int a7)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (!a7)
   {
     goto LABEL_18;
   }
 
-  v60 = 0xAAAAAAAAAAAAAAAALL;
-  memset(v70, 170, 20);
-  memset(&v59, 0, sizeof(v59));
-  time(&v60);
-  localtime_r(&v60, &v59);
-  strftime(v70, 0x14uLL, "%b %d %H:%M:%S", &v59);
-  *v68 = 0;
-  v69 = 0;
-  strftime(v68, 0x10uLL, "%z", &v59);
-  v67 = 0xAAAAAAAAAAAAAAAALL;
+  v57 = 0xAAAAAAAAAAAAAAAALL;
+  memset(v67, 170, 20);
+  memset(&v56, 0, sizeof(v56));
+  time(&v57);
+  localtime_r(&v57, &v56);
+  strftime(v67, 0x14uLL, "%b %d %H:%M:%S", &v56);
+  *v65 = 0;
+  v66 = 0;
+  strftime(v65, 0x10uLL, "%z", &v56);
+  v64 = 0xAAAAAAAAAAAAAAAALL;
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__str = v12;
-  v66 = v12;
+  v63 = v12;
   v13 = a3 > 7 ? 45 : dword_24529F9B0[a3];
-  snprintf(__str, 0x28uLL, "%s.%06d %s <%c>", v70, v59.tm_sec, v68, v13);
+  snprintf(__str, 0x28uLL, "%s.%06d %s <%c>", v67, v56.tm_sec, v65, v13);
   v14 = *(a1 + 96);
   if (!v14)
   {
@@ -172,7 +168,7 @@ uint64_t CCPipe_logw(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uni
 
   if (a3 <= 4)
   {
-    if (a3 - 2 >= 3 && a3 < 2)
+    if ((a3 - 2) >= 3 && a3 < 2)
     {
       v15 = OS_LOG_TYPE_ERROR;
       goto LABEL_16;
@@ -183,7 +179,7 @@ LABEL_8:
     goto LABEL_16;
   }
 
-  if (a3 - 6 < 2)
+  if ((a3 - 6) < 2)
   {
 LABEL_12:
     v15 = OS_LOG_TYPE_DEBUG;
@@ -205,47 +201,46 @@ LABEL_16:
   if (os_log_type_enabled(*(a1 + 96), v15))
   {
     *buf = 136315394;
-    v62 = __str;
-    v63 = 2080;
-    v64 = a4;
+    v59 = __str;
+    v60 = 2080;
+    v61 = a4;
     _os_log_impl(&dword_24529D000, v14, v15, "%s %s", buf, 0x16u);
   }
 
 LABEL_18:
   if (!a6)
   {
-    goto LABEL_72;
+    return a6;
   }
 
-  v58 = a3;
+  v55 = a3;
   a6 = 3758097086;
-  *&v59.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-  *&v59.tm_hour = 0xAAAAAAAAAAAAAAAALL;
-  gettimeofday(&v59, 0);
-  v16 = *&v59.tm_sec;
+  *&v56.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+  *&v56.tm_hour = 0xAAAAAAAAAAAAAAAALL;
+  gettimeofday(&v56, 0);
+  v16 = *&v56.tm_sec;
   v17 = *(a1 + 64);
   v18 = *(a1 + 72);
   v19 = *(a1 + 80);
   *buf = v19[1];
-  *v70 = *v19;
+  *v67 = *v19;
   if (*buf >= v18)
   {
-    a6 = 3758097097;
-    goto LABEL_72;
+    return 3758097097;
   }
 
-  tm_hour = v59.tm_hour;
-  if (*v70 < *buf)
+  tm_hour = v56.tm_hour;
+  if (*v67 < *buf)
   {
-    LODWORD(v20) = *v70 + v18 - *buf;
+    LODWORD(v20) = *v67 + v18 - *buf;
   }
 
   else
   {
-    LODWORD(v20) = *v70 - *buf;
+    LODWORD(v20) = *v67 - *buf;
   }
 
-  if (*v70 == *buf)
+  if (*v67 == *buf)
   {
     v20 = v18;
   }
@@ -262,176 +257,171 @@ LABEL_18:
     v22 += (v18 - *buf);
   }
 
-  v57 = v20 - 4;
+  v54 = v20 - 4;
   if (v20 - 4 < v22)
   {
-    v55 = v22;
+    v52 = v22;
     isCCDaemonRunning = __isCCDaemonRunning();
-    v22 = v55;
+    v22 = v52;
     if (isCCDaemonRunning && (*(a1 + 32) || v19[2]))
     {
-      goto LABEL_72;
+      return a6;
     }
 
-    v53 = v16;
+    v50 = v16;
     v24 = a1;
     v25 = *(a1 + 64);
     v26 = *(v24 + 72);
     v27 = *(v24 + 80);
-    v54 = v24;
-    v28 = *v27;
-    if (v55 == -4)
+    v51 = v24;
+    if (v52 == -4)
     {
-      v35 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v52 = v19;
-      v29 = 0;
+      v49 = v19;
+      v28 = 0;
       do
       {
         *__str = *v27;
-        v30 = *__str;
-        v31 = v25 + *__str;
-        if (*v31 == 80)
+        v29 = *__str;
+        v30 = v25 + *__str;
+        if (*v30 == 80)
         {
-          v29 += 4;
-          v32 = *__str + 4;
+          v28 += 4;
+          v31 = *__str + 4;
         }
 
         else
         {
-          if (*v31 == 82)
+          if (*v30 == 82)
           {
             break;
           }
 
-          v33 = *(v31 + 24) + *(v31 + 26) + 36;
-          v29 += v33;
-          v32 = v33 + *__str;
+          v32 = *(v30 + 24) + *(v30 + 26) + 36;
+          v28 += v32;
+          v31 = v32 + *__str;
         }
 
-        *__str = v32 % v26;
-        v34 = v30;
-        atomic_compare_exchange_strong_explicit(v27, &v34, v32 % v26, memory_order_relaxed, memory_order_relaxed);
-        if (v34 != v30)
+        *__str = v31 % v26;
+        v33 = v29;
+        atomic_compare_exchange_strong_explicit(v27, &v33, v31 % v26, memory_order_relaxed, memory_order_relaxed);
+        if (v33 != v29)
         {
-          printf("Someone changed readPtr %d->%d.\n", v30, *v27);
+          printf("Someone changed readPtr %d->%d.\n", v29, *v27);
         }
       }
 
-      while (v55 + 4 > v29);
-      v35 = v29;
-      v19 = v52;
-      v22 = v55;
+      while (v52 + 4 > v28);
+      v34 = v28;
+      v19 = v49;
+      v22 = v52;
     }
 
     v21 = (a5 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-    a1 = v54;
-    v16 = v53;
-    if (v22 >= v35)
+    a1 = v51;
+    v16 = v50;
+    if (v22 >= v34)
     {
-      atomic_fetch_add_explicit((v54 + 48), 1u, memory_order_relaxed);
-      goto LABEL_72;
+      atomic_fetch_add_explicit((v51 + 48), 1u, memory_order_relaxed);
+      return a6;
     }
   }
 
-  v36 = v22;
-  v37 = *buf >> 2;
-  v38 = (v17 + 4 * v37);
-  v39 = v18 >> 2;
-  v40 = v17 + 4 * v39;
+  v35 = v22;
+  v36 = *buf >> 2;
+  v37 = (v17 + 4 * v36);
+  v38 = v18 >> 2;
+  v39 = v17 + 4 * v38;
   if ((v18 - *buf) > 0x23)
   {
-    v41 = (v17 + 4 * v37);
+    v40 = (v17 + 4 * v36);
   }
 
   else
   {
-    v41 = v17;
-    if (v39 > v37)
+    v40 = v17;
+    if (v38 > v36)
     {
-      v42 = v38 + 4;
-      if ((v38 + 4) <= v40)
+      v41 = v37 + 4;
+      if ((v37 + 4) <= v39)
       {
-        v42 = (v17 + 4 * v39);
+        v41 = (v17 + 4 * v38);
       }
 
-      memset_pattern16(v38, &unk_24529F9D0, (&v42[~v17 - 4 * v37] & 0xFFFFFFFFFFFFFFFCLL) + 4);
-      v41 = v17;
+      memset_pattern16(v37, &unk_24529F9D0, (&v41[~v17 - 4 * v36] & 0xFFFFFFFFFFFFFFFCLL) + 4);
+      v40 = v17;
     }
   }
 
-  v43 = v41 + 36;
-  if (v41 + 36 == v40)
+  v42 = v40 + 36;
+  if (v40 + 36 == v39)
   {
-    v43 = v17;
+    v42 = v17;
   }
 
-  *v41 = 82;
-  *(v41 + 3) = atomic_fetch_add_explicit((a1 + 48), 1u, memory_order_relaxed) + 1;
-  *buf += v36;
+  *v40 = 82;
+  *(v40 + 3) = atomic_fetch_add_explicit((a1 + 48), 1u, memory_order_relaxed) + 1;
+  *buf += v35;
   *buf %= v18;
   v19[1] = *buf;
-  *(v41 + 2) = 0;
-  *(v41 + 1) = v16;
-  *(v41 + 2) = tm_hour;
-  *(v41 + 12) = a5;
-  v41[26] = v21 - a5;
-  v41[27] = v58;
-  *(v41 + 28) = 0;
-  v44 = *v19;
+  *(v40 + 2) = 0;
+  *(v40 + 1) = v16;
+  *(v40 + 2) = tm_hour;
+  *(v40 + 12) = a5;
+  v40[26] = v21 - a5;
+  v40[27] = v55;
+  *(v40 + 28) = 0;
   if (a5)
   {
-    v45 = 0;
-    v46 = 1;
-    v47 = v57;
+    v43 = 0;
+    v44 = 1;
+    v45 = v54;
     do
     {
-      *v43++ = *(a4 + v45);
-      if (v43 == v40)
+      *v42++ = *(a4 + v43);
+      if (v42 == v39)
       {
-        v43 = v17;
+        v42 = v17;
       }
 
-      v45 = v46++;
+      v43 = v44++;
     }
 
-    while (v45 < a5);
+    while (v43 < a5);
   }
 
   else
   {
-    v47 = v57;
+    v45 = v54;
   }
 
   if (v21 > a5)
   {
-    v48 = a5 - v21;
+    v46 = a5 - v21;
     do
     {
-      *v43++ = 0;
-      if (v43 == v40)
+      *v42++ = 0;
+      if (v42 == v39)
       {
-        v43 = v17;
+        v42 = v17;
       }
     }
 
-    while (!__CFADD__(v48++, 1));
+    while (!__CFADD__(v46++, 1));
   }
 
   __dmb(0xBu);
-  *v41 = 87;
-  if (*(a1 + 32) == 1 && __isCCDaemonRunning() && v47 < *(a1 + 40) && !v19[2])
+  *v40 = 87;
+  if (*(a1 + 32) == 1 && __isCCDaemonRunning() && v45 < *(a1 + 40) && !v19[2])
   {
     __sendNotification(a1);
   }
 
-  a6 = 0;
-LABEL_72:
-  v50 = *MEMORY[0x277D85DE8];
-  return a6;
+  return 0;
 }
 
 BOOL __isCCDaemonRunning()
@@ -505,7 +495,7 @@ double __CCStreamRelease(uint64_t a1)
 
 uint64_t CCStream_create(uint64_t *a1, uint64_t a2, void *a3, const void *a4)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (!__kCCStreamTypeID)
   {
     pthread_once(&__gCCStreamTypeInit, __CCStreamRegister);
@@ -517,7 +507,7 @@ uint64_t CCStream_create(uint64_t *a1, uint64_t a2, void *a3, const void *a4)
     v12 = 3825187585;
     if (!a3)
     {
-      goto LABEL_7;
+      return v12;
     }
 
     goto LABEL_13;
@@ -536,8 +526,8 @@ uint64_t CCStream_create(uint64_t *a1, uint64_t a2, void *a3, const void *a4)
   CFRetain(v9);
   *(v8 + 24) = a3;
   CFRetain(a3);
-  v15[0] = 80;
-  v10 = IOConnectCallMethod(v9[5], 4u, 0, 0, a4, 0x450uLL, 0, 0, (v8 + 32), v15);
+  v14[0] = 80;
+  v10 = IOConnectCallMethod(v9[5], 4u, 0, 0, a4, 0x450uLL, 0, 0, (v8 + 32), v14);
   if (v10)
   {
     v12 = v10;
@@ -546,7 +536,7 @@ LABEL_12:
     CFRelease(v9);
 LABEL_13:
     CFRelease(a3);
-    goto LABEL_7;
+    return v12;
   }
 
   *(v8 + 48) = 2048;
@@ -564,21 +554,17 @@ LABEL_13:
   *(v8 + 80) = -1;
   *(v8 + 88) = 0;
   *(v8 + 112) = 1;
-LABEL_7:
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t CCStream_setFlags(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   inputStruct[1] = -1431655766;
-  v6 = a2;
+  v5 = a2;
   inputStruct[0] = v2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0xBu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0xBu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
 }
 
 unint64_t CCStream_getFlags(uint64_t a1)
@@ -587,56 +573,47 @@ unint64_t CCStream_getFlags(uint64_t a1)
   inputStruct[0] = 0xAAAAAAAAAAAAAAAALL;
   inputStruct[1] = 0xAAAAAAAAAAAAAAAALL;
   LODWORD(inputStruct[0]) = *(a1 + 32);
-  v3 = 8;
+  v2 = 8;
   outputStruct = 0xAAAAAAAAAAAAAAAALL;
-  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0xCu, 0, 0, inputStruct, 0x10uLL, 0, 0, &outputStruct, &v3))
+  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0xCu, 0, 0, inputStruct, 0x10uLL, 0, 0, &outputStruct, &v2))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = outputStruct;
+    return outputStruct;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t CCStream_setLogFlag(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   inputStruct[1] = -1431655766;
-  v6 = a2;
+  v5 = a2;
   inputStruct[0] = v2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0xDu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0xDu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
 }
 
 uint64_t CCStream_clearLogFlag(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   inputStruct[1] = -1431655766;
-  v6 = a2;
+  v5 = a2;
   inputStruct[0] = v2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0xEu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0xEu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
 }
 
 uint64_t CCStream_setConsoleFlags(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   inputStruct[1] = -1431655766;
-  v6 = a2;
+  v5 = a2;
   inputStruct[0] = v2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0xFu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0xFu, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
 }
 
 unint64_t CCStream_getConsoleFlags(uint64_t a1)
@@ -645,119 +622,93 @@ unint64_t CCStream_getConsoleFlags(uint64_t a1)
   inputStruct[0] = 0xAAAAAAAAAAAAAAAALL;
   inputStruct[1] = 0xAAAAAAAAAAAAAAAALL;
   LODWORD(inputStruct[0]) = *(a1 + 32);
-  v3 = 8;
+  v2 = 8;
   outputStruct = 0xAAAAAAAAAAAAAAAALL;
-  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0x10u, 0, 0, inputStruct, 0x10uLL, 0, 0, &outputStruct, &v3))
+  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0x10u, 0, 0, inputStruct, 0x10uLL, 0, 0, &outputStruct, &v2))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = outputStruct;
+    return outputStruct;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t CCStream_setConsoleLogFlag(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   inputStruct[1] = -1431655766;
-  v6 = a2;
+  v5 = a2;
   inputStruct[0] = v2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x11u, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0x11u, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
 }
 
 uint64_t CCStream_clearConsoleLogFlag(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   inputStruct[1] = -1431655766;
-  v6 = a2;
+  v5 = a2;
   inputStruct[0] = v2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x12u, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0x12u, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
 }
 
 uint64_t CCStream_setLevel(uint64_t a1, int a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   inputStruct[0] = *(a1 + 32);
   inputStruct[1] = a2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x13u, 0, 0, inputStruct, 8uLL, 0, 0, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0x13u, 0, 0, inputStruct, 8uLL, 0, 0, 0, 0);
 }
 
 uint64_t CCStream_getLevel(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   inputStruct[0] = *(a1 + 32);
   inputStruct[1] = -1431655766;
   outputStruct = -1431655766;
-  v3 = 4;
-  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0x14u, 0, 0, inputStruct, 8uLL, 0, 0, &outputStruct, &v3))
+  v2 = 4;
+  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0x14u, 0, 0, inputStruct, 8uLL, 0, 0, &outputStruct, &v2))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = outputStruct;
+    return outputStruct;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t CCStream_setConsoleLevel(uint64_t a1, int a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   inputStruct[0] = *(a1 + 32);
   inputStruct[1] = a2;
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x15u, 0, 0, inputStruct, 8uLL, 0, 0, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0x15u, 0, 0, inputStruct, 8uLL, 0, 0, 0, 0);
 }
 
 uint64_t CCStream_getConsoleLevel(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   inputStruct[0] = *(a1 + 32);
   inputStruct[1] = -1431655766;
   outputStruct = -1431655766;
-  v3 = 4;
-  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0x16u, 0, 0, inputStruct, 8uLL, 0, 0, &outputStruct, &v3))
+  v2 = 4;
+  if (IOConnectCallMethod(*(*(a1 + 16) + 20), 0x16u, 0, 0, inputStruct, 8uLL, 0, 0, &outputStruct, &v2))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = outputStruct;
+    return outputStruct;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logEmergency(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 0, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 unint64_t __logv(uint64_t a1, signed int a2, uint64_t a3, const char *a4, va_list a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
   v9 = *(a1 + 24);
   Level = CCStream_getLevel(a1);
   ConsoleLevel = CCStream_getConsoleLevel(a1);
@@ -783,7 +734,7 @@ unint64_t __logv(uint64_t a1, signed int a2, uint64_t a3, const char *a4, va_lis
         {
 LABEL_39:
           *v22 = 0;
-          goto LABEL_40;
+          return result;
         }
 
         if (v23 > result)
@@ -842,144 +793,6 @@ LABEL_29:
     atomic_fetch_add_explicit((v9 + 48), 1u, memory_order_relaxed);
   }
 
-LABEL_40:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logEmergencyIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 0, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logAlert(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 1, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logAlertIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 1, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logCrit(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 2, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logCritIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 2, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logWarn(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 3, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logWarnIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 3, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logNotice(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 4, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logNoticeIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 4, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logInfo(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 5, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logInfoIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 5, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logDebug(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 6, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logDebugIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 6, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logSpam(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 7, -1, a2, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logSpamIf(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, 7, a2, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_log(uint64_t a1, signed int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, a2, -1, a3, &a9);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t CCStream_logIf(uint64_t a1, signed int a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  result = __logv(a1, a2, a3, a4, &a9);
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1027,7 +840,7 @@ void __CCRelease(uint64_t a1)
   *(a1 + 32) = 0;
 }
 
-uint64_t CC_create(void *a1)
+uint64_t CC_create(void *a1, uint64_t a2)
 {
   if (!__kCCTypeID)
   {
@@ -1040,36 +853,36 @@ uint64_t CC_create(void *a1)
     return 3825187585;
   }
 
-  v3 = Instance;
+  v4 = Instance;
   *a1 = Instance;
   Instance[2] = 0;
   Instance[3] = 0;
   Instance[4] = 0;
-  v4 = IOServiceMatching("CoreCaptureResponder");
-  MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v4);
+  v5 = IOServiceMatching("CoreCaptureResponder");
+  MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v5);
   if (!MatchingService)
   {
-    v7 = 0;
+    v8 = 0;
     goto LABEL_12;
   }
 
-  *(v3 + 4) = MatchingService;
-  v6 = IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0x123u, v3 + 5);
-  if (v6)
-  {
-    v7 = v6;
-    goto LABEL_12;
-  }
-
-  v7 = IOConnectCallScalarMethod(*(v3 + 5), 0, 0, 0, 0, 0);
+  *(v4 + 4) = MatchingService;
+  v7 = IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0x123u, v4 + 5);
   if (v7)
   {
-LABEL_12:
-    CFRelease(v3);
-    return v7;
+    v8 = v7;
+    goto LABEL_12;
   }
 
-  v3[3] = _os_activity_start(&dword_24529D000, "CoreCapture Userspace", OS_ACTIVITY_FLAG_DEFAULT);
-  *(v3 + 32) = 1;
-  return v7;
+  v8 = IOConnectCallScalarMethod(*(v4 + 5), 0, 0, 0, 0, 0);
+  if (v8)
+  {
+LABEL_12:
+    CFRelease(v4);
+    return v8;
+  }
+
+  v4[3] = _os_activity_start(&dword_24529D000, "CoreCapture Userspace", OS_ACTIVITY_FLAG_DEFAULT);
+  *(v4 + 32) = 1;
+  return v8;
 }

@@ -36,7 +36,7 @@
 
 - (void)start
 {
-  v3 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -61,7 +61,7 @@ void __43__AppleUSBCLightningAdapterAnalytics_start__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2)
   {
-    v4 = [v3 log];
+    v4 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __43__AppleUSBCLightningAdapterAnalytics_start__block_invoke_cold_1(v4);
@@ -79,7 +79,7 @@ void __43__AppleUSBCLightningAdapterAnalytics_start__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v3 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -112,7 +112,7 @@ void __42__AppleUSBCLightningAdapterAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = [v3 log];
+    v5 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __42__AppleUSBCLightningAdapterAnalytics_stop__block_invoke_cold_1(v5);
@@ -130,14 +130,14 @@ void __42__AppleUSBCLightningAdapterAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Starting matching notifications...", buf, 2u);
     }
 
-    v4 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+    v4 = objc_msgSend_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -172,7 +172,7 @@ void __42__AppleUSBCLightningAdapterAnalytics_stop__block_invoke(uint64_t a1)
 {
   if ([(AppleUSBCLightningAdapterAnalytics *)self monitoring])
   {
-    v3 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -195,7 +195,7 @@ void __42__AppleUSBCLightningAdapterAnalytics_stop__block_invoke(uint64_t a1)
 
 - (void)_handleServiceMatched:(unsigned int)matched
 {
-  v5 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+  v5 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -209,7 +209,7 @@ void __42__AppleUSBCLightningAdapterAnalytics_stop__block_invoke(uint64_t a1)
 
   if (![(AppleUSBCLightningAdapterAnalytics *)self analyticsEventsEnabled])
   {
-    v11 = [(AppleUSBCLightningAdapterAnalytics *)self log];
+    v11 = objc_msgSend_log(self);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -532,7 +532,7 @@ LABEL_49:
     }
   }
 
-  v161 = [(AppleUSBCLightningAdapterAnalytics *)v15 log];
+  v161 = objc_msgSend_log(v15);
   if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -540,7 +540,7 @@ LABEL_49:
     _os_log_impl(&dword_0, v161, OS_LOG_TYPE_DEFAULT, "Sending analytics event... (eventName: %@)", buf, 0xCu);
   }
 
-  v162 = [(AppleUSBCLightningAdapterAnalytics *)v15 log];
+  v162 = objc_msgSend_log(v15);
   if (os_log_type_enabled(v162, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
@@ -551,7 +551,7 @@ LABEL_49:
   v11 = v169;
   if ((AnalyticsSendEventLazy() & 1) == 0)
   {
-    v163 = [(AppleUSBCLightningAdapterAnalytics *)v15 log];
+    v163 = objc_msgSend_log(v15);
     if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;

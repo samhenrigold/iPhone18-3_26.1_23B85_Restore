@@ -31,7 +31,7 @@
   v6 = listCopy[1];
   v7 = listCopy[2];
 
-  sub_2770B694C(&self->super.mRectList, end, v6, v7, (v7 - v6) >> 5);
+  sub_2770B694C(&self->super.mRectList.__begin_, end, v6, v7, (v7 - v6) >> 5);
 }
 
 - (void)setList:(id)list

@@ -89,7 +89,7 @@
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_3_4();
-      *v5 = CBErrorF(-6756, "%@ init failed", v23, v24, v25, v26, v27, v28, v30);
+      *v5 = CBErrorF(-6756, "%@ init failed", v28, v29, v30, v31, v32, v33, v35);
     }
 
     goto LABEL_12;
@@ -99,19 +99,19 @@
   {
     if (v5)
     {
-      v29 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v30);
-      OUTLINED_FUNCTION_16(v29);
+      v34 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v35);
+      OUTLINED_FUNCTION_16(v34);
       goto LABEL_7;
     }
 
     goto LABEL_12;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 != 6)
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_3_1(v14, v15, v16, v17, v18);
+  if (v19 != 6)
   {
-    if (v14 != 5)
+    if (v19 != 5)
     {
       goto LABEL_6;
     }
@@ -121,7 +121,7 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  OUTLINED_FUNCTION_5_4(v14, v15, v16, v17, v18, v19, v20, v21, v30, 0);
+  OUTLINED_FUNCTION_5_4(v19, v20, v21, v22, v23, v24, v25, v26, v35, 0);
 LABEL_6:
   CUXPCDecodeNSData();
   CUXPCDecodeNSData();

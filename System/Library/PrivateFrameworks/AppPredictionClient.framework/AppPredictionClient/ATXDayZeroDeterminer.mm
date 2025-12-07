@@ -29,9 +29,9 @@
   v11 = [currentCalendar dateByAddingUnit:16 value:-ago toDate:v10 options:0];
 
   v12 = v20[5];
-  if (v12 && [v12 compare:v11] != 1)
+  if (v12 && (v12 = [v12 compare:v11], v12 != 1))
   {
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v16 = v20[5];
@@ -47,7 +47,7 @@
 
   else
   {
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = v20[5];

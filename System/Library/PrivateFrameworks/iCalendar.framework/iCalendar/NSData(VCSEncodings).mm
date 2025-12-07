@@ -270,21 +270,21 @@ LABEL_76:
   if (v7)
   {
     uTF8String = [v7 UTF8String];
-    v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:uTF8String length:strlen(uTF8String)];
+    v10 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:uTF8String length:strlen(uTF8String)];
   }
 
   else
   {
-    v10 = VCSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VCSLogHandle(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [NSData(VCSEncodings) VCSConvert8bitBufferToUTF8From:v10];
+      [NSData(VCSEncodings) VCSConvert8bitBufferToUTF8From:v11];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)VCSDecodeQuotedPrintableForText:()VCSEncodings
@@ -376,7 +376,7 @@ LABEL_39:
         {
           if (v13 == 10 && v9 != 0)
           {
-            v6[1] -= v9;
+            v6[1] = v6[1] - v9;
           }
 
           if (v13 == 32)

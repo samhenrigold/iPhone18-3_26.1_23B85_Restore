@@ -46,7 +46,7 @@
   return [PAEChromaKeyeriOS properties]::sPropertiesDict;
 }
 
-uint64_t __31__PAEChromaKeyeriOS_properties__block_invoke()
+void *__31__PAEChromaKeyeriOS_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -144,7 +144,7 @@ uint64_t __31__PAEChromaKeyeriOS_properties__block_invoke()
   v11 = v10;
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
     v22 = v23;
     if (v23)
     {

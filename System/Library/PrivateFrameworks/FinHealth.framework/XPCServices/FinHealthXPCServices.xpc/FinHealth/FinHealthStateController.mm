@@ -4,6 +4,7 @@
 - (id)_checkEventDeletion;
 - (id)_clientConnection;
 - (id)_getRecurringChangeOverTimePeriod:(int64_t)period;
+- (id)_init:(BOOL)_init bypassMapService:(BOOL)service;
 - (id)_insertOrUpdateTransactionPostDirtyState:(id)state;
 - (id)_newClientConnection;
 - (id)_processAggregateFeaturesWithHardReset:(BOOL)reset forceStalenessCheck:(BOOL)check;
@@ -23,6 +24,7 @@
 - (id)predictionLabelForModelName:(id)name modelVersion:(id)version;
 - (id)transactionsByGroupID:(id)d;
 - (id)transactionsInInternalAnyState:(unint64_t)state forPass:(id)pass;
+- (void)_createDBManagerAndAssociatedProperties:(BOOL)properties;
 - (void)_excludeRecurringFromEventTaggingCandidates:(id)candidates;
 - (void)_tagFlightTransactionsWithTripEvents:(id)events;
 - (void)_transactionWithTransactionID:(id)d completion:(id)completion;
@@ -41,6 +43,31 @@
 @end
 
 @implementation FinHealthStateController
+
+- (id)_init:(BOOL)_init bypassMapService:(BOOL)service
+{
+  _initCopy = _init;
+  v9.receiver = self;
+  v9.super_class = FinHealthStateController;
+  v6 = [(FinHealthStateController *)&v9 init];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_lockConnection._os_unfair_lock_opaque = 0;
+    v6->_lockAggregationComputation._os_unfair_lock_opaque = 0;
+    v6->_bypassMapService = service;
+    [(FinHealthStateController *)v6 _createDBManagerAndAssociatedProperties:_initCopy];
+  }
+
+  return v7;
+}
+
+- (void)_createDBManagerAndAssociatedProperties:(BOOL)properties
+{
+  self->_dbMgr = [[FHDatabaseManager alloc] init:properties];
+
+  _objc_release_x1();
+}
 
 - (id)insertOrUpdateTransactions:(id)transactions
 {

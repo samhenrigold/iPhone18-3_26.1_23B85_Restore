@@ -6,7 +6,7 @@
 
 - (void)requestCard:()ACSCardRequesting reply:
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -25,7 +25,7 @@
     firstObject = [mediaItems firstObject];
 
     mediaContainer = [self mediaContainer];
-    v43 = underlyingInteraction;
+    v42 = underlyingInteraction;
     if (underlyingInteraction)
     {
       title = [firstObject title];
@@ -41,7 +41,7 @@
       if (v14)
       {
 LABEL_9:
-        v42 = content;
+        v41 = content;
         v15 = objc_opt_new();
         title3 = [mediaContainer title];
         v17 = [title3 length];
@@ -112,8 +112,8 @@ LABEL_26:
               {
                 v36 = [MEMORY[0x277D4C598] textWithString:title6];
                 [v36 setMaxLines:1];
-                v45 = v36;
-                v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+                v44 = v36;
+                v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
                 [v33 setDescriptions:v37];
               }
 
@@ -126,15 +126,15 @@ LABEL_26:
 
               [v33 acs_setParameters:v15];
               acs_uniquelyIdentifiedCard = [MEMORY[0x277D4C230] acs_uniquelyIdentifiedCard];
-              v44 = v33;
-              v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+              v43 = v33;
+              v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
               [acs_uniquelyIdentifiedCard setCardSections:v40];
 
-              v24 = v43;
-              [acs_uniquelyIdentifiedCard acs_setInteraction:v43];
+              v24 = v42;
+              [acs_uniquelyIdentifiedCard acs_setInteraction:v42];
               v6[2](v6, acs_uniquelyIdentifiedCard, 0);
 
-              content = v42;
+              content = v41;
               goto LABEL_31;
             }
 
@@ -162,17 +162,15 @@ LABEL_25:
 
     v22 = MEMORY[0x277CCA9B8];
     v23 = *MEMORY[0x277CF93E8];
-    v46 = *MEMORY[0x277CCA068];
+    v45 = *MEMORY[0x277CCA068];
     title4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Content %@ is incompatible with this service", content];
-    v47[0] = title4;
-    title6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v46[0] = title4;
+    title6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v15 = [v22 errorWithDomain:v23 code:400 userInfo:title6];
     (v6)[2](v6, 0, v15);
-    v24 = v43;
+    v24 = v42;
 LABEL_31:
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -118,7 +118,7 @@
     originalCoordinateSpace = self->_originalCoordinateSpace;
     if (originalCoordinateSpace)
     {
-      [(CRLAdditionallyTransformedCoordinateSpace *)originalCoordinateSpace additionalTransformIntoCoordinateSpace:self];
+      objc_msgSend_additionalTransformIntoCoordinateSpace_(originalCoordinateSpace);
       v11 = self->_originalCoordinateSpace;
     }
 
@@ -165,7 +165,7 @@
     originalCoordinateSpace = self->_originalCoordinateSpace;
     if (originalCoordinateSpace)
     {
-      [(CRLAdditionallyTransformedCoordinateSpace *)originalCoordinateSpace additionalTransformIntoCoordinateSpace:self];
+      objc_msgSend_additionalTransformIntoCoordinateSpace_(originalCoordinateSpace);
       originalCoordinateSpace = self->_originalCoordinateSpace;
     }
 
@@ -195,7 +195,7 @@
   originalCoordinateSpace = self->_originalCoordinateSpace;
   if (originalCoordinateSpace)
   {
-    [(CRLAdditionallyTransformedCoordinateSpace *)originalCoordinateSpace additionalTransformIntoCoordinateSpace:self];
+    objc_msgSend_additionalTransformIntoCoordinateSpace_(originalCoordinateSpace, a2, self);
     originalCoordinateSpace = self->_originalCoordinateSpace;
   }
 

@@ -37,9 +37,9 @@
     {
       userInput3 = [(UILexiconEntry *)self userInput];
       userInput4 = [v5 userInput];
-      v11 = [userInput3 isEqual:userInput4];
+      isEqual = objc_msgSend_isEqual_(userInput3);
 
-      if (!v11)
+      if (!isEqual)
       {
         v12 = 0;
 LABEL_11:
@@ -59,7 +59,7 @@ LABEL_11:
     {
       documentText3 = [(UILexiconEntry *)self documentText];
       documentText4 = [v5 documentText];
-      v12 = [documentText3 isEqual:documentText4];
+      v12 = objc_msgSend_isEqual_(documentText3);
     }
 
     goto LABEL_11;

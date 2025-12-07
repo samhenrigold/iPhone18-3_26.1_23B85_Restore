@@ -8,20 +8,20 @@
 
 - (FCTransformedResultsStream)initWithStream:(id)stream asyncTransformBlock:(id)block
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   blockCopy = block;
   if (!streamCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "stream != nil"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "stream != nil"];
     *buf = 136315906;
-    v19 = "[FCTransformedResultsStream initWithStream:asyncTransformBlock:]";
-    v20 = 2080;
-    v21 = "FCTransformedResultsStream.m";
-    v22 = 1024;
-    v23 = 23;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "[FCTransformedResultsStream initWithStream:asyncTransformBlock:]";
+    v19 = 2080;
+    v20 = "FCTransformedResultsStream.m";
+    v21 = 1024;
+    v22 = 23;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (blockCopy)
@@ -37,22 +37,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "asyncTransformBlock != nil"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "asyncTransformBlock != nil"];
     *buf = 136315906;
-    v19 = "[FCTransformedResultsStream initWithStream:asyncTransformBlock:]";
-    v20 = 2080;
-    v21 = "FCTransformedResultsStream.m";
-    v22 = 1024;
-    v23 = 24;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "[FCTransformedResultsStream initWithStream:asyncTransformBlock:]";
+    v19 = 2080;
+    v20 = "FCTransformedResultsStream.m";
+    v21 = 1024;
+    v22 = 24;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v17.receiver = self;
-  v17.super_class = FCTransformedResultsStream;
-  v9 = [(FCTransformedResultsStream *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FCTransformedResultsStream;
+  v9 = [(FCTransformedResultsStream *)&v16 init];
   v10 = v9;
   if (v9)
   {
@@ -71,7 +71,6 @@ LABEL_6:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -3,6 +3,7 @@
 - (void)_notifyObserversAboutAccountsEvent:(unint64_t)event;
 - (void)accountManager:(id)manager account:(id)account didChangeState:(int64_t)state;
 - (void)clinicalIngestionManager:(id)manager willChangeIngestionState:(int64_t)state;
+- (void)profileExtension:(id)extension healthRecordsSupported:(BOOL)supported;
 - (void)remote_currentIngestionStatusWithCompletion:(id)completion;
 - (void)remote_deregisterAppSourceFromClinicalUnlimitedAuthorizationModeConfirmation:(id)confirmation completion:(id)completion;
 - (void)remote_fetchClinicalConnectedAccountsWithCompletion:(id)completion;
@@ -62,6 +63,32 @@
   }
 
   return v11;
+}
+
+- (void)profileExtension:(id)extension healthRecordsSupported:(BOOL)supported
+{
+  supportedCopy = supported;
+  _HKInitializeLogging();
+  v6 = HKLogHealthRecords;
+  if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    selfCopy = self;
+    v13 = 1026;
+    v14 = supportedCopy;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: health records supported did change to: %{public}d", buf, 0x12u);
+  }
+
+  client = [(HDHealthRecordsPluginServer *)self client];
+  connection = [client connection];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_C0D8;
+  v10[3] = &unk_105C38;
+  v10[4] = self;
+  v9 = [connection remoteObjectProxyWithErrorHandler:v10];
+
+  [v9 clientRemote_healthRecordsSupportedDidChangeTo:supportedCopy];
 }
 
 - (void)remote_fetchClinicalConnectedAccountsWithCompletion:(id)completion

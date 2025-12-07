@@ -295,40 +295,39 @@ void __71__PPTopicReadOnlyClient_scoresForTopicMapping_query_error_handleBatch__
 
 void __71__PPTopicReadOnlyClient_scoresForTopicMapping_query_error_handleBatch___block_invoke_2(void *a1, void *a2)
 {
-  v16 = a2;
-  if ([v16 count])
+  v14 = a2;
+  if ([v14 count])
   {
-    v15 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v15 handleFailureInMethod:a1[6] object:a1[4] file:@"PPTopicReadOnlyClient.m" lineNumber:213 description:@"scoresForTopicMapping unexpectedly received batch size with odd length"];
+    v13 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v13 handleFailureInMethod:a1[6] object:a1[4] file:@"PPTopicReadOnlyClient.m" lineNumber:213 description:@"scoresForTopicMapping unexpectedly received batch size with odd length"];
   }
 
-  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v16, "count") >> 1}];
-  if ([v16 count] >= 2)
+  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v14, "count") >> 1}];
+  if ([v14 count] >= 2)
   {
     v4 = 0;
     do
     {
       v5 = objc_autoreleasePoolPush();
-      v6 = [v16 objectAtIndexedSubscript:v4];
+      v6 = [v14 objectAtIndexedSubscript:v4];
       v7 = v4 + 1;
-      v8 = [v16 objectAtIndexedSubscript:v7];
-      v9 = a1[7];
-      if ((objc_opt_isKindOfClass() & 1) == 0 || (v10 = a1[8], (objc_opt_isKindOfClass() & 1) == 0))
+      v8 = [v14 objectAtIndexedSubscript:v7];
+      if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_isKindOfClass() & 1) == 0)
       {
-        v14 = [MEMORY[0x1E696AAA8] currentHandler];
-        [v14 handleFailureInMethod:a1[6] object:a1[4] file:@"PPTopicReadOnlyClient.m" lineNumber:220 description:@"scoresForTopicMapping unexpectedly received incorrectly typed batch content"];
+        v12 = [MEMORY[0x1E696AAA8] currentHandler];
+        [v12 handleFailureInMethod:a1[6] object:a1[4] file:@"PPTopicReadOnlyClient.m" lineNumber:220 description:@"scoresForTopicMapping unexpectedly received incorrectly typed batch content"];
       }
 
-      v11 = [objc_alloc(MEMORY[0x1E69C5D98]) initWithFirst:v6 second:v8];
-      [v3 addObject:v11];
+      v9 = [objc_alloc(MEMORY[0x1E69C5D98]) initWithFirst:v6 second:v8];
+      [v3 addObject:v9];
 
       objc_autoreleasePoolPop(v5);
-      v12 = [v16 count];
-      v13 = v7 + 2;
+      v10 = [v14 count];
+      v11 = v7 + 2;
       v4 = v7 + 1;
     }
 
-    while (v13 < v12);
+    while (v11 < v10);
   }
 
   (*(a1[5] + 16))();
@@ -459,17 +458,16 @@ void __65__PPTopicReadOnlyClient_rankedTopicsWithQuery_error_handleBatch___block
 
 - (void)_unblockPendingQueries
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"connection to %@ was unexpectedly terminated", @"com.apple.proactive.PersonalizationPortrait.Topic.readOnly"];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
   v5 = *MEMORY[0x1E696A798];
-  v9 = *MEMORY[0x1E696A588];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A588];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v4 initWithDomain:v5 code:5 userInfo:v6];
 
   [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager cancelPendingQueriesWithError:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (PPTopicReadOnlyClient)init
@@ -544,36 +542,32 @@ void __65__PPTopicReadOnlyClient_rankedTopicsWithQuery_error_handleBatch___block
 
 void __29__PPTopicReadOnlyClient_init__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.Topic.readOnly";
-    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.Topic.readOnly";
+    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __29__PPTopicReadOnlyClient_init__block_invoke_105(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.Topic.readOnly";
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.Topic.readOnly";
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedInstance
@@ -595,13 +589,12 @@ void __29__PPTopicReadOnlyClient_init__block_invoke_105(uint64_t a1)
 
 void __39__PPTopicReadOnlyClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_4400;
-  sharedInstance__pasExprOnceResult_4400 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_4400;
+  sharedInstance__pasExprOnceResult_4400 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

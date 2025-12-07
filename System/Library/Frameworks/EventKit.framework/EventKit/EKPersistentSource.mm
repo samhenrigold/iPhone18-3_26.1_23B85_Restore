@@ -21,31 +21,29 @@
 
 void __45__EKPersistentSource_defaultPropertiesToLoad__block_invoke()
 {
-  v9[13] = *MEMORY[0x1E69E9840];
+  v8[13] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992DA0];
-  v9[0] = *MEMORY[0x1E6992D88];
-  v9[1] = v0;
+  v8[0] = *MEMORY[0x1E6992D88];
+  v8[1] = v0;
   v1 = *MEMORY[0x1E6992D18];
-  v9[2] = *MEMORY[0x1E6992D68];
-  v9[3] = v1;
+  v8[2] = *MEMORY[0x1E6992D68];
+  v8[3] = v1;
   v2 = *MEMORY[0x1E6992B08];
-  v9[4] = *MEMORY[0x1E6992B10];
-  v9[5] = v2;
+  v8[4] = *MEMORY[0x1E6992B10];
+  v8[5] = v2;
   v3 = *MEMORY[0x1E6992D08];
-  v9[6] = *MEMORY[0x1E6992D00];
-  v9[7] = v3;
+  v8[6] = *MEMORY[0x1E6992D00];
+  v8[7] = v3;
   v4 = *MEMORY[0x1E6992D30];
-  v9[8] = *MEMORY[0x1E6992D10];
-  v9[9] = v4;
+  v8[8] = *MEMORY[0x1E6992D10];
+  v8[9] = v4;
   v5 = *MEMORY[0x1E6992D98];
-  v9[10] = *MEMORY[0x1E6992D38];
-  v9[11] = v5;
-  v9[12] = *MEMORY[0x1E6992D50];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:13];
+  v8[10] = *MEMORY[0x1E6992D38];
+  v8[11] = v5;
+  v8[12] = *MEMORY[0x1E6992D50];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:13];
   v7 = defaultPropertiesToLoad_defaultPropertiesToLoad_11;
   defaultPropertiesToLoad_defaultPropertiesToLoad_11 = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations

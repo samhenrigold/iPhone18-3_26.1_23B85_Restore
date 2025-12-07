@@ -4,6 +4,7 @@
 - (NEIKEv2ChildSAProposal)initWithProtocol:(unint64_t)protocol;
 - (NSObject)copyFromRemote:(int)remote preferRemoteProposal:(char)proposal checkKEMethod:;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)encryptionProtocol;
 - (id)integrityProtocol;
 - (id)kemProtocol;
@@ -19,7 +20,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   [v4 setProtocol:{-[NEIKEv2ChildSAProposal protocol](self, "protocol")}];
   encryptionProtocols = [(NEIKEv2ChildSAProposal *)self encryptionProtocols];
@@ -66,31 +67,31 @@ LABEL_21:
 
   if (additionalKEMProtocols)
   {
-    v65 = v4;
+    v64 = v4;
     v19 = objc_alloc(MEMORY[0x1E695DF90]);
     additionalKEMProtocols2 = [(NEIKEv2ChildSAProposal *)self additionalKEMProtocols];
     v21 = [v19 initWithCapacity:{objc_msgSend(additionalKEMProtocols2, "count")}];
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     obj = [(NEIKEv2ChildSAProposal *)self additionalKEMProtocols];
-    v22 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+    v22 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v68;
+      v24 = *v67;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v68 != v24)
+          if (*v67 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v67 + 1) + 8 * i);
+          v26 = *(*(&v66 + 1) + 8 * i);
           v27 = v6;
           v28 = objc_alloc(*(v6 + 3784));
           additionalKEMProtocols3 = [(NEIKEv2ChildSAProposal *)self additionalKEMProtocols];
@@ -101,14 +102,14 @@ LABEL_21:
           v6 = v27;
         }
 
-        v23 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+        v23 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
       }
 
       while (v23);
     }
 
     v32 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v21];
-    v4 = v65;
+    v4 = v64;
   }
 
   else
@@ -116,7 +117,7 @@ LABEL_21:
     v32 = 0;
   }
 
-  [v4 setAdditionalKEMProtocols:{v32, v65}];
+  [v4 setAdditionalKEMProtocols:{v32, v64}];
 
   if (objc_getProperty(self, v33, 72, 1))
   {
@@ -241,42 +242,41 @@ LABEL_25:
     [(NEIKEv2ChildSAProposal *)v4 setChosenAdditionalKEMProtocols:v62];
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)setChosenAdditionalKEMProtocols:(void *)protocols
 {
   v2 = a2;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = v4;
   if (protocols)
   {
     if ([v4 count])
     {
-      v19 = v2;
+      v18 = v2;
       v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v21;
+        v10 = *v20;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * i);
+            v12 = *(*(&v19 + 1) + 8 * i);
             v13 = [v7 objectForKeyedSubscript:v12];
             method = [v13 method];
 
@@ -286,7 +286,7 @@ LABEL_25:
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v9);
@@ -302,7 +302,7 @@ LABEL_25:
         v15 = 0;
       }
 
-      v2 = v19;
+      v2 = v18;
     }
 
     else
@@ -318,13 +318,11 @@ LABEL_25:
 
     objc_sync_exit(protocolsCopy);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = 16777619 * ([(NEIKEv2ChildSAProposal *)self protocol]^ 0x811C9DC5);
   v4 = 16777619 * (v3 ^ [(NEIKEv2ChildSAProposal *)self lifetimeSeconds]);
   encryptionProtocols = [(NEIKEv2ChildSAProposal *)self encryptionProtocols];
@@ -335,31 +333,31 @@ LABEL_25:
     encryptionProtocols2 = [(NEIKEv2ChildSAProposal *)self encryptionProtocols];
     v4 = 16777619 * ([encryptionProtocols2 count] ^ v4);
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     encryptionProtocols3 = [(NEIKEv2ChildSAProposal *)self encryptionProtocols];
-    v9 = [encryptionProtocols3 countByEnumeratingWithState:&v55 objects:v62 count:16];
+    v9 = [encryptionProtocols3 countByEnumeratingWithState:&v54 objects:v61 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v56;
+      v11 = *v55;
       do
       {
         v12 = 0;
         do
         {
-          if (*v56 != v11)
+          if (*v55 != v11)
           {
             objc_enumerationMutation(encryptionProtocols3);
           }
 
-          v4 = 16777619 * (v4 ^ [*(*(&v55 + 1) + 8 * v12++) hash] ^ 0x1000000);
+          v4 = 16777619 * (v4 ^ [*(*(&v54 + 1) + 8 * v12++) hash] ^ 0x1000000);
         }
 
         while (v10 != v12);
-        v10 = [encryptionProtocols3 countByEnumeratingWithState:&v55 objects:v62 count:16];
+        v10 = [encryptionProtocols3 countByEnumeratingWithState:&v54 objects:v61 count:16];
       }
 
       while (v10);
@@ -374,31 +372,31 @@ LABEL_25:
     integrityProtocols2 = [(NEIKEv2ChildSAProposal *)self integrityProtocols];
     v4 = 16777619 * ([integrityProtocols2 count] ^ v4);
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     integrityProtocols3 = [(NEIKEv2ChildSAProposal *)self integrityProtocols];
-    v17 = [integrityProtocols3 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v17 = [integrityProtocols3 countByEnumeratingWithState:&v50 objects:v60 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v52;
+      v19 = *v51;
       do
       {
         v20 = 0;
         do
         {
-          if (*v52 != v19)
+          if (*v51 != v19)
           {
             objc_enumerationMutation(integrityProtocols3);
           }
 
-          v4 = 16777619 * (v4 ^ [*(*(&v51 + 1) + 8 * v20++) hash] ^ 0x3000000);
+          v4 = 16777619 * (v4 ^ [*(*(&v50 + 1) + 8 * v20++) hash] ^ 0x3000000);
         }
 
         while (v18 != v20);
-        v18 = [integrityProtocols3 countByEnumeratingWithState:&v51 objects:v61 count:16];
+        v18 = [integrityProtocols3 countByEnumeratingWithState:&v50 objects:v60 count:16];
       }
 
       while (v18);
@@ -413,31 +411,31 @@ LABEL_25:
     kemProtocols2 = [(NEIKEv2ChildSAProposal *)self kemProtocols];
     v4 = 16777619 * ([kemProtocols2 count] ^ v4);
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     kemProtocols3 = [(NEIKEv2ChildSAProposal *)self kemProtocols];
-    v25 = [kemProtocols3 countByEnumeratingWithState:&v47 objects:v60 count:16];
+    v25 = [kemProtocols3 countByEnumeratingWithState:&v46 objects:v59 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v48;
+      v27 = *v47;
       do
       {
         v28 = 0;
         do
         {
-          if (*v48 != v27)
+          if (*v47 != v27)
           {
             objc_enumerationMutation(kemProtocols3);
           }
 
-          v4 = 16777619 * (v4 ^ [*(*(&v47 + 1) + 8 * v28++) hash] ^ 0x4000000);
+          v4 = 16777619 * (v4 ^ [*(*(&v46 + 1) + 8 * v28++) hash] ^ 0x4000000);
         }
 
         while (v26 != v28);
-        v26 = [kemProtocols3 countByEnumeratingWithState:&v47 objects:v60 count:16];
+        v26 = [kemProtocols3 countByEnumeratingWithState:&v46 objects:v59 count:16];
       }
 
       while (v26);
@@ -458,32 +456,32 @@ LABEL_25:
       if ([v34 count])
       {
         v35 = [v34 count];
+        v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
         v4 = 16777619 * (v35 ^ v4);
+        v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
         v36 = v34;
-        v37 = [v36 countByEnumeratingWithState:&v43 objects:v59 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v42 objects:v58 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v44;
+          v39 = *v43;
           do
           {
             v40 = 0;
             do
             {
-              if (*v44 != v39)
+              if (*v43 != v39)
               {
                 objc_enumerationMutation(v36);
               }
 
-              v4 = 16777619 * (v4 ^ (i << 24) ^ [*(*(&v43 + 1) + 8 * v40++) hash]);
+              v4 = 16777619 * (v4 ^ (i << 24) ^ [*(*(&v42 + 1) + 8 * v40++) hash]);
             }
 
             while (v38 != v40);
-            v38 = [v36 countByEnumeratingWithState:&v43 objects:v59 count:16];
+            v38 = [v36 countByEnumeratingWithState:&v42 objects:v58 count:16];
           }
 
           while (v38);
@@ -492,7 +490,6 @@ LABEL_25:
     }
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -693,6 +690,80 @@ LABEL_43:
   return v14;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = NEIKEv2ProtocolIDCreateString([(NEIKEv2ChildSAProposal *)self protocol]);
+  [v7 appendPrettyObject:v8 withName:@"Protocol" andIndent:v5 options:options];
+
+  if (self)
+  {
+    [v7 appendPrettyInt:self->_proposalNumber withName:@"Number" andIndent:v5 options:options];
+    [v7 appendPrettyObject:objc_getProperty(self withName:v9 andIndent:80 options:{1), @"Local SPI", v5, options}];
+    [v7 appendPrettyObject:objc_getProperty(self withName:v10 andIndent:88 options:{1), @"Remote SPI", v5, options}];
+    Property = objc_getProperty(self, v11, 96, 1);
+  }
+
+  else
+  {
+    [v7 appendPrettyInt:0 withName:@"Number" andIndent:v5 options:options];
+    [v7 appendPrettyObject:0 withName:@"Local SPI" andIndent:v5 options:options];
+    [v7 appendPrettyObject:0 withName:@"Remote SPI" andIndent:v5 options:options];
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"Chosen Encryption" andIndent:v5 options:options];
+  encryptionProtocols = [(NEIKEv2ChildSAProposal *)self encryptionProtocols];
+  [v7 appendPrettyObject:encryptionProtocols withName:@"Encryption" andIndent:v5 options:options];
+
+  if (self)
+  {
+    [v7 appendPrettyObject:objc_getProperty(self withName:v14 andIndent:104 options:{1), @"Chosen Integrity", v5, options}];
+    integrityProtocols = [(NEIKEv2ChildSAProposal *)self integrityProtocols];
+    [v7 appendPrettyObject:integrityProtocols withName:@"Integrity" andIndent:v5 options:options];
+
+    v17 = objc_getProperty(self, v16, 112, 1);
+  }
+
+  else
+  {
+    [v7 appendPrettyObject:0 withName:@"Chosen Integrity" andIndent:v5 options:options];
+    integrityProtocols2 = [0 integrityProtocols];
+    [v7 appendPrettyObject:integrityProtocols2 withName:@"Integrity" andIndent:v5 options:options];
+
+    v17 = 0;
+  }
+
+  [v7 appendPrettyObject:v17 withName:@"Chosen KE" andIndent:v5 options:options];
+  kemProtocols = [(NEIKEv2ChildSAProposal *)self kemProtocols];
+  [v7 appendPrettyObject:kemProtocols withName:@"KE" andIndent:v5 options:options];
+
+  chosenAdditionalKEMProtocols = [(NEIKEv2IKESAProposal *)self chosenAdditionalKEMProtocols];
+  [v7 appendPrettyObject:chosenAdditionalKEMProtocols withName:@"Chosen ADDKE" andIndent:v5 options:options];
+
+  additionalKEMProtocols = [(NEIKEv2ChildSAProposal *)self additionalKEMProtocols];
+  [v7 appendPrettyObject:additionalKEMProtocols withName:@"ADDKE" andIndent:v5 options:options];
+
+  if (self)
+  {
+    v22 = objc_getProperty(self, v21, 72, 1);
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  [v7 appendPrettyObject:v22 withName:@"Unsupported Transform Types" andIndent:v5 options:options];
+  if ([(NEIKEv2ChildSAProposal *)self lifetimeSeconds])
+  {
+    [v7 appendPrettyInt:-[NEIKEv2ChildSAProposal lifetimeSeconds](self withName:"lifetimeSeconds") andIndent:@"Lifetime" options:{v5, options}];
+  }
+
+  return v7;
+}
+
 - (NEIKEv2ChildSAProposal)initWithProtocol:(unint64_t)protocol
 {
   v10.receiver = self;
@@ -781,7 +852,7 @@ LABEL_43:
 
 - (NSObject)copyFromRemote:(int)remote preferRemoteProposal:(char)proposal checkKEMethod:
 {
-  v167 = *MEMORY[0x1E69E9840];
+  v166 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = v7;
   if (!self)
@@ -795,7 +866,7 @@ LABEL_43:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v166 = "[NEIKEv2ChildSAProposal copyFromRemote:preferRemoteProposal:checkKEMethod:]";
+      v165 = "[NEIKEv2ChildSAProposal copyFromRemote:preferRemoteProposal:checkKEMethod:]";
       _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null remote", buf, 0xCu);
     }
 
@@ -853,27 +924,27 @@ LABEL_7:
 
   if (remote)
   {
-    v155 = 0uLL;
-    v156 = 0uLL;
-    v153 = 0uLL;
     v154 = 0uLL;
+    v155 = 0uLL;
+    v152 = 0uLL;
+    v153 = 0uLL;
     encryptionProtocols = [v8 encryptionProtocols];
-    v15 = [encryptionProtocols countByEnumeratingWithState:&v153 objects:v164 count:16];
+    v15 = [encryptionProtocols countByEnumeratingWithState:&v152 objects:v163 count:16];
     if (v15)
     {
       v16 = v15;
       remoteCopy = remote;
-      v17 = *v154;
+      v17 = *v153;
 LABEL_11:
       v18 = 0;
       while (1)
       {
-        if (*v154 != v17)
+        if (*v153 != v17)
         {
           objc_enumerationMutation(encryptionProtocols);
         }
 
-        v19 = *(*(&v153 + 1) + 8 * v18);
+        v19 = *(*(&v152 + 1) + 8 * v18);
         encryptionProtocols2 = [v9 encryptionProtocols];
         v21 = [encryptionProtocols2 indexOfObject:v19];
 
@@ -884,7 +955,7 @@ LABEL_11:
 
         if (v16 == ++v18)
         {
-          v16 = [encryptionProtocols countByEnumeratingWithState:&v153 objects:v164 count:16];
+          v16 = [encryptionProtocols countByEnumeratingWithState:&v152 objects:v163 count:16];
           if (v16)
           {
             goto LABEL_11;
@@ -923,27 +994,27 @@ LABEL_42:
 
   else
   {
-    v151 = 0uLL;
-    v152 = 0uLL;
-    v149 = 0uLL;
     v150 = 0uLL;
+    v151 = 0uLL;
+    v148 = 0uLL;
+    v149 = 0uLL;
     encryptionProtocols = [v9 encryptionProtocols];
-    v24 = [encryptionProtocols countByEnumeratingWithState:&v149 objects:v163 count:16];
+    v24 = [encryptionProtocols countByEnumeratingWithState:&v148 objects:v162 count:16];
     if (v24)
     {
       v25 = v24;
       remoteCopy = 0;
-      v26 = *v150;
+      v26 = *v149;
 LABEL_22:
       v27 = 0;
       while (1)
       {
-        if (*v150 != v26)
+        if (*v149 != v26)
         {
           objc_enumerationMutation(encryptionProtocols);
         }
 
-        v28 = *(*(&v149 + 1) + 8 * v27);
+        v28 = *(*(&v148 + 1) + 8 * v27);
         encryptionProtocols4 = [v8 encryptionProtocols];
         v30 = [encryptionProtocols4 containsObject:v28];
 
@@ -954,7 +1025,7 @@ LABEL_22:
 
         if (v25 == ++v27)
         {
-          v25 = [encryptionProtocols countByEnumeratingWithState:&v149 objects:v163 count:16];
+          v25 = [encryptionProtocols countByEnumeratingWithState:&v148 objects:v162 count:16];
           if (v25)
           {
             goto LABEL_22;
@@ -1019,12 +1090,12 @@ LABEL_43:
 
   if (remote)
   {
-    v147 = 0uLL;
-    v148 = 0uLL;
-    v145 = 0uLL;
     v146 = 0uLL;
+    v147 = 0uLL;
+    v144 = 0uLL;
+    v145 = 0uLL;
     integrityProtocols = [v8 integrityProtocols];
-    v47 = [integrityProtocols countByEnumeratingWithState:&v145 objects:v162 count:16];
+    v47 = [integrityProtocols countByEnumeratingWithState:&v144 objects:v161 count:16];
     if (!v47)
     {
       goto LABEL_71;
@@ -1032,17 +1103,17 @@ LABEL_43:
 
     v48 = v47;
     remoteCopy2 = remote;
-    v49 = *v146;
+    v49 = *v145;
     while (2)
     {
       for (i = 0; i != v48; ++i)
       {
-        if (*v146 != v49)
+        if (*v145 != v49)
         {
           objc_enumerationMutation(integrityProtocols);
         }
 
-        v51 = *(*(&v145 + 1) + 8 * i);
+        v51 = *(*(&v144 + 1) + 8 * i);
         integrityProtocols2 = [v9 integrityProtocols];
         v53 = [integrityProtocols2 indexOfObject:v51];
 
@@ -1056,7 +1127,7 @@ LABEL_43:
         }
       }
 
-      v48 = [integrityProtocols countByEnumeratingWithState:&v145 objects:v162 count:16];
+      v48 = [integrityProtocols countByEnumeratingWithState:&v144 objects:v161 count:16];
       if (v48)
       {
         continue;
@@ -1068,12 +1139,12 @@ LABEL_43:
 
   else
   {
-    v143 = 0uLL;
-    v144 = 0uLL;
-    v141 = 0uLL;
     v142 = 0uLL;
+    v143 = 0uLL;
+    v140 = 0uLL;
+    v141 = 0uLL;
     integrityProtocols = [v9 integrityProtocols];
-    v54 = [integrityProtocols countByEnumeratingWithState:&v141 objects:v161 count:16];
+    v54 = [integrityProtocols countByEnumeratingWithState:&v140 objects:v160 count:16];
     if (!v54)
     {
       goto LABEL_71;
@@ -1081,17 +1152,17 @@ LABEL_43:
 
     v55 = v54;
     remoteCopy2 = 0;
-    v56 = *v142;
+    v56 = *v141;
     while (2)
     {
       for (j = 0; j != v55; ++j)
       {
-        if (*v142 != v56)
+        if (*v141 != v56)
         {
           objc_enumerationMutation(integrityProtocols);
         }
 
-        v58 = *(*(&v141 + 1) + 8 * j);
+        v58 = *(*(&v140 + 1) + 8 * j);
         integrityProtocols4 = [v8 integrityProtocols];
         v60 = [integrityProtocols4 containsObject:v58];
 
@@ -1102,7 +1173,7 @@ LABEL_43:
         }
       }
 
-      v55 = [integrityProtocols countByEnumeratingWithState:&v141 objects:v161 count:16];
+      v55 = [integrityProtocols countByEnumeratingWithState:&v140 objects:v160 count:16];
       if (v55)
       {
         continue;
@@ -1183,27 +1254,27 @@ LABEL_150:
 
   if (!remote)
   {
-    v135 = 0uLL;
-    v136 = 0uLL;
-    v133 = 0uLL;
     v134 = 0uLL;
+    v135 = 0uLL;
+    v132 = 0uLL;
+    v133 = 0uLL;
     v71 = kemProtocols;
-    v84 = [v71 countByEnumeratingWithState:&v133 objects:v159 count:16];
+    v84 = [v71 countByEnumeratingWithState:&v132 objects:v158 count:16];
     if (v84)
     {
       v85 = v84;
       remoteCopy4 = remote;
-      v86 = *v134;
+      v86 = *v133;
       while (2)
       {
         for (k = 0; k != v85; ++k)
         {
-          if (*v134 != v86)
+          if (*v133 != v86)
           {
             objc_enumerationMutation(v71);
           }
 
-          v88 = *(*(&v133 + 1) + 8 * k);
+          v88 = *(*(&v132 + 1) + 8 * k);
           if ([v68 containsObject:v88])
           {
             v111 = v88;
@@ -1213,7 +1284,7 @@ LABEL_147:
           }
         }
 
-        v85 = [v71 countByEnumeratingWithState:&v133 objects:v159 count:16];
+        v85 = [v71 countByEnumeratingWithState:&v132 objects:v158 count:16];
         if (v85)
         {
           continue;
@@ -1228,12 +1299,12 @@ LABEL_144:
     goto LABEL_149;
   }
 
-  v139 = 0uLL;
-  v140 = 0uLL;
-  v137 = 0uLL;
   v138 = 0uLL;
+  v139 = 0uLL;
+  v136 = 0uLL;
+  v137 = 0uLL;
   v71 = v68;
-  v72 = [v71 countByEnumeratingWithState:&v137 objects:v160 count:16];
+  v72 = [v71 countByEnumeratingWithState:&v136 objects:v159 count:16];
   if (!v72)
   {
     goto LABEL_144;
@@ -1241,17 +1312,17 @@ LABEL_144:
 
   v73 = v72;
   remoteCopy4 = remote;
-  v75 = *v138;
+  v75 = *v137;
   while (2)
   {
     for (m = 0; m != v73; ++m)
     {
-      if (*v138 != v75)
+      if (*v137 != v75)
       {
         objc_enumerationMutation(v71);
       }
 
-      v77 = [kemProtocols indexOfObject:*(*(&v137 + 1) + 8 * m)];
+      v77 = [kemProtocols indexOfObject:*(*(&v136 + 1) + 8 * m)];
       if (v77 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v111 = [kemProtocols objectAtIndexedSubscript:v77];
@@ -1259,7 +1330,7 @@ LABEL_144:
       }
     }
 
-    v73 = [v71 countByEnumeratingWithState:&v137 objects:v160 count:16];
+    v73 = [v71 countByEnumeratingWithState:&v136 objects:v159 count:16];
     if (v73)
     {
       continue;
@@ -1301,8 +1372,8 @@ LABEL_91:
     goto LABEL_161;
   }
 
-  v116 = v68;
-  v117 = kemProtocols;
+  v115 = v68;
+  v116 = kemProtocols;
   if ([(NEIKEv2KEMProtocol *)v80 method])
   {
     v82 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithObjects:{v80, 0}];
@@ -1316,9 +1387,9 @@ LABEL_91:
   v89 = v82;
   v90 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v91 = 6;
-  v118 = v8;
-  v119 = v90;
-  v120 = v9;
+  v117 = v8;
+  v118 = v90;
+  v119 = v9;
   remoteCopy5 = remote;
   while (1)
   {
@@ -1327,7 +1398,7 @@ LABEL_91:
     v94 = [additionalKEMProtocols3 objectForKeyedSubscript:v92];
 
     additionalKEMProtocols4 = [v8 additionalKEMProtocols];
-    v124 = v92;
+    v123 = v92;
     v96 = [additionalKEMProtocols4 objectForKeyedSubscript:v92];
 
     if (!v96)
@@ -1341,7 +1412,7 @@ LABEL_91:
     }
 
     v104 = [[NEIKEv2KEMProtocol alloc] initWithMethod:0];
-    [v90 setObject:v104 forKeyedSubscript:v124];
+    [v90 setObject:v104 forKeyedSubscript:v123];
 
 LABEL_127:
     v103 = 0;
@@ -1353,33 +1424,33 @@ LABEL_142:
       [(NEIKEv2ChildSAProposal *)v9 setChosenAdditionalKEMProtocols:v110];
 
       self = v9;
-      kemProtocols = v117;
+      kemProtocols = v116;
       goto LABEL_160;
     }
   }
 
   if (remote)
   {
-    v131 = 0uLL;
-    v132 = 0uLL;
-    v129 = 0uLL;
     v130 = 0uLL;
+    v131 = 0uLL;
+    v128 = 0uLL;
+    v129 = 0uLL;
     v97 = v96;
-    v98 = [v97 countByEnumeratingWithState:&v129 objects:v158 count:16];
+    v98 = [v97 countByEnumeratingWithState:&v128 objects:v157 count:16];
     if (v98)
     {
       v99 = v98;
-      v100 = *v130;
+      v100 = *v129;
       do
       {
         for (n = 0; n != v99; ++n)
         {
-          if (*v130 != v100)
+          if (*v129 != v100)
           {
             objc_enumerationMutation(v97);
           }
 
-          v102 = [v94 indexOfObject:*(*(&v129 + 1) + 8 * n)];
+          v102 = [v94 indexOfObject:*(*(&v128 + 1) + 8 * n)];
           if (v102 != 0x7FFFFFFFFFFFFFFFLL)
           {
             v103 = [v94 objectAtIndexedSubscript:v102];
@@ -1390,13 +1461,13 @@ LABEL_142:
           }
         }
 
-        v99 = [v97 countByEnumeratingWithState:&v129 objects:v158 count:16];
+        v99 = [v97 countByEnumeratingWithState:&v128 objects:v157 count:16];
       }
 
       while (v99);
       v96 = v97;
 LABEL_153:
-      v8 = v118;
+      v8 = v117;
     }
 
     else
@@ -1404,18 +1475,18 @@ LABEL_153:
       v96 = v97;
     }
 
-    v90 = v119;
+    v90 = v118;
 LABEL_156:
   }
 
   else
   {
-    v127 = 0uLL;
-    v128 = 0uLL;
-    v125 = 0uLL;
     v126 = 0uLL;
+    v127 = 0uLL;
+    v124 = 0uLL;
+    v125 = 0uLL;
     v97 = v94;
-    v105 = [v97 countByEnumeratingWithState:&v125 objects:v157 count:16];
+    v105 = [v97 countByEnumeratingWithState:&v124 objects:v156 count:16];
     if (!v105)
     {
       v94 = v97;
@@ -1423,17 +1494,17 @@ LABEL_156:
     }
 
     v106 = v105;
-    v107 = *v126;
+    v107 = *v125;
 LABEL_130:
     v108 = 0;
     while (1)
     {
-      if (*v126 != v107)
+      if (*v125 != v107)
       {
         objc_enumerationMutation(v97);
       }
 
-      v109 = *(*(&v125 + 1) + 8 * v108);
+      v109 = *(*(&v124 + 1) + 8 * v108);
       if (([v89 containsObject:v109] & 1) == 0)
       {
         if ([v96 containsObject:v109])
@@ -1444,7 +1515,7 @@ LABEL_130:
 
       if (v106 == ++v108)
       {
-        v106 = [v97 countByEnumeratingWithState:&v125 objects:v157 count:16];
+        v106 = [v97 countByEnumeratingWithState:&v124 objects:v156 count:16];
         if (v106)
         {
           goto LABEL_130;
@@ -1458,13 +1529,13 @@ LABEL_130:
     v103 = v109;
 LABEL_139:
 
-    v8 = v118;
-    v90 = v119;
+    v8 = v117;
+    v90 = v118;
     remote = remoteCopy5;
     if (v103)
     {
-      [v119 setObject:v103 forKeyedSubscript:v124];
-      v9 = v120;
+      [v118 setObject:v103 forKeyedSubscript:v123];
+      v9 = v119;
       if ([v103 method])
       {
         [v89 addObject:v103];
@@ -1474,8 +1545,8 @@ LABEL_139:
     }
   }
 
-  v9 = v120;
-  kemProtocols = v117;
+  v9 = v119;
+  kemProtocols = v116;
   v113 = ne_log_obj();
   if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
   {
@@ -1486,13 +1557,12 @@ LABEL_139:
   self = 0;
 LABEL_160:
 
-  v68 = v116;
+  v68 = v115;
 LABEL_161:
 
 LABEL_169:
 LABEL_170:
 
-  v114 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -1540,7 +1610,7 @@ LABEL_170:
 
 - (uint64_t)matchesLocalProposal:(int)proposal preferRemoteProposal:(int)remoteProposal checkKEMethod:
 {
-  v141 = *MEMORY[0x1E69E9840];
+  v140 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v9 = v7;
   if (!self)
@@ -1557,8 +1627,8 @@ LABEL_170:
     }
 
     *buf = 136315138;
-    v138 = "[NEIKEv2ChildSAProposal matchesLocalProposal:preferRemoteProposal:checkKEMethod:]";
-    v45 = "%s called with null localProposal";
+    v137 = "[NEIKEv2ChildSAProposal matchesLocalProposal:preferRemoteProposal:checkKEMethod:]";
+    v44 = "%s called with null localProposal";
     goto LABEL_53;
   }
 
@@ -1573,7 +1643,7 @@ LABEL_5:
     }
 
     *buf = 0;
-    v30 = "Not matching proposal with unsupported transform type";
+    v29 = "Not matching proposal with unsupported transform type";
     goto LABEL_30;
   }
 
@@ -1586,9 +1656,9 @@ LABEL_5:
       encryptionProtocols5 = NEIKEv2ProtocolIDCreateString([self protocol]);
       encryptionProtocols6 = NEIKEv2ProtocolIDCreateString([v9 protocol]);
       *buf = 138412546;
-      v138 = encryptionProtocols5;
-      v139 = 2112;
-      v140 = encryptionProtocols6;
+      v137 = encryptionProtocols5;
+      v138 = 2112;
+      v139 = encryptionProtocols6;
       _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "Proposal protocols do not match (%@ vs %@)", buf, 0x16u);
       goto LABEL_74;
     }
@@ -1616,10 +1686,10 @@ LABEL_13:
     }
 
     *buf = 136315138;
-    v138 = "[NEIKEv2ChildSAProposal matchesLocalProposal:preferRemoteProposal:checkKEMethod:]";
-    v30 = "BACKTRACE %s called with null self.encryptionProtocols";
-    v31 = v10;
-    v32 = 12;
+    v137 = "[NEIKEv2ChildSAProposal matchesLocalProposal:preferRemoteProposal:checkKEMethod:]";
+    v29 = "BACKTRACE %s called with null self.encryptionProtocols";
+    v30 = v10;
+    v31 = 12;
     goto LABEL_31;
   }
 
@@ -1634,10 +1704,10 @@ LABEL_13:
     }
 
     *buf = 136315138;
-    v138 = "[NEIKEv2ChildSAProposal matchesLocalProposal:preferRemoteProposal:checkKEMethod:]";
-    v45 = "%s called with null localProposal.encryptionProtocols";
+    v137 = "[NEIKEv2ChildSAProposal matchesLocalProposal:preferRemoteProposal:checkKEMethod:]";
+    v44 = "%s called with null localProposal.encryptionProtocols";
 LABEL_53:
-    _os_log_fault_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_FAULT, v45, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_FAULT, v44, buf, 0xCu);
     goto LABEL_5;
   }
 
@@ -1650,46 +1720,46 @@ LABEL_53:
     }
 
     *buf = 0;
-    v30 = "Not matching proposal missing No ESN transform";
+    v29 = "Not matching proposal missing No ESN transform";
     goto LABEL_30;
   }
 
   proposalCopy = proposal;
-  v127 = 0u;
-  v128 = 0u;
-  v125 = 0u;
   v126 = 0u;
+  v127 = 0u;
+  v124 = 0u;
+  v125 = 0u;
   encryptionProtocols3 = [v9 encryptionProtocols];
-  v20 = [encryptionProtocols3 countByEnumeratingWithState:&v125 objects:v136 count:16];
-  if (!v20)
+  v19 = [encryptionProtocols3 countByEnumeratingWithState:&v124 objects:v135 count:16];
+  if (!v19)
   {
     goto LABEL_26;
   }
 
-  v21 = v20;
-  v22 = *v126;
+  v20 = v19;
+  v21 = *v125;
 LABEL_20:
-  v23 = 0;
+  v22 = 0;
   while (1)
   {
-    if (*v126 != v22)
+    if (*v125 != v21)
     {
       objc_enumerationMutation(encryptionProtocols3);
     }
 
-    v24 = *(*(&v125 + 1) + 8 * v23);
+    v23 = *(*(&v124 + 1) + 8 * v22);
     encryptionProtocols4 = [self encryptionProtocols];
-    v26 = [encryptionProtocols4 containsObject:v24];
+    v25 = [encryptionProtocols4 containsObject:v23];
 
-    if (v26)
+    if (v25)
     {
       break;
     }
 
-    if (v21 == ++v23)
+    if (v20 == ++v22)
     {
-      v21 = [encryptionProtocols3 countByEnumeratingWithState:&v125 objects:v136 count:16];
-      if (!v21)
+      v20 = [encryptionProtocols3 countByEnumeratingWithState:&v124 objects:v135 count:16];
+      if (!v20)
       {
 LABEL_26:
 
@@ -1699,10 +1769,10 @@ LABEL_26:
           encryptionProtocols5 = [self encryptionProtocols];
           encryptionProtocols6 = [v9 encryptionProtocols];
           *buf = 138412546;
-          v138 = encryptionProtocols5;
-          v139 = 2112;
-          v140 = encryptionProtocols6;
-          v29 = "Failed to match encryption algorithms (%@ vs %@)";
+          v137 = encryptionProtocols5;
+          v138 = 2112;
+          v139 = encryptionProtocols6;
+          v28 = "Failed to match encryption algorithms (%@ vs %@)";
           goto LABEL_28;
         }
 
@@ -1713,25 +1783,25 @@ LABEL_26:
     }
   }
 
-  if (v24)
+  if (v23)
   {
-    v46 = *(v24 + 16);
-    v47 = v46 >= 0x20;
-    v48 = 0xD0100000 >> v46;
-    if (v47)
+    v45 = *(v23 + 16);
+    v46 = v45 >= 0x20;
+    v47 = 0xD0100000 >> v45;
+    if (v46)
     {
-      v49 = 0;
+      v48 = 0;
     }
 
     else
     {
-      v49 = v48;
+      v48 = v47;
     }
   }
 
   else
   {
-    v49 = 0;
+    v48 = 0;
   }
 
   proposal = proposalCopy;
@@ -1740,45 +1810,45 @@ LABEL_26:
   if ([integrityProtocols count])
   {
     integrityProtocols2 = [self integrityProtocols];
-    v52 = [integrityProtocols2 count];
+    v51 = [integrityProtocols2 count];
 
-    if (v52)
+    if (v51)
     {
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
       v122 = 0u;
+      v123 = 0u;
+      v120 = 0u;
+      v121 = 0u;
       integrityProtocols3 = [v9 integrityProtocols];
-      v54 = [integrityProtocols3 countByEnumeratingWithState:&v121 objects:v135 count:16];
-      if (!v54)
+      v53 = [integrityProtocols3 countByEnumeratingWithState:&v120 objects:v134 count:16];
+      if (!v53)
       {
         goto LABEL_71;
       }
 
-      v55 = v54;
-      v56 = *v122;
+      v54 = v53;
+      v55 = *v121;
 LABEL_65:
-      v57 = 0;
+      v56 = 0;
       while (1)
       {
-        if (*v122 != v56)
+        if (*v121 != v55)
         {
           objc_enumerationMutation(integrityProtocols3);
         }
 
-        v58 = *(*(&v121 + 1) + 8 * v57);
+        v57 = *(*(&v120 + 1) + 8 * v56);
         integrityProtocols4 = [self integrityProtocols];
-        LOBYTE(v58) = [integrityProtocols4 containsObject:v58];
+        LOBYTE(v57) = [integrityProtocols4 containsObject:v57];
 
-        if (v58)
+        if (v57)
         {
           break;
         }
 
-        if (v55 == ++v57)
+        if (v54 == ++v56)
         {
-          v55 = [integrityProtocols3 countByEnumeratingWithState:&v121 objects:v135 count:16];
-          if (!v55)
+          v54 = [integrityProtocols3 countByEnumeratingWithState:&v120 objects:v134 count:16];
+          if (!v54)
           {
 LABEL_71:
 
@@ -1788,12 +1858,12 @@ LABEL_71:
               encryptionProtocols5 = [self integrityProtocols];
               encryptionProtocols6 = [v9 integrityProtocols];
               *buf = 138412546;
-              v138 = encryptionProtocols5;
-              v139 = 2112;
-              v140 = encryptionProtocols6;
-              v29 = "Failed to match integrity algorithms (%@ vs %@)";
+              v137 = encryptionProtocols5;
+              v138 = 2112;
+              v139 = encryptionProtocols6;
+              v28 = "Failed to match integrity algorithms (%@ vs %@)";
 LABEL_28:
-              _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_INFO, v29, buf, 0x16u);
+              _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_INFO, v28, buf, 0x16u);
 LABEL_74:
             }
 
@@ -1812,7 +1882,7 @@ LABEL_74:
   {
   }
 
-  if ((v49 & 1) == 0)
+  if ((v48 & 1) == 0)
   {
     v10 = ne_log_obj();
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -1821,12 +1891,12 @@ LABEL_74:
     }
 
     *buf = 0;
-    v30 = "Failed to match integrity algorithms, none provided";
+    v29 = "Failed to match integrity algorithms, none provided";
 LABEL_30:
-    v31 = v10;
-    v32 = 2;
+    v30 = v10;
+    v31 = 2;
 LABEL_31:
-    _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
+    _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, v29, buf, v31);
     goto LABEL_5;
   }
 
@@ -1837,63 +1907,63 @@ LABEL_8:
     goto LABEL_14;
   }
 
-  v33 = v13;
-  v34 = [[NEIKEv2KEMProtocol alloc] initWithMethod:0];
-  v134 = v34;
-  v100 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v134 count:1];
+  v32 = v13;
+  v33 = [[NEIKEv2KEMProtocol alloc] initWithMethod:0];
+  v133 = v33;
+  v99 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v133 count:1];
 
-  if (!v12 || !v33)
+  if (!v12 || !v32)
   {
     if (v12)
     {
-      v33 = v100;
+      v32 = v99;
     }
 
     else
     {
-      v12 = v100;
+      v12 = v99;
     }
 
-    v35 = v100;
+    v34 = v99;
   }
 
-  firstObject = [v33 firstObject];
-  v37 = [v12 indexOfObject:firstObject];
+  firstObject = [v32 firstObject];
+  v36 = [v12 indexOfObject:firstObject];
 
-  if (v37 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v36 == 0x7FFFFFFFFFFFFFFFLL)
   {
     if (proposal)
     {
-      v119 = 0uLL;
-      v120 = 0uLL;
-      v117 = 0uLL;
       v118 = 0uLL;
-      v38 = v33;
-      v39 = [v38 countByEnumeratingWithState:&v117 objects:v133 count:16];
-      if (v39)
+      v119 = 0uLL;
+      v116 = 0uLL;
+      v117 = 0uLL;
+      v37 = v32;
+      v38 = [v37 countByEnumeratingWithState:&v116 objects:v132 count:16];
+      if (v38)
       {
-        v40 = v39;
-        v97 = v33;
-        v41 = *v118;
+        v39 = v38;
+        v96 = v32;
+        v40 = *v117;
         while (2)
         {
-          for (i = 0; i != v40; ++i)
+          for (i = 0; i != v39; ++i)
           {
-            if (*v118 != v41)
+            if (*v117 != v40)
             {
-              objc_enumerationMutation(v38);
+              objc_enumerationMutation(v37);
             }
 
-            v43 = [v12 indexOfObject:*(*(&v117 + 1) + 8 * i)];
-            if (v43 != 0x7FFFFFFFFFFFFFFFLL)
+            v42 = [v12 indexOfObject:*(*(&v116 + 1) + 8 * i)];
+            if (v42 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v44 = [v12 objectAtIndexedSubscript:v43];
+              v43 = [v12 objectAtIndexedSubscript:v42];
               goto LABEL_89;
             }
           }
 
-          v40 = [v38 countByEnumeratingWithState:&v117 objects:v133 count:16];
-          if (v40)
+          v39 = [v37 countByEnumeratingWithState:&v116 objects:v132 count:16];
+          if (v39)
           {
             continue;
           }
@@ -1901,49 +1971,49 @@ LABEL_8:
           break;
         }
 
-        v44 = 0;
+        v43 = 0;
 LABEL_89:
-        v33 = v97;
+        v32 = v96;
       }
 
       else
       {
-        v44 = 0;
+        v43 = 0;
       }
     }
 
     else
     {
-      v115 = 0uLL;
-      v116 = 0uLL;
-      v113 = 0uLL;
       v114 = 0uLL;
+      v115 = 0uLL;
+      v112 = 0uLL;
+      v113 = 0uLL;
       obj = v12;
-      v60 = [obj countByEnumeratingWithState:&v113 objects:v132 count:16];
-      if (v60)
+      v59 = [obj countByEnumeratingWithState:&v112 objects:v131 count:16];
+      if (v59)
       {
-        v61 = v60;
-        v62 = v33;
-        v63 = *v114;
+        v60 = v59;
+        v61 = v32;
+        v62 = *v113;
         while (2)
         {
-          for (j = 0; j != v61; ++j)
+          for (j = 0; j != v60; ++j)
           {
-            if (*v114 != v63)
+            if (*v113 != v62)
             {
               objc_enumerationMutation(obj);
             }
 
-            v65 = *(*(&v113 + 1) + 8 * j);
-            if ([v62 containsObject:v65])
+            v64 = *(*(&v112 + 1) + 8 * j);
+            if ([v61 containsObject:v64])
             {
-              v44 = v65;
+              v43 = v64;
               goto LABEL_91;
             }
           }
 
-          v61 = [obj countByEnumeratingWithState:&v113 objects:v132 count:16];
-          if (v61)
+          v60 = [obj countByEnumeratingWithState:&v112 objects:v131 count:16];
+          if (v60)
           {
             continue;
           }
@@ -1951,38 +2021,38 @@ LABEL_89:
           break;
         }
 
-        v44 = 0;
+        v43 = 0;
 LABEL_91:
-        v33 = v62;
+        v32 = v61;
       }
 
       else
       {
-        v44 = 0;
+        v43 = 0;
       }
     }
   }
 
   else
   {
-    v44 = [v12 objectAtIndexedSubscript:v37];
+    v43 = [v12 objectAtIndexedSubscript:v36];
   }
 
-  if (!v44)
+  if (!v43)
   {
-    v67 = ne_log_large_obj();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+    v66 = ne_log_large_obj();
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
     {
       kemProtocols = [self kemProtocols];
       kemProtocols2 = [v9 kemProtocols];
       *buf = 138412546;
-      v138 = kemProtocols;
-      v139 = 2112;
-      v140 = kemProtocols2;
-      _os_log_impl(&dword_1BA83C000, v67, OS_LOG_TYPE_INFO, "Failed to match Key Exchange methods (%@ vs %@)", buf, 0x16u);
+      v137 = kemProtocols;
+      v138 = 2112;
+      v139 = kemProtocols2;
+      _os_log_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_INFO, "Failed to match Key Exchange methods (%@ vs %@)", buf, 0x16u);
     }
 
-    v129 = 0;
+    v128 = 0;
     goto LABEL_150;
   }
 
@@ -1997,119 +2067,119 @@ LABEL_91:
 
     if (!additionalKEMProtocols2)
     {
-      v129 = 1;
+      v128 = 1;
       goto LABEL_150;
     }
   }
 
-  v96 = v12;
-  v98 = v33;
-  v95 = v44;
-  if ([v44 method])
+  v95 = v12;
+  v97 = v32;
+  v94 = v43;
+  if ([v43 method])
   {
-    v71 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithObjects:{v44, 0}];
+    v70 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithObjects:{v43, 0}];
   }
 
   else
   {
-    v71 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v70 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   }
 
-  v72 = v71;
-  v73 = 6;
-  v74 = 0x1E696A000uLL;
-  v99 = v9;
+  v71 = v70;
+  v72 = 6;
+  v73 = 0x1E696A000uLL;
+  v98 = v9;
   proposalCopy2 = proposal;
   while (1)
   {
-    v75 = [*(v74 + 3480) numberWithUnsignedInteger:v73];
+    v74 = [*(v73 + 3480) numberWithUnsignedInteger:v72];
     additionalKEMProtocols3 = [v9 additionalKEMProtocols];
-    v77 = [additionalKEMProtocols3 objectForKeyedSubscript:v75];
+    v76 = [additionalKEMProtocols3 objectForKeyedSubscript:v74];
 
     additionalKEMProtocols4 = [self additionalKEMProtocols];
-    v79 = [additionalKEMProtocols4 objectForKeyedSubscript:v75];
+    v78 = [additionalKEMProtocols4 objectForKeyedSubscript:v74];
 
-    if (v77 | v79)
+    if (v76 | v78)
     {
       break;
     }
 
 LABEL_142:
 
-    if (++v73 == 13)
+    if (++v72 == 13)
     {
-      v129 = 1;
-      v33 = v98;
-      v44 = v95;
+      v128 = 1;
+      v32 = v97;
+      v43 = v94;
       goto LABEL_149;
     }
   }
 
-  if (v77)
+  if (v76)
   {
-    v80 = v79 == 0;
+    v79 = v78 == 0;
   }
 
   else
   {
-    v80 = 1;
+    v79 = 1;
   }
 
-  if (v80)
+  if (v79)
   {
-    if (v77)
+    if (v76)
     {
-      v79 = v100;
+      v78 = v99;
     }
 
     else
     {
-      v77 = v100;
+      v76 = v99;
     }
 
-    v81 = v100;
+    v80 = v99;
   }
 
-  obja = v75;
+  obja = v74;
   if (proposal)
   {
-    v111 = 0uLL;
-    v112 = 0uLL;
-    v109 = 0uLL;
     v110 = 0uLL;
-    v82 = v79;
-    v83 = [v82 countByEnumeratingWithState:&v109 objects:v131 count:16];
-    if (!v83)
+    v111 = 0uLL;
+    v108 = 0uLL;
+    v109 = 0uLL;
+    v81 = v78;
+    v82 = [v81 countByEnumeratingWithState:&v108 objects:v130 count:16];
+    if (!v82)
     {
 LABEL_144:
-      v79 = v82;
+      v78 = v81;
       goto LABEL_146;
     }
 
-    v84 = v83;
-    v85 = *v110;
+    v83 = v82;
+    v84 = *v109;
 LABEL_121:
-    v86 = 0;
+    v85 = 0;
     while (1)
     {
-      if (*v110 != v85)
+      if (*v109 != v84)
       {
-        objc_enumerationMutation(v82);
+        objc_enumerationMutation(v81);
       }
 
-      v87 = *(*(&v109 + 1) + 8 * v86);
-      if (([v72 containsObject:v87] & 1) == 0)
+      v86 = *(*(&v108 + 1) + 8 * v85);
+      if (([v71 containsObject:v86] & 1) == 0)
       {
-        if ([v77 containsObject:v87])
+        if ([v76 containsObject:v86])
         {
           goto LABEL_139;
         }
       }
 
-      if (v84 == ++v86)
+      if (v83 == ++v85)
       {
-        v84 = [v82 countByEnumeratingWithState:&v109 objects:v131 count:16];
-        if (v84)
+        v83 = [v81 countByEnumeratingWithState:&v108 objects:v130 count:16];
+        if (v83)
         {
           goto LABEL_121;
         }
@@ -2119,38 +2189,38 @@ LABEL_121:
     }
   }
 
-  v107 = 0uLL;
-  v108 = 0uLL;
-  v105 = 0uLL;
   v106 = 0uLL;
-  v82 = v77;
-  v88 = [v82 countByEnumeratingWithState:&v105 objects:v130 count:16];
-  if (v88)
+  v107 = 0uLL;
+  v104 = 0uLL;
+  v105 = 0uLL;
+  v81 = v76;
+  v87 = [v81 countByEnumeratingWithState:&v104 objects:v129 count:16];
+  if (v87)
   {
-    v89 = v88;
-    v90 = *v106;
+    v88 = v87;
+    v89 = *v105;
 LABEL_131:
-    v91 = 0;
+    v90 = 0;
     while (1)
     {
-      if (*v106 != v90)
+      if (*v105 != v89)
       {
-        objc_enumerationMutation(v82);
+        objc_enumerationMutation(v81);
       }
 
-      v87 = *(*(&v105 + 1) + 8 * v91);
-      if (([v72 containsObject:v87] & 1) == 0)
+      v86 = *(*(&v104 + 1) + 8 * v90);
+      if (([v71 containsObject:v86] & 1) == 0)
       {
-        if ([v79 containsObject:v87])
+        if ([v78 containsObject:v86])
         {
           break;
         }
       }
 
-      if (v89 == ++v91)
+      if (v88 == ++v90)
       {
-        v89 = [v82 countByEnumeratingWithState:&v105 objects:v130 count:16];
-        if (v89)
+        v88 = [v81 countByEnumeratingWithState:&v104 objects:v129 count:16];
+        if (v88)
         {
           goto LABEL_131;
         }
@@ -2160,199 +2230,191 @@ LABEL_131:
     }
 
 LABEL_139:
-    if ([v87 method])
+    if ([v86 method])
     {
-      [v72 addObject:v87];
+      [v71 addObject:v86];
     }
 
-    v9 = v99;
+    v9 = v98;
     proposal = proposalCopy2;
-    v75 = obja;
-    v74 = 0x1E696A000;
+    v74 = obja;
+    v73 = 0x1E696A000;
     goto LABEL_142;
   }
 
 LABEL_145:
-  v77 = v82;
+  v76 = v81;
 LABEL_146:
 
-  v92 = ne_log_large_obj();
-  v33 = v98;
-  v9 = v99;
-  v44 = v95;
-  if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+  v91 = ne_log_large_obj();
+  v32 = v97;
+  v9 = v98;
+  v43 = v94;
+  if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
   {
     additionalKEMProtocols5 = [self additionalKEMProtocols];
-    additionalKEMProtocols6 = [v99 additionalKEMProtocols];
+    additionalKEMProtocols6 = [v98 additionalKEMProtocols];
     *buf = 138412546;
-    v138 = additionalKEMProtocols5;
-    v139 = 2112;
-    v140 = additionalKEMProtocols6;
-    _os_log_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_INFO, "Failed to match Additional Key Exchange methods (%@ vs %@)", buf, 0x16u);
+    v137 = additionalKEMProtocols5;
+    v138 = 2112;
+    v139 = additionalKEMProtocols6;
+    _os_log_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_INFO, "Failed to match Additional Key Exchange methods (%@ vs %@)", buf, 0x16u);
   }
 
-  v129 = 0;
+  v128 = 0;
 LABEL_149:
 
-  v12 = v96;
+  v12 = v95;
 LABEL_150:
 
-  self = v129;
+  self = v128;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (uint64_t)isAValidResponse
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!self || objc_getProperty(self, a2, 72, 1) || !self[8])
   {
-    goto LABEL_3;
+    return 0;
   }
 
   if ([self protocol] != 240)
   {
     if ((self[9] & 1) == 0)
     {
-      goto LABEL_3;
+      return 0;
     }
 
     encryptionProtocols = [self encryptionProtocols];
-    v23 = [encryptionProtocols count];
+    v22 = [encryptionProtocols count];
 
-    if (v23 != 1)
+    if (v22 != 1)
     {
-      goto LABEL_3;
+      return 0;
     }
 
     encryptionProtocols2 = [self encryptionProtocols];
     firstObject = [encryptionProtocols2 firstObject];
     if (firstObject)
     {
-      v26 = firstObject[2];
-      v27 = v26 > 0x1F || (((1 << v26) & 0xD0100000) == 0);
+      v25 = firstObject[2];
+      v26 = v25 > 0x1F || (((1 << v25) & 0xD0100000) == 0);
     }
 
     else
     {
-      v27 = 1;
+      v26 = 1;
     }
 
     integrityProtocols = [self integrityProtocols];
-    v29 = [integrityProtocols count];
+    v28 = [integrityProtocols count];
 
-    if (v29 != v27)
+    if (v28 != v26)
     {
-      goto LABEL_3;
+      return 0;
     }
   }
 
   kemProtocols = [self kemProtocols];
-  v7 = [kemProtocols count];
+  v6 = [kemProtocols count];
 
-  if (v7 > 1)
+  if (v6 > 1)
   {
-    goto LABEL_3;
+    return 0;
   }
 
   additionalKEMProtocols = [self additionalKEMProtocols];
 
   if (!additionalKEMProtocols)
   {
-    v3 = 1;
-    goto LABEL_4;
+    return 1;
   }
 
   kemProtocols2 = [self kemProtocols];
-  v10 = [kemProtocols2 count];
+  v9 = [kemProtocols2 count];
 
-  if (v10 == 1)
+  if (v9 != 1)
   {
-    additionalKEMProtocols2 = [self additionalKEMProtocols];
-    v12 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(additionalKEMProtocols2, "count") + 1}];
-    kemProtocols3 = [self kemProtocols];
-    firstObject2 = [kemProtocols3 firstObject];
-    [v12 addObject:firstObject2];
+    return 0;
+  }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v15 = additionalKEMProtocols2;
-    v16 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
-    if (v16)
+  additionalKEMProtocols2 = [self additionalKEMProtocols];
+  v11 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(additionalKEMProtocols2, "count") + 1}];
+  kemProtocols3 = [self kemProtocols];
+  firstObject2 = [kemProtocols3 firstObject];
+  [v11 addObject:firstObject2];
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v14 = additionalKEMProtocols2;
+  v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v30;
+    while (2)
     {
-      v17 = v16;
-      v18 = *v31;
-      while (2)
+      for (i = 0; i != v16; ++i)
       {
-        for (i = 0; i != v17; ++i)
+        if (*v30 != v17)
         {
-          if (*v31 != v18)
-          {
-            objc_enumerationMutation(v15);
-          }
+          objc_enumerationMutation(v14);
+        }
 
-          v20 = [v15 objectForKeyedSubscript:{*(*(&v30 + 1) + 8 * i), v30}];
-          if ([v20 count] != 1)
-          {
-            goto LABEL_33;
-          }
+        v19 = [v14 objectForKeyedSubscript:{*(*(&v29 + 1) + 8 * i), v29}];
+        if ([v19 count] != 1)
+        {
+          goto LABEL_33;
+        }
 
-          firstObject3 = [v20 firstObject];
-          if ([v12 containsObject:firstObject3])
-          {
+        firstObject3 = [v19 firstObject];
+        if ([v11 containsObject:firstObject3])
+        {
 
 LABEL_33:
-            v3 = 0;
-            goto LABEL_34;
-          }
-
-          if ([firstObject3 method])
-          {
-            [v12 addObject:firstObject3];
-          }
+          v3 = 0;
+          goto LABEL_34;
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
-        v3 = 1;
-        if (v17)
+        if ([firstObject3 method])
         {
-          continue;
+          [v11 addObject:firstObject3];
         }
-
-        break;
       }
-    }
 
-    else
-    {
+      v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
       v3 = 1;
-    }
+      if (v16)
+      {
+        continue;
+      }
 
-LABEL_34:
+      break;
+    }
   }
 
   else
   {
-LABEL_3:
-    v3 = 0;
+    v3 = 1;
   }
 
-LABEL_4:
-  v4 = *MEMORY[0x1E69E9840];
+LABEL_34:
+
   return v3;
 }
 
 + (NSObject)chooseChildSAProposalFromLocalProposals:(void *)proposals remoteProposals:(int)remoteProposals preferRemoteProposals:(char)preferRemoteProposals checkKEMethod:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v8 = a2;
   proposalsCopy = proposals;
   objc_opt_self();
-  v29 = v8;
+  v28 = v8;
   if (!v8)
   {
     obj = ne_log_obj();
@@ -2362,10 +2424,10 @@ LABEL_4:
     }
 
     *buf = 136315138;
-    v47 = "+[NEIKEv2ChildSAProposal chooseChildSAProposalFromLocalProposals:remoteProposals:preferRemoteProposals:checkKEMethod:]";
-    v27 = "%s called with null localProposals";
+    v46 = "+[NEIKEv2ChildSAProposal chooseChildSAProposalFromLocalProposals:remoteProposals:preferRemoteProposals:checkKEMethod:]";
+    v26 = "%s called with null localProposals";
 LABEL_29:
-    _os_log_fault_impl(&dword_1BA83C000, obj, OS_LOG_TYPE_FAULT, v27, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, obj, OS_LOG_TYPE_FAULT, v26, buf, 0xCu);
     goto LABEL_21;
   }
 
@@ -2378,41 +2440,41 @@ LABEL_29:
     }
 
     *buf = 136315138;
-    v47 = "+[NEIKEv2ChildSAProposal chooseChildSAProposalFromLocalProposals:remoteProposals:preferRemoteProposals:checkKEMethod:]";
-    v27 = "%s called with null remoteProposals";
+    v46 = "+[NEIKEv2ChildSAProposal chooseChildSAProposalFromLocalProposals:remoteProposals:preferRemoteProposals:checkKEMethod:]";
+    v26 = "%s called with null remoteProposals";
     goto LABEL_29;
   }
 
   if (!remoteProposals)
   {
-    v35 = 0uLL;
-    v36 = 0uLL;
-    v33 = 0uLL;
     v34 = 0uLL;
+    v35 = 0uLL;
+    v32 = 0uLL;
+    v33 = 0uLL;
     obj = v8;
-    v17 = [obj countByEnumeratingWithState:&v33 objects:v44 count:16];
+    v17 = [obj countByEnumeratingWithState:&v32 objects:v43 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v33 + 1) + 8 * i);
-          v30[0] = MEMORY[0x1E69E9820];
-          v30[1] = 3221225472;
-          v30[2] = __118__NEIKEv2ChildSAProposal_chooseChildSAProposalFromLocalProposals_remoteProposals_preferRemoteProposals_checkKEMethod___block_invoke_2;
-          v30[3] = &unk_1E7F07BF8;
-          v30[4] = v21;
-          v31 = 0;
+          v21 = *(*(&v32 + 1) + 8 * i);
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __118__NEIKEv2ChildSAProposal_chooseChildSAProposalFromLocalProposals_remoteProposals_preferRemoteProposals_checkKEMethod___block_invoke_2;
+          v29[3] = &unk_1E7F07BF8;
+          v29[4] = v21;
+          v30 = 0;
           preferRemoteProposalsCopy = preferRemoteProposals;
-          v22 = [proposalsCopy indexOfObjectPassingTest:v30];
+          v22 = [proposalsCopy indexOfObjectPassingTest:v29];
           if (v22 != 0x7FFFFFFFFFFFFFFFLL)
           {
             v24 = [proposalsCopy objectAtIndexedSubscript:v22];
@@ -2422,7 +2484,7 @@ LABEL_29:
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v33 objects:v44 count:16];
+        v18 = [obj countByEnumeratingWithState:&v32 objects:v43 count:16];
         if (v18)
         {
           continue;
@@ -2435,12 +2497,12 @@ LABEL_29:
     goto LABEL_21;
   }
 
-  v42 = 0uLL;
-  v43 = 0uLL;
-  v40 = 0uLL;
   v41 = 0uLL;
+  v42 = 0uLL;
+  v39 = 0uLL;
+  v40 = 0uLL;
   obj = proposalsCopy;
-  v10 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v10 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (!v10)
   {
 LABEL_21:
@@ -2449,35 +2511,35 @@ LABEL_21:
   }
 
   v11 = v10;
-  v12 = *v41;
+  v12 = *v40;
   while (2)
   {
     for (j = 0; j != v11; ++j)
     {
-      if (*v41 != v12)
+      if (*v40 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v40 + 1) + 8 * j);
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __118__NEIKEv2ChildSAProposal_chooseChildSAProposalFromLocalProposals_remoteProposals_preferRemoteProposals_checkKEMethod___block_invoke;
-      v37[3] = &unk_1E7F07BF8;
-      v37[4] = v14;
+      v14 = *(*(&v39 + 1) + 8 * j);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __118__NEIKEv2ChildSAProposal_chooseChildSAProposalFromLocalProposals_remoteProposals_preferRemoteProposals_checkKEMethod___block_invoke;
+      v36[3] = &unk_1E7F07BF8;
+      v36[4] = v14;
       remoteProposalsCopy = remoteProposals;
       preferRemoteProposalsCopy2 = preferRemoteProposals;
-      v15 = [v29 indexOfObjectPassingTest:v37];
+      v15 = [v28 indexOfObjectPassingTest:v36];
       if (v15 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v23 = [v29 objectAtIndexedSubscript:v15];
+        v23 = [v28 objectAtIndexedSubscript:v15];
         v16 = [(NEIKEv2ChildSAProposal *)v23 copyFromRemote:v14 preferRemoteProposal:1 checkKEMethod:preferRemoteProposals];
 
         goto LABEL_24;
       }
     }
 
-    v11 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v11 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v11)
     {
       continue;
@@ -2489,7 +2551,6 @@ LABEL_21:
   v16 = 0;
 LABEL_24:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

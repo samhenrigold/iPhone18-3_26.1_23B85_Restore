@@ -1,6 +1,10 @@
 @interface JavaUtilLinkedHashMap
 - (BOOL)containsValueWithId:(id)id;
 - (JavaUtilLinkedHashMap)init;
+- (JavaUtilLinkedHashMap)initWithInt:(int)int;
+- (JavaUtilLinkedHashMap)initWithInt:(int)int withFloat:(float)float;
+- (JavaUtilLinkedHashMap)initWithInt:(int)int withFloat:(float)float withBoolean:(BOOL)boolean;
+- (id)constructorNewRetainedEntryWithId:(id)id withId:(id)withId withInt:(int)int withJavaUtilHashMap_HashMapEntry:(id)entry;
 - (id)eldest;
 - (id)getWithId:(id)id;
 - (id)newEntryIterator;
@@ -8,6 +12,7 @@
 - (id)newValueIterator;
 - (unint64_t)enumerateEntriesWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
 - (void)addNewEntryForNullKeyWithId:(id)id;
+- (void)addNewEntryWithId:(id)id withId:(id)withId withInt:(int)int withInt:(int)withInt;
 - (void)clear;
 - (void)dealloc;
 - (void)init__;
@@ -19,9 +24,33 @@
 
 - (JavaUtilLinkedHashMap)init
 {
-  JavaUtilHashMap_init(self, a2);
+  JavaUtilHashMap_init(self);
   [(JavaUtilLinkedHashMap *)self init];
   self->accessOrder_ = 0;
+  return self;
+}
+
+- (JavaUtilLinkedHashMap)initWithInt:(int)int
+{
+  JavaUtilHashMap_initWithInt_withFloat_(self, *&int, 0.75);
+  [(JavaUtilLinkedHashMap *)self init];
+  self->accessOrder_ = 0;
+  return self;
+}
+
+- (JavaUtilLinkedHashMap)initWithInt:(int)int withFloat:(float)float
+{
+  JavaUtilHashMap_initWithInt_withFloat_(self, *&int, float);
+  [(JavaUtilLinkedHashMap *)self init];
+  self->accessOrder_ = 0;
+  return self;
+}
+
+- (JavaUtilLinkedHashMap)initWithInt:(int)int withFloat:(float)float withBoolean:(BOOL)boolean
+{
+  JavaUtilHashMap_initWithInt_withFloat_(self, *&int, float);
+  [(JavaUtilLinkedHashMap *)self init];
+  self->accessOrder_ = boolean;
   return self;
 }
 
@@ -50,6 +79,27 @@
   return result;
 }
 
+- (void)addNewEntryWithId:(id)id withId:(id)withId withInt:(int)int withInt:(int)withInt
+{
+  v7 = *&int;
+  header = self->header_;
+  Weak = objc_loadWeak(&header->nxt_);
+  if (Weak != header)
+  {
+    v13 = Weak;
+    if ([(JavaUtilLinkedHashMap *)self removeEldestEntryWithJavaUtilMap_Entry:Weak])
+    {
+      [(JavaUtilHashMap *)self removeWithId:v13->super.key_];
+    }
+  }
+
+  v14 = objc_loadWeak(&header->prv_);
+  v15 = [[JavaUtilLinkedHashMap_LinkedEntry alloc] initWithId:id withId:withId withInt:v7 withJavaUtilHashMap_HashMapEntry:0 withJavaUtilLinkedHashMap_LinkedEntry:header withJavaUtilLinkedHashMap_LinkedEntry:v14];
+  v15->super.next_ = (&self->super.table_->elementType_)[withInt];
+  v16 = objc_storeWeak(&header->prv_, v15);
+  (&self->super.table_->elementType_)[withInt] = objc_storeWeak(v14 + 5, v16);
+}
+
 - (void)addNewEntryForNullKeyWithId:(id)id
 {
   header = self->header_;
@@ -70,11 +120,23 @@
   JreStrongAssignAndConsume(&self->super.entryForNullKey_, v10);
 }
 
+- (id)constructorNewRetainedEntryWithId:(id)id withId:(id)withId withInt:(int)int withJavaUtilHashMap_HashMapEntry:(id)entry
+{
+  v7 = *&int;
+  header = self->header_;
+  Weak = objc_loadWeak(&header->prv_);
+  v12 = [[JavaUtilLinkedHashMap_LinkedEntry alloc] initWithId:id withId:withId withInt:v7 withJavaUtilHashMap_HashMapEntry:0 withJavaUtilLinkedHashMap_LinkedEntry:header withJavaUtilLinkedHashMap_LinkedEntry:Weak];
+  v12->super.next_ = entry;
+  v13 = objc_storeWeak(&header->prv_, v12);
+
+  return objc_storeWeak(Weak + 5, v13);
+}
+
 - (id)getWithId:(id)id
 {
   if (id)
   {
-    v6 = JavaUtilCollections_secondaryHashWithId_(id);
+    v6 = JavaUtilCollections_secondaryHashWithId_(id, a2);
     table = self->super.table_;
     if (!table)
     {

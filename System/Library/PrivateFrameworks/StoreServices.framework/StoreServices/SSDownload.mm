@@ -71,12 +71,12 @@ SSXPCConnection *__43__SSDownload_initWithPersistentIdentifier___block_invoke()
 {
   v4 = SSXPCCreateCFObjectFromXPCObject(values);
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [(__CFArray *)v4 objectForKey:@"0"]) != 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [(__CFDate *)v4 objectForKey:@"0"]) != 0)
   {
     v6 = -[SSEntity _initWithPersistentIdentifier:](self, "_initWithPersistentIdentifier:", [v5 longLongValue]);
     if (v6)
     {
-      v7 = [(__CFArray *)v4 objectForKey:@"1"];
+      v7 = [(__CFDate *)v4 objectForKey:@"1"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -90,7 +90,7 @@ SSXPCConnection *__43__SSDownload_initWithPersistentIdentifier___block_invoke()
         [v8 addEntriesFromDictionary:v7];
       }
 
-      v9 = [(__CFArray *)v4 objectForKey:@"2"];
+      v9 = [(__CFDate *)v4 objectForKey:@"2"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -200,7 +200,7 @@ void __31__SSDownload_addAsset_forType___block_invoke(void *a1)
 - (id)assetsForType:(id)type
 {
   v40 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -219,28 +219,27 @@ void __31__SSDownload_addAsset_forType___block_invoke(void *a1)
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       LODWORD(v35) = 136446210;
       *(&v35 + 4) = "[SSDownload assetsForType:]";
-      LODWORD(v26) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v35, v26}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
@@ -269,33 +268,33 @@ void __31__SSDownload_addAsset_forType___block_invoke(void *a1)
   dispatch_sync(dispatchQueue, block);
   if (v30[5])
   {
-    v19 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v19, "0", 11);
-    xpc_dictionary_set_int64(v19, "1", self->super._pid);
-    SSXPCDictionarySetCFObject(v19, "2", type);
-    v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v21 = dispatch_semaphore_create(0);
-    v22 = v30[5];
+    v20 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v20, "0", 11);
+    xpc_dictionary_set_int64(v20, "1", self->super._pid);
+    SSXPCDictionarySetCFObject(v20, "2", type);
+    v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v22 = dispatch_semaphore_create(0);
+    v23 = v30[5];
     v27[0] = MEMORY[0x1E69E9820];
     v27[1] = 3221225472;
     v27[2] = __28__SSDownload_assetsForType___block_invoke_2;
     v27[3] = &unk_1E84AC5E0;
-    v27[5] = v21;
+    v27[5] = v22;
     v27[6] = &v29;
-    v27[4] = v20;
-    [v22 sendMessage:v19 withReply:v27];
-    dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v21);
-    v23 = v20;
-    *(*(&v35 + 1) + 40) = v23;
+    v27[4] = v21;
+    [v23 sendMessage:v20 withReply:v27];
+    dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v22);
+    v24 = v21;
+    *(*(&v35 + 1) + 40) = v24;
 
-    xpc_release(v19);
+    xpc_release(v20);
   }
 
-  v24 = *(*(&v35 + 1) + 40);
+  v25 = *(*(&v35 + 1) + 40);
   _Block_object_dispose(&v29, 8);
   _Block_object_dispose(&v35, 8);
-  return v24;
+  return v25;
 }
 
 id __28__SSDownload_assetsForType___block_invoke(uint64_t a1)
@@ -516,7 +515,7 @@ intptr_t __28__SSDownload_assetsForType___block_invoke_2(uint64_t a1, void *a2)
 - (void)pause
 {
   v26 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -535,28 +534,27 @@ intptr_t __28__SSDownload_assetsForType___block_invoke_2(uint64_t a1, void *a2)
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       LODWORD(v21) = 136446210;
       *(&v21 + 4) = "[SSDownload pause]";
-      LODWORD(v19) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v21, v19}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -577,14 +575,14 @@ intptr_t __28__SSDownload_assetsForType___block_invoke_2(uint64_t a1, void *a2)
   dispatch_sync(dispatchQueue, block);
   if (*(*(&v21 + 1) + 40))
   {
-    v17 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v17, "0", 17);
-    v18 = xpc_array_create(0, 0);
-    xpc_array_set_int64(v18, 0xFFFFFFFFFFFFFFFFLL, self->super._pid);
-    xpc_dictionary_set_value(v17, "1", v18);
+    v18 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v18, "0", 17);
+    v19 = xpc_array_create(0, 0);
+    xpc_array_set_int64(v19, 0xFFFFFFFFFFFFFFFFLL, self->super._pid);
+    xpc_dictionary_set_value(v18, "1", v19);
+    xpc_release(v19);
+    [*(*(&v21 + 1) + 40) sendMessage:v18 withReply:&__block_literal_global_117];
     xpc_release(v18);
-    [*(*(&v21 + 1) + 40) sendMessage:v17 withReply:&__block_literal_global_117];
-    xpc_release(v17);
   }
 
   else
@@ -613,7 +611,7 @@ id __19__SSDownload_pause__block_invoke(uint64_t a1)
 - (void)prioritizeAboveDownload:(id)download completionBlock:(id)block
 {
   v33 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -632,28 +630,27 @@ id __19__SSDownload_pause__block_invoke(uint64_t a1)
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
       LODWORD(v28) = 136446210;
       *(&v28 + 4) = "[SSDownload prioritizeAboveDownload:completionBlock:]";
-      LODWORD(v24) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v28, v24}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
@@ -680,19 +677,19 @@ id __19__SSDownload_pause__block_invoke(uint64_t a1)
   dispatch_sync(dispatchQueue, block);
   if (*(*(&v28 + 1) + 40))
   {
-    v21 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v21, "0", 28);
-    xpc_dictionary_set_int64(v21, "1", self->super._pid);
-    xpc_dictionary_set_int64(v21, "2", download);
-    v22 = *(*(&v28 + 1) + 40);
+    v22 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v22, "0", 28);
+    xpc_dictionary_set_int64(v22, "1", self->super._pid);
+    xpc_dictionary_set_int64(v22, "2", download);
+    v23 = *(*(&v28 + 1) + 40);
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
     v25[2] = __54__SSDownload_prioritizeAboveDownload_completionBlock___block_invoke_3;
     v25[3] = &unk_1E84AC760;
     v25[4] = self;
     v25[5] = block;
-    [v22 sendMessage:v21 withReply:v25];
-    xpc_release(v21);
+    [v23 sendMessage:v22 withReply:v25];
+    xpc_release(v22);
   }
 
   else if (block)
@@ -709,7 +706,7 @@ id __19__SSDownload_pause__block_invoke(uint64_t a1)
   _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __54__SSDownload_prioritizeAboveDownload_completionBlock___block_invoke(void *a1)
+void *__54__SSDownload_prioritizeAboveDownload_completionBlock___block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 40) = *(a1[4] + 8);
 
@@ -773,7 +770,7 @@ void __26__SSDownload_removeAsset___block_invoke(int8x16_t *a1)
   }
 }
 
-uint64_t __26__SSDownload_removeAsset___block_invoke_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__26__SSDownload_removeAsset___block_invoke_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 indexOfObjectIdenticalTo:a1[4]];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -881,8 +878,8 @@ id __21__SSDownload_restart__block_invoke(uint64_t a1)
 
 - (void)setDownloadHandler:(id)handler completionBlock:(id)block
 {
-  v34 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v33 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -901,65 +898,63 @@ id __21__SSDownload_restart__block_invoke(uint64_t a1)
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
-      LODWORD(v29) = 136446210;
-      *(&v29 + 4) = "[SSDownload setDownloadHandler:completionBlock:]";
-      LODWORD(v25) = 12;
-      v24 = &v29;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      LODWORD(v28) = 136446210;
+      *(&v28 + 4) = "[SSDownload setDownloadHandler:completionBlock:]";
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v29, v25}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
 
-  *&v29 = 0;
-  *(&v29 + 1) = &v29;
-  v30 = 0x3052000000;
-  v31 = __Block_byref_object_copy__0;
-  v32 = __Block_byref_object_dispose__0;
-  v33 = 0;
+  *&v28 = 0;
+  *(&v28 + 1) = &v28;
+  v29 = 0x3052000000;
+  v30 = __Block_byref_object_copy__0;
+  v31 = __Block_byref_object_dispose__0;
+  v32 = 0;
   dispatchQueue = self->super._dispatchQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __49__SSDownload_setDownloadHandler_completionBlock___block_invoke;
   block[3] = &unk_1E84AC698;
   block[4] = self;
-  block[5] = &v29;
+  block[5] = &v28;
   dispatch_sync(dispatchQueue, block);
-  if (*(*(&v29 + 1) + 40))
+  if (*(*(&v28 + 1) + 40))
   {
-    v21 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v21, "0", 23);
-    xpc_dictionary_set_int64(v21, "1", self->super._pid);
+    v22 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v22, "0", 23);
+    xpc_dictionary_set_int64(v22, "1", self->super._pid);
     if (handler)
     {
-      xpc_dictionary_set_int64(v21, "2", [handler handlerIdentifier]);
+      xpc_dictionary_set_int64(v22, "2", [handler handlerIdentifier]);
     }
 
-    v22 = *(*(&v29 + 1) + 40);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __49__SSDownload_setDownloadHandler_completionBlock___block_invoke_3;
-    v26[3] = &unk_1E84AC7E0;
-    v26[4] = block;
-    [v22 sendMessage:v21 withReply:{v26, v24}];
-    xpc_release(v21);
+    v23 = *(*(&v28 + 1) + 40);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __49__SSDownload_setDownloadHandler_completionBlock___block_invoke_3;
+    v25[3] = &unk_1E84AC7E0;
+    v25[4] = block;
+    [v23 sendMessage:v22 withReply:v25];
+    xpc_release(v22);
   }
 
   else
@@ -968,16 +963,16 @@ id __21__SSDownload_restart__block_invoke(uint64_t a1)
     if (block)
     {
       global_queue = dispatch_get_global_queue(0, 0);
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __49__SSDownload_setDownloadHandler_completionBlock___block_invoke_2;
-      v27[3] = &unk_1E84AC710;
-      v27[4] = block;
-      dispatch_async(global_queue, v27);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __49__SSDownload_setDownloadHandler_completionBlock___block_invoke_2;
+      v26[3] = &unk_1E84AC710;
+      v26[4] = block;
+      dispatch_async(global_queue, v26);
     }
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
 }
 
 id __49__SSDownload_setDownloadHandler_completionBlock___block_invoke(uint64_t a1)
@@ -1097,7 +1092,7 @@ void *__39__SSDownload__addCachedExternalValues___block_invoke(uint64_t a1)
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __39__SSDownload__addCachedPropertyValues___block_invoke(uint64_t a1)
+void *__39__SSDownload__addCachedPropertyValues___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 32);
   if (!v2)

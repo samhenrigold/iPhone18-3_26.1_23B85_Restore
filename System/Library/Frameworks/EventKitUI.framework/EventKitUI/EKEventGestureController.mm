@@ -6045,33 +6045,33 @@ LABEL_7:
   occurrence = [(EKDayOccurrenceView *)self->_draggingView occurrence];
   if (dayCopy)
   {
-    [(EKEventGestureController *)self _alignedYOriginForAllDayOccurrence:self->_event atPoint:bottomCopy floorAtAllDayRegionBottom:x, y];
-    v27 = v32;
-    if (offsetCopy && !(v19 & 1 | (([occurrence isAllDay] & 1) == 0)))
+    v32 = [(EKEventGestureController *)self _alignedYOriginForAllDayOccurrence:self->_event atPoint:bottomCopy floorAtAllDayRegionBottom:x, y];
+    v27 = v34;
+    if (offsetCopy && (v32 = [occurrence isAllDay], !(v19 & 1 | ((v32 & 1) == 0))))
     {
       touchOffsetDays = self->_touchOffsetDays;
     }
 
     else
     {
-      v33 = self->_touchOffsetDays;
-      if ((v33 < 1) | v19 & 1)
+      v35 = self->_touchOffsetDays;
+      if ((v35 < 1) | v19 & 1)
       {
         goto LABEL_20;
       }
 
-      touchOffsetDays = v33;
+      touchOffsetDays = v35;
     }
 
-    v47 = v21 * touchOffsetDays;
-    IsLeftToRight = CalTimeDirectionIsLeftToRight();
-    v49 = 1.0;
+    v49 = v21 * touchOffsetDays;
+    IsLeftToRight = CalTimeDirectionIsLeftToRight(v32, v33);
+    v51 = 1.0;
     if (IsLeftToRight)
     {
-      v49 = -1.0;
+      v51 = -1.0;
     }
 
-    v25 = v25 + v47 * v49;
+    v25 = v25 + v49 * v51;
   }
 
   else
@@ -6085,25 +6085,25 @@ LABEL_7:
     if (bottomCopy)
     {
       [(EKEventGestureController *)self _capOccurrenceViewYOrigin:1 ignoreTopInsets:v27];
-      v27 = v35;
+      v27 = v37;
     }
 
     if (self->_touchOffsetDays >= 1 && ([occurrence isAllDay] & 1) == 0)
     {
-      v36 = objc_loadWeakRetained(&self->_delegate);
-      [v36 eventGestureController:self dateAtPoint:{x, y}];
-      v38 = v37;
+      v38 = objc_loadWeakRetained(&self->_delegate);
+      [v38 eventGestureController:self dateAtPoint:{x, y}];
+      v40 = v39;
 
-      v39 = MEMORY[0x1E69930C8];
+      v41 = MEMORY[0x1E69930C8];
       eventStore = [(EKEvent *)self->_event eventStore];
       timeZone = [eventStore timeZone];
-      v42 = [v39 calendarDateWithAbsoluteTime:timeZone timeZone:v38];
-      calendarDateForDay = [v42 calendarDateForDay];
+      v44 = [v41 calendarDateWithAbsoluteTime:timeZone timeZone:v40];
+      calendarDateForDay = [v44 calendarDateForDay];
 
-      v44 = objc_loadWeakRetained(&self->_delegate);
+      v46 = objc_loadWeakRetained(&self->_delegate);
       [calendarDateForDay absoluteTime];
-      [v44 eventGestureController:self pointAtDate:0 isAllDay:?];
-      v25 = CalRoundPointToScreenScale(v45, v46);
+      [v46 eventGestureController:self pointAtDate:0 isAllDay:?];
+      v25 = CalRoundPointToScreenScale(v47, v48);
     }
   }
 
@@ -6112,35 +6112,35 @@ LABEL_20:
   {
     if (self->_draggingView && [(UILongPressGestureRecognizer *)self->_draggingGestureRecognizer state])
     {
-      v50 = self->_touchOffset.y;
-      v51 = objc_loadWeakRetained(&self->_delegate);
-      v52 = [v51 eventGestureController:self isAllDayAtPoint:-[EKDayOccurrenceView isAllDay](self->_draggingView requireInsistence:{"isAllDay") ^ 1, self->_firstTouchPoint.x, self->_firstTouchPoint.y}];
+      v52 = self->_touchOffset.y;
+      v53 = objc_loadWeakRetained(&self->_delegate);
+      v54 = [v53 eventGestureController:self isAllDayAtPoint:-[EKDayOccurrenceView isAllDay](self->_draggingView requireInsistence:{"isAllDay") ^ 1, self->_firstTouchPoint.x, self->_firstTouchPoint.y}];
 
-      if (v52 != dayCopy)
+      if (v54 != dayCopy)
       {
         [(EKEvent *)self->_event duration];
-        v54 = fmin(v53, 86400.0);
+        v56 = fmin(v55, 86400.0);
         if (![(EKEvent *)self->_event isAllDay])
         {
-          v55 = self->_touchOffsetDays;
-          if (v55 >= 1 && v55 + 1 == [(EKEvent *)self->_event daySpan])
+          v57 = self->_touchOffsetDays;
+          if (v57 >= 1 && v57 + 1 == [(EKEvent *)self->_event daySpan])
           {
-            v56 = MEMORY[0x1E69930C8];
+            v58 = MEMORY[0x1E69930C8];
             endDateUnadjustedForLegacyClients = [(EKEvent *)self->_event endDateUnadjustedForLegacyClients];
             timeZone2 = [(EKEvent *)self->_event timeZone];
-            v59 = [v56 calendarDateWithDate:endDateUnadjustedForLegacyClients timeZone:timeZone2];
+            v61 = [v58 calendarDateWithDate:endDateUnadjustedForLegacyClients timeZone:timeZone2];
 
-            [v59 absoluteTime];
-            v61 = v60;
-            calendarDateForDay2 = [v59 calendarDateForDay];
+            [v61 absoluteTime];
+            v63 = v62;
+            calendarDateForDay2 = [v61 calendarDateForDay];
             [calendarDateForDay2 absoluteTime];
-            v54 = v61 - v63;
+            v56 = v63 - v65;
           }
         }
 
-        [(EKEventGestureController *)self _computeHeightForOccurrenceViewOfDuration:self->_event event:v52 allDay:fmin(v54, 86400.0)];
-        v65 = v64;
-        if (v52)
+        [(EKEventGestureController *)self _computeHeightForOccurrenceViewOfDuration:self->_event event:v54 allDay:fmin(v56, 86400.0)];
+        v67 = v66;
+        if (v54)
         {
           [(EKEventGestureController *)self defaultDurationForEvent:self->_event];
         }
@@ -6151,13 +6151,13 @@ LABEL_20:
         }
 
         [(EKEventGestureController *)self _computeHeightForOccurrenceViewOfDuration:self->_event event:dayCopy allDay:?];
-        v50 = v50 * (v67 / v65);
+        v52 = v52 * (v69 / v67);
       }
 
-      v27 = y - v50;
+      v27 = y - v52;
     }
 
-    v66 = 1;
+    v68 = 1;
     if (!offsetCopy)
     {
       goto LABEL_42;
@@ -6166,30 +6166,30 @@ LABEL_20:
 
   else
   {
-    v66 = 0;
+    v68 = 0;
     if (!offsetCopy)
     {
       goto LABEL_42;
     }
   }
 
-  v68 = objc_loadWeakRetained(&self->_delegate);
-  v69 = objc_opt_respondsToSelector();
+  v70 = objc_loadWeakRetained(&self->_delegate);
+  v71 = objc_opt_respondsToSelector();
 
-  v70 = (v66 & v69) == 1 && [(EKEventGestureController *)self usesXDragOffsetInCancelRegion];
-  if (((v69 ^ 1 | v70) & 1) == 0)
+  v72 = (v68 & v71) == 1 && [(EKEventGestureController *)self usesXDragOffsetInCancelRegion];
+  if (((v71 ^ 1 | v72) & 1) == 0)
   {
-    v79 = objc_loadWeakRetained(&self->_delegate);
-    [v79 computeXDragOffsetForEventGestureController:self currentX:x startX:self->_firstTouchPoint.x];
-    v81 = v80;
-    v82 = CalTimeDirectionIsLeftToRight();
-    v83 = -1.0;
-    if (v82)
+    v81 = objc_loadWeakRetained(&self->_delegate);
+    v82 = [v81 computeXDragOffsetForEventGestureController:self currentX:x startX:self->_firstTouchPoint.x];
+    v84 = v83;
+    v86 = CalTimeDirectionIsLeftToRight(v82, v85);
+    v87 = -1.0;
+    if (v86)
     {
-      v83 = 1.0;
+      v87 = 1.0;
     }
 
-    v25 = v25 + v81 * v83;
+    v25 = v25 + v84 * v87;
 
     if (!dayCopy)
     {
@@ -6205,20 +6205,20 @@ LABEL_42:
   {
 LABEL_43:
     [(EKDayOccurrenceView *)self->_draggingView margin];
-    v25 = v25 + v71;
+    v25 = v25 + v73;
     [(EKDayOccurrenceView *)self->_draggingView margin];
-    v27 = v27 + v72;
+    v27 = v27 + v74;
   }
 
 LABEL_44:
   [v17 convertPoint:v15 toView:{v25, v27}];
-  v74 = v73;
   v76 = v75;
+  v78 = v77;
 
-  v77 = v74;
-  v78 = v76;
-  result.y = v78;
-  result.x = v77;
+  v79 = v76;
+  v80 = v78;
+  result.y = v80;
+  result.x = v79;
   return result;
 }
 

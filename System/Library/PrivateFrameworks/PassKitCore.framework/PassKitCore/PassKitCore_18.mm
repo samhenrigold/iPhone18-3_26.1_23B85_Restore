@@ -92,7 +92,7 @@ void sub_1AD50A2C8(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5B8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5B8, "~5\b");
     inited = swift_initStackObject();
     *(inited + 32) = 0x746C75736572;
     *(inited + 16) = xmmword_1ADB78CE0;
@@ -102,7 +102,7 @@ void sub_1AD50A2C8(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(
     sub_1AD426B24(inited);
     swift_setDeallocating();
     sub_1AD50BC60(inited + 32);
-    sub_1AD3D3200(0, &qword_1EB5982B0);
+    sub_1AD3D3200(0, &qword_1EB5982B0, 0x1E69E58C0);
     v22 = sub_1ADB06260();
 
     PKAnalyticsSendEvent(v21, v22);
@@ -162,7 +162,7 @@ void sub_1AD50A704(uint64_t a1, unint64_t a2, void *a3, void (*a4)(id, uint64_t)
     [v5 setUnderlyingError_];
     a4(v5, 1);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5B8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5B8, "~5\b");
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1ADB78CE0;
     *(inited + 32) = 0x746C75736572;
@@ -172,7 +172,7 @@ void sub_1AD50A704(uint64_t a1, unint64_t a2, void *a3, void (*a4)(id, uint64_t)
     sub_1AD426B24(inited);
     swift_setDeallocating();
     sub_1AD50BC60(inited + 32);
-    sub_1AD3D3200(0, &qword_1EB5982B0);
+    sub_1AD3D3200(0, &qword_1EB5982B0, 0x1E69E58C0);
     v9 = sub_1ADB06260();
 
     PKAnalyticsSendEvent(v8, v9);
@@ -221,7 +221,7 @@ uint64_t block_copy_helper_46(uint64_t a1, uint64_t a2)
 
 void sub_1AD50A9F4(uint64_t a1, unint64_t a2, void (*a3)(void, id))
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5B8, "~5\b");
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1ADB78CE0;
   *(inited + 32) = 0x746C75736572;
@@ -231,7 +231,7 @@ void sub_1AD50A9F4(uint64_t a1, unint64_t a2, void (*a3)(void, id))
   sub_1AD426B24(inited);
   swift_setDeallocating();
   sub_1AD50BC60(inited + 32);
-  sub_1AD3D3200(0, &qword_1EB5982B0);
+  sub_1AD3D3200(0, &qword_1EB5982B0, 0x1E69E58C0);
   v8 = sub_1ADB06260();
 
   PKAnalyticsSendEvent(v7, v8);
@@ -279,7 +279,7 @@ uint64_t sub_1AD50ACC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   v14 = *(v25 - 8);
   MEMORY[0x1EEE9AC00](v25);
   v16 = &v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1AD3D3200(0, &qword_1EB59A670);
+  sub_1AD3D3200(0, &qword_1EB59A670, 0x1E69E9610);
   v24 = sub_1ADB068B0();
   v17 = swift_allocObject();
   v17[2] = a2;
@@ -301,9 +301,9 @@ uint64_t sub_1AD50ACC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
   sub_1ADB06050();
   aBlock[0] = MEMORY[0x1E69E7CC0];
-  sub_1AD50C6E0(&qword_1EB598900, MEMORY[0x1E69E7F60]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59BB30);
-  sub_1AD41E8DC(&qword_1EB598910, &qword_1EB59BB30);
+  sub_1AD50C6E0(&qword_1EB598900, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59BB30, &unk_1ADB78AB0);
+  sub_1AD41E8DC(&qword_1EB598910, &qword_1EB59BB30, &unk_1ADB78AB0);
   sub_1ADB06B00();
   v21 = v24;
   MEMORY[0x1B26F6950](0, v16, v13, v19);
@@ -350,7 +350,7 @@ void sub_1AD50AFDC(uint64_t a1, uint64_t a2, unint64_t a3, void (*a4)(uint64_t, 
   }
 }
 
-void sub_1AD50B194(int a1, void *a2, int a3, id a4, void (*a5)(void, id), uint64_t a6, void *a7, void *a8)
+void sub_1AD50B194(int a1, void *a2, uint64_t a3, id a4, void (*a5)(void, id), uint64_t a6, void *a7, void *a8)
 {
   if (!a2)
   {
@@ -387,7 +387,7 @@ LABEL_45:
         v31 = v71;
 
 LABEL_22:
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5D0);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59C5D0, &unk_1ADB86740);
         v32 = swift_allocObject();
         *(v32 + 16) = xmmword_1ADB78CE0;
         *(v32 + 56) = MEMORY[0x1E69E6158];
@@ -672,7 +672,7 @@ void sub_1AD50BBC8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 
 uint64_t sub_1AD50BC60(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB59C5C0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB59C5C0, &qword_1ADB86738);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -683,7 +683,7 @@ uint64_t objectdestroyTm_5()
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
 
-id sub_1AD50BD5C(void (*a1)(char *, uint64_t, unint64_t, uint64_t, unint64_t, uint64_t (*)(void *a1), void *), uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+id sub_1AD50BD5C(void (*a1)(char *, uint64_t, unint64_t, uint64_t, unint64_t, uint64_t (*)(), void *), uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v85 = a4;
   v86 = a5;
@@ -719,13 +719,11 @@ id sub_1AD50BD5C(void (*a1)(char *, uint64_t, unint64_t, uint64_t, unint64_t, ui
   v83 = v22;
   v84 = v21;
 
-  v82 = sub_1AD3D3200(0, &unk_1EB59BB10);
-  sub_1AD3D3200(0, &qword_1EB59A670);
+  v82 = sub_1AD3D3200(0, &unk_1EB59BB10, 0x1E69E9630);
+  sub_1AD3D3200(0, &qword_1EB59A670, 0x1E69E9610);
   v23 = sub_1ADB068B0();
   *&aBlock = MEMORY[0x1E69E7CC0];
-  sub_1AD50C6E0(&unk_1EB599FB0, MEMORY[0x1E69E80B0]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB59BB20);
-  sub_1AD41E8DC(&unk_1EB599FC0, &unk_1EB59BB20);
+  sub_1AD50C6E0(&unk_1EB599FB0, MEMORY[0x1E69E80B0], MEMORY[0x1E69E80B8]);
   sub_1ADB06B00();
   v24 = sub_1ADB068E0();
 
@@ -895,7 +893,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_1AD50C6E0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1AD50C6E0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1461,23 +1459,23 @@ uint64_t sub_1AD50D1EC(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-id ProvisioningRequirementOracle.init()()
+id ProvisioningRequirementOracle.init()(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ProvisioningRequirementOracle();
-  return objc_msgSendSuper2(&v2, sel_init);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for ProvisioningRequirementOracle();
+  return objc_msgSendSuper2(&v3, sel_init);
 }
 
-uint64_t sub_1AD50D37C()
+char *sub_1AD50D37C(uint64_t a1)
 {
-  v2 = sub_1AD50DE88();
+  v3 = sub_1AD50DE88();
   sub_1AD4505BC(&unk_1F2261D58);
-  v0 = sub_1AD4CEF98(v2);
+  v1 = sub_1AD4CEF98(v3);
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_1AD50D3D8(void *a1)
+char *sub_1AD50D3D8(void *a1)
 {
   v22 = sub_1AD50DE88();
   v2 = [a1 configuration];
@@ -1600,7 +1598,7 @@ LABEL_26:
   return v20;
 }
 
-uint64_t sub_1AD50D730(unint64_t a1, void *a2)
+char *sub_1AD50D730(unint64_t a1, void *a2)
 {
   result = sub_1AD50DE88();
   v4 = result;
@@ -1636,7 +1634,7 @@ LABEL_3:
 
       v8 = v7;
       v9 = sub_1AD50E160(v7, a2);
-      v10 = *(v9 + 16);
+      v10 = *(v9 + 2);
       v11 = *(v4 + 2);
       v12 = v11 + v10;
       if (__OFADD__(v11, v10))
@@ -1663,7 +1661,7 @@ LABEL_27:
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
       if (isUniquelyReferenced_nonNull_native && (v15 = *(v4 + 3) >> 1, v15 >= v12))
       {
-        if (*(v13 + 16))
+        if (*(v13 + 2))
         {
           goto LABEL_19;
         }
@@ -1683,7 +1681,7 @@ LABEL_27:
 
         v4 = sub_1AD42507C(isUniquelyReferenced_nonNull_native, v16, 1, v4);
         v15 = *(v4 + 3) >> 1;
-        if (*(v13 + 16))
+        if (*(v13 + 2))
         {
 LABEL_19:
           v17 = *(v4 + 2);
@@ -1692,7 +1690,7 @@ LABEL_19:
             goto LABEL_25;
           }
 
-          memcpy(&v4[v17 + 32], (v13 + 32), v10);
+          memcpy(&v4[v17 + 32], v13 + 32, v10);
 
           if (v10)
           {
@@ -1730,7 +1728,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t sub_1AD50D8E8(void *a1)
+char *sub_1AD50D8E8(void *a1)
 {
   v1 = sub_1AD50EC78(a1);
   v2 = sub_1AD4CEF98(v1);
@@ -1738,7 +1736,7 @@ uint64_t sub_1AD50D8E8(void *a1)
   return v2;
 }
 
-uint64_t sub_1AD50D924(void *a1)
+char *sub_1AD50D924(void *a1)
 {
   v4 = sub_1AD50F700(a1);
   sub_1AD4505BC(&unk_1F2261D80);
@@ -1749,7 +1747,7 @@ uint64_t sub_1AD50D924(void *a1)
   return v2;
 }
 
-uint64_t sub_1AD50D988(void *a1)
+char *sub_1AD50D988(void *a1)
 {
   v4 = sub_1AD50F700(a1);
   sub_1AD4505BC(&unk_1F2261C18);
@@ -1842,9 +1840,9 @@ char *sub_1AD50DD30(void *a1)
     return MEMORY[0x1E69E7CC0];
   }
 
-  v7 = [(__CFString *)v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (!v7)
+  if (!isEqualToString)
   {
     return MEMORY[0x1E69E7CC0];
   }
@@ -1871,7 +1869,7 @@ LABEL_12:
 
 char *sub_1AD50DE88()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59A0B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59A0B8, &unk_1ADB80910);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1ADB86750;
   *(inited + 32) = -1953593457;
@@ -1890,7 +1888,7 @@ char *sub_1AD50DE88()
   return v1;
 }
 
-uint64_t sub_1AD50DF78(unint64_t a1)
+char *sub_1AD50DF78(unint64_t a1)
 {
   if (a1 > 5)
   {
@@ -1960,7 +1958,7 @@ uint64_t sub_1AD50DF78(unint64_t a1)
   return result;
 }
 
-uint64_t sub_1AD50E160(void *a1, void *a2)
+char *sub_1AD50E160(void *a1, void *a2)
 {
   v4 = MEMORY[0x1E69E7CC0];
   v85 = MEMORY[0x1E69E7CC0];
@@ -2652,7 +2650,7 @@ LABEL_45:
   return v2;
 }
 
-uint64_t sub_1AD50F108()
+char *sub_1AD50F108()
 {
   v0 = sub_1AD50DE88();
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -2686,26 +2684,26 @@ uint64_t sub_1AD50F108()
   return v6;
 }
 
-uint64_t sub_1AD50F1FC(uint64_t a1, void *a2)
+char *sub_1AD50F1FC(uint64_t a1, void *a2)
 {
   v3 = *a1;
   v4 = *(a1 + 24);
   v5 = sub_1AD50DE88();
-  v37 = v5;
+  v38 = v5;
   if (v4 <= 2)
   {
     if (v4)
     {
       if (v4 != 1)
       {
-        v15 = [v3 secureElementPassConfiguration];
-        v16 = sub_1AD50EC78(v15);
+        v16 = [v3 secureElementPassConfiguration];
+        v17 = sub_1AD50EC78(v16);
 
-        sub_1AD4505BC(v16);
+        sub_1AD4505BC(v17);
         goto LABEL_32;
       }
 
-      v6 = v5;
+      v7 = v5;
       if ([v3 style])
       {
         if ([v3 style] != 1)
@@ -2713,36 +2711,36 @@ uint64_t sub_1AD50F1FC(uint64_t a1, void *a2)
 LABEL_24:
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v6 = sub_1AD42507C(0, *(v6 + 2) + 1, 1, v6);
+            v7 = sub_1AD42507C(0, *(v7 + 2) + 1, 1, v7);
           }
 
-          v18 = *(v6 + 2);
-          v19 = *(v6 + 3);
-          v20 = v18 + 1;
-          if (v18 >= v19 >> 1)
+          v19 = *(v7 + 2);
+          v20 = *(v7 + 3);
+          v21 = v19 + 1;
+          if (v19 >= v20 >> 1)
           {
-            v28 = v6;
-            v29 = *(v6 + 2);
-            v30 = sub_1AD42507C((v19 > 1), v18 + 1, 1, v28);
-            v18 = v29;
-            v6 = v30;
+            v29 = v7;
+            v30 = *(v7 + 2);
+            v31 = sub_1AD42507C((v20 > 1), v19 + 1, 1, v29);
+            v19 = v30;
+            v7 = v31;
           }
 
-          *(v6 + 2) = v20;
-          v6[v18 + 32] = -122;
-          v37 = v6;
+          *(v7 + 2) = v21;
+          v7[v19 + 32] = -122;
+          v38 = v7;
           if ([v3 allowManagedAppleID] != 1)
           {
-            v22 = *(v6 + 2);
-            v21 = *(v6 + 3);
-            if (v22 >= v21 >> 1)
+            v23 = *(v7 + 2);
+            v22 = *(v7 + 3);
+            if (v23 >= v22 >> 1)
             {
-              v6 = sub_1AD42507C((v21 > 1), v22 + 1, 1, v6);
+              v7 = sub_1AD42507C((v22 > 1), v23 + 1, 1, v7);
             }
 
-            *(v6 + 2) = v22 + 1;
-            v6[v22 + 32] = -116;
-            v37 = v6;
+            *(v7 + 2) = v23 + 1;
+            v7[v23 + 32] = -116;
+            v38 = v7;
           }
 
           goto LABEL_32;
@@ -2750,99 +2748,99 @@ LABEL_24:
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v6 = sub_1AD42507C(0, *(v6 + 2) + 1, 1, v6);
+          v7 = sub_1AD42507C(0, *(v7 + 2) + 1, 1, v7);
         }
 
-        v7 = *(v6 + 2);
-        v8 = *(v6 + 3);
-        v9 = v7 + 1;
-        if (v7 >= v8 >> 1)
+        v8 = *(v7 + 2);
+        v9 = *(v7 + 3);
+        v10 = v8 + 1;
+        if (v8 >= v9 >> 1)
         {
-          v34 = v6;
-          v35 = *(v6 + 2);
-          v36 = sub_1AD42507C((v8 > 1), v7 + 1, 1, v34);
-          v7 = v35;
-          v6 = v36;
+          v35 = v7;
+          v36 = *(v7 + 2);
+          v37 = sub_1AD42507C((v9 > 1), v8 + 1, 1, v35);
+          v8 = v36;
+          v7 = v37;
         }
 
-        v10 = -127;
+        v11 = -127;
       }
 
       else
       {
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v6 = sub_1AD42507C(0, *(v6 + 2) + 1, 1, v6);
+          v7 = sub_1AD42507C(0, *(v7 + 2) + 1, 1, v7);
         }
 
-        v7 = *(v6 + 2);
-        v17 = *(v6 + 3);
-        v9 = v7 + 1;
-        if (v7 >= v17 >> 1)
+        v8 = *(v7 + 2);
+        v18 = *(v7 + 3);
+        v10 = v8 + 1;
+        if (v8 >= v18 >> 1)
         {
-          v31 = v6;
-          v32 = *(v6 + 2);
-          v33 = sub_1AD42507C((v17 > 1), v7 + 1, 1, v31);
-          v7 = v32;
-          v6 = v33;
+          v32 = v7;
+          v33 = *(v7 + 2);
+          v34 = sub_1AD42507C((v18 > 1), v8 + 1, 1, v32);
+          v8 = v33;
+          v7 = v34;
         }
 
-        v10 = -123;
+        v11 = -123;
       }
 
-      *(v6 + 2) = v9;
-      v6[v7 + 32] = v10;
+      *(v7 + 2) = v10;
+      v7[v8 + 32] = v11;
       goto LABEL_24;
     }
 
-    v11 = sub_1AD50E160(v3, a2);
+    v12 = sub_1AD50E160(v3, a2);
 LABEL_14:
-    sub_1AD4505BC(v11);
+    sub_1AD4505BC(v12);
     goto LABEL_32;
   }
 
   if (v4 != 3)
   {
-    v11 = sub_1AD50F108();
+    v12 = sub_1AD50F108();
     goto LABEL_14;
   }
 
-  v12 = ProvisioningCredentialsConfiguration.Credential.pushableConfiguration.getter();
-  if (v12)
+  v13 = ProvisioningCredentialsConfiguration.Credential.pushableConfiguration.getter(v5, v6);
+  if (v13)
   {
-    v13 = [v12 secureElementPassConfiguration];
-    v14 = sub_1AD50EC78(v13);
+    v14 = [v13 secureElementPassConfiguration];
+    v15 = sub_1AD50EC78(v14);
 
-    sub_1AD4505BC(v14);
+    sub_1AD4505BC(v15);
     swift_unknownObjectRelease();
   }
 
 LABEL_32:
-  v23 = v37;
+  v24 = v38;
   if (PKEnforceUpgradedPasscodePolicyForAllRegions())
   {
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v23 = sub_1AD42507C(0, *(v37 + 2) + 1, 1, v37);
+      v24 = sub_1AD42507C(0, *(v38 + 2) + 1, 1, v38);
     }
 
-    v25 = *(v23 + 2);
-    v24 = *(v23 + 3);
-    if (v25 >= v24 >> 1)
+    v26 = *(v24 + 2);
+    v25 = *(v24 + 3);
+    if (v26 >= v25 >> 1)
     {
-      v23 = sub_1AD42507C((v24 > 1), v25 + 1, 1, v23);
+      v24 = sub_1AD42507C((v25 > 1), v26 + 1, 1, v24);
     }
 
-    *(v23 + 2) = v25 + 1;
-    v23[v25 + 32] = -124;
+    *(v24 + 2) = v26 + 1;
+    v24[v26 + 32] = -124;
   }
 
-  v26 = sub_1AD4CEF98(v23);
+  v27 = sub_1AD4CEF98(v24);
 
-  return v26;
+  return v27;
 }
 
-uint64_t sub_1AD50F58C(void *a1, void *a2)
+char *sub_1AD50F58C(void *a1, void *a2)
 {
   if (PKEnforceUpgradedPasscodePolicyForAllRegions() || (v4 = [a1 region]) != 0 && (v5 = v4, v6 = objc_msgSend(a2, sel_isChinaRegionIdentifier_, v4), v5, v6))
   {
@@ -2888,7 +2886,7 @@ uint64_t sub_1AD50F58C(void *a1, void *a2)
 
 uint64_t sub_1AD50F700(void *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59A0B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB59A0B8, &unk_1ADB80910);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1ADB86760;
   *(v2 + 32) = -2088264807;
@@ -3006,7 +3004,7 @@ uint64_t sub_1AD50FB94(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t 
       }
 
       sub_1AD47A35C(*(*(v18 + 56) + 24 * v14), *(*(v18 + 56) + 24 * v14 + 8), *(*(v18 + 56) + 24 * v14 + 16));
-      result = sub_1AD4B4928(v14, v18);
+      result = sub_1AD4B4928();
       *v6 = v18;
     }
   }
@@ -3408,10 +3406,11 @@ uint64_t block_copy_helper_47(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t _s11PassKitCore32ProvisioningStepDeviceAssessmentC18terminateOperation7success6output10completionySb_So020PKODIServiceProviderG0CSgSgyyctF_0(char a1, void *a2, uint64_t (*a3)(void))
+uint64_t _s11PassKitCore32ProvisioningStepDeviceAssessmentC18terminateOperation7success6output10completionySb_So020PKODIServiceProviderG0CSgSgyyctF_0(uint64_t a1, void *a2, uint64_t (*a3)(void))
 {
   if (a2 >= 2)
   {
+    v4 = a1;
     v6 = a2;
     if ([v6 currentAssessmentDidTimeout])
     {
@@ -3420,7 +3419,7 @@ uint64_t _s11PassKitCore32ProvisioningStepDeviceAssessmentC18terminateOperation7
 
     else
     {
-      v7 = (a1 & 1) == 0;
+      v7 = (v4 & 1) == 0;
     }
 
     [v6 provideSessionFeedback_];
@@ -3677,7 +3676,7 @@ BOOL PKAppleBalanceInStoreTopUpTokenTypeFromString(void *a1)
   v4 = 0;
   if (v1 != @"barcode")
   {
-    if (!v1 || (v3 = [(__CFString *)v1 isEqualToString:@"barcode"], v2, !v3))
+    if (!v1 || (isEqualToString = objc_msgSend_isEqualToString_(v1), v2, !isEqualToString))
     {
       v4 = 1;
     }
@@ -3715,12 +3714,12 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"valid"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"invalid" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"invalid"], v6, v7))
+    if (v5 == @"invalid" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, v7))
     {
       v4 = 1;
       goto LABEL_9;
@@ -3790,19 +3789,19 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"deviceTap"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"messages" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"messages"], v6, (v7 & 1) != 0))
+    if (v5 == @"messages" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, (v7 & 1) != 0))
     {
       v4 = 1;
       goto LABEL_12;
     }
 
     v8 = v6;
-    if (v8 == @"messagesGroup" || (v9 = v8, v10 = [(__CFString *)v8 isEqualToString:@"messagesGroup"], v9, v10))
+    if (v8 == @"messagesGroup" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(v8), v9, v10))
     {
       v4 = 3;
       goto LABEL_12;
@@ -3838,7 +3837,7 @@ BOOL PKPeerPaymentContactAddressTypeFromString(void *a1)
   v4 = 1;
   if (v1 != @"displayName")
   {
-    if (!v1 || (v3 = [(__CFString *)v1 isEqualToString:@"displayName"], v2, !v3))
+    if (!v1 || (isEqualToString = objc_msgSend_isEqualToString_(v1), v2, !isEqualToString))
     {
       v4 = 0;
     }
@@ -4070,7 +4069,7 @@ LABEL_33:
             v23 = v22;
             if (v15)
             {
-              if (v6 && v22 && ([v6 isEqualToString:v22] & 1) != 0)
+              if (v6 && v22 && (objc_msgSend_isEqualToString_(v6) & 1) != 0)
               {
                 v15 = 1;
               }
@@ -4989,66 +4988,70 @@ id PKPeerPaymentDisplayNameWithNamesAndPreferences(void *a1, void *a2, void *a3)
 
 id PKPeerPaymentEncryptDataUsingPrivacySchemeWithCert(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   cf = 0;
   v5 = v3;
   if ([v5 destination] != 1)
   {
-    v14 = PKLogFacilityTypeGetObject(0xCuLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = PKLogFacilityTypeGetObject(0xCuLL);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = PKPeerPaymentEncryptionCertificateDestinationToString([v5 destination]);
+      v16 = PKPeerPaymentEncryptionCertificateDestinationToString([v5 destination]);
       *buf = 138412290;
-      v19 = v15;
-      _os_log_impl(&dword_1AD337000, v14, OS_LOG_TYPE_DEFAULT, "NearbyPeerPayment: could not validate trust for cert with destination: %@", buf, 0xCu);
+      v20 = v16;
+      _os_log_impl(&dword_1AD337000, v15, OS_LOG_TYPE_DEFAULT, "NearbyPeerPayment: could not validate trust for cert with destination: %@", buf, 0xCu);
     }
 
-    v13 = 0;
-    v12 = v5;
-    goto LABEL_10;
+    v14 = 0;
+    v13 = v5;
+    goto LABEL_12;
   }
 
   v6 = PKNearbyPeerPaymentEncryptionOIDValue();
+  v7 = @"1.2.840.113635.100.19.1.1.3.2";
   if (v6)
   {
-    v7 = v6;
-    [v6 length];
+    v8 = v6;
+    if ([(__CFString *)v6 length])
+    {
+      v7 = v8;
+    }
   }
 
-  v8 = [v5 encryptionCertificates];
-  v9 = PKCreateAndValidateTrustWithCertsUsingMarkerOIDs(v8, &cf);
+  v9 = [v5 encryptionCertificates];
+  v10 = PKCreateAndValidateTrustWithCertsUsingMarkerOIDs(v9, &cf, @"SURF", @"1.2.840.113635.100.6.2.14", v7);
 
-  if (v9)
+  if (v10)
   {
-    v10 = [v5 encryptionCertificates];
-    v11 = [v10 firstObject];
-    v12 = PKPublicKeyFromCertificate(v11);
+    v11 = [v5 encryptionCertificates];
+    v12 = [v11 firstObject];
+    v13 = PKPublicKeyFromCertificate(v12);
 
-    if (v12)
+    if (v13)
     {
-      v13 = PKEncryptDataUsingPrivacyScheme(v4, [v5 encryptionScheme], v12);
+      v14 = PKEncryptDataUsingPrivacyScheme(v4, [v5 encryptionScheme], v13);
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-LABEL_10:
+LABEL_12:
 
-    goto LABEL_12;
+    goto LABEL_14;
   }
 
-  v13 = 0;
-LABEL_12:
+  v14 = 0;
+LABEL_14:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v13;
+  return v14;
 }
 
 uint64_t PKPeerPaymentIsEligibleForDeviceTapPayment(void *a1, void *a2)
@@ -5525,182 +5528,182 @@ void __PKPaymentWebServiceProxyObjectInterface_block_invoke()
   [v73 setClasses:v77 forSelector:sel_activeFPANCardsWithOptions_completion_ argumentIndex:0 ofReply:1];
 }
 
-void sub_1AD5296A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD5296A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52A9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52A9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52AAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52AAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52ABC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52ABC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52B6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52B6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52B838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52B838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52BADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52BADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52BD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52BD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52C9B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52C9B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52CA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52CA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52CDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52CDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52D5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52D5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52D828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52D828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52EF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52EF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52F6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52F6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD52F7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52F7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD52FBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD52FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD532F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD52FBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD533214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD532F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD533214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v16 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5720,12 +5723,12 @@ __CFString *PKPaymentSetupMoreInfoItemTypeDescription(unint64_t a1)
 uint64_t PKPaymentSetupMoreInfoItemTypeFromDescription(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"ExpressEducation"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"ExpressEducationV2"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
@@ -5738,8 +5741,9 @@ uint64_t PKPaymentSetupMoreInfoItemTypeFromDescription(void *a1)
   return v2;
 }
 
-id PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket(void *a1, int a2, uint64_t a3, void *a4, void *a5)
+id PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket(void *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
+  v8 = a2;
   v9 = a1;
   v10 = a4;
   v11 = a5;
@@ -5761,12 +5765,12 @@ id PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket(void *a1, int a2,
       [v14 setObject:v17 forKeyedSubscript:@"linkURL"];
 
       [v14 setObject:@"ExpressEducationV2" forKeyedSubscript:@"type"];
-      v18 = expressTransitUpgradeBodyKey(a2, 1, a3);
+      v18 = expressTransitUpgradeBodyKey(v8, 1, a3);
       v19 = PKLocalizedStringInMarketBundle(v18, v12, 0);
       v20 = v19;
-      if ((a3 & 1) == 0 && (!v19 || [v19 isEqualToString:v18]))
+      if ((a3 & 1) == 0 && (!v19 || objc_msgSend_isEqualToString_(v19)))
       {
-        v21 = expressTransitUpgradeBodyKey(a2, 1, 1);
+        v21 = expressTransitUpgradeBodyKey(v8, 1, 1);
 
         v22 = PKLocalizedStringInMarketBundle(v21, v12, 0);
 
@@ -5777,19 +5781,19 @@ id PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket(void *a1, int a2,
       [v14 setObject:v20 forKeyedSubscript:@"body"];
 
       v23 = PKLocalizedStringInMarketBundle(&cfstr_ExpressTransit_2.isa, v12, 0);
-      if (([v23 isEqualToString:@"EXPRESS_TRANSIT_EDUCATION_NEXT_ACTION"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v23) & 1) == 0)
       {
         [v14 setObject:v23 forKeyedSubscript:@"nextAction"];
       }
 
       v24 = PKLocalizedStringInMarketBundle(&cfstr_ExpressTransit_3.isa, v12, 0);
-      if (([v24 isEqualToString:@"EXPRESS_TRANSIT_EDUCATION_DONE_ACTION"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v24) & 1) == 0)
       {
         [v14 setObject:v24 forKeyedSubscript:@"doneAction"];
       }
 
       v25 = PKLocalizedStringInMarketBundle(&cfstr_ExpressTransit_4.isa, v12, 0);
-      if (([v25 isEqualToString:@"EXPRESS_TRANSIT_EDUCATION_ALT_ACTION"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v25) & 1) == 0)
       {
         [v14 setObject:v25 forKeyedSubscript:@"altAction"];
       }
@@ -5911,7 +5915,7 @@ LABEL_24:
 
     [v27 setObject:@"https://support.apple.com/HT207958" forKeyedSubscript:@"linkURL"];
     [v27 setObject:@"ExpressEducationV2" forKeyedSubscript:@"type"];
-    v40 = expressTransitUpgradeBodyKey(a2, 0, a3);
+    v40 = expressTransitUpgradeBodyKey(v8, 0, a3);
     v41 = PKLocalizedTransitString(v40, 0);
     [v27 setObject:v41 forKeyedSubscript:@"body"];
 
@@ -6105,9 +6109,9 @@ uint64_t PKPaymentDeviceMetadataFieldsFromStrings(void *a1)
         goto LABEL_11;
       }
 
-      v8 = [(__CFString *)v6 isEqualToString:@"secureElementIdentifier"];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (v8)
+      if (isEqualToString)
       {
 LABEL_9:
         v9 = v36 | 1;
@@ -6119,49 +6123,49 @@ LABEL_9:
       if (v10 != v4)
       {
         v11 = v10;
-        v12 = [(__CFString *)v10 isEqualToString:v4];
+        v12 = objc_msgSend_isEqualToString_(v10);
 
         v1 = v4;
         if (!v12)
         {
           v13 = v11;
           v2 = v5;
-          if (v13 == v5 || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:v5], v14, v2 = v5, v15))
+          if (v13 == v5 || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, v2 = v5, v15))
           {
             v36 |= 4uLL;
             goto LABEL_12;
           }
 
           v16 = v14;
-          if (v16 == @"serialNumber" || (v17 = v16, v18 = [(__CFString *)v16 isEqualToString:@"serialNumber"], v17, v18))
+          if (v16 == @"serialNumber" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(v16), v17, v18))
           {
             v9 = v36 | 8;
             goto LABEL_10;
           }
 
           v19 = v17;
-          if (v19 == @"deviceName" || (v20 = v19, v21 = [(__CFString *)v19 isEqualToString:@"deviceName"], v20, v21))
+          if (v19 == @"deviceName" || (v20 = v19, v21 = objc_msgSend_isEqualToString_(v19), v20, v21))
           {
             v9 = v36 | 0x10;
             goto LABEL_10;
           }
 
           v22 = v20;
-          if (v22 == @"phoneNumber" || (v23 = v22, v24 = [(__CFString *)v22 isEqualToString:@"phoneNumber"], v23, v24))
+          if (v22 == @"phoneNumber" || (v23 = v22, v24 = objc_msgSend_isEqualToString_(v22), v23, v24))
           {
             v9 = v36 | 0x20;
             goto LABEL_10;
           }
 
           v25 = v23;
-          if (v25 == @"signedPhoneNumber" || (v26 = v25, v27 = [(__CFString *)v25 isEqualToString:@"signedPhoneNumber"], v26, v27))
+          if (v25 == @"signedPhoneNumber" || (v26 = v25, v27 = objc_msgSend_isEqualToString_(v25), v26, v27))
           {
             v9 = v36 | 0x40;
             goto LABEL_10;
           }
 
           v28 = v26;
-          if (v28 == @"location" || (v29 = v28, v30 = [(__CFString *)v28 isEqualToString:@"location"], v29, v30))
+          if (v28 == @"location" || (v29 = v28, v30 = objc_msgSend_isEqualToString_(v28), v29, v30))
           {
             v9 = v36 | 0x80;
 LABEL_10:
@@ -6319,33 +6323,33 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v3 = [@"disable" isEqualToString:v1];
+  isEqualToString = objc_msgSend_isEqualToString_(@"disable");
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"enable" || (v6 = v5, v7 = [@"enable" isEqualToString:v5], v6, (v7 & 1) != 0))
+    if (v5 == @"enable" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(@"enable"), v6, (v7 & 1) != 0))
     {
       v4 = 1;
       goto LABEL_18;
     }
 
     v8 = v6;
-    if (v8 == @"deactivate" || (v9 = v8, v10 = [@"deactivate" isEqualToString:v8], v9, (v10 & 1) != 0))
+    if (v8 == @"deactivate" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(@"deactivate"), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_18;
     }
 
     v11 = v9;
-    if (v11 == @"activate" || (v12 = v11, v13 = [@"activate" isEqualToString:v11], v12, (v13 & 1) != 0))
+    if (v11 == @"activate" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"activate"), v12, (v13 & 1) != 0))
     {
       v4 = 4;
       goto LABEL_18;
     }
 
     v14 = v12;
-    if (v14 == @"replace" || (v15 = v14, v16 = [@"replace" isEqualToString:v14], v15, v16))
+    if (v14 == @"replace" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(@"replace"), v15, v16))
     {
       v4 = 5;
       goto LABEL_18;
@@ -6702,26 +6706,26 @@ uint64_t PKPushProvisioningSharingStatusFromString(void *a1)
   if (v3 != @"available")
   {
     v4 = v3;
-    v5 = [(__CFString *)v3 isEqualToString:@"available"];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if ((v5 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = v4;
-      if (v7 == @"consumed" || (v8 = v7, v9 = [(__CFString *)v7 isEqualToString:@"consumed"], v8, (v9 & 1) != 0))
+      if (v7 == @"consumed" || (v8 = v7, v9 = objc_msgSend_isEqualToString_(v7), v8, (v9 & 1) != 0))
       {
         v6 = 2;
         goto LABEL_15;
       }
 
       v10 = v8;
-      if (v10 == @"revoked" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"revoked"], v11, (v12 & 1) != 0))
+      if (v10 == @"revoked" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, (v12 & 1) != 0))
       {
         v6 = 3;
         goto LABEL_15;
       }
 
       v13 = v11;
-      if (v13 == @"expired" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"expired"], v14, v15))
+      if (v13 == @"expired" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, v15))
       {
         v6 = 4;
         goto LABEL_15;
@@ -6864,47 +6868,47 @@ uint64_t PKPassAutomaticSelectionTechnologyTypeForExpressEnteredObject(void *a1)
 uint64_t PKPaymentTransactionStatusFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([v1 isEqualToString:@"pending"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 0;
   }
 
-  else if ([v1 isEqualToString:@"approved"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"declined"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"refunded"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"failed"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"canceled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"rejected"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"expired"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"preauth"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
@@ -6933,122 +6937,122 @@ __CFString *PKPaymentTransactionStatusToString(unint64_t a1)
 uint64_t PKPaymentTransactionDeclinedReasonFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"insufficientFunds"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"wrongPIN"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"internationalTransactionPreCIP"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"overSpendLimit"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"fraudSuspected"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"fraudConfirmed"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"fraudSuspectedRetry"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"fraudConfirmedSingleCard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
 
-  else if ([v1 isEqualToString:@"blocked"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"cardDisabled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"cardCancelled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
 
-  else if ([v1 isEqualToString:@"cardNotActivated"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"cardExpired"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 24;
   }
 
-  else if ([v1 isEqualToString:@"accountStatus"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"accountStatusContact"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"outOfPolicy"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 15;
   }
 
-  else if ([v1 isEqualToString:@"restrictedCountry"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 16;
   }
 
-  else if ([v1 isEqualToString:@"verificationFailed"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 17;
   }
 
-  else if ([v1 isEqualToString:@"verificationFailedAddress"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 18;
   }
 
-  else if ([v1 isEqualToString:@"verificationFailedZip"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 19;
   }
 
-  else if ([v1 isEqualToString:@"verificationFailedSecurityCode"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 23;
   }
 
-  else if ([v1 isEqualToString:@"other"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 20;
   }
 
-  else if ([v1 isEqualToString:@"EMVError"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 21;
   }
 
-  else if ([v1 isEqualToString:@"spendDisabled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 22;
   }
@@ -7093,12 +7097,12 @@ id PKPaymentTransactionDeclinedReasonLocalizedString(uint64_t a1, uint64_t a2, u
 uint64_t PKPaymentDocumentTypeFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([@"driverslicense" isEqualToString:v1])
+  if (objc_msgSend_isEqualToString_(@"driverslicense"))
   {
     v2 = 1;
   }
 
-  else if ([@"stateid" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"stateid"))
   {
     v2 = 2;
   }
@@ -7385,22 +7389,22 @@ uint64_t PKPaymentSetupFeatureTypeFromPKFeatureIdentifier(uint64_t a1)
 uint64_t PKFeatureIdentifierFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([v1 isEqualToString:@"ccs"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"peerpayment"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"asp"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"savings"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
@@ -7455,22 +7459,22 @@ __CFString *PKPaymentCryptogramTypeToString(uint64_t a1)
 uint64_t PKPaymentSetupFieldSourceFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"cameraCapture"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"autofill"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"autofillEdited"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"manual"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
@@ -7513,15 +7517,15 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"EV_RSA_v2"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v4 = v2;
     if (v4 != @"EV_ECC_v2")
     {
       v5 = v4;
-      v6 = [(__CFString *)v4 isEqualToString:@"EV_ECC_v2"];
+      v6 = objc_msgSend_isEqualToString_(v4);
 
       if ((v6 & 1) == 0)
       {
@@ -7529,7 +7533,7 @@ LABEL_12:
         if (v7 != @"EV_ECC_v1-ASN.1")
         {
           v8 = v7;
-          v9 = [(__CFString *)v7 isEqualToString:@"EV_ECC_v1-ASN.1"];
+          v9 = objc_msgSend_isEqualToString_(v7);
 
           if ((v9 & 1) == 0)
           {
@@ -7537,7 +7541,7 @@ LABEL_12:
             if (v10 != @"EV_ECC_v1")
             {
               v11 = v10;
-              v12 = [(__CFString *)v10 isEqualToString:@"EV_ECC_v1"];
+              v12 = objc_msgSend_isEqualToString_(v10);
 
               if ((v12 & 1) == 0)
               {
@@ -7549,7 +7553,7 @@ LABEL_12:
 
                 else
                 {
-                  v13 = [(__CFString *)v15 isEqualToString:@"EV_ECC_v3"];
+                  v13 = objc_msgSend_isEqualToString_(v15);
                 }
 
                 goto LABEL_12;
@@ -7582,9 +7586,9 @@ uint64_t PKUserNotificationActionFromUNNotificationActionIdentifier(void *a1)
 
   if (v3 && v2)
   {
-    v5 = [v3 isEqualToString:v2];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if ((v5 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -7612,7 +7616,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v10 = [v8 isEqualToString:v7];
+    v10 = objc_msgSend_isEqualToString_(v8);
 
     if (!v10)
     {
@@ -7707,7 +7711,7 @@ BOOL PKPassFeatureTypeFromString(void *a1)
   v4 = 1;
   if (v1 != @"access.sharing")
   {
-    if (!v1 || (v3 = [(__CFString *)v1 isEqualToString:@"access.sharing"], v2, !v3))
+    if (!v1 || (isEqualToString = objc_msgSend_isEqualToString_(v1), v2, !isEqualToString))
     {
       v4 = 0;
     }
@@ -7776,33 +7780,33 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v3 = [@"appIntent" isEqualToString:v1];
+  isEqualToString = objc_msgSend_isEqualToString_(@"appIntent");
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"settings" || (v6 = v5, v7 = [@"settings" isEqualToString:v5], v6, (v7 & 1) != 0))
+    if (v5 == @"settings" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(@"settings"), v6, (v7 & 1) != 0))
     {
       v4 = 2;
       goto LABEL_18;
     }
 
     v8 = v6;
-    if (v8 == @"notification" || (v9 = v8, v10 = [@"notification" isEqualToString:v8], v9, (v10 & 1) != 0))
+    if (v8 == @"notification" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(@"notification"), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_18;
     }
 
     v11 = v9;
-    if (v11 == @"discoveryCard" || (v12 = v11, v13 = [@"discoveryCard" isEqualToString:v11], v12, (v13 & 1) != 0))
+    if (v11 == @"discoveryCard" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"discoveryCard"), v12, (v13 & 1) != 0))
     {
       v4 = 4;
       goto LABEL_18;
     }
 
     v14 = v12;
-    if (v14 == @"external" || (v15 = v14, v16 = [@"external" isEqualToString:v14], v15, v16))
+    if (v14 == @"external" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(@"external"), v15, v16))
     {
       v4 = 5;
       goto LABEL_18;
@@ -7831,7 +7835,7 @@ __CFString *PKApplePayUserEducationDemoSourceToString(uint64_t a1)
   }
 }
 
-__CFString *PKAppIconBundleIdentifier()
+__CFString *PKAppIconBundleIdentifier(uint64_t a1, uint64_t a2)
 {
   if (PKIsPad())
   {
@@ -7844,7 +7848,7 @@ __CFString *PKAppIconBundleIdentifier()
   }
 }
 
-__CFString *PKAppIconUTI()
+__CFString *PKAppIconUTI(uint64_t a1, uint64_t a2)
 {
   if (PKIsPad())
   {
@@ -7881,12 +7885,12 @@ uint64_t PKRadioTechnologyFromStrings(void *a1)
         }
 
         v7 = *(*(&v9 + 1) + 8 * i);
-        if ([v7 isEqualToString:@"BT"])
+        if (objc_msgSend_isEqualToString_(v7))
         {
           v4 |= 2uLL;
         }
 
-        v4 |= [v7 isEqualToString:@"NFC"];
+        v4 |= objc_msgSend_isEqualToString_(v7);
       }
 
       v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
@@ -8025,10 +8029,10 @@ unint64_t PKRadioTechnologyForConfigurationTechnology(uint64_t a1)
   return v1;
 }
 
-uint64_t __IsNearbyInteractionSupported_block_invoke()
+void *__IsNearbyInteractionSupported_block_invoke()
 {
-  v0 = getNISessionClass[0]();
-  if (!v0)
+  NISessionClass = getNISessionClass();
+  if (!NISessionClass)
   {
     v1 = PKLogFacilityTypeGetObject(0x17uLL);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
@@ -8038,7 +8042,7 @@ uint64_t __IsNearbyInteractionSupported_block_invoke()
     }
   }
 
-  result = [(objc_class *)v0 isSupported];
+  result = [(objc_class *)NISessionClass isSupported];
   _MergedGlobals_188 = result;
   return result;
 }
@@ -8052,7 +8056,7 @@ Class initNISession()
 
   result = objc_getClass("NISession");
   qword_1ED6D1710 = result;
-  getNISessionClass[0] = NISessionFunction;
+  getNISessionClass = NISessionFunction;
   return result;
 }
 
@@ -8063,104 +8067,112 @@ void *__LoadNearbyInteraction_block_invoke()
   return result;
 }
 
-void sub_1AD54E900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1AD54E900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD54FB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AD54F438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  va_start(va, a9);
+  va_start(va, a40);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD5508A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD54FB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD550DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD551290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD5513BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD551604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD5518BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD551B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD551C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD551F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD5524C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD5528EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AD555A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1AD5508A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD550DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD551290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD5513BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD551604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD5518BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD551B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD551C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD551F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD5524C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD5528EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AD555A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8175,21 +8187,21 @@ uint64_t PKPaymentApplicationMatchesSTSEventCredential(void *a1, void *a2)
   v9 = v8;
   if (v7 == v8)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
     if (v7 && v8)
     {
-      v10 = [v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
     }
   }
 
   v11 = [v4 subIdentifier];
   v12 = v11;
-  if (v10 && v11)
+  if (isEqualToString && v11)
   {
     v13 = [v3 subcredentials];
     v15[0] = MEMORY[0x1E69E9820];
@@ -8197,10 +8209,10 @@ uint64_t PKPaymentApplicationMatchesSTSEventCredential(void *a1, void *a2)
     v15[2] = __PKPaymentApplicationMatchesSTSEventCredential_block_invoke;
     v15[3] = &unk_1E79C7E70;
     v16 = v12;
-    v10 = [v13 pk_hasObjectPassingTest:v15];
+    isEqualToString = [v13 pk_hasObjectPassingTest:v15];
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 void __PKPaymentApplicationsArrayMatch_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -8229,9 +8241,9 @@ LABEL_12:
         goto LABEL_15;
       }
 
-      v14 = [v11 isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if ((v14 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_12;
       }
@@ -8273,19 +8285,19 @@ uint64_t __PKPaymentApplicationMatchesSTSEventCredential_block_invoke(uint64_t a
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 id PDDeviceSpecificLocalizedStringKeyForKey(void *a1)
@@ -8324,8 +8336,8 @@ id _PKPassLocalizedStringWithFileAndFormat(void *a1, void *a2, void *a3, uint64_
   v7 = a1;
   v8 = a3;
   v9 = [a2 passLocalizedStringForKey:v7];
-  v10 = [v9 isEqualToString:v7];
-  if (!v9 || v10)
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
+  if (!v9 || isEqualToString)
   {
     v11 = PKPassKitBundle();
     v12 = [v11 localizedStringForKey:v7 value:&stru_1F227FD28 table:@"pass_localizable"];
@@ -8408,10 +8420,10 @@ id PKPassLocalizedStringForStateWithFormat(NSString *a1, PKSecureElementPass *a2
         goto LABEL_11;
       }
 
-      v17 = [v14 isEqualToString:v15];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
 
       v18 = v14;
-      if (!v17)
+      if (!isEqualToString)
       {
         goto LABEL_11;
       }
@@ -8469,10 +8481,10 @@ id PKPassLocalizedStringForStateWithFormat(void *a1, void *a2, uint64_t a3, void
         goto LABEL_11;
       }
 
-      v24 = [v21 isEqualToString:v22];
+      isEqualToString = objc_msgSend_isEqualToString_(v21);
 
       v25 = v21;
-      if (!v24)
+      if (!isEqualToString)
       {
         goto LABEL_11;
       }
@@ -8829,9 +8841,9 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11 = [(NSString *)v6 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (!v11)
+  if ((isEqualToString & 1) == 0)
   {
     goto LABEL_9;
   }
@@ -8907,9 +8919,9 @@ id _PKDynamicLocalizedString(void *a1, void *a2, void *a3, void *a4, uint64_t a5
     goto LABEL_9;
   }
 
-  v19 = [v16 isEqualToString:v17];
+  isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-  if (v19)
+  if (isEqualToString)
   {
 LABEL_8:
     v20 = PKPassKitBundle();
@@ -9285,27 +9297,27 @@ uint64_t PKPaymentSetupFieldTypeFromString(void *a1)
   v1 = a1;
   if (v1)
   {
-    if ([@"text" isEqualToString:v1])
+    if (objc_msgSend_isEqualToString_(@"text"))
     {
       v2 = 1;
     }
 
-    else if ([@"date" isEqualToString:v1])
+    else if (objc_msgSend_isEqualToString_(@"date"))
     {
       v2 = 2;
     }
 
-    else if ([@"label" isEqualToString:v1])
+    else if (objc_msgSend_isEqualToString_(@"label"))
     {
       v2 = 3;
     }
 
-    else if ([@"footer" isEqualToString:v1])
+    else if (objc_msgSend_isEqualToString_(@"footer"))
     {
       v2 = 4;
     }
 
-    else if ([@"picker" isEqualToString:v1])
+    else if (objc_msgSend_isEqualToString_(@"picker"))
     {
       v2 = 5;
     }
@@ -9343,19 +9355,19 @@ uint64_t PKPaymentSetupFieldSubmissionSecurityFromString(void *a1)
   v2 = v1;
   if (v1 != @"none" && v1 != 0)
   {
-    v4 = [(__CFString *)v1 isEqualToString:@"none"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = v2;
-      if (v7 == @"encrypted" || (v8 = v7, v9 = [(__CFString *)v7 isEqualToString:@"encrypted"], v8, (v9 & 1) != 0))
+      if (v7 == @"encrypted" || (v8 = v7, v9 = objc_msgSend_isEqualToString_(v7), v8, (v9 & 1) != 0))
       {
         v5 = 1;
         goto LABEL_7;
       }
 
       v10 = v8;
-      if (v10 == @"encryptedPerField" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"encryptedPerField"], v11, v12))
+      if (v10 == @"encryptedPerField" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, v12))
       {
         v5 = 2;
         goto LABEL_7;
@@ -9374,12 +9386,12 @@ uint64_t PKPaymentSetupFieldTextAlignmentFromString(void *a1)
   v1 = a1;
   if (v1)
   {
-    if ([@"leading" isEqualToString:v1])
+    if (objc_msgSend_isEqualToString_(@"leading"))
     {
       v2 = 1;
     }
 
-    else if ([@"trailing" isEqualToString:v1])
+    else if (objc_msgSend_isEqualToString_(@"trailing"))
     {
       v2 = 2;
     }
@@ -9403,12 +9415,12 @@ uint64_t PKPaymentSetupFieldLabelAlignmentFromString(void *a1)
   v1 = a1;
   if (v1)
   {
-    if ([@"left" isEqualToString:v1])
+    if (objc_msgSend_isEqualToString_(@"left"))
     {
       v2 = 1;
     }
 
-    else if ([@"center" isEqualToString:v1])
+    else if (objc_msgSend_isEqualToString_(@"center"))
     {
       v2 = 2;
     }
@@ -9425,16 +9437,4 @@ uint64_t PKPaymentSetupFieldLabelAlignmentFromString(void *a1)
   }
 
   return v2;
-}
-
-id PKExpirationDateFormatter()
-{
-  if (qword_1EB5B7CB0 != -1)
-  {
-    dispatch_once(&qword_1EB5B7CB0, &__block_literal_global_965);
-  }
-
-  v1 = qword_1EB5B7CA8;
-
-  return v1;
 }

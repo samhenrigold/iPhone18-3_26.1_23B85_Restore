@@ -217,7 +217,7 @@ void __52__WFTranslateTextAction_runAsynchronouslyWithInput___block_invoke_176(u
 
 void __52__WFTranslateTextAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3 && ([v3 dominantLanguage], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
@@ -238,16 +238,14 @@ void __52__WFTranslateTextAction_runAsynchronouslyWithInput___block_invoke_2(uin
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D7CB30];
     v14 = *MEMORY[0x277CCA450];
-    v18[0] = *MEMORY[0x277CCA470];
-    v18[1] = v14;
-    v19[0] = v9;
-    v19[1] = v10;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = *MEMORY[0x277CCA470];
+    v17[1] = v14;
+    v18[0] = v9;
+    v18[1] = v10;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v16 = [v12 errorWithDomain:v13 code:0x7FFFFFFFFFFFFFFFLL userInfo:v15];
     (*(v11 + 16))(v11, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)disabledOnPlatforms

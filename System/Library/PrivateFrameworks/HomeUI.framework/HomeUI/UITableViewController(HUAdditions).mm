@@ -1,7 +1,7 @@
 @interface UITableViewController(HUAdditions)
+- (BOOL)hu_shouldScrollToTop;
 - (id)hu_actionSheetWithTitle:()HUAdditions message:indexPath:;
 - (id)hu_getSelectedCell;
-- (uint64_t)hu_shouldScrollToTop;
 @end
 
 @implementation UITableViewController(HUAdditions)
@@ -48,7 +48,7 @@
   return v5;
 }
 
-- (uint64_t)hu_shouldScrollToTop
+- (BOOL)hu_shouldScrollToTop
 {
   if (![self isViewLoaded])
   {

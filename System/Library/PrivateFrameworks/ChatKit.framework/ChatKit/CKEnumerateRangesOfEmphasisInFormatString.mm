@@ -3,7 +3,7 @@
 
 @implementation CKEnumerateRangesOfEmphasisInFormatString
 
-double ___CKEnumerateRangesOfEmphasisInFormatString_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+double ___CKEnumerateRangesOfEmphasisInFormatString_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
 {
   v6 = [*(a1 + 32) rangeOfString:@"#" options:0 range:{a2, a3}];
   *a4 = v6;
@@ -19,7 +19,7 @@ double ___CKEnumerateRangesOfEmphasisInFormatString_block_invoke(uint64_t a1, ui
 
     else
     {
-      *(v9 + 40) = v6 + v7 - v10;
+      *(v9 + 40) = &v7[v6 - v10];
     }
 
     if (*(*(*(a1 + 48) + 8) + 40))

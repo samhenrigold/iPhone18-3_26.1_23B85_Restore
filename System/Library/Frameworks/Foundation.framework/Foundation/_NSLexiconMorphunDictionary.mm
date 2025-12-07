@@ -724,24 +724,33 @@ LABEL_188:
 
           else
           {
-            if ([pronounCopy isEqualToString:{objc_msgSend(pronounCopy, "lowercaseStringWithLocale:", v82, v78)}])
+            [pronounCopy lowercaseStringWithLocale:{v82, v78}];
+            if (objc_msgSend_isEqualToString_(pronounCopy))
             {
               v76 = [v75 lowercaseStringWithLocale:v82];
             }
 
-            else if ([pronounCopy isEqualToString:{objc_msgSend(pronounCopy, "uppercaseStringWithLocale:", v82)}])
-            {
-              v76 = [v75 uppercaseStringWithLocale:v82];
-            }
-
-            else if ([pronounCopy isEqualToString:{objc_msgSend(pronounCopy, "capitalizedStringWithLocale:", v82)}])
-            {
-              v76 = [v75 capitalizedStringWithLocale:v82];
-            }
-
             else
             {
-              v76 = v75;
+              [pronounCopy uppercaseStringWithLocale:v82];
+              if (objc_msgSend_isEqualToString_(pronounCopy))
+              {
+                v76 = [v75 uppercaseStringWithLocale:v82];
+              }
+
+              else
+              {
+                [pronounCopy capitalizedStringWithLocale:v82];
+                if (objc_msgSend_isEqualToString_(pronounCopy))
+                {
+                  v76 = [v75 capitalizedStringWithLocale:v82];
+                }
+
+                else
+                {
+                  v76 = v75;
+                }
+              }
             }
 
             v15 = [v76 copy];

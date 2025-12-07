@@ -23,7 +23,7 @@
 
   if (v7)
   {
-    sub_1C3C27CB4(0, &qword_1EC086E80);
+    sub_1C3C27CB4(0, &qword_1EC086E80, off_1E81B21B8);
     v8 = sub_1C3D202A4();
   }
 

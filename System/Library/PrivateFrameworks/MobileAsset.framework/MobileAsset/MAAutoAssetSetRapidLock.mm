@@ -13,7 +13,7 @@
 
 - (id)endShortTermLockSync
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = +[MAAutoAssetSetRapidLock lockRecords];
   objc_sync_enter(v3);
   shortTermLockFileName = [(MAAutoAssetSetRapidLock *)self shortTermLockFileName];
@@ -74,7 +74,7 @@ LABEL_19:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v34 = v27;
+        v33 = v27;
         _os_log_impl(&dword_197AD5000, v28, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{endShortTermLockSync}: %{public}@", buf, 0xCu);
       }
 
@@ -96,7 +96,7 @@ LABEL_19:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v34 = v21;
+        v33 = v21;
         _os_log_impl(&dword_197AD5000, v22, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{endShortTermLockSync}: %{public}@", buf, 0xCu);
       }
 
@@ -123,7 +123,7 @@ LABEL_19:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v34 = v11;
+    v33 = v11;
     _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{endShortTermLockSync}: %{public}@", buf, 0xCu);
   }
 
@@ -139,14 +139,12 @@ LABEL_20:
     self = checkLockFileValidity;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
 - (id)checkLockFileValidity
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   shortTermLockFileName = [(MAAutoAssetSetRapidLock *)self shortTermLockFileName];
   v5 = [defaultManager fileExistsAtPath:shortTermLockFileName];
@@ -166,21 +164,19 @@ LABEL_20:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{acquireShortTermLockSync}: %{public}@", buf, 0xCu);
     }
 
     v6 = [MAAutoAssetError buildError:6583 fromOperation:@"[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{acquireShortTermLockSync}" underlyingError:0 withDescription:v9];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)acquireShortTermLockSync
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = +[MAAutoAssetSetRapidLock lockRecords];
   objc_sync_enter(v3);
   assetSetAtomicInstance = [(MAAutoAssetSetRapidLock *)self assetSetAtomicInstance];
@@ -224,7 +220,7 @@ LABEL_20:
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v33 = v28;
+            v32 = v28;
             _os_log_impl(&dword_197AD5000, v29, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{acquireShortTermLockSync}: %{public}@", buf, 0xCu);
           }
 
@@ -261,7 +257,7 @@ LABEL_20:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v33 = v24;
+        v32 = v24;
         _os_log_impl(&dword_197AD5000, v25, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{acquireShortTermLockSync}: %{public}@", buf, 0xCu);
       }
 
@@ -285,7 +281,7 @@ LABEL_20:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v33 = v10;
+    v32 = v10;
     _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_ERROR, "MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK][RAPID-LOCK]{acquireShortTermLockSync}: %{public}@", buf, 0xCu);
   }
 
@@ -293,8 +289,6 @@ LABEL_20:
 
   objc_sync_exit(v3);
 LABEL_22:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

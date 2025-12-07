@@ -2,6 +2,7 @@
 - (unint64_t)supportedInterfaceOrientations;
 - (void)_cancelFlow;
 - (void)_dismissAndExit;
+- (void)_dismissFlowWithSuccess:(BOOL)success;
 - (void)_main_dismissAndExit;
 - (void)_presentFlowWithOffer:(id)offer flowOptions:(id)options containerViewController:(id)controller;
 - (void)_presentFreshmintWithOffer:(id)offer link:(id)link flowOptions:(id)options preloadedRemoteUIData:(id)data;
@@ -12,9 +13,31 @@
 - (void)handleButtonActions:(id)actions;
 - (void)upgradeFlowManagerDidCancel:(id)cancel;
 - (void)upgradeFlowManagerDidComplete:(id)complete;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ICQRemoteViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICQRemoteViewController;
+  [(ICQRemoteViewController *)&v4 viewWillAppear:appear];
+  [(ICQRemoteViewController *)self setNeedsStatusBarAppearanceUpdate];
+  [(ICQRemoteViewController *)self _setupRemoteProxy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ICQRemoteViewController;
+  [(ICQRemoteViewController *)&v4 viewWillDisappear:disappear];
+  if (!self->_isDismissing)
+  {
+    [(ICQRemoteViewController *)self _dismissFlowWithSuccess:0];
+  }
+}
 
 - (void)_setupRemoteProxy
 {
@@ -188,6 +211,48 @@
     [(ICQUpgradeFlowManager *)self->_flowManager setIcqLink:linkCopy];
     [(ICQUpgradeFlowManager *)self->_flowManager beginOSLOFlowWithPresentingViewController:presenterCopy];
   }
+}
+
+- (void)_dismissFlowWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v5 = objc_opt_new();
+  [v5 _setEndpoint:self->_xpcEndpoint];
+  v6 = [[NSXPCConnection alloc] initWithListenerEndpoint:v5];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2050000000;
+  v7 = qword_100011BB8;
+  v20 = qword_100011BB8;
+  if (!qword_100011BB8)
+  {
+    location[0] = _NSConcreteStackBlock;
+    location[1] = 3221225472;
+    location[2] = sub_100002F14;
+    location[3] = &unk_10000C428;
+    location[4] = &v17;
+    sub_100002F14(location);
+    v7 = v18[3];
+  }
+
+  v8 = v7;
+  _Block_object_dispose(&v17, 8);
+  xPCInterface = [v7 XPCInterface];
+  [v6 setRemoteObjectInterface:xPCInterface];
+
+  [v6 resume];
+  objc_initWeak(location, self);
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_1000023F8;
+  v14 = &unk_10000C3B0;
+  objc_copyWeak(&v15, location);
+  v10 = [v6 remoteObjectProxyWithErrorHandler:&v11];
+  [v10 remoteFreshmintFlowCompletedWithSuccess:successCopy error:{0, v11, v12, v13, v14}];
+  [(ICQRemoteViewController *)self _dismissAndExit];
+
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(location);
 }
 
 - (void)_dismissAndExit

@@ -27,20 +27,18 @@
 
 + (id)genSQLCreateStatements
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ integer PRIMARY KEY, %@ integer NOT NULL, %@ integer NULLABLE, %@ integer NULLABLE, %@ integer NOT NULL, %@ integer NOT NULL, %@ integer NULLABLE, %@ integer NULLABLE, %@ integer NULLABLE, %@ integer NULLABLE, FOREIGN KEY (%@) REFERENCES %@ (%@) ON UPDATE CASCADE ON DELETE CASCADE) ", @"provenance", @"provenance_row_id", @"device_row_id", @"instance_hash", @"content_hash", @"content_sequence_number", @"content_state", @"metacontent_sequence_number", @"metacontent_state", @"content_sequence_number_end_of_run", @"metacontent_sequence_number_end_of_run", @"device_row_id", @"device", @"device_row_id"];;
-  v10[0] = v2;
+  v9[0] = v2;
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX %@ ON %@ (%@, %@, %@)", @"idx_provenance_content_hash", @"provenance", @"content_hash", @"content_state", @"device_row_id"];;
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX %@ ON %@ (%@, %@, %@, %@)", @"idx_provenance_content_hash_metacontent_state", @"provenance", @"content_hash", @"content_state", @"metacontent_state", @"device_row_id"];;
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX %@ ON %@ (%@, %@, %@ DESC)", @"idx_provenance_content_sequence_number", @"provenance", @"device_row_id", @"content_state", @"content_sequence_number"];;
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX %@ ON %@ (%@, %@, %@ DESC)", @"idx_provenance_metacontent_sequence_number", @"provenance", @"device_row_id", @"metacontent_state", @"metacontent_sequence_number"];;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

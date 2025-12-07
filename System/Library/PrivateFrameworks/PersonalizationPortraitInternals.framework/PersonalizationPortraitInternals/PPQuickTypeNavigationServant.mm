@@ -15,13 +15,13 @@
 {
   var1 = destination.var1;
   var0 = destination.var0;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v7 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%.3f meters, %.3f seconds}", *&var1, *&var0];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%.3f meters, %.3f seconds}", *&var1, *&var0];
     *buf = 138412290;
-    v12 = v10;
+    v11 = v9;
     _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdatePositionFromDestination: %@", buf, 0xCu);
   }
 
@@ -30,21 +30,19 @@
   selfCopy->_remainingTimeToDestination = var0;
   selfCopy->_remainingDistanceToDestination = var1;
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateGuidanceState:(id)state
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   stateCopy = state;
   v8 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v19 = 138412290;
-    v20 = stateCopy;
-    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdateGuidanceState: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = stateCopy;
+    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdateGuidanceState: %@", &v18, 0xCu);
   }
 
   selfCopy = self;
@@ -75,21 +73,19 @@
 
   dispatch_semaphore_signal(selfCopy->_stateSemaphore);
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateCurrentRoadName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   nameCopy = name;
   v8 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
-    v14 = nameCopy;
-    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdateCurrentRoadName: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = nameCopy;
+    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdateCurrentRoadName: %@", &v12, 0xCu);
   }
 
   selfCopy = self;
@@ -101,9 +97,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       streetName = selfCopy->_streetName;
-      v13 = 138412290;
-      v14 = streetName;
-      _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "_streetName = %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = streetName;
+      _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "_streetName = %@", &v12, 0xCu);
     }
   }
 
@@ -115,21 +111,19 @@
 
   objc_sync_exit(selfCopy);
   dispatch_semaphore_signal(selfCopy->_streetSemaphore);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigationListener:(id)listener didUpdateRouteSummary:(id)summary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   summaryCopy = summary;
   v8 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 138412290;
-    v21 = summaryCopy;
-    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdateRouteSummary: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = summaryCopy;
+    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "GEONavigationListener: didUpdateRouteSummary: %@", &v19, 0xCu);
   }
 
   selfCopy = self;
@@ -158,10 +152,10 @@
     v13 = pp_quicktype_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v19 = selfCopy->_destinationName;
-      v20 = 138412290;
-      v21 = v19;
-      _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "_destinationName = %@", &v20, 0xCu);
+      v18 = selfCopy->_destinationName;
+      v19 = 138412290;
+      v20 = v18;
+      _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "_destinationName = %@", &v19, 0xCu);
     }
   }
 
@@ -173,13 +167,11 @@
 
   objc_sync_exit(selfCopy);
   dispatch_semaphore_signal(selfCopy->_summarySemaphore);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)quickTypeItemsWithQuery:(id)query limit:(unint64_t)limit explanationSet:(id)set
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   setCopy = set;
   v9 = [queryCopy type] == 4;
@@ -246,9 +238,9 @@ LABEL_21:
         v21 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:selfCopy->_remainingTimeToDestination];
         v22 = [v13 formattedEventTime:v21];
 
-        BYTE2(v77) = 4;
-        LOWORD(v77) = 0;
-        v23 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v20 value:v22 name:0 date:0 fields:0x800000 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v77 score:0 source:? sourceIdentifier:?];
+        BYTE2(v76) = 4;
+        LOWORD(v76) = 0;
+        v23 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v20 value:v22 name:0 date:0 fields:0x800000 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v76 score:0 source:? sourceIdentifier:?];
         [v12 addObject:v23];
       }
 
@@ -260,9 +252,9 @@ LABEL_21:
         v26 = [v13 formattedTimeInterval:selfCopy->_remainingTimeToDestination];
         if ([v26 length])
         {
-          BYTE2(v77) = 4;
-          LOWORD(v77) = 0;
-          v27 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v25 value:v26 name:0 date:0 fields:0x1000000 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v77 score:0 source:? sourceIdentifier:?];
+          BYTE2(v76) = 4;
+          LOWORD(v76) = 0;
+          v27 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v25 value:v26 name:0 date:0 fields:0x1000000 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v76 score:0 source:? sourceIdentifier:?];
           [v12 addObject:v27];
         }
       }
@@ -311,9 +303,9 @@ LABEL_21:
       v37 = [v13 navigationItemLabelForTypeLabel:distanceLabel destination:selfCopy2->_destinationName];
 
       v38 = [v13 formattedLengthInMeters:selfCopy2->_remainingDistanceToDestination];
-      BYTE2(v77) = 4;
-      LOWORD(v77) = 0;
-      v39 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v37 value:v38 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v77 score:0 source:? sourceIdentifier:?];
+      BYTE2(v76) = 4;
+      LOWORD(v76) = 0;
+      v39 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v37 value:v38 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v76 score:0 source:? sourceIdentifier:?];
       [v12 addObject:v39];
     }
 
@@ -355,9 +347,9 @@ LABEL_21:
       v48 = [v13 formattedTimeInterval:selfCopy2->_remainingTimeToDestination];
       if ([v48 length])
       {
-        BYTE2(v77) = 4;
-        LOWORD(v77) = 0;
-        v49 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v47 value:v48 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v77 score:0 source:? sourceIdentifier:?];
+        BYTE2(v76) = 4;
+        LOWORD(v76) = 0;
+        v49 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v47 value:v48 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v76 score:0 source:? sourceIdentifier:?];
         [v12 addObject:v49];
       }
     }
@@ -415,16 +407,16 @@ LABEL_93:
       v55 = [v13 navigationItemLabelForTypeLabel:destinationLabel destination:0];
 
       v56 = selfCopy3->_destinationName;
-      BYTE2(v77) = 4;
-      LOWORD(v77) = 0;
-      v57 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v55 value:v56 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v77 score:0 source:? sourceIdentifier:?];
+      BYTE2(v76) = 4;
+      LOWORD(v76) = 0;
+      v57 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v55 value:v56 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v76 score:0 source:? sourceIdentifier:?];
       v58 = pp_quicktype_log_handle();
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
       {
         value = [v57 value];
         *buf = 138412290;
-        v81 = value;
-        v78 = value;
+        v80 = value;
+        v77 = value;
         _os_log_debug_impl(&dword_23224A000, v58, OS_LOG_TYPE_DEBUG, "destination name: %@", buf, 0xCu);
       }
 
@@ -485,16 +477,16 @@ LABEL_73:
       v64 = [v13 navigationItemLabelForTypeLabel:streetLabel destination:0];
 
       v65 = selfCopy4->_streetName;
-      BYTE2(v77) = 4;
-      LOWORD(v77) = 0;
-      v66 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v64 value:v65 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v77 score:0 source:? sourceIdentifier:?];
+      BYTE2(v76) = 4;
+      LOWORD(v76) = 0;
+      v66 = [objc_alloc(MEMORY[0x277D3A478]) initWithLabel:v64 value:v65 name:0 date:0 fields:0 originatingBundleID:0 originatingWebsiteURL:1.0 predictionAge:0 shouldAggregate:0 flags:v76 score:0 source:? sourceIdentifier:?];
       v67 = pp_quicktype_log_handle();
       if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
       {
         value2 = [v66 value];
         *buf = 138412290;
-        v81 = value2;
-        v79 = value2;
+        v80 = value2;
+        v78 = value2;
         _os_log_debug_impl(&dword_23224A000, v67, OS_LOG_TYPE_DEBUG, "street name: %@", buf, 0xCu);
       }
 
@@ -564,7 +556,6 @@ LABEL_83:
 LABEL_94:
 
 LABEL_95:
-  v73 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

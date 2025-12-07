@@ -20,7 +20,7 @@
 - (unint64_t)count
 {
   assets = [(PLConversation *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -132,7 +132,7 @@
   v13 = PLBackendGetLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [v10 count];
+    v14 = objc_msgSend_count(v10);
     shortObjectIDURI = [(PLManagedObject *)self shortObjectIDURI];
     *buf = 134218242;
     v19 = v14;
@@ -360,7 +360,7 @@ LABEL_14:
   v20 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   libraryCopy = library;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = objc_autoreleasePoolPush();
     managedObjectContext = [libraryCopy managedObjectContext];
@@ -371,9 +371,9 @@ LABEL_14:
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"importSessionID", dsCopy];
     [v11 setPredicate:dsCopy];
 
-    [v11 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+    [v11 setFetchLimit:objc_msgSend_count(dsCopy)];
     [v11 setReturnsObjectsAsFaults:0];
-    if ([dsCopy count] >= 0x65)
+    if (objc_msgSend_count(dsCopy) >= 0x65)
     {
       [v11 setFetchBatchSize:100];
     }

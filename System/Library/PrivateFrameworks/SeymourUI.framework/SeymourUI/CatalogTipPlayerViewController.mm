@@ -32,7 +32,6 @@
   v5.super_class = type metadata accessor for CatalogTipPlayerViewController();
   v4 = v5.receiver;
   [(CatalogTipPlayerViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BF43334();
   if ([v4 isBeingDismissed])
   {
     sub_20BF43570();

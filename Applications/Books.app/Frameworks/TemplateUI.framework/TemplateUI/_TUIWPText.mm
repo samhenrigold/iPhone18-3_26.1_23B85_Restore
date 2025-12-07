@@ -113,7 +113,7 @@
 
           v16 = *(*(&v22 + 1) + 8 * i);
           v17 = self->_layouts;
-          v18 = [v16 box];
+          v18 = objc_msgSend_box(v16, v22);
           [(NSMapTable *)v17 setObject:v16 forKey:v18];
         }
 
@@ -140,7 +140,7 @@
 - (id)layoutForInlineDrawable:(id)drawable
 {
   drawableCopy = drawable;
-  v5 = [drawableCopy box];
+  v5 = objc_msgSend_box(drawableCopy);
   v6 = [(NSMapTable *)self->_attachmentLayouts objectForKey:v5];
   if (!v6)
   {
@@ -152,7 +152,7 @@
     [drawableCopy baselineOffset];
     v6 = [(_TUIWPAttachmentLayout *)v10 initWithLayout:v9 baselineOffset:self->_computingIntrinsic intrinsic:findCharIndex charIndex:?];
     attachmentLayouts = self->_attachmentLayouts;
-    v12 = [v9 box];
+    v12 = objc_msgSend_box(v9);
     [(NSMapTable *)attachmentLayouts setObject:v6 forKey:v12];
 
     [(NSMutableArray *)self->_inlineLayouts addObject:v6];

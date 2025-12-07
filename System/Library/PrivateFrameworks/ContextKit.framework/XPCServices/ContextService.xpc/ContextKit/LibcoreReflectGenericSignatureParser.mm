@@ -86,9 +86,9 @@
         sub_1001BBB54();
       }
 
-      JreStrongAssign(&self->formalTypeParameters_, LibcoreUtilEmptyArray_TYPE_VARIABLE_);
-      v8 = NSObject_class_();
-      JreStrongAssign(&self->superclassType_, v8);
+      v8 = JreStrongAssign(&self->formalTypeParameters_, LibcoreUtilEmptyArray_TYPE_VARIABLE_);
+      v10 = NSObject_class_(v8, v9);
+      JreStrongAssign(&self->superclassType_, v10);
       if (atomic_load_explicit(LibcoreReflectListOfTypes__initialized, memory_order_acquire))
       {
         goto LABEL_22;
@@ -97,9 +97,9 @@
 
     sub_10028EE84();
 LABEL_22:
-    v9 = LibcoreReflectListOfTypes_EMPTY_;
+    v11 = LibcoreReflectListOfTypes_EMPTY_;
 
-    JreStrongAssign(&self->interfaceTypes_, v9);
+    JreStrongAssign(&self->interfaceTypes_, v11);
     return;
   }
 
@@ -438,20 +438,20 @@ LABEL_9:
   {
     case '-':
       [(LibcoreReflectGenericSignatureParser *)self scanSymbol];
-      [(LibcoreReflectListOfTypes *)v4 addWithJavaLangReflectType:[(LibcoreReflectGenericSignatureParser *)self parseFieldTypeSignature]];
+      scanSymbol = [(LibcoreReflectListOfTypes *)v4 addWithJavaLangReflectType:[(LibcoreReflectGenericSignatureParser *)self parseFieldTypeSignature]];
       goto LABEL_7;
     case '+':
       [(LibcoreReflectGenericSignatureParser *)self scanSymbol];
       parseFieldTypeSignature = [(LibcoreReflectGenericSignatureParser *)self parseFieldTypeSignature];
 LABEL_8:
       [(LibcoreReflectListOfTypes *)v3 addWithJavaLangReflectType:parseFieldTypeSignature];
-      v7 = new_LibcoreReflectWildcardTypeImpl_initWithLibcoreReflectListOfTypes_withLibcoreReflectListOfTypes_(v3, v4);
+      v9 = new_LibcoreReflectWildcardTypeImpl_initWithLibcoreReflectListOfTypes_withLibcoreReflectListOfTypes_(v3, v4);
 
-      return v7;
+      return v9;
     case '*':
-      [(LibcoreReflectGenericSignatureParser *)self scanSymbol];
+      scanSymbol = [(LibcoreReflectGenericSignatureParser *)self scanSymbol];
 LABEL_7:
-      parseFieldTypeSignature = NSObject_class_();
+      parseFieldTypeSignature = NSObject_class_(scanSymbol, v7);
       goto LABEL_8;
   }
 
@@ -621,8 +621,8 @@ LABEL_36:
 {
   if (self->eof_)
   {
-    v7 = new_JavaLangReflectGenericSignatureFormatError_init();
-    objc_exception_throw(v7);
+    v6 = new_JavaLangReflectGenericSignatureFormatError_init();
+    objc_exception_throw(v6);
   }
 
   buffer = self->buffer_;
@@ -646,7 +646,6 @@ LABEL_36:
       IOSArray_throwOutOfBoundsWithMsg(size, self->pos_);
     }
 
-    v6 = self->pos_;
     self->symbol_ = *(&buffer->super.size_ + pos + 2);
     self->pos_ = pos + 1;
   }
@@ -672,7 +671,7 @@ LABEL_24:
     objc_exception_throw(v13);
   }
 
-  v3 = new_JavaLangStringBuilder_initWithInt_(0x20u);
+  v3 = new_JavaLangStringBuilder_initWithInt_(32);
   symbol = self->symbol_;
   if (symbol <= 0x3C && ((1 << symbol) & 0x1C00C00000000000) != 0)
   {

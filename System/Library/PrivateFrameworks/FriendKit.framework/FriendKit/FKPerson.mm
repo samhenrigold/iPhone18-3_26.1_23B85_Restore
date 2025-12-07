@@ -179,7 +179,7 @@ uint64_t __31__FKPerson_sharedMetadataQueue__block_invoke()
 
 - (FKPerson)initWithCoder:(id)coder
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(FKPerson *)self init];
   if (v5)
@@ -214,9 +214,9 @@ uint64_t __31__FKPerson_sharedMetadataQueue__block_invoke()
     v5->_name = v18;
 
     v20 = MEMORY[0x277CBEB98];
-    v35[0] = objc_opt_class();
-    v35[1] = objc_opt_class();
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = objc_opt_class();
+    v34[1] = objc_opt_class();
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v22 = [v20 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"av"];
     allValues = v5->_allValues;
@@ -224,13 +224,13 @@ uint64_t __31__FKPerson_sharedMetadataQueue__block_invoke()
 
     v25 = MEMORY[0x277CBEB38];
     v26 = MEMORY[0x277CBEB98];
-    v34[0] = objc_opt_class();
-    v34[1] = objc_opt_class();
-    v34[2] = objc_opt_class();
-    v34[3] = objc_opt_class();
-    v34[4] = objc_opt_class();
-    v34[5] = objc_opt_class();
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:6];
+    v33[0] = objc_opt_class();
+    v33[1] = objc_opt_class();
+    v33[2] = objc_opt_class();
+    v33[3] = objc_opt_class();
+    v33[4] = objc_opt_class();
+    v33[5] = objc_opt_class();
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:6];
     v28 = [v26 setWithArray:v27];
     v29 = [coderCopy decodeObjectOfClasses:v28 forKey:@"m"];
     v30 = [v25 dictionaryWithDictionary:v29];
@@ -238,176 +238,195 @@ uint64_t __31__FKPerson_sharedMetadataQueue__block_invoke()
     v5->_metadata = v30;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_updateFromDictionaryRepresentation:(id)representation shouldLogUpdates:(BOOL)updates
 {
   updatesCopy = updates;
-  v63 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v6 = [representationCopy objectForKey:@"ABRecordID"];
   intValue = [v6 intValue];
 
-  v44 = [representationCopy objectForKey:@"ABRecordGUID"];
+  v49 = [representationCopy objectForKey:@"ABRecordGUID"];
   v8 = [representationCopy objectForKey:@"ABDatabaseUID"];
   v9 = [representationCopy objectForKey:@"Name"];
   v10 = MEMORY[0x277CBEB98];
   v11 = [representationCopy objectForKey:@"AllValues"];
-  v42 = [v10 setWithArray:v11];
+  v47 = [v10 setWithArray:v11];
 
   v12 = [representationCopy objectForKey:@"ReplyAs"];
   v13 = [representationCopy objectForKey:@"Monogram"];
   v14 = MEMORY[0x277CBEB38];
   v15 = [representationCopy objectForKey:@"Metadata"];
-  v40 = [v14 dictionaryWithDictionary:v15];
+  v45 = [v14 dictionaryWithDictionary:v15];
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
   if (self->_abRecordID != intValue)
   {
     self->_abRecordID = intValue;
-    v52 = 1;
+    v57 = 1;
   }
 
   abRecordGUID = self->_abRecordGUID;
-  if (abRecordGUID | v44 && ![(NSString *)abRecordGUID isEqualToString:v44])
+  if (abRecordGUID | v49)
   {
-    if (updatesCopy)
+    v17 = [(NSString *)abRecordGUID isEqualToString:v49];
+    if ((v17 & 1) == 0)
     {
-      v17 = _FKGetLogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      if (updatesCopy)
       {
-        v18 = self->_abRecordGUID;
-        *buf = 136316162;
-        v54 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
-        v55 = 1024;
-        v56 = 195;
-        v57 = 2112;
-        selfCopy6 = self;
-        v59 = 2112;
-        v60 = v18;
-        v61 = 2112;
-        v62 = v44;
-        _os_log_impl(&dword_24BC19000, v17, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to abRecordGUID: %@ -> %@", buf, 0x30u);
+        v18 = _FKGetLogSystem(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          v19 = self->_abRecordGUID;
+          *buf = 136316162;
+          v59 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
+          v60 = 1024;
+          v61 = 195;
+          v62 = 2112;
+          selfCopy6 = self;
+          v64 = 2112;
+          v65 = v19;
+          v66 = 2112;
+          v67 = v49;
+          _os_log_impl(&dword_24BC19000, v18, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to abRecordGUID: %@ -> %@", buf, 0x30u);
+        }
       }
-    }
 
-    [(FKPerson *)self _setABRecordGUID:v44, v40];
-    *(v50 + 24) = 1;
+      [(FKPerson *)self _setABRecordGUID:v49, v45];
+      *(v55 + 24) = 1;
+    }
   }
 
   abDatabaseUID = self->_abDatabaseUID;
-  if (abDatabaseUID | v8 && ![(NSString *)abDatabaseUID isEqualToString:v8])
+  if (abDatabaseUID | v8)
   {
-    if (updatesCopy)
+    v21 = [(NSString *)abDatabaseUID isEqualToString:v8];
+    if ((v21 & 1) == 0)
     {
-      v20 = _FKGetLogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (updatesCopy)
       {
-        v21 = self->_abDatabaseUID;
-        *buf = 136316162;
-        v54 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
-        v55 = 1024;
-        v56 = 201;
-        v57 = 2112;
-        selfCopy6 = self;
-        v59 = 2112;
-        v60 = v21;
-        v61 = 2112;
-        v62 = v8;
-        _os_log_impl(&dword_24BC19000, v20, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to abDatabaseUID: %@ -> %@", buf, 0x30u);
+        v22 = _FKGetLogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          v23 = self->_abDatabaseUID;
+          *buf = 136316162;
+          v59 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
+          v60 = 1024;
+          v61 = 201;
+          v62 = 2112;
+          selfCopy6 = self;
+          v64 = 2112;
+          v65 = v23;
+          v66 = 2112;
+          v67 = v8;
+          _os_log_impl(&dword_24BC19000, v22, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to abDatabaseUID: %@ -> %@", buf, 0x30u);
+        }
       }
-    }
 
-    objc_storeStrong(&self->_abDatabaseUID, v8);
-    *(v50 + 24) = 1;
+      objc_storeStrong(&self->_abDatabaseUID, v8);
+      *(v55 + 24) = 1;
+    }
   }
 
   name = self->_name;
-  if (name | v9 && ![(NSString *)name isEqualToString:v9])
+  if (name | v9)
   {
-    if (updatesCopy)
+    v25 = [(NSString *)name isEqualToString:v9];
+    if ((v25 & 1) == 0)
     {
-      v23 = _FKGetLogSystem();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (updatesCopy)
       {
-        v24 = self->_name;
-        *buf = 136316162;
-        v54 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
-        v55 = 1024;
-        v56 = 207;
-        v57 = 2112;
-        selfCopy6 = self;
-        v59 = 2112;
-        v60 = v24;
-        v61 = 2112;
-        v62 = v9;
-        _os_log_impl(&dword_24BC19000, v23, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to name: '%@' -> '%@'", buf, 0x30u);
+        v26 = _FKGetLogSystem(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          v27 = self->_name;
+          *buf = 136316162;
+          v59 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
+          v60 = 1024;
+          v61 = 207;
+          v62 = 2112;
+          selfCopy6 = self;
+          v64 = 2112;
+          v65 = v27;
+          v66 = 2112;
+          v67 = v9;
+          _os_log_impl(&dword_24BC19000, v26, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to name: '%@' -> '%@'", buf, 0x30u);
+        }
       }
-    }
 
-    objc_storeStrong(&self->_name, v9);
-    *(v50 + 24) = 1;
+      objc_storeStrong(&self->_name, v9);
+      *(v55 + 24) = 1;
+    }
   }
 
-  fkSanitizedDestinationSet = [v42 fkSanitizedDestinationSet];
+  fkSanitizedDestinationSet = [v47 fkSanitizedDestinationSet];
   allValues = self->_allValues;
-  if (allValues | fkSanitizedDestinationSet && ![(NSSet *)allValues isEqualToSet:fkSanitizedDestinationSet])
+  if (allValues | fkSanitizedDestinationSet)
   {
-    if (updatesCopy)
+    v30 = [(NSSet *)allValues isEqualToSet:fkSanitizedDestinationSet];
+    if ((v30 & 1) == 0)
     {
-      v27 = _FKGetLogSystem();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      if (updatesCopy)
       {
-        v28 = self->_allValues;
-        *buf = 136316162;
-        v54 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
-        v55 = 1024;
-        v56 = 216;
-        v57 = 2112;
-        selfCopy6 = self;
-        v59 = 2112;
-        v60 = v28;
-        v61 = 2112;
-        v62 = fkSanitizedDestinationSet;
-        _os_log_impl(&dword_24BC19000, v27, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to allValues: %@ -> %@", buf, 0x30u);
+        v31 = _FKGetLogSystem(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        {
+          v32 = self->_allValues;
+          *buf = 136316162;
+          v59 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
+          v60 = 1024;
+          v61 = 216;
+          v62 = 2112;
+          selfCopy6 = self;
+          v64 = 2112;
+          v65 = v32;
+          v66 = 2112;
+          v67 = fkSanitizedDestinationSet;
+          _os_log_impl(&dword_24BC19000, v31, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to allValues: %@ -> %@", buf, 0x30u);
+        }
       }
-    }
 
-    objc_storeStrong(&self->_allValues, fkSanitizedDestinationSet);
-    *(v50 + 24) = 1;
-    self->_needsSave = [v42 isEqualToSet:fkSanitizedDestinationSet] ^ 1;
+      objc_storeStrong(&self->_allValues, fkSanitizedDestinationSet);
+      *(v55 + 24) = 1;
+      self->_needsSave = [v47 isEqualToSet:fkSanitizedDestinationSet] ^ 1;
+    }
   }
 
   preferredReplyAs = self->_preferredReplyAs;
-  if (preferredReplyAs | v12 && ![(NSString *)preferredReplyAs isEqualToString:v12])
+  if (preferredReplyAs | v12)
   {
-    if (updatesCopy)
+    v34 = [(NSString *)preferredReplyAs isEqualToString:v12];
+    if ((v34 & 1) == 0)
     {
-      v30 = _FKGetLogSystem();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (updatesCopy)
       {
-        v31 = self->_preferredReplyAs;
-        *buf = 136316162;
-        v54 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
-        v55 = 1024;
-        v56 = 225;
-        v57 = 2112;
-        selfCopy6 = self;
-        v59 = 2112;
-        v60 = v31;
-        v61 = 2112;
-        v62 = v12;
-        _os_log_impl(&dword_24BC19000, v30, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to _preferredReplyAs: '%@' -> '%@'", buf, 0x30u);
+        v35 = _FKGetLogSystem(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        {
+          v36 = self->_preferredReplyAs;
+          *buf = 136316162;
+          v59 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
+          v60 = 1024;
+          v61 = 225;
+          v62 = 2112;
+          selfCopy6 = self;
+          v64 = 2112;
+          v65 = v36;
+          v66 = 2112;
+          v67 = v12;
+          _os_log_impl(&dword_24BC19000, v35, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to _preferredReplyAs: '%@' -> '%@'", buf, 0x30u);
+        }
       }
-    }
 
-    objc_storeStrong(&self->_preferredReplyAs, v12);
-    *(v50 + 24) = 1;
+      objc_storeStrong(&self->_preferredReplyAs, v12);
+      *(v55 + 24) = 1;
+    }
   }
 
   if (!v13)
@@ -417,58 +436,64 @@ uint64_t __31__FKPerson_sharedMetadataQueue__block_invoke()
 
   if ([v13 length])
   {
-    v32 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v32 = [(NSString *)self->_initials length]== 0;
+    v37 = [(NSString *)self->_initials length]== 0;
   }
 
   initials = self->_initials;
-  if (v13 | initials && !v32 && ![(NSString *)initials isEqualToString:v13])
+  if (v13 | initials)
   {
-    if (updatesCopy)
+    if (!v37)
     {
-      v34 = _FKGetLogSystem();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v39 = [(NSString *)initials isEqualToString:v13];
+      if ((v39 & 1) == 0)
       {
-        v35 = self->_initials;
-        *buf = 136316162;
-        v54 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
-        v55 = 1024;
-        v56 = 234;
-        v57 = 2112;
-        selfCopy6 = self;
-        v59 = 2112;
-        v60 = v35;
-        v61 = 2112;
-        v62 = v13;
-        _os_log_impl(&dword_24BC19000, v34, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to initials: [%@] -> [%@]", buf, 0x30u);
+        if (updatesCopy)
+        {
+          v40 = _FKGetLogSystem(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          {
+            v41 = self->_initials;
+            *buf = 136316162;
+            v59 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]";
+            v60 = 1024;
+            v61 = 234;
+            v62 = 2112;
+            selfCopy6 = self;
+            v64 = 2112;
+            v65 = v41;
+            v66 = 2112;
+            v67 = v13;
+            _os_log_impl(&dword_24BC19000, v40, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to initials: [%@] -> [%@]", buf, 0x30u);
+          }
+        }
+
+        objc_storeStrong(&self->_initials, v13);
+        *(v55 + 24) = 1;
       }
     }
-
-    objc_storeStrong(&self->_initials, v13);
-    *(v50 + 24) = 1;
   }
 
-  v36 = +[FKPerson sharedMetadataQueue];
+  v42 = +[FKPerson sharedMetadataQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65__FKPerson__updateFromDictionaryRepresentation_shouldLogUpdates___block_invoke;
   block[3] = &unk_27916A658;
   block[4] = self;
-  v46 = v41;
-  v48 = updatesCopy;
-  v47 = &v49;
-  v37 = v41;
-  dispatch_sync(v36, block);
+  v51 = v46;
+  v53 = updatesCopy;
+  v52 = &v54;
+  v43 = v46;
+  dispatch_sync(v42, block);
 
-  LOBYTE(v36) = *(v50 + 24);
-  _Block_object_dispose(&v49, 8);
+  LOBYTE(v42) = *(v55 + 24);
+  _Block_object_dispose(&v54, 8);
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v36 & 1;
+  return v42 & 1;
 }
 
 void __65__FKPerson__updateFromDictionaryRepresentation_shouldLogUpdates___block_invoke(uint64_t a1)
@@ -476,46 +501,48 @@ void __65__FKPerson__updateFromDictionaryRepresentation_shouldLogUpdates___block
   v23 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  if (*(v3 + 80) | v2 && ([v2 isEqualToDictionary:?] & 1) == 0)
+  if (*(v3 + 80) | v2)
   {
-    if (*(a1 + 56) == 1)
+    v4 = [v2 isEqualToDictionary:?];
+    if ((v4 & 1) == 0)
     {
-      v4 = _FKGetLogSystem();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (*(a1 + 56) == 1)
       {
-        v5 = *(a1 + 32);
-        v6 = *(a1 + 40);
-        v7 = *(v5 + 80);
-        *buf = 136316162;
-        v14 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]_block_invoke";
-        v15 = 1024;
-        v16 = 241;
-        v17 = 2112;
-        v18 = v5;
-        v19 = 2112;
-        v20 = v7;
-        v21 = 2112;
-        v22 = v6;
-        _os_log_impl(&dword_24BC19000, v4, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to metadata: %@ -> %@", buf, 0x30u);
+        v5 = _FKGetLogSystem(v4);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          v6 = *(a1 + 32);
+          v7 = *(a1 + 40);
+          v8 = *(v6 + 80);
+          *buf = 136316162;
+          v14 = "[FKPerson _updateFromDictionaryRepresentation:shouldLogUpdates:]_block_invoke";
+          v15 = 1024;
+          v16 = 241;
+          v17 = 2112;
+          v18 = v6;
+          v19 = 2112;
+          v20 = v8;
+          v21 = 2112;
+          v22 = v7;
+          _os_log_impl(&dword_24BC19000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ is being marked as updated due to metadata: %@ -> %@", buf, 0x30u);
+        }
       }
+
+      objc_initWeak(buf, *(a1 + 32));
+      v9 = +[FKPerson sharedMetadataQueue];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __65__FKPerson__updateFromDictionaryRepresentation_shouldLogUpdates___block_invoke_72;
+      v10[3] = &unk_27916A280;
+      objc_copyWeak(&v12, buf);
+      v11 = *(a1 + 40);
+      dispatch_barrier_async(v9, v10);
+
+      *(*(*(a1 + 48) + 8) + 24) = 1;
+      objc_destroyWeak(&v12);
+      objc_destroyWeak(buf);
     }
-
-    objc_initWeak(buf, *(a1 + 32));
-    v8 = +[FKPerson sharedMetadataQueue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __65__FKPerson__updateFromDictionaryRepresentation_shouldLogUpdates___block_invoke_72;
-    v10[3] = &unk_27916A280;
-    objc_copyWeak(&v12, buf);
-    v11 = *(a1 + 40);
-    dispatch_barrier_async(v8, v10);
-
-    *(*(*(a1 + 48) + 8) + 24) = 1;
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __65__FKPerson__updateFromDictionaryRepresentation_shouldLogUpdates___block_invoke_72(uint64_t a1)
@@ -670,35 +697,37 @@ void __36__FKPerson_dictionaryRepresentation__block_invoke(uint64_t a1)
   v24 = *MEMORY[0x277D85DE8];
   asCopy = as;
   preferredReplyAs = self->_preferredReplyAs;
-  if (asCopy | preferredReplyAs && ![(NSString *)preferredReplyAs isEqualToString:asCopy])
+  if (asCopy | preferredReplyAs)
   {
-    v7 = _FKGetLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [(NSString *)preferredReplyAs isEqualToString:asCopy];
+    if ((v7 & 1) == 0)
     {
-      name = self->_name;
-      abRecordGUID = self->_abRecordGUID;
-      v10 = self->_preferredReplyAs;
-      v12 = 136316418;
-      v13 = "[FKPerson setPreferredReplyAs:]";
-      v14 = 1024;
-      v15 = 348;
-      v16 = 2112;
-      v17 = name;
-      v18 = 2112;
-      v19 = abRecordGUID;
-      v20 = 2112;
-      v21 = v10;
-      v22 = 2112;
-      v23 = asCopy;
-      _os_log_impl(&dword_24BC19000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) updating preferredReplyAs for [%@] (GUID %@): %@ -> %@", &v12, 0x3Au);
+      v8 = _FKGetLogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        name = self->_name;
+        abRecordGUID = self->_abRecordGUID;
+        v11 = self->_preferredReplyAs;
+        v12 = 136316418;
+        v13 = "[FKPerson setPreferredReplyAs:]";
+        v14 = 1024;
+        v15 = 348;
+        v16 = 2112;
+        v17 = name;
+        v18 = 2112;
+        v19 = abRecordGUID;
+        v20 = 2112;
+        v21 = v11;
+        v22 = 2112;
+        v23 = asCopy;
+        _os_log_impl(&dword_24BC19000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) updating preferredReplyAs for [%@] (GUID %@): %@ -> %@", &v12, 0x3Au);
+      }
+
+      objc_storeStrong(&self->_preferredReplyAs, as);
+      self->_needsSave = 1;
+      [(FKPerson *)self _postChangeNotification];
     }
-
-    objc_storeStrong(&self->_preferredReplyAs, as);
-    self->_needsSave = 1;
-    [(FKPerson *)self _postChangeNotification];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)metadataValueForKey:(id)key
@@ -881,7 +910,6 @@ uint64_t __20__FKPerson_metadata__block_invoke(uint64_t a1)
   result = [(NSString *)self->_abRecordGUID length];
   if (result)
   {
-    abRecordGUID = self->_abRecordGUID;
 
     return ABAddressBookCopyPersonMatchingInternalUUID();
   }
@@ -891,7 +919,7 @@ uint64_t __20__FKPerson_metadata__block_invoke(uint64_t a1)
 
 - (void)_setABRecordGUID:(id)d
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
   abRecordGUID = self->_abRecordGUID;
@@ -910,27 +938,25 @@ uint64_t __20__FKPerson_metadata__block_invoke(uint64_t a1)
     if (![(NSString *)abRecordGUID isEqualToString:v7])
     {
       objc_initWeak(&location, self);
-      v16 = @"UnlinkedABGUID";
-      v17[0] = self->_abRecordGUID;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __29__FKPerson__setABRecordGUID___block_invoke;
-      v12[3] = &unk_27916A280;
-      objc_copyWeak(&v14, &location);
-      v13 = v8;
+      v15 = @"UnlinkedABGUID";
+      v16[0] = self->_abRecordGUID;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __29__FKPerson__setABRecordGUID___block_invoke;
+      v11[3] = &unk_27916A280;
+      objc_copyWeak(&v13, &location);
+      v12 = v8;
       v9 = v8;
-      dispatch_async(MEMORY[0x277D85CD0], v12);
+      dispatch_async(MEMORY[0x277D85CD0], v11);
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v13);
       objc_destroyWeak(&location);
     }
   }
 
   v10 = self->_abRecordGUID;
   self->_abRecordGUID = v5;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __29__FKPerson__setABRecordGUID___block_invoke(uint64_t a1)
@@ -949,7 +975,7 @@ void __29__FKPerson__setABRecordGUID___block_invoke(uint64_t a1)
 
 - (BOOL)isEqualToDictionaryRepresentation:(id)representation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [representationCopy objectForKey:@"ABRecordGUID"];
   abRecordGUID = self->_abRecordGUID;
@@ -968,33 +994,33 @@ void __29__FKPerson__setABRecordGUID___block_invoke(uint64_t a1)
     v8 = [representationCopy objectForKey:@"AllValues"];
     if ([v8 count])
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            if ([(NSSet *)self->_allValues containsObject:*(*(&v16 + 1) + 8 * i), v16])
+            if ([(NSSet *)self->_allValues containsObject:*(*(&v15 + 1) + 8 * i), v15])
             {
               v7 = 1;
               goto LABEL_16;
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v11)
           {
             continue;
@@ -1014,7 +1040,6 @@ LABEL_16:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1079,10 +1104,10 @@ void __35__FKPerson__postChangeNotification__block_invoke(uint64_t a1)
 
 - (void)_reconcile:(void *)_reconcile canPostChangeNotification:(BOOL)notification shouldLogUpdates:(BOOL)updates
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (!_reconcile)
   {
-    goto LABEL_58;
+    return;
   }
 
   updatesCopy = updates;
@@ -1109,21 +1134,21 @@ void __35__FKPerson__postChangeNotification__block_invoke(uint64_t a1)
       v13 = RecordID;
       if (updatesCopy)
       {
-        v14 = _FKGetLogSystem();
+        v14 = _FKGetLogSystem(RecordID);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           abRecordGUID = self->_abRecordGUID;
           abRecordID = self->_abRecordID;
           *buf = 136316162;
-          v42 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
-          v43 = 1024;
-          v44 = 536;
-          v45 = 2112;
-          v46 = abRecordGUID;
-          v47 = 1024;
-          *v48 = abRecordID;
-          *&v48[4] = 1024;
-          *&v48[6] = v13;
+          v44 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
+          v45 = 1024;
+          v46 = 536;
+          v47 = 2112;
+          v48 = abRecordGUID;
+          v49 = 1024;
+          *v50 = abRecordID;
+          *&v50[4] = 1024;
+          *&v50[6] = v13;
           _os_log_impl(&dword_24BC19000, v14, OS_LOG_TYPE_DEFAULT, "%s (%d) updating AB record ID for friend with GUID %@: %d -> %d", buf, 0x28u);
         }
       }
@@ -1135,105 +1160,117 @@ void __35__FKPerson__postChangeNotification__block_invoke(uint64_t a1)
 
     v17 = [FKPerson preferredNameForPerson:v11];
     name = self->_name;
-    if (name | v17 && ![(NSString *)name isEqualToString:v17])
+    if (name | v17)
     {
-      if (updatesCopy)
+      v19 = [(NSString *)name isEqualToString:v17];
+      if ((v19 & 1) == 0)
       {
-        v19 = _FKGetLogSystem();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (updatesCopy)
         {
-          v20 = self->_abRecordGUID;
-          v21 = self->_name;
-          *buf = 136316162;
-          v42 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
-          v43 = 1024;
-          v44 = 546;
-          v45 = 2112;
-          v46 = v20;
-          v47 = 2112;
-          *v48 = v21;
-          *&v48[8] = 2112;
-          v49 = v17;
-          _os_log_impl(&dword_24BC19000, v19, OS_LOG_TYPE_DEFAULT, "%s (%d) updating name for friend with GUID %@: [%@] -> [%@]", buf, 0x30u);
+          v20 = _FKGetLogSystem(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = self->_abRecordGUID;
+            v22 = self->_name;
+            *buf = 136316162;
+            v44 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
+            v45 = 1024;
+            v46 = 546;
+            v47 = 2112;
+            v48 = v21;
+            v49 = 2112;
+            *v50 = v22;
+            *&v50[8] = 2112;
+            v51 = v17;
+            _os_log_impl(&dword_24BC19000, v20, OS_LOG_TYPE_DEFAULT, "%s (%d) updating name for friend with GUID %@: [%@] -> [%@]", buf, 0x30u);
+          }
         }
-      }
 
-      objc_storeStrong(&self->_name, v17);
-      v9 = 1;
-      self->_needsSave = 1;
+        objc_storeStrong(&self->_name, v17);
+        v9 = 1;
+        self->_needsSave = 1;
+      }
     }
 
-    v22 = [FKPerson allValuesForPerson:v11];
+    v23 = [FKPerson allValuesForPerson:v11];
     allValues = self->_allValues;
-    if (allValues | v22 && ![(NSSet *)allValues isEqualToSet:v22])
+    if (allValues | v23)
     {
-      if (updatesCopy)
+      v25 = [(NSSet *)allValues isEqualToSet:v23];
+      if ((v25 & 1) == 0)
       {
-        v24 = _FKGetLogSystem();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        if (updatesCopy)
         {
-          v25 = self->_abRecordGUID;
-          v26 = self->_allValues;
-          *buf = 136316162;
-          v42 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
-          v43 = 1024;
-          v44 = 556;
-          v45 = 2112;
-          v46 = v25;
-          v47 = 2112;
-          *v48 = v26;
-          *&v48[8] = 2112;
-          v49 = v22;
-          _os_log_impl(&dword_24BC19000, v24, OS_LOG_TYPE_DEFAULT, "%s (%d) updated destinations for friend with GUID %@: %@ -> %@", buf, 0x30u);
+          v26 = _FKGetLogSystem(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          {
+            v27 = self->_abRecordGUID;
+            v28 = self->_allValues;
+            *buf = 136316162;
+            v44 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
+            v45 = 1024;
+            v46 = 556;
+            v47 = 2112;
+            v48 = v27;
+            v49 = 2112;
+            *v50 = v28;
+            *&v50[8] = 2112;
+            v51 = v23;
+            _os_log_impl(&dword_24BC19000, v26, OS_LOG_TYPE_DEFAULT, "%s (%d) updated destinations for friend with GUID %@: %@ -> %@", buf, 0x30u);
+          }
         }
+
+        objc_storeStrong(&self->_allValues, v23);
+        primaryDestination = self->_primaryDestination;
+        self->_primaryDestination = 0;
+
+        phoneNumberCount = self->_phoneNumberCount;
+        self->_phoneNumberCount = 0;
+
+        emailAddressCount = self->_emailAddressCount;
+        self->_emailAddressCount = 0;
+
+        v9 = 1;
+        self->_needsSave = 1;
       }
-
-      objc_storeStrong(&self->_allValues, v22);
-      primaryDestination = self->_primaryDestination;
-      self->_primaryDestination = 0;
-
-      phoneNumberCount = self->_phoneNumberCount;
-      self->_phoneNumberCount = 0;
-
-      emailAddressCount = self->_emailAddressCount;
-      self->_emailAddressCount = 0;
-
-      v9 = 1;
-      self->_needsSave = 1;
     }
 
-    v30 = [FKUtility initialsForPerson:v11];
+    v32 = [FKUtility initialsForPerson:v11];
   }
 
   else
   {
-    if ([(NSSet *)self->_allValues count]&& [(NSString *)self->_name length])
+    v33 = [(NSSet *)self->_allValues count];
+    if (v33)
     {
-      v31 = _FKGetLogSystem();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v33 = [(NSString *)self->_name length];
+      if (v33)
       {
-        v32 = self->_name;
-        *buf = 136315650;
-        v42 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
-        v43 = 1024;
-        v44 = 571;
-        v45 = 2112;
-        v46 = v32;
-        _os_log_impl(&dword_24BC19000, v31, OS_LOG_TYPE_DEFAULT, "%s (%d) friend needs a full AB lookup, searching with name: %@", buf, 0x1Cu);
-      }
+        v34 = _FKGetLogSystem(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        {
+          v35 = self->_name;
+          *buf = 136315650;
+          v44 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
+          v45 = 1024;
+          v46 = 571;
+          v47 = 2112;
+          v48 = v35;
+          _os_log_impl(&dword_24BC19000, v34, OS_LOG_TYPE_DEFAULT, "%s (%d) friend needs a full AB lookup, searching with name: %@", buf, 0x1Cu);
+        }
 
-      v33 = self->_name;
-      ABAddressBookCopyPeopleAndIdentifiersMatchingName();
+        v33 = ABAddressBookCopyPeopleAndIdentifiersMatchingName();
+      }
     }
 
-    v34 = _FKGetLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v36 = _FKGetLogSystem(v33);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v42 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
-      v43 = 1024;
-      v44 = 600;
-      _os_log_impl(&dword_24BC19000, v34, OS_LOG_TYPE_DEFAULT, "%s (%d) unable to find matching record using name", buf, 0x12u);
+      v44 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
+      v45 = 1024;
+      v46 = 600;
+      _os_log_impl(&dword_24BC19000, v36, OS_LOG_TYPE_DEFAULT, "%s (%d) unable to find matching record using name", buf, 0x12u);
     }
 
     if (self->_abRecordID != -1)
@@ -1244,27 +1281,27 @@ void __35__FKPerson__postChangeNotification__block_invoke(uint64_t a1)
       self->_needsSave = 1;
     }
 
-    v30 = [FKUtility initialForString:self->_name];
+    v32 = [FKUtility initialForString:self->_name];
     v11 = 0;
   }
 
-  if ([v30 length])
+  if ([v32 length])
   {
-    if (v30)
+    if (v32)
     {
       goto LABEL_47;
     }
 
-    v35 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v36 = [(NSString *)self->_initials length];
-    v35 = v36 == 0;
-    if (v30)
+    v38 = [(NSString *)self->_initials length];
+    v37 = v38 == 0;
+    if (v32)
     {
-      if (v36)
+      if (v38)
       {
         goto LABEL_47;
       }
@@ -1273,33 +1310,34 @@ void __35__FKPerson__postChangeNotification__block_invoke(uint64_t a1)
     }
   }
 
-  if (self->_initials && !v35)
+  if (self->_initials && !v37)
   {
 LABEL_47:
-    if (([v30 isEqualToString:self->_initials] & 1) == 0)
+    v39 = [v32 isEqualToString:self->_initials];
+    if ((v39 & 1) == 0)
     {
       if (updatesCopy)
       {
-        v37 = _FKGetLogSystem();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v40 = _FKGetLogSystem(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = self->_abRecordGUID;
+          v41 = self->_abRecordGUID;
           initials = self->_initials;
           *buf = 136316162;
-          v42 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
-          v43 = 1024;
-          v44 = 615;
-          v45 = 2112;
-          v46 = v38;
+          v44 = "[FKPerson _reconcile:canPostChangeNotification:shouldLogUpdates:]";
+          v45 = 1024;
+          v46 = 615;
           v47 = 2112;
-          *v48 = initials;
-          *&v48[8] = 2112;
-          v49 = v30;
-          _os_log_impl(&dword_24BC19000, v37, OS_LOG_TYPE_DEFAULT, "%s (%d) updating monogram for friend with GUID %@: [%@] -> [%@]", buf, 0x30u);
+          v48 = v41;
+          v49 = 2112;
+          *v50 = initials;
+          *&v50[8] = 2112;
+          v51 = v32;
+          _os_log_impl(&dword_24BC19000, v40, OS_LOG_TYPE_DEFAULT, "%s (%d) updating monogram for friend with GUID %@: [%@] -> [%@]", buf, 0x30u);
         }
       }
 
-      objc_storeStrong(&self->_initials, v30);
+      objc_storeStrong(&self->_initials, v32);
       v9 = 1;
       self->_needsSave = 1;
     }
@@ -1315,9 +1353,6 @@ LABEL_53:
   {
     [(FKPerson *)self _postChangeNotification];
   }
-
-LABEL_58:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 + (id)preferredNameForPerson:(void *)person
@@ -1390,7 +1425,7 @@ LABEL_58:
 
 + (id)allValuesForPerson:(void *)person
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (person)
   {
     v4 = [MEMORY[0x277CBEB58] set];
@@ -1400,43 +1435,43 @@ LABEL_58:
     [v4 addObjectsFromArray:v6];
     if ([FKUtility personHasLinkages:person])
     {
-      v17 = v5;
+      v16 = v5;
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v7 = ABPersonCopyArrayOfAllLinkedPeople(person);
-      v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v19;
+        v10 = *v18;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v19 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v18 + 1) + 8 * i);
+            v12 = *(*(&v17 + 1) + 8 * i);
             if (v12 != person)
             {
-              v13 = [FKPerson _allEmailValuesForRecord:*(*(&v18 + 1) + 8 * i)];
+              v13 = [FKPerson _allEmailValuesForRecord:*(*(&v17 + 1) + 8 * i)];
               v14 = [FKPerson _allPhoneValuesForRecord:v12];
               [v4 addObjectsFromArray:v13];
               [v4 addObjectsFromArray:v14];
             }
           }
 
-          v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v9);
       }
 
-      v5 = v17;
+      v5 = v16;
     }
   }
 
@@ -1444,8 +1479,6 @@ LABEL_58:
   {
     v4 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1467,25 +1500,24 @@ LABEL_58:
         RecordID = ABRecordGetRecordID(ValueAtIndex);
         if (linksCopy)
         {
-          v15 = *MEMORY[0x277CE9988];
           IntValue = ABRecordGetIntValue();
           if (IntValue != -1)
           {
-            v17 = IntValue;
+            v16 = IntValue;
             PersonWithRecordID = ABAddressBookGetPersonWithRecordID(book, IntValue);
-            RecordID = v17;
+            RecordID = v16;
           }
         }
 
-        v18 = [MEMORY[0x277CCABB0] numberWithInt:RecordID];
+        v17 = [MEMORY[0x277CCABB0] numberWithInt:RecordID];
         if (PersonWithRecordID)
         {
-          v19 = [dictionary objectForKey:v18];
+          v18 = [dictionary objectForKey:v17];
 
-          if (!v19)
+          if (!v18)
           {
-            v20 = [FKPerson allValuesForPerson:PersonWithRecordID];
-            [dictionary setObject:v20 forKey:v18];
+            v19 = [FKPerson allValuesForPerson:PersonWithRecordID];
+            [dictionary setObject:v19 forKey:v17];
           }
         }
       }
@@ -1596,38 +1628,38 @@ void __55__FKPerson__bestRecordMatchFromDictionary_addressBook___block_invoke(ui
 
 + (id)_allPhoneValuesInSet:(id)set
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   setCopy = set;
   if (setCopy)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = setCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([v10 fkMessageDestinationType] == 1)
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -1638,8 +1670,6 @@ void __55__FKPerson__bestRecordMatchFromDictionary_addressBook___block_invoke(ui
   {
     v4 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1681,38 +1711,38 @@ void __55__FKPerson__bestRecordMatchFromDictionary_addressBook___block_invoke(ui
 
 + (id)_allEmailValuesInSet:(id)set
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   setCopy = set;
   if (setCopy)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = setCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([v10 fkMessageDestinationType] == 2)
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -1723,8 +1753,6 @@ void __55__FKPerson__bestRecordMatchFromDictionary_addressBook___block_invoke(ui
   {
     v4 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -7,9 +7,31 @@
 - (void)menuUpdated;
 - (void)setStartDate:(id)date;
 - (void)updateStartSharingTime;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SingleAccountSharingChoiceController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  ObjectType = swift_getObjectType();
+  sub_23875ED50();
+  sub_23875ED40();
+  sub_23875ECE0();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v9.receiver = self;
+  v9.super_class = ObjectType;
+  selfCopy = self;
+  [(SingleAccountSharingChoiceController *)&v9 viewDidAppear:appearCopy];
+  v7 = *MEMORY[0x277D38568];
+  v8 = sub_23854B138(MEMORY[0x277D84F90]);
+  sub_23844C218(v7, 25, v8);
+}
 
 - (void)didMoveToParentViewController:(id)controller
 {
@@ -123,27 +145,26 @@
 - (void)updateStartSharingTime
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DF09920, &qword_238764D80);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v12 - v5;
+  v5 = &v11 - v4;
   sub_23875ED50();
   sub_23875ED40();
-  v7 = MEMORY[0x277D85700];
+  v6 = MEMORY[0x277D85700];
   sub_23875ECE0();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v8 = sub_23875ED80();
-  (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
+  v7 = sub_23875ED80();
+  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
   selfCopy = self;
-  v10 = sub_23875ED40();
-  v11 = swift_allocObject();
-  v11[2] = v10;
-  v11[3] = v7;
-  v11[4] = selfCopy;
-  sub_2386C3BA4(0, 0, v6, &unk_23877FC38, v11);
+  v9 = sub_23875ED40();
+  v10 = swift_allocObject();
+  v10[2] = v9;
+  v10[3] = v6;
+  v10[4] = selfCopy;
+  sub_2386C3BA4(0, 0, v5, &unk_23877FC38, v10);
 }
 
 - (void)setStartDate:(id)date

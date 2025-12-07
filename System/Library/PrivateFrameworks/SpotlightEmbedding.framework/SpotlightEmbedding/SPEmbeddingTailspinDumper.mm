@@ -60,27 +60,25 @@ uint64_t __43__SPEmbeddingTailspinDumper_sharedInstance__block_invoke()
 
 + (id)tailspinDirectory
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [@"/private/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/Search" stringByAppendingPathComponent:@"Tailspin"];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if (([defaultManager fileExistsAtPath:v2] & 1) == 0)
   {
-    v8 = 0;
-    [defaultManager createDirectoryAtPath:v2 withIntermediateDirectories:1 attributes:0 error:&v8];
-    v4 = v8;
+    v7 = 0;
+    [defaultManager createDirectoryAtPath:v2 withIntermediateDirectories:1 attributes:0 error:&v7];
+    v4 = v7;
     if (v4)
     {
       v5 = [objc_opt_class() log];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v10 = v4;
+        v9 = v4;
         _os_log_impl(&dword_26B793000, v5, OS_LOG_TYPE_ERROR, "Failed to create tailsipin directory: %@", buf, 0xCu);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -127,7 +125,7 @@ uint64_t __43__SPEmbeddingTailspinDumper_sharedInstance__block_invoke()
 - (BOOL)canDump
 {
   selfCopy = self;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self->_latestDumpDate)
   {
 LABEL_2:
@@ -135,19 +133,18 @@ LABEL_2:
     [date timeIntervalSinceDate:selfCopy->_latestDumpDate];
     v5 = v4;
 
-    result = v5 >= 43200.0;
-    goto LABEL_20;
+    return v5 >= 43200.0;
   }
 
   tailspinDirectory = [objc_opt_class() tailspinDirectory];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v32 = tailspinDirectory;
+  v31 = tailspinDirectory;
   v8 = [defaultManager contentsOfDirectoryAtPath:tailspinDirectory error:0];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v9)
   {
     goto LABEL_19;
@@ -155,19 +152,19 @@ LABEL_2:
 
   v10 = v9;
   v11 = 0;
-  v12 = *v34;
-  v30 = *MEMORY[0x277CCA150];
+  v12 = *v33;
+  v29 = *MEMORY[0x277CCA150];
   v13 = @".tailspin";
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v34 != v12)
+      if (*v33 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v33 + 1) + 8 * i);
+      v15 = *(*(&v32 + 1) + 8 * i);
       tailspinPrefix = [objc_opt_class() tailspinPrefix];
       if ([v15 hasPrefix:tailspinPrefix])
       {
@@ -178,9 +175,9 @@ LABEL_2:
           continue;
         }
 
-        tailspinPrefix = [v32 stringByAppendingPathComponent:v15];
+        tailspinPrefix = [v31 stringByAppendingPathComponent:v15];
         v18 = [defaultManager attributesOfItemAtPath:tailspinPrefix error:0];
-        v19 = [v18 objectForKeyedSubscript:v30];
+        v19 = [v18 objectForKeyedSubscript:v29];
         v20 = v19;
         if (!v11 || [v19 compare:v11] == 1)
         {
@@ -200,7 +197,7 @@ LABEL_2:
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
   }
 
   while (v10);
@@ -214,44 +211,41 @@ LABEL_2:
 
 LABEL_19:
 
-  result = 1;
-LABEL_20:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)cleanupOldDumps
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   tailspinDirectory = [objc_opt_class() tailspinDirectory];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [defaultManager contentsOfDirectoryAtPath:tailspinDirectory error:0];
   date = [MEMORY[0x277CBEAA8] date];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
-  v42 = tailspinDirectory;
+  v4 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
+  v41 = tailspinDirectory;
   if (v4)
   {
     v6 = v4;
-    v7 = *v53;
+    v7 = *v52;
     v8 = *MEMORY[0x277CCA150];
     *&v5 = 138412546;
-    v39 = v5;
+    v38 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v53 != v7)
+        if (*v52 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
-        if ([v10 hasSuffix:{@".tailspin", v39}])
+        v10 = *(*(&v51 + 1) + 8 * i);
+        if ([v10 hasSuffix:{@".tailspin", v38}])
         {
           v11 = [tailspinDirectory stringByAppendingPathComponent:v10];
           v12 = [defaultManager attributesOfItemAtPath:v11 error:0];
@@ -261,29 +255,29 @@ LABEL_20:
             [date timeIntervalSinceDate:v13];
             if (v14 > 2592000.0)
             {
-              v51 = 0;
-              [defaultManager removeItemAtPath:v11 error:&v51];
-              v15 = v51;
+              v50 = 0;
+              [defaultManager removeItemAtPath:v11 error:&v50];
+              v15 = v50;
               if (v15)
               {
                 v16 = [objc_opt_class() log];
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v39;
-                  v60 = v11;
-                  v61 = 2112;
-                  v62 = v15;
+                  *buf = v38;
+                  v59 = v11;
+                  v60 = 2112;
+                  v61 = v15;
                   _os_log_impl(&dword_26B793000, v16, OS_LOG_TYPE_ERROR, "Failed to remove outdated dump file at %@: %@", buf, 0x16u);
                 }
 
-                tailspinDirectory = v42;
+                tailspinDirectory = v41;
               }
             }
           }
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v6 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
     }
 
     while (v6);
@@ -292,27 +286,27 @@ LABEL_20:
   v17 = [defaultManager contentsOfDirectoryAtPath:tailspinDirectory error:0];
 
   obja = [MEMORY[0x277CBEB18] array];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v47 objects:v58 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v46 objects:v57 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v48;
+    v21 = *v47;
     v22 = *MEMORY[0x277CCA150];
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v48 != v21)
+        if (*v47 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v47 + 1) + 8 * j);
+        v24 = *(*(&v46 + 1) + 8 * j);
         tailspinPrefix = [objc_opt_class() tailspinPrefix];
         if ([v24 hasPrefix:tailspinPrefix])
         {
@@ -323,56 +317,56 @@ LABEL_20:
             continue;
           }
 
-          tailspinPrefix = [v42 stringByAppendingPathComponent:v24];
+          tailspinPrefix = [v41 stringByAppendingPathComponent:v24];
           v27 = [defaultManager attributesOfItemAtPath:tailspinPrefix error:0];
           v28 = [v27 objectForKeyedSubscript:v22];
           v29 = v28;
           if (v28)
           {
-            v56[0] = @"path";
-            v56[1] = @"date";
-            v57[0] = tailspinPrefix;
-            v57[1] = v28;
-            v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+            v55[0] = @"path";
+            v55[1] = @"date";
+            v56[0] = tailspinPrefix;
+            v56[1] = v28;
+            v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
             [obja addObject:v30];
           }
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v47 objects:v58 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v46 objects:v57 count:16];
     }
 
     while (v20);
   }
 
   [obja sortUsingComparator:&__block_literal_global_30];
-  v31 = v42;
+  v31 = v41;
   if ([obja count] >= 4 && objc_msgSend(obja, "count") >= 4)
   {
     v33 = 3;
     *&v32 = 138412546;
-    v40 = v32;
+    v39 = v32;
     do
     {
-      v34 = [obja objectAtIndexedSubscript:{v33, v40}];
+      v34 = [obja objectAtIndexedSubscript:{v33, v39}];
       v35 = [v34 objectForKeyedSubscript:@"path"];
 
-      v46 = 0;
-      [defaultManager removeItemAtPath:v35 error:&v46];
-      v36 = v46;
+      v45 = 0;
+      [defaultManager removeItemAtPath:v35 error:&v45];
+      v36 = v45;
       if (v36)
       {
         v37 = [objc_opt_class() log];
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          *buf = v40;
-          v60 = v35;
-          v61 = 2112;
-          v62 = v36;
+          *buf = v39;
+          v59 = v35;
+          v60 = 2112;
+          v61 = v36;
           _os_log_impl(&dword_26B793000, v37, OS_LOG_TYPE_ERROR, "Failed to remove old tailspin file at %@: %@", buf, 0x16u);
         }
 
-        v31 = v42;
+        v31 = v41;
       }
 
       ++v33;
@@ -380,8 +374,6 @@ LABEL_20:
 
     while (v33 < [obja count]);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__SPEmbeddingTailspinDumper_cleanupOldDumps__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -396,13 +388,12 @@ uint64_t __44__SPEmbeddingTailspinDumper_cleanupOldDumps__block_invoke(uint64_t 
 
 - (BOOL)dumpTailspinSync:(int)sync
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = *MEMORY[0x277D82D28];
-  v8[0] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D82D28];
+  v7[0] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = tailspin_dump_output_with_options_sync();
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -422,120 +413,108 @@ uint64_t __44__SPEmbeddingTailspinDumper_cleanupOldDumps__block_invoke(uint64_t 
 
 void __33__SPEmbeddingTailspinDumper_dump__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() lockFilePath];
-  v4 = open([v3 fileSystemRepresentation], 514, 384);
-  if (v4 < 0)
+  v23 = *MEMORY[0x277D85DE8];
+  v2 = [objc_opt_class() lockFilePath];
+  v3 = open([v2 fileSystemRepresentation], 514, 384);
+  if (v3 < 0)
   {
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [objc_opt_class() log];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v30 = v3;
-      _os_log_impl(&dword_26B793000, v8, OS_LOG_TYPE_ERROR, "Unable to open tailspin lock file at %@", buf, 0xCu);
+      v22 = v2;
+      _os_log_impl(&dword_26B793000, v6, OS_LOG_TYPE_ERROR, "Unable to open tailspin lock file at %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v5 = v4;
-    if (flock(v4, 2))
+    v4 = v3;
+    if (flock(v3, 2))
     {
-      v6 = [objc_opt_class() log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = [objc_opt_class() log];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v3;
-        _os_log_impl(&dword_26B793000, v6, OS_LOG_TYPE_ERROR, "Unable to acquire tailspin lock on file %@", buf, 0xCu);
+        v22 = v2;
+        _os_log_impl(&dword_26B793000, v5, OS_LOG_TYPE_ERROR, "Unable to acquire tailspin lock on file %@", buf, 0xCu);
       }
 
-      close(v5);
+      close(v4);
     }
 
     else
     {
       if ([*(a1 + 32) canDump])
       {
-        v9 = objc_alloc_init(MEMORY[0x277CCA968]);
-        [v9 setDateFormat:@"yyyyMMdd_HHmmss"];
-        v10 = [MEMORY[0x277CBEAA8] date];
-        v11 = [v9 stringFromDate:v10];
-        v12 = MEMORY[0x277CCACA8];
-        v13 = *(a1 + 32);
-        v14 = [objc_opt_class() tailspinPrefix];
-        v15 = [v12 stringWithFormat:@"%@%@%@", v14, v11, @".tailspin"];
+        v7 = objc_alloc_init(MEMORY[0x277CCA968]);
+        [v7 setDateFormat:@"yyyyMMdd_HHmmss"];
+        v8 = [MEMORY[0x277CBEAA8] date];
+        v9 = [v7 stringFromDate:v8];
+        v10 = MEMORY[0x277CCACA8];
+        v11 = [objc_opt_class() tailspinPrefix];
+        v12 = [v10 stringWithFormat:@"%@%@%@", v11, v9, @".tailspin"];
 
-        v16 = *(a1 + 32);
-        v17 = [objc_opt_class() tailspinDirectory];
-        v18 = [v17 stringByAppendingPathComponent:v15];
+        v13 = [objc_opt_class() tailspinDirectory];
+        v14 = [v13 stringByAppendingPathComponent:v12];
 
-        v19 = open([v18 fileSystemRepresentation], 2562, 432);
-        if ((v19 & 0x80000000) != 0)
+        v15 = open([v14 fileSystemRepresentation], 2562, 432);
+        if ((v15 & 0x80000000) != 0)
         {
-          v25 = [objc_opt_class() log];
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v18 = [objc_opt_class() log];
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v30 = v18;
-            _os_log_impl(&dword_26B793000, v25, OS_LOG_TYPE_ERROR, "Failed to open tailspin file at %@", buf, 0xCu);
+            v22 = v14;
+            _os_log_impl(&dword_26B793000, v18, OS_LOG_TYPE_ERROR, "Failed to open tailspin file at %@", buf, 0xCu);
           }
+        }
+
+        else if ([*(a1 + 32) dumpTailspinSync:v15])
+        {
+          v16 = [objc_opt_class() log];
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v22 = v14;
+            _os_log_impl(&dword_26B793000, v16, OS_LOG_TYPE_DEFAULT, "Tailspin captured at %@", buf, 0xCu);
+          }
+
+          close(v15);
+          objc_storeStrong((*(a1 + 32) + 16), v8);
+          [*(a1 + 32) cleanupOldDumps];
         }
 
         else
         {
-          v20 = [*(a1 + 32) dumpTailspinSync:v19];
-          v21 = *(a1 + 32);
-          if (v20)
+          v19 = [objc_opt_class() log];
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v22 = [objc_opt_class() log];
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412290;
-              v30 = v18;
-              _os_log_impl(&dword_26B793000, v22, OS_LOG_TYPE_DEFAULT, "Tailspin captured at %@", buf, 0xCu);
-            }
-
-            close(v19);
-            objc_storeStrong((*(a1 + 32) + 16), v10);
-            [*(a1 + 32) cleanupOldDumps];
+            *buf = 138412290;
+            v22 = v14;
+            _os_log_impl(&dword_26B793000, v19, OS_LOG_TYPE_ERROR, "Failed to capture tailspin at %@", buf, 0xCu);
           }
 
-          else
-          {
-            v26 = [objc_opt_class() log];
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 138412290;
-              v30 = v18;
-              _os_log_impl(&dword_26B793000, v26, OS_LOG_TYPE_ERROR, "Failed to capture tailspin at %@", buf, 0xCu);
-            }
-
-            close(v19);
-            v27 = v18;
-            unlink([v18 fileSystemRepresentation]);
-          }
+          close(v15);
+          v20 = v14;
+          unlink([v14 fileSystemRepresentation]);
         }
       }
 
       else
       {
-        v23 = *(a1 + 32);
-        v24 = [objc_opt_class() log];
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v17 = [objc_opt_class() log];
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_26B793000, v24, OS_LOG_TYPE_DEBUG, "A recent tailspin exists. Skipping dump.", buf, 2u);
+          _os_log_impl(&dword_26B793000, v17, OS_LOG_TYPE_DEBUG, "A recent tailspin exists. Skipping dump.", buf, 2u);
         }
       }
 
-      flock(v5, 8);
-      close(v5);
+      flock(v4, 8);
+      close(v4);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

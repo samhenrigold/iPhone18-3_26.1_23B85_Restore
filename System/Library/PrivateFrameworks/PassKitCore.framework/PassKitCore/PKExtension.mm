@@ -63,9 +63,9 @@
 
   if (extensionPointIdentifier && @"com.apple.PassKit.in-app-payment-ui")
   {
-    v4 = [(__CFString *)extensionPointIdentifier isEqualToString:@"com.apple.PassKit.in-app-payment-ui"];
+    isEqualToString = objc_msgSend_isEqualToString_(extensionPointIdentifier);
 
-    if (v4)
+    if (isEqualToString)
     {
       goto LABEL_16;
     }
@@ -92,7 +92,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v6 = [(__CFString *)extensionPointIdentifier isEqualToString:@"com.apple.PassKit.payment-information-event"];
+  v6 = objc_msgSend_isEqualToString_(extensionPointIdentifier);
 
   if (!v6)
   {

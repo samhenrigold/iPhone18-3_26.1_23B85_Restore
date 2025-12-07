@@ -42,8 +42,7 @@
 {
   blockCopy = block;
   messageCopy = message;
-  v7 = IMIsRunningInMessages();
-  objc_msgSend_scanMessage_outgoing_waitUntilDone_completionBlock_(self, v8, messageCopy, 0, v7, blockCopy);
+  [(IMDDController *)self scanMessage:messageCopy outgoing:0 waitUntilDone:IMIsRunningInMessages() completionBlock:blockCopy];
 }
 
 - (BOOL)_scanMessageUsingScanner:(id)scanner attributedString:(id)string
@@ -52,76 +51,72 @@
   stringCopy = string;
   if (stringCopy)
   {
-    v10 = objc_msgSend_text(scannerCopy, v7, v8);
-    v13 = objc_msgSend_string(v10, v11, v12);
+    text = [scannerCopy text];
+    string = [text string];
 
-    if (v13)
+    if (string)
     {
-      if (objc_msgSend__scanAttributedStringWithMessage_attributedString_plainText_(self, v14, scannerCopy, stringCopy, v13))
+      if ([(IMDDController *)self _scanAttributedStringWithMessage:scannerCopy attributedString:stringCopy plainText:string])
       {
-        v17 = 1;
+        v10 = 1;
 LABEL_9:
 
         goto LABEL_10;
       }
 
-      v18 = *MEMORY[0x1E69A5FB0];
-      v19 = objc_msgSend_length(stringCopy, v15, v16);
-      if (objc_msgSend_attribute_existsInRange_(stringCopy, v20, v18, 0, v19))
+      if ([stringCopy attribute:*MEMORY[0x1E69A5FB0] existsInRange:{0, objc_msgSend(stringCopy, "length")}])
       {
-        objc_msgSend__processLinkInAttributedString_(self, v21, stringCopy);
-        v24 = objc_msgSend_string(stringCopy, v22, v23);
-        v17 = objc_msgSend__scanAttributedStringWithMessage_attributedString_plainText_(self, v25, scannerCopy, stringCopy, v24);
+        [(IMDDController *)self _processLinkInAttributedString:stringCopy];
+        string2 = [stringCopy string];
+        v10 = [(IMDDController *)self _scanAttributedStringWithMessage:scannerCopy attributedString:stringCopy plainText:string2];
 
         goto LABEL_9;
       }
     }
 
-    v17 = 0;
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v17 = 0;
+  v10 = 0;
 LABEL_10:
 
-  return v17;
+  return v10;
 }
 
 - (void)_processLinkInAttributedString:(id)string
 {
   stringCopy = string;
   v4 = *MEMORY[0x1E69A5FB0];
-  v7 = objc_msgSend_length(stringCopy, v5, v6);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1A839A954;
-  v10[3] = &unk_1E7812DF8;
-  v11 = stringCopy;
+  v5 = [stringCopy length];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1A839A954;
+  v7[3] = &unk_1E7812DF8;
   v8 = stringCopy;
-  objc_msgSend_enumerateAttribute_inRange_options_usingBlock_(v8, v9, v4, 0, v7, 0, v10);
+  v6 = stringCopy;
+  [v6 enumerateAttribute:v4 inRange:0 options:v5 usingBlock:{0, v7}];
 }
 
 - (BOOL)_scanAttributedStringWithMessage:(id)message attributedString:(id)string plainText:(id)text
 {
-  v27 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   stringCopy = string;
   textCopy = text;
-  v12 = objc_msgSend_guid(messageCopy, v10, v11);
-  v15 = objc_msgSend_sender(messageCopy, v13, v14);
-  v18 = objc_msgSend_ID(v15, v16, v17);
-  v21 = objc_msgSend_time(messageCopy, v19, v20);
-  objc_msgSend_isFromMe(messageCopy, v22, v23);
-  v24 = IMDDScanAttributedStringWithContext();
+  guid = [messageCopy guid];
+  sender = [messageCopy sender];
+  v12 = [sender ID];
+  time = [messageCopy time];
+  [messageCopy isFromMe];
+  v14 = IMDDScanAttributedStringWithContext();
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v14;
 }
 
 - (void)scanMessage:(id)message outgoing:(BOOL)outgoing waitUntilDone:(BOOL)done completionBlock:(id)block
 {
   doneCopy = done;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   blockCopy = block;
   if (IMOSLoggingEnabled())
@@ -130,23 +125,23 @@ LABEL_10:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = messageCopy;
+      v24 = messageCopy;
       _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Request to scan message: %@", buf, 0xCu);
     }
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1A839ADB4;
-  v18[3] = &unk_1E7813F20;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1A839ADB4;
+  v17[3] = &unk_1E7813F20;
   v13 = messageCopy;
   outgoingCopy = outgoing;
-  v19 = v13;
+  v18 = v13;
   selfCopy = self;
-  v23 = doneCopy;
+  v22 = doneCopy;
   v14 = blockCopy;
-  v21 = v14;
-  v15 = _Block_copy(v18);
+  v20 = v14;
+  v15 = _Block_copy(v17);
   scannerQueue = self->_scannerQueue;
   if (doneCopy)
   {
@@ -157,8 +152,6 @@ LABEL_10:
   {
     dispatch_async(scannerQueue, v15);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (id)allSupportedDDAttributesKeys

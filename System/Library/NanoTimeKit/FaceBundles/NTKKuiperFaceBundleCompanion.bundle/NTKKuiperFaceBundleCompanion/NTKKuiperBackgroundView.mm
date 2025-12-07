@@ -109,62 +109,59 @@
 
 - (void)_applyDialLayout
 {
-  v25 = 0u;
-  v26 = 0u;
-  v24 = 0u;
-  sub_5C08(self->_device, &v24);
+  v22 = 0u;
+  v23 = 0u;
+  v21 = 0u;
+  sub_5C08(self->_device, &v21);
   [(CLKDevice *)self->_device screenBounds];
   [(CALayer *)self->_backgroundColorLayer setFrame:?];
-  v3 = self->_dialRadius + self->_dialRadius;
-  device = self->_device;
   CLKSizeCenteredInRectForDevice();
-  x = v29.origin.x;
-  y = v29.origin.y;
-  width = v29.size.width;
-  height = v29.size.height;
-  self->_dialFrame = v29;
-  v9 = CGPathCreateWithEllipseInRect(v29, 0);
-  [(CAShapeLayer *)self->_dialLayer setPath:v9];
-  CGPathRelease(v9);
-  v10 = *&v24;
-  v30.origin.x = x;
-  v30.origin.y = y;
-  v30.size.width = width;
-  v30.size.height = height;
-  v11 = CGRectGetWidth(v30) * 0.5;
+  x = v26.origin.x;
+  y = v26.origin.y;
+  width = v26.size.width;
+  height = v26.size.height;
+  self->_dialFrame = v26;
+  v7 = CGPathCreateWithEllipseInRect(v26, 0);
+  [(CAShapeLayer *)self->_dialLayer setPath:v7];
+  CGPathRelease(v7);
+  v8 = *&v21;
+  v27.origin.x = x;
+  v27.origin.y = y;
+  v27.size.width = width;
+  v27.size.height = height;
+  v9 = CGRectGetWidth(v27) * 0.5;
   [(CAReplicatorLayer *)self->_hourTickReplicatorLayer setFrame:x, y, width, height];
   [(CAReplicatorLayer *)self->_minuteTickReplicatorLayer setFrame:x, y, width, height];
-  v12 = v25;
-  [(CALayer *)self->_hourTickLayer setBounds:0.0, 0.0, v25];
-  [(CALayer *)self->_hourTickLayer setPosition:v11, v10 + *(&v12 + 1) * 0.5];
-  v13 = v26;
-  [(CALayer *)self->_minuteTickLayer setBounds:0.0, 0.0, v26];
-  [(CALayer *)self->_minuteTickLayer setPosition:v11, v10 + *(&v13 + 1) * 0.5];
+  v10 = v22;
+  [(CALayer *)self->_hourTickLayer setBounds:0.0, 0.0, v22];
+  [(CALayer *)self->_hourTickLayer setPosition:v9, v8 + *(&v10 + 1) * 0.5];
+  v11 = v23;
+  [(CALayer *)self->_minuteTickLayer setBounds:0.0, 0.0, v23];
+  [(CALayer *)self->_minuteTickLayer setPosition:v9, v8 + *(&v11 + 1) * 0.5];
   fontForMaximumOverscrollTypographicSize = [(NTKKuiperFontLoader *)self->_fontLoader fontForMaximumOverscrollTypographicSize];
   if (qword_16DB8 != -1)
   {
     sub_79A4();
   }
 
-  v27 = NSFontAttributeName;
-  v28 = fontForMaximumOverscrollTypographicSize;
-  v15 = qword_16DB0;
-  v16 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  [v15 sizeWithAttributes:v16];
+  v24 = NSFontAttributeName;
+  v25 = fontForMaximumOverscrollTypographicSize;
+  v13 = qword_16DB0;
+  v14 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  [v13 sizeWithAttributes:v14];
 
   [(NTKKuiperBackgroundView *)self bounds];
-  v17 = self->_device;
   CLKSizeCenteredInRectForDevice();
   digitLabels = self->_digitLabels;
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_4A78;
-  v23[3] = &unk_106A0;
-  v23[4] = v19;
-  v23[5] = v20;
-  v23[6] = v21;
-  v23[7] = v22;
-  [(NSArray *)digitLabels enumerateObjectsUsingBlock:v23];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_4A78;
+  v20[3] = &unk_106A0;
+  v20[4] = v16;
+  v20[5] = v17;
+  v20[6] = v18;
+  v20[7] = v19;
+  [(NSArray *)digitLabels enumerateObjectsUsingBlock:v20];
 
   [(NTKKuiperBackgroundView *)self _applyTransformToLabelsWithRubberbanding:0.0];
   [(NTKKuiperBackgroundView *)self applyFont];
@@ -409,7 +406,7 @@
     v10 = NTKKuiperRainbowGradientImage();
     v5 = v10;
     cGImage = [v10 CGImage];
-    v7 = sub_4624();
+    v7 = sub_4624(cGImage);
     [(CALayer *)self->_multicolorCircularGradientLayer setActions:v7];
 
     [(CALayer *)self->_multicolorCircularGradientLayer setContents:cGImage];
@@ -437,7 +434,7 @@
     v9 = NTKKuiperRainbowGradientImage();
     v5 = v9;
     cGImage = [v9 CGImage];
-    v7 = sub_4624();
+    v7 = sub_4624(cGImage);
     [(CALayer *)self->_multicolorFullscreenGradientLayer setActions:v7];
 
     [(CALayer *)self->_multicolorFullscreenGradientLayer setContents:cGImage];

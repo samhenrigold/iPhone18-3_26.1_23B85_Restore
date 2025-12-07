@@ -17,7 +17,7 @@
 
 - (uint64_t)fp_isValidProviderIdentifierWithError:()FPProviderID
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/:"];
   v6 = [self rangeOfCharacterFromSet:v5];
 
@@ -28,8 +28,8 @@
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = @"/:";
+      v15 = 2112;
+      v16 = @"/:";
       _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Provider identifier '%@' may not contain any of the characters '%@'", buf, 0x16u);
     }
 
@@ -39,36 +39,31 @@
       goto LABEL_12;
     }
 
-LABEL_13:
-    result = 0;
-    goto LABEL_15;
+    return 0;
   }
 
-  if (([self isEqualToString:@"."] & 1) == 0 && !objc_msgSend(self, "isEqualToString:", @".."))
+  if (([self isEqualToString:@"."] & 1) != 0 || objc_msgSend(self, "isEqualToString:", @".."))
   {
-    result = 1;
-    goto LABEL_15;
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy2 = self;
+    }
+
+    if (a3)
+    {
+      v9 = LABEL_12:;
+      v10 = v9;
+      result = 0;
+      *a3 = v9;
+      return result;
+    }
+
+    return 0;
   }
 
-  v7 = fp_current_or_default_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    selfCopy2 = self;
-  }
-
-  if (!a3)
-  {
-    goto LABEL_13;
-  }
-
-  v9 = LABEL_12:;
-  v10 = v9;
-  result = 0;
-  *a3 = v9;
-LABEL_15:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 @end

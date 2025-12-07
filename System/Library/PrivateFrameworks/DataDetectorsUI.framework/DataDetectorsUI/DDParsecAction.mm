@@ -1,5 +1,6 @@
 @interface DDParsecAction
 - (id)createViewController;
+- (void)interactionDidFinishAndRequiresDismissal:(BOOL)dismissal;
 @end
 
 @implementation DDParsecAction
@@ -23,6 +24,13 @@
   }
 
   return v5;
+}
+
+- (void)interactionDidFinishAndRequiresDismissal:(BOOL)dismissal
+{
+  dismissalCopy = dismissal;
+  delegate = [(DDAction *)self delegate];
+  [delegate actionDidFinish:self shouldDismiss:dismissalCopy];
 }
 
 @end

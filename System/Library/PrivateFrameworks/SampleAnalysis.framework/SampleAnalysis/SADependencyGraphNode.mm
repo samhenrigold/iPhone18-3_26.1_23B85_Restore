@@ -152,7 +152,7 @@ LABEL_9:
 
 void __76__SADependencyGraphNode_dependencyGraphForThreadsInSampleStore_atTimestamp___block_invoke_3(void *a1, uint64_t a2, id *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = [a3 threadState];
   v6 = [v5 turnstileInfo];
 
@@ -167,26 +167,26 @@ void __76__SADependencyGraphNode_dependencyGraphForThreadsInSampleStore_atTimest
     {
       if ([v6 blockingPid] == -1)
       {
-        v14 = v8;
+        v13 = v8;
       }
 
       else
       {
-        v14 = v6;
+        v13 = v6;
       }
 
-      v15 = [v14 blockingPid];
-      if ((v15 - 1) > 0xFFFFFFFD)
+      v14 = [v13 blockingPid];
+      if ((v14 - 1) > 0xFFFFFFFD)
       {
         goto LABEL_6;
       }
 
-      v16 = v15;
-      v17 = a1[5];
-      v18 = [MEMORY[0x1E696AD98] numberWithInt:v15];
-      v19 = [v17 objectForKeyedSubscript:v18];
+      v15 = v14;
+      v16 = a1[5];
+      v17 = [MEMORY[0x1E696AD98] numberWithInt:v14];
+      v18 = [v16 objectForKeyedSubscript:v17];
 
-      if (v19)
+      if (v18)
       {
         if (!a3)
         {
@@ -196,70 +196,70 @@ LABEL_14:
         }
 
 LABEL_13:
-        objc_setProperty_atomic(a3, v20, v19, 56);
+        objc_setProperty_atomic(a3, v19, v18, 56);
         goto LABEL_14;
       }
 
-      v21 = [(SASampleStore *)a1[6] taskWithPid:v16 atTimestamp:a1[7]];
-      if (!v21)
+      v20 = [(SASampleStore *)a1[6] taskWithPid:v15 atTimestamp:a1[7]];
+      if (!v20)
       {
-        v28 = *__error();
-        v29 = _sa_logt();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        v27 = *__error();
+        v28 = _sa_logt();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
-          v30 = [a3 debugDescription];
+          v29 = [a3 debugDescription];
           *buf = 138412546;
-          v40 = v30;
-          v41 = 1024;
-          LODWORD(v42) = v16;
-          _os_log_impl(&dword_1E0E2F000, v29, OS_LOG_TYPE_INFO, "%@ blocked by non-existent task [%d]", buf, 0x12u);
+          v39 = v29;
+          v40 = 1024;
+          LODWORD(v41) = v15;
+          _os_log_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_INFO, "%@ blocked by non-existent task [%d]", buf, 0x12u);
         }
 
-        v19 = 0;
-        *__error() = v28;
+        v18 = 0;
+        *__error() = v27;
         goto LABEL_14;
       }
 
-      v22 = v21;
-      v23 = [v21 taskStates];
-      v24 = [v23 count];
+      v21 = v20;
+      v22 = [v20 taskStates];
+      v23 = [v22 count];
 
-      if (v24)
+      if (v23)
       {
-        v25 = [v22 lastTaskStateOnOrBeforeTime:a1[7] sampleIndex:0x7FFFFFFFFFFFFFFFLL];
-        v26 = v25;
-        if (!v25)
+        v24 = [v21 lastTaskStateOnOrBeforeTime:a1[7] sampleIndex:0x7FFFFFFFFFFFFFFFLL];
+        v25 = v24;
+        if (!v24)
         {
 LABEL_25:
-          v32 = *__error();
-          v33 = _sa_logt();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          v31 = *__error();
+          v32 = _sa_logt();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
-            v34 = [a3 debugDescription];
-            v35 = [v22 debugDescription];
+            v33 = [a3 debugDescription];
+            v34 = [v21 debugDescription];
             *buf = 138412546;
-            v40 = v34;
-            v41 = 2112;
-            v42 = v35;
-            _os_log_impl(&dword_1E0E2F000, v33, OS_LOG_TYPE_INFO, "%@ blocked by %@ which isn't alive at this time", buf, 0x16u);
+            v39 = v33;
+            v40 = 2112;
+            v41 = v34;
+            _os_log_impl(&dword_1E0E2F000, v32, OS_LOG_TYPE_INFO, "%@ blocked by %@ which isn't alive at this time", buf, 0x16u);
           }
 
-          *__error() = v32;
-          v19 = 0;
+          *__error() = v31;
+          v18 = 0;
           goto LABEL_14;
         }
 
-        v27 = [v25 startTimestamp];
-        if ([v27 gt:a1[7]])
+        v26 = [v24 startTimestamp];
+        if ([v26 gt:a1[7]])
         {
 
           goto LABEL_25;
         }
 
-        v31 = [v26 endTimestamp];
-        v38 = [v31 lt:a1[7]];
+        v30 = [v25 endTimestamp];
+        v37 = [v30 lt:a1[7]];
 
-        if (v38)
+        if (v37)
         {
           goto LABEL_25;
         }
@@ -267,13 +267,13 @@ LABEL_25:
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
-      v19 = [[SADependencyGraphTaskNode alloc] initWithTask:v22 taskState:v26];
-      v36 = a1[5];
-      v37 = [MEMORY[0x1E696AD98] numberWithInt:v16];
-      [v36 setObject:v19 forKeyedSubscript:v37];
+      v18 = [[SADependencyGraphTaskNode alloc] initWithTask:v21 taskState:v25];
+      v35 = a1[5];
+      v36 = [MEMORY[0x1E696AD98] numberWithInt:v15];
+      [v35 setObject:v18 forKeyedSubscript:v36];
 
       if (!a3)
       {
@@ -293,7 +293,6 @@ LABEL_25:
   }
 
 LABEL_6:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __76__SADependencyGraphNode_dependencyGraphForThreadsInSampleStore_atTimestamp___block_invoke_21(uint64_t a1, uint64_t a2, _BYTE *a3)

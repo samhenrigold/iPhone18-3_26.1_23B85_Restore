@@ -32,7 +32,7 @@
 
 - (void)retainTransientSubscriptionAssertionWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   subscriptionIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata subscriptionIdentifier];
   statusTypeIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata statusTypeIdentifier];
@@ -40,23 +40,21 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = subscriptionIdentifier;
+    v16 = subscriptionIdentifier;
     _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Retaining transient subscription assertion for subscriptionIdentifier %@", buf, 0xCu);
   }
 
   daemonConnection = [(SKStatusSubscription *)self daemonConnection];
   v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:&__block_literal_global_10];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompletion___block_invoke_1;
-  v13[3] = &unk_279D12DC8;
-  v14 = subscriptionIdentifier;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompletion___block_invoke_1;
+  v12[3] = &unk_279D12DC8;
+  v13 = subscriptionIdentifier;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = subscriptionIdentifier;
-  [v9 retainTransientSubscriptionAssertionForSubscriptionIdentifier:v11 statusTypeIdentifier:statusTypeIdentifier completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v9 retainTransientSubscriptionAssertionForSubscriptionIdentifier:v11 statusTypeIdentifier:statusTypeIdentifier completion:v12];
 }
 
 void __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -71,7 +69,7 @@ void __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompleti
 
 void __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompletion___block_invoke_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKStatusSubscription logger];
   v5 = v4;
@@ -86,9 +84,9 @@ void __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompleti
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained transient subscription assertion for subscription identifier %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained transient subscription assertion for subscription identifier %@", &v8, 0xCu);
   }
 
   v7 = *(a1 + 40);
@@ -96,13 +94,11 @@ void __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompleti
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseTransientSubscriptionAssertionWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   subscriptionIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata subscriptionIdentifier];
   statusTypeIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata statusTypeIdentifier];
@@ -110,23 +106,21 @@ void __75__SKStatusSubscription_retainTransientSubscriptionAssertionWithCompleti
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = subscriptionIdentifier;
+    v16 = subscriptionIdentifier;
     _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Releasing transient subscription assertion for subscriptionIdentifier %@", buf, 0xCu);
   }
 
   daemonConnection = [(SKStatusSubscription *)self daemonConnection];
   v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:&__block_literal_global_3];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_4;
-  v13[3] = &unk_279D12DC8;
-  v14 = subscriptionIdentifier;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_4;
+  v12[3] = &unk_279D12DC8;
+  v13 = subscriptionIdentifier;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = subscriptionIdentifier;
-  [v9 releaseTransientSubscriptionAssertionForSubscriptionIdentifier:v11 statusTypeIdentifier:statusTypeIdentifier completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v9 releaseTransientSubscriptionAssertionForSubscriptionIdentifier:v11 statusTypeIdentifier:statusTypeIdentifier completion:v12];
 }
 
 void __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -141,7 +135,7 @@ void __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithComplet
 
 void __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKStatusSubscription logger];
   v5 = v4;
@@ -156,9 +150,9 @@ void __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithComplet
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released transient subscription assertion for subscription identifier %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released transient subscription assertion for subscription identifier %@", &v8, 0xCu);
   }
 
   v7 = *(a1 + 40);
@@ -166,13 +160,11 @@ void __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithComplet
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retainPersistentSubscriptionAssertionForApplicationIdentifier:(id)identifier completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   subscriptionIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata subscriptionIdentifier];
@@ -181,27 +173,25 @@ void __76__SKStatusSubscription_releaseTransientSubscriptionAssertionWithComplet
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = subscriptionIdentifier;
-    v23 = 2112;
-    v24 = identifierCopy;
+    v21 = subscriptionIdentifier;
+    v22 = 2112;
+    v23 = identifierCopy;
     _os_log_impl(&dword_26BA07000, v10, OS_LOG_TYPE_DEFAULT, "Retaining persistent subscription assertion for subscriptionIdentifier %@ applicationIdentifier %@", buf, 0x16u);
   }
 
   daemonConnection = [(SKStatusSubscription *)self daemonConnection];
   v12 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:&__block_literal_global_6];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_7;
-  v17[3] = &unk_279D12AB0;
-  v18 = subscriptionIdentifier;
-  v19 = identifierCopy;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_7;
+  v16[3] = &unk_279D12AB0;
+  v17 = subscriptionIdentifier;
+  v18 = identifierCopy;
+  v19 = completionCopy;
   v13 = completionCopy;
   v14 = identifierCopy;
   v15 = subscriptionIdentifier;
-  [v12 retainPersistentSubscriptionAssertionForSubscriptionIdentifier:v15 statusTypeIdentifier:statusTypeIdentifier applicationIdentifier:v14 completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v12 retainPersistentSubscriptionAssertionForSubscriptionIdentifier:v15 statusTypeIdentifier:statusTypeIdentifier applicationIdentifier:v14 completion:v16];
 }
 
 void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke(uint64_t a1, void *a2)
@@ -216,7 +206,7 @@ void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicat
 
 void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_7(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKStatusSubscription logger];
   v5 = v4;
@@ -232,11 +222,11 @@ void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicat
   {
     v6 = a1[4];
     v7 = a1[5];
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained persistent subscription assertion for subscription identifier %@ applicationIdentifier %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained persistent subscription assertion for subscription identifier %@ applicationIdentifier %@", &v9, 0x16u);
   }
 
   v8 = a1[6];
@@ -244,13 +234,11 @@ void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicat
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releasePersistentSubscriptionAssertionForApplicationIdentifier:(id)identifier completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   subscriptionIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata subscriptionIdentifier];
@@ -259,27 +247,25 @@ void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicat
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = subscriptionIdentifier;
-    v23 = 2112;
-    v24 = identifierCopy;
+    v21 = subscriptionIdentifier;
+    v22 = 2112;
+    v23 = identifierCopy;
     _os_log_impl(&dword_26BA07000, v10, OS_LOG_TYPE_DEFAULT, "Releasing persistent subscription assertion for subscriptionIdentifier %@ applicationIdentifier %@", buf, 0x16u);
   }
 
   daemonConnection = [(SKStatusSubscription *)self daemonConnection];
   v12 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:&__block_literal_global_9];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_10;
-  v17[3] = &unk_279D12AB0;
-  v18 = subscriptionIdentifier;
-  v19 = identifierCopy;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_10;
+  v16[3] = &unk_279D12AB0;
+  v17 = subscriptionIdentifier;
+  v18 = identifierCopy;
+  v19 = completionCopy;
   v13 = completionCopy;
   v14 = identifierCopy;
   v15 = subscriptionIdentifier;
-  [v12 releasePersistentSubscriptionAssertionForSubscriptionIdentifier:v15 statusTypeIdentifier:statusTypeIdentifier applicationIdentifier:v14 completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v12 releasePersistentSubscriptionAssertionForSubscriptionIdentifier:v15 statusTypeIdentifier:statusTypeIdentifier applicationIdentifier:v14 completion:v16];
 }
 
 void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke(uint64_t a1, void *a2)
@@ -294,7 +280,7 @@ void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplica
 
 void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_10(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKStatusSubscription logger];
   v5 = v4;
@@ -310,11 +296,11 @@ void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplica
   {
     v6 = a1[4];
     v7 = a1[5];
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released persistent subscription assertion for subscription identifier %@ applicationIdentifier %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released persistent subscription assertion for subscription identifier %@ applicationIdentifier %@", &v9, 0x16u);
   }
 
   v8 = a1[6];
@@ -322,13 +308,11 @@ void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplica
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteSubscriptionWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   subscriptionIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata subscriptionIdentifier];
   statusTypeIdentifier = [(SKStatusSubscriptionMetadata *)self->_subscriptionMetadata statusTypeIdentifier];
@@ -336,23 +320,21 @@ void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplica
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = subscriptionIdentifier;
+    v16 = subscriptionIdentifier;
     _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Deleting subscription with subscriptionIdentifier %@", buf, 0xCu);
   }
 
   daemonConnection = [(SKStatusSubscription *)self daemonConnection];
   v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:&__block_literal_global_12];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_13;
-  v13[3] = &unk_279D12DC8;
-  v14 = subscriptionIdentifier;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_13;
+  v12[3] = &unk_279D12DC8;
+  v13 = subscriptionIdentifier;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = subscriptionIdentifier;
-  [v9 deleteSubscriptionWithIdentifier:v11 statusTypeIdentifier:statusTypeIdentifier completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v9 deleteSubscriptionWithIdentifier:v11 statusTypeIdentifier:statusTypeIdentifier completion:v12];
 }
 
 void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -367,7 +349,7 @@ void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke(
 
 void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_13(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKStatusSubscription logger];
   v5 = v4;
@@ -382,9 +364,9 @@ void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully deleting subscription with identifier %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully deleting subscription with identifier %@", &v8, 0xCu);
   }
 
   v7 = *(a1 + 40);
@@ -392,34 +374,32 @@ void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_ownerHandlesDescription
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   ownerHandles = [(SKStatusSubscription *)self ownerHandles];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [ownerHandles countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [ownerHandles countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(ownerHandles);
         }
 
-        handleString = [*(*(&v16 + 1) + 8 * i) handleString];
+        handleString = [*(*(&v15 + 1) + 8 * i) handleString];
         v10 = handleString;
         if (handleString)
         {
@@ -436,15 +416,13 @@ void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_
         [v3 addObject:v12];
       }
 
-      v6 = [ownerHandles countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [ownerHandles countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   v13 = [v3 copy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -498,48 +476,15 @@ uint64_t __30__SKStatusSubscription_logger__block_invoke()
   return firstObject;
 }
 
-void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error retaining persistent subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __97__SKStatusSubscription_retainPersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_7_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error retaining persistent subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error releasing persistent subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __98__SKStatusSubscription_releasePersistentSubscriptionAssertionForApplicationIdentifier_completion___block_invoke_10_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error releasing persistent subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __57__SKStatusSubscription_deleteSubscriptionWithCompletion___block_invoke_13_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_26BA07000, log, OS_LOG_TYPE_ERROR, "Error deleting subscription with identifier %@. Error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_26BA07000, log, OS_LOG_TYPE_ERROR, "Error deleting subscription with identifier %@. Error: %{public}@", &v4, 0x16u);
 }
 
 @end

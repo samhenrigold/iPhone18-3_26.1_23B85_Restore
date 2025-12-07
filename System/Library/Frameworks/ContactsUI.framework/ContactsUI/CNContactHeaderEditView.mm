@@ -648,8 +648,8 @@ LABEL_23:
 - (id)mutableContact
 {
   objc_opt_class();
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self);
+  firstObject = [v3 firstObject];
   if (objc_opt_isKindOfClass())
   {
     v5 = firstObject;
@@ -1529,8 +1529,8 @@ LABEL_25:
 
   else
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    if ([contacts count] == 1)
+    v5 = objc_msgSend_contacts(self);
+    if ([v5 count] == 1)
     {
       v6 = *MEMORY[0x1E6996540];
       editingWallpaperContact = [(CNContactHeaderEditView *)self editingWallpaperContact];
@@ -1565,10 +1565,11 @@ LABEL_25:
 
 - (void)didFinishUsing
 {
+  v2 = sEditingContactHeaderView;
   if (sEditingContactHeaderView == self)
   {
     sEditingContactHeaderView = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, v2);
   }
 }
 

@@ -124,14 +124,11 @@
 
 - (void)hdmc_menstrualCyclesOvulationConfirmationNotificationGetStateWithError:()HDMCOvulationConfirmationNotification .cold.3(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_opt_class();
   v5 = [a2 domainName];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_2293D1000, v6, v7, "[%{public}@] Error retrieving dictionary from key value domain: %@ error:%@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_2293D1000, v6, v7, "[%{public}@] Error retrieving dictionary from key value domain: %@ error:%@", v8, v9, v10, v11);
 }
 
 @end

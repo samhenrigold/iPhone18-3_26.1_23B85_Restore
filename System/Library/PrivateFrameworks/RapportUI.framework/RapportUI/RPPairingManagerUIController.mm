@@ -29,7 +29,7 @@
   self->_presentingViewController = 0;
 }
 
-void __40__RPPairingManagerUIController_activate__block_invoke()
+void __40__RPPairingManagerUIController_activate__block_invoke(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_RPPairingManagerUIController <= 30 && (gLogCategory_RPPairingManagerUIController != -1 || _LogCategory_Initialize()))
   {

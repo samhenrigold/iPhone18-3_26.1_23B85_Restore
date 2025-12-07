@@ -2,7 +2,7 @@
 - ($65FF825F6F0E105C2F171BD802D3B474)registerWiderCamera:(SEL)camera narrowerCamera:(opaqueCMSampleBuffer *)narrowerCamera widerToNarrowerCameraScale:(opaqueCMSampleBuffer *)scale isMacroScene:(double)scene macroTransitionType:(BOOL)type;
 - (BWVisionPreviewRegistrationProvider)initWithCameraInfoByPortType:(id)type sensorBinningFactor:(id)factor;
 - (CGPoint)computeCameraShiftForWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCamera:(opaqueCMSampleBuffer *)narrowerCamera widerToNarrowerCameraScale:(double)scale;
-- (double)_registrationShiftForLeftStrip:(CMSampleBufferRef)sbuf byRegisteringWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCamera:(int)narrowerCamera centerBias:(int)bias widerToNarrowerCameraScale:(_DWORD *)scale isMacroScene:(double)scene err:;
+- (double)_registrationShiftForLeftStrip:(CMSampleBufferRef)sbuf byRegisteringWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCamera:(int)narrowerCamera centerBias:(int)bias widerToNarrowerCameraScale:(int *)scale isMacroScene:(double)scene err:;
 - (void)allocateResourcesWithVideoFormat:(id)format metalContext:(id)context;
 - (void)cleanupResources;
 - (void)dealloc;
@@ -202,7 +202,7 @@ LABEL_19:
   v8 = *off_1E798A3C8;
   v9 = CMGetAttachment(camera, *off_1E798A3C8, 0);
   v10 = CMGetAttachment(narrowerCamera, v8, 0);
-  v11 = [objc_msgSend(v9 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0D0}];
+  isEqualToString = objc_msgSend_isEqualToString_([v9 objectForKeyedSubscript:*off_1E798B540]);
   CMSampleBufferGetPresentationTimeStamp(&time, camera);
   Seconds = CMTimeGetSeconds(&time);
   CMSampleBufferGetPresentationTimeStamp(&time, narrowerCamera);
@@ -210,17 +210,17 @@ LABEL_19:
   ImageBuffer = CMSampleBufferGetImageBuffer(camera);
   Width = CVPixelBufferGetWidth(ImageBuffer);
   Height = CVPixelBufferGetHeight(ImageBuffer);
-  v28 = 0.0;
   v29 = 0.0;
+  v30 = 0.0;
   v17 = 720;
-  if (v11)
+  if (isEqualToString)
   {
     v17 = 80;
   }
 
   v18 = 40;
   v19 = 24;
-  if (!v11)
+  if (!isEqualToString)
   {
     v19 = 40;
     v18 = 56;
@@ -228,286 +228,253 @@ LABEL_19:
 
   v20 = (self + v17);
   v21 = *(&self->super.isa + v19);
-  v26 = *(&self->super.isa + v18);
+  v27 = *(&self->super.isa + v18);
   *&time.value = v21;
   v22 = Height;
   FigMotionSphereShiftStateUpdateWithMetadata(self + v17, v9);
-  LODWORD(v25) = self->_sensorBinningFactor.height;
-  FigMotionComputeWideToNarrowShift(v9, v10, 0, &time, &v26, Width, v22, self->_sensorBinningFactor.width, Seconds, v13, 0.0, v25, 0, v20, &v28, 0);
-  v23 = -v28;
+  v23.n128_u64[0] = 0;
+  LODWORD(v26) = self->_sensorBinningFactor.height;
+  FigMotionComputeWideToNarrowShift(v9, v10, 0, &time, &v27, Width, v22, self->_sensorBinningFactor.width, Seconds, v13, v23, v26, 0, v20, &v29, 0);
   v24 = -v29;
-  result.y = v24;
-  result.x = v23;
+  v25 = -v30;
+  result.y = v25;
+  result.x = v24;
   return result;
 }
 
-- (double)_registrationShiftForLeftStrip:(CMSampleBufferRef)sbuf byRegisteringWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCamera:(int)narrowerCamera centerBias:(int)bias widerToNarrowerCameraScale:(_DWORD *)scale isMacroScene:(double)scene err:
+- (double)_registrationShiftForLeftStrip:(CMSampleBufferRef)sbuf byRegisteringWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCamera:(int)narrowerCamera centerBias:(int)bias widerToNarrowerCameraScale:(int *)scale isMacroScene:(double)scene err:
 {
-  HIDWORD(v102) = bias;
+  HIDWORD(v119) = bias;
   if (!self)
   {
-    *&v110 = 0.0;
-    return *&v110;
+    *&v128 = 0.0;
+    return *&v128;
   }
 
   ImageBuffer = CMSampleBufferGetImageBuffer(sbuf);
   v15 = CMSampleBufferGetImageBuffer(camera);
-  v110 = *MEMORY[0x1E695EFF8];
-  v112 = *(MEMORY[0x1E695EFF8] + 8);
+  v128 = *MEMORY[0x1E695EFF8];
+  v130 = *(MEMORY[0x1E695EFF8] + 8);
   v16 = *off_1E798A3C8;
-  v17 = [objc_msgSend(CMGetAttachment(sbuf *off_1E798A3C8];
+  v17 = [CMGetAttachment(sbuf *off_1E798A3C8];
+  isEqualToString = objc_msgSend_isEqualToString_(v17);
   if (!ImageBuffer || !v15)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7_6();
-    FigDebugAssert3();
-    v86 = -12780;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v98, v101, v104, v107, v111, v115, v119);
+    v91 = -12780;
     if (!scale)
     {
-      return *&v110;
+      return *&v128;
     }
 
     goto LABEL_35;
   }
 
-  v18 = v17;
+  v19 = isEqualToString;
   scaleCopy = scale;
   newPixelBuffer = [*(self + 8) newPixelBuffer];
   newPixelBuffer2 = [*(self + 8) newPixelBuffer];
-  v21 = newPixelBuffer2;
+  v22 = newPixelBuffer2;
   if (newPixelBuffer && newPixelBuffer2)
   {
-    v22 = psn_pixelBufferRect(newPixelBuffer);
-    v24 = v23;
-    v26 = v25;
-    v27 = CMGetAttachment(camera, v16, 0);
+    v23 = psn_pixelBufferRect(newPixelBuffer);
+    v25 = v24;
+    v27 = v26;
+    v28 = CMGetAttachment(camera, v16, 0);
     rect.a = psn_pixelBufferRect(v15);
-    rect.b = v28;
-    rect.c = v29;
-    rect.d = v30;
-    CGRectMakeWithDictionaryRepresentation([v27 objectForKeyedSubscript:*off_1E798B7A0], &rect);
-    v119.origin.x = 0.0;
-    v119.origin.y = 0.0;
+    rect.b = v29;
+    rect.c = v30;
+    rect.d = v31;
+    CGRectMakeWithDictionaryRepresentation([v28 objectForKeyedSubscript:*off_1E798B7A0], &rect);
+    v137.origin.x = 0.0;
+    v137.origin.y = 0.0;
     __asm { FMOV            V0.2D, #1.0 }
 
-    v119.size = _Q0;
-    CGRectMakeWithDictionaryRepresentation([v27 objectForKeyedSubscript:*off_1E798A5C8], &v119);
+    v137.size = _Q0;
+    CGRectMakeWithDictionaryRepresentation([v28 objectForKeyedSubscript:*off_1E798A5C8], &v137);
     if (narrowerCamera)
     {
-      v119 = CGRectInset(v119, 0.25, 0.0);
+      v137 = CGRectInset(v137, 0.25, 0.0);
     }
 
-    CVPixelBufferGetWidth(v15);
-    CVPixelBufferGetHeight(v15);
-    FigCaptureMetadataUtilitiesDenormalizeCropRect(v119.origin.x, v119.origin.y, v119.size.width, v119.size.height);
+    Width = CVPixelBufferGetWidth(v15);
+    Height = CVPixelBufferGetHeight(v15);
+    FigCaptureMetadataUtilitiesDenormalizeCropRect(v137.origin.x, v137.origin.y, v137.size.width, v137.size.height, Width, Height);
     if (a2)
     {
-      MinX = CGRectGetMinX(*&v36);
+      MinX = CGRectGetMinX(*&v39);
     }
 
     else
     {
-      MinX = CGRectGetMaxX(*&v36);
+      MinX = CGRectGetMaxX(*&v39);
     }
 
     FigCaptureRoundFloatToMultipleOf(2, MinX);
     OUTLINED_FUNCTION_3_92();
-    if (VTPixelRotationSessionRotateSubImage())
+    v44 = VTPixelRotationSessionRotateSubImage();
+    if (v44)
     {
+      v93 = v44;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_7_6();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v93);
     }
 
     else
     {
-      Width = CVPixelBufferGetWidth(v15);
-      v98 = *&v22;
-      v100 = v24;
-      v42 = Width;
-      v43 = vcvtd_n_f64_u64(Width, 1uLL);
-      Height = CVPixelBufferGetHeight(v15);
-      v96 = v26;
-      v45 = vcvtd_n_f64_u64(Height, 1uLL);
+      v45 = CVPixelBufferGetWidth(v15);
+      v112 = *&v23;
+      v116 = v25;
+      v46 = v45;
+      v47 = vcvtd_n_f64_u64(v45, 1uLL);
+      v48 = CVPixelBufferGetHeight(v15);
+      v108 = v27;
+      v49 = vcvtd_n_f64_u64(v48, 1uLL);
       memset(&rect, 0, sizeof(rect));
-      CGAffineTransformMakeTranslation(&rect, -(v42 * 0.5), -(Height * 0.5));
-      Scale = CGAffineTransformMakeScale(&v118, 1.0 / scene, 1.0 / scene);
-      OUTLINED_FUNCTION_2_104(Scale, v47, v48, v49, v50, v51, v52, v53, v88, v90, v92, v94, v96, v98, v100, v102, scaleCopy, *&scene, v110, v112, v115, v116, v117, *&v118.a, *&v118.b, *&v118.c, *&v118.d, *&v118.tx, *&v118.ty, *&v119.origin.x);
-      *&rect.a = v119.origin;
-      *&rect.c = v119.size;
-      *&rect.tx = v120;
-      Translation = CGAffineTransformMakeTranslation(&v118, v43, v45);
-      OUTLINED_FUNCTION_2_104(Translation, v55, v56, v57, v58, v59, v60, v61, v89, v91, v93, v95, v97, v99, v101, v103, v106, v108, v111, v113, v115, v116, v117, *&v118.a, *&v118.b, *&v118.c, *&v118.d, *&v118.tx, *&v118.ty, *&v119.origin.x);
-      *&rect.c = v119.size;
-      *&rect.tx = v120;
-      *&rect.a = v119.origin;
-      v122.origin.x = OUTLINED_FUNCTION_3_92();
-      v123 = CGRectApplyAffineTransform(v122, v62);
-      y = v123.origin.y;
-      v64 = v123.size.width;
-      v65 = v123.size.height;
-      *&v123.origin.x = v123.origin.x;
-      FigCaptureRoundFloatToMultipleOf(1, *&v123.origin.x);
-      v66 = y;
-      FigCaptureRoundFloatToMultipleOf(1, v66);
-      v67 = v64;
-      FigCaptureRoundFloatToMultipleOf(2, v67);
-      v68 = v65;
-      FigCaptureRoundFloatToMultipleOf(2, v68);
-      if (!VTPixelRotationSessionRotateSubImage())
+      CGAffineTransformMakeTranslation(&rect, -(v46 * 0.5), -(v48 * 0.5));
+      Scale = CGAffineTransformMakeScale(&v136, 1.0 / scene, 1.0 / scene);
+      OUTLINED_FUNCTION_2_104(Scale, v51, v52, v53, v54, v55, v56, v57, v95, v98, v101, v104, v108, v112, v116, v119, scaleCopy, *&scene, v128, v130, v133, v134, v135, *&v136.a, *&v136.b, *&v136.c, *&v136.d, *&v136.tx, *&v136.ty, *&v137.origin.x);
+      *&rect.a = v137.origin;
+      *&rect.c = v137.size;
+      *&rect.tx = v138;
+      Translation = CGAffineTransformMakeTranslation(&v136, v47, v49);
+      OUTLINED_FUNCTION_2_104(Translation, v59, v60, v61, v62, v63, v64, v65, v96, v99, v102, v105, v109, v113, v117, v120, v124, v126, v129, v131, v133, v134, v135, *&v136.a, *&v136.b, *&v136.c, *&v136.d, *&v136.tx, *&v136.ty, *&v137.origin.x);
+      *&rect.c = v137.size;
+      *&rect.tx = v138;
+      *&rect.a = v137.origin;
+      v140.origin.x = OUTLINED_FUNCTION_3_92();
+      v141 = CGRectApplyAffineTransform(v140, v66);
+      y = v141.origin.y;
+      v68 = v141.size.width;
+      v69 = v141.size.height;
+      *&v141.origin.x = v141.origin.x;
+      FigCaptureRoundFloatToMultipleOf(1, *&v141.origin.x);
+      v70 = y;
+      FigCaptureRoundFloatToMultipleOf(1, v70);
+      v71 = v68;
+      FigCaptureRoundFloatToMultipleOf(2, v71);
+      v72 = v69;
+      FigCaptureRoundFloatToMultipleOf(2, v72);
+      v73 = VTPixelRotationSessionRotateSubImage();
+      if (v73)
       {
-        v69 = objc_alloc(getVNImageRequestHandlerClass());
-        v70 = MEMORY[0x1E695E0F8];
-        v71 = [v69 initWithCVPixelBuffer:v21 options:MEMORY[0x1E695E0F8]];
-        v72 = [objc_alloc(getVNTranslationalImageRegistrationRequestClass()) initWithTargetedCVPixelBuffer:newPixelBuffer options:v70];
-        v118.a = 0.0;
-        *&v115 = v72;
-        tx = *&v110;
-        v74 = v114;
-        if ([v71 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v115, 1), &v118}])
+        v94 = v73;
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_7_6();
+        LODWORD(v97) = v94;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v97);
+      }
+
+      else
+      {
+        v74 = objc_alloc(getVNImageRequestHandlerClass());
+        v75 = MEMORY[0x1E695E0F8];
+        v76 = [v74 initWithCVPixelBuffer:v22 options:MEMORY[0x1E695E0F8]];
+        v77 = [objc_alloc(getVNTranslationalImageRegistrationRequestClass()) initWithTargetedCVPixelBuffer:newPixelBuffer options:v75];
+        v136.a = 0.0;
+        *&v133 = v77;
+        tx = *&v128;
+        v79 = v132;
+        if ([v76 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v133, 1), &v136}])
         {
-          v75 = [objc_msgSend(v72 "results")];
-          if (v75)
+          v80 = [objc_msgSend(v77 "results")];
+          if (v80)
           {
-            v76 = v75;
-            [v75 alignmentTransform];
+            v81 = v80;
+            objc_msgSend_alignmentTransform(v80);
             tx = rect.tx;
-            [v76 alignmentTransform];
-            v74 = *(&v120 + 1);
+            objc_msgSend_alignmentTransform(v81);
+            v79 = *(&v138 + 1);
           }
 
           else
           {
             fig_log_get_emitter();
             OUTLINED_FUNCTION_7_6();
-            FigDebugAssert3();
-            tx = *&v110;
-            v74 = v114;
+            LODWORD(v97) = 0;
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v97, v100, v103, v106, v110, v114, v118, v121);
+            tx = *&v128;
+            v79 = v132;
           }
         }
 
-        v77 = 0.01;
-        v78 = 0.05;
-        if (v18)
+        v82 = 0.01;
+        v83 = 0.05;
+        if (v19)
         {
-          v77 = 0.05;
+          v82 = 0.05;
         }
 
         else
         {
-          v78 = 0.042;
+          v83 = 0.042;
         }
 
-        if (v104)
+        if (v122)
         {
-          v79 = v77 * 1.5;
-        }
-
-        else
-        {
-          v79 = v77;
-        }
-
-        v80 = tx / v109;
-        if (v104)
-        {
-          v81 = v78 * 1.5;
+          v84 = v82 * 1.5;
         }
 
         else
         {
-          v81 = v78;
+          v84 = v82;
         }
 
-        v82 = CVPixelBufferGetWidth(ImageBuffer);
-        v83 = round(v79 * v82);
-        v84 = fabs(-v74 / v109);
-        if (fabs(v80) <= round(v81 * v82) && v84 <= v83)
+        v85 = tx / v127;
+        if (v122)
         {
-          v86 = 0;
-          *&v110 = v80;
+          v86 = v83 * 1.5;
+        }
+
+        else
+        {
+          v86 = v83;
+        }
+
+        v87 = CVPixelBufferGetWidth(ImageBuffer);
+        v88 = round(v84 * v87);
+        v89 = fabs(-v79 / v127);
+        if (fabs(v85) <= round(v86 * v87) && v89 <= v88)
+        {
+          v91 = 0;
+          *&v128 = v85;
           goto LABEL_31;
         }
-
-LABEL_29:
-        v86 = -12780;
-LABEL_31:
-        CFRelease(newPixelBuffer);
-        goto LABEL_32;
       }
-
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_7_6();
     }
 
-    FigDebugAssert3();
-    goto LABEL_29;
+    v91 = -12780;
+LABEL_31:
+    CFRelease(newPixelBuffer);
+    goto LABEL_32;
   }
 
   fig_log_get_emitter();
   OUTLINED_FUNCTION_7_6();
-  FigDebugAssert3();
-  v86 = -12780;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v98, v101, v104, v107, v111, v115, v119);
+  v91 = -12780;
   if (newPixelBuffer)
   {
     goto LABEL_31;
   }
 
 LABEL_32:
-  if (v21)
+  if (v22)
   {
-    CFRelease(v21);
+    CFRelease(v22);
   }
 
   scale = scaleCopy;
   if (scaleCopy)
   {
 LABEL_35:
-    *scale = v86;
+    *scale = v91;
   }
 
-  return *&v110;
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
+  return *&v128;
 }
 
 @end

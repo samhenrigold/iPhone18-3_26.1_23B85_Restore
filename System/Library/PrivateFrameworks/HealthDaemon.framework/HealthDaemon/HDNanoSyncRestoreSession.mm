@@ -61,7 +61,7 @@
       completionHandlers = self->_completionHandlers;
     }
 
-    v8 = [v10 copy];
+    v8 = objc_msgSend_copy(v10);
     v9 = _Block_copy(v8);
     [(NSMutableArray *)completionHandlers addObject:v9];
 
@@ -102,7 +102,7 @@
 
 void __64__HDNanoSyncRestoreSession_scheduleTimeoutWithInterval_handler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = v4;
@@ -111,45 +111,43 @@ void __64__HDNanoSyncRestoreSession_scheduleTimeoutWithInterval_handler___block_
     v6 = WeakRetained;
     if (*(WeakRetained + 8))
     {
-      v14 = [MEMORY[0x277CCA890] currentHandler];
-      [v14 handleFailureInMethod:sel__finishWithError_ object:WeakRetained file:@"HDNanoSyncRestoreSession.m" lineNumber:48 description:{@"Invalid parameter not satisfying: %@", @"_finished == NO"}];
+      v13 = [MEMORY[0x277CCA890] currentHandler];
+      [v13 handleFailureInMethod:sel__finishWithError_ object:WeakRetained file:@"HDNanoSyncRestoreSession.m" lineNumber:48 description:{@"Invalid parameter not satisfying: %@", @"_finished == NO"}];
 
       v6 = WeakRetained;
     }
 
     *(v6 + 8) = 1;
-    v7 = [v6[7] copy];
+    v7 = objc_msgSend_copy(v6[7]);
     [WeakRetained[7] removeAllObjects];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          (*(*(*(&v16 + 1) + 8 * i) + 16))();
+          (*(*(*(&v15 + 1) + 8 * i) + 16))();
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

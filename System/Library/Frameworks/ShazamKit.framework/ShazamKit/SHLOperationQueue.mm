@@ -2,6 +2,7 @@
 + (id)defaultQueue;
 - (NSOperation)tailOperation;
 - (id)initOperationQueue;
+- (void)addOperation:(id)operation waitUntilFinished:(BOOL)finished;
 - (void)cancelAllOperations;
 @end
 
@@ -35,6 +36,37 @@
   }
 
   return v2;
+}
+
+- (void)addOperation:(id)operation waitUntilFinished:(BOOL)finished
+{
+  finishedCopy = finished;
+  operationCopy = operation;
+  tailOperation = [(SHLOperationQueue *)self tailOperation];
+  if ([tailOperation isFinished])
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    tailOperation2 = [(SHLOperationQueue *)self tailOperation];
+    v8 = [tailOperation2 isCancelled] ^ 1;
+  }
+
+  tailOperation3 = [(SHLOperationQueue *)self tailOperation];
+
+  if (tailOperation3 && v8)
+  {
+    tailOperation4 = [(SHLOperationQueue *)self tailOperation];
+    [operationCopy addDependency:tailOperation4];
+  }
+
+  [(SHLOperationQueue *)self setTailOperation:operationCopy];
+  operationQueue = [(SHLOperationQueue *)self operationQueue];
+  v14 = operationCopy;
+  v13 = [NSArray arrayWithObjects:&v14 count:1];
+  [operationQueue addOperations:v13 waitUntilFinished:finishedCopy];
 }
 
 - (void)cancelAllOperations

@@ -7,6 +7,7 @@
 - (id)serviceByDeviceID:(id)d;
 - (id)startService:(id)service;
 - (void)runWithDelegate:(id)delegate;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context;
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context;
@@ -60,7 +61,7 @@
 
 - (id)startService:(id)service
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v5 = [objc_alloc(MEMORY[0x277D18770]) initWithService:serviceCopy];
   accounts = [v5 accounts];
@@ -74,13 +75,13 @@
       accounts2 = [v5 accounts];
       v9 = [accounts2 count];
       devices = [v5 devices];
-      v13 = 138412802;
-      v14 = serviceCopy;
-      v15 = 1024;
-      v16 = v9;
-      v17 = 1024;
-      v18 = [devices count];
-      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "IDS(%@) connected with %d accounts and %d devices", &v13, 0x18u);
+      v12 = 138412802;
+      v13 = serviceCopy;
+      v14 = 1024;
+      v15 = v9;
+      v16 = 1024;
+      v17 = [devices count];
+      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "IDS(%@) connected with %d accounts and %d devices", &v12, 0x18u);
     }
   }
 
@@ -88,26 +89,24 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = serviceCopy;
-      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "IDS(%@) connected with no accounts.", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = serviceCopy;
+      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "IDS(%@) connected with no accounts.", &v12, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)deviceIds
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   [(NSMutableDictionary *)self->_serviceByDevice removeAllObjects];
   if (*&self->_pairedWatchService == 0)
   {
-    v45 = 0;
+    v44 = 0;
   }
 
   else
@@ -124,50 +123,50 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v72 = @"com.apple.private.alloy.proxiedcrashcopier";
+      *v71 = @"com.apple.private.alloy.proxiedcrashcopier";
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@:", buf, 0xCu);
     }
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     obj = devices;
     v4 = array;
-    v56 = [obj countByEnumeratingWithState:&v64 objects:v89 count:16];
-    if (v56)
+    v55 = [obj countByEnumeratingWithState:&v63 objects:v88 count:16];
+    if (v55)
     {
-      v53 = *v65;
-      v46 = 138412290;
+      v52 = *v64;
+      v45 = 138412290;
       do
       {
-        for (i = 0; i != v56; ++i)
+        for (i = 0; i != v55; ++i)
         {
-          if (*v65 != v53)
+          if (*v64 != v52)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v64 + 1) + 8 * i);
+          v6 = *(*(&v63 + 1) + 8 * i);
           v7 = IDSCopyIDForDevice();
           v8 = [v4 count];
-          v88[0] = v7;
-          v87[0] = @"id";
-          v87[1] = @"name";
+          v87[0] = v7;
+          v86[0] = @"id";
+          v86[1] = @"name";
           name = [v6 name];
-          v88[1] = name;
-          v87[2] = @"model";
+          v87[1] = name;
+          v86[2] = @"model";
           modelIdentifier = [v6 modelIdentifier];
-          v88[2] = modelIdentifier;
-          v87[3] = @"build";
+          v87[2] = modelIdentifier;
+          v86[3] = @"build";
           productBuildVersion = [v6 productBuildVersion];
-          v88[3] = productBuildVersion;
-          v87[4] = @"nearby";
+          v87[3] = productBuildVersion;
+          v86[4] = @"nearby";
           v12 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "isNearby")}];
-          v87[5] = @"service";
-          v88[4] = v12;
-          v88[5] = @"com.apple.private.alloy.proxiedcrashcopier";
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:6];
+          v86[5] = @"service";
+          v87[4] = v12;
+          v87[5] = @"com.apple.private.alloy.proxiedcrashcopier";
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:6];
           [v4 addObject:v13];
 
           [(NSMutableDictionary *)selfCopy->_serviceByDevice setObject:selfCopy->_pairedWatchService forKeyedSubscript:v7];
@@ -229,40 +228,40 @@
               v21 = @" NO";
             }
 
-            *v72 = v8 + 1;
-            *&v72[4] = 2112;
-            *&v72[6] = name2;
-            v73 = 2112;
-            v74 = modelIdentifier2;
-            v75 = 2112;
-            v76 = productBuildVersion2;
-            v77 = 2112;
-            v78 = v16;
-            v79 = 2112;
-            v80 = v17;
-            v81 = 2112;
-            v82 = v18;
+            *v71 = v8 + 1;
+            *&v71[4] = 2112;
+            *&v71[6] = name2;
+            v72 = 2112;
+            v73 = modelIdentifier2;
+            v74 = 2112;
+            v75 = productBuildVersion2;
+            v76 = 2112;
+            v77 = v16;
+            v78 = 2112;
+            v79 = v17;
+            v80 = 2112;
+            v81 = v18;
             v4 = array;
-            v83 = 2112;
-            v84 = v19;
+            v82 = 2112;
+            v83 = v19;
             v14 = MEMORY[0x277D86220];
-            v85 = 2112;
-            v86 = v21;
+            v84 = 2112;
+            v85 = v21;
             _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%2d %-20@ %-20@ %-10@ %@  %@  %@  %@  %@", buf, 0x58u);
           }
 
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v46;
-            *v72 = v7;
+            *buf = v45;
+            *v71 = v7;
             _os_log_impl(&dword_25D12D000, v14, OS_LOG_TYPE_DEFAULT, "   %@", buf, 0xCu);
           }
         }
 
-        v56 = [obj countByEnumeratingWithState:&v64 objects:v89 count:16];
+        v55 = [obj countByEnumeratingWithState:&v63 objects:v88 count:16];
       }
 
-      while (v56);
+      while (v55);
     }
 
     v22 = selfCopy;
@@ -271,59 +270,59 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v72 = @"com.apple.private.alloy.proxiedcrashcopier.icloud";
+      *v71 = @"com.apple.private.alloy.proxiedcrashcopier.icloud";
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@:", buf, 0xCu);
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
-    v49 = devices2;
-    v55 = [v49 countByEnumeratingWithState:&v60 objects:v70 count:16];
-    if (v55)
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v48 = devices2;
+    v54 = [v48 countByEnumeratingWithState:&v59 objects:v69 count:16];
+    if (v54)
     {
-      v54 = *v61;
+      v53 = *v60;
       v24 = MEMORY[0x277D86220];
       do
       {
-        for (j = 0; j != v55; ++j)
+        for (j = 0; j != v54; ++j)
         {
-          if (*v61 != v54)
+          if (*v60 != v53)
           {
-            objc_enumerationMutation(v49);
+            objc_enumerationMutation(v48);
           }
 
-          v26 = *(*(&v60 + 1) + 8 * j);
+          v26 = *(*(&v59 + 1) + 8 * j);
           v27 = IDSCopyIDForDevice();
           v28 = [array count];
           v29 = [(NSMutableDictionary *)v22->_serviceByDevice objectForKeyedSubscript:v27];
 
           if (v29)
           {
-            v57 = -1;
+            v56 = -1;
           }
 
           else
           {
-            v57 = v28 + 1;
-            v69[0] = v27;
-            v68[0] = @"id";
-            v68[1] = @"name";
+            v56 = v28 + 1;
+            v68[0] = v27;
+            v67[0] = @"id";
+            v67[1] = @"name";
             name3 = [v26 name];
-            v69[1] = name3;
-            v68[2] = @"model";
+            v68[1] = name3;
+            v67[2] = @"model";
             modelIdentifier3 = [v26 modelIdentifier];
-            v69[2] = modelIdentifier3;
-            v68[3] = @"build";
+            v68[2] = modelIdentifier3;
+            v67[3] = @"build";
             productBuildVersion3 = [v26 productBuildVersion];
-            v69[3] = productBuildVersion3;
-            v68[4] = @"nearby";
+            v68[3] = productBuildVersion3;
+            v67[4] = @"nearby";
             v33 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v26, "isNearby")}];
-            v68[5] = @"service";
-            v69[4] = v33;
-            v69[5] = @"com.apple.private.alloy.proxiedcrashcopier.icloud";
-            [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:6];
+            v67[5] = @"service";
+            v68[4] = v33;
+            v68[5] = @"com.apple.private.alloy.proxiedcrashcopier.icloud";
+            [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:6];
             v35 = v34 = v22;
             [array addObject:v35];
 
@@ -390,48 +389,46 @@
               v42 = @" NO";
             }
 
-            *v72 = v57;
-            *&v72[4] = 2112;
-            *&v72[6] = name4;
-            v73 = 2112;
-            v74 = modelIdentifier4;
-            v75 = 2112;
-            v76 = productBuildVersion4;
-            v77 = 2112;
-            v78 = v37;
-            v79 = 2112;
-            v80 = v38;
-            v81 = 2112;
-            v82 = v39;
-            v83 = 2112;
-            v84 = v40;
+            *v71 = v56;
+            *&v71[4] = 2112;
+            *&v71[6] = name4;
+            v72 = 2112;
+            v73 = modelIdentifier4;
+            v74 = 2112;
+            v75 = productBuildVersion4;
+            v76 = 2112;
+            v77 = v37;
+            v78 = 2112;
+            v79 = v38;
+            v80 = 2112;
+            v81 = v39;
+            v82 = 2112;
+            v83 = v40;
             v24 = MEMORY[0x277D86220];
             v22 = selfCopy;
-            v85 = 2112;
-            v86 = v42;
+            v84 = 2112;
+            v85 = v42;
             _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%2d %-20@ %-20@ %-10@ %@  %@  %@  %@  %@", buf, 0x58u);
           }
 
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v72 = v27;
+            *v71 = v27;
             _os_log_impl(&dword_25D12D000, v24, OS_LOG_TYPE_DEFAULT, "   %@", buf, 0xCu);
           }
         }
 
-        v55 = [v49 countByEnumeratingWithState:&v60 objects:v70 count:16];
+        v54 = [v48 countByEnumeratingWithState:&v59 objects:v69 count:16];
       }
 
-      while (v55);
+      while (v54);
     }
 
-    v45 = array;
+    v44 = array;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v44;
 }
 
 - (id)serviceByDeviceID:(id)d
@@ -462,31 +459,31 @@
 
 - (BOOL)isDeviceNearby:(id)nearby
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nearbyCopy = nearby;
   v5 = [(PCCIDSEndpoint *)self serviceByDeviceID:nearbyCopy];
   v6 = v5;
   if (v5)
   {
     [v5 devices];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v7 = v19 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = v18 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           if (nearbyCopy)
           {
             uniqueID = [v11 uniqueID];
@@ -506,7 +503,7 @@ LABEL_14:
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           continue;
@@ -524,70 +521,68 @@ LABEL_15:
     LOBYTE(v8) = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)send:(id)send message:(id)message error:(id *)error
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   sendCopy = send;
   messageCopy = message;
   v10 = [(PCCIDSEndpoint *)self serviceByDeviceID:sendCopy];
   if (v10)
   {
-    v11 = *MEMORY[0x277D187E0];
     if (sendCopy)
     {
-      v12 = sendCopy;
+      v11 = sendCopy;
     }
 
     else
     {
-      v12 = *MEMORY[0x277D187E0];
+      v11 = *MEMORY[0x277D187E0];
     }
 
-    v13 = [MEMORY[0x277CBEB98] setWithObject:v12];
+    v12 = [MEMORY[0x277CBEB98] setWithObject:v11];
     pairedWatchService = self->_pairedWatchService;
     if (v10 == pairedWatchService)
     {
-      v15 = 200;
+      v14 = 200;
     }
 
     else
     {
-      v15 = 300;
+      v14 = 300;
     }
 
     if (v10 == pairedWatchService)
     {
-      v18 = *MEMORY[0x277D18578];
-      v32[0] = *MEMORY[0x277D185D8];
-      v32[1] = v18;
-      v33[0] = MEMORY[0x277CBEC38];
-      v33[1] = MEMORY[0x277CBEC38];
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+      v17 = *MEMORY[0x277D18578];
+      v30[0] = *MEMORY[0x277D185D8];
+      v30[1] = v17;
+      v31[0] = MEMORY[0x277CBEC38];
+      v31[1] = MEMORY[0x277CBEC38];
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
     }
 
     else
     {
-      v16 = MEMORY[0x277CBEC10];
+      v15 = MEMORY[0x277CBEC10];
     }
 
-    v26 = 0;
-    v27 = 0;
-    v19 = [(IDSService *)v10 sendMessage:messageCopy toDestinations:v13 priority:v15 options:v16 identifier:&v27 error:&v26];
-    v17 = v27;
-    v20 = v26;
-    if (v19)
+    v24 = 0;
+    v25 = 0;
+    v18 = [(IDSService *)v10 sendMessage:messageCopy toDestinations:v12 priority:v14 options:v15 identifier:&v25 error:&v24];
+    v16 = v25;
+    v19 = v24;
+    if (v18)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v21 = [messageCopy objectForKeyedSubscript:@"messageType"];
+        v20 = [messageCopy objectForKeyedSubscript:@"messageType"];
         *buf = 138412546;
-        v29 = v21;
-        v30 = 2112;
-        v31 = v17;
+        v27 = v20;
+        v28 = 2112;
+        v29 = v16;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "sent %@, tracking: %@", buf, 0x16u);
       }
     }
@@ -596,18 +591,18 @@ LABEL_15:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v22 = [messageCopy objectForKeyedSubscript:@"messageType"];
+        v21 = [messageCopy objectForKeyedSubscript:@"messageType"];
         *buf = 138412546;
-        v29 = v22;
-        v30 = 2112;
-        v31 = v20;
+        v27 = v21;
+        v28 = 2112;
+        v29 = v19;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "sendMessage FAILED for %@: %@", buf, 0x16u);
       }
 
       if (error)
       {
-        v23 = v20;
-        *error = v20;
+        v22 = v19;
+        *error = v19;
       }
     }
   }
@@ -620,95 +615,92 @@ LABEL_15:
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Attempted to send message before connecting", buf, 2u);
     }
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 - (id)send:(id)send file:(id)file metadata:(id)metadata error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   sendCopy = send;
   fileCopy = file;
   metadataCopy = metadata;
   v13 = [(PCCIDSEndpoint *)self serviceByDeviceID:sendCopy];
   if (v13)
   {
-    v14 = *MEMORY[0x277D187E0];
     if (sendCopy)
     {
-      v15 = sendCopy;
+      v14 = sendCopy;
     }
 
     else
     {
-      v15 = *MEMORY[0x277D187E0];
+      v14 = *MEMORY[0x277D187E0];
     }
 
-    v16 = [MEMORY[0x277CBEB98] setWithObject:v15];
+    v15 = [MEMORY[0x277CBEB98] setWithObject:v14];
     if (v13 == self->_pairedWatchService)
     {
-      v17 = 200;
+      v16 = 200;
     }
 
     else
     {
-      v17 = 300;
+      v16 = 300;
     }
 
-    v35 = *MEMORY[0x277D18670];
-    v36[0] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-    v19 = [v18 mutableCopy];
+    v33 = *MEMORY[0x277D18670];
+    v34[0] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v18 = [v17 mutableCopy];
 
     if (v13 == self->_pairedWatchService)
     {
-      v20 = MEMORY[0x277CBEC38];
-      [v19 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D185D8]];
-      [v19 setObject:v20 forKeyedSubscript:*MEMORY[0x277D18578]];
+      v19 = MEMORY[0x277CBEC38];
+      [v18 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D185D8]];
+      [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x277D18578]];
       if ([(PCCEndpoint *)self fileTimeout])
       {
-        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[PCCEndpoint fileTimeout](self, "fileTimeout")}];
-        [v19 setObject:v21 forKeyedSubscript:*MEMORY[0x277D18658]];
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[PCCEndpoint fileTimeout](self, "fileTimeout")}];
+        [v18 setObject:v20 forKeyedSubscript:*MEMORY[0x277D18658]];
       }
     }
 
-    v29 = 0;
-    v30 = 0;
-    v22 = [(IDSService *)v13 sendResourceAtURL:fileCopy metadata:metadataCopy toDestinations:v16 priority:v17 options:v19 identifier:&v30 error:&v29];
-    v23 = v30;
-    v24 = v29;
-    v25 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    if (v22)
+    v27 = 0;
+    v28 = 0;
+    v21 = [(IDSService *)v13 sendResourceAtURL:fileCopy metadata:metadataCopy toDestinations:v15 priority:v16 options:v18 identifier:&v28 error:&v27];
+    v22 = v28;
+    v23 = v27;
+    v24 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    if (v21)
     {
-      if (v25)
+      if (v24)
       {
         *buf = 138543618;
-        v32 = fileCopy;
-        v33 = 2114;
-        v34 = v23;
+        v30 = fileCopy;
+        v31 = 2114;
+        v32 = v22;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "sent %{public}@, tracking: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      if (v25)
+      if (v24)
       {
         *buf = 138543618;
-        v32 = fileCopy;
-        v33 = 2114;
-        v34 = v24;
+        v30 = fileCopy;
+        v31 = 2114;
+        v32 = v23;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "sendFile FAILED for %{public}@: %{public}@", buf, 0x16u);
       }
 
       if (error)
       {
-        v26 = v24;
-        *error = v24;
+        v25 = v23;
+        *error = v23;
       }
     }
   }
@@ -721,12 +713,10 @@ LABEL_15:
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Attempted to send file before connecting", buf, 2u);
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
@@ -781,33 +771,52 @@ LABEL_15:
   [WeakRetained handleMessage:messageCopy from:dCopy];
 }
 
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  identifierCopy = identifier;
+  errorCopy = error;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    [PCCIDSEndpoint service:successCopy account:identifierCopy identifier:errorCopy didSendWithSuccess:? error:?];
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->super._delegate);
+  [WeakRetained ack:identifierCopy result:successCopy error:errorCopy];
+}
+
 - (void)service:(void *)a1 account:incomingResourceAtURL:metadata:fromID:context:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   v2 = [v1 lastPathComponent];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], v3, "received file '%@'", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v2;
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], v3, "received file '%@'", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)service:(uint64_t)a3 account:(uint64_t)a4 identifier:(uint64_t)a5 hasBeenDeliveredWithContext:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "delivery receipt tracked %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "delivery receipt tracked %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)service:(uint64_t)a3 account:(uint64_t)a4 incomingMessage:(uint64_t)a5 fromID:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (void)service:(uint64_t)a3 account:(uint64_t)a4 incomingMessage:(uint64_t)a5 fromID:(uint64_t)a6 .cold.1(__CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "received message '%@'", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = @"<unknown>";
+  if (a1)
+  {
+    v8 = a1;
+  }
+
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v8;
+  OUTLINED_FUNCTION_0_0(&dword_25D12D000, MEMORY[0x277D86220], a3, "received message '%@'", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 - (void)service:(__CFString *)a3 account:identifier:didSendWithSuccess:error:.cold.1(char a1, uint64_t a2, __CFString *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = "OK";
   if ((a1 & 1) == 0)
   {
@@ -815,19 +824,18 @@ LABEL_15:
   }
 
   v4 = &stru_286EAD908;
-  v6 = 136315650;
-  v7 = v3;
-  v8 = 2112;
-  v9 = a2;
+  v5 = 136315650;
+  v6 = v3;
+  v7 = 2112;
+  v8 = a2;
   if (a3)
   {
     v4 = a3;
   }
 
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "msg callback %s tracked %@ %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = 2112;
+  v10 = v4;
+  _os_log_debug_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "msg callback %s tracked %@ %@", &v5, 0x20u);
 }
 
 @end

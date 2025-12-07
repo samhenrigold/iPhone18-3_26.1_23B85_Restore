@@ -282,7 +282,7 @@ LABEL_10:
         delegate = [(CKAudioController *)self delegate];
         if (objc_opt_respondsToSelector())
         {
-          [(CKAudioPlayer *)audioPlayer duration];
+          objc_msgSend_duration(audioPlayer);
           [delegate audioController:self mediaObjectProgressDidChange:v16 currentTime:0.0 duration:v21];
         }
 
@@ -580,7 +580,7 @@ uint64_t __34__CKAudioController_prepareToPlay__block_invoke(uint64_t a1)
 - (double)currentMediaObjectTime
 {
   audioPlayer = [(CKAudioController *)self audioPlayer];
-  [audioPlayer currentTime];
+  objc_msgSend_currentTime(audioPlayer);
   v4 = v3;
 
   return v4;
@@ -589,7 +589,7 @@ uint64_t __34__CKAudioController_prepareToPlay__block_invoke(uint64_t a1)
 - (double)currentMediaObjectDuration
 {
   audioPlayer = [(CKAudioController *)self audioPlayer];
-  [audioPlayer duration];
+  objc_msgSend_duration(audioPlayer);
   v4 = v3;
 
   return v4;
@@ -625,9 +625,9 @@ uint64_t __34__CKAudioController_prepareToPlay__block_invoke(uint64_t a1)
   if (objc_opt_respondsToSelector())
   {
     currentMediaObject = [(CKAudioController *)self currentMediaObject];
-    [changeCopy currentTime];
+    objc_msgSend_currentTime(changeCopy);
     v7 = v6;
-    [changeCopy duration];
+    objc_msgSend_duration(changeCopy);
     [delegate audioController:self mediaObjectProgressDidChange:currentMediaObject currentTime:v7 duration:v8];
   }
 }

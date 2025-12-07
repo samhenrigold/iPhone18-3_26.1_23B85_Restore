@@ -12,7 +12,7 @@
 
 - (id)get
 {
-  v3 = JavaLangThread_currentThread();
+  v3 = JavaLangThread_currentThread(self, a2);
   v4 = [(JavaLangThreadLocal *)self valuesWithJavaLangThread:v3];
   if (!v4)
   {
@@ -60,7 +60,7 @@ LABEL_10:
 
 - (void)setWithId:(id)id
 {
-  v5 = JavaLangThread_currentThread();
+  v5 = JavaLangThread_currentThread(self, a2);
   v6 = [(JavaLangThreadLocal *)self valuesWithJavaLangThread:v5];
   if (!v6)
   {
@@ -76,7 +76,7 @@ LABEL_10:
 
 - (void)remove
 {
-  v3 = [(JavaLangThreadLocal *)self valuesWithJavaLangThread:JavaLangThread_currentThread()];
+  v3 = [(JavaLangThreadLocal *)self valuesWithJavaLangThread:JavaLangThread_currentThread(self, a2)];
   if (v3)
   {
 
@@ -92,7 +92,7 @@ LABEL_10:
   }
 
   v4 = [JavaLangThreadLocal_Values alloc];
-  JavaLangThreadLocal_Values_init(v4);
+  JavaLangThreadLocal_Values_init(v4, v5);
 
   return JreStrongAssignAndConsume(thread + 2, v4);
 }

@@ -203,12 +203,12 @@ LABEL_31:
 - (id)previewForWidth:(double)width orientation:(char)orientation
 {
   orientationCopy = orientation;
-  v52 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if (![(CKAnimatedImageMediaObject *)self needsAnimation])
   {
-    v47.receiver = self;
-    v47.super_class = CKAnimatedImageMediaObject;
-    v7 = [(CKMediaObject *)&v47 previewForWidth:orientationCopy orientation:width];
+    v57.receiver = self;
+    v57.super_class = CKAnimatedImageMediaObject;
+    v7 = [(CKMediaObject *)&v57 previewForWidth:orientationCopy orientation:width];
     goto LABEL_64;
   }
 
@@ -235,29 +235,27 @@ LABEL_31:
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    selfCopy = self;
-    v36 = orientationCopy;
-    _CKLog();
+    _CKLog(2u, @"%@ previewForOrientation:%d", v10, v11, v12, v13, v14, v15, self);
   }
 
-  v10 = [(CKMediaObject *)self transfer:selfCopy];
-  if (!-[CKMediaObject isPreviewable](self, "isPreviewable") || ([v10 isFileDataReady] & 1) == 0 && (objc_msgSend(v10, "isRestoring") & 1) == 0)
+  transfer = [(CKMediaObject *)self transfer];
+  if (!-[CKMediaObject isPreviewable](self, "isPreviewable") || ([transfer isFileDataReady] & 1) == 0 && (objc_msgSend(transfer, "isRestoring") & 1) == 0)
   {
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(2);
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v19 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         *&buf[4] = self;
-        _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_DEBUG, "%@ isn't previewable.", buf, 0xCu);
+        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_DEBUG, "%@ isn't previewable.", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(2u, @"%@ isn't previewable.", v20, v21, v22, v23, v24, v25, self);
     }
 
     v7 = 0;
@@ -265,19 +263,19 @@ LABEL_31:
   }
 
   previewDispatchCache = [(CKMediaObject *)self previewDispatchCache];
-  v12 = [previewDispatchCache cachedPreviewForKey:v8];
-  if (!v12)
+  v18 = [previewDispatchCache cachedPreviewForKey:v8];
+  if (!v18)
   {
 LABEL_30:
-    transfer = [(CKMediaObject *)self transfer];
-    if ([transfer isFileURLFinalized])
+    transfer2 = [(CKMediaObject *)self transfer];
+    if ([transfer2 isFileURLFinalized])
     {
     }
 
     else
     {
-      transfer2 = [(CKMediaObject *)self transfer];
-      isSticker = [transfer2 isSticker];
+      transfer3 = [(CKMediaObject *)self transfer];
+      isSticker = [transfer3 isSticker];
 
       if (!isSticker)
       {
@@ -286,40 +284,40 @@ LABEL_30:
     }
 
     previewFilenameExtension = [(CKMediaObject *)self previewFilenameExtension];
-    v19 = [(CKMediaObject *)self previewCachesFileURLWithOrientation:orientationCopy extension:previewFilenameExtension generateIntermediaries:0];
+    v31 = [(CKMediaObject *)self previewCachesFileURLWithOrientation:orientationCopy extension:previewFilenameExtension generateIntermediaries:0];
 
-    v20 = [(CKAnimatedImageMediaObject *)self savedAnimatedPreviewFromURL:v19 forOrientation:orientationCopy];
+    v32 = [(CKAnimatedImageMediaObject *)self savedAnimatedPreviewFromURL:v31 forOrientation:orientationCopy];
 
     mEMORY[0x1E69A8168] = [MEMORY[0x1E69A8168] sharedInstance];
     [mEMORY[0x1E69A8168] trackEvent:*MEMORY[0x1E69A7578]];
 
-    if (v20)
+    if (v32)
     {
       if (IMOSLoggingEnabled())
       {
-        v22 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v34 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
           *&buf[4] = "[CKAnimatedImageMediaObject previewForWidth:orientation:]";
           *&buf[12] = 2048;
-          *&buf[14] = v20;
+          *&buf[14] = v32;
           *&buf[22] = 2112;
-          v49 = v19;
-          _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "%s Got persisted animated preview %p from disk @ %@", buf, 0x20u);
+          v59 = v31;
+          _os_log_impl(&dword_19020E000, v34, OS_LOG_TYPE_INFO, "%s Got persisted animated preview %p from disk @ %@", buf, 0x20u);
         }
       }
 
-      [previewDispatchCache setCachedPreview:v20 key:v8];
-      v12 = v20;
+      [previewDispatchCache setCachedPreview:v32 key:v8];
+      v18 = v32;
 
       goto LABEL_61;
     }
 
-    v12 = 0;
+    v18 = 0;
 LABEL_40:
-    transfer3 = [(CKMediaObject *)self transfer];
-    isSticker2 = [transfer3 isSticker];
+    transfer4 = [(CKMediaObject *)self transfer];
+    isSticker2 = [transfer4 isSticker];
 
     if (isSticker2)
     {
@@ -327,34 +325,34 @@ LABEL_40:
       animatedImageCacheURLFromExtension = [sticker animatedImageCacheURLFromExtension];
       if (animatedImageCacheURLFromExtension)
       {
-        v46 = 0;
-        v27 = [CKAnimatedImage animatedImageFromOptimizedBitmapAtFileURL:animatedImageCacheURLFromExtension error:&v46];
-        v37 = v46;
+        v56 = 0;
+        v39 = [CKAnimatedImage animatedImageFromOptimizedBitmapAtFileURL:animatedImageCacheURLFromExtension error:&v56];
+        v47 = v56;
 
-        if (v27)
+        if (v39)
         {
           if (IMOSLoggingEnabled())
           {
-            v28 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            v40 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
               *buf = 136315650;
               *&buf[4] = "[CKAnimatedImageMediaObject previewForWidth:orientation:]";
               *&buf[12] = 2048;
-              *&buf[14] = v27;
+              *&buf[14] = v39;
               *&buf[22] = 2112;
-              v49 = animatedImageCacheURLFromExtension;
-              _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "%s Got animated image preview %p from sticker app cache @ %@", buf, 0x20u);
+              v59 = animatedImageCacheURLFromExtension;
+              _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "%s Got animated image preview %p from sticker app cache @ %@", buf, 0x20u);
             }
           }
 
-          [previewDispatchCache setCachedPreview:v27 key:v8];
-          v12 = v27;
+          [previewDispatchCache setCachedPreview:v39 key:v8];
+          v18 = v39;
 
           goto LABEL_61;
         }
 
-        v12 = 0;
+        v18 = 0;
       }
     }
 
@@ -367,12 +365,12 @@ LABEL_40:
 
     if (IMOSLoggingEnabled())
     {
-      v29 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v41 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         *&buf[4] = self;
-        _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_INFO, "%@ animated preview NOT read from disk.", buf, 0xCu);
+        _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_INFO, "%@ animated preview NOT read from disk.", buf, 0xCu);
       }
     }
 
@@ -381,47 +379,47 @@ LABEL_40:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v49 = __Block_byref_object_copy__24;
-      v50 = __Block_byref_object_dispose__24;
-      v51 = 0;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __58__CKAnimatedImageMediaObject_previewForWidth_orientation___block_invoke;
-      v45[3] = &unk_1E72EBC10;
-      v45[4] = self;
-      v45[5] = buf;
-      *&v45[6] = width;
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __58__CKAnimatedImageMediaObject_previewForWidth_orientation___block_invoke_70;
-      v39[3] = &unk_1E72F0B90;
-      v40 = previewDispatchCache;
-      v41 = v8;
-      selfCopy2 = self;
-      v44 = orientationCopy;
-      v43 = buf;
-      [v40 enqueueGenerationBlock:v45 completion:v39 withPriority:-1 forKey:v41];
+      v59 = __Block_byref_object_copy__24;
+      v60 = __Block_byref_object_dispose__24;
+      v61 = 0;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __58__CKAnimatedImageMediaObject_previewForWidth_orientation___block_invoke;
+      v55[3] = &unk_1E72EBC10;
+      v55[4] = self;
+      v55[5] = buf;
+      *&v55[6] = width;
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __58__CKAnimatedImageMediaObject_previewForWidth_orientation___block_invoke_70;
+      v49[3] = &unk_1E72F0B90;
+      v50 = previewDispatchCache;
+      v51 = v8;
+      selfCopy = self;
+      v54 = orientationCopy;
+      v53 = buf;
+      [v50 enqueueGenerationBlock:v55 completion:v49 withPriority:-1 forKey:v51];
 
       _Block_object_dispose(buf, 8);
     }
 
-    v38.receiver = self;
-    v38.super_class = CKAnimatedImageMediaObject;
-    v30 = [(CKMediaObject *)&v38 previewForWidth:orientationCopy orientation:width];
+    v48.receiver = self;
+    v48.super_class = CKAnimatedImageMediaObject;
+    v42 = [(CKMediaObject *)&v48 previewForWidth:orientationCopy orientation:width];
 
     imageEdgeEnhancementBlockIfNecessary = [(CKAnimatedImageMediaObject *)self imageEdgeEnhancementBlockIfNecessary];
-    v32 = imageEdgeEnhancementBlockIfNecessary;
+    v44 = imageEdgeEnhancementBlockIfNecessary;
     if (imageEdgeEnhancementBlockIfNecessary)
     {
-      v33 = (*(imageEdgeEnhancementBlockIfNecessary + 16))(imageEdgeEnhancementBlockIfNecessary, v30);
+      v45 = (*(imageEdgeEnhancementBlockIfNecessary + 16))(imageEdgeEnhancementBlockIfNecessary, v42);
 
-      v30 = v33;
+      v42 = v45;
     }
 
-    v12 = v30;
+    v18 = v42;
 
 LABEL_61:
-    v7 = v12;
+    v7 = v18;
     goto LABEL_62;
   }
 
@@ -430,20 +428,20 @@ LABEL_61:
   {
     if (IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         *&buf[4] = "[CKAnimatedImageMediaObject previewForWidth:orientation:]";
-        _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "%s cached in-memory preview is not animated, forcing reload from disk", buf, 0xCu);
+        _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "%s cached in-memory preview is not animated, forcing reload from disk", buf, 0xCu);
       }
     }
 
     goto LABEL_30;
   }
 
-  v12 = v12;
-  v7 = v12;
+  v18 = v18;
+  v7 = v18;
 LABEL_62:
 
 LABEL_63:
@@ -760,13 +758,13 @@ void __65__CKAnimatedImageMediaObject_prewarmPreviewForWidth_orientation___block
   dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
-void __65__CKAnimatedImageMediaObject_prewarmPreviewForWidth_orientation___block_invoke_81(uint64_t a1)
+void __65__CKAnimatedImageMediaObject_prewarmPreviewForWidth_orientation___block_invoke_81(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v2 = [*(a1 + 32) cachedPreviewForKey:*(a1 + 40)];
-    if (v2 && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0)))
+    v3 = [*(a1 + 32) cachedPreviewForKey:*(a1 + 40)];
+    if (v3 && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0)))
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -780,46 +778,46 @@ void __65__CKAnimatedImageMediaObject_prewarmPreviewForWidth_orientation___block
         goto LABEL_21;
       }
 
-      v7 = [v2 durations];
-      v8 = [v7 count];
+      v8 = [v3 durations];
+      v9 = [v8 count];
 
-      v9 = [*(*(*(a1 + 56) + 8) + 40) durations];
-      v10 = [v9 count];
+      v10 = [*(*(*(a1 + 56) + 8) + 40) durations];
+      v11 = [v10 count];
 
-      if (v10 <= v8)
+      if (v11 <= v9)
       {
         goto LABEL_21;
       }
 
       if (IMOSLoggingEnabled())
       {
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v12 = 136315650;
-          v13 = "[CKAnimatedImageMediaObject prewarmPreviewForWidth:orientation:]_block_invoke";
-          v14 = 2048;
-          v15 = v10;
-          v16 = 2048;
-          v17 = v8;
-          _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_INFO, "%s Prewarm adding to cache, preview count %lu > cached count %lu", &v12, 0x20u);
+          v13 = 136315650;
+          v14 = "[CKAnimatedImageMediaObject prewarmPreviewForWidth:orientation:]_block_invoke";
+          v15 = 2048;
+          v16 = v11;
+          v17 = 2048;
+          v18 = v9;
+          _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "%s Prewarm adding to cache, preview count %lu > cached count %lu", &v13, 0x20u);
         }
       }
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v3 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v4 = *(*(*(a1 + 56) + 8) + 40);
-        v12 = 136315650;
-        v13 = "[CKAnimatedImageMediaObject prewarmPreviewForWidth:orientation:]_block_invoke";
-        v14 = 2112;
-        v15 = v4;
-        v16 = 2112;
-        v17 = v2;
-        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "%s Prewarm adding to cache, preview is %@ superceeds cached preview %@", &v12, 0x20u);
+        v5 = *(*(*(a1 + 56) + 8) + 40);
+        v13 = 136315650;
+        v14 = "[CKAnimatedImageMediaObject prewarmPreviewForWidth:orientation:]_block_invoke";
+        v15 = 2112;
+        v16 = v5;
+        v17 = 2112;
+        v18 = v3;
+        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "%s Prewarm adding to cache, preview is %@ superceeds cached preview %@", &v13, 0x20u);
       }
     }
 
@@ -833,16 +831,16 @@ void __65__CKAnimatedImageMediaObject_prewarmPreviewForWidth_orientation___block
       return;
     }
 
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 40);
-      v5 = *(a1 + 48);
-      v12 = 138412546;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Prewarm: No %@ preview on disk for %@", &v12, 0x16u);
+      v7 = *(a1 + 40);
+      v6 = *(a1 + 48);
+      v13 = 138412546;
+      v14 = v6;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Prewarm: No %@ preview on disk for %@", &v13, 0x16u);
     }
   }
 
@@ -1391,7 +1389,7 @@ void __127__CKAnimatedImageMediaObject_generateAndPersistAnimatedPreviewFromSour
 
 - (id)scaledThumbnailFromThumbnail:(id)thumbnail forWidth:(double)width isSticker:(BOOL)sticker
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   thumbnailCopy = thumbnail;
   [thumbnailCopy size];
   v9 = v8;
@@ -1443,38 +1441,38 @@ void __127__CKAnimatedImageMediaObject_generateAndPersistAnimatedPreviewFromSour
       v27 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        v44.width = v9;
-        v44.height = v11;
-        v28 = NSStringFromCGSize(v44);
-        v45.width = v14;
-        v45.height = v16;
-        v29 = NSStringFromCGSize(v45);
+        v50.width = v9;
+        v50.height = v11;
+        v28 = NSStringFromCGSize(v50);
+        v51.width = v14;
+        v51.height = v16;
+        v29 = NSStringFromCGSize(v51);
         *buf = 138412802;
-        v37 = v28;
-        v38 = 2048;
-        v39 = v24;
-        v40 = 2112;
-        v41 = v29;
+        v43 = v28;
+        v44 = 2048;
+        v45 = v24;
+        v46 = 2112;
+        v47 = v29;
         _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_DEBUG, "Scale thumbnail of size (%@) by with image scale %f to try to fill target (%@)", buf, 0x20u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v46.width = v9;
-      v46.height = v11;
-      v30 = NSStringFromCGSize(v46);
-      v47.width = v14;
-      v47.height = v16;
-      v35 = NSStringFromCGSize(v47);
-      _CKLog();
+      v52.width = v9;
+      v52.height = v11;
+      v30 = NSStringFromCGSize(v52);
+      v53.width = v14;
+      v53.height = v16;
+      v41 = NSStringFromCGSize(v53);
+      _CKLog(2u, @"Scale thumbnail of size (%@) by with image scale %f to try to fill target (%@)", v31, v32, v33, v34, v35, v36, v30);
     }
 
-    v31 = objc_alloc(MEMORY[0x1E69DCAB8]);
-    v32 = thumbnailCopy;
-    v33 = [v31 initWithCGImage:objc_msgSend(thumbnailCopy scale:"CGImage") orientation:{objc_msgSend(thumbnailCopy, "imageOrientation"), v24}];
+    v37 = objc_alloc(MEMORY[0x1E69DCAB8]);
+    v38 = thumbnailCopy;
+    v39 = [v37 initWithCGImage:objc_msgSend(thumbnailCopy scale:"CGImage") orientation:{objc_msgSend(thumbnailCopy, "imageOrientation"), v24}];
 
-    thumbnailCopy = v33;
+    thumbnailCopy = v39;
   }
 
   return thumbnailCopy;

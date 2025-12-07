@@ -163,7 +163,7 @@ LABEL_19:
               *buf = 0;
               if (data->var24.var0)
               {
-                hdrpConstructL4(&self->mr, data, buf, v60);
+                hdrpConstructL4(&self->mr, data, buf, v60, v61);
               }
 
               *&self->mrCache.mr_L4.valid = *buf;
@@ -180,7 +180,7 @@ LABEL_19:
     }
 
     flagCopy = flag;
-    v61 = &self->mr.trmCodec.CodeBias2[1];
+    v62 = &self->mr.trmCodec.CodeBias2[1];
     memset(v190, 0, sizeof(v190));
     memset(v189, 0, 170);
     memset(v188, 0, sizeof(v188));
@@ -208,11 +208,11 @@ LABEL_19:
     *Default8 = 1.0;
     *&selfCopy->mr.trmCodec.Default8[1] = *&selfCopy->mr.trmCodec.Default2[1];
     *&selfCopy->mr.trmCodec.Default8[3] = *&selfCopy->mr.trmCodec.Default2[3];
-    v69 = *(v61 + 1);
-    *(v61 + 14) = *v61;
-    *(v61 + 15) = v69;
+    v70 = *(v62 + 1);
+    *(v62 + 14) = *v62;
+    *(v62 + 15) = v70;
     *&selfCopy->mr.trmCodec.Default8[5] = _Q0;
-    *(v61 + 16) = *(v61 + 2);
+    *(v62 + 16) = *(v62 + 2);
     *&selfCopy->mr.trmCodec.Default8[7] = 0u;
     selfCopy->mr.trmCodec.CodeBias8[7] = -0.5;
     selfCopy->mr.trmCodec.CodeBias8[8] = -0.5;
@@ -273,50 +273,50 @@ LABEL_19:
       if (colourPrimaries == 1)
       {
         selfCopy->mrCfg.sigEnv[0].RgbDef = 2;
-        v71 = &xmmword_2508D1E40;
+        v72 = &xmmword_2508D1E40;
       }
 
       else
       {
         selfCopy->mrCfg.sigEnv[0].RgbDef = 3;
-        v71 = &xmmword_2508D1E80;
+        v72 = &xmmword_2508D1E80;
       }
 
-      v72 = v71[1];
-      *selfCopy->mrCfg.sigEnv[0].V8Primaries = *v71;
-      *&selfCopy->mrCfg.sigEnv[0].V8Primaries[2] = v72;
-      v73 = v71[3];
-      *&selfCopy->mrCfg.sigEnv[0].V8Primaries[4] = v71[2];
-      *&selfCopy->mrCfg.sigEnv[0].V8Primaries[6] = v73;
+      v73 = v72[1];
+      *selfCopy->mrCfg.sigEnv[0].V8Primaries = *v72;
+      *&selfCopy->mrCfg.sigEnv[0].V8Primaries[2] = v73;
+      v74 = v72[3];
+      *&selfCopy->mrCfg.sigEnv[0].V8Primaries[4] = v72[2];
+      *&selfCopy->mrCfg.sigEnv[0].V8Primaries[6] = v74;
     }
 
     if (coeffs == 1)
     {
-      v74 = 2;
+      v75 = 2;
     }
 
     else
     {
-      v74 = 3;
+      v75 = 3;
     }
 
     if (coeffs == 12)
     {
-      v74 = 0;
+      v75 = 0;
     }
 
-    selfCopy->mrCfg.mrCtrl.YuvXferSpec = v74;
-    v75 = *primaries;
-    v76 = *(primaries + 1);
-    v77 = *(primaries + 3);
+    selfCopy->mrCfg.mrCtrl.YuvXferSpec = v75;
+    v76 = *primaries;
+    v77 = *(primaries + 1);
+    v78 = *(primaries + 3);
     *&selfCopy->mrCfg.sigEnv[1].V8Primaries[4] = *(primaries + 2);
-    *&selfCopy->mrCfg.sigEnv[1].V8Primaries[6] = v77;
-    *selfCopy->mrCfg.sigEnv[1].V8Primaries = v75;
-    *&selfCopy->mrCfg.sigEnv[1].V8Primaries[2] = v76;
+    *&selfCopy->mrCfg.sigEnv[1].V8Primaries[6] = v78;
+    *selfCopy->mrCfg.sigEnv[1].V8Primaries = v76;
+    *&selfCopy->mrCfg.sigEnv[1].V8Primaries[2] = v77;
     if (GetConfig())
     {
-      v78 = GetConfig();
-      if (*HDRConfig::GetConfigEntryValue(v78, 0x64u, 0) == 1)
+      v79 = GetConfig();
+      if (*HDRConfig::GetConfigEntryValue(v79, 0x64u, 0) == 1)
       {
         *selfCopy->mrCfg.sigEnv[1].V8Primaries = xmmword_2508D1EC0;
         *&selfCopy->mrCfg.sigEnv[1].V8Primaries[2] = unk_2508D1ED0;
@@ -328,15 +328,15 @@ LABEL_19:
     selfCopy->mrCfg.mrCtrl.DmVer = 2;
     if (dataCopy3->var32.var0)
     {
-      v79 = 4;
+      v80 = 4;
       if (dataCopy3->var32.var2 == 2)
       {
         selfCopy->mrCfg.mrCtrl.DmVer = 4;
+        v81 = 16;
         v80 = 16;
-        v79 = 16;
 LABEL_50:
-        selfCopy->mrCfg.sigEnv[0].SupportDms = v79;
-        selfCopy->mrCfg.sigEnv[1].SupportDms = v80;
+        selfCopy->mrCfg.sigEnv[0].SupportDms = v80;
+        selfCopy->mrCfg.sigEnv[1].SupportDms = v81;
         selfCopy->mrCfg.sigEnv[0].Min = min;
         selfCopy->mrCfg.sigEnv[0].Max = max;
         v187 = 0;
@@ -344,9 +344,9 @@ LABEL_50:
         v185 = 0u;
         *&v184[8] = 0u;
         *v184 = v175;
-        if (!GetConfig() || (v81 = GetConfig(), *HDRConfig::GetConfigEntryValue(v81, 0x62u, 0) != 1))
+        if (!GetConfig() || (v82 = GetConfig(), *HDRConfig::GetConfigEntryValue(v82, 0x62u, 0) != 1))
         {
-          v84 = 1;
+          v85 = 1;
           goto LABEL_64;
         }
 
@@ -354,55 +354,55 @@ LABEL_50:
         *&v184[16] = 0x407D900000000000;
         if (GetConfig())
         {
-          v82 = GetConfig();
-          ConfigEntryValue = HDRConfig::GetConfigEntryValue(v82, 0x5Fu, 0);
-          v84 = 3;
+          v83 = GetConfig();
+          ConfigEntryValue = HDRConfig::GetConfigEntryValue(v83, 0x5Fu, 0);
+          v85 = 3;
           if (nits <= 100.0 || nits >= 1000.0 || (*ConfigEntryValue & 1) == 0)
           {
 LABEL_64:
-            v88 = (minNits * 1000000.0 + 0.5) / 1000000.0;
+            v89 = (minNits * 1000000.0 + 0.5) / 1000000.0;
             if (GetConfig())
             {
-              v89 = GetConfig();
-              if (*HDRConfig::GetConfigEntryValue(v89, 0x63u, 0))
+              v90 = GetConfig();
+              if (*HDRConfig::GetConfigEntryValue(v90, 0x63u, 0))
               {
-                v88 = 0.005;
+                v89 = 0.005;
               }
             }
 
             bzero(buf, 0x364uLL);
             v177 = 0;
-            v90 = convertMetaDataToPayLoad(dataCopy3, buf);
-            v96 = MrParseMds(buf, v90, v91, v92, v93, v94, v95, &selfCopy->mrCfg, &v177, &selfCopy->mdsExt, p_mr);
-            if (v96 < 0)
+            v91 = convertMetaDataToPayLoad(dataCopy3, buf);
+            v97 = MrParseMds(buf, v91, &selfCopy->mrCfg, &v177, &selfCopy->mdsExt, p_mr, v92, v93, v94, v95, v96);
+            if (v97 < 0)
             {
-              v155 = v96;
+              v156 = v97;
               if (enableLogInstance)
               {
                 if (logInstanceID)
                 {
-                  v156 = logInstanceID;
+                  v157 = logInstanceID;
                 }
 
                 else
                 {
-                  v156 = prevLogInstanceID;
+                  v157 = prevLogInstanceID;
                 }
 
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   *v191 = 134218240;
-                  *&v191[4] = WORD1(v156);
+                  *&v191[4] = WORD1(v157);
                   *&v191[12] = 1024;
-                  *v192 = v155;
-                  v157 = MEMORY[0x277D86220];
-                  v158 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: ParseMds ret = %d";
+                  *v192 = v156;
+                  v158 = MEMORY[0x277D86220];
+                  v159 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: ParseMds ret = %d";
 LABEL_185:
-                  _os_log_impl(&dword_250836000, v157, OS_LOG_TYPE_DEFAULT, v158, v191, 0x12u);
+                  _os_log_impl(&dword_250836000, v158, OS_LOG_TYPE_DEFAULT, v159, v191, 0x12u);
                 }
 
 LABEL_186:
-                prevLogInstanceID = v156;
+                prevLogInstanceID = v157;
                 goto LABEL_196;
               }
 
@@ -410,49 +410,49 @@ LABEL_186:
               {
 LABEL_196:
                 LODWORD(v58) = -1;
-                goto LABEL_197;
+                return v58;
               }
 
               *v191 = 67109120;
-              *&v191[4] = v155;
-              v159 = MEMORY[0x277D86220];
-              v160 = " [1.450.54] MR81: metadataReconstruction: Error: ParseMds ret = %d";
+              *&v191[4] = v156;
+              v160 = MEMORY[0x277D86220];
+              v161 = " [1.450.54] MR81: metadataReconstruction: Error: ParseMds ret = %d";
             }
 
             else
             {
               v176 = 0;
-              v97 = v184;
-              v98 = v84;
+              v98 = v184;
+              v99 = v85;
               while (1)
               {
-                v99 = *v97;
-                selfCopy->mrCfg.sigEnv[1].Min = v88;
-                selfCopy->mrCfg.sigEnv[1].Max = v99;
-                v100 = hdrpMetadataReconstruction(&selfCopy->mrCfg, &selfCopy->mdsExt, 0, p_mr);
-                v101 = v100;
-                if (v100 < 0)
+                v100 = *v98;
+                selfCopy->mrCfg.sigEnv[1].Min = v89;
+                selfCopy->mrCfg.sigEnv[1].Max = v100;
+                v101 = hdrpMetadataReconstruction(&selfCopy->mrCfg, &selfCopy->mdsExt, 0, p_mr);
+                v102 = v101;
+                if (v101 < 0)
                 {
                   if (enableLogInstance)
                   {
                     if (logInstanceID)
                     {
-                      v156 = logInstanceID;
+                      v157 = logInstanceID;
                     }
 
                     else
                     {
-                      v156 = prevLogInstanceID;
+                      v157 = prevLogInstanceID;
                     }
 
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       *v191 = 134218240;
-                      *&v191[4] = WORD1(v156);
+                      *&v191[4] = WORD1(v157);
                       *&v191[12] = 1024;
-                      *v192 = v101;
-                      v157 = MEMORY[0x277D86220];
-                      v158 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: ret = %d";
+                      *v192 = v102;
+                      v158 = MEMORY[0x277D86220];
+                      v159 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: ret = %d";
                       goto LABEL_185;
                     }
 
@@ -465,34 +465,34 @@ LABEL_196:
                   }
 
                   *v191 = 67109120;
-                  *&v191[4] = v101;
-                  v159 = MEMORY[0x277D86220];
-                  v160 = " [1.450.54] MR81: metadataReconstruction: Error: ret = %d";
+                  *&v191[4] = v102;
+                  v160 = MEMORY[0x277D86220];
+                  v161 = " [1.450.54] MR81: metadataReconstruction: Error: ret = %d";
                   goto LABEL_195;
                 }
 
-                if (!v100)
+                if (!v101)
                 {
                   if (enableLogInstance)
                   {
                     if (logInstanceID)
                     {
-                      v156 = logInstanceID;
+                      v157 = logInstanceID;
                     }
 
                     else
                     {
-                      v156 = prevLogInstanceID;
+                      v157 = prevLogInstanceID;
                     }
 
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       *v191 = 134218240;
-                      *&v191[4] = WORD1(v156);
+                      *&v191[4] = WORD1(v157);
                       *&v191[12] = 1024;
                       *v192 = 0;
-                      v157 = MEMORY[0x277D86220];
-                      v158 = " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: ret = %d [no change]";
+                      v158 = MEMORY[0x277D86220];
+                      v159 = " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: ret = %d [no change]";
                       goto LABEL_185;
                     }
 
@@ -505,35 +505,35 @@ LABEL_196:
                   }
 
                   *v191 = 67109120;
-                  v159 = MEMORY[0x277D86220];
-                  v160 = " [1.450.54] MR81: metadataReconstruction: Warning: ret = %d [no change]";
+                  v160 = MEMORY[0x277D86220];
+                  v161 = " [1.450.54] MR81: metadataReconstruction: Warning: ret = %d [no change]";
                   goto LABEL_195;
                 }
 
                 MdsExtFxpMr = MrGetMdsExtFxpMr(&v176, p_mr);
-                v103 = MdsExtFxpMr;
+                v104 = MdsExtFxpMr;
                 if (MdsExtFxpMr < 0)
                 {
                   if (enableLogInstance)
                   {
                     if (logInstanceID)
                     {
-                      v156 = logInstanceID;
+                      v157 = logInstanceID;
                     }
 
                     else
                     {
-                      v156 = prevLogInstanceID;
+                      v157 = prevLogInstanceID;
                     }
 
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       *v191 = 134218240;
-                      *&v191[4] = WORD1(v156);
+                      *&v191[4] = WORD1(v157);
                       *&v191[12] = 1024;
-                      *v192 = v103;
-                      v157 = MEMORY[0x277D86220];
-                      v158 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
+                      *v192 = v104;
+                      v158 = MEMORY[0x277D86220];
+                      v159 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
                       goto LABEL_185;
                     }
 
@@ -546,9 +546,9 @@ LABEL_196:
                   }
 
                   *v191 = 67109120;
-                  *&v191[4] = v103;
-                  v159 = MEMORY[0x277D86220];
-                  v160 = " [1.450.54] MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
+                  *&v191[4] = v104;
+                  v160 = MEMORY[0x277D86220];
+                  v161 = " [1.450.54] MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
                   goto LABEL_195;
                 }
 
@@ -557,198 +557,198 @@ LABEL_196:
                   break;
                 }
 
-                v104 = v176;
+                v105 = v176;
                 copyL2L8L10(v176, v190, v189, v188, &v179 + 1, &v179, &v178);
-                ++v97;
-                if (!--v98)
+                ++v98;
+                if (!--v99)
                 {
-                  v166 = v84;
+                  v166 = v85;
                   v168 = p_mr;
                   reconstructionCopy = reconstruction;
                   invalidateDMDataL2L4L5L6L8L10(dataCopy3);
-                  v105 = 0;
-                  dataCopy3->var15 = *(v104 + 76);
-                  dataCopy3->var16 = *(v104 + 78);
+                  v106 = 0;
+                  dataCopy3->var15 = *(v105 + 76);
+                  dataCopy3->var16 = *(v105 + 78);
                   var4 = dataCopy3->var4;
-                  v172 = v104;
-                  v107 = v104 + 8;
-                  v108 = MEMORY[0x277D86220];
+                  v172 = v105;
+                  v108 = v105 + 8;
+                  v109 = MEMORY[0x277D86220];
                   do
                   {
                     for (i = 0; i != 3; ++i)
                     {
-                      v110 = var4[i];
-                      v111 = *(v107 + 2 * i);
-                      if (v110 != v111)
+                      v111 = var4[i];
+                      v112 = *(v108 + 2 * i);
+                      if (v111 != v112)
                       {
                         if (enableLogInstance)
                         {
                           if (logInstanceID)
                           {
-                            v112 = logInstanceID;
+                            v113 = logInstanceID;
                           }
 
                           else
                           {
-                            v112 = prevLogInstanceID;
+                            v113 = prevLogInstanceID;
                           }
 
-                          if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+                          if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
                           {
                             *v191 = 134219008;
-                            *&v191[4] = WORD1(v112);
+                            *&v191[4] = WORD1(v113);
                             *&v191[12] = 1024;
-                            *v192 = v105;
+                            *v192 = v106;
                             *&v192[4] = 1024;
                             *v193 = i;
                             *&v193[4] = 1024;
-                            v194 = v110;
+                            v194 = v111;
                             v195 = 1024;
-                            v196 = v111;
-                            _os_log_impl(&dword_250836000, v108, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: YCCtoRGB_coef [%d][%d] changed, %d/%d", v191, 0x24u);
+                            v196 = v112;
+                            _os_log_impl(&dword_250836000, v109, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: YCCtoRGB_coef [%d][%d] changed, %d/%d", v191, 0x24u);
                           }
 
-                          prevLogInstanceID = v112;
+                          prevLogInstanceID = v113;
                         }
 
-                        else if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+                        else if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
                         {
                           *v191 = 67109888;
-                          *&v191[4] = v105;
+                          *&v191[4] = v106;
                           *&v191[8] = 1024;
                           *&v191[10] = i;
                           *v192 = 1024;
-                          *&v192[2] = v110;
+                          *&v192[2] = v111;
                           *v193 = 1024;
-                          *&v193[2] = v111;
-                          _os_log_impl(&dword_250836000, v108, OS_LOG_TYPE_DEFAULT, " [1.450.54] MR81: metadataReconstruction: Warning: YCCtoRGB_coef [%d][%d] changed, %d/%d", v191, 0x1Au);
+                          *&v193[2] = v112;
+                          _os_log_impl(&dword_250836000, v109, OS_LOG_TYPE_DEFAULT, " [1.450.54] MR81: metadataReconstruction: Warning: YCCtoRGB_coef [%d][%d] changed, %d/%d", v191, 0x1Au);
                         }
                       }
                     }
 
-                    ++v105;
-                    v107 += 6;
+                    ++v106;
+                    v108 += 6;
                     var4 += 3;
                   }
 
-                  while (v105 != 3);
-                  v113 = 0;
-                  v114 = MEMORY[0x277D86220];
-                  v115 = dataCopy;
+                  while (v106 != 3);
+                  v114 = 0;
+                  v115 = MEMORY[0x277D86220];
+                  v116 = dataCopy;
                   do
                   {
-                    v116 = v115->var5[v113];
-                    v117 = *(v172 + 28 + 4 * v113);
-                    if (v116 != v117)
+                    v117 = v116->var5[v114];
+                    v118 = *(v172 + 28 + 4 * v114);
+                    if (v117 != v118)
                     {
                       if (enableLogInstance)
                       {
                         if (logInstanceID)
                         {
-                          v118 = logInstanceID;
+                          v119 = logInstanceID;
                         }
 
                         else
                         {
-                          v118 = prevLogInstanceID;
+                          v119 = prevLogInstanceID;
                         }
 
-                        if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+                        if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
                         {
                           *v191 = 134218752;
-                          *&v191[4] = WORD1(v118);
+                          *&v191[4] = WORD1(v119);
                           *&v191[12] = 1024;
-                          *v192 = v113;
+                          *v192 = v114;
                           *&v192[4] = 1024;
-                          *v193 = v116;
+                          *v193 = v117;
                           *&v193[4] = 1024;
-                          v194 = v117;
-                          _os_log_impl(&dword_250836000, v114, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: YCCtoRGB_offset[%d] changed, %u/%u", v191, 0x1Eu);
+                          v194 = v118;
+                          _os_log_impl(&dword_250836000, v115, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: YCCtoRGB_offset[%d] changed, %u/%u", v191, 0x1Eu);
                         }
 
-                        prevLogInstanceID = v118;
-                        v115 = dataCopy;
+                        prevLogInstanceID = v119;
+                        v116 = dataCopy;
                       }
 
-                      else if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+                      else if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
                       {
                         *v191 = 67109632;
-                        *&v191[4] = v113;
+                        *&v191[4] = v114;
                         *&v191[8] = 1024;
-                        *&v191[10] = v116;
+                        *&v191[10] = v117;
                         *v192 = 1024;
-                        *&v192[2] = v117;
-                        _os_log_impl(&dword_250836000, v114, OS_LOG_TYPE_DEFAULT, " [1.450.54] MR81: metadataReconstruction: Warning: YCCtoRGB_offset[%d] changed, %u/%u", v191, 0x14u);
+                        *&v192[2] = v118;
+                        _os_log_impl(&dword_250836000, v115, OS_LOG_TYPE_DEFAULT, " [1.450.54] MR81: metadataReconstruction: Warning: YCCtoRGB_offset[%d] changed, %u/%u", v191, 0x14u);
                       }
                     }
 
-                    ++v113;
+                    ++v114;
                   }
 
-                  while (v113 != 3);
-                  v119 = 0;
-                  var6 = v115->var6;
-                  v121 = v172 + 42;
-                  v122 = MEMORY[0x277D86220];
+                  while (v114 != 3);
+                  v120 = 0;
+                  var6 = v116->var6;
+                  v122 = v172 + 42;
+                  v123 = MEMORY[0x277D86220];
                   do
                   {
                     for (j = 0; j != 3; ++j)
                     {
-                      v124 = var6[j];
-                      v125 = *(v121 + 2 * j);
-                      if (v124 != v125)
+                      v125 = var6[j];
+                      v126 = *(v122 + 2 * j);
+                      if (v125 != v126)
                       {
                         if (enableLogInstance)
                         {
                           if (logInstanceID)
                           {
-                            v126 = logInstanceID;
+                            v127 = logInstanceID;
                           }
 
                           else
                           {
-                            v126 = prevLogInstanceID;
+                            v127 = prevLogInstanceID;
                           }
 
-                          if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+                          if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
                           {
                             *v191 = 134219008;
-                            *&v191[4] = WORD1(v126);
+                            *&v191[4] = WORD1(v127);
                             *&v191[12] = 1024;
-                            *v192 = v119;
+                            *v192 = v120;
                             *&v192[4] = 1024;
                             *v193 = j;
                             *&v193[4] = 1024;
-                            v194 = v124;
+                            v194 = v125;
                             v195 = 1024;
-                            v196 = v125;
-                            _os_log_impl(&dword_250836000, v122, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: RGBtoLMS_coef [%d][%d] changed, %d/%d", v191, 0x24u);
+                            v196 = v126;
+                            _os_log_impl(&dword_250836000, v123, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: RGBtoLMS_coef [%d][%d] changed, %d/%d", v191, 0x24u);
                           }
 
-                          prevLogInstanceID = v126;
+                          prevLogInstanceID = v127;
                         }
 
-                        else if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+                        else if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
                         {
                           *v191 = 67109888;
-                          *&v191[4] = v119;
+                          *&v191[4] = v120;
                           *&v191[8] = 1024;
                           *&v191[10] = j;
                           *v192 = 1024;
-                          *&v192[2] = v124;
+                          *&v192[2] = v125;
                           *v193 = 1024;
-                          *&v193[2] = v125;
-                          _os_log_impl(&dword_250836000, v122, OS_LOG_TYPE_DEFAULT, " [1.450.54] MR81: metadataReconstruction: Warning: RGBtoLMS_coef [%d][%d] changed, %d/%d", v191, 0x1Au);
+                          *&v193[2] = v126;
+                          _os_log_impl(&dword_250836000, v123, OS_LOG_TYPE_DEFAULT, " [1.450.54] MR81: metadataReconstruction: Warning: RGBtoLMS_coef [%d][%d] changed, %d/%d", v191, 0x1Au);
                         }
                       }
                     }
 
-                    ++v119;
-                    v121 += 6;
+                    ++v120;
+                    v122 += 6;
                     var6 += 3;
                   }
 
-                  while (v119 != 3);
+                  while (v120 != 3);
                   *dataCopy->var4 = vmovl_s16(*(v172 + 8));
                   *&dataCopy->var4[4] = vmovl_s16(*(v172 + 16));
                   dataCopy->var4[8] = *(v172 + 24);
@@ -770,8 +770,8 @@ LABEL_196:
                   {
                     if (GetConfig())
                     {
-                      v127 = GetConfig();
-                      if (*HDRConfig::GetConfigEntryValue(v127, 0x60u, 0) == 1)
+                      v128 = GetConfig();
+                      if (*HDRConfig::GetConfigEntryValue(v128, 0x60u, 0) == 1)
                       {
                         dataCopy->var24.var0 = 1;
                         *&dataCopy->var24.var1 = *(v172 + 692);
@@ -780,7 +780,7 @@ LABEL_196:
                     }
                   }
 
-                  v128 = v166;
+                  v129 = v166;
                   if (selfCopy->mrCfg.mrCtrl.DmVer == 4)
                   {
                     selfCopy->mrCfg.mrCtrl.DmVer = 3;
@@ -797,15 +797,15 @@ LABEL_196:
                     *&p_trim8->TrimLevel = 0x1500000008;
                     *&p_trim8[1].TrimLevel = 0xC0000000ALL;
                     p_trim8[1].Trima[3][9] = -1;
-                    v129 = v184;
+                    v130 = v184;
                     while (1)
                     {
-                      v130 = *v129;
-                      selfCopy->mrCfg.sigEnv[1].Min = v88;
-                      selfCopy->mrCfg.sigEnv[1].Max = v130;
-                      v131 = hdrpMetadataReconstruction(&selfCopy->mrCfg, &selfCopy->mdsExt, 0, v168);
-                      v132 = v131;
-                      if (v131 < 0)
+                      v131 = *v130;
+                      selfCopy->mrCfg.sigEnv[1].Min = v89;
+                      selfCopy->mrCfg.sigEnv[1].Max = v131;
+                      v132 = hdrpMetadataReconstruction(&selfCopy->mrCfg, &selfCopy->mdsExt, 0, v168);
+                      v133 = v132;
+                      if (v132 < 0)
                       {
                         if (enableLogInstance)
                         {
@@ -824,7 +824,7 @@ LABEL_196:
                             *v191 = 134218240;
                             *&v191[4] = WORD1(v162);
                             *&v191[12] = 1024;
-                            *v192 = v132;
+                            *v192 = v133;
                             v163 = MEMORY[0x277D86220];
                             v164 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: ret = %d";
                             goto LABEL_222;
@@ -836,16 +836,16 @@ LABEL_196:
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                         {
                           *v191 = 67109120;
-                          *&v191[4] = v132;
-                          v159 = MEMORY[0x277D86220];
-                          v160 = " [1.450.54] MR81: metadataReconstruction: Error: ret = %d";
+                          *&v191[4] = v133;
+                          v160 = MEMORY[0x277D86220];
+                          v161 = " [1.450.54] MR81: metadataReconstruction: Error: ret = %d";
                           goto LABEL_195;
                         }
 
                         goto LABEL_196;
                       }
 
-                      if (!v131)
+                      if (!v132)
                       {
                         if (enableLogInstance)
                         {
@@ -876,17 +876,17 @@ LABEL_196:
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                         {
                           *v191 = 67109120;
-                          v159 = MEMORY[0x277D86220];
-                          v160 = " [1.450.54] MR81: metadataReconstruction: Warning: ret = %d [no change]";
+                          v160 = MEMORY[0x277D86220];
+                          v161 = " [1.450.54] MR81: metadataReconstruction: Warning: ret = %d [no change]";
                           goto LABEL_195;
                         }
 
                         goto LABEL_196;
                       }
 
-                      v133 = MrGetMdsExtFxpMr(&v176, v168);
-                      v134 = v133;
-                      if (v133 < 0)
+                      v134 = MrGetMdsExtFxpMr(&v176, v168);
+                      v135 = v134;
+                      if (v134 < 0)
                       {
                         if (enableLogInstance)
                         {
@@ -905,7 +905,7 @@ LABEL_196:
                             *v191 = 134218240;
                             *&v191[4] = WORD1(v162);
                             *&v191[12] = 1024;
-                            *v192 = v134;
+                            *v192 = v135;
                             v163 = MEMORY[0x277D86220];
                             v164 = " [1.450.54] #%04llx MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
                             goto LABEL_222;
@@ -919,23 +919,23 @@ LABEL_223:
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                         {
                           *v191 = 67109120;
-                          *&v191[4] = v134;
-                          v159 = MEMORY[0x277D86220];
-                          v160 = " [1.450.54] MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
+                          *&v191[4] = v135;
+                          v160 = MEMORY[0x277D86220];
+                          v161 = " [1.450.54] MR81: metadataReconstruction: Error: GetMdsExtFxpMr ret = %d";
                           goto LABEL_195;
                         }
 
                         goto LABEL_196;
                       }
 
-                      if (!v133)
+                      if (!v134)
                       {
                         break;
                       }
 
                       copyL2L8L10(v176, v190, v189, v188, &v179 + 1, &v179, &v178);
-                      ++v129;
-                      if (!--v128)
+                      ++v130;
+                      if (!--v129)
                       {
                         goto LABEL_125;
                       }
@@ -971,8 +971,8 @@ LABEL_222:
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       *v191 = 67109120;
-                      v159 = MEMORY[0x277D86220];
-                      v160 = " [1.450.54] MR81: metadataReconstruction: Warning: GetMdsExtFxpMr ret = %d [no change]";
+                      v160 = MEMORY[0x277D86220];
+                      v161 = " [1.450.54] MR81: metadataReconstruction: Warning: GetMdsExtFxpMr ret = %d [no change]";
                       goto LABEL_195;
                     }
 
@@ -980,67 +980,67 @@ LABEL_222:
                   }
 
 LABEL_125:
-                  v135 = v179;
-                  v136 = HIDWORD(v179);
-                  v137 = v178;
+                  v136 = v179;
+                  v137 = HIDWORD(v179);
+                  v138 = v178;
                   if (HIDWORD(v179))
                   {
                     if (SHIDWORD(v179) >= 1)
                     {
                       var18 = dataCopy->var18;
-                      v139 = v190 | 0xE;
+                      v140 = v190 | 0xE;
                       p_var7 = &dataCopy->var22[0].var7;
-                      v141 = HIDWORD(v179);
+                      v142 = HIDWORD(v179);
                       do
                       {
-                        *(p_var7 - 6) = *(v139 - 12);
-                        *(p_var7 - 2) = *(v139 - 4);
-                        *(p_var7 - 1) = *(v139 - 2);
+                        *(p_var7 - 6) = *(v140 - 12);
+                        *(p_var7 - 2) = *(v140 - 4);
+                        *(p_var7 - 1) = *(v140 - 2);
                         *(p_var7 - 7) = 1;
-                        v139 += 16;
+                        v140 += 16;
                         p_var7 += 8;
-                        --v141;
+                        --v142;
                       }
 
-                      while (v141);
-                      dataCopy->var18 = var18 + v136;
+                      while (v142);
+                      dataCopy->var18 = var18 + v137;
                     }
 
-                    dataCopy->var19 = v136;
+                    dataCopy->var19 = v137;
                   }
 
-                  if (v135)
+                  if (v136)
                   {
-                    if (v135 >= 1)
+                    if (v136 >= 1)
                     {
-                      v142 = 0;
-                      v143 = dataCopy->var18;
+                      v143 = 0;
+                      v144 = dataCopy->var18;
                       do
                       {
-                        v144 = dataCopy + v142;
-                        v144[330] = v189[v142 + 4];
-                        *&dataCopy->var27[v142 / 0x22].var3 = *&v189[v142 + 6];
-                        *(v144 + 85) = *&v189[v142 + 14];
-                        *(v144 + 164) = 10;
-                        v145 = *&v189[v142 + 18];
-                        if (v145 != 2048)
+                        v145 = dataCopy + v143;
+                        v145[330] = v189[v143 + 4];
+                        *&dataCopy->var27[v143 / 0x22].var3 = *&v189[v143 + 6];
+                        *(v145 + 85) = *&v189[v143 + 14];
+                        *(v145 + 164) = 10;
+                        v146 = *&v189[v143 + 18];
+                        if (v146 != 2048)
                         {
-                          *(v144 + 172) = v145;
-                          *(v144 + 164) = 12;
+                          *(v145 + 172) = v146;
+                          *(v145 + 164) = 12;
                         }
 
-                        *(v144 + 173) = 2048;
-                        *(v144 + 348) = 0x8080808080808080;
-                        *(v144 + 89) = -2139062144;
-                        *(v144 + 163) = 1;
-                        v142 += 34;
+                        *(v145 + 173) = 2048;
+                        *(v145 + 348) = 0x8080808080808080;
+                        *(v145 + 89) = -2139062144;
+                        *(v145 + 163) = 1;
+                        v143 += 34;
                       }
 
-                      while (34 * v135 != v142);
-                      dataCopy->var18 = v143 + v135;
+                      while (34 * v136 != v143);
+                      dataCopy->var18 = v144 + v136;
                     }
 
-                    dataCopy->var20 = v135;
+                    dataCopy->var20 = v136;
                     *&dataCopy->var32.var1 = 512;
                     if (!dataCopy->var32.var0)
                     {
@@ -1049,60 +1049,60 @@ LABEL_125:
                     }
                   }
 
-                  if (v137 >= 1)
+                  if (v138 >= 1)
                   {
-                    v146 = 0;
-                    v147 = dataCopy->var18;
+                    v147 = 0;
+                    v148 = dataCopy->var18;
                     do
                     {
-                      v148 = dataCopy + v146;
-                      v148[522] = v188[v146 + 4];
-                      *(v148 + 131) = *&v188[v146 + 6];
-                      v149 = v188[v146 + 10];
-                      v148[528] = v149;
-                      *&dataCopy->var29[v146 / 0x1C].var6 = *&v188[v146 + 12];
-                      if (v149 <= 0x12)
+                      v149 = dataCopy + v147;
+                      v149[522] = v188[v147 + 4];
+                      *(v149 + 131) = *&v188[v147 + 6];
+                      v150 = v188[v147 + 10];
+                      v149[528] = v150;
+                      *&dataCopy->var29[v147 / 0x1C].var6 = *&v188[v147 + 12];
+                      if (v150 <= 0x12)
                       {
-                        v150 = 5;
+                        v151 = 5;
                       }
 
                       else
                       {
-                        v150 = 21;
+                        v151 = 21;
                       }
 
-                      *(v148 + 260) = v150;
-                      *(v148 + 259) = 1;
-                      v146 += 28;
+                      *(v149 + 260) = v151;
+                      *(v149 + 259) = 1;
+                      v147 += 28;
                     }
 
-                    while (28 * v137 != v146);
-                    dataCopy->var18 = v147 + v137;
+                    while (28 * v138 != v147);
+                    dataCopy->var18 = v148 + v138;
                   }
 
-                  if (v135 >= 1)
+                  if (v136 >= 1)
                   {
-                    v151 = 0;
+                    v152 = 0;
                     p_var2 = &dataCopy->var27[0].var2;
-                    v153 = &dataCopy->var29[0].var2;
+                    v154 = &dataCopy->var29[0].var2;
                     do
                     {
-                      *v153 = v151 - 76;
-                      v153 += 28;
-                      *p_var2 = v151 - 76;
+                      *v154 = v152 - 76;
+                      v154 += 28;
+                      *p_var2 = v152 - 76;
                       p_var2 += 34;
-                      ++v151;
+                      ++v152;
                     }
 
-                    while (v135 != v151);
+                    while (v136 != v152);
                   }
 
                   updateComposerData(reconstructionCopy);
                   v58 = GetConfig();
                   if (v58)
                   {
-                    v154 = GetConfig();
-                    if (*HDRConfig::GetConfigEntryValue(v154, 0x5Du, 0) == 1)
+                    v155 = GetConfig();
+                    if (*HDRConfig::GetConfigEntryValue(v155, 0x5Du, 0) == 1)
                     {
                       MrCacheUpdateTgt(dataCopy, selfCopy->mrCache.YCCtoRGB_coef);
                     }
@@ -1110,7 +1110,7 @@ LABEL_125:
                     goto LABEL_20;
                   }
 
-                  goto LABEL_197;
+                  return v58;
                 }
               }
 
@@ -1118,22 +1118,22 @@ LABEL_125:
               {
                 if (logInstanceID)
                 {
-                  v156 = logInstanceID;
+                  v157 = logInstanceID;
                 }
 
                 else
                 {
-                  v156 = prevLogInstanceID;
+                  v157 = prevLogInstanceID;
                 }
 
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   *v191 = 134218240;
-                  *&v191[4] = WORD1(v156);
+                  *&v191[4] = WORD1(v157);
                   *&v191[12] = 1024;
                   *v192 = 0;
-                  v157 = MEMORY[0x277D86220];
-                  v158 = " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: GetMdsExtFxpMr ret = %d [no change]";
+                  v158 = MEMORY[0x277D86220];
+                  v159 = " [1.450.54] #%04llx MR81: metadataReconstruction: Warning: GetMdsExtFxpMr ret = %d [no change]";
                   goto LABEL_185;
                 }
 
@@ -1146,12 +1146,12 @@ LABEL_125:
               }
 
               *v191 = 67109120;
-              v159 = MEMORY[0x277D86220];
-              v160 = " [1.450.54] MR81: metadataReconstruction: Warning: GetMdsExtFxpMr ret = %d [no change]";
+              v160 = MEMORY[0x277D86220];
+              v161 = " [1.450.54] MR81: metadataReconstruction: Warning: GetMdsExtFxpMr ret = %d [no change]";
             }
 
 LABEL_195:
-            _os_log_impl(&dword_250836000, v159, OS_LOG_TYPE_DEFAULT, v160, v191, 8u);
+            _os_log_impl(&dword_250836000, v160, OS_LOG_TYPE_DEFAULT, v161, v191, 8u);
             goto LABEL_196;
           }
 
@@ -1161,27 +1161,27 @@ LABEL_195:
             nitsCopy = nits;
           }
 
-          v86 = pow(nitsCopy / 10000.0, 0.159301758);
-          v87 = pow((v86 * 18.8515625 + 0.8359375) / (v86 * 18.6875 + 1.0), 78.84375);
-          if (fabs(v87 + -0.508078422) > 0.02 && fabs(v87 + -0.589110431) > 0.02 && fabs(v87 + -0.670599738) > 0.02)
+          v87 = pow(nitsCopy / 10000.0, 0.159301758);
+          v88 = pow((v87 * 18.8515625 + 0.8359375) / (v87 * 18.6875 + 1.0), 78.84375);
+          if (fabs(v88 + -0.508078422) > 0.02 && fabs(v88 + -0.589110431) > 0.02 && fabs(v88 + -0.670599738) > 0.02)
           {
             *&v185 = nits;
-            v84 = 4;
+            v85 = 4;
             goto LABEL_64;
           }
         }
 
-        v84 = 3;
+        v85 = 3;
         goto LABEL_64;
       }
     }
 
     else
     {
-      v79 = 4;
+      v80 = 4;
     }
 
-    v80 = 8;
+    v81 = 8;
     goto LABEL_50;
   }
 
@@ -1224,8 +1224,6 @@ LABEL_195:
 
 LABEL_20:
   LODWORD(v58) = 0;
-LABEL_197:
-  v161 = *MEMORY[0x277D85DE8];
   return v58;
 }
 

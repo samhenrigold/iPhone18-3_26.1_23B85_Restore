@@ -1,4 +1,5 @@
 @interface IMDaemonCloudSyncRequestHandler
+- (id)rampStateDictionaryFromPromoted:(BOOL)promoted featureHadServerError:(BOOL)error;
 - (void)broadcastCloudKitState;
 - (void)broadcastCloudKitStateAfterClearingErrors;
 - (void)broadcastCloudKitStateAfterFetchingAccountStatus;
@@ -23,6 +24,7 @@
 - (void)fetchLatestSalt;
 - (void)fetchSyncStateStatistics;
 - (void)initiatePeriodicSync;
+- (void)initiateSync:(id)sync forceRunNow:(BOOL)now reply:(id)reply;
 - (void)loadDeletedMessagesWithLimit:(int64_t)limit;
 - (void)loadDirtyMessagesWithLimit:(int64_t)limit;
 - (void)markAllChatsAsDirty;
@@ -33,6 +35,8 @@
 - (void)purgeAttachments:(int64_t)attachments;
 - (void)removePathFromiCloudBackups:(id)backups;
 - (void)reportMetricToCK:(id)k withDict:(id)dict;
+- (void)setCloudKitEnabled:(BOOL)enabled;
+- (void)setiCloudBackupsDisabled:(BOOL)disabled;
 - (void)simulateCloudKitSyncWithSyncState:(id)state;
 - (void)startUserInitiatedSync;
 - (void)syncAttachments;
@@ -353,10 +357,72 @@
   [v3 deleteExitRecordWithCompletion:&stru_100081CB8];
 }
 
+- (void)setCloudKitEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[IMDCKUtilities sharedInstance];
+  [v4 setCloudKitEnabled:enabledCopy];
+}
+
 - (void)tryToDisableAllDevices
 {
   v2 = +[IMDCKUtilities sharedInstance];
   [v2 disableAllDevicesWithCompletion:&stru_100081CF8];
+}
+
+- (void)initiateSync:(id)sync forceRunNow:(BOOL)now reply:(id)reply
+{
+  nowCopy = now;
+  syncCopy = sync;
+  replyCopy = reply;
+  v9 = +[IMFeatureFlags sharedFeatureFlags];
+  isMessagesIniCloudVersion2 = [v9 isMessagesIniCloudVersion2];
+
+  v11 = IMOSLoggingEnabled();
+  if (isMessagesIniCloudVersion2)
+  {
+    if (v11)
+    {
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        v13 = @"NO";
+        if (nowCopy)
+        {
+          v13 = @"YES";
+        }
+
+        v16 = 138412546;
+        v17 = syncCopy;
+        v18 = 2112;
+        v19 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Trying to initiate sync for %@ forceRunNow %@", &v16, 0x16u);
+      }
+    }
+
+    [IMDMessagesSyncCoordinator initiateSync:syncCopy forceRunNow:nowCopy reply:replyCopy];
+  }
+
+  else
+  {
+    if (v11)
+    {
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "beginning initial sync", &v16, 2u);
+      }
+    }
+
+    v15 = +[IMDCKSyncController sharedInstance];
+    [v15 beginInitialSyncWithActivity:0];
+
+    if (replyCopy)
+    {
+      replyCopy[2](replyCopy, 1, &off_100083C00);
+    }
+  }
 }
 
 - (void)cancelSync:(id)sync
@@ -704,6 +770,34 @@ LABEL_13:
   [v7 removePathFromiCloudBackup:backupsCopy];
 }
 
+- (void)setiCloudBackupsDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  if (IMOSLoggingEnabled())
+  {
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = NSStringFromSelector(a2);
+      v7 = v6;
+      v8 = @"NO";
+      if (disabledCopy)
+      {
+        v8 = @"YES";
+      }
+
+      v10 = 138412546;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@ (%@)", &v10, 0x16u);
+    }
+  }
+
+  v9 = +[IMDCKBackupController sharedInstance];
+  [v9 setICloudBackupsDisabled:disabledCopy];
+}
+
 - (void)writeCloudKitSyncCounts:(id)counts
 {
   countsCopy = counts;
@@ -894,6 +988,17 @@ LABEL_13:
   v4[3] = &unk_100081E08;
   v4[4] = self;
   [v3 fetchLatestRampStateFromCK:v4];
+}
+
+- (id)rampStateDictionaryFromPromoted:(BOOL)promoted featureHadServerError:(BOOL)error
+{
+  errorCopy = error;
+  v5 = [NSNumber numberWithBool:promoted];
+  v6 = IMCloudKitRampStateFeaturePromoted;
+  v7 = [NSNumber numberWithBool:errorCopy];
+  v8 = [NSDictionary dictionaryWithObjectsAndKeys:v5, v6, v7, IMCloudKitRampStateFetchHadServerError, 0];
+
+  return v8;
 }
 
 - (void)syncDeletesToCloudKit

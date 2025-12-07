@@ -1,8 +1,8 @@
 int removefile(const char *path, removefile_state_t state, removefile_flags_t flags)
 {
-  v30[2] = *MEMORY[0x29EDCA608];
-  v30[0] = 0;
-  v30[1] = 0;
+  v29[2] = *MEMORY[0x29EDCA608];
+  v29[0] = 0;
+  v29[1] = 0;
   if ((flags & 0x100) != 0)
   {
     v3 = 0x2000;
@@ -19,8 +19,7 @@ int removefile(const char *path, removefile_state_t state, removefile_flags_t fl
     v13 = 22;
 LABEL_19:
     *v12 = v13;
-    v14 = -1;
-    goto LABEL_28;
+    return -1;
   }
 
   if (strnlen(path, v3) >= v3)
@@ -58,17 +57,17 @@ LABEL_9:
   v10 = malloc_type_malloc(v3, 0x67D4BF9AuLL);
   if (v10)
   {
-    v28 = 0x100000000;
-    v29 = 0;
+    v27 = 0x100000000;
+    v28 = 0;
+    v24 = 0;
     v25 = 0;
-    v26 = 0;
-    v27 = 0x800000005;
-    if (getattrlist(path, &v27, &v25, 0xCuLL, 1u))
+    v26 = 0x800000005;
+    if (getattrlist(path, &v26, &v24, 0xCuLL, 1u))
     {
       if (!*__error())
       {
 LABEL_15:
-        v30[0] = v10;
+        v29[0] = v10;
         if ((*(v7 + 113) & 8) != 0)
         {
           v11 = __removefile_tree_walker_slim(v10, v7);
@@ -76,7 +75,7 @@ LABEL_15:
 
         else
         {
-          v11 = __removefile_tree_walker(v30, v7);
+          v11 = __removefile_tree_walker(v29, v7);
         }
 
         v14 = v11;
@@ -85,41 +84,41 @@ LABEL_15:
       }
     }
 
-    else if (HIDWORD(v25) == 2 && v26 <= 1)
+    else if (HIDWORD(v24) == 2 && v25 <= 1)
     {
-      v19 = malloc_type_malloc(v3 | 0xC, 0x1CC121A2uLL);
-      if (v19)
+      v18 = malloc_type_malloc(v3 | 0xC, 0x1CC121A2uLL);
+      if (v18)
       {
-        v20 = v19;
+        v19 = v18;
+        v26 = 0;
         v27 = 0;
         v28 = 0;
-        v29 = 0;
-        bzero(v19, v3 | 0xC);
-        LOWORD(v27) = 5;
-        HIDWORD(v27) = 0x8000000;
-        if (getattrlist(path, &v27, v20, v3 | 0xC, 1u))
+        bzero(v18, v3 | 0xC);
+        LOWORD(v26) = 5;
+        HIDWORD(v26) = 0x8000000;
+        if (getattrlist(path, &v26, v19, v3 | 0xC, 1u))
         {
-          v21 = *__error();
+          v20 = *__error();
         }
 
         else
         {
-          v22 = &v20[*v20];
-          v23 = &v20[*(v20 + 1) + 4];
-          v21 = 55;
-          if (v23 <= v22)
+          v21 = &v19[*v19];
+          v22 = &v19[*(v19 + 1) + 4];
+          v20 = 55;
+          if (v22 <= v21)
           {
-            v24 = *(v20 + 2);
-            if (&v23[v24] <= v22 && v3 >= v24 && &v23[v24] <= &v20[v3 | 0xC])
+            v23 = *(v19 + 2);
+            if (&v22[v23] <= v21 && v3 >= v23 && &v22[v23] <= &v19[v3 | 0xC])
             {
-              memmove(v10, v23, v24);
-              v21 = 0;
+              memmove(v10, v22, v23);
+              v20 = 0;
             }
           }
         }
 
-        free(v20);
-        if (!v21)
+        free(v19);
+        if (!v20)
         {
           goto LABEL_15;
         }
@@ -146,146 +145,144 @@ LABEL_23:
   }
 
   free(v10);
-LABEL_28:
-  v17 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t __removefile_tree_walker_slim(const char *a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x29EDCA608];
-  v37 = 0;
+  v38 = *MEMORY[0x29EDCA608];
+  v36 = 0;
   if (!*a2 && !*(a2 + 40) && (*(a2 + 112) & 0x17C) == 0)
   {
-    v9 = malloc_type_calloc(8uLL, 0x98uLL, 0x1020040087E41C9uLL);
-    if (!v9)
+    v8 = malloc_type_calloc(8uLL, 0x98uLL, 0x1020040087E41C9uLL);
+    if (!v8)
     {
       v4 = 12;
       goto LABEL_7;
     }
 
-    v10 = v9;
-    memset(&v35, 0, sizeof(v35));
+    v9 = v8;
+    memset(&v34, 0, sizeof(v34));
     snprintf(__str, 0x400uLL, "%s", a1);
-    v11 = opendir(__str);
-    *v10 = v11;
-    v36 = v11;
-    if (!v11)
+    v10 = opendir(__str);
+    *v9 = v10;
+    v35 = v10;
+    if (!v10)
     {
       *(a2 + 32) = *__error();
       goto LABEL_16;
     }
 
-    v12 = v11;
-    v13 = dirfd(v11);
-    if (fstat(v13, (v10 + 1)))
+    v11 = v10;
+    v12 = dirfd(v10);
+    if (fstat(v12, (v9 + 1)))
     {
       *(a2 + 32) = *__error();
-      closedir(v12);
+      closedir(v11);
 LABEL_16:
-      free(v10);
-      goto LABEL_8;
+      free(v9);
+      return 0xFFFFFFFFLL;
     }
 
     v5 = 0;
-    if (!*v10)
+    if (!*v9)
     {
-      v14 = 8;
+      v13 = 8;
       goto LABEL_78;
     }
 
-    v14 = 8;
+    v13 = 8;
     while (2)
     {
-      v15 = v36;
+      v14 = v35;
       while (1)
       {
         if (*(a2 + 116))
         {
-          v31 = 89;
+          v30 = 89;
           goto LABEL_75;
         }
 
         *__error() = 0;
-        v16 = readdir(v15);
-        if (!v16)
+        v15 = readdir(v14);
+        if (!v15)
         {
           if (!*__error())
           {
-            v24 = v37;
-            if (((*(a2 + 112) & 2) == 0 || v37) && rmdir(__str) && check_error_cb(__str, a2, v24))
+            v23 = v36;
+            if (((*(a2 + 112) & 2) == 0 || v36) && rmdir(__str) && check_error_cb(__str, a2, v23))
             {
               goto LABEL_76;
             }
 
-            if (!move_to_parent_dir(__str, &v37, v10, &v36))
+            if (!move_to_parent_dir(__str, &v36, v9, &v35))
             {
               goto LABEL_51;
             }
           }
 
-          v31 = *__error();
+          v30 = *__error();
           goto LABEL_75;
         }
 
-        v17 = v16;
-        if (v16->d_name[0] != 46 || v16->d_name[1] && (v16->d_name[1] != 46 || v16->d_name[2]))
+        v16 = v15;
+        if (v15->d_name[0] != 46 || v15->d_name[1] && (v15->d_name[1] != 46 || v15->d_name[2]))
         {
           break;
         }
 
-        if (!*v10)
+        if (!*v9)
         {
           goto LABEL_77;
         }
       }
 
-      if (snprintf(__str, 0x400uLL, "%s/%s", __str, v16->d_name) > 1023)
+      if (snprintf(__str, 0x400uLL, "%s/%s", __str, v15->d_name) > 1023)
       {
-        v31 = 63;
+        v30 = 63;
         goto LABEL_75;
       }
 
-      for (i = v17->d_type; !i; v17->d_type = i)
+      for (i = v16->d_type; !i; v16->d_type = i)
       {
-        v5 = lstat(__str, &v35);
+        v5 = lstat(__str, &v34);
         if (v5)
         {
           goto LABEL_56;
         }
 
-        v19 = v35.st_mode & 0xF000;
-        if (v19 == 40960)
+        v18 = v34.st_mode & 0xF000;
+        if (v18 == 40960)
         {
-          v20 = 10;
+          v19 = 10;
         }
 
         else
         {
-          v20 = 8;
+          v19 = 8;
         }
 
-        if (v19 == 0x8000)
+        if (v18 == 0x8000)
         {
           i = 4;
         }
 
         else
         {
-          i = v20;
+          i = v19;
         }
       }
 
       if (i != 4)
       {
-        if (!unlink(__str) || !check_error_cb(__str, a2, v37))
+        if (!unlink(__str) || !check_error_cb(__str, a2, v36))
         {
-          v23 = strrchr(__str, 47);
+          v22 = strrchr(__str, 47);
           v5 = 0;
-          if (v23)
+          if (v22)
           {
 LABEL_55:
-            *v23 = 0;
+            *v22 = 0;
           }
 
           goto LABEL_56;
@@ -294,19 +291,19 @@ LABEL_55:
         goto LABEL_76;
       }
 
-      v21 = *(a2 + 112);
-      if ((v21 & 0x80) != 0)
+      v20 = *(a2 + 112);
+      if ((v20 & 0x80) != 0)
       {
         goto LABEL_59;
       }
 
-      v22 = stat(__str, &v35);
-      if (!v22)
+      v21 = stat(__str, &v34);
+      if (!v21)
       {
-        if (v35.st_dev != LODWORD(v10[19 * v37 + 1]))
+        if (v34.st_dev != LODWORD(v9[19 * v36 + 1]))
         {
-          v23 = strrchr(__str, 47);
-          if (v23)
+          v22 = strrchr(__str, 47);
+          if (v22)
           {
             v5 = 0;
             goto LABEL_55;
@@ -318,32 +315,32 @@ LABEL_51:
         }
 
         v5 = 0;
-        v21 = *(a2 + 112);
+        v20 = *(a2 + 112);
 LABEL_59:
-        if ((v21 & 0x200) != 0)
+        if ((v20 & 0x200) != 0)
         {
-          v34 = 0;
-          fsctl(__str, 0xC0084A44uLL, &v34, 0);
+          v33 = 0;
+          fsctl(__str, 0xC0084A44uLL, &v33, 0);
         }
 
-        v25 = v37 + 1;
-        v37 = v25;
-        if (v25 >= v14)
+        v24 = v36 + 1;
+        v36 = v24;
+        if (v24 >= v13)
         {
-          v14 *= 2;
-          v26 = malloc_type_realloc(v10, 152 * v14, 0x1020040087E41C9uLL);
-          v10 = v26;
-          if (v26)
+          v13 *= 2;
+          v25 = malloc_type_realloc(v9, 152 * v13, 0x1020040087E41C9uLL);
+          v9 = v25;
+          if (v25)
           {
-            v27 = v37;
-            bzero(&v26[19 * v37], (152 * v14) >> 1);
-            v25 = v27;
+            v26 = v36;
+            bzero(&v25[19 * v36], (152 * v13) >> 1);
+            v24 = v26;
             goto LABEL_64;
           }
 
-          v31 = 12;
+          v30 = 12;
 LABEL_75:
-          *(a2 + 32) = v31;
+          *(a2 + 32) = v30;
 LABEL_76:
           v5 = 0xFFFFFFFFLL;
           goto LABEL_77;
@@ -352,22 +349,22 @@ LABEL_76:
 LABEL_64:
         if (!unlinkat(-2, __str, 256))
         {
-          v30 = strrchr(__str, 47);
-          if (v30)
+          v29 = strrchr(__str, 47);
+          if (v29)
           {
-            *v30 = 0;
+            *v29 = 0;
           }
 
-          v37 = v25 - 1;
+          v36 = v24 - 1;
           goto LABEL_56;
         }
 
-        v28 = opendir(__str);
-        v10[19 * v25] = v28;
-        v36 = v28;
-        if (!v28 || (v29 = dirfd(v28), fstat(v29, &v10[19 * v25 + 1])))
+        v27 = opendir(__str);
+        v9[19 * v24] = v27;
+        v35 = v27;
+        if (!v27 || (v28 = dirfd(v27), fstat(v28, &v9[19 * v24 + 1])))
         {
-          v5 = move_to_parent_dir(__str, &v37, v10, &v36);
+          v5 = move_to_parent_dir(__str, &v36, v9, &v35);
         }
 
         if (v5)
@@ -381,42 +378,42 @@ LABEL_64:
         else
         {
 LABEL_56:
-          if (*v10)
+          if (*v9)
           {
             continue;
           }
         }
 
 LABEL_77:
-        if (v14 < 1)
+        if (v13 < 1)
         {
 LABEL_82:
-          free(v10);
-          goto LABEL_9;
+          free(v9);
+          return v5;
         }
 
 LABEL_78:
-        v32 = v14;
-        v33 = v10;
+        v31 = v13;
+        v32 = v9;
         do
         {
-          if (*v33)
+          if (*v32)
           {
-            closedir(*v33);
+            closedir(*v32);
           }
 
-          v33 += 19;
-          --v32;
+          v32 += 19;
+          --v31;
         }
 
-        while (v32);
+        while (v31);
         goto LABEL_82;
       }
 
       break;
     }
 
-    v5 = v22;
+    v5 = v21;
 LABEL_86:
     *(a2 + 32) = *__error();
     goto LABEL_77;
@@ -425,11 +422,7 @@ LABEL_86:
   v4 = 22;
 LABEL_7:
   *(a2 + 32) = v4;
-LABEL_8:
-  v5 = 0xFFFFFFFFLL;
-LABEL_9:
-  v6 = *MEMORY[0x29EDCA608];
-  return v5;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t __removefile_tree_walker(char *const *a1, uint64_t a2)
@@ -908,11 +901,11 @@ uint64_t __removefile_randomize_buffer(_BYTE *a1, uint64_t a2, uint64_t a3)
 
 void __removefile_rename_unlink(const std::__fs::filesystem::path *a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x29EDCA608];
-  memset(&v31.st_birthtimespec, 0, 64);
+  v31 = *MEMORY[0x29EDCA608];
+  memset(&v30.st_birthtimespec, 0, 64);
   v4 = strlen(a1);
   v12 = MEMORY[0x2A1C7C4A8](v4, v5, v6, v7, v8, v9, v10, v11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  v13 = (&v31 - ((v12 + 30) & 0xFFFFFFFFFFFFFFF0));
+  v13 = (&v30 - ((v12 + 30) & 0xFFFFFFFFFFFFFFF0));
   strlcpy(v13, a1, v12 + 15);
   v14 = strrchr(v13, 47);
   v15 = v13;
@@ -950,207 +943,172 @@ LABEL_7:
     {
       v15->__pn_.__r_.__value_.__s.__data_[v16] = 0;
       v16 = 0;
-      if (lstat(v13, &v31))
+      if (lstat(v13, &v30))
       {
         break;
       }
     }
   }
 
-  v20 = lstat(a1, &v31);
-  if (v20 == -1)
+  v20 = lstat(a1, &v30);
+  if (v20 != -1)
   {
-    goto LABEL_34;
-  }
+    if ((v30.st_mode & 0xF000) != 0x4000)
+    {
+      goto LABEL_28;
+    }
 
-  if ((v31.st_mode & 0xF000) != 0x4000)
-  {
-    goto LABEL_28;
-  }
+    if ((v30.st_flags & 0x40000000) != 0)
+    {
+      v27 = a1;
+      v28 = 256;
+      goto LABEL_26;
+    }
 
-  if ((v31.st_flags & 0x40000000) != 0)
-  {
-    v27 = a1;
-    v28 = 256;
-    goto LABEL_26;
-  }
-
-  v22 = opendir(a1);
-  if (!v22)
-  {
+    v22 = opendir(a1);
+    if (!v22)
+    {
 LABEL_24:
-    v25 = __error();
-    v26 = 66;
-LABEL_33:
-    *v25 = v26;
-    goto LABEL_34;
-  }
-
-  v23 = v22;
-  while (1)
-  {
-    v24 = readdir(v23);
-    if (!v24)
-    {
-      break;
+      v25 = __error();
+      v26 = 66;
+      goto LABEL_33;
     }
 
-    if (v24->d_namlen > 2u || v24->d_name[0] != 46 || v24->d_name[1] && (v24->d_name[1] != 46 || v24->d_name[2]))
+    v23 = v22;
+    while (1)
     {
-      closedir(v23);
-      goto LABEL_24;
-    }
-  }
+      v24 = readdir(v23);
+      if (!v24)
+      {
+        break;
+      }
 
-  closedir(v23);
+      if (v24->d_namlen > 2u || v24->d_name[0] != 46 || v24->d_name[1] && (v24->d_name[1] != 46 || v24->d_name[2]))
+      {
+        closedir(v23);
+        goto LABEL_24;
+      }
+    }
+
+    closedir(v23);
 LABEL_28:
-  rename(a1, v13, v21);
-  if (v29 == -1)
-  {
-    goto LABEL_34;
-  }
+    rename(a1, v13, v21);
+    if (v29 != -1)
+    {
+      if (lstat(v13, &v30) != -1)
+      {
+        if ((v30.st_mode & 0xF000) == 0x4000)
+        {
+          rmdir(v13);
+          return;
+        }
 
-  if (lstat(v13, &v31) == -1)
-  {
-    v25 = __error();
-    v26 = 2;
-    goto LABEL_33;
-  }
+        if ((*(a2 + 113) & 4) == 0)
+        {
+          unlink(v13);
+          return;
+        }
 
-  if ((v31.st_mode & 0xF000) == 0x4000)
-  {
-    rmdir(v13);
-    goto LABEL_34;
-  }
-
-  if ((*(a2 + 113) & 4) == 0)
-  {
-    unlink(v13);
-    goto LABEL_34;
-  }
-
-  v27 = v13;
-  v28 = 4096;
+        v27 = v13;
+        v28 = 4096;
 LABEL_26:
-  unlinkat(-2, v27, v28);
-LABEL_34:
-  v30 = *MEMORY[0x29EDCA608];
+        unlinkat(-2, v27, v28);
+        return;
+      }
+
+      v25 = __error();
+      v26 = 2;
+LABEL_33:
+      *v25 = v26;
+    }
+  }
 }
 
 void __removefile_sunlink(const std::__fs::filesystem::path *a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
-  memset(&v31, 0, sizeof(v31));
-  memset(&v32, 0, 512);
-  v28 = 0;
-  v29 = 0;
-  v30 = 0;
-  if (lstat(a1, &v31) != -1)
+  v25 = *MEMORY[0x29EDCA608];
+  memset(&v23, 0, sizeof(v23));
+  memset(&v24, 0, 512);
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  if (lstat(a1, &v23) != -1)
   {
-    if ((v31.st_mode & 0xF000) != 0x8000 || v31.st_nlink >= 2u)
+    if ((v23.st_mode & 0xF000) != 0x8000 || v23.st_nlink >= 2u)
     {
       goto LABEL_4;
     }
 
-    v5 = open_NOCANCEL();
-    *(a2 + 80) = v5;
-    if (v5 == -1)
+    v4 = open_NOCANCEL();
+    *(a2 + 80) = v4;
+    if (v4 != -1)
     {
-      goto LABEL_5;
-    }
-
-    if (fcntl_NOCANCEL() != -1)
-    {
-      if (fstatfs(*(a2 + 80), &v32) == -1 && *__error() != 78)
-      {
-        goto LABEL_25;
-      }
-
-      v6 = init_write_buffer(&v31, a2);
-      v7 = *(a2 + 80);
-      if (v6 == -1)
-      {
-        goto LABEL_26;
-      }
-
-      fcntl_NOCANCEL();
-      overwrite_file(a2);
-      v8 = *(a2 + 80);
-      close_NOCANCEL();
-      *(a2 + 80) = -1;
-      v9 = strlen(a1);
-      v17 = MEMORY[0x2A1C7C4A8](v9, v10, v11, v12, v13, v14, v15, v16, v27, v28, v29, v30, *&v31.st_dev, v31.st_ino, *&v31.st_uid, *&v31.st_rdev, v31.st_atimespec.tv_sec, v31.st_atimespec.tv_nsec);
-      v18 = &v27 - ((v17 + 33) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v18, v17 + 18);
-      if (snprintf(v18, 0x400uLL, "%s%s", a1, "/..namedfork/rsrc") >= 1024)
-      {
-        v19 = __error();
-        v20 = 63;
-        goto LABEL_24;
-      }
-
-      if (lstat(v18, &v31))
-      {
-        v21 = *__error();
-        if (v21 != 2 && v21 != 20)
-        {
-          goto LABEL_5;
-        }
-
-LABEL_22:
-        if (!*(a2 + 116))
-        {
-LABEL_4:
-          __removefile_rename_unlink(a1, a2);
-          goto LABEL_5;
-        }
-
-        v19 = __error();
-        v20 = 89;
-LABEL_24:
-        *v19 = v20;
-        goto LABEL_5;
-      }
-
-      if (v31.st_size < 1)
-      {
-        goto LABEL_22;
-      }
-
-      v22 = open_NOCANCEL();
-      *(a2 + 80) = v22;
-      if (v22 == -1)
-      {
-        goto LABEL_5;
-      }
-
-      if (fcntl_NOCANCEL() == -1)
-      {
-LABEL_25:
-        v26 = *(a2 + 80);
-        goto LABEL_26;
-      }
-
-      v23 = init_write_buffer(&v31, a2);
-      v24 = *(a2 + 80);
-      if (v23 != -1)
+      if (fcntl_NOCANCEL() != -1 && (fstatfs(*(a2 + 80), &v24) != -1 || *__error() == 78) && init_write_buffer(&v23, a2) != -1)
       {
         fcntl_NOCANCEL();
         overwrite_file(a2);
-        v25 = *(a2 + 80);
         close_NOCANCEL();
         *(a2 + 80) = -1;
-        goto LABEL_22;
+        v5 = strlen(a1);
+        v13 = MEMORY[0x2A1C7C4A8](v5, v6, v7, v8, v9, v10, v11, v12, v19, v20, v21, v22, *&v23.st_dev, v23.st_ino, *&v23.st_uid, *&v23.st_rdev, v23.st_atimespec.tv_sec, v23.st_atimespec.tv_nsec);
+        v14 = &v19 - ((v13 + 33) & 0xFFFFFFFFFFFFFFF0);
+        bzero(v14, v13 + 18);
+        if (snprintf(v14, 0x400uLL, "%s%s", a1, "/..namedfork/rsrc") >= 1024)
+        {
+          v15 = __error();
+          v16 = 63;
+          goto LABEL_24;
+        }
+
+        if (lstat(v14, &v23))
+        {
+          v17 = *__error();
+          if (v17 != 2 && v17 != 20)
+          {
+            return;
+          }
+
+LABEL_22:
+          if (!*(a2 + 116))
+          {
+LABEL_4:
+            __removefile_rename_unlink(a1, a2);
+            return;
+          }
+
+          v15 = __error();
+          v16 = 89;
+LABEL_24:
+          *v15 = v16;
+          return;
+        }
+
+        if (v23.st_size < 1)
+        {
+          goto LABEL_22;
+        }
+
+        v18 = open_NOCANCEL();
+        *(a2 + 80) = v18;
+        if (v18 == -1)
+        {
+          return;
+        }
+
+        if (fcntl_NOCANCEL() != -1 && init_write_buffer(&v23, a2) != -1)
+        {
+          fcntl_NOCANCEL();
+          overwrite_file(a2);
+          close_NOCANCEL();
+          *(a2 + 80) = -1;
+          goto LABEL_22;
+        }
       }
+
+      close_NOCANCEL();
+      *(a2 + 80) = -1;
     }
-
-LABEL_26:
-    close_NOCANCEL();
-    *(a2 + 80) = -1;
   }
-
-LABEL_5:
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t init_write_buffer(uint64_t a1, uint64_t a2)
@@ -1311,12 +1269,12 @@ LABEL_18:
 
 uint64_t overwrite_bytes(unsigned int a1, unsigned int a2, unsigned int a3, WINDOW *a4)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v4 = *(a4 + 12);
   v5 = *(a4 + 27);
   v6 = 12 * (v5 / 0xC);
   v7 = vorr_s8(vorr_s8(vshl_u32(vdup_n_s32(a1), 0x800000018), vshl_u32(vdup_n_s32(a2), 0x1800000010)), vorr_s8(vshl_u32(vdup_n_s32(a3), 0x1000000008), __PAIR64__(a2, a1)));
-  v13[0] = v7.i32[0];
+  v12[0] = v7.i32[0];
   if (v6)
   {
     v8 = 0;
@@ -1342,14 +1300,12 @@ uint64_t overwrite_bytes(unsigned int a1, unsigned int a2, unsigned int a3, WIND
     v10 = v8;
     do
     {
-      *(*(a4 + 12) + v10) = *(v13 + v10 % 3);
+      *(*(a4 + 12) + v10) = *(v12 + v10 % 3);
       ++v10;
     }
 
     while (v10 < *(a4 + 27));
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return overwrite(2, a4);
 }
@@ -1359,62 +1315,43 @@ int overwrite(const WINDOW *a1, WINDOW *a2)
   if (!*(a2 + 29))
   {
     v3 = a1;
-    v4 = *(a2 + 12);
     lseek(*(a2 + 20), 0, 0);
-    v5 = 0;
+    v4 = 0;
     while (1)
     {
-      v6 = *(a2 + 11);
-      if (v5 >= v6 - *(a2 + 26))
+      v5 = *(a2 + 11);
+      if (v4 >= v5 - *(a2 + 26))
       {
         break;
       }
 
-      if (v3 == 2)
-      {
-        v8 = v5 % 3 + *(a2 + 12);
-      }
-
-      else if (v3 == 1)
+      if (v3 == 1)
       {
         __removefile_randomize_buffer(*(a2 + 12), *(a2 + 26), a2);
-        v7 = *(a2 + 26);
       }
 
-      v9 = *(a2 + 20);
       a1 = write_NOCANCEL();
-      v5 += a1 & ~(a1 >> 63);
+      v4 += a1 & ~(a1 >> 63);
       if (*(a2 + 29))
       {
         return a1;
       }
     }
 
-    if (v3 == 2)
+    if (v3 == 1)
     {
-      v11 = v5 % 3 + *(a2 + 12);
+      __removefile_randomize_buffer(*(a2 + 12), v5 - v4, a2);
     }
 
-    else if (v3 == 1)
-    {
-      __removefile_randomize_buffer(*(a2 + 12), v6 - v5, a2);
-      v10 = *(a2 + 11);
-    }
-
-    v12 = *(a2 + 20);
     write_NOCANCEL();
-    if ((*(a2 + 112) & 0x2C) != 0)
+    if ((*(a2 + 112) & 0x2C) != 0 && fcntl_NOCANCEL())
     {
-      v13 = *(a2 + 20);
-      if (fcntl_NOCANCEL())
-      {
-        fsync_NOCANCEL();
-      }
+      fsync_NOCANCEL();
     }
 
-    v14 = *(a2 + 20);
+    v6 = *(a2 + 20);
 
-    LODWORD(a1) = lseek(v14, 0, 0);
+    LODWORD(a1) = lseek(v6, 0, 0);
   }
 
   return a1;

@@ -64,7 +64,7 @@
 - (const)_updateAndReturnState
 {
   selfCopy = self;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_assert_not_owner(self + 6);
@@ -73,23 +73,23 @@
     os_unfair_lock_unlock(&selfCopy[6]);
     if (os_unfair_lock_opaque_low == 1)
     {
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x2020000000;
-      v17 = 0;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2020000000;
+      v16 = 0;
       WeakRetained = objc_loadWeakRetained(&selfCopy[14]);
       database = [WeakRetained database];
       v5 = +[HDDatabaseTransactionContext highPriorityContext];
       copyForReadingProtectedData = [v5 copyForReadingProtectedData];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_invoke;
-      v12[3] = &unk_278614110;
-      v12[4] = selfCopy;
-      v12[5] = &v14;
-      v13 = 0;
-      v7 = [database performTransactionWithContext:copyForReadingProtectedData error:&v13 block:v12 inaccessibilityHandler:0];
-      v8 = v13;
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_invoke;
+      v11[3] = &unk_278614110;
+      v11[4] = selfCopy;
+      v11[5] = &v13;
+      v12 = 0;
+      v7 = [database performTransactionWithContext:copyForReadingProtectedData error:&v12 block:v11 inaccessibilityHandler:0];
+      v8 = v12;
 
       if ((v7 & 1) == 0 && (HKIsUnitTesting() & 1) == 0)
       {
@@ -98,24 +98,23 @@
         if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v19 = selfCopy;
-          v20 = 2114;
-          v21 = v8;
+          v18 = selfCopy;
+          v19 = 2114;
+          v20 = v8;
           _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Failed to determine if profile has health records accounts: %{public}@", buf, 0x16u);
         }
       }
 
-      selfCopy = v15[3];
-      _Block_object_dispose(&v14, 8);
+      selfCopy = v14[3];
+      _Block_object_dispose(&v13, 8);
     }
 
     else
     {
-      selfCopy = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -160,7 +159,7 @@
 
   else
   {
-    v5 = [unitTesting_profileReadyCompleteHandler copy];
+    v5 = objc_msgSend_copy(unitTesting_profileReadyCompleteHandler);
 
     unitTesting_profileReadyCompleteHandler = self->_unitTesting_profileReadyCompleteHandler;
     self->_unitTesting_profileReadyCompleteHandler = v5;
@@ -208,7 +207,7 @@
 
 BOOL __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = a2;
   os_unfair_lock_lock(v5 + 6);
@@ -237,9 +236,9 @@ BOOL __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_
       v12 = WeakRetained;
       if (WeakRetained)
       {
-        v34 = 0;
-        v13 = [WeakRetained hasGatewayBackedAccountsWithTransaction:v8 error:&v34];
-        v14 = v34;
+        v33 = 0;
+        v13 = [WeakRetained hasGatewayBackedAccountsWithTransaction:v8 error:&v33];
+        v14 = v33;
         if (v13 == 1)
         {
           _HKInitializeLogging();
@@ -272,9 +271,9 @@ BOOL __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_
             }
           }
 
-          v33 = v14;
-          v16 = [v12 hasIssuerBackedAccountsWithTransaction:v8 error:&v33];
-          v17 = v33;
+          v32 = v14;
+          v16 = [v12 hasIssuerBackedAccountsWithTransaction:v8 error:&v32];
+          v17 = v32;
 
           if (v16 == 2)
           {
@@ -297,13 +296,13 @@ BOOL __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_
             v24 = *MEMORY[0x277CCC2C0];
             if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEBUG))
             {
-              v31 = v24;
-              v32 = HKStringFromBool();
+              v30 = v24;
+              v31 = HKStringFromBool();
               *buf = 138543618;
               *&buf[4] = v7;
               *&buf[12] = 2114;
-              *&buf[14] = v32;
-              _os_log_debug_impl(&dword_228986000, v31, OS_LOG_TYPE_DEBUG, "%{public}@ lookup state: there are issuer backed accounts, locale is supported: %{public}@", buf, 0x16u);
+              *&buf[14] = v31;
+              _os_log_debug_impl(&dword_228986000, v30, OS_LOG_TYPE_DEBUG, "%{public}@ lookup state: there are issuer backed accounts, locale is supported: %{public}@", buf, 0x16u);
             }
 
             if (v23)
@@ -386,17 +385,15 @@ BOOL __64__HDHealthRecordsAccountExistenceNotifier__queryForAccountState__block_
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __92__HDHealthRecordsAccountExistenceNotifier__lock_updateStateAndNotifyIfRequiredWithNewState___block_invoke;
-      v36 = &unk_278619178;
-      v37 = v25;
-      v38 = v26 == 2;
+      v35 = &unk_278619178;
+      v36 = v25;
+      v37 = v26 == 2;
       [v28 notifyObservers:buf];
     }
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 24));
-  result = *(*(*(a1 + 40) + 8) + 24) != 0;
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(*(*(a1 + 40) + 8) + 24) != 0;
 }
 
 - (HDProfile)profile

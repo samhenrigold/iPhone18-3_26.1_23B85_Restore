@@ -23,6 +23,7 @@
 - (void)_getComplicationColorsTop:(id *)top bottom:(id *)bottom palette:(id)palette nightFraction:(double)fraction editingFraction:(double)editingFraction secondHandAngle:(double)angle;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_reorderSwitcherSnapshotView;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateBottomComplicationWithColor:(id)color;
@@ -236,6 +237,16 @@
   lightSpillCoordinator = self->_lightSpillCoordinator;
 
   [(NTKGladiusLightSpillCoordinator *)lightSpillCoordinator updateLightingOverride];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKGladiusFaceView;
+  groupCopy = group;
+  [(NTKGladiusFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIMetalQuadView *)self->_lightingQuadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_updateNightFraction
@@ -773,27 +784,25 @@ LABEL_10:
 
 - (void)_applyBreathingAndRubberbanding
 {
-  breathingFraction = self->_breathingFraction;
   NTKLargeElementScaleForBreathingFraction();
-  v5 = v4;
-  rubberbandingFraction = self->_rubberbandingFraction;
+  v4 = v3;
   NTKScaleForRubberBandingFraction();
-  memset(&v15, 0, sizeof(v15));
-  CGAffineTransformMakeScale(&v15, v5 * v7, v5 * v7);
-  v14 = v15;
+  memset(&v13, 0, sizeof(v13));
+  CGAffineTransformMakeScale(&v13, v4 * v5, v4 * v5);
+  v12 = v13;
   timeView = [(NTKGladiusFaceView *)self timeView];
-  v13 = v14;
-  [timeView setTransform:&v13];
+  v11 = v12;
+  [timeView setTransform:&v11];
 
-  v12 = v15;
+  v10 = v13;
   contentView = [(NTKGladiusFaceView *)self contentView];
-  v13 = v12;
-  [contentView setTransform:&v13];
+  v11 = v10;
+  [contentView setTransform:&v11];
 
-  v11 = v15;
+  v9 = v13;
   complicationContainerView = [(NTKGladiusFaceView *)self complicationContainerView];
-  v13 = v11;
-  [complicationContainerView setTransform:&v13];
+  v11 = v9;
+  [complicationContainerView setTransform:&v11];
 }
 
 + (id)_swatchForEditModeDependsOnOptions:(int64_t)options forDevice:(id)device

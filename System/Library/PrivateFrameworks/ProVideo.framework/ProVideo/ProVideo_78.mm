@@ -1,3 +1,114 @@
+__n128 ProShade::ConstVector::getVec4@<Q0>(__n128 *this@<X0>, const PCString *a2@<X1>, __n128 *a3@<X8>)
+{
+  if (this[1].n128_u32[3] - 5 <= 2)
+  {
+    ProShade::Error<PCException>::raise<char [27]>("isMatrix", a2);
+  }
+
+  result = this[3];
+  v4 = this[4];
+  *a3 = result;
+  a3[1] = v4;
+  return result;
+}
+
+void ProShade::ConstVector::getData(uint64_t a1, uint64_t a2)
+{
+  Size = ProShade::shapeGetSize(*(a1 + 28), a2);
+  if (*(a2 + 8) < Size)
+  {
+    v5 = 2 * Size + 1;
+  }
+
+  else
+  {
+    v5 = *(a2 + 8);
+  }
+
+  PCArray<BOOL,PCArray_Traits<BOOL>>::resize(a2, Size, v5);
+  if (Size >= 1)
+  {
+    v7 = 0;
+    v8 = a1 + 48;
+    do
+    {
+      if (v7 >= *(a2 + 12))
+      {
+        PCArray_base::badIndex(v6);
+      }
+
+      *(*(a2 + 16) + v7) = *(v8 + 8 * v7) != 0.0;
+      ++v7;
+    }
+
+    while (Size != v7);
+  }
+}
+
+{
+  Size = ProShade::shapeGetSize(*(a1 + 28), a2);
+  if (*(a2 + 8) < Size)
+  {
+    v5 = 2 * Size + 1;
+  }
+
+  else
+  {
+    v5 = *(a2 + 8);
+  }
+
+  PCArray<int,PCArray_Traits<int>>::resize(a2, Size, v5);
+  if (Size >= 1)
+  {
+    v7 = 0;
+    v8 = a1 + 48;
+    do
+    {
+      if (v7 >= *(a2 + 12))
+      {
+        PCArray_base::badIndex(v6);
+      }
+
+      *(*(a2 + 16) + 4 * v7) = *(v8 + 8 * v7);
+      ++v7;
+    }
+
+    while (Size != v7);
+  }
+}
+
+{
+  Size = ProShade::shapeGetSize(*(a1 + 28), a2);
+  if (*(a2 + 8) < Size)
+  {
+    v5 = 2 * Size + 1;
+  }
+
+  else
+  {
+    v5 = *(a2 + 8);
+  }
+
+  PCArray<double,PCArray_Traits<double>>::resize(a2, Size, v5);
+  if (Size >= 1)
+  {
+    v7 = 0;
+    v8 = a1 + 48;
+    do
+    {
+      if (v7 >= *(a2 + 12))
+      {
+        PCArray_base::badIndex(v6);
+      }
+
+      *(*(a2 + 16) + 8 * v7) = *(v8 + 8 * v7);
+      ++v7;
+    }
+
+    while (Size != v7);
+  }
+}
+
 void *ProShade::ConstVector::getValue(ProShade::ConstVector *this, ProShade::Value *a2)
 {
   v5 = *(this + 6);
@@ -51,55 +162,55 @@ void sub_26004F9D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::ConstMatrix::repr(ProShade::ConstMatrix *this@<X0>, void *a2@<X8>)
+void ProShade::ConstMatrix::repr(ProShade::ConstMatrix *this@<X0>, const char *a2@<X1>, void *a3@<X8>)
 {
-  v4 = 0;
-  v25 = 0;
-  v5 = this + 48;
+  v5 = 0;
+  v26 = 0;
+  v6 = this + 48;
 LABEL_2:
-  v6 = 0;
+  v7 = 0;
   while (1)
   {
-    LiString::format(*&v5[v6], &__src);
+    LiString::format(*&v6[v7], a2, &__src);
     if (__src)
     {
-      v7 = *(__src - 2);
+      v8 = *(__src - 2);
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    LiString::append(&v25, __src, v7);
+    LiString::append(&v26, __src, v8);
     if (__src && atomic_fetch_add(__src - 3, 0xFFFFFFFF) == 1)
     {
       *__src = 0;
       if (__src)
       {
-        v8 = __src - 12;
+        v9 = __src - 12;
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
-      free(v8);
+      free(v9);
     }
 
-    if (v4 == 3 && v6 == 96)
+    if (v5 == 3 && v7 == 96)
     {
       break;
     }
 
-    LiString::append(&v25, ", ", 2);
-    v6 += 32;
-    if (v6 == 128)
+    LiString::append(&v26, ", ", 2u);
+    v7 += 32;
+    if (v7 == 128)
     {
-      ++v4;
-      v5 += 8;
-      if (v4 != 4)
+      ++v5;
+      v6 += 8;
+      if (v5 != 4)
       {
         goto LABEL_2;
       }
@@ -109,70 +220,70 @@ LABEL_2:
   }
 
   ProShade::shapeString(*(this + 7), *(this + 6), &__src);
-  v9 = __src;
+  v10 = __src;
   if (__src)
   {
-    v10 = *(__src - 2);
+    v11 = *(__src - 2);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = v10;
-  v12 = malloc_type_malloc(v10 + 14, 0x10000403E1C8BA9uLL);
-  v12[1] = v11 + 1;
-  v12[2] = v11 + 2;
-  atomic_store(1u, v12);
-  v13 = v12 + 3;
-  atomic_store(0, v12);
-  memcpy(v12 + 3, v9, v11);
-  v13[v11] = 40;
-  v13[v11 + 1] = 0;
-  atomic_fetch_add(v12, 1u);
-  v14 = v12[1];
-  v15 = v25;
-  if (v25)
+  v12 = v11;
+  v13 = malloc_type_malloc(v11 + 14, 0x10000403E1C8BA9uLL);
+  v13[1] = v12 + 1;
+  v13[2] = v12 + 2;
+  atomic_store(1u, v13);
+  v14 = v13 + 3;
+  atomic_store(0, v13);
+  memcpy(v13 + 3, v10, v12);
+  v14[v12] = 40;
+  v14[v12 + 1] = 0;
+  atomic_fetch_add(v13, 1u);
+  v15 = v13[1];
+  v16 = v26;
+  if (v26)
   {
-    v16 = *(v25 - 2);
+    v17 = *(v26 - 2);
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v17 = v14 + v16;
-  v18 = malloc_type_malloc(v17 + 13, 0x10000403E1C8BA9uLL);
-  v18[1] = v17;
-  v18[2] = v17 + 1;
-  atomic_store(1u, v18);
-  atomic_store(0, v18);
-  memcpy(v18 + 3, v13, v14);
-  memcpy(v18 + v14 + 12, v15, v16);
-  *(v18 + v17 + 12) = 0;
-  atomic_fetch_add(v18, 1u);
-  v19 = v18[1];
-  v20 = malloc_type_malloc(v19 + 14, 0x10000403E1C8BA9uLL);
-  atomic_store(1u, v20);
-  v21 = v20 + 3;
-  atomic_store(0, v20);
-  v20[1] = v19 + 1;
-  v20[2] = v19 + 2;
-  memcpy(v20 + 3, v18 + 3, v19);
-  *(v21 + v19) = 41;
-  *(v21 + v19 + 1) = 0;
-  *a2 = v20 + 3;
-  atomic_fetch_add(v20, 1u);
-  if (atomic_fetch_add(v18, 0xFFFFFFFF) == 1)
+  v18 = v15 + v17;
+  v19 = malloc_type_malloc(v18 + 13, 0x10000403E1C8BA9uLL);
+  v19[1] = v18;
+  v19[2] = v18 + 1;
+  atomic_store(1u, v19);
+  atomic_store(0, v19);
+  memcpy(v19 + 3, v14, v15);
+  memcpy(v19 + v15 + 12, v16, v17);
+  *(v19 + v18 + 12) = 0;
+  atomic_fetch_add(v19, 1u);
+  v20 = v19[1];
+  v21 = malloc_type_malloc(v20 + 14, 0x10000403E1C8BA9uLL);
+  atomic_store(1u, v21);
+  v22 = v21 + 3;
+  atomic_store(0, v21);
+  v21[1] = v20 + 1;
+  v21[2] = v20 + 2;
+  memcpy(v21 + 3, v19 + 3, v20);
+  *(v22 + v20) = 41;
+  *(v22 + v20 + 1) = 0;
+  *a3 = v21 + 3;
+  atomic_fetch_add(v21, 1u);
+  if (atomic_fetch_add(v19, 0xFFFFFFFF) == 1)
   {
-    free(v18);
+    free(v19);
   }
 
-  if (atomic_fetch_add(v12, 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v13, 0xFFFFFFFF) == 1)
   {
-    free(v12);
+    free(v13);
   }
 
   if (__src && atomic_fetch_add(__src - 3, 0xFFFFFFFF) == 1)
@@ -180,23 +291,7 @@ LABEL_2:
     *__src = 0;
     if (__src)
     {
-      v22 = __src - 12;
-    }
-
-    else
-    {
-      v22 = 0;
-    }
-
-    free(v22);
-  }
-
-  if (v25 && atomic_fetch_add(v25 - 3, 0xFFFFFFFF) == 1)
-  {
-    *v25 = 0;
-    if (v25)
-    {
-      v23 = v25 - 12;
+      v23 = __src - 12;
     }
 
     else
@@ -205,6 +300,22 @@ LABEL_2:
     }
 
     free(v23);
+  }
+
+  if (v26 && atomic_fetch_add(v26 - 3, 0xFFFFFFFF) == 1)
+  {
+    *v26 = 0;
+    if (v26)
+    {
+      v24 = v26 - 12;
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    free(v24);
   }
 }
 
@@ -574,7 +685,7 @@ LABEL_11:
   PCSharedCount::PCSharedCount(a4 + 3, a3 + 3);
 }
 
-uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, unsigned int *a3, unsigned int *a4)
+uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, PCShared_base *a3, PCShared_base *a4)
 {
   *(a1 + 176) = &unk_2872DEA38;
   *(a1 + 184) = 0;
@@ -594,8 +705,8 @@ uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, unsigned int *a3, unsigned in
 
   while (v8 != 128);
   *(a1 + 24) = a2;
-  Width = ProShade::shapeGetWidth(a3[7], v10);
-  v14 = ProShade::shapeGetWidth(a4[7], v12) + Width;
+  Width = ProShade::shapeGetWidth(*(a3 + 7), v10);
+  v14 = ProShade::shapeGetWidth(*(a4 + 7), v12) + Width;
   if (v14 <= 1)
   {
     ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("at least vec2", v13);
@@ -621,7 +732,7 @@ void sub_260050944(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
+uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, PCShared_base *a3, PCShared_base *a4, PCShared_base *a5)
 {
   *(a1 + 176) = &unk_2872DEA38;
   *(a1 + 184) = 0;
@@ -641,9 +752,9 @@ uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, unsigned int *a3, unsigned in
 
   while (v10 != 128);
   *(a1 + 24) = a2;
-  Width = ProShade::shapeGetWidth(a3[7], v12);
-  v15 = ProShade::shapeGetWidth(a4[7], v14);
-  v18 = v15 + Width + ProShade::shapeGetWidth(a5[7], v16);
+  Width = ProShade::shapeGetWidth(*(a3 + 7), v12);
+  v15 = ProShade::shapeGetWidth(*(a4 + 7), v14);
+  v18 = v15 + Width + ProShade::shapeGetWidth(*(a5 + 7), v16);
   if (v18 <= 2)
   {
     ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("at least vec3", v17);
@@ -670,7 +781,7 @@ void sub_260050B34(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, unsigned int *a6)
+uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, PCShared_base *a3, PCShared_base *a4, PCShared_base *a5, PCShared_base *a6)
 {
   *(a1 + 176) = &unk_2872DEA38;
   *(a1 + 184) = 0;
@@ -690,10 +801,10 @@ uint64_t ProShade::Ctor::Ctor(uint64_t a1, int a2, unsigned int *a3, unsigned in
 
   while (v12 != 128);
   *(a1 + 24) = a2;
-  Width = ProShade::shapeGetWidth(a3[7], v14);
-  v17 = ProShade::shapeGetWidth(a4[7], v16);
-  v19 = ProShade::shapeGetWidth(a5[7], v18);
-  v22 = v17 + Width + v19 + ProShade::shapeGetWidth(a6[7], v20);
+  Width = ProShade::shapeGetWidth(*(a3 + 7), v14);
+  v17 = ProShade::shapeGetWidth(*(a4 + 7), v16);
+  v19 = ProShade::shapeGetWidth(*(a5 + 7), v18);
+  v22 = v17 + Width + v19 + ProShade::shapeGetWidth(*(a6 + 7), v20);
   if (v22 <= 3)
   {
     ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("at least vec4", v21);
@@ -803,7 +914,7 @@ void ProShade::Ctor::repr(ProShade::Ctor *this@<X0>, const PCString *a2@<X1>, vo
 
       if (v6)
       {
-        LiString::append(&v27, ", ", 2);
+        LiString::append(&v27, ", ", 2u);
       }
 
       ProShade::VarT<ProShade::Node>::repr(v7);
@@ -1045,7 +1156,7 @@ uint64_t ProShade::Ctor::inputs(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ProShade::Ctor::apply@<X0>(PCShared_base *a1@<X0>, void (***a2)(PCSharedCount *__return_ptr, void, char *)@<X1>, PCSharedCount *a3@<X8>)
+uint64_t ProShade::Ctor::apply@<X0>(PC_Sp_counted_base *a1@<X0>, void (***a2)(PCSharedCount *__return_ptr, void, int *)@<X1>, PCSharedCount *a3@<X8>)
 {
   v6 = 0;
   v7 = 0;
@@ -1055,7 +1166,7 @@ uint64_t ProShade::Ctor::apply@<X0>(PCShared_base *a1@<X0>, void (***a2)(PCShare
   v13 = &unk_28725EA68;
   do
   {
-    (**a2)(v16, a2, a1 + v6 + 48);
+    (**a2)(v16, a2, (a1 + v6 + 48));
     var0 = v16[2].var0;
     v9 = *(a1 + v6 + 64);
     if (v14 <= SHIDWORD(v14))
@@ -1106,7 +1217,7 @@ uint64_t ProShade::Ctor::apply@<X0>(PCShared_base *a1@<X0>, void (***a2)(PCShare
 
 void sub_260051660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x2666E9F00](v9, 0x10B1C406391F85BLL);
+  MEMORY[0x2666E9F00](v9, 0x10B1C406391F85BLL, a3, a4, a5, a6, a7, a8);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(&a9);
   _Unwind_Resume(a1);
 }
@@ -1306,11 +1417,11 @@ uint64_t ProShade::Varying::inputs(const PCSharedCount *a1, uint64_t a2)
   return ProShade::VarT<ProShade::Node>::operator=(v6, a1 + 6);
 }
 
-void ProShade::Varying::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::Varying::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v6[1] = *MEMORY[0x277D85DE8];
   (**a2)(v5, a2, a1 + 48);
-  if (v5[2] != *(a1 + 8))
+  if (v5[2] != *(a1 + 64))
   {
     operator new();
   }
@@ -1320,50 +1431,50 @@ void ProShade::Varying::apply(PCShared_base *a1@<X0>, void (***a2)(void *__retur
   PCSharedCount::~PCSharedCount(v6);
 }
 
-void sub_260051E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_260051E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x2666E9F00](v5, 0x10B1C40515157B5);
+  va_start(va, a9);
+  MEMORY[0x2666E9F00](v9, 0x10B1C40515157B5, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
 
 void ProShade::Selector_base::_select(uint64_t a1, const PCString *a2)
 {
-  v2 = a2;
-  v11[4] = *MEMORY[0x277D85DE8];
-  v3 = -8;
+  v3 = a2;
+  v12[4] = *MEMORY[0x277D85DE8];
+  v4 = -8;
   if (a2 >= 0x42)
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = a1 + v3;
+  v5 = a1 + v4;
   if (a2 > 0x41)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = dword_26084E7B8[a2];
+    v6 = dword_26084E7B8[a2];
   }
 
-  if (v5 <= ProShade::VarT<ProShade::Node>::width(v4, a2))
+  if (v6 <= ProShade::VarT<ProShade::Node>::width(v5, a2))
   {
-    v6 = *(v4 + 16);
-    if (v6)
+    v7 = *(v5 + 16);
+    if (v7)
     {
     }
 
     operator new();
   }
 
-  LiString::LiString(&v9, "selector ");
-  v7 = ProShade::selection_repr(v2);
-  operator+(&v9, v7, v11);
-  operator+(v11, " out of range", &v10);
-  ProShade::Error<PCBadIndexException>::raise<LiString>(&v10, v8);
+  LiString::LiString(&v10, "selector ");
+  v8 = ProShade::selection_repr(v3);
+  operator+(&v10, v8, v12);
+  operator+(v12, " out of range", &v11);
+  ProShade::Error<PCBadIndexException>::raise<LiString>(&v11, v9);
 }
 
 void sub_2600521A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, atomic_uint *a9, atomic_uint *a10)
@@ -1437,8 +1548,9 @@ const char *ProShade::selection_repr(unsigned int a1)
   }
 }
 
-uint64_t ProShade::Selector::Selector(uint64_t a1, PCShared_base *a2, unsigned int a3)
+uint64_t ProShade::Selector::Selector(uint64_t a1, PC_Sp_counted_base *a2, uint64_t a3)
 {
+  v3 = a3;
   *(a1 + 88) = &unk_2872DEA38;
   *(a1 + 96) = 0;
   *(a1 + 104) = 1;
@@ -1446,7 +1558,7 @@ uint64_t ProShade::Selector::Selector(uint64_t a1, PCShared_base *a2, unsigned i
   *a1 = &unk_287272AF0;
   *(a1 + 88) = &unk_287272BA8;
   ProShade::VarT<ProShade::Node>::VarT((a1 + 48), a2);
-  *(a1 + 80) = a3;
+  *(a1 + 80) = v3;
   v6 = *(a1 + 64);
   if (!v6)
   {
@@ -1454,7 +1566,7 @@ uint64_t ProShade::Selector::Selector(uint64_t a1, PCShared_base *a2, unsigned i
   }
 
   *(a1 + 24) = *(v6 + 24);
-  v7 = ProShade::selection_width(a3);
+  v7 = ProShade::selection_width(v3);
   if (v7 != 1)
   {
     if ((*(v6 + 28) - 5) > 2)
@@ -1758,11 +1870,11 @@ uint64_t ProShade::Selector::inputs(const PCSharedCount *a1, uint64_t a2)
   return ProShade::VarT<ProShade::Node>::operator=(v6, a1 + 6);
 }
 
-void ProShade::Selector::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::Selector::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v6[1] = *MEMORY[0x277D85DE8];
   (**a2)(v5, a2, a1 + 48);
-  if (v5[2] != *(a1 + 8))
+  if (v5[2] != *(a1 + 64))
   {
     operator new();
   }
@@ -1772,10 +1884,10 @@ void ProShade::Selector::apply(PCShared_base *a1@<X0>, void (***a2)(void *__retu
   PCSharedCount::~PCSharedCount(v6);
 }
 
-void sub_260052D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_260052D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403008ACEELL);
+  va_start(va, a9);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403008ACEELL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -1951,7 +2063,7 @@ LABEL_9:
 
             if (v15 == a2)
             {
-              ProShade::Const::create();
+              ProShade::Const::create(&v31);
             }
 
             ProShade::Error<PCException>::raise<char [27]>("argument mismatch", v14);
@@ -1996,7 +2108,7 @@ LABEL_9:
 
         if (v23 == a2)
         {
-          ProShade::Const::create();
+          ProShade::Const::create(&v31);
         }
 
         ProShade::Error<PCException>::raise<char [27]>("argument mismatch", v22);
@@ -2038,7 +2150,7 @@ LABEL_9:
 
       if (v28 == a2)
       {
-        ProShade::Const::create();
+        ProShade::Const::create(&v31);
       }
 
       ProShade::Error<PCException>::raise<char [27]>("argument mismatch", v27);
@@ -2085,7 +2197,7 @@ void sub_2600537E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Vec2::initVec2(uint64_t a1, uint64_t a2, uint64_t a3)
+void ProShade::Vec2::initVec2(PCShared_base **a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a2 + 16);
   if (v4)
@@ -2118,7 +2230,7 @@ void ProShade::Vec2::initVec2(uint64_t a1, uint64_t a2, uint64_t a3)
         {
           if (HIDWORD(v12) == 2)
           {
-            ProShade::Const::create();
+            ProShade::Const::create(&v11);
           }
 
           ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("two many arguments for vec2", v9);
@@ -2202,7 +2314,7 @@ void sub_260053DD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Vec3::initVec3(uint64_t a1, const PCString *a2, uint64_t a3)
+void ProShade::Vec3::initVec3(PCShared_base **a1, const PCString *a2, uint64_t a3)
 {
   v19 = *MEMORY[0x277D85DE8];
   var0 = a2[2].var0;
@@ -2255,7 +2367,7 @@ void ProShade::Vec3::initVec3(uint64_t a1, const PCString *a2, uint64_t a3)
         {
           if (HIDWORD(v17) == 3)
           {
-            ProShade::Const::create();
+            ProShade::Const::create(&v16);
           }
 
           ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("two many arguments for vec3", v14);
@@ -2295,7 +2407,7 @@ void sub_2600543BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Vec3::initVec3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void ProShade::Vec3::initVec3(PCShared_base **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a2 + 16);
   if (v6)
@@ -2345,7 +2457,7 @@ void ProShade::Vec3::initVec3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
           {
             if (HIDWORD(v18) == 3)
             {
-              ProShade::Const::create();
+              ProShade::Const::create(&v17);
             }
 
             ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("two many arguments for vec3", v14);
@@ -2396,7 +2508,7 @@ void sub_260054AAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Vec4::initVec4(uint64_t a1, const PCString *a2, uint64_t a3)
+void ProShade::Vec4::initVec4(PCShared_base **a1, const PCString *a2, uint64_t a3)
 {
   v19 = *MEMORY[0x277D85DE8];
   var0 = a2[2].var0;
@@ -2449,7 +2561,7 @@ void ProShade::Vec4::initVec4(uint64_t a1, const PCString *a2, uint64_t a3)
         {
           if (HIDWORD(v17) == 4)
           {
-            ProShade::Const::create();
+            ProShade::Const::create(&v16);
           }
 
           ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("two many arguments for vec4", v14);
@@ -2489,7 +2601,7 @@ void sub_260055090(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Vec4::initVec4(uint64_t a1, const PCString *a2, uint64_t a3, uint64_t a4)
+void ProShade::Vec4::initVec4(PCShared_base **a1, const PCString *a2, uint64_t a3, uint64_t a4)
 {
   v28 = *MEMORY[0x277D85DE8];
   var0 = a2[2].var0;
@@ -2566,7 +2678,7 @@ void ProShade::Vec4::initVec4(uint64_t a1, const PCString *a2, uint64_t a3, uint
           {
             if (HIDWORD(v26) == 4)
             {
-              ProShade::Const::create();
+              ProShade::Const::create(&v25);
             }
 
             ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("two many arguments for vec4", v22);
@@ -2607,7 +2719,7 @@ void sub_260055814(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Vec4::initVec4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void ProShade::Vec4::initVec4(PCShared_base **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = *(a2 + 16);
   if (v8)
@@ -2682,7 +2794,7 @@ void ProShade::Vec4::initVec4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
     {
       if (HIDWORD(v23) == 4)
       {
-        ProShade::Const::create();
+        ProShade::Const::create(&v22);
       }
 
       ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("two many arguments for vec4", v18);
@@ -3044,21 +3156,21 @@ uint64_t std::vector<std::pair<ProShade::Node const*,ProShade::Value>>::__constr
   return result;
 }
 
-uint64_t std::vector<std::pair<ProShade::Node const*,ProShade::Value>>::__emplace_back_slow_path<std::pair<ProShade::Node const*,ProShade::Value>>(uint64_t a1, const PCString *a2)
+const PCString *std::vector<std::pair<ProShade::Node const*,ProShade::Value>>::__emplace_back_slow_path<std::pair<ProShade::Node const*,ProShade::Value>>(const PCString **a1, const PCString *a2)
 {
-  v2 = 0x86BCA1AF286BCA1BLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x86BCA1AF286BCA1BLL * (a1[1] - *a1);
   v3 = v2 + 1;
   if (v2 + 1 > 0x1AF286BCA1AF286)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xD79435E50D79436 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xD79435E50D79436 * (a1[2] - *a1) > v3)
   {
-    v3 = 0xD79435E50D79436 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xD79435E50D79436 * (a1[2] - *a1);
   }
 
-  if (0x86BCA1AF286BCA1BLL * ((*(a1 + 16) - *a1) >> 3) >= 0xD79435E50D7943)
+  if (0x86BCA1AF286BCA1BLL * (a1[2] - *a1) >= 0xD79435E50D7943)
   {
     v6 = 0x1AF286BCA1AF286;
   }
@@ -3086,7 +3198,7 @@ uint64_t std::vector<std::pair<ProShade::Node const*,ProShade::Value>>::__emplac
   ProShade::Value::operator=(152 * v2 + 8, a2 + 1);
   v12 += 152;
   std::vector<std::pair<ProShade::Node const*,ProShade::Value>>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 = (v12 - v11 - 152) % 0x98uLL + v11;
@@ -3123,9 +3235,9 @@ const PCString **std::vector<std::pair<ProShade::Node const*,ProShade::Value>>::
     v8 = v5;
     do
     {
-      v9.var0 = v8->var0;
+      v9 = *v8;
       v8 += 19;
-      *(result - 1) = v9.var0;
+      *(result - 1) = v9;
       *result = 0;
       result[1] = -1;
       result = (ProShade::Value::operator=(result, v5 + 1) + 152);
@@ -3160,41 +3272,41 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<ProShade::N
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__tree<std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>,std::__map_value_compare<ProShade::Node const*,std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>,std::less<ProShade::Node const*>,true>,std::allocator<std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>>>::__emplace_unique_key_args<ProShade::Node const*,std::piecewise_construct_t const&,std::tuple<ProShade::Node const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>,std::__map_value_compare<ProShade::Node const*,std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>,std::less<ProShade::Node const*>,true>,std::allocator<std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>>>::__emplace_unique_key_args<ProShade::Node const*,std::piecewise_construct_t const&,std::tuple<ProShade::Node const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>,std::__map_value_compare<ProShade::Node const*,std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>,std::less<ProShade::Node const*>,true>,std::allocator<std::__value_type<ProShade::Node const*,ProShade::VarT<ProShade::Node>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<ProShade::Node const*&&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = v5[4];
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -3224,7 +3336,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-PCSharedCount *ProShade::VarT<ProShade::Selector>::VarT(PCSharedCount *a1, PCShared_base *a2)
+PCSharedCount *ProShade::VarT<ProShade::Selector>::VarT(PCSharedCount *a1, PC_Sp_counted_base *a2)
 {
   a1->var0 = &unk_287273580;
   a1[2].var0 = a2;
@@ -4761,7 +4873,7 @@ uint64_t LiHeEdgeMixShader::GetDOD(LiHeEdgeMixShader *this, HGRenderer *a2, unsi
     return 0;
   }
 
-  v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v6 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(v5, v4, v6);
 }
 
@@ -4774,7 +4886,7 @@ uint64_t LiHeEdgeMixShader::GetROI(LiHeEdgeMixShader *this, HGRenderer *a2, unsi
     return 0;
   }
 
-  v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v6 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(v5, v4, v6);
 }
 
@@ -5074,7 +5186,7 @@ uint64_t LiHeEdgeNodeFragment::GetDOD(LiHeEdgeNodeFragment *this, HGRenderer *a2
   v5 = *&a4.var0;
   if (a3 == 1)
   {
-    v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v6 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v5, v4, v6);
   }
 
@@ -5092,7 +5204,7 @@ uint64_t LiHeEdgeNodeFragment::GetROI(LiHeEdgeNodeFragment *this, HGRenderer *a2
   v5 = *&a4.var0;
   if (a3 == 1)
   {
-    v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v6 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v5, v4, v6);
   }
 
@@ -5442,7 +5554,7 @@ uint64_t LiHeEdgeNodeWithXFormFragment::GetDOD(LiHeEdgeNodeWithXFormFragment *th
   v5 = *&a4.var0;
   if (a3 == 1)
   {
-    v16 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v16 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v5, v4, v16);
   }
 
@@ -5453,7 +5565,7 @@ uint64_t LiHeEdgeNodeWithXFormFragment::GetDOD(LiHeEdgeNodeWithXFormFragment *th
 
   else
   {
-    v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v7 = HGRectMake4i(-1, -1, 1, 1);
     v8 = HGRectGrow(v5, v4, v7);
     v10 = v9;
     HGTransform::HGTransform(v18);
@@ -5475,7 +5587,7 @@ uint64_t LiHeEdgeNodeWithXFormFragment::GetROI(LiHeEdgeNodeWithXFormFragment *th
   v5 = *&a4.var0;
   if (a3 == 1)
   {
-    v14 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v14 = HGRectMake4i(-1, -1, 1, 1);
     v15 = v5;
     v16 = v4;
     return HGRectGrow(v15, v16, v14);
@@ -5491,7 +5603,7 @@ uint64_t LiHeEdgeNodeWithXFormFragment::GetROI(LiHeEdgeNodeWithXFormFragment *th
     v11 = HGRectUnion(0, 0, ROI, v10);
     v13 = v12;
     HGTransform::~HGTransform(v18);
-    v14 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v14 = HGRectMake4i(-1, -1, 1, 1);
     v15 = v11;
     v16 = v13;
     return HGRectGrow(v15, v16, v14);
@@ -9872,17 +9984,4 @@ uint64_t LiHeLightProgramSurfaceFinalPass::RenderTile(LiHeLightProgramSurfaceFin
   }
 
   return 0;
-}
-
-uint64_t LiHeLightProgramSurfaceFinalPass::GetDOD(LiHeLightProgramSurfaceFinalPass *this, HGRenderer *a2, unsigned int a3, HGRect a4)
-{
-  if (a3 >= 2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *&a4.var0;
-  }
 }

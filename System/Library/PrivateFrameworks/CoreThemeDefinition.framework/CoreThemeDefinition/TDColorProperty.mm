@@ -100,7 +100,6 @@
   CGColorSpaceRelease(v9);
   [dictionary setObject:v10 forKey:{-[TDProperty name](self, "name")}];
   CGColorRelease(v10);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

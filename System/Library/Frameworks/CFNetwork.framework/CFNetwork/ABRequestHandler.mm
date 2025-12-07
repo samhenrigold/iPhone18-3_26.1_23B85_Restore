@@ -14,20 +14,14 @@
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Fetching proxy credential for query %@", &buf, 0xCu);
   }
 
-  authenticator = self->authenticator;
-  aBlock = _NSConcreteStackBlock;
-  v9 = 3221225472;
-  v10 = sub_100003C0C;
-  v11 = &unk_100008748;
-  replyCopy = reply;
   operator new();
 }
 
 - (ABRequestHandler)init
 {
-  v11.receiver = self;
-  v11.super_class = ABRequestHandler;
-  v2 = [(ABRequestHandler *)&v11 init];
+  v9.receiver = self;
+  v9.super_class = ABRequestHandler;
+  v2 = [(ABRequestHandler *)&v9 init];
   if (v2)
   {
     if (qword_10000C630 != -1)
@@ -35,7 +29,6 @@
       dispatch_once(&qword_10000C630, &stru_1000085A0);
     }
 
-    v3 = *(qword_10000C638 + 96);
     Instance = _CFRuntimeCreateInstance();
     *(Instance + 16) = 0u;
     *(Instance + 48) = 0u;
@@ -51,26 +44,25 @@
     *(Instance + 16) = off_1000085D0;
     *(Instance + 24) = off_100008618;
     *(Instance + 96) = off_100008638;
-    v5 = CFGetAllocator(Instance);
+    v4 = CFGetAllocator(Instance);
     *(Instance + 120) = off_100008730;
-    *(Instance + 128) = CFDictionaryCreateMutable(v5, 0, &kCFTypeDictionaryKeyCallBacks, &unk_10000C4D8);
+    *(Instance + 128) = CFDictionaryCreateMutable(v4, 0, &kCFTypeDictionaryKeyCallBacks, &unk_10000C4D8);
     *(Instance + 136) = 0;
     CFGetAllocator(Instance);
     *(Instance + 104) = CFURLCredentialStorageCreate();
     if (CFURLCredentialStorageIsSystemKeychainSupported())
     {
-      v6 = *(Instance + 104);
       CFURLCredentialStorageSetUseSystemKeychain();
     }
 
     *(Instance + 112) = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
-    v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v8 = dispatch_queue_create("com.apple.cfnetwork.authbroker.authenticator.work-queue", v7);
-    v9 = *(Instance + 136);
-    *(Instance + 136) = v8;
-    if (v9)
+    v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v6 = dispatch_queue_create("com.apple.cfnetwork.authbroker.authenticator.work-queue", v5);
+    v7 = *(Instance + 136);
+    *(Instance + 136) = v6;
+    if (v7)
     {
-      dispatch_release(v9);
+      dispatch_release(v7);
     }
 
     v2->authenticator = (Instance + 16);

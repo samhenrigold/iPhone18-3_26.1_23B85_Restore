@@ -272,107 +272,23 @@ LABEL_26:
       [(TADeviceRecordSettings *)self expiryTimeInterval];
       v7 = v6;
       [(TADeviceRecordSettings *)v5 expiryTimeInterval];
-      if (v7 != v8)
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self futureExpiryTimeInterval];
-      v10 = v9;
-      [(TADeviceRecordSettings *)v5 futureExpiryTimeInterval];
-      if (v10 != v11)
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self purgeTimeInterval];
-      v13 = v12;
-      [(TADeviceRecordSettings *)v5 purgeTimeInterval];
-      if (v13 != v14)
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self keepAliveInterval];
-      v16 = v15;
-      [(TADeviceRecordSettings *)v5 keepAliveInterval];
-      if (v16 != v17)
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self minimumStagingInterval];
-      v19 = v18;
-      [(TADeviceRecordSettings *)v5 minimumStagingInterval];
-      if (v19 != v20)
-      {
-        goto LABEL_23;
-      }
-
-      stagingBackstopHour = [(TADeviceRecordSettings *)self stagingBackstopHour];
-      if (stagingBackstopHour != [(TADeviceRecordSettings *)v5 stagingBackstopHour])
-      {
-        goto LABEL_23;
-      }
-
-      assumedKeyRollHour = [(TADeviceRecordSettings *)self assumedKeyRollHour];
-      if (assumedKeyRollHour != [(TADeviceRecordSettings *)v5 assumedKeyRollHour])
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self scanInterval];
-      v24 = v23;
-      [(TADeviceRecordSettings *)v5 scanInterval];
-      if (v24 != v25)
-      {
-        goto LABEL_23;
-      }
-
-      surfaceImmediatelyBeepOnMove = [(TADeviceRecordSettings *)self surfaceImmediatelyBeepOnMove];
-      if (surfaceImmediatelyBeepOnMove != [(TADeviceRecordSettings *)v5 surfaceImmediatelyBeepOnMove])
-      {
-        goto LABEL_23;
-      }
-
-      surfaceAfterHyperStagingIntervalBetweenBackstopAndKeyroll = [(TADeviceRecordSettings *)self surfaceAfterHyperStagingIntervalBetweenBackstopAndKeyroll];
-      if (surfaceAfterHyperStagingIntervalBetweenBackstopAndKeyroll != [(TADeviceRecordSettings *)v5 surfaceAfterHyperStagingIntervalBetweenBackstopAndKeyroll])
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self maxExpectedHELEWildInterval];
-      v29 = v28;
-      [(TADeviceRecordSettings *)v5 maxExpectedHELEWildInterval];
-      if (v29 != v30)
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self maxExpectedDurianWildInterval];
-      v32 = v31;
-      [(TADeviceRecordSettings *)v5 maxExpectedDurianWildInterval];
-      if (v32 != v33)
-      {
-        goto LABEL_23;
-      }
-
-      shouldAlertHELEImmediatelyForImmediateTypes = [(TADeviceRecordSettings *)self shouldAlertHELEImmediatelyForImmediateTypes];
-      if (shouldAlertHELEImmediatelyForImmediateTypes != [(TADeviceRecordSettings *)v5 shouldAlertHELEImmediatelyForImmediateTypes])
-      {
-        goto LABEL_23;
-      }
-
-      [(TADeviceRecordSettings *)self minimumHELEStagingInterval];
-      v36 = v35;
-      [(TADeviceRecordSettings *)v5 minimumHELEStagingInterval];
-      if (v36 != v37)
-      {
-        goto LABEL_23;
-      }
-
-      stagingHELEBackstopHour = [(TADeviceRecordSettings *)self stagingHELEBackstopHour];
-      if (stagingHELEBackstopHour == [(TADeviceRecordSettings *)v5 stagingHELEBackstopHour]&& (v39 = [(TADeviceRecordSettings *)self surfaceHELEAfterHyperStagingIntervalBetweenBackstopAndKeyroll], v39 == [(TADeviceRecordSettings *)v5 surfaceHELEAfterHyperStagingIntervalBetweenBackstopAndKeyroll]) && ([(TADeviceRecordSettings *)self hyperHELEStagingInterval], v41 = v40, [(TADeviceRecordSettings *)v5 hyperHELEStagingInterval], v41 == v42))
+      if (v7 == v8
+        && ([(TADeviceRecordSettings *)self futureExpiryTimeInterval], v10 = v9, [(TADeviceRecordSettings *)v5 futureExpiryTimeInterval], v10 == v11)
+        && ([(TADeviceRecordSettings *)self purgeTimeInterval], v13 = v12, [(TADeviceRecordSettings *)v5 purgeTimeInterval], v13 == v14)
+        && ([(TADeviceRecordSettings *)self keepAliveInterval], v16 = v15, [(TADeviceRecordSettings *)v5 keepAliveInterval], v16 == v17)
+        && ([(TADeviceRecordSettings *)self minimumStagingInterval], v19 = v18, [(TADeviceRecordSettings *)v5 minimumStagingInterval], v19 == v20)
+        && (v21 = [(TADeviceRecordSettings *)self stagingBackstopHour], v21 == [(TADeviceRecordSettings *)v5 stagingBackstopHour])
+        && (v22 = [(TADeviceRecordSettings *)self assumedKeyRollHour], v22 == [(TADeviceRecordSettings *)v5 assumedKeyRollHour])
+        && ([(TADeviceRecordSettings *)self scanInterval], v24 = v23, [(TADeviceRecordSettings *)v5 scanInterval], v24 == v25)
+        && (v26 = [(TADeviceRecordSettings *)self surfaceImmediatelyBeepOnMove], v26 == [(TADeviceRecordSettings *)v5 surfaceImmediatelyBeepOnMove])
+        && (v27 = [(TADeviceRecordSettings *)self surfaceAfterHyperStagingIntervalBetweenBackstopAndKeyroll], v27 == [(TADeviceRecordSettings *)v5 surfaceAfterHyperStagingIntervalBetweenBackstopAndKeyroll])
+        && ([(TADeviceRecordSettings *)self maxExpectedHELEWildInterval], v29 = v28, [(TADeviceRecordSettings *)v5 maxExpectedHELEWildInterval], v29 == v30)
+        && ([(TADeviceRecordSettings *)self maxExpectedDurianWildInterval], v32 = v31, [(TADeviceRecordSettings *)v5 maxExpectedDurianWildInterval], v32 == v33)
+        && (v34 = [(TADeviceRecordSettings *)self shouldAlertHELEImmediatelyForImmediateTypes], v34 == [(TADeviceRecordSettings *)v5 shouldAlertHELEImmediatelyForImmediateTypes])
+        && ([(TADeviceRecordSettings *)self minimumHELEStagingInterval], v36 = v35, [(TADeviceRecordSettings *)v5 minimumHELEStagingInterval], v36 == v37)
+        && (v38 = [(TADeviceRecordSettings *)self stagingHELEBackstopHour], v38 == [(TADeviceRecordSettings *)v5 stagingHELEBackstopHour])
+        && (v39 = [(TADeviceRecordSettings *)self surfaceHELEAfterHyperStagingIntervalBetweenBackstopAndKeyroll], v39 == [(TADeviceRecordSettings *)v5 surfaceHELEAfterHyperStagingIntervalBetweenBackstopAndKeyroll])
+        && ([(TADeviceRecordSettings *)self hyperHELEStagingInterval], v41 = v40, [(TADeviceRecordSettings *)v5 hyperHELEStagingInterval], v41 == v42))
       {
         [(TADeviceRecordSettings *)self hyperStagingInterval];
         v44 = v43;
@@ -382,7 +298,6 @@ LABEL_26:
 
       else
       {
-LABEL_23:
         v46 = 0;
       }
     }

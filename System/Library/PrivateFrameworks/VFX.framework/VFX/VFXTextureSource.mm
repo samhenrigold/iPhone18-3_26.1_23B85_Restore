@@ -17,7 +17,7 @@
 
 - (double)textureSize
 {
-  v3 = sub_1AF0D5194();
+  v3 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDF3BA4(a2);
@@ -30,41 +30,42 @@
 
 - (id)metalTextureWithEngineContext:(__CFXEngineContext *)context textureSampler:(id)sampler nextFrameTime:(double *)time status:(id *)status
 {
-  v10 = sub_1AF12E2AC(context);
-  if (!v10)
+  v9 = sub_1AF12E2AC(context, a2);
+  if (!v9)
   {
-    v11 = sub_1AF0D5194();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v10 = sub_1AF0D5194(0, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDF3C20(v11);
+      sub_1AFDF3C20(v10);
     }
   }
 
-  if (objc_msgSend_supportsMetal(self, v7, v8, v9))
+  v11 = objc_msgSend_supportsMetal(self, v7, v8);
+  if (v11)
   {
-    result = objc_msgSend_MTLTextureCache(self, v12, v13, v14);
+    result = objc_msgSend_MTLTextureCache(self, v12, v13);
     if (!result)
     {
-      objc_msgSend_textureSize(self, v16, v17, v18);
-      v31 = 0uLL;
-      v32 = 0;
-      CFXTextureDescriptorMake2D(v19, v20, 0x47u, &v31);
-      LOBYTE(v32) = 1;
-      v24 = objc_msgSend_gpuDevice(v10, v21, v22, v23);
-      v29 = v31;
-      v30 = v32;
-      v25 = CFXGPUDeviceCreateTexture(v24, &v29);
-      objc_msgSend_setMTLTextureCache_(self, v26, v25, v27);
-      return v25;
+      objc_msgSend_textureSize(self, v15, v16);
+      v27 = 0uLL;
+      v28 = 0;
+      CFXTextureDescriptorMake2D(v17, v18, 0x47u, &v27);
+      LOBYTE(v28) = 1;
+      v21 = objc_msgSend_gpuDevice(v9, v19, v20);
+      v25 = v27;
+      v26 = v28;
+      v22 = CFXGPUDeviceCreateTexture(v21, &v25);
+      objc_msgSend_setMTLTextureCache_(self, v23, v22);
+      return v22;
     }
   }
 
   else
   {
-    v28 = sub_1AF0D5194();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v24 = sub_1AF0D5194(v11, v12);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDF3CA4(v28);
+      sub_1AFDF3CA4(v24);
     }
 
     return 0;
@@ -75,7 +76,7 @@
 
 - (void)renderWithEngineContext:(__CFXEngineContext *)context textureSampler:(id)sampler nextFrameTime:(double *)time
 {
-  v6 = sub_1AF0D5194();
+  v6 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDF3BA4(a2);

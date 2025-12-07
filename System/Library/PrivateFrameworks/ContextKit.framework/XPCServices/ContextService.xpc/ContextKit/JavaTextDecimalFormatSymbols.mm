@@ -2,7 +2,6 @@
 + (id)getInstance;
 - (BOOL)isEqual:(id)equal;
 - (JavaTextDecimalFormatSymbols)init;
-- (NSString)description;
 - (id)clone;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
@@ -25,7 +24,7 @@
 {
   Default = JavaUtilLocale_getDefault();
 
-  return JavaTextDecimalFormatSymbols_getInstanceWithJavaUtilLocale_(Default);
+  return JavaTextDecimalFormatSymbols_getInstanceWithJavaUtilLocale_(Default, v3);
 }
 
 - (id)clone
@@ -52,7 +51,6 @@
   objc_opt_class();
   if (!equal)
   {
-    currency = self->currency_;
     JreThrowNullPointerException();
   }
 
@@ -61,13 +59,13 @@
     JreThrowClassCastException();
   }
 
-  v5 = self->currency_;
-  if (!v5)
+  currency = self->currency_;
+  if (!currency)
   {
     goto LABEL_29;
   }
 
-  v6 = [(JavaUtilCurrency *)v5 isEqual:*(equal + 8)];
+  v6 = [(JavaUtilCurrency *)currency isEqual:*(equal + 8)];
   if (!v6)
   {
     return v6;
@@ -160,55 +158,11 @@ LABEL_26:
   return v6;
 }
 
-- (NSString)description
-{
-  v3 = [-[JavaTextDecimalFormatSymbols getClass](self "getClass")];
-  zeroDigit = self->zeroDigit_;
-  percent = self->percent_;
-  patternSeparator = self->patternSeparator_;
-  NaN = self->NaN_;
-  monetarySeparator = self->monetarySeparator_;
-  minusSign = self->minusSign_;
-  intlCurrencySymbol = self->intlCurrencySymbol_;
-  infinity = self->infinity_;
-  groupingSeparator = self->groupingSeparator_;
-  exponentSeparator = self->exponentSeparator_;
-  digit = self->digit_;
-  decimalSeparator = self->decimalSeparator_;
-  currencySymbol = self->currencySymbol_;
-  currency = self->currency_;
-  return JreStrcat("$$@$$$C$C$$$C$$$$$C$C$$$C$C$C$CC", @",NaN=", @",monetarySeparator=", self->perMill_, @",percent=", @",perMill=", 93, v4, v3);
-}
-
 - (unint64_t)hash
 {
   exponentSeparator = self->exponentSeparator_;
-  if (!exponentSeparator)
+  if (!exponentSeparator || (zeroDigit = self->zeroDigit_, digit = self->digit_, decimalSeparator = self->decimalSeparator_, groupingSeparator = self->groupingSeparator_, patternSeparator = self->patternSeparator_, percent = self->percent_, perMill = self->perMill_, monetarySeparator = self->monetarySeparator_, minusSign = self->minusSign_, v12 = [(NSString *)exponentSeparator hash], (infinity = self->infinity_) == 0) || (v14 = [(NSString *)infinity hash], (NaN = self->NaN_) == 0) || (v27 = v12, v28 = v14, v16 = [(NSString *)NaN hash], (currencySymbol = self->currencySymbol_) == 0) || (v18 = [(NSString *)currencySymbol hash], (intlCurrencySymbol = self->intlCurrencySymbol_) == 0))
   {
-    goto LABEL_7;
-  }
-
-  zeroDigit = self->zeroDigit_;
-  digit = self->digit_;
-  decimalSeparator = self->decimalSeparator_;
-  groupingSeparator = self->groupingSeparator_;
-  patternSeparator = self->patternSeparator_;
-  percent = self->percent_;
-  perMill = self->perMill_;
-  monetarySeparator = self->monetarySeparator_;
-  minusSign = self->minusSign_;
-  v12 = [(NSString *)exponentSeparator hash];
-  infinity = self->infinity_;
-  if (!infinity)
-  {
-    goto LABEL_7;
-  }
-
-  v14 = [(NSString *)infinity hash];
-  NaN = self->NaN_;
-  if (!NaN || (v27 = v12, v28 = v14, v16 = [(NSString *)NaN hash], (currencySymbol = self->currencySymbol_) == 0) || (v18 = [(NSString *)currencySymbol hash], (intlCurrencySymbol = self->intlCurrencySymbol_) == 0))
-  {
-LABEL_7:
     JreThrowNullPointerException();
   }
 

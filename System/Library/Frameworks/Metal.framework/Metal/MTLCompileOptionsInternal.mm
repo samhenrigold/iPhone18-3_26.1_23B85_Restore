@@ -217,7 +217,7 @@ LABEL_3:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v40[4] = *MEMORY[0x1E69E9840];
+  v39[4] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   languageVersion = self->_languageVersion;
@@ -229,11 +229,11 @@ LABEL_3:
     v12 = 1;
     do
     {
-      v40[0] = v6;
-      v40[1] = [(NSArray *)v8 objectAtIndexedSubscript:v10];
-      v40[2] = @"=";
-      v40[3] = [(NSArray *)v9 objectAtIndexedSubscript:v10];
-      v11 = -[__CFString stringByAppendingString:](v11, "stringByAppendingString:", [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:{4), "componentsJoinedByString:", @" "}]);
+      v39[0] = v6;
+      v39[1] = [(NSArray *)v8 objectAtIndexedSubscript:v10];
+      v39[2] = @"=";
+      v39[3] = [(NSArray *)v9 objectAtIndexedSubscript:v10];
+      v11 = -[__CFString stringByAppendingString:](v11, "stringByAppendingString:", [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:{4), "componentsJoinedByString:", @" "}]);
       v10 = v12;
     }
 
@@ -245,16 +245,16 @@ LABEL_3:
     v11 = &stru_1EF478240;
   }
 
-  v38 = 0;
-  v36 = *&self->_requiredThreadsPerThreadgroup.width;
+  v37 = 0;
+  v35 = *&self->_requiredThreadsPerThreadgroup.width;
   depth = self->_requiredThreadsPerThreadgroup.depth;
-  MTLSizeToNSArray(&v36, &v38);
+  MTLSizeToNSArray(&v35, &v37);
   v14 = MEMORY[0x1E696AEC0];
-  v35.receiver = self;
-  v35.super_class = MTLCompileOptionsInternal;
-  v15 = [(MTLCompileOptionsInternal *)&v35 description];
-  v39[0] = v5;
-  v39[1] = @"preprocessorMacros:";
+  v34.receiver = self;
+  v34.super_class = MTLCompileOptionsInternal;
+  v15 = [(MTLCompileOptionsInternal *)&v34 description];
+  v38[0] = v5;
+  v38[1] = @"preprocessorMacros:";
   if (v11)
   {
     v16 = v11;
@@ -265,9 +265,9 @@ LABEL_3:
     v16 = @"<null>";
   }
 
-  v39[2] = v16;
-  v39[3] = v5;
-  v39[4] = @"mathMode =";
+  v38[2] = v16;
+  v38[3] = v5;
+  v38[4] = @"mathMode =";
   mathMode = self->_mathMode;
   v18 = @"<unknown>";
   if (mathMode <= 2)
@@ -275,8 +275,8 @@ LABEL_3:
     v18 = off_1E6EEC610[mathMode];
   }
 
-  v39[5] = v18;
-  v39[6] = v5;
+  v38[5] = v18;
+  v38[6] = v5;
   mathFloatingPointFunctions = self->_mathFloatingPointFunctions;
   v20 = @"MTLMathFloatingPointFunctionsFast";
   if (mathFloatingPointFunctions)
@@ -291,14 +291,14 @@ LABEL_3:
     v22 = v20;
   }
 
-  v39[7] = @"mathFloatingPointFunctions =";
-  v39[8] = v22;
-  v39[9] = v5;
-  v39[10] = @"preserveInvariance =";
+  v38[7] = @"mathFloatingPointFunctions =";
+  v38[8] = v22;
+  v38[9] = v5;
+  v38[10] = @"preserveInvariance =";
   v23 = [MEMORY[0x1E696AD98] numberWithBool:self->_preserveInvariance];
   optimizationLevel = self->_optimizationLevel;
-  v39[11] = v23;
-  v39[12] = v5;
+  v38[11] = v23;
+  v38[12] = v5;
   v25 = @"MTLLibraryOptimizationLevelSize";
   if (optimizationLevel != 1)
   {
@@ -312,11 +312,11 @@ LABEL_3:
     v26 = v25;
   }
 
-  v39[13] = @"optimizationLevel =";
-  v39[14] = v26;
+  v38[13] = @"optimizationLevel =";
+  v38[14] = v26;
   libraryType = self->_libraryType;
-  v39[15] = v5;
-  v39[16] = @"libraryType =";
+  v38[15] = v5;
+  v38[16] = @"libraryType =";
   v28 = @"MTLLibraryTypeDynamic";
   if (libraryType != 1)
   {
@@ -333,30 +333,30 @@ LABEL_3:
     v29 = @"MTLLibraryTypeExecutable";
   }
 
-  v39[17] = v29;
-  v39[18] = v5;
+  v38[17] = v29;
+  v38[18] = v5;
   installName = self->_installName;
   if (!installName)
   {
     installName = @"<null>";
   }
 
-  v39[19] = @"installName =";
-  v39[20] = installName;
-  v39[21] = v5;
-  v39[22] = @"compileSymbolVisibility = ";
-  v39[23] = [MEMORY[0x1E696AD98] numberWithInteger:self->_compileSymbolVisibility];
-  v39[24] = v5;
-  v39[25] = @"allowReferencingUndefinedSymbols = ";
-  v39[26] = [MEMORY[0x1E696AD98] numberWithBool:self->_allowReferencingUndefinedSymbols];
-  v39[27] = v5;
-  v39[28] = @"maxTotalThreadsPerThreadgroup = ";
-  v39[29] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_maxTotalThreadsPerThreadgroup];
-  v39[30] = v5;
-  v39[31] = @"enableLogging =";
-  v39[32] = [MEMORY[0x1E696AD98] numberWithBool:self->_enableLogging];
-  v39[33] = v5;
-  v39[34] = @"languageVersion =";
+  v38[19] = @"installName =";
+  v38[20] = installName;
+  v38[21] = v5;
+  v38[22] = @"compileSymbolVisibility = ";
+  v38[23] = [MEMORY[0x1E696AD98] numberWithInteger:self->_compileSymbolVisibility];
+  v38[24] = v5;
+  v38[25] = @"allowReferencingUndefinedSymbols = ";
+  v38[26] = [MEMORY[0x1E696AD98] numberWithBool:self->_allowReferencingUndefinedSymbols];
+  v38[27] = v5;
+  v38[28] = @"maxTotalThreadsPerThreadgroup = ";
+  v38[29] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_maxTotalThreadsPerThreadgroup];
+  v38[30] = v5;
+  v38[31] = @"enableLogging =";
+  v38[32] = [MEMORY[0x1E696AD98] numberWithBool:self->_enableLogging];
+  v38[33] = v5;
+  v38[34] = @"languageVersion =";
   if (self->_userSetLanguageVersion)
   {
     languageVersion = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u:%u", HIWORD(languageVersion), languageVersion];
@@ -367,22 +367,20 @@ LABEL_3:
     languageVersion = @"default";
   }
 
-  v39[35] = languageVersion;
-  v39[36] = v5;
-  v39[37] = @"requiredThreadsPerThreadgroup = ";
-  v39[38] = v38;
-  result = [v14 stringWithFormat:@"%@%@", v15, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v39, 39), "componentsJoinedByString:", @" "];
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  v38[35] = languageVersion;
+  v38[36] = v5;
+  v38[37] = @"requiredThreadsPerThreadgroup = ";
+  v38[38] = v37;
+  return [v14 stringWithFormat:@"%@%@", v15, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v38, 39), "componentsJoinedByString:", @" "];
 }
 
 - (id)exportDictionary
 {
-  v17[21] = *MEMORY[0x1E69E9840];
-  v15 = 0;
+  v16[21] = *MEMORY[0x1E69E9840];
+  v14 = 0;
   requiredThreadsPerThreadgroup = self->_requiredThreadsPerThreadgroup;
-  MTLSizeToNSArray(&requiredThreadsPerThreadgroup, &v15);
-  v16[0] = @"preprocessorMacros";
+  MTLSizeToNSArray(&requiredThreadsPerThreadgroup, &v14);
+  v15[0] = @"preprocessorMacros";
   preprocessorMacros = [(MTLCompileOptionsInternal *)self preprocessorMacros];
   v4 = MEMORY[0x1E695E0F8];
   if (preprocessorMacros)
@@ -390,24 +388,24 @@ LABEL_3:
     v4 = preprocessorMacros;
   }
 
-  v17[0] = v4;
-  v16[1] = @"fastMathEnabled";
-  v17[1] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal fastMathEnabled](self, "fastMathEnabled")}];
-  v16[2] = @"mathMode";
-  v17[2] = [MEMORY[0x1E696AD98] numberWithInteger:{-[MTLCompileOptionsInternal mathMode](self, "mathMode")}];
-  v16[3] = @"mathFloatingPointFunctions";
-  v17[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[MTLCompileOptionsInternal mathFloatingPointFunctions](self, "mathFloatingPointFunctions")}];
-  v16[4] = @"languageVersion";
-  v17[4] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal languageVersion](self, "languageVersion")}];
-  v16[5] = @"tracingEnabled";
-  v17[5] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal tracingEnabled](self, "tracingEnabled")}];
-  v16[6] = @"glBufferBindPoints";
-  v17[6] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal glBufferBindPoints](self, "glBufferBindPoints")}];
-  v16[7] = @"debuggingEnabled";
-  v17[7] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal debuggingEnabled](self, "debuggingEnabled")}];
-  v16[8] = @"compileTimeStatisticsEnabled";
-  v17[8] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal compileTimeStatisticsEnabled](self, "compileTimeStatisticsEnabled")}];
-  v16[9] = @"additionalCompilerArguments";
+  v16[0] = v4;
+  v15[1] = @"fastMathEnabled";
+  v16[1] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal fastMathEnabled](self, "fastMathEnabled")}];
+  v15[2] = @"mathMode";
+  v16[2] = [MEMORY[0x1E696AD98] numberWithInteger:{-[MTLCompileOptionsInternal mathMode](self, "mathMode")}];
+  v15[3] = @"mathFloatingPointFunctions";
+  v16[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[MTLCompileOptionsInternal mathFloatingPointFunctions](self, "mathFloatingPointFunctions")}];
+  v15[4] = @"languageVersion";
+  v16[4] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal languageVersion](self, "languageVersion")}];
+  v15[5] = @"tracingEnabled";
+  v16[5] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal tracingEnabled](self, "tracingEnabled")}];
+  v15[6] = @"glBufferBindPoints";
+  v16[6] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal glBufferBindPoints](self, "glBufferBindPoints")}];
+  v15[7] = @"debuggingEnabled";
+  v16[7] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal debuggingEnabled](self, "debuggingEnabled")}];
+  v15[8] = @"compileTimeStatisticsEnabled";
+  v16[8] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal compileTimeStatisticsEnabled](self, "compileTimeStatisticsEnabled")}];
+  v15[9] = @"additionalCompilerArguments";
   additionalCompilerArguments = [(MTLCompileOptionsInternal *)self additionalCompilerArguments];
   if (additionalCompilerArguments)
   {
@@ -419,12 +417,12 @@ LABEL_3:
     v6 = &stru_1EF478240;
   }
 
-  v17[9] = v6;
-  v16[10] = @"sourceLanguage";
-  v17[10] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal sourceLanguage](self, "sourceLanguage")}];
-  v16[11] = @"type";
-  v17[11] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal libraryType](self, "libraryType")}];
-  v16[12] = @"libraries";
+  v16[9] = v6;
+  v15[10] = @"sourceLanguage";
+  v16[10] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal sourceLanguage](self, "sourceLanguage")}];
+  v15[11] = @"type";
+  v16[11] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal libraryType](self, "libraryType")}];
+  v15[12] = @"libraries";
   libraries = [(MTLCompileOptionsInternal *)self libraries];
   v8 = MEMORY[0x1E695E0F0];
   if (libraries)
@@ -432,8 +430,8 @@ LABEL_3:
     v8 = libraries;
   }
 
-  v17[12] = v8;
-  v16[13] = @"installName";
+  v16[12] = v8;
+  v15[13] = @"installName";
   installName = [(MTLCompileOptionsInternal *)self installName];
   if (installName)
   {
@@ -445,25 +443,23 @@ LABEL_3:
     v10 = &stru_1EF478240;
   }
 
-  v17[13] = v10;
-  v16[14] = @"preserveInvariance";
-  v17[14] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal preserveInvariance](self, "preserveInvariance")}];
-  v16[15] = @"optimizationLevel";
-  v17[15] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal optimizationLevel](self, "optimizationLevel")}];
-  v16[16] = @"compileSymbolVisibility";
-  v17[16] = [MEMORY[0x1E696AD98] numberWithInteger:{-[MTLCompileOptionsInternal compileSymbolVisibility](self, "compileSymbolVisibility")}];
-  v16[17] = @"allowReferencingUndefinedSymbols";
-  v17[17] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal allowReferencingUndefinedSymbols](self, "allowReferencingUndefinedSymbols")}];
-  v16[18] = @"maxTotalThreadsPerThreadgroup";
-  v17[18] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLCompileOptionsInternal maxTotalThreadsPerThreadgroup](self, "maxTotalThreadsPerThreadgroup")}];
-  v16[19] = @"enableLogging";
+  v16[13] = v10;
+  v15[14] = @"preserveInvariance";
+  v16[14] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal preserveInvariance](self, "preserveInvariance")}];
+  v15[15] = @"optimizationLevel";
+  v16[15] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[MTLCompileOptionsInternal optimizationLevel](self, "optimizationLevel")}];
+  v15[16] = @"compileSymbolVisibility";
+  v16[16] = [MEMORY[0x1E696AD98] numberWithInteger:{-[MTLCompileOptionsInternal compileSymbolVisibility](self, "compileSymbolVisibility")}];
+  v15[17] = @"allowReferencingUndefinedSymbols";
+  v16[17] = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal allowReferencingUndefinedSymbols](self, "allowReferencingUndefinedSymbols")}];
+  v15[18] = @"maxTotalThreadsPerThreadgroup";
+  v16[18] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLCompileOptionsInternal maxTotalThreadsPerThreadgroup](self, "maxTotalThreadsPerThreadgroup")}];
+  v15[19] = @"enableLogging";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[MTLCompileOptionsInternal enableLogging](self, "enableLogging")}];
-  v16[20] = @"requiredThreadsPerThreadgroup";
-  v17[19] = v11;
-  v17[20] = v15;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:21];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v15[20] = @"requiredThreadsPerThreadgroup";
+  v16[19] = v11;
+  v16[20] = v14;
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:21];
 }
 
 - (void)importDictionary:(id)dictionary

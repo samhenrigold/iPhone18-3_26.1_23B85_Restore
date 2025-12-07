@@ -9,7 +9,7 @@
 
 - (NSArray)allRemoteDestinationStrings
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   remoteDestinationString = [(HMDRemoteMessageDestination *)self remoteDestinationString];
   if (remoteDestinationString)
   {
@@ -24,18 +24,16 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = selfCopy;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@This destination is not addressable: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = selfCopy;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@This destination is not addressable: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     v4 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

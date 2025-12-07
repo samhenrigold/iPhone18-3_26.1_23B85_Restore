@@ -12,7 +12,7 @@
     type metadata accessor for Entity.ConfigurationCatalog();
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDyS2SGSgMd, &_sSDyS2SGSgMR);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (Entity.ConfigurationCatalog, configurations: [String : String]?));
     }
@@ -25,7 +25,7 @@
   {
   }
 
-  return result;
+  return v3;
 }
 
 @end

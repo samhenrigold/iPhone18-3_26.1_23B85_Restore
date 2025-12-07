@@ -18,7 +18,7 @@
 
 + (void)loadBundleAtURL:(id)l completionBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   lCopy = l;
   lastPathComponent = [lCopy lastPathComponent];
@@ -26,7 +26,7 @@
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v16 = lastPathComponent;
+    v15 = lastPathComponent;
     _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_INFO, "Lazy loading %{public}@", buf, 0xCu);
   }
 
@@ -42,7 +42,7 @@
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v16 = lastPathComponent;
+        v15 = lastPathComponent;
         _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_DEFAULT, "Loaded %{public}@", buf, 0xCu);
       }
 
@@ -57,9 +57,9 @@
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v16 = lastPathComponent;
-        v17 = 2114;
-        v18 = error;
+        v15 = lastPathComponent;
+        v16 = 2114;
+        v17 = error;
         _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_ERROR, "Could not load %{public}@: %{public}@", buf, 0x16u);
       }
 
@@ -82,7 +82,7 @@
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = lastPathComponent;
+      v15 = lastPathComponent;
       _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Could not load %{public}@", buf, 0xCu);
     }
 
@@ -91,13 +91,11 @@
       blockCopy[2](blockCopy, 0, 0);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)loadNSBundleAtURL:(id)l completionBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   lCopy = l;
   lastPathComponent = [lCopy lastPathComponent];
@@ -105,15 +103,15 @@
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v20 = lastPathComponent;
+    v19 = lastPathComponent;
     _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_INFO, "Lazy loading NSBundle %{public}@", buf, 0xCu);
   }
 
   v9 = [MEMORY[0x1E696AAE8] bundleWithURL:lCopy];
 
-  v18 = 0;
-  v10 = [v9 loadAndReturnError:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [v9 loadAndReturnError:&v17];
+  v11 = v17;
   v12 = _MCLogObjects;
   if (v10)
   {
@@ -123,7 +121,7 @@
     }
 
     *buf = 138543362;
-    v20 = lastPathComponent;
+    v19 = lastPathComponent;
     v13 = "Loaded %{public}@";
     v14 = v12;
     v15 = OS_LOG_TYPE_DEFAULT;
@@ -138,9 +136,9 @@
     }
 
     *buf = 138543618;
-    v20 = lastPathComponent;
-    v21 = 2114;
-    v22 = v11;
+    v19 = lastPathComponent;
+    v20 = 2114;
+    v21 = v11;
     v13 = "Could not load %{public}@: %{public}@";
     v14 = v12;
     v15 = OS_LOG_TYPE_ERROR;
@@ -153,8 +151,6 @@ LABEL_9:
   {
     blockCopy[2](blockCopy, v10, v9);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initPowerlogControl

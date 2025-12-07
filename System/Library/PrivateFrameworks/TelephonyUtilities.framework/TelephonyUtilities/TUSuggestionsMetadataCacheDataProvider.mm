@@ -2,6 +2,9 @@
 + (BOOL)canUseSiriSuggestions;
 + (SGSuggestionsServiceContactsProtocol)sharedService;
 + (id)newestSuggestedContactForDestinationID:(id)d;
++ (id)suggestedNamesForDestinationID:(id)d onlySignificant:(BOOL)significant error:(id *)error;
++ (id)suggestedNamesForDestinationID:(id)d onlySignificant:(BOOL)significant supportsInfoLookup:(BOOL)lookup error:(id *)error;
++ (void)suggestedNamesForDestinationID:(id)d onlySignificant:(BOOL)significant withCompletion:(id)completion;
 - (TUSuggestionsMetadataCacheDataProvider)init;
 - (void)updateCacheWithDestinationIDs:(id)ds withGroup:(id)group;
 @end
@@ -10,36 +13,36 @@
 
 - (TUSuggestionsMetadataCacheDataProvider)init
 {
-  v15.receiver = self;
-  v15.super_class = TUSuggestionsMetadataCacheDataProvider;
-  v2 = [(TUMetadataCacheDataProvider *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = TUSuggestionsMetadataCacheDataProvider;
+  v2 = [(TUMetadataCacheDataProvider *)&v16 init];
   if (v2)
   {
     v3 = dispatch_semaphore_create(9);
     suggestionsServiceThrottleSemaphore = v2->_suggestionsServiceThrottleSemaphore;
     v2->_suggestionsServiceThrottleSemaphore = v3;
 
-    v5 = TUDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TUDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Initializing new instance of TUSuggestionsMetadataCacheDataProvider", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Initializing new instance of TUSuggestionsMetadataCacheDataProvider", buf, 2u);
     }
 
     objc_initWeak(buf, v2);
     sharedService = [objc_opt_class() sharedService];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __46__TUSuggestionsMetadataCacheDataProvider_init__block_invoke;
-    v11[3] = &unk_1E7424BA0;
-    v7 = v2;
-    v12 = v7;
-    objc_copyWeak(&v13, buf);
-    v8 = [sharedService registerContactsChangeObserver:v11];
-    suggestionsContactsObserver = v7->_suggestionsContactsObserver;
-    v7->_suggestionsContactsObserver = v8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __46__TUSuggestionsMetadataCacheDataProvider_init__block_invoke;
+    v12[3] = &unk_1E7424BA0;
+    v8 = v2;
+    v13 = v8;
+    objc_copyWeak(&v14, buf);
+    v9 = [sharedService registerContactsChangeObserver:v12];
+    suggestionsContactsObserver = v8->_suggestionsContactsObserver;
+    v8->_suggestionsContactsObserver = v9;
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
@@ -52,13 +55,13 @@ void __55__TUSuggestionsMetadataCacheDataProvider_sharedService__block_invoke()
   v1 = sharedService_sharedService;
   sharedService_sharedService = v0;
 
-  [sharedService_sharedService setSyncTimeout:5.0];
+  v2 = [sharedService_sharedService setSyncTimeout:5.0];
   if (!sharedService_sharedService)
   {
-    v2 = TUDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = TUDefaultLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __55__TUSuggestionsMetadataCacheDataProvider_sharedService__block_invoke_cold_1(v2);
+      __55__TUSuggestionsMetadataCacheDataProvider_sharedService__block_invoke_cold_1(v3);
     }
   }
 }
@@ -83,9 +86,84 @@ void __55__TUSuggestionsMetadataCacheDataProvider_sharedService__block_invoke()
   return v3 ^ 1;
 }
 
++ (id)suggestedNamesForDestinationID:(id)d onlySignificant:(BOOL)significant error:(id *)error
+{
+  significantCopy = significant;
+  dCopy = d;
+  v8 = objc_opt_class();
+  v9 = [v8 suggestedNamesForDestinationID:dCopy onlySignificant:significantCopy supportsInfoLookup:objc_msgSend(objc_opt_class() error:{"shouldQuerySupportsInfo"), error}];
+
+  return v9;
+}
+
++ (id)suggestedNamesForDestinationID:(id)d onlySignificant:(BOOL)significant supportsInfoLookup:(BOOL)lookup error:(id *)error
+{
+  lookupCopy = lookup;
+  significantCopy = significant;
+  dCopy = d;
+  sharedService = [self sharedService];
+  if (sharedService && [self canUseSiriSuggestions])
+  {
+    if ([objc_opt_class() shouldQuerySupportsInfo])
+    {
+      [sharedService namesForDetail:dCopy limitTo:1 prependMaybe:1 onlySignificant:significantCopy supportsInfoLookup:lookupCopy error:error];
+    }
+
+    else
+    {
+      [sharedService namesForDetail:dCopy limitTo:1 prependMaybe:1 onlySignificant:significantCopy error:error];
+    }
+    v12 = ;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (v12)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = MEMORY[0x1E695E0F0];
+  }
+
+  v14 = v13;
+
+  return v13;
+}
+
++ (void)suggestedNamesForDestinationID:(id)d onlySignificant:(BOOL)significant withCompletion:(id)completion
+{
+  significantCopy = significant;
+  dCopy = d;
+  completionCopy = completion;
+  sharedService = [self sharedService];
+  if (sharedService && [self canUseSiriSuggestions])
+  {
+    if ([objc_opt_class() shouldQuerySupportsInfo])
+    {
+      [sharedService namesForDetail:dCopy limitTo:1 prependMaybe:1 onlySignificant:significantCopy supportsInfoLookup:1 withCompletion:completionCopy];
+    }
+
+    else
+    {
+      [sharedService namesForDetail:dCopy limitTo:1 prependMaybe:1 onlySignificant:significantCopy withCompletion:completionCopy];
+    }
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E0F0], 0);
+  }
+}
+
 + (id)newestSuggestedContactForDestinationID:(id)d
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (![self canUseSiriSuggestions])
   {
@@ -97,14 +175,14 @@ void __55__TUSuggestionsMetadataCacheDataProvider_sharedService__block_invoke()
     if ([dCopy destinationIdIsPhoneNumber])
     {
       sharedService = [self sharedService];
-      v31 = 0;
-      v6 = [sharedService contactMatchesByPhoneNumber:dCopy error:&v31];
-      v7 = v31;
+      v32 = 0;
+      v6 = [sharedService contactMatchesByPhoneNumber:dCopy error:&v32];
+      v7 = v32;
 
       if (!v6 && v7)
       {
-        v8 = TUDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = TUDefaultLog(v11);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           +[TUSuggestionsMetadataCacheDataProvider newestSuggestedContactForDestinationID:];
         }
@@ -122,75 +200,75 @@ LABEL_14:
   }
 
   sharedService2 = [self sharedService];
-  v32 = 0;
-  v6 = [sharedService2 contactMatchesByEmailAddress:dCopy error:&v32];
-  v7 = v32;
+  v33 = 0;
+  v6 = [sharedService2 contactMatchesByEmailAddress:dCopy error:&v33];
+  v7 = v33;
 
   if (v6 || !v7)
   {
 LABEL_17:
     if (v6)
     {
-      v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
+      v29 = 0u;
       v6 = v6;
-      cnContact = [v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      cnContact = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (cnContact)
       {
-        v25 = v7;
-        v26 = dCopy;
-        v8 = 0;
-        v14 = *v28;
+        v26 = v7;
+        v27 = dCopy;
+        v9 = 0;
+        v15 = *v29;
         numericValue2 = -1;
         do
         {
           for (i = 0; i != cnContact; i = i + 1)
           {
-            if (*v28 != v14)
+            if (*v29 != v15)
             {
               objc_enumerationMutation(v6);
             }
 
-            v17 = *(*(&v27 + 1) + 8 * i);
-            contact = [v17 contact];
+            v18 = *(*(&v28 + 1) + 8 * i);
+            contact = [v18 contact];
             recordId = [contact recordId];
             numericValue = [recordId numericValue];
 
             if (numericValue > numericValue2)
             {
-              contact2 = [v17 contact];
+              contact2 = [v18 contact];
               recordId2 = [contact2 recordId];
               numericValue2 = [recordId2 numericValue];
 
-              v23 = v17;
-              v8 = v23;
+              v24 = v18;
+              v9 = v24;
             }
           }
 
-          cnContact = [v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
+          cnContact = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
         }
 
         while (cnContact);
 
-        v7 = v25;
-        if (!v8)
+        v7 = v26;
+        if (!v9)
         {
           cnContact = 0;
-          dCopy = v26;
+          dCopy = v27;
           goto LABEL_16;
         }
 
-        contact3 = [v8 contact];
+        contact3 = [v9 contact];
         cnContact = [contact3 cnContact];
 
-        dCopy = v26;
+        dCopy = v27;
       }
 
       else
       {
-        v8 = v6;
+        v9 = v6;
       }
 
       goto LABEL_13;
@@ -201,8 +279,8 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v8 = TUDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = TUDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     +[TUSuggestionsMetadataCacheDataProvider newestSuggestedContactForDestinationID:];
   }
@@ -213,27 +291,24 @@ LABEL_12:
 LABEL_13:
 
 LABEL_16:
-  v11 = cnContact;
+  v13 = cnContact;
 
-  v12 = *MEMORY[0x1E69E9840];
   return cnContact;
 }
 
 void __46__TUSuggestionsMetadataCacheDataProvider_init__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = a1 + 32;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling Suggestions contacts change by refreshing %p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = a1 + 32;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling Suggestions contacts change by refreshing %p", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained refresh];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateCacheWithDestinationIDs:(id)ds withGroup:(id)group
@@ -271,39 +346,39 @@ void __46__TUSuggestionsMetadataCacheDataProvider_init__block_invoke(uint64_t a1
           v17 = dispatch_time(0, 1000000000);
           v18 = dispatch_semaphore_wait(suggestionsServiceThrottleSemaphore, v17);
 
-          v19 = TUDefaultLog();
-          v20 = v19;
+          v20 = TUDefaultLog(v19);
+          v21 = v20;
           if (v18)
           {
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = v24;
               v33 = v13;
-              _os_log_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEFAULT, "[WARN] TUSuggestionsMetadataCacheDataProvider waited too long for other requests and will not look up '%@'", buf, 0xCu);
+              _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "[WARN] TUSuggestionsMetadataCacheDataProvider waited too long for other requests and will not look up '%@'", buf, 0xCu);
             }
           }
 
           else
           {
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               *buf = v24;
               v33 = normalizedValue;
-              _os_log_debug_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEBUG, "dispatch_group_enter %@", buf, 0xCu);
+              _os_log_debug_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEBUG, "dispatch_group_enter %@", buf, 0xCu);
             }
 
             dispatch_group_enter(groupCopy);
-            v21 = objc_opt_class();
+            v22 = objc_opt_class();
             v25[0] = MEMORY[0x1E69E9820];
             v25[1] = 3221225472;
             v25[2] = __82__TUSuggestionsMetadataCacheDataProvider_updateCacheWithDestinationIDs_withGroup___block_invoke;
             v25[3] = &unk_1E7424BC8;
             v25[4] = self;
             v25[5] = v13;
-            v22 = normalizedValue;
-            v26 = v22;
+            v23 = normalizedValue;
+            v26 = v23;
             v27 = groupCopy;
-            [v21 suggestedNamesForDestinationID:v22 onlySignificant:0 withCompletion:v25];
+            [v22 suggestedNamesForDestinationID:v23 onlySignificant:0 withCompletion:v25];
           }
         }
       }
@@ -313,8 +388,6 @@ void __46__TUSuggestionsMetadataCacheDataProvider_init__block_invoke(uint64_t a1
 
     while (v10);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __82__TUSuggestionsMetadataCacheDataProvider_updateCacheWithDestinationIDs_withGroup___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -322,67 +395,54 @@ void __82__TUSuggestionsMetadataCacheDataProvider_updateCacheWithDestinationIDs_
   v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  if (v5 && [v5 count])
+  v7 = v6;
+  if (v5)
   {
-    v7 = *(a1 + 32);
-    v8 = [v5 firstObject];
-    [v7 setObject:v8 forDestinationID:*(a1 + 40)];
-
-    v9 = [TUMetadataDict alloc];
-    v10 = [v5 firstObject];
-    v11 = [(TUMetadataDict *)v9 initWithSource:@"Apple" identificationLabel:v10];
-
-    [*(a1 + 32) setMetadataDict:v11 forDestinationID:*(a1 + 40)];
-  }
-
-  if (v6)
-  {
-    v12 = TUDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v6 = [v5 count];
+    if (v6)
     {
-      v16 = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Could not fetch suggested contact via [SGSuggestionsService namesForDetail:limitTo:prependMaybe:withCompletion:]: %@", &v16, 0xCu);
+      v8 = *(a1 + 32);
+      v9 = [v5 firstObject];
+      [v8 setObject:v9 forDestinationID:*(a1 + 40)];
+
+      v10 = [TUMetadataDict alloc];
+      v11 = [v5 firstObject];
+      v12 = [(TUMetadataDict *)v10 initWithSource:@"Apple" identificationLabel:v11];
+
+      [*(a1 + 32) setMetadataDict:v12 forDestinationID:*(a1 + 40)];
     }
   }
 
-  v13 = TUDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  if (v7)
   {
-    __82__TUSuggestionsMetadataCacheDataProvider_updateCacheWithDestinationIDs_withGroup___block_invoke_cold_1(a1, v13);
+    v13 = TUDefaultLog(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 138412290;
+      v17 = v7;
+      _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Could not fetch suggested contact via [SGSuggestionsService namesForDetail:limitTo:prependMaybe:withCompletion:]: %@", &v16, 0xCu);
+    }
   }
 
-  v14 = [*(a1 + 32) suggestionsServiceThrottleSemaphore];
-  dispatch_semaphore_signal(v14);
+  v14 = TUDefaultLog(v6);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    __82__TUSuggestionsMetadataCacheDataProvider_updateCacheWithDestinationIDs_withGroup___block_invoke_cold_1(a1, v14);
+  }
+
+  v15 = [*(a1 + 32) suggestionsServiceThrottleSemaphore];
+  dispatch_semaphore_signal(v15);
 
   dispatch_group_leave(*(a1 + 56));
-  v15 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)newestSuggestedContactForDestinationID:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "Retrieving suggested contact matches by phone number %@ failed with error %@.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)newestSuggestedContactForDestinationID:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "Retrieving suggested contact matches by email address %@ failed with error %@.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __82__TUSuggestionsMetadataCacheDataProvider_updateCacheWithDestinationIDs_withGroup___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1956FD000, a2, OS_LOG_TYPE_DEBUG, "dispatch_group_leave %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1956FD000, a2, OS_LOG_TYPE_DEBUG, "dispatch_group_leave %@", &v3, 0xCu);
 }
 
 @end

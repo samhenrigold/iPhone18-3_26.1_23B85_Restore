@@ -24,7 +24,7 @@
 
 - (id)makeIHAGatedEventPayloadWithDataSource:(id)source error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v6 setObject:@"true" forKeyedSubscript:@"areHealthNotificationsAuthorized"];
@@ -37,9 +37,9 @@
   healthDataSource = [sourceCopy healthDataSource];
   environmentDataSource = [sourceCopy environmentDataSource];
   currentDate = [environmentDataSource currentDate];
-  v25 = 0;
-  v12 = [healthDataSource ageWithCurrentDate:currentDate error:&v25];
-  v13 = v25;
+  v24 = 0;
+  v12 = [healthDataSource ageWithCurrentDate:currentDate error:&v24];
+  v13 = v24;
 
   v14 = MEMORY[0x277CCC320];
   v15 = v12;
@@ -51,8 +51,8 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v28 = 2112;
-      v29 = v13;
+      v27 = 2112;
+      v28 = v13;
       _os_log_error_impl(&dword_269BCF000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Error fetching age from data source: %@", buf, 0x16u);
     }
 
@@ -61,9 +61,9 @@
 
   [v6 setObject:v15 forKeyedSubscript:*MEMORY[0x277CCB7C0]];
   healthDataSource2 = [sourceCopy healthDataSource];
-  v24 = v13;
-  v18 = [healthDataSource2 biologicalSexWithError:&v24];
-  v19 = v24;
+  v23 = v13;
+  v18 = [healthDataSource2 biologicalSexWithError:&v23];
+  v19 = v23;
 
   if (v19)
   {
@@ -73,8 +73,8 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v28 = 2112;
-      v29 = v19;
+      v27 = 2112;
+      v28 = v19;
       _os_log_error_impl(&dword_269BCF000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] Error biological sex from data source: %@", buf, 0x16u);
     }
 
@@ -86,8 +86,6 @@
     v21 = HKAnalyticsPropertyValueForBiologicalSex();
     [v6 setObject:v21 forKeyedSubscript:*MEMORY[0x277CCB7D0]];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

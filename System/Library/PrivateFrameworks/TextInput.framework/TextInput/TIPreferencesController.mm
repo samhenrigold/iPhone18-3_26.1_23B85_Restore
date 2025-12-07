@@ -316,30 +316,32 @@
   [(TIPreferencesController *)self _configureDomain:@"com.apple.assistant.support" notification:@"kAFPreferencesDidChangeDarwinNotification"];
 }
 
-uint64_t __54__TIPreferencesController_sharedPreferencesController__block_invoke()
+uint64_t __54__TIPreferencesController_sharedPreferencesController__block_invoke(uint64_t a1)
 {
-  sharedPreferencesController_sharedController = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = sharedPreferencesController_sharedController;
+  sharedPreferencesController_sharedController = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (void)idleInit
 {
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v4 = getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr;
-  v12 = getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr;
+  v13 = getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr;
   if (!getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr)
   {
     v5 = ManagedConfigurationLibrary();
-    v10[3] = dlsym(v5, "MCKeyboardSettingsChangedNotification");
-    getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr = v10[3];
-    v4 = v10[3];
+    v11[3] = dlsym(v5, "MCKeyboardSettingsChangedNotification");
+    getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr = v11[3];
+    v4 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v4)
   {
     goto LABEL_8;
@@ -348,20 +350,20 @@ uint64_t __54__TIPreferencesController_sharedPreferencesController__block_invoke
   [defaultCenter addObserver:self selector:sel_managedKeyboardSettingDidChange_ name:*v4 object:0];
 
   defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v7 = getMCProfileListChangedNotificationSymbolLoc_ptr;
-  v12 = getMCProfileListChangedNotificationSymbolLoc_ptr;
+  v13 = getMCProfileListChangedNotificationSymbolLoc_ptr;
   if (!getMCProfileListChangedNotificationSymbolLoc_ptr)
   {
     v8 = ManagedConfigurationLibrary();
-    v10[3] = dlsym(v8, "MCProfileListChangedNotification");
-    getMCProfileListChangedNotificationSymbolLoc_ptr = v10[3];
-    v7 = v10[3];
+    v11[3] = dlsym(v8, "MCProfileListChangedNotification");
+    getMCProfileListChangedNotificationSymbolLoc_ptr = v11[3];
+    v7 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (v7)
   {
     [defaultCenter2 addObserver:self selector:sel_profileSettingDidChange_ name:*v7 object:0];
@@ -370,8 +372,8 @@ uint64_t __54__TIPreferencesController_sharedPreferencesController__block_invoke
   else
   {
 LABEL_8:
-    dlerror();
-    abort_report_np();
+    v9 = dlerror();
+    abort_report_np("%s", v9);
     ManagedConfigurationLibrary();
   }
 }
@@ -1853,24 +1855,24 @@ void __54__TIPreferencesController_preferencesChangedCallback___block_invoke(uin
 
 + (void)registerPreferredLanguagesForInputModes:(id)modes replacingInputModes:(id)inputModes
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   modesCopy = modes;
   inputModesCopy = inputModes;
-  v50[0] = 0;
+  v49[0] = 0;
   if (!IntlPreferencesLibraryCore_frameworkLibrary)
   {
-    v50[1] = MEMORY[0x1E69E9820];
-    v50[2] = 3221225472;
-    v50[3] = __IntlPreferencesLibraryCore_block_invoke;
-    v50[4] = &__block_descriptor_40_e5_v8__0l;
-    v50[5] = v50;
-    v55 = xmmword_1E6F4D540;
-    v56 = 0;
+    v49[1] = MEMORY[0x1E69E9820];
+    v49[2] = 3221225472;
+    v49[3] = __IntlPreferencesLibraryCore_block_invoke;
+    v49[4] = &__block_descriptor_40_e5_v8__0l;
+    v49[5] = v49;
+    v54 = xmmword_1E6F4D540;
+    v55 = 0;
     IntlPreferencesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v7 = v50[0];
+    v7 = v49[0];
     if (IntlPreferencesLibraryCore_frameworkLibrary)
     {
-      if (!v50[0])
+      if (!v49[0])
       {
         goto LABEL_4;
       }
@@ -1878,8 +1880,7 @@ void __54__TIPreferencesController_preferencesChangedCallback___block_invoke(uin
 
     else
     {
-      v33 = v50[0];
-      v7 = abort_report_np();
+      v7 = abort_report_np("%s", v49[0]);
     }
 
     free(v7);
@@ -1887,66 +1888,66 @@ void __54__TIPreferencesController_preferencesChangedCallback___block_invoke(uin
 
 LABEL_4:
   v8 = [MEMORY[0x1E695DFA8] set];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v9 = inputModesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v47;
+    v12 = *v46;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v47 != v12)
+        if (*v46 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = TIInputModeGetLanguageWithRegion(*(*(&v46 + 1) + 8 * i));
+        v14 = TIInputModeGetLanguageWithRegion(*(*(&v45 + 1) + 8 * i));
         if (v14)
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v11);
   }
 
   v15 = [MEMORY[0x1E695DFA8] set];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v16 = modesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v42 objects:v53 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v41 objects:v52 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v43;
+    v19 = *v42;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v43 != v19)
+        if (*v42 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = TIInputModeGetLanguageWithRegion(*(*(&v42 + 1) + 8 * j));
+        v21 = TIInputModeGetLanguageWithRegion(*(*(&v41 + 1) + 8 * j));
         if (v21)
         {
           [v15 addObject:v21];
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v42 objects:v53 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v41 objects:v52 count:16];
     }
 
     while (v18);
@@ -1956,57 +1957,57 @@ LABEL_4:
   [v22 intersectSet:v8];
   [v15 minusSet:v22];
   [v8 minusSet:v22];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v23 = v15;
-  v24 = [v23 countByEnumeratingWithState:&v38 objects:v52 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v37 objects:v51 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v39;
+    v26 = *v38;
     do
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        [MEMORY[0x1E695DF58] registerPreferredLanguageForAddedKeyboardLanguage:*(*(&v38 + 1) + 8 * k)];
+        [MEMORY[0x1E695DF58] registerPreferredLanguageForAddedKeyboardLanguage:*(*(&v37 + 1) + 8 * k)];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v38 objects:v52 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v37 objects:v51 count:16];
     }
 
     while (v25);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v28 = v8;
-  v29 = [v28 countByEnumeratingWithState:&v34 objects:v51 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v33 objects:v50 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v35;
+    v31 = *v34;
     do
     {
       for (m = 0; m != v30; ++m)
       {
-        if (*v35 != v31)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        [MEMORY[0x1E695DF58] unregisterPreferredLanguageForKeyboardLanguage:*(*(&v34 + 1) + 8 * m)];
+        [MEMORY[0x1E695DF58] unregisterPreferredLanguageForKeyboardLanguage:*(*(&v33 + 1) + 8 * m)];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v34 objects:v51 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v33 objects:v50 count:16];
     }
 
     while (v30);

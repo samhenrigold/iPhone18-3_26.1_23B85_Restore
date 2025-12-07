@@ -36,16 +36,14 @@
 
 - (void)_notify
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [SGRecordId recordIdWithNumericValue:-1];
   callback = self->_callback;
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-  v8 = v3;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7 = v3;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
   callback[2](callback, v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (SGNotificationListener)initWithNotification:(__CFString *)notification callback:(id)callback

@@ -105,7 +105,7 @@
     v6 = _auxiliaryConnection;
     if (_auxiliaryConnection)
     {
-      [_auxiliaryConnection auditToken];
+      objc_msgSend_auditToken(_auxiliaryConnection);
     }
 
     else

@@ -71,11 +71,10 @@ void __71__CARSetupProgressView_observeValueForKeyPath_ofObject_change_context__
 
 void __71__CARSetupProgressView_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1(os_log_t log, float a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_242FD5000, log, OS_LOG_TYPE_DEBUG, "setting progress view to %f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_242FD5000, log, OS_LOG_TYPE_DEBUG, "setting progress view to %f", &v2, 0xCu);
 }
 
 @end

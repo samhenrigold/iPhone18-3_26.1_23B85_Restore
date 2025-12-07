@@ -49,7 +49,7 @@
   height = size.height;
   width = size.width;
   ObjectType = swift_getObjectType();
-  v9 = sub_1001F1160(&unk_100AEB380);
+  v9 = sub_1001F1160(&unk_100AEB380, &qword_100815DD0);
   __chkstk_darwin(v9 - 8);
   v11 = &v14 - v10;
   v14.receiver = self;
@@ -62,7 +62,7 @@
   sub_10058FAF8(v11);
   swift_unknownObjectRelease();
 
-  sub_100007840(v11, &unk_100AEB380);
+  sub_100007840(v11, &unk_100AEB380, &qword_100815DD0);
 }
 
 - (_TtC5Books22PageCurlViewController)initWithTransitionStyle:(int64_t)style navigationOrientation:(int64_t)orientation options:(id)options
@@ -82,7 +82,7 @@
 
 - (void)pageViewController:(id)controller willTransitionToViewControllers:(id)controllers
 {
-  sub_10000A7C4(0, &qword_100AD7CB0);
+  sub_10000A7C4(0, &qword_100AD7CB0, UIViewController_ptr);
   v6 = sub_1007A25E4();
   controllerCopy = controller;
   selfCopy = self;
@@ -109,7 +109,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  sub_10000A7C4(0, &qword_100ADAF70);
+  sub_10000A7C4(0, &qword_100ADAF70, NSObject_ptr);
   beginCopy = begin;
   selfCopy = self;
   v7 = sub_10058E1F4();

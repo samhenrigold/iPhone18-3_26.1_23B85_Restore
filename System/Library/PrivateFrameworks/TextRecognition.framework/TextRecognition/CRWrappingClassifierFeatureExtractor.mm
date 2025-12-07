@@ -1118,7 +1118,7 @@ void *__61__CRWrappingClassifierFeatureExtractor_multiArrayFromVector___block_in
   height2 = [[CRWrappingEvaluationResult alloc] initWithTextFeature:featureCopy context:v22 imageSize:v18 parameters:width, height];
   text = [lastFeatureCopy text];
   text2 = [featureCopy text];
-  [self extractFeatureVectorForLocale:localeCopy string1:text string2:text2 evaluation:height2 imageSize:{width, height}];
+  objc_msgSend_extractFeatureVectorForLocale_string1_string2_evaluation_imageSize_(self, width, height);
 
   v27 = [self nsArrayFromVector:__p];
   if (__p[0])
@@ -1139,7 +1139,7 @@ void *__61__CRWrappingClassifierFeatureExtractor_multiArrayFromVector___block_in
   evaluationCopy = evaluation;
   text = [lastFeature text];
   text2 = [featureCopy text];
-  [self extractFeatureVectorForLocale:localeCopy string1:text string2:text2 evaluation:evaluationCopy imageSize:{width, height}];
+  objc_msgSend_extractFeatureVectorForLocale_string1_string2_evaluation_imageSize_(self, width, height);
 
   v18 = __p;
   if (__p != v22)

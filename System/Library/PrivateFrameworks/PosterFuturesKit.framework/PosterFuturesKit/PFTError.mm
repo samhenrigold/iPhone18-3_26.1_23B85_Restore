@@ -1,4 +1,5 @@
 @interface PFTError
++ (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error toError:(id)toError;
 + (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error withBlock:(id)block;
 + (BOOL)isError:(id)error errorWithDomain:(id)domain code:(int64_t)code;
 + (BOOL)isFileNotFoundError:(id)error;
@@ -64,14 +65,14 @@
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = errorCopy;
   if (errorCopy)
   {
-    v11 = *MEMORY[0x277CCA7E8];
-    v12[0] = errorCopy;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA7E8];
+    v11[0] = errorCopy;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -80,22 +81,20 @@
   }
 
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PosterFuturesKitErrorDomain" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)errorWithCode:(int64_t)code underlyingException:(id)exception
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   exceptionCopy = exception;
   v6 = exceptionCopy;
   if (exceptionCopy)
   {
-    v11 = @"com.apple.PosterFuturesKit.underlying-exception";
-    v12[0] = exceptionCopy;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"com.apple.PosterFuturesKit.underlying-exception";
+    v11[0] = exceptionCopy;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -104,8 +103,6 @@
   }
 
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PosterFuturesKitErrorDomain" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -140,6 +137,21 @@
   }
 
   return nilCopy;
+}
+
++ (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error toError:(id)toError
+{
+  noCopy = no;
+  toErrorCopy = toError;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __48__PFTError_ifResultIsNo_setOutputError_toError___block_invoke;
+  v11[3] = &unk_279A53220;
+  v12 = toErrorCopy;
+  v9 = toErrorCopy;
+  LOBYTE(error) = [self ifResultIsNo:noCopy setOutputError:error withBlock:v11];
+
+  return error;
 }
 
 + (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error withBlock:(id)block

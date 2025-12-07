@@ -1,4 +1,4 @@
-void sub_26907C2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_26907C2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a31, 8);
 
@@ -12,7 +12,7 @@ uint64_t __Block_byref_object_copy_(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_26907D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_26907D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a31, 8);
 
@@ -26,13 +26,14 @@ void sub_26907E0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_269080608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27)
+void sub_269080608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, ...)
 {
-  objc_destroyWeak((v29 + 40));
-  objc_destroyWeak((v28 + 32));
+  va_start(va, location);
+  objc_destroyWeak((v28 + 40));
   objc_destroyWeak((v27 + 32));
+  objc_destroyWeak((v26 + 32));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -52,19 +53,19 @@ uint64_t __Block_byref_object_copy__493(uint64_t result, uint64_t a2)
 
 void _audioPlaybackServiceAudioQueueCallback(uint64_t a1, AudioQueueRef inAQ, AudioQueueBuffer *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(&v12, 0, sizeof(v12));
-  AudioQueueGetCurrentTime(inAQ, 0, &v12, 0);
+  v18 = *MEMORY[0x277D85DE8];
+  memset(&v11, 0, sizeof(v11));
+  AudioQueueGetCurrentTime(inAQ, 0, &v11, 0);
   v6 = SFSSGetLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     mAudioDataByteSize = a3->mAudioDataByteSize;
     *buf = 134218496;
-    v14 = a1;
-    v15 = 2048;
-    mSampleTime = v12.mSampleTime;
-    v17 = 2048;
-    v18 = mAudioDataByteSize;
+    v13 = a1;
+    v14 = 2048;
+    mSampleTime = v11.mSampleTime;
+    v16 = 2048;
+    v17 = mAudioDataByteSize;
     _os_log_debug_impl(&dword_269079000, v6, OS_LOG_TYPE_DEBUG, "AudioPlaybackServices %p played audio buffer at sample time: %f, size: %ld", buf, 0x20u);
   }
 
@@ -76,18 +77,16 @@ void _audioPlaybackServiceAudioQueueCallback(uint64_t a1, AudioQueueRef inAQ, Au
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v14) = v8;
+      LODWORD(v13) = v8;
       _os_log_error_impl(&dword_269079000, v9, OS_LOG_TYPE_ERROR, "Error AudioQueueFreeBuffer %d", buf, 8u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_269083F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269083F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -146,7 +145,6 @@ void flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(flatbuffers::FlatBufferB
   {
     if (*this)
     {
-      v4 = *(this + 4);
       (*(**this + 24))(*this);
     }
 
@@ -208,7 +206,6 @@ void flatbuffers::DetachedBuffer::~DetachedBuffer(flatbuffers::DetachedBuffer *t
     v4 = *this;
     if (*this)
     {
-      v5 = *(this + 3);
       (*(*v4 + 24))(v4);
     }
 
@@ -334,7 +331,7 @@ uint64_t flatbuffers::FlatBufferBuilder::ReferTo(flatbuffers::FlatBufferBuilder 
     __assert_rtn("ReferTo", "flatbuffers.h", 1321, "off && off <= GetSize()");
   }
 
-  return v6 + 4;
+  return (v6 + 4);
 }
 
 uint64_t flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(uint64_t a1, int a2)
@@ -376,9 +373,9 @@ unint64_t flatbuffers::vector_downward::fill(flatbuffers::vector_downward *this,
   return result;
 }
 
-void sub_2690849EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2690849EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -790,17 +787,17 @@ BOOL flatbuffers::Verifier::VerifyString(flatbuffers::Verifier *a1, const unsign
   return result;
 }
 
-void sub_2690857C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690857C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_269085A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_269085A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -863,10 +860,10 @@ BOOL siri::speech::schema_fb::UserAcousticProfile::Verify(siri::speech::schema_f
   return result;
 }
 
-void sub_269086084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269086084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -923,51 +920,34 @@ BOOL siri::speech::schema_fb::RecognitionToken::Verify(siri::speech::schema_fb::
       {
         v8 = (this - *this);
         v9 = *v8;
-        if (v9 < 7)
+        if (v9 < 7 || (!v8[3] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v8[3] - *a2) && (v9 < 9 || (!v8[4] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v8[4] - *a2) && (v9 < 0xB || (!v8[5] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v8[5] - *a2) && (v9 < 0xD || (!v8[6] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v8[6] - *a2) && (v9 < 0xF || !v8[7] || (result = 0, v14 = *(a2 + 1), v14 >= 2) && v14 - 1 >= this + v8[7] - *a2)))))
         {
-          goto LABEL_43;
-        }
-
-        if (!v8[3] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v8[3] - *a2)
-        {
-          if (v9 < 9)
+          result = flatbuffers::Table::VerifyOffset(this, a2, 0x10u);
+          if (result)
           {
-            goto LABEL_43;
-          }
-
-          if (!v8[4] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v8[4] - *a2)
-          {
-            if (v9 < 0xB || (!v8[5] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v8[5] - *a2) && (v9 < 0xD || (!v8[6] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v8[6] - *a2) && (v9 < 0xF || !v8[7] || (result = 0, v14 = *(a2 + 1), v14 >= 2) && v14 - 1 >= this + v8[7] - *a2)))
+            v15 = v9 >= 0x11 && v8[8] ? this + v8[8] + *(this + v8[8]) : 0;
+            result = flatbuffers::Verifier::VerifyString(a2, v15);
+            if (result)
             {
-LABEL_43:
-              result = flatbuffers::Table::VerifyOffset(this, a2, 0x10u);
+              result = flatbuffers::Table::VerifyOffset(this, a2, 0x12u);
               if (result)
               {
-                v15 = v9 >= 0x11 && v8[8] ? this + v8[8] + *(this + v8[8]) : 0;
-                result = flatbuffers::Verifier::VerifyString(a2, v15);
+                v16 = (this - *this);
+                if (*v16 >= 0x13u && (v17 = v16[9]) != 0)
+                {
+                  v18 = this + v17 + *(this + v17);
+                }
+
+                else
+                {
+                  v18 = 0;
+                }
+
+                result = flatbuffers::Verifier::VerifyString(a2, v18);
                 if (result)
                 {
-                  result = flatbuffers::Table::VerifyOffset(this, a2, 0x12u);
-                  if (result)
-                  {
-                    v16 = (this - *this);
-                    if (*v16 >= 0x13u && (v17 = v16[9]) != 0)
-                    {
-                      v18 = this + v17 + *(this + v17);
-                    }
-
-                    else
-                    {
-                      v18 = 0;
-                    }
-
-                    result = flatbuffers::Verifier::VerifyString(a2, v18);
-                    if (result)
-                    {
-                      --*(a2 + 4);
-                      return 1;
-                    }
-                  }
+                  --*(a2 + 4);
+                  return 1;
                 }
               }
             }
@@ -980,10 +960,10 @@ LABEL_43:
   return result;
 }
 
-void sub_269086BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269086BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1004,7 +984,6 @@ void std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(__n);
     }
 
@@ -1012,7 +991,7 @@ void std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>
   }
 }
 
-void std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+void std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -1184,10 +1163,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Recogn
   return result;
 }
 
-void sub_269087674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269087674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1289,10 +1268,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Recogn
   return result;
 }
 
-void sub_269087F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269087F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1403,10 +1382,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Recogn
   return result;
 }
 
-void sub_269088788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269088788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1421,10 +1400,10 @@ void sub_2690889AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_269088E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269088E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1453,10 +1432,10 @@ uint64_t flatbuffers::FlatBufferBuilder::CreateVector<int>(flatbuffers::FlatBuff
   return flatbuffers::FlatBufferBuilder::EndVector(a1, a3);
 }
 
-void sub_2690895C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690895C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1471,10 +1450,10 @@ void sub_2690897F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_269089AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269089AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1486,19 +1465,10 @@ BOOL siri::speech::schema_fb::ItnAlignment::Verify(siri::speech::schema_fb::ItnA
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (v10 = v5[5]) == 0 || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v10 - *a2))))
     {
-      goto LABEL_18;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (v10 = v5[5]) == 0 || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v10 - *a2)))
-      {
-LABEL_18:
-        --*(a2 + 4);
-        return 1;
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
@@ -1588,10 +1558,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::ItnAli
   return result;
 }
 
-void sub_26908A444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908A444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1678,10 +1648,10 @@ LABEL_16:
   return result;
 }
 
-void sub_26908AFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908AFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1963,10 +1933,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Choice
   return result;
 }
 
-void sub_26908C5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908C5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1991,10 +1961,10 @@ void sub_26908CE3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_26908D35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908D35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2062,18 +2032,18 @@ BOOL siri::speech::schema_fb::RequestStatsResponse_::DoubleStat::Verify(siri::sp
   return result;
 }
 
-void sub_26908DB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908DB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26908E1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908E1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2351,10 +2321,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Reques
   return result;
 }
 
-void sub_26908ED64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908ED64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2369,7 +2339,7 @@ void sub_26908EFB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -2500,10 +2470,10 @@ LABEL_12:
   return result;
 }
 
-void sub_26908F6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908F6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2523,10 +2493,10 @@ void sub_26908FC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_26908FF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26908FF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2570,10 +2540,10 @@ BOOL siri::speech::schema_fb::AudioAnalytics_::AcousticFeaturesEntry::Verify(sir
   return result;
 }
 
-void sub_269090784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269090784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2719,18 +2689,18 @@ LABEL_22:
   return result;
 }
 
-void sub_26909111C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909111C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690917F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690917F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2956,10 +2926,10 @@ LABEL_48:
   return result;
 }
 
-void sub_269092944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269092944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3080,10 +3050,10 @@ BOOL siri::speech::schema_fb::PartialSpeechRecognitionResponse::Verify(siri::spe
   return result;
 }
 
-void sub_2690936B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690936B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3253,168 +3223,118 @@ BOOL siri::speech::schema_fb::StartSpeechRequest::Verify(siri::speech::schema_fb
                                     {
                                       v32 = (this - *this);
                                       v33 = *v32;
-                                      if (v33 < 0x1B)
+                                      if (v33 < 0x1B || (!v32[13] || (result = 0, v34 = *(a2 + 1), v34 >= 5) && v34 - 4 >= this + v32[13] - *a2) && (v33 < 0x1D || (!v32[14] || (result = 0, v35 = *(a2 + 1), v35 >= 2) && v35 - 1 >= this + v32[14] - *a2) && (v33 < 0x1F || (!v32[15] || (result = 0, v36 = *(a2 + 1), v36 >= 2) && v36 - 1 >= this + v32[15] - *a2) && (v33 < 0x21 || !v32[16] || (result = 0, v37 = *(a2 + 1), v37 >= 2) && v37 - 1 >= this + v32[16] - *a2))))
                                       {
-                                        goto LABEL_177;
-                                      }
-
-                                      if (!v32[13] || (result = 0, v34 = *(a2 + 1), v34 >= 5) && v34 - 4 >= this + v32[13] - *a2)
-                                      {
-                                        if (v33 < 0x1D || (!v32[14] || (result = 0, v35 = *(a2 + 1), v35 >= 2) && v35 - 1 >= this + v32[14] - *a2) && (v33 < 0x1F || (!v32[15] || (result = 0, v36 = *(a2 + 1), v36 >= 2) && v36 - 1 >= this + v32[15] - *a2) && (v33 < 0x21 || !v32[16] || (result = 0, v37 = *(a2 + 1), v37 >= 2) && v37 - 1 >= this + v32[16] - *a2)))
+                                        result = flatbuffers::Table::VerifyOffset(this, a2, 0x22u);
+                                        if (result)
                                         {
-LABEL_177:
-                                          result = flatbuffers::Table::VerifyOffset(this, a2, 0x22u);
+                                          v38 = v33 >= 0x23 && v32[17] ? this + v32[17] + *(this + v32[17]) : 0;
+                                          result = flatbuffers::Verifier::VerifyString(a2, v38);
                                           if (result)
                                           {
-                                            v38 = v33 >= 0x23 && v32[17] ? this + v32[17] + *(this + v32[17]) : 0;
-                                            result = flatbuffers::Verifier::VerifyString(a2, v38);
-                                            if (result)
+                                            v39 = (this - *this);
+                                            v40 = *v39;
+                                            if (v40 < 0x25 || (!v39[18] || (result = 0, v41 = *(a2 + 1), v41 >= 5) && v41 - 4 >= this + v39[18] - *a2) && (v40 < 0x27 || (!v39[19] || (result = 0, v42 = *(a2 + 1), v42 >= 5) && v42 - 4 >= this + v39[19] - *a2) && (v40 < 0x29 || (!v39[20] || (result = 0, v43 = *(a2 + 1), v43 >= 2) && v43 - 1 >= this + v39[20] - *a2) && (v40 < 0x2B || (!v39[21] || (result = 0, v44 = *(a2 + 1), v44 >= 2) && v44 - 1 >= this + v39[21] - *a2) && (v40 < 0x2D || (!v39[22] || (result = 0, v45 = *(a2 + 1), v45 >= 2) && v45 - 1 >= this + v39[22] - *a2) && (v40 < 0x2F || (!v39[23] || (result = 0, v46 = *(a2 + 1), v46 >= 9) && v46 - 8 >= this + v39[23] - *a2) && (v40 < 0x31 || (!v39[24] || (result = 0, v47 = *(a2 + 1), v47 >= 9) && v47 - 8 >= this + v39[24] - *a2) && (v40 < 0x33 || !v39[25] || (result = 0, v48 = *(a2 + 1), v48 >= 2) && v48 - 1 >= this + v39[25] - *a2))))))))
                                             {
-                                              v39 = (this - *this);
-                                              v40 = *v39;
-                                              if (v40 < 0x25)
+                                              result = flatbuffers::Table::VerifyOffset(this, a2, 0x34u);
+                                              if (result)
                                               {
-                                                goto LABEL_178;
-                                              }
-
-                                              if (!v39[18] || (result = 0, v41 = *(a2 + 1), v41 >= 5) && v41 - 4 >= this + v39[18] - *a2)
-                                              {
-                                                if (v40 < 0x27)
+                                                v49 = v40 >= 0x35 && v39[26] ? this + v39[26] + *(this + v39[26]) : 0;
+                                                result = flatbuffers::Verifier::VerifyString(a2, v49);
+                                                if (result)
                                                 {
-                                                  goto LABEL_178;
-                                                }
-
-                                                if (!v39[19] || (result = 0, v42 = *(a2 + 1), v42 >= 5) && v42 - 4 >= this + v39[19] - *a2)
-                                                {
-                                                  if (v40 < 0x29)
+                                                  result = flatbuffers::Table::VerifyOffset(this, a2, 0x36u);
+                                                  if (result)
                                                   {
-                                                    goto LABEL_178;
-                                                  }
-
-                                                  if (!v39[20] || (result = 0, v43 = *(a2 + 1), v43 >= 2) && v43 - 1 >= this + v39[20] - *a2)
-                                                  {
-                                                    if (v40 < 0x2B)
+                                                    v50 = (this - *this);
+                                                    if (*v50 >= 0x37u && (v51 = v50[27]) != 0)
                                                     {
-                                                      goto LABEL_178;
+                                                      v52 = this + v51 + *(this + v51);
                                                     }
 
-                                                    if (!v39[21] || (result = 0, v44 = *(a2 + 1), v44 >= 2) && v44 - 1 >= this + v39[21] - *a2)
+                                                    else
                                                     {
-                                                      if (v40 < 0x2D)
-                                                      {
-                                                        goto LABEL_178;
-                                                      }
+                                                      v52 = 0;
+                                                    }
 
-                                                      if (!v39[22] || (result = 0, v45 = *(a2 + 1), v45 >= 2) && v45 - 1 >= this + v39[22] - *a2)
+                                                    result = flatbuffers::Verifier::VerifyString(a2, v52);
+                                                    if (result)
+                                                    {
+                                                      result = flatbuffers::Table::VerifyOffset(this, a2, 0x38u);
+                                                      if (result)
                                                       {
-                                                        if (v40 < 0x2F || (!v39[23] || (result = 0, v46 = *(a2 + 1), v46 >= 9) && v46 - 8 >= this + v39[23] - *a2) && (v40 < 0x31 || (!v39[24] || (result = 0, v47 = *(a2 + 1), v47 >= 9) && v47 - 8 >= this + v39[24] - *a2) && (v40 < 0x33 || !v39[25] || (result = 0, v48 = *(a2 + 1), v48 >= 2) && v48 - 1 >= this + v39[25] - *a2)))
+                                                        v53 = (this - *this);
+                                                        if (*v53 >= 0x39u && (v54 = v53[28]) != 0)
                                                         {
-LABEL_178:
-                                                          result = flatbuffers::Table::VerifyOffset(this, a2, 0x34u);
-                                                          if (result)
+                                                          v55 = this + v54 + *(this + v54);
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v55 = 0;
+                                                        }
+
+                                                        result = flatbuffers::Verifier::VerifyString(a2, v55);
+                                                        if (result)
+                                                        {
+                                                          v56 = (this - *this);
+                                                          v57 = *v56;
+                                                          if (v57 < 0x3B || (!v56[29] || (result = 0, v58 = *(a2 + 1), v58 >= 5) && v58 - 4 >= this + v56[29] - *a2) && (v57 < 0x3D || (!v56[30] || (result = 0, v59 = *(a2 + 1), v59 >= 2) && v59 - 1 >= this + v56[30] - *a2) && (v57 < 0x3F || !v56[31] || (result = 0, v60 = *(a2 + 1), v60 >= 2) && v60 - 1 >= this + v56[31] - *a2)))
                                                           {
-                                                            v49 = v40 >= 0x35 && v39[26] ? this + v39[26] + *(this + v39[26]) : 0;
-                                                            result = flatbuffers::Verifier::VerifyString(a2, v49);
+                                                            result = flatbuffers::Table::VerifyOffset(this, a2, 0x40u);
                                                             if (result)
                                                             {
-                                                              result = flatbuffers::Table::VerifyOffset(this, a2, 0x36u);
+                                                              v61 = v57 >= 0x41 && v56[32] ? this + v56[32] + *(this + v56[32]) : 0;
+                                                              result = flatbuffers::Verifier::VerifyString(a2, v61);
                                                               if (result)
                                                               {
-                                                                v50 = (this - *this);
-                                                                if (*v50 >= 0x37u && (v51 = v50[27]) != 0)
+                                                                v62 = (this - *this);
+                                                                v63 = *v62;
+                                                                if (v63 < 0x43 || !v62[33] || (result = 0, v64 = *(a2 + 1), v64 >= 5) && v64 - 4 >= this + v62[33] - *a2)
                                                                 {
-                                                                  v52 = this + v51 + *(this + v51);
-                                                                }
-
-                                                                else
-                                                                {
-                                                                  v52 = 0;
-                                                                }
-
-                                                                result = flatbuffers::Verifier::VerifyString(a2, v52);
-                                                                if (result)
-                                                                {
-                                                                  result = flatbuffers::Table::VerifyOffset(this, a2, 0x38u);
+                                                                  result = flatbuffers::Table::VerifyOffset(this, a2, 0x44u);
                                                                   if (result)
                                                                   {
-                                                                    v53 = (this - *this);
-                                                                    if (*v53 >= 0x39u && (v54 = v53[28]) != 0)
-                                                                    {
-                                                                      v55 = this + v54 + *(this + v54);
-                                                                    }
-
-                                                                    else
-                                                                    {
-                                                                      v55 = 0;
-                                                                    }
-
-                                                                    result = flatbuffers::Verifier::VerifyString(a2, v55);
+                                                                    v65 = v63 >= 0x45 && v62[34] ? this + v62[34] + *(this + v62[34]) : 0;
+                                                                    result = flatbuffers::Verifier::VerifyString(a2, v65);
                                                                     if (result)
                                                                     {
-                                                                      v56 = (this - *this);
-                                                                      v57 = *v56;
-                                                                      if (v57 < 0x3B || (!v56[29] || (result = 0, v58 = *(a2 + 1), v58 >= 5) && v58 - 4 >= this + v56[29] - *a2) && (v57 < 0x3D || (!v56[30] || (result = 0, v59 = *(a2 + 1), v59 >= 2) && v59 - 1 >= this + v56[30] - *a2) && (v57 < 0x3F || !v56[31] || (result = 0, v60 = *(a2 + 1), v60 >= 2) && v60 - 1 >= this + v56[31] - *a2)))
+                                                                      result = flatbuffers::Table::VerifyOffset(this, a2, 0x46u);
+                                                                      if (result)
                                                                       {
-                                                                        result = flatbuffers::Table::VerifyOffset(this, a2, 0x40u);
+                                                                        v66 = (this - *this);
+                                                                        if (*v66 >= 0x47u && (v67 = v66[35]) != 0)
+                                                                        {
+                                                                          v68 = this + v67 + *(this + v67);
+                                                                        }
+
+                                                                        else
+                                                                        {
+                                                                          v68 = 0;
+                                                                        }
+
+                                                                        result = flatbuffers::Verifier::VerifyString(a2, v68);
                                                                         if (result)
                                                                         {
-                                                                          v61 = v57 >= 0x41 && v56[32] ? this + v56[32] + *(this + v56[32]) : 0;
-                                                                          result = flatbuffers::Verifier::VerifyString(a2, v61);
+                                                                          result = flatbuffers::Table::VerifyOffset(this, a2, 0x48u);
                                                                           if (result)
                                                                           {
-                                                                            v62 = (this - *this);
-                                                                            v63 = *v62;
-                                                                            if (v63 < 0x43 || !v62[33] || (result = 0, v64 = *(a2 + 1), v64 >= 5) && v64 - 4 >= this + v62[33] - *a2)
+                                                                            v69 = (this - *this);
+                                                                            if (*v69 >= 0x49u && (v70 = v69[36]) != 0)
                                                                             {
-                                                                              result = flatbuffers::Table::VerifyOffset(this, a2, 0x44u);
-                                                                              if (result)
-                                                                              {
-                                                                                v65 = v63 >= 0x45 && v62[34] ? this + v62[34] + *(this + v62[34]) : 0;
-                                                                                result = flatbuffers::Verifier::VerifyString(a2, v65);
-                                                                                if (result)
-                                                                                {
-                                                                                  result = flatbuffers::Table::VerifyOffset(this, a2, 0x46u);
-                                                                                  if (result)
-                                                                                  {
-                                                                                    v66 = (this - *this);
-                                                                                    if (*v66 >= 0x47u && (v67 = v66[35]) != 0)
-                                                                                    {
-                                                                                      v68 = this + v67 + *(this + v67);
-                                                                                    }
+                                                                              v71 = this + v70 + *(this + v70);
+                                                                            }
 
-                                                                                    else
-                                                                                    {
-                                                                                      v68 = 0;
-                                                                                    }
+                                                                            else
+                                                                            {
+                                                                              v71 = 0;
+                                                                            }
 
-                                                                                    result = flatbuffers::Verifier::VerifyString(a2, v68);
-                                                                                    if (result)
-                                                                                    {
-                                                                                      result = flatbuffers::Table::VerifyOffset(this, a2, 0x48u);
-                                                                                      if (result)
-                                                                                      {
-                                                                                        v69 = (this - *this);
-                                                                                        if (*v69 >= 0x49u && (v70 = v69[36]) != 0)
-                                                                                        {
-                                                                                          v71 = this + v70 + *(this + v70);
-                                                                                        }
-
-                                                                                        else
-                                                                                        {
-                                                                                          v71 = 0;
-                                                                                        }
-
-                                                                                        result = flatbuffers::Verifier::VerifyString(a2, v71);
-                                                                                        if (result)
-                                                                                        {
-                                                                                          --*(a2 + 4);
-                                                                                          return 1;
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
+                                                                            result = flatbuffers::Verifier::VerifyString(a2, v71);
+                                                                            if (result)
+                                                                            {
+                                                                              --*(a2 + 4);
+                                                                              return 1;
                                                                             }
                                                                           }
                                                                         }
@@ -3457,18 +3377,18 @@ LABEL_178:
   return result;
 }
 
-void sub_26909587C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909587C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_269095E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269095E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3569,18 +3489,18 @@ LABEL_16:
   return result;
 }
 
-void sub_2690969C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690969C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_269096F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269096F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3718,10 +3638,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfStrings(flatbuffers::Verifier *a1, _DW
   return result;
 }
 
-void sub_269097970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269097970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3903,10 +3823,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Contex
   return result;
 }
 
-void sub_269098854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269098854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3996,10 +3916,10 @@ BOOL siri::speech::schema_fb::SetSpeechProfile::Verify(siri::speech::schema_fb::
   return result;
 }
 
-void sub_2690992BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690992BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4020,25 +3940,25 @@ BOOL siri::speech::schema_fb::SetEndpointerState::Verify(siri::speech::schema_fb
   return result;
 }
 
-void sub_269099788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269099788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26909991C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26909991C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_269099D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_269099D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4058,10 +3978,10 @@ void sub_26909A1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26909A4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909A4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4134,10 +4054,10 @@ LABEL_24:
   return result;
 }
 
-void sub_26909AF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909AF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4223,17 +4143,17 @@ BOOL siri::speech::schema_fb::UpdatedAcousticProfile::Verify(siri::speech::schem
   return result;
 }
 
-void sub_26909B8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909B8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26909BB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26909BB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4333,10 +4253,10 @@ LABEL_15:
   return result;
 }
 
-void sub_26909C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4410,10 +4330,10 @@ LABEL_12:
   return result;
 }
 
-void sub_26909CB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909CB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4506,10 +4426,10 @@ LABEL_18:
   return result;
 }
 
-void sub_26909D578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909D578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4554,18 +4474,18 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Catego
   return result;
 }
 
-void sub_26909E360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909E360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26909EDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909EDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4662,33 +4582,33 @@ BOOL siri::speech::schema_fb::StartPronGuessRequest::Verify(siri::speech::schema
   return result;
 }
 
-void sub_26909F768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909F768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26909FDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26909FDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690A02CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A02CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690A04C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2690A04C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4732,10 +4652,10 @@ BOOL siri::speech::schema_fb::VocToken::Verify(siri::speech::schema_fb::VocToken
   return result;
 }
 
-void sub_2690A0A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A0A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4958,10 +4878,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Pronun
   return result;
 }
 
-void sub_2690A1D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A1D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4976,10 +4896,10 @@ void sub_2690A20BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690A2890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A2890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5029,10 +4949,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::VocTok
   return result;
 }
 
-void sub_2690A3864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A3864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5157,10 +5077,10 @@ LABEL_27:
   return result;
 }
 
-void sub_2690A43BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A43BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5243,10 +5163,10 @@ BOOL siri::speech::schema_fb::BatchRecoverFinalResponse::Verify(siri::speech::sc
   return result;
 }
 
-void sub_2690A4DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A4DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5261,10 +5181,10 @@ void sub_2690A50DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690A58A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A58A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5279,10 +5199,10 @@ void sub_2690A5C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690A654C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A654C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5297,10 +5217,10 @@ void sub_2690A68C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690A7170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A7170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5315,18 +5235,18 @@ void sub_2690A7510(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690A7E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A7E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690A874C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A874C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5341,10 +5261,10 @@ void sub_2690A898C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690A8E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A8E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5437,10 +5357,10 @@ LABEL_18:
   return result;
 }
 
-void sub_2690A9854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690A9854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5485,26 +5405,26 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Normal
   return result;
 }
 
-void sub_2690AA574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AA574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690AAAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AAAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690AB058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AB058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5529,10 +5449,10 @@ void sub_2690AB630(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690ABC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690ABC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5798,18 +5718,18 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::PronCh
   return result;
 }
 
-void sub_2690ACA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690ACA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690AD32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AD32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5866,10 +5786,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::TokenP
   return result;
 }
 
-void sub_2690AE874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AE874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5904,10 +5824,10 @@ BOOL siri::speech::schema_fb::Alignment::Verify(siri::speech::schema_fb::Alignme
   return result;
 }
 
-void sub_2690AEFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AEFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5947,10 +5867,10 @@ BOOL siri::speech::schema_fb::Span::Verify(siri::speech::schema_fb::Span *this, 
   return result;
 }
 
-void sub_2690AF6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AF6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6048,10 +5968,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Span>(
   return result;
 }
 
-void sub_2690AFEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690AFEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6127,10 +6047,10 @@ LABEL_13:
   return result;
 }
 
-void sub_2690B07E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B07E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6366,10 +6286,10 @@ LABEL_46:
   return result;
 }
 
-void sub_2690B1BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B1BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6432,10 +6352,10 @@ BOOL siri::speech::schema_fb::SiriPayloadTranslationInfo::Verify(siri::speech::s
   return result;
 }
 
-void sub_2690B23A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B23A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6522,10 +6442,10 @@ LABEL_15:
   return result;
 }
 
-void sub_2690B2C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B2C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6802,10 +6722,10 @@ LABEL_73:
   return result;
 }
 
-void sub_2690B44A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B44A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -6982,10 +6902,10 @@ BOOL siri::speech::schema_fb::StreamingTranslationRequest::Verify(siri::speech::
   return result;
 }
 
-void sub_2690B53F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B53F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7005,10 +6925,10 @@ void sub_2690B5918(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690B5D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B5D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7028,10 +6948,10 @@ void sub_2690B6210(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690B6734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B6734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7502,10 +7422,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Transl
   return result;
 }
 
-void sub_2690B7D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B7D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7587,10 +7507,10 @@ BOOL siri::speech::schema_fb::EndPointLikelihood::Verify(siri::speech::schema_fb
   return result;
 }
 
-void sub_2690B864C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B864C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7673,10 +7593,10 @@ BOOL siri::speech::schema_fb::EndPointCandidate::Verify(siri::speech::schema_fb:
   return result;
 }
 
-void sub_2690B8FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B8FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7698,10 +7618,10 @@ BOOL siri::speech::schema_fb::SetRequestOrigin::Verify(siri::speech::schema_fb::
   return result;
 }
 
-void sub_2690B9594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B9594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7741,10 +7661,10 @@ BOOL siri::speech::schema_fb::RecognitionProgress::Verify(siri::speech::schema_f
   return result;
 }
 
-void sub_2690B9B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690B9B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7765,10 +7685,10 @@ BOOL siri::speech::schema_fb::ResetServerEndpointer::Verify(siri::speech::schema
   return result;
 }
 
-void sub_2690BA05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BA05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7947,10 +7867,10 @@ LABEL_56:
   return result;
 }
 
-void sub_2690BB264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BB264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -7972,18 +7892,18 @@ BOOL siri::speech::schema_fb::CheckForSpeechRequest::Verify(siri::speech::schema
   return result;
 }
 
-void sub_2690BB7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BB7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690BBBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BBBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8003,18 +7923,18 @@ void sub_2690BC258(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690BD0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BD0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690BD798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BD798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8055,18 +7975,18 @@ BOOL siri::speech::schema_fb::LmScorerToken::Verify(siri::speech::schema_fb::LmS
   return result;
 }
 
-void sub_2690BDE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BDE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690BE5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BE5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8081,18 +8001,18 @@ void sub_2690BE988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690BF0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BF0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690BF5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690BF5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8107,10 +8027,10 @@ void sub_2690BFA6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690C03E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C03E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8125,10 +8045,10 @@ void sub_2690C07BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690C11E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C11E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8151,82 +8071,73 @@ BOOL siri::speech::schema_fb::ServerEndpointFeatures::Verify(siri::speech::schem
     v5 = *this;
     v6 = (this - v5);
     v7 = *(this - v5);
-    if (v7 < 5)
+    if (v7 < 5 || (!v6[2] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v6[2] - *a2) && (v7 < 7 || (!v6[3] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v6[3] - *a2) && (v7 < 9 || (!v6[4] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v6[4] - *a2) && (v7 < 0xB || !v6[5] || (result = 0, v11 = *(a2 + 1), v11 >= 9) && v11 - 8 >= this + v6[5] - *a2))))
     {
-      goto LABEL_18;
-    }
-
-    if (!v6[2] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v6[2] - *a2)
-    {
-      if (v7 < 7 || (!v6[3] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v6[3] - *a2) && (v7 < 9 || (!v6[4] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v6[4] - *a2) && (v7 < 0xB || !v6[5] || (result = 0, v11 = *(a2 + 1), v11 >= 9) && v11 - 8 >= this + v6[5] - *a2)))
+      result = flatbuffers::Table::VerifyOffset(this, a2, 0xCu);
+      if (result)
       {
-LABEL_18:
-        result = flatbuffers::Table::VerifyOffset(this, a2, 0xCu);
-        if (result)
+        if (v7 < 0xD)
         {
-          if (v7 < 0xD)
+          goto LABEL_28;
+        }
+
+        if (v6[6])
+        {
+          result = flatbuffers::Verifier::VerifyVectorOrString(a2, this + v6[6] + *(this + v6[6]), 4uLL, 0);
+          if (!result)
           {
-            goto LABEL_28;
+            return result;
           }
 
-          if (v6[6])
+          v5 = *this;
+          v12 = -v5;
+          v7 = *(this - v5);
+        }
+
+        else
+        {
+          v12 = -v5;
+        }
+
+        if (v7 < 0xF || (v13 = *(this + v12 + 14)) == 0 || (result = 0, v14 = *(a2 + 1), v14 >= 9) && v14 - 8 >= this + v13 - *a2)
+        {
+LABEL_28:
+          result = flatbuffers::Table::VerifyOffset(this, a2, 0x10u);
+          if (result)
           {
-            result = flatbuffers::Verifier::VerifyVectorOrString(a2, this + v6[6] + *(this + v6[6]), 4uLL, 0);
-            if (!result)
+            v15 = (this - v5);
+            if (*v15 >= 0x11u && (v16 = v15[8]) != 0)
             {
-              return result;
+              v17 = this + v16 + *(this + v16);
             }
 
-            v5 = *this;
-            v12 = -v5;
-            v7 = *(this - v5);
-          }
+            else
+            {
+              v17 = 0;
+            }
 
-          else
-          {
-            v12 = -v5;
-          }
-
-          if (v7 < 0xF || (v13 = *(this + v12 + 14)) == 0 || (result = 0, v14 = *(a2 + 1), v14 >= 9) && v14 - 8 >= this + v13 - *a2)
-          {
-LABEL_28:
-            result = flatbuffers::Table::VerifyOffset(this, a2, 0x10u);
+            result = flatbuffers::Verifier::VerifyString(a2, v17);
             if (result)
             {
-              v15 = (this - v5);
-              if (*v15 >= 0x11u && (v16 = v15[8]) != 0)
-              {
-                v17 = this + v16 + *(this + v16);
-              }
-
-              else
-              {
-                v17 = 0;
-              }
-
-              result = flatbuffers::Verifier::VerifyString(a2, v17);
+              result = flatbuffers::Table::VerifyOffset(this, a2, 0x12u);
               if (result)
               {
-                result = flatbuffers::Table::VerifyOffset(this, a2, 0x12u);
+                v18 = (this - *this);
+                if (*v18 >= 0x13u && (v19 = v18[9]) != 0)
+                {
+                  v20 = this + v19 + *(this + v19);
+                }
+
+                else
+                {
+                  v20 = 0;
+                }
+
+                result = flatbuffers::Verifier::VerifyString(a2, v20);
                 if (result)
                 {
-                  v18 = (this - *this);
-                  if (*v18 >= 0x13u && (v19 = v18[9]) != 0)
-                  {
-                    v20 = this + v19 + *(this + v19);
-                  }
-
-                  else
-                  {
-                    v20 = 0;
-                  }
-
-                  result = flatbuffers::Verifier::VerifyString(a2, v20);
-                  if (result)
-                  {
-                    --*(a2 + 4);
-                    return 1;
-                  }
+                  --*(a2 + 4);
+                  return 1;
                 }
               }
             }
@@ -8239,26 +8150,26 @@ LABEL_28:
   return result;
 }
 
-void sub_2690C1E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C1E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690C2988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C2988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690C2F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C2F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8273,10 +8184,10 @@ void sub_2690C33F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2690C3CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C3CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8288,37 +8199,20 @@ BOOL siri::speech::schema_fb::TTSRequestFeatureFlags::Verify(siri::speech::schem
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 2) && v7 - 1 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 2) && v8 - 1 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 2) && v9 - 1 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 2) && v10 - 1 >= this + v5[5] - *a2) && (v6 < 0xD || (v11 = v5[6]) == 0 || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v11 - *a2)))))
     {
-      goto LABEL_22;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 2) && v7 - 1 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7)
-      {
-        goto LABEL_22;
-      }
-
-      if (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 2) && v8 - 1 >= this + v5[3] - *a2)
-      {
-        if (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 2) && v9 - 1 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 2) && v10 - 1 >= this + v5[5] - *a2) && (v6 < 0xD || (v11 = v5[6]) == 0 || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v11 - *a2)))
-        {
-LABEL_22:
-          --*(a2 + 4);
-          return 1;
-        }
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
   return result;
 }
 
-void sub_2690C43F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C43F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8449,10 +8343,10 @@ BOOL siri::speech::schema_fb::TextToSpeechVoice::Verify(siri::speech::schema_fb:
   return result;
 }
 
-void sub_2690C4F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C4F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8507,10 +8401,10 @@ BOOL siri::speech::schema_fb::TextToSpeechResource::Verify(siri::speech::schema_
   return result;
 }
 
-void sub_2690C55D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C55D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8543,10 +8437,10 @@ BOOL siri::speech::schema_fb::TextToSpeechMeta::Verify(siri::speech::schema_fb::
   return result;
 }
 
-void sub_2690C5CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C5CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8590,10 +8484,10 @@ BOOL siri::speech::schema_fb::TextToSpeechRequestMeta::Verify(siri::speech::sche
   return result;
 }
 
-void sub_2690C6374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C6374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8608,10 +8502,10 @@ void sub_2690C670C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690C6A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C6A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8694,10 +8588,10 @@ LABEL_12:
   return result;
 }
 
-void sub_2690C7360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C7360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8733,10 +8627,10 @@ BOOL siri::speech::schema_fb::TextToSpeechRequestExperiment::Verify(siri::speech
   return result;
 }
 
-void sub_2690C78CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C78CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8804,10 +8698,10 @@ LABEL_9:
   return result;
 }
 
-void sub_2690C8088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C8088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8881,10 +8775,10 @@ LABEL_12:
   return result;
 }
 
-void sub_2690C8970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C8970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -8899,15 +8793,15 @@ void sub_2690C8BB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2690C9054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C9054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690C9358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p)
+void sub_2690C9358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p)
 {
   _Block_object_dispose(&a16, 8);
   if (__p)
@@ -9012,26 +8906,26 @@ LABEL_18:
   return result;
 }
 
-void sub_2690C9A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690C9A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690CA020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690CA020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690CA4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690CA4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -9389,10 +9283,10 @@ BOOL flatbuffers::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::TTSNeu
   return result;
 }
 
-void sub_2690CC07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690CC07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -9414,17 +9308,17 @@ BOOL siri::speech::schema_fb::TextToSpeechRequestDebug::Verify(siri::speech::sch
   return result;
 }
 
-void sub_2690CC5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2690CC5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x26D631190](v7, 0x1030C40E9F947FBLL);
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2690CC7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2690CC7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9443,6 +9337,140 @@ BOOL siri::speech::schema_fb::TextToSpeechVoiceResource::Verify(siri::speech::sc
       {
         --*(a2 + 4);
         return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_2690CCCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
+  flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2690CCFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
+{
+  if (v10)
+  {
+    operator delete(v10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL siri::speech::schema_fb::TextToSpeechUserProfile::Verify(siri::speech::schema_fb::TextToSpeechUserProfile *this, flatbuffers::Verifier *a2)
+{
+  result = flatbuffers::Verifier::VerifyTableStart(a2, this);
+  if (result)
+  {
+    result = flatbuffers::Table::VerifyOffset(this, a2, 4u);
+    if (result)
+    {
+      v5 = *this;
+      if (*(this - v5) < 5u)
+      {
+        goto LABEL_12;
+      }
+
+      if (*(this - v5 + 4))
+      {
+        result = flatbuffers::Verifier::VerifyVectorOrString(a2, this + *(this - v5 + 4) + *(this + *(this - v5 + 4)), 4uLL, 0);
+        if (!result)
+        {
+          return result;
+        }
+
+        v5 = *this;
+        if (*(this - v5) < 5u)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      v6 = *(this - v5 + 4);
+      if (v6 && (v7 = (this + v6 + *(this + v6)), *v7))
+      {
+        v8 = 0;
+        v9 = v7 + 1;
+        while (siri::speech::schema_fb::TextToSpeechVoiceResource::Verify((v9 + *v9), a2))
+        {
+          ++v8;
+          ++v9;
+          if (v8 >= *v7)
+          {
+            goto LABEL_12;
+          }
+        }
+
+        return 0;
+      }
+
+      else
+      {
+LABEL_12:
+        --*(a2 + 4);
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_2690CD5AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  MEMORY[0x26D631190](v13, 0x1030C40E9F947FBLL, a3, a4, a5, a6, a7);
+  flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(va);
+  _Unwind_Resume(a1);
+}
+
+BOOL siri::speech::schema_fb::TextToSpeechRequestDevConfig::Verify(siri::speech::schema_fb::TextToSpeechRequestDevConfig *this, flatbuffers::Verifier *a2)
+{
+  result = flatbuffers::Verifier::VerifyTableStart(a2, this);
+  if (result)
+  {
+    v5 = (this - *this);
+    v6 = *v5;
+    if (v6 < 5 || !v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 2) && v7 - 1 >= this + v5[2] - *a2)
+    {
+      result = flatbuffers::Table::VerifyOffset(this, a2, 6u);
+      if (result)
+      {
+        v8 = v6 >= 7 && v5[3] ? this + v5[3] + *(this + v5[3]) : 0;
+        result = flatbuffers::Verifier::VerifyString(a2, v8);
+        if (result)
+        {
+          result = flatbuffers::Table::VerifyOffset(this, a2, 8u);
+          if (result)
+          {
+            v9 = (this - *this);
+            if (*v9 >= 9u && (v10 = v9[4]) != 0)
+            {
+              v11 = this + v10 + *(this + v10);
+            }
+
+            else
+            {
+              v11 = 0;
+            }
+
+            result = flatbuffers::Verifier::VerifyString(a2, v11);
+            if (result)
+            {
+              v12 = (this - *this);
+              if (*v12 < 0xBu || (v13 = v12[5]) == 0 || (result = 0, v14 = *(a2 + 1), v14 >= 2) && v14 - 1 >= this + v13 - *a2)
+              {
+                --*(a2 + 4);
+                return 1;
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -4,14 +4,23 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)confidence;
 - (int)return_code;
+- (void)setConfidence:(int)confidence;
 - (void)setConversation_id:(id)conversation_id;
+- (void)setIs_stable_result:(BOOL)is_stable_result;
 - (void)setRecognition_text:(id)recognition_text;
 - (void)setRequest_id:(id)request_id;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSource_locale:(id)source_locale;
 @end
 
 @implementation QSSMutableSpeechTranslationPartialRecognitionResponse
+
+- (void)setIs_stable_result:(BOOL)is_stable_result
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_stable_result];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)is_stable_result
 {
@@ -19,6 +28,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setConfidence:(int)confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)confidence
@@ -44,6 +59,12 @@
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

@@ -73,7 +73,7 @@
 
 - (void)fillOutDataWithUUIDsToAddActions:(id)actions hrefsToModDeleteActions:(id)deleteActions
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   deleteActionsCopy = deleteActions;
   if (self->_pushedData)
@@ -85,32 +85,32 @@
   if (self->_simple)
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     v10 = actionsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v59 objects:v65 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v58 objects:v64 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v60;
+      v13 = *v59;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v60 != v13)
+          if (*v59 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [v10 objectForKey:*(*(&v59 + 1) + 8 * i)];
+          v15 = [v10 objectForKey:*(*(&v58 + 1) + 8 * i)];
           context = [v15 context];
           dataPayload = [context dataPayload];
           [(NSData *)v9 appendData:dataPayload];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v59 objects:v65 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v58 objects:v64 count:16];
       }
 
       while (v12);
@@ -122,29 +122,29 @@
 
   else
   {
-    v43 = deleteActionsCopy;
+    v42 = deleteActionsCopy;
     pushedData = objc_alloc_init(CoreDAVXMLData);
     [CoreDAVXMLData startElement:"startElement:inNamespace:withAttributes:" inNamespace:? withAttributes:?];
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v42 = actionsCopy;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v41 = actionsCopy;
     obj = actionsCopy;
-    v47 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
-    if (v47)
+    v46 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+    if (v46)
     {
-      v45 = *v56;
+      v44 = *v55;
       do
       {
-        for (j = 0; j != v47; ++j)
+        for (j = 0; j != v46; ++j)
         {
-          if (*v56 != v45)
+          if (*v55 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = [obj objectForKey:*(*(&v55 + 1) + 8 * j)];
+          v20 = [obj objectForKey:*(*(&v54 + 1) + 8 * j)];
           context2 = [v20 context];
           [(CoreDAVXMLData *)pushedData startElement:@"resource" inNamespace:@"http://me.com/_namespace/" withAttributes:0];
           [(CoreDAVXMLData *)pushedData startElement:@"set" inNamespace:@"DAV:" withAttributes:0];
@@ -159,36 +159,36 @@
           [(CoreDAVXMLData *)pushedData endElement:@"resource" inNamespace:@"http://me.com/_namespace/"];
         }
 
-        v47 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+        v46 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
       }
 
-      while (v47);
+      while (v46);
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    v25 = v43;
-    v26 = [v25 countByEnumeratingWithState:&v51 objects:v63 count:16];
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v25 = v42;
+    v26 = [v25 countByEnumeratingWithState:&v50 objects:v62 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v52;
-      v46 = v25;
-      v44 = *v52;
+      v28 = *v51;
+      v45 = v25;
+      v43 = *v51;
       do
       {
         v29 = 0;
-        v48 = v27;
+        v47 = v27;
         do
         {
-          if (*v52 != v28)
+          if (*v51 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v51 + 1) + 8 * v29);
+          v30 = *(*(&v50 + 1) + 8 * v29);
           v31 = [v25 objectForKey:v30];
           [(CoreDAVXMLData *)pushedData startElement:@"resource" inNamespace:@"http://me.com/_namespace/" withAttributes:0];
           cDVRawPath = [v30 CDVRawPath];
@@ -223,9 +223,9 @@
             [(CoreDAVXMLData *)pushedData endElement:@"prop" inNamespace:@"DAV:"];
             [(CoreDAVXMLData *)pushedData endElement:@"set" inNamespace:@"DAV:"];
 
-            v28 = v44;
-            v25 = v46;
-            v27 = v48;
+            v28 = v43;
+            v25 = v45;
+            v27 = v47;
           }
 
           [(CoreDAVXMLData *)pushedData endElement:@"resource" inNamespace:@"http://me.com/_namespace/"];
@@ -234,7 +234,7 @@
         }
 
         while (v27 != v29);
-        v27 = [v25 countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v50 objects:v62 count:16];
       }
 
       while (v27);
@@ -245,11 +245,9 @@
     v40 = selfCopy->_pushedData;
     selfCopy->_pushedData = data;
 
-    actionsCopy = v42;
-    deleteActionsCopy = v43;
+    actionsCopy = v41;
+    deleteActionsCopy = v42;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyDefaultParserForContentType:(id)type
@@ -271,7 +269,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -292,29 +290,29 @@
       bulkChangeResponses = self->_bulkChangeResponses;
       self->_bulkChangeResponses = v11;
 
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
       v67 = 0u;
-      v45 = rootElement;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      v44 = rootElement;
       obj = [rootElement responses];
-      v50 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
-      if (v50)
+      v49 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+      if (v49)
       {
-        v48 = *v67;
+        v47 = *v66;
         selfCopy = self;
         do
         {
           v13 = 0;
           do
           {
-            if (*v67 != v48)
+            if (*v66 != v47)
             {
               objc_enumerationMutation(obj);
             }
 
-            v51 = v13;
-            v14 = *(*(&v66 + 1) + 8 * v13);
+            v50 = v13;
+            v14 = *(*(&v65 + 1) + 8 * v13);
             v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
             status = [v14 status];
 
@@ -343,50 +341,50 @@
               [v15 setObject:firstHref2 forKey:v23];
             }
 
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
             v63 = 0u;
+            v64 = 0u;
+            v61 = 0u;
+            v62 = 0u;
             propStats = [v14 propStats];
-            v54 = [propStats countByEnumeratingWithState:&v62 objects:v71 count:16];
-            if (v54)
+            v53 = [propStats countByEnumeratingWithState:&v61 objects:v70 count:16];
+            if (v53)
             {
-              v53 = *v63;
+              v52 = *v62;
               do
               {
                 v25 = 0;
                 do
                 {
-                  if (*v63 != v53)
+                  if (*v62 != v52)
                   {
                     objc_enumerationMutation(propStats);
                   }
 
-                  v26 = *(*(&v62 + 1) + 8 * v25);
+                  v26 = *(*(&v61 + 1) + 8 * v25);
+                  v57 = 0u;
                   v58 = 0u;
                   v59 = 0u;
                   v60 = 0u;
-                  v61 = 0u;
-                  v55 = v26;
-                  v56 = v25;
+                  v54 = v26;
+                  v55 = v25;
                   prop = [v26 prop];
                   extraChildItems = [prop extraChildItems];
 
-                  v29 = [extraChildItems countByEnumeratingWithState:&v58 objects:v70 count:16];
+                  v29 = [extraChildItems countByEnumeratingWithState:&v57 objects:v69 count:16];
                   if (v29)
                   {
                     v30 = v29;
-                    v31 = *v59;
+                    v31 = *v58;
                     do
                     {
                       for (i = 0; i != v30; ++i)
                       {
-                        if (*v59 != v31)
+                        if (*v58 != v31)
                         {
                           objc_enumerationMutation(extraChildItems);
                         }
 
-                        v33 = *(*(&v58 + 1) + 8 * i);
+                        v33 = *(*(&v57 + 1) + 8 * i);
                         v34 = objc_alloc(MEMORY[0x277CCACA8]);
                         nameSpace = [v33 nameSpace];
                         name = [v33 name];
@@ -395,62 +393,60 @@
                         [v15 setObject:v33 forKey:v37];
                       }
 
-                      v30 = [extraChildItems countByEnumeratingWithState:&v58 objects:v70 count:16];
+                      v30 = [extraChildItems countByEnumeratingWithState:&v57 objects:v69 count:16];
                     }
 
                     while (v30);
                   }
 
-                  status3 = [v55 status];
+                  status3 = [v54 status];
 
                   if (status3)
                   {
                     v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCDVNameSpace:@"DAV:" andName:@"status"];
-                    status4 = [v55 status];
+                    status4 = [v54 status];
                     [v15 setObject:status4 forKey:v39];
                   }
 
-                  errorItem3 = [v55 errorItem];
+                  errorItem3 = [v54 errorItem];
 
                   if (errorItem3)
                   {
                     v42 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCDVNameSpace:@"DAV:" andName:@"error"];
-                    errorItem4 = [v55 errorItem];
+                    errorItem4 = [v54 errorItem];
                     [v15 setObject:errorItem4 forKey:v42];
                   }
 
-                  v25 = v56 + 1;
+                  v25 = v55 + 1;
                 }
 
-                while (v56 + 1 != v54);
-                v54 = [propStats countByEnumeratingWithState:&v62 objects:v71 count:16];
+                while (v55 + 1 != v53);
+                v53 = [propStats countByEnumeratingWithState:&v61 objects:v70 count:16];
               }
 
-              while (v54);
+              while (v53);
             }
 
             self = selfCopy;
             [(NSMutableSet *)selfCopy->_bulkChangeResponses addObject:v15];
 
-            v13 = v51 + 1;
+            v13 = v50 + 1;
           }
 
-          while (v51 + 1 != v50);
-          v50 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
+          while (v50 + 1 != v49);
+          v49 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
         }
 
-        while (v50);
+        while (v49);
       }
 
       errorCopy = 0;
     }
   }
 
-  v57.receiver = self;
-  v57.super_class = CoreDAVBulkChangeTask;
-  [(CoreDAVTask *)&v57 finishCoreDAVTaskWithError:errorCopy];
-
-  v44 = *MEMORY[0x277D85DE8];
+  v56.receiver = self;
+  v56.super_class = CoreDAVBulkChangeTask;
+  [(CoreDAVTask *)&v56 finishCoreDAVTaskWithError:errorCopy];
 }
 
 - (void)fillOutDataWithUUIDsToAddActions:(uint64_t)a1 hrefsToModDeleteActions:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

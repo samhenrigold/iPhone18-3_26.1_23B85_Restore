@@ -28,10 +28,10 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v35 = *MEMORY[0x29EDCA608];
-  v33.receiver = self;
-  v33.super_class = CFXPreviewViewControllerAccessibility;
-  [(CFXPreviewViewControllerAccessibility *)&v33 _accessibilityLoadAccessibilityInformation];
+  v34 = *MEMORY[0x29EDCA608];
+  v32.receiver = self;
+  v32.super_class = CFXPreviewViewControllerAccessibility;
+  [(CFXPreviewViewControllerAccessibility *)&v32 _accessibilityLoadAccessibilityInformation];
   v3 = [(CFXPreviewViewControllerAccessibility *)self safeValueForKey:@"playerContainerView"];
   [v3 setIsAccessibilityElement:1];
   v4 = [(CFXPreviewViewControllerAccessibility *)self safeValueForKey:@"previewClip"];
@@ -50,7 +50,7 @@
   v7 = accessibilityLocalizedString(v6);
   [v3 setAccessibilityLabel:v7];
 
-  v32 = 0;
+  v31 = 0;
   objc_opt_class();
   v8 = [(CFXPreviewViewControllerAccessibility *)self safeValueForKeyPath:@"previewClip.effectStack"];
   v9 = __UIAccessibilityCastAsClass();
@@ -63,31 +63,31 @@
     [(CFXPreviewViewControllerAccessibility *)self _axSetEffectToElement:dictionary];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = v9;
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v12 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v28;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
+        v16 = *(*(&v27 + 1) + 8 * i);
         v17 = +[AXCFXElementUtilities sharedInstance];
-        v32 = 0;
+        v31 = 0;
         objc_opt_class();
         v18 = __UIAccessibilityCastAsClass();
-        if (v32 == 1)
+        if (v31 == 1)
         {
           abort();
         }
@@ -103,7 +103,7 @@
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v13 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v13);
@@ -115,7 +115,6 @@
   [v23 _accessibilitySetAdditionalElements:allValues];
 
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 - (void)viewDidLayoutSubviews

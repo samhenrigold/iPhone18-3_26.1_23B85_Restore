@@ -101,36 +101,22 @@ void __75__SUScriptAppleAccount_setAgeVerificationExpirationDate_completionHandl
   {
     v6 = [MEMORY[0x1E69D4938] sharedConfig];
     v7 = [v6 shouldLog];
-    if ([v6 shouldLogToDisk])
-    {
-      v8 = v7 | 2;
-    }
-
-    else
-    {
-      v8 = v7;
-    }
-
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v8 &= 2u;
-    }
-
+    LODWORD(v8) = [v6 shouldLogToDisk] ? v7 | 2 : v7;
+    v9 = [v6 OSLogObject];
+    v8 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT) ? v8 : v8 & 2u;
     if (v8)
     {
       v14 = 138412546;
       v15 = objc_opt_class();
       v16 = 2112;
       v17 = a3;
-      LODWORD(v13) = 22;
-      v12 = &v14;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, v9, 0, "%@: verifiedExpirationDate was not updated with error: %@", &v14, 22);
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v14, v13}];
-        free(v10);
-        v12 = v11;
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        v13 = v12;
         SSFileLog();
       }
     }
@@ -141,7 +127,7 @@ void __75__SUScriptAppleAccount_setAgeVerificationExpirationDate_completionHandl
     a3 = [[SUScriptError alloc] initWithError:a3];
   }
 
-  [*(a1 + 40) callWithArguments:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", a2, v12), a3, 0)}];
+  [*(a1 + 40) callWithArguments:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", a2, v13), a3, 0)}];
   [*(a1 + 40) setThisObject:0];
 }
 

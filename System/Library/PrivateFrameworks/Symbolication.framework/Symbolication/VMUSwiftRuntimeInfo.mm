@@ -8,12 +8,12 @@
 {
   opaque_2 = core._opaque_2;
   opaque_1 = core._opaque_1;
-  v68[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   readerCopy = reader;
   taskCopy = task;
-  v65.receiver = self;
-  v65.super_class = VMUSwiftRuntimeInfo;
-  v11 = [(VMUSwiftRuntimeInfo *)&v65 init];
+  v55.receiver = self;
+  v55.super_class = VMUSwiftRuntimeInfo;
+  v11 = [(VMUSwiftRuntimeInfo *)&v55 init];
   if (!v11)
   {
     goto LABEL_12;
@@ -46,102 +46,98 @@ LABEL_12:
 
   if (!_copy_remote_mangled_symbol_value(v13, "_swift_debug_nativeWeakReferenceMarkerMask", opaque_1, opaque_2, 8uLL, v11 + 8))
   {
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x3010000000;
-    v63 = 0;
-    v64 = 0;
-    v62 = &unk_1C6872315;
+    v54[0] = 0;
+    v54[1] = v54;
+    v54[2] = 0x3010000000;
+    v54[4] = 0;
+    v54[5] = 0;
+    v54[3] = &unk_1C6872315;
     CSSymbolOwnerForeachSection();
-    v21 = v60[4];
-    v22 = v60[5];
     if (CSIsNull())
     {
-      v23 = *MEMORY[0x1E69E9848];
+      v20 = *MEMORY[0x1E69E9848];
       CSSymbolOwnerGetPath();
-      fprintf(v23, "NO __DATA_DIRTY,__objc_imageinfo section in %s\n");
+      fprintf(v20, "NO __DATA_DIRTY,__objc_imageinfo section in %s\n");
 LABEL_16:
-      _Block_object_dispose(&v59, 8);
+      _Block_object_dispose(v54, 8);
       goto LABEL_12;
     }
 
     if ([taskCopy isExclave])
     {
-      v24 = 7;
+      v21 = 7;
     }
 
     else
     {
-      v25 = v60[4];
-      v26 = v60[5];
-      v27 = CSRegionGetRange();
-      if (v27)
+      v22 = CSRegionGetRange();
+      if (v22)
       {
-        v28 = (*(v13 + 2))(v13, v27, 8);
-        if (!v28)
+        v23 = (*(v13 + 2))(v13, v22, 8);
+        if (!v23)
         {
-          v58 = *MEMORY[0x1E69E9848];
+          v53 = *MEMORY[0x1E69E9848];
           CSSymbolOwnerGetPath();
-          fprintf(v58, "Unable to read __DATA __objc_imageinfo from %s\n");
+          fprintf(v53, "Unable to read __DATA __objc_imageinfo from %s\n");
           goto LABEL_16;
         }
 
-        v24 = *(v28 + 5);
+        v21 = *(v23 + 5);
       }
 
       else
       {
-        v24 = 0;
+        v21 = 0;
       }
     }
 
     isExclaveCore2 = [taskCopy isExclaveCore];
-    v30 = 0x8000000000000001;
+    v25 = 0x8000000000000001;
     if (isExclaveCore2)
     {
-      v30 = 0;
+      v25 = 0;
     }
 
-    *(v11 + 1) = v30;
+    *(v11 + 1) = v25;
     *(v11 + 2) = isExclaveCore2 ^ 1u;
     isExclaveCore3 = [taskCopy isExclaveCore];
-    v32 = -8;
+    v27 = -8;
     if (isExclaveCore3)
     {
-      v32 = -1;
+      v27 = -1;
     }
 
-    *(v11 + 3) = v32;
-    if (v24 <= 4)
+    *(v11 + 3) = v27;
+    if (v21 <= 4)
     {
-      v33 = 0;
+      v28 = 0;
       v11[32] = 0;
       *(v11 + 40) = xmmword_1C68583E0;
       *(v11 + 7) = 0;
       v11[64] = 0;
-      v39 = 65;
+      v34 = 65;
     }
 
     else
     {
-      v33 = 1;
+      v28 = 1;
       v11[32] = 1;
       __asm { FMOV            V0.2D, #-2.0 }
 
       *(v11 + 40) = _Q0;
       *(v11 + 7) = 0x3FFFFFFFFFFFFFFFLL;
       *(v11 + 32) = 768;
-      if (v24 < 7)
+      if (v21 < 7)
       {
 LABEL_32:
-        _Block_object_dispose(&v59, 8);
+        _Block_object_dispose(v54, 8);
         goto LABEL_33;
       }
 
-      v39 = 96;
+      v34 = 96;
     }
 
-    v11[v39] = v33;
+    v11[v34] = v28;
     goto LABEL_32;
   }
 
@@ -158,47 +154,46 @@ LABEL_33:
   Path = CSSymbolOwnerGetPath();
   if (Path)
   {
-    v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Path];
-    v42 = VMUSanitizePath(v41);
+    v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Path];
+    v37 = VMUSanitizePath(v36);
 
-    v43 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"Swift weak reference storage" binaryPath:v42 type:16];
-    [v43 setDefaultScanType:4];
-    v44 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"_owner" type:@"^@" scan:4 offset:0 size:8];
-    v45 = [v43 mutableCopy];
-    v46 = *(v11 + 9);
-    *(v11 + 9) = v45;
+    v38 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"Swift weak reference storage" binaryPath:v37 type:16];
+    [v38 setDefaultScanType:4];
+    v39 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"_owner" type:@"^@" scan:4 offset:0 size:8];
+    v40 = [v38 mutableCopy];
+    v41 = *(v11 + 9);
+    *(v11 + 9) = v40;
 
-    v47 = *(v11 + 9);
-    v68[0] = v44;
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:1];
+    v42 = *(v11 + 9);
+    v58[0] = v39;
+    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:1];
+    [v42 addFields:v43];
+
+    v44 = [(VMUFieldInfo *)v39 mutableCopy];
+    [v44 setScanType:0];
+    v45 = [v38 mutableCopy];
+    v46 = *(v11 + 10);
+    *(v11 + 10) = v45;
+
+    v47 = *(v11 + 10);
+    v57 = v44;
+    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
     [v47 addFields:v48];
 
-    v49 = [(VMUFieldInfo *)v44 mutableCopy];
-    [v49 setScanType:0];
-    v50 = [v43 mutableCopy];
-    v51 = *(v11 + 10);
-    *(v11 + 10) = v50;
-
-    v52 = *(v11 + 10);
-    v67 = v49;
-    v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
-    [v52 addFields:v53];
-
-    v54 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"Swift unowned reference storage" binaryPath:v42 type:16];
-    v55 = *(v11 + 11);
-    *(v11 + 11) = v54;
+    v49 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"Swift unowned reference storage" binaryPath:v37 type:16];
+    v50 = *(v11 + 11);
+    *(v11 + 11) = v49;
 
     [*(v11 + 11) setDefaultScanType:4];
-    v56 = *(v11 + 11);
-    v66 = v44;
-    v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
-    [v56 addFields:v57];
+    v51 = *(v11 + 11);
+    v56 = v39;
+    v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+    [v51 addFields:v52];
   }
 
   v18 = v11;
 LABEL_13:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

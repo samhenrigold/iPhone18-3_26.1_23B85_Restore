@@ -2,8 +2,8 @@
 - (BOOL)CDXTicketIsRelatedToTicket:()CDXTicket;
 - (BOOL)CDXTicketWellFormed;
 - (uint64_t)CDXTicketExpirationDate;
-- (uint64_t)CDXTicketIsStub;
 - (uint64_t)CDXTicketTrimmed;
+- (void)CDXTicketIsStub;
 @end
 
 @implementation NSData(CDXTicket)
@@ -17,12 +17,12 @@
   return [v1 dateWithTimeIntervalSince1970:v3];
 }
 
-- (uint64_t)CDXTicketIsStub
+- (void)CDXTicketIsStub
 {
   result = [self CDXTicketIsReflected];
   if (result)
   {
-    return [self CDXTicketIsHolePunch] ^ 1;
+    return ([self CDXTicketIsHolePunch] ^ 1);
   }
 
   return result;

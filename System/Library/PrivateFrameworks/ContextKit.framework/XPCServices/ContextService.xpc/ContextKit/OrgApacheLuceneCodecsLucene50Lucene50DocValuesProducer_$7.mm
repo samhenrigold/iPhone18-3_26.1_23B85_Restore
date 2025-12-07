@@ -1,20 +1,43 @@
 @interface OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_$7
+- (id)lookupOrdWithInt:(int)int;
 - (id)termsEnum;
+- (int)getOrdWithInt:(int)int;
 - (int)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_$7
 
+- (int)getOrdWithInt:(int)int
+{
+  v3 = self->val$ordinals_;
+  if (!v3)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneUtilLongValues *)v3 getWithInt:*&int];
+}
+
+- (id)lookupOrdWithInt:(int)int
+{
+  v4 = self->val$binary_;
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexBinaryDocValues *)v4 getWithInt:*&int];
+}
+
 - (int)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref
 {
-  v5 = self->val$binary_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = self->val$binary_;
+    v5 = self->val$binary_;
     objc_opt_class();
-    if (!v6)
+    if (!v5)
     {
       JreThrowNullPointerException();
     }
@@ -24,26 +47,25 @@
       JreThrowClassCastException();
     }
 
-    return [(OrgApacheLuceneIndexBinaryDocValues *)v6 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
+    return [(OrgApacheLuceneIndexBinaryDocValues *)v5 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__7;
-    return [(OrgApacheLuceneIndexSortedDocValues *)&v8 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
+    v7.receiver = self;
+    v7.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__7;
+    return [(OrgApacheLuceneIndexSortedDocValues *)&v7 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
   }
 }
 
 - (id)termsEnum
 {
-  v3 = self->val$binary_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->val$binary_;
+    v3 = self->val$binary_;
     objc_opt_class();
-    if (!v4)
+    if (!v3)
     {
       JreThrowNullPointerException();
     }
@@ -53,14 +75,14 @@
       JreThrowClassCastException();
     }
 
-    return [(OrgApacheLuceneIndexBinaryDocValues *)v4 getTermsEnum];
+    return [(OrgApacheLuceneIndexBinaryDocValues *)v3 getTermsEnum];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__7;
-    return [(OrgApacheLuceneIndexSortedDocValues *)&v6 termsEnum];
+    v5.receiver = self;
+    v5.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__7;
+    return [(OrgApacheLuceneIndexSortedDocValues *)&v5 termsEnum];
   }
 }
 

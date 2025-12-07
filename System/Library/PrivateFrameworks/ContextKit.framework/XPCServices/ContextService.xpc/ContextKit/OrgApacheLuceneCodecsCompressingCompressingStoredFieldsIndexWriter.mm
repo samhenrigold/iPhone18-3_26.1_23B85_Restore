@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter
 - (void)close;
 - (void)dealloc;
+- (void)finishWithInt:(int)int withLong:(int64_t)long;
 - (void)writeIndexWithInt:(int)int withLong:(int64_t)long;
 @end
 
@@ -53,11 +54,37 @@ LABEL_12:
     IOSArray_throwOutOfBoundsWithMsg(v12, self->blockChunks_);
   }
 
-  v13 = self->blockChunks_;
   startPointerDeltas->buffer_[v11] = long - self->maxStartPointer_;
   self->blockChunks_ = v11 + 1;
   *&self->totalDocs_ = vadd_s32(*&self->totalDocs_, vdup_n_s32(int));
   self->maxStartPointer_ = long;
+}
+
+- (void)finishWithInt:(int)int withLong:(int64_t)long
+{
+  if (self->totalDocs_ != int)
+  {
+    v12 = JreStrcat("$I$I", a2, *&int, long, v4, v5, v6, v7, @"Expected ");
+    v13 = new_JavaLangIllegalStateException_initWithNSString_(v12);
+    objc_exception_throw(v13);
+  }
+
+  if (self->blockChunks_ >= 1)
+  {
+    sub_100013CB0(self);
+  }
+
+  fieldsIndexOut = self->fieldsIndexOut_;
+  if (!fieldsIndexOut)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(OrgApacheLuceneStoreDataOutput *)fieldsIndexOut writeVIntWithInt:0];
+  [(OrgApacheLuceneStoreDataOutput *)self->fieldsIndexOut_ writeVLongWithLong:long];
+  v11 = self->fieldsIndexOut_;
+
+  OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v11);
 }
 
 - (void)close

@@ -110,7 +110,7 @@
   }
 
   v28.receiver = self;
-  v28.super_class = type metadata accessor for BalanceSeries();
+  v28.super_class = type metadata accessor for BalanceSeries(0);
   v27[0] = index;
   v27[1] = zoom;
   v27[2] = resolution;
@@ -180,11 +180,11 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C3CC08CC();
-  v8 = v7;
+  sub_1C3CC08CC(coordinate);
+  v9 = v8;
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 - (double)xAxisDistanceFromPoint:(CGPoint)point blockCoordinate:(id)coordinate chartRect:(CGRect)rect

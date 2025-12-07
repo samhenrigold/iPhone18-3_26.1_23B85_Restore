@@ -37,8 +37,8 @@
 - (void)registerObserver
 {
   selfCopy = self;
-  v2 = sub_214D6A6C8();
-  [v2 registerObserver_];
+  v3 = sub_214D6A6C8(selfCopy, v2);
+  [v3 registerObserver_];
 
   [(ICDeviceManagementRestrictionsManager *)selfCopy updateRestrictions];
 }
@@ -76,12 +76,12 @@
 - (void)dealloc
 {
   selfCopy = self;
-  v3 = sub_214D6A6C8();
-  [v3 unregisterObserver_];
+  v4 = sub_214D6A6C8(selfCopy, v3);
+  [v4 unregisterObserver_];
 
-  v4.receiver = selfCopy;
-  v4.super_class = ICDeviceManagementRestrictionsManager;
-  [(ICDeviceManagementRestrictionsManager *)&v4 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = ICDeviceManagementRestrictionsManager;
+  [(ICDeviceManagementRestrictionsManager *)&v5 dealloc];
 }
 
 @end

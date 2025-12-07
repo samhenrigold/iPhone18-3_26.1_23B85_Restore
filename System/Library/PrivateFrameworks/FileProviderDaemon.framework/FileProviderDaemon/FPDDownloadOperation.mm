@@ -76,7 +76,7 @@
 
 - (void)sendPastUpdatesToClient:(id)client
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   callbackQueue = [(FPOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -85,7 +85,7 @@
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [FPDDownloadOperation sendPastUpdatesToClient:?];
+    [FPDDownloadOperation sendPastUpdatesToClient:];
   }
 
   if ([(FPOperation *)self isFinished])
@@ -104,28 +104,28 @@
     if ([(FPDActionOperation *)self hasFinishedPreflight])
     {
       [clientCopy remoteOperationProgressesAreReady];
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       createdItemByRoot = [(FPDActionOperation *)self createdItemByRoot];
       allKeys = [createdItemByRoot allKeys];
 
-      v9 = [allKeys countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v9)
       {
-        v10 = *v23;
+        v10 = *v22;
         do
         {
           v11 = 0;
           do
           {
-            if (*v23 != v10)
+            if (*v22 != v10)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v12 = *(*(&v22 + 1) + 8 * v11);
+            v12 = *(*(&v21 + 1) + 8 * v11);
             createdItemByRoot2 = [(FPDActionOperation *)self createdItemByRoot];
             v14 = [createdItemByRoot2 objectForKeyedSubscript:v12];
 
@@ -149,7 +149,7 @@
           }
 
           while (v9 != v11);
-          v9 = [allKeys countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v9 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
         }
 
         while (v9);
@@ -166,8 +166,6 @@
   }
 
   __fp_leave_section_Debug();
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupCreatedItemForRoot:(id)root
@@ -184,25 +182,25 @@
   dispatch_async(callbackQueue, v7);
 }
 
-void __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke(uint64_t a1)
+void __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke_cold_1(a1);
+    __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke_cold_1();
   }
 
-  v3 = *(a1 + 32);
-  v4 = [*(a1 + 40) createdItemByRoot];
-  [v4 setObject:v3 forKeyedSubscript:*(a1 + 32)];
+  v4 = *(a1 + 32);
+  v5 = [*(a1 + 40) createdItemByRoot];
+  [v5 setObject:v4 forKeyedSubscript:*(a1 + 32)];
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke_8;
-  v6[3] = &unk_1E83BF2E8;
-  v5 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  [v5 forAllClients:v6];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke_8;
+  v7[3] = &unk_1E83BF2E8;
+  v6 = *(a1 + 40);
+  v8 = *(a1 + 32);
+  [v6 forAllClients:v7];
 }
 
 - (void)_finishedDownloadingLocator:(id)locator withError:(id)error
@@ -222,45 +220,45 @@ void __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke(uint64_t
   dispatch_async(callbackQueue, block);
 }
 
-void __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke(id *a1)
+void __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke(id *a1, uint64_t a2)
 {
-  v2 = a1 + 4;
-  v3 = a1[4];
-  v4 = fp_current_or_default_log();
-  v5 = v4;
-  if (v3)
+  v3 = a1 + 4;
+  v4 = a1[4];
+  v5 = fp_current_or_default_log();
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_cold_1(a1, v2, v5);
+      __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_cold_1(a1, v3, v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_cold_2(a1);
+    __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_cold_2();
   }
 
-  v6 = [a1[6] completedRoots];
-  [v6 addObject:a1[5]];
+  v7 = [a1[6] completedRoots];
+  [v7 addObject:a1[5]];
 
-  v7 = a1[4];
-  v8 = [a1[6] errorsByRoot];
-  [v8 setObject:v7 forKeyedSubscript:a1[5]];
+  v8 = a1[4];
+  v9 = [a1[6] errorsByRoot];
+  [v9 setObject:v8 forKeyedSubscript:a1[5]];
 
-  v9 = [a1[6] createdItemByRoot];
-  v10 = [v9 objectForKeyedSubscript:a1[5]];
+  v10 = [a1[6] createdItemByRoot];
+  v11 = [v10 objectForKeyedSubscript:a1[5]];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_12;
-  v13[3] = &unk_1E83BEC08;
-  v11 = a1[6];
-  v14 = a1[5];
-  v15 = v10;
-  v16 = a1[4];
-  v12 = v10;
-  [v11 forAllClients:v13];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_12;
+  v14[3] = &unk_1E83BEC08;
+  v12 = a1[6];
+  v15 = a1[5];
+  v16 = v11;
+  v17 = a1[4];
+  v13 = v11;
+  [v12 forAllClients:v14];
 }
 
 - (void)main
@@ -397,7 +395,7 @@ void __28__FPDDownloadOperation_main__block_invoke_2_26(uint64_t a1, void *a2, v
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __28__FPDDownloadOperation_main__block_invoke_2_26_cold_1(a1);
+      __28__FPDDownloadOperation_main__block_invoke_2_26_cold_1();
     }
   }
 
@@ -420,18 +418,17 @@ void __28__FPDDownloadOperation_main__block_invoke_29(uint64_t a1, uint64_t a2, 
 {
   if (a2 | a3)
   {
-    v4 = *(a1 + 56);
-    v5 = *(*(a1 + 56) + 16);
+    v4 = *(*(a1 + 56) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = [*(a1 + 32) defaultBackend];
-    v6 = [*(a1 + 40) formerItemID];
-    v7 = [*(a1 + 48) request];
-    [v8 itemForItemID:v6 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 request:v7 completionHandler:*(a1 + 56)];
+    v7 = [*(a1 + 32) defaultBackend];
+    v5 = [*(a1 + 40) formerItemID];
+    v6 = [*(a1 + 48) request];
+    [v7 itemForItemID:v5 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 request:v6 completionHandler:*(a1 + 56)];
   }
 }
 
@@ -448,83 +445,50 @@ uint64_t __28__FPDDownloadOperation_main__block_invoke_2_31(uint64_t a1)
 
 - (void)finishWithResult:(void *)a1 error:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [a1 createdItemByRoot];
   v3 = [a1 errorsByRoot];
   v4 = [a1 error];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-- (void)sendPastUpdatesToClient:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)sendPastUpdatesToClient:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_5();
-  _os_log_debug_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx download-op sending past updates to %@", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __49__FPDDownloadOperation__setupCreatedItemForRoot___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx download-op sending past updates to %@", v1, 0x16u);
 }
 
 void __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_cold_1(uint64_t a1, id *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 40);
-  v5 = [*a2 fp_prettyDescription];
-  OUTLINED_FUNCTION_3_0();
-  v9 = v6;
-  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Download root %@ failed with error: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __62__FPDDownloadOperation__finishedDownloadingLocator_withError___block_invoke_cold_2(uint64_t a1)
-{
   v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = [*a2 fp_prettyDescription];
+  OUTLINED_FUNCTION_3_0();
+  v7 = v5;
+  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Download root %@ failed with error: %@", v6, 0x16u);
 }
 
 void __28__FPDDownloadOperation_main__block_invoke_2_24_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) createdItemByRoot];
-  v8 = [v1 allKeys];
+  v7 = [v1 allKeys];
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __28__FPDDownloadOperation_main__block_invoke_2_26_cold_1(uint64_t a1)
+void __28__FPDDownloadOperation_main__block_invoke_2_26_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_5();
-  _os_log_error_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_ERROR, "[ERROR] download-operation: Unable to fetch item %@, ignoring error: %@", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] download-operation: Unable to fetch item %@, ignoring error: %@", v1, 0x16u);
 }
 
 void __28__FPDDownloadOperation_main__block_invoke_2_26_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 isDownloaded];
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -9,30 +9,26 @@
 
 + (id)windowStreamNameWithSourceDeviceID:(uint64_t)d
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
-  v7[0] = @"/knowledge-sync-addition-window";
-  v7[1] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[0] = @"/knowledge-sync-addition-window";
+  v6[1] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v4 = [MEMORY[0x1E696AEC0] pathWithComponents:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)bookmarkStreamNameWithSourceDeviceID:(uint64_t)d
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
-  v7[0] = @"/knowledge-sync-deletion-bookmark";
-  v7[1] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[0] = @"/knowledge-sync-deletion-bookmark";
+  v6[1] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v4 = [MEMORY[0x1E696AEC0] pathWithComponents:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

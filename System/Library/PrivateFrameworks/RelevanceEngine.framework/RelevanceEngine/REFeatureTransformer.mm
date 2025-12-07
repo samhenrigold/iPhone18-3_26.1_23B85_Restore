@@ -41,39 +41,35 @@
 
 void __49__REFeatureTransformer_featureTransformerClasses__block_invoke()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
   v1 = featureTransformerClasses_Classes;
   featureTransformerClasses_Classes = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)bucketTransformerWithCount:(unint64_t)count minValue:(id)value maxValue:(id)maxValue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   maxValueCopy = maxValue;
-  v14 = RECreateIntegerFeatureValueTaggedPointer(count);
-  v15 = RECreateFeatureValueTaggedPointer(valueCopy);
-  v16 = RECreateFeatureValueTaggedPointer(maxValueCopy);
-  v9 = [RETransformerInvocation invocationWithArguments:&v14 count:3];
+  v13 = RECreateIntegerFeatureValueTaggedPointer(count);
+  v14 = RECreateFeatureValueTaggedPointer(valueCopy);
+  v15 = RECreateFeatureValueTaggedPointer(maxValueCopy);
+  v9 = [RETransformerInvocation invocationWithArguments:&v13 count:3];
   for (i = 0; i != 24; i += 8)
   {
-    REReleaseFeatureValueTaggedPointer(*(&v14 + i));
+    REReleaseFeatureValueTaggedPointer(*(&v13 + i));
   }
 
   v11 = objc_alloc_init(_REBucketFeatureTransformer);
-  [(_REBucketFeatureTransformer *)v11 configureWithInvocation:v9, v14, v15];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(_REBucketFeatureTransformer *)v11 configureWithInvocation:v9, v13, v14];
 
   return v11;
 }
@@ -98,14 +94,12 @@ void __49__REFeatureTransformer_featureTransformerClasses__block_invoke()
 
 + (id)binaryTransformerWithThreshold:(id)threshold
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = RECreateFeatureValueTaggedPointer(threshold);
-  v3 = [RETransformerInvocation invocationWithArguments:v7 count:1];
-  REReleaseFeatureValueTaggedPointer(v7[0]);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = RECreateFeatureValueTaggedPointer(threshold);
+  v3 = [RETransformerInvocation invocationWithArguments:v6 count:1];
+  REReleaseFeatureValueTaggedPointer(v6[0]);
   v4 = objc_alloc_init(_REBinaryFeatureTransformer);
   [(_REBinaryFeatureTransformer *)v4 configureWithInvocation:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -133,14 +127,12 @@ void __49__REFeatureTransformer_featureTransformerClasses__block_invoke()
 
 + (id)changedTransformWithImpulseDuration:(double)duration
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = RECreateDoubleFeatureValueTaggedPointer();
-  v3 = [RETransformerInvocation invocationWithArguments:v7 count:1];
-  REReleaseFeatureValueTaggedPointer(v7[0]);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = RECreateDoubleFeatureValueTaggedPointer();
+  v3 = [RETransformerInvocation invocationWithArguments:v6 count:1];
+  REReleaseFeatureValueTaggedPointer(v6[0]);
   v4 = objc_alloc_init(_REChangeFeatureTransformer);
   [(_REChangeFeatureTransformer *)v4 configureWithInvocation:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -160,14 +152,12 @@ void __49__REFeatureTransformer_featureTransformerClasses__block_invoke()
 
 + (id)recentTransformerWithCount:(unint64_t)count
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = RECreateIntegerFeatureValueTaggedPointer(count);
-  v3 = [RETransformerInvocation invocationWithArguments:v7 count:1];
-  REReleaseFeatureValueTaggedPointer(v7[0]);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = RECreateIntegerFeatureValueTaggedPointer(count);
+  v3 = [RETransformerInvocation invocationWithArguments:v6 count:1];
+  REReleaseFeatureValueTaggedPointer(v6[0]);
   v4 = objc_alloc_init(_RERecentFeatureTransformer);
   [(_RERecentFeatureTransformer *)v4 configureWithInvocation:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

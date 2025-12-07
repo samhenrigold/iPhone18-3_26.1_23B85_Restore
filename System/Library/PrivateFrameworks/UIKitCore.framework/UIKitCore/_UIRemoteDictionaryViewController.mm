@@ -140,9 +140,9 @@
   rawAsset = [v12 rawAsset];
   attributes = [rawAsset attributes];
   v15 = [attributes objectForKey:@"DictionaryPackageName"];
-  v16 = [v15 isEqual:@"Apple Dictionary.dictionary"];
+  isEqual = objc_msgSend_isEqual_(v15);
 
-  if (v16)
+  if (isEqual)
   {
     textLabel2 = [(UITableViewCell *)v7 textLabel];
     localizedLanguageName = _UINSLocalizedStringWithDefaultValue(@"Apple Dictionary", @"Apple Dictionary");
@@ -151,9 +151,9 @@
   else
   {
     v19 = [attributes objectForKey:@"DictionaryPackageName"];
-    v20 = [v19 isEqualToString:@"TTY Abbreviations Dictionary.dictionary"];
+    isEqualToString = objc_msgSend_isEqualToString_(v19);
 
-    if (!v20)
+    if (!isEqualToString)
     {
       detailTextLabel2 = [(UITableViewCell *)v7 detailTextLabel];
       localizedDictionaryName = [v12 localizedDictionaryName];

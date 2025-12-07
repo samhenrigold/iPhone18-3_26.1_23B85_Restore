@@ -49,7 +49,7 @@
 
 - (id)initWithPath:(void *)path flow:(void *)flow parameters:(void *)parameters delegate:
 {
-  v146 = *MEMORY[0x1E69E9840];
+  v149 = *MEMORY[0x1E69E9840];
   v10 = a2;
   pathCopy = path;
   flowCopy = flow;
@@ -65,11 +65,11 @@
     v80 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-    v81 = _os_log_send_and_compose_impl();
+    v81 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v80, 16, "%{public}s called with null path", buf, 12);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v81, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v81, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -83,7 +83,7 @@
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         v82 = __nwlog_obj();
@@ -115,12 +115,12 @@
       else
       {
         v82 = __nwlog_obj();
-        v120 = uu[0];
+        v122 = uu[0];
         if (os_log_type_enabled(v82, uu[0]))
         {
           *buf = 136446210;
           *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-          _os_log_impl(&dword_181A37000, v82, v120, "%{public}s called with null path, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v82, v122, "%{public}s called with null path, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
@@ -139,11 +139,11 @@ LABEL_188:
     v84 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-    v85 = _os_log_send_and_compose_impl();
+    v85 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v84, 16, "%{public}s called with null flow", buf, 12);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v85, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v85, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -157,7 +157,7 @@ LABEL_188:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         v99 = __nw_create_backtrace_string();
         v86 = __nwlog_obj();
@@ -189,12 +189,12 @@ LABEL_188:
       else
       {
         v86 = __nwlog_obj();
-        v121 = uu[0];
+        v123 = uu[0];
         if (os_log_type_enabled(v86, uu[0]))
         {
           *buf = 136446210;
           *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-          _os_log_impl(&dword_181A37000, v86, v121, "%{public}s called with null flow, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v123, "%{public}s called with null flow, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
@@ -213,11 +213,11 @@ LABEL_194:
     v88 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-    v89 = _os_log_send_and_compose_impl();
+    v89 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v88, 16, "%{public}s called with null parameters", buf, 12);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v89, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v89, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -231,7 +231,7 @@ LABEL_194:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         v102 = __nw_create_backtrace_string();
         v90 = __nwlog_obj();
@@ -263,12 +263,12 @@ LABEL_194:
       else
       {
         v90 = __nwlog_obj();
-        v122 = uu[0];
+        v124 = uu[0];
         if (os_log_type_enabled(v90, uu[0]))
         {
           *buf = 136446210;
           *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-          _os_log_impl(&dword_181A37000, v90, v122, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v90, v124, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
@@ -287,11 +287,11 @@ LABEL_200:
     v92 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-    v93 = _os_log_send_and_compose_impl();
+    v93 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v92, 16, "%{public}s called with null delegate", buf, 12);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v93, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v93, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -305,7 +305,7 @@ LABEL_200:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         v105 = __nw_create_backtrace_string();
         v94 = __nwlog_obj();
@@ -337,12 +337,12 @@ LABEL_200:
       else
       {
         v94 = __nwlog_obj();
-        v123 = uu[0];
+        v125 = uu[0];
         if (os_log_type_enabled(v94, uu[0]))
         {
           *buf = 136446210;
           *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-          _os_log_impl(&dword_181A37000, v94, v123, "%{public}s called with null delegate, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v94, v125, "%{public}s called with null delegate, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
@@ -358,9 +358,9 @@ LABEL_208:
     goto LABEL_99;
   }
 
-  v139.receiver = self;
-  v139.super_class = nw_ip_channel_inbox;
-  v15 = objc_msgSendSuper2(&v139, sel_initWithDelegate_, parametersCopy);
+  v142.receiver = self;
+  v142.super_class = nw_ip_channel_inbox;
+  v15 = objc_msgSendSuper2(&v142, sel_initWithDelegate_, parametersCopy);
   self = v15;
   if (!v15)
   {
@@ -392,11 +392,11 @@ LABEL_208:
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
     *&buf[12] = 2114;
     *&buf[14] = v20;
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s flow (%{public}@) does not specify local endpoint", buf, 22);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v30, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v30, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -414,7 +414,7 @@ LABEL_208:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         v56 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -430,8 +430,8 @@ LABEL_208:
             *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
             *&buf[12] = 2114;
             *&buf[14] = v20;
-            v142 = 2082;
-            v143 = v56;
+            v145 = 2082;
+            v146 = v56;
             _os_log_impl(&dword_181A37000, v31, v57, "%{public}s flow (%{public}@) does not specify local endpoint, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
@@ -510,11 +510,11 @@ LABEL_82:
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
     *&buf[12] = 2112;
     *&buf[14] = v109;
-    v110 = _os_log_send_and_compose_impl();
+    v110 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v108, 16, "%{public}s endpoint %@ is not an address", buf, 22);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v110, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v110, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -531,53 +531,53 @@ LABEL_82:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
-        v124 = __nw_create_backtrace_string();
+        v126 = __nw_create_backtrace_string();
         v111 = __nwlog_obj();
-        v125 = uu[0];
-        v126 = os_log_type_enabled(v111, uu[0]);
-        if (v124)
+        v127 = uu[0];
+        v128 = os_log_type_enabled(v111, uu[0]);
+        if (v126)
         {
-          if (v126)
+          if (v128)
           {
-            v127 = v16[4];
+            v129 = v16[4];
             *buf = 136446722;
             *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
             *&buf[12] = 2112;
-            *&buf[14] = v127;
-            v142 = 2082;
-            v143 = v124;
-            _os_log_impl(&dword_181A37000, v111, v125, "%{public}s endpoint %@ is not an address, dumping backtrace:%{public}s", buf, 0x20u);
+            *&buf[14] = v129;
+            v145 = 2082;
+            v146 = v126;
+            _os_log_impl(&dword_181A37000, v111, v127, "%{public}s endpoint %@ is not an address, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
-          free(v124);
+          free(v126);
           goto LABEL_220;
         }
 
-        if (v126)
+        if (v128)
         {
-          v137 = v16[4];
+          v139 = v16[4];
           *buf = 136446466;
           *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
           *&buf[12] = 2112;
-          *&buf[14] = v137;
-          _os_log_impl(&dword_181A37000, v111, v125, "%{public}s endpoint %@ is not an address, no backtrace", buf, 0x16u);
+          *&buf[14] = v139;
+          _os_log_impl(&dword_181A37000, v111, v127, "%{public}s endpoint %@ is not an address, no backtrace", buf, 0x16u);
         }
       }
 
       else
       {
         v111 = __nwlog_obj();
-        v134 = uu[0];
+        v136 = uu[0];
         if (os_log_type_enabled(v111, uu[0]))
         {
-          v135 = v16[4];
+          v137 = v16[4];
           *buf = 136446466;
           *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
           *&buf[12] = 2112;
-          *&buf[14] = v135;
-          _os_log_impl(&dword_181A37000, v111, v134, "%{public}s endpoint %@ is not an address, backtrace limit exceeded", buf, 0x16u);
+          *&buf[14] = v137;
+          _os_log_impl(&dword_181A37000, v111, v136, "%{public}s endpoint %@ is not an address, backtrace limit exceeded", buf, 0x16u);
         }
       }
     }
@@ -608,11 +608,11 @@ LABEL_220:
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
     *&buf[12] = 2112;
     *&buf[14] = v47;
-    v48 = _os_log_send_and_compose_impl();
+    v48 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v46, 16, "%{public}s endpoint %@ is not IPv4 or IPv6 address", buf, 22);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v48, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v48, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -631,7 +631,7 @@ LABEL_220:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         v65 = __nw_create_backtrace_string();
         if (v65)
@@ -648,8 +648,8 @@ LABEL_220:
             *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
             *&buf[12] = 2112;
             *&buf[14] = v69;
-            v142 = 2082;
-            v143 = v66;
+            v145 = 2082;
+            v146 = v66;
             _os_log_impl(&dword_181A37000, v67, v68, "%{public}s endpoint %@ is not IPv4 or IPv6 address, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
@@ -715,92 +715,92 @@ LABEL_25:
 LABEL_26:
   *(self + 167) = *(self + 167) & 0xFE | v28;
   *(self + 82) = *(self[19] + 1);
-  v34 = _nw_parameters_copy_context(flowCopy);
+  v34 = _nw_parameters_copy_context();
   if (!v34)
   {
-    __nwlog_obj();
+    v114 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_channel_create_with_nexus_flow";
-    v114 = _os_log_send_and_compose_impl();
+    v115 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v114, 16, "%{public}s called with null context", buf, 12);
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    v115 = v114;
-    if (!__nwlog_fault(v114, uu, &v140))
+    LOBYTE(v143) = 0;
+    v116 = v115;
+    if (!__nwlog_fault(v115, uu, &v143))
     {
       goto LABEL_215;
     }
 
     if (uu[0] == 17)
     {
-      v116 = __nwlog_obj();
-      v117 = uu[0];
-      if (!os_log_type_enabled(v116, uu[0]))
+      v117 = __nwlog_obj();
+      v118 = uu[0];
+      if (!os_log_type_enabled(v117, uu[0]))
       {
         goto LABEL_215;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_channel_create_with_nexus_flow";
-      v118 = "%{public}s called with null context";
+      v119 = "%{public}s called with null context";
 LABEL_213:
-      v136 = v116;
+      v138 = v117;
 LABEL_214:
-      _os_log_impl(&dword_181A37000, v136, v117, v118, buf, 0xCu);
+      _os_log_impl(&dword_181A37000, v138, v118, v119, buf, 0xCu);
       goto LABEL_215;
     }
 
-    if (v140 != 1)
+    if (v143 != 1)
     {
-      v116 = __nwlog_obj();
-      v117 = uu[0];
-      if (!os_log_type_enabled(v116, uu[0]))
+      v117 = __nwlog_obj();
+      v118 = uu[0];
+      if (!os_log_type_enabled(v117, uu[0]))
       {
         goto LABEL_215;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_channel_create_with_nexus_flow";
-      v118 = "%{public}s called with null context, backtrace limit exceeded";
+      v119 = "%{public}s called with null context, backtrace limit exceeded";
       goto LABEL_213;
     }
 
-    v128 = __nw_create_backtrace_string();
-    v129 = __nwlog_obj();
-    v117 = uu[0];
-    log = v129;
-    v130 = os_log_type_enabled(v129, uu[0]);
-    if (v128)
+    v130 = __nw_create_backtrace_string();
+    v131 = __nwlog_obj();
+    v118 = uu[0];
+    log = v131;
+    v132 = os_log_type_enabled(v131, uu[0]);
+    if (v130)
     {
-      if (v130)
+      if (v132)
       {
         *buf = 136446466;
         *&buf[4] = "nw_channel_create_with_nexus_flow";
         *&buf[12] = 2082;
-        *&buf[14] = v128;
-        v131 = "%{public}s called with null context, dumping backtrace:%{public}s";
+        *&buf[14] = v130;
+        v133 = "%{public}s called with null context, dumping backtrace:%{public}s";
 LABEL_180:
-        _os_log_impl(&dword_181A37000, log, v117, v131, buf, 0x16u);
+        _os_log_impl(&dword_181A37000, log, v118, v133, buf, 0x16u);
       }
 
 LABEL_181:
-      free(v128);
+      free(v130);
       goto LABEL_215;
     }
 
-    if (v130)
+    if (v132)
     {
       *buf = 136446210;
       *&buf[4] = "nw_channel_create_with_nexus_flow";
-      v118 = "%{public}s called with null context, no backtrace";
+      v119 = "%{public}s called with null context, no backtrace";
 LABEL_227:
-      v136 = log;
+      v138 = log;
       goto LABEL_214;
     }
 
 LABEL_215:
-    if (v115)
+    if (v116)
     {
-      free(v115);
+      free(v116);
     }
 
     goto LABEL_40;
@@ -809,73 +809,73 @@ LABEL_215:
   v35 = self[9];
   if (!v35)
   {
-    __nwlog_obj();
+    v120 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_channel_create_with_nexus_flow";
-    v119 = _os_log_send_and_compose_impl();
+    v121 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v120, 16, "%{public}s called with null flow", buf, 12);
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    v115 = v119;
-    if (!__nwlog_fault(v119, uu, &v140))
+    LOBYTE(v143) = 0;
+    v116 = v121;
+    if (!__nwlog_fault(v121, uu, &v143))
     {
       goto LABEL_215;
     }
 
     if (uu[0] == 17)
     {
-      v116 = __nwlog_obj();
-      v117 = uu[0];
-      if (!os_log_type_enabled(v116, uu[0]))
+      v117 = __nwlog_obj();
+      v118 = uu[0];
+      if (!os_log_type_enabled(v117, uu[0]))
       {
         goto LABEL_215;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_channel_create_with_nexus_flow";
-      v118 = "%{public}s called with null flow";
+      v119 = "%{public}s called with null flow";
       goto LABEL_213;
     }
 
-    if (v140 != 1)
+    if (v143 != 1)
     {
-      v116 = __nwlog_obj();
-      v117 = uu[0];
-      if (!os_log_type_enabled(v116, uu[0]))
+      v117 = __nwlog_obj();
+      v118 = uu[0];
+      if (!os_log_type_enabled(v117, uu[0]))
       {
         goto LABEL_215;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_channel_create_with_nexus_flow";
-      v118 = "%{public}s called with null flow, backtrace limit exceeded";
+      v119 = "%{public}s called with null flow, backtrace limit exceeded";
       goto LABEL_213;
     }
 
-    v128 = __nw_create_backtrace_string();
-    v132 = __nwlog_obj();
-    v117 = uu[0];
-    log = v132;
-    v133 = os_log_type_enabled(v132, uu[0]);
-    if (v128)
+    v130 = __nw_create_backtrace_string();
+    v134 = __nwlog_obj();
+    v118 = uu[0];
+    log = v134;
+    v135 = os_log_type_enabled(v134, uu[0]);
+    if (v130)
     {
-      if (v133)
+      if (v135)
       {
         *buf = 136446466;
         *&buf[4] = "nw_channel_create_with_nexus_flow";
         *&buf[12] = 2082;
-        *&buf[14] = v128;
-        v131 = "%{public}s called with null flow, dumping backtrace:%{public}s";
+        *&buf[14] = v130;
+        v133 = "%{public}s called with null flow, dumping backtrace:%{public}s";
         goto LABEL_180;
       }
 
       goto LABEL_181;
     }
 
-    if (v133)
+    if (v135)
     {
       *buf = 136446210;
       *&buf[4] = "nw_channel_create_with_nexus_flow";
-      v118 = "%{public}s called with null flow, no backtrace";
+      v119 = "%{public}s called with null flow, no backtrace";
       goto LABEL_227;
     }
 
@@ -883,10 +883,10 @@ LABEL_215:
   }
 
   *uu = 0;
-  v145 = 0;
-  v140 = 0;
+  v148 = 0;
+  v143 = 0;
   v36 = v35;
-  nexus_instance = _nw_path_flow_get_nexus_instance(v36, uu, &v140);
+  nexus_instance = _nw_path_flow_get_nexus_instance(v36, uu, &v143);
 
   if ((nexus_instance & 1) == 0)
   {
@@ -930,7 +930,7 @@ LABEL_40:
   nexus_key = _nw_path_flow_get_nexus_key(v43, &buf[8]);
 
   *buf = nexus_key;
-  v45 = nw_channel_create_with_attributes(v34, uu, v140, buf);
+  v45 = nw_channel_create_with_attributes(v34, uu, v143, buf);
 LABEL_41:
   v53 = self[10];
   self[10] = v45;
@@ -947,8 +947,8 @@ LABEL_41:
       *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
       *&buf[12] = 2114;
       *&buf[14] = v14;
-      v142 = 2114;
-      v143 = v60;
+      v145 = 2114;
+      v146 = v60;
       _os_log_impl(&dword_181A37000, v59, OS_LOG_TYPE_ERROR, "%{public}s %{public}@ nw_channel_create_with_nexus_flow for %{public}@ failed", buf, 0x20u);
     }
 
@@ -963,18 +963,19 @@ LABEL_41:
   nw_channel_set_defer_input_available(self[10], 1);
   nw_channel_set_protocol_level(self[10], *(self + 14));
   protocol_handler = nw_channel_get_protocol_handler(self[10]);
-  if (((**(protocol_handler + 24))(protocol_handler, (self + 11)) & 1) == 0)
+  if (((**(protocol_handler + 24))() & 1) == 0)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v61 = gLogObj;
     *buf = 136446210;
     *&buf[4] = "[nw_ip_channel_inbox initWithPath:flow:parameters:delegate:]";
-    v62 = _os_log_send_and_compose_impl();
+    LODWORD(v140) = 12;
+    v62 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v61, 16, "%{public}s channel protocol add_input_handler failed", buf, v140);
 
     uu[0] = 16;
-    LOBYTE(v140) = 0;
-    if (__nwlog_fault(v62, uu, &v140))
+    LOBYTE(v143) = 0;
+    if (__nwlog_fault(v62, uu, &v143))
     {
       if (uu[0] == 17)
       {
@@ -990,7 +991,7 @@ LABEL_41:
         }
       }
 
-      else if (v140 == 1)
+      else if (v143 == 1)
       {
         v71 = __nw_create_backtrace_string();
         v63 = __nwlog_obj();

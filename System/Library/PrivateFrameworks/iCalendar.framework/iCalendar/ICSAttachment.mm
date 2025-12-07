@@ -7,6 +7,7 @@
 - (int)size;
 - (void)_ICSStringWithOptions:(unint64_t)options appendingToString:(id)string;
 - (void)setData:(id)data;
+- (void)setSize:(int)size;
 - (void)setURL:(id)l;
 - (void)setX_apple_autoarchived:(BOOL)x_apple_autoarchived;
 @end
@@ -104,6 +105,12 @@
   }
 
   return intValue;
+}
+
+- (void)setSize:(int)size
+{
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *&size];
+  [(ICSProperty *)self setParameterValue:v4 forName:@"SIZE"];
 }
 
 - (BOOL)x_apple_autoarchived

@@ -74,35 +74,35 @@
 
 - (id)recordViewsWithRelatedScopedIdentifier:(id)identifier class:(Class)class
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v24 = 0;
-  v7 = [(CPLEngineIDMapping *)self->_idMapping cloudScopedIdentifierForLocalScopedIdentifier:identifierCopy isFinal:&v24];
+  v23 = 0;
+  v7 = [(CPLEngineIDMapping *)self->_idMapping cloudScopedIdentifierForLocalScopedIdentifier:identifierCopy isFinal:&v23];
   v8 = v7;
   if (v7)
   {
-    v19 = v7;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
+    v18 = v7;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = [(CPLEngineCloudCache *)self->_cloudCache recordsAcknowledgedByClientWithRelatedScopedIdentifier:v7 class:class];
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           if (!v12)
           {
             v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -112,7 +112,7 @@
           [v12 addObject:v16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
@@ -123,15 +123,13 @@
       v12 = 0;
     }
 
-    v8 = v19;
+    v8 = v18;
   }
 
   else
   {
     v12 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

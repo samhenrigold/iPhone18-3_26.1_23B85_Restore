@@ -39,9 +39,9 @@ void __52__WFCreateNoteComposeSheetMigration_migrateWorkflow__block_invoke(uint6
   v19 = a2;
   v3 = [*(a1 + 32) actionIdentifierKey];
   v4 = [v19 objectForKeyedSubscript:v3];
-  v5 = [v4 isEqualToString:@"com.apple.mobilenotes.SharingExtension"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [*(a1 + 32) actionParametersKey];
     v7 = [v19 objectForKeyedSubscript:v6];

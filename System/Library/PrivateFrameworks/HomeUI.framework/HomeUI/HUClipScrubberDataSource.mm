@@ -489,7 +489,7 @@ void __86__HUClipScrubberDataSource__updateSnapshotWithUpdatedIdentifiers_replac
   return v19;
 }
 
-void __86__HUClipScrubberDataSource__snapshotForEvents_updatedIdentifiers_replacedIdentifiers___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __86__HUClipScrubberDataSource__snapshotForEvents_updatedIdentifiers_replacedIdentifiers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v21 = *MEMORY[0x277D85DE8];
   v5 = a2;

@@ -96,28 +96,28 @@
 
 void __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         [*(*(a1 + 40) + 16) addObject:v8];
         if ([*(*(a1 + 40) + 16) countForObject:v8] == 1)
         {
@@ -125,7 +125,7 @@ void __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___b
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -134,16 +134,14 @@ void __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___b
   if ([v2 count])
   {
     v9 = [*(*(a1 + 40) + 8) allObjectsForKeys:v2];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___block_invoke_2;
-    v11[3] = &unk_1E783D668;
-    v11[4] = *(a1 + 40);
-    [v9 enumerateKeysAndObjectsUsingBlock:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___block_invoke_2;
+    v10[3] = &unk_1E783D668;
+    v10[4] = *(a1 + 40);
+    [v9 enumerateKeysAndObjectsUsingBlock:v10];
     [*(a1 + 40) _prefetchQueue_updateNotificationListeners];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -195,28 +193,28 @@ void __69__FBApplicationDataStoreInProcessRepositoryClient_addPrefetchedKeys___b
 
 void __87__FBApplicationDataStoreInProcessRepositoryClient_removePrefetchedKeys_withCompletion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         [*(*(a1 + 40) + 16) removeObject:v8];
         if (![*(*(a1 + 40) + 16) countForObject:v8])
         {
@@ -224,23 +222,21 @@ void __87__FBApplicationDataStoreInProcessRepositoryClient_removePrefetchedKeys_
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   v9 = *(*(a1 + 40) + 24);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __87__FBApplicationDataStoreInProcessRepositoryClient_removePrefetchedKeys_withCompletion___block_invoke_2;
-  v12[3] = &unk_1E783D690;
-  v13 = v2;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __87__FBApplicationDataStoreInProcessRepositoryClient_removePrefetchedKeys_withCompletion___block_invoke_2;
+  v11[3] = &unk_1E783D690;
+  v12 = v2;
   v10 = v2;
-  [v9 enumerateKeysAndObjectsUsingBlock:v12];
+  [v9 enumerateKeysAndObjectsUsingBlock:v11];
   [*(a1 + 40) _prefetchQueue_updateNotificationListeners];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateNotificationListeners
@@ -256,14 +252,13 @@ void __87__FBApplicationDataStoreInProcessRepositoryClient_removePrefetchedKeys_
 
 - (void)_prefetchQueue_updateNotificationListeners
 {
-  prefetchQueue = self->_prefetchQueue;
   BSDispatchQueueAssert();
-  v4 = [(NSCountedSet *)self->_prefetchedKeys count];
+  v3 = [(NSCountedSet *)self->_prefetchedKeys count];
   _observers = [(FBApplicationDataStoreInProcessRepositoryClient *)self _observers];
-  v6 = v4 | [_observers count];
+  v5 = v3 | [_observers count];
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  if (v6)
+  if (v5)
   {
     [defaultCenter addObserver:self selector:sel__valueChanged_ name:@"FBApplicationStoreRepositoryChangeNotification" object:0];
     [defaultCenter addObserver:self selector:sel__repositoryInvalidated_ name:@"FBApplicationStoreRepositoryInvalidatedNotification" object:0];
@@ -312,7 +307,7 @@ void __87__FBApplicationDataStoreInProcessRepositoryClient_removePrefetchedKeys_
 
 void __107__FBApplicationDataStoreInProcessRepositoryClient__updateCacheIfNecessaryWithObject_forKey_forApplication___block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 40);
+  v2 = a1 + 40;
   if ([*(*(a1 + 32) + 16) containsObject:*(a1 + 40)])
   {
     v3 = FBLogAppDataStore();
@@ -369,27 +364,26 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
 
     v4 = [*(a1 + 32) _prefetchQueue_prefetchedKeysForApplication:*(a1 + 48)];
     v5 = [v4 objectForKey:*(a1 + 40)];
-    v6 = *(a1 + 56);
-    v7 = BSEqualObjects();
-    v8 = FBLogAppDataStore();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-    if (v7)
+    v6 = BSEqualObjects();
+    v7 = FBLogAppDataStore();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+    if (v6)
     {
-      if (v9)
+      if (v8)
       {
-        __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfObjectIsNotEqual_forKey_forApplication___block_invoke_cold_3(v8, v10, v11, v12, v13, v14, v15, v16);
+        __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfObjectIsNotEqual_forKey_forApplication___block_invoke_cold_3(v7, v9, v10, v11, v12, v13, v14, v15);
       }
     }
 
     else
     {
-      if (v9)
+      if (v8)
       {
-        __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfObjectIsNotEqual_forKey_forApplication___block_invoke_cold_2(v8, v10, v11, v12, v13, v14, v15, v16);
+        __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfObjectIsNotEqual_forKey_forApplication___block_invoke_cold_2(v7, v9, v10, v11, v12, v13, v14, v15);
       }
 
-      v8 = +[FBApplicationDataStoreInProcessRepositoryClientInvalidationSentinel sentinel];
-      [v4 setObject:v8 forKey:*v2];
+      v7 = +[FBApplicationDataStoreInProcessRepositoryClientInvalidationSentinel sentinel];
+      [v4 setObject:v7 forKey:*v2];
     }
   }
 }
@@ -425,28 +419,28 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
 
 void __65__FBApplicationDataStoreInProcessRepositoryClient__valueChanged___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) _observers];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 applicationDataStoreRepositoryClient:*(a1 + 32) application:*(a1 + 40) changedObject:*(a1 + 48) forKey:*(a1 + 56)];
@@ -456,13 +450,11 @@ void __65__FBApplicationDataStoreInProcessRepositoryClient__valueChanged___block
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_repositoryInvalidated:(id)invalidated
@@ -492,28 +484,28 @@ void __65__FBApplicationDataStoreInProcessRepositoryClient__valueChanged___block
 
 void __74__FBApplicationDataStoreInProcessRepositoryClient__repositoryInvalidated___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) _observers];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 applicationDataStoreRepositoryClient:*(a1 + 32) storeInvalidatedForApplication:*(a1 + 40)];
@@ -523,13 +515,11 @@ void __74__FBApplicationDataStoreInProcessRepositoryClient__repositoryInvalidate
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)synchronizeWithCompletion:(id)completion
@@ -594,7 +584,7 @@ void __74__FBApplicationDataStoreInProcessRepositoryClient__repositoryInvalidate
 
 - (void)setObject:(id)object forKey:(id)key forApplication:(id)application withCompletion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   applicationCopy = application;
@@ -604,11 +594,11 @@ void __74__FBApplicationDataStoreInProcessRepositoryClient__repositoryInvalidate
   {
     v15 = _descriptionForObject(objectCopy);
     *buf = 138543874;
-    v21 = keyCopy;
-    v22 = 2112;
-    v23 = applicationCopy;
-    v24 = 2112;
-    v25 = v15;
+    v20 = keyCopy;
+    v21 = 2112;
+    v22 = applicationCopy;
+    v23 = 2112;
+    v24 = v15;
     _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_INFO, "setting object for key=%{public}@ appID=%@ object=%@", buf, 0x20u);
   }
 
@@ -621,11 +611,9 @@ void __74__FBApplicationDataStoreInProcessRepositoryClient__repositoryInvalidate
     block[1] = 3221225472;
     block[2] = __98__FBApplicationDataStoreInProcessRepositoryClient_setObject_forKey_forApplication_withCompletion___block_invoke;
     block[3] = &unk_1E783B9B8;
-    v19 = completionCopy;
+    v18 = completionCopy;
     dispatch_async(clientCalloutQueue, block);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectForKey:(id)key forApplication:(id)application withCompletion:(id)completion
@@ -707,7 +695,7 @@ LABEL_11:
 
 - (void)objectForKey:(id)key forApplication:(id)application withResult:(id)result
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   applicationCopy = application;
   resultCopy = result;
@@ -719,9 +707,9 @@ LABEL_11:
 
   if (resultCopy)
   {
-    v23 = 0;
-    v12 = [(FBApplicationDataStoreInProcessRepositoryClient *)self prefetchedObjectIfAvailableForKey:keyCopy application:applicationCopy outObject:&v23];
-    v13 = v23;
+    v22 = 0;
+    v12 = [(FBApplicationDataStoreInProcessRepositoryClient *)self prefetchedObjectIfAvailableForKey:keyCopy application:applicationCopy outObject:&v22];
+    v13 = v22;
     if (v12)
     {
       v14 = FBLogAppDataStore();
@@ -742,7 +730,7 @@ LABEL_11:
       {
         v16 = _descriptionForObject(v15);
         *buf = 138412290;
-        v25 = v16;
+        v24 = v16;
         _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_INFO, "retrieved object from store: %@", buf, 0xCu);
       }
     }
@@ -752,30 +740,28 @@ LABEL_11:
     block[1] = 3221225472;
     block[2] = __90__FBApplicationDataStoreInProcessRepositoryClient_objectForKey_forApplication_withResult___block_invoke;
     block[3] = &unk_1E783C368;
-    v21 = v15;
-    v22 = resultCopy;
+    v20 = v15;
+    v21 = resultCopy;
     v18 = v15;
     dispatch_async(clientCalloutQueue, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)prefetchedObjectIfAvailableForKey:(id)key application:(id)application outObject:(id *)object
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   applicationCopy = application;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__5;
-  v41 = __Block_byref_object_dispose__5;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__5;
+  v40 = __Block_byref_object_dispose__5;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   v10 = FBLogAppDataStore();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
@@ -789,24 +775,24 @@ LABEL_11:
   block[3] = &unk_1E783D6B8;
   block[4] = self;
   v12 = applicationCopy;
-  v29 = v12;
-  v31 = &v37;
+  v28 = v12;
+  v30 = &v36;
   v13 = keyCopy;
-  v30 = v13;
-  v32 = &v33;
+  v29 = v13;
+  v31 = &v32;
   dispatch_sync(prefetchQueue, block);
-  if (*(v34 + 24) == 1)
+  if (*(v33 + 24) == 1)
   {
     v14 = FBLogAppDataStore();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v15 = _descriptionForObject(v38[5]);
+      v15 = _descriptionForObject(v37[5]);
       [FBApplicationDataStoreInProcessRepositoryClient prefetchedObjectIfAvailableForKey:v15 application:buf outObject:v14];
     }
 
     if (object)
     {
-      v16 = v38[5];
+      v16 = v37[5];
 LABEL_12:
       *object = v16;
     }
@@ -827,12 +813,11 @@ LABEL_12:
     }
   }
 
-  v25 = *(v34 + 24);
+  v25 = *(v33 + 24);
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25 & 1;
 }
 
@@ -923,35 +908,25 @@ void __107__FBApplicationDataStoreInProcessRepositoryClient_prefetchedObjectIfAv
   [(FBApplicationDataStoreInProcessRepositoryClient *)self _updateNotificationListeners];
 }
 
-void __107__FBApplicationDataStoreInProcessRepositoryClient__updateCacheIfNecessaryWithObject_forKey_forApplication___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __107__FBApplicationDataStoreInProcessRepositoryClient__updateCacheIfNecessaryWithObject_forKey_forApplication___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(a2 + 48);
-  v4 = _descriptionForObject(*(a2 + 56));
+  v2 = _descriptionForObject(*(a2 + 56));
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfObjectIsNotEqual_forKey_forApplication___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfObjectIsNotEqual_forKey_forApplication___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(a2 + 48);
-  v4 = _descriptionForObject(*(a2 + 56));
+  v2 = _descriptionForObject(*(a2 + 56));
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 - (void)migrateIdentifier:(char *)a1 toIdentifier:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -959,7 +934,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -969,7 +944,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
 
 - (void)migrateIdentifier:(char *)a1 toIdentifier:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -977,7 +952,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -987,7 +962,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
 
 - (void)migrateIdentifier:(char *)a1 toIdentifier:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -995,7 +970,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1005,7 +980,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
 
 - (void)migrateIdentifier:(char *)a1 toIdentifier:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1013,7 +988,7 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1021,48 +996,18 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
   __break(0);
 }
 
-- (void)objectForKey:forApplication:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8_3();
-  OUTLINED_FUNCTION_3_3(&dword_1A89DD000, v0, v1, "fetching object for key=%{public}@ appID=%@ (synchronously)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)objectForKey:(void *)a1 forApplication:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = _descriptionForObject(a1);
+  v6 = _descriptionForObject(a1);
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)objectForKey:(void *)a1 forApplication:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = _descriptionForObject(a1);
+  v6 = _descriptionForObject(a1);
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)objectForKey:forApplication:withResult:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8_3();
-  OUTLINED_FUNCTION_3_3(&dword_1A89DD000, v0, v1, "fetching object for key=%{public}@ appID=%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)prefetchedObjectIfAvailableForKey:application:outObject:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8_3();
-  OUTLINED_FUNCTION_3_3(&dword_1A89DD000, v0, v1, "checking for prefetched object for key=%{public}@ appID=%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prefetchedObjectIfAvailableForKey:(void *)a1 application:(uint8_t *)buf outObject:(os_log_t)log .cold.3(void *a1, uint8_t *buf, os_log_t log)
@@ -1074,12 +1019,11 @@ void __108__FBApplicationDataStoreInProcessRepositoryClient__invalidateCacheIfOb
 
 void __107__FBApplicationDataStoreInProcessRepositoryClient_prefetchedObjectIfAvailableForKey_application_outObject___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 48);
-  *&v4[12] = 2112;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_3_3(&dword_1A89DD000, a2, a3, "found invalidation sentinel for key=%{public}@ appID=%@, refreshing cache", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 48);
+  *&v3[12] = 2112;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_3_3(&dword_1A89DD000, a2, a3, "found invalidation sentinel for key=%{public}@ appID=%@, refreshing cache", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

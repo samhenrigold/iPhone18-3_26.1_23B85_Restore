@@ -5,58 +5,57 @@
 
 @implementation FigCaptureCMIOExtensionSessionStreamDelegate
 
-uint64_t __73__FigCaptureCMIOExtensionSessionStreamDelegate_stream_propertiesChanged___block_invoke(uint64_t a1)
+void *__73__FigCaptureCMIOExtensionSessionStreamDelegate_stream_propertiesChanged___block_invoke(uint64_t a1)
 {
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v2 = *(a1 + 32);
-  result = [v2 countByEnumeratingWithState:&v18 objects:v17 count:16];
+  result = [v2 countByEnumeratingWithState:&v17 objects:v16 count:16];
   if (result)
   {
     v4 = result;
-    v5 = *v19;
-    v6 = *MEMORY[0x1E6963458];
-    v13 = *off_1E798B838;
-    v12 = *off_1E798B840;
-    v11 = *off_1E798B848;
-    v14 = *off_1E798B860;
+    v5 = *v18;
+    v12 = *off_1E798B838;
+    v11 = *off_1E798B840;
+    v10 = *off_1E798B848;
+    v13 = *off_1E798B860;
     do
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * v7);
-        v9 = [*(a1 + 32) objectForKeyedSubscript:v8];
-        if ([v8 isEqualToString:v6])
+        v7 = *(*(&v17 + 1) + 8 * v6);
+        v8 = [*(a1 + 32) objectForKeyedSubscript:v7];
+        if (objc_msgSend_isEqualToString_(v7))
         {
-          if (![v9 value])
+          if (![v8 value])
           {
             goto LABEL_14;
           }
 
-          v15 = v14;
-          v16 = [v9 value];
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+          v14 = v13;
+          v15 = [v8 value];
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
           CMNotificationCenterGetDefaultLocalCenter();
         }
 
         else
         {
-          if (![v8 isEqualToString:@"SuppressedGesture"])
+          if (!objc_msgSend_isEqualToString_(v7))
           {
-            v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            [v10 setObject:v8 forKeyedSubscript:v13];
-            [v10 setObject:*(a1 + 48) forKeyedSubscript:v12];
-            if ([v9 value])
+            v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            [v9 setObject:v7 forKeyedSubscript:v12];
+            [v9 setObject:*(a1 + 48) forKeyedSubscript:v11];
+            if ([v8 value])
             {
-              [v10 setObject:objc_msgSend(v9 forKeyedSubscript:{"value"), v11}];
+              [v9 setObject:objc_msgSend(v8 forKeyedSubscript:{"value"), v10}];
             }
           }
 
@@ -65,11 +64,11 @@ uint64_t __73__FigCaptureCMIOExtensionSessionStreamDelegate_stream_propertiesCha
 
         CMNotificationCenterPostNotification();
 LABEL_14:
-        ++v7;
+        v6 = v6 + 1;
       }
 
-      while (v4 != v7);
-      result = [v2 countByEnumeratingWithState:&v18 objects:v17 count:16];
+      while (v4 != v6);
+      result = [v2 countByEnumeratingWithState:&v17 objects:v16 count:16];
       v4 = result;
     }
 

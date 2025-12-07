@@ -1,172 +1,181 @@
-id sub_100001028()
+id sub_100001028(uint64_t a1)
 {
   if (qword_1000113A8 != -1)
   {
     sub_100005BD4();
   }
 
-  v1 = qword_1000113A0;
+  v2 = qword_1000113A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000106C(id a1)
 {
-  qword_1000113A0 = os_log_create("com.apple.SplashBoard", "Snapshot");
+  v1 = os_log_create("com.apple.SplashBoard", "Snapshot");
+  qword_1000113A0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_1000010B0()
+id sub_1000010B0(uint64_t a1)
 {
   if (qword_1000113B8 != -1)
   {
     sub_100005BE8();
   }
 
-  v1 = qword_1000113B0;
+  v2 = qword_1000113B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000010F4(id a1)
 {
-  qword_1000113B0 = os_log_create("com.apple.SplashBoard", "Memory");
+  v1 = os_log_create("com.apple.SplashBoard", "Memory");
+  qword_1000113B0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_100001138()
+id sub_100001138(uint64_t a1)
 {
   if (qword_1000113C8 != -1)
   {
     sub_100005BFC();
   }
 
-  v1 = qword_1000113C0;
+  v2 = qword_1000113C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000117C(id a1)
 {
-  qword_1000113C0 = os_log_create("com.apple.SplashBoard", "FetchRequests");
+  v1 = os_log_create("com.apple.SplashBoard", "FetchRequests");
+  qword_1000113C0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_1000011C0()
+id sub_1000011C0(uint64_t a1)
 {
   if (qword_1000113D8 != -1)
   {
     sub_100005C10();
   }
 
-  v1 = qword_1000113D0;
+  v2 = qword_1000113D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001204(id a1)
 {
-  qword_1000113D0 = os_log_create("com.apple.SplashBoard", "SnapshotReaper");
+  v1 = os_log_create("com.apple.SplashBoard", "SnapshotReaper");
+  qword_1000113D0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_100001248()
+id sub_100001248(uint64_t a1)
 {
   if (qword_1000113E8 != -1)
   {
     sub_100005C24();
   }
 
-  v1 = qword_1000113E0;
+  v2 = qword_1000113E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000128C(id a1)
 {
-  qword_1000113E0 = os_log_create("com.apple.SplashBoard", "DaemonLifecycle");
+  v1 = os_log_create("com.apple.SplashBoard", "DaemonLifecycle");
+  qword_1000113E0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_1000012D0()
+id sub_1000012D0(uint64_t a1)
 {
   if (qword_1000113F8 != -1)
   {
     sub_100005C38();
   }
 
-  v1 = qword_1000113F0;
+  v2 = qword_1000113F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001314(id a1)
 {
-  qword_1000113F0 = os_log_create("com.apple.SplashBoard", "Capture");
+  v1 = os_log_create("com.apple.SplashBoard", "Capture");
+  qword_1000113F0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_100001358()
+id sub_100001358(uint64_t a1)
 {
   if (qword_100011408 != -1)
   {
     sub_100005C4C();
   }
 
-  v1 = qword_100011400;
+  v2 = qword_100011400;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000139C(id a1)
 {
-  qword_100011400 = os_log_create("com.apple.SplashBoard", "FileManifest");
+  v1 = os_log_create("com.apple.SplashBoard", "FileManifest");
+  qword_100011400 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_1000013E0()
+id sub_1000013E0(uint64_t a1)
 {
   if (qword_100011418 != -1)
   {
     sub_100005C60();
   }
 
-  v1 = qword_100011410;
+  v2 = qword_100011410;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001424(id a1)
 {
-  qword_100011410 = os_log_create("com.apple.SplashBoard", "Purge");
+  v1 = os_log_create("com.apple.SplashBoard", "Purge");
+  qword_100011410 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
-id sub_100001468()
+id sub_100001468(uint64_t a1)
 {
   if (qword_100011428 != -1)
   {
     sub_100005C74();
   }
 
-  v1 = qword_100011420;
+  v2 = qword_100011420;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000014AC(id a1)
 {
-  qword_100011420 = os_log_create("com.apple.SplashBoard", "Common");
+  v1 = os_log_create("com.apple.SplashBoard", "Common");
+  qword_100011420 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
 uint64_t sub_100001634(uint64_t result)
@@ -289,10 +298,11 @@ void sub_100002F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100003F10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003F10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t start()
@@ -331,11 +341,11 @@ void sub_1000041B8(id a1)
 void sub_1000041F0(id a1)
 {
   v1 = +[NSDate date];
-  v2 = sub_100001248();
+  v2 = sub_100001248(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Warming up", &v11, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Warming up", &v13, 2u);
   }
 
   v3 = +[NSBundle mainBundle];
@@ -349,15 +359,15 @@ void sub_1000041F0(id a1)
   [UIWindow setShouldRestrictViewsForSplashboard:1];
   [UIWindow setRestrictedSplashboardClasses:&off_10000CC08];
 
-  v8 = sub_1000012D0();
-  _XBDebugCaptureIsEnabled();
-  v9 = sub_100001248();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_1000012D0(v8);
+  IsEnabled = _XBDebugCaptureIsEnabled();
+  v11 = sub_100001248(IsEnabled);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     [v1 timeIntervalSinceNow];
-    v11 = 134217984;
-    v12 = -v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Warm-up complete after %.3fs", &v11, 0xCu);
+    v13 = 134217984;
+    v14 = -v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Warm-up complete after %.3fs", &v13, 0xCu);
   }
 }
 
@@ -388,11 +398,12 @@ intptr_t sub_100004684(uint64_t a1)
   return dispatch_semaphore_signal(v2);
 }
 
-void sub_100004D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_100004D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 160), 8);
-  _Block_object_dispose((v33 - 224), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 160), 8);
+  _Block_object_dispose((v32 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -431,13 +442,12 @@ void sub_100004D74(uint64_t a1)
   v8 = *(a1 + 48);
   v9 = *(a1 + 56);
   v10 = *(*(a1 + 80) + 8);
-  v13 = *(v10 + 40);
+  v12 = *(v10 + 40);
   obj = v7;
-  v11 = [v4 _onMain_createLaunchWindowForClient:v5 withLaunchRequest:v8 appInfo:v9 captureInfo:&obj captureOptions:v3 error:&v13];
+  v11 = [v4 _onMain_createLaunchWindowForClient:v5 withLaunchRequest:v8 appInfo:v9 captureInfo:&obj captureOptions:v3 error:&v12];
   objc_storeStrong((v6 + 40), obj);
-  objc_storeStrong((v10 + 40), v13);
+  objc_storeStrong((v10 + 40), v12);
   *(*(*(a1 + 64) + 8) + 24) = v11;
-  v12 = *(a1 + 88);
   pthread_dependency_fulfill_np();
   objc_autoreleasePoolPop(v2);
 }
@@ -502,22 +512,22 @@ void sub_1000059E4(uint64_t a1, void *a2)
   {
     v5 = [v4 objectForKeyedSubscript:kSymptomDiagnosticReplySessionID];
 
-    v6 = sub_1000010B0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000010B0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100006270(a1, v5, v6);
+      sub_100006270(a1, v5, v7);
     }
   }
 
   else
   {
-    v7 = [v4 bs_safeNumberForKey:@"reason"];
+    v8 = [v4 bs_safeNumberForKey:@"reason"];
 
-    v8 = [v7 longValue];
-    v5 = sub_1000010B0();
+    v9 = [v8 longValue];
+    v5 = sub_1000010B0(v10);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000061B0(a1, v8, v5);
+      sub_1000061B0(a1, v9, v5);
     }
   }
 }

@@ -57,18 +57,15 @@ HDSPNotificationListener *__31__HDSPDisabledEnvironment_init__block_invoke_3(uin
 
 void __34__HDSPDisabledEnvironment_prepare__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = HKSPLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] dropping Biome callback", &v6, 0xCu);
-  }
-
   v5 = *MEMORY[0x277D85DE8];
+  v1 = HKSPLogForCategory();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 138543362;
+    v4 = objc_opt_class();
+    v2 = v4;
+    _os_log_impl(&dword_269B11000, v1, OS_LOG_TYPE_DEFAULT, "[%{public}@] dropping Biome callback", &v3, 0xCu);
+  }
 }
 
 @end

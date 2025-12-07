@@ -7,7 +7,7 @@
 
 + (BOOL)executeXPCWithMaxRetries:(unint64_t)retries error:(id *)error block:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v7 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4097 userInfo:0];
   if (retries)
@@ -15,9 +15,9 @@
     do
     {
 
-      v16 = 0;
-      v8 = blockCopy[2](blockCopy, &v16);
-      v9 = v16;
+      v15 = 0;
+      v8 = blockCopy[2](blockCopy, &v15);
+      v9 = v15;
       v7 = v9;
       if ((v8 & 1) != 0 || ![v9 br_isNSXPCConnectionError])
       {
@@ -29,7 +29,7 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v10;
+        v17 = v10;
         _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] Block execution failed because of XPC - retrying%@", buf, 0xCu);
       }
 
@@ -50,7 +50,6 @@
     *error = v7;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -133,11 +132,10 @@ void __76__BRXPCClientUtils_executeAsyncXPCWithMaxRetries_completion_xpcInvokeBl
 
 void __76__BRXPCClientUtils_executeAsyncXPCWithMaxRetries_completion_xpcInvokeBlock___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for _br_addDomain retry%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for _br_addDomain retry%@", &v2, 0xCu);
 }
 
 @end

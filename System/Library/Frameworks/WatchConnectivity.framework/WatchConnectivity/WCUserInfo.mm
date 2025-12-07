@@ -33,20 +33,20 @@
     if (userInfoData)
     {
       userInfoData2 = [(WCUserInfo *)self userInfoData];
-      v12 = 0;
-      v6 = WCDeserializePayloadData(userInfoData2, &v12);
-      v7 = v12;
+      v13 = 0;
+      v6 = WCDeserializePayloadData(userInfoData2, &v13);
+      v7 = v13;
 
       if (v6)
       {
-        v8 = [(NSDictionary *)v6 copy];
+        v9 = [(NSDictionary *)v6 copy];
         p_super = &self->_userInfo->super;
-        self->_userInfo = v8;
+        self->_userInfo = v9;
       }
 
       else
       {
-        p_super = wc_log();
+        p_super = wc_log(v8);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           [(WCUserInfo *)v7 userInfo];
@@ -59,7 +59,7 @@
       v6 = clientUserInfo;
     }
 
-    if (self->_userInfo || ([(WCUserInfo *)self clientUserInfo], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
+    if (self->_userInfo || ([(WCUserInfo *)self clientUserInfo], v11 = objc_claimAutoreleasedReturnValue(), v11, !v11))
     {
       clientUserInfo = v6;
     }
@@ -191,15 +191,13 @@ LABEL_4:
 
 - (void)userInfo
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = NSPrintF();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = NSPrintF("%{error}", self);
   *buf = 136446466;
-  v6 = "[WCUserInfo userInfo]";
-  v7 = 2114;
-  v8 = v3;
+  v5 = "[WCUserInfo userInfo]";
+  v6 = 2114;
+  v7 = v3;
   _os_log_error_impl(&dword_23B2FA000, a2, OS_LOG_TYPE_ERROR, "%{public}s could not deserialize user info data %{public}@", buf, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

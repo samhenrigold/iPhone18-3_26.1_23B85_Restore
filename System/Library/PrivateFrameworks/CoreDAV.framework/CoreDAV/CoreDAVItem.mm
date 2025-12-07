@@ -126,7 +126,7 @@ uint64_t __29__CoreDAVItem_parseRuleCache__block_invoke()
 
 - (void)write:(id)write
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   childrenToWrite = [(CoreDAVItem *)self childrenToWrite];
   if ([childrenToWrite count])
@@ -135,29 +135,29 @@ uint64_t __29__CoreDAVItem_parseRuleCache__block_invoke()
     nameSpace = [(CoreDAVItem *)self nameSpace];
     [writeCopy startElement:name inNamespace:nameSpace withAttributeNamesAndValues:0];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = childrenToWrite;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v19 + 1) + 8 * i) write:{writeCopy, v19}];
+          [*(*(&v18 + 1) + 8 * i) write:{writeCopy, v18}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -184,8 +184,6 @@ uint64_t __29__CoreDAVItem_parseRuleCache__block_invoke()
       [writeCopy appendElement:name2 inNamespace:nameSpace3 withStringContent:payloadAsString withAttributeNamesAndValues:0];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)payloadAsString

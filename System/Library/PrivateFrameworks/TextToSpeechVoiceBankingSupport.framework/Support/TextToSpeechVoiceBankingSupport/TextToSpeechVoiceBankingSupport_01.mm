@@ -1,225 +1,25 @@
-uint64_t sub_10001F924(int64_t a1)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(v3 - 8);
-  v5 = v4[8];
-  result = __chkstk_darwin(v3);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *v1;
-  v10 = *v1 + 56;
-  v11 = -1 << *(*v1 + 32);
-  v12 = (a1 + 1) & ~v11;
-  if (((1 << v12) & *(v10 + 8 * (v12 >> 6))) != 0)
-  {
-    v13 = ~v11;
-    v14 = *v1;
-
-    v15 = _HashTable.previousHole(before:)();
-    if ((*(v10 + 8 * (v12 >> 6)) & (1 << v12)) != 0)
-    {
-      v16 = v13;
-      v17 = (v15 + 1) & v13;
-      v38 = v4[2];
-      v39 = v4 + 2;
-      v18 = v4[9];
-      v36 = (v4 + 1);
-      v37 = v10;
-      v19 = v18;
-      do
-      {
-        v20 = v19;
-        v21 = v19 * v12;
-        v38(v8, *(v9 + 48) + v19 * v12, v3);
-        v22 = v9;
-        v23 = v17;
-        v24 = v16;
-        v25 = v22;
-        v26 = *(v22 + 40);
-        sub_10001EA80(&qword_100035550, &type metadata accessor for UUID);
-        v27 = dispatch thunk of Hashable._rawHashValue(seed:)();
-        (*v36)(v8, v3);
-        v28 = v27 & v24;
-        v16 = v24;
-        v17 = v23;
-        if (a1 >= v23)
-        {
-          if (v28 >= v23 && a1 >= v28)
-          {
-LABEL_16:
-            v9 = v25;
-            v31 = *(v25 + 48);
-            v19 = v20;
-            v32 = v20 * a1;
-            if (v20 * a1 < v21 || v31 + v20 * a1 >= (v31 + v21 + v20))
-            {
-              swift_arrayInitWithTakeFrontToBack();
-              a1 = v12;
-            }
-
-            else
-            {
-              a1 = v12;
-              if (v32 != v21)
-              {
-                swift_arrayInitWithTakeBackToFront();
-                a1 = v12;
-              }
-            }
-
-            goto LABEL_5;
-          }
-        }
-
-        else if (v28 >= v23 || a1 >= v28)
-        {
-          goto LABEL_16;
-        }
-
-        v9 = v25;
-        v19 = v20;
-LABEL_5:
-        v12 = (v12 + 1) & v16;
-        v10 = v37;
-      }
-
-      while (((*(v37 + ((v12 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v12) & 1) != 0);
-    }
-
-    *(v10 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  }
-
-  else
-  {
-    *(v10 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  }
-
-  v33 = *(v9 + 16);
-  v34 = __OFSUB__(v33, 1);
-  v35 = v33 - 1;
-  if (v34)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(v9 + 16) = v35;
-    ++*(v9 + 36);
-  }
-
-  return result;
-}
-
-uint64_t sub_10001FC2C(uint64_t a1, unint64_t a2, char a3)
-{
-  v33 = a1;
-  v6 = type metadata accessor for UUID();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(*v3 + 16);
-  v12 = *(*v3 + 24);
-  v30 = v3;
-  v31 = v7;
-  if (v12 > v11 && (a3 & 1) != 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (a3)
-  {
-    sub_10001F5C8(v11 + 1);
-  }
-
-  else
-  {
-    if (v12 > v11)
-    {
-      sub_10001F074();
-      goto LABEL_12;
-    }
-
-    sub_10001F2AC(v11 + 1);
-  }
-
-  v13 = *v3;
-  v14 = *(*v3 + 40);
-  sub_10001EA80(&qword_100035550, &type metadata accessor for UUID);
-  v15 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v16 = v13 + 56;
-  v32 = v13;
-  v17 = -1 << *(v13 + 32);
-  a2 = v15 & ~v17;
-  if ((*(v13 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
-  {
-    v18 = ~v17;
-    v21 = *(v7 + 16);
-    v20 = v7 + 16;
-    v19 = v21;
-    v22 = *(v20 + 56);
-    do
-    {
-      v19(v10, *(v32 + 48) + v22 * a2, v6);
-      sub_10001EA80(&qword_100035558, &type metadata accessor for UUID);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      (*(v20 - 8))(v10, v6);
-      if (v23)
-      {
-        goto LABEL_15;
-      }
-
-      a2 = (a2 + 1) & v18;
-    }
-
-    while (((*(v16 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
-  }
-
-LABEL_12:
-  v24 = v31;
-  v25 = *v30;
-  *(v25 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  result = (*(v24 + 32))(*(v25 + 48) + *(v24 + 72) * a2, v33, v6);
-  v27 = *(v25 + 16);
-  v28 = __OFADD__(v27, 1);
-  v29 = v27 + 1;
-  if (!v28)
-  {
-    *(v25 + 16) = v29;
-    return result;
-  }
-
-  __break(1u);
-LABEL_15:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
 uint64_t sub_10001FED0(uint64_t a1, int *a2)
 {
   *(v2 + 16) = a1;
-  v6 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v2 + 24) = v4;
-  *v4 = v2;
-  v4[1] = sub_10001FFC4;
+  v5 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v2 + 24) = v3;
+  *v3 = v2;
+  v3[1] = sub_10001FFC4;
 
-  return v6(v2 + 32);
+  return v5(v2 + 32);
 }
 
 uint64_t sub_10001FFC4()
 {
   v1 = *v0;
-  v2 = *(*v0 + 24);
-  v3 = *(*v0 + 16);
-  v6 = *v0;
+  v2 = *(*v0 + 16);
+  v5 = *v0;
 
-  *v3 = *(v1 + 32);
-  v4 = *(v6 + 8);
+  *v2 = *(v1 + 32);
+  v3 = *(v5 + 8);
 
-  return v4();
+  return v3();
 }
 
 unint64_t sub_1000200D8(Swift::String string)
@@ -242,18 +42,15 @@ unint64_t sub_1000200D8(Swift::String string)
 
 uint64_t sub_100020148()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 void sub_1000201A8(uint64_t *a1, uint64_t (*a2)(void))
 {
-  v4 = v2[2];
-  v3 = v2[3];
-  v5 = v2[4];
-  v6 = sub_100012250(a1, a2);
-  v4();
+  v3 = *(v2 + 16);
+  v4 = sub_100012250(a1, a2);
+  v3();
 }
 
 uint64_t sub_100020204()
@@ -453,25 +250,14 @@ unint64_t sub_1000204C4()
 
 uint64_t sub_100020540()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 56, 7);
-}
-
-uint64_t sub_100020598(uint64_t a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*(a1 + 16) != 0);
 }
 
 uint64_t sub_1000205CC()
 {
   if (*(v0 + 16) == 1)
   {
-    v1 = *(v0 + 24);
     return sub_100015498(0x5220746E65696C43, 0xEE00747365757165);
   }
 
@@ -492,7 +278,6 @@ unint64_t sub_10002061C()
 
 uint64_t sub_100020698()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 40, 7);
@@ -529,7 +314,7 @@ uint64_t sub_1000207D4()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_100020814(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_100020814(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -544,16 +329,15 @@ uint64_t sub_100020814(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 
 unint64_t sub_100020964()
 {
-  v1 = *(v0 + 16);
   _StringGuts.grow(_:)(43);
 
-  v2._countAndFlagsBits = TTSVBError.description.getter();
-  String.append(_:)(v2);
+  v0._countAndFlagsBits = TTSVBError.description.getter();
+  String.append(_:)(v0);
 
   return 0xD000000000000029;
 }
 
-void sub_100020A60(uint64_t a1)
+void sub_100020A60(unsigned __int8 a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -587,11 +371,91 @@ uint64_t sub_100020BC8()
 {
   if (*(v0 + 16) == 1)
   {
-    v1 = *(v0 + 24);
     return sub_100015498(0x6E55207473726946, 0xEC0000006B636F6CLL);
   }
 
   return result;
+}
+
+unint64_t sub_100020C14()
+{
+  v1 = *(v0 + 16);
+  _StringGuts.grow(_:)(50);
+
+  v2 = 0x656E696665646E75;
+  v3 = 0xE400000000000000;
+  v4 = 1701736292;
+  if (v1 != 5)
+  {
+    v4 = 0x646573756170;
+    v3 = 0xE600000000000000;
+  }
+
+  v5 = 0x656C6C65636E6163;
+  v6 = 0xE600000000000000;
+  if (v1 == 3)
+  {
+    v6 = 0xE900000000000064;
+  }
+
+  else
+  {
+    v5 = 0x64656C696166;
+  }
+
+  if (v1 <= 4)
+  {
+    v4 = v5;
+    v3 = v6;
+  }
+
+  v7 = 0x657474696D627573;
+  v8 = 0xE700000000000000;
+  if (v1 == 1)
+  {
+    v8 = 0xE900000000000064;
+  }
+
+  else
+  {
+    v7 = 0x676E696E6E7572;
+  }
+
+  if (v1)
+  {
+    v2 = v7;
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0xE900000000000064;
+  }
+
+  if (v1 <= 2)
+  {
+    v10 = v2;
+  }
+
+  else
+  {
+    v10 = v4;
+  }
+
+  if (v1 <= 2)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = v3;
+  }
+
+  v12 = v11;
+  String.append(_:)(*&v10);
+
+  return 0xD000000000000030;
 }
 
 uint64_t sub_100020D54()
@@ -621,16 +485,12 @@ uint64_t sub_100020E58()
 
 uint64_t sub_100020EA0()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 41, 7);
 }
 
 uint64_t sub_100020EF0()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return _swift_deallocObject(v0, 64, 7);
 }
@@ -642,16 +502,13 @@ void sub_100020F38()
   v3 = v0[5];
   v4 = v0[6];
   v5 = v0[7];
-  v6 = v0[2];
-  v7 = sub_100012190(&OBJC_IVAR____TtC13voicebankingd18VoiceBankingDaemon____lazy_storage___userNotificationManager, type metadata accessor for VoiceBankingUserNotificationManager, VoiceBankingXPCServer.__allocating_init());
+  v6 = sub_100012190(&OBJC_IVAR____TtC13voicebankingd18VoiceBankingDaemon____lazy_storage___userNotificationManager, type metadata accessor for VoiceBankingUserNotificationManager, VoiceBankingXPCServer.__allocating_init());
   sub_100002138(v1, v2, v3, v4, v5);
 }
 
 uint64_t sub_100020FE8()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -670,33 +527,30 @@ uint64_t sub_100021030(uint64_t a1)
 
 uint64_t sub_1000210DC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_100021114(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1000060AC;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_1000060AC;
 
-  return sub_10001FED0(a1, v5);
+  return sub_10001FED0(a1, v4);
 }
 
 uint64_t sub_1000211CC(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1000035EC;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_1000035EC;
 
-  return sub_10001FED0(a1, v5);
+  return sub_10001FED0(a1, v4);
 }
 
 uint64_t sub_100021284()
@@ -726,22 +580,21 @@ uint64_t sub_100021338()
 uint64_t sub_100021380()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
   _StringGuts.grow(_:)(63);
-  v3._object = 0x800000010002BC70;
-  v3._countAndFlagsBits = 0xD000000000000033;
-  String.append(_:)(v3);
-  v4 = [v1 identifier];
-  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v7 = v6;
+  v2._object = 0x800000010002BC70;
+  v2._countAndFlagsBits = 0xD000000000000033;
+  String.append(_:)(v2);
+  v3 = [v1 identifier];
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
 
-  v8._countAndFlagsBits = v5;
-  v8._object = v7;
+  v7._countAndFlagsBits = v4;
+  v7._object = v6;
+  String.append(_:)(v7);
+
+  v8._countAndFlagsBits = 0x3D726F727245202ELL;
+  v8._object = 0xE800000000000000;
   String.append(_:)(v8);
-
-  v9._countAndFlagsBits = 0x3D726F727245202ELL;
-  v9._object = 0xE800000000000000;
-  String.append(_:)(v9);
   sub_100001EE8(&qword_100035390, &unk_100027F60);
   _print_unlocked<A, B>(_:_:)();
   return 0;
@@ -785,18 +638,16 @@ uint64_t sub_100021544()
 
 void sub_1000215F8()
 {
-  v1 = *(v0 + 16);
-  v2 = sub_100012190(&OBJC_IVAR____TtC13voicebankingd18VoiceBankingDaemon____lazy_storage___userNotificationManager, type metadata accessor for VoiceBankingUserNotificationManager, VoiceBankingXPCServer.__allocating_init());
+  v0 = sub_100012190(&OBJC_IVAR____TtC13voicebankingd18VoiceBankingDaemon____lazy_storage___userNotificationManager, type metadata accessor for VoiceBankingUserNotificationManager, VoiceBankingXPCServer.__allocating_init());
   sub_100002138(0xD000000000000012, 0x800000010002BD80, 0xD000000000000033, 0x800000010002BDA0, 1);
 }
 
 unint64_t sub_100021768()
 {
-  v1 = *(v0 + 16);
   _StringGuts.grow(_:)(29);
 
-  v2._countAndFlagsBits = TTSVBDataStoreEvent.description.getter();
-  String.append(_:)(v2);
+  v0._countAndFlagsBits = TTSVBDataStoreEvent.description.getter();
+  String.append(_:)(v0);
 
   return 0xD00000000000001BLL;
 }
@@ -814,54 +665,51 @@ unint64_t sub_100021934()
   return result;
 }
 
-void sub_100021980()
+void sub_100021980(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v18[0] = swift_getObjectType();
-  v20 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v2 = *(v20 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v20);
-  v5 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6);
+  v3 = v2;
+  v17[0] = swift_getObjectType();
+  v19 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v4 = *(v19 - 8);
+  __chkstk_darwin(v19);
+  v6 = v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v7);
   v8 = type metadata accessor for DispatchQoS();
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v19 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue;
-  v10 = sub_100021934();
-  v18[1] = "arting up with uid=";
-  v18[2] = v10;
+  v18 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue;
+  v9 = sub_100021934();
+  v17[1] = "arting up with uid=";
+  v17[2] = v9;
   static DispatchQoS.userInteractive.getter();
-  v22 = &_swiftEmptyArrayStorage;
-  sub_1000225D4(&qword_100035410, &type metadata accessor for OS_dispatch_queue.Attributes);
+  v21 = &_swiftEmptyArrayStorage;
+  sub_1000225D4(&qword_100035410, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_100001EE8(&qword_100035418, &qword_100027F80);
   sub_10002261C(&qword_100035420, &qword_100035418, &qword_100027F80);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v2 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v20);
-  *&v0[v19] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  (*(v4 + 104))(v6, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v19);
+  *&v2[v18] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   static TTSVBLiveSpeechSupport.localPrefsDomain.getter();
-  v11 = objc_allocWithZone(NSUserDefaults);
-  v12 = String._bridgeToObjectiveC()();
+  v10 = objc_allocWithZone(NSUserDefaults);
+  v11 = String._bridgeToObjectiveC()();
 
-  v13 = [v11 initWithSuiteName:v12];
+  v12 = [v10 initWithSuiteName:v11];
 
-  if (v13)
+  if (v12)
   {
-    *&v1[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults] = v13;
-    v14 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults;
+    *&v3[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults] = v12;
+    v13 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults;
     static TTSVBLiveSpeechSupport.cloudPrefsDomain.getter();
-    v15 = objc_allocWithZone(NSUbiquitousKeyValueStore);
-    v16 = String._bridgeToObjectiveC()();
+    v14 = objc_allocWithZone(NSUbiquitousKeyValueStore);
+    v15 = String._bridgeToObjectiveC()();
 
-    v17 = [v15 initWithStoreIdentifier:v16 type:0];
+    v16 = [v14 initWithStoreIdentifier:v15 type:0];
 
-    *&v1[v14] = v17;
-    *&v1[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_favoritePhrasesPrefObservation] = 0;
-    v21.receiver = v1;
-    v21.super_class = v18[0];
-    objc_msgSendSuper2(&v21, "init");
+    *&v3[v13] = v16;
+    *&v3[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_favoritePhrasesPrefObservation] = 0;
+    v20.receiver = v3;
+    v20.super_class = v17[0];
+    objc_msgSendSuper2(&v20, "init");
   }
 
   else
@@ -870,67 +718,66 @@ void sub_100021980()
   }
 }
 
-id sub_100021CF8()
+id sub_100021CF8(uint64_t a1, uint64_t a2)
 {
   ObjectType = swift_getObjectType();
-  v2 = [objc_opt_self() defaultCenter];
-  [v2 removeObserver:v0];
+  v4 = [objc_opt_self() defaultCenter];
+  [v4 removeObserver:v2];
 
-  v4.receiver = v0;
-  v4.super_class = ObjectType;
-  return objc_msgSendSuper2(&v4, "dealloc");
+  v6.receiver = v2;
+  v6.super_class = ObjectType;
+  return objc_msgSendSuper2(&v6, "dealloc");
 }
 
 uint64_t sub_100021EA4(uint64_t a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v24 - v8;
-  v10 = [objc_opt_self() defaultCenter];
-  v11 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults;
-  [v10 addObserver:a1 selector:"handleCloudPrefsChanged:" name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification object:*(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults)];
+  v4 = __chkstk_darwin(v2);
+  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v23 - v7;
+  v9 = [objc_opt_self() defaultCenter];
+  v10 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults;
+  [v9 addObserver:a1 selector:"handleCloudPrefsChanged:" name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification object:*(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults)];
 
-  v25 = *(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
-  v12 = v25;
+  v24 = *(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
+  v11 = v24;
   swift_getKeyPath();
   swift_allocObject();
   swift_unknownObjectWeakInit();
-  v13 = v12;
-  v14 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
+  v12 = v11;
+  v13 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
 
-  v15 = *(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_favoritePhrasesPrefObservation);
-  *(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_favoritePhrasesPrefObservation) = v14;
+  v14 = *(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_favoritePhrasesPrefObservation);
+  *(a1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_favoritePhrasesPrefObservation) = v13;
 
   static TTSVBLog.daemon.getter();
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v16, v17))
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v15, v16))
   {
-    v18 = swift_slowAlloc();
-    *v18 = 0;
-    _os_log_impl(&_mh_execute_header, v16, v17, "Will synchronize Live Speech cloud prefs", v18, 2u);
+    v17 = swift_slowAlloc();
+    *v17 = 0;
+    _os_log_impl(&_mh_execute_header, v15, v16, "Will synchronize Live Speech cloud prefs", v17, 2u);
   }
 
-  v19 = *(v3 + 8);
-  v19(v9, v2);
-  result = [*(a1 + v11) synchronize];
+  v18 = *(v3 + 8);
+  v18(v8, v2);
+  result = [*(a1 + v10) synchronize];
   if ((result & 1) == 0)
   {
     static TTSVBLog.daemon.getter();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v21, v22))
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v20, v21))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Error occurred synchronizing Live Speech cloud prefs", v23, 2u);
+      v22 = swift_slowAlloc();
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v20, v21, "Error occurred synchronizing Live Speech cloud prefs", v22, 2u);
     }
 
-    return (v19)(v7, v2);
+    return (v18)(v6, v2);
   }
 
   return result;
@@ -951,50 +798,47 @@ void sub_1000221F4(id *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v4;
 }
 
-void sub_100022264(uint64_t *a1, void **a2)
+void sub_100022264(uint64_t a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *a2;
+  v2 = *a2;
   sub_100001EE8(&qword_1000355D0, &qword_100028150);
   isa = Array._bridgeToObjectiveC()().super.isa;
-  [v3 setLiveSpeechPhrases:isa];
+  [v2 setLiveSpeechPhrases:isa];
 }
 
 uint64_t sub_100022304(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for DispatchWorkItemFlags();
-  v22 = *(v6 - 8);
-  v7 = *(v22 + 64);
+  v20 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for DispatchQoS();
-  v10 = *(v21 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v21);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *&v3[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue];
-  v15 = swift_allocObject();
-  *(v15 + 16) = v3;
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for DispatchQoS();
+  v9 = *(v19 - 8);
+  __chkstk_darwin(v19);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *&v3[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue];
+  v13 = swift_allocObject();
+  *(v13 + 16) = v3;
   aBlock[4] = a2;
-  aBlock[5] = v15;
+  aBlock[5] = v13;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1000218B0;
   aBlock[3] = a3;
-  v16 = _Block_copy(aBlock);
-  v17 = v14;
-  v18 = v3;
+  v14 = _Block_copy(aBlock);
+  v15 = v12;
+  v16 = v3;
   static DispatchQoS.unspecified.getter();
-  v23 = &_swiftEmptyArrayStorage;
-  sub_1000225D4(&qword_100035458, &type metadata accessor for DispatchWorkItemFlags);
+  v21 = &_swiftEmptyArrayStorage;
+  sub_1000225D4(&qword_100035458, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   sub_100001EE8(&qword_100035460, &qword_100027F88);
   sub_10002261C(&qword_100035468, &qword_100035460, &qword_100027F88);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
-  _Block_release(v16);
+  _Block_release(v14);
 
-  (*(v22 + 8))(v9, v6);
-  (*(v10 + 8))(v13, v21);
+  (*(v20 + 8))(v8, v6);
+  (*(v9 + 8))(v11, v19);
 }
 
 uint64_t sub_1000225BC(uint64_t a1, uint64_t a2)
@@ -1004,7 +848,7 @@ uint64_t sub_1000225BC(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_1000225D4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000225D4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1033,138 +877,135 @@ uint64_t sub_10002261C(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 uint64_t sub_100022670()
 {
   v0 = type metadata accessor for DispatchWorkItemFlags();
-  v53 = *(v0 - 8);
-  v54 = v0;
-  v1 = *(v53 + 64);
+  v50 = *(v0 - 8);
+  v51 = v0;
   __chkstk_darwin(v0);
-  v3 = &v46 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for DispatchQoS();
-  v51 = *(v4 - 8);
-  v52 = v4;
-  v5 = *(v51 + 64);
-  __chkstk_darwin(v4);
-  v7 = &v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v46 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v15 = &v46 - v14;
+  v2 = &v43 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchQoS();
+  v48 = *(v3 - 8);
+  v49 = v3;
+  __chkstk_darwin(v3);
+  v5 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Logger();
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v12 = &v43 - v11;
   static TTSVBLog.daemon.getter();
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v16, v17))
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v13, v14))
   {
-    v18 = swift_slowAlloc();
-    *v18 = 0;
-    _os_log_impl(&_mh_execute_header, v16, v17, "Did receive cloud change for Live Speech prefs.", v18, 2u);
+    v15 = swift_slowAlloc();
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v13, v14, "Did receive cloud change for Live Speech prefs.", v15, 2u);
   }
 
-  v19 = *(v9 + 8);
-  v19(v15, v8);
+  v16 = *(v7 + 8);
+  v16(v12, v6);
   result = Notification.userInfo.getter();
   if (result)
   {
-    v21 = result;
-    v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v57 = v22;
+    v18 = result;
+    v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v54 = v19;
     AnyHashable.init<A>(_:)();
-    if (!*(v21 + 16))
+    if (!*(v18 + 16))
     {
       goto LABEL_12;
     }
 
-    v23 = sub_100024604(aBlock);
-    if ((v24 & 1) == 0)
+    v20 = sub_100024604(aBlock);
+    if ((v21 & 1) == 0)
     {
       goto LABEL_12;
     }
 
-    sub_100005D8C(*(v21 + 56) + 32 * v23, v58);
+    sub_100005D8C(*(v18 + 56) + 32 * v20, v55);
     sub_100024648(aBlock);
     if ((swift_dynamicCast() & 1) == 0)
     {
     }
 
-    v25 = v56;
-    v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v57 = v26;
+    v22 = v53;
+    v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v54 = v23;
     AnyHashable.init<A>(_:)();
-    if (*(v21 + 16) && (v27 = sub_100024604(aBlock), (v28 & 1) != 0))
+    if (*(v18 + 16) && (v24 = sub_100024604(aBlock), (v25 & 1) != 0))
     {
-      sub_100005D8C(*(v21 + 56) + 32 * v27, v58);
+      sub_100005D8C(*(v18 + 56) + 32 * v24, v55);
       sub_100024648(aBlock);
 
       sub_100001EE8(&qword_100035598, &qword_100028120);
       result = swift_dynamicCast();
       if (result)
       {
-        v29 = v56;
+        v26 = v53;
         static TTSVBLog.daemon.getter();
 
-        v30 = Logger.logObject.getter();
-        v31 = static os_log_type_t.info.getter();
+        v27 = Logger.logObject.getter();
+        v28 = static os_log_type_t.info.getter();
 
-        if (os_log_type_enabled(v30, v31))
+        if (os_log_type_enabled(v27, v28))
         {
-          v32 = swift_slowAlloc();
-          v48 = v31;
-          v33 = v32;
-          v47 = swift_slowAlloc();
-          aBlock[0] = v47;
-          *v33 = 134218242;
-          *(v33 + 4) = v25;
-          *(v33 + 12) = 2080;
-          v34 = Array.description.getter();
-          v49 = v25;
-          v36 = sub_100004A24(v34, v35, aBlock);
-          v46 = v29;
-          v37 = v36;
-          v25 = v49;
+          v29 = swift_slowAlloc();
+          v45 = v28;
+          v30 = v29;
+          v44 = swift_slowAlloc();
+          aBlock[0] = v44;
+          *v30 = 134218242;
+          *(v30 + 4) = v22;
+          *(v30 + 12) = 2080;
+          v31 = Array.description.getter();
+          v46 = v22;
+          v33 = sub_100004A24(v31, v32, aBlock);
+          v43 = v26;
+          v34 = v33;
+          v22 = v46;
 
-          *(v33 + 14) = v37;
-          _os_log_impl(&_mh_execute_header, v30, v48, "Cloud change reason=%ld changeKeys=%s", v33, 0x16u);
-          sub_100005D40(v47);
+          *(v30 + 14) = v34;
+          _os_log_impl(&_mh_execute_header, v27, v45, "Cloud change reason=%ld changeKeys=%s", v30, 0x16u);
+          sub_100005D40(v44);
 
-          v19(v13, v8);
-          v38 = v46;
+          v16(v10, v6);
+          v35 = v43;
         }
 
         else
         {
 
-          v19(v13, v8);
-          v38 = v29;
+          v16(v10, v6);
+          v35 = v26;
         }
 
-        v39 = v50;
-        v40 = *&v50[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue];
-        v41 = swift_allocObject();
-        v41[2] = v38;
-        v41[3] = v39;
-        v41[4] = v25;
+        v36 = v47;
+        v37 = *&v47[OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue];
+        v38 = swift_allocObject();
+        v38[2] = v35;
+        v38[3] = v36;
+        v38[4] = v22;
         aBlock[4] = sub_1000246DC;
-        aBlock[5] = v41;
+        aBlock[5] = v38;
         aBlock[0] = _NSConcreteStackBlock;
         aBlock[1] = 1107296256;
         aBlock[2] = sub_1000218B0;
         aBlock[3] = &unk_100032A90;
-        v42 = _Block_copy(aBlock);
-        v43 = v40;
-        v44 = v39;
+        v39 = _Block_copy(aBlock);
+        v40 = v37;
+        v41 = v36;
         static DispatchQoS.unspecified.getter();
-        v58[0] = &_swiftEmptyArrayStorage;
-        sub_1000225D4(&qword_100035458, &type metadata accessor for DispatchWorkItemFlags);
+        v55[0] = &_swiftEmptyArrayStorage;
+        sub_1000225D4(&qword_100035458, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
         sub_100001EE8(&qword_100035460, &qword_100027F88);
         sub_10002261C(&qword_100035468, &qword_100035460, &qword_100027F88);
-        v45 = v54;
+        v42 = v51;
         dispatch thunk of SetAlgebra.init<A>(_:)();
         OS_dispatch_queue.async(group:qos:flags:execute:)();
-        _Block_release(v42);
+        _Block_release(v39);
 
-        (*(v53 + 8))(v3, v45);
-        (*(v51 + 8))(v7, v52);
+        (*(v50 + 8))(v2, v42);
+        (*(v48 + 8))(v5, v49);
       }
     }
 
@@ -1181,37 +1022,36 @@ LABEL_12:
 
 void sub_100022CFC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v57 = a2;
+  v56 = a2;
   v5 = type metadata accessor for Logger();
   v6 = *(v5 - 8);
-  v55 = v5;
-  v56 = v6;
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v54 = &v52 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v8);
-  v53 = &v52 - v11;
-  v12 = __chkstk_darwin(v10);
-  v52 = &v52 - v13;
-  v14 = __chkstk_darwin(v12);
-  v16 = &v52 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v52 - v17;
-  *&v63 = static TTSVBLiveSpeechSupport.favoritePhrasesKey.getter();
-  *(&v63 + 1) = v19;
-  v59 = &v63;
-  v20 = sub_1000247B0(sub_100025C78, v58, a1);
+  v54 = v5;
+  v55 = v6;
+  v7 = __chkstk_darwin(v5);
+  v53 = &v51 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v7);
+  v52 = &v51 - v10;
+  v11 = __chkstk_darwin(v9);
+  v51 = &v51 - v12;
+  v13 = __chkstk_darwin(v11);
+  v15 = &v51 - v14;
+  __chkstk_darwin(v13);
+  v17 = &v51 - v16;
+  *&v62 = static TTSVBLiveSpeechSupport.favoritePhrasesKey.getter();
+  *(&v62 + 1) = v18;
+  v58 = &v62;
+  v19 = sub_1000247B0(sub_100025C78, v57, a1);
 
-  v21 = 0;
-  if (v20)
+  v20 = 0;
+  if (v19)
   {
-    v22 = *(v57 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults);
+    v21 = *(v56 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults);
     static TTSVBLiveSpeechSupport.favoritePhrasesKey.getter();
-    v23 = String._bridgeToObjectiveC()();
+    v22 = String._bridgeToObjectiveC()();
 
-    v24 = [v22 objectForKey:v23];
+    v23 = [v21 objectForKey:v22];
 
-    if (v24)
+    if (v23)
     {
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
@@ -1219,48 +1059,48 @@ void sub_100022CFC(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
+      v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
     }
 
+    v62 = v60;
     v63 = v61;
-    v64 = v62;
-    if (*(&v62 + 1))
+    if (*(&v61 + 1))
     {
       sub_100001EE8(&qword_1000355A0, &qword_100028128);
       if (swift_dynamicCast())
       {
-        v21 = v60;
+        v20 = v59;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
     }
 
     else
     {
-      sub_100025AE8(&v63);
-      v21 = 0;
+      sub_100025AE8(&v62);
+      v20 = 0;
     }
   }
 
-  *&v63 = static TTSVBLiveSpeechSupport.favoritePhraseCategoriesKey.getter();
-  *(&v63 + 1) = v25;
-  __chkstk_darwin(v63);
-  *(&v52 - 2) = &v63;
-  v26 = sub_1000247B0(sub_100025C78, (&v52 - 4), a1);
+  *&v62 = static TTSVBLiveSpeechSupport.favoritePhraseCategoriesKey.getter();
+  *(&v62 + 1) = v24;
+  __chkstk_darwin(v62);
+  *(&v51 - 2) = &v62;
+  v25 = sub_1000247B0(sub_100025C78, (&v51 - 4), a1);
 
-  if (v26)
+  if (v25)
   {
-    v27 = *(v57 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults);
+    v26 = *(v56 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults);
     static TTSVBLiveSpeechSupport.favoritePhraseCategoriesKey.getter();
-    v28 = String._bridgeToObjectiveC()();
+    v27 = String._bridgeToObjectiveC()();
 
-    v29 = [v27 objectForKey:v28];
+    v28 = [v26 objectForKey:v27];
 
-    if (v29)
+    if (v28)
     {
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
@@ -1268,23 +1108,23 @@ void sub_100022CFC(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
+      v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
     }
 
+    v62 = v60;
     v63 = v61;
-    v64 = v62;
-    if (*(&v62 + 1))
+    if (*(&v61 + 1))
     {
       sub_100001EE8(&qword_1000355F8, qword_100028188);
       if (swift_dynamicCast())
       {
-        v30 = v60;
+        v29 = v59;
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
       if (a3)
@@ -1294,28 +1134,28 @@ LABEL_21:
         if (a3 == 1)
         {
           static TTSVBLog.daemon.getter();
-          v31 = Logger.logObject.getter();
-          v32 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v31, v32))
+          v30 = Logger.logObject.getter();
+          v31 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v30, v31))
           {
-            v33 = swift_slowAlloc();
-            *v33 = 0;
-            _os_log_impl(&_mh_execute_header, v31, v32, "Initial sync with cloud store. Merge cloud favorites into local favorites", v33, 2u);
+            v32 = swift_slowAlloc();
+            *v32 = 0;
+            _os_log_impl(&_mh_execute_header, v30, v31, "Initial sync with cloud store. Merge cloud favorites into local favorites", v32, 2u);
           }
 
-          (*(v56 + 8))(v16, v55);
-          if (v21)
+          (*(v55 + 8))(v15, v54);
+          if (v20)
           {
-            v34 = *(v57 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
-            v35 = [v34 liveSpeechPhrases];
+            v33 = *(v56 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
+            v34 = [v33 liveSpeechPhrases];
             sub_100001EE8(&qword_1000355D0, &qword_100028150);
-            v36 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+            v35 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-            sub_100023504(v21, v36);
+            sub_100023504(v20, v35);
 
             isa = Array._bridgeToObjectiveC()().super.isa;
 
-            [v34 setLiveSpeechPhrases:isa];
+            [v33 setLiveSpeechPhrases:isa];
           }
 
           return;
@@ -1323,61 +1163,61 @@ LABEL_21:
 
         if (a3 == 3)
         {
-          v38 = v53;
+          v37 = v52;
           static TTSVBLog.daemon.getter();
-          v39 = Logger.logObject.getter();
-          v40 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v39, v40))
+          v38 = Logger.logObject.getter();
+          v39 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v38, v39))
           {
-            v41 = swift_slowAlloc();
-            *v41 = 0;
-            v42 = "Cloud store account changed";
+            v40 = swift_slowAlloc();
+            *v40 = 0;
+            v41 = "Cloud store account changed";
             goto LABEL_39;
           }
         }
 
         else if (a3 == 2)
         {
-          v38 = v52;
+          v37 = v51;
           static TTSVBLog.daemon.getter();
-          v39 = Logger.logObject.getter();
-          v40 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v39, v40))
+          v38 = Logger.logObject.getter();
+          v39 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v38, v39))
           {
-            v41 = swift_slowAlloc();
-            *v41 = 0;
-            v42 = "Cloud store quota violation";
+            v40 = swift_slowAlloc();
+            *v40 = 0;
+            v41 = "Cloud store quota violation";
 LABEL_39:
-            _os_log_impl(&_mh_execute_header, v39, v40, v42, v41, 2u);
+            _os_log_impl(&_mh_execute_header, v38, v39, v41, v40, 2u);
 LABEL_42:
           }
         }
 
         else
         {
-          v38 = v54;
+          v37 = v53;
           static TTSVBLog.daemon.getter();
-          v39 = Logger.logObject.getter();
-          v50 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v39, v50))
+          v38 = Logger.logObject.getter();
+          v49 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v38, v49))
           {
-            v51 = swift_slowAlloc();
-            *v51 = 134217984;
-            *(v51 + 4) = a3;
-            _os_log_impl(&_mh_execute_header, v39, v50, "Unknown Cloud change reason=%ld", v51, 0xCu);
+            v50 = swift_slowAlloc();
+            *v50 = 134217984;
+            *(v50 + 4) = a3;
+            _os_log_impl(&_mh_execute_header, v38, v49, "Unknown Cloud change reason=%ld", v50, 0xCu);
             goto LABEL_42;
           }
         }
 
-        (*(v56 + 8))(v38, v55);
+        (*(v55 + 8))(v37, v54);
         return;
       }
     }
 
     else
     {
-      sub_100025AE8(&v63);
-      v30 = 0;
+      sub_100025AE8(&v62);
+      v29 = 0;
       if (a3)
       {
         goto LABEL_21;
@@ -1387,7 +1227,7 @@ LABEL_42:
 
   else
   {
-    v30 = 0;
+    v29 = 0;
     if (a3)
     {
       goto LABEL_21;
@@ -1395,49 +1235,48 @@ LABEL_42:
   }
 
   static TTSVBLog.daemon.getter();
-  v43 = Logger.logObject.getter();
-  v44 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v43, v44))
+  v42 = Logger.logObject.getter();
+  v43 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v42, v43))
   {
-    v45 = swift_slowAlloc();
-    *v45 = 0;
-    _os_log_impl(&_mh_execute_header, v43, v44, "Cloud content changed. Replacing local favorites with external favorites", v45, 2u);
+    v44 = swift_slowAlloc();
+    *v44 = 0;
+    _os_log_impl(&_mh_execute_header, v42, v43, "Cloud content changed. Replacing local favorites with external favorites", v44, 2u);
   }
 
-  (*(v56 + 8))(v18, v55);
-  if (v21)
+  (*(v55 + 8))(v17, v54);
+  if (v20)
   {
-    v46 = *(v57 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
+    v45 = *(v56 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
     sub_100001EE8(&qword_1000355D0, &qword_100028150);
-    v47 = Array._bridgeToObjectiveC()().super.isa;
+    v46 = Array._bridgeToObjectiveC()().super.isa;
 
-    [v46 setLiveSpeechPhrases:v47];
+    [v45 setLiveSpeechPhrases:v46];
   }
 
-  if (v30)
+  if (v29)
   {
-    v48 = *(v57 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
+    v47 = *(v56 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults);
     sub_100001EE8(&qword_1000355F0, &unk_100028178);
-    v49 = Dictionary._bridgeToObjectiveC()().super.isa;
+    v48 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    [v48 setLiveSpeechCategories:v49];
+    [v47 setLiveSpeechCategories:v48];
   }
 }
 
-void *sub_100023504(uint64_t a1, void *a2)
+uint64_t sub_100023504(uint64_t a1, void *a2)
 {
   v5 = type metadata accessor for DispatchPredicate();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = (&v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = *(v2 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue);
-  *v9 = v10;
-  (*(v6 + 104))(v9, enum case for DispatchPredicate.onQueue(_:), v5);
-  v11 = v10;
-  LOBYTE(v10) = _dispatchPreconditionTest(_:)();
-  (*(v6 + 8))(v9, v5);
-  if ((v10 & 1) == 0)
+  v8 = (&v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = *(v2 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue);
+  *v8 = v9;
+  (*(v6 + 104))(v8, enum case for DispatchPredicate.onQueue(_:), v5);
+  v10 = v9;
+  LOBYTE(v9) = _dispatchPreconditionTest(_:)();
+  (*(v6 + 8))(v8, v5);
+  if ((v9 & 1) == 0)
   {
 LABEL_42:
     __break(1u);
@@ -1446,22 +1285,22 @@ LABEL_42:
     return result;
   }
 
-  v43 = a1;
-  v12 = a2[2];
-  if (!v12)
+  v42 = a1;
+  v11 = a2[2];
+  if (!v11)
   {
-    v44 = &_swiftEmptyArrayStorage;
+    v43 = &_swiftEmptyArrayStorage;
     goto LABEL_23;
   }
 
-  v13 = 0;
-  v44 = &_swiftEmptyArrayStorage;
+  v12 = 0;
+  v43 = &_swiftEmptyArrayStorage;
   while (2)
   {
-    v14 = v13;
+    v13 = v12;
     while (1)
     {
-      if (v14 >= v12)
+      if (v13 >= v11)
       {
         __break(1u);
 LABEL_41:
@@ -1469,16 +1308,16 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      v13 = v14 + 1;
-      if (__OFADD__(v14, 1))
+      v12 = v13 + 1;
+      if (__OFADD__(v13, 1))
       {
         goto LABEL_41;
       }
 
-      v15 = a2[v14 + 4];
+      v14 = a2[v13 + 4];
 
-      v16 = static TTSVBLiveSpeechSupport.phraseTextKey.getter();
-      if (*(v15 + 16))
+      v15 = static TTSVBLiveSpeechSupport.phraseTextKey.getter();
+      if (*(v14 + 16))
       {
         break;
       }
@@ -1486,54 +1325,54 @@ LABEL_41:
 LABEL_6:
 
 LABEL_7:
-      ++v14;
-      if (v13 == v12)
+      ++v13;
+      if (v12 == v11)
       {
         goto LABEL_23;
       }
     }
 
-    v18 = sub_1000117EC(v16, v17);
-    v20 = v19;
+    v17 = sub_1000117EC(v15, v16);
+    v19 = v18;
 
-    if ((v20 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
       goto LABEL_6;
     }
 
-    sub_100005D8C(*(v15 + 56) + 32 * v18, v45);
+    sub_100005D8C(*(v14 + 56) + 32 * v17, v44);
 
     if ((swift_dynamicCast() & 1) == 0)
     {
       goto LABEL_7;
     }
 
-    v21 = v47;
-    if (!v47)
+    v20 = v46;
+    if (!v46)
     {
       goto LABEL_7;
     }
 
-    v22 = v46;
+    v21 = v45;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v44 = sub_1000244F8(0, *(v44 + 2) + 1, 1, v44);
+      v43 = sub_1000244F8(0, *(v43 + 2) + 1, 1, v43);
     }
 
-    v25 = *(v44 + 2);
-    v24 = *(v44 + 3);
-    if (v25 >= v24 >> 1)
+    v24 = *(v43 + 2);
+    v23 = *(v43 + 3);
+    if (v24 >= v23 >> 1)
     {
-      v44 = sub_1000244F8((v24 > 1), v25 + 1, 1, v44);
+      v43 = sub_1000244F8((v23 > 1), v24 + 1, 1, v43);
     }
 
-    v26 = v44;
-    *(v44 + 2) = v25 + 1;
-    v27 = &v26[16 * v25];
-    *(v27 + 4) = v22;
-    *(v27 + 5) = v21;
-    if (v13 != v12)
+    v25 = v43;
+    *(v43 + 2) = v24 + 1;
+    v26 = &v25[16 * v24];
+    *(v26 + 4) = v21;
+    *(v26 + 5) = v20;
+    if (v12 != v11)
     {
       continue;
     }
@@ -1542,50 +1381,50 @@ LABEL_7:
   }
 
 LABEL_23:
-  v28 = *(v43 + 16);
-  if (v28)
+  v27 = *(v42 + 16);
+  if (v27)
   {
-    v29 = (v43 + 32);
+    v28 = (v42 + 32);
 
-    v30 = v44;
+    v29 = v43;
     while (1)
     {
-      v31 = *v29;
+      v30 = *v28;
 
-      v32 = static TTSVBLiveSpeechSupport.phraseTextKey.getter();
-      if (*(v31 + 16))
+      v31 = static TTSVBLiveSpeechSupport.phraseTextKey.getter();
+      if (*(v30 + 16))
       {
-        v34 = sub_1000117EC(v32, v33);
-        v36 = v35;
+        v33 = sub_1000117EC(v31, v32);
+        v35 = v34;
 
-        if (v36)
+        if (v35)
         {
-          sub_100005D8C(*(v31 + 56) + 32 * v34, v45);
-          v37 = swift_dynamicCast();
-          if (v37)
+          sub_100005D8C(*(v30 + 56) + 32 * v33, v44);
+          v36 = swift_dynamicCast();
+          if (v36)
           {
-            v45[0] = v46;
-            v45[1] = v47;
-            __chkstk_darwin(v37);
-            *(&v42 - 2) = v45;
-            v38 = sub_1000247B0(sub_100025A50, (&v42 - 4), v30);
+            v44[0] = v45;
+            v44[1] = v46;
+            __chkstk_darwin(v36);
+            *(&v41 - 2) = v44;
+            v37 = sub_1000247B0(sub_100025A50, (&v41 - 4), v29);
 
-            if ((v38 & 1) == 0)
+            if ((v37 & 1) == 0)
             {
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
                 a2 = sub_1000243C4(0, a2[2] + 1, 1, a2);
               }
 
-              v40 = a2[2];
-              v39 = a2[3];
-              if (v40 >= v39 >> 1)
+              v39 = a2[2];
+              v38 = a2[3];
+              if (v39 >= v38 >> 1)
               {
-                a2 = sub_1000243C4((v39 > 1), v40 + 1, 1, a2);
+                a2 = sub_1000243C4((v38 > 1), v39 + 1, 1, a2);
               }
 
-              a2[2] = v40 + 1;
-              a2[v40 + 4] = v31;
+              a2[2] = v39 + 1;
+              a2[v39 + 4] = v30;
               goto LABEL_36;
             }
           }
@@ -1597,8 +1436,8 @@ LABEL_23:
       }
 
 LABEL_36:
-      ++v29;
-      if (!--v28)
+      ++v28;
+      if (!--v27)
       {
         goto LABEL_39;
       }
@@ -1607,31 +1446,30 @@ LABEL_36:
 
 LABEL_39:
 
-  v45[0] = a2;
+  v44[0] = a2;
 
-  sub_10002485C(v45);
+  sub_10002485C(v44);
 
-  return v45[0];
+  return v44[0];
 }
 
 void sub_100023A60()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static TTSVBLog.daemon.getter();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Did receive local change for LiveSpeech prefs. ", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "Did receive local change for LiveSpeech prefs. ", v6, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   sub_100023BB0();
 }
 
@@ -1640,109 +1478,107 @@ void sub_100023BB0()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v48 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v8 = &v44 - v7;
-  v9 = type metadata accessor for DispatchPredicate();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = (&v44 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = *(v1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue);
-  *v13 = v14;
-  (*(v10 + 104))(v13, enum case for DispatchPredicate.onQueue(_:), v9);
-  v15 = v14;
-  v16 = _dispatchPreconditionTest(_:)();
-  (*(v10 + 8))(v13, v9);
-  if (v16)
+  v4 = __chkstk_darwin(v2);
+  v46 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v42 - v6;
+  v8 = type metadata accessor for DispatchPredicate();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = (&v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = *(v1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_queue);
+  *v11 = v12;
+  (*(v9 + 104))(v11, enum case for DispatchPredicate.onQueue(_:), v8);
+  v13 = v12;
+  v14 = _dispatchPreconditionTest(_:)();
+  (*(v9 + 8))(v11, v8);
+  if (v14)
   {
-    v46 = v3;
-    v47 = v2;
-    v44 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults;
-    v17 = [*(v1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults) liveSpeechPhrases];
+    v44 = v3;
+    v45 = v2;
+    v42 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults;
+    v15 = [*(v1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_localDefaults) liveSpeechPhrases];
     sub_100001EE8(&qword_1000355D0, &qword_100028150);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     static TTSVBLog.daemon.getter();
 
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.info.getter();
+    v16 = Logger.logObject.getter();
+    v17 = static os_log_type_t.info.getter();
 
-    if (os_log_type_enabled(v18, v19))
+    if (os_log_type_enabled(v16, v17))
     {
-      v20 = swift_slowAlloc();
-      v21 = swift_slowAlloc();
-      v49 = v21;
-      *v20 = 136315138;
-      v22 = Array.description.getter();
-      v23 = v1;
-      v25 = v24;
+      v18 = swift_slowAlloc();
+      v19 = swift_slowAlloc();
+      v47 = v19;
+      *v18 = 136315138;
+      v20 = Array.description.getter();
+      v21 = v1;
+      v23 = v22;
 
-      v26 = sub_100004A24(v22, v25, &v49);
-      v1 = v23;
+      v24 = sub_100004A24(v20, v23, &v47);
+      v1 = v21;
 
-      *(v20 + 4) = v26;
-      _os_log_impl(&_mh_execute_header, v18, v19, "Pushing local prefs up to cloud. favoritePhrases=%s", v20, 0xCu);
-      sub_100005D40(v21);
+      *(v18 + 4) = v24;
+      _os_log_impl(&_mh_execute_header, v16, v17, "Pushing local prefs up to cloud. favoritePhrases=%s", v18, 0xCu);
+      sub_100005D40(v19);
     }
 
     else
     {
     }
 
-    v27 = v47;
-    v45 = *(v46 + 8);
-    v45(v8, v47);
-    v28 = v48;
-    v46 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults;
-    v29 = *(v1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults);
+    v25 = v45;
+    v43 = *(v44 + 8);
+    v43(v7, v45);
+    v26 = v46;
+    v44 = OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults;
+    v27 = *(v1 + OBJC_IVAR____TtC13voicebankingd24LiveSpeechSyncController_cloudDefaults);
     static TTSVBLiveSpeechSupport.favoritePhrasesKey.getter();
-    v30 = String._bridgeToObjectiveC()();
+    v28 = String._bridgeToObjectiveC()();
 
-    [v29 setObject:v17 forKey:v30];
+    [v27 setObject:v15 forKey:v28];
 
-    v31 = [*(v1 + v44) liveSpeechCategories];
+    v29 = [*(v1 + v42) liveSpeechCategories];
     sub_100001EE8(&qword_1000355F0, &unk_100028178);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
     static TTSVBLog.daemon.getter();
 
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.info.getter();
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.info.getter();
 
-    if (os_log_type_enabled(v32, v33))
+    if (os_log_type_enabled(v30, v31))
     {
-      v34 = swift_slowAlloc();
-      v35 = swift_slowAlloc();
-      v49 = v35;
-      *v34 = 136315138;
-      v36 = Dictionary.description.getter();
-      v38 = sub_100004A24(v36, v37, &v49);
+      v32 = swift_slowAlloc();
+      v33 = swift_slowAlloc();
+      v47 = v33;
+      *v32 = 136315138;
+      v34 = Dictionary.description.getter();
+      v36 = sub_100004A24(v34, v35, &v47);
 
-      *(v34 + 4) = v38;
-      _os_log_impl(&_mh_execute_header, v32, v33, "Pushing local prefs up to cloud. categories=%s", v34, 0xCu);
-      sub_100005D40(v35);
+      *(v32 + 4) = v36;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Pushing local prefs up to cloud. categories=%s", v32, 0xCu);
+      sub_100005D40(v33);
 
-      v40 = v47;
-      v39 = v48;
+      v38 = v45;
+      v37 = v46;
     }
 
     else
     {
 
-      v39 = v28;
-      v40 = v27;
+      v37 = v26;
+      v38 = v25;
     }
 
-    v45(v39, v40);
-    v41 = *(v1 + v46);
+    v43(v37, v38);
+    v39 = *(v1 + v44);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     static TTSVBLiveSpeechSupport.favoritePhraseCategoriesKey.getter();
-    v43 = String._bridgeToObjectiveC()();
+    v41 = String._bridgeToObjectiveC()();
 
-    [v41 setObject:isa forKey:v43];
+    [v39 setObject:isa forKey:v41];
   }
 
   else
@@ -2051,7 +1887,6 @@ unint64_t sub_100024604(uint64_t a1)
 
 uint64_t sub_10002469C()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -2117,7 +1952,7 @@ uint64_t sub_1000247B0(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
   return v9 & 1;
 }
 
-Swift::Int sub_10002485C(void **a1)
+Swift::Int sub_10002485C(uint64_t *a1)
 {
   v2 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -2347,7 +2182,7 @@ LABEL_118:
         v126 = v104;
         sub_100025868(v4 - 1);
         result = v126;
-        v4 = v126[2];
+        v4 = *(v126 + 16);
         if (v4 <= 1)
         {
         }
@@ -2848,18 +2683,18 @@ LABEL_148:
           v6 = sub_1000258F4(v6);
         }
 
-        if (v4 >= v6[2])
+        if (v4 >= *(v6 + 2))
         {
           goto LABEL_132;
         }
 
-        v102 = &v6[2 * v4];
-        v102[4] = v100;
-        v102[5] = v101;
+        v102 = &v6[16 * v4];
+        *(v102 + 4) = v100;
+        *(v102 + 5) = v101;
         v126 = v6;
         result = sub_100025868(v62);
         v11 = v126;
-        v59 = v126[2];
+        v59 = *(v126 + 16);
         if (v59 <= 1)
         {
           goto LABEL_3;
@@ -2948,7 +2783,7 @@ LABEL_157:
   return result;
 }
 
-uint64_t sub_1000254D0(uint64_t *__src, uint64_t *a2, uint64_t *a3, uint64_t *__dst)
+uint64_t sub_1000254D0(char *__src, char *a2, char *a3, char *__dst)
 {
   v5 = a3;
   v6 = a2;
@@ -2971,14 +2806,14 @@ uint64_t sub_1000254D0(uint64_t *__src, uint64_t *a2, uint64_t *a3, uint64_t *__
   v13 = v12 >> 3;
   if (v10 < v12 >> 3)
   {
-    if (__dst != __src || &__src[v10] <= __dst)
+    if (__dst != __src || &__src[8 * v10] <= __dst)
     {
       v14 = __dst;
       memmove(__dst, __src, 8 * v10);
       __dst = v14;
     }
 
-    v15 = &__dst[v10];
+    v15 = &__dst[8 * v10];
     if (v8 < 8 || v6 >= v5)
     {
       v6 = v7;
@@ -3027,7 +2862,7 @@ uint64_t sub_1000254D0(uint64_t *__src, uint64_t *a2, uint64_t *a3, uint64_t *__
       }
 
 LABEL_19:
-      ++v7;
+      v7 += 8;
       if (v16 >= v15 || v6 >= v5)
       {
         v6 = v7;
@@ -3049,7 +2884,7 @@ LABEL_18:
   }
 
   v16 = __dst;
-  if (__dst != a2 || &a2[v13] <= __dst)
+  if (__dst != a2 || &a2[8 * v13] <= __dst)
   {
     memmove(__dst, a2, 8 * v13);
   }
@@ -3084,12 +2919,13 @@ LABEL_61:
 LABEL_28:
   v38 = v6;
   v22 = v6 - 1;
-  v23 = v15 + v21;
-  --v5;
+  v23 = &v15[v21];
+  v5 -= 8;
   v24 = v15;
   while (1)
   {
-    v25 = *--v24;
+    v25 = *(v24 - 1);
+    v24 -= 8;
     v41 = v25;
     v6 = v22;
     v40 = *v22;
@@ -3102,7 +2938,7 @@ LABEL_28:
 
     v27 = v26;
 
-    v28 = v5 + 1;
+    v28 = v5 + 8;
     if (v27)
     {
       if (v28 != v38)
@@ -3132,7 +2968,7 @@ LABEL_28:
     }
 
     v23 -= 8;
-    --v5;
+    v5 -= 8;
     v15 = v24;
     if (v24 <= v39)
     {
@@ -3156,7 +2992,7 @@ LABEL_28:
   v33 = v32 >> 3;
   v31 = v38;
   v34 = v39;
-  if (v38 < v39 || v38 >= (v39 + (v32 & 0xFFFFFFFFFFFFFFF8)))
+  if (v38 < v39 || v38 >= &v39[v32 & 0xFFFFFFFFFFFFFFF8])
   {
     memmove(v38, v39, 8 * v33);
     return 1;
@@ -3192,7 +3028,6 @@ uint64_t sub_100025868(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -3280,7 +3115,7 @@ void *sub_10002591C(void *result, int64_t a2, char a3, void *a4)
   return v10;
 }
 
-uint64_t sub_100025A90(void *a1)
+uint64_t sub_100025A90(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -3323,37 +3158,36 @@ int main(int argc, const char **argv, const char **envp)
 {
   v3 = type metadata accessor for Logger();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v19 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v18 - v8;
   static TTSVBLog.daemon.getter();
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v11, v12))
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v11, v12, "**** voicebankingd starting up", v13, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "**** voicebankingd starting up", v12, 2u);
   }
 
-  v14 = *(v4 + 8);
-  v14(v10, v3);
+  v13 = *(v4 + 8);
+  v13(v9, v3);
   type metadata accessor for VoiceBankingDaemon();
   qword_100035A08 = VoiceBankingXPCServer.__allocating_init()();
   VoiceBankingDaemon.run()();
   static TTSVBLog.daemon.getter();
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v15, v16))
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v17 = swift_slowAlloc();
-    *v17 = 0;
-    _os_log_impl(&_mh_execute_header, v15, v16, "**** voicebankingd shutting down", v17, 2u);
+    v16 = swift_slowAlloc();
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v14, v15, "**** voicebankingd shutting down", v16, 2u);
   }
 
-  v14(v8, v3);
+  v13(v7, v3);
   return 0;
 }
 

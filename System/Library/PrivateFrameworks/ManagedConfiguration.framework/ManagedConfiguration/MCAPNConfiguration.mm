@@ -10,27 +10,27 @@
 
 - (MCAPNConfiguration)initWithDictionary:(id)dictionary outError:(id *)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v52.receiver = self;
-  v52.super_class = MCAPNConfiguration;
-  v7 = [(MCAPNConfiguration *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = MCAPNConfiguration;
+  v7 = [(MCAPNConfiguration *)&v51 init];
   if (!v7)
   {
     goto LABEL_29;
   }
 
-  v51 = 0;
-  v8 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"Name" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v51];
-  enableXLAT464 = v51;
+  v50 = 0;
+  v8 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"Name" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v50];
+  enableXLAT464 = v50;
   name = v7->_name;
   v7->_name = v8;
 
   if (!enableXLAT464)
   {
-    v50 = 0;
-    v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"AuthenticationType" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v50];
-    enableXLAT464 = v50;
+    v49 = 0;
+    v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"AuthenticationType" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v49];
+    enableXLAT464 = v49;
     authenticationType = v7->_authenticationType;
     v7->_authenticationType = v11;
   }
@@ -52,33 +52,33 @@
 
   if (!enableXLAT464)
   {
-    v49 = 0;
-    v15 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Username" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v49];
-    enableXLAT464 = v49;
+    v48 = 0;
+    v15 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Username" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v48];
+    enableXLAT464 = v48;
     username = v7->_username;
     v7->_username = v15;
 
     if (!enableXLAT464)
     {
-      v48 = 0;
-      v17 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Password" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v48];
-      enableXLAT464 = v48;
+      v47 = 0;
+      v17 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Password" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v47];
+      enableXLAT464 = v47;
       password = v7->_password;
       v7->_password = v17;
 
       if (!enableXLAT464)
       {
-        v47 = 0;
-        v19 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"ProxyServer" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v47];
-        enableXLAT464 = v47;
+        v46 = 0;
+        v19 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"ProxyServer" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v46];
+        enableXLAT464 = v46;
         proxyServer = v7->_proxyServer;
         v7->_proxyServer = v19;
 
         if (!enableXLAT464)
         {
-          v46 = 0;
-          v21 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"ProxyPort" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v46];
-          enableXLAT464 = v46;
+          v45 = 0;
+          v21 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"ProxyPort" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v45];
+          enableXLAT464 = v45;
           proxyPort = v7->_proxyPort;
           v7->_proxyPort = v21;
         }
@@ -86,9 +86,9 @@
     }
   }
 
-  v45 = enableXLAT464;
-  v23 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"DefaultProtocolMask" isRequired:0 outError:&v45];
-  v14 = v45;
+  v44 = enableXLAT464;
+  v23 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"DefaultProtocolMask" isRequired:0 outError:&v44];
+  v14 = v44;
 
   defaultProtocolMask = v7->_defaultProtocolMask;
   v7->_defaultProtocolMask = v23;
@@ -98,9 +98,9 @@
     goto LABEL_20;
   }
 
-  v44 = 0;
-  v25 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowedProtocolMask" isRequired:0 outError:&v44];
-  v14 = v44;
+  v43 = 0;
+  v25 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowedProtocolMask" isRequired:0 outError:&v43];
+  v14 = v43;
   allowedProtocolMask = v7->_allowedProtocolMask;
   v7->_allowedProtocolMask = v25;
 
@@ -109,9 +109,9 @@
     goto LABEL_20;
   }
 
-  v43 = 0;
-  v27 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowedProtocolMaskInRoaming" isRequired:0 outError:&v43];
-  v14 = v43;
+  v42 = 0;
+  v27 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowedProtocolMaskInRoaming" isRequired:0 outError:&v42];
+  v14 = v42;
   allowedProtocolMaskInRoaming = v7->_allowedProtocolMaskInRoaming;
   v7->_allowedProtocolMaskInRoaming = v27;
 
@@ -120,9 +120,9 @@
     goto LABEL_20;
   }
 
-  v42 = 0;
-  v29 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowedProtocolMaskInDomesticRoaming" isRequired:0 outError:&v42];
-  v14 = v42;
+  v41 = 0;
+  v29 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowedProtocolMaskInDomesticRoaming" isRequired:0 outError:&v41];
+  v14 = v41;
   allowedProtocolMaskInDomesticRoaming = v7->_allowedProtocolMaskInDomesticRoaming;
   v7->_allowedProtocolMaskInDomesticRoaming = v29;
 
@@ -131,11 +131,11 @@
     goto LABEL_20;
   }
 
-  v41 = 0;
-  v40 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableXLAT464" isRequired:0 outError:&v41];
-  v14 = v41;
+  v40 = 0;
+  v39 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EnableXLAT464" isRequired:0 outError:&v40];
+  v14 = v40;
   enableXLAT464 = v7->_enableXLAT464;
-  v7->_enableXLAT464 = v40;
+  v7->_enableXLAT464 = v39;
 LABEL_8:
 
   if (v14)
@@ -149,9 +149,9 @@ LABEL_20:
       v34 = v33;
       mCVerboseDescription = [(NSNumber *)v14 MCVerboseDescription];
       *buf = 138543618;
-      v54 = v33;
-      v55 = 2114;
-      v56 = mCVerboseDescription;
+      v53 = v33;
+      v54 = 2114;
+      v55 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v32, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse APN dictionary: %{public}@", buf, 0x16u);
     }
 
@@ -170,13 +170,12 @@ LABEL_20:
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v54 = dictionaryCopy;
+      v53 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v37, OS_LOG_TYPE_INFO, "APN dictionary contains ignored fields. They are: %{public}@", buf, 0xCu);
     }
   }
 
 LABEL_29:
-  v38 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -164,7 +164,7 @@ uint64_t __67__MGRemoteQueryClientManager_initWithQueryRunner_groupsQueryAgent__
 
 - (void)_prepareURLSession
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -199,7 +199,6 @@ LABEL_7:
 
 LABEL_8:
 
-    v7 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -215,22 +214,20 @@ LABEL_8:
   [ephemeralSessionConfiguration setHTTPShouldSetCookies:0];
   [ephemeralSessionConfiguration setHTTPCookieStorage:0];
   [ephemeralSessionConfiguration set_reportsDataStalls:0];
-  v8 = objc_alloc_init(MEMORY[0x277CCABD8]);
+  v7 = objc_alloc_init(MEMORY[0x277CCABD8]);
   dispatchQueue2 = [(MGRemoteQueryClientManager *)self dispatchQueue];
-  [v8 setUnderlyingQueue:dispatchQueue2];
+  [v7 setUnderlyingQueue:dispatchQueue2];
 
-  v10 = [[MGRemoteQueryClientManagerForwarder alloc] initWithClientManager:self];
+  v9 = [[MGRemoteQueryClientManagerForwarder alloc] initWithClientManager:self];
   forwarder = self->_forwarder;
-  self->_forwarder = v10;
+  self->_forwarder = v9;
 
-  v12 = MEMORY[0x277CBABB8];
+  v11 = MEMORY[0x277CBABB8];
   forwarder = [(MGRemoteQueryClientManager *)self forwarder];
-  v14 = [v12 sessionWithConfiguration:ephemeralSessionConfiguration delegate:forwarder delegateQueue:v8];
+  v13 = [v11 sessionWithConfiguration:ephemeralSessionConfiguration delegate:forwarder delegateQueue:v7];
 
   session = self->_session;
-  self->_session = v14;
-
-  v16 = *MEMORY[0x277D85DE8];
+  self->_session = v13;
 }
 
 - (void)_invalidate
@@ -241,7 +238,7 @@ LABEL_8:
 
 - (void)_setupQuery
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -256,8 +253,8 @@ LABEL_8:
       identifier = [query2 identifier];
       *buf = 134218242;
       selfCopy = self;
-      v21 = 2112;
-      v22 = identifier;
+      v20 = 2112;
+      v21 = identifier;
       _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p client monitoring query already running %@", buf, 0x16u);
     }
   }
@@ -266,32 +263,30 @@ LABEL_8:
   {
     v8 = MEMORY[0x277CCA920];
     rq_predicateForLocal = [MEMORY[0x277D27440] rq_predicateForLocal];
-    v18[0] = rq_predicateForLocal;
+    v17[0] = rq_predicateForLocal;
     predicateForType = [MEMORY[0x277D27470] predicateForType];
-    v18[1] = predicateForType;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[1] = predicateForType;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v5 = [v8 andPredicateWithSubpredicates:v11];
 
     objc_initWeak(buf, self);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __41__MGRemoteQueryClientManager__setupQuery__block_invoke;
-    v16[3] = &unk_27989F060;
-    objc_copyWeak(&v17, buf);
-    v12 = MEMORY[0x259C85F90](v16);
-    queryRunner = [(MGRemoteQueryClientManager *)self queryRunner];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __41__MGRemoteQueryClientManager__setupQuery__block_invoke_16;
-    v15[3] = &unk_27989F0D8;
-    v15[4] = self;
-    [queryRunner startOutstandingQueryWithPredicate:v5 handler:v12 completion:v15];
+    v15[2] = __41__MGRemoteQueryClientManager__setupQuery__block_invoke;
+    v15[3] = &unk_27989F060;
+    objc_copyWeak(&v16, buf);
+    v12 = MEMORY[0x259C85F90](v15);
+    queryRunner = [(MGRemoteQueryClientManager *)self queryRunner];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __41__MGRemoteQueryClientManager__setupQuery__block_invoke_16;
+    v14[3] = &unk_27989F0D8;
+    v14[4] = self;
+    [queryRunner startOutstandingQueryWithPredicate:v5 handler:v12 completion:v14];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MGRemoteQueryClientManager__setupQuery__block_invoke(uint64_t a1, void *a2)
@@ -328,26 +323,26 @@ void __41__MGRemoteQueryClientManager__setupQuery__block_invoke_2(uint64_t a1)
   }
 
   v5 = objc_alloc_init(MEMORY[0x277CBEA60]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [*(*(&v18 + 1) + 8 * i) identifier];
+        v10 = [*(*(&v17 + 1) + 8 * i) identifier];
         v11 = MGHomeIdentifierForGroupIdentifier(v10);
 
         if (v11)
@@ -372,14 +367,13 @@ void __41__MGRemoteQueryClientManager__setupQuery__block_invoke_2(uint64_t a1)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
   [*(a1 + 40) setHomeHashes:v5];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MGRemoteQueryClientManager__setupQuery__block_invoke_16(uint64_t a1, void *a2)
@@ -398,22 +392,20 @@ void __41__MGRemoteQueryClientManager__setupQuery__block_invoke_16(uint64_t a1, 
 
 uint64_t __41__MGRemoteQueryClientManager__setupQuery__block_invoke_2_17(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = MGLogForCategory(6);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) identifier];
-    v7 = 134218242;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p client monitoring using query %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p client monitoring using query %@", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) setQuery:*(a1 + 40)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setQuery:*(a1 + 40)];
 }
 
 - (void)_browserUpdateState
@@ -444,7 +436,7 @@ uint64_t __41__MGRemoteQueryClientManager__setupQuery__block_invoke_2_17(uint64_
 
 - (void)_browserStart
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -456,11 +448,11 @@ uint64_t __41__MGRemoteQueryClientManager__setupQuery__block_invoke_2_17(uint64_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       browser2 = [(MGRemoteQueryClientManager *)self browser];
-      v11 = 134218240;
+      v10 = 134218240;
       selfCopy2 = self;
-      v13 = 2048;
-      v14 = browser2;
-      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p browser already started, running %p", &v11, 0x16u);
+      v12 = 2048;
+      v13 = browser2;
+      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p browser already started, running %p", &v10, 0x16u);
 LABEL_6:
     }
   }
@@ -476,21 +468,19 @@ LABEL_6:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       browser2 = [(MGRemoteQueryClientManager *)self browser];
-      v11 = 134218240;
+      v10 = 134218240;
       selfCopy2 = self;
-      v13 = 2048;
-      v14 = browser2;
-      _os_log_impl(&dword_25863A000, v5, OS_LOG_TYPE_DEFAULT, "%p started browser %p", &v11, 0x16u);
+      v12 = 2048;
+      v13 = browser2;
+      _os_log_impl(&dword_25863A000, v5, OS_LOG_TYPE_DEFAULT, "%p started browser %p", &v10, 0x16u);
       goto LABEL_6;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_browserStop
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -501,11 +491,11 @@ LABEL_6:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134218240;
+      v7 = 134218240;
       selfCopy2 = self;
-      v10 = 2048;
-      v11 = browser;
-      _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p stopping browser %p", &v8, 0x16u);
+      v9 = 2048;
+      v10 = browser;
+      _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p stopping browser %p", &v7, 0x16u);
     }
 
     [(MGRemoteQueryClientManager *)self setBrowser:0];
@@ -515,18 +505,16 @@ LABEL_6:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 134217984;
+      v7 = 134217984;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p browser already stopped", &v8, 0xCu);
+      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p browser already stopped", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_targetAdd:(id)add
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   addCopy = add;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -539,8 +527,8 @@ LABEL_6:
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = addCopy;
+      v26 = 2112;
+      v27 = addCopy;
       v8 = "%p already tracking target %@";
 LABEL_21:
       _os_log_error_impl(&dword_25863A000, allValues, OS_LOG_TYPE_ERROR, v8, buf, 0x16u);
@@ -557,38 +545,38 @@ LABEL_21:
     {
       *buf = 134218498;
       selfCopy3 = self;
-      v27 = 2048;
-      v28 = [v9 count];
-      v29 = 2112;
-      v30 = addCopy;
+      v26 = 2048;
+      v27 = [v9 count];
+      v28 = 2112;
+      v29 = addCopy;
       _os_log_impl(&dword_25863A000, v10, OS_LOG_TYPE_DEFAULT, "%p now %lu targets after adding %@", buf, 0x20u);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     queries = [(MGRemoteQueryClientManager *)self queries];
     allValues = [queries allValues];
 
-    v12 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         v16 = 0;
         v17 = v14;
         do
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v18 = *(*(&v20 + 1) + 8 * v16);
+          v18 = *(*(&v19 + 1) + 8 * v16);
           v14 = [(MGRemoteQueryClientManager *)self _clientForTarget:addCopy withQuery:v18];
 
           if (!v14)
@@ -601,7 +589,7 @@ LABEL_21:
         }
 
         while (v13 != v16);
-        v13 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -617,19 +605,17 @@ LABEL_21:
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = addCopy;
+      v26 = 2112;
+      v27 = addCopy;
       v8 = "%p ignoring invalid target %@";
       goto LABEL_21;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_targetRemove:(id)remove
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -643,13 +629,13 @@ LABEL_21:
     v8 = MGLogForCategory(6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218498;
+      v9 = 134218498;
       selfCopy2 = self;
-      v12 = 2048;
-      v13 = [v7 count];
-      v14 = 2112;
-      v15 = removeCopy;
-      _os_log_impl(&dword_25863A000, v8, OS_LOG_TYPE_DEFAULT, "%p now %lu targets after removing %@", &v10, 0x20u);
+      v11 = 2048;
+      v12 = [v7 count];
+      v13 = 2112;
+      v14 = removeCopy;
+      _os_log_impl(&dword_25863A000, v8, OS_LOG_TYPE_DEFAULT, "%p now %lu targets after removing %@", &v9, 0x20u);
     }
   }
 
@@ -658,20 +644,18 @@ LABEL_21:
     v7 = MGLogForCategory(6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 134218242;
+      v9 = 134218242;
       selfCopy2 = self;
-      v12 = 2112;
-      v13 = removeCopy;
-      _os_log_debug_impl(&dword_25863A000, v7, OS_LOG_TYPE_DEBUG, "%p not tracking target %@", &v10, 0x16u);
+      v11 = 2112;
+      v12 = removeCopy;
+      _os_log_debug_impl(&dword_25863A000, v7, OS_LOG_TYPE_DEBUG, "%p not tracking target %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_targetValidate:(id)validate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   validateCopy = validate;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -689,8 +673,8 @@ LABEL_21:
       {
         *buf = 134218242;
         selfCopy2 = self;
-        v27 = 2112;
-        v28 = validateCopy;
+        v26 = 2112;
+        v27 = validateCopy;
         _os_log_impl(&dword_25863A000, targets, OS_LOG_TYPE_DEFAULT, "%p same source target %@", buf, 0x16u);
       }
 
@@ -700,26 +684,26 @@ LABEL_18:
 
     else
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       targets = [(MGRemoteQueryClientManager *)self targets];
-      v11 = [targets countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [targets countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v21;
+        v13 = *v20;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v21 != v13)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(targets);
             }
 
-            homeHash2 = [*(*(&v20 + 1) + 8 * i) homeHash];
+            homeHash2 = [*(*(&v19 + 1) + 8 * i) homeHash];
             v16 = [homeHash2 isEqual:homeHash];
 
             if (v16)
@@ -729,8 +713,8 @@ LABEL_18:
               {
                 *buf = 134218242;
                 selfCopy2 = self;
-                v27 = 2112;
-                v28 = validateCopy;
+                v26 = 2112;
+                v27 = validateCopy;
                 _os_log_impl(&dword_25863A000, v17, OS_LOG_TYPE_DEFAULT, "%p duplicate target %@", buf, 0x16u);
               }
 
@@ -738,7 +722,7 @@ LABEL_18:
             }
           }
 
-          v12 = [targets countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v12 = [targets countByEnumeratingWithState:&v19 objects:v23 count:16];
           v10 = 1;
           if (v12)
           {
@@ -761,7 +745,6 @@ LABEL_18:
     v10 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -846,7 +829,7 @@ void __49__MGRemoteQueryClientManager_browser_lostTarget___block_invoke(uint64_t
 
 void __59__MGRemoteQueryClientManager_browser_invalidatedWithError___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) browser];
   v3 = [v2 isEqual:*(a1 + 40)];
 
@@ -859,11 +842,11 @@ void __59__MGRemoteQueryClientManager_browser_invalidatedWithError___block_invok
       v6 = *(a1 + 40);
       v7 = *(a1 + 48);
       *buf = 134218498;
-      v22 = v5;
-      v23 = 2048;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v7;
+      v21 = v5;
+      v22 = 2048;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
       _os_log_impl(&dword_25863A000, v4, OS_LOG_TYPE_DEFAULT, "%p browser %p stopped, error %@", buf, 0x20u);
     }
 
@@ -871,43 +854,41 @@ void __59__MGRemoteQueryClientManager_browser_invalidatedWithError___block_invok
     v8 = [*(a1 + 32) targets];
     v9 = [v8 copy];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(a1 + 32) _targetRemove:{*(*(&v16 + 1) + 8 * v14++), v16}];
+          [*(a1 + 32) _targetRemove:{*(*(&v15 + 1) + 8 * v14++), v15}];
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryAdd:(id)add
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   addCopy = add;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -923,8 +904,8 @@ void __59__MGRemoteQueryClientManager_browser_invalidatedWithError___block_invok
     {
       *buf = 134218242;
       selfCopy4 = self;
-      v34 = 2112;
-      v35 = identifier;
+      v33 = 2112;
+      v34 = identifier;
       _os_log_error_impl(&dword_25863A000, v9, OS_LOG_TYPE_ERROR, "%p already tracking query %@", buf, 0x16u);
     }
 
@@ -944,11 +925,11 @@ void __59__MGRemoteQueryClientManager_browser_invalidatedWithError___block_invok
 
     *buf = 134218242;
     selfCopy4 = self;
-    v34 = 2112;
-    v35 = identifier;
-    v13 = "%p query %@ ineligible by locality";
+    v33 = 2112;
+    v34 = identifier;
+    v12 = "%p query %@ ineligible by locality";
 LABEL_11:
-    _os_log_impl(&dword_25863A000, v9, OS_LOG_TYPE_DEFAULT, v13, buf, 0x16u);
+    _os_log_impl(&dword_25863A000, v9, OS_LOG_TYPE_DEFAULT, v12, buf, 0x16u);
     goto LABEL_4;
   }
 
@@ -965,82 +946,80 @@ LABEL_11:
 
     *buf = 134218242;
     selfCopy4 = self;
-    v34 = 2112;
-    v35 = identifier;
-    v13 = "%p query %@ ineligible by context";
+    v33 = 2112;
+    v34 = identifier;
+    v12 = "%p query %@ ineligible by context";
     goto LABEL_11;
   }
 
   v9 = [queries mutableCopy];
   [v9 setObject:addCopy forKey:identifier];
   [(MGRemoteQueryClientManager *)self setQueries:v9];
-  v16 = MGLogForCategory(6);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = MGLogForCategory(6);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     selfCopy4 = self;
-    v34 = 2048;
-    v35 = [v9 count];
-    v36 = 2112;
-    v37 = identifier;
-    _os_log_impl(&dword_25863A000, v16, OS_LOG_TYPE_DEFAULT, "%p now %lu queries after adding %@", buf, 0x20u);
+    v33 = 2048;
+    v34 = [v9 count];
+    v35 = 2112;
+    v36 = identifier;
+    _os_log_impl(&dword_25863A000, v15, OS_LOG_TYPE_DEFAULT, "%p now %lu queries after adding %@", buf, 0x20u);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   targets = [(MGRemoteQueryClientManager *)self targets];
-  v18 = [targets countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v18)
+  v17 = [targets countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v25 = queries;
-    v26 = identifier;
-    v20 = 0;
-    v21 = *v28;
+    v18 = v17;
+    v24 = queries;
+    v25 = identifier;
+    v19 = 0;
+    v20 = *v27;
     do
     {
-      v22 = 0;
-      v23 = v20;
+      v21 = 0;
+      v22 = v19;
       do
       {
-        if (*v28 != v21)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(targets);
         }
 
-        v24 = *(*(&v27 + 1) + 8 * v22);
-        v20 = [(MGRemoteQueryClientManager *)self _clientForTarget:v24 withQuery:addCopy, v25, v26];
+        v23 = *(*(&v26 + 1) + 8 * v21);
+        v19 = [(MGRemoteQueryClientManager *)self _clientForTarget:v23 withQuery:addCopy, v24, v25];
 
-        if (!v20)
+        if (!v19)
         {
-          [(MGRemoteQueryClientManager *)self _clientStartWithQuery:addCopy target:v24];
+          [(MGRemoteQueryClientManager *)self _clientStartWithQuery:addCopy target:v23];
         }
 
-        ++v22;
-        v23 = v20;
+        ++v21;
+        v22 = v19;
       }
 
-      while (v19 != v22);
-      v19 = [targets countByEnumeratingWithState:&v27 objects:v31 count:16];
+      while (v18 != v21);
+      v18 = [targets countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v19);
+    while (v18);
 
-    queries = v25;
-    identifier = v26;
+    queries = v24;
+    identifier = v25;
   }
 
   [(MGRemoteQueryClientManager *)self _browserUpdateState];
 LABEL_4:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryRemove:(id)remove
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1059,39 +1038,39 @@ LABEL_4:
     {
       *buf = 134218498;
       selfCopy2 = self;
-      v24 = 2048;
-      v25 = [v9 count];
-      v26 = 2112;
-      v27 = identifier;
+      v23 = 2048;
+      v24 = [v9 count];
+      v25 = 2112;
+      v26 = identifier;
       _os_log_impl(&dword_25863A000, v10, OS_LOG_TYPE_DEFAULT, "%p now %lu queries after removing %@", buf, 0x20u);
     }
 
     [(MGRemoteQueryClientManager *)self _browserUpdateState];
     v11 = [(MGRemoteQueryClientManager *)self _clientsWithQuery:removeCopy];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(MGRemoteQueryClientManager *)self _clientStop:*(*(&v17 + 1) + 8 * v15++)];
+          [(MGRemoteQueryClientManager *)self _clientStop:*(*(&v16 + 1) + 8 * v15++)];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v13);
@@ -1105,18 +1084,16 @@ LABEL_4:
     {
       *buf = 134218242;
       selfCopy2 = self;
-      v24 = 2112;
-      v25 = identifier;
+      v23 = 2112;
+      v24 = identifier;
       _os_log_debug_impl(&dword_25863A000, v9, OS_LOG_TYPE_DEBUG, "%p not tracking query %@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientStartWithQuery:(id)query target:(id)target
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   queryCopy = query;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
@@ -1136,13 +1113,13 @@ LABEL_4:
   v16 = MGLogForCategory(6);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134218498;
+    v18 = 134218498;
     selfCopy = self;
-    v21 = 2048;
-    v22 = [v15 count];
-    v23 = 2112;
-    v24 = v13;
-    _os_log_impl(&dword_25863A000, v16, OS_LOG_TYPE_DEFAULT, "%p now %lu clients after starting %@", &v19, 0x20u);
+    v20 = 2048;
+    v21 = [v15 count];
+    v22 = 2112;
+    v23 = v13;
+    _os_log_impl(&dword_25863A000, v16, OS_LOG_TYPE_DEFAULT, "%p now %lu clients after starting %@", &v18, 0x20u);
   }
 
   v17 = [(MGRemoteQueryClientManager *)self _watchdogForTarget:targetCopy];
@@ -1150,13 +1127,11 @@ LABEL_4:
   {
     [(MGRemoteQueryClientManager *)self _watchdogAdd:targetCopy];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientStop:(id)stop
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1166,21 +1141,19 @@ LABEL_4:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     clients = [(MGRemoteQueryClientManager *)self clients];
-    v9 = 134218498;
+    v8 = 134218498;
     selfCopy = self;
-    v11 = 2048;
-    v12 = [clients count];
-    v13 = 2112;
-    v14 = stopCopy;
-    _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p now %lu clients after stopping %@", &v9, 0x20u);
+    v10 = 2048;
+    v11 = [clients count];
+    v12 = 2112;
+    v13 = stopCopy;
+    _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p now %lu clients after stopping %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientRemove:(id)remove
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1194,28 +1167,28 @@ LABEL_4:
   homeHash = [target homeHash];
   if (homeHash)
   {
-    v23 = target;
-    v24 = v7;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v22 = target;
+    v23 = v7;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     targets = [(MGRemoteQueryClientManager *)self targets];
-    v11 = [targets countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v11 = [targets countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v26;
+      v13 = *v25;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(targets);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
+          v15 = *(*(&v24 + 1) + 8 * i);
           homeHash2 = [v15 homeHash];
           v17 = [homeHash2 isEqual:homeHash];
 
@@ -1227,14 +1200,14 @@ LABEL_4:
               v21 = query;
               [(MGRemoteQueryClientManager *)self _clientStartWithQuery:query target:v15];
 
-              target = v23;
-              v7 = v24;
+              target = v22;
+              v7 = v23;
               goto LABEL_15;
             }
           }
         }
 
-        v12 = [targets countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v12 = [targets countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v12)
         {
           continue;
@@ -1244,8 +1217,8 @@ LABEL_4:
       }
     }
 
-    target = v23;
-    v7 = v24;
+    target = v22;
+    v7 = v23;
   }
 
   v19 = [(MGRemoteQueryClientManager *)self _clientsForTarget:target];
@@ -1257,37 +1230,35 @@ LABEL_4:
   }
 
 LABEL_15:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientForTask:(id)task includeOthers:(BOOL)others
 {
   othersCopy = others;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   [(MGRemoteQueryClientManager *)self clients];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v8 = v35 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v8 = v34 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v9)
   {
-    v10 = *v33;
+    v10 = *v32;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         task = [v12 task];
         v14 = [taskCopy isEqual:task];
 
@@ -1298,7 +1269,7 @@ LABEL_15:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v9)
       {
         continue;
@@ -1315,26 +1286,26 @@ LABEL_11:
     watchdogs = [(MGRemoteQueryClientManager *)self watchdogs];
     allValues = [watchdogs allValues];
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v17 = allValues;
-    v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v28;
       while (2)
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v29 != v20)
+          if (*v28 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          pingClient = [*(*(&v28 + 1) + 8 * j) pingClient];
+          pingClient = [*(*(&v27 + 1) + 8 * j) pingClient];
           v23 = pingClient;
           if (pingClient)
           {
@@ -1349,7 +1320,7 @@ LABEL_11:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v19)
         {
           continue;
@@ -1365,14 +1336,12 @@ LABEL_23:
     v9 = v23;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)_clientForTarget:(id)target withQuery:(id)query
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   queryCopy = query;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
@@ -1380,25 +1349,25 @@ LABEL_23:
 
   identifier = [queryCopy identifier];
   [(MGRemoteQueryClientManager *)self clients];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v9 = v25 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = v24 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
-    v20 = queryCopy;
-    v11 = *v23;
+    v19 = queryCopy;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         target = [v13 target];
         if ([targetCopy isEqual:target])
         {
@@ -1418,50 +1387,48 @@ LABEL_23:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
 LABEL_12:
-    queryCopy = v20;
+    queryCopy = v19;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_clientsWithQuery:(id)query
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   v6 = [MEMORY[0x277CBEB58] set];
-  v22 = queryCopy;
+  v21 = queryCopy;
   identifier = [queryCopy identifier];
   selfCopy = self;
   clients = [(MGRemoteQueryClientManager *)self clients];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = [clients countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v9 = [clients countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(clients);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         query = [v13 query];
         identifier2 = [query identifier];
         v16 = [identifier isEqual:identifier2];
@@ -1472,7 +1439,7 @@ LABEL_12:
         }
       }
 
-      v10 = [clients countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v10 = [clients countByEnumeratingWithState:&v22 objects:v32 count:16];
     }
 
     while (v10);
@@ -1481,49 +1448,47 @@ LABEL_12:
   v17 = MGLogForCategory(6);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [v6 count];
+    v19 = [v6 count];
     *buf = 134218498;
-    v28 = selfCopy;
-    v29 = 2048;
-    v30 = v20;
-    v31 = 2112;
-    v32 = identifier;
+    v27 = selfCopy;
+    v28 = 2048;
+    v29 = v19;
+    v30 = 2112;
+    v31 = identifier;
     _os_log_debug_impl(&dword_25863A000, v17, OS_LOG_TYPE_DEBUG, "%p have %lu clients for query %@", buf, 0x20u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_clientsForTarget:(id)target
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   v6 = [MEMORY[0x277CBEB58] set];
   clients = [(MGRemoteQueryClientManager *)self clients];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [clients countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [clients countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(clients);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         target = [v12 target];
         v14 = [targetCopy isEqual:target];
 
@@ -1533,13 +1498,11 @@ LABEL_12:
         }
       }
 
-      v9 = [clients countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [clients countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1558,7 +1521,7 @@ LABEL_12:
 
 - (void)_watchdogAdd:(id)add
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   addCopy = add;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1570,13 +1533,13 @@ LABEL_12:
     v8 = MGLogForCategory(6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218498;
+      v13 = 134218498;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = addCopy;
-      _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p already tracking watchdog %@ for target %@", &v14, 0x20u);
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = addCopy;
+      _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p already tracking watchdog %@ for target %@", &v13, 0x20u);
     }
   }
 
@@ -1594,22 +1557,20 @@ LABEL_12:
     v12 = MGLogForCategory(6);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218498;
+      v13 = 134218498;
       selfCopy2 = self;
-      v16 = 2048;
-      v17 = [v8 count];
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p now %lu watchdogs after adding %@", &v14, 0x20u);
+      v15 = 2048;
+      v16 = [v8 count];
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p now %lu watchdogs after adding %@", &v13, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_watchdogReset:(id)reset
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1626,20 +1587,18 @@ LABEL_12:
     v8 = MGLogForCategory(6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 134218242;
+      v9 = 134218242;
       selfCopy = self;
-      v12 = 2112;
-      v13 = resetCopy;
-      _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p no watchdog to reset for %@", &v10, 0x16u);
+      v11 = 2112;
+      v12 = resetCopy;
+      _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p no watchdog to reset for %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_watchdogRemove:(id)remove
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -1655,13 +1614,13 @@ LABEL_12:
     v9 = MGLogForCategory(6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218498;
+      v10 = 134218498;
       selfCopy2 = self;
-      v13 = 2048;
-      v14 = [v8 count];
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_25863A000, v9, OS_LOG_TYPE_DEFAULT, "%p now %lu watchdogs after removing %@", &v11, 0x20u);
+      v12 = 2048;
+      v13 = [v8 count];
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_25863A000, v9, OS_LOG_TYPE_DEFAULT, "%p now %lu watchdogs after removing %@", &v10, 0x20u);
     }
   }
 
@@ -1670,50 +1629,48 @@ LABEL_12:
     v8 = MGLogForCategory(6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 134218242;
+      v10 = 134218242;
       selfCopy2 = self;
-      v13 = 2112;
-      v14 = removeCopy;
-      _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p not tracking watchdog for target %@", &v11, 0x16u);
+      v12 = 2112;
+      v13 = removeCopy;
+      _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p not tracking watchdog for target %@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_watchdogFired:(id)fired
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   [(MGRemoteQueryClientManager *)self _targetRemove:firedCopy];
   v6 = [(MGRemoteQueryClientManager *)self _clientsForTarget:firedCopy];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(MGRemoteQueryClientManager *)self _clientStop:*(*(&v15 + 1) + 8 * v10++)];
+        [(MGRemoteQueryClientManager *)self _clientStop:*(*(&v14 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v8);
@@ -1735,16 +1692,14 @@ LABEL_12:
       {
         *buf = 134218242;
         selfCopy = self;
-        v21 = 2112;
-        v22 = firedCopy;
+        v20 = 2112;
+        v21 = firedCopy;
         _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p watchdog for target %@ lingered after firing", buf, 0x16u);
       }
 
       [(MGRemoteQueryClientManager *)self _watchdogRemove:firedCopy];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientInvalidated:(id)invalidated withError:(id)error
@@ -1766,7 +1721,7 @@ LABEL_12:
 
 void __58__MGRemoteQueryClientManager_clientInvalidated_withError___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) clients];
   v3 = [v2 containsObject:*(a1 + 40)];
 
@@ -1781,19 +1736,17 @@ void __58__MGRemoteQueryClientManager_clientInvalidated_withError___block_invoke
       v7 = [v6 count];
       v8 = *(a1 + 40);
       v9 = *(a1 + 48);
-      v11 = 134218754;
-      v12 = v5;
-      v13 = 2048;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_25863A000, v4, OS_LOG_TYPE_DEFAULT, "%p now %lu clients after invalidation of %@ with error %@", &v11, 0x2Au);
+      v10 = 134218754;
+      v11 = v5;
+      v12 = 2048;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_25863A000, v4, OS_LOG_TYPE_DEFAULT, "%p now %lu clients after invalidation of %@ with error %@", &v10, 0x2Au);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)watchdogFired:(id)fired
@@ -1812,7 +1765,7 @@ void __58__MGRemoteQueryClientManager_clientInvalidated_withError___block_invoke
 
 void __44__MGRemoteQueryClientManager_watchdogFired___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) target];
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) _watchdogForTarget:v2];
@@ -1823,26 +1776,24 @@ void __44__MGRemoteQueryClientManager_watchdogFired___block_invoke(uint64_t a1)
     v5 = MGLogForCategory(6);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v9 = 134218498;
-      v10 = v7;
-      v11 = 2048;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v2;
-      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p watchdog %p fired for %@", &v9, 0x20u);
+      v7 = *(a1 + 32);
+      v6 = *(a1 + 40);
+      v8 = 134218498;
+      v9 = v6;
+      v10 = 2048;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v2;
+      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p watchdog %p fired for %@", &v8, 0x20u);
     }
 
     [*(a1 + 40) _watchdogFired:v2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
@@ -1857,13 +1808,13 @@ void __44__MGRemoteQueryClientManager_watchdogFired___block_invoke(uint64_t a1)
     v15 = MGLogForCategory(6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 134218498;
+      v17 = 134218498;
       selfCopy = self;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2112;
-      v23 = challengeCopy;
-      _os_log_debug_impl(&dword_25863A000, v15, OS_LOG_TYPE_DEBUG, "%p allowing trust %@ for challenge %@", &v18, 0x20u);
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = challengeCopy;
+      _os_log_debug_impl(&dword_25863A000, v15, OS_LOG_TYPE_DEBUG, "%p allowing trust %@ for challenge %@", &v17, 0x20u);
     }
 
     v16 = 0;
@@ -1876,13 +1827,11 @@ void __44__MGRemoteQueryClientManager_watchdogFired___block_invoke(uint64_t a1)
   }
 
   handlerCopy[2](handlerCopy, v16, v14);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responseCopy = response;
   handlerCopy = handler;
@@ -1905,28 +1854,26 @@ void __44__MGRemoteQueryClientManager_watchdogFired___block_invoke(uint64_t a1)
     v17 = MGLogForCategory(6);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = 134218754;
+      v18 = 134218754;
       selfCopy = self;
-      v21 = 2112;
-      v22 = responseCopy;
-      v23 = 2112;
-      v24 = taskCopy;
-      v25 = 2112;
-      v26 = v13;
-      _os_log_error_impl(&dword_25863A000, v17, OS_LOG_TYPE_ERROR, "%p bad response %@ from task %@ for client %@", &v19, 0x2Au);
+      v20 = 2112;
+      v21 = responseCopy;
+      v22 = 2112;
+      v23 = taskCopy;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_error_impl(&dword_25863A000, v17, OS_LOG_TYPE_ERROR, "%p bad response %@ from task %@ for client %@", &v18, 0x2Au);
     }
 
     v16 = 0;
   }
 
   handlerCopy[2](handlerCopy, v16);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   dispatchQueue = [(MGRemoteQueryClientManager *)self dispatchQueue];
@@ -1947,17 +1894,15 @@ void __44__MGRemoteQueryClientManager_watchdogFired___block_invoke(uint64_t a1)
     v13 = MGLogForCategory(6);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 134218242;
+      v14 = 134218242;
       selfCopy = self;
-      v17 = 2112;
-      v18 = taskCopy;
-      _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p no data consumer for task %@", &v15, 0x16u);
+      v16 = 2112;
+      v17 = taskCopy;
+      _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p no data consumer for task %@", &v14, 0x16u);
     }
 
     [taskCopy cancel];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error

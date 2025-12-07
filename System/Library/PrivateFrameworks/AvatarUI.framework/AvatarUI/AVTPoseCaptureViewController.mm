@@ -48,10 +48,10 @@
 
 - (void)viewDidLoad
 {
-  v61[8] = *MEMORY[0x1E69E9840];
-  v60.receiver = self;
-  v60.super_class = AVTPoseCaptureViewController;
-  [(AVTPoseCaptureViewController *)&v60 viewDidLoad];
+  v63[8] = *MEMORY[0x1E69E9840];
+  v62.receiver = self;
+  v62.super_class = AVTPoseCaptureViewController;
+  [(AVTPoseCaptureViewController *)&v62 viewDidLoad];
   backgroundColor = [(AVTPoseCaptureViewController *)self backgroundColor];
   view = [(AVTPoseCaptureViewController *)self view];
   [view setBackgroundColor:backgroundColor];
@@ -81,7 +81,7 @@
 
   v13 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:1 target:self action:sel_didTapCancel_];
   navigationItem = [(AVTPoseCaptureViewController *)self navigationItem];
-  v59 = v13;
+  v61 = v13;
   [navigationItem setLeftBarButtonItem:v13];
 
   v15 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:0 target:self action:sel_didTapDone_];
@@ -101,41 +101,41 @@
   [(AVTPoseCaptureViewController *)self setHeaderTopAnchor:v22];
 
   headerTopAnchor = [(AVTPoseCaptureViewController *)self headerTopAnchor];
-  v61[0] = headerTopAnchor;
+  v63[0] = headerTopAnchor;
   leadingAnchor = [(UIView *)self->_headerView leadingAnchor];
   view5 = [(AVTPoseCaptureViewController *)self view];
   leadingAnchor2 = [view5 leadingAnchor];
-  v54 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v61[1] = v54;
+  v56 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v63[1] = v56;
   trailingAnchor = [(UIView *)self->_headerView trailingAnchor];
   view6 = [(AVTPoseCaptureViewController *)self view];
   trailingAnchor2 = [view6 trailingAnchor];
-  v50 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v61[2] = v50;
+  v52 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v63[2] = v52;
   headerHeightConstraint = [(AVTPoseCaptureViewController *)self headerHeightConstraint];
-  v61[3] = headerHeightConstraint;
+  v63[3] = headerHeightConstraint;
   heightAnchor = [(UIImageView *)self->_snapshotImageView heightAnchor];
   heightAnchor2 = [(UIView *)self->_headerView heightAnchor];
-  v46 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  v61[4] = v46;
+  v48 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+  v63[4] = v48;
   widthAnchor = [(UIImageView *)self->_snapshotImageView widthAnchor];
   widthAnchor2 = [(UIView *)self->_headerView widthAnchor];
   v24 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v61[5] = v24;
+  v63[5] = v24;
   centerXAnchor = [(UIImageView *)self->_snapshotImageView centerXAnchor];
   centerXAnchor2 = [(UIView *)self->_headerView centerXAnchor];
   v27 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v61[6] = v27;
+  v63[6] = v27;
   centerYAnchor = [(UIImageView *)self->_snapshotImageView centerYAnchor];
   centerYAnchor2 = [(UIView *)self->_headerView centerYAnchor];
   v30 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v61[7] = v30;
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:8];
+  v63[7] = v30;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:8];
 
-  [MEMORY[0x1E696ACD8] activateConstraints:v31];
-  v32 = AVTUIIsFacetrackingSupported();
-  self->_allowFacetracking = v32;
-  if (v32)
+  v32 = [MEMORY[0x1E696ACD8] activateConstraints:v31];
+  v34 = AVTUIIsFacetrackingSupported(v32, v33);
+  self->_allowFacetracking = v34;
+  if (v34)
   {
     [(AVTPoseCaptureViewController *)self setMode:1];
     [(UIBarButtonItem *)self->_doneButton setEnabled:0];
@@ -148,21 +148,21 @@
 
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen scale];
-  v35 = v34;
+  v37 = v36;
   mainScreen2 = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen2 nativeScale];
-  v38 = v37;
+  v40 = v39;
 
-  if (v35 != v38)
+  if (v37 != v40)
   {
-    v39 = objc_alloc(MEMORY[0x1E69DD250]);
-    v40 = objc_opt_class();
+    v41 = objc_alloc(MEMORY[0x1E69DD250]);
+    v42 = objc_opt_class();
     view7 = [(AVTPoseCaptureViewController *)self view];
     [view7 bounds];
-    [v40 borderMaskRectForContentRect:?];
-    v42 = [v39 initWithFrame:?];
+    [v42 borderMaskRectForContentRect:?];
+    v44 = [v41 initWithFrame:?];
     borderMaskView = self->_borderMaskView;
-    self->_borderMaskView = v42;
+    self->_borderMaskView = v44;
 
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];
     [(UIView *)self->_borderMaskView setBackgroundColor:whiteColor];

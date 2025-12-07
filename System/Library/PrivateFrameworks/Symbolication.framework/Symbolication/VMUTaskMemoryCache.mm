@@ -1,4 +1,5 @@
 @interface VMUTaskMemoryCache
++ (id)taskMemoryCacheForTask:(unsigned int)task;
 - (BOOL)copyRange:(_VMURange)range to:(void *)to;
 - (BOOL)isExclave;
 - (BOOL)isSimulator;
@@ -14,14 +15,17 @@
 - (int)getCoreFileCPUType:(int *)type;
 - (int)getPlatform:(unsigned int *)platform;
 - (int)machVMPageRangeQueryWithAddress:(unint64_t)address size:(unint64_t)size dispositions:(unint64_t)dispositions dispositionsCount:(unint64_t *)count;
+- (int)machVMPurgableControlWithAddress:(unint64_t)address control:(int)control state:(int *)state;
 - (int)machVMRegionRecurseSubmapInfo64onAddress:(unint64_t *)address size:(unint64_t *)size nestingDepth:(unsigned int *)depth info:(vm_region_submap_info_64_with_extra_flag *)info;
 - (int)machVMRegionRecurseSubmapShortInfo64onAddress:(unint64_t *)address size:(unint64_t *)size nestingDepth:(unsigned int *)depth info:(vm_region_submap_short_info_64 *)info;
 - (int)mapAddress:(unint64_t)address size:(unint64_t)size returnedAddress:(unint64_t *)returnedAddress returnedSize:(unint64_t *)returnedSize;
 - (int)peekAtAddress:(unint64_t)address size:(unint64_t)size returnsBuf:(void *)buf;
+- (int)procRegionFileNameForAddress:(unint64_t)address buffer:(void *)buffer bufferSize:(unsigned int)size;
 - (int)readPointerAt:(unint64_t)at value:(unint64_t *)value;
 - (int)startPeeking;
 - (int)stopPeeking;
 - (int)taskThreadsWithList:(unsigned int *)list listCnt:(unsigned int *)cnt;
+- (int)threadGetState:(unsigned int)state withFlavor:(int)flavor oldState:(unsigned int *)oldState oldStateCnt:(unsigned int *)cnt;
 - (int)unmapAddress:(unint64_t)address size:(unint64_t)size returnedAddress:(unint64_t *)returnedAddress returnedSize:(unint64_t *)returnedSize;
 - (uint64_t)createSymbolicatorWithFlags:(void *)flags andNotification:;
 - (uint64_t)exclaveType;
@@ -108,7 +112,6 @@
 
     else
     {
-      taskPort = self->_taskPort;
       task_release_mapped_memory_cache();
     }
 
@@ -122,12 +125,10 @@
     CFRelease(cfOriginalSymbolOwners);
   }
 
-  opaque_1 = self->_minimalSymbolicator._opaque_1;
-  opaque_2 = self->_minimalSymbolicator._opaque_2;
   CSRelease();
-  v8.receiver = self;
-  v8.super_class = VMUTaskMemoryCache;
-  [(VMUTaskMemoryCache *)&v8 dealloc];
+  v5.receiver = self;
+  v5.super_class = VMUTaskMemoryCache;
+  [(VMUTaskMemoryCache *)&v5 dealloc];
 }
 
 - (unint64_t)pageSize
@@ -137,8 +138,6 @@
     return *MEMORY[0x1E69E9AC8];
   }
 
-  taskArchitecture = self->_taskArchitecture;
-  memoryRegions = self->_memoryRegions;
   mapped_memory_core_file_get_architecture();
   if (CSArchitectureIsArm64())
   {
@@ -153,13 +152,20 @@
   return 4096;
 }
 
++ (id)taskMemoryCacheForTask:(unsigned int)task
+{
+  v3 = [[self alloc] initWithTask:*&task];
+
+  return v3;
+}
+
 - (VMUTaskMemoryCache)initWithCorePath:(id)path originalBinaryPaths:(id)paths error:(id *)error
 {
   pathCopy = path;
   pathsCopy = paths;
-  v25.receiver = self;
-  v25.super_class = VMUTaskMemoryCache;
-  v10 = [(VMUTaskMemoryCache *)&v25 init];
+  v21.receiver = self;
+  v21.super_class = VMUTaskMemoryCache;
+  v10 = [(VMUTaskMemoryCache *)&v21 init];
   if (v10)
   {
     [pathCopy UTF8String];
@@ -190,7 +196,7 @@
         v18 = @"Failed to create symbolicator.";
       }
 
-      else if (v10->_taskType == 1 && (v19 = v10->_memoryRegions, (mapped_memory_core_file_has_info_for_memory_analysis() & 1) == 0))
+      else if (v10->_taskType == 1 && (mapped_memory_core_file_has_info_for_memory_analysis() & 1) == 0)
       {
         CSRelease();
         v18 = @"File is missing metadata required for analysis.";
@@ -199,26 +205,23 @@
       else
       {
         v10->_taskArchitecture = CSSymbolicatorGetArchitecture();
-        memoryRegions = v10->_memoryRegions;
         v10->_taskIs64Bit = mapped_memory_is_64_bit();
         v10->_taskIsTranslated = CSSymbolicatorGetTaskIsTranslated();
         v10->_taskPort = 0;
         v10->_pid = -1;
-        v21 = v10->_memoryRegions;
         if (mapped_memory_core_file_is_exclave())
         {
-          v22 = v10->_memoryRegions;
           if (mapped_memory_core_file_is_exclavecore())
           {
-            v23 = 1;
+            v19 = 1;
           }
 
           else
           {
-            v23 = 2;
+            v19 = 2;
           }
 
-          v10->_exclaveType = v23;
+          v10->_exclaveType = v19;
         }
 
         else
@@ -236,10 +239,10 @@
         v18 = @"No matching kernel found.";
       }
 
-      v24 = vmuTaskMemoryCacheInitializationError(v18);
+      v20 = vmuTaskMemoryCacheInitializationError(v18);
       if (error)
       {
-        *error = v24;
+        *error = v20;
       }
     }
 
@@ -350,9 +353,9 @@ LABEL_3:
   if (memoryRegions)
   {
     node = find_node(memoryRegions, address);
-    if (node || (v13 = self->_memoryRegions, (node = map_new_node()) != 0))
+    if (node || (node = map_new_node()) != 0)
     {
-      v14 = node;
+      v12 = node;
       if (returnedAddress)
       {
         *returnedAddress = node[2] + address - *node;
@@ -361,7 +364,7 @@ LABEL_3:
       result = 0;
       if (returnedSize)
       {
-        *returnedSize = v14[1] - address + *v14;
+        *returnedSize = v12[1] - address + *v12;
       }
     }
 
@@ -563,7 +566,6 @@ LABEL_13:
     node = find_node(self->_memoryRegions, location);
     if (!node)
     {
-      memoryRegions = self->_memoryRegions;
       node = map_new_node();
       if (!node)
       {
@@ -571,20 +573,20 @@ LABEL_13:
       }
     }
 
-    v10 = location - *node;
-    if (length >= node[1] - v10)
+    v9 = location - *node;
+    if (length >= node[1] - v9)
     {
-      v11 = node[1] - v10;
+      v10 = node[1] - v9;
     }
 
     else
     {
-      v11 = length;
+      v10 = length;
     }
 
-    memcpy(to, &v10[node[2]], v11);
-    location = (location + v11);
-    length -= v11;
+    memcpy(to, &v9[node[2]], v10);
+    location = (location + v10);
+    length -= v10;
     if (!length)
     {
       goto LABEL_13;
@@ -599,7 +601,6 @@ LABEL_13:
     return 4;
   }
 
-  memoryRegions = self->_memoryRegions;
   result = mapped_memory_core_file_get_architecture();
   if (result)
   {
@@ -626,16 +627,14 @@ LABEL_13:
   }
 
   *count = v13;
-  opaque_1 = self->_minimalSymbolicator._opaque_1;
-  opaque_2 = self->_minimalSymbolicator._opaque_2;
   if (CSIsNull())
   {
     FlagsForNoSymbolOrSourceInfoData = CSSymbolicatorGetFlagsForNoSymbolOrSourceInfoData();
     self->_minimalSymbolicator._opaque_1 = [(VMUTaskMemoryCache *)self createSymbolicatorWithFlags:0 andNotification:?];
-    self->_minimalSymbolicator._opaque_2 = v23;
+    self->_minimalSymbolicator._opaque_2 = v19;
   }
 
-  v17 = size + address;
+  v15 = size + address;
   if (size + address <= address)
   {
     return 0;
@@ -643,57 +642,55 @@ LABEL_13:
 
   while (1)
   {
-    v35 = 0;
-    v18 = [(VMUTaskMemoryCache *)self tryPeekAtAddress:address outPtr:&v35, v24, v25, v26, v27, v28, v29, v30];
-    if (!v18)
+    v31 = 0;
+    v16 = [(VMUTaskMemoryCache *)self tryPeekAtAddress:address outPtr:&v31, v20, v21, v22, v23, v24, v25, v26];
+    if (!v16)
     {
       break;
     }
 
-    if (v18 >= v12)
+    if (v16 >= v12)
     {
-      v31 = 0;
-      v32 = &v31;
-      v33 = 0x2020000000;
-      v34 = 1;
-      v20 = self->_minimalSymbolicator._opaque_1;
-      v21 = self->_minimalSymbolicator._opaque_2;
+      v27 = 0;
+      v28 = &v27;
+      v29 = 0x2020000000;
+      v30 = 1;
       CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
       if ((CSIsNull() & 1) == 0)
       {
-        v24 = MEMORY[0x1E69E9820];
-        v25 = 3221225472;
-        v26 = __95__VMUTaskMemoryCache__kernelCorePageRangeQueryWithAddress_size_dispositions_dispositionsCount___block_invoke;
-        v27 = &unk_1E8278910;
-        v29 = v12;
-        v30 = v35;
-        v28 = &v31;
+        v20 = MEMORY[0x1E69E9820];
+        v21 = 3221225472;
+        v22 = __95__VMUTaskMemoryCache__kernelCorePageRangeQueryWithAddress_size_dispositions_dispositionsCount___block_invoke;
+        v23 = &unk_1E8278910;
+        v25 = v12;
+        v26 = v31;
+        v24 = &v27;
         CSSymbolOwnerGetContentForRange();
       }
 
-      if (*(v32 + 24))
+      if (*(v28 + 24))
       {
-        v19 = 13;
+        v17 = 13;
       }
 
       else
       {
-        v19 = 5;
+        v17 = 5;
       }
 
-      _Block_object_dispose(&v31, 8);
+      _Block_object_dispose(&v27, 8);
     }
 
     else
     {
-      v19 = 0;
+      v17 = 0;
     }
 
     result = 0;
-    *dispositions = v19;
+    *dispositions = v17;
     dispositions += 4;
     address += v12;
-    if (address >= v17)
+    if (address >= v15)
     {
       return result;
     }
@@ -783,6 +780,25 @@ uint64_t __95__VMUTaskMemoryCache__kernelCorePageRangeQueryWithAddress_size_disp
   }
 }
 
+- (int)machVMPurgableControlWithAddress:(unint64_t)address control:(int)control state:(int *)state
+{
+  if (self->_taskType == 2)
+  {
+    *state = 3;
+    return 4;
+  }
+
+  else if (self->_corePath)
+  {
+    return MEMORY[0x1EEE00F38](self->_memoryRegions, address, *&control, state);
+  }
+
+  else
+  {
+    return mach_vm_purgable_control(self->_taskPort, address, control, state);
+  }
+}
+
 - (int)taskThreadsWithList:(unsigned int *)list listCnt:(unsigned int *)cnt
 {
   if (self->_corePath)
@@ -796,9 +812,22 @@ uint64_t __95__VMUTaskMemoryCache__kernelCorePageRangeQueryWithAddress_size_disp
   }
 }
 
+- (int)threadGetState:(unsigned int)state withFlavor:(int)flavor oldState:(unsigned int *)oldState oldStateCnt:(unsigned int *)cnt
+{
+  if (self->_corePath)
+  {
+    return MEMORY[0x1EEE00F80](self->_memoryRegions, *&state, *&flavor, oldState, cnt);
+  }
+
+  else
+  {
+    return thread_get_state(state, flavor, oldState, cnt);
+  }
+}
+
 - (int)getPlatform:(unsigned int *)platform
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_haveAttemptedDyldPlatformFetch)
   {
     self->_haveAttemptedDyldPlatformFetch = 1;
@@ -812,47 +841,46 @@ uint64_t __95__VMUTaskMemoryCache__kernelCorePageRangeQueryWithAddress_size_disp
           goto LABEL_11;
         }
 
-        memoryRegions = self->_memoryRegions;
         if ((mapped_memory_core_file_is_exclavecore() & 1) == 0)
         {
           [(NSString *)self->_corePath UTF8String];
           CSSymbolicatorCreateWithPathAndArchitecture();
           if (CSIsNull())
           {
-            goto LABEL_19;
+            return 5;
           }
 
           CSSymbolicatorGetSymbolOwnerWithNameAtTime();
-          if (CSIsNull() & 1) != 0 || (CSSymbolOwnerGetRegionWithName(), (CSIsNull()) || (Range = CSRegionGetRange(), v11 < 0x170))
+          if (CSIsNull() & 1) != 0 || (CSSymbolOwnerGetRegionWithName(), (CSIsNull()) || (Range = CSRegionGetRange(), v9 < 0x170))
           {
-            v12 = 0;
+            v10 = 0;
           }
 
           else
           {
-            v16 = 0u;
-            v17 = 0u;
-            v15 = 0u;
-            memset(v14, 0, sizeof(v14));
-            v12 = [(VMUTaskMemoryCache *)self copyRange:Range to:368, v14];
-            if (v12)
+            v13 = 0u;
+            v14 = 0u;
+            v12 = 0u;
+            memset(v11, 0, sizeof(v11));
+            v10 = [(VMUTaskMemoryCache *)self copyRange:Range to:368, v11];
+            if (v10)
             {
-              self->_dyldPlatform = v15;
+              self->_dyldPlatform = v12;
             }
           }
 
           CSRelease();
-          if (!v12)
+          if (!v10)
           {
-            goto LABEL_19;
+            return 5;
           }
 
           goto LABEL_10;
         }
 
-        v7 = 14;
+        v6 = 14;
 LABEL_9:
-        self->_dyldPlatform = v7;
+        self->_dyldPlatform = v6;
 LABEL_10:
         self->_dyldPlatformIsValid = 1;
         goto LABEL_11;
@@ -862,24 +890,19 @@ LABEL_10:
       self->_dyldPlatformIsValid = 0;
     }
 
-    taskPort = self->_taskPort;
-    v7 = CSPlatformForTask();
+    v6 = CSPlatformForTask();
     goto LABEL_9;
   }
 
 LABEL_11:
-  if (!self->_dyldPlatformIsValid)
+  if (self->_dyldPlatformIsValid)
   {
-LABEL_19:
-    result = 5;
-    goto LABEL_20;
+    result = 0;
+    *platform = self->_dyldPlatform;
+    return result;
   }
 
-  result = 0;
-  *platform = self->_dyldPlatform;
-LABEL_20:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return 5;
 }
 
 - (BOOL)isSimulator
@@ -895,19 +918,50 @@ LABEL_20:
   return result;
 }
 
+- (int)procRegionFileNameForAddress:(unint64_t)address buffer:(void *)buffer bufferSize:(unsigned int)size
+{
+  if (self->_taskType == 2)
+  {
+    if (CSIsNull())
+    {
+      FlagsForNoSymbolOrSourceInfoData = CSSymbolicatorGetFlagsForNoSymbolOrSourceInfoData();
+      self->_minimalSymbolicator._opaque_1 = [(VMUTaskMemoryCache *)self createSymbolicatorWithFlags:0 andNotification:?];
+      self->_minimalSymbolicator._opaque_2 = v14;
+    }
+
+    CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
+    Path = CSSymbolOwnerGetPath();
+    v9 = strncpy(buffer, Path, size);
+    return strlen(v9);
+  }
+
+  else if (self->_corePath)
+  {
+    memoryRegions = self->_memoryRegions;
+
+    return MEMORY[0x1EEE00F50](memoryRegions, address, buffer, *&size);
+  }
+
+  else
+  {
+    pid = self->_pid;
+
+    return proc_regionfilename(pid, address, buffer, size);
+  }
+}
+
 - (unint64_t)tryPeekAtAddress:(unint64_t)address outPtr:(void *)ptr
 {
   result = self->_memoryRegions;
   if (result)
   {
-    v8 = *MEMORY[0x1E69E9AC8];
     result = find_node(result, address);
-    if (result || (memoryRegions = self->_memoryRegions, (result = map_new_node()) != 0))
+    if (result || (result = map_new_node()) != 0)
     {
-      v10 = *(result + 8);
-      v11 = *result;
+      v7 = *(result + 8);
+      v8 = *result;
       *ptr = (*(result + 16) + address - *result);
-      return v11 - address + v10;
+      return v8 - address + v7;
     }
   }
 
@@ -916,10 +970,10 @@ LABEL_20:
 
 - (void)_createOriginalSymbolOwnersWithPaths:(id)paths
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v5 = CSSymbolicatorCreateWithMachKernel();
-  v18 = v6;
+  v17 = v6;
   if (CSIsNull())
   {
     SymbolOwnerCountAtTime = 0;
@@ -932,32 +986,32 @@ LABEL_20:
 
   v8 = [pathsCopy count];
   self->_cfOriginalSymbolOwners = CFArrayCreateMutable(0, v8 + SymbolOwnerCountAtTime, MEMORY[0x1E6999358]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = pathsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v19 + 1) + 8 * i) fileSystemRepresentation];
+        [*(*(&v18 + 1) + 8 * i) fileSystemRepresentation];
         CSSymbolicatorCreateWithPathAndArchitecture();
         CSSymbolicatorForeachSymbolOwnerAtTime();
         CSRelease();
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -979,8 +1033,6 @@ LABEL_20:
       self->_originalSymbolOwners[v15++] = *CFArrayGetValueAtIndex(self->_cfOriginalSymbolOwners, j);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __59__VMUTaskMemoryCache__createOriginalSymbolOwnersWithPaths___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1010,18 +1062,16 @@ void __59__VMUTaskMemoryCache__createOriginalSymbolOwnersWithPaths___block_invok
   if ((v6 - 1) < 2)
   {
     [*(self + 40) fileSystemRepresentation];
-    v7 = *(self + 64);
     CFArrayGetCount(*(self + 56));
-    v8 = CSSymbolicatorCreateWithCoreFilePathAndFlags();
+    v7 = CSSymbolicatorCreateWithCoreFilePathAndFlags();
 LABEL_6:
-    v3 = v8;
+    v3 = v7;
     goto LABEL_7;
   }
 
   if (!v6)
   {
-    v9 = *(self + 24);
-    v8 = CSSymbolicatorCreateWithTaskFlagsAndNotification();
+    v7 = CSSymbolicatorCreateWithTaskFlagsAndNotification();
     goto LABEL_6;
   }
 
@@ -1431,45 +1481,43 @@ LABEL_7:
 
 - (uint64_t)getOwnedVMObjectsIntoBuffer:(size_t *)buffer byteCount:
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (!result)
+  v11 = *MEMORY[0x1E69E9840];
+  if (result)
   {
-LABEL_12:
-    v6 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  if (!*(result + 40))
-  {
-    v8 = *buffer;
-    if (sysctlbyname("vm.get_owned_vmobjects", a2, &v8, (result + 24), 4uLL) && *__error() != 2)
+    if (*(result + 40))
     {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        v7 = *__error();
-        *buf = 136315394;
-        v10 = "vm.get_owned_vmobjects";
-        v11 = 1024;
-        v12 = v7;
-        _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error setting sysctl: %s. %d.\n", buf, 0x12u);
-      }
+      v4 = *(result + 8);
 
-      result = 5;
+      return MEMORY[0x1EEE00EB0](v4);
     }
 
     else
     {
-      result = 0;
-      *buffer = v8;
-    }
+      v6 = *buffer;
+      if (sysctlbyname("vm.get_owned_vmobjects", a2, &v6, (result + 24), 4uLL) && *__error() != 2)
+      {
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v5 = *__error();
+          *buf = 136315394;
+          v8 = "vm.get_owned_vmobjects";
+          v9 = 1024;
+          v10 = v5;
+          _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error setting sysctl: %s. %d.\n", buf, 0x12u);
+        }
 
-    goto LABEL_12;
+        return 5;
+      }
+
+      else
+      {
+        result = 0;
+        *buffer = v6;
+      }
+    }
   }
 
-  v4 = *(result + 8);
-  v5 = *MEMORY[0x1E69E9840];
-
-  return MEMORY[0x1EEE00EB0](v4);
+  return result;
 }
 
 - (uint64_t)getCoreDyldSharedCacheRange:(uint64_t)result
@@ -1478,7 +1526,6 @@ LABEL_12:
   {
     if (*(result + 40))
     {
-      v3 = *(result + 8);
       result = mapped_memory_core_file_get_dyld_shared_cache_range();
       if (!result)
       {
@@ -1547,11 +1594,10 @@ LABEL_12:
 
 - (void)initWithTask:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = 138412290;
-  v2 = @"VMUTaskMemoryCache initialization failed, likely because the target process no longer exists.\n";
-  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", &v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = 138412290;
+  v1 = @"VMUTaskMemoryCache initialization failed, likely because the target process no longer exists.\n";
+  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", &v0, 0xCu);
 }
 
 @end

@@ -270,7 +270,7 @@ LABEL_7:
   if (result)
   {
 
-    return [(CGAffineTransform *)result fullTransform];
+    return objc_msgSend_fullTransform(result);
   }
 
   else
@@ -327,14 +327,14 @@ LABEL_7:
   return result;
 }
 
-void __54__TSDImageInfo_targetSizeForImageData_associatedHint___block_invoke(uint64_t a1)
+void __54__TSDImageInfo_targetSizeForImageData_associatedHint___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   [objc_msgSend(TSUDynamicCast() "imageGeometry")];
-  v3 = TSDCeilSize(v2);
-  v4 = *(*(a1 + 32) + 8);
-  *(v4 + 32) = v3;
-  *(v4 + 40) = v5;
+  v4 = TSDCeilSize(v3);
+  v5 = *(*(a1 + 32) + 8);
+  *(v5 + 32) = v4;
+  *(v5 + 40) = v6;
 }
 
 - (id)mediaDisplayName
@@ -544,7 +544,7 @@ void __37__TSDImageInfo_setAdjustedImageData___block_invoke(uint64_t a1, void *a
 {
   if (!a4)
   {
-    v5 = [a2 i_thumbnailForImageData:?];
+    v5 = [a2 i_thumbnailForImageData:a3];
     if (v5)
     {
 
@@ -673,7 +673,7 @@ void __37__TSDImageInfo_setAdjustedImageData___block_invoke(uint64_t a1, void *a
     geometry = [(TSDImageInfo *)self geometry];
     if (geometry)
     {
-      [(TSDInfoGeometry *)geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -881,7 +881,7 @@ LABEL_21:
     {
       v98 = v79;
       v100 = v78;
-      [imageGeometry transform];
+      objc_msgSend_transform(imageGeometry);
       v79 = v98;
       v78 = v100;
       v81 = *&v101.a;
@@ -938,7 +938,7 @@ LABEL_21:
   {
     v97 = v59;
     v99 = v58;
-    [imageGeometry transform];
+    objc_msgSend_transform(imageGeometry);
     v59 = v97;
     v58 = v99;
     v61 = *&v101.a;

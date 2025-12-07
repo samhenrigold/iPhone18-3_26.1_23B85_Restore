@@ -73,38 +73,38 @@
 
 INCodable *__50__INCodableCustomObjectAttribute_valueTransformer__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 32))
   {
     v4 = [[INCodable alloc] initWithCodableDescription:*(a1 + 32) data:0];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = [*(a1 + 32) attributes];
     v6 = [v5 allValues];
 
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [*(*(&v15 + 1) + 8 * i) propertyName];
+          v11 = [*(*(&v14 + 1) + 8 * i) propertyName];
           v12 = [v3 valueForKey:v11];
           [(INCodable *)v4 setValue:v12 forPropertyNamed:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -116,165 +116,156 @@ INCodable *__50__INCodableCustomObjectAttribute_valueTransformer__block_invoke(u
     v4 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 id __50__INCodableCustomObjectAttribute_valueTransformer__block_invoke_2(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
   {
     v5 = [v4 className];
     v6 = NSClassFromString(v5);
-    v7 = *(a1 + 40);
     if ([objc_opt_class() _isSupportedClass:v6])
     {
-      v36 = v5;
-      v37 = v6;
+      v30 = v5;
+      v31 = v6;
       if (v6)
       {
-        v8 = objc_alloc_init(v6);
+        v7 = objc_alloc_init(v6);
       }
 
       else
       {
-        v8 = [[INCustomObject alloc] _initWithCodableDescription:*(a1 + 32)];
+        v7 = [[INCustomObject alloc] _initWithCodableDescription:*(a1 + 32)];
       }
 
-      v9 = v8;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v11 = a1;
-      v12 = [*(a1 + 32) attributes];
-      v13 = [v12 allValues];
+      v8 = v7;
+      v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v10 = [*(a1 + 32) attributes];
+      v11 = [v10 allValues];
 
-      obj = v13;
-      v14 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
-      if (v14)
+      obj = v11;
+      v12 = [v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v12)
       {
-        v15 = v14;
-        v16 = *v40;
+        v13 = v12;
+        v14 = *v34;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v40 != v16)
+            if (*v34 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = [*(*(&v39 + 1) + 8 * i) propertyName];
-            v19 = [v3 valueForPropertyNamed:v18];
-            if (v19)
+            v16 = [*(*(&v33 + 1) + 8 * i) propertyName];
+            v17 = [v3 valueForPropertyNamed:v16];
+            if (v17)
             {
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
-              v21 = *(v11 + 40);
-              v22 = objc_opt_class();
-              v23 = [v22 _isSupportedClass:objc_opt_class()];
+              v19 = objc_opt_class();
+              v20 = [v19 _isSupportedClass:objc_opt_class()];
               if (isKindOfClass)
               {
-                v24 = v9;
-                v25 = v24;
-                if (v9)
+                v21 = v8;
+                v22 = v21;
+                if (v8)
                 {
-                  if ([v24 conformsToProtocol:&unk_1F02E2388])
+                  if ([v21 conformsToProtocol:&unk_1F02E2388])
                   {
-                    v26 = v25;
+                    v23 = v22;
                   }
 
                   else
                   {
-                    v26 = 0;
+                    v23 = 0;
                   }
                 }
 
                 else
                 {
-                  v26 = 0;
+                  v23 = 0;
                 }
 
-                v31 = v26;
+                v27 = v23;
 
-                if ([&unk_1F02DBB98 containsObject:v18])
+                if ([&unk_1F02DBB98 containsObject:v16])
                 {
-                  [v25 setValue:v19 forKey:v18];
+                  [v22 setValue:v17 forKey:v16];
                 }
 
-                else if (v31)
+                else if (v27)
                 {
-                  [v31 setValue:v19 forProperty:v18];
+                  [v27 setValue:v17 forProperty:v16];
                 }
               }
 
-              else if (v23)
+              else if (v20)
               {
-                [v9 setValue:v19 forKey:v18];
+                [v8 setValue:v17 forKey:v16];
               }
 
               else
               {
-                v27 = INSiriLogContextIntents;
+                v24 = INSiriLogContextIntents;
                 if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
                 {
-                  v28 = *(v11 + 40);
-                  v29 = v27;
-                  v30 = objc_opt_class();
+                  v25 = v24;
+                  v26 = objc_opt_class();
                   *buf = 136315650;
-                  v45 = "[INCodableCustomObjectAttribute valueTransformer]_block_invoke";
-                  v46 = 2114;
-                  v47 = v30;
-                  v48 = 2114;
-                  v49 = v37;
-                  _os_log_fault_impl(&dword_18E991000, v29, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of system frameworks: %{public}@", buf, 0x20u);
+                  v39 = "[INCodableCustomObjectAttribute valueTransformer]_block_invoke";
+                  v40 = 2114;
+                  v41 = v26;
+                  v42 = 2114;
+                  v43 = v31;
+                  _os_log_fault_impl(&dword_18E991000, v25, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of system frameworks: %{public}@", buf, 0x20u);
                 }
               }
             }
           }
 
-          v15 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
-        while (v15);
+        while (v13);
       }
 
-      v5 = v36;
+      v5 = v30;
     }
 
     else
     {
-      v10 = INSiriLogContextIntents;
+      v9 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
       {
-        v34 = *(a1 + 40);
-        v35 = v10;
+        v29 = v9;
         *buf = 136315650;
-        v45 = "[INCodableCustomObjectAttribute valueTransformer]_block_invoke_2";
-        v46 = 2114;
-        v47 = objc_opt_class();
-        v48 = 2114;
-        v49 = v6;
-        _os_log_fault_impl(&dword_18E991000, v35, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of allowed classes: %{public}@", buf, 0x20u);
+        v39 = "[INCodableCustomObjectAttribute valueTransformer]_block_invoke_2";
+        v40 = 2114;
+        v41 = objc_opt_class();
+        v42 = 2114;
+        v43 = v6;
+        _os_log_fault_impl(&dword_18E991000, v29, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of allowed classes: %{public}@", buf, 0x20u);
       }
 
-      v9 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -427,12 +418,12 @@ id __50__INCodableCustomObjectAttribute_valueTransformer__block_invoke_2(uint64_
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v18[2] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = INCodableCustomObjectAttribute;
-  v4 = [(INCodableObjectAttribute *)&v16 dictionaryRepresentationWithLocalizer:localizer];
+  v17[2] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = INCodableCustomObjectAttribute;
+  v4 = [(INCodableObjectAttribute *)&v15 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionObjectTypeNamespaceKey = [(INCodableCustomObjectAttribute *)self __INCodableDescriptionObjectTypeNamespaceKey];
-  v17[0] = __INCodableDescriptionObjectTypeNamespaceKey;
+  v16[0] = __INCodableDescriptionObjectTypeNamespaceKey;
   objectTypeNamespace = [(INCodableCustomObjectAttribute *)self objectTypeNamespace];
   null = objectTypeNamespace;
   if (!objectTypeNamespace)
@@ -440,9 +431,9 @@ id __50__INCodableCustomObjectAttribute_valueTransformer__block_invoke_2(uint64_
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
+  v17[0] = null;
   __INCodableDescriptionObjectTypeKey = [(INCodableCustomObjectAttribute *)self __INCodableDescriptionObjectTypeKey];
-  v17[1] = __INCodableDescriptionObjectTypeKey;
+  v16[1] = __INCodableDescriptionObjectTypeKey;
   objectTypeName = [(INCodableCustomObjectAttribute *)self objectTypeName];
   null2 = objectTypeName;
   if (!objectTypeName)
@@ -450,8 +441,8 @@ id __50__INCodableCustomObjectAttribute_valueTransformer__block_invoke_2(uint64_
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = null2;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v12 = [v4 if_dictionaryByAddingEntriesFromDictionary:v11];
 
   if (!objectTypeName)
@@ -463,8 +454,6 @@ id __50__INCodableCustomObjectAttribute_valueTransformer__block_invoke_2(uint64_
   }
 
   if_dictionaryWithNonEmptyValues = [v12 if_dictionaryWithNonEmptyValues];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }
@@ -547,7 +536,7 @@ LABEL_16:
 
 - (Class)_unsafeObjectClass
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectClass = [(INCodableCustomObjectAttribute *)self objectClass];
   if (objectClass == objc_opt_class())
   {
@@ -560,28 +549,26 @@ LABEL_16:
       v6 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
       {
-        v9 = v6;
-        v10 = 136315650;
-        v11 = "[INCodableCustomObjectAttribute _unsafeObjectClass]";
-        v12 = 2114;
-        v13 = objc_opt_class();
-        v14 = 2114;
-        v15 = objectClass;
-        _os_log_fault_impl(&dword_18E991000, v9, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of allowed classes: %{public}@", &v10, 0x20u);
+        v8 = v6;
+        v9 = 136315650;
+        v10 = "[INCodableCustomObjectAttribute _unsafeObjectClass]";
+        v11 = 2114;
+        v12 = objc_opt_class();
+        v13 = 2114;
+        v14 = objectClass;
+        _os_log_fault_impl(&dword_18E991000, v8, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of allowed classes: %{public}@", &v9, 0x20u);
       }
 
       objectClass = 0;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return objectClass;
 }
 
 - (Class)objectClass
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objectTypeNamespace = [(INCodableCustomObjectAttribute *)self objectTypeNamespace];
   v4 = [objectTypeNamespace isEqualToString:@"System"];
 
@@ -614,14 +601,14 @@ LABEL_16:
       v13 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
       {
-        v16 = v13;
-        v17 = 136315650;
-        v18 = "[INCodableCustomObjectAttribute objectClass]";
-        v19 = 2114;
-        v20 = objc_opt_class();
-        v21 = 2114;
-        v22 = v12;
-        _os_log_fault_impl(&dword_18E991000, v16, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of allowed classes: %{public}@", &v17, 0x20u);
+        v15 = v13;
+        v16 = 136315650;
+        v17 = "[INCodableCustomObjectAttribute objectClass]";
+        v18 = 2114;
+        v19 = objc_opt_class();
+        v20 = 2114;
+        v21 = v12;
+        _os_log_fault_impl(&dword_18E991000, v15, OS_LOG_TYPE_FAULT, "%s Use of %{public}@ on a class outside of allowed classes: %{public}@", &v16, 0x20u);
       }
     }
   }
@@ -629,7 +616,6 @@ LABEL_16:
 LABEL_9:
   v12 = objc_opt_class();
 LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

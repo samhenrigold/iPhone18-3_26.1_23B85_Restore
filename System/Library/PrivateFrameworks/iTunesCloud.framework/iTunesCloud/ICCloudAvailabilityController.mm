@@ -137,9 +137,11 @@
 
 uint64_t __49__ICCloudAvailabilityController_sharedController__block_invoke()
 {
-  sharedController___sharedController = objc_alloc_init(ICCloudAvailabilityController);
+  v0 = objc_alloc_init(ICCloudAvailabilityController);
+  v1 = sharedController___sharedController;
+  sharedController___sharedController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __37__ICCloudAvailabilityController_init__block_invoke_37(uint64_t a1)
@@ -426,7 +428,7 @@ uint64_t __72__ICCloudAvailabilityController_environmentMonitorDidChangeNetworkT
   dispatch_async(accessQueue, v7);
 }
 
-uint64_t __80__ICCloudAvailabilityController_environmentMonitorDidChangeNetworkReachability___block_invoke(uint64_t a1)
+void *__80__ICCloudAvailabilityController_environmentMonitorDidChangeNetworkReachability___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRemoteServerLikelyReachable];
   v3 = *(a1 + 40);
@@ -717,17 +719,17 @@ void __65__ICCloudAvailabilityController__applicationWillEnterForeground___block
   dispatch_async(accessQueue, v9);
 }
 
-uint64_t __65__ICCloudAvailabilityController__wifiStateDidChangeNotification___block_invoke(uint64_t result)
+unsigned __int8 *__65__ICCloudAvailabilityController__wifiStateDidChangeNotification___block_invoke(unsigned __int8 *result)
 {
   v1 = result;
-  v2 = *(result + 32);
-  v3 = *(result + 40);
-  if (*(v2 + 24) != v3 || *(v2 + 25) != *(result + 41))
+  v2 = *(result + 4);
+  v3 = result[40];
+  if (__PAIR64__(*(v2 + 25), *(v2 + 24)) != __PAIR64__(result[41], v3))
   {
     *(v2 + 24) = v3;
-    *(*(result + 32) + 25) = *(result + 41);
-    [*(result + 32) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
-    v4 = *(v1 + 32);
+    *(*(result + 4) + 25) = result[41];
+    [*(result + 4) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
+    v4 = *(v1 + 4);
 
     return [v4 _onQueue_updateCanShowCloudTracksWithNotification:1];
   }
@@ -748,16 +750,16 @@ uint64_t __65__ICCloudAvailabilityController__wifiStateDidChangeNotification___b
   dispatch_async(accessQueue, v5);
 }
 
-uint64_t __52__ICCloudAvailabilityController_airplaneModeChanged__block_invoke(uint64_t result)
+unsigned __int8 *__52__ICCloudAvailabilityController_airplaneModeChanged__block_invoke(unsigned __int8 *result)
 {
-  v2 = *(result + 32);
-  v3 = *(result + 40);
+  v2 = *(result + 4);
+  v3 = result[40];
   if (*(v2 + 17) != v3)
   {
     v4 = result;
     *(v2 + 17) = v3;
-    [*(result + 32) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
-    v5 = *(v4 + 32);
+    [*(result + 4) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
+    v5 = *(v4 + 4);
 
     return [v5 _onQueue_updateCanShowCloudTracksWithNotification:1];
   }
@@ -917,22 +919,25 @@ uint64_t __52__ICCloudAvailabilityController_airplaneModeChanged__block_invoke(u
 uint64_t __37__ICCloudAvailabilityController_init__block_invoke(uint64_t a1)
 {
   v1 = *(*(*(a1 + 32) + 8) + 40);
+  v2 = v1;
   if (v1)
   {
     v5 = v1;
     CFPreferencesAppSynchronize(@"com.apple.mobileipod");
-    v2 = [v5 _uncachedIsShowingAllMusic];
-    v3 = [v5 _uncachedIsShowingAllVideo];
-    if (v5[21] != v2 || v5[22] != v3)
+    v3 = [v5 _uncachedIsShowingAllMusic];
+    v1 = [v5 _uncachedIsShowingAllVideo];
+    v2 = v5;
+    if (v5[21] != v3 || v5[22] != v1)
     {
-      v5[21] = v2;
-      v5[22] = v3;
+      v5[21] = v3;
+      v5[22] = v1;
       [v5 _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
-      [v5 _onQueue_updateCanShowCloudTracksWithNotification:1];
+      v1 = [v5 _onQueue_updateCanShowCloudTracksWithNotification:1];
+      v2 = v5;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __37__ICCloudAvailabilityController_init__block_invoke_2(uint64_t a1, const __CFString *a2)

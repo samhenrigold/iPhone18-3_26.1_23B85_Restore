@@ -1,5 +1,6 @@
 @interface GAXSBMainWorkspaceOverride
 + (void)_accessibilityPerformValidations:(id)validations;
+- (BOOL)_canExecuteTransitionRequest:(id)request forExecution:(BOOL)execution;
 - (void)_handleUserActionRequest:(id)request options:(id)options activationSettings:(id)settings origin:(id)origin withResult:(id)result;
 - (void)presentPowerDownTransientOverlay;
 - (void)systemService:(id)service handleOpenApplicationRequest:(id)request withCompletion:(id)completion;
@@ -26,16 +27,17 @@
   requestCopy = request;
   completionCopy = completion;
   v11 = +[GAXSpringboard sharedInstance];
-  if (![v11 isActive])
+  isActive = [v11 isActive];
+  if (!isActive)
   {
     goto LABEL_6;
   }
 
-  v12 = GAXAllowedRemoteUIProcesses();
+  v13 = GAXAllowedRemoteUIProcesses(isActive);
   bundleIdentifier = [requestCopy bundleIdentifier];
-  v14 = [v12 containsObject:bundleIdentifier];
+  v15 = [v13 containsObject:bundleIdentifier];
 
-  if (v14)
+  if (v15)
   {
     goto LABEL_6;
   }
@@ -46,38 +48,38 @@
   {
 
 LABEL_6:
-    v24.receiver = self;
-    v24.super_class = GAXSBMainWorkspaceOverride;
-    [(GAXSBMainWorkspaceOverride *)&v24 systemService:serviceCopy handleOpenApplicationRequest:requestCopy withCompletion:completionCopy];
+    v25.receiver = self;
+    v25.super_class = GAXSBMainWorkspaceOverride;
+    [(GAXSBMainWorkspaceOverride *)&v25 systemService:serviceCopy handleOpenApplicationRequest:requestCopy withCompletion:completionCopy];
     goto LABEL_7;
   }
 
   bundleIdentifier3 = [requestCopy bundleIdentifier];
-  v18 = [v11 isBundleIDAllowedApp:bundleIdentifier3];
+  v19 = [v11 isBundleIDAllowedApp:bundleIdentifier3];
 
-  if (v18)
+  if (v19)
   {
     goto LABEL_6;
   }
 
-  v19 = GAXLogCommon();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = GAXLogCommon();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier4 = [requestCopy bundleIdentifier];
     *buf = 138543362;
-    v28 = bundleIdentifier4;
-    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Guided Access blocking workspace open app request: %{public}@", buf, 0xCu);
+    v29 = bundleIdentifier4;
+    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Guided Access blocking workspace open app request: %{public}@", buf, 0xCu);
   }
 
   if (completionCopy)
   {
-    v21 = FBSOpenApplicationErrorDomain;
-    v25 = NSLocalizedDescriptionKey;
-    v26 = @"Guided Access active";
-    v22 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v23 = [NSError errorWithDomain:v21 code:1 userInfo:v22];
+    v22 = FBSOpenApplicationErrorDomain;
+    v26 = NSLocalizedDescriptionKey;
+    v27 = @"Guided Access active";
+    v23 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v24 = [NSError errorWithDomain:v22 code:1 userInfo:v23];
 
-    completionCopy[2](completionCopy, v23);
+    completionCopy[2](completionCopy, v24);
   }
 
 LABEL_7:
@@ -166,6 +168,61 @@ LABEL_6:
   }
 
 LABEL_11:
+}
+
+- (BOOL)_canExecuteTransitionRequest:(id)request forExecution:(BOOL)execution
+{
+  executionCopy = execution;
+  requestCopy = request;
+  v7 = +[GAXSpringboard sharedInstance];
+  v15.receiver = self;
+  v15.super_class = GAXSBMainWorkspaceOverride;
+  v8 = [(GAXSBMainWorkspaceOverride *)&v15 _canExecuteTransitionRequest:requestCopy forExecution:executionCopy];
+  v9 = [requestCopy safeIntegerForKey:@"source"];
+  v10 = [requestCopy safeValueForKeyPath:@"transientOverlayContext.transientOverlay.viewController"];
+
+  if (qword_3B318 != -1)
+  {
+    sub_16CE8();
+  }
+
+  v11 = qword_3B310;
+  v12 = [NSNumber numberWithInteger:v9];
+  LODWORD(v11) = [v11 containsObject:v12];
+
+  AXSafeClassFromString();
+  if ((v8 & (v11 | objc_opt_isKindOfClass())) == 1 && [v7 isActive])
+  {
+    v13 = GAXLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v17 = v9;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Guided Access active, disallowing transition request, source: %ld", buf, 0xCu);
+    }
+
+    LOBYTE(v8) = 0;
+LABEL_11:
+
+    goto LABEL_12;
+  }
+
+  if ([v7 isActive])
+  {
+    v13 = GAXLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v17 = v9;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Guided Access active, but allowing transition request, source: %ld", buf, 0xCu);
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_12:
+
+  return v8;
 }
 
 - (void)presentPowerDownTransientOverlay

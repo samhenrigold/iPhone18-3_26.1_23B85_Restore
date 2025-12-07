@@ -34,8 +34,8 @@ __n128 __40__SCNPhysicsMagneticField_setDirection___block_invoke(uint64_t a1, __
     v2[16] = a2;
   }
 
-  result.n128_u64[0] = a2.n128_u64[0];
-  result.n128_u32[2] = a2.n128_u32[2];
+  result.n128_f64[0] = a2.n128_f64[0];
+  result.n128_f32[2] = a2.n128_f32[2];
   return result;
 }
 

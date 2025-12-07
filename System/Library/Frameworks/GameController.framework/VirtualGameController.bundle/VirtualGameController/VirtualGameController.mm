@@ -1,13 +1,13 @@
-id VirtualControllerBundle()
+id VirtualControllerBundle(uint64_t a1)
 {
   if (VirtualControllerBundle_onceToken != -1)
   {
     VirtualControllerBundle_cold_1();
   }
 
-  v1 = VirtualControllerBundle_Bundle;
+  v2 = VirtualControllerBundle_Bundle;
 
-  return v1;
+  return v2;
 }
 
 id GCVirtualControllerBlurEffectView()
@@ -24,7 +24,7 @@ id GCVirtualControllerBlurEffectView()
 id GCVirtualControllerSaturationVibrancyEffectView()
 {
   v0 = [UIVisualEffectView alloc];
-  v1 = GCVirtualControllerSaturationVibrancyEffect();
+  v1 = GCVirtualControllerSaturationVibrancyEffect(v0);
   v2 = [v0 initWithEffect:v1];
 
   [v2 _setGroupName:@"GCVirtualControllerSaturationVibrancyEffectView"];
@@ -32,16 +32,16 @@ id GCVirtualControllerSaturationVibrancyEffectView()
   return v2;
 }
 
-id GCVirtualControllerSaturationVibrancyEffect()
+id GCVirtualControllerSaturationVibrancyEffect(uint64_t a1)
 {
   if (GCVirtualControllerSaturationVibrancyEffect_onceToken != -1)
   {
     GCVirtualControllerSaturationVibrancyEffect_cold_1();
   }
 
-  v1 = GCVirtualControllerSaturationVibrancyEffect_sharedEffect;
+  v2 = GCVirtualControllerSaturationVibrancyEffect_sharedEffect;
 
-  return v1;
+  return v2;
 }
 
 id GCVirtualControllerAdditiveVibrancyEffectView()
@@ -108,16 +108,16 @@ CGImageRef GCVirtualControllerCreateAlphaMaskImage(void *a1, int a2)
   return Image;
 }
 
-id _gc_log_virtualcontroller()
+id _gc_log_virtualcontroller(uint64_t a1)
 {
   if (_gc_log_virtualcontroller_onceToken != -1)
   {
     _gc_log_virtualcontroller_cold_1();
   }
 
-  v1 = _gc_log_virtualcontroller_Log;
+  v2 = _gc_log_virtualcontroller_Log;
 
-  return v1;
+  return v2;
 }
 
 void ___gc_log_virtualcontroller_block_invoke(id a1)

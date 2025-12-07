@@ -116,15 +116,15 @@
 
 - (id)toAnalytics
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = [[SUAnalyticsEvent alloc] initWithEventName:@"com.apple.SUSHistory"];
   v4 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v4 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
   timestamp = [(SUSHistoryEvent *)self timestamp];
-  v49 = v4;
+  v48 = v4;
   v6 = [v4 stringFromDate:timestamp];
 
-  v48 = v6;
+  v47 = v6;
   [(SUAnalyticsEvent *)v3 setEventPayloadEntry:@"timestamp" stringValue:v6];
   v7 = [SUSHistoryTracker nameForHistoryType:[(SUSHistoryEvent *)self historyType]];
   [(SUAnalyticsEvent *)v3 setEventPayloadEntry:@"historyType" stringValue:v7];
@@ -134,26 +134,26 @@
   v10 = [v8 objectForKeyedSubscript:v9];
   [(SUAnalyticsEvent *)v3 setEventPayloadEntry:@"operation" stringValue:v10];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   extraInfo = [(SUSHistoryEvent *)self extraInfo];
-  v12 = [extraInfo countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v12 = [extraInfo countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v51;
+    v14 = *v50;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v51 != v14)
+        if (*v50 != v14)
         {
           objc_enumerationMutation(extraInfo);
         }
 
-        v16 = *(*(&v50 + 1) + 8 * i);
+        v16 = *(*(&v49 + 1) + 8 * i);
         extraInfo2 = [(SUSHistoryEvent *)self extraInfo];
         v18 = [extraInfo2 objectForKeyedSubscript:v16];
 
@@ -236,16 +236,14 @@
         }
       }
 
-      v13 = [extraInfo countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v13 = [extraInfo countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
     while (v13);
   }
 
-  v47 = [(SUAnalyticsEvent *)v3 description];
+  v46 = [(SUAnalyticsEvent *)v3 description];
   SULogInfo(@"%s history analytics event: %@", v38, v39, v40, v41, v42, v43, v44, "[SUSHistoryEvent toAnalytics]");
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -23,12 +23,12 @@
 
 - (id)loadNamespaceMetadataForNamespaceName:(id)name error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = [(TRIClientNamespaceMetadataStorage *)self urlForNamespaceMetadataForNamespaceName:nameCopy];
-  v24 = 0;
-  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v7 options:1 error:&v24];
-  v9 = v24;
+  v23 = 0;
+  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v7 options:1 error:&v23];
+  v9 = v23;
   v10 = v9;
   if (!v8)
   {
@@ -44,7 +44,7 @@
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = nameCopy;
+          v25 = nameCopy;
           _os_log_debug_impl(&dword_22EA6B000, v18, OS_LOG_TYPE_DEBUG, "No namespace metadata found for namespace name %@", buf, 0xCu);
         }
 
@@ -62,7 +62,7 @@ LABEL_20:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_error_impl(&dword_22EA6B000, v19, OS_LOG_TYPE_ERROR, "Unable to read metadata URL: %@", buf, 0xCu);
     }
 
@@ -77,16 +77,16 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v23 = 0;
-  v11 = [(TRIPBMessage *)TRIClientNamespaceMetadata parseFromData:v8 error:&v23];
-  v10 = v23;
+  v22 = 0;
+  v11 = [(TRIPBMessage *)TRIClientNamespaceMetadata parseFromData:v8 error:&v22];
+  v10 = v22;
   if (v10)
   {
     v12 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "Failed to deserialize TRIClientNamespaceMetadata data with error %@", buf, 0xCu);
     }
 
@@ -109,21 +109,20 @@ LABEL_20:
   }
 
 LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)urlForNamespaceMetadataForNamespaceName:(id)name
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = MEMORY[0x277CBEBC0];
   treatmentsDir = [(TRIPaths *)self->_paths treatmentsDir];
-  v13[0] = treatmentsDir;
-  v13[1] = nameCopy;
-  v13[2] = @"metadata.pb";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[0] = treatmentsDir;
+  v12[1] = nameCopy;
+  v12[2] = @"metadata.pb";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
   v9 = [v6 fileURLWithPathComponents:v8];
 
   if (!v9)
@@ -131,8 +130,6 @@ LABEL_21:
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIClientNamespaceMetadataStorage.m" lineNumber:71 description:{@"Expression was unexpectedly nil/false: %@", @"[NSURL fileURLWithPathComponents:@[[_paths treatmentsDir], namespaceName, @metadata.pb]]"}];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

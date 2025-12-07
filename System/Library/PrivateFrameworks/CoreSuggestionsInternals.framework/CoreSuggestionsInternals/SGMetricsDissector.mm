@@ -9,7 +9,7 @@
 
 - (void)dissectTextMessage:(id)message entity:(id)entity context:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
   contextCopy = context;
@@ -18,7 +18,7 @@
   {
     sender = [messageCopy sender];
     handles = [sender handles];
-    if (![handles count])
+    if (!objc_msgSend_count(handles))
     {
 
 LABEL_16:
@@ -40,39 +40,39 @@ LABEL_16:
         if (isSent)
         {
           context = v16;
-          v30 = contextCopy;
-          v34 = 0u;
-          v35 = 0u;
-          v32 = 0u;
+          v29 = contextCopy;
           v33 = 0u;
+          v34 = 0u;
+          v31 = 0u;
+          v32 = 0u;
           recipients2 = [messageCopy recipients];
-          v19 = [recipients2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+          v19 = [recipients2 countByEnumeratingWithState:&v31 objects:v35 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v33;
+            v21 = *v32;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v33 != v21)
+                if (*v32 != v21)
                 {
                   objc_enumerationMutation(recipients2);
                 }
 
-                handles2 = [*(*(&v32 + 1) + 8 * i) handles];
+                handles2 = [*(*(&v31 + 1) + 8 * i) handles];
                 v24 = [handles2 objectAtIndexedSubscript:0];
                 [SGMetricsHelper recordConversationTurnWithDetail:v24 received:0 throughApp:sender withStore:selfCopy->_store];
               }
 
-              v20 = [recipients2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+              v20 = [recipients2 countByEnumeratingWithState:&v31 objects:v35 count:16];
             }
 
             while (v20);
           }
 
           objc_autoreleasePoolPop(context);
-          contextCopy = v30;
+          contextCopy = v29;
         }
 
         else
@@ -91,13 +91,11 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dissectMailMessage:(id)message entity:(id)entity context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
   contextCopy = context;
@@ -119,27 +117,27 @@ LABEL_17:
         {
           if ([messageCopy isSent])
           {
-            v28 = contextCopy;
-            v32 = 0u;
-            v33 = 0u;
-            v30 = 0u;
+            v27 = contextCopy;
             v31 = 0u;
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
             obj = [messageCopy to];
-            v17 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v17 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
             if (v17)
             {
               v18 = v17;
-              v19 = *v31;
+              v19 = *v30;
               do
               {
                 for (i = 0; i != v18; ++i)
                 {
-                  if (*v31 != v19)
+                  if (*v30 != v19)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v21 = *(*(&v30 + 1) + 8 * i);
+                  v21 = *(*(&v29 + 1) + 8 * i);
                   v22 = objc_autoreleasePoolPush();
                   emailAddress = [v21 emailAddress];
                   [SGMetricsHelper recordConversationTurnWithDetail:emailAddress received:0 throughApp:bundleId withStore:selfCopy->_store];
@@ -147,13 +145,13 @@ LABEL_17:
                   objc_autoreleasePoolPop(v22);
                 }
 
-                v18 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+                v18 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
               }
 
               while (v18);
             }
 
-            contextCopy = v28;
+            contextCopy = v27;
           }
 
           else
@@ -169,8 +167,6 @@ LABEL_17:
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldSampleMessage

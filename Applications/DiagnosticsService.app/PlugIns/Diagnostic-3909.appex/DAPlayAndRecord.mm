@@ -147,7 +147,7 @@ LABEL_9:
     *&v50 = 0;
     *(&v50 + 1) = self->testSignalFile;
     v23 = outPropertyData;
-    +[DAAudioUnitHelper getBasicStreamDescription];
+    objc_msgSend_getBasicStreamDescription(DAAudioUnitHelper);
     LODWORD(v53) = v43[6] * v23;
     Property = AudioUnitSetProperty(self->generatorUnit, 0xCEFu, 0, 0, &inData, 0x70u);
     if (Property)
@@ -467,18 +467,18 @@ LABEL_9:
     v45 = 0;
     v43 = 0u;
     v44 = 0u;
-    +[DAAudioUnitHelper getBasicStreamDescription];
+    objc_msgSend_getBasicStreamDescription(DAAudioUnitHelper);
     numInputs = [(DAPlayAndRecord *)self numInputs];
     HIDWORD(v44) = [numInputs unsignedIntValue];
 
     memset(&outDescription, 0, sizeof(outDescription));
-    +[DAAudioUnitHelper getGeneratorDescription];
+    objc_msgSend_getGeneratorDescription(DAAudioUnitHelper);
     memset(&inDescription, 0, sizeof(inDescription));
-    +[DAAudioUnitHelper getRemoteIODescription];
+    objc_msgSend_getRemoteIODescription(DAAudioUnitHelper);
     memset(&v40, 0, sizeof(v40));
-    +[DAAudioUnitHelper getBandPassDescription];
+    objc_msgSend_getBandPassDescription(DAAudioUnitHelper);
     memset(&v39, 0, sizeof(v39));
-    +[DAAudioUnitHelper getMixerDescription];
+    objc_msgSend_getMixerDescription(DAAudioUnitHelper);
     v10 = AUGraphAddNode(self->testCaseGraph, &inDescription, &outNode[1]);
     if (v10)
     {
@@ -846,7 +846,7 @@ LABEL_9:
   else
   {
     v7 = outPropertyData;
-    +[DAAudioUnitHelper getBasicStreamDescription];
+    objc_msgSend_getBasicStreamDescription(DAAudioUnitHelper);
     *&v8 = (v7 * v10);
     [(DAPlayAndRecord *)self setFileTimeInFrames:v8];
   }

@@ -9,7 +9,7 @@
 
 - (AppInstallScheduler)init
 {
-  v3 = sub_1003C27BC();
+  v3 = sub_1003C27BC(AppInstallsDatabaseStore);
   v4 = v3;
   if (self && (v22.receiver = self, v22.super_class = AppInstallScheduler, (v5 = [(AppInstallScheduler *)&v22 init]) != 0))
   {

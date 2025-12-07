@@ -28,18 +28,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_190CD5CBC;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_190CD5CBC;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_190CD4854(v5);
-  sub_19022123C(v5);
+  sub_190CD4854(v7, v6);
+  sub_19022123C(v7, v6);
 }
 
 - (_TtC7ChatKit22CKCatchUpButtonManager)init

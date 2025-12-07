@@ -5,11 +5,11 @@ void sub_1C65F5EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL std::string::starts_with[abi:ne200100](uint64_t *a1, char *__s)
+BOOL std::string::starts_with[abi:ne200100](uint64_t **a1, char *__s)
 {
   v4 = strlen(__s);
   v5 = *(a1 + 23);
-  if (v5 < 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
     v6 = a1;
     a1 = *a1;
@@ -23,109 +23,108 @@ BOOL std::string::starts_with[abi:ne200100](uint64_t *a1, char *__s)
 
 void QP::QueryParserEngine::setEmbeddingString(QP::QueryParserEngine *this, const __CFString *a2, const __CFDictionary *a3, BOOL a4, BOOL a5, char a6)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  if ((a6 & 1) == 0 && *(*(this + 13) + 32) == 1)
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  if ((a6 & 1) != 0 || *(*(this + 13) + 32) != 1)
   {
-    if (parserLogger(void)::token != -1)
+    if (*(*(this + 1) + 61) == 1)
     {
-      QP::QueryParserEngine::init();
+      if (parserLogger(void)::token != -1)
+      {
+        QP::QueryParserEngine::init();
+      }
+
+      v15 = parserLogger(void)::log;
+      if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+
+      v16 = *(*(this + 1) + 48);
+      *buf = 134217984;
+      v25 = v16;
+      v12 = "[QPNLU][qid=%ld] not generating query embedding due to missing annotations (lexicon-based safety resources)";
     }
 
-    v9 = parserLogger(void)::log;
-    if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
+    else
     {
-      v10 = *(*(this + 1) + 48);
-      v11 = *(*(this + 13) + 24) > 0;
-      *buf = 134218240;
-      v26 = v10;
-      v27 = 1024;
-      v28 = v11;
-      v12 = "[QPNLU][qid=%ld] skipping embedding generation for the same queryID && previous request (error: %d)";
-      v13 = v9;
-      v14 = 18;
-LABEL_26:
-      _os_log_impl(&dword_1C6584000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
-      goto LABEL_27;
+      v17 = *(this + 13);
+      if (v17)
+      {
+        if (QP::Embedder::shouldEmbedLanguage(v17, a3, &v23))
+        {
+          if (v23 || QP::Embedder::shouldEmbedString(*(this + 13), a2))
+          {
+            v22[0] = MEMORY[0x1E69E9820];
+            v22[1] = 0x40000000;
+            v22[2] = ___ZN2QP17QueryParserEngine18setEmbeddingStringEPK10__CFStringPK14__CFDictionarybbby_block_invoke;
+            v22[3] = &__block_descriptor_tmp_62;
+            v22[4] = this;
+            v22[5] = a3;
+            QP::QueryParserEngine::embeddingString(this, a2, v18, 0, 0, v22);
+            return;
+          }
+
+          if (parserLogger(void)::token != -1)
+          {
+            QP::QueryParserEngine::init();
+          }
+
+          v15 = parserLogger(void)::log;
+          if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
+          {
+            return;
+          }
+
+          v21 = *(*(this + 1) + 48);
+          *buf = 134217984;
+          v25 = v21;
+          v12 = "[QPNLU][qid=%ld] not generating query embedding due to failed string check in non-CJK";
+        }
+
+        else
+        {
+          if (parserLogger(void)::token != -1)
+          {
+            QP::QueryParserEngine::init();
+          }
+
+          v15 = parserLogger(void)::log;
+          if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
+          {
+            return;
+          }
+
+          v20 = *(*(this + 1) + 48);
+          *buf = 134217984;
+          v25 = v20;
+          v12 = "[QPNLU][qid=%ld] not generating query embedding due to failed language check";
+        }
+      }
+
+      else
+      {
+        if (parserLogger(void)::token != -1)
+        {
+          QP::QueryParserEngine::init();
+        }
+
+        v15 = parserLogger(void)::log;
+        if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
+        {
+          return;
+        }
+
+        v19 = *(*(this + 1) + 48);
+        *buf = 134217984;
+        v25 = v19;
+        v12 = "[QPNLU][qid=%ld] not generating query embedding due to no embedder available";
+      }
     }
 
-    goto LABEL_27;
-  }
-
-  if (*(*(this + 1) + 61) == 1)
-  {
-    if (parserLogger(void)::token != -1)
-    {
-      QP::QueryParserEngine::init();
-    }
-
-    v15 = parserLogger(void)::log;
-    if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_27;
-    }
-
-    v16 = *(*(this + 1) + 48);
-    *buf = 134217984;
-    v26 = v16;
-    v12 = "[QPNLU][qid=%ld] not generating query embedding due to missing annotations (lexicon-based safety resources)";
-    goto LABEL_25;
-  }
-
-  v17 = *(this + 13);
-  if (!v17)
-  {
-    if (parserLogger(void)::token != -1)
-    {
-      QP::QueryParserEngine::init();
-    }
-
-    v15 = parserLogger(void)::log;
-    if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_27;
-    }
-
-    v19 = *(*(this + 1) + 48);
-    *buf = 134217984;
-    v26 = v19;
-    v12 = "[QPNLU][qid=%ld] not generating query embedding due to no embedder available";
-LABEL_25:
     v13 = v15;
     v14 = 12;
     goto LABEL_26;
-  }
-
-  if ((QP::Embedder::shouldEmbedLanguage(v17, a3, &v24) & 1) == 0)
-  {
-    if (parserLogger(void)::token != -1)
-    {
-      QP::QueryParserEngine::init();
-    }
-
-    v15 = parserLogger(void)::log;
-    if (!os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_27;
-    }
-
-    v20 = *(*(this + 1) + 48);
-    *buf = 134217984;
-    v26 = v20;
-    v12 = "[QPNLU][qid=%ld] not generating query embedding due to failed language check";
-    goto LABEL_25;
-  }
-
-  if (v24 || QP::Embedder::shouldEmbedString(*(this + 13), a2))
-  {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 0x40000000;
-    v23[2] = ___ZN2QP17QueryParserEngine18setEmbeddingStringEPK10__CFStringPK14__CFDictionarybbby_block_invoke;
-    v23[3] = &__block_descriptor_tmp_62;
-    v23[4] = this;
-    v23[5] = a3;
-    QP::QueryParserEngine::embeddingString(this, a2, v18, 0, 0, v23);
-    goto LABEL_27;
   }
 
   if (parserLogger(void)::token != -1)
@@ -133,31 +132,34 @@ LABEL_25:
     QP::QueryParserEngine::init();
   }
 
-  v15 = parserLogger(void)::log;
+  v9 = parserLogger(void)::log;
   if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = *(*(this + 1) + 48);
-    *buf = 134217984;
-    v26 = v22;
-    v12 = "[QPNLU][qid=%ld] not generating query embedding due to failed string check in non-CJK";
-    goto LABEL_25;
+    v10 = *(*(this + 1) + 48);
+    v11 = *(*(this + 13) + 24) > 0;
+    *buf = 134218240;
+    v25 = v10;
+    v26 = 1024;
+    v27 = v11;
+    v12 = "[QPNLU][qid=%ld] skipping embedding generation for the same queryID && previous request (error: %d)";
+    v13 = v9;
+    v14 = 18;
+LABEL_26:
+    _os_log_impl(&dword_1C6584000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
   }
-
-LABEL_27:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   v9 = *MEMORY[0x1E695E480];
   v10 = MEMORY[0x1E695E9C0];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-  v107 = Mutable;
+  v106 = Mutable;
   v12 = CFArrayCreateMutable(v9, 0, v10);
-  v106 = v12;
+  v105 = v12;
   v13 = CFAttributedStringCreateMutable(v9, 0);
-  v105 = v13;
+  v104 = v13;
   if (Mutable)
   {
     v14 = v12 == 0;
@@ -170,8 +172,8 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
 
   if (!v14)
   {
-    v95 = a6;
-    v16 = (a1 + 1);
+    v94 = a6;
+    v16 = a1 + 1;
     v15 = a1[1];
     if (*(v15 + 64) == 1 && a1[11])
     {
@@ -222,20 +224,20 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
       if (v25)
       {
         atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-        v94 = v26 != 0;
+        v93 = v26 != 0;
         std::__shared_weak_count::__release_shared[abi:ne200100](v25);
         v20 = *v16;
       }
 
       else
       {
-        v94 = v26 != 0;
+        v93 = v26 != 0;
       }
     }
 
     else
     {
-      v94 = 0;
+      v93 = 0;
     }
 
     if ((*(v20 + 60) & 1) == 0)
@@ -245,25 +247,25 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
       {
         cf = 0;
         p_cf = &cf;
-        v103 = 0x2000000000;
-        v104 = 0;
-        v114.__r_.__value_.__r.__words[0] = 0;
-        v114.__r_.__value_.__l.__size_ = &v114;
-        v114.__r_.__value_.__r.__words[2] = 0x3802000000;
-        v115 = __Block_byref_object_copy__63;
+        v102 = 0x2000000000;
+        v103 = 0;
+        v113.__r_.__value_.__r.__words[0] = 0;
+        v113.__r_.__value_.__l.__size_ = &v113;
+        v113.__r_.__value_.__r.__words[2] = 0x3802000000;
+        v114 = __Block_byref_object_copy__63;
+        v116 = 0;
         v117 = 0;
-        v118 = 0;
-        v116 = __Block_byref_object_dispose__64;
-        v98[0] = MEMORY[0x1E69E9820];
-        v98[1] = 0x40000000;
-        v98[2] = ___ZN2QP17QueryParserEngine15embeddingStringEPK10__CFStringybbU13block_pointerFvPK9__CFArrayS6_NS_25QPQueryEmbeddingErrorCodeEE_block_invoke;
-        v98[3] = &unk_1E82674A0;
-        v98[5] = &v114;
-        v98[6] = a1;
-        v99 = v22;
-        v98[4] = &cf;
-        v100 = v23;
-        QP::Lexer::enumerateAnnotations(v27, v98);
+        v115 = __Block_byref_object_dispose__64;
+        v97[0] = MEMORY[0x1E69E9820];
+        v97[1] = 0x40000000;
+        v97[2] = ___ZN2QP17QueryParserEngine15embeddingStringEPK10__CFStringybbU13block_pointerFvPK9__CFArrayS6_NS_25QPQueryEmbeddingErrorCodeEE_block_invoke;
+        v97[3] = &unk_1E82674A0;
+        v97[5] = &v113;
+        v97[6] = a1;
+        v98 = v22;
+        v97[4] = &cf;
+        v99 = v23;
+        QP::Lexer::enumerateAnnotations(v27, v97);
         if (p_cf[3])
         {
           if (parserLogger(void)::token != -1)
@@ -277,18 +279,18 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
             v53 = *(*v16 + 48);
             v54 = p_cf[3];
             v55 = *(*v16 + 8);
-            v57 = *(v114.__r_.__value_.__l.__size_ + 40);
-            v56 = *(v114.__r_.__value_.__l.__size_ + 48);
+            v57 = *(v113.__r_.__value_.__l.__size_ + 40);
+            v56 = *(v113.__r_.__value_.__l.__size_ + 48);
             LODWORD(buf.__r_.__value_.__l.__data_) = 134219010;
             *(buf.__r_.__value_.__r.__words + 4) = v53;
             WORD2(buf.__r_.__value_.__r.__words[1]) = 2112;
             *(&buf.__r_.__value_.__r.__words[1] + 6) = v54;
             HIWORD(buf.__r_.__value_.__r.__words[2]) = 2048;
-            v109 = v55;
-            v110 = 2048;
-            v111 = v57;
-            v112 = 2048;
-            v113 = v56;
+            v108 = v55;
+            v109 = 2048;
+            v110 = v57;
+            v111 = 2048;
+            v112 = v56;
             _os_log_error_impl(&dword_1C6584000, v28, OS_LOG_TYPE_ERROR, "[QPNLU][qid=%ld] %@ query token for context '%lu' in range {location: %ld, length: %ld}, avoid embedding search", &buf, 0x34u);
             if (parserLogger(void)::token != -1)
             {
@@ -310,29 +312,29 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
               v31 = *(*v16 + 48);
               v32 = p_cf[3];
               v33 = *(*v16 + 8);
-              v35 = *(v114.__r_.__value_.__l.__size_ + 40);
-              v34 = *(v114.__r_.__value_.__l.__size_ + 48);
+              v35 = *(v113.__r_.__value_.__l.__size_ + 40);
+              v34 = *(v113.__r_.__value_.__l.__size_ + 48);
               LODWORD(buf.__r_.__value_.__l.__data_) = 134219010;
               *(buf.__r_.__value_.__r.__words + 4) = v31;
               WORD2(buf.__r_.__value_.__r.__words[1]) = 2112;
               *(&buf.__r_.__value_.__r.__words[1] + 6) = v32;
               HIWORD(buf.__r_.__value_.__r.__words[2]) = 2048;
-              v109 = v33;
-              v110 = 2048;
-              v111 = v35;
-              v112 = 2048;
-              v113 = v34;
+              v108 = v33;
+              v109 = 2048;
+              v110 = v35;
+              v111 = 2048;
+              v112 = v34;
               _os_signpost_emit_with_name_impl(&dword_1C6584000, v30, OS_SIGNPOST_EVENT, v29, "QPParserSensitiveQuery", "[QPNLU][qid=%ld] %@ query token for context '%lu' in range {location: %ld, length: %ld}, avoid embedding search", &buf, 0x34u);
             }
           }
 
-          (*(v95 + 16))(v95, 0, 0, 2);
-          _Block_object_dispose(&v114, 8);
+          (*(v94 + 16))(v94, 0, 0, 2);
+          _Block_object_dispose(&v113, 8);
           _Block_object_dispose(&cf, 8);
           goto LABEL_175;
         }
 
-        _Block_object_dispose(&v114, 8);
+        _Block_object_dispose(&v113, 8);
         _Block_object_dispose(&cf, 8);
       }
     }
@@ -342,9 +344,9 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
       goto LABEL_101;
     }
 
-    v120.location = 0;
-    v120.length = 0;
-    CFAttributedStringReplaceString(v13, v120, a2);
+    v119.location = 0;
+    v119.length = 0;
+    CFAttributedStringReplaceString(v13, v119, a2);
     if (IsSearchToolSearch)
     {
       if (parserLogger(void)::token != -1)
@@ -356,9 +358,9 @@ void QP::QueryParserEngine::embeddingString(void *a1, const __CFString *a2, uint
       if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
       {
         v37 = *(*v16 + 48);
-        LODWORD(v114.__r_.__value_.__l.__data_) = 134217984;
-        *(v114.__r_.__value_.__r.__words + 4) = v37;
-        _os_log_impl(&dword_1C6584000, v36, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Getting embedding string from LLM parser", &v114, 0xCu);
+        LODWORD(v113.__r_.__value_.__l.__data_) = 134217984;
+        *(v113.__r_.__value_.__r.__words + 4) = v37;
+        _os_log_impl(&dword_1C6584000, v36, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Getting embedding string from LLM parser", &v113, 0xCu);
       }
 
       EmbeddingString = *(a1[11] + 104);
@@ -432,15 +434,15 @@ LABEL_60:
                 {
                   v51 = *(*v16 + 48);
                   v52 = *(*v16 + 8);
-                  LODWORD(v114.__r_.__value_.__l.__data_) = 134218240;
-                  *(v114.__r_.__value_.__r.__words + 4) = v51;
-                  WORD2(v114.__r_.__value_.__r.__words[1]) = 2048;
-                  *(&v114.__r_.__value_.__r.__words[1] + 6) = v52;
-                  _os_signpost_emit_with_name_impl(&dword_1C6584000, v50, OS_SIGNPOST_EVENT, v49, "QPParserUnsafeIntent", "[QPNLU][qid=%ld] Unsafe intent for context '%lu', avoid embedding search", &v114, 0x16u);
+                  LODWORD(v113.__r_.__value_.__l.__data_) = 134218240;
+                  *(v113.__r_.__value_.__r.__words + 4) = v51;
+                  WORD2(v113.__r_.__value_.__r.__words[1]) = 2048;
+                  *(&v113.__r_.__value_.__r.__words[1] + 6) = v52;
+                  _os_signpost_emit_with_name_impl(&dword_1C6584000, v50, OS_SIGNPOST_EVENT, v49, "QPParserUnsafeIntent", "[QPNLU][qid=%ld] Unsafe intent for context '%lu', avoid embedding search", &v113, 0x16u);
                 }
               }
 
-              (*(v95 + 16))(v95, 0, 0, 3);
+              (*(v94 + 16))(v94, 0, 0, 3);
               goto LABEL_175;
             }
           }
@@ -459,27 +461,27 @@ LABEL_60:
             QP::QueryParserEngine::init();
           }
 
-          v89 = parserLogger(void)::log;
+          v88 = parserLogger(void)::log;
           if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
           {
-            v90 = *(*v16 + 48);
-            LODWORD(v114.__r_.__value_.__l.__data_) = 134217984;
-            *(v114.__r_.__value_.__r.__words + 4) = v90;
-            _os_log_impl(&dword_1C6584000, v89, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Getting embedding string from U2 parser", &v114, 0xCu);
+            v89 = *(*v16 + 48);
+            LODWORD(v113.__r_.__value_.__l.__data_) = 134217984;
+            *(v113.__r_.__value_.__r.__words + 4) = v89;
+            _os_log_impl(&dword_1C6584000, v88, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Getting embedding string from U2 parser", &v113, 0xCu);
           }
 
-          v91 = a1[10];
-          v92 = *(v91 + 48);
-          v93 = *(v91 + 56);
-          if (v93)
+          v90 = a1[10];
+          v91 = *(v90 + 48);
+          v92 = *(v90 + 56);
+          if (v92)
           {
-            atomic_fetch_add_explicit(&v93->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v92->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          EmbeddingString = QP::U2Parser::getEmbeddingString(v92);
-          if (v93)
+          EmbeddingString = QP::U2Parser::getEmbeddingString(v91);
+          if (v92)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v92);
           }
 
 LABEL_76:
@@ -531,13 +533,13 @@ LABEL_83:
 
                 v63 = 0;
 LABEL_93:
-                LODWORD(v114.__r_.__value_.__l.__data_) = 134218496;
-                *(v114.__r_.__value_.__r.__words + 4) = v61;
-                WORD2(v114.__r_.__value_.__r.__words[1]) = 2048;
-                *(&v114.__r_.__value_.__r.__words[1] + 6) = Length;
-                HIWORD(v114.__r_.__value_.__r.__words[2]) = 2048;
-                v115 = v63;
-                _os_log_impl(&dword_1C6584000, v60, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Modified photo embedding string (len: %ld) -> (len: %ld)", &v114, 0x20u);
+                LODWORD(v113.__r_.__value_.__l.__data_) = 134218496;
+                *(v113.__r_.__value_.__r.__words + 4) = v61;
+                WORD2(v113.__r_.__value_.__r.__words[1]) = 2048;
+                *(&v113.__r_.__value_.__r.__words[1] + 6) = Length;
+                HIWORD(v113.__r_.__value_.__r.__words[2]) = 2048;
+                v114 = v63;
+                _os_log_impl(&dword_1C6584000, v60, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Modified photo embedding string (len: %ld) -> (len: %ld)", &v113, 0x20u);
                 if (!v13)
                 {
                   goto LABEL_108;
@@ -547,7 +549,7 @@ LABEL_94:
                 String = CFAttributedStringGetString(v13);
                 MutableCopy = CFStringCreateMutableCopy(v9, 0, String);
                 v66 = MutableCopy;
-                v114.__r_.__value_.__r.__words[0] = MutableCopy;
+                v113.__r_.__value_.__r.__words[0] = MutableCopy;
                 if (MutableCopy)
                 {
                   CFStringTrimWhitespace(MutableCopy);
@@ -560,7 +562,7 @@ LABEL_94:
 
                     if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
                     {
-                      QP::QueryParserEngine::embeddingString((a1 + 1));
+                      QP::QueryParserEngine::embeddingString();
                     }
 
                     v13 = 0;
@@ -589,14 +591,14 @@ LABEL_165:
                       if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
                       {
                         v87 = *(*v16 + 48);
-                        LODWORD(v114.__r_.__value_.__l.__data_) = 134218240;
-                        *(v114.__r_.__value_.__r.__words + 4) = v87;
-                        WORD2(v114.__r_.__value_.__r.__words[1]) = 2048;
-                        *(&v114.__r_.__value_.__r.__words[1] + 6) = v13;
-                        _os_log_impl(&dword_1C6584000, v86, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Requesting %ld query embeddings", &v114, 0x16u);
+                        LODWORD(v113.__r_.__value_.__l.__data_) = 134218240;
+                        *(v113.__r_.__value_.__r.__words + 4) = v87;
+                        WORD2(v113.__r_.__value_.__r.__words[1]) = 2048;
+                        *(&v113.__r_.__value_.__r.__words[1] + 6) = v13;
+                        _os_log_impl(&dword_1C6584000, v86, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Requesting %ld query embeddings", &v113, 0x16u);
                       }
 
-                      (*(v95 + 16))(v95, Mutable, v12, 0);
+                      (*(v94 + 16))(v94, Mutable, v12, 0);
                     }
 
                     else
@@ -608,7 +610,7 @@ LABEL_165:
 
                       if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
                       {
-                        QP::QueryParserEngine::embeddingString(v16);
+                        QP::QueryParserEngine::embeddingString();
                       }
                     }
 
@@ -621,18 +623,18 @@ LABEL_165:
                     v67 = a1[11];
                     if (*(v67 + 159) < 0)
                     {
-                      std::string::__init_copy_ctor_external(&v114, *(v67 + 136), *(v67 + 144));
+                      std::string::__init_copy_ctor_external(&v113, *(v67 + 136), *(v67 + 144));
                     }
 
                     else
                     {
-                      v114 = *(v67 + 136);
+                      v113 = *(v67 + 136);
                     }
 
-                    buf = v114;
-                    size = HIBYTE(v114.__r_.__value_.__r.__words[2]);
-                    v68 = SHIBYTE(v114.__r_.__value_.__r.__words[2]);
-                    if ((v114.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                    buf = v113;
+                    size = HIBYTE(v113.__r_.__value_.__r.__words[2]);
+                    v68 = SHIBYTE(v113.__r_.__value_.__r.__words[2]);
+                    if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                     {
                       size = buf.__r_.__value_.__l.__size_;
                     }
@@ -654,11 +656,11 @@ LABEL_165:
                           p_buf = &buf;
                         }
 
-                        LODWORD(v114.__r_.__value_.__l.__data_) = 134218242;
-                        *(v114.__r_.__value_.__r.__words + 4) = v71;
-                        WORD2(v114.__r_.__value_.__r.__words[1]) = 2080;
-                        *(&v114.__r_.__value_.__r.__words[1] + 6) = p_buf;
-                        _os_log_error_impl(&dword_1C6584000, v70, OS_LOG_TYPE_ERROR, "[QPNLU][qid=%ld] Not requesting a text query embedding based on LLM QU parse because %s", &v114, 0x16u);
+                        LODWORD(v113.__r_.__value_.__l.__data_) = 134218242;
+                        *(v113.__r_.__value_.__r.__words + 4) = v71;
+                        WORD2(v113.__r_.__value_.__r.__words[1]) = 2080;
+                        *(&v113.__r_.__value_.__r.__words[1] + 6) = p_buf;
+                        _os_log_error_impl(&dword_1C6584000, v70, OS_LOG_TYPE_ERROR, "[QPNLU][qid=%ld] Not requesting a text query embedding based on LLM QU parse because %s", &v113, 0x16u);
                         LOBYTE(v68) = *(&buf.__r_.__value_.__s + 23);
                       }
 
@@ -678,7 +680,7 @@ LABEL_163:
                   }
 
                   cf = 0;
-                  if (v94)
+                  if (v93)
                   {
                     if (parserLogger(void)::token != -1)
                     {
@@ -689,9 +691,9 @@ LABEL_163:
                     if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
                     {
                       v74 = *(*v16 + 48);
-                      LODWORD(v114.__r_.__value_.__l.__data_) = 134217984;
-                      *(v114.__r_.__value_.__r.__words + 4) = v74;
-                      _os_log_impl(&dword_1C6584000, v73, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Getting embedding string from U2 parser", &v114, 0xCu);
+                      LODWORD(v113.__r_.__value_.__l.__data_) = 134217984;
+                      *(v113.__r_.__value_.__r.__words + 4) = v74;
+                      _os_log_impl(&dword_1C6584000, v73, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Getting embedding string from U2 parser", &v113, 0xCu);
                     }
 
                     v75 = a1[10];
@@ -724,7 +726,7 @@ LABEL_163:
 
                       if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
                       {
-                        QP::QueryParserEngine::embeddingString(v16);
+                        QP::QueryParserEngine::embeddingString();
                       }
                     }
 
@@ -739,7 +741,7 @@ LABEL_152:
 
                       if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
                       {
-                        QP::QueryParserEngine::embeddingString(v16);
+                        QP::QueryParserEngine::embeddingString();
                       }
 
 LABEL_161:
@@ -777,7 +779,7 @@ LABEL_161:
 
                     if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
                     {
-                      QP::QueryParserEngine::embeddingString(v16);
+                      QP::QueryParserEngine::embeddingString();
                     }
                   }
 
@@ -808,13 +810,13 @@ LABEL_161:
                         v85 = CFStringGetLength(cf);
                       }
 
-                      LODWORD(v114.__r_.__value_.__l.__data_) = 134218496;
-                      *(v114.__r_.__value_.__r.__words + 4) = v83;
-                      WORD2(v114.__r_.__value_.__r.__words[1]) = 2048;
-                      *(&v114.__r_.__value_.__r.__words[1] + 6) = v84;
-                      HIWORD(v114.__r_.__value_.__r.__words[2]) = 2048;
-                      v115 = v85;
-                      _os_log_impl(&dword_1C6584000, v82, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Modified text embedding string (len: %ld) -> (len: %ld)", &v114, 0x20u);
+                      LODWORD(v113.__r_.__value_.__l.__data_) = 134218496;
+                      *(v113.__r_.__value_.__r.__words + 4) = v83;
+                      WORD2(v113.__r_.__value_.__r.__words[1]) = 2048;
+                      *(&v113.__r_.__value_.__r.__words[1] + 6) = v84;
+                      HIWORD(v113.__r_.__value_.__r.__words[2]) = 2048;
+                      v114 = v85;
+                      _os_log_impl(&dword_1C6584000, v82, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Modified text embedding string (len: %ld) -> (len: %ld)", &v113, 0x20u);
                     }
 
                     CFArrayAppendValue(Mutable, cf);
@@ -832,7 +834,7 @@ LABEL_161:
 
                 if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
                 {
-                  QP::QueryParserEngine::embeddingString((a1 + 1));
+                  QP::QueryParserEngine::embeddingString();
                 }
 
 LABEL_101:
@@ -859,7 +861,7 @@ LABEL_89:
 
           if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
           {
-            QP::QueryParserEngine::embeddingString((a1 + 1));
+            QP::QueryParserEngine::embeddingString();
           }
 
           goto LABEL_89;
@@ -879,10 +881,15 @@ LABEL_75:
 
   if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_ERROR))
   {
-    QP::QueryParserEngine::embeddingString(a1);
+    QP::QueryParserEngine::embeddingString();
   }
 
 LABEL_175:
+  if (v104)
+  {
+    CFRelease(v104);
+  }
+
   if (v105)
   {
     CFRelease(v105);
@@ -892,13 +899,6 @@ LABEL_175:
   {
     CFRelease(v106);
   }
-
-  if (v107)
-  {
-    CFRelease(v107);
-  }
-
-  v88 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65F7108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, const void *a26, const void *a27, const void *a28, void *__p)
@@ -916,7 +916,7 @@ void sub_1C65F7108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN2QP17QueryParserEngine18setEmbeddingStringEPK10__CFStringPK14__CFDictionarybbby_block_invoke(uint64_t a1, CFArrayRef theArray, const __CFArray *a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 32);
   if (a4 >= 1)
   {
@@ -929,9 +929,9 @@ void ___ZN2QP17QueryParserEngine18setEmbeddingStringEPK10__CFStringPK14__CFDicti
     if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(v8 + 8) + 48);
-      v16 = 134217984;
-      v17 = v10;
-      _os_log_impl(&dword_1C6584000, v9, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] obtained error while processing embedding", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = v10;
+      _os_log_impl(&dword_1C6584000, v9, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] obtained error while processing embedding", &v15, 0xCu);
     }
   }
 
@@ -962,13 +962,11 @@ void ___ZN2QP17QueryParserEngine18setEmbeddingStringEPK10__CFStringPK14__CFDicti
     if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(*(v8 + 8) + 48);
-      v16 = 134217984;
-      v17 = v14;
-      _os_log_impl(&dword_1C6584000, v13, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] not generating embedding for empty / invalid embedding inputs / keys array", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = v14;
+      _os_log_impl(&dword_1C6584000, v13, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] not generating embedding for empty / invalid embedding inputs / keys array", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 __n128 __Block_byref_object_copy__63(uint64_t a1, uint64_t a2)
@@ -1291,9 +1289,9 @@ BOOL QP::Parse::isValid(CFStringRef *this)
   return v6;
 }
 
-void sub_1C65F780C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65F780C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1617,9 +1615,9 @@ LABEL_41:
   }
 }
 
-void sub_1C65F7DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1C65F7DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   nlp::CFScopedPtr<__CFDictionary const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1656,9 +1654,9 @@ void ___ZN2QP17QueryParserEngine26enumerateSuggestionResultsEU13block_pointerFvP
   }
 }
 
-void sub_1C65F7EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65F7EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFDictionary const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1691,9 +1689,9 @@ uint64_t QP::QueryParserEngine::copyCompletions(QP::QueryParserEngine *this)
   return v3;
 }
 
-void sub_1C65F7FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65F7FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1720,9 +1718,9 @@ uint64_t QP::QueryParserEngine::copyLastTokenCompletedQuery(QP::QueryParserEngin
   return v3;
 }
 
-void sub_1C65F80CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65F80CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1739,9 +1737,9 @@ void QP::QueryParserEngine::enumerateDateRangeParses(uint64_t a1, const __CFDict
   }
 }
 
-void sub_1C65F818C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65F818C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1774,7 +1772,7 @@ CFAttributedStringRef QP::QueryParserEngine::copyAttributedInput(QP::QueryParser
   }
 }
 
-void QP::QueryParserEngine::cancelWithQueryReference(QP::Embedder **this, CFDictionaryRef theDict)
+void QP::QueryParserEngine::cancelWithQueryReference(uint64_t this, CFDictionaryRef theDict)
 {
   if (theDict && CFDictionaryContainsKey(theDict, @"queryID"))
   {
@@ -1783,7 +1781,7 @@ void QP::QueryParserEngine::cancelWithQueryReference(QP::Embedder **this, CFDict
     CFNumberGetValue(Value, kCFNumberCFIndexType, &valuePtr);
     if (valuePtr != -1)
     {
-      QP::Embedder::cancelWithQueryID(this[13], valuePtr);
+      QP::Embedder::cancelWithQueryID(*(this + 104), valuePtr);
     }
   }
 }
@@ -1832,7 +1830,7 @@ void sub_1C65F83F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a11);
   }
 
-  MEMORY[0x1C695B850](v15, 0x1020C402AAE87FCLL);
+  MEMORY[0x1C695B850](v15, 0x1020C402AAE87FCLL, a3, a4, a5, a6, a7, a8);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&a12);
   a12 = (v13 + 24);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&a12);
@@ -2001,7 +1999,7 @@ void QP::GraphStructureStack::~GraphStructureStack(QP::GraphStructureStack *this
   }
 }
 
-void QP::PhotosFormatter::PhotosFormatter(uint64_t a1, void *a2, void *a3)
+void QP::PhotosFormatter::PhotosFormatter(void *a1, void *a2, uint64_t *a3)
 {
   v3 = a2[1];
   v6[0] = *a2;
@@ -2036,26 +2034,25 @@ void sub_1C65F896C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void QP::SpotlightFormatter::SpotlightFormatter(uint64_t a1, void *a2, void *a3)
+void QP::SpotlightFormatter::SpotlightFormatter(uint64_t a1, void *a2, uint64_t *a3)
 {
   v3 = a2[1];
-  v7[0] = *a2;
-  v7[1] = v3;
+  v6[0] = *a2;
+  v6[1] = v3;
   if (v3)
   {
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   v4 = a3[1];
-  v6[0] = *a3;
-  v6[1] = v4;
+  v5[0] = *a3;
+  v5[1] = v4;
   if (v4)
   {
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v5 = *(*a2 + 184);
-  QP::Formatter::Formatter(a1, v7, v6);
+  QP::Formatter::Formatter(a1, v6, v5, *(*a2 + 184));
 }
 
 void sub_1C65F8CBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -2073,24 +2070,24 @@ void sub_1C65F8CBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::Formatter::Formatter(uint64_t a1, uint64_t *a2, void *a3)
+void QP::Formatter::Formatter(uint64_t a1, uint64_t *a2, void *a3, const __CFString *a4)
 {
-  v4 = *a2;
-  v3 = a2[1];
+  v5 = *a2;
+  v4 = a2[1];
   *a1 = &unk_1F45E8238;
-  *(a1 + 8) = v4;
-  *(a1 + 16) = v3;
-  if (v3)
+  *(a1 + 8) = v5;
+  *(a1 + 16) = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v5 = a3[1];
+  v6 = a3[1];
   *(a1 + 24) = *a3;
-  *(a1 + 32) = v5;
-  if (v5)
+  *(a1 + 32) = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(a1 + 40) = 0u;
@@ -2141,7 +2138,7 @@ const void **std::unique_ptr<QP::DateFormatter>::reset[abi:ne200100](const void 
   return result;
 }
 
-void QP::RemindersParserFormatter::RemindersParserFormatter(uint64_t a1, uint64_t *a2, void *a3)
+void QP::RemindersParserFormatter::RemindersParserFormatter(void *a1, uint64_t *a2, uint64_t *a3)
 {
   v3 = a2[1];
   v6[0] = *a2;
@@ -2159,7 +2156,7 @@ void QP::RemindersParserFormatter::RemindersParserFormatter(uint64_t a1, uint64_
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  QP::Formatter::Formatter(a1, v6, v5);
+  QP::Formatter::Formatter(a1, v6, v5, kQPParseAttributeRemindersParserContextIdentifier);
 }
 
 void sub_1C65F90FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -2177,7 +2174,7 @@ void sub_1C65F90FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::PhotosParserFormatter::PhotosParserFormatter(uint64_t a1, uint64_t *a2, void *a3)
+void QP::PhotosParserFormatter::PhotosParserFormatter(void *a1, uint64_t *a2, uint64_t *a3)
 {
   v3 = a2[1];
   v6[0] = *a2;
@@ -2195,7 +2192,7 @@ void QP::PhotosParserFormatter::PhotosParserFormatter(uint64_t a1, uint64_t *a2,
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  QP::Formatter::Formatter(a1, v6, v5);
+  QP::Formatter::Formatter(a1, v6, v5, kQPParseAttributePhotosContextIdentifier);
 }
 
 void sub_1C65F91CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -2213,25 +2210,25 @@ void sub_1C65F91CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::VisualGenerationFormatter::VisualGenerationFormatter(uint64_t a1, uint64_t *a2, void *a3)
+void QP::VisualGenerationFormatter::VisualGenerationFormatter(void *a1, uint64_t *a2, uint64_t *a3, void *a4)
 {
-  v3 = a2[1];
-  v6[0] = *a2;
-  v6[1] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = a3[1];
-  v5[0] = *a3;
-  v5[1] = v4;
+  v4 = a2[1];
+  v7[0] = *a2;
+  v7[1] = v4;
   if (v4)
   {
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  QP::Formatter::Formatter(a1, v6, v5);
+  v5 = a3[1];
+  v6[0] = *a3;
+  v6[1] = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  QP::Formatter::Formatter(a1, v7, v6, kQPParseAttributeVisualGenerationContextIdentifier);
 }
 
 void sub_1C65F92C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
@@ -2506,29 +2503,23 @@ void QP::Embedder::~Embedder(const void **this)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_0_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(*result + 48);
-  return result;
-}
-
 void OUTLINED_FUNCTION_2_0()
 {
 
   JUMPOUT(0x1C695B850);
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1C65FA488(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, objc_super a10)
+void sub_1C65FA488(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, objc_super a10)
 {
   a10.super_class = QPQueryParserManager;
-  [(_Unwind_Exception *)&a10 dealloc];
+  [(_Unwind_Exception *)&a10 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2634,7 +2625,7 @@ id dateComponentsForDate(NSDictionary *a1)
   return v2;
 }
 
-void sub_1C65FB4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1C65FB4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -2648,16 +2639,16 @@ void sub_1C65FB8C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C65FBC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C65FBC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C65FC0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1C65FC0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2670,7 +2661,7 @@ void sub_1C65FC46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C65FC7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C65FC7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2685,7 +2676,7 @@ void ___ZL24queryParserManagerLoggerv_block_invoke()
   queryParserManagerLogger(void)::log = v1;
 }
 
-uint64_t QP::RemindersParserFormatter::setParse(uint64_t a1, uint64_t *a2)
+uint64_t QP::RemindersParserFormatter::setParse(const void **a1, uint64_t *a2)
 {
   v2 = a2[1];
   v5 = *a2;
@@ -2714,9 +2705,9 @@ void sub_1C65FCE18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::RemindersParserFormatter::updateParseWithDateAttribute(QP::Formatter *a1, uint64_t a2, uint64_t a3)
+void QP::RemindersParserFormatter::updateParseWithDateAttribute(CFDateFormatterRef **a1, uint64_t a2, CFRange **a3)
 {
-  v3 = *(a3 + 8);
+  v3 = a3[1];
   v4 = *a3;
   v5 = v3;
   if (v3)
@@ -2741,7 +2732,7 @@ void sub_1C65FCE80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::RemindersParserFormatter::updateParseWithAttribute(uint64_t *a1, uint64_t a2, uint64_t a3)
+void QP::RemindersParserFormatter::updateParseWithAttribute(QP::Formatter *a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a3 + 8);
   v4 = *a3;
@@ -2813,15 +2804,15 @@ QP::SpellCheckWrapper *QP::SpellCheckWrapper::SpellCheckWrapper(QP::SpellCheckWr
   return this;
 }
 
-void sub_1C65FD068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65FD068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::SpellCheckWrapper::spellCheck(QP::SpellCheckWrapper *this, __CFString *a2, int a3)
+uint64_t QP::SpellCheckWrapper::spellCheck(QP::SpellCheckWrapper *this, __CFString *a2, signed int a3)
 {
   v4 = a2;
   v5 = QP::m_text_checker;
@@ -2856,22 +2847,22 @@ LABEL_10:
 
 Class ___ZL21getUITextCheckerClassv_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!UIKitLibraryCore(char **)::frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL16UIKitLibraryCorePPc_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E8267708;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = ___ZL16UIKitLibraryCorePPc_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E8267708;
+    v6 = 0;
     UIKitLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (UIKitLibraryCore(char **)::frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2879,7 +2870,7 @@ Class ___ZL21getUITextCheckerClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2894,17 +2885,13 @@ LABEL_4:
   }
 
   getUITextCheckerClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___ZL16UIKitLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2983,15 +2970,15 @@ uint64_t QP::SpotlightFormatter::setCompletion(QP::SpotlightFormatter *a1, const
   v105[0] = 0;
   v105[1] = 0;
   v106 = 0;
-  QP::getUTF8StringFromCFString(v6[4], v105);
+  QP::getUTF8StringFromCFString(v105, v6[4]);
   v103[0] = 0;
   v103[1] = 0;
   v104 = 0;
-  QP::getUTF8StringFromCFString((*a2)[5], v103);
+  QP::getUTF8StringFromCFString(v103, (*a2)[5]);
   v101[0] = 0;
   v101[1] = 0;
   v102 = 0;
-  QP::getUTF8StringFromCFString((*a2)[6], v101);
+  QP::getUTF8StringFromCFString(v101, (*a2)[6]);
   QP::ParserGrammar::symbolID(*(a1 + 3), v103);
   v7 = QP::ParserGrammar::symbolID(*(a1 + 3), v101);
   v95 = 0;
@@ -3662,27 +3649,27 @@ void sub_1C65FE80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  nlp::CFScopedPtr<__CFString const*>::reset(&a71, 0);
-  nlp::CFScopedPtr<__CFDictionary *>::reset(&a72, 0);
-  _Block_object_dispose(&a73, 8);
-  nlp::CFScopedPtr<__CFArray *>::reset((v74 + 40), 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(&a65, 0);
+  nlp::CFScopedPtr<__CFDictionary *>::reset(&a66, 0);
+  _Block_object_dispose(&a67, 8);
+  nlp::CFScopedPtr<__CFArray *>::reset((v68 + 40), 0);
   _Block_object_dispose(&STACK[0x218], 8);
   nlp::CFScopedPtr<__CFString const*>::reset(&STACK[0x240], 0);
-  _Block_object_dispose((v75 - 256), 8);
-  nlp::CFScopedPtr<__CFArray *>::reset((v73 + 40), 0);
-  if (*(v75 - 185) < 0)
+  _Block_object_dispose((v69 - 256), 8);
+  nlp::CFScopedPtr<__CFArray *>::reset((v67 + 40), 0);
+  if (*(v69 - 185) < 0)
   {
-    operator delete(*(v75 - 208));
+    operator delete(*(v69 - 208));
   }
 
-  if (*(v75 - 161) < 0)
+  if (*(v69 - 161) < 0)
   {
-    operator delete(*(v75 - 184));
+    operator delete(*(v69 - 184));
   }
 
-  if (*(v75 - 137) < 0)
+  if (*(v69 - 137) < 0)
   {
-    operator delete(*(v75 - 160));
+    operator delete(*(v69 - 160));
   }
 
   _Unwind_Resume(a1);
@@ -3992,19 +3979,19 @@ void ___ZN2QP18SpotlightFormatter13setCompletionENSt3__110shared_ptrINS_10Comple
   }
 }
 
-void sub_1C65FF250(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C65FF250(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, std::__shared_weak_count *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, const void *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, const void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, const void *);
-  if (a3)
+  v16 = va_arg(va2, const void *);
+  if (a8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a8);
   }
 
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
@@ -4076,9 +4063,9 @@ void ___ZN2QP18SpotlightFormatter13setCompletionENSt3__110shared_ptrINS_10Comple
   }
 }
 
-void sub_1C65FF404(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65FF404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4093,9 +4080,9 @@ void ___ZN2QP18SpotlightFormatter13setCompletionENSt3__110shared_ptrINS_10Comple
   }
 }
 
-void sub_1C65FF480(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65FF480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4171,12 +4158,12 @@ void QP::SpotlightFormatter::setDefaultParse(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1C65FF660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65FF660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, const void *);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, const void *);
+  v10 = va_arg(va1, void);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -4334,9 +4321,9 @@ void QP::SpotlightFormatter::updateWithLastSuggestionFragment(CFArrayRef *this)
   }
 }
 
-void sub_1C65FFA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C65FFA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   nlp::CFScopedPtr<__CFDictionary *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4704,25 +4691,25 @@ LABEL_61:
   return v19;
 }
 
-void sub_1C6600230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C6600230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va4, a5);
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, const void *);
+  va_start(va4, a9);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, const void *);
+  v12 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v10 = va_arg(va3, const void *);
-  v12 = va_arg(va3, void);
-  v13 = va_arg(va3, void);
+  v14 = va_arg(va3, const void *);
+  v16 = va_arg(va3, void);
+  v17 = va_arg(va3, void);
   va_copy(va4, va3);
-  v14 = va_arg(va4, const void *);
-  v16 = va_arg(va4, void);
-  v17 = va_arg(va4, void);
-  v18 = va_arg(va4, void);
+  v18 = va_arg(va4, const void *);
+  v20 = va_arg(va4, void);
+  v21 = va_arg(va4, void);
+  v22 = va_arg(va4, void);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFDictionary *>::reset(va2, 0);
@@ -4959,98 +4946,97 @@ void ___ZN2QP18SpotlightFormatter23getGroundedTranslationsENSt3__110shared_ptrIN
 {
   v3 = *(a1 + 40);
   CFStringFromString = QP::createCFStringFromString(a2);
-  v24 = CFStringFromString;
+  v23 = CFStringFromString;
   v5 = *MEMORY[0x1E695E480];
-  v6 = **(a1 + 56);
-  v7 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 48), CFStringFromString, v6, **(a1 + 64));
-  v23 = v7;
-  v8 = *(a1 + 72);
-  if (v8)
+  v6 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 48), CFStringFromString, **(a1 + 56), **(a1 + 64));
+  v22 = v6;
+  v7 = *(a1 + 72);
+  if (v7)
   {
-    Value = CFDictionaryGetValue(v8, CFStringFromString);
+    Value = CFDictionaryGetValue(v7, CFStringFromString);
     if (Value)
     {
-      v10 = CFStringCreateWithFormat(v5, 0, @"(%@ && %@)", v7, Value);
-      if (v7)
+      v9 = CFStringCreateWithFormat(v5, 0, @"(%@ && %@)", v6, Value);
+      if (v6)
       {
-        CFRelease(v7);
+        CFRelease(v6);
       }
 
-      v23 = v10;
-      v7 = v10;
+      v22 = v9;
+      v6 = v9;
     }
   }
 
-  v11 = **(a1 + 80);
-  v25.length = CFArrayGetCount(v11);
-  v25.location = 0;
-  if (!CFArrayContainsValue(v11, v25, v7))
+  v10 = **(a1 + 80);
+  v24.length = CFArrayGetCount(v10);
+  v24.location = 0;
+  if (!CFArrayContainsValue(v10, v24, v6))
   {
-    CFArrayAppendValue(**(a1 + 80), v7);
+    CFArrayAppendValue(**(a1 + 80), v6);
   }
 
   if (*(a1 + 112) || !CFStringHasPrefix(CFStringFromString, @"kMDItem"))
   {
-    v12 = v7;
+    v11 = v6;
   }
 
   else
   {
-    v13 = *(v3 + 8);
-    v15 = *(v13 + 80);
-    v14 = *(v13 + 88);
-    v16 = *(a1 + 72);
-    v17 = *(a1 + 88);
-    v18 = *(v17 + 16);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 0x40000000;
-    v22[2] = ___ZN2QP18SpotlightFormatter23getGroundedTranslationsENSt3__110shared_ptrINS_14ParseAttributeEEENS2_INS_10DatePeriodEEERKN3nlp11CFScopedPtrIPK10__CFStringEESE_RSB_RNS8_IP9__CFArrayEESJ_hPK14__CFDictionary_block_invoke_4;
-    v22[3] = &__block_descriptor_tmp_181;
-    v22[4] = *(a1 + 104);
-    QP::enumerateQueryWithAction(v14, v15, CFStringFromString, v16, v18, (v17 + 24), (v17 + 80), v22);
-    v19 = CFStringCreateByCombiningStrings(v5, **(a1 + 104), @" && ");
+    v12 = *(v3 + 8);
+    v14 = *(v12 + 80);
+    v13 = *(v12 + 88);
+    v15 = *(a1 + 72);
+    v16 = *(a1 + 88);
+    v17 = *(v16 + 16);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 0x40000000;
+    v21[2] = ___ZN2QP18SpotlightFormatter23getGroundedTranslationsENSt3__110shared_ptrINS_14ParseAttributeEEENS2_INS_10DatePeriodEEERKN3nlp11CFScopedPtrIPK10__CFStringEESE_RSB_RNS8_IP9__CFArrayEESJ_hPK14__CFDictionary_block_invoke_4;
+    v21[3] = &__block_descriptor_tmp_181;
+    v21[4] = *(a1 + 104);
+    QP::enumerateQueryWithAction(v13, v14, CFStringFromString, v15, v17, (v16 + 24), (v16 + 80), v21);
+    v18 = CFStringCreateByCombiningStrings(v5, **(a1 + 104), @" && ");
     if (CFArrayGetCount(**(a1 + 104)) < 2)
     {
-      v21 = **(a1 + 80);
-      v27.length = CFArrayGetCount(v21);
-      v27.location = 0;
-      if (!CFArrayContainsValue(v21, v27, v19))
+      v20 = **(a1 + 80);
+      v26.length = CFArrayGetCount(v20);
+      v26.location = 0;
+      if (!CFArrayContainsValue(v20, v26, v18))
       {
-        CFArrayAppendValue(**(a1 + 80), v19);
+        CFArrayAppendValue(**(a1 + 80), v18);
       }
 
-      v12 = v7;
+      v11 = v6;
     }
 
     else
     {
-      v12 = CFStringCreateWithFormat(v5, 0, @"(%@)", v19);
-      if (v7)
+      v11 = CFStringCreateWithFormat(v5, 0, @"(%@)", v18);
+      if (v6)
       {
-        CFRelease(v7);
+        CFRelease(v6);
       }
 
-      v23 = v12;
-      v20 = **(a1 + 80);
-      v26.length = CFArrayGetCount(v20);
-      v26.location = 0;
-      if (!CFArrayContainsValue(v20, v26, v12))
+      v22 = v11;
+      v19 = **(a1 + 80);
+      v25.length = CFArrayGetCount(v19);
+      v25.location = 0;
+      if (!CFArrayContainsValue(v19, v25, v11))
       {
-        CFArrayAppendValue(**(a1 + 80), v12);
+        CFArrayAppendValue(**(a1 + 80), v11);
       }
     }
 
-    if (v19)
+    if (v18)
     {
-      CFRelease(v19);
+      CFRelease(v18);
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
-    CFStringFromString = v24;
+    CFRelease(v11);
+    CFStringFromString = v23;
   }
 
   if (CFStringFromString)
@@ -5142,98 +5128,97 @@ void ___ZN2QP18SpotlightFormatter23getGroundedTranslationsENSt3__110shared_ptrIN
 {
   v3 = *(a1 + 32);
   CFStringFromString = QP::createCFStringFromString(a2);
-  v24 = CFStringFromString;
+  v23 = CFStringFromString;
   v5 = *MEMORY[0x1E695E480];
-  v6 = **(a1 + 48);
-  v7 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 40), CFStringFromString, v6, **(a1 + 56));
-  v23 = v7;
-  v8 = *(a1 + 64);
-  if (v8)
+  v6 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 40), CFStringFromString, **(a1 + 48), **(a1 + 56));
+  v22 = v6;
+  v7 = *(a1 + 64);
+  if (v7)
   {
-    Value = CFDictionaryGetValue(v8, CFStringFromString);
+    Value = CFDictionaryGetValue(v7, CFStringFromString);
     if (Value)
     {
-      v10 = CFStringCreateWithFormat(v5, 0, @"(%@ && %@)", v7, Value);
-      if (v7)
+      v9 = CFStringCreateWithFormat(v5, 0, @"(%@ && %@)", v6, Value);
+      if (v6)
       {
-        CFRelease(v7);
+        CFRelease(v6);
       }
 
-      v23 = v10;
-      v7 = v10;
+      v22 = v9;
+      v6 = v9;
     }
   }
 
-  v11 = **(a1 + 72);
-  v25.length = CFArrayGetCount(v11);
-  v25.location = 0;
-  if (!CFArrayContainsValue(v11, v25, v7))
+  v10 = **(a1 + 72);
+  v24.length = CFArrayGetCount(v10);
+  v24.location = 0;
+  if (!CFArrayContainsValue(v10, v24, v6))
   {
-    CFArrayAppendValue(**(a1 + 72), v7);
+    CFArrayAppendValue(**(a1 + 72), v6);
   }
 
   if (*(a1 + 104) || !CFStringHasPrefix(CFStringFromString, @"kMDItem"))
   {
-    v12 = v7;
+    v11 = v6;
   }
 
   else
   {
-    v13 = *(v3 + 8);
-    v15 = *(v13 + 80);
-    v14 = *(v13 + 88);
-    v16 = *(a1 + 64);
-    v17 = *(a1 + 80);
-    v18 = *(v17 + 16);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 0x40000000;
-    v22[2] = ___ZN2QP18SpotlightFormatter23getGroundedTranslationsENSt3__110shared_ptrINS_14ParseAttributeEEENS2_INS_10DatePeriodEEERKN3nlp11CFScopedPtrIPK10__CFStringEESE_RSB_RNS8_IP9__CFArrayEESJ_hPK14__CFDictionary_block_invoke_2_186;
-    v22[3] = &__block_descriptor_tmp_187;
-    v22[4] = *(a1 + 96);
-    QP::enumerateQueryWithAction(v14, v15, CFStringFromString, v16, v18, (v17 + 24), (v17 + 80), v22);
-    v19 = CFStringCreateByCombiningStrings(v5, **(a1 + 96), @" && ");
+    v12 = *(v3 + 8);
+    v14 = *(v12 + 80);
+    v13 = *(v12 + 88);
+    v15 = *(a1 + 64);
+    v16 = *(a1 + 80);
+    v17 = *(v16 + 16);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 0x40000000;
+    v21[2] = ___ZN2QP18SpotlightFormatter23getGroundedTranslationsENSt3__110shared_ptrINS_14ParseAttributeEEENS2_INS_10DatePeriodEEERKN3nlp11CFScopedPtrIPK10__CFStringEESE_RSB_RNS8_IP9__CFArrayEESJ_hPK14__CFDictionary_block_invoke_2_186;
+    v21[3] = &__block_descriptor_tmp_187;
+    v21[4] = *(a1 + 96);
+    QP::enumerateQueryWithAction(v13, v14, CFStringFromString, v15, v17, (v16 + 24), (v16 + 80), v21);
+    v18 = CFStringCreateByCombiningStrings(v5, **(a1 + 96), @" && ");
     if (CFArrayGetCount(**(a1 + 96)) < 2)
     {
-      v21 = **(a1 + 72);
-      v27.length = CFArrayGetCount(v21);
-      v27.location = 0;
-      if (!CFArrayContainsValue(v21, v27, v19))
+      v20 = **(a1 + 72);
+      v26.length = CFArrayGetCount(v20);
+      v26.location = 0;
+      if (!CFArrayContainsValue(v20, v26, v18))
       {
-        CFArrayAppendValue(**(a1 + 72), v19);
+        CFArrayAppendValue(**(a1 + 72), v18);
       }
 
-      v12 = v7;
+      v11 = v6;
     }
 
     else
     {
-      v12 = CFStringCreateWithFormat(v5, 0, @"(%@)", v19);
-      if (v7)
+      v11 = CFStringCreateWithFormat(v5, 0, @"(%@)", v18);
+      if (v6)
       {
-        CFRelease(v7);
+        CFRelease(v6);
       }
 
-      v23 = v12;
-      v20 = **(a1 + 72);
-      v26.length = CFArrayGetCount(v20);
-      v26.location = 0;
-      if (!CFArrayContainsValue(v20, v26, v12))
+      v22 = v11;
+      v19 = **(a1 + 72);
+      v25.length = CFArrayGetCount(v19);
+      v25.location = 0;
+      if (!CFArrayContainsValue(v19, v25, v11))
       {
-        CFArrayAppendValue(**(a1 + 72), v12);
+        CFArrayAppendValue(**(a1 + 72), v11);
       }
     }
 
     CFArrayRemoveAllValues(**(a1 + 96));
-    if (v19)
+    if (v18)
     {
-      CFRelease(v19);
+      CFRelease(v18);
     }
   }
 
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
-    CFStringFromString = v24;
+    CFRelease(v11);
+    CFStringFromString = v23;
   }
 
   if (CFStringFromString)
@@ -5391,12 +5376,12 @@ void QP::SpotlightFormatter::getGroundedStartAndEndDate(void *a1, void *a2, cons
 
   else
   {
-    OffsetForDateComponentsPeriod = QP::getOffsetForDateComponentsPeriod(WORD2(v50), v23);
+    OffsetForDateComponentsPeriod = QP::getOffsetForDateComponentsPeriod(SWORD2(v50), v23);
   }
 
   if ((QP::DateComponents::isEmpty(v45) & 1) == 0 && (v46 & 0x8000000000000000) == 0)
   {
-    OffsetForDateComponentsPeriod = QP::getOffsetForDateComponentsPeriod(WORD2(v46), v23);
+    OffsetForDateComponentsPeriod = QP::getOffsetForDateComponentsPeriod(SWORD2(v46), v23);
   }
 
   v25 = a1[5];
@@ -5600,7 +5585,7 @@ void QP::SpotlightFormatter::addDisplayParseAttribute(QP::SpotlightFormatter *a1
   }
 }
 
-void sub_1C66017A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, const void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, const void *a36)
+void sub_1C66017A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, const void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, const void *a36)
 {
   nlp::CFScopedPtr<__CFString const*>::reset(&a23, 0);
   _Block_object_dispose(&a31, 8);
@@ -5824,21 +5809,21 @@ LABEL_29:
   }
 }
 
-void sub_1C6601DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C6601DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, const void *);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, const void *);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, const void *);
+  v14 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v12 = va_arg(va3, const void *);
-  v14 = va_arg(va3, void);
-  v15 = va_arg(va3, void);
+  v16 = va_arg(va3, const void *);
+  v18 = va_arg(va3, void);
+  v19 = va_arg(va3, void);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFDictionary *>::reset(va2, 0);
@@ -5888,8 +5873,8 @@ void QP::SpotlightFormatter::updateParseWithDateAttribute(QP::Formatter *a1, con
     if (v8)
     {
       v9 = v8;
-      location = v4[11].location;
-      if (!location)
+      v10 = *(v4 + 176);
+      if (!v10)
       {
 LABEL_104:
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
@@ -5940,8 +5925,8 @@ LABEL_104:
         v39 = v14;
         cf = CFDictionaryCreateMutable(v11, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         v65[1] = cf;
-        v16 = *(location + 120);
-        v17 = *(location + 128);
+        v16 = *(v10 + 120);
+        v17 = *(v10 + 128);
         if (v17)
         {
           atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6028,7 +6013,7 @@ LABEL_104:
 
           if (*(*(a1 + 1) + 64) == 1 && v65[0] && v64)
           {
-            QP::getUTF8StringFromCFString(kQPParseAttributeDateKey, v45);
+            QP::getUTF8StringFromCFString(v45, kQPParseAttributeDateKey);
             v30 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v66, v45);
             if (v46 < 0)
             {
@@ -6047,7 +6032,7 @@ LABEL_104:
             }
           }
 
-          v32 = CFStringCreateWithSubstring(v11, a2, *(location + 72));
+          v32 = CFStringCreateWithSubstring(v11, a2, *(v10 + 72));
           v45[0] = v32;
           QP::Formatter::setParseAttribute(a1, kQPParseAttributeDateKey, v32, (*a3)[1]);
           Count = CFArrayGetCount(v63);
@@ -6148,7 +6133,7 @@ LABEL_104:
         goto LABEL_87;
       }
 
-      QP::getUTF8StringFromCFString(kQPParseAttributeDateExtensionKey, &__p);
+      QP::getUTF8StringFromCFString(&__p, kQPParseAttributeDateExtensionKey);
       v24 = QP::equals(&v66, &__p);
       v25 = v24;
       if (SBYTE7(v59) < 0)
@@ -6218,7 +6203,7 @@ LABEL_87:
         goto LABEL_87;
       }
 
-      v26 = CFStringCreateWithSubstring(v11, a2, *(location + 72));
+      v26 = CFStringCreateWithSubstring(v11, a2, *(v10 + 72));
       *&__p = v26;
       QP::Formatter::setParseAttribute(a1, kQPParseAttributeDateExtensionKey, v26, (*a3)[1]);
       ++*(a1 + 10);
@@ -6291,7 +6276,6 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -6520,9 +6504,9 @@ LABEL_36:
   }
 }
 
-void sub_1C6602E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C6602E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -6951,9 +6935,9 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
   }
 }
 
-void sub_1C6603C20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6603C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -6977,9 +6961,9 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
   }
 }
 
-void sub_1C6603D0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6603D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -7003,9 +6987,9 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
   }
 }
 
-void sub_1C6603DF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6603DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -7032,152 +7016,152 @@ void __destroy_helper_block_e8_112c47_ZTSNSt3__110shared_ptrIN2QP14ParseAttribut
   }
 }
 
-void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_350(uint64_t a1, CFStringRef theString)
+void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_350(void *a1, CFStringRef theString)
 {
-  v87 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
+  v86 = *MEMORY[0x1E69E9840];
+  v3 = a1[5];
   if (CFStringContainsString(theString, @"%@y"))
   {
-    v78 = 0;
-    v79 = &v78;
-    v80 = 0x4002000000;
-    v81 = __Block_byref_object_copy__354;
-    v82 = __Block_byref_object_dispose__355;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x4002000000;
+    v80 = __Block_byref_object_copy__354;
+    v81 = __Block_byref_object_dispose__355;
+    v82 = 0;
     v83 = 0;
     v84 = 0;
-    v85 = 0;
-    std::map<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>::map[abi:ne200100](&v83, *(v3 + 24) + 384);
-    v4 = std::__tree<std::string>::find<std::string>((v79 + 5), *(a1 + 48));
-    if (v79 + 6 != v4)
+    std::map<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>::map[abi:ne200100](&v82, *(v3 + 24) + 384);
+    v4 = std::__tree<std::string>::find<std::string>((v78 + 5), a1[6]);
+    if (v78 + 6 != v4)
     {
-      v74[0] = 0;
-      v74[1] = v74;
-      v74[2] = 0x4002000000;
-      v74[3] = __Block_byref_object_copy__356;
-      v74[4] = __Block_byref_object_dispose__357;
+      v73[0] = 0;
+      v73[1] = v73;
+      v73[2] = 0x4002000000;
+      v73[3] = __Block_byref_object_copy__356;
+      v73[4] = __Block_byref_object_dispose__357;
+      v74 = 0;
       v75 = 0;
       v76 = 0;
-      v77 = 0;
-      std::map<unsigned short,std::map<std::string,float>>::map[abi:ne200100](&v75, *(v3 + 24) + 576);
-      v70[0] = 0;
-      v70[1] = v70;
-      v70[2] = 0x4002000000;
-      v70[3] = __Block_byref_object_copy__358;
-      v70[4] = __Block_byref_object_dispose__359;
-      v71 = 0;
-      v73 = 0;
-      v72 = 0;
-      std::map<unsigned short,std::map<unsigned short,float>>::map[abi:ne200100](&v71, *(v3 + 24) + 624);
-      v67[0] = 0;
-      v67[1] = v67;
-      v67[2] = 0x4002000000;
-      v67[3] = __Block_byref_object_copy__360;
-      v69[1] = 0;
+      std::map<unsigned short,std::map<std::string,float>>::map[abi:ne200100](&v74, *(v3 + 24) + 576);
       v69[0] = 0;
-      v67[4] = __Block_byref_object_dispose__361;
-      v68 = v69;
-      v59 = 0;
-      v60 = &v59;
-      v61 = 0x4002000000;
-      v62 = __Block_byref_object_copy__362;
-      v63 = __Block_byref_object_dispose__363;
-      v64 = 0;
-      v66 = 0;
-      v65 = 0;
-      v55 = 0;
-      v56 = &v55;
-      v57 = 0x2000000000;
+      v69[1] = v69;
+      v69[2] = 0x4002000000;
+      v69[3] = __Block_byref_object_copy__358;
+      v69[4] = __Block_byref_object_dispose__359;
+      v70 = 0;
+      v72 = 0;
+      v71 = 0;
+      std::map<unsigned short,std::map<unsigned short,float>>::map[abi:ne200100](&v70, *(v3 + 24) + 624);
+      v66[0] = 0;
+      v66[1] = v66;
+      v66[2] = 0x4002000000;
+      v66[3] = __Block_byref_object_copy__360;
+      v68[1] = 0;
+      v68[0] = 0;
+      v66[4] = __Block_byref_object_dispose__361;
+      v67 = v68;
       v58 = 0;
+      v59 = &v58;
+      v60 = 0x4002000000;
+      v61 = __Block_byref_object_copy__362;
+      v62 = __Block_byref_object_dispose__363;
+      v63 = 0;
+      v65 = 0;
+      v64 = 0;
+      v54 = 0;
+      v55 = &v54;
+      v56 = 0x2000000000;
+      v57 = 0;
       v5 = *(v3 + 24);
       std::string::basic_string[abi:ne200100]<0>(&__p, "DEFAULT_APP_ENTITY");
       v6 = QP::ParserGrammar::symbolID(v5, &__p);
-      if (SHIBYTE(v54) < 0)
+      if (SHIBYTE(v53) < 0)
       {
         operator delete(__p);
       }
 
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 0x40000000;
-      v50[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_365;
-      v50[3] = &unk_1E82678C0;
-      v8 = *(a1 + 48);
-      v7 = *(a1 + 56);
-      v50[4] = v74;
-      v50[5] = &v55;
-      v51 = v6;
-      v50[6] = v70;
-      v50[7] = v67;
-      v50[8] = &v78;
-      v50[9] = &v59;
-      v50[10] = v8;
-      QP::ParseAttribute::impactGroupAppEntityTypes(v7, v50);
-      if (v56[6] > 0.0)
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 0x40000000;
+      v49[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_365;
+      v49[3] = &unk_1E82678C0;
+      v8 = a1[6];
+      v7 = a1[7];
+      v49[4] = v73;
+      v49[5] = &v54;
+      v50 = v6;
+      v49[6] = v69;
+      v49[7] = v66;
+      v49[8] = &v77;
+      v49[9] = &v58;
+      v49[10] = v8;
+      QP::ParseAttribute::impactGroupAppEntityTypes(v7, v49);
+      if (v55[6] > 0.0)
       {
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 0x40000000;
-        v49[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_2_368;
-        v49[3] = &unk_1E82678E8;
-        v10 = *(a1 + 48);
-        v9 = *(a1 + 56);
-        v49[4] = &v78;
-        v49[5] = &v59;
-        v49[6] = v10;
-        QP::ParseAttribute::impactGroupEventTypes(v9, v49);
         v48[0] = MEMORY[0x1E69E9820];
         v48[1] = 0x40000000;
-        v48[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_3_370;
-        v48[3] = &unk_1E8267910;
-        v12 = *(a1 + 48);
-        v11 = *(a1 + 56);
-        v48[5] = &v59;
-        v48[6] = v12;
-        v48[4] = &v78;
-        QP::ParseAttribute::impactGroupInferredAppEntityTypes(v11, v48);
+        v48[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_2_368;
+        v48[3] = &unk_1E82678E8;
+        v10 = a1[6];
+        v9 = a1[7];
+        v48[4] = &v77;
+        v48[5] = &v58;
+        v48[6] = v10;
+        QP::ParseAttribute::impactGroupEventTypes(v9, v48);
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 0x40000000;
+        v47[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_3_370;
+        v47[3] = &unk_1E8267910;
+        v12 = a1[6];
+        v11 = a1[7];
+        v47[5] = &v58;
+        v47[6] = v12;
+        v47[4] = &v77;
+        QP::ParseAttribute::impactGroupInferredAppEntityTypes(v11, v47);
         __p = 0;
+        v52 = 0;
         v53 = 0;
-        v54 = 0;
         v13 = *(v3 + 24);
-        std::string::basic_string[abi:ne200100]<0>(v46, "ImpactTargeted");
-        v86[0] = QP::ParserGrammar::symbolID(v13, v46);
+        std::string::basic_string[abi:ne200100]<0>(v45, "ImpactTargeted");
+        v85[0] = QP::ParserGrammar::symbolID(v13, v45);
         v14 = *(v3 + 24);
-        std::string::basic_string[abi:ne200100]<0>(v44, "ImpactHigh");
-        v86[1] = QP::ParserGrammar::symbolID(v14, v44);
+        std::string::basic_string[abi:ne200100]<0>(v43, "ImpactHigh");
+        v85[1] = QP::ParserGrammar::symbolID(v14, v43);
         v15 = *(v3 + 24);
-        std::string::basic_string[abi:ne200100]<0>(v42, "ImpactMedium");
-        v86[2] = QP::ParserGrammar::symbolID(v15, v42);
+        std::string::basic_string[abi:ne200100]<0>(v41, "ImpactMedium");
+        v85[2] = QP::ParserGrammar::symbolID(v15, v41);
         v16 = *(v3 + 24);
-        std::string::basic_string[abi:ne200100]<0>(v40, "ImpactLow");
-        v86[3] = QP::ParserGrammar::symbolID(v16, v40);
+        std::string::basic_string[abi:ne200100]<0>(v39, "ImpactLow");
+        v85[3] = QP::ParserGrammar::symbolID(v16, v39);
+        v52 = 0;
         v53 = 0;
-        v54 = 0;
         __p = 0;
-        std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(&__p, v86, &v87, 4);
-        if (v41 < 0)
+        std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(&__p, v85, &v86, 4);
+        if (v40 < 0)
         {
-          operator delete(v40[0]);
+          operator delete(v39[0]);
         }
 
-        if (v43 < 0)
+        if (v42 < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v41[0]);
         }
 
-        if (v45 < 0)
+        if (v44 < 0)
         {
-          operator delete(v44[0]);
+          operator delete(v43[0]);
         }
 
-        if (v47 < 0)
+        if (v46 < 0)
         {
-          operator delete(v46[0]);
+          operator delete(v45[0]);
         }
 
-        v17 = v60;
+        v17 = v59;
         v18 = __p;
-        if (v60[6] != v60[5])
+        if (v59[6] != v59[5])
         {
-          v32 = 0;
-          v19 = v53;
+          v31 = 0;
+          v19 = v52;
           v20 = a1;
           do
           {
@@ -7191,75 +7175,73 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
                 v24 = v3;
                 v25 = *(v3 + 24);
                 v26 = v20[6];
-                v27 = *(v60[5] + 2 * v32);
+                v27 = *(v59[5] + 2 * v31);
                 v28 = v18[v21];
-                v33[0] = v23;
-                v33[1] = 1174405120;
-                v33[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_4_376;
-                v33[3] = &unk_1F45E95D0;
-                v33[5] = v67;
-                v35 = 0;
-                v36 = 0;
+                v32[0] = v23;
+                v32[1] = 1174405120;
+                v32[2] = ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14ParseAttributeEEERKNS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEtt12QPSymbolFlagPK10__CFStringPK9__CFArraySJ_SG_SG_SG_SG_U13block_pointerFvSG_PSE_EU13block_pointerFvSG_ESO__block_invoke_4_376;
+                v32[3] = &unk_1F45E95D0;
+                v32[5] = v66;
                 v34 = 0;
-                std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v34, v18, v19, v22);
-                v37 = v21;
-                v38 = theString;
-                v39 = v20[9];
+                v35 = 0;
+                v33 = 0;
+                std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v33, v18, v19, v22);
+                v36 = v21;
+                v37 = theString;
+                v38 = v20[9];
                 v29 = v20[4];
-                v33[6] = &v55;
-                v33[4] = v29;
-                QP::ParserGrammar::impactGroups(v25, v26, v27, v28, v33);
+                v32[6] = &v54;
+                v32[4] = v29;
+                QP::ParserGrammar::impactGroups(v25, v26, v27, v28, v32);
                 v3 = v24;
-                if (v34)
+                if (v33)
                 {
-                  v35 = v34;
-                  operator delete(v34);
+                  v34 = v33;
+                  operator delete(v33);
                 }
 
                 ++v21;
                 v18 = __p;
-                v19 = v53;
-                v22 = (v53 - __p) >> 1;
+                v19 = v52;
+                v22 = (v52 - __p) >> 1;
               }
 
               while (v21 < v22);
-              v17 = v60;
+              v17 = v59;
             }
 
-            ++v32;
+            ++v31;
           }
 
-          while (v32 < (v17[6] - v17[5]) >> 1);
+          while (v31 < (v17[6] - v17[5]) >> 1);
         }
 
         if (v18)
         {
-          v53 = v18;
+          v52 = v18;
           operator delete(v18);
         }
       }
 
-      _Block_object_dispose(&v55, 8);
-      _Block_object_dispose(&v59, 8);
-      if (v64)
+      _Block_object_dispose(&v54, 8);
+      _Block_object_dispose(&v58, 8);
+      if (v63)
       {
-        v65 = v64;
-        operator delete(v64);
+        v64 = v63;
+        operator delete(v63);
       }
 
-      _Block_object_dispose(v67, 8);
-      std::__tree<unsigned int>::destroy(&v68, v69[0]);
-      _Block_object_dispose(v70, 8);
-      std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(&v71, v72);
-      _Block_object_dispose(v74, 8);
-      std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&v75, v76);
+      _Block_object_dispose(v66, 8);
+      std::__tree<unsigned int>::destroy(&v67, v68[0]);
+      _Block_object_dispose(v69, 8);
+      std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(&v70, v71);
+      _Block_object_dispose(v73, 8);
+      std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&v74, v75);
     }
 
-    _Block_object_dispose(&v78, 8);
-    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::destroy(&v83, v84);
+    _Block_object_dispose(&v77, 8);
+    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::destroy(&v82, v83);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C66044E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -7279,23 +7261,23 @@ void sub_1C66044E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a42);
   }
 
-  _Block_object_dispose(&a72, 8);
-  _Block_object_dispose(&a73, 8);
-  v75 = STACK[0x220];
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose(&a66, 8);
+  v68 = STACK[0x220];
   if (STACK[0x220])
   {
-    STACK[0x228] = v75;
-    operator delete(v75);
+    STACK[0x228] = v68;
+    operator delete(v68);
   }
 
   _Block_object_dispose(&STACK[0x238], 8);
   std::__tree<unsigned int>::destroy(&STACK[0x260], STACK[0x268]);
   _Block_object_dispose(&STACK[0x278], 8);
   std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(&STACK[0x2A0], STACK[0x2A8]);
-  _Block_object_dispose((v73 - 248), 8);
-  std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(v73 - 208, *(v73 - 200));
-  _Block_object_dispose((v73 - 184), 8);
-  std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::destroy(v73 - 144, *(v73 - 136));
+  _Block_object_dispose((v66 - 248), 8);
+  std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(v66 - 208, *(v66 - 200));
+  _Block_object_dispose((v66 - 184), 8);
+  std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::destroy(v66 - 144, *(v66 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -7490,20 +7472,20 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
     while (v6);
     if (v5 != v3 + 48 && *(v5 + 32) <= a2)
     {
-      v48 = &v47;
-      v10 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 + 40, &v47);
+      v49 = &v47;
+      v10 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 + 40, &v47, &std::piecewise_construct, &v49);
       v11 = std::__tree<std::string>::find<std::string>((v10 + 5), *(a1 + 80));
       v12 = *(*(a1 + 32) + 8);
-      v48 = &v47;
-      v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v12 + 40, &v47);
+      v49 = &v47;
+      v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v12 + 40, &v47, &std::piecewise_construct, &v49);
       v3 = *(*(a1 + 32) + 8);
       if (v13 + 6 != v11)
       {
-        v48 = &v47;
+        v49 = &v47;
 LABEL_22:
-        v21 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 + 40, &v47);
-        v48 = *(a1 + 80);
-        *(*(*(a1 + 40) + 8) + 24) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v21 + 5), v48) + 56);
+        v21 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 + 40, &v47, &std::piecewise_construct, &v49);
+        v49 = *(a1 + 80);
+        *(*(*(a1 + 40) + 8) + 24) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v21 + 5, v49, &std::piecewise_construct, &v49, &v48) + 14);
         goto LABEL_23;
       }
 
@@ -7530,15 +7512,15 @@ LABEL_22:
       while (v4);
       if (v15 != v3 + 48 && v14 >= *(v15 + 32))
       {
-        v48 = (a1 + 88);
-        v18 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 + 40, (a1 + 88));
+        v49 = (a1 + 88);
+        v18 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 + 40, (a1 + 88), &std::piecewise_construct, &v49);
         v19 = std::__tree<std::string>::find<std::string>((v18 + 5), *(a1 + 80));
         v20 = *(*(a1 + 32) + 8);
-        v48 = (a1 + 88);
-        if (std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v20 + 40, (a1 + 88)) + 6 != v19)
+        v49 = (a1 + 88);
+        if (std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v20 + 40, (a1 + 88), &std::piecewise_construct, &v49) + 6 != v19)
         {
           v3 = *(*(a1 + 32) + 8);
-          v48 = &v47;
+          v49 = &v47;
           goto LABEL_22;
         }
       }
@@ -7574,14 +7556,14 @@ LABEL_23:
   while (v28);
   if (v27 != v23 && v47 >= *(v27 + 32))
   {
-    v48 = &v47;
+    v49 = &v47;
     v31 = &v47;
 LABEL_40:
-    v35 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v23 - 8, v31);
+    v35 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v23 - 8, v31, &std::piecewise_construct, &v49);
     v36 = *(*(a1 + 56) + 8);
     if (v36 != v35)
     {
-      std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,float>,std::__tree_node<std::__value_type<unsigned short,float>,void *> *,long>>((v36 + 40), v35[5], v35 + 6);
+      std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,float>,std::__tree_node<std::__value_type<unsigned short,float>,void *> *,long>>(v36 + 5, v35[5], v35 + 6);
     }
 
     goto LABEL_42;
@@ -7605,16 +7587,16 @@ LABEL_40:
   while (v24);
   if (v26 != v23 && v32 >= *(v26 + 32))
   {
-    v48 = (a1 + 88);
+    v49 = (a1 + 88);
     goto LABEL_40;
   }
 
 LABEL_42:
   v37 = *(*(a1 + 64) + 8);
-  v48 = *(a1 + 80);
-  v38 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v37 + 40, v48);
-  v41 = *(v38 + 64);
-  v39 = v38 + 64;
+  v49 = *(a1 + 80);
+  v38 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v37 + 40), v49, &std::piecewise_construct, &v49, &v48);
+  v41 = v38[8];
+  v39 = v38 + 8;
   v40 = v41;
   if (!v41)
   {
@@ -7636,15 +7618,15 @@ LABEL_42:
   }
 
   while (v40);
-  if (v42 == v39 || v47 < *(v42 + 32))
+  if (v42 == v39 || v47 < *(v42 + 16))
   {
 LABEL_50:
     v42 = v39;
   }
 
   v45 = *(*(a1 + 64) + 8);
-  v48 = *(a1 + 80);
-  if (v42 == std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v45 + 40, v48) + 64)
+  v49 = *(a1 + 80);
+  if (v42 == std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v45 + 40), v49, &std::piecewise_construct, &v49, &v48) + 8)
   {
     v46 = (a1 + 88);
   }
@@ -7657,7 +7639,7 @@ LABEL_50:
   std::vector<unsigned short>::push_back[abi:ne200100]((*(*(a1 + 72) + 8) + 40), v46);
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7765,10 +7747,10 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
 {
   v14 = a2;
   v4 = *(a1[4] + 8);
-  v15 = a1[6];
-  v5 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4 + 40, v15);
-  v8 = *(v5 + 64);
-  v6 = v5 + 64;
+  v16 = a1[6];
+  v5 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v4 + 40), v16, &std::piecewise_construct, &v16, &v15);
+  v8 = v5[8];
+  v6 = v5 + 8;
   v7 = v8;
   if (!v8)
   {
@@ -7790,15 +7772,15 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
   }
 
   while (v7);
-  if (v9 == v6 || *(v9 + 32) > a2)
+  if (v9 == v6 || *(v9 + 16) > a2)
   {
 LABEL_9:
     v9 = v6;
   }
 
   v13 = *(a1[4] + 8);
-  v15 = a1[6];
-  if (v9 != std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v13 + 40, v15) + 64)
+  v16 = a1[6];
+  if (v9 != std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v13 + 40), v16, &std::piecewise_construct, &v16, &v15) + 8)
   {
     std::vector<unsigned short>::push_back[abi:ne200100]((*(a1[5] + 8) + 40), &v14);
   }
@@ -7850,10 +7832,10 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
 {
   v14 = a2;
   v4 = *(a1[4] + 8);
-  v15 = a1[6];
-  v5 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4 + 40, v15);
-  v8 = *(v5 + 64);
-  v6 = v5 + 64;
+  v16 = a1[6];
+  v5 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v4 + 40), v16, &std::piecewise_construct, &v16, &v15);
+  v8 = v5[8];
+  v6 = v5 + 8;
   v7 = v8;
   if (!v8)
   {
@@ -7875,15 +7857,15 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
   }
 
   while (v7);
-  if (v9 == v6 || *(v9 + 32) > a2)
+  if (v9 == v6 || *(v9 + 16) > a2)
   {
 LABEL_9:
     v9 = v6;
   }
 
   v13 = *(a1[4] + 8);
-  v15 = a1[6];
-  if (v9 != std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v13 + 40, v15) + 64)
+  v16 = a1[6];
+  if (v9 != std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v13 + 40), v16, &std::piecewise_construct, &v16, &v15) + 8)
   {
     std::vector<unsigned short>::push_back[abi:ne200100]((*(a1[5] + 8) + 40), &v14);
   }
@@ -7918,7 +7900,7 @@ void ___ZN2QP18SpotlightFormatter18_parseAttributeKeyENSt3__110shared_ptrINS_14P
     {
       v14 = *(*(*(a1 + 48) + 8) + 24);
       __p.__r_.__value_.__r.__words[0] = *(a1 + 56) + 2 * *(a1 + 80);
-      v15 = *(std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 - 8, v8) + 8);
+      v15 = *(std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v3 - 8, v8, &std::piecewise_construct, &__p) + 8);
       CFStringFromString = QP::createCFStringFromString(a2);
       v23 = CFStringFromString;
       MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, *(a1 + 88));
@@ -7975,12 +7957,12 @@ void sub_1C6605178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_block_e8_56c39_ZTSNSt3__16vectorItNS_9allocatorItEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_56c39_ZTSNSt3__16vectorItNS_9allocatorItEEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  v2 = a1 + 56;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 56);
+  v2[2] = 0;
   return std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(v2, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 1);
 }
 
@@ -8278,7 +8260,7 @@ void ___ZN2QP18SpotlightFormatter27updateParseWithAnyAttributeEPK10__CFStringNSt
   length = a1[5].length;
   v5 = *a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "kQPGroundedPerson");
-  v6 = QP::equals(&v5[3].location, __p);
+  v6 = QP::equals((v5 + 48), __p);
   v7 = v6;
   if ((v18 & 0x80000000) == 0)
   {
@@ -8302,7 +8284,7 @@ LABEL_4:
   {
     v8 = *a2;
     std::string::basic_string[abi:ne200100]<0>(__p, "kQPPerson");
-    v9 = !QP::equals(&v8[3].location, __p) || *(*(length + 1) + 8) != 10;
+    v9 = !QP::equals((v8 + 48), __p) || *(*(length + 1) + 8) != 10;
     if (v18 < 0)
     {
       operator delete(__p[0]);
@@ -8453,7 +8435,7 @@ void QP::SpotlightFormatter::updateParseWithAttribute(uint64_t a1, const __CFStr
   cf = QP::createCFStringFromString(&(*a3)[3]);
   v8 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "kQPMe");
-  v9 = QP::equals(&v8[3].location, &__p);
+  v9 = QP::equals(v8 + 6, &__p);
   v10 = v9;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8478,7 +8460,7 @@ LABEL_5:
 
     else
     {
-      Value = getContentsArray();
+      Value = getContentsArray(v9);
     }
 
     v14 = Value;
@@ -8504,7 +8486,7 @@ LABEL_13:
 LABEL_15:
   v17 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "kQPAttachment");
-  v18 = QP::startswith(&v17[3], &__p);
+  v18 = QP::startswith(v17 + 48, &__p);
   v19 = v18;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8530,7 +8512,7 @@ LABEL_17:
 
   v22 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "kQPAttached");
-  v23 = QP::startswith(&v22[3], &__p);
+  v23 = QP::startswith(v22 + 48, &__p);
   v24 = v23;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8556,7 +8538,7 @@ LABEL_22:
 
   v25 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "kQPFileExtension");
-  v26 = QP::equals(&v25[3].location, &__p);
+  v26 = QP::equals(v25 + 6, &__p);
   v27 = v26;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8582,7 +8564,7 @@ LABEL_27:
 
   v28 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "TaggedPerson");
-  v29 = QP::endswith(&v28[3].location, &__p);
+  v29 = QP::endswith(v28 + 6, &__p);
   v30 = v29;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8608,7 +8590,7 @@ LABEL_32:
 
   v31 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "GroundedPerson");
-  v32 = QP::endswith(&v31[3].location, &__p);
+  v32 = QP::endswith(v31 + 6, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8631,7 +8613,7 @@ LABEL_40:
 
   v55 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "Person");
-  v56 = QP::endswith(&v55[3].location, &__p);
+  v56 = QP::endswith(v55 + 6, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8647,7 +8629,7 @@ LABEL_297:
 
   v71 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "Recipient");
-  if (QP::endswith(&v71[3].location, &__p))
+  if (QP::endswith(v71 + 6, &__p))
   {
     v72 = 1;
   }
@@ -8656,7 +8638,7 @@ LABEL_297:
   {
     v87 = *a3;
     std::string::basic_string[abi:ne200100]<0>(&v159, "RecipientHandle");
-    v72 = QP::endswith(&v87[3].location, &v159);
+    v72 = QP::endswith(v87 + 6, &v159);
     if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v159.__r_.__value_.__l.__data_);
@@ -8676,7 +8658,7 @@ LABEL_297:
 
   v88 = *a3;
   std::string::basic_string[abi:ne200100]<0>(&__p, "Sender");
-  if (QP::endswith(&v88[3].location, &__p))
+  if (QP::endswith(v88 + 6, &__p))
   {
     v89 = 1;
   }
@@ -8685,7 +8667,7 @@ LABEL_297:
   {
     v133 = *a3;
     std::string::basic_string[abi:ne200100]<0>(&v159, "SenderHandle");
-    v89 = QP::endswith(&v133[3].location, &v159);
+    v89 = QP::endswith(v133 + 6, &v159);
     if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v159.__r_.__value_.__l.__data_);
@@ -8714,18 +8696,18 @@ LABEL_41:
 
   v138 = v10;
   v142 = a1;
-  location = v33[11].location;
-  if (location)
+  v35 = *(v33 + 22);
+  if (v35)
   {
     v36 = v188;
     v37 = v141;
-    v38 = CFStringCreateWithSubstring(v6, a2, *(location + 72));
+    v38 = CFStringCreateWithSubstring(v6, a2, *(v35 + 72));
     nlp::CFScopedPtr<__CFString const*>::reset(v36 + 5, v38);
     v39 = v194;
-    CFStringFromString = QP::createCFStringFromString(location);
+    CFStringFromString = QP::createCFStringFromString(v35);
     nlp::CFScopedPtr<__CFString const*>::reset(v39 + 5, CFStringFromString);
     v137 = QP::ParserGrammar::replacementID(*(v142 + 3), LOWORD((*a3)[2].location));
-    v41 = QP::ParserGrammar::symbolID(*(v142 + 3), location);
+    v41 = QP::ParserGrammar::symbolID(*(v142 + 3), v35);
     v42 = QP::ParseAttribute::flag(*a3);
     v43 = 0;
     v44 = 0;
@@ -8737,21 +8719,21 @@ LABEL_41:
       {
         atomic_fetch_add_explicit(&v141->__shared_owners_, 1uLL, memory_order_relaxed);
         memset(&__p, 0, sizeof(__p));
-        if (*(location + 143) < 0)
+        if (*(v35 + 143) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *(location + 120), *(location + 128));
+          std::string::__init_copy_ctor_external(&__p, *(v35 + 120), *(v35 + 128));
         }
 
         else
         {
-          __p = *(location + 120);
+          __p = *(v35 + 120);
         }
 
-        if (QP::ParserGrammar::hasValue(*(v142 + 3), v41, &__p.__r_.__value_.__l.__data_))
+        if (QP::ParserGrammar::hasValue(*(v142 + 3), v41, &__p))
         {
           v73 = v41;
           v74 = v188;
-          QP::ParserGrammar::value(*(v142 + 3), v73, &__p.__r_.__value_.__l.__data_, &v159);
+          QP::ParserGrammar::value(*(v142 + 3), v73, &__p, &v159);
           v75 = QP::createCFStringFromString(&v159);
           nlp::CFScopedPtr<__CFString const*>::reset(v74 + 5, v75);
           if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
@@ -8767,7 +8749,7 @@ LABEL_41:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        QP::LexemeStatus::suggestionKey(location, &__p);
+        QP::LexemeStatus::suggestionKey(&__p, v35);
         v76 = QP::createCFStringFromString(&__p);
         v230[0] = &v76->isa;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8776,7 +8758,7 @@ LABEL_41:
         }
 
         v77 = *(v142 + 3);
-        QP::LexemeStatus::suggestionKey(location, &__p);
+        QP::LexemeStatus::suggestionKey(&__p, v35);
         v78 = QP::ParserGrammar::symbolID(v77, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -8812,14 +8794,14 @@ LABEL_41:
         v156 = __Block_byref_object_copy__6;
         v157 = __Block_byref_object_dispose__7;
         v158 = 0;
-        if (*(location + 143) < 0)
+        if (*(v35 + 143) < 0)
         {
-          std::string::__init_copy_ctor_external(&v159, *(location + 120), *(location + 128));
+          std::string::__init_copy_ctor_external(&v159, *(v35 + 120), *(v35 + 128));
         }
 
         else
         {
-          v159 = *(location + 120);
+          v159 = *(v35 + 120);
         }
 
         v158 = QP::createCFStringFromString(&v159);
@@ -8905,7 +8887,7 @@ LABEL_178:
         }
 
         v102 = v188;
-        v103 = CFStringCreateWithSubstring(v6, a2, *(location + 72));
+        v103 = CFStringCreateWithSubstring(v6, a2, *(v35 + 72));
         v104 = v142;
         nlp::CFScopedPtr<__CFString const*>::reset(v102 + 5, v103);
         if (!cf || !CFStringGetLength(cf))
@@ -9199,14 +9181,14 @@ LABEL_215:
       {
         atomic_fetch_add_explicit(&v141->__shared_owners_, 1uLL, memory_order_relaxed);
         v70 = v188;
-        if (*(location + 143) < 0)
+        if (*(v35 + 143) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *(location + 120), *(location + 128));
+          std::string::__init_copy_ctor_external(&__p, *(v35 + 120), *(v35 + 128));
         }
 
         else
         {
-          __p = *(location + 120);
+          __p = *(v35 + 120);
         }
 
         v82 = QP::createCFStringFromString(&__p);
@@ -9230,8 +9212,8 @@ LABEL_215:
       }
 
       atomic_fetch_add_explicit(&v141->__shared_owners_, 1uLL, memory_order_relaxed);
-      v46 = *(location + 120);
-      v47 = *(location + 128);
+      v46 = *(v35 + 120);
+      v47 = *(v35 + 128);
       if (v47)
       {
         atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9289,7 +9271,7 @@ LABEL_215:
           {
             v43 = 0;
             atomic_fetch_add_explicit(&v141->__shared_owners_, 1uLL, memory_order_relaxed);
-            v44 = location;
+            v44 = v35;
             v45 = v141;
           }
 
@@ -9306,7 +9288,7 @@ LABEL_215:
         for (i = 0; ; ++i)
         {
           memset(&__p, 0, sizeof(__p));
-          std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&__p, *(location + 120), *(location + 128), 0xAAAAAAAAAAAAAAABLL * ((*(location + 128) - *(location + 120)) >> 3));
+          std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&__p, *(v35 + 120), *(v35 + 128), 0xAAAAAAAAAAAAAAABLL * ((*(v35 + 128) - *(v35 + 120)) >> 3));
           v63 = 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 3);
           v159.__r_.__value_.__r.__words[0] = &__p;
           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v159);
@@ -9317,7 +9299,7 @@ LABEL_215:
 
           memset(&__p, 0, sizeof(__p));
           memset(&v159, 0, sizeof(v159));
-          std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v159, *(location + 120), *(location + 128), 0xAAAAAAAAAAAAAAABLL * ((*(location + 128) - *(location + 120)) >> 3));
+          std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v159, *(v35 + 120), *(v35 + 128), 0xAAAAAAAAAAAAAAABLL * ((*(v35 + 128) - *(v35 + 120)) >> 3));
           v64 = (v159.__r_.__value_.__r.__words[0] + v61);
           if (*(v159.__r_.__value_.__r.__words[0] + v61 + 23) < 0)
           {
@@ -9347,7 +9329,7 @@ LABEL_215:
           CFArrayAppendValue(v58, v67);
           CFRelease(v67);
           memset(&v159, 0, sizeof(v159));
-          std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(&v159, *(location + 144), *(location + 152), (*(location + 152) - *(location + 144)) >> 4);
+          std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(&v159, *(v35 + 144), *(v35 + 152), (*(v35 + 152) - *(v35 + 144)) >> 4);
           v68 = *(v159.__r_.__value_.__r.__words[0] + v60);
           v159.__r_.__value_.__l.__size_ = v159.__r_.__value_.__r.__words[0];
           operator delete(v159.__r_.__value_.__l.__data_);
@@ -9381,14 +9363,14 @@ LABEL_130:
       if (v42 == 19)
       {
         atomic_fetch_add_explicit(&v141->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (*(location + 143) < 0)
+        if (*(v35 + 143) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *(location + 120), *(location + 128));
+          std::string::__init_copy_ctor_external(&__p, *(v35 + 120), *(v35 + 128));
         }
 
         else
         {
-          __p = *(location + 120);
+          __p = *(v35 + 120);
         }
 
         v81 = QP::createCFStringFromString(&__p);
@@ -9403,14 +9385,14 @@ LABEL_130:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (*(location + 167) < 0)
+        if (*(v35 + 167) < 0)
         {
-          std::string::__init_copy_ctor_external(&v159, *(location + 144), *(location + 152));
+          std::string::__init_copy_ctor_external(&v159, *(v35 + 144), *(v35 + 152));
         }
 
         else
         {
-          v159 = *(location + 144);
+          v159 = *(v35 + 144);
         }
 
         size = HIBYTE(v159.__r_.__value_.__r.__words[2]);
@@ -9421,14 +9403,14 @@ LABEL_130:
 
         if (size)
         {
-          if (*(location + 167) < 0)
+          if (*(v35 + 167) < 0)
           {
-            std::string::__init_copy_ctor_external(&__p, *(location + 144), *(location + 152));
+            std::string::__init_copy_ctor_external(&__p, *(v35 + 144), *(v35 + 152));
           }
 
           else
           {
-            __p = *(location + 144);
+            __p = *(v35 + 144);
           }
         }
 
@@ -9464,8 +9446,8 @@ LABEL_130:
       }
 
       atomic_fetch_add_explicit(&v141->__shared_owners_, 1uLL, memory_order_relaxed);
-      v52 = *(location + 120);
-      v47 = *(location + 128);
+      v52 = *(v35 + 120);
+      v47 = *(v35 + 128);
       if (v47)
       {
         atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9489,14 +9471,14 @@ LABEL_130:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (*(location + 159) < 0)
+        if (*(v35 + 159) < 0)
         {
-          std::string::__init_copy_ctor_external(&v159, *(location + 136), *(location + 144));
+          std::string::__init_copy_ctor_external(&v159, *(v35 + 136), *(v35 + 144));
         }
 
         else
         {
-          v159 = *(location + 136);
+          v159 = *(v35 + 136);
         }
 
         v91 = HIBYTE(v159.__r_.__value_.__r.__words[2]);
@@ -9507,14 +9489,14 @@ LABEL_130:
 
         if (v91)
         {
-          if (*(location + 159) < 0)
+          if (*(v35 + 159) < 0)
           {
-            std::string::__init_copy_ctor_external(&__p, *(location + 136), *(location + 144));
+            std::string::__init_copy_ctor_external(&__p, *(v35 + 136), *(v35 + 144));
           }
 
           else
           {
-            __p = *(location + 136);
+            __p = *(v35 + 136);
           }
         }
 

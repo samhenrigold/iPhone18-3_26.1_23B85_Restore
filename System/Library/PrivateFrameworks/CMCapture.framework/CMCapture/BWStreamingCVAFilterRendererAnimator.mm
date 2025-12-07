@@ -1,7 +1,7 @@
 @interface BWStreamingCVAFilterRendererAnimator
 - ($3BA783FF50B239963188BE194EBFFEBA)simulateNextFrameWithEffectStatus:(int)status portraitStability:(float)stability clientSuppliedSimulatedAperture:(float)aperture;
 - (BWStreamingCVAFilterRendererAnimator)initWithEffectStatus:(int)status overCaptureEnabled:(BOOL)enabled;
-- (uint64_t)_resetSimulatedApertureRampWithEffectStatus:(float)status clientSuppliedSimulatedAperture:;
+- (id)_resetSimulatedApertureRampWithEffectStatus:(float)status clientSuppliedSimulatedAperture:;
 - (void)dealloc;
 @end
 
@@ -39,7 +39,7 @@
 
   if (self->_mostRecentEffectStatus != status)
   {
-    [(BWStreamingCVAFilterRendererAnimator *)self _resetSimulatedApertureRampWithEffectStatus:status clientSuppliedSimulatedAperture:aperture];
+    [(BWStreamingCVAFilterRendererAnimator *)&self->super.isa _resetSimulatedApertureRampWithEffectStatus:status clientSuppliedSimulatedAperture:aperture];
   }
 
   if ([(BWRamp *)self->_simulatedApertureRamp isRamping])
@@ -54,7 +54,7 @@
   return p_currentFrame;
 }
 
-- (uint64_t)_resetSimulatedApertureRampWithEffectStatus:(float)status clientSuppliedSimulatedAperture:
+- (id)_resetSimulatedApertureRampWithEffectStatus:(float)status clientSuppliedSimulatedAperture:
 {
   if (!result)
   {
@@ -62,16 +62,16 @@
   }
 
   v5 = result;
-  result = [*(result + 16) isRamping];
-  v8 = (*(v5 + 12) < 0xFu) & (0x6202u >> *(v5 + 12));
+  result = [result[2] isRamping];
+  v8 = (*(v5 + 3) < 0xFu) & (0x6202u >> *(v5 + 3));
   if (a2 > 0xE || ((1 << a2) & 0x6202) == 0)
   {
-    if (((*(v5 + 12) < 0xFu) & (0x6202u >> *(v5 + 12))) == 0)
+    if (((*(v5 + 3) < 0xFu) & (0x6202u >> *(v5 + 3))) == 0)
     {
       return result;
     }
 
-    v10 = *(v5 + 16);
+    v10 = v5[2];
     LODWORD(v7) = 16.0;
     *&v6 = status;
     v9 = 4;
@@ -83,7 +83,7 @@
   {
     v9 = 3;
     LODWORD(v6) = 1148846080;
-    if (((*(v5 + 12) < 0xFu) & (0x6202u >> *(v5 + 12))) != 0)
+    if (((*(v5 + 3) < 0xFu) & (0x6202u >> *(v5 + 3))) != 0)
     {
       return result;
     }
@@ -94,14 +94,14 @@
   LODWORD(v6) = 25.0;
   if (result)
   {
-    result = [*(v5 + 16) updateRampForNextIteration];
+    result = [v5[2] updateRampForNextIteration];
   }
 
   v9 = (40.0 - ((25.0 - *&v6) / 40.0));
   if ((v8 & 1) == 0)
   {
 LABEL_10:
-    v10 = *(v5 + 16);
+    v10 = v5[2];
     *&v7 = status;
     v11 = 2;
 LABEL_11:

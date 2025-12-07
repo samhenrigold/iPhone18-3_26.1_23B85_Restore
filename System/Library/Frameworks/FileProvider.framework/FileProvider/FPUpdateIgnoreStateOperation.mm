@@ -78,7 +78,7 @@ void __42__FPUpdateIgnoreStateOperation_actionMain__block_invoke_2(uint64_t a1, 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
 LABEL_6:
-      __42__FPUpdateIgnoreStateOperation_actionMain__block_invoke_2_cold_1(a1);
+      __42__FPUpdateIgnoreStateOperation_actionMain__block_invoke_2_cold_1();
     }
   }
 
@@ -124,14 +124,11 @@ LABEL_8:
   [(FPActionOperation *)&v9 finishWithResult:resultCopy error:errorCopy];
 }
 
-void __42__FPUpdateIgnoreStateOperation_actionMain__block_invoke_2_cold_1(uint64_t a1)
+void __42__FPUpdateIgnoreStateOperation_actionMain__block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  *(*(a1 + 32) + 456);
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_2_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

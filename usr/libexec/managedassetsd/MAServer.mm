@@ -9,6 +9,7 @@
 - (BOOL)checkProfileTypeForQueryKVStore:(id)store profileTypes:(id)types error:(id *)error;
 - (BOOL)cloudSyncEnabledForAssetType:(unint64_t)type;
 - (BOOL)convertAssetToClassA:(id)a error:(id *)error;
+- (BOOL)deleteSingleProfile:(id)profile error:(id *)error wipeOutOpt:(BOOL)opt;
 - (BOOL)didReceiveAssetDelete:(id)delete assetType:(unint64_t)type assetHandle:(id)handle;
 - (BOOL)didReceiveKVSData:(id)data assetType:(unint64_t)type storeName:(id)name storeGroup:(id)group profileType:(unint64_t)profileType data:(id)a8;
 - (BOOL)didReceiveKVSDataDelete:(id)delete recordHandle:(id)handle assetType:(unint64_t)type storeName:(id)name storeGroup:(id)group profileType:(unint64_t)profileType;
@@ -77,6 +78,7 @@
 - (void)UnpersistGuestProfileWithCompletion:(id)completion;
 - (void)UpdateAsset:(id)asset uuid:(id)uuid sessionToken:(id)token algorithmVersion:(id)version completion:(id)completion;
 - (void)UpdateAssetV2:(id)v2 sessionToken:(id)token options:(id)options completion:(id)completion;
+- (void)accountChangedWithSigninUser:(id)user signoutUser:(id)signoutUser accountSwitch:(BOOL)switch;
 - (void)checkAndScheduleCallbackForFirstUnlock;
 - (void)checkCloudRecordZoneExistWithCompletionHandler:(id)handler;
 - (void)checkIfKVStoreGroupExistUsing:(id)using reply:(id)reply;
@@ -266,7 +268,7 @@ LABEL_27:
 LABEL_28:
   if (v12)
   {
-    [v12 auditToken];
+    objc_msgSend_auditToken(v12);
   }
 
   else
@@ -328,7 +330,7 @@ LABEL_28:
 
     if (v10)
     {
-      [v10 auditToken];
+      objc_msgSend_auditToken(v10);
     }
 
     else
@@ -550,7 +552,7 @@ LABEL_11:
 
   if (v9)
   {
-    [v9 auditToken];
+    objc_msgSend_auditToken(v9);
   }
 
   else
@@ -606,7 +608,7 @@ LABEL_13:
 
     if (v6)
     {
-      [v6 auditToken];
+      objc_msgSend_auditToken(v6);
     }
 
     else
@@ -680,7 +682,7 @@ LABEL_8:
 LABEL_9:
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -726,7 +728,7 @@ LABEL_5:
 LABEL_6:
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -792,7 +794,7 @@ LABEL_10:
 LABEL_12:
       if (v13)
       {
-        [v13 auditToken];
+        objc_msgSend_auditToken(v13);
       }
 
       else
@@ -908,7 +910,7 @@ LABEL_16:
   {
     if (v17)
     {
-      [v17 auditToken];
+      objc_msgSend_auditToken(v17);
     }
 
     else
@@ -1011,7 +1013,7 @@ LABEL_12:
 
   if (v18)
   {
-    [v18 auditToken];
+    objc_msgSend_auditToken(v18);
   }
 
   else
@@ -1358,21 +1360,21 @@ LABEL_14:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v33 = off_100127DD0;
+      v34 = off_100127DD0;
       if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
       {
-        sub_10003B4E0(attributesCopy, v33, v34, v35, v36, v37, v38, v39);
+        sub_10003B4E0(attributesCopy, v34, v35, v36, v37, v38, v39, v40);
       }
 
-      v32 = createManagedAssetError();
-      (*(replyCopy + 2))(replyCopy, 0, 0, v32);
+      v33 = createManagedAssetError();
+      (*(replyCopy + 2))(replyCopy, 0, 0, v33);
       goto LABEL_28;
     }
 
     selfCopy2 = self;
-    v48 = replyCopy;
-    v49 = v25;
-    v50 = payloadCopy;
+    v49 = replyCopy;
+    v50 = v25;
+    v51 = payloadCopy;
     v26 = dCopy;
     v27 = dataCopy;
     v28 = [attributesCopy objectForKeyedSubscript:kMALensSelectKey];
@@ -1381,9 +1383,9 @@ LABEL_14:
   else
   {
     selfCopy2 = self;
-    v48 = replyCopy;
-    v49 = v24;
-    v50 = payloadCopy;
+    v49 = replyCopy;
+    v50 = v24;
+    v51 = payloadCopy;
     v26 = dCopy;
     v27 = dataCopy;
     v28 = 0;
@@ -1392,16 +1394,17 @@ LABEL_14:
   v29 = [kMALensSelectLeft isEqual:v28];
   v30 = [kMALensSelectRight isEqual:v28];
   v31 = off_100127DD0;
-  if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_INFO))
+  v32 = os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_INFO);
+  if (v32)
   {
     *buf = 138413058;
-    v68 = v27;
-    v69 = 2112;
-    v70 = v26;
-    v71 = 1024;
-    v72 = v29;
-    v73 = 1024;
-    v74 = v30;
+    v69 = v27;
+    v70 = 2112;
+    v71 = v26;
+    v72 = 1024;
+    v73 = v29;
+    v74 = 1024;
+    v75 = v30;
     _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "lens enroll request for %@ recordUUID %@ leftOnly=%u rightOnly=%u", buf, 0x22u);
   }
 
@@ -1409,18 +1412,18 @@ LABEL_14:
   {
     dCopy = v26;
     dataCopy = v27;
-    v32 = createManagedAssetError();
+    v33 = createManagedAssetError();
     if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
     {
       sub_10003B54C();
     }
 
 LABEL_15:
-    replyCopy = v48;
-    (v48)[2](v48, 0, 0, v32);
+    replyCopy = v49;
+    (v49)[2](v49, 0, 0, v33);
 
-    v25 = v49;
-    payloadCopy = v50;
+    v25 = v50;
+    payloadCopy = v51;
     goto LABEL_28;
   }
 
@@ -1428,7 +1431,7 @@ LABEL_15:
   {
     dCopy = v26;
     dataCopy = v27;
-    v32 = createManagedAssetError();
+    v33 = createManagedAssetError();
     if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
     {
       sub_10003B5B4();
@@ -1457,44 +1460,44 @@ LABEL_15:
     rCopy = r;
   }
 
-  v43 = rCopy;
-  v44 = axisRCopy;
+  v44 = rCopy;
+  v45 = axisRCopy;
   if (v30)
   {
     axisL = -1;
     l = -1;
   }
 
-  v42 = MASDGetCoreRxDispatchQueue();
+  v43 = MASDGetCoreRxDispatchQueue(v32);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10003AFFC;
   block[3] = &unk_1001165E8;
   block[4] = selfCopy2;
-  v52 = v26;
-  v53 = attributesCopy;
-  v47 = v28;
-  v25 = v49;
-  v54 = v49;
+  v53 = v26;
+  v54 = attributesCopy;
+  v48 = v28;
+  v25 = v50;
+  v55 = v50;
   dataCopy = v27;
-  v55 = v27;
-  payloadCopy = v50;
-  v56 = v50;
+  v56 = v27;
+  payloadCopy = v51;
+  v57 = v51;
   lCopy = l;
-  v59 = v43;
+  v60 = v44;
   requiredLCopy = requiredL;
   requiredRCopy = requiredR;
   axisLCopy = axisL;
-  v61 = v44;
+  v62 = v45;
   versionCopy = version;
-  v65 = v29;
-  v66 = v30;
+  v66 = v29;
+  v67 = v30;
   dCopy = v26;
-  replyCopy = v48;
-  v57 = v48;
-  dispatch_sync(v42, block);
+  replyCopy = v49;
+  v58 = v49;
+  dispatch_sync(v43, block);
 
-  v32 = v47;
+  v33 = v48;
 LABEL_28:
 }
 
@@ -1562,7 +1565,7 @@ LABEL_28:
 
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEBUG))
     {
-      sub_10004F1E0(v16 + 8);
+      sub_10004F1E0();
     }
 
     [bundleIdentifier UTF8String];
@@ -2122,9 +2125,9 @@ LABEL_11:
   if (v9)
   {
     v10 = +[NSFileManager defaultManager];
-    v18 = NSFileProtectionKey;
-    v19 = NSFileProtectionComplete;
-    v11 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = NSFileProtectionKey;
+    v18 = NSFileProtectionComplete;
+    v11 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v12 = [v10 setAttributes:v11 ofItemAtPath:v7 error:error];
 
     if (v12)
@@ -2134,7 +2137,7 @@ LABEL_11:
       if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v21 = aCopy;
+        v20 = aCopy;
         v15 = "converted to class A for handle %@";
 LABEL_7:
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, v15, buf, 0xCu);
@@ -2143,11 +2146,10 @@ LABEL_7:
 
     else
     {
-      v17 = *error;
       *error = createManagedAssetError();
       if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
       {
-        sub_10004F7AC(aCopy, error);
+        sub_10004F7AC();
       }
 
       v14 = 0;
@@ -2161,7 +2163,7 @@ LABEL_7:
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = aCopy;
+      v20 = aCopy;
       v15 = "File does not exist for handle %@";
       goto LABEL_7;
     }
@@ -2218,6 +2220,110 @@ LABEL_7:
     v7 = deviceState;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "device state: %lu", &v6, 0xCu);
   }
+}
+
+- (BOOL)deleteSingleProfile:(id)profile error:(id *)error wipeOutOpt:(BOOL)opt
+{
+  optCopy = opt;
+  profileCopy = profile;
+  storage = self->_storage;
+  v10 = [[NSUUID alloc] initWithUUIDString:profileCopy];
+  v11 = [(MAStorage *)storage getProfile:v10 error:error];
+
+  if (*error)
+  {
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F8C4();
+    }
+
+LABEL_15:
+    v16 = 0;
+LABEL_16:
+    v26 = 0;
+    goto LABEL_17;
+  }
+
+  profileType = [v11 profileType];
+  if (profileType >= 3)
+  {
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F92C();
+    }
+
+    goto LABEL_15;
+  }
+
+  v13 = off_100116CF8[profileType];
+  v14 = self->_storage;
+  profileName = [v11 profileName];
+  v28 = 0;
+  LOBYTE(v14) = [(MAStorage *)v14 deleteAllAssetsWith:profileName recordIDs:&v28 error:error wipeOutProfile:optCopy];
+  v16 = v28;
+
+  if ((v14 & 1) == 0)
+  {
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F968();
+    }
+
+    goto LABEL_16;
+  }
+
+  if (![(MAKVStoreManager *)self->_kvStoreManager deleteProfile:profileCopy error:error])
+  {
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F9D0();
+    }
+
+    goto LABEL_16;
+  }
+
+  if (![(MAFileStoreManager *)self->_fileStoreManager deleteProfile:profileCopy error:error])
+  {
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004FA38();
+    }
+
+    goto LABEL_16;
+  }
+
+  notificationEngine = self->_notificationEngine;
+  profileName2 = [v11 profileName];
+  -[MANotificationEngine notifyProfileChangeWith:profile:type:](notificationEngine, "notifyProfileChangeWith:profile:type:", 256, profileName2, [v11 profileType]);
+
+  v19 = off_100127E38;
+  if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = v19;
+    profileName3 = [v11 profileName];
+    *buf = 138543618;
+    v30 = v13;
+    v31 = 2114;
+    v32 = profileName3;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Delete %{public}@ profile (UUID: %{public}@)", buf, 0x16u);
+  }
+
+  profileName4 = [(MASDUserProfile *)self->_profile profileName];
+  v23 = [profileCopy isEqualToString:profileName4];
+
+  if (v23)
+  {
+    [(MAStorage *)self->_storage setLastSeenProfile:self->_defaultProfile];
+    [(MAServer *)self setProfile:self->_defaultProfile];
+    v24 = self->_notificationEngine;
+    profileName5 = [(MASDUserProfile *)self->_profile profileName];
+    [(MANotificationEngine *)v24 notifyProfileChangeWith:64 profile:profileName5 type:[(MASDUserProfile *)self->_profile profileType]];
+  }
+
+  v26 = 1;
+LABEL_17:
+
+  return v26;
 }
 
 - (void)deleteVolatileProfiles:(id)profiles
@@ -2360,7 +2466,7 @@ LABEL_7:
 
   else if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_10004FB20(p_retentionEpoch);
+    sub_10004FB20();
   }
 }
 
@@ -2554,7 +2660,7 @@ LABEL_7:
     {
       if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
       {
-        sub_10004FCAC(storeCopy, error);
+        sub_10004FCAC();
       }
     }
 
@@ -2707,11 +2813,11 @@ LABEL_30:
   tokenCopy = token;
   completionCopy = completion;
   v71 = 0;
-  v72[0] = &v71;
-  v72[1] = 0x3032000000;
-  v72[2] = sub_10003C300;
-  v72[3] = sub_10003C310;
-  v73 = 0;
+  v72 = &v71;
+  v73 = 0x3032000000;
+  v74 = sub_10003C300;
+  v75 = sub_10003C310;
+  v76 = 0;
   v65 = 0;
   v66 = &v65;
   v67 = 0x3032000000;
@@ -2735,7 +2841,7 @@ LABEL_30:
   {
     if (v14)
     {
-      [v14 auditToken];
+      objc_msgSend_auditToken(v14);
     }
 
     else
@@ -2758,12 +2864,12 @@ LABEL_30:
   {
     v40 = kManagedAssetsSyncKey;
     v20 = createManagedAssetError();
-    v21 = *(v72[0] + 40);
-    *(v72[0] + 40) = v20;
+    v21 = v72[5];
+    v72[5] = v20;
 
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_10004FECC(v72);
+      sub_10004FECC();
     }
   }
 
@@ -2814,18 +2920,18 @@ LABEL_30:
     }
 
     v27 = v60[5];
-    v28 = v72[0];
-    obj = *(v72[0] + 40);
+    v28 = v72;
+    obj = v72[5];
     v29 = [(MAServer *)self canTouchAsset:v19 clientBundle:v27 error:&obj];
-    objc_storeStrong((v28 + 40), obj);
+    objc_storeStrong(v28 + 5, obj);
     if (v29)
     {
       if (assetCopy && ([assetCopy isValid] & 1) != 0)
       {
-        v30 = v72[0];
-        v55 = *(v72[0] + 40);
+        v30 = v72;
+        v55 = v72[5];
         v31 = [(MAServer *)self checkProfile:uuidCopy profileNameOut:0 error:&v55];
-        objc_storeStrong((v30 + 40), v55);
+        objc_storeStrong(v30 + 5, v55);
         if (v31)
         {
           if (tokenCopy)
@@ -2833,10 +2939,10 @@ LABEL_30:
             policyEngine = self->_policyEngine;
             type2 = [assetCopy type];
             v33 = NSStringFromSelector(a2);
-            v34 = v72[0];
-            v54 = *(v72[0] + 40);
+            v34 = v72;
+            v54 = v72[5];
             LODWORD(policyEngine) = [(MAPolicyEngine *)policyEngine verifyAccessWithSingleAssetType:kManagedAssetCreateEntitlement client:v15 assetType:type2 function:v33 error:&v54];
-            objc_storeStrong((v34 + 40), v54);
+            objc_storeStrong(v34 + 5, v54);
 
             if (policyEngine)
             {
@@ -2869,8 +2975,8 @@ LABEL_30:
             }
 
             v38 = createManagedAssetError();
-            v39 = *(v72[0] + 40);
-            *(v72[0] + 40) = v38;
+            v39 = v72[5];
+            v72[5] = v38;
           }
         }
       }
@@ -2883,18 +2989,18 @@ LABEL_30:
         }
 
         v36 = createManagedAssetError();
-        v37 = *(v72[0] + 40);
-        *(v72[0] + 40) = v36;
+        v37 = v72[5];
+        v72[5] = v36;
       }
     }
   }
 
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, v66[5], *(v72[0] + 40));
+    (*(completionCopy + 2))(completionCopy, v66[5], v72[5]);
   }
 
-  [CALogger logWithCoreAnalytics:"[MAServer CreateAsset:uuid:sessionToken:completion:]" clientBundle:v60[5] startTS:v13 error:*(v72[0] + 40), v40];
+  [CALogger logWithCoreAnalytics:"[MAServer CreateAsset:uuid:sessionToken:completion:]" clientBundle:v60[5] startTS:v13 error:v72[5], v40];
 LABEL_35:
 
   _Block_object_dispose(&v59, 8);
@@ -2977,7 +3083,7 @@ LABEL_12:
 LABEL_14:
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
@@ -2994,11 +3100,11 @@ LABEL_14:
   uuidCopy = uuid;
   completionCopy = completion;
   v43 = 0;
-  v44[0] = &v43;
-  v44[1] = 0x3032000000;
-  v44[2] = sub_10003C300;
-  v44[3] = sub_10003C310;
-  v45 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_10003C300;
+  v47 = sub_10003C310;
+  v48 = 0;
   v12 = mach_continuous_time();
   v13 = +[NSXPCConnection currentConnection];
   v14 = v13;
@@ -3016,7 +3122,7 @@ LABEL_14:
   {
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else
@@ -3036,31 +3142,31 @@ LABEL_14:
     {
       policyEngine = self->_policyEngine;
       v17 = NSStringFromSelector(a2);
-      v18 = v44[0];
-      obj = *(v44[0] + 40);
+      v18 = v44;
+      obj = v44[5];
       LODWORD(policyEngine) = [(MAPolicyEngine *)policyEngine verifyBooleanEntitlementWith:kManagedAssetShareEntitlement client:v14 function:v17 error:&obj];
-      objc_storeStrong((v18 + 40), obj);
+      objc_storeStrong(v18 + 5, obj);
 
       if (policyEngine)
       {
         remoteAssetsManager = self->_remoteAssetsManager;
-        v20 = v44[0];
-        v36 = *(v44[0] + 40);
+        v20 = v44;
+        v36 = v44[5];
         v21 = [(MARemoteAssetsManager *)remoteAssetsManager deleteAsset:assetCopy error:&v36];
-        objc_storeStrong((v20 + 40), v36);
+        objc_storeStrong(v20 + 5, v36);
         if ((v21 & 1) == 0 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
         {
-          sub_100050160(assetCopy, v44);
+          sub_100050160();
         }
       }
     }
 
     else
     {
-      v24 = v44[0];
-      v35 = *(v44[0] + 40);
+      v24 = v44;
+      v35 = v44[5];
       v25 = [(MAServer *)self checkProfile:uuidCopy profileNameOut:0 error:&v35];
-      objc_storeStrong((v24 + 40), v35);
+      objc_storeStrong(v24 + 5, v35);
       if (v25)
       {
         serialQueue = self->_serialQueue;
@@ -3091,18 +3197,18 @@ LABEL_14:
     }
 
     v22 = createManagedAssetError();
-    v23 = *(v44[0] + 40);
-    *(v44[0] + 40) = v22;
+    v23 = v44[5];
+    v44[5] = v22;
   }
 
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, *(v44[0] + 40));
+    (*(completionCopy + 2))(completionCopy, v44[5]);
   }
 
   if (v14)
   {
-    [v14 auditToken];
+    objc_msgSend_auditToken(v14);
   }
 
   else
@@ -3111,7 +3217,7 @@ LABEL_14:
     v40 = 0u;
   }
 
-  [CALogger logWithCoreAnalytics:"[MAServer DeleteAsset:uuid:completion:]" client:&v39 startTS:v12 error:*(v44[0] + 40)];
+  [CALogger logWithCoreAnalytics:"[MAServer DeleteAsset:uuid:completion:]" client:&v39 startTS:v12 error:v44[5]];
 LABEL_23:
   _Block_object_dispose(v41, 8);
 
@@ -3124,11 +3230,11 @@ LABEL_23:
   optionsCopy = options;
   completionCopy = completion;
   v62 = 0;
-  v63[0] = &v62;
-  v63[1] = 0x3032000000;
-  v63[2] = sub_10003C300;
-  v63[3] = sub_10003C310;
-  v64 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = sub_10003C300;
+  v66 = sub_10003C310;
+  v67 = 0;
   v11 = mach_continuous_time();
   v12 = +[NSXPCConnection currentConnection];
   v13 = v12;
@@ -3146,7 +3252,7 @@ LABEL_23:
   {
     if (v12)
     {
-      [v12 auditToken];
+      objc_msgSend_auditToken(v12);
     }
 
     else
@@ -3164,10 +3270,10 @@ LABEL_23:
   v16 = kManagedAssetsSyncKey;
   v17 = [optionsCopy objectForKeyedSubscript:kManagedAssetsSyncKey];
   intValue = [v17 intValue];
-  v19 = v63[0];
-  obj = *(v63[0] + 40);
+  v19 = v63;
+  obj = v63[5];
   v20 = sub_100041338(optionsCopy, &obj);
-  objc_storeStrong((v19 + 40), obj);
+  objc_storeStrong(v19 + 5, obj);
   if (v20)
   {
     v21 = [optionsCopy objectForKeyedSubscript:v15];
@@ -3183,8 +3289,8 @@ LABEL_23:
       }
 
       v37 = createManagedAssetError();
-      v38 = *(v63[0] + 40);
-      *(v63[0] + 40) = v37;
+      v38 = v63[5];
+      v63[5] = v37;
 
       goto LABEL_31;
     }
@@ -3237,31 +3343,31 @@ LABEL_23:
       {
         policyEngine = self->_policyEngine;
         v27 = NSStringFromSelector(aSelector);
-        v28 = v63[0];
-        v55 = *(v63[0] + 40);
+        v28 = v63;
+        v55 = v63[5];
         LODWORD(policyEngine) = [(MAPolicyEngine *)policyEngine verifyBooleanEntitlementWith:kManagedAssetShareEntitlement client:v13 function:v27 error:&v55];
-        objc_storeStrong((v28 + 40), v55);
+        objc_storeStrong(v28 + 5, v55);
 
         if (policyEngine)
         {
           remoteAssetsManager = self->_remoteAssetsManager;
-          v30 = v63[0];
-          v54 = *(v63[0] + 40);
+          v30 = v63;
+          v54 = v63[5];
           v31 = [(MARemoteAssetsManager *)remoteAssetsManager deleteAsset:assetCopy error:&v54];
-          objc_storeStrong((v30 + 40), v54);
+          objc_storeStrong(v30 + 5, v54);
           if ((v31 & 1) == 0 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
           {
-            sub_100050160(assetCopy, v63);
+            sub_100050160();
           }
         }
       }
 
       else
       {
-        v34 = v63[0];
-        v53 = *(v63[0] + 40);
+        v34 = v63;
+        v53 = v63[5];
         v35 = [(MAServer *)self checkProfile:v41 profileNameOut:0 error:&v53];
-        objc_storeStrong((v34 + 40), v53);
+        objc_storeStrong(v34 + 5, v53);
         if (v35)
         {
           serialQueue = self->_serialQueue;
@@ -3294,20 +3400,20 @@ LABEL_23:
       }
 
       v32 = createManagedAssetError();
-      v33 = *(v63[0] + 40);
-      *(v63[0] + 40) = v32;
+      v33 = v63[5];
+      v63[5] = v32;
     }
   }
 
 LABEL_31:
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, *(v63[0] + 40));
+    (*(completionCopy + 2))(completionCopy, v63[5]);
   }
 
   if (v13)
   {
-    [v13 auditToken];
+    objc_msgSend_auditToken(v13);
   }
 
   else
@@ -3315,7 +3421,7 @@ LABEL_31:
     memset(buf, 0, 32);
   }
 
-  [CALogger logWithCoreAnalytics:"[MAServer DeleteAsset:withOptions:completion:]" client:buf startTS:v40 error:*(v63[0] + 40)];
+  [CALogger logWithCoreAnalytics:"[MAServer DeleteAsset:withOptions:completion:]" client:buf startTS:v40 error:v63[5]];
 LABEL_37:
 
   _Block_object_dispose(v60, 8);
@@ -3350,7 +3456,7 @@ LABEL_37:
   {
     if (v10)
     {
-      [v10 auditToken];
+      objc_msgSend_auditToken(v10);
     }
 
     else
@@ -3415,7 +3521,7 @@ LABEL_22:
 
     if (v10)
     {
-      [v10 auditToken];
+      objc_msgSend_auditToken(v10);
     }
 
     else
@@ -3483,19 +3589,19 @@ LABEL_29:
   optionsCopy = options;
   completionCopy = completion;
   v53 = 0;
-  v54[0] = &v53;
-  v54[1] = 0x3032000000;
-  v54[2] = sub_10003C300;
-  v54[3] = sub_10003C310;
-  v55 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = sub_10003C300;
+  v57 = sub_10003C310;
+  v58 = 0;
   v11 = mach_continuous_time();
   v12 = +[NSXPCConnection currentConnection];
   v35 = v11;
   v13 = kManagedAssetsSyncKey;
   v14 = [optionsCopy objectForKeyedSubscript:kManagedAssetsSyncKey];
   intValue = [v14 intValue];
-  v16 = (v54[0] + 40);
-  obj = *(v54[0] + 40);
+  v16 = (v54 + 5);
+  obj = v54[5];
   LOBYTE(v11) = sub_100041338(optionsCopy, &obj);
   objc_storeStrong(v16, obj);
   if ((v11 & 1) == 0)
@@ -3516,8 +3622,8 @@ LABEL_29:
     }
 
     v28 = createManagedAssetError();
-    v22 = *(v54[0] + 40);
-    *(v54[0] + 40) = v28;
+    v22 = v54[5];
+    v54[5] = v28;
 LABEL_25:
 
     goto LABEL_26;
@@ -3566,8 +3672,8 @@ LABEL_25:
 
   policyEngine = self->_policyEngine;
   v20 = NSStringFromSelector(a2);
-  v21 = (v54[0] + 40);
-  v49 = *(v54[0] + 40);
+  v21 = (v54 + 5);
+  v49 = v54[5];
   LODWORD(policyEngine) = [(MAPolicyEngine *)policyEngine verifyBooleanEntitlementWith:kManagedAssetDeleteAllEntitlement client:v12 function:v20 error:&v49];
   objc_storeStrong(v21, v49);
 
@@ -3576,17 +3682,17 @@ LABEL_25:
 LABEL_26:
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_1000505D8(v54);
+      sub_1000505D8();
     }
 
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, *(v54[0] + 40));
+      completionCopy[2](completionCopy, v54[5]);
     }
 
     if (v12)
     {
-      [v12 auditToken];
+      objc_msgSend_auditToken(v12);
     }
 
     else
@@ -3594,7 +3700,7 @@ LABEL_26:
       memset(buf, 0, 32);
     }
 
-    [CALogger logWithCoreAnalytics:"[MAServer DeleteAllAssetsExcept:withOptions:completion:]" client:buf startTS:v35 error:*(v54[0] + 40), v34];
+    [CALogger logWithCoreAnalytics:"[MAServer DeleteAllAssetsExcept:withOptions:completion:]" client:buf startTS:v35 error:v54[5], v34];
     goto LABEL_34;
   }
 
@@ -3603,7 +3709,7 @@ LABEL_26:
   v45 = 0u;
   v46 = 0u;
   v22 = exceptCopy;
-  v23 = [v22 countByEnumeratingWithState:&v45 objects:v56 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v45 objects:v59 count:16];
   if (!v23)
   {
     goto LABEL_15;
@@ -3641,14 +3747,14 @@ LABEL_26:
 LABEL_24:
         v34 = v26;
         v29 = createManagedAssetError();
-        v30 = *(v54[0] + 40);
-        *(v54[0] + 40) = v29;
+        v30 = v54[5];
+        v54[5] = v29;
 
         goto LABEL_25;
       }
     }
 
-    v23 = [v22 countByEnumeratingWithState:&v45 objects:v56 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v45 objects:v59 count:16];
     if (v23)
     {
       continue;
@@ -3897,7 +4003,7 @@ LABEL_10:
 
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -4082,7 +4188,7 @@ LABEL_11:
 
   if (v13)
   {
-    [v13 auditToken];
+    objc_msgSend_auditToken(v13);
   }
 
   else
@@ -4118,21 +4224,8 @@ LABEL_23:
     }
 
     v16 = [assetsCopy objectForKeyedSubscript:kManagedAssetsQueryOptionAssetType];
-    if (v16)
+    if (v16 || ([assetsCopy objectForKeyedSubscript:kManagedAssetsQueryOptionAssetLabel], (v16 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(assetsCopy, "objectForKeyedSubscript:", v12), (v16 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(assetsCopy, "objectForKeyedSubscript:", kManagedAssetsQueryOptionAlgorithmVer), (v16 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(assetsCopy, "objectForKeyedSubscript:", v11), (v16 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(assetsCopy, "objectForKeyedSubscript:", kManagedAssetsAssetStateKey), (v16 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      goto LABEL_10;
-    }
-
-    v16 = [assetsCopy objectForKeyedSubscript:kManagedAssetsQueryOptionAssetLabel];
-    if (v16)
-    {
-      goto LABEL_10;
-    }
-
-    v16 = [assetsCopy objectForKeyedSubscript:v12];
-    if (v16 || ([assetsCopy objectForKeyedSubscript:kManagedAssetsQueryOptionAlgorithmVer], (v16 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(assetsCopy, "objectForKeyedSubscript:", v11), (v16 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(assetsCopy, "objectForKeyedSubscript:", kManagedAssetsAssetStateKey), (v16 = objc_claimAutoreleasedReturnValue()) != 0))
-    {
-LABEL_10:
 
       goto LABEL_11;
     }
@@ -4235,7 +4328,7 @@ LABEL_24:
 
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
@@ -4353,7 +4446,7 @@ LABEL_10:
 
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
@@ -4406,7 +4499,7 @@ LABEL_10:
     v22 = v21;
     if (v21)
     {
-      [v21 auditToken];
+      objc_msgSend_auditToken(v21);
     }
 
     else
@@ -4424,13 +4517,13 @@ LABEL_10:
   tokenCopy = token;
   optionsCopy = options;
   completionCopy = completion;
-  v86 = 0;
+  v89 = 0;
   v83 = 0;
-  v84[0] = &v83;
-  v84[1] = 0x3032000000;
-  v84[2] = sub_10003C300;
-  v84[3] = sub_10003C310;
-  v85 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = sub_10003C300;
+  v87 = sub_10003C310;
+  v88 = 0;
   v11 = mach_continuous_time();
   v12 = +[NSXPCConnection currentConnection];
   v13 = v12;
@@ -4448,13 +4541,13 @@ LABEL_10:
   {
     if (v12)
     {
-      [v12 auditToken];
+      objc_msgSend_auditToken(v12);
     }
 
     else
     {
       *buf = 0u;
-      v92 = 0u;
+      v95 = 0u;
     }
 
     v14 = [MAUtilityHelper getClientBundleIdentifier:buf];
@@ -4477,18 +4570,18 @@ LABEL_10:
   v16 = kManagedAssetsSyncKey;
   v49 = [optionsCopy objectForKeyedSubscript:kManagedAssetsSyncKey];
   intValue = [v49 intValue];
-  obj = *(v84[0] + 40);
-  location = (v84[0] + 40);
+  obj = v84[5];
+  location = (v84 + 5);
   v17 = optionsCopy;
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v87 objects:buf count:16];
+  v19 = [v18 countByEnumeratingWithState:&v90 objects:buf count:16];
   if (v19)
   {
-    v20 = *v88;
+    v20 = *v91;
     v21 = kManagedAssetsAssetStateKey;
     v22 = kManagedAssetsRecordNameKey;
     v58 = kManagedAssetsRecordAccountKey;
@@ -4498,12 +4591,12 @@ LABEL_10:
     {
       for (i = 0; i != v19; i = i + 1)
       {
-        if (*v88 != v20)
+        if (*v91 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v87 + 1) + 8 * i);
+        v24 = *(*(&v90 + 1) + 8 * i);
         v25 = [v18 objectForKeyedSubscript:v24];
         if (([v24 isEqualToString:v21] & 1) != 0 || objc_msgSend(v24, "isEqualToString:", v16))
         {
@@ -4557,7 +4650,7 @@ LABEL_44:
         }
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v87 objects:buf count:16];
+      v19 = [v18 countByEnumeratingWithState:&v90 objects:buf count:16];
       if (v19)
       {
         continue;
@@ -4569,15 +4662,8 @@ LABEL_44:
 
   objc_storeStrong(location, obj);
   v26 = [v18 objectForKeyedSubscript:v48];
-  if (v26)
+  if (v26 || ([v18 objectForKeyedSubscript:kManagedAssetsAlgorithmVerKey], (v26 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v18, "objectForKeyedSubscript:", kManagedAssetsEnrollmentIDKey), (v26 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v18, "objectForKeyedSubscript:", kManagedAssetsAssetStateKey), (v26 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v18, "objectForKeyedSubscript:", v16), (v26 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_28;
-  }
-
-  v26 = [v18 objectForKeyedSubscript:kManagedAssetsAlgorithmVerKey];
-  if (v26 || ([v18 objectForKeyedSubscript:kManagedAssetsEnrollmentIDKey], (v26 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v18, "objectForKeyedSubscript:", kManagedAssetsAssetStateKey), (v26 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v18, "objectForKeyedSubscript:", v16), (v26 = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_28:
   }
 
   else if ([v18 count])
@@ -4590,7 +4676,7 @@ LABEL_28:
     goto LABEL_39;
   }
 
-  if (!v2Copy || ([v2Copy isValidAssetHandle:&v86] & 1) == 0)
+  if (!v2Copy || ([v2Copy isValidAssetHandle:&v89] & 1) == 0)
   {
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
@@ -4599,14 +4685,14 @@ LABEL_28:
 
 LABEL_39:
     v32 = createManagedAssetError();
-    v33 = *(v84[0] + 40);
-    *(v84[0] + 40) = v32;
+    v33 = v84[5];
+    v84[5] = v32;
 
     goto LABEL_45;
   }
 
-  v27 = (v84[0] + 40);
-  v72 = *(v84[0] + 40);
+  v27 = (v84 + 5);
+  v72 = v84[5];
   v28 = [(MAServer *)self checkProfile:v53 profileNameOut:0 error:&v72];
   objc_storeStrong(v27, v72);
   if (!v28)
@@ -4614,21 +4700,21 @@ LABEL_39:
 LABEL_45:
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, *(v84[0] + 40));
+      completionCopy[2](completionCopy, v84[5]);
     }
 
     if (v57)
     {
-      [v57 auditToken];
+      objc_msgSend_auditToken(v57);
     }
 
     else
     {
       *buf = 0u;
-      v92 = 0u;
+      v95 = 0u;
     }
 
-    [CALogger logWithCoreAnalytics:"[MAServer UpdateAssetV2:sessionToken:options:completion:]" client:buf startTS:v50 error:*(v84[0] + 40), v44];
+    [CALogger logWithCoreAnalytics:"[MAServer UpdateAssetV2:sessionToken:options:completion:]" client:buf startTS:v50 error:v84[5], v44];
     goto LABEL_51;
   }
 
@@ -4637,12 +4723,12 @@ LABEL_45:
   {
     v44 = v16;
     v29 = createManagedAssetError();
-    v30 = *(v84[0] + 40);
-    *(v84[0] + 40) = v29;
+    v30 = v84[5];
+    v84[5] = v29;
 
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_10004FECC(v84);
+      sub_10004FECC();
     }
 
     goto LABEL_45;
@@ -4683,7 +4769,7 @@ LABEL_45:
   block[3] = &unk_100116990;
   v65 = v81;
   v66 = &v75;
-  v70 = v86;
+  v70 = v89;
   block[4] = self;
   v61 = v2Copy;
   v67 = &v83;
@@ -4853,7 +4939,7 @@ LABEL_22:
 LABEL_24:
       if (v15)
       {
-        [v15 auditToken];
+        objc_msgSend_auditToken(v15);
       }
 
       else
@@ -4947,7 +5033,7 @@ LABEL_32:
   remoteAssetsManager = self->_remoteAssetsManager;
   if (v15)
   {
-    [v15 auditToken];
+    objc_msgSend_auditToken(v15);
   }
 
   else
@@ -5145,7 +5231,7 @@ LABEL_28:
   {
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_100050F40(duplicationCopy, error);
+      sub_100050F40();
     }
 
 LABEL_8:
@@ -5190,7 +5276,7 @@ LABEL_8:
           {
             if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
             {
-              sub_100050FA8(v33, error);
+              sub_100050FA8();
             }
 
             v26 = 0;
@@ -5318,7 +5404,7 @@ LABEL_8:
 
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_100051010(v63, error);
+      sub_100051010();
     }
 
     goto LABEL_8;
@@ -5791,7 +5877,7 @@ LABEL_41:
     {
       if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
       {
-        sub_10005135C(v11, error);
+        sub_10005135C();
       }
 
 LABEL_70:
@@ -6098,7 +6184,7 @@ LABEL_54:
 
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_1000512EC(error);
+    sub_1000512EC();
   }
 
   v10 = 0;
@@ -6247,7 +6333,7 @@ LABEL_23:
 
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_10005135C(v7, state);
+    sub_10005135C();
   }
 
 LABEL_24:
@@ -6267,7 +6353,7 @@ LABEL_24:
   v6 = [(MAKVStoreManager *)self->_kvStoreManager resetKVCloudStateWithError:state];
   if (!v6 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_1000513C4(state);
+    sub_1000513C4();
   }
 
   return v6;
@@ -6798,6 +6884,65 @@ LABEL_41:
   }
 
   return v20;
+}
+
+- (void)accountChangedWithSigninUser:(id)user signoutUser:(id)signoutUser accountSwitch:(BOOL)switch
+{
+  switchCopy = switch;
+  userCopy = user;
+  signoutUserCopy = signoutUser;
+  if (!signoutUserCopy)
+  {
+    if (!userCopy)
+    {
+      goto LABEL_12;
+    }
+
+    v10 = off_100127E38;
+    if (!os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_12;
+    }
+
+    *v15 = 138412290;
+    *&v15[4] = userCopy;
+    v12 = "iCloud account %@ signed in";
+LABEL_10:
+    v13 = v10;
+    v14 = 12;
+    goto LABEL_11;
+  }
+
+  v10 = off_100127E38;
+  v11 = os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT);
+  if (!userCopy)
+  {
+    if (!v11)
+    {
+      goto LABEL_12;
+    }
+
+    *v15 = 138412290;
+    *&v15[4] = signoutUserCopy;
+    v12 = "iCloud account %@ signed out";
+    goto LABEL_10;
+  }
+
+  if (v11)
+  {
+    *v15 = 138412546;
+    *&v15[4] = signoutUserCopy;
+    *&v15[12] = 2112;
+    *&v15[14] = userCopy;
+    v12 = "iCloud account switch: %@ signed out, %@ signed in";
+    v13 = v10;
+    v14 = 22;
+LABEL_11:
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v12, v15, v14);
+  }
+
+LABEL_12:
+  [(MAServer *)self processAccountChangedWithSigninUser:userCopy signoutUser:signoutUserCopy accountSwitch:switchCopy, *v15, *&v15[8]];
 }
 
 - (BOOL)didReceiveKVSData:(id)data assetType:(unint64_t)type storeName:(id)name storeGroup:(id)group profileType:(unint64_t)profileType data:(id)a8
@@ -7374,7 +7519,7 @@ LABEL_8:
 
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else
@@ -7485,7 +7630,7 @@ LABEL_8:
 
     if (v10)
     {
-      [v10 auditToken];
+      objc_msgSend_auditToken(v10);
     }
 
     else
@@ -7546,7 +7691,7 @@ LABEL_8:
 
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else
@@ -8114,7 +8259,7 @@ LABEL_7:
 LABEL_10:
   if (v16)
   {
-    [v16 auditToken];
+    objc_msgSend_auditToken(v16);
   }
 
   else
@@ -8179,7 +8324,7 @@ LABEL_10:
 
   if (v13)
   {
-    [v13 auditToken];
+    objc_msgSend_auditToken(v13);
   }
 
   else
@@ -8254,7 +8399,7 @@ LABEL_10:
 
   if (v16)
   {
-    [v16 auditToken];
+    objc_msgSend_auditToken(v16);
   }
 
   else
@@ -8321,7 +8466,7 @@ LABEL_5:
 
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -8382,7 +8527,7 @@ LABEL_5:
 
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -8433,7 +8578,7 @@ LABEL_3:
 LABEL_4:
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -8525,7 +8670,7 @@ LABEL_18:
 LABEL_11:
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -9351,16 +9496,16 @@ LABEL_169:
   }
 
   v7 = v6;
-  lowercaseString = [v6 lowercaseString];
+  v8 = objc_msgSend_lowercaseString(v6);
 
-  if ([@"managedassetsc" isEqual:lowercaseString])
+  if ([@"managedassetsc" isEqual:v8])
   {
     dbInClassC = [(MAStorage *)self->_storage dbInClassC];
   }
 
   else
   {
-    if (![@"managedassetsd" isEqual:lowercaseString])
+    if (![@"managedassetsd" isEqual:v8])
     {
 LABEL_8:
       createManagedAssetError();
@@ -9446,7 +9591,7 @@ LABEL_10:
     {
       if (os_log_type_enabled(off_1001282D8, OS_LOG_TYPE_ERROR))
       {
-        sub_100058618(storeCopy, error);
+        sub_100058618();
       }
 
       v12 = 0;
@@ -9513,29 +9658,7 @@ LABEL_7:
 
     v11 = 0;
     v12 = 0;
-    if (!v9)
-    {
-      goto LABEL_4;
-    }
-
-    v11 = +[NSProcessInfo processInfo];
-    v19[0] = @"masdProcessName";
-    processName = [v11 processName];
-    v20[0] = processName;
-    v19[1] = @"masdProcessPID";
-    v14 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v11 processIdentifier]);
-    v20[1] = v14;
-    v19[2] = @"systemUptime";
-    [v11 systemUptime];
-    v15 = [NSNumber numberWithDouble:?];
-    v20[2] = v15;
-    v19[3] = @"masdProcessUptime";
-    [(NSDate *)self->_spawnTime timeIntervalSinceNow];
-    v17 = [NSNumber numberWithDouble:-v16];
-    v20[3] = v17;
-    v12 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:4];
-
-    if (os_log_type_enabled(off_1001282D8, OS_LOG_TYPE_DEBUG))
+    if (v9 && (+[NSProcessInfo processInfo](NSProcessInfo, "processInfo"), v11 = objc_claimAutoreleasedReturnValue(), v19[0] = @"masdProcessName", [v11 processName], v13 = objc_claimAutoreleasedReturnValue(), v20[0] = v13, v19[1] = @"masdProcessPID", +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", objc_msgSend(v11, "processIdentifier")), v14 = objc_claimAutoreleasedReturnValue(), v20[1] = v14, v19[2] = @"systemUptime", objc_msgSend(v11, "systemUptime"), +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:"), v15 = objc_claimAutoreleasedReturnValue(), v20[2] = v15, v19[3] = @"masdProcessUptime", -[NSDate timeIntervalSinceNow](self->_spawnTime, "timeIntervalSinceNow"), +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", -v16), v17 = objc_claimAutoreleasedReturnValue(), v20[3] = v17, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v20, v19, 4), v12 = objc_claimAutoreleasedReturnValue(), v17, v15, v14, v13, os_log_type_enabled(off_1001282D8, OS_LOG_TYPE_DEBUG)))
     {
       sub_1000586F8();
       if (!infoCopy)
@@ -9544,15 +9667,11 @@ LABEL_7:
       }
     }
 
-    else
+    else if (!infoCopy)
     {
-LABEL_4:
-      if (!infoCopy)
-      {
 LABEL_6:
 
-        goto LABEL_7;
-      }
+      goto LABEL_7;
     }
 
     infoCopy[2](infoCopy, v12, v10);
@@ -10071,7 +10190,7 @@ LABEL_13:
 
   if (v14)
   {
-    [v14 auditToken];
+    objc_msgSend_auditToken(v14);
   }
 
   else
@@ -10594,7 +10713,7 @@ LABEL_3:
 LABEL_4:
   if (v14)
   {
-    [v14 auditToken];
+    objc_msgSend_auditToken(v14);
   }
 
   else
@@ -10705,7 +10824,7 @@ LABEL_4:
 
   if (v17)
   {
-    [v17 auditToken];
+    objc_msgSend_auditToken(v17);
   }
 
   else
@@ -10905,7 +11024,7 @@ LABEL_3:
 
   if (v14)
   {
-    [v14 auditToken];
+    objc_msgSend_auditToken(v14);
   }
 
   else
@@ -11090,7 +11209,7 @@ LABEL_5:
 
   if (v14)
   {
-    [v14 auditToken];
+    objc_msgSend_auditToken(v14);
   }
 
   else
@@ -11227,7 +11346,7 @@ LABEL_7:
 
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -11335,7 +11454,7 @@ LABEL_5:
 LABEL_6:
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else

@@ -118,53 +118,53 @@ void __56__FCTodayFeedConfigOperation_setFetchCompletionHandler___block_invoke(u
 
 - (BOOL)validateOperation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   context = [(FCTodayFeedConfigOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Today feed config operation must have a context"];
-    v13 = 136315906;
-    v14 = "[FCTodayFeedConfigOperation validateOperation]";
-    v15 = 2080;
-    v16 = "FCTodayFeedConfigOperation.m";
-    v17 = 1024;
-    v18 = 127;
-    v19 = 2114;
-    v20 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Today feed config operation must have a context"];
+    v12 = 136315906;
+    v13 = "[FCTodayFeedConfigOperation validateOperation]";
+    v14 = 2080;
+    v15 = "FCTodayFeedConfigOperation.m";
+    v16 = 1024;
+    v17 = 127;
+    v18 = 2114;
+    v19 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
   }
 
   appConfig = [(FCTodayFeedConfigOperation *)self appConfig];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Today feed config operation must have an app config"];
-    v13 = 136315906;
-    v14 = "[FCTodayFeedConfigOperation validateOperation]";
-    v15 = 2080;
-    v16 = "FCTodayFeedConfigOperation.m";
-    v17 = 1024;
-    v18 = 131;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Today feed config operation must have an app config"];
+    v12 = 136315906;
+    v13 = "[FCTodayFeedConfigOperation validateOperation]";
+    v14 = 2080;
+    v15 = "FCTodayFeedConfigOperation.m";
+    v16 = 1024;
+    v17 = 131;
+    v18 = 2114;
+    v19 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
   }
 
   request = [(FCTodayFeedConfigOperation *)self request];
 
   if (!request && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Today feed config operation must have a request"];
-    v13 = 136315906;
-    v14 = "[FCTodayFeedConfigOperation validateOperation]";
-    v15 = 2080;
-    v16 = "FCTodayFeedConfigOperation.m";
-    v17 = 1024;
-    v18 = 135;
-    v19 = 2114;
-    v20 = v12;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Today feed config operation must have a request"];
+    v12 = 136315906;
+    v13 = "[FCTodayFeedConfigOperation validateOperation]";
+    v14 = 2080;
+    v15 = "FCTodayFeedConfigOperation.m";
+    v16 = 1024;
+    v17 = 135;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
   }
 
   if (context)
@@ -177,9 +177,7 @@ void __56__FCTodayFeedConfigOperation_setFetchCompletionHandler___block_invoke(u
     v6 = 1;
   }
 
-  result = !v6 && request != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v6 && request != 0;
 }
 
 - (void)performOperation
@@ -241,7 +239,7 @@ void __56__FCTodayFeedConfigOperation_setFetchCompletionHandler___block_invoke(u
 
 void __46__FCTodayFeedConfigOperation_performOperation__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -249,19 +247,17 @@ void __46__FCTodayFeedConfigOperation_performOperation__block_invoke(uint64_t a1
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     [*(a1 + 40) fc_timeIntervalUntilNow];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    v11 = (fmax(v6, 0.0) * 1000.0);
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ spent %llums fetching config from CK", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = (fmax(v6, 0.0) * 1000.0);
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ spent %llums fetching config from CK", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __46__FCTodayFeedConfigOperation_performOperation__block_invoke_12(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -269,14 +265,12 @@ void __46__FCTodayFeedConfigOperation_performOperation__block_invoke_12(uint64_t
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     [*(a1 + 40) fc_timeIntervalUntilNow];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    v11 = (fmax(v6, 0.0) * 1000.0);
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ spent %llums fetching config from News Edge", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = (fmax(v6, 0.0) * 1000.0);
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ spent %llums fetching config from News Edge", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 id __46__FCTodayFeedConfigOperation_performOperation__block_invoke_13(uint64_t a1, void *a2)
@@ -329,7 +323,7 @@ id __46__FCTodayFeedConfigOperation_performOperation__block_invoke_3(uint64_t a1
 
 void __46__FCTodayFeedConfigOperation_performOperation__block_invoke_4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 domain];
   if (![v4 isEqualToString:*MEMORY[0x1E69B6930]])
@@ -348,17 +342,15 @@ void __46__FCTodayFeedConfigOperation_performOperation__block_invoke_4(uint64_t 
       v8 = *(a1 + 32);
       v4 = v7;
       v9 = [v8 shortOperationDescription];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ timed out waiting for config from News Edge, falling back to CK", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ timed out waiting for config from News Edge, falling back to CK", &v10, 0xCu);
 
 LABEL_5:
     }
   }
 
   [*(a1 + 32) finishedPerformingOperationWithError:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -458,7 +450,7 @@ uint64_t __59__FCTodayFeedConfigOperation_operationWillFinishWithError___block_i
 
 void __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38[5] = *MEMORY[0x1E69E9840];
+  v37[5] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -477,42 +469,42 @@ void __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke(uint64_t a1, vo
   if (v11)
   {
     objc_initWeak(location, *(a1 + 32));
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_2;
-    v29[3] = &unk_1E7C402E8;
-    objc_copyWeak(&v30, location);
-    [(FCRecordChainFetchOperation *)v7 setNetworkActivityBlock:v29];
-    objc_destroyWeak(&v30);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_2;
+    v28[3] = &unk_1E7C402E8;
+    objc_copyWeak(&v29, location);
+    [(FCRecordChainFetchOperation *)v7 setNetworkActivityBlock:v28];
+    objc_destroyWeak(&v29);
     objc_destroyWeak(location);
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_3;
-  v28[3] = &unk_1E7C36D40;
-  v28[4] = *(a1 + 32);
-  v12 = [MEMORY[0x1E695DEC8] fc_array:v28];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_3;
+  v27[3] = &unk_1E7C36D40;
+  v27[4] = *(a1 + 32);
+  v12 = [MEMORY[0x1E695DEC8] fc_array:v27];
   [(FCRecordChainFetchOperation *)v7 setTopLevelRecordIDs:v12];
 
-  v37[0] = @"ForYouConfig";
-  v36 = @"todayFeedTopStoriesArticleIDs";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-  v38[0] = v13;
-  v37[1] = @"Article";
-  v35[0] = @"sourceChannelTagID";
-  v35[1] = @"parentIssueID";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
-  v38[1] = v14;
-  v37[2] = @"ArticleList";
-  v34 = @"articleIDs";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
-  v38[2] = v15;
-  v37[3] = @"Tag";
-  v37[4] = @"Issue";
-  v38[3] = MEMORY[0x1E695E0F0];
-  v38[4] = MEMORY[0x1E695E0F0];
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:5];
+  v36[0] = @"ForYouConfig";
+  v35 = @"todayFeedTopStoriesArticleIDs";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v37[0] = v13;
+  v36[1] = @"Article";
+  v34[0] = @"sourceChannelTagID";
+  v34[1] = @"parentIssueID";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+  v37[1] = v14;
+  v36[2] = @"ArticleList";
+  v33 = @"articleIDs";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+  v37[2] = v15;
+  v36[3] = @"Tag";
+  v36[4] = @"Issue";
+  v37[3] = MEMORY[0x1E695E0F0];
+  v37[4] = MEMORY[0x1E695E0F0];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:5];
   [(FCRecordChainFetchOperation *)v7 setLinkKeysByRecordType:v16];
 
   v17 = FCOperationLog;
@@ -524,25 +516,23 @@ void __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke(uint64_t a1, vo
     v21 = [(FCRecordChainFetchOperation *)v7 topLevelRecordIDs];
     *location = 138543618;
     *&location[4] = v20;
-    v32 = 2114;
-    v33 = v21;
+    v31 = 2114;
+    v32 = v21;
     _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch config from CK with top-level record IDs: %{public}@", location, 0x16u);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_28;
-  v25[3] = &unk_1E7C40310;
-  v25[4] = *(a1 + 32);
-  v26 = v6;
-  v27 = v5;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_28;
+  v24[3] = &unk_1E7C40310;
+  v24[4] = *(a1 + 32);
+  v25 = v6;
+  v26 = v5;
   v22 = v5;
   v23 = v6;
-  [(FCRecordChainFetchOperation *)v7 setRecordChainCompletionHandler:v25];
+  [(FCRecordChainFetchOperation *)v7 setRecordChainCompletionHandler:v24];
   [*(a1 + 32) associateChildOperation:v7];
   [(FCOperation *)v7 start];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 id __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_2(uint64_t a1)
@@ -594,7 +584,7 @@ void __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_28(uint64_t a1,
 
 uint64_t __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_2_29(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -602,17 +592,14 @@ uint64_t __42__FCTodayFeedConfigOperation__fetchFromCK__block_invoke_2_29(void *
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     v6 = a1[5];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered error fetching config from CK: %{public}@", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered error fetching config from CK: %{public}@", &v8, 0x16u);
   }
 
-  v7 = a1[5];
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (id)_fetchFromNewsEdge
@@ -664,7 +651,7 @@ void __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke(uint64_t 
     if (v13)
     {
       v14 = *(a1 + 32);
-      v29 = v13;
+      v28 = v13;
       v15 = [v14 networkActivity];
 
       if (v15)
@@ -674,15 +661,15 @@ void __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke(uint64_t 
         aBlock[1] = 3221225472;
         aBlock[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_82;
         aBlock[3] = &unk_1E7C40338;
-        objc_copyWeak(&v34, location);
-        v27 = _Block_copy(aBlock);
-        objc_destroyWeak(&v34);
+        objc_copyWeak(&v33, location);
+        v26 = _Block_copy(aBlock);
+        objc_destroyWeak(&v33);
         objc_destroyWeak(location);
       }
 
       else
       {
-        v27 = 0;
+        v26 = 0;
       }
 
       v16 = FCOperationLog;
@@ -702,78 +689,72 @@ void __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke(uint64_t 
       v23 = [*(a1 + 32) request];
       v24 = [v23 formatVersion];
       v25 = [*(a1 + 32) cachePolicy];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_85;
-      v30[3] = &unk_1E7C40360;
-      v30[4] = *(a1 + 32);
-      v31 = v6;
-      v32 = v5;
-      [v29 fetchTodayFeedConfigurationIfNeededWithCompletionQueue:v20 feedType:v22 formatVersion:v24 cachePolicy:v25 networkActivityBlock:v28 completion:v30];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_85;
+      v29[3] = &unk_1E7C40360;
+      v29[4] = *(a1 + 32);
+      v30 = v6;
+      v31 = v5;
+      [v28 fetchTodayFeedConfigurationIfNeededWithCompletionQueue:v20 feedType:v22 formatVersion:v24 cachePolicy:v25 networkActivityBlock:v27 completion:v29];
     }
 
     else
     {
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_81;
-      v35[3] = &unk_1E7C37BC0;
-      v35[4] = *(a1 + 32);
-      v36 = v5;
-      __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_81(v35);
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_81;
+      v34[3] = &unk_1E7C37BC0;
+      v34[4] = *(a1 + 32);
+      v35 = v5;
+      __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_81(v34);
     }
   }
 
   else
   {
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2;
-    v37[3] = &unk_1E7C37BC0;
-    v37[4] = *(a1 + 32);
-    v38 = v5;
-    __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2(v37);
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2;
+    v36[3] = &unk_1E7C37BC0;
+    v36[4] = *(a1 + 32);
+    v37 = v5;
+    __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2(v36);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will skip News Edge because it's disabled in the app config", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will skip News Edge because it's disabled in the app config", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_81(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will skip News Edge because there's no config manager", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will skip News Edge because there's no config manager", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 id __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_82(uint64_t a1)
@@ -811,7 +792,7 @@ void __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_85(uint64
 
 uint64_t __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2_86(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -819,17 +800,14 @@ uint64_t __48__FCTodayFeedConfigOperation__fetchFromNewsEdge__block_invoke_2_86(
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     v6 = a1[5];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered error fetching config from News Edge: %{public}@", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered error fetching config from News Edge: %{public}@", &v8, 0x16u);
   }
 
-  v7 = a1[5];
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 @end

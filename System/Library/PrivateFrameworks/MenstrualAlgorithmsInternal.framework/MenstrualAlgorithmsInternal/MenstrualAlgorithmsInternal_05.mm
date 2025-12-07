@@ -1,177 +1,3 @@
-uint64_t *std::__tree<std::__value_type<int,std::array<short,9ul>>,std::__map_value_compare<int,std::__value_type<int,std::array<short,9ul>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::array<short,9ul>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-void Nightingale::fwEstimatorOPK::getHistFwOpk(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
-{
-  *a5 = 0;
-  *(a5 + 4) = 0;
-  *(a5 + 8) = 0;
-  v6 = (a5 + 8);
-  *(a5 + 12) = 0;
-  *(a5 + 16) = 3;
-  *(a5 + 32) = 0;
-  *(a5 + 20) = 0;
-  *(a5 + 28) = 0;
-  v7.i64[0] = 0x3F0000003FLL;
-  v7.i64[1] = 0x3F0000003FLL;
-  *(a5 + 36) = vnegq_f32(v7);
-  *(a5 + 52) = 0;
-  *(a5 + 56) = 0;
-  *(a5 + 60) = 0;
-  *(a5 + 64) = 0;
-  *(a5 + 72) = 0;
-  *(a5 + 96) = 0;
-  *(a5 + 104) = 0;
-  *(a5 + 128) = 0;
-  *(a5 + 136) = 0;
-  *(a5 + 140) = 0;
-  *(a5 + 144) = 0x17FC00000;
-  *(a5 + 152) = 0;
-  *(a5 + 156) = 0;
-  if (*(a2 + 24) == 1 && *(a2 + 16) == 1 && (a4 & 0x100000000) != 0)
-  {
-    v9 = *(a2 + 12);
-    if (v9 <= a4)
-    {
-      *a5 = v9 - 4;
-      *(a5 + 4) = 1;
-      *(a5 + 8) = v9 + 1;
-      *(a5 + 12) = 1;
-      *(a5 + 16) = 0;
-      *(a5 + 29) = Nightingale::phaseFactorProcessor::suppressFWStEnd(a1, a5, v6, a3);
-      v11 = *a2;
-      v12 = *(a2 + 20);
-
-      Nightingale::fwEstimatorBase::suppressHistFWOverCycleBoundary(a1, v11, v12, a5);
-    }
-
-    else
-    {
-      *(a5 + 28) = 1;
-    }
-  }
-}
-
-uint64_t Nightingale::fwEstimatorOPK::getOnGoingjDayFwEndOpk(uint64_t a1, int a2, uint64_t a3)
-{
-  if ((BYTE4(a3) & (a3 - 4 >= a2)) != 0)
-  {
-    return (a3 + 1) | 0x100000000;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void __65__period_lstm_loadContentsOfURL_configuration_completionHandler___block_invoke(uint64_t a1, void *a2)
-{
-  v4 = a2;
-  if (v4)
-  {
-    v3 = [[period_lstm alloc] initWithMLModel:v4];
-    (*(*(a1 + 32) + 16))();
-  }
-
-  else
-  {
-    (*(*(a1 + 32) + 16))();
-  }
-}
-
-void __56__period_lstm_predictionFromFeatures_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v16 = a2;
-  if (v16)
-  {
-    v5 = a3;
-    v6 = [period_lstmOutput alloc];
-    v7 = [v16 featureValueForName:@"out"];
-    v8 = [v7 multiArrayValue];
-    v9 = [v16 featureValueForName:@"lstm_1_h_out"];
-    v10 = [v9 multiArrayValue];
-    v11 = [v16 featureValueForName:@"lstm_1_c_out"];
-    v12 = [v11 multiArrayValue];
-    v13 = [(period_lstmOutput *)v6 initWithOut:v8 lstm_1_h_out:v10 lstm_1_c_out:v12];
-
-    (*(*(a1 + 32) + 16))();
-  }
-
-  else
-  {
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 16);
-    v13 = a3;
-    v15(v14, 0, v13);
-  }
-}
-
-void __64__period_lstm_predictionFromFeatures_options_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v16 = a2;
-  if (v16)
-  {
-    v5 = a3;
-    v6 = [period_lstmOutput alloc];
-    v7 = [v16 featureValueForName:@"out"];
-    v8 = [v7 multiArrayValue];
-    v9 = [v16 featureValueForName:@"lstm_1_h_out"];
-    v10 = [v9 multiArrayValue];
-    v11 = [v16 featureValueForName:@"lstm_1_c_out"];
-    v12 = [v11 multiArrayValue];
-    v13 = [(period_lstmOutput *)v6 initWithOut:v8 lstm_1_h_out:v10 lstm_1_c_out:v12];
-
-    (*(*(a1 + 32) + 16))();
-  }
-
-  else
-  {
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 16);
-    v13 = a3;
-    v15(v14, 0, v13);
-  }
-}
-
 void __72__model_period_10pct_loadContentsOfURL_configuration_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -477,100 +303,62 @@ void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc()
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
   v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(void *a1, uint64_t a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(*a1 - 4);
-  v3 = *(*(a2 + 32) - 8);
   OUTLINED_FUNCTION_3();
-  v8 = 1024;
-  v9 = v4;
-  _os_log_debug_impl(&dword_2588F5000, v5, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, phase: %d}", v7, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_2588F5000, v1, OS_LOG_TYPE_DEBUG, "\t{jDay: %d, phase: %d}", v2, 0xEu);
 }
 
-void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
-  if (*(a1 + 52))
-  {
-    v2 = *(a1 + 48);
-  }
-
-  if (*(a1 + 36))
-  {
-    v3 = *(a1 + 32);
-  }
-
-  if (*(a1 + 44))
-  {
-    v4 = *(a1 + 40);
-  }
-
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x18u);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void Nightingale::ngt_DayStreamProcessor::printInputDayStreamProc(int *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  *(a1 + 4);
-  v2 = a1[4];
-  *(a1 + 20);
-  v3 = a1[2];
-  *(a1 + 12);
-  v4 = a1[6];
-  *(a1 + 28);
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x18u);
+}
+
+{
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x1Au);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Au);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 void Nightingale::ngt_DayStreamProcessor::printStats()
@@ -581,128 +369,63 @@ void Nightingale::ngt_DayStreamProcessor::printStats()
 }
 
 {
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void Nightingale::ngt_DayStreamProcessor::printStats(unsigned int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 4) == 1)
-  {
-    v1 = *a1;
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void Nightingale::ngt_DayStreamProcessor::printStats(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 12) == 1)
-  {
-    v1 = *(a1 + 8);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 20) == 1)
-  {
-    v1 = *(a1 + 16);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 28) == 1)
-  {
-    v1 = *(a1 + 24);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 36) == 1)
-  {
-    v1 = *(a1 + 32);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 44) == 1)
-  {
-    v1 = *(a1 + 40);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 52) == 1)
-  {
-    v1 = *(a1 + 48);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 60) == 1)
-  {
-    v1 = *(a1 + 56);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 68) == 1)
-  {
-    v1 = *(a1 + 64);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void Nightingale::ngt_DayStreamProcessor::printDeviations()
@@ -713,55 +436,33 @@ void Nightingale::ngt_DayStreamProcessor::printDeviations()
 }
 
 {
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
+}
+
+{
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
+}
+
+{
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
+}
+
+{
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
+}
+
+{
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void Nightingale::ngt_DayStreamProcessor::printDeviations(unsigned __int8 *a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = *(a1 + 1);
-  v3 = *(a1 + 2);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x14u);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void Nightingale::ngt_DayStreamProcessor::printDeviations(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 12);
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 20);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x14u);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 28);
-  v3 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x14u);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 36);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 44);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x14u);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get(unsigned __int8 **a1)
@@ -800,7 +501,7 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
   result = *(a1 + 4);
   if (result == 10)
   {
-    v5 = (a1[5] + 1);
+    v5 = a1[5] + 1;
     a1[4] = 0;
     a1[5] = v5;
   }
@@ -1081,11 +782,11 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
 {
   v6 = 0;
   v7 = 0;
-  v14 = *MEMORY[0x277D85DE8];
-  v13 = xmmword_258950490;
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = xmmword_258950490;
   do
   {
-    v8 = *(&v13 + v7);
+    v8 = *(&v12 + v7);
     result = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get(a1);
     v10 = *a2;
     v11 = *a2 - 48;
@@ -1120,7 +821,6 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
 
 LABEL_9:
   *a3 = v6;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1211,7 +911,6 @@ void Nightingale::uiLogProcessor::genPeriodSlide(void *a1)
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -1219,7 +918,6 @@ void Nightingale::uiLogProcessor::genPeriodSlide(void *a1)
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void Nightingale::uiLogProcessor::genCycleSlide()
@@ -1249,78 +947,61 @@ void Nightingale::uiLogProcessor::process()
 }
 
 {
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void Nightingale::uiLogProcessor::process(uint64_t *a1)
-{
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  v3 = *(v2 - 4);
+  OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  v3 = *(v2 - 96);
-  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  if (*(v2 - 88) == 1)
-  {
-    v3 = *(v2 - 92);
-  }
-
-  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  v3 = *(v2 - 68);
+  OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 void Nightingale::uiLogProcessor::print_anUILog()
@@ -1340,6 +1021,108 @@ void Nightingale::uiLogProcessor::print_anUILog()
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void Nightingale::uiLogProcessor::print_anUILog(_DWORD *a1, uint64_t a2, int *a3)
@@ -1464,173 +1247,12 @@ void Nightingale::uiLogProcessor::print_anUILog(_BYTE *a1, _BYTE *a2)
   OUTLINED_FUNCTION_6(&dword_2588F5000, v2, v2, ",\n", v3);
 }
 
-void Nightingale::uiLogProcessor::print_anUILog(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 28);
-  v2 = *(a1 + 24);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 36);
-  v2 = *(a1 + 32);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 44);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 52);
-  v2 = *(a1 + 48);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 60);
-  v2 = *(a1 + 56);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 68);
-  v2 = *(a1 + 64);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 76);
-  v2 = *(a1 + 72);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 84);
-  v2 = *(a1 + 80);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 92);
-  v2 = *(a1 + 88);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 100);
-  v2 = *(a1 + 96);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 108);
-  v2 = *(a1 + 104);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 116);
-  v2 = *(a1 + 112);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 120);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 124);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 128);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
 void Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_2588F5000, a2, OS_LOG_TYPE_DEBUG, "\tccMenstCycleLen_handling: {jDayLastEndOfCC: %d}\n\n)", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_2588F5000, a2, OS_LOG_TYPE_DEBUG, "\tccMenstCycleLen_handling: {jDayLastEndOfCC: %d}\n\n)", v2, 8u);
 }
 
 void Nightingale::ngtProjector::isFinite_aProj()
@@ -1644,135 +1266,102 @@ void Nightingale::ngtProjector::isFinite_aProj()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void Nightingale::ngtProjector::getCAPeriodPredictionMethod()
+void Nightingale::ngtProjector::isFinite_aGrad()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void Nightingale::ngtProjector::isFinite_aGrad(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void Nightingale::ngt_HistoricalAnalyzer::analyze()
 {
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "Historical Analyzer debug message: {\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "Historical Analyzer debug message: {\n", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "  CycleProcessHistOut: {fwStart: [", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "  CycleProcessHistOut: {fwStart: [", v2, v3, v4, v5);
 }
 
 {
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "],\n", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "\t\t\tfwEnd: [", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "]},\n", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "\t\t\talgUsed: [", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "\t\t\tFailureCode: [", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, " dummy_key:0 \n},\n\n", v2, v3, v4, v5, v6);
-}
-
-void Nightingale::ngt_HistoricalAnalyzer::analyze(uint64_t *a1)
-{
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  if (*(v2 - 68) == 1)
-  {
-    v3 = *(v2 - 72);
-  }
-
+  OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  if (*(v2 - 60) == 1)
-  {
-    v3 = *(v2 - 64);
-  }
-
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "],\n", v2, v3, v4, v5);
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  v3 = *(v2 - 16);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "\t\t\tfwEnd: [", v2, v3, v4, v5);
 }
 
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1);
-  v3 = *(v2 - 12);
+  OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "]},\n", v2, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "\t\t\talgUsed: [", v2, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, "\t\t\tFailureCode: [", v2, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_2588F5000, v0, v1, " dummy_key:0 \n},\n\n", v2, v3, v4, v5);
 }
 
 void Nightingale::vVar<double>()

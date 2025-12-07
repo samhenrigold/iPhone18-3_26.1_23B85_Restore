@@ -13,28 +13,27 @@
 
 - (CTXPCEncryptDataRequest)initWithMcc:(id)mcc mnc:(id)mnc gid1:(id)gid1 gid2:(id)gid2 plainText:(id)text
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   mccCopy = mcc;
   mncCopy = mnc;
   gid1Copy = gid1;
   gid2Copy = gid2;
   textCopy = text;
-  v23[0] = @"mcc";
-  v23[1] = @"mnc";
-  v24[0] = mccCopy;
-  v24[1] = mncCopy;
-  v23[2] = @"plainText";
-  v24[2] = textCopy;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v22[0] = @"mcc";
+  v22[1] = @"mnc";
+  v23[0] = mccCopy;
+  v23[1] = mncCopy;
+  v22[2] = @"plainText";
+  v23[2] = textCopy;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
   v18 = [v17 mutableCopy];
 
   [v18 setObject:gid1Copy forKeyedSubscript:@"gid1"];
   [v18 setObject:gid2Copy forKeyedSubscript:@"gid2"];
-  v22.receiver = self;
-  v22.super_class = CTXPCEncryptDataRequest;
-  v19 = [(CTXPCMessage *)&v22 initWithNamedArguments:v18];
+  v21.receiver = self;
+  v21.super_class = CTXPCEncryptDataRequest;
+  v19 = [(CTXPCMessage *)&v21 initWithNamedArguments:v18];
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

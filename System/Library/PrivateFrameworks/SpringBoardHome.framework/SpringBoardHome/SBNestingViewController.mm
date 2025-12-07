@@ -200,8 +200,8 @@ LABEL_7:
     {
       for (i = 0; i < v12; ++i)
       {
-        v14 = [nestedViewControllers objectAtIndex:i];
-        v15 = [controllersCopy objectAtIndex:i];
+        v14 = objc_msgSend_objectAtIndex_(nestedViewControllers);
+        v15 = objc_msgSend_objectAtIndex_(controllersCopy);
         v16 = [v14 isEqual:v15];
 
         if (!v16)
@@ -322,10 +322,9 @@ void __67__SBNestingViewController_setNestedViewControllers_withCompletion___blo
 {
   v2 = a1[4];
   v3 = a1[5];
-  v4 = a1[6];
-  v5 = a2;
-  v6 = [v3 objectAtIndex:v4];
-  [v2 pushNestedViewController:v6 animated:0 withCompletion:v5];
+  v4 = a2;
+  v5 = objc_msgSend_objectAtIndex_(v3);
+  [v2 pushNestedViewController:v5 animated:0 withCompletion:v4];
 }
 
 void __64__SBNestingViewController_deepestNestedDescendantViewController__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -707,7 +706,7 @@ uint64_t __68__SBNestingViewController_dismissViewControllerAnimated_completion_
   popoverPresentationController = [viewControllerCopy popoverPresentationController];
 
   [popoverPresentationController setSourceView:v7];
-  [v7 bounds];
+  objc_msgSend_bounds(v7);
   [popoverPresentationController setSourceRect:?];
   [popoverPresentationController setCanOverlapSourceViewRect:1];
 }
@@ -847,7 +846,7 @@ uint64_t __68__SBNestingViewController_dismissViewControllerAnimated_completion_
         [(SBViewControllerTransitionContext *)v15 setView:view2 forKey:*MEMORY[0x1E69DE780]];
 
         view3 = [(SBNestingViewController *)self view];
-        [view3 bounds];
+        objc_msgSend_bounds(view3);
         v21 = v20;
         v23 = v22;
         v25 = v24;
@@ -882,7 +881,7 @@ uint64_t __68__SBNestingViewController_dismissViewControllerAnimated_completion_
         [(SBViewControllerTransitionContext *)v15 setView:view4 forKey:*MEMORY[0x1E69DE770]];
 
         view5 = [(SBNestingViewController *)self view];
-        [view5 bounds];
+        objc_msgSend_bounds(view5);
         v75 = v49;
         v77 = v48;
         v51 = v50;

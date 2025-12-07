@@ -246,7 +246,7 @@ LABEL_17:
 
 LABEL_14:
         relatedApplications = [activityCopy relatedApplications];
-        v6 = [relatedApplications count] != 0;
+        v6 = objc_msgSend_count(relatedApplications) != 0;
 
         if (!requiresNetwork)
         {
@@ -290,7 +290,7 @@ LABEL_21:
     }
 
     clientDataBudgetName = [activityCopy relatedApplications];
-    if (![clientDataBudgetName count])
+    if (!objc_msgSend_count(clientDataBudgetName))
     {
 LABEL_34:
 
@@ -461,7 +461,7 @@ LABEL_4:
   }
 
   clientDataBudgetName = [activityCopy relatedApplications];
-  if (![(__objc2_class *)clientDataBudgetName count])
+  if (!objc_msgSend_count(clientDataBudgetName))
   {
 
     goto LABEL_10;
@@ -720,7 +720,7 @@ LABEL_43:
   else
   {
     relatedApplications2 = [activityCopy relatedApplications];
-    v45 = [relatedApplications2 count];
+    v45 = objc_msgSend_count(relatedApplications2);
 
     v46 = self->_log;
     v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);

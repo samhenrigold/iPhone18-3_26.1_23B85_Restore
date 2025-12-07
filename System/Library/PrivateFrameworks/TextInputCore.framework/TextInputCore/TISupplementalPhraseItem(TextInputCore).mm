@@ -43,9 +43,9 @@
   {
     phoneticTitle = [self phoneticTitle];
     input2 = [v6 input];
-    if ([phoneticTitle isEqualToString:input2])
+    if (objc_msgSend_isEqualToString_(phoneticTitle))
     {
-      v9 = 1;
+      isEqualToString = 1;
 LABEL_8:
 
       goto LABEL_9;
@@ -57,12 +57,12 @@ LABEL_8:
   {
     title = [self title];
     candidate2 = [v6 candidate];
-    v9 = [title isEqualToString:candidate2];
+    isEqualToString = objc_msgSend_isEqualToString_(title);
   }
 
   else
   {
-    v9 = 0;
+    isEqualToString = 0;
   }
 
   if (v8)
@@ -72,7 +72,7 @@ LABEL_8:
 
 LABEL_9:
 
-  return v9;
+  return isEqualToString;
 }
 
 - (void)core_appendEntitiesToArray:()TextInputCore

@@ -1,3 +1,22 @@
+mpark *IPC::ArgumentCoder<mpark::variant<WebCore::ResourceRequestBase::RequestData,WebCore::ResourceRequestPlatformData>,void>::encode<IPC::Encoder,mpark::variant<WebCore::ResourceRequestBase::RequestData,WebCore::ResourceRequestPlatformData>>(mpark *a1, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+
+    return IPC::ArgumentCoder<mpark::variant<WebCore::ResourceRequestBase::RequestData,WebCore::ResourceRequestPlatformData>,void>::encode<IPC::Encoder,mpark::variant<WebCore::ResourceRequestBase::RequestData,WebCore::ResourceRequestPlatformData>,0ul>(a1, a2, a3);
+  }
+
+  else
+  {
+    if (*(a2 + 152))
+    {
+      mpark::throw_bad_variant_access(a1);
+    }
+
+    return IPC::ArgumentCoder<WebCore::ResourceRequestBase::RequestData,void>::encode(a1, a2);
+  }
+}
+
 mpark *IPC::ArgumentCoder<mpark::variant<WebCore::ResourceRequestBase::RequestData,WebCore::ResourceRequestPlatformData>,void>::encode<IPC::Encoder,mpark::variant<WebCore::ResourceRequestBase::RequestData,WebCore::ResourceRequestPlatformData>,0ul>(mpark *result, uint64_t a2, uint64_t a3)
 {
   if (a3 == 1)
@@ -87,8 +106,8 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::ResourceError::IPCData>,void>
 {
   if (*(a2 + 24))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (*(a2 + 24))
     {
       return IPC::ArgumentCoder<WebCore::ResourceError::IPCData,void>::encode(a1, a2);
@@ -97,14 +116,14 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::ResourceError::IPCData>,void>
     else
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::ArgumentCoder<std::optional<WebCore::ResourceError::IPCData>,void>::decode<IPC::Decoder>(v5);
+      return IPC::ArgumentCoder<std::optional<WebCore::ResourceError::IPCData>,void>::decode<IPC::Decoder>(v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    return IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
@@ -164,8 +183,8 @@ uint64_t IPC::ArgumentCoder<std::optional<float>,void>::encode<IPC::Encoder,std:
 {
   if (*(a2 + 4))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (*(a2 + 4))
     {
       return IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(a1, *a2);
@@ -174,14 +193,14 @@ uint64_t IPC::ArgumentCoder<std::optional<float>,void>::encode<IPC::Encoder,std:
     else
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::VectorArgumentCoder<false,WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(v5);
+      return IPC::VectorArgumentCoder<false,WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    return IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
@@ -261,25 +280,25 @@ LABEL_8:
   return result;
 }
 
-uint64_t IPC::VectorArgumentCoder<false,WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>@<X0>(WTF::StringImpl **a1@<X0>, char *a2@<X8>)
+uint64_t IPC::VectorArgumentCoder<false,WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>@<X0>(IPC::Decoder *a1@<X0>, char *a2@<X8>)
 {
-  v4 = a1[1];
-  v5 = ((a1[2] + 7) & 0xFFFFFFFFFFFFFFF8);
+  v4 = *(a1 + 1);
+  v5 = ((*(a1 + 2) + 7) & 0xFFFFFFFFFFFFFFF8);
   v6 = *a1;
-  v7 = (v5 - *a1);
+  v7 = v5 - *a1;
   v8 = v4 >= v7;
   v9 = v4 - v7;
   if (!v8 || v9 <= 7)
   {
     *a1 = 0;
-    a1[1] = 0;
-    v26 = a1[3];
+    *(a1 + 1) = 0;
+    v26 = *(a1 + 3);
     if (v26)
     {
       if (v4)
       {
         (*(*v26 + 16))(v26);
-        v4 = a1[1];
+        v4 = *(a1 + 1);
       }
     }
 
@@ -291,7 +310,7 @@ uint64_t IPC::VectorArgumentCoder<false,WebCore::GrammarDetail,0ul,WTF::CrashOnO
     goto LABEL_41;
   }
 
-  a1[2] = (v5 + 1);
+  *(a1 + 2) = v5 + 1;
   if (v5)
   {
     v11 = *v5;
@@ -314,22 +333,22 @@ uint64_t IPC::VectorArgumentCoder<false,WebCore::GrammarDetail,0ul,WTF::CrashOnO
 
           else
           {
-            v21 = v33 + 40 * HIDWORD(v34);
+            v21 = &v33[5 * HIDWORD(v34)];
             *v21 = v27;
-            *(v21 + 16) = 0;
-            *(v21 + 24) = 0;
+            v21[2] = 0;
+            v21[3] = 0;
             v22 = v28;
             v28 = 0;
-            *(v21 + 16) = v22;
+            v21[2] = v22;
             LODWORD(v22) = v29;
             v29 = 0;
-            *(v21 + 24) = v22;
+            *(v21 + 6) = v22;
             LODWORD(v22) = v30;
             v30 = 0;
-            *(v21 + 28) = v22;
+            *(v21 + 7) = v22;
             v23 = v31;
             v31 = 0;
-            *(v21 + 32) = v23;
+            v21[4] = v23;
             ++HIDWORD(v34);
           }
         }
@@ -382,7 +401,7 @@ LABEL_22:
       }
 
       LODWORD(v34) = 40 * v11 / 0x28u;
-      v33 = WTF::fastMalloc((40 * v11));
+      v33 = WTF::fastMalloc((5 * v11), (40 * v11));
       v12 = *a2;
       v13 = a2[16];
       while (1)
@@ -398,22 +417,22 @@ LABEL_22:
 
           else
           {
-            v15 = v33 + 40 * HIDWORD(v34);
+            v15 = &v33[5 * HIDWORD(v34)];
             *v15 = v27;
-            *(v15 + 16) = 0;
-            *(v15 + 24) = 0;
+            v15[2] = 0;
+            v15[3] = 0;
             v16 = v28;
             v28 = 0;
-            *(v15 + 16) = v16;
+            v15[2] = v16;
             LODWORD(v16) = v29;
             v29 = 0;
-            *(v15 + 24) = v16;
+            *(v15 + 6) = v16;
             LODWORD(v16) = v30;
             v30 = 0;
-            *(v15 + 28) = v16;
+            *(v15 + 7) = v16;
             v17 = v31;
             v31 = 0;
-            *(v15 + 32) = v17;
+            v15[4] = v17;
             ++HIDWORD(v34);
           }
         }
@@ -455,8 +474,8 @@ LABEL_22:
 
 LABEL_41:
   *a1 = 0;
-  a1[1] = 0;
-  result = a1[3];
+  *(a1 + 1) = 0;
+  result = *(a1 + 3);
   if (result)
   {
     if (v4)
@@ -539,13 +558,13 @@ void sub_19D80E908(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 40 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 40 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -577,7 +596,7 @@ unint64_t WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -623,7 +642,7 @@ uint64_t WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::F
     v3 = *result;
     v4 = *result + 40 * *(result + 12);
     v5 = 40 * a2;
-    v6 = WTF::fastMalloc((40 * a2));
+    v6 = WTF::fastMalloc((5 * a2), (40 * a2));
     *(v2 + 8) = v5 / 0x28;
     *v2 = v6;
     WTF::VectorMover<false,WebCore::GrammarDetail>::move(v3, v4, v6);
@@ -695,16 +714,16 @@ void sub_19D80EB34(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-unsigned int *WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t this)
+uint64_t *WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(uint64_t *result, unint64_t this)
 {
-  if (result[2] > this)
+  if (*(result + 2) > this)
   {
     v3 = result;
-    v4 = result[3];
+    v4 = *(result + 3);
     if (v4 > this)
     {
-      result = WTF::VectorTypeOperations<WebCore::GrammarDetail>::destruct(*result + 40 * this, (*result + 40 * v4));
-      *(v3 + 12) = this;
+      result = WTF::VectorTypeOperations<WebCore::GrammarDetail>::destruct((*result + 40 * this), (*result + 40 * v4));
+      *(v3 + 3) = this;
       LODWORD(v4) = this;
     }
 
@@ -717,13 +736,14 @@ unsigned int *WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,W
         JUMPOUT(0x19D80EC54);
       }
 
-      v6 = (40 * this);
-      result = WTF::fastMalloc(v6);
-      *(v3 + 8) = v6 / 0x28;
+      v6 = (5 * this);
+      v7 = (40 * this);
+      result = WTF::fastMalloc(v6, v7);
+      *(v3 + 2) = v7 / 0x28;
       *v3 = result;
       if (result != v5)
       {
-        result = WTF::VectorMover<false,WebCore::GrammarDetail>::move(v5, v5 + 40 * v4, result);
+        result = WTF::VectorMover<false,WebCore::GrammarDetail>::move(v5, &v5[5 * v4], result);
       }
     }
 
@@ -732,7 +752,7 @@ unsigned int *WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,W
       if (*v3 == v5)
       {
         *v3 = 0;
-        *(v3 + 8) = 0;
+        *(v3 + 2) = 0;
       }
 
       return WTF::fastFree(v5, this);
@@ -742,7 +762,7 @@ unsigned int *WTF::Vector<WebCore::GrammarDetail,0ul,WTF::CrashOnOverflow,16ul,W
   return result;
 }
 
-uint64_t WTF::VectorTypeOperations<WebCore::GrammarDetail>::destruct(uint64_t result, WTF::StringImpl *a2)
+WTF::StringImpl *WTF::VectorTypeOperations<WebCore::GrammarDetail>::destruct(WTF::StringImpl *result, WTF::StringImpl *a2)
 {
   if (result != a2)
   {
@@ -968,8 +988,8 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::IntConstraint>,void>::encode<
 {
   if (*(a2 + 48))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (*(a2 + 48))
     {
       return IPC::ArgumentCoder<WebCore::IntConstraint,void>::encode(a1, a2);
@@ -978,23 +998,23 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::IntConstraint>,void>::encode<
     else
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::ArgumentCoder<std::optional<WebCore::DoubleConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::DoubleConstraint> const&>(v5);
+      return IPC::ArgumentCoder<std::optional<WebCore::DoubleConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::DoubleConstraint> const&>(v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    return IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
-uint64_t IPC::ArgumentCoder<std::optional<WebCore::DoubleConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::DoubleConstraint> const&>(IPC::Encoder *a1, uint64_t a2)
+IPC::Decoder *IPC::ArgumentCoder<std::optional<WebCore::DoubleConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::DoubleConstraint> const&>(IPC::Encoder *a1, uint64_t a2)
 {
   if (*(a2 + 80))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (*(a2 + 80))
     {
       return IPC::ArgumentCoder<WebCore::DoubleConstraint,void>::encode(a1, a2);
@@ -1003,23 +1023,23 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::DoubleConstraint>,void>::enco
     else
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::ArgumentCoder<std::optional<WebCore::BooleanConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::BooleanConstraint> const&>(v5);
+      return IPC::ArgumentCoder<std::optional<WebCore::BooleanConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::BooleanConstraint> const&>(v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    return IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
-uint64_t IPC::ArgumentCoder<std::optional<WebCore::BooleanConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::BooleanConstraint> const&>(IPC::Encoder *a1, char *a2)
+void *IPC::ArgumentCoder<std::optional<WebCore::BooleanConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::BooleanConstraint> const&>(IPC::Encoder *a1, char *a2)
 {
   if (a2[16])
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (a2[16])
     {
       return IPC::ArgumentCoder<WebCore::BooleanConstraint,void>::encode(a1, a2);
@@ -1028,14 +1048,14 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::BooleanConstraint>,void>::enc
     else
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::ArgumentCoder<std::optional<WebCore::StringConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::StringConstraint> const&>(v5);
+      return IPC::ArgumentCoder<std::optional<WebCore::StringConstraint>,void>::encode<IPC::Encoder,std::optional<WebCore::StringConstraint> const&>(v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    return IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
@@ -1071,7 +1091,7 @@ IPC::Encoder *IPC::ArgumentCoder<mpark::variant<WTF::Vector<unsigned char,0ul,WT
   return IPC::ArgumentCoder<mpark::variant<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::FormDataElement::EncodedFileData,WebCore::FormDataElement::EncodedBlobData>,void>::encode<IPC::Encoder,mpark::variant<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::FormDataElement::EncodedFileData,WebCore::FormDataElement::EncodedBlobData> const&>(a1, a2, v5);
 }
 
-IPC::Encoder *IPC::ArgumentCoder<mpark::variant<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::FormDataElement::EncodedFileData,WebCore::FormDataElement::EncodedBlobData>,void>::encode<IPC::Encoder,mpark::variant<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::FormDataElement::EncodedFileData,WebCore::FormDataElement::EncodedBlobData> const&>(IPC::Encoder *a1, uint64_t a2, uint64_t a3)
+IPC::Encoder *IPC::ArgumentCoder<mpark::variant<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::FormDataElement::EncodedFileData,WebCore::FormDataElement::EncodedBlobData>,void>::encode<IPC::Encoder,mpark::variant<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::FormDataElement::EncodedFileData,WebCore::FormDataElement::EncodedBlobData> const&>(mpark *a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -1393,77 +1413,77 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::Scre
   return result;
 }
 
-char *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::expand(uint64_t *a1)
+char *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::expand(uint64_t *a1, unint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if (!*a1)
   {
-    v3 = 0;
     v4 = 0;
+    v5 = 0;
     goto LABEL_3;
   }
 
-  v3 = *(v2 - 4);
-  v4 = *(v2 - 12);
-  if (!v3)
+  v4 = *(v3 - 4);
+  v5 = *(v3 - 12);
+  if (!v4)
   {
 LABEL_3:
-    v5 = 8;
+    v6 = 8;
     goto LABEL_4;
   }
 
-  v5 = v3 << (6 * v4 >= 2 * v3);
+  v6 = v4 << (6 * v5 >= 2 * v4);
 LABEL_4:
-  result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::allocateTable(v5);
+  result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::allocateTable(v6, a2);
   *a1 = result;
-  *(result - 2) = v5 - 1;
-  *(result - 1) = v5;
+  *(result - 2) = v6 - 1;
+  *(result - 1) = v6;
   *(result - 4) = 0;
-  *(result - 3) = v4;
-  if (v3)
+  *(result - 3) = v5;
+  if (v4)
   {
-    v8 = v3;
-    v9 = v2;
+    v9 = v4;
+    v10 = v3;
     while (1)
     {
-      if (*v9 != -1)
+      if (*v10 != -1)
       {
-        if (*v9)
+        if (*v10)
         {
-          WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::reinsert(*a1, v9);
-          v10 = *(v9 + 40);
-          *(v9 + 40) = 0;
-          if (v10)
+          WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::reinsert(*a1, v10);
+          v11 = *(v10 + 40);
+          *(v10 + 40) = 0;
+          if (v11)
           {
 LABEL_14:
-            CFRelease(v10);
+            CFRelease(v11);
           }
         }
 
         else
         {
-          v10 = *(v9 + 40);
-          *(v9 + 40) = 0;
-          if (v10)
+          v11 = *(v10 + 40);
+          *(v10 + 40) = 0;
+          if (v11)
           {
             goto LABEL_14;
           }
         }
       }
 
-      v9 += 72;
-      if (!--v8)
+      v10 += 72;
+      if (!--v9)
       {
         goto LABEL_16;
       }
     }
   }
 
-  if (v2)
+  if (v3)
   {
 LABEL_16:
 
-    return WTF::fastFree((v2 - 16), v7);
+    return WTF::fastFree((v3 - 16), v8);
   }
 
   return result;
@@ -1492,43 +1512,43 @@ double WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::Scree
   return result;
 }
 
-char *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::allocateTable(unsigned int a1)
+char *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::allocateTable(unsigned int a1, unint64_t a2)
 {
-  LODWORD(v1) = a1;
-  v2 = WTF::fastMalloc((72 * a1 + 16));
-  v3 = v2;
-  if (v1)
+  LODWORD(v2) = a1;
+  v3 = WTF::fastMalloc((72 * a1), (72 * a1 + 16));
+  v4 = v3;
+  if (v2)
   {
-    v1 = v1;
-    v4 = v2 + 56;
+    v2 = v2;
+    v5 = v3 + 56;
     __asm { FMOV            V8.2S, #1.0 }
 
     do
     {
-      *(v4 - 10) = 0;
-      *(v4 - 2) = 0u;
-      *(v4 - 1) = 0u;
-      *v4 = 0u;
-      *(v4 + 1) = 0u;
-      v2 = *WebCore::DestinationColorSpace::SRGB(v2);
-      *v4 = v2;
-      if (v2)
+      *(v5 - 10) = 0;
+      *(v5 - 2) = 0u;
+      *(v5 - 1) = 0u;
+      *v5 = 0u;
+      *(v5 + 1) = 0u;
+      v3 = *WebCore::DestinationColorSpace::SRGB(v3);
+      *v5 = v3;
+      if (v3)
       {
-        v2 = CFRetain(v2);
+        v3 = CFRetain(v3);
       }
 
-      *(v4 + 4) = 0;
-      *(v4 + 1) = 0;
-      *(v4 + 20) = _D8;
-      *(v4 + 7) = 1065353216;
-      v4 += 72;
-      --v1;
+      *(v5 + 4) = 0;
+      *(v5 + 1) = 0;
+      *(v5 + 20) = _D8;
+      *(v5 + 7) = 1065353216;
+      v5 += 72;
+      --v2;
     }
 
-    while (v1);
+    while (v2);
   }
 
-  return v3 + 16;
+  return v4 + 16;
 }
 
 uint64_t WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebCore::ScreenData>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebCore::ScreenData>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebCore::ScreenData,WTF::DefaultHash<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTraits<WebCore::ScreenData>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned int>,WTF::FastMalloc>::reinsert(uint64_t a1, uint64_t a2)
@@ -1743,7 +1763,7 @@ LABEL_17:
     }
 
     LODWORD(v28) = v11;
-    v27 = WTF::fastMalloc((32 * v11));
+    v27 = WTF::fastMalloc(v5, (32 * v11));
     while (1)
     {
       IPC::Decoder::decode<WebCore::PlatformTimeRanges::Range>(&v24, a1);
@@ -1855,16 +1875,16 @@ uint64_t IPC::Decoder::decode<WebCore::PlatformTimeRanges::Range>(uint64_t a1, I
   return result;
 }
 
-uint64_t WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(uint64_t result, unint64_t a2)
+uint64_t *WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(uint64_t *result, unint64_t a2)
 {
-  if (*(result + 8) > a2)
+  if (*(result + 2) > a2)
   {
     v2 = a2;
     v3 = result;
-    v4 = *(result + 12);
+    v4 = *(result + 3);
     if (v4 > a2)
     {
-      *(result + 12) = a2;
+      *(result + 3) = a2;
       LODWORD(v4) = a2;
     }
 
@@ -1877,8 +1897,8 @@ uint64_t WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow
         return result;
       }
 
-      result = WTF::fastMalloc((32 * a2));
-      *(v3 + 8) = v2;
+      result = WTF::fastMalloc(0, (32 * a2));
+      *(v3 + 2) = v2;
       *v3 = result;
       if (v4 && result != v5)
       {
@@ -1888,10 +1908,10 @@ uint64_t WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow
         {
           v8 = *v7;
           v9 = *(v7 + 1);
-          v7 = (v7 + 32);
+          v7 += 4;
           *result = v8;
-          *(result + 16) = v9;
-          result += 32;
+          *(result + 1) = v9;
+          result += 4;
           v6 -= 32;
         }
 
@@ -1904,7 +1924,7 @@ uint64_t WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow
       if (*v3 == v5)
       {
         *v3 = 0;
-        *(v3 + 8) = 0;
+        *(v3 + 2) = 0;
       }
 
       return WTF::fastFree(v5, a2);
@@ -1947,12 +1967,12 @@ WTF::StringImpl *IPC::VectorArgumentCoder<false,WebCore::DataListSuggestion,0ul,
   {
     *a1 = 0;
     a1[1] = 0;
-    v37 = a1[3];
-    if (v37)
+    v38 = a1[3];
+    if (v38)
     {
       if (v4)
       {
-        (*(*v37 + 16))(v37);
+        (*(*v38 + 16))(v38);
         v4 = a1[1];
       }
     }
@@ -1986,38 +2006,38 @@ LABEL_48:
   }
 
   v11 = *v5;
-  v41 = 0;
   v42 = 0;
+  v43 = 0;
   if (v11 < 0x10000)
   {
     if (v11)
     {
-      LODWORD(v42) = v11;
-      v41 = WTF::fastMalloc((16 * v11));
+      LODWORD(v43) = v11;
+      v42 = WTF::fastMalloc(v5, (16 * v11));
       while (1)
       {
-        IPC::Decoder::decode<WebCore::DataListSuggestion>(&v38, a1);
-        if ((v40 & 1) == 0)
+        IPC::Decoder::decode<WebCore::DataListSuggestion>(&v39, a1);
+        if ((v41 & 1) == 0)
         {
           goto LABEL_44;
         }
 
-        if (HIDWORD(v42) != v42)
+        if (HIDWORD(v43) != v43)
         {
           break;
         }
 
-        v12 = WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v41, HIDWORD(v42) + 1, &v38);
-        v13 = HIDWORD(v42) + 1;
-        v14 = (v41 + 16 * HIDWORD(v42));
+        v12 = WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v42, HIDWORD(v43) + 1, &v39);
+        v13 = HIDWORD(v43) + 1;
+        v14 = (v42 + 16 * HIDWORD(v43));
         v15 = *v12;
         *v12 = 0;
         *v14 = v15;
         v16 = v12[1];
         v12[1] = 0;
         v14[1] = v16;
-        HIDWORD(v42) = v13;
-        if (v40)
+        HIDWORD(v43) = v13;
+        if (v41)
         {
           goto LABEL_15;
         }
@@ -2029,25 +2049,25 @@ LABEL_21:
         }
       }
 
-      v17 = HIDWORD(v42) + 1;
-      v18 = (v41 + 16 * HIDWORD(v42));
-      v19 = v38;
-      v38 = 0;
+      v17 = HIDWORD(v43) + 1;
+      v18 = (v42 + 16 * HIDWORD(v43));
+      v19 = v39;
+      v39 = 0;
       *v18 = v19;
-      v20 = v39;
-      v39 = 0;
+      v20 = v40;
+      v40 = 0;
       v18[1] = v20;
-      HIDWORD(v42) = v17;
+      HIDWORD(v43) = v17;
 LABEL_15:
-      v21 = v39;
-      v39 = 0;
+      v21 = v40;
+      v40 = 0;
       if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v21, v6);
       }
 
-      v22 = v38;
-      v38 = 0;
+      v22 = v39;
+      v39 = 0;
       if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v22, v6);
@@ -2057,39 +2077,39 @@ LABEL_15:
     }
 
 LABEL_22:
-    *a2 = v41;
-    v23 = v42;
-    v41 = 0;
+    *a2 = v42;
+    v23 = v43;
     v42 = 0;
+    v43 = 0;
     *(a2 + 8) = v23;
     *(a2 + 16) = 1;
-    return WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v41, v6);
+    return WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v42, v6);
   }
 
   do
   {
-    IPC::Decoder::decode<WebCore::DataListSuggestion>(&v38, a1);
-    if ((v40 & 1) == 0)
+    IPC::Decoder::decode<WebCore::DataListSuggestion>(&v39, a1);
+    if ((v41 & 1) == 0)
     {
 LABEL_44:
       *a2 = 0;
       *(a2 + 16) = 0;
-      return WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v41, v6);
+      return WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v42, v6);
     }
 
-    if (HIDWORD(v42) == v42)
+    if (HIDWORD(v43) == v43)
     {
-      result = WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v41, HIDWORD(v42) + 1, &v38);
-      v25 = HIDWORD(v42) + 1;
-      v26 = (v41 + 16 * HIDWORD(v42));
+      result = WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v42, HIDWORD(v43) + 1, &v39);
+      v25 = HIDWORD(v43) + 1;
+      v26 = (v42 + 16 * HIDWORD(v43));
       v27 = *result;
       *result = 0;
       *v26 = v27;
       v28 = *(result + 1);
       *(result + 1) = 0;
       v26[1] = v28;
-      HIDWORD(v42) = v25;
-      if ((v40 & 1) == 0)
+      HIDWORD(v43) = v25;
+      if ((v41 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -2097,26 +2117,26 @@ LABEL_44:
 
     else
     {
-      v29 = HIDWORD(v42) + 1;
-      v30 = (v41 + 16 * HIDWORD(v42));
-      v31 = v38;
-      v38 = 0;
-      *v30 = v31;
-      v32 = v39;
+      v29 = HIDWORD(v43) + 1;
+      v30 = (v42 + 16 * HIDWORD(v43));
+      v31 = v39;
       v39 = 0;
+      *v30 = v31;
+      v32 = v40;
+      v40 = 0;
       v30[1] = v32;
-      HIDWORD(v42) = v29;
+      HIDWORD(v43) = v29;
     }
 
-    v33 = v39;
-    v39 = 0;
+    v33 = v40;
+    v40 = 0;
     if (v33 && atomic_fetch_add_explicit(v33, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v33, v6);
     }
 
-    result = v38;
-    v38 = 0;
+    result = v39;
+    v39 = 0;
     if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       result = WTF::StringImpl::destroy(result, v6);
@@ -2127,22 +2147,22 @@ LABEL_34:
   }
 
   while (v11);
-  v34 = HIDWORD(v42);
-  if (v42 <= HIDWORD(v42))
+  v34 = HIDWORD(v43);
+  if (v43 <= HIDWORD(v43))
   {
     goto LABEL_22;
   }
 
-  v35 = v41;
-  if (!HIDWORD(v42))
+  v35 = v42;
+  if (!HIDWORD(v43))
   {
 LABEL_40:
     if (v35)
     {
-      if (v41 == v35)
+      if (v42 == v35)
       {
-        v41 = 0;
-        LODWORD(v42) = 0;
+        v42 = 0;
+        LODWORD(v43) = 0;
       }
 
       WTF::fastFree(v35, v6);
@@ -2151,14 +2171,15 @@ LABEL_40:
     goto LABEL_22;
   }
 
-  if (!(HIDWORD(v42) >> 28))
+  v36 = (HIDWORD(v43) >> 28);
+  if (!v36)
   {
-    v36 = WTF::fastMalloc((16 * HIDWORD(v42)));
-    LODWORD(v42) = v34;
-    v41 = v36;
-    if (v36 != v35)
+    v37 = WTF::fastMalloc(v36, (16 * HIDWORD(v43)));
+    LODWORD(v43) = v34;
+    v42 = v37;
+    if (v37 != v35)
     {
-      WTF::VectorTypeOperations<WebCore::DataListSuggestion>::move(v35, (v35 + 16 * v34), v36);
+      WTF::VectorTypeOperations<WebCore::DataListSuggestion>::move(v35, (v35 + 16 * v34), v37);
     }
 
     goto LABEL_40;
@@ -2268,13 +2289,13 @@ void sub_19D810588(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF::StringImpl *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 16 * a1[3] <= a3)
+  if (*a1 > a3 || v5 + 16 * *(a1 + 3) <= a3)
   {
-    v10 = a1[2];
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -2306,7 +2327,7 @@ unint64_t WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,
   else
   {
     v6 = a3 - v5;
-    v7 = a1[2];
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -2352,20 +2373,21 @@ WTF::StringImpl *WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflo
 
     v3 = result;
     v4 = *result;
-    v5 = (*result + 16 * *(result + 3));
-    v6 = WTF::fastMalloc((16 * a2));
-    *(v3 + 2) = v2;
-    *v3 = v6;
-    result = WTF::VectorTypeOperations<WebCore::DataListSuggestion>::move(v4, v5, v6);
+    v5 = *(result + 3);
+    v6 = (*result + 16 * v5);
+    v7 = WTF::fastMalloc(v5, (16 * a2));
+    *(v3 + 8) = v2;
+    *v3 = v7;
+    result = WTF::VectorTypeOperations<WebCore::DataListSuggestion>::move(v4, v6, v7);
     if (v4)
     {
       if (*v3 == v4)
       {
         *v3 = 0;
-        *(v3 + 2) = 0;
+        *(v3 + 8) = 0;
       }
 
-      return WTF::fastFree(v4, v7);
+      return WTF::fastFree(v4, v8);
     }
   }
 
@@ -2382,11 +2404,11 @@ WTF::StringImpl *WTF::VectorTypeOperations<WebCore::DataListSuggestion>::move(WT
       v6 = *v5;
       *v5 = 0;
       *a3 = v6;
-      v7 = v5[1];
-      v5[1] = 0;
+      v7 = *(v5 + 1);
+      *(v5 + 1) = 0;
       a3[1] = v7;
-      v8 = v5[1];
-      v5[1] = 0;
+      v8 = *(v5 + 1);
+      *(v5 + 1) = 0;
       if (v8 && atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v8, a2);
@@ -2403,7 +2425,7 @@ WTF::StringImpl *WTF::VectorTypeOperations<WebCore::DataListSuggestion>::move(WT
       }
 
       a3 += 2;
-      v5 += 2;
+      v5 = (v5 + 16);
     }
 
     while (v5 != a2);
@@ -2495,18 +2517,18 @@ void IPC::ArgumentCoder<mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffe
   }
 }
 
-void IPC::ArgumentCoder<mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>,void>::encode<IPC::Encoder,mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>> const&,0ul>(mpark *a1, uint64_t a2, uint64_t a3)
+void IPC::ArgumentCoder<mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>,void>::encode<IPC::Encoder,mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>> const&,0ul>(mpark *result, uint64_t a2, uint64_t a3)
 {
   if (a3 == 1)
   {
     if (*(a2 + 8) != 1)
     {
-      mpark::throw_bad_variant_access(a1);
+      mpark::throw_bad_variant_access(result);
     }
 
     v4 = *a2;
 
-    IPC::ArgumentCoder<WebCore::SharedBuffer,void>::encode(a1, v4);
+    IPC::ArgumentCoder<WebCore::SharedBuffer,void>::encode(result, v4);
   }
 }
 
@@ -2529,25 +2551,25 @@ void IPC::VectorArgumentCoder<false,WebCore::PasteboardCustomData::Entry,0ul,WTF
   }
 }
 
-void IPC::VectorArgumentCoder<false,WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>(WTF::StringImpl **a1@<X0>, char *a2@<X8>)
+void IPC::VectorArgumentCoder<false,WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>(uint64_t a1@<X0>, char *a2@<X8>)
 {
-  v4 = a1[1];
-  v5 = ((a1[2] + 7) & 0xFFFFFFFFFFFFFFF8);
+  v4 = *(a1 + 8);
+  v5 = ((*(a1 + 16) + 7) & 0xFFFFFFFFFFFFFFF8);
   v6 = *a1;
-  v7 = (v5 - *a1);
+  v7 = v5 - *a1;
   v8 = v4 >= v7;
   v9 = v4 - v7;
   if (!v8 || v9 <= 7)
   {
     *a1 = 0;
-    a1[1] = 0;
-    v26 = a1[3];
-    if (v26)
+    *(a1 + 8) = 0;
+    v27 = *(a1 + 24);
+    if (v27)
     {
       if (v4)
       {
-        (*(*v26 + 16))(v26);
-        v4 = a1[1];
+        (*(*v27 + 16))(v27);
+        v4 = *(a1 + 8);
       }
     }
 
@@ -2559,18 +2581,18 @@ void IPC::VectorArgumentCoder<false,WebCore::PasteboardCustomData::Entry,0ul,WTF
     goto LABEL_55;
   }
 
-  a1[2] = (v5 + 1);
+  *(a1 + 16) = v5 + 1;
   if (!v5)
   {
 LABEL_55:
     *a1 = 0;
-    a1[1] = 0;
-    v27 = a1[3];
-    if (v27)
+    *(a1 + 8) = 0;
+    v28 = *(a1 + 24);
+    if (v28)
     {
       if (v4)
       {
-        (*(*v27 + 16))(v27);
+        (*(*v28 + 16))(v28);
       }
     }
 
@@ -2580,27 +2602,27 @@ LABEL_55:
   }
 
   v11 = *v5;
-  v32 = 0;
   v33 = 0;
+  v34 = 0;
   if (v11 >= 0x8000)
   {
     v17 = *a2;
     v18 = a2[16];
     do
     {
-      IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(&v28, a1);
-      v19 = v31;
-      if (v31)
+      IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(&v29, a1);
+      v19 = v32;
+      if (v32)
       {
-        if (HIDWORD(v33) == v33)
+        if (HIDWORD(v34) == v34)
         {
-          WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::PasteboardCustomData::Entry>(&v32, &v28);
+          WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::PasteboardCustomData::Entry>(&v33, &v29);
         }
 
         else
         {
           WebCore::PasteboardCustomData::Entry::Entry();
-          ++HIDWORD(v33);
+          ++HIDWORD(v34);
         }
       }
 
@@ -2610,18 +2632,18 @@ LABEL_55:
         v17 = 0;
       }
 
-      if (v31 == 1)
+      if (v32 == 1)
       {
-        mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>::~variant(v30, v6);
-        v20 = v29;
-        v29 = 0;
+        mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>::~variant(v31, v6);
+        v20 = v30;
+        v30 = 0;
         if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           WTF::StringImpl::destroy(v20, v6);
         }
 
-        v21 = v28;
-        v28 = 0;
+        v21 = v29;
+        v29 = 0;
         if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           WTF::StringImpl::destroy(v21, v6);
@@ -2641,36 +2663,37 @@ LABEL_55:
     while (v11);
     *a2 = v17;
     a2[16] = v18;
-    v22 = HIDWORD(v33);
-    if (v33 <= HIDWORD(v33))
+    v22 = HIDWORD(v34);
+    if (v34 <= HIDWORD(v34))
     {
       goto LABEL_50;
     }
 
-    v23 = v32;
-    if (HIDWORD(v33))
+    v23 = v33;
+    if (HIDWORD(v34))
     {
-      if (HIDWORD(v33) >> 27)
+      v24 = (HIDWORD(v34) >> 27);
+      if (v24)
       {
         __break(0xC471u);
         return;
       }
 
-      v24 = WTF::fastMalloc((32 * HIDWORD(v33)));
-      LODWORD(v33) = v22;
-      v32 = v24;
-      if (v24 != v23)
+      v25 = WTF::fastMalloc(v24, (32 * HIDWORD(v34)));
+      LODWORD(v34) = v22;
+      v33 = v25;
+      if (v25 != v23)
       {
-        WTF::VectorMover<false,WebCore::PasteboardCustomData::Entry>::move(v23, (v23 + 32 * v22), v24);
+        WTF::VectorMover<false,WebCore::PasteboardCustomData::Entry>::move(v23, (v23 + 32 * v22), v25);
       }
     }
 
     if (v23)
     {
-      if (v32 == v23)
+      if (v33 == v23)
       {
-        v32 = 0;
-        LODWORD(v33) = 0;
+        v33 = 0;
+        LODWORD(v34) = 0;
       }
 
       WTF::fastFree(v23, v6);
@@ -2679,25 +2702,25 @@ LABEL_55:
 
   else if (v11)
   {
-    LODWORD(v33) = v11;
-    v32 = WTF::fastMalloc((32 * v11));
+    LODWORD(v34) = v11;
+    v33 = WTF::fastMalloc(v5, (32 * v11));
     v12 = *a2;
     v13 = a2[16];
     do
     {
-      IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(&v28, a1);
-      v14 = v31;
-      if (v31)
+      IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(&v29, a1);
+      v14 = v32;
+      if (v32)
       {
-        if (HIDWORD(v33) == v33)
+        if (HIDWORD(v34) == v34)
         {
-          WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::PasteboardCustomData::Entry>(&v32, &v28);
+          WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::PasteboardCustomData::Entry>(&v33, &v29);
         }
 
         else
         {
           WebCore::PasteboardCustomData::Entry::Entry();
-          ++HIDWORD(v33);
+          ++HIDWORD(v34);
         }
       }
 
@@ -2707,21 +2730,21 @@ LABEL_55:
         v12 = 0;
       }
 
-      if (v31 != 1)
+      if (v32 != 1)
       {
         goto LABEL_21;
       }
 
-      mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>::~variant(v30, v6);
-      v15 = v29;
-      v29 = 0;
+      mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>::~variant(v31, v6);
+      v15 = v30;
+      v30 = 0;
       if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v15, v6);
       }
 
-      v16 = v28;
-      v28 = 0;
+      v16 = v29;
+      v29 = 0;
       if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v16, v6);
@@ -2750,14 +2773,14 @@ LABEL_21:
   }
 
 LABEL_50:
-  *a2 = v32;
-  v25 = v33;
-  v32 = 0;
+  *a2 = v33;
+  v26 = v34;
   v33 = 0;
-  *(a2 + 1) = v25;
+  v34 = 0;
+  *(a2 + 1) = v26;
   a2[16] = 1;
 LABEL_51:
-  WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v32, v6);
+  WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v33, v6);
 }
 
 void sub_19D810CC0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, char a14, int a15, __int16 a16, char a17, char a18)
@@ -2785,23 +2808,23 @@ void sub_19D810CC0(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(_BYTE *a1, IPC::Decoder *a2)
+void IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(_BYTE *a1, IPC::Decoder **a2)
 {
   IPC::Decoder::decode<WTF::String>(a2, &v28);
   IPC::Decoder::decode<WTF::String>(a2, &v26);
-  v4 = *(a2 + 1);
-  v5 = *(a2 + 2);
-  if (v4 <= &v5[-*a2])
+  v4 = a2[1];
+  v5 = a2[2];
+  if (v4 <= v5 - *a2)
   {
     *a2 = 0;
-    *(a2 + 1) = 0;
-    v10 = *(a2 + 3);
+    a2[1] = 0;
+    v10 = a2[3];
     if (v10)
     {
       if (v4)
       {
         (*(*v10 + 16))(v10);
-        v4 = *(a2 + 1);
+        v4 = a2[1];
       }
     }
 
@@ -2813,13 +2836,13 @@ void IPC::Decoder::decode<WebCore::PasteboardCustomData::Entry>(_BYTE *a1, IPC::
     goto LABEL_12;
   }
 
-  *(a2 + 2) = v5 + 1;
+  a2[2] = (v5 + 1);
   if (!v5)
   {
 LABEL_12:
     *a2 = 0;
-    *(a2 + 1) = 0;
-    v11 = *(a2 + 3);
+    a2[1] = 0;
+    v11 = a2[3];
     if (v11 && v4)
     {
       (*(*v11 + 16))(v11);
@@ -2860,10 +2883,10 @@ LABEL_13:
   LOBYTE(v23) = 0;
   v25 = 0;
   v8 = *a2;
-  v9 = *(a2 + 1);
+  v9 = a2[1];
   *a2 = 0;
-  *(a2 + 1) = 0;
-  v7 = *(a2 + 3);
+  a2[1] = 0;
+  v7 = a2[3];
   if (v7)
   {
     goto LABEL_37;
@@ -2945,10 +2968,10 @@ LABEL_24:
   if ((a1[32] & 1) == 0)
   {
     v17 = *a2;
-    v18 = *(a2 + 1);
+    v18 = a2[1];
     *a2 = 0;
-    *(a2 + 1) = 0;
-    v19 = *(a2 + 3);
+    a2[1] = 0;
+    v19 = a2[3];
     if (v19)
     {
       if (v18)
@@ -2993,13 +3016,13 @@ uint64_t WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverfl
   return result;
 }
 
-unint64_t WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF::StringImpl *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 32 * a1[3] <= a3)
+  if (*a1 > a3 || v5 + 32 * *(a1 + 3) <= a3)
   {
-    v10 = a1[2];
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -3031,7 +3054,7 @@ unint64_t WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverf
   else
   {
     v6 = a3 - v5;
-    v7 = a1[2];
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -3077,20 +3100,21 @@ WTF::StringImpl *WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::Crash
 
     v3 = result;
     v4 = *result;
-    v5 = (*result + 32 * *(result + 3));
-    v6 = WTF::fastMalloc((32 * a2));
-    *(v3 + 2) = v2;
-    *v3 = v6;
-    result = WTF::VectorMover<false,WebCore::PasteboardCustomData::Entry>::move(v4, v5, v6);
+    v5 = *(result + 3);
+    v6 = (*result + 32 * v5);
+    v7 = WTF::fastMalloc(v5, (32 * a2));
+    *(v3 + 8) = v2;
+    *v3 = v7;
+    result = WTF::VectorMover<false,WebCore::PasteboardCustomData::Entry>::move(v4, v6, v7);
     if (v4)
     {
       if (*v3 == v4)
       {
         *v3 = 0;
-        *(v3 + 2) = 0;
+        *(v3 + 8) = 0;
       }
 
-      return WTF::fastFree(v4, v7);
+      return WTF::fastFree(v4, v8);
     }
   }
 
@@ -3105,9 +3129,9 @@ WTF::StringImpl *WTF::VectorMover<false,WebCore::PasteboardCustomData::Entry>::m
     do
     {
       WebCore::PasteboardCustomData::Entry::Entry();
-      mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>::~variant((v5 + 2), v6);
-      v8 = v5[1];
-      v5[1] = 0;
+      mpark::variant<WTF::String,WTF::Ref<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>::~variant(v5 + 16, v6);
+      v8 = *(v5 + 1);
+      *(v5 + 1) = 0;
       if (v8 && atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v8, v7);
@@ -3124,7 +3148,7 @@ WTF::StringImpl *WTF::VectorMover<false,WebCore::PasteboardCustomData::Entry>::m
       }
 
       a3 += 32;
-      v5 += 4;
+      v5 = (v5 + 32);
     }
 
     while (v5 != a2);
@@ -3162,13 +3186,13 @@ uint64_t WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflo
   return result;
 }
 
-unint64_t WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 944 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 944 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -3200,7 +3224,7 @@ unint64_t WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverfl
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -3244,12 +3268,13 @@ uint64_t WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflo
     }
 
     v3 = *a1;
-    v4 = (*a1 + 944 * *(a1 + 12));
-    v5 = 944 * a2;
-    v6 = WTF::fastMalloc((944 * a2));
-    *(a1 + 8) = v5 / 0x3B0;
-    *a1 = v6;
-    WTF::VectorMover<false,WebCore::MediaTrackConstraintSetMap>::move(v3, v4, v6);
+    v4 = *(a1 + 12);
+    v5 = (*a1 + 944 * v4);
+    v6 = 944 * a2;
+    v7 = WTF::fastMalloc(v4, (944 * a2));
+    *(a1 + 8) = v6 / 0x3B0;
+    *a1 = v7;
+    WTF::VectorMover<false,WebCore::MediaTrackConstraintSetMap>::move(v3, v5, v7);
     if (v3)
     {
       if (*a1 == v3)
@@ -3258,7 +3283,7 @@ uint64_t WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflo
         *(a1 + 8) = 0;
       }
 
-      WTF::fastFree(v3, v7);
+      WTF::fastFree(v3, v8);
     }
   }
 
@@ -3282,11 +3307,11 @@ void WTF::VectorMover<false,WebCore::MediaTrackConstraintSetMap>::move(WebCore::
   }
 }
 
-void WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *a1, unint64_t a2)
+void WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(WebCore::MediaTrackConstraintSetMap *a1, unint64_t a2)
 {
-  if (a1[2] > a2)
+  if (*(a1 + 2) > a2)
   {
-    if (a1[3] > a2)
+    if (*(a1 + 3) > a2)
     {
       WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(a1, a2);
     }
@@ -3300,10 +3325,10 @@ void WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16
         return;
       }
 
-      v5 = a1[3];
+      v5 = *(a1 + 3);
       v6 = (944 * a2);
-      v7 = WTF::fastMalloc(v6);
-      a1[2] = v6 / 0x3B0;
+      v7 = WTF::fastMalloc(0x3B0, v6);
+      *(a1 + 2) = v6 / 0x3B0;
       *a1 = v7;
       if (v7 != v4)
       {
@@ -3316,7 +3341,7 @@ void WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16
       if (*a1 == v4)
       {
         *a1 = 0;
-        a1[2] = 0;
+        *(a1 + 2) = 0;
       }
 
       WTF::fastFree(v4, a2);
@@ -3324,9 +3349,9 @@ void WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16
   }
 }
 
-unsigned int *WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(unsigned int *result, unint64_t a2)
+WebCore::MediaTrackConstraintSetMap *WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(WebCore::MediaTrackConstraintSetMap *result, void *a2)
 {
-  v2 = result[3];
+  v2 = *(result + 3);
   if (v2 < a2)
   {
     __break(1u);
@@ -3350,107 +3375,107 @@ unsigned int *WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOv
       while (v5);
     }
 
-    v4[3] = v3;
+    *(v4 + 3) = v3;
   }
 
   return result;
 }
 
-WebCore::Region *WTF::HashTable<WebCore::EventTrackingRegionsEventType,WTF::KeyValuePair<WebCore::EventTrackingRegionsEventType,WebCore::Region>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::EventTrackingRegionsEventType,WebCore::Region>>,WTF::IntHash<WebCore::EventTrackingRegionsEventType>,WTF::HashMap<WebCore::EventTrackingRegionsEventType,WebCore::Region,WTF::IntHash<WebCore::EventTrackingRegionsEventType>,WTF::StrongEnumHashTraits<WebCore::EventTrackingRegionsEventType>,WTF::HashTraits<WebCore::Region>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::StrongEnumHashTraits<WebCore::EventTrackingRegionsEventType>,WTF::FastMalloc>::expand(uint64_t *a1)
+WebCore::Region *WTF::HashTable<WebCore::EventTrackingRegionsEventType,WTF::KeyValuePair<WebCore::EventTrackingRegionsEventType,WebCore::Region>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::EventTrackingRegionsEventType,WebCore::Region>>,WTF::IntHash<WebCore::EventTrackingRegionsEventType>,WTF::HashMap<WebCore::EventTrackingRegionsEventType,WebCore::Region,WTF::IntHash<WebCore::EventTrackingRegionsEventType>,WTF::StrongEnumHashTraits<WebCore::EventTrackingRegionsEventType>,WTF::HashTraits<WebCore::Region>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::StrongEnumHashTraits<WebCore::EventTrackingRegionsEventType>,WTF::FastMalloc>::expand(uint64_t *a1, unint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if (!*a1)
   {
-    v3 = 0;
     v4 = 0;
+    v5 = 0;
 LABEL_3:
-    v5 = 8;
+    v6 = 8;
     goto LABEL_4;
   }
 
-  v3 = *(v2 - 4);
-  v4 = *(v2 - 12);
-  if (!v3)
+  v4 = *(v3 - 4);
+  v5 = *(v3 - 12);
+  if (!v4)
   {
     goto LABEL_3;
   }
 
-  v5 = v3 << (6 * v4 >= (2 * v3));
+  v6 = v4 << (6 * v5 >= (2 * v4));
 LABEL_4:
-  v6 = v5;
-  result = WTF::fastMalloc(((32 * v5) | 0x10));
-  v9 = result;
-  v10 = result + 16;
-  if (v5)
+  v7 = v6;
+  result = WTF::fastMalloc(0x10, ((32 * v6) | 0x10));
+  v10 = result;
+  v11 = result + 16;
+  if (v6)
   {
     result = (result + 24);
     do
     {
       *(result - 8) = -1;
       result = (WebCore::Region::Region(result) + 32);
-      --v6;
+      --v7;
     }
 
-    while (v6);
+    while (v7);
   }
 
-  *a1 = v10;
-  *(v9 + 2) = v5 - 1;
-  *(v9 + 3) = v5;
-  *v9 = 0;
-  *(v9 + 1) = v4;
-  if (v3)
+  *a1 = v11;
+  *(v10 + 2) = v6 - 1;
+  *(v10 + 3) = v6;
+  *v10 = 0;
+  *(v10 + 1) = v5;
+  if (v4)
   {
-    for (i = 0; i != v3; ++i)
+    for (i = 0; i != v4; ++i)
     {
-      v12 = (v2 + 32 * i);
-      v13 = *v12;
-      if (v13 != 254)
+      v13 = (v3 + 32 * i);
+      v14 = *v13;
+      if (v14 != 254)
       {
-        if (v13 == 255)
+        if (v14 == 255)
         {
-          WebCore::Region::~Region((v12 + 8));
+          WebCore::Region::~Region((v13 + 8));
         }
 
         else
         {
-          v14 = *a1;
+          v15 = *a1;
           if (*a1)
           {
-            v15 = *(v14 - 8);
+            v16 = *(v15 - 8);
           }
 
           else
           {
-            v15 = 0;
+            v16 = 0;
           }
 
-          v16 = 0;
-          v17 = 9 * ((~(v13 << 15) + v13) ^ ((~(v13 << 15) + v13) >> 10));
-          v18 = ((v17 ^ (v17 >> 6)) + ~((v17 ^ (v17 >> 6)) << 11)) ^ (((v17 ^ (v17 >> 6)) + ~((v17 ^ (v17 >> 6)) << 11)) >> 16);
+          v17 = 0;
+          v18 = 9 * ((~(v14 << 15) + v14) ^ ((~(v14 << 15) + v14) >> 10));
+          v19 = ((v18 ^ (v18 >> 6)) + ~((v18 ^ (v18 >> 6)) << 11)) ^ (((v18 ^ (v18 >> 6)) + ~((v18 ^ (v18 >> 6)) << 11)) >> 16);
           do
           {
-            v19 = v18 & v15;
-            v18 = ++v16 + v19;
+            v20 = v19 & v16;
+            v19 = ++v17 + v20;
           }
 
-          while (*(v14 + 32 * v19) != 255);
-          v20 = (v14 + 32 * v19);
-          WebCore::Region::~Region((v20 + 8));
-          *v20 = *v12;
+          while (*(v15 + 32 * v20) != 255);
+          v21 = (v15 + 32 * v20);
+          WebCore::Region::~Region((v21 + 8));
+          *v21 = *v13;
           WebCore::Region::Region();
-          WebCore::Region::~Region((v12 + 8));
+          WebCore::Region::~Region((v13 + 8));
         }
       }
     }
   }
 
-  else if (!v2)
+  else if (!v3)
   {
     return result;
   }
 
-  return WTF::fastFree((v2 - 16), v8);
+  return WTF::fastFree((v3 - 16), v9);
 }
 
 uint64_t IPC::ArgumentCoder<WTF::Markable<WTF::ObjectIdentifierGeneric<WebCore::TextManipulationItemIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::MarkableTraits<WTF::ObjectIdentifierGeneric<WebCore::TextManipulationItemIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,void>::encode<IPC::Encoder,WTF::Markable<WTF::ObjectIdentifierGeneric<WebCore::TextManipulationItemIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::MarkableTraits<WTF::ObjectIdentifierGeneric<WebCore::TextManipulationItemIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>> const&>(IPC::Encoder *a1, uint64_t *a2)
@@ -3497,7 +3522,7 @@ uint64_t IPC::VectorArgumentCoder<false,WebCore::TextManipulationToken,0ul,WTF::
   return result;
 }
 
-WTF::StringImpl *IPC::Decoder::decode<WebCore::TextManipulationToken>(uint64_t a1, uint64_t *a2)
+WTF::StringImpl *IPC::Decoder::decode<WebCore::TextManipulationToken>(uint64_t a1, IPC::Decoder *a2)
 {
   v4 = IPC::ArgumentCoder<WTF::ObjectIdentifierGeneric<WebCore::BackgroundFetchRecordIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,void>::decode(a2);
   v6 = v5;
@@ -3509,20 +3534,20 @@ WTF::StringImpl *IPC::Decoder::decode<WebCore::TextManipulationToken>(uint64_t a
   while (1)
   {
     IPC::Decoder::decode<WTF::String>(a2, &v75);
-    v7 = a2[1];
-    v8 = a2[2];
+    v7 = *(a2 + 1);
+    v8 = *(a2 + 2);
     v9 = *a2;
     if (v7 <= &v8[-*a2])
     {
       *a2 = 0;
-      a2[1] = 0;
-      v55 = a2[3];
+      *(a2 + 1) = 0;
+      v55 = *(a2 + 3);
       if (v55)
       {
         if (v7)
         {
           (*(*v55 + 16))(v55);
-          v7 = a2[1];
+          v7 = *(a2 + 1);
         }
       }
 
@@ -3533,15 +3558,15 @@ WTF::StringImpl *IPC::Decoder::decode<WebCore::TextManipulationToken>(uint64_t a
 
 LABEL_123:
       *a2 = 0;
-      a2[1] = 0;
-      v56 = a2[3];
+      *(a2 + 1) = 0;
+      v56 = *(a2 + 3);
       if (v56)
       {
         if (v7)
         {
           (*(*v56 + 16))(v56);
           v9 = *a2;
-          v7 = a2[1];
+          v7 = *(a2 + 1);
           goto LABEL_126;
         }
       }
@@ -3554,8 +3579,8 @@ LABEL_123:
       v9 = 0;
 LABEL_126:
       *a2 = 0;
-      a2[1] = 0;
-      result = a2[3];
+      *(a2 + 1) = 0;
+      result = *(a2 + 3);
       if (result && v7)
       {
         result = (*(*result + 16))(result, v9);
@@ -3567,7 +3592,7 @@ LABEL_111:
       goto LABEL_52;
     }
 
-    a2[2] = (v8 + 1);
+    *(a2 + 2) = v8 + 1;
     if (!v8)
     {
       goto LABEL_123;
@@ -3618,20 +3643,20 @@ LABEL_43:
     IPC::Decoder::decode<WTF::String>(a2, &v89);
     IPC::Decoder::decode<WTF::String>(a2, &v87);
     IPC::Decoder::decode<WTF::URL>(a2, &v83);
-    v11 = a2[1];
-    v12 = a2[2];
+    v11 = *(a2 + 1);
+    v12 = *(a2 + 2);
     v13 = *a2;
     if (v11 <= &v12[-*a2])
     {
       *a2 = 0;
-      a2[1] = 0;
-      v57 = a2[3];
+      *(a2 + 1) = 0;
+      v57 = *(a2 + 3);
       if (v57)
       {
         if (v11)
         {
           (*(*v57 + 16))(v57);
-          v11 = a2[1];
+          v11 = *(a2 + 1);
         }
       }
 
@@ -3642,8 +3667,8 @@ LABEL_43:
 
 LABEL_131:
       *a2 = 0;
-      a2[1] = 0;
-      v58 = a2[3];
+      *(a2 + 1) = 0;
+      v58 = *(a2 + 3);
       if (v58)
       {
         if (v11)
@@ -3651,11 +3676,11 @@ LABEL_131:
           (*(*v58 + 16))(v58);
           v61 = 0;
           v13 = *a2;
-          v11 = a2[1];
+          v11 = *(a2 + 1);
 LABEL_135:
           *a2 = 0;
-          a2[1] = 0;
-          v59 = a2[3];
+          *(a2 + 1) = 0;
+          v59 = *(a2 + 3);
           if (!v59 || !v11)
           {
             goto LABEL_136;
@@ -3679,7 +3704,7 @@ LABEL_135:
       goto LABEL_135;
     }
 
-    a2[2] = (v12 + 1);
+    *(a2 + 2) = v12 + 1;
     if (!v12)
     {
       goto LABEL_131;
@@ -3810,10 +3835,10 @@ LABEL_27:
     if ((v67 & 1) == 0)
     {
       v52 = *a2;
-      v53 = a2[1];
+      v53 = *(a2 + 1);
       *a2 = 0;
-      a2[1] = 0;
-      result = a2[3];
+      *(a2 + 1) = 0;
+      result = *(a2 + 3);
       if (!result)
       {
         goto LABEL_111;
@@ -3839,13 +3864,13 @@ LABEL_27:
     }
 
 LABEL_52:
-    v30 = a2[1];
+    v30 = *(a2 + 1);
     if ((v74 & 1) == 0)
     {
       v46 = *a2;
       *a2 = 0;
-      a2[1] = 0;
-      v47 = a2[3];
+      *(a2 + 1) = 0;
+      v47 = *(a2 + 3);
       if (!v47 || !v30)
       {
         v32 = 0;
@@ -3854,37 +3879,37 @@ LABEL_52:
       }
 
       result = (*(*v47 + 16))(v47, v46);
-      v30 = a2[1];
+      v30 = *(a2 + 1);
     }
 
     v31 = *a2;
-    v32 = a2[2];
+    v32 = *(a2 + 2);
     if (v30 <= &v32[-*a2])
     {
       v32 = 0;
-      v60 = a2[3];
+      v60 = *(a2 + 3);
       *a2 = 0;
-      a2[1] = 0;
+      *(a2 + 1) = 0;
       v48 = 0;
       if (v60 && v30)
       {
         (*(*v60 + 16))(v60);
         v48 = *a2;
-        v32 = a2[1];
+        v32 = *(a2 + 1);
       }
 
       goto LABEL_103;
     }
 
-    a2[2] = (v32 + 1);
+    *(a2 + 2) = v32 + 1;
     if (!v32)
     {
       v32 = v30;
       v48 = v31;
 LABEL_103:
       *a2 = 0;
-      a2[1] = 0;
-      v49 = a2[3];
+      *(a2 + 1) = 0;
+      v49 = *(a2 + 3);
       if (v49)
       {
         if (v32)
@@ -3892,7 +3917,7 @@ LABEL_103:
           (*(*v49 + 16))(v49, v48, v32);
           LODWORD(v32) = 0;
           v31 = *a2;
-          v30 = a2[1];
+          v30 = *(a2 + 1);
         }
 
         else
@@ -3911,8 +3936,8 @@ LABEL_103:
 
 LABEL_105:
       *a2 = 0;
-      a2[1] = 0;
-      result = a2[3];
+      *(a2 + 1) = 0;
+      result = *(a2 + 3);
       if (!result || !v30)
       {
         goto LABEL_106;
@@ -3976,10 +4001,10 @@ LABEL_95:
     __break(1u);
 LABEL_96:
     v42 = *a2;
-    v43 = a2[1];
+    v43 = *(a2 + 1);
     *a2 = 0;
-    a2[1] = 0;
-    v44 = a2[3];
+    *(a2 + 1) = 0;
+    v44 = *(a2 + 3);
     if (v44)
     {
       v45 = v43 == 0;
@@ -4076,10 +4101,10 @@ LABEL_78:
   if ((*(a1 + 96) & 1) == 0)
   {
     v50 = *a2;
-    v51 = a2[1];
+    v51 = *(a2 + 1);
     *a2 = 0;
-    a2[1] = 0;
-    result = a2[3];
+    *(a2 + 1) = 0;
+    result = *(a2 + 3);
     if (result)
     {
       if (v51)
@@ -4170,13 +4195,13 @@ void sub_19D8126E0(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<WebCore::TextManipulationToken,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebCore::TextManipulationToken,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 96 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 96 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -4208,7 +4233,7 @@ unint64_t WTF::Vector<WebCore::TextManipulationToken,0ul,WTF::CrashOnOverflow,16
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -4254,7 +4279,7 @@ uint64_t WTF::Vector<WebCore::TextManipulationToken,0ul,WTF::CrashOnOverflow,16u
     v3 = *result;
     v4 = (*result + 96 * *(result + 12));
     v5 = 96 * a2;
-    v6 = WTF::fastMalloc((96 * a2));
+    v6 = WTF::fastMalloc((3 * a2), (96 * a2));
     *(v2 + 8) = v5 / 0x60;
     *v2 = v6;
     WTF::VectorMover<false,WebCore::TextManipulationToken>::move(v3, v4, v6);
@@ -4493,15 +4518,15 @@ uint64_t IPC::VectorArgumentCoder<false,WTF::Ref<WebCore::TransformOperation,WTF
   return result;
 }
 
-uint64_t IPC::Decoder::decode<WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits<WebCore::TransformOperation>,WTF::DefaultRefDerefTraits<WebCore::TransformOperation>>>(uint64_t a1, uint64_t a2)
+uint64_t IPC::Decoder::decode<WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits<WebCore::TransformOperation>,WTF::DefaultRefDerefTraits<WebCore::TransformOperation>>>(uint64_t a1, IPC::Decoder *a2)
 {
   result = IPC::ArgumentCoder<WebCore::TransformOperation,void>::decode(a1, a2);
   if ((*(a1 + 8) & 1) == 0)
   {
-    v5 = *(a2 + 8);
+    v5 = *(a2 + 1);
     *a2 = 0;
-    *(a2 + 8) = 0;
-    result = *(a2 + 24);
+    *(a2 + 1) = 0;
+    result = *(a2 + 3);
     if (result && v5 != 0)
     {
       v7 = *(*result + 16);
@@ -4513,27 +4538,27 @@ uint64_t IPC::Decoder::decode<WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTr
   return result;
 }
 
-unsigned int *WTF::Vector<WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits<WebCore::TransformOperation>,WTF::DefaultRefDerefTraits<WebCore::TransformOperation>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2)
+unsigned int *WTF::Vector<WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits<WebCore::TransformOperation>,WTF::DefaultRefDerefTraits<WebCore::TransformOperation>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2, unint64_t a3)
 {
   if (result[2] > a2)
   {
-    v3 = result;
-    v4 = result[3];
-    if (v4 > a2)
+    v4 = result;
+    v5 = result[3];
+    if (v5 > a2)
     {
-      result = WTF::VectorDestructor<true,WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits<WebCore::TransformOperation>,WTF::DefaultRefDerefTraits<WebCore::TransformOperation>>>::destruct((*result + 8 * a2), (*result + 8 * v4));
-      v3[3] = a2;
-      LODWORD(v4) = a2;
+      result = WTF::VectorDestructor<true,WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits<WebCore::TransformOperation>,WTF::DefaultRefDerefTraits<WebCore::TransformOperation>>>::destruct((*result + 8 * a2), (*result + 8 * v5));
+      v4[3] = a2;
+      LODWORD(v5) = a2;
     }
 
-    v5 = *v3;
+    v6 = *v4;
     if (a2)
     {
-      if (v3[2])
+      if (v4[2])
       {
-        v3[2] = a2;
-        result = WTF::fastRealloc(v5, (8 * a2));
-        *v3 = result;
+        v4[2] = a2;
+        result = WTF::fastRealloc(v6, (8 * a2));
+        *v4 = result;
         return result;
       }
 
@@ -4543,24 +4568,24 @@ unsigned int *WTF::Vector<WTF::Ref<WebCore::TransformOperation,WTF::RawPtrTraits
         return result;
       }
 
-      result = WTF::fastMalloc((8 * a2));
-      v3[2] = a2;
-      *v3 = result;
-      if (result != v5)
+      result = WTF::fastMalloc(0, (8 * a2));
+      v4[2] = a2;
+      *v4 = result;
+      if (result != v6)
       {
-        result = memcpy(result, v5, 8 * v4);
+        result = memcpy(result, v6, 8 * v5);
       }
     }
 
-    if (v5)
+    if (v6)
     {
-      if (*v3 == v5)
+      if (*v4 == v6)
       {
-        *v3 = 0;
-        v3[2] = 0;
+        *v4 = 0;
+        v4[2] = 0;
       }
 
-      return WTF::fastFree(v5, a2);
+      return WTF::fastFree(v6, a2);
     }
   }
 
@@ -4774,7 +4799,7 @@ LABEL_9:
   return IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCore::Gradient::RadialData,WebCore::Gradient::ConicData>,void>::decode<IPC::Decoder>(result, v3, a2);
 }
 
-unint64_t IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCore::Gradient::RadialData,WebCore::Gradient::ConicData>,void>::decode<IPC::Decoder>@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+unint64_t IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCore::Gradient::RadialData,WebCore::Gradient::ConicData>,void>::decode<IPC::Decoder>@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
   if (a2)
   {
@@ -4788,7 +4813,7 @@ unint64_t IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCor
     if (v9)
     {
       *a3 = v8;
-      v6 = (a3 + 28);
+      v6 = a3 + 28;
       v7 = 1;
     }
 
@@ -4800,7 +4825,7 @@ unint64_t IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCor
     }
 
     *v6 = 0;
-    *(a3 + 32) = v7;
+    a3[32] = v7;
   }
 
   return result;
@@ -5218,7 +5243,7 @@ LABEL_6:
   return result;
 }
 
-unint64_t _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14appendSlowCaseILNS_13FailureActionE0ES8_EEbOT0_(uint64_t a1, unint64_t a2)
+uint64_t _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14appendSlowCaseILNS_13FailureActionE0ES8_EEbOT0_(uint64_t a1, unint64_t a2)
 {
   result = _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14expandCapacityILNS_13FailureActionE0EEEPS8_mSE_(a1, *(a1 + 12) + 1, a2);
   v4 = result;
@@ -5274,13 +5299,13 @@ void sub_19D8138C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14expandCapacityILNS_13FailureActionE0EEEPS8_mSE_(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14expandCapacityILNS_13FailureActionE0EEEPS8_mSE_(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 16 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 16 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -5312,7 +5337,7 @@ unint64_t _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercen
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -5345,9 +5370,9 @@ unint64_t _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercen
   return v3;
 }
 
-void _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE15reserveCapacityILNS_13FailureActionE0EEEbm(uint64_t a1, unint64_t a2)
+void _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE15reserveCapacityILNS_13FailureActionE0EEEbm(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 8) < a2)
+  if (*(result + 8) < a2)
   {
     v2 = a2;
     if (a2 >> 28)
@@ -5357,21 +5382,22 @@ void _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageI
 
     else
     {
-      v4 = *a1;
-      v5 = *a1 + 16 * *(a1 + 12);
-      v6 = WTF::fastMalloc((16 * a2));
-      *(a1 + 8) = v2;
-      *a1 = v6;
-      _ZN3WTF11VectorMoverILb0EN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEE4moveEPS8_SA_SA_(v4, v5, v6);
+      v4 = *result;
+      v5 = *(result + 12);
+      v6 = *result + 16 * v5;
+      v7 = WTF::fastMalloc(v5, (16 * a2));
+      *(result + 8) = v2;
+      *result = v7;
+      _ZN3WTF11VectorMoverILb0EN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEE4moveEPS8_SA_SA_(v4, v6, v7);
       if (v4)
       {
-        if (*a1 == v4)
+        if (*result == v4)
         {
-          *a1 = 0;
-          *(a1 + 8) = 0;
+          *result = 0;
+          *(result + 8) = 0;
         }
 
-        WTF::fastFree(v4, v7);
+        WTF::fastFree(v4, v8);
       }
     }
   }
@@ -5449,7 +5475,7 @@ void sub_19D813B58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IPC::Decoder::decode<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(_BYTE *a1, uint64_t *a2)
+void IPC::Decoder::decode<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(_BYTE *result, uint64_t *a2)
 {
   v4 = a2[2];
   v5 = *a2;
@@ -5499,8 +5525,8 @@ LABEL_209:
   if (v8 >= 8)
   {
 LABEL_4:
-    *a1 = 0;
-    a1[88] = 0;
+    *result = 0;
+    result[88] = 0;
     goto LABEL_23;
   }
 
@@ -5551,8 +5577,8 @@ LABEL_17:
         }
       }
 
-      mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(a1, v64);
-      a1[80] = 0;
+      mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(result, v64);
+      result[80] = 0;
       goto LABEL_21;
     }
 
@@ -5705,9 +5731,9 @@ LABEL_113:
                       }
                     }
 
-                    mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::HLineCommand::To,WebCore::Style::HLineCommand::By>,(mpark::detail::Trait)1>::move_constructor(a1, v64);
-                    a1[80] = 2;
-                    a1[88] = 1;
+                    mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::HLineCommand::To,WebCore::Style::HLineCommand::By>,(mpark::detail::Trait)1>::move_constructor(result, v64);
+                    result[80] = 2;
+                    result[88] = 1;
                     if ((v65 & 1) == 0)
                     {
                       goto LABEL_23;
@@ -5893,7 +5919,7 @@ LABEL_90:
 
     if (v8 != 3)
     {
-      IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,void>::decode<IPC::Decoder,0ul,1ul,2ul,3ul>(a1, a2, *v4);
+      IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,void>::decode<IPC::Decoder,0ul,1ul,2ul,3ul>(result, a2, *v4);
       goto LABEL_23;
     }
 
@@ -6062,9 +6088,9 @@ LABEL_146:
             }
           }
 
-          mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::VLineCommand::To,WebCore::Style::VLineCommand::By>,(mpark::detail::Trait)1>::move_constructor(a1, v64);
-          a1[80] = 3;
-          a1[88] = 1;
+          mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::VLineCommand::To,WebCore::Style::VLineCommand::By>,(mpark::detail::Trait)1>::move_constructor(result, v64);
+          result[80] = 3;
+          result[88] = 1;
           if ((v65 & 1) == 0)
           {
             goto LABEL_23;
@@ -6270,17 +6296,17 @@ LABEL_10:
     }
   }
 
-  mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(a1, v64);
-  a1[80] = 1;
+  mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(result, v64);
+  result[80] = 1;
 LABEL_21:
-  a1[88] = 1;
+  result[88] = 1;
   if (v66)
   {
     mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::~move_constructor(v64);
   }
 
 LABEL_23:
-  if ((a1[88] & 1) == 0)
+  if ((result[88] & 1) == 0)
   {
     v21 = *a2;
     v22 = a2[1];
@@ -6355,18 +6381,18 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
             v257 = v5;
             if (v14)
             {
-              _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v291, v5);
-              IPC::Decoder::decode<std::optional<WebCore::Style::RelativeControlPoint>>(&v300, v5);
+              _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v289, v5);
+              IPC::Decoder::decode<std::optional<WebCore::Style::RelativeControlPoint>>(&v298, v5);
               if (*v5)
               {
-                if (v293 != 1)
+                if (v291 != 1)
                 {
                   goto LABEL_437;
                 }
 
                 v70 = 0;
-                v5 = &v291;
-                v71 = v283;
+                v5 = &v289;
+                v71 = v282;
                 do
                 {
                   v72 = v70;
@@ -6378,26 +6404,26 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
                   else
                   {
-                    v304[0] = v71;
-                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v73), v73, v304);
+                    v302[0] = v71;
+                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v73), v73, v302);
                   }
 
                   *v5 = -1;
                   v70 = 1;
-                  v71 = &v284;
-                  v5 = &v292;
+                  v71 = &v282[1];
+                  v5 = &v290;
                 }
 
                 while ((v72 & 1) == 0);
-                if ((v303 & 1) == 0)
+                if ((v301 & 1) == 0)
                 {
                   goto LABEL_437;
                 }
 
-                std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](v285, &v300);
+                std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](v283, &v298);
                 v74 = 0;
-                v75 = &v275;
-                v76 = v283;
+                v75 = &v274;
+                v76 = v282;
                 do
                 {
                   v77 = v74;
@@ -6409,77 +6435,77 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
                   else
                   {
-                    v304[0] = v75;
-                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v78), v78, v304);
+                    v302[0] = v75;
+                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v78), v78, v302);
                   }
 
                   *v76 = -1;
                   v74 = 1;
-                  v76 = &v284;
-                  v75 = &v276;
+                  v76 = &v282[1];
+                  v75 = &v275;
                 }
 
                 while ((v77 & 1) == 0);
-                std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](&v277, v285);
-                v280 = 1;
+                std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](&v276, v283);
+                v279 = 1;
                 v5 = v257;
-                if (v289[0] == 1)
+                if (v287[0] == 1)
                 {
                   for (i = 3; i != 1; --i)
                   {
-                    v80 = v283[i];
+                    v80 = v282[i];
                     if (v80 != -1 && (v80 & 0xFE000000000000) != 0)
                     {
-                      v296 = (v80 & 0xFF00FFFFFFFFFFFFLL);
-                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v296);
+                      v294 = (v80 & 0xFF00FFFFFFFFFFFFLL);
+                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v294);
                     }
                   }
                 }
 
                 for (j = 1; j != -1; --j)
                 {
-                  v83 = v283[j];
+                  v83 = v282[j];
                   if (v83 != -1 && (v83 & 0xFE000000000000) != 0)
                   {
-                    v296 = (v83 & 0xFF00FFFFFFFFFFFFLL);
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v296);
+                    v294 = (v83 & 0xFF00FFFFFFFFFFFFLL);
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v294);
                   }
                 }
               }
 
               else
               {
-                LOBYTE(v275) = 0;
-                v280 = 0;
+                LOBYTE(v274) = 0;
+                v279 = 0;
               }
 
-              if (v303 == 1 && v302 == 1)
+              if (v301 == 1 && v300 == 1)
               {
                 for (k = 8; k != -8; k -= 8)
                 {
-                  v86 = *&v301[k - 8];
+                  v86 = *&v299[k - 8];
                   if (v86 != -1 && (v86 & 0xFE000000000000) != 0)
                   {
-                    v283[0] = v86 & 0xFF00FFFFFFFFFFFFLL;
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                    v282[0] = v86 & 0xFF00FFFFFFFFFFFFLL;
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                   }
                 }
               }
 
-              if (v293 == 1)
+              if (v291 == 1)
               {
                 for (m = 1; m != -1; --m)
                 {
-                  v89 = (&v291)[m];
+                  v89 = (&v289)[m];
                   if (v89 != -1 && (v89 & 0xFE000000000000) != 0)
                   {
-                    v283[0] = v89 & 0xFF00FFFFFFFFFFFFLL;
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                    v282[0] = v89 & 0xFF00FFFFFFFFFFFFLL;
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                   }
                 }
               }
 
-              if (v280 != 1)
+              if (v279 != 1)
               {
                 v225 = *v5;
                 v226 = *(v5 + 8);
@@ -6497,15 +6523,15 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
                 }
 
                 (*(*v227 + 16))(v227, v225);
-                if ((v280 & 1) == 0)
+                if ((v279 & 1) == 0)
                 {
                   goto LABEL_10;
                 }
               }
 
               v91 = 0;
-              v92 = v268;
-              v93 = &v275;
+              v92 = v267;
+              v93 = &v274;
               do
               {
                 v94 = v91;
@@ -6517,42 +6543,42 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
                 else
                 {
-                  v300 = v92;
-                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v95), v95, &v300);
+                  v298 = v92;
+                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v95), v95, &v298);
                 }
 
                 *v93 = -1;
                 v91 = 1;
-                v93 = &v276;
-                v92 = &v269;
+                v93 = &v275;
+                v92 = &v268;
               }
 
               while ((v94 & 1) == 0);
-              std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](v270, &v277);
-              BYTE8(v271) = 1;
-              v272 = 1;
-              if (v280)
+              std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](v269, &v276);
+              BYTE8(v270) = 1;
+              v271 = 1;
+              if (v279)
               {
-                if (v279 == 1)
+                if (v278 == 1)
                 {
                   for (n = 3; n != 1; --n)
                   {
-                    v97 = (&v275)[n];
+                    v97 = (&v274)[n];
                     if (v97 != -1 && (v97 & 0xFE000000000000) != 0)
                     {
-                      v283[0] = v97 & 0xFF00FFFFFFFFFFFFLL;
-                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                      v282[0] = v97 & 0xFF00FFFFFFFFFFFFLL;
+                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                     }
                   }
                 }
 
                 for (ii = 1; ii != -1; --ii)
                 {
-                  v100 = (&v275)[ii];
+                  v100 = (&v274)[ii];
                   if (v100 != -1 && (v100 & 0xFE000000000000) != 0)
                   {
-                    v283[0] = v100 & 0xFF00FFFFFFFFFFFFLL;
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                    v282[0] = v100 & 0xFF00FFFFFFFFFFFFLL;
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                   }
                 }
               }
@@ -6560,18 +6586,18 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
             else
             {
-              IPC::Decoder::decode<WebCore::Style::Position>(&v291, v5);
-              IPC::Decoder::decode<std::optional<WebCore::Style::AbsoluteControlPoint>>(&v300, v5);
+              IPC::Decoder::decode<WebCore::Style::Position>(&v289, v5);
+              IPC::Decoder::decode<std::optional<WebCore::Style::AbsoluteControlPoint>>(&v298, v5);
               if (*v5)
               {
-                if (v293 != 1)
+                if (v291 != 1)
                 {
                   goto LABEL_437;
                 }
 
                 v135 = 0;
-                v5 = &v291;
-                v136 = v283;
+                v5 = &v289;
+                v136 = v282;
                 do
                 {
                   v137 = v135;
@@ -6583,26 +6609,26 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
                   else
                   {
-                    v304[0] = v136;
-                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v138), v138, v304);
+                    v302[0] = v136;
+                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v138), v138, v302);
                   }
 
                   *v5 = -1;
                   v135 = 1;
-                  v136 = &v284;
-                  v5 = &v292;
+                  v136 = &v282[1];
+                  v5 = &v290;
                 }
 
                 while ((v137 & 1) == 0);
-                if ((v303 & 1) == 0)
+                if ((v301 & 1) == 0)
                 {
                   goto LABEL_437;
                 }
 
-                std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](v285, &v300);
+                std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](v283, &v298);
                 v139 = 0;
-                v140 = &v275;
-                v141 = v283;
+                v140 = &v274;
+                v141 = v282;
                 do
                 {
                   v142 = v139;
@@ -6614,77 +6640,77 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
                   else
                   {
-                    v304[0] = v140;
-                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v143), v143, v304);
+                    v302[0] = v140;
+                    _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v143), v143, v302);
                   }
 
                   *v141 = -1;
                   v139 = 1;
-                  v141 = &v284;
-                  v140 = &v276;
+                  v141 = &v282[1];
+                  v140 = &v275;
                 }
 
                 while ((v142 & 1) == 0);
-                std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](&v277, v285);
-                v280 = 1;
+                std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](&v276, v283);
+                v279 = 1;
                 v5 = v257;
-                if (v289[0] == 1)
+                if (v287[0] == 1)
                 {
                   for (jj = 3; jj != 1; --jj)
                   {
-                    v145 = v283[jj];
+                    v145 = v282[jj];
                     if (v145 != -1 && (v145 & 0xFE000000000000) != 0)
                     {
-                      v296 = (v145 & 0xFF00FFFFFFFFFFFFLL);
-                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v296);
+                      v294 = (v145 & 0xFF00FFFFFFFFFFFFLL);
+                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v294);
                     }
                   }
                 }
 
                 for (kk = 1; kk != -1; --kk)
                 {
-                  v148 = v283[kk];
+                  v148 = v282[kk];
                   if (v148 != -1 && (v148 & 0xFE000000000000) != 0)
                   {
-                    v296 = (v148 & 0xFF00FFFFFFFFFFFFLL);
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v296);
+                    v294 = (v148 & 0xFF00FFFFFFFFFFFFLL);
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v294);
                   }
                 }
               }
 
               else
               {
-                LOBYTE(v275) = 0;
-                v280 = 0;
+                LOBYTE(v274) = 0;
+                v279 = 0;
               }
 
-              if (v303 == 1 && v302 == 1)
+              if (v301 == 1 && v300 == 1)
               {
                 for (mm = 8; mm != -8; mm -= 8)
                 {
-                  v151 = *&v301[mm - 8];
+                  v151 = *&v299[mm - 8];
                   if (v151 != -1 && (v151 & 0xFE000000000000) != 0)
                   {
-                    v283[0] = v151 & 0xFF00FFFFFFFFFFFFLL;
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                    v282[0] = v151 & 0xFF00FFFFFFFFFFFFLL;
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                   }
                 }
               }
 
-              if (v293 == 1)
+              if (v291 == 1)
               {
                 for (nn = 1; nn != -1; --nn)
                 {
-                  v154 = (&v291)[nn];
+                  v154 = (&v289)[nn];
                   if (v154 != -1 && (v154 & 0xFE000000000000) != 0)
                   {
-                    v283[0] = v154 & 0xFF00FFFFFFFFFFFFLL;
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                    v282[0] = v154 & 0xFF00FFFFFFFFFFFFLL;
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                   }
                 }
               }
 
-              if (v280 != 1)
+              if (v279 != 1)
               {
                 v231 = *v5;
                 v232 = *(v5 + 8);
@@ -6702,15 +6728,15 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
                 }
 
                 (*(*v233 + 16))(v233, v231);
-                if ((v280 & 1) == 0)
+                if ((v279 & 1) == 0)
                 {
                   goto LABEL_10;
                 }
               }
 
               v156 = 0;
-              v157 = v268;
-              v158 = &v275;
+              v157 = v267;
+              v158 = &v274;
               do
               {
                 v159 = v156;
@@ -6722,49 +6748,49 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::Style::MoveCommand,WebCore::Styl
 
                 else
                 {
-                  v300 = v157;
-                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v160), v160, &v300);
+                  v298 = v157;
+                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v160), v160, &v298);
                 }
 
                 *v158 = -1;
                 v156 = 1;
-                v158 = &v276;
-                v157 = &v269;
+                v158 = &v275;
+                v157 = &v268;
               }
 
               while ((v159 & 1) == 0);
-              std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](v270, &v277);
-              BYTE8(v271) = 0;
-              v272 = 1;
-              if (v280)
+              std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](v269, &v276);
+              BYTE8(v270) = 0;
+              v271 = 1;
+              if (v279)
               {
-                if (v279 == 1)
+                if (v278 == 1)
                 {
                   for (i1 = 3; i1 != 1; --i1)
                   {
-                    v162 = (&v275)[i1];
+                    v162 = (&v274)[i1];
                     if (v162 != -1 && (v162 & 0xFE000000000000) != 0)
                     {
-                      v283[0] = v162 & 0xFF00FFFFFFFFFFFFLL;
-                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                      v282[0] = v162 & 0xFF00FFFFFFFFFFFFLL;
+                      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                     }
                   }
                 }
 
                 for (i2 = 1; i2 != -1; --i2)
                 {
-                  v165 = (&v275)[i2];
+                  v165 = (&v274)[i2];
                   if (v165 != -1 && (v165 & 0xFE000000000000) != 0)
                   {
-                    v283[0] = v165 & 0xFF00FFFFFFFFFFFFLL;
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                    v282[0] = v165 & 0xFF00FFFFFFFFFFFFLL;
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
                   }
                 }
               }
             }
 
 LABEL_365:
-            if ((v272 & 1) == 0)
+            if ((v271 & 1) == 0)
             {
               v203 = *v5;
               v204 = *(v5 + 8);
@@ -6782,37 +6808,37 @@ LABEL_365:
 
             if (*v5)
             {
-              if ((v272 & 1) == 0)
+              if ((v271 & 1) == 0)
               {
                 goto LABEL_437;
               }
 
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1>::move_constructor(&v275, v268);
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1>::move_constructor(v259, &v275);
-              v265 = 1;
-              if (v280 != 255)
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1>::move_constructor(&v274, v267);
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1>::move_constructor(v259, &v274);
+              v264 = 1;
+              if (v279 != 255)
               {
-                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1> &>(&v275);
+                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1> &>(&v274);
               }
             }
 
             else
             {
               LOBYTE(v259[0]) = 0;
-              v265 = 0;
+              v264 = 0;
             }
 
-            if (v272 == 1 && BYTE8(v271) != 255)
+            if (v271 == 1 && BYTE8(v270) != 255)
             {
-              mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1> &>(v268);
+              mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1> &>(v267);
             }
 
-            if (v265 & 1) != 0 || (v206 = *v5, v207 = *(v5 + 8), *v5 = 0, *(v5 + 8) = 0, (v208 = *(v5 + 24)) != 0) && v207 && ((*(*v208 + 16))(v208, v206), (v265))
+            if (v264 & 1) != 0 || (v206 = *v5, v207 = *(v5 + 8), *v5 = 0, *(v5 + 8) = 0, (v208 = *(v5 + 24)) != 0) && v207 && ((*(*v208 + 16))(v208, v206), (v264))
             {
               mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1>::move_constructor(v6, v259);
               *(v6 + 80) = 5;
               *(v6 + 88) = 1;
-              if ((v265 & 1) != 0 && BYTE8(v264) != 255)
+              if ((v264 & 1) != 0 && BYTE8(v263) != 255)
               {
                 mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::SmoothCommand::To,WebCore::Style::SmoothCommand::By>,(mpark::detail::Trait)1> &>(v259);
               }
@@ -6824,8 +6850,8 @@ LABEL_365:
           }
 
 LABEL_10:
-          v268[0] = 0;
-          v272 = 0;
+          v267[0] = 0;
+          v271 = 0;
           goto LABEL_365;
         }
 
@@ -6872,18 +6898,18 @@ LABEL_511:
       return;
     }
 
-    IPC::Decoder::decode<mpark::variant<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>>(&v275, a2);
+    IPC::Decoder::decode<mpark::variant<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>>(&v274, a2);
     _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedArrayINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEELm2EEEEENSt3__18optionalIT_EEv(v259, v5);
     if (*v5)
     {
-      if (v261 != 1)
+      if (v260 != 1)
       {
         goto LABEL_437;
       }
 
       v15 = 0;
       v4 = v259;
-      v16 = &v300;
+      v16 = &v298;
       do
       {
         v17 = v15;
@@ -6895,20 +6921,20 @@ LABEL_511:
 
         else
         {
-          v296 = v16;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v18), v18, &v296);
+          v294 = v16;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v18), v18, &v294);
         }
 
         *v4 = -1;
         v15 = 1;
-        v16 = v301;
-        v4 = &v260;
+        v16 = v299;
+        v4 = &v259[1];
       }
 
       while ((v17 & 1) == 0);
       v19 = 0;
-      v20 = v283;
-      v21 = &v300;
+      v20 = v282;
+      v21 = &v298;
       do
       {
         v22 = v19;
@@ -6920,27 +6946,27 @@ LABEL_511:
 
         else
         {
-          v296 = v20;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v23), v23, &v296);
+          v294 = v20;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v23), v23, &v294);
         }
 
         *v21 = -1;
         v19 = 1;
-        v21 = v301;
-        v20 = &v284;
+        v21 = v299;
+        v20 = &v282[1];
       }
 
       while ((v22 & 1) == 0);
-      v285[0] = 1;
+      v283[0] = 1;
       v24 = 8;
-      v3 = &v300;
+      v3 = &v298;
       do
       {
-        v25 = *&v301[v24 - 8];
+        v25 = *&v299[v24 - 8];
         if (v25 != -1 && (v25 & 0xFE000000000000) != 0)
         {
-          v291 = (v25 & 0xFF00FFFFFFFFFFFFLL);
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v291);
+          v289 = (v25 & 0xFF00FFFFFFFFFFFFLL);
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v289);
         }
 
         v24 -= 8;
@@ -6951,11 +6977,11 @@ LABEL_511:
 
     else
     {
-      LOBYTE(v283[0]) = 0;
-      v285[0] = 0;
+      LOBYTE(v282[0]) = 0;
+      v283[0] = 0;
     }
 
-    if (v261 == 1)
+    if (v260 == 1)
     {
       v27 = 1;
       v3 = v259;
@@ -6964,8 +6990,8 @@ LABEL_511:
         v28 = v259[v27];
         if (v28 != -1 && (v28 & 0xFE000000000000) != 0)
         {
-          v300 = (v28 & 0xFF00FFFFFFFFFFFFLL);
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v300);
+          v298 = (v28 & 0xFF00FFFFFFFFFFFFLL);
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v298);
         }
 
         --v27;
@@ -6974,7 +7000,7 @@ LABEL_511:
       while (v27 != -1);
     }
 
-    if ((v285[0] & 1) == 0)
+    if ((v283[0] & 1) == 0)
     {
       v214 = *v5;
       v215 = *(v5 + 8);
@@ -7207,27 +7233,27 @@ LABEL_387:
             v258 = v5;
             if (*v5)
             {
-              if ((v278 & 1) == 0)
+              if ((v277 & 1) == 0)
               {
                 goto LABEL_437;
               }
 
               v171 = v169;
               v172 = v170;
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(v259, &v275);
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(v259, &v274);
               v251 = v168;
               v255 = v6;
-              if (v285[0] != 1)
+              if (v283[0] != 1)
               {
                 goto LABEL_437;
               }
 
               v173 = 0;
-              v5 = &v262;
+              v5 = &v261;
               v174 = v4 << 8;
-              v175 = v283;
+              v175 = v282;
               v176 = 3;
-              v177 = &v262;
+              v177 = &v261;
               do
               {
                 v178 = v173;
@@ -7239,15 +7265,15 @@ LABEL_387:
 
                 else
                 {
-                  v291 = v177;
-                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v179), v179, &v291);
+                  v289 = v177;
+                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v179), v179, &v289);
                 }
 
                 v6 = 0;
                 *v175 = -1;
                 v173 = 1;
-                v175 = &v284;
-                v177 = &v263;
+                v175 = &v282[1];
+                v177 = &v262;
                 v176 = 4;
               }
 
@@ -7257,53 +7283,53 @@ LABEL_387:
                 goto LABEL_437;
               }
 
-              LOWORD(v264) = v252;
+              LOWORD(v263) = v252;
               v6 = v255;
               if (v251)
               {
                 goto LABEL_437;
               }
 
-              WORD1(v264) = v174;
+              WORD1(v263) = v174;
               if ((v172 & 1) == 0)
               {
                 goto LABEL_437;
               }
 
-              *(&v264 + 1) = v171;
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(v268, v259);
+              *(&v263 + 1) = v171;
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(v267, v259);
               v180 = 0;
               v181 = 0;
               do
               {
                 v182 = v180;
-                v183 = *(&v262 + v181);
+                v183 = *(&v261 + v181);
                 if (v183 == -1)
                 {
-                  *&v270[8 * v181 + 8] = -1;
+                  *&v269[8 * v181 + 8] = -1;
                 }
 
                 else
                 {
-                  v291 = &v270[8 * v181 + 8];
-                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v183), v183, &v291);
+                  v289 = &v269[8 * v181 + 8];
+                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v183), v183, &v289);
                 }
 
-                *(&v262 + v181) = -1;
+                *(&v261 + v181) = -1;
                 v180 = 1;
                 v181 = 1;
               }
 
               while ((v182 & 1) == 0);
-              v271 = v264;
-              v272 = 1;
+              v270 = v263;
+              v271 = 1;
               for (i3 = 4; i3 != 2; --i3)
               {
                 v185 = v259[i3];
                 if (v185 != -1 && (v185 & 0xFE000000000000) != 0)
                 {
-                  v300 = (v185 & 0xFF00FFFFFFFFFFFFLL);
-                  WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v300);
+                  v298 = (v185 & 0xFF00FFFFFFFFFFFFLL);
+                  WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v298);
                 }
               }
 
@@ -7312,15 +7338,15 @@ LABEL_387:
 
             else
             {
-              v268[0] = 0;
-              v272 = 0;
+              v267[0] = 0;
+              v271 = 0;
             }
 
-            if (v285[0] == 1)
+            if (v283[0] == 1)
             {
               for (i4 = 1; i4 != -1; --i4)
               {
-                v188 = v283[i4];
+                v188 = v282[i4];
                 if (v188 != -1 && (v188 & 0xFE000000000000) != 0)
                 {
                   v259[0] = v188 & 0xFF00FFFFFFFFFFFFLL;
@@ -7329,20 +7355,20 @@ LABEL_387:
               }
             }
 
-            if (v278 == 1)
+            if (v277 == 1)
             {
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::~move_constructor(&v275);
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::~move_constructor(&v274);
             }
 
-            if (v272 & 1) != 0 || (v217 = *v258, v218 = v258[1], *v258 = 0, v258[1] = 0, (v219 = v258[3]) != 0) && v218 && ((*(*v219 + 16))(v219, v217), (v272))
+            if (v271 & 1) != 0 || (v217 = *v258, v218 = v258[1], *v258 = 0, v258[1] = 0, (v219 = v258[3]) != 0) && v218 && ((*(*v219 + 16))(v219, v217), (v271))
             {
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(v6, v268);
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::move_constructor(v6, v267);
               v190 = 0;
               v191 = 0;
               do
               {
                 v192 = v190;
-                v193 = *&v270[8 * v191 + 8];
+                v193 = *&v269[8 * v191 + 8];
                 if (v193 == -1)
                 {
                   v6[v191 + 3] = -1;
@@ -7350,24 +7376,24 @@ LABEL_387:
 
                 else
                 {
-                  v275 = &v6[v191 + 3];
-                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v193), v193, &v275);
+                  v274 = &v6[v191 + 3];
+                  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v193), v193, &v274);
                 }
 
-                *&v270[8 * v191 + 8] = -1;
+                *&v269[8 * v191 + 8] = -1;
                 v190 = 1;
                 v191 = 1;
               }
 
               while ((v192 & 1) == 0);
-              *(v6 + 5) = v271;
+              *(v6 + 5) = v270;
               *(v6 + 80) = 6;
               *(v6 + 88) = 1;
-              if (v272)
+              if (v271)
               {
                 for (i5 = 32; i5 != 16; i5 -= 8)
                 {
-                  v195 = *&v268[i5];
+                  v195 = *&v267[i5];
                   if (v195 != -1 && (v195 & 0xFE000000000000) != 0)
                   {
                     v259[0] = v195 & 0xFF00FFFFFFFFFFFFLL;
@@ -7375,7 +7401,7 @@ LABEL_387:
                   }
                 }
 
-                mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::~move_constructor(v268);
+                mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::ToPosition,WebCore::Style::ByCoordinatePair>,(mpark::detail::Trait)1>::~move_constructor(v267);
               }
 
               return;
@@ -7468,20 +7494,20 @@ LABEL_505:
     v256 = v5;
     if (v10)
     {
-      _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v296, v5);
-      IPC::Decoder::decode<WebCore::Style::RelativeControlPoint>(&v291, v5);
-      IPC::Decoder::decode<std::optional<WebCore::Style::RelativeControlPoint>>(&v300, v5);
+      _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v294, v5);
+      IPC::Decoder::decode<WebCore::Style::RelativeControlPoint>(&v289, v5);
+      IPC::Decoder::decode<std::optional<WebCore::Style::RelativeControlPoint>>(&v298, v5);
       if (*v5)
       {
-        if (v298 != 1)
+        if (v296 != 1)
         {
           goto LABEL_437;
         }
 
         v36 = 0;
-        v37 = v285;
-        v6 = &v296;
-        v38 = v283;
+        v37 = v283;
+        v6 = &v294;
+        v38 = v282;
         v5 = -1;
         do
         {
@@ -7494,24 +7520,24 @@ LABEL_505:
 
           else
           {
-            v299 = v38;
-            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v40), v40, &v299);
+            v297 = v38;
+            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v40), v40, &v297);
           }
 
           *v6 = -1;
           v36 = 1;
-          v38 = &v284;
-          v6 = &v297;
+          v38 = &v282[1];
+          v6 = &v295;
         }
 
         while ((v39 & 1) == 0);
-        if (v295 != 1)
+        if (v293 != 1)
         {
           goto LABEL_437;
         }
 
         v41 = 0;
-        v5 = &v291;
+        v5 = &v289;
         v42 = 2;
         do
         {
@@ -7519,65 +7545,65 @@ LABEL_505:
           v43 = *v5;
           if (*v5 == -1)
           {
-            v283[v42] = -1;
+            v282[v42] = -1;
           }
 
           else
           {
-            v299 = v37;
-            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v43), v43, &v299);
+            v297 = v37;
+            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v43), v43, &v297);
           }
 
           *v5 = -1;
           v41 = 1;
-          v5 = &v292;
-          v37 = &v286;
+          v5 = &v290;
+          v37 = &v284;
           v42 = 3;
         }
 
         while ((v6 & 1) == 0);
-        v287 = v293;
-        v288 = v294;
-        if ((v303 & 1) == 0)
+        v285 = v291;
+        v286 = v292;
+        if ((v301 & 1) == 0)
         {
           goto LABEL_437;
         }
 
-        std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](v289, &v300);
+        std::__optional_move_base<WebCore::Style::RelativeControlPoint,false>::__optional_move_base[abi:sn200100](v287, &v298);
         v6 = a1;
         v5 = v256;
-        WebCore::Style::CurveCommand::By::By(&v275, v283);
-        v282 = 1;
-        if (v290 == 1)
+        WebCore::Style::CurveCommand::By::By(&v274, v282);
+        v281 = 1;
+        if (v288 == 1)
         {
           for (i6 = 6; i6 != 4; --i6)
           {
-            v45 = v283[i6];
+            v45 = v282[i6];
             if (v45 != -1 && (v45 & 0xFE000000000000) != 0)
             {
-              v304[0] = (v45 & 0xFF00FFFFFFFFFFFFLL);
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v304);
+              v302[0] = (v45 & 0xFF00FFFFFFFFFFFFLL);
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v302);
             }
           }
         }
 
         for (i7 = 3; i7 != 1; --i7)
         {
-          v48 = v283[i7];
+          v48 = v282[i7];
           if (v48 != -1 && (v48 & 0xFE000000000000) != 0)
           {
-            v304[0] = (v48 & 0xFF00FFFFFFFFFFFFLL);
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v304);
+            v302[0] = (v48 & 0xFF00FFFFFFFFFFFFLL);
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v302);
           }
         }
 
         do
         {
-          v50 = v283[i7];
+          v50 = v282[i7];
           if (v50 != -1 && (v50 & 0xFE000000000000) != 0)
           {
-            v304[0] = (v50 & 0xFF00FFFFFFFFFFFFLL);
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v304);
+            v302[0] = (v50 & 0xFF00FFFFFFFFFFFFLL);
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v302);
           }
 
           --i7;
@@ -7588,86 +7614,86 @@ LABEL_505:
 
       else
       {
-        LOBYTE(v275) = 0;
-        v282 = 0;
+        LOBYTE(v274) = 0;
+        v281 = 0;
       }
 
-      if (v303 == 1 && v302 == 1)
+      if (v301 == 1 && v300 == 1)
       {
         for (i8 = 8; i8 != -8; i8 -= 8)
         {
-          v53 = *&v301[i8 - 8];
+          v53 = *&v299[i8 - 8];
           if (v53 != -1 && (v53 & 0xFE000000000000) != 0)
           {
-            v283[0] = v53 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+            v282[0] = v53 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
           }
         }
       }
 
-      if (v295 == 1)
+      if (v293 == 1)
       {
         for (i9 = 1; i9 != -1; --i9)
         {
-          v56 = (&v291)[i9];
+          v56 = (&v289)[i9];
           if (v56 != -1 && (v56 & 0xFE000000000000) != 0)
           {
-            v283[0] = v56 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+            v282[0] = v56 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
           }
         }
       }
 
-      if (v298 == 1)
+      if (v296 == 1)
       {
         for (i10 = 1; i10 != -1; --i10)
         {
-          v59 = (&v296)[i10];
+          v59 = (&v294)[i10];
           if (v59 != -1 && (v59 & 0xFE000000000000) != 0)
           {
-            v283[0] = v59 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+            v282[0] = v59 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
           }
         }
       }
 
-      if (v282 & 1) != 0 || (v209 = *v5, v210 = *(v5 + 8), *v5 = 0, *(v5 + 8) = 0, (v211 = *(v5 + 24)) != 0) && v210 && ((*(*v211 + 16))(v211, v209), (v282))
+      if (v281 & 1) != 0 || (v209 = *v5, v210 = *(v5 + 8), *v5 = 0, *(v5 + 8) = 0, (v211 = *(v5 + 24)) != 0) && v210 && ((*(*v211 + 16))(v211, v209), (v281))
       {
-        WebCore::Style::CurveCommand::By::By(v268, &v275);
+        WebCore::Style::CurveCommand::By::By(v267, &v274);
+        v272 = 1;
         v273 = 1;
-        v274 = 1;
-        if (v282)
+        if (v281)
         {
-          if (v281 == 1)
+          if (v280 == 1)
           {
             for (i11 = 6; i11 != 4; --i11)
             {
-              v62 = (&v275)[i11];
+              v62 = (&v274)[i11];
               if (v62 != -1 && (v62 & 0xFE000000000000) != 0)
               {
-                v283[0] = v62 & 0xFF00FFFFFFFFFFFFLL;
-                WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                v282[0] = v62 & 0xFF00FFFFFFFFFFFFLL;
+                WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
               }
             }
           }
 
           for (i12 = 3; i12 != 1; --i12)
           {
-            v65 = (&v275)[i12];
+            v65 = (&v274)[i12];
             if (v65 != -1 && (v65 & 0xFE000000000000) != 0)
             {
-              v283[0] = v65 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+              v282[0] = v65 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
             }
           }
 
           do
           {
-            v67 = (&v275)[i12];
+            v67 = (&v274)[i12];
             if (v67 != -1 && (v67 & 0xFE000000000000) != 0)
             {
-              v283[0] = v67 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+              v282[0] = v67 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
             }
 
             --i12;
@@ -7682,20 +7708,20 @@ LABEL_505:
 
     else
     {
-      IPC::Decoder::decode<WebCore::Style::Position>(&v296, v5);
-      IPC::Decoder::decode<WebCore::Style::AbsoluteControlPoint>(&v291, v5);
-      IPC::Decoder::decode<std::optional<WebCore::Style::AbsoluteControlPoint>>(&v300, v5);
+      IPC::Decoder::decode<WebCore::Style::Position>(&v294, v5);
+      IPC::Decoder::decode<WebCore::Style::AbsoluteControlPoint>(&v289, v5);
+      IPC::Decoder::decode<std::optional<WebCore::Style::AbsoluteControlPoint>>(&v298, v5);
       if (*v5)
       {
-        if (v298 != 1)
+        if (v296 != 1)
         {
           goto LABEL_437;
         }
 
         v102 = 0;
-        v103 = v285;
-        v6 = &v296;
-        v104 = v283;
+        v103 = v283;
+        v6 = &v294;
+        v104 = v282;
         v5 = -1;
         do
         {
@@ -7708,24 +7734,24 @@ LABEL_505:
 
           else
           {
-            v299 = v104;
-            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v106), v106, &v299);
+            v297 = v104;
+            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v106), v106, &v297);
           }
 
           *v6 = -1;
           v102 = 1;
-          v104 = &v284;
-          v6 = &v297;
+          v104 = &v282[1];
+          v6 = &v295;
         }
 
         while ((v105 & 1) == 0);
-        if (v295 != 1)
+        if (v293 != 1)
         {
           goto LABEL_437;
         }
 
         v107 = 0;
-        v5 = &v291;
+        v5 = &v289;
         v108 = 2;
         do
         {
@@ -7733,65 +7759,65 @@ LABEL_505:
           v109 = *v5;
           if (*v5 == -1)
           {
-            v283[v108] = -1;
+            v282[v108] = -1;
           }
 
           else
           {
-            v299 = v103;
-            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v109), v109, &v299);
+            v297 = v103;
+            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v109), v109, &v297);
           }
 
           *v5 = -1;
           v107 = 1;
-          v5 = &v292;
-          v103 = &v286;
+          v5 = &v290;
+          v103 = &v284;
           v108 = 3;
         }
 
         while ((v6 & 1) == 0);
-        v287 = v293;
-        v288 = v294;
-        if ((v303 & 1) == 0)
+        v285 = v291;
+        v286 = v292;
+        if ((v301 & 1) == 0)
         {
           goto LABEL_437;
         }
 
-        std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](v289, &v300);
+        std::__optional_move_base<WebCore::Style::AbsoluteControlPoint,false>::__optional_move_base[abi:sn200100](v287, &v298);
         v6 = a1;
         v5 = v256;
-        WebCore::Style::CurveCommand::To::To(&v275, v283);
-        v282 = 1;
-        if (v290 == 1)
+        WebCore::Style::CurveCommand::To::To(&v274, v282);
+        v281 = 1;
+        if (v288 == 1)
         {
           for (i13 = 6; i13 != 4; --i13)
           {
-            v111 = v283[i13];
+            v111 = v282[i13];
             if (v111 != -1 && (v111 & 0xFE000000000000) != 0)
             {
-              v304[0] = (v111 & 0xFF00FFFFFFFFFFFFLL);
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v304);
+              v302[0] = (v111 & 0xFF00FFFFFFFFFFFFLL);
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v302);
             }
           }
         }
 
         for (i14 = 3; i14 != 1; --i14)
         {
-          v114 = v283[i14];
+          v114 = v282[i14];
           if (v114 != -1 && (v114 & 0xFE000000000000) != 0)
           {
-            v304[0] = (v114 & 0xFF00FFFFFFFFFFFFLL);
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v304);
+            v302[0] = (v114 & 0xFF00FFFFFFFFFFFFLL);
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v302);
           }
         }
 
         do
         {
-          v116 = v283[i14];
+          v116 = v282[i14];
           if (v116 != -1 && (v116 & 0xFE000000000000) != 0)
           {
-            v304[0] = (v116 & 0xFF00FFFFFFFFFFFFLL);
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v304);
+            v302[0] = (v116 & 0xFF00FFFFFFFFFFFFLL);
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v302);
           }
 
           --i14;
@@ -7802,86 +7828,86 @@ LABEL_505:
 
       else
       {
-        LOBYTE(v275) = 0;
-        v282 = 0;
+        LOBYTE(v274) = 0;
+        v281 = 0;
       }
 
-      if (v303 == 1 && v302 == 1)
+      if (v301 == 1 && v300 == 1)
       {
         for (i15 = 8; i15 != -8; i15 -= 8)
         {
-          v119 = *&v301[i15 - 8];
+          v119 = *&v299[i15 - 8];
           if (v119 != -1 && (v119 & 0xFE000000000000) != 0)
           {
-            v283[0] = v119 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+            v282[0] = v119 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
           }
         }
       }
 
-      if (v295 == 1)
+      if (v293 == 1)
       {
         for (i16 = 1; i16 != -1; --i16)
         {
-          v122 = (&v291)[i16];
+          v122 = (&v289)[i16];
           if (v122 != -1 && (v122 & 0xFE000000000000) != 0)
           {
-            v283[0] = v122 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+            v282[0] = v122 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
           }
         }
       }
 
-      if (v298 == 1)
+      if (v296 == 1)
       {
         for (i17 = 1; i17 != -1; --i17)
         {
-          v125 = (&v296)[i17];
+          v125 = (&v294)[i17];
           if (v125 != -1 && (v125 & 0xFE000000000000) != 0)
           {
-            v283[0] = v125 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+            v282[0] = v125 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
           }
         }
       }
 
-      if (v282 & 1) != 0 || (v220 = *v5, v221 = *(v5 + 8), *v5 = 0, *(v5 + 8) = 0, (v222 = *(v5 + 24)) != 0) && v221 && ((*(*v222 + 16))(v222, v220), (v282))
+      if (v281 & 1) != 0 || (v220 = *v5, v221 = *(v5 + 8), *v5 = 0, *(v5 + 8) = 0, (v222 = *(v5 + 24)) != 0) && v221 && ((*(*v222 + 16))(v222, v220), (v281))
       {
-        WebCore::Style::CurveCommand::To::To(v268, &v275);
-        v273 = 0;
-        v274 = 1;
-        if (v282)
+        WebCore::Style::CurveCommand::To::To(v267, &v274);
+        v272 = 0;
+        v273 = 1;
+        if (v281)
         {
-          if (v281 == 1)
+          if (v280 == 1)
           {
             for (i18 = 6; i18 != 4; --i18)
             {
-              v128 = (&v275)[i18];
+              v128 = (&v274)[i18];
               if (v128 != -1 && (v128 & 0xFE000000000000) != 0)
               {
-                v283[0] = v128 & 0xFF00FFFFFFFFFFFFLL;
-                WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+                v282[0] = v128 & 0xFF00FFFFFFFFFFFFLL;
+                WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
               }
             }
           }
 
           for (i19 = 3; i19 != 1; --i19)
           {
-            v131 = (&v275)[i19];
+            v131 = (&v274)[i19];
             if (v131 != -1 && (v131 & 0xFE000000000000) != 0)
             {
-              v283[0] = v131 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+              v282[0] = v131 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
             }
           }
 
           do
           {
-            v133 = (&v275)[i19];
+            v133 = (&v274)[i19];
             if (v133 != -1 && (v133 & 0xFE000000000000) != 0)
             {
-              v283[0] = v133 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v283);
+              v282[0] = v133 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v282);
             }
 
             --i19;
@@ -7896,10 +7922,10 @@ LABEL_505:
   }
 
 LABEL_5:
-  v268[0] = 0;
-  v274 = 0;
+  v267[0] = 0;
+  v273 = 0;
 LABEL_286:
-  if ((v274 & 1) == 0)
+  if ((v273 & 1) == 0)
   {
     goto LABEL_438;
   }
@@ -7909,11 +7935,11 @@ LABEL_286:
     if (!*v5)
     {
       LOBYTE(v259[0]) = 0;
-      v267 = 0;
+      v266 = 0;
       goto LABEL_291;
     }
 
-    if (v274)
+    if (v273)
     {
       break;
     }
@@ -7932,21 +7958,21 @@ LABEL_438:
     }
   }
 
-  mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1>::move_constructor(&v275, v268);
-  mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1>::move_constructor(v259, &v275);
-  v267 = 1;
-  if (v282 != 255)
+  mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1>::move_constructor(&v274, v267);
+  mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1>::move_constructor(v259, &v274);
+  v266 = 1;
+  if (v281 != 255)
   {
-    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1> &>(&v275);
+    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1> &>(&v274);
   }
 
 LABEL_291:
-  if (v274 == 1 && v273 != 255)
+  if (v273 == 1 && v272 != 255)
   {
-    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1> &>(v268);
+    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1> &>(v267);
   }
 
-  if ((v267 & 1) == 0)
+  if ((v266 & 1) == 0)
   {
     v200 = *v5;
     v201 = *(v5 + 8);
@@ -7964,7 +7990,7 @@ LABEL_291:
     }
 
     (*(*v202 + 16))(v202, v200);
-    if ((v267 & 1) == 0)
+    if ((v266 & 1) == 0)
     {
       goto LABEL_467;
     }
@@ -7973,13 +7999,13 @@ LABEL_291:
   mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1>::move_constructor(v6, v259);
   *(v6 + 80) = 4;
   *(v6 + 88) = 1;
-  if ((v267 & 1) != 0 && v266 != 255)
+  if ((v266 & 1) != 0 && v265 != 255)
   {
     mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::CurveCommand::To,WebCore::Style::CurveCommand::By>,(mpark::detail::Trait)1> &>(v259);
   }
 }
 
-void sub_19D816874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, __int16 a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, int a43, __int16 a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
+void sub_19D816874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, __int16 a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, int a43, __int16 a44, uint64_t a45, uint64_t a46, uint64_t a47, unint64_t a48)
 {
   if (a44 == 1)
   {
@@ -8098,22 +8124,22 @@ uint64_t mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::M
 
 void sub_19D817DE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
-  if (*(v10 + 80) != 255)
+  if (v10[80] != 255)
   {
     mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1> &>(v10);
   }
 
-  *(v10 + 80) = -1;
+  v10[80] = -1;
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 88 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 88 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -8145,7 +8171,7 @@ unint64_t WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style:
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -8178,9 +8204,9 @@ unint64_t WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style:
   return v3;
 }
 
-void WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2)
+void WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 8) < a2)
+  if (*(result + 8) < a2)
   {
     if (a2 >= 0x2E8BA2F)
     {
@@ -8188,40 +8214,41 @@ void WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::Line
       JUMPOUT(0x19D817FD4);
     }
 
-    v3 = *a1;
-    v4 = *a1 + 88 * *(a1 + 12);
-    v5 = 88 * a2;
-    v6 = WTF::fastMalloc((88 * a2));
-    *(a1 + 8) = v5 / 0x58;
-    *a1 = v6;
-    WTF::VectorMover<false,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>::move(v3, v4, v6);
+    v3 = *result;
+    v4 = *(result + 12);
+    v5 = (*result + 88 * v4);
+    v6 = 88 * a2;
+    v7 = WTF::fastMalloc(v4, (88 * a2));
+    *(result + 8) = v6 / 0x58;
+    *result = v7;
+    WTF::VectorMover<false,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>::move(v3, v5, v7);
     if (v3)
     {
-      if (*a1 == v3)
+      if (*result == v3)
       {
-        *a1 = 0;
-        *(a1 + 8) = 0;
+        *result = 0;
+        *(result + 8) = 0;
       }
 
-      WTF::fastFree(v3, v7);
+      WTF::fastFree(v3, v8);
     }
   }
 }
 
-void WTF::VectorMover<false,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>::move(uint64_t a1, uint64_t a2, uint64_t a3)
+void WTF::VectorMover<false,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>::move(unsigned __int8 *result, unsigned __int8 *a2, uint64_t a3)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    v5 = a1;
+    v5 = result;
     do
     {
       mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1>::move_constructor(a3, v5);
-      if (*(v5 + 80) != 255)
+      if (v5[80] != 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1> &>(v5);
       }
 
-      *(v5 + 80) = -1;
+      v5[80] = -1;
       a3 += 88;
       v5 += 88;
     }
@@ -8465,28 +8492,28 @@ LABEL_11:
   return result;
 }
 
-mpark *IPC::ArgumentCoder<std::optional<WebCore::Style::AbsoluteControlPoint>,void>::encode<IPC::Encoder,std::optional<WebCore::Style::AbsoluteControlPoint> const&>(IPC::Encoder *a1, uint64_t a2)
+void IPC::ArgumentCoder<std::optional<WebCore::Style::AbsoluteControlPoint>,void>::encode<IPC::Encoder,std::optional<WebCore::Style::AbsoluteControlPoint> const&>(IPC::Encoder *a1, uint64_t a2)
 {
   if (*(a2 + 24))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (*(a2 + 24))
     {
-      return IPC::ArgumentCoder<WebCore::Style::RelativeControlPoint,void>::encode(a1, a2);
+      IPC::ArgumentCoder<WebCore::Style::RelativeControlPoint,void>::encode(a1, a2);
     }
 
     else
     {
-      v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSValueID)273,WebCore::Style::Circle>,WebCore::FunctionNotation<(WebCore::CSSValueID)709,WebCore::Style::Ellipse>,WebCore::FunctionNotation<(WebCore::CSSValueID)8,WebCore::Style::Inset>,WebCore::FunctionNotation<(WebCore::CSSValueID)904,WebCore::Style::Path>,WebCore::FunctionNotation<(WebCore::CSSValueID)799,WebCore::Style::Polygon>,WebCore::FunctionNotation<(WebCore::CSSValueID)800,WebCore::Style::Shape>>,void>::decode<IPC::Decoder,0ul,1ul>(v5);
+      v4 = std::__throw_bad_optional_access[abi:sn200100]();
+      IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSValueID)273,WebCore::Style::Circle>,WebCore::FunctionNotation<(WebCore::CSSValueID)709,WebCore::Style::Ellipse>,WebCore::FunctionNotation<(WebCore::CSSValueID)8,WebCore::Style::Inset>,WebCore::FunctionNotation<(WebCore::CSSValueID)904,WebCore::Style::Path>,WebCore::FunctionNotation<(WebCore::CSSValueID)799,WebCore::Style::Polygon>,WebCore::FunctionNotation<(WebCore::CSSValueID)800,WebCore::Style::Shape>>,void>::decode<IPC::Decoder,0ul,1ul>(v4, v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
@@ -8494,32 +8521,32 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSVa
 {
   v6 = a2;
   v7 = a1;
-  v381 = *MEMORY[0x1E69E9840];
+  v380 = *MEMORY[0x1E69E9840];
   if (a3 != 2)
   {
     if (a3 == 3)
     {
       v8 = IPC::Decoder::decode<std::optional<mpark::variant<WebCore::Constant<(WebCore::CSSValueID)731>,WebCore::Constant<(WebCore::CSSValueID)732>>>>(a2);
-      IPC::Decoder::decode<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(v6, &v332);
+      IPC::Decoder::decode<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(v6, &v333);
       v10 = *v6;
       if (*v6)
       {
-        if ((v334 & 1) == 0)
+        if ((v335 & 1) == 0)
         {
           goto LABEL_588;
         }
 
-        v370 = 0;
-        v11 = WTF::fastMalloc(0x58);
+        v369 = 0;
+        v11 = WTF::fastMalloc(v335, 0x58);
         v4 = v11;
         *v11 = 1;
-        *(v11 + 8) = v332;
-        v12 = v333;
-        v332 = 0;
+        v11[1] = v333;
+        v12 = v334;
         v333 = 0;
-        *(v11 + 16) = v12;
+        v334 = 0;
+        v11[2] = v12;
         *(v11 + 80) = 0;
-        v342 = 0;
+        v343 = 0;
         if (_MergedGlobals_48)
         {
           v13 = dword_1ED641AB8[0] + 1;
@@ -8538,26 +8565,26 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSVa
         }
 
         dword_1ED641AB8[0] = v13;
-        v343 = v11;
-        v344 = 1;
-        v371 = 0;
+        v344 = v11;
+        v345 = 1;
+        v370 = 0;
         WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-        WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v370, v14);
+        WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v369, v14);
       }
 
       else
       {
-        LOBYTE(v342) = 0;
-        v344 = 0;
+        LOBYTE(v343) = 0;
+        v345 = 0;
       }
 
-      if (v334 == 1)
+      if (v335 == 1)
       {
-        v253 = v332;
-        if (v332)
+        v253 = v333;
+        if (v333)
         {
-          v332 = 0;
-          LODWORD(v333) = 0;
+          v333 = 0;
+          LODWORD(v334) = 0;
           WTF::fastFree(v253, v9);
         }
       }
@@ -8566,7 +8593,7 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSVa
       {
         if (*v6)
         {
-          v332 = 0;
+          v333 = 0;
           if (_MergedGlobals_48)
           {
             v15 = dword_1ED641AB8[0] + 2;
@@ -8585,27 +8612,27 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSVa
           }
 
           dword_1ED641AB8[0] = v15;
-          v347 = 0;
-          v348 = v4;
-          v349 = 1;
-          v333 = 0;
+          v348 = 0;
+          v349 = v4;
+          v350 = 1;
+          v334 = 0;
           WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-          WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v332, v16);
-          v343 = 0;
+          WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v333, v16);
+          v344 = 0;
           WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-          WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v342, v17);
+          WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v343, v17);
           goto LABEL_18;
         }
 
-        LOBYTE(v347) = 0;
-        v349 = 0;
-        v343 = 0;
+        LOBYTE(v348) = 0;
+        v350 = 0;
+        v344 = 0;
         if (v4)
         {
           WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(v4);
         }
 
-        WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v342, v9);
+        WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v343, v9);
         v269 = *v6;
       }
 
@@ -8642,8 +8669,8 @@ void IPC::ArgumentCoder<mpark::variant<WebCore::FunctionNotation<(WebCore::CSSVa
           v269 = 0;
         }
 
-        LOBYTE(v347) = 0;
-        v349 = 0;
+        LOBYTE(v348) = 0;
+        v350 = 0;
       }
 
       v270 = *(v6 + 1);
@@ -8681,12 +8708,12 @@ LABEL_18:
       {
         *v6 = 0;
         *(v6 + 1) = 0;
-        v318 = *(v6 + 3);
-        if (v318)
+        v319 = *(v6 + 3);
+        if (v319)
         {
           if (v18)
           {
-            (*(*v318 + 16))(v318);
+            (*(*v319 + 16))(v319);
             v20 = *a2;
             v18 = *(a2 + 1);
             goto LABEL_613;
@@ -8706,12 +8733,12 @@ LABEL_613:
       v6 = a2;
       *a2 = 0;
       *(a2 + 1) = 0;
-      v319 = *(a2 + 3);
-      if (v319)
+      v320 = *(a2 + 3);
+      if (v320)
       {
         if (v18)
         {
-          (*(*v319 + 16))(v319);
+          (*(*v320 + 16))(v320);
           v10 = 0;
           v7 = a1;
           v6 = a2;
@@ -8724,14 +8751,14 @@ LABEL_23:
               goto LABEL_588;
             }
 
-            LOWORD(v332) = v8;
-            BYTE2(v332) = BYTE2(v8);
-            if ((v349 & 1) == 0)
+            LOWORD(v333) = v8;
+            BYTE2(v333) = BYTE2(v8);
+            if ((v350 & 1) == 0)
             {
               goto LABEL_588;
             }
 
-            v333 = 0;
+            v334 = 0;
             if (_MergedGlobals_48)
             {
               v24 = dword_1ED641AB8[0] + 1;
@@ -8750,44 +8777,44 @@ LABEL_23:
             }
 
             dword_1ED641AB8[0] = v24;
-            v8 = v348;
-            v348 = dword_1ED641AB8;
+            v8 = v349;
+            v349 = dword_1ED641AB8;
             if ((v10 & 0x100000000) == 0)
             {
               goto LABEL_588;
             }
 
-            LODWORD(v335) = v10;
-            LOWORD(v373) = v332;
-            BYTE2(v373) = BYTE2(v332);
-            v374 = 0;
+            LODWORD(v336) = v10;
+            LOWORD(v372) = v333;
+            BYTE2(v372) = BYTE2(v333);
+            v373 = 0;
             dword_1ED641AB8[0] = v24 + 1;
-            LODWORD(v376) = v10;
+            LODWORD(v375) = v10;
             v25 = 1;
-            LOBYTE(v377) = 1;
-            v334 = 0;
+            LOBYTE(v376) = 1;
+            v335 = 0;
             WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-            WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v333, v26);
+            WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v334, v26);
 LABEL_29:
-            if (v349 == 1)
+            if (v350 == 1)
             {
-              v27 = v348;
-              v348 = 0;
+              v27 = v349;
+              v349 = 0;
               if (v27)
               {
                 WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(v27);
               }
 
-              WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v347, v20);
+              WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v348, v20);
             }
 
             if (v25)
             {
               if (*v6)
               {
-                LOWORD(v332) = v373;
-                BYTE2(v332) = BYTE2(v373);
-                v333 = 0;
+                LOWORD(v333) = v372;
+                BYTE2(v333) = BYTE2(v372);
+                v334 = 0;
                 if (_MergedGlobals_48)
                 {
                   v28 = dword_1ED641AB8[0] + 2;
@@ -8805,22 +8832,22 @@ LABEL_29:
                   _MergedGlobals_48 = 1;
                 }
 
-                LODWORD(v335) = v10;
-                LOWORD(v324) = v373;
-                BYTE2(v324) = BYTE2(v373);
+                LODWORD(v336) = v10;
+                LOWORD(v325) = v372;
+                BYTE2(v325) = BYTE2(v372);
                 dword_1ED641AB8[0] = v28;
-                v325 = 0;
-                v326 = v8;
-                LODWORD(v327) = v10;
-                LOBYTE(v328) = 1;
-                v334 = 0;
+                v326 = 0;
+                v327 = v8;
+                LODWORD(v328) = v10;
+                LOBYTE(v329) = 1;
+                v335 = 0;
                 WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-                WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v333, v29);
-                v375 = 0;
+                WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v334, v29);
+                v374 = 0;
                 WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-                WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v374, v30);
-                *v7 = v324;
-                *(v7 + 2) = BYTE2(v324);
+                WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v373, v30);
+                *v7 = v325;
+                *(v7 + 2) = BYTE2(v325);
                 *(v7 + 8) = 0;
                 if (_MergedGlobals_48)
                 {
@@ -8840,23 +8867,23 @@ LABEL_29:
                 }
 
                 dword_1ED641AB8[0] = v31;
-                *(v7 + 16) = v326;
-                *(v7 + 24) = v327;
+                *(v7 + 16) = v327;
+                *(v7 + 24) = v328;
                 *(v7 + 96) = 3;
                 *(v7 + 104) = 1;
-                v326 = 0;
+                v327 = 0;
                 WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(dword_1ED641AB8);
-                WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v325, v32);
+                WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v326, v32);
                 return;
               }
 
-              v375 = 0;
+              v374 = 0;
               if (v8)
               {
                 WTF::RefCounted<WebCore::SVGPathByteStream::Data>::deref(v8);
               }
 
-              WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v374, v20);
+              WTF::WeakPtrFactory<WebCore::SVGPathByteStream,WTF::SingleThreadWeakPtrImpl>::~WeakPtrFactory(&v373, v20);
               v275 = *v6;
             }
 
@@ -8915,8 +8942,8 @@ LABEL_498:
 
 LABEL_614:
       v25 = 0;
-      LOBYTE(v373) = 0;
-      LOBYTE(v377) = 0;
+      LOBYTE(v372) = 0;
+      LOBYTE(v376) = 0;
       goto LABEL_29;
     }
 
@@ -8930,38 +8957,38 @@ LABEL_614:
       v22 = v34 >= v37;
       v38 = v34 - v37;
       v39 = v22 && v38 > 7;
-      v322 = v33;
+      v323 = v33;
       if (v39)
       {
         *(v6 + 2) = v35 + 1;
         if (v35)
         {
           v40 = *v35;
-          v3 = &v333;
+          v3 = &v334;
+          v369 = 0;
           v370 = 0;
-          v371 = 0;
-          v323 = v40;
+          v324 = v40;
           if (v40 >= 0x10000)
           {
             v278 = 0;
             v5 = -1;
             do
             {
-              _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v332, v6);
-              v279 = v334;
-              if (v334)
+              _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v333, v6);
+              v279 = v335;
+              if (v335)
               {
-                if (HIDWORD(v371) == v371)
+                if (HIDWORD(v370) == v370)
                 {
-                  _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14appendSlowCaseILNS_13FailureActionE0ES8_EEbOT0_(&v370, &v332);
+                  _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14appendSlowCaseILNS_13FailureActionE0ES8_EEbOT0_(&v369, &v333);
                 }
 
                 else
                 {
                   v280 = 0;
                   v281 = 0;
-                  v282 = (v370 + 16 * HIDWORD(v371));
-                  v283 = &v332;
+                  v282 = (v369 + 16 * HIDWORD(v370));
+                  v283 = &v333;
                   do
                   {
                     v284 = v280;
@@ -8973,33 +9000,33 @@ LABEL_614:
 
                     else
                     {
-                      v362 = &v282[8 * v281];
-                      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v36), v36, &v362);
+                      v361 = &v282[8 * v281];
+                      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v36), v36, &v361);
                     }
 
                     *v283 = -1;
                     v280 = 1;
-                    v283 = &v333;
+                    v283 = &v334;
                     v281 = 1;
                   }
 
                   while ((v284 & 1) == 0);
-                  ++HIDWORD(v371);
+                  ++HIDWORD(v370);
                   v7 = a1;
                   v6 = a2;
-                  v40 = v323;
+                  v40 = v324;
                 }
               }
 
-              if (v334 == 1)
+              if (v335 == 1)
               {
                 for (i = 8; i != -8; i -= 8)
                 {
-                  v286 = *(&v332 + i);
+                  v286 = *(&v333 + i);
                   if (v286 != -1 && (v286 & 0xFE000000000000) != 0)
                   {
-                    v365 = (v286 & 0xFF00FFFFFFFFFFFFLL);
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v365);
+                    v364 = (v286 & 0xFF00FFFFFFFFFFFFLL);
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v364);
                   }
                 }
               }
@@ -9013,13 +9040,14 @@ LABEL_614:
             }
 
             while (v278 != v40);
-            v288 = HIDWORD(v371);
-            if (v371 > HIDWORD(v371))
+            v288 = HIDWORD(v370);
+            if (v370 > HIDWORD(v370))
             {
-              v289 = v370;
-              if (HIDWORD(v371))
+              v289 = v369;
+              if (HIDWORD(v370))
               {
-                if (HIDWORD(v371) >> 28)
+                v290 = (HIDWORD(v370) >> 28);
+                if (v290)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x19D81A8FCLL);
@@ -9027,21 +9055,21 @@ LABEL_614:
 
                 v7 = a1;
                 v6 = a2;
-                v290 = WTF::fastMalloc((16 * HIDWORD(v371)));
-                LODWORD(v371) = v288;
-                v370 = v290;
-                if (v290 != v289)
+                v291 = WTF::fastMalloc(v290, (16 * HIDWORD(v370)));
+                LODWORD(v370) = v288;
+                v369 = v291;
+                if (v291 != v289)
                 {
-                  _ZN3WTF11VectorMoverILb0EN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEE4moveEPS8_SA_SA_(v289, v289 + 16 * v288, v290);
+                  _ZN3WTF11VectorMoverILb0EN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEE4moveEPS8_SA_SA_(v289, v289 + 16 * v288, v291);
                 }
               }
 
               if (v289)
               {
-                if (v370 == v289)
+                if (v369 == v289)
                 {
-                  v370 = 0;
-                  LODWORD(v371) = 0;
+                  v369 = 0;
+                  LODWORD(v370) = 0;
                 }
 
                 WTF::fastFree(v289, v36);
@@ -9053,28 +9081,28 @@ LABEL_614:
 
           else if (v40)
           {
-            v41 = WTF::fastMalloc((16 * v40));
+            v41 = WTF::fastMalloc(v35, (16 * v40));
             v42 = 0;
-            LODWORD(v371) = v40;
-            v370 = v41;
+            LODWORD(v370) = v40;
+            v369 = v41;
             v5 = -1;
             while (1)
             {
-              _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v332, v6);
-              v43 = v334;
-              if (v334)
+              _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v333, v6);
+              v43 = v335;
+              if (v335)
               {
-                if (HIDWORD(v371) == v371)
+                if (HIDWORD(v370) == v370)
                 {
-                  _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14appendSlowCaseILNS_13FailureActionE0ES8_EEbOT0_(&v370, &v332);
+                  _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE14appendSlowCaseILNS_13FailureActionE0ES8_EEbOT0_(&v369, &v333);
                 }
 
                 else
                 {
                   v44 = 0;
                   v45 = 0;
-                  v46 = (v370 + 16 * HIDWORD(v371));
-                  v47 = &v332;
+                  v46 = (v369 + 16 * HIDWORD(v370));
+                  v47 = &v333;
                   do
                   {
                     v48 = v44;
@@ -9086,33 +9114,33 @@ LABEL_614:
 
                     else
                     {
-                      v362 = &v46[8 * v45];
-                      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v36), v36, &v362);
+                      v361 = &v46[8 * v45];
+                      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v36), v36, &v361);
                     }
 
                     *v47 = -1;
                     v44 = 1;
-                    v47 = &v333;
+                    v47 = &v334;
                     v45 = 1;
                   }
 
                   while ((v48 & 1) == 0);
-                  ++HIDWORD(v371);
+                  ++HIDWORD(v370);
                   v7 = a1;
                   v6 = a2;
-                  v40 = v323;
+                  v40 = v324;
                 }
               }
 
-              if (v334 == 1)
+              if (v335 == 1)
               {
                 for (j = 8; j != -8; j -= 8)
                 {
-                  v50 = *(&v332 + j);
+                  v50 = *(&v333 + j);
                   if (v50 != -1 && (v50 & 0xFE000000000000) != 0)
                   {
-                    v365 = (v50 & 0xFF00FFFFFFFFFFFFLL);
-                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v365);
+                    v364 = (v50 & 0xFF00FFFFFFFFFFFFLL);
+                    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v364);
                   }
                 }
               }
@@ -9129,20 +9157,20 @@ LABEL_614:
             }
 
 LABEL_528:
-            v344 = 0;
-            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v370, v36);
+            v345 = 0;
+            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v369, v36);
 LABEL_529:
-            v291 = *v6;
-            v292 = *(v6 + 1);
+            v292 = *v6;
+            v293 = *(v6 + 1);
             *v6 = 0;
             *(v6 + 1) = 0;
-            v293 = *(v6 + 3);
-            if (v293)
+            v294 = *(v6 + 3);
+            if (v294)
             {
-              if (v292)
+              if (v293)
               {
-                (*(*v293 + 16))(v293, v291);
-                v294 = *a2;
+                (*(*v294 + 16))(v294, v292);
+                v295 = *a2;
                 if (*a2)
                 {
                   goto LABEL_588;
@@ -9151,7 +9179,7 @@ LABEL_529:
 
               else
               {
-                v294 = 0;
+                v295 = 0;
               }
 
               v7 = a1;
@@ -9160,107 +9188,107 @@ LABEL_529:
 
             else
             {
-              v294 = 0;
+              v295 = 0;
             }
 
             goto LABEL_531;
           }
 
 LABEL_69:
-          v52 = v370;
-          v342 = v370;
-          v53 = v371;
-          v54 = HIDWORD(v371);
+          v52 = v369;
+          v343 = v369;
+          v53 = v370;
+          v54 = HIDWORD(v370);
+          v369 = 0;
           v370 = 0;
-          v371 = 0;
-          v343 = __PAIR64__(v54, v53);
+          v344 = __PAIR64__(v54, v53);
           v3 = 1;
-          v344 = 1;
-          _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v370, v36);
+          v345 = 1;
+          _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v369, v36);
           if (*v6)
           {
-            v342 = 0;
             v343 = 0;
-            v332 = 0;
+            v344 = 0;
             v333 = 0;
-            v347 = v52;
-            v348 = __PAIR64__(v54, v53);
-            v349 = 1;
-            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v332, v55);
-            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v342, v56);
+            v334 = 0;
+            v348 = v52;
+            v349 = __PAIR64__(v54, v53);
+            v350 = 1;
+            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v333, v55);
+            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v343, v56);
             if (*v6)
             {
-              if (!(v322 >> 24))
+              if (!(v323 >> 24))
               {
                 goto LABEL_588;
               }
 
-              LOWORD(v332) = v322;
-              BYTE2(v332) = BYTE2(v322);
-              v347 = 0;
+              LOWORD(v333) = v323;
+              BYTE2(v333) = BYTE2(v323);
               v348 = 0;
-              LOWORD(v373) = v322;
-              BYTE2(v373) = BYTE2(v322);
-              v333 = 0;
+              v349 = 0;
+              LOWORD(v372) = v323;
+              BYTE2(v372) = BYTE2(v323);
               v334 = 0;
-              v374 = v52;
-              v375 = __PAIR64__(v54, v53);
-              LOBYTE(v376) = 1;
-              _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v333, v57);
-              _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v347, v58);
+              v335 = 0;
+              v373 = v52;
+              v374 = __PAIR64__(v54, v53);
+              LOBYTE(v375) = 1;
+              _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v334, v57);
+              _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v348, v58);
               if (*v6)
               {
-                LOWORD(v332) = v373;
-                BYTE2(v332) = BYTE2(v373);
+                LOWORD(v333) = v372;
+                BYTE2(v333) = BYTE2(v372);
+                v373 = 0;
                 v374 = 0;
-                v375 = 0;
-                LOWORD(v324) = v373;
-                BYTE2(v324) = BYTE2(v373);
-                v333 = 0;
+                LOWORD(v325) = v372;
+                BYTE2(v325) = BYTE2(v372);
                 v334 = 0;
-                _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v333, v59);
-                LOBYTE(v327) = 1;
-                _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v374, v60);
-                *v7 = v324;
-                *(v7 + 2) = BYTE2(v324);
-                v325 = 0;
+                v335 = 0;
+                _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v334, v59);
+                LOBYTE(v328) = 1;
+                _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v373, v60);
+                *v7 = v325;
+                *(v7 + 2) = BYTE2(v325);
                 v326 = 0;
+                v327 = 0;
                 *(v7 + 8) = v52;
                 *(v7 + 16) = v53;
                 *(v7 + 20) = v54;
                 *(v7 + 96) = 4;
                 *(v7 + 104) = 1;
-                _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v325, v61);
+                _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v326, v61);
                 return;
               }
 
-              _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v374, v59);
+              _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v373, v59);
               v275 = *v6;
               goto LABEL_535;
             }
 
-            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v347, v57);
-            v297 = *v6;
+            _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v348, v57);
+            v298 = *v6;
             goto LABEL_533;
           }
 
-          _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v342, v55);
-          v294 = *v6;
+          _ZN3WTF6VectorIN7WebCore19SpaceSeparatedPointINS1_5Style16LengthPercentageIXtlNS1_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEED2Ev(&v343, v55);
+          v295 = *v6;
 LABEL_531:
-          v295 = *(v6 + 1);
+          v296 = *(v6 + 1);
           *v6 = 0;
           *(v6 + 1) = 0;
-          v296 = *(v6 + 3);
-          if (!v296)
+          v297 = *(v6 + 3);
+          if (!v297)
           {
-            v297 = 0;
+            v298 = 0;
             goto LABEL_533;
           }
 
-          if (v295)
+          if (v296)
           {
-            v306 = (*(*v296 + 16))(v296, v294);
-            v297 = *a2;
+            v307 = (*(*v297 + 16))(v297, v295);
+            v298 = *a2;
             if (*a2)
             {
               __break(1u);
@@ -9270,21 +9298,21 @@ LABEL_531:
 
           else
           {
-            v297 = 0;
+            v298 = 0;
           }
 
           v7 = a1;
           v6 = a2;
 LABEL_533:
-          v298 = *(v6 + 1);
+          v299 = *(v6 + 1);
           *v6 = 0;
           *(v6 + 1) = 0;
-          v299 = *(v6 + 3);
-          if (v299)
+          v300 = *(v6 + 3);
+          if (v300)
           {
-            if (v298)
+            if (v299)
             {
-              (*(*v299 + 16))(v299, v297);
+              (*(*v300 + 16))(v300, v298);
               v275 = *a2;
               if (*a2)
               {
@@ -9307,11 +9335,11 @@ LABEL_533:
           }
 
 LABEL_535:
-          v300 = *(v6 + 1);
+          v301 = *(v6 + 1);
           *v6 = 0;
           *(v6 + 1) = 0;
           v277 = *(v6 + 3);
-          if (!v277 || !v300)
+          if (!v277 || !v301)
           {
             goto LABEL_536;
           }
@@ -9324,12 +9352,12 @@ LABEL_535:
       {
         *v6 = 0;
         *(v6 + 1) = 0;
-        v314 = *(v6 + 3);
-        if (v314)
+        v315 = *(v6 + 3);
+        if (v315)
         {
           if (v34)
           {
-            (*(*v314 + 16))(v314);
+            (*(*v315 + 16))(v315);
             v34 = *(a2 + 1);
           }
         }
@@ -9344,18 +9372,18 @@ LABEL_535:
       v6 = a2;
       *a2 = 0;
       *(a2 + 1) = 0;
-      v315 = *(a2 + 3);
-      if (v315 && v34)
+      v316 = *(a2 + 3);
+      if (v316 && v34)
       {
-        (*(*v315 + 16))(v315);
+        (*(*v316 + 16))(v316);
       }
 
       goto LABEL_529;
     }
 
     v3 = IPC::Decoder::decode<std::optional<mpark::variant<WebCore::Constant<(WebCore::CSSValueID)731>,WebCore::Constant<(WebCore::CSSValueID)732>>>>(a2);
-    v5 = &v347;
-    IPC::Decoder::decode<WebCore::Style::Position>(&v347, v6);
+    v5 = &v348;
+    IPC::Decoder::decode<WebCore::Style::Position>(&v348, v6);
     v194 = *(v6 + 1);
     v195 = ((*(v6 + 2) + 7) & 0xFFFFFFFFFFFFFFF8);
     v196 = *v6;
@@ -9368,34 +9396,34 @@ LABEL_535:
       if (v195)
       {
         v200 = *v195;
-        v366 = 0;
         v365 = 0;
+        v364 = 0;
         if (v200 >= 0x2E8B)
         {
           do
           {
-            IPC::Decoder::decode<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v373, v6);
-            v301 = v379;
-            if (v379)
+            IPC::Decoder::decode<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v372, v6);
+            v302 = v378;
+            if (v378)
             {
-              if (HIDWORD(v366) == v366)
+              if (HIDWORD(v365) == v365)
               {
-                WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v365, &v373);
+                WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v364, &v372);
               }
 
               else
               {
-                mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1>::move_constructor(v365 + 88 * HIDWORD(v366), &v373);
-                ++HIDWORD(v366);
+                mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1>::move_constructor(v364 + 88 * HIDWORD(v365), &v372);
+                ++HIDWORD(v365);
               }
             }
 
-            if (v379 == 1 && v378 != 255)
+            if (v378 == 1 && v377 != 255)
             {
-              mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1> &>(&v373);
+              mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1> &>(&v372);
             }
 
-            if ((v301 & 1) == 0)
+            if ((v302 & 1) == 0)
             {
               goto LABEL_555;
             }
@@ -9404,13 +9432,13 @@ LABEL_535:
           }
 
           while (v200);
-          v302 = HIDWORD(v366);
-          if (v366 > HIDWORD(v366))
+          v303 = HIDWORD(v365);
+          if (v365 > HIDWORD(v365))
           {
-            v303 = v365;
-            if (HIDWORD(v366))
+            v304 = v364;
+            if (HIDWORD(v365))
             {
-              if (HIDWORD(v366) >= 0x2E8BA2F)
+              if (HIDWORD(v365) >= 0x2E8BA2F)
               {
                 __break(0xC471u);
                 JUMPOUT(0x19D81A904);
@@ -9418,24 +9446,24 @@ LABEL_535:
 
               v7 = a1;
               v6 = a2;
-              v304 = WTF::fastMalloc((88 * HIDWORD(v366)));
-              LODWORD(v366) = 88 * v302 / 0x58;
-              v365 = v304;
-              if (v304 != v303)
+              v305 = WTF::fastMalloc(0x58, (88 * HIDWORD(v365)));
+              LODWORD(v365) = 88 * v303 / 0x58u;
+              v364 = v305;
+              if (v305 != v304)
               {
-                WTF::VectorMover<false,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>::move(v303, v303 + 88 * v302, v304);
+                WTF::VectorMover<false,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>::move(v304, &v304[88 * v303], v305);
               }
             }
 
-            if (v303)
+            if (v304)
             {
-              if (v365 == v303)
+              if (v364 == v304)
               {
-                v365 = 0;
-                LODWORD(v366) = 0;
+                v364 = 0;
+                LODWORD(v365) = 0;
               }
 
-              WTF::fastFree(v303, v196);
+              WTF::fastFree(v304, v196);
               v7 = a1;
               v6 = a2;
             }
@@ -9444,30 +9472,30 @@ LABEL_535:
 
         else if (v200)
         {
-          v201 = WTF::fastMalloc((88 * v200));
-          LODWORD(v366) = 88 * v200 / 0x58u;
-          v365 = v201;
+          v201 = WTF::fastMalloc(0x58, (88 * v200));
+          LODWORD(v365) = 88 * v200 / 0x58u;
+          v364 = v201;
           while (1)
           {
-            IPC::Decoder::decode<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v373, v6);
-            v202 = v379;
-            if (v379)
+            IPC::Decoder::decode<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v372, v6);
+            v202 = v378;
+            if (v378)
             {
-              if (HIDWORD(v366) == v366)
+              if (HIDWORD(v365) == v365)
               {
-                WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v365, &v373);
+                WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>>(&v364, &v372);
               }
 
               else
               {
-                mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1>::move_constructor(v365 + 88 * HIDWORD(v366), &v373);
-                ++HIDWORD(v366);
+                mpark::detail::move_constructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1>::move_constructor(v364 + 88 * HIDWORD(v365), &v372);
+                ++HIDWORD(v365);
               }
             }
 
-            if (v379 == 1 && v378 != 255)
+            if (v378 == 1 && v377 != 255)
             {
-              mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1> &>(&v373);
+              mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,(mpark::detail::Trait)1> &>(&v372);
             }
 
             if ((v202 & 1) == 0)
@@ -9482,27 +9510,27 @@ LABEL_535:
           }
 
 LABEL_555:
-          v344 = 0;
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v365, v196);
+          v345 = 0;
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v364, v196);
 LABEL_556:
-          v297 = *v6;
-          v305 = *(v6 + 1);
+          v298 = *v6;
+          v306 = *(v6 + 1);
           *v6 = 0;
           *(v6 + 1) = 0;
-          v306 = *(v6 + 3);
-          if (!v306)
+          v307 = *(v6 + 3);
+          if (!v307)
           {
             v209 = 0;
 LABEL_558:
-            LOBYTE(v370) = 0;
-            v372 = 0;
+            LOBYTE(v369) = 0;
+            v371 = 0;
             goto LABEL_559;
           }
 
 LABEL_583:
-          if (v305)
+          if (v306)
           {
-            (*(*v306 + 16))(v306, v297);
+            (*(*v307 + 16))(v307, v298);
             v209 = *a2;
             if (*a2)
             {
@@ -9521,42 +9549,42 @@ LABEL_583:
         }
 
 LABEL_386:
-        v203 = v365;
+        v203 = v364;
+        v364 = 0;
+        v343 = v203;
+        v204 = v365;
+        v205 = HIDWORD(v365);
         v365 = 0;
-        v342 = v203;
-        v204 = v366;
-        v205 = HIDWORD(v366);
-        v366 = 0;
-        v343 = __PAIR64__(v205, v204);
-        v344 = 1;
-        WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v365, v196);
+        v344 = __PAIR64__(v205, v204);
+        v345 = 1;
+        WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v364, v196);
         if (*v6)
         {
-          v207 = v342;
-          v342 = 0;
+          v207 = v343;
           v343 = 0;
+          v344 = 0;
+          v372 = 0;
           v373 = 0;
-          v374 = 0;
-          v370 = v207;
-          v371 = __PAIR64__(v205, v204);
-          v372 = 1;
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v373, v206);
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v342, v208);
+          v369 = v207;
+          v370 = __PAIR64__(v205, v204);
+          v371 = 1;
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v372, v206);
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v343, v208);
           goto LABEL_388;
         }
 
-        LOBYTE(v370) = 0;
-        v372 = 0;
-        WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v342, v206);
+        LOBYTE(v369) = 0;
+        v371 = 0;
+        WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v343, v206);
         v209 = *v6;
 LABEL_559:
-        v307 = *(v6 + 1);
+        v308 = *(v6 + 1);
         *v6 = 0;
         *(v6 + 1) = 0;
-        v308 = *(v6 + 3);
-        if (v308 && v307)
+        v309 = *(v6 + 3);
+        if (v309 && v308)
         {
-          (*(*v308 + 16))(v308, v209);
+          (*(*v309 + 16))(v309, v209);
         }
 
 LABEL_388:
@@ -9567,92 +9595,92 @@ LABEL_388:
             goto LABEL_588;
           }
 
-          LOWORD(v373) = v3;
-          BYTE2(v373) = BYTE2(v3);
-          if (v349 != 1)
+          LOWORD(v372) = v3;
+          BYTE2(v372) = BYTE2(v3);
+          if (v350 != 1)
           {
             goto LABEL_588;
           }
 
           v210 = 0;
           v211 = (v5 + 8);
-          v212 = &v347;
+          v212 = &v348;
           v213 = 8;
-          v214 = &v374;
+          v214 = &v373;
           do
           {
             v215 = v210;
             v216 = *v212;
             if (*v212 == -1)
             {
-              *(&v373 + v213) = -1;
+              *(&v372 + v213) = -1;
             }
 
             else
             {
-              v365 = v214;
-              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v216), v216, &v365);
+              v364 = v214;
+              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v216), v216, &v364);
             }
 
             *v212 = -1;
             v210 = 1;
             v212 = v211;
-            v214 = &v375;
+            v214 = &v374;
             v213 = 16;
           }
 
           while ((v215 & 1) == 0);
-          if ((v372 & 1) == 0)
+          if ((v371 & 1) == 0)
           {
             goto LABEL_588;
           }
 
           v217 = 0;
           v218 = 0;
-          v376 = v370;
-          v219 = v371;
+          v375 = v369;
+          v219 = v370;
+          v369 = 0;
           v370 = 0;
-          v371 = 0;
-          LOWORD(v324) = v373;
-          BYTE2(v324) = BYTE2(v373);
-          v377 = v219;
+          LOWORD(v325) = v372;
+          BYTE2(v325) = BYTE2(v372);
+          v376 = v219;
           do
           {
             v220 = v217;
-            v221 = *(&v374 + v218);
+            v221 = *(&v373 + v218);
             if (v221 == -1)
             {
-              (&v324)[v218 + 1] = -1;
+              (&v325)[v218 + 1] = -1;
             }
 
             else
             {
-              v365 = &(&v324)[v218 + 1];
-              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v221), v221, &v365);
+              v364 = &(&v325)[v218 + 1];
+              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v221), v221, &v364);
             }
 
-            *(&v374 + v218) = -1;
+            *(&v373 + v218) = -1;
             v217 = 1;
             v218 = 1;
           }
 
           while ((v220 & 1) == 0);
-          v327 = v376;
-          v222 = v377;
+          v328 = v375;
+          v222 = v376;
+          v375 = 0;
           v376 = 0;
-          v377 = 0;
-          v328 = v222;
-          v329 = 1;
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v376, v221);
+          v329 = v222;
+          v330 = 1;
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v375, v221);
           v223 = 16;
           v6 = a2;
           do
           {
-            v224 = *(&v373 + v223);
+            v224 = *(&v372 + v223);
             if (v224 != -1 && (v224 & 0xFE000000000000) != 0)
             {
-              v342 = v224 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v342);
+              v343 = v224 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v343);
             }
 
             v223 -= 8;
@@ -9663,71 +9691,71 @@ LABEL_388:
 
         else
         {
-          LOBYTE(v324) = 0;
-          v329 = 0;
+          LOBYTE(v325) = 0;
+          v330 = 0;
         }
 
-        if (v372 == 1)
+        if (v371 == 1)
         {
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v370, v209);
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v369, v209);
         }
 
-        if (v349 == 1)
+        if (v350 == 1)
         {
           for (k = 1; k != -1; --k)
           {
-            v227 = (&v347)[k];
+            v227 = (&v348)[k];
             if (v227 != -1 && (v227 & 0xFE000000000000) != 0)
             {
-              v373 = v227 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v373);
+              v372 = v227 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v372);
             }
           }
         }
 
-        if ((v329 & 1) == 0)
+        if ((v330 & 1) == 0)
         {
           v209 = *v6;
-          v309 = *(v6 + 1);
+          v310 = *(v6 + 1);
           *v6 = 0;
           *(v6 + 1) = 0;
-          v310 = *(v6 + 3);
-          if (v310)
+          v311 = *(v6 + 3);
+          if (v311)
           {
-            if (v309)
+            if (v310)
             {
-              (*(*v310 + 16))(v310, v209);
+              (*(*v311 + 16))(v311, v209);
             }
           }
         }
 
         if (*v6)
         {
-          if ((v329 & 1) == 0)
+          if ((v330 & 1) == 0)
           {
             goto LABEL_588;
           }
 
           v229 = 0;
           v230 = 0;
-          LOWORD(v373) = v324;
-          BYTE2(v373) = BYTE2(v324);
+          LOWORD(v372) = v325;
+          BYTE2(v372) = BYTE2(v325);
           do
           {
             v231 = v229;
-            v232 = *(&v325 + v230);
+            v232 = *(&v326 + v230);
             if (v232 == -1)
             {
-              *(&v373 + v230 + 1) = -1;
+              *(&v372 + v230 + 1) = -1;
             }
 
             else
             {
-              v347 = (&v373 + v230 + 1);
-              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v232), v232, &v347);
+              v348 = (&v372 + v230 + 1);
+              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v232), v232, &v348);
             }
 
-            *(&v325 + v230) = -1;
+            *(&v326 + v230) = -1;
             v229 = 1;
             v230 = 1;
           }
@@ -9735,49 +9763,49 @@ LABEL_388:
           while ((v231 & 1) == 0);
           v233 = 0;
           v234 = 0;
-          v376 = v327;
-          v235 = v328;
-          v327 = 0;
+          v375 = v328;
+          v235 = v329;
           v328 = 0;
-          LOWORD(v332) = v373;
-          BYTE2(v332) = BYTE2(v373);
-          v377 = v235;
+          v329 = 0;
+          LOWORD(v333) = v372;
+          BYTE2(v333) = BYTE2(v372);
+          v376 = v235;
           do
           {
             v236 = v233;
-            v237 = *(&v374 + v234);
+            v237 = *(&v373 + v234);
             if (v237 == -1)
             {
-              *(&v332 + v234 + 1) = -1;
+              *(&v333 + v234 + 1) = -1;
             }
 
             else
             {
-              v347 = &v332 + v234 + 1;
-              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v237), v237, &v347);
+              v348 = &v333 + v234 + 1;
+              _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v237), v237, &v348);
             }
 
-            *(&v374 + v234) = -1;
+            *(&v373 + v234) = -1;
             v233 = 1;
             v234 = 1;
           }
 
           while ((v236 & 1) == 0);
-          v335 = v376;
-          v238 = v377;
+          v336 = v375;
+          v238 = v376;
+          v375 = 0;
           v376 = 0;
-          v377 = 0;
-          v336 = v238;
-          v337 = 1;
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v376, v237);
+          v337 = v238;
+          v338 = 1;
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v375, v237);
           v239 = 16;
           do
           {
-            v240 = *(&v373 + v239);
+            v240 = *(&v372 + v239);
             if (v240 != -1 && (v240 & 0xFE000000000000) != 0)
             {
-              v342 = v240 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v342);
+              v343 = v240 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v343);
             }
 
             v239 -= 8;
@@ -9788,21 +9816,21 @@ LABEL_388:
 
         else
         {
-          LOBYTE(v332) = 0;
-          v337 = 0;
+          LOBYTE(v333) = 0;
+          v338 = 0;
         }
 
-        if (v329 == 1)
+        if (v330 == 1)
         {
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v327, v209);
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v328, v209);
           v242 = 2;
           do
           {
-            v243 = (&v324)[v242];
+            v243 = (&v325)[v242];
             if (v243 != -1 && (v243 & 0xFE000000000000) != 0)
             {
-              v373 = v243 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v373);
+              v372 = v243 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v372);
             }
 
             --v242;
@@ -9811,26 +9839,26 @@ LABEL_388:
           while (v242 * 8);
         }
 
-        if ((v337 & 1) == 0)
+        if ((v338 & 1) == 0)
         {
-          v311 = *v6;
-          v312 = *(v6 + 1);
+          v312 = *v6;
+          v313 = *(v6 + 1);
           *v6 = 0;
           *(v6 + 1) = 0;
-          v313 = *(v6 + 3);
+          v314 = *(v6 + 3);
+          if (!v314)
+          {
+            goto LABEL_536;
+          }
+
           if (!v313)
           {
             goto LABEL_536;
           }
 
-          if (!v312)
-          {
-            goto LABEL_536;
-          }
-
-          (*(*v313 + 16))(v313, v311);
+          (*(*v314 + 16))(v314, v312);
           v7 = a1;
-          if ((v337 & 1) == 0)
+          if ((v338 & 1) == 0)
           {
             goto LABEL_536;
           }
@@ -9838,12 +9866,12 @@ LABEL_388:
 
         v245 = 0;
         v246 = 0;
-        *v7 = v332;
-        *(v7 + 2) = BYTE2(v332);
+        *v7 = v333;
+        *(v7 + 2) = BYTE2(v333);
         do
         {
           v247 = v245;
-          v248 = *(&v333 + v246);
+          v248 = *(&v334 + v246);
           if (v248 == -1)
           {
             *(v7 + 8 * v246 + 8) = -1;
@@ -9851,34 +9879,34 @@ LABEL_388:
 
           else
           {
-            v324 = (v7 + 8 * v246 + 8);
-            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v248), v248, &v324);
+            v325 = (v7 + 8 * v246 + 8);
+            _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v248), v248, &v325);
           }
 
-          *(&v333 + v246) = -1;
+          *(&v334 + v246) = -1;
           v245 = 1;
           v246 = 1;
         }
 
         while ((v247 & 1) == 0);
-        *(v7 + 24) = v335;
-        v249 = v336;
-        v335 = 0;
+        *(v7 + 24) = v336;
+        v249 = v337;
         v336 = 0;
+        v337 = 0;
         *(v7 + 32) = v249;
         *(v7 + 96) = 5;
         *(v7 + 104) = 1;
-        if (v337)
+        if (v338)
         {
-          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v335, v248);
+          WTF::Vector<mpark::variant<WebCore::Style::MoveCommand,WebCore::Style::LineCommand,WebCore::Style::HLineCommand,WebCore::Style::VLineCommand,WebCore::Style::CurveCommand,WebCore::Style::SmoothCommand,WebCore::Style::ArcCommand,WebCore::Constant<(WebCore::CSSValueID)809>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v336, v248);
           v250 = 16;
           do
           {
-            v251 = *(&v332 + v250);
+            v251 = *(&v333 + v250);
             if (v251 != -1 && (v251 & 0xFE000000000000) != 0)
             {
-              v373 = v251 & 0xFF00FFFFFFFFFFFFLL;
-              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v373);
+              v372 = v251 & 0xFF00FFFFFFFFFFFFLL;
+              WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v372);
             }
 
             v250 -= 8;
@@ -9895,12 +9923,12 @@ LABEL_388:
     {
       *v6 = 0;
       *(v6 + 1) = 0;
-      v316 = *(v6 + 3);
-      if (v316)
+      v317 = *(v6 + 3);
+      if (v317)
       {
         if (v194)
         {
-          (*(*v316 + 16))(v316);
+          (*(*v317 + 16))(v317);
           v194 = *(a2 + 1);
         }
       }
@@ -9915,125 +9943,113 @@ LABEL_388:
     v6 = a2;
     *a2 = 0;
     *(a2 + 1) = 0;
-    v317 = *(a2 + 3);
-    if (v317 && v194)
+    v318 = *(a2 + 3);
+    if (v318 && v194)
     {
-      (*(*v317 + 16))(v317);
+      (*(*v318 + 16))(v318);
     }
 
     goto LABEL_556;
   }
 
-  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v342, a2);
-  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v370, v6);
-  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v365, v6);
-  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v362, v6);
+  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v343, a2);
+  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v369, v6);
+  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v364, v6);
+  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v361, v6);
   if (*v6)
   {
-    if ((v343 & 1) == 0)
+    if ((v344 & 1) == 0)
     {
       goto LABEL_588;
     }
 
-    if (v342 == -1)
+    if (v343 == -1)
     {
       v353[0] = -1;
     }
 
     else
     {
-      v359 = v353;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v342), v342, &v359);
+      v358 = v353;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v343), v343, &v358);
     }
 
-    v342 = -1;
-    if ((v371 & 1) == 0)
+    v343 = -1;
+    if ((v370 & 1) == 0)
     {
       goto LABEL_588;
     }
 
-    if (v370 == -1)
+    if (v369 == -1)
     {
-      v351[0] = -1;
+      v352[0] = -1;
     }
 
     else
     {
-      v359 = v351;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v370), v370, &v359);
+      v358 = v352;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v369), v369, &v358);
     }
 
-    v370 = -1;
-    if ((v366 & 1) == 0)
+    v369 = -1;
+    if ((v365 & 1) == 0)
     {
       goto LABEL_588;
     }
 
-    if (v365 == -1)
-    {
-      v369 = -1;
-    }
-
-    else
-    {
-      v359 = &v369;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v365), v365, &v359);
-    }
-
-    v365 = -1;
-    if ((v363 & 1) == 0)
-    {
-      goto LABEL_588;
-    }
-
-    if (v362 == -1)
+    if (v364 == -1)
     {
       v368 = -1;
     }
 
     else
     {
-      v359 = &v368;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v362), v362, &v359);
+      v358 = &v368;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v364), v364, &v358);
     }
 
-    v362 = -1;
-    if (v353[0] == -1)
+    v364 = -1;
+    if ((v362 & 1) == 0)
     {
-      v332 = -1;
+      goto LABEL_588;
+    }
+
+    if (v361 == -1)
+    {
+      v367 = -1;
     }
 
     else
     {
-      v359 = &v332;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v353[0]), v353[0], &v359);
+      v358 = &v367;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v361), v361, &v358);
     }
 
-    v353[0] = -1;
-    if (v351[0] == -1)
+    v361 = -1;
+    if (v353[0] == -1)
     {
       v333 = -1;
     }
 
     else
     {
-      v357 = &v333;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v351[0]), v351[0], &v357);
+      v358 = &v333;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v353[0]), v353[0], &v358);
     }
 
-    v351[0] = -1;
-    if (v369 == -1)
+    v353[0] = -1;
+    if (v352[0] == -1)
     {
       v334 = -1;
     }
 
     else
     {
-      v357 = &v334;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v369), v369, &v357);
+      v356 = &v334;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v352[0]), v352[0], &v356);
     }
 
-    v369 = -1;
+    v352[0] = -1;
     if (v368 == -1)
     {
       v335 = -1;
@@ -10041,97 +10057,109 @@ LABEL_388:
 
     else
     {
-      v357 = &v335;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v368), v368, &v357);
+      v356 = &v335;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v368), v368, &v356);
+    }
+
+    v368 = -1;
+    if (v367 == -1)
+    {
+      v336 = -1;
+    }
+
+    else
+    {
+      v356 = &v336;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v367), v367, &v356);
     }
 
     v62 = 0;
-    v368 = -1;
+    v367 = -1;
     do
     {
-      v63 = *(&v332 + v62 * 8);
+      v63 = *(&v333 + v62 * 8);
       if (v63 == -1)
       {
-        (&v347)[v62] = -1;
+        (&v348)[v62] = -1;
       }
 
       else
       {
-        v357 = &(&v347)[v62];
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v63), v63, &v357);
+        v356 = &(&v348)[v62];
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v63), v63, &v356);
       }
 
       ++v62;
     }
 
     while (v62 != 4);
-    v350 = 1;
+    v351 = 1;
     for (m = 24; m != -8; m -= 8)
     {
-      v65 = *(&v332 + m);
+      v65 = *(&v333 + m);
       if (v65 != -1 && (v65 & 0xFE000000000000) != 0)
       {
-        v359 = (v65 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v359);
+        v358 = (v65 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v358);
       }
+    }
+
+    if (v367 != -1 && (v367 & 0xFE000000000000) != 0)
+    {
+      v358 = (v367 & 0xFF00FFFFFFFFFFFFLL);
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v358);
     }
 
     if (v368 != -1 && (v368 & 0xFE000000000000) != 0)
     {
-      v359 = (v368 & 0xFF00FFFFFFFFFFFFLL);
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v359);
+      v358 = (v368 & 0xFF00FFFFFFFFFFFFLL);
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v358);
     }
 
-    if (v369 != -1 && (v369 & 0xFE000000000000) != 0)
+    if (v352[0] != -1 && (v352[0] & 0xFE000000000000) != 0)
     {
-      v359 = (v369 & 0xFF00FFFFFFFFFFFFLL);
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v359);
-    }
-
-    if (v351[0] != -1 && (v351[0] & 0xFE000000000000) != 0)
-    {
-      v359 = (v351[0] & 0xFF00FFFFFFFFFFFFLL);
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v359);
+      v358 = (v352[0] & 0xFF00FFFFFFFFFFFFLL);
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v358);
     }
 
     if (v353[0] != -1 && (v353[0] & 0xFE000000000000) != 0)
     {
-      v359 = (v353[0] & 0xFF00FFFFFFFFFFFFLL);
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v359);
+      v358 = (v353[0] & 0xFF00FFFFFFFFFFFFLL);
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v358);
     }
   }
 
   else
   {
-    LOBYTE(v347) = 0;
-    v350 = 0;
+    LOBYTE(v348) = 0;
+    v351 = 0;
   }
 
-  if (v363 == 1 && v362 != -1 && (v362 & 0xFE000000000000) != 0)
+  if (v362 == 1 && v361 != -1 && (v361 & 0xFE000000000000) != 0)
   {
-    v332 = (v362 & 0xFF00FFFFFFFFFFFFLL);
-    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+    v333 = (v361 & 0xFF00FFFFFFFFFFFFLL);
+    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
   }
 
-  if (v366 == 1 && v365 != -1 && (v365 & 0xFE000000000000) != 0)
+  if (v365 == 1 && v364 != -1 && (v364 & 0xFE000000000000) != 0)
   {
-    v332 = (v365 & 0xFF00FFFFFFFFFFFFLL);
-    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+    v333 = (v364 & 0xFF00FFFFFFFFFFFFLL);
+    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
   }
 
-  if (v371 == 1 && v370 != -1 && (v370 & 0xFE000000000000) != 0)
+  if (v370 == 1 && v369 != -1 && (v369 & 0xFE000000000000) != 0)
   {
-    v332 = (v370 & 0xFF00FFFFFFFFFFFFLL);
-    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+    v333 = (v369 & 0xFF00FFFFFFFFFFFFLL);
+    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
   }
 
-  if (v343 == 1 && v342 != -1 && (v342 & 0xFE000000000000) != 0)
+  if (v344 == 1 && v343 != -1 && (v343 & 0xFE000000000000) != 0)
   {
-    v332 = (v342 & 0xFF00FFFFFFFFFFFFLL);
-    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+    v333 = (v343 & 0xFF00FFFFFFFFFFFFLL);
+    WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
   }
 
-  if ((v350 & 1) == 0)
+  if ((v351 & 1) == 0)
   {
     v254 = *v6;
     v255 = *(v6 + 1);
@@ -10147,21 +10175,21 @@ LABEL_388:
     }
   }
 
-  v68 = &v370;
-  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v370, v6);
-  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v365, v6);
-  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v362, v6);
-  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v359, v6);
+  v68 = &v369;
+  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v369, v6);
+  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v364, v6);
+  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v361, v6);
+  _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(&v358, v6);
   if (*v6)
   {
-    if (v372 != 1)
+    if (v371 != 1)
     {
       goto LABEL_588;
     }
 
     v69 = 0;
-    v70 = &v339;
-    v71 = &v357;
+    v70 = &v340;
+    v71 = &v356;
     do
     {
       v72 = v69;
@@ -10173,25 +10201,25 @@ LABEL_388:
 
       else
       {
-        v368 = v71;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v73), v73, &v368);
+        v367 = v71;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v73), v73, &v367);
       }
 
       *v68 = -1;
       v69 = 1;
-      v71 = &v358;
-      v68 = &v371;
+      v71 = &v357;
+      v68 = &v370;
     }
 
     while ((v72 & 1) == 0);
-    if (v367 != 1)
+    if (v366 != 1)
     {
       goto LABEL_588;
     }
 
     v74 = 0;
-    v75 = &v365;
-    v76 = v355;
+    v75 = &v364;
+    v76 = v354;
     do
     {
       v77 = v74;
@@ -10203,24 +10231,24 @@ LABEL_388:
 
       else
       {
-        v368 = v76;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v78), v78, &v368);
+        v367 = v76;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v78), v78, &v367);
       }
 
       *v75 = -1;
       v74 = 1;
-      v76 = &v356;
-      v75 = &v366;
+      v76 = &v355;
+      v75 = &v365;
     }
 
     while ((v77 & 1) == 0);
-    if (v364 != 1)
+    if (v363 != 1)
     {
       goto LABEL_588;
     }
 
     v79 = 0;
-    v80 = &v362;
+    v80 = &v361;
     v81 = v353;
     do
     {
@@ -10233,25 +10261,25 @@ LABEL_388:
 
       else
       {
-        v368 = v81;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v83), v83, &v368);
+        v367 = v81;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v83), v83, &v367);
       }
 
       *v80 = -1;
       v79 = 1;
-      v81 = &v354;
-      v80 = &v363;
+      v81 = &v353[1];
+      v80 = &v362;
     }
 
     while ((v82 & 1) == 0);
-    if (v361 != 1)
+    if (v360 != 1)
     {
       goto LABEL_588;
     }
 
     v84 = 0;
-    v85 = &v359;
-    v86 = v351;
+    v85 = &v358;
+    v86 = v352;
     do
     {
       v87 = v84;
@@ -10263,20 +10291,20 @@ LABEL_388:
 
       else
       {
-        v368 = v86;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v88), v88, &v368);
+        v367 = v86;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v88), v88, &v367);
       }
 
       *v85 = -1;
       v84 = 1;
-      v86 = &v352;
-      v85 = &v360;
+      v86 = &v352[1];
+      v85 = &v359;
     }
 
     while ((v87 & 1) == 0);
     v89 = 0;
-    v90 = &v332;
-    v91 = &v357;
+    v90 = &v333;
+    v91 = &v356;
     do
     {
       v92 = v89;
@@ -10288,40 +10316,40 @@ LABEL_388:
 
       else
       {
-        v368 = v90;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v93), v93, &v368);
+        v367 = v90;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v93), v93, &v367);
       }
 
       *v91 = -1;
       v89 = 1;
-      v91 = &v358;
-      v90 = &v333;
+      v91 = &v357;
+      v90 = &v334;
     }
 
     while ((v92 & 1) == 0);
     v94 = 0;
-    v95 = v355;
+    v95 = v354;
     v96 = 16;
-    v97 = &v334;
+    v97 = &v335;
     do
     {
       v98 = v94;
       v99 = *v95;
       if (*v95 == -1)
       {
-        *(&v332 + v96) = -1;
+        *(&v333 + v96) = -1;
       }
 
       else
       {
-        v368 = v97;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v99), v99, &v368);
+        v367 = v97;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v99), v99, &v367);
       }
 
       *v95 = -1;
       v94 = 1;
-      v95 = &v356;
-      v97 = &v335;
+      v95 = &v355;
+      v97 = &v336;
       v96 = 24;
     }
 
@@ -10329,33 +10357,33 @@ LABEL_388:
     v100 = 0;
     v101 = v353;
     v102 = 32;
-    v103 = &v336;
+    v103 = &v337;
     do
     {
       v104 = v100;
       v105 = *v101;
       if (*v101 == -1)
       {
-        *(&v332 + v102) = -1;
+        *(&v333 + v102) = -1;
       }
 
       else
       {
-        v368 = v103;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v105), v105, &v368);
+        v367 = v103;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v105), v105, &v367);
       }
 
       *v101 = -1;
       v100 = 1;
-      v101 = &v354;
-      v103 = &v337;
+      v101 = &v353[1];
+      v103 = &v338;
       v102 = 40;
     }
 
     while ((v104 & 1) == 0);
     v106 = 0;
-    v107 = v351;
-    v108 = &v338;
+    v107 = v352;
+    v108 = &v339;
     do
     {
       v109 = v106;
@@ -10367,19 +10395,19 @@ LABEL_388:
 
       else
       {
-        v368 = v108;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v110), v110, &v368);
+        v367 = v108;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v110), v110, &v367);
       }
 
       *v107 = -1;
       v106 = 1;
-      v107 = &v352;
-      v108 = &v339;
+      v107 = &v352[1];
+      v108 = &v340;
     }
 
     while ((v109 & 1) == 0);
     v111 = 0;
-    v112 = &v341;
+    v112 = &v342;
     do
     {
       v113 = 0;
@@ -10387,16 +10415,16 @@ LABEL_388:
       do
       {
         v115 = v113;
-        v116 = *(&v332 + 2 * v111 + v114);
+        v116 = *(&v333 + 2 * v111 + v114);
         if (v116 == -1)
         {
-          *(&v342 + 2 * v111 + v114) = -1;
+          *(&v343 + 2 * v111 + v114) = -1;
         }
 
         else
         {
-          v368 = (&v342 + 2 * v111 + v114);
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v116), v116, &v368);
+          v367 = (&v343 + 2 * v111 + v114);
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v116), v116, &v367);
         }
 
         v113 = 1;
@@ -10409,8 +10437,8 @@ LABEL_388:
     }
 
     while (v111 != 4);
-    v346 = 1;
-    v117 = &v340;
+    v347 = 1;
+    v117 = &v341;
     v7 = a1;
     v6 = a2;
     do
@@ -10420,8 +10448,8 @@ LABEL_388:
         v119 = v70[n];
         if (v119 != -1 && (v119 & 0xFE000000000000) != 0)
         {
-          v369 = v119 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
+          v368 = v119 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v368);
         }
       }
 
@@ -10429,14 +10457,14 @@ LABEL_388:
       v70 -= 2;
     }
 
-    while (v117 != &v332);
+    while (v117 != &v333);
     for (ii = 1; ii != -1; --ii)
     {
-      v122 = v351[ii];
+      v122 = v352[ii];
       if (v122 != -1 && (v122 & 0xFE000000000000) != 0)
       {
-        v369 = v122 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
+        v368 = v122 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v368);
       }
     }
 
@@ -10445,92 +10473,92 @@ LABEL_388:
       v125 = v353[jj];
       if (v125 != -1 && (v125 & 0xFE000000000000) != 0)
       {
-        v369 = v125 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
+        v368 = v125 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v368);
       }
     }
 
     for (kk = 8; kk != -8; kk -= 8)
     {
-      v128 = *&v355[kk];
+      v128 = *&v354[kk];
       if (v128 != -1 && (v128 & 0xFE000000000000) != 0)
       {
-        v369 = v128 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
+        v368 = v128 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v368);
       }
     }
 
     for (mm = 1; mm != -1; --mm)
     {
-      v131 = (&v357)[mm];
+      v131 = (&v356)[mm];
       if (v131 != -1 && (v131 & 0xFE000000000000) != 0)
       {
-        v369 = v131 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
+        v368 = v131 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v368);
       }
     }
   }
 
   else
   {
-    LOBYTE(v342) = 0;
-    v346 = 0;
+    LOBYTE(v343) = 0;
+    v347 = 0;
   }
 
-  if (v361 == 1)
+  if (v360 == 1)
   {
     for (nn = 1; nn != -1; --nn)
     {
-      v134 = (&v359)[nn];
+      v134 = (&v358)[nn];
       if (v134 != -1 && (v134 & 0xFE000000000000) != 0)
       {
-        v332 = (v134 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+        v333 = (v134 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
       }
     }
   }
 
-  if (v364 == 1)
+  if (v363 == 1)
   {
     for (i1 = 8; i1 != -8; i1 -= 8)
     {
-      v137 = *(&v362 + i1);
+      v137 = *(&v361 + i1);
       if (v137 != -1 && (v137 & 0xFE000000000000) != 0)
       {
-        v332 = (v137 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+        v333 = (v137 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
       }
     }
   }
 
-  if (v367 == 1)
+  if (v366 == 1)
   {
     for (i2 = 8; i2 != -8; i2 -= 8)
     {
-      v140 = *(&v365 + i2);
+      v140 = *(&v364 + i2);
       if (v140 != -1 && (v140 & 0xFE000000000000) != 0)
       {
-        v332 = (v140 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+        v333 = (v140 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
       }
     }
   }
 
-  if (v372 == 1)
+  if (v371 == 1)
   {
     for (i3 = 8; i3 != -8; i3 -= 8)
     {
-      v143 = *(&v370 + i3);
+      v143 = *(&v369 + i3);
       if (v143 != -1 && (v143 & 0xFE000000000000) != 0)
       {
-        v332 = (v143 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+        v333 = (v143 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
       }
     }
   }
 
-  v145 = &v346;
-  if ((v346 & 1) == 0)
+  v145 = &v347;
+  if ((v347 & 1) == 0)
   {
     v257 = *v6;
     v258 = *(v6 + 1);
@@ -10548,33 +10576,33 @@ LABEL_388:
 
   if (*v6)
   {
-    if (v350 != 1)
+    if (v351 != 1)
     {
       goto LABEL_588;
     }
 
     for (i4 = 0; i4 != 4; ++i4)
     {
-      v147 = (&v347)[i4];
+      v147 = (&v348)[i4];
       if (v147 == -1)
       {
-        *(&v332 + i4 * 8) = -1;
+        *(&v333 + i4 * 8) = -1;
       }
 
       else
       {
-        v365 = (&v332 + i4 * 8);
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v147), v147, &v365);
+        v364 = (&v333 + i4 * 8);
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v147), v147, &v364);
       }
     }
 
-    if (v346 != 1)
+    if (v347 != 1)
     {
       goto LABEL_588;
     }
 
     v148 = 0;
-    v149 = &v332;
+    v149 = &v333;
     do
     {
       v150 = 0;
@@ -10582,8 +10610,8 @@ LABEL_388:
       do
       {
         v153 = v150;
-        v152 = &v332 + 2 * v148 + 4;
-        v154 = *(&v342 + 2 * v148 + v151);
+        v152 = &v333 + 2 * v148 + 4;
+        v154 = *(&v343 + 2 * v148 + v151);
         if (v154 == -1)
         {
           v152[v151] = -1;
@@ -10591,8 +10619,8 @@ LABEL_388:
 
         else
         {
-          v365 = &v152[v151];
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v154), v154, &v365);
+          v364 = &v152[v151];
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4copyERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v154), v154, &v364);
         }
 
         v150 = 1;
@@ -10605,9 +10633,9 @@ LABEL_388:
     }
 
     while (v148 != 4);
-    WebCore::Style::Inset::Inset(&v373, &v332);
-    v380 = 1;
-    v155 = &v341;
+    WebCore::Style::Inset::Inset(&v372, &v333);
+    v379 = 1;
+    v155 = &v342;
     v156 = 96;
     v7 = a1;
     v6 = a2;
@@ -10618,8 +10646,8 @@ LABEL_388:
         v158 = v155[i5];
         if (v158 != -1 && (v158 & 0xFE000000000000) != 0)
         {
-          v370 = v158 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v370);
+          v369 = v158 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
         }
       }
 
@@ -10630,24 +10658,24 @@ LABEL_388:
     while (v156 != 32);
     for (i6 = 24; i6 != -8; i6 -= 8)
     {
-      v161 = *(&v332 + i6);
+      v161 = *(&v333 + i6);
       if (v161 != -1 && (v161 & 0xFE000000000000) != 0)
       {
-        v370 = v161 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v370);
+        v369 = v161 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v369);
       }
     }
   }
 
   else
   {
-    LOBYTE(v373) = 0;
-    v380 = 0;
+    LOBYTE(v372) = 0;
+    v379 = 0;
   }
 
-  if (v346 == 1)
+  if (v347 == 1)
   {
-    v163 = &v345;
+    v163 = &v346;
     do
     {
       for (i7 = 0; i7 != -2; --i7)
@@ -10655,8 +10683,8 @@ LABEL_388:
         v165 = v163[i7];
         if (v165 != -1 && (v165 & 0xFE000000000000) != 0)
         {
-          v332 = (v165 & 0xFF00FFFFFFFFFFFFLL);
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+          v333 = (v165 & 0xFF00FFFFFFFFFFFFLL);
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
         }
       }
 
@@ -10664,23 +10692,23 @@ LABEL_388:
       v163 -= 2;
     }
 
-    while (v145 != &v342);
+    while (v145 != &v343);
   }
 
-  if (v350 == 1)
+  if (v351 == 1)
   {
     for (i8 = 3; i8 != -1; --i8)
     {
-      v168 = (&v347)[i8];
+      v168 = (&v348)[i8];
       if (v168 != -1 && (v168 & 0xFE000000000000) != 0)
       {
-        v332 = (v168 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+        v333 = (v168 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
       }
     }
   }
 
-  if ((v380 & 1) == 0)
+  if ((v379 & 1) == 0)
   {
     v260 = *v6;
     v261 = *(v6 + 1);
@@ -10698,12 +10726,12 @@ LABEL_388:
 
   if (*v6)
   {
-    if (v380)
+    if (v379)
     {
-      WebCore::Style::Inset::Inset(&v332, &v373);
-      WebCore::Style::Inset::Inset(&v324, &v332);
-      v331 = 1;
-      v170 = &v341;
+      WebCore::Style::Inset::Inset(&v333, &v372);
+      WebCore::Style::Inset::Inset(&v325, &v333);
+      v332 = 1;
+      v170 = &v342;
       for (i9 = 96; i9 != 32; i9 -= 16)
       {
         for (i10 = 0; i10 != -2; --i10)
@@ -10711,8 +10739,8 @@ LABEL_388:
           v173 = v170[i10];
           if (v173 != -1 && (v173 & 0xFE000000000000) != 0)
           {
-            v342 = v173 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v342);
+            v343 = v173 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v343);
           }
         }
 
@@ -10721,11 +10749,11 @@ LABEL_388:
 
       for (i11 = 24; i11 != -8; i11 -= 8)
       {
-        v176 = *(&v332 + i11);
+        v176 = *(&v333 + i11);
         if (v176 != -1 && (v176 & 0xFE000000000000) != 0)
         {
-          v342 = v176 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v342);
+          v343 = v176 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v343);
         }
       }
 
@@ -10736,12 +10764,12 @@ LABEL_588:
     __break(1u);
   }
 
-  LOBYTE(v324) = 0;
-  v331 = 0;
+  LOBYTE(v325) = 0;
+  v332 = 0;
 LABEL_332:
-  if (v380 == 1)
+  if (v379 == 1)
   {
-    v178 = &v379;
+    v178 = &v378;
     for (i12 = 96; i12 != 32; i12 -= 16)
     {
       for (i13 = 0; i13 != -16; i13 -= 8)
@@ -10749,8 +10777,8 @@ LABEL_332:
         v181 = *&v178[i13];
         if (v181 != -1 && (v181 & 0xFE000000000000) != 0)
         {
-          v332 = (v181 & 0xFF00FFFFFFFFFFFFLL);
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+          v333 = (v181 & 0xFF00FFFFFFFFFFFFLL);
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
         }
       }
 
@@ -10759,16 +10787,16 @@ LABEL_332:
 
     for (i14 = 24; i14 != -8; i14 -= 8)
     {
-      v184 = *(&v373 + i14);
+      v184 = *(&v372 + i14);
       if (v184 != -1 && (v184 & 0xFE000000000000) != 0)
       {
-        v332 = (v184 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v332);
+        v333 = (v184 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v333);
       }
     }
   }
 
-  if ((v331 & 1) == 0)
+  if ((v332 & 1) == 0)
   {
     v263 = *v6;
     v264 = *(v6 + 1);
@@ -10787,18 +10815,18 @@ LABEL_332:
 
     (*(*v265 + 16))(v265, v263);
     v7 = a1;
-    if ((v331 & 1) == 0)
+    if ((v332 & 1) == 0)
     {
       goto LABEL_536;
     }
   }
 
-  WebCore::Style::Inset::Inset(v7, &v324);
+  WebCore::Style::Inset::Inset(v7, &v325);
   *(v7 + 96) = 2;
   *(v7 + 104) = 1;
-  if (v331)
+  if (v332)
   {
-    v186 = &v330;
+    v186 = &v331;
     for (i15 = 96; i15 != 32; i15 -= 16)
     {
       for (i16 = 0; i16 != -2; --i16)
@@ -10806,8 +10834,8 @@ LABEL_332:
         v189 = v186[i16];
         if (v189 != -1 && (v189 & 0xFE000000000000) != 0)
         {
-          v373 = v189 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v373);
+          v372 = v189 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v372);
         }
       }
 
@@ -10816,11 +10844,11 @@ LABEL_332:
 
     for (i17 = 3; i17 != -1; --i17)
     {
-      v192 = (&v324)[i17];
+      v192 = (&v325)[i17];
       if (v192 != -1 && (v192 & 0xFE000000000000) != 0)
       {
-        v373 = v192 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v373);
+        v372 = v192 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v372);
       }
     }
   }

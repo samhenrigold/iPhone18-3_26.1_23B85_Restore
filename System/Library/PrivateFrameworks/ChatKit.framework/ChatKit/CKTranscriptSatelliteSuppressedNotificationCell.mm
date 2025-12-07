@@ -256,7 +256,7 @@ LABEL_11:
     satelliteNoNotificationTitleLabelAttributedText = IMLogHandleForCategory();
     if (os_log_type_enabled(satelliteNoNotificationTitleLabelAttributedText, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptSatelliteSuppressedNotificationCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptSatelliteSuppressedNotificationCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }

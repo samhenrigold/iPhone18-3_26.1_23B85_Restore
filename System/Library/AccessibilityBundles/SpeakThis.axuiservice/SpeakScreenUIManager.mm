@@ -17,15 +17,14 @@
 - (void)beginActivity
 {
   v2 = sub_1A724(&qword_38390, &qword_23330);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8, v4);
-  v6 = &v9 - v5;
-  v7 = sub_1BF44();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  *(v8 + 16) = 0;
-  *(v8 + 24) = 0;
-  sub_19868(0, 0, v6, &unk_23340, v8);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v7 - v3;
+  v5 = sub_1BF44();
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
+  v6 = swift_allocObject();
+  *(v6 + 16) = 0;
+  *(v6 + 24) = 0;
+  sub_19868(0, 0, v4, &unk_23340, v6);
 }
 
 - (void)hideUI
@@ -46,16 +45,15 @@
 - (void)endActivity
 {
   v0 = sub_1BEA4();
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0, v2);
+  __chkstk_darwin(v0);
   if (AXDeviceHasJindo())
   {
     sub_1BDC4();
-    v3 = sub_1BDB4();
-    v6._object = 0x80000000000297B0;
-    v6._countAndFlagsBits = 0xD000000000000013;
-    v4 = v3;
-    sub_1BD94(v6);
+    v1 = sub_1BDB4();
+    v4._object = 0x80000000000297B0;
+    v4._countAndFlagsBits = 0xD000000000000013;
+    v2 = v1;
+    sub_1BD94(v4);
   }
 }
 

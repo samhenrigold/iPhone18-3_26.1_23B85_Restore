@@ -133,7 +133,7 @@
   v3 = +[IMDeviceUtilities supportsSharedWithYou];
   if (v3)
   {
-    if (IMIsRunningInUnitTesting())
+    if (IMIsRunningInUnitTesting(v3, v4))
     {
       LOBYTE(v3) = 1;
     }

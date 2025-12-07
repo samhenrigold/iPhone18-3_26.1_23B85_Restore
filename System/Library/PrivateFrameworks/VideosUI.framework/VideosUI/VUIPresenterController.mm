@@ -63,34 +63,34 @@ void __40__VUIPresenterController_sharedInstance__block_invoke()
 
   if (v20)
   {
-    v21 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v22 = VUIDefaultLogObject(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_INFO, "VUIPresenterController:pushViewController trying to push or zoom the same viewmodel view controller as the existing one on top.", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_INFO, "VUIPresenterController:pushViewController trying to push or zoom the same viewmodel view controller as the existing one on top.", buf, 2u);
     }
 
-    v22 = dCopy;
-    v23 = completionCopy;
+    v23 = dCopy;
+    v24 = completionCopy;
     goto LABEL_40;
   }
 
   if (!viewControllerCopy)
   {
-    v25 = +[VUIApplicationRouter topPresentedViewController];
+    v26 = +[VUIApplicationRouter topPresentedViewController];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = v25;
+      v27 = v26;
     }
 
     else
     {
-      v26 = +[VUIApplicationRouter currentNavigationController];
+      v27 = +[VUIApplicationRouter currentNavigationController];
     }
 
-    viewControllerCopy = v26;
-    presentedViewController = [v26 presentedViewController];
+    viewControllerCopy = v27;
+    presentedViewController = [v27 presentedViewController];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
@@ -101,13 +101,13 @@ void __40__VUIPresenterController_sharedInstance__block_invoke()
       viewControllerCopy = presentedViewController2;
     }
 
-    v30 = +[VUIPlaybackManager sharedInstance];
-    isShowingExtras = [v30 isShowingExtras];
+    v31 = +[VUIPlaybackManager sharedInstance];
+    isShowingExtras = [v31 isShowingExtras];
 
     if (isShowingExtras)
     {
-      v32 = +[VUIPlaybackManager sharedInstance];
-      extrasNavigationController = [v32 extrasNavigationController];
+      v33 = +[VUIPlaybackManager sharedInstance];
+      extrasNavigationController = [v33 extrasNavigationController];
 
       viewControllerCopy = extrasNavigationController;
     }
@@ -118,7 +118,7 @@ void __40__VUIPresenterController_sharedInstance__block_invoke()
     }
 
 LABEL_22:
-    v22 = dCopy;
+    v23 = dCopy;
     goto LABEL_38;
   }
 
@@ -128,7 +128,7 @@ LABEL_22:
   }
 
 LABEL_7:
-  v22 = dCopy;
+  v23 = dCopy;
   if (dCopy)
   {
     if (!viewCopy)
@@ -163,58 +163,58 @@ LABEL_7:
   if ([viewCopy conformsToProtocol:{&unk_1F5F38C98, selfCopy}])
   {
     zoomSourceView = [viewCopy zoomSourceView];
-    v36 = zoomSourceView;
+    v37 = zoomSourceView;
     if (zoomSourceView)
     {
-      v37 = zoomSourceView;
+      v38 = zoomSourceView;
 
-      viewCopy = v37;
+      viewCopy = v38;
     }
   }
 
-  v38 = +[VUIPresenterController sharedInstance];
-  presentingSourceViewMapTable = [v38 presentingSourceViewMapTable];
+  v39 = +[VUIPresenterController sharedInstance];
+  presentingSourceViewMapTable = [v39 presentingSourceViewMapTable];
 
-  v40 = presentingSourceViewMapTable;
-  objc_sync_enter(v40);
-  v41 = [v40 objectForKey:viewControllerCopy];
-  if (v41 != viewCopy)
+  v41 = presentingSourceViewMapTable;
+  objc_sync_enter(v41);
+  v42 = [v41 objectForKey:viewControllerCopy];
+  if (v42 != viewCopy)
   {
-    v42 = objc_opt_class();
-    v43 = viewCopy;
-    LODWORD(v42) = [v42 _setZoomPreferredTransitionForViewController:controllerCopy sourceView:v43];
+    v43 = objc_opt_class();
+    v44 = viewCopy;
+    LODWORD(v43) = [v43 _setZoomPreferredTransitionForViewController:controllerCopy sourceView:v44];
 
-    if (v42)
+    if (v43)
     {
       if (!dCopy)
       {
-        layer = [v43 layer];
+        layer = [v44 layer];
         [layer cornerRadius];
 
         _os_feature_enabled_impl();
       }
 
-      [v40 setObject:v43 forKey:viewControllerCopy];
+      [v41 setObject:v44 forKey:viewControllerCopy];
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      v46 = +[VUIPresenterController sharedInstance];
-      [defaultCenter addObserver:v46 selector:sel__controllerDidDisplay_ name:@"VUITVAppNavigationDidDisplayViewControllerNotification" object:viewControllerCopy];
+      v47 = +[VUIPresenterController sharedInstance];
+      [defaultCenter addObserver:v47 selector:sel__controllerDidDisplay_ name:@"VUITVAppNavigationDidDisplayViewControllerNotification" object:viewControllerCopy];
     }
   }
 
-  objc_sync_exit(v40);
+  objc_sync_exit(v41);
 
 LABEL_38:
   [viewControllerCopy pushViewController:controllerCopy animated:{animatedCopy, selfCopy}];
-  v23 = completionCopy;
+  v24 = completionCopy;
   if (completionCopy)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __137__VUIPresenterController_pushViewController_fromViewController_withZoomTransition_sourceView_presentationSourceID_isAnimated_completion___block_invoke;
     block[3] = &unk_1E872D7E0;
-    v51 = completionCopy;
+    v52 = completionCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v21 = v51;
+    v22 = v52;
 LABEL_40:
   }
 }

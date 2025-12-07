@@ -81,24 +81,24 @@ void __57__SFWebAppDataController_clearWebsiteDataWithCompletion___block_invoke_
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 24), a2);
-    v10 = [*(*(a1 + 32) + 24) serviceViewControllerProxy];
-    v11 = *(*(a1 + 32) + 32);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__SFWebAppDataController_clearWebsiteDataWithCompletion___block_invoke_3;
-    v14[3] = &unk_1E8490798;
-    v12 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v15 = v12;
-    [v10 clearWebsiteDataWithWebClipIdentifier:v11 completion:v14];
+    v12 = [*(*(a1 + 32) + 24) serviceViewControllerProxy];
+    v13 = *(*(a1 + 32) + 32);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __57__SFWebAppDataController_clearWebsiteDataWithCompletion___block_invoke_3;
+    v16[3] = &unk_1E8490798;
+    v14 = *(a1 + 40);
+    v16[4] = *(a1 + 32);
+    v17 = v14;
+    [v12 clearWebsiteDataWithWebClipIdentifier:v13 completion:v16];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXSVCDeletion();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXSVCDeletion(v10, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __57__SFWebAppDataController_clearWebsiteDataWithCompletion___block_invoke_3_cold_1(v13, v7);
+      __57__SFWebAppDataController_clearWebsiteDataWithCompletion___block_invoke_3_cold_1(v15, v7);
     }
 
     (*(*(a1 + 40) + 16))();

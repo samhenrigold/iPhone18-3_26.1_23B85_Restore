@@ -83,7 +83,7 @@
 - (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v98[17] = *MEMORY[0x277D85DE8];
+  v97[17] = *MEMORY[0x277D85DE8];
   if (enabled)
   {
     defaults = self->_defaults;
@@ -170,26 +170,26 @@
     v44 = keyWithPrefix(v42, v6);
     [(NSUserDefaults *)v41 setObject:v43 forKey:v44];
 
-    v93 = 0u;
-    v94 = 0u;
-    v91 = 0u;
     v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v45 = HTPrefsKeysToRestoreForPrefix();
-    v46 = [v45 countByEnumeratingWithState:&v91 objects:v97 count:16];
+    v46 = [v45 countByEnumeratingWithState:&v90 objects:v96 count:16];
     if (v46)
     {
       v47 = v46;
-      v48 = *v92;
+      v48 = *v91;
       do
       {
         for (i = 0; i != v47; ++i)
         {
-          if (*v92 != v48)
+          if (*v91 != v48)
           {
             objc_enumerationMutation(v45);
           }
 
-          v50 = *(*(&v91 + 1) + 8 * i);
+          v50 = *(*(&v90 + 1) + 8 * i);
           savedSettingsDefaults = self->_savedSettingsDefaults;
           v52 = savedSettingPrefixedDefaultsKey(v50);
           v53 = [(NSUserDefaults *)savedSettingsDefaults objectForKey:v52];
@@ -202,7 +202,7 @@
           }
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v91 objects:v97 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v90 objects:v96 count:16];
       }
 
       while (v47);
@@ -211,27 +211,27 @@
 
   else
   {
-    v89 = 0u;
-    v90 = 0u;
-    v87 = 0u;
     v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
     v56 = *MEMORY[0x277D0FAB0];
     v57 = HTPrefsKeysToRestoreForPrefix();
-    v58 = [v57 countByEnumeratingWithState:&v87 objects:v96 count:16];
+    v58 = [v57 countByEnumeratingWithState:&v86 objects:v95 count:16];
     if (v58)
     {
       v59 = v58;
-      v60 = *v88;
+      v60 = *v87;
       do
       {
         for (j = 0; j != v59; ++j)
         {
-          if (*v88 != v60)
+          if (*v87 != v60)
           {
             objc_enumerationMutation(v57);
           }
 
-          v62 = *(*(&v87 + 1) + 8 * j);
+          v62 = *(*(&v86 + 1) + 8 * j);
           v63 = self->_defaults;
           v64 = keyWithPrefix(v62, v56);
           v65 = [(NSUserDefaults *)v63 objectForKey:v64];
@@ -241,62 +241,62 @@
           [(NSUserDefaults *)v66 setObject:v65 forKey:v67];
         }
 
-        v59 = [v57 countByEnumeratingWithState:&v87 objects:v96 count:16];
+        v59 = [v57 countByEnumeratingWithState:&v86 objects:v95 count:16];
       }
 
       while (v59);
     }
 
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     v68 = *MEMORY[0x277D0FAF8];
-    v98[0] = *MEMORY[0x277D0FA90];
-    v98[1] = v68;
+    v97[0] = *MEMORY[0x277D0FA90];
+    v97[1] = v68;
     v69 = *MEMORY[0x277D0FAE0];
-    v98[2] = *MEMORY[0x277D0FB38];
-    v98[3] = v69;
+    v97[2] = *MEMORY[0x277D0FB38];
+    v97[3] = v69;
     v70 = *MEMORY[0x277D0FAB8];
-    v98[4] = *MEMORY[0x277D0FA88];
-    v98[5] = v70;
+    v97[4] = *MEMORY[0x277D0FA88];
+    v97[5] = v70;
     v71 = *MEMORY[0x277D0FAD8];
-    v98[6] = *MEMORY[0x277D0FAD0];
-    v98[7] = v71;
+    v97[6] = *MEMORY[0x277D0FAD0];
+    v97[7] = v71;
     v72 = *MEMORY[0x277D0FB40];
-    v98[8] = *MEMORY[0x277D0FAE8];
-    v98[9] = v72;
+    v97[8] = *MEMORY[0x277D0FAE8];
+    v97[9] = v72;
     v73 = *MEMORY[0x277D0FA68];
-    v98[10] = *MEMORY[0x277D0FAC0];
-    v98[11] = v73;
+    v97[10] = *MEMORY[0x277D0FAC0];
+    v97[11] = v73;
     v74 = *MEMORY[0x277D0FA98];
-    v98[12] = *MEMORY[0x277D0FAC8];
-    v98[13] = v74;
+    v97[12] = *MEMORY[0x277D0FAC8];
+    v97[13] = v74;
     v75 = *MEMORY[0x277D0FAF0];
-    v98[14] = *MEMORY[0x277D0FB00];
-    v98[15] = v75;
-    v98[16] = *MEMORY[0x277D0FB30];
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:{17, 0}];
-    v76 = [v45 countByEnumeratingWithState:&v83 objects:v95 count:16];
+    v97[14] = *MEMORY[0x277D0FB00];
+    v97[15] = v75;
+    v97[16] = *MEMORY[0x277D0FB30];
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:{17, 0}];
+    v76 = [v45 countByEnumeratingWithState:&v82 objects:v94 count:16];
     if (v76)
     {
       v77 = v76;
-      v78 = *v84;
+      v78 = *v83;
       do
       {
         for (k = 0; k != v77; ++k)
         {
-          if (*v84 != v78)
+          if (*v83 != v78)
           {
             objc_enumerationMutation(v45);
           }
 
           v80 = self->_defaults;
-          v81 = keyWithPrefix(*(*(&v83 + 1) + 8 * k), v56);
+          v81 = keyWithPrefix(*(*(&v82 + 1) + 8 * k), v56);
           [(NSUserDefaults *)v80 removeObjectForKey:v81];
         }
 
-        v77 = [v45 countByEnumeratingWithState:&v83 objects:v95 count:16];
+        v77 = [v45 countByEnumeratingWithState:&v82 objects:v94 count:16];
       }
 
       while (v77);
@@ -305,7 +305,6 @@
 
   notify_post(*MEMORY[0x277D0FA20]);
   configureTailspinForThirdPartyDevelopment(enabledCopy);
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)hangTracerThreshold

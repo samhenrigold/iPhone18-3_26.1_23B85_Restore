@@ -54,7 +54,7 @@
     suggestion2 = [(PLSuggestionComputePayloadAdapter *)self suggestion];
     keyAssets = [suggestion2 keyAssets];
 
-    if ([keyAssets count] == 1)
+    if (objc_msgSend_count(keyAssets) == 1)
     {
       anyObject = [keyAssets anyObject];
       LOBYTE(v7) = [anyObject trashedState] == 0;

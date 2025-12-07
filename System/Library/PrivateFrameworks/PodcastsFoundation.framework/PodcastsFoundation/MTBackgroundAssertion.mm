@@ -1,4 +1,5 @@
 @interface MTBackgroundAssertion
+- (MTBackgroundAssertion)initWithName:(id)name flags:(unsigned int)flags reason:(unsigned int)reason;
 - (id)description;
 - (void)_cancelInvalidationTimer;
 - (void)_createScheduledTimerWithInterval:(double)interval;
@@ -11,19 +12,77 @@
 
 @implementation MTBackgroundAssertion
 
+- (MTBackgroundAssertion)initWithName:(id)name flags:(unsigned int)flags reason:(unsigned int)reason
+{
+  v5 = *&reason;
+  v6 = *&flags;
+  v29 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v26.receiver = self;
+  v26.super_class = MTBackgroundAssertion;
+  v9 = [(MTBackgroundAssertion *)&v26 init];
+  if (v9)
+  {
+    v10 = [objc_alloc(MEMORY[0x1E698D038]) initWithPID:getpid() flags:v6 reason:v5 name:nameCopy];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __51__MTBackgroundAssertion_initWithName_flags_reason___block_invoke;
+    v24[3] = &unk_1E8568E28;
+    v11 = nameCopy;
+    v25 = v11;
+    [v10 setInvalidationHandler:v24];
+    [v10 acquire];
+    valid = [v10 valid];
+    v13 = _MTLogCategoryBackgroundFetching();
+    v14 = v13;
+    if (valid)
+    {
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v28 = v11;
+        v15 = "Acquired assertion for %@";
+        v16 = v14;
+        v17 = OS_LOG_TYPE_DEFAULT;
+LABEL_7:
+        _os_log_impl(&dword_1D8CEC000, v16, v17, v15, buf, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v28 = v11;
+      v15 = "Fail to acquire assertion for %@";
+      v16 = v14;
+      v17 = OS_LOG_TYPE_ERROR;
+      goto LABEL_7;
+    }
+
+    assertion = v9->_assertion;
+    v9->_assertion = v10;
+    v19 = v10;
+
+    v20 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v21 = dispatch_queue_create("com.apple.podcasts.MTBackgroundAssertion", v20);
+    serialQueue = v9->_serialQueue;
+    v9->_serialQueue = v21;
+  }
+
+  return v9;
+}
+
 void __51__MTBackgroundAssertion_initWithName_flags_reason___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = _MTLogCategoryBackgroundFetching();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_DEFAULT, "Assertion with name %@ was invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_DEFAULT, "Assertion with name %@ was invalidated.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -78,33 +137,31 @@ uint64_t __46__MTBackgroundAssertion_invalidateAfterDelay___block_invoke(uint64_
 
 - (void)_invalidate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = _MTLogCategoryBackgroundFetching();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating %@", &v5, 0xCu);
+    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating %@", &v4, 0xCu);
   }
 
   [(MTBackgroundAssertion *)self _cancelInvalidationTimer];
   [(BKSProcessAssertion *)self->_assertion invalidate];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidationTimerFired
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = _MTLogCategoryBackgroundFetching();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "Assertion %@ just timed out, force invalidating.", &v5, 0xCu);
+    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "Assertion %@ just timed out, force invalidating.", &v4, 0xCu);
   }
 
   [(MTBackgroundAssertion *)self invalidate];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelInvalidationTimer
@@ -116,15 +173,15 @@ uint64_t __46__MTBackgroundAssertion_invalidateAfterDelay___block_invoke(uint64_
 
 - (void)_createScheduledTimerWithInterval:(double)interval
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = _MTLogCategoryBackgroundFetching();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2048;
+    v11 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "Assertion %@ timer set %f", &v10, 0x16u);
+    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "Assertion %@ timer set %f", &v9, 0x16u);
   }
 
   v6 = [MEMORY[0x1E695DFF0] timerWithTimeInterval:self target:sel__invalidationTimerFired selector:0 userInfo:0 repeats:interval];
@@ -133,8 +190,6 @@ uint64_t __46__MTBackgroundAssertion_invalidateAfterDelay___block_invoke(uint64_
 
   mainRunLoop = [MEMORY[0x1E695DFD0] mainRunLoop];
   [mainRunLoop addTimer:self->_invalidationTimer forMode:*MEMORY[0x1E695D918]];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

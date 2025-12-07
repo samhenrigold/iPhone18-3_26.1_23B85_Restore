@@ -33,7 +33,7 @@
 
 - (void)allServices:(id)services replyConnection:(id)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   connectionCopy = connection;
   allServices = [(GTServiceProvider *)self->_serviceProvider allServices];
@@ -42,34 +42,34 @@
   {
     v10 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:allServices copyItems:1];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     allServices = v10;
-    v11 = [allServices countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [allServices countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(allServices);
           }
 
-          serviceProperties = [*(*(&v17 + 1) + 8 * v14) serviceProperties];
+          serviceProperties = [*(*(&v16 + 1) + 8 * v14) serviceProperties];
           [serviceProperties setDeviceUDID:0];
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [allServices countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [allServices countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
@@ -78,13 +78,11 @@
 
   xpc_dictionary_set_nsobject(v9, "returnValue", allServices);
   [connectionCopy sendMessage:v9];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerService_forProcess_:(id)process_ replyConnection:(id)connection
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   process_Copy = process_;
   connectionCopy = connection;
   v8 = gt_xpc_dictionary_create_reply(process_Copy);
@@ -97,10 +95,10 @@
     if (!v12)
     {
       v19 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA450];
+      v23 = *MEMORY[0x277CCA450];
       v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTServiceProvider", @"Invalid processInfo argument passed to registerService"];
-      v25 = v20;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v24 = v20;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v22 = [v19 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v21];
 
       xpc_dictionary_set_nserror(v8, "error", v22);
@@ -123,10 +121,10 @@
   else
   {
     v16 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
+    v25 = *MEMORY[0x277CCA450];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTServiceProvider", @"Invalid serviceProperties argument passed to registerService"];
-    v27[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v26[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v12 = [v16 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v18];
 
     xpc_dictionary_set_nserror(v8, "error", v12);
@@ -134,8 +132,6 @@
 
   [connectionCopy sendMessage:v8];
 LABEL_7:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForService_completionHandler_:(id)handler_ replyConnection:(id)connection

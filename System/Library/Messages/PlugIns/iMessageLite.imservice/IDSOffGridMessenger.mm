@@ -1,9 +1,52 @@
 @interface IDSOffGridMessenger
+- (void)__im_donateHandlesForMessagingKeys:(id)keys fromURI:(id)i priority:(int64_t)priority isInitial:(BOOL)initial completion:(id)completion;
 - (void)__im_sendRelayDeliveryReceiptForMessageID:(id)d senderURI:(id)i options:(id)options topLevelFields:(id)fields completion:(id)completion;
 - (void)__im_sendServiceUpdateMessageWithPreferredService:(int64_t)service recipientURI:(id)i fromURI:(id)rI options:(id)options completion:(id)completion;
 @end
 
 @implementation IDSOffGridMessenger
+
+- (void)__im_donateHandlesForMessagingKeys:(id)keys fromURI:(id)i priority:(int64_t)priority isInitial:(BOOL)initial completion:(id)completion
+{
+  initialCopy = initial;
+  keysCopy = keys;
+  iCopy = i;
+  completionCopy = completion;
+  if (objc_opt_respondsToSelector())
+  {
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2050000000;
+    v15 = getIDSOffGridDeliveryHandlesDonationOptionsClass_softClass;
+    v22 = getIDSOffGridDeliveryHandlesDonationOptionsClass_softClass;
+    if (!getIDSOffGridDeliveryHandlesDonationOptionsClass_softClass)
+    {
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = __getIDSOffGridDeliveryHandlesDonationOptionsClass_block_invoke;
+      v18[3] = &unk_65790;
+      v18[4] = &v19;
+      __getIDSOffGridDeliveryHandlesDonationOptionsClass_block_invoke(v18);
+      v15 = v20[3];
+    }
+
+    v16 = v15;
+    _Block_object_dispose(&v19, 8);
+    v17 = objc_alloc_init(v15);
+    [v17 setPriority:priority];
+    if (objc_opt_respondsToSelector())
+    {
+      [v17 setIsInitialDonation:initialCopy];
+    }
+
+    [(IDSOffGridMessenger *)self donateHandlesForMessagingKeys:keysCopy fromURI:iCopy options:v17 completion:completionCopy];
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, 0, 0);
+  }
+}
 
 - (void)__im_sendServiceUpdateMessageWithPreferredService:(int64_t)service recipientURI:(id)i fromURI:(id)rI options:(id)options completion:(id)completion
 {

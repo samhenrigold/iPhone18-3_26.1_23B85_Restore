@@ -159,30 +159,30 @@
 
 - (void)_mainQueue_continueSignOutWithDataclassActions:(id)actions
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v5 = _AAUISignOutLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _AAUISignOutLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     account = self->_account;
     *buf = 138412546;
-    v12 = account;
-    v13 = 2112;
-    v14 = actionsCopy;
-    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to sign out account %@ with dataclass actions %@.", buf, 0x16u);
+    v13 = account;
+    v14 = 2112;
+    v15 = actionsCopy;
+    _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Attempting to sign out account %@ with dataclass actions %@.", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   accountStore = self->_accountStore;
-  v8 = self->_account;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSignOutWithDataclassActions___block_invoke;
-  v9[3] = &unk_1E820D308;
-  objc_copyWeak(&v10, buf);
-  [(ACAccountStore *)accountStore removeAccount:v8 withDataclassActions:actionsCopy completion:v9];
-  objc_destroyWeak(&v10);
+  v9 = self->_account;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSignOutWithDataclassActions___block_invoke;
+  v10[3] = &unk_1E820D308;
+  objc_copyWeak(&v11, buf);
+  [(ACAccountStore *)accountStore removeAccount:v9 withDataclassActions:actionsCopy completion:v10];
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
 }
 
@@ -190,7 +190,7 @@ void __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSi
 {
   v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUISignOutLogSystem();
+  v6 = _AAUISignOutLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -239,7 +239,7 @@ void __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSi
 
   else
   {
-    v4 = _AAUISignOutLogSystem();
+    v4 = _AAUISignOutLogSystem(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSignOutWithDataclassActions___block_invoke_44_cold_1(v4);
@@ -254,13 +254,14 @@ void __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSi
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   delegate = [(AAUISignOutDataclassActionSpinnerViewController *)self delegate];
   v8 = objc_opt_respondsToSelector();
-  v9 = _AAUISignOutLogSystem();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
-  if (v8)
+  v9 = v8;
+  v10 = _AAUISignOutLogSystem(v8);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
-      [AAUISignOutDataclassActionSpinnerViewController _delegate_signOutControllerDidCompleteWithSuccess:v9 error:?];
+      [AAUISignOutDataclassActionSpinnerViewController _delegate_signOutControllerDidCompleteWithSuccess:v10 error:?];
     }
 
     [delegate signOutViewController:self didCompleteWithSuccess:successCopy error:errorCopy];
@@ -268,9 +269,9 @@ void __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSi
 
   else
   {
-    if (v10)
+    if (v11)
     {
-      [AAUISignOutDataclassActionSpinnerViewController _delegate_signOutControllerDidCompleteWithSuccess:v9 error:?];
+      [AAUISignOutDataclassActionSpinnerViewController _delegate_signOutControllerDidCompleteWithSuccess:v10 error:?];
     }
 
     [(AAUISignOutDataclassActionSpinnerViewController *)self dismissViewControllerAnimated:1 completion:0];
@@ -282,7 +283,7 @@ void __98__AAUISignOutDataclassActionSpinnerViewController__mainQueue_continueSi
   aa_fullName = [(ACAccount *)self->_account aa_fullName];
   if (!aa_fullName)
   {
-    v4 = _AAUISignOutLogSystem();
+    v4 = _AAUISignOutLogSystem(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(AAUISignOutDataclassActionSpinnerViewController *)self _spinnerViewController];

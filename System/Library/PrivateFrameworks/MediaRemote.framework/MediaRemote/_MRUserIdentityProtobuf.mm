@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -26,20 +27,43 @@
   }
 }
 
-- (int)StringAsType:(id)type
+- (id)typeAsString:(int)string
 {
-  typeCopy = type;
-  if ([typeCopy isEqualToString:@"BasicIdentity"])
+  if (string)
   {
-    v4 = 0;
+    if (string == 1)
+    {
+      v4 = @"ResolvableIdentity";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"ResolvableIdentity"];
+    v4 = @"BasicIdentity";
   }
 
   return v4;
+}
+
+- (int)StringAsType:(id)type
+{
+  typeCopy = type;
+  if (objc_msgSend_isEqualToString_(typeCopy))
+  {
+    isEqualToString = 0;
+  }
+
+  else
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
+  }
+
+  return isEqualToString;
 }
 
 - (id)description
@@ -100,24 +124,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_displayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

@@ -117,4 +117,18 @@ uint64_t __72__E5RunnerImageTokenizerObjC_tokenizeImageDataWithCallback_outputBl
   }
 }
 
+- (void)initWithModelConfiguration:(uint64_t)a1 error:.cold.1(uint64_t a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(*a1 + 16))(a1);
+  OUTLINED_FUNCTION_0_1(&dword_220940000, v1, v2, "Failed to load image tokenizer model: %s.", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+- (void)tokenizeImageDataWithCallback:(uint64_t)a1 outputBlock:.cold.1(uint64_t a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(*a1 + 16))(a1);
+  OUTLINED_FUNCTION_0_1(&dword_220940000, v1, v2, "Failed to compute image tokens: %s.", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 @end

@@ -33,7 +33,7 @@
 {
   if (version != 0x10000)
   {
-    v3 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v3 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       sub_22E65CB18();

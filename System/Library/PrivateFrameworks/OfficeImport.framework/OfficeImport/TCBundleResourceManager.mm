@@ -148,7 +148,7 @@
   v7 = [(NSMutableDictionary *)self->mPackageMap objectForKey:nameCopy];
   if (!v7)
   {
-    v8 = TCBundle();
+    v8 = TCBundle(0);
     v9 = [v8 pathForResource:nameCopy ofType:@"zip"];
 
     if (!v9)

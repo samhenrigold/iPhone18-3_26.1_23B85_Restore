@@ -23,24 +23,23 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = EKCredentials;
-  v4 = [(EKCredentials *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = EKCredentials;
+  v4 = [(EKCredentials *)&v9 description];
   v5 = v4;
-  username = self->_username;
   if (self->_password)
   {
-    v7 = @"******";
+    v6 = @"******";
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = [v3 stringWithFormat:@"[%@] username: [%@], password: [%@]", v4, self->_username, v7];
+  v7 = [v3 stringWithFormat:@"[%@] username: [%@], password: [%@]", v4, self->_username, v6];
 
-  return v8;
+  return v7;
 }
 
 @end

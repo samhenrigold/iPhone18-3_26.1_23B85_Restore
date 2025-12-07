@@ -119,7 +119,7 @@
           memset(&v26, 0, sizeof(v26));
           if (v11)
           {
-            [v11 CGAffineTransformValue];
+            objc_msgSend_CGAffineTransformValue(v11, v21);
           }
 
           else

@@ -89,21 +89,21 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-id CarGeneralLogging()
+id CarGeneralLogging(uint64_t a1)
 {
   if (CarGeneralLogging_onceToken != -1)
   {
     CarGeneralLogging_cold_1();
   }
 
-  v1 = CarGeneralLogging_facility;
+  v2 = CarGeneralLogging_facility;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C81FEF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C81FEF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,7 +237,7 @@ BOOL CRSizeFromDictionary(const __CFDictionary *a1, CGSize *a2)
   return result;
 }
 
-uint64_t CRIsInternalInstall()
+uint64_t CRIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (CRIsInternalInstall_onceToken != -1)
   {
@@ -247,16 +247,16 @@ uint64_t CRIsInternalInstall()
   return CRIsInternalInstall_isInternal;
 }
 
-id CarAppearanceLogging()
+id CarAppearanceLogging(uint64_t a1)
 {
   if (CarAppearanceLogging_onceToken != -1)
   {
     CarAppearanceLogging_cold_1();
   }
 
-  v1 = CarAppearanceLogging_facility;
+  v2 = CarAppearanceLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 id _adjacentViewAreaForPayload(void *a1, void *a2)
@@ -321,16 +321,18 @@ uint64_t _transitionControlTypeForViewAreaChange(void *a1, void *a2)
   return v6;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t __CarGeneralLogging_block_invoke()
@@ -363,9 +365,9 @@ id CARInteractionModelEntitlements()
   return v0;
 }
 
-void sub_1C8202B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8202B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -374,7 +376,7 @@ void CRServiceConnectionSynchronousPerform(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -432,124 +434,125 @@ double CRDisplayScaleAdjustedPointScale(void *a1)
 
 id CRCanvasSizeOverridesWithAirplayDisplays(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a3;
-  v23 = [MEMORY[0x1E695DF70] array];
-  v20 = [v8 base64EncodedStringWithOptions:1];
-  v19 = [CRCarPlayCapabilities fetchCarCapabilitiesWithIdentifier:?];
-  v22 = [v19 zoomFactor];
-  v24 = 0u;
+  v24 = [MEMORY[0x1E695DF70] array];
+  v21 = [v8 base64EncodedStringWithOptions:1];
+  v20 = [CRCarPlayCapabilities fetchCarCapabilitiesWithIdentifier:?];
+  v23 = [v20 zoomFactor];
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   obj = v7;
-  v9 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v9 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v25;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [CRDisplayScaleInfo displayScaleInfoWithDictionary:*(*(&v24 + 1) + 8 * i) screenType:v11 != 0 zoomFactor:v22 error:a4];
+        v14 = [CRDisplayScaleInfo displayScaleInfoWithDictionary:*(*(&v25 + 1) + 8 * i) screenType:v11 != 0 zoomFactor:v23 error:a4];
         [v14 canvasPixelSizeForDisplayScaleMode:a2];
-        DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v35);
-        v30 = @"OverrideCanvasSize";
-        v31 = DictionaryRepresentation;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-        [v23 addObject:v16];
+        DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v36);
+        v31 = @"OverrideCanvasSize";
+        v32 = DictionaryRepresentation;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        [v24 addObject:v16];
 
         ++v11;
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v10 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v10);
   }
 
-  v17 = CarDisplayScaleLogging();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = CarDisplayScaleLogging(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v29 = v23;
-    _os_log_impl(&dword_1C81FC000, v17, OS_LOG_TYPE_DEFAULT, "CRCanvasSizeOverridesWithAirplayDisplays: CRDisplayScaleInfo: %{public}@", buf, 0xCu);
+    v30 = v24;
+    _os_log_impl(&dword_1C81FC000, v18, OS_LOG_TYPE_DEFAULT, "CRCanvasSizeOverridesWithAirplayDisplays: CRDisplayScaleInfo: %{public}@", buf, 0xCu);
   }
 
-  return v23;
+  return v24;
 }
 
 id CRScaledDisplaysWithAirplayDisplays(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v6 = a1;
   v7 = a3;
   v8 = [MEMORY[0x1E695DF70] array];
   v9 = [v7 base64EncodedStringWithOptions:1];
   v10 = [CRCarPlayCapabilities fetchCarCapabilitiesWithIdentifier:v9];
-  v43 = [v10 zoomFactor];
-  v46 = 0u;
-  v47 = 0u;
+  v45 = [v10 zoomFactor];
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v11 = v6;
-  v42 = [v11 countByEnumeratingWithState:&v46 objects:v52 count:16];
-  if (v42)
+  v44 = [v11 countByEnumeratingWithState:&v48 objects:v54 count:16];
+  if (v44)
   {
     v12 = 0;
-    v41 = *v47;
-    v44 = *MEMORY[0x1E6962440];
-    v45 = *MEMORY[0x1E6962438];
-    v37 = v9;
-    v38 = v7;
-    v36 = v10;
+    v43 = *v49;
+    v46 = *MEMORY[0x1E6962440];
+    v47 = *MEMORY[0x1E6962438];
+    v39 = v9;
+    v40 = v7;
+    v38 = v10;
     obj = v11;
     while (2)
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v47 != v41)
+        if (*v49 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v46 + 1) + 8 * i);
-        v15 = [CRDisplayScaleInfo displayScaleInfoWithDictionary:v14 screenType:v12 != 0 zoomFactor:v43 error:a4];
+        v14 = *(*(&v48 + 1) + 8 * i);
+        v15 = [CRDisplayScaleInfo displayScaleInfoWithDictionary:v14 screenType:v12 != 0 zoomFactor:v45 error:a4];
+        v16 = v15;
         if (!v15)
         {
           if (a4 && *a4)
           {
 LABEL_24:
-            v28 = CarDisplayScaleLogging();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+            v30 = CarDisplayScaleLogging(v15);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
             {
-              CRScaledDisplaysWithAirplayDisplays_cold_1(a4, v28, v29, v30, v31, v32, v33, v34);
+              CRScaledDisplaysWithAirplayDisplays_cold_1(a4, v30, v31, v32, v33, v34, v35, v36);
             }
           }
 
           else
           {
-            v15 = CarDisplayScaleLogging();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+            v16 = CarDisplayScaleLogging(0);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
             {
-              CRScaledDisplaysWithAirplayDisplays_cold_2(v15);
+              CRScaledDisplaysWithAirplayDisplays_cold_2(v16);
             }
           }
 
-          v9 = v37;
-          v7 = v38;
-          v10 = v36;
+          v9 = v39;
+          v7 = v40;
+          v10 = v38;
           v11 = obj;
 
-          v27 = 0;
+          v29 = 0;
           goto LABEL_30;
         }
 
@@ -558,53 +561,53 @@ LABEL_24:
           goto LABEL_24;
         }
 
-        v16 = v8;
-        v17 = [MEMORY[0x1E695DF90] dictionary];
+        v17 = v8;
+        v18 = [MEMORY[0x1E695DF90] dictionary];
         objc_opt_class();
-        v18 = [v14 objectForKeyedSubscript:v45];
-        v19 = [v18 copy];
-        if (v19 && (objc_opt_isKindOfClass() & 1) != 0)
+        v19 = [v14 objectForKeyedSubscript:v47];
+        v20 = [v19 copy];
+        if (v20 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v20 = v19;
+          v21 = v20;
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
 
-        [v17 setObject:v20 forKeyedSubscript:v45];
+        [v18 setObject:v21 forKeyedSubscript:v47];
         objc_opt_class();
-        v21 = [v14 objectForKeyedSubscript:v44];
-        v22 = [v21 copy];
-        if (v22 && (objc_opt_isKindOfClass() & 1) != 0)
+        v22 = [v14 objectForKeyedSubscript:v46];
+        v23 = [v22 copy];
+        if (v23 && (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v23 = v22;
+          v24 = v23;
         }
 
         else
         {
-          v23 = 0;
+          v24 = 0;
         }
 
-        [v17 setObject:v23 forKeyedSubscript:v44];
-        v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject preferredPointScale](v15, "preferredPointScale")}];
-        [v17 setObject:v24 forKeyedSubscript:@"preferredUIScale"];
+        [v18 setObject:v24 forKeyedSubscript:v46];
+        v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject preferredPointScale](v16, "preferredPointScale")}];
+        [v18 setObject:v25 forKeyedSubscript:@"preferredUIScale"];
 
-        [v15 canvasPixelSizeForDisplayScaleMode:a2];
-        DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v55);
-        [v17 setObject:DictionaryRepresentation forKeyedSubscript:@"OverrideCanvasSize"];
-        v8 = v16;
-        [v16 addObject:v17];
+        [v16 canvasPixelSizeForDisplayScaleMode:a2];
+        DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v57);
+        [v18 setObject:DictionaryRepresentation forKeyedSubscript:@"OverrideCanvasSize"];
+        v8 = v17;
+        [v17 addObject:v18];
         ++v12;
       }
 
       v11 = obj;
-      v9 = v37;
-      v7 = v38;
-      v10 = v36;
-      v42 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-      if (v42)
+      v9 = v39;
+      v7 = v40;
+      v10 = v38;
+      v44 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      if (v44)
       {
         continue;
       }
@@ -613,18 +616,18 @@ LABEL_24:
     }
   }
 
-  v26 = CarDisplayScaleLogging();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v28 = CarDisplayScaleLogging(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v51 = v8;
-    _os_log_impl(&dword_1C81FC000, v26, OS_LOG_TYPE_DEFAULT, "CRScaledDisplaysWithAirplayDisplays: CRDisplayScaleInfo: %{public}@", buf, 0xCu);
+    v53 = v8;
+    _os_log_impl(&dword_1C81FC000, v28, OS_LOG_TYPE_DEFAULT, "CRScaledDisplaysWithAirplayDisplays: CRDisplayScaleInfo: %{public}@", buf, 0xCu);
   }
 
-  v27 = v8;
+  v29 = v8;
 LABEL_30:
 
-  return v27;
+  return v29;
 }
 
 double CGSizeSquaredPixelSizeWithPhysicalSize(double result, double a2, double a3, double a4)
@@ -735,7 +738,7 @@ void CRServiceConnectionPerform(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -750,7 +753,7 @@ void CRServiceConnectionPerform(void *a1, void *a2)
   v7 = v4;
   v14 = v7;
   v8 = [v6 remoteObjectProxyWithErrorHandler:v13];
-  v9 = CarGeneralLogging();
+  v9 = CarGeneralLogging(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -789,7 +792,7 @@ uint64_t __CRServiceConnectionPerform_block_invoke(uint64_t a1)
 
 uint64_t __CRServiceConnectionPerform_block_invoke_117(uint64_t a1)
 {
-  v2 = CarGeneralLogging();
+  v2 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -810,44 +813,44 @@ uint64_t __CRServiceConnectionSynchronousPerform_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1C8208558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8208558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8208800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8208800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8208B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C8208B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8208F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C8208F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82091D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82091D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82095A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82095A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -868,23 +871,24 @@ __CFString *CARVerifyString(void *a1)
 {
   v1 = a1;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v2 = v1;
+    v3 = v1;
   }
 
   else
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       CARVerifyString_cold_1();
     }
 
-    v2 = &stru_1F47DECC0;
+    v3 = &stru_1F47DECC0;
   }
 
-  return v2;
+  return v3;
 }
 
 id CARVerifyStringArray(void *a1)
@@ -894,7 +898,7 @@ id CARVerifyStringArray(void *a1)
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_6:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_7;
   }
 
@@ -904,8 +908,8 @@ LABEL_6:
 
   if (v4)
   {
-    v5 = CarGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       CARVerifyStringArray_cold_1();
     }
@@ -913,32 +917,33 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v6 = v1;
+  v7 = v1;
 LABEL_7:
 
-  return v6;
+  return v7;
 }
 
-id CARVerifyClass(void *a1)
+id CARVerifyClass(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  if (objc_opt_isKindOfClass())
+  v2 = a1;
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v2 = v1;
+    v4 = v2;
   }
 
   else
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = CarGeneralLogging(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       CARVerifyClass_cold_1();
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t CARVerifyBool(void *a1)
@@ -947,15 +952,16 @@ uint64_t CARVerifyBool(void *a1)
   if (!v1)
   {
 LABEL_7:
-    v2 = 0;
+    v3 = 0;
     goto LABEL_8;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       CARVerifyBool_cold_1();
     }
@@ -963,10 +969,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v2 = [v1 BOOLValue];
+  v3 = [v1 BOOLValue];
 LABEL_8:
 
-  return v2;
+  return v3;
 }
 
 BOOL __CARVerifyStringArray_block_invoke(uint64_t a1, void *a2)
@@ -986,16 +992,16 @@ void sub_1C820BA00(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id CarCertificationOverrideLogging()
+id CarCertificationOverrideLogging(uint64_t a1)
 {
   if (CarCertificationOverrideLogging_onceToken != -1)
   {
     CarCertificationOverrideLogging_cold_1();
   }
 
-  v1 = CarCertificationOverrideLogging_facility;
+  v2 = CarCertificationOverrideLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarCertificationOverrideLogging_block_invoke()
@@ -1005,16 +1011,16 @@ uint64_t __CarCertificationOverrideLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarConnectionTimeLogging()
+id CarConnectionTimeLogging(uint64_t a1)
 {
   if (CarConnectionTimeLogging_onceToken != -1)
   {
     CarConnectionTimeLogging_cold_1();
   }
 
-  v1 = CarConnectionTimeLogging_facility;
+  v2 = CarConnectionTimeLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarConnectionTimeLogging_block_invoke()
@@ -1024,16 +1030,16 @@ uint64_t __CarConnectionTimeLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarDiagnosticsLogging()
+id CarDiagnosticsLogging(uint64_t a1)
 {
   if (CarDiagnosticsLogging_onceToken != -1)
   {
     CarDiagnosticsLogging_cold_1();
   }
 
-  v1 = CarDiagnosticsLogging_facility;
+  v2 = CarDiagnosticsLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarDiagnosticsLogging_block_invoke()
@@ -1043,16 +1049,16 @@ uint64_t __CarDiagnosticsLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarDNDWDLogging()
+id CarDNDWDLogging(uint64_t a1)
 {
   if (CarDNDWDLogging_onceToken != -1)
   {
     CarDNDWDLogging_cold_1();
   }
 
-  v1 = CarDNDWDLogging_facility;
+  v2 = CarDNDWDLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarDNDWDLogging_block_invoke()
@@ -1062,16 +1068,16 @@ uint64_t __CarDNDWDLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarSilentModeLogging()
+id CarSilentModeLogging(uint64_t a1)
 {
   if (CarSilentModeLogging_onceToken != -1)
   {
     CarSilentModeLogging_cold_1();
   }
 
-  v1 = CarSilentModeLogging_facility;
+  v2 = CarSilentModeLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarSilentModeLogging_block_invoke()
@@ -1081,16 +1087,16 @@ uint64_t __CarSilentModeLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarPairingLogging()
+id CarPairingLogging(uint64_t a1)
 {
   if (CarPairingLogging_onceToken != -1)
   {
     CarPairingLogging_cold_1();
   }
 
-  v1 = CarPairingLogging_facility;
+  v2 = CarPairingLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarPairingLogging_block_invoke()
@@ -1100,16 +1106,16 @@ uint64_t __CarPairingLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarThemeAssetsLogging()
+id CarThemeAssetsLogging(uint64_t a1)
 {
   if (CarThemeAssetsLogging_onceToken != -1)
   {
     CarThemeAssetsLogging_cold_1();
   }
 
-  v1 = CarThemeAssetsLogging_facility;
+  v2 = CarThemeAssetsLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarThemeAssetsLogging_block_invoke()
@@ -1119,16 +1125,16 @@ uint64_t __CarThemeAssetsLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CarDisplayScaleLogging()
+id CarDisplayScaleLogging(uint64_t a1)
 {
   if (CarDisplayScaleLogging_onceToken != -1)
   {
     CarDisplayScaleLogging_cold_1();
   }
 
-  v1 = CarDisplayScaleLogging_facility;
+  v2 = CarDisplayScaleLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarDisplayScaleLogging_block_invoke()
@@ -1138,58 +1144,58 @@ uint64_t __CarDisplayScaleLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1C820FDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C820FDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C821085C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C821085C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82109D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82109D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8210B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8210B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8210CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8210CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82140F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C82140F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82142EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C82142EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82179A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82179A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1219,10 +1225,11 @@ void CRPostBannerToPhone(void *a1, void *a2, void *a3)
 void __CRPostBannerToPhone_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __CRPostBannerToPhone_block_invoke_cold_1();
     }
@@ -1269,7 +1276,7 @@ void CRCollectCarPlayDiagnostics(void *a1, void *a2, void *a3, void *a4, void *a
   [v21 setRemoteObjectInterface:v14];
   [v21 resume];
   v22 = [v21 remoteObjectProxyWithErrorHandler:&__block_literal_global_160];
-  v23 = CarGeneralLogging();
+  v23 = CarGeneralLogging(v22);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1290,10 +1297,11 @@ void CRCollectCarPlayDiagnostics(void *a1, void *a2, void *a3, void *a4, void *a
 void __CRCollectCarPlayDiagnostics_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __CRCollectCarPlayDiagnostics_block_invoke_cold_1();
     }
@@ -1324,7 +1332,7 @@ void CRCollectVehicleLogs(void *a1)
   [v4 setRemoteObjectInterface:v2];
   [v4 resume];
   v5 = [v4 remoteObjectProxyWithErrorHandler:&__block_literal_global_164];
-  v6 = CarGeneralLogging();
+  v6 = CarGeneralLogging(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1345,10 +1353,11 @@ void CRCollectVehicleLogs(void *a1)
 void __CRCollectVehicleLogs_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __CRCollectVehicleLogs_block_invoke_cold_1();
     }
@@ -1387,9 +1396,9 @@ uint64_t CRIsPreflightThemeAssetEnabled()
   return v3;
 }
 
-void sub_1C8218B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8218B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1397,10 +1406,11 @@ void sub_1C8218B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void __CRIsPreflightThemeAssetEnabled_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __CRPostBannerToPhone_block_invoke_cold_1();
     }
@@ -1409,34 +1419,36 @@ void __CRIsPreflightThemeAssetEnabled_block_invoke(uint64_t a1, void *a2)
 
 void __CRIsPreflightThemeAssetEnabled_block_invoke_169(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    *(*(*(a1 + 32) + 8) + 24) = [a2 BOOLValue];
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = [a2 BOOLValue];
+    *(*(*(a1 + 32) + 8) + 24) = v7;
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        v7 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v7 = @"NO";
+        v9 = @"NO";
       }
 
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_INFO, "preflight theme assets enabled: %{public}@", &v8, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "preflight theme assets enabled: %{public}@", &v10, 0xCu);
     }
   }
 
   else
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __CRIsPreflightThemeAssetEnabled_block_invoke_169_cold_1();
     }
@@ -1462,10 +1474,11 @@ void CRSetPreflightThemeAssetEnabled(uint64_t a1)
 void __CRSetPreflightThemeAssetEnabled_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CarGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CarGeneralLogging(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __CRPostBannerToPhone_block_invoke_cold_1();
     }
@@ -1476,7 +1489,7 @@ void __CRSetPreflightThemeAssetEnabled_block_invoke_179(uint64_t a1, int a2, voi
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = CarGeneralLogging();
+  v6 = CarGeneralLogging(v5);
   v7 = v6;
   if (a2)
   {
@@ -1555,16 +1568,16 @@ id CRStringForDate(void *a1)
   return v4;
 }
 
-id CRBuildNumberForDevice()
+id CRBuildNumberForDevice(uint64_t a1)
 {
   if (CRBuildNumberForDevice_onceToken != -1)
   {
     CRBuildNumberForDevice_cold_1();
   }
 
-  v1 = CRBuildNumberForDevice_buildVersion;
+  v2 = CRBuildNumberForDevice_buildVersion;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CRBuildNumberForDevice_block_invoke()
@@ -1574,16 +1587,16 @@ uint64_t __CRBuildNumberForDevice_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CRDeviceHardwareIdentifierForDevice()
+id CRDeviceHardwareIdentifierForDevice(uint64_t a1)
 {
   if (CRDeviceHardwareIdentifierForDevice_onceToken != -1)
   {
     CRDeviceHardwareIdentifierForDevice_cold_1();
   }
 
-  v1 = CRDeviceHardwareIdentifierForDevice_hardwareIdentifier;
+  v2 = CRDeviceHardwareIdentifierForDevice_hardwareIdentifier;
 
-  return v1;
+  return v2;
 }
 
 void __CRDeviceHardwareIdentifierForDevice_block_invoke()
@@ -1594,39 +1607,39 @@ void __CRDeviceHardwareIdentifierForDevice_block_invoke()
   CRDeviceHardwareIdentifierForDevice_hardwareIdentifier = v0;
 }
 
-id CRFormattedBuildAndDeviceIdentifier()
+id CRFormattedBuildAndDeviceIdentifier(uint64_t a1)
 {
-  v0 = CRBuildNumberForDevice();
-  v1 = CRDeviceHardwareIdentifierForDevice();
-  v2 = v1;
-  if (v1 && v0)
+  v1 = CRBuildNumberForDevice(a1);
+  v2 = CRDeviceHardwareIdentifierForDevice(v1);
+  v3 = v2;
+  if (v2 && v1)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v1, v0];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v2, v1];
   }
 
   else
   {
-    if (!(v1 | v0))
+    if (!(v2 | v1))
     {
-      v4 = 0;
+      v5 = 0;
       goto LABEL_10;
     }
 
-    if (v1)
+    if (v2)
     {
-      v3 = v1;
+      v4 = v2;
     }
 
     else
     {
-      v3 = v0;
+      v4 = v1;
     }
   }
 
-  v4 = v3;
+  v5 = v4;
 LABEL_10:
 
-  return v4;
+  return v5;
 }
 
 id CRURLEncodedString(void *a1)
@@ -1683,24 +1696,25 @@ id urlEncode(void *a1)
   return v3;
 }
 
-void sub_1C82196E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82196E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8219C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8219C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1718,12 +1732,12 @@ void CRLostModeStateChanged(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v3);
 }
 
-uint64_t CRFrameworkBundle()
+uint64_t CRFrameworkBundle(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E696AAE8];
-  v1 = objc_opt_class();
+  v2 = MEMORY[0x1E696AAE8];
+  v3 = objc_opt_class();
 
-  return [v0 bundleForClass:v1];
+  return [v2 bundleForClass:v3];
 }
 
 id CRLocalizedStringForKey(void *a1)
@@ -1801,7 +1815,7 @@ uint64_t CRSettingsDebugUIEnabled()
   return v3;
 }
 
-uint64_t CRDeviceSupportsAutomaticDNDMotionTrigger()
+uint64_t CRDeviceSupportsAutomaticDNDMotionTrigger(uint64_t a1, uint64_t a2)
 {
   if (CRDeviceSupportsAutomaticDNDMotionTrigger_onceToken != -1)
   {
@@ -1829,16 +1843,16 @@ uint64_t __CRDeviceSupportsAutomaticDNDMotionTrigger_block_invoke()
   return result;
 }
 
-id CRAutomaticDNDLocationBundle()
+id CRAutomaticDNDLocationBundle(uint64_t a1)
 {
   if (CRAutomaticDNDLocationBundle_onceToken != -1)
   {
     CRAutomaticDNDLocationBundle_cold_1();
   }
 
-  v1 = CRAutomaticDNDLocationBundle_bundle;
+  v2 = CRAutomaticDNDLocationBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 void __CRAutomaticDNDLocationBundle_block_invoke()
@@ -1852,38 +1866,38 @@ void __CRAutomaticDNDLocationBundle_block_invoke()
 
 uint64_t CRAutomaticDNDLocationServicesStatus()
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2050000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2050000000;
   v0 = getCLLocationManagerClass_softClass;
-  v9 = getCLLocationManagerClass_softClass;
+  v10 = getCLLocationManagerClass_softClass;
   if (!getCLLocationManagerClass_softClass)
   {
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __getCLLocationManagerClass_block_invoke;
-    v5[3] = &unk_1E82FC8F8;
-    v5[4] = &v6;
-    __getCLLocationManagerClass_block_invoke(v5);
-    v0 = v7[3];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __getCLLocationManagerClass_block_invoke;
+    v6[3] = &unk_1E82FC8F8;
+    v6[4] = &v7;
+    __getCLLocationManagerClass_block_invoke(v6);
+    v0 = v8[3];
   }
 
   v1 = v0;
-  _Block_object_dispose(&v6, 8);
-  v2 = CRAutomaticDNDLocationBundle();
-  v3 = [v0 authorizationStatusForBundle:v2];
+  _Block_object_dispose(&v7, 8);
+  v3 = CRAutomaticDNDLocationBundle(v2);
+  v4 = [v0 authorizationStatusForBundle:v3];
 
-  return v3;
+  return v4;
 }
 
-void sub_1C8220618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8220618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t CRDeviceSupportsDNDWhileDriving()
+uint64_t CRDeviceSupportsDNDWhileDriving(uint64_t a1, uint64_t a2)
 {
   if (CRDeviceSupportsDNDWhileDriving_onceToken != -1)
   {
@@ -1900,7 +1914,7 @@ uint64_t __CRDeviceSupportsDNDWhileDriving_block_invoke()
   return result;
 }
 
-uint64_t CRIsTestContext()
+uint64_t CRIsTestContext(uint64_t a1, uint64_t a2)
 {
   if (CRIsTestContext_onceToken != -1)
   {
@@ -1969,7 +1983,7 @@ Class __getCLLocationManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1987,7 +2001,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __CoreLocationLibraryCore_block_invoke()
+uint64_t __CoreLocationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreLocationLibraryCore_frameworkLibrary = result;
@@ -2007,37 +2021,39 @@ __CFString *CARStringFromVoiceTriggerMode(uint64_t a1)
   }
 }
 
-void sub_1C822774C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1C822774C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8227DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8227DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82281A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82281A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void CRHandleConnectionForBluetoothAddress(void *a1, void *a2)
@@ -2264,7 +2280,7 @@ uint64_t __CRConnectBluetoothLE_block_invoke_2(uint64_t a1)
 void __CRConnectBluetoothLE_block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarPairingLogging();
+  v4 = CarPairingLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __CRConnectBluetoothLE_block_invoke_3_cold_1();
@@ -2333,7 +2349,7 @@ uint64_t __CRHandleBluetoothClassicPairingCompleted_block_invoke_2(uint64_t a1)
 void __CRHandleBluetoothClassicPairingCompleted_block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarPairingLogging();
+  v4 = CarPairingLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __CRHandleBluetoothClassicPairingCompleted_block_invoke_3_cold_1();
@@ -2398,7 +2414,7 @@ uint64_t __CRStartBluetoothClassicPairing_block_invoke_2(uint64_t a1)
 void __CRStartBluetoothClassicPairing_block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarPairingLogging();
+  v4 = CarPairingLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __CRStartBluetoothClassicPairing_block_invoke_3_cold_1();
@@ -2471,7 +2487,7 @@ uint64_t __CRConfirmAndContinueBluetoothClassicPairing_block_invoke_2(uint64_t a
 void __CRConfirmAndContinueBluetoothClassicPairing_block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarPairingLogging();
+  v4 = CarPairingLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __CRConfirmAndContinueBluetoothClassicPairing_block_invoke_3_cold_1();
@@ -2500,7 +2516,7 @@ void CRHandleCarPlayConnectionRequest(int a1, void *a2)
 void __CRHandleCarPlayConnectionRequest_block_invoke_2(uint64_t a1, int a2, void *a3)
 {
   v4 = a3;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   v6 = v5;
   if (a2)
   {
@@ -2520,7 +2536,7 @@ void __CRHandleCarPlayConnectionRequest_block_invoke_2(uint64_t a1, int a2, void
 void __CRHandleCarPlayConnectionRequest_block_invoke_62(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __CRHandleCarPlayConnectionRequest_block_invoke_62_cold_1();
@@ -3245,23 +3261,23 @@ void CRCarPlayAppServicePolicyChangedHandler()
   [v0 postNotificationName:@"com.apple.carkit.app.policy-changed" object:0 userInfo:0];
 }
 
-void sub_1C82312A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82312A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8231608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1C8231608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82320E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82320E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3291,7 +3307,7 @@ Class __getLSApplicationRecordClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3309,7 +3325,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __CoreServicesLibraryCore_block_invoke()
+uint64_t __CoreServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreServicesLibraryCore_frameworkLibrary = result;
@@ -3342,7 +3358,7 @@ void *__getkAssistantDirectActionEventKeySymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3357,23 +3373,23 @@ LABEL_5:
   return result;
 }
 
-uint64_t __AssistantServicesLibraryCore_block_invoke()
+uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-id CRCarPlayNavigationOwnersServiceInterface()
+id CRCarPlayNavigationOwnersServiceInterface(uint64_t a1)
 {
   if (CRCarPlayNavigationOwnersServiceInterface_onceToken != -1)
   {
     CRCarPlayNavigationOwnersServiceInterface_cold_1();
   }
 
-  v1 = CRCarPlayNavigationOwnersServiceInterface_interface;
+  v2 = CRCarPlayNavigationOwnersServiceInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CRCarPlayNavigationOwnersServiceInterface_block_invoke()
@@ -3383,16 +3399,16 @@ uint64_t __CRCarPlayNavigationOwnersServiceInterface_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CRCarPlayNavigationOwnerClientInterface()
+id CRCarPlayNavigationOwnerClientInterface(uint64_t a1)
 {
   if (CRCarPlayNavigationOwnerClientInterface_onceToken != -1)
   {
     CRCarPlayNavigationOwnerClientInterface_cold_1();
   }
 
-  v1 = CRCarPlayNavigationOwnerClientInterface_interface;
+  v2 = CRCarPlayNavigationOwnerClientInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CRCarPlayNavigationOwnerClientInterface_block_invoke()
@@ -3417,16 +3433,16 @@ void sub_1C8233D2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C8235398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C8235398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C82362C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C82362C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3457,7 +3473,7 @@ void *__getMFAACreateCertificateSerialNumberSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3472,18 +3488,18 @@ LABEL_5:
   return result;
 }
 
-uint64_t __MFAAuthenticationLibraryCore_block_invoke()
+uint64_t __MFAAuthenticationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MFAAuthenticationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1C8236A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C8236A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3501,9 +3517,9 @@ void _CRHandleRemoteControlEvent(uint64_t a1, const void *a2, uint64_t a3, void 
   }
 }
 
-void sub_1C8237284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C8237284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3788,9 +3804,9 @@ LABEL_11:
   return v3;
 }
 
-void sub_1C8239FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8239FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3803,36 +3819,37 @@ void sub_1C823A248(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C823BEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C823BEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_1C823E9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C823E9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id CRSessionBoostServiceInterface()
+id CRSessionBoostServiceInterface(uint64_t a1)
 {
   if (CRSessionBoostServiceInterface_onceToken != -1)
   {
     CRSessionBoostServiceInterface_cold_1();
   }
 
-  v1 = CRSessionBoostServiceInterface_interface;
+  v2 = CRSessionBoostServiceInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CRSessionBoostServiceInterface_block_invoke()
@@ -3842,16 +3859,16 @@ uint64_t __CRSessionBoostServiceInterface_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id CRSessionBoostClientInterface()
+id CRSessionBoostClientInterface(uint64_t a1)
 {
   if (CRSessionBoostClientInterface_onceToken != -1)
   {
     CRSessionBoostClientInterface_cold_1();
   }
 
-  v1 = CRSessionBoostClientInterface_interface;
+  v2 = CRSessionBoostClientInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CRSessionBoostClientInterface_block_invoke()
@@ -3861,16 +3878,16 @@ uint64_t __CRSessionBoostClientInterface_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1C82411E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82411E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C824148C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C824148C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3882,16 +3899,16 @@ void sub_1C8242034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C8242B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C8242B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3904,7 +3921,7 @@ void CARHandleSuggestUI(void *a1, void *a2, void *a3, void *a4)
   v8 = a2;
   v9 = a3;
   v10 = a4;
-  v11 = CarGeneralLogging();
+  v11 = CarGeneralLogging(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
@@ -3917,7 +3934,7 @@ void CARHandleSuggestUI(void *a1, void *a2, void *a3, void *a4)
   }
 
   v12 = [v7 bs_filter:&__block_literal_global_414];
-  v13 = CarGeneralLogging();
+  v13 = CarGeneralLogging(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -3941,8 +3958,7 @@ void CARHandleSuggestUI(void *a1, void *a2, void *a3, void *a4)
   v23 = v17;
   v18 = v16;
   v24 = v18;
-  [v15 enumerateObjectsUsingBlock:v22];
-  v19 = CarGeneralLogging();
+  v19 = CarGeneralLogging([v15 enumerateObjectsUsingBlock:v22]);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
@@ -3957,7 +3973,7 @@ void CARHandleSuggestUI(void *a1, void *a2, void *a3, void *a4)
   }
 
   v20 = [MEMORY[0x1E695DF20] dictionaryWithObject:v18 forKey:@"urls"];
-  v21 = CarGeneralLogging();
+  v21 = CarGeneralLogging(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -4007,9 +4023,9 @@ uint64_t __CARHandleSuggestUI_block_invoke_2(uint64_t a1, void *a2)
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1C8246014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8246014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4085,9 +4101,9 @@ float _CARGetMinimumScaleForProposedScaleForScreenInfo(void *a1, float a2)
   return v6;
 }
 
-void sub_1C82480E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82480E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4101,8 +4117,8 @@ void _CARGetMinimumScaleForSecondaryScreenInfo(void *a1)
 
 void sessionUpdatesQueue_endpointNotificationCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, NSObject *a5)
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v8 = +[CARSessionStatus sessionUpdatesQueue];
+  v89 = *MEMORY[0x1E69E9840];
+  v8 = [CARSessionStatus sessionUpdatesQueue:a3];
   dispatch_assert_queue_V2(v8);
 
   v9 = objc_autoreleasePoolPush();
@@ -4117,13 +4133,13 @@ void sessionUpdatesQueue_endpointNotificationCallback(uint64_t a1, void *a2, voi
   if (v12)
   {
     v13 = a5;
-    v14 = CarGeneralLogging();
+    v14 = CarGeneralLogging(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v71 = v12;
-      v72 = 2112;
-      v73 = v13;
+      v86 = v12;
+      v87 = 2112;
+      v88 = v13;
       _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "posting session notification %{public}@ %@", buf, 0x16u);
     }
 
@@ -4132,54 +4148,58 @@ void sessionUpdatesQueue_endpointNotificationCallback(uint64_t a1, void *a2, voi
     goto LABEL_7;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E69619A0]])
+  v16 = [v11 isEqualToString:*MEMORY[0x1E69619A0]];
+  if (v16)
   {
-    v16 = CarGeneralLogging();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = CarGeneralLogging(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sessionUpdatesQueue_endpointNotificationCallback_cold_6();
     }
 
-    v17 = [MEMORY[0x1E696AD88] defaultCenter];
-    v13 = v17;
-    v18 = @"CARSessionServerConnectionDiedNotification";
+    v18 = [MEMORY[0x1E696AD88] defaultCenter];
+    v13 = v18;
+    v19 = @"CARSessionServerConnectionDiedNotification";
 LABEL_20:
-    [v17 postNotificationName:v18 object:v10];
+    [v18 postNotificationName:v19 object:v10];
     goto LABEL_21;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E6961930]])
+  v20 = [v11 isEqualToString:*MEMORY[0x1E6961930]];
+  if (v20)
   {
-    v19 = CarGeneralLogging();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = CarGeneralLogging(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       sessionUpdatesQueue_endpointNotificationCallback_cold_5();
     }
 
-    v17 = [MEMORY[0x1E696AD88] defaultCenter];
-    v13 = v17;
-    v18 = @"CARSessionAuthenticationSucceededNotification";
+    v18 = [MEMORY[0x1E696AD88] defaultCenter];
+    v13 = v18;
+    v19 = @"CARSessionAuthenticationSucceededNotification";
     goto LABEL_20;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E6961958]])
+  v22 = [v11 isEqualToString:*MEMORY[0x1E6961958]];
+  if (v22)
   {
-    v20 = CarGeneralLogging();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v23 = CarGeneralLogging(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       sessionUpdatesQueue_endpointNotificationCallback_cold_4();
     }
 
-    v17 = [MEMORY[0x1E696AD88] defaultCenter];
-    v13 = v17;
-    v18 = @"CARSessionEndpointActivatedNotification";
+    v18 = [MEMORY[0x1E696AD88] defaultCenter];
+    v13 = v18;
+    v19 = @"CARSessionEndpointActivatedNotification";
     goto LABEL_20;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E6961968]])
+  v24 = [v11 isEqualToString:*MEMORY[0x1E6961968]];
+  if (v24)
   {
-    v21 = CarGeneralLogging();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v25 = CarGeneralLogging(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       sessionUpdatesQueue_endpointNotificationCallback_cold_3();
     }
@@ -4188,14 +4208,15 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E69619C0]])
+  v26 = [v11 isEqualToString:*MEMORY[0x1E69619C0]];
+  if (v26)
   {
-    v22 = CarGeneralLogging();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v27 = CarGeneralLogging(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v71 = a5;
-      _os_log_impl(&dword_1C81FC000, v22, OS_LOG_TYPE_INFO, "vehicle information changed %@", buf, 0xCu);
+      v86 = a5;
+      _os_log_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_INFO, "vehicle information changed %@", buf, 0xCu);
     }
 
     v13 = [a5 objectForKey:*MEMORY[0x1E69626F0]];
@@ -4206,22 +4227,22 @@ LABEL_20:
 
     if (v10[4])
     {
-      v23 = [v10 inputDeviceManager];
-      [v23 vehicleInformationChanged:v13];
+      v28 = [v10 inputDeviceManager];
+      [v28 vehicleInformationChanged:v13];
     }
 
-    v24 = [v13 valueForKey:*MEMORY[0x1E69626F8]];
+    v29 = [v13 valueForKey:*MEMORY[0x1E69626F8]];
 
-    if (!v24)
+    if (!v29)
     {
       goto LABEL_21;
     }
 
-    v25 = CarGeneralLogging();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v31 = CarGeneralLogging(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C81FC000, v25, OS_LOG_TYPE_INFO, "electronic toll collection state changed", buf, 2u);
+      _os_log_impl(&dword_1C81FC000, v31, OS_LOG_TYPE_INFO, "electronic toll collection state changed", buf, 2u);
     }
 
     v15 = [MEMORY[0x1E696AD88] defaultCenter];
@@ -4229,14 +4250,15 @@ LABEL_20:
     goto LABEL_7;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E69619E8]])
+  v32 = [v11 isEqualToString:*MEMORY[0x1E69619E8]];
+  if (v32)
   {
-    v26 = CarGeneralLogging();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v33 = CarGeneralLogging(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v71 = a5;
-      _os_log_impl(&dword_1C81FC000, v26, OS_LOG_TYPE_DEFAULT, "application URL requested: %@", buf, 0xCu);
+      v86 = a5;
+      _os_log_impl(&dword_1C81FC000, v33, OS_LOG_TYPE_DEFAULT, "application URL requested: %@", buf, 0xCu);
     }
 
     v13 = [a5 objectForKey:*MEMORY[0x1E6962708]];
@@ -4244,30 +4266,32 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E69619A8]])
+  v34 = [v11 isEqualToString:*MEMORY[0x1E69619A8]];
+  if (v34)
   {
-    v27 = CarGeneralLogging();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v35 = CarGeneralLogging(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v71 = a5;
-      _os_log_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_DEFAULT, "Siri requested: %@", buf, 0xCu);
+      v86 = a5;
+      _os_log_impl(&dword_1C81FC000, v35, OS_LOG_TYPE_DEFAULT, "Siri requested: %@", buf, 0xCu);
     }
 
-    v28 = [a5 objectForKey:*MEMORY[0x1E69624E8]];
-    [v10 _sessionUpdatesQueue_handleSiriRequestEvent:+[CARSession _siriRequestEventForEndpointAction:](CARSession withPayload:{"_siriRequestEventForEndpointAction:", v28), a5}];
+    v36 = [a5 objectForKey:*MEMORY[0x1E69624E8]];
+    [v10 _sessionUpdatesQueue_handleSiriRequestEvent:+[CARSession _siriRequestEventForEndpointAction:](CARSession withPayload:{"_siriRequestEventForEndpointAction:", v36), a5}];
 
     goto LABEL_22;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E6961948]])
+  v37 = [v11 isEqualToString:*MEMORY[0x1E6961948]];
+  if (v37)
   {
-    v29 = CarGeneralLogging();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v38 = CarGeneralLogging(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v71 = a5;
-      _os_log_impl(&dword_1C81FC000, v29, OS_LOG_TYPE_DEFAULT, "Alternate test Siri requested: %@", buf, 0xCu);
+      v86 = a5;
+      _os_log_impl(&dword_1C81FC000, v38, OS_LOG_TYPE_DEFAULT, "Alternate test Siri requested: %@", buf, 0xCu);
     }
 
     v13 = [a5 objectForKey:*MEMORY[0x1E69616F0]];
@@ -4276,14 +4300,15 @@ LABEL_20:
     goto LABEL_7;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E69619C8]])
+  v39 = [v11 isEqualToString:*MEMORY[0x1E69619C8]];
+  if (v39)
   {
-    v30 = CarGeneralLogging();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v40 = CarGeneralLogging(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v71 = a5;
-      _os_log_impl(&dword_1C81FC000, v30, OS_LOG_TYPE_DEFAULT, "View area change received: %@", buf, 0xCu);
+      v86 = a5;
+      _os_log_impl(&dword_1C81FC000, v40, OS_LOG_TYPE_DEFAULT, "View area change received: %@", buf, 0xCu);
     }
 
     [v10 _sessionUpdatesQueue_handleViewAreaChangeWithPayload:a5];
@@ -4295,117 +4320,122 @@ LABEL_20:
     if ([v11 isEqualToString:*MEMORY[0x1E6961990]])
     {
       v13 = a5;
-      v45 = CarGeneralLogging();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v55 = CarGeneralLogging(v13);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v71 = v13;
-        _os_log_impl(&dword_1C81FC000, v45, OS_LOG_TYPE_DEFAULT, "System night mode changed: %@", buf, 0xCu);
+        v86 = v13;
+        _os_log_impl(&dword_1C81FC000, v55, OS_LOG_TYPE_DEFAULT, "System night mode changed: %@", buf, 0xCu);
       }
 
       v15 = [v13 objectForKeyedSubscript:*MEMORY[0x1E6961858]];
-      v46 = [v13 objectForKeyedSubscript:*MEMORY[0x1E6961900]];
+      v56 = [v13 objectForKeyedSubscript:*MEMORY[0x1E6961900]];
       if (v15)
       {
-        v47 = [v10 configuration];
-        v48 = [v47 screenInfoForScreenID:v15];
+        v57 = [v10 configuration];
+        v58 = [v57 screenInfoForScreenID:v15];
 
-        [v48 nightModeChanged:{objc_msgSend(v46, "BOOLValue")}];
+        [v58 nightModeChanged:{objc_msgSend(v56, "BOOLValue")}];
       }
 
-      [v10 setSystemNightMode:v46];
-      v49 = [v10 appearanceManager];
-      [v49 handleNightModeUpdateWithParameters:v13];
+      [v10 setSystemNightMode:v56];
+      v59 = [v10 appearanceManager];
+      [v59 handleNightModeUpdateWithParameters:v13];
 
       [v10 _sessionUpdatesQueue_handleNightModeChange];
     }
 
     else if ([v11 isEqualToString:*MEMORY[0x1E69619B8]])
     {
-      v50 = *MEMORY[0x1E69626E8];
-      v51 = a5;
-      v13 = [v51 objectForKeyedSubscript:v50];
-      v15 = [v51 objectForKeyedSubscript:*MEMORY[0x1E69626E0]];
+      v60 = *MEMORY[0x1E69626E8];
+      v61 = a5;
+      v13 = [v61 objectForKeyedSubscript:v60];
+      v15 = [v61 objectForKeyedSubscript:*MEMORY[0x1E69626E0]];
 
       if (([v10 sessionStatusOptions] & 2) == 0)
       {
         goto LABEL_7;
       }
 
-      if ([v13 isEqualToString:@"showUI"])
+      v62 = [v13 isEqualToString:@"showUI"];
+      if (v62)
       {
-        v52 = CarGeneralLogging();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v63 = CarGeneralLogging(v62);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v15;
-          _os_log_impl(&dword_1C81FC000, v52, OS_LOG_TYPE_DEFAULT, "ShowUI requested with %@", buf, 0xCu);
+          v86 = v15;
+          _os_log_impl(&dword_1C81FC000, v63, OS_LOG_TYPE_DEFAULT, "ShowUI requested with %@", buf, 0xCu);
         }
 
         [v10 _sessionUpdatesQueue_handleShowUIWithParameters:v15];
         goto LABEL_7;
       }
 
-      if ([v13 isEqualToString:@"stopUI"])
+      v68 = [v13 isEqualToString:@"stopUI"];
+      if (v68)
       {
-        v57 = CarGeneralLogging();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v69 = CarGeneralLogging(v68);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v15;
-          _os_log_impl(&dword_1C81FC000, v57, OS_LOG_TYPE_DEFAULT, "StopUI requested with %@", buf, 0xCu);
+          v86 = v15;
+          _os_log_impl(&dword_1C81FC000, v69, OS_LOG_TYPE_DEFAULT, "StopUI requested with %@", buf, 0xCu);
         }
 
         [v10 _sessionUpdatesQueue_handleStopUIWithParameters:v15];
         goto LABEL_7;
       }
 
-      if ([v13 isEqualToString:@"uiAppearanceUpdate"])
+      v70 = [v13 isEqualToString:@"uiAppearanceUpdate"];
+      if (v70)
       {
-        v58 = CarGeneralLogging();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v71 = CarGeneralLogging(v70);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v15;
-          _os_log_impl(&dword_1C81FC000, v58, OS_LOG_TYPE_DEFAULT, "setAppearanceMode called with %@", buf, 0xCu);
+          v86 = v15;
+          _os_log_impl(&dword_1C81FC000, v71, OS_LOG_TYPE_DEFAULT, "setAppearanceMode called with %@", buf, 0xCu);
         }
 
         [v10 _sessionUpdatesQueue_handleAppearanceModeUpdateWithParameters:v15];
         goto LABEL_7;
       }
 
-      if ([v13 isEqualToString:@"mapAppearanceUpdate"])
+      v72 = [v13 isEqualToString:@"mapAppearanceUpdate"];
+      if (v72)
       {
-        v59 = CarGeneralLogging();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v73 = CarGeneralLogging(v72);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v15;
-          _os_log_impl(&dword_1C81FC000, v59, OS_LOG_TYPE_DEFAULT, "setMapAppearanceMode called with %@", buf, 0xCu);
+          v86 = v15;
+          _os_log_impl(&dword_1C81FC000, v73, OS_LOG_TYPE_DEFAULT, "setMapAppearanceMode called with %@", buf, 0xCu);
         }
 
         [v10 _sessionUpdatesQueue_handleMapAppearanceModeUpdateWithParameters:v15];
         goto LABEL_7;
       }
 
-      if ([v13 isEqualToString:@"updateDisplayPanels"])
+      v74 = [v13 isEqualToString:@"updateDisplayPanels"];
+      if (v74)
       {
         [v10 _sessionUpdatesQueue_handleDisplayPluginsUpdateWithParameters:v15];
         goto LABEL_7;
       }
 
-      v60 = CarGeneralLogging();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v75 = CarGeneralLogging(v74);
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v71 = v13;
-        v72 = 2112;
-        v73 = v15;
-        _os_log_impl(&dword_1C81FC000, v60, OS_LOG_TYPE_DEFAULT, "Received unhandled remote event %@ with %@", buf, 0x16u);
+        v86 = v13;
+        v87 = 2112;
+        v88 = v15;
+        _os_log_impl(&dword_1C81FC000, v75, OS_LOG_TYPE_DEFAULT, "Received unhandled remote event %@ with %@", buf, 0x16u);
       }
 
-      v46 = [v10 observers];
-      [v46 session:v10 receivedUnhandledRemoteEvent:v13 withPayload:v15];
+      v56 = [v10 observers];
+      [v56 session:v10 receivedUnhandledRemoteEvent:v13 withPayload:v15];
     }
 
     else
@@ -4418,14 +4448,14 @@ LABEL_20:
         }
 
         v13 = [a5 objectForKeyedSubscript:*MEMORY[0x1E69616E8]];
-        v56 = CarGeneralLogging();
-        v15 = v56;
+        v67 = CarGeneralLogging(v13);
+        v15 = v67;
         if (v13)
         {
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v71 = v13;
+            v86 = v13;
             _os_log_impl(&dword_1C81FC000, v15, OS_LOG_TYPE_DEFAULT, "starting video playback for app: %@", buf, 0xCu);
           }
 
@@ -4433,7 +4463,7 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           sessionUpdatesQueue_endpointNotificationCallback_cold_2();
         }
@@ -4442,29 +4472,29 @@ LABEL_20:
       }
 
       v13 = a5;
-      v53 = CarGeneralLogging();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v64 = CarGeneralLogging(v13);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v71 = v13;
-        _os_log_impl(&dword_1C81FC000, v53, OS_LOG_TYPE_DEFAULT, "Enhanced Siri parameters changed: %@", buf, 0xCu);
+        v86 = v13;
+        _os_log_impl(&dword_1C81FC000, v64, OS_LOG_TYPE_DEFAULT, "Enhanced Siri parameters changed: %@", buf, 0xCu);
       }
 
-      v54 = [v13 objectForKeyedSubscript:*MEMORY[0x1E6961828]];
-      v15 = v54;
-      if (v54)
+      v65 = [v13 objectForKeyedSubscript:*MEMORY[0x1E6961828]];
+      v15 = v65;
+      if (v65)
       {
-        v55 = [v54 integerValue];
+        v66 = [v65 integerValue];
       }
 
       else
       {
-        v55 = -1;
+        v66 = -1;
       }
 
-      v10[5] = v55;
-      v46 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v46 postNotificationName:@"CARSessionVoiceTriggerModeChangedNotification" object:v10 userInfo:v13];
+      v10[5] = v66;
+      v56 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v56 postNotificationName:@"CARSessionVoiceTriggerModeChangedNotification" object:v10 userInfo:v13];
     }
 
 LABEL_7:
@@ -4473,63 +4503,63 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v62 = v9;
-  v31 = a5;
-  v32 = CarGeneralLogging();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v77 = v9;
+  v41 = a5;
+  v42 = CarGeneralLogging(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v71 = v31;
-    _os_log_impl(&dword_1C81FC000, v32, OS_LOG_TYPE_DEFAULT, "Limited UI changed: %@", buf, 0xCu);
+    v86 = v41;
+    _os_log_impl(&dword_1C81FC000, v42, OS_LOG_TYPE_DEFAULT, "Limited UI changed: %@", buf, 0xCu);
   }
 
-  v33 = [v31 objectForKeyedSubscript:*MEMORY[0x1E6961858]];
-  v61 = v31;
-  v34 = [v31 objectForKeyedSubscript:*MEMORY[0x1E6961860]];
-  v63 = [v34 BOOLValue];
+  v43 = [v41 objectForKeyedSubscript:*MEMORY[0x1E6961858]];
+  v76 = v41;
+  v44 = [v41 objectForKeyedSubscript:*MEMORY[0x1E6961860]];
+  v78 = [v44 BOOLValue];
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v35 = [v10 configuration];
-  v36 = [v35 screens];
+  v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v45 = [v10 configuration];
+  v46 = [v45 screens];
 
-  obj = v36;
-  v37 = [v36 countByEnumeratingWithState:&v65 objects:v69 count:16];
-  if (v37)
+  obj = v46;
+  v47 = [v46 countByEnumeratingWithState:&v80 objects:v84 count:16];
+  if (v47)
   {
-    v38 = v37;
-    v39 = *v66;
+    v48 = v47;
+    v49 = *v81;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v48; ++i)
       {
-        if (*v66 != v39)
+        if (*v81 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v41 = *(*(&v65 + 1) + 8 * i);
-        v42 = [v41 identifier];
-        v43 = [v42 isEqualToString:v33];
+        v51 = *(*(&v80 + 1) + 8 * i);
+        v52 = [v51 identifier];
+        v53 = [v52 isEqualToString:v43];
 
-        if (v43)
+        if (v53)
         {
-          [v41 limitedUIChanged:v63];
+          [v51 limitedUIChanged:v78];
         }
       }
 
-      v38 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
+      v48 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
     }
 
-    while (v38);
+    while (v48);
   }
 
-  v44 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v44 postNotificationName:@"CARSessionLimitUserInterfacesChangedNotification" object:v10 userInfo:v61];
+  v54 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v54 postNotificationName:@"CARSessionLimitUserInterfacesChangedNotification" object:v10 userInfo:v76];
 
-  v9 = v62;
+  v9 = v77;
 LABEL_22:
 
   objc_autoreleasePoolPop(v9);
@@ -4550,16 +4580,16 @@ void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void sub_1C82494BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C82494BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C824964C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C824964C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4571,16 +4601,16 @@ void sub_1C824982C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C824ABE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C824ABE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C824AFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C824AFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4697,7 +4727,7 @@ id sub_1C824BC5C@<X0>(id *a1@<X0>, void *a2@<X8>)
 
 void __swiftcall CRHomeScreenStyleData.init(dictionary:)(CRHomeScreenStyleData_optional *__return_ptr retstr, Swift::OpaquePointer dictionary)
 {
-  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata(retstr));
   v3 = sub_1C8254DD4();
 
   [v2 initWithDictionary_];
@@ -4707,22 +4737,22 @@ id CRHomeScreenStyleData.init(dictionary:)(uint64_t a1)
 {
   v2 = v1;
   swift_getObjectType();
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v5 = [ObjCClassFromMetadata styleTypeKey];
-  v6 = sub_1C8254E04();
-  v8 = v7;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata(v4);
+  v6 = [ObjCClassFromMetadata styleTypeKey];
+  v7 = sub_1C8254E04();
+  v9 = v8;
 
   if (*(a1 + 16))
   {
-    v9 = sub_1C824D3D4(v6, v8);
-    v11 = v10;
+    v10 = sub_1C824D3D4(v7, v9);
+    v12 = v11;
 
-    if (v11)
+    if (v12)
     {
-      sub_1C824D44C(*(a1 + 56) + 32 * v9, v47);
+      sub_1C824D44C(*(a1 + 56) + 32 * v10, v48);
       if (swift_dynamicCast())
       {
-        v12 = *&v46;
+        v13 = *&v47;
         goto LABEL_7;
       }
     }
@@ -4732,23 +4762,23 @@ id CRHomeScreenStyleData.init(dictionary:)(uint64_t a1)
   {
   }
 
-  v12 = 2;
+  v13 = 2;
 LABEL_7:
-  v13 = [ObjCClassFromMetadata styleVariantKey];
-  v14 = sub_1C8254E04();
-  v16 = v15;
+  v14 = [ObjCClassFromMetadata styleVariantKey];
+  v15 = sub_1C8254E04();
+  v17 = v16;
 
   if (*(a1 + 16))
   {
-    v17 = sub_1C824D3D4(v14, v16);
-    v19 = v18;
+    v18 = sub_1C824D3D4(v15, v17);
+    v20 = v19;
 
-    if (v19)
+    if (v20)
     {
-      sub_1C824D44C(*(a1 + 56) + 32 * v17, v47);
+      sub_1C824D44C(*(a1 + 56) + 32 * v18, v48);
       if (swift_dynamicCast())
       {
-        v20 = *&v46;
+        v21 = *&v47;
         goto LABEL_13;
       }
     }
@@ -4758,24 +4788,24 @@ LABEL_7:
   {
   }
 
-  v20 = 2;
+  v21 = 2;
 LABEL_13:
-  v21 = [ObjCClassFromMetadata variationKey];
-  v22 = sub_1C8254E04();
-  v24 = v23;
+  v22 = [ObjCClassFromMetadata variationKey];
+  v23 = sub_1C8254E04();
+  v25 = v24;
 
   if (*(a1 + 16))
   {
-    v25 = sub_1C824D3D4(v22, v24);
-    v27 = v26;
+    v26 = sub_1C824D3D4(v23, v25);
+    v28 = v27;
 
-    v28 = 0.0;
-    if (v27)
+    v29 = 0.0;
+    if (v28)
     {
-      sub_1C824D44C(*(a1 + 56) + 32 * v25, v47);
+      sub_1C824D44C(*(a1 + 56) + 32 * v26, v48);
       if (swift_dynamicCast())
       {
-        v28 = v46;
+        v29 = v47;
       }
     }
   }
@@ -4783,25 +4813,25 @@ LABEL_13:
   else
   {
 
-    v28 = 0.0;
+    v29 = 0.0;
   }
 
-  v29 = [ObjCClassFromMetadata luminanceKey];
-  v30 = sub_1C8254E04();
-  v32 = v31;
+  v30 = [ObjCClassFromMetadata luminanceKey];
+  v31 = sub_1C8254E04();
+  v33 = v32;
 
   if (*(a1 + 16))
   {
-    v33 = sub_1C824D3D4(v30, v32);
-    v35 = v34;
+    v34 = sub_1C824D3D4(v31, v33);
+    v36 = v35;
 
-    v36 = 0.0;
-    if (v35)
+    v37 = 0.0;
+    if (v36)
     {
-      sub_1C824D44C(*(a1 + 56) + 32 * v33, v47);
+      sub_1C824D44C(*(a1 + 56) + 32 * v34, v48);
       if (swift_dynamicCast())
       {
-        v36 = v46;
+        v37 = v47;
       }
     }
   }
@@ -4809,12 +4839,12 @@ LABEL_13:
   else
   {
 
-    v36 = 0.0;
+    v37 = 0.0;
   }
 
-  v37 = [ObjCClassFromMetadata saturationKey];
-  v38 = sub_1C8254E04();
-  v40 = v39;
+  v38 = [ObjCClassFromMetadata saturationKey];
+  v39 = sub_1C8254E04();
+  v41 = v40;
 
   if (!*(a1 + 16))
   {
@@ -4822,47 +4852,44 @@ LABEL_13:
     goto LABEL_28;
   }
 
-  v41 = sub_1C824D3D4(v38, v40);
-  v43 = v42;
+  v42 = sub_1C824D3D4(v39, v41);
+  v44 = v43;
 
-  if ((v43 & 1) == 0)
+  if ((v44 & 1) == 0)
   {
 LABEL_28:
 
     goto LABEL_29;
   }
 
-  sub_1C824D44C(*(a1 + 56) + 32 * v41, v47);
+  sub_1C824D44C(*(a1 + 56) + 32 * v42, v48);
 
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_29:
-    v44 = 0.0;
-    return [v2 initWithStyleType:v12 styleVariant:v20 variation:v28 luminance:v36 saturation:v44];
+    v45 = 0.0;
+    return [v2 initWithStyleType:v13 styleVariant:v21 variation:v29 luminance:v37 saturation:v45];
   }
 
-  v44 = v46;
-  return [v2 initWithStyleType:v12 styleVariant:v20 variation:v28 luminance:v36 saturation:v44];
+  v45 = v47;
+  return [v2 initWithStyleType:v13 styleVariant:v21 variation:v29 luminance:v37 saturation:v45];
 }
 
-id CRHomeScreenStyleData.init(styleType:styleVariant:)(uint64_t a1, uint64_t a2)
+id CRHomeScreenStyleData.init(styleType:styleVariant:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v4 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v5 = objc_allocWithZone(swift_getObjCClassFromMetadata(a3));
 
-  return [v4 initWithStyleType:a1 styleVariant:a2];
+  return [v5 initWithStyleType:a1 styleVariant:a2];
 }
 
+id CRHomeScreenStyleData.init(styleType:styleVariant:variation:luminance:saturation:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>)
 {
-  return [v2 initWithStyleType:a1 styleVariant:a2 variation:0.0 luminance:0.0 saturation:0.0];
+  v11 = objc_allocWithZone(swift_getObjCClassFromMetadata(a3));
+
+  return [v11 initWithStyleType:a1 styleVariant:a2 variation:a4 luminance:a5 saturation:a6];
 }
 
 id CRHomeScreenStyleData.init(styleType:styleVariant:variation:luminance:saturation:)(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
-{
-  v10 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-
-  return [v10 initWithStyleType:a1 styleVariant:a2 variation:a3 luminance:a4 saturation:a5];
-}
-
 {
   *(v5 + OBJC_IVAR___CRHomeScreenStyleData_styleType) = a1;
   *(v5 + OBJC_IVAR___CRHomeScreenStyleData_styleVariant) = a2;
@@ -4876,10 +4903,10 @@ id CRHomeScreenStyleData.init(styleType:styleVariant:variation:luminance:saturat
 unint64_t CRHomeScreenStyleData.asDictionary.getter()
 {
   swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29ACD8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29ACD8, &qword_1C825BA60);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1C825BA50;
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata(&off_1C825B000);
   v3 = [ObjCClassFromMetadata styleTypeKey];
   v4 = sub_1C8254E04();
   v6 = v5;
@@ -4888,7 +4915,7 @@ unint64_t CRHomeScreenStyleData.asDictionary.getter()
   *(inited + 40) = v6;
   [v0 styleType];
   v7 = sub_1C8254E74();
-  v8 = sub_1C824DDE4(0, &qword_1EC29ACE0);
+  v8 = sub_1C824DDE4(0, &qword_1EC29ACE0, 0x1E696AD98);
   *(inited + 72) = v8;
   *(inited + 48) = v7;
   v9 = [ObjCClassFromMetadata styleVariantKey];
@@ -4933,14 +4960,14 @@ unint64_t CRHomeScreenStyleData.asDictionary.getter()
   *(inited + 240) = v28;
   v29 = sub_1C824D5A8(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29ACE8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29ACE8, &qword_1C825BA68);
   swift_arrayDestroy();
   return v29;
 }
 
 BOOL CRHomeScreenStyleData.isEqual(_:)(uint64_t a1)
 {
-  v2 = sub_1C824DE2C(a1, v17, &unk_1EC29ACF0);
+  v2 = sub_1C824DE2C(a1, v17, &unk_1EC29ACF0, &qword_1C825BA70);
   if (v18)
   {
     type metadata accessor for CRHomeScreenStyleData(v2);
@@ -5026,61 +5053,61 @@ Swift::Void __swiftcall CRHomeScreenStyleData.encode(with:)(NSCoder with)
 {
   swift_getObjectType();
   v3 = [v1 styleType];
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v5 = [ObjCClassFromMetadata styleTypeKey];
-  if (!v5)
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata(v4);
+  v6 = [ObjCClassFromMetadata styleTypeKey];
+  if (!v6)
   {
     sub_1C8254E04();
-    v5 = sub_1C8254DF4();
+    v6 = sub_1C8254DF4();
   }
 
-  [(objc_class *)with.super.isa encodeInteger:v3 forKey:v5];
+  [(objc_class *)with.super.isa encodeInteger:v3 forKey:v6];
 
-  v6 = [v1 styleVariant];
-  v7 = [ObjCClassFromMetadata styleVariantKey];
-  if (!v7)
+  v7 = [v1 styleVariant];
+  v8 = [ObjCClassFromMetadata styleVariantKey];
+  if (!v8)
   {
     sub_1C8254E04();
-    v7 = sub_1C8254DF4();
+    v8 = sub_1C8254DF4();
   }
 
-  [(objc_class *)with.super.isa encodeInteger:v6 forKey:v7];
+  [(objc_class *)with.super.isa encodeInteger:v7 forKey:v8];
 
   [v1 variation];
-  v9 = v8;
-  v10 = [ObjCClassFromMetadata variationKey];
-  if (!v10)
+  v10 = v9;
+  v11 = [ObjCClassFromMetadata variationKey];
+  if (!v11)
   {
     sub_1C8254E04();
-    v10 = sub_1C8254DF4();
+    v11 = sub_1C8254DF4();
   }
 
-  [(objc_class *)with.super.isa encodeDouble:v10 forKey:v9];
+  [(objc_class *)with.super.isa encodeDouble:v11 forKey:v10];
 
   [v1 luminance];
-  v12 = v11;
-  v13 = [ObjCClassFromMetadata luminanceKey];
-  if (!v13)
+  v13 = v12;
+  v14 = [ObjCClassFromMetadata luminanceKey];
+  if (!v14)
   {
     sub_1C8254E04();
-    v13 = sub_1C8254DF4();
+    v14 = sub_1C8254DF4();
   }
 
-  [(objc_class *)with.super.isa encodeDouble:v13 forKey:v12];
+  [(objc_class *)with.super.isa encodeDouble:v14 forKey:v13];
 
   [v1 saturation];
-  v15 = v14;
-  v16 = [ObjCClassFromMetadata saturationKey];
-  if (!v16)
+  v16 = v15;
+  v17 = [ObjCClassFromMetadata saturationKey];
+  if (!v17)
   {
     sub_1C8254E04();
-    v17 = sub_1C8254DF4();
+    v18 = sub_1C8254DF4();
 
-    v16 = v17;
+    v17 = v18;
   }
 
-  v18 = v16;
-  [(objc_class *)with.super.isa encodeDouble:v15 forKey:?];
+  v19 = v17;
+  [(objc_class *)with.super.isa encodeDouble:v16 forKey:?];
 }
 
 id CRHomeScreenStyleData.init(coder:)(void *a1)
@@ -5095,69 +5122,69 @@ void CRHomeScreenStyleData.encode(withBSXPCCoder:)(void *a1)
   swift_getObjectType();
   [v1 styleType];
   v3 = sub_1C8254E74();
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v5 = [ObjCClassFromMetadata styleTypeKey];
-  if (!v5)
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata(v4);
+  v6 = [ObjCClassFromMetadata styleTypeKey];
+  if (!v6)
   {
     sub_1C8254E04();
-    v5 = sub_1C8254DF4();
+    v6 = sub_1C8254DF4();
   }
 
-  [a1 encodeObject:v3 forKey:v5];
+  [a1 encodeObject:v3 forKey:v6];
 
   [v1 styleVariant];
-  v6 = sub_1C8254E74();
-  v7 = [ObjCClassFromMetadata styleVariantKey];
-  if (!v7)
+  v7 = sub_1C8254E74();
+  v8 = [ObjCClassFromMetadata styleVariantKey];
+  if (!v8)
   {
     sub_1C8254E04();
-    v7 = sub_1C8254DF4();
+    v8 = sub_1C8254DF4();
   }
 
-  [a1 encodeObject:v6 forKey:v7];
+  [a1 encodeObject:v7 forKey:v8];
 
   [v1 variation];
-  v9 = v8;
-  v10 = [ObjCClassFromMetadata variationKey];
-  if (!v10)
+  v10 = v9;
+  v11 = [ObjCClassFromMetadata variationKey];
+  if (!v11)
   {
     sub_1C8254E04();
-    v10 = sub_1C8254DF4();
+    v11 = sub_1C8254DF4();
   }
 
-  [a1 encodeDouble:v10 forKey:v9];
+  [a1 encodeDouble:v11 forKey:v10];
 
   [v1 luminance];
-  v12 = v11;
-  v13 = [ObjCClassFromMetadata luminanceKey];
-  if (!v13)
+  v13 = v12;
+  v14 = [ObjCClassFromMetadata luminanceKey];
+  if (!v14)
   {
     sub_1C8254E04();
-    v13 = sub_1C8254DF4();
+    v14 = sub_1C8254DF4();
   }
 
-  [a1 encodeDouble:v13 forKey:v12];
+  [a1 encodeDouble:v14 forKey:v13];
 
   [v1 saturation];
-  v15 = v14;
-  v16 = [ObjCClassFromMetadata saturationKey];
-  if (!v16)
+  v16 = v15;
+  v17 = [ObjCClassFromMetadata saturationKey];
+  if (!v17)
   {
     sub_1C8254E04();
-    v17 = sub_1C8254DF4();
+    v18 = sub_1C8254DF4();
 
-    v16 = v17;
+    v17 = v18;
   }
 
-  v18 = v16;
-  [a1 encodeDouble:v15 forKey:?];
+  v19 = v17;
+  [a1 encodeDouble:v16 forKey:?];
 }
 
-id CRHomeScreenStyleData.init(bsxpcCoder:)(uint64_t a1)
+id CRHomeScreenStyleData.init(bsxpcCoder:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v1 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithBSXPCCoder_];
+  v2 = [objc_allocWithZone(swift_getObjCClassFromMetadata(a2)) initWithBSXPCCoder_];
   swift_unknownObjectRelease();
-  return v1;
+  return v2;
 }
 
 id CRHomeScreenStyleData.init(bsxpcCoder:)(void *a1)
@@ -5169,7 +5196,7 @@ id CRHomeScreenStyleData.init(bsxpcCoder:)(void *a1)
 
 void __swiftcall CRHomeScreenStyleData.init()(CRHomeScreenStyleData *__return_ptr retstr)
 {
-  v1 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v1 = objc_allocWithZone(swift_getObjCClassFromMetadata(retstr));
 
   [v1 init];
 }
@@ -5191,7 +5218,7 @@ uint64_t sub_1C824D44C(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5237,13 +5264,13 @@ unint64_t sub_1C824D5A8(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29AE98);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29AE98, &qword_1C825BB38);
     v3 = sub_1C8254EF4();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_1C824DE2C(v4, &v13, &qword_1EC29ACE8);
+      sub_1C824DE2C(v4, &v13, &qword_1EC29ACE8, &qword_1C825BA68);
       v5 = v13;
       v6 = v14;
       result = sub_1C824D3D4(v13, v14);
@@ -5289,17 +5316,17 @@ LABEL_10:
 
 uint64_t sub_1C824D6D8(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC29ACF0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC29ACF0, &qword_1C825BA70);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void sub_1C824D77C(uint64_t a1, unint64_t *a2)
+void sub_1C824D77C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -5309,105 +5336,15 @@ void sub_1C824D77C(uint64_t a1, unint64_t *a2)
 id sub_1C824D7C8(void *a1)
 {
   swift_getObjectType();
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v4 = [ObjCClassFromMetadata styleTypeKey];
-  if (!v4)
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata(v3);
+  v5 = [ObjCClassFromMetadata styleTypeKey];
+  if (!v5)
   {
     sub_1C8254E04();
-    v4 = sub_1C8254DF4();
+    v5 = sub_1C8254DF4();
   }
 
-  v5 = [a1 decodeIntegerForKey_];
-
-  v6 = [ObjCClassFromMetadata styleVariantKey];
-  if (!v6)
-  {
-    sub_1C8254E04();
-    v6 = sub_1C8254DF4();
-  }
-
-  v7 = [a1 decodeIntegerForKey_];
-
-  v8 = [ObjCClassFromMetadata variationKey];
-  if (!v8)
-  {
-    sub_1C8254E04();
-    v8 = sub_1C8254DF4();
-  }
-
-  [a1 decodeDoubleForKey_];
-  v10 = v9;
-
-  v11 = [ObjCClassFromMetadata luminanceKey];
-  if (!v11)
-  {
-    sub_1C8254E04();
-    v11 = sub_1C8254DF4();
-  }
-
-  [a1 decodeDoubleForKey_];
-  v13 = v12;
-
-  v14 = [ObjCClassFromMetadata saturationKey];
-  if (!v14)
-  {
-    sub_1C8254E04();
-    v14 = sub_1C8254DF4();
-  }
-
-  [a1 decodeDoubleForKey_];
-  v16 = v15;
-
-  return [v1 initWithStyleType:v5 styleVariant:v7 variation:v10 luminance:v13 saturation:v16];
-}
-
-id sub_1C824D9E4(void *a1)
-{
-  swift_getObjectType();
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v4 = [ObjCClassFromMetadata styleTypeKey];
-  if (!v4)
-  {
-    sub_1C8254E04();
-    v4 = sub_1C8254DF4();
-  }
-
-  sub_1C824DDE4(0, &qword_1EC29AE90);
-  v5 = swift_getObjCClassFromMetadata();
-  v6 = [a1 decodeObjectOfClass:v5 forKey:v4];
-
-  if (v6)
-  {
-    sub_1C8254EA4();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v21 = 0u;
-    v22 = 0u;
-  }
-
-  v23 = v21;
-  v24 = v22;
-  if (*(&v22 + 1))
-  {
-    if (swift_dynamicCast())
-    {
-      objc_opt_self();
-      if (swift_dynamicCastObjCClass())
-      {
-        *&v23 = 0;
-        BYTE8(v23) = 1;
-        sub_1C8254E84();
-      }
-    }
-  }
-
-  else
-  {
-    sub_1C824D6D8(&v23);
-  }
+  v6 = [a1 decodeIntegerForKey_];
 
   v7 = [ObjCClassFromMetadata styleVariantKey];
   if (!v7)
@@ -5416,7 +5353,55 @@ id sub_1C824D9E4(void *a1)
     v7 = sub_1C8254DF4();
   }
 
-  v8 = [a1 decodeObjectOfClass:v5 forKey:v7];
+  v8 = [a1 decodeIntegerForKey_];
+
+  v9 = [ObjCClassFromMetadata variationKey];
+  if (!v9)
+  {
+    sub_1C8254E04();
+    v9 = sub_1C8254DF4();
+  }
+
+  [a1 decodeDoubleForKey_];
+  v11 = v10;
+
+  v12 = [ObjCClassFromMetadata luminanceKey];
+  if (!v12)
+  {
+    sub_1C8254E04();
+    v12 = sub_1C8254DF4();
+  }
+
+  [a1 decodeDoubleForKey_];
+  v14 = v13;
+
+  v15 = [ObjCClassFromMetadata saturationKey];
+  if (!v15)
+  {
+    sub_1C8254E04();
+    v15 = sub_1C8254DF4();
+  }
+
+  [a1 decodeDoubleForKey_];
+  v17 = v16;
+
+  return [v1 initWithStyleType:v6 styleVariant:v8 variation:v11 luminance:v14 saturation:v17];
+}
+
+id sub_1C824D9E4(void *a1)
+{
+  swift_getObjectType();
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata(v3);
+  v5 = [ObjCClassFromMetadata styleTypeKey];
+  if (!v5)
+  {
+    sub_1C8254E04();
+    v5 = sub_1C8254DF4();
+  }
+
+  sub_1C824DDE4(0, &qword_1EC29AE90, 0x1E69E58C0);
+  v7 = swift_getObjCClassFromMetadata(v6);
+  v8 = [a1 decodeObjectOfClass:v7 forKey:v5];
 
   if (v8)
   {
@@ -5426,26 +5411,68 @@ id sub_1C824D9E4(void *a1)
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
   }
 
-  v23 = v21;
-  v24 = v22;
-  if (*(&v22 + 1))
+  v25 = v23;
+  v26 = v24;
+  if (*(&v24 + 1))
   {
     if (swift_dynamicCast())
     {
       objc_opt_self();
       if (swift_dynamicCastObjCClass())
       {
-        *&v23 = 0;
-        BYTE8(v23) = 1;
+        *&v25 = 0;
+        BYTE8(v25) = 1;
+        sub_1C8254E84();
+      }
+    }
+  }
+
+  else
+  {
+    sub_1C824D6D8(&v25);
+  }
+
+  v9 = [ObjCClassFromMetadata styleVariantKey];
+  if (!v9)
+  {
+    sub_1C8254E04();
+    v9 = sub_1C8254DF4();
+  }
+
+  v10 = [a1 decodeObjectOfClass:v7 forKey:v9];
+
+  if (v10)
+  {
+    sub_1C8254EA4();
+    swift_unknownObjectRelease();
+  }
+
+  else
+  {
+    v23 = 0u;
+    v24 = 0u;
+  }
+
+  v25 = v23;
+  v26 = v24;
+  if (*(&v24 + 1))
+  {
+    if (swift_dynamicCast())
+    {
+      objc_opt_self();
+      if (swift_dynamicCastObjCClass())
+      {
+        *&v25 = 0;
+        BYTE8(v25) = 1;
         sub_1C8254E84();
 
-        if (BYTE8(v23) != 1)
+        if (BYTE8(v25) != 1)
         {
-          v9 = v23;
+          v11 = v25;
           goto LABEL_26;
         }
       }
@@ -5458,45 +5485,45 @@ id sub_1C824D9E4(void *a1)
 
   else
   {
-    sub_1C824D6D8(&v23);
+    sub_1C824D6D8(&v25);
   }
 
-  v9 = 2;
+  v11 = 2;
 LABEL_26:
-  v10 = [ObjCClassFromMetadata variationKey];
-  if (!v10)
+  v12 = [ObjCClassFromMetadata variationKey];
+  if (!v12)
   {
     sub_1C8254E04();
-    v10 = sub_1C8254DF4();
+    v12 = sub_1C8254DF4();
   }
 
   [a1 decodeDoubleForKey_];
-  v12 = v11;
+  v14 = v13;
 
-  v13 = [ObjCClassFromMetadata luminanceKey];
-  if (!v13)
+  v15 = [ObjCClassFromMetadata luminanceKey];
+  if (!v15)
   {
     sub_1C8254E04();
-    v13 = sub_1C8254DF4();
+    v15 = sub_1C8254DF4();
   }
 
   [a1 decodeDoubleForKey_];
-  v15 = v14;
+  v17 = v16;
 
-  v16 = [ObjCClassFromMetadata saturationKey];
-  if (!v16)
+  v18 = [ObjCClassFromMetadata saturationKey];
+  if (!v18)
   {
     sub_1C8254E04();
-    v16 = sub_1C8254DF4();
+    v18 = sub_1C8254DF4();
   }
 
   [a1 decodeDoubleForKey_];
-  v18 = v17;
+  v20 = v19;
 
-  return [v1 initWithStyleType:2 styleVariant:v9 variation:v12 luminance:v15 saturation:v18];
+  return [v1 initWithStyleType:2 styleVariant:v11 variation:v14 luminance:v17 saturation:v20];
 }
 
-uint64_t sub_1C824DDE4(uint64_t a1, unint64_t *a2)
+uint64_t sub_1C824DDE4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -5509,10 +5536,10 @@ uint64_t sub_1C824DDE4(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_1C824DE2C(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_1C824DE2C(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -5617,11 +5644,11 @@ uint64_t sub_1C824E1D4()
   return sub_1C8254F34();
 }
 
-uint64_t sub_1C824E248()
+uint64_t sub_1C824E248(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1C8254F14();
-  MEMORY[0x1CCA71970](v1);
+  MEMORY[0x1CCA71970](v2);
   return sub_1C8254F34();
 }
 
@@ -5663,11 +5690,11 @@ id DisplayScaling.init()()
   return objc_msgSendSuper2(&v2, sel_init);
 }
 
-id DisplayScaling.__deallocating_deinit()
+id DisplayScaling.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for DisplayScaling();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for DisplayScaling();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t CARScreenType.description.getter(uint64_t a1)
@@ -5747,14 +5774,14 @@ uint64_t sub_1C824E490()
   type metadata accessor for CGSize(0);
   sub_1C8254EE4();
   MEMORY[0x1CCA71880](0x6163697379687020, 0xEF3A657A6953206CLL);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29AF00);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC29AF00, &qword_1C825BB70);
   v6 = sub_1C8254E14();
   MEMORY[0x1CCA71880](v6);
 
   return 0;
 }
 
-uint64_t sub_1C824E634(unsigned __int8 a1)
+unint64_t sub_1C824E634(unsigned __int8 a1)
 {
   v1 = 1701736270;
   if (a1)
@@ -5773,7 +5800,7 @@ uint64_t sub_1C824E634(unsigned __int8 a1)
   }
 }
 
-uint64_t sub_1C824E6A8()
+unint64_t sub_1C824E6A8()
 {
   v1 = 1701736270;
   if (*v0)
@@ -5792,7 +5819,7 @@ uint64_t sub_1C824E6A8()
   }
 }
 
-uint64_t sub_1C824E76C(__int128 *a1, __int128 *a2)
+BOOL sub_1C824E76C(__int128 *a1, __int128 *a2)
 {
   v2 = a1[1];
   v5 = *a1;
@@ -5802,7 +5829,7 @@ uint64_t sub_1C824E76C(__int128 *a1, __int128 *a2)
   v7 = *a2;
   v8[0] = v3;
   *(v8 + 9) = *(a2 + 25);
-  return sub_1C824ED60(&v5, &v7) & 1;
+  return sub_1C824ED60(&v5, &v7);
 }
 
 unint64_t sub_1C824E7B8(uint64_t a1, unint64_t a2, uint64_t *a3)
@@ -5903,14 +5930,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_1C824E990(uint64_t a1, unint64_t a2)
+void *sub_1C824E990(uint64_t a1, unint64_t a2)
 {
   v3 = sub_1C824E9DC(a1, a2);
   sub_1C824EB0C(&unk_1F47DE260);
   return v3;
 }
 
-uint64_t sub_1C824E9DC(uint64_t a1, unint64_t a2)
+void *sub_1C824E9DC(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -6091,7 +6118,7 @@ void *sub_1C824EBF8(uint64_t a1, uint64_t a2)
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC29AF20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC29AF20, &unk_1C825BD60);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -6141,7 +6168,7 @@ char *sub_1C824EC6C(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC29AF20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC29AF20, &unk_1C825BD60);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6173,7 +6200,7 @@ char *sub_1C824EC6C(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1C824ED60(uint64_t a1, uint64_t a2)
+BOOL sub_1C824ED60(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40) & 1) != 0 || (*(a2 + 40))
   {
@@ -6691,9 +6718,9 @@ uint64_t sub_1C824F630(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -6716,6 +6743,13 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
   return a2;
 }
 
+void CRScaledDisplaysWithAirplayDisplays_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_1C81FC000, a2, a3, "CRScaledDisplaysWithAirplayDisplays: error creating CRDisplayScaleInfo: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void CARVerifyClass_cold_1()
 {
   v5 = *MEMORY[0x1E69E9840];
@@ -6728,15 +6762,15 @@ void CARVerifyClass_cold_1()
 void sessionUpdatesQueue_endpointNotificationCallback_cold_2()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "no source app for CarEntityHasScreenForAirPlayVideo");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void sessionUpdatesQueue_endpointNotificationCallback_cold_6()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "AirPlay endpoint server connection died");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 NSRect NSRectFromString(NSString *aString)

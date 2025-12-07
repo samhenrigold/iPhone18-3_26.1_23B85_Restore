@@ -19,7 +19,7 @@
 - (id)accessibilityLabel
 {
   v3 = [(PBFPosterGalleryPreviewCellAccessibility *)self safeUIViewForKey:@"posterPreviewView"];
-  v4 = AXMappedLabelOrValueForPosterPreview(v3);
+  v4 = AXMappedLabelOrValueForPosterPreview(v3, 1);
   v5 = v4;
   if (v4)
   {
@@ -69,7 +69,7 @@ LABEL_11:
 - (id)accessibilityValue
 {
   v3 = [(PBFPosterGalleryPreviewCellAccessibility *)self safeUIViewForKey:@"posterPreviewView"];
-  v4 = AXMappedLabelOrValueForPosterPreview(v3);
+  v4 = AXMappedLabelOrValueForPosterPreview(v3, 0);
   v5 = v4;
   if (v4)
   {

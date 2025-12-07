@@ -1,13 +1,13 @@
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (qword_86B8 != -1)
   {
     sub_17A4();
   }
 
-  v1 = qword_86B0;
+  v2 = qword_86B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_DB0(id a1)
@@ -17,16 +17,16 @@ void sub_DB0(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (qword_86C8 != -1)
   {
     sub_17B8();
   }
 
-  v1 = qword_86C0;
+  v2 = qword_86C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_E38(id a1)
@@ -36,16 +36,16 @@ void sub_E38(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (qword_86D8 != -1)
   {
     sub_17CC();
   }
 
-  v1 = qword_86D0;
+  v2 = qword_86D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_EC0(id a1)

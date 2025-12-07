@@ -1,10 +1,10 @@
 @interface Double:
-- (uint64_t)WorkoutDataBucket;
+- (double)WorkoutDataBucket;
 @end
 
 @implementation Double:
 
-- (uint64_t)WorkoutDataBucket
+- (double)WorkoutDataBucket
 {
   if (a3)
   {

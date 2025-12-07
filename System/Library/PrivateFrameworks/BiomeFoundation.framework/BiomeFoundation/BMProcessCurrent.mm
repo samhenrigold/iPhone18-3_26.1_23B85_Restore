@@ -254,94 +254,94 @@ void __43__BMProcessCurrent_isManagedByRunningBoard__block_invoke()
 
 - (id)runningBoardAssertionWithExplanation:(id)explanation
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   explanationCopy = explanation;
   if ([(BMProcessCurrent *)self isManagedByRunningBoard])
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
     v5 = getRBSTargetClass_softClass;
-    v32 = getRBSTargetClass_softClass;
+    v31 = getRBSTargetClass_softClass;
     if (!getRBSTargetClass_softClass)
     {
-      v24 = MEMORY[0x1E69E9820];
-      v25 = 3221225472;
-      v26 = __getRBSTargetClass_block_invoke;
-      v27 = &unk_1E796AC10;
-      v28 = &v29;
-      __getRBSTargetClass_block_invoke(&v24);
-      v5 = v30[3];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __getRBSTargetClass_block_invoke;
+      v26 = &unk_1E796AC10;
+      v27 = &v28;
+      __getRBSTargetClass_block_invoke(&v23);
+      v5 = v29[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     v7 = [v5 targetWithPid:getpid()];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
     v8 = getRBSAssertionClass_softClass;
-    v32 = getRBSAssertionClass_softClass;
+    v31 = getRBSAssertionClass_softClass;
     if (!getRBSAssertionClass_softClass)
     {
-      v24 = MEMORY[0x1E69E9820];
-      v25 = 3221225472;
-      v26 = __getRBSAssertionClass_block_invoke;
-      v27 = &unk_1E796AC10;
-      v28 = &v29;
-      __getRBSAssertionClass_block_invoke(&v24);
-      v8 = v30[3];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __getRBSAssertionClass_block_invoke;
+      v26 = &unk_1E796AC10;
+      v27 = &v28;
+      __getRBSAssertionClass_block_invoke(&v23);
+      v8 = v29[3];
     }
 
     v9 = v8;
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     v10 = [v8 alloc];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
     v11 = getRBSDomainAttributeClass_softClass;
-    v32 = getRBSDomainAttributeClass_softClass;
+    v31 = getRBSDomainAttributeClass_softClass;
     if (!getRBSDomainAttributeClass_softClass)
     {
-      v24 = MEMORY[0x1E69E9820];
-      v25 = 3221225472;
-      v26 = __getRBSDomainAttributeClass_block_invoke;
-      v27 = &unk_1E796AC10;
-      v28 = &v29;
-      __getRBSDomainAttributeClass_block_invoke(&v24);
-      v11 = v30[3];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __getRBSDomainAttributeClass_block_invoke;
+      v26 = &unk_1E796AC10;
+      v27 = &v28;
+      __getRBSDomainAttributeClass_block_invoke(&v23);
+      v11 = v29[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     v13 = [v11 attributeWithDomain:@"com.apple.common" name:@"FinishTaskNow"];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
     v14 = getRBSAcquisitionCompletionAttributeClass_softClass;
-    v32 = getRBSAcquisitionCompletionAttributeClass_softClass;
-    v33[0] = v13;
+    v31 = getRBSAcquisitionCompletionAttributeClass_softClass;
+    v32[0] = v13;
     if (!getRBSAcquisitionCompletionAttributeClass_softClass)
     {
-      v24 = MEMORY[0x1E69E9820];
-      v25 = 3221225472;
-      v26 = __getRBSAcquisitionCompletionAttributeClass_block_invoke;
-      v27 = &unk_1E796AC10;
-      v28 = &v29;
-      __getRBSAcquisitionCompletionAttributeClass_block_invoke(&v24);
-      v14 = v30[3];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __getRBSAcquisitionCompletionAttributeClass_block_invoke;
+      v26 = &unk_1E796AC10;
+      v27 = &v28;
+      __getRBSAcquisitionCompletionAttributeClass_block_invoke(&v23);
+      v14 = v29[3];
     }
 
     v15 = v14;
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     v16 = [v14 attributeWithCompletionPolicy:1];
-    v33[1] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+    v32[1] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
     v18 = [v10 initWithExplanation:explanationCopy target:v7 attributes:v17];
 
-    v23 = 0;
-    LOBYTE(v16) = [v18 acquireWithError:&v23];
-    v19 = v23;
+    v22 = 0;
+    LOBYTE(v16) = [v18 acquireWithError:&v22];
+    v19 = v22;
     if ((v16 & 1) == 0)
     {
       v20 = __biome_log_for_category(0);
@@ -357,8 +357,6 @@ void __43__BMProcessCurrent_isManagedByRunningBoard__block_invoke()
     v18 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
@@ -367,14 +365,6 @@ void __59__BMProcessCurrent_enforceDatavaultEntitlementRestrictions__block_invok
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)runningBoardAssertionWithExplanation:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

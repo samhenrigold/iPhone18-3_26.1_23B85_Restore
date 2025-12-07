@@ -14,29 +14,30 @@
   initCopy = init;
   nameCopy = name;
   tableNameCopy = tableName;
-  v17.receiver = self;
-  v17.super_class = LCFDatabaseColumnConnection;
-  v12 = [(LCFDatabaseColumnConnection *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = LCFDatabaseColumnConnection;
+  v12 = [(LCFDatabaseColumnConnection *)&v19 init];
+  v14 = v12;
   if (v12)
   {
-    LCFLoggingUtilsInit();
-    objc_storeStrong(&v12->_databaseBaseURL, init);
-    objc_storeStrong(&v12->_databaseName, name);
-    objc_storeStrong(&v12->_tableName, tableName);
-    path = [(NSURL *)v12->_databaseBaseURL path];
-    v14 = [path stringByAppendingPathComponent:v12->_databaseName];
-    databaseNamePath = v12->_databaseNamePath;
-    v12->_databaseNamePath = v14;
+    LCFLoggingUtilsInit(v12, v13);
+    objc_storeStrong(&v14->_databaseBaseURL, init);
+    objc_storeStrong(&v14->_databaseName, name);
+    objc_storeStrong(&v14->_tableName, tableName);
+    path = [(NSURL *)v14->_databaseBaseURL path];
+    v16 = [path stringByAppendingPathComponent:v14->_databaseName];
+    databaseNamePath = v14->_databaseNamePath;
+    v14->_databaseNamePath = v16;
 
-    [(LCFDatabaseColumnConnection *)v12 ensureDatabaseTable];
+    [(LCFDatabaseColumnConnection *)v14 ensureDatabaseTable];
   }
 
-  return v12;
+  return v14;
 }
 
 - (void)ensureDatabaseTable
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(NSURL *)self->_databaseBaseURL path];
   if (([defaultManager fileExistsAtPath:path] & 1) == 0)
@@ -82,8 +83,6 @@
     sqlite3_exec(ppDb, "COMMIT", 0, 0, 0);
     sqlite3_close(ppDb);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)doQueryEachStep:(id)step statementStepHandler:(id)handler
@@ -155,28 +154,28 @@
 
 - (BOOL)writeFeatures:(id)features featureValueType:(int64_t)type
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   [(LCFDatabaseColumnConnection *)self query];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v7 = v30 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = v29 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v27;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         featureName = [v12 featureName];
         v14 = [featureName isEqualToString:featuresCopy];
 
@@ -189,15 +188,15 @@
             v22 = LCFLogDatabaseConnection;
             if (os_log_type_enabled(LCFLogDatabaseConnection, OS_LOG_TYPE_ERROR))
             {
-              v25 = v22;
+              v24 = v22;
               featureValueType2 = [v12 featureValueType];
               *buf = 138412802;
-              v32 = featuresCopy;
-              v33 = 2048;
-              v34 = featureValueType2;
-              v35 = 2048;
+              v31 = featuresCopy;
+              v32 = 2048;
+              v33 = featureValueType2;
+              v34 = 2048;
               typeCopy = type;
-              _os_log_error_impl(&dword_255F22000, v25, OS_LOG_TYPE_ERROR, "Wrong type is asked %@ %ld %ld", buf, 0x20u);
+              _os_log_error_impl(&dword_255F22000, v24, OS_LOG_TYPE_ERROR, "Wrong type is asked %@ %ld %ld", buf, 0x20u);
             }
 
             v20 = 0;
@@ -208,7 +207,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v9)
       {
         continue;
@@ -230,7 +229,6 @@
   v20 = 1;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

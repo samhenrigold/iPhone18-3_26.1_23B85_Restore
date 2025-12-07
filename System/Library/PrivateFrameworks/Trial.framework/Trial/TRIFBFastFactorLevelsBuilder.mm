@@ -25,7 +25,6 @@
 
 - (void)setLevels:(id)levels
 {
-  v13 = *MEMORY[0x277D85DE8];
   levelsCopy = levels;
   if (!levelsCopy)
   {
@@ -46,13 +45,10 @@
       apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(var0, 4, v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSourceWithTreatmentId:(id)id
 {
-  v10 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -68,13 +64,10 @@
     v7 = idCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSourceWithFactorPackId:(id)id
 {
-  v10 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -90,13 +83,10 @@
     v7 = idCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSourceWithDefaults:(id)defaults
 {
-  v10 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   if (!defaultsCopy)
   {
@@ -112,13 +102,10 @@
     v7 = defaultsCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNamespaceName:(id)name
 {
-  v10 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -133,13 +120,10 @@
     v7 = nameCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 10, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNcvs:(id)ncvs
 {
-  v13 = *MEMORY[0x277D85DE8];
   ncvsCopy = ncvs;
   if (!ncvsCopy)
   {
@@ -160,8 +144,6 @@
       apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(var0, 12, v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

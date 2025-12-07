@@ -56,7 +56,7 @@
   if (gLogCategory_CUMessageSession <= 20 && (gLogCategory_CUMessageSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMessageSession, 0x14u)))
   {
     processIdentifier = [connectionCopy processIdentifier];
-    LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer listener:shouldAcceptNewConnection:]", 0x14u, "XPC connection started from %#{pid}\n", v15, v16, v17, v18, processIdentifier);
+    LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer listener:shouldAcceptNewConnection:]", 20, "XPC connection started from %#{pid}\n", v15, v16, v17, v18, processIdentifier);
   }
 
   return 1;
@@ -68,7 +68,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_CUMessageSession <= 30 && (gLogCategory_CUMessageSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMessageSession, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer invalidate]", 0x1Eu, "Invalidate\n", v3, v4, v5, v6, v20);
+    LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer invalidate]", 30, "Invalidate\n", v3, v4, v5, v6, v20);
   }
 
   [(NSXPCListener *)self->_xpcListener invalidate];
@@ -138,7 +138,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_CUMessageSession <= 30 && (gLogCategory_CUMessageSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMessageSession, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer activate]", 0x1Eu, "Activate\n", v3, v4, v5, v6, v17);
+    LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer activate]", 30, "Activate\n", v3, v4, v5, v6, v17);
   }
 
   if (!self->_xpcListener)
@@ -162,7 +162,7 @@
     if (!listenerEndpoint && gLogCategory_CUMessageSession <= 90 && (gLogCategory_CUMessageSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMessageSession, 0x5Au)))
     {
 
-      LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer activate]", 0x5Au, "### No XPC endpoint?\n", v13, v14, v15, v16, v19);
+      LogPrintF(&gLogCategory_CUMessageSession, "[CUMessageSessionServer activate]", 90, "### No XPC endpoint?\n", v13, v14, v15, v16, v19);
     }
   }
 }

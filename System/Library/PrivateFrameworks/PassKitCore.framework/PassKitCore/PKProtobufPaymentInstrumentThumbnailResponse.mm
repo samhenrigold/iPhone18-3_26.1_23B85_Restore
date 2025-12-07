@@ -45,17 +45,17 @@
 - (int)StringAsStatus:(id)status
 {
   statusCopy = status;
-  if ([statusCopy isEqualToString:@"SUCCESS"])
+  if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 0;
   }
 
-  else if ([statusCopy isEqualToString:@"NOT_FOUND"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 1;
   }
 
-  else if ([statusCopy isEqualToString:@"TOO_LARGE"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 2;
   }

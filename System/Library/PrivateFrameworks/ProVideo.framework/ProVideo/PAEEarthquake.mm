@@ -55,30 +55,30 @@
   v10 = v9;
   if (v9)
   {
-    v39 = 0.0;
-    [v9 getFloatValue:&v39 fromParm:1 atFxTime:info->var0.var1];
-    v38 = 0.0;
-    [v10 getFloatValue:&v38 fromParm:2 atFxTime:info->var0.var1];
     v37 = 0.0;
-    [v10 getFloatValue:&v37 fromParm:3 atFxTime:info->var0.var1];
-    v36 = 0;
-    [v10 getIntValue:&v36 fromParm:4 atFxTime:info->var0.var1];
-    v34 = 0.0;
+    [v9 getFloatValue:&v37 fromParm:1 atFxTime:info->var0.var1];
+    v36 = 0.0;
+    [v10 getFloatValue:&v36 fromParm:2 atFxTime:info->var0.var1];
     v35 = 0.0;
-    [v10 getXValue:&v35 YValue:&v34 fromParm:5 atFxTime:info->var0.var1];
-    v33 = 0;
-    [v10 getIntValue:&v33 fromParm:6 atFxTime:info->var0.var1];
-    v32 = 0;
-    v30 = 0u;
-    v31 = 0u;
+    [v10 getFloatValue:&v35 fromParm:3 atFxTime:info->var0.var1];
+    v34 = 0;
+    [v10 getIntValue:&v34 fromParm:4 atFxTime:info->var0.var1];
+    v32 = 0.0;
+    v33 = 0.0;
+    [v10 getXValue:&v33 YValue:&v32 fromParm:5 atFxTime:info->var0.var1];
+    v31 = 0;
+    [v10 getIntValue:&v31 fromParm:6 atFxTime:info->var0.var1];
+    v30 = 0;
     v28 = 0u;
     v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     if (input)
     {
-      [input imageInfo];
-      if (*(&v30 + 1))
+      objc_msgSend_imageInfo(input);
+      if (*(&v28 + 1))
       {
-        v39 = -v39;
+        v37 = -v37;
       }
     }
 
@@ -97,45 +97,42 @@
     if (v12)
     {
       [input bounds];
-      v16 = (v35 + -0.5) * v15;
-      v18 = v17 * (v34 + -0.5);
-      v34 = v18;
-      v35 = v16;
+      v16 = (v33 + -0.5) * v15;
+      v18 = v17 * (v32 + -0.5);
+      v32 = v18;
+      v33 = v16;
       if (input)
       {
-        [input heliumRef];
-        v18 = v34;
-        v16 = v35;
+        objc_msgSend_heliumRef(input);
+        v18 = v32;
+        v16 = v33;
       }
 
       else
       {
-        v26 = 0;
+        v24 = 0;
       }
 
       v19 = *&info->var2;
-      v24[0] = *&info->var0.var0;
-      v24[1] = v19;
-      v25 = *&info->var4;
-      HIDWORD(v20) = DWORD1(v25);
+      HIDWORD(v20) = HIDWORD(*&info->var4);
       *&v14 = v18;
       *&v13 = v16;
-      *&v19 = v36;
-      HIDWORD(v21) = HIDWORD(v37);
-      *&v20 = v37;
-      *&v21 = v38;
-      HIDWORD(v22) = HIDWORD(v39);
-      *&v22 = v39;
-      [(PAEEarthquake *)self quakeHeliumNodeWithInputImage:&v26 inputImage:input outputImage:output renderInfo:v24 twist:v33 horizontalShake:v22 verticalShake:v21 layers:v20 centerX:*&v19 centerY:v13 randomSeed:v14];
-      if (v26)
+      *&v19 = v34;
+      HIDWORD(v21) = HIDWORD(v35);
+      *&v20 = v35;
+      *&v21 = v36;
+      HIDWORD(v22) = HIDWORD(v37);
+      *&v22 = v37;
+      objc_msgSend_quakeHeliumNodeWithInputImage_inputImage_outputImage_renderInfo_twist_horizontalShake_verticalShake_layers_centerX_centerY_randomSeed_(self, v22, v21, v20, *&v19, v13, v14, *&info->var0.var0, *&info->var2, *&info->var4);
+      if (v24)
       {
-        (*(*v26 + 24))(v26);
+        (*(*v24 + 24))(v24);
       }
 
-      [output setHeliumRef:&v27];
-      if (v27)
+      [output setHeliumRef:&v25];
+      if (v25)
       {
-        (*(*v27 + 24))(v27);
+        (*(*v25 + 24))(v25);
       }
     }
   }
@@ -148,7 +145,7 @@
   v51 = v13;
   v59 = *MEMORY[0x277D85DE8];
   v25 = [objc_msgSend(inputImage "pixelTransform")];
-  v26 = [objc_msgSend(inputImage "inversePixelTransform")];
+  matrix = [objc_msgSend_inversePixelTransform(inputImage) matrix];
   v27 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735EBF0];
   v28 = [v27 timelineFpsNumeratorForEffect:self];
   v29 = [v27 timelineFpsDenominatorForEffect:self];
@@ -195,7 +192,7 @@
   if (layers == 1.0)
   {
     HGTransform::HGTransform(&time);
-    HGTransform::LoadMatrixd(&time, v26);
+    HGTransform::LoadMatrixd(&time, matrix);
     HGTransform::Transpose(&time);
     HGTransform::Translate(&time, -x, -y, 0.0);
     HGTransform::Rotate(&time, *v57 * 57.2957795, 0.0, 0.0, 1.0);
@@ -236,7 +233,7 @@
       do
       {
         HGTransform::HGTransform(&time);
-        HGTransform::LoadMatrixd(&time, v26);
+        HGTransform::LoadMatrixd(&time, matrix);
         HGTransform::Transpose(&time);
         HGTransform::Translate(&time, v44, v45, 0.0);
         HGTransform::Rotate(&time, *(v57 + v43) * 57.2957795, 0.0, 0.0, 1.0);

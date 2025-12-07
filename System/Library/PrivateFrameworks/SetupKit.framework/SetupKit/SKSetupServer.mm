@@ -32,75 +32,75 @@
   [commonCopy setDispatchQueue:self->super._dispatchQueue];
   [commonCopy setPassword:self->super._password];
   [commonCopy setPersistentPairing:{-[SKSetupBase persistentPairing](self, "persistentPairing")}];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke;
-  v35[3] = &unk_279BB8370;
-  v35[4] = self;
-  [commonCopy setAuthCompletionHandler:v35];
   v34[0] = MEMORY[0x277D85DD0];
   v34[1] = 3221225472;
-  v34[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_2;
-  v34[3] = &unk_279BB83C0;
+  v34[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke;
+  v34[3] = &unk_279BB8370;
   v34[4] = self;
-  [commonCopy setAuthPromptHandler:v34];
+  [commonCopy setAuthCompletionHandler:v34];
   v33[0] = MEMORY[0x277D85DD0];
   v33[1] = 3221225472;
-  v33[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_3;
-  v33[3] = &unk_279BB83E8;
+  v33[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_2;
+  v33[3] = &unk_279BB83C0;
   v33[4] = self;
-  [commonCopy setAuthShowPasswordHandler:v33];
+  [commonCopy setAuthPromptHandler:v33];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_3;
+  v32[3] = &unk_279BB83E8;
+  v32[4] = self;
+  [commonCopy setAuthShowPasswordHandler:v32];
   [commonCopy setAuthHidePasswordHandler:self->_authHidePasswordHandler];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_4;
-  v30[3] = &unk_279BB8838;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_4;
+  v29[3] = &unk_279BB8838;
   v6 = commonCopy;
-  v31 = v6;
+  v30 = v6;
   selfCopy = self;
-  [v6 setErrorHandler:v30];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_5;
-  v27[3] = &unk_279BB8648;
-  v7 = v6;
-  v28 = v7;
-  selfCopy2 = self;
-  [v7 setInvalidationHandler:v27];
+  [v6 setErrorHandler:v29];
   v26[0] = MEMORY[0x277D85DD0];
   v26[1] = 3221225472;
-  v26[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_6;
-  v26[3] = &unk_279BB8410;
-  v26[4] = self;
-  [v7 setPairSetupConfigHandler:v26];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_7;
-  v23[3] = &unk_279BB8438;
+  v26[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_5;
+  v26[3] = &unk_279BB8648;
+  v7 = v6;
+  v27 = v7;
+  selfCopy2 = self;
+  [v7 setInvalidationHandler:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_6;
+  v25[3] = &unk_279BB8410;
+  v25[4] = self;
+  [v7 setPairSetupConfigHandler:v25];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_7;
+  v22[3] = &unk_279BB8438;
   v8 = v7;
-  v24 = v8;
+  v23 = v8;
   selfCopy3 = self;
-  [v8 setReceivedEventHandler:v23];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_8;
-  v20[3] = &unk_279BB8810;
+  [v8 setReceivedEventHandler:v22];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_8;
+  v19[3] = &unk_279BB8810;
   v9 = v8;
-  v21 = v9;
+  v20 = v9;
   selfCopy4 = self;
-  [v9 setReceivedRequestHandler:v20];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_9;
-  v17[3] = &unk_279BB8648;
+  [v9 setReceivedRequestHandler:v19];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_9;
+  v16[3] = &unk_279BB8648;
   v10 = v9;
-  v18 = v10;
+  v17 = v10;
   selfCopy5 = self;
-  [v10 setStateChangedHandler:v17];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  [v10 setStateChangedHandler:v16];
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -110,18 +110,18 @@
       ucat = self->super._ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupServer _handleAcceptCommon:]", 30, "Connection activate");
   }
 
 LABEL_5:
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_10;
-  v14[3] = &unk_279BB8838;
-  v15 = v10;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __37__SKSetupServer__handleAcceptCommon___block_invoke_10;
+  v13[3] = &unk_279BB8838;
+  v14 = v10;
   selfCopy6 = self;
   v12 = v10;
-  [v12 activateWithCompletion:v14];
+  [v12 activateWithCompletion:v13];
 }
 
 void __37__SKSetupServer__handleAcceptCommon___block_invoke(uint64_t a1, void *a2)
@@ -162,111 +162,112 @@ void __37__SKSetupServer__handleAcceptCommon___block_invoke_4(uint64_t a1, void 
   v4 = *(a1 + 40);
   if (*(a1 + 32) == *(v4 + 120))
   {
-    v10 = v3;
-    v5 = **(v4 + 144);
-    if (v5 <= 90)
+    v9 = v3;
+    v5 = *(v4 + 144);
+    if (*v5 <= 90)
     {
-      if (v5 == -1)
+      if (*v5 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_6;
         }
 
-        v8 = *(*(a1 + 40) + 144);
+        v5 = *(*(a1 + 40) + 144);
       }
 
-      v9 = CUPrintNSError();
-      LogPrintF();
+      v6 = CUPrintNSError();
+      LogPrintF(v5, "[SKSetupServer _handleAcceptCommon:]_block_invoke_4", 90, "### Connection error: %@", v6);
     }
 
 LABEL_6:
     [*(a1 + 32) invalidate];
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 120);
-    *(v6 + 120) = 0;
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 120);
+    *(v7 + 120) = 0;
 
     [*(a1 + 40) _update];
-    v3 = v10;
+    v3 = v9;
   }
 }
 
-uint64_t __37__SKSetupServer__handleAcceptCommon___block_invoke_5(uint64_t result)
+void *__37__SKSetupServer__handleAcceptCommon___block_invoke_5(void *result)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) != *(v2 + 120))
+  v2 = result[4];
+  v3 = result[5];
+  if (v2 != *(v3 + 120))
   {
     return result;
   }
 
-  v3 = result;
-  v4 = **(v2 + 144);
-  if (v4 <= 30)
+  v4 = result;
+  v5 = *(v3 + 144);
+  if (*v5 <= 30)
   {
-    if (v4 == -1)
+    if (*v5 == -1)
     {
-      v5 = _LogCategory_Initialize();
-      v2 = *(v3 + 40);
-      if (!v5)
+      v6 = _LogCategory_Initialize();
+      v3 = v4[5];
+      if (!v6)
       {
         goto LABEL_6;
       }
 
-      v10 = *(v2 + 144);
-      v11 = *(v3 + 32);
+      v5 = *(v3 + 144);
+      v2 = v4[4];
     }
 
-    LogPrintF();
-    v2 = *(v3 + 40);
+    LogPrintF(v5, "[SKSetupServer _handleAcceptCommon:]_block_invoke_5", 30, "Connection ended: %@", v2);
+    v3 = v4[5];
   }
 
 LABEL_6:
-  v6 = *(v2 + 120);
-  *(v2 + 120) = 0;
+  v7 = *(v3 + 120);
+  *(v3 + 120) = 0;
 
-  v7 = *(v3 + 40);
-  v8 = *(v7 + 240);
-  *(v7 + 240) = 0;
+  v8 = v4[5];
+  v9 = *(v8 + 240);
+  *(v8 + 240) = 0;
 
-  [*(v3 + 40) _connectionEnded:*(v3 + 32)];
-  [*(v3 + 40) _reportEventType:41];
-  v9 = *(v3 + 40);
+  [v4[5] _connectionEnded:v4[4]];
+  [v4[5] _reportEventType:41];
+  v10 = v4[5];
 
-  return [v9 _update];
+  return [v10 _update];
 }
 
 void __37__SKSetupServer__handleAcceptCommon___block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = *v4[18];
-  v9 = v3;
-  if (v5 <= 30)
+  v5 = v4[18];
+  v8 = v3;
+  if (*v5 <= 30)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_3:
-      v8 = CUPrintNSObjectOneLine();
-      LogPrintF();
+      v6 = CUPrintNSObjectOneLine();
+      LogPrintF(v5, "[SKSetupServer _handleAcceptCommon:]_block_invoke_6", 30, "PairSetup config: %@", v6);
 
-      v3 = v9;
+      v3 = v8;
       v4 = *(a1 + 32);
       goto LABEL_6;
     }
 
-    v6 = _LogCategory_Initialize();
+    v7 = _LogCategory_Initialize();
     v4 = *(a1 + 32);
-    if (v6)
+    if (v7)
     {
-      v7 = v4[18];
+      v5 = v4[18];
       goto LABEL_3;
     }
 
-    v3 = v9;
+    v3 = v8;
   }
 
 LABEL_6:
-  [v4 _pairSetupConfig:{v3, v8}];
+  [v4 _pairSetupConfig:v3];
 }
 
 void *__37__SKSetupServer__handleAcceptCommon___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -309,48 +310,46 @@ void __37__SKSetupServer__handleAcceptCommon___block_invoke_10(uint64_t a1, void
 {
   v3 = a2;
   v4 = *(a1 + 40);
-  v20 = v3;
-  if (*(a1 + 32) != *(v4 + 120))
+  v16 = v3;
+  if (*(a1 + 32) != v4[15])
   {
-    v5 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF_safe();
-    v7 = *(a1 + 40);
-    v8 = *v7[18];
-    if (v8 <= 90)
+    v5 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated before activate completed");
+    v6 = *(a1 + 40);
+    v7 = v6[18];
+    if (*v7 <= 90)
     {
-      if (v8 == -1)
+      if (*v7 == -1)
       {
-        v10 = v7[18];
-        v11 = _LogCategory_Initialize();
-        v7 = *(a1 + 40);
-        if (!v11)
+        v12 = _LogCategory_Initialize();
+        v6 = *(a1 + 40);
+        if (!v12)
         {
           goto LABEL_13;
         }
 
-        v16 = v7[18];
+        v7 = v6[18];
       }
 
-      v19 = CUPrintNSError();
-      LogPrintF();
+      v8 = CUPrintNSError();
+      LogPrintF(v7, "[SKSetupServer _handleAcceptCommon:]_block_invoke_10", 90, "### Connection activate failed: %@", v8);
 
-      v7 = *(a1 + 40);
+      v6 = *(a1 + 40);
     }
 
 LABEL_13:
-    [v7 _update];
+    [v6 _update];
 
     goto LABEL_19;
   }
 
-  v9 = **(v4 + 144);
+  v9 = v4[18];
+  v10 = *v9;
   if (!v3)
   {
-    if (v9 <= 30)
+    if (v10 <= 30)
     {
-      if (v9 == -1)
+      if (v10 == -1)
       {
-        v14 = *(v4 + 144);
         v15 = _LogCategory_Initialize();
         v4 = *(a1 + 40);
         if (!v15)
@@ -358,10 +357,10 @@ LABEL_13:
           goto LABEL_17;
         }
 
-        v18 = *(v4 + 144);
+        v9 = v4[18];
       }
 
-      LogPrintF();
+      LogPrintF(v9, "[SKSetupServer _handleAcceptCommon:]_block_invoke_10", 30, "Connection activated");
       v4 = *(a1 + 40);
     }
 
@@ -370,27 +369,27 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if (v9 <= 90)
+  if (v10 <= 90)
   {
-    if (v9 == -1)
+    if (v10 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_15;
       }
 
-      v17 = *(*(a1 + 40) + 144);
+      v9 = *(*(a1 + 40) + 144);
     }
 
-    v19 = CUPrintNSError();
-    LogPrintF();
+    v11 = CUPrintNSError();
+    LogPrintF(v9, "[SKSetupServer _handleAcceptCommon:]_block_invoke_10", 90, "### Connection activate failed: %@", v11);
   }
 
 LABEL_15:
   [*(a1 + 32) invalidate];
-  v12 = *(a1 + 40);
-  v13 = *(v12 + 120);
-  *(v12 + 120) = 0;
+  v13 = *(a1 + 40);
+  v14 = *(v13 + 120);
+  *(v13 + 120) = 0;
 
 LABEL_18:
   [*(a1 + 40) _update];
@@ -415,15 +414,15 @@ LABEL_19:
     v12 = self->_nanPublisher;
     if (v12)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __47__SKSetupServer__handleAcceptNANData_endpoint___block_invoke;
-      v22[3] = &unk_279BB79D8;
-      v23 = v9;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __47__SKSetupServer__handleAcceptNANData_endpoint___block_invoke;
+      v20[3] = &unk_279BB79D8;
+      v21 = v9;
       selfCopy = self;
-      v25 = v12;
-      v26 = endpointCopy;
-      [(SKConnection *)v23 setSendDataHandler:v22];
+      v23 = v12;
+      v24 = endpointCopy;
+      [(SKConnection *)v21 setSendDataHandler:v20];
     }
 
     [(SKSetupServer *)self _handleAcceptCommon:v9];
@@ -458,10 +457,10 @@ LABEL_10:
   }
 
 LABEL_13:
-  var0 = self->super._ucat->var0;
-  if (var0 <= 90)
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 90)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -471,8 +470,7 @@ LABEL_13:
       ucat = self->super._ucat;
     }
 
-    v21 = self->_nanEndpointID;
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupServer _handleAcceptNANData:endpoint:]", 90, "### Reject NAN data when already in use: %@ vs %@", v12, self->_nanEndpointID);
   }
 
 LABEL_11:
@@ -500,23 +498,29 @@ void __47__SKSetupServer__handleAcceptNANData_endpoint___block_invoke(void *a1, 
 
 uint64_t __47__SKSetupServer__handleAcceptNANData_endpoint___block_invoke_2(uint64_t a1, void *a2)
 {
-  if (a2)
+  v3 = a2;
+  v4 = v3;
+  if (v3)
   {
-    v3 = **(*(a1 + 32) + 144);
-    if (v3 <= 90)
+    v5 = *(*(a1 + 32) + 144);
+    if (*v5 <= 90)
     {
-      if (v3 != -1)
+      v8 = v3;
+      if (*v5 != -1)
       {
 LABEL_4:
         v6 = CUPrintNSError();
-        LogPrintF();
+        LogPrintF(v5, "[SKSetupServer _handleAcceptNANData:endpoint:]_block_invoke_2", 90, "### Send NAN data failed: %@", v6);
 
+        v4 = v8;
         goto LABEL_6;
       }
 
-      if (_LogCategory_Initialize())
+      v3 = _LogCategory_Initialize();
+      v4 = v8;
+      if (v3)
       {
-        v4 = *(*(a1 + 32) + 144);
+        v5 = *(*(a1 + 32) + 144);
         goto LABEL_4;
       }
     }
@@ -524,47 +528,42 @@ LABEL_4:
 
 LABEL_6:
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (void)_handleAcceptBLEConnection:(id)connection
 {
   connectionCopy = connection;
   v4 = self->super._skCnx;
-  if (v4)
-  {
-    v5 = v4;
-    var0 = self->super._ucat->var0;
-    if (var0 <= 90)
-    {
-      v7 = connectionCopy;
-      if (var0 != -1)
-      {
-LABEL_4:
-        v10 = v7;
-        LogPrintF();
-        [connectionCopy invalidate];
-        goto LABEL_8;
-      }
-
-      if (_LogCategory_Initialize())
-      {
-        ucat = self->super._ucat;
-        v7 = connectionCopy;
-        goto LABEL_4;
-      }
-    }
-
-    [connectionCopy invalidate];
-  }
-
-  else
+  if (!v4)
   {
     v5 = objc_alloc_init(SKConnection);
     [(SKConnection *)v5 setBleConnection:connectionCopy];
     [(SKSetupServer *)self _handleAcceptCommon:v5];
+    goto LABEL_8;
   }
 
+  v5 = v4;
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 90)
+  {
+    v7 = connectionCopy;
+    if (ucat->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_7;
+      }
+
+      ucat = self->super._ucat;
+      v7 = connectionCopy;
+    }
+
+    LogPrintF(ucat, "[SKSetupServer _handleAcceptBLEConnection:]", 90, "### Reject BLE connection when already connected: %@ vs %@", v7, v5);
+  }
+
+LABEL_7:
+  [connectionCopy invalidate];
 LABEL_8:
 }
 
@@ -575,13 +574,13 @@ LABEL_8:
     goto LABEL_6;
   }
 
-  var0 = self->super._ucat->var0;
-  if (var0 > 30)
+  ucat = self->super._ucat;
+  if (ucat->var0 > 30)
   {
     goto LABEL_6;
   }
 
-  if (var0 != -1)
+  if (ucat->var0 != -1)
   {
     goto LABEL_4;
   }
@@ -590,7 +589,7 @@ LABEL_8:
   {
     ucat = self->super._ucat;
 LABEL_4:
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupServer _wifiKeepAliveEnsureStopped]", 30, "WiFiKeepAlive stop");
   }
 
 LABEL_6:
@@ -614,10 +613,10 @@ LABEL_6:
   if (!self->_wifiManager)
   {
     self->_wifiManager = WiFiManagerClientCreate();
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -627,7 +626,7 @@ LABEL_6:
         ucat = self->super._ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupServer _wifiKeepAliveEnsureStarted]", 30, "WiFiKeepAlive start legacy");
     }
   }
 }
@@ -636,13 +635,13 @@ LABEL_6:
 {
   if (self->_nanPublisher)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(ucat, "[SKSetupServer _nanPublisherEnsureStopped]", 30, "NAN publisher stop");
         goto LABEL_6;
       }
 
@@ -671,17 +670,17 @@ LABEL_6:
     [(CUNANPublisher *)v3 setControlFlags:1];
     [(CUNANPublisher *)v3 setDispatchQueue:self->super._dispatchQueue];
     [(CUNANPublisher *)v3 setServiceType:@"com.apple.setup"];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __43__SKSetupServer__nanPublisherEnsureStarted__block_invoke;
-    v8[3] = &unk_279BB79B0;
-    v8[4] = v3;
-    v8[5] = self;
-    [(CUNANPublisher *)v3 setReceiveHandler:v8];
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __43__SKSetupServer__nanPublisherEnsureStarted__block_invoke;
+    v7[3] = &unk_279BB79B0;
+    v7[4] = v3;
+    v7[5] = self;
+    [(CUNANPublisher *)v3 setReceiveHandler:v7];
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -691,17 +690,17 @@ LABEL_6:
         ucat = self->super._ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupServer _nanPublisherEnsureStarted]", 30, "NAN publisher start");
     }
 
 LABEL_6:
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __43__SKSetupServer__nanPublisherEnsureStarted__block_invoke_2;
-    v7[3] = &unk_279BB8838;
-    v7[4] = v3;
-    v7[5] = self;
-    [(CUNANPublisher *)v3 activateWithCompletion:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __43__SKSetupServer__nanPublisherEnsureStarted__block_invoke_2;
+    v6[3] = &unk_279BB8838;
+    v6[4] = v3;
+    v6[5] = self;
+    [(CUNANPublisher *)v3 activateWithCompletion:v6];
   }
 }
 
@@ -723,55 +722,56 @@ uint64_t __43__SKSetupServer__nanPublisherEnsureStarted__block_invoke_2(uint64_t
   v4 = *(a1 + 40);
   if (*(a1 + 32) == *(v4 + 248))
   {
-    v5 = **(v4 + 144);
+    v5 = *(v4 + 144);
+    v6 = *v5;
     if (v3)
     {
-      v14 = v3;
-      if (v5 <= 90)
+      v13 = v3;
+      if (v6 <= 90)
       {
-        if (v5 == -1)
+        if (v6 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_10;
           }
 
-          v11 = *(*(a1 + 40) + 144);
+          v5 = *(*(a1 + 40) + 144);
         }
 
-        v13 = CUPrintNSError();
-        LogPrintF();
+        v7 = CUPrintNSError();
+        LogPrintF(v5, "[SKSetupServer _nanPublisherEnsureStarted]_block_invoke_2", 90, "### NAN publisher failed: %@", v7);
       }
 
 LABEL_10:
       [*(a1 + 32) invalidate];
-      v6 = *(a1 + 40);
-      v7 = *(v6 + 248);
-      *(v6 + 248) = 0;
-
       v8 = *(a1 + 40);
-      v9 = [[SKEvent alloc] initWithEventType:42 error:v14];
-      [v8 _reportEvent:v9];
+      v9 = *(v8 + 248);
+      *(v8 + 248) = 0;
+
+      v10 = *(a1 + 40);
+      v11 = [[SKEvent alloc] initWithEventType:42 error:v13];
+      [v10 _reportEvent:v11];
 
       goto LABEL_11;
     }
 
-    if (v5 > 30)
+    if (v6 > 30)
     {
       goto LABEL_11;
     }
 
-    if (v5 != -1)
+    if (v6 != -1)
     {
 LABEL_8:
-      v3 = LogPrintF();
+      v3 = LogPrintF(v5, "[SKSetupServer _nanPublisherEnsureStarted]_block_invoke_2", 30, "NAN publisher started");
       goto LABEL_11;
     }
 
     v3 = _LogCategory_Initialize();
     if (v3)
     {
-      v10 = *(*(a1 + 40) + 144);
+      v5 = *(*(a1 + 40) + 144);
       goto LABEL_8;
     }
   }
@@ -785,13 +785,13 @@ LABEL_11:
 {
   if (self->_bleServer)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(ucat, "[SKSetupServer _bleServerEnsureStopped]", 30, "BLE server stop");
         goto LABEL_6;
       }
 
@@ -819,17 +819,17 @@ LABEL_6:
 
     [(CBServer *)v3 setDispatchQueue:self->super._dispatchQueue];
     [(CBServer *)v3 setBleListenPSM:130];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __40__SKSetupServer__bleServerEnsureStarted__block_invoke;
-    v8[3] = &unk_279BB8180;
-    v8[4] = v3;
-    v8[5] = self;
-    [(CBServer *)v3 setAcceptHandler:v8];
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __40__SKSetupServer__bleServerEnsureStarted__block_invoke;
+    v7[3] = &unk_279BB8180;
+    v7[4] = v3;
+    v7[5] = self;
+    [(CBServer *)v3 setAcceptHandler:v7];
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -839,61 +839,58 @@ LABEL_6:
         ucat = self->super._ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupServer _bleServerEnsureStarted]", 30, "BLE server start");
     }
 
 LABEL_6:
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __40__SKSetupServer__bleServerEnsureStarted__block_invoke_2;
-    v7[3] = &unk_279BB8838;
-    v7[4] = v3;
-    v7[5] = self;
-    [(CBServer *)v3 activateWithCompletion:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __40__SKSetupServer__bleServerEnsureStarted__block_invoke_2;
+    v6[3] = &unk_279BB8838;
+    v6[4] = v3;
+    v6[5] = self;
+    [(CBServer *)v3 activateWithCompletion:v6];
   }
 }
 
 void __40__SKSetupServer__bleServerEnsureStarted__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = a2;
+  v11 = a2;
   v5 = a3;
   v6 = *(a1 + 40);
-  if (*(a1 + 32) != *(v6 + 224))
+  if (*(a1 + 32) != v6[28])
   {
-    v7 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF_safe();
-    v5[2](v5, v8);
+    v7 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Server invalidated");
+    v5[2](v5, v7);
 
     goto LABEL_9;
   }
 
-  v9 = **(v6 + 144);
-  v10 = v15;
-  if (v9 <= 30)
+  v8 = v6[18];
+  v9 = v11;
+  if (*v8 <= 30)
   {
-    if (v9 == -1)
+    if (*v8 == -1)
     {
-      v11 = *(v6 + 144);
-      v12 = _LogCategory_Initialize();
+      v10 = _LogCategory_Initialize();
       v6 = *(a1 + 40);
-      if (!v12)
+      if (!v10)
       {
-        v10 = v15;
+        v9 = v11;
         goto LABEL_8;
       }
 
-      v13 = *(v6 + 144);
-      v10 = v15;
+      v8 = v6[18];
+      v9 = v11;
     }
 
-    v14 = v10;
-    LogPrintF();
-    v10 = v15;
+    LogPrintF(v8, "[SKSetupServer _bleServerEnsureStarted]_block_invoke", 30, "BLE server incoming connection: %@", v9);
+    v9 = v11;
     v6 = *(a1 + 40);
   }
 
 LABEL_8:
-  [v6 _handleAcceptBLEConnection:{v10, v14}];
+  [v6 _handleAcceptBLEConnection:v9];
   [*(a1 + 40) _update];
   v5[2](v5, 0);
 LABEL_9:
@@ -904,64 +901,64 @@ uint64_t __40__SKSetupServer__bleServerEnsureStarted__block_invoke_2(uint64_t a1
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  if (v4 == *(v5 + 224))
+  if (v4 == v5[28])
   {
-    v6 = **(v5 + 144);
-    v17 = v3;
+    v6 = v5[18];
+    v7 = *v6;
+    v15 = v3;
     if (v3)
     {
-      if (v6 <= 90)
+      if (v7 <= 90)
       {
-        if (v6 == -1)
+        if (v7 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_10;
           }
 
-          v12 = *(*(a1 + 40) + 144);
+          v6 = *(*(a1 + 40) + 144);
         }
 
-        v15 = CUPrintNSError();
-        LogPrintF();
+        v8 = CUPrintNSError();
+        LogPrintF(v6, "[SKSetupServer _bleServerEnsureStarted]_block_invoke_2", 90, "### BLE server failed: %@", v8);
       }
 
 LABEL_10:
       [*(a1 + 32) invalidate];
-      v7 = *(a1 + 40);
-      v8 = *(v7 + 224);
-      *(v7 + 224) = 0;
-
       v9 = *(a1 + 40);
-      v10 = [[SKEvent alloc] initWithEventType:42 error:v17];
-      [v9 _reportEvent:v10];
+      v10 = *(v9 + 224);
+      *(v9 + 224) = 0;
 
-      goto LABEL_13;
-    }
+      v11 = *(a1 + 40);
+      v12 = [[SKEvent alloc] initWithEventType:42 error:v15];
+      [v11 _reportEvent:v12];
 
-    if (v6 <= 30)
-    {
-      if (v6 != -1)
-      {
-LABEL_8:
-        v16 = [v4 bleListeningPSM];
-        LogPrintF();
-        v4 = [*(a1 + 40) _update];
 LABEL_13:
-        v3 = v17;
-        goto LABEL_14;
-      }
-
-      v11 = _LogCategory_Initialize();
-      v5 = *(a1 + 40);
-      if (v11)
-      {
-        v13 = *(v5 + 144);
-        v4 = *(a1 + 32);
-        goto LABEL_8;
-      }
+      v3 = v15;
+      goto LABEL_14;
     }
 
+    if (v7 <= 30)
+    {
+      if (v7 == -1)
+      {
+        v13 = _LogCategory_Initialize();
+        v5 = *(a1 + 40);
+        if (!v13)
+        {
+          goto LABEL_12;
+        }
+
+        v6 = v5[18];
+        v4 = *(a1 + 32);
+      }
+
+      LogPrintF(v6, "-[SKSetupServer _bleServerEnsureStarted]_block_invoke_2", 30, "BLE server started: PSM 0x%X", [v4 bleListeningPSM]);
+      v5 = *(a1 + 40);
+    }
+
+LABEL_12:
     v4 = [v5 _update];
     goto LABEL_13;
   }
@@ -976,31 +973,29 @@ LABEL_14:
   bleAdvertiser = self->_bleAdvertiser;
   if (bleAdvertiser)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
-        ucat = self->super._ucat;
-        v6 = _LogCategory_Initialize();
+        v5 = _LogCategory_Initialize();
         bleAdvertiser = self->_bleAdvertiser;
-        if (!v6)
+        if (!v5)
         {
           goto LABEL_6;
         }
 
-        v8 = self->super._ucat;
+        ucat = self->super._ucat;
       }
 
-      v9 = bleAdvertiser;
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupServer _bleAdvertiserEnsureStopped]", 30, "BLE advertiser stop: %@", bleAdvertiser);
       bleAdvertiser = self->_bleAdvertiser;
     }
   }
 
 LABEL_6:
   [(CBAdvertiser *)bleAdvertiser invalidate];
-  v7 = self->_bleAdvertiser;
+  v6 = self->_bleAdvertiser;
   self->_bleAdvertiser = 0;
 
   self->_bleAdvertisePSM = 0;
@@ -1017,54 +1012,54 @@ LABEL_6:
     {
 LABEL_9:
       self->_bleAdvertisePSM = v4;
-      v11 = self->_bleAdvertiser;
-      if (v11)
+      v10 = self->_bleAdvertiser;
+      if (v10)
       {
 LABEL_31:
 
         return;
       }
 
-      v12 = objc_alloc_init(MEMORY[0x277CBDFF0]);
+      v11 = objc_alloc_init(MEMORY[0x277CBDFF0]);
       bleAdvertiser = self->_bleAdvertiser;
-      self->_bleAdvertiser = v12;
+      self->_bleAdvertiser = v11;
 
-      [(CBAdvertiser *)v12 setDispatchQueue:self->super._dispatchQueue];
-      [(CBAdvertiser *)v12 setNearbyActionExtraData:self->_nearbyActionExtraData];
+      [(CBAdvertiser *)v11 setDispatchQueue:self->super._dispatchQueue];
+      [(CBAdvertiser *)v11 setNearbyActionExtraData:self->_nearbyActionExtraData];
       if (self->_skipWifi)
       {
-        v14 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v14 = 64;
+        v13 = 64;
       }
 
-      [(CBAdvertiser *)v12 setNearbyActionFlags:v14];
+      [(CBAdvertiser *)v11 setNearbyActionFlags:v13];
       setupType = self->super._setupType;
       switch(setupType)
       {
         case 1u:
-          v16 = v12;
-          v17 = 37;
+          v15 = v11;
+          v16 = 37;
           goto LABEL_19;
         case 5u:
-          v16 = v12;
-          v17 = 85;
+          v15 = v11;
+          v16 = 85;
           goto LABEL_19;
         case 2u:
-          v16 = v12;
-          v17 = 39;
+          v15 = v11;
+          v16 = 39;
 LABEL_19:
-          [(CBAdvertiser *)v16 setNearbyActionType:v17];
+          [(CBAdvertiser *)v15 setNearbyActionType:v16];
           goto LABEL_20;
       }
 
-      var0 = self->super._ucat->var0;
-      if (var0 <= 90)
+      ucat = self->super._ucat;
+      if (ucat->var0 <= 90)
       {
-        if (var0 == -1)
+        if (ucat->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -1075,78 +1070,79 @@ LABEL_19:
           setupType = self->super._setupType;
         }
 
-        if (setupType <= 5)
+        if (setupType > 5)
         {
-          v20 = off_279BB8458[setupType];
+          v19 = "?";
         }
 
-        LogPrintF();
+        else
+        {
+          v19 = off_279BB8458[setupType];
+        }
+
+        LogPrintF(ucat, "[SKSetupServer _bleAdvertiserEnsureStarted]", 90, "### BLE advertiser unsupported setup type: %d (%s)", setupType, v19);
       }
 
 LABEL_20:
       if (self->super._authTagOverride)
       {
-        [(CBAdvertiser *)v12 setNearbyActionFlags:[(CBAdvertiser *)v12 nearbyActionFlags]| 0x80];
-        [(CBAdvertiser *)v12 setNearbyActionAuthTagData:self->super._authTagOverride];
+        [(CBAdvertiser *)v11 setNearbyActionFlags:[(CBAdvertiser *)v11 nearbyActionFlags]| 0x80];
+        [(CBAdvertiser *)v11 setNearbyActionAuthTagData:self->super._authTagOverride];
       }
 
-      v18 = self->super._ucat->var0;
-      if (v18 > 30)
+      v17 = self->super._ucat;
+      if (v17->var0 > 30)
       {
         goto LABEL_30;
       }
 
-      if (v18 == -1)
+      if (v17->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_30;
         }
 
-        v22 = self->super._ucat;
+        v17 = self->super._ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v17, "[SKSetupServer _bleAdvertiserEnsureStarted]", 30, "BLE advertiser start: %@", v11);
 LABEL_30:
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __44__SKSetupServer__bleAdvertiserEnsureStarted__block_invoke;
-      v27[3] = &unk_279BB8838;
-      v11 = v12;
-      v28 = v11;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __44__SKSetupServer__bleAdvertiserEnsureStarted__block_invoke;
+      v20[3] = &unk_279BB8838;
+      v10 = v11;
+      v21 = v10;
       selfCopy = self;
-      [(CBAdvertiser *)v11 activateWithCompletion:v27];
+      [(CBAdvertiser *)v10 activateWithCompletion:v20];
 
       goto LABEL_31;
     }
 
-    v7 = self->super._ucat->var0;
-    if (v7 <= 30)
+    v7 = self->super._ucat;
+    if (v7->var0 <= 30)
     {
-      if (v7 == -1)
+      if (v7->var0 == -1)
       {
-        v8 = self->super._ucat;
-        v9 = _LogCategory_Initialize();
+        v8 = _LogCategory_Initialize();
         v6 = self->_bleAdvertiser;
-        if (!v9)
+        if (!v8)
         {
           goto LABEL_8;
         }
 
-        v23 = self->super._ucat;
+        v7 = self->super._ucat;
         bleAdvertisePSM = self->_bleAdvertisePSM;
       }
 
-      v25 = v4;
-      v26 = v6;
-      v24 = bleAdvertisePSM;
-      LogPrintF();
+      LogPrintF(v7, "[SKSetupServer _bleAdvertiserEnsureStarted]", 30, "BLE advertiser stop for PSM change: PSM 0x%X -> 0x%X, %@", bleAdvertisePSM, v4, v6);
       v6 = self->_bleAdvertiser;
     }
 
 LABEL_8:
-    [(CBAdvertiser *)v6 invalidate:v24];
-    v10 = self->_bleAdvertiser;
+    [(CBAdvertiser *)v6 invalidate];
+    v9 = self->_bleAdvertiser;
     self->_bleAdvertiser = 0;
 
     goto LABEL_9;
@@ -1158,64 +1154,64 @@ uint64_t __44__SKSetupServer__bleAdvertiserEnsureStarted__block_invoke(uint64_t 
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
-  if (v5 == *(v4 + 216))
+  if (v5 == v4[27])
   {
-    v6 = **(v4 + 144);
-    v17 = v3;
+    v6 = v4[18];
+    v7 = *v6;
+    v15 = v3;
     if (v3)
     {
-      if (v6 <= 90)
+      if (v7 <= 90)
       {
-        if (v6 == -1)
+        if (v7 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_10;
           }
 
-          v12 = *(*(a1 + 40) + 144);
+          v6 = *(*(a1 + 40) + 144);
         }
 
-        v15 = CUPrintNSError();
-        LogPrintF();
+        v8 = CUPrintNSError();
+        LogPrintF(v6, "[SKSetupServer _bleAdvertiserEnsureStarted]_block_invoke", 90, "### BLE advertiser failed: %@", v8);
       }
 
 LABEL_10:
       [*(a1 + 32) invalidate];
-      v7 = *(a1 + 40);
-      v8 = *(v7 + 216);
-      *(v7 + 216) = 0;
-
       v9 = *(a1 + 40);
-      v10 = [[SKEvent alloc] initWithEventType:42 error:v17];
-      [v9 _reportEvent:v10];
+      v10 = *(v9 + 216);
+      *(v9 + 216) = 0;
 
-      goto LABEL_13;
-    }
+      v11 = *(a1 + 40);
+      v12 = [[SKEvent alloc] initWithEventType:42 error:v15];
+      [v11 _reportEvent:v12];
 
-    if (v6 <= 30)
-    {
-      if (v6 != -1)
-      {
-LABEL_8:
-        v16 = v5;
-        LogPrintF();
-        v4 = [*(a1 + 40) _update];
 LABEL_13:
-        v3 = v17;
-        goto LABEL_14;
-      }
-
-      v11 = _LogCategory_Initialize();
-      v4 = *(a1 + 40);
-      if (v11)
-      {
-        v13 = *(v4 + 144);
-        v5 = *(a1 + 32);
-        goto LABEL_8;
-      }
+      v3 = v15;
+      goto LABEL_14;
     }
 
+    if (v7 <= 30)
+    {
+      if (v7 == -1)
+      {
+        v13 = _LogCategory_Initialize();
+        v4 = *(a1 + 40);
+        if (!v13)
+        {
+          goto LABEL_12;
+        }
+
+        v6 = v4[18];
+        v5 = *(a1 + 32);
+      }
+
+      LogPrintF(v6, "[SKSetupServer _bleAdvertiserEnsureStarted]_block_invoke", 30, "BLE advertiser started: %@", v5);
+      v4 = *(a1 + 40);
+    }
+
+LABEL_12:
     v4 = [v4 _update];
     goto LABEL_13;
   }
@@ -1372,13 +1368,13 @@ void __40__SKSetupServer__prepareStepsOSRecovery__block_invoke_2(uint64_t a1, vo
 uint64_t __22__SKSetupServer_reset__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = **(v2 + 144);
-  if (v3 <= 30)
+  v3 = *(v2 + 144);
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[SKSetupServer reset]_block_invoke", 30, "Reset");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -1387,7 +1383,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (v4)
     {
-      v7 = *(v2 + 144);
+      v3 = *(v2 + 144);
       goto LABEL_3;
     }
   }
@@ -1403,8 +1399,8 @@ LABEL_5:
 {
   if (self->super._invalidateCalled)
   {
-    v15 = v2;
-    v16 = v3;
+    v14 = v2;
+    v15 = v3;
     authCompletionHandler = self->_authCompletionHandler;
     self->_authCompletionHandler = 0;
 
@@ -1420,23 +1416,22 @@ LABEL_5:
 
     if (v8)
     {
-      v10 = *MEMORY[0x277CCA590];
-      v11 = NSErrorF_safe();
-      (v8)[2](v8, v11);
+      v10 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated");
+      (v8)[2](v8, v10);
     }
 
-    v12 = MEMORY[0x26676A4C0](self->_invalidationHandler);
+    v11 = MEMORY[0x26676A4C0](self->_invalidationHandler);
     invalidationHandler = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
-    if (v12)
+    if (v11)
     {
-      v12[2](v12);
+      v11[2](v11);
     }
 
-    v14.receiver = self;
-    v14.super_class = SKSetupServer;
-    [(SKSetupBase *)&v14 _invalidated];
+    v13.receiver = self;
+    v13.super_class = SKSetupServer;
+    [(SKSetupBase *)&v13 _invalidated];
   }
 }
 
@@ -1454,97 +1449,94 @@ LABEL_5:
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy_;
-  v25 = __Block_byref_object_dispose_;
-  v26 = 0;
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __41__SKSetupServer__activateWithCompletion___block_invoke;
-  v17 = &unk_279BB8500;
-  v20 = &v21;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __41__SKSetupServer__activateWithCompletion___block_invoke;
+  v14 = &unk_279BB8500;
+  v17 = &v18;
   selfCopy = self;
   v5 = completionCopy;
-  v19 = v5;
-  v6 = MEMORY[0x26676A4C0](&v14);
-  if (self->super._activateCalled || self->super._invalidateCalled)
+  v16 = v5;
+  v6 = MEMORY[0x26676A4C0](&v11);
+  if (self->super._activateCalled)
   {
-    v9 = *MEMORY[0x277CCA590];
-    v10 = NSErrorF_safe();
-    v11 = v22[5];
-    v22[5] = v10;
+    NSErrorF_safe(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
+    v9 = LABEL_11:;
+    v10 = v19[5];
+    v19[5] = v9;
 
     goto LABEL_8;
   }
 
-  self->super._activateCalled = 1;
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  if (self->super._invalidateCalled)
   {
-    if (var0 == -1)
+    NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Activate after invalidate");
+    goto LABEL_11;
+  }
+
+  self->super._activateCalled = 1;
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
+  {
+    if (ucat->var0 == -1)
     {
-      ucat = self->super._ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v12 = self->super._ucat;
+      ucat = self->super._ucat;
     }
 
-    v13 = CUDescriptionWithLevel();
-    LogPrintF();
+    v8 = CUDescriptionWithLevel();
+    LogPrintF(ucat, "[SKSetupServer _activateWithCompletion:]", 30, "Activate: %@", v8, v11, v12, v13, v14, selfCopy);
   }
 
 LABEL_7:
-  [(SKSetupServer *)self _prepareSteps:v13];
+  [(SKSetupServer *)self _prepareSteps];
   [(SKSetupServer *)self _update];
   (*(v5 + 2))(v5, 0);
 LABEL_8:
   v6[2](v6);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __41__SKSetupServer__activateWithCompletion___block_invoke(void *a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
+  result = *(*(a1[6] + 8) + 40);
   if (!result)
   {
     return result;
   }
 
-  v4 = **(a1[4] + 144);
-  if (v4 <= 90)
+  v3 = *(a1[4] + 144);
+  if (*v3 <= 90)
   {
-    if (v4 == -1)
+    if (*v3 == -1)
     {
-      v5 = *(a1[4] + 144);
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v9 = *(a1[4] + 144);
-      v10 = *(*(v2 + 8) + 40);
+      v3 = *(a1[4] + 144);
     }
 
-    v11 = CUPrintNSError();
-    LogPrintF();
-
-    v2 = a1[6];
+    v4 = CUPrintNSError();
+    LogPrintF(v3, "[SKSetupServer _activateWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v4);
   }
 
 LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = *(a1[5] + 16);
+  v5 = *(a1[5] + 16);
 
-  return v8();
+  return v5();
 }
 
 - (void)activateWithCompletion:(id)completion

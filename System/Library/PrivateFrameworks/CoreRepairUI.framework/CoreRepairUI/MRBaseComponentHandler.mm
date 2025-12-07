@@ -8,6 +8,7 @@
 - (void)checkInAndHandleAuthStatus;
 - (void)clearNSUserDefaults;
 - (void)clearRepairFollowUp;
+- (void)createFinishRepairFollowUpWithNotification:(BOOL)notification;
 - (void)createRepairFollowUp;
 - (void)mainNonAuthRepairFlow;
 - (void)popUpNotificationNowWithMessage;
@@ -22,10 +23,10 @@
 
 - (MRBaseComponentHandler)init
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = MRBaseComponentHandler;
-  v2 = [(MRBaseComponentHandler *)&v20 init];
+  v22 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = MRBaseComponentHandler;
+  v2 = [(MRBaseComponentHandler *)&v19 init];
   v3 = v2;
   if (v2)
   {
@@ -73,18 +74,17 @@
     {
       v17 = *(v3 + 21);
       *buf = 134217984;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_247875000, v16, OS_LOG_TYPE_DEFAULT, "the XPC time internal will be %f", buf, 0xCu);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)createRepairFollowUp
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   displayFollowup = self->displayFollowup;
   v4 = handleForCategory(0);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -94,9 +94,9 @@
     {
       componentName = [(MRBaseComponentHandler *)self componentName];
       *buf = 138412546;
-      v11 = componentName;
-      v12 = 2080;
-      v13 = "[MRBaseComponentHandler createRepairFollowUp]";
+      v10 = componentName;
+      v11 = 2080;
+      v12 = "[MRBaseComponentHandler createRepairFollowUp]";
       _os_log_impl(&dword_247875000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
     }
 
@@ -109,18 +109,56 @@
     componentName2 = [(MRBaseComponentHandler *)self componentName];
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] followup skipped", "-[MRBaseComponentHandler createRepairFollowUp]"];
     *buf = 138412546;
-    v11 = componentName2;
-    v12 = 2112;
-    v13 = v8;
+    v10 = componentName2;
+    v11 = 2112;
+    v12 = v8;
     _os_log_impl(&dword_247875000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)createFinishRepairFollowUpWithNotification:(BOOL)notification
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (self->displayFollowup)
+  {
+    notificationCopy = notification;
+    v5 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=General&path=About/MAIN_PARTS_AND_SERVICE"];
+    v6 = handleForCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      componentName = [(MRBaseComponentHandler *)self componentName];
+      *buf = 138412546;
+      v14 = componentName;
+      v15 = 2080;
+      v16 = "[MRBaseComponentHandler createFinishRepairFollowUpWithNotification:]";
+      _os_log_impl(&dword_247875000, v6, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
+    }
+
+    v8 = +[MRUINotificationHelper sharedSingleton];
+    finishRepairTitle = [(MRBaseComponentHandler *)self finishRepairTitle];
+    finishRepairMessage = [(MRBaseComponentHandler *)self finishRepairMessage];
+    [v8 createRepairFollowUpWithNotification:notificationCopy actionURL:v5 repairTitle:finishRepairTitle infoText:finishRepairMessage itemID:self->finishRepairKey timeInterval:self->componentName componentName:0.0];
+  }
+
+  else
+  {
+    v5 = handleForCategory(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      componentName2 = [(MRBaseComponentHandler *)self componentName];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] followup skipped", "-[MRBaseComponentHandler createFinishRepairFollowUpWithNotification:]"];
+      *buf = 138412546;
+      v14 = componentName2;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
+    }
+  }
 }
 
 - (void)clearRepairFollowUp
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   displayFollowup = self->displayFollowup;
   v4 = handleForCategory(0);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -131,9 +169,9 @@
       componentName = [(MRBaseComponentHandler *)self componentName];
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] clearRepairFollowUp skipped", "-[MRBaseComponentHandler clearRepairFollowUp]"];
       *buf = 138412546;
-      v13 = componentName;
-      v14 = 2112;
-      v15 = v10;
+      v12 = componentName;
+      v13 = 2112;
+      v14 = v10;
       _os_log_impl(&dword_247875000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
 
@@ -144,9 +182,9 @@
   {
     componentName2 = [(MRBaseComponentHandler *)self componentName];
     *buf = 138412546;
-    v13 = componentName2;
-    v14 = 2080;
-    v15 = "[MRBaseComponentHandler clearRepairFollowUp]";
+    v12 = componentName2;
+    v13 = 2080;
+    v14 = "[MRBaseComponentHandler clearRepairFollowUp]";
     _os_log_impl(&dword_247875000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
   }
 
@@ -162,21 +200,19 @@
     [v4 removeRepairNotificationsWithUniqueID:self->finishRepairKey];
 LABEL_8:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clearStateFile:(BOOL *)file
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = handleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     componentName = [(MRBaseComponentHandler *)self componentName];
     *buf = 138412546;
-    v24 = componentName;
-    v25 = 2080;
-    v26 = "[MRBaseComponentHandler clearStateFile:]";
+    v23 = componentName;
+    v24 = 2080;
+    v25 = "[MRBaseComponentHandler clearStateFile:]";
     _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
   }
 
@@ -200,9 +236,9 @@ LABEL_11:
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
   stateFilePath = self->stateFilePath;
-  v22 = 0;
-  v11 = [defaultManager2 removeItemAtPath:stateFilePath error:&v22];
-  v12 = v22;
+  v21 = 0;
+  v11 = [defaultManager2 removeItemAtPath:stateFilePath error:&v21];
+  v12 = v21;
 
   if (v11)
   {
@@ -213,14 +249,14 @@ LABEL_11:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     componentName2 = [(MRBaseComponentHandler *)self componentName];
-    v18 = MEMORY[0x277CCACA8];
-    v19 = self->stateFilePath;
+    v17 = MEMORY[0x277CCACA8];
+    v18 = self->stateFilePath;
     localizedDescription = [v12 localizedDescription];
-    v21 = [v18 stringWithFormat:@"remove item at path %@ failed: %@", v19, localizedDescription];
+    v20 = [v17 stringWithFormat:@"remove item at path %@ failed: %@", v18, localizedDescription];
     *buf = 138412546;
-    v24 = componentName2;
-    v25 = 2112;
-    v26 = v21;
+    v23 = componentName2;
+    v24 = 2112;
+    v25 = v20;
     _os_log_error_impl(&dword_247875000, v13, OS_LOG_TYPE_ERROR, "[%@][%@]", buf, 0x16u);
   }
 
@@ -232,22 +268,21 @@ LABEL_11:
 
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)clearNSUserDefaults
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = handleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     componentName = [(MRBaseComponentHandler *)self componentName];
-    v8 = 138412546;
-    v9 = componentName;
-    v10 = 2080;
-    v11 = "[MRBaseComponentHandler clearNSUserDefaults]";
-    _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%@][%s]", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = componentName;
+    v9 = 2080;
+    v10 = "[MRBaseComponentHandler clearNSUserDefaults]";
+    _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%@][%s]", &v7, 0x16u);
   }
 
   groupStandardUserDefaults = [MEMORY[0x277CBEBD0] groupStandardUserDefaults];
@@ -275,20 +310,19 @@ LABEL_12:
   [v6 removeObjectForKey:self->componentFollowupClientID];
 
   [(MRBaseComponentHandler *)self clearStateFile:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)popUpNotificationNowWithMessage
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = handleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     componentName = [(MRBaseComponentHandler *)self componentName];
     *buf = 138412546;
-    v12 = componentName;
-    v13 = 2080;
-    v14 = "[MRBaseComponentHandler popUpNotificationNowWithMessage]";
+    v11 = componentName;
+    v12 = 2080;
+    v13 = "[MRBaseComponentHandler popUpNotificationNowWithMessage]";
     _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
   }
 
@@ -300,9 +334,9 @@ LABEL_12:
       componentName2 = [(MRBaseComponentHandler *)self componentName];
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] SU case skipped popup", "-[MRBaseComponentHandler popUpNotificationNowWithMessage]"];
       *buf = 138412546;
-      v12 = componentName2;
-      v13 = 2112;
-      v14 = v9;
+      v11 = componentName2;
+      v12 = 2112;
+      v13 = v9;
       _os_log_impl(&dword_247875000, v7, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
 
@@ -318,21 +352,19 @@ LABEL_12:
     [v7 popUpNotificationNowWithMessage:self->popUpNotificationMessage title:self->popUpNotificationTitle openSensitiveURL:self->linkedSensitiveURL componentName:self->componentName legacyPopup:self->legacyPopup];
 LABEL_9:
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleNetworkActivity
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = handleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     componentName = [(MRBaseComponentHandler *)self componentName];
     *buf = 138412546;
-    v10 = componentName;
-    v11 = 2080;
-    v12 = "[MRBaseComponentHandler scheduleNetworkActivity]";
+    v9 = componentName;
+    v10 = 2080;
+    v11 = "[MRBaseComponentHandler scheduleNetworkActivity]";
     _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
   }
 
@@ -344,20 +376,19 @@ LABEL_9:
   handler[3] = &unk_278EB1E40;
   handler[4] = self;
   xpc_activity_register(uTF8String, v6, handler);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (xpc_activity_get_state(v3))
   {
     v4 = [MEMORY[0x277CBEB38] dictionary];
     v5 = [MEMORY[0x277D25710] sharedDataAccessor];
-    v24 = 0;
-    v6 = [v5 copyPathForPersistentData:100 error:&v24];
-    v7 = v24;
+    v23 = 0;
+    v6 = [v5 copyPathForPersistentData:100 error:&v23];
+    v7 = v23;
 
     if (v6)
     {
@@ -397,9 +428,9 @@ void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke(uint64_t
             v13 = [*(a1 + 32) componentName];
             v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Successfully deferred activity %@ to state: %lu", v3, xpc_activity_get_state(v3)];
             *buf = 138412546;
-            v26 = v13;
-            v27 = 2112;
-            v28 = v14;
+            v25 = v13;
+            v26 = 2112;
+            v27 = v14;
             _os_log_impl(&dword_247875000, v9, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
           }
         }
@@ -413,9 +444,9 @@ void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke(uint64_t
       else
       {
         v15 = [*(a1 + 32) componentName];
-        v23 = 0;
-        v16 = [v7 registerChangeForComponent:v15 fdrError:&v23];
-        v9 = v23;
+        v22 = 0;
+        v16 = [v7 registerChangeForComponent:v15 fdrError:&v22];
+        v9 = v22;
 
         if (!v16)
         {
@@ -425,9 +456,9 @@ void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke(uint64_t
             v18 = [*(a1 + 32) componentName];
             v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] register change was successful", "-[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke"];
             *buf = 138412546;
-            v26 = v18;
-            v27 = 2112;
-            v28 = v19;
+            v25 = v18;
+            v26 = 2112;
+            v27 = v19;
             _os_log_impl(&dword_247875000, v17, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
           }
 
@@ -463,13 +494,11 @@ LABEL_24:
   xpc_dictionary_set_BOOL(v4, *MEMORY[0x277D86300], 1);
   xpc_activity_set_criteria(v3, v4);
 LABEL_25:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unlockCheckerActivityBody
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   groupStandardUserDefaults = [MEMORY[0x277CBEBD0] groupStandardUserDefaults];
   componentUnLockCheckCountKey = [(MRBaseComponentHandler *)self componentUnLockCheckCountKey];
   v5 = [groupStandardUserDefaults integerForKey:componentUnLockCheckCountKey];
@@ -487,7 +516,7 @@ LABEL_25:
     v8 = ![(MRBaseComponentHandler *)self notifyServer];
   }
 
-  v41 = 0;
+  v40 = 0;
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v11 = v10;
@@ -528,9 +557,9 @@ LABEL_25:
     componentName = [(MRBaseComponentHandler *)self componentName];
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Set count main body:%ld", v5];
     *buf = 138412546;
-    v43 = componentName;
-    v44 = 2112;
-    v45 = v23;
+    v42 = componentName;
+    v43 = 2112;
+    v44 = v23;
     _os_log_impl(&dword_247875000, v21, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
   }
 
@@ -549,9 +578,9 @@ LABEL_25:
       componentName2 = [(MRBaseComponentHandler *)self componentName];
       v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] handling clear all followup", "-[MRBaseComponentHandler unlockCheckerActivityBody]"];
       *buf = 138412546;
-      v43 = componentName2;
-      v44 = 2112;
-      v45 = v32;
+      v42 = componentName2;
+      v43 = 2112;
+      v44 = v32;
       _os_log_impl(&dword_247875000, v30, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
 
@@ -569,15 +598,15 @@ LABEL_25:
       componentName3 = [(MRBaseComponentHandler *)self componentName];
       v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] SU handling clear all followup", "-[MRBaseComponentHandler unlockCheckerActivityBody]"];
       *buf = 138412546;
-      v43 = componentName3;
-      v44 = 2112;
-      v45 = v28;
+      v42 = componentName3;
+      v43 = 2112;
+      v44 = v28;
       _os_log_impl(&dword_247875000, v26, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
 
     [(MRBaseComponentHandler *)self clearRepairFollowUp];
-    [(MRBaseComponentHandler *)self clearStateFile:&v41];
-    if (v41 == 1)
+    [(MRBaseComponentHandler *)self clearStateFile:&v40];
+    if (v40 == 1)
     {
       componentfollowUpDisplaydays2 = [(MRBaseComponentHandler *)self componentfollowUpDisplaydays];
 LABEL_21:
@@ -603,9 +632,9 @@ LABEL_22:
         componentName4 = [(MRBaseComponentHandler *)self componentName];
         v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] handling followup retrigger", "-[MRBaseComponentHandler unlockCheckerActivityBody]"];
         *buf = 138412546;
-        v43 = componentName4;
-        v44 = 2112;
-        v45 = v36;
+        v42 = componentName4;
+        v43 = 2112;
+        v44 = v36;
         _os_log_impl(&dword_247875000, v34, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
       }
 
@@ -623,9 +652,9 @@ LABEL_22:
       componentName5 = [(MRBaseComponentHandler *)self componentName];
       v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] Scheduling network activity", "-[MRBaseComponentHandler unlockCheckerActivityBody]"];
       *buf = 138412546;
-      v43 = componentName5;
-      v44 = 2112;
-      v45 = v39;
+      v42 = componentName5;
+      v43 = 2112;
+      v44 = v39;
       _os_log_impl(&dword_247875000, v37, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
 
@@ -636,13 +665,11 @@ LABEL_22:
   {
     [(MRBaseComponentHandler *)self scheduleUnlockCheckerActivity:0 forFinishRepair:self->timeIntervalOverride - (timeIntervalOverride % self->timeIntervalOverride)];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unlockCheckerActivityBodyForFinishRepair
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   groupStandardUserDefaults = [MEMORY[0x277CBEBD0] groupStandardUserDefaults];
   componentUnLockCheckCountKey = [(MRBaseComponentHandler *)self componentUnLockCheckCountKey];
   v5 = [groupStandardUserDefaults integerForKey:componentUnLockCheckCountKey];
@@ -685,9 +712,9 @@ LABEL_22:
     componentName = [(MRBaseComponentHandler *)self componentName];
     v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Set count FinishRepair:%ld", v5];
     *buf = 138412546;
-    v33 = componentName;
-    v34 = 2112;
-    v35 = v20;
+    v32 = componentName;
+    v33 = 2112;
+    v34 = v20;
     _os_log_impl(&dword_247875000, v18, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
   }
 
@@ -697,9 +724,9 @@ LABEL_22:
     componentName2 = [(MRBaseComponentHandler *)self componentName];
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Retigger count:%ld", v7];
     *buf = 138412546;
-    v33 = componentName2;
-    v34 = 2112;
-    v35 = v23;
+    v32 = componentName2;
+    v33 = 2112;
+    v34 = v23;
     _os_log_impl(&dword_247875000, v21, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
   }
 
@@ -711,9 +738,9 @@ LABEL_22:
       componentName3 = [(MRBaseComponentHandler *)self componentName];
       v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] handling clear all followup", "-[MRBaseComponentHandler unlockCheckerActivityBodyForFinishRepair]"];
       *buf = 138412546;
-      v33 = componentName3;
-      v34 = 2112;
-      v35 = v26;
+      v32 = componentName3;
+      v33 = 2112;
+      v34 = v26;
       _os_log_impl(&dword_247875000, v24, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
 
@@ -738,9 +765,9 @@ LABEL_22:
         componentName4 = [(MRBaseComponentHandler *)self componentName];
         v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] handling followup retrigger", "-[MRBaseComponentHandler unlockCheckerActivityBodyForFinishRepair]"];
         *buf = 138412546;
-        v33 = componentName4;
-        v34 = 2112;
-        v35 = v30;
+        v32 = componentName4;
+        v33 = 2112;
+        v34 = v30;
         _os_log_impl(&dword_247875000, v28, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
       }
 
@@ -753,8 +780,6 @@ LABEL_22:
   {
     [(MRBaseComponentHandler *)self scheduleUnlockCheckerActivity:1 forFinishRepair:self->timeIntervalOverride - (timeIntervalOverride % self->timeIntervalOverride)];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createCriteriaForUnlockCheckerWithInterval:(double)interval
@@ -773,15 +798,15 @@ LABEL_22:
 - (void)scheduleUnlockCheckerActivity:(double)activity forFinishRepair:(BOOL)repair
 {
   repairCopy = repair;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = handleForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     componentName = [(MRBaseComponentHandler *)self componentName];
     *buf = 138412546;
-    v18 = componentName;
-    v19 = 2080;
-    v20 = "[MRBaseComponentHandler scheduleUnlockCheckerActivity:forFinishRepair:]";
+    v17 = componentName;
+    v18 = 2080;
+    v19 = "[MRBaseComponentHandler scheduleUnlockCheckerActivity:forFinishRepair:]";
     _os_log_impl(&dword_247875000, v7, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
   }
 
@@ -792,17 +817,17 @@ LABEL_22:
     v11 = *MEMORY[0x277D86238];
     if (repairCopy)
     {
-      v12 = v16;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
+      v12 = v15;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
       v13 = __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair___block_invoke;
     }
 
     else
     {
-      v12 = v15;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
+      v12 = v14;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
       v13 = __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair___block_invoke_2;
     }
 
@@ -812,8 +837,6 @@ LABEL_22:
     v12[5] = activity;
     xpc_activity_register(uTF8String, v11, v12);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair___block_invoke(uint64_t a1, void *a2)
@@ -852,7 +875,7 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
 
 - (void)mainNonAuthRepairFlow
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = handleForCategory(0);
@@ -860,9 +883,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
   {
     componentName = [(MRBaseComponentHandler *)selfCopy componentName];
     *buf = 138412546;
-    v42 = componentName;
-    v43 = 2080;
-    v44 = "[MRBaseComponentHandler mainNonAuthRepairFlow]";
+    v41 = componentName;
+    v42 = 2080;
+    v43 = "[MRBaseComponentHandler mainNonAuthRepairFlow]";
     _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
   }
 
@@ -872,9 +895,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
     componentName2 = [(MRBaseComponentHandler *)selfCopy componentName];
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] component non authentic", "-[MRBaseComponentHandler mainNonAuthRepairFlow]"];
     *buf = 138412546;
-    v42 = componentName2;
-    v43 = 2112;
-    v44 = v7;
+    v41 = componentName2;
+    v42 = 2112;
+    v43 = v7;
     _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
   }
 
@@ -930,9 +953,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
         componentName3 = [(MRBaseComponentHandler *)selfCopy componentName];
         v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] handling xpc/reboot case", "-[MRBaseComponentHandler mainNonAuthRepairFlow]"];
         *buf = 138412546;
-        v42 = componentName3;
-        v43 = 2112;
-        v44 = v27;
+        v41 = componentName3;
+        v42 = 2112;
+        v43 = v27;
         _os_log_impl(&dword_247875000, v25, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
       }
 
@@ -951,9 +974,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
           componentName4 = [(MRBaseComponentHandler *)selfCopy componentName];
           v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] scheduling unlock checker activity Interval:%f ", "-[MRBaseComponentHandler mainNonAuthRepairFlow]", selfCopy->timeIntervalOverride - v29];
           *buf = 138412546;
-          v42 = componentName4;
-          v43 = 2112;
-          v44 = v32;
+          v41 = componentName4;
+          v42 = 2112;
+          v43 = v32;
           _os_log_impl(&dword_247875000, v30, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
         }
 
@@ -974,9 +997,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
         componentName5 = [(MRBaseComponentHandler *)selfCopy componentName];
         v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] starting Followup and notification", "-[MRBaseComponentHandler mainNonAuthRepairFlow]"];
         *buf = 138412546;
-        v42 = componentName5;
-        v43 = 2112;
-        v44 = v35;
+        v41 = componentName5;
+        v42 = 2112;
+        v43 = v35;
         _os_log_impl(&dword_247875000, v33, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
       }
 
@@ -1002,9 +1025,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
           componentName6 = [(MRBaseComponentHandler *)selfCopy componentName];
           v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] Scheduling network activity", "-[MRBaseComponentHandler mainNonAuthRepairFlow]"];
           *buf = 138412546;
-          v42 = componentName6;
-          v43 = 2112;
-          v44 = v39;
+          v41 = componentName6;
+          v42 = 2112;
+          v43 = v39;
           _os_log_impl(&dword_247875000, v37, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
         }
 
@@ -1016,7 +1039,6 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
   }
 
   objc_sync_exit(selfCopy);
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkInAndHandleAuthStatus
@@ -1030,7 +1052,7 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
 
 - (void)sendAnalyticsForCount:(int64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   groupStandardUserDefaults = [MEMORY[0x277CBEBD0] groupStandardUserDefaults];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
@@ -1047,9 +1069,9 @@ void __72__MRBaseComponentHandler_scheduleUnlockCheckerActivity_forFinishRepair_
   {
     v9 = @"lockscreenCleared";
 LABEL_10:
-    v14 = v9;
+    v13 = v9;
     AnalyticsSendEventLazy();
-    v10 = v14;
+    v10 = v13;
     goto LABEL_11;
   }
 
@@ -1071,11 +1093,11 @@ LABEL_10:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       componentName = [(MRBaseComponentHandler *)self componentName];
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] auth never fail before, bogus repair event", "-[MRBaseComponentHandler sendAnalyticsForCount:]"];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] auth never fail before, bogus repair event", "-[MRBaseComponentHandler sendAnalyticsForCount:]"];
       *buf = 138412546;
-      v16 = componentName;
-      v17 = 2112;
-      v18 = v13;
+      v15 = componentName;
+      v16 = 2112;
+      v17 = v12;
       _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     }
   }
@@ -1090,14 +1112,12 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1)
 {
-  v30[6] = *MEMORY[0x277D85DE8];
-  v29[0] = @"EventType";
+  v29[6] = *MEMORY[0x277D85DE8];
+  v28[0] = @"EventType";
   v2 = *(a1 + 32);
   v3 = v2;
   if (!v2)
@@ -1105,8 +1125,8 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
     v3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v30[0] = v3;
-  v29[1] = @"isSUCase";
+  v29[0] = v3;
+  v28[1] = @"isSUCase";
   v4 = [*(a1 + 40) isSUCaseForComponent];
   v5 = MEMORY[0x277CBEC28];
   if (v4)
@@ -1114,22 +1134,22 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
     v5 = MEMORY[0x277CBEC38];
   }
 
-  v30[1] = v5;
-  v29[2] = @"ModuleType";
+  v29[1] = v5;
+  v28[2] = @"ModuleType";
   v6 = [*(a1 + 40) componentName];
-  v30[2] = v6;
-  v29[3] = @"AuthStatus";
+  v29[2] = v6;
+  v28[3] = @"AuthStatus";
   v7 = MEMORY[0x277CCABB0];
   v8 = [*(a1 + 40) componentAuthHandler];
   v9 = [v7 numberWithInteger:{objc_msgSend(v8, "copyComponentStatus")}];
-  v30[3] = v9;
-  v29[4] = @"UICoreFollowUpShownDuration";
+  v29[3] = v9;
+  v28[4] = @"UICoreFollowUpShownDuration";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v30[4] = v10;
-  v29[5] = @"UILockscreenNotification";
+  v29[4] = v10;
+  v28[5] = @"UILockscreenNotification";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  v30[5] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+  v29[5] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
 
   if (!v2)
   {
@@ -1141,9 +1161,9 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
     v14 = [*(a1 + 40) componentName];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] send event: %@", "-[MRBaseComponentHandler sendAnalyticsForCount:]_block_invoke", v12];
     *buf = 138412546;
-    v26 = v14;
-    v27 = 2112;
-    v28 = v15;
+    v25 = v14;
+    v26 = 2112;
+    v27 = v15;
     _os_log_impl(&dword_247875000, v13, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
   }
 
@@ -1162,23 +1182,21 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
 
     v22 = [v18 stringWithFormat:@"CoreAnalyticsEvent: ModuleType(%@), EventType(%@)", v19, v21];
     *buf = 138412546;
-    v26 = v17;
-    v27 = 2112;
-    v28 = v22;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v22;
     _os_log_impl(&dword_247875000, v16, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
     if (!v20)
     {
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (void)handleComponentSUCase:(id)case lastAUthCheckBuildVersion:(id)version followUpItemID:(id)d queryString:(id)string suCasekey:(id)casekey startBuildVersion:(id)buildVersion componentAuth:(id)auth
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   versionCopy = version;
   stringCopy = string;
@@ -1197,14 +1215,14 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
     }
 
     v20 = DMGetPreviousBuildVersion();
-    v40 = DMCopyCurrentBuildVersion();
+    v39 = DMCopyCurrentBuildVersion();
     v22 = handleForCategory(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v42 = v20;
-      v43 = 2112;
-      v44 = v40;
+      v41 = v20;
+      v42 = 2112;
+      v43 = v39;
       _os_log_impl(&dword_247875000, v22, OS_LOG_TYPE_DEFAULT, "Old version is %@:%@", buf, 0x16u);
     }
 
@@ -1218,18 +1236,18 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = stringCopy;
+        v41 = stringCopy;
         _os_log_impl(&dword_247875000, v27, OS_LOG_TYPE_DEFAULT, "[%@] User already seeing UI", buf, 0xCu);
       }
     }
 
-    else if (!v25 || ([v25 isEqualToString:v40] & 1) == 0)
+    else if (!v25 || ([v25 isEqualToString:v39] & 1) == 0)
     {
       v28 = handleForCategory(0);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = stringCopy;
+        v41 = stringCopy;
         _os_log_impl(&dword_247875000, v28, OS_LOG_TYPE_DEFAULT, "[%@] first auth case", buf, 0xCu);
       }
 
@@ -1240,18 +1258,18 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v42 = stringCopy;
+          v41 = stringCopy;
           _os_log_impl(&dword_247875000, v30, OS_LOG_TYPE_DEFAULT, "[%@] is Trusted", buf, 0xCu);
         }
 
-        [standardUserDefaults setObject:v40 forKey:versionCopy];
+        [standardUserDefaults setObject:v39 forKey:versionCopy];
         [standardUserDefaults synchronize];
       }
 
       else
       {
         v31 = synchronouslycopyAuthStatus;
-        v39 = casekeyCopy;
+        v38 = casekeyCopy;
         v32 = handleForCategory(0);
         v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
         if (v31 < 0)
@@ -1259,24 +1277,24 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
           if (v33)
           {
             *buf = 138412290;
-            v42 = stringCopy;
+            v41 = stringCopy;
             _os_log_impl(&dword_247875000, v32, OS_LOG_TYPE_DEFAULT, "[%@] is not Trusted", buf, 0xCu);
           }
 
           v34 = [objc_alloc(MEMORY[0x277D65E18]) initWithString:buildVersionCopy];
-          casekeyCopy = v39;
-          v38 = v34;
+          casekeyCopy = v38;
+          v37 = v34;
           if (v20 && [v34 compareBuildVersionString:v20 withPrecision:2] == 1)
           {
             v35 = handleForCategory(0);
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v42 = stringCopy;
+              v41 = stringCopy;
               _os_log_impl(&dword_247875000, v35, OS_LOG_TYPE_DEFAULT, "SU case for %@", buf, 0xCu);
             }
 
-            [standardUserDefaults setBool:1 forKey:v39];
+            [standardUserDefaults setBool:1 forKey:v38];
           }
 
           else
@@ -1285,12 +1303,12 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v42 = v20;
+              v41 = v20;
               _os_log_impl(&dword_247875000, v36, OS_LOG_TYPE_DEFAULT, "ignoring setting the SU case: previousBuild:%@", buf, 0xCu);
             }
           }
 
-          [standardUserDefaults setObject:v40 forKey:versionCopy];
+          [standardUserDefaults setObject:v39 forKey:versionCopy];
           [standardUserDefaults synchronize];
         }
 
@@ -1299,11 +1317,11 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
           if (v33)
           {
             *buf = 138412290;
-            v42 = stringCopy;
+            v41 = stringCopy;
             _os_log_impl(&dword_247875000, v32, OS_LOG_TYPE_DEFAULT, "[%@] Auth timeout", buf, 0xCu);
           }
 
-          casekeyCopy = v39;
+          casekeyCopy = v38;
         }
       }
     }
@@ -1312,11 +1330,9 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
   else if (v21)
   {
     *buf = 67109120;
-    LODWORD(v42) = v19;
+    LODWORD(v41) = v19;
     _os_log_impl(&dword_247875000, v20, OS_LOG_TYPE_DEFAULT, "Skipping SU update check:%d", buf, 8u);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getHwRevision
@@ -1372,50 +1388,34 @@ id __48__MRBaseComponentHandler_sendAnalyticsForCount___block_invoke(uint64_t a1
 
 void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke_cold_1(uint64_t a1, _xpc_activity_s *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) componentName];
-  v4 = MEMORY[0x277CCACA8];
-  v13 = a2;
-  state = xpc_activity_get_state(a2);
-  v5 = [v4 stringWithFormat:@"Failed to set state to DEFER for activity %@ current state: %lu"];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to set state to DEFER for activity %@ current state: %lu", a2, xpc_activity_get_state(a2)];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_247875000, v6, v7, "[%@][%@]", v8, v9, v10, v11, v13, state, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_247875000, v5, v6, "[%@][%@]", v7, v8, v9, v10, v11, v12);
 }
 
 void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke_cold_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) componentName];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] unable to create sealer"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] unable to create sealer", "-[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke"];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_247875000, v3, v4, "[%@][%@]", v5, v6, v7, v8, "[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke", v10, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_247875000, v3, v4, "[%@][%@]", v5, v6, v7, v8, v9, v10);
 }
 
 void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke_cold_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) componentName];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s]Unable to get FDR path"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s]Unable to get FDR path", "-[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke"];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_247875000, v3, v4, "[%@][%@]", v5, v6, v7, v8, "[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke", v10, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_247875000, v3, v4, "[%@][%@]", v5, v6, v7, v8, v9, v10);
 }
 
 - (void)sendAnalyticsForCount:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = [a1 componentName];
-  v12 = a2;
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] ignoring rogue event with unlock countL: %ld"];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%s] ignoring rogue event with unlock countL: %ld", "-[MRBaseComponentHandler sendAnalyticsForCount:]", a2];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_247875000, v5, v6, "[%@][%@]", v7, v8, v9, v10, "[MRBaseComponentHandler sendAnalyticsForCount:]", v12, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_247875000, v5, v6, "[%@][%@]", v7, v8, v9, v10, v11, v12);
 }
 
 + (void)getHwRevision
@@ -1423,7 +1423,8 @@ void __49__MRBaseComponentHandler_scheduleNetworkActivity__block_invoke_cold_3(u
   v0 = handleForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_2(&dword_247875000, v1, v2, "Cannot find matching service to IOPlatformExpertDevice", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_2(&dword_247875000, v1, v2, "Cannot find matching service to IOPlatformExpertDevice", v3, v4, v5, v6, v7);
   }
 }
 

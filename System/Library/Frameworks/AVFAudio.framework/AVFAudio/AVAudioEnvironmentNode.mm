@@ -134,9 +134,9 @@
 
 - (void)setListenerVectorOrientation:(AVAudio3DVectorOrientation *)listenerVectorOrientation
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   p_impl = &self->super._impl;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v108, self->super._impl);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v107, self->super._impl);
   v5 = *p_impl;
   x = listenerVectorOrientation->forward.x;
   y = listenerVectorOrientation->forward.y;
@@ -169,9 +169,9 @@
     *(v5 + 72) = v10;
     v15 = LODWORD(y);
     v16 = v9.f32[1];
-    v106 = v10;
-    v107 = v9;
-    v105 = z;
+    v105 = v10;
+    v106 = v9;
+    v104 = z;
     if (fabsf(z) <= 0.0001)
     {
       *(v5 + 73) = 0;
@@ -197,8 +197,8 @@
       }
 
       v23 = acosf(v22);
-      v25 = v106;
-      v26 = v107;
+      v25 = v105;
+      v26 = v106;
       v27 = 57.296;
     }
 
@@ -206,7 +206,7 @@
     {
       v17 = (SLODWORD(x) >> 31) | 1;
       v18 = (((x * 0.0) + 0.0) - z) / sqrtf(((x * x) + 0.0) + (z * z));
-      v104 = y;
+      v103 = y;
       if ((LODWORD(z) & 0x80000000) != 0)
       {
         v28 = 1.0;
@@ -268,7 +268,7 @@
       v44 = (((v34 * v41) - (v40 * v32)) - (v42 * v36)) + (v43 * v35);
       v45 = (((v36 * v41) - (v40 * v35)) + (v42 * v34)) - (v43 * v32);
       v46 = ((-(v35 * v41) - (v40 * v36)) + (v42 * v32)) + (v43 * v34);
-      v47 = (((v104 * v45) + (x * v44)) + (v105 * v46)) / sqrtf(((v45 * v45) + (v44 * v44)) + (v46 * v46));
+      v47 = (((v103 * v45) + (x * v44)) + (v104 * v46)) / sqrtf(((v45 * v45) + (v44 * v44)) + (v46 * v46));
       v48 = 1.0;
       if (v47 <= 1.0)
       {
@@ -311,7 +311,7 @@
       v65 = (((v55 * v62) - (v61 * v53)) - (v63 * v57)) + (v64 * v56);
       v66 = (((v57 * v62) - (v61 * v56)) + (v63 * v55)) - (v64 * v53);
       v67 = ((-(v56 * v62) - (v61 * v57)) + (v63 * v53)) + (v64 * v55);
-      v68 = (((v16 * v66) + (v107.f32[0] * v65)) + (v106 * v67)) / sqrtf(((v66 * v66) + (v65 * v65)) + (v67 * v67));
+      v68 = (((v16 * v66) + (v106.f32[0] * v65)) + (v105 * v67)) / sqrtf(((v66 * v66) + (v65 * v65)) + (v67 * v67));
       v69 = 1.0;
       if (v68 <= 1.0)
       {
@@ -323,9 +323,9 @@
       }
 
       v23 = acosf(v69) * 57.296;
-      v25 = v106;
-      v26 = v107;
-      if (COERCE_INT((v67 * v107.f32[0]) - (v65 * v106)) >= 0)
+      v25 = v105;
+      v26 = v106;
+      if (COERCE_INT((v67 * v106.f32[0]) - (v65 * v105)) >= 0)
       {
         v70 = v49;
       }
@@ -340,7 +340,7 @@
 
     *(v5 + 75) = v23 * v27;
     v24.i64[0] = *(v5 + 268);
-    v24.f32[2] = v105;
+    v24.f32[2] = v104;
     v71 = vnegq_f32(v24);
     v72 = v26;
     v72.f32[2] = v25;
@@ -408,21 +408,19 @@ LABEL_58:
     *&v102 = -v96;
     *(&v102 + 1) = v94;
     *(&v102 + 1) = __PAIR64__(LODWORD(v83), -v95);
-    v112 = v102;
-    (*(*v5 + 144))(v5, 3102, 0, 0, &v112, 16);
+    v111 = v102;
+    (*(*v5 + 144))(v5, 3102, 0, 0, &v111, 16);
   }
 
-  if (v111 == 1)
+  if (v110 == 1)
   {
-    std::recursive_mutex::unlock(v110);
+    std::recursive_mutex::unlock(v109);
   }
 
-  if (v109 == 1)
+  if (v108 == 1)
   {
-    std::recursive_mutex::unlock(v108);
+    std::recursive_mutex::unlock(v107);
   }
-
-  v103 = *MEMORY[0x1E69E9840];
 }
 
 - (AVAudio3DPoint)listenerPosition
@@ -456,62 +454,62 @@ LABEL_58:
   z = listenerPosition.z;
   y = listenerPosition.y;
   x = listenerPosition.x;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v15, self->super._impl);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v16, self->super._impl);
   impl = self->super._impl;
-  v8.n128_u32[0] = impl[64];
-  if (v8.n128_f32[0] != x || (v8.n128_u32[0] = impl[65], v8.n128_f32[0] != y) || (v8.n128_u32[0] = impl[66], v8.n128_f32[0] != z))
+  v9.n128_u32[0] = impl[64];
+  if (v9.n128_f32[0] != x || (v9.n128_u32[0] = impl[65], v9.n128_f32[0] != y) || (v9.n128_u32[0] = impl[66], v9.n128_f32[0] != z))
   {
     *(impl + 64) = x;
     *(impl + 65) = y;
     *(impl + 66) = z;
-    v9 = *(impl + 38);
-    v10 = impl + 78;
-    if (v9 != (impl + 78))
+    v10 = *(impl + 38);
+    v11 = impl + 78;
+    if (v10 != (impl + 78))
     {
       do
       {
-        AVAudio3DMixingImpl::RecalculateAndSetSphericalCoordsOnMixer(v9[4], v8);
-        v11 = v9[1];
-        if (v11)
+        AVAudio3DMixingImpl::RecalculateAndSetSphericalCoordsOnMixer(v10[4], v7, v9);
+        v12 = v10[1];
+        if (v12)
         {
           do
           {
-            v12 = v11;
-            v11 = *v11;
+            v13 = v12;
+            v12 = *v12;
           }
 
-          while (v11);
+          while (v12);
         }
 
         else
         {
           do
           {
-            v12 = v9[2];
-            v13 = *v12 == v9;
-            v9 = v12;
+            v13 = v10[2];
+            v14 = *v13 == v10;
+            v10 = v13;
           }
 
-          while (!v13);
+          while (!v14);
         }
 
-        v9 = v12;
+        v10 = v13;
       }
 
-      while (v12 != v10);
+      while (v13 != v11);
     }
   }
 
-  if (v18 == 1)
+  if (v19 == 1)
   {
-    std::recursive_mutex::unlock(v17);
+    std::recursive_mutex::unlock(v18);
   }
 
-  if (v16 == 1)
+  if (v17 == 1)
   {
-    v14 = v15;
+    v15 = v16;
 
-    std::recursive_mutex::unlock(v14);
+    std::recursive_mutex::unlock(v15);
   }
 }
 
@@ -606,12 +604,12 @@ LABEL_58:
 
 - (BOOL)isListenerHeadTrackingEnabled
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   p_impl = &self->super._impl;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, self->super._impl);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, self->super._impl);
   v3 = *p_impl;
-  v12 = 0;
-  if (((*(*v3 + 152))(v3, 3111, 0, 0, &v12, 4) & 1) == 0)
+  v11 = 0;
+  if (((*(*v3 + 152))(v3, 3111, 0, 0, &v11, 4) & 1) == 0)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
@@ -622,38 +620,36 @@ LABEL_58:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "AVAudioEnvironmentNodeImpl.mm";
-      v15 = 1024;
-      v16 = 372;
+      v13 = "AVAudioEnvironmentNodeImpl.mm";
+      v14 = 1024;
+      v15 = 372;
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d error getting spatial mixer headtracking property", buf, 0x12u);
     }
   }
 
-  v5 = v12;
-  if (v11 == 1)
+  v5 = v11;
+  if (v10 == 1)
   {
-    std::recursive_mutex::unlock(v10);
+    std::recursive_mutex::unlock(v9);
   }
 
-  if (v9 == 1)
+  if (v8 == 1)
   {
-    std::recursive_mutex::unlock(v8);
+    std::recursive_mutex::unlock(v7);
   }
 
-  result = v5 != 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 != 0;
 }
 
 - (void)setListenerHeadTrackingEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   p_impl = &self->super._impl;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v9, self->super._impl);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, self->super._impl);
   v5 = *p_impl;
-  v13 = enabledCopy;
-  if (((*(*v5 + 144))(v5, 3111, 0, 0, &v13, 4) & 1) == 0)
+  v12 = enabledCopy;
+  if (((*(*v5 + 144))(v5, 3111, 0, 0, &v12, 4) & 1) == 0)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
@@ -664,32 +660,30 @@ LABEL_58:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       v7 = "Enabling";
-      v15 = "AVAudioEnvironmentNodeImpl.mm";
+      v14 = "AVAudioEnvironmentNodeImpl.mm";
       *buf = 136315650;
-      if (!v13)
+      if (!v12)
       {
         v7 = "Disabling";
       }
 
-      v16 = 1024;
-      v17 = 358;
-      v18 = 2080;
-      v19 = v7;
+      v15 = 1024;
+      v16 = 358;
+      v17 = 2080;
+      v18 = v7;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d error %s spatial mixer headtracking", buf, 0x1Cu);
     }
   }
 
-  if (v12 == 1)
+  if (v11 == 1)
   {
-    std::recursive_mutex::unlock(v11);
+    std::recursive_mutex::unlock(v10);
   }
 
-  if (v10 == 1)
+  if (v9 == 1)
   {
-    std::recursive_mutex::unlock(v9);
+    std::recursive_mutex::unlock(v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOutputVolume:(float)outputVolume
@@ -755,9 +749,9 @@ LABEL_58:
 
 - (void)setOutputType:(AVAudioEnvironmentOutputType)outputType
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   p_impl = &self->super._impl;
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v11, self->super._impl);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v10, self->super._impl);
   v5 = *p_impl;
   if (*(v5 + 23) != outputType)
   {
@@ -766,7 +760,7 @@ LABEL_58:
     {
       if (outputType == AVAudioEnvironmentOutputTypeBuiltInSpeakers)
       {
-        v15 = 2;
+        v14 = 2;
         if (AVAudioEngineLogCategory(void)::once != -1)
         {
           dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
@@ -776,9 +770,9 @@ LABEL_58:
         if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v17 = "AVAudioEnvironmentNodeImpl.mm";
-          v18 = 1024;
-          v19 = 333;
+          v16 = "AVAudioEnvironmentNodeImpl.mm";
+          v17 = 1024;
+          v18 = 333;
           _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d setting output type = built-in speakers", buf, 0x12u);
         }
 
@@ -792,7 +786,7 @@ LABEL_58:
           goto LABEL_24;
         }
 
-        v15 = 3;
+        v14 = 3;
         if (AVAudioEngineLogCategory(void)::once != -1)
         {
           dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
@@ -802,9 +796,9 @@ LABEL_58:
         if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v17 = "AVAudioEnvironmentNodeImpl.mm";
-          v18 = 1024;
-          v19 = 323;
+          v16 = "AVAudioEnvironmentNodeImpl.mm";
+          v17 = 1024;
+          v18 = 323;
           _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d setting output type = external speakers", buf, 0x12u);
         }
 
@@ -825,7 +819,7 @@ LABEL_58:
         goto LABEL_24;
       }
 
-      v15 = 1;
+      v14 = 1;
       if (AVAudioEngineLogCategory(void)::once != -1)
       {
         dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
@@ -836,9 +830,9 @@ LABEL_58:
       if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v17 = "AVAudioEnvironmentNodeImpl.mm";
-        v18 = 1024;
-        v19 = 328;
+        v16 = "AVAudioEnvironmentNodeImpl.mm";
+        v17 = 1024;
+        v18 = 328;
         _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_INFO, "%25s:%-5d setting output type = headphones", buf, 0x12u);
       }
     }
@@ -846,22 +840,20 @@ LABEL_58:
     if (v7 != *(v5 + 48))
     {
       *(v5 + 48) = v7;
-      (*(*v5 + 144))(v5, 3100, 0, 0, &v15, 4);
+      (*(*v5 + 144))(v5, 3100, 0, 0, &v14, 4);
     }
   }
 
 LABEL_24:
-  if (v14 == 1)
+  if (v13 == 1)
   {
-    std::recursive_mutex::unlock(v13);
+    std::recursive_mutex::unlock(v12);
   }
 
-  if (v12 == 1)
+  if (v11 == 1)
   {
-    std::recursive_mutex::unlock(v11);
+    std::recursive_mutex::unlock(v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

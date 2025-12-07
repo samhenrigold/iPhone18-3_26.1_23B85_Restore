@@ -14,8 +14,8 @@
 - (double)unrolledWorldOrientation:(float *)orientation;
 - (float)maximumHorizontalAngle;
 - (float)minimumHorizontalAngle;
-- (float32x4_t)_directionForScreenPoint:(double)point viewport:(float64_t)viewport;
 - (void)_capOrientationAnglesToMaximum;
+- (void)_directionForScreenPoint:(double)point viewport:(float64_t)viewport;
 - (void)_endDraggingWithVelocity:(CGPoint)velocity;
 - (void)_resetOrientationState;
 - (void)_rotateByX:(float)x Y:(float)y;
@@ -334,7 +334,7 @@
   pointOfView = [(SCNCameraController *)self pointOfView];
   if (pointOfView)
   {
-    [(SCNNode *)pointOfView transform];
+    objc_msgSend_transform(pointOfView);
     v8.columns[0] = v24;
     v8.columns[1].i32[0] = v25.i32[0];
     v7 = v24.i32[3];
@@ -759,7 +759,7 @@
   [(SCNCameraController *)self _setInertiaRunning:0];
   v5.f64[0] = width;
   v5.f64[1] = height;
-  v17 = v5;
+  v19 = v5;
   self->_handlingInteraction = 1;
   if ([(SCNCameraController *)self automaticTarget])
   {
@@ -769,22 +769,22 @@
       return;
     }
 
-    v7 = sceneRef;
-    v8.f64[0] = x;
-    v16 = vcvt_hight_f32_f64(0, v17);
-    v8.f64[1] = y;
-    v9 = vcvt_f32_f64(v8);
-    C3DSceneLock(sceneRef);
+    v8 = sceneRef;
+    v9.f64[0] = x;
+    v18 = vcvt_hight_f32_f64(0, v19);
+    v9.f64[1] = y;
+    v10 = vcvt_f32_f64(v9);
+    C3DSceneLock(sceneRef, v7);
     nodeRef = [(SCNNode *)[(SCNCameraController *)self pointOfView] nodeRef];
-    HitTestResultsAtPoint = C3DSceneCreateHitTestResultsAtPoint(v7, nodeRef, 0, *&v9, v16, v11);
-    C3DSceneUnlock(v7);
+    HitTestResultsAtPoint = C3DSceneCreateHitTestResultsAtPoint(v8, nodeRef, 0, *&v10, v18, v12);
+    C3DSceneUnlock(v8, v14);
     if (HitTestResultsAtPoint)
     {
-      v13 = [SCNHitTestResult hitTestResultsFromHitTestResultRef:HitTestResultsAtPoint];
+      v15 = [SCNHitTestResult hitTestResultsFromHitTestResultRef:HitTestResultsAtPoint];
       CFRelease(HitTestResultsAtPoint);
-      if ([v13 count])
+      if ([v15 count])
       {
-        [objc_msgSend(v13 objectAtIndex:{0), "worldCoordinates"}];
+        [objc_msgSend(v15 objectAtIndex:{0), "worldCoordinates"}];
         [(SCNCameraController *)self setTarget:?];
       }
     }
@@ -792,19 +792,19 @@
 
   else
   {
-    v14.f64[0] = x;
-    v14.f64[1] = y;
-    v9 = vcvt_f32_f64(v14);
+    v16.f64[0] = x;
+    v16.f64[1] = y;
+    v10 = vcvt_f32_f64(v16);
   }
 
-  *self->_anon_70 = v9;
-  *&self->_anon_70[16] = v9;
+  *self->_anon_70 = v10;
+  *&self->_anon_70[16] = v10;
   [(SCNCameraController *)self _resetOrientationState];
   if ([(SCNCameraController *)self interactionMode]== SCNInteractionModeOrbitCenteredArcball || [(SCNCameraController *)self interactionMode]== SCNInteractionModeOrbitArcball)
   {
-    *self->_anon_90 = vmla_f32(vneg_f32(*self->_anon_70), 0x3F0000003F000000, vcvt_f32_f64(v17));
+    *self->_anon_90 = vmla_f32(vneg_f32(*self->_anon_70), 0x3F0000003F000000, vcvt_f32_f64(v19));
     [(SCNCameraController *)self _mapToSphere:x inViewport:y, width, height];
-    *&self->_anon_90[16] = v15;
+    *&self->_anon_90[16] = v17;
   }
 }
 
@@ -1108,41 +1108,41 @@ LABEL_18:
   *&self->_anon_10[8] = v35.i64[0];
 }
 
-- (float32x4_t)_directionForScreenPoint:(double)point viewport:(float64_t)viewport
+- (void)_directionForScreenPoint:(double)point viewport:(float64_t)viewport
 {
   result = [objc_msgSend(self "pointOfView")];
   if (result)
   {
-    v6 = result;
-    result = C3DGetScene(result);
+    v7 = result;
+    result = C3DGetScene(result, v6);
     if (result)
     {
-      v7 = result;
-      v8 = C3DGetScene(v6);
-      C3DSceneLock(v8);
-      memset(v20, 0, sizeof(v20));
-      if (C3DNodeGetProjectionInfos(v6, v20))
+      v9 = result;
+      v10 = C3DGetScene(v7, v8);
+      C3DSceneLock(v10, v11);
+      memset(v27, 0, sizeof(v27));
+      if (C3DNodeGetProjectionInfos(v7, v27))
       {
-        if ((v20[0] & 2) != 0)
+        if ((v27[0] & 2) != 0)
         {
-          C3DAdjustZRangeOfProjectionInfos(v20, v6, 0, v7);
+          C3DAdjustZRangeOfProjectionInfos(v27, v7, 0, v9);
         }
 
-        v9.f64[0] = viewport;
-        v9.f64[1] = a5;
-        v19 = vcvt_hight_f32_f64(0, v9);
-        v21 = *C3DProjectionInfosGetMatrix(v20, &v19, 0);
-        __invert_f4(v21);
+        v13.f64[0] = viewport;
+        v13.f64[1] = a5;
+        v26 = vcvt_hight_f32_f64(0, v13);
+        v28 = *C3DProjectionInfosGetMatrix(v27, &v26, 0);
+        __invert_f4(v28);
         __asm { FMOV            V1.4S, #-1.0 }
 
-        v15 = C3DGetScene(v6);
-        return C3DSceneUnlock(v15);
+        v20 = C3DGetScene(v7, v19);
+        return C3DSceneUnlock(v20, v21);
       }
 
       else
       {
-        v16 = C3DGetScene(v6);
-        return C3DSceneUnlock(v16);
+        v22 = C3DGetScene(v7, v12);
+        return C3DSceneUnlock(v22, v23);
       }
     }
   }
@@ -1809,79 +1809,79 @@ uint64_t __42__SCNCameraController__setInertiaRunning___block_invoke_3(uint64_t 
 - (double)_orthographicViewSpaceTranslationForZoomAtScreenPoint:(float)point scaleDelta:(float64_t)delta viewport:(float64_t)viewport
 {
   v6 = [objc_msgSend(self "pointOfView")];
-  v7 = 0.0;
+  v8 = 0.0;
   if (v6)
   {
-    v8 = v6;
-    v9 = C3DGetScene(v6);
-    if (v9)
+    v9 = v6;
+    v10 = C3DGetScene(v6, v7);
+    if (v10)
     {
-      v10 = v9;
-      v11 = C3DGetScene(v8);
-      C3DSceneLock(v11);
-      v43 = 0u;
+      v12 = v10;
+      v13 = C3DGetScene(v9, v11);
+      C3DSceneLock(v13, v14);
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v34 = 0u;
-      memset(v33, 0, sizeof(v33));
-      if (C3DNodeGetProjectionInfos(v8, v33))
+      v45 = 0u;
+      v43 = 0u;
+      memset(v42, 0, sizeof(v42));
+      if (C3DNodeGetProjectionInfos(v9, v42))
       {
-        if ((v33[0] & 8) != 0)
+        if ((v42[0] & 8) != 0)
         {
-          v22 = C3DGetScene(v8);
-          C3DSceneUnlock(v22);
-          v23 = scn_default_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v28 = C3DGetScene(v9, v15);
+          v30 = C3DSceneUnlock(v28, v29);
+          v32 = scn_default_log(v30, v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            [SCNCameraController(SPI) _orthographicViewSpaceTranslationForZoomAtScreenPoint:v23 scaleDelta:? viewport:?];
+            [SCNCameraController(SPI) _orthographicViewSpaceTranslationForZoomAtScreenPoint:v32 scaleDelta:? viewport:?];
           }
         }
 
         else
         {
-          if ((v33[0] & 2) != 0)
+          if ((v42[0] & 2) != 0)
           {
-            C3DAdjustZRangeOfProjectionInfos(v33, v8, 0, v10);
+            C3DAdjustZRangeOfProjectionInfos(v42, v9, 0, v12);
           }
 
-          v12 = C3DGetScene(v8);
-          C3DSceneUnlock(v12);
-          v13.f64[0] = delta;
-          v13.f64[1] = viewport;
-          v32 = vcvt_hight_f32_f64(0, v13);
-          v45 = *C3DProjectionInfosGetMatrix(v33, &v32, 0);
-          v46 = __invert_f4(v45);
-          v25 = v46.columns[0];
-          v26 = v46.columns[1];
-          v27 = v46.columns[2];
-          v28 = *v46.columns[3].f32;
-          *&v34 = *&v34 + point;
-          v47 = *C3DProjectionInfosGetMatrix(v33, &v32, 0);
-          v48 = __invert_f4(v47);
-          v14 = (*&a2 + *&a2) / delta + -1.0;
-          v15 = (*(&a2 + 1) + *(&a2 + 1)) / viewport + -1.0;
+          v16 = C3DGetScene(v9, v15);
+          C3DSceneUnlock(v16, v17);
+          v18.f64[0] = delta;
+          v18.f64[1] = viewport;
+          v41 = vcvt_hight_f32_f64(0, v18);
+          v54 = *C3DProjectionInfosGetMatrix(v42, &v41, 0);
+          v55 = __invert_f4(v54);
+          v34 = v55.columns[0];
+          v35 = v55.columns[1];
+          v36 = v55.columns[2];
+          v37 = *v55.columns[3].f32;
+          *&v43 = *&v43 + point;
+          v56 = *C3DProjectionInfosGetMatrix(v42, &v41, 0);
+          v57 = __invert_f4(v56);
+          v19 = (*&a2 + *&a2) / delta + -1.0;
+          v20 = (*(&a2 + 1) + *(&a2 + 1)) / viewport + -1.0;
           __asm { FMOV            V7.4S, #-1.0 }
 
-          return COERCE_DOUBLE(vsub_f32(vadd_f32(v28, *&vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v25, v14), v26, v15), _Q7, v27)), vadd_f32(*v48.columns[3].f32, *&vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v48.columns[0], v14), v48.columns[1], v15), _Q7, v48.columns[2]))));
+          return COERCE_DOUBLE(vsub_f32(vadd_f32(v37, *&vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v34, v19), v35, v20), _Q7, v36)), vadd_f32(*v57.columns[3].f32, *&vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v57.columns[0], v19), v57.columns[1], v20), _Q7, v57.columns[2]))));
         }
       }
 
       else
       {
-        v21 = C3DGetScene(v8);
-        C3DSceneUnlock(v21);
+        v26 = C3DGetScene(v9, v15);
+        C3DSceneUnlock(v26, v27);
       }
     }
   }
 
-  return v7;
+  return v8;
 }
 
 @end

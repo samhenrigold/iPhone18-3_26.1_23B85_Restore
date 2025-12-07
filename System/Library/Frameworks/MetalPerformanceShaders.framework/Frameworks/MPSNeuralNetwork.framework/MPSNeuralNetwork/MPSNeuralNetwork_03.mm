@@ -1,4 +1,4 @@
-uint64_t sub_239BF3178(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239BF3178(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = *(a4 + 8);
   if (v10)
@@ -17,8 +17,8 @@ uint64_t sub_239BF3178(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
         if (v16)
         {
           v17 = objc_opt_class();
-          v40 = NSStringFromClass(v17);
-          MTLReportFailure();
+          v52 = NSStringFromClass(v17);
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSGridSample.mm", 0x116, @"[%@ encode...] MPSImageFeatureChannelsInterleavedPerPixel is not supported", v18, v19, v20, v21);
           a4 = v14;
           a1 = v13;
         }
@@ -26,37 +26,37 @@ uint64_t sub_239BF3178(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
 
       if (*(*(a4 + 24) + v11 + 104) != 1)
       {
-        v18 = a1;
-        v19 = a4;
-        v20 = MTLReportFailureTypeEnabled();
-        a4 = v19;
-        v21 = v20;
-        a1 = v18;
-        if (v21)
+        v22 = a1;
+        v23 = a4;
+        v24 = MTLReportFailureTypeEnabled();
+        a4 = v23;
+        v25 = v24;
+        a1 = v22;
+        if (v25)
         {
-          v22 = objc_opt_class();
-          v40 = NSStringFromClass(v22);
-          MTLReportFailure();
-          a4 = v19;
-          a1 = v18;
+          v26 = objc_opt_class();
+          v52 = NSStringFromClass(v26);
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSGridSample.mm", 0x117, @"[%@ encode...] MPSImageFeatureChannelsInterleavedPerPixel is not supported", v27, v28, v29, v30);
+          a4 = v23;
+          a1 = v22;
         }
       }
 
       if (*(*(a4 + 24) + v11 + 80) != 2)
       {
-        v23 = a1;
-        v24 = a4;
-        v25 = MTLReportFailureTypeEnabled();
-        a4 = v24;
-        v26 = v25;
-        a1 = v23;
-        if (v26)
+        v31 = a1;
+        v32 = a4;
+        v33 = MTLReportFailureTypeEnabled();
+        a4 = v32;
+        v34 = v33;
+        a1 = v31;
+        if (v34)
         {
-          v27 = objc_opt_class();
-          v40 = NSStringFromClass(v27);
-          MTLReportFailure();
-          a4 = v24;
-          a1 = v23;
+          v35 = objc_opt_class();
+          v52 = NSStringFromClass(v35);
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSGridSample.mm", 0x118, @"[%@ encode...] secondary source must have 2 feature channels", v36, v37, v38, v39);
+          a4 = v32;
+          a1 = v31;
         }
       }
 
@@ -65,56 +65,56 @@ uint64_t sub_239BF3178(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
     }
   }
 
-  v52 = 0;
-  *&v51[32] = 0u;
-  *&v51[16] = 0u;
-  *v51 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v41 = v10;
-  v28 = *(a4 + 216);
-  v43 = *(a4 + 200);
-  v44 = v28;
-  v42 = *(a4 + 184);
-  v29 = *(a4 + 96);
-  v45 = *(a4 + 280);
-  v46 = v29;
-  LODWORD(v47) = *(a4 + 88);
-  v30 = *(a4 + 24);
-  *(&v47 + 1) = *v30[1];
-  v31 = *(a4 + 120);
-  v48 = *(a4 + 104);
-  v49 = v31;
-  *&v50 = *(a4 + 144);
-  DWORD2(v50) = *(a4 + 136);
-  *v51 = *v30[8];
-  v32 = *(a4 + 168);
-  *&v51[8] = *(a4 + 152);
-  *&v51[24] = v32;
-  *&v51[40] = *(a4 + 40);
-  LODWORD(v52) = *(a4 + 32);
-  v53 = *v30[15];
-  v33 = *(a4 + 64);
-  v54 = *(a4 + 48);
-  v55 = v33;
-  v56 = *(a4 + 80);
-  WORD6(v54) = (WORD5(v49) + 3) >> 2;
-  WORD4(v49) = (WORD4(v49) + 3) >> 2;
-  *&v51[32] = (*&v51[32] + 3) >> 2;
-  v34 = a1;
-  v35 = objc_msgSend_useGridValueAsInputCoordinate(a1, a2, a3, a4, a5, a6, a7, a8, v40, v41, v42, v43, v44, v45, v29, v47, v48, v49, v50, *v51, *&v51[8], *&v51[24], *&v51[40], v52, v53, v54, *(&v54 + 1), v33, v56);
-  sub_239BF3730(v34, a2, a3, &v41, v35, v36, v37, v38);
+  v64 = 0;
+  *&v63[32] = 0u;
+  *&v63[16] = 0u;
+  *v63 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v53 = v10;
+  v40 = *(a4 + 216);
+  v55 = *(a4 + 200);
+  v56 = v40;
+  v54 = *(a4 + 184);
+  v41 = *(a4 + 96);
+  v57 = *(a4 + 280);
+  v58 = v41;
+  LODWORD(v59) = *(a4 + 88);
+  v42 = *(a4 + 24);
+  *(&v59 + 1) = *v42[1];
+  v43 = *(a4 + 120);
+  v60 = *(a4 + 104);
+  v61 = v43;
+  *&v62 = *(a4 + 144);
+  DWORD2(v62) = *(a4 + 136);
+  *v63 = *v42[8];
+  v44 = *(a4 + 168);
+  *&v63[8] = *(a4 + 152);
+  *&v63[24] = v44;
+  *&v63[40] = *(a4 + 40);
+  LODWORD(v64) = *(a4 + 32);
+  v65 = *v42[15];
+  v45 = *(a4 + 64);
+  v66 = *(a4 + 48);
+  v67 = v45;
+  v68 = *(a4 + 80);
+  WORD6(v66) = (WORD5(v61) + 3) >> 2;
+  WORD4(v61) = (WORD4(v61) + 3) >> 2;
+  *&v63[32] = (*&v63[32] + 3) >> 2;
+  v46 = a1;
+  v47 = objc_msgSend_useGridValueAsInputCoordinate(a1, a2, a3, a4, a5, a6, a7, a8, v52, v53, v54, v55, v56, v57, v41, v59, v60, v61, v62, *v63, *&v63[8], *&v63[24], *&v63[40], v64, v65, v66, *(&v66 + 1), v45, v68);
+  sub_239BF3730(v46, a2, a3, &v53, v47, v48, v49, v50);
   return 0;
 }
 
-uint64_t sub_239BF3730(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239BF3730(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v135 = a5;
-  v162 = *MEMORY[0x277D85DE8];
+  v139 = a5;
+  v166 = *MEMORY[0x277D85DE8];
   v9 = *(a4 + 114);
-  if ((a1[*MEMORY[0x277CD7378]] & 1) == 0 && *(a4 + 56) + v9 > *(a4 + 216))
+  if ((*(a1 + *MEMORY[0x277CD7378]) & 1) == 0 && *(a4 + 56) + v9 > *(a4 + 216))
   {
     v124 = a1;
     v125 = a4;
@@ -125,42 +125,42 @@ uint64_t sub_239BF3730(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
     if (v127)
     {
       v128 = objc_opt_class();
-      v129 = NSStringFromClass(v128);
-      MTLReportFailure();
+      v133 = NSStringFromClass(v128);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSGridSample.mm", 0x56, @"[%@ encode...] not enough destination feature channels:  destinationFeatureChannelOffset + src.featureChannels > dest.featureChannels", v129, v130, v131, v132);
       a4 = v125;
       a1 = v124;
     }
   }
 
-  v136 = a4;
+  v140 = a4;
   v10 = *(a4 + 184);
   v11 = *(a4 + 72);
   v12 = *(a4 + 128);
-  v13 = objc_msgSend_maxBatchSize(a1, a2, a3, a4, a5, a6, a7, a8, v129);
+  v13 = objc_msgSend_maxBatchSize(a1, a2, a3, a4, a5, a6, a7, a8, v133);
   *&v14 = -1;
   *(&v14 + 1) = -1;
-  v144 = v14;
-  v145 = v14;
-  v142 = v14;
-  v143 = v14;
+  v148 = v14;
+  v149 = v14;
+  v146 = v14;
+  v147 = v14;
   v15 = v10 & 0x3F | ((v11 & 0x3F) << 6) & 0xFFF | ((v12 & 0x3F) << 12);
-  v16 = v136;
-  v140 = v13;
-  v141 = v15;
+  v16 = v140;
+  v144 = v13;
+  v145 = v15;
   MPSLibrary::CreateUberShaderKey();
   PipelineStateForMPSKey = MPSLibrary::GetPipelineStateForMPSKey();
   objc_msgSend_setComputePipelineState_(a2, v18, PipelineStateForMPSKey, v19, v20, v21, v22, v23, 0, 0, 0, 0, 0);
   v31 = objc_msgSend_threadExecutionWidth(PipelineStateForMPSKey, v24, v25, v26, v27, v28, v29, v30);
   v39 = objc_msgSend_maxTotalThreadsPerThreadgroup(PipelineStateForMPSKey, v32, v33, v34, v35, v36, v37, v38);
   v47 = 0;
-  v134 = v31;
+  v138 = v31;
   if (v31 <= v39)
   {
-    v47 = (v39 / v31 + WORD1(*(v136 + 208)) - 1) / (v39 / v31);
+    v47 = (v39 / v31 + WORD1(*(v140 + 208)) - 1) / (v39 / v31);
   }
 
-  v132 = v47;
-  v133 = v39 / v31;
+  v136 = v47;
+  v137 = v39 / v31;
   v48 = (v9 + 3) >> 2;
   if (v9 >= 5)
   {
@@ -191,18 +191,22 @@ uint64_t sub_239BF3730(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
     v49 = 65537;
   }
 
-  v130 = (v9 + 3) >> 2;
-  v131 = *(v136 + 208);
-  v138 = v49;
-  v139 = v135;
-  v55 = *(v136 + 176);
-  if ((*(v136 + 184) & 2) == 0)
+  v134 = (v9 + 3) >> 2;
+  v135 = *(v140 + 208);
+  v142 = v49;
+  v143 = v139;
+  v55 = *(v140 + 176);
+  if ((*(v140 + 184) & 2) == 0)
   {
-    objc_msgSend_setTexture_atIndex_(a2, v40, *(v136 + 176), 0, v43, v44, v45, v46);
+    objc_msgSend_setTexture_atIndex_(a2, v40, *(v140 + 176), 0, v43, v44, v45, v46);
     goto LABEL_33;
   }
 
-  v60 = objc_msgSend_count(*(v136 + 176), v40, v41, v42, v43, v44, v45, v46);
+  v60 = objc_msgSend_count(*(v140 + 176), v40, v41, v42, v43, v44, v45, v46);
+  v164 = 0u;
+  v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
   v160 = 0u;
   v161 = 0u;
   v158 = 0u;
@@ -213,12 +217,8 @@ uint64_t sub_239BF3730(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
   v155 = 0u;
   v152 = 0u;
   v153 = 0u;
-  v150 = 0u;
   v151 = 0u;
-  v148 = 0u;
-  v149 = 0u;
-  v147 = 0u;
-  v146 = 0u;
+  v150 = 0u;
   if (v13)
   {
     v61 = v60;
@@ -249,13 +249,13 @@ uint64_t sub_239BF3730(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
         if (v61 - i >= 0x20)
         {
           v63 = 32;
-          objc_msgSend_getObjects_range_(v55, v56, &v146, i, 32, v57, v58, v59);
+          objc_msgSend_getObjects_range_(v55, v56, &v150, i, 32, v57, v58, v59);
         }
 
         else
         {
           v63 = v61 - i;
-          objc_msgSend_getObjects_range_(v55, v56, &v146, i, v61 - i, v57, v58, v59);
+          objc_msgSend_getObjects_range_(v55, v56, &v150, i, v61 - i, v57, v58, v59);
         }
 
         if (v13 - i >= 0x20)
@@ -275,13 +275,13 @@ uint64_t sub_239BF3730(_BYTE *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a
         }
       }
 
-      bzero(&v146 + 8 * v63, 8 * v65);
+      bzero(&v150 + 8 * v63, 8 * v65);
 LABEL_17:
-      objc_msgSend_setTextures_withRange_(a2, v56, &v146, i, v64, v57, v58, v59);
+      objc_msgSend_setTextures_withRange_(a2, v56, &v150, i, v64, v57, v58, v59);
     }
   }
 
-  v16 = v136;
+  v16 = v140;
 LABEL_33:
   objc_msgSend_setBytes_length_atIndex_(a2, v56, v16 + 200, 40, 0, v57, v58, v59);
   v73 = *(v16 + 64);
@@ -292,6 +292,10 @@ LABEL_33:
   }
 
   v78 = objc_msgSend_count(*(v16 + 64), v66, v67, v68, v69, v70, v71, v72);
+  v164 = 0u;
+  v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
   v160 = 0u;
   v161 = 0u;
   v158 = 0u;
@@ -302,12 +306,8 @@ LABEL_33:
   v155 = 0u;
   v152 = 0u;
   v153 = 0u;
-  v150 = 0u;
   v151 = 0u;
-  v148 = 0u;
-  v149 = 0u;
-  v147 = 0u;
-  v146 = 0u;
+  v150 = 0u;
   if (v13)
   {
     v79 = v78;
@@ -338,13 +338,13 @@ LABEL_33:
         if (v79 - j >= 0x20)
         {
           v81 = 32;
-          objc_msgSend_getObjects_range_(v73, v74, &v146, j, 32, v75, v76, v77);
+          objc_msgSend_getObjects_range_(v73, v74, &v150, j, 32, v75, v76, v77);
         }
 
         else
         {
           v81 = v79 - j;
-          objc_msgSend_getObjects_range_(v73, v74, &v146, j, v79 - j, v75, v76, v77);
+          objc_msgSend_getObjects_range_(v73, v74, &v150, j, v79 - j, v75, v76, v77);
         }
 
         if (v13 - j >= 0x20)
@@ -364,19 +364,23 @@ LABEL_33:
         }
       }
 
-      bzero(&v146 + 8 * v81, 8 * v83);
+      bzero(&v150 + 8 * v81, 8 * v83);
 LABEL_37:
-      objc_msgSend_setTextures_withRange_(a2, v74, &v146, j + v13, v82, v75, v76, v77);
+      objc_msgSend_setTextures_withRange_(a2, v74, &v150, j + v13, v82, v75, v76, v77);
     }
   }
 
-  v16 = v136;
+  v16 = v140;
 LABEL_53:
   objc_msgSend_setBytes_length_atIndex_(a2, v74, v16 + 88, 32, 1, v75, v76, v77);
   v91 = *(v16 + 120);
   if ((*(v16 + 128) & 2) != 0)
   {
     v96 = objc_msgSend_count(*(v16 + 120), v84, v85, v86, v87, v88, v89, v90);
+    v164 = 0u;
+    v165 = 0u;
+    v162 = 0u;
+    v163 = 0u;
     v160 = 0u;
     v161 = 0u;
     v158 = 0u;
@@ -387,16 +391,12 @@ LABEL_53:
     v155 = 0u;
     v152 = 0u;
     v153 = 0u;
-    v150 = 0u;
     v151 = 0u;
-    v148 = 0u;
-    v149 = 0u;
-    v147 = 0u;
-    v146 = 0u;
+    v150 = 0u;
     if (!v13)
     {
 LABEL_72:
-      v16 = v136;
+      v16 = v140;
       goto LABEL_73;
     }
 
@@ -429,13 +429,13 @@ LABEL_72:
         if (v97 - v98 >= 0x20)
         {
           v99 = 32;
-          objc_msgSend_getObjects_range_(v91, v92, &v146, v98, 32, v93, v94, v95);
+          objc_msgSend_getObjects_range_(v91, v92, &v150, v98, 32, v93, v94, v95);
         }
 
         else
         {
           v99 = v97 - v98;
-          objc_msgSend_getObjects_range_(v91, v92, &v146, v98, v97 - v98, v93, v94, v95);
+          objc_msgSend_getObjects_range_(v91, v92, &v150, v98, v97 - v98, v93, v94, v95);
         }
 
         if (v13 - v98 >= 0x20)
@@ -455,9 +455,9 @@ LABEL_72:
         }
       }
 
-      bzero(&v146 + 8 * v99, 8 * v101);
+      bzero(&v150 + 8 * v99, 8 * v101);
 LABEL_57:
-      objc_msgSend_setTextures_withRange_(a2, v92, &v146, v98 + 2 * v13, v100, v93, v94, v95);
+      objc_msgSend_setTextures_withRange_(a2, v92, &v150, v98 + 2 * v13, v100, v93, v94, v95);
       v98 += v100;
       if (v98 >= v13)
       {
@@ -469,22 +469,22 @@ LABEL_57:
   objc_msgSend_setTexture_atIndex_(a2, v84, *(v16 + 120), 2 * v13, v87, v88, v89, v90);
 LABEL_73:
   objc_msgSend_setBytes_length_atIndex_(a2, v92, v16 + 144, 32, 2, v93, v94, v95);
-  objc_msgSend_setBytes_length_atIndex_(a2, v102, &v138, 10, 30, v103, v104, v105);
+  objc_msgSend_setBytes_length_atIndex_(a2, v102, &v142, 10, 30, v103, v104, v105);
   Sampler = MPSDevice::GetSampler();
   objc_msgSend_setSamplerState_atIndex_(a2, v107, Sampler, 0, v108, v109, v110, v111);
   v112 = MPSDevice::GetSampler();
   objc_msgSend_setSamplerState_atIndex_(a2, v113, v112, 1, v114, v115, v116, v117);
-  *&v146 = (v134 + v131 - 1) / v134;
-  *(&v146 + 1) = v132;
-  *&v147 = v130 * HIWORD(v131);
-  v137[0] = v134;
-  v137[1] = v133;
-  v137[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v118, &v146, v137, v119, v120, v121, v122);
+  *&v150 = (v138 + v135 - 1) / v138;
+  *(&v150 + 1) = v136;
+  *&v151 = v134 * HIWORD(v135);
+  v141[0] = v138;
+  v141[1] = v137;
+  v141[2] = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v118, &v150, v141, v119, v120, v121, v122);
   return MPSLibrary::ReleaseMPSKey();
 }
 
-unint64_t sub_239BF3EB4(uint64_t *a1, char *a2, void *a3, uint64_t a4, char *a5, char *a6, char *a7, uint64_t a8)
+char *sub_239BF3EB4(id *a1, char *a2, void *a3, char *a4, char *a5, char *a6, char *a7, uint64_t a8)
 {
   v9 = a4;
   result = objc_msgSend_batchSize(a1, a2, a3, a4, a5, a6, a7, a8);
@@ -1143,7 +1143,7 @@ void sub_239BF58B0(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t 
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_239BF59C0(void *a1, void *a2, void *a3)
+void *sub_239BF59C0(void *a1, void *a2, void *a3)
 {
   if (a2)
   {
@@ -1191,7 +1191,7 @@ uint64_t sub_239BF59C0(void *a1, void *a2, void *a3)
           {
             if (MTLReportFailureTypeEnabled())
             {
-              MTLReportFailure();
+              MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixFullyConnected.mm", 0x1F, @"[... copyWithZone:device](copyBuffer) out of memory: could not allocate internal data", v48, v49, v50, v51);
             }
 
             return 0;
@@ -1204,7 +1204,7 @@ uint64_t sub_239BF59C0(void *a1, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_239BF5D38(void *a1, void *a2)
+void *sub_239BF5D38(void *a1, void *a2)
 {
   result = MPSDevice::GetMPSDevice();
   if (result)
@@ -1328,22 +1328,22 @@ __n128 sub_239BF7B48@<Q0>(unint64_t a1@<X1>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_239BF7BE8(uint64_t a1, uint64_t a2)
+uint64_t sub_239BF7BE8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = MPSCreateFunctionConstantValues();
-  v8 = v3;
-  v12 = 1;
-  v9 = *(a2 + 64);
-  if ((v9 & 1) == 0)
+  v6 = MPSCreateFunctionConstantValues();
+  v11 = v6;
+  v15 = 1;
+  v12 = a2[8];
+  if ((v12 & 1) == 0)
   {
-    if ((v9 & 2) == 0)
+    if ((v12 & 2) == 0)
     {
       goto LABEL_3;
     }
 
 LABEL_7:
-    objc_msgSend_setConstantValue_type_atIndex_(v8, v4, &v12, 41, 1, v5, v6, v7);
-    if ((*(a2 + 64) & 4) == 0)
+    objc_msgSend_setConstantValue_type_atIndex_(v11, v7, &v15, 41, 1, v8, v9, v10);
+    if ((a2[8] & 4) == 0)
     {
       goto LABEL_5;
     }
@@ -1351,24 +1351,24 @@ LABEL_7:
     goto LABEL_4;
   }
 
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v4, &v12, 41, 0, v5, v6, v7);
-  v9 = *(a2 + 64);
-  if ((v9 & 2) != 0)
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v7, &v15, 41, 0, v8, v9, v10);
+  v12 = a2[8];
+  if ((v12 & 2) != 0)
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  if ((v9 & 4) != 0)
+  if ((v12 & 4) != 0)
   {
 LABEL_4:
-    objc_msgSend_setConstantValue_type_atIndex_(v8, v4, &v12, 53, 2, v5, v6, v7);
+    objc_msgSend_setConstantValue_type_atIndex_(v11, v7, &v15, 53, 2, v8, v9, v10);
   }
 
 LABEL_5:
-  v10 = _MPSNewSpecializedFunction();
+  v13 = _MPSNewSpecializedFunction();
 
-  return v10;
+  return v13;
 }
 
 uint64_t sub_239BF82A0(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1587,7 +1587,7 @@ LABEL_22:
   {
     if (!*(a1 + 384) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x96, @"encodeBatchToCommandBuffer: Neuron is of type PReLU but parameter buffer is nil.", v103, v104, v105, v106);
     }
 
     v99 |= 0x80uLL;
@@ -1685,10 +1685,10 @@ LABEL_22:
   return 0;
 }
 
-uint64_t sub_239BF8ACC(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239BF8ACC(uint64_t a1, char *a2, uint64_t a3, int64x2_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v310 = *MEMORY[0x277D85DE8];
-  v10 = *(*(a4 + 24) + 112);
+  v10 = *(a4[1].i64[1] + 112);
   v11 = objc_msgSend_numberOfFeatureChannels(a1, a2, a3, a4, a5, a6, a7, a8);
   objc_msgSend_epsilon(a1, v12, v13, v14, v15, v16, v17, v18);
   v27 = v26;
@@ -1875,7 +1875,7 @@ LABEL_79:
   MPSAutoBuffer::AllocateBuffer(v84, 0);
   v85 = atomic_load_explicit(v84, memory_order_acquire);
 LABEL_20:
-  v277 = *(a4 + 160);
+  v277 = a4[10];
   v293[0] = v11;
   v293[1] = v27;
   v279 = v83 >> 2;
@@ -1910,14 +1910,14 @@ LABEL_20:
   }
 
   v294 = v92;
-  v278 = *(a4 + 8);
+  v278 = a4->i64[1];
   v93 = *(a1 + 376);
   v94 = (v93 != 0) << 6;
   if (objc_msgSend_neuronType(v93, v19, v20, v21, v22, v23, v24, v25) == 10)
   {
     if (!*(a1 + 384) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x143, @"encodeBatchToCommandBuffer: Neuron is of type PReLU but parameter buffer is nil.", v98, v99, v100, v101);
     }
 
     v94 |= 0x80uLL;
@@ -1930,7 +1930,7 @@ LABEL_20:
   v291 = v102;
   v290 = v102;
   v289 = v102;
-  *&v288 = *(a4 + 32) & 0x3F | ((*(a4 + 88) & 0x3Fu) << 6);
+  *&v288 = a4[2].i32[0] & 0x3F | ((a4[5].i32[2] & 0x3Fu) << 6);
   v287 = objc_msgSend_maxBatchSize(a1, v95, v96, v97, v98, v99, v100, v101);
   *(&v288 + 1) = v94;
   MPSLibrary::CreateUberShaderKey();
@@ -1966,7 +1966,7 @@ LABEL_20:
   Sampler = MPSDevice::GetSampler();
   objc_msgSend_setSamplerState_atIndex_(a2, v172, Sampler, 0, v173, v174, v175, v176);
   v184 = objc_msgSend_maxBatchSize(a1, v177, v178, v179, v180, v181, v182, v183);
-  v185 = *(a4 + 40);
+  v185 = a4[2].i64[1];
   v193 = objc_msgSend_count(v185, v186, v187, v188, v189, v190, v191, v192);
   v308 = 0u;
   v309 = 0u;
@@ -2046,8 +2046,8 @@ LABEL_36:
   }
 
   v282 = vshrq_n_u64(v281, 3uLL);
-  objc_msgSend_setBytes_length_atIndex_(a2, v194, a4 + 48, 40, 0, v195, v196, v197);
-  v203 = *(a4 + 96);
+  objc_msgSend_setBytes_length_atIndex_(a2, v194, a4[3].i64, 40, 0, v195, v196, v197);
+  v203 = a4[6].i64[0];
   v211 = objc_msgSend_count(v203, v204, v205, v206, v207, v208, v209, v210);
   v308 = 0u;
   v309 = 0u;
@@ -2126,7 +2126,7 @@ LABEL_53:
     }
   }
 
-  objc_msgSend_setBytes_length_atIndex_(a2, v212, a4 + 104, 32, 1, v213, v214, v215);
+  objc_msgSend_setBytes_length_atIndex_(a2, v212, &a4[6].i64[1], 32, 1, v213, v214, v215);
   v295[0] = v282;
   *&v295[1] = v278 * v279;
   v285 = vdupq_n_s64(8uLL);
@@ -2156,43 +2156,43 @@ void sub_239BFAF1C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t 
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_239BFC494(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239BFC494(uint64_t a1, const char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((*(a1 + *MEMORY[0x277CD7378]) & 1) == 0)
   {
     if (a4[6] != *(a1 + 344) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x27C, @"Feature channel layout of source and MPSCNNConvolutionTranspose filter doesn't match", a5, a6, a7, a8);
     }
 
     if (a4[14] != *(a1 + 344) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x27D, @"Feature channel layout of destination and MPSCNNConvolutionTranspose filter doesn't match", a5, a6, a7, a8);
     }
 
     if (*(a1 + 328) > a4[3] && MTLReportFailureTypeEnabled())
     {
-      v24 = *(a1 + 328);
-      v25 = a4[3];
-      MTLReportFailure();
+      v25 = *(a1 + 328);
+      v26 = a4[3];
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x27E, @"Number of source feature channels needed by convolution %lu are not available in image with %lu feacture channels", a5, a6, a7, a8);
     }
 
     if (a4[24] + *(a1 + 336) > a4[11] && MTLReportFailureTypeEnabled())
     {
-      v25 = a4[11];
-      v26 = a4[24];
-      v24 = *(a1 + 336);
-      MTLReportFailure();
+      v26 = a4[11];
+      v27 = a4[24];
+      v25 = *(a1 + 336);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x27F, @"Number of destination feature channels needed by convolution %lu are not available in image with %lu feature channels at offset %lu\n", a5, a6, a7, a8);
     }
 
-    if (objc_msgSend_weightsDataType(*(a1 + 376), a2, a3, a4, a5, a6, a7, a8, v24, v25, v26) == 268435488)
+    if (objc_msgSend_weightsDataType(*(a1 + 376), a2, a3, a4, a5, a6, a7, a8, v25, v26, v27) == 268435488)
     {
       objc_msgSend_accumulatorPrecisionOption(*(a1 + 376), v12, v13, v14, v15, a6, a7, a8);
       if (objc_msgSend_accumulatorPrecisionOption(*(a1 + 376), v16, v17, v18, v19, v20, v21, v22) != 1)
       {
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x281, @"Accumulator precision must be set to MPSNNConvolutionAccumulatorPrecisionOptionFloat when using float32 kernel weights", v24, a6, a7, a8);
         }
       }
     }
@@ -2201,33 +2201,33 @@ uint64_t sub_239BFC494(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint6
   return sub_239BFD56C(a1, a2, a3, a4, 0, a6, a7, a8);
 }
 
-uint64_t sub_239BFC6B8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239BFC6B8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((*(a1 + *MEMORY[0x277CD7378]) & 1) == 0)
   {
     if (*(a1 + 328) > *(a4 + 130) && MTLReportFailureTypeEnabled())
     {
-      v24 = *(a1 + 328);
-      v25 = *(a4 + 130);
-      MTLReportFailure();
+      v25 = *(a1 + 328);
+      v26 = *(a4 + 130);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x294, @"Number of source feature channels needed by convolution %lu are not available in image with %lu feacture channels", a5, a6, a7, a8);
     }
 
     if (*(a4 + 208) + *(a1 + 336) > *(a4 + 64) && MTLReportFailureTypeEnabled())
     {
-      v25 = *(a4 + 64);
-      v26 = *(a4 + 208);
-      v24 = *(a1 + 336);
-      MTLReportFailure();
+      v26 = *(a4 + 64);
+      v27 = *(a4 + 208);
+      v25 = *(a1 + 336);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x295, @"Number of destination feature channels needed by convolution %lu are not available in image with %lu feature channels at offset %lu\n", a5, a6, a7, a8);
     }
 
-    if (objc_msgSend_weightsDataType(*(a1 + 376), a2, a3, a4, a5, a6, a7, a8, v24, v25, v26) == 268435488)
+    if (objc_msgSend_weightsDataType(*(a1 + 376), a2, a3, a4, a5, a6, a7, a8, v25, v26, v27) == 268435488)
     {
       objc_msgSend_accumulatorPrecisionOption(*(a1 + 376), v12, v13, v14, v15, a6, a7, a8);
       if (objc_msgSend_accumulatorPrecisionOption(*(a1 + 376), v16, v17, v18, v19, v20, v21, v22) != 1)
       {
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x297, @"Accumulator precision must be set to MPSNNConvolutionAccumulatorPrecisionOptionFloat when using float32 kernel weights", v24, a6, a7, a8);
         }
       }
     }
@@ -2238,9 +2238,9 @@ uint64_t sub_239BFC6B8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
 
 id sub_239BFCF40(void *a1, const char *a2, uint64_t a3, Class *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v36 = 0;
-  v11 = objc_msgSend_decodeBytesForKey_returnedLength_(a1, a2, a2, &v36, a5, a6, a7, a8);
-  if (v36)
+  v40 = 0;
+  v11 = objc_msgSend_decodeBytesForKey_returnedLength_(a1, a2, a2, &v40, a5, a6, a7, a8);
+  if (v40)
   {
     v12 = v11 == 0;
   }
@@ -2254,7 +2254,7 @@ id sub_239BFCF40(void *a1, const char *a2, uint64_t a3, Class *a4, uint64_t a5, 
   {
     v13 = v11;
     v14 = objc_alloc(MEMORY[0x277CCACA8]);
-    v19 = objc_msgSend_initWithBytes_length_encoding_(v14, v15, v13, v36 - 1, 1, v16, v17, v18);
+    v19 = objc_msgSend_initWithBytes_length_encoding_(v14, v15, v13, v40 - 1, 1, v16, v17, v18);
     v20 = v19;
     if (v19)
     {
@@ -2276,7 +2276,7 @@ id sub_239BFCF40(void *a1, const char *a2, uint64_t a3, Class *a4, uint64_t a5, 
 
       else if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSCoreInternal.h", 0x2ED, @"Error: Can not decode. Unable to find class implementation for %@.", v36, v37, v38, v39);
       }
     }
   }
@@ -2351,7 +2351,7 @@ uint64_t sub_239BFD56C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   }
 }
 
-uint64_t sub_239BFF020(uint64_t a1, uint64_t a2)
+MPSCNNAdd *sub_239BFF020(uint64_t a1, uint64_t a2)
 {
   v4 = [MPSCNNAdd alloc];
   result = objc_msgSend_initWithDevice_(v4, v5, a2, v6, v7, v8, v9, v10);
@@ -2359,7 +2359,7 @@ uint64_t sub_239BFF020(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_239BFF0F0(uint64_t a1, uint64_t a2)
+MPSCNNSubtract *sub_239BFF0F0(uint64_t a1, uint64_t a2)
 {
   v4 = [MPSCNNSubtract alloc];
   result = objc_msgSend_initWithDevice_(v4, v5, a2, v6, v7, v8, v9, v10);
@@ -2367,7 +2367,7 @@ uint64_t sub_239BFF0F0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_239BFF1C0(uint64_t a1, uint64_t a2)
+MPSCNNMultiply *sub_239BFF1C0(uint64_t a1, uint64_t a2)
 {
   v4 = [MPSCNNMultiply alloc];
   result = objc_msgSend_initWithDevice_(v4, v5, a2, v6, v7, v8, v9, v10);
@@ -2375,7 +2375,7 @@ uint64_t sub_239BFF1C0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_239BFF28C(uint64_t a1, uint64_t a2)
+MPSCNNDivide *sub_239BFF28C(uint64_t a1, uint64_t a2)
 {
   v4 = [MPSCNNDivide alloc];
   result = objc_msgSend_initWithDevice_(v4, v5, a2, v6, v7, v8, v9, v10);
@@ -2394,7 +2394,7 @@ uint64_t sub_239BFF378(uint64_t a1, uint64_t a2)
   return MEMORY[0x2821F9670](v12, sel_setComparisonType_, v20, v21, v22, v23, v24, v25);
 }
 
-uint64_t sub_239BFF8D0(uint64_t a1, uint64_t a2)
+void *sub_239BFF8D0(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 112);
   v5 = [MPSCNNAddGradient alloc];
@@ -2416,7 +2416,7 @@ uint64_t sub_239BFF8D0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_239BFFA30(uint64_t a1, uint64_t a2)
+void *sub_239BFFA30(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 112);
   v5 = [MPSCNNSubtractGradient alloc];
@@ -2438,7 +2438,7 @@ uint64_t sub_239BFFA30(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_239BFFB90(uint64_t a1, uint64_t a2)
+void *sub_239BFFB90(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 112);
   v5 = [MPSCNNMultiplyGradient alloc];
@@ -2490,7 +2490,7 @@ uint64_t sub_239BFFCA4(void *a1, const char *a2, void *a3, uint64_t a4, void *a5
 
 uint64_t sub_239BFFDAC(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5, uint64_t a6)
 {
-  (*(*a1 + 192))(a1);
+  (*(*a1 + 192))(a1, a2, a3, a4);
   v11 = a1[13];
   v18 = objc_msgSend_objectAtIndexedSubscript_(a3, v12, 0, v13, v14, v15, v16, v17);
   v31 = objc_msgSend_objectAtIndexedSubscript_(a3, v19, 1, v20, v21, v22, v23, v24);
@@ -2558,40 +2558,22 @@ void sub_239C0001C(uint64_t a1)
   JUMPOUT(0x23EE7D130);
 }
 
-uint64_t sub_239C00054(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_239C00054(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (a5)
+  if (a5 && (*(*(a1 + 104) + *MEMORY[0x277CD7378]) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    if ((*(*(result + 104) + *MEMORY[0x277CD7378]) & 1) == 0)
-    {
-      result = MTLReportFailureTypeEnabled();
-      if (result)
-      {
 
-        return MTLReportFailure();
-      }
-    }
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/FilterNode.h", 0x1083, @"Internal error: default encode for binary kernels doesn't take an input state", v6, v7, v8, v9);
   }
-
-  return result;
 }
 
-uint64_t sub_239C000BC(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_239C000BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (a5)
+  if (a5 && (*(*(a1 + 104) + *MEMORY[0x277CD7378]) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    if ((*(*(result + 104) + *MEMORY[0x277CD7378]) & 1) == 0)
-    {
-      result = MTLReportFailureTypeEnabled();
-      if (result)
-      {
 
-        return MTLReportFailure();
-      }
-    }
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/FilterNode.h", 0x1096, @"Internal error: default encode for binary kernels doesn't take an input state", v6, v7, v8, v9);
   }
-
-  return result;
 }
 
 void sub_239C00130(uint64_t a1)
@@ -2615,15 +2597,15 @@ void sub_239C001B8(uint64_t a1)
   JUMPOUT(0x23EE7D130);
 }
 
-uint64_t sub_239C0034C(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239C0034C(void *a1, char *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v663 = *MEMORY[0x277D85DE8];
-  v11 = *(a4 + 224);
+  v11 = *(a4 + 112);
   v12 = objc_msgSend_primaryKernelWidth(a1, a2, a3, a4, a5, a6, a7, a8);
   objc_msgSend_primaryKernelHeight(a1, v13, v14, v15, v16, v17, v18, v19);
   v27 = objc_msgSend_primaryDilationRateX(a1, v20, v21, v22, v23, v24, v25, v26);
   objc_msgSend_primaryDilationRateY(a1, v28, v29, v30, v31, v32, v33, v34);
-  v35 = *(a4 + 280);
+  v35 = *(a4 + 140);
   v43 = objc_msgSend_secondaryKernelWidth(a1, v36, v37, v38, v39, v40, v41, v42);
   objc_msgSend_secondaryKernelHeight(a1, v44, v45, v46, v47, v48, v49, v50);
   v58 = objc_msgSend_secondaryDilationRateX(a1, v51, v52, v53, v54, v55, v56, v57);
@@ -2635,15 +2617,15 @@ uint64_t sub_239C0034C(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5
   v583[0] = 0u;
   v578 = *a4;
   v579 = *(a4 + 56);
-  v580 = *(a4 + 112);
-  v581 = *(a4 + 136);
-  v582 = *(a4 + 160);
-  v66 = vmovn_s64(*(a4 + 176));
+  v580 = *(a4 + 14);
+  v581 = *(a4 + 34);
+  v582 = *(a4 + 20);
+  v66 = vmovn_s64(*(a4 + 11));
   LOWORD(v67) = v66.i16[0];
   WORD1(v67) = v66.i16[2];
-  HIDWORD(v67) = ((*(a4 + 304) + 3) >> 2);
+  HIDWORD(v67) = ((*(a4 + 76) + 3) >> 2);
   v68 = vmovn_s64(*(a4 + 200));
-  v69 = *(a4 + 144);
+  v69 = *(a4 + 18);
   HIWORD(v70) = 1;
   LOWORD(v70) = v68.i16[0];
   WORD1(v70) = v68.i16[2];
@@ -2653,8 +2635,8 @@ uint64_t sub_239C0034C(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5
   LOWORD(v583[1]) = v69;
   WORD2(v583[1]) = 1;
   WORD5(v583[1]) = objc_msgSend_maxBatchSize(a1, v71, v72, v73, v74, v75, v76, v77);
-  DWORD2(v583[2]) = *(a4 + 16);
-  *&v584 = *(a4 + 40);
+  DWORD2(v583[2]) = *(a4 + 4);
+  *&v584 = *(a4 + 5);
   WORD5(v584) = v11 - (v12 >> 1) * v27;
   WORD4(v584) = WORD5(v584);
   HIDWORD(v584) = 0;
@@ -2666,11 +2648,11 @@ uint64_t sub_239C0034C(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5
   WORD5(v585) = objc_msgSend_primaryStrideInPixelsY(a1, v85, v86, v87, v88, v89, v90, v91);
   HIWORD(v585) = v27;
   WORD6(v585) = v27;
-  LOWORD(v586) = *(a4 + 312);
-  WORD1(v586) = *(a4 + 24);
-  DWORD1(v586) = *(a4 + 240);
-  DWORD2(v586) = *(a4 + 72);
-  v587 = *(a4 + 96);
+  LOWORD(v586) = *(a4 + 39);
+  WORD1(v586) = *(a4 + 3);
+  DWORD1(v586) = *(a4 + 30);
+  DWORD2(v586) = *(a4 + 18);
+  v587 = *(a4 + 12);
   v589 = v35 - (v43 >> 1) * v58;
   v588 = v589;
   v590 = 0;
@@ -2682,27 +2664,27 @@ uint64_t sub_239C0034C(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5
   v596 = objc_msgSend_secondaryStrideInPixelsY(a1, v99, v100, v101, v102, v103, v104, v105);
   v598 = v58;
   v597 = v58;
-  v107 = *(a4 + 312);
-  v106 = *(a4 + 320);
+  v107 = *(a4 + 39);
+  v106 = *(a4 + 40);
   v599 = v106;
-  v600 = *(a4 + 80);
-  v108 = *(a4 + 304);
-  v601 = *(a4 + 296);
+  v600 = *(a4 + 10);
+  v108 = *(a4 + 38);
+  v601 = *(a4 + 37);
   v602 = 0;
-  v109 = *(a4 + 192);
-  v603 = *(a4 + 176);
+  v109 = a4[12];
+  v603 = a4[11];
   *v604 = v109;
-  v110 = *(a4 + 224);
-  *&v604[16] = *(a4 + 208);
+  v110 = a4[14];
+  *&v604[16] = a4[13];
   v605 = v110;
-  v111 = *(a4 + 240);
+  v111 = *(a4 + 30);
   v607 = *(a4 + 280);
-  v112 = *(a4 + 296);
+  v112 = *(a4 + 37);
   v606 = v111;
   v608 = v112;
   v609 = v108;
   v610 = v107;
-  v113 = *&a1[*MEMORY[0x277CD7370]];
+  v113 = *(a1 + *MEMORY[0x277CD7370]);
   v611 = v106;
   v114 = v580;
   v122 = objc_msgSend_maxBatchSize(a1, v115, v116, v117, v118, v119, v120, v121);
@@ -4547,6 +4529,48 @@ LABEL_116:
   return 0;
 }
 
+void sub_239C03070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239C03084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239C03098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239C030AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239C030C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239C030D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
 __n128 sub_239C03BB4@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __n128 *a3@<X8>)
 {
   v3 = (*(a1 + 8) + 24 * a2);
@@ -4711,45 +4735,41 @@ void sub_239C05C68(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_239C05C9C(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_239C05C9C(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   objc_msgSend_dataType(a2, a2, a3, a4, a5, a6, a7, a8);
   if (objc_msgSend_dataType(a2, v11, v12, v13, v14, v15, v16, v17) != 268435488 && MTLReportFailureTypeEnabled())
   {
-    v91 = a3;
-    MTLReportFailure();
+    v94 = a3;
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x5C, @"%s.dataType == MPSDataTypeFloat32 failed, Optimizers currently support only Float32 datatype vectors\n", v21, v22, v23, v24);
   }
 
-  objc_msgSend_matrices(a2, v18, v19, v20, v21, v22, v23, v24, v91);
+  objc_msgSend_matrices(a2, v18, v19, v20, v21, v22, v23, v24, v94);
   if (objc_msgSend_matrices(a2, v25, v26, v27, v28, v29, v30, v31) != 1 && MTLReportFailureTypeEnabled())
   {
-    v92 = a3;
-    MTLReportFailure();
+    v95 = a3;
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x5E, @"%s.matrices == 1 failed, Optimizers currently support only 1  matrix per MPSMatrix\n", v35, v36, v37, v38);
   }
 
-  objc_msgSend_rows(a1, v32, v33, v34, v35, v36, v37, v38, v92);
+  objc_msgSend_rows(a1, v32, v33, v34, v35, v36, v37, v38, v95);
   objc_msgSend_rows(a2, v39, v40, v41, v42, v43, v44, v45);
   v53 = objc_msgSend_rows(a1, v46, v47, v48, v49, v50, v51, v52);
   if (v53 != objc_msgSend_rows(a2, v54, v55, v56, v57, v58, v59, v60) && MTLReportFailureTypeEnabled())
   {
-    v93 = a3;
-    MTLReportFailure();
+    v96 = a3;
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x60, @"inputGradientMatrix.rows == %s.rows failed, number of elements must be same\n", v64, v65, v66, v67);
   }
 
-  objc_msgSend_columns(a1, v61, v62, v63, v64, v65, v66, v67, v93);
+  objc_msgSend_columns(a1, v61, v62, v63, v64, v65, v66, v67, v96);
   objc_msgSend_columns(a2, v68, v69, v70, v71, v72, v73, v74);
   v82 = objc_msgSend_columns(a1, v75, v76, v77, v78, v79, v80, v81);
-  result = objc_msgSend_columns(a2, v83, v84, v85, v86, v87, v88, v89);
-  if (v82 != result)
+  if (v82 != objc_msgSend_columns(a2, v83, v84, v85, v86, v87, v88, v89))
   {
-    result = MTLReportFailureTypeEnabled();
-    if (result)
+    if (MTLReportFailureTypeEnabled())
     {
-      return MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x61, @"inputGradientMatrix.columns == %s.columns failed, number of elements must be same\n", v90, v91, v92, v93);
     }
   }
-
-  return result;
 }
 
 void sub_239C07810(_Unwind_Exception *a1, int a2)
@@ -4796,7 +4816,7 @@ uint64_t sub_239C0A6A8(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint6
 
     else if (MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/NodeList.h", 0x4A, @"Out of memory:  Append node failed. This graph is unlikely to produce expected results.", v16, v17, v18, v19);
     }
   }
 
@@ -4804,8 +4824,8 @@ uint64_t sub_239C0A6A8(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint6
   if (!v24)
   {
 LABEL_21:
-    v137 = *(a1 + 56);
-    v138 = a2;
+    v141 = *(a1 + 56);
+    v142 = a2;
     v57 = MEMORY[0x277CD7378];
     v58 = MEMORY[0x277D85DF8];
     if ((*(*(a1 + 120) + *MEMORY[0x277CD7378]) & 0x10) != 0)
@@ -4815,38 +4835,38 @@ LABEL_21:
       sub_239C0FA60(a1);
     }
 
-    v148 = 0;
-    v146 = 0u;
-    v147 = 0u;
-    v145 = 0u;
+    v152 = 0;
+    v150 = 0u;
+    v151 = 0u;
+    v149 = 0u;
     v59 = *(a1 + 160);
-    v142 = a1;
-    v143 = v59;
-    v144 = *(a1 + 184);
+    v146 = a1;
+    v147 = v59;
+    v148 = *(a1 + 184);
     v60 = malloc_type_calloc(v59, 1uLL, 0x100004077774924uLL);
-    v140 = v60;
-    v141 = malloc_type_calloc(v144, 1uLL, 0x100004077774924uLL);
-    *&v146 = &unk_284CC9F80;
-    *(&v146 + 1) = &unk_284CC85E0;
+    v144 = v60;
+    v145 = malloc_type_calloc(v148, 1uLL, 0x100004077774924uLL);
+    *&v150 = &unk_284CC9F80;
+    *(&v150 + 1) = &unk_284CC85E0;
     v61 = *(a1 + 56);
     if (v61)
     {
       for (i = 0; i != v61; ++i)
       {
         v63 = *(*(a1 + 48) + 8 * i);
-        if (!*(v140 + *(v63 + 64)))
+        if (!*(v144 + *(v63 + 64)))
         {
           v64 = *(v63 + 32);
           if (v64)
           {
-            sub_239C18ECC(&v140, v64);
+            sub_239C18ECC(&v144, v64);
           }
         }
       }
 
-      bzero(v140, v143);
-      v65 = v141;
-      if (v141)
+      bzero(v144, v147);
+      v65 = v145;
+      if (v145)
       {
         goto LABEL_30;
       }
@@ -4855,11 +4875,11 @@ LABEL_21:
     else
     {
       bzero(v60, v59);
-      v65 = v141;
-      if (v141)
+      v65 = v145;
+      if (v145)
       {
 LABEL_30:
-        bzero(v65, v144);
+        bzero(v65, v148);
       }
     }
 
@@ -4876,40 +4896,40 @@ LABEL_43:
           fwrite("  Pruning unproductive filter nodes...\n", 0x27uLL, 1uLL, *v58);
         }
 
-        v176 = 0u;
-        v175 = 0u;
-        v174 = 0u;
+        v180 = 0u;
+        v179 = 0u;
+        v178 = 0u;
         v75 = *(a1 + 160);
-        v171 = a1;
-        v172 = v75;
+        v175 = a1;
+        v176 = v75;
         v76 = *(a1 + 184);
-        v177 = 0;
-        v173 = v76;
-        v169 = malloc_type_calloc(v75, 1uLL, 0x100004077774924uLL);
-        v170 = malloc_type_calloc(v76, 1uLL, 0x100004077774924uLL);
-        v165 = 0;
-        v166 = &v165;
-        v167 = 0x2020000000;
-        v168 = 0;
-        v149 = MEMORY[0x277D85DD0];
-        v150 = 3221225472;
-        v151 = sub_239C11684;
-        v152 = &unk_278B2F0C8;
-        v153 = &v165;
-        v154 = a1;
-        *(&v174 + 1) = &v149;
+        v181 = 0;
+        v177 = v76;
+        v173 = malloc_type_calloc(v75, 1uLL, 0x100004077774924uLL);
+        v174 = malloc_type_calloc(v76, 1uLL, 0x100004077774924uLL);
+        v169 = 0;
+        v170 = &v169;
+        v171 = 0x2020000000;
+        v172 = 0;
+        v153 = MEMORY[0x277D85DD0];
+        v154 = 3221225472;
+        v155 = sub_239C11684;
+        v156 = &unk_278B2F0C8;
+        v157 = &v169;
+        v158 = a1;
+        *(&v178 + 1) = &v153;
         v77 = *(a1 + 56);
         if (v77)
         {
           for (j = 0; j != v77; ++j)
           {
             v79 = *(*(a1 + 48) + 8 * j);
-            if (!v169[*(v79 + 64)])
+            if (!v173[*(v79 + 64)])
             {
               v80 = *(v79 + 32);
               if (v80)
               {
-                sub_239C18ECC(&v169, v80);
+                sub_239C18ECC(&v173, v80);
               }
             }
           }
@@ -4917,30 +4937,34 @@ LABEL_43:
 
         if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
         {
-          fprintf(*v58, "  Pruned %lu nodes.\n\n", v166[3]);
+          fprintf(*v58, "  Pruned %lu nodes.\n\n", v170[3]);
         }
 
-        _Block_object_dispose(&v165, 8);
-        free(v169);
-        free(v170);
+        _Block_object_dispose(&v169, 8);
+        free(v173);
+        free(v174);
         if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
         {
           fwrite("  Attempting to contract consecutive filter passes into a single pass...\n", 0x49uLL, 1uLL, *v58);
         }
 
-        v176 = 0u;
-        v175 = 0u;
-        v174 = 0u;
+        v180 = 0u;
+        v179 = 0u;
+        v178 = 0u;
         v81 = *(a1 + 160);
-        v171 = a1;
-        v172 = v81;
+        v175 = a1;
+        v176 = v81;
         v82 = *(a1 + 184);
-        v177 = 0;
-        v173 = v82;
-        v169 = malloc_type_calloc(v81, 1uLL, 0x100004077774924uLL);
+        v181 = 0;
+        v177 = v82;
+        v173 = malloc_type_calloc(v81, 1uLL, 0x100004077774924uLL);
         v83 = malloc_type_calloc(v82, 1uLL, 0x100004077774924uLL);
         v90 = 0;
-        v170 = v83;
+        v174 = v83;
+        v169 = 0;
+        v170 = &v169;
+        v171 = 0x2020000000;
+        v172 = 0;
         v165 = 0;
         v166 = &v165;
         v167 = 0x2020000000;
@@ -4949,31 +4973,27 @@ LABEL_43:
         v162 = &v161;
         v163 = 0x2020000000;
         v164 = 0;
-        v157 = 0;
-        v158 = &v157;
-        v159 = 0x2020000000;
-        v160 = 0;
         v91 = *(a1 + 136);
         if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
         {
           v92 = malloc_type_calloc(*(a1 + 136), 8uLL, 0x80040B8603338uLL);
-          v162[3] = v92;
+          v166[3] = v92;
           v93 = malloc_type_malloc(v91, 0x100004077774924uLL);
-          v158[3] = v93;
+          v162[3] = v93;
           memset(v93, 1, v91);
           v90 = objc_opt_new();
         }
 
         v94 = 0;
-        v149 = MEMORY[0x277D85DD0];
-        v150 = 3221225472;
-        v151 = sub_239C10760;
-        v152 = &unk_278B2F0A0;
-        v153 = &v161;
-        v154 = &v157;
-        v155 = &v165;
-        v156 = a1;
-        *&v176 = &v149;
+        v153 = MEMORY[0x277D85DD0];
+        v154 = 3221225472;
+        v155 = sub_239C10760;
+        v156 = &unk_278B2F0A0;
+        v157 = &v165;
+        v158 = &v161;
+        v159 = &v169;
+        v160 = a1;
+        *&v180 = &v153;
         do
         {
           v95 = *(a1 + 56);
@@ -4983,16 +5003,16 @@ LABEL_43:
           }
 
           v96 = 0;
-          v97 = v166[3];
+          v97 = v170[3];
           do
           {
             v98 = *(*(a1 + 48) + 8 * v96);
-            if (!v169[*(v98 + 64)])
+            if (!v173[*(v98 + 64)])
             {
               v84 = *(v98 + 32);
               if (v84)
               {
-                sub_239C18ECC(&v169, v84);
+                sub_239C18ECC(&v173, v84);
               }
             }
 
@@ -5000,29 +5020,29 @@ LABEL_43:
           }
 
           while (v95 != v96);
-          if (v97 == v166[3])
+          if (v97 == v170[3])
           {
             break;
           }
 
-          bzero(v169, v172);
-          if (v170)
+          bzero(v173, v176);
+          if (v174)
           {
-            bzero(v170, v173);
+            bzero(v174, v177);
           }
 
           ++v94;
         }
 
         while (v94 != 10);
-        v99 = v162[3];
+        v99 = v166[3];
         if (v99)
         {
           if (v91)
           {
             for (k = 0; k != v91; ++k)
             {
-              v101 = *(v162[3] + 8 * k);
+              v101 = *(v166[3] + 8 * k);
               if (v101)
               {
                 v102 = *v58;
@@ -5031,16 +5051,16 @@ LABEL_43:
               }
             }
 
-            v99 = v162[3];
+            v99 = v166[3];
           }
 
           free(v99);
-          free(v158[3]);
+          free(v162[3]);
 
           v104 = *v58;
-          if (v166[3])
+          if (v170[3])
           {
-            fprintf(v104, "  Removed %lu passes\n\n", v166[3]);
+            fprintf(v104, "  Removed %lu passes\n\n", v170[3]);
           }
 
           else
@@ -5049,44 +5069,44 @@ LABEL_43:
           }
         }
 
-        _Block_object_dispose(&v157, 8);
         _Block_object_dispose(&v161, 8);
         _Block_object_dispose(&v165, 8);
-        free(v169);
-        free(v170);
+        _Block_object_dispose(&v169, 8);
+        free(v173);
+        free(v174);
         if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
         {
           fwrite("  Attempting to use feature channel offsets to eliminate concatenation and slice passes...\n", 0x5BuLL, 1uLL, *v58);
         }
 
-        v176 = 0u;
-        v175 = 0u;
-        v174 = 0u;
+        v180 = 0u;
+        v179 = 0u;
+        v178 = 0u;
         v105 = *(a1 + 160);
-        v171 = a1;
-        v172 = v105;
+        v175 = a1;
+        v176 = v105;
         v106 = *(a1 + 184);
-        v177 = 0;
-        v173 = v106;
-        v169 = malloc_type_calloc(v105, 1uLL, 0x100004077774924uLL);
+        v181 = 0;
+        v177 = v106;
+        v173 = malloc_type_calloc(v105, 1uLL, 0x100004077774924uLL);
         v107 = malloc_type_calloc(v106, 1uLL, 0x100004077774924uLL);
         v108 = 0;
         v109 = 0;
-        v170 = v107;
-        v165 = 0;
-        v166 = &v165;
-        v167 = 0x2020000000;
-        v168 = 0;
-        v149 = MEMORY[0x277D85DD0];
-        v150 = 3221225472;
-        v151 = sub_239C1181C;
-        v152 = &unk_278B2F0C8;
-        v153 = &v165;
-        v154 = a1;
-        *(&v174 + 1) = &v149;
+        v174 = v107;
+        v169 = 0;
+        v170 = &v169;
+        v171 = 0x2020000000;
+        v172 = 0;
+        v153 = MEMORY[0x277D85DD0];
+        v154 = 3221225472;
+        v155 = sub_239C1181C;
+        v156 = &unk_278B2F0C8;
+        v157 = &v169;
+        v158 = a1;
+        *(&v178 + 1) = &v153;
         do
         {
-          v166[3] = 0;
+          v170[3] = 0;
           v110 = *(a1 + 56);
           if (!v110)
           {
@@ -5096,27 +5116,27 @@ LABEL_43:
           for (m = 0; m != v110; ++m)
           {
             v112 = *(*(a1 + 48) + 8 * m);
-            if (!v169[*(v112 + 64)])
+            if (!v173[*(v112 + 64)])
             {
               v113 = *(v112 + 32);
               if (v113)
               {
-                sub_239C18ECC(&v169, v113);
+                sub_239C18ECC(&v173, v113);
               }
             }
           }
 
-          v114 = v166[3];
+          v114 = v170[3];
           v108 += v114;
           if (!v114)
           {
             break;
           }
 
-          bzero(v169, v172);
-          if (v170)
+          bzero(v173, v176);
+          if (v174)
           {
-            bzero(v170, v173);
+            bzero(v174, v177);
           }
 
           ++v109;
@@ -5128,9 +5148,9 @@ LABEL_43:
           fprintf(*v58, "  Removed %lu passes\n", v108);
         }
 
-        _Block_object_dispose(&v165, 8);
-        free(v169);
-        free(v170);
+        _Block_object_dispose(&v169, 8);
+        free(v173);
+        free(v174);
         if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
         {
           fwrite("End graph optimization passes.\n\n", 0x20uLL, 1uLL, *v58);
@@ -5141,14 +5161,14 @@ LABEL_43:
           }
         }
 
-        if (v137)
+        if (v141)
         {
           v115 = 0;
           v116 = *(a1 + 48);
           v117 = v116;
-          v118 = v137;
-          v119 = v137;
-          v120 = v138;
+          v118 = v141;
+          v119 = v141;
+          v120 = v142;
           do
           {
             while (*(*v117 + 32))
@@ -5168,7 +5188,7 @@ LABEL_43:
 
           while (v118);
 LABEL_106:
-          if (v119 < v137)
+          if (v119 < v141)
           {
             if (*(a1 + 64) >= v119)
             {
@@ -5176,8 +5196,8 @@ LABEL_106:
               if (!v119)
               {
 LABEL_152:
-                free(v140);
-                free(v141);
+                free(v144);
+                free(v145);
                 return 1;
               }
             }
@@ -5202,7 +5222,7 @@ LABEL_152:
 
               else if (MTLReportFailureTypeEnabled())
               {
-                MTLReportFailure();
+                MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/NodeList.h", 0x4A, @"Out of memory:  Append node failed. This graph is unlikely to produce expected results.", v137, v138, v139, v140);
               }
 
               *(a1 + 56) = v119;
@@ -5212,7 +5232,7 @@ LABEL_152:
 
         else
         {
-          v120 = v138;
+          v120 = v142;
         }
 
         v125 = *(a1 + 184);
@@ -5244,41 +5264,41 @@ LABEL_152:
           if (!v128)
           {
 LABEL_143:
-            v169 = 0;
-            v170 = &v169;
-            v171 = 0x2020000000;
-            v172 = 0;
-            v146 = 0uLL;
-            v139[0] = MEMORY[0x277D85DD0];
-            v139[1] = 3221225472;
-            v139[2] = sub_239C10140;
-            v139[3] = &unk_278B2F078;
-            v139[5] = &v169;
-            v139[6] = a1;
-            v139[4] = v120;
-            *&v147 = v139;
+            v173 = 0;
+            v174 = &v173;
+            v175 = 0x2020000000;
+            v176 = 0;
+            v150 = 0uLL;
+            v143[0] = MEMORY[0x277D85DD0];
+            v143[1] = 3221225472;
+            v143[2] = sub_239C10140;
+            v143[3] = &unk_278B2F078;
+            v143[5] = &v173;
+            v143[6] = a1;
+            v143[4] = v120;
+            *&v151 = v143;
             if (v129)
             {
               for (ii = 0; ii != v129; ++ii)
               {
                 v135 = *(*(a1 + 48) + 8 * ii);
-                if (!*(v140 + *(v135 + 64)))
+                if (!*(v144 + *(v135 + 64)))
                 {
                   v136 = *(v135 + 32);
                   if (v136)
                   {
-                    sub_239C18ECC(&v140, v136);
+                    sub_239C18ECC(&v144, v136);
                   }
                 }
               }
 
-              if (v170[3])
+              if (v174[3])
               {
                 *(a1 + 200) = dispatch_semaphore_create(1);
               }
             }
 
-            _Block_object_dispose(&v169, 8);
+            _Block_object_dispose(&v173, 8);
             goto LABEL_152;
           }
         }
@@ -5344,40 +5364,40 @@ LABEL_130:
 
       if (*(a1 + 56))
       {
-        v176 = 0u;
-        v175 = 0u;
-        v174 = 0u;
+        v180 = 0u;
+        v179 = 0u;
+        v178 = 0u;
         v69 = *(a1 + 160);
-        v171 = a1;
-        v172 = v69;
+        v175 = a1;
+        v176 = v69;
         v70 = *(a1 + 184);
-        v177 = 0;
-        v173 = v70;
-        v169 = malloc_type_calloc(v69, 1uLL, 0x100004077774924uLL);
-        v170 = malloc_type_calloc(v70, 1uLL, 0x100004077774924uLL);
-        v165 = 0;
-        v166 = &v165;
-        v167 = 0x2020000000;
-        v168 = 0;
-        v149 = MEMORY[0x277D85DD0];
-        v150 = 3221225472;
-        v151 = sub_239C11CD4;
-        v152 = &unk_278B2F0C8;
-        v153 = &v165;
-        v154 = a1;
-        *&v176 = &v149;
+        v181 = 0;
+        v177 = v70;
+        v173 = malloc_type_calloc(v69, 1uLL, 0x100004077774924uLL);
+        v174 = malloc_type_calloc(v70, 1uLL, 0x100004077774924uLL);
+        v169 = 0;
+        v170 = &v169;
+        v171 = 0x2020000000;
+        v172 = 0;
+        v153 = MEMORY[0x277D85DD0];
+        v154 = 3221225472;
+        v155 = sub_239C11CD4;
+        v156 = &unk_278B2F0C8;
+        v157 = &v169;
+        v158 = a1;
+        *&v180 = &v153;
         v71 = *(a1 + 56);
         if (v71)
         {
           for (jj = 0; jj != v71; ++jj)
           {
             v73 = *(*(a1 + 48) + 8 * jj);
-            if (!v169[*(v73 + 64)])
+            if (!v173[*(v73 + 64)])
             {
               v74 = *(v73 + 32);
               if (v74)
               {
-                sub_239C18ECC(&v169, v74);
+                sub_239C18ECC(&v173, v74);
               }
             }
           }
@@ -5385,12 +5405,12 @@ LABEL_130:
 
         if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
         {
-          fprintf(*v58, "\t%lu issues reported.\n", v166[3]);
+          fprintf(*v58, "\t%lu issues reported.\n", v170[3]);
         }
 
-        _Block_object_dispose(&v165, 8);
-        free(v169);
-        free(v170);
+        _Block_object_dispose(&v169, 8);
+        free(v173);
+        free(v174);
       }
 
       else if ((*(*(a1 + 120) + *v57) & 0x10) != 0)
@@ -5471,7 +5491,7 @@ void sub_239C0B4D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_239C0C74C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50)
+void sub_239C0C74C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50)
 {
   _Block_object_dispose(&a25, 8);
   free(*(v50 - 208));
@@ -5479,13 +5499,14 @@ void sub_239C0C74C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_239C0D3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_239C0D3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a61, 8);
-  _Block_object_dispose((v61 - 240), 8);
-  free(*(v61 - 208));
-  free(*(v61 - 200));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v60 - 240), 8);
+  free(*(v60 - 208));
+  free(*(v60 - 200));
   _Unwind_Resume(a1);
 }
 
@@ -5554,7 +5575,7 @@ void sub_239C0EE0C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
   {
     if (MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x2A5, @"MPS Internal Error: Unexpected command buffer status encountered: %lu", v18, v19, v20, v21);
     }
   }
 
@@ -5566,7 +5587,7 @@ void sub_239C0EE0C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
   (*(*(a1 + 56) + 16))(*(a1 + 56));
 
-  v18 = *(a1 + 40);
+  v22 = *(a1 + 40);
 }
 
 void sub_239C0F07C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10)
@@ -5596,7 +5617,7 @@ void sub_239C0F4B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_239C0F4E0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239C0F4E0(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a1[20];
   while (v9 >= 1)
@@ -5608,7 +5629,7 @@ uint64_t sub_239C0F4E0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     }
   }
 
-  v12 = *(a2 + 16);
+  v12 = a2[2];
   if (!v12)
   {
     operator new();
@@ -5621,7 +5642,7 @@ uint64_t sub_239C0F4E0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   }
 
   v10 = v13[1];
-  if (!*(a2 + 24))
+  if (!a2[3])
   {
     return v10;
   }
@@ -5639,10 +5660,10 @@ void *sub_239C0F628(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v67 = objc_opt_class();
-      NSStringFromClass(v67);
-      objc_msgSend_debugDescription(a2, v68, v69, v70, v71, v72, v73, v74);
-      MTLReportFailure();
+      v76 = objc_opt_class();
+      NSStringFromClass(v76);
+      objc_msgSend_debugDescription(a2, v77, v78, v79, v80, v81, v82, v83);
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x33B, @"[%@ initWithDevice:resultImage:] internal error: could not create filter for node:\n\t%@", v84, v85, v86, v87);
     }
 
     return 0;
@@ -5676,7 +5697,7 @@ void *sub_239C0F628(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
       v43 = v42;
       for (j = 0; j != v43; ++j)
       {
-        v45 = objc_msgSend_objectAtIndexedSubscript_(v10, v31, j, v33, v34, v35, v36, v37, v75);
+        v45 = objc_msgSend_objectAtIndexedSubscript_(v10, v31, j, v33, v34, v35, v36, v37, v88);
         if (v45)
         {
           v46 = sub_239C0F4E0(a1, v45);
@@ -5693,8 +5714,8 @@ void *sub_239C0F628(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
         else if (MTLReportFailureTypeEnabled())
         {
           v48 = objc_opt_class();
-          v75 = NSStringFromClass(v48);
-          MTLReportFailure();
+          v88 = NSStringFromClass(v48);
+          MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x35C, @"[%@ initWithDevice:resultImage:] internal error: source image is NULL", v49, v50, v51, v52);
         }
       }
     }
@@ -5702,74 +5723,75 @@ void *sub_239C0F628(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
 
   if (v18)
   {
-    v49 = objc_msgSend_count(v18, v31, v32, v33, v34, v35, v36, v37);
-    if (v49)
+    v53 = objc_msgSend_count(v18, v31, v32, v33, v34, v35, v36, v37);
+    if (v53)
     {
-      v56 = v49;
-      v57 = 0;
+      v60 = v53;
+      v61 = 0;
       while (1)
       {
-        v58 = objc_msgSend_objectAtIndexedSubscript_(v18, v50, v57, v51, v52, v53, v54, v55, v75);
-        if (v58)
+        v62 = objc_msgSend_objectAtIndexedSubscript_(v18, v54, v61, v55, v56, v57, v58, v59, v88);
+        if (v62)
         {
           break;
         }
 
         if (MTLReportFailureTypeEnabled())
         {
-          v65 = objc_opt_class();
-          v75 = NSStringFromClass(v65);
-          MTLReportFailure();
+          v70 = objc_opt_class();
+          v88 = NSStringFromClass(v70);
+          MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x374, @"[%@ initWithDevice:resultImage:] internal error: state image is NULL", v71, v72, v73, v74);
         }
 
 LABEL_32:
-        if (++v57 == v56)
+        if (++v61 == v60)
         {
           return v27;
         }
       }
 
-      v59 = v58;
-      v60 = a1[23];
-      while (v60 >= 1)
+      v63 = v62;
+      v64 = a1[23];
+      while (v64 >= 1)
       {
-        v61 = *(a1[22] + 8 * v60-- - 8);
-        if (*(v61 + 56) == v58)
+        v65 = *(a1[22] + 8 * v64-- - 8);
+        if (*(v65 + 56) == v62)
         {
           goto LABEL_31;
         }
       }
 
-      if (!*(v58 + 16))
+      v66 = *(v62 + 16);
+      if (!v66)
       {
         operator new();
       }
 
-      v62 = sub_239C0F628(a1);
-      if (v62)
+      v67 = sub_239C0F628(a1, v66);
+      if (v67)
       {
-        v63 = *(v62 + 88);
-        if (v63)
+        v68 = v67[11];
+        if (v68)
         {
-          v64 = *(v62 + 80);
+          v69 = v67[10];
           while (1)
           {
-            v61 = *v64;
-            if (*(*v64 + 56) == v59)
+            v65 = *v69;
+            if (*(*v69 + 56) == v63)
             {
               break;
             }
 
-            ++v64;
-            if (!--v63)
+            ++v69;
+            if (!--v68)
             {
               goto LABEL_36;
             }
           }
 
 LABEL_31:
-          sub_239C0F98C((v27 + 7), v61);
-          sub_239C0F98C(v61 + 8, v27);
+          sub_239C0F98C((v27 + 7), v65);
+          sub_239C0F98C(v65 + 8, v27);
           goto LABEL_32;
         }
       }
@@ -5812,7 +5834,7 @@ void sub_239C0F98C(uint64_t a1, uint64_t a2)
 
     else if (MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/NodeList.h", 0x4A, @"Out of memory:  Append node failed. This graph is unlikely to produce expected results.", v11, v12, v13, v14);
     }
   }
 
@@ -5895,13 +5917,13 @@ void sub_239C0FD04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_239C0FD2C(uint64_t result, uint64_t a2)
+char **sub_239C0FD2C(char **result, uint64_t a2)
 {
   v77 = *MEMORY[0x277D85DE8];
   if ((*(a2 + 129) & 1) == 0)
   {
     v3 = result;
-    v4 = *(result + 40);
+    v4 = result[5];
     v5 = *(a2 + 16);
     if (v5)
     {
@@ -6028,12 +6050,12 @@ uint64_t sub_239C0FD2C(uint64_t result, uint64_t a2)
       }
     }
 
-    fprintf(*MEMORY[0x277D85DF8], "\t %s", *(v3 + 40));
-    v42 = *(v3 + 32);
+    fprintf(*MEMORY[0x277D85DF8], "\t %s", v3[5]);
+    v42 = v3[4];
     v43 = objc_opt_class();
     v44 = NSStringFromClass(v43);
     v51 = objc_msgSend_objectForKey_(v42, v45, v44, v46, v47, v48, v49, v50);
-    v52 = *(v3 + 32);
+    v52 = v3[4];
     v53 = MEMORY[0x277CCABB0];
     v61 = objc_msgSend_intValue(v51, v54, v55, v56, v57, v58, v59, v60);
     v68 = objc_msgSend_numberWithInt_(v53, v62, (v61 + 1), v63, v64, v65, v66, v67);
@@ -7162,113 +7184,113 @@ uint64_t sub_239C11CD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
         v16 = 0;
       }
 
-      v51 = MEMORY[0x277D85DF8];
+      v55 = MEMORY[0x277D85DF8];
       if (!(*(v10 + 72) + (*(v10 + 80) & 1)) && !v16 && (*(v10 + 80) & 1) == 0)
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v59 = objc_opt_class();
-          v60 = NSStringFromClass(v59);
-          v194 = objc_msgSend_label(v11, v61, v62, v63, v64, v65, v66, v67);
-          v195 = objc_msgSend_debugDescription(v11, v68, v69, v70, v71, v72, v73, v74);
-          v192 = v11;
-          v193 = v60;
-          MTLReportFailure();
+          v63 = objc_opt_class();
+          v64 = NSStringFromClass(v63);
+          v206 = objc_msgSend_label(v11, v65, v66, v67, v68, v69, v70, v71);
+          v207 = objc_msgSend_debugDescription(v11, v72, v73, v74, v75, v76, v77, v78);
+          v204 = v11;
+          v205 = v64;
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x793, @"\tError: nothing reads the result from node %p %@ %@.  All MPS nodes are required to have a result.\n\t\tPossibly you forgot to use node.result in another filter or set node.exportFromGraph=YES?\n\t\t%@\n", v79, v80, v81, v82);
         }
 
-        v75 = *v51;
+        v83 = *v55;
         if (v11)
         {
-          v76 = MEMORY[0x277CCACA8];
-          v77 = objc_opt_class();
-          v78 = NSStringFromClass(v77);
-          v85 = objc_msgSend_stringWithFormat_(v76, v79, @"%@ %p", v80, v81, v82, v83, v84, v78, v11);
-          v93 = objc_msgSend_label(v11, v86, v87, v88, v89, v90, v91, v92);
-          if (v93)
+          v84 = MEMORY[0x277CCACA8];
+          v85 = objc_opt_class();
+          v86 = NSStringFromClass(v85);
+          v93 = objc_msgSend_stringWithFormat_(v84, v87, @"%@ %p", v88, v89, v90, v91, v92, v86, v11);
+          v101 = objc_msgSend_label(v11, v94, v95, v96, v97, v98, v99, v100);
+          if (v101)
           {
-            v85 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v94, @"%@ %@", v95, v96, v97, v98, v99, v85, v93);
+            v93 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v102, @"%@ %@", v103, v104, v105, v106, v107, v93, v101);
           }
 
-          v100 = objc_msgSend_cStringUsingEncoding_(v85, v94, 4, v95, v96, v97, v98, v99);
+          v108 = objc_msgSend_cStringUsingEncoding_(v93, v102, 4, v103, v104, v105, v106, v107);
         }
 
         else
         {
-          v100 = "<nil>";
+          v108 = "<nil>";
         }
 
-        v101 = objc_msgSend_debugDescription(v11, v52, v53, v54, v55, v56, v57, v58, v192, v193, v194, v195);
-        v108 = objc_msgSend_cStringUsingEncoding_(v101, v102, 4, v103, v104, v105, v106, v107);
-        result = fprintf(v75, "\tError: nothing reads the result from node %s. \n\t\tPossibly you forgot to use node.result in another filter or set node.exportFromGraph=YES.\n\t\t%s\n", v100, v108);
+        v109 = objc_msgSend_debugDescription(v11, v56, v57, v58, v59, v60, v61, v62, v204, v205, v206, v207);
+        v116 = objc_msgSend_cStringUsingEncoding_(v109, v110, 4, v111, v112, v113, v114, v115);
+        result = fprintf(v83, "\tError: nothing reads the result from node %s. \n\t\tPossibly you forgot to use node.result in another filter or set node.exportFromGraph=YES.\n\t\t%s\n", v108, v116);
         ++*(*(*(v9 + 32) + 8) + 24);
       }
 
-      v109 = *(a2 + 88);
-      if (v109)
+      v117 = *(a2 + 88);
+      if (v117)
       {
-        for (i = 0; v109 != i; ++i)
+        for (i = 0; v117 != i; ++i)
         {
-          v118 = *(*(a2 + 80) + 8 * i);
-          if (v118)
+          v126 = *(*(a2 + 80) + 8 * i);
+          if (v126)
           {
-            if (*(v118 + 72) + *(v118 + 80))
+            if (*(v126 + 72) + *(v126 + 80))
             {
               continue;
             }
 
             if (!(*(v10 + 72) + *(v10 + 80)) && MTLReportFailureTypeEnabled())
             {
-              v176 = objc_opt_class();
-              v177 = NSStringFromClass(v176);
-              v194 = objc_msgSend_label(v11, v178, v179, v180, v181, v182, v183, v184);
-              v195 = objc_msgSend_debugDescription(v11, v185, v186, v187, v188, v189, v190, v191);
-              v192 = v11;
-              v193 = v177;
-              MTLReportFailure();
+              v184 = objc_opt_class();
+              v185 = NSStringFromClass(v184);
+              v206 = objc_msgSend_label(v11, v186, v187, v188, v189, v190, v191, v192);
+              v207 = objc_msgSend_debugDescription(v11, v193, v194, v195, v196, v197, v198, v199);
+              v204 = v11;
+              v205 = v185;
+              MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x7B1, @"\tError: nothing reads the result state from node %p %@ %@.\n\t\t%@\n", v200, v201, v202, v203);
             }
 
-            v119 = *v51;
+            v127 = *v55;
             if (v11)
             {
-              v120 = MEMORY[0x277CCACA8];
-              v121 = objc_opt_class();
-              v122 = NSStringFromClass(v121);
-              v129 = objc_msgSend_stringWithFormat_(v120, v123, @"%@ %p", v124, v125, v126, v127, v128, v122, v11);
-              v137 = objc_msgSend_label(v11, v130, v131, v132, v133, v134, v135, v136);
-              if (v137)
+              v128 = MEMORY[0x277CCACA8];
+              v129 = objc_opt_class();
+              v130 = NSStringFromClass(v129);
+              v137 = objc_msgSend_stringWithFormat_(v128, v131, @"%@ %p", v132, v133, v134, v135, v136, v130, v11);
+              v145 = objc_msgSend_label(v11, v138, v139, v140, v141, v142, v143, v144);
+              if (v145)
               {
-                v129 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v138, @"%@ %@", v139, v140, v141, v142, v143, v129, v137);
+                v137 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v146, @"%@ %@", v147, v148, v149, v150, v151, v137, v145);
               }
 
-              objc_msgSend_cStringUsingEncoding_(v129, v138, 4, v139, v140, v141, v142, v143);
+              objc_msgSend_cStringUsingEncoding_(v137, v146, 4, v147, v148, v149, v150, v151);
             }
 
-            v169 = objc_msgSend_debugDescription(v11, a2, a3, a4, a5, a6, a7, a8, v192, v193, v194, v195);
-            objc_msgSend_cStringUsingEncoding_(v169, v170, 4, v171, v172, v173, v174, v175);
-            result = fprintf(v119, "\tError: nothing reads the result state %lu from node %s. \n\t\t%s\n");
+            v177 = objc_msgSend_debugDescription(v11, a2, a3, a4, a5, a6, a7, a8, v204, v205, v206, v207);
+            objc_msgSend_cStringUsingEncoding_(v177, v178, 4, v179, v180, v181, v182, v183);
+            result = fprintf(v127, "\tError: nothing reads the result state %lu from node %s. \n\t\t%s\n");
           }
 
           else
           {
-            v144 = *v51;
+            v152 = *v55;
             if (v11)
             {
-              v145 = MEMORY[0x277CCACA8];
-              v146 = objc_opt_class();
-              v147 = NSStringFromClass(v146);
-              v154 = objc_msgSend_stringWithFormat_(v145, v148, @"%@ %p", v149, v150, v151, v152, v153, v147, v11);
-              v162 = objc_msgSend_label(v11, v155, v156, v157, v158, v159, v160, v161);
-              if (v162)
+              v153 = MEMORY[0x277CCACA8];
+              v154 = objc_opt_class();
+              v155 = NSStringFromClass(v154);
+              v162 = objc_msgSend_stringWithFormat_(v153, v156, @"%@ %p", v157, v158, v159, v160, v161, v155, v11);
+              v170 = objc_msgSend_label(v11, v163, v164, v165, v166, v167, v168, v169);
+              if (v170)
               {
-                v154 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v163, @"%@ %@", v164, v165, v166, v167, v168, v154, v162);
+                v162 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v171, @"%@ %@", v172, v173, v174, v175, v176, v162, v170);
               }
 
-              objc_msgSend_cStringUsingEncoding_(v154, v163, 4, v164, v165, v166, v167, v168);
+              objc_msgSend_cStringUsingEncoding_(v162, v171, 4, v172, v173, v174, v175, v176);
             }
 
-            v111 = objc_msgSend_debugDescription(v11, a2, a3, a4, a5, a6, a7, a8);
-            objc_msgSend_cStringUsingEncoding_(v111, v112, 4, v113, v114, v115, v116, v117);
-            result = fprintf(v144, "\tError: node %s has a missing result state? %lu\n\t\t%s\n");
+            v119 = objc_msgSend_debugDescription(v11, a2, a3, a4, a5, a6, a7, a8);
+            objc_msgSend_cStringUsingEncoding_(v119, v120, 4, v121, v122, v123, v124, v125);
+            result = fprintf(v152, "\tError: node %s has a missing result state? %lu\n\t\t%s\n");
           }
 
           ++*(*(*(v9 + 32) + 8) + 24);
@@ -7283,31 +7305,31 @@ uint64_t sub_239C11CD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
         v17 = objc_opt_class();
         NSStringFromClass(v17);
         objc_msgSend_label(v11, v18, v19, v20, v21, v22, v23, v24);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x785, @"\tError: node %p %@ %@ has no result image. All MPS nodes are required to have a result.\n", v25, v26, v27, v28);
       }
 
-      v25 = *MEMORY[0x277D85DF8];
+      v29 = *MEMORY[0x277D85DF8];
       if (v11)
       {
-        v26 = MEMORY[0x277CCACA8];
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
-        v35 = objc_msgSend_stringWithFormat_(v26, v29, @"%@ %p", v30, v31, v32, v33, v34, v28, v11);
-        v43 = objc_msgSend_label(v11, v36, v37, v38, v39, v40, v41, v42);
-        if (v43)
+        v30 = MEMORY[0x277CCACA8];
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
+        v39 = objc_msgSend_stringWithFormat_(v30, v33, @"%@ %p", v34, v35, v36, v37, v38, v32, v11);
+        v47 = objc_msgSend_label(v11, v40, v41, v42, v43, v44, v45, v46);
+        if (v47)
         {
-          v35 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v44, @"%@ %@", v45, v46, v47, v48, v49, v35, v43);
+          v39 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v48, @"%@ %@", v49, v50, v51, v52, v53, v39, v47);
         }
 
-        v50 = objc_msgSend_cStringUsingEncoding_(v35, v44, 4, v45, v46, v47, v48, v49);
+        v54 = objc_msgSend_cStringUsingEncoding_(v39, v48, 4, v49, v50, v51, v52, v53);
       }
 
       else
       {
-        v50 = "<nil>";
+        v54 = "<nil>";
       }
 
-      result = fprintf(v25, "\tError: node %s has no result image. All MPS nodes are required to have a result.\n", v50);
+      result = fprintf(v29, "\tError: node %s has no result image. All MPS nodes are required to have a result.\n", v54);
       ++*(*(*(v9 + 32) + 8) + 24);
     }
   }
@@ -7315,7 +7337,7 @@ uint64_t sub_239C11CD4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t sub_239C12190(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_239C12190(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = *(a5 + 40);
   *(a5 + 40) = v10 + 1;
@@ -7329,23 +7351,15 @@ uint64_t sub_239C12190(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   while (a3);
   v13 = objc_msgSend_objectAtIndexedSubscript_(v11, a2, *(v12 + 64), a4, a5, a6, a7, a8);
   objc_msgSend_setObject_atIndexedSubscript_(*(a5 + 8), v14, v13, v10, v15, v16, v17, v18);
-  result = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v19, v10, v20, v21, v22, v23, v24);
-  if (*(result + *MEMORY[0x277CD7320] + 56))
+  if (*(objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v19, v10, v20, v21, v22, v23, v24) + *MEMORY[0x277CD7320] + 56))
   {
-    objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v26, v10, v27, v28, v29, v30, v31);
-    result = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v32, v10, v33, v34, v35, v36, v37);
-    if (!*(result + *MEMORY[0x277CD7490]) && (*(a2 + 129) & 1) == 0)
+    objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v25, v10, v26, v27, v28, v29, v30);
+    if (!*(objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v31, v10, v32, v33, v34, v35, v36) + *MEMORY[0x277CD7490]) && (*(a2 + 129) & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      result = MTLReportFailureTypeEnabled();
-      if (result)
-      {
 
-        return MTLReportFailure();
-      }
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x84B, @"Error: using image with 0 read count", v37, v38, v39, v40);
     }
   }
-
-  return result;
 }
 
 uint64_t sub_239C1228C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -7366,10 +7380,10 @@ __n128 sub_239C122DC(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_239C122F8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239C122F8(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = *(a1 + 88);
-  v12 = *(a2 + 8);
+  v12 = *(a2 + 1);
   v13 = *(v12 + 64);
   v14 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, v13, a4, a5, a6, a7, a8);
   v21 = v14;
@@ -7421,12 +7435,12 @@ LABEL_13:
     }
   }
 
-  v38 = *(a2 + 88);
+  v38 = *(a2 + 11);
   if (v38)
   {
     for (i = 0; i != v38; ++i)
     {
-      v40 = *(*(a2 + 80) + 8 * i);
+      v40 = *(*(a2 + 10) + 8 * i);
       v41 = *(v40 + 64);
       v42 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 64), v15, v41, v16, v17, v18, v19, v20);
       if (!v42 || *(a1 + 72) == v42)
@@ -7487,23 +7501,23 @@ void sub_239C12530(uint64_t a1, uint64_t a2)
 
     else if (MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/NodeList.h", 0x4A, @"Out of memory:  Append node failed. This graph is unlikely to produce expected results.", v10, v11, v12, v13);
     }
   }
 
   *(*a1 + 8 * (*(a1 + 8))++) = a2;
 }
 
-uint64_t sub_239C12608(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *sub_239C12608(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v17 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, *(*(a2 + 8) + 64), a4, a5, a6, a7, a8);
+  v17 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, *(*(a2 + 1) + 64), a4, a5, a6, a7, a8);
   a3[4] = v17;
-  v18 = *(a2 + 88);
+  v18 = *(a2 + 11);
   if (v18)
   {
     for (i = 0; i != v18; ++i)
     {
-      v20 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v11, *(*(*(a2 + 80) + 8 * i) + 64), v12, v13, v14, v15, v16);
+      v20 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v11, *(*(*(a2 + 10) + 8 * i) + 64), v12, v13, v14, v15, v16);
       v21 = a3[3];
       v22 = a3[7];
       a3[7] = v22 + 1;
@@ -7511,11 +7525,11 @@ uint64_t sub_239C12608(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
     }
   }
 
-  v28 = *(a2 + 16);
+  v28 = *(a2 + 2);
   if (v28)
   {
     v35 = (*(*a2 + 48))(a2);
-    v36 = *(a2 + 24);
+    v36 = *(a2 + 3);
     if (v36)
     {
       (**v36)(v36, (v35 + *(v17 + *MEMORY[0x277CD72F8]) + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -7549,7 +7563,7 @@ void sub_239C12830(uint64_t a1)
   v2 = *(v1 + 120);
 }
 
-uint64_t sub_239C1286C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_239C1286C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = *(a5 + 40);
   *(a5 + 40) = v10 + 1;
@@ -7563,25 +7577,17 @@ uint64_t sub_239C1286C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v12 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, *(v11 + 64), a4, a5, a6, a7, a8);
   objc_msgSend_setObject_atIndexedSubscript_(*(a5 + 8), v13, v12, v10, v14, v15, v16, v17);
   v24 = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v18, v10, v19, v20, v21, v22, v23);
-  result = objc_msgSend_objectAtIndexedSubscript_(v24, v25, 0, v26, v27, v28, v29, v30);
-  if (*(result + *MEMORY[0x277CD7320] + 56))
+  if (*(objc_msgSend_objectAtIndexedSubscript_(v24, v25, 0, v26, v27, v28, v29, v30) + *MEMORY[0x277CD7320] + 56))
   {
-    v38 = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v32, v10, v33, v34, v35, v36, v37);
-    objc_msgSend_objectAtIndexedSubscript_(v38, v39, 0, v40, v41, v42, v43, v44);
-    v51 = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v45, v10, v46, v47, v48, v49, v50);
-    result = objc_msgSend_objectAtIndexedSubscript_(v51, v52, 0, v53, v54, v55, v56, v57);
-    if (!*(result + *MEMORY[0x277CD7490]) && (*(a2 + 129) & 1) == 0)
+    v37 = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v31, v10, v32, v33, v34, v35, v36);
+    objc_msgSend_objectAtIndexedSubscript_(v37, v38, 0, v39, v40, v41, v42, v43);
+    v50 = objc_msgSend_objectAtIndexedSubscript_(*(a5 + 8), v44, v10, v45, v46, v47, v48, v49);
+    if (!*(objc_msgSend_objectAtIndexedSubscript_(v50, v51, 0, v52, v53, v54, v55, v56) + *MEMORY[0x277CD7490]) && (*(a2 + 129) & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      result = MTLReportFailureTypeEnabled();
-      if (result)
-      {
 
-        return MTLReportFailure();
-      }
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0x989, @"Error: using image with 0 read count", v57, v58, v59, v60);
     }
   }
-
-  return result;
 }
 
 uint64_t sub_239C12980(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -7594,10 +7600,10 @@ uint64_t sub_239C12980(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   return objc_msgSend_setObject_atIndexedSubscript_(v15, v9, v10, v16, v11, v12, v13, v14);
 }
 
-NSUInteger sub_239C129D0(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+NSUInteger sub_239C129D0(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = *(a1 + 104);
-  v12 = *(a2 + 8);
+  v12 = *(a2 + 1);
   v13 = *(v12 + 64);
   v14 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, v13, a4, a5, a6, a7, a8);
   v21 = v14;
@@ -7683,12 +7689,12 @@ LABEL_13:
     }
   }
 
-  v48 = *(a2 + 88);
+  v48 = *(a2 + 11);
   if (v48)
   {
     for (j = 0; j != v48; ++j)
     {
-      v50 = *(*(a2 + 80) + 8 * j);
+      v50 = *(*(a2 + 10) + 8 * j);
       v51 = *(v50 + 64);
       v52 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 64), v15, v51, v16, v17, v18, v19, v20);
       if (!v52 || *(a1 + 72) == v52)
@@ -7732,14 +7738,14 @@ LABEL_13:
 
   *(v67 + 24) = v68;
   result = (*(*a2 + 176))(a2, *(a1 + 48), a3[1], a3[2], a3[3], v21);
-  if ((*(a2 + 129) & 1) == 0)
+  if ((a2[129] & 1) == 0)
   {
-    v70 = *(a2 + 40);
+    v70 = *(a2 + 5);
     if (v70)
     {
       for (k = 0; k != v70; ++k)
       {
-        v72 = *(*(a2 + 32) + 8 * k);
+        v72 = *(*(a2 + 4) + 8 * k);
         if (v72)
         {
           result = (*(*a2 + 32))(a2, k);
@@ -7768,12 +7774,12 @@ LABEL_13:
       }
     }
 
-    v82 = *(a2 + 64);
+    v82 = *(a2 + 8);
     if (v82)
     {
       for (m = 0; m != v82; ++m)
       {
-        v84 = *(*(a2 + 56) + 8 * m);
+        v84 = *(*(a2 + 7) + 8 * m);
         if (v84)
         {
           result = (*(*a2 + 40))(a2, m);
@@ -7806,16 +7812,16 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_239C12E98(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *sub_239C12E98(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v17 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, *(*(a2 + 8) + 64), a4, a5, a6, a7, a8);
+  v17 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, *(*(a2 + 1) + 64), a4, a5, a6, a7, a8);
   a3[4] = v17;
-  v18 = *(a2 + 88);
+  v18 = *(a2 + 11);
   if (v18)
   {
     for (i = 0; i != v18; ++i)
     {
-      v20 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v11, *(*(*(a2 + 80) + 8 * i) + 64), v12, v13, v14, v15, v16);
+      v20 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v11, *(*(*(a2 + 10) + 8 * i) + 64), v12, v13, v14, v15, v16);
       v21 = a3[3];
       v22 = a3[7];
       a3[7] = v22 + 1;
@@ -7823,12 +7829,12 @@ uint64_t sub_239C12E98(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
     }
   }
 
-  v28 = *(a2 + 16);
+  v28 = *(a2 + 2);
   if (v28)
   {
     v29 = (*(*a2 + 48))(a2);
     v42 = objc_msgSend_objectAtIndexedSubscript_(v17, v30, 0, v31, v32, v33, v34, v35);
-    v43 = *(a2 + 24);
+    v43 = *(a2 + 3);
     if (v43)
     {
       (**v43)(v43, (v29 + *(v42 + *MEMORY[0x277CD72F8]) + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -7855,7 +7861,7 @@ uint64_t sub_239C12E98(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
   return result;
 }
 
-void sub_239C130F8(uint64_t a1, uint64_t a2)
+void sub_239C130F8(void *a1, uint64_t a2)
 {
   v4 = *(*(a2 + 8) + 88);
   if (v4 >= 6)
@@ -7864,7 +7870,7 @@ void sub_239C130F8(uint64_t a1, uint64_t a2)
     {
       v6 = objc_opt_class();
       NSStringFromClass(v6);
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNGraph.mm", 0xAF8, @"Internal Error: unhandled MPSImageFeatureChannelFormat %lu in [%@ debugDescription]\n", v7, v8, v9, v10);
     }
 
     v5 = 0;
@@ -7875,16 +7881,16 @@ void sub_239C130F8(uint64_t a1, uint64_t a2)
     v5 = off_278B2F240[v4];
   }
 
-  v7 = objc_alloc(MEMORY[0x277CCACA8]);
-  v8 = *(*(*(a1 + 32) + 8) + 40);
-  v9 = sub_239C13204(a2);
-  v16 = objc_msgSend_initWithFormat_(v7, v10, @"%@\n%@\n\tresultFormat:  %s\n", v11, v12, v13, v14, v15, v8, v9, v5);
-  if (v16)
+  v11 = objc_alloc(MEMORY[0x277CCACA8]);
+  v12 = *(*(a1[4] + 8) + 40);
+  v13 = sub_239C13204(a2);
+  v20 = objc_msgSend_initWithFormat_(v11, v14, @"%@\n%@\n\tresultFormat:  %s\n", v15, v16, v17, v18, v19, v12, v13, v5);
+  if (v20)
   {
-    v17 = v16;
+    v21 = v20;
 
-    *(*(*(a1 + 32) + 8) + 40) = v17;
-    *(*(*(a1 + 40) + 8) + 24) = 1;
+    *(*(a1[4] + 8) + 40) = v21;
+    *(*(a1[5] + 8) + 24) = 1;
   }
 }
 
@@ -8361,7 +8367,7 @@ BOOL sub_239C13920(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4)
         a2 = v8;
         if (v20)
         {
-          MTLReportFailure();
+          MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/NodeList.h", 0x4A, @"Out of memory:  Append node failed. This graph is unlikely to produce expected results.", v21, v22, v23, v24);
           a2 = v8;
           a4 = v9;
           a3 = v10;
@@ -9174,12 +9180,12 @@ uint64_t sub_239C157C0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
 
 void *sub_239C15804(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v53 = xmmword_239D7D680;
-  (*(*a1 + 280))(a1, &v53, 0);
-  objc_msgSend_setSourceFeatureChannelOffset_(*(a1 + 104), v8, v53, v9, v10, v11, v12, v13);
-  objc_msgSend_setSourceFeatureChannelOffset_(*(a1 + 144), v14, v53, v15, v16, v17, v18, v19);
-  objc_msgSend_setSourceFeatureChannelMaxCount_(*(a1 + 104), v20, *(&v53 + 1), v21, v22, v23, v24, v25);
-  objc_msgSend_setSourceFeatureChannelMaxCount_(*(a1 + 144), v26, *(&v53 + 1), v27, v28, v29, v30, v31);
+  v57 = xmmword_239D7D680;
+  (*(*a1 + 280))(a1, &v57, 0);
+  objc_msgSend_setSourceFeatureChannelOffset_(*(a1 + 104), v8, v57, v9, v10, v11, v12, v13);
+  objc_msgSend_setSourceFeatureChannelOffset_(*(a1 + 144), v14, v57, v15, v16, v17, v18, v19);
+  objc_msgSend_setSourceFeatureChannelMaxCount_(*(a1 + 104), v20, *(&v57 + 1), v21, v22, v23, v24, v25);
+  objc_msgSend_setSourceFeatureChannelMaxCount_(*(a1 + 144), v26, *(&v57 + 1), v27, v28, v29, v30, v31);
   v37 = objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_(*(a1 + 104), v32, a2, a3, v33, v34, v35, v36);
   v44 = v37;
   if (*(*(a1 + 8) + 88))
@@ -9198,7 +9204,7 @@ void *sub_239C15804(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   objc_msgSend_padding(*(a1 + 104), v46, v47, v48, v49, v50, v51, v52);
-  MTLReportFailure();
+  MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/FilterNode.h", 0x582, @"[MPSNNGraph encode...]: Error: MPSNNPadding method %p returned a nil formatting descriptor for an intermediate image.\n\tThe encode can not continue.", v53, v54, v55, v56);
   return 0;
 }
 
@@ -9218,7 +9224,7 @@ uint64_t sub_239C15980(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   return objc_msgSend_setOptions_(v16, v10, a2, v11, v12, v13, v14, v15);
 }
 
-uint64_t sub_239C159C8(void *a1, const char *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_239C159C8(id *a1, const char *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14 = a1[18];
   v15 = objc_msgSend_objectAtIndexedSubscript_(a3, a2, 0, a4, a5, a6, a7, a8);
@@ -9226,14 +9232,14 @@ uint64_t sub_239C159C8(void *a1, const char *a2, void *a3, void *a4, uint64_t a5
   objc_msgSend_encodeToCommandBuffer_sourceImage_inState_destinationImage_(v14, v23, a2, v15, v22, a6, v24, v25);
   v32 = objc_msgSend_objectAtIndexedSubscript_(a4, v26, 0, v27, v28, v29, v30, v31);
   MPSDecrementReadCount(v32);
-  v33 = *(*a1 + 184);
+  v33 = *(*a1 + 23);
 
   return v33(a1, a2, a3, a4, a5, a6);
 }
 
-uint64_t sub_239C15AA8(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_239C15AA8(id *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  (*(*a1 + 192))(a1);
+  (*(*a1 + 24))(a1, a2, a3, a4, a5);
   v11 = a1[18];
   v18 = objc_msgSend_objectAtIndexedSubscript_(a3, v12, 0, v13, v14, v15, v16, v17);
   v25 = objc_msgSend_objectAtIndexedSubscript_(a4, v19, 0, v20, v21, v22, v23, v24);
@@ -9668,9 +9674,9 @@ LABEL_56:
   return sub_239BE215C(v236, v228, "%s[%lu] %lu*{%lu x %lu x %lu %s}[%lu](offset:%lu) -> %lu*{%lu x %lu x %lu %s}[%lu]  offset: %lu   %s\n\tpadding policy: %s\n", v234, v233, v232, v231, v111, v140, v230, v143, v144, v152, v167, v182, v197, v229, v237, v205, v220, v227);
 }
 
-NSString *sub_239C163E0(uint64_t a1)
+NSString *sub_239C163E0(void *a1)
 {
-  if (*(a1 + 144))
+  if (a1[18])
   {
     v1 = MEMORY[0x277CCACA8];
     v2 = objc_opt_class();

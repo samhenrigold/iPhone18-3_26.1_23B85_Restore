@@ -33,10 +33,10 @@
 
 - (IDSOffGridConnectionMonitor)init
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = IDSOffGridConnectionMonitor;
-  v2 = [(IDSOffGridConnectionMonitor *)&v17 init];
+  v21 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = IDSOffGridConnectionMonitor;
+  v2 = [(IDSOffGridConnectionMonitor *)&v16 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -62,9 +62,9 @@
       }
 
       *buf = 138412546;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
       _os_log_impl(&dword_1959FF000, iDSOffGridStateManager, OS_LOG_TYPE_DEFAULT, "Started stewie connection monitor %@ %@", buf, 0x16u);
     }
 
@@ -73,7 +73,6 @@
     v2->_networkConnectionMonitor = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

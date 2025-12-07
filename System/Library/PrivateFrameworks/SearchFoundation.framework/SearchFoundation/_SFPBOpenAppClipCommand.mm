@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setClipIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  clipIdentifier = self->_clipIdentifier;
-  self->_clipIdentifier = v4;
+  self->_clipIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

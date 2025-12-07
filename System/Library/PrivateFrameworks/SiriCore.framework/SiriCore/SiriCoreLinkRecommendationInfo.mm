@@ -21,16 +21,16 @@
   self->_timeTaken = 0.0;
   self->_linkRecommendationMetrics = 0;
   *&self->_btPreference = 1;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, linkRecommendationMetrics);
 }
 
 - (SiriCoreLinkRecommendationInfo)initWithQueue:(id)queue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v14.receiver = self;
-  v14.super_class = SiriCoreLinkRecommendationInfo;
-  v5 = [(SiriCoreLinkRecommendationInfo *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = SiriCoreLinkRecommendationInfo;
+  v5 = [(SiriCoreLinkRecommendationInfo *)&v13 init];
   v6 = v5;
   if (v5)
   {
@@ -48,7 +48,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "[SiriCoreLinkRecommendationInfo initWithQueue:]";
+        v15 = "[SiriCoreLinkRecommendationInfo initWithQueue:]";
         v11 = "%s Using link recommendation";
 LABEL_7:
         _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 0xCu);
@@ -61,14 +61,13 @@ LABEL_7:
       if (os_log_type_enabled(*MEMORY[0x277CEF0E0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "[SiriCoreLinkRecommendationInfo initWithQueue:]";
+        v15 = "[SiriCoreLinkRecommendationInfo initWithQueue:]";
         v11 = "%s Unable to use link recommendation";
         goto LABEL_7;
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

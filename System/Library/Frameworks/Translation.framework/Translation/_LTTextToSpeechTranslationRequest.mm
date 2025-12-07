@@ -86,11 +86,11 @@ LABEL_7:
 {
   serviceCopy = service;
   doneCopy = done;
-  v8 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _LTOSLogTranslationEngine(doneCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_23AAF5000, v8, OS_LOG_TYPE_DEFAULT, "Start text to speech translation with service", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_DEFAULT, "Start text to speech translation with service", buf, 2u);
   }
 
   objc_initWeak(buf, self);
@@ -99,14 +99,14 @@ LABEL_7:
   block[1] = 3221225472;
   block[2] = __71___LTTextToSpeechTranslationRequest__startTranslationWithService_done___block_invoke;
   block[3] = &unk_278B6CCE0;
-  objc_copyWeak(&v15, buf);
-  v13 = serviceCopy;
-  v14 = doneCopy;
-  v10 = serviceCopy;
-  v11 = doneCopy;
+  objc_copyWeak(&v16, buf);
+  v14 = serviceCopy;
+  v15 = doneCopy;
+  v11 = serviceCopy;
+  v12 = doneCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 }
 
@@ -126,17 +126,17 @@ LABEL_7:
 - (void)translatorDidTranslate:(id)translate
 {
   translateCopy = translate;
-  v5 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _LTOSLogTranslationEngine(translateCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_INFO, "TextToSpeechTranslation did receive translation result", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "TextToSpeechTranslation did receive translation result", v10, 2u);
   }
 
   delegate = [(_LTTextToSpeechTranslationRequest *)self delegate];
-  v7 = objc_opt_respondsToSelector();
+  v8 = objc_opt_respondsToSelector();
 
-  if (v7)
+  if (v8)
   {
     delegate2 = [(_LTTextToSpeechTranslationRequest *)self delegate];
     [delegate2 translatorDidTranslate:translateCopy];

@@ -5,6 +5,8 @@
 - (RETrainingContext)attributeContext;
 - (RETrainingContext)init;
 - (void)_configureForRelevanceEngine:(id)engine;
+- (void)_trainElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction;
+- (void)_trainElementWithIdentifier:(id)identifier isPositiveEvent:(BOOL)event interaction:(id)interaction;
 - (void)becomeCurrent;
 - (void)dealloc;
 - (void)flushTraining;
@@ -37,6 +39,46 @@
   v4.receiver = self;
   v4.super_class = RETrainingContext;
   [(RETrainingContext *)&v4 dealloc];
+}
+
+- (void)_trainElementWithIdentifier:(id)identifier isPositiveEvent:(BOOL)event interaction:(id)interaction
+{
+  eventCopy = event;
+  identifierCopy = identifier;
+  interactionCopy = interaction;
+  WeakRetained = objc_loadWeakRetained(&self->_relevanceEngine);
+  trainingManager = [WeakRetained trainingManager];
+
+  if (!trainingManager)
+  {
+    RERaiseInternalException(*MEMORY[0x277CBE658], @"Training context must be added to a relevance engine before trying to train", v11, v12, v13, v14, v15, v16, v17);
+  }
+
+  [trainingManager performTrainingForElementWithIdentifier:identifierCopy isPositiveEvent:eventCopy interaction:interactionCopy];
+  if ([(RETrainingContext *)self _wantsAutomaticRemoteContextForwarding])
+  {
+    [(RERemoteTrainingContext *)self->_remoteContext trainWithElement:identifierCopy isPositiveEvent:eventCopy interaction:interactionCopy];
+  }
+}
+
+- (void)_trainElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction
+{
+  eventCopy = event;
+  elementCopy = element;
+  interactionCopy = interaction;
+  WeakRetained = objc_loadWeakRetained(&self->_relevanceEngine);
+  trainingManager = [WeakRetained trainingManager];
+
+  if (!trainingManager)
+  {
+    RERaiseInternalException(*MEMORY[0x277CBE658], @"Training context must be added to a relevance engine before trying to train", v11, v12, v13, v14, v15, v16, v17);
+  }
+
+  [trainingManager performTrainingForElement:elementCopy isPositiveEvent:eventCopy interaction:interactionCopy];
+  if ([(RETrainingContext *)self _wantsAutomaticRemoteContextForwarding])
+  {
+    [(RETrainingContext *)self->_remoteContext trainWithUnmanagedElement:elementCopy isPositiveEvent:eventCopy interaction:interactionCopy];
+  }
 }
 
 - (RERelevanceEngine)relevanceEngine

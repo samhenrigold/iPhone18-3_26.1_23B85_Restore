@@ -23,7 +23,9 @@
 - (void)setTarget:(id)target;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation KSEditUserWordController
@@ -132,6 +134,36 @@
   v3 = *MEMORY[0x277D3FC60];
   [*(&self->super.super.super.super.super.isa + v3) setEstimatedSectionHeaderHeight:0.0];
   [*(&self->super.super.super.super.super.isa + v3) setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = KSEditUserWordController;
+  [(KSEditUserWordController *)&v5 viewDidAppear:appear];
+  targetTextField = [(KSEditUserWordController *)self targetTextField];
+  if (![(NSString *)[(UITextField *)targetTextField text] length])
+  {
+    goto LABEL_5;
+  }
+
+  if ([(KSEditUserWordController *)self _shouldSetDefaultFirstResponder]|| ![(NSString *)[(UITextField *)[(KSEditUserWordController *)self shortcutTextField] text] length])
+  {
+    targetTextField = [(KSEditUserWordController *)self shortcutTextField];
+LABEL_5:
+    [(UITextField *)targetTextField becomeFirstResponder];
+  }
+
+  [objc_msgSend(-[KSEditUserWordController navigationItem](self "navigationItem")];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = KSEditUserWordController;
+  [(KSEditUserWordController *)&v4 viewWillDisappear:disappear];
+  [(UIAlertController *)[(KSEditUserWordController *)self keyboardAlertController] dismissViewControllerAnimated:1 completion:0];
+  [(KSEditUserWordController *)self setKeyboardAlertController:0];
 }
 
 - (id)specifiers
@@ -249,7 +281,7 @@ LABEL_9:
 
 - (void)_handleValidationWithError:(int64_t)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (error)
   {
     v4 = [(KSEditUserWordController *)self validationErrorStringFromError:?];
@@ -258,12 +290,12 @@ LABEL_9:
       v5 = [MEMORY[0x277D75110] alertControllerWithTitle:0 message:v4 preferredStyle:1];
       v6 = MEMORY[0x277D750F8];
       v7 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"USER_WORD_BUTTON_OK", &stru_28679E3A8, @"Keyboard"}];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __55__KSEditUserWordController__handleValidationWithError___block_invoke;
-      v12[3] = &unk_2797F9EA0;
-      v12[4] = v5;
-      [v5 addAction:{objc_msgSend(v6, "actionWithTitle:style:handler:", v7, 1, v12)}];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __55__KSEditUserWordController__handleValidationWithError___block_invoke;
+      v9[3] = &unk_2797F9EA0;
+      v9[4] = v5;
+      [v5 addAction:{objc_msgSend(v6, "actionWithTitle:style:handler:", v7, 1, v9)}];
       [(KSEditUserWordController *)self setKeyboardAlertController:v5];
       [objc_msgSend(MEMORY[0x277D75D28] _viewControllerForFullScreenPresentationFromView:{-[KSEditUserWordController view](self, "view")), "presentViewController:animated:completion:", -[KSEditUserWordController keyboardAlertController](self, "keyboardAlertController"), 1, 0}];
     }
@@ -271,27 +303,23 @@ LABEL_9:
 
   else
   {
-    v8 = *MEMORY[0x277D6FC10];
     TIStatisticGetKey();
     [(NSString *)[(UITextField *)[(KSEditUserWordController *)self targetTextField] text] length];
     TIStatisticDistributionPushValue();
-    v9 = *MEMORY[0x277D6FC18];
     TIStatisticGetKey();
     [(NSString *)[(UITextField *)[(KSEditUserWordController *)self shortcutTextField] text] length];
     TIStatisticDistributionPushValue();
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v13 = @"shortcut";
-    v14[0] = [(KSEditUserWordController *)self shortcut];
-    [defaultCenter postNotificationName:@"EditUserWordShortcutDidUpdateNotification" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v14, &v13, 1)}];
+    v10 = @"shortcut";
+    v11[0] = [(KSEditUserWordController *)self shortcut];
+    [defaultCenter postNotificationName:@"EditUserWordShortcutDidUpdateNotification" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v11, &v10, 1)}];
     [(KSEditUserWordController *)self _dismiss];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)save
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   [(KSEditUserWordController *)self setTarget:[(UITextField *)[(KSEditUserWordController *)self targetTextField] text]];
   [(KSEditUserWordController *)self setShortcut:[(UITextField *)[(KSEditUserWordController *)self shortcutTextField] text]];
   if ([(KSEditUserWordController *)self oldEntry])
@@ -300,8 +328,8 @@ LABEL_9:
   }
 
   dictionaryController = [(KSEditUserWordController *)self dictionaryController];
-  v9[0] = [(KSEditUserWordController *)self nextEntry];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = [(KSEditUserWordController *)self nextEntry];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   if ([(KSEditUserWordController *)self oldEntry])
   {
     oldEntry = [(KSEditUserWordController *)self oldEntry];
@@ -313,13 +341,12 @@ LABEL_9:
     v5 = 0;
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __32__KSEditUserWordController_save__block_invoke;
-  v7[3] = &unk_2797FA1C8;
-  v7[4] = self;
-  [(KSUserWordsManager *)dictionaryController addEntries:v4 removeEntries:v5 withCompletionHandler:v7];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __32__KSEditUserWordController_save__block_invoke;
+  v6[3] = &unk_2797FA1C8;
+  v6[4] = self;
+  [(KSUserWordsManager *)dictionaryController addEntries:v4 removeEntries:v5 withCompletionHandler:v6];
 }
 
 - (BOOL)textField:(id)field shouldChangeCharactersInRange:(_NSRange)range replacementString:(id)string

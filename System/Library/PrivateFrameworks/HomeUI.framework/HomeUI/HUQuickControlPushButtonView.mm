@@ -323,7 +323,7 @@ LABEL_14:
 
 - (void)_animateToEnlargeView
 {
-  [(HUQuickControlPushButtonView *)self transform];
+  objc_msgSend_transform(self, a2);
   v3 = *(MEMORY[0x277CBF2C0] + 16);
   *&t2.a = *MEMORY[0x277CBF2C0];
   *&t2.c = v3;
@@ -339,24 +339,24 @@ LABEL_14:
   }
 }
 
-uint64_t __53__HUQuickControlPushButtonView__animateToEnlargeView__block_invoke(uint64_t a1)
+uint64_t __53__HUQuickControlPushButtonView__animateToEnlargeView__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 transform];
-    v3 = *(a1 + 32);
+    objc_msgSend_transform(v3, a2);
+    v4 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
-    memset(&v5, 0, sizeof(v5));
+    v4 = 0;
+    memset(&v6, 0, sizeof(v6));
   }
 
-  CGAffineTransformScale(&v6, &v5, 1.1, 1.1);
-  v5 = v6;
-  return [v3 setTransform:&v5];
+  CGAffineTransformScale(&v7, &v6, 1.1, 1.1);
+  v6 = v7;
+  return [v4 setTransform:&v6];
 }
 
 - (void)_animateToShrinkView

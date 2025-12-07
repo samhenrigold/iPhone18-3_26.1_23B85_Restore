@@ -19,7 +19,7 @@
   v39 = 0;
   if (self)
   {
-    [(CIAreaHistogram *)self _netExtent];
+    objc_msgSend__netExtent(self, a2);
     v3 = *(&v38 + 1);
     v4 = v39;
   }
@@ -363,28 +363,30 @@ double __38__CIAreaHistogram_MPS__outputImageMPS__block_invoke_2(uint64_t a1)
 {
   if (self->inputImage)
   {
-    if ([(NSNumber *)self->inputCount intValue]- 2049 > 0xFFFFF7FF)
+    intValue = [(NSNumber *)self->inputCount intValue];
+    if ((intValue - 2049) > 0xFFFFF7FF)
     {
       [(CIVector *)self->inputExtent CGRectValue];
-      if (!CGRectIsEmpty(v7))
+      IsEmpty = CGRectIsEmpty(v11);
+      if (!IsEmpty)
       {
-        [(CIAreaHistogram *)self _netExtent];
+        objc_msgSend__netExtent(self);
         return 1;
       }
 
-      v4 = ci_logger_filter();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v8 = ci_logger_filter(IsEmpty, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [CIAreaHistogram _inputsAreOK];
+        [(CIAreaHistogram *)self _inputsAreOK];
       }
     }
 
     else
     {
-      v3 = ci_logger_filter();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = ci_logger_filter(intValue, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [CIAreaHistogram _inputsAreOK];
+        [(CIAreaHistogram *)self _inputsAreOK];
       }
     }
   }
@@ -394,37 +396,37 @@ double __38__CIAreaHistogram_MPS__outputImageMPS__block_invoke_2(uint64_t a1)
 
 - (id)outputData
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (![(CIAreaHistogram *)self _inputsAreOK])
   {
     return 0;
   }
 
   intValue = [(NSNumber *)self->inputCount intValue];
-  if (intValue - 257 <= 0xFFFFFEFF)
+  if ((intValue - 257) <= 0xFFFFFEFF)
   {
-    v4 = ci_logger_filter();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ci_logger_filter(intValue, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [CIAreaHistogram outputData];
+      [(CIAreaHistogram *)self outputData];
     }
 
     return 0;
   }
 
-  v7 = intValue;
+  v8 = intValue;
   if (intValue <= 0xFF)
   {
     -[CIImage filteredImage:keysAndValues:](self->inputImage, "filteredImage:keysAndValues:", @"CIExposureAdjust", @"inputEV", [MEMORY[0x1E696AD98] numberWithDouble:{log2(vcvtd_n_f64_u32(intValue, 8uLL))}], 0);
   }
 
-  v8 = 0;
   v9 = 0;
   v10 = 0;
-  [(CIAreaHistogram *)self _netExtent];
-  v5 = [MEMORY[0x1E695DF88] dataWithLength:16 * v7];
-  bzero([v5 mutableBytes], objc_msgSend(v5, "length"));
-  return v5;
+  v11 = 0;
+  objc_msgSend__netExtent(self);
+  v6 = [MEMORY[0x1E695DF88] dataWithLength:(16 * v8)];
+  bzero([v6 mutableBytes], objc_msgSend(v6, "length"));
+  return v6;
 }
 
 - (id)outputImageNonMPS
@@ -434,7 +436,7 @@ double __38__CIAreaHistogram_MPS__outputImageMPS__block_invoke_2(uint64_t a1)
   v35 = 0.0;
   if (self)
   {
-    [(CIAreaHistogram *)self _netExtent];
+    objc_msgSend__netExtent(self, a2);
   }
 
   intValue = [(NSNumber *)self->inputCount intValue];
@@ -781,7 +783,7 @@ void __36__CIAreaHistogram_outputImageNonMPS__block_invoke_2(uint64_t a1, void *
 
   if (self)
   {
-    [(CIAreaHistogram *)self _netExtent];
+    objc_msgSend__netExtent(self);
   }
 
   return [+[CIImage imageWithColor:](CIImage imageByCroppingToRect:+[CIColor clearColor]), "imageByCroppingToRect:", 0.0, 0.0, [(NSNumber *)self->inputCount intValue], 1.0];
@@ -791,14 +793,14 @@ void __36__CIAreaHistogram_outputImageNonMPS__block_invoke_2(uint64_t a1, void *
 {
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_19CC36000, v0, v1, "%{public}@: requires inputCount >= 1 and <= 2048\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_19CC36000, v2, v3, "%{public}@: requires inputCount >= 1 and <= 2048\n", v4, v5, v6, v7);
 }
 
 - (void)outputData
 {
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_19CC36000, v0, v1, "%{public}@: requires inputCount >= 1 and <= 256\n", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_19CC36000, v2, v3, "%{public}@: requires inputCount >= 1 and <= 256\n", v4, v5, v6, v7);
 }
 
 @end

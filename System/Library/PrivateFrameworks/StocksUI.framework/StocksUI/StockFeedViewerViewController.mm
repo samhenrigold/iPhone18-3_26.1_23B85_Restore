@@ -23,19 +23,19 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2205C69C4();
+  sub_2205C69C4(selfCopy, v2);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_2205C79F4();
+  sub_2205C79F4(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_2205C806C(appear);
+  sub_2205C806C(appear, selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -59,27 +59,27 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_2205C836C(disappear);
+  sub_2205C836C(disappear, selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2205C8514(change);
+  sub_2205C8514(change, selfCopy);
 }
 
 - (void)didMoveToParentViewController:(id)controller
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_2205C8674(controller);
+  sub_2205C8674(controller, selfCopy);
 }
 
 - (void)viewSafeAreaInsetsDidChange
 {
   selfCopy = self;
-  sub_2205C88E4();
+  sub_2205C88E4(selfCopy, v2);
 }
 
 - (void)didTapAttributionButton

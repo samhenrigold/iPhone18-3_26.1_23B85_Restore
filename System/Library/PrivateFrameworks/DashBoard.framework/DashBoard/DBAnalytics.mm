@@ -3484,7 +3484,7 @@ LABEL_27:
   _Block_object_dispose(&v37, 8);
 }
 
-uint64_t __50__DBAnalytics__queue_didChangeToBundleIdentifier___block_invoke(uint64_t a1)
+void *__50__DBAnalytics__queue_didChangeToBundleIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 40) isEqualToString:@"com.apple.InCallService"];
   if (result)
@@ -4283,7 +4283,7 @@ void __70__DBAnalytics_dashboardStateProvider_didChangeActiveBundleIdentifier___
   }
 }
 
-uint64_t __31__DBAnalytics_session_openURL___block_invoke(uint64_t a1)
+void *__31__DBAnalytics_session_openURL___block_invoke(uint64_t a1)
 {
   if (([*(a1 + 32) hasPrefix:@"maps:"] & 1) != 0 || objc_msgSend(*(a1 + 32), "hasPrefix:", @"maps:/car/destinations"))
   {
@@ -5293,13 +5293,17 @@ uint64_t __29__DBAnalytics_changedLayout___block_invoke_3(uint64_t a1, void *a2)
 void __34__DBAnalytics__queue_sessionEnded__block_invoke_544_cold_1(void *a1)
 {
   v1 = [a1 description];
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Unable to send CARConnectionEventSessionDetails due to error %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Unable to send CARConnectionEventSessionDetails due to error %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)sendEvent:(uint64_t)a1 withParameters:.cold.1(uint64_t a1)
 {
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Unrecognized analytics event %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Unrecognized analytics event %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

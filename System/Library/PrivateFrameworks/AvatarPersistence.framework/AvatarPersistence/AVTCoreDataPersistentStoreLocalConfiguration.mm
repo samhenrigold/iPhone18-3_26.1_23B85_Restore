@@ -22,22 +22,21 @@ void __63___AVTCoreDataPersistentStoreLocalConfiguration_setupIfNeeded___block_i
 void __66___AVTCoreDataPersistentStoreLocalConfiguration_copyStorageAside___block_invoke(uint64_t a1)
 {
   v2 = objc_alloc_init(MEMORY[0x277CCAA00]);
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = [*(a1 + 32) storeLocation];
-  v6 = [v4 sideDatabaseFolderForStoreLocation:v5];
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 32) storeLocation];
+  v5 = [v3 sideDatabaseFolderForStoreLocation:v4];
 
-  v7 = [v6 path];
-  v8 = [v2 fileExistsAtPath:v7];
+  v6 = [v5 path];
+  v7 = [v2 fileExistsAtPath:v6];
 
-  if (!v8 || (v9 = *(*(a1 + 48) + 8), obj = *(v9 + 40), v10 = [v2 removeItemAtURL:v6 error:&obj], objc_storeStrong((v9 + 40), obj), *(*(*(a1 + 40) + 8) + 24) = v10, *(*(*(a1 + 40) + 8) + 24) == 1))
+  if (!v7 || (v8 = *(*(a1 + 48) + 8), obj = *(v8 + 40), v9 = [v2 removeItemAtURL:v5 error:&obj], objc_storeStrong((v8 + 40), obj), *(*(*(a1 + 40) + 8) + 24) = v9, *(*(*(a1 + 40) + 8) + 24) == 1))
   {
-    v11 = [*(a1 + 32) folderLocation];
-    v12 = *(*(a1 + 48) + 8);
-    v14 = *(v12 + 40);
-    v13 = [v2 copyItemAtURL:v11 toURL:v6 error:&v14];
-    objc_storeStrong((v12 + 40), v14);
-    *(*(*(a1 + 40) + 8) + 24) = v13;
+    v10 = [*(a1 + 32) folderLocation];
+    v11 = *(*(a1 + 48) + 8);
+    v13 = *(v11 + 40);
+    v12 = [v2 copyItemAtURL:v10 toURL:v5 error:&v13];
+    objc_storeStrong((v11 + 40), v13);
+    *(*(*(a1 + 40) + 8) + 24) = v12;
   }
 }
 
@@ -69,13 +68,13 @@ void __102___AVTCoreDataPersistentStoreLocalConfiguration_updateBackupInclusionS
     [v2 logUpdatingBackupExclusionStatus:{objc_msgSend(*(a1 + 32), "BOOLValue")}];
 
     v3 = [*(a1 + 48) folderLocation];
-    v39 = 0;
+    v37 = 0;
     v4 = *MEMORY[0x277CBE878];
-    v38 = 0;
-    v5 = [v3 getResourceValue:&v39 forKey:v4 error:&v38];
-    v6 = v39;
-    v7 = v38;
-    if (!v5 || [v6 BOOLValue] && (v37 = v7, v8 = objc_msgSend(v3, "setResourceValue:forKey:error:", MEMORY[0x277CBEC28], v4, &v37), v9 = v37, v7, v7 = v9, (v8 & 1) == 0))
+    v36 = 0;
+    v5 = [v3 getResourceValue:&v37 forKey:v4 error:&v36];
+    v6 = v37;
+    v7 = v36;
+    if (!v5 || [v6 BOOLValue] && (v35 = v7, v8 = objc_msgSend(v3, "setResourceValue:forKey:error:", MEMORY[0x277CBEC28], v4, &v35), v9 = v35, v7, v7 = v9, (v8 & 1) == 0))
     {
       v10 = [*(a1 + 48) logger];
       v11 = [v7 description];
@@ -90,26 +89,26 @@ void __102___AVTCoreDataPersistentStoreLocalConfiguration_updateBackupInclusionS
     }
 
     v14 = *v13;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __102___AVTCoreDataPersistentStoreLocalConfiguration_updateBackupInclusionStatusOnQueue_completionHandler___block_invoke_3;
-    v32[3] = &unk_278CFAF30;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __102___AVTCoreDataPersistentStoreLocalConfiguration_updateBackupInclusionStatusOnQueue_completionHandler___block_invoke_3;
+    v30[3] = &unk_278CFAF30;
     v15 = v3;
-    v36 = v14;
+    v34 = v14;
     v16 = *(a1 + 48);
-    v33 = v15;
-    v34 = v16;
+    v31 = v15;
+    v32 = v16;
     v17 = v7;
-    v35 = v17;
-    v18 = MEMORY[0x245CF3540](v32);
+    v33 = v17;
+    v18 = MEMORY[0x245CF3540](v30);
     v19 = *MEMORY[0x277CBECB0];
-    v31 = 0;
-    v20 = (v18)[2](v18, v19, &v31);
-    v21 = v31;
+    v29 = 0;
+    v20 = (v18)[2](v18, v19, &v29);
+    v21 = v29;
     v22 = *MEMORY[0x277CBECB8];
-    v30 = 0;
-    v23 = (v18)[2](v18, v22, &v30);
-    v24 = v30;
+    v28 = 0;
+    v23 = (v18)[2](v18, v22, &v28);
+    v24 = v28;
     v25 = *(a1 + 56);
     if (v25)
     {
@@ -129,11 +128,9 @@ void __102___AVTCoreDataPersistentStoreLocalConfiguration_updateBackupInclusionS
 
   else
   {
-    v27 = *(a1 + 56);
-    v28 = *(a1 + 40);
-    v29 = *(*(a1 + 56) + 16);
+    v27 = *(*(a1 + 56) + 16);
 
-    v29();
+    v27();
   }
 }
 

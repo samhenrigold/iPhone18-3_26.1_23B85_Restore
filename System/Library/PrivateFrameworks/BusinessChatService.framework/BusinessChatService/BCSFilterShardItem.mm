@@ -146,31 +146,31 @@
 
 - (id)containsItemMatching:(id)matching
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   if ([matchingCopy conformsToProtocol:&unk_285466448])
   {
     v5 = matchingCopy;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     truncatedHashes = [v5 truncatedHashes];
-    v7 = [truncatedHashes countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [truncatedHashes countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(truncatedHashes);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if (-[BCSFilterShardItem _containsValue:](self, [v11 longLongValue]))
           {
             v12 = -[BCSFilterMatchResult initWithMatch:itemIdentifier:matchingTruncatedHash:]([BCSFilterMatchResult alloc], "initWithMatch:itemIdentifier:matchingTruncatedHash:", 1, v5, [v11 longLongValue]);
@@ -179,7 +179,7 @@
           }
         }
 
-        v8 = [truncatedHashes countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [truncatedHashes countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -197,8 +197,6 @@ LABEL_13:
   {
     v12 = -[BCSFilterMatchResult initWithMatch:itemIdentifier:matchingTruncatedHash:]([BCSFilterMatchResult alloc], "initWithMatch:itemIdentifier:matchingTruncatedHash:", -[BCSFilterShardItem _containsValue:](self, [matchingCopy truncatedHash]), matchingCopy, objc_msgSend(matchingCopy, "truncatedHash"));
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -305,7 +303,7 @@ LABEL_13:
 
 - (BCSFilterShardItem)initWithJSONObj:(id)obj type:(int64_t)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   objCopy = obj;
   v7 = [objCopy objectForKeyedSubscript:@"records"];
   objc_opt_class();
@@ -318,10 +316,10 @@ LABEL_13:
     {
       v10 = [objc_alloc(MEMORY[0x277D42540]) initWithJSONObj:objCopy];
       v11 = [v9 objectForKeyedSubscript:@"index"];
-      v23 = [v11 objectForKeyedSubscript:@"value"];
+      v22 = [v11 objectForKeyedSubscript:@"value"];
 
       v12 = [v9 objectForKeyedSubscript:@"count"];
-      v22 = [v12 objectForKeyedSubscript:@"value"];
+      v21 = [v12 objectForKeyedSubscript:@"value"];
 
       v13 = [v9 objectForKeyedSubscript:@"ttl"];
       v14 = [v13 objectForKeyedSubscript:@"value"];
@@ -331,10 +329,10 @@ LABEL_13:
       {
         date = [MEMORY[0x277CBEAA8] date];
         [v14 doubleValue];
-        v21 = [date dateByAddingTimeInterval:?];
+        v20 = [date dateByAddingTimeInterval:?];
 
         v16 = [v10 _bloomFilterStringWithJSONObj:objCopy];
-        self = -[BCSFilterShardItem initWithBloomFilter:bloomFilterString:startIndex:shardCount:type:expirationDate:](self, "initWithBloomFilter:bloomFilterString:startIndex:shardCount:type:expirationDate:", v10, v16, [v23 longLongValue], objc_msgSend(v22, "longLongValue"), type, v21);
+        self = -[BCSFilterShardItem initWithBloomFilter:bloomFilterString:startIndex:shardCount:type:expirationDate:](self, "initWithBloomFilter:bloomFilterString:startIndex:shardCount:type:expirationDate:", v10, v16, [v22 longLongValue], objc_msgSend(v21, "longLongValue"), type, v20);
 
         selfCopy = self;
       }
@@ -345,7 +343,7 @@ LABEL_13:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v25 = "[BCSFilterShardItem(Conversion) initWithJSONObj:type:]";
+          v24 = "[BCSFilterShardItem(Conversion) initWithJSONObj:type:]";
           _os_log_error_impl(&dword_242072000, v18, OS_LOG_TYPE_ERROR, "%s - BCSFilterShardItem bloomFilter, startIndex, shardCount, or ttl is not correct class type", buf, 0xCu);
         }
 
@@ -359,7 +357,7 @@ LABEL_13:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v25 = "[BCSFilterShardItem(Conversion) initWithJSONObj:type:]";
+        v24 = "[BCSFilterShardItem(Conversion) initWithJSONObj:type:]";
         _os_log_error_impl(&dword_242072000, v10, OS_LOG_TYPE_ERROR, "%s - BCSFilterShardItem fields parameter is not an NSDictioanry", buf, 0xCu);
       }
 
@@ -373,20 +371,19 @@ LABEL_13:
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "[BCSFilterShardItem(Conversion) initWithJSONObj:type:]";
+      v24 = "[BCSFilterShardItem(Conversion) initWithJSONObj:type:]";
       _os_log_error_impl(&dword_242072000, firstObject, OS_LOG_TYPE_ERROR, "%s - BCSFilterShardItem records parameter is not an NSArray", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BCSFilterShardItem)initWithRecord:(id)record type:(int64_t)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v7 = [recordCopy objectForKeyedSubscript:@"filter"];
   if (v7)
@@ -421,15 +418,14 @@ LABEL_13:
     v16 = ABSLogCommon();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315138;
-      v20 = "[BCSFilterShardItem(Conversion) initWithRecord:type:]";
-      _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "%s - BCSFilterShardItem bloomFilter, startIndex, shardCount, or ttl is not correct class type", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[BCSFilterShardItem(Conversion) initWithRecord:type:]";
+      _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "%s - BCSFilterShardItem bloomFilter, startIndex, shardCount, or ttl is not correct class type", &v18, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

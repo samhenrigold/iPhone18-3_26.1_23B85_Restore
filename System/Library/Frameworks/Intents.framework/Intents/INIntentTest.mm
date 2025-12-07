@@ -6,28 +6,28 @@
 
 + (id)executeIntent:(id)intent withHandler:(id)handler
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   handlerCopy = handler;
-  v47 = intentCopy;
+  v44 = intentCopy;
   NSLog(@"Testing intent:%@ on handler: %@", intentCopy, handlerCopy);
   v6 = [[DummyHandlerProvider alloc] initWithHandler:handlerCopy];
   v7 = [_INExtensionContext alloc];
-  v43 = v6;
-  v46 = [(_INExtensionContext *)v7 initWithInputItems:MEMORY[0x1E695E0F0] privateIntentHandlerProvider:v6];
+  v40 = v6;
+  v43 = [(_INExtensionContext *)v7 initWithInputItems:MEMORY[0x1E695E0F0] privateIntentHandlerProvider:v6];
   v8 = dispatch_semaphore_create(0);
-  identifier = [v47 identifier];
-  v110[0] = MEMORY[0x1E69E9820];
-  v110[1] = 3221225472;
-  v110[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke;
-  v110[3] = &unk_1E72882F8;
+  identifier = [v44 identifier];
+  v107[0] = MEMORY[0x1E69E9820];
+  v107[1] = 3221225472;
+  v107[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke;
+  v107[3] = &unk_1E72882F8;
   v10 = v8;
-  v111 = v10;
-  [(_INExtensionContext *)v46 beginTransactionWithIntentIdentifier:identifier completion:v110];
+  v108 = v10;
+  [(_INExtensionContext *)v43 beginTransactionWithIntentIdentifier:identifier completion:v107];
 
   dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
-  _intentInstanceDescription = [v47 _intentInstanceDescription];
-  LOBYTE(v6) = [v47 _type] == 2;
+  _intentInstanceDescription = [v44 _intentInstanceDescription];
+  LOBYTE(v6) = [v44 _type] == 2;
   slotDescriptions = [_intentInstanceDescription slotDescriptions];
   v12 = slotDescriptions;
   if ((v6 & 1) == 0)
@@ -38,26 +38,26 @@
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v108 = 0u;
-  v109 = 0u;
+  v105 = 0u;
   v106 = 0u;
-  v107 = 0u;
+  v103 = 0u;
+  v104 = 0u;
   v15 = v12;
-  v16 = [v15 countByEnumeratingWithState:&v106 objects:v112 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v103 objects:v109 count:16];
   if (v16)
   {
-    v17 = *v107;
+    v17 = *v104;
     do
     {
       v18 = 0;
       do
       {
-        if (*v107 != v17)
+        if (*v104 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v106 + 1) + 8 * v18);
+        v19 = *(*(&v103 + 1) + 8 * v18);
         if (![v19 isPrivate])
         {
           goto LABEL_12;
@@ -79,7 +79,7 @@ LABEL_12:
       }
 
       while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v106 objects:v112 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v103 objects:v109 count:16];
     }
 
     while (v16);
@@ -87,82 +87,81 @@ LABEL_12:
 
   NSLog(@"    Resolving parameters: %@", array);
   NSLog(@"    Executing slot resolution...");
+  v99 = 0;
+  v100 = &v99;
+  v101 = 0x2020000000;
   v102 = 0;
-  v103 = &v102;
-  v104 = 0x2020000000;
-  v105 = 0;
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x3032000000;
-  v99 = __Block_byref_object_copy__20857;
-  v100 = __Block_byref_object_dispose__20858;
-  v101 = 0;
-  v90 = 0;
-  v91 = &v90;
-  v92 = 0x3032000000;
-  v93 = __Block_byref_object_copy__20857;
-  v94 = __Block_byref_object_dispose__20858;
-  v95 = 0;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = __Block_byref_object_copy__20857;
+  v97 = __Block_byref_object_dispose__20858;
+  v98 = 0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = __Block_byref_object_copy__20857;
+  v91 = __Block_byref_object_dispose__20858;
+  v92 = 0;
   v21 = dispatch_semaphore_create(0);
 
-  v22 = [v47 copy];
-  v85[0] = MEMORY[0x1E69E9820];
-  v85[1] = 3221225472;
-  v85[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_80;
-  v85[3] = &unk_1E727F4B0;
-  v87 = &v102;
-  v88 = &v96;
-  v89 = &v90;
-  v23 = v21;
-  v86 = v23;
-  [(_INExtensionContext *)v46 resolveIntentSlots:array forIntent:v22 completionBlock:v85];
-
-  dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-  NSLog(@"    Updated intent:%@", v97[5]);
-  v24 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v91[5], "count")}];
-  v25 = v91[5];
+  v22 = [v44 copy];
   v82[0] = MEMORY[0x1E69E9820];
   v82[1] = 3221225472;
-  v82[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_2_95;
-  v82[3] = &unk_1E727F4D8;
-  v84 = &v96;
+  v82[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_80;
+  v82[3] = &unk_1E727F4B0;
+  v84 = &v99;
+  v85 = &v93;
+  v86 = &v87;
+  v23 = v21;
+  v83 = v23;
+  [(_INExtensionContext *)v43 resolveIntentSlots:array forIntent:v22 completionBlock:v82];
+
+  dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
+  NSLog(@"    Updated intent:%@", v94[5]);
+  v24 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v88[5], "count")}];
+  v25 = v88[5];
+  v79[0] = MEMORY[0x1E69E9820];
+  v79[1] = 3221225472;
+  v79[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_2_95;
+  v79[3] = &unk_1E727F4D8;
+  v81 = &v93;
   v26 = v24;
-  v83 = v26;
-  [v25 enumerateKeysAndObjectsUsingBlock:v82];
-  if ((v103[3] & 1) == 0)
+  v80 = v26;
+  [v25 enumerateKeysAndObjectsUsingBlock:v79];
+  if ((v100[3] & 1) == 0)
   {
     [v26 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_100];
   }
 
-  v27 = [v97[5] copy];
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy__20857;
-  v80 = __Block_byref_object_dispose__20858;
-  v81 = 0;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x3032000000;
-  v73 = __Block_byref_object_copy__20857;
-  v74 = __Block_byref_object_dispose__20858;
-  v75 = 0;
-  if (*(v103 + 24) == 1)
+  v27 = [v94[5] copy];
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy__20857;
+  v77 = __Block_byref_object_dispose__20858;
+  v78 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__20857;
+  v71 = __Block_byref_object_dispose__20858;
+  v72 = 0;
+  if (*(v100 + 24) == 1)
   {
     v28 = dispatch_semaphore_create(0);
 
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_4;
-    v66[3] = &unk_1E727F520;
-    v68 = &v76;
-    v69 = &v70;
+    v63[0] = MEMORY[0x1E69E9820];
+    v63[1] = 3221225472;
+    v63[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_4;
+    v63[3] = &unk_1E727F520;
+    v65 = &v73;
+    v66 = &v67;
     v23 = v28;
-    v67 = v23;
-    [(_INExtensionContext *)v46 confirmIntent:v27 withCompletion:v66];
+    v64 = v23;
+    [(_INExtensionContext *)v43 confirmIntent:v27 withCompletion:v63];
     dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-    v29 = v77[5];
-    NSLog(@"    Confirmation response:%@ with error: %@", v29, v71[5]);
+    NSLog(@"    Confirmation response:%@ with error: %@", v74[5], v68[5]);
   }
 
   else
@@ -170,42 +169,41 @@ LABEL_12:
     NSLog(@"    Skipping confirmation as parameter resolution was not successful");
   }
 
-  v30 = v71[5];
-  if (v30)
+  v29 = v68[5];
+  if (v29)
   {
-    [MEMORY[0x1E695DF30] raise:@"Unexpected exception confirming Intent" format:{@"Encountered error confirming intent: %@, error: %@", v27, v30}];
+    [MEMORY[0x1E695DF30] raise:@"Unexpected exception confirming Intent" format:{@"Encountered error confirming intent: %@, error: %@", v27, v29}];
   }
 
-  v31 = [v97[5] copy];
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__20857;
-  v64 = __Block_byref_object_dispose__20858;
-  v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__20857;
-  v58 = __Block_byref_object_dispose__20858;
-  v59 = 0;
-  v32 = v77[5];
-  if (v32 && [v32 _intentResponseCode] == 1)
+  v30 = [v94[5] copy];
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__20857;
+  v61 = __Block_byref_object_dispose__20858;
+  v62 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__20857;
+  v55 = __Block_byref_object_dispose__20858;
+  v56 = 0;
+  v31 = v74[5];
+  if (v31 && [v31 _intentResponseCode] == 1)
   {
-    v33 = dispatch_semaphore_create(0);
+    v32 = dispatch_semaphore_create(0);
 
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_5;
-    v50[3] = &unk_1E727F520;
-    v52 = &v60;
-    v53 = &v54;
-    v23 = v33;
-    v51 = v23;
-    [(_INExtensionContext *)v46 handleIntent:v31 withCompletion:v50];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_5;
+    v47[3] = &unk_1E727F520;
+    v49 = &v57;
+    v50 = &v51;
+    v23 = v32;
+    v48 = v23;
+    [(_INExtensionContext *)v43 handleIntent:v30 withCompletion:v47];
     dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-    v34 = v61[5];
-    NSLog(@"    Handle response:%@ with error: %@", v34, v55[5]);
+    NSLog(@"    Handle response:%@ with error: %@", v58[5], v52[5]);
   }
 
   else
@@ -213,40 +211,39 @@ LABEL_12:
     NSLog(@"    Skipping handle as confirmation was not run or was not successful");
   }
 
-  v35 = v55[5];
-  if (v35)
+  v33 = v52[5];
+  if (v33)
   {
-    [MEMORY[0x1E695DF30] raise:@"Unexpected exception handling Intent" format:{@"Encountered error handling intent: %@, error: %@", v31, v35}];
+    [MEMORY[0x1E695DF30] raise:@"Unexpected exception handling Intent" format:{@"Encountered error handling intent: %@, error: %@", v30, v33}];
   }
 
-  v36 = dispatch_semaphore_create(0);
+  v34 = dispatch_semaphore_create(0);
 
-  identifier2 = [v47 identifier];
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_6;
-  v48[3] = &unk_1E72882F8;
-  v38 = v36;
-  v49 = v38;
-  [(_INExtensionContext *)v46 completeTransactionWithIntentIdentifier:identifier2 completion:v48];
+  identifier2 = [v44 identifier];
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __42__INIntentTest_executeIntent_withHandler___block_invoke_6;
+  v45[3] = &unk_1E72882F8;
+  v36 = v34;
+  v46 = v36;
+  [(_INExtensionContext *)v43 completeTransactionWithIntentIdentifier:identifier2 completion:v45];
 
-  dispatch_semaphore_wait(v38, 0xFFFFFFFFFFFFFFFFLL);
-  v39 = [INIntentTestResult alloc];
-  v40 = [(INIntentTestResult *)v39 initWithResolvedIntent:v97[5] resolvedParameters:v26 resolvedAllParametersSuccesfully:*(v103 + 24) confirmResponse:v77[5] handleResponse:v61[5]];
+  dispatch_semaphore_wait(v36, 0xFFFFFFFFFFFFFFFFLL);
+  v37 = [INIntentTestResult alloc];
+  v38 = [(INIntentTestResult *)v37 initWithResolvedIntent:v94[5] resolvedParameters:v26 resolvedAllParametersSuccesfully:*(v100 + 24) confirmResponse:v74[5] handleResponse:v58[5]];
 
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v57, 8);
 
-  _Block_object_dispose(&v70, 8);
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v73, 8);
 
-  _Block_object_dispose(&v90, 8);
-  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v93, 8);
 
-  _Block_object_dispose(&v102, 8);
-  v41 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v99, 8);
 
-  return v40;
+  return v38;
 }
 
 void __42__INIntentTest_executeIntent_withHandler___block_invoke_80(uint64_t a1, int a2, void *a3, void *a4)

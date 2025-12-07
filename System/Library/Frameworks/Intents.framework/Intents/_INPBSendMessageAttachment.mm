@@ -415,7 +415,6 @@ LABEL_47:
 
   if ([(_INPBSendMessageAttachment *)self hasCurrentLocation])
   {
-    currentLocation = self->_currentLocation;
     PBDataWriterWriteBOOLField();
   }
 
@@ -439,7 +438,6 @@ LABEL_47:
 
   if (phAssetId)
   {
-    phAssetId = self->_phAssetId;
     PBDataWriterWriteStringField();
   }
 
@@ -461,12 +459,11 @@ LABEL_47:
 
   typeIdentifier = [(_INPBSendMessageAttachment *)self typeIdentifier];
 
-  v20 = toCopy;
+  v18 = toCopy;
   if (typeIdentifier)
   {
-    typeIdentifier = self->_typeIdentifier;
     PBDataWriterWriteStringField();
-    v20 = toCopy;
+    v18 = toCopy;
   }
 }
 

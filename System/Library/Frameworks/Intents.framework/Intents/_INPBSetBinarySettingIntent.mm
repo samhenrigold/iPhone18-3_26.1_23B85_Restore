@@ -1,6 +1,7 @@
 @interface _INPBSetBinarySettingIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSetBinarySettingIntent)initWithCoder:(id)coder;
+- (id)binaryValueAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsBinaryValue:(id)value;
@@ -224,7 +225,6 @@ LABEL_22:
   toCopy = to;
   if ([(_INPBSetBinarySettingIntent *)self hasBinaryValue])
   {
-    binaryValue = self->_binaryValue;
     PBDataWriterWriteInt32Field();
   }
 
@@ -246,13 +246,13 @@ LABEL_22:
 
   temporalEventTrigger = [(_INPBSetBinarySettingIntent *)self temporalEventTrigger];
 
-  v10 = toCopy;
+  v9 = toCopy;
   if (temporalEventTrigger)
   {
     temporalEventTrigger2 = [(_INPBSetBinarySettingIntent *)self temporalEventTrigger];
     PBDataWriterWriteSubmessage();
 
-    v10 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -277,6 +277,21 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)binaryValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7287DF0[string - 1];
   }
 
   return v4;

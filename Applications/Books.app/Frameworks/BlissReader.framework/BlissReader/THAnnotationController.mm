@@ -2287,26 +2287,26 @@ LABEL_32:
     }
 
     v9 = [annotations objectAtIndex:0];
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v10 = [annotations countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v28 = 0u;
+    v10 = [annotations countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v25;
+      v13 = *v26;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v25 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(annotations);
           }
 
-          if ([*(*(&v24 + 1) + 8 * i) annotationNote])
+          if ([*(*(&v25 + 1) + 8 * i) annotationNote])
           {
             if (v12)
             {
@@ -2318,7 +2318,7 @@ LABEL_32:
           }
         }
 
-        v11 = [annotations countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [annotations countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v11)
         {
           continue;
@@ -2338,52 +2338,52 @@ LABEL_17:
     v16 = [(THDocumentRoot *)[(THAnnotationController *)self documentRoot] modelStorageAnchorForAnnotation:v9];
     if (v16)
     {
-      [(NSMutableDictionary *)v15 setObject:v16 forKey:@"THAnnotationStorageAnchorUndoContextKey"];
+      v16 = [(NSMutableDictionary *)v15 setObject:v16 forKey:@"THAnnotationStorageAnchorUndoContextKey"];
     }
 
-    v17 = THBundle();
-    v18 = @"Remove Highlights";
+    v18 = THBundle(v16, v17);
+    v19 = @"Remove Highlights";
     if (v8 == &dword_0 + 1)
     {
-      v18 = @"Remove Highlight";
-      v19 = @"Remove Highlight and Notes";
+      v19 = @"Remove Highlight";
+      v20 = @"Remove Highlight and Notes";
     }
 
     else
     {
-      v19 = @"Remove Highlights and Notes";
+      v20 = @"Remove Highlights and Notes";
     }
 
-    v20 = @"Remove Highlights and Note";
+    v21 = @"Remove Highlights and Note";
     if (v8 == &dword_0 + 1)
     {
-      v20 = @"Remove Highlight and Note";
+      v21 = @"Remove Highlight and Note";
     }
 
     if (v12 == 1)
     {
-      v19 = v20;
+      v20 = v21;
     }
 
     if (v12)
     {
-      v21 = v19;
+      v22 = v20;
     }
 
     else
     {
-      v21 = v18;
+      v22 = v19;
     }
 
-    -[THAnnotationController p_openUndoGroupWithContext:actionName:](self, "p_openUndoGroupWithContext:actionName:", v15, [v17 localizedStringForKey:v21 value:&stru_471858 table:0]);
+    -[THAnnotationController p_openUndoGroupWithContext:actionName:](self, "p_openUndoGroupWithContext:actionName:", v15, [v18 localizedStringForKey:v22 value:&stru_471858 table:0]);
     mAnnotationProvider = self->mAnnotationProvider;
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_99CF8;
-    v23[3] = &unk_45C780;
-    v23[4] = annotations;
-    v23[5] = self;
-    [(AEAnnotationProvider *)mAnnotationProvider performBlockOnUserSideQueueAndWait:v23];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_99CF8;
+    v24[3] = &unk_45C780;
+    v24[4] = annotations;
+    v24[5] = self;
+    [(AEAnnotationProvider *)mAnnotationProvider performBlockOnUserSideQueueAndWait:v24];
     [(THAnnotationController *)self p_closeUndoGroup];
   }
 }
@@ -2456,34 +2456,35 @@ LABEL_17:
   if (v10 | v11)
   {
     v12 = v11;
-    if (([text isEqualToString:annotationNote] & 1) == 0)
+    v13 = [text isEqualToString:annotationNote];
+    if ((v13 & 1) == 0)
     {
       if (v12)
       {
-        v13 = THBundle();
+        v15 = THBundle(v13, v14);
         if (v10)
         {
-          v14 = @"Edit Note";
+          v16 = @"Edit Note";
         }
 
         else
         {
-          v14 = @"Add Note";
+          v16 = @"Add Note";
         }
       }
 
       else
       {
-        v13 = THBundle();
-        v14 = @"Remove Note";
+        v15 = THBundle(v13, v14);
+        v16 = @"Remove Note";
       }
 
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_9A480;
-      v16[3] = &unk_45CB98;
-      v16[4] = text;
-      return -[THAnnotationController modifyAnnotation:undoContext:undoActionName:withBlock:](self, "modifyAnnotation:undoContext:undoActionName:withBlock:", annotationCopy, context, [v13 localizedStringForKey:v14 value:&stru_471858 table:0], v16);
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_9A480;
+      v18[3] = &unk_45CB98;
+      v18[4] = text;
+      return -[THAnnotationController modifyAnnotation:undoContext:undoActionName:withBlock:](self, "modifyAnnotation:undoContext:undoActionName:withBlock:", annotationCopy, context, [v15 localizedStringForKey:v16 value:&stru_471858 table:0], v18);
     }
   }
 
@@ -2493,14 +2494,15 @@ LABEL_17:
 - (id)modifyAnnotation:(id)annotation withStyle:(int)style undoContext:(id)context
 {
   annotationCopy = annotation;
-  if ([annotation annotationStyle] != style)
+  annotationStyle = [annotation annotationStyle];
+  if (annotationStyle != style)
   {
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_9A55C;
-    v10[3] = &unk_45CBB8;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_9A55C;
+    v12[3] = &unk_45CBB8;
     styleCopy = style;
-    return -[THAnnotationController modifyAnnotation:undoContext:undoActionName:withBlock:](self, "modifyAnnotation:undoContext:undoActionName:withBlock:", annotationCopy, context, [THBundle() localizedStringForKey:@"Edit Highlight" value:&stru_471858 table:0], v10);
+    return -[THAnnotationController modifyAnnotation:undoContext:undoActionName:withBlock:](self, "modifyAnnotation:undoContext:undoActionName:withBlock:", annotationCopy, context, [THBundle(annotationStyle v10)], v12);
   }
 
   return annotationCopy;

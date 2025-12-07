@@ -8,16 +8,17 @@
 - (void)dealloc;
 - (void)sendMonitorUpdateForDevice:(id)device added:(BOOL)added;
 - (void)unregisterForDeviceMatching:(id)matching;
+- (void)updateClientDeviceWithHidDevice:(id)device added:(BOOL)added;
 @end
 
 @implementation CLHidManager
 
 - (CLHidManager)initWithDelegate:(id)delegate queue:(id)queue
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = CLHidManager;
-  v6 = [(CLHidManager *)&v28 init];
+  v34 = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = CLHidManager;
+  v6 = [(CLHidManager *)&v29 init];
   if (v6)
   {
     *(v6 + 4) = objc_opt_new();
@@ -29,12 +30,12 @@
     objc_msgSend_setDeviceMatching_(v9, v10, MEMORY[0x1E695E0F8]);
     objc_msgSend_setDispatchQueue_(*(v6 + 3), v11, *(v6 + 2));
     v12 = *(v6 + 3);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = sub_19B6EDE50;
-    v27[3] = &unk_1E7535018;
-    v27[4] = v6;
-    objc_msgSend_setDeviceNotificationHandler_(v12, v13, v27);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = sub_19B6EDE50;
+    v28[3] = &unk_1E7535018;
+    v28[4] = v6;
+    objc_msgSend_setDeviceNotificationHandler_(v12, v13, v28);
     objc_msgSend_activate(*(v6 + 3), v14, v15);
     if (qword_1ED71C830 != -1)
     {
@@ -46,7 +47,7 @@
     {
       v19 = objc_msgSend_devices(*(v6 + 3), v17, v18);
       *buf = 138412290;
-      v32 = v19;
+      v33 = v19;
       _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "[CLHidManager] enumerated these devices: %@", buf, 0xCu);
     }
 
@@ -59,19 +60,20 @@
         dispatch_once(&qword_1ED71C830, &unk_1F0E29C40);
       }
 
-      v23 = objc_msgSend_devices(*(v6 + 3), v21, v22);
-      v29 = 138412290;
-      v30 = v23;
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidManager initWithDelegate:queue:]", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      v23 = off_1ED71C838;
+      v24 = objc_msgSend_devices(*(v6 + 3), v21, v22);
+      v30 = 138412290;
+      v31 = v24;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v23, 2, "[CLHidManager] enumerated these devices: %@", &v30, 12);
+      v26 = v25;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidManager initWithDelegate:queue:]", "CoreLocation: %s\n", v25);
+      if (v26 != buf)
       {
-        free(v24);
+        free(v26);
       }
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -118,6 +120,28 @@
   }
 
   return v8;
+}
+
+- (void)updateClientDeviceWithHidDevice:(id)device added:(BOOL)added
+{
+  addedCopy = added;
+  v7 = objc_msgSend_clientDeviceMatchingHIDDevice_(self, a2, device);
+  if (v7)
+  {
+    v9 = v7;
+    if (addedCopy)
+    {
+      objc_msgSend_setHidDevice_(v7, v8, device);
+      objc_msgSend_activateClientDevice_(self, v10, v9);
+    }
+
+    else
+    {
+      objc_msgSend_setHidDevice_(v7, v8, 0);
+    }
+
+    objc_msgSend_sendMonitorUpdateForDevice_added_(self, v11, v9, addedCopy);
+  }
 }
 
 - (void)activateClientDevice:(id)device
@@ -193,15 +217,16 @@
 
             v24 = 138412290;
             dictCopy2 = dict;
-            v17 = _os_log_send_and_compose_impl();
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 1, "[CLHidManager], matched CLHidDevice for %@", &v24, 12);
+            v18 = v17;
             sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidManager clientDeviceMatchingDict:]", "CoreLocation: %s\n", v17);
-            if (v17 != buf)
+            if (v18 != buf)
             {
-              free(v17);
+              free(v18);
             }
           }
 
-          goto LABEL_22;
+          return v12;
         }
       }
 
@@ -215,10 +240,7 @@
     }
   }
 
-  v12 = 0;
-LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
-  return v12;
+  return 0;
 }
 
 - (id)hidDeviceFromEnumeratedDevicesMatching:(id)matching
@@ -231,203 +253,193 @@ LABEL_22:
   v4 = objc_msgSend_manager(self, a2, matching);
   obj = objc_msgSend_devices(v4, v5, v6);
   v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v33, v42, 16);
-  if (v8)
+  if (!v8)
   {
-    v10 = v8;
-    v11 = *v34;
+    return 0;
+  }
+
+  v10 = v8;
+  v11 = *v34;
+  while (1)
+  {
+    v12 = 0;
+LABEL_4:
+    if (*v34 != v11)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = *(*(&v33 + 1) + 8 * v12);
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(matching, v9, &v29, v41, 16);
+    if (!v14)
+    {
+      break;
+    }
+
+    v15 = v14;
+    v16 = *v30;
+LABEL_8:
+    v17 = 0;
     while (1)
     {
-      v12 = 0;
-LABEL_4:
-      if (*v34 != v11)
+      if (*v30 != v16)
       {
-        objc_enumerationMutation(obj);
+        objc_enumerationMutation(matching);
       }
 
-      v13 = *(*(&v33 + 1) + 8 * v12);
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(matching, v9, &v29, v41, 16);
-      if (!v14)
+      v18 = *(*(&v29 + 1) + 8 * v17);
+      v19 = objc_msgSend_propertyForKey_(v13, v9, v18);
+      v21 = objc_msgSend_objectForKey_(matching, v20, v18);
+      if (!objc_msgSend_isEqual_(v19, v22, v21))
       {
         break;
       }
 
-      v15 = v14;
-      v16 = *v30;
-LABEL_8:
-      v17 = 0;
-      while (1)
+      if (v15 == ++v17)
       {
-        if (*v30 != v16)
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(matching, v9, &v29, v41, 16);
+        if (v15)
         {
-          objc_enumerationMutation(matching);
+          goto LABEL_8;
         }
 
-        v18 = *(*(&v29 + 1) + 8 * v17);
-        v19 = objc_msgSend_propertyForKey_(v13, v9, v18);
-        v21 = objc_msgSend_objectForKey_(matching, v20, v18);
-        if (!objc_msgSend_isEqual_(v19, v22, v21))
-        {
-          break;
-        }
-
-        if (v15 == ++v17)
-        {
-          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(matching, v9, &v29, v41, 16);
-          if (v15)
-          {
-            goto LABEL_8;
-          }
-
-          goto LABEL_18;
-        }
-      }
-
-      if (++v12 != v10)
-      {
-        goto LABEL_4;
-      }
-
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v33, v42, 16);
-      v13 = 0;
-      if (!v10)
-      {
-        goto LABEL_31;
+        goto LABEL_18;
       }
     }
 
+    if (++v12 != v10)
+    {
+      goto LABEL_4;
+    }
+
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v33, v42, 16);
+    v13 = 0;
+    if (!v10)
+    {
+      return v13;
+    }
+  }
+
 LABEL_18:
+  if (qword_1ED71C830 != -1)
+  {
+    dispatch_once(&qword_1ED71C830, &unk_1F0E29C40);
+  }
+
+  v23 = off_1ED71C838;
+  if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    matchingCopy = matching;
+    _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_INFO, "[CLHidManager], matched device for %@", buf, 0xCu);
+  }
+
+  v24 = sub_19B420058();
+  if (*(v24 + 160) > 1 || *(v24 + 164) > 1 || *(v24 + 168) > 1 || *(v24 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1ED71C830 != -1)
     {
       dispatch_once(&qword_1ED71C830, &unk_1F0E29C40);
     }
 
-    v23 = off_1ED71C838;
-    if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
+    v37 = 138412290;
+    matchingCopy2 = matching;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 1, "[CLHidManager], matched device for %@", &v37, 12);
+    v26 = v25;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidManager hidDeviceFromEnumeratedDevicesMatching:]", "CoreLocation: %s\n", v25);
+    if (v26 != buf)
     {
-      *buf = 138412290;
-      matchingCopy = matching;
-      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_INFO, "[CLHidManager], matched device for %@", buf, 0xCu);
-    }
-
-    v24 = sub_19B420058();
-    if (*(v24 + 160) > 1 || *(v24 + 164) > 1 || *(v24 + 168) > 1 || *(v24 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1ED71C830 != -1)
-      {
-        dispatch_once(&qword_1ED71C830, &unk_1F0E29C40);
-      }
-
-      v37 = 138412290;
-      matchingCopy2 = matching;
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidManager hidDeviceFromEnumeratedDevicesMatching:]", "CoreLocation: %s\n", v25);
-      if (v25 != buf)
-      {
-        free(v25);
-      }
+      free(v26);
     }
   }
 
-  else
-  {
-    v13 = 0;
-  }
-
-LABEL_31:
-  v26 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)clientDeviceMatchingHIDDevice:(id)device
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = objc_msgSend_clientDevices(self, a2, device);
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v33, v38, 16);
-  if (v5)
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v32, v37, 16);
+  if (!v5)
   {
-    v8 = v5;
-    v28 = *v34;
-    do
-    {
-      v9 = 0;
+    return 0;
+  }
+
+  v8 = v5;
+  v27 = *v33;
+  do
+  {
+    v9 = 0;
 LABEL_4:
-      if (*v34 != v28)
+    if (*v33 != v27)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v10 = *(*(&v32 + 1) + 8 * v9);
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v11 = objc_msgSend_matching(v10, v6, v7);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v28, v36, 16);
+    if (!v13)
+    {
+      break;
+    }
+
+    v14 = v13;
+    v15 = *v29;
+LABEL_8:
+    v16 = 0;
+    while (1)
+    {
+      if (*v29 != v15)
       {
-        objc_enumerationMutation(obj);
+        objc_enumerationMutation(v11);
       }
 
-      v10 = *(*(&v33 + 1) + 8 * v9);
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v11 = objc_msgSend_matching(v10, v6, v7);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v29, v37, 16);
-      if (!v13)
+      v17 = *(*(&v28 + 1) + 8 * v16);
+      v18 = objc_msgSend_propertyForKey_(device, v6, v17);
+      v21 = objc_msgSend_matching(v10, v19, v20);
+      v23 = objc_msgSend_objectForKey_(v21, v22, v17);
+      if (!objc_msgSend_isEqual_(v18, v24, v23))
       {
         break;
       }
 
-      v14 = v13;
-      v15 = *v30;
-LABEL_8:
-      v16 = 0;
-      while (1)
+      if (v14 == ++v16)
       {
-        if (*v30 != v15)
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v6, &v28, v36, 16);
+        if (v14)
         {
-          objc_enumerationMutation(v11);
+          goto LABEL_8;
         }
 
-        v17 = *(*(&v29 + 1) + 8 * v16);
-        v18 = objc_msgSend_propertyForKey_(device, v6, v17);
-        v21 = objc_msgSend_matching(v10, v19, v20);
-        v23 = objc_msgSend_objectForKey_(v21, v22, v17);
-        if (!objc_msgSend_isEqual_(v18, v24, v23))
-        {
-          break;
-        }
-
-        if (v14 == ++v16)
-        {
-          v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v6, &v29, v37, 16);
-          if (v14)
-          {
-            goto LABEL_8;
-          }
-
-          goto LABEL_19;
-        }
+        return v10;
       }
-
-      if (++v9 != v8)
-      {
-        goto LABEL_4;
-      }
-
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v33, v38, 16);
-      v10 = 0;
     }
 
-    while (v8);
-  }
+    if (++v9 != v8)
+    {
+      goto LABEL_4;
+    }
 
-  else
-  {
+    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v32, v37, 16);
     v10 = 0;
   }
 
-LABEL_19:
-  v25 = *MEMORY[0x1E69E9840];
+  while (v8);
   return v10;
 }
 

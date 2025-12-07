@@ -34,7 +34,7 @@
     componentDictionary = [contextCopy componentDictionary];
     v14 = [componentDictionary objectForKey:@"type"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v14 isEqualToString:@"popup"])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(v14))
     {
       v60->_menuStyle = 1;
     }
@@ -394,17 +394,35 @@ uint64_t __46__SKUIMenuPageComponent_initWithRoomSortData___block_invoke(uint64_
   v5 = [componentDictionary objectForKey:@"type"];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v6 = SKUIPageComponentTypeForBlockType(v5), (v7 = SKUIPageComponentClassForComponentType(v6)) != 0))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v6 = SKUIPageComponentTypeForBlockType(v5), (v8 = SKUIPageComponentClassForComponentType(v6, v7)) != 0))
   {
-    v8 = [[v7 alloc] initWithCustomPageContext:contextCopy];
+    v9 = [[v8 alloc] initWithCustomPageContext:contextCopy];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
+}
+
+- (void)initWithCustomPageContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMenuPageComponent initWithCustomPageContext:]";
+}
+
+- (void)initWithRoomSortData:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMenuPageComponent initWithRoomSortData:]";
+}
+
+- (void)initWithViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMenuPageComponent initWithViewElement:]";
 }
 
 @end

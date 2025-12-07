@@ -723,9 +723,9 @@ void sub_299FEEB1C(void *a1, int a2)
   __cxa_rethrow();
 }
 
-void sub_299FEEB60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FEEB60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
   sub_299FEE8F0(va);
   _Unwind_Resume(a1);
@@ -1057,7 +1057,7 @@ LABEL_2:
   v21 = v18[((3 * v19) & 7) + 3];
   v22 = v18[1];
   v23 = (*(v22 + 24) - 1) & (v19 >> 3);
-  v24 = v21 + v18[2] + *(v22 + 32) * v23;
+  v24 = (v21 + v18[2] + *(v22 + 32) * v23);
   v25 = *(v21 + 8);
   this[1] = v24;
   if (((v25 >> v23) & 1) == 0)
@@ -1087,7 +1087,7 @@ LABEL_2:
       v26 = v31[((3 * v35) & 7) + 3];
       v27 = v31[1];
       v28 = (*(v27 + 24) - 1) & (v35 >> 3);
-      v29 = v26 + v31[2] + *(v27 + 32) * v28;
+      v29 = (v26 + v31[2] + *(v27 + 32) * v28);
       v30 = *(v26 + 8);
       this[1] = v29;
       if ((v30 >> v28))
@@ -1129,7 +1129,7 @@ unint64_t **tbb::internal::concurrent_queue_iterator_base_v3::advance(unint64_t 
     v7 = v1[((3 * v5) & 7) + 3];
     v8 = v1[1];
     v9 = (*(v8 + 24) - 1) & (v5 >> 3);
-    v10 = v7 + v1[2] + *(v8 + 32) * v9;
+    v10 = (v7 + v1[2] + *(v8 + 32) * v9);
     v11 = *(v7 + 8);
     this[1] = v10;
     if ((v11 >> v9))
@@ -2370,7 +2370,7 @@ LABEL_70:
   return this;
 }
 
-unint64_t tbb::internal::concurrent_vector_base_v3::internal_push_back(atomic_ullong *this, uint64_t a2, unint64_t *a3, void *a4)
+uint64_t tbb::internal::concurrent_vector_base_v3::internal_push_back(atomic_ullong *this, uint64_t a2, unint64_t *a3, void *a4)
 {
   add = atomic_fetch_add(this + 2, 1uLL);
   *a3 = add;
@@ -2838,9 +2838,9 @@ void tbb::internal::concurrent_vector_base_v3::internal_grow(tbb::internal::conc
   }
 }
 
-void sub_299FF0DCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FF0DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299FF0E34(va);
   _Unwind_Resume(a1);
 }
@@ -3169,9 +3169,9 @@ LABEL_76:
   }
 }
 
-void sub_299FF127C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FF127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299FF0E34(va);
   _Unwind_Resume(a1);
 }
@@ -3353,14 +3353,14 @@ unint64_t tbb::internal::concurrent_vector_base_v3::internal_clear(tbb::internal
   }
 }
 
-void sub_299FF1568(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FF1568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299FF0E34(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t *tbb::internal::concurrent_vector_base_v3::internal_compact(tbb::internal::concurrent_vector_base_v3 *this, uint64_t a2, char *a3, void (*a4)(void *, unint64_t), void (*a5)(void *, const void *, unint64_t))
+char *tbb::internal::concurrent_vector_base_v3::internal_compact(tbb::internal::concurrent_vector_base_v3 *this, uint64_t a2, char *a3, void (*a4)(void *, unint64_t), void (*a5)(void *, const void *, unint64_t))
 {
   v5 = a3;
   v6 = this;
@@ -3483,7 +3483,7 @@ unint64_t *tbb::internal::concurrent_vector_base_v3::internal_compact(tbb::inter
       tbb::internal::throw_exception_v4(1);
     }
 
-    v5[1] = v19;
+    *(v5 + 1) = v19;
     *v5 = v15;
     if (v8)
     {
@@ -3539,7 +3539,8 @@ unint64_t *tbb::internal::concurrent_vector_base_v3::internal_compact(tbb::inter
     do
     {
       v30 = *v29++;
-      *v28++ = v30;
+      *v28 = v30;
+      v28 += 8;
       v27 -= 8;
     }
 
@@ -3615,7 +3616,7 @@ unint64_t *tbb::internal::concurrent_vector_base_v3::internal_compact(tbb::inter
     do
     {
       v43 = *v42++;
-      *(v5 + v40) = v43;
+      *&v5[v40] = v43;
       v40 += 8;
       v41 -= 8;
     }
@@ -3657,9 +3658,9 @@ void sub_299FF1930(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   __cxa_rethrow();
 }
 
-void sub_299FF1970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_299FF1970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   sub_299FF0E34(va);
   __cxa_end_catch();
   _Unwind_Resume(a1);
@@ -3735,7 +3736,7 @@ const char *tbb::internal::initialize_handler_pointers(tbb::internal *this)
   else
   {
     off_2A1B6C3C8 = MEMORY[0x29EDCA938];
-    off_2A1B6C3D0[0] = MEMORY[0x29EDCA940];
+    off_2A1B6C3D0 = MEMORY[0x29EDCA940];
     off_2A1B6C3D8 = sub_299FF1B04;
     off_2A1B6C3E0 = sub_299FF1B44;
     v2 = "malloc";
@@ -3823,7 +3824,7 @@ LABEL_7:
     else
     {
       off_2A1B6C3C8 = MEMORY[0x29EDCA938];
-      off_2A1B6C3D0[0] = MEMORY[0x29EDCA940];
+      off_2A1B6C3D0 = MEMORY[0x29EDCA940];
       off_2A1B6C3D8 = sub_299FF1B04;
       off_2A1B6C3E0 = sub_299FF1B44;
       v7 = "malloc";
@@ -3865,7 +3866,7 @@ uint64_t tbb::internal::NFS_Allocate(unint64_t this, uint64_t a2, unint64_t a3, 
 
 uint64_t tbb::internal::allocate_via_handler_v3(tbb::internal *this)
 {
-  result = (off_2A1B6C3D0[0])(this);
+  result = off_2A1B6C3D0(this);
   if (!result)
   {
     tbb::internal::throw_exception_v4(1);
@@ -3879,7 +3880,7 @@ uint64_t tbb::internal::deallocate_via_handler_v3(uint64_t this, void *a2)
 {
   if (this)
   {
-    return off_2A1B6C3C8();
+    return off_2A1B6C3C8(this);
   }
 
   return this;
@@ -3887,13 +3888,13 @@ uint64_t tbb::internal::deallocate_via_handler_v3(uint64_t this, void *a2)
 
 BOOL tbb::internal::is_malloc_used_v3(tbb::internal *this)
 {
-  v1 = off_2A1B6C3D0[0];
-  if (off_2A1B6C3D0[0] == sub_299FF1DBC)
+  v1 = off_2A1B6C3D0;
+  if (off_2A1B6C3D0 == sub_299FF1DBC)
   {
     tbb::internal::initialize_cache_aligned_allocator(this);
-    v2 = (off_2A1B6C3D0[0])(1);
+    v2 = off_2A1B6C3D0(1);
     off_2A1B6C3C8(v2);
-    v1 = off_2A1B6C3D0[0];
+    v1 = off_2A1B6C3D0;
   }
 
   return v1 == MEMORY[0x29EDCA940];
@@ -3902,9 +3903,9 @@ BOOL tbb::internal::is_malloc_used_v3(tbb::internal *this)
 uint64_t sub_299FF1DBC(tbb::internal *a1)
 {
   tbb::internal::initialize_cache_aligned_allocator(a1);
-  v2 = off_2A1B6C3D0[0];
+  v2 = off_2A1B6C3D0;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t sub_299FF1DFC(tbb::internal *a1)
@@ -4813,7 +4814,7 @@ void tbb::pipeline::remove_filter(tbb::filter **this, tbb::filter *a2)
 
   v4[1] = v3;
   v6 = this[2];
-  v5 = (this + 2);
+  v5 = this + 2;
   v7 = (v3 + 32);
   if (v6 == a2)
   {
@@ -4940,33 +4941,33 @@ uint64_t tbb::pipeline::run(uint64_t this, uint64_t a2, tbb::task_group_context 
   return this;
 }
 
-void sub_299FF31C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FF31C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299FF3BDC(va);
   _Unwind_Resume(a1);
 }
 
 void tbb::pipeline::run(tbb::pipeline *this, uint64_t a2, uint64_t a3, void *a4)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v4 = *(this + 1);
   if (v4)
   {
     v7 = (*(v4 + 24) & 0x80) >> 7;
-    v8[0] = 1;
-    v9 = ((v7 & 1) << 16) | 3;
-    v10 = 55;
-    tbb::task_group_context::init(v8, a2, a3, a4);
-    tbb::pipeline::run(this, a2, v8);
-    tbb::task_group_context::~task_group_context(v8);
+    v9[0] = 1;
+    v10 = ((v7 & 1) << 16) | 3;
+    v11 = 55;
+    tbb::task_group_context::init(v9, a2, a3, a4);
+    tbb::pipeline::run(this, a2, v9);
+    tbb::task_group_context::~task_group_context(v9, v8);
   }
 }
 
-void sub_299FF3290(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FF3290(_Unwind_Exception *a1, tbb::internal::generic_scheduler *a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  tbb::task_group_context::~task_group_context(va);
+  va_start(va, a3);
+  tbb::task_group_context::~task_group_context(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -7099,11 +7100,11 @@ LABEL_7:
   return this;
 }
 
-void tbb::interface5::reader_writer_lock::unlock(tbb::interface5::reader_writer_lock *this)
+void tbb::interface5::reader_writer_lock::unlock(atomic_ullong *this)
 {
-  if (*(this + 3))
+  if (this[3])
   {
-    v1 = *(this + 1);
+    v1 = this[1];
     __dmb(0xBu);
     tbb::interface5::reader_writer_lock::end_write(this, v1);
     if (v1)
@@ -8219,7 +8220,7 @@ uint64_t rml::internal::thread_monitor::detach_thread(_opaque_pthread_t *this, _
 uint64_t tbb::internal::rml::private_worker::run(tbb::internal::rml::private_worker *this)
 {
   v2 = *(this + 1);
-  v3 = *(v2 + 6);
+  v3 = *(v2 + 48);
   __dmb(0xBu);
   if (v3)
   {
@@ -8351,7 +8352,7 @@ LABEL_38:
             }
 
             v35 = *(this + 1);
-            v36 = *(v35 + 6);
+            v36 = *(v35 + 48);
             __dmb(0xBu);
             if (v36)
             {
@@ -8679,14 +8680,14 @@ void tbb::internal::rml::private_server::~private_server(tbb::internal::rml::pri
   operator delete(this);
 }
 
-pthread_t tbb::internal::rml::private_server::wake_some(pthread_t this, signed int a2)
+uint64_t tbb::internal::rml::private_server::wake_some(uint64_t this, signed int a2)
 {
   v3 = this;
   v23[1] = *MEMORY[0x29EDCA608];
   v22 = 0;
   v23[0] = 0;
-  v4 = &this->__opaque[40];
-  v5 = (&this->__opaque[40] & 0xFFFFFFFFFFFFFFFCLL);
+  v4 = (this + 56);
+  v5 = ((this + 56) & 0xFFFFFFFFFFFFFFFCLL);
   v6 = 1 << (8 * ((this + 56) & 3));
   v7 = ~(255 << (8 * ((this + 56) & 3)));
 LABEL_2:
@@ -8842,24 +8843,24 @@ LABEL_26:
   return this;
 }
 
-pthread_t sub_299FF7170(pthread_t result)
+uint64_t sub_299FF7170(uint64_t result)
 {
   v1 = result;
-  sig = result->__sig;
+  v2 = *result;
   __dmb(0xBu);
-  if (sig)
+  if (v2)
   {
 LABEL_4:
-    v4 = *&result->__opaque[16];
+    v4 = *(result + 32);
     __dmb(0xBu);
     __dmb(0xBu);
-    *&result->__opaque[16] = v4 + 1;
-    v5 = (&result->__opaque[24] & 0xFFFFFFFFFFFFFFFCLL);
+    *(result + 32) = v4 + 1;
+    v5 = ((result + 40) & 0xFFFFFFFFFFFFFFFCLL);
     v6 = 8 * ((result + 40) & 3);
     v7 = 255 << v6;
     while (2)
     {
-      v8 = v1->__opaque[24];
+      v8 = *(v1 + 40);
       v9 = v8 << v6;
 LABEL_6:
       v10 = *v5 & ~v7;
@@ -8913,14 +8914,14 @@ LABEL_6:
         break;
       }
 
-      if (LODWORD(result->__sig))
+      if (*result)
       {
         goto LABEL_4;
       }
     }
 
-    result = sub_299FF74F8(tbb::internal::rml::private_worker::thread_routine, result, result->__cleanup_stack[1].__routine);
-    *&v1->__opaque[32] = result;
+    result = sub_299FF74F8(tbb::internal::rml::private_worker::thread_routine, result, *(*(result + 8) + 24));
+    *(v1 + 48) = result;
     while (1)
     {
       v13 = 1;
@@ -8930,10 +8931,10 @@ LABEL_6:
         break;
       }
 
-      if (LODWORD(v1->__sig) != 1)
+      if (*v1 != 1)
       {
-        v14 = *&v1->__opaque[32];
-        does_client_join_workers = tbb::internal::governor::does_client_join_workers(*v1->__opaque);
+        v14 = *(v1 + 48);
+        does_client_join_workers = tbb::internal::governor::does_client_join_workers(*(v1 + 16));
 
         return tbb::internal::rml::private_worker::release_handle(v14, does_client_join_workers);
       }
@@ -8943,11 +8944,11 @@ LABEL_6:
   return result;
 }
 
-pthread_t tbb::internal::rml::private_server::adjust_job_count_estimate(pthread_t this, signed int a2)
+uint64_t tbb::internal::rml::private_server::adjust_job_count_estimate(uint64_t this, signed int a2)
 {
   if (a2 < 0)
   {
-    atomic_fetch_add(&this->__opaque[16], a2);
+    atomic_fetch_add((this + 32), a2);
   }
 
   else if (a2)
@@ -8965,10 +8966,10 @@ uint64_t tbb::internal::rml::make_private_server(uint64_t a1, uint64_t a2, uint6
   return tbb::internal::rml::private_server::private_server(v5, a1);
 }
 
-uint64_t sub_299FF736C(uint64_t result)
+atomic_uint *sub_299FF736C(atomic_uint *result)
 {
   v1 = result;
-  if (*(result + 16))
+  if (result[4])
   {
     v2 = 0;
     v3 = 0;
@@ -9088,21 +9089,18 @@ uint64_t tbb::internal::rml::tbb_factory::open(tbb::internal::rml::tbb_factory *
   }
 }
 
-unint64_t tbb::internal::rml::tbb_factory::close(unint64_t this)
+void tbb::internal::rml::tbb_factory::close(void (**this)(void))
 {
-  if (*(this + 16))
+  if (this[2])
   {
-    v1 = this;
-    (*(this + 8))();
-    this = *(v1 + 16);
-    if (this >= 2)
+    this[1]();
+    v3 = this[2];
+    if (v3 >= 2)
     {
-      this = tbb::internal::dynamic_unlink(this, v2);
-      *(v1 + 16) = 0;
+      tbb::internal::dynamic_unlink(v3, v2);
+      this[2] = 0;
     }
   }
-
-  return this;
 }
 
 void *tbb::set_assertion_handler(tbb *this, void (*a2)(const char *, int, const char *, const char *))
@@ -9674,7 +9672,7 @@ uint64_t tbb::task::self(tbb::task *this)
   return *(inited + 56);
 }
 
-tbb::internal *tbb::interface5::internal::task_base::destroy(tbb::interface5::internal::task_base *this, tbb::task *a2)
+tbb::internal::generic_scheduler *tbb::interface5::internal::task_base::destroy(tbb::interface5::internal::task_base *this, tbb::task *a2)
 {
   v3 = *(this - 4);
   (**this)(this, a2);
@@ -9718,4 +9716,43 @@ tbb::internal *tbb::interface5::internal::task_base::destroy(tbb::interface5::in
   }
 
   return result;
+}
+
+uint64_t tbb::task::spawn_and_wait_for_all(uint64_t a1, uint64_t *a2)
+{
+  v3 = pthread_getspecific(tbb::internal::governor::theTLS);
+  if (v3)
+  {
+    inited = (v3 & 0xFFFFFFFFFFFFFFFELL);
+    v6 = *a2;
+    if (!*a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    inited = tbb::internal::governor::init_scheduler(0xFFFFFFFFLL, 0, 1);
+    v6 = *a2;
+    if (!*a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v7 = a2[1];
+  if ((v6 - 8) != v7)
+  {
+    v8 = inited;
+    tbb::internal::generic_scheduler::local_spawn(inited, *(v6 - 8), v7, v4);
+    inited = v8;
+  }
+
+  *a2 = 0;
+  a2[1] = a2;
+LABEL_8:
+  v9 = *(*inited + 48);
+
+  return v9();
 }

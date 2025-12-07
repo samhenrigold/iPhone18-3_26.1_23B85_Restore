@@ -12,7 +12,7 @@
   hintCopy = hint;
   if (self->mHint != hintCopy)
   {
-    objc_msgSend_willModify(self, v5, v6, v7, v8);
+    objc_msgSend_willModify(self, v5, v6, v7);
     objc_storeStrong(&self->mHint, hint);
   }
 }
@@ -36,21 +36,21 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[236], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[236], v5);
 
-  v8 = [TSTLayoutHint alloc];
-  v12 = objc_msgSend_initWithArchive_(v8, v9, v7, v10, v11);
+  v7 = [TSTLayoutHint alloc];
+  v10 = objc_msgSend_initWithArchive_(v7, v8, v6, v9);
   mHint = self->mHint;
-  self->mHint = v12;
+  self->mHint = v10;
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2213B6FC0, off_2812E4498[236], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2213B6FC0, off_2812E4498[236]);
 
-  objc_msgSend_saveToArchive_(self->mHint, v7, v6, v8, v9);
+  objc_msgSend_saveToArchive_(self->mHint, v6, v5, v7);
 }
 
 @end

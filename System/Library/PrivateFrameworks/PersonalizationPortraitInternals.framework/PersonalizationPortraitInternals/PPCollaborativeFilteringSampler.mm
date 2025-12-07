@@ -10,7 +10,7 @@
 
 - (BOOL)constructAndSendMessageForSamplingRate:(double)rate shouldContinueBlock:(id)block error:(id *)error
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if ([MEMORY[0x277D3A578] yesWithProbability:rate])
   {
@@ -20,7 +20,7 @@
 
     if (v10)
     {
-      v73 = [v10 _pas_shuffledArrayUsingRng:0];
+      v72 = [v10 _pas_shuffledArrayUsingRng:0];
 
       if ((blockCopy[2]() & 1) == 0)
       {
@@ -31,14 +31,14 @@
           _os_log_impl(&dword_23224A000, v46, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring snapshot", buf, 2u);
         }
 
-        v71 = 0;
+        v70 = 0;
         goto LABEL_50;
       }
 
       v11 = objc_opt_new();
       pendingTopicFeedback = [v11 pendingTopicFeedback];
 
-      v74 = [(PPCollaborativeFilteringSampler *)self _weightedSampleFeedbackItems:pendingTopicFeedback];
+      v73 = [(PPCollaborativeFilteringSampler *)self _weightedSampleFeedbackItems:pendingTopicFeedback];
       v12 = +[PPTrialWrapper sharedInstance];
       concatenatedTreatmentNames = [v12 concatenatedTreatmentNames];
       _pas_stringBackedByUTF8CString = [concatenatedTreatmentNames _pas_stringBackedByUTF8CString];
@@ -57,45 +57,45 @@
             break;
           }
 
-          if (v15 == [v73 count])
+          if (v15 == [v72 count])
           {
             objc_autoreleasePoolPop(v16);
             goto LABEL_29;
           }
 
           v17 = objc_opt_new();
-          if (v74)
+          if (v73)
           {
-            clientIdentifier = [v74 clientIdentifier];
+            clientIdentifier = [v73 clientIdentifier];
 
             if (clientIdentifier)
             {
-              clientIdentifier2 = [v74 clientIdentifier];
+              clientIdentifier2 = [v73 clientIdentifier];
               _pas_stringBackedByUTF8CString2 = [clientIdentifier2 _pas_stringBackedByUTF8CString];
               [v17 setObject:_pas_stringBackedByUTF8CString2 forKeyedSubscript:@"clientIdentifier"];
             }
 
-            feedbackItems = [v74 feedbackItems];
+            feedbackItems = [v73 feedbackItems];
             firstObject = [feedbackItems firstObject];
             itemString = [firstObject itemString];
 
             if (itemString)
             {
-              feedbackItems2 = [v74 feedbackItems];
+              feedbackItems2 = [v73 feedbackItems];
               firstObject2 = [feedbackItems2 firstObject];
               itemString2 = [firstObject2 itemString];
               _pas_stringBackedByUTF8CString3 = [itemString2 _pas_stringBackedByUTF8CString];
               [v17 setObject:_pas_stringBackedByUTF8CString3 forKeyedSubscript:@"clientTopic"];
             }
 
-            feedbackItems3 = [v74 feedbackItems];
+            feedbackItems3 = [v73 feedbackItems];
             firstObject3 = [feedbackItems3 firstObject];
             itemFeedbackType = [firstObject3 itemFeedbackType];
 
             if (itemFeedbackType)
             {
               v31 = MEMORY[0x277CCABB0];
-              feedbackItems4 = [v74 feedbackItems];
+              feedbackItems4 = [v73 feedbackItems];
               firstObject4 = [feedbackItems4 firstObject];
               v34 = [v31 numberWithUnsignedInt:{objc_msgSend(firstObject4, "itemFeedbackType")}];
               [v17 setObject:v34 forKeyedSubscript:@"engagementType"];
@@ -103,14 +103,14 @@
           }
 
           [v17 setObject:_pas_stringBackedByUTF8CString forKeyedSubscript:@"activeTreatments"];
-          v35 = [v73 objectAtIndexedSubscript:v15];
+          v35 = [v72 objectAtIndexedSubscript:v15];
           item = [v35 item];
           topicIdentifier = [item topicIdentifier];
           _pas_stringBackedByUTF8CString4 = [topicIdentifier _pas_stringBackedByUTF8CString];
           [v17 setObject:_pas_stringBackedByUTF8CString4 forKeyedSubscript:@"topic"];
 
           v39 = MEMORY[0x277CCABB0];
-          v40 = [v73 objectAtIndexedSubscript:v15];
+          v40 = [v72 objectAtIndexedSubscript:v15];
           [v40 score];
           LODWORD(v42) = vcvtmd_s64_f64(v41 * 5.0);
           v43 = [v39 numberWithInt:v42];
@@ -136,7 +136,7 @@
         }
 
         objc_autoreleasePoolPop(v16);
-        v71 = 0;
+        v70 = 0;
         goto LABEL_49;
       }
 
@@ -148,78 +148,78 @@ LABEL_29:
       v50 = dispatch_group_create();
       dispatch_group_enter(v50);
       *buf = 0;
-      v83 = buf;
-      v84 = 0x3032000000;
-      v85 = __Block_byref_object_copy__6825;
-      v86 = __Block_byref_object_dispose__6826;
-      v87 = 0;
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRate_shouldContinueBlock_error___block_invoke;
-      v79[3] = &unk_2789760B8;
-      v81 = buf;
+      v82 = buf;
+      v83 = 0x3032000000;
+      v84 = __Block_byref_object_copy__6825;
+      v85 = __Block_byref_object_dispose__6826;
+      v86 = 0;
+      v78[0] = MEMORY[0x277D85DD0];
+      v78[1] = 3221225472;
+      v78[2] = __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRate_shouldContinueBlock_error___block_invoke;
+      v78[3] = &unk_2789760B8;
+      v80 = buf;
       v51 = v50;
-      v80 = v51;
-      v67 = v48;
-      [v48 makeRequestWithCompletion:v79];
-      v68 = v51;
+      v79 = v51;
+      v66 = v48;
+      [v48 makeRequestWithCompletion:v78];
+      v67 = v51;
       v52 = [MEMORY[0x277D425A0] waitForGroup:v51 timeoutSeconds:8.0];
-      v71 = blockCopy[2]();
-      if (v71)
+      v70 = blockCopy[2]();
+      if (v70)
       {
-        if (v52 == 1 || !*(v83 + 5))
+        if (v52 == 1 || !*(v82 + 5))
         {
-          v71 = 0;
+          v70 = 0;
           goto LABEL_48;
         }
 
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
         v76 = 0u;
-        v53 = *(v83 + 5);
-        v54 = [v53 countByEnumeratingWithState:&v75 objects:v94 count:16];
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        v53 = *(v82 + 5);
+        v54 = [v53 countByEnumeratingWithState:&v74 objects:v93 count:16];
         if (v54)
         {
-          v55 = *v76;
+          v55 = *v75;
           do
           {
             for (i = 0; i != v54; ++i)
             {
-              if (*v76 != v55)
+              if (*v75 != v55)
               {
                 objc_enumerationMutation(v53);
               }
 
-              v57 = *(*(&v75 + 1) + 8 * i);
+              v57 = *(*(&v74 + 1) + 8 * i);
               v58 = objc_autoreleasePoolPush();
               v59 = pp_default_log_handle();
               if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
               {
                 v63 = [v57 ID];
                 name = [v57 name];
-                *v90 = 138740227;
-                v91 = v63;
-                v92 = 2117;
-                v93 = name;
-                _os_log_debug_impl(&dword_23224A000, v59, OS_LOG_TYPE_DEBUG, "PPMaintenance: TV app favorite: %{sensitive}@: \t\t %{sensitive}@", v90, 0x16u);
+                *v89 = 138740227;
+                v90 = v63;
+                v91 = 2117;
+                v92 = name;
+                _os_log_debug_impl(&dword_23224A000, v59, OS_LOG_TYPE_DEBUG, "PPMaintenance: TV app favorite: %{sensitive}@: \t\t %{sensitive}@", v89, 0x16u);
               }
 
               v60 = [v57 ID];
 
               if (v60)
               {
-                v88 = @"sportsFavorite";
+                v87 = @"sportsFavorite";
                 v61 = [v57 ID];
-                v89 = v61;
-                v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+                v88 = v61;
+                v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
                 AnalyticsSendEvent();
               }
 
               objc_autoreleasePoolPop(v58);
             }
 
-            v54 = [v53 countByEnumeratingWithState:&v75 objects:v94 count:16];
+            v54 = [v53 countByEnumeratingWithState:&v74 objects:v93 count:16];
           }
 
           while (v54);
@@ -231,8 +231,8 @@ LABEL_29:
         v53 = pp_default_log_handle();
         if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
         {
-          *v90 = 0;
-          _os_log_debug_impl(&dword_23224A000, v53, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring WLKFavorite request for snapshot.", v90, 2u);
+          *v89 = 0;
+          _os_log_debug_impl(&dword_23224A000, v53, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring WLKFavorite request for snapshot.", v89, 2u);
         }
       }
 
@@ -241,7 +241,7 @@ LABEL_48:
 
 LABEL_49:
 LABEL_50:
-      v45 = v73;
+      v45 = v72;
       goto LABEL_51;
     }
 
@@ -252,37 +252,36 @@ LABEL_50:
       _os_log_error_impl(&dword_23224A000, v45, OS_LOG_TYPE_ERROR, "PPMaintenance: unable to fetch ranked topics.", buf, 2u);
     }
 
-    v71 = 0;
+    v70 = 0;
   }
 
   else
   {
     pp_default_log_handle();
-    v45 = v71 = 1;
+    v45 = v70 = 1;
     if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v71 = 1;
+      v70 = 1;
       _os_log_impl(&dword_23224A000, v45, OS_LOG_TYPE_INFO, "Skipping snapshot sampling.", buf, 2u);
     }
   }
 
 LABEL_51:
 
-  v65 = *MEMORY[0x277D85DE8];
-  return v71;
+  return v70;
 }
 
 void __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRate_shouldContinueBlock_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = pp_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v12) = 0;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPMaintenance: Enters favRequest completion block.", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPMaintenance: Enters favRequest completion block.", &v11, 2u);
   }
 
   if (v5)
@@ -298,19 +297,18 @@ void __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRa
     v10 = pp_default_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to make WLKFavoritesRequest: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to make WLKFavoritesRequest: %@", &v11, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_weightedSampleFeedbackItems:(id)items
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   if (![itemsCopy count])
   {
@@ -319,29 +317,29 @@ void __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRa
   }
 
   v4 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v28 = itemsCopy;
+    v27 = itemsCopy;
     obj = v5;
     v8 = 0;
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         feedbackItems = [v11 feedbackItems];
         firstObject = [feedbackItems firstObject];
@@ -371,7 +369,7 @@ void __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRa
         objc_autoreleasePoolPop(v12);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v7);
@@ -380,7 +378,7 @@ void __100__PPCollaborativeFilteringSampler_constructAndSendMessageForSamplingRa
     {
       v25 = 0;
 LABEL_24:
-      itemsCopy = v28;
+      itemsCopy = v27;
       goto LABEL_25;
     }
 
@@ -414,7 +412,7 @@ LABEL_24:
 
 LABEL_18:
     v5 = pp_default_log_handle();
-    itemsCopy = v28;
+    itemsCopy = v27;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -426,7 +424,6 @@ LABEL_18:
 LABEL_25:
 
 LABEL_26:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

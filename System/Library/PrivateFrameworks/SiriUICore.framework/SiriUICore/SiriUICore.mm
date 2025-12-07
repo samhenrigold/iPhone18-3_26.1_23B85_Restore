@@ -455,16 +455,18 @@ LABEL_86:
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void SUICLightPhysics_Init(uint64_t a1, uint64_t a2, int a3)
@@ -637,16 +639,16 @@ LABEL_17:
   *(a2 + 12) = v6;
 }
 
-id _SUICLayerNullActions()
+id _SUICLayerNullActions(uint64_t a1)
 {
   if (_SUICLayerNullActions_onceToken != -1)
   {
     _SUICLayerNullActions_cold_1();
   }
 
-  v1 = _SUICLayerNullActions_actions;
+  v2 = _SUICLayerNullActions_actions;
 
-  return v1;
+  return v2;
 }
 
 double _SUICSpringAnimationSolveForInput(double a1)
@@ -663,16 +665,16 @@ double _SUICSpringAnimationSolveForInput(double a1)
   return v3;
 }
 
-id _SUICMagicCurve()
+id _SUICMagicCurve(uint64_t a1)
 {
   if (_SUICMagicCurve_onceToken != -1)
   {
     _SUICMagicCurve_cold_1();
   }
 
-  v1 = _SUICMagicCurve_curve;
+  v2 = _SUICMagicCurve_curve;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -789,7 +791,7 @@ void sub_1C433B9B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t SetupAssistantLibraryCore()
+uint64_t SetupAssistantLibraryCore(uint64_t a1)
 {
   if (!SetupAssistantLibraryCore_frameworkLibrary)
   {
@@ -799,7 +801,7 @@ uint64_t SetupAssistantLibraryCore()
   return SetupAssistantLibraryCore_frameworkLibrary;
 }
 
-uint64_t __SetupAssistantLibraryCore_block_invoke()
+uint64_t __SetupAssistantLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SetupAssistantLibraryCore_frameworkLibrary = result;
@@ -808,11 +810,19 @@ uint64_t __SetupAssistantLibraryCore_block_invoke()
 
 void *__getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = SetupAssistantLibraryCore();
+  v5 = 0;
+  v2 = SetupAssistantLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "BYSetupAssistantHasCompletedInitialRun");
@@ -946,10 +956,11 @@ double matrix4x4_translation()
   return *&_PromotedConst;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_1C4347A24(_Unwind_Exception *a1)
@@ -966,9 +977,9 @@ void sub_1C4347C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C4348964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C4348964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -989,9 +1000,9 @@ id SUICGetIndexCacheEntryKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return v16;
 }
 
-void sub_1C434DB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C434DB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2121,7 +2132,7 @@ void SUICOrbPhysicsInternal_FinalizeStateForFrame(uint64_t a1)
 
 void sub_1C4356190(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, CGFloat a8, CGFloat a9)
 {
-  v14 = [v9 textContainerForGlyphAtIndex:a1 effectiveRange:0];
+  v14 = [v9 textContainerForGlyphAtIndex:a1 effectiveRange:{0, a3, a4, a5, a6, a7}];
   if (v14)
   {
     v15 = v14;

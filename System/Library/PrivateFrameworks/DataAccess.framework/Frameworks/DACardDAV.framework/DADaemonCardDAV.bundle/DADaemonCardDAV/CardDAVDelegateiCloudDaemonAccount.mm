@@ -23,21 +23,7 @@
   v15.receiver = self;
   v15.super_class = CardDAVDelegateiCloudDaemonAccount;
   v5 = [(CardDAViCloudDaemonAccount *)&v15 initWithBackingAccountInfo:infoCopy];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = sharedDAAccountStore();
-  v7 = [v6 accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierCardDAV];
-  v8 = *(v5 + 211);
-  *(v5 + 211) = v7;
-
-  v9 = [v5 setUpLocalDBHelper:infoCopy];
-  v10 = *(v5 + 203);
-  *(v5 + 203) = v9;
-
-  if (!*(v5 + 203))
+  if (v5 && (sharedDAAccountStore(), v6 = objc_claimAutoreleasedReturnValue(), [v6 accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierCardDAV], v7 = objc_claimAutoreleasedReturnValue(), v8 = *(v5 + 211), *(v5 + 211) = v7, v8, v6, objc_msgSend(v5, "setUpLocalDBHelper:", infoCopy), v9 = objc_claimAutoreleasedReturnValue(), v10 = *(v5 + 203), *(v5 + 203) = v9, v10, !*(v5 + 203)))
   {
     v12 = +[DAAccountMonitor sharedMonitor];
     [v12 unmonitorAccount:v5];
@@ -50,7 +36,6 @@
 
   else
   {
-LABEL_3:
     v11 = v5;
   }
 

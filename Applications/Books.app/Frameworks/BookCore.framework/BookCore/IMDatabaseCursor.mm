@@ -326,7 +326,7 @@ LABEL_25:
     v4 = sqlite3_finalize(self->_statement);
     if (v4 && v4 != 101)
     {
-      v5 = BCIMLog();
+      v5 = BCIMLog(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_1EA2E0();
@@ -355,7 +355,7 @@ LABEL_25:
   v4 = sqlite3_reset(self->_statement);
   if (v4 && v4 != 101)
   {
-    v6 = BCIMLog();
+    v6 = BCIMLog(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
 LABEL_10:
@@ -371,7 +371,7 @@ LABEL_11:
   result = 1;
   if (v5 && v5 != 101)
   {
-    v6 = BCIMLog();
+    v6 = BCIMLog(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_10;

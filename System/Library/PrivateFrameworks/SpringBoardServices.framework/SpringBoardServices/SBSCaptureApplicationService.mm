@@ -24,9 +24,10 @@
 
 uint64_t __46__SBSCaptureApplicationService_sharedInstance__block_invoke()
 {
-  sharedInstance_service = objc_alloc_init(SBSCaptureApplicationService);
+  v0 = objc_alloc_init(SBSCaptureApplicationService);
+  sharedInstance_service = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (SBSCaptureApplicationService)init
@@ -85,20 +86,20 @@ void __36__SBSCaptureApplicationService_init__block_invoke(uint64_t a1, void *a2
   objc_destroyWeak(&location);
 }
 
-void __36__SBSCaptureApplicationService_init__block_invoke_2()
+void __36__SBSCaptureApplicationService_init__block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = SBLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19169D000, v0, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19169D000, v1, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: interrupted", v2, 2u);
   }
 }
 
 void __36__SBSCaptureApplicationService_init__block_invoke_8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = SBLogCommon();
+  v2 = SBLogCommon(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -154,11 +155,11 @@ void __36__SBSCaptureApplicationService_init__block_invoke_8(uint64_t a1)
 - (void)applicationDidCompleteTransition
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_19169D000, v3, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: Sending applicationDidCompleteTransition signal", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_19169D000, v4, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: Sending applicationDidCompleteTransition signal", v6, 2u);
   }
 
   remoteTarget = [(BSServiceConnection *)self->_lock_connection remoteTarget];
@@ -170,11 +171,11 @@ void __36__SBSCaptureApplicationService_init__block_invoke_8(uint64_t a1)
 - (void)beginDelayingAppearance
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_19169D000, v3, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: Sending beginDelayingAppearance signal", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_19169D000, v4, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: Sending beginDelayingAppearance signal", v6, 2u);
   }
 
   remoteTarget = [(BSServiceConnection *)self->_lock_connection remoteTarget];
@@ -186,11 +187,11 @@ void __36__SBSCaptureApplicationService_init__block_invoke_8(uint64_t a1)
 - (void)endDelayingAppearance
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_19169D000, v3, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: Sending endDelayingAppearance signal", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_19169D000, v4, OS_LOG_TYPE_DEFAULT, "SBSCaptureApplicationService: Sending endDelayingAppearance signal", v6, 2u);
   }
 
   remoteTarget = [(BSServiceConnection *)self->_lock_connection remoteTarget];

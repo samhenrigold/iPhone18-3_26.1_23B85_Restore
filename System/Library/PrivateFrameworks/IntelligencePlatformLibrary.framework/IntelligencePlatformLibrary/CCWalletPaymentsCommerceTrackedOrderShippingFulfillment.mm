@@ -384,7 +384,7 @@ LABEL_14:
 
   v11 = 0;
   v12 = MEMORY[0x1E6993AA0];
-  v47 = dataCopy;
+  v45 = dataCopy;
   do
   {
     if (*&v7[*v10])
@@ -507,7 +507,7 @@ LABEL_21:
         v31 = CCPBReaderReadStringNoCopy();
         v32 = 104;
 LABEL_44:
-        v40 = *(&self->super.super.isa + v32);
+        v39 = *(&self->super.super.isa + v32);
         *(&self->super.super.isa + v32) = v31;
 
         goto LABEL_45;
@@ -515,9 +515,9 @@ LABEL_44:
         v33 = [CCWalletPaymentsCommerceTrackedOrderShippingRecipient alloc];
         CCPBReaderReadDataNoCopy();
         v35 = v34 = error;
-        v48 = 0;
-        v36 = [(CCItemMessage *)v33 initWithData:v35 error:&v48];
-        v11 = v48;
+        v46 = 0;
+        v36 = [(CCItemMessage *)v33 initWithData:v35 error:&v46];
+        v11 = v46;
         shippingRecipient = self->_shippingRecipient;
         self->_shippingRecipient = v36;
 
@@ -534,12 +534,11 @@ LABEL_45:
           v38 = objc_opt_class();
           NSStringFromClass(v38);
           v35 = v34 = error;
-          v39 = *&v7[*v10];
           v11 = CCSkipFieldErrorForMessage();
 LABEL_40:
 
           error = v34;
-          dataCopy = v47;
+          dataCopy = v45;
         }
 
         continue;
@@ -596,24 +595,23 @@ LABEL_54:
     if (!*&v7[*v10])
     {
       v11 = 0;
-      v45 = 1;
+      v43 = 1;
       goto LABEL_58;
     }
 
 LABEL_55:
-    v41 = objc_opt_class();
-    v42 = NSStringFromClass(v41);
-    v43 = *&v7[*v10];
-    v44 = CCInvalidBufferErrorForMessage();
+    v40 = objc_opt_class();
+    v41 = NSStringFromClass(v40);
+    v42 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v11 = 0;
   }
 
-  v45 = 0;
+  v43 = 0;
 LABEL_58:
 
-  return v45;
+  return v43;
 }
 
 - (CCWalletPaymentsCommerceTrackedOrderShippingFulfillment)initWithStatus:(unsigned int)status trackingNumber:(id)number carrierName:(id)name shippingMethod:(id)method shippingDate:(id)date shippingTime:(id)time estimatedDeliveryStartDate:(id)startDate estimatedDeliveryStartTime:(id)self0 estimatedDeliveryEndDate:(id)self1 estimatedDeliveryEndTime:(id)self2 deliveryDate:(id)self3 deliveryTime:(id)self4 shippingRecipient:(id)self5 error:(id *)self6
@@ -639,34 +637,32 @@ LABEL_5:
     v28 = numberCopy;
     v29 = timeCopy;
     v30 = startTimeCopy;
-    v31 = 0x1E696A000uLL;
-    v32 = dateCopy;
+    v31 = dateCopy;
     if (numberCopy)
     {
       objc_opt_class();
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-      v34 = v27;
+      v33 = v27;
 
-      v35 = methodCopy;
+      v34 = methodCopy;
       if (!IsInstanceOfExpectedClass)
       {
         CCSetError();
-        v40 = 0;
-        v27 = v34;
-        v36 = nameCopy;
+        v39 = 0;
+        v27 = v33;
+        v35 = nameCopy;
 LABEL_52:
         selfCopy2 = self;
         goto LABEL_53;
       }
 
       CCPBDataWriterWriteStringField();
-      v36 = nameCopy;
-      v31 = 0x1E696A000uLL;
+      v35 = nameCopy;
       if (!nameCopy)
       {
 LABEL_8:
-        v27 = v34;
-        if (v35)
+        v27 = v33;
+        if (v34)
         {
           goto LABEL_9;
         }
@@ -677,9 +673,9 @@ LABEL_8:
 
     else
     {
-      v34 = v27;
-      v35 = methodCopy;
-      v36 = nameCopy;
+      v33 = v27;
+      v34 = methodCopy;
+      v35 = nameCopy;
       if (!nameCopy)
       {
         goto LABEL_8;
@@ -687,34 +683,32 @@ LABEL_8:
     }
 
     objc_opt_class();
-    v42 = CCValidateIsInstanceOfExpectedClass();
-    v27 = v34;
+    v41 = CCValidateIsInstanceOfExpectedClass();
+    v27 = v33;
 
-    if (!v42)
+    if (!v41)
     {
       goto LABEL_51;
     }
 
     CCPBDataWriterWriteStringField();
-    v31 = 0x1E696A000uLL;
-    if (v35)
+    if (v34)
     {
 LABEL_9:
       objc_opt_class();
-      v37 = CCValidateIsInstanceOfExpectedClass();
-      v38 = v27;
+      v36 = CCValidateIsInstanceOfExpectedClass();
+      v37 = v27;
 
-      if (!v37)
+      if (!v36)
       {
         goto LABEL_30;
       }
 
       CCPBDataWriterWriteStringField();
-      v31 = 0x1E696A000uLL;
-      if (!v32)
+      if (!v31)
       {
 LABEL_11:
-        v27 = v38;
+        v27 = v37;
         if (v29)
         {
           goto LABEL_12;
@@ -725,107 +719,97 @@ LABEL_11:
 
 LABEL_19:
       objc_opt_class();
-      v43 = CCValidateIsInstanceOfExpectedClass();
-      v27 = v38;
+      v42 = CCValidateIsInstanceOfExpectedClass();
+      v27 = v37;
 
-      if (!v43)
+      if (!v42)
       {
         goto LABEL_51;
       }
 
       CCPBDataWriterWriteStringField();
-      v31 = 0x1E696A000uLL;
       if (v29)
       {
 LABEL_12:
         objc_opt_class();
-        v39 = CCValidateIsInstanceOfExpectedClass();
-        v38 = v27;
+        v38 = CCValidateIsInstanceOfExpectedClass();
+        v37 = v27;
 
-        if (v39)
+        if (v38)
         {
           CCPBDataWriterWriteStringField();
-          v31 = 0x1E696A000;
 LABEL_22:
           if (startDateCopy)
           {
-            v44 = *(v31 + 3776);
             objc_opt_class();
-            v45 = CCValidateIsInstanceOfExpectedClass();
-            v27 = v38;
+            v43 = CCValidateIsInstanceOfExpectedClass();
+            v27 = v37;
 
-            if (!v45)
+            if (!v43)
             {
               CCSetError();
-              v40 = 0;
+              v39 = 0;
               v30 = startTimeCopy;
               goto LABEL_52;
             }
 
             CCPBDataWriterWriteStringField();
-            v31 = 0x1E696A000;
           }
 
           else
           {
-            v27 = v38;
+            v27 = v37;
           }
 
           v30 = startTimeCopy;
           if (!startTimeCopy)
           {
-            v38 = v27;
+            v37 = v27;
             goto LABEL_33;
           }
 
-          v46 = *(v31 + 3776);
           objc_opt_class();
-          v47 = CCValidateIsInstanceOfExpectedClass();
-          v38 = v27;
+          v44 = CCValidateIsInstanceOfExpectedClass();
+          v37 = v27;
 
-          if (v47)
+          if (v44)
           {
             CCPBDataWriterWriteStringField();
-            v31 = 0x1E696A000;
 LABEL_33:
             if (endDateCopy)
             {
-              v48 = *(v31 + 3776);
               objc_opt_class();
-              v49 = CCValidateIsInstanceOfExpectedClass();
-              v27 = v38;
+              v45 = CCValidateIsInstanceOfExpectedClass();
+              v27 = v37;
 
-              if (!v49)
+              if (!v45)
               {
                 goto LABEL_51;
               }
 
               CCPBDataWriterWriteStringField();
-              v31 = 0x1E696A000;
             }
 
             else
             {
-              v27 = v38;
+              v27 = v37;
             }
 
             if (endTimeCopy)
             {
-              v50 = *(v31 + 3776);
               objc_opt_class();
-              v51 = CCValidateIsInstanceOfExpectedClass();
-              v65 = v27;
+              v46 = CCValidateIsInstanceOfExpectedClass();
+              v58 = v27;
 
-              if (!v51)
+              if (!v46)
               {
 LABEL_46:
-                v27 = v65;
+                v27 = v58;
                 goto LABEL_51;
               }
 
               CCPBDataWriterWriteStringField();
-              v31 = 0x1E696A000uLL;
-              v27 = v65;
+              v27 = v58;
             }
 
             if (!deliveryDateCopy)
@@ -833,40 +817,39 @@ LABEL_46:
 LABEL_43:
               if (!deliveryTimeCopy)
               {
-                v58 = v27;
+                v51 = v27;
                 goto LABEL_48;
               }
 
-              v56 = *(v31 + 3776);
               objc_opt_class();
-              v57 = CCValidateIsInstanceOfExpectedClass();
-              v65 = v27;
+              v50 = CCValidateIsInstanceOfExpectedClass();
+              v58 = v27;
 
-              if (v57)
+              if (v50)
               {
                 CCPBDataWriterWriteStringField();
-                v58 = v65;
+                v51 = v58;
 LABEL_48:
                 if (!recipientCopy)
                 {
-                  v27 = v58;
+                  v27 = v51;
                   goto LABEL_55;
                 }
 
                 objc_opt_class();
-                v59 = CCValidateIsInstanceOfExpectedClass();
-                v27 = v58;
+                v52 = CCValidateIsInstanceOfExpectedClass();
+                v27 = v51;
 
-                if (v59)
+                if (v52)
                 {
                   data = [recipientCopy data];
                   CCPBDataWriterWriteDataField();
 
 LABEL_55:
                   immutableData = [v25 immutableData];
-                  v40 = [(CCItemMessage *)self initWithData:immutableData error:error];
+                  v39 = [(CCItemMessage *)self initWithData:immutableData error:error];
 
-                  selfCopy2 = v40;
+                  selfCopy2 = v39;
                   goto LABEL_53;
                 }
 
@@ -876,42 +859,40 @@ LABEL_55:
               goto LABEL_46;
             }
 
-            v52 = *(v31 + 3776);
             objc_opt_class();
-            v53 = CCValidateIsInstanceOfExpectedClass();
-            v54 = v27;
-            v55 = v27;
-            v27 = v54;
+            v47 = CCValidateIsInstanceOfExpectedClass();
+            v48 = v27;
+            v49 = v27;
+            v27 = v48;
 
-            if (v53)
+            if (v47)
             {
               CCPBDataWriterWriteStringField();
-              v31 = 0x1E696A000uLL;
               goto LABEL_43;
             }
 
 LABEL_51:
             CCSetError();
-            v40 = 0;
+            v39 = 0;
             goto LABEL_52;
           }
         }
 
 LABEL_30:
         CCSetError();
-        v40 = 0;
-        v27 = v38;
+        v39 = 0;
+        v27 = v37;
         goto LABEL_52;
       }
 
 LABEL_21:
-      v38 = v27;
+      v37 = v27;
       goto LABEL_22;
     }
 
 LABEL_18:
-    v38 = v27;
-    if (!v32)
+    v37 = v27;
+    if (!v31)
     {
       goto LABEL_11;
     }
@@ -928,17 +909,17 @@ LABEL_18:
   }
 
   CCSetError();
-  v40 = 0;
+  v39 = 0;
   v28 = numberCopy;
   selfCopy2 = self;
   v29 = timeCopy;
-  v32 = dateCopy;
-  v35 = methodCopy;
-  v36 = nameCopy;
+  v31 = dateCopy;
+  v34 = methodCopy;
+  v35 = nameCopy;
   v30 = startTimeCopy;
 LABEL_53:
 
-  return v40;
+  return v39;
 }
 
 @end

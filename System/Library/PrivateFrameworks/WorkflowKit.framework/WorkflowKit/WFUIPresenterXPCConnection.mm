@@ -120,16 +120,14 @@ void __49__WFUIPresenterXPCConnection_initWithConnection___block_invoke_173(uint
 
 void __49__WFUIPresenterXPCConnection_initWithConnection___block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = getWFDialogLogObject();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315138;
-    v3 = "[WFUIPresenterXPCConnection initWithConnection:]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v0, OS_LOG_TYPE_ERROR, "%s Connection to remote UI presenter was invalidated.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[WFUIPresenterXPCConnection initWithConnection:]_block_invoke";
+    _os_log_impl(&dword_1CA256000, v0, OS_LOG_TYPE_ERROR, "%s Connection to remote UI presenter was invalidated.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (WFUIPresenterXPCConnection)initWithServiceName:(id)name

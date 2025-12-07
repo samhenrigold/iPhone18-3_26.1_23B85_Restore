@@ -20,6 +20,7 @@
 - (void)continuityDidUpdateState:(id)state;
 - (void)didLosePeer:(id)peer;
 - (void)didLosePeerTimer:(id)timer;
+- (void)handleNewAdvertisementDevice:(id)device data:(id)data receivedViaScanning:(BOOL)scanning withSuccessHandler:(id)handler;
 - (void)lostAllDevices;
 - (void)nearbyServiceDevicesChanged:(id)changed;
 - (void)postNotification:(id)notification userInfo:(id)info;
@@ -304,15 +305,16 @@ LABEL_43:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dumping state", buf, 2u);
   }
 
-  NSAppendPrintF();
-  v4 = 0;
+  v28 = 0;
+  NSAppendPrintF(&v28, "\n");
+  v4 = v28;
   state = [(SDActivityScanner *)self state];
   v6 = state;
   if (state)
   {
-    v23 = state;
-    NSAppendPrintF();
-    v7 = v4;
+    v27 = v4;
+    NSAppendPrintF(&v27, "%@\n", state);
+    v7 = v27;
 
     v4 = v7;
   }
@@ -322,9 +324,9 @@ LABEL_43:
 
   if (state2)
   {
-    v24 = state2;
-    NSAppendPrintF();
-    v10 = v4;
+    v26 = v4;
+    NSAppendPrintF(&v26, "%@\n", state2);
+    v10 = v26;
 
     v4 = v10;
   }
@@ -334,9 +336,9 @@ LABEL_43:
 
   if (state3)
   {
-    v25 = state3;
-    NSAppendPrintF();
-    v13 = v4;
+    v25 = v4;
+    NSAppendPrintF(&v25, "%@\n", state3);
+    v13 = v25;
 
     v4 = v13;
   }
@@ -346,14 +348,16 @@ LABEL_43:
 
   if (state4)
   {
-    NSAppendPrintF();
-    v16 = v4;
+    v24 = v4;
+    NSAppendPrintF(&v24, "%@\n", state4);
+    v16 = v24;
 
     v4 = v16;
   }
 
-  NSAppendPrintF();
-  v17 = v4;
+  v23 = v4;
+  NSAppendPrintF(&v23, "Handoff State End\n");
+  v17 = v23;
 
   if (v17)
   {
@@ -381,43 +385,65 @@ LABEL_43:
 
 - (id)state
 {
+  v24 = 0;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v5 = 0;
+  NSAppendPrintF(&v24, "%@\n", v4);
+  v5 = v24;
 
-  NSAppendPrintF();
-  v6 = v5;
+  v23 = v5;
+  NSAppendPrintF(&v23, "-------------\n");
+  v6 = v23;
 
-  versionByte = self->_versionByte;
-  NSAppendPrintF();
-  v7 = v6;
+  v22 = v6;
+  NSAppendPrintF(&v22, "Version Byte: %u\n", self->_versionByte);
+  v7 = v22;
 
-  [(SDActivityController *)self shouldStart];
-  NSAppendPrintF();
-  v8 = v7;
+  v21 = v7;
+  if ([(SDActivityController *)self shouldStart])
+  {
+    v8 = @"YES";
+  }
 
-  self->_isScanning;
-  NSAppendPrintF();
-  v9 = v8;
+  else
+  {
+    v8 = @"NO";
+  }
 
-  scanTypes = self->_scanTypes;
-  v11 = SFActivityScanTypesToString();
-  NSAppendPrintF();
-  v12 = v9;
+  NSAppendPrintF(&v21, "Should Start: %@\n", v8);
+  v9 = v21;
 
-  deviceIdentifierToLostDeviceTimers = self->_deviceIdentifierToLostDeviceTimers;
-  NSAppendPrintF();
-  v13 = v12;
+  v20 = v9;
+  if (self->_isScanning)
+  {
+    v10 = @"YES";
+  }
+
+  else
+  {
+    v10 = @"NO";
+  }
+
+  NSAppendPrintF(&v20, "Is Scanning: %@\n", v10);
+  v11 = v20;
+
+  v19 = v11;
+  v12 = SFActivityScanTypesToString();
+  NSAppendPrintF(&v19, "Scan Types: %@\n", v12);
+  v13 = v19;
+
+  v18 = v13;
+  NSAppendPrintF(&v18, "Device Identifier To Lost Device Timer: %@\n", self->_deviceIdentifierToLostDeviceTimers);
+  v14 = v18;
 
   os_unfair_lock_lock(&self->_lock);
-  deviceIdentifierToDeviceRecord = self->_deviceIdentifierToDeviceRecord;
-  NSAppendPrintF();
-  v14 = v13;
+  v17 = v14;
+  NSAppendPrintF(&v17, "Device Identifier To Device Record: %@\n", self->_deviceIdentifierToDeviceRecord);
+  v15 = v17;
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v14;
+  return v15;
 }
 
 + (id)sharedScanner
@@ -628,6 +654,71 @@ LABEL_43:
 
       while (v8);
     }
+  }
+}
+
+- (void)handleNewAdvertisementDevice:(id)device data:(id)data receivedViaScanning:(BOOL)scanning withSuccessHandler:(id)handler
+{
+  scanningCopy = scanning;
+  deviceCopy = device;
+  dataCopy = data;
+  handlerCopy = handler;
+  uniqueIDOverride = [deviceCopy uniqueIDOverride];
+  v14 = sub_100108C78(dataCopy);
+  if (v14)
+  {
+    v19 = handoff_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      versionByte = self->_versionByte;
+      *buf = 138412802;
+      v29 = uniqueIDOverride;
+      v30 = 1024;
+      v31 = v14;
+      v32 = 1024;
+      v33 = versionByte;
+      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Saw IDS device %@ with mismatched version %d, expected %d", buf, 0x18u);
+    }
+  }
+
+  else
+  {
+    if (scanningCopy)
+    {
+      v15 = [(NSMutableDictionary *)self->_deviceIdentifierToLostDeviceTimers objectForKeyedSubscript:uniqueIDOverride];
+      v16 = v15;
+      if (v15)
+      {
+        [v15 invalidate];
+      }
+
+      v17 = [NSTimer scheduledTimerWithTimeInterval:self target:"didLosePeerTimer:" selector:uniqueIDOverride userInfo:0 repeats:10.0];
+      [(NSMutableDictionary *)self->_deviceIdentifierToLostDeviceTimers setObject:v17 forKeyedSubscript:uniqueIDOverride];
+    }
+
+    os_unfair_lock_lock(&self->_lock);
+    v18 = [(NSMutableDictionary *)self->_deviceIdentifierToDeviceRecord objectForKeyedSubscript:uniqueIDOverride];
+    os_unfair_lock_unlock(&self->_lock);
+    if (!v18)
+    {
+      v18 = [[SDActivityDeviceRecord alloc] initWithDevice:deviceCopy];
+      os_unfair_lock_lock(&self->_lock);
+      [(NSMutableDictionary *)self->_deviceIdentifierToDeviceRecord setObject:v18 forKeyedSubscript:uniqueIDOverride];
+      os_unfair_lock_unlock(&self->_lock);
+    }
+
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10020F384;
+    v21[3] = &unk_1008D4430;
+    v22 = v18;
+    selfCopy = self;
+    v24 = deviceCopy;
+    v27 = handlerCopy;
+    v25 = dataCopy;
+    v26 = uniqueIDOverride;
+    v19 = v18;
+    [v19 updateWithRawAdvertisementData:v25 receivedViaScanning:scanningCopy newAdvertisementHandler:v21];
   }
 }
 

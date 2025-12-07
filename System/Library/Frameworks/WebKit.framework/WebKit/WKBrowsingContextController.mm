@@ -16,10 +16,10 @@
   isMainThread = [MEMORY[0x1E696AF00] isMainThread];
   if (isMainThread)
   {
-    MEMORY[0x19EB02040](&v12, protocol);
-    WebKit::WebProcessPool::registerGlobalURLSchemeAsHavingCustomProtocolHandlers(&v12, v5);
-    v7 = v12;
-    v12 = 0;
+    MEMORY[0x19EB02040](&v13, protocol);
+    WebKit::WebProcessPool::registerGlobalURLSchemeAsHavingCustomProtocolHandlers(&v13, v5);
+    v7 = v13;
+    v13 = 0;
     if (v7)
     {
       if (atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -31,22 +31,22 @@
 
   else
   {
-    v8 = WTF::WorkQueue::mainSingleton(isMainThread);
+    v9 = WTF::WorkQueue::mainSingleton(isMainThread);
     if (protocol)
     {
       protocolCopy = protocol;
     }
 
-    v10 = WTF::fastMalloc(0x10);
-    *v10 = &unk_1F10F49D8;
-    *(v10 + 1) = protocol;
-    v12 = v10;
-    (*(*v8 + 48))(v8, &v12);
-    v11 = v12;
-    v12 = 0;
-    if (v11)
+    v11 = WTF::fastMalloc(v8, 0x10);
+    *v11 = &unk_1F10F49D8;
+    v11[1] = protocol;
+    v13 = v11;
+    (*(*v9 + 48))(v9, &v13);
+    v12 = v13;
+    v13 = 0;
+    if (v12)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v12 + 8))(v12);
     }
   }
 }
@@ -56,10 +56,10 @@
   isMainThread = [MEMORY[0x1E696AF00] isMainThread];
   if (isMainThread)
   {
-    MEMORY[0x19EB02040](&v12, protocol);
-    WebKit::WebProcessPool::unregisterGlobalURLSchemeAsHavingCustomProtocolHandlers(&v12, v5);
-    v7 = v12;
-    v12 = 0;
+    MEMORY[0x19EB02040](&v13, protocol);
+    WebKit::WebProcessPool::unregisterGlobalURLSchemeAsHavingCustomProtocolHandlers(&v13, v5);
+    v7 = v13;
+    v13 = 0;
     if (v7)
     {
       if (atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -71,22 +71,22 @@
 
   else
   {
-    v8 = WTF::WorkQueue::mainSingleton(isMainThread);
+    v9 = WTF::WorkQueue::mainSingleton(isMainThread);
     if (protocol)
     {
       protocolCopy = protocol;
     }
 
-    v10 = WTF::fastMalloc(0x10);
-    *v10 = &unk_1F10F4A00;
-    *(v10 + 1) = protocol;
-    v12 = v10;
-    (*(*v8 + 48))(v8, &v12);
-    v11 = v12;
-    v12 = 0;
-    if (v11)
+    v11 = WTF::fastMalloc(v8, 0x10);
+    *v11 = &unk_1F10F4A00;
+    v11[1] = protocol;
+    v13 = v11;
+    (*(*v9 + 48))(v9, &v13);
+    v12 = v13;
+    v13 = 0;
+    if (v12)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v12 + 8))(v12);
     }
   }
 }

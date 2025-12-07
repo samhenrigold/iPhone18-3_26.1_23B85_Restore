@@ -92,14 +92,13 @@
       *buf = 138412290;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "=asset-fetch= %@ was not disposed before dealloc", buf, 0xCu);
-      selfCopy2 = self;
-      _MBLog();
+      _MBLog(@"E ", "=asset-fetch= %@ was not disposed before dealloc", self);
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = MBAssetRecordFetcher;
-  [(MBAssetRecordFetcher *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = MBAssetRecordFetcher;
+  [(MBAssetRecordFetcher *)&v4 dealloc];
 }
 
 - (BOOL)begin:(id *)begin
@@ -323,7 +322,7 @@ LABEL_7:
         v31 = 2112;
         originalInode = v11;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=asset-fetch= Failed fetching asset record for asset %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=asset-fetch= Failed fetching asset record for asset %@: %@", forCopy, v11);
       }
 
       [delegate fetcher:self failedFetchingAsset:forCopy withFetchError:v11];
@@ -351,8 +350,7 @@ LABEL_7:
           v33 = 2112;
           v34 = path;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "=asset-fetch= Fetched asset record %@ for ino: %llu at %@", buf, 0x20u);
-          [forCopy originalInode];
-          _MBLog();
+          _MBLog(@"I ", "=asset-fetch= Fetched asset record %@ for ino: %llu at %@", recordName2, [forCopy originalInode], path);
         }
 
         v28 = 0;

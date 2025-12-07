@@ -31,17 +31,17 @@
 
 - (VGExternalAccessory)init
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = VGExternalAccessory;
-  v2 = [(VGExternalAccessory *)&v23 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = VGExternalAccessory;
+  v2 = [(VGExternalAccessory *)&v20 init];
   if (v2)
   {
     v3 = VGGetExternalAccessoryLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v25 = v2;
+      v22 = v2;
       _os_log_impl(&dword_270EC1000, v3, OS_LOG_TYPE_INFO, "[%{public}p] init: created new VGExternalAccessory", buf, 0xCu);
     }
 
@@ -67,7 +67,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v25 = v2;
+      v22 = v2;
       _os_log_impl(&dword_270EC1000, v13, OS_LOG_TYPE_INFO, "[%{public}p] Registering for local accessory notifications", buf, 0xCu);
     }
 
@@ -75,34 +75,31 @@
     [mEMORY[0x277CC5FB0] registerForLocalNotifications];
 
     [(VGExternalAccessory *)v2 _checkAvailableAccessoriesAndAttachIfNeeded];
-    v15 = *MEMORY[0x277D0EA90];
-    v16 = *(MEMORY[0x277D0EA90] + 8);
     BOOL = GEOConfigGetBOOL();
     p_super = VGGetExternalAccessoryLog();
-    v19 = os_log_type_enabled(p_super, OS_LOG_TYPE_INFO);
+    v17 = os_log_type_enabled(p_super, OS_LOG_TYPE_INFO);
     if (BOOL)
     {
-      if (v19)
+      if (v17)
       {
         *buf = 134349056;
-        v25 = v2;
+        v22 = v2;
         _os_log_impl(&dword_270EC1000, p_super, OS_LOG_TYPE_INFO, "[%{public}p] Allowlisting enabled, will initialize model filter", buf, 0xCu);
       }
 
-      v20 = objc_alloc_init(VGExternalAccessoryModelFilter);
+      v18 = objc_alloc_init(VGExternalAccessoryModelFilter);
       p_super = &v2->_modelFilter->super;
-      v2->_modelFilter = v20;
+      v2->_modelFilter = v18;
     }
 
-    else if (v19)
+    else if (v17)
     {
       *buf = 134349056;
-      v25 = v2;
+      v22 = v2;
       _os_log_impl(&dword_270EC1000, p_super, OS_LOG_TYPE_INFO, "[%{public}p] Allowlisting disabled, will not initialize model filter", buf, 0xCu);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -126,34 +123,34 @@
 
 void __66__VGExternalAccessory__checkAvailableAccessoriesAndAttachIfNeeded__block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v2 = [*(a1 + 32) connectedAccessories];
-    v3 = [v2 countByEnumeratingWithState:&v31 objects:v45 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v30 objects:v44 count:16];
     if (v3)
     {
       v5 = v3;
-      v6 = *v32;
+      v6 = *v31;
       *&v4 = 134349570;
-      v28 = v4;
+      v27 = v4;
       do
       {
         v7 = 0;
-        v29 = v5;
+        v28 = v5;
         do
         {
-          if (*v32 != v6)
+          if (*v31 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v31 + 1) + 8 * v7);
+          v8 = *(*(&v30 + 1) + 8 * v7);
           v9 = [(__CFString *)v8 _vg_supportsCarPlay];
           v10 = VGGetExternalAccessoryLog();
           v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
@@ -194,20 +191,20 @@ void __66__VGExternalAccessory__checkAvailableAccessoriesAndAttachIfNeeded__bloc
               v19 = v2;
               v20 = v18;
               *buf = 134350082;
-              v36 = WeakRetained;
-              v37 = 2112;
-              v38 = v8;
-              v39 = 2112;
-              v40 = v15;
-              v41 = 2112;
-              v42 = v17;
-              v43 = 2112;
-              v44 = v20;
+              v35 = WeakRetained;
+              v36 = 2112;
+              v37 = v8;
+              v38 = 2112;
+              v39 = v15;
+              v40 = 2112;
+              v41 = v17;
+              v42 = 2112;
+              v43 = v20;
               _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_INFO, "[%{public}p] init: will use accessory: %@ supportsCarPlay: %@, supportsWirelessCarPlay: %@. supportsUSBCarPlay: %@", buf, 0x34u);
 
               v2 = v19;
               v6 = v13;
-              v5 = v29;
+              v5 = v28;
             }
 
             [WeakRetained _addNewCarPlayAccessory:v8];
@@ -217,12 +214,12 @@ void __66__VGExternalAccessory__checkAvailableAccessoriesAndAttachIfNeeded__bloc
           {
             if (v11)
             {
-              *buf = v28;
-              v36 = WeakRetained;
-              v37 = 2048;
-              v38 = v8;
-              v39 = 2112;
-              v40 = v8;
+              *buf = v27;
+              v35 = WeakRetained;
+              v36 = 2048;
+              v37 = v8;
+              v38 = 2112;
+              v39 = v8;
               _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_INFO, "[%{public}p] init: skipping accessory as it doesn't support CarPlay: %p %@", buf, 0x20u);
             }
           }
@@ -231,7 +228,7 @@ void __66__VGExternalAccessory__checkAvailableAccessoriesAndAttachIfNeeded__bloc
         }
 
         while (v5 != v7);
-        v5 = [v2 countByEnumeratingWithState:&v31 objects:v45 count:16];
+        v5 = [v2 countByEnumeratingWithState:&v30 objects:v44 count:16];
       }
 
       while (v5);
@@ -242,9 +239,9 @@ void __66__VGExternalAccessory__checkAvailableAccessoriesAndAttachIfNeeded__bloc
     {
       v22 = [WeakRetained[3] count];
       *buf = 134349312;
-      v36 = WeakRetained;
-      v37 = 2048;
-      v38 = v22;
+      v35 = WeakRetained;
+      v36 = 2048;
+      v37 = v22;
       v23 = "[%{public}p] _checkCurrentAccessoriesAndAttachIfNeeded: currently connected to %lu CarPlay accessories";
       v24 = v21;
       v25 = OS_LOG_TYPE_INFO;
@@ -260,9 +257,9 @@ LABEL_28:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "[VGExternalAccessory _checkAvailableAccessoriesAndAttachIfNeeded]_block_invoke";
-      v37 = 1024;
-      LODWORD(v38) = 269;
+      v35 = "[VGExternalAccessory _checkAvailableAccessoriesAndAttachIfNeeded]_block_invoke";
+      v36 = 1024;
+      LODWORD(v37) = 269;
       v23 = "strongSelf went away in %s line %d";
       v24 = v21;
       v25 = OS_LOG_TYPE_ERROR;
@@ -270,8 +267,6 @@ LABEL_28:
       goto LABEL_28;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (VGExternalAccessoryUpdating)accessoryUpdateDelegate
@@ -283,7 +278,7 @@ LABEL_28:
 
 - (void)listCarsWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -301,9 +296,9 @@ LABEL_28:
     }
 
     *buf = 138543618;
-    v16 = selfCopy;
-    v17 = 2080;
-    v18 = "[VGExternalAccessory listCarsWithCompletion:]";
+    v15 = selfCopy;
+    v16 = 2080;
+    v17 = "[VGExternalAccessory listCarsWithCompletion:]";
     _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@] %s", buf, 0x16u);
   }
 
@@ -313,19 +308,18 @@ LABEL_28:
   block[1] = 3221225472;
   block[2] = __46__VGExternalAccessory_listCarsWithCompletion___block_invoke;
   block[3] = &unk_279E26F48;
-  objc_copyWeak(&v14, buf);
-  v13 = completionCopy;
+  objc_copyWeak(&v13, buf);
+  v12 = completionCopy;
   v10 = completionCopy;
   dispatch_async(workQueue, block);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__VGExternalAccessory_listCarsWithCompletion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -333,8 +327,8 @@ void __46__VGExternalAccessory_listCarsWithCompletion___block_invoke(uint64_t a1
     if (*(WeakRetained + 6) && [*(WeakRetained + 3) count])
     {
       v4 = *(a1 + 32);
-      v10 = *(v3 + 6);
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+      v9 = *(v3 + 6);
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
       (*(v4 + 16))(v4, v5, 0);
     }
 
@@ -348,7 +342,7 @@ void __46__VGExternalAccessory_listCarsWithCompletion___block_invoke(uint64_t a1
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 134349056;
-        v12 = v3;
+        v11 = v3;
         _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_ERROR, "[%{public}p] Either accessory is not connected or we don't have any _currentVehicleState yet.", buf, 0xCu);
       }
 
@@ -362,19 +356,17 @@ void __46__VGExternalAccessory_listCarsWithCompletion___block_invoke(uint64_t a1
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[VGExternalAccessory listCarsWithCompletion:]_block_invoke";
-      v13 = 1024;
-      v14 = 682;
+      v11 = "[VGExternalAccessory listCarsWithCompletion:]_block_invoke";
+      v12 = 1024;
+      v13 = 682;
       _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getStateOfChargeForVehicle:(id)vehicle completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   vehicleCopy = vehicle;
   completionCopy = completion;
   v8 = VGGetExternalAccessoryLog();
@@ -393,9 +385,9 @@ void __46__VGExternalAccessory_listCarsWithCompletion___block_invoke(uint64_t a1
     }
 
     *buf = 138543618;
-    v21 = selfCopy;
-    v22 = 2080;
-    v23 = "[VGExternalAccessory getStateOfChargeForVehicle:completion:]";
+    v20 = selfCopy;
+    v21 = 2080;
+    v22 = "[VGExternalAccessory getStateOfChargeForVehicle:completion:]";
     _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@] %s", buf, 0x16u);
   }
 
@@ -405,21 +397,20 @@ void __46__VGExternalAccessory_listCarsWithCompletion___block_invoke(uint64_t a1
   block[1] = 3221225472;
   block[2] = __61__VGExternalAccessory_getStateOfChargeForVehicle_completion___block_invoke;
   block[3] = &unk_279E26CD0;
-  objc_copyWeak(&v19, buf);
-  v17 = vehicleCopy;
-  v18 = completionCopy;
+  objc_copyWeak(&v18, buf);
+  v16 = vehicleCopy;
+  v17 = completionCopy;
   v13 = vehicleCopy;
   v14 = completionCopy;
   dispatch_async(workQueue, block);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __61__VGExternalAccessory_getStateOfChargeForVehicle_completion___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -432,42 +423,41 @@ void __61__VGExternalAccessory_getStateOfChargeForVehicle_completion___block_inv
 
       if (v6)
       {
-        v7 = v3[5];
         (*(*(a1 + 40) + 16))();
         goto LABEL_14;
       }
 
-      v13 = MEMORY[0x277CCA9B8];
-      v14 = GEOErrorDomain();
-      v10 = [v13 errorWithDomain:v14 code:-13 userInfo:0];
+      v12 = MEMORY[0x277CCA9B8];
+      v13 = GEOErrorDomain();
+      v9 = [v12 errorWithDomain:v13 code:-13 userInfo:0];
 
-      v11 = VGGetExternalAccessoryLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = VGGetExternalAccessoryLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v15 = [*(a1 + 32) identifier];
-        v16 = v3[5];
-        v18 = 134349570;
-        v19 = v3;
+        v14 = [*(a1 + 32) identifier];
+        v15 = v3[5];
+        v16 = 134349570;
+        v17 = v3;
+        v18 = 2112;
+        v19 = v14;
         v20 = 2112;
         v21 = v15;
-        v22 = 2112;
-        v23 = v16;
-        _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_ERROR, "[%{public}p] SoC requested for %@ but the currently connected vehicle is %@", &v18, 0x20u);
+        _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_ERROR, "[%{public}p] SoC requested for %@ but the currently connected vehicle is %@", &v16, 0x20u);
       }
     }
 
     else
     {
-      v8 = MEMORY[0x277CCA9B8];
-      v9 = GEOErrorDomain();
-      v10 = [v8 errorWithDomain:v9 code:-11 userInfo:0];
+      v7 = MEMORY[0x277CCA9B8];
+      v8 = GEOErrorDomain();
+      v9 = [v7 errorWithDomain:v8 code:-11 userInfo:0];
 
-      v11 = VGGetExternalAccessoryLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = VGGetExternalAccessoryLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v18 = 134349056;
-        v19 = v3;
-        _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_ERROR, "[%{public}p] Either accessory is not connected or we don't have any _currentVehicleState yet.", &v18, 0xCu);
+        v16 = 134349056;
+        v17 = v3;
+        _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_ERROR, "[%{public}p] Either accessory is not connected or we don't have any _currentVehicleState yet.", &v16, 0xCu);
       }
     }
 
@@ -475,23 +465,22 @@ void __61__VGExternalAccessory_getStateOfChargeForVehicle_completion___block_inv
     goto LABEL_14;
   }
 
-  v12 = VGGetVirtualGarageLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v11 = VGGetVirtualGarageLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v18 = 136315394;
-    v19 = "[VGExternalAccessory getStateOfChargeForVehicle:completion:]_block_invoke";
-    v20 = 1024;
-    LODWORD(v21) = 660;
-    _os_log_impl(&dword_270EC1000, v12, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v18, 0x12u);
+    v16 = 136315394;
+    v17 = "[VGExternalAccessory getStateOfChargeForVehicle:completion:]_block_invoke";
+    v18 = 1024;
+    LODWORD(v19) = 660;
+    _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v16, 0x12u);
   }
 
 LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isConnectedToAccessoryWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -518,21 +507,20 @@ LABEL_14:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v18 = 0;
+  v17 = 0;
   workQueue = self->_workQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __60__VGExternalAccessory_isConnectedToAccessoryWithIdentifier___block_invoke;
   block[3] = &unk_279E26E60;
-  v15 = identifierCopy;
-  v16 = buf;
+  v14 = identifierCopy;
+  v15 = buf;
   block[4] = self;
   v10 = identifierCopy;
   dispatch_sync(workQueue, block);
   v11 = *(*&buf[8] + 24);
 
   _Block_object_dispose(buf, 8);
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -552,7 +540,7 @@ void __60__VGExternalAccessory_isConnectedToAccessoryWithIdentifier___block_invo
 
 - (BOOL)isConnectedToVehicle:(id)vehicle
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   vehicleCopy = vehicle;
   v5 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -579,27 +567,26 @@ void __60__VGExternalAccessory_isConnectedToAccessoryWithIdentifier___block_invo
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v18 = 0;
+  v17 = 0;
   workQueue = self->_workQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __44__VGExternalAccessory_isConnectedToVehicle___block_invoke;
   block[3] = &unk_279E26E60;
   block[4] = self;
-  v15 = vehicleCopy;
-  v16 = buf;
+  v14 = vehicleCopy;
+  v15 = buf;
   v10 = vehicleCopy;
   dispatch_sync(workQueue, block);
   v11 = *(*&buf[8] + 24);
 
   _Block_object_dispose(buf, 8);
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 void __44__VGExternalAccessory_isConnectedToVehicle___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _isConnectedToCarPlayAccessory];
   v3 = [*(a1 + 40) iapIdentifier];
 
@@ -616,15 +603,15 @@ void __44__VGExternalAccessory_isConnectedToVehicle___block_invoke(uint64_t a1)
 
     v11 = [*(*(a1 + 32) + 48) iapIdentifier];
     *buf = 138544386;
-    v15 = v10;
-    v16 = 1024;
-    v17 = v2;
-    v18 = 1024;
-    v19 = v3 != 0;
-    v20 = 1024;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v11;
+    v14 = v10;
+    v15 = 1024;
+    v16 = v2;
+    v17 = 1024;
+    v18 = v3 != 0;
+    v19 = 1024;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v11;
     _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] isConnectedToVehicle: isConnected: %d, hasIdentifier: %d, identifierMatches: %d, currentVehicleIdentifier: %@", buf, 0x28u);
   }
 
@@ -639,7 +626,6 @@ void __44__VGExternalAccessory_isConnectedToVehicle___block_invoke(uint64_t a1)
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v12 & v6;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_firmwareId
@@ -725,33 +711,33 @@ void __44__VGExternalAccessory_isConnectedToVehicle___block_invoke(uint64_t a1)
 
 - (BOOL)_isConnectedToCarPlayAccessory
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_trackedAccessoriesByConnectionId allValues];
-  v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(allValues);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isConnected])
+        if ([*(*(&v7 + 1) + 8 * i) isConnected])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -763,7 +749,6 @@ void __44__VGExternalAccessory_isConnectedToVehicle___block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -791,78 +776,73 @@ LABEL_11:
 
 - (BOOL)_isConnectedVehicleAllowlisted
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D0EA90];
-  v4 = *(MEMORY[0x277D0EA90] + 8);
+  v28 = *MEMORY[0x277D85DE8];
   if (GEOConfigGetBOOL())
   {
     consumptionArguments = [(VGExternalAccessoryState *)self->_accessoryState consumptionArguments];
-    v6 = [(VGExternalAccessory *)self _modelIdFromArguments:consumptionArguments];
+    v4 = [(VGExternalAccessory *)self _modelIdFromArguments:consumptionArguments];
 
     chargingArguments = [(VGExternalAccessoryState *)self->_accessoryState chargingArguments];
-    v8 = [(VGExternalAccessory *)self _modelIdFromArguments:chargingArguments];
+    v6 = [(VGExternalAccessory *)self _modelIdFromArguments:chargingArguments];
 
-    if (v6 && v8)
+    if (v4 && v6)
     {
       modelFilter = self->_modelFilter;
       _firmwareId = [(VGExternalAccessory *)self _firmwareId];
       year = [(VGExternalAccessoryState *)self->_accessoryState year];
       model = [(VGExternalAccessoryState *)self->_accessoryState model];
-      v13 = [(VGExternalAccessoryModelFilter *)modelFilter allowsVehicleWithModelId:v6 firmwareId:_firmwareId year:year model:model];
+      v11 = [(VGExternalAccessoryModelFilter *)modelFilter allowsVehicleWithModelId:v4 firmwareId:_firmwareId year:year model:model];
 
-      v14 = self->_modelFilter;
+      v12 = self->_modelFilter;
       _firmwareId2 = [(VGExternalAccessory *)self _firmwareId];
       year2 = [(VGExternalAccessoryState *)self->_accessoryState year];
       model2 = [(VGExternalAccessoryState *)self->_accessoryState model];
-      v18 = [(VGExternalAccessoryModelFilter *)v14 allowsVehicleWithModelId:v8 firmwareId:_firmwareId2 year:year2 model:model2];
+      v16 = [(VGExternalAccessoryModelFilter *)v12 allowsVehicleWithModelId:v6 firmwareId:_firmwareId2 year:year2 model:model2];
 
-      if (v13 && v18)
+      if (v11 && v16)
       {
-        v19 = 1;
+        v17 = 1;
 LABEL_13:
 
-        goto LABEL_14;
+        return v17;
       }
 
-      v20 = VGGetExternalAccessoryLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v18 = VGGetExternalAccessoryLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v25 = 134349056;
+        v22 = 134349056;
         selfCopy2 = self;
-        _os_log_impl(&dword_270EC1000, v20, OS_LOG_TYPE_ERROR, "[%{public}p] Currently connected vehicle is an EV, but does is not allow listed. Onboarding won't be allowed", &v25, 0xCu);
+        _os_log_impl(&dword_270EC1000, v18, OS_LOG_TYPE_ERROR, "[%{public}p] Currently connected vehicle is an EV, but does is not allow listed. Onboarding won't be allowed", &v22, 0xCu);
       }
     }
 
     else
     {
-      v20 = VGGetExternalAccessoryLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v18 = VGGetExternalAccessoryLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         consumptionArguments2 = [(VGExternalAccessoryState *)self->_accessoryState consumptionArguments];
         chargingArguments2 = [(VGExternalAccessoryState *)self->_accessoryState chargingArguments];
-        v25 = 134349570;
+        v22 = 134349570;
         selfCopy2 = self;
-        v27 = 2112;
-        v28 = consumptionArguments2;
-        v29 = 2112;
-        v30 = chargingArguments2;
-        _os_log_impl(&dword_270EC1000, v20, OS_LOG_TYPE_FAULT, "[%{public}p] Vehicle does not have valid consumption or charging arguments. consumption: %@, charging: %@", &v25, 0x20u);
+        v24 = 2112;
+        v25 = consumptionArguments2;
+        v26 = 2112;
+        v27 = chargingArguments2;
+        _os_log_impl(&dword_270EC1000, v18, OS_LOG_TYPE_FAULT, "[%{public}p] Vehicle does not have valid consumption or charging arguments. consumption: %@, charging: %@", &v22, 0x20u);
       }
     }
 
-    v19 = 0;
+    v17 = 0;
     goto LABEL_13;
   }
 
-  v19 = 1;
-LABEL_14:
-  v23 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 1;
 }
 
 - (id)_modelIdFromArguments:(id)arguments
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
   v5 = VGDictionaryFromVGVehicleArguments(argumentsCopy);
   if (v5)
@@ -881,11 +861,11 @@ LABEL_14:
     v9 = VGGetExternalAccessoryLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = 134349314;
+      v11 = 134349314;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = argumentsCopy;
-      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_FAULT, "[%{public}p] Failed to parse model id from arguments: %@", &v12, 0x16u);
+      v13 = 2112;
+      v14 = argumentsCopy;
+      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_FAULT, "[%{public}p] Failed to parse model id from arguments: %@", &v11, 0x16u);
     }
   }
 
@@ -894,25 +874,23 @@ LABEL_14:
     v7 = VGGetExternalAccessoryLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v12 = 134349314;
+      v11 = 134349314;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = argumentsCopy;
-      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_FAULT, "[%{public}p] Failed to parse arguments: %@", &v12, 0x16u);
+      v13 = 2112;
+      v14 = argumentsCopy;
+      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_FAULT, "[%{public}p] Failed to parse arguments: %@", &v11, 0x16u);
     }
   }
 
   v8 = 0;
 LABEL_10:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (BOOL)_currentStatePassesEVRoutingRequirements
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   LODWORD(_identifier) = [(VGExternalAccessory *)self _isConnectedToElectricVehicle];
   if (_identifier)
   {
@@ -926,7 +904,7 @@ LABEL_10:
         if ([(VGExternalAccessory *)self _isConnectedVehicleAllowlisted])
         {
           LOBYTE(_identifier) = 1;
-          goto LABEL_10;
+          return _identifier;
         }
 
         v5 = VGGetExternalAccessoryLog();
@@ -939,19 +917,19 @@ LABEL_10:
           _firmwareId = [(VGExternalAccessory *)self _firmwareId];
           year = [(VGExternalAccessoryState *)self->_accessoryState year];
           model = [(VGExternalAccessoryState *)self->_accessoryState model];
-          v15 = 134350338;
+          v14 = 134350338;
           selfCopy = self;
-          v17 = 2112;
-          v18 = v7;
-          v19 = 2112;
-          v20 = v9;
-          v21 = 2112;
-          v22 = _firmwareId;
-          v23 = 2112;
-          v24 = year;
-          v25 = 2112;
-          v26 = model;
-          _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] Connected vehicle is not allowlisted. consumption modelId: %@, charging modelId: %@, firmwareId: %@, year: %@, model: %@", &v15, 0x3Eu);
+          v16 = 2112;
+          v17 = v7;
+          v18 = 2112;
+          v19 = v9;
+          v20 = 2112;
+          v21 = _firmwareId;
+          v22 = 2112;
+          v23 = year;
+          v24 = 2112;
+          v25 = model;
+          _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] Connected vehicle is not allowlisted. consumption modelId: %@, charging modelId: %@, firmwareId: %@, year: %@, model: %@", &v14, 0x3Eu);
         }
       }
 
@@ -959,8 +937,6 @@ LABEL_10:
     }
   }
 
-LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
   return _identifier;
 }
 
@@ -1047,7 +1023,7 @@ LABEL_10:
 
 - (void)_notifyDelegateWithCurrentVehicle
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -1064,25 +1040,24 @@ LABEL_10:
   {
     v6 = [(VGVehicle *)self->_currentVehicle copy];
     delegateQueue = self->_delegateQueue;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke;
-    v10[3] = &unk_279E26F20;
-    objc_copyWeak(&v12, buf);
-    v11 = v6;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke;
+    v9[3] = &unk_279E26F20;
+    objc_copyWeak(&v11, buf);
+    v10 = v6;
     v8 = v6;
-    dispatch_async(delegateQueue, v10);
+    dispatch_async(delegateQueue, v9);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
   }
 
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1095,11 +1070,11 @@ void __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke(u
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = *(a1 + 32);
-        v10 = 134349314;
-        v11 = v3;
-        v12 = 2112;
-        v13 = v7;
-        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] notifying delegate with vehicle: %@", &v10, 0x16u);
+        v9 = 134349314;
+        v10 = v3;
+        v11 = 2112;
+        v12 = v7;
+        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] notifying delegate with vehicle: %@", &v9, 0x16u);
       }
 
       [v5 accessoryUpdatedWithVehicle:*(a1 + 32)];
@@ -1110,11 +1085,11 @@ void __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke(u
       v8 = VGGetVirtualGarageLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315394;
-        v11 = "[VGExternalAccessory _notifyDelegateWithCurrentVehicle]_block_invoke";
-        v12 = 1024;
-        LODWORD(v13) = 435;
-        _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_ERROR, "strongDelegate went away in %s line %d", &v10, 0x12u);
+        v9 = 136315394;
+        v10 = "[VGExternalAccessory _notifyDelegateWithCurrentVehicle]_block_invoke";
+        v11 = 1024;
+        LODWORD(v12) = 435;
+        _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_ERROR, "strongDelegate went away in %s line %d", &v9, 0x12u);
       }
 
       v5 = 0;
@@ -1126,20 +1101,18 @@ void __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke(u
     v5 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[VGExternalAccessory _notifyDelegateWithCurrentVehicle]_block_invoke";
-      v12 = 1024;
-      LODWORD(v13) = 434;
-      _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[VGExternalAccessory _notifyDelegateWithCurrentVehicle]_block_invoke";
+      v11 = 1024;
+      LODWORD(v12) = 434;
+      _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v9, 0x12u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateFromVehicleInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = VGGetExternalAccessoryLog();
   v6 = v5;
@@ -1149,22 +1122,22 @@ void __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke(u
     {
       *buf = 134349314;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = infoCopy;
+      v13 = 2112;
+      v14 = infoCopy;
       _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] _updateFromVehicleInfo: %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     workQueue = self->_workQueue;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __46__VGExternalAccessory__updateFromVehicleInfo___block_invoke;
-    v9[3] = &unk_279E26F20;
-    objc_copyWeak(&v11, buf);
-    v10 = infoCopy;
-    dispatch_async(workQueue, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __46__VGExternalAccessory__updateFromVehicleInfo___block_invoke;
+    v8[3] = &unk_279E26F20;
+    objc_copyWeak(&v10, buf);
+    v9 = infoCopy;
+    dispatch_async(workQueue, v8);
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
 
@@ -1177,13 +1150,11 @@ void __56__VGExternalAccessory__notifyDelegateWithCurrentVehicle__block_invoke(u
       _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "[%{public}p] _updateFromVehicleInfo: tried to update from a nil vehicleInfo.", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__VGExternalAccessory__updateFromVehicleInfo___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1204,13 +1175,13 @@ void __46__VGExternalAccessory__updateFromVehicleInfo___block_invoke(uint64_t a1
     {
       v8 = *(v3 + 4);
       v9 = *(a1 + 32);
-      v18 = 134349570;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_INFO, "[%{public}p] _updateFromVehicleInfo: did update accessoryState: %@ from vehicleInfo: %@", &v18, 0x20u);
+      v17 = 134349570;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_INFO, "[%{public}p] _updateFromVehicleInfo: did update accessoryState: %@ from vehicleInfo: %@", &v17, 0x20u);
     }
 
     v10 = [v3 _vehicleStateForCurrentState];
@@ -1226,11 +1197,11 @@ void __46__VGExternalAccessory__updateFromVehicleInfo___block_invoke(uint64_t a1
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = *(v3 + 6);
-      v18 = 134349314;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v15;
-      _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_INFO, "[%{public}p] updated _currentVehicle: %@", &v18, 0x16u);
+      v17 = 134349314;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&dword_270EC1000, v14, OS_LOG_TYPE_INFO, "[%{public}p] updated _currentVehicle: %@", &v17, 0x16u);
     }
 
     [v3 _notifyDelegateWithCurrentVehicle];
@@ -1241,50 +1212,47 @@ void __46__VGExternalAccessory__updateFromVehicleInfo___block_invoke(uint64_t a1
     v16 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315394;
-      v19 = "[VGExternalAccessory _updateFromVehicleInfo:]_block_invoke";
-      v20 = 1024;
-      LODWORD(v21) = 412;
-      _os_log_impl(&dword_270EC1000, v16, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v18, 0x12u);
+      v17 = 136315394;
+      v18 = "[VGExternalAccessory _updateFromVehicleInfo:]_block_invoke";
+      v19 = 1024;
+      LODWORD(v20) = 412;
+      _os_log_impl(&dword_270EC1000, v16, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v17, 0x12u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accessoryDidUpdateVehicle:(id)vehicle
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   vehicleCopy = vehicle;
   v5 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134349314;
     selfCopy = self;
-    v14 = 2112;
-    v15 = vehicleCopy;
+    v13 = 2112;
+    v14 = vehicleCopy;
     _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidUpdateVehicle: %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   workQueue = self->_workQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke;
-  v9[3] = &unk_279E26F20;
-  objc_copyWeak(&v11, buf);
-  v10 = vehicleCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke;
+  v8[3] = &unk_279E26F20;
+  objc_copyWeak(&v10, buf);
+  v9 = vehicleCopy;
   v7 = vehicleCopy;
-  dispatch_async(workQueue, v9);
+  dispatch_async(workQueue, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1296,12 +1264,12 @@ void __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke(uint64_
       v10 = VGGetExternalAccessoryLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = [v4 name];
-        v13 = 134349314;
-        v14 = WeakRetained;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidUpdateVehicle: accessory %@ does not support CarPlay, ignoring update", &v13, 0x16u);
+        v11 = [v4 name];
+        v12 = 134349314;
+        v13 = WeakRetained;
+        v14 = 2112;
+        v15 = v11;
+        _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidUpdateVehicle: accessory %@ does not support CarPlay, ignoring update", &v12, 0x16u);
       }
     }
 
@@ -1312,13 +1280,13 @@ void __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke(uint64_
       {
         v6 = [v4 name];
         v7 = [*(a1 + 32) userInfo];
-        v13 = 134349570;
-        v14 = WeakRetained;
-        v15 = 2112;
-        v16 = v6;
-        v17 = 2112;
-        v18 = v7;
-        _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidUpdateVehicle: received a vehicle update update for accessory %@ with userInfo: %@", &v13, 0x20u);
+        v12 = 134349570;
+        v13 = WeakRetained;
+        v14 = 2112;
+        v15 = v6;
+        v16 = 2112;
+        v17 = v7;
+        _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidUpdateVehicle: received a vehicle update update for accessory %@ with userInfo: %@", &v12, 0x20u);
       }
 
       if (v4 && ([WeakRetained _isAccessoryTracked:v4] & 1) == 0)
@@ -1327,10 +1295,10 @@ void __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke(uint64_
         if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
           v9 = [v4 name];
-          v13 = 134349314;
-          v14 = WeakRetained;
-          v15 = 2112;
-          v16 = v9;
+          v12 = 134349314;
+          v13 = WeakRetained;
+          v14 = 2112;
+          v15 = v9;
         }
 
         [WeakRetained _addNewCarPlayAccessory:v4];
@@ -1346,50 +1314,47 @@ void __50__VGExternalAccessory__accessoryDidUpdateVehicle___block_invoke(uint64_
     v4 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "[VGExternalAccessory _accessoryDidUpdateVehicle:]_block_invoke";
-      v15 = 1024;
-      LODWORD(v16) = 385;
-      _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "[VGExternalAccessory _accessoryDidUpdateVehicle:]_block_invoke";
+      v14 = 1024;
+      LODWORD(v15) = 385;
+      _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v12, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accessoryDidDisconnect:(id)disconnect
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
   v5 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134349314;
     selfCopy = self;
-    v14 = 2112;
-    v15 = disconnectCopy;
+    v13 = 2112;
+    v14 = disconnectCopy;
     _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidDisconnect: %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   workQueue = self->_workQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__VGExternalAccessory__accessoryDidDisconnect___block_invoke;
-  v9[3] = &unk_279E26F20;
-  objc_copyWeak(&v11, buf);
-  v10 = disconnectCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__VGExternalAccessory__accessoryDidDisconnect___block_invoke;
+  v8[3] = &unk_279E26F20;
+  objc_copyWeak(&v10, buf);
+  v9 = disconnectCopy;
   v7 = disconnectCopy;
-  dispatch_async(workQueue, v9);
+  dispatch_async(workQueue, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __47__VGExternalAccessory__accessoryDidDisconnect___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1403,11 +1368,11 @@ void __47__VGExternalAccessory__accessoryDidDisconnect___block_invoke(uint64_t a
     {
       if (v7)
       {
-        v10 = 134349314;
-        v11 = WeakRetained;
-        v12 = 2112;
-        v13 = v4;
-        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidDisconnect: will disconnect a tracked accessory: %@", &v10, 0x16u);
+        v9 = 134349314;
+        v10 = WeakRetained;
+        v11 = 2112;
+        v12 = v4;
+        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidDisconnect: will disconnect a tracked accessory: %@", &v9, 0x16u);
       }
 
       [WeakRetained _removeCarPlayAccessory:v4];
@@ -1418,11 +1383,11 @@ void __47__VGExternalAccessory__accessoryDidDisconnect___block_invoke(uint64_t a
       if (v7)
       {
         v8 = [v4 name];
-        v10 = 134349314;
-        v11 = WeakRetained;
-        v12 = 2112;
-        v13 = v8;
-        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidDisconnect: disconnected accessory that is not tracked %@", &v10, 0x16u);
+        v9 = 134349314;
+        v10 = WeakRetained;
+        v11 = 2112;
+        v12 = v8;
+        _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidDisconnect: disconnected accessory that is not tracked %@", &v9, 0x16u);
       }
     }
   }
@@ -1432,50 +1397,47 @@ void __47__VGExternalAccessory__accessoryDidDisconnect___block_invoke(uint64_t a
     v4 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[VGExternalAccessory _accessoryDidDisconnect:]_block_invoke";
-      v12 = 1024;
-      LODWORD(v13) = 369;
-      _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[VGExternalAccessory _accessoryDidDisconnect:]_block_invoke";
+      v11 = 1024;
+      LODWORD(v12) = 369;
+      _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v9, 0x12u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accessoryDidConnect:(id)connect
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   v5 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134349314;
     selfCopy = self;
-    v14 = 2112;
-    v15 = connectCopy;
+    v13 = 2112;
+    v14 = connectCopy;
     _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidConnect: %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   workQueue = self->_workQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__VGExternalAccessory__accessoryDidConnect___block_invoke;
-  v9[3] = &unk_279E26F20;
-  objc_copyWeak(&v11, buf);
-  v10 = connectCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__VGExternalAccessory__accessoryDidConnect___block_invoke;
+  v8[3] = &unk_279E26F20;
+  objc_copyWeak(&v10, buf);
+  v9 = connectCopy;
   v7 = connectCopy;
-  dispatch_async(workQueue, v9);
+  dispatch_async(workQueue, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__VGExternalAccessory__accessoryDidConnect___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1520,19 +1482,19 @@ void __44__VGExternalAccessory__accessoryDidConnect___block_invoke(uint64_t a1)
         }
 
         v11 = v10;
-        v14 = 134350338;
-        v15 = WeakRetained;
-        v16 = 2048;
-        v17 = v4;
-        v18 = 2112;
-        v19 = v4;
-        v20 = 2112;
-        v21 = v7;
-        v22 = 2112;
-        v23 = v9;
-        v24 = 2112;
-        v25 = v11;
-        _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidConnect: new accessory: %p, %@, supportsCarPlay: %@, supportsWirelessCarPlay: %@. supportsUSBCarPlay: %@", &v14, 0x3Eu);
+        v13 = 134350338;
+        v14 = WeakRetained;
+        v15 = 2048;
+        v16 = v4;
+        v17 = 2112;
+        v18 = v4;
+        v19 = 2112;
+        v20 = v7;
+        v21 = 2112;
+        v22 = v9;
+        v23 = 2112;
+        v24 = v11;
+        _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_INFO, "[%{public}p] _accessoryDidConnect: new accessory: %p, %@, supportsCarPlay: %@, supportsWirelessCarPlay: %@. supportsUSBCarPlay: %@", &v13, 0x3Eu);
       }
 
       [WeakRetained _addNewCarPlayAccessory:v4];
@@ -1543,13 +1505,13 @@ void __44__VGExternalAccessory__accessoryDidConnect___block_invoke(uint64_t a1)
       v12 = VGGetExternalAccessoryLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = 134349570;
-        v15 = WeakRetained;
-        v16 = 2048;
-        v17 = v4;
-        v18 = 2112;
-        v19 = v4;
-        _os_log_impl(&dword_270EC1000, v12, OS_LOG_TYPE_ERROR, "[%{public}p] _accessoryDidConnect: received an unsupported accessory: %p, %@", &v14, 0x20u);
+        v13 = 134349570;
+        v14 = WeakRetained;
+        v15 = 2048;
+        v16 = v4;
+        v17 = 2112;
+        v18 = v4;
+        _os_log_impl(&dword_270EC1000, v12, OS_LOG_TYPE_ERROR, "[%{public}p] _accessoryDidConnect: received an unsupported accessory: %p, %@", &v13, 0x20u);
       }
     }
   }
@@ -1559,20 +1521,18 @@ void __44__VGExternalAccessory__accessoryDidConnect___block_invoke(uint64_t a1)
     v4 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "[VGExternalAccessory _accessoryDidConnect:]_block_invoke";
-      v16 = 1024;
-      LODWORD(v17) = 353;
-      _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v14, 0x12u);
+      v13 = 136315394;
+      v14 = "[VGExternalAccessory _accessoryDidConnect:]_block_invoke";
+      v15 = 1024;
+      LODWORD(v16) = 353;
+      _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v13, 0x12u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isAccessoryTracked:(id)tracked
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   trackedCopy = tracked;
   if ([trackedCopy connectionID])
   {
@@ -1587,25 +1547,24 @@ void __44__VGExternalAccessory__accessoryDidConnect___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       name = [trackedCopy name];
-      v12 = 134349570;
+      v11 = 134349570;
       selfCopy = self;
-      v14 = 2112;
-      v15 = name;
-      v16 = 2048;
+      v13 = 2112;
+      v14 = name;
+      v15 = 2048;
       connectionID = [trackedCopy connectionID];
-      _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_ERROR, "[%{public}p] _isAccessoryTracked: tried to check status of accessory with an invalid key. %@ %lu", &v12, 0x20u);
+      _os_log_impl(&dword_270EC1000, v8, OS_LOG_TYPE_ERROR, "[%{public}p] _isAccessoryTracked: tried to check status of accessory with an invalid key. %@ %lu", &v11, 0x20u);
     }
 
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)_removeCarPlayAccessory:(id)accessory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (![accessoryCopy connectionID])
   {
@@ -1616,13 +1575,13 @@ void __44__VGExternalAccessory__accessoryDidConnect___block_invoke(uint64_t a1)
     }
 
     name = [accessoryCopy name];
-    v16 = 134349570;
+    v15 = 134349570;
     selfCopy4 = self;
-    v18 = 2112;
-    v19 = name;
-    v20 = 2048;
+    v17 = 2112;
+    v18 = name;
+    v19 = 2048;
     connectionID = [accessoryCopy connectionID];
-    _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "[%{public}p] _removeCarPlayAccessory: tried to remove an accessory that has an invalid key. %@, %lu", &v16, 0x20u);
+    _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_ERROR, "[%{public}p] _removeCarPlayAccessory: tried to remove an accessory that has an invalid key. %@, %lu", &v15, 0x20u);
 LABEL_13:
 
     goto LABEL_14;
@@ -1638,13 +1597,13 @@ LABEL_13:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       name2 = [accessoryCopy name];
-      v16 = 134349570;
+      v15 = 134349570;
       selfCopy4 = self;
-      v18 = 2112;
-      v19 = name2;
-      v20 = 2112;
+      v17 = 2112;
+      v18 = name2;
+      v19 = 2112;
       connectionID = v5;
-      _os_log_impl(&dword_270EC1000, name, OS_LOG_TYPE_ERROR, "[%{public}p] _removeCarPlayAccessory: tried to remove an accessory that was not tracked. %@, %@", &v16, 0x20u);
+      _os_log_impl(&dword_270EC1000, name, OS_LOG_TYPE_ERROR, "[%{public}p] _removeCarPlayAccessory: tried to remove an accessory that was not tracked. %@, %@", &v15, 0x20u);
     }
 
     goto LABEL_13;
@@ -1653,13 +1612,13 @@ LABEL_13:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     name3 = [accessoryCopy name];
-    v16 = 134349570;
+    v15 = 134349570;
     selfCopy4 = self;
-    v18 = 2112;
-    v19 = name3;
-    v20 = 2112;
+    v17 = 2112;
+    v18 = name3;
+    v19 = 2112;
     connectionID = v5;
-    _os_log_impl(&dword_270EC1000, name, OS_LOG_TYPE_INFO, "[%{public}p] _removeCarPlayAccessory: removing accessory with key. %@, %@", &v16, 0x20u);
+    _os_log_impl(&dword_270EC1000, name, OS_LOG_TYPE_INFO, "[%{public}p] _removeCarPlayAccessory: removing accessory with key. %@, %@", &v15, 0x20u);
   }
 
   [(NSMutableDictionary *)self->_trackedAccessoriesByConnectionId removeObjectForKey:v5];
@@ -1668,9 +1627,9 @@ LABEL_13:
     v10 = VGGetExternalAccessoryLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v16 = 134349056;
+      v15 = 134349056;
       selfCopy4 = self;
-      _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_INFO, "[%{public}p] _removeCarPlayAccessory: currently not tracking any accessories. clearing tracked vehicle state", &v16, 0xCu);
+      _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_INFO, "[%{public}p] _removeCarPlayAccessory: currently not tracking any accessories. clearing tracked vehicle state", &v15, 0xCu);
     }
 
     accessoryState = self->_accessoryState;
@@ -1686,13 +1645,11 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addNewCarPlayAccessory:(id)accessory
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if ([accessoryCopy connectionID])
   {
@@ -1705,13 +1662,13 @@ LABEL_14:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         name = [accessoryCopy name];
-        v14 = 134349570;
+        v13 = 134349570;
         selfCopy3 = self;
-        v16 = 2112;
-        v17 = name;
-        v18 = 2112;
+        v15 = 2112;
+        v16 = name;
+        v17 = 2112;
         connectionID = v5;
-        _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "[%{public}p] _addNewCarPlayAccessory: trying to add an accessory, it is already tracked -> replacing, name: %@ key: %@", &v14, 0x20u);
+        _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "[%{public}p] _addNewCarPlayAccessory: trying to add an accessory, it is already tracked -> replacing, name: %@ key: %@", &v13, 0x20u);
       }
     }
 
@@ -1719,13 +1676,13 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       name2 = [accessoryCopy name];
-      v14 = 134349570;
+      v13 = 134349570;
       selfCopy3 = self;
-      v16 = 2112;
-      v17 = name2;
-      v18 = 2112;
+      v15 = 2112;
+      v16 = name2;
+      v17 = 2112;
       connectionID = v5;
-      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_INFO, "[%{public}p] _addNewCarPlayAccessory: added a new accessory: %@ key: %@.", &v14, 0x20u);
+      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_INFO, "[%{public}p] _addNewCarPlayAccessory: added a new accessory: %@ key: %@.", &v13, 0x20u);
     }
 
     [(NSMutableDictionary *)self->_trackedAccessoriesByConnectionId setObject:accessoryCopy forKeyedSubscript:v5];
@@ -1741,22 +1698,20 @@ LABEL_14:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     vehicleInfoInitialData = [accessoryCopy name];
-    v14 = 134349570;
+    v13 = 134349570;
     selfCopy3 = self;
-    v16 = 2112;
-    v17 = vehicleInfoInitialData;
-    v18 = 2048;
+    v15 = 2112;
+    v16 = vehicleInfoInitialData;
+    v17 = 2048;
     connectionID = [accessoryCopy connectionID];
-    _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_FAULT, "[%{public}p] _addNewCarPlayAccessory: tried to add an accessory, but it has an invalid key. %@, %lu", &v14, 0x20u);
+    _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_FAULT, "[%{public}p] _addNewCarPlayAccessory: tried to add an accessory, but it has an invalid key. %@, %lu", &v13, 0x20u);
 LABEL_11:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = VGGetExternalAccessoryLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -1771,10 +1726,9 @@ LABEL_11:
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v7.receiver = self;
-  v7.super_class = VGExternalAccessory;
-  [(VGExternalAccessory *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = VGExternalAccessory;
+  [(VGExternalAccessory *)&v6 dealloc];
 }
 
 @end

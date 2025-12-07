@@ -38,9 +38,7 @@
 
 - (void)addCorpusWordsFromArray:(id)array
 {
-  v4 = [(NSSet *)self->_corpus setByAddingObjectsFromArray:array];
-  corpus = self->_corpus;
-  self->_corpus = v4;
+  self->_corpus = [(NSSet *)self->_corpus setByAddingObjectsFromArray:array];
 
   _objc_release_x1();
 }

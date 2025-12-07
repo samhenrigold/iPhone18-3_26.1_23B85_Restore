@@ -20,10 +20,9 @@
   bundleID = self->_bundleID;
   if (!bundleID)
   {
-    pid = self->_pid;
-    v5 = BSBundleIDForPID();
-    v6 = self->_bundleID;
-    self->_bundleID = v5;
+    v4 = BSBundleIDForPID();
+    v5 = self->_bundleID;
+    self->_bundleID = v4;
 
     bundleID = self->_bundleID;
   }
@@ -123,7 +122,7 @@ LABEL_7:
     [MRNowPlayingAudioFormatContentInfo bestAvailableAudioFormat];
   }
 
-  if ([(NSString *)bestAvailableContent isEqualToString:*v4])
+  if (objc_msgSend_isEqualToString_(bestAvailableContent))
   {
     return 1;
   }
@@ -148,7 +147,7 @@ LABEL_7:
     [MRNowPlayingAudioFormatContentInfo bestAvailableAudioFormat];
   }
 
-  if ([(NSString *)v7 isEqualToString:*v8])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     return 2;
   }
@@ -323,10 +322,10 @@ LABEL_7:
       v6 = [(MRNowPlayingAudioFormatContentInfo *)v5 pid];
       pid = self->_pid;
       bundleID = [(MRNowPlayingAudioFormatContentInfo *)v5 bundleID];
-      v9 = [bundleID isEqualToString:self->_bundleID];
+      isEqualToString = objc_msgSend_isEqualToString_(bundleID);
       if (v6 == pid)
       {
-        v10 = v9;
+        v10 = isEqualToString;
       }
 
       else
@@ -361,7 +360,7 @@ LABEL_7:
       }
 
       bestAvailableContent = [(MRNowPlayingAudioFormatContentInfo *)v5 bestAvailableContent];
-      v19 = v17 & [bestAvailableContent isEqualToString:self->_bestAvailableContent];
+      v19 = v17 & objc_msgSend_isEqualToString_(bestAvailableContent);
 
       if (self->_eligibleForSpatialization == [(MRNowPlayingAudioFormatContentInfo *)v5 isEligibleForSpatialization])
       {

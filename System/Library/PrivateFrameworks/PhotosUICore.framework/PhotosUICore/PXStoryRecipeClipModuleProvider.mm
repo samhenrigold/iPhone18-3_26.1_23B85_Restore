@@ -31,7 +31,7 @@
     v16 = 2;
   }
 
-  v17 = &PXStoryAutoEditModuleTypes;
+  v17 = PXStoryAutoEditModuleTypes;
   do
   {
     v18 = *v17++;
@@ -175,7 +175,7 @@
   return v26;
 }
 
-void __113__PXStoryRecipeClipModuleProvider__splitEmptySpaceInModules_maxEmptySpaceLength_momentClipRange_withClipCatalog___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void __113__PXStoryRecipeClipModuleProvider__splitEmptySpaceInModules_maxEmptySpaceLength_momentClipRange_withClipCatalog___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
   v20[1] = *MEMORY[0x1E69E9840];
   if (a3 > *(a1 + 48))

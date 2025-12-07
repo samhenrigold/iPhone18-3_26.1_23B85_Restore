@@ -23,7 +23,6 @@
     v8 = 0;
   }
 
-  *MEMORY[0x1E69E9840];
   v3 = v8;
 
   return v3;
@@ -52,7 +51,6 @@
   aaf_toBase64DecodedData = [v8 aaf_toBase64DecodedData];
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return aaf_toBase64DecodedData;
 }

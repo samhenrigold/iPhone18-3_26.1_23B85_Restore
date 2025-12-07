@@ -441,12 +441,12 @@ void __113__WFCompactContentPreviewViewController__getTypeSpecificThumbnailViewC
   }
 }
 
-void __113__WFCompactContentPreviewViewController__getTypeSpecificThumbnailViewControllerForContentItem_completionHandler___block_invoke_207(uint64_t a1, void *a2)
+void __113__WFCompactContentPreviewViewController__getTypeSpecificThumbnailViewControllerForContentItem_completionHandler___block_invoke_207(uint64_t a1, void *a2, double a3, double a4)
 {
-  v3 = a2;
-  v4 = [*(a1 + 32) wfType];
-  v6 = v3;
-  v5 = v3;
+  v5 = a2;
+  v6 = [*(a1 + 32) wfType];
+  v8 = v5;
+  v7 = v5;
   WFAsyncTransformedImageFromImage();
 }
 

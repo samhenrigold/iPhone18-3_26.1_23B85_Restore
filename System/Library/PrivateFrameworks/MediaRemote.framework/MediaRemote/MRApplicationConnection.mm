@@ -51,12 +51,12 @@
 
 - (MRApplicationConnection)initWithContext:(id)context requestInfo:(id)info
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   infoCopy = info;
-  v30.receiver = self;
-  v30.super_class = MRApplicationConnection;
-  v9 = [(MRApplicationConnection *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = MRApplicationConnection;
+  v9 = [(MRApplicationConnection *)&v29 init];
   v10 = v9;
   if (v9)
   {
@@ -67,7 +67,7 @@
 
     uTF8String = [v13 UTF8String];
     v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v16 = MRApplicationConnectionGetQueue();
+    v16 = MRApplicationConnectionGetQueue(v15);
     v17 = dispatch_queue_create_with_target_V2(uTF8String, v15, v16);
     queue = v10->_queue;
     v10->_queue = v17;
@@ -78,7 +78,7 @@
 
     uTF8String2 = [v21 UTF8String];
     v23 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v24 = MRApplicationConnectionGetMessageQueue();
+    v24 = MRApplicationConnectionGetMessageQueue(v23);
     v25 = dispatch_queue_create_with_target_V2(uTF8String2, v23, v24);
     messageQueue = v10->_messageQueue;
     v10->_messageQueue = v25;
@@ -91,20 +91,19 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v32 = v10;
-      v33 = 2112;
-      v34 = contextCopy;
+      v31 = v10;
+      v32 = 2112;
+      v33 = contextCopy;
       _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection] initialize<%p> - context: %@", buf, 0x16u);
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -113,10 +112,9 @@
     _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MRApplicationConnection;
-  [(MRApplicationConnection *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MRApplicationConnection;
+  [(MRApplicationConnection *)&v4 dealloc];
 }
 
 - (id)description
@@ -155,19 +153,16 @@
 - (void)activate
 {
   OUTLINED_FUNCTION_2_6();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRApplicationConnectionStateDescription(*v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_12(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> Attempting to activate connection in state: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_12(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> Attempting to activate connection in state: %@", v4, v5, v6, v7);
 }
 
-uint64_t __35__MRApplicationConnection_activate__block_invoke(uint64_t result, uint64_t a2)
+id *__35__MRApplicationConnection_activate__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) invalidate:a2];
+    return [result[4] invalidate:a2];
   }
 
   return result;
@@ -175,7 +170,7 @@ uint64_t __35__MRApplicationConnection_activate__block_invoke(uint64_t result, u
 
 - (void)close
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   state = self->_state;
   if (state != 2)
@@ -203,8 +198,8 @@ uint64_t __35__MRApplicationConnection_activate__block_invoke(uint64_t result, u
     v8 = MRApplicationConnectionStateDescription(state);
     *buf = 134218242;
     selfCopy2 = self;
-    v18 = 2112;
-    v19 = v8;
+    v17 = 2112;
+    v18 = v8;
     _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> close - state: %@", buf, 0x16u);
   }
 
@@ -226,15 +221,13 @@ uint64_t __35__MRApplicationConnection_activate__block_invoke(uint64_t result, u
 
     v12 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:v11];
     queue = [(MRApplicationConnection *)self queue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __32__MRApplicationConnection_close__block_invoke;
-    v15[3] = &unk_1E769AFC0;
-    v15[4] = self;
-    [v10 closeApplicationConnection:self error:v12 queue:queue completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __32__MRApplicationConnection_close__block_invoke;
+    v14[3] = &unk_1E769AFC0;
+    v14[4] = self;
+    [v10 closeApplicationConnection:self error:v12 queue:queue completion:v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __32__MRApplicationConnection_close__block_invoke(uint64_t a1, void *a2)
@@ -252,7 +245,7 @@ void __32__MRApplicationConnection_close__block_invoke(uint64_t a1, void *a2)
 
 - (void)invalidate:(id)invalidate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
   os_unfair_lock_lock(&self->_lock);
   if (self->_state == 2)
@@ -268,8 +261,8 @@ void __32__MRApplicationConnection_close__block_invoke(uint64_t a1, void *a2)
     {
       *buf = 134218242;
       selfCopy = self;
-      v17 = 2112;
-      v18 = invalidateCopy;
+      v16 = 2112;
+      v17 = invalidateCopy;
       _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> invalidate - error: %@", buf, 0x16u);
     }
 
@@ -284,23 +277,21 @@ void __32__MRApplicationConnection_close__block_invoke(uint64_t a1, void *a2)
     if (v6)
     {
       messageQueue = [(MRApplicationConnection *)self messageQueue];
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __38__MRApplicationConnection_invalidate___block_invoke;
-      v12[3] = &unk_1E769AB28;
-      v14 = v6;
-      v13 = invalidateCopy;
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __38__MRApplicationConnection_invalidate___block_invoke;
+      v11[3] = &unk_1E769AB28;
+      v13 = v6;
+      v12 = invalidateCopy;
       v10 = v6;
-      dispatch_async(messageQueue, v12);
+      dispatch_async(messageQueue, v11);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessage:(id)message
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   os_unfair_lock_lock(&self->_lock);
   state = self->_state;
@@ -317,18 +308,18 @@ void __32__MRApplicationConnection_close__block_invoke(uint64_t a1, void *a2)
       underlyingMessage = [messageCopy underlyingMessage];
       *buf = 134218242;
       selfCopy = self;
-      v15 = 2112;
-      v16 = underlyingMessage;
+      v14 = 2112;
+      v15 = underlyingMessage;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> sendMessage - sending payload: %@", buf, 0x16u);
     }
 
     queue = [(MRApplicationConnection *)self queue];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __39__MRApplicationConnection_sendMessage___block_invoke;
-    v12[3] = &unk_1E769AFC0;
-    v12[4] = self;
-    [v6 sendApplicationConnectionMessage:messageCopy forConnection:self queue:queue completion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __39__MRApplicationConnection_sendMessage___block_invoke;
+    v11[3] = &unk_1E769AFC0;
+    v11[4] = self;
+    [v6 sendApplicationConnectionMessage:messageCopy forConnection:self queue:queue completion:v11];
   }
 
   else
@@ -339,15 +330,13 @@ void __32__MRApplicationConnection_close__block_invoke(uint64_t a1, void *a2)
       [MRApplicationConnection sendMessage:];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __39__MRApplicationConnection_sendMessage___block_invoke(uint64_t result, uint64_t a2)
+id *__39__MRApplicationConnection_sendMessage___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) invalidate:a2];
+    return [result[4] invalidate:a2];
   }
 
   return result;
@@ -413,23 +402,23 @@ LABEL_11:
 
 void __41__MRApplicationConnection_handleMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = (a1 + 32);
   v6 = [v5 requestInfo];
   v7 = [v3 handleIncomingConnection:v5 requestInfo:v6];
 
-  os_unfair_lock_lock(*v4 + 3);
-  v23 = MEMORY[0x1A58E3570](*(*v4 + 2));
+  os_unfair_lock_lock((*v4 + 12));
+  v22 = MEMORY[0x1A58E3570](*(*v4 + 16));
   v8 = *v4;
   if (v7)
   {
     if (*&v8[12]._os_unfair_lock_opaque == 1)
     {
       v9 = *&v8[14]._os_unfair_lock_opaque;
-      v10 = *(*v4 + 7);
-      *(*v4 + 7) = 0;
+      v10 = *(*v4 + 56);
+      *(*v4 + 56) = 0;
 
       goto LABEL_9;
     }
@@ -449,32 +438,32 @@ void __41__MRApplicationConnection_handleMessage___block_invoke(uint64_t a1, voi
 
   v9 = 0;
 LABEL_9:
-  os_unfair_lock_unlock(*v4 + 3);
-  if (v23)
+  os_unfair_lock_unlock((*v4 + 12));
+  if (v22)
   {
-    v21 = v9;
-    v22 = v3;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v20 = v9;
+    v21 = v3;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v13 = v9;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         v17 = 0;
         do
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * v17);
+          v18 = *(*(&v25 + 1) + 8 * v17);
           v19 = [*v4 messageQueue];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
@@ -482,66 +471,58 @@ LABEL_9:
           block[3] = &unk_1E769E410;
           block[4] = *v4;
           block[5] = v18;
-          v25 = v23;
+          v24 = v22;
           dispatch_async(v19, block);
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v15);
     }
 
-    v9 = v21;
-    v3 = v22;
+    v9 = v20;
+    v3 = v21;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__MRApplicationConnection_handleMessage___block_invoke_141(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = _MRLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) underlyingMessage];
-    v8 = 134218242;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> handleMessage - delivering payload: %@", &v8, 0x16u);
+    v6 = 134218242;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> handleMessage - delivering payload: %@", &v6, 0x16u);
   }
 
-  v5 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 uint64_t __41__MRApplicationConnection_handleMessage___block_invoke_143(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = _MRLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) underlyingMessage];
-    v8 = 134218242;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> handleMessage - delivering payload: %@", &v8, 0x16u);
+    v6 = 134218242;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRApplicationConnection]<%p> handleMessage - delivering payload: %@", &v6, 0x16u);
   }
 
-  v5 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (BOOL)isEqual:(id)equal
@@ -652,56 +633,48 @@ uint64_t __41__MRApplicationConnection_handleMessage___block_invoke_143(uint64_t
 
 void __32__MRApplicationConnection_close__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[MRApplicationConnection]<%p> close - notifying daemon failed with error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[MRApplicationConnection]<%p> close - notifying daemon failed with error: %@", &v4, 0x16u);
 }
 
 - (void)sendMessage:.cold.1()
 {
   OUTLINED_FUNCTION_2_6();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRApplicationConnectionStateDescription(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_3_8(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> sendMessage - cannot send message in state: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_8(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> sendMessage - cannot send message in state: %@", v4, v5, v6, v7);
 }
 
-void __41__MRApplicationConnection_handleMessage___block_invoke_cold_1(uint64_t a1)
+void __41__MRApplicationConnection_handleMessage___block_invoke_cold_1(uint64_t *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = MRApplicationConnectionStateDescription(*(*a1 + 48));
-  OUTLINED_FUNCTION_3_8(&dword_1A2860000, v1, v2, "[MRApplicationConnection]<%p> handleMessage - connection is in state: %@ after acceptance -> invalidating", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v1 = *a1;
+  v2 = MRApplicationConnectionStateDescription(*(*a1 + 48));
+  *v9 = 134218242;
+  *&v9[4] = v1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  OUTLINED_FUNCTION_3_8(&dword_1A2860000, v3, v4, "[MRApplicationConnection]<%p> handleMessage - connection is in state: %@ after acceptance -> invalidating", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)setIncomingMessageHandler:.cold.1()
 {
   OUTLINED_FUNCTION_2_6();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRApplicationConnectionStateDescription(*v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_12(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> setIncomingMessageHandler - attempting to set while in state: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_12(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> setIncomingMessageHandler - attempting to set while in state: %@", v4, v5, v6, v7);
 }
 
 - (void)setInvalidationHandler:.cold.1()
 {
   OUTLINED_FUNCTION_2_6();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRApplicationConnectionStateDescription(*v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_12(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> setInvalidationHandler - attempting to set while in state: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_12(&dword_1A2860000, v2, v3, "[MRApplicationConnection]<%p> setInvalidationHandler - attempting to set while in state: %@", v4, v5, v6, v7);
 }
 
 @end

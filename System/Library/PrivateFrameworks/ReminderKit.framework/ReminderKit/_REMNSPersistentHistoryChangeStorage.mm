@@ -155,10 +155,9 @@ LABEL_14:
 
 - (void)initWithCoder:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unknown REMChangeType %ld", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unknown REMChangeType %ld", v1, 0xCu);
 }
 
 @end

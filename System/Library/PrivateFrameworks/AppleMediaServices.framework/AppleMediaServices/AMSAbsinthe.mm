@@ -131,7 +131,7 @@ id __47__AMSAbsinthe_headersForRequest_buyParams_bag___block_invoke(uint64_t a1,
   return v20;
 }
 
-id __47__AMSAbsinthe_headersForRequest_buyParams_bag___block_invoke_43(uint64_t a1, void *a2, void *a3)
+id __47__AMSAbsinthe_headersForRequest_buyParams_bag___block_invoke_43(void *a1, void *a2, void *a3)
 {
   v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -152,12 +152,12 @@ id __47__AMSAbsinthe_headersForRequest_buyParams_bag___block_invoke_43(uint64_t 
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
+      v10 = a1[4];
       v11 = MEMORY[0x1E696AEC0];
       v12 = objc_opt_class();
       if (v10)
       {
-        [v11 stringWithFormat:@"%@: [%@] ", v12, *(a1 + 32)];
+        [v11 stringWithFormat:@"%@: [%@] ", v12, a1[4]];
       }
 
       else
@@ -165,7 +165,7 @@ id __47__AMSAbsinthe_headersForRequest_buyParams_bag___block_invoke_43(uint64_t 
         [v11 stringWithFormat:@"%@: ", v12, v19];
       }
       v13 = ;
-      v14 = AMSLogableURLRequest(*(a1 + 40));
+      v14 = AMSLogableURLRequest(a1[5]);
       *buf = 138543618;
       v23 = v13;
       v24 = 2114;

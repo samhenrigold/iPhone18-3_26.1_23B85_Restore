@@ -61,7 +61,7 @@
 - (void)trackPersonBlob:(id)blob
 {
   blobID = [blob blobID];
-  [(HMIPersonBlob *)self setBlobID:blobID];
+  [(HMIPersonBlob *)self setBlobID:?];
 }
 
 - (float)similarityToPersonBlob:(id)blob
@@ -81,7 +81,7 @@
       data = [faceprint3 data];
       faceprint4 = [blobCopy faceprint];
       data2 = [faceprint4 data];
-      [HMIGreedyClustering faceDistanceFromDescriptor:data toDescriptor:data2];
+      [HMIGreedyClustering faceDistanceFromDescriptor:"faceDistanceFromDescriptor:toDescriptor:" toDescriptor:?];
       v6 = v13;
     }
   }
@@ -99,7 +99,7 @@
       data3 = [torsoprint3 data];
       torsoprint4 = [blobCopy torsoprint];
       data4 = [torsoprint4 data];
-      [HMIGreedyClustering faceDistanceFromDescriptor:data3 toDescriptor:data4];
+      [HMIGreedyClustering faceDistanceFromDescriptor:"faceDistanceFromDescriptor:toDescriptor:" toDescriptor:?];
       v15 = v22;
     }
   }
@@ -120,7 +120,7 @@
     v61 = v36;
     if (blobCopy)
     {
-      [blobCopy timeStamp];
+      [&time timeStamp];
     }
 
     else
@@ -129,18 +129,18 @@
     }
 
     Seconds = CMTimeGetSeconds(&time);
-    [(HMIPersonBlob *)selfCopy timeStamp];
+    [&time timeStamp];
     v40 = CMTimeGetSeconds(&time);
     [blobCopy boundingBox];
     v45 = HMICGRectDescription(v41, v42, v43, v44);
     blobID = [blobCopy blobID];
     uUIDString = [blobID UUIDString];
-    v46 = [uUIDString substringToIndex:3];
+    v46 = [uUIDString substringToIndex:?];
     [(HMIPersonBlob *)selfCopy boundingBox];
     v51 = HMICGRectDescription(v47, v48, v49, v50);
     blobID2 = [(HMIPersonBlob *)selfCopy blobID];
     uUIDString2 = [blobID2 UUIDString];
-    v54 = [uUIDString2 substringToIndex:3];
+    v54 = [uUIDString2 substringToIndex:?];
     LODWORD(time.value) = 138546434;
     *(&time.value + 4) = v60;
     LOWORD(time.flags) = 2048;
@@ -202,7 +202,7 @@
 
 - (BOOL)isExpiredAtTimeStamp:(id *)stamp
 {
-  [(HMIPersonBlob *)self timeStamp];
+  [&rhs timeStamp];
   v5 = *stamp;
   CMTimeSubtract(&time, &v5, &rhs);
   return CMTimeGetSeconds(&time) > 5.0;
@@ -211,11 +211,11 @@
 - (id)shortDescription
 {
   v21 = MEMORY[0x277CCACA8];
-  [(HMIPersonBlob *)self timeStamp];
+  [&time timeStamp];
   Seconds = CMTimeGetSeconds(&time);
   blobID = [(HMIPersonBlob *)self blobID];
   uUIDString = [blobID UUIDString];
-  v6 = [uUIDString substringToIndex:3];
+  v6 = [uUIDString substringToIndex:?];
   [(HMIPersonBlob *)self boundingBox];
   v11 = HMICGRectDescription(v7, v8, v9, v10);
   faceprint = [(HMIPersonBlob *)self faceprint];
@@ -247,7 +247,7 @@
     v17 = &stru_284057FB8;
   }
 
-  v18 = [v21 stringWithFormat:@"PersonBlob(PTS:%.2f): %@ (%@%@%@%@)", *&Seconds, v6, v11, v13, v15, v17];
+  v18 = [v21 stringWithFormat:*&Seconds, v6, v11, v13, v15, v17];
 
   if (!faceprint)
   {

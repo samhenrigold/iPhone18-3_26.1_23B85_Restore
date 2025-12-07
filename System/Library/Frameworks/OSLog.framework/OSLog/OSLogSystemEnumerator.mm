@@ -19,9 +19,7 @@
 
 - (void)_handleEventProxy:(id)proxy
 {
-  v4 = convertEventProxyToEntry(proxy);
-  next = self->_next;
-  self->_next = v4;
+  self->_next = convertEventProxyToEntry(proxy);
 
   MEMORY[0x2821F96F8]();
 }

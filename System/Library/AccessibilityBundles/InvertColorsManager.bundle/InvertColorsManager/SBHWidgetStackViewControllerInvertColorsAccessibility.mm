@@ -1,5 +1,6 @@
 @interface SBHWidgetStackViewControllerInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
+- (void)_createBackgroundViewIfNecessary:(BOOL)necessary;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -29,6 +30,14 @@
   v3.receiver = self;
   v3.super_class = SBHWidgetStackViewControllerInvertColorsAccessibility;
   [(SBHWidgetStackViewControllerInvertColorsAccessibility *)&v3 viewWillLayoutSubviews];
+  [(SBHWidgetStackViewControllerInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
+
+- (void)_createBackgroundViewIfNecessary:(BOOL)necessary
+{
+  v4.receiver = self;
+  v4.super_class = SBHWidgetStackViewControllerInvertColorsAccessibility;
+  [(SBHWidgetStackViewControllerInvertColorsAccessibility *)&v4 _createBackgroundViewIfNecessary:necessary];
   [(SBHWidgetStackViewControllerInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
 }
 

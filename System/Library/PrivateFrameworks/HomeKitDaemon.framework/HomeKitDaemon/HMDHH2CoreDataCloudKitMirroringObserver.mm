@@ -14,7 +14,7 @@
 
 - (void)coreData:(id)data persistentStoreWithIdentifierDidChange:(id)change
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   changeCopy = change;
   v8 = objc_autoreleasePoolPush();
@@ -24,9 +24,9 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = changeCopy;
+    v22 = v11;
+    v23 = 2112;
+    v24 = changeCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received persistent store changed notification for store: %@", buf, 0x16u);
   }
 
@@ -37,12 +37,12 @@
   if (v13)
   {
     cachedMOC = [(HMDHH2CoreDataCloudKitMirroringObserver *)selfCopy cachedMOC];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __91__HMDHH2CoreDataCloudKitMirroringObserver_coreData_persistentStoreWithIdentifierDidChange___block_invoke;
-    v21[3] = &unk_27868A728;
-    v21[4] = selfCopy;
-    [cachedMOC performBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __91__HMDHH2CoreDataCloudKitMirroringObserver_coreData_persistentStoreWithIdentifierDidChange___block_invoke;
+    v20[3] = &unk_27868A728;
+    v20[4] = selfCopy;
+    [cachedMOC performBlock:v20];
   }
 
   else
@@ -55,23 +55,21 @@
       v18 = HMFGetLogIdentifier();
       storeIdentifier2 = [(HMDHH2CoreDataCloudKitMirroringObserver *)v16 storeIdentifier];
       *buf = 138543874;
-      v23 = v18;
-      v24 = 2112;
-      v25 = storeIdentifier2;
-      v26 = 2112;
-      v27 = changeCopy;
+      v22 = v18;
+      v23 = 2112;
+      v24 = storeIdentifier2;
+      v25 = 2112;
+      v26 = changeCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Wrong store identifier: Expecting %@ got %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)verifyModelsPushedToCloudKitUsingCoreDataExportStream
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   if ([(HMDHH2CoreDataCloudKitMirroringObserver *)self isExportProgressRequestAlreadyInProgress])
   {
     [(HMDHH2CoreDataCloudKitMirroringObserver *)self setNumberOfIgnoredExportProgressRequest:[(HMDHH2CoreDataCloudKitMirroringObserver *)self numberOfIgnoredExportProgressRequest]+ 1];
@@ -90,7 +88,7 @@
     }
 
     objc_autoreleasePoolPop(v3);
-    v8 = 1;
+    return 1;
   }
 
   else
@@ -116,35 +114,35 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v52 = __Block_byref_object_copy__185732;
-    v53 = __Block_byref_object_dispose__185733;
-    v54 = 0;
+    v51 = __Block_byref_object_copy__185732;
+    v52 = __Block_byref_object_dispose__185733;
+    v53 = 0;
     v17 = objc_alloc(MEMORY[0x277CBE3A8]);
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitUsingCoreDataExportStream__block_invoke;
-    v41[3] = &unk_27867DA88;
-    v41[4] = selfCopy2;
-    v41[5] = buf;
-    v18 = [v17 initWithOptions:v9 completionBlock:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitUsingCoreDataExportStream__block_invoke;
+    v40[3] = &unk_27867DA88;
+    v40[4] = selfCopy2;
+    v40[5] = buf;
+    v18 = [v17 initWithOptions:v9 completionBlock:v40];
     requestIdentifier = [v18 requestIdentifier];
     v20 = *(*&buf[8] + 40);
     *(*&buf[8] + 40) = requestIdentifier;
 
     objectIdsToMonitor2 = [(HMDHH2CoreDataCloudKitMirroringObserver *)selfCopy2 objectIdsToMonitor];
-    v22 = [objectIdsToMonitor2 copy];
+    v22 = objc_msgSend_copy(objectIdsToMonitor2);
     [v18 setObjectIDsToFetch:v22];
 
     v23 = +[HMDCoreData sharedInstance];
     cloudPrivateStore = [v23 cloudPrivateStore];
-    v50 = cloudPrivateStore;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+    v49 = cloudPrivateStore;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
     [v18 setAffectedStores:v25];
 
     cachedMOC = [(HMDHH2CoreDataCloudKitMirroringObserver *)selfCopy2 cachedMOC];
-    v40 = 0;
-    v27 = [cachedMOC executeRequest:v18 error:&v40];
-    v28 = v40;
+    v39 = 0;
+    v27 = [cachedMOC executeRequest:v18 error:&v39];
+    v28 = v39;
 
     if (v27)
     {
@@ -167,15 +165,15 @@
       {
         v31 = HMFGetLogIdentifier();
         v32 = *(*&buf[8] + 40);
-        *v42 = 138544130;
-        v43 = v31;
-        v44 = 2112;
-        v45 = v32;
-        v46 = 2112;
-        v47 = v27;
-        v48 = 2112;
-        v49 = 0;
-        _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Successfully submitted NSCloudKitMirroringExportProgressRequest [%@] to CD. Result: %@, error: %@", v42, 0x2Au);
+        *v41 = 138544130;
+        v42 = v31;
+        v43 = 2112;
+        v44 = v32;
+        v45 = 2112;
+        v46 = v27;
+        v47 = 2112;
+        v48 = 0;
+        _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Successfully submitted NSCloudKitMirroringExportProgressRequest [%@] to CD. Result: %@, error: %@", v41, 0x2Au);
       }
     }
 
@@ -187,11 +185,11 @@
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         v37 = HMFGetLogIdentifier();
-        *v42 = 138543618;
-        v43 = v37;
-        v44 = 2112;
-        v45 = v28;
-        _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Got error while submitting export progress request: %@", v42, 0x16u);
+        *v41 = 138543618;
+        v42 = v37;
+        v43 = 2112;
+        v44 = v28;
+        _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Got error while submitting export progress request: %@", v41, 0x16u);
       }
     }
 
@@ -199,13 +197,12 @@
     _Block_object_dispose(buf, 8);
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitUsingCoreDataExportStream__block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -213,7 +210,7 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v20 = v4;
+    v19 = v4;
     v8 = *(*(*(a1 + 40) + 8) + 40);
     [v3 success];
     v9 = HMFBooleanToString();
@@ -222,18 +219,18 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
     v11 = objc_opt_class();
     v12 = [v3 error];
     *buf = 138544642;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v8;
-    v4 = v20;
-    v29 = 2112;
-    v30 = v9;
-    v31 = 2112;
-    v32 = v10;
-    v33 = 2112;
-    v34 = v11;
-    v35 = 2112;
-    v36 = v12;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v8;
+    v4 = v19;
+    v28 = 2112;
+    v29 = v9;
+    v30 = 2112;
+    v31 = v10;
+    v32 = 2112;
+    v33 = v11;
+    v34 = 2112;
+    v35 = v12;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@[%@] export progress result completion handler block is called with : Success : %@, madeChanges: %@, result Class : %@, error: %@", buf, 0x3Eu);
   }
 
@@ -247,7 +244,7 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
   if ([v3 success])
   {
     v13 = [v3 objectIDToLastExportedToken];
-    v14 = [v13 copy];
+    v14 = objc_msgSend_copy(v13);
   }
 
   else
@@ -256,25 +253,23 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
   }
 
   v15 = [*(a1 + 32) cachedMOC];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitUsingCoreDataExportStream__block_invoke_24;
-  v21[3] = &unk_278689D20;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitUsingCoreDataExportStream__block_invoke_24;
+  v20[3] = &unk_278689D20;
   v16 = *(a1 + 40);
-  v21[4] = *(a1 + 32);
-  v22 = v14;
-  v23 = v3;
-  v24 = v16;
+  v20[4] = *(a1 + 32);
+  v21 = v14;
+  v22 = v3;
+  v23 = v16;
   v17 = v3;
   v18 = v14;
-  [v15 performBlock:v21];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v15 performBlock:v20];
 }
 
 void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitUsingCoreDataExportStream__block_invoke_24(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -282,11 +277,11 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(*(*(a1 + 56) + 8) + 40);
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@[%@] processing export results", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@[%@] processing export results", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -294,13 +289,11 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
   v8 = *(a1 + 40);
   v9 = [*(a1 + 48) error];
   [v7 processExportResult:v8 withError:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processExportResult:(id)result withError:(id)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -310,11 +303,11 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v46 = v11;
-    v47 = 2112;
-    v48 = resultCopy;
-    v49 = 2112;
-    v50 = errorCopy;
+    v45 = v11;
+    v46 = 2112;
+    v47 = resultCopy;
+    v48 = 2112;
+    v49 = errorCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@process export result: %@, %@", buf, 0x20u);
   }
 
@@ -329,9 +322,9 @@ void __96__HMDHH2CoreDataCloudKitMirroringObserver_verifyModelsPushedToCloudKitU
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v15;
-      v47 = 2112;
-      v48 = errorCopy;
+      v45 = v15;
+      v46 = 2112;
+      v47 = errorCopy;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Core Data export stream indicated error while exporting models to CloudKit : %@", buf, 0x16u);
     }
 
@@ -344,96 +337,94 @@ LABEL_7:
   }
 
   allKeys = [resultCopy allKeys];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError___block_invoke;
-  v44[3] = &unk_27867DA60;
-  v44[4] = selfCopy;
-  [allKeys hmf_enumerateWithAutoreleasePoolUsingBlock:v44];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError___block_invoke;
+  v43[3] = &unk_27867DA60;
+  v43[4] = selfCopy;
+  [allKeys hmf_enumerateWithAutoreleasePoolUsingBlock:v43];
 
   objectIdsToMonitor = [(HMDHH2CoreDataCloudKitMirroringObserver *)selfCopy objectIdsToMonitor];
-  v21 = [objectIdsToMonitor count];
+  v20 = [objectIdsToMonitor count];
 
-  v22 = objc_autoreleasePoolPush();
-  v23 = selfCopy;
-  v24 = HMFGetOSLogHandle();
-  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
-  if (!v21)
+  v21 = objc_autoreleasePoolPush();
+  v22 = selfCopy;
+  v23 = HMFGetOSLogHandle();
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
+  if (!v20)
   {
-    if (v25)
+    if (v24)
     {
-      v42 = HMFGetLogIdentifier();
+      v41 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v42;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Successfully exported all the CD objects to CloudKit.", buf, 0xCu);
+      v45 = v41;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Successfully exported all the CD objects to CloudKit.", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v22);
-    v16 = v23;
+    objc_autoreleasePoolPop(v21);
+    v16 = v22;
     v17 = 0;
     goto LABEL_7;
   }
 
-  if (v25)
+  if (v24)
   {
-    v26 = HMFGetLogIdentifier();
-    v27 = MEMORY[0x277CCABB0];
-    totalObjectsToMonitor = [(HMDHH2CoreDataCloudKitMirroringObserver *)v23 totalObjectsToMonitor];
-    objectIdsToMonitor2 = [(HMDHH2CoreDataCloudKitMirroringObserver *)v23 objectIdsToMonitor];
-    v30 = [v27 numberWithUnsignedLongLong:{totalObjectsToMonitor - objc_msgSend(objectIdsToMonitor2, "count")}];
-    v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDHH2CoreDataCloudKitMirroringObserver totalObjectsToMonitor](v23, "totalObjectsToMonitor")}];
+    v25 = HMFGetLogIdentifier();
+    v26 = MEMORY[0x277CCABB0];
+    totalObjectsToMonitor = [(HMDHH2CoreDataCloudKitMirroringObserver *)v22 totalObjectsToMonitor];
+    objectIdsToMonitor2 = [(HMDHH2CoreDataCloudKitMirroringObserver *)v22 objectIdsToMonitor];
+    v29 = [v26 numberWithUnsignedLongLong:{totalObjectsToMonitor - objc_msgSend(objectIdsToMonitor2, "count")}];
+    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDHH2CoreDataCloudKitMirroringObserver totalObjectsToMonitor](v22, "totalObjectsToMonitor")}];
     *buf = 138543874;
-    v46 = v26;
-    v47 = 2112;
-    v48 = v30;
-    v49 = 2112;
-    v50 = v31;
-    _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@CD to CK export progress : %@ out of %@ exported", buf, 0x20u);
+    v45 = v25;
+    v46 = 2112;
+    v47 = v29;
+    v48 = 2112;
+    v49 = v30;
+    _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@CD to CK export progress : %@ out of %@ exported", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v22);
-  v32 = objc_autoreleasePoolPush();
-  v33 = v23;
-  v34 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  objc_autoreleasePoolPop(v21);
+  v31 = objc_autoreleasePoolPush();
+  v32 = v22;
+  v33 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    v35 = HMFGetLogIdentifier();
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDHH2CoreDataCloudKitMirroringObserver numberOfIgnoredExportProgressRequest](v33, "numberOfIgnoredExportProgressRequest")}];
+    v34 = HMFGetLogIdentifier();
+    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDHH2CoreDataCloudKitMirroringObserver numberOfIgnoredExportProgressRequest](v32, "numberOfIgnoredExportProgressRequest")}];
     *buf = 138543618;
-    v46 = v35;
-    v47 = 2112;
-    v48 = v36;
-    _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Number of ignored export progress request:%@", buf, 0x16u);
+    v45 = v34;
+    v46 = 2112;
+    v47 = v35;
+    _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Number of ignored export progress request:%@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v32);
-  if ([(HMDHH2CoreDataCloudKitMirroringObserver *)v33 numberOfIgnoredExportProgressRequest])
+  objc_autoreleasePoolPop(v31);
+  if ([(HMDHH2CoreDataCloudKitMirroringObserver *)v32 numberOfIgnoredExportProgressRequest])
   {
-    [(HMDHH2CoreDataCloudKitMirroringObserver *)v33 setNumberOfIgnoredExportProgressRequest:0];
-    v37 = objc_autoreleasePoolPush();
-    v38 = v33;
-    v39 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    [(HMDHH2CoreDataCloudKitMirroringObserver *)v32 setNumberOfIgnoredExportProgressRequest:0];
+    v36 = objc_autoreleasePoolPush();
+    v37 = v32;
+    v38 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
-      v40 = HMFGetLogIdentifier();
+      v39 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v40;
-      _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Requesting to verify the models pushed to CK as we ignored few export progress request earlier", buf, 0xCu);
+      v45 = v39;
+      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Requesting to verify the models pushed to CK as we ignored few export progress request earlier", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v37);
-    cachedMOC = [(HMDHH2CoreDataCloudKitMirroringObserver *)v38 cachedMOC];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError___block_invoke_17;
-    v43[3] = &unk_27868A728;
-    v43[4] = v38;
-    [cachedMOC performBlock:v43];
+    objc_autoreleasePoolPop(v36);
+    cachedMOC = [(HMDHH2CoreDataCloudKitMirroringObserver *)v37 cachedMOC];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError___block_invoke_17;
+    v42[3] = &unk_27868A728;
+    v42[4] = v37;
+    [cachedMOC performBlock:v42];
   }
 
 LABEL_8:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError___block_invoke(uint64_t a1, void *a2)
@@ -446,16 +437,16 @@ void __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError
 
 - (void)verifyModelsPushedToCloudKit
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Going to verify models pushed to cloudKit using export stream", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Going to verify models pushed to cloudKit using export stream", &v18, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -472,9 +463,9 @@ void __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v12;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error occurred while pushing the CD models to CloudKit.", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v12;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error occurred while pushing the CD models to CloudKit.", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -491,15 +482,13 @@ void __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Looks like we are not monitoring any object changes. Not doing anything.", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Looks like we are not monitoring any object changes. Not doing anything.", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callClientsCompletionHandler:(id)handler
@@ -526,16 +515,16 @@ void __73__HMDHH2CoreDataCloudKitMirroringObserver_processExportResult_withError
 
 void __57__HMDHH2CoreDataCloudKitMirroringObserver_stopMonitoring__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@stopMonitoring", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@stopMonitoring", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -560,15 +549,13 @@ void __57__HMDHH2CoreDataCloudKitMirroringObserver_stopMonitoring__block_invoke(
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@already stopped monitoring. Not doing anything.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@already stopped monitoring. Not doing anything.", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoring:(id)monitoring
@@ -598,16 +585,16 @@ void __57__HMDHH2CoreDataCloudKitMirroringObserver_stopMonitoring__block_invoke(
 
 uint64_t __59__HMDHH2CoreDataCloudKitMirroringObserver_startMonitoring___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@startMonitoring", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@startMonitoring", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -629,9 +616,7 @@ LABEL_7:
   v7 = [*(a1 + 32) coreData];
   [v7 addNotificationListener:*(a1 + 32)];
 
-  result = [*(a1 + 32) verifyModelsPushedToCloudKit];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) verifyModelsPushedToCloudKit];
 }
 
 - (HMDHH2CoreDataCloudKitMirroringObserver)initWithObjectIds:(id)ids coreData:(id)data storeIdentifier:(id)identifier
@@ -693,10 +678,9 @@ LABEL_5:
 
 void __54__HMDHH2CoreDataCloudKitMirroringObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21_185784;
-  logCategory__hmf_once_v21_185784 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21_185784;
+  logCategory__hmf_once_v21_185784 = v0;
 }
 
 @end

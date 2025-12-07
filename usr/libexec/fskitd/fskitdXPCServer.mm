@@ -1,4 +1,7 @@
 @interface fskitdXPCServer
++ (void)LiveMounterDoUnmount:(id)unmount how:(int)how reply:(id)reply;
++ (void)LiveMounterDoUnmountCleanup:(id)cleanup how:(int)how reply:(id)reply;
++ (void)LiveMounterDoUnmountPreflight:(id)preflight how:(int)how reply:(id)reply;
 - (BOOL)extensionSupportsResource:(id)resource resource:(id)a4;
 - (BOOL)extensionSupportsResourceScheme:(id)scheme resource:(id)resource;
 - (id)applyResource:(id)resource targetBundle:(id)bundle instanceID:(id)d initiatorAuditToken:(id)token authorizingAuditToken:(id)auditToken usingBlock:(id)block;
@@ -57,6 +60,7 @@
 - (void)installedExtensionWithShortName:(id)name user:(id)user replyHandler:(id)handler;
 - (void)installedExtensions:(id)extensions;
 - (void)installedExtensionsForAuditToken:(id *)token replyHandler:(id)handler;
+- (void)listMounts:(BOOL)mounts reply:(id)reply;
 - (void)loadResource:(id)resource shortName:(id)name options:(id)options auditToken:(id *)token replyHandler:(id)handler;
 - (void)loadResource:(id)resource shortName:(id)name options:(id)options replyHandler:(id)handler;
 - (void)loadResource:(id)resource usingBundle:(id)bundle options:(id)options auditToken:(id *)token replyHandler:(id)handler;
@@ -66,6 +70,8 @@
 - (void)probeResource:(id)resource usingBundle:(id)bundle auditToken:(id *)token replyHandler:(id)handler;
 - (void)probeResource:(id)resource usingBundle:(id)bundle replyHandler:(id)handler;
 - (void)reallyUpdateErrorStateForVolume:(id)volume provider:(id)provider domainError:(id)error reply:(id)reply;
+- (void)setEnabledStateForIdentifier:(id)identifier newState:(BOOL)state replyHandler:(id)handler;
+- (void)setEnabledStateForToken:(id *)token identifier:(id)identifier newState:(BOOL)state replyHandler:(id)handler;
 - (void)setTaskUpdateInterest:(BOOL)interest replyHandler:(id)handler;
 - (void)setVerboseLevel:(int)level reply:(id)reply;
 - (void)startFSCKWithDevice:(id)device volumes:(id)volumes replyHandler:(id)handler;
@@ -74,7 +80,9 @@
 - (void)unloadResource:(id)resource shortName:(id)name options:(id)options replyHandler:(id)handler;
 - (void)unloadResource:(id)resource usingBundle:(id)bundle options:(id)options auditToken:(id *)token replyHandler:(id)handler;
 - (void)unloadResource:(id)resource usingBundle:(id)bundle options:(id)options replyHandler:(id)handler;
+- (void)unmountVolume:(id)volume how:(int)how reply:(id)reply;
 - (void)unmountVolume:(id)volume provider:(id)provider how:(int)how domainError:(id)error reply:(id)reply;
+- (void)unmountVolumeByID:(unsigned int)d how:(int)how reply:(id)reply;
 - (void)updateErrorStateForVolume:(id)volume provider:(id)provider domainError:(id)error reply:(id)reply;
 @end
 
@@ -164,6 +172,15 @@
   kitCopy[2](kitCopy, 0);
 }
 
+- (void)listMounts:(BOOL)mounts reply:(id)reply
+{
+  mountsCopy = mounts;
+  v5 = theMountTable;
+  replyCopy = reply;
+  v7 = [v5 list:mountsCopy];
+  replyCopy[2](replyCopy, v7);
+}
+
 - (void)LiveMounterReallyMountVolume:(id)volume fileSystem:(id)system displayName:(id)name provider:(id)provider domainError:(id)error on:(id)on how:(int)how options:(id)self0 auditToken:(id *)self1 reply:(id)self2
 {
   volumeCopy = volume;
@@ -175,11 +192,11 @@
   optionsCopy = options;
   replyCopy = reply;
   v93 = 0;
-  v94[0] = &v93;
-  v94[1] = 0x3032000000;
-  v94[2] = sub_100016264;
-  v94[3] = sub_100016274;
-  v95 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = sub_100016264;
+  v97 = sub_100016274;
+  v98 = 0;
   v23 = volumeCopy;
   keyExistsAndHasValidFormat = 0;
   [gSettings startedWork];
@@ -193,11 +210,11 @@
     *&buf[14] = nameCopy;
     *&buf[22] = 2112;
     *&buf[24] = providerCopy;
-    *v101 = 2112;
-    *&v101[2] = errorCopy;
-    *&v101[10] = 2112;
-    *&v101[12] = onCopy;
-    v102 = 1024;
+    *v104 = 2112;
+    *&v104[2] = errorCopy;
+    *&v104[10] = 2112;
+    *&v104[12] = onCopy;
+    v105 = 1024;
     howCopy2 = how;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "ReallyMountVolume:volume:%@:displayName:%@:provider:%@:domainError:%@:on:%@:how:0x%08x", buf, 0x3Au);
   }
@@ -240,8 +257,8 @@ LABEL_10:
     v32 = 0;
     onCopy = 0;
 LABEL_13:
-    v33 = *(v94[0] + 40);
-    *(v94[0] + 40) = v28;
+    v33 = v94[5];
+    v94[5] = v28;
 LABEL_41:
 
     goto LABEL_42;
@@ -267,16 +284,16 @@ LABEL_41:
     _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "ReallyMountVolume: Enter for provider %{public}@ mounting: %@", buf, 0x16u);
   }
 
-  v35 = (v94[0] + 40);
-  obj = *(v94[0] + 40);
+  v35 = (v94 + 5);
+  obj = v94[5];
   v32 = [theMountTable preflightMountWithName:v23 displayName:nameCopy storageName:v23 provider:providerCopy path:onCopy error:&obj];
   objc_storeStrong(v35, obj);
-  if (*(v94[0] + 40))
+  if (v94[5])
   {
     v33 = livefs_std_log();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_10002553C(v94);
+      sub_10002553C();
     }
 
 LABEL_40:
@@ -342,15 +359,15 @@ LABEL_36:
 
 LABEL_37:
   v41 = [theRoot mkMountPath:onCopy mountID:{objc_msgSend(v32, "midx")}];
-  v42 = *(v94[0] + 40);
-  *(v94[0] + 40) = v41;
+  v42 = v94[5];
+  v94[5] = v41;
 
   if (v41)
   {
     v33 = livefs_std_log();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_1000255AC(v94);
+      sub_1000255AC();
     }
 
     goto LABEL_40;
@@ -372,15 +389,15 @@ LABEL_37:
   BYTE4(v77) = (howCopy & 0x40) != 0;
   LODWORD(v77) = howCopy;
   v63 = [gSettings addMountNamed:v23 displayName:v82 mountID:objc_msgSend(v32 mountedOn:"midx") provider:onCopy fpStorage:providerCopy domainError:v23 how:errorCopy isReAdd:v77];
-  v64 = *(v94[0] + 40);
-  *(v94[0] + 40) = v63;
+  v64 = v94[5];
+  v94[5] = v63;
 
-  if (*(v94[0] + 40))
+  if (v94[5])
   {
     v33 = livefs_std_log();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_10002561C(v94);
+      sub_10002561C();
     }
 
     v30 = 0;
@@ -427,7 +444,7 @@ LABEL_37:
     v89 = v33;
     [LivefsDomainManager addDomain:v23 displayName:v82 storage:v23 provider:providerCopy domainError:errorCopy how:howCopy reply:v88];
     dispatch_semaphore_wait(v33, 0xFFFFFFFFFFFFFFFFLL);
-    if (*(v94[0] + 40))
+    if (v94[5])
     {
 
       v30 = 0;
@@ -462,8 +479,8 @@ LABEL_109:
   if ((howCopy & 2) == 0)
   {
     connect = [v32 connect];
-    v72 = *(v94[0] + 40);
-    *(v94[0] + 40) = connect;
+    v72 = v94[5];
+    v94[5] = connect;
 
     if (connect)
     {
@@ -490,15 +507,15 @@ LABEL_109:
   }
 
   v74 = [v32 mount:howCopy options:optionsCopy];
-  v75 = *(v94[0] + 40);
-  *(v94[0] + 40) = v74;
+  v75 = v94[5];
+  v94[5] = v74;
 
   if (v74)
   {
     v33 = livefs_std_log();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_100025834(v94);
+      sub_100025834();
     }
 
     goto LABEL_109;
@@ -512,7 +529,7 @@ LABEL_109:
   v29 = 1;
   v31 = 1;
 LABEL_42:
-  if (*(v94[0] + 40))
+  if (v94[5])
   {
     if (v32)
     {
@@ -525,8 +542,8 @@ LABEL_42:
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
       *&buf[24] = sub_100016264;
-      *v101 = sub_100016274;
-      *&v101[8] = 0;
+      *v104 = sub_100016274;
+      *&v104[8] = 0;
       v85[0] = _NSConcreteStackBlock;
       v85[1] = 3221225472;
       v85[2] = sub_100016300;
@@ -541,13 +558,13 @@ LABEL_42:
         v44 = livefs_std_log();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
-          v45 = *(v94[0] + 40);
+          v45 = v94[5];
           v46 = *(*&buf[8] + 40);
-          *v96 = 138412546;
-          v97 = v45;
-          v98 = 2112;
-          v99 = v46;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "While recovering from %@, domain cleanup encountered %@", v96, 0x16u);
+          *v99 = 138412546;
+          v100 = v45;
+          v101 = 2112;
+          v102 = v46;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "While recovering from %@, domain cleanup encountered %@", v99, 0x16u);
         }
       }
 
@@ -584,12 +601,12 @@ LABEL_42:
     }
   }
 
-  if (*(v94[0] + 40))
+  if (v94[5])
   {
     v54 = livefs_std_log();
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      v55 = *(v94[0] + 40);
+      v55 = v94[5];
       *buf = 138412290;
       *&buf[4] = v55;
       v56 = "ReallyMountVolume: returning %@";
@@ -616,7 +633,7 @@ LABEL_73:
   }
 
   [gSettings updateWorkTransaction];
-  replyCopy[2](replyCopy, *(v94[0] + 40));
+  replyCopy[2](replyCopy, v94[5]);
 
   _Block_object_dispose(&v93, 8);
 }
@@ -819,6 +836,303 @@ LABEL_11:
   }
 }
 
++ (void)LiveMounterDoUnmountPreflight:(id)preflight how:(int)how reply:(id)reply
+{
+  v6 = *&how;
+  preflightCopy = preflight;
+  replyCopy = reply;
+  v9 = livefs_std_log();
+  v10 = v9;
+  if (preflightCopy)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      mntOn = [preflightCopy mntOn];
+      v14 = 138543618;
+      v15 = mntOn;
+      v16 = 1024;
+      v17 = v6;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Unmounting %{public}@ how %02x", &v14, 0x12u);
+    }
+
+    volumeName = [preflightCopy volumeName];
+    [preflightCopy unmountPreflight:v6];
+    replyCopy[2](replyCopy, 0, volumeName);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      mntOn2 = [0 mntOn];
+      v14 = 138543362;
+      v15 = mntOn2;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%{public}@ is not mounted", &v14, 0xCu);
+    }
+
+    volumeName = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
+    (replyCopy)[2](replyCopy, volumeName, 0);
+  }
+}
+
++ (void)LiveMounterDoUnmountCleanup:(id)cleanup how:(int)how reply:(id)reply
+{
+  v6 = *&how;
+  cleanupCopy = cleanup;
+  replyCopy = reply;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100016264;
+  v30 = sub_100016274;
+  v31 = 0;
+  if (!cleanupCopy)
+  {
+    v9 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
+    replyCopy[2](replyCopy, v9, 0);
+  }
+
+  volumeName = [cleanupCopy volumeName];
+  v11 = [cleanupCopy unmountPostflight:v6];
+  v12 = v27[5];
+  v27[5] = v11;
+
+  if ((v6 & 2) != 0)
+  {
+    v13 = dispatch_semaphore_create(0);
+    providerName = [cleanupCopy providerName];
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = sub_100017460;
+    v23 = &unk_100061298;
+    v25 = &v26;
+    v15 = v13;
+    v24 = v15;
+    [LivefsDomainManager removeDomain:volumeName provider:providerName how:v6 reply:&v20];
+
+    dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+    if (!v27[5])
+    {
+      v16 = gSettings;
+      providerName2 = [cleanupCopy providerName];
+      v18 = [v16 removeMountNamed:volumeName provider:providerName2];
+      v19 = v27[5];
+      v27[5] = v18;
+
+      if (!v27[5])
+      {
+        [theMountTable remove:cleanupCopy];
+        [cleanupCopy setCurrentState:2];
+      }
+    }
+  }
+
+  (replyCopy)[2](replyCopy, v27[5], volumeName);
+
+  _Block_object_dispose(&v26, 8);
+}
+
++ (void)LiveMounterDoUnmount:(id)unmount how:(int)how reply:(id)reply
+{
+  v6 = *&how;
+  unmountCopy = unmount;
+  replyCopy = reply;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_100016264;
+  v37 = sub_100016274;
+  v38 = 0;
+  [gSettings startedWork];
+  if (unmountCopy)
+  {
+    v9 = livefs_std_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      mntOn = [unmountCopy mntOn];
+      *buf = 138543618;
+      v44 = mntOn;
+      v45 = 1024;
+      v46 = v6;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Unmounting %{public}@ how %02x", buf, 0x12u);
+    }
+
+    volumeName = [unmountCopy volumeName];
+    if ([unmountCopy unmountPreflight:v6])
+    {
+      v12 = [unmountCopy unmount:v6];
+      v13 = v34[5];
+      v34[5] = v12;
+
+      if (!v34[5])
+      {
+        v14 = [unmountCopy unmountPostflight:v6];
+        v15 = v34[5];
+        v34[5] = v14;
+      }
+    }
+
+    if (v34[5])
+    {
+      v16 = livefs_std_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        [unmountCopy mntOn];
+        objc_claimAutoreleasedReturnValue();
+        sub_100025AE0();
+      }
+    }
+
+    else
+    {
+      if ((v6 & 2) == 0)
+      {
+LABEL_19:
+        v25 = livefs_std_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        {
+          v26 = v34[5];
+          *v39 = 138412546;
+          v40 = v26;
+          v41 = 2112;
+          v42 = volumeName;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "unmount found mount, returning error %@, name %@", v39, 0x16u);
+        }
+
+        replyCopy[2](replyCopy, v34[5], volumeName);
+        goto LABEL_22;
+      }
+
+      v19 = dispatch_semaphore_create(0);
+      providerName = [unmountCopy providerName];
+      v27 = _NSConcreteStackBlock;
+      v28 = 3221225472;
+      v29 = sub_100017978;
+      v30 = &unk_100061298;
+      v32 = &v33;
+      v16 = v19;
+      v31 = v16;
+      [LivefsDomainManager removeDomain:volumeName provider:providerName how:v6 reply:&v27];
+
+      dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
+      if (!v34[5])
+      {
+        v21 = gSettings;
+        providerName2 = [unmountCopy providerName];
+        v23 = [v21 removeMountNamed:volumeName provider:providerName2];
+        v24 = v34[5];
+        v34[5] = v23;
+
+        if (!v34[5])
+        {
+          [theMountTable remove:unmountCopy];
+          [unmountCopy setCurrentState:2];
+        }
+      }
+    }
+
+    goto LABEL_19;
+  }
+
+  v17 = livefs_std_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  {
+    mntOn2 = [0 mntOn];
+    *buf = 138543362;
+    v44 = mntOn2;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%{public}@ is not mounted", buf, 0xCu);
+  }
+
+  volumeName = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
+  (replyCopy)[2](replyCopy, volumeName, 0);
+LABEL_22:
+
+  [gSettings updateWorkTransaction];
+  _Block_object_dispose(&v33, 8);
+}
+
+- (void)unmountVolume:(id)volume how:(int)how reply:(id)reply
+{
+  v6 = *&how;
+  volumeCopy = volume;
+  replyCopy = reply;
+  if (verbose)
+  {
+    v9 = livefs_std_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v17 = volumeCopy;
+      v18 = 1024;
+      v19 = v6;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Unmount for %@ with how %d", buf, 0x12u);
+    }
+  }
+
+  if ([volumeCopy isAbsolutePath])
+  {
+    volumeCopy = volumeCopy;
+  }
+
+  else
+  {
+    v11 = [NSString alloc];
+    volumeCopy = [v11 initWithFormat:@"%@/%@", gLiveFilesMountPath, volumeCopy];
+  }
+
+  v12 = volumeCopy;
+  v13 = [theMountTable lookupByPath:volumeCopy];
+  if (v13)
+  {
+    [objc_opt_class() LiveMounterDoUnmount:v13 how:v6 reply:replyCopy];
+  }
+
+  else
+  {
+    v14 = livefs_std_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543362;
+      v17 = v12;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%{public}@ is not mounted", buf, 0xCu);
+    }
+
+    v15 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
+    replyCopy[2](replyCopy, v15, 0);
+  }
+}
+
+- (void)unmountVolumeByID:(unsigned int)d how:(int)how reply:(id)reply
+{
+  v5 = *&how;
+  v6 = *&d;
+  replyCopy = reply;
+  if (verbose)
+  {
+    v8 = livefs_std_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10[0] = 67109376;
+      v10[1] = v6;
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Unmount for ID %u with how %d", v10, 0xEu);
+    }
+  }
+
+  if ((v6 + 1) > 1)
+  {
+    v9 = [theMountTable lookup:v6];
+    [objc_opt_class() LiveMounterDoUnmount:v9 how:v5 reply:replyCopy];
+  }
+
+  else
+  {
+    v9 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+    replyCopy[2](replyCopy, v9, 0);
+  }
+}
+
 - (void)unmountVolume:(id)volume provider:(id)provider how:(int)how domainError:(id)error reply:(id)reply
 {
   LODWORD(v9) = how;
@@ -910,7 +1224,7 @@ LABEL_11:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -927,6 +1241,34 @@ LABEL_11:
   [(fskitdXPCServer *)self _installedExtensionsForAuditToken:v9 replyHandler:v7];
 }
 
+- (void)setEnabledStateForIdentifier:(id)identifier newState:(BOOL)state replyHandler:(id)handler
+{
+  stateCopy = state;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  if (self->_clientHasEntitlement)
+  {
+    ourConn = self->_ourConn;
+    if (ourConn)
+    {
+      objc_msgSend_auditToken(ourConn);
+    }
+
+    else
+    {
+      memset(v12, 0, sizeof(v12));
+    }
+
+    [(fskitdXPCServer *)self setEnabledStateForToken:v12 identifier:identifierCopy newState:stateCopy replyHandler:handlerCopy];
+  }
+
+  else
+  {
+    v11 = fs_errorForPOSIXError();
+    handlerCopy[2](handlerCopy, v11);
+  }
+}
+
 - (void)installedExtensionWithShortName:(id)name replyHandler:(id)handler
 {
   nameCopy = name;
@@ -934,7 +1276,7 @@ LABEL_11:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -969,7 +1311,7 @@ LABEL_11:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -1780,7 +2122,7 @@ LABEL_27:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -1912,7 +2254,7 @@ LABEL_27:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2086,7 +2428,7 @@ LABEL_12:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2103,7 +2445,7 @@ LABEL_12:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2126,7 +2468,7 @@ LABEL_12:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2149,7 +2491,7 @@ LABEL_12:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2232,7 +2574,7 @@ LABEL_7:
       ourConn = self->_ourConn;
       if (ourConn)
       {
-        [(NSXPCConnection *)ourConn auditToken];
+        objc_msgSend_auditToken(ourConn);
       }
 
       else
@@ -2244,7 +2586,7 @@ LABEL_7:
       v19 = self->_ourConn;
       if (v19)
       {
-        [(NSXPCConnection *)v19 auditToken];
+        objc_msgSend_auditToken(v19);
       }
 
       else
@@ -2410,7 +2752,7 @@ LABEL_27:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2426,7 +2768,7 @@ LABEL_27:
     v17 = self->_ourConn;
     if (v17)
     {
-      [(NSXPCConnection *)v17 auditToken];
+      objc_msgSend_auditToken(v17);
     }
 
     else
@@ -2463,7 +2805,7 @@ LABEL_27:
     ourConn = self->_ourConn;
     if (ourConn)
     {
-      [(NSXPCConnection *)ourConn auditToken];
+      objc_msgSend_auditToken(ourConn);
     }
 
     else
@@ -2603,7 +2945,7 @@ LABEL_27:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2619,7 +2961,7 @@ LABEL_27:
     v16 = self->_ourConn;
     if (v16)
     {
-      [(NSXPCConnection *)v16 auditToken];
+      objc_msgSend_auditToken(v16);
     }
 
     else
@@ -2655,7 +2997,7 @@ LABEL_27:
     ourConn = self->_ourConn;
     if (ourConn)
     {
-      [(NSXPCConnection *)ourConn auditToken];
+      objc_msgSend_auditToken(ourConn);
     }
 
     else
@@ -2719,7 +3061,7 @@ LABEL_27:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2735,7 +3077,7 @@ LABEL_27:
     v17 = self->_ourConn;
     if (v17)
     {
-      [(NSXPCConnection *)v17 auditToken];
+      objc_msgSend_auditToken(v17);
     }
 
     else
@@ -2772,7 +3114,7 @@ LABEL_27:
     ourConn = self->_ourConn;
     if (ourConn)
     {
-      [(NSXPCConnection *)ourConn auditToken];
+      objc_msgSend_auditToken(ourConn);
     }
 
     else
@@ -2837,7 +3179,7 @@ LABEL_27:
   ourConn = self->_ourConn;
   if (ourConn)
   {
-    [(NSXPCConnection *)ourConn auditToken];
+    objc_msgSend_auditToken(ourConn);
   }
 
   else
@@ -2853,7 +3195,7 @@ LABEL_27:
     v17 = self->_ourConn;
     if (v17)
     {
-      [(NSXPCConnection *)v17 auditToken];
+      objc_msgSend_auditToken(v17);
     }
 
     else
@@ -2890,7 +3232,7 @@ LABEL_27:
     ourConn = self->_ourConn;
     if (ourConn)
     {
-      [(NSXPCConnection *)ourConn auditToken];
+      objc_msgSend_auditToken(ourConn);
     }
 
     else
@@ -3167,7 +3509,7 @@ LABEL_27:
     ourConn = self->_ourConn;
     if (ourConn)
     {
-      [(NSXPCConnection *)ourConn auditToken];
+      objc_msgSend_auditToken(ourConn);
     }
 
     else
@@ -3324,11 +3666,11 @@ LABEL_27:
 {
   handlerCopy = handler;
   v28 = 0;
-  v29[0] = &v28;
-  v29[1] = 0x3032000000;
-  v29[2] = sub_100016264;
-  v29[3] = sub_100016274;
-  v30 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_100016264;
+  v32 = sub_100016274;
+  v33 = 0;
   v22 = 0;
   v23 = &v22;
   v24 = 0x3032000000;
@@ -3344,7 +3686,7 @@ LABEL_27:
   v8 = gAgentManager;
   v9 = *&token->var0[4];
   buf = *token->var0;
-  v32 = v9;
+  v35 = v9;
   v10 = [FSAuditToken tokenWithToken:&buf];
   v21[0] = _NSConcreteStackBlock;
   v21[1] = 3221225472;
@@ -3357,12 +3699,12 @@ LABEL_27:
   v11 = fskit_std_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    sub_1000272C0(v29);
+    sub_1000272C0();
   }
 
   if (self->_clientHasEntitlement)
   {
-    handlerCopy[2](handlerCopy, *(v29[0] + 40), v23[5]);
+    handlerCopy[2](handlerCopy, v29[5], v23[5]);
   }
 
   else if (v23[5])
@@ -3381,17 +3723,17 @@ LABEL_27:
     ourConn = self->_ourConn;
     if (ourConn)
     {
-      [(NSXPCConnection *)ourConn auditToken];
+      objc_msgSend_auditToken(ourConn);
     }
 
     else
     {
       buf = 0u;
-      v32 = 0u;
+      v35 = 0u;
     }
 
     v14 = [(fskitdXPCServer *)self getTeamIDForToken:&buf];
-    v15 = *(v29[0] + 40);
+    v15 = v29[5];
     v19[0] = _NSConcreteStackBlock;
     v19[1] = 3221225472;
     v19[2] = sub_100021E18;
@@ -3407,12 +3749,25 @@ LABEL_27:
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Returniong set %@", &buf, 0xCu);
     }
 
-    (handlerCopy)[2](handlerCopy, v17, 0);
+    handlerCopy[2](handlerCopy, v17, 0);
   }
 
   _Block_object_dispose(&v22, 8);
 
   _Block_object_dispose(&v28, 8);
+}
+
+- (void)setEnabledStateForToken:(id *)token identifier:(id)identifier newState:(BOOL)state replyHandler:(id)handler
+{
+  stateCopy = state;
+  v8 = gAgentManager;
+  v9 = *&token->var0[4];
+  v13 = *token->var0;
+  v14 = v9;
+  handlerCopy = handler;
+  identifierCopy = identifier;
+  v12 = [FSAuditToken tokenWithToken:&v13];
+  [v8 setEnabledStateForToken:v12 identifier:identifierCopy newState:stateCopy replyHandler:{handlerCopy, v13, v14}];
 }
 
 - (void)loadResource:(id)resource usingBundle:(id)bundle options:(id)options auditToken:(id *)token replyHandler:(id)handler

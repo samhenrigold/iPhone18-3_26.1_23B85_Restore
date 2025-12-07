@@ -181,11 +181,13 @@
 
 - (void)_screenChanged:(id)changed
 {
-  if ([objc_msgSend(changed "object")])
+  object = [changed object];
+  [(UIView *)self window];
+  if (objc_msgSend_isEqual_(object))
   {
-    v5 = [objc_msgSend(changed "userInfo")];
+    v6 = [objc_msgSend(changed "userInfo")];
 
-    [(UIWebTiledView *)self _updateForScreen:v5];
+    [(UIWebTiledView *)self _updateForScreen:v6];
   }
 }
 

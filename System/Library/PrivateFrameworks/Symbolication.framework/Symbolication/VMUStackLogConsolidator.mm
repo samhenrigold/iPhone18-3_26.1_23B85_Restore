@@ -235,71 +235,64 @@ void __53__VMUStackLogConsolidator_stackIDsToNodesFilteredBy___block_invoke(uint
     v6 = 0;
   }
 
-  v7 = *(a1 + 56);
-  v9 = *(v7 + 8);
-  v8 = v7 + 8;
-  if (*(v9 + 24) < *(a1 + 64))
+  if (*(*(*(a1 + 56) + 8) + 24) < *(a1 + 64))
   {
     while (1)
     {
       key[1] = 0;
-      v22 = 0;
+      v17 = 0;
       key[0] = 0;
-      v10 = *(*(a1 + 32) + 8);
-      if (v10)
+      v7 = *(*(a1 + 32) + 8);
+      if (v7)
       {
-        [v10 nodeDetails:*(*v8 + 24)];
-        v11 = key[0];
+        objc_msgSend_nodeDetails_(v7);
+        v8 = key[0];
       }
 
       else
       {
-        v11 = 0;
+        v8 = 0;
       }
 
-      if (v11 >= v3[2] + v3[1])
+      if (v8 >= v3[2] + v3[1])
       {
         goto LABEL_26;
       }
 
       if (((key[1] >> 60) | 4) == 5)
       {
-        v12 = *(a1 + 48);
-        if (!v12)
+        v9 = *(a1 + 48);
+        if (!v9)
         {
           break;
         }
 
-        v13 = *(*(*(a1 + 56) + 8) + 24);
-        v14 = *(v12 + 16);
-        v19 = *key;
-        v20 = v22;
-        if (v14(v12, v13, &v19, v4))
+        v10 = *(*(*(a1 + 56) + 8) + 24);
+        v11 = *(v9 + 16);
+        v14 = *key;
+        v15 = v17;
+        if (v11(v9, v10, &v14, v4))
         {
           break;
         }
       }
 
 LABEL_23:
-      ++*(*(*(a1 + 56) + 8) + 24);
-      v17 = *(a1 + 56);
-      v18 = *(v17 + 8);
-      v8 = v17 + 8;
-      if (*(v18 + 24) >= *(a1 + 64))
+      if (++*(*(*(a1 + 56) + 8) + 24) >= *(a1 + 64))
       {
         goto LABEL_26;
       }
     }
 
-    v15 = malloc_type_malloc(0x18uLL, 0x10000400CE834B2uLL);
-    *v15 = -1;
-    v15[1] = key[1] & 0xFFFFFFFFFFFFFFFLL;
-    *(v15 + 4) = *(*(*(a1 + 56) + 8) + 24);
+    v12 = malloc_type_malloc(0x18uLL, 0x10000400CE834B2uLL);
+    *v12 = -1;
+    v12[1] = key[1] & 0xFFFFFFFFFFFFFFFLL;
+    *(v12 + 4) = *(*(*(a1 + 56) + 8) + 24);
     if ([*(*(a1 + 32) + 16) inspectingLiveProcess] && objc_msgSend(*(*(a1 + 32) + 16), "usesLiteMode"))
     {
       if (!v6)
       {
-        free(v15);
+        free(v12);
         goto LABEL_23;
       }
 
@@ -312,30 +305,30 @@ LABEL_23:
       if (![*(*(a1 + 32) + 16) usesCoreFile])
       {
 LABEL_22:
-        NSMapInsert(*(a1 + 40), key[0], v15);
+        NSMapInsert(*(a1 + 40), key[0], v12);
         goto LABEL_23;
       }
 
       uniquing_table_index = [*(*(a1 + 32) + 16) stackIDForNode:*(*(*(a1 + 56) + 8) + 24)];
     }
 
-    *v15 = uniquing_table_index;
+    *v12 = uniquing_table_index;
     goto LABEL_22;
   }
 
 LABEL_26:
 }
 
-void *__53__VMUStackLogConsolidator_stackIDsToNodesFilteredBy___block_invoke_5(uint64_t a1, char a2, const void *a3)
+void *__53__VMUStackLogConsolidator_stackIDsToNodesFilteredBy___block_invoke_5(uint64_t a1, char a2, const void *a3, uint64_t a4, uint64_t a5)
 {
   result = msl_payload_get_uniquing_table_index();
   if ((a2 & 0x12) != 0)
   {
-    v7 = result;
+    v9 = result;
     result = NSMapGet(*(a1 + 32), a3);
     if (result)
     {
-      *result = v7;
+      *result = v9;
     }
   }
 
@@ -446,13 +439,13 @@ void *__53__VMUStackLogConsolidator_stackIDsToNodesFilteredBy___block_invoke_5(u
 
 void __58__VMUStackLogConsolidator_callTreeWithOptions_nodeFilter___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24[512] = *MEMORY[0x1E69E9840];
+  v22[512] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 unsignedLongValue];
   if (v7 != -1)
   {
-    v8 = [*(*(a1 + 32) + 16) getFramesForStackID:v7 stackFramesBuffer:v24];
+    v8 = [*(*(a1 + 32) + 16) getFramesForStackID:v7 stackFramesBuffer:v22];
     if (v8)
     {
       if ([*(*(a1 + 32) + 16) coldestFrameIsNotThreadId])
@@ -462,53 +455,51 @@ void __58__VMUStackLogConsolidator_callTreeWithOptions_nodeFilter___block_invoke
 
       else
       {
-        v9 = v24[--v8];
+        v9 = v22[--v8];
       }
 
       *(*(a1 + 40) + 28) = v9;
       *(*(a1 + 40) + 64) = v8;
-      v21 = 0u;
-      v22 = 0u;
       v19 = 0u;
       v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v10 = v6;
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v18;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v20 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [*(*(&v19 + 1) + 8 * i) unsignedIntValue];
-            v16 = *(*(a1 + 32) + 8);
-            if (v16)
+            [*(*(&v17 + 1) + 8 * i) unsignedIntValue];
+            v15 = *(*(a1 + 32) + 8);
+            if (v15)
             {
-              [v16 nodeDetails:v15];
+              objc_msgSend_nodeDetails_(v15);
             }
 
             objc_autoreleasePoolPop(objc_autoreleasePoolPush());
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v12);
       }
 
-      *(*(a1 + 40) + 48) = v24;
-      v17 = [*(a1 + 48) addBacktrace:*(a1 + 40) count:objc_msgSend(v10 numBytes:{"count"), 0}];
+      *(*(a1 + 40) + 48) = v22;
+      v16 = [*(a1 + 48) addBacktrace:*(a1 + 40) count:objc_msgSend(v10 numBytes:{"count"), 0}];
       *(*(a1 + 40) + 48) = 0;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

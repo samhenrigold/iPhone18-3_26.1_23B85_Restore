@@ -16,7 +16,7 @@
 {
   attributeCopy = attribute;
   v7 = &attributeCopy;
-  v5 = sub_34D38(&self->super._map.__table_.__bucket_list_.__ptr_, &attributeCopy);
+  v5 = sub_34D38(&self->super._map.__table_.__bucket_list_.__ptr_, &attributeCopy, &std::piecewise_construct, &v7);
   *(v5 + 6) = value->_kind;
   objc_storeStrong(v5 + 4, value->_object);
   v5[5] = value->var0._integer;

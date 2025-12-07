@@ -77,7 +77,7 @@ LABEL_8:
   return v17;
 }
 
-void __47__AMSMescal_signaturePromiseFromData_type_bag___block_invoke(uint64_t a1, void *a2)
+void __47__AMSMescal_signaturePromiseFromData_type_bag___block_invoke(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -273,23 +273,23 @@ id __50__AMSMescal_signaturePromiseFromRequest_type_bag___block_invoke_3(uint64_
   return v10;
 }
 
-id __50__AMSMescal_signaturePromiseFromRequest_type_bag___block_invoke_4(uint64_t a1, void *a2)
+id __50__AMSMescal_signaturePromiseFromRequest_type_bag___block_invoke_4(void *a1, void *a2)
 {
   v24 = *MEMORY[0x1E69E9840];
   v3 = [a2 value];
   if (v3)
   {
-    v4 = [AMSMescalSession sessionWithType:*(a1 + 40)];
+    v4 = [AMSMescalSession sessionWithType:a1[5]];
     v10 = v4;
     if (v4)
     {
-      v11 = [v4 signData:v3 bag:*(a1 + 32)];
+      v11 = [v4 signData:v3 bag:a1[4]];
       [v11 thenWithBlock:&__block_literal_global_88];
     }
 
     else
     {
-      v11 = AMSErrorWithFormat(2, @"Mescal Signature Failed", @"Failed to locate session for type: %d", v5, v6, v7, v8, v9, *(a1 + 40));
+      v11 = AMSErrorWithFormat(2, @"Mescal Signature Failed", @"Failed to locate session for type: %d", v5, v6, v7, v8, v9, a1[5]);
       [AMSPromise promiseWithError:v11];
     }
     v19 = ;
@@ -533,7 +533,7 @@ id __54__AMSMescal_verificationPromiseForTask_data_type_bag___block_invoke(uint6
   return v26;
 }
 
-void __54__AMSMescal_verificationPromiseForTask_data_type_bag___block_invoke_29(uint64_t a1, void *a2)
+void __54__AMSMescal_verificationPromiseForTask_data_type_bag___block_invoke_29(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;

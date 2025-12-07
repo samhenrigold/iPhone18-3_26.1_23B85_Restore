@@ -1120,7 +1120,7 @@ LABEL_12:
   v12 = [(SBMainDisplaySceneManager *)self existingSceneHandleForScene:_sceneCopy];
   settings = [_sceneCopy settings];
   externalForegroundApplicationSceneHandles = [(SBMainDisplaySceneManager *)self externalForegroundApplicationSceneHandles];
-  v15 = [externalForegroundApplicationSceneHandles containsObject:v12];
+  v15 = objc_msgSend_containsObject_(externalForegroundApplicationSceneHandles);
 
   if (v12 && v15)
   {
@@ -1138,7 +1138,7 @@ LABEL_12:
   {
     v21 = isForeground2;
     externalApplicationSceneHandles = [(SBMainDisplaySceneManager *)self externalApplicationSceneHandles];
-    v23 = [externalApplicationSceneHandles containsObject:v12];
+    v23 = objc_msgSend_containsObject_(externalApplicationSceneHandles);
 
     if (!(v21 & 1 | ((isForeground & 1) == 0)) && v23 && ([v12 shouldAlwaysDisplayLiveContent] & 1) == 0)
     {
@@ -1156,7 +1156,7 @@ LABEL_12:
   previousSettings = [settingsCopy previousSettings];
   transitionContext = [settingsCopy transitionContext];
   daemonScenes = [(SBSceneManager *)self daemonScenes];
-  if ([daemonScenes containsObject:_sceneCopy])
+  if (objc_msgSend_containsObject_(daemonScenes))
   {
 
     goto LABEL_9;
@@ -1218,7 +1218,7 @@ LABEL_10:
 
 - (BOOL)_shouldFenceTransitionForScene:(id)scene updatedClientSettingsDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   diffCopy = diff;
   settingsCopy = settings;
@@ -1230,28 +1230,29 @@ LABEL_10:
 
   settings = [sceneCopy settings];
   [settings deactivationReasons];
-  if (!UIApplicationSceneDeactivationReasonMaskContainsReason())
+  v15 = UIApplicationSceneDeactivationReasonMaskContainsReason();
+  if (!v15)
   {
 
 LABEL_7:
-    v18.receiver = self;
-    v18.super_class = SBMainDisplaySceneManager;
-    v16 = [(SBSceneManager *)&v18 _shouldFenceTransitionForScene:sceneCopy updatedClientSettingsDiff:diffCopy oldClientSettings:settingsCopy transitionContext:contextCopy];
+    v19.receiver = self;
+    v19.super_class = SBMainDisplaySceneManager;
+    v17 = [(SBSceneManager *)&v19 _shouldFenceTransitionForScene:sceneCopy updatedClientSettingsDiff:diffCopy oldClientSettings:settingsCopy transitionContext:contextCopy];
     goto LABEL_8;
   }
 
-  v15 = SBLogWorkspace();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v16 = SBLogWorkspace(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v20 = sceneCopy;
-    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_INFO, "Not fencing scene transistion with scene: %{public}@ because it is deactivated for system gestures", buf, 0xCu);
+    v21 = sceneCopy;
+    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "Not fencing scene transistion with scene: %{public}@ because it is deactivated for system gestures", buf, 0xCu);
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_8:
 
-  return v16;
+  return v17;
 }
 
 - (void)_noteDidChangeToVisibility:(unint64_t)visibility previouslyExisted:(BOOL)existed forScene:(id)scene
@@ -1379,7 +1380,7 @@ void __83__SBMainDisplaySceneManager__noteDidChangeToVisibility_previouslyExiste
     }
 
     appsRegisteredForVolumeEvents = [SBApp appsRegisteredForVolumeEvents];
-    v12 = [appsRegisteredForVolumeEvents containsObject:v9];
+    v12 = objc_msgSend_containsObject_(appsRegisteredForVolumeEvents);
 
     if (v12)
     {
@@ -1387,7 +1388,7 @@ void __83__SBMainDisplaySceneManager__noteDidChangeToVisibility_previouslyExiste
     }
 
     appsRegisteredForLockButtonEvents = [SBApp appsRegisteredForLockButtonEvents];
-    v14 = [appsRegisteredForLockButtonEvents containsObject:v9];
+    v14 = objc_msgSend_containsObject_(appsRegisteredForLockButtonEvents);
 
     if (v14)
     {
@@ -1595,7 +1596,7 @@ void __83__SBMainDisplaySceneManager__noteDidChangeToVisibility_previouslyExiste
   if (v4)
   {
     externalForegroundApplicationSceneHandles = [(SBMainDisplaySceneManager *)self externalForegroundApplicationSceneHandles];
-    v6 = [externalForegroundApplicationSceneHandles containsObject:v4];
+    v6 = objc_msgSend_containsObject_(externalForegroundApplicationSceneHandles);
   }
 
   else
@@ -1793,7 +1794,7 @@ void __65__SBMainDisplaySceneManager__appSceneClientSettingsDiffInspector__block
   }
 }
 
-uint64_t __65__SBMainDisplaySceneManager__appSceneClientSettingsDiffInspector__block_invoke_11(uint64_t a1, void *a2, _BYTE *a3)
+void *__65__SBMainDisplaySceneManager__appSceneClientSettingsDiffInspector__block_invoke_11(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isTranslucent];
   if (result)

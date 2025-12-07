@@ -98,7 +98,7 @@ void __74__CDPDRemoteDeviceSecretValidator_approveFromAnotherDeviceWithCompletio
 
 void __74__CDPDRemoteDeviceSecretValidator_approveFromAnotherDeviceWithCompletion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!a2)
   {
@@ -110,9 +110,9 @@ void __74__CDPDRemoteDeviceSecretValidator_approveFromAnotherDeviceWithCompletio
 
     if (v5)
     {
-      v20 = *MEMORY[0x277CCA7E8];
-      v21[0] = v5;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x277CCA7E8];
+      v20[0] = v5;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     }
 
     else
@@ -189,8 +189,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateCustodianRecoveryInfo:(id)info withCompletion:(id)completion
@@ -232,18 +230,18 @@ void __80__CDPDRemoteDeviceSecretValidator_validateCustodianRecoveryInfo_withCom
 
 void __80__CDPDRemoteDeviceSecretValidator_validateCustodianRecoveryInfo_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v6;
-    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Circle join using custodian recovery info result: %@, %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
+    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Circle join using custodian recovery info result: %@, %@", &v18, 0x16u);
   }
 
   objc_opt_class();
@@ -271,8 +269,8 @@ void __80__CDPDRemoteDeviceSecretValidator_validateCustodianRecoveryInfo_withCom
       {
         if (v14)
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Joining to circle succeed", &v19, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Joining to circle succeed", &v18, 2u);
         }
 
         v15 = objc_alloc_init(CDPDRemoteSecretValidationResult);
@@ -285,8 +283,8 @@ void __80__CDPDRemoteDeviceSecretValidator_validateCustodianRecoveryInfo_withCom
       {
         if (v14)
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Joining to circle failed", &v19, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Joining to circle failed", &v18, 2u);
         }
 
         v15 = [WeakRetained validSecretHandler];
@@ -318,8 +316,6 @@ void __80__CDPDRemoteDeviceSecretValidator_validateCustodianRecoveryInfo_withCom
   {
     (*(v17 + 16))(v17, [v10 BOOLValue], v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retriableValidateCustodianRecoveryInfo:(id)info withCompletion:(id)completion
@@ -441,29 +437,28 @@ void __86__CDPDRemoteDeviceSecretValidator_attemptToJoinCircleWithPiggybacking_w
 
 - (void)resetAccountCDPStateWithEscapeOptionsOffered:(unint64_t)offered
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[CDPDRemoteDeviceSecretValidator resetAccountCDPStateWithEscapeOptionsOffered:]";
-    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "%s: was called", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CDPDRemoteDeviceSecretValidator resetAccountCDPStateWithEscapeOptionsOffered:]";
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "%s: was called", &v6, 0xCu);
   }
 
   [(CDPDRemoteDeviceSecretValidator *)self resetAccountCDPStateWithEscapeOptionsOffered:offered andSetSecret:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAccountCDPStateWithEscapeOptionsOffered:(unint64_t)offered andSetSecret:(id)secret
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   secretCopy = secret;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[CDPDRemoteDeviceSecretValidator resetAccountCDPStateWithEscapeOptionsOffered:andSetSecret:]";
-    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%s: was called", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[CDPDRemoteDeviceSecretValidator resetAccountCDPStateWithEscapeOptionsOffered:andSetSecret:]";
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%s: was called", &v14, 0xCu);
   }
 
   validSecretHandler = [(CDPDDeviceSecretValidator *)self validSecretHandler];
@@ -485,8 +480,6 @@ void __86__CDPDRemoteDeviceSecretValidator_attemptToJoinCircleWithPiggybacking_w
     validSecretHandler2 = [(CDPDDeviceSecretValidator *)self validSecretHandler];
     (validSecretHandler2)[2](validSecretHandler2, v9, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportedEscapeOfferMaskCompletion:(id)completion
@@ -500,22 +493,19 @@ void __86__CDPDRemoteDeviceSecretValidator_attemptToJoinCircleWithPiggybacking_w
 
 void __74__CDPDRemoteDeviceSecretValidator_approveFromAnotherDeviceWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to request circle join approval from another device - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to request circle join approval from another device - %@", &v2, 0xCu);
 }
 
 - (void)_decoratedDelegate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   delegate = [self delegate];
-  v5 = 138412290;
-  v6 = delegate;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Fetching decorated delegate: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = delegate;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Fetching decorated delegate: %@", &v4, 0xCu);
 }
 
 @end

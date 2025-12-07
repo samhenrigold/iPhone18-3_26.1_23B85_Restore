@@ -253,7 +253,6 @@
   objc_storeStrong(&v61, 0);
   objc_storeStrong(&v62, 0);
   objc_storeStrong(&v63, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)loadView

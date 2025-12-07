@@ -36,7 +36,7 @@
 
 - (void)getTestFlightDownloadManifestRequestForStoreItemIdentifier:(NSNumber *)identifier bundleIdentifier:(NSString *)bundleIdentifier replyHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -67,7 +67,7 @@
 {
   phaseCopy = phase;
   identifierCopy = identifier;
-  v16 = sub_100085D40(&qword_10059C3E0);
+  v16 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v16 - 8);
   v18 = &phaseCopy - v17;
   v19 = _Block_copy(handler);

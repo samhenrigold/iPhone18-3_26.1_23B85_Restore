@@ -2570,11 +2570,11 @@ LABEL_153:
 
     chromeViewController = [(CarNavigationModeController *)self chromeViewController];
     routeAnnotationsController = [chromeViewController routeAnnotationsController];
-    configuration = [routeAnnotationsController configuration];
+    v12 = objc_msgSend_configuration(routeAnnotationsController);
 
     mapView2 = [(CarNavigationModeController *)self mapView];
-    routes = [configuration routes];
-    selectedRoute = [configuration selectedRoute];
+    routes = [v12 routes];
+    selectedRoute = [v12 selectedRoute];
     v16 = +[MNNavigationService sharedService];
     v17 = sub_1007D8258(v16);
     v18 = [RouteAnnotationsResponder routeAtPoint:mapView2 inMapView:routes withRoutes:selectedRoute selectedRoute:v17 overlappingRouteSelectorBlock:v7, v9];

@@ -183,16 +183,16 @@ LABEL_46:
 
 + (id)userErrorForCode:()GameKitErrors description:
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   v6 = GKErrorDomain;
   if (a4)
   {
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = a4;
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = a4;
     v7 = MEMORY[0x277CBEAC0];
     v8 = a4;
-    v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v10 = [v5 errorWithDomain:v6 code:a3 userInfo:v9];
   }
 
@@ -202,22 +202,20 @@ LABEL_46:
     v10 = [v5 errorWithDomain:v6 code:a3 userInfo:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)userErrorForCode:()GameKitErrors underlyingError:
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   if (a4)
   {
-    v12 = *MEMORY[0x277CCA7E8];
-    v13[0] = a4;
+    v11 = *MEMORY[0x277CCA7E8];
+    v12[0] = a4;
     v6 = MEMORY[0x277CBEAC0];
     v7 = a4;
-    v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v5 userErrorForCode:a3 userInfo:v8];
   }
 
@@ -226,23 +224,21 @@ LABEL_46:
     v8 = 0;
     v9 = [v5 userErrorForCode:a3 userInfo:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)userErrorForCode:()GameKitErrors underlyingErrors:
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   if (a4)
   {
-    v12 = *MEMORY[0x277CCA578];
-    v13[0] = a4;
+    v11 = *MEMORY[0x277CCA578];
+    v12[0] = a4;
     v6 = MEMORY[0x277CBEAC0];
     v7 = a4;
-    v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v5 userErrorForCode:a3 userInfo:v8];
   }
 
@@ -251,8 +247,6 @@ LABEL_46:
     v8 = 0;
     v9 = [v5 userErrorForCode:a3 userInfo:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -507,27 +501,27 @@ LABEL_14:
 
 - (id)getUnderlyingErrorWithServerStatusCode:()GameKitErrors
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   underlyingErrors = [self underlyingErrors];
-  v5 = [underlyingErrors countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if ([v9 isGKServerError])
         {
           userInfo = [v9 userInfo];
@@ -542,7 +536,7 @@ LABEL_14:
         }
       }
 
-      v6 = [underlyingErrors countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -554,8 +548,6 @@ LABEL_14:
 
   v12 = 0;
 LABEL_14:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

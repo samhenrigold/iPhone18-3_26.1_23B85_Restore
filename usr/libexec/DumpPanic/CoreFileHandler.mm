@@ -1,4 +1,5 @@
 @interface CoreFileHandler
++ (id)coreFileWithCoreFilePath:(char *)path :(BOOL)a4 :(id)a5 :(id)a6;
 - (BOOL)getCorefileLogInfo:(unint64_t *)info :(unint64_t *)a4 :(unsigned int *)a5;
 - (BOOL)privateKeyChecking;
 - (BOOL)saveCoreDumpAtOffset:(unint64_t)offset withLength:(unint64_t)length named:(id)named encryptedWithPublicKey:(id)key toFileName:(id)name flags:(unsigned int)flags;
@@ -10,6 +11,7 @@
 - (id)getCorefileLogEncryptionKey;
 - (id)getCorefileZeroRanges;
 - (id)getPanicRegion;
+- (id)saveKernelCoreToDisk:(const char *)disk :(unsigned int)a4 :(double)a5 :(BOOL)a6 :(id)a7;
 - (unint64_t)getNumCoreDumps;
 - (void)dealloc;
 - (void)getCoreDumpInfoWithIndex:(unint64_t)index :(unint64_t *)a4 :(unint64_t *)a5 :(unsigned int *)a6;
@@ -138,6 +140,285 @@
   }
 
   return result;
+}
+
+- (id)saveKernelCoreToDisk:(const char *)disk :(unsigned int)a4 :(double)a5 :(BOOL)a6 :(id)a7
+{
+  v8 = *&a4;
+  v11 = [NSMutableArray array:disk];
+  v12 = sub_10001906C(a5);
+  v68 = 0;
+  v13 = [NSString stringWithUTF8String:disk];
+  v14 = [NSURL fileURLWithPath:v13];
+
+  v59 = v8;
+  v15 = [[CoresPruner alloc] initWithCorefileURL:v14 CoresToKeep:v8 userspaceCorefileName:0];
+  [(CoresPruner *)v15 prune];
+  v16 = [NSString stringWithUTF8String:disk];
+  v67 = 0;
+  LOBYTE(v13) = sub_100012B20(v16, &v67, 493);
+  v17 = v67;
+
+  if (v13)
+  {
+    asprintf(&v68, "%s/staged", disk);
+    v58 = v15;
+    if (v68)
+    {
+      v18 = [NSString stringWithUTF8String:?];
+      v66 = v17;
+      v19 = sub_100012B20(v18, &v66, 493);
+      v20 = v66;
+
+      if ((v19 & 1) == 0)
+      {
+        v23 = qword_100042AF8;
+        if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+        {
+          v52 = v20;
+          v53 = v23;
+          uTF8String = [v20 UTF8String];
+          *buf = 136315138;
+          v70 = uTF8String;
+          _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "failed to setup corefile stage directory due to error: %s", buf, 0xCu);
+        }
+
+        free(v68);
+        v68 = 0;
+LABEL_15:
+        v15 = v58;
+        goto LABEL_16;
+      }
+
+      v17 = v20;
+    }
+
+    else
+    {
+      v22 = qword_100042AF8;
+      if (!os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+      {
+        v20 = v17;
+LABEL_16:
+        v61 = [NSString stringWithFormat:@"%s/%@.", disk, v12];
+        v17 = v20;
+        goto LABEL_17;
+      }
+
+      *buf = 0;
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "failed to allocate staging directory string", buf, 2u);
+    }
+
+    if (v68)
+    {
+      v61 = [NSString stringWithFormat:@"%s/%@.", v68, v12];
+      v15 = v58;
+LABEL_17:
+      v57 = v17;
+      v24 = qword_100042AF8;
+      if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Attempting to extract kernel core if it exists...", buf, 2u);
+      }
+
+      getNumCoreDumps = [(CoreFileHandler *)self getNumCoreDumps];
+      v26 = getNumCoreDumps;
+      if (&_AnalyticsSendEventLazy && getNumCoreDumps)
+      {
+        v65[1] = _NSConcreteStackBlock;
+        v65[2] = 3221225472;
+        v65[3] = sub_100019194;
+        v65[4] = &unk_100039158;
+        v65[5] = self;
+        v65[6] = getNumCoreDumps;
+        AnalyticsSendEventLazy();
+      }
+
+      if ([(CoreFileHandler *)self privateKeyChecking])
+      {
+        v55 = v14;
+        v56 = v12;
+        v60 = v11;
+        if (v26)
+        {
+          for (i = 0; i != v26; ++i)
+          {
+            v28 = +[NSDate date];
+            v29 = [(CoreFileHandler *)self getCoreDumpNameWithIndex:i];
+            v64 = 0;
+            v65[0] = 0;
+            v63 = 0;
+            [(CoreFileHandler *)self getCoreDumpInfoWithIndex:i];
+            if (strncmp(v29, "panic_region", 0xCuLL))
+            {
+              v30 = [NSString stringWithFormat:@"%@%s%s.core.gz", v61, "", v29];
+              v31 = [NSString stringWithFormat:@"corefile with name %s", v29];
+              v62 = v30;
+              v32 = [(CoreFileHandler *)self saveCoreDumpWithIndex:i named:v31 toFileName:&v62];
+              v33 = v62;
+
+              if (v32)
+              {
+                v34 = qword_100042AF8;
+                if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138412290;
+                  v70 = v33;
+                  _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "saved core file %@", buf, 0xCu);
+                }
+
+                [v60 addObject:v33];
+              }
+            }
+
+            v35 = +[NSDate date];
+            [v35 timeIntervalSinceDate:v28];
+
+            if (&_AnalyticsSendEventLazy)
+            {
+              AnalyticsSendEventLazy();
+            }
+          }
+        }
+
+        v64 = 0;
+        v65[0] = 0;
+        v63 = 0;
+        v11 = v60;
+        v14 = v55;
+        v17 = v57;
+        if ([(CoreFileHandler *)self getCorefileLogInfo:v65])
+        {
+          if ((v63 & 4) != 0)
+          {
+            getCorefileLogEncryptionKey = [(CoreFileHandler *)self getCorefileLogEncryptionKey];
+          }
+
+          else
+          {
+            getCorefileLogEncryptionKey = 0;
+          }
+
+          v37 = [NSString stringWithFormat:@"%@%skernel.core.log", v61, ""];
+          if ([(CoreFileHandler *)self saveCoreDumpAtOffset:v65[0] withLength:v64 named:@"kernel core log" encryptedWithPublicKey:getCorefileLogEncryptionKey toFileName:v37 flags:v63])
+          {
+            v38 = qword_100042AF8;
+            if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v70 = v37;
+              _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "saved core file %@", buf, 0xCu);
+            }
+
+            [v60 addObject:v37];
+          }
+        }
+
+        v12 = v56;
+        if ([v60 count])
+        {
+          v39 = [[CoresPruner alloc] initWithCorefileURL:v55 CoresToKeep:v59 userspaceCorefileName:0];
+
+          [(CoresPruner *)v39 prune];
+          if (v68)
+          {
+            free(v68);
+            v68 = 0;
+            if ([v60 count])
+            {
+              v40 = 0;
+              v41 = 0;
+              v42 = 0;
+              do
+              {
+                v43 = v11;
+                v44 = v42;
+                v45 = v41;
+                v42 = [v43 objectAtIndex:v40];
+
+                v41 = [v42 stringByReplacingOccurrencesOfString:@"/staged" withString:&stru_100039908];
+
+                v46 = +[NSFileManager defaultManager];
+                LOBYTE(v45) = [v46 fileExistsAtPath:v41];
+
+                if (v45)
+                {
+                  [v43 replaceObjectAtIndex:v40 withObject:v41];
+                  v11 = v43;
+                }
+
+                else
+                {
+                  v47 = qword_100042AF8;
+                  if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 138412290;
+                    v70 = v41;
+                    _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Cannot find %@", buf, 0xCu);
+                  }
+
+                  v48 = +[NSFileManager defaultManager];
+                  v49 = [v48 fileExistsAtPath:v42];
+
+                  v11 = v60;
+                  if ((v49 & 1) == 0)
+                  {
+                    v50 = qword_100042AF8;
+                    if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+                    {
+                      *buf = 138412290;
+                      v70 = v42;
+                      _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Neither can find %@", buf, 0xCu);
+                    }
+
+                    [v60 removeObjectAtIndex:v40];
+                  }
+                }
+
+                ++v40;
+              }
+
+              while (v40 < [v11 count]);
+
+              v14 = v55;
+              v12 = v56;
+              v17 = v57;
+            }
+          }
+        }
+
+        else
+        {
+          v39 = v58;
+        }
+
+        v15 = v39;
+      }
+
+      else
+      {
+        v17 = v57;
+      }
+
+      goto LABEL_61;
+    }
+
+    v20 = v17;
+    goto LABEL_15;
+  }
+
+  v21 = qword_100042AF8;
+  if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v70 = v17;
+    _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "failed to setup corefile output directory with error: %@", buf, 0xCu);
+  }
+
+LABEL_61:
+
+  return v11;
 }
 
 - (id)getPanicRegion
@@ -1336,6 +1617,167 @@ LABEL_28:
 LABEL_30:
 
   return v30;
+}
+
++ (id)coreFileWithCoreFilePath:(char *)path :(BOOL)a4 :(id)a5 :(id)a6
+{
+  v7 = a4;
+  v9 = a5;
+  v10 = a6;
+  if (!v10)
+  {
+    _os_assert_log();
+    _os_crash();
+    __break(1u);
+    goto LABEL_37;
+  }
+
+  v11 = v10;
+  objc_storeStrong(&qword_100042AF8, a6);
+  v12 = open_dprotected_np(path, 0, 0, 2);
+  if (v12 == -1)
+  {
+    v20 = qword_100042AF8;
+    if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+    {
+      v21 = v20;
+      v22 = *__error();
+      v36 = 136315394;
+      pathCopy = path;
+      v38 = 1024;
+      LODWORD(v39) = v22;
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "open_dprotected_np(%s, O_RDONLY): -1 (%{errno}d)", &v36, 0x12u);
+    }
+
+    goto LABEL_19;
+  }
+
+  v13 = v12;
+  v14 = (vm_page_size + 7) & -vm_page_size;
+  v15 = malloc_type_aligned_alloc(vm_page_size, v14, 0x24574F3FuLL);
+  if (!v15)
+  {
+LABEL_37:
+    _os_assert_log();
+    _os_crash();
+    __break(1u);
+  }
+
+  v16 = v15;
+  v17 = read(v13, v15, v14);
+  if (v17 != v14)
+  {
+    v23 = v17;
+    v24 = qword_100042AF8;
+    v25 = os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR);
+    if (v23 == -1)
+    {
+      if (v25)
+      {
+        v34 = v24;
+        v35 = *__error();
+        v36 = 134218240;
+        pathCopy = v14;
+        v38 = 1024;
+        LODWORD(v39) = v35;
+        _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "failed to read header from corefile (%zd bytes) with error: %{errno}d", &v36, 0x12u);
+      }
+    }
+
+    else if (v25)
+    {
+      v36 = 134218240;
+      pathCopy = v14;
+      v38 = 2048;
+      v39 = v23;
+      _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Read of %lu bytes from fileoffset 0 only read %lu bytes", &v36, 0x16u);
+    }
+
+    close(v13);
+    goto LABEL_18;
+  }
+
+  v18 = *v16;
+  close(v13);
+  if (!v18)
+  {
+    v28 = qword_100042AF8;
+    if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v36) = 0;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "no core file data found", &v36, 2u);
+    }
+
+    goto LABEL_18;
+  }
+
+  if (v18 == 0x63614D2073736F42)
+  {
+    if (v16[7])
+    {
+      v19 = CoreFileHandlerV2;
+      goto LABEL_25;
+    }
+
+    v33 = qword_100042AF8;
+    if (!os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    LOWORD(v36) = 0;
+    v30 = "Skip handling kernel corefile which suggests 0 files present";
+    goto LABEL_34;
+  }
+
+  if (v18 != 0x63614D20646152)
+  {
+    v29 = qword_100042AF8;
+    if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+    {
+      v36 = 134218496;
+      pathCopy = v18;
+      v38 = 2048;
+      v39 = 0x63614D20646152;
+      v40 = 2048;
+      v41 = 0x63614D2073736F42;
+      v30 = "invalid core file signature: %#llx (expected :%#llx or %#llx)";
+      v31 = v29;
+      v32 = 32;
+LABEL_35:
+      _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, v30, &v36, v32);
+      goto LABEL_18;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (!v16[3])
+  {
+    v33 = qword_100042AF8;
+    if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v36) = 0;
+      v30 = "Skip handling kernel corefile which suggests 0 files present";
+LABEL_34:
+      v31 = v33;
+      v32 = 2;
+      goto LABEL_35;
+    }
+
+LABEL_18:
+    free(v16);
+LABEL_19:
+    v26 = 0;
+    goto LABEL_20;
+  }
+
+  v19 = CoreFileHandlerV1;
+LABEL_25:
+  v26 = [[v19 alloc] initWithCoreFilePath:path :v7 :v9];
+LABEL_20:
+
+  return v26;
 }
 
 @end

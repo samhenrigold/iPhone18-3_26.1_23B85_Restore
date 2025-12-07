@@ -246,7 +246,7 @@
 
 - (void)commonInit
 {
-  if ((atomic_load_explicit(&qword_280A424D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A424D8, memory_order_acquire) & 1) == 0)
   {
     sub_27610C980();
   }

@@ -56,7 +56,7 @@
 
 - (id)fetchResultsForString:(id)string
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   _cn_tokens = [stringCopy _cn_tokens];
   searchableProperties = [(CNAutocompleteLocalQuery *)self searchableProperties];
@@ -64,161 +64,159 @@
   [defaultProvider timestamp];
   v9 = v8;
 
-  v10 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = CNALoggingContextTriage(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     [(CNAutocompleteFetchRequest *)self->_request triageIdentifier];
-    v12 = v11 = searchableProperties;
+    v13 = v12 = searchableProperties;
     queryNameForLogging = [(CNAutocompleteLocalQueryDelegate *)self->_delegate queryNameForLogging];
     *buf = 138543618;
-    v55 = v12;
-    v56 = 2114;
-    v57 = queryNameForLogging;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@: Will search", buf, 0x16u);
+    v59 = v13;
+    v60 = 2114;
+    v61 = queryNameForLogging;
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@: Will search", buf, 0x16u);
 
-    searchableProperties = v11;
+    searchableProperties = v12;
   }
 
-  v14 = CNALoggingContextTriage();
-  v15 = os_signpost_id_generate(v14);
+  v16 = CNALoggingContextTriage(v15);
+  v17 = os_signpost_id_generate(v16);
 
-  v16 = CNALoggingContextPerformance();
-  v17 = v16;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v19 = CNALoggingContextPerformance(v18);
+  v20 = v19;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "Searching Contacts", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "Searching Contacts", "", buf, 2u);
   }
 
   delegate = self->_delegate;
   contactStore = self->_contactStore;
-  v53 = 0;
-  v20 = [(CNAutocompleteLocalQueryDelegate *)delegate resultsForSearchString:stringCopy terms:_cn_tokens properties:searchableProperties contactStore:contactStore error:&v53];
-  v52 = v53;
-  v21 = CNALoggingContextPerformance();
-  v22 = v21;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v57 = 0;
+  v23 = [(CNAutocompleteLocalQueryDelegate *)delegate resultsForSearchString:stringCopy terms:_cn_tokens properties:searchableProperties contactStore:contactStore error:&v57];
+  v56 = v57;
+  v24 = CNALoggingContextPerformance(v56);
+  v25 = v24;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v22, OS_SIGNPOST_INTERVAL_END, v15, "Searching Contacts", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v25, OS_SIGNPOST_INTERVAL_END, v17, "Searching Contacts", "", buf, 2u);
   }
 
   defaultProvider2 = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider2 timestamp];
-  v25 = v24;
+  v28 = v27;
 
-  v26 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v25 - v9];
-  v27 = CNALoggingContextTriage();
-  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-  if (v20)
+  v29 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v28 - v9];
+  v30 = CNALoggingContextTriage(v29);
+  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+  if (v23)
   {
-    if (v28)
+    if (v31)
     {
       triageIdentifier = [(CNAutocompleteFetchRequest *)self->_request triageIdentifier];
       queryNameForLogging2 = [(CNAutocompleteLocalQueryDelegate *)self->_delegate queryNameForLogging];
-      v31 = [v20 count];
-      v32 = [v20 count];
+      v34 = [v23 count];
+      v35 = [v23 count];
       *buf = 138544386;
-      v33 = "results";
-      v55 = triageIdentifier;
-      v56 = 2114;
-      if (v32 == 1)
+      v36 = "results";
+      v59 = triageIdentifier;
+      v60 = 2114;
+      if (v35 == 1)
       {
-        v33 = "result";
+        v36 = "result";
       }
 
-      v57 = queryNameForLogging2;
-      v58 = 2048;
-      v59 = v31;
-      v60 = 2080;
-      v61 = v33;
-      v62 = 2114;
-      v63 = v26;
-      _os_log_impl(&dword_2155FE000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@: Search complete (%lu %s, %{public}@)", buf, 0x34u);
+      v61 = queryNameForLogging2;
+      v62 = 2048;
+      v63 = v34;
+      v64 = 2080;
+      v65 = v36;
+      v66 = 2114;
+      v67 = v29;
+      _os_log_impl(&dword_2155FE000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@: Search complete (%lu %s, %{public}@)", buf, 0x34u);
     }
 
-    v34 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v38 = CNALoggingContextDebug(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       queryNameForLogging3 = [(CNAutocompleteLocalQueryDelegate *)self->_delegate queryNameForLogging];
-      v51 = self->_delegate;
-      v36 = [v20 count];
-      v37 = v26;
-      v38 = stringCopy;
-      v39 = searchableProperties;
-      v40 = _cn_tokens;
-      if (v36 >= 0xC8)
+      v55 = self->_delegate;
+      v40 = [v23 count];
+      v41 = v29;
+      v42 = stringCopy;
+      v43 = searchableProperties;
+      v44 = _cn_tokens;
+      if (v40 >= 0xC8)
       {
-        v41 = 200;
+        v45 = 200;
       }
 
       else
       {
-        v41 = v36;
+        v45 = v40;
       }
 
-      v42 = [v20 count];
-      v43 = [v20 _cn_take:200];
+      v46 = [v23 count];
+      v47 = [v23 _cn_take:200];
       *buf = 138544387;
-      v55 = queryNameForLogging3;
-      v56 = 2112;
-      v57 = v51;
-      v58 = 2048;
-      v59 = v41;
-      _cn_tokens = v40;
-      searchableProperties = v39;
-      stringCopy = v38;
-      v26 = v37;
-      v60 = 2048;
-      v61 = v42;
-      v62 = 2113;
-      v63 = v43;
-      _os_log_impl(&dword_2155FE000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ results with delegate %@ (first %lu out of %lu): %{private}@", buf, 0x34u);
+      v59 = queryNameForLogging3;
+      v60 = 2112;
+      v61 = v55;
+      v62 = 2048;
+      v63 = v45;
+      _cn_tokens = v44;
+      searchableProperties = v43;
+      stringCopy = v42;
+      v29 = v41;
+      v64 = 2048;
+      v65 = v46;
+      v66 = 2113;
+      v67 = v47;
+      _os_log_impl(&dword_2155FE000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ results with delegate %@ (first %lu out of %lu): %{private}@", buf, 0x34u);
     }
 
-    v44 = v52;
+    v48 = v56;
   }
 
   else
   {
-    v44 = v52;
-    if (v28)
+    v48 = v56;
+    if (v31)
     {
       triageIdentifier2 = [(CNAutocompleteFetchRequest *)self->_request triageIdentifier];
       queryNameForLogging4 = [(CNAutocompleteLocalQueryDelegate *)self->_delegate queryNameForLogging];
       *buf = 138544130;
-      v55 = triageIdentifier2;
-      v56 = 2114;
-      v57 = queryNameForLogging4;
-      v58 = 2114;
-      v59 = v26;
-      v60 = 2112;
-      v61 = v52;
-      _os_log_impl(&dword_2155FE000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@: Search failed (%{public}@): %@", buf, 0x2Au);
+      v59 = triageIdentifier2;
+      v60 = 2114;
+      v61 = queryNameForLogging4;
+      v62 = 2114;
+      v63 = v29;
+      v64 = 2112;
+      v65 = v56;
+      _os_log_impl(&dword_2155FE000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@: Search failed (%{public}@): %@", buf, 0x2Au);
     }
 
-    v34 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v38 = CNALoggingContextDebug(v51);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = self->_delegate;
-      v48 = self->_contactStore;
+      v52 = self->_delegate;
+      v53 = self->_contactStore;
       *buf = 138413314;
-      v55 = v47;
-      v56 = 2112;
-      v57 = stringCopy;
-      v58 = 2112;
-      v59 = _cn_tokens;
+      v59 = v52;
       v60 = 2112;
-      v61 = v48;
+      v61 = stringCopy;
       v62 = 2112;
-      v63 = v52;
-      _os_log_impl(&dword_2155FE000, v34, OS_LOG_TYPE_DEFAULT, "Got nil results when asking: %@ for: %@, terms: %@, contactStore: %@, error: %@", buf, 0x34u);
+      v63 = _cn_tokens;
+      v64 = 2112;
+      v65 = v53;
+      v66 = 2112;
+      v67 = v56;
+      _os_log_impl(&dword_2155FE000, v38, OS_LOG_TYPE_DEFAULT, "Got nil results when asking: %@ for: %@, terms: %@, contactStore: %@, error: %@", buf, 0x34u);
     }
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v23;
 }
 
 - (id)makeResultFactory
@@ -243,16 +241,14 @@
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = CNALoggingContextDebug();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "Cancel: %@", &v5, 0xCu);
+    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "Cancel: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -103,30 +103,21 @@
 
 uint64_t __64__NTKFaceAccessibility__accessibilityFaceEditOptionsDescription__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _customEditModes];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _customEditModes];
 
   return _objc_release_x1();
 }
 
 uint64_t __64__NTKFaceAccessibility__accessibilityFaceEditOptionsDescription__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) optionForCustomEditMode:*(a1 + 48) slot:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) optionForCustomEditMode:*(a1 + 48) slot:0];
 
   return _objc_release_x1();
 }
 
 uint64_t __64__NTKFaceAccessibility__accessibilityFaceEditOptionsDescription__block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeValueForKey:@"localizedName"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) safeValueForKey:@"localizedName"];
 
   return _objc_release_x1();
 }

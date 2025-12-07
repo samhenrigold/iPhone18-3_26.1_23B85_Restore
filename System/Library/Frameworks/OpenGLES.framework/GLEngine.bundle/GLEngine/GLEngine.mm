@@ -1,9 +1,10 @@
-uint64_t gliInitializeLibrary(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int a5)
+uint64_t gliInitializeLibrary(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t a5)
 {
+  v5 = a5;
   gfxInitializeLibrary();
   result = ShInitializeLibrary();
   gle_io_data = a4;
-  gle_lib_init = a5;
+  gle_lib_init = v5;
   return result;
 }
 
@@ -545,7 +546,7 @@ LABEL_84:
     *(v22 + 29504) = v61;
     *(v22 + 19296) = v77;
     gfxSetShaderDetachFunc();
-    gleSetSharedFreeFuncs();
+    gleSetSharedFreeFuncs(v77);
     os_unfair_lock_lock(&gl_list_lock);
     v62 = v75[3829];
     if (!gl_list[v62])
@@ -644,7 +645,7 @@ LABEL_87:
   return v20;
 }
 
-void gleCreateEnableHashTable(int a1)
+void gleCreateEnableHashTable(unsigned int a1)
 {
   os_unfair_lock_lock(&gle_enable_hash_table_lock);
   if (!gle_enable_hash_table[a1])
@@ -1811,7 +1812,7 @@ _DWORD *gleInitTextureState(uint64_t a1)
   v5 = a1 + 23592;
   do
   {
-    result = gleCreateTextureObject(*(a1 + 19296), v2 | 0x1000u, 0);
+    result = gleCreateTextureObject(*(a1 + 19296), v2 | 0x1000, 0);
     if (v3[5] == 4)
     {
       *(result + 461) = 6403;
@@ -1887,8 +1888,9 @@ _DWORD *gleInitTextureState(uint64_t a1)
   return result;
 }
 
-_DWORD *gleCreateTextureObject(uint64_t a1, __int16 a2, int a3)
+_DWORD *gleCreateTextureObject(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v5 = a2 & 0xF;
   if ((a2 & 0xF) != 0)
   {
@@ -1918,7 +1920,7 @@ _DWORD *gleCreateTextureObject(uint64_t a1, __int16 a2, int a3)
 
   v10 = v9;
   *v9 = 0;
-  if ((a2 & 0x2000) != 0)
+  if ((v4 & 0x2000) != 0)
   {
     v11 = 2;
   }
@@ -1934,7 +1936,7 @@ _DWORD *gleCreateTextureObject(uint64_t a1, __int16 a2, int a3)
   v9[6] = v11;
   v9[7] = 0;
   gfxInitializeGLTexture();
-  if ((a2 & 0x2000) != 0)
+  if ((v4 & 0x2000) != 0)
   {
     *(v10 + 296) = -31298;
     *(v10 + 460) = -31298;
@@ -2285,7 +2287,7 @@ char *gleInitVertexArrayState(uint64_t a1)
     *(a1 + 26384) = result;
   }
 
-  ++*(v4 + 5);
+  ++*(v4 + 20);
   return result;
 }
 
@@ -2390,7 +2392,8 @@ uint64_t gleUpdateState(int8x16_t *a1)
     gleUpdateLightPosition(a1, v6);
     gleUpdateLightDirection(a1, v6);
     gleUpdateLightExponents(a1, v6);
-    gleUpdateLightAttenuation(a1, v6++);
+    gleUpdateLightAttenuation(a1, v6);
+    v6 = (v6 + 1);
   }
 
   while (v6 != 8);
@@ -2854,9 +2857,11 @@ LABEL_3:
   return result;
 }
 
-void gleUpdateLightPosition(uint64_t a1, int a2)
+void gleUpdateLightPosition(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = (a1 + 160 * a2);
+  v5 = a2;
   v6 = v4 + 1568;
   v7 = a1 + 784;
   v8 = v4 + 1580;
@@ -2888,13 +2893,13 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   v6[17].f32[0] = v6[17].f32[0] + 1.0;
   gleVectorNormalize(a1, v6 + 16, v6 + 16);
-  v14 = v7 + 80 * a2;
+  v14 = v7 + 80 * v5;
   v16 = *(v14 + 25);
   v15 = (v14 + 25);
   if (v16 != v12)
   {
     *v15 = v12;
-    gleUpdateLightFast(a1, a2);
+    gleUpdateLightFast(a1, v2);
     *(a1 + 28652) = 0;
     *(a1 + 1548) |= 0x10020u;
   }
@@ -2902,7 +2907,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
   v17 = *(a1 + 19248);
   if (v17)
   {
-    v18 = *(v17 + 20 * a2 + 2566);
+    v18 = *(v17 + 20 * v5 + 2566);
     if (v18 <= 0x3FF)
     {
       *(a1 + ((v18 >> 3) & 0x1FFC) + 1552) |= 1 << v18;
@@ -2914,7 +2919,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
   v19 = *(a1 + 19272);
   if (v19)
   {
-    v20 = *(v19 + 20 * a2 + 2566);
+    v20 = *(v19 + 20 * v5 + 2566);
     if (v20 <= 0x3FF)
     {
       *(a1 + ((v20 >> 3) & 0x1FFC) + 1936) |= 1 << v20;
@@ -2926,7 +2931,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
   v21 = *(a1 + 19280);
   if (v21)
   {
-    v22 = *(v21 + 20 * a2 + 2566);
+    v22 = *(v21 + 20 * v5 + 2566);
     if (v22 <= 0x3FF)
     {
       *(a1 + ((v22 >> 3) & 0x1FFC) + 2064) |= 1 << v22;
@@ -2937,7 +2942,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   if (v17)
   {
-    v23 = *(v17 + 20 * a2 + 2572);
+    v23 = *(v17 + 20 * v5 + 2572);
     if (v23 <= 0x3FF)
     {
       *(a1 + ((v23 >> 3) & 0x1FFC) + 1552) |= 1 << v23;
@@ -2948,7 +2953,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   if (v19)
   {
-    v24 = *(v19 + 20 * a2 + 2572);
+    v24 = *(v19 + 20 * v5 + 2572);
     if (v24 <= 0x3FF)
     {
       *(a1 + ((v24 >> 3) & 0x1FFC) + 1936) |= 1 << v24;
@@ -2959,7 +2964,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   if (v21)
   {
-    v25 = *(v21 + 20 * a2 + 2572);
+    v25 = *(v21 + 20 * v5 + 2572);
     if (v25 <= 0x3FF)
     {
       *(a1 + ((v25 >> 3) & 0x1FFC) + 2064) |= 1 << v25;
@@ -2970,7 +2975,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   if (v17)
   {
-    v26 = *(v17 + 20 * a2 + 2574);
+    v26 = *(v17 + 20 * v5 + 2574);
     if (v26 <= 0x3FF)
     {
       *(a1 + ((v26 >> 3) & 0x1FFC) + 1552) |= 1 << v26;
@@ -2981,7 +2986,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   if (v19)
   {
-    v27 = *(v19 + 20 * a2 + 2574);
+    v27 = *(v19 + 20 * v5 + 2574);
     if (v27 <= 0x3FF)
     {
       *(a1 + ((v27 >> 3) & 0x1FFC) + 1936) |= 1 << v27;
@@ -2992,7 +2997,7 @@ void gleUpdateLightPosition(uint64_t a1, int a2)
 
   if (v21)
   {
-    v28 = *(v21 + 20 * a2 + 2574);
+    v28 = *(v21 + 20 * v5 + 2574);
     if (v28 <= 0x3FF)
     {
       *(a1 + ((v28 >> 3) & 0x1FFC) + 2064) |= 1 << v28;

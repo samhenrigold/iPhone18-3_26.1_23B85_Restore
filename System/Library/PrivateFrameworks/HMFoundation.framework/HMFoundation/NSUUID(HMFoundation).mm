@@ -48,12 +48,11 @@
 
 - (id)hmf_bytesAsData
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
-  v4[1] = 0;
-  [self getUUIDBytes:v4];
-  v1 = [MEMORY[0x277CBEA90] dataWithBytes:v4 length:16];
-  v2 = *MEMORY[0x277D85DE8];
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v3[1] = 0;
+  [self getUUIDBytes:v3];
+  v1 = [MEMORY[0x277CBEA90] dataWithBytes:v3 length:16];
 
   return v1;
 }
@@ -101,9 +100,9 @@
 
 + (NSString)shortDescription
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 @end

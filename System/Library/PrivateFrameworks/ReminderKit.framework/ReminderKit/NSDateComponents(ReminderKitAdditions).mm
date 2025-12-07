@@ -45,7 +45,7 @@
 
 + (id)rem_dateComponentsWithDate:()ReminderKitAdditions timeZone:isAllDay:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (a5)
@@ -64,20 +64,18 @@
     v11 = +[REMLog utility];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v9];
-      v15 = 138412802;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_fault_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_FAULT, "Could not get a date component with {date %@, timeZone: %@, flags: %@}", &v15, 0x20u);
+      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v9];
+      v14 = 138412802;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_fault_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_FAULT, "Could not get a date component with {date %@, timeZone: %@, flags: %@}", &v14, 0x20u);
     }
 
     v10 = objc_opt_new();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -118,17 +116,7 @@
 - (id)rem_gregorianEquivalent
 {
   calendar = [self calendar];
-  if (!calendar)
-  {
-    goto LABEL_3;
-  }
-
-  v3 = calendar;
-  calendar2 = [self calendar];
-  calendarIdentifier = [calendar2 calendarIdentifier];
-  v6 = [calendarIdentifier isEqualToString:*MEMORY[0x1E695D850]];
-
-  if ((v6 & 1) == 0)
+  if (calendar && (v3 = calendar, [self calendar], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "calendarIdentifier"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E695D850]), v5, v4, v3, (v6 & 1) == 0))
   {
     timeZone = [self timeZone];
     rem_isAllDayDateComponents = [self rem_isAllDayDateComponents];
@@ -150,7 +138,6 @@
 
   else
   {
-LABEL_3:
     v7 = [self copy];
   }
 
@@ -366,15 +353,13 @@ LABEL_18:
 
 + (void)rem_dateComponentsWithDateUsingArchivingTimeZone:()ReminderKitAdditions isAllDay:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_fault_impl(&dword_19A0DB000, a3, OS_LOG_TYPE_FAULT, "Could not get a date component with floating time zone {date %@, flags: %@}", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_fault_impl(&dword_19A0DB000, a3, OS_LOG_TYPE_FAULT, "Could not get a date component with floating time zone {date %@, flags: %@}", &v6, 0x16u);
 }
 
 @end

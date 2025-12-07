@@ -33,8 +33,8 @@ void __87__NSDictionary_PosterFoundation__pf_sanitizeWithAllowedKeyClasses_allow
     v12 = [*(a1 + 64) bs_map:&__block_literal_global_4_1];
     v13 = [v12 componentsJoinedByString:{@", "}];
 
-    v14 = PFLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PFLogCommon(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = objc_opt_class();
       v17 = NSStringFromClass(v16);
@@ -62,7 +62,7 @@ void __87__NSDictionary_PosterFoundation__pf_sanitizeWithAllowedKeyClasses_allow
       v34 = v19;
       v35 = 2114;
       v36 = v22;
-      _os_log_error_impl(&dword_1C269D000, v14, OS_LOG_TYPE_ERROR, "Invalid class type for key value pair: { %{public}@ : %{public}@ }; dropping from dictionary. Allowed key classes: [ %{public}@ ]. Allowed value classes: [ %{public}@ ]. Detected key class: %{public}@. Detected value class: %{public}@. Validation error: %{public}@", &v23, 0x48u);
+      _os_log_error_impl(&dword_1C269D000, v15, OS_LOG_TYPE_ERROR, "Invalid class type for key value pair: { %{public}@ : %{public}@ }; dropping from dictionary. Allowed key classes: [ %{public}@ ]. Allowed value classes: [ %{public}@ ]. Detected key class: %{public}@. Detected value class: %{public}@. Validation error: %{public}@", &v23, 0x48u);
     }
   }
 
@@ -70,8 +70,6 @@ void __87__NSDictionary_PosterFoundation__pf_sanitizeWithAllowedKeyClasses_allow
   {
     [*(a1 + 48) setObject:v6 forKey:v5];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

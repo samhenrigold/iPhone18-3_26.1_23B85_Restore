@@ -67,11 +67,13 @@
   return v2;
 }
 
-uint64_t __44__SBFMotionGestureController_sharedInstance__block_invoke()
+uint64_t __44__SBFMotionGestureController_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_sbf_once_object_0 = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sbf_once_object_0;
+  sharedInstance_sbf_once_object_0 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (SBFMotionGestureController)init
@@ -211,7 +213,7 @@ void __53__SBFMotionGestureController__removeGestureObserver___block_invoke(uint
   }
 }
 
-uint64_t __43__SBFMotionGestureController__hasObservers__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__43__SBFMotionGestureController__hasObservers__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 count];
   if (result)
@@ -299,26 +301,9 @@ void __55__SBFMotionGestureController__highestPriorityObservers__block_invoke(ui
 
 - (void)_addGestureManager
 {
-  v3 = SBLogMotionGesture();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    [(SBFMotionGestureController *)v3 _addGestureManager:v4];
-  }
-
-  v11 = [objc_alloc(MEMORY[0x1E69634A8]) initWithPriority:3];
-  motionGestureManager = self->_motionGestureManager;
-  self->_motionGestureManager = v11;
-
-  objc_initWeak(&location, self);
-  v13 = self->_motionGestureManager;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __48__SBFMotionGestureController__addGestureManager__block_invoke;
-  v14[3] = &unk_1E807FDA0;
-  objc_copyWeak(&v15, &location);
-  [(CMGestureManager *)v13 setGestureHandler:v14];
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&location);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = 3;
+  OUTLINED_FUNCTION_0_4(&dword_1BEA11000, self, a3, "Adding motion gesture manager with priority %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __48__SBFMotionGestureController__addGestureManager__block_invoke(uint64_t a1, int a2)
@@ -329,12 +314,12 @@ void __48__SBFMotionGestureController__addGestureManager__block_invoke(uint64_t 
   objc_destroyWeak(&v2);
 }
 
-void __48__SBFMotionGestureController__addGestureManager__block_invoke_2(uint64_t a1)
+void __48__SBFMotionGestureController__addGestureManager__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogMotionGesture();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SBLogMotionGesture();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __48__SBFMotionGestureController__addGestureManager__block_invoke_2_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
+    __48__SBFMotionGestureController__addGestureManager__block_invoke_2_cold_1(a1, v3, v4, v5, v6, v7, v8, v9);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -352,6 +337,27 @@ void __48__SBFMotionGestureController__addGestureManager__block_invoke_2(uint64_
   [(CMGestureManager *)self->_motionGestureManager setGestureHandler:0];
   motionGestureManager = self->_motionGestureManager;
   self->_motionGestureManager = 0;
+}
+
+- (void)_addGestureObserver:(uint64_t)a3 withPriority:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1BEA11000, a2, a3, "Adding motion gesture observer %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __53__SBFMotionGestureController__removeGestureObserver___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_1BEA11000, a2, a3, "Removing motion gesture observer %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __48__SBFMotionGestureController__addGestureManager__block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_0_4(&dword_1BEA11000, a2, a3, "Received gesture type %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

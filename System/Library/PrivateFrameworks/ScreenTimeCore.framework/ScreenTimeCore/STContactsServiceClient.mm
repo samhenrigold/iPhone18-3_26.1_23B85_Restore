@@ -60,23 +60,23 @@ void __31__STContactsServiceClient_init__block_invoke_13()
 - (void)isRestrictionsPasscodeSetWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 1;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 1;
   v10 = 0;
-  v11[0] = &v10;
-  v11[1] = 0x3032000000;
-  v11[2] = __Block_byref_object_copy__4;
-  v11[3] = __Block_byref_object_dispose__4;
-  v12 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__4;
+  v14 = __Block_byref_object_dispose__4;
+  v15 = 0;
   connection = [(STContactsServiceClient *)self connection];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandler___block_invoke;
   v9[3] = &unk_1E7CE71C8;
   v9[4] = &v10;
-  v9[5] = &v13;
+  v9[5] = &v16;
   v6 = [connection synchronousRemoteObjectProxyWithErrorHandler:v9];
 
   v8[0] = MEMORY[0x1E69E9820];
@@ -84,24 +84,24 @@ void __31__STContactsServiceClient_init__block_invoke_13()
   v8[2] = __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandler___block_invoke_2;
   v8[3] = &unk_1E7CE6BD0;
   v8[4] = &v10;
-  v8[5] = &v13;
+  v8[5] = &v16;
   [v6 isRestrictionsPasscodeSetWithCompletionHandler:v8];
-  if (*(v11[0] + 40))
+  if (v11[5])
   {
     v7 = +[STLog contactsService];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [STContactsServiceClient isRestrictionsPasscodeSetWithCompletionHandler:v11];
+      [STContactsServiceClient isRestrictionsPasscodeSetWithCompletionHandler:];
     }
   }
 
   if (handlerCopy)
   {
-    (*(handlerCopy + 2))(handlerCopy, *(v14 + 24), *(v11[0] + 40));
+    handlerCopy[2](handlerCopy, *(v17 + 24), v11[5]);
   }
 
   _Block_object_dispose(&v10, 8);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
 void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -130,11 +130,11 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
   passcodeCopy = passcode;
   handlerCopy = handler;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__4;
-  v13[3] = __Block_byref_object_dispose__4;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__4;
+  v16 = __Block_byref_object_dispose__4;
+  v17 = 0;
   connection = [(STContactsServiceClient *)self connection];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
@@ -143,17 +143,17 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
   v11[4] = &v12;
   v9 = [connection synchronousRemoteObjectProxyWithErrorHandler:v11];
 
-  if (*(v13[0] + 40))
+  if (v13[5])
   {
     v10 = +[STLog contactsService];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [STContactsServiceClient authenticateRestrictionsPasscode:v13 completionHandler:?];
+      [STContactsServiceClient authenticateRestrictionsPasscode:completionHandler:];
     }
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, *(v13[0] + 40));
+      handlerCopy[2](handlerCopy, v13[5]);
     }
   }
 
@@ -166,11 +166,11 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
 {
   handlerCopy = handler;
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = __Block_byref_object_copy__4;
-  v10[3] = __Block_byref_object_dispose__4;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__4;
+  v13 = __Block_byref_object_dispose__4;
+  v14 = 0;
   connection = [(STContactsServiceClient *)self connection];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
@@ -179,17 +179,17 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
   v8[4] = &v9;
   v6 = [connection synchronousRemoteObjectProxyWithErrorHandler:v8];
 
-  if (*(v10[0] + 40))
+  if (v10[5])
   {
     v7 = +[STLog contactsService];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [STContactsServiceClient restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:v10];
+      [STContactsServiceClient restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:];
     }
 
     if (handlerCopy)
     {
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, *(v10[0] + 40));
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v10[5]);
     }
   }
 
@@ -205,11 +205,11 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
 {
   handlerCopy = handler;
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = __Block_byref_object_copy__4;
-  v10[3] = __Block_byref_object_dispose__4;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__4;
+  v13 = __Block_byref_object_dispose__4;
+  v14 = 0;
   connection = [(STContactsServiceClient *)self connection];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
@@ -218,17 +218,17 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
   v8[4] = &v9;
   v6 = [connection synchronousRemoteObjectProxyWithErrorHandler:v8];
 
-  if (*(v10[0] + 40))
+  if (v10[5])
   {
     v7 = +[STLog contactsService];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [STContactsServiceClient restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:v10];
+      [STContactsServiceClient restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:];
     }
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, *(v10[0] + 40));
+      handlerCopy[2](handlerCopy, v10[5]);
     }
   }
 
@@ -240,28 +240,25 @@ void __74__STContactsServiceClient_isRestrictionsPasscodeSetWithCompletionHandle
   _Block_object_dispose(&v9, 8);
 }
 
-- (void)isRestrictionsPasscodeSetWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)isRestrictionsPasscodeSetWithCompletionHandler:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed checking restrictions passcode with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed checking restrictions passcode with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)authenticateRestrictionsPasscode:(uint64_t)a1 completionHandler:.cold.1(uint64_t a1)
+- (void)authenticateRestrictionsPasscode:completionHandler:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to authenticate passcode with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to authenticate passcode with error: %{public}@", v2, v3, v4, v5);
 }
 
-- (void)restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)restrictionsPasscodeEntryAttemptCountAndTimeoutDateWithCompletionHandler:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to fetch private service proxy with error: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to fetch private service proxy with error: %{public}@", v2, v3, v4, v5);
 }
 
 @end

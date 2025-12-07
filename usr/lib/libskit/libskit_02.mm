@@ -8,13 +8,13 @@ void sub_2998E13F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *skit::internal::anonymous namespace::push_hit(void *result, float *a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, float a7)
+float *skit::internal::anonymous namespace::push_hit(float *result, float *a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, __n128 a7)
 {
-  if (a4 >= a6 && *a2 < a7)
+  if (a4 >= a6 && *a2 < a7.n128_f32[0])
   {
     v9 = result;
-    v10 = result[1];
-    v11 = result[2];
+    v10 = *(result + 1);
+    v11 = *(result + 2);
     if (v10 >= v11)
     {
       v13 = 0xCCCCCCCCCCCCCCCDLL * ((v10 - *result) >> 3);
@@ -48,18 +48,18 @@ void *skit::internal::anonymous namespace::push_hit(void *result, float *a2, uin
       v17 = 40 * v13;
       *v17 = 0;
       *(v17 + 8) = a3;
-      *(v17 + 16) = a7;
+      *(v17 + 16) = a7.n128_u32[0];
       *(v17 + 20) = a4;
       *(v17 + 24) = 0;
       *(v17 + 32) = 0;
       v12 = 40 * v13 + 40;
-      v18 = v9[1] - *v9;
+      v18 = *(v9 + 1) - *v9;
       v19 = (40 * v13 - v18);
       memcpy(v19, *v9, v18);
       v20 = *v9;
       *v9 = v19;
-      v9[1] = v12;
-      v9[2] = 0;
+      *(v9 + 1) = v12;
+      *(v9 + 2) = 0;
       if (v20)
       {
         operator delete(v20);
@@ -70,18 +70,18 @@ void *skit::internal::anonymous namespace::push_hit(void *result, float *a2, uin
     {
       *v10 = 0;
       *(v10 + 8) = a3;
-      *(v10 + 16) = a7;
+      *(v10 + 16) = a7.n128_u32[0];
       *(v10 + 20) = a4;
       v12 = v10 + 40;
       *(v10 + 24) = 0;
       *(v10 + 32) = 0;
     }
 
-    v9[1] = v12;
+    *(v9 + 1) = v12;
     v21 = *v9;
     std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(skit::Hit const&,skit::Hit const&),std::__wrap_iter<skit::Hit*>>(v21, v12, &v46, 0xCCCCCCCCCCCCCCCDLL * ((v12 - v21) >> 3));
     result = *v9;
-    v22 = v9[1];
+    v22 = *(v9 + 1);
     v23 = v22 - *v9;
     v24 = 0xCCCCCCCCCCCCCCCDLL * (v23 >> 3);
     if (v24 > a5)
@@ -92,7 +92,7 @@ void *skit::internal::anonymous namespace::push_hit(void *result, float *a2, uin
         v26 = *(result + 1);
         v46 = *result;
         v47 = v26;
-        v48 = result[4];
+        v48 = *(result + 4);
         v27 = result;
         do
         {
@@ -161,11 +161,11 @@ void *skit::internal::anonymous namespace::push_hit(void *result, float *a2, uin
         }
 
         result = *v9;
-        v22 = v9[1];
+        v22 = *(v9 + 1);
       }
 
-      v9[1] = v22 - 40;
-      *a2 = *(result + 4);
+      *(v9 + 1) = v22 - 40;
+      *a2 = result[4];
     }
   }
 
@@ -190,39 +190,39 @@ __n128 std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(skit::Hit c
     v22 = v4;
     v23 = v5;
     v9 = v6 >> 1;
-    v10 = (a1 + 40 * (v6 >> 1));
-    v11 = (a2 - 40);
-    if ((*a3)(v10, a2 - 40))
+    v10 = a1 + 40 * (v6 >> 1);
+    v11 = a2 - 40;
+    if ((*a3)(v10, (a2 - 40)))
     {
       v13 = *v11;
-      v14 = v11[1];
-      v21 = v11[2].n128_i64[0];
+      v14 = *(v11 + 16);
+      v21 = *(v11 + 32);
       v19 = v13;
       v20 = v14;
       do
       {
         v15 = v10;
         v16 = *v10;
-        v17 = v10[1];
-        v11[2].n128_u64[0] = v10[2].n128_u64[0];
+        v17 = *(v10 + 16);
+        *(v11 + 32) = *(v10 + 32);
         *v11 = v16;
-        v11[1] = v17;
+        *(v11 + 16) = v17;
         if (!v9)
         {
           break;
         }
 
         v9 = (v9 - 1) >> 1;
-        v10 = (a1 + 40 * v9);
+        v10 = a1 + 40 * v9;
         v11 = v15;
       }
 
       while (((*a3)(v10, &v19) & 1) != 0);
       result = v19;
       v18 = v20;
-      v15[2].n128_u64[0] = v21;
+      *(v15 + 32) = v21;
       *v15 = result;
-      v15[1] = v18;
+      *(v15 + 16) = v18;
     }
   }
 
@@ -429,56 +429,43 @@ void std::__shared_ptr_emplace<skit::internal::AliasImpl>::~__shared_ptr_emplace
 
 uint64_t skit::Alias::init(const char **this)
 {
-  v6 = *MEMORY[0x29EDCA608];
   v1 = *this;
-  if (*this)
+  if (!*this)
   {
-    v2 = *this;
-    if (v1[23] < 0)
-    {
-      v2 = *v1;
-    }
-
-    marisa::Trie::mmap((v1 + 48), v2);
-    v3 = v1 + 24;
-    if (v1[47] < 0)
-    {
-      v3 = *v3;
-    }
-
-    marisa::Trie::mmap((v1 + 56), v3);
-    result = 0;
-    *(v1 + 64) = 1;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v2 = *this;
+  if (v1[23] < 0)
   {
-    result = 0xFFFFFFFFLL;
+    v2 = *v1;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
+  marisa::Trie::mmap((v1 + 48), v2);
+  v3 = v1 + 24;
+  if (v1[47] < 0)
+  {
+    v3 = *v3;
+  }
+
+  marisa::Trie::mmap((v1 + 56), v3);
+  result = 0;
+  *(v1 + 64) = 1;
   return result;
 }
 
 uint64_t skit::Alias::close(skit::Alias *this)
 {
-  v4 = *MEMORY[0x29EDCA608];
   v1 = *this;
-  if (*this)
+  if (!*this)
   {
-    v1[64] = 0;
-    marisa::Trie::clear((v1 + 48));
-    marisa::Trie::clear((v1 + 56));
-    result = 0;
+    return 0xFFFFFFFFLL;
   }
 
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v1[64] = 0;
+  marisa::Trie::clear((v1 + 48));
+  marisa::Trie::clear((v1 + 56));
+  return 0;
 }
 
 uint64_t skit::Alias::is_initialized(skit::Alias *this)
@@ -494,81 +481,78 @@ uint64_t skit::Alias::is_initialized(skit::Alias *this)
 
 void skit::Alias::find(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v29[2] = *MEMORY[0x29EDCA608];
+  v27[2] = *MEMORY[0x29EDCA608];
   v4 = *a1;
   if (*a1 && v4[64] == 1)
   {
-    marisa::Agent::Agent(v21);
-    marisa::Agent::Agent(v26);
+    marisa::Agent::Agent(v19);
+    marisa::Agent::Agent(v24);
     v8 = 2 * a3;
-    marisa::Agent::set_query(v21, a2);
-    while (marisa::Trie::predictive_search((v4 + 56), v21))
+    marisa::Agent::set_query(v19, a2);
+    while (marisa::Trie::predictive_search((v4 + 56), v19))
     {
-      if (v8 + 6 > v23 || (v23 & 1) != 0)
+      if (v8 + 6 > v21 || (v21 & 1) != 0)
       {
         break;
       }
 
-      v10 = v22 + v8;
-      if (*(v22 + v8))
+      v10 = v20 + v8;
+      if (*(v20 + v8))
       {
         break;
       }
 
-      v11 = (v10 + 4);
-      v12 = v22 + v23;
+      v11 = v10 + 4;
+      v12 = v20 + v21;
       if (v10 + 4 < v12)
       {
         v13 = *(v10 + 2);
         do
         {
-          v14 = *v11;
-          marisa::Agent::set_query(v26);
-          marisa::Trie::reverse_lookup((v4 + 48), v26);
-          std::basic_string<char16_t>::basic_string[abi:ne200100](&__p, __src, v28 >> 1);
-          v15 = __p;
-          v29[0] = v25;
-          *(v29 + 7) = *(&v25 + 7);
-          v16 = HIBYTE(v25);
+          marisa::Agent::set_query(v24);
+          marisa::Trie::reverse_lookup((v4 + 48), v24);
+          std::basic_string<char16_t>::basic_string[abi:ne200100](&__p, __src, v26 >> 1);
+          v14 = __p;
+          v27[0] = v23;
+          *(v27 + 7) = *(&v23 + 7);
+          v15 = HIBYTE(v23);
           __p = 0;
-          v25 = 0uLL;
-          v17 = *(a4 + 8);
-          if (v17 == *(a4 + 12))
+          v23 = 0uLL;
+          v16 = *(a4 + 8);
+          if (v16 == *(a4 + 12))
           {
-            skit::SmallVector<std::tuple<std::basic_string<char16_t>,skit::GroupId>,2u,true>::_reserve_more(a4, v17 + (v17 >> 1) + 1);
-            v17 = *(a4 + 8);
+            skit::SmallVector<std::tuple<std::basic_string<char16_t>,skit::GroupId>,2u,true>::_reserve_more(a4, v16 + (v16 >> 1) + 1);
+            v16 = *(a4 + 8);
           }
 
-          v18 = *a4 + 32 * v17;
-          v19 = v29[0];
-          *v18 = v15;
-          *(v18 + 8) = v19;
-          *(v18 + 15) = *(v29 + 7);
-          *(v18 + 23) = v16;
-          v29[0] = 0;
-          *(v29 + 7) = 0;
-          *(v18 + 24) = v13;
+          v17 = *a4 + 32 * v16;
+          v18 = v27[0];
+          *v17 = v14;
+          *(v17 + 8) = v18;
+          *(v17 + 15) = *(v27 + 7);
+          *(v17 + 23) = v15;
+          v27[0] = 0;
+          *(v27 + 7) = 0;
+          *(v17 + 24) = v13;
           ++*(a4 + 8);
-          if (SHIBYTE(v25) < 0)
+          if (SHIBYTE(v23) < 0)
           {
             operator delete(__p);
           }
 
-          ++v11;
+          v11 += 2;
         }
 
         while (v11 < v12);
       }
     }
 
-    marisa::Agent::~Agent(v26);
-    marisa::Agent::~Agent(v21);
+    marisa::Agent::~Agent(v24);
+    marisa::Agent::~Agent(v19);
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2998E20F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, __int128 buf)
+void sub_2998E20F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, __int128 buf)
 {
   if (v25 < 0)
   {
@@ -605,25 +589,23 @@ void sub_2998E20F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void skit::Alias::match(uint64_t *a1, uint64_t a2, uint64_t *a3, unsigned int a4)
+void skit::Alias::match(uint64_t *a1, __int128 **a2, uint64_t *a3, unsigned int a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v10[7] = *MEMORY[0x29EDCA608];
   v4 = *a1;
   if (*a1 && *(v4 + 64) == 1)
   {
+    marisa::Agent::Agent(v9);
     marisa::Agent::Agent(v10);
-    marisa::Agent::Agent(v11);
     v8 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 4);
     if (v8 > a4)
     {
-      skit::internal::AliasImpl::span_match_alias(v4, a2, a3, a4, v8, v10, v11);
+      skit::internal::AliasImpl::span_match_alias(v4, a2, a3, a4, v8, v9, v10);
     }
 
-    marisa::Agent::~Agent(v11);
     marisa::Agent::~Agent(v10);
+    marisa::Agent::~Agent(v9);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2998E2308(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 buf)
@@ -735,16 +717,15 @@ uint64_t std::__split_buffer<skit::Token>::~__split_buffer(uint64_t a1)
 
 __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(uint64_t *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
   v3 = *a1;
-  *v11 = a1[1];
-  *&v11[7] = *(a1 + 15);
+  *v10 = a1[1];
+  *&v10[7] = *(a1 + 15);
   v4 = *(a1 + 23);
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  v9 = *(a1 + 3);
-  v10 = a1[5];
+  v8 = *(a1 + 3);
+  v9 = a1[5];
   v5 = *(a2 + 16);
   *a1 = *a2;
   a1[2] = v5;
@@ -759,20 +740,19 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Toke
   }
 
   *a2 = v3;
-  *(a2 + 8) = *v11;
-  *(a2 + 15) = *&v11[7];
+  *(a2 + 8) = *v10;
+  *(a2 + 15) = *&v10[7];
   *(a2 + 23) = v4;
-  result = v9;
-  *(a2 + 24) = v9;
-  *(a2 + 40) = v10;
-  v8 = *MEMORY[0x29EDCA608];
+  result = v8;
+  *(a2 + 24) = v8;
+  *(a2 + 40) = v9;
   return result;
 }
 
-void std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(unsigned __int16 *a1, uint64_t a2, uint64_t a3)
+void std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(unsigned __int16 *a1, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   v5 = a1;
-  v6 = *(a2 + 36);
+  v6 = a2[18];
   v7 = a1[18];
   if (v6 < v7)
   {
@@ -792,7 +772,7 @@ void std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(ski
     v12 = v11;
     if ((v11 & 0x80u) != 0)
     {
-      v11 = *(a2 + 8);
+      v11 = *(a2 + 1);
     }
 
     if (v9 >= v11)
@@ -851,7 +831,7 @@ void std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(ski
     if (v11 < v9)
     {
 LABEL_2:
-      v8 = *(a3 + 36);
+      v8 = a3[18];
       if (v8 >= v6)
       {
         if (v8 > v6)
@@ -863,14 +843,14 @@ LABEL_2:
         v23 = v22;
         if ((v22 & 0x80u) != 0)
         {
-          v22 = *(a2 + 8);
+          v22 = *(a2 + 1);
         }
 
         v24 = *(a3 + 23);
         v25 = v24;
         if ((v24 & 0x80u) != 0)
         {
-          v24 = *(a3 + 8);
+          v24 = *(a3 + 1);
         }
 
         if (v22 >= v24)
@@ -930,8 +910,8 @@ LABEL_2:
         {
 LABEL_45:
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a1, a2);
-          v31 = *(a3 + 36);
-          v32 = *(a2 + 36);
+          v31 = a3[18];
+          v32 = a2[18];
           if (v31 >= v32)
           {
             if (v31 > v32)
@@ -943,14 +923,14 @@ LABEL_45:
             v52 = v51;
             if ((v51 & 0x80u) != 0)
             {
-              v51 = *(a2 + 8);
+              v51 = *(a2 + 1);
             }
 
             v53 = *(a3 + 23);
             v54 = v53;
             if ((v53 & 0x80u) != 0)
             {
-              v53 = *(a3 + 8);
+              v53 = *(a3 + 1);
             }
 
             if (v51 >= v53)
@@ -1029,7 +1009,7 @@ LABEL_47:
   }
 
 LABEL_23:
-  v18 = *(a3 + 36);
+  v18 = a3[18];
   if (v18 >= v6)
   {
     if (v18 > v6)
@@ -1041,14 +1021,14 @@ LABEL_23:
     v34 = v33;
     if ((v33 & 0x80u) != 0)
     {
-      v33 = *(a2 + 8);
+      v33 = *(a2 + 1);
     }
 
     v35 = *(a3 + 23);
     v36 = v35;
     if ((v35 & 0x80u) != 0)
     {
-      v35 = *(a3 + 8);
+      v35 = *(a3 + 1);
     }
 
     if (v33 >= v35)
@@ -1117,7 +1097,7 @@ LABEL_69:
   }
 
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a2, a3);
-  v19 = *(a2 + 36);
+  v19 = a2[18];
   v20 = v5[18];
   if (v19 >= v20)
   {
@@ -1137,7 +1117,7 @@ LABEL_69:
     v45 = v44;
     if ((v44 & 0x80u) != 0)
     {
-      v44 = *(a2 + 8);
+      v44 = *(a2 + 1);
     }
 
     if (v42 >= v44)
@@ -1212,11 +1192,11 @@ LABEL_48:
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a1, v21);
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(unsigned __int16 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(unsigned __int16 *a1, unsigned __int16 *a2, unsigned __int16 *a3, unsigned __int16 *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a2, a3);
-  v8 = *(a4 + 36);
-  v9 = *(a3 + 36);
+  v8 = a4[18];
+  v9 = a3[18];
   if (v8 >= v9)
   {
     if (v8 > v9)
@@ -1228,14 +1208,14 @@ void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(ski
     v15 = v14;
     if ((v14 & 0x80u) != 0)
     {
-      v14 = *(a3 + 8);
+      v14 = *(a3 + 1);
     }
 
     v16 = *(a4 + 23);
     v17 = v16;
     if ((v16 & 0x80u) != 0)
     {
-      v16 = *(a4 + 8);
+      v16 = *(a4 + 1);
     }
 
     if (v14 >= v16)
@@ -1304,8 +1284,8 @@ LABEL_25:
   }
 
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a3, a4);
-  v10 = *(a3 + 36);
-  v11 = *(a2 + 36);
+  v10 = a3[18];
+  v11 = a2[18];
   if (v10 >= v11)
   {
     if (v10 > v11)
@@ -1317,14 +1297,14 @@ LABEL_25:
     v24 = v23;
     if ((v23 & 0x80u) != 0)
     {
-      v23 = *(a2 + 8);
+      v23 = *(a2 + 1);
     }
 
     v25 = *(a3 + 23);
     v26 = v25;
     if ((v25 & 0x80u) != 0)
     {
-      v25 = *(a3 + 8);
+      v25 = *(a3 + 1);
     }
 
     if (v23 >= v25)
@@ -1393,7 +1373,7 @@ LABEL_45:
   }
 
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a2, a3);
-  v12 = *(a2 + 36);
+  v12 = a2[18];
   v13 = a1[18];
   if (v12 >= v13)
   {
@@ -1413,7 +1393,7 @@ LABEL_45:
     v35 = v34;
     if ((v34 & 0x80u) != 0)
     {
-      v34 = *(a2 + 8);
+      v34 = *(a2 + 1);
     }
 
     if (v32 >= v34)
@@ -1484,11 +1464,11 @@ LABEL_65:
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a1, a2);
 }
 
-void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(unsigned __int16 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(unsigned __int16 *a1, unsigned __int16 *a2, unsigned __int16 *a3, unsigned __int16 *a4, unsigned __int16 *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a2, a3, a4);
-  v10 = *(a5 + 36);
-  v11 = *(a4 + 36);
+  v10 = a5[18];
+  v11 = a4[18];
   if (v10 >= v11)
   {
     if (v10 > v11)
@@ -1500,14 +1480,14 @@ void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(ski
     v19 = v18;
     if ((v18 & 0x80u) != 0)
     {
-      v18 = *(a4 + 8);
+      v18 = *(a4 + 1);
     }
 
     v20 = *(a5 + 23);
     v21 = v20;
     if ((v20 & 0x80u) != 0)
     {
-      v20 = *(a5 + 8);
+      v20 = *(a5 + 1);
     }
 
     if (v18 >= v20)
@@ -1576,8 +1556,8 @@ LABEL_26:
   }
 
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a4, a5);
-  v12 = *(a4 + 36);
-  v13 = *(a3 + 36);
+  v12 = a4[18];
+  v13 = a3[18];
   if (v12 >= v13)
   {
     if (v12 > v13)
@@ -1589,14 +1569,14 @@ LABEL_26:
     v28 = v27;
     if ((v27 & 0x80u) != 0)
     {
-      v27 = *(a3 + 8);
+      v27 = *(a3 + 1);
     }
 
     v29 = *(a4 + 23);
     v30 = v29;
     if ((v29 & 0x80u) != 0)
     {
-      v29 = *(a4 + 8);
+      v29 = *(a4 + 1);
     }
 
     if (v27 >= v29)
@@ -1665,8 +1645,8 @@ LABEL_46:
   }
 
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a3, a4);
-  v14 = *(a3 + 36);
-  v15 = *(a2 + 36);
+  v14 = a3[18];
+  v15 = a2[18];
   if (v14 >= v15)
   {
     if (v14 > v15)
@@ -1678,14 +1658,14 @@ LABEL_46:
     v37 = v36;
     if ((v36 & 0x80u) != 0)
     {
-      v36 = *(a2 + 8);
+      v36 = *(a2 + 1);
     }
 
     v38 = *(a3 + 23);
     v39 = v38;
     if ((v38 & 0x80u) != 0)
     {
-      v38 = *(a3 + 8);
+      v38 = *(a3 + 1);
     }
 
     if (v36 >= v38)
@@ -1754,7 +1734,7 @@ LABEL_66:
   }
 
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a2, a3);
-  v16 = *(a2 + 36);
+  v16 = a2[18];
   v17 = a1[18];
   if (v16 >= v17)
   {
@@ -1774,7 +1754,7 @@ LABEL_66:
     v48 = v47;
     if ((v47 & 0x80u) != 0)
     {
-      v47 = *(a2 + 8);
+      v47 = *(a2 + 1);
     }
 
     if (v45 >= v47)
@@ -1853,13 +1833,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,skit:
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, (a1 + 24), (a2 - 24));
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, a2 - 24);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, a1 + 48, a2 - 24);
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), (a2 - 24));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, a1 + 48, a1 + 72, a2 - 24);
         return 1;
     }
   }
@@ -1873,7 +1853,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,skit:
 
     if (v4 == 2)
     {
-      v5 = (a2 - 24);
+      v5 = a2 - 24;
       v6 = *(a2 - 6);
       v7 = a1[18];
       if (v6 >= v7)
@@ -1968,7 +1948,7 @@ LABEL_87:
   }
 
   v8 = a1 + 48;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, (a1 + 24), (a1 + 48));
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, a1 + 48);
   v9 = a1 + 72;
   if (a1 + 72 == a2)
   {
@@ -2220,12 +2200,12 @@ void std::__shared_ptr_emplace<skit::internal::ContextImpl>::~__shared_ptr_empla
   JUMPOUT(0x29C2A3200);
 }
 
-__int128 **skit::ContextV2::index_writer@<X0>(__int128 **result@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+void skit::ContextV2::index_writer(__int128 **a1@<X0>, unint64_t a2@<X1>, std::string::size_type a3@<X2>, void *a4@<X8>)
 {
-  v47[3] = *MEMORY[0x29EDCA608];
+  v46[3] = *MEMORY[0x29EDCA608];
   *a4 = 0;
-  v4 = *result;
-  if (*result)
+  v4 = *a1;
+  if (*a1)
   {
     v7 = *(v4 + 55);
     if ((v7 & 0x8000000000000000) != 0)
@@ -2239,97 +2219,97 @@ __int128 **skit::ContextV2::index_writer@<X0>(__int128 **result@<X0>, unint64_t 
       v8 = (v4 + 2);
     }
 
-    v40[0] = v8;
-    v40[1] = v7;
-    v39[0] = a2;
-    v39[1] = a3;
+    v39[0] = v8;
+    v39[1] = v7;
+    v38[0] = a2;
+    v38[1] = a3;
     std::mutex::lock((v4 + 56));
-    v47[0] = v8;
-    v47[1] = v7;
+    v46[0] = v8;
+    v46[1] = v7;
     *out = a2;
     *&out[8] = a3;
     if (*(v4 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v42, *v4, *(v4 + 1));
+      std::string::__init_copy_ctor_external(&v41, *v4, *(v4 + 1));
     }
 
     else
     {
       v9 = *v4;
-      v42.__r_.__value_.__r.__words[2] = *(v4 + 2);
-      *&v42.__r_.__value_.__l.__data_ = v9;
+      v41.__r_.__value_.__r.__words[2] = *(v4 + 2);
+      *&v41.__r_.__value_.__l.__data_ = v9;
     }
 
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v42, v47);
-    std::__fs::filesystem::_PathCVT<char16_t>::__append_range[abi:ne200100](&v42, ".", L"");
+    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v41, v46);
+    std::__fs::filesystem::_PathCVT<char16_t>::__append_range[abi:ne200100](&v41, ".", L"");
     if (*(v4 + 6))
     {
       goto LABEL_9;
     }
 
-    memset(&v45, 0, sizeof(v45));
+    memset(&v44, 0, sizeof(v44));
     if (*(v4 + 23) >= 0)
     {
-      v14 = v4;
+      v13 = v4;
     }
 
     else
     {
-      v14 = *v4;
+      v13 = *v4;
     }
 
-    if (stat(v14, &v45))
+    if (stat(v13, &v44))
+    {
+      if (skit::internal::get_logging_context(void)::once != -1)
+      {
+      }
+
+      v28 = skit::internal::get_logging_context(void)::logger;
+      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+      {
+        v31 = *(v4 + 23);
+        v32 = *v4;
+        v33 = __error();
+        if (v31 >= 0)
+        {
+          v34 = v4;
+        }
+
+        else
+        {
+          v34 = v32;
+        }
+
+        v35 = *v33;
+        v42 = 136446466;
+        *v43 = v34;
+        *&v43[8] = 1024;
+        *&v43[10] = v35;
+        _os_log_error_impl(&dword_2998C6000, v28, OS_LOG_TYPE_ERROR, "ContextImpl::make_path : stat failed for context parent directory @ %{public}s : %{darwin.errno}d", &v42, 0x12u);
+      }
+
+      if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+      {
+        *v41.__r_.__value_.__l.__data_ = 0;
+        v41.__r_.__value_.__l.__size_ = 0;
+      }
+
+      else
+      {
+        v41.__r_.__value_.__s.__data_[0] = 0;
+        *(&v41.__r_.__value_.__s + 23) = 0;
+      }
+
+      goto LABEL_50;
+    }
+
+    if ((v44.st_mode & 0x4000) == 0)
     {
       if (skit::internal::get_logging_context(void)::once != -1)
       {
       }
 
       v29 = skit::internal::get_logging_context(void)::logger;
-      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-      {
-        v32 = *(v4 + 23);
-        v33 = *v4;
-        v34 = __error();
-        if (v32 >= 0)
-        {
-          v35 = v4;
-        }
-
-        else
-        {
-          v35 = v33;
-        }
-
-        v36 = *v34;
-        v43 = 136446466;
-        *v44 = v35;
-        *&v44[8] = 1024;
-        *&v44[10] = v36;
-        _os_log_error_impl(&dword_2998C6000, v29, OS_LOG_TYPE_ERROR, "ContextImpl::make_path : stat failed for context parent directory @ %{public}s : %{darwin.errno}d", &v43, 0x12u);
-      }
-
-      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
-      {
-        *v42.__r_.__value_.__l.__data_ = 0;
-        v42.__r_.__value_.__l.__size_ = 0;
-      }
-
-      else
-      {
-        v42.__r_.__value_.__s.__data_[0] = 0;
-        *(&v42.__r_.__value_.__s + 23) = 0;
-      }
-
-      goto LABEL_50;
-    }
-
-    if ((v45.st_mode & 0x4000) == 0)
-    {
-      if (skit::internal::get_logging_context(void)::once != -1)
-      {
-      }
-
-      v30 = skit::internal::get_logging_context(void)::logger;
       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
@@ -2337,86 +2317,86 @@ __int128 **skit::ContextV2::index_writer@<X0>(__int128 **result@<X0>, unint64_t 
 
       if (*(v4 + 23) >= 0)
       {
-        v31 = v4;
+        v30 = v4;
       }
 
       else
       {
-        v31 = *v4;
+        v30 = *v4;
       }
 
-      v43 = 136446210;
-      *v44 = v31;
-      v24 = "ContextImpl::make_path : parent path is not a directory %{public}s";
-      v26 = &v43;
-      v27 = v30;
-      v28 = 12;
+      v42 = 136446210;
+      *v43 = v30;
+      v23 = "ContextImpl::make_path : parent path is not a directory %{public}s";
+      v25 = &v42;
+      v26 = v29;
+      v27 = 12;
       goto LABEL_55;
     }
 
-    *(v4 + 6) = v45.st_mode & 0x1FF;
+    *(v4 + 6) = v44.st_mode & 0x1FF;
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v15 = skit::internal::get_logging_context(void)::logger;
+    v14 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_INFO))
     {
-      v16 = &v42;
-      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v15 = &v41;
+      if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v16 = v42.__r_.__value_.__r.__words[0];
+        v15 = v41.__r_.__value_.__r.__words[0];
       }
 
-      v45.st_dev = 136446210;
-      *&v45.st_mode = v16;
-      _os_log_impl(&dword_2998C6000, v15, OS_LOG_TYPE_INFO, "ContextImpl::make_path : Creating context dir %{public}s", &v45, 0xCu);
+      v44.st_dev = 136446210;
+      *&v44.st_mode = v15;
+      _os_log_impl(&dword_2998C6000, v14, OS_LOG_TYPE_INFO, "ContextImpl::make_path : Creating context dir %{public}s", &v44, 0xCu);
     }
 
-    v17 = (v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v42 : v42.__r_.__value_.__r.__words[0];
-    if (!mkdir(v17, *(v4 + 12)) || *__error() == 17)
+    v16 = (v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v41 : v41.__r_.__value_.__r.__words[0];
+    if (!mkdir(v16, *(v4 + 12)) || *__error() == 17)
     {
 LABEL_9:
-      std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v42, out);
-      std::__fs::filesystem::_PathCVT<char16_t>::__append_range[abi:ne200100](&v42, L".idx", L"");
-      std::__fs::filesystem::__status(&v42, 0);
-      if (v41 == 2 || ((v43 = 0, *&v44[4] = std::system_category(), directories = std::__fs::filesystem::__create_directories(&v42, &v43), !v43) ? (v11 = directories) : (v11 = 0), v11))
+      std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v41, out);
+      std::__fs::filesystem::_PathCVT<char16_t>::__append_range[abi:ne200100](&v41, L".idx", L"");
+      std::__fs::filesystem::__status(&v41, 0);
+      if (v40 == 2 || ((v42 = 0, *&v43[4] = std::system_category(), directories = std::__fs::filesystem::__create_directories(&v41, &v42), !v42) ? (v11 = directories) : (v11 = 0), v11))
       {
-        if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v37, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v36, v41.__r_.__value_.__l.__data_, v41.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v37 = v42;
+          v36 = v41;
         }
 
-        v38 = 0;
+        v37 = 0;
 LABEL_18:
-        if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v42.__r_.__value_.__l.__data_);
+          operator delete(v41.__r_.__value_.__l.__data_);
         }
 
         memset(out, 0, sizeof(out));
         uuid_generate_random(out);
         if (*(v4 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v45, *v4, *(v4 + 1));
+          std::string::__init_copy_ctor_external(&v44, *v4, *(v4 + 1));
         }
 
         else
         {
           v12 = *v4;
-          *&v45.st_uid = *(v4 + 2);
-          *&v45.st_dev = v12;
+          *&v44.st_uid = *(v4 + 2);
+          *&v44.st_dev = v12;
         }
 
-        std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v45, v40);
-        std::string::append(&v45, ".ctx", 4uLL);
-        std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v45, v39);
-        std::string::push_back(&v45, 95);
+        std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v44, v39);
+        std::string::append(&v44, ".ctx", 4uLL);
+        std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v44, v38);
+        std::string::push_back(&v44, 95);
         operator new();
       }
 
@@ -2424,26 +2404,26 @@ LABEL_18:
       {
       }
 
-      v18 = skit::internal::get_logging_context(void)::logger;
+      v17 = skit::internal::get_logging_context(void)::logger;
       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
 LABEL_50:
-        memset(&v37, 0, sizeof(v37));
-        v38 = -1;
+        memset(&v36, 0, sizeof(v36));
+        v37 = -1;
         goto LABEL_18;
       }
 
-      v25 = &v42;
-      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v24 = &v41;
+      if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v25 = v42.__r_.__value_.__r.__words[0];
+        v24 = v41.__r_.__value_.__r.__words[0];
       }
 
-      v45.st_dev = 136446466;
-      *&v45.st_mode = v25;
-      WORD2(v45.st_ino) = 1024;
-      *(&v45.st_ino + 6) = v43;
-      v24 = "ContextImpl::make_pth : mkdir for component failed @ %{public}s : %{darwin.errno}d";
+      v44.st_dev = 136446466;
+      *&v44.st_mode = v24;
+      WORD2(v44.st_ino) = 1024;
+      *(&v44.st_ino + 6) = v42;
+      v23 = "ContextImpl::make_pth : mkdir for component failed @ %{public}s : %{darwin.errno}d";
     }
 
     else
@@ -2452,39 +2432,36 @@ LABEL_50:
       {
       }
 
-      v18 = skit::internal::get_logging_context(void)::logger;
+      v17 = skit::internal::get_logging_context(void)::logger;
       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
       }
 
-      v19 = SHIBYTE(v42.__r_.__value_.__r.__words[2]);
-      v20 = v42.__r_.__value_.__r.__words[0];
-      v21 = __error();
-      v22 = &v42;
-      v23 = *v21;
-      if (v19 < 0)
+      v18 = SHIBYTE(v41.__r_.__value_.__r.__words[2]);
+      v19 = v41.__r_.__value_.__r.__words[0];
+      v20 = __error();
+      v21 = &v41;
+      v22 = *v20;
+      if (v18 < 0)
       {
-        v22 = v20;
+        v21 = v19;
       }
 
-      v45.st_dev = 136446466;
-      *&v45.st_mode = v22;
-      WORD2(v45.st_ino) = 1024;
-      *(&v45.st_ino + 6) = v23;
-      v24 = "ContextImpl::make_path : mkdir for context directory failed @ %{public}s : %{darwin.errno}d";
+      v44.st_dev = 136446466;
+      *&v44.st_mode = v21;
+      WORD2(v44.st_ino) = 1024;
+      *(&v44.st_ino + 6) = v22;
+      v23 = "ContextImpl::make_path : mkdir for context directory failed @ %{public}s : %{darwin.errno}d";
     }
 
-    v26 = &v45;
-    v27 = v18;
-    v28 = 18;
+    v25 = &v44;
+    v26 = v17;
+    v27 = 18;
 LABEL_55:
-    _os_log_error_impl(&dword_2998C6000, v27, OS_LOG_TYPE_ERROR, v24, v26, v28);
+    _os_log_error_impl(&dword_2998C6000, v26, OS_LOG_TYPE_ERROR, v23, v25, v27);
     goto LABEL_50;
   }
-
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void sub_2998E3B38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
@@ -2570,136 +2547,132 @@ void sub_2998E3CF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t skit::ContextV2::index_rename(__int128 **a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v5 = *a1;
-  if (*a1)
+  if (!*a1)
   {
-    v6 = *(v5 + 55);
-    if ((v6 & 0x8000000000000000) != 0)
-    {
-      v7 = *(v5 + 4);
-      v6 = *(v5 + 5);
-    }
+    return 0xFFFFFFFFLL;
+  }
 
-    else
-    {
-      v7 = (v5 + 2);
-    }
-
-    v29[0] = v7;
-    v29[1] = v6;
-    v28[0] = a2;
-    v28[1] = a3;
-    v27[0] = a4;
-    v27[1] = a5;
-    if (*(v5 + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v26, *v5, *(v5 + 1));
-    }
-
-    else
-    {
-      v9 = *v5;
-      v26.__r_.__value_.__r.__words[2] = *(v5 + 2);
-      *&v26.__r_.__value_.__l.__data_ = v9;
-    }
-
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v26, v29);
-    std::string::append(&v26, ".ctx", 4uLL);
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&__p, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      __p = v26;
-    }
-
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v26, v27);
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&__p, v28);
-    std::string::append(&v26, ".idx", 4uLL);
-    std::string::append(&__p, ".idx", 4uLL);
-    std::mutex::lock((v5 + 56));
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      p_p = &__p;
-    }
-
-    else
-    {
-      p_p = __p.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v12 = &v26;
-    }
-
-    else
-    {
-      v12 = v26.__r_.__value_.__r.__words[0];
-    }
-
-    rename(p_p, v12, v10);
-    v8 = v13;
-    std::mutex::unlock((v5 + 56));
-    if (v8)
-    {
-      if (skit::internal::get_logging_context(void)::once != -1)
-      {
-      }
-
-      v16 = skit::internal::get_logging_context(void)::logger;
-      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-      {
-        v17 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-        v18 = __p.__r_.__value_.__r.__words[0];
-        v19 = SHIBYTE(v26.__r_.__value_.__r.__words[2]);
-        v20 = v26.__r_.__value_.__r.__words[0];
-        v21 = __error();
-        v22 = &v26;
-        v23 = *v21;
-        if (v19 < 0)
-        {
-          v22 = v20;
-        }
-
-        *buf = 136446722;
-        v24 = &__p;
-        if (v17 < 0)
-        {
-          v24 = v18;
-        }
-
-        v31 = v24;
-        v32 = 2082;
-        v33 = v22;
-        v34 = 1024;
-        v35 = v23;
-        _os_log_error_impl(&dword_2998C6000, v16, OS_LOG_TYPE_ERROR, "ContextImpl::rename_index : unable to rename index @  %{public}s  --->  %{public}s : %{darwin.errno}d", buf, 0x1Cu);
-      }
-
-      v8 = 0xFFFFFFFFLL;
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v26.__r_.__value_.__l.__data_);
-    }
+  v6 = *(v5 + 55);
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    v7 = *(v5 + 4);
+    v6 = *(v5 + 5);
   }
 
   else
   {
+    v7 = (v5 + 2);
+  }
+
+  v28[0] = v7;
+  v28[1] = v6;
+  v27[0] = a2;
+  v27[1] = a3;
+  v26[0] = a4;
+  v26[1] = a5;
+  if (*(v5 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v25, *v5, *(v5 + 1));
+  }
+
+  else
+  {
+    v9 = *v5;
+    v25.__r_.__value_.__r.__words[2] = *(v5 + 2);
+    *&v25.__r_.__value_.__l.__data_ = v9;
+  }
+
+  std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v25, v28);
+  std::string::append(&v25, ".ctx", 4uLL);
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    __p = v25;
+  }
+
+  std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v25, v26);
+  std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&__p, v27);
+  std::string::append(&v25, ".idx", 4uLL);
+  std::string::append(&__p, ".idx", 4uLL);
+  std::mutex::lock((v5 + 56));
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v12 = &v25;
+  }
+
+  else
+  {
+    v12 = v25.__r_.__value_.__r.__words[0];
+  }
+
+  rename(p_p, v12, v10);
+  v8 = v13;
+  std::mutex::unlock((v5 + 56));
+  if (v8)
+  {
+    if (skit::internal::get_logging_context(void)::once != -1)
+    {
+    }
+
+    v15 = skit::internal::get_logging_context(void)::logger;
+    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    {
+      v16 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v17 = __p.__r_.__value_.__r.__words[0];
+      v18 = SHIBYTE(v25.__r_.__value_.__r.__words[2]);
+      v19 = v25.__r_.__value_.__r.__words[0];
+      v20 = __error();
+      v21 = &v25;
+      v22 = *v20;
+      if (v18 < 0)
+      {
+        v21 = v19;
+      }
+
+      *buf = 136446722;
+      v23 = &__p;
+      if (v16 < 0)
+      {
+        v23 = v17;
+      }
+
+      v30 = v23;
+      v31 = 2082;
+      v32 = v21;
+      v33 = 1024;
+      v34 = v22;
+      _os_log_error_impl(&dword_2998C6000, v15, OS_LOG_TYPE_ERROR, "ContextImpl::rename_index : unable to rename index @  %{public}s  --->  %{public}s : %{darwin.errno}d", buf, 0x1Cu);
+    }
+
     v8 = 0xFFFFFFFFLL;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v25.__r_.__value_.__l.__data_);
+  }
+
   return v8;
 }
 
@@ -2720,115 +2693,111 @@ void sub_2998E3F90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t skit::ContextV2::index_remove(__int128 **a1, uint64_t a2, std::string::size_type a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v3 = *a1;
-  if (*a1)
+  if (!*a1)
   {
-    v6 = *(v3 + 55);
-    if ((v6 & 0x8000000000000000) != 0)
-    {
-      v7 = *(v3 + 4);
-      v6 = *(v3 + 5);
-    }
+    return 0xFFFFFFFFLL;
+  }
 
-    else
-    {
-      v7 = (v3 + 2);
-    }
-
-    v26[0] = v7;
-    v26[1] = v6;
-    v25[0] = a2;
-    v25[1] = a3;
-    if (*(v3 + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v24, *v3, *(v3 + 1));
-    }
-
-    else
-    {
-      v9 = *v3;
-      v24.__r_.__value_.__r.__words[2] = *(v3 + 2);
-      *&v24.__r_.__value_.__l.__data_ = v9;
-    }
-
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v24, v26);
-    std::string::append(&v24, ".ctx", 4uLL);
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v24, v25);
-    std::string::append(&v24, ".idx", 4uLL);
-    std::mutex::lock((v3 + 56));
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v11 = &v24;
-    }
-
-    else
-    {
-      v11 = v24.__r_.__value_.__r.__words[0];
-    }
-
-    if (skit::internal::remove_all(v11, v10) && *__error() != 2)
-    {
-      if (skit::internal::get_logging_context(void)::once != -1)
-      {
-      }
-
-      v14 = skit::internal::get_logging_context(void)::logger;
-      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-      {
-        skit::to_string(&__p, a2, a3);
-        v15 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-        v16 = __p.__r_.__value_.__r.__words[0];
-        v17 = SHIBYTE(v24.__r_.__value_.__r.__words[2]);
-        v18 = v24.__r_.__value_.__r.__words[0];
-        v19 = __error();
-        v20 = &v24;
-        v21 = *v19;
-        if (v17 < 0)
-        {
-          v20 = v18;
-        }
-
-        *buf = 136446722;
-        p_p = &__p;
-        if (v15 < 0)
-        {
-          p_p = v16;
-        }
-
-        v28 = p_p;
-        v29 = 2082;
-        v30 = v20;
-        v31 = 1024;
-        v32 = v21;
-        _os_log_error_impl(&dword_2998C6000, v14, OS_LOG_TYPE_ERROR, "Context::remove_index : failed to remove index %{public}s @ %{public}s : %{darwin.errno}d", buf, 0x1Cu);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-      }
-
-      v8 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    std::mutex::unlock((v3 + 56));
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__data_);
-    }
+  v6 = *(v3 + 55);
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    v7 = *(v3 + 4);
+    v6 = *(v3 + 5);
   }
 
   else
   {
+    v7 = (v3 + 2);
+  }
+
+  v25[0] = v7;
+  v25[1] = v6;
+  v24[0] = a2;
+  v24[1] = a3;
+  if (*(v3 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v23, *v3, *(v3 + 1));
+  }
+
+  else
+  {
+    v9 = *v3;
+    v23.__r_.__value_.__r.__words[2] = *(v3 + 2);
+    *&v23.__r_.__value_.__l.__data_ = v9;
+  }
+
+  std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v23, v25);
+  std::string::append(&v23, ".ctx", 4uLL);
+  std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v23, v24);
+  std::string::append(&v23, ".idx", 4uLL);
+  std::mutex::lock((v3 + 56));
+  if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v11 = &v23;
+  }
+
+  else
+  {
+    v11 = v23.__r_.__value_.__r.__words[0];
+  }
+
+  if (skit::internal::remove_all(v11, v10) && *__error() != 2)
+  {
+    if (skit::internal::get_logging_context(void)::once != -1)
+    {
+    }
+
+    v13 = skit::internal::get_logging_context(void)::logger;
+    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    {
+      skit::to_string(&__p, a2, a3);
+      v14 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v15 = __p.__r_.__value_.__r.__words[0];
+      v16 = SHIBYTE(v23.__r_.__value_.__r.__words[2]);
+      v17 = v23.__r_.__value_.__r.__words[0];
+      v18 = __error();
+      v19 = &v23;
+      v20 = *v18;
+      if (v16 < 0)
+      {
+        v19 = v17;
+      }
+
+      *buf = 136446722;
+      p_p = &__p;
+      if (v14 < 0)
+      {
+        p_p = v15;
+      }
+
+      v27 = p_p;
+      v28 = 2082;
+      v29 = v19;
+      v30 = 1024;
+      v31 = v20;
+      _os_log_error_impl(&dword_2998C6000, v13, OS_LOG_TYPE_ERROR, "Context::remove_index : failed to remove index %{public}s @ %{public}s : %{darwin.errno}d", buf, 0x1Cu);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+    }
+
     v8 = 0xFFFFFFFFLL;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
+  else
+  {
+    v8 = 0;
+  }
+
+  std::mutex::unlock((v3 + 56));
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
   return v8;
 }
 
@@ -2850,240 +2819,236 @@ void sub_2998E4220(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t skit::ContextV2::cleanup(__int128 **this)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v1 = *this;
-  if (*this)
+  if (!*this)
   {
-    v2 = *(v1 + 55);
-    if ((v2 & 0x8000000000000000) != 0)
-    {
-      v3 = *(v1 + 4);
-      v2 = *(v1 + 5);
-    }
+    return 0xFFFFFFFFLL;
+  }
 
-    else
-    {
-      v3 = (v1 + 2);
-    }
-
-    v35[0] = v3;
-    v35[1] = v2;
-    if (*(v1 + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v34, *v1, *(v1 + 1));
-    }
-
-    else
-    {
-      v5 = *v1;
-      v34.__r_.__value_.__r.__words[2] = *(v1 + 2);
-      *&v34.__r_.__value_.__l.__data_ = v5;
-    }
-
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v34, v35);
-    std::string::append(&v34, ".ctx", 4uLL);
-    std::mutex::lock((v1 + 56));
-    v33.__val_ = 0;
-    v33.__cat_ = std::system_category();
-    MEMORY[0x29C2A3120](&v31, &v34, &v33, 2);
-    if (!v33.__val_)
-    {
-      std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&__p, ".txn");
-      memset(buf, 0, sizeof(buf));
-      v6 = v31;
-      v7 = v32;
-      if (v32)
-      {
-        atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
-        v8 = v32;
-        v29.__imp_.__ptr_ = v6;
-        v29.__imp_.__cntrl_ = v7;
-        if (v32)
-        {
-          atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-        }
-      }
-
-      else
-      {
-        v29.__imp_.__ptr_ = v31;
-        v29.__imp_.__cntrl_ = 0;
-      }
-
-      v4 = 0;
-      while (1)
-      {
-        if (!v29.__imp_.__ptr_)
-        {
-          if (v29.__imp_.__cntrl_)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v29.__imp_.__cntrl_);
-          }
-
-          v37.__pn_.__r_.__value_.__r.__words[0] = buf;
-          std::vector<std::__fs::filesystem::path>::__destroy_vector::operator()[abi:ne200100](&v37);
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          goto LABEL_47;
-        }
-
-        v9 = std::__fs::filesystem::directory_iterator::__dereference(&v29);
-        v10 = v9;
-        if (((1 << v9[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
-        {
-          std::__fs::filesystem::__status(v9, 0);
-          v11 = v36;
-        }
-
-        else
-        {
-          v11 = v9[3].__pn_.__r_.__value_.__s.__data_[0];
-        }
-
-        if (v11 == 2)
-        {
-          std::__fs::filesystem::path::extension[abi:ne200100](&v37, v10);
-          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v12.__data_ = &__p;
-          }
-
-          else
-          {
-            v12.__data_ = __p.__r_.__value_.__r.__words[0];
-          }
-
-          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v12.__size_ = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            v12.__size_ = __p.__r_.__value_.__l.__size_;
-          }
-
-          v13 = std::__fs::filesystem::path::__compare(&v37, v12);
-          v15 = v13;
-          if (SHIBYTE(v37.__pn_.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v37.__pn_.__r_.__value_.__l.__data_);
-            if (v15)
-            {
-              goto LABEL_35;
-            }
-          }
-
-          else if (v13)
-          {
-            goto LABEL_35;
-          }
-
-          if ((v10->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v16 = v10;
-          }
-
-          else
-          {
-            v16 = v10->__pn_.__r_.__value_.__r.__words[0];
-          }
-
-          if (skit::internal::remove_all(v16, v14) && *__error() != 2)
-          {
-            if (skit::internal::get_logging_context(void)::once != -1)
-            {
-            }
-
-            v17 = skit::internal::get_logging_context(void)::logger;
-            if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-            {
-              v18 = SHIBYTE(v10->__pn_.__r_.__value_.__r.__words[2]);
-              v28 = v10->__pn_.__r_.__value_.__r.__words[0];
-              v19 = *__error();
-              v20 = v28;
-              if (v18 >= 0)
-              {
-                v20 = v10;
-              }
-
-              LODWORD(v37.__pn_.__r_.__value_.__l.__data_) = 136446466;
-              *(v37.__pn_.__r_.__value_.__r.__words + 4) = v20;
-              WORD2(v37.__pn_.__r_.__value_.__r.__words[1]) = 1024;
-              *(&v37.__pn_.__r_.__value_.__r.__words[1] + 6) = v19;
-              _os_log_error_impl(&dword_2998C6000, v17, OS_LOG_TYPE_ERROR, "ContextImpl::cleanup : failed to remove transaction directory @ %{public}s : %{darwin.errno}d", &v37, 0x12u);
-            }
-
-            v4 = 0xFFFFFFFFLL;
-          }
-        }
-
-LABEL_35:
-        std::__fs::filesystem::directory_iterator::__increment(&v29, 0);
-      }
-    }
-
-    if (skit::internal::get_logging_context(void)::once != -1)
-    {
-    }
-
-    v23 = skit::internal::get_logging_context(void)::logger;
-    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-    {
-      v24 = SHIBYTE(v34.__r_.__value_.__r.__words[2]);
-      v25 = v34.__r_.__value_.__r.__words[0];
-      std::error_code::message(&__p, &v33);
-      v26 = &v34;
-      if (v24 < 0)
-      {
-        v26 = v25;
-      }
-
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        p_p = &__p;
-      }
-
-      else
-      {
-        p_p = __p.__r_.__value_.__r.__words[0];
-      }
-
-      *buf = 136446466;
-      *&buf[4] = v26;
-      *&buf[12] = 2082;
-      *&buf[14] = p_p;
-      _os_log_error_impl(&dword_2998C6000, v23, OS_LOG_TYPE_ERROR, "ContextImpl::cleanup : failed to construct directory iterator %{public}s : %{public}s", buf, 0x16u);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-    }
-
-    v4 = 0xFFFFFFFFLL;
-LABEL_47:
-    if (v32)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-    }
-
-    std::mutex::unlock((v1 + 56));
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v34.__r_.__value_.__l.__data_);
-    }
+  v2 = *(v1 + 55);
+  if ((v2 & 0x8000000000000000) != 0)
+  {
+    v3 = *(v1 + 4);
+    v2 = *(v1 + 5);
   }
 
   else
   {
-    v4 = 0xFFFFFFFFLL;
+    v3 = (v1 + 2);
   }
 
-  v21 = *MEMORY[0x29EDCA608];
+  v34[0] = v3;
+  v34[1] = v2;
+  if (*(v1 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v33, *v1, *(v1 + 1));
+  }
+
+  else
+  {
+    v5 = *v1;
+    v33.__r_.__value_.__r.__words[2] = *(v1 + 2);
+    *&v33.__r_.__value_.__l.__data_ = v5;
+  }
+
+  std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v33, v34);
+  std::string::append(&v33, ".ctx", 4uLL);
+  std::mutex::lock((v1 + 56));
+  v32.__val_ = 0;
+  v32.__cat_ = std::system_category();
+  MEMORY[0x29C2A3120](&v30, &v33, &v32, 2);
+  if (!v32.__val_)
+  {
+    std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&__p, ".txn");
+    memset(buf, 0, sizeof(buf));
+    v6 = v30;
+    v7 = v31;
+    if (v31)
+    {
+      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      v8 = v31;
+      v28.__imp_.__ptr_ = v6;
+      v28.__imp_.__cntrl_ = v7;
+      if (v31)
+      {
+        atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      }
+    }
+
+    else
+    {
+      v28.__imp_.__ptr_ = v30;
+      v28.__imp_.__cntrl_ = 0;
+    }
+
+    v4 = 0;
+    while (1)
+    {
+      if (!v28.__imp_.__ptr_)
+      {
+        if (v28.__imp_.__cntrl_)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v28.__imp_.__cntrl_);
+        }
+
+        v36.__pn_.__r_.__value_.__r.__words[0] = buf;
+        std::vector<std::__fs::filesystem::path>::__destroy_vector::operator()[abi:ne200100](&v36);
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p.__r_.__value_.__l.__data_);
+        }
+
+        goto LABEL_47;
+      }
+
+      v9 = std::__fs::filesystem::directory_iterator::__dereference(&v28);
+      v10 = v9;
+      if (((1 << v9[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
+      {
+        std::__fs::filesystem::__status(v9, 0);
+        v11 = v35;
+      }
+
+      else
+      {
+        v11 = v9[3].__pn_.__r_.__value_.__s.__data_[0];
+      }
+
+      if (v11 == 2)
+      {
+        std::__fs::filesystem::path::extension[abi:ne200100](&v36, v10);
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v12.__data_ = &__p;
+        }
+
+        else
+        {
+          v12.__data_ = __p.__r_.__value_.__r.__words[0];
+        }
+
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v12.__size_ = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v12.__size_ = __p.__r_.__value_.__l.__size_;
+        }
+
+        v13 = std::__fs::filesystem::path::__compare(&v36, v12);
+        v15 = v13;
+        if (SHIBYTE(v36.__pn_.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v36.__pn_.__r_.__value_.__l.__data_);
+          if (v15)
+          {
+            goto LABEL_35;
+          }
+        }
+
+        else if (v13)
+        {
+          goto LABEL_35;
+        }
+
+        if ((v10->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v16 = v10;
+        }
+
+        else
+        {
+          v16 = v10->__pn_.__r_.__value_.__r.__words[0];
+        }
+
+        if (skit::internal::remove_all(v16, v14) && *__error() != 2)
+        {
+          if (skit::internal::get_logging_context(void)::once != -1)
+          {
+          }
+
+          v17 = skit::internal::get_logging_context(void)::logger;
+          if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+          {
+            v18 = SHIBYTE(v10->__pn_.__r_.__value_.__r.__words[2]);
+            v27 = v10->__pn_.__r_.__value_.__r.__words[0];
+            v19 = *__error();
+            v20 = v27;
+            if (v18 >= 0)
+            {
+              v20 = v10;
+            }
+
+            LODWORD(v36.__pn_.__r_.__value_.__l.__data_) = 136446466;
+            *(v36.__pn_.__r_.__value_.__r.__words + 4) = v20;
+            WORD2(v36.__pn_.__r_.__value_.__r.__words[1]) = 1024;
+            *(&v36.__pn_.__r_.__value_.__r.__words[1] + 6) = v19;
+            _os_log_error_impl(&dword_2998C6000, v17, OS_LOG_TYPE_ERROR, "ContextImpl::cleanup : failed to remove transaction directory @ %{public}s : %{darwin.errno}d", &v36, 0x12u);
+          }
+
+          v4 = 0xFFFFFFFFLL;
+        }
+      }
+
+LABEL_35:
+      std::__fs::filesystem::directory_iterator::__increment(&v28, 0);
+    }
+  }
+
+  if (skit::internal::get_logging_context(void)::once != -1)
+  {
+  }
+
+  v22 = skit::internal::get_logging_context(void)::logger;
+  if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+  {
+    v23 = SHIBYTE(v33.__r_.__value_.__r.__words[2]);
+    v24 = v33.__r_.__value_.__r.__words[0];
+    std::error_code::message(&__p, &v32);
+    v25 = &v33;
+    if (v23 < 0)
+    {
+      v25 = v24;
+    }
+
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_p = &__p;
+    }
+
+    else
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    *buf = 136446466;
+    *&buf[4] = v25;
+    *&buf[12] = 2082;
+    *&buf[14] = p_p;
+    _os_log_error_impl(&dword_2998C6000, v22, OS_LOG_TYPE_ERROR, "ContextImpl::cleanup : failed to construct directory iterator %{public}s : %{public}s", buf, 0x16u);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+  }
+
+  v4 = 0xFFFFFFFFLL;
+LABEL_47:
+  if (v31)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+  }
+
+  std::mutex::unlock((v1 + 56));
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v33.__r_.__value_.__l.__data_);
+  }
+
   return v4;
 }
 
@@ -3105,7 +3070,7 @@ void sub_2998E46BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 _DWORD *skit::Document::Document(_DWORD *a1, _OWORD *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   *a1 = *a2;
   v3 = *a1;
   if (!*a1)
@@ -3114,14 +3079,14 @@ _DWORD *skit::Document::Document(_DWORD *a1, _OWORD *a2)
     {
     }
 
-    v10 = skit::internal::get_logging_context(void)::logger;
+    v9 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    LOWORD(v19) = 0;
-    v11 = "initialized with an empty buffer";
+    LOWORD(v18) = 0;
+    v10 = "initialized with an empty buffer";
     goto LABEL_16;
   }
 
@@ -3132,18 +3097,18 @@ _DWORD *skit::Document::Document(_DWORD *a1, _OWORD *a2)
     {
     }
 
-    v14 = skit::internal::get_logging_context(void)::logger;
+    v13 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    v15 = a1[2];
-    v19 = 67109120;
-    v20 = v15;
-    v11 = "buffer too small, %u bytes";
-    v12 = v14;
-    v13 = 8;
+    v14 = a1[2];
+    v18 = 67109120;
+    v19 = v14;
+    v10 = "buffer too small, %u bytes";
+    v11 = v13;
+    v12 = 8;
     goto LABEL_17;
   }
 
@@ -3154,27 +3119,27 @@ _DWORD *skit::Document::Document(_DWORD *a1, _OWORD *a2)
     {
     }
 
-    v16 = skit::internal::get_logging_context(void)::logger;
+    v15 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    v17 = *(*a1 + 20) + 24;
-    v18 = a1[2];
-    v19 = 67109376;
-    v20 = v17;
-    v21 = 1024;
-    v22 = v18;
-    v11 = "buffer size mismatch, %u != %u";
-    v12 = v16;
-    v13 = 14;
+    v16 = *(*a1 + 20) + 24;
+    v17 = a1[2];
+    v18 = 67109376;
+    v19 = v16;
+    v20 = 1024;
+    v21 = v17;
+    v10 = "buffer size mismatch, %u != %u";
+    v11 = v15;
+    v12 = 14;
 LABEL_17:
-    _os_log_error_impl(&dword_2998C6000, v12, OS_LOG_TYPE_ERROR, v11, &v19, v13);
+    _os_log_error_impl(&dword_2998C6000, v11, OS_LOG_TYPE_ERROR, v10, &v18, v12);
 LABEL_14:
     *a1 = &skit::Document::empty_doc;
     a1[2] = 24;
-    goto LABEL_10;
+    return a1;
   }
 
   if (v5)
@@ -3190,7 +3155,7 @@ LABEL_14:
 
       if (v7 == v6)
       {
-        goto LABEL_10;
+        return a1;
       }
     }
 
@@ -3198,32 +3163,29 @@ LABEL_14:
     {
     }
 
-    v10 = skit::internal::get_logging_context(void)::logger;
+    v9 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    LOWORD(v19) = 0;
-    v11 = "buffer iterator bounds check failed";
+    LOWORD(v18) = 0;
+    v10 = "buffer iterator bounds check failed";
 LABEL_16:
-    v12 = v10;
-    v13 = 2;
+    v11 = v9;
+    v12 = 2;
     goto LABEL_17;
   }
 
-LABEL_10:
-  v8 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-uint64_t skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>::AliasSpanMatchImpl(uint64_t a1, __int128 *a2, size_t a3)
+uint64_t skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>::AliasSpanMatchImpl(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   v6 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v6;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v7 = *(a2 + 3);
   *(a1 + 32) = *(a2 + 16);
@@ -3231,8 +3193,8 @@ uint64_t skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>:
   v8 = *a3;
   *(a1 + 52) = *(a3 + 12);
   *(a1 + 40) = v8;
-  skit::SmallVector<skit::GroupId,4u,true>::move(a1 + 72, a3 + 32);
-  *(a1 + 96) = *(a3 + 56);
+  skit::SmallVector<skit::GroupId,4u,true>::move(a1 + 72, (a3 + 2));
+  *(a1 + 96) = *(a3 + 14);
   skit::SpanMatchV3::append_alias_id(a3, *(a2 + 16), *(a2 + 7) - *(a2 + 6));
   return a1;
 }
@@ -3344,7 +3306,7 @@ BOOL skit::EmojiFilter::filter(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
   return 0;
 }
 
-void skit::EmojiFilter::filter(skit::EmojiFilter *this, skit::TokenStream *a2, unint64_t a3)
+void skit::EmojiFilter::filter(uint64_t this, skit::TokenStream *a2, unint64_t a3)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 4);
   v4 = v3 - a3;
@@ -3379,15 +3341,15 @@ float skit::EmojiFilter::filter(uint64_t a1, unsigned __int16 *a2)
 
   if (skit::EmojiFilter::filter(a1, a2, v5))
   {
-    result = *(a1 + 16) * v2[8];
-    v2[8] = result;
-    *(v2 + 20) = (*(v2 + 20) | *(a1 + 20) & 4) & (~*(a1 + 20) | 0xFFFE);
+    result = *(a1 + 16) * *(v2 + 8);
+    *(v2 + 8) = result;
+    v2[20] = (v2[20] | *(a1 + 20) & 4) & (~*(a1 + 20) | 0xFFFE);
   }
 
   return result;
 }
 
-int32x2_t skit::FieldBundle::add(int32x2_t *a1, __int16 a2, uint64_t a3, unsigned int a4, int a5)
+int32x2_t skit::FieldBundle::add(int32x2_t *a1, __int16 a2, const void *a3, unsigned int a4, int a5)
 {
   if (a5)
   {
@@ -3443,8 +3405,8 @@ int32x2_t skit::FieldBundle::add(int32x2_t *a1, __int16 a2, uint64_t a3, unsigne
     *(24 * v15 + 2) = v20;
     *(24 * v15 + 8) = a3;
     *(24 * v15 + 0x10) = v20;
-    v12 = v19 + 24;
-    v21 = v19 - v14;
+    v12 = (v19 + 24);
+    v21 = (v19 - v14);
     memcpy((v19 - v14), v13, v14);
     v22 = a1[3];
     a1[3] = v21;
@@ -3472,7 +3434,7 @@ int32x2_t skit::FieldBundle::add(int32x2_t *a1, __int16 a2, uint64_t a3, unsigne
     *(*&v9 + 2) = v11;
     *(*&v9 + 8) = a3;
     *(*&v9 + 16) = v11;
-    v12 = *&v9 + 24;
+    v12 = (*&v9 + 24);
   }
 
   a1[4] = v12;
@@ -3528,7 +3490,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<skit::FieldBundle::Fi
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void skit::FieldBundle::add(skit::FieldBundle *this, unsigned __int16 a2, const skit::TokenStream *a3)
+void skit::FieldBundle::add(int32x2_t *this, __int16 a2, const skit::TokenStream *a3)
 {
   v3 = *a3;
   v4 = 2;
@@ -3568,7 +3530,7 @@ void skit::FieldBundle::clear(skit::FieldBundle *this)
   *(this + 7) = v2;
 }
 
-void skit::FieldBundle::to_iovec(skit::FieldBundle *this@<X0>, void *a2@<X8>)
+void skit::FieldBundle::to_iovec(skit::FieldBundle *this@<X0>, void **a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -3597,13 +3559,15 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<iovec>>(unint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void skit::FieldSpanMatcherV2::FieldSpanMatcherV2()
+void skit::FieldSpanMatcherV2::FieldSpanMatcherV2(uint64_t **a1, uint64_t a2, __int128 **a3, char a4)
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>();
+  v4 = a4;
+  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>(a1, a2, a3, &v4);
 }
 
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>();
+  v4 = a4;
+  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>(a1, a2, a3, &v4);
 }
 
 uint64_t skit::FieldSpanMatcherV2::query_token_stream_begin(skit::FieldSpanMatcherV2 *this)
@@ -3656,41 +3620,35 @@ uint64_t skit::FieldSpanMatcherV2::query_token_stream_end(skit::FieldSpanMatcher
   }
 }
 
-uint64_t skit::FieldSpanMatcherV2::alias_span_matcher(uint64_t *a1, __int128 *a2, char a3, uint64_t a4)
+uint64_t skit::FieldSpanMatcherV2::alias_span_matcher(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v10[10] = *MEMORY[0x29EDCA608];
+  v9[10] = *MEMORY[0x29EDCA608];
   v4 = *a1;
-  if (v4)
+  if (!v4)
   {
-    v9[0] = v10;
-    v9[1] = 0x200000000;
-    v8 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    v5 = skit::internal::FieldSpanMatcherImpl::alias_span_matcher(v4, &v8, a3, a4, v9, 0);
-    if (*(&v8 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
-    }
-
-    skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v9);
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v8[0] = v9;
+  v8[1] = 0x200000000;
+  v7 = *a2;
+  *a2 = 0uLL;
+  v5 = skit::internal::FieldSpanMatcherImpl::alias_span_matcher(v4, &v7, a3, a4, v8, 0);
+  if (*(&v7 + 1))
   {
-    v5 = 0xFFFFFFFFLL;
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
   }
 
-  v6 = *MEMORY[0x29EDCA608];
+  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v8);
   return v5;
 }
 
-void sub_2998E584C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, ...)
+void sub_2998E584C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (a3)
+  va_start(va, a7);
+  if (a6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
   }
 
   skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(va);
@@ -3741,43 +3699,36 @@ uint64_t skit::FieldSpanMatcherV2::query_alias_matches_end(skit::FieldSpanMatche
   }
 }
 
-void skit::FieldSpanMatcherV2::match(uint64_t *a1, uint64_t a2, uint64_t *a3)
+void skit::FieldSpanMatcherV2::match(uint64_t *a1, uint64_t a2, uint64_t *a3, __int16 a4, unsigned int a5)
 {
-  skit::FieldSpanMatcherV2::match(a1, a2, a3);
-}
-
-{
-  v13[32] = *MEMORY[0x29EDCA608];
-  v8 = 0;
+  v14[32] = *MEMORY[0x29EDCA608];
+  v9 = 0;
   *__p = 0u;
-  v10 = 0u;
-  v11 = 0;
-  v12[0] = v13;
-  v12[1] = 0x400000000;
-  v6[0] = &v7;
-  v6[1] = 0x200000000;
-  v3 = *a1;
-  if (v3)
+  v11 = 0u;
+  v12 = 0;
+  v13[0] = v14;
+  v13[1] = 0x400000000;
+  v7[0] = &v8;
+  v7[1] = 0x200000000;
+  v5 = *a1;
+  if (v5)
   {
-    skit::internal::FieldSpanMatcherImpl::match(v3, &v8, a3, v6, 0);
+    skit::internal::FieldSpanMatcherImpl::match(v5, &v9, a3, v7, 0, a4, a5);
   }
 
-  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v6);
-  skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(v12);
-  if (SBYTE7(v10) < 0)
+  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v7);
+  skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(v13);
+  if (SBYTE7(v11) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2998E59B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2998E59B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -3788,6 +3739,7 @@ void sub_2998E59B4(_Unwind_Exception *a1, uint64_t a2, ...)
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(va);
   skit::internal::FieldMatchesImpl<skit::SpanMatchV3>::~FieldMatchesImpl(va1);
   _Unwind_Resume(a1);
@@ -3975,40 +3927,38 @@ std::basic_string<char16_t> *std::basic_string<char16_t>::__assign_no_alias<fals
   return this;
 }
 
-void skit::FieldSpanMatcherV2::match(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void skit::FieldSpanMatcherV2::match(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, __int16 a5, unsigned int a6)
 {
-  v12[32] = *MEMORY[0x29EDCA608];
-  v7 = 0;
+  v13[32] = *MEMORY[0x29EDCA608];
+  v8 = 0;
   *__p = 0u;
-  v9 = 0u;
-  v10 = 0;
-  v11[0] = v12;
-  v11[1] = 0x400000000;
-  v4 = *a1;
-  if (v4)
+  v10 = 0u;
+  v11 = 0;
+  v12[0] = v13;
+  v12[1] = 0x400000000;
+  v6 = *a1;
+  if (v6)
   {
-    skit::internal::FieldSpanMatcherImpl::match(v4, &v7, a3, a4, 1);
+    skit::internal::FieldSpanMatcherImpl::match(v6, &v8, a3, a4, 1, a5, a6);
   }
 
-  skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(v11);
-  if (SBYTE7(v9) < 0)
+  skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(v12);
+  if (SBYTE7(v10) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2998E5D84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2998E5D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   skit::internal::FieldMatchesImpl<skit::SpanMatchV3>::~FieldMatchesImpl(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t skit::FieldSpanMatcherV2::merge_field(uint64_t *a1, uint64_t a2, uint64_t a3, char a4)
 {
-  v83 = *MEMORY[0x29EDCA608];
+  v82 = *MEMORY[0x29EDCA608];
   v4 = *a1;
   if (!*a1)
   {
@@ -4025,7 +3975,7 @@ uint64_t skit::FieldSpanMatcherV2::merge_field(uint64_t *a1, uint64_t a2, uint64
   {
 LABEL_26:
     v25 = 0;
-    goto LABEL_98;
+    return v25 & 1;
   }
 
   v8 = 48;
@@ -4044,8 +3994,8 @@ LABEL_26:
 
   v11 = *(a3 + 48);
   v12 = &v11[2 * v7];
-  v76 = *(a2 + 24);
-  v13 = v76;
+  v75 = *(a2 + 24);
+  v13 = v75;
   do
   {
     if (v13 == *(a2 + 28))
@@ -4055,7 +4005,7 @@ LABEL_26:
     }
 
     v14 = *(a2 + 16);
-    LOWORD(v78) = *a3;
+    LOWORD(v77) = *a3;
     if (*(a3 + 31) < 0)
     {
       std::basic_string<char16_t>::__init_copy_ctor_external(&__p, *(a3 + 8), *(a3 + 16));
@@ -4066,24 +4016,24 @@ LABEL_26:
       __p = *(a3 + 8);
     }
 
-    v80 = *(a3 + 32);
-    v15 = v80;
+    v79 = *(a3 + 32);
+    v15 = v79;
     v16 = v11[1];
-    v81 = *v11;
-    v82 = v16;
+    v80 = *v11;
+    v81 = v16;
     v17 = *(v11 + 6);
-    if (v80.i32[2] < v17)
+    if (v79.i32[2] < v17)
     {
-      v80.i32[0] = v17 + v80.i32[0] - v80.i32[2];
+      v79.i32[0] = v17 + v79.i32[0] - v79.i32[2];
     }
 
     v18 = v14 + 392 * v13;
     v19.i32[0] = *(v11 + 5);
     v19.i32[1] = v17;
-    *(v80.i64 + 4) = vmax_u32(*&vextq_s8(v15, v15, 4uLL), v19);
+    *(v79.i64 + 4) = vmax_u32(*&vextq_s8(v15, v15, 4uLL), v19);
     *v18 = v18 + 16;
     *(v18 + 8) = 0x400000001;
-    std::uninitialized_copy[abi:ne200100]<skit::FieldMatchV2 const*,skit::FieldMatchV2*>(&v78, &v83, v18 + 16);
+    std::uninitialized_copy[abi:ne200100]<skit::FieldMatchV2 const*,skit::FieldMatchV2*>(&v77, &v82, v18 + 16);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4111,17 +4061,17 @@ LABEL_26:
   }
 
   while (v11 != v12);
-  v24 = v76;
-  if (v13 != v76)
+  v24 = v75;
+  if (v13 != v75)
   {
-    v72 = 0;
+    v71 = 0;
     v26 = *(a2 + 16);
-    v27 = &v26[49 * v76];
+    v27 = &v26[49 * v75];
     v28 = &v26[49 * v13];
-    v71 = v26;
+    v70 = v26;
     while (1)
     {
-      v77 = (v28 - 49);
+      v76 = (v28 - 49);
       if (!v24)
       {
         goto LABEL_84;
@@ -4153,9 +4103,9 @@ LABEL_26:
               v33 = v10 - v31;
             }
 
-            v78 = v9 + 2 * v31;
+            v77 = v9 + 2 * v31;
             __p.__r_.__value_.__r.__words[0] = v33;
-            if (skit::is_significant(&v78))
+            if (skit::is_significant(&v77))
             {
               break;
             }
@@ -4166,7 +4116,7 @@ LABEL_26:
           {
             v35 = *(v30 + 2);
             v36 = *v30 + 80 * v35;
-            v37 = *v77;
+            v37 = *v76;
             v38 = v35 + v34;
             if (v35 + v34 <= *(v30 + 3))
             {
@@ -4175,10 +4125,10 @@ LABEL_26:
 
             else
             {
-              v74 = *v77;
-              v75 = *(v28 - 96);
+              v73 = *v76;
+              v74 = *(v28 - 96);
               v39 = v35 + (v35 >> 1);
-              v73 = v38;
+              v72 = v38;
               if (v39 + 1 > v38)
               {
                 v40 = v39 + 1;
@@ -4193,8 +4143,8 @@ LABEL_26:
               if (!v41)
               {
                 exception = __cxa_allocate_exception(8uLL);
-                v70 = std::bad_alloc::bad_alloc(exception);
-                __cxa_throw(v70, MEMORY[0x29EDC9490], MEMORY[0x29EDC9408]);
+                v69 = std::bad_alloc::bad_alloc(exception);
+                __cxa_throw(v69, MEMORY[0x29EDC9490], MEMORY[0x29EDC9408]);
               }
 
               v42 = *v30;
@@ -4227,7 +4177,7 @@ LABEL_26:
               v48 = &v42[80 * v47];
               if (v48 != v36)
               {
-                v49 = v43 + 80 * v75;
+                v49 = v43 + 80 * v74;
                 do
                 {
                   *v49 = *v36;
@@ -4268,7 +4218,7 @@ LABEL_26:
 
                 while (v54);
                 v42 = *v30;
-                v26 = v71;
+                v26 = v70;
               }
 
               if (v42 != (v30 + 2))
@@ -4278,9 +4228,9 @@ LABEL_26:
 
               *v30 = v41;
               *(v30 + 3) = malloc_size(v41) / 0x50;
-              v37 = v74;
-              v34 = v75;
-              v38 = v73;
+              v37 = v73;
+              v34 = v74;
+              v38 = v72;
             }
 
             *(v30 + 2) = v38;
@@ -4373,27 +4323,27 @@ LABEL_66:
       }
 
 LABEL_83:
-      skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::erase(a2 + 16, v77);
-      v72 = 1;
+      skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::erase(a2 + 16, v76);
+      v71 = 1;
 LABEL_84:
       v28 -= 49;
-      v24 = v76;
-      if (v77 == v27)
+      v24 = v75;
+      if (v76 == v27)
       {
         v24 = *(a2 + 24);
-        v25 = v72;
+        v25 = v71;
         if (v24)
         {
           goto LABEL_86;
         }
 
-        goto LABEL_98;
+        return v25 & 1;
       }
     }
   }
 
   v25 = 0;
-  if (v76)
+  if (v75)
   {
 LABEL_86:
     v62 = 0;
@@ -4435,8 +4385,6 @@ LABEL_95:
     while (v62 < v24);
   }
 
-LABEL_98:
-  v67 = *MEMORY[0x29EDCA608];
   return v25 & 1;
 }
 
@@ -4707,26 +4655,24 @@ __n128 skit::IndexReader::IndexReader(__n128 *a1, __n128 *a2)
 {
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
 {
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
 void skit::IndexReader::IndexReader(skit::IndexReader *this, std::__fs::filesystem::path *a2)
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::IndexReaderImpl,std::allocator<skit::internal::IndexReaderImpl>,std::__fs::filesystem::path,0>();
+  std::allocate_shared[abi:ne200100]<skit::internal::IndexReaderImpl,std::allocator<skit::internal::IndexReaderImpl>,std::__fs::filesystem::path,0>(this, a2);
 }
 
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::IndexReaderImpl,std::allocator<skit::internal::IndexReaderImpl>,std::__fs::filesystem::path,0>();
+  std::allocate_shared[abi:ne200100]<skit::internal::IndexReaderImpl,std::allocator<skit::internal::IndexReaderImpl>,std::__fs::filesystem::path,0>(this, a2);
 }
 
 void std::__shared_ptr_emplace<skit::internal::IndexReaderImpl>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -4760,8 +4706,7 @@ void *skit::IndexReader::operator=(void *a1, uint64_t *a2)
 uint64_t skit::IndexReader::operator=(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 8);
   *a1 = v3;
   if (v4)
@@ -4813,13 +4758,13 @@ uint64_t skit::IndexReader::close(skit::IndexReader *this)
   return skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::close(v1);
 }
 
-uint64_t *skit::IndexReader::populate_docs(uint64_t *result, uint64_t *a2)
+skit::internal::DiskMetaStore *skit::IndexReader::populate_docs(skit::internal::DiskMetaStore *result, uint64_t *a2)
 {
   v2 = *result;
   if (*result)
   {
     v3 = *(v2 + 192);
-    for (i = *(v2 + 200); v3 != i; result = skit::internal::DiskMetaStore::populate_doc(v6 + 168, *a2, a2[1]))
+    for (i = *(v2 + 200); v3 != i; result = skit::internal::DiskMetaStore::populate_doc((v6 + 168), *a2, a2[1]))
     {
       v6 = *v3++;
     }
@@ -4950,7 +4895,7 @@ unint64_t skit::internal::MultiIndexV2::get_doc<long long>(uint64_t *a1, uint64_
   return skit::internal::DiskMetaStore::get_doc_internal((v4 + 168), v3 - v6);
 }
 
-void skit::IndexReader::search(void *a1, void *a2, uint64_t *a3, uint64_t a4)
+void skit::IndexReader::search(void *a1, float *a2, uint64_t *a3, uint64_t a4)
 {
   if (*a1)
   {
@@ -5156,18 +5101,22 @@ void *skit::IndexWriter::IndexWriter(void *result, uint64_t *a2)
   return result;
 }
 
-void skit::IndexWriter::IndexWriter()
+void skit::IndexWriter::IndexWriter(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v0 = *MEMORY[0x29EDCA608];
-  std::make_unique[abi:ne200100]<skit::internal::IndexWriterImpl,skit::Uuid,std::__fs::filesystem::path,std::__fs::filesystem::path,0>();
+  v6 = *MEMORY[0x29EDCA608];
+  *&v5 = a2;
+  *(&v5 + 1) = a3;
+  std::make_unique[abi:ne200100]<skit::internal::IndexWriterImpl,skit::Uuid,std::__fs::filesystem::path,std::__fs::filesystem::path,0>(a1, &v5, a4, a5);
 }
 
 {
-  v0 = *MEMORY[0x29EDCA608];
-  std::make_unique[abi:ne200100]<skit::internal::IndexWriterImpl,skit::Uuid,std::__fs::filesystem::path,std::__fs::filesystem::path,0>();
+  v6 = *MEMORY[0x29EDCA608];
+  *&v5 = a2;
+  *(&v5 + 1) = a3;
+  std::make_unique[abi:ne200100]<skit::internal::IndexWriterImpl,skit::Uuid,std::__fs::filesystem::path,std::__fs::filesystem::path,0>(a1, &v5, a4, a5);
 }
 
-void sub_2998E706C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_2998E706C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (*(v21 + 39) < 0)
   {
@@ -5179,7 +5128,7 @@ void sub_2998E706C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(v23);
   }
 
-  MEMORY[0x29C2A3200](v21, v22);
+  MEMORY[0x29C2A3200](v21, v22, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5248,7 +5197,7 @@ uint64_t *skit::IndexWriter::set_mode(uint64_t *this, __int16 a2)
 
 void skit::IndexWriter::set_dp_class(skit::IndexWriter *this, int a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *this;
   if (*this)
   {
@@ -5258,24 +5207,18 @@ void skit::IndexWriter::set_dp_class(skit::IndexWriter *this, int a2)
       {
       }
 
-      v6 = skit::internal::get_logging_context(void)::logger;
+      v4 = skit::internal::get_logging_context(void)::logger;
       if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
       {
-        v7[0] = 67109120;
-        v7[1] = a2;
-        _os_log_fault_impl(&dword_2998C6000, v6, OS_LOG_TYPE_FAULT, "MultiIndexV2 : invalid protection class %d", v7, 8u);
+        v5[0] = 67109120;
+        v5[1] = a2;
+        _os_log_fault_impl(&dword_2998C6000, v4, OS_LOG_TYPE_FAULT, "MultiIndexV2 : invalid protection class %d", v5, 8u);
       }
     }
 
     *(v2 + 500) = a2;
-    v4 = *MEMORY[0x29EDCA608];
 
     skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::set_dp_class(v2 + 40, a2);
-  }
-
-  else
-  {
-    v5 = *MEMORY[0x29EDCA608];
   }
 }
 
@@ -5312,11 +5255,11 @@ uint64_t skit::IndexWriter::is_active(skit::IndexWriter *this)
 
 uint64_t skit::IndexWriter::start_txn(skit::IndexWriter *this)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v1 = *this;
   if (!*this)
   {
-    goto LABEL_16;
+    return 0xFFFFFFFFLL;
   }
 
   if (skit::internal::get_logging_context(void)::once != -1)
@@ -5332,13 +5275,13 @@ uint64_t skit::IndexWriter::start_txn(skit::IndexWriter *this)
       v3 = *v3;
     }
 
-    v16 = 68289282;
-    v17 = 16;
-    v18 = 2098;
-    v19 = v1;
-    v20 = 2082;
-    v21 = v3;
-    _os_log_impl(&dword_2998C6000, v2, OS_LOG_TYPE_INFO, "IndexWriterImpl::start_txn : starting transaction %{public,uuid_t}.16P @ %{public}s", &v16, 0x1Cu);
+    v15 = 68289282;
+    v16 = 16;
+    v17 = 2098;
+    v18 = v1;
+    v19 = 2082;
+    v20 = v3;
+    _os_log_impl(&dword_2998C6000, v2, OS_LOG_TYPE_INFO, "IndexWriterImpl::start_txn : starting transaction %{public,uuid_t}.16P @ %{public}s", &v15, 0x1Cu);
   }
 
   if (*(v1 + 528) == 1)
@@ -5347,22 +5290,22 @@ uint64_t skit::IndexWriter::start_txn(skit::IndexWriter *this)
     {
     }
 
-    v10 = skit::internal::get_logging_context(void)::logger;
+    v9 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_16;
+      return 0xFFFFFFFFLL;
     }
 
-    v16 = 68289026;
-    v17 = 16;
-    v18 = 2098;
-    v19 = v1;
-    v11 = "IndexWriterImpl::start_txn : transaction %{public,uuid_t}.16P has already been started";
-    v12 = v10;
-    v13 = 18;
-LABEL_31:
-    _os_log_fault_impl(&dword_2998C6000, v12, OS_LOG_TYPE_FAULT, v11, &v16, v13);
-    goto LABEL_16;
+    v15 = 68289026;
+    v16 = 16;
+    v17 = 2098;
+    v18 = v1;
+    v10 = "IndexWriterImpl::start_txn : transaction %{public,uuid_t}.16P has already been started";
+    v11 = v9;
+    v12 = 18;
+LABEL_30:
+    _os_log_fault_impl(&dword_2998C6000, v11, OS_LOG_TYPE_FAULT, v10, &v15, v12);
+    return 0xFFFFFFFFLL;
   }
 
   v4 = (v1 + 16);
@@ -5385,10 +5328,10 @@ LABEL_31:
     {
     }
 
-    v14 = skit::internal::get_logging_context(void)::logger;
+    v13 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_16;
+      return 0xFFFFFFFFLL;
     }
 
     if (*(v1 + 39) < 0)
@@ -5401,37 +5344,35 @@ LABEL_31:
       v6 = *v6;
     }
 
-    v15 = *__error();
-    v16 = 68289794;
-    v17 = 16;
-    v18 = 2098;
-    v19 = v1;
-    v20 = 2082;
-    v21 = v4;
-    v22 = 2082;
-    v23 = v6;
-    v24 = 1024;
-    v25 = v15;
-    v11 = "IndexWriterImpl::start_txn : transaction %{public,uuid_t}.16P file clone failed @ %{public}s  ->  %{public}s : %{darwin.errno}d";
-    v12 = v14;
-    v13 = 44;
-    goto LABEL_31;
+    v14 = *__error();
+    v15 = 68289794;
+    v16 = 16;
+    v17 = 2098;
+    v18 = v1;
+    v19 = 2082;
+    v20 = v4;
+    v21 = 2082;
+    v22 = v6;
+    v23 = 1024;
+    v24 = v14;
+    v10 = "IndexWriterImpl::start_txn : transaction %{public,uuid_t}.16P file clone failed @ %{public}s  ->  %{public}s : %{darwin.errno}d";
+    v11 = v13;
+    v12 = 44;
+    goto LABEL_30;
   }
 
-  if (!skit::internal::MultiIndexV2::open((v1 + 208)))
+  if (skit::internal::MultiIndexV2::open((v1 + 208)))
   {
-    result = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::open(v1 + 40);
-    if (!result)
-    {
-      *(v1 + 528) = 1;
-      goto LABEL_17;
-    }
+    return 0xFFFFFFFFLL;
   }
 
-LABEL_16:
-  result = 0xFFFFFFFFLL;
-LABEL_17:
-  v9 = *MEMORY[0x29EDCA608];
+  result = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::open(v1 + 40);
+  if (result)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  *(v1 + 528) = 1;
   return result;
 }
 
@@ -5462,49 +5403,42 @@ uint64_t skit::IndexWriter::append(uint64_t *a1, unsigned __int8 *a2, uint64_t *
 
 uint64_t skit::IndexWriter::clear(char **this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v1 = *this;
-  if (!*this || v1[528] != 1)
+  if (*this && v1[528] == 1)
   {
-LABEL_12:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_5;
-  }
+    v1[529] = 1;
+    skit::internal::MultiIndexV2::clear((v1 + 208));
+    if (!skit::internal::MultiIndexV2::open((v1 + 208)))
+    {
+      skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::clear((v1 + 40));
+      return 0;
+    }
 
-  v1[529] = 1;
-  skit::internal::MultiIndexV2::clear((v1 + 208));
-  if (skit::internal::MultiIndexV2::open((v1 + 208)))
-  {
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v4 = skit::internal::get_logging_context(void)::logger;
+    v3 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_INFO))
     {
-      v5 = v1 + 16;
+      v4 = v1 + 16;
       if (v1[39] < 0)
       {
-        v5 = *v5;
+        v4 = *v4;
       }
 
-      v6[0] = 68289282;
-      v6[1] = 16;
-      v7 = 2098;
-      v8 = v1;
-      v9 = 2082;
-      v10 = v5;
-      _os_log_impl(&dword_2998C6000, v4, OS_LOG_TYPE_INFO, "IndexWriterImpl::abort_txn : clear  transaction %{public,uuid_t}.16P @ %{public}s", v6, 0x1Cu);
+      v5[0] = 68289282;
+      v5[1] = 16;
+      v6 = 2098;
+      v7 = v1;
+      v8 = 2082;
+      v9 = v4;
+      _os_log_impl(&dword_2998C6000, v3, OS_LOG_TYPE_INFO, "IndexWriterImpl::abort_txn : clear  transaction %{public,uuid_t}.16P @ %{public}s", v5, 0x1Cu);
     }
-
-    goto LABEL_12;
   }
 
-  skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::clear((v1 + 40));
-  result = 0;
-LABEL_5:
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t skit::IndexWriter::flush(skit::IndexWriter *this)
@@ -5747,41 +5681,33 @@ unint64_t skit::IndexWriter::get_doc(skit::IndexWriter *this, uint64_t a2)
 
 BOOL skit::IndexWriter::erase(uint64_t *a1, __int128 *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v2 = *a1;
-  if (*a1)
+  if (!*a1)
   {
-    *(v2 + 529) = 1;
-    v7 = *a2;
-    v3 = *(v2 + 232);
-    v4 = *(v2 + 240);
-    while (1)
+    return 0;
+  }
+
+  *(v2 + 529) = 1;
+  v6 = *a2;
+  v3 = *(v2 + 232);
+  v4 = *(v2 + 240);
+  while (1)
+  {
+    if (v3 == v4)
     {
-      if (v3 == v4)
-      {
-        result = skit::internal::MemMetaStore::set_doc_wgt(v2 + 304, &v7, 0.0);
-        goto LABEL_9;
-      }
-
-      if (skit::internal::DiskMetaStore::set_doc_wgt((*v3 + 168), &v7, 0.0))
-      {
-        break;
-      }
-
-      v3 += 8;
+      return skit::internal::MemMetaStore::set_doc_wgt(v2 + 304, &v6, 0.0);
     }
 
-    result = 1;
+    if (skit::internal::DiskMetaStore::set_doc_wgt((*v3 + 168), &v6, 0.0))
+    {
+      break;
+    }
+
+    v3 += 8;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-LABEL_9:
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
 unint64_t skit::IndexWriter::register_str(uint64_t *a1, unsigned __int16 *a2, unsigned __int16 *a3)
@@ -5896,7 +5822,7 @@ BOOL skit::NumberFilter::filter(uint64_t a1, _WORD *a2, unint64_t a3)
   return v4 <= 1 && v5 != 0 && a3 == v5 + v3 + v4;
 }
 
-void skit::NumberFilter::filter(skit::NumberFilter *this, skit::TokenStream *a2, unint64_t a3)
+void skit::NumberFilter::filter(uint64_t this, skit::TokenStream *a2, unint64_t a3)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 4);
   v4 = v3 - a3;
@@ -5968,18 +5894,18 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
   v9 = this;
   v10 = 0;
   v11 = 0;
-  v47 = 0;
+  v48 = 0;
   v12 = a4;
-  v45 = a3 + 1;
-  v42 = this + 1;
+  v46 = a3 + 1;
+  v43 = this + 1;
   v13 = a2;
-  v43 = a2;
+  v44 = a2;
   do
   {
     if (v11 < v7)
     {
       v14 = 0;
-      v15 = &v42[v10];
+      v15 = &v43[v10];
       do
       {
         v16 = *(v9 + v10);
@@ -5991,7 +5917,7 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
             do
             {
               v18 = v15[v17];
-              v19 = *(v45 + v14 + v17++);
+              v19 = *(v46 + v14 + v17++);
               v20 = v10 + v17;
             }
 
@@ -6004,16 +5930,16 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
 
             else
             {
-              v24 = v47;
+              v24 = v48;
             }
 
-            v25 = HIDWORD(v47);
+            v25 = HIDWORD(v48);
             if (v23 > v11)
             {
               v25 = v14;
             }
 
-            v47 = __PAIR64__(v25, v24);
+            v48 = __PAIR64__(v25, v24);
             if (v23 > v11)
             {
               v11 = v20 - v10;
@@ -6034,7 +5960,7 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
               do
               {
                 v29 = __tolower(v15[v28]);
-                v30 = __tolower(*(v45 + v14 + v28));
+                v30 = __tolower(*(v46 + v14 + v28));
                 v31 = v10 + v28 + 1;
                 if (v31 >= v13)
                 {
@@ -6051,16 +5977,16 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
 
               else
               {
-                v34 = v47;
+                v34 = v48;
               }
 
-              v35 = HIDWORD(v47);
+              v35 = HIDWORD(v48);
               if (v33 > v11)
               {
                 v35 = v14;
               }
 
-              v47 = __PAIR64__(v35, v34);
+              v48 = __PAIR64__(v35, v34);
               if (v33 > v11)
               {
                 v11 = v33;
@@ -6083,19 +6009,19 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
     ++v10;
   }
 
-  while (v10 < v43 - v11);
+  while (v10 < v44 - v11);
   if (!v11)
   {
     return 0;
   }
 
   v36 = 0;
-  if (v47)
+  if (v48)
   {
-    v37 = HIDWORD(v47);
-    if (HIDWORD(v47))
+    v37 = HIDWORD(v48);
+    if (HIDWORD(v48))
     {
-      v38 = skit::rsimil(v9, v47, v8, HIDWORD(v47), v6, a6);
+      v38 = skit::rsimil(v9, v48, v8, HIDWORD(v48), v6, a6);
       v9 = this;
       v36 = v38;
     }
@@ -6103,14 +6029,18 @@ uint64_t skit::rsimil(skit *this, const char *a2, uint64_t a3, const char *a4, i
 
   else
   {
-    v37 = HIDWORD(v47);
+    v37 = HIDWORD(v48);
   }
 
   v40 = 0;
-  v41 = v11 + v47;
-  if (v43 != v41 && v7 != v11 + v37)
+  v41 = v11 + v48;
+  if (v44 != v41)
   {
-    v40 = skit::rsimil((v9 + v41), (v43 - v41), v8 + v11 + v37, (v7 - (v11 + v37)), v6, a6);
+    v42 = v11 + v37;
+    if (v7 != v42)
+    {
+      v40 = skit::rsimil((v9 + v41), (v44 - v41), v8 + v42, (v7 - v42), v6, a6);
+    }
   }
 
   return (v36 + v11 + v40);
@@ -6235,17 +6165,6 @@ uint64_t skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::S
   v12.i32[1] = v8;
   *(a1 + 36) = vmax_u32(*(a1 + 36), v12);
   return a1;
-}
-
-void skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>::MergedFieldMatchImpl()
-{
-  v0 = *MEMORY[0x29EDCA608];
-  skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>::FieldMatchImpl();
-}
-
-{
-    ;
-  }
 }
 
 uint64_t skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>::max_token_cnt(uint64_t result)
@@ -6385,20 +6304,20 @@ size_t skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit:
         do
         {
           *v14 = *v13;
-          v15 = *(v13 + 8);
-          *(v14 + 24) = *(v13 + 3);
+          v15 = *(v13 + 1);
+          *(v14 + 3) = v13[3];
           *(v14 + 8) = v15;
-          *(v13 + 2) = 0;
-          *(v13 + 3) = 0;
-          *(v13 + 1) = 0;
-          *(v14 + 32) = *(v13 + 2);
+          v13[2] = 0;
+          v13[3] = 0;
+          v13[1] = 0;
+          *(v14 + 2) = *(v13 + 2);
           v16 = *(v13 + 3);
           *(v14 + 60) = *(v13 + 60);
-          *(v14 + 48) = v16;
-          skit::SmallVector<skit::GroupId,4u,true>::move(v14 + 80, (v13 + 80));
-          *(v14 + 104) = *(v13 + 26);
+          *(v14 + 3) = v16;
+          skit::SmallVector<skit::GroupId,4u,true>::move((v14 + 80), (v13 + 10));
+          *(v14 + 26) = *(v13 + 26);
           v14 += 112;
-          v13 += 112;
+          v13 += 14;
         }
 
         while (v13 != v6);
@@ -6406,25 +6325,25 @@ size_t skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit:
       }
 
       v17 = *(a1 + 2);
-      v18 = &v13[112 * v17];
+      v18 = &v13[14 * v17];
       if (v18 != v6)
       {
-        v19 = v14 + 112 * v4;
+        v19 = &v14[112 * v4];
         do
         {
           *v19 = *v6;
           v20 = *(v6 + 8);
-          *(v19 + 24) = *(v6 + 24);
+          *(v19 + 3) = *(v6 + 3);
           *(v19 + 8) = v20;
-          *(v6 + 16) = 0;
-          *(v6 + 24) = 0;
-          *(v6 + 8) = 0;
-          *(v19 + 32) = *(v6 + 32);
-          v21 = *(v6 + 48);
+          *(v6 + 2) = 0;
+          *(v6 + 3) = 0;
+          *(v6 + 1) = 0;
+          *(v19 + 2) = *(v6 + 2);
+          v21 = *(v6 + 3);
           *(v19 + 60) = *(v6 + 60);
-          *(v19 + 48) = v21;
-          skit::SmallVector<skit::GroupId,4u,true>::move(v19 + 80, v6 + 80);
-          *(v19 + 104) = *(v6 + 104);
+          *(v19 + 3) = v21;
+          skit::SmallVector<skit::GroupId,4u,true>::move((v19 + 80), (v6 + 80));
+          *(v19 + 26) = *(v6 + 26);
           v6 += 112;
           v19 += 112;
         }
@@ -6440,7 +6359,7 @@ size_t skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit:
         do
         {
           skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>::~FieldMatchImpl(v13);
-          v13 += 112;
+          v13 += 14;
           v22 -= 112;
         }
 
@@ -6448,7 +6367,7 @@ size_t skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit:
         v13 = *a1;
       }
 
-      if (v13 != (a1 + 2))
+      if (v13 != a1 + 2)
       {
         free(v13);
       }
@@ -6891,11 +6810,11 @@ LABEL_11:
 
 unint64_t skit::levenshtein(skit *this, const char *a2, const char *a3)
 {
-  v33[1] = *MEMORY[0x29EDCA608];
+  v32[1] = *MEMORY[0x29EDCA608];
   v5 = strlen(this);
   v6 = strlen(a2);
   v8 = MEMORY[0x2A1C7C4A8](v6, v7);
-  v11 = (v33 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = (v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (v5)
   {
     if (v9 <= 2)
@@ -7004,9 +6923,7 @@ unint64_t skit::levenshtein(skit *this, const char *a2, const char *a3)
     *v11 = v22;
   }
 
-  result = v11[v5];
-  v32 = *MEMORY[0x29EDCA608];
-  return result;
+  return v11[v5];
 }
 
 uint64_t skit::Token::serialize(skit::Token *this, byte *a2, uint64_t a3)
@@ -7068,7 +6985,7 @@ uint64_t skit::Token::serialize(skit::Token *this, byte *a2, uint64_t a3)
   return v10 + 18;
 }
 
-unint64_t skit::Token::deserialize(std::basic_string<char16_t> *this, const byte *a2, uint64_t a3)
+unint64_t skit::Token::deserialize(std::basic_string<char16_t> *this, const byte *a2, unint64_t a3)
 {
   if (a3 < 18)
   {
@@ -7239,28 +7156,28 @@ void skit::MultiNGram::~MultiNGram(skit::MultiNGram *this)
 
 void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unint64_t a4)
 {
-  v76 = *MEMORY[0x29EDCA608];
+  v75 = *MEMORY[0x29EDCA608];
   v5 = *(a1 + 16);
   if (!v5)
   {
     skit::Token::Token(__p, __src, a4);
+    v69 = 0;
     v70 = 0;
     v71 = 0;
-    v72 = 0;
-    __dst[0] = &v70;
+    __dst[0] = &v69;
     LOBYTE(__dst[1]) = 0;
     operator new();
   }
 
+  v69 = 0;
   v70 = 0;
   v71 = 0;
-  v72 = 0;
-  (**v5)(v5, &v70, __src);
-  v6 = v70;
-  v61 = v71;
-  if (v70 != v71)
+  (**v5)(v5, &v69, __src);
+  v6 = v69;
+  v60 = v70;
+  if (v69 != v70)
   {
-    v60 = (a1 + 28);
+    v59 = (a1 + 28);
     do
     {
       if (*(a1 + 40) == 1)
@@ -7274,11 +7191,11 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
 
         *&__srca[2] = *v7;
         std::basic_string<char16_t>::basic_string[abi:ne200100]<0>(__p, __srca);
-        v69 = 1065353216;
+        v68 = 1065353216;
         v8 = a2[1];
         if (v8 >= a2[2])
         {
-          v13 = std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<char16_t>,float,float const&>(a2, __p, &v69, v60);
+          v13 = std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<char16_t>,float,float const&>(a2, __p, &v68, v59);
         }
 
         else
@@ -7288,7 +7205,7 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
           *(__dst + 7) = *(&__p[1] + 7);
           v10 = HIBYTE(__p[2]);
           memset(__p, 0, 24);
-          v11 = *v60;
+          v11 = *v59;
           *(v8 + 15) = *(__dst + 7);
           v12 = __dst[0];
           *v8 = v9;
@@ -7325,11 +7242,11 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
           *__srca = v15[v14 - 1];
           *&__srca[2] = 36;
           std::basic_string<char16_t>::basic_string[abi:ne200100]<0>(__p, __srca);
-          v69 = 1065353216;
+          v68 = 1065353216;
           v16 = a2[1];
           if (v16 >= a2[2])
           {
-            v21 = std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<char16_t>,float,float const&>(a2, __p, &v69, v60);
+            v21 = std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<char16_t>,float,float const&>(a2, __p, &v68, v59);
           }
 
           else
@@ -7339,7 +7256,7 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
             *(__dst + 7) = *(&__p[1] + 7);
             v18 = HIBYTE(__p[2]);
             memset(__p, 0, 24);
-            v19 = *v60;
+            v19 = *v59;
             *(v16 + 15) = *(__dst + 7);
             v20 = __dst[0];
             *v16 = v17;
@@ -7373,7 +7290,7 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
         LODWORD(v22) = *(a1 + 12);
       }
 
-      v62 = v22;
+      v61 = v22;
       while (v23 <= v22)
       {
         v24 = *(v6 + 23);
@@ -7389,10 +7306,10 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
         }
 
         v26 = v24 - v23;
-        v63 = *a2;
-        v64 = a2[1];
+        v62 = *a2;
+        v63 = a2[1];
         v27 = 0.0;
-        v67 = v26 + 1;
+        v66 = v26 + 1;
         if (v26 != -1)
         {
           v28 = 0;
@@ -7407,14 +7324,14 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
             v30 = v29 + 1;
           }
 
-          v65 = v30;
+          v64 = v30;
           v31 = v25;
           v32 = 0.0;
           do
           {
             if (v23 >= 0xB)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v65);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v64);
             }
 
             HIBYTE(__dst[2]) = v23;
@@ -7492,14 +7409,14 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
               v52 = *a2;
               *a2 = v51;
               v53 = a2[2];
-              v66 = __p[2];
+              v65 = __p[2];
               *(a2 + 1) = *&__p[2];
               __p[2] = v52;
               __p[3] = v53;
               __p[0] = v52;
               __p[1] = v52;
               std::__split_buffer<skit::Token>::~__split_buffer(__p);
-              v41 = v66;
+              v41 = v65;
             }
 
             else
@@ -7538,31 +7455,30 @@ void skit::MultiNGram::tokenize_str(uint64_t a1, uint64_t *a2, void *__src, unin
             v31 += 2;
           }
 
-          while (v28 < v67);
+          while (v28 < v66);
         }
 
         if (*(a1 + 42))
         {
           v57 = a2[1];
-          for (i = *a2 + 0xFFFFFFF000000010 * ((v64 - v63) >> 4); i != v57; i += 48)
+          for (i = *a2 + 0xFFFFFFF000000010 * ((v63 - v62) >> 4); i != v57; i += 48)
           {
             *(i + 32) = (1.0 / v27) * *(i + 32);
           }
         }
 
         ++v23;
-        LODWORD(v22) = v62;
+        LODWORD(v22) = v61;
       }
 
       v6 += 24;
     }
 
-    while (v6 != v61);
+    while (v6 != v60);
   }
 
-  __p[0] = &v70;
+  __p[0] = &v69;
   std::vector<skit::Token>::__destroy_vector::operator()[abi:ne200100](__p);
-  v59 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2998E9C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -7576,7 +7492,7 @@ void sub_2998E9C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *skit::Token::Token(_BYTE *__dst, void *__src, unint64_t a3)
+void *skit::Token::Token(void *__dst, void *__src, unint64_t a3)
 {
   if (a3 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7598,21 +7514,21 @@ _BYTE *skit::Token::Token(_BYTE *__dst, void *__src, unint64_t a3)
     std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v6);
   }
 
-  __dst[23] = a3;
+  *(__dst + 23) = a3;
   if (a3)
   {
     memmove(__dst, __src, 2 * a3);
   }
 
-  *&__dst[2 * a3] = 0;
-  *(__dst + 3) = 0;
-  *(__dst + 4) = 0x100003F800000;
+  *(__dst + a3) = 0;
+  __dst[3] = 0;
+  __dst[4] = 0x100003F800000;
   *(__dst + 20) = 3;
   *(__dst + 11) = 0;
   return __dst;
 }
 
-_BYTE *std::basic_string<char16_t>::basic_string[abi:ne200100]<0>(_BYTE *__dst, char *__src)
+void *std::basic_string<char16_t>::basic_string[abi:ne200100]<0>(void *__dst, char *__src)
 {
   if (*__src)
   {
@@ -7643,7 +7559,7 @@ _BYTE *std::basic_string<char16_t>::basic_string[abi:ne200100]<0>(_BYTE *__dst, 
       std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v6);
     }
 
-    __dst[23] = v3;
+    *(__dst + 23) = v3;
     v5 = __dst;
     if (v3)
     {
@@ -7655,18 +7571,18 @@ _BYTE *std::basic_string<char16_t>::basic_string[abi:ne200100]<0>(_BYTE *__dst, 
   else
   {
     v3 = 0;
-    __dst[23] = 0;
+    *(__dst + 23) = 0;
   }
 
   v5 = __dst;
 LABEL_15:
-  *&v5[2 * v3] = 0;
+  *(v5 + v3) = 0;
   return __dst;
 }
 
 uint64_t std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<char16_t>,float,float const&>(uint64_t a1, uint64_t *a2, float *a3, int *a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
   v5 = v4 + 1;
   if (v4 + 1 > 0x555555555555555)
@@ -7689,27 +7605,27 @@ uint64_t std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<ch
     v7 = v5;
   }
 
-  v23 = a1;
+  v22 = a1;
   if (v7)
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<skit::Token>>(v7);
   }
 
   v8 = 48 * v4;
-  *(&v22 + 1) = 0;
-  *&v24[7] = *(a2 + 15);
+  *(&v21 + 1) = 0;
+  *&v23[7] = *(a2 + 15);
   v9 = *a2;
-  *v24 = a2[1];
+  *v23 = a2[1];
   v10 = *(a2 + 23);
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
   v11 = *a3;
   v12 = *a4;
-  v13 = *v24;
+  v13 = *v23;
   *v8 = v9;
   *(v8 + 8) = v13;
-  *(v8 + 15) = *&v24[7];
+  *(v8 + 15) = *&v23[7];
   *(v8 + 23) = v10;
   *(v8 + 24) = 0;
   *(v8 + 32) = v12;
@@ -7717,22 +7633,21 @@ uint64_t std::vector<skit::Token>::__emplace_back_slow_path<std::basic_string<ch
   *(v8 + 38) = v11;
   *(v8 + 40) = 3;
   *(v8 + 44) = 0;
-  *&v22 = 48 * v4 + 48;
+  *&v21 = 48 * v4 + 48;
   v14 = *(a1 + 8);
   v15 = 48 * v4 + *a1 - v14;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<skit::Token>,skit::Token*>(a1, *a1, v14, v15);
   v16 = *a1;
   *a1 = v15;
   v17 = *(a1 + 16);
-  v20 = v22;
-  *(a1 + 8) = v22;
-  *&v22 = v16;
-  *(&v22 + 1) = v17;
-  v21[0] = v16;
-  v21[1] = v16;
-  std::__split_buffer<skit::Token>::~__split_buffer(v21);
-  v18 = *MEMORY[0x29EDCA608];
-  return v20;
+  v19 = v21;
+  *(a1 + 8) = v21;
+  *&v21 = v16;
+  *(&v21 + 1) = v17;
+  v20[0] = v16;
+  v20[1] = v16;
+  std::__split_buffer<skit::Token>::~__split_buffer(v20);
+  return v19;
 }
 
 void skit::WordDelimTokenizer::~WordDelimTokenizer(void **this)
@@ -7755,7 +7670,7 @@ void skit::WordDelimTokenizer::~WordDelimTokenizer(void **this)
   }
 }
 
-unint64_t skit::WordDelimTokenizer::tokenize_str(unint64_t result, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
+unint64_t skit::WordDelimTokenizer::tokenize_str(unint64_t result, uint64_t a2, char *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7976,14 +7891,14 @@ uint64_t std::vector<skit::Token>::__emplace_back_slow_path<std::u16string_view 
   return v11;
 }
 
-void sub_2998EA36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2998EA36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<skit::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *skit::MorphunTokenizer::MorphunTokenizer(void *a1)
+void *skit::MorphunTokenizer::MorphunTokenizer(void *a1, uint64_t a2)
 {
   *a1 = &unk_2A1F93C78;
   a1[1] = 0;
@@ -7993,11 +7908,11 @@ void *skit::MorphunTokenizer::MorphunTokenizer(void *a1)
     {
     }
 
-    v5 = skit::internal::get_logging_context(void)::logger;
+    v6 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_error_impl(&dword_2998C6000, v5, OS_LOG_TYPE_ERROR, "Skit requires libmorphun.dylib to use the MorphunTokenizer", v7, 2u);
+      *v8 = 0;
+      _os_log_error_impl(&dword_2998C6000, v6, OS_LOG_TYPE_ERROR, "Skit requires libmorphun.dylib to use the MorphunTokenizer", v8, 2u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8006,11 +7921,11 @@ void *skit::MorphunTokenizer::MorphunTokenizer(void *a1)
   }
 
   Tokenizer = morphun::TokenizerFactory::createTokenizer();
-  v3 = a1[1];
+  v4 = a1[1];
   a1[1] = Tokenizer;
-  if (v3)
+  if (v4)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v4 + 16))(v4);
   }
 
   return a1;
@@ -8074,7 +7989,7 @@ void skit::MorphunTokenizer::tokenize_str(uint64_t a1, uint64_t a2, void *__src,
     std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v7);
   }
 
-  v38 = a4;
+  v35 = a4;
   if (a4)
   {
     memmove(&__dst, __src, 2 * a4);
@@ -8082,17 +7997,14 @@ void skit::MorphunTokenizer::tokenize_str(uint64_t a1, uint64_t a2, void *__src,
 
   *(&__dst + a4) = 0;
   v8 = (*(**(a1 + 8) + 24))(*(a1 + 8), &__dst);
-  v9 = v8[1];
-  v10 = v8[2];
   morphun::TokenIterator::TokenIterator();
-  v39 = v41;
+  v36 = v38;
   while (1)
   {
-    v11 = v8[2];
-    if (v11)
+    v9 = v8[2];
+    if (v9)
     {
-      morphun::Token::getNext(v11);
-      v12 = v8[2];
+      morphun::Token::getNext(v9);
     }
 
     morphun::TokenIterator::TokenIterator();
@@ -8101,69 +8013,69 @@ void skit::MorphunTokenizer::tokenize_str(uint64_t a1, uint64_t a2, void *__src,
       break;
     }
 
-    v13 = morphun::TokenIterator::operator->();
-    if ((morphun::Token::isHead(v13) & 1) == 0)
+    v10 = morphun::TokenIterator::operator->();
+    if ((morphun::Token::isHead(v10) & 1) == 0)
     {
-      v14 = morphun::TokenIterator::operator->();
-      if ((morphun::Token::isTail(v14) & 1) == 0)
+      v11 = morphun::TokenIterator::operator->();
+      if ((morphun::Token::isTail(v11) & 1) == 0)
       {
-        v15 = morphun::TokenIterator::operator->();
-        Value = morphun::Token::getValue(v15);
-        v17 = *(Value + 23);
-        v18 = v17 >= 0 ? Value : *Value;
-        v19 = v17 >= 0 ? *(Value + 23) : *(Value + 8);
-        v20 = morphun::TokenIterator::operator->();
-        CleanValue = morphun::Token::getCleanValue(v20);
-        v22 = *(CleanValue + 23);
-        v23 = v22 >= 0 ? CleanValue : *CleanValue;
-        v24 = v22 >= 0 ? *(CleanValue + 23) : *(CleanValue + 8);
-        v25 = morphun::TokenIterator::operator->();
-        v26 = (*(*v25 + 24))(v25);
-        v27 = morphun::TokenIterator::operator->();
-        v28 = (*(*v27 + 32))(v27);
-        v29 = morphun::TokenIterator::operator->();
-        isWhitespace = morphun::Token::isWhitespace(v29);
-        v31 = morphun::TokenIterator::operator->();
-        isSignificant = morphun::Token::isSignificant(v31);
-        *&v41 = v18;
-        *(&v41 + 1) = v19;
-        v40[0] = v23;
-        v40[1] = v24;
+        v12 = morphun::TokenIterator::operator->();
+        Value = morphun::Token::getValue(v12);
+        v14 = *(Value + 23);
+        v15 = v14 >= 0 ? Value : *Value;
+        v16 = v14 >= 0 ? *(Value + 23) : *(Value + 8);
+        v17 = morphun::TokenIterator::operator->();
+        CleanValue = morphun::Token::getCleanValue(v17);
+        v19 = *(CleanValue + 23);
+        v20 = v19 >= 0 ? CleanValue : *CleanValue;
+        v21 = v19 >= 0 ? *(CleanValue + 23) : *(CleanValue + 8);
+        v22 = morphun::TokenIterator::operator->();
+        v23 = (*(*v22 + 24))(v22);
+        v24 = morphun::TokenIterator::operator->();
+        v25 = (*(*v24 + 32))(v24);
+        v26 = morphun::TokenIterator::operator->();
+        isWhitespace = morphun::Token::isWhitespace(v26);
+        v28 = morphun::TokenIterator::operator->();
+        isSignificant = morphun::Token::isSignificant(v28);
+        *&v38 = v15;
+        *(&v38 + 1) = v16;
+        v37[0] = v20;
+        v37[1] = v21;
         if ((isWhitespace & 1) == 0)
         {
-          v33 = isSignificant;
-          v35 = *(a2 + 8);
-          v34 = *(a2 + 16);
-          if (v24)
+          v30 = isSignificant;
+          v32 = *(a2 + 8);
+          v31 = *(a2 + 16);
+          if (v21)
           {
-            if (v35 < v34)
+            if (v32 < v31)
             {
-              skit::Token::Token(*(a2 + 8), v23, v24);
+              skit::Token::Token(*(a2 + 8), v20, v21);
               goto LABEL_34;
             }
 
-            v36 = std::vector<skit::Token>::__emplace_back_slow_path<std::u16string_view &>(a2, v40);
+            v33 = std::vector<skit::Token>::__emplace_back_slow_path<std::u16string_view &>(a2, v37);
           }
 
-          else if (v35 >= v34)
+          else if (v32 >= v31)
           {
-            v36 = std::vector<skit::Token>::__emplace_back_slow_path<std::u16string_view &>(a2, &v41);
+            v33 = std::vector<skit::Token>::__emplace_back_slow_path<std::u16string_view &>(a2, &v38);
           }
 
           else
           {
-            skit::Token::Token(*(a2 + 8), v18, v19);
+            skit::Token::Token(*(a2 + 8), v15, v16);
 LABEL_34:
-            v36 = v35 + 48;
-            *(a2 + 8) = v35 + 48;
+            v33 = v32 + 48;
+            *(a2 + 8) = v32 + 48;
           }
 
-          *(a2 + 8) = v36;
-          *(v36 - 24) = v26 | (v28 << 32);
-          if ((v33 & 1) == 0)
+          *(a2 + 8) = v33;
+          *(v33 - 24) = v23 | (v25 << 32);
+          if ((v30 & 1) == 0)
           {
-            *(v36 - 8) &= 0xFFFCu;
-            *(v36 - 16) = 0;
+            *(v33 - 8) &= 0xFFFCu;
+            *(v33 - 16) = 0;
           }
         }
       }
@@ -8173,15 +8085,15 @@ LABEL_34:
   }
 
   (*(*v8 + 16))(v8);
-  if (v38 < 0)
+  if (v35 < 0)
   {
     operator delete(__dst);
   }
 }
 
-void sub_2998EA904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_2998EA904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  (*(*v15 + 16))(v15);
+  (*(*v15 + 16))(v15, a2, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -8222,7 +8134,7 @@ uint64_t skit::strip_bidi(_WORD *a1, unsigned __int16 *a2, uint64_t a3, int a4)
   return v4;
 }
 
-unint64_t skit::strip_bidi@<X0>(void *__src@<X0>, unint64_t a2@<X1>, _BYTE *a3@<X8>)
+std::basic_string<char16_t> *skit::strip_bidi@<X0>(void *__src@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8244,13 +8156,13 @@ unint64_t skit::strip_bidi@<X0>(void *__src@<X0>, unint64_t a2@<X1>, _BYTE *a3@<
     std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v5);
   }
 
-  a3[23] = a2;
+  *(a3 + 23) = a2;
   if (a2)
   {
     memmove(a3, __src, 2 * a2);
   }
 
-  *&a3[2 * a2] = 0;
+  *(a3 + a2) = 0;
   return skit::strip_bidi(a3);
 }
 
@@ -8434,6 +8346,12 @@ void skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>::Ali
 }
 
 void skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>::merge()
+{
+    ;
+  }
+}
+
+void skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>::MergedFieldMatchImpl()
 {
     ;
   }

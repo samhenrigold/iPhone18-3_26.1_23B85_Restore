@@ -41,7 +41,7 @@
 
       value2 = [selfCopy value];
       v9 = [MEMORY[0x277CCAD78] hk_UUIDWithData:value2];
-      v18 = HDFitnessFriendWorkoutEntityEntityPredicateForFriendUUID();
+      v18 = HDFitnessFriendWorkoutEntityEntityPredicateForFriendUUID(v9);
       selfCopy = [MEMORY[0x277D10B20] negatedPredicate:v18];
 
       goto LABEL_14;
@@ -108,7 +108,7 @@ LABEL_9:
 
   value2 = [selfCopy value];
   v9 = [MEMORY[0x277CCAD78] hk_UUIDWithData:value2];
-  v10 = HDFitnessFriendWorkoutEntityEntityPredicateForFriendUUID();
+  v10 = HDFitnessFriendWorkoutEntityEntityPredicateForFriendUUID(v9);
 LABEL_7:
   selfCopy = v10;
 LABEL_14:

@@ -22,7 +22,7 @@
 
 - (id)appendItem:(id)item mailboxURL:(id)l
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   store = [(MFDATransferActionReplayer *)self store];
   account = [store account];
@@ -34,13 +34,13 @@
   if ([v11 type] == 3)
   {
     v12 = objc_alloc(MEMORY[0x1E699B360]);
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke;
-    v47[3] = &unk_1E7AA5490;
-    v48 = itemCopy;
-    v13 = [v12 initWithBuilder:v47];
-    v14 = v48;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke;
+    v46[3] = &unk_1E7AA5490;
+    v47 = itemCopy;
+    v13 = [v12 initWithBuilder:v46];
+    v14 = v47;
   }
 
   else if ([v11 type] == 5)
@@ -55,11 +55,11 @@
 
     v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v18 = objc_alloc(MEMORY[0x1E695DFA8]);
-    v49[0] = itemCopy;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
-    v36 = [v18 initWithArray:v19];
+    v48[0] = itemCopy;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
+    v35 = [v18 initWithArray:v19];
 
-    v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
     destinationMessage = [itemCopy destinationMessage];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -73,16 +73,16 @@
       if ([v24 success])
       {
         [v17 addObject:itemCopy];
-        [v36 removeObject:itemCopy];
+        [v35 removeObject:itemCopy];
         v25 = objc_alloc(MEMORY[0x1E699B320]);
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_3;
-        v42[3] = &unk_1E7AA54B8;
-        v43 = destinationMessage;
-        v44 = v24;
-        v26 = [v25 initWithServerMessageBuilder:v42];
-        [v35 addObject:v26];
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_3;
+        v41[3] = &unk_1E7AA54B8;
+        v42 = destinationMessage;
+        v43 = v24;
+        v26 = [v25 initWithServerMessageBuilder:v41];
+        [v34 addObject:v26];
 
         error = 0;
       }
@@ -99,63 +99,57 @@
     }
 
     v29 = objc_alloc(MEMORY[0x1E699B360]);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4;
-    v37[3] = &unk_1E7AA54E0;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4;
+    v36[3] = &unk_1E7AA54E0;
     v14 = v17;
-    v38 = v14;
-    v30 = v36;
-    v39 = v30;
-    v31 = v35;
-    v40 = v31;
-    v41 = error;
+    v37 = v14;
+    v30 = v35;
+    v38 = v30;
+    v31 = v34;
+    v39 = v31;
+    v40 = error;
     v32 = error;
-    v13 = [v29 initWithBuilder:v37];
+    v13 = [v29 initWithBuilder:v36];
   }
 
   else
   {
     v28 = objc_alloc(MEMORY[0x1E699B360]);
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_2;
-    v45[3] = &unk_1E7AA5490;
-    v46 = itemCopy;
-    v13 = [v28 initWithBuilder:v45];
-    v14 = v46;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_2;
+    v44[3] = &unk_1E7AA5490;
+    v45 = itemCopy;
+    v13 = [v28 initWithBuilder:v44];
+    v14 = v45;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke(uint64_t a1, void *a2)
 {
+  v5[1] = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  [v3 setPhaseForResults:3];
+  v5[0] = *(a1 + 32);
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  [v3 setCompletedItems:v4];
+}
+
+void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_2(uint64_t a1, void *a2)
+{
   v6[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 setPhaseForResults:3];
   v6[0] = *(a1 + 32);
   v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-  [v3 setCompletedItems:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_2(uint64_t a1, void *a2)
-{
-  v7[1] = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  [v3 setPhaseForResults:3];
-  v7[0] = *(a1 + 32);
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   [v3 setFailedItems:v4];
 
   v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E699B068] code:1 userInfo:0];
   [v3 setError:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_3(uint64_t a1, void *a2)
@@ -182,31 +176,31 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
 
 - (BOOL)deleteSourceMessagesFromTransferItems:(id)items
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   action = [(ECLocalActionReplayer *)self action];
   store = [(MFDATransferActionReplayer *)self store];
   v5 = [objc_alloc(MEMORY[0x1E699B300]) initWithBuilder:&__block_literal_global_30];
   itemsToDelete = [action itemsToDelete];
   v7 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(itemsToDelete, "count")}];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = itemsToDelete;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v9)
   {
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         sourceRemoteID = [v12 sourceRemoteID];
         if (sourceRemoteID || ([v12 sourceMessage], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "remoteID"), sourceRemoteID = objc_claimAutoreleasedReturnValue(), v14, sourceRemoteID))
         {
@@ -214,7 +208,7 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v9);
@@ -224,14 +218,13 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v26 = v7;
+    v25 = v7;
     _os_log_impl(&dword_1B0389000, v15, OS_LOG_TYPE_DEFAULT, "Deleting source messages from transfer: %{public}@", buf, 0xCu);
   }
 
-  v20 = 0;
-  v16 = [store replayFlagChange:v5 forRemoteIDs:v7 error:&v20 completed:0];
+  v19 = 0;
+  v16 = [store replayFlagChange:v5 forRemoteIDs:v7 error:&v19 completed:0];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -245,33 +238,33 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
 
 - (id)moveItems:(id)items destinationMailboxURL:(id)l
 {
-  v104 = *MEMORY[0x1E69E9840];
-  v67 = [(MFDATransferActionReplayer *)self store:items];
-  account = [v67 account];
+  v103 = *MEMORY[0x1E69E9840];
+  v66 = [(MFDATransferActionReplayer *)self store:items];
+  account = [v66 account];
   action = [(ECLocalActionReplayer *)self action];
   itemsToCopy = [action itemsToCopy];
   v5 = [itemsToCopy count];
   v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v5];
-  v64 = v5;
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
+  v63 = v5;
   v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   v7 = itemsToCopy;
-  v8 = [v7 countByEnumeratingWithState:&v92 objects:v103 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v91 objects:v102 count:16];
   if (v8)
   {
-    v9 = *v93;
+    v9 = *v92;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v93 != v9)
+        if (*v92 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v92 + 1) + 8 * i);
+        v11 = *(*(&v91 + 1) + 8 * i);
         sourceRemoteID = [v11 sourceRemoteID];
         if (sourceRemoteID || ([v11 sourceMessage], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "remoteID"), sourceRemoteID = objc_claimAutoreleasedReturnValue(), v13, sourceRemoteID))
         {
@@ -279,7 +272,7 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v92 objects:v103 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v91 objects:v102 count:16];
     }
 
     while (v8);
@@ -287,19 +280,19 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
 
   sourceMailboxURL = [action sourceMailboxURL];
   absoluteString = [sourceMailboxURL absoluteString];
-  v70 = [account mailboxUidForURL:absoluteString];
+  v69 = [account mailboxUidForURL:absoluteString];
 
-  folderID = [v70 folderID];
+  folderID = [v69 folderID];
   destinationMailboxURL = [action destinationMailboxURL];
   absoluteString2 = [destinationMailboxURL absoluteString];
-  v68 = [account mailboxUidForURL:absoluteString2];
+  v67 = [account mailboxUidForURL:absoluteString2];
 
-  folderID2 = [v68 folderID];
-  account2 = [v70 account];
+  folderID2 = [v67 folderID];
+  account2 = [v69 account];
   v21 = account2;
   if (account2 == account)
   {
-    account3 = [v68 account];
+    account3 = [v67 account];
     if (folderID)
     {
       v23 = folderID2 == 0;
@@ -314,51 +307,51 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
 
     if (v25)
     {
-      v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v72 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v64];
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
+      v65 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v71 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v63];
       v89 = 0u;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
       v26 = v6;
-      v27 = [v26 countByEnumeratingWithState:&v88 objects:v102 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v87 objects:v101 count:16];
       if (v27)
       {
-        v28 = *v89;
+        v28 = *v88;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v89 != v28)
+            if (*v88 != v28)
             {
               objc_enumerationMutation(v26);
             }
 
-            v30 = [objc_alloc(MEMORY[0x1E6999850]) initMoveRequestWithMessage:*(*(&v88 + 1) + 8 * j) fromFolder:folderID toFolder:folderID2];
+            v30 = [objc_alloc(MEMORY[0x1E6999850]) initMoveRequestWithMessage:*(*(&v87 + 1) + 8 * j) fromFolder:folderID toFolder:folderID2];
             if (v30)
             {
-              [v72 addObject:v30];
+              [v71 addObject:v30];
             }
           }
 
-          v27 = [v26 countByEnumeratingWithState:&v88 objects:v102 count:16];
+          v27 = [v26 countByEnumeratingWithState:&v87 objects:v101 count:16];
         }
 
         while (v27);
       }
 
-      if ([v72 count])
+      if ([v71 count])
       {
-        v61 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-        v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v64];
+        v60 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+        v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v63];
         v32 = objc_alloc(MEMORY[0x1E695DFD8]);
         allKeys = [v26 allKeys];
-        v65 = [v32 initWithArray:allKeys];
+        v64 = [v32 initWithArray:allKeys];
 
-        v34 = [[MFDAMoveResponseConsumer alloc] initWithSourceRemoteIDs:v65 destinationRemoteIDsBySourceRemoteIDs:v31 failures:v61];
+        v34 = [[MFDAMoveResponseConsumer alloc] initWithSourceRemoteIDs:v64 destinationRemoteIDsBySourceRemoteIDs:v31 failures:v60];
         accountConduit = [account accountConduit];
-        [accountConduit performMoveRequests:v72 consumer:v34];
+        [accountConduit performMoveRequests:v71 consumer:v34];
 
         [(MFDAMailAccountConsumer *)v34 waitUntilDone];
         v36 = +[MFActivityMonitor currentMonitor];
@@ -374,32 +367,32 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
         else
         {
           v50 = objc_opt_new();
-          v82[0] = MEMORY[0x1E69E9820];
-          v82[1] = 3221225472;
-          v82[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke;
-          v82[3] = &unk_1E7AA5528;
-          v83 = v61;
-          v60 = v62;
-          v84 = v60;
-          v85 = v31;
-          v59 = v66;
-          v86 = v59;
+          v81[0] = MEMORY[0x1E69E9820];
+          v81[1] = 3221225472;
+          v81[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke;
+          v81[3] = &unk_1E7AA5528;
+          v82 = v60;
+          v59 = v61;
+          v83 = v59;
+          v84 = v31;
+          v58 = v65;
+          v85 = v58;
           v51 = v50;
-          v87 = v51;
-          [v26 enumerateKeysAndObjectsUsingBlock:v82];
+          v86 = v51;
+          [v26 enumerateKeysAndObjectsUsingBlock:v81];
           v52 = DALoggingwithCategory();
           if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
-            v97 = v59;
-            v98 = 2112;
-            v99 = v60;
-            v100 = 2048;
-            v101 = statusCode;
+            v96 = v58;
+            v97 = 2112;
+            v98 = v59;
+            v99 = 2048;
+            v100 = statusCode;
             _os_log_impl(&dword_1B0389000, v52, OS_LOG_TYPE_INFO, "Transfer action completed with successful items: %@. Failed items: %@. StatusCode: %lu", buf, 0x20u);
           }
 
-          if ([v60 count] && statusCode == 15)
+          if ([v59 count] && statusCode == 15)
           {
             v53 = DALoggingwithCategory();
             if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
@@ -408,41 +401,41 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
               _os_log_impl(&dword_1B0389000, v53, OS_LOG_TYPE_DEFAULT, "Transfer failed with Invalid Source Error. Moving the messages locally", buf, 2u);
             }
 
-            [v59 addObjectsFromArray:v60];
-            [v60 removeAllObjects];
+            [v58 addObjectsFromArray:v59];
+            [v59 removeAllObjects];
             v54 = +[MFActivityMonitor currentMonitor];
             [v54 setError:0];
           }
 
           v55 = objc_alloc(MEMORY[0x1E699B360]);
-          v77[0] = MEMORY[0x1E69E9820];
-          v77[1] = 3221225472;
-          v77[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_23;
-          v77[3] = &unk_1E7AA54E0;
-          v78 = v59;
+          v76[0] = MEMORY[0x1E69E9820];
+          v76[1] = 3221225472;
+          v76[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_23;
+          v76[3] = &unk_1E7AA54E0;
+          v77 = v58;
           v56 = v51;
-          v79 = v56;
-          v80 = v60;
-          v81 = v34;
-          v39 = [v55 initWithBuilder:v77];
+          v78 = v56;
+          v79 = v59;
+          v80 = v34;
+          v39 = [v55 initWithBuilder:v76];
         }
 
-        v49 = v61;
+        v49 = v60;
       }
 
       else
       {
         v48 = objc_alloc(MEMORY[0x1E699B360]);
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_2_24;
-        v75[3] = &unk_1E7AA5490;
-        v76 = v7;
-        v39 = [v48 initWithBuilder:v75];
-        v49 = v76;
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_2_24;
+        v74[3] = &unk_1E7AA5490;
+        v75 = v7;
+        v39 = [v48 initWithBuilder:v74];
+        v49 = v75;
       }
 
-      v41 = v62;
+      v41 = v61;
       goto LABEL_53;
     }
   }
@@ -451,11 +444,11 @@ void __52__MFDATransferActionReplayer_appendItem_mailboxURL___block_invoke_4(uin
   {
   }
 
-  account4 = [v70 account];
+  account4 = [v69 account];
   v41 = +[LocalAccount localAccount];
   if (account4 != v41)
   {
-    v66 = account4;
+    v65 = account4;
 LABEL_39:
     v39 = 0;
 LABEL_53:
@@ -463,46 +456,44 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  account5 = [v68 account];
+  account5 = [v67 account];
   v43 = account5;
   if (account5 != account)
   {
-    v66 = account4;
+    v65 = account4;
 
     goto LABEL_39;
   }
 
   v44 = account4;
-  v45 = [v68 type] == 3;
+  v45 = [v67 type] == 3;
 
   if (v45)
   {
-    v66 = [v7 ef_compactMap:&__block_literal_global_28];
+    v65 = [v7 ef_compactMap:&__block_literal_global_28];
     library = [account library];
-    [library compactMessages:v66];
+    [library compactMessages:v65];
 
     v47 = objc_alloc(MEMORY[0x1E699B360]);
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 3221225472;
-    v73[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_4;
-    v73[3] = &unk_1E7AA5490;
-    v74 = v7;
-    v39 = [v47 initWithBuilder:v73];
-    v41 = v74;
+    v72[0] = MEMORY[0x1E69E9820];
+    v72[1] = 3221225472;
+    v72[2] = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_4;
+    v72[3] = &unk_1E7AA5490;
+    v73 = v7;
+    v39 = [v47 initWithBuilder:v72];
+    v41 = v73;
     goto LABEL_53;
   }
 
   v39 = 0;
 LABEL_54:
 
-  v57 = *MEMORY[0x1E69E9840];
-
   return v39;
 }
 
 void __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke(id *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([a1[4] containsObject:v5])
@@ -517,16 +508,16 @@ void __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_in
     {
       [a1[7] addObject:v6];
       v8 = objc_alloc(MEMORY[0x1E699B320]);
-      v13 = MEMORY[0x1E69E9820];
-      v14 = 3221225472;
-      v15 = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_2;
-      v16 = &unk_1E7AA54B8;
-      v17 = v6;
-      v18 = v7;
-      v9 = [v8 initWithServerMessageBuilder:&v13];
-      [a1[8] addObject:{v9, v13, v14, v15, v16}];
+      v12 = MEMORY[0x1E69E9820];
+      v13 = 3221225472;
+      v14 = __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_2;
+      v15 = &unk_1E7AA54B8;
+      v16 = v6;
+      v17 = v7;
+      v9 = [v8 initWithServerMessageBuilder:&v12];
+      [a1[8] addObject:{v9, v12, v13, v14, v15}];
 
-      v10 = v17;
+      v10 = v16;
     }
 
     else
@@ -536,13 +527,11 @@ void __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_in
       {
         v11 = [v6 destinationMessage];
         *buf = 138412290;
-        v20 = v11;
+        v19 = v11;
         _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, "message %@ was successfully transferred, but we don't have a new remote ID for it", buf, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__MFDATransferActionReplayer_moveItems_destinationMailboxURL___block_invoke_2(uint64_t a1, void *a2)

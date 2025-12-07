@@ -45,29 +45,29 @@ VCPMADPersonIdentificationTaskResource *__56__VCPMADPersonIdentificationTaskReso
 
 - (void)_loadVIPModels
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (self->_personsModel && self->_petsModel)
   {
     return;
   }
 
-  v3 = VCPSignPostLog();
+  v3 = VCPSignPostLog(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = VCPSignPostLog();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = VCPSignPostLog(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADLoadVIPModels", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADLoadVIPModels", "", buf, 2u);
   }
 
   photoLibrary = self->_photoLibrary;
   if (!photoLibrary)
   {
-    v8 = +[VCPDefaultPhotoLibraryManager sharedManager];
-    defaultPhotoLibrary = [v8 defaultPhotoLibrary];
-    v10 = self->_photoLibrary;
+    v9 = +[VCPDefaultPhotoLibraryManager sharedManager];
+    defaultPhotoLibrary = [v9 defaultPhotoLibrary];
+    v11 = self->_photoLibrary;
     self->_photoLibrary = defaultPhotoLibrary;
 
     photoLibrary = self->_photoLibrary;
@@ -75,62 +75,62 @@ VCPMADPersonIdentificationTaskResource *__56__VCPMADPersonIdentificationTaskReso
 
   if (!self->_faceProcessingContext)
   {
-    v11 = [VCPPhotosFaceProcessingContext contextWithPhotoLibrary:photoLibrary];
+    v12 = [VCPPhotosFaceProcessingContext contextWithPhotoLibrary:photoLibrary];
     faceProcessingContext = self->_faceProcessingContext;
-    self->_faceProcessingContext = v11;
+    self->_faceProcessingContext = v12;
 
     photoLibrary = self->_photoLibrary;
   }
 
-  v13 = [(PHPhotoLibrary *)photoLibrary vcp_vipModelFilepathForVIPType:0];
+  v14 = [(PHPhotoLibrary *)photoLibrary vcp_vipModelFilepathForVIPType:0];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v15 = [defaultManager fileExistsAtPath:v13];
+  v16 = [defaultManager fileExistsAtPath:v14];
 
-  if (!v15)
+  if (!v16)
   {
     if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v13;
+      v39 = v14;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Persons Model does not exist - %@", buf, 0xCu);
     }
 
     goto LABEL_26;
   }
 
-  v35 = 0;
-  v16 = [VCPFaceIDModel loadVIPModelAtPath:v13 withVIPType:0 error:&v35];
-  v17 = v35;
+  v37 = 0;
+  v17 = [VCPFaceIDModel loadVIPModelAtPath:v14 withVIPType:0 error:&v37];
+  v18 = v37;
   personsModel = self->_personsModel;
-  self->_personsModel = v16;
+  self->_personsModel = v17;
 
-  v19 = self->_personsModel;
-  if (v19)
+  v20 = self->_personsModel;
+  if (v20)
   {
-    configuration = [(VNPersonsModel *)v19 configuration];
+    configuration = [(VNPersonsModel *)v20 configuration];
     faceprintRequestRevision = [configuration faceprintRequestRevision];
 
     if (faceprintRequestRevision == 3737841669)
     {
-      v22 = 15;
+      v23 = 15;
     }
 
     else
     {
-      v22 = 11;
+      v23 = 11;
     }
 
-    [(VCPPhotosFaceProcessingContext *)self->_faceProcessingContext setProcessingVersion:v22];
+    [(VCPPhotosFaceProcessingContext *)self->_faceProcessingContext setProcessingVersion:v23];
     if (MediaAnalysisLogLevel() < 6 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       goto LABEL_25;
     }
 
     *buf = 134217984;
-    v37 = faceprintRequestRevision;
-    v23 = MEMORY[0x1E69E9C10];
-    v24 = "VIP Model uses faceprint with revision %lu";
-    v25 = OS_LOG_TYPE_INFO;
+    v39 = faceprintRequestRevision;
+    v24 = MEMORY[0x1E69E9C10];
+    v25 = "VIP Model uses faceprint with revision %lu";
+    v26 = OS_LOG_TYPE_INFO;
   }
 
   else
@@ -141,75 +141,83 @@ VCPMADPersonIdentificationTaskResource *__56__VCPMADPersonIdentificationTaskReso
     }
 
     *buf = 138412290;
-    v37 = v17;
-    v23 = MEMORY[0x1E69E9C10];
-    v24 = "Failed to load Person Identity Model - %@";
-    v25 = OS_LOG_TYPE_ERROR;
+    v39 = v18;
+    v24 = MEMORY[0x1E69E9C10];
+    v25 = "Failed to load Person Identity Model - %@";
+    v26 = OS_LOG_TYPE_ERROR;
   }
 
-  _os_log_impl(&dword_1C9B70000, v23, v25, v24, buf, 0xCu);
+  _os_log_impl(&dword_1C9B70000, v24, v26, v25, buf, 0xCu);
 LABEL_25:
 
 LABEL_26:
-  v26 = [(PHPhotoLibrary *)self->_photoLibrary vcp_vipModelFilepathForVIPType:1];
+  v27 = [(PHPhotoLibrary *)self->_photoLibrary vcp_vipModelFilepathForVIPType:1];
 
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-  v28 = [defaultManager2 fileExistsAtPath:v26];
+  v29 = [defaultManager2 fileExistsAtPath:v27];
 
-  if (v28)
+  if (v29)
   {
-    v34 = 0;
-    v29 = [VCPFaceIDModel loadVIPModelAtPath:v26 withVIPType:1 error:&v34];
-    v30 = v34;
+    v36 = 0;
+    v30 = [VCPFaceIDModel loadVIPModelAtPath:v27 withVIPType:1 error:&v36];
+    v31 = v36;
     petsModel = self->_petsModel;
-    self->_petsModel = v29;
+    self->_petsModel = v30;
 
     if (!self->_petsModel && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v37 = v30;
+      v39 = v31;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to load Pets Model - %@", buf, 0xCu);
     }
   }
 
-  else if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  else
   {
-    *buf = 138412290;
-    v37 = v26;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Pets Model does not exist - %@", buf, 0xCu);
+    v33 = MediaAnalysisLogLevel();
+    if (v33 >= 5)
+    {
+      v33 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+      if (v33)
+      {
+        *buf = 138412290;
+        v39 = v27;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Pets Model does not exist - %@", buf, 0xCu);
+      }
+    }
   }
 
-  v32 = VCPSignPostLog();
-  v33 = v32;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+  v34 = VCPSignPostLog(v33);
+  v35 = v34;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_END, v4, "MADLoadVIPModels", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v4, "MADLoadVIPModels", "", buf, 2u);
   }
 }
 
 - (void)_loadVUGallery
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!self->_gallery)
   {
-    v3 = VCPSignPostLog();
+    v3 = VCPSignPostLog(self);
     v4 = os_signpost_id_generate(v3);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v6 = VCPSignPostLog(v5);
+    v7 = v6;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADLoadVUIndex", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADLoadVUIndex", "", buf, 2u);
     }
 
     photoLibrary = self->_photoLibrary;
     if (!photoLibrary)
     {
-      v8 = +[VCPDefaultPhotoLibraryManager sharedManager];
-      defaultPhotoLibrary = [v8 defaultPhotoLibrary];
-      v10 = self->_photoLibrary;
+      v9 = +[VCPDefaultPhotoLibraryManager sharedManager];
+      defaultPhotoLibrary = [v9 defaultPhotoLibrary];
+      v11 = self->_photoLibrary;
       self->_photoLibrary = defaultPhotoLibrary;
 
       photoLibrary = self->_photoLibrary;
@@ -217,24 +225,24 @@ LABEL_26:
 
     if (!self->_faceProcessingContext)
     {
-      v11 = [VCPPhotosFaceProcessingContext contextWithPhotoLibrary:photoLibrary];
+      v12 = [VCPPhotosFaceProcessingContext contextWithPhotoLibrary:photoLibrary];
       faceProcessingContext = self->_faceProcessingContext;
-      self->_faceProcessingContext = v11;
+      self->_faceProcessingContext = v12;
 
       photoLibrary = self->_photoLibrary;
     }
 
     vcp_visionCacheStorageDirectoryURL = [(PHPhotoLibrary *)photoLibrary vcp_visionCacheStorageDirectoryURL];
-    v20 = 0;
-    v14 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:vcp_visionCacheStorageDirectoryURL error:&v20];
-    v15 = v20;
+    v21 = 0;
+    v15 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:vcp_visionCacheStorageDirectoryURL error:&v21];
+    v16 = v21;
     gallery = self->_gallery;
-    self->_gallery = v14;
+    self->_gallery = v15;
 
     if (!self->_gallery && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v15;
+      v23 = v16;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to load VUWGallery - %@", buf, 0xCu);
     }
 
@@ -242,17 +250,16 @@ LABEL_26:
     {
       faceprintRevision = [(VUWGallery *)self->_gallery faceprintRevision];
       *buf = 134217984;
-      v22 = faceprintRevision;
+      v23 = faceprintRevision;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Gallery uses faceprint with revision %ld", buf, 0xCu);
     }
 
-    [(VCPPhotosFaceProcessingContext *)self->_faceProcessingContext setProcessingVersion:15];
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v19 = VCPSignPostLog([(VCPPhotosFaceProcessingContext *)self->_faceProcessingContext setProcessingVersion:15]);
+    v20 = v19;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v4, "MADLoadVUIndex", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v4, "MADLoadVUIndex", "", buf, 2u);
     }
   }
 }

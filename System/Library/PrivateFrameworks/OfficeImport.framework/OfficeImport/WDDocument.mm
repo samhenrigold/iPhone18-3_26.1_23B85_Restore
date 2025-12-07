@@ -409,7 +409,7 @@ LABEL_12:
 {
   if (at == -1)
   {
-    v4 = TCBundle();
+    v4 = TCBundle(self);
     v3 = [v4 localizedStringForKey:@"Unknown" value:&stru_286EE1130 table:@"TCCompatibility"];
   }
 

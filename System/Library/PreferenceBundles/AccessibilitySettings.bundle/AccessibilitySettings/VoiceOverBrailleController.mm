@@ -1334,9 +1334,11 @@ LABEL_10:
     [(NSTimer *)bluetoothDeviceLoadFailedTimer invalidate];
   }
 
-  self->_bluetoothDeviceLoadFailedTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_bluetoothDeviceLoadFailedTimerFireMethod:" selector:0 userInfo:0 repeats:30.0];
+  v4 = [NSTimer scheduledTimerWithTimeInterval:self target:"_bluetoothDeviceLoadFailedTimerFireMethod:" selector:0 userInfo:0 repeats:30.0];
+  v5 = self->_bluetoothDeviceLoadFailedTimer;
+  self->_bluetoothDeviceLoadFailedTimer = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v5);
 }
 
 - (void)_stopDeviceLoadFailedTimer

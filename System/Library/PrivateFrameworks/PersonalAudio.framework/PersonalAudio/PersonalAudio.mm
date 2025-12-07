@@ -22,9 +22,9 @@ id getHUAccessoryManagerClass()
   return v1;
 }
 
-void sub_25E446500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E446500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -53,9 +53,9 @@ id getHUAccessoryManagerClass_0()
   return v1;
 }
 
-void sub_25E4465E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E4465E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -123,22 +123,22 @@ Class __getHUAccessoryManagerClass_block_invoke(uint64_t a1)
 
 Class __getHUAccessoryManagerClass_block_invoke_0(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!HearingUtilitiesLibraryCore_frameworkLibrary_1)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __HearingUtilitiesLibraryCore_block_invoke_1;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279A1D798;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __HearingUtilitiesLibraryCore_block_invoke_1;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279A1D798;
+    v6 = 0;
     HearingUtilitiesLibraryCore_frameworkLibrary_1 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (HearingUtilitiesLibraryCore_frameworkLibrary_1)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -146,7 +146,7 @@ Class __getHUAccessoryManagerClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -161,28 +161,27 @@ LABEL_4:
   }
 
   getHUAccessoryManagerClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getHUAccessoryManagerClass_block_invoke_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!HearingUtilitiesLibraryCore_frameworkLibrary_2)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __HearingUtilitiesLibraryCore_block_invoke_2;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279A1D8A0;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __HearingUtilitiesLibraryCore_block_invoke_2;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279A1D8A0;
+    v6 = 0;
     HearingUtilitiesLibraryCore_frameworkLibrary_2 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (HearingUtilitiesLibraryCore_frameworkLibrary_2)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -190,7 +189,7 @@ Class __getHUAccessoryManagerClass_block_invoke_1(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -205,7 +204,6 @@ LABEL_4:
   }
 
   getHUAccessoryManagerClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -247,69 +245,67 @@ void *__HearingModeServiceLibrary_block_invoke_0()
 
 uint64_t HearingUtilitiesLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!HearingUtilitiesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __HearingUtilitiesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_279A1D258;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __HearingUtilitiesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_279A1D258;
+    v5 = 0;
     HearingUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = HearingUtilitiesLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!HearingUtilitiesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t HearingUtilitiesLibrary_0()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!HearingUtilitiesLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __HearingUtilitiesLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_279A1D6B8;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __HearingUtilitiesLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_279A1D6B8;
+    v5 = 0;
     HearingUtilitiesLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v0 = HearingUtilitiesLibraryCore_frameworkLibrary_0;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!HearingUtilitiesLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -320,20 +316,17 @@ void sub_25E448CE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25E449410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25E449410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __HearingUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HearingUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -349,7 +342,7 @@ Class __getAXHeardControllerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getAXHeardControllerClass_block_invoke_cold_1();
+    __getAXHeardControllerClass_block_invoke_cold_1();
     return __getAXHearingAidAudioRoutesChangedNotificationSymbolLoc_block_invoke(v3);
   }
 
@@ -365,35 +358,35 @@ void *__getAXHearingAidAudioRoutesChangedNotificationSymbolLoc_block_invoke(uint
   return result;
 }
 
-void sub_25E44AD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E44AD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id paBundle()
+id paBundle(uint64_t a1, uint64_t a2)
 {
-  v0 = paBundle_PABundle;
+  v2 = paBundle_PABundle;
   if (!paBundle_PABundle)
   {
-    v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v2 = paBundle_PABundle;
-    paBundle_PABundle = v1;
+    v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v4 = paBundle_PABundle;
+    paBundle_PABundle = v3;
 
-    v0 = paBundle_PABundle;
+    v2 = paBundle_PABundle;
   }
 
-  return v0;
+  return v2;
 }
 
 id paLocString(void *a1)
 {
   v1 = a1;
-  v2 = paBundle();
-  v3 = [v2 localizedStringForKey:v1 value:v1 table:@"PersonalAudio"];
+  v3 = paBundle(v1, v2);
+  v4 = [v3 localizedStringForKey:v1 value:v1 table:@"PersonalAudio"];
 
-  return v3;
+  return v4;
 }
 
 __CFString *paDescriptionForLevel(uint64_t a1)
@@ -450,9 +443,9 @@ id getHKUnitClass()
   return v1;
 }
 
-void sub_25E44E3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E44E3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -466,43 +459,41 @@ void sub_25E44E7F0(_Unwind_Exception *a1)
 
 id paRoutesOfSubtypeOrProduct(void *a1, void *a2, char a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = [getHUUtilitiesClass() sharedUtilities];
   v8 = [v7 currentPickableAudioRoutes];
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __paRoutesOfSubtypeOrProduct_block_invoke;
-  v20 = &unk_279A1D598;
-  v24 = a3;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __paRoutesOfSubtypeOrProduct_block_invoke;
+  v19 = &unk_279A1D598;
+  v23 = a3;
   v10 = v5;
-  v21 = v10;
+  v20 = v10;
   v11 = v6;
-  v22 = v11;
+  v21 = v11;
   v12 = v9;
-  v23 = v12;
-  [v8 enumerateKeysAndObjectsUsingBlock:&v17];
+  v22 = v12;
+  [v8 enumerateKeysAndObjectsUsingBlock:&v16];
   if (![v12 count] && objc_msgSend(MEMORY[0x277D12B60], "isInternalInstall"))
   {
     v13 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v11;
-      v29 = 2112;
-      v30 = v8;
+      v25 = v10;
+      v26 = 2112;
+      v27 = v11;
+      v28 = 2112;
+      v29 = v8;
       _os_log_impl(&dword_25E445000, v13, OS_LOG_TYPE_DEFAULT, "Route not supported %@ - %@ = %@", buf, 0x20u);
     }
   }
 
   v14 = [v12 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -531,40 +522,40 @@ id getHUUtilitiesClass()
   return v1;
 }
 
-void sub_25E44F254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E44F254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __paRoutesOfSubtypeOrProduct_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 56) == 1)
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
     v7 = getHURouteKeyRouteCurrentlyPickedSymbolLoc_ptr;
-    v42 = getHURouteKeyRouteCurrentlyPickedSymbolLoc_ptr;
+    v41 = getHURouteKeyRouteCurrentlyPickedSymbolLoc_ptr;
     if (!getHURouteKeyRouteCurrentlyPickedSymbolLoc_ptr)
     {
       *buf = MEMORY[0x277D85DD0];
-      *&v44 = 3221225472;
-      *(&v44 + 1) = __getHURouteKeyRouteCurrentlyPickedSymbolLoc_block_invoke;
-      v45 = &unk_279A1D238;
-      v46 = &v39;
+      *&v43 = 3221225472;
+      *(&v43 + 1) = __getHURouteKeyRouteCurrentlyPickedSymbolLoc_block_invoke;
+      v44 = &unk_279A1D238;
+      v45 = &v38;
       v8 = HearingUtilitiesLibrary_0();
       v9 = dlsym(v8, "HURouteKeyRouteCurrentlyPicked");
-      *(v46[1] + 24) = v9;
-      getHURouteKeyRouteCurrentlyPickedSymbolLoc_ptr = *(v46[1] + 24);
-      v7 = v40[3];
+      *(v45[1] + 24) = v9;
+      getHURouteKeyRouteCurrentlyPickedSymbolLoc_ptr = *(v45[1] + 24);
+      v7 = v39[3];
     }
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
     if (!v7)
     {
       goto LABEL_28;
@@ -579,26 +570,26 @@ void __paRoutesOfSubtypeOrProduct_block_invoke(uint64_t a1, void *a2, void *a3)
     }
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
   v12 = getHURouteKeyAudioRouteSubTypeSymbolLoc_ptr;
-  v42 = getHURouteKeyAudioRouteSubTypeSymbolLoc_ptr;
+  v41 = getHURouteKeyAudioRouteSubTypeSymbolLoc_ptr;
   if (!getHURouteKeyAudioRouteSubTypeSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
-    *&v44 = 3221225472;
-    *(&v44 + 1) = __getHURouteKeyAudioRouteSubTypeSymbolLoc_block_invoke;
-    v45 = &unk_279A1D238;
-    v46 = &v39;
+    *&v43 = 3221225472;
+    *(&v43 + 1) = __getHURouteKeyAudioRouteSubTypeSymbolLoc_block_invoke;
+    v44 = &unk_279A1D238;
+    v45 = &v38;
     v13 = HearingUtilitiesLibrary_0();
     v14 = dlsym(v13, "HURouteKeyAudioRouteSubType");
-    *(v46[1] + 24) = v14;
-    getHURouteKeyAudioRouteSubTypeSymbolLoc_ptr = *(v46[1] + 24);
-    v12 = v40[3];
+    *(v45[1] + 24) = v14;
+    getHURouteKeyAudioRouteSubTypeSymbolLoc_ptr = *(v45[1] + 24);
+    v12 = v39[3];
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v38, 8);
   if (!v12)
   {
 LABEL_28:
@@ -610,13 +601,13 @@ LABEL_28:
   v16 = [v6 objectForKey:v15];
 
   v17 = *(a1 + 32);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __paRoutesOfSubtypeOrProduct_block_invoke_2;
-  v37[3] = &unk_279A1D570;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __paRoutesOfSubtypeOrProduct_block_invoke_2;
+  v36[3] = &unk_279A1D570;
   v18 = v16;
-  v38 = v18;
-  v19 = [v17 objectsPassingTest:v37];
+  v37 = v18;
+  v19 = [v17 objectsPassingTest:v36];
   if ([v19 count])
   {
     v20 = v6;
@@ -629,26 +620,26 @@ LABEL_28:
 
   if (!v20)
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
     v22 = getHURouteKeyBTDetails_ProductIDSymbolLoc_ptr;
-    v42 = getHURouteKeyBTDetails_ProductIDSymbolLoc_ptr;
+    v41 = getHURouteKeyBTDetails_ProductIDSymbolLoc_ptr;
     if (!getHURouteKeyBTDetails_ProductIDSymbolLoc_ptr)
     {
       *buf = MEMORY[0x277D85DD0];
-      *&v44 = 3221225472;
-      *(&v44 + 1) = __getHURouteKeyBTDetails_ProductIDSymbolLoc_block_invoke;
-      v45 = &unk_279A1D238;
-      v46 = &v39;
+      *&v43 = 3221225472;
+      *(&v43 + 1) = __getHURouteKeyBTDetails_ProductIDSymbolLoc_block_invoke;
+      v44 = &unk_279A1D238;
+      v45 = &v38;
       v23 = HearingUtilitiesLibrary_0();
       v24 = dlsym(v23, "HURouteKeyBTDetails_ProductID");
-      *(v46[1] + 24) = v24;
-      getHURouteKeyBTDetails_ProductIDSymbolLoc_ptr = *(v46[1] + 24);
-      v22 = v40[3];
+      *(v45[1] + 24) = v24;
+      getHURouteKeyBTDetails_ProductIDSymbolLoc_ptr = *(v45[1] + 24);
+      v22 = v39[3];
     }
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
     if (v22)
     {
       v25 = *v22;
@@ -657,12 +648,12 @@ LABEL_28:
       if ([v26 length])
       {
         v27 = *(a1 + 40);
-        v32 = MEMORY[0x277D85DD0];
-        v33 = 3221225472;
-        v34 = __paRoutesOfSubtypeOrProduct_block_invoke_3;
-        v35 = &unk_279A1D570;
-        v36 = v26;
-        v28 = [v27 objectsPassingTest:&v32];
+        v31 = MEMORY[0x277D85DD0];
+        v32 = 3221225472;
+        v33 = __paRoutesOfSubtypeOrProduct_block_invoke_3;
+        v34 = &unk_279A1D570;
+        v35 = v26;
+        v28 = [v27 objectsPassingTest:&v31];
 
         v19 = v28;
       }
@@ -694,8 +685,8 @@ LABEL_23:
   {
     *buf = 67109378;
     *&buf[4] = v21 != 0;
-    LOWORD(v44) = 2112;
-    *(&v44 + 2) = v6;
+    LOWORD(v43) = 2112;
+    *(&v43 + 2) = v6;
     _os_log_impl(&dword_25E445000, v30, OS_LOG_TYPE_DEFAULT, "Checking route %d = %@", buf, 0x12u);
   }
 
@@ -705,13 +696,11 @@ LABEL_23:
   }
 
 LABEL_27:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25E44F724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25E44F724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -827,9 +816,9 @@ uint64_t paHeadphoneRouteAvailable()
   return v2;
 }
 
-void sub_25E44FBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E44FBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1010,18 +999,17 @@ uint64_t __paCurrentBluetoothDeviceSupportingANCAndHeadphoneAccommodations_block
 
 void setCurrentDeviceToTransparencyMode()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = paCurrentBluetoothDeviceSupportingANCAndHeadphoneAccommodations();
   v1 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_impl(&dword_25E445000, v1, OS_LOG_TYPE_DEFAULT, "Setting ANC for %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_impl(&dword_25E445000, v1, OS_LOG_TYPE_DEFAULT, "Setting ANC for %@", &v2, 0xCu);
   }
 
   [v0 setListeningMode:2];
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id paProductsIdentifiersSupportingTransparencyAccommodations()
@@ -1049,7 +1037,7 @@ id paCurrentRouteSupportingTransparencyAccommodations()
 
 id paPairedDevicesSupportingTransparencyAccommodations()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CF3248] sharedInstance];
   v1 = [v0 pairedDevices];
 
@@ -1058,12 +1046,10 @@ id paPairedDevicesSupportingTransparencyAccommodations()
   v4 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Found transparency devices %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Found transparency devices %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1247,50 +1233,47 @@ BOOL paCurrentRouteSupportsTransparencyAccommodations()
 
 uint64_t paBluetoothDeviceSupportsSSL(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 getAACPCapabilityInteger:6];
   v2 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v1];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_25E445000, v2, OS_LOG_TYPE_DEFAULT, "Found PSE version %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_25E445000, v2, OS_LOG_TYPE_DEFAULT, "Found PSE version %@", &v5, 0xCu);
   }
 
   LODWORD(result) = _os_feature_enabled_impl();
   if (v1 > 2)
   {
-    result = result;
+    return result;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 Class __getHKUnitClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!HealthKitLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __HealthKitLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279A1D6A0;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __HealthKitLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279A1D6A0;
+    v6 = 0;
     HealthKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (HealthKitLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1298,7 +1281,7 @@ Class __getHKUnitClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1313,17 +1296,13 @@ LABEL_4:
   }
 
   getHKUnitClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __HealthKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1339,7 +1318,7 @@ Class __getHUUtilitiesClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getHUUtilitiesClass_block_invoke_cold_1();
+    __getHUUtilitiesClass_block_invoke_cold_1();
     return __HearingUtilitiesLibraryCore_block_invoke_0(v3);
   }
 
@@ -1348,11 +1327,8 @@ Class __getHUUtilitiesClass_block_invoke(uint64_t a1)
 
 uint64_t __HearingUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HearingUtilitiesLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1405,10 +1381,11 @@ Class initHMDeviceConfigurations()
   return result;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_25E456F00(_Unwind_Exception *a1)
@@ -1422,21 +1399,15 @@ void sub_25E456F00(_Unwind_Exception *a1)
 
 uint64_t __HearingUtilitiesLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HearingUtilitiesLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __HearingUtilitiesLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HearingUtilitiesLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1462,7 +1433,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t __paRoutesOfSubtypeOrProduct_block_invoke_cold_1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getHKUnitClass_block_invoke_cold_1();
 }

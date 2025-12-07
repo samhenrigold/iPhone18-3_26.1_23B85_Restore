@@ -70,7 +70,7 @@
     selfCopy2 = self;
   }
 
-  sub_18912D960();
+  sub_18912D960(responder);
 
   sub_188A553EC(v10);
 }
@@ -103,10 +103,10 @@
   v4 = sub_18A4A2458();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_18A4A2418();
   selfCopy = self;
-  sub_18912E5A0();
+  sub_18912E5A0(v9);
 
   (*(v5 + 8))(v7, v4);
 }

@@ -79,7 +79,7 @@
   if (v5)
   {
     outputImage = [(NURenderJob *)self outputImage];
-    [outputImage extent];
+    objc_msgSend_extent(outputImage);
     buf.origin.x = v7;
     buf.origin.y = v8;
     buf.size.width = v9;

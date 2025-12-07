@@ -10,42 +10,41 @@ id sub_1000013D4@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = sub_1000020D0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin();
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_100008130 != -1)
   {
     swift_once();
   }
 
-  v9 = sub_1000018A8(v4, qword_100008180);
-  (*(v5 + 16))(v8, v9, v4);
-  v10 = a1;
-  v11 = sub_1000020C0();
-  v12 = sub_100002110();
+  v8 = sub_1000018A8(v4, qword_100008180);
+  (*(v5 + 16))(v7, v8, v4);
+  v9 = a1;
+  v10 = sub_1000020C0();
+  v11 = sub_100002110();
 
-  if (os_log_type_enabled(v11, v12))
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    v24 = a2;
-    v14 = v13;
-    v23 = swift_slowAlloc();
-    v25 = v23;
-    *v14 = 136315138;
-    v15 = [v10 typeName];
-    v16 = sub_1000020F0();
-    v18 = v17;
+    v12 = swift_slowAlloc();
+    v23 = a2;
+    v13 = v12;
+    v22 = swift_slowAlloc();
+    v24 = v22;
+    *v13 = 136315138;
+    v14 = [v9 typeName];
+    v15 = sub_1000020F0();
+    v17 = v16;
 
-    v19 = sub_1000018E0(v16, v18, &v25);
+    v18 = sub_1000018E0(v15, v17, &v24);
 
-    *(v14 + 4) = v19;
-    _os_log_impl(&_mh_execute_header, v11, v12, "Returning handler for intent %s", v14, 0xCu);
-    sub_10000185C(v23);
+    *(v13 + 4) = v18;
+    _os_log_impl(&_mh_execute_header, v10, v11, "Returning handler for intent %s", v13, 0xCu);
+    sub_10000185C(v22);
 
-    a2 = v24;
+    a2 = v23;
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   sub_1000020B0();
   if (swift_dynamicCastClass())
   {
@@ -54,12 +53,12 @@ id sub_1000013D4@<X0>(void *a1@<X0>, void *a2@<X8>)
       swift_once();
     }
 
-    v24 = qword_100008170;
+    v23 = qword_100008170;
     a2[3] = sub_1000020A0();
-    v20 = v24;
-    *a2 = v24;
+    v19 = v23;
+    *a2 = v23;
 
-    return v20;
+    return v19;
   }
 
   else
@@ -212,16 +211,14 @@ LABEL_8:
 
 char *sub_100001AA4(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100001AF0(a1, a2);
+  v3 = sub_100001AF0(a1, a2);
   sub_100001C08(&off_100004280);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100001AF0(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -271,8 +268,8 @@ char *sub_100001AF0(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -324,21 +321,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_100001D5C(result, v8, 1, v3);
+    result = sub_100001D5C(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -353,15 +349,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -370,12 +366,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -495,7 +491,6 @@ uint64_t sub_100001EAC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -540,14 +535,11 @@ uint64_t sub_100001FA0()
 
 uint64_t *sub_10000202C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

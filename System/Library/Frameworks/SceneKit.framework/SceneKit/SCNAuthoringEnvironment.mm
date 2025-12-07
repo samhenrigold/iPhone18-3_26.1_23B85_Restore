@@ -46,10 +46,11 @@
     return renderer;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v4 = objc_opt_respondsToSelector();
+  if ((v4 & 1) == 0)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[SCNAuthoringEnvironment rendererForSceneRenderer:];
     }
@@ -147,7 +148,7 @@
 {
   if (!self[1].super.isa)
   {
-    Scene = C3DEngineContextGetScene(self->_engineContext);
+    Scene = C3DEngineContextGetScene(self->_engineContext, a2);
     ObjCWrapper = C3DEntityGetObjCWrapper(Scene);
     if (ObjCWrapper)
     {
@@ -171,11 +172,11 @@
 
 - (void)update
 {
-  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
   if (RendererContextGL)
   {
     ShowsAuthoringEnvironment = C3DRendererContextGetShowsAuthoringEnvironment(RendererContextGL);
-    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v6);
     if (!RenderContext)
     {
       if (!ShowsAuthoringEnvironment)
@@ -189,7 +190,7 @@
 
   else
   {
-    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v4);
     if (!RenderContext)
     {
       return;
@@ -269,29 +270,30 @@ LABEL_7:
 
   *(v5 + 30) = [nodes copy];
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(nodes, "count")}];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __45__SCNAuthoringEnvironment_beginEditingNodes___block_invoke;
-  v11[3] = &unk_2782FB9F0;
-  v11[4] = v7;
-  [nodes enumerateObjectsUsingBlock:v11];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __45__SCNAuthoringEnvironment_beginEditingNodes___block_invoke;
+  v14[3] = &unk_2782FB9F0;
+  v14[4] = v7;
+  [nodes enumerateObjectsUsingBlock:v14];
 
-  *(v5 + 29) = [objc_alloc(MEMORY[0x277CBEB40]) initWithArray:v7];
-  SharedInstance = C3DNotificationCenterGetSharedInstance();
-  Scene = C3DEngineContextGetScene(self->_engineContext);
+  v8 = [objc_alloc(MEMORY[0x277CBEB40]) initWithArray:v7];
+  *(v5 + 29) = v8;
+  SharedInstance = C3DNotificationCenterGetSharedInstance(v8, v9);
+  Scene = C3DEngineContextGetScene(self->_engineContext, v11);
   C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", Scene, 0, 1u);
   objc_sync_exit(self);
   if ([*(v5 + 29) count])
   {
-    v10 = *(v5 + 29);
+    v13 = *(v5 + 29);
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  [v6 setTargets:v10];
+  [v6 setTargets:v13];
 }
 
 uint64_t __45__SCNAuthoringEnvironment_beginEditingNodes___block_invoke(uint64_t a1, void *a2)

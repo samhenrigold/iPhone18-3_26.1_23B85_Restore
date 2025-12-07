@@ -34,29 +34,29 @@
 
 - (void)_setupAmenitiyRows
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MUAmenityListSectionConfiguration);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   factoidItemIndexes = [(GEOBusinessInfoModuleConfiguration *)self->_moduleConfig factoidItemIndexes];
-  v6 = [factoidItemIndexes countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v6 = [factoidItemIndexes countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v35;
+    v8 = *v34;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(factoidItemIndexes);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * i);
+        v10 = *(*(&v33 + 1) + 8 * i);
         mapItem = [(MUPlaceSectionController *)self mapItem];
         _encyclopedicInfo = [mapItem _encyclopedicInfo];
         v13 = [_encyclopedicInfo factoidAtIndex:{objc_msgSend(v10, "intValue")}];
@@ -67,35 +67,35 @@
         }
       }
 
-      v7 = [factoidItemIndexes countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v7 = [factoidItemIndexes countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v7);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   mapItem2 = [(MUPlaceSectionController *)self mapItem];
   _amenities = [mapItem2 _amenities];
 
-  v16 = [_amenities countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v16 = [_amenities countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(_amenities);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * j);
+        v21 = *(*(&v29 + 1) + 8 * j);
         if ([v21 isApplePayAmenity])
         {
           v22 = v21;
@@ -109,7 +109,7 @@
         }
       }
 
-      v17 = [_amenities countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v17 = [_amenities countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v17);
@@ -139,7 +139,6 @@
   self->_sectionView = v27;
 
   [(MUPlaceSectionView *)self->_sectionView configureWithSectionController:self];
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (MUAmenitiesSectionController)initWithMapItem:(id)item moduleConiguration:(id)coniguration

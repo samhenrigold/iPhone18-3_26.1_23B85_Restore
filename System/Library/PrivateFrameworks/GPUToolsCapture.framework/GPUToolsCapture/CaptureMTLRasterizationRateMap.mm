@@ -1,5 +1,6 @@
 @interface CaptureMTLRasterizationRateMap
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)parameterBufferSizeAndAlign;
+- ($94F468A8D4C62B317260615823C2B210)mapPhysicalToScreenCoordinates:(id)coordinates forLayer:(unint64_t)layer;
 - ($94F468A8D4C62B317260615823C2B210)mapScreenToPhysicalCoordinates:(id)coordinates forLayer:(unint64_t)layer;
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)physicalGranularity;
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)physicalSizeForLayer:(SEL)layer;
@@ -18,33 +19,32 @@
 
 - (void)resetUsingDescriptor:(id)descriptor
 {
-  v18 = 0u;
-  v19 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v16 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   descriptorCopy = descriptor;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v17);
-  [(MTLRasterizationRateMapSPI *)self->_baseObject resetUsingDescriptor:descriptorCopy, v17];
-  v7 = v18;
-  *(v18 + 8) = -15411;
-  v8 = BYTE9(v19);
-  if (BYTE9(v19) > 0x30uLL)
+  GTTraceContext_pushEncoderWithStream(traceContext, &v16);
+  [(MTLRasterizationRateMapSPI *)self->_baseObject resetUsingDescriptor:descriptorCopy, v16];
+  v6 = v17;
+  *(v17 + 8) = -15411;
+  v7 = BYTE9(v18);
+  if (BYTE9(v18) > 0x30uLL)
   {
-    v10 = *(*(&v17 + 1) + 24);
-    v11 = BYTE10(v19);
-    ++BYTE10(v19);
-    v9 = GTTraceMemPool_allocateBytes(v10, *(&v18 + 1), v11 | 0x1000000000) + 16;
-    v8 = v11;
+    v9 = *(*(&v16 + 1) + 24);
+    v10 = BYTE10(v18);
+    ++BYTE10(v18);
+    v8 = GTTraceMemPool_allocateBytes(v9, *(&v17 + 1), v10 | 0x1000000000) + 16;
+    v7 = v10;
   }
 
   else
   {
-    v9 = (v7 + BYTE9(v19));
-    BYTE9(v19) += 16;
+    v8 = (v6 + BYTE9(v18));
+    BYTE9(v18) += 16;
   }
 
-  *(v7 + 13) = v8;
+  *(v6 + 13) = v7;
   traceStream = [(CaptureMTLRasterizationRateMap *)self traceStream];
   if (traceStream)
   {
@@ -56,16 +56,16 @@
     var0 = 0;
   }
 
-  v14 = SaveMTLRasterizationRateMapDescriptor(&v17, descriptorCopy);
+  v13 = SaveMTLRasterizationRateMapDescriptor(&v16, descriptorCopy);
 
-  *v9 = var0;
-  v9[8] = v14;
-  *(v9 + 9) = 0;
-  *(v9 + 3) = 0;
+  *v8 = var0;
+  v8[8] = v13;
+  *(v8 + 9) = 0;
+  *(v8 + 3) = 0;
   s();
-  *v15 = v16;
-  *(v15 + 8) = BYTE8(v19);
-  *(v18 + 15) |= 8u;
+  *v14 = v15;
+  *(v14 + 8) = BYTE8(v18);
+  *(v17 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -131,11 +131,10 @@
 
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)physicalSizeForLayer:(SEL)layer
 {
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  v20 = 0u;
+  v18 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
@@ -145,25 +144,25 @@
     [(MTLRasterizationRateMapSPI *)baseObject physicalSizeForLayer:a4];
   }
 
-  v9 = v20;
-  *(v20 + 8) = -15797;
-  v10 = BYTE9(v21);
-  if (BYTE9(v21) > 0x18uLL)
+  v8 = v19;
+  *(v19 + 8) = -15797;
+  v9 = BYTE9(v20);
+  if (BYTE9(v20) > 0x18uLL)
   {
-    v12 = *(*(&v19 + 1) + 24);
-    v13 = BYTE10(v21);
-    ++BYTE10(v21);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v20 + 1), v13 | 0x2800000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v18 + 1) + 24);
+    v12 = BYTE10(v20);
+    ++BYTE10(v20);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v19 + 1), v12 | 0x2800000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v21));
-    BYTE9(v21) += 40;
+    v10 = (v8 + BYTE9(v20));
+    BYTE9(v20) += 40;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTLRasterizationRateMap *)self traceStream];
   if (traceStream)
   {
@@ -176,14 +175,14 @@
   }
 
   var2 = retstr->var2;
-  *v11 = var0;
-  *(v11 + 8) = *&retstr->var0;
-  *(v11 + 3) = var2;
-  *(v11 + 4) = a4;
+  *v10 = var0;
+  *(v10 + 8) = *&retstr->var0;
+  *(v10 + 3) = var2;
+  *(v10 + 4) = a4;
   s();
-  result->var0 = v18;
-  LOBYTE(result->var1) = BYTE8(v21);
-  *(v20 + 15) |= 8u;
+  result->var0 = v17;
+  LOBYTE(result->var1) = BYTE8(v20);
+  *(v19 + 15) |= 8u;
   return result;
 }
 
@@ -191,89 +190,95 @@
 {
   var1 = coordinates.var1;
   var0 = coordinates.var0;
-  v27 = 0u;
-  v28 = 0u;
   v26 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v26);
-  *&v9 = var0;
-  *&v10 = var1;
-  [(MTLRasterizationRateMapSPI *)self->_baseObject mapScreenToPhysicalCoordinates:layer forLayer:v9, v10];
-  v12 = v11;
-  v14 = v13;
-  v15 = v27;
-  *(v27 + 8) = -15770;
-  v16 = BYTE9(v28);
-  if (BYTE9(v28) > 0x20uLL)
+  v27 = 0u;
+  v25 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v25);
+  *&v8 = var0;
+  *&v9 = var1;
+  [(MTLRasterizationRateMapSPI *)self->_baseObject mapScreenToPhysicalCoordinates:layer forLayer:v8, v9];
+  v11 = v10;
+  v13 = v12;
+  v14 = v26;
+  *(v26 + 8) = -15770;
+  v15 = BYTE9(v27);
+  if (BYTE9(v27) > 0x20uLL)
   {
-    v18 = *(*(&v26 + 1) + 24);
-    v19 = BYTE10(v28);
-    ++BYTE10(v28);
-    v17 = GTTraceMemPool_allocateBytes(v18, *(&v27 + 1), v19 | 0x2000000000) + 16;
-    v16 = v19;
+    v17 = *(*(&v25 + 1) + 24);
+    v18 = BYTE10(v27);
+    ++BYTE10(v27);
+    v16 = GTTraceMemPool_allocateBytes(v17, *(&v26 + 1), v18 | 0x2000000000) + 16;
+    v15 = v18;
   }
 
   else
   {
-    v17 = (v15 + BYTE9(v28));
-    BYTE9(v28) += 32;
+    v16 = (v14 + BYTE9(v27));
+    BYTE9(v27) += 32;
   }
 
-  *(v15 + 13) = v16;
+  *(v14 + 13) = v15;
   traceStream = [(CaptureMTLRasterizationRateMap *)self traceStream];
   if (traceStream)
   {
-    v21 = traceStream->var0;
+    v20 = traceStream->var0;
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  *v17 = v21;
-  *(v17 + 1) = layer;
-  *(v17 + 4) = v12;
-  *(v17 + 5) = v14;
-  *(v17 + 6) = var0;
-  *(v17 + 7) = var1;
+  *v16 = v20;
+  *(v16 + 1) = layer;
+  *(v16 + 4) = v11;
+  *(v16 + 5) = v13;
+  *(v16 + 6) = var0;
+  *(v16 + 7) = var1;
   s();
-  *v22 = v23;
-  *(v22 + 8) = BYTE8(v28);
-  *(v27 + 15) |= 8u;
-  v24 = v12;
-  v25 = v14;
-  result.var1 = v25;
-  result.var0 = v24;
+  *v21 = v22;
+  *(v21 + 8) = BYTE8(v27);
+  *(v26 + 15) |= 8u;
+  v23 = v11;
+  v24 = v13;
+  result.var1 = v24;
+  result.var0 = v23;
+  return result;
+}
+
+- ($94F468A8D4C62B317260615823C2B210)mapPhysicalToScreenCoordinates:(id)coordinates forLayer:(unint64_t)layer
+{
+  [(MTLRasterizationRateMapSPI *)self->_baseObject mapPhysicalToScreenCoordinates:layer forLayer:*&coordinates, *&coordinates.var1];
+  result.var1 = v5;
+  result.var0 = v4;
   return result;
 }
 
 - (void)dealloc
 {
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
-  v4 = v15;
-  *(v15 + 8) = -15801;
-  v5 = BYTE9(v16);
-  if (BYTE9(v16) > 0x38uLL)
+  v15 = 0u;
+  v13 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v3 = v14;
+  *(v14 + 8) = -15801;
+  v4 = BYTE9(v15);
+  if (BYTE9(v15) > 0x38uLL)
   {
-    v7 = *(*(&v14 + 1) + 24);
-    v8 = BYTE10(v16);
-    ++BYTE10(v16);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v13 + 1) + 24);
+    v7 = BYTE10(v15);
+    ++BYTE10(v15);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v14 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v16));
-    BYTE9(v16) += 8;
+    v5 = (v3 + BYTE9(v15));
+    BYTE9(v15) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLRasterizationRateMap *)self traceStream];
   if (traceStream)
   {
@@ -285,15 +290,15 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v16);
-  *(v15 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v15);
+  *(v14 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v13.receiver = self;
-  v13.super_class = CaptureMTLRasterizationRateMap;
-  [(CaptureMTLRasterizationRateMap *)&v13 dealloc];
+  v12.receiver = self;
+  v12.super_class = CaptureMTLRasterizationRateMap;
+  [(CaptureMTLRasterizationRateMap *)&v12 dealloc];
 }
 
 - (void)copyParameterDataToBuffer:(id)buffer offset:(unint64_t)offset
@@ -329,34 +334,33 @@
     while (!v10);
   }
 
-  v29 = 0u;
-  v30 = 0u;
   v28 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v28);
+  v29 = 0u;
+  v27 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v27);
   baseObject = self->_baseObject;
   baseObject = [bufferCopy baseObject];
   [(MTLRasterizationRateMapSPI *)baseObject copyParameterDataToBuffer:baseObject offset:offset];
 
-  v17 = v29;
-  *(v29 + 8) = -15776;
-  v18 = BYTE9(v30);
-  if (BYTE9(v30) > 0x28uLL)
+  v16 = v28;
+  *(v28 + 8) = -15776;
+  v17 = BYTE9(v29);
+  if (BYTE9(v29) > 0x28uLL)
   {
-    v20 = *(*(&v28 + 1) + 24);
-    v21 = BYTE10(v30);
-    ++BYTE10(v30);
-    v19 = GTTraceMemPool_allocateBytes(v20, *(&v29 + 1), v21 | 0x1800000000) + 16;
-    v18 = v21;
+    v19 = *(*(&v27 + 1) + 24);
+    v20 = BYTE10(v29);
+    ++BYTE10(v29);
+    v18 = GTTraceMemPool_allocateBytes(v19, *(&v28 + 1), v20 | 0x1800000000) + 16;
+    v17 = v20;
   }
 
   else
   {
-    v19 = (v17 + BYTE9(v30));
-    BYTE9(v30) += 24;
+    v18 = (v16 + BYTE9(v29));
+    BYTE9(v29) += 24;
   }
 
-  *(v17 + 13) = v18;
+  *(v16 + 13) = v17;
   traceStream3 = [(CaptureMTLRasterizationRateMap *)self traceStream];
   if (traceStream3)
   {
@@ -372,21 +376,21 @@
 
   if (traceStream4)
   {
-    v25 = *traceStream4;
+    v24 = *traceStream4;
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
-  *v19 = var0;
-  *(v19 + 1) = v25;
-  *(v19 + 2) = offset;
+  *v18 = var0;
+  *(v18 + 1) = v24;
+  *(v18 + 2) = offset;
   s();
-  *v26 = v27;
-  *(v26 + 8) = BYTE8(v30);
-  *(v29 + 15) |= 8u;
+  *v25 = v26;
+  *(v25 + 8) = BYTE8(v29);
+  *(v28 + 15) |= 8u;
 }
 
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)screenSize
@@ -394,7 +398,7 @@
   result = self->_baseObject;
   if (result)
   {
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result screenSize];
+    return objc_msgSend_screenSize(result, a3);
   }
 
   retstr->var0 = 0;

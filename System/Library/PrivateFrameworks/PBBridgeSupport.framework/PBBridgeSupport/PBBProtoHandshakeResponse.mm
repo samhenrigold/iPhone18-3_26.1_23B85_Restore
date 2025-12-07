@@ -39,12 +39,9 @@
 
 - (void)writeTo:(id)to
 {
-  position = self->_position;
   toCopy = to;
   PBDataWriterWriteUint32Field();
-  version = self->_version;
   PBDataWriterWriteUint32Field();
-  state = self->_state;
   PBDataWriterWriteUint32Field();
 }
 

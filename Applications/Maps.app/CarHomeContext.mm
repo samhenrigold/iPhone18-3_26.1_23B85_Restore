@@ -33,11 +33,11 @@
 
 - (NSArray)carFocusOrderSequences
 {
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1011E47B0;
   *(v2 + 32) = [objc_opt_self() defaultSequence];
-  sub_100014C84(0, &qword_101926EC0);
+  sub_100014C84(0, &qword_101926EC0, off_1015F6118);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

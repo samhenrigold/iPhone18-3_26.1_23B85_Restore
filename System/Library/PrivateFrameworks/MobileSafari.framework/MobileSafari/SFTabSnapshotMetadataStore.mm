@@ -21,7 +21,7 @@
 
 - (void)loadMetadataWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);
@@ -46,7 +46,7 @@
 
 - (void)deleteMetadataExceptIdentifiers:(NSSet *)identifiers completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -73,7 +73,7 @@
 
 - (NSURL)directoryURL
 {
-  v3 = _s7StorageVMa();
+  v3 = _s7StorageVMa(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = sub_18BC1EA98();
@@ -94,7 +94,7 @@
 
 - (void)deleteMetadataForIdentifier:(NSUUID *)identifier completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -121,7 +121,7 @@
 
 - (void)saveMetadata:(SFTabSnapshotMetadata *)metadata completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

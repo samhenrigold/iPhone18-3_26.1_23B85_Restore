@@ -90,13 +90,13 @@
   v12 = firstObject;
   if (firstObject)
   {
-    [firstObject timeRange];
+    objc_msgSend_timeRange(firstObject);
     v89 = *(&v81 + 1);
     v56 = DWORD1(v82);
     v90 = v82;
     v54 = *(&v82 + 1);
     memset(&v79, 0, sizeof(v79));
-    [v12 preferredTransform];
+    objc_msgSend_preferredTransform(v12);
   }
 
   else
@@ -658,7 +658,7 @@ void __58__PFExportGIFRequest_runExport_toURL_progress_completion___block_invoke
   return v13;
 }
 
-uint64_t __49__PFExportGIFRequest_runExport_toURL_completion___block_invoke(uint64_t a1, _BYTE *a2, double a3)
+void *__49__PFExportGIFRequest_runExport_toURL_completion___block_invoke(uint64_t a1, _BYTE *a2, double a3)
 {
   [*(a1 + 32) setCompletedUnitCount:vcvtmd_s64_f64(a3 * 100.0)];
   result = [*(a1 + 32) isCancelled];

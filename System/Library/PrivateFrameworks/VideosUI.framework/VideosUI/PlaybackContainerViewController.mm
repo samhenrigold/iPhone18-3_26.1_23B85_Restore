@@ -38,9 +38,9 @@
 {
   OUTLINED_FUNCTION_53_4(self, a2, delegate);
   swift_unknownObjectRetain();
-  v4 = v3;
+  v5 = v3;
   OUTLINED_FUNCTION_37_3();
-  sub_1E39AC108();
+  sub_1E39AC108(delegate);
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -63,14 +63,15 @@
 {
   selfCopy = self;
   OUTLINED_FUNCTION_51();
-  sub_1E39AD420();
+  sub_1E39AD420(v3);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  sub_1E39AD6C4(disappear);
+  sub_1E39AD6C4(disappearCopy);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -88,7 +89,7 @@
 {
   selfCopy = self;
   OUTLINED_FUNCTION_51();
-  sub_1E39ADAB4();
+  sub_1E39ADAB4(v3);
 }
 
 - (void)embedCatchUpToLiveViewController:(id)controller

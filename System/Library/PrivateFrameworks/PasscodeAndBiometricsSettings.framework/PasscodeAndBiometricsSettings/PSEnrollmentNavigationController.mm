@@ -4,6 +4,8 @@
 - (PSEnrollmentNavigationControllerDismissalDelegate)dismissalDelegate;
 - (int64_t)preferredStatusBarStyle;
 - (unint64_t)supportedInterfaceOrientations;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PSEnrollmentNavigationController
@@ -78,6 +80,24 @@
   result.height = v8;
   result.width = v7;
   return result;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PSEnrollmentNavigationController;
+  [(PSEnrollmentNavigationController *)&v5 viewWillDisappear:disappear];
+  dismissalDelegate = [(PSEnrollmentNavigationController *)self dismissalDelegate];
+  [dismissalDelegate enrollmentNavigationControllerWillDismiss:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PSEnrollmentNavigationController;
+  [(PSEnrollmentNavigationController *)&v5 viewDidDisappear:disappear];
+  dismissalDelegate = [(PSEnrollmentNavigationController *)self dismissalDelegate];
+  [dismissalDelegate enrollmentNavigationControllerDidDismiss:self];
 }
 
 - (PSEnrollmentNavigationControllerDismissalDelegate)dismissalDelegate

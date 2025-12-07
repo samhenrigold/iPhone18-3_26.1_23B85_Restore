@@ -179,7 +179,6 @@ LABEL_18:
 
   if (settingId)
   {
-    settingId = self->_settingId;
     PBDataWriterWriteStringField();
   }
 
@@ -193,13 +192,13 @@ LABEL_18:
 
   targetDevice = [(_INPBSettingMetadata *)self targetDevice];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (targetDevice)
   {
     targetDevice2 = [(_INPBSettingMetadata *)self targetDevice];
     PBDataWriterWriteSubmessage();
 
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

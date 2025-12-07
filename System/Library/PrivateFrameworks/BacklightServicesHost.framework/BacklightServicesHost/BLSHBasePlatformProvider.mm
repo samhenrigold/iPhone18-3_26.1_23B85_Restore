@@ -129,7 +129,7 @@
 
 - (void)setBacklightDimmedFactor:(float)factor
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_backlightDimmedFactor = self->_lock_backlightDimmedFactor;
   self->_lock_backlightDimmedFactor = factor;
@@ -145,18 +145,16 @@
       v10 = bls_backlight_log();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = 134218496;
+        v11 = 134218496;
         selfCopy = self;
-        v14 = 2048;
-        v15 = lock_backlightDimmedFactor;
-        v16 = 2048;
+        v13 = 2048;
+        v14 = lock_backlightDimmedFactor;
+        v15 = 2048;
         factorCopy = factor;
-        _os_log_error_impl(&dword_21FD11000, v10, OS_LOG_TYPE_ERROR, "%p changed dimmed factor (%.2lf->%.2lf) while currently dimmed - change will not be reflected until next update", &v12, 0x20u);
+        _os_log_error_impl(&dword_21FD11000, v10, OS_LOG_TYPE_ERROR, "%p changed dimmed factor (%.2lf->%.2lf) while currently dimmed - change will not be reflected until next update", &v11, 0x20u);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAlwaysOnEnabled
@@ -273,42 +271,40 @@
 
 - (void)notifyObserversWithBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_lock_observers allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * v10++));
+        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFlipbookSpecification:(uint64_t)a1 .cold.1(uint64_t a1, const char *a2)

@@ -90,13 +90,13 @@
 
 - (id)npkPrimaryPaymentApplication
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   devicePrimaryContactlessPaymentApplication = [self devicePrimaryContactlessPaymentApplication];
   v2 = devicePrimaryContactlessPaymentApplication;
   if (devicePrimaryContactlessPaymentApplication)
   {
-    v6[0] = devicePrimaryContactlessPaymentApplication;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+    v5[0] = devicePrimaryContactlessPaymentApplication;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   }
 
   else
@@ -104,14 +104,12 @@
     v3 = MEMORY[0x277CBEBF8];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)npkPreferredContactlessPaymentApplications
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   contactlessActivationGroupingType = [self contactlessActivationGroupingType];
   switch(contactlessActivationGroupingType)
   {
@@ -128,8 +126,8 @@
         goto LABEL_9;
       }
 
-      v9[0] = npkUserSelectedPaymentApplication;
-      allObjects = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+      v8[0] = npkUserSelectedPaymentApplication;
+      allObjects = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 LABEL_8:
       npkPrimaryPaymentApplication = allObjects;
 LABEL_9:
@@ -142,8 +140,6 @@ LABEL_9:
       npkPrimaryPaymentApplication = MEMORY[0x277CBEBF8];
       break;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return npkPrimaryPaymentApplication;
 }
@@ -164,26 +160,26 @@ LABEL_9:
 
 - (uint64_t)npkHasTransitNetworkIdentifiers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   devicePaymentApplications = [self devicePaymentApplications];
-  v2 = [devicePaymentApplications countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [devicePaymentApplications countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
-    v3 = *v10;
+    v3 = *v9;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v10 != v3)
+        if (*v9 != v3)
         {
           objc_enumerationMutation(devicePaymentApplications);
         }
 
-        supportedTransitNetworkIdentifiers = [*(*(&v9 + 1) + 8 * i) supportedTransitNetworkIdentifiers];
+        supportedTransitNetworkIdentifiers = [*(*(&v8 + 1) + 8 * i) supportedTransitNetworkIdentifiers];
         v6 = [supportedTransitNetworkIdentifiers count];
 
         if (v6)
@@ -193,7 +189,7 @@ LABEL_9:
         }
       }
 
-      v2 = [devicePaymentApplications countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v2 = [devicePaymentApplications countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v2)
       {
         continue;
@@ -205,7 +201,6 @@ LABEL_9:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

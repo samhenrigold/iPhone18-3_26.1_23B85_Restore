@@ -148,16 +148,16 @@ LABEL_39:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B462DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25B462DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B463AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B463AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -611,24 +611,24 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B46925C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25B46925C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose((v20 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B469654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
-  _Block_object_dispose((v13 - 144), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B469654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B469A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25B469A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1028,23 +1028,23 @@ void sub_25B46CE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25B46DB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B46DB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B46DD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B46DD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B46DF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B46DF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2048,8 +2048,8 @@ LABEL_23:
 
 id NPKProtoSendWithOptions(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, void *a7)
 {
-  v74 = *MEMORY[0x277D85DE8];
-  v50 = a1;
+  v78 = *MEMORY[0x277D85DE8];
+  v54 = a1;
   v11 = a2;
   v12 = a4;
   v13 = a6;
@@ -2061,33 +2061,33 @@ id NPKProtoSendWithOptions(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a
     [v15 setObject:v12 forKeyedSubscript:*MEMORY[0x277D18610]];
   }
 
-  v48 = v13;
+  v52 = v13;
   if (v14)
   {
     [v16 addEntriesFromDictionary:v14];
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v17 = [(__CFString *)v50 linkedDevicesWithRelationship:3];
-  v18 = [v17 countByEnumeratingWithState:&v53 objects:v73 count:16];
-  v47 = v14;
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v17 = [(__CFString *)v54 linkedDevicesWithRelationship:3];
+  v18 = [v17 countByEnumeratingWithState:&v57 objects:v77 count:16];
+  v51 = v14;
   if (v18)
   {
     v19 = v18;
-    v20 = *v54;
+    v20 = *v58;
 LABEL_7:
     v21 = 0;
     while (1)
     {
-      if (*v54 != v20)
+      if (*v58 != v20)
       {
         objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v53 + 1) + 8 * v21);
+      v22 = *(*(&v57 + 1) + 8 * v21);
       if ([v22 isActive])
       {
         break;
@@ -2095,7 +2095,7 @@ LABEL_7:
 
       if (v19 == ++v21)
       {
-        v19 = [v17 countByEnumeratingWithState:&v53 objects:v73 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v57 objects:v77 count:16];
         if (v19)
         {
           goto LABEL_7;
@@ -2105,43 +2105,44 @@ LABEL_7:
       }
     }
 
-    v23 = v22;
+    v24 = v22;
 
-    if (!v23)
+    if (!v24)
     {
       goto LABEL_21;
     }
 
-    v24 = MEMORY[0x277CBEB98];
-    v25 = IDSCopyIDForDevice();
-    v26 = [v24 setWithObject:v25];
+    v25 = MEMORY[0x277CBEB98];
+    v26 = IDSCopyIDForDevice();
+    v27 = [v25 setWithObject:v26];
 
-    v27 = [v23 relationship];
-    v28 = pk_Payment_log();
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+    v28 = [v24 relationship];
+    v29 = v28;
+    v30 = pk_Payment_log(v28);
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-    if (v29)
+    if (v31)
     {
-      v30 = pk_Payment_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v33 = pk_Payment_log(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = @"YES";
-        if ((v27 & 2) == 0)
+        v34 = @"YES";
+        if ((v29 & 2) == 0)
         {
-          v31 = @"NO";
+          v34 = @"NO";
         }
 
         *buf = 138412290;
-        v58 = v31;
-        _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Notice: altAccount %@", buf, 0xCu);
+        v62 = v34;
+        _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: altAccount %@", buf, 0xCu);
       }
 
-      v32 = v12;
+      v35 = v12;
     }
 
     else
     {
-      v32 = v12;
+      v35 = v12;
     }
   }
 
@@ -2150,74 +2151,73 @@ LABEL_7:
 LABEL_13:
 
 LABEL_21:
-    v33 = pk_Payment_log();
-    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+    v36 = pk_Payment_log(v23);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
 
-    if (v34)
+    if (v37)
     {
-      v35 = pk_Payment_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v39 = pk_Payment_log(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v35, OS_LOG_TYPE_DEFAULT, "Notice: no active device found, using IDSDefaultPairedDevice", buf, 2u);
+        _os_log_impl(&dword_25B300000, v39, OS_LOG_TYPE_DEFAULT, "Notice: no active device found, using IDSDefaultPairedDevice", buf, 2u);
       }
     }
 
-    v32 = v12;
-    v26 = [MEMORY[0x277CBEB98] setWithObject:{*MEMORY[0x277D187E8], v47}];
-    v23 = 0;
+    v35 = v12;
+    v27 = [MEMORY[0x277CBEB98] setWithObject:{*MEMORY[0x277D187E8], v51}];
+    v24 = 0;
   }
 
-  v51 = 0;
-  v52 = 0;
-  v36 = v11;
-  v37 = [(__CFString *)v50 sendProtobuf:v11 toDestinations:v26 priority:a3 options:v16 identifier:&v52 error:&v51];
-  v38 = v52;
-  v39 = v51;
-  v40 = pk_Payment_log();
-  v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+  v55 = 0;
+  v56 = 0;
+  v40 = v11;
+  v41 = [(__CFString *)v54 sendProtobuf:v11 toDestinations:v27 priority:a3 options:v16 identifier:&v56 error:&v55];
+  v42 = v56;
+  v43 = v55;
+  v44 = pk_Payment_log(v43);
+  v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
 
-  if (v41)
+  if (v45)
   {
-    v42 = pk_Payment_log();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v47 = pk_Payment_log(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [v36 npkDescription];
+      v48 = [v40 npkDescription];
       *buf = 138414082;
-      v58 = v50;
-      v59 = 2112;
-      v60 = v43;
-      v61 = 2112;
-      v62 = v26;
-      v63 = 2048;
-      v64 = a3;
+      v62 = v54;
+      v63 = 2112;
+      v64 = v48;
       v65 = 2112;
-      v66 = v16;
-      v67 = 2112;
-      v68 = v38;
-      v69 = 1024;
-      v70 = v37;
+      v66 = v27;
+      v67 = 2048;
+      v68 = a3;
+      v69 = 2112;
+      v70 = v16;
       v71 = 2112;
-      v72 = v39;
-      _os_log_impl(&dword_25B300000, v42, OS_LOG_TYPE_DEFAULT, "Notice: Service %@ sent protobuf (%@) destinations %@ priority %ld options %@: identifier %@ success %d error %@", buf, 0x4Eu);
+      v72 = v42;
+      v73 = 1024;
+      v74 = v41;
+      v75 = 2112;
+      v76 = v43;
+      _os_log_impl(&dword_25B300000, v47, OS_LOG_TYPE_DEFAULT, "Notice: Service %@ sent protobuf (%@) destinations %@ priority %ld options %@: identifier %@ success %d error %@", buf, 0x4Eu);
     }
   }
 
-  if (v48 && v37 != 1 && v39)
+  if (v52 && v41 != 1 && v43)
   {
-    (v48)[2](v48, v39);
+    (v52)[2](v52, v43);
   }
 
-  v44 = v38;
+  v49 = v42;
 
-  v45 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v42;
 }
 
 id NPKProtoSendSync(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v19 = *MEMORY[0x277D18650];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D18650];
   v8 = MEMORY[0x277CCABB0];
   v9 = *MEMORY[0x277D18828];
   v10 = a5;
@@ -2225,11 +2225,9 @@ id NPKProtoSendSync(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
   v12 = a2;
   v13 = a1;
   v14 = [v8 numberWithDouble:v9];
-  v20[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v19[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v16 = NPKProtoSendWithOptions(v13, v12, 100, v11, 0, v10, v15);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2255,9 +2253,9 @@ uint64_t NPKProtoCanSendMessage(void *a1)
   return v3;
 }
 
-void sub_25B475278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B475278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2525,47 +2523,47 @@ LABEL_23:
 
 id NPKAnalyticsEventEntriesForPaymentSetupFields(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (v1)
   {
     v2 = [MEMORY[0x277CBEB18] array];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [*(*(&v13 + 1) + 8 * i) identifier];
+          v8 = [*(*(&v12 + 1) + 8 * i) identifier];
           if (v8)
           {
             [v2 addObject:v8];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
       }
 
       while (v5);
     }
 
-    v17 = @"fieldIdentifiers";
+    v16 = @"fieldIdentifiers";
     v9 = [v2 componentsJoinedByString:{@", "}];
-    v18 = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   }
 
   else
@@ -2573,37 +2571,33 @@ id NPKAnalyticsEventEntriesForPaymentSetupFields(void *a1)
     v10 = MEMORY[0x277CBEC10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 id NPKAnalyticsEventEntriesForCredentials(void *a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
-  v6 = @"credentialCount";
+  v5 = @"credentialCount";
   v2 = [v1 stringValue];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 id NPKAnalyticsEventEntriesForProduct(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 productIdentifier];
 
   if (v2)
   {
-    v7 = @"productIdentifier";
+    v6 = @"productIdentifier";
     v3 = [v1 productIdentifier];
-    v8[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
@@ -2611,29 +2605,25 @@ id NPKAnalyticsEventEntriesForProduct(void *a1)
     v4 = MEMORY[0x277CBEC10];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 id NPKAnalyticsEventEntriesForVerificationChannel(void *a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = [a1 typeDescriptionUnlocalized];
   v2 = v1;
   if (v1)
   {
-    v6 = @"channelType";
-    v7[0] = v1;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = @"channelType";
+    v6[0] = v1;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
   {
     v3 = MEMORY[0x277CBEC10];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2656,17 +2646,17 @@ id NPKAnalyticsEventForError(void *a1, void *a2)
 
 id _NPKAnalyticsEntriesForError(void *a1)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB38] dictionary];
-  v32[0] = *MEMORY[0x277D383B0];
+  v31[0] = *MEMORY[0x277D383B0];
   v3 = [v1 domain];
-  v33[0] = v3;
-  v32[1] = *MEMORY[0x277D383A8];
+  v32[0] = v3;
+  v31[1] = *MEMORY[0x277D383A8];
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v1, "code")}];
   v5 = [v4 stringValue];
-  v33[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+  v32[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
   [v2 addEntriesFromDictionary:v6];
 
   v7 = [v1 userInfo];
@@ -2675,14 +2665,14 @@ id _NPKAnalyticsEntriesForError(void *a1)
 
   if (v9)
   {
-    v30[0] = @"underlyingErrorDomain";
+    v29[0] = @"underlyingErrorDomain";
     v10 = [v9 domain];
-    v30[1] = @"underlyingErrorCode";
-    v31[0] = v10;
+    v29[1] = @"underlyingErrorCode";
+    v30[0] = v10;
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v9, "code")}];
     v12 = [v11 stringValue];
-    v31[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v30[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
     [v2 addEntriesFromDictionary:v13];
   }
 
@@ -2712,36 +2702,34 @@ id _NPKAnalyticsEntriesForError(void *a1)
       }
     }
 
-    v28[0] = @"webServiceErrorDomain";
+    v27[0] = @"webServiceErrorDomain";
     v22 = [v17 domain];
-    v28[1] = @"webServiceErrorCode";
-    v29[0] = v22;
+    v27[1] = @"webServiceErrorCode";
+    v28[0] = v22;
     v23 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v17, "code")}];
     v24 = [v23 stringValue];
-    v29[1] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
     [v2 addEntriesFromDictionary:v25];
   }
 
 LABEL_9:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id NPKAnalyticsEventForProvisioningFlowClientInput(void *a1, void *a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CBEB38];
-  v12[0] = *MEMORY[0x277D383D8];
-  v12[1] = @"clientInputType";
-  v13[0] = @"clientInput";
-  v13[1] = a1;
+  v11[0] = *MEMORY[0x277D383D8];
+  v11[1] = @"clientInputType";
+  v12[0] = @"clientInput";
+  v12[1] = a1;
   v5 = MEMORY[0x277CBEAC0];
   v6 = a1;
-  v7 = [v5 dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v7 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:2];
   v8 = [v4 dictionaryWithDictionary:v7];
 
   if (v3)
@@ -2751,20 +2739,18 @@ id NPKAnalyticsEventForProvisioningFlowClientInput(void *a1, void *a2)
 
   v9 = [v8 copy];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 id NPKAnalyticsEventForProvisioningFlowStepTransition(uint64_t a1, uint64_t a2, void *a3)
 {
-  v85[3] = *MEMORY[0x277D85DE8];
+  v84[3] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CBEB38] dictionary];
   v7 = *MEMORY[0x277D383D8];
-  v85[0] = @"stepTransition";
-  v84[0] = v7;
-  v84[1] = @"fromStep";
+  v84[0] = @"stepTransition";
+  v83[0] = v7;
+  v83[1] = @"fromStep";
   if (a1 <= 164)
   {
     if (a1 > 139)
@@ -2977,8 +2963,8 @@ id NPKAnalyticsEventForProvisioningFlowStepTransition(uint64_t a1, uint64_t a2, 
 
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", a1];
 LABEL_72:
-  v85[1] = v8;
-  v84[2] = @"toStep";
+  v84[1] = v8;
+  v83[2] = @"toStep";
   if (a2 <= 164)
   {
     if (a2 > 139)
@@ -3191,8 +3177,8 @@ LABEL_72:
 
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", a2];
 LABEL_143:
-  v85[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:3];
+  v84[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:3];
   [v6 addEntriesFromDictionary:v10];
 
   if (a2 > 164)
@@ -3276,33 +3262,33 @@ LABEL_143:
       if (v12)
       {
         v14 = [MEMORY[0x277CBEB18] array];
+        v63 = 0u;
         v64 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v67 = 0u;
         v40 = [v12 verificationChannels];
-        v41 = [v40 countByEnumeratingWithState:&v64 objects:v80 count:16];
+        v41 = [v40 countByEnumeratingWithState:&v63 objects:v79 count:16];
         if (v41)
         {
           v42 = v41;
-          v43 = *v65;
+          v43 = *v64;
           do
           {
             for (i = 0; i != v42; ++i)
             {
-              if (*v65 != v43)
+              if (*v64 != v43)
               {
                 objc_enumerationMutation(v40);
               }
 
-              v45 = [*(*(&v64 + 1) + 8 * i) typeDescriptionUnlocalized];
+              v45 = [*(*(&v63 + 1) + 8 * i) typeDescriptionUnlocalized];
               if (v45)
               {
                 [v14 addObject:v45];
               }
             }
 
-            v42 = [v40 countByEnumeratingWithState:&v64 objects:v80 count:16];
+            v42 = [v40 countByEnumeratingWithState:&v63 objects:v79 count:16];
           }
 
           while (v42);
@@ -3346,74 +3332,74 @@ LABEL_188:
         goto LABEL_217;
       }
 
-      v62 = v6;
-      v63 = v5;
+      v61 = v6;
+      v62 = v5;
       v14 = [MEMORY[0x277CBEB18] array];
+      v75 = 0u;
       v76 = 0u;
       v77 = 0u;
       v78 = 0u;
-      v79 = 0u;
-      v61 = v12;
-      v49 = [v12 sections];
-      v50 = [v49 countByEnumeratingWithState:&v76 objects:v83 count:16];
-      if (v50)
+      v60 = v12;
+      v48 = [v12 sections];
+      v49 = [v48 countByEnumeratingWithState:&v75 objects:v82 count:16];
+      if (v49)
       {
-        v51 = v50;
-        v52 = *v77;
+        v50 = v49;
+        v51 = *v76;
         do
         {
-          for (j = 0; j != v51; ++j)
+          for (j = 0; j != v50; ++j)
           {
-            if (*v77 != v52)
+            if (*v76 != v51)
             {
-              objc_enumerationMutation(v49);
+              objc_enumerationMutation(v48);
             }
 
-            v54 = *(*(&v76 + 1) + 8 * j);
+            v53 = *(*(&v75 + 1) + 8 * j);
+            v71 = 0u;
             v72 = 0u;
             v73 = 0u;
             v74 = 0u;
-            v75 = 0u;
-            v55 = [v54 items];
-            v56 = [v55 countByEnumeratingWithState:&v72 objects:v82 count:16];
-            if (v56)
+            v54 = [v53 items];
+            v55 = [v54 countByEnumeratingWithState:&v71 objects:v81 count:16];
+            if (v55)
             {
-              v57 = v56;
-              v58 = *v73;
+              v56 = v55;
+              v57 = *v72;
               do
               {
-                for (k = 0; k != v57; ++k)
+                for (k = 0; k != v56; ++k)
                 {
-                  if (*v73 != v58)
+                  if (*v72 != v57)
                   {
-                    objc_enumerationMutation(v55);
+                    objc_enumerationMutation(v54);
                   }
 
-                  v60 = [*(*(&v72 + 1) + 8 * k) identifier];
-                  if (v60)
+                  v59 = [*(*(&v71 + 1) + 8 * k) identifier];
+                  if (v59)
                   {
-                    [v14 addObject:v60];
+                    [v14 addObject:v59];
                   }
                 }
 
-                v57 = [v55 countByEnumeratingWithState:&v72 objects:v82 count:16];
+                v56 = [v54 countByEnumeratingWithState:&v71 objects:v81 count:16];
               }
 
-              while (v57);
+              while (v56);
             }
           }
 
-          v51 = [v49 countByEnumeratingWithState:&v76 objects:v83 count:16];
+          v50 = [v48 countByEnumeratingWithState:&v75 objects:v82 count:16];
         }
 
-        while (v51);
+        while (v50);
       }
 
       v16 = [v14 componentsJoinedByString:{@", "}];
-      v6 = v62;
-      [v62 setObject:v16 forKey:@"flowItems"];
-      v5 = v63;
-      v12 = v61;
+      v6 = v61;
+      [v61 setObject:v16 forKey:@"flowItems"];
+      v5 = v62;
+      v12 = v60;
       goto LABEL_216;
     }
 
@@ -3423,33 +3409,33 @@ LABEL_188:
       if (v12)
       {
         v14 = [MEMORY[0x277CBEB18] array];
+        v67 = 0u;
         v68 = 0u;
         v69 = 0u;
         v70 = 0u;
-        v71 = 0u;
         v31 = [v12 products];
-        v32 = [v31 countByEnumeratingWithState:&v68 objects:v81 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v67 objects:v80 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v69;
+          v34 = *v68;
           do
           {
             for (m = 0; m != v33; ++m)
             {
-              if (*v69 != v34)
+              if (*v68 != v34)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v36 = [*(*(&v68 + 1) + 8 * m) productIdentifier];
+              v36 = [*(*(&v67 + 1) + 8 * m) productIdentifier];
               if (v36)
               {
                 [v14 addObject:v36];
               }
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v68 objects:v81 count:16];
+            v33 = [v31 countByEnumeratingWithState:&v67 objects:v80 count:16];
           }
 
           while (v33);
@@ -3583,8 +3569,6 @@ LABEL_216:
 
 LABEL_218:
   v46 = [v6 copy];
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
@@ -4641,105 +4625,104 @@ id NPKNanoPassDaemonConnectionProtocolInterface()
 
 id stringsArrayFromNPKIDVRemoteDeviceServiceEvents(unint64_t a1)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v3 = v2;
   if (a1 >> 31)
   {
-    v18[0] = @"NPKIDVRemoteDeviceServiceEventUnknown";
-    v10 = MEMORY[0x277CBEA60];
-    v11 = v18;
+    v19[0] = @"NPKIDVRemoteDeviceServiceEventUnknown";
+    v12 = MEMORY[0x277CBEA60];
+    v13 = v19;
 LABEL_26:
-    v9 = [v10 arrayWithObjects:v11 count:1];
+    v11 = [v12 arrayWithObjects:v13 count:1];
     goto LABEL_27;
   }
 
   if (!a1)
   {
-    v17 = @"NPKIDVRemoteDeviceServiceEventNone";
-    v10 = MEMORY[0x277CBEA60];
-    v11 = &v17;
+    v18 = @"NPKIDVRemoteDeviceServiceEventNone";
+    v12 = MEMORY[0x277CBEA60];
+    v13 = &v18;
     goto LABEL_26;
   }
 
-  v3 = a1 & 0x3F;
+  v4 = a1 & 0x3F;
   if (a1 >= 0x40)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    v5 = pk_Payment_log(v2);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v15 = 134217984;
-        v16 = a1 & 0x7FFFFFC0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Received unknown remote events to parse:%lu. We will ignore it.", &v15, 0xCu);
+        v16 = 134217984;
+        v17 = a1 & 0x7FFFFFC0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Received unknown remote events to parse:%lu. We will ignore it.", &v16, 0xCu);
       }
     }
   }
 
   if ((a1 & 0x3F) != 0)
   {
-    while ((v3 & 1) == 0)
+    while ((v4 & 1) == 0)
     {
-      if ((v3 & 2) != 0)
+      if ((v4 & 2) != 0)
       {
-        v7 = -4;
-        v8 = @"NPKIDVRemoteDeviceServiceEventDidBecomeInactive";
+        v9 = -4;
+        v10 = @"NPKIDVRemoteDeviceServiceEventDidBecomeInactive";
         goto LABEL_21;
       }
 
-      if ((v3 & 4) != 0)
+      if ((v4 & 4) != 0)
       {
-        v7 = -8;
-        v8 = @"NPKIDVRemoteDeviceServiceEventDidUnpair";
+        v9 = -8;
+        v10 = @"NPKIDVRemoteDeviceServiceEventDidUnpair";
         goto LABEL_21;
       }
 
-      if ((v3 & 8) != 0)
+      if ((v4 & 8) != 0)
       {
-        v7 = -16;
-        v8 = @"NPKIDVRemoteDeviceServiceEventRequirePrearmCredential";
+        v9 = -16;
+        v10 = @"NPKIDVRemoteDeviceServiceEventRequirePrearmCredential";
         goto LABEL_21;
       }
 
-      if ((v3 & 0x10) != 0)
+      if ((v4 & 0x10) != 0)
       {
-        v7 = -32;
-        v8 = @"NPKIDVRemoteDeviceServiceEventShouldBeDisarmed";
+        v9 = -32;
+        v10 = @"NPKIDVRemoteDeviceServiceEventShouldBeDisarmed";
         goto LABEL_21;
       }
 
-      if ((v3 & 0x20) != 0)
+      if ((v4 & 0x20) != 0)
       {
-        [v2 addObject:@"NPKIDVRemoteDeviceServiceEventDidDeletePass"];
+        [v3 addObject:@"NPKIDVRemoteDeviceServiceEventDidDeletePass"];
         goto LABEL_23;
       }
 
 LABEL_22:
-      if (!v3)
+      if (!v4)
       {
         goto LABEL_23;
       }
     }
 
-    v7 = -2;
-    v8 = @"NPKIDVRemoteDeviceServiceEventDidBecomeActive";
+    v9 = -2;
+    v10 = @"NPKIDVRemoteDeviceServiceEventDidBecomeActive";
 LABEL_21:
-    [v2 addObject:v8];
-    v3 &= v7;
+    [v3 addObject:v10];
+    v4 &= v9;
     goto LABEL_22;
   }
 
 LABEL_23:
-  v9 = v2;
+  v11 = v3;
 LABEL_27:
-  v12 = v9;
+  v14 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v14;
 }
 
 unint64_t NPKIDVRemoteDeviceServiceEventsFromStringsArray(void *a1)
@@ -4796,16 +4779,16 @@ LABEL_8:
   return v4;
 }
 
-void sub_25B480834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B480834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __NPKIDVRemoteDeviceServiceEventsFromStringsArray_block_invoke(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (([*(a1 + 32) containsObject:v6] & 1) == 0)
   {
@@ -4847,32 +4830,31 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    if ([v6 isEqualToString:@"NPKIDVRemoteDeviceServiceEventDidDeletePass"])
+    v9 = [v6 isEqualToString:@"NPKIDVRemoteDeviceServiceEventDidDeletePass"];
+    if (v9)
     {
       v7 = *(*(a1 + 40) + 8);
       v8 = *(v7 + 24) | 0x20;
       goto LABEL_14;
     }
 
-    v10 = pk_Payment_log();
+    v10 = pk_Payment_log(v9);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
     if (v11)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = v6;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Unknown remote eventString:%@. Ignoring it", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v6;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Unknown remote eventString:%@. Ignoring it", &v14, 0xCu);
       }
     }
   }
 
 LABEL_15:
   *a4 = *(*(*(a1 + 40) + 8) + 24) == 63;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *NSStringFromNPKIDVRemoteDeviceTeardownReason(uint64_t a1)
@@ -4918,11 +4900,12 @@ __CFString *NSStringFromNPKIDVRemoteDeviceDocumentType(uint64_t a1)
 
 void *NPKSelectStringForDocumentType(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
+  v11 = v9;
   if (a1 > 1)
   {
     if (a1 == 3)
@@ -4930,7 +4913,7 @@ void *NPKSelectStringForDocumentType(uint64_t a1, void *a2, void *a3, void *a4)
       goto LABEL_11;
     }
 
-    v10 = v7;
+    v11 = v7;
     if (a1 == 2)
     {
       goto LABEL_11;
@@ -4944,39 +4927,38 @@ void *NPKSelectStringForDocumentType(uint64_t a1, void *a2, void *a3, void *a4)
       goto LABEL_11;
     }
 
-    v10 = v8;
+    v11 = v8;
     if (a1 == 1)
     {
       goto LABEL_11;
     }
   }
 
-  v11 = pk_Payment_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(v9);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  v10 = v7;
-  if (v12)
+  v11 = v7;
+  if (v13)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315650;
-      v18 = "NSString * _Nonnull NPKSelectStringForDocumentType(NPKIDVRemoteDeviceDocumentType, NSString *__strong _Nonnull, NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
-      v19 = 2048;
-      v20 = a1;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: %s called with not recognized document type value. Received type %lu. String returned: %@", &v17, 0x20u);
+      v18 = 136315650;
+      v19 = "NSString * _Nonnull NPKSelectStringForDocumentType(NPKIDVRemoteDeviceDocumentType, NSString *__strong _Nonnull, NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
+      v20 = 2048;
+      v21 = a1;
+      v22 = 2112;
+      v23 = v7;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Warning: NPKIDVRemoteDeviceService: %s called with not recognized document type value. Received type %lu. String returned: %@", &v18, 0x20u);
     }
 
-    v10 = v7;
+    v11 = v7;
   }
 
 LABEL_11:
-  v14 = v10;
+  v16 = v11;
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 __CFString *NSStringFromNPKIDVDeviceCredentialPrearmStatus(uint64_t a1)
@@ -6059,19 +6041,19 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B4862D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B4862D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6298,30 +6280,30 @@ void sub_25B487B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B488A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25B48A19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25B48A78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25B48B8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25B488A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B48A19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B48A78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B48B8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6347,19 +6329,19 @@ void sub_25B48DD84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B48E824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25B48E824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -9036,20 +9018,6 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-__CFString *sub_25B49B594()
-{
-  v1 = *(v0 - 24);
-  v2 = *MEMORY[0x277D85DE8];
-  return &stru_286C934F8;
-}
-
-__CFString *sub_25B49B68C()
-{
-  v1 = *(v0 - 24);
-  v2 = *MEMORY[0x277D85DE8];
-  return &stru_286C934F8;
-}
-
 uint64_t NPKProtoStandaloneRequestHeaderReadFrom(_DWORD *a1, void *a2)
 {
   v4 = [a2 position];
@@ -9224,9 +9192,9 @@ void sub_25B49DA24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B49DC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B49DC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

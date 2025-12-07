@@ -43,12 +43,12 @@
   MEMORY[0x28223BE20](v10);
   v13 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
   sub_242664F58(v7, v9);
-  v14 = sub_24266A230(selfCopy, v7, v9);
+  sub_24266A230(selfCopy, v7, v9);
   v20[1] = v20;
   MEMORY[0x28223BE20](v14);
   (*(v11 + 16))(v20 - v13, v20 - v13, v10);
   v25.fLatitude = sub_24269006C(v20 - v13);
-  ctb::bridging::makeOptional(v25, &v21);
+  ctb::bridging::makeOptional(&v21, v25);
   v15 = v21;
   v16 = v22;
   LOBYTE(v12) = v23;

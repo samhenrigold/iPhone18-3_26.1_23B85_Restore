@@ -9,6 +9,7 @@
 - (CSFileAudioInjectionTvRemoteEngine)initWithStreamHandleId:(unint64_t)id;
 - (void)audioConverterDidConvertPackets:(id)packets packets:(id)a4 durationInSec:(float)sec timestamp:(unint64_t)timestamp arrivalTimestampToAudioRecorder:(unint64_t)recorder;
 - (void)audioEngineBufferAvailable:(id)available audioStreamHandleId:(unint64_t)id buffer:(id)buffer remoteVAD:(id)d atTime:(unint64_t)time isFileLoadedBuffer:(BOOL)loadedBuffer;
+- (void)audioEngineDidStartRecord:(id)record audioStreamHandleId:(unint64_t)id successfully:(BOOL)successfully error:(id)error;
 - (void)audioEngineDidStopRecord:(id)record audioStreamHandleId:(unint64_t)id reason:(unint64_t)reason;
 - (void)setDelegate:(id)delegate;
 - (void)start;
@@ -79,6 +80,20 @@
   {
     v10 = objc_loadWeakRetained(&self->_delegate);
     [v10 audioEngineDidStopRecord:self audioStreamHandleId:id reason:reason];
+  }
+}
+
+- (void)audioEngineDidStartRecord:(id)record audioStreamHandleId:(unint64_t)id successfully:(BOOL)successfully error:(id)error
+{
+  successfullyCopy = successfully;
+  errorCopy = error;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v10 = objc_opt_respondsToSelector();
+
+  if (v10)
+  {
+    v11 = objc_loadWeakRetained(&self->_delegate);
+    [v11 audioEngineDidStartRecord:self audioStreamHandleId:id successfully:successfullyCopy error:errorCopy];
   }
 }
 

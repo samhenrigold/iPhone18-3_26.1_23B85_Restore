@@ -102,13 +102,10 @@
       v13 = *&selfCopy->PSListController_opaque[v11];
       if (v10 < *(v13 + 16))
       {
-        v14 = (v13 + 48 * v10);
-        v15 = v14[4];
-        v16 = *(v14 + 7);
-        v17 = *(v14 + 9);
-        v18 = objc_allocWithZone(NSNumber);
+        v14 = *(v13 + 48 * v10 + 32);
+        v15 = objc_allocWithZone(NSNumber);
 
-        v9.super.super.isa = [v18 initWithDouble:v15];
+        v9.super.super.isa = [v15 initWithDouble:v14];
 
         goto LABEL_8;
       }
@@ -149,18 +146,10 @@ LABEL_8:
       __break(1u);
     }
 
-    else
+    else if (v9 < *(*&selfCopy->PSListController_opaque[v10] + 16))
     {
-      v12 = *&selfCopy->PSListController_opaque[v10];
-      if (v9 < *(v12 + 16))
-      {
-        v13 = (v12 + 48 * v9);
-        v15 = v13[7];
-        v14 = v13[8];
-        v16 = v13[9];
 
-        goto LABEL_8;
-      }
+      goto LABEL_8;
     }
 
     __break(1u);
@@ -168,9 +157,9 @@ LABEL_8:
   }
 
 LABEL_8:
-  v17 = sub_BB30();
+  v12 = sub_BB30();
 
-  return v17;
+  return v12;
 }
 
 - (id)confidence:(id)confidence
@@ -196,17 +185,10 @@ LABEL_8:
       __break(1u);
     }
 
-    else
+    else if (v9 < *(*&selfCopy->PSListController_opaque[v10] + 16))
     {
-      v12 = *&selfCopy->PSListController_opaque[v10];
-      if (v9 < *(v12 + 16))
-      {
-        v13 = v12 + 48 * v9;
-        v15 = *(v13 + 48);
-        v14 = *(v13 + 56);
 
-        goto LABEL_8;
-      }
+      goto LABEL_8;
     }
 
     __break(1u);
@@ -214,9 +196,9 @@ LABEL_8:
   }
 
 LABEL_8:
-  v16 = sub_BB30();
+  v12 = sub_BB30();
 
-  return v16;
+  return v12;
 }
 
 - (id)getPredictionSimulationMode:(id)mode

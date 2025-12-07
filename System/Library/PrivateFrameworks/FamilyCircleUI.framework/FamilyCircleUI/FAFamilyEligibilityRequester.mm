@@ -47,50 +47,50 @@
   aBlock[3] = &unk_2782F2B38;
   aBlock[4] = self;
   v5 = _Block_copy(aBlock);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_2;
-  v22[3] = &unk_2782F2B88;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_2;
+  v23[3] = &unk_2782F2B88;
   v6 = completionCopy;
-  v23 = v6;
-  v7 = _Block_copy(v22);
+  v24 = v6;
+  v7 = _Block_copy(v23);
   _appleAccount = [(FAFamilyEligibilityRequester *)self _appleAccount];
 
   if (_appleAccount)
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_35;
-    v20[3] = &unk_2782F2BB0;
-    v9 = v7;
-    v21 = v9;
-    v10 = _Block_copy(v20);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_37;
-    v16[3] = &unk_2782F2C28;
-    v16[4] = self;
-    v11 = v5;
-    v17 = v11;
-    v18 = v10;
-    v19 = v9;
-    v12 = v10;
-    v13 = _Block_copy(v16);
-    (*(v11 + 2))(v11, v13);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_35;
+    v21[3] = &unk_2782F2BB0;
+    v10 = v7;
+    v22 = v10;
+    v11 = _Block_copy(v21);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_37;
+    v17[3] = &unk_2782F2C28;
+    v17[4] = self;
+    v12 = v5;
+    v18 = v12;
+    v19 = v11;
+    v20 = v10;
+    v13 = v11;
+    v14 = _Block_copy(v17);
+    (*(v12 + 2))(v12, v14);
 
-    v14 = v21;
+    v15 = v22;
   }
 
   else
   {
-    v15 = _FALogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _FALogSystem(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [FAFamilyEligibilityRequester requestFamilyEligibilityWithCompletion:v15];
+      [FAFamilyEligibilityRequester requestFamilyEligibilityWithCompletion:v16];
     }
 
-    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D080B8] code:-1004 userInfo:0];
-    (*(v7 + 2))(v7, 0, v14);
+    v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D080B8] code:-1004 userInfo:0];
+    (*(v7 + 2))(v7, 0, v15);
   }
 }
 
@@ -130,7 +130,7 @@ void __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion__
 void __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_35(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -153,82 +153,77 @@ void __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion__
 
 void __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_37(id *a1, void *a2)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 statusCode] == 401)
   {
-    v4 = _FALogSystem();
+    v4 = _FALogSystem(401);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_21BB35000, v4, OS_LOG_TYPE_DEFAULT, "Family eligibility check request returned 401. We need to re-auth...", buf, 2u);
     }
 
-    v19[0] = *MEMORY[0x277CB90A0];
+    v18[0] = *MEMORY[0x277CB90A0];
     v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1[4], "allowsAuthenticationPrompt")}];
-    v20[0] = v5;
-    v19[1] = *MEMORY[0x277CB9098];
+    v19[0] = v5;
+    v18[1] = *MEMORY[0x277CB9098];
     v6 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(a1[4], "allowsAuthenticationPrompt") ^ 1}];
-    v20[1] = v6;
-    v19[2] = *MEMORY[0x277CB9090];
-    v18 = *MEMORY[0x277CEC6F0];
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-    v20[2] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v19[1] = v6;
+    v18[2] = *MEMORY[0x277CB9090];
+    v17 = *MEMORY[0x277CEC6F0];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v19[2] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
     v9 = [a1[4] _accountStore];
     v10 = [a1[4] _appleAccount];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_41;
-    v12[3] = &unk_2782F2C00;
-    v14 = a1[5];
-    v15 = a1[6];
-    v16 = a1[7];
-    v13 = v3;
-    [v9 renewCredentialsForAccount:v10 options:v8 completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_41;
+    v11[3] = &unk_2782F2C00;
+    v13 = a1[5];
+    v14 = a1[6];
+    v15 = a1[7];
+    v12 = v3;
+    [v9 renewCredentialsForAccount:v10 options:v8 completion:v11];
   }
 
   else
   {
     (*(a1[6] + 2))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_41(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v13 = a2;
-    v14 = 2112;
-    v15 = v5;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
     _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials for family eligibility check request: %ld. Error: %@", buf, 0x16u);
   }
 
   if (a2)
   {
-    v7 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_42;
-    v9[3] = &unk_2782F2BD8;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __71__FAFamilyEligibilityRequester_requestFamilyEligibilityWithCompletion___block_invoke_42;
+    v7[3] = &unk_2782F2BD8;
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    dispatch_async(MEMORY[0x277D85CD0], v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_grandSlamSigner

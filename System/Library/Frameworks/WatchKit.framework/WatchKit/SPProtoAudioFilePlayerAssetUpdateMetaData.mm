@@ -76,8 +76,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  identifier = self->_identifier;
-  v8 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_uRL)
   {
@@ -86,33 +84,32 @@
 
   if (*&self->_has)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 
-  v7 = v8;
+  v4 = toCopy;
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 
   if (self->_albumTitle)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 
   if (self->_artist)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 
   if (self->_sandboxExtensionToken)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 }
 
@@ -219,7 +216,6 @@
     }
   }
 
-  v7 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_duration != *(equalCopy + 1))
@@ -231,7 +227,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -262,17 +258,17 @@ LABEL_19:
   sandboxExtensionToken = self->_sandboxExtensionToken;
   if (sandboxExtensionToken | *(equalCopy + 5))
   {
-    v12 = [(NSString *)sandboxExtensionToken isEqual:?];
+    v11 = [(NSString *)sandboxExtensionToken isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

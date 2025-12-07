@@ -53,10 +53,9 @@
 
 - (void)handleProfileChangedNotification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   isAppClipsAllowed = [(MCProfileConnection *)self->_profileConnection isAppClipsAllowed];
-  [(MCProfileConnection *)self->_profileConnection invalidateRestrictionCache];
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default([(MCProfileConnection *)self->_profileConnection invalidateRestrictionCache]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -68,11 +67,11 @@
       v8 = @"YES";
     }
 
-    v13 = 138412546;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - MCProfileConnection isAppClipsAllowed status changed to: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - MCProfileConnection isAppClipsAllowed status changed to: %@", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -89,8 +88,6 @@
 
   v11 = +[ATXAppDirectoryOrderingProvider sharedInstance];
   [v11 updateRecents];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (ATXUpdatePredictionsDelegate)delegate

@@ -34,20 +34,20 @@
 
 - (FCNonDestructivePrivateDataMigrationHandler)initWithPrivateDataActionProvider:(id)provider privateDataControllers:(id)controllers privateDataSyncingEnabled:(BOOL)enabled
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   controllersCopy = controllers;
   if (!providerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataActionProvider"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataActionProvider"];
     *buf = 136315906;
-    v21 = "[FCNonDestructivePrivateDataMigrationHandler initWithPrivateDataActionProvider:privateDataControllers:privateDataSyncingEnabled:]";
-    v22 = 2080;
-    v23 = "FCNonDestructivePrivateDataMigrationHandler.m";
-    v24 = 1024;
-    v25 = 32;
-    v26 = 2114;
-    v27 = v17;
+    v20 = "[FCNonDestructivePrivateDataMigrationHandler initWithPrivateDataActionProvider:privateDataControllers:privateDataSyncingEnabled:]";
+    v21 = 2080;
+    v22 = "FCNonDestructivePrivateDataMigrationHandler.m";
+    v23 = 1024;
+    v24 = 32;
+    v25 = 2114;
+    v26 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (controllersCopy)
@@ -63,22 +63,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataControllers"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataControllers"];
     *buf = 136315906;
-    v21 = "[FCNonDestructivePrivateDataMigrationHandler initWithPrivateDataActionProvider:privateDataControllers:privateDataSyncingEnabled:]";
-    v22 = 2080;
-    v23 = "FCNonDestructivePrivateDataMigrationHandler.m";
-    v24 = 1024;
-    v25 = 33;
-    v26 = 2114;
-    v27 = v18;
+    v20 = "[FCNonDestructivePrivateDataMigrationHandler initWithPrivateDataActionProvider:privateDataControllers:privateDataSyncingEnabled:]";
+    v21 = 2080;
+    v22 = "FCNonDestructivePrivateDataMigrationHandler.m";
+    v23 = 1024;
+    v24 = 33;
+    v25 = 2114;
+    v26 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v19.receiver = self;
-  v19.super_class = FCNonDestructivePrivateDataMigrationHandler;
-  v11 = [(FCNonDestructivePrivateDataMigrationHandler *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = FCNonDestructivePrivateDataMigrationHandler;
+  v11 = [(FCNonDestructivePrivateDataMigrationHandler *)&v18 init];
   v12 = v11;
   if (v11)
   {
@@ -90,7 +90,6 @@ LABEL_6:
     v12->_privateDataSyncingEnabled = enabled;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -132,49 +131,49 @@ LABEL_6:
 
 void __87__FCNonDestructivePrivateDataMigrationHandler_handleMigrationWithPrivateDataDirectory___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v20 = a2;
+  v40 = *MEMORY[0x1E69E9840];
+  v19 = a2;
   block = a3;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = *(a1 + 32);
-  v21 = [obj countByEnumeratingWithState:&v27 objects:v40 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v26 objects:v39 count:16];
+  if (v20)
   {
-    v19 = *v28;
+    v18 = *v27;
     v5 = MEMORY[0x1E69E9C10];
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v28 != v19)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v27 + 1) + 8 * i);
+        v7 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
-        v8 = v20;
-        v9 = [v8 countByEnumeratingWithState:&v23 objects:v39 count:16];
+        v8 = v19;
+        v9 = [v8 countByEnumeratingWithState:&v22 objects:v38 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v24;
+          v11 = *v23;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v24 != v11)
+              if (*v23 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [*(*(&v23 + 1) + 8 * j) integerValue];
+              v13 = [*(*(&v22 + 1) + 8 * j) integerValue];
               if (v13 == 4)
               {
                 [v7 mergeLocalStoreWithCloudWithPrivateDataDirectory:*(a1 + 40)];
@@ -189,40 +188,39 @@ void __87__FCNonDestructivePrivateDataMigrationHandler_handleMigrationWithPrivat
               {
                 v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "NO"];
                 *buf = 136315906;
-                v32 = "[FCNonDestructivePrivateDataMigrationHandler handleMigrationWithPrivateDataDirectory:]_block_invoke";
-                v33 = 2080;
-                v34 = "FCNonDestructivePrivateDataMigrationHandler.m";
-                v35 = 1024;
-                v36 = 68;
-                v37 = 2114;
-                v38 = v14;
+                v31 = "[FCNonDestructivePrivateDataMigrationHandler handleMigrationWithPrivateDataDirectory:]_block_invoke";
+                v32 = 2080;
+                v33 = "FCNonDestructivePrivateDataMigrationHandler.m";
+                v34 = 1024;
+                v35 = 68;
+                v36 = 2114;
+                v37 = v14;
                 _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v23 objects:v39 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v22 objects:v38 count:16];
           }
 
           while (v10);
         }
 
         v15 = *(a1 + 48);
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __87__FCNonDestructivePrivateDataMigrationHandler_handleMigrationWithPrivateDataDirectory___block_invoke_12;
-        v22[3] = &unk_1E7C37E50;
-        v22[4] = v7;
-        FCDispatchGroupWrap(v15, v22);
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __87__FCNonDestructivePrivateDataMigrationHandler_handleMigrationWithPrivateDataDirectory___block_invoke_12;
+        v21[3] = &unk_1E7C37E50;
+        v21[4] = v7;
+        FCDispatchGroupWrap(v15, v21);
       }
 
-      v21 = [obj countByEnumeratingWithState:&v27 objects:v40 count:16];
+      v20 = [obj countByEnumeratingWithState:&v26 objects:v39 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   dispatch_group_notify(*(a1 + 48), MEMORY[0x1E69E96A0], block);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __87__FCNonDestructivePrivateDataMigrationHandler_handleMigrationWithPrivateDataDirectory___block_invoke_2(uint64_t a1, void *a2)

@@ -138,10 +138,9 @@ uint64_t __87__CSQueueAttributionManager_retrieveAttributionsForQueueIdentifiers
 {
   [*(*(a1 + 32) + 8) addEntriesFromDictionary:*(a1 + 40)];
   [*(a1 + 48) addEntriesFromDictionary:*(a1 + 40)];
-  v2 = *(a1 + 48);
-  v3 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)retrieveAvatarForParticipant:(id)participant withResultHandler:(id)handler

@@ -175,7 +175,7 @@
     v19 = v18;
     v21 = v20;
     v23 = v22;
-    [v15 frame];
+    objc_msgSend_frame(v15);
     v32.origin.x = v17;
     v32.origin.y = v19;
     v32.size.width = v21;
@@ -503,25 +503,26 @@ LABEL_14:
 - (id)multipleWindowsIndicatorLayoutRolesForAppLayout:(id)layout
 {
   layoutCopy = layout;
-  if ([layoutCopy environment] == 1)
+  environment = [layoutCopy environment];
+  if (environment == 1)
   {
-    v5 = [(SBDefaultImplementationsSwitcherModifier *)self appLayoutContainingAppLayout:layoutCopy];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __92__SBDefaultImplementationsSwitcherModifier_multipleWindowsIndicatorLayoutRolesForAppLayout___block_invoke;
-    v9[3] = &unk_2783C06A8;
-    v10 = v5;
+    v6 = [(SBDefaultImplementationsSwitcherModifier *)self appLayoutContainingAppLayout:layoutCopy];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __92__SBDefaultImplementationsSwitcherModifier_multipleWindowsIndicatorLayoutRolesForAppLayout___block_invoke;
+    v10[3] = &unk_2783C06A8;
+    v11 = v6;
     selfCopy = self;
-    v6 = v5;
-    v7 = SBLayoutRoleSetBuilder(v9);
+    v7 = v6;
+    v8 = SBLayoutRoleSetBuilder(v10);
   }
 
   else
   {
-    v7 = SBLayoutRoleSetNone();
+    v8 = SBLayoutRoleSetNone(environment);
   }
 
-  return v7;
+  return v8;
 }
 
 void __92__SBDefaultImplementationsSwitcherModifier_multipleWindowsIndicatorLayoutRolesForAppLayout___block_invoke(uint64_t a1, void *a2)
@@ -718,7 +719,7 @@ void __92__SBDefaultImplementationsSwitcherModifier_multipleWindowsIndicatorLayo
     v10 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:v25];
     v11 = [v10 flexibleAutoLayoutItemForDisplayItem:firstObject];
 
-    [v11 frame];
+    objc_msgSend_frame(v11);
     v13 = v12;
     v15 = v14;
     v17 = v16;
@@ -772,7 +773,7 @@ void __92__SBDefaultImplementationsSwitcherModifier_multipleWindowsIndicatorLayo
     displayItemInSlideOver = [(SBDefaultImplementationsSwitcherModifier *)self displayItemInSlideOver];
     v5 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:_slideOverAppLayoutIfAny];
     v6 = [v5 flexibleAutoLayoutItemForDisplayItem:displayItemInSlideOver];
-    [v6 frame];
+    objc_msgSend_frame(v6);
     v8 = v7;
     v10 = v9;
     v12 = v11;

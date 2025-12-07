@@ -32,44 +32,44 @@
 {
   v2 = type metadata accessor for LocalizedStringResource.BundleDescription();
   v3 = *(v2 - 8);
-  __chkstk_darwin();
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Locale();
-  __chkstk_darwin();
-  type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin();
-  type metadata accessor for LocalizedStringResource();
-  __chkstk_darwin();
+  __chkstk_darwin(v2);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Locale();
+  __chkstk_darwin(v6 - 8);
+  v7 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v7 - 8);
+  v8 = type metadata accessor for LocalizedStringResource();
+  __chkstk_darwin(v8 - 8);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v3 + 104))(v5, enum case for LocalizedStringResource.BundleDescription.main(_:), v2);
   LocalizedStringResource.init(_:defaultValue:table:locale:bundle:comment:)();
   String.init(localized:)();
-  v6 = String._bridgeToObjectiveC()();
+  v9 = String._bridgeToObjectiveC()();
 
-  return v6;
+  return v9;
 }
 
 - (NSString)newItemBackButtonTitle
 {
   v2 = type metadata accessor for LocalizedStringResource.BundleDescription();
   v3 = *(v2 - 8);
-  __chkstk_darwin();
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Locale();
-  __chkstk_darwin();
-  type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin();
-  type metadata accessor for LocalizedStringResource();
-  __chkstk_darwin();
+  __chkstk_darwin(v2);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Locale();
+  __chkstk_darwin(v6 - 8);
+  v7 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v7 - 8);
+  v8 = type metadata accessor for LocalizedStringResource();
+  __chkstk_darwin(v8 - 8);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   (*(v3 + 104))(v5, enum case for LocalizedStringResource.BundleDescription.main(_:), v2);
   LocalizedStringResource.init(_:defaultValue:table:locale:bundle:comment:)();
   String.init(localized:)();
-  v6 = String._bridgeToObjectiveC()();
+  v9 = String._bridgeToObjectiveC()();
 
-  return v6;
+  return v9;
 }
 
 - (EKCalendar)calendarToMakeVisibleOnSave
@@ -121,9 +121,9 @@
 - (id)confirmDismissAlertController
 {
   selfCopy = self;
-  v3 = sub_10015B518();
+  v4 = sub_10015B518(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)presentationControllerDidDismiss
@@ -172,7 +172,7 @@
 
   selfCopy = self;
   sub_10015C2D0(v7, v6);
-  sub_10015F010(v7);
+  sub_10015F010(v7, v6);
 }
 
 - (void)cancelEditing
@@ -189,7 +189,7 @@
 
 - (void)requestReminderSheet:(id)sheet
 {
-  v4 = sub_10015E0CC(&qword_100251560);
+  v4 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   v7 = type metadata accessor for TaskPriority();

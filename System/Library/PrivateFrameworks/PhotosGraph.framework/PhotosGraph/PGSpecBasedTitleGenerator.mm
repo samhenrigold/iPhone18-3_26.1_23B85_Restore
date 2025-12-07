@@ -39,35 +39,35 @@
 
 - (id)_titleFromSpecs:(id)specs
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   specsCopy = specs;
   v6 = [specsCopy mutableCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   momentNodes = [(PGSpecBasedTitleGenerator *)self momentNodes];
-  v8 = [momentNodes countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [momentNodes countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     v11 = 1.79769313e308;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(momentNodes);
         }
 
-        universalStartDate = [*(*(&v24 + 1) + 8 * i) universalStartDate];
+        universalStartDate = [*(*(&v23 + 1) + 8 * i) universalStartDate];
         [universalStartDate timeIntervalSince1970];
         v11 = fmin(v11, v14);
       }
 
-      v9 = [momentNodes countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [momentNodes countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -112,30 +112,29 @@
   }
 
 LABEL_18:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (id)_title
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   specPools = [(PGTitleSpecCollection *)self->_specCollection specPools];
-  v4 = [specPools countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [specPools countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(specPools);
       }
@@ -145,12 +144,12 @@ LABEL_3:
         break;
       }
 
-      specs = [*(*(&v12 + 1) + 8 * v8) specs];
+      specs = [*(*(&v11 + 1) + 8 * v8) specs];
       v6 = [(PGSpecBasedTitleGenerator *)self _titleFromSpecs:specs];
 
       if (v5 == ++v8)
       {
-        v5 = [specPools countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [specPools countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -165,8 +164,6 @@ LABEL_3:
   {
     v6 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

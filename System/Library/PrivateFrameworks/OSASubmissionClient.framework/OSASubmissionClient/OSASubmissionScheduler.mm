@@ -41,7 +41,7 @@
 
 void __60__OSASubmissionScheduler__scheduleSubmissionWithPermissive___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   if (state != 2)
@@ -136,19 +136,19 @@ LABEL_18:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v31 = 0;
+    v30 = 0;
     v19 = dispatch_queue_create("com.apple.osanalytics.submissions.schedulerQueue", 0);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __60__OSASubmissionScheduler__scheduleSubmissionWithPermissive___block_invoke_14;
-    v24[3] = &unk_2799BF6B8;
-    v28 = v16;
-    v29 = *(a1 + 40);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __60__OSASubmissionScheduler__scheduleSubmissionWithPermissive___block_invoke_14;
+    v23[3] = &unk_2799BF6B8;
+    v27 = v16;
+    v28 = *(a1 + 40);
     v20 = *(a1 + 32);
-    v26 = buf;
-    v27 = v20;
-    v25 = v3;
-    dispatch_sync(v19, v24);
+    v25 = buf;
+    v26 = v20;
+    v24 = v3;
+    dispatch_sync(v19, v23);
 
     _Block_object_dispose(buf, 8);
     goto LABEL_29;
@@ -169,12 +169,11 @@ LABEL_18:
   xpc_activity_set_state(v3, 5);
 
 LABEL_29:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __60__OSASubmissionScheduler__scheduleSubmissionWithPermissive___block_invoke_14(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(OSASubmissionClient);
   *(*(*(a1 + 40) + 8) + 24) = [(OSASubmissionClient *)v2 submit];
 
@@ -197,37 +196,33 @@ LABEL_4:
   }
 
 LABEL_5:
-  v8 = MEMORY[0x277D85DD0];
-  LOBYTE(v9) = *(a1 + 57);
+  v7 = MEMORY[0x277D85DD0];
+  LOBYTE(v8) = *(a1 + 57);
   AnalyticsSendEventLazy();
   v3 = [MEMORY[0x277D36B80] sharedInstance];
   v4 = [v3 crashReporterKey];
-  v10[1] = @"type";
-  v11[0] = v4;
-  v11[1] = @"unified";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = @"type";
+  v10[0] = v4;
+  v10[1] = @"unified";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   rtcsc_send();
 
   [MEMORY[0x277D36B78] recordEvent:*MEMORY[0x277D36BB8]];
   v6 = [*(a1 + 48) _calculateNewCadenceParametersWithPermissive:*(a1 + 57) fastLane:*(a1 + 56)];
   [*(a1 + 48) _updateCadenceForActivity:*(a1 + 32) newCadenceParameters:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id __60__OSASubmissionScheduler__scheduleSubmissionWithPermissive___block_invoke_2(uint64_t a1)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"action";
-  v5[1] = @"type";
-  v6[0] = @"submit";
-  v6[1] = @"unified";
-  v5[2] = @"permissive";
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"action";
+  v4[1] = @"type";
+  v5[0] = @"submit";
+  v5[1] = @"unified";
+  v4[2] = @"permissive";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[2] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[2] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -270,7 +265,7 @@ void __49__OSASubmissionScheduler_scheduleCleanupForUser___block_invoke(uint64_t
 {
   laneCopy = lane;
   permissiveCopy = permissive;
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v6 = +[OSASubmissionScheduler _retryCount];
   v7 = *MEMORY[0x277D862A0];
   v8 = 3 * *MEMORY[0x277D862A0];
@@ -302,74 +297,70 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v19 = *MEMORY[0x277D862A0];
+    v18 = *MEMORY[0x277D862A0];
     if (v6 != 1)
     {
       if (v6 == 2)
       {
-        v19 = 2 * v7;
+        v18 = 2 * v7;
       }
 
       else
       {
-        v19 = *MEMORY[0x277D862B8];
+        v18 = *MEMORY[0x277D862B8];
       }
     }
 
-    v20 = v19 + arc4random_uniform(0xE10u);
+    v19 = v18 + arc4random_uniform(0xE10u);
     v8 = v7;
-    v7 = v20 - 1800;
+    v7 = v19 - 1800;
   }
 
 LABEL_7:
   v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:*MEMORY[0x277D86250]];
-  v21[0] = v10;
+  v20[0] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithLongLong:v7];
-  v22[0] = v11;
+  v21[0] = v11;
   v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:*MEMORY[0x277D86288]];
-  v21[1] = v12;
+  v20[1] = v12;
   v13 = [MEMORY[0x277CCABB0] numberWithLongLong:v7];
-  v22[1] = v13;
+  v21[1] = v13;
   v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:*MEMORY[0x277D86270]];
-  v21[2] = v14;
+  v20[2] = v14;
   v15 = [MEMORY[0x277CCABB0] numberWithLongLong:v8];
-  v22[2] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v21[2] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
   return v16;
 }
 
 + (id)_getCurrentCadenceParametersFromActivity:(id)activity
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = xpc_activity_copy_criteria(activity);
   v4 = *MEMORY[0x277D86250];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:*MEMORY[0x277D86250]];
-  v16[0] = v5;
+  v15[0] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithLongLong:{xpc_dictionary_get_int64(v3, v4)}];
-  v17[0] = v6;
+  v16[0] = v6;
   v7 = *MEMORY[0x277D86288];
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:*MEMORY[0x277D86288]];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithLongLong:{xpc_dictionary_get_int64(v3, v7)}];
-  v17[1] = v9;
+  v16[1] = v9;
   v10 = *MEMORY[0x277D86270];
   v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:*MEMORY[0x277D86270]];
-  v16[2] = v11;
+  v15[2] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithLongLong:{xpc_dictionary_get_int64(v3, v10)}];
-  v17[2] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16[2] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   return v13;
 }
 
 + (void)_updateCadenceForActivity:(id)activity newCadenceParameters:(id)parameters
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   parametersCopy = parameters;
   v8 = [self _getCurrentCadenceParametersFromActivity:activityCopy];
@@ -407,11 +398,11 @@ LABEL_7:
 LABEL_15:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138543618;
-      v25 = v11;
-      v26 = 2114;
-      v27 = v8;
-      _os_log_impl(&dword_25D125000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Submission cadences were unchanged for activity %{public}@. Keeping current cadences parameters %{public}@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v11;
+      v25 = 2114;
+      v26 = v8;
+      _os_log_impl(&dword_25D125000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Submission cadences were unchanged for activity %{public}@. Keeping current cadences parameters %{public}@", &v23, 0x16u);
     }
   }
 
@@ -436,8 +427,6 @@ LABEL_11:
 
     xpc_activity_set_criteria(activityCopy, v13);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_saveLastSuccessTime

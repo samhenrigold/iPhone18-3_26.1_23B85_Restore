@@ -83,13 +83,13 @@
   objc_sync_exit(v4);
 }
 
-uint64_t __55__DBHomeKitCharacteristic_registerCharacteristicClass___block_invoke()
+uint64_t __55__DBHomeKitCharacteristic_registerCharacteristicClass___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _registeredCharacteristicClasses;
-  _registeredCharacteristicClasses = v0;
+  v2 = objc_opt_new();
+  v3 = _registeredCharacteristicClasses;
+  _registeredCharacteristicClasses = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (id)registeredCharacteristicClasses

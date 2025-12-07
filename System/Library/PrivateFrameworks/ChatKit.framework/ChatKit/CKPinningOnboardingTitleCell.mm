@@ -11,10 +11,10 @@
 
 - (CKPinningOnboardingTitleCell)initWithFrame:(CGRect)frame
 {
-  v95[9] = *MEMORY[0x1E69E9840];
-  v94.receiver = self;
-  v94.super_class = CKPinningOnboardingTitleCell;
-  v3 = [(CKPinningOnboardingTitleCell *)&v94 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v97[9] = *MEMORY[0x1E69E9840];
+  v96.receiver = self;
+  v96.super_class = CKPinningOnboardingTitleCell;
+  v3 = [(CKPinningOnboardingTitleCell *)&v96 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -41,13 +41,13 @@
     titleLabel5 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
     [titleLabel5 setTextColor:conversationListPinningOnboardingTitleColor];
 
-    v15 = CKFrameworkBundle();
-    v16 = [v15 localizedStringForKey:@"PINNING_ONBOARDING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v16 = CKFrameworkBundle(v15);
+    v17 = [v16 localizedStringForKey:@"PINNING_ONBOARDING_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     titleLabel6 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
-    [titleLabel6 setText:v16];
+    [titleLabel6 setText:v17];
 
-    v18 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-    [(CKPinningOnboardingTitleCell *)v4 setSubtitleLabel:v18];
+    v19 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+    [(CKPinningOnboardingTitleCell *)v4 setSubtitleLabel:v19];
 
     subtitleLabel = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     [subtitleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -58,21 +58,21 @@
     subtitleLabel3 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     [subtitleLabel3 setNumberOfLines:0];
 
-    v22 = +[CKUIBehavior sharedBehaviors];
-    pinningOnboardingSubtitleLabelFont = [v22 pinningOnboardingSubtitleLabelFont];
+    v23 = +[CKUIBehavior sharedBehaviors];
+    pinningOnboardingSubtitleLabelFont = [v23 pinningOnboardingSubtitleLabelFont];
     subtitleLabel4 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     [subtitleLabel4 setFont:pinningOnboardingSubtitleLabelFont];
 
-    v25 = +[CKUIBehavior sharedBehaviors];
-    theme2 = [v25 theme];
+    v26 = +[CKUIBehavior sharedBehaviors];
+    theme2 = [v26 theme];
     conversationListPinningOnboardingSubtitleColor = [theme2 conversationListPinningOnboardingSubtitleColor];
     subtitleLabel5 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     [subtitleLabel5 setTextColor:conversationListPinningOnboardingSubtitleColor];
 
-    v29 = CKFrameworkBundle();
-    v30 = [v29 localizedStringForKey:@"PINNING_ONBOARDING_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v31 = CKFrameworkBundle(v30);
+    v32 = [v31 localizedStringForKey:@"PINNING_ONBOARDING_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     subtitleLabel6 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
-    [subtitleLabel6 setText:v30];
+    [subtitleLabel6 setText:v32];
 
     contentView = [(CKPinningOnboardingTitleCell *)v4 contentView];
     titleLabel7 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
@@ -82,83 +82,83 @@
     subtitleLabel7 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     [contentView2 addSubview:subtitleLabel7];
 
-    v36 = objc_alloc_init(MEMORY[0x1E69DCC20]);
-    [(CKPinningOnboardingTitleCell *)v4 setLabelMarginGuide:v36];
+    v38 = objc_alloc_init(MEMORY[0x1E69DCC20]);
+    [(CKPinningOnboardingTitleCell *)v4 setLabelMarginGuide:v38];
 
     contentView3 = [(CKPinningOnboardingTitleCell *)v4 contentView];
     labelMarginGuide = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     [contentView3 addLayoutGuide:labelMarginGuide];
 
     [(CKPinningOnboardingTitleCell *)v4 pinningOnboardingMarginForPinnedConversationViewLayoutStyle:[(CKPinningOnboardingTitleCell *)v4 pinnedConversationViewLayoutStyle]];
-    v40 = v39;
+    v42 = v41;
     labelMarginGuide2 = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     leadingAnchor = [labelMarginGuide2 leadingAnchor];
     contentView4 = [(CKPinningOnboardingTitleCell *)v4 contentView];
     leadingAnchor2 = [contentView4 leadingAnchor];
-    v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v40];
-    [(CKPinningOnboardingTitleCell *)v4 setLeadingMarginLayoutConstraint:v45];
+    v47 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v42];
+    [(CKPinningOnboardingTitleCell *)v4 setLeadingMarginLayoutConstraint:v47];
 
     labelMarginGuide3 = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     trailingAnchor = [labelMarginGuide3 trailingAnchor];
     contentView5 = [(CKPinningOnboardingTitleCell *)v4 contentView];
     trailingAnchor2 = [contentView5 trailingAnchor];
-    v50 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v40];
-    [(CKPinningOnboardingTitleCell *)v4 setTrailingMarginLayoutConstraint:v50];
+    v52 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v42];
+    [(CKPinningOnboardingTitleCell *)v4 setTrailingMarginLayoutConstraint:v52];
 
     [(CKPinningOnboardingTitleCell *)v4 pinningOnboardingSubtitleSpacingForPinnedConversationViewLayoutStyle:[(CKPinningOnboardingTitleCell *)v4 pinnedConversationViewLayoutStyle]];
-    v52 = v51;
+    v54 = v53;
     titleLabel8 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
     bottomAnchor = [titleLabel8 bottomAnchor];
     subtitleLabel8 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     topAnchor = [subtitleLabel8 topAnchor];
-    v57 = [bottomAnchor constraintEqualToAnchor:topAnchor constant:-v52];
-    [(CKPinningOnboardingTitleCell *)v4 setSubtitleSpacingConstraint:v57];
+    v59 = [bottomAnchor constraintEqualToAnchor:topAnchor constant:-v54];
+    [(CKPinningOnboardingTitleCell *)v4 setSubtitleSpacingConstraint:v59];
 
-    v79 = MEMORY[0x1E696ACD8];
+    v81 = MEMORY[0x1E696ACD8];
     leadingMarginLayoutConstraint = [(CKPinningOnboardingTitleCell *)v4 leadingMarginLayoutConstraint];
-    v95[0] = leadingMarginLayoutConstraint;
+    v97[0] = leadingMarginLayoutConstraint;
     trailingMarginLayoutConstraint = [(CKPinningOnboardingTitleCell *)v4 trailingMarginLayoutConstraint];
-    v95[1] = trailingMarginLayoutConstraint;
+    v97[1] = trailingMarginLayoutConstraint;
     subtitleSpacingConstraint = [(CKPinningOnboardingTitleCell *)v4 subtitleSpacingConstraint];
-    v95[2] = subtitleSpacingConstraint;
+    v97[2] = subtitleSpacingConstraint;
     titleLabel9 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
     topAnchor2 = [titleLabel9 topAnchor];
     contentView6 = [(CKPinningOnboardingTitleCell *)v4 contentView];
     topAnchor3 = [contentView6 topAnchor];
-    v86 = [topAnchor2 constraintEqualToAnchor:topAnchor3 constant:16.0];
-    v95[3] = v86;
+    v88 = [topAnchor2 constraintEqualToAnchor:topAnchor3 constant:16.0];
+    v97[3] = v88;
     subtitleLabel9 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     bottomAnchor2 = [subtitleLabel9 bottomAnchor];
     contentView7 = [(CKPinningOnboardingTitleCell *)v4 contentView];
     bottomAnchor3 = [contentView7 bottomAnchor];
-    v81 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-16.0];
-    v95[4] = v81;
+    v83 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-16.0];
+    v97[4] = v83;
     titleLabel10 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
     leadingAnchor3 = [titleLabel10 leadingAnchor];
     labelMarginGuide4 = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     leadingAnchor4 = [labelMarginGuide4 leadingAnchor];
-    v75 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v95[5] = v75;
+    v77 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v97[5] = v77;
     titleLabel11 = [(CKPinningOnboardingTitleCell *)v4 titleLabel];
     trailingAnchor3 = [titleLabel11 trailingAnchor];
     labelMarginGuide5 = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     trailingAnchor4 = [labelMarginGuide5 trailingAnchor];
-    v70 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v95[6] = v70;
+    v72 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v97[6] = v72;
     subtitleLabel10 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     leadingAnchor5 = [subtitleLabel10 leadingAnchor];
     labelMarginGuide6 = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     leadingAnchor6 = [labelMarginGuide6 leadingAnchor];
-    v60 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-    v95[7] = v60;
+    v62 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+    v97[7] = v62;
     subtitleLabel11 = [(CKPinningOnboardingTitleCell *)v4 subtitleLabel];
     trailingAnchor5 = [subtitleLabel11 trailingAnchor];
     labelMarginGuide7 = [(CKPinningOnboardingTitleCell *)v4 labelMarginGuide];
     trailingAnchor6 = [labelMarginGuide7 trailingAnchor];
-    v65 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-    v95[8] = v65;
-    v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v95 count:9];
-    [v79 activateConstraints:v66];
+    v67 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+    v97[8] = v67;
+    v68 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:9];
+    [v81 activateConstraints:v68];
   }
 
   return v4;

@@ -34,7 +34,7 @@
 
 + (id)em_contactWithPersonNameComponents:()EmailContactAdditions emailAddress:emailAddressLabel:allowInvalidEmailAddress:
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -106,70 +106,67 @@
 
   if (v10 && ([v10 ea_isLegalEmailAddress] | a6) == 1)
   {
-    v30 = *MEMORY[0x1E695CB68];
     if (v11)
     {
-      v31 = v11;
+      v30 = v11;
     }
 
     else
     {
-      v31 = *MEMORY[0x1E695CB68];
+      v30 = *MEMORY[0x1E695CB68];
     }
 
-    v32 = [MEMORY[0x1E695CEE0] labeledValueWithLabel:v31 value:v10];
-    v36[0] = v32;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
-    [v12 setEmailAddresses:v33];
+    v31 = [MEMORY[0x1E695CEE0] labeledValueWithLabel:v30 value:v10];
+    v34[0] = v31;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+    [v12 setEmailAddresses:v32];
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)em_bestMatchForName:()EmailContactAdditions fromContacts:keysToCheck:
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v29 = a3;
+  v40 = *MEMORY[0x1E69E9840];
+  v28 = a3;
   v7 = a4;
-  v30 = a5;
-  v31 = v7;
+  v29 = a5;
+  v30 = v7;
   if ([v7 count] > 1)
   {
-    v33 = [v30 containsObject:*MEMORY[0x1E695C240]];
-    v9 = [v30 containsObject:*MEMORY[0x1E695C230]];
-    if ((v33 | v9))
+    v32 = [v29 containsObject:*MEMORY[0x1E695C240]];
+    v9 = [v29 containsObject:*MEMORY[0x1E695C230]];
+    if ((v32 | v9))
     {
-      v27 = [MEMORY[0x1E6996790] componentsFromString:v29];
-      givenName = [v27 givenName];
-      familyName = [v27 familyName];
+      v26 = [MEMORY[0x1E6996790] componentsFromString:v28];
+      givenName = [v26 givenName];
+      familyName = [v26 familyName];
       if (givenName | familyName)
       {
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
         obj = v7;
-        v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
         if (v11)
         {
+          v33 = 0;
           v34 = 0;
-          v35 = 0;
-          v12 = *v37;
+          v12 = *v36;
 LABEL_7:
           v13 = 0;
           while (1)
           {
-            if (*v37 != v12)
+            if (*v36 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v36 + 1) + 8 * v13);
-            if (v33)
+            v14 = *(*(&v35 + 1) + 8 * v13);
+            if (v32)
             {
-              givenName2 = [*(*(&v36 + 1) + 8 * v13) givenName];
+              givenName2 = [*(*(&v35 + 1) + 8 * v13) givenName];
               if (!v9)
               {
                 goto LABEL_12;
@@ -197,7 +194,7 @@ LABEL_15:
               v22 = v14;
 
               familyName = v18;
-              v23 = v34;
+              v23 = v33;
               if (v22)
               {
                 goto LABEL_37;
@@ -206,7 +203,7 @@ LABEL_15:
               goto LABEL_34;
             }
 
-            if (v34)
+            if (v33)
             {
               v20 = 0;
             }
@@ -218,10 +215,10 @@ LABEL_15:
 
             if (v20 == 1)
             {
-              v34 = v14;
+              v33 = v14;
             }
 
-            if (v35)
+            if (v34)
             {
               v21 = 0;
             }
@@ -233,13 +230,13 @@ LABEL_15:
 
             if (v21 == 1)
             {
-              v35 = v14;
+              v34 = v14;
             }
 
             familyName = v18;
             if (v11 == ++v13)
             {
-              v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+              v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
               if (v11)
               {
                 goto LABEL_7;
@@ -250,16 +247,16 @@ LABEL_15:
           }
         }
 
+        v33 = 0;
         v34 = 0;
-        v35 = 0;
 LABEL_33:
 
 LABEL_34:
-        v24 = v35;
-        if (v35 || (v35 = 0, v23 = 0, v22 = 0, (v24 = v34) != 0))
+        v24 = v34;
+        if (v34 || (v34 = 0, v23 = 0, v22 = 0, (v24 = v33) != 0))
         {
           v22 = v24;
-          v23 = v34;
+          v23 = v33;
         }
 
 LABEL_37:
@@ -276,7 +273,7 @@ LABEL_37:
       }
     }
 
-    firstObject = [v31 firstObject];
+    firstObject = [v30 firstObject];
     goto LABEL_40;
   }
 
@@ -284,8 +281,6 @@ LABEL_37:
 LABEL_40:
   v22 = firstObject;
 LABEL_41:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

@@ -9,39 +9,39 @@
 
 + (void)fcui_layoutPrimaryLabel:()FocusUI secondaryLabel:inTextFrame:primaryLabelFrame:secondaryLabelFrame:drawingContext:
 {
-  v31 = a6;
-  v17 = a7;
-  v18 = a10;
-  if (v31 && a8)
+  v32 = a7;
+  v18 = a8;
+  v19 = a11;
+  if (v32 && a9)
   {
-    v19 = [v31 fcui_numberOfLinesInFrame:0 maximum:v18 drawingContext:{self, a2, a3, 1.79769313e308}];
-    [v31 fcui_drawingHeightWithNumberOfLines:v19];
-    text = [v17 text];
-    v21 = [text length];
+    v20 = [v32 fcui_numberOfLinesInFrame:0 maximum:v19 drawingContext:{self, a2, a3, 1.79769313e308}];
+    [v32 fcui_drawingHeightWithNumberOfLines:v20];
+    text = [v18 text];
+    v22 = [text length];
 
-    if (v21)
+    if (v22)
     {
-      [v31 fcui_measuringHeightWithNumberOfLines:v19];
-      v22 = [v17 fcui_numberOfLinesInFrame:0 maximum:v18 drawingContext:{self, a2, a3, 1.79769313e308}];
-      [v17 fcui_measuringHeightWithNumberOfLines:v22];
+      [v32 fcui_measuringHeightWithNumberOfLines:v20];
+      v23 = [v18 fcui_numberOfLinesInFrame:0 maximum:v19 drawingContext:{self, a2, a3, 1.79769313e308}];
+      [v18 fcui_measuringHeightWithNumberOfLines:v23];
       UIRectCenteredYInRect();
-      CGRectGetMaxY(v33);
-      [v17 fcui_drawingHeightWithNumberOfLines:v22];
+      CGRectGetMaxY(v34);
+      [v18 fcui_drawingHeightWithNumberOfLines:v23];
       UIRectCenteredIntegralRectScale();
-      if (a9)
+      if (a10)
       {
-        *a9 = v23;
-        a9[1] = v24;
-        a9[2] = v25;
-        a9[3] = v26;
+        *a10 = v24;
+        a10[1] = v25;
+        a10[2] = v26;
+        a10[3] = v27;
       }
     }
 
     UIRectCenteredIntegralRectScale();
-    *a8 = v27;
-    a8[1] = v28;
-    a8[2] = v29;
-    a8[3] = v30;
+    *a9 = v28;
+    a9[1] = v29;
+    a9[2] = v30;
+    a9[3] = v31;
   }
 }
 

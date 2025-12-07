@@ -674,15 +674,15 @@ void __82__VUIAppInstallerViewController_beginInstallingAppWithProgressHandler_c
   }
 }
 
-uint64_t __82__VUIAppInstallerViewController_beginInstallingAppWithProgressHandler_completion___block_invoke_2(uint64_t result, double a2)
+id *__82__VUIAppInstallerViewController_beginInstallingAppWithProgressHandler_completion___block_invoke_2(id *result, double a2)
 {
-  if (*(result + 40))
+  if (result[5])
   {
     v3 = result;
-    result = [*(result + 32) lastProgress];
+    result = [result[4] lastProgress];
     if ((v4.n128_f64[0] * 100.0) != (a2 * 100.0))
     {
-      v5 = *(*(v3 + 40) + 16);
+      v5 = *(v3[5] + 2);
       v4.n128_f64[0] = a2;
 
       return v5(v4);
@@ -793,7 +793,7 @@ void __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_4(uin
   v19[4] = *(a1 + 32);
   v20 = v4;
   v5 = _Block_copy(v19);
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v18 = 0;
@@ -843,7 +843,7 @@ void __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_5(uin
 {
   v5 = a2;
   v6 = a3;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -868,32 +868,32 @@ void __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_5(uin
 
 void __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_95(id *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained confirmationController];
   v4 = [v3 presentingViewController];
 
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 67109120;
     HIDWORD(buf) = v4 == 0;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUIAppInstallerViewController - Hiding app install display. Headless: %d", &buf, 8u);
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUIAppInstallerViewController - Hiding app install display. Headless: %d", &buf, 8u);
   }
 
   objc_initWeak(&buf, WeakRetained);
-  v6 = dispatch_time(0, 500000000);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_96;
-  v7[3] = &unk_1E872F3A0;
-  objc_copyWeak(&v10, &buf);
-  v8 = a1[4];
-  v9 = a1[5];
-  v11 = v4 == 0;
-  dispatch_after(v6, MEMORY[0x1E69E96A0], v7);
+  v7 = dispatch_time(0, 500000000);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_96;
+  v8[3] = &unk_1E872F3A0;
+  objc_copyWeak(&v11, &buf);
+  v9 = a1[4];
+  v10 = a1[5];
+  v12 = v4 == 0;
+  dispatch_after(v7, MEMORY[0x1E69E96A0], v8);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&buf);
 }
 
@@ -957,29 +957,30 @@ void __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_3_99(
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_3_99_cold_1(v6, v7);
+      __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_3_99_cold_1(v7, v8);
     }
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
-  v13 = __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_100;
-  v14 = &unk_1E8730538;
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 32);
-  v15 = v6;
-  v16 = v9;
-  v17 = v8;
-  v10 = MEMORY[0x1E696AF00];
-  v11 = v6;
-  if ([v10 isMainThread])
+  v14 = __52__VUIAppInstallerViewController__beginInstallingApp__block_invoke_100;
+  v15 = &unk_1E8730538;
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 32);
+  v16 = v7;
+  v17 = v10;
+  v18 = v9;
+  v11 = MEMORY[0x1E696AF00];
+  v12 = v7;
+  if ([v11 isMainThread])
   {
-    v13(block);
+    v14(block);
   }
 
   else

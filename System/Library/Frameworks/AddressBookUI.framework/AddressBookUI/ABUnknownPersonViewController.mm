@@ -14,6 +14,7 @@
 - (void)loadView;
 - (void)setAddressBook:(ABAddressBookRef)addressBook;
 - (void)setDisplayedPerson:(ABRecordRef)displayedPerson;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ABUnknownPersonViewController
@@ -66,19 +67,17 @@
 
 - (void)encodeRestorableStateWithCoder:(id)coder
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = ABUnknownPersonViewController;
-  [(ABUnknownPersonViewController *)&v8 encodeRestorableStateWithCoder:?];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = ABUnknownPersonViewController;
+  [(ABUnknownPersonViewController *)&v7 encodeRestorableStateWithCoder:?];
   if ([(ABUnknownPersonViewController *)self displayedPerson])
   {
     v5 = MEMORY[0x277CBDA58];
     displayedPerson = [(ABUnknownPersonViewController *)self displayedPerson];
-    v9[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
-    [coder encodeObject:objc_msgSend(v5 forKey:{"contactFromPublicABPerson:keysToFetch:", displayedPerson, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v9, 1)), @"kABUnknownPersonRecordKey"}];
+    v8[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
+    [coder encodeObject:objc_msgSend(v5 forKey:{"contactFromPublicABPerson:keysToFetch:", displayedPerson, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v8, 1)), @"kABUnknownPersonRecordKey"}];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decodeRestorableStateWithCoder:(id)coder
@@ -116,6 +115,15 @@
   result.height = v4;
   result.width = v3;
   return result;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ABUnknownPersonViewController;
+  [(ABUnknownPersonViewController *)&v4 viewDidAppear:appear];
+  [(ABUnknownPersonViewController *)self preferredContentSize];
+  [(ABUnknownPersonViewController *)self setPreferredContentSize:?];
 }
 
 - (ABAddressBookRef)addressBook
@@ -203,52 +211,49 @@ LABEL_6:
 
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   [(ABUnknownPersonViewController *)self unknownPersonViewDelegate];
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  if (objc_opt_respondsToSelector())
   {
-LABEL_10:
-    v10 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (contact)
-  {
-    addressBook = [(ABUnknownPersonViewController *)self addressBook];
-    v13 = addressBook;
-    if (![(ABUnknownPersonViewController *)self displayedPerson])
+    if (contact)
     {
-      goto LABEL_8;
-    }
+      addressBook = [(ABUnknownPersonViewController *)self addressBook];
+      v11 = addressBook;
+      if (![(ABUnknownPersonViewController *)self displayedPerson])
+      {
+        goto LABEL_8;
+      }
 
-    v7 = MEMORY[0x277CBDA58];
-    displayedPerson = [(ABUnknownPersonViewController *)self displayedPerson];
-    v14[0] = *MEMORY[0x277CBD018];
-    if (![objc_msgSend(objc_msgSend(v7 contactFromPublicABPerson:displayedPerson keysToFetch:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v14, 1)), "identifier"), "isEqualToString:", objc_msgSend(contact, "identifier")}])
-    {
-      goto LABEL_8;
-    }
+      v7 = MEMORY[0x277CBDA58];
+      displayedPerson = [(ABUnknownPersonViewController *)self displayedPerson];
+      v12[0] = *MEMORY[0x277CBD018];
+      if (![objc_msgSend(objc_msgSend(v7 contactFromPublicABPerson:displayedPerson keysToFetch:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v12, 1)), "identifier"), "isEqualToString:", objc_msgSend(contact, "identifier")}])
+      {
+        goto LABEL_8;
+      }
 
-    if (([contact updateNewPublicABPerson:-[ABUnknownPersonViewController displayedPerson](self inAddressBook:{"displayedPerson"), addressBook}] & 1) == 0)
-    {
-      NSLog(&cfstr_CouldnTUpdateD.isa, contact);
-    }
+      if (([contact updateNewPublicABPerson:-[ABUnknownPersonViewController displayedPerson](self inAddressBook:{"displayedPerson"), addressBook}] & 1) == 0)
+      {
+        NSLog(&cfstr_CouldnTUpdateD.isa, contact);
+      }
 
-    displayedPerson2 = [(ABUnknownPersonViewController *)self displayedPerson];
-    if (!displayedPerson2)
-    {
+      displayedPerson2 = [(ABUnknownPersonViewController *)self displayedPerson];
+      if (!displayedPerson2)
+      {
 LABEL_8:
-      displayedPerson2 = [-[ABUnknownPersonViewController contactStore](self "contactStore")];
+        displayedPerson2 = [-[ABUnknownPersonViewController contactStore](self "contactStore")];
+      }
+
+      [-[ABUnknownPersonViewController unknownPersonViewDelegate](self "unknownPersonViewDelegate")];
     }
 
-    [-[ABUnknownPersonViewController unknownPersonViewDelegate](self "unknownPersonViewDelegate")];
-    goto LABEL_10;
+    else
+    {
+      unknownPersonViewDelegate = [(ABUnknownPersonViewController *)self unknownPersonViewDelegate];
+
+      [unknownPersonViewDelegate unknownPersonViewController:self didResolveToPerson:0];
+    }
   }
-
-  unknownPersonViewDelegate = [(ABUnknownPersonViewController *)self unknownPersonViewDelegate];
-  v12 = *MEMORY[0x277D85DE8];
-
-  [unknownPersonViewDelegate unknownPersonViewController:self didResolveToPerson:0];
 }
 
 - (BOOL)contactViewController:(id)controller shouldPerformDefaultActionForContact:(id)contact property:(id)property labeledValue:(id)value
@@ -266,7 +271,7 @@ LABEL_8:
 
 - (void)loadContactViewController
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (![(ABUnknownPersonViewController *)self displayedPerson]&& ![(ABUnknownPersonViewController *)self alternateName])
   {
     [(ABUnknownPersonViewController *)a2 loadContactViewController];
@@ -274,8 +279,8 @@ LABEL_8:
 
   v4 = MEMORY[0x277CBDA58];
   displayedPerson = [(ABUnknownPersonViewController *)self displayedPerson];
-  v10[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
-  v6 = [v4 contactFromPublicABPerson:displayedPerson keysToFetch:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v10, 1)}];
+  v9[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
+  v6 = [v4 contactFromPublicABPerson:displayedPerson keysToFetch:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v9, 1)}];
   [(CNContactViewController *)self->_cnContactViewController willMoveToParentViewController:0];
   if ([(CNContactViewController *)self->_cnContactViewController isViewLoaded])
   {
@@ -316,7 +321,6 @@ LABEL_8:
   [view setFrame:?];
   [-[ABUnknownPersonViewController view](self "view")];
   [(CNContactViewController *)self->_cnContactViewController didMoveToParentViewController:self];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)loadContactViewController

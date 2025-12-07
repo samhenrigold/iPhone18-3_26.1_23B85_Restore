@@ -7,7 +7,7 @@
 - (void)main
 {
   v22 = sub_10036FDEC(self->_installs, &stru_100524700);
-  v3 = sub_1003C27BC();
+  v3 = sub_1003C27BC(AppInstallsDatabaseStore);
   v27[0] = _NSConcreteStackBlock;
   v27[1] = 3221225472;
   v27[2] = sub_100353724;
@@ -15,7 +15,7 @@
   v27[4] = self;
   [v3 modifyUsingTransaction:v27];
 
-  v4 = sub_1002C0D84();
+  v4 = sub_1002C0D84(AppInstallScheduler);
   sub_1002C13BC(v4, 64);
 
   v25 = 0u;

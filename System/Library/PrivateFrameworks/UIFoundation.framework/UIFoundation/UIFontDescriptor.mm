@@ -64,7 +64,7 @@
     if (v5 && (v6 = v5, v7 = *MEMORY[0x1E6965800], ![dictionaryCopy objectForKey:*MEMORY[0x1E6965800]]))
     {
       dictionaryCopy = [dictionaryCopy mutableCopy];
-      [v6 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(v6, 0, 0, 0, 0, 0, 0);
       v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v12 length:48];
       [dictionaryCopy setObject:v11 forKey:v7];
     }
@@ -260,7 +260,7 @@ LABEL_7:
   return [(UIFontDescriptor *)self _swapWithFontAttributes:v5 options:v6];
 }
 
-uint64_t __34__UIFontDescriptor_initWithCoder___block_invoke()
+void *__34__UIFontDescriptor_initWithCoder___block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -366,7 +366,7 @@ uint64_t __34__UIFontDescriptor_initWithCoder___block_invoke()
   if (result)
   {
 
-    return [(CGAffineTransform *)result CGAffineTransformValue];
+    return objc_msgSend_CGAffineTransformValue(result);
   }
 
   else
@@ -388,7 +388,7 @@ uint64_t __34__UIFontDescriptor_initWithCoder___block_invoke()
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && (memset(&v4[1], 0, sizeof(CGAffineTransform)), [v2 CGAffineTransformValue], v4[0] = v4[1], !CGAffineTransformIsIdentity(v4)))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && (memset(&v4[1], 0, sizeof(CGAffineTransform)), objc_msgSend_CGAffineTransformValue(v2), v4[0] = v4[1], !CGAffineTransformIsIdentity(v4)))
       {
         v2 = objc_alloc_init(MEMORY[0x1E696AA98]);
         v4[0] = v4[1];

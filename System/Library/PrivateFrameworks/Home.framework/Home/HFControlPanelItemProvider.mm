@@ -132,16 +132,14 @@ uint64_t __41__HFControlPanelItemProvider_reloadItems__block_invoke_2(uint64_t a
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFControlPanelItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"service";
-  v8[1] = @"serviceGroup";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFControlPanelItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"service";
+  v7[1] = @"serviceGroup";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

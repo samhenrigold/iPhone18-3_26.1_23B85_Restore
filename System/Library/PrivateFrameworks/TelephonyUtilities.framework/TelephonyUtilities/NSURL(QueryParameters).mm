@@ -11,21 +11,7 @@
   v32 = *MEMORY[0x1E69E9840];
   query = [self query];
   v3 = query;
-  if (!query || [query isEqual:&stru_1F098C218])
-  {
-    v4 = MEMORY[0x1E696AF20];
-    absoluteString = [self absoluteString];
-    v6 = [v4 componentsWithString:absoluteString];
-    query2 = [v6 query];
-
-    v3 = query2;
-    if (!query2)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  if (([v3 isEqual:&stru_1F098C218] & 1) == 0)
+  if ((query && ![query isEqual:&stru_1F098C218] || (v4 = MEMORY[0x1E696AF20], objc_msgSend(self, "absoluteString"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "componentsWithString:", v5), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "query"), v7 = objc_claimAutoreleasedReturnValue(), v3, v6, v5, (v3 = v7) != 0)) && (objc_msgSend(v3, "isEqual:", &stru_1F098C218) & 1) == 0)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v10 = [v3 componentsSeparatedByString:@"&"];
@@ -73,19 +59,23 @@
             }
           }
 
-          else if ([v16 count] == 1)
-          {
-            [dictionary setObject:@"1" forKeyedSubscript:v15];
-          }
-
           else
           {
-            v22 = TUDefaultLog();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v22 = [v16 count];
+            if (v22 == 1)
             {
-              *buf = 138412290;
-              v30 = v15;
-              _os_log_impl(&dword_1956FD000, v22, OS_LOG_TYPE_DEFAULT, "[WARN] Couldn't parse query parameter: %@", buf, 0xCu);
+              [dictionary setObject:@"1" forKeyedSubscript:v15];
+            }
+
+            else
+            {
+              v23 = TUDefaultLog(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                v30 = v15;
+                _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "[WARN] Couldn't parse query parameter: %@", buf, 0xCu);
+              }
             }
           }
         }
@@ -101,11 +91,8 @@
 
   else
   {
-LABEL_5:
     v8 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -16,8 +16,8 @@
 
 - (id)zoneInfo
 {
-  v24[9] = *MEMORY[0x1E69E9840];
-  v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->zone_names_count];
+  v23[9] = *MEMORY[0x1E69E9840];
+  v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->zone_names_count];
   if (self->zone_names_count)
   {
     v3 = 0;
@@ -25,31 +25,31 @@
     v5 = 0;
     do
     {
-      v23[0] = @"name";
-      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{&self->zone_names[v4], v17}];
-      v24[0] = v22;
-      v23[1] = @"count";
-      v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_count];
-      v24[1] = v21;
-      v23[2] = @"max_size";
-      v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_max_size];
-      v24[2] = v20;
-      v23[3] = @"elem_size";
-      v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_elem_size];
-      v24[3] = v19;
-      v23[4] = @"alloc_size";
-      v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_alloc_size];
-      v24[4] = v18;
-      v23[5] = @"sum_size";
+      v22[0] = @"name";
+      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{&self->zone_names[v4], v16}];
+      v23[0] = v21;
+      v22[1] = @"count";
+      v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_count];
+      v23[1] = v20;
+      v22[2] = @"max_size";
+      v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_max_size];
+      v23[2] = v19;
+      v22[3] = @"elem_size";
+      v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_elem_size];
+      v23[3] = v18;
+      v22[4] = @"alloc_size";
+      v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_alloc_size];
+      v23[4] = v17;
+      v22[5] = @"sum_size";
       v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_sum_size];
-      v24[5] = v6;
-      v23[6] = @"exhaustible";
+      v23[5] = v6;
+      v22[6] = @"exhaustible";
       v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_exhaustible];
-      v24[6] = v7;
-      v23[7] = @"collectable";
+      v23[6] = v7;
+      v22[7] = @"collectable";
       v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->zone_info[v3].mzi_collectable];
-      v24[7] = v8;
-      v23[8] = @"size";
+      v23[7] = v8;
+      v22[8] = @"size";
       v9 = &self->zone_info[v3];
       mzi_cur_size = v9->mzi_cur_size;
       if (!mzi_cur_size)
@@ -58,10 +58,10 @@
       }
 
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:mzi_cur_size];
-      v24[8] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:9];
+      v23[8] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:9];
 
-      [v17 addObject:v12];
+      [v16 addObject:v12];
       ++v5;
       ++v4;
       ++v3;
@@ -70,28 +70,26 @@
     while (v5 < self->zone_names_count);
   }
 
-  v13 = v17;
-  v14 = [v17 copy];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = v16;
+  v14 = [v16 copy];
 
   return v14;
 }
 
 - (id)vmRegionInfo
 {
-  v37[11] = *MEMORY[0x1E69E9840];
-  v28 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->wired_info_count];
+  v36[11] = *MEMORY[0x1E69E9840];
+  v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->wired_info_count];
   v3 = OSKextCopyLoadedKextInfo();
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __34__VMUWiredMemoryInfo_vmRegionInfo__block_invoke;
-  v34[3] = &unk_1E82792D0;
-  v26 = v3;
-  v27 = v4;
-  v35 = v27;
-  [v3 enumerateKeysAndObjectsUsingBlock:v34];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __34__VMUWiredMemoryInfo_vmRegionInfo__block_invoke;
+  v33[3] = &unk_1E82792D0;
+  v25 = v3;
+  v26 = v4;
+  v34 = v26;
+  [v3 enumerateKeysAndObjectsUsingBlock:v33];
   CSSymbolicatorCreateWithMachKernel();
   if (self->wired_info_count)
   {
@@ -156,7 +154,7 @@
           }
 
           v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v9];
-          v12 = [v27 objectForKeyedSubscript:v11];
+          v12 = [v26 objectForKeyedSubscript:v11];
 
           if (!v12)
           {
@@ -164,41 +162,41 @@
           }
 
 LABEL_17:
-          v36[0] = @"flags";
-          v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 96)];
-          v37[0] = v33;
-          v36[1] = @"site";
-          v32 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 88)];
-          v37[1] = v32;
-          v36[2] = @"size";
-          v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 80)];
-          v37[2] = v31;
-          v36[3] = @"free";
-          v30 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 72)];
-          v37[3] = v30;
-          v36[4] = @"largest";
-          v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 64)];
-          v37[4] = v29;
-          v36[5] = @"collectable_bytes";
+          v35[0] = @"flags";
+          v32 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 96)];
+          v36[0] = v32;
+          v35[1] = @"site";
+          v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 88)];
+          v36[1] = v31;
+          v35[2] = @"size";
+          v30 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 80)];
+          v36[2] = v30;
+          v35[3] = @"free";
+          v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 72)];
+          v36[3] = v29;
+          v35[4] = @"largest";
+          v28 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 64)];
+          v36[4] = v28;
+          v35[5] = @"collectable_bytes";
           v16 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 56)];
-          v37[5] = v16;
-          v36[6] = @"mapped";
+          v36[5] = v16;
+          v35[6] = @"mapped";
           v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 48)];
-          v37[6] = v17;
-          v36[7] = @"peak";
+          v36[6] = v17;
+          v35[7] = @"peak";
           v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v6 - 40)];
-          v37[7] = v18;
-          v36[8] = @"tag";
+          v36[7] = v18;
+          v35[8] = @"tag";
           v19 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:*(self->wired_info + v6 - 32)];
-          v37[8] = v19;
-          v36[9] = @"zone";
+          v36[8] = v19;
+          v35[9] = @"zone";
           v20 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:*(self->wired_info + v6 - 30)];
-          v36[10] = @"name";
-          v37[9] = v20;
-          v37[10] = v12;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:11];
+          v35[10] = @"name";
+          v36[9] = v20;
+          v36[10] = v12;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:11];
 
-          [v28 addObject:v21];
+          [v27 addObject:v21];
           goto LABEL_18;
         }
 
@@ -234,9 +232,7 @@ LABEL_28:
     CSRelease();
   }
 
-  v23 = [v28 copy];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = [v27 copy];
 
   return v23;
 }
@@ -358,8 +354,8 @@ void __34__VMUWiredMemoryInfo_vmRegionInfo__block_invoke(uint64_t a1, void *a2, 
 
 - (id)counterInfo
 {
-  v25[11] = *MEMORY[0x1E69E9840];
-  v18 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->wired_info_count];
+  v24[11] = *MEMORY[0x1E69E9840];
+  v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->wired_info_count];
   if (self->wired_info_count)
   {
     v3 = 0;
@@ -382,41 +378,41 @@ void __34__VMUWiredMemoryInfo_vmRegionInfo__block_invoke(uint64_t a1, void *a2, 
         v7 = ;
         if (v7)
         {
-          v24[0] = @"flags";
-          v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 96)];
-          v25[0] = v23;
-          v24[1] = @"site";
-          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 88)];
-          v25[1] = v22;
-          v24[2] = @"size";
-          v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 80)];
-          v25[2] = v21;
-          v24[3] = @"free";
-          v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 72)];
-          v25[3] = v20;
-          v24[4] = @"largest";
-          v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 64)];
-          v25[4] = v19;
-          v24[5] = @"collectable_bytes";
+          v23[0] = @"flags";
+          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 96)];
+          v24[0] = v22;
+          v23[1] = @"site";
+          v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 88)];
+          v24[1] = v21;
+          v23[2] = @"size";
+          v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 80)];
+          v24[2] = v20;
+          v23[3] = @"free";
+          v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 72)];
+          v24[3] = v19;
+          v23[4] = @"largest";
+          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 64)];
+          v24[4] = v18;
+          v23[5] = @"collectable_bytes";
           v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 56)];
-          v25[5] = v8;
-          v24[6] = @"mapped";
+          v24[5] = v8;
+          v23[6] = @"mapped";
           v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 48)];
-          v25[6] = v9;
-          v24[7] = @"peak";
+          v24[6] = v9;
+          v23[7] = @"peak";
           v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(self->wired_info + v4 - 40)];
-          v25[7] = v10;
-          v24[8] = @"tag";
+          v24[7] = v10;
+          v23[8] = @"tag";
           v11 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:*(self->wired_info + v4 - 32)];
-          v25[8] = v11;
-          v24[9] = @"zone";
+          v24[8] = v11;
+          v23[9] = @"zone";
           v12 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:*(self->wired_info + v4 - 30)];
-          v24[10] = @"name";
-          v25[9] = v12;
-          v25[10] = v7;
-          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:11];
+          v23[10] = @"name";
+          v24[9] = v12;
+          v24[10] = v7;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:11];
 
-          [v18 addObject:v13];
+          [v17 addObject:v13];
         }
       }
 
@@ -427,10 +423,8 @@ void __34__VMUWiredMemoryInfo_vmRegionInfo__block_invoke(uint64_t a1, void *a2, 
     while (v3 < self->wired_info_count);
   }
 
-  v14 = v18;
-  v15 = [v18 copy];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = v17;
+  v15 = [v17 copy];
 
   return v15;
 }
@@ -481,11 +475,10 @@ void __34__VMUWiredMemoryInfo_vmRegionInfo__block_invoke(uint64_t a1, void *a2, 
 
 - (void)sample
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = self;
-  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Insufficient permissions to call mach_memory_info: error code %d\n", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = self;
+  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Insufficient permissions to call mach_memory_info: error code %d\n", v1, 8u);
 }
 
 @end

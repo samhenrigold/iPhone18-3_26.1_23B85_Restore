@@ -204,7 +204,7 @@
   [coderCopy encodeBool:self->_doubleSided forKey:@"UIDoubleSided"];
   viewControllers = self->_viewControllers;
   childViewControllers = [(UIViewController *)self childViewControllers];
-  LODWORD(viewControllers) = [(NSArray *)viewControllers isEqual:childViewControllers];
+  LODWORD(viewControllers) = objc_msgSend_isEqual_(viewControllers);
 
   if (viewControllers)
   {
@@ -1474,7 +1474,7 @@ LABEL_4:
   return v4;
 }
 
-uint64_t __63__UIPageViewController_shouldAutorotateToInterfaceOrientation___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__UIPageViewController_shouldAutorotateToInterfaceOrientation___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 shouldAutorotateToInterfaceOrientation:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1728,7 +1728,7 @@ LABEL_10:
       goto LABEL_23;
     }
 
-    if (([(NSArray *)self->_viewControllers isEqual:v22]& 1) == 0)
+    if ((objc_msgSend_isEqual_(self->_viewControllers) & 1) == 0)
     {
       spineLocation = self->_spineLocation;
       goto LABEL_23;
@@ -4515,11 +4515,11 @@ LABEL_19:
         }
       }
 
-      if (([v18 isEqual:@"UIPageCurlControllerIncomingRightViewControllerKey"] & 1) == 0)
+      if ((objc_msgSend_isEqual_(v18) & 1) == 0)
       {
         spineLocation = self->_spineLocation;
 LABEL_28:
-        if (spineLocation != 3 || ![v18 isEqual:@"UIPageCurlControllerIncomingLeftViewControllerKey"])
+        if (spineLocation != 3 || !objc_msgSend_isEqual_(v18))
         {
           goto LABEL_31;
         }

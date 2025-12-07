@@ -21,6 +21,7 @@
 - (void)createODISessionWithSessionIdentifier:(id)identifier cacheIdentifier:(id)cacheIdentifier accountType:(unint64_t)type bundleIdentifier:(id)bundleIdentifier completion:(id)completion;
 - (void)didConsumeFDSForPurchaseIdentifier:(id)identifier logKey:(id)key completion:(id)completion;
 - (void)generateFDSWithRequest:(id)request completion:(id)completion;
+- (void)getODIAssessmentForCacheIdentifier:(id)identifier clearCache:(BOOL)cache completion:(id)completion;
 - (void)partialFDSAssessmentForRequest:(id)request completion:(id)completion;
 - (void)provideFeedbackOnPayloadOutcome:(unint64_t)outcome cacheIdentifier:(id)identifier clearCache:(BOOL)cache completion:(id)completion;
 - (void)updateODIWithAttributes:(id)attributes forCacheIdentifier:(id)identifier completion:(id)completion;
@@ -502,6 +503,49 @@ LABEL_7:
   {
     completionCopy[2](completionCopy, cacheIdentifierCopy, v28);
   }
+}
+
+- (void)getODIAssessmentForCacheIdentifier:(id)identifier clearCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = +[AMSLogConfig sharedConfig];
+  if (!v10)
+  {
+    v10 = +[AMSLogConfig sharedConfig];
+  }
+
+  oSLogObject = [v10 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = objc_opt_class();
+    v13 = AMSLogKey();
+    v14 = AMSHashIfNeeded();
+    v15 = [NSNumber numberWithBool:cacheCopy];
+    v16 = AMSHashIfNeeded();
+    *buf = 138544130;
+    v24 = v12;
+    v25 = 2114;
+    v26 = v13;
+    v27 = 2112;
+    v28 = v14;
+    v29 = 2112;
+    v30 = v16;
+    _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Invoking 'getODIAssessment' for cache identifier: %@, clearCache: %@", buf, 0x2Au);
+  }
+
+  _odiSessionCacheAccessQueue = [objc_opt_class() _odiSessionCacheAccessQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100078FD0;
+  block[3] = &unk_1002B03F8;
+  block[4] = self;
+  v21 = identifierCopy;
+  v22 = completionCopy;
+  v18 = completionCopy;
+  v19 = identifierCopy;
+  dispatch_async(_odiSessionCacheAccessQueue, block);
 }
 
 - (void)provideFeedbackOnPayloadOutcome:(unint64_t)outcome cacheIdentifier:(id)identifier clearCache:(BOOL)cache completion:(id)completion
@@ -1172,26 +1216,26 @@ LABEL_5:
   identifierCopy = identifier;
   if ([identifierCopy isEqualToString:AMSODIServiceIdentifierAmpFreeBuy])
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v4 = qword_1002E33D8;
-    v25 = qword_1002E33D8;
+    v26 = qword_1002E33D8;
     if (!qword_1002E33D8)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10007D294;
-      v27 = &unk_1002B0728;
-      v28 = &v22;
+      v28 = &unk_1002B0728;
+      v29 = &v23;
       v5 = sub_10007CF38();
       v6 = dlsym(v5, "ODIServiceProviderIdAmpFreeBuy");
-      *(v28[1] + 24) = v6;
-      qword_1002E33D8 = *(v28[1] + 24);
-      v4 = v23[3];
+      *(v29[1] + 24) = v6;
+      qword_1002E33D8 = *(v29[1] + 24);
+      v4 = v24[3];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
     if (!v4)
     {
       goto LABEL_35;
@@ -1202,26 +1246,26 @@ LABEL_5:
 
   if ([identifierCopy isEqualToString:AMSODIServiceIdentifierAmpPaidBuy])
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v4 = qword_1002E33E0;
-    v25 = qword_1002E33E0;
+    v26 = qword_1002E33E0;
     if (!qword_1002E33E0)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10007D2E4;
-      v27 = &unk_1002B0728;
-      v28 = &v22;
+      v28 = &unk_1002B0728;
+      v29 = &v23;
       v7 = sub_10007CF38();
       v8 = dlsym(v7, "ODIServiceProviderIdAmpPaidBuy");
-      *(v28[1] + 24) = v8;
-      qword_1002E33E0 = *(v28[1] + 24);
-      v4 = v23[3];
+      *(v29[1] + 24) = v8;
+      qword_1002E33E0 = *(v29[1] + 24);
+      v4 = v24[3];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
     if (!v4)
     {
       goto LABEL_35;
@@ -1236,26 +1280,26 @@ LABEL_26:
 
   if ([identifierCopy isEqualToString:AMSODISessionIdentifierApplicationCreate])
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v4 = qword_1002E33E8;
-    v25 = qword_1002E33E8;
+    v26 = qword_1002E33E8;
     if (!qword_1002E33E8)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10007D334;
-      v27 = &unk_1002B0728;
-      v28 = &v22;
+      v28 = &unk_1002B0728;
+      v29 = &v23;
       v9 = sub_10007CF38();
       v10 = dlsym(v9, "ODIServiceProviderIdApplicationCreate");
-      *(v28[1] + 24) = v10;
-      qword_1002E33E8 = *(v28[1] + 24);
-      v4 = v23[3];
+      *(v29[1] + 24) = v10;
+      qword_1002E33E8 = *(v29[1] + 24);
+      v4 = v24[3];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
     if (v4)
     {
       goto LABEL_25;
@@ -1268,26 +1312,26 @@ LABEL_35:
 
   if ([identifierCopy isEqualToString:AMSODISessionIdentifierApplicationSubmit])
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v4 = qword_1002E33F0;
-    v25 = qword_1002E33F0;
+    v26 = qword_1002E33F0;
     if (!qword_1002E33F0)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10007D384;
-      v27 = &unk_1002B0728;
-      v28 = &v22;
+      v28 = &unk_1002B0728;
+      v29 = &v23;
       v11 = sub_10007CF38();
       v12 = dlsym(v11, "ODIServiceProviderIdApplicationSubmit");
-      *(v28[1] + 24) = v12;
-      qword_1002E33F0 = *(v28[1] + 24);
-      v4 = v23[3];
+      *(v29[1] + 24) = v12;
+      qword_1002E33F0 = *(v29[1] + 24);
+      v4 = v24[3];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
     if (v4)
     {
       goto LABEL_25;
@@ -1298,26 +1342,26 @@ LABEL_35:
 
   if ([identifierCopy isEqualToString:AMSODISessionIdentifierIdUpdate])
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v4 = qword_1002E33F8;
-    v25 = qword_1002E33F8;
+    v26 = qword_1002E33F8;
     if (!qword_1002E33F8)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10007D3D4;
-      v27 = &unk_1002B0728;
-      v28 = &v22;
+      v28 = &unk_1002B0728;
+      v29 = &v23;
       v13 = sub_10007CF38();
       v14 = dlsym(v13, "ODIServiceProviderIdIdUpdate");
-      *(v28[1] + 24) = v14;
-      qword_1002E33F8 = *(v28[1] + 24);
-      v4 = v23[3];
+      *(v29[1] + 24) = v14;
+      qword_1002E33F8 = *(v29[1] + 24);
+      v4 = v24[3];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
     if (v4)
     {
       goto LABEL_25;
@@ -1326,24 +1370,25 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  if ([identifierCopy isEqualToString:AMSODISessionIdentifierTDMTrustedInference])
+  v18 = [identifierCopy isEqualToString:AMSODISessionIdentifierTDMTrustedInference];
+  if (v18)
   {
-    v15 = sub_10007CCD0();
+    v15 = sub_10007CCD0(v18);
     goto LABEL_26;
   }
 
-  v18 = +[AMSLogConfig sharedConfig];
-  oSLogObject = [v18 OSLogObject];
+  v19 = +[AMSLogConfig sharedConfig];
+  oSLogObject = [v19 OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
   {
-    v20 = objc_opt_class();
-    v21 = AMSLogKey();
+    v21 = objc_opt_class();
+    v22 = AMSLogKey();
     *buf = 138543874;
-    *&buf[4] = v20;
+    *&buf[4] = v21;
     *&buf[12] = 2114;
-    *&buf[14] = v21;
+    *&buf[14] = v22;
     *&buf[22] = 2114;
-    v27 = identifierCopy;
+    v28 = identifierCopy;
     _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to parse ODI service identifier: %{public}@", buf, 0x20u);
   }
 

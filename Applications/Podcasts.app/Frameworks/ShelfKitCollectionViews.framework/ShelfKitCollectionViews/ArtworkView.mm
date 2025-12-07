@@ -71,7 +71,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ArtworkView();
+  v6.super_class = type metadata accessor for ArtworkView(0);
   [(ArtworkView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -87,7 +87,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   selfCopy = self;
-  sub_2DD8C(x, y, width, height);
+  sub_2DD8C(x, y, width, height, selfCopy, v7);
 }
 
 - (CGSize)intrinsicContentSize

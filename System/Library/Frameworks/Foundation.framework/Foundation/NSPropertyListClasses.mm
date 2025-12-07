@@ -3,7 +3,7 @@
 
 @implementation NSPropertyListClasses
 
-uint64_t ____NSPropertyListClasses_ForArchival_ErrorAndException_block_invoke()
+void *____NSPropertyListClasses_ForArchival_ErrorAndException_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();

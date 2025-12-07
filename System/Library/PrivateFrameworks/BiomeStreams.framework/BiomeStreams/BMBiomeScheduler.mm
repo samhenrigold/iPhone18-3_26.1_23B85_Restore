@@ -2,6 +2,7 @@
 - (BMBiomeScheduler)initWithIdentifier:(id)identifier targetQueue:(id)queue;
 - (BMBiomeScheduler)initWithIdentifier:(id)identifier targetQueue:(id)queue client:(id)client;
 - (BMBiomeScheduler)initWithIdentifier:(id)identifier targetQueue:(id)queue client:(id)client waking:(BOOL)waking;
+- (BMBiomeScheduler)initWithIdentifier:(id)identifier targetQueue:(id)queue waking:(BOOL)waking;
 - (id)_publisherWithStreamIdentifier:(id)identifier storeEvent:(id)event;
 - (id)_updatedPublisherForSubscription:(id)subscription;
 - (void)_persistBookmarkForPublisher:(id)publisher;
@@ -24,7 +25,7 @@
 
 - (BMBiomeScheduler)initWithIdentifier:(id)identifier targetQueue:(id)queue client:(id)client
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   clientCopy = client;
@@ -33,12 +34,12 @@
 
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleURL = [mainBundle bundleURL];
-  v26[0] = *MEMORY[0x1E695DB70];
-  v14 = v26[0];
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-  v25 = 0;
-  v16 = [bundleURL resourceValuesForKeys:v15 error:&v25];
-  v17 = v25;
+  v25[0] = *MEMORY[0x1E695DB70];
+  v14 = v25[0];
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v24 = 0;
+  v16 = [bundleURL resourceValuesForKeys:v15 error:&v24];
+  v17 = v24;
 
   v18 = [v16 objectForKeyedSubscript:v14];
   v19 = v18;
@@ -62,7 +63,6 @@ LABEL_6:
 
   v21 = [(BMBiomeScheduler *)self initWithIdentifier:identifierCopy targetQueue:queueCopy client:clientCopy waking:isManagedByLaunchd, self];
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -89,31 +89,42 @@ LABEL_6:
   return v13;
 }
 
+- (BMBiomeScheduler)initWithIdentifier:(id)identifier targetQueue:(id)queue waking:(BOOL)waking
+{
+  wakingCopy = waking;
+  queueCopy = queue;
+  identifierCopy = identifier;
+  v10 = +[BMComputePublisherClient shared];
+  v11 = [(BMBiomeScheduler *)self initWithIdentifier:identifierCopy targetQueue:queueCopy client:v10 waking:wakingCopy];
+
+  return v11;
+}
+
 - (void)subscribeWithDSLGraph:(id)graph forSubscriber:(id)subscriber
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   graphCopy = graph;
   subscriberCopy = subscriber;
   [graphCopy streamPublishers];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v8 = v23 = 0u;
-  v9 = [(_BMBiomeXPCSchedulerInner *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = v22 = 0u;
+  v9 = [(_BMBiomeXPCSchedulerInner *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         if ([v13 streamType] != 1 && objc_msgSend(v13, "streamType") != 2)
         {
           v18 = v8;
@@ -121,7 +132,7 @@ LABEL_6:
         }
       }
 
-      v10 = [(_BMBiomeXPCSchedulerInner *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [(_BMBiomeXPCSchedulerInner *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         continue;
@@ -142,36 +153,34 @@ LABEL_6:
     [(_BMBiomeXPCSchedulerInner *)v18 setBookmarkStorage:?];
   }
 
-  [subscriberCopy receiveSubscription:{v18, v20}];
+  [subscriberCopy receiveSubscription:{v18, v19}];
 LABEL_14:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeWithDSLGraph:(id)graph publisherBlock:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   graphCopy = graph;
   blockCopy = block;
   [graphCopy streamPublishers];
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v9 = v33 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v31 = 0u;
+  v9 = v32 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v10)
   {
-    v11 = *v33;
+    v11 = *v32;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v33 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
+        v13 = *(*(&v31 + 1) + 8 * i);
         if ([v13 streamType] != 1 && objc_msgSend(v13, "streamType") != 2)
         {
           v26 = __biome_log_for_category();
@@ -184,7 +193,7 @@ LABEL_14:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v10)
       {
         continue;
@@ -199,8 +208,8 @@ LABEL_14:
   aBlock[1] = 3221225472;
   aBlock[2] = __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke;
   aBlock[3] = &unk_1E6E54448;
-  objc_copyWeak(&v30, &location);
-  v29 = blockCopy;
+  objc_copyWeak(&v29, &location);
+  v28 = blockCopy;
   v14 = _Block_copy(aBlock);
   os_unfair_lock_lock(&self->_lock);
   objc_storeStrong(&self->_graph, graph);
@@ -232,16 +241,14 @@ LABEL_14:
   client = [(BMBiomeScheduler *)self client];
   [client subscribe:v23];
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
 LABEL_18:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -255,11 +262,11 @@ void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke(
       if (v12)
       {
         *buf = 138412802;
-        v27 = v7;
-        v28 = 2112;
-        v29 = v9;
-        v30 = 2112;
-        v31 = v8;
+        v26 = v7;
+        v27 = 2112;
+        v28 = v9;
+        v29 = 2112;
+        v30 = v8;
         _os_log_impl(&dword_1848EE000, v11, OS_LOG_TYPE_INFO, "BMBiomeScheduler received callback from subscription %@, publishing event %@ for stream %@", buf, 0x20u);
       }
 
@@ -269,15 +276,15 @@ void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke(
       block[2] = __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_161;
       block[3] = &unk_1E6E543F8;
       block[4] = WeakRetained;
-      v14 = &v22;
-      v22 = v7;
-      v15 = &v23;
-      v23 = v9;
-      v24 = v8;
-      v25 = *(a1 + 32);
+      v14 = &v21;
+      v21 = v7;
+      v15 = &v22;
+      v22 = v9;
+      v23 = v8;
+      v24 = *(a1 + 32);
       dispatch_async(v13, block);
 
-      v16 = v24;
+      v16 = v23;
     }
 
     else
@@ -285,25 +292,23 @@ void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke(
       if (v12)
       {
         *buf = 138412290;
-        v27 = v7;
+        v26 = v7;
         _os_log_impl(&dword_1848EE000, v11, OS_LOG_TYPE_INFO, "BMBiomeScheduler received callback from subscription %@, reading bookmark and subscribing to DSL graph publisher", buf, 0xCu);
       }
 
       v16 = [WeakRetained queue];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_162;
-      v18[3] = &unk_1E6E54420;
-      v18[4] = WeakRetained;
-      v14 = &v19;
-      v19 = v7;
-      v15 = &v20;
-      v20 = *(a1 + 32);
-      dispatch_async(v16, v18);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_162;
+      v17[3] = &unk_1E6E54420;
+      v17[4] = WeakRetained;
+      v14 = &v18;
+      v18 = v7;
+      v15 = &v19;
+      v19 = *(a1 + 32);
+      dispatch_async(v16, v17);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_161(uint64_t a1)
@@ -372,45 +377,45 @@ void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_
 
 - (id)_publisherWithStreamIdentifier:(id)identifier storeEvent:(id)event
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   eventCopy = event;
   os_unfair_lock_assert_owner(&self->_lock);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   selfCopy = self;
   graph = [(BMBiomeScheduler *)self graph];
   streamPublishers = [graph streamPublishers];
 
-  v10 = [streamPublishers countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v10 = [streamPublishers countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(streamPublishers);
         }
 
-        v14 = *(*(&v36 + 1) + 8 * i);
+        v14 = *(*(&v35 + 1) + 8 * i);
         identifier = [v14 identifier];
         v16 = [identifier isEqualToString:identifierCopy];
 
         if (v16)
         {
-          v41 = eventCopy;
-          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+          v40 = eventCopy;
+          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
           [v14 setBackingEvents:v17];
         }
       }
 
-      v11 = [streamPublishers countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v11 = [streamPublishers countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
     while (v11);
@@ -419,28 +424,28 @@ void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_
   graph2 = [(BMBiomeScheduler *)selfCopy graph];
   bpsPublisher = [graph2 bpsPublisher];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   graph3 = [(BMBiomeScheduler *)selfCopy graph];
   streamPublishers2 = [graph3 streamPublishers];
 
-  v22 = [streamPublishers2 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v22 = [streamPublishers2 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v33;
+    v24 = *v32;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v33 != v24)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(streamPublishers2);
         }
 
-        v26 = *(*(&v32 + 1) + 8 * j);
+        v26 = *(*(&v31 + 1) + 8 * j);
         identifier2 = [v26 identifier];
         v28 = [identifier2 isEqualToString:identifierCopy];
 
@@ -450,13 +455,11 @@ void __57__BMBiomeScheduler_subscribeWithDSLGraph_publisherBlock___block_invoke_
         }
       }
 
-      v23 = [streamPublishers2 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v23 = [streamPublishers2 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v23);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return bpsPublisher;
 }

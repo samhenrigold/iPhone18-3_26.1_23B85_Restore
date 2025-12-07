@@ -93,7 +93,7 @@
     v10 = [MEMORY[0x1E696AD98] numberWithBool:1];
     v11 = [MEMORY[0x1E696AD98] numberWithBool:1];
     v12 = [MEMORY[0x1E696AD98] numberWithBool:0];
-    v13 = [v6 stringWithFormat:@"(%@ == \"*\" || %@ == \"*\" || %@ == \"%@\" || %@ == \"%@\", v7, v8, v9, v10, @"com_apple_mobilesms_businessChat", v11, @"com_apple_mobilesms_dataDetectedLink"", v12];
+    v13 = [v6 stringWithFormat:@"(%@ == * || %@ == * || %@ == %@ || %@ == %@, v7, v8, v9, v10, @"com_apple_mobilesms_businessChat", v11, @"com_apple_mobilesms_dataDetectedLink"", v12];
     v22[1] = v13;
     v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == 0", *MEMORY[0x1E69644E8]];
     v22[2] = v14;
@@ -110,7 +110,7 @@
     v10 = [MEMORY[0x1E696AD98] numberWithBool:1];
     v11 = [MEMORY[0x1E696AD98] numberWithBool:1];
     v12 = [MEMORY[0x1E696AD98] numberWithBool:0];
-    v13 = [v16 stringWithFormat:@"(%@ == \"*\" || %@ == \"*\" || %@ == \"%@\" || %@ == \"%@\", v17, v18, v19, v10, @"com_apple_mobilesms_businessChat", v11, @"com_apple_mobilesms_dataDetectedLink"", v12];
+    v13 = [v16 stringWithFormat:@"(%@ == * || %@ == * || %@ == %@ || %@ == %@, v17, v18, v19, v10, @"com_apple_mobilesms_businessChat", v11, @"com_apple_mobilesms_dataDetectedLink"", v12];
     v21[1] = v13;
     v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   }

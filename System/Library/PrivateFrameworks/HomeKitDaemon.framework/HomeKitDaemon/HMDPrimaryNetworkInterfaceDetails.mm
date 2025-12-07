@@ -32,7 +32,7 @@
   primaryIPv6NetworkSignature = [(HMDPrimaryNetworkInterfaceDetails *)self primaryIPv6NetworkSignature];
   [dictionary setObject:primaryIPv6NetworkSignature forKeyedSubscript:@"Nw6s"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
@@ -61,14 +61,14 @@
   hashPrimaryIPv6NetworkSignature = [(HMDPrimaryNetworkInterfaceDetails *)self hashPrimaryIPv6NetworkSignature];
   [dictionary setObject:hashPrimaryIPv6NetworkSignature forKeyedSubscript:@"Nw6s"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
 
 - (void)_computeHashValues
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   wifiSSID = [(HMDPrimaryNetworkInterfaceDetails *)self wifiSSID];
 
   if (wifiSSID)
@@ -94,27 +94,27 @@
     v11 = 0;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   primaryIPv4Addresses2 = [(HMDPrimaryNetworkInterfaceDetails *)self primaryIPv4Addresses];
-  v13 = [primaryIPv4Addresses2 countByEnumeratingWithState:&v56 objects:v61 count:16];
+  v13 = [primaryIPv4Addresses2 countByEnumeratingWithState:&v55 objects:v60 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v57;
+    v15 = *v56;
     do
     {
       v16 = 0;
       do
       {
-        if (*v57 != v15)
+        if (*v56 != v15)
         {
           objc_enumerationMutation(primaryIPv4Addresses2);
         }
 
-        v17 = [*(*(&v56 + 1) + 8 * v16) dataUsingEncoding:4];
+        v17 = [*(*(&v55 + 1) + 8 * v16) dataUsingEncoding:4];
         v18 = HMDTruncatedHash(v17);
 
         v19 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLong:v18];
@@ -124,13 +124,13 @@
       }
 
       while (v14 != v16);
-      v14 = [primaryIPv4Addresses2 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v14 = [primaryIPv4Addresses2 countByEnumeratingWithState:&v55 objects:v60 count:16];
     }
 
     while (v14);
   }
 
-  v20 = [v11 copy];
+  v20 = objc_msgSend_copy(v11);
   hashPrimaryIPv4Addresses = self->_hashPrimaryIPv4Addresses;
   self->_hashPrimaryIPv4Addresses = v20;
 
@@ -147,27 +147,27 @@
     v24 = 0;
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   primaryIPv6Addresses2 = [(HMDPrimaryNetworkInterfaceDetails *)self primaryIPv6Addresses];
-  v26 = [primaryIPv6Addresses2 countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v26 = [primaryIPv6Addresses2 countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v53;
+    v28 = *v52;
     do
     {
       v29 = 0;
       do
       {
-        if (*v53 != v28)
+        if (*v52 != v28)
         {
           objc_enumerationMutation(primaryIPv6Addresses2);
         }
 
-        v30 = [*(*(&v52 + 1) + 8 * v29) dataUsingEncoding:4];
+        v30 = [*(*(&v51 + 1) + 8 * v29) dataUsingEncoding:4];
         v31 = HMDTruncatedHash(v30);
 
         v32 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLong:v31];
@@ -177,13 +177,13 @@
       }
 
       while (v27 != v29);
-      v27 = [primaryIPv6Addresses2 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v27 = [primaryIPv6Addresses2 countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v27);
   }
 
-  v33 = [v24 copy];
+  v33 = objc_msgSend_copy(v24);
   hashPrimaryIPv6Addresses = self->_hashPrimaryIPv6Addresses;
   self->_hashPrimaryIPv6Addresses = v33;
 
@@ -220,8 +220,6 @@
       self->_hashPrimaryIPv6NetworkSignature = v49;
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDPrimaryNetworkInterfaceDetails)initWithDictionaryRepresentation:(id)representation

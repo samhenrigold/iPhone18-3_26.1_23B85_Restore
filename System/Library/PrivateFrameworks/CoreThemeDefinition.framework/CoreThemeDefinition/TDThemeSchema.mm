@@ -72,22 +72,22 @@
 
 - (void)_sanityCheckObjectsWithEntityName:(id)name globalDescriptor:(void *)descriptor matchIdentifierOnly:(BOOL)only
 {
-  v122 = *MEMORY[0x277D85DE8];
-  v94 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"identifier" ascending:1];
+  v121 = *MEMORY[0x277D85DE8];
+  v93 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"identifier" ascending:1];
   nameCopy = name;
   obj = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", name, [MEMORY[0x277CBEA60] arrayWithObject:?]);
   descriptorCopy = descriptor;
   v7 = [CoreThemeConstantEnumerator enumeratorForGlobalListAtAddress:descriptor];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   nextConstantHelper = [v7 nextConstantHelper];
-  v97 = v8;
+  v96 = v8;
   if (!nextConstantHelper)
   {
     goto LABEL_26;
   }
 
   nextConstantHelper2 = nextConstantHelper;
-  v96 = v7;
+  v95 = v7;
   do
   {
     if (![objc_msgSend(nextConstantHelper2 "displayName")])
@@ -100,28 +100,28 @@
       goto LABEL_25;
     }
 
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
     v116 = 0u;
-    v105 = [obj countByEnumeratingWithState:&v115 objects:v121 count:16];
-    if (!v105)
+    v117 = 0u;
+    v114 = 0u;
+    v115 = 0u;
+    v104 = [obj countByEnumeratingWithState:&v114 objects:v120 count:16];
+    if (!v104)
     {
       goto LABEL_24;
     }
 
     v11 = 0;
-    v103 = *v116;
+    v102 = *v115;
     do
     {
-      for (i = 0; i != v105; ++i)
+      for (i = 0; i != v104; ++i)
       {
-        if (*v116 != v103)
+        if (*v115 != v102)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v115 + 1) + 8 * i);
+        v13 = *(*(&v114 + 1) + 8 * i);
         v14 = [objc_msgSend(v13 valueForKey:{@"identifier", "integerValue"}];
         v15 = [v13 valueForKey:@"constantName"];
         v16 = [v13 valueForKey:@"displayName"];
@@ -135,43 +135,38 @@
             continue;
           }
 
-          v92 = identifier;
-          TDSchemaLog(&cfstr_UpdatingIdenti.isa, v20, v21, v22, v23, v24, v25, v26, label);
+          TDSchemaLog(&cfstr_UpdatingIdenti.isa, v20, v21, v22, v23, v24, v25, v26, label, identifier);
           [v13 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", identifier), @"identifier"}];
         }
 
         if (([v15 isEqualToString:label] & 1) == 0)
         {
-          v92 = v15;
-          v93 = label;
-          TDSchemaLog(&cfstr_UpdatingConsta.isa, v27, v28, v29, v30, v31, v32, v33, label);
+          TDSchemaLog(&cfstr_UpdatingConsta.isa, v27, v28, v29, v30, v31, v32, v33, label, v15, label);
           [v13 setValue:label forKey:@"constantName"];
         }
 
         ++v11;
         if (([v16 isEqualToString:displayName] & 1) == 0)
         {
-          v92 = v16;
-          v93 = displayName;
-          TDSchemaLog(&cfstr_UpdatingDispla.isa, v34, v35, v36, v37, v38, v39, v40, label);
+          TDSchemaLog(&cfstr_UpdatingDispla.isa, v34, v35, v36, v37, v38, v39, v40, label, v16, displayName);
           [v13 setValue:displayName forKey:@"displayName"];
         }
       }
 
-      v105 = [obj countByEnumeratingWithState:&v115 objects:v121 count:16];
+      v104 = [obj countByEnumeratingWithState:&v114 objects:v120 count:16];
     }
 
-    while (v105);
+    while (v104);
     if (v11 >= 2)
     {
       NSLog(&cfstr_WarningDocumen.isa, [nextConstantHelper2 valueForKey:@"label"]);
-      v7 = v96;
-      v8 = v97;
+      v7 = v95;
+      v8 = v96;
       goto LABEL_25;
     }
 
-    v7 = v96;
-    v8 = v97;
+    v7 = v95;
+    v8 = v96;
     if (!v11)
     {
 LABEL_24:
@@ -186,51 +181,51 @@ LABEL_25:
 LABEL_26:
   if ([v8 count])
   {
-    v92 = [v8 valueForKey:@"label"];
-    TDSchemaLog(&cfstr_EntityHasMissi.isa, v41, v42, v43, v44, v45, v46, v47, nameCopy);
-    v113 = 0u;
-    v114 = 0u;
-    v111 = 0u;
+    v41 = [v8 valueForKey:@"label"];
+    TDSchemaLog(&cfstr_EntityHasMissi.isa, v42, v43, v44, v45, v46, v47, v48, nameCopy, v41);
     v112 = 0u;
-    v48 = [v8 countByEnumeratingWithState:&v111 objects:v120 count:16];
-    if (v48)
+    v113 = 0u;
+    v110 = 0u;
+    v111 = 0u;
+    v49 = [v8 countByEnumeratingWithState:&v110 objects:v119 count:16];
+    if (v49)
     {
-      v49 = v48;
-      v50 = *v112;
+      v50 = v49;
+      v51 = *v111;
       do
       {
-        for (j = 0; j != v49; ++j)
+        for (j = 0; j != v50; ++j)
         {
-          if (*v112 != v50)
+          if (*v111 != v51)
           {
-            objc_enumerationMutation(v97);
+            objc_enumerationMutation(v96);
           }
 
-          v52 = *(*(&v111 + 1) + 8 * j);
-          v53 = [(CoreThemeDocument *)self->_doc newObjectForEntity:nameCopy];
-          [v53 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(v52, "identifier")), @"identifier"}];
-          [v53 setValue:objc_msgSend(v52 forKey:{"label"), @"constantName"}];
-          [v53 setValue:objc_msgSend(v52 forKey:{"displayName"), @"displayName"}];
+          v53 = *(*(&v110 + 1) + 8 * j);
+          v54 = [(CoreThemeDocument *)self->_doc newObjectForEntity:nameCopy];
+          [v54 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(v53, "identifier")), @"identifier"}];
+          [v54 setValue:objc_msgSend(v53 forKey:{"label"), @"constantName"}];
+          [v54 setValue:objc_msgSend(v53 forKey:{"displayName"), @"displayName"}];
         }
 
-        v8 = v97;
-        v49 = [v97 countByEnumeratingWithState:&v111 objects:v120 count:16];
+        v8 = v96;
+        v50 = [v96 countByEnumeratingWithState:&v110 objects:v119 count:16];
       }
 
-      while (v49);
+      while (v50);
     }
 
     [-[TDPersistentDocument managedObjectContext](self->_doc "managedObjectContext")];
   }
 
-  v54 = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", nameCopy, [MEMORY[0x277CBEA60] arrayWithObject:v94]);
-  v55 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:3];
+  v55 = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", nameCopy, [MEMORY[0x277CBEA60] arrayWithObject:v93]);
+  v56 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:3];
   obja = [CoreThemeConstantEnumerator enumeratorForGlobalListAtAddress:descriptorCopy];
   nextConstantHelper3 = [obja nextConstantHelper];
   if (nextConstantHelper3)
   {
     nextConstantHelper4 = nextConstantHelper3;
-    v58 = 0;
+    v59 = 0;
     do
     {
       if (![objc_msgSend(nextConstantHelper4 "displayName")])
@@ -239,78 +234,78 @@ LABEL_26:
       }
 
       identifier2 = [nextConstantHelper4 identifier];
-      v60 = identifier2;
-      if (identifier2 > v58)
+      v61 = identifier2;
+      if (identifier2 > v59)
       {
-        v58 = identifier2;
+        v59 = identifier2;
       }
 
-      v104 = v58;
+      v103 = v59;
+      v106 = 0u;
       v107 = 0u;
       v108 = 0u;
       v109 = 0u;
-      v110 = 0u;
-      v61 = [v54 countByEnumeratingWithState:&v107 objects:v119 count:16];
-      if (v61)
+      v62 = [v55 countByEnumeratingWithState:&v106 objects:v118 count:16];
+      if (v62)
       {
-        v62 = v61;
-        v63 = 0;
-        v64 = *v108;
+        v63 = v62;
+        v64 = 0;
+        v65 = *v107;
         do
         {
-          for (k = 0; k != v62; ++k)
+          for (k = 0; k != v63; ++k)
           {
-            if (*v108 != v64)
+            if (*v107 != v65)
             {
-              objc_enumerationMutation(v54);
+              objc_enumerationMutation(v55);
             }
 
-            v66 = *(*(&v107 + 1) + 8 * k);
-            if (v60 == [objc_msgSend(v66 valueForKey:{@"identifier", "integerValue"}])
+            v67 = *(*(&v106 + 1) + 8 * k);
+            if (v61 == [objc_msgSend(v67 valueForKey:{@"identifier", "integerValue"}])
             {
-              if (v63 < 1)
+              if (v64 < 1)
               {
-                ++v63;
+                ++v64;
               }
 
               else
               {
-                v106 = v63 + 1;
-                v67 = [v66 valueForKey:@"constantName"];
-                TDSchemaLog(&cfstr_FoundExtraThem.isa, v68, v69, v70, v71, v72, v73, v74, v67);
-                v75 = [v54 objectAtIndex:{objc_msgSend(v54, "indexOfObject:", v66) - 1}];
-                v76 = v64;
-                v77 = v60;
-                v78 = [objc_msgSend(objc_msgSend(objc_msgSend(-[CoreThemeDocument managedObjectModel](self->_doc "managedObjectModel")];
-                v79 = MEMORY[0x277CCAC30];
-                name = [v78 name];
-                v80 = v79;
-                v60 = v77;
-                v64 = v76;
-                if (-[CoreThemeDocument countForEntity:withPredicate:](self->_doc, "countForEntity:withPredicate:", @"RenditionKeySpec", [v80 predicateWithFormat:@"%K = %@", name, v75]) <= 0)
+                v105 = v64 + 1;
+                v68 = [v67 valueForKey:@"constantName"];
+                TDSchemaLog(&cfstr_FoundExtraThem.isa, v69, v70, v71, v72, v73, v74, v75, v68, nameCopy);
+                v76 = [v55 objectAtIndex:{objc_msgSend(v55, "indexOfObject:", v67) - 1}];
+                v77 = v65;
+                v78 = v61;
+                v79 = [objc_msgSend(objc_msgSend(objc_msgSend(-[CoreThemeDocument managedObjectModel](self->_doc "managedObjectModel")];
+                v80 = MEMORY[0x277CCAC30];
+                name = [v79 name];
+                v81 = v80;
+                v61 = v78;
+                v65 = v77;
+                if (-[CoreThemeDocument countForEntity:withPredicate:](self->_doc, "countForEntity:withPredicate:", @"RenditionKeySpec", [v81 predicateWithFormat:@"%K = %@", name, v76]) <= 0)
                 {
-                  v81 = v75;
+                  v82 = v76;
                 }
 
                 else
                 {
-                  v81 = v66;
+                  v82 = v67;
                 }
 
-                [v55 addObject:v81];
-                v63 = v106;
+                [v56 addObject:v82];
+                v64 = v105;
               }
             }
           }
 
-          v62 = [v54 countByEnumeratingWithState:&v107 objects:v119 count:16];
+          v63 = [v55 countByEnumeratingWithState:&v106 objects:v118 count:16];
         }
 
-        while (v62);
+        while (v63);
       }
 
       nextConstantHelper4 = [obja nextConstantHelper];
-      v58 = v104;
+      v59 = v103;
     }
 
     while (nextConstantHelper4);
@@ -318,41 +313,39 @@ LABEL_26:
 
   else
   {
-    v58 = 0;
+    v59 = 0;
   }
 
-  v82 = [v54 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"identifier > %d", v58, v92, v93)}];
-  if ([v82 count] && (objc_msgSend(nameCopy, "isEqualToString:", @"EffectType") & 1) == 0 && (objc_msgSend(nameCopy, "isEqualToString:", @"EffectParameterType") & 1) == 0)
+  v83 = [v55 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"identifier > %d", v59)}];
+  if ([v83 count] && (objc_msgSend(nameCopy, "isEqualToString:", @"EffectType") & 1) == 0 && (objc_msgSend(nameCopy, "isEqualToString:", @"EffectParameterType") & 1) == 0)
   {
-    [v82 valueForKey:@"constantName"];
-    TDSchemaLog(&cfstr_RemovingExtraT.isa, v83, v84, v85, v86, v87, v88, v89, nameCopy);
-    [v55 addObjectsFromArray:v82];
+    v84 = [v83 valueForKey:@"constantName"];
+    TDSchemaLog(&cfstr_RemovingExtraT.isa, v85, v86, v87, v88, v89, v90, v91, nameCopy, v84);
+    [v56 addObjectsFromArray:v83];
   }
 
-  if ([v55 count])
+  if ([v56 count])
   {
-    [(CoreThemeDocument *)self->_doc deleteObjects:v55];
+    [(CoreThemeDocument *)self->_doc deleteObjects:v56];
     [-[TDPersistentDocument managedObjectContext](self->_doc "managedObjectContext")];
   }
-
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanityCheckMetafontSizeSelectorsAndUpdateIfNecessary
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"controlSize.identifier" ascending:1];
   selfCopy = self;
   obj = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", @"MetafontSizeSelector", [MEMORY[0x277CBEA60] arrayWithObject:v3]);
 
   v4 = [CoreThemeConstantEnumerator enumeratorForGlobalListAtAddress:MEMORY[0x277D02750]];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v53 = v4;
+  v52 = v4;
   nextConstantHelper = [v4 nextConstantHelper];
   if (nextConstantHelper)
   {
     nextConstantHelper2 = nextConstantHelper;
-    v52 = v5;
+    v51 = v5;
     while (1)
     {
       if (![objc_msgSend(nextConstantHelper2 "displayName")])
@@ -360,28 +353,28 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
-      v57 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
-      if (!v57)
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v56 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
+      if (!v56)
       {
         break;
       }
 
-      v58 = 0;
-      v56 = *v64;
+      v57 = 0;
+      v55 = *v63;
       do
       {
-        for (i = 0; i != v57; ++i)
+        for (i = 0; i != v56; ++i)
         {
-          if (*v64 != v56)
+          if (*v63 != v55)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v63 + 1) + 8 * i);
+          v9 = *(*(&v62 + 1) + 8 * i);
           v10 = [objc_msgSend(v9 "identifier")];
           v11 = [objc_msgSend(v9 "controlSize")];
           selectorName = [v9 selectorName];
@@ -393,39 +386,39 @@ LABEL_26:
           {
             if ([objc_msgSend(v9 "identifier")] != identifier)
             {
-              TDSchemaLog(&cfstr_UpdatingIdenti.isa, v17, v18, v19, v20, v21, v22, v23, v9);
+              TDSchemaLog(&cfstr_UpdatingIdenti.isa, v17, v18, v19, v20, v21, v22, v23, v9, identifier);
               [v9 setIdentifier:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", identifier)}];
             }
 
             if (identifier != v11)
             {
-              TDSchemaLog(&cfstr_UpdatingContro.isa, v17, v18, v19, v20, v21, v22, v23, v9);
+              TDSchemaLog(&cfstr_UpdatingContro.isa, v17, v18, v19, v20, v21, v22, v23, v9, identifier);
               [v9 setControlSize:{-[CoreThemeDocument sizeWithIdentifier:](selfCopy->_doc, "sizeWithIdentifier:", identifier)}];
             }
 
             if (([selectorName isEqualToString:label] & 1) == 0)
             {
-              TDSchemaLog(&cfstr_UpdatingSelect.isa, v24, v25, v26, v27, v28, v29, v30, v9);
+              TDSchemaLog(&cfstr_UpdatingSelect.isa, v24, v25, v26, v27, v28, v29, v30, v9, label);
               [v9 setSelectorName:label];
             }
 
-            ++v58;
+            ++v57;
             if (([displayName isEqualToString:displayName2] & 1) == 0)
             {
-              TDSchemaLog(&cfstr_UpdatingDispla_0.isa, v31, v32, v33, v34, v35, v36, v37, v9);
+              TDSchemaLog(&cfstr_UpdatingDispla_0.isa, v31, v32, v33, v34, v35, v36, v37, v9, displayName2);
               [v9 setDisplayName:displayName2];
             }
           }
         }
 
-        v57 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
+        v56 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
       }
 
-      while (v57);
-      if (v58 < 2)
+      while (v56);
+      if (v57 < 2)
       {
-        v5 = v52;
-        if (!v58)
+        v5 = v51;
+        if (!v57)
         {
           break;
         }
@@ -434,11 +427,11 @@ LABEL_26:
       else
       {
         NSLog(&cfstr_WarningDocumen.isa, nextConstantHelper2);
-        v5 = v52;
+        v5 = v51;
       }
 
 LABEL_26:
-      nextConstantHelper2 = [v53 nextConstantHelper];
+      nextConstantHelper2 = [v52 nextConstantHelper];
       if (!nextConstantHelper2)
       {
         goto LABEL_27;
@@ -453,32 +446,32 @@ LABEL_27:
   if ([v5 count])
   {
     TDSchemaLog(&cfstr_EntityMetafont.isa, v38, v39, v40, v41, v42, v43, v44, v5);
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    v45 = [v5 countByEnumeratingWithState:&v59 objects:v67 count:16];
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v45 = [v5 countByEnumeratingWithState:&v58 objects:v66 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v60;
+      v47 = *v59;
       do
       {
         for (j = 0; j != v46; ++j)
         {
-          if (*v60 != v47)
+          if (*v59 != v47)
           {
             objc_enumerationMutation(v5);
           }
 
-          v49 = *(*(&v59 + 1) + 8 * j);
+          v49 = *(*(&v58 + 1) + 8 * j);
           v50 = [(CoreThemeDocument *)selfCopy->_doc newObjectForEntity:@"MetafontSizeSelector"];
           [v50 setControlSize:{-[CoreThemeDocument sizeWithIdentifier:](selfCopy->_doc, "sizeWithIdentifier:", objc_msgSend(v49, "identifier"))}];
           [v50 setSelectorName:{objc_msgSend(v49, "label")}];
           [v50 setDisplayName:{objc_msgSend(v49, "displayName")}];
         }
 
-        v46 = [v5 countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v46 = [v5 countByEnumeratingWithState:&v58 objects:v66 count:16];
       }
 
       while (v46);
@@ -486,13 +479,11 @@ LABEL_27:
 
     [-[TDPersistentDocument managedObjectContext](selfCopy->_doc "managedObjectContext")];
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanityCheckColorNamesAndUpdateIfNecessary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [(CoreThemeDocument *)self->_doc allObjectsForEntity:@"ColorName" withSortDescriptors:0];
   v4 = objc_alloc_init(MEMORY[0x277CCAB58]);
   v5 = MEMORY[0x277D02730];
@@ -502,11 +493,11 @@ LABEL_27:
     do
     {
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v8 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (!v8)
       {
         goto LABEL_11;
@@ -514,20 +505,20 @@ LABEL_27:
 
       v9 = v8;
       v10 = 0;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v3);
           }
 
-          v10 += [v7 isEqualToString:{objc_msgSend(*(*(&v20 + 1) + 8 * i), "valueForKey:", @"displayName"}];
+          v10 += [v7 isEqualToString:{objc_msgSend(*(*(&v19 + 1) + 8 * i), "valueForKey:", @"displayName"}];
         }
 
-        v9 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -561,17 +552,15 @@ LABEL_11:
 
     [-[TDPersistentDocument managedObjectContext](selfCopy->_doc "managedObjectContext")];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanityCheckSchemaPartDefinitionsForStandardElement:(id *)element withElement:(id)withElement
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   v7 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"name" ascending:1];
   withElementCopy = withElement;
   parts = [withElement parts];
-  v86 = v7;
+  v87 = v7;
   v9 = [parts sortedArrayUsingDescriptors:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v7)}];
   selfCopy = self;
   v11 = [MEMORY[0x277D026E0] schemaForPlatform:{-[CoreThemeDocument targetPlatform](self->_doc, "targetPlatform")}];
@@ -579,9 +568,9 @@ LABEL_11:
   v13 = malloc_type_malloc(440 * v12, 0xBC29AAC7uLL);
   memcpy(v13, element->var4, 440 * v12);
   qsort_b(v13, v12, 0x1B8uLL, &__block_literal_global_5);
-  v88 = v12;
+  v89 = v12;
   obj = [MEMORY[0x277CBEB18] array];
-  v87 = v13;
+  v88 = v13;
   if (v12)
   {
     v14 = 0;
@@ -589,35 +578,35 @@ LABEL_11:
     {
       v15 = &v13[440 * v14];
       v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*v15];
-      v103 = 0u;
       v104 = 0u;
       v105 = 0u;
       v106 = 0u;
-      v17 = [v9 countByEnumeratingWithState:&v103 objects:v110 count:16];
+      v107 = 0u;
+      v17 = [v9 countByEnumeratingWithState:&v104 objects:v111 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v104;
+        v19 = *v105;
         while (2)
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v104 != v19)
+            if (*v105 != v19)
             {
               objc_enumerationMutation(v9);
             }
 
-            v21 = *(*(&v103 + 1) + 8 * i);
+            v21 = *(*(&v104 + 1) + 8 * i);
             if ([v16 isEqualToString:{objc_msgSend(v21, "name")}])
             {
               v22 = [v11 widgetNameForPartDefinition:v15];
-              v13 = v87;
+              v13 = v88;
               if (([v22 isEqualToString:{objc_msgSend(v21, "widgetID")}] & 1) == 0)
               {
                 name = [withElementCopy name];
-                [v21 name];
-                [v21 widgetID];
-                TDSchemaLog(&cfstr_UpdatingWidget.isa, v24, v25, v26, v27, v28, v29, v30, name);
+                name2 = [v21 name];
+                widgetID = [v21 widgetID];
+                TDSchemaLog(&cfstr_UpdatingWidget.isa, v26, v27, v28, v29, v30, v31, v32, name, name2, widgetID, v22);
                 [v21 setWidgetID:v22];
               }
 
@@ -627,13 +616,13 @@ LABEL_11:
             if ([v16 compare:{objc_msgSend(v21, "name")}] == -1)
             {
               [obj addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v15, 8, 0)}];
-              v13 = v87;
+              v13 = v88;
               goto LABEL_16;
             }
           }
 
-          v18 = [v9 countByEnumeratingWithState:&v103 objects:v110 count:16];
-          v13 = v87;
+          v18 = [v9 countByEnumeratingWithState:&v104 objects:v111 count:16];
+          v13 = v88;
           if (v18)
           {
             continue;
@@ -649,98 +638,98 @@ LABEL_16:
       ++v14;
     }
 
-    while (v14 != v88);
+    while (v14 != v89);
   }
 
   if ([obj count])
   {
-    name2 = [withElementCopy name];
-    TDSchemaLog(&cfstr_ElementWasMiss.isa, v32, v33, v34, v35, v36, v37, v38, name2);
+    name3 = [withElementCopy name];
+    TDSchemaLog(&cfstr_ElementWasMiss.isa, v34, v35, v36, v37, v38, v39, v40, name3);
   }
 
-  v101 = 0u;
   v102 = 0u;
-  v99 = 0u;
+  v103 = 0u;
   v100 = 0u;
-  v39 = [obj countByEnumeratingWithState:&v99 objects:v109 count:16];
-  if (v39)
+  v101 = 0u;
+  v41 = [obj countByEnumeratingWithState:&v100 objects:v110 count:16];
+  if (v41)
   {
-    v40 = v39;
-    v41 = *v100;
+    v42 = v41;
+    v43 = *v101;
     do
     {
-      for (j = 0; j != v40; ++j)
+      for (j = 0; j != v42; ++j)
       {
-        if (*v100 != v41)
+        if (*v101 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        bytes = [*(*(&v99 + 1) + 8 * j) bytes];
-        v44 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*bytes];
-        v45 = [v11 widgetNameForPartDefinition:bytes];
-        TDSchemaLog(&cfstr_AddingPart.isa, v46, v47, v48, v49, v50, v51, v52, v44);
-        v53 = [(CoreThemeDocument *)selfCopy->_doc newObjectForEntity:@"SchemaPartDefinition"];
-        [v53 setName:v44];
-        [v53 setWidgetID:v45];
-        [v53 setElement:withElementCopy];
-        [v53 updateDerivedRenditionData];
+        bytes = [*(*(&v100 + 1) + 8 * j) bytes];
+        v46 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*bytes];
+        v47 = [v11 widgetNameForPartDefinition:bytes];
+        TDSchemaLog(&cfstr_AddingPart.isa, v48, v49, v50, v51, v52, v53, v54, v46);
+        v55 = [(CoreThemeDocument *)selfCopy->_doc newObjectForEntity:@"SchemaPartDefinition"];
+        [v55 setName:v46];
+        [v55 setWidgetID:v47];
+        [v55 setElement:withElementCopy];
+        [v55 updateDerivedRenditionData];
       }
 
-      v40 = [obj countByEnumeratingWithState:&v99 objects:v109 count:16];
+      v42 = [obj countByEnumeratingWithState:&v100 objects:v110 count:16];
     }
 
-    while (v40);
+    while (v42);
   }
 
   array = [MEMORY[0x277CBEB18] array];
   parts2 = [withElementCopy parts];
-  v56 = [parts2 sortedArrayUsingDescriptors:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v86)}];
+  v58 = [parts2 sortedArrayUsingDescriptors:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v87)}];
 
-  if ([v56 count] > v88)
+  if ([v58 count] > v89)
   {
-    name3 = [withElementCopy name];
-    TDSchemaLog(&cfstr_DocumentContai.isa, v58, v59, v60, v61, v62, v63, v64, name3);
-    v97 = 0u;
+    name4 = [withElementCopy name];
+    TDSchemaLog(&cfstr_DocumentContai.isa, v60, v61, v62, v63, v64, v65, v66, name4);
     v98 = 0u;
-    v95 = 0u;
+    v99 = 0u;
     v96 = 0u;
-    v65 = [v56 countByEnumeratingWithState:&v95 objects:v108 count:16];
-    if (v65)
+    v97 = 0u;
+    v67 = [v58 countByEnumeratingWithState:&v96 objects:v109 count:16];
+    if (v67)
     {
-      v66 = v65;
-      v67 = 0;
-      v68 = *v96;
-LABEL_29:
+      v68 = v67;
       v69 = 0;
+      v70 = *v97;
+LABEL_29:
+      v71 = 0;
       while (1)
       {
-        if (*v96 != v68)
+        if (*v97 != v70)
         {
-          objc_enumerationMutation(v56);
+          objc_enumerationMutation(v58);
         }
 
-        if (v67 > v88)
+        if (v69 > v89)
         {
           break;
         }
 
-        v70 = *(*(&v95 + 1) + 8 * v69);
-        v71 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*&v87[440 * v67]];
-        if ([v71 isEqualToString:{objc_msgSend(v70, "name")}])
+        v72 = *(*(&v96 + 1) + 8 * v71);
+        v73 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*&v88[440 * v69]];
+        if ([v73 isEqualToString:{objc_msgSend(v72, "name")}])
         {
-          ++v67;
+          ++v69;
         }
 
         else
         {
-          [array addObject:v70];
+          [array addObject:v72];
         }
 
-        if (v66 == ++v69)
+        if (v68 == ++v71)
         {
-          v66 = [v56 countByEnumeratingWithState:&v95 objects:v108 count:16];
-          if (v66)
+          v68 = [v58 countByEnumeratingWithState:&v96 objects:v109 count:16];
+          if (v68)
           {
             goto LABEL_29;
           }
@@ -750,44 +739,42 @@ LABEL_29:
       }
     }
 
-    v93 = 0u;
     v94 = 0u;
-    v91 = 0u;
+    v95 = 0u;
     v92 = 0u;
-    v72 = [array countByEnumeratingWithState:&v91 objects:v107 count:16];
-    if (v72)
+    v93 = 0u;
+    v74 = [array countByEnumeratingWithState:&v92 objects:v108 count:16];
+    if (v74)
     {
-      v73 = v72;
-      v74 = *v92;
+      v75 = v74;
+      v76 = *v93;
       do
       {
-        for (k = 0; k != v73; ++k)
+        for (k = 0; k != v75; ++k)
         {
-          if (*v92 != v74)
+          if (*v93 != v76)
           {
             objc_enumerationMutation(array);
           }
 
-          v76 = *(*(&v91 + 1) + 8 * k);
-          name4 = [v76 name];
-          TDSchemaLog(&cfstr_DeletingPart.isa, v78, v79, v80, v81, v82, v83, v84, name4);
-          [withElementCopy removePartsObject:v76];
-          [(CoreThemeDocument *)selfCopy->_doc deleteObject:v76];
+          v78 = *(*(&v92 + 1) + 8 * k);
+          name5 = [v78 name];
+          TDSchemaLog(&cfstr_DeletingPart.isa, v80, v81, v82, v83, v84, v85, v86, name5);
+          [withElementCopy removePartsObject:v78];
+          [(CoreThemeDocument *)selfCopy->_doc deleteObject:v78];
         }
 
-        v73 = [array countByEnumeratingWithState:&v91 objects:v107 count:16];
+        v75 = [array countByEnumeratingWithState:&v92 objects:v108 count:16];
       }
 
-      while (v73);
+      while (v75);
     }
   }
 
-  if (v87)
+  if (v88)
   {
-    free(v87);
+    free(v88);
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSchemaPartDefinitionsForStandardElement:(id *)element withElement:(id)withElement
@@ -818,33 +805,33 @@ LABEL_29:
 
 - (void)_sanityCheckSchemaCategoriesAndUpdateIfNecessary
 {
-  v75 = *MEMORY[0x277D85DE8];
-  TDSchemaLog(&cfstr_SynchronizingS.isa, a2, v2, v3, v4, v5, v6, v7, v61);
+  v74 = *MEMORY[0x277D85DE8];
+  TDSchemaLog(&cfstr_SynchronizingS.isa, a2, v2, v3, v4, v5, v6, v7);
   v9 = [(CoreThemeDocument *)self->_doc allObjectsForEntity:@"SchemaCategory" withSortDescriptors:0];
   selfCopy = self;
   v10 = [MEMORY[0x277D026E0] schemaForPlatform:{-[CoreThemeDocument targetPlatform](self->_doc, "targetPlatform")}];
   elementCategoryCount = [v10 elementCategoryCount];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   obj = v9;
-  v12 = [v9 countByEnumeratingWithState:&v69 objects:v74 count:16];
+  v12 = [v9 countByEnumeratingWithState:&v68 objects:v73 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v70;
+    v14 = *v69;
     do
     {
       v15 = 0;
       do
       {
-        if (*v70 != v14)
+        if (*v69 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v69 + 1) + 8 * v15);
+        v16 = *(*(&v68 + 1) + 8 * v15);
         if (elementCategoryCount)
         {
           v17 = 0;
@@ -862,11 +849,12 @@ LABEL_29:
             }
           }
 
-          if (*v18 != [v16 identifier])
+          identifier = [v16 identifier];
+          if (*v18 != identifier)
           {
+            v36 = identifier;
             constantName = [v16 constantName];
-            v62 = *v18;
-            TDSchemaLog(&cfstr_UpdatingIdenti_0.isa, v36, v37, v38, v39, v40, v41, v42, constantName);
+            TDSchemaLog(&cfstr_UpdatingIdenti_0.isa, v38, v39, v40, v41, v42, v43, v44, constantName, v36, *v18);
             [v16 setIdentifier:*v18];
           }
         }
@@ -886,46 +874,46 @@ LABEL_10:
       }
 
       while (v15 != v13);
-      v43 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
-      v13 = v43;
+      v45 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
+      v13 = v45;
     }
 
-    while (v43);
+    while (v45);
   }
 
   if (elementCategoryCount)
   {
     for (i = 0; i != elementCategoryCount; ++i)
     {
-      v45 = [v10 elementCategoryAtIndex:i];
-      v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(v45 + 1)];
+      v47 = [v10 elementCategoryAtIndex:i];
+      v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(v47 + 1)];
+      v64 = 0u;
       v65 = 0u;
       v66 = 0u;
       v67 = 0u;
-      v68 = 0u;
-      v47 = [obj countByEnumeratingWithState:&v65 objects:v73 count:16];
-      if (v47)
+      v49 = [obj countByEnumeratingWithState:&v64 objects:v72 count:16];
+      if (v49)
       {
-        v48 = v47;
-        v49 = *v66;
+        v50 = v49;
+        v51 = *v65;
 LABEL_20:
-        v50 = 0;
+        v52 = 0;
         while (1)
         {
-          if (*v66 != v49)
+          if (*v65 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          if ([objc_msgSend(*(*(&v65 + 1) + 8 * v50) "constantName")])
+          if ([objc_msgSend(*(*(&v64 + 1) + 8 * v52) "constantName")])
           {
             break;
           }
 
-          if (v48 == ++v50)
+          if (v50 == ++v52)
           {
-            v48 = [obj countByEnumeratingWithState:&v65 objects:v73 count:16];
-            if (v48)
+            v50 = [obj countByEnumeratingWithState:&v64 objects:v72 count:16];
+            if (v50)
             {
               goto LABEL_20;
             }
@@ -938,101 +926,98 @@ LABEL_20:
       else
       {
 LABEL_26:
-        v51 = [(CoreThemeDocument *)selfCopy->_doc newObjectForEntity:@"SchemaCategory"];
-        [v51 setIdentifier:*v45];
-        [v51 setDisplayName:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", *(v45 + 2))}];
-        [v51 setConstantName:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", *(v45 + 1))}];
-        displayName3 = [v51 displayName];
-        TDSchemaLog(&cfstr_AddedMissingCa.isa, v53, v54, v55, v56, v57, v58, v59, displayName3);
+        v53 = [(CoreThemeDocument *)selfCopy->_doc newObjectForEntity:@"SchemaCategory"];
+        [v53 setIdentifier:*v47];
+        [v53 setDisplayName:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", *(v47 + 2))}];
+        [v53 setConstantName:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", *(v47 + 1))}];
+        displayName3 = [v53 displayName];
+        TDSchemaLog(&cfstr_AddedMissingCa.isa, v55, v56, v57, v58, v59, v60, v61, displayName3);
       }
     }
   }
 
   [-[TDPersistentDocument managedObjectContext](selfCopy->_doc "managedObjectContext")];
   [(CoreThemeDocument *)selfCopy->_doc recacheThemeConstant:@"SchemaCategory"];
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanityCheckSchemaDefinitionsAndUpdateIfNecessary
 {
-  v131 = *MEMORY[0x277D85DE8];
-  TDSchemaLog(&cfstr_SynchronizingS_0.isa, a2, v2, v3, v4, v5, v6, v7, v93);
-  v94 = @"SchemaEffectDefinition";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:@"SchemaElementDefinition"];
+  v129 = *MEMORY[0x277D85DE8];
+  TDSchemaLog(&cfstr_SynchronizingS_0.isa, a2, v2, v3, v4, v5, v6, v7);
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"SchemaElementDefinition", @"SchemaEffectDefinition", @"SchemaMaterialDefinition", 0}];
   v10 = [MEMORY[0x277D026E0] schemaForPlatform:{-[CoreThemeDocument targetPlatform](self->_doc, "targetPlatform")}];
+  v120 = 0u;
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
-  v124 = 0u;
-  v125 = 0u;
   obj = v9;
-  v98 = [v9 countByEnumeratingWithState:&v122 objects:v130 count:16];
-  if (v98)
+  v96 = [v9 countByEnumeratingWithState:&v120 objects:v128 count:16];
+  if (v96)
   {
-    v97 = *v123;
-    v102 = v10;
+    v95 = *v121;
+    v100 = v10;
     do
     {
       v11 = 0;
       do
       {
-        if (*v123 != v97)
+        if (*v121 != v95)
         {
           objc_enumerationMutation(obj);
         }
 
-        v100 = v11;
-        v12 = *(*(&v122 + 1) + 8 * v11);
-        v99 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"name" ascending:1];
+        v98 = v11;
+        v12 = *(*(&v120 + 1) + 8 * v11);
+        v97 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"name" ascending:1];
         v13 = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", v12, [MEMORY[0x277CBEA60] arrayWithObject:?]);
         array = [MEMORY[0x277CBEB18] array];
-        v103 = NSClassFromString([objc_msgSend(objc_msgSend(-[CoreThemeDocument managedObjectModel](self->_doc "managedObjectModel")]);
-        v105 = [(objc_class *)v103 elementDefinitionCountWithSchema:v10];
-        if (v105)
+        v101 = NSClassFromString([objc_msgSend(objc_msgSend(-[CoreThemeDocument managedObjectModel](self->_doc "managedObjectModel")]);
+        v103 = [(objc_class *)v101 elementDefinitionCountWithSchema:v10];
+        if (v103)
         {
-          for (i = 0; i != v105; ++i)
+          for (i = 0; i != v103; ++i)
           {
-            v104 = [(objc_class *)v103 sortedElementDefinitionAtIndex:i withSchema:v10];
-            v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*v104];
+            v102 = [(objc_class *)v101 sortedElementDefinitionAtIndex:i withSchema:v10];
+            v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*v102];
+            v116 = 0u;
+            v117 = 0u;
             v118 = 0u;
             v119 = 0u;
-            v120 = 0u;
-            v121 = 0u;
-            v17 = [v13 countByEnumeratingWithState:&v118 objects:v129 count:16];
+            v17 = [v13 countByEnumeratingWithState:&v116 objects:v127 count:16];
             if (v17)
             {
               v18 = v17;
-              v19 = *v119;
+              v19 = *v117;
               while (2)
               {
                 for (j = 0; j != v18; ++j)
                 {
-                  if (*v119 != v19)
+                  if (*v117 != v19)
                   {
                     objc_enumerationMutation(v13);
                   }
 
-                  v21 = *(*(&v118 + 1) + 8 * j);
+                  v21 = *(*(&v116 + 1) + 8 * j);
                   if ([v16 isEqualToString:{objc_msgSend(v21, "name")}])
                   {
-                    [(TDThemeSchema *)self _sanityCheckSchemaPartDefinitionsForStandardElement:v104 withElement:v21];
-                    v10 = v102;
-                    v22 = [v102 categoryForElementDefinition:v104];
-                    v101 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v22[1]];
-                    if (([v101 isEqualToString:{objc_msgSend(objc_msgSend(v21, "category"), "constantName")}] & 1) == 0)
+                    [(TDThemeSchema *)self _sanityCheckSchemaPartDefinitionsForStandardElement:v102 withElement:v21];
+                    v10 = v100;
+                    v22 = [v100 categoryForElementDefinition:v102];
+                    v99 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v22[1]];
+                    if (([v99 isEqualToString:{objc_msgSend(objc_msgSend(v21, "category"), "constantName")}] & 1) == 0)
                     {
                       v23 = [(CoreThemeDocument *)self->_doc schemaCategoryWithIdentifier:*v22];
                       name = [v21 name];
-                      [objc_msgSend(v21 "category")];
-                      TDSchemaLog(&cfstr_UpdatingCatego.isa, v25, v26, v27, v28, v29, v30, v31, name);
+                      v25 = [objc_msgSend(v21 "category")];
+                      TDSchemaLog(&cfstr_UpdatingCatego.isa, v26, v27, v28, v29, v30, v31, v32, name, v25, v99);
                       [v21 setCategory:v23];
                     }
 
-                    if (*(v104 + 16) != [v21 published])
+                    if (*(v102 + 16) != [v21 published])
                     {
-                      [v21 published];
-                      v95 = *(v104 + 16);
-                      TDSchemaLog(&cfstr_UpdatingPublis.isa, v32, v33, v34, v35, v36, v37, v38, v21);
-                      [v21 setPublished:*(v104 + 16)];
+                      published = [v21 published];
+                      TDSchemaLog(&cfstr_UpdatingPublis.isa, v34, v35, v36, v37, v38, v39, v40, v21, published, *(v102 + 16));
+                      [v21 setPublished:*(v102 + 16)];
                     }
 
                     goto LABEL_23;
@@ -1040,14 +1025,14 @@ LABEL_26:
 
                   if ([v16 compare:{objc_msgSend(v21, "name")}] == -1)
                   {
-                    [array addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v104, 8, 0)}];
-                    v10 = v102;
+                    [array addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v102, 8, 0)}];
+                    v10 = v100;
                     goto LABEL_23;
                   }
                 }
 
-                v18 = [v13 countByEnumeratingWithState:&v118 objects:v129 count:16];
-                v10 = v102;
+                v18 = [v13 countByEnumeratingWithState:&v116 objects:v127 count:16];
+                v10 = v100;
                 if (v18)
                 {
                   continue;
@@ -1057,156 +1042,154 @@ LABEL_26:
               }
             }
 
-            [array addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v104, 8, 0)}];
+            [array addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v102, 8, 0)}];
 LABEL_23:
           }
         }
 
         if ([array count])
         {
-          TDSchemaLog(&cfstr_DocumentIsMiss.isa, v39, v40, v41, v42, v43, v44, v45, v94);
+          TDSchemaLog(&cfstr_DocumentIsMiss.isa, v41, v42, v43, v44, v45, v46, v47);
         }
 
-        v116 = 0u;
-        v117 = 0u;
         v114 = 0u;
         v115 = 0u;
-        v46 = [array countByEnumeratingWithState:&v114 objects:v128 count:16];
-        if (v46)
+        v112 = 0u;
+        v113 = 0u;
+        v48 = [array countByEnumeratingWithState:&v112 objects:v126 count:16];
+        if (v48)
         {
-          v47 = v46;
-          v48 = *v115;
+          v49 = v48;
+          v50 = *v113;
           do
           {
-            for (k = 0; k != v47; ++k)
+            for (k = 0; k != v49; ++k)
             {
-              if (*v115 != v48)
+              if (*v113 != v50)
               {
                 objc_enumerationMutation(array);
               }
 
-              bytes = [*(*(&v114 + 1) + 8 * k) bytes];
-              v51 = [(CoreThemeDocument *)self->_doc schemaCategoryWithIdentifier:*(bytes + 24)];
-              v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:*bytes];
-              constantName = [v51 constantName];
-              TDSchemaLog(&stru_2859A0D98.isa, v54, v55, v56, v57, v58, v59, v60, constantName);
-              v61 = [(CoreThemeDocument *)self->_doc newObjectForEntity:v12];
-              [v61 setName:v52];
-              [v61 setPublished:*(bytes + 16)];
-              [v61 setCategory:v51];
-              [(TDThemeSchema *)self _addSchemaPartDefinitionsForStandardElement:bytes withElement:v61];
+              bytes = [*(*(&v112 + 1) + 8 * k) bytes];
+              v53 = [(CoreThemeDocument *)self->_doc schemaCategoryWithIdentifier:*(bytes + 24)];
+              v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:*bytes];
+              constantName = [v53 constantName];
+              TDSchemaLog(&stru_2859A0D98.isa, v56, v57, v58, v59, v60, v61, v62, constantName, v54);
+              v63 = [(CoreThemeDocument *)self->_doc newObjectForEntity:v12];
+              [v63 setName:v54];
+              [v63 setPublished:*(bytes + 16)];
+              [v63 setCategory:v53];
+              [(TDThemeSchema *)self _addSchemaPartDefinitionsForStandardElement:bytes withElement:v63];
             }
 
-            v47 = [array countByEnumeratingWithState:&v114 objects:v128 count:16];
+            v49 = [array countByEnumeratingWithState:&v112 objects:v126 count:16];
           }
 
-          while (v47);
+          while (v49);
         }
 
-        v62 = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", v12, [MEMORY[0x277CBEA60] arrayWithObject:v99]);
+        v64 = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self->_doc, "allObjectsForEntity:withSortDescriptors:", v12, [MEMORY[0x277CBEA60] arrayWithObject:v97]);
 
-        v10 = v102;
-        if ([v62 count] > v105)
+        v10 = v100;
+        if ([v64 count] > v103)
         {
-          TDSchemaLog(&cfstr_DocumentContai_0.isa, v63, v64, v65, v66, v67, v68, v69, v94);
+          TDSchemaLog(&cfstr_DocumentContai_0.isa, v65, v66, v67, v68, v69, v70, v71);
           array2 = [MEMORY[0x277CBEB18] array];
+          v108 = 0u;
+          v109 = 0u;
           v110 = 0u;
           v111 = 0u;
-          v112 = 0u;
-          v113 = 0u;
-          v71 = [v62 countByEnumeratingWithState:&v110 objects:v127 count:16];
-          if (v71)
+          v73 = [v64 countByEnumeratingWithState:&v108 objects:v125 count:16];
+          if (v73)
           {
-            v72 = v71;
-            v73 = 0;
-            v74 = *v111;
+            v74 = v73;
+            v75 = 0;
+            v76 = *v109;
             do
             {
-              for (m = 0; m != v72; ++m)
+              for (m = 0; m != v74; ++m)
               {
-                if (*v111 != v74)
+                if (*v109 != v76)
                 {
-                  objc_enumerationMutation(v62);
+                  objc_enumerationMutation(v64);
                 }
 
-                v76 = *(*(&v110 + 1) + 8 * m);
-                if (v73 >= v105)
+                v78 = *(*(&v108 + 1) + 8 * m);
+                if (v75 >= v103)
                 {
-                  [array2 addObject:*(*(&v110 + 1) + 8 * m)];
+                  [array2 addObject:*(*(&v108 + 1) + 8 * m)];
                 }
 
                 else
                 {
-                  v77 = [v102 sortedElementDefinitionAtIndex:v73];
-                  if (*v77)
+                  v79 = [v100 sortedElementDefinitionAtIndex:v75];
+                  if (*v79)
                   {
-                    v78 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*v77];
-                    if ([v78 isEqualToString:{objc_msgSend(v76, "name")}])
+                    v80 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:*v79];
+                    if ([v80 isEqualToString:{objc_msgSend(v78, "name")}])
                     {
-                      ++v73;
+                      ++v75;
                     }
 
                     else
                     {
-                      [array2 addObject:v76];
+                      [array2 addObject:v78];
                     }
                   }
                 }
               }
 
-              v72 = [v62 countByEnumeratingWithState:&v110 objects:v127 count:16];
+              v74 = [v64 countByEnumeratingWithState:&v108 objects:v125 count:16];
             }
 
-            while (v72);
+            while (v74);
           }
 
-          v108 = 0u;
-          v109 = 0u;
           v106 = 0u;
           v107 = 0u;
-          v79 = [array2 countByEnumeratingWithState:&v106 objects:v126 count:16];
-          if (v79)
+          v104 = 0u;
+          v105 = 0u;
+          v81 = [array2 countByEnumeratingWithState:&v104 objects:v124 count:16];
+          if (v81)
           {
-            v80 = v79;
-            v81 = *v107;
+            v82 = v81;
+            v83 = *v105;
             do
             {
-              for (n = 0; n != v80; ++n)
+              for (n = 0; n != v82; ++n)
               {
-                if (*v107 != v81)
+                if (*v105 != v83)
                 {
                   objc_enumerationMutation(array2);
                 }
 
-                v83 = *(*(&v106 + 1) + 8 * n);
-                name2 = [v83 name];
-                TDSchemaLog(&cfstr_DeletingElemen.isa, v85, v86, v87, v88, v89, v90, v91, name2);
-                [(CoreThemeDocument *)self->_doc deleteObject:v83];
+                v85 = *(*(&v104 + 1) + 8 * n);
+                name2 = [v85 name];
+                TDSchemaLog(&cfstr_DeletingElemen.isa, v87, v88, v89, v90, v91, v92, v93, name2);
+                [(CoreThemeDocument *)self->_doc deleteObject:v85];
               }
 
-              v80 = [array2 countByEnumeratingWithState:&v106 objects:v126 count:16];
+              v82 = [array2 countByEnumeratingWithState:&v104 objects:v124 count:16];
             }
 
-            while (v80);
+            while (v82);
           }
         }
 
-        v11 = v100 + 1;
+        v11 = v98 + 1;
       }
 
-      while (v100 + 1 != v98);
-      v98 = [obj countByEnumeratingWithState:&v122 objects:v130 count:16];
+      while (v98 + 1 != v96);
+      v96 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
     }
 
-    while (v98);
+    while (v96);
   }
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanityCheckEffectRenditionsAndUpdateIfNecessary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   targetPlatform = [(CoreThemeDocument *)self->_doc targetPlatform];
   if (targetPlatform <= 5 && ((1 << targetPlatform) & 0x3A) != 0)
   {
@@ -1216,25 +1199,25 @@ LABEL_23:
       if ([v5 intValue] <= 43)
       {
         v6 = [(CoreThemeDocument *)self->_doc allObjectsForEntity:@"EffectRenditionSpec" withSortDescriptors:0];
+        v13 = 0u;
         v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
-        v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v15;
+          v9 = *v14;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v15 != v9)
+              if (*v14 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v14 + 1) + 8 * i);
+              v11 = *(*(&v13 + 1) + 8 * i);
               [objc_msgSend(v11 "effectScale")];
               if (*&v12 < 2.0)
               {
@@ -1243,7 +1226,7 @@ LABEL_23:
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
           }
 
           while (v8);
@@ -1251,48 +1234,45 @@ LABEL_23:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanityCheckMicaRenditionsAndUpdateIfNecessary
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = [(CoreThemeDocument *)self->_doc allObjectsForEntity:@"MicaElementProduction" withSortDescriptors:0];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if ([objc_msgSend(v9 "asset")] >= 2)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   [(CoreThemeDocument *)self->_doc deleteProductions:v3 shouldDeleteAssetFiles:1];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_renditionKey:(const _renditionkeytoken *)key isEqualToKeyIgnoringLook:(const _renditionkeytoken *)look
@@ -1304,119 +1284,119 @@ LABEL_23:
 
 - (void)_sanityCheckSchemaAssets
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v3 = [(CoreThemeDocument *)self->_doc allObjectsForEntity:@"SchemaElementProduction" withSortDescriptors:0];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   obj = v3;
-  v43 = [v3 countByEnumeratingWithState:&v65 objects:v72 count:16];
-  if (v43)
+  v42 = [v3 countByEnumeratingWithState:&v64 objects:v71 count:16];
+  if (v42)
   {
-    v42 = *v66;
+    v41 = *v65;
     do
     {
       v4 = 0;
       do
       {
-        if (*v66 != v42)
+        if (*v65 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v4;
-        v5 = *(*(&v65 + 1) + 8 * v4);
+        v43 = v4;
+        v5 = *(*(&v64 + 1) + 8 * v4);
         v6 = [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v5 "renditions")];
         partDefinition = [v5 partDefinition];
         renditionGroups = [partDefinition renditionGroups];
+        v60 = 0u;
         v61 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v64 = 0u;
-        v8 = [renditionGroups countByEnumeratingWithState:&v61 objects:v71 count:16];
+        v8 = [renditionGroups countByEnumeratingWithState:&v60 objects:v70 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v62;
+          v10 = *v61;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v62 != v10)
+              if (*v61 != v10)
               {
                 objc_enumerationMutation(renditionGroups);
               }
 
-              v12 = *(*(&v61 + 1) + 8 * i);
+              v12 = *(*(&v60 + 1) + 8 * i);
               if (-[TDThemeSchema _renditionKey:isEqualToKeyIgnoringLook:](self, "_renditionKey:isEqualToKeyIgnoringLook:", [objc_msgSend(v12 "baseKey")], objc_msgSend(objc_msgSend(v5, "baseKeySpec"), "key")))
               {
                 defaultManager = [MEMORY[0x277CCAA00] defaultManager];
                 v14 = [(CoreThemeDocument *)self->_doc defaultPathComponentsForPartDefinition:partDefinition];
                 v15 = -[CoreThemeDocument folderNameFromRenditionKey:forPartDefinition:](self->_doc, "folderNameFromRenditionKey:forPartDefinition:", [v12 baseKey], partDefinition);
-                v46 = [v14 stringByAppendingPathComponent:v15];
+                v45 = [v14 stringByAppendingPathComponent:v15];
                 if (([objc_msgSend(v5 "folderName")] & 1) == 0)
                 {
                   [v5 setFolderName:v15];
                 }
 
-                v16 = [objc_msgSend(objc_msgSend(objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:{-[CoreThemeDocument rootPathForProductionData](self->_doc, "rootPathForProductionData")), "URLByAppendingPathComponent:", v6), "URLByAppendingPathComponent:", v46}];
+                v16 = [objc_msgSend(objc_msgSend(objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:{-[CoreThemeDocument rootPathForProductionData](self->_doc, "rootPathForProductionData")), "URLByAppendingPathComponent:", v6), "URLByAppendingPathComponent:", v45}];
                 if (![objc_msgSend(v16 "path")])
                 {
                   [(TDThemeSchema *)a2 _sanityCheckSchemaAssets];
                 }
 
-                v47 = v16;
-                v48 = defaultManager;
+                v46 = v16;
+                v47 = defaultManager;
                 if (([defaultManager fileExistsAtPath:{objc_msgSend(v16, "path")}] & 1) != 0 || objc_msgSend(defaultManager, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", v16, 1, 0, 0))
                 {
-                  v59 = 0u;
-                  v60 = 0u;
-                  v57 = 0u;
                   v58 = 0u;
+                  v59 = 0u;
+                  v56 = 0u;
+                  v57 = 0u;
                   renditions = [v5 renditions];
-                  v51 = [renditions countByEnumeratingWithState:&v57 objects:v70 count:16];
-                  if (v51)
+                  v50 = [renditions countByEnumeratingWithState:&v56 objects:v69 count:16];
+                  if (v50)
                   {
-                    v50 = *v58;
+                    v49 = *v57;
                     while (1)
                     {
-                      for (j = 0; j != v51; ++j)
+                      for (j = 0; j != v50; ++j)
                       {
-                        if (*v58 != v50)
+                        if (*v57 != v49)
                         {
                           objc_enumerationMutation(renditions);
                         }
 
-                        v18 = *(*(&v57 + 1) + 8 * j);
+                        v18 = *(*(&v56 + 1) + 8 * j);
+                        v52 = 0u;
                         v53 = 0u;
                         v54 = 0u;
                         v55 = 0u;
-                        v56 = 0u;
                         v19 = v12;
                         renditions2 = [v12 renditions];
-                        v21 = [renditions2 countByEnumeratingWithState:&v53 objects:v69 count:16];
+                        v21 = [renditions2 countByEnumeratingWithState:&v52 objects:v68 count:16];
                         if (!v21)
                         {
                           goto LABEL_48;
                         }
 
                         v22 = v21;
-                        v23 = *v54;
+                        v23 = *v53;
                         while (2)
                         {
                           for (k = 0; k != v22; ++k)
                           {
-                            if (*v54 != v23)
+                            if (*v53 != v23)
                             {
                               objc_enumerationMutation(renditions2);
                             }
 
-                            v25 = *(*(&v53 + 1) + 8 * k);
+                            v25 = *(*(&v52 + 1) + 8 * k);
                             if (-[TDThemeSchema _renditionKey:isEqualToKeyIgnoringLook:](self, "_renditionKey:isEqualToKeyIgnoringLook:", [v25 key], objc_msgSend(objc_msgSend(v18, "keySpec"), "key")))
                             {
                               v26 = [(CoreThemeDocument *)self->_doc defaultPNGFileNameForSchemaRendition:v25 withPartDefinition:partDefinition];
-                              v27 = [v48 fileExistsAtPath:{objc_msgSend(objc_msgSend(v47, "path"), "stringByAppendingPathComponent:", v26)}];
+                              v27 = [v47 fileExistsAtPath:{objc_msgSend(objc_msgSend(v46, "path"), "stringByAppendingPathComponent:", v26)}];
                               asset = [v18 asset];
                               if (v27)
                               {
@@ -1432,17 +1412,17 @@ LABEL_47:
                               }
 
                               v29 = [asset fileURLWithDocument:self->_doc];
-                              if ([v29 isEqual:{objc_msgSend(v47, "URLByAppendingPathComponent:", v26)}])
+                              if ([v29 isEqual:{objc_msgSend(v46, "URLByAppendingPathComponent:", v26)}])
                               {
                                 NSLog(&cfstr_MissingAsset.isa, [v29 path]);
                                 goto LABEL_48;
                               }
 
-                              v52 = 0uLL;
-                              if ([v48 fileExistsAtPath:{objc_msgSend(v29, "path")}])
+                              v51 = 0uLL;
+                              if ([v47 fileExistsAtPath:{objc_msgSend(v29, "path")}])
                               {
-                                [v48 copyItemAtURL:v29 toURL:objc_msgSend(v47 error:{"URLByAppendingPathComponent:", v26), &v52 + 8}];
-                                if (!*(&v52 + 1))
+                                [v47 copyItemAtURL:v29 toURL:objc_msgSend(v46 error:{"URLByAppendingPathComponent:", v26), &v51 + 8}];
+                                if (!*(&v51 + 1))
                                 {
                                   v30 = @"copied existing file to %@";
                                   goto LABEL_45;
@@ -1451,17 +1431,17 @@ LABEL_47:
 
                               else
                               {
-                                [(CoreThemeDocument *)self->_doc createReferencePNGForSchemaRendition:v25 withPartDefinition:partDefinition atLocation:v47 error:&v52];
-                                if (!v52)
+                                [(CoreThemeDocument *)self->_doc createReferencePNGForSchemaRendition:v25 withPartDefinition:partDefinition atLocation:v46 error:&v51];
+                                if (!v51)
                                 {
                                   v30 = @"wrote new reference file to %@";
 LABEL_45:
-                                  v31 = [objc_msgSend(v47 URLByAppendingPathComponent:{v26), "path"}];
+                                  v31 = [objc_msgSend(v46 URLByAppendingPathComponent:{v26), "path"}];
                                   TDSchemaLog(&v30->isa, v32, v33, v34, v35, v36, v37, v38, v31);
                                 }
                               }
 
-                              if (v52 != 0)
+                              if (v51 != 0)
                               {
                                 goto LABEL_48;
                               }
@@ -1470,7 +1450,7 @@ LABEL_45:
                             }
                           }
 
-                          v22 = [renditions2 countByEnumeratingWithState:&v53 objects:v69 count:16];
+                          v22 = [renditions2 countByEnumeratingWithState:&v52 objects:v68 count:16];
                           if (v22)
                           {
                             continue;
@@ -1483,8 +1463,8 @@ LABEL_48:
                         v12 = v19;
                       }
 
-                      v51 = [renditions countByEnumeratingWithState:&v57 objects:v70 count:16];
-                      if (!v51)
+                      v50 = [renditions countByEnumeratingWithState:&v56 objects:v69 count:16];
+                      if (!v50)
                       {
                         goto LABEL_50;
                       }
@@ -1496,7 +1476,7 @@ LABEL_48:
               }
             }
 
-            v9 = [renditionGroups countByEnumeratingWithState:&v61 objects:v71 count:16];
+            v9 = [renditionGroups countByEnumeratingWithState:&v60 objects:v70 count:16];
             if (v9)
             {
               continue;
@@ -1507,17 +1487,15 @@ LABEL_48:
         }
 
 LABEL_50:
-        v4 = v44 + 1;
+        v4 = v43 + 1;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
+      while (v43 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sanityCheckAndUpdateDocumentIfNecessary
@@ -1765,7 +1743,7 @@ LABEL_50:
   return 1;
 }
 
-uint64_t __55__TDThemeSchema_loadThemeConstantsForEntity_inContext___block_invoke()
+void *__55__TDThemeSchema_loadThemeConstantsForEntity_inContext___block_invoke()
 {
   result = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithPointer:", MEMORY[0x277D027C0]), @"ThemePresentationState", 0}];
   loadThemeConstantsForEntity_inContext__constantMappings = result;
@@ -2490,8 +2468,8 @@ uint64_t __55__TDThemeSchema_loadThemeConstantsForEntity_inContext___block_invok
               v11 = *(*(&v24 + 1) + 8 * j);
               [(CoreThemeDocument *)self->_doc createEffectStyleProductionForPartDefinition:v11];
               name = [v5 name];
-              [v11 name];
-              TDSchemaLog(&cfstr_CreatingCustom.isa, v13, v14, v15, v16, v17, v18, v19, name);
+              name2 = [v11 name];
+              TDSchemaLog(&cfstr_CreatingCustom.isa, v14, v15, v16, v17, v18, v19, v20, name, name2);
             }
 
             v8 = [parts countByEnumeratingWithState:&v24 objects:v32 count:16];
@@ -2506,8 +2484,6 @@ uint64_t __55__TDThemeSchema_loadThemeConstantsForEntity_inContext___block_invok
 
     while (v23);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadSchemaCategories

@@ -237,7 +237,7 @@
 
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   statusCopy = status;
   serviceCopy = service;
@@ -255,7 +255,7 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v21 = statusCopy;
+        v26 = statusCopy;
         _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_INFO, "Received IDS results while search is hidden. IDS destinatios to update: %@", buf, 0xCu);
       }
     }
@@ -273,15 +273,14 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v21 = statusCopy;
+        v26 = statusCopy;
         _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "Received batch IDS Query results in recipient list: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      v19 = statusCopy;
-      _CKLogExternal();
+      _CKLogExternal(0x13u, @"Received batch IDS Query results in recipient list: %@", v19, v20, v21, v22, v23, v24, statusCopy);
     }
 
     [(CNAutocompleteResultsTableViewController *)self invalidateAddressTintColors];
@@ -574,14 +573,14 @@ LABEL_7:
   {
     v7 = +[CKConversationList sharedConversationList];
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __62__CKRecipientSearchListController__serviceColorForRecipients___block_invoke_3;
-    v24 = &unk_1E72EC398;
-    selfCopy = self;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __62__CKRecipientSearchListController__serviceColorForRecipients___block_invoke_3;
+    v25[3] = &unk_1E72EC398;
+    v25[4] = self;
     v9 = v8;
     v26 = v9;
-    [v5 enumerateObjectsUsingBlock:&v21];
+    [v5 enumerateObjectsUsingBlock:v25];
     v10 = [v7 conversationForHandles:v9 displayName:0 joinedChatsOnly:1 create:0];
     v11 = v10;
     if (v10)
@@ -603,9 +602,7 @@ LABEL_7:
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
       {
-        v19 = v9;
-        v20 = sendingService;
-        _CKLogExternal();
+        _CKLogExternal(0x13u, @"Updating service color in recipient search list for handles: %@, with service: %@", v14, v15, v16, v17, v18, v19, v9);
       }
 
       __ck_displayColor = [sendingService __ck_displayColor];
@@ -620,10 +617,10 @@ LABEL_7:
     }
   }
 
-  v17 = *(v29 + 24);
+  v23 = *(v29 + 24);
 
   _Block_object_dispose(&v28, 8);
-  return v17;
+  return v23;
 }
 
 void __62__CKRecipientSearchListController__serviceColorForRecipients___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

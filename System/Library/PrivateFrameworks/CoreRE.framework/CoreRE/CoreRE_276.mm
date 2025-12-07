@@ -1,9832 +1,10382 @@
-void physx::NpShape::setFlag(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15)
+float *physx::Gu::distanceSegmentBoxSquared(float *result, float *a2, float *a3, float32x2_t *a4, float *a5, _DWORD *a6, float32x2_t *a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  if ((*(a1 + 56) & 0x40) != 0)
+  v16 = result;
+  v17 = 0;
+  v18 = result[1];
+  v19 = *a2 - *result;
+  v20 = a2[1] - v18;
+  v21 = result[2];
+  v22 = a2[2] - v21;
+  v23 = *result - *a3;
+  v24 = v18 - a3[1];
+  v25 = v21 - a3[2];
+  v26 = *a5;
+  v27 = a5[1];
+  v28 = a5[2];
+  v29 = a5[3];
+  *&v30 = ((v24 * v27) + (v23 * *a5)) + (v25 * v28);
+  v31 = a5[4];
+  v32 = a5[5];
+  *&v33 = ((v24 * v31) + (v23 * v29)) + (v25 * v32);
+  v34 = a5[6];
+  v35 = a5[7];
+  v36 = (v24 * v35) + (v23 * v34);
+  v37 = a5[8];
+  v64 = __PAIR64__(v33, v30);
+  v65 = v36 + (v25 * v37);
+  v61 = ((v20 * v27) + (v19 * v26)) + (v22 * v28);
+  v62 = ((v20 * v31) + (v19 * v29)) + (v22 * v32);
+  v63 = ((v20 * v35) + (v19 * v34)) + (v22 * v37);
+  do
   {
-    v17 = (*(a1 + 64) + 52);
-  }
-
-  else
-  {
-    v17 = (a1 + 144);
-  }
-
-  v23 = v15;
-  v24 = v16;
-  v18 = *v17;
-  v19 = v18 | a2;
-  v20 = v18 & ~a2;
-  if (a3)
-  {
-    v20 = v19;
-  }
-
-  v22 = v20;
-  physx::NpShape::setFlagsInternal(a1, &v22, a9, a10, a11, a12, a13, a14, a15, a3, a4, a5, a6, a7, a8, v21);
-}
-
-uint64_t physx::NpShape::getFlags@<X0>(uint64_t this@<X0>, _BYTE *a2@<X8>)
-{
-  if ((*(this + 56) & 0x40) != 0)
-  {
-    v2 = (*(this + 64) + 52);
-  }
-
-  else
-  {
-    v2 = (this + 144);
-  }
-
-  *a2 = *v2;
-  return this;
-}
-
-uint64_t physx::NpShape::getMeshRefCountable(physx::NpShape *this)
-{
-  v1 = this + 152;
-  v2 = *(this + 38);
-  switch(v2)
-  {
-    case 6:
-      if (*(this + 56))
-      {
-        v1 = (*(this + 8) + 64);
-      }
-
-      v3 = (v1 + 8);
-      break;
-    case 5:
-      if (*(this + 56))
-      {
-        v1 = (*(this + 8) + 64);
-      }
-
-      v3 = (v1 + 40);
-      break;
-    case 4:
-      if (*(this + 56))
-      {
-        v1 = (*(this + 8) + 64);
-      }
-
-      v3 = (v1 + 32);
-      break;
-    default:
-      return 0;
-  }
-
-  v4 = *v3;
-  if (v4)
-  {
-    return v4 + 16;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t physx::NpShapeManager::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  result = physx::Cm::PtrTable::exportExtraData(a1, a2);
-  v5 = *(a1 + 8);
-  if (v5 >= 2)
-  {
-    (*(*a2 + 24))(a2, 16);
-    do
+    v38 = *(&v61 + v17);
+    if (v38 >= 0.0)
     {
-      v6 = 0xFFFFFFFFLL;
-      result = (*(*a2 + 16))(a2, &v6, 8);
-      --v5;
+      v39 = 0;
     }
 
-    while (v5);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpShapeManager::importExtraData(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 8);
-  if (v2 >= 2)
-  {
-    v3 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-    *(a2 + 8) = v3 + 8 * v2;
-    *result = v3;
-  }
-
-  v4 = *(result + 24);
-  if (v4 >= 2)
-  {
-    v5 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-    *(a2 + 8) = v5 + 8 * v4;
-    *(result + 16) = v5;
-  }
-
-  return result;
-}
-
-uint64_t physx::NpShapeManager::attachShape(physx::NpShapeManager *this, physx::NpShape *a2, physx::PxRigidActor *a3)
-{
-  v6 = *(physx::NpFactory::mInstance + 832);
-  v7 = *(this + 4);
-  physx::Cm::PtrTable::add(this, a2, v6);
-  physx::Cm::PtrTable::add(this + 16, 0xFFFFFFFFLL, v6);
-  v19 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
-  if (((*(a3 + v19 + 8) >> 30) - 1) <= 1)
-  {
-    v20 = *(a3 + v19);
-    if (v20)
+    else
     {
-      v21 = (*(a2 + 8) + 52);
-      if ((*(a2 + 56) & 0x40) == 0)
+      v64.f32[v17] = -v64.f32[v17];
+      *(&v61 + v17) = -v38;
+      v39 = 1;
+    }
+
+    *(&v60[2] + ++v17) = v39;
+  }
+
+  while (v17 != 3);
+  *v60 = 0;
+  if (v61 <= 0.0)
+  {
+    if (v62 > 0.0)
+    {
+      v42 = 1;
+      if (v63 > 0.0)
       {
-        v21 = a2 + 144;
+        v43 = 0;
+        v44 = a4;
+        v45 = 2;
+LABEL_20:
+        result = case0(v42, v45, v43, &v64, &v61, v44, v60, &v60[1]);
+        goto LABEL_44;
       }
 
-      if ((*v21 & 2) != 0)
+      v46 = 0;
+      goto LABEL_23;
+    }
+
+    if (v63 > 0.0)
+    {
+      v42 = 2;
+      v46 = 0;
+      v47 = a4;
+      v48 = 1;
+LABEL_24:
+      result = case00(v42, v46, v48, &v64, &v61, v47, v60, &v60[1]);
+      goto LABEL_44;
+    }
+
+    v49 = a4->f32[0];
+    v50 = -a4->f32[0];
+    if (v64.f32[0] >= v50)
+    {
+      v51 = 0.0;
+      if (v64.f32[0] <= v49)
       {
-        physx::NpShapeManager::setupSceneQuery(this, (v20 + 8624), a3, v7, v12, v13, v14, v15, v16, v17, v18, v8, v9, v10, v11);
-        v19 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
+        goto LABEL_32;
       }
+
+      v51 = ((v64.f32[0] - v49) * (v64.f32[0] - v49)) + 0.0;
+      v50 = a4->f32[0];
+    }
+
+    else
+    {
+      v51 = ((v64.f32[0] + v49) * (v64.f32[0] + v49)) + 0.0;
+    }
+
+    *&v60[1] = v51;
+    v64.f32[0] = v50;
+LABEL_32:
+    v52 = a4->f32[1];
+    v53 = -v52;
+    if (v64.f32[1] >= -v52)
+    {
+      if (v64.f32[1] <= v52)
+      {
+        goto LABEL_37;
+      }
+
+      v51 = v51 + ((v64.f32[1] - v52) * (v64.f32[1] - v52));
+      v53 = a4->f32[1];
+    }
+
+    else
+    {
+      v51 = v51 + ((v64.f32[1] + v52) * (v64.f32[1] + v52));
+    }
+
+    *&v60[1] = v51;
+    v64.f32[1] = v53;
+LABEL_37:
+    v54 = a4[1].f32[0];
+    v55 = -v54;
+    if (v65 >= -v54)
+    {
+      if (v65 <= v54)
+      {
+LABEL_42:
+        v60[0] = 0;
+        goto LABEL_44;
+      }
+
+      v56 = v51 + ((v65 - v54) * (v65 - v54));
+      v55 = a4[1].f32[0];
+    }
+
+    else
+    {
+      v56 = v51 + ((v65 + v54) * (v65 + v54));
+    }
+
+    *&v60[1] = v56;
+    v65 = v55;
+    goto LABEL_42;
+  }
+
+  if (v62 <= 0.0)
+  {
+    v42 = 0;
+    if (v63 > 0.0)
+    {
+      v45 = 2;
+      v44 = a4;
+      v43 = 1;
+      goto LABEL_20;
+    }
+
+    v46 = 1;
+LABEL_23:
+    v47 = a4;
+    v48 = 2;
+    goto LABEL_24;
+  }
+
+  if (v63 <= 0.0)
+  {
+    v42 = 0;
+    v45 = 1;
+    v44 = a4;
+    v43 = 2;
+    goto LABEL_20;
+  }
+
+  v40 = v65 - a4[1].f32[0];
+  v41 = vsub_f32(v64, *a4);
+  v66 = v41;
+  v67 = v40;
+  if ((v62 * v41.f32[0]) >= vmuls_lane_f32(v61, v41, 1))
+  {
+    if ((v63 * v41.f32[0]) >= (v61 * v40))
+    {
+      result = face(0, 1u, 2u, &v64, &v61, a4, &v66, v60, &v60[1]);
+      goto LABEL_44;
+    }
+
+    goto LABEL_28;
+  }
+
+  if ((v63 * v41.f32[1]) < (v62 * v40))
+  {
+LABEL_28:
+    result = face(2, 0, 1u, &v64, &v61, a4, &v66, v60, &v60[1]);
+    goto LABEL_44;
+  }
+
+  result = face(1, 2u, 0, &v64, &v61, a4, &v66, v60, &v60[1]);
+LABEL_44:
+  for (i = 0; i != 3; ++i)
+  {
+    if (*(&v60[2] + i + 1) == 1)
+    {
+      v64.f32[i] = -v64.f32[i];
     }
   }
 
-  result = physx::Scb::RigidObject::onShapeAttach(a3 + v19, (a2 + 48));
-  atomic_fetch_add(a2 + 8, 1u);
-  if ((*(a2 + 66) & 0x80000000) != 0)
+  if (*v60 < 0.0)
   {
-    *(a2 + 5) = a3;
-  }
-
-  atomic_fetch_add(a2 + 66, 1u);
-  return result;
-}
-
-uint64_t physx::NpShapeManager::setupSceneQuery(physx::NpShapeManager *this, physx::Sq::SceneQueryManager *a2, const physx::PxRigidActor *a3, unsigned int a4, float32x4_t a5, double a6, double a7, double a8, double a9, double a10, int32x4_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
-{
-  v17 = this;
-  if (*(this + 4) != 1)
-  {
-    v17 = *this;
-  }
-
-  result = physx::Sq::SceneQueryManager::addPrunerShape(a2, *(v17 + a4) + 48, a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18), (*(a3 + 4) & 0xFFF7) == 5, *(this + 8), 0, 0, a15, a5, a6, a7, a8, a9, a10, a11);
-  v19 = (this + 16);
-  if (*(this + 12) != 1)
-  {
-    v19 = *v19;
-  }
-
-  v19[a4] = result;
-  return result;
-}
-
-uint64_t physx::Scb::RigidObject::onShapeAttach(uint64_t this, physx::Scb::Shape *a2)
-{
-  v2 = *(this + 8);
-  if (v2 >> 30)
-  {
-    v4 = this;
-    v5 = *this;
-    if (*(*this + 7689))
+    if (a6)
     {
-      if (v2 >> 30 != 1)
+      *a6 = 0;
+    }
+
+    v58 = v16;
+    return physx::Gu::distancePointBoxSquared(v58, a3, a4, a5, a7);
+  }
+
+  if (*v60 > 1.0)
+  {
+    if (a6)
+    {
+      *a6 = 1065353216;
+    }
+
+    v58 = a2;
+    return physx::Gu::distancePointBoxSquared(v58, a3, a4, a5, a7);
+  }
+
+  if (a6)
+  {
+    *a6 = v60[0];
+  }
+
+  if (a7)
+  {
+    v59 = LODWORD(v65);
+    *a7 = v64;
+    a7[1].i32[0] = v59;
+  }
+
+  return result;
+}
+
+float physx::Gu::distanceSegmentSegmentSquared(float *a1, float *a2, float *a3, float *a4, float *a5, float *a6)
+{
+  v6 = *a2;
+  v7 = a2[1];
+  v8 = a2[2];
+  v9 = v7 * 0.5;
+  v10 = v8 * 0.5;
+  v11 = sqrtf(((v7 * v7) + (v6 * v6)) + (v8 * v8));
+  v12 = 0.0;
+  if (v11 == 0.0)
+  {
+    v13 = 0.0;
+    v14 = v11;
+  }
+
+  else
+  {
+    v13 = 1.0 / v11;
+    v6 = v6 * (1.0 / v11);
+    v7 = v7 * (1.0 / v11);
+    v8 = v8 * (1.0 / v11);
+    v14 = v11 * 0.5;
+  }
+
+  v15 = v9 + a1[1];
+  v16 = v10 + a1[2];
+  v17 = *a4;
+  v18 = a4[1];
+  v19 = a4[2];
+  v20 = (v18 * 0.5) + a3[1];
+  v21 = (v19 * 0.5) + a3[2];
+  v22 = sqrtf(((v18 * v18) + (v17 * v17)) + (v19 * v19));
+  if (v22 == 0.0)
+  {
+    v23 = v22;
+  }
+
+  else
+  {
+    v12 = 1.0 / v22;
+    v17 = v17 * (1.0 / v22);
+    v18 = v18 * (1.0 / v22);
+    v19 = v19 * (1.0 / v22);
+    v23 = v22 * 0.5;
+  }
+
+  v24 = ((*a2 * 0.5) + *a1) - ((*a4 * 0.5) + *a3);
+  v25 = v15 - v20;
+  v26 = v16 - v21;
+  v27 = (v7 * v18) + (v6 * v17);
+  v28 = v27 + (v8 * v19);
+  v29 = ((v7 * v25) + (v24 * v6)) + (v26 * v8);
+  v30 = (v25 * v18) + (v24 * v17);
+  v31 = v30 + (v26 * v19);
+  v32 = ((v25 * v25) + (v24 * v24)) + (v26 * v26);
+  v33 = fabsf(1.0 - (v28 * v28));
+  if (v33 < 0.000001)
+  {
+    v34 = v14 + v23;
+    v35 = -1.0;
+    if (v28 >= 0.0)
+    {
+      v35 = 1.0;
+    }
+
+    v36 = (v29 + (v35 * v31)) * 0.5;
+    if (v36 <= v34)
+    {
+      v37 = -v36;
+      if (v34 < -v36)
       {
-        Stream = *(this + 16);
-        if (!Stream)
-        {
-          Stream = physx::Scb::Scene::getStream(v5, BYTE3(v2) & 0xF);
-          *(v4 + 16) = Stream;
-        }
-
-        v7 = *(Stream + 144);
-        if (v7)
-        {
-          v8 = 0;
-          v9 = *(Stream + 136);
-          while (*v9 != a2)
-          {
-            ++v8;
-            v9 += 2;
-            if (v7 == v8)
-            {
-              goto LABEL_21;
-            }
-          }
-        }
-
-        else
-        {
-          LODWORD(v8) = 0;
-        }
-
-        if (v8 == v7)
-        {
-LABEL_21:
-          v20 = a2;
-          v14 = *(Stream + 56);
-          if ((*(Stream + 60) & 0x7FFFFFFFu) <= v14)
-          {
-            physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>>::growAndPushBack(Stream + 8, &v20);
-          }
-
-          else
-          {
-            *(*(Stream + 48) + 8 * v14) = a2;
-            *(Stream + 56) = v14 + 1;
-          }
-        }
-
-        else
-        {
-          v15 = *(Stream + 136);
-          v16 = v7 - 1;
-          *(Stream + 144) = v16;
-          v17 = (v15 + 16 * v16);
-          v18 = *v17;
-          v19 = v15 + 16 * v8;
-          *(v19 + 8) = *(v17 + 8);
-          *v19 = v18;
-        }
-
-        this = physx::Scb::Scene::scheduleForUpdate(*v4, v4);
-        *(v4 + 8) |= 8u;
-      }
-
-      v12 = *(a2 + 2);
-      if ((v12 & 0xF000000) == 0x1000000)
-      {
-        v13 = 0x40000000;
-        goto LABEL_28;
+        v37 = v14 + v23;
       }
     }
 
     else
     {
-      if (v2)
+      v37 = -v34;
+    }
+
+    v44 = (v23 * (v37 * -v35)) / v34;
+    v45 = v37 + (v35 * v44);
+    v46 = v32 + (v37 * (v37 + (v36 * 2.0)));
+    goto LABEL_19;
+  }
+
+  v38 = -(v27 + (v8 * v19));
+  v39 = -(v30 + (v26 * v19));
+  v40 = -(v29 - (v28 * v31));
+  v41 = v31 + (v38 * v29);
+  v42 = v23 * v33;
+  v43 = -(v23 * v33);
+  if (v40 >= -(v14 * v33))
+  {
+    if (v40 <= (v14 * v33))
+    {
+      if (v41 < v43)
       {
-        v10 = *(this + 16);
+        v44 = -v23;
+        v53 = v29 + (v28 * v23);
+        v54 = -v53;
+        v55 = ((v39 * 2.0) - v23) * -v23;
+        v56 = v32 + (v55 + (v14 * (v14 + (-v53 * -2.0))));
+        if (v14 < -v53)
+        {
+          v57 = v14;
+        }
+
+        else
+        {
+          v56 = v32 + (v55 + (v53 * v54));
+          v57 = -v53;
+        }
+
+        v46 = v32 + (v55 - (v14 * -(v14 - (v54 * -2.0))));
+        if (v53 > v14)
+        {
+          v45 = -v14;
+        }
+
+        else
+        {
+          v46 = v56;
+          v45 = v57;
+        }
+
+        goto LABEL_19;
+      }
+
+      if (v41 <= v42)
+      {
+        v45 = v40 * (1.0 / v33);
+        v44 = v41 * (1.0 / v33);
+        v50 = (v44 * ((v44 + (v38 * v45)) + (v39 * 2.0))) + (v45 * ((v45 + (v38 * v44)) + (v29 * 2.0)));
+        goto LABEL_105;
+      }
+
+      v72 = v29 + (v38 * v23);
+      v73 = -v72;
+      v74 = v23 * (v23 + (v39 * 2.0));
+      v75 = v32 + (v74 + (v14 * (v14 + (-v72 * -2.0))));
+      if (v14 < -v72)
+      {
+        v76 = v14;
       }
 
       else
       {
-        v10 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + this + 12);
+        v75 = v32 + (v74 + (v72 * v73));
+        v76 = -v72;
       }
 
-      if ((*v10 & 8) == 0)
+      v46 = v32 + (v74 - (v14 * -(v14 - (v73 * -2.0))));
+      if (v72 > v14)
       {
-        atomic_fetch_add(a2 - 4, 1u);
-        v11 = *(*(&physx::Scb::Actor::sLazyInitOffsets + (*(this + 11) & 0xF) + 3) + this);
-        if (v11)
-        {
-          this = physx::Sc::Scene::addShape(v11[9], v11, (a2 + 32), 0);
-        }
+        v45 = -v14;
       }
 
-      v12 = *(a2 + 2);
-      if ((v12 & 0xF000000) == 0x1000000)
+      else
       {
-        v13 = 0x80000000;
-LABEL_28:
-        *(a2 + 2) = v12 & 0x31FFFFFF | v13;
-        *a2 = v5;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t physx::NpShapeManager::detachShape(physx::NpShapeManager *this, physx::NpShape *a2, physx::PxRigidActor *a3, char a4)
-{
-  v8 = *(this + 4);
-  v9 = this;
-  if (v8 != 1)
-  {
-    if (!*(this + 4))
-    {
-      return 0;
-    }
-
-    v9 = *this;
-  }
-
-  v10 = 0;
-  while (*(v9 + v10) != a2)
-  {
-    if (v8 == ++v10)
-    {
-      return 0;
-    }
-  }
-
-  v12 = a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
-  if (((*(v12 + 2) >> 30) - 1) <= 1)
-  {
-    v13 = *v12;
-    if (v13)
-    {
-      v14 = (*(a2 + 8) + 52);
-      if ((*(a2 + 56) & 0x40) == 0)
-      {
-        v14 = a2 + 144;
-      }
-
-      if ((*v14 & 2) != 0)
-      {
-        v15 = (this + 16);
-        if (*(this + 12) != 1)
-        {
-          v15 = *v15;
-        }
-
-        physx::Sq::SceneQueryManager::removePrunerShape(v13 + 1078, *(this + 8), v15[v10]);
-        if (*(this + 8) != -1 && *(this + 4) == 1)
-        {
-          *(this + 8) = -1;
-          v16 = *(a3 + 4);
-          if ((v16 & 0xFFFFFFF7) == 5 && (v16 | 8) == 0xD)
-          {
-            physx::Sc::BodySim::disableCompound(*(a3 + 16));
-          }
-        }
-      }
-    }
-  }
-
-  physx::Scb::RigidObject::onShapeDetach((a3 + *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18)), (a2 + 48), a4, *(a2 + 8) == 1);
-  v17 = *(physx::NpFactory::mInstance + 832);
-  physx::Cm::PtrTable::replaceWithLast(this, v10, v17);
-  physx::Cm::PtrTable::replaceWithLast(this + 2, v10, v17);
-  atomic_fetch_add(a2 + 66, 0xFFFFFFFF);
-  if ((*(a2 + 66) & 0x80000000) != 0)
-  {
-    *(a2 + 5) = 0;
-  }
-
-  if (atomic_fetch_add(a2 + 8, 0xFFFFFFFF) == 1)
-  {
-    (*(*(a2 + 3) + 16))(a2 + 24);
-  }
-
-  return 1;
-}
-
-void physx::Scb::RigidObject::onShapeDetach(physx::Scb::RigidObject *this, physx::Scb::Shape *a2, char a3, int a4)
-{
-  v4 = *(this + 2);
-  if (v4 >> 30)
-  {
-    v8 = *this;
-    if (*(*this + 7689))
-    {
-      if (v4 >> 30 != 1)
-      {
-        Stream = *(this + 2);
-        if (!Stream)
-        {
-          Stream = physx::Scb::Scene::getStream(v8, BYTE3(v4) & 0xF);
-          *(this + 2) = Stream;
-          LODWORD(v4) = *(this + 2);
-        }
-
-        if ((v4 & 0x20) != 0)
-        {
-          v11 = *(Stream + 160);
-          if (v11 == 1)
-          {
-            if (*(Stream + 152) != a2)
-            {
-              goto LABEL_28;
-            }
-
-            *(Stream + 160) = 0;
-            goto LABEL_27;
-          }
-
-          if (!v11)
-          {
-            goto LABEL_27;
-          }
-
-          v14 = 0;
-          v15 = (*&v8[976] + 8 * *(Stream + 152));
-          v16 = *(Stream + 160);
-          do
-          {
-            if (v15[v14] == a2)
-            {
-              v15[v14] = v15[--v16];
-            }
-
-            else
-            {
-              ++v14;
-            }
-
-            --v11;
-          }
-
-          while (v11);
-          *(Stream + 160) = v14;
-          if (!v14)
-          {
-LABEL_27:
-            *(Stream + 152) = 0;
-            *(this + 2) &= ~0x20u;
-            goto LABEL_28;
-          }
-
-          if (v14 == 1)
-          {
-            *(Stream + 152) = *v15;
-          }
-        }
-
-LABEL_28:
-        v17 = *(Stream + 56);
-        if (v17)
-        {
-          v18 = 0;
-          while (*(*(Stream + 48) + 8 * v18) != a2)
-          {
-            if (v17 == ++v18)
-            {
-              goto LABEL_35;
-            }
-          }
-        }
-
-        else
-        {
-          LODWORD(v18) = 0;
-        }
-
-        if (v18 != v17)
-        {
-          v19 = *(Stream + 48);
-          v20 = v17 - 1;
-          *(Stream + 56) = v20;
-          *(v19 + 8 * v18) = *(v19 + 8 * v20);
-          v21 = *(a2 + 2);
-          if ((v21 & 0xF000000) == 0x1000000)
-          {
-            v22 = v21 & 0x31FFFFFF | 0x80000000;
-LABEL_48:
-            *(a2 + 2) = v22;
-            *a2 = v8;
-          }
-
-LABEL_49:
-          physx::Scb::Scene::scheduleForUpdate(*this, this);
-          *(this + 2) |= 8u;
-          return;
-        }
-
-LABEL_35:
-        if ((*(this + *(&physx::Scb::Actor::sLazyInitOffsets + (*(this + 11) & 0xF) + 3) + 12) & 8) != 0)
-        {
-          if (a4)
-          {
-            if ((*(a2 + 11) & 0x10) != 0)
-            {
-              physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v8 + 967, a2);
-              *(a2 + 2) &= ~0x10000000u;
-            }
-
-LABEL_46:
-            v24 = *(a2 + 2);
-            if ((v24 & 0xF000000) == 0x1000000)
-            {
-              v22 = v24 | 0xC0000000;
-              goto LABEL_48;
-            }
-
-            goto LABEL_49;
-          }
-
-          *&v25 = a2;
-          BYTE8(v25) = 0;
-        }
-
-        else
-        {
-          *&v25 = a2;
-          BYTE8(v25) = a3;
-        }
-
-        v23 = *(Stream + 144);
-        if ((*(Stream + 148) & 0x7FFFFFFFu) <= v23)
-        {
-          physx::shdfnd::Array<physx::Scb::RemovedShape,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>>>::growAndPushBack(Stream + 64, &v25);
-        }
-
-        else
-        {
-          *(*(Stream + 136) + 16 * v23) = v25;
-          ++*(Stream + 144);
-        }
-
-        goto LABEL_46;
+        v46 = v75;
+        v45 = v76;
       }
     }
 
     else
     {
-      if (v4)
+      if (v41 < v43)
       {
-        v12 = *(this + 2);
-      }
-
-      else
-      {
-        v12 = this + *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3) + 12;
-      }
-
-      if ((*v12 & 8) == 0)
-      {
-        physx::Sc::RigidCore::removeShapeFromScene((this + *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3)), (a2 + 32), a3);
-        if (atomic_fetch_add(a2 - 4, 0xFFFFFFFF) == 1)
+        v44 = -v23;
+        v48 = v29 + (v28 * v23);
+        v49 = -v48;
+        if (v48 > v14)
         {
-          (*(*(a2 - 3) + 16))();
+          v45 = -v14;
+          v50 = (((v39 * 2.0) - v23) * -v23) - (v14 * -(v14 - (v49 * -2.0)));
+LABEL_105:
+          v46 = v32 + v50;
+          goto LABEL_19;
         }
+
+        v77 = v39 + (v38 * v14);
+        v78 = -v77;
+        v84 = v77 > v23;
+        v79 = v14 * (v14 + (v29 * 2.0));
+        v80 = v32 + (v79 + (v77 * -v77));
+        if (v84)
+        {
+          v80 = v32 + (v79 + (-v23 * ((v78 * -2.0) - v23)));
+          v81 = -v23;
+        }
+
+        else
+        {
+          v81 = v78;
+        }
+
+        v82 = v32 + (v79 + (v23 * (v23 + (v78 * -2.0))));
+        if (v23 < v78)
+        {
+          v83 = v23;
+        }
+
+        else
+        {
+          v82 = v80;
+          v83 = v81;
+        }
+
+        v46 = v32 + ((((v39 * 2.0) - v23) * -v23) + (v48 * v49));
+        v84 = v14 < v49;
+        if (v14 < v49)
+        {
+          v46 = v82;
+          v44 = v83;
+        }
+
+LABEL_115:
+        if (v84)
+        {
+          v45 = v14;
+        }
+
+        else
+        {
+          v45 = v49;
+        }
+
+        goto LABEL_19;
       }
+
+      if (v41 <= v42)
+      {
+        v94 = v39 + (v38 * v14);
+        v95 = -v94;
+        v96 = v14 * (v14 + (v29 * 2.0));
+        v97 = v32 + (v96 + (v23 * (v23 + (-v94 * -2.0))));
+        if (v23 < -v94)
+        {
+          v98 = v23;
+        }
+
+        else
+        {
+          v97 = v32 + (v96 + (v94 * v95));
+          v98 = -v94;
+        }
+
+        v46 = v32 + (v96 - (v23 * -(v23 - (v95 * -2.0))));
+        if (v94 > v23)
+        {
+          v44 = -v23;
+        }
+
+        else
+        {
+          v46 = v97;
+          v44 = v98;
+        }
+
+        goto LABEL_103;
+      }
+
+      v66 = v29 + (v38 * v23);
+      v49 = -v66;
+      if (v66 <= v14)
+      {
+        v99 = v39 + (v38 * v14);
+        v100 = -v99;
+        v101 = v14 * (v14 + (v29 * 2.0));
+        v102 = v32 + (v101 + (v23 * (v23 + (-v99 * -2.0))));
+        if (v23 < -v99)
+        {
+          v103 = v23;
+        }
+
+        else
+        {
+          v102 = v32 + (v101 + (v99 * v100));
+          v103 = -v99;
+        }
+
+        v104 = v32 + (v101 - (v23 * -(v23 - (v100 * -2.0))));
+        if (v99 > v23)
+        {
+          v105 = -v23;
+        }
+
+        else
+        {
+          v104 = v102;
+          v105 = v103;
+        }
+
+        v46 = v32 + ((v23 * (v23 + (v39 * 2.0))) + (v66 * v49));
+        v84 = v14 < v49;
+        if (v14 >= v49)
+        {
+          v44 = v23;
+        }
+
+        else
+        {
+          v46 = v104;
+          v44 = v105;
+        }
+
+        goto LABEL_115;
+      }
+
+      v45 = -v14;
+      v46 = v32 + ((v23 * (v23 + (v39 * 2.0))) - (v14 * -(v14 - (v49 * -2.0))));
     }
 
-    v13 = *(a2 + 2);
-    if ((v13 & 0xF000000) == 0x1000000)
+    v44 = v23;
+    goto LABEL_19;
+  }
+
+  if (v41 >= v43)
+  {
+    if (v41 <= v42)
     {
-      *(a2 + 2) = v13 & 0x31FFFFFF;
-      *a2 = 0;
-    }
-  }
-}
-
-uint64_t physx::NpShapeManager::detachAll(physx::NpShapeManager *this, int32x2_t *a2, const physx::PxRigidActor *a3)
-{
-  v4 = *(this + 4);
-  v5 = this;
-  if (v4 != 1)
-  {
-    v5 = *this;
-  }
-
-  if (a2)
-  {
-    physx::NpShapeManager::teardownAllSceneQuery(this, a2 + 1080, a3);
-  }
-
-  if (v4)
-  {
-    do
-    {
-      v6 = *v5;
-      atomic_fetch_add((*v5 + 264), 0xFFFFFFFF);
-      if ((*(v6 + 264) & 0x80000000) != 0)
+      v45 = -v14;
+      v67 = v39 + (v28 * v14);
+      v68 = -v67;
+      v69 = ((v29 * 2.0) - v14) * -v14;
+      v70 = v32 + (v69 + (v23 * (v23 + (-v67 * -2.0))));
+      if (v23 < -v67)
       {
-        *(v6 + 40) = 0;
-      }
-
-      if (atomic_fetch_add((v6 + 32), 0xFFFFFFFF) == 1)
-      {
-        (*(*(v6 + 24) + 16))();
-      }
-
-      v5 = (v5 + 8);
-      --v4;
-    }
-
-    while (v4);
-  }
-
-  v7 = *(physx::NpFactory::mInstance + 832);
-  physx::Cm::PtrTable::clear(this, v7);
-
-  return physx::Cm::PtrTable::clear(this + 16, v7);
-}
-
-void physx::NpShapeManager::getWorldBounds(physx::NpShapeManager *this@<X0>, const physx::PxRigidActor *a2@<X1>, uint64_t a3@<X8>)
-{
-  v3 = this;
-  v5 = *(this + 4);
-  (*(*a2 + 152))(&v45, a2);
-  if (*(v3 + 4) != 1)
-  {
-    v3 = *v3;
-  }
-
-  v15 = vdup_n_s32(0xFE7FFFFF);
-  v16 = xmmword_1E3113BA0;
-  if (v5)
-  {
-    do
-    {
-      v17 = *v3;
-      v18 = *(*v3 + 56);
-      if (v18)
-      {
-        v19 = *(v17 + 8) + 64;
+        v71 = v23;
       }
 
       else
       {
-        v19 = v17 + 152;
+        v70 = v32 + (v69 + (v67 * v68));
+        v71 = -v67;
       }
 
-      v38 = v16;
-      if ((v18 & 4) != 0)
+      v46 = v32 + (v69 - (v23 * -(v23 - (v68 * -2.0))));
+      if (v67 > v23)
       {
-        v20 = *(v17 + 8);
+        v44 = -v23;
       }
 
       else
       {
-        v20 = (v17 + 112);
+        v46 = v70;
+        v44 = v71;
       }
 
-      *&_D2 = v20[1].f32[0] + v20[1].f32[0];
-      v21 = v20[1].f32[1] + v20[1].f32[1];
-      _S4 = v20[1].f32[2] + v20[1].f32[2];
-      *&v12 = (v47 * v47) + -0.5;
-      *v13.i32 = v45;
-      _Q7.i64[0] = v46;
-      __asm
-      {
-        FMLA            S16, S4, V7.S[1]
-        FMLA            S18, S2, V7.S[1]
-        FMLA            S20, S16, V7.S[1]
-      }
-
-      v30 = v49 + (((v47 * _S18) + (v21 * *&v12)) + (*&v46 * _S16));
-      v31 = *v20;
-      v31.i32[3] = HIDWORD(v46);
-      *&_D2 = ((v47 * (vmuls_lane_f32(v21, vnegq_f32(v31), 3) + (*&v46 * _S4))) + (*&_D2 * *&v12)) + (v45 * _S16);
-      v32 = vextq_s8(vextq_s8(v13, v13, 4uLL), _Q7, 0xCuLL);
-      v32.f32[3] = -v45;
-      v33 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v20, 3), *v20, 4uLL), v32), *v20, v47);
-      v32.f32[3] = -*&v46;
-      _Q7.f32[2] = v45;
-      _Q7.i32[3] = v20->i64[1];
-      v34 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v33, v33, 4uLL), v33), vextq_s8(vextq_s8(*v20, *v20, 0xCuLL), *v20, 8uLL), v32), _Q7, v31);
-      v35 = vzip1q_s32(v34, vextq_s8(v34, v34, 0xCuLL));
-      v36 = vzip2q_s32(v35, v34);
-      v39 = v36;
-      v40 = v48 + *&_D2;
-      v41 = v30;
-      v42 = v50 + _S20;
-      v36.i64[0] = 0;
-      v10.i32[0] = 1.0;
-      physx::Gu::computeBounds(&v43, v19, &v39, 0, v36, *&v10, _D2, *v35.i64, *v32.i64, v12, v13, v6, v7, v8, v9, v38.i8[0]);
-      v37 = vmovn_s32(vcgtq_f32(v43, v38));
-      _D2 = COERCE_DOUBLE(vmovn_s32(vcgtq_f32(v38, v43)));
-      v37.i16[3] = HIWORD(_D2);
-      v16 = vbslq_s8(vmovl_s16(v37), v38, v43);
-      v10 = vcgt_f32(v15, v44);
-      v15 = vbsl_s8(v10, v15, v44);
-      v3 = (v3 + 8);
-      --v5;
+      goto LABEL_19;
     }
 
-    while (v5);
+    v45 = -(v29 + (v38 * v23));
+    if (v14 < v45)
+    {
+      v46 = v32 + ((v23 * (v23 + (v39 * 2.0))) + (v14 * (v14 + (v45 * -2.0))));
+      v44 = v23;
+      goto LABEL_103;
+    }
+
+    v85 = v29 + (v38 * v23);
+    v86 = v39 + (v28 * v14);
+    v87 = -v86;
+    v88 = ((v29 * 2.0) - v14) * -v14;
+    v89 = v32 + (v88 + (v23 * (v23 + (-v86 * -2.0))));
+    if (v23 < -v86)
+    {
+      v90 = v23;
+    }
+
+    else
+    {
+      v89 = v32 + (v88 + (v86 * v87));
+      v90 = -v86;
+    }
+
+    v91 = v32 + (v88 - (v23 * -(v23 - (v87 * -2.0))));
+    if (v86 > v23)
+    {
+      v92 = -v23;
+    }
+
+    else
+    {
+      v91 = v89;
+      v92 = v90;
+    }
+
+    v46 = v32 + ((v23 * (v23 + (v39 * 2.0))) + (v85 * v45));
+    v93 = v85 > v14;
+    if (v85 <= v14)
+    {
+      v44 = v23;
+    }
+
+    else
+    {
+      v46 = v91;
+      v44 = v92;
+    }
+
+    if (v93)
+    {
+      v45 = -v14;
+    }
   }
 
-  *a3 = v16;
-  *(a3 + 16) = v15;
+  else
+  {
+    v44 = -v23;
+    v45 = -(v29 + (v28 * v23));
+    if (v14 < v45)
+    {
+      v46 = v32 + ((((v39 * 2.0) - v23) * -v23) + (v14 * (v14 + (v45 * -2.0))));
+LABEL_103:
+      v45 = v14;
+      goto LABEL_19;
+    }
+
+    v58 = v29 + (v28 * v23);
+    v59 = v39 + (v28 * v14);
+    v60 = -v59;
+    v61 = ((v29 * 2.0) - v14) * -v14;
+    v62 = v32 + (v61 + (v23 * (v23 + (-v59 * -2.0))));
+    if (v23 < -v59)
+    {
+      v63 = v23;
+    }
+
+    else
+    {
+      v62 = v32 + (v61 + (v59 * v60));
+      v63 = -v59;
+    }
+
+    v64 = v32 + (v61 + (-v23 * ((v60 * -2.0) - v23)));
+    if (v59 > v23)
+    {
+      v65 = -v23;
+    }
+
+    else
+    {
+      v64 = v62;
+      v65 = v63;
+    }
+
+    v46 = v32 + ((((v39 * 2.0) - v23) * -v23) + (v58 * v45));
+    if (v58 > v14)
+    {
+      v46 = v64;
+      v44 = v65;
+      v45 = -v14;
+    }
+  }
+
+LABEL_19:
+  if (a5)
+  {
+    *a5 = v45;
+  }
+
+  if (a6)
+  {
+    *a6 = v44;
+  }
+
+  if (a5)
+  {
+    if (v11 == 0.0)
+    {
+      v47 = 0.0;
+    }
+
+    else
+    {
+      v47 = v13 * (v14 + *a5);
+    }
+
+    *a5 = v47;
+  }
+
+  if (a6)
+  {
+    if (v22 == 0.0)
+    {
+      v51 = 0.0;
+    }
+
+    else
+    {
+      v51 = v12 * (v23 + *a6);
+    }
+
+    *a6 = v51;
+  }
+
+  result = 0.0;
+  if (v46 >= 0.0)
+  {
+    return v46;
+  }
+
+  return result;
 }
 
-int32x2_t *physx::NpShapeManager::clearShapesOnRelease(int32x2_t *result, int32x2_t *a2)
+float32x2_t physx::Gu::distanceSegmentSegmentSquared(float32x4_t *a1, float32x4_t *a2, float32x4_t *a3, float32x4_t *a4, float32x2_t *a5, void *a6)
 {
-  v3 = result;
-  v4 = result[1].u16[0];
-  if (v4 != 1)
+  v6 = vsubq_f32(*a1, *a3);
+  v7 = vmulq_f32(*a2, *a2);
+  v8 = *a4;
+  v9 = vmulq_f32(v8, v8);
+  v10 = vmulq_f32(*a2, *a4);
+  v11 = vmulq_f32(*a2, v6);
+  v12 = vzip1q_s32(v7, v10);
+  v13 = vzip2q_s32(v7, v10);
+  v14 = vzip1q_s32(v9, v11);
+  v15 = vaddq_f32(vzip1q_s32(v13, vzip2q_s32(v9, v11)), vaddq_f32(vzip1q_s32(v12, v14), vzip2q_s32(v12, v14)));
+  v16 = vrecpeq_f32(v15);
+  v17 = 4;
+  do
   {
-    if (!result[1].i16[0])
+    v16 = vmulq_f32(v16, vrecpsq_f32(v16, v15));
+    --v17;
+  }
+
+  while (v17);
+  v18 = vdup_lane_s32(*v15.i8, 1);
+  v19 = vextq_s8(v15, v15, 8uLL).u64[0];
+  v20 = vsub_f32(vmul_lane_f32(vdup_lane_s32(*v15.i8, 0), *v15.i8, 1), vdup_lane_s32(vmul_f32(v19, v19), 0));
+  v21 = vrecpe_f32(v20);
+  v22 = 4;
+  do
+  {
+    v21 = vmul_f32(v21, vrecps_f32(v20, v21));
+    --v22;
+  }
+
+  while (v22);
+  v23 = vmulq_f32(v6, v8);
+  v23.i64[0] = vpaddq_f32(v23, v23).u64[0];
+  *v23.f32 = vpadd_f32(*v23.f32, *v23.f32);
+  v24 = vsub_f32(vmul_laneq_f32(*v23.f32, v15, 2), vmul_laneq_f32(v18, v15, 3));
+  _Q5.i64[0] = 0x3400000034000000;
+  _Q5.i64[1] = 0x3400000034000000;
+  v26 = vand_s8(*v16.f32, *&vcgtq_f32(v15, _Q5));
+  __asm { FMOV            V5.2S, #1.0 }
+
+  *v23.f32 = vmax_f32(vmin_f32(vmul_lane_f32(vmla_laneq_f32(*v23.f32, vbsl_s8(vdup_lane_s32(vcgt_f32(0x3400000034000000, v20), 0), 0x3F0000003F000000, vmax_f32(vmin_f32(vmul_f32(v21, v24), *_Q5.f32), 0)), v15, 2), v26, 1), *_Q5.f32), 0);
+  v31 = vmax_f32(vmin_f32(vmul_n_f32(vsub_f32(vmul_laneq_f32(*v23.f32, v15, 2), vdup_laneq_s32(v15, 3)), v26.f32[0]), *_Q5.f32), 0);
+  *a5 = v31;
+  *a6 = v23.i64[0];
+  v32 = vmlaq_n_f32(*a1, *a2, v31.f32[0]);
+  v33 = vmlaq_n_f32(*a3, *a4, v23.f32[0]);
+  v34 = vsub_f32(*v32.i8, *v33.i8);
+  v35 = vsub_f32(vextq_s8(v32, v32, 8uLL).u32[0], vextq_s8(v33, v33, 8uLL).u32[0]);
+  v36 = vpadd_f32(vmul_f32(v34, v34), vmul_f32(v35, v35));
+  return vpadd_f32(v36, v36);
+}
+
+double physx::Gu::distanceSegmentSegmentSquared4(int32x4_t *a1, int32x2_t *a2, int32x4_t *a3, int32x4_t *a4, int32x4_t *a5, int32x4_t *a6, int32x4_t *a7, int32x4_t *a8, int32x4_t *a9, int32x4_t *a10, float32x4_t *a11, float32x4_t *a12)
+{
+  v12 = *a2->i8;
+  v13 = vdupq_lane_s32(*a2, 1);
+  v14 = *a1;
+  v15 = *a3;
+  v16 = *a5;
+  v17 = *a7;
+  v18 = *a9;
+  v19 = vzip1q_s32(*a4, *a8);
+  v20 = vzip1q_s32(*a6, *a10);
+  v21 = vzip2q_s32(v19, v20);
+  v22 = vmulq_f32(v12, v12);
+  v22.i64[0] = vpaddq_f32(v22, v22).u64[0];
+  *v25.f32 = vpadd_f32(*v22.f32, *v22.f32);
+  v23 = vmulq_f32(v21, v21);
+  v24 = vmulq_lane_f32(v21, *a2, 1);
+  v25.i64[1] = v25.i64[0];
+  v26 = vrecpeq_f32(v25);
+  v27 = 4;
+  do
+  {
+    v26 = vmulq_f32(v26, vrecpsq_f32(v26, v25));
+    --v27;
+  }
+
+  while (v27);
+  v28 = vzip1q_s32(v19, v20);
+  v29 = vzip1q_s32(vzip2q_s32(*a4, *a8), vzip2q_s32(*a6, *a10));
+  v30 = vmlaq_f32(vmlaq_f32(v23, v28, v28), v29, v29);
+  v31 = vrecpeq_f32(v30);
+  v32 = 4;
+  do
+  {
+    v31 = vmulq_f32(v31, vrecpsq_f32(v31, v30));
+    --v32;
+  }
+
+  while (v32);
+  v33 = vdupq_lane_s32(*v12.f32, 0);
+  v34 = vdupq_laneq_s32(v12, 2);
+  v35 = vmlaq_laneq_f32(vmlaq_n_f32(v24, v28, v12.f32[0]), v29, v12, 2);
+  v36 = vsubq_f32(vmulq_f32(v30, v25), vmulq_f32(v35, v35));
+  v37 = vrecpeq_f32(v36);
+  v38 = 4;
+  do
+  {
+    v37 = vmulq_f32(v37, vrecpsq_f32(v37, v36));
+    --v38;
+  }
+
+  while (v38);
+  v39 = vdupq_laneq_s32(v14, 2);
+  v40 = vzip1q_s32(vzip2q_s32(v15, v17), vzip2q_s32(v16, v18));
+  v41 = vdupq_lane_s32(*v14.i8, 0);
+  v42 = vsubq_f32(v39, v40);
+  v43 = vzip1q_s32(v15, v17);
+  v44 = vzip1q_s32(v16, v18);
+  v45 = vzip1q_s32(v43, v44);
+  v46 = vdupq_lane_s32(*v14.i8, 1);
+  v47 = vsubq_f32(v41, v45);
+  v48 = vzip2q_s32(v43, v44);
+  v49 = vsubq_f32(v46, v48);
+  v50 = vmlaq_f32(vmlaq_f32(vmulq_f32(v21, v49), v47, v28), v42, v29);
+  v51 = vmlaq_f32(vmlaq_f32(vmulq_lane_f32(v49, *v12.f32, 1), v47, v33), v42, v34);
+  __asm { FMOV            V19.4S, #1.0 }
+
+  v57 = vmaxq_f32(vminq_f32(vmulq_f32(vsubq_f32(vmulq_f32(v35, v50), vmulq_f32(v30, v51)), v37), _Q19), 0);
+  v58.i64[0] = 0x3400000034000000;
+  v58.i64[1] = 0x3400000034000000;
+  v42.i64[0] = 0x3F0000003F000000;
+  v42.i64[1] = 0x3F0000003F000000;
+  v59 = vmaxq_f32(vminq_f32(vmulq_f32(v31, vaddq_f32(v50, vmulq_f32(v35, vbslq_s8(vcgeq_f32(v58, v36), v42, v57)))), _Q19), 0);
+  v60 = vbicq_s8(vmaxq_f32(vminq_f32(vmulq_f32(v26, vsubq_f32(vmulq_f32(v35, v59), v51)), _Q19), 0), vcgeq_f32(v58, v25));
+  *a11 = v60;
+  *a12 = v59;
+  v61 = vmlaq_f32(v39, v60, v34);
+  v62 = vmlaq_f32(v48, v59, v21);
+  v63 = vsubq_f32(vmlaq_f32(v41, v60, v33), vmlaq_f32(v45, v59, v28));
+  v64 = vsubq_f32(vmlaq_f32(v46, v60, v13), v62);
+  v65 = vsubq_f32(v61, vmlaq_f32(v40, v59, v29));
+  *&result = vmlaq_f32(vmlaq_f32(vmulq_f32(v65, v65), v64, v64), v63, v63).u64[0];
+  return result;
+}
+
+uint64_t case0(uint64_t result, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, float *a7, float *a8)
+{
+  v8 = *(a6 + 4 * result);
+  v9 = *(a4 + 4 * result) - v8;
+  v10 = *(a6 + 4 * a2);
+  v11 = *(a4 + 4 * a2) - v10;
+  v12 = v9 * *(a5 + 4 * a2);
+  v13 = v11 * *(a5 + 4 * result);
+  if (v12 >= v13)
+  {
+    *(a4 + 4 * result) = v8;
+    v18 = *(a4 + 4 * a2);
+    v11 = v18 + *(a6 + 4 * a2);
+    v19 = *(a5 + 4 * result);
+    v20 = v12 - (v19 * v11);
+    if (v20 < 0.0)
+    {
+      if (!a7)
+      {
+        goto LABEL_14;
+      }
+
+      v17 = 1.0 / v19;
+      *(a4 + 4 * a2) = v18 - (v12 * v17);
+      goto LABEL_13;
+    }
+
+    v17 = 1.0 / ((*(a5 + 4 * a2) * *(a5 + 4 * a2)) + (v19 * v19));
+    *a8 = *a8 + ((v20 * v20) * v17);
+    if (!a7)
+    {
+      goto LABEL_14;
+    }
+
+    *(a4 + 4 * a2) = -*(a6 + 4 * a2);
+  }
+
+  else
+  {
+    *(a4 + 4 * a2) = v10;
+    v14 = *(a4 + 4 * result);
+    v9 = v14 + *(a6 + 4 * result);
+    v15 = *(a5 + 4 * a2);
+    v16 = v13 - (v15 * v9);
+    if (v16 < 0.0)
+    {
+      if (!a7)
+      {
+        goto LABEL_14;
+      }
+
+      v17 = 1.0 / v15;
+      *(a4 + 4 * result) = v14 - (v13 * v17);
+      v9 = v11;
+      goto LABEL_13;
+    }
+
+    v17 = 1.0 / ((v15 * v15) + (*(a5 + 4 * result) * *(a5 + 4 * result)));
+    *a8 = *a8 + ((v16 * v16) * v17);
+    if (!a7)
+    {
+      goto LABEL_14;
+    }
+
+    *(a4 + 4 * result) = -*(a6 + 4 * result);
+  }
+
+  v9 = (v11 * *(a5 + 4 * a2)) + (*(a5 + 4 * result) * v9);
+LABEL_13:
+  *a7 = -(v9 * v17);
+LABEL_14:
+  v21 = *(a4 + 4 * a3);
+  v22 = *(a6 + 4 * a3);
+  if (v21 >= -v22)
+  {
+    if (v21 <= v22)
     {
       return result;
     }
 
-    v3 = *result;
-  }
-
-  do
-  {
-    v5 = *v3;
-    if ((*(*v3 + 59) & 0x10) != 0)
-    {
-      result = physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(a2 + 967, *&v5 + 48);
-      *(*&v5 + 56) &= ~0x10000000u;
-    }
-
-    ++v3;
-    --v4;
-  }
-
-  while (v4);
-  return result;
-}
-
-uint64_t physx::NpShapeManager::teardownSceneQuery(physx::NpShapeManager *this, int32x2_t *a2, int a3)
-{
-  v5 = this + 16;
-  v6 = this + 16;
-  if (*(this + 12) != 1)
-  {
-    v6 = *v5;
-  }
-
-  result = physx::Sq::SceneQueryManager::removePrunerShape(a2, *(this + 8), *&v6[8 * a3]);
-  if (*(this + 12) != 1)
-  {
-    v5 = *v5;
-  }
-
-  *&v5[8 * a3] = 0xFFFFFFFFLL;
-  return result;
-}
-
-void physx::NpShapeManager::addBVHStructureShapes(physx::NpShapeManager *this, physx::Sq::SceneQueryManager *a2, const physx::PxRigidActor *a3, const physx::Gu::BVHStructure *a4)
-{
-  v38 = *MEMORY[0x1E69E9840];
-  v8 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
-  v9 = *(this + 4);
-  v10 = 8 * v9;
-  v37 = v9 > 0x80;
-  if (v9 < 0x81)
-  {
-    v14 = v10;
-    MEMORY[0x1EEE9AC00](this);
-    v11 = (&v32 - ((v10 + 15) & 0xFFFF0));
-    bzero(v11, v10);
-    v36 = v11;
-    v35 = v9 > 0x80;
-    MEMORY[0x1EEE9AC00](v15);
-    v12 = v11;
-    bzero(v11, v14);
-    v34 = v11;
-    if (!v9)
-    {
-      v21 = 1;
-      v22 = v8;
-      goto LABEL_15;
-    }
-
-    v13 = v9;
+    *a8 = *a8 + ((v21 - v22) * (v21 - v22));
+    v23 = *(a6 + 4 * a3);
   }
 
   else
   {
-    v11 = physx::shdfnd::TempAllocator::allocate(v33, 8 * v9, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 357);
-    v36 = v11;
-    v35 = v9 > 0x80;
-    v12 = physx::shdfnd::TempAllocator::allocate(v33, 8 * v9, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 358);
-    v34 = v12;
-    v13 = *(this + 4);
+    *a8 = *a8 + ((v21 + v22) * (v21 + v22));
+    v23 = -*(a6 + 4 * a3);
   }
 
-  v16 = 0;
-  v17 = 0;
-  do
+  *(a4 + 4 * a3) = v23;
+  return result;
+}
+
+uint64_t case00(uint64_t result, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, float *a7, float *a8)
+{
+  if (a7)
   {
-    v18 = this;
-    if (v13 != 1)
-    {
-      v18 = *this;
-    }
-
-    v19 = *(v18 + v16);
-    if ((*(v19 + 56) & 0x40) != 0)
-    {
-      v20 = (*(v19 + 64) + 52);
-    }
-
-    else
-    {
-      v20 = (v19 + 144);
-    }
-
-    if ((*v20 & 2) != 0)
-    {
-      v11[v17++] = v19 + 48;
-    }
-
-    ++v16;
+    *a7 = (*(a6 + 4 * result) - *(a4 + 4 * result)) / *(a5 + 4 * result);
   }
 
-  while (v9 != v16);
-  v21 = 0;
-  v22 = *(&physx::NpActor::sLazyInitOffsets + *(a3 + 4) + 18);
-LABEL_15:
-  v23 = *(*(a3 + v22 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a3 + v22 + 11) & 0xF) + 3)) + 88);
-  *(this + 8) = v23;
-  (*(*a3 + 152))(v33, a3);
-  physx::Sq::SceneQueryManager::addCompoundShape(a2, a4, v23, v33, v12, v11, a3 + v8);
-  if ((v21 & 1) == 0)
+  *(a4 + 4 * result) = *(a6 + 4 * result);
+  v8 = *(a4 + 4 * a2);
+  v9 = *(a6 + 4 * a2);
+  if (v8 >= -v9)
   {
-    v24 = 0;
-    v25 = 0;
-    v26 = *(this + 4);
-    do
+    if (v8 <= v9)
     {
-      v27 = this;
-      if (v26 != 1)
+      goto LABEL_8;
+    }
+
+    *a8 = *a8 + ((v8 - v9) * (v8 - v9));
+    v10 = *(a6 + 4 * a2);
+  }
+
+  else
+  {
+    *a8 = *a8 + ((v8 + v9) * (v8 + v9));
+    v10 = -*(a6 + 4 * a2);
+  }
+
+  *(a4 + 4 * a2) = v10;
+LABEL_8:
+  v11 = *(a4 + 4 * a3);
+  v12 = *(a6 + 4 * a3);
+  if (v11 >= -v12)
+  {
+    if (v11 <= v12)
+    {
+      return result;
+    }
+
+    *a8 = *a8 + ((v11 - v12) * (v11 - v12));
+    v13 = *(a6 + 4 * a3);
+  }
+
+  else
+  {
+    *a8 = *a8 + ((v11 + v12) * (v11 + v12));
+    v13 = -*(a6 + 4 * a3);
+  }
+
+  *(a4 + 4 * a3) = v13;
+  return result;
+}
+
+uint64_t face(uint64_t result, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, float *a8, float *a9)
+{
+  v9 = *(a6 + 4 * a2);
+  v51[a2] = *(a4 + 4 * a2) + v9;
+  v10 = *(a6 + 4 * a3);
+  v11 = *(a4 + 4 * a3) + v10;
+  v51[a3] = v11;
+  v12 = *(a5 + 4 * result);
+  v13 = v51[a2];
+  v14 = *(a5 + 4 * a2);
+  v15 = *(a7 + 4 * result);
+  v16 = v11 * v12;
+  v17 = *(a5 + 4 * a3);
+  v18 = v15 * v17;
+  if ((v12 * v13) < (v14 * v15))
+  {
+    if (v16 >= v18)
+    {
+      v21 = (v14 * v14) + (v12 * v12);
+      v22 = (v13 * v14) + (v12 * v15);
+      v23 = (v21 * v11) - (v17 * v22);
+      goto LABEL_11;
+    }
+
+    v19 = (v17 * v17) + (v12 * v12);
+    v20 = (v19 * v13) - (v14 * ((v11 * v17) + (v12 * v15)));
+    if (v20 < 0.0)
+    {
+      v21 = (v14 * v14) + (v12 * v12);
+      v22 = (v13 * v14) + (v12 * v15);
+      v23 = (v21 * v11) - (v17 * v22);
+      if (v23 < 0.0)
       {
-        v27 = *this;
+        v24 = v21 + (v17 * v17);
+        v25 = v22 + (v17 * v11);
+        v26 = -v25 / v24;
+        *a9 = ((((v13 * v13) + (v15 * v15)) + (v11 * v11)) + (v25 * v26)) + *a9;
+        if (!a8)
+        {
+          return result;
+        }
+
+        *a8 = v26;
+        *(a4 + 4 * result) = *(a6 + 4 * result);
+        v27 = -*(a6 + 4 * a2);
+LABEL_24:
+        *(a4 + 4 * a2) = v27;
+        v36 = -*(a6 + 4 * a3);
+LABEL_25:
+        *(a4 + 4 * a3) = v36;
+        return result;
       }
 
-      v28 = *(v27 + v24);
-      if ((*(v28 + 56) & 0x40) != 0)
+LABEL_11:
+      v32 = (v13 * v13) + (v15 * v15);
+      v33 = *a9;
+      if (v23 <= (v10 * (v21 + v21)))
       {
-        v29 = (*(v28 + 64) + 52);
+        v38 = v23 / v21;
+        v39 = v11 - v38;
+        v40 = v22 + (v17 * (v11 - (v23 / v21)));
+        v41 = -(v22 + (v17 * (v11 - v38))) / (v21 + (v17 * v17));
+        *a9 = ((v32 + (v39 * v39)) + (v40 * v41)) + v33;
+        if (!a8)
+        {
+          return result;
+        }
+
+        *a8 = v41;
+        *(a4 + 4 * result) = *(a6 + 4 * result);
+        *(a4 + 4 * a2) = -*(a6 + 4 * a2);
+        v36 = v38 - *(a6 + 4 * a3);
       }
 
       else
       {
-        v29 = (v28 + 144);
+        v34 = *(a7 + 4 * a3);
+        v35 = -(v22 + (v17 * v34)) / (v21 + (v17 * v17));
+        *a9 = v33 + ((v32 + (v34 * v34)) + ((v22 + (v17 * v34)) * v35));
+        if (!a8)
+        {
+          return result;
+        }
+
+        *a8 = v35;
+        *(a4 + 4 * result) = *(a6 + 4 * result);
+        *(a4 + 4 * a2) = -*(a6 + 4 * a2);
+        v36 = *(a6 + 4 * a3);
       }
 
-      if ((*v29 & 2) != 0)
+      goto LABEL_25;
+    }
+
+    v42 = v9 * (v19 + v19);
+    v30 = *a9;
+    if (v20 > v42)
+    {
+LABEL_19:
+      v43 = *(a7 + 4 * a2);
+      v44 = v19 + (v14 * v14);
+      v45 = ((v14 * v43) + (v12 * v15)) + (v17 * v11);
+      v46 = -v45 / v44;
+      *a9 = v30 + ((((v43 * v43) + (v15 * v15)) + (v11 * v11)) + (v45 * v46));
+      if (!a8)
       {
-        v30 = this + 16;
-        if (*(this + 12) != 1)
-        {
-          v30 = *(this + 2);
-        }
-
-        v31 = v12[v25++];
-        *&v30[8 * v24] = v31;
+        return result;
       }
 
-      ++v24;
+      *a8 = v46;
+      *(a4 + 4 * result) = *(a6 + 4 * result);
+      v27 = *(a6 + 4 * a2);
+      goto LABEL_24;
     }
 
-    while (v9 != v24);
-  }
-
-  if (v35)
-  {
-    physx::shdfnd::TempAllocator::deallocate(&v34, v12);
-  }
-
-  if (v9 >= 0x81)
-  {
-    physx::shdfnd::TempAllocator::deallocate(&v36, v11);
-  }
-}
-
-void physx::NpShapeManager::visualize(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v463 = *MEMORY[0x1E69E9840];
-  v8 = (*(*a3 + 560))(a3, 0);
-  if (v8 != 0.0)
-  {
-    v9 = v8;
-    v10 = *(a1 + 4);
-    v417 = v10 != 1 && (a1 = *a1, v10) && (*(*a3 + 560))(a3, 14) != 0.0;
-    if ((*(a3 + 8624) & 0x40) != 0)
+    v31 = v20 / v19;
+LABEL_22:
+    v47 = v19 + (v14 * v14);
+    v48 = v13 - v31;
+    v49 = ((v14 * v48) + (v12 * v15)) + (v17 * v11);
+    v50 = -v49 / v47;
+    *a9 = ((((v48 * v48) + (v15 * v15)) + (v11 * v11)) + (v49 * v50)) + v30;
+    if (!a8)
     {
-      v11 = (a3 + 8316);
+      return result;
     }
 
-    else
-    {
-      v11 = (*(a3 + 1872) + 1888);
-    }
-
-    v12 = (*(*a3 + 560))(a3, 11);
-    v409 = (*(*a3 + 560))(a3, 12);
-    v13 = (*(*a3 + 560))(a3, 16);
-    v15 = (*(*a3 + 560))(a3, 15);
-    v16 = v15 != 0.0 || v409 != 0.0;
-    v406 = v13;
-    if (v13 != 0.0)
-    {
-      v16 = 1;
-    }
-
-    v416 = v11;
-    v418 = v11[3];
-    v419 = *v11;
-    v421 = v16;
-    v17 = *v11 <= v418 && v16;
-    v14.n128_f32[0] = *v11;
-    v18 = (*(*a3 + 560))(a3, 13, v14);
-    (*(*a4 + 152))(&v437, a4);
-    if (v10)
-    {
-      v29 = 0;
-      v30 = v417;
-      v31 = v417 || v17;
-      v415 = v9 * v15;
-      v32 = v9 * v18;
-      v33 = vdup_n_s32(0xFE7FFFFF);
-      v34 = -0.5;
-      v422 = xmmword_1E3113BA0;
-      v407 = a1;
-      v414 = v10;
-      v410 = v12;
-      v420 = v417 || v17;
-      v413 = v32;
-      while (1)
-      {
-        v35 = a1[v29];
-        v36 = *(v35 + 56);
-        if ((v36 & 4) != 0)
-        {
-          v37 = *(v35 + 64);
-        }
-
-        else
-        {
-          v37 = (v35 + 112);
-        }
-
-        _S2 = v37[1].f32[0] + v37[1].f32[0];
-        v39 = v37[1].f32[1] + v37[1].f32[1];
-        _S4 = v37[1].f32[2] + v37[1].f32[2];
-        *&v25 = v34 + (v439 * v439);
-        *v26.i32 = v437;
-        _Q7.i64[0] = v438;
-        __asm
-        {
-          FMLA            S16, S4, V7.S[1]
-          FMLA            S18, S2, V7.S[1]
-          FMLA            S20, S16, V7.S[1]
-        }
-
-        *&v47 = v441 + (((v439 * _S18) + (v39 * *&v25)) + (*&v438 * _S16));
-        v48 = *v37;
-        v48.i32[3] = HIDWORD(v438);
-        v24.f32[0] = ((v439 * (vmuls_lane_f32(v39, vnegq_f32(v48), 3) + (*&v438 * _S4))) + (_S2 * *&v25)) + (v437 * _S16);
-        v50 = vextq_s8(vextq_s8(v26, v26, 4uLL), _Q7, 0xCuLL);
-        v50.f32[3] = -v437;
-        v49 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v37, 3), *v37, 4uLL), v50), *v37, v439);
-        v50.f32[3] = -*&v438;
-        _Q7.f32[2] = v437;
-        _Q7.i32[3] = v37->i64[1];
-        v51 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v49, v49, 4uLL), v49), vextq_s8(vextq_s8(*v37, *v37, 0xCuLL), *v37, 8uLL), v50), _Q7, v48);
-        v52 = vzip1q_s32(v51, vextq_s8(v51, v51, 0xCuLL));
-        v53 = vzip2q_s32(v52, v51);
-        v434 = v53;
-        *v435.i32 = v440 + v24.f32[0];
-        v435.i32[1] = v47;
-        v436 = v442 + _S20;
-        if (v36)
-        {
-          v54 = *(v35 + 64) + 64;
-          if ((v36 & 0x40) != 0)
-          {
-LABEL_24:
-            v55 = (*(v35 + 64) + 52);
-            goto LABEL_27;
-          }
-        }
-
-        else
-        {
-          v54 = v35 + 152;
-          if ((v36 & 0x40) != 0)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        v55 = (v35 + 144);
-LABEL_27:
-        v56 = *v55;
-        v53.i64[0] = 0;
-        v58 = (*v55 & 8) != 0 && v12 != 0.0;
-        if ((v31 | v58) == 1)
-        {
-          v23.i32[0] = 1.0;
-          physx::Gu::computeBounds(&v432, v54, &v434, 0, v53, *&v23, *&v24, *v52.i64, *v50.i64, v25, v26, v19, v20, v21, v22, v405);
-          if ((v56 & 8) == 0)
-          {
-            goto LABEL_221;
-          }
-        }
-
-        else
-        {
-          v59.n128_u64[1] = 0xFE7FFFFF7E7FFFFFLL;
-          v432 = xmmword_1E3113BA0;
-          v59.n128_u64[0] = vdup_n_s32(0xFE7FFFFF);
-          v433 = v59.n128_u64[0];
-          if ((v56 & 8) == 0)
-          {
-            goto LABEL_221;
-          }
-        }
-
-        if (v12 != 0.0)
-        {
-          *(a2 + 4) = -256;
-          *(a2 + 36) = 1065353216;
-          *(a2 + 40) = 0;
-          *(a2 + 48) = 0;
-          *(a2 + 56) = 1065353216;
-          *(a2 + 68) = 0;
-          *(a2 + 60) = 0;
-          *(a2 + 76) = 1065353216;
-          *(a2 + 80) = 0;
-          *(a2 + 88) = 0;
-          *(a2 + 96) = 1065353216;
-          *v453 = v432;
-          *&v453[16] = v433;
-          v453[24] = 1;
-          physx::Cm::operator<<(a2, v453);
-        }
-
-        if (v32 != 0.0)
-        {
-          physx::PxMat44::PxMat44(v453, &v434);
-          v60 = *&v453[16];
-          *(a2 + 36) = *v453;
-          *(a2 + 52) = v60;
-          v61 = *&v454[16];
-          *(a2 + 68) = *v454;
-          *(a2 + 84) = v61;
-          *v448 = v32;
-          *&v448[4] = v32;
-          *&v448[8] = v32;
-          *&v448[12] = 0xCF0000CF0000;
-          *&v448[20] = 207;
-          physx::Cm::operator<<(a2, v448);
-        }
-
-        if (!v421 || v419 <= v418 && (v432.f32[0] > v416[3] || *v416 > v432.f32[3] || v432.f32[1] > v416[4] || v416[1] > *v433.i32 || v432.f32[2] > v416[5] || v416[2] > *&v433.i32[1]))
-        {
-          goto LABEL_221;
-        }
-
-        v62 = *v54;
-        if (v409 == 0.0)
-        {
-          if (v62 != 5)
-          {
-            goto LABEL_221;
-          }
-
-LABEL_90:
-          v412 = v33;
-          v180 = *(v54 + 40);
-          v182 = *(v54 + 4);
-          v181 = v54 + 4;
-          v183 = *(v181 + 12);
-          v184 = vadd_f32(v183, v183);
-          v185 = vrev64_s32(vmul_f32(v183, v184));
-          v186 = vmul_lane_f32(v184, v183, 1);
-          v187 = *(v181 + 8);
-          v188 = vadd_f32(*v434.f32, *v434.f32);
-          v189 = vmul_f32(*v434.f32, __PAIR64__(v188.u32[1], v434.u32[0]));
-          v190 = vadd_f32(*v434.f32, __PAIR64__(v188.u32[1], v434.u32[0]));
-          v191 = vmul_f32(*v434.f32, v190).f32[0];
-          v190.i32[1] = v189.i32[1];
-          v192 = vrev64_s32(vmul_n_f32(*&v434.u32[2], v190.f32[0]));
-          v193 = vmul_lane_f32(*&v434.u32[2], v188, 1);
-          v194 = vmul_n_f32(vrev64_s32(*&v434.u32[2]), vadd_f32(*&v434.u32[2], *&v434.u32[2]).f32[0]);
-          __asm { FMOV            V22.2S, #1.0 }
-
-          v196 = vzip2_s32(*v434.f32, _D22);
-          v197 = vsub_f32(v196, v190);
-          v198 = vmul_f32(v196, v190);
-          v196.i32[0] = vadd_f32(v198, v194).u32[0];
-          v196.i32[1] = vsub_f32(v197, v194).i32[1];
-          v23 = vsub_f32(v192, v193);
-          v198.f32[1] = 1.0 - v191;
-          v199 = vsub_f32(v198, v194);
-          v200 = vrev64_s32(v199);
-          v201 = vadd_f32(v193, v192);
-          v193.i32[0] = vsub_f32(v193, v192).u32[0];
-          v193.i32[1] = v201.i32[1];
-          v198.f32[0] = v198.f32[1] - v189.f32[1];
-          v202 = *(v181 + 20);
-          v203 = vadd_f32(v202, v202);
-          v204 = vmul_f32(v202, v203);
-          v205 = vmul_n_f32(v202, v184.f32[0]);
-          v206 = vrev64_s32(vmul_lane_f32(v202, v184, 1));
-          v207 = vmul_lane_f32(v203, v202, 1);
-          v208 = vdup_lane_s32(vsub_f32(v186, v207), 0);
-          v208.i32[0] = vadd_f32(v186, v207).u32[0];
-          v209 = vsub_f32(_D22, v185);
-          v210 = vsub_f32(v209, vdup_lane_s32(v204, 0));
-          v211 = vadd_f32(v205, v206);
-          v186.i32[0] = vsub_f32(v205, v206).u32[0];
-          v186.i32[1] = v211.i32[1];
-          v212 = vsub_f32(v206, v205);
-          v213 = vmul_f32(vzip1_s32(v210, v208), v182);
-          v214 = vmul_f32(vzip2_s32(v208, v210), v182);
-          v211.i32[1] = v212.i32[1];
-          v185.f32[0] = vsub_f32(vdup_lane_s32(v209, 1), v185).f32[0];
-          v215 = vmul_f32(v211, v182);
-          v216 = vmul_n_f32(v186, v187);
-          v217 = v187 * v185.f32[0];
-          v218 = vrev64_s32(v208);
-          v219 = vmul_f32(v210, v214);
-          v220 = vadd_f32(vmul_f32(v210, v215), vmul_f32(v208, vrev64_s32(v215)));
-          v221 = vadd_f32(vadd_f32(vmul_f32(v210, v213), vrev64_s32(vmul_f32(v218, v213))), vmul_n_f32(v186, v216.f32[0]));
-          v222 = vadd_f32(vadd_f32(v219, vrev64_s32(vmul_f32(v218, v214))), vmul_lane_f32(v186, v216, 1));
-          v223 = vadd_f32(v220, vmul_n_f32(v186, v217));
-          v224 = v217 * v185.f32[0];
-          v225 = vadd_f32(vadd_f32(vmul_n_f32(vzip1_s32(v213, v214), v211.f32[0]), vmul_lane_f32(vzip2_s32(v213, v214), v212, 1)), vmul_n_f32(v216, v185.f32[0]));
-          v215.f32[0] = vaddv_f32(vmul_f32(v211, v215)) + v224;
-          v226 = (v198.f32[0] * v223.f32[0]) + (vmuls_lane_f32(v221.f32[0], v23, 1) + vmul_f32(v201, v222).f32[0]);
-          v227 = vadd_f32(vmul_f32(v193, v223), vadd_f32(vmul_f32(v196, v221), vmul_f32(v200, v222)));
-          v228 = vadd_f32(vmul_f32(v193, vrev64_s32(v223)), vadd_f32(vmul_f32(v196, vrev64_s32(v221)), vrev64_s32(vmul_f32(v199, v222))));
-          v229 = vmuls_lane_f32(v198.f32[0], v223, 1) + vadd_f32(vdup_lane_s32(vmul_f32(v23, v221), 1), vmul_lane_f32(v201, v222, 1)).f32[0];
-          *v26.i8 = vzip2_s32(v199, v196);
-          v196.i32[1] = v200.i32[1];
-          v25 = COERCE_DOUBLE(vmul_f32(*v26.i8, vrev64_s32(v225)));
-          v24 = vmul_n_f32(v193, v215.f32[0]);
-          v230 = vadd_f32(v24, vadd_f32(vmul_f32(v196, v225), *&v25));
-          v231 = (v198.f32[0] * v215.f32[0]) + (vmuls_lane_f32(v225.f32[0], v23, 1) + vmul_lane_f32(v201, v225, 1).f32[0]);
-          *v448 = vext_s8(v228, v227, 4uLL);
-          *&v448[12] = vext_s8(v227, v228, 4uLL);
-          *&v448[8] = v226;
-          *&v448[20] = v229;
-          v449 = vrev64_s32(v230);
-          v59.n128_u64[0] = v435;
-          v451 = v435;
-          v232 = v436;
-          v450 = v231;
-          v452 = v436;
-          v233 = *(v180 + 32);
-          v234 = *(v180 + 48);
-          v429 = *(v180 + 40);
-          v235 = (*(v180 + 92) >> 1) & 1;
-          if (v419 > v418)
-          {
-            if (v409 == 0.0)
-            {
-              v241 = 0;
-              LODWORD(v425) = *(v180 + 32);
-              v12 = v410;
-              v33 = v412;
-              v32 = v413;
-              v34 = -0.5;
-            }
-
-            else
-            {
-              v242 = *(v180 + 28);
-              *(a2 + 36) = 1065353216;
-              *(a2 + 40) = 0;
-              *(a2 + 48) = 0;
-              *(a2 + 56) = 1065353216;
-              *(a2 + 68) = 0;
-              *(a2 + 60) = 0;
-              *(a2 + 76) = 1065353216;
-              *(a2 + 80) = 0;
-              *(a2 + 88) = 0;
-              *(a2 + 96) = 1065353216;
-              *(a2 + 4) = -65281;
-              if (v242)
-              {
-                v243 = vrev64_s32(v59.n128_u64[0]);
-                v244 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v242, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 632);
-                v245 = (v244 + 8);
-                v246 = (v429 + 8);
-                do
-                {
-                  v24 = *(v246 - 2);
-                  v25 = COERCE_DOUBLE(vmul_f32(v228, vrev64_s32(v24)));
-                  v247 = v232 + (((v226 * v24.f32[0]) + vmuls_lane_f32(v229, v24, 1)) + (v231 * *v246));
-                  v59.n128_u64[0] = vrev64_s32(vadd_f32(v243, vadd_f32(vadd_f32(vmul_f32(v227, v24), *&v25), vmul_n_f32(v230, *v246))));
-                  *(v245 - 1) = v59.n128_u64[0];
-                  *v245 = v247;
-                  v245 += 3;
-                  v246 += 3;
-                  --v242;
-                }
-
-                while (v242);
-              }
-
-              else
-              {
-                v244 = 0;
-              }
-
-              v337 = *(a2 + 104);
-              v338 = *(v337 + 32);
-              v339 = *(v337 + 36) & 0x7FFFFFFF;
-              v340 = v338 + 3 * v233;
-              v12 = v410;
-              v33 = v412;
-              v32 = v413;
-              v34 = -0.5;
-              if (v340 > v339)
-              {
-                v341 = 2 * *(v337 + 36);
-                if (!v339)
-                {
-                  v341 = 2;
-                }
-
-                if (v340 <= v341)
-                {
-                  v342 = v341;
-                }
-
-                else
-                {
-                  v342 = v340;
-                }
-
-                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v337 + 24, v342);
-                v338 = *(v337 + 32);
-              }
-
-              v343 = *(v337 + 24);
-              *(v337 + 32) = v340;
-              if (v233)
-              {
-                v344 = 0;
-                v345 = v343 + 32 * v338;
-                do
-                {
-                  getTriangle(v344, v453, v244, v234, v235);
-                  v346 = *v453;
-                  v347 = *&v453[16];
-                  *v345 = *v453;
-                  *(v345 + 8) = DWORD2(v346);
-                  *(v345 + 12) = -65281;
-                  *(v345 + 16) = HIDWORD(v346);
-                  *(v345 + 20) = v347;
-                  *(v345 + 28) = -65281;
-                  v348 = *&v453[24];
-                  v349 = *v454;
-                  *(v345 + 32) = HIDWORD(v346);
-                  *(v345 + 36) = v347;
-                  *(v345 + 44) = -65281;
-                  *(v345 + 48) = v348;
-                  *(v345 + 56) = v349;
-                  *(v345 + 60) = -65281;
-                  *(v345 + 64) = v348;
-                  *(v345 + 72) = v349;
-                  *(v345 + 76) = -65281;
-                  *(v345 + 80) = v346;
-                  *(v345 + 88) = DWORD2(v346);
-                  *(v345 + 92) = -65281;
-                  v345 += 96;
-                  ++v344;
-                }
-
-                while (v233 != v344);
-              }
-
-              if (v244)
-              {
-                (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v244);
-              }
-
-              v241 = 0;
-              LODWORD(v425) = v233;
-            }
-          }
-
-          else
-          {
-            v236 = vextq_s8(*v416, *v416, 8uLL);
-            v237 = vextq_s8(*v416, v236, 0xCuLL);
-            v238 = vsubq_f32(*v416, v237);
-            *(v237.i64 + 4) = *(v416 + 2);
-            v239 = vaddq_f32(*v416, v237);
-            v239.i32[3] = v238.i32[3];
-            v240 = vsub_f32(*(v416 + 4), vext_s8(*v416, *v236.f32, 4uLL));
-            v236.i64[0] = 0x3F0000003F000000;
-            v236.i64[1] = 0x3F0000003F000000;
-            *v453 = xmmword_1E3047670;
-            *&v453[16] = xmmword_1E3047670;
-            *v454 = 1065353216;
-            *&v454[4] = vmulq_f32(v239, v236);
-            *&v454[20] = vmul_f32(v240, 0x3F0000003F000000);
-            if (v233)
-            {
-              v241 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * v233, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 602);
-            }
-
-            else
-            {
-              v241 = 0;
-            }
-
-            v12 = v410;
-            v33 = v412;
-            v32 = v413;
-            v34 = -0.5;
-            v443 = v241;
-            v445 = v233;
-            v444 = 0;
-            v446 = 0;
-            v447 = 0;
-            (physx::Gu::gMidphaseBoxOverlapTable[*(v180 + 8) - 3])(v453, v180, &v434, v181, &v443);
-            v425 = v444;
-            if (v409 != 0.0)
-            {
-              *(a2 + 36) = 1065353216;
-              *(a2 + 40) = 0;
-              *(a2 + 48) = 0;
-              *(a2 + 56) = 1065353216;
-              *(a2 + 68) = 0;
-              *(a2 + 60) = 0;
-              *(a2 + 76) = 1065353216;
-              *(a2 + 80) = 0;
-              *(a2 + 88) = 0;
-              *(a2 + 96) = 1065353216;
-              *(a2 + 4) = -65281;
-              v266 = *(a2 + 104);
-              v267 = *(v266 + 32);
-              v268 = *(v266 + 36) & 0x7FFFFFFF;
-              v269 = v267 + 3 * v425;
-              if (v269 > v268)
-              {
-                v270 = 2 * *(v266 + 36);
-                if (!v268)
-                {
-                  v270 = 2;
-                }
-
-                if (v269 <= v270)
-                {
-                  v271 = v270;
-                }
-
-                else
-                {
-                  v271 = v269;
-                }
-
-                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v266 + 24, v271);
-                v267 = *(v266 + 32);
-              }
-
-              v272 = *(v266 + 24);
-              *(v266 + 32) = v269;
-              if (v425)
-              {
-                v273 = v272 + 32 * v267;
-                v274 = v241;
-                v275 = v425;
-                do
-                {
-                  v276 = *v274++;
-                  getTriangle(v276, &v455, v429, v234, v448, v235);
-                  v59.n128_f32[0] = v455;
-                  v24.i32[0] = HIDWORD(v456);
-                  v23.i32[0] = LODWORD(v456);
-                  v277 = v457;
-                  v278 = v458;
-                  *&v25 = v459;
-                  *v273 = v455;
-                  *(v273 + 4) = __PAIR64__(v24.u32[0], v23.u32[0]);
-                  *(v273 + 12) = -65281;
-                  *(v273 + 16) = v277;
-                  *(v273 + 20) = v278;
-                  *(v273 + 24) = LODWORD(v25);
-                  *(v273 + 28) = -65281;
-                  *v26.i32 = v460;
-                  _Q7.i32[0] = v461;
-                  v279 = v462;
-                  *(v273 + 32) = v277;
-                  *(v273 + 36) = v278;
-                  *(v273 + 40) = LODWORD(v25);
-                  *(v273 + 44) = -65281;
-                  *(v273 + 48) = v26.i32[0];
-                  *(v273 + 52) = _Q7.i32[0];
-                  *(v273 + 56) = v279;
-                  *(v273 + 60) = -65281;
-                  *(v273 + 64) = v26.i32[0];
-                  *(v273 + 68) = _Q7.i32[0];
-                  *(v273 + 72) = v279;
-                  *(v273 + 76) = -65281;
-                  *(v273 + 80) = v59.n128_u32[0];
-                  *(v273 + 84) = __PAIR64__(v24.u32[0], v23.u32[0]);
-                  *(v273 + 92) = -65281;
-                  v273 += 96;
-                  --v275;
-                }
-
-                while (v275);
-              }
-            }
-          }
-
-          if (v415 != 0.0)
-          {
-            *(a2 + 36) = 1065353216;
-            *(a2 + 40) = 0;
-            *(a2 + 48) = 0;
-            *(a2 + 56) = 1065353216;
-            *(a2 + 68) = 0;
-            *(a2 + 60) = 0;
-            *(a2 + 76) = 1065353216;
-            *(a2 + 80) = 0;
-            *(a2 + 88) = 0;
-            *(a2 + 96) = 1065353216;
-            *(a2 + 4) = -2004353024;
-            if (v425)
-            {
-              v350 = 0;
-              do
-              {
-                if (v241)
-                {
-                  v351 = *(v241 + 4 * v350);
-                }
-
-                else
-                {
-                  v351 = v350;
-                }
-
-                getTriangle(v351, v453, v429, v234, v448, v235);
-                v352 = ((*&v453[4] - *&v453[16]) * (*&v453[8] - *v454)) - ((*&v453[8] - *&v453[20]) * (*&v453[4] - *&v453[28]));
-                v353 = ((*&v453[8] - *&v453[20]) * (*v453 - *&v453[24])) - ((*v453 - *&v453[12]) * (*&v453[8] - *v454));
-                v354 = ((*v453 - *&v453[12]) * (*&v453[4] - *&v453[28])) - ((*&v453[4] - *&v453[16]) * (*v453 - *&v453[24]));
-                v355 = ((v353 * v353) + (v352 * v352)) + (v354 * v354);
-                v356 = 0.0;
-                v357 = 0.0;
-                v358 = 0.0;
-                if (v355 > 0.0)
-                {
-                  v359 = 1.0 / sqrtf(v355);
-                  v358 = v352 * v359;
-                  v357 = v353 * v359;
-                  v356 = v354 * v359;
-                }
-
-                v455 = ((*v453 + *&v453[12]) + *&v453[24]) * 0.33333;
-                *&v456 = ((*&v453[4] + *&v453[16]) + *&v453[28]) * 0.33333;
-                *(&v456 + 1) = ((*&v453[8] + *&v453[20]) + *v454) * 0.33333;
-                v457 = v455 + (v415 * v358);
-                v458 = *&v456 + (v415 * v357);
-                v459 = *(&v456 + 1) + (v415 * v356);
-                v460 = sqrtf((((v415 * v357) * (v415 * v357)) + ((v415 * v358) * (v415 * v358))) + ((v415 * v356) * (v415 * v356))) * 0.15;
-                physx::Cm::operator<<(a2, &v455);
-                ++v350;
-              }
-
-              while (v425 != v350);
-            }
-          }
-
-          v59.n128_f32[0] = v406;
-          v31 = v420;
-          if (v406 == 0.0 || (v360 = *(v180 + 80)) == 0 || (v427 = *(v180 + 48), v431 = *(v180 + 40), *(a2 + 4) = -256, !v425))
-          {
-LABEL_217:
-            if (v241)
-            {
-              (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v241, v59);
-            }
-
-            a1 = v407;
-            goto LABEL_220;
-          }
-
-          v361 = 0;
-          v362 = -256;
-          v363 = (*(v180 + 92) >> 1) & 1;
-          while (2)
-          {
-            if (v241)
-            {
-              v364 = *(v241 + 4 * v361);
-            }
-
-            else
-            {
-              v364 = v361;
-            }
-
-            v59.n128_f32[0] = getTriangle(v364, v453, v431, v427, v448, v363);
-            v365 = *(v360 + v364);
-            if ((v365 & 8) != 0)
-            {
-              v366 = *(a2 + 104);
-              v367 = *(v366 + 32);
-              v368 = *(v366 + 36) & 0x7FFFFFFF;
-              v369 = v367 + 1;
-              if (v367 + 1 > v368)
-              {
-                v370 = 2 * *(v366 + 36);
-                if (!v368)
-                {
-                  v370 = 2;
-                }
-
-                if (v369 <= v370)
-                {
-                  v371 = v370;
-                }
-
-                else
-                {
-                  v371 = v369;
-                }
-
-                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v366 + 24, v371);
-                v367 = *(v366 + 32);
-                v362 = *(a2 + 4);
-              }
-
-              v372 = *(v366 + 24) + 32 * v367;
-              *(v366 + 32) = v369;
-              *v372 = *v453;
-              *(v372 + 8) = *&v453[8];
-              v59.n128_u32[1] = *&v453[16];
-              *(v372 + 16) = *&v453[12];
-              v59.n128_u32[0] = *&v453[20];
-              *(v372 + 24) = *&v453[20];
-              *(v372 + 28) = v362;
-              *(v372 + 12) = v362;
-              if ((v365 & 0x10) != 0)
-              {
-                goto LABEL_200;
-              }
-
-LABEL_190:
-              if ((v365 & 0x20) != 0)
-              {
-LABEL_208:
-                v380 = *(a2 + 104);
-                v381 = *(v380 + 32);
-                v382 = *(v380 + 36) & 0x7FFFFFFF;
-                v383 = v381 + 1;
-                if (v381 + 1 > v382)
-                {
-                  v384 = 2 * *(v380 + 36);
-                  if (!v382)
-                  {
-                    v384 = 2;
-                  }
-
-                  if (v383 <= v384)
-                  {
-                    v385 = v384;
-                  }
-
-                  else
-                  {
-                    v385 = v383;
-                  }
-
-                  physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v380 + 24, v385);
-                  v381 = *(v380 + 32);
-                  v362 = *(a2 + 4);
-                }
-
-                v386 = *(v380 + 24) + 32 * v381;
-                *(v380 + 32) = v383;
-                *v386 = *v453;
-                *(v386 + 8) = *&v453[8];
-                v59.n128_u32[1] = *&v453[28];
-                *(v386 + 16) = *&v453[24];
-                v59.n128_u32[0] = *v454;
-                *(v386 + 24) = *v454;
-                *(v386 + 28) = v362;
-                *(v386 + 12) = v362;
-              }
-            }
-
-            else
-            {
-              if ((v365 & 0x10) == 0)
-              {
-                goto LABEL_190;
-              }
-
-LABEL_200:
-              v373 = *(a2 + 104);
-              v374 = *(v373 + 32);
-              v375 = *(v373 + 36) & 0x7FFFFFFF;
-              v376 = v374 + 1;
-              if (v374 + 1 > v375)
-              {
-                v377 = 2 * *(v373 + 36);
-                if (!v375)
-                {
-                  v377 = 2;
-                }
-
-                if (v376 <= v377)
-                {
-                  v378 = v377;
-                }
-
-                else
-                {
-                  v378 = v376;
-                }
-
-                physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v373 + 24, v378);
-                v374 = *(v373 + 32);
-                v362 = *(a2 + 4);
-              }
-
-              v379 = *(v373 + 24) + 32 * v374;
-              *(v373 + 32) = v376;
-              *v379 = *&v453[12];
-              *(v379 + 8) = *&v453[20];
-              v59.n128_u32[1] = *&v453[28];
-              *(v379 + 16) = *&v453[24];
-              v59.n128_u32[0] = *v454;
-              *(v379 + 24) = *v454;
-              *(v379 + 28) = v362;
-              *(v379 + 12) = v362;
-              if ((v365 & 0x20) != 0)
-              {
-                goto LABEL_208;
-              }
-            }
-
-            v31 = v420;
-            if (v425 == ++v361)
-            {
-              goto LABEL_217;
-            }
-
-            continue;
-          }
-        }
-
-        if (v62 <= 2)
-        {
-          if (v62)
-          {
-            if (v62 == 1)
-            {
-              physx::PxMat44::PxMat44(v453, &v434);
-              v261 = 0;
-              *&v262 = *&v453[4];
-              v263 = *v453;
-              v264 = *v454;
-              *&v454[4] = *&v453[4];
-              *(&v262 + 1) = __PAIR64__(*&v454[16], *&v453[12]);
-              v265 = vnegq_f32(v264);
-              *v454 = *v453;
-              *&v454[12] = *&v453[12];
-              *v453 = vnegq_f32(*&v453[16]);
-              *&v453[16] = v265;
-              *(a2 + 36) = *v453;
-              *(a2 + 52) = v265;
-              *(a2 + 68) = v263;
-              *(a2 + 72) = v262;
-              *(a2 + 88) = *&v454[20];
-              *(a2 + 96) = *&v454[28];
-              *(a2 + 4) = -65281;
-              do
-              {
-                v261 += 2;
-                *v448 = 100;
-                *&v448[4] = v261 * v261;
-                physx::Cm::operator<<(a2, v448);
-              }
-
-              while (v261 < 0x12);
-            }
-
-            else if (v62 == 2)
-            {
-              *(a2 + 4) = -65281;
-              v166 = *(v54 + 4);
-              v167 = *(v54 + 8);
-              physx::PxMat44::PxMat44(v453, &v434);
-              v168 = v166;
-              v32 = v413;
-              v169 = v167;
-              v34 = -0.5;
-              physx::Cm::RenderOutput::outputCapsule(a2, v453, v168, v169);
-            }
-          }
-
-          else
-          {
-            *(a2 + 4) = -65281;
-            v248 = physx::Cm::RenderOutput::operator<<(a2, &v434);
-            v249 = *(v54 + 4);
-            *v453 = 100;
-            *&v453[4] = v249;
-            physx::Cm::operator<<(v248, v453);
-            physx::PxMat44::PxMat44(v453, &v434);
-            v250 = *&v453[16];
-            *(a2 + 36) = *v453;
-            v251 = vnegq_f32(*v454);
-            *&v453[16] = v251;
-            *v454 = v250;
-            *(a2 + 52) = v251;
-            *(a2 + 68) = v250.i32[0];
-            v252 = vextq_s8(v250, v251, 4uLL);
-            v252.i32[3] = *&v454[16];
-            *(a2 + 72) = v252;
-            *(a2 + 88) = *&v454[20];
-            *(a2 + 96) = *&v454[28];
-            v252.i32[0] = *(v54 + 4);
-            *v448 = 100;
-            *&v448[4] = v252.i32[0];
-            v253 = physx::Cm::operator<<(a2, v448);
-            v254 = *&v453[16];
-            v255 = vnegq_f32(*v454);
-            v256 = *v453;
-            *v454 = *v453;
-            *v453 = v255;
-            *(a2 + 36) = v255;
-            *(a2 + 52) = v254;
-            *(a2 + 68) = v256.i32[0];
-            v257 = vextq_s8(v256, v255, 4uLL);
-            v257.i32[3] = *&v454[16];
-            *(a2 + 72) = v257;
-            *(a2 + 88) = *&v454[20];
-            *(a2 + 96) = *&v454[28];
-            v257.i32[0] = *(v54 + 4);
-            *v448 = 100;
-            *&v448[4] = v257.i32[0];
-            physx::Cm::operator<<(v253, v448);
-          }
-
-          goto LABEL_221;
-        }
-
-        if (v62 <= 4)
-        {
-          if (v62 == 3)
-          {
-            *(a2 + 4) = -65281;
-            v258 = physx::Cm::RenderOutput::operator<<(a2, &v434);
-            v259 = *(v54 + 12);
-            v260 = *(v54 + 4);
-            *v453 = vneg_f32(v260);
-            *&v453[12] = v260;
-            *&v453[8] = -v259;
-            *&v453[20] = v259;
-            v453[24] = 1;
-            physx::Cm::operator<<(v258, v453);
-          }
-
-          else
-          {
-            v63 = *(v54 + 32);
-            v64 = *(v63 + 72);
-            v65 = *(v63 + 71);
-            v66 = *(v63 + 70);
-            v408 = v63;
-            v67 = *(v63 + 68);
-            v68 = v434.f32[0];
-            v69.f32[0] = v68 + v68;
-            *&v70 = 1.0 - (v68 * (v68 + v68));
-            v71 = *&v70 - (v434.f32[1] * (v434.f32[1] + v434.f32[1]));
-            v72 = *(v54 + 16);
-            v73 = *(v54 + 24);
-            v74 = vadd_f32(v73, v73);
-            v75 = vmul_f32(v73, v74);
-            v76 = vmul_lane_f32(v74, v73, 1);
-            v77 = vrev64_s32(v72);
-            v78 = vadd_f32(v72, v72);
-            v79 = vrev64_s32(vmul_f32(v72, v78));
-            v80 = vmul_f32(v78, v77);
-            v81.i32[0] = vadd_f32(v80, v76).u32[0];
-            __asm { FMOV            V25.2S, #1.0 }
-
-            v83 = vsub_f32(_D25, v79);
-            v84 = vsub_f32(v80, v76);
-            v79.f32[0] = vsub_f32(vdup_lane_s32(v83, 1), v79).f32[0];
-            v85 = *(v54 + 4);
-            v86 = *(v54 + 12);
-            v80.f32[0] = v86 * v79.f32[0];
-            v76.f32[0] = (v86 * v79.f32[0]) * v79.f32[0];
-            v87 = v435;
-            v88 = vrev64_s32(vmul_n_f32(*&v434.u32[2], v69.f32[0]));
-            v89 = vmul_n_f32(*&v434.u32[2], v434.f32[1] + v434.f32[1]);
-            v90 = vmul_n_f32(vrev64_s32(*&v434.u32[2]), vadd_f32(*&v434.u32[2], *&v434.u32[2]).f32[0]);
-            _D25.i32[0] = v434.i32[1];
-            v69.f32[1] = v434.f32[1] * (v434.f32[1] + v434.f32[1]);
-            v91 = vsub_f32(_D25, v69);
-            v92 = vmul_f32(_D25, v69);
-            v69.i32[0] = vadd_f32(v92, v90).u32[0];
-            v93 = __PAIR64__(v70, v92.u32[0]);
-            v69.i32[1] = vsub_f32(v91, v90).i32[1];
-            v94 = vsub_f32(v88, v89);
-            v95 = vsub_f32(v93, v90);
-            v96 = vadd_f32(v89, v88);
-            v26.i32[0] = vsub_f32(v89, v88).u32[0];
-            v26.i32[1] = v96.i32[1];
-            v97 = vmul_n_f32(v73, v78.f32[0]);
-            v98 = vrev64_s32(vmul_lane_f32(v73, v78, 1));
-            v99 = vsub_f32(v83, vdup_lane_s32(v75, 0));
-            v100 = vadd_f32(v97, v98);
-            v83.i32[0] = vsub_f32(v97, v98).u32[0];
-            v83.i32[1] = v100.i32[1];
-            v101 = vsub_f32(v98, v97);
-            v102 = vzip1_s32(v99, v84);
-            v103 = vmul_n_f32(v102, v85.f32[0]);
-            v104 = vmul_n_f32(v103, v100.f32[0]);
-            v100.i32[1] = v101.i32[1];
-            v81.i32[1] = v99.i32[1];
-            v105 = vrev64_s32(v95);
-            v106 = vmul_lane_f32(v81, v85, 1);
-            v107 = vmul_f32(v100, v85);
-            v108 = vmul_n_f32(v83, v86);
-            v109 = vext_s8(v102, v81, 4uLL);
-            v110 = vzip1_s32(v103, v106);
-            v111 = vzip2_s32(v103, v106);
-            v112 = vrev64_s32(vmul_f32(v109, v111));
-            v113 = vmul_f32(v99, v111);
-            v114 = vadd_f32(vmul_f32(v99, v110), vrev64_s32(vmul_f32(v109, v110)));
-            v115 = vadd_f32(vmul_f32(v99, v107), vrev64_s32(vmul_f32(v109, v107)));
-            v116 = vadd_f32(v114, vmul_n_f32(v83, v108.f32[0]));
-            v117 = vadd_f32(vadd_f32(v113, v112), vmul_lane_f32(v83, v108, 1));
-            v118 = vadd_f32(v115, vmul_n_f32(v83, v80.f32[0]));
-            v119 = vadd_f32(vadd_f32(v104, vmul_lane_f32(v106, v101, 1)), vmul_n_f32(v108, v79.f32[0]));
-            v76.f32[0] = vaddv_f32(vmul_f32(v100, v107)) + v76.f32[0];
-            v120 = vadd_f32(vmul_f32(*v26.i8, v118), vadd_f32(vmul_f32(v69, v116), vmul_f32(v105, v117)));
-            v121 = vadd_f32(vmul_f32(*v26.i8, vrev64_s32(v118)), vadd_f32(vmul_f32(v69, vrev64_s32(v116)), vrev64_s32(vmul_f32(v95, v117))));
-            *&v28 = vadd_f32(vmul_n_f32(v118, v71), vadd_f32(vmul_lane_f32(v116, v94, 1), vmul_n_f32(v117, v96.f32[0])));
-            v122 = vzip2_s32(v95, v69);
-            v69.i32[1] = v105.i32[1];
-            v115.f32[0] = vmuls_lane_f32(v119.f32[0], v94, 1);
-            v25 = COERCE_DOUBLE(vmul_f32(v69, v119));
-            v123 = vmul_f32(v122, vrev64_s32(v119));
-            v23 = vmul_lane_f32(v96, v119, 1);
-            v124 = v71 * v76.f32[0];
-            v125 = v436;
-            *(a2 + 36) = vext_s8(v121, v120, 4uLL);
-            *(a2 + 44) = v28;
-            v126 = vadd_f32(vmul_n_f32(*v26.i8, v76.f32[0]), vadd_f32(*&v25, v123));
-            *(a2 + 52) = vext_s8(v120, v121, 4uLL);
-            *(a2 + 60) = DWORD1(v28);
-            *(a2 + 64) = 0;
-            v24 = vrev64_s32(v126);
-            *(a2 + 68) = v24;
-            v127 = v124 + (v115.f32[0] + v23.f32[0]);
-            *(a2 + 76) = v127;
-            *(a2 + 80) = 0;
-            *(a2 + 84) = v87;
-            *(a2 + 92) = v125;
-            *(a2 + 96) = 1065353216;
-            *(a2 + 4) = -65281;
-            if (v65)
-            {
-              v128 = v65;
-              v129 = 0;
-              v130 = v64 + 20 * v65;
-              v131 = vrev64_s32(v87);
-              v132 = v130 + 12 * v66 + 2 * (v67 & 0x7FFF);
-              v133 = 3 * v66;
-              if (v67 >= 0)
-              {
-                v134 = 0;
-              }
-
-              else
-              {
-                v134 = 4 * (v67 & 0x7FFF);
-              }
-
-              v135 = (v132 + v133 + v134);
-              v136 = -65281;
-              v424 = v121;
-              v426 = v120;
-              v423 = v28;
-              v411 = v33;
-              do
-              {
-                v137 = *(*(v408 + 72) + 20 * v129 + 18);
-                v138 = v130 + 12 * *v135;
-                v139 = *(v138 + 8);
-                *v50.f32 = vmul_f32(v121, vrev64_s32(*v138));
-                v24 = vmul_f32(*&v28, *v138);
-                v140 = vaddv_f32(v24) + (v127 * v139);
-                v141 = vadd_f32(v131, vadd_f32(vadd_f32(vmul_f32(v120, *v138), *v50.f32), vmul_n_f32(v126, v139)));
-                v142 = v125 + v140;
-                if (v137 < 2)
-                {
-                  v153 = v125 + v140;
-                  v152 = v141;
-                }
-
-                else
-                {
-                  for (i = 1; i != v137; ++i)
-                  {
-                    v144 = (v130 + 12 * v135[i]);
-                    v50.i32[0] = v144[1].i32[0];
-                    v145 = *v144;
-                    v146 = *(a2 + 104);
-                    v147 = *(v146 + 32);
-                    v148 = *(v146 + 36) & 0x7FFFFFFF;
-                    v149 = v147 + 1;
-                    if (v147 + 1 > v148)
-                    {
-                      v150 = 2 * *(v146 + 36);
-                      if (!v148)
-                      {
-                        v150 = 2;
-                      }
-
-                      if (v149 <= v150)
-                      {
-                        v151 = v150;
-                      }
-
-                      else
-                      {
-                        v151 = v147 + 1;
-                      }
-
-                      v428 = v50;
-                      physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v146 + 24, v151);
-                      v50 = v428;
-                      v28 = v423;
-                      v121 = v424;
-                      v120 = v426;
-                      v147 = *(v146 + 32);
-                      v136 = *(a2 + 4);
-                    }
-
-                    v23 = vadd_f32(vadd_f32(vmul_f32(v120, v145), vmul_f32(v121, vrev64_s32(v145))), vmul_n_f32(v126, v50.f32[0]));
-                    v152 = vadd_f32(v131, v23);
-                    v153 = v125 + (vaddv_f32(vmul_f32(*&v28, v145)) + (v127 * v50.f32[0]));
-                    v154 = *(v146 + 24);
-                    *(v146 + 32) = v149;
-                    v155 = v154 + 32 * v147;
-                    *v155 = vrev64_s32(v141);
-                    *(v155 + 8) = v142;
-                    *(v155 + 16) = vrev64_s32(v152);
-                    *(v155 + 24) = v153;
-                    *(v155 + 28) = v136;
-                    *(v155 + 12) = v136;
-                    v142 = v153;
-                    v141 = v152;
-                  }
-
-                  v156 = (v130 + 12 * *v135);
-                  v157 = v156[1].f32[0];
-                  v24 = vmul_f32(*&v28, *v156);
-                  v141 = vadd_f32(v131, vadd_f32(vadd_f32(vmul_f32(v120, *v156), vmul_f32(v121, vrev64_s32(*v156))), vmul_n_f32(v126, v157)));
-                  v142 = v125 + (vaddv_f32(v24) + (v127 * v157));
-                  a1 = v407;
-                }
-
-                v158 = *(a2 + 104);
-                v159 = *(v158 + 32);
-                v160 = *(v158 + 36) & 0x7FFFFFFF;
-                v161 = v159 + 1;
-                if (v159 + 1 > v160)
-                {
-                  v162 = 2 * *(v158 + 36);
-                  if (!v160)
-                  {
-                    v162 = 2;
-                  }
-
-                  if (v161 <= v162)
-                  {
-                    v163 = v162;
-                  }
-
-                  else
-                  {
-                    v163 = v159 + 1;
-                  }
-
-                  physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v158 + 24, v163);
-                  v28 = v423;
-                  v121 = v424;
-                  v120 = v426;
-                  v159 = *(v158 + 32);
-                  v136 = *(a2 + 4);
-                }
-
-                v164 = *(v158 + 24);
-                *(v158 + 32) = v161;
-                v165 = v164 + 32 * v159;
-                *v165 = vrev64_s32(v152);
-                *(v165 + 8) = v153;
-                *(v165 + 16) = vrev64_s32(v141);
-                *(v165 + 24) = v142;
-                *(v165 + 28) = v136;
-                *(v165 + 12) = v136;
-                v135 += v137;
-                ++v129;
-                v10 = v414;
-                v30 = v417;
-                v12 = v410;
-                v33 = v411;
-                v31 = v420;
-                v32 = v413;
-                v34 = -0.5;
-              }
-
-              while (v129 != v128);
-            }
-          }
-
-          goto LABEL_221;
-        }
-
-        if (v62 == 5)
-        {
-          goto LABEL_90;
-        }
-
-        if (v62 == 6)
-        {
-          v170 = *(v54 + 8);
-          v171 = (*(v170 + 60) * *(v170 + 56));
-          v172 = (2 * v171);
-          *(a2 + 36) = 1065353216;
-          *(a2 + 40) = 0;
-          *(a2 + 48) = 0;
-          *(a2 + 56) = 1065353216;
-          *(a2 + 68) = 0;
-          *(a2 + 60) = 0;
-          *(a2 + 76) = 1065353216;
-          *(a2 + 80) = 0;
-          *(a2 + 88) = 0;
-          *(a2 + 96) = 1065353216;
-          *(a2 + 4) = -65281;
-          if (v419 > v418)
-          {
-            if (v171)
-            {
-              v280 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v171, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 705, v419);
-              v281 = v280;
-              v282 = 0;
-              v283 = *(v170 + 60);
-              v284 = *(v170 + 80);
-              v23.i32[0] = *(v54 + 16);
-              v285 = *(v54 + 20);
-              v24.i32[0] = *(v54 + 24);
-              v286 = v434.i64[1];
-              *&v25 = v34 + (v434.f32[3] * v434.f32[3]);
-              v287 = v434.i64[0];
-              v288 = -v434.f32[2];
-              v289 = -v434.f32[0];
-              v290 = -v434.f32[1];
-              v291 = (v280 + 8);
-              do
-              {
-                v292 = *v284;
-                v284 += 2;
-                v293 = (v285 * (v282 / v283)) + (v285 * (v282 / v283));
-                v294 = (v23.f32[0] * v292) + (v23.f32[0] * v292);
-                v295 = (v24.f32[0] * (v282 % v283)) + (v24.f32[0] * (v282 % v283));
-                v296 = ((*(&v287 + 1) * v294) + (*&v287 * v293)) + (*&v286 * v295);
-                v297 = (*(&v286 + 1) * ((v295 * v289) + (*&v286 * v293))) + (v294 * *&v25);
-                v298 = ((*(&v286 + 1) * ((v294 * v288) + (*(&v287 + 1) * v295))) + (v293 * *&v25)) + (*&v287 * v296);
-                v299 = v436 + (((*(&v286 + 1) * ((v293 * v290) + (*&v287 * v294))) + (v295 * *&v25)) + (*&v286 * v296));
-                v300 = *&v435.i32[1] + (v297 + (*(&v287 + 1) * v296));
-                *(v291 - 2) = *v435.i32 + v298;
-                *(v291 - 1) = v300;
-                *v291 = v299;
-                v291 += 3;
-                ++v282;
-              }
-
-              while (v171 != v282);
-              if (!v172)
-              {
-                goto LABEL_157;
-              }
-
-              v301 = 0;
-              v430 = v280;
-              do
-              {
-                v302 = v301 >> 1;
-                v303 = *(v170 + 60);
-                v304 = (v301 >> 1) / v303;
-                if (v304 < *(v170 + 56) - 1 && v302 - v304 * v303 < v303 - 1)
-                {
-                  v305 = *(v170 + 80) + 4 * v302;
-                  v306 = (v305 + 2);
-                  v307 = (v305 + 3);
-                  if ((v301 & 1) == 0)
-                  {
-                    v307 = v306;
-                  }
-
-                  if ((~*v307 & 0x7F) != 0)
-                  {
-                    v308 = *v306;
-                    v309 = v302 + 1 + v303;
-                    v310 = v303 + v302;
-                    if (v301)
-                    {
-                      v311 = v310;
-                    }
-
-                    else
-                    {
-                      v311 = v302 + 1;
-                    }
-
-                    if (v301)
-                    {
-                      v312 = v309;
-                    }
-
-                    else
-                    {
-                      v312 = v301 >> 1;
-                    }
-
-                    if (v301)
-                    {
-                      v313 = v302 + 1;
-                    }
-
-                    else
-                    {
-                      v313 = v310;
-                    }
-
-                    if (v301)
-                    {
-                      v314 = v302 + 1;
-                    }
-
-                    else
-                    {
-                      v309 = v301 >> 1;
-                      v314 = v310;
-                    }
-
-                    if ((v301 & 1) == 0)
-                    {
-                      v302 = v310 + 1;
-                    }
-
-                    if (v308 < 0)
-                    {
-                      v315 = v309;
-                    }
-
-                    else
-                    {
-                      v315 = v311;
-                    }
-
-                    if (v308 >= 0)
-                    {
-                      v316 = v313;
-                    }
-
-                    else
-                    {
-                      v312 = v314;
-                      v316 = v302;
-                    }
-
-                    v317 = *(a2 + 104);
-                    v318 = *(v317 + 32);
-                    v319 = *(v317 + 36) & 0x7FFFFFFF;
-                    v320 = v318 + 3;
-                    if (v318 + 3 > v319)
-                    {
-                      v321 = 2 * *(v317 + 36);
-                      if (!v319)
-                      {
-                        v321 = 2;
-                      }
-
-                      if (v320 <= v321)
-                      {
-                        v322 = v321;
-                      }
-
-                      else
-                      {
-                        v322 = v320;
-                      }
-
-                      v323 = v172;
-                      v324 = v312;
-                      physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v317 + 24, v322);
-                      v312 = v324;
-                      v172 = v323;
-                      v281 = v430;
-                      v318 = *(v317 + 32);
-                    }
-
-                    v325 = *(v317 + 24) + 32 * v318;
-                    *(v317 + 32) = v320;
-                    v326 = v281 + 12 * v312;
-                    v327 = v281 + 12 * v315;
-                    v328 = (v281 + 12 * v316);
-                    v329 = *(v327 + 8);
-                    v330 = *v326;
-                    *(v325 + 8) = *(v326 + 8);
-                    *(v325 + 12) = -65281;
-                    v331 = *v327;
-                    *v325 = v330;
-                    *(v325 + 16) = v331;
-                    *(v325 + 24) = v329;
-                    *(v325 + 28) = -65281;
-                    v332 = v328[1].i32[0];
-                    v333 = *v327;
-                    *(v325 + 40) = *(v327 + 8);
-                    *(v325 + 44) = -65281;
-                    v334 = *v328;
-                    *(v325 + 32) = v333;
-                    *(v325 + 48) = v334;
-                    *(v325 + 56) = v332;
-                    *(v325 + 60) = -65281;
-                    v335 = *(v326 + 8);
-                    v24 = *v328;
-                    *(v325 + 72) = v328[1].i32[0];
-                    *(v325 + 76) = -65281;
-                    v336 = *v326;
-                    *(v325 + 64) = v24;
-                    *(v325 + 80) = v336;
-                    *(v325 + 88) = v335;
-                    *(v325 + 92) = -65281;
-                    a1 = v407;
-                    v10 = v414;
-                    v30 = v417;
-                    v31 = v420;
-                  }
-                }
-
-                ++v301;
-              }
-
-              while (v172 != v301);
-              if (v281)
-              {
-LABEL_157:
-                (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v281);
-              }
-            }
-
-            goto LABEL_221;
-          }
-
-          v173 = v416[5];
-          v174 = v416[2];
-          v24.f32[0] = (v173 + v174) * 0.5;
-          v175 = *(v416 + 3);
-          v176 = *v416;
-          v177 = vmul_f32(vadd_f32(v175, *v416), 0x3F0000003F000000);
-          *v448 = xmmword_1E30474D0;
-          *&v448[16] = v177;
-          *v449.i32 = v24.f32[0];
-          v59.n128_f32[0] = (v173 - v174) * 0.5;
-          LODWORD(v455) = 3;
-          v178 = COERCE_DOUBLE(vmul_f32(vsub_f32(v175, v176), 0x3F0000003F000000));
-          v456 = v178;
-          v457 = v59.n128_f32[0];
-          if (v172)
-          {
-            v179 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * (2 * v171), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpShapeManager.cpp", 680);
-          }
-
-          else
-          {
-            v179 = 0;
-          }
-
-          LOBYTE(v443) = 0;
-          OverlapHeightField = physx::PxMeshQuery::findOverlapHeightField(&v455, v448, v54, v434.f32, v179, 2 * v171, 0, &v443, v59.n128_f64[0], v178, *&v24);
-          v389 = *(a2 + 104);
-          v390 = *(v389 + 32);
-          v391 = *(v389 + 36) & 0x7FFFFFFF;
-          v392 = v390 + 3 * OverlapHeightField;
-          if (v392 > v391)
-          {
-            v393 = 2 * *(v389 + 36);
-            if (!v391)
-            {
-              v393 = 2;
-            }
-
-            if (v392 <= v393)
-            {
-              v394 = v393;
-            }
-
-            else
-            {
-              v394 = v392;
-            }
-
-            physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v389 + 24, v394);
-            v390 = *(v389 + 32);
-          }
-
-          v395 = *(v389 + 24);
-          *(v389 + 32) = v392;
-          if (OverlapHeightField)
-          {
-            v396 = v395 + 32 * v390;
-            v397 = OverlapHeightField;
-            v398 = v179;
-            do
-            {
-              v399 = *v398++;
-              physx::PxMeshQuery::getTriangle(v54, v434.f32, v399, v453, 0, 0);
-              v400 = *v453;
-              v401 = *&v453[16];
-              *v396 = *v453;
-              *(v396 + 8) = DWORD2(v400);
-              *(v396 + 12) = -65281;
-              *(v396 + 16) = HIDWORD(v400);
-              *(v396 + 20) = v401;
-              *(v396 + 28) = -65281;
-              v402 = *&v453[24];
-              v403 = *v454;
-              *(v396 + 32) = HIDWORD(v400);
-              *(v396 + 36) = v401;
-              *(v396 + 44) = -65281;
-              *(v396 + 48) = v402;
-              *(v396 + 56) = v403;
-              *(v396 + 60) = -65281;
-              *(v396 + 64) = v402;
-              *(v396 + 72) = v403;
-              *(v396 + 76) = -65281;
-              *(v396 + 80) = v400;
-              *(v396 + 88) = DWORD2(v400);
-              *(v396 + 92) = -65281;
-              v396 += 96;
-              --v397;
-            }
-
-            while (v397);
-LABEL_238:
-            (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v179);
-          }
-
-          else if (v179)
-          {
-            goto LABEL_238;
-          }
-
-LABEL_220:
-          v10 = v414;
-          v30 = v417;
-        }
-
-LABEL_221:
-        if (v30)
-        {
-          v387 = vmovn_s32(vcgtq_f32(v432, v422));
-          v24 = vmovn_s32(vcgtq_f32(v422, v432));
-          v387.i16[3] = v24.i16[3];
-          v422 = vbslq_s8(vmovl_s16(v387), v422, v432);
-          v23 = vcgt_f32(v33, v433);
-          v33 = vbsl_s8(v23, v33, v433);
-        }
-
-        if (++v29 == v10)
-        {
-          if (v422.f32[0] <= v422.f32[3] && v30)
-          {
-            *(a2 + 4) = -65281;
-            *(a2 + 36) = 1065353216;
-            *(a2 + 40) = 0;
-            *(a2 + 48) = 0;
-            *(a2 + 56) = 1065353216;
-            *(a2 + 68) = 0;
-            *(a2 + 60) = 0;
-            *(a2 + 76) = 1065353216;
-            *(a2 + 80) = 0;
-            *(a2 + 88) = 0;
-            *(a2 + 96) = 1065353216;
-            *v453 = v422;
-            *&v453[16] = v33;
-            v453[24] = 1;
-            physx::Cm::operator<<(a2, v453);
-          }
-
-          return;
-        }
-      }
-    }
-  }
-}
-
-BOOL physx::PxRigidDynamic::isKindOf(physx::PxRigidDynamic *this, const char *a2)
-{
-  if (!strcmp("PxRigidDynamic", a2))
-  {
-    return 1;
-  }
-
-  return physx::PxRigidBody::isKindOf(this, a2);
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getScene(uint64_t a1)
-{
-  v1 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
-  if (((*(v1 + 2) >> 30) - 1) > 1)
-  {
-    return 0;
-  }
-
-  v2 = *v1;
-  if (v2)
-  {
-    return v2 - 16;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-float physx::NpRigidActorTemplate<physx::PxRigidDynamic>::getWorldBounds@<S0>(physx::PxRigidActor *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
-{
-  physx::NpShapeManager::getWorldBounds((a1 + 40), a1, &v11);
-  v4 = (v12 + v14) * 0.5;
-  v5 = ((v14 - v12) * 0.5) * a3;
-  v6 = v4 - v5;
-  result = v4 + v5;
-  v8 = vmul_f32(vadd_f32(v11, v13), 0x3F0000003F000000);
-  v9 = vmul_n_f32(vmul_f32(vsub_f32(v13, v11), 0x3F0000003F000000), a3);
-  *a2 = vsub_f32(v8, v9);
-  *(a2 + 8) = v6;
-  *(a2 + 12) = vadd_f32(v8, v9);
-  *(a2 + 20) = result;
-  return result;
-}
-
-int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::setActorFlag(int32x2_t *result, int a2, int a3)
-{
-  v5 = result;
-  if (a2 != 8)
-  {
-    goto LABEL_35;
-  }
-
-  v6 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v7 = (result + v6);
-  v8 = *(result[1].u32 + v6);
-  if (v8)
-  {
-    v9 = v7[2];
-  }
-
-  else
-  {
-    v9 = (v7 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v8 >> 24) & 0xF) + 3) + 12);
-  }
-
-  v10 = *v7;
-  v11 = v9->u8[0];
-  if (v11 & 8) == 0 || (a3)
-  {
-    if ((v11 & 8) != 0 || !a3)
-    {
-      goto LABEL_35;
-    }
-
-    if (v10)
-    {
-      physx::NpActor::removeConstraintsFromScene(&result[3]);
-      v6 = *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
-      LODWORD(v8) = *(v5[1].i32 + v6);
-    }
-
-    v17 = v11 | 8;
-    v18 = v5 + v6;
-    v19 = BYTE3(v8) & 0xF;
-    v20 = *(&physx::Scb::Actor::sLazyInitOffsets + v19 + 3);
-    v21 = v8 >> 30;
-    if (v21 == 2)
-    {
-      v22 = *v18;
-      if (*(*v18 + 7689))
-      {
-        goto LABEL_28;
-      }
-    }
-
-    else if (v21 == 3)
-    {
-      v22 = *v18;
-LABEL_28:
-      Stream = *(v18 + 16);
-      if (!Stream)
-      {
-        Stream = physx::Scb::Scene::getStream(v22, v19);
-        *(v18 + 16) = Stream;
-        v22 = *v18;
-      }
-
-      *Stream = v17;
-      physx::Scb::Scene::scheduleForUpdate(v22, v18);
-      *(v18 + 8) |= 1u;
-LABEL_34:
-      result = (*(*v5 + 672))(v5);
-      goto LABEL_35;
-    }
-
-    v26 = (v20 + v18);
-    if (v17 != *(v20 + v18 + 12))
-    {
-      v26[12] = v17;
-      if (*v26)
-      {
-        (*(**v26 + 16))(*v26);
-      }
-    }
-
-    goto LABEL_34;
-  }
-
-  result = (*(*result + 680))(result);
-  v12 = v11 & 0xFFFFFFF7;
-  v13 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
-  v14 = *(v13 + 8);
-  v15 = (v14 >> 24) & 0xF;
-  v16 = v14 >> 30;
-  if (v16 == 2)
-  {
-    result = *v13;
-    if (*(*v13 + 7689))
-    {
-      goto LABEL_18;
-    }
-
-LABEL_21:
-    v24 = *(&physx::Scb::Actor::sLazyInitOffsets + v15 + 3) + v13;
-    if (v12 != *(v24 + 12))
-    {
-      *(v24 + 12) = v12;
-      result = *v24;
-      if (*v24)
-      {
-        result = (*(*result + 16))(result);
-      }
-    }
-
+    *a8 = v50;
+    *(a4 + 4 * result) = *(a6 + 4 * result);
+    v27 = v31 - *(a6 + 4 * a2);
     goto LABEL_24;
   }
 
-  if (v16 != 3)
+  if (v16 < v18)
   {
-    goto LABEL_21;
+    v19 = (v17 * v17) + (v12 * v12);
+    v28 = (v19 * v13) - (v14 * ((v11 * v17) + (v12 * v15)));
+    v29 = v9 * (v19 + v19);
+    v30 = *a9;
+    if (v28 > v29)
+    {
+      goto LABEL_19;
+    }
+
+    v31 = v28 / v19;
+    goto LABEL_22;
   }
 
-  result = *v13;
+  if (a8)
+  {
+    *(a4 + 4 * result) = *(a6 + 4 * result);
+    v37 = 1.0 / *(a5 + 4 * result);
+    *(a4 + 4 * a2) = *(a4 + 4 * a2) + (-(*(a5 + 4 * a2) * *(a7 + 4 * result)) * v37);
+    *(a4 + 4 * a3) = *(a4 + 4 * a3) + (-(*(a5 + 4 * a3) * *(a7 + 4 * result)) * v37);
+    *a8 = -(*(a7 + 4 * result) * v37);
+  }
+
+  return result;
+}
+
+void physx::Gu::distanceSegmentTriangleSquared(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, _DWORD *a6, _DWORD *a7, _DWORD *a8)
+{
+  v15 = a2->f32[0];
+  v16 = a2->f32[1];
+  v17 = a2[1].f32[0];
+  v18 = ((v16 * v16) + (v15 * v15)) + (v17 * v17);
+  if (v18 < 1.0e-12)
+  {
+    if (a6)
+    {
+      *a6 = 0;
+    }
+
+    v19 = a3[1].f32[0];
+    v20 = a4[1].f32[0] + v19;
+    v21 = *a3;
+    v135 = vadd_f32(*a4, *a3);
+    v136 = v20;
+    v22 = v19 + a5[1].f32[0];
+    v133 = vadd_f32(v21, *a5);
+    v134 = v22;
+    v124.i32[0] = 0;
+    v122.i32[0] = 0;
+    physx::Gu::closestPtPointTriangle(a1, a3, &v135, &v133, &v124, &v122, &v131);
+    if (a7)
+    {
+      *a7 = v124.i32[0];
+    }
+
+    if (a8)
+    {
+      *a8 = v122.i32[0];
+    }
+
+    return;
+  }
+
+  v25 = a3->f32[0];
+  v24 = a3->f32[1];
+  v26 = a1->f32[0];
+  v27 = a1->f32[1];
+  v28 = a3[1].f32[0];
+  v29 = a1[1].f32[0];
+  v31 = a4->f32[0];
+  v30 = a4->f32[1];
+  v32 = a4[1].f32[0];
+  v34 = a5->f32[0];
+  v33 = a5->f32[1];
+  v35 = a5[1].f32[0];
+  v127 = 0;
+  memset(v128, 0, sizeof(v128));
+  v126 = 0.0;
+  v36 = (v30 * v35) - (v32 * v33);
+  v37 = (v32 * v34) - (v31 * v35);
+  v38 = (v31 * v33) - (v30 * v34);
+  v39 = ((v16 * v37) + (v36 * v15)) + (v38 * v17);
+  if ((v39 * v39) < ((v18 * 0.000001) * (((v37 * v37) + (v36 * v36)) + (v38 * v38))))
+  {
+    v40 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+    v128[0] = 0.0;
+    v41 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v127 + 1, &v126);
+    LODWORD(v127) = 0;
+    if (v40 > v41)
+    {
+      v128[2] = *(&v127 + 1);
+      v128[1] = 0.0;
+      v128[0] = v126;
+      v40 = v41;
+    }
+
+    v42 = a4[1].f32[0];
+    v43 = a3[1].f32[0] + v42;
+    v44 = *a4;
+    v124 = vadd_f32(*a3, *a4);
+    v125 = v43;
+    v45 = a5[1].f32[0] - v42;
+    v122 = vsub_f32(*a5, v44);
+    v123 = v45;
+    v46 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v124, &v122, &v127 + 1, &v126);
+    *&v127 = 1.0 - v126;
+    if (v40 > v46)
+    {
+      v128[1] = 1.0 - v126;
+      v128[2] = *(&v127 + 1);
+      v128[0] = v126;
+      v40 = v46;
+    }
+
+    v47 = a3[1].f32[0];
+    v48 = a4[1].f32[0] + v47;
+    v49 = *a3;
+    v135 = vadd_f32(*a4, *a3);
+    v136 = v48;
+    v50 = v47 + a5[1].f32[0];
+    v133 = vadd_f32(v49, *a5);
+    v134 = v50;
+    v120.i32[0] = 0;
+    v130 = 0.0;
+    physx::Gu::closestPtPointTriangle(a1, a3, &v135, &v133, &v120, &v130, &v131);
+    v126 = v130;
+    v127 = v120.u32[0];
+    v51 = *a1;
+    v52 = a1[1].f32[0];
+    v53 = (((v131.f32[1] - COERCE_FLOAT(HIDWORD(*a1))) * (v131.f32[1] - COERCE_FLOAT(HIDWORD(*a1)))) + ((v131.f32[0] - COERCE_FLOAT(*a1)) * (v131.f32[0] - COERCE_FLOAT(*a1)))) + ((v132 - v52) * (v132 - v52));
+    if (v40 > v53)
+    {
+      v128[2] = 0.0;
+      v128[0] = v130;
+      v128[1] = v120.f32[0];
+      v40 = v53;
+    }
+
+    v54 = v52 + a2[1].f32[0];
+    v120 = vadd_f32(v51, *a2);
+    v121 = v54;
+    v55 = a3[1].f32[0];
+    v56 = a4[1].f32[0] + v55;
+    v57 = *a3;
+    v135 = vadd_f32(*a4, *a3);
+    v136 = v56;
+    v58 = v55 + a5[1].f32[0];
+    v133 = vadd_f32(v57, *a5);
+    v134 = v58;
+    v129 = 0.0;
+    v130 = 0.0;
+    physx::Gu::closestPtPointTriangle(&v120, a3, &v135, &v133, &v130, &v129, &v131);
+    if (v40 <= ((((v131.f32[1] - v120.f32[1]) * (v131.f32[1] - v120.f32[1])) + ((v131.f32[0] - v120.f32[0]) * (v131.f32[0] - v120.f32[0]))) + ((v132 - v121) * (v132 - v121))))
+    {
+      goto LABEL_64;
+    }
+
+    v60 = v129;
+    v59 = v130;
 LABEL_18:
-  v23 = *(v13 + 16);
-  if (!v23)
-  {
-    v23 = physx::Scb::Scene::getStream(result, v15);
-    *(v13 + 16) = v23;
-    result = *v13;
+    v128[2] = 1.0;
+LABEL_63:
+    v128[0] = v60;
+    v128[1] = v59;
+    goto LABEL_64;
   }
 
-  *v23 = v12;
-  result = physx::Scb::Scene::scheduleForUpdate(result, v13);
-  *(v13 + 8) |= 1u;
-LABEL_24:
-  if (v10 && *&v5[4])
+  v116 = v26;
+  v117 = v25;
+  v61 = v25 - v26;
+  v118 = v24;
+  v119 = v28;
+  v62 = v24 - v27;
+  v63 = v28 - v29;
+  v64 = ((v16 * v30) + (v15 * v31)) + (v17 * v32);
+  v65 = ((v16 * v33) + (v15 * v34)) + (v17 * v35);
+  v66 = ((v30 * v30) + (v31 * v31)) + (v32 * v32);
+  v67 = ((v30 * v33) + (v31 * v34)) + (v32 * v35);
+  v68 = ((v33 * v33) + (v34 * v34)) + (v35 * v35);
+  v69 = ((v16 * (v24 - v27)) + ((v25 - v26) * v15)) + ((v28 - v29) * v17);
+  v70 = (((v24 - v27) * v30) + ((v25 - v26) * v31)) + ((v28 - v29) * v32);
+  v71 = (v66 * v65) + (-v64 * v67);
+  v72 = (v66 * v68) - (v67 * v67);
+  v73 = (v64 * v68) + (-v65 * v67);
+  v74 = ((v73 * -v64) + (v18 * v72)) + (-v65 * v71);
+  v75 = 1.0 / v74;
+  v76 = v74 == 0.0;
+  v77 = 0.0;
+  if (!v76)
   {
-    result = physx::NpActor::addConstraintsToSceneInternal(v5 + 3);
+    v77 = v75;
   }
 
-LABEL_35:
-  v27 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
-  v28 = *(v27 + 8);
-  if (a3)
+  v78 = v69 * v77;
+  v79 = -(v70 * v77);
+  v80 = (v73 * v79) + (v72 * v78);
+  v81 = (v65 * v64) - (v18 * v67);
+  v82 = (((v65 * -v65) + (v18 * v68)) * v79) + (v73 * v78);
+  v83 = (v81 * v79) + (v71 * v78);
+  v84 = -((((v62 * v33) + (v61 * v34)) + (v63 * v35)) * v77);
+  v85 = v80 + (v71 * v84);
+  v86 = v82 + (v81 * v84);
+  v87 = v83 + (((v64 * -v64) + (v18 * v66)) * v84);
+  v128[1] = v86;
+  v128[2] = v85;
+  v128[0] = v87;
+  v88 = v86 + v87;
+  if (v85 >= 0.0)
   {
-    if (v28)
+    if (v85 <= 1.0)
     {
-      v31 = *(v27 + 16);
-      v29 = (v28 >> 24) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-    }
-
-    else
-    {
-      v29 = (v28 >> 24) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-      v31 = (v30 + 12);
-    }
-
-    v33 = *v31 | a2;
-  }
-
-  else
-  {
-    if (v28)
-    {
-      v32 = *(v27 + 16);
-      v29 = (v28 >> 24) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-    }
-
-    else
-    {
-      LODWORD(v29) = BYTE3(v28) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-      v32 = (v30 + 12);
-    }
-
-    v33 = *v32 & ~a2;
-  }
-
-  v34 = v28 >> 30;
-  if (v34 == 2)
-  {
-    result = *v27;
-    if (*(*v27 + 7689))
-    {
-      goto LABEL_48;
-    }
-  }
-
-  else if (v34 == 3)
-  {
-    result = *v27;
-LABEL_48:
-    v35 = *(v27 + 16);
-    if (!v35)
-    {
-      v35 = physx::Scb::Scene::getStream(result, v29);
-      *(v27 + 16) = v35;
-      result = *v27;
-    }
-
-    *v35 = v33;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v27);
-    *(v27 + 8) |= 1u;
-    return result;
-  }
-
-  if (v33 != *(v30 + 12))
-  {
-    *(v30 + 12) = v33;
-    result = *v30;
-    if (*v30)
-    {
-      v36 = *(*result + 16);
-
-      return v36();
-    }
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::setActorFlags(int32x2_t *result, _BYTE *a2)
-{
-  v3 = result;
-  v4 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v5 = (result + v4);
-  v6 = *(result[1].u32 + v4);
-  if (v6)
-  {
-    v7 = v5[2];
-  }
-
-  else
-  {
-    v7 = (v5 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v6 >> 24) & 0xF) + 3) + 12);
-  }
-
-  v8 = *v5;
-  v9 = v7->u8[0];
-  if ((*a2 & 8) != 0 || (v9 & 8) == 0)
-  {
-    if ((*a2 & 8) == 0 || (v9 & 8) != 0)
-    {
-      goto LABEL_34;
-    }
-
-    if (v8)
-    {
-      physx::NpActor::removeConstraintsFromScene(&result[3]);
-      v4 = *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
-      LODWORD(v6) = *(v3[1].i32 + v4);
-    }
-
-    v15 = v9 | 8;
-    v16 = v3 + v4;
-    v17 = BYTE3(v6) & 0xF;
-    v18 = *(&physx::Scb::Actor::sLazyInitOffsets + v17 + 3);
-    v19 = v6 >> 30;
-    if (v19 == 2)
-    {
-      v20 = *v16;
-      if (*(*v16 + 7689))
+      if (v88 <= 1.0)
       {
-        goto LABEL_27;
-      }
-    }
-
-    else if (v19 == 3)
-    {
-      v20 = *v16;
-LABEL_27:
-      Stream = *(v16 + 16);
-      if (!Stream)
-      {
-        Stream = physx::Scb::Scene::getStream(v20, v17);
-        *(v16 + 16) = Stream;
-        v20 = *v16;
-      }
-
-      *Stream = v15;
-      physx::Scb::Scene::scheduleForUpdate(v20, v16);
-      *(v16 + 8) |= 1u;
-LABEL_33:
-      result = (*(*v3 + 672))(v3);
-      goto LABEL_34;
-    }
-
-    v24 = (v18 + v16);
-    if (v15 != *(v18 + v16 + 12))
-    {
-      v24[12] = v15;
-      if (*v24)
-      {
-        (*(**v24 + 16))(*v24);
-      }
-    }
-
-    goto LABEL_33;
-  }
-
-  result = (*(*result + 680))(result);
-  v10 = v9 & 0xFFFFFFF7;
-  v11 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
-  v12 = *(v11 + 8);
-  v13 = (v12 >> 24) & 0xF;
-  v14 = v12 >> 30;
-  if (v14 == 2)
-  {
-    result = *v11;
-    if (*(*v11 + 7689))
-    {
-      goto LABEL_17;
-    }
-
-LABEL_20:
-    v22 = *(&physx::Scb::Actor::sLazyInitOffsets + v13 + 3) + v11;
-    if (v10 != *(v22 + 12))
-    {
-      *(v22 + 12) = v10;
-      result = *v22;
-      if (*v22)
-      {
-        result = (*(*result + 16))(result);
-      }
-    }
-
-    goto LABEL_23;
-  }
-
-  if (v14 != 3)
-  {
-    goto LABEL_20;
-  }
-
-  result = *v11;
-LABEL_17:
-  v21 = *(v11 + 16);
-  if (!v21)
-  {
-    v21 = physx::Scb::Scene::getStream(result, v13);
-    *(v11 + 16) = v21;
-    result = *v11;
-  }
-
-  *v21 = v10;
-  result = physx::Scb::Scene::scheduleForUpdate(result, v11);
-  *(v11 + 8) |= 1u;
-LABEL_23:
-  if (v8 && *&v3[4])
-  {
-    result = physx::NpActor::addConstraintsToSceneInternal(v3 + 3);
-  }
-
-LABEL_34:
-  v25 = *a2;
-  v26 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
-  v27 = *(v26 + 8);
-  v28 = (v27 >> 24) & 0xF;
-  v29 = v27 >> 30;
-  if (v29 == 2)
-  {
-    result = *v26;
-    if (*(*v26 + 7689))
-    {
-      goto LABEL_38;
-    }
-  }
-
-  else if (v29 == 3)
-  {
-    result = *v26;
-LABEL_38:
-    v30 = *(v26 + 16);
-    if (!v30)
-    {
-      v30 = physx::Scb::Scene::getStream(result, v28);
-      *(v26 + 16) = v30;
-      result = *v26;
-    }
-
-    *v30 = v25;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v26);
-    *(v26 + 8) |= 1u;
-    return result;
-  }
-
-  v31 = *(&physx::Scb::Actor::sLazyInitOffsets + v28 + 3) + v26;
-  if (v25 != *(v31 + 12))
-  {
-    *(v31 + 12) = v25;
-    result = *v31;
-    if (*v31)
-    {
-      v32 = *(*result + 16);
-
-      return v32();
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getActorFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
-{
-  v2 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
-  v3 = *(v2 + 8);
-  if (v3)
-  {
-    v4 = *(v2 + 16);
-  }
-
-  else
-  {
-    v4 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3) + v2 + 12);
-  }
-
-  *a2 = *v4;
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxRigidDynamic>::setDominanceGroup(uint64_t a1, char a2)
-{
-  v3 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
-  v4 = *(v3 + 8);
-  v5 = (v4 >> 24) & 0xF;
-  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3);
-  v7 = v4 >> 30;
-  if (v7 == 2)
-  {
-    v8 = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v7 == 3)
-  {
-    v8 = *v3;
-LABEL_5:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v8, v5);
-      *(v3 + 16) = Stream;
-      v8 = *v3;
-    }
-
-    *(Stream + 1) = a2;
-    result = physx::Scb::Scene::scheduleForUpdate(v8, v3);
-    *(v3 + 8) |= 2u;
-    return result;
-  }
-
-  *(v6 + v3 + 14) = a2;
-  result = *(v3 + v6);
-  if (result)
-  {
-
-    return physx::Sc::ActorSim::setActorsInteractionsDirty(result, 8, 0, 1);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getDominanceGroup(uint64_t a1)
-{
-  v1 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
-  v2 = *(v1 + 8);
-  if ((v2 & 2) != 0)
-  {
-    v3 = (*(v1 + 16) + 1);
-  }
-
-  else
-  {
-    v3 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + v1 + 14);
-  }
-
-  return *v3;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::setOwnerClient(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
-  if (*v9)
-  {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpActorTemplate.h";
-    v11 = "Attempt to set the client id when an actor is already in a scene.";
-    v12 = physx::shdfnd::Foundation::mInstance;
-    v13 = 196;
-    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8, a9);
-  }
-
-  v14 = *(v9 + 8);
-  if (v14 >> 30 == 3 || v14 >> 30 == 2 && (MEMORY[0x1E09] & 1) != 0)
-  {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/buffering/ScbActor.h";
-    v11 = "Attempt to set the client id when an actor is buffering";
-    v12 = physx::shdfnd::Foundation::mInstance;
-    v13 = 182;
-    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8, a9);
-  }
-
-  *(*(&physx::Scb::Actor::sLazyInitOffsets + ((v14 >> 24) & 0xF) + 3) + v9 + 11) = a2;
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidDynamic>::getAggregate(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = *(v1 + 80);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  for (i = *(v1 + 72) + 8; *(i - 8) != 1; i += 16)
-  {
-    if (!--v2)
-    {
-      return 0;
-    }
-  }
-
-  return *i;
-}
-
-float physx::NpRigidDynamic::getGlobalPose@<S0>(physx::NpRigidDynamic *this@<X0>, float *a2@<X8>)
-{
-  if ((*(this + 381) & 4) != 0)
-  {
-    v2 = (*(this + 14) + 224);
-  }
-
-  else
-  {
-    v2 = (this + 176);
-  }
-
-  v3 = v2[4] * -2.0;
-  v4 = v2[5] * -2.0;
-  v5 = v2[6] * -2.0;
-  v7 = v2[2];
-  v6 = v2[3];
-  v8 = (v6 * v6) + -0.5;
-  v9 = v2[1];
-  v10 = ((v4 * v9) + (*v2 * v3)) + (v7 * v5);
-  v11 = ((v3 * v8) - (((v9 * v5) - (v7 * v4)) * v6)) + (*v2 * v10);
-  v12 = ((v4 * v8) - (((v7 * v3) - (*v2 * v5)) * v6)) + (v9 * v10);
-  v13 = ((v5 * v8) - (((*v2 * v4) - (v9 * v3)) * v6)) + (v7 * v10);
-  v14 = v11 + v11;
-  v15 = v12 + v12;
-  v16 = v13 + v13;
-  v17 = *(this + 83);
-  v18 = (v17 * v17) + -0.5;
-  v19 = *(this + 80);
-  v20 = *(this + 81);
-  v21 = *(this + 82);
-  v22 = ((v20 * (v12 + v12)) + (v19 * v14)) + (v21 * v16);
-  v23 = ((v17 * ((v20 * v16) - (v21 * v15))) + (v14 * v18)) + (v19 * v22);
-  v24 = ((v17 * ((v21 * v14) - (v19 * v16))) + (v15 * v18)) + (v20 * v22);
-  v25 = ((v17 * ((v19 * v15) - (v20 * v14))) + (v16 * v18)) + (v21 * v22);
-  v26 = *(this + 84) + v23;
-  v27 = *(this + 85) + v24;
-  v28 = *(this + 86);
-  v29 = (((v6 * v20) - (v17 * v9)) - (v21 * *v2)) + (v7 * v19);
-  v30 = (((v6 * v21) - (v17 * v7)) - (v19 * v9)) + (*v2 * v20);
-  v31 = *v2 * v19;
-  *a2 = (((v6 * v19) - (v17 * *v2)) - (v20 * v7)) + (v9 * v21);
-  a2[1] = v29;
-  a2[2] = v30;
-  a2[3] = ((v31 + (v17 * v6)) + (v20 * v9)) + (v21 * v7);
-  result = v28 + v25;
-  a2[4] = v26;
-  a2[5] = v27;
-  a2[6] = v28 + v25;
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::detachShape(physx::PxRigidActor *a1, physx::NpShape *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 247, "PxRigidActor::detachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8, v17);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  result = physx::NpShapeManager::detachShape((a1 + 40), a2, a1, a3);
-  if ((result & 1) == 0)
-  {
-    v16 = physx::shdfnd::Foundation::mInstance;
-
-    return physx::shdfnd::Foundation::error(v16, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 253, "PxRigidActor::detachShape: shape is not attached to this actor!", v13, v14, v15, a9);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::getShapes(uint64_t a1, void *a2, unsigned int a3, int a4)
-{
-  v4 = (a1 + 40);
-  v5 = *(a1 + 48);
-  if (v5 != 1)
-  {
-    v4 = *v4;
-  }
-
-  v6 = (v5 - a4) & ~((v5 - a4) >> 31);
-  if (v6 >= a3)
-  {
-    result = a3;
-  }
-
-  else
-  {
-    result = v6;
-  }
-
-  if (result)
-  {
-    v8 = &v4[a4];
-    v9 = result;
-    do
-    {
-      v10 = *v8++;
-      *a2++ = v10;
-      --v9;
-    }
-
-    while (v9);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::getNbConstraints(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = *(v1 + 80);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  LODWORD(result) = 0;
-  v4 = *(v1 + 72);
-  do
-  {
-    v5 = *v4;
-    v4 += 16;
-    if (v5)
-    {
-      result = result;
-    }
-
-    else
-    {
-      result = (result + 1);
-    }
-
-    --v2;
-  }
-
-  while (v2);
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getCMassLocalPose@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  if ((*(a1 + 381) & 4) != 0)
-  {
-    v2 = *(a1 + 112) + 224;
-  }
-
-  else
-  {
-    v2 = a1 + 176;
-  }
-
-  *a2 = *v2;
-  *(a2 + 16) = *(v2 + 16);
-  result = *(v2 + 24);
-  *(a2 + 24) = result;
-  return result;
-}
-
-float *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMass(uint64_t a1, float a2)
-{
-  if (a2 <= 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  else
-  {
-    v3 = 1.0 / a2;
-  }
-
-  v4 = *(a1 + 104);
-  if (v4 >> 30 == 2)
-  {
-    v5 = *(a1 + 96);
-    if (v5[961].i8[1])
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else if (v4 >> 30 == 3)
-  {
-    v5 = *(a1 + 96);
-LABEL_8:
-    Stream = *(a1 + 112);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
-      *(a1 + 112) = Stream;
-      v5 = *(a1 + 96);
-    }
-
-    *(Stream + 164) = v3;
-    result = physx::Scb::Scene::scheduleForUpdate(v5, a1 + 96);
-    *(a1 + 380) |= 1u;
-    return result;
-  }
-
-  return physx::Sc::BodyCore::setInverseMass((a1 + 128), v3);
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMass(uint64_t a1)
-{
-  if (*(a1 + 380))
-  {
-    v2 = (*(a1 + 112) + 164);
-  }
-
-  else
-  {
-    v1 = *(a1 + 304);
-    if (v1 && *(v1 + 31) == 1)
-    {
-      v2 = (v1 + 44);
-    }
-
-    else
-    {
-      v2 = (a1 + 268);
-    }
-  }
-
-  result = 0.0;
-  if (*v2 > 0.0)
-  {
-    return 1.0 / *v2;
-  }
-
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getInvMass(uint64_t a1)
-{
-  if (*(a1 + 380))
-  {
-    v2 = *(a1 + 112) + 164;
-  }
-
-  else
-  {
-    v1 = *(a1 + 304);
-    if (v1 && *(v1 + 31) == 1)
-    {
-      v2 = v1 + 44;
-    }
-
-    else
-    {
-      v2 = a1 + 268;
-    }
-  }
-
-  return *v2;
-}
-
-int32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMassSpaceInertiaTensor(uint64_t a1, float32x2_t *a2)
-{
-  __asm { FMOV            V2.2S, #1.0 }
-
-  v8 = vbic_s8(vdiv_f32(_D2, *a2), vceqz_f32(*a2));
-  v9 = a2[1].f32[0];
-  if (v9 == 0.0)
-  {
-    v10 = 0.0;
-  }
-
-  else
-  {
-    v10 = 1.0 / v9;
-  }
-
-  v15 = v8;
-  v16 = v10;
-  v11 = *(a1 + 104);
-  if (v11 >> 30 == 2)
-  {
-    v12 = *(a1 + 96);
-    if (v12[961].i8[1])
-    {
-      goto LABEL_8;
-    }
-
-    return physx::Sc::BodyCore::setInverseInertia(a1 + 128, &v15);
-  }
-
-  if (v11 >> 30 != 3)
-  {
-    return physx::Sc::BodyCore::setInverseInertia(a1 + 128, &v15);
-  }
-
-  v12 = *(a1 + 96);
-LABEL_8:
-  Stream = *(a1 + 112);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v12, HIBYTE(v11) & 0xF);
-    *(a1 + 112) = Stream;
-    v12 = *(a1 + 96);
-  }
-
-  *(Stream + 168) = v8;
-  *(Stream + 176) = v10;
-  result = physx::Scb::Scene::scheduleForUpdate(v12, a1 + 96);
-  *(a1 + 380) |= 2u;
-  return result;
-}
-
-float32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMassSpaceInertiaTensor@<X0>(float32x2_t *result@<X0>, uint64_t a2@<X8>)
-{
-  if ((result[47].i8[4] & 2) != 0)
-  {
-    v3 = (*&result[14] + 168);
-  }
-
-  else
-  {
-    v2 = result[38];
-    if (v2 && v2[3].i8[7] == 1)
-    {
-      v3 = v2 + 4;
-    }
-
-    else
-    {
-      v3 = result + 32;
-    }
-  }
-
-  v4 = v3[1].f32[0];
-  v5 = 1.0 / v4;
-  _ZF = v4 == 0.0;
-  v7 = 0.0;
-  if (!_ZF)
-  {
-    v7 = v5;
-  }
-
-  __asm { FMOV            V3.2S, #1.0 }
-
-  *a2 = vbic_s8(vdiv_f32(_D3, *v3), vceqz_f32(*v3));
-  *(a2 + 8) = v7;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMassSpaceInvInertiaTensor@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  if ((*(a1 + 380) & 2) != 0)
-  {
-    v3 = *(a1 + 112) + 168;
-  }
-
-  else
-  {
-    v2 = *(a1 + 304);
-    if (v2 && *(v2 + 31) == 1)
-    {
-      v3 = v2 + 32;
-    }
-
-    else
-    {
-      v3 = a1 + 256;
-    }
-  }
-
-  *a2 = *v3;
-  result = *(v3 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getLinearVelocity@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = *(a1 + 348);
-  result = *(a1 + 356);
-  *(a2 + 8) = result;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getAngularVelocity@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = *(a1 + 360);
-  result = *(a1 + 368);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setRigidBodyFlag(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if ((*(a1 + 381) & 0x40) != 0)
-  {
-    v10 = (*(a1 + 112) + 348);
-  }
-
-  else
-  {
-    v10 = (a1 + 172);
-  }
-
-  v11 = *v10;
-  if (a3)
-  {
-    v12 = v11 | a2;
-  }
-
-  else
-  {
-    v12 = v11 & ~a2;
-  }
-
-  if ((~v12 & 5) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 476, "RigidBody::setRigidBodyFlag: kinematic bodies with CCD enabled are not supported! CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= ~4u;
-  }
-
-  if ((~v12 & 0x24) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 483, "RigidBody::setRigidBodyFlag: eENABLE_CCD can't be raised as the same time as eENABLE_SPECULATIVE_CCD! eENABLE_SPECULATIVE_CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= ~0x20u;
-  }
-
-  v13 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
-  if (((*(v13 + 2) >> 30) - 1) > 1)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v14 = *v13;
-    if (v14)
-    {
-      v15 = v14 - 16;
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-  }
-
-  if (v11 & 1) == 0 || (v12)
-  {
-    if ((v11 & 1) != 0 || (v12 & 1) == 0)
-    {
-LABEL_54:
-      if ((v11 & 1) != 0 && (v12 & 1) != 0 && ((v12 ^ v11) & 2) != 0 && ((*(a1 + 381) & 0x80) != 0 || *(a1 + 104) >> 30 != 3 && (v29 = *(a1 + 304)) != 0 && *(v29 + 31) == 1 && *(v29 + 28)))
-      {
-        if (v15)
+        if (v86 >= 0.0)
         {
-          physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-          ++*(v15 + 8732);
-        }
-      }
-
-LABEL_64:
-      v31 = v12;
-      physx::Scb::Body::setFlags((a1 + 96), &v31);
-      return;
-    }
-
-    if ((*(*a1 + 48))(a1) != 2)
-    {
-      if (*(a1 + 104) >> 30 == 1)
-      {
-        v27 = *(a1 + 304);
-        if (v27)
-        {
-          if (*(v27 + 31) != 1)
+          if (v87 < 0.0)
           {
-            physx::Sc::BodyCore::setupSimStateData(a1 + 128, *(*(a1 + 96) + 4384), 1, 0);
+            physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+            v128[0] = 0.0;
           }
         }
+
+        else
+        {
+          v98 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v128[2], v128);
+          v128[1] = 0.0;
+          if (v87 < 0.0 && v98 > physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v127 + 1, &v127))
+          {
+            *&v128[1] = v127;
+            v128[0] = 0.0;
+          }
+        }
+
+        goto LABEL_64;
       }
 
-      if (v15)
+      if (v86 >= 0.0)
       {
-        *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0x1FFFFFFFFLL);
+        if (v87 >= 0.0)
+        {
+          v135.f32[0] = v117 + v31;
+          v135.f32[1] = v118 + v30;
+          v136 = v119 + v32;
+          v133.f32[0] = v34 - v31;
+          v133.f32[1] = v33 - v30;
+          v134 = v35 - v32;
+          physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v135, &v133, &v128[2], v128);
+          v128[1] = 1.0 - v128[0];
+          goto LABEL_64;
+        }
+
+        v92 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+        v128[0] = 0.0;
+      }
+
+      else
+      {
+        v92 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v128[2], v128);
+        v128[1] = 0.0;
+      }
+
+      v103 = a4[1].f32[0];
+      v104 = a3[1].f32[0] + v103;
+      v105 = *a4;
+      v135 = vadd_f32(*a3, *a4);
+      v136 = v104;
+      v106 = a5[1].f32[0] - v103;
+      v133 = vsub_f32(*a5, v105);
+      v134 = v106;
+      if (v92 > physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v135, &v133, &v127 + 1, &v126))
+      {
+        v128[1] = 1.0 - v126;
+        v128[2] = *(&v127 + 1);
+        v128[0] = v126;
       }
 
       goto LABEL_64;
     }
 
-    v25 = physx::shdfnd::Foundation::mInstance;
-
-    physx::shdfnd::Foundation::error(v25, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 540, "RigidBody::setRigidBodyFlag: kinematic articulation links are not supported!", v22, v23, v24, a9);
-  }
-
-  else
-  {
-    v16 = *(a1 + 48);
-    v17 = a1 + 40;
-    if (v16 != 1)
+    if (v88 <= 1.0)
     {
-      if (*(a1 + 48))
+      if (v86 >= 0.0)
       {
-        v17 = *(a1 + 40);
-        goto LABEL_21;
-      }
-
-LABEL_25:
-      if ((v11 & 2) == 0)
-      {
-LABEL_26:
-        if (!v15)
+        if (v87 >= 0.0)
         {
-          goto LABEL_51;
+          v124.f32[0] = v15 + v116;
+          v124.f32[1] = v16 + v27;
+          v125 = v17 + v29;
+          v135.f32[0] = v117 + v31;
+          v135.f32[1] = v118 + v30;
+          v136 = v119 + v32;
+          v133.f32[0] = v117 + v34;
+          v133.f32[1] = v118 + v33;
+          v134 = v119 + v35;
+          v122.i32[0] = 0;
+          v120.i32[0] = 0;
+          physx::Gu::closestPtPointTriangle(&v124, a3, &v135, &v133, &v122, &v120, &v131);
+          v128[0] = v120.f32[0];
+          v128[1] = v122.f32[0];
+          v128[2] = 1.0;
+          goto LABEL_64;
         }
 
-        goto LABEL_50;
+        v90 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+        v128[0] = 0.0;
+        goto LABEL_77;
       }
 
-      if ((*(a1 + 381) & 0x80) != 0)
+      v90 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v128[2], v128);
+      v128[1] = 0.0;
+      if (v87 < 0.0)
       {
-        if (!v15)
+        v97 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v127 + 1, &v127);
+        v126 = 0.0;
+        if (v90 > v97)
         {
-LABEL_51:
-          if (*(a1 + 104) >> 30 == 1)
-          {
-            v28 = *(a1 + 304);
-            if (v28)
-            {
-              physx::Sc::BodyCore::tearDownSimStateData(a1 + 128, *(*(a1 + 96) + 4384), *(v28 + 31) == 1);
-            }
-          }
-
-          goto LABEL_54;
+          *&v128[1] = v127;
+          v128[0] = 0.0;
+LABEL_55:
+          v90 = v97;
         }
       }
-
-      else
-      {
-        if (*(a1 + 104) >> 30 == 3)
-        {
-          goto LABEL_26;
-        }
-
-        v26 = *(a1 + 304);
-        if (!v26 || *(v26 + 31) != 1 || !*(v26 + 28) || !v15)
-        {
-          goto LABEL_26;
-        }
-      }
-
-      physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-      ++*(v15 + 8732);
-LABEL_50:
-      *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0xFFFFFFFF00000001);
-      goto LABEL_51;
-    }
-
-LABEL_21:
-    while (1)
-    {
-      (*(**v17 + 312))(&v32);
-      if (v32)
-      {
-        v21 = *(*v17 + 152);
-        if ((v21 | 4) == 5 || v21 == 6)
-        {
-          break;
-        }
-      }
-
-      v17 += 8;
-      if (!--v16)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 513, "RigidBody::setRigidBodyFlag: dynamic meshes/planes/heightfields are not supported!", v18, v19, v20, v30);
-  }
-}
-
-void physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setRigidBodyFlags(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if ((*(a1 + 381) & 0x40) != 0)
-  {
-    v10 = (*(a1 + 112) + 348);
-  }
-
-  else
-  {
-    v10 = (a1 + 172);
-  }
-
-  v11 = *v10;
-  v12 = *a2;
-  if ((~v12 & 5) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 476, "RigidBody::setRigidBodyFlag: kinematic bodies with CCD enabled are not supported! CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= ~4u;
-  }
-
-  if ((~v12 & 0x24) == 0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 483, "RigidBody::setRigidBodyFlag: eENABLE_CCD can't be raised as the same time as eENABLE_SPECULATIVE_CCD! eENABLE_SPECULATIVE_CCD will be ignored.", a6, a7, a8, v30);
-    v12 &= 0xDFu;
-  }
-
-  v13 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
-  if (((*(v13 + 2) >> 30) - 1) > 1)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v14 = *v13;
-    if (v14)
-    {
-      v15 = v14 - 16;
     }
 
     else
     {
-      v15 = 0;
+      if (v86 >= 0.0)
+      {
+        if (v87 >= 0.0)
+        {
+          v135.f32[0] = v117 + v31;
+          v135.f32[1] = v118 + v30;
+          v136 = v119 + v32;
+          v133.f32[0] = v34 - v31;
+          v133.f32[1] = v33 - v30;
+          v134 = v35 - v32;
+          v90 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v135, &v133, &v128[2], v128);
+          v128[1] = 1.0 - v128[0];
+          goto LABEL_77;
+        }
+
+        v90 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+        v128[0] = 0.0;
+      }
+
+      else
+      {
+        v90 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v128[2], v128);
+        v128[1] = 0.0;
+      }
+
+      v99 = a4[1].f32[0];
+      v100 = a3[1].f32[0] + v99;
+      v101 = *a4;
+      v135 = vadd_f32(*a3, *a4);
+      v136 = v100;
+      v102 = a5[1].f32[0] - v99;
+      v133 = vsub_f32(*a5, v101);
+      v134 = v102;
+      v97 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v135, &v133, &v127 + 1, &v126);
+      *&v127 = 1.0 - v126;
+      if (v90 > v97)
+      {
+        v128[1] = 1.0 - v126;
+        v128[2] = *(&v127 + 1);
+        v128[0] = v126;
+        goto LABEL_55;
+      }
+    }
+
+LABEL_77:
+    v111 = a1[1].f32[0] + a2[1].f32[0];
+    v124 = vadd_f32(*a1, *a2);
+    v125 = v111;
+    v112 = a3[1].f32[0];
+    v113 = a4[1].f32[0] + v112;
+    v114 = *a3;
+    v135 = vadd_f32(*a4, *a3);
+    v136 = v113;
+    v115 = v112 + a5[1].f32[0];
+    v133 = vadd_f32(v114, *a5);
+    v134 = v115;
+    v122.i32[0] = 0;
+    v120.i32[0] = 0;
+    physx::Gu::closestPtPointTriangle(&v124, a3, &v135, &v133, &v122, &v120, &v131);
+    if (v90 <= ((((v131.f32[1] - v124.f32[1]) * (v131.f32[1] - v124.f32[1])) + ((v131.f32[0] - v124.f32[0]) * (v131.f32[0] - v124.f32[0]))) + ((v132 - v125) * (v132 - v125))))
+    {
+      goto LABEL_64;
+    }
+
+    v59 = v122.f32[0];
+    v60 = v120.f32[0];
+    goto LABEL_18;
+  }
+
+  if (v88 <= 1.0)
+  {
+    if (v86 >= 0.0)
+    {
+      if (v87 >= 0.0)
+      {
+        v135.f32[0] = v117 + v31;
+        v135.f32[1] = v118 + v30;
+        v136 = v119 + v32;
+        v133.f32[0] = v117 + v34;
+        v133.f32[1] = v118 + v33;
+        v134 = v119 + v35;
+        v124.i32[0] = 0;
+        v122.i32[0] = 0;
+        physx::Gu::closestPtPointTriangle(a1, a3, &v135, &v133, &v124, &v122, &v131);
+        v128[0] = v122.f32[0];
+        v128[1] = v124.f32[0];
+        v128[2] = 0.0;
+        goto LABEL_64;
+      }
+
+      v89 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+      v128[0] = 0.0;
+    }
+
+    else
+    {
+      v89 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v128[2], v128);
+      v128[1] = 0.0;
+      if (v87 < 0.0)
+      {
+        v91 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v127 + 1, &v127);
+        v126 = 0.0;
+        if (v89 > v91)
+        {
+          *&v128[1] = v127;
+          v128[0] = 0.0;
+LABEL_40:
+          v89 = v91;
+        }
+      }
     }
   }
 
-  if (v11 & 1) == 0 || (v12)
+  else
   {
-    if ((v11 & 1) != 0 || (v12 & 1) == 0)
+    if (v86 < 0.0)
     {
-LABEL_51:
-      if ((v11 & 1) != 0 && (v12 & 1) != 0 && ((v12 ^ v11) & 2) != 0 && ((*(a1 + 381) & 0x80) != 0 || *(a1 + 104) >> 30 != 3 && (v29 = *(a1 + 304)) != 0 && *(v29 + 31) == 1 && *(v29 + 28)))
+      v89 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a5, &v128[2], v128);
+      v128[1] = 0.0;
+LABEL_38:
+      v93 = a4[1].f32[0];
+      v94 = a3[1].f32[0] + v93;
+      v95 = *a4;
+      v135 = vadd_f32(*a3, *a4);
+      v136 = v94;
+      v96 = a5[1].f32[0] - v93;
+      v133 = vsub_f32(*a5, v95);
+      v134 = v96;
+      v91 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v135, &v133, &v127 + 1, &v126);
+      *&v127 = 1.0 - v126;
+      if (v89 <= v91)
       {
-        if (v15)
-        {
-          physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-          ++*(v15 + 8732);
-        }
+        goto LABEL_61;
       }
+
+      v128[1] = 1.0 - v126;
+      v128[2] = *(&v127 + 1);
+      v128[0] = v126;
+      goto LABEL_40;
+    }
+
+    if (v87 < 0.0)
+    {
+      v89 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, a3, a4, &v128[2], &v128[1]);
+      v128[0] = 0.0;
+      goto LABEL_38;
+    }
+
+    v135.f32[0] = v117 + v31;
+    v135.f32[1] = v118 + v30;
+    v136 = v119 + v32;
+    v133.f32[0] = v34 - v31;
+    v133.f32[1] = v33 - v30;
+    v134 = v35 - v32;
+    v89 = physx::Gu::distanceSegmentSegmentSquared(a1, a2, &v135, &v133, &v128[2], v128);
+    v128[1] = 1.0 - v128[0];
+  }
 
 LABEL_61:
-      v31 = v12;
-      physx::Scb::Body::setFlags((a1 + 96), &v31);
-      return;
-    }
-
-    if ((*(*a1 + 48))(a1) != 2)
-    {
-      if (*(a1 + 104) >> 30 == 1)
-      {
-        v27 = *(a1 + 304);
-        if (v27)
-        {
-          if (*(v27 + 31) != 1)
-          {
-            physx::Sc::BodyCore::setupSimStateData(a1 + 128, *(*(a1 + 96) + 4384), 1, 0);
-          }
-        }
-      }
-
-      if (v15)
-      {
-        *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0x1FFFFFFFFLL);
-      }
-
-      goto LABEL_61;
-    }
-
-    v25 = physx::shdfnd::Foundation::mInstance;
-
-    physx::shdfnd::Foundation::error(v25, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 540, "RigidBody::setRigidBodyFlag: kinematic articulation links are not supported!", v22, v23, v24, a9);
+  v107 = a3[1].f32[0];
+  v108 = a4[1].f32[0] + v107;
+  v109 = *a3;
+  v135 = vadd_f32(*a4, *a3);
+  v136 = v108;
+  v110 = v107 + a5[1].f32[0];
+  v133 = vadd_f32(v109, *a5);
+  v134 = v110;
+  v124.i32[0] = 0;
+  v122.i32[0] = 0;
+  physx::Gu::closestPtPointTriangle(a1, a3, &v135, &v133, &v124, &v122, &v131);
+  if (v89 > ((((v131.f32[1] - a1->f32[1]) * (v131.f32[1] - a1->f32[1])) + ((v131.f32[0] - a1->f32[0]) * (v131.f32[0] - a1->f32[0]))) + ((v132 - a1[1].f32[0]) * (v132 - a1[1].f32[0]))))
+  {
+    v59 = v124.f32[0];
+    v60 = v122.f32[0];
+    v128[2] = 0.0;
+    goto LABEL_63;
   }
 
-  else
+LABEL_64:
+  if (a6)
   {
-    v16 = *(a1 + 48);
-    v17 = a1 + 40;
-    if (v16 != 1)
-    {
-      if (*(a1 + 48))
-      {
-        v17 = *(a1 + 40);
-        goto LABEL_18;
-      }
+    *a6 = LODWORD(v128[2]);
+  }
 
-LABEL_22:
-      if ((v11 & 2) == 0)
-      {
-LABEL_23:
-        if (!v15)
-        {
-          goto LABEL_48;
-        }
+  if (a7)
+  {
+    *a7 = LODWORD(v128[1]);
+  }
 
-        goto LABEL_47;
-      }
-
-      if ((*(a1 + 381) & 0x80) != 0)
-      {
-        if (!v15)
-        {
-LABEL_48:
-          if (*(a1 + 104) >> 30 == 1)
-          {
-            v28 = *(a1 + 304);
-            if (v28)
-            {
-              physx::Sc::BodyCore::tearDownSimStateData(a1 + 128, *(*(a1 + 96) + 4384), *(v28 + 31) == 1);
-            }
-          }
-
-          goto LABEL_51;
-        }
-      }
-
-      else
-      {
-        if (*(a1 + 104) >> 30 == 3)
-        {
-          goto LABEL_23;
-        }
-
-        v26 = *(a1 + 304);
-        if (!v26 || *(v26 + 31) != 1 || !*(v26 + 28) || !v15)
-        {
-          goto LABEL_23;
-        }
-      }
-
-      physx::NpShapeManager::markAllSceneQueryForUpdate(a1 + 40, v15 + 8640, a1);
-      ++*(v15 + 8732);
-LABEL_47:
-      *(v15 + 4700) = vadd_s32(*(v15 + 4700), 0xFFFFFFFF00000001);
-      goto LABEL_48;
-    }
-
-LABEL_18:
-    while (1)
-    {
-      (*(**v17 + 312))(&v32);
-      if (v32)
-      {
-        v21 = *(*v17 + 152);
-        if ((v21 | 4) == 5 || v21 == 6)
-        {
-          break;
-        }
-      }
-
-      v17 += 8;
-      if (!--v16)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidBodyTemplate.h", 513, "RigidBody::setRigidBodyFlag: dynamic meshes/planes/heightfields are not supported!", v18, v19, v20, v30);
+  if (a8)
+  {
+    *a8 = LODWORD(v128[0]);
   }
 }
 
-uint64_t physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getRigidBodyFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
+void physx::Gu::distanceSegmentTriangleSquared(float32x4_t *a1, float32x4_t *a2, float32x4_t *a3, float32x4_t *a4, float32x4_t *a5, int8x16_t *a6, int8x16_t *a7)
 {
-  if ((*(result + 381) & 0x40) != 0)
-  {
-    v2 = (*(result + 112) + 348);
-  }
-
-  else
-  {
-    v2 = (result + 172);
-  }
-
-  *a2 = *v2;
-  return result;
-}
-
-int32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMinCCDAdvanceCoefficient(int32x2_t *result, float a2)
-{
-  v3 = result;
-  v4 = result[13].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[12];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *&v3[25].i32[1] = a2;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[12];
-LABEL_5:
-  Stream = v3[14];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v3[14] = Stream;
-    result = v3[12];
-  }
-
-  *(Stream + 200) = a2;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v3[12]);
-  v3[47].i32[1] |= 0x80u;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMinCCDAdvanceCoefficient(uint64_t a1)
-{
-  if ((*(a1 + 380) & 0x80) != 0)
-  {
-    v1 = *(a1 + 112) + 200;
-  }
-
-  else
-  {
-    v1 = a1 + 204;
-  }
-
-  return *v1;
-}
-
-int32x2_t *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMaxDepenetrationVelocity(int32x2_t *result, float a2)
-{
-  v2 = result;
-  v3 = -a2;
-  v4 = result[13].u32[0];
-  if (v4 >> 30 == 2)
-  {
-    result = result[12];
-    if (result[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-
-LABEL_8:
-    *&v2[27].i32[1] = v3;
-    return result;
-  }
-
-  if (v4 >> 30 != 3)
-  {
-    goto LABEL_8;
-  }
-
-  result = result[12];
-LABEL_5:
-  Stream = v2[14];
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    v2[14] = Stream;
-    result = v2[12];
-  }
-
-  *(Stream + 252) = v3;
-  result = physx::Scb::Scene::scheduleForUpdate(result, &v2[12]);
-  v2[47].i32[1] |= 0x800u;
-  return result;
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMaxDepenetrationVelocity(uint64_t a1)
-{
-  if ((*(a1 + 381) & 8) != 0)
-  {
-    v1 = (*(a1 + 112) + 252);
-  }
-
-  else
-  {
-    v1 = (a1 + 220);
-  }
-
-  return -*v1;
-}
-
-float *physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::setMaxContactImpulse(uint64_t a1, float a2)
-{
-  v4 = *(a1 + 104);
-  if (v4 >> 30 == 2)
-  {
-    v5 = *(a1 + 96);
-    if (v5[961].i8[1])
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v4 >> 30 == 3)
-  {
-    v5 = *(a1 + 96);
-LABEL_5:
-    Stream = *(a1 + 112);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(v5, HIBYTE(v4) & 0xF);
-      *(a1 + 112) = Stream;
-      v5 = *(a1 + 96);
-    }
-
-    *(Stream + 260) = a2;
-    result = physx::Scb::Scene::scheduleForUpdate(v5, a1 + 96);
-    *(a1 + 380) |= 0x2000u;
-    return result;
-  }
-
-  return physx::Sc::BodyCore::setMaxContactImpulse((a1 + 128), a2);
-}
-
-float physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getMaxContactImpulse(uint64_t a1)
-{
-  if ((*(a1 + 381) & 0x20) != 0)
-  {
-    v1 = *(a1 + 112) + 260;
-  }
-
-  else
-  {
-    v1 = a1 + 272;
-  }
-
-  return *v1;
-}
-
-uint64_t physx::NpRigidBodyTemplate<physx::PxRigidDynamic>::getInternalIslandNodeIndex(uint64_t a1)
-{
-  v1 = *(a1 + 128);
-  if (v1)
-  {
-    return *(v1 + 176) >> 7;
-  }
-
-  else
-  {
-    return 0x1FFFFFFLL;
-  }
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  physx::NpShapeManager::exportExtraData(a1 + 40, a2);
-
-  return physx::NpActor::exportExtraData((a1 + 24), a2);
-}
-
-void *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::importExtraData(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 48);
-  if (v2 >= 2)
-  {
-    v3 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-    *(a2 + 8) = v3 + 8 * v2;
-    *(a1 + 40) = v3;
-  }
-
-  v4 = *(a1 + 64);
-  if (v4 >= 2)
-  {
-    v5 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-    *(a2 + 8) = v5 + 8 * v4;
-    *(a1 + 56) = v5;
-  }
-
-  return physx::NpActor::importExtraData((a1 + 24), a2);
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::resolveReferences(uint64_t a1, uint64_t (***a2)(void, uint64_t))
-{
-  v4 = (a1 + 40);
-  v5 = *(a1 + 48);
-  if (v5 != 1)
-  {
-    if (!*(a1 + 48))
-    {
-      goto LABEL_10;
-    }
-
-    v4 = *v4;
-  }
-
+  v13 = *a2;
+  v14 = *a1;
+  v15 = vsubq_f32(*a2, *a1);
+  v100 = v15;
+  v16 = *a4;
+  v17 = *a3;
+  v18 = vsubq_f32(*a4, *a3);
+  v19 = *a5;
+  v20 = vsubq_f32(*a5, *a3);
+  v98 = v20;
+  v99 = v18;
+  v97 = vsubq_f32(v19, v16);
+  v21 = vmulq_f32(v18, v18);
+  v21.i64[0] = vpaddq_f32(v21, v21).u64[0];
+  v22 = vpadd_f32(*v21.f32, *v21.f32);
+  v23 = vmulq_f32(v18, v20);
+  v23.i64[0] = vpaddq_f32(v23, v23).u64[0];
+  v24 = vpadd_f32(*v23.f32, *v23.f32);
+  v25 = vmulq_f32(v20, v20);
+  v25.i64[0] = vpaddq_f32(v25, v25).u64[0];
+  v26 = vpadd_f32(*v25.f32, *v25.f32);
+  v27 = vsub_f32(vmul_f32(v22, v26), vmul_f32(v24, v24));
+  v28 = vrecpe_f32(v27);
+  v29 = 4;
   do
   {
-    if (*v4)
-    {
-      v6 = (**a2)(a2, 0x80000000);
-      *v4 = v6;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    atomic_fetch_add((v6 + 32), 1u);
-    if ((*(v6 + 264) & 0x80000000) != 0)
-    {
-      *(v6 + 40) = a1;
-    }
-
-    atomic_fetch_add((v6 + 264), 1u);
-    ++v4;
-    --v5;
+    v28 = vmul_f32(v28, vrecps_f32(v27, v28));
+    --v29;
   }
 
-  while (v5);
-LABEL_10:
-
-  return physx::NpActor::resolveReferences(a1 + 24, a2);
-}
-
-BOOL physx::PxRigidStatic::isKindOf(physx::PxRigidStatic *this, const char *a2)
-{
-  if (!strcmp("PxRigidStatic", a2))
+  while (v29);
+  v30 = vmls_f32(vmul_f32(*v18.i8, *&vextq_s8(v20, v20, 4uLL)), *&vextq_s8(v18, v18, 4uLL), *v20.i8);
+  *v31.f32 = vext_s8(v30, vmls_f32(vmul_f32(*&vextq_s8(v18, v18, 8uLL), *v20.i8), *v18.i8, *&vextq_s8(v20, v20, 8uLL)), 4uLL);
+  v31.i64[1] = v30.u32[0];
+  v32 = vcgtz_f32(v27);
+  v33 = vpadd_f32(vmul_f32(*v31.f32, *v31.f32), vmul_f32(v30.u32[0], v30.u32[0]));
+  v34 = vpadd_f32(v33, v33);
+  v35 = vrsqrte_f32(v34);
+  v36 = 4;
+  do
   {
-    return 1;
+    v35 = vmul_f32(v35, vrsqrts_f32(vmul_f32(v35, v35), v34));
+    --v36;
   }
 
-  return physx::PxRigidActor::isKindOf(this, a2);
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getScene(uint64_t a1)
-{
-  v1 = (a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18));
-  if (((*(v1 + 2) >> 30) - 1) > 1)
+  while (v36);
+  v37 = vand_s8(vdup_lane_s32(v32, 0), v28);
+  v38 = vbsl_s8(vdup_lane_s32(vceqz_f32(v34), 0), v34, vmul_f32(v34, v35));
+  v39 = vrecpe_f32(v38);
+  v40 = 4;
+  do
   {
-    return 0;
+    v39 = vmul_f32(v39, vrecps_f32(v38, v39));
+    --v40;
   }
 
-  v2 = *v1;
-  if (v2)
+  while (v40);
+  v41 = vmulq_n_f32(v31, v39.f32[0]);
+  v41.i32[3] = 0;
+  v42 = vmulq_f32(vsubq_f32(v14, v17), v41);
+  v42.i64[0] = vpaddq_f32(v42, v42).u64[0];
+  v43 = vpadd_f32(*v42.f32, *v42.f32);
+  v44 = vmulq_f32(vsubq_f32(v13, v17), v41);
+  v44.i64[0] = vpaddq_f32(v44, v44).u64[0];
+  v45 = vpadd_f32(*v44.f32, *v44.f32);
+  if (vuzp1_s8(vdup_lane_s16(vcltz_f32(vmul_f32(v43, v45)), 0), *v14.f32).u32[0] != -1)
   {
-    return v2 - 16;
+    goto LABEL_11;
   }
 
-  else
+  v46 = vmulq_f32(v15, v41);
+  v46.i64[0] = vpaddq_f32(v46, v46).u64[0];
+  v47 = vpadd_f32(*v46.f32, *v46.f32);
+  v48 = vrecpe_f32(v47);
+  v49 = 4;
+  do
   {
-    return 0;
-  }
-}
-
-float physx::NpRigidActorTemplate<physx::PxRigidStatic>::getWorldBounds@<S0>(physx::PxRigidActor *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
-{
-  physx::NpShapeManager::getWorldBounds((a1 + 40), a1, &v11);
-  v4 = (v12 + v14) * 0.5;
-  v5 = ((v14 - v12) * 0.5) * a3;
-  v6 = v4 - v5;
-  result = v4 + v5;
-  v8 = vmul_f32(vadd_f32(v11, v13), 0x3F0000003F000000);
-  v9 = vmul_n_f32(vmul_f32(vsub_f32(v13, v11), 0x3F0000003F000000), a3);
-  *a2 = vsub_f32(v8, v9);
-  *(a2 + 8) = v6;
-  *(a2 + 12) = vadd_f32(v8, v9);
-  *(a2 + 20) = result;
-  return result;
-}
-
-int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidStatic>::setActorFlag(int32x2_t *result, int a2, int a3)
-{
-  v5 = result;
-  if (a2 != 8)
-  {
-    goto LABEL_35;
+    v48 = vmul_f32(v48, vrecps_f32(v47, v48));
+    --v49;
   }
 
-  v6 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v7 = (result + v6);
-  v8 = *(result[1].u32 + v6);
-  if (v8)
+  while (v49);
+  v50 = vmlaq_n_f32(v14, v15, vmul_f32(v48, vneg_f32(v43)).f32[0]);
+  v50.i64[1] = vextq_s8(v50, v50, 8uLL).u32[0];
+  v51 = vsubq_f32(v50, v17);
+  v52 = vmulq_f32(v18, v51);
+  v52.i64[0] = vpaddq_f32(v52, v52).u64[0];
+  *v52.f32 = vpadd_f32(*v52.f32, *v52.f32);
+  v53 = vmulq_f32(v20, v51);
+  v53.i64[0] = vpaddq_f32(v53, v53).u64[0];
+  *v53.f32 = vpadd_f32(*v53.f32, *v53.f32);
+  *v51.f32 = vmul_f32(vsub_f32(vmul_f32(v26, *v52.f32), vmul_f32(v24, *v53.f32)), v37);
+  *v53.f32 = vmul_f32(vsub_f32(vmul_f32(v22, *v53.f32), vmul_f32(v24, *v52.f32)), v37);
+  v54 = vdup_n_s32(0x3F800001u);
+  if (vuzp1_s8(vcltz_s16(vshl_n_s16(vdup_lane_s16(vand_s8(vand_s8(vand_s8(vcge_f32(v54, *v51.f32), vcge_f32(v54, *v53.f32)), vand_s8(vcge_f32(*v51.f32, 0xB4000000B4000000), vcge_f32(*v53.f32, 0xB4000000B4000000))), vcgt_f32(v54, vadd_f32(*v51.f32, *v53.f32))), 0), 0xFuLL)), *v50.i8).u32[0] == -1)
   {
-    v9 = v7[2];
+    *a7 = v50;
+    *a6 = v50;
   }
 
   else
   {
-    v9 = (v7 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v8 >> 24) & 0xF) + 3) + 12);
+LABEL_11:
+    v55 = vmul_f32(v43, v43);
+    v56 = vmul_f32(v45, v45);
+    v95 = 0u;
+    v96 = 0u;
+    v93 = v41;
+    v94 = v45;
+    v92 = v43;
+    *v57.i64 = physx::Gu::distanceSegmentSegmentSquared4(a1, &v100, a3, &v99, a4, &v97, a3, &v98, a3, &v99, &v96, &v95);
+    v58 = vdup_lane_s32(*v57.i8, 0);
+    v59 = vdup_lane_s32(*v57.i8, 1);
+    v60 = vdup_laneq_s32(v57, 2);
+    v61 = vmlaq_n_f32(*a1, v100, v96.f32[0]);
+    v61.i64[1] = vextq_s8(v61, v61, 8uLL).u32[0];
+    v62 = vmlaq_lane_f32(*a1, v100, *v96.f32, 1);
+    v62.i64[1] = vextq_s8(v62, v62, 8uLL).u32[0];
+    v63 = vmlaq_laneq_f32(*a1, v100, v96, 2);
+    v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+    v64 = vand_s8(vcgt_f32(v59, v58), vcgt_f32(v60, v58));
+    v65 = vmovl_s16(vdup_lane_s16(v64, 0));
+    v66 = vand_s8(vcge_f32(v58, v59), vcgt_f32(v60, v59));
+    v67 = vmovl_s16(vdup_lane_s16(v66, 0));
+    v68 = vbsl_s8(vdup_lane_s32(v64, 0), v58, vbsl_s8(vdup_lane_s32(v66, 0), v59, v60));
+    v69 = vbslq_s8(v65, v61, vbslq_s8(v67, v62, v63));
+    v70 = vmovl_s16(vdup_lane_s16(vcgt_f32(v68, v55), 0));
+    v71 = vbslq_s8(v70, *a1, v69);
+    v72 = vmlsq_lane_f32(*a1, v93, v92, 0);
+    v72.i64[1] = vextq_s8(v72, v72, 8uLL).u32[0];
+    v73 = vsubq_f32(v72, *a3);
+    v74 = vmlsq_lane_f32(*a2, v93, v94, 0);
+    v74.i64[1] = vextq_s8(v74, v74, 8uLL).u32[0];
+    v75 = vsubq_f32(v74, *a3);
+    v76 = vmlaq_n_f32(*a3, v99, v95.f32[0]);
+    v76.i64[1] = vextq_s8(v76, v76, 8uLL).u32[0];
+    v77 = vmlaq_lane_f32(*a4, v97, *v95.f32, 1);
+    v77.i64[1] = vextq_s8(v77, v77, 8uLL).u32[0];
+    v78 = vmovl_s16(vdup_lane_s16(vcgt_f32(v56, v55), 0));
+    v79 = vmlaq_laneq_f32(*a3, v98, v95, 2);
+    v79.i64[1] = vextq_s8(v79, v79, 8uLL).u32[0];
+    v80 = vbslq_s8(v65, v76, vbslq_s8(v67, v77, v79));
+    v81 = vmulq_f32(v99, v73);
+    v81.i64[0] = vpaddq_f32(v81, v81).u64[0];
+    *v81.f32 = vpadd_f32(*v81.f32, *v81.f32);
+    v82 = vmulq_f32(v73, v98);
+    v82.i64[0] = vpaddq_f32(v82, v82).u64[0];
+    *v82.f32 = vpadd_f32(*v82.f32, *v82.f32);
+    *v79.i8 = vmul_f32(vsub_f32(vmul_f32(v26, *v81.f32), vmul_f32(v24, *v82.f32)), v37);
+    *v81.f32 = vmul_f32(vsub_f32(vmul_f32(v22, *v82.f32), vmul_f32(v24, *v81.f32)), v37);
+    *v76.i8 = vdup_n_s32(0x3F800001u);
+    v83 = vdupq_lane_s32(vand_s8(vand_s8(vand_s8(vand_s8(vcge_f32(*v76.i8, *v79.i8), vcge_f32(*v76.i8, *v81.f32)), vand_s8(vcge_f32(*v79.i8, 0xB4000000B4000000), vcge_f32(*v81.f32, 0xB4000000B4000000))), 0x100000001), vcgt_f32(*v76.i8, vadd_f32(*v79.i8, *v81.f32))), 0);
+    v84 = vmulq_f32(v99, v75);
+    v84.i64[0] = vpaddq_f32(v84, v84).u64[0];
+    *v84.f32 = vpadd_f32(*v84.f32, *v84.f32);
+    v85 = vmulq_f32(v98, v75);
+    v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+    *v85.f32 = vpadd_f32(*v85.f32, *v85.f32);
+    *v75.f32 = vmul_f32(vsub_f32(vmul_f32(v26, *v84.f32), vmul_f32(v24, *v85.f32)), v37);
+    *v84.f32 = vmul_f32(vsub_f32(vmul_f32(v22, *v85.f32), vmul_f32(v24, *v84.f32)), v37);
+    v86 = vdupq_lane_s32(vand_s8(vand_s8(vand_s8(vand_s8(vcge_f32(*v76.i8, *v75.f32), vcge_f32(*v76.i8, *v84.f32)), vand_s8(vcge_f32(*v75.f32, 0xB4000000B4000000), vcge_f32(*v84.f32, 0xB4000000B4000000))), 0x100000001), vcgt_f32(*v76.i8, vadd_f32(*v75.f32, *v84.f32))), 0);
+    v87 = vbslq_s8(v70, v72, v80);
+    v88 = vandq_s8(v86, v83);
+    v89 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vand_s8(vmovn_s32(v86), vdup_lane_s16(vcgt_f32(v68, v56), 0))), 0x1FuLL));
+    v90 = vcltzq_s32(vshlq_n_s32(v83, 0x1FuLL));
+    v91 = vcltzq_s32(vshlq_n_s32(v88, 0x1FuLL));
+    *a6 = vbslq_s8(v91, vbslq_s8(v78, *a1, *a2), vbslq_s8(v90, v71, vbslq_s8(v89, *a2, v69)));
+    *a7 = vbslq_s8(v91, vbslq_s8(v78, v72, v74), vbslq_s8(v90, v87, vbslq_s8(v89, v74, v80)));
   }
-
-  v10 = *v7;
-  v11 = v9->u8[0];
-  if (v11 & 8) == 0 || (a3)
-  {
-    if ((v11 & 8) != 0 || !a3)
-    {
-      goto LABEL_35;
-    }
-
-    if (v10)
-    {
-      physx::NpActor::removeConstraintsFromScene(&result[3]);
-      v6 = *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
-      LODWORD(v8) = *(v5[1].i32 + v6);
-    }
-
-    v17 = v11 | 8;
-    v18 = v5 + v6;
-    v19 = BYTE3(v8) & 0xF;
-    v20 = *(&physx::Scb::Actor::sLazyInitOffsets + v19 + 3);
-    v21 = v8 >> 30;
-    if (v21 == 2)
-    {
-      v22 = *v18;
-      if (*(*v18 + 7689))
-      {
-        goto LABEL_28;
-      }
-    }
-
-    else if (v21 == 3)
-    {
-      v22 = *v18;
-LABEL_28:
-      Stream = *(v18 + 16);
-      if (!Stream)
-      {
-        Stream = physx::Scb::Scene::getStream(v22, v19);
-        *(v18 + 16) = Stream;
-        v22 = *v18;
-      }
-
-      *Stream = v17;
-      physx::Scb::Scene::scheduleForUpdate(v22, v18);
-      *(v18 + 8) |= 1u;
-LABEL_34:
-      result = (*(*v5 + 248))(v5);
-      goto LABEL_35;
-    }
-
-    v26 = (v20 + v18);
-    if (v17 != *(v20 + v18 + 12))
-    {
-      v26[12] = v17;
-      if (*v26)
-      {
-        (*(**v26 + 16))(*v26);
-      }
-    }
-
-    goto LABEL_34;
-  }
-
-  result = (*(*result + 256))(result);
-  v12 = v11 & 0xFFFFFFF7;
-  v13 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
-  v14 = *(v13 + 8);
-  v15 = (v14 >> 24) & 0xF;
-  v16 = v14 >> 30;
-  if (v16 == 2)
-  {
-    result = *v13;
-    if (*(*v13 + 7689))
-    {
-      goto LABEL_18;
-    }
-
-LABEL_21:
-    v24 = *(&physx::Scb::Actor::sLazyInitOffsets + v15 + 3) + v13;
-    if (v12 != *(v24 + 12))
-    {
-      *(v24 + 12) = v12;
-      result = *v24;
-      if (*v24)
-      {
-        result = (*(*result + 16))(result);
-      }
-    }
-
-    goto LABEL_24;
-  }
-
-  if (v16 != 3)
-  {
-    goto LABEL_21;
-  }
-
-  result = *v13;
-LABEL_18:
-  v23 = *(v13 + 16);
-  if (!v23)
-  {
-    v23 = physx::Scb::Scene::getStream(result, v15);
-    *(v13 + 16) = v23;
-    result = *v13;
-  }
-
-  *v23 = v12;
-  result = physx::Scb::Scene::scheduleForUpdate(result, v13);
-  *(v13 + 8) |= 1u;
-LABEL_24:
-  if (v10 && *&v5[4])
-  {
-    result = physx::NpActor::addConstraintsToSceneInternal(v5 + 3);
-  }
-
-LABEL_35:
-  v27 = v5 + *(&physx::NpActor::sLazyInitOffsets + v5[1].u16[0] + 18);
-  v28 = *(v27 + 8);
-  if (a3)
-  {
-    if (v28)
-    {
-      v31 = *(v27 + 16);
-      v29 = (v28 >> 24) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-    }
-
-    else
-    {
-      v29 = (v28 >> 24) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-      v31 = (v30 + 12);
-    }
-
-    v33 = *v31 | a2;
-  }
-
-  else
-  {
-    if (v28)
-    {
-      v32 = *(v27 + 16);
-      v29 = (v28 >> 24) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-    }
-
-    else
-    {
-      LODWORD(v29) = BYTE3(v28) & 0xF;
-      v30 = *(&physx::Scb::Actor::sLazyInitOffsets + v29 + 3) + v27;
-      v32 = (v30 + 12);
-    }
-
-    v33 = *v32 & ~a2;
-  }
-
-  v34 = v28 >> 30;
-  if (v34 == 2)
-  {
-    result = *v27;
-    if (*(*v27 + 7689))
-    {
-      goto LABEL_48;
-    }
-  }
-
-  else if (v34 == 3)
-  {
-    result = *v27;
-LABEL_48:
-    v35 = *(v27 + 16);
-    if (!v35)
-    {
-      v35 = physx::Scb::Scene::getStream(result, v29);
-      *(v27 + 16) = v35;
-      result = *v27;
-    }
-
-    *v35 = v33;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v27);
-    *(v27 + 8) |= 1u;
-    return result;
-  }
-
-  if (v33 != *(v30 + 12))
-  {
-    *(v30 + 12) = v33;
-    result = *v30;
-    if (*v30)
-    {
-      v36 = *(*result + 16);
-
-      return v36();
-    }
-  }
-
-  return result;
 }
 
-int32x2_t *physx::NpRigidActorTemplate<physx::PxRigidStatic>::setActorFlags(int32x2_t *result, _BYTE *a2)
+uint64_t physx::Gu::epaPenetration(uint64_t a1)
 {
-  v3 = result;
-  v4 = *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v5 = (result + v4);
-  v6 = *(result[1].u32 + v4);
-  if (v6)
+  v4 = MEMORY[0x1EEE9AC00](a1);
+  v6 = v5;
+  v7 = *&v4;
+  v9 = v8;
+  v10 = v3;
+  v12 = v11;
+  v14 = v13;
+  v33 = *MEMORY[0x1E69E9840];
+  if (v3)
   {
-    v7 = v5[2];
-  }
-
-  else
-  {
-    v7 = (v5 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v6 >> 24) & 0xF) + 3) + 12);
-  }
-
-  v8 = *v5;
-  v9 = v7->u8[0];
-  if ((*a2 & 8) != 0 || (v9 & 8) == 0)
-  {
-    if ((*a2 & 8) == 0 || (v9 & 8) != 0)
+    v15 = v2;
+    v16 = v1;
+    v17 = v3;
+    v18 = v31;
+    v19 = v32;
+    do
     {
-      goto LABEL_34;
+      v20 = *v16++;
+      *v21.i64 = (**v14)(v14, v20);
+      *v19++ = v21;
+      v22 = *v15++;
+      *v23.i64 = (**v12)(v12, v22);
+      *v18++ = v23;
+      --v17;
     }
 
-    if (v8)
-    {
-      physx::NpActor::removeConstraintsFromScene(&result[3]);
-      v4 = *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
-      LODWORD(v6) = *(v3[1].i32 + v4);
-    }
+    while (v17);
+  }
 
-    v15 = v9 | 8;
-    v16 = v3 + v4;
-    v17 = BYTE3(v6) & 0xF;
-    v18 = *(&physx::Scb::Actor::sLazyInitOffsets + v17 + 3);
-    v19 = v6 >> 30;
-    if (v19 == 2)
+  v25.i32[0] = 0;
+  v25.i64[1] = v26;
+  v26[1920] = 0;
+  v27 = 0;
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  return physx::Gu::EPA::PenetrationDepth(&v25, v14, v12, v32, v31, v10, v9, v6, v7);
+}
+
+uint64_t physx::Gu::EPA::PenetrationDepth(float32x4_t *_X0, void *a2, void *a3, float32x4_t *a4, float32x4_t *a5, int a6, unsigned int a7, uint64_t a8, float a9)
+{
+  v11 = a3;
+  v12 = a2;
+  v13 = _X0;
+  v154 = *MEMORY[0x1E69E9840];
+  __asm
+  {
+    PRFM            #0, [X0,#0xA10]
+    PRFM            #0, [X0,#0xA90]
+  }
+
+  v151 = vneg_f32(0x80000000800000);
+  v19 = *a4;
+  _X0[33] = *a4;
+  v20 = a4[1];
+  _X0[34] = v20;
+  v21 = a4[2];
+  _X0[35] = v21;
+  v22 = a4[3];
+  _X0[36] = v22;
+  v23 = *a5;
+  _X0[97] = *a5;
+  v24 = a5[1];
+  _X0[98] = v24;
+  v25 = a5[2];
+  _X0[99] = v25;
+  v26 = a5[3];
+  _X0[100] = v26;
+  v150 = 0;
+  _X0->i32[0] = 0;
+  if (a6 <= 2)
+  {
+    if (a6 == 1)
     {
-      v20 = *v16;
-      if (*(*v16 + 7689))
+      v148 = vsubq_f32(v19, v23);
+      v152 = xmmword_1E3047670;
+      v153[0] = xmmword_1E30661F0;
+      *v46.i64 = (*(*a2 + 8))(a2, v153);
+      v145 = v46;
+      *v20.i64 = (*(*v11 + 8))(v11, &v152);
+      v25.i64[0] = v145.i64[0];
+      v21.i64[0] = v148.i64[0];
+      v13[34] = v145;
+      v13[98] = v20;
+      *v20.f32 = vmovn_s32(vceqq_f32(v148, vsubq_f32(v145, v20)));
+      *v20.f32 = vuzp1_s8(*v20.f32, *v20.f32);
+      if ((~v20.i32[0] & 0xFFFFFF) == 0)
       {
-        goto LABEL_27;
+        return 7;
       }
     }
 
-    else if (v19 == 3)
-    {
-      v20 = *v16;
-LABEL_27:
-      Stream = *(v16 + 16);
-      if (!Stream)
-      {
-        Stream = physx::Scb::Scene::getStream(v20, v17);
-        *(v16 + 16) = Stream;
-        v20 = *v16;
-      }
-
-      *Stream = v15;
-      physx::Scb::Scene::scheduleForUpdate(v20, v16);
-      *(v16 + 8) |= 1u;
-LABEL_33:
-      result = (*(*v3 + 248))(v3);
-      goto LABEL_34;
-    }
-
-    v24 = (v18 + v16);
-    if (v15 != *(v18 + v16 + 12))
-    {
-      v24[12] = v15;
-      if (*v24)
-      {
-        (*(**v24 + 16))(*v24);
-      }
-    }
-
-    goto LABEL_33;
-  }
-
-  result = (*(*result + 256))(result);
-  v10 = v9 & 0xFFFFFFF7;
-  v11 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
-  v12 = *(v11 + 8);
-  v13 = (v12 >> 24) & 0xF;
-  v14 = v12 >> 30;
-  if (v14 == 2)
-  {
-    result = *v11;
-    if (*(*v11 + 7689))
+    else if (a6 != 2)
     {
       goto LABEL_17;
     }
 
-LABEL_20:
-    v22 = *(&physx::Scb::Actor::sLazyInitOffsets + v13 + 3) + v11;
-    if (v10 != *(v22 + 12))
+    if (physx::Gu::EPA::expandSegment(v13, v12, v11, &v150, &v151, *v20.i64, *v21.i64, *v25.i64, *v24.i64, v22, v26))
     {
-      *(v22 + 12) = v10;
-      result = *v22;
-      if (*v22)
+      goto LABEL_17;
+    }
+
+    return 7;
+  }
+
+  if (a6 == 3)
+  {
+    if (physx::Gu::EPA::expandTriangle(_X0, &v150, &v151))
+    {
+      goto LABEL_17;
+    }
+
+    return 7;
+  }
+
+  if (a6 == 4)
+  {
+    v27 = vsubq_f32(v19, v23);
+    v28 = vsubq_f32(vsubq_f32(v20, v24), v27);
+    v29 = vsubq_f32(vsubq_f32(v21, v25), v27);
+    v30 = vmls_f32(vmul_f32(*v28.i8, *&vextq_s8(v29, v29, 4uLL)), *&vextq_s8(v28, v28, 4uLL), *v29.i8);
+    *v31.f32 = vext_s8(v30, vmls_f32(vmul_f32(*&vextq_s8(v28, v28, 8uLL), *v29.i8), *v28.i8, *&vextq_s8(v29, v29, 8uLL)), 4uLL);
+    v31.i64[1] = v30.u32[0];
+    *v29.i8 = vpadd_f32(vmul_f32(*v31.f32, *v31.f32), vmul_f32(v30.u32[0], v30.u32[0]));
+    v32 = vpadd_f32(*v29.i8, *v29.i8);
+    v33 = vrsqrte_f32(v32);
+    v34 = 4;
+    do
+    {
+      v33 = vmul_f32(v33, vrsqrts_f32(vmul_f32(v33, v33), v32));
+      --v34;
+    }
+
+    while (v34);
+    v35 = vbsl_s8(vdup_lane_s32(vceqz_f32(v32), 0), v32, vmul_f32(v32, v33));
+    v36 = vrecpe_f32(v35);
+    v37 = 4;
+    do
+    {
+      v36 = vmul_f32(v36, vrecps_f32(v35, v36));
+      --v37;
+    }
+
+    while (v37);
+    v40 = vmulq_n_f32(v31, v36.f32[0]);
+    v40.i32[3] = 0;
+    v41 = vmulq_f32(vsubq_f32(vsubq_f32(v22, v26), v27), v40);
+    v41.i64[0] = vpaddq_f32(v41, v41).u64[0];
+    if (vpadd_f32(*v41.f32, *v41.f32).f32[0] > 0.0)
+    {
+      _X0[99] = v24;
+      _X0[34] = v21;
+      _X0[35] = v20;
+      _X0[98] = v25;
+    }
+
+    v42 = physx::Gu::EPA::addFacet(_X0, 0, 1u, 2u, &v151);
+    v43 = physx::Gu::EPA::addFacet(v13, 0, 3u, 1u, &v151);
+    v44 = physx::Gu::EPA::addFacet(v13, 0, 2u, 3u, &v151);
+    v45 = physx::Gu::EPA::addFacet(v13, 1u, 3u, 2u, &v151);
+    if (!v13->i32[0])
+    {
+      return 7;
+    }
+
+    v42[1].i64[1] = v43;
+    v42[3].i8[0] = 2;
+    v43[2].i64[1] = v42;
+    v43[3].i8[2] = 0;
+    v42[2].i64[0] = v45;
+    v42[3].i8[1] = 2;
+    v45[2].i64[1] = v42;
+    v45[3].i8[2] = 1;
+    v42[2].i64[1] = v44;
+    v42[3].i8[2] = 0;
+    v44[1].i64[1] = v42;
+    v44[3].i8[0] = 2;
+    v43[1].i64[1] = v44;
+    v43[3].i8[0] = 2;
+    v44[2].i64[1] = v43;
+    v44[3].i8[2] = 0;
+    v43[2].i64[0] = v45;
+    v43[3].i8[1] = 0;
+    v45[1].i64[1] = v43;
+    v45[3].i8[0] = 1;
+    v44[2].i64[0] = v45;
+    v44[3].i8[1] = 1;
+    v45[2].i64[0] = v44;
+    v45[3].i8[1] = 1;
+    v150 = 4;
+    v11 = a3;
+    v12 = a2;
+  }
+
+LABEL_17:
+  v139 = a7;
+  v47 = v13 + 33;
+  v48 = v13 + 97;
+  v49 = (v12[1] + 20);
+  v50 = vld1_dup_f32(v49);
+  v51 = (v11[1] + 20);
+  v52 = vld1_dup_f32(v51);
+  v53 = &v13[481].i32[2];
+  v54 = v13 + 498;
+  v55 = vmul_f32(vmin_f32(v50, v52), vdup_n_s32(0x3DCCCCCDu));
+  v56 = v150;
+  v57 = &v13[481].i8[12];
+  _X22 = v13 + 417;
+  *v24.f32 = vneg_f32(0x80000000800000);
+  v141 = v12;
+  v142 = v11;
+  while (1)
+  {
+    v59 = v13[514].u32[0];
+    if (v59)
+    {
+      v60 = v54;
+      do
       {
-        result = (*(*result + 16))(result);
+        v62 = v60->i32[0];
+        v60 = (v60 + 4);
+        v61 = v62;
+        v63 = v53;
+        if (*v53 - 1 != v62)
+        {
+          v64 = v13[497].u32[3];
+          v13[497].i32[3] = v64 + 1;
+          v63 = &v57[4 * v64];
+        }
+
+        *v63 = v61;
+        --v59;
+      }
+
+      while (v59);
+    }
+
+    v13[514].i32[0] = 0;
+    v65 = v13->i32[0] - 1;
+    v13->i32[0] = v65;
+    v66 = v13->i64[1];
+    v67 = *v66;
+    v68 = v66[v65];
+    if (v65 < 2)
+    {
+      v75 = 0;
+    }
+
+    else
+    {
+      v69 = 0;
+      v70 = 0;
+      v71 = v68[1].f32[0];
+      v72 = 1;
+      while (1)
+      {
+        v73 = v69 + 2;
+        v66 = v13->i64[1];
+        _CF = v66[v73][1].f32[0] >= v66[v72][1].f32[0] || v73 >= v65;
+        v75 = _CF ? v72 : v72 + 1;
+        v76 = v66[v75];
+        if (v71 < v76[1].f32[0])
+        {
+          break;
+        }
+
+        v66[v70] = v76;
+        v69 = 2 * v75;
+        v72 = (2 * v75) | 1;
+        v70 = v75;
+        if (v72 >= v65)
+        {
+          v66 = v13->i64[1];
+          goto LABEL_36;
+        }
+      }
+
+      v75 = v70;
+    }
+
+LABEL_36:
+    v66[v75] = v68;
+    v67[3].i8[7] = 0;
+    if (v67[3].i8[6])
+    {
+      goto LABEL_56;
+    }
+
+    v146 = v24;
+    __asm { PRFM            #0, [X22] }
+
+    _X8 = v13 + 433;
+    _X9 = v13 + 425;
+    __asm
+    {
+      PRFM            #0, [X9]
+      PRFM            #0, [X8]
+    }
+
+    v152 = 0uLL;
+    v152 = *v67;
+    f32 = v67[1].f32;
+    v83 = vld1_dup_f32(f32);
+    v84 = *(*v12 + 8);
+    v85 = v12;
+    v149 = v56;
+    v86 = v67;
+    *v87.i64 = v84(v85, &v152);
+    v143 = v87;
+    v88 = vnegq_f32(v152);
+    v88.i32[3] = 0;
+    v153[0] = v88;
+    *v89.i64 = (*(*v11 + 8))(v11, v153);
+    v90 = vsubq_f32(v143, v89);
+    _X10 = &v47[v149];
+    __asm { PRFM            #0, [X10,#0x80] }
+
+    _X11 = &v48[v149];
+    __asm { PRFM            #0, [X11,#0x80] }
+
+    v95 = vmulq_f32(v90, v152);
+    v95.i64[0] = vpaddq_f32(v95, v95).u64[0];
+    v96 = vpadd_f32(*v95.f32, *v95.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(v55, vabd_f32(v96, v83)), 0), *v89.f32).u32[0] == -1)
+    {
+      break;
+    }
+
+    v97 = 0;
+    v98 = 0;
+    v99 = 0;
+    v100.i64[1] = v146.i64[1];
+    *v100.f32 = vmin_f32(*v146.f32, v96);
+    v151 = *v100.f32;
+    *_X10 = v143;
+    *_X11 = v89;
+    v13[481].i32[0] = 0;
+    v13[481].i8[4] = 0;
+    v86[3].i8[6] = 1;
+    do
+    {
+      v101 = 0;
+      v102 = v86[3].i8[v99];
+      v153[0].i64[0] = v86[1].i64[v99 + 1];
+      v153[0].i32[2] = v102;
+      v103 = 1;
+      while (1)
+      {
+        v104 = &v153[v101];
+        v105 = v104->i64[0];
+        v106 = v104->i32[2];
+        if ((*(v104->i64[0] + 54) & 1) == 0)
+        {
+          break;
+        }
+
+LABEL_46:
+        v103 = v101--;
+        if (!v103)
+        {
+          goto LABEL_49;
+        }
+      }
+
+      v107 = vmulq_f32(*v105, vsubq_f32(v90, vsubq_f32(v47[v105[3].i8[3]], v48[v105[3].i8[3]])));
+      v107.i64[0] = vpaddq_f32(v107, v107).u64[0];
+      if (vpadd_f32(*v107.f32, *v107.f32).f32[0] >= 0.0)
+      {
+        v105[3].i8[6] = 1;
+        v108 = physx::Gu::lookUp[v106];
+        v109 = physx::Gu::lookUp[v108];
+        v110 = v105[1].i64[v109 + 1];
+        LODWORD(v109) = v105[3].i8[v109];
+        v104->i64[0] = v110;
+        v104->i32[2] = v109;
+        v111 = v105[1].i64[v108 + 1];
+        v112 = v105[3].i8[v108];
+        v101 = v103 + 1;
+        v113 = &v153[v103];
+        v113->i64[0] = v111;
+        v113->i32[2] = v112;
+        if ((v105[3].i8[7] & 1) == 0)
+        {
+          v114 = v105[3].u8[8];
+          v115 = v13[514].u32[0];
+          v13[514].i32[0] = v115 + 1;
+          v13[498].i32[v115] = v114;
+        }
+
+        goto LABEL_46;
+      }
+
+      if (v98 <= 0x3F)
+      {
+        v116 = &_X22[v98++];
+        v13[481].i32[0] = v98;
+        v116->i64[0] = v105;
+        v116->i32[2] = v106;
+        goto LABEL_46;
+      }
+
+      v97 = 1;
+      v13[481].i8[4] = 1;
+LABEL_49:
+      ++v99;
+    }
+
+    while (v99 != 3);
+    if ((v98 == 0) | v97 & 1 || v98 > v13[497].i32[3] - v13[481].i32[2] + 64)
+    {
+      v128 = v141[1];
+      v129 = v142[1];
+      v130 = &v13[33];
+      v131 = &v13[97];
+      v67 = v86;
+LABEL_65:
+      physx::Gu::calculateContactInformation(v130, v131, v67, v128, v129, v139, a8);
+      return 6;
+    }
+
+    v140 = v86;
+    v147 = v100;
+    v117 = physx::Gu::EPA::addFacet(v13, *(v13[417].i64[0] + 51 + physx::Gu::lookUp[v13[417].u32[2]]), *(v13[417].i64[0] + 51 + v13[417].u32[2]), v149, &v151);
+    v118 = v13[417].i64[0];
+    v119 = v13[417].u32[2];
+    v117[1].i64[1] = v118;
+    v117[3].i8[0] = v119;
+    *(v118 + 8 * v119 + 24) = v117;
+    *(v118 + v119 + 48) = 0;
+    v144 = v117;
+    if (v98 != 1)
+    {
+      v120 = v98 - 1;
+      v121 = &v13[418].u32[2];
+      v122 = v117;
+      do
+      {
+        v117 = physx::Gu::EPA::addFacet(v13, *(*(v121 - 1) + 51 + physx::Gu::lookUp[*v121]), *(*(v121 - 1) + 51 + *v121), v149, &v151);
+        v123 = *(v121 - 1);
+        v124 = *v121;
+        v121 += 4;
+        v117[1].i64[1] = v123;
+        v117[3].i8[0] = v124;
+        *(v123 + 8 * v124 + 24) = v117;
+        *(v123 + v124 + 48) = 0;
+        v117[2].i64[1] = v122;
+        v117[3].i8[2] = 1;
+        v122[2].i64[0] = v117;
+        v122[3].i8[1] = 2;
+        v122 = v117;
+        --v120;
+      }
+
+      while (v120);
+    }
+
+    v56 = v149 + 1;
+    v11 = v142;
+    v144[2].i64[1] = v117;
+    v144[3].i8[2] = 1;
+    v117[2].i64[0] = v144;
+    v117[3].i8[1] = 2;
+    v54 = v13 + 498;
+    v12 = v141;
+    v57 = &v13[481].i8[12];
+    v53 = &v13[481].i32[2];
+    v24 = v147;
+    v67 = v140;
+LABEL_56:
+    v125 = v67[3].u8[8];
+    v126 = v53;
+    if (*v53 - 1 != v125)
+    {
+      v127 = v13[497].u32[3];
+      v13[497].i32[3] = v127 + 1;
+      v126 = &v57[4 * v127];
+    }
+
+    *v126 = v125;
+    if (!v13->i32[0] || v24.f32[0] <= *(*v13->i64[1] + 16) || v56 == 64)
+    {
+      v128 = v12[1];
+      v129 = v11[1];
+      v130 = &v13[33];
+      v131 = &v13[97];
+      goto LABEL_65;
+    }
+  }
+
+  physx::Gu::calculateContactInformation(&v13[33], &v13[97], v86, v141[1], v142[1], v139, a8);
+  if (v139)
+  {
+    v133 = vsubq_f32(*a8, *(a8 + 16));
+    v134 = vmulq_f32(v133, v133);
+    v134.i64[0] = vpaddq_f32(v134, v134).u64[0];
+    v135 = vpadd_f32(*v134.f32, *v134.f32);
+    v136 = vrsqrte_f32(v135);
+    v137 = 4;
+    do
+    {
+      v136 = vmul_f32(v136, vrsqrts_f32(vmul_f32(v136, v136), v135));
+      --v137;
+    }
+
+    while (v137);
+    if (((0.001 * a9) + vabs_f32(*(a8 + 64)).f32[0]) < *vand_s8(vbsl_s8(vceqz_f32(v135), v135, vmul_f32(v135, v136)), vcgtz_f32(v135)).i32)
+    {
+      return 6;
+    }
+  }
+
+  return 5;
+}
+
+float32x4_t *physx::Gu::EPA::addFacet(int *a1, unsigned int a2, unsigned int a3, unsigned int a4, float32x2_t *a5)
+{
+  v5 = a1[1991];
+  if (v5)
+  {
+    v6 = v5 - 1;
+    a1[1991] = v6;
+    v7 = a1[v6 + 1927];
+  }
+
+  else
+  {
+    v7 = a1[1926];
+    a1[1926] = v7 + 1;
+  }
+
+  _X8 = &a1[16 * v7];
+  __asm { PRFM            #0, [X8,#0xA90] }
+
+  *(_X8 + 1315) = 0;
+  *(_X8 + 2627) = a2;
+  *(_X8 + 2628) = a3;
+  *(_X8 + 2629) = a4;
+  *(_X8 + 325) = 0;
+  *(_X8 + 327) = 0;
+  *(_X8 + 326) = 0;
+  *(_X8 + 2626) = -1;
+  *(_X8 + 1312) = -1;
+  *(_X8 + 2632) = v7;
+  v14 = vsubq_f32(*&a1[4 * a2 + 132], *&a1[4 * a2 + 388]);
+  v15 = vsubq_f32(vsubq_f32(*&a1[4 * a3 + 132], *&a1[4 * a3 + 388]), v14);
+  v16 = vsubq_f32(vsubq_f32(*&a1[4 * a4 + 132], *&a1[4 * a4 + 388]), v14);
+  v17 = vmls_f32(vmul_f32(*v15.i8, *&vextq_s8(v16, v16, 4uLL)), *&vextq_s8(v15, v15, 4uLL), *v16.i8);
+  *v18.f32 = vext_s8(v17, vmls_f32(vmul_f32(*&vextq_s8(v15, v15, 8uLL), *v16.i8), *v15.i8, *&vextq_s8(v16, v16, 8uLL)), 4uLL);
+  v18.i64[1] = v17.u32[0];
+  v19 = (_X8 + 644);
+  *v16.i8 = vpadd_f32(vmul_f32(*v18.f32, *v18.f32), vmul_f32(v17.u32[0], v17.u32[0]));
+  v20 = vpadd_f32(*v16.i8, *v16.i8);
+  __asm { FMOV            V4.2S, #1.0 }
+
+  v22 = vbsl_s8(vdup_lane_s32(vcgt_f32(v20, 0x3400000034000000), 0), v20, _D4);
+  v23 = vrsqrte_f32(v22);
+  v24 = 4;
+  do
+  {
+    v23 = vmul_f32(v23, vrsqrts_f32(vmul_f32(v23, v23), v22));
+    --v24;
+  }
+
+  while (v24);
+  v25 = vmulq_n_f32(v18, v23.f32[0]);
+  v25.i32[3] = 0;
+  v26 = vmulq_f32(v14, v25);
+  v26.i64[0] = vpaddq_f32(v26, v26).u64[0];
+  v27 = vpadd_f32(*v26.f32, *v26.f32);
+  *v19 = v25;
+  v19[1].i32[0] = v27.i32[0];
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vcge_f32(*a5, v27), vcgt_f32(v20, 0x3400000034000000)), 0), v27).u32[0] == -1)
+  {
+    v29 = *a1;
+    if (*a1)
+    {
+      LODWORD(v30) = *a1;
+      while (1)
+      {
+        v31 = v30 - 1;
+        v32 = *(a1 + 1);
+        v33 = *(v32 + 8 * ((v30 - 1) >> 1));
+        v30 = v30;
+        if (v27.f32[0] >= *(v33 + 16))
+        {
+          break;
+        }
+
+        *(v32 + 8 * v30) = v33;
+        LODWORD(v30) = v31 >> 1;
+        if (v31 <= 1)
+        {
+          v30 = v31 >> 1;
+          break;
+        }
       }
     }
 
-    goto LABEL_23;
-  }
-
-  if (v14 != 3)
-  {
-    goto LABEL_20;
-  }
-
-  result = *v11;
-LABEL_17:
-  v21 = *(v11 + 16);
-  if (!v21)
-  {
-    v21 = physx::Scb::Scene::getStream(result, v13);
-    *(v11 + 16) = v21;
-    result = *v11;
-  }
-
-  *v21 = v10;
-  result = physx::Scb::Scene::scheduleForUpdate(result, v11);
-  *(v11 + 8) |= 1u;
-LABEL_23:
-  if (v8 && *&v3[4])
-  {
-    result = physx::NpActor::addConstraintsToSceneInternal(v3 + 3);
-  }
-
-LABEL_34:
-  v25 = *a2;
-  v26 = v3 + *(&physx::NpActor::sLazyInitOffsets + v3[1].u16[0] + 18);
-  v27 = *(v26 + 8);
-  v28 = (v27 >> 24) & 0xF;
-  v29 = v27 >> 30;
-  if (v29 == 2)
-  {
-    result = *v26;
-    if (*(*v26 + 7689))
+    else
     {
+      v30 = 0;
+    }
+
+    *(*(a1 + 1) + 8 * v30) = v19;
+    *a1 = v29 + 1;
+    v28 = 1;
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+  v19[3].i8[7] = v28;
+  return v19;
+}
+
+BOOL physx::Gu::EPA::expandSegment(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, float32x2_t *a5, double a6, double a7, double a8, double a9, int32x4_t a10, int32x4_t a11)
+{
+  v15 = vsubq_f32(*(a1 + 528), *(a1 + 1552));
+  v16 = vsubq_f32(*(a1 + 544), *(a1 + 1568));
+  v17 = vabdq_f32(v16, v15);
+  v18 = vdup_lane_s32(*v17.i8, 0);
+  *a10.i8 = vdup_lane_s32(*v17.i8, 1);
+  *v17.i8 = vdup_laneq_s32(v17, 2);
+  *a11.i8 = vcgt_f32(v18, *a10.i8);
+  *a10.i8 = vuzp1_s8(vdup_lane_s16(vand_s8(*a11.i8, vcgt_f32(*v17.i8, *a10.i8)), 0), *v15.f32);
+  a11.i32[0] = -1;
+  v19 = vsubq_f32(v16, v15);
+  v20 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(a10, a11), 0), xmmword_1E3047680, vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(v18, *v17.i8), 0)), xmmword_1E30476A0, xmmword_1E3047670));
+  v17.i64[0] = vextq_s8(v20, v20, 8uLL).u64[0];
+  v21 = vmls_f32(vmul_f32(*&vextq_s8(v19, v19, 4uLL), *v20.i8), vext_s8(*v20.i8, *v17.i8, 4uLL), *v19.i8);
+  *v22.f32 = vext_s8(v21, vmls_f32(vmul_f32(*v19.i8, *v17.i8), *v20.i8, *&vextq_s8(v19, v19, 8uLL)), 4uLL);
+  v22.i64[1] = v21.u32[0];
+  *v20.i8 = vpadd_f32(vmul_f32(*v22.f32, *v22.f32), vmul_f32(v21.u32[0], v21.u32[0]));
+  v23 = vpadd_f32(*v20.i8, *v20.i8);
+  v24 = vrsqrte_f32(v23);
+  v25 = 4;
+  do
+  {
+    v24 = vmul_f32(v24, vrsqrts_f32(vmul_f32(v24, v24), v23));
+    --v25;
+  }
+
+  while (v25);
+  v26 = vbsl_s8(vdup_lane_s32(vceqz_f32(v23), 0), v23, vmul_f32(v23, v24));
+  v27 = vrecpe_f32(v26);
+  v28 = 4;
+  do
+  {
+    v27 = vmul_f32(v27, vrecps_f32(v26, v27));
+    --v28;
+  }
+
+  while (v28);
+  v29 = vmulq_n_f32(v22, v27.f32[0]);
+  v29.i32[3] = 0;
+  v30 = vnegq_f32(v29);
+  v30.i32[3] = 0;
+  v35 = v29;
+  v36 = v30;
+  *&v31 = (*(*a2 + 8))(a2, &v36);
+  v34 = v31;
+  *&v32 = (*(*a3 + 8))(a3, &v35);
+  *(a1 + 560) = v34;
+  *(a1 + 1584) = v32;
+  return physx::Gu::EPA::expandTriangle(a1, a4, a5);
+}
+
+BOOL physx::Gu::EPA::expandTriangle(int *a1, _DWORD *a2, float32x2_t *a3)
+{
+  *a2 = 3;
+  v5 = physx::Gu::EPA::addFacet(a1, 0, 1u, 2u, a3);
+  v6 = physx::Gu::EPA::addFacet(a1, 1u, 0, 2u, a3);
+  v7 = *a1;
+  if (*a1)
+  {
+    v5[1].i64[1] = v6;
+    v5[3].i8[0] = 0;
+    v6[1].i64[1] = v5;
+    v6[3].i8[0] = 0;
+    v5[2].i64[0] = v6;
+    v5[3].i8[1] = 2;
+    v6[2].i64[1] = v5;
+    v6[3].i8[2] = 1;
+    v5[2].i64[1] = v6;
+    v5[3].i8[2] = 1;
+    v6[2].i64[0] = v5;
+    v6[3].i8[1] = 2;
+  }
+
+  return v7 != 0;
+}
+
+uint64_t physx::Gu::calculateContactInformation(uint64_t result, uint64_t a2, float32x4_t *a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7)
+{
+  v7 = a3[3].i8[3];
+  v8 = *(result + 16 * v7);
+  v9 = a3[3].i8[4];
+  v10 = *(result + 16 * v9);
+  v11 = a3[3].i8[5];
+  v12 = *(result + 16 * v11);
+  v13 = *(a2 + 16 * v7);
+  v14 = *(a2 + 16 * v9);
+  v15 = *(a2 + 16 * v11);
+  v16 = vsubq_f32(v8, v13);
+  v19 = vsubq_f32(v12, v15);
+  v17 = vsubq_f32(vsubq_f32(v10, v14), v16);
+  v18 = vsubq_f32(v19, v16);
+  v19.i32[0] = a3[1].i32[0];
+  v20 = vmulq_n_f32(*a3, v19.f32[0]);
+  v20.i32[3] = 0;
+  v21 = vsubq_f32(v20, v16);
+  v22 = vmulq_f32(v17, v17);
+  v22.i64[0] = vpaddq_f32(v22, v22).u64[0];
+  v23 = vpadd_f32(*v22.f32, *v22.f32);
+  v24 = vmulq_f32(v17, v18);
+  v24.i64[0] = vpaddq_f32(v24, v24).u64[0];
+  v25 = vpadd_f32(*v24.f32, *v24.f32);
+  v26 = vmulq_f32(v18, v18);
+  v26.i64[0] = vpaddq_f32(v26, v26).u64[0];
+  v27 = vpadd_f32(*v26.f32, *v26.f32);
+  v28 = vmulq_f32(v17, v21);
+  v29 = vextq_s8(v28, v28, 8uLL).u64[0];
+  v30 = vmulq_f32(v18, v21);
+  v31 = vextq_s8(v30, v30, 8uLL).u64[0];
+  v32 = vneg_f32(v25);
+  v33 = vmls_f32(vmul_f32(v23, v27), v25, v25);
+  v34 = vrecpe_f32(v33);
+  v35 = 4;
+  do
+  {
+    v34 = vmul_f32(v34, vrecps_f32(v33, v34));
+    --v35;
+  }
+
+  while (v35);
+  v36 = vpadd_f32(*v28.i8, v29);
+  v37 = vpadd_f32(*v30.i8, v31);
+  v38 = vpadd_f32(v36, v36);
+  v39 = vpadd_f32(v37, v37);
+  v40 = vand_s8(vdup_lane_s32(vcgt_f32(v33, 0x3400000034000000), 0), v34);
+  v41 = vmul_f32(vmla_f32(vmul_f32(v27, v38), v39, v32), v40);
+  v42 = vmul_f32(vmla_f32(vmul_f32(v23, v39), v38, v32), v40);
+  __asm { FMOV            V19.2S, #1.0 }
+
+  LODWORD(v48) = vsub_f32(_D19, vadd_f32(v41, v42)).u32[0];
+  v49 = vmulq_n_f32(v12, v42.f32[0]);
+  v49.i32[3] = 0;
+  v50 = vmlaq_n_f32(v49, v10, v41.f32[0]);
+  v10.i32[1] = 0;
+  v50.i64[1] = vextq_s8(v50, v50, 8uLL).u32[0];
+  v51 = vmlaq_n_f32(v50, v8, v48);
+  v8.i32[1] = 0;
+  v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+  v52 = vmulq_n_f32(v15, v42.f32[0]);
+  v52.i32[3] = 0;
+  v53 = vmlaq_n_f32(v52, v14, v41.f32[0]);
+  v53.i64[1] = vextq_s8(v53, v53, 8uLL).u32[0];
+  v54 = vmlaq_n_f32(v53, v13, v48);
+  v54.i64[1] = vextq_s8(v54, v54, 8uLL).u32[0];
+  v55 = vabs_f32(vdup_lane_s32(*v19.f32, 0));
+  v56 = vnegq_f32(*a3);
+  v56.i32[3] = 0;
+  if ((a6 & 1) == 0)
+  {
+    v8.i32[0] = -*(a4 + 32);
+    v57 = vdup_lane_s32(vand_s8(*(a4 + 16), *v8.f32), 0);
+    v8.i32[0] = *(a5 + 16);
+    v10.i32[0] = -*(a5 + 32);
+    v58 = vdup_lane_s32(vand_s8(*v8.f32, *v10.f32), 0);
+    v51 = vmlsq_lane_f32(v51, v56, v57, 0);
+    v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+    v54 = vmlaq_n_f32(v54, v56, v58.f32[0]);
+    v54.i64[1] = vextq_s8(v54, v54, 8uLL).u32[0];
+    v55 = vadd_f32(v55, vadd_f32(v57, v58));
+  }
+
+  *a7 = v51;
+  *(a7 + 16) = v54;
+  *(a7 + 32) = v56;
+  *(a7 + 64) = vneg_f32(v55);
+  return result;
+}
+
+void physx::Gu::closestPtPointTetrahedron(float32x4_t *result, _OWORD *a2, _OWORD *a3, int *a4)
+{
+  v129 = *MEMORY[0x1E69E9840];
+  v8 = *result;
+  v7 = result[1];
+  v9 = result[2];
+  v10 = result[3];
+  v11 = vsubq_f32(v7, *result);
+  v12 = vsubq_f32(v9, *result);
+  v13 = vextq_s8(v11, v11, 8uLL).u64[0];
+  v14 = vextq_s8(v12, v12, 8uLL).u64[0];
+  v15 = vextq_s8(v12, v12, 4uLL).u64[0];
+  v16 = vextq_s8(v11, v11, 4uLL).u64[0];
+  v17 = vmls_f32(vmul_f32(*v11.i8, v15), v16, *v12.i8);
+  *v18.f32 = vext_s8(v17, vmls_f32(vmul_f32(v13, *v12.i8), *v11.i8, v14), 4uLL);
+  v18.i64[1] = v17.u32[0];
+  v19 = vpadd_f32(vmul_f32(*v18.f32, *v18.f32), vmul_f32(v17.u32[0], v17.u32[0]));
+  v20 = vpadd_f32(v19, v19);
+  v21 = vrsqrte_f32(v20);
+  v22 = 4;
+  do
+  {
+    v21 = vmul_f32(v21, vrsqrts_f32(vmul_f32(v21, v21), v20));
+    --v22;
+  }
+
+  while (v22);
+  v23 = vbsl_s8(vdup_lane_s32(vceqz_f32(v20), 0), v20, vmul_f32(v20, v21));
+  v24 = vrecpe_f32(v23);
+  v25 = 4;
+  do
+  {
+    v24 = vmul_f32(v24, vrecps_f32(v23, v24));
+    --v25;
+  }
+
+  while (v25);
+  v26 = vmulq_n_f32(v18, v24.f32[0]);
+  v26.i32[3] = 0;
+  v27 = vsubq_f32(v10, v8);
+  v28 = vmulq_f32(v27, v26);
+  v28.i64[0] = vpaddq_f32(v28, v28).u64[0];
+  if (vabs_f32(vpadd_f32(*v28.f32, *v28.f32)).f32[0] < 0.0001)
+  {
+    *a4 = 3;
+    v54 = *result;
+    v55 = result[1];
+    v56 = result[2];
+    v57 = vsubq_f32(v55, *result);
+    v58 = vsubq_f32(v56, *result);
+    v60 = vmls_f32(vmul_f32(*v57.i8, *&vextq_s8(v58, v58, 4uLL)), *&vextq_s8(v57, v57, 4uLL), *v58.i8);
+    *v59.f32 = vext_s8(v60, vmls_f32(vmul_f32(*&vextq_s8(v57, v57, 8uLL), *v58.i8), *v57.i8, *&vextq_s8(v58, v58, 8uLL)), 4uLL);
+    v60.i32[1] = 0;
+    v61 = vpadd_f32(vmul_f32(*v59.f32, *v59.f32), vmul_f32(v60.u32[0], v60.u32[0]));
+    v62 = vpadd_f32(v61, v61);
+    if (v62.f32[0] <= 0.00000011921)
+    {
+      *a4 = 2;
+      v99 = vsubq_f32(result[1], *result);
+      v100 = vmulq_f32(v99, v99);
+      v100.i64[0] = vpaddq_f32(v100, v100).u64[0];
+      v101 = vpadd_f32(*v100.f32, *v100.f32);
+      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v101), 0), *result->f32).u32[0] == -1)
+      {
+        *a4 = 1;
+      }
+
+      else
+      {
+        v102 = vrecpe_f32(v101);
+        v103 = 4;
+        do
+        {
+          v102 = vmul_f32(v102, vrecps_f32(v101, v102));
+          --v103;
+        }
+
+        while (v103);
+        __asm { FMOV            V3.2S, #1.0 }
+      }
+    }
+
+    else
+    {
+      *&v59.u32[2] = v60;
+      v63 = vextq_s8(v55, v55, 8uLL).u64[0];
+      v64 = vextq_s8(v56, v56, 8uLL).u64[0];
+      v65 = vextq_s8(v56, v56, 4uLL).u64[0];
+      v66 = vextq_s8(v55, v55, 4uLL).u64[0];
+      v67 = vmls_f32(vmul_f32(*v55.i8, v65), v66, *v56.i8);
+      *v68.f32 = vext_s8(v67, vmls_f32(vmul_f32(v63, *v56.i8), *v55.i8, v64), 4uLL);
+      v68.i64[1] = v67.u32[0];
+      v69 = vextq_s8(v54, v54, 8uLL).u64[0];
+      v70 = vextq_s8(v54, v54, 4uLL).u64[0];
+      v71 = vmls_f32(vmul_f32(v70, *v56.i8), v65, *v54.i8);
+      *v72.f32 = vext_s8(v71, vmls_f32(vmul_f32(*v54.i8, v64), *v56.i8, v69), 4uLL);
+      v72.i64[1] = v71.u32[0];
+      v73 = vmls_f32(vmul_f32(*v54.i8, v66), v70, *v55.i8);
+      *v74.f32 = vext_s8(v73, vmls_f32(vmul_f32(v69, *v55.i8), *v54.i8, v63), 4uLL);
+      v74.i64[1] = v73.u32[0];
+      v75 = vmulq_f32(v68, v59);
+      v75.i64[0] = vpaddq_f32(v75, v75).u64[0];
+      v76 = vpadd_f32(*v75.f32, *v75.f32);
+      v77 = vmulq_f32(v72, v59);
+      v77.i64[0] = vpaddq_f32(v77, v77).u64[0];
+      v78 = vpadd_f32(*v77.f32, *v77.f32);
+      v79 = vmulq_f32(v74, v59);
+      v79.i64[0] = vpaddq_f32(v79, v79).u64[0];
+      v80 = vpadd_f32(*v79.f32, *v79.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v78), vcgez_f32(v76)), vcgez_f32(v80)), 0), *v54.i8).u32[0] == -1)
+      {
+        v109 = vrecpe_f32(v62);
+        v110 = 4;
+        do
+        {
+          v109 = vmul_f32(v109, vrecps_f32(v62, v109));
+          --v110;
+        }
+
+        while (v110);
+      }
+
+      else
+      {
+        v81 = vnegq_f32(v54);
+        v81.i32[3] = 0;
+        v82 = vnegq_f32(v55);
+        v82.i32[3] = 0;
+        v83 = vmulq_f32(v81, v57);
+        v83.i64[0] = vpaddq_f32(v83, v83).u64[0];
+        v84 = vpadd_f32(*v83.f32, *v83.f32);
+        v85 = vmulq_f32(v57, v82);
+        v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+        v86 = vpadd_f32(*v85.f32, *v85.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v80), vand_s8(vclez_f32(v86), vcgez_f32(v84))), 0), *v54.i8).u32[0] == -1)
+        {
+          v111 = vsub_f32(v84, v86);
+          v112 = vrecpe_f32(v111);
+          v113 = 4;
+          do
+          {
+            v112 = vmul_f32(v112, vrecps_f32(v111, v112));
+            --v113;
+          }
+
+          while (v113);
+          v98 = 0;
+          v114 = 2;
+          v97 = 1;
+        }
+
+        else
+        {
+          v87 = vnegq_f32(v56);
+          v87.i32[3] = 0;
+          v88 = vmulq_f32(v82, v58);
+          v88.i64[0] = vpaddq_f32(v88, v88).u64[0];
+          v89 = vpadd_f32(*v88.f32, *v88.f32);
+          v90 = vmulq_f32(v57, v87);
+          v90.i64[0] = vpaddq_f32(v90, v90).u64[0];
+          v91 = vpadd_f32(*v90.f32, *v90.f32);
+          v92 = vmulq_f32(v58, v87);
+          v92.i64[0] = vpaddq_f32(v92, v92).u64[0];
+          v93 = vpadd_f32(*v92.f32, *v92.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v89, v86), vcge_f32(v91, v93)), vclez_f32(v76)), 0), *v54.i8).u32[0] == -1)
+          {
+            v115 = vadd_f32(vsub_f32(v89, v86), vsub_f32(v91, v93));
+            v116 = vrecpe_f32(v115);
+            v117 = 4;
+            do
+            {
+              v116 = vmul_f32(v116, vrecps_f32(v115, v116));
+              --v117;
+            }
+
+            while (v117);
+            v114 = 2;
+            v98 = 1;
+            v97 = 2;
+          }
+
+          else
+          {
+            v94 = vmulq_f32(v81, v58);
+            v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
+            v95 = vpadd_f32(*v94.f32, *v94.f32);
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v78), vand_s8(vclez_f32(v93), vcgez_f32(v95))), 0), *v54.i8).u32[0] == -1)
+            {
+              v118 = vsub_f32(v95, v93);
+              v119 = vrecpe_f32(v118);
+              v120 = 4;
+              do
+              {
+                v119 = vmul_f32(v119, vrecps_f32(v118, v119));
+                --v120;
+              }
+
+              while (v120);
+              v98 = 0;
+              v97 = 2;
+            }
+
+            else if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v95), vclez_f32(v84)), 0), *v54.i8).u32[0] == -1)
+            {
+              v98 = 0;
+              v97 = 1;
+            }
+
+            else
+            {
+              v96 = vdup_lane_s16(vand_s8(vcge_f32(v86, v89), vcgez_f32(v86)), 0);
+              v97 = 1;
+              if (vuzp1_s8(v96, v96).u32[0] == -1)
+              {
+                v98 = 1;
+              }
+
+              else
+              {
+                v98 = 2;
+              }
+            }
+
+            v114 = v97;
+          }
+        }
+
+        v121 = result[v97];
+        v122 = a2[v98];
+        v123 = a2[v97];
+        v124 = a3[v98];
+        v125 = a3[v97];
+        *result = result[v98];
+        result[1] = v121;
+        *a2 = v122;
+        a2[1] = v123;
+        *a3 = v124;
+        a3[1] = v125;
+        *a4 = v114;
+      }
+    }
+  }
+
+  else
+  {
+    v29 = vsubq_f32(v10, v7);
+    v30 = vextq_s8(v27, v27, 8uLL).u64[0];
+    v31 = vextq_s8(v27, v27, 4uLL).u64[0];
+    v32 = vmls_f32(vmul_f32(*v12.i8, v31), v15, *v27.i8);
+    *v33.f32 = vext_s8(v32, vmls_f32(vmul_f32(v14, *v27.i8), *v12.i8, v30), 4uLL);
+    v33.i64[1] = v32.u32[0];
+    v34 = vmls_f32(vmul_f32(v16, *v27.i8), v31, *v11.i8);
+    *v35.f32 = vext_s8(v34, vmls_f32(vmul_f32(*v11.i8, v30), *v27.i8, v13), 4uLL);
+    v36 = vsubq_f32(v9, v7);
+    v35.i64[1] = v34.u32[0];
+    v37 = vmls_f32(vmul_f32(*&vextq_s8(v36, v36, 4uLL), *v29.i8), *&vextq_s8(v29, v29, 4uLL), *v36.i8);
+    *v36.i8 = vext_s8(v37, vmls_f32(vmul_f32(*v36.i8, *&vextq_s8(v29, v29, 8uLL)), *v29.i8, *&vextq_s8(v36, v36, 8uLL)), 4uLL);
+    v36.i64[1] = v37.u32[0];
+    v38 = vmulq_f32(v8, v18);
+    v38.i64[0] = vpaddq_f32(v38, v38).u64[0];
+    v39 = vmulq_f32(v8, v33);
+    v39.i64[0] = vpaddq_f32(v39, v39).u64[0];
+    v40 = vmulq_f32(v8, v35);
+    v40.i64[0] = vpaddq_f32(v40, v40).u64[0];
+    v41 = vmulq_f32(v8, v36);
+    v41.i64[0] = vpaddq_f32(v41, v41).u64[0];
+    v42 = vmulq_f32(v10, v18);
+    v42.i64[0] = vpaddq_f32(v42, v42).u64[0];
+    v43 = vmulq_f32(v7, v33);
+    v43.i64[0] = vpaddq_f32(v43, v43).u64[0];
+    v44 = vmulq_f32(v9, v35);
+    v44.i64[0] = vpaddq_f32(v44, v44).u64[0];
+    v45 = vmulq_f32(v7, v36);
+    v45.i64[0] = vpaddq_f32(v45, v45).u64[0];
+    *v35.f32 = vext_s8(vpadd_f32(*v38.f32, *v38.f32), vpadd_f32(*v39.f32, *v39.f32), 4uLL);
+    *v42.f32 = vext_s8(vpadd_f32(*v42.f32, *v42.f32), vpadd_f32(*v43.f32, *v43.f32), 4uLL);
+    *&v42.u32[2] = vext_s8(vpadd_f32(*v40.f32, *v40.f32), vpadd_f32(*v45.f32, *v45.f32), 4uLL);
+    *&v35.u32[2] = vext_s8(vpadd_f32(*v44.f32, *v44.f32), vpadd_f32(*v41.f32, *v41.f32), 4uLL);
+    v126 = vcgeq_f32(vmulq_f32(v35, v42), vdupq_n_s32(0xB58637BD));
+    *v45.f32 = vmovn_s32(vmvnq_s8(v126));
+    if (vuzp1_s8(*v45.f32, *v45.f32).u32[0] != -1)
+    {
+      v128 = 2;
+      v127 = 0x100000000;
+      physx::Gu::getClosestPtPointTriangle(result, &v126, &v127, a4);
+      v46 = result[HIDWORD(v127)];
+      v47 = result[v128];
+      v48 = a2[v127];
+      v49 = a2[HIDWORD(v127)];
+      v50 = a2[v128];
+      v51 = a3[v127];
+      v52 = a3[HIDWORD(v127)];
+      v53 = a3[v128];
+      *result = result[v127];
+      result[1] = v46;
+      result[2] = v47;
+      *a2 = v48;
+      a2[1] = v49;
+      a2[2] = v50;
+      *a3 = v51;
+      a3[1] = v52;
+      a3[2] = v53;
+    }
+  }
+}
+
+double physx::Gu::getClosestPtPointTriangle(float32x4_t *a1, int32x4_t *a2, uint64_t a3, int *a4)
+{
+  v4.i64[0] = -1;
+  v4.i64[1] = -1;
+  v5 = vneg_f32(0x80000000800000);
+  v6.i64[0] = 0;
+  if (vdup_lane_s8(vmovn_s32(vceqq_s32(*a2, v4)), 0).u32[0] == -1)
+  {
+    *a4 = 3;
+    v8 = *a1;
+    v7 = a1[1];
+    v9 = vsubq_f32(v7, *a1);
+    v10 = a1[2];
+    v11 = vsubq_f32(v10, *a1);
+    v13 = vmls_f32(vmul_f32(*v9.i8, *&vextq_s8(v11, v11, 4uLL)), *&vextq_s8(v9, v9, 4uLL), *v11.i8);
+    *v12.f32 = vext_s8(v13, vmls_f32(vmul_f32(*&vextq_s8(v9, v9, 8uLL), *v11.i8), *v9.i8, *&vextq_s8(v11, v11, 8uLL)), 4uLL);
+    v13.i32[1] = 0;
+    v14 = vpadd_f32(vmul_f32(*v12.f32, *v12.f32), vmul_f32(v13.u32[0], v13.u32[0]));
+    v15 = vpadd_f32(v14, v14);
+    if (v15.f32[0] != 0.0)
+    {
+      *&v12.u32[2] = v13;
+      v16 = vextq_s8(v7, v7, 8uLL).u64[0];
+      v17 = vextq_s8(v10, v10, 8uLL).u64[0];
+      v18 = vextq_s8(v10, v10, 4uLL).u64[0];
+      v19 = vextq_s8(v7, v7, 4uLL).u64[0];
+      v20 = vmls_f32(vmul_f32(*v7.i8, v18), v19, *v10.i8);
+      *v21.f32 = vext_s8(v20, vmls_f32(vmul_f32(v16, *v10.i8), *v7.i8, v17), 4uLL);
+      v21.i64[1] = v20.u32[0];
+      v22 = vextq_s8(v8, v8, 8uLL).u64[0];
+      v23 = vextq_s8(v8, v8, 4uLL).u64[0];
+      v24 = vmls_f32(vmul_f32(v23, *v10.i8), v18, *v8.i8);
+      *v25.f32 = vext_s8(v24, vmls_f32(vmul_f32(*v8.i8, v17), *v10.i8, v22), 4uLL);
+      v25.i64[1] = v24.u32[0];
+      v26 = vmls_f32(vmul_f32(v19, *v8.i8), v23, *v7.i8);
+      *v27.f32 = vext_s8(v26, vmls_f32(vmul_f32(*v7.i8, v22), *v8.i8, v16), 4uLL);
+      v27.i64[1] = v26.u32[0];
+      v28 = vmulq_f32(v21, v12);
+      v28.i64[0] = vpaddq_f32(v28, v28).u64[0];
+      v29 = vpadd_f32(*v28.f32, *v28.f32);
+      v30 = vmulq_f32(v25, v12);
+      v30.i64[0] = vpaddq_f32(v30, v30).u64[0];
+      v31 = vpadd_f32(*v30.f32, *v30.f32);
+      v32 = vmulq_f32(v27, v12);
+      v32.i64[0] = vpaddq_f32(v32, v32).u64[0];
+      v33 = vpadd_f32(*v32.f32, *v32.f32);
+      *v32.f32 = vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v31), vcgez_f32(v29)), vcgez_f32(v33)), 0);
+      if (vuzp1_s8(*v32.f32, *v32.f32).u32[0] == -1)
+      {
+        v51 = vmulq_f32(v8, v12);
+        v52 = vextq_s8(v51, v51, 8uLL).u64[0];
+        v53 = vrecpe_f32(v15);
+        v54 = 4;
+        do
+        {
+          v53 = vmul_f32(v53, vrecps_f32(v15, v53));
+          --v54;
+        }
+
+        while (v54);
+        v55 = vpadd_f32(*v51.i8, v52);
+        v6 = vmulq_n_f32(v12, vmul_f32(v53, vpadd_f32(v55, v55)).f32[0]);
+        v6.i32[3] = 0;
+        goto LABEL_24;
+      }
+
+      v34 = vnegq_f32(v8);
+      v34.i32[3] = 0;
+      v35 = vnegq_f32(v7);
+      v35.i32[3] = 0;
+      v36 = vmulq_f32(v9, v34);
+      v36.i64[0] = vpaddq_f32(v36, v36).u64[0];
+      v37 = vpadd_f32(*v36.f32, *v36.f32);
+      v38 = vmulq_f32(v35, v9);
+      v38.i64[0] = vpaddq_f32(v38, v38).u64[0];
+      v39 = vpadd_f32(*v38.f32, *v38.f32);
+      *a4 = 2;
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v33), vand_s8(vclez_f32(v39), vcgez_f32(v37))), 0), v37).u32[0] == -1)
+      {
+        v56 = vsub_f32(v37, v39);
+        v57 = vrecpe_f32(v56);
+        v58 = 4;
+        do
+        {
+          v57 = vmul_f32(v57, vrecps_f32(v56, v57));
+          --v58;
+        }
+
+        while (v58);
+        v6 = vmlaq_n_f32(*a1, v9, vmul_f32(v37, vbsl_s8(vcgt_f32(vabs_f32(v56), 0x3400000034000000), v57, 0)).f32[0]);
+      }
+
+      else
+      {
+        v40 = vnegq_f32(v10);
+        v40.i32[3] = 0;
+        v41 = vmulq_f32(v35, v11);
+        v41.i64[0] = vpaddq_f32(v41, v41).u64[0];
+        v42 = vpadd_f32(*v41.f32, *v41.f32);
+        v43 = vmulq_f32(v9, v40);
+        v43.i64[0] = vpaddq_f32(v43, v43).u64[0];
+        v44 = vpadd_f32(*v43.f32, *v43.f32);
+        v45 = vmulq_f32(v11, v40);
+        v45.i64[0] = vpaddq_f32(v45, v45).u64[0];
+        v46 = vpadd_f32(*v45.f32, *v45.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v42, v39), vcge_f32(v44, v46)), vclez_f32(v29)), 0), v37).u32[0] == -1)
+        {
+          v59 = vsub_f32(v42, v39);
+          v60 = vadd_f32(v59, vsub_f32(v44, v46));
+          v61 = vrecpe_f32(v60);
+          v62 = 4;
+          do
+          {
+            v61 = vmul_f32(v61, vrecps_f32(v60, v61));
+            --v62;
+          }
+
+          while (v62);
+          v11 = vsubq_f32(a1[2], a1[1]);
+          v63 = vmul_f32(v59, vbsl_s8(vcgt_f32(vabs_f32(v60), 0x3400000034000000), v61, 0)).u32[0];
+          *a3 = *(a3 + 4);
+          v64 = a1[1];
+        }
+
+        else
+        {
+          v47 = vmulq_f32(v34, v11);
+          v47.i64[0] = vpaddq_f32(v47, v47).u64[0];
+          v48 = vpadd_f32(*v47.f32, *v47.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v31), vand_s8(vclez_f32(v46), vcgez_f32(v48))), 0), v37).u32[0] != -1)
+          {
+            *a4 = 1;
+            v49 = vdup_lane_s16(vand_s8(vclez_f32(v48), vclez_f32(v37)), 0);
+            if (vuzp1_s8(v49, v49).u32[0] == -1)
+            {
+              v6 = *a1;
+            }
+
+            else
+            {
+              v50 = vdup_lane_s16(vand_s8(vcge_f32(v39, v42), vcgez_f32(v39)), 0);
+              if (vuzp1_s8(v50, v50).u32[0] == -1)
+              {
+                *a3 = *(a3 + 4);
+                v6 = a1[1];
+              }
+
+              else
+              {
+                *a3 = *(a3 + 8);
+                v6 = a1[2];
+              }
+            }
+
+            goto LABEL_24;
+          }
+
+          v65 = vsub_f32(v48, v46);
+          v66 = vrecpe_f32(v65);
+          v67 = 4;
+          do
+          {
+            v66 = vmul_f32(v66, vrecps_f32(v65, v66));
+            --v67;
+          }
+
+          while (v67);
+          v63 = vmul_f32(v48, vbsl_s8(vcgt_f32(vabs_f32(v65), 0x3400000034000000), v66, 0)).u32[0];
+          *(a3 + 4) = *(a3 + 8);
+          v64 = *a1;
+        }
+
+        v6 = vmlaq_n_f32(v64, v11, *&v63);
+      }
+
+      v6.i64[1] = vextq_s8(v6, v6, 8uLL).u32[0];
+LABEL_24:
+      v68 = vmulq_f32(v6, v6);
+      v68.i64[0] = vpaddq_f32(v68, v68).u64[0];
+      v5 = vpadd_f32(*v68.f32, *v68.f32);
+    }
+  }
+
+  v69 = *a2;
+  if (vdup_lane_s8(vmovn_s32(vceqq_s32(*a2, v4)), 2).u32[0] != -1)
+  {
+    goto LABEL_52;
+  }
+
+  v70 = *a1;
+  v71 = a1[2];
+  v72 = a1[3];
+  v73 = vsubq_f32(v71, *a1);
+  v74 = vsubq_f32(v72, *a1);
+  v76 = vmls_f32(vmul_f32(*v73.i8, *&vextq_s8(v74, v74, 4uLL)), *&vextq_s8(v73, v73, 4uLL), *v74.i8);
+  *v75.f32 = vext_s8(v76, vmls_f32(vmul_f32(*&vextq_s8(v73, v73, 8uLL), *v74.i8), *v73.i8, *&vextq_s8(v74, v74, 8uLL)), 4uLL);
+  v76.i32[1] = 0;
+  v77 = vpadd_f32(vmul_f32(*v75.f32, *v75.f32), vmul_f32(v76.u32[0], v76.u32[0]));
+  v78 = vpadd_f32(v77, v77);
+  if (v78.f32[0] == 0.0)
+  {
+    v112 = 0x200000000;
+    v115 = vneg_f32(0x80000000800000);
+    v70.i64[0] = 0;
+    v114 = 3;
+    goto LABEL_50;
+  }
+
+  *&v75.u32[2] = v76;
+  v79 = vextq_s8(v71, v71, 8uLL).u64[0];
+  v80 = vextq_s8(v72, v72, 8uLL).u64[0];
+  v81 = vextq_s8(v72, v72, 4uLL).u64[0];
+  v82 = vextq_s8(v71, v71, 4uLL).u64[0];
+  v83 = vmls_f32(vmul_f32(*v71.i8, v81), v82, *v72.i8);
+  *v84.f32 = vext_s8(v83, vmls_f32(vmul_f32(v79, *v72.i8), *v71.i8, v80), 4uLL);
+  v84.i64[1] = v83.u32[0];
+  v85 = vextq_s8(v70, v70, 8uLL).u64[0];
+  v86 = vextq_s8(v70, v70, 4uLL).u64[0];
+  v87 = vmls_f32(vmul_f32(v86, *v72.i8), v81, *v70.i8);
+  *v88.f32 = vext_s8(v87, vmls_f32(vmul_f32(*v70.i8, v80), *v72.i8, v85), 4uLL);
+  v88.i64[1] = v87.u32[0];
+  v89 = vmls_f32(vmul_f32(v82, *v70.i8), v86, *v71.i8);
+  *v90.f32 = vext_s8(v89, vmls_f32(vmul_f32(*v71.i8, v85), *v70.i8, v79), 4uLL);
+  v90.i64[1] = v89.u32[0];
+  v91 = vmulq_f32(v84, v75);
+  v91.i64[0] = vpaddq_f32(v91, v91).u64[0];
+  v92 = vpadd_f32(*v91.f32, *v91.f32);
+  v93 = vmulq_f32(v88, v75);
+  v93.i64[0] = vpaddq_f32(v93, v93).u64[0];
+  v94 = vpadd_f32(*v93.f32, *v93.f32);
+  v95 = vmulq_f32(v90, v75);
+  v95.i64[0] = vpaddq_f32(v95, v95).u64[0];
+  v96 = vpadd_f32(*v95.f32, *v95.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v94), vcgez_f32(v92)), vcgez_f32(v96)), 0), *v6.i8).u32[0] == -1)
+  {
+    v116 = vmulq_f32(v70, v75);
+    v117 = vextq_s8(v116, v116, 8uLL).u64[0];
+    v118 = vrecpe_f32(v78);
+    v119 = 4;
+    do
+    {
+      v118 = vmul_f32(v118, vrecps_f32(v78, v118));
+      --v119;
+    }
+
+    while (v119);
+    v120 = vpadd_f32(*v116.i8, v117);
+    v70 = vmulq_n_f32(v75, vmul_f32(v118, vpadd_f32(v120, v120)).f32[0]);
+    v70.i32[3] = 0;
+    v113 = vmulq_f32(v70, v70);
+    v112 = 0x200000000;
+    v114 = 3;
+    goto LABEL_49;
+  }
+
+  v97 = vnegq_f32(v70);
+  v97.i32[3] = 0;
+  v98 = vnegq_f32(v71);
+  v98.i32[3] = 0;
+  v99 = vmulq_f32(v73, v97);
+  v99.i64[0] = vpaddq_f32(v99, v99).u64[0];
+  v100 = vpadd_f32(*v99.f32, *v99.f32);
+  v101 = vmulq_f32(v98, v73);
+  v101.i64[0] = vpaddq_f32(v101, v101).u64[0];
+  v102 = vpadd_f32(*v101.f32, *v101.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v96), vand_s8(vclez_f32(v102), vcgez_f32(v100))), 0), *v6.i8).u32[0] == -1)
+  {
+    v121 = vsub_f32(v100, v102);
+    v122 = vrecpe_f32(v121);
+    v123 = 4;
+    do
+    {
+      v122 = vmul_f32(v122, vrecps_f32(v121, v122));
+      --v123;
+    }
+
+    while (v123);
+    v70 = vmlaq_n_f32(v70, v73, vmul_f32(v100, vbsl_s8(vcgt_f32(vabs_f32(v121), 0x3400000034000000), v122, 0)).f32[0]);
+    v70.i64[1] = vextq_s8(v70, v70, 8uLL).u32[0];
+    v113 = vmulq_f32(v70, v70);
+    v112 = 0x200000000;
+    goto LABEL_48;
+  }
+
+  v103 = vnegq_f32(v72);
+  v103.i32[3] = 0;
+  v104 = vmulq_f32(v98, v74);
+  v104.i64[0] = vpaddq_f32(v104, v104).u64[0];
+  v105 = vpadd_f32(*v104.f32, *v104.f32);
+  v106 = vmulq_f32(v73, v103);
+  v106.i64[0] = vpaddq_f32(v106, v106).u64[0];
+  v107 = vpadd_f32(*v106.f32, *v106.f32);
+  v108 = vmulq_f32(v74, v103);
+  v108.i64[0] = vpaddq_f32(v108, v108).u64[0];
+  v109 = vpadd_f32(*v108.f32, *v108.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v105, v102), vcge_f32(v107, v109)), vclez_f32(v92)), 0), *v6.i8).u32[0] == -1)
+  {
+    v124 = vsub_f32(v105, v102);
+    v125 = vadd_f32(v124, vsub_f32(v107, v109));
+    v126 = vrecpe_f32(v125);
+    v127 = 4;
+    do
+    {
+      v126 = vmul_f32(v126, vrecps_f32(v125, v126));
+      --v127;
+    }
+
+    while (v127);
+    v71 = vmlaq_n_f32(v71, vsubq_f32(v72, v71), vmul_f32(v124, vbsl_s8(vcgt_f32(vabs_f32(v125), 0x3400000034000000), v126, 0)).f32[0]);
+    v71.i64[1] = vextq_s8(v71, v71, 8uLL).u32[0];
+    v113 = vmulq_f32(v71, v71);
+    v112 = 0x300000002;
+    v114 = 2;
+    goto LABEL_44;
+  }
+
+  v110 = vmulq_f32(v97, v74);
+  v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+  v111 = vpadd_f32(*v110.f32, *v110.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v94), vand_s8(vclez_f32(v109), vcgez_f32(v111))), 0), *v6.i8).u32[0] == -1)
+  {
+    v128 = vsub_f32(v111, v109);
+    v129 = vrecpe_f32(v128);
+    v130 = 4;
+    do
+    {
+      v129 = vmul_f32(v129, vrecps_f32(v128, v129));
+      --v130;
+    }
+
+    while (v130);
+    v70 = vmlaq_n_f32(v70, v74, vmul_f32(v111, vbsl_s8(vcgt_f32(vabs_f32(v128), 0x3400000034000000), v129, 0)).f32[0]);
+    v70.i64[1] = vextq_s8(v70, v70, 8uLL).u32[0];
+    v113 = vmulq_f32(v70, v70);
+    v112 = 0x300000000;
+LABEL_48:
+    v114 = 2;
+    goto LABEL_49;
+  }
+
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v111), vclez_f32(v100)), 0), *v6.i8).u32[0] == -1)
+  {
+    v112 = 0x200000000;
+    v113 = vmulq_f32(v70, v70);
+    v114 = 1;
+    goto LABEL_49;
+  }
+
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vcge_f32(v102, v105), vcgez_f32(v102)), 0), *v6.i8).u32[0] == -1)
+  {
+    v113 = vmulq_f32(v71, v71);
+    v112 = 0x200000002;
+    v114 = 1;
+LABEL_44:
+    v70.i64[0] = v71.i64[0];
+    goto LABEL_49;
+  }
+
+  v112 = 0x200000003;
+  v113 = vmulq_f32(v72, v72);
+  v114 = 1;
+  v70 = a1[3];
+LABEL_49:
+  v131 = vpaddq_f32(v113, v113).u64[0];
+  v115 = vpadd_f32(v131, v131);
+LABEL_50:
+  if (vuzp1_s8(vdup_lane_s16(vcgt_f32(v5, v115), 0), *v6.i8).u32[0] == -1)
+  {
+    *a3 = v112;
+    *(a3 + 8) = 3;
+    *a4 = v114;
+    v69 = *a2;
+    v6.i64[0] = v70.i64[0];
+    v5 = v115;
+  }
+
+LABEL_52:
+  v132.i64[0] = -1;
+  v132.i64[1] = -1;
+  if (vdup_lane_s8(vmovn_s32(vceqq_s32(v69, v132)), 4).u32[0] != -1)
+  {
+    goto LABEL_79;
+  }
+
+  v133 = a1[3];
+  v134 = *a1;
+  v135 = a1[1];
+  v136 = vsubq_f32(v133, *a1);
+  v137 = vsubq_f32(v135, *a1);
+  v139 = vmls_f32(vmul_f32(*v136.i8, *&vextq_s8(v137, v137, 4uLL)), *&vextq_s8(v136, v136, 4uLL), *v137.i8);
+  *v138.f32 = vext_s8(v139, vmls_f32(vmul_f32(*&vextq_s8(v136, v136, 8uLL), *v137.i8), *v136.i8, *&vextq_s8(v137, v137, 8uLL)), 4uLL);
+  v139.i32[1] = 0;
+  v140 = vpadd_f32(vmul_f32(*v138.f32, *v138.f32), vmul_f32(v139.u32[0], v139.u32[0]));
+  v141 = vpadd_f32(v140, v140);
+  if (v141.f32[0] == 0.0)
+  {
+    v175 = 0x300000000;
+    v178 = vneg_f32(0x80000000800000);
+    v134.i64[0] = 0;
+    v177 = 3;
+    goto LABEL_77;
+  }
+
+  *&v138.u32[2] = v139;
+  v142 = vextq_s8(v133, v133, 8uLL).u64[0];
+  v143 = vextq_s8(v135, v135, 8uLL).u64[0];
+  v144 = vextq_s8(v135, v135, 4uLL).u64[0];
+  v145 = vextq_s8(v133, v133, 4uLL).u64[0];
+  v146 = vmls_f32(vmul_f32(*v133.i8, v144), v145, *v135.i8);
+  *v147.f32 = vext_s8(v146, vmls_f32(vmul_f32(v142, *v135.i8), *v133.i8, v143), 4uLL);
+  v147.i64[1] = v146.u32[0];
+  v148 = vextq_s8(v134, v134, 8uLL).u64[0];
+  v149 = vextq_s8(v134, v134, 4uLL).u64[0];
+  v150 = vmls_f32(vmul_f32(v149, *v135.i8), v144, *v134.i8);
+  *v151.f32 = vext_s8(v150, vmls_f32(vmul_f32(*v134.i8, v143), *v135.i8, v148), 4uLL);
+  v151.i64[1] = v150.u32[0];
+  v152 = vmls_f32(vmul_f32(v145, *v134.i8), v149, *v133.i8);
+  *v153.f32 = vext_s8(v152, vmls_f32(vmul_f32(*v133.i8, v148), *v134.i8, v142), 4uLL);
+  v153.i64[1] = v152.u32[0];
+  v154 = vmulq_f32(v147, v138);
+  v154.i64[0] = vpaddq_f32(v154, v154).u64[0];
+  v155 = vpadd_f32(*v154.f32, *v154.f32);
+  v156 = vmulq_f32(v151, v138);
+  v156.i64[0] = vpaddq_f32(v156, v156).u64[0];
+  v157 = vpadd_f32(*v156.f32, *v156.f32);
+  v158 = vmulq_f32(v153, v138);
+  v158.i64[0] = vpaddq_f32(v158, v158).u64[0];
+  v159 = vpadd_f32(*v158.f32, *v158.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v157), vcgez_f32(v155)), vcgez_f32(v159)), 0), *v6.i8).u32[0] == -1)
+  {
+    v179 = vmulq_f32(v134, v138);
+    v180 = vextq_s8(v179, v179, 8uLL).u64[0];
+    v181 = vrecpe_f32(v141);
+    v182 = 4;
+    do
+    {
+      v181 = vmul_f32(v181, vrecps_f32(v141, v181));
+      --v182;
+    }
+
+    while (v182);
+    v183 = vpadd_f32(*v179.i8, v180);
+    v134 = vmulq_n_f32(v138, vmul_f32(v181, vpadd_f32(v183, v183)).f32[0]);
+    v134.i32[3] = 0;
+    v176 = vmulq_f32(v134, v134);
+    v175 = 0x300000000;
+    v177 = 3;
+    goto LABEL_76;
+  }
+
+  v160 = vnegq_f32(v134);
+  v160.i32[3] = 0;
+  v161 = vnegq_f32(v133);
+  v161.i32[3] = 0;
+  v162 = vmulq_f32(v136, v160);
+  v162.i64[0] = vpaddq_f32(v162, v162).u64[0];
+  v163 = vpadd_f32(*v162.f32, *v162.f32);
+  v164 = vmulq_f32(v161, v136);
+  v164.i64[0] = vpaddq_f32(v164, v164).u64[0];
+  v165 = vpadd_f32(*v164.f32, *v164.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v159), vand_s8(vclez_f32(v165), vcgez_f32(v163))), 0), *v6.i8).u32[0] == -1)
+  {
+    v184 = vsub_f32(v163, v165);
+    v185 = vrecpe_f32(v184);
+    v186 = 4;
+    do
+    {
+      v185 = vmul_f32(v185, vrecps_f32(v184, v185));
+      --v186;
+    }
+
+    while (v186);
+    v134 = vmlaq_n_f32(v134, v136, vmul_f32(v163, vbsl_s8(vcgt_f32(vabs_f32(v184), 0x3400000034000000), v185, 0)).f32[0]);
+    v134.i64[1] = vextq_s8(v134, v134, 8uLL).u32[0];
+    v176 = vmulq_f32(v134, v134);
+    v175 = 0x300000000;
+    goto LABEL_75;
+  }
+
+  v166 = vnegq_f32(v135);
+  v166.i32[3] = 0;
+  v167 = vmulq_f32(v161, v137);
+  v167.i64[0] = vpaddq_f32(v167, v167).u64[0];
+  v168 = vpadd_f32(*v167.f32, *v167.f32);
+  v169 = vmulq_f32(v136, v166);
+  v169.i64[0] = vpaddq_f32(v169, v169).u64[0];
+  v170 = vpadd_f32(*v169.f32, *v169.f32);
+  v171 = vmulq_f32(v137, v166);
+  v171.i64[0] = vpaddq_f32(v171, v171).u64[0];
+  v172 = vpadd_f32(*v171.f32, *v171.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v168, v165), vcge_f32(v170, v172)), vclez_f32(v155)), 0), *v6.i8).u32[0] == -1)
+  {
+    v187 = vsub_f32(v168, v165);
+    v188 = vadd_f32(v187, vsub_f32(v170, v172));
+    v189 = vrecpe_f32(v188);
+    v190 = 4;
+    do
+    {
+      v189 = vmul_f32(v189, vrecps_f32(v188, v189));
+      --v190;
+    }
+
+    while (v190);
+    v133 = vmlaq_n_f32(v133, vsubq_f32(v135, v133), vmul_f32(v187, vbsl_s8(vcgt_f32(vabs_f32(v188), 0x3400000034000000), v189, 0)).f32[0]);
+    v133.i64[1] = vextq_s8(v133, v133, 8uLL).u32[0];
+    v176 = vmulq_f32(v133, v133);
+    v175 = 0x100000003;
+    v177 = 2;
+    goto LABEL_71;
+  }
+
+  v173 = vmulq_f32(v160, v137);
+  v173.i64[0] = vpaddq_f32(v173, v173).u64[0];
+  v174 = vpadd_f32(*v173.f32, *v173.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v157), vand_s8(vclez_f32(v172), vcgez_f32(v174))), 0), *v6.i8).u32[0] == -1)
+  {
+    v191 = vsub_f32(v174, v172);
+    v192 = vrecpe_f32(v191);
+    v193 = 4;
+    do
+    {
+      v192 = vmul_f32(v192, vrecps_f32(v191, v192));
+      --v193;
+    }
+
+    while (v193);
+    v134 = vmlaq_n_f32(v134, v137, vmul_f32(v174, vbsl_s8(vcgt_f32(vabs_f32(v191), 0x3400000034000000), v192, 0)).f32[0]);
+    v134.i64[1] = vextq_s8(v134, v134, 8uLL).u32[0];
+    v176 = vmulq_f32(v134, v134);
+    v175 = 0x100000000;
+LABEL_75:
+    v177 = 2;
+    goto LABEL_76;
+  }
+
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v174), vclez_f32(v163)), 0), *v6.i8).u32[0] == -1)
+  {
+    v175 = 0x300000000;
+    v176 = vmulq_f32(v134, v134);
+    v177 = 1;
+    goto LABEL_76;
+  }
+
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vcge_f32(v165, v168), vcgez_f32(v165)), 0), *v6.i8).u32[0] == -1)
+  {
+    v176 = vmulq_f32(v133, v133);
+    v175 = 0x300000003;
+    v177 = 1;
+LABEL_71:
+    v134.i64[0] = v133.i64[0];
+    goto LABEL_76;
+  }
+
+  v175 = 0x300000001;
+  v176 = vmulq_f32(v135, v135);
+  v177 = 1;
+  v134 = a1[1];
+LABEL_76:
+  v194 = vpaddq_f32(v176, v176).u64[0];
+  v178 = vpadd_f32(v194, v194);
+LABEL_77:
+  if (vuzp1_s8(vdup_lane_s16(vcgt_f32(v5, v178), 0), *v6.i8).u32[0] == -1)
+  {
+    *a3 = v175;
+    *(a3 + 8) = 1;
+    *a4 = v177;
+    v69 = *a2;
+    v6.i64[0] = v134.i64[0];
+    v5 = v178;
+  }
+
+LABEL_79:
+  if (vdup_lane_s8(vmovn_s32(vceqq_s32(v69, v132)), 6).u32[0] != -1)
+  {
+    return *v6.i64;
+  }
+
+  v196 = a1[2];
+  v195 = a1[3];
+  v197 = a1[1];
+  v198 = vsubq_f32(v195, v197);
+  v199 = vsubq_f32(v196, v197);
+  v201 = vmls_f32(vmul_f32(*v198.i8, *&vextq_s8(v199, v199, 4uLL)), *&vextq_s8(v198, v198, 4uLL), *v199.i8);
+  *v200.f32 = vext_s8(v201, vmls_f32(vmul_f32(*&vextq_s8(v198, v198, 8uLL), *v199.i8), *v198.i8, *&vextq_s8(v199, v199, 8uLL)), 4uLL);
+  v201.i32[1] = 0;
+  v202 = vpadd_f32(vmul_f32(*v200.f32, *v200.f32), vmul_f32(v201.u32[0], v201.u32[0]));
+  v203 = vpadd_f32(v202, v202);
+  if (v203.f32[0] == 0.0)
+  {
+    v237 = 0x300000001;
+    v240 = vneg_f32(0x80000000800000);
+    v197.i64[0] = 0;
+    v239 = 3;
+    goto LABEL_105;
+  }
+
+  *&v200.u32[2] = v201;
+  v204 = vextq_s8(v195, v195, 8uLL).u64[0];
+  v205 = vextq_s8(v196, v196, 8uLL).u64[0];
+  v206 = vextq_s8(v196, v196, 4uLL).u64[0];
+  v207 = vextq_s8(v195, v195, 4uLL).u64[0];
+  v208 = vmls_f32(vmul_f32(*v195.i8, v206), v207, *v196.i8);
+  *v209.f32 = vext_s8(v208, vmls_f32(vmul_f32(v204, *v196.i8), *v195.i8, v205), 4uLL);
+  v209.i64[1] = v208.u32[0];
+  v210 = vextq_s8(v197, v197, 8uLL).u64[0];
+  v211 = vextq_s8(v197, v197, 4uLL).u64[0];
+  v212 = vmls_f32(vmul_f32(v211, *v196.i8), v206, *v197.i8);
+  *v213.f32 = vext_s8(v212, vmls_f32(vmul_f32(*v197.i8, v205), *v196.i8, v210), 4uLL);
+  v213.i64[1] = v212.u32[0];
+  v214 = vmls_f32(vmul_f32(v207, *v197.i8), v211, *v195.i8);
+  *v215.f32 = vext_s8(v214, vmls_f32(vmul_f32(*v195.i8, v210), *v197.i8, v204), 4uLL);
+  v215.i64[1] = v214.u32[0];
+  v216 = vmulq_f32(v209, v200);
+  v216.i64[0] = vpaddq_f32(v216, v216).u64[0];
+  v217 = vpadd_f32(*v216.f32, *v216.f32);
+  v218 = vmulq_f32(v213, v200);
+  v218.i64[0] = vpaddq_f32(v218, v218).u64[0];
+  v219 = vpadd_f32(*v218.f32, *v218.f32);
+  v220 = vmulq_f32(v215, v200);
+  v220.i64[0] = vpaddq_f32(v220, v220).u64[0];
+  v221 = vpadd_f32(*v220.f32, *v220.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v219), vcgez_f32(v217)), vcgez_f32(v221)), 0), *v6.i8).u32[0] == -1)
+  {
+    v241 = vmulq_f32(v197, v200);
+    v242 = vextq_s8(v241, v241, 8uLL).u64[0];
+    v243 = vrecpe_f32(v203);
+    v244 = 4;
+    do
+    {
+      v243 = vmul_f32(v243, vrecps_f32(v203, v243));
+      --v244;
+    }
+
+    while (v244);
+    v245 = vpadd_f32(*v241.i8, v242);
+    v197 = vmulq_n_f32(v200, vmul_f32(v243, vpadd_f32(v245, v245)).f32[0]);
+    v197.i32[3] = 0;
+    v238 = vmulq_f32(v197, v197);
+    v237 = 0x300000001;
+    v239 = 3;
+    goto LABEL_104;
+  }
+
+  v222 = vnegq_f32(v197);
+  v222.i32[3] = 0;
+  v223 = vnegq_f32(v195);
+  v223.i32[3] = 0;
+  v224 = vmulq_f32(v198, v222);
+  v224.i64[0] = vpaddq_f32(v224, v224).u64[0];
+  v225 = vpadd_f32(*v224.f32, *v224.f32);
+  v226 = vmulq_f32(v223, v198);
+  v226.i64[0] = vpaddq_f32(v226, v226).u64[0];
+  v227 = vpadd_f32(*v226.f32, *v226.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v221), vand_s8(vclez_f32(v227), vcgez_f32(v225))), 0), *v6.i8).u32[0] == -1)
+  {
+    v246 = vsub_f32(v225, v227);
+    v247 = vrecpe_f32(v246);
+    v248 = 4;
+    do
+    {
+      v247 = vmul_f32(v247, vrecps_f32(v246, v247));
+      --v248;
+    }
+
+    while (v248);
+    v197 = vmlaq_n_f32(v197, v198, vmul_f32(v225, vbsl_s8(vcgt_f32(vabs_f32(v246), 0x3400000034000000), v247, 0)).f32[0]);
+    v197.i64[1] = vextq_s8(v197, v197, 8uLL).u32[0];
+    v238 = vmulq_f32(v197, v197);
+    v237 = 0x300000001;
+    goto LABEL_103;
+  }
+
+  v228 = vnegq_f32(v196);
+  v228.i32[3] = 0;
+  v229 = vmulq_f32(v223, v199);
+  v229.i64[0] = vpaddq_f32(v229, v229).u64[0];
+  v230 = vpadd_f32(*v229.f32, *v229.f32);
+  v231 = vmulq_f32(v198, v228);
+  v231.i64[0] = vpaddq_f32(v231, v231).u64[0];
+  v232 = vpadd_f32(*v231.f32, *v231.f32);
+  v233 = vmulq_f32(v199, v228);
+  v233.i64[0] = vpaddq_f32(v233, v233).u64[0];
+  v234 = vpadd_f32(*v233.f32, *v233.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v230, v227), vcge_f32(v232, v234)), vclez_f32(v217)), 0), *v6.i8).u32[0] == -1)
+  {
+    v249 = vsub_f32(v230, v227);
+    v250 = vadd_f32(v249, vsub_f32(v232, v234));
+    v251 = vrecpe_f32(v250);
+    v252 = 4;
+    do
+    {
+      v251 = vmul_f32(v251, vrecps_f32(v250, v251));
+      --v252;
+    }
+
+    while (v252);
+    v195 = vmlaq_n_f32(v195, vsubq_f32(v196, v195), vmul_f32(v249, vbsl_s8(vcgt_f32(vabs_f32(v250), 0x3400000034000000), v251, 0)).f32[0]);
+    v195.i64[1] = vextq_s8(v195, v195, 8uLL).u32[0];
+    v238 = vmulq_f32(v195, v195);
+    v237 = 0x200000003;
+    v239 = 2;
+    goto LABEL_99;
+  }
+
+  v235 = vmulq_f32(v222, v199);
+  v235.i64[0] = vpaddq_f32(v235, v235).u64[0];
+  v236 = vpadd_f32(*v235.f32, *v235.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v219), vand_s8(vclez_f32(v234), vcgez_f32(v236))), 0), *v6.i8).u32[0] == -1)
+  {
+    v253 = vsub_f32(v236, v234);
+    v254 = vrecpe_f32(v253);
+    v255 = 4;
+    do
+    {
+      v254 = vmul_f32(v254, vrecps_f32(v253, v254));
+      --v255;
+    }
+
+    while (v255);
+    v197 = vmlaq_n_f32(v197, v199, vmul_f32(v236, vbsl_s8(vcgt_f32(vabs_f32(v253), 0x3400000034000000), v254, 0)).f32[0]);
+    v197.i64[1] = vextq_s8(v197, v197, 8uLL).u32[0];
+    v238 = vmulq_f32(v197, v197);
+    v237 = 0x200000001;
+LABEL_103:
+    v239 = 2;
+    goto LABEL_104;
+  }
+
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v236), vclez_f32(v225)), 0), *v6.i8).u32[0] == -1)
+  {
+    v237 = 0x300000001;
+    v238 = vmulq_f32(v197, v197);
+    v239 = 1;
+    goto LABEL_104;
+  }
+
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vcge_f32(v227, v230), vcgez_f32(v227)), 0), *v6.i8).u32[0] == -1)
+  {
+    v238 = vmulq_f32(v195, v195);
+    v237 = 0x300000003;
+    v239 = 1;
+LABEL_99:
+    v197.i64[0] = v195.i64[0];
+    goto LABEL_104;
+  }
+
+  v237 = 0x300000002;
+  v238 = vmulq_f32(v196, v196);
+  v239 = 1;
+  v197 = a1[2];
+LABEL_104:
+  v256 = vpaddq_f32(v238, v238).u64[0];
+  v240 = vpadd_f32(v256, v256);
+LABEL_105:
+  if (vuzp1_s8(vdup_lane_s16(vcgt_f32(v5, v240), 0), *v6.i8).u32[0] == -1)
+  {
+    *a3 = v237;
+    *(a3 + 8) = 2;
+    *a4 = v239;
+    v6.i64[0] = v197.i64[0];
+  }
+
+  return *v6.i64;
+}
+
+void physx::Gu::closestPtPointTetrahedron(float32x4_t *a1, _OWORD *a2, _OWORD *a3, _DWORD *a4, _DWORD *a5, int *a6)
+{
+  v144 = *MEMORY[0x1E69E9840];
+  v12 = *a1;
+  v11 = a1[1];
+  v13 = a1[2];
+  v14 = a1[3];
+  v15 = vsubq_f32(v11, *a1);
+  v16 = vsubq_f32(v13, *a1);
+  v17 = vextq_s8(v15, v15, 8uLL).u64[0];
+  v18 = vextq_s8(v16, v16, 8uLL).u64[0];
+  v19 = vextq_s8(v16, v16, 4uLL).u64[0];
+  v20 = vextq_s8(v15, v15, 4uLL).u64[0];
+  v21 = vmls_f32(vmul_f32(*v15.i8, v19), v20, *v16.i8);
+  *v22.f32 = vext_s8(v21, vmls_f32(vmul_f32(v17, *v16.i8), *v15.i8, v18), 4uLL);
+  v22.i64[1] = v21.u32[0];
+  v23 = vpadd_f32(vmul_f32(*v22.f32, *v22.f32), vmul_f32(v21.u32[0], v21.u32[0]));
+  v24 = vpadd_f32(v23, v23);
+  v25 = vrsqrte_f32(v24);
+  v26 = 4;
+  do
+  {
+    v25 = vmul_f32(v25, vrsqrts_f32(vmul_f32(v25, v25), v24));
+    --v26;
+  }
+
+  while (v26);
+  v27 = vbsl_s8(vdup_lane_s32(vceqz_f32(v24), 0), v24, vmul_f32(v24, v25));
+  v28 = vrecpe_f32(v27);
+  v29 = 4;
+  do
+  {
+    v28 = vmul_f32(v28, vrecps_f32(v27, v28));
+    --v29;
+  }
+
+  while (v29);
+  v30 = vmulq_n_f32(v22, v28.f32[0]);
+  v30.i32[3] = 0;
+  v31 = vsubq_f32(v14, v12);
+  v32 = vmulq_f32(v31, v30);
+  v32.i64[0] = vpaddq_f32(v32, v32).u64[0];
+  if (vabs_f32(vpadd_f32(*v32.f32, *v32.f32)).f32[0] >= 0.0001)
+  {
+    v33 = vsubq_f32(v14, v11);
+    v34 = vextq_s8(v31, v31, 8uLL).u64[0];
+    v35 = vextq_s8(v31, v31, 4uLL).u64[0];
+    v36 = vmls_f32(vmul_f32(*v16.i8, v35), v19, *v31.i8);
+    *v37.f32 = vext_s8(v36, vmls_f32(vmul_f32(v18, *v31.i8), *v16.i8, v34), 4uLL);
+    v37.i64[1] = v36.u32[0];
+    v38 = vmls_f32(vmul_f32(v20, *v31.i8), v35, *v15.i8);
+    *v39.f32 = vext_s8(v38, vmls_f32(vmul_f32(*v15.i8, v34), *v31.i8, v17), 4uLL);
+    v40 = vsubq_f32(v13, v11);
+    v39.i64[1] = v38.u32[0];
+    v41 = vmls_f32(vmul_f32(*&vextq_s8(v40, v40, 4uLL), *v33.i8), *&vextq_s8(v33, v33, 4uLL), *v40.i8);
+    *v40.i8 = vext_s8(v41, vmls_f32(vmul_f32(*v40.i8, *&vextq_s8(v33, v33, 8uLL)), *v33.i8, *&vextq_s8(v40, v40, 8uLL)), 4uLL);
+    v40.i64[1] = v41.u32[0];
+    v42 = vmulq_f32(v12, v22);
+    v42.i64[0] = vpaddq_f32(v42, v42).u64[0];
+    v43 = vmulq_f32(v12, v37);
+    v43.i64[0] = vpaddq_f32(v43, v43).u64[0];
+    v44 = vmulq_f32(v12, v39);
+    v44.i64[0] = vpaddq_f32(v44, v44).u64[0];
+    v45 = vmulq_f32(v12, v40);
+    v45.i64[0] = vpaddq_f32(v45, v45).u64[0];
+    v46 = vmulq_f32(v14, v22);
+    v46.i64[0] = vpaddq_f32(v46, v46).u64[0];
+    v47 = vmulq_f32(v11, v37);
+    v47.i64[0] = vpaddq_f32(v47, v47).u64[0];
+    v48 = vmulq_f32(v13, v39);
+    v48.i64[0] = vpaddq_f32(v48, v48).u64[0];
+    v49 = vmulq_f32(v11, v40);
+    v49.i64[0] = vpaddq_f32(v49, v49).u64[0];
+    *v39.f32 = vext_s8(vpadd_f32(*v42.f32, *v42.f32), vpadd_f32(*v43.f32, *v43.f32), 4uLL);
+    *v46.f32 = vext_s8(vpadd_f32(*v46.f32, *v46.f32), vpadd_f32(*v47.f32, *v47.f32), 4uLL);
+    *&v46.u32[2] = vext_s8(vpadd_f32(*v44.f32, *v44.f32), vpadd_f32(*v49.f32, *v49.f32), 4uLL);
+    *&v39.u32[2] = vext_s8(vpadd_f32(*v48.f32, *v48.f32), vpadd_f32(*v45.f32, *v45.f32), 4uLL);
+    v141 = vcgeq_f32(vmulq_f32(v39, v46), vdupq_n_s32(0xB58637BD));
+    *v49.f32 = vmovn_s32(vmvnq_s8(v141));
+    if (vuzp1_s8(*v49.f32, *v49.f32).u32[0] != -1)
+    {
+      v143 = 2;
+      v142 = 0x100000000;
+      physx::Gu::getClosestPtPointTriangle(a1, &v141, &v142, a6);
+      v50 = a1[HIDWORD(v142)];
+      v51 = a1[v143];
+      v52 = a2[v142];
+      v53 = a2[HIDWORD(v142)];
+      v54 = a2[v143];
+      v55 = a3[v142];
+      v56 = a3[HIDWORD(v142)];
+      v57 = a3[v143];
+      v58 = a4[v142];
+      v59 = a4[HIDWORD(v142)];
+      v60 = a4[v143];
+      v61 = a5[v142];
+      v62 = a5[HIDWORD(v142)];
+      v63 = a5[v143];
+      *a1 = a1[v142];
+      a1[1] = v50;
+      a1[2] = v51;
+      *a2 = v52;
+      a2[1] = v53;
+      a2[2] = v54;
+      *a3 = v55;
+      a3[1] = v56;
+      a3[2] = v57;
+      *a4 = v58;
+      a4[1] = v59;
+      a4[2] = v60;
+      *a5 = v61;
+      a5[1] = v62;
+      a5[2] = v63;
+    }
+
+    return;
+  }
+
+  *a6 = 3;
+  v64 = *a1;
+  v65 = a1[1];
+  v66 = a1[2];
+  v67 = vsubq_f32(v65, *a1);
+  v68 = vsubq_f32(v66, *a1);
+  v70 = vmls_f32(vmul_f32(*v67.i8, *&vextq_s8(v68, v68, 4uLL)), *&vextq_s8(v67, v67, 4uLL), *v68.i8);
+  *v69.f32 = vext_s8(v70, vmls_f32(vmul_f32(*&vextq_s8(v67, v67, 8uLL), *v68.i8), *v67.i8, *&vextq_s8(v68, v68, 8uLL)), 4uLL);
+  v70.i32[1] = 0;
+  v71 = vpadd_f32(vmul_f32(*v69.f32, *v69.f32), vmul_f32(v70.u32[0], v70.u32[0]));
+  v72 = vpadd_f32(v71, v71);
+  if (v72.f32[0] <= 0.00000011921)
+  {
+    *a6 = 2;
+    v109 = vsubq_f32(a1[1], *a1);
+    v110 = vmulq_f32(v109, v109);
+    v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+    v111 = vpadd_f32(*v110.f32, *v110.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v111), 0), *a1->f32).u32[0] == -1)
+    {
+      *a6 = 1;
+    }
+
+    else
+    {
+      v112 = vrecpe_f32(v111);
+      v113 = 4;
+      do
+      {
+        v112 = vmul_f32(v112, vrecps_f32(v111, v112));
+        --v113;
+      }
+
+      while (v113);
+      __asm { FMOV            V3.2S, #1.0 }
+    }
+  }
+
+  else
+  {
+    *&v69.u32[2] = v70;
+    v73 = vextq_s8(v65, v65, 8uLL).u64[0];
+    v74 = vextq_s8(v66, v66, 8uLL).u64[0];
+    v75 = vextq_s8(v66, v66, 4uLL).u64[0];
+    v76 = vextq_s8(v65, v65, 4uLL).u64[0];
+    v77 = vmls_f32(vmul_f32(*v65.i8, v75), v76, *v66.i8);
+    *v78.f32 = vext_s8(v77, vmls_f32(vmul_f32(v73, *v66.i8), *v65.i8, v74), 4uLL);
+    v78.i64[1] = v77.u32[0];
+    v79 = vextq_s8(v64, v64, 8uLL).u64[0];
+    v80 = vextq_s8(v64, v64, 4uLL).u64[0];
+    v81 = vmls_f32(vmul_f32(v80, *v66.i8), v75, *v64.i8);
+    *v82.f32 = vext_s8(v81, vmls_f32(vmul_f32(*v64.i8, v74), *v66.i8, v79), 4uLL);
+    v82.i64[1] = v81.u32[0];
+    v83 = vmls_f32(vmul_f32(*v64.i8, v76), v80, *v65.i8);
+    *v84.f32 = vext_s8(v83, vmls_f32(vmul_f32(v79, *v65.i8), *v64.i8, v73), 4uLL);
+    v84.i64[1] = v83.u32[0];
+    v85 = vmulq_f32(v78, v69);
+    v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+    v86 = vpadd_f32(*v85.f32, *v85.f32);
+    v87 = vmulq_f32(v82, v69);
+    v87.i64[0] = vpaddq_f32(v87, v87).u64[0];
+    v88 = vpadd_f32(*v87.f32, *v87.f32);
+    v89 = vmulq_f32(v84, v69);
+    v89.i64[0] = vpaddq_f32(v89, v89).u64[0];
+    v90 = vpadd_f32(*v89.f32, *v89.f32);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v88), vcgez_f32(v86)), vcgez_f32(v90)), 0), *v64.i8).u32[0] != -1)
+    {
+      v91 = vnegq_f32(v64);
+      v91.i32[3] = 0;
+      v92 = vnegq_f32(v65);
+      v92.i32[3] = 0;
+      v93 = vmulq_f32(v91, v67);
+      v93.i64[0] = vpaddq_f32(v93, v93).u64[0];
+      v94 = vpadd_f32(*v93.f32, *v93.f32);
+      v95 = vmulq_f32(v67, v92);
+      v95.i64[0] = vpaddq_f32(v95, v95).u64[0];
+      v96 = vpadd_f32(*v95.f32, *v95.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v90), vand_s8(vclez_f32(v96), vcgez_f32(v94))), 0), *v64.i8).u32[0] == -1)
+      {
+        v121 = vsub_f32(v94, v96);
+        v122 = vrecpe_f32(v121);
+        v123 = 4;
+        do
+        {
+          v122 = vmul_f32(v122, vrecps_f32(v121, v122));
+          --v123;
+        }
+
+        while (v123);
+        v108 = 0;
+        v124 = 2;
+        v107 = 1;
+      }
+
+      else
+      {
+        v97 = vnegq_f32(v66);
+        v97.i32[3] = 0;
+        v98 = vmulq_f32(v92, v68);
+        v98.i64[0] = vpaddq_f32(v98, v98).u64[0];
+        v99 = vpadd_f32(*v98.f32, *v98.f32);
+        v100 = vmulq_f32(v67, v97);
+        v100.i64[0] = vpaddq_f32(v100, v100).u64[0];
+        v101 = vpadd_f32(*v100.f32, *v100.f32);
+        v102 = vmulq_f32(v68, v97);
+        v102.i64[0] = vpaddq_f32(v102, v102).u64[0];
+        v103 = vpadd_f32(*v102.f32, *v102.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v99, v96), vcge_f32(v101, v103)), vclez_f32(v86)), 0), *v64.i8).u32[0] == -1)
+        {
+          v125 = vadd_f32(vsub_f32(v99, v96), vsub_f32(v101, v103));
+          v126 = vrecpe_f32(v125);
+          v127 = 4;
+          do
+          {
+            v126 = vmul_f32(v126, vrecps_f32(v125, v126));
+            --v127;
+          }
+
+          while (v127);
+          v107 = 2;
+          v108 = 1;
+        }
+
+        else
+        {
+          v104 = vmulq_f32(v91, v68);
+          v104.i64[0] = vpaddq_f32(v104, v104).u64[0];
+          v105 = vpadd_f32(*v104.f32, *v104.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v88), vand_s8(vclez_f32(v103), vcgez_f32(v105))), 0), *v64.i8).u32[0] != -1)
+          {
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v105), vclez_f32(v94)), 0), *v64.i8).u32[0] == -1)
+            {
+              v108 = 0;
+              v107 = 1;
+            }
+
+            else
+            {
+              v106 = vdup_lane_s16(vand_s8(vcge_f32(v96, v99), vcgez_f32(v96)), 0);
+              v107 = 1;
+              if (vuzp1_s8(v106, v106).u32[0] == -1)
+              {
+                v108 = 1;
+              }
+
+              else
+              {
+                v108 = 2;
+              }
+            }
+
+            v124 = 1;
+            goto LABEL_38;
+          }
+
+          v128 = vsub_f32(v105, v103);
+          v129 = vrecpe_f32(v128);
+          v130 = 4;
+          do
+          {
+            v129 = vmul_f32(v129, vrecps_f32(v128, v129));
+            --v130;
+          }
+
+          while (v130);
+          v108 = 0;
+          v107 = 2;
+        }
+
+        v124 = 2;
+      }
+
+LABEL_38:
+      v131 = a1[v108];
+      v132 = a1[v107];
+      v133 = a2[v108];
+      v134 = a2[v107];
+      v135 = a3[v108];
+      v136 = a3[v107];
+      v137 = a4[v108];
+      v138 = a4[v107];
+      v139 = a5[v108];
+      v140 = a5[v107];
+      *a1 = v131;
+      a1[1] = v132;
+      *a2 = v133;
+      a2[1] = v134;
+      *a3 = v135;
+      a3[1] = v136;
+      *a4 = v137;
+      a4[1] = v138;
+      *a5 = v139;
+      a5[1] = v140;
+      *a6 = v124;
+      return;
+    }
+
+    v119 = vrecpe_f32(v72);
+    v120 = 4;
+    do
+    {
+      v119 = vmul_f32(v119, vrecps_f32(v72, v119));
+      --v120;
+    }
+
+    while (v120);
+  }
+}
+
+__n128 physx::Gu::HeightField::HeightField(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 8) = 196609;
+  *(a1 + 24) = 1;
+  *a1 = &unk_1F5D21FF8;
+  *(a1 + 16) = &unk_1F5D220C8;
+  *(a1 + 92) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 128) = a2;
+  *(a1 + 32) = *a3;
+  *(a1 + 40) = *(a3 + 8);
+  *(a1 + 48) = *(a3 + 16);
+  result = *(a3 + 24);
+  v4 = *(a3 + 40);
+  *(a1 + 88) = *(a3 + 56);
+  *(a1 + 72) = v4;
+  *(a1 + 56) = result;
+  *(a1 + 92) = *(a3 + 60);
+  *(a1 + 96) = *(a3 + 64);
+  *(a3 + 48) = 0;
+  return result;
+}
+
+uint64_t physx::Gu::HeightField::releaseMemory(uint64_t this)
+{
+  if (*(this + 10))
+  {
+    v1 = this;
+    if (*(this + 80))
+    {
+      this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    *(v1 + 80) = 0;
+  }
+
+  return this;
+}
+
+void physx::Gu::HeightField::~HeightField(physx::Gu::HeightField *this)
+{
+  *this = &unk_1F5D21FF8;
+  *(this + 2) = &unk_1F5D220C8;
+  physx::Gu::HeightField::releaseMemory(this);
+}
+
+{
+  *this = &unk_1F5D21FF8;
+  *(this + 2) = &unk_1F5D220C8;
+  physx::Gu::HeightField::releaseMemory(this);
+  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v1();
+}
+
+void non-virtual thunk tophysx::Gu::HeightField::~HeightField(physx::Gu::HeightField *this)
+{
+  *(this - 2) = &unk_1F5D21FF8;
+  *this = &unk_1F5D220C8;
+  physx::Gu::HeightField::releaseMemory(this - 16);
+}
+
+{
+  physx::Gu::HeightField::~HeightField((this - 16));
+}
+
+uint64_t physx::Gu::HeightField::onRefCountZero(physx::Gu::HeightField *this)
+{
+  if (physx::GuMeshFactory::removeHeightField(*(this + 16), this))
+  {
+    v5 = *(this + 16);
+    v6 = *this;
+    if (*(this + 5))
+    {
+      result = (*(v6 + 32))(this);
+    }
+
+    else
+    {
+      result = (*(v6 + 24))(this);
+    }
+
+    v9 = *(v5 + 248);
+    if (v9)
+    {
+      v10 = 0;
+      v11 = 8 * v9;
+      do
+      {
+        result = (*(**(*(v5 + 240) + v10) + 16))(*(*(v5 + 240) + v10), this, 1);
+        v10 += 8;
+      }
+
+      while (v11 != v10);
+    }
+  }
+
+  else
+  {
+    v8 = physx::shdfnd::Foundation::mInstance;
+
+    return physx::shdfnd::Foundation::error(v8, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/hf/GuHeightField.cpp", 101, "Gu::HeightField::onRefCountZero: double deletion detected!", v2, v3, v4);
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::HeightField::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  v4 = (4 * *(a1 + 56) * *(a1 + 60));
+  (*(*a2 + 24))(a2, 16);
+  v5 = *(a1 + 80);
+  v6 = *(*a2 + 16);
+
+  return v6(a2, v5, v4);
+}
+
+uint64_t physx::Gu::HeightField::release(uint64_t this)
+{
+  if (atomic_fetch_add((this + 24), 0xFFFFFFFF) == 1)
+  {
+    return (*(*(this + 16) + 16))();
+  }
+
+  return this;
+}
+
+uint64_t physx::Gu::HeightField::modifySamples(uint64_t a1, int a2, int a3, uint64_t a4, int a5)
+{
+  v9 = (*(*a1 + 72))(a1);
+  v10 = (*(*a1 + 64))(a1);
+  v13 = *(a1 + 112);
+  v14 = *(a1 + 116);
+  v15 = (*a4 + a3) & ~((*a4 + a3) >> 31);
+  v39 = v10;
+  v40 = v9;
+  if (v15 >= v10)
+  {
+    v15 = v10;
+  }
+
+  v16 = a3 & ~(a3 >> 31);
+  v44 = v15;
+  if (v16 < v15)
+  {
+    v17 = (*(a4 + 4) + a2) & ~((*(a4 + 4) + a2) >> 31);
+    if (v17 >= v9)
+    {
+      v18 = v9;
+    }
+
+    else
+    {
+      v18 = v17;
+    }
+
+    v19 = a2 & ~(a2 >> 31);
+    v20 = v16 - a3;
+    v21 = -a2;
+    v22 = v9 * v16;
+    v42 = v9;
+    v43 = v19;
+    do
+    {
+      if (v19 < v18)
+      {
+        v23 = *(a1 + 80);
+        v24 = v19;
+        do
+        {
+          v45 = 4 * (v22 + v24);
+          v25 = v23 + v45;
+          v26 = *(*(a4 + 24) + 4 * (v21 + v24 + v20 * *(a4 + 4)));
+          *(v23 + v45) = v26;
+          v27 = v16;
+          v28 = v18;
+          v29 = a4;
+          v30 = v22;
+          isCollisionVertexPreca = physx::Gu::HeightField::isCollisionVertexPreca(a1, v22 + v24, v16, v24, v11, v12);
+          v22 = v30;
+          a4 = v29;
+          v16 = v27;
+          v18 = v28;
+          if (isCollisionVertexPreca)
+          {
+            v32 = 0x80;
+          }
+
+          else
+          {
+            v32 = 0;
+          }
+
+          *(v25 + 3) = v32 & 0x80 | HIBYTE(v26) & 0x7F;
+          v23 = *(a1 + 80);
+          v33 = *(v23 + v45);
+          if (v13 > v33)
+          {
+            v13 = v33;
+          }
+
+          if (v14 < v33)
+          {
+            v14 = v33;
+          }
+
+          ++v24;
+        }
+
+        while (v28 != v24);
+      }
+
+      v16 = (v16 + 1);
+      ++v20;
+      v19 = v43;
+      v22 += v42;
+    }
+
+    while (v16 != v44);
+  }
+
+  if (a5)
+  {
+    v34 = v39 * v40;
+    if (v34)
+    {
+      v35 = *(a1 + 80);
+      v14 = -3.4028e38;
+      v13 = 3.4028e38;
+      do
+      {
+        v36 = *v35;
+        v35 += 2;
+        v37 = v36;
+        if (v13 > v36)
+        {
+          v13 = v37;
+        }
+
+        if (v14 < v37)
+        {
+          v14 = v37;
+        }
+
+        --v34;
+      }
+
+      while (v34);
+    }
+
+    else
+    {
+      v13 = 3.4028e38;
+      v14 = -3.4028e38;
+    }
+  }
+
+  *(a1 + 112) = v13;
+  *(a1 + 116) = v14;
+  *(a1 + 36) = (v14 + v13) * 0.5;
+  *(a1 + 48) = (v14 - v13) * 0.5;
+  ++*(a1 + 120);
+  return 1;
+}
+
+BOOL physx::Gu::HeightField::isCollisionVertexPreca(physx::Gu::HeightField *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned __int16 a5, BOOL *a6)
+{
+  if ((*(this + 46) & 1) == 0)
+  {
+LABEL_2:
+    v16 = 0;
+    if (physx::Gu::HeightField::isSolidVertex(this, a2, a3, a4, &v16, a6))
+    {
+      return 1;
+    }
+
+    if (v16 == 1)
+    {
+      v11 = *(this + 10);
+      v12 = 2 * *(v11 + 4 * a2);
+      if (a3 && *(this + 14) - 1 > a3)
+      {
+        v13 = v12 - (*(v11 + 4 * (*(this + 15) + a2)) + *(v11 + 4 * (a2 - *(this + 15))));
+        v14 = 1;
+        if (!a4)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      else
+      {
+        v14 = 0;
+        v13 = 0;
+        if (!a4)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      if (*(this + 15) - 1 > a4)
+      {
+        v15 = v12 - (*(v11 + 4 * (a2 + 1)) + *(v11 + 4 * (a2 - 1)));
+        goto LABEL_19;
+      }
+
+LABEL_17:
+      if (!v14)
+      {
+        return 1;
+      }
+
+      v15 = 0;
+LABEL_19:
+      if ((v15 ^ v13) < 0)
+      {
+        return *(this + 22) < (v15 + v13);
+      }
+    }
+
+    return 0;
+  }
+
+  result = 0;
+  if (a3 && a4)
+  {
+    if (*(this + 14) - 1 <= a3 || *(this + 15) - 1 <= a4)
+    {
+      return 0;
+    }
+
+    goto LABEL_2;
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::HeightField::load(uint64_t a1, void (***a2)(void, unsigned __int32 *, uint64_t))
+{
+  physx::Gu::HeightField::releaseMemory(a1);
+  v22 = 0;
+  v4 = physx::readHeader(0x48u, 0x46u, 0x48u, 0x46u, &v23, &v22, a2);
+  result = 0;
+  if (v4)
+  {
+    v6 = v22;
+    *(a1 + 56) = physx::readDword(v22, a2);
+    *(a1 + 60) = physx::readDword(v6, a2);
+    *(a1 + 64) = physx::readFloat(v6, a2);
+    *(a1 + 68) = physx::readFloat(v6, a2);
+    *(a1 + 72) = physx::readFloat(v6, a2);
+    physx::readFloat(v6, a2);
+    *(a1 + 88) = physx::readFloat(v6, a2);
+    v24 = 0;
+    (**a2)(a2, &v24, 2);
+    if (v6 == 1)
+    {
+      v7 = v24;
+      LOBYTE(v24) = HIBYTE(v24);
+      HIBYTE(v24) = v7;
+    }
+
+    *(a1 + 92) = v24;
+    *(a1 + 96) = physx::readDword(v6, a2);
+    Float = physx::readFloat(v6, a2);
+    v9 = physx::readFloat(v6, a2);
+    v10 = physx::readFloat(v6, a2);
+    v11 = physx::readFloat(v6, a2);
+    v12 = physx::readFloat(v6, a2);
+    v13 = physx::readFloat(v6, a2);
+    *(a1 + 32) = (Float + v11) * 0.5;
+    *(a1 + 36) = (v9 + v12) * 0.5;
+    *(a1 + 40) = (v10 + v13) * 0.5;
+    *(a1 + 44) = (v11 - Float) * 0.5;
+    *(a1 + 48) = (v12 - v9) * 0.5;
+    *(a1 + 52) = (v13 - v10) * 0.5;
+    *(a1 + 104) = physx::readDword(v6, a2);
+    *(a1 + 108) = physx::readDword(v6, a2);
+    *(a1 + 112) = physx::readFloat(v6, a2);
+    *(a1 + 116) = physx::readFloat(v6, a2);
+    *(a1 + 80) = 0;
+    if (!(*(a1 + 60) * *(a1 + 56)))
+    {
+      return 1;
+    }
+
+    v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * (*(a1 + 60) * *(a1 + 56)), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/hf/GuHeightField.cpp", 259);
+    *(a1 + 80) = v14;
+    if (v14)
+    {
+      (**a2)(a2, v14, (4 * *(a1 + 108)));
+      if (v6 && *(a1 + 108))
+      {
+        v18 = 0;
+        v19 = 0;
+        do
+        {
+          v20 = (*(a1 + 80) + v18);
+          v21 = *v20;
+          *v20 = v20[1];
+          v20[1] = v21;
+          ++v19;
+          v18 += 4;
+        }
+
+        while (v19 < *(a1 + 108));
+      }
+
+      return 1;
+    }
+
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 16, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/hf/GuHeightField.cpp", 262, "Gu::HeightField::load: PX_ALLOC failed!", v15, v16, v17);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::HeightField::loadFromDesc(uint64_t a1, int32x2_t *a2)
+{
+  v71 = *MEMORY[0x1E69E9840];
+  physx::Gu::HeightField::releaseMemory(a1);
+  v4 = a1;
+  v66 = a1;
+  *(a1 + 96) = a2[1].i32[0];
+  *(a1 + 88) = a2[4].i32[0];
+  *(a1 + 92) = a2[4].i16[2];
+  *(a1 + 104) = a2[2].i32[0];
+  v5 = *a2;
+  v6 = vcvt_f32_u32(vadd_s32(*a2, 0x100000001));
+  *(a1 + 56) = *a2;
+  *(a1 + 64) = v6;
+  v7 = v5.i32[1];
+  *(a1 + 72) = v5.u32[1];
+  *(a1 + 80) = 0;
+  v8 = v5.i32[0];
+  v9 = v5.i32[1] * v5.i32[0];
+  *(v4 + 112) = 0xFF7FFFFF7F7FFFFFLL;
+  if (v5.i32[1] * v5.i32[0])
+  {
+    v10 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * (v5.i32[1] * v5.i32[0]), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/hf/GuHeightField.cpp", 308);
+    *(v66 + 10) = v10;
+    if (!v10)
+    {
+      physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 16, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/hf/GuHeightField.cpp", 311, "Gu::HeightField::load: PX_ALLOC failed!", v11, v12, v13);
+      return 0;
+    }
+
+    v14 = a2[3];
+    v15 = 0x7FFF;
+    v16 = 0x8000;
+    do
+    {
+      *v10++ = *v14;
+      v17 = *v14;
+      if (v17 < v15)
+      {
+        v15 = *v14;
+      }
+
+      if (v17 > v16)
+      {
+        v16 = *v14;
+      }
+
+      v14 = (v14 + a2[2].i32[0]);
+      --v9;
+    }
+
+    while (v9);
+    *(v66 + 28) = v15;
+    *(v66 + 29) = v16;
+    v8 = *(v66 + 14);
+    v7 = *(v66 + 15);
+  }
+
+  v67 = 0;
+  v68 = 0;
+  v69 = 0;
+  v70 = 0;
+  physx::Cm::BitMapBase<physx::shdfnd::NonTrackingAllocator>::extendUninitialized(&v67, v7 + 1);
+  bzero(v67, (4 * v68));
+  physx::Cm::BitMapBase<physx::shdfnd::NonTrackingAllocator>::extendUninitialized(&v69, v7 + 1);
+  bzero(v69, (4 * v70));
+  if (v7)
+  {
+    v20 = 0;
+    v21 = v67;
+    v22 = (*(v66 + 10) + 3);
+    do
+    {
+      v23 = *v22 & 0x7F;
+      if ((~*(v22 - 1) & 0x7F) == 0 || v23 == 127)
+      {
+        v21[v20 >> 5] |= 1 << v20;
+        v21[(v20 + 1) >> 5] |= 1 << (v20 + 1);
+      }
+
+      if (physx::Gu::HeightField::isCollisionVertexPreca(v66, v20, 0, v20, v18, v19))
+      {
+        v24 = 0x80;
+      }
+
+      else
+      {
+        v24 = 0;
+      }
+
+      *v22 = v24 | v23;
+      v22 += 4;
+      ++v20;
+    }
+
+    while (v7 != v20);
+  }
+
+  v60 = v8;
+  v61 = v7;
+  v65 = v8 - 1;
+  if (v8 > 1)
+  {
+    v25 = 0;
+    v26 = (v7 - 1);
+    v27 = v61;
+    v63 = 1;
+    v28 = 1;
+    while (1)
+    {
+      v62 = v25;
+      v29 = &v67 + 2 * v25;
+      v30 = v66;
+      if (v61)
+      {
+        break;
+      }
+
+LABEL_45:
+      bzero(*v29, (4 * *(v29 + 2)));
+      v63 ^= 1uLL;
+      v25 = v62 ^ 1;
+      ++v28;
+      v27 += v61;
+      if (v28 == v60)
+      {
+        goto LABEL_46;
+      }
+    }
+
+    v31 = 0;
+    v32 = *(v66 + 10);
+    v64 = &v67 + 2 * v63;
+    while (1)
+    {
+      v33 = v27 + v31;
+      v34 = (v32 + 4 * (v27 + v31));
+      v35 = *(v34 + 3);
+      v36 = v35 & 0x7F;
+      v37 = v31 >> 5;
+      if ((~*(v34 + 2) & 0x7F) == 0 || v36 == 127)
+      {
+        v38 = *v29;
+        *(*v29 + v37) |= 1 << v31;
+        v39 = 1 << (v31 + 1);
+        v40 = (v31 + 1) >> 5;
+        v38[v40] |= v39;
+        v41 = *v64;
+        *(*v64 + v37) |= 1 << v31;
+        v41[v40] |= v39;
+      }
+
+      v42 = v33;
+      if (!v31 || v26 == v31 || v28 == v65 || ((*(*v29 + v37) >> v31) & 1) != 0)
+      {
+        isCollisionVertexPreca = physx::Gu::HeightField::isCollisionVertexPreca(v30, v33, v28, v31, v18, v19);
+        v44 = v32 + 4 * v42;
+        if (isCollisionVertexPreca)
+        {
+          *(v44 + 3) = v35 | 0x80;
+        }
+
+        else
+        {
+          *(v44 + 3) = v36;
+        }
+
+        v30 = v66;
+        goto LABEL_34;
+      }
+
+      v45 = 2 * *v34;
+      v46 = *(v30 + 15);
+      if (*(v30 + 14) - 1 > v28)
+      {
+        break;
+      }
+
+      if (v31 < (v46 - 1))
+      {
+        v47 = 0;
+LABEL_41:
+        v48 = v45 - (*(v32 + 4 * (v27 + v31 + 1)) + *(v32 + 4 * (v27 + v31 - 1)));
+LABEL_42:
+        if (((v48 ^ v47) & 0x80000000) == 0 || *(v30 + 22) >= (v48 + v47))
+        {
+          goto LABEL_34;
+        }
+      }
+
+      *(v32 + 4 * v33 + 3) = v35 | 0x80;
+LABEL_34:
+      if (v61 == ++v31)
+      {
+        goto LABEL_45;
+      }
+    }
+
+    v47 = v45 - (*(v32 + 4 * (v27 + v31 + v46)) + *(v32 + 4 * (v27 + v31 - v46)));
+    if (v31 < (v46 - 1))
+    {
+      goto LABEL_41;
+    }
+
+    v48 = 0;
+    goto LABEL_42;
+  }
+
+LABEL_46:
+  v49 = 0;
+  v50 = v66;
+  do
+  {
+    v51 = &v67 + v49;
+    if (*(&v69 + v49))
+    {
+      if ((*(v51 + 6) & 0x80000000) == 0)
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        v50 = v66;
+      }
+    }
+
+    *(v51 + 2) = 0;
+    v49 -= 16;
+  }
+
+  while (v49 != -32);
+  v52 = v50[7].i32[0];
+  v53 = v50[7].i32[1];
+  v50[13].i32[1] = v53 * v52;
+  v54.f32[0] = (v52 - 1);
+  v55 = v50[14].f32[0];
+  v56 = v50[14].f32[1];
+  v57 = vcvts_n_f32_u32(v53 - 1, 1uLL);
+  v54.f32[1] = v55 + v56;
+  v58 = vmul_f32(v54, 0x3F0000003F000000);
+  v50[4] = v58;
+  v50[5].f32[0] = v57;
+  v50[5].i32[1] = v58.i32[0];
+  v50[6].f32[0] = (v56 - v55) * 0.5;
+  v50[6].f32[1] = v57;
+  return 1;
+}
+
+size_t physx::Gu::HeightField::saveCells(physx::Gu::HeightField *this, void *__dst, unsigned int a3)
+{
+  v3 = 4 * *(this + 15) * *(this + 14);
+  if (v3 >= a3)
+  {
+    v4 = a3;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  memcpy(__dst, *(this + 10), v4);
+  return v4;
+}
+
+uint64_t physx::getVertexEdgeIndices(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, _DWORD *a5)
+{
+  v6 = *(a1 + 56);
+  v5 = *(a1 + 60);
+  v7 = 3 * a2;
+  if (a3)
+  {
+    v8 = a2 - v5;
+    v9 = 3 * (a2 - v5);
+    *a5 = v9 + 2;
+    a5[1] = a2 - v5;
+    a5[2] = a3 - 1;
+    a5[3] = a4;
+    if (v5 - 1 <= a4)
+    {
+      v11 = 1;
+      goto LABEL_12;
+    }
+
+    if (*(*(a1 + 80) + 4 * v8 + 2) < 0)
+    {
+      v10 = 1;
+    }
+
+    else
+    {
+      a5[4] = v9 + 1;
+      a5[5] = v8;
+      a5[6] = a3 - 1;
+      a5[7] = a4;
+      v10 = 2;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+    v11 = 0;
+    if (v5 - 1 <= a4)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v12 = &a5[4 * v10];
+  *v12 = v7;
+  v12[1] = a2;
+  v12[2] = a3;
+  v12[3] = a4;
+  v11 = (v10 + 1);
+  if (v6 - 1 > a3 && *(*(a1 + 80) + 4 * a2 + 2) < 0)
+  {
+    v13 = &a5[4 * v11];
+    *v13 = v7 + 1;
+    v13[1] = a2;
+    v13[2] = a3;
+    v13[3] = a4;
+    v11 = (v10 + 2);
+  }
+
+LABEL_12:
+  if (v6 - 1 <= a3)
+  {
+    if (!a4)
+    {
+      return v11;
+    }
+
+    v16 = a2 - 1;
+  }
+
+  else
+  {
+    v14 = &a5[4 * v11];
+    *v14 = v7 + 2;
+    v14[1] = a2;
+    v14[2] = a3;
+    v14[3] = a4;
+    v15 = (v11 + 1);
+    if (!a4)
+    {
+      return v15;
+    }
+
+    v16 = a2 - 1;
+    if (*(*(a1 + 80) + 4 * (a2 - 1) + 2) < 0)
+    {
+      LODWORD(v11) = v11 + 1;
+    }
+
+    else
+    {
+      v17 = &a5[4 * v15];
+      *v17 = 3 * v16 + 1;
+      v17[1] = v16;
+      v17[2] = a3;
+      v17[3] = a4 - 1;
+      LODWORD(v11) = v11 + 2;
+    }
+  }
+
+  v18 = &a5[4 * v11];
+  *v18 = 3 * v16;
+  v18[1] = v16;
+  v18[2] = a3;
+  v18[3] = a4 - 1;
+  v15 = (v11 + 1);
+  if (a3)
+  {
+    v19 = ~v5 + a2;
+    if (*(*(a1 + 80) + 4 * v19 + 2) < 0)
+    {
+      v20 = &a5[4 * v15];
+      *v20 = 3 * v19 + 1;
+      v20[1] = v19;
+      v20[2] = a3 - 1;
+      v20[3] = a4 - 1;
+      return (v11 + 2);
+    }
+  }
+
+  return v15;
+}
+
+BOOL physx::Gu::HeightField::isSolidVertex(physx::Gu::HeightField *this, unsigned int a2, unsigned int a3, unsigned int a4, char *a5, BOOL *a6)
+{
+  v51[15] = *MEMORY[0x1E69E9840];
+  VertexEdgeIndices = physx::getVertexEdgeIndices(this, a2, a3, a4, &v50);
+  if (!VertexEdgeIndices)
+  {
+    v46 = 0;
+    v30 = 0;
+    goto LABEL_44;
+  }
+
+  v9 = VertexEdgeIndices;
+  v10 = *(this + 15);
+  v11 = *(this + 14) - 1;
+  v12 = v10 - 1;
+  v13 = v51;
+  v14 = &v47;
+  v15 = v49;
+  v16 = VertexEdgeIndices;
+  do
+  {
+    v17 = *(v13 - 1);
+    v18 = *v13;
+    v19 = v13[1];
+    v20 = -3 * v17 + *(v13 - 2);
+    if (v20 == 2)
+    {
+      if (v18 >= v11)
+      {
+        goto LABEL_17;
+      }
+
+      if (v19)
+      {
+        *v14 = 2 * v17 - 1;
+        v21 = 1;
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      if (v19 < v12)
+      {
+        v23 = 2 * v17;
+LABEL_27:
+        *&v14[4 * v21] = v23;
+        LODWORD(v21) = v21 + 1;
+      }
+    }
+
+    else
+    {
+      if (v20 == 1)
+      {
+        if (v18 < v11 && v19 < v12)
+        {
+          *v14 = 2 * v17;
+          *(v14 + 1) = (2 * v17) | 1;
+          LODWORD(v21) = 2;
+          goto LABEL_18;
+        }
+
+LABEL_17:
+        LODWORD(v21) = 0;
+        goto LABEL_18;
+      }
+
+      if (v20 || v19 >= v12)
+      {
+        goto LABEL_17;
+      }
+
+      if (v18)
+      {
+        *v14 = (*(*(this + 10) + 4 * (v17 - v10) + 2) >> 7) ^ 1 | (2 * (v17 - v10));
+        v21 = 1;
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      if (v18 < v11)
+      {
+        v24 = *(*(this + 10) + 4 * v17 + 2);
+        v23 = 2 * v17;
+        if (v24 < 0)
+        {
+          v23 |= 1u;
+        }
+
+        goto LABEL_27;
+      }
+    }
+
+LABEL_18:
+    v13 += 4;
+    *v15++ = v21;
+    v14 += 8;
+    --v16;
+  }
+
+  while (v16);
+  *a5 = 0;
+  v25 = &v48;
+  v26 = *(this + 10);
+  v27 = v49;
+  v28 = 1;
+  v29 = v9;
+  v30 = 1;
+  while (1)
+  {
+    v32 = *v27++;
+    v31 = v32;
+    v33 = *(v25 - 1);
+    v34 = v26 + ((2 * v33) & 0x1FFFFFFFCLL);
+    v35 = (v34 + 2);
+    v36 = (v34 + 3);
+    if (v33)
+    {
+      v37 = v36;
+    }
+
+    else
+    {
+      v37 = v35;
+    }
+
+    v38 = *v37 & 0x7F;
+    if (v31 < 2)
+    {
+      if (v38 != 127)
+      {
+        return v30;
+      }
+
+      goto LABEL_41;
+    }
+
+    v39 = *v25;
+    v40 = v26 + ((2 * v39) & 0x1FFFFFFFCLL);
+    v41 = (v40 + 2);
+    v42 = (v40 + 3);
+    if (v39)
+    {
+      v43 = v42;
+    }
+
+    else
+    {
+      v43 = v41;
+    }
+
+    v44 = *v43 & 0x7F;
+    if (v38 != 127)
+    {
+      *a5 = 1;
+      if (v44 == 127)
+      {
+        return v30;
+      }
+
+      goto LABEL_41;
+    }
+
+    if (v44 != 127)
+    {
+      break;
+    }
+
+LABEL_41:
+    v30 = v28++ < v9;
+    v25 += 2;
+    if (!--v29)
+    {
+      return v30;
+    }
+  }
+
+  v46 = 1;
+LABEL_44:
+  *a5 = v46;
+  return v30;
+}
+
+float physx::Gu::HeightFieldUtil::computeLocalBounds(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
+{
+  v5 = *(a1 + 16);
+  v6 = *(a1 + 24);
+  v7 = v6[3].f32[0];
+  *&a5 = v7 * 0.0;
+  *&v8 = (v7 * 0.0) * 0.0;
+  v9 = *(v5 + 32) - *(v5 + 44);
+  v10 = *(v5 + 36) - *(v5 + 48);
+  v11 = *(v5 + 40) - *(v5 + 52);
+  v12 = v6[2];
+  v13 = vmul_f32(v12, 0);
+  v14 = vaddv_f32(v13) + *&v8;
+  v15 = vmul_f32(v13, 0);
+  v16 = vrev64_s32(v15);
+  v17 = vadd_f32(vadd_f32(v12, v16), vdup_lane_s32(v8, 0));
+  v18 = vadd_f32(vdup_lane_s32(*&a5, 0), vadd_f32(v16, v13));
+  v12.f32[0] = v7 + vaddv_f32(v15);
+  v19 = vmuls_lane_f32(v9, v17, 1);
+  *v15.i32 = v14 * v9;
+  v16.f32[0] = v10 * v17.f32[0];
+  v20 = vmuls_lane_f32(v9, v18, 1) + (v10 * v18.f32[0]);
+  v21 = (v19 + (v14 * v10)) + vmuls_lane_f32(v11, v18, 1);
+  result = (*v15.i32 + v16.f32[0]) + (v11 * v18.f32[0]);
+  *a2 = v21;
+  *(a2 + 4) = result;
+  *(a2 + 8) = v20 + (v12.f32[0] * v11);
+  v23 = vadd_f32(*(v5 + 32), *(v5 + 44));
+  v24 = *(v5 + 40) + *(v5 + 52);
+  v25 = vadd_f32(vadd_f32(vmul_n_f32(v23, v14), vmul_f32(v17, vrev64_s32(v23))), vmul_n_f32(v18, v24));
+  *(a2 + 12) = vrev64_s32(v25);
+  *(a2 + 20) = (vmuls_lane_f32(*v23.i32, v18, 1) + vmul_lane_f32(v18, v23, 1).f32[0]) + (v12.f32[0] * v24);
+  v26 = (result - *v25.i32) + 0.0005;
+  if (v26 > 0.0)
+  {
+    *(a2 + 16) = *v25.i32 + (v26 * 0.6);
+    result = result - (v26 * 0.6);
+    *(a2 + 4) = result;
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::HeightFieldUtil::getFaceIndexAtShapePoint(physx::Gu::HeightFieldUtil *this, float a2, float a3)
+{
+  v4 = *this * a2;
+  result = 0xFFFFFFFFLL;
+  if (v4 >= 0.0)
+  {
+    v6 = *(this + 2) * a3;
+    if (v6 >= 0.0)
+    {
+      v7 = *(this + 2);
+      v8 = *(v7 + 64);
+      if (v4 < (v8 + 1.0))
+      {
+        v9 = *(v7 + 68);
+        if (v6 < (v9 + 1.0))
+        {
+          v10 = fmaxf(v4, 0.0);
+          v11 = fmaxf(v6, 0.0);
+          v12 = 1.0 - ((v11 + 1.0) * 0.000001);
+          v13 = (1.0 - ((v10 + 1.0) * 0.000001)) + v8;
+          if (v10 >= v13)
+          {
+            v10 = v13;
+          }
+
+          v14 = v12 + v9;
+          if (v11 < (v12 + v9))
+          {
+            v14 = v11;
+          }
+
+          v15 = floorf(v10);
+          v16 = v10 - v15;
+          v17 = floorf(v14);
+          v18 = v14 - v17;
+          v19 = (v17 + (v15 * *(v7 + 72)));
+          v20 = *(v7 + 80);
+          if (*(v20 + 4 * v19 + 2) >= 0)
+          {
+            v21 = (v16 + v18) > 1.0;
+          }
+
+          else
+          {
+            v21 = v18 > v16;
+          }
+
+          v22 = v21 | (2 * v19);
+          v23 = v20 + 4 * (v19 & 0x7FFFFFFF);
+          v24 = (v23 + 2);
+          v25 = (v23 + 3);
+          if (!v21)
+          {
+            v25 = v24;
+          }
+
+          if ((~*v25 & 0x7F) != 0)
+          {
+            return v22;
+          }
+
+          else
+          {
+            return 0xFFFFFFFFLL;
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::HeightFieldUtil::findClosestPointsOnCell(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, uint64_t a5)
+{
+  v5 = a3;
+  v6 = a2;
+  v8 = *(a1 + 16);
+  v9 = *(v8 + 60);
+  v10 = a3 + v9 * a2;
+  v11 = *(v8 + 56) - 2;
+  v50 = v11;
+  v51 = v9;
+  v12 = v9 - 2 == a3;
+  HIDWORD(v53) = v12;
+  if (v11 != a2)
+  {
+    v12 = 0;
+  }
+
+  v52 = v11 == a2;
+  LODWORD(v53) = v12;
+  v49 = *(v8 + 80);
+  v13 = v49 + 4 * (v10 & 0x7FFFFFFF);
+  v14 = *(v13 + 3) & 0x7F;
+  if ((~*(v13 + 2) & 0x7F) != 0)
+  {
+    v15 = a4;
+    physx::Gu::HeightFieldUtil::findProjectionOnTriangle(a1, 2 * v10, a2, a3, a4, v55);
+    if (v18)
+    {
+      v52 = 0;
+      *a5 = *v55;
+      *(a5 + 8) = *&v55[8];
+      v16 = 1;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    v17 = v18 ^ 1;
+  }
+
+  else
+  {
+    v15 = a4;
+    v16 = 0;
+    v17 = 1;
+  }
+
+  if (v14 == 127)
+  {
+    v19 = v17;
+    v20 = v15;
+    if (v16)
+    {
+      return v16;
+    }
+  }
+
+  else
+  {
+    v20 = v15;
+    physx::Gu::HeightFieldUtil::findProjectionOnTriangle(a1, (2 * v10) | 1, v6, v5, v15, v55);
+    if (v21)
+    {
+      v53 = 0;
+      v19 = 0;
+      v22 = a5 + 12 * v16;
+      *v22 = *v55;
+      *(v22 + 8) = *&v55[8];
+      v16 = (v16 + 1);
+      if (v16)
+      {
+        return v16;
+      }
+    }
+
+    else
+    {
+      v19 = v17;
+      if (v16)
+      {
+        return v16;
+      }
+    }
+  }
+
+  v23 = 3 * v10;
+  physx::Gu::HeightFieldUtil::findClosestPointOnEdge(a1, 3 * v10, v10, v6, v5, v20, v55);
+  v48 = v19;
+  if (v24 <= 0.0)
+  {
+    if (v17)
+    {
+      if (physx::Gu::HeightFieldUtil::getVertexFaceIndex(v8, v10, v6, v5) == -1)
+      {
+        v16 = 0;
+      }
+
+      else
+      {
+        *a5 = *v55;
+        *(a5 + 8) = *&v55[8];
+        v16 = 1;
+      }
+
+      v26 = v23 + 2;
+      physx::Gu::HeightFieldUtil::findClosestPointOnEdge(a1, v23 + 2, v10, v6, v5, v20, v55);
+      if (v31 <= 0.0)
+      {
+        goto LABEL_43;
+      }
+
+      if (v31 < 1.0)
+      {
+LABEL_37:
+        EdgeFaceIndex = physx::Gu::HeightFieldUtil::getEdgeFaceIndex(v8, v26);
+        goto LABEL_41;
+      }
+
       goto LABEL_38;
     }
+
+    goto LABEL_26;
   }
 
-  else if (v29 == 3)
+  if (v24 >= 1.0)
   {
-    result = *v26;
-LABEL_38:
-    v30 = *(v26 + 16);
-    if (!v30)
+    if (!HIDWORD(v53))
     {
-      v30 = physx::Scb::Scene::getStream(result, v28);
-      *(v26 + 16) = v30;
-      result = *v26;
+      goto LABEL_26;
     }
 
-    *v30 = v25;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v26);
-    *(v26 + 8) |= 1u;
-    return result;
-  }
-
-  v31 = *(&physx::Scb::Actor::sLazyInitOffsets + v28 + 3) + v26;
-  if (v25 != *(v31 + 12))
-  {
-    *(v31 + 12) = v25;
-    result = *v31;
-    if (*v31)
-    {
-      v32 = *(*result + 16);
-
-      return v32();
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getActorFlags@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
-{
-  v2 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
-  v3 = *(v2 + 8);
-  if (v3)
-  {
-    v4 = *(v2 + 16);
+    VertexFaceIndex = physx::Gu::HeightFieldUtil::getVertexFaceIndex(v8, v10 + 1, v6, v5 + 1);
   }
 
   else
   {
-    v4 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3) + v2 + 12);
+    VertexFaceIndex = physx::Gu::HeightFieldUtil::getEdgeFaceIndex(v8, 3 * v10);
   }
 
-  *a2 = *v4;
+  if (VertexFaceIndex != -1)
+  {
+    *a5 = *v55;
+    *(a5 + 8) = *&v55[8];
+    v16 = 1;
+    goto LABEL_27;
+  }
+
+LABEL_26:
+  v16 = 0;
+LABEL_27:
+  if ((v17 | v52))
+  {
+    v26 = v23 + 2;
+    physx::Gu::HeightFieldUtil::findClosestPointOnEdge(a1, v23 + 2, v10, v6, v5, v20, v55);
+    if (v27 <= 0.0)
+    {
+      if (v17)
+      {
+        v28 = v8;
+        v29 = v10;
+        v30 = v6;
+LABEL_40:
+        EdgeFaceIndex = physx::Gu::HeightFieldUtil::getVertexFaceIndex(v28, v29, v30, v5);
+LABEL_41:
+        if (EdgeFaceIndex != -1)
+        {
+          v33 = a5 + 12 * v16;
+          *v33 = *v55;
+          *(v33 + 4) = *&v55[4];
+          v16 = (v16 + 1);
+        }
+      }
+
+LABEL_43:
+      v19 = v48;
+      goto LABEL_44;
+    }
+
+    if (v27 < 1.0)
+    {
+      if (!v17)
+      {
+        goto LABEL_43;
+      }
+
+      goto LABEL_37;
+    }
+
+LABEL_38:
+    if (v52)
+    {
+      v29 = v10 + v51;
+      v30 = v6 + 1;
+      v28 = v8;
+      goto LABEL_40;
+    }
+
+    goto LABEL_43;
+  }
+
+LABEL_44:
+  if (v50 == v6)
+  {
+    physx::Gu::HeightFieldUtil::findClosestPointOnEdge(a1, 3 * (v10 + v51), v10 + v51, v6 + 1, v5, v20, v55);
+    v35 = v34 > 0.0 && v34 < 1.0;
+    if (v35 && physx::Gu::HeightFieldUtil::getEdgeFaceIndex(v8, 3 * (v10 + v51)) != -1)
+    {
+      v36 = a5 + 12 * v16;
+      *v36 = *v55;
+      *(v36 + 8) = *&v55[8];
+      v16 = (v16 + 1);
+    }
+
+    v19 = v48;
+  }
+
+  if (HIDWORD(v53))
+  {
+    physx::Gu::HeightFieldUtil::findClosestPointOnEdge(a1, v23 + 5, v10 + 1, v6, v5 + 1, v20, v55);
+    v38 = v37 > 0.0 && v37 < 1.0;
+    if (v38 && physx::Gu::HeightFieldUtil::getEdgeFaceIndex(v8, v23 + 5) != -1)
+    {
+      v39 = a5 + 12 * v16;
+      *v39 = *v55;
+      *(v39 + 8) = *&v55[8];
+      v16 = (v16 + 1);
+    }
+  }
+
+  if (v53)
+  {
+    if (physx::Gu::HeightFieldUtil::getVertexFaceIndex(v8, v10 + v51 + 1, v6 + 1, v5 + 1) != -1)
+    {
+      v40 = *(a1 + 24);
+      v41.f32[0] = *(v49 + 4 * (v10 + v51 + 1));
+      v42 = v40[3].f32[0] * (v5 + 1);
+      v43 = a5 + 12 * v16;
+      v41.f32[1] = (v6 + 1);
+      *v43 = vrev64_s32(vmul_f32(v40[2], v41));
+      *(v43 + 8) = v42;
+      v16 = (v16 + 1);
+    }
+
+    v19 = v48;
+  }
+
+  if (v19 && physx::Gu::HeightFieldUtil::getEdgeFaceIndex(v8, v23 + 1) != -1)
+  {
+    physx::Gu::HeightFieldUtil::findClosestPointOnEdge(a1, v23 + 1, v10, v6, v5, v20, v55);
+    if (v44 > 0.0 && v44 < 1.0)
+    {
+      v46 = a5 + 12 * v16;
+      *v46 = *v55;
+      *(v46 + 8) = *&v55[8];
+      return (v16 + 1);
+    }
+  }
+
+  return v16;
+}
+
+float physx::Gu::HeightFieldUtil::findProjectionOnTriangle(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, float *a5, float *a6)
+{
+  v7 = *(a1 + 16);
+  v6 = *(a1 + 24);
+  v8 = v6[4];
+  v9 = *(v7 + 80);
+  v10 = (v9 + 4 * (a2 >> 1));
+  v11 = v8 * *v10;
+  v12 = v8 * *(v9 + 4 * ((a2 >> 1) + 1));
+  v13 = v8 * *(v9 + 4 * (*(v7 + 60) + (a2 >> 1)));
+  v14 = v8 * *(v9 + 4 * (*(v7 + 60) + (a2 >> 1) + 1));
+  if (v10[1] < 0)
+  {
+    v21 = v6[6];
+    v17 = *(a1 + 8);
+    if (a2)
+    {
+      result = v6[5] * a3;
+      v16 = v21 * (a4 + 1);
+      v17 = -v17;
+      v18 = *a1;
+      v19 = v12;
+      v20 = v14;
+      v14 = v11;
+    }
+
+    else
+    {
+      result = v6[5] * (a3 + 1);
+      v16 = v21 * a4;
+      v18 = -*a1;
+      v19 = v13;
+      v20 = v11;
+    }
+  }
+
+  else if (a2)
+  {
+    result = v6[5] * (a3 + 1);
+    v16 = v6[6] * (a4 + 1);
+    v17 = -*(a1 + 8);
+    v18 = -*a1;
+    v19 = v14;
+    v20 = v12;
+    v14 = v13;
+  }
+
+  else
+  {
+    result = v6[5] * a3;
+    v16 = v6[6] * a4;
+    v17 = *(a1 + 8);
+    v18 = *a1;
+    v19 = v11;
+    v20 = v13;
+    v14 = v12;
+  }
+
+  v22 = *a5 - result;
+  v23 = a5[1] - v19;
+  v24 = a5[2] - v16;
+  v25 = -((v14 - v19) * v17);
+  v26 = -((v20 - v19) * v18);
+  v27 = ((v23 + (v26 * v22)) + (v25 * v24)) * (1.0 / (((v26 * v26) + (v25 * v25)) + 1.0));
+  v28 = v22 - (v26 * v27);
+  v29 = v24 - (v25 * v27);
+  v30 = v18 * v28;
+  v31 = v17 * v29;
+  v33 = (v30 + v31) < 1.0 && v31 > 0.0;
+  if (v30 > 0.0 && v33)
+  {
+    result = result + v28;
+    *a6 = result;
+    a6[1] = v19 + (v23 - v27);
+    a6[2] = v16 + v29;
+  }
+
   return result;
 }
 
-int32x2_t *physx::NpActorTemplate<physx::PxRigidStatic>::setDominanceGroup(uint64_t a1, char a2)
+uint64_t physx::Gu::HeightFieldUtil::findClosestPointOnEdge(uint64_t result, int a2, unsigned int a3, unsigned int a4, unsigned int a5, float *a6, float *a7)
 {
-  v3 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
-  v4 = *(v3 + 8);
-  v5 = (v4 >> 24) & 0xF;
-  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3);
-  v7 = v4 >> 30;
+  v7 = -3 * a3 + a2;
+  v8 = 0.0;
   if (v7 == 2)
   {
-    v8 = *v3;
-    if (*(*v3 + 7689))
+    v26 = *(result + 16);
+    v27 = *(result + 24);
+    v28 = *(v26 + 80);
+    v29 = v27[4];
+    v18 = v27[5];
+    v12 = v29 * *(v28 + 4 * a3);
+    v30 = v29 * *(v28 + 4 * (*(v26 + 60) + a3));
+    v14 = v18 * a4;
+    v15 = v27[6] * a5;
+    v16 = v30 - v12;
+    v17 = (v16 * v16) + (v18 * v18);
+  }
+
+  else if (v7 == 1)
+  {
+    v20 = *(result + 16);
+    v19 = *(result + 24);
+    v21 = *(v20 + 80);
+    v22 = (v21 + 4 * a3);
+    v23 = v19[4];
+    if (v22[1] < 0)
     {
-      goto LABEL_5;
+      v12 = v23 * *v22;
+      v18 = v19[5];
+      v8 = v19[6];
+      v14 = v18 * a4;
+      v15 = v8 * a5;
+      v16 = (v23 * *(v21 + 4 * (a3 + *(v20 + 60) + 1))) - v12;
+      v25 = v8 * v8;
     }
-  }
 
-  else if (v7 == 3)
-  {
-    v8 = *v3;
-LABEL_5:
-    Stream = *(v3 + 16);
-    if (!Stream)
+    else
     {
-      Stream = physx::Scb::Scene::getStream(v8, v5);
-      *(v3 + 16) = Stream;
-      v8 = *v3;
+      v12 = v23 * *(v21 + 4 * (a3 + 1));
+      v18 = v19[5];
+      v24 = v19[6];
+      v14 = v18 * a4;
+      v15 = v24 * (a5 + 1);
+      v16 = (v23 * *(v21 + 4 * (*(v20 + 60) + a3))) - v12;
+      v8 = -v24;
+      v25 = v24 * v24;
     }
 
-    *(Stream + 1) = a2;
-    result = physx::Scb::Scene::scheduleForUpdate(v8, v3);
-    *(v3 + 8) |= 2u;
-    return result;
+    v17 = (v25 + (v18 * v18)) + (v16 * v16);
   }
 
-  *(v6 + v3 + 14) = a2;
-  result = *(v3 + v6);
-  if (result)
+  else if (v7)
   {
-
-    return physx::Sc::ActorSim::setActorsInteractionsDirty(result, 8, 0, 1);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getDominanceGroup(uint64_t a1)
-{
-  v1 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 8) + 18);
-  v2 = *(v1 + 8);
-  if ((v2 & 2) != 0)
-  {
-    v3 = (*(v1 + 16) + 1);
+    v18 = 0.0;
+    v16 = 0.0;
+    v14 = 0.0;
+    v12 = 0.0;
+    v15 = 0.0;
+    v17 = 0.0;
   }
 
   else
   {
-    v3 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v2 >> 24) & 0xF) + 3) + v1 + 14);
+    v9 = *(result + 24);
+    v10 = *(*(result + 16) + 80);
+    v11 = v9[4];
+    v12 = v11 * *(v10 + 4 * a3);
+    v13 = v11 * *(v10 + 4 * (a3 + 1));
+    v14 = v9[5] * a4;
+    v8 = v9[6];
+    v15 = v8 * a5;
+    v16 = v13 - v12;
+    v17 = (v16 * v16) + (v8 * v8);
+    v18 = 0.0;
   }
 
-  return *v3;
-}
-
-uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::setOwnerClient(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = result + *(&physx::NpActor::sLazyInitOffsets + *(result + 8) + 18);
-  if (*v9)
+  v31 = (((v16 * (a6[1] - v12)) + ((*a6 - v14) * v18)) + ((a6[2] - v15) * v8)) / v17;
+  if (v31 >= 0.0)
   {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpActorTemplate.h";
-    v11 = "Attempt to set the client id when an actor is already in a scene.";
-    v12 = physx::shdfnd::Foundation::mInstance;
-    v13 = 196;
-    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8, a9);
+    if (v31 <= 1.0)
+    {
+      v14 = v14 + (v18 * v31);
+      v12 = v12 + (v16 * v31);
+      v15 = v15 + (v8 * v31);
+    }
+
+    else
+    {
+      v14 = v18 + v14;
+      v12 = v16 + v12;
+      v15 = v8 + v15;
+    }
   }
 
-  v14 = *(v9 + 8);
-  if (v14 >> 30 == 3 || v14 >> 30 == 2 && (MEMORY[0x1E09] & 1) != 0)
-  {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/buffering/ScbActor.h";
-    v11 = "Attempt to set the client id when an actor is buffering";
-    v12 = physx::shdfnd::Foundation::mInstance;
-    v13 = 182;
-    return physx::shdfnd::Foundation::error(v12, 8, v10, v13, v11, a6, a7, a8, a9);
-  }
-
-  *(*(&physx::Scb::Actor::sLazyInitOffsets + ((v14 >> 24) & 0xF) + 3) + v9 + 11) = a2;
+  *a7 = v14;
+  a7[1] = v12;
+  a7[2] = v15;
   return result;
 }
 
-uint64_t physx::NpActorTemplate<physx::PxRigidStatic>::getAggregate(uint64_t a1)
+uint64_t physx::Gu::HeightFieldUtil::getVertexFaceIndex(physx::Gu::HeightFieldUtil *this, unsigned int a2, unsigned int a3, unsigned int a4)
 {
-  v1 = *(a1 + 32);
-  if (!v1)
+  v10 = *MEMORY[0x1E69E9840];
+  VertexEdgeIndices = physx::getVertexEdgeIndices(this, a2, a3, a4, v9);
+  if (!VertexEdgeIndices)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v6 = VertexEdgeIndices;
+  v7 = 0;
+  while (1)
+  {
+    result = physx::Gu::HeightFieldUtil::getEdgeFaceIndex(this, v9[v7], DWORD1(v9[v7]), DWORD2(v9[v7]), HIDWORD(v9[v7]));
+    if (result != -1)
+    {
+      break;
+    }
+
+    v7 += 2;
+    if (v7 >= v6)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::HeightFieldUtil::getEdgeFaceIndex(physx::Gu::HeightFieldUtil *this, unsigned int a2)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = a2 / 3;
+  v3 = *(this + 15);
+  v4 = a2 / 3 / v3;
+  v5 = a2 / 3 % v3;
+  LODWORD(v6) = -3 * (a2 / 3);
+  v7 = a2 % 3;
+  if (a2 % 3 == 2)
+  {
+    LODWORD(v6) = *(this + 14);
+    if (v4 >= v6 - 1)
+    {
+      goto LABEL_29;
+    }
+
+    if (v5)
+    {
+      LODWORD(v6) = 2 * v2 - 1;
+      v19 = v6;
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    if (v5 >= v3 - 1)
+    {
+      goto LABEL_28;
+    }
+
+    v10 = 2 * v2;
+  }
+
+  else
+  {
+    if (v7 == 1)
+    {
+      LODWORD(v6) = *(this + 14) - 1;
+      if (v5 < v3 - 1 && v4 < v6)
+      {
+        v6 = 2 * v2;
+        v20 = (2 * v2) | 1;
+        goto LABEL_22;
+      }
+
+      goto LABEL_29;
+    }
+
+    if (v7 || v5 >= v3 - 1)
+    {
+LABEL_29:
+      v17 = (*(this + 10) + 4 * (v6 >> 1) + 2);
+      goto LABEL_30;
+    }
+
+    LODWORD(v6) = v2 - v3;
+    if (v2 >= v3)
+    {
+      LODWORD(v6) = (*(*(this + 10) + 4 * v6 + 2) >> 7) + 2 * v6 + 1;
+      v19 = v6;
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    if (v4 >= *(this + 14) - 1)
+    {
+LABEL_28:
+      if (v6)
+      {
+        v17 = (*(this + 10) + 4 * (v6 >> 1) + 3);
+LABEL_30:
+        if ((~*v17 & 0x7F) != 0)
+        {
+          return v6;
+        }
+
+        else
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      goto LABEL_29;
+    }
+
+    v10 = (*(*(this + 10) + 4 * v2 + 2) >> 7) | (2 * v2);
+  }
+
+  *(&v19 + v8) = v10;
+  v6 = v19;
+  if (!v8)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_22:
+  v11 = *(this + 10);
+  v12 = v11 + 4 * (v6 >> 1);
+  v13 = (v12 + 2);
+  v14 = (v12 + 3);
+  if ((v6 & 1) == 0)
+  {
+    v14 = v13;
+  }
+
+  if ((~*v14 & 0x7F) == 0)
+  {
+    LODWORD(v6) = v20;
+    v15 = v11 + ((2 * v20) & 0x1FFFFFFFCLL);
+    v16 = (v15 + 2);
+    v17 = (v15 + 3);
+    if ((v20 & 1) == 0)
+    {
+      v17 = v16;
+    }
+
+    goto LABEL_30;
+  }
+
+  return v6;
+}
+
+uint64_t physx::Gu::HeightFieldUtil::getEdgeFaceIndex(physx::Gu::HeightFieldUtil *this, int a2, unsigned int a3, unsigned int a4, unsigned int a5)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  LODWORD(v5) = -3 * a3;
+  v6 = -3 * a3 + a2;
+  if (v6 == 2)
+  {
+    LODWORD(v5) = *(this + 14);
+    if (v5 - 1 <= a4)
+    {
+      goto LABEL_27;
+    }
+
+    if (a5)
+    {
+      LODWORD(v5) = 2 * a3 - 1;
+      v18 = v5;
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    if (*(this + 15) - 1 <= a5)
+    {
+      goto LABEL_26;
+    }
+
+    v9 = 2 * a3;
+  }
+
+  else
+  {
+    if (v6 == 1)
+    {
+      LODWORD(v5) = *(this + 14);
+      if (v5 - 1 > a4)
+      {
+        LODWORD(v5) = *(this + 15);
+        if (v5 - 1 > a5)
+        {
+          v5 = 2 * a3;
+          v19 = (2 * a3) | 1;
+          goto LABEL_20;
+        }
+      }
+
+      goto LABEL_27;
+    }
+
+    if (v6 || (v7 = *(this + 15), v7 - 1 <= a5))
+    {
+LABEL_27:
+      v16 = (*(this + 10) + 4 * (v5 >> 1) + 2);
+      goto LABEL_28;
+    }
+
+    if (a4)
+    {
+      LODWORD(v5) = (*(*(this + 10) + 4 * (a3 - v7) + 2) >> 7) + 2 * (a3 - v7) + 1;
+      v18 = v5;
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    if (*(this + 14) - 1 <= a4)
+    {
+LABEL_26:
+      if (v5)
+      {
+        v16 = (*(this + 10) + 4 * (v5 >> 1) + 3);
+LABEL_28:
+        if ((~*v16 & 0x7F) != 0)
+        {
+          return v5;
+        }
+
+        else
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      goto LABEL_27;
+    }
+
+    v9 = (*(*(this + 10) + 4 * a3 + 2) >> 7) | (2 * a3);
+  }
+
+  *(&v18 + v8) = v9;
+  v5 = v18;
+  if (!v8)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_20:
+  v10 = *(this + 10);
+  v11 = v10 + 4 * (v5 >> 1);
+  v12 = (v11 + 2);
+  v13 = (v11 + 3);
+  if ((v5 & 1) == 0)
+  {
+    v13 = v12;
+  }
+
+  if ((~*v13 & 0x7F) == 0)
+  {
+    LODWORD(v5) = v19;
+    v14 = v10 + ((2 * v19) & 0x1FFFFFFFCLL);
+    v15 = (v14 + 2);
+    v16 = (v14 + 3);
+    if ((v19 & 1) == 0)
+    {
+      v16 = v15;
+    }
+
+    goto LABEL_28;
+  }
+
+  return v5;
+}
+
+BOOL physx::Gu::HeightFieldUtil::overlapAABBTriangles(uint64_t a1, float *a2, float *a3, char a4, uint64_t a5)
+{
+  v114 = *MEMORY[0x1E69E9840];
+  if (a4)
+  {
+    v14 = a2[4] * -2.0;
+    v15 = a2[5] * -2.0;
+    v16 = a2[6] * -2.0;
+    v18 = a2[2];
+    v17 = a2[3];
+    v19 = (v17 * v17) + -0.5;
+    v20 = a2[1];
+    v21 = ((v15 * v20) + (*a2 * v14)) + (v18 * v16);
+    v22 = ((v14 * v19) - (((v20 * v16) - (v18 * v15)) * v17)) + (*a2 * v21);
+    v23 = ((v15 * v19) - (((v18 * v14) - (*a2 * v16)) * v17)) + (v20 * v21);
+    v24 = ((v16 * v19) - (((*a2 * v15) - (v20 * v14)) * v17)) + (v18 * v21);
+    v25 = a3[1];
+    v27 = a3[2];
+    v26 = a3[3];
+    v28 = a3[4];
+    v29 = a3[5];
+    v30 = ((*a3 + v26) * 0.5) + ((*a3 + v26) * 0.5);
+    v31 = ((v25 + v28) * 0.5) + ((v25 + v28) * 0.5);
+    v32 = ((v27 + v29) * 0.5) + ((v27 + v29) * 0.5);
+    v33 = (-(v20 * v31) - (*a2 * v30)) - (v18 * v32);
+    v34 = v22 + (((v17 * ((v18 * v31) - (v20 * v32))) + (v30 * v19)) - (*a2 * v33));
+    v35 = v23 + (((v17 * ((*a2 * v32) - (v18 * v30))) + (v31 * v19)) - (v20 * v33));
+    v36 = v24 + (((v17 * ((v20 * v30) - (*a2 * v31))) + (v32 * v19)) - (v18 * v33));
+    v37 = -*a2 - *a2;
+    v38 = -v20 - v20;
+    v39 = -v18 - v18;
+    v40 = -(v20 * v38);
+    v41 = -(v18 * v39);
+    v42 = -(v20 * v37);
+    v43 = -(v18 * v37);
+    v44 = v17 * v37;
+    v45 = -(v18 * v38);
+    v46 = v17 * v38;
+    v47 = v17 * v39;
+    v48 = v42 + v47;
+    v49 = v42 - v47;
+    v50 = (*a2 * v37) + 1.0;
+    v51 = v50 - v41;
+    v52 = (v26 - *a3) * 0.5;
+    v53 = (v28 - v25) * 0.5;
+    v54 = (v29 - v27) * 0.5;
+    v55 = (v50 - v40) * v54;
+    v56 = (fabsf(((1.0 - v40) - v41) * v52) + fabsf(v49 * v53)) + fabsf((v43 + v46) * v54);
+    v57 = (fabsf(v48 * v52) + fabsf(v51 * v53)) + fabsf((v45 - v44) * v54);
+    v58 = (fabsf((v43 - v46) * v52) + fabsf((v44 + v45) * v53)) + fabsf(v55);
+    v9 = v34 - v56;
+    v8 = v35 - v57;
+    v10 = v36 - v58;
+    v11 = v56 + v34;
+    v12 = v57 + v35;
+    v13 = v58 + v36;
+  }
+
+  else
+  {
+    v9 = *a3;
+    v8 = a3[1];
+    v10 = a3[2];
+    v11 = a3[3];
+    v12 = a3[4];
+    v13 = a3[5];
+  }
+
+  v59 = v9 * *a1;
+  v60 = *(a1 + 8);
+  v61 = v10 * v60;
+  v62 = v11 * *a1;
+  v63 = v13 * v60;
+  v64 = *(a1 + 16);
+  v65 = *(a1 + 24);
+  v66 = *(v65 + 20);
+  v67 = *(v65 + 24);
+  if (v66 >= 0.0)
+  {
+    v68 = v59;
+  }
+
+  else
+  {
+    v68 = v62;
+  }
+
+  if (v66 >= 0.0)
+  {
+    v69 = v62;
+  }
+
+  else
+  {
+    v69 = v59;
+  }
+
+  if (v67 >= 0.0)
+  {
+    v70 = v61;
+  }
+
+  else
+  {
+    v70 = v63;
+  }
+
+  if (v67 >= 0.0)
+  {
+    v71 = v63;
+  }
+
+  else
+  {
+    v71 = v61;
+  }
+
+  v72 = *(v64 + 56);
+  v73 = v72 - 1;
+  v74 = (v72 - 1);
+  if (v68 > v74)
   {
     return 0;
   }
 
-  v2 = *(v1 + 80);
-  if (!v2)
+  result = 0;
+  v76 = *(v64 + 60);
+  if (v70 > (v76 - 1) || v69 < 0.0 || v71 < 0.0)
+  {
+    return result;
+  }
+
+  v77 = v72 - 2;
+  v78 = vcvtms_u32_f32(v68);
+  if (v68 <= v77)
+  {
+    v77 = v78;
+  }
+
+  if (v68 >= 0.0)
+  {
+    v79 = v77;
+  }
+
+  else
+  {
+    v79 = 0;
+  }
+
+  v80 = vcvtps_u32_f32(v69);
+  if (v69 <= v74)
+  {
+    v81 = v80;
+  }
+
+  else
+  {
+    v81 = v73;
+  }
+
+  v82 = v76 - 2;
+  v83 = vcvtms_u32_f32(v70);
+  if (v70 <= (v76 - 2))
+  {
+    v82 = v83;
+  }
+
+  if (v70 >= 0.0)
+  {
+    v84 = v82;
+  }
+
+  else
+  {
+    v84 = 0;
+  }
+
+  v85 = vcvtps_u32_f32(v71);
+  if (v71 > (v76 - 1))
+  {
+    v85 = v76 - 1;
+  }
+
+  v86 = v85 - v84;
+  if (!(2 * (v81 - v79) * (v85 - v84)))
   {
     return 0;
   }
 
-  for (i = *(v1 + 72) + 8; *(i - 8) != 1; i += 16)
+  if (v81 <= v79)
   {
-    if (!--v2)
+    v88 = 0;
+    return v88 != 0;
+  }
+
+  v87 = 0;
+  v88 = 0;
+  v89 = *(a1 + 4);
+  v90 = v8 * v89;
+  v91 = v12 * v89;
+  v92 = v84 + v79 * v76;
+  v111 = v84;
+  v112 = v81;
+  v109 = v85 - v84;
+  v110 = v85;
+  while (v85 <= v84)
+  {
+LABEL_73:
+    v92 = v92 - v86 + *(v64 + 60);
+    if (++v79 == v81)
+    {
+      v108 = v87;
+      if (v87)
+      {
+        goto LABEL_78;
+      }
+
+      return v88 != 0;
+    }
+  }
+
+  v93 = 2 * v92;
+  while (1)
+  {
+    v94 = v92;
+    v95 = *(a1 + 16);
+    v96 = *(v95 + 80);
+    v97 = (v96 + 4 * v92);
+    v98 = *v97;
+    v99 = *(v96 + 4 * ++v92);
+    LODWORD(v95) = v94 + *(v95 + 60);
+    v100 = *(v96 + 4 * v95);
+    v101 = *(v96 + 4 * (v95 + 1));
+    v102 = v91 < v98 && v91 < v99;
+    v103 = v102 && v91 < v100;
+    if (!v103 || v91 >= v101)
+    {
+      v105 = v90 <= v98 || v90 <= v99;
+      v106 = v105 || v90 <= v100;
+      if (v106 || v90 <= v101)
+      {
+        break;
+      }
+    }
+
+LABEL_71:
+    v93 += 2;
+    if (!--v86)
+    {
+      v64 = *(a1 + 16);
+      v84 = v111;
+      v81 = v112;
+      v86 = v109;
+      v85 = v110;
+      goto LABEL_73;
+    }
+  }
+
+  if ((~*(v97 + 2) & 0x7F) == 0)
+  {
+LABEL_67:
+    if ((~*(v96 + 4 * v94 + 3) & 0x7F) != 0)
+    {
+      if (v87 >= 0x40)
+      {
+        (*(*a5 + 16))(a5);
+        LODWORD(v87) = 0;
+      }
+
+      v108 = (v87 + 1);
+      v113[v87] = v93 + 1;
+      ++v88;
+      v87 = v108;
+      if ((a4 & 2) != 0)
+      {
+        goto LABEL_78;
+      }
+    }
+
+    goto LABEL_71;
+  }
+
+  if (v87 >= 0x40)
+  {
+    (*(*a5 + 16))(a5);
+    LODWORD(v87) = 0;
+  }
+
+  v113[v87] = v93;
+  v87 = (v87 + 1);
+  ++v88;
+  if ((a4 & 2) == 0)
+  {
+    v96 = *(*(a1 + 16) + 80);
+    goto LABEL_67;
+  }
+
+  v108 = v87;
+LABEL_78:
+  (*(*a5 + 16))(a5, v108, v113);
+  return v88 != 0;
+}
+
+BOOL physx::Gu::HeightFieldUtil::getTriangle(uint64_t a1, float *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, int a7, int a8)
+{
+  v73 = *MEMORY[0x1E69E9840];
+  v9 = *(a1 + 16);
+  v8 = *(a1 + 24);
+  v11 = v8[5];
+  v10 = v8[6];
+  if (v11 < 0.0)
+  {
+    v12 = v10 >= 0.0;
+  }
+
+  else
+  {
+    v12 = v10 < 0.0;
+  }
+
+  if (v12)
+  {
+    v13 = 8;
+  }
+
+  else
+  {
+    v13 = 4;
+  }
+
+  if (v12)
+  {
+    v14 = 4;
+  }
+
+  else
+  {
+    v14 = 8;
+  }
+
+  v15 = a6 >> 1;
+  v16 = *(v9 + 80);
+  v17 = v16 + 4 * v15;
+  v20 = *(v17 + 2);
+  v18 = (v17 + 2);
+  v19 = v20;
+  if (v20 < 0)
+  {
+    if (a6)
+    {
+      v22 = v15 + 1;
+      v71 = v15 + 1;
+      *(&v71 + v13) = *(v9 + 60) + v15 + 1;
+      v21 = a6 >> 1;
+    }
+
+    else
+    {
+      v71 = *(v9 + 60) + v15;
+      v22 = v71;
+      *(&v71 + v13) = v15;
+      v21 = v22 + 1;
+    }
+  }
+
+  else if (a6)
+  {
+    v23 = *(v9 + 60);
+    v21 = v15 + 1;
+    v22 = v23 + v15 + 1;
+    v71 = v22;
+    *(&v71 + v13) = v23 + v15;
+  }
+
+  else
+  {
+    v71 = a6 >> 1;
+    *(&v71 + v13) = v15 + 1;
+    v21 = *(v9 + 60) + v15;
+    v22 = a6 >> 1;
+  }
+
+  *(&v71 + v14) = v21;
+  if (!a5)
+  {
+    goto LABEL_44;
+  }
+
+  v24 = !v12;
+  v25 = 2;
+  if (v24)
+  {
+    v26 = 0;
+  }
+
+  else
+  {
+    v26 = 2;
+  }
+
+  if (!v24)
+  {
+    v25 = 0;
+  }
+
+  *(a5 + 4 * v26) = -1;
+  if (v19 < 0)
+  {
+    if (a6)
+    {
+      *(a5 + 4) = a6 - 1;
+      *(a5 + 4 * v25) = -1;
+      v33 = *(v9 + 60);
+      if (v15 % v33 < v33 - 2)
+      {
+        *(a5 + 4 * v26) = a6 + 1;
+        v33 = *(v9 + 60);
+      }
+
+      if (v15 < v33 - 1)
+      {
+        goto LABEL_44;
+      }
+
+      v30 = v15 - v33;
+      v31 = (*(v16 + 4 * (v15 - v33) + 2) >> 7) ^ 1;
+    }
+
+    else
+    {
+      *(a5 + 4) = a6 | 1;
+      *(a5 + 4 * v25) = -1;
+      v29 = *(v9 + 60);
+      if (v15 % v29)
+      {
+        *(a5 + 4 * v26) = a6 - 1;
+        v29 = *(v9 + 60);
+      }
+
+      if (v15 / v29 == *(v9 + 56) - 2)
+      {
+        goto LABEL_44;
+      }
+
+      v30 = v29 + v15;
+      v31 = *(v16 + 4 * (v29 + v15) + 2) >> 7;
+    }
+
+    v28 = v31 | (2 * v30);
+    goto LABEL_43;
+  }
+
+  if (a6)
+  {
+    *(a5 + 4) = a6 - 1;
+    *(a5 + 4 * v25) = -1;
+    v32 = *(v9 + 60);
+    if (v15 / v32 != *(v9 + 56) - 2)
+    {
+      *(a5 + 4 * v26) = (*(v16 + 4 * (v32 + v15) + 2) >> 7) | (2 * (v32 + v15));
+      v32 = *(v9 + 60);
+    }
+
+    if (v15 % v32 < v32 - 2)
+    {
+      v28 = a6 + 1;
+      goto LABEL_43;
+    }
+  }
+
+  else
+  {
+    *(a5 + 4) = a6 | 1;
+    *(a5 + 4 * v25) = -1;
+    v27 = *(v9 + 60);
+    if (v15 >= v27 - 1)
+    {
+      *(a5 + 4 * v26) = (*(v16 + 4 * (v15 - v27) + 2) >> 7) ^ 1 | (2 * (v15 - v27));
+      v27 = *(v9 + 60);
+    }
+
+    if (v15 % v27)
+    {
+      v28 = a6 - 1;
+LABEL_43:
+      *(a5 + 4 * v25) = v28;
+    }
+  }
+
+LABEL_44:
+  if (a4)
+  {
+    *a4 = v22;
+    *(a4 + 4) = v72;
+  }
+
+  if (a8)
+  {
+    v34 = *(v9 + 60);
+    v35 = v8[4];
+    v37 = a2[2];
+    v36 = a2[3];
+    v38 = (v36 * v36) + -0.5;
+    v39 = *a2;
+    v40 = a2[1];
+    v41 = -v37;
+    v42 = -*a2;
+    v43 = -v40;
+    v44 = 0;
+    v45 = (a3 + 8);
+    if (a7)
+    {
+      do
+      {
+        v46 = *(&v71 + v44);
+        v47 = (v11 * (v46 / v34)) + (v11 * (v46 / v34));
+        v48 = (v35 * *(v16 + 4 * v46)) + (v35 * *(v16 + 4 * v46));
+        v49 = (v10 * (v46 % v34)) + (v10 * (v46 % v34));
+        v50 = ((v40 * v48) + (v39 * v47)) + (v37 * v49);
+        v51 = (v36 * ((v49 * v42) + (v37 * v47))) + (v48 * v38);
+        v52 = ((v36 * ((v48 * v41) + (v40 * v49))) + (v47 * v38)) + (v39 * v50);
+        v53 = a2[6] + (((v36 * ((v47 * v43) + (v39 * v48))) + (v49 * v38)) + (v37 * v50));
+        v54 = a2[5] + (v51 + (v40 * v50));
+        *(v45 - 2) = a2[4] + v52;
+        *(v45 - 1) = v54;
+        *v45 = v53;
+        v45 += 3;
+        v44 += 4;
+      }
+
+      while (v44 != 12);
+    }
+
+    else
+    {
+      do
+      {
+        v55 = *(&v71 + v44);
+        v56 = (v11 * (v55 / v34)) + (v11 * (v55 / v34));
+        v57 = (v35 * *(v16 + 4 * v55)) + (v35 * *(v16 + 4 * v55));
+        v58 = (v10 * (v55 % v34)) + (v10 * (v55 % v34));
+        v59 = ((v40 * v57) + (v39 * v56)) + (v37 * v58);
+        *(v45 - 2) = ((v36 * ((v57 * v41) + (v40 * v58))) + (v56 * v38)) + (v39 * v59);
+        *(v45 - 1) = ((v36 * ((v58 * v42) + (v37 * v56))) + (v57 * v38)) + (v40 * v59);
+        *v45 = ((v36 * ((v56 * v43) + (v39 * v57))) + (v58 * v38)) + (v37 * v59);
+        v45 += 3;
+        v44 += 4;
+      }
+
+      while (v44 != 12);
+    }
+  }
+
+  else
+  {
+    v60 = 0;
+    v61 = a2[4];
+    v62 = a2[5];
+    v63 = a2[6];
+    if (!a7)
+    {
+      v61 = 0.0;
+      v62 = 0.0;
+      v63 = 0.0;
+    }
+
+    v64 = *(v9 + 60);
+    v65 = v8[4];
+    v66 = (a3 + 8);
+    do
+    {
+      v67 = *(&v71 + v60);
+      v68 = v62 + (v65 * *(v16 + 4 * v67));
+      *(v66 - 2) = v61 + (v11 * (v67 / v64));
+      *(v66 - 1) = v68;
+      *v66 = v63 + (v10 * (v67 % v64));
+      v66 += 3;
+      v60 += 4;
+    }
+
+    while (v60 != 12);
+  }
+
+  v69 = (v16 + 4 * v15 + 3);
+  if ((a6 & 1) == 0)
+  {
+    v69 = v18;
+  }
+
+  return (~*v69 & 0x7F) != 0;
+}
+
+BOOL GeomOverlapCallback_SphereHeightfield(uint64_t a1, float *a2, float32x2_t *a3, float *a4)
+{
+  *&v83[124] = *MEMORY[0x1E69E9840];
+  v4 = a2[4] - a4[4];
+  v5 = a2[5] - a4[5];
+  v6 = a2[6] - a4[6];
+  v7 = v4 + v4;
+  v8 = v5 + v5;
+  v9 = v6 + v6;
+  v11 = a4[2];
+  v10 = a4[3];
+  v12 = (v10 * v10) + -0.5;
+  v13 = a4[1];
+  v14 = ((v8 * v13) + (*a4 * v7)) + (v11 * v9);
+  v15 = ((v7 * v12) - (((v13 * v9) - (v11 * v8)) * v10)) + (*a4 * v14);
+  v16 = ((v8 * v12) - (((v11 * v7) - (*a4 * v9)) * v10)) + (v13 * v14);
+  v17 = ((v9 * v12) - (((*a4 * v8) - (v13 * v7)) * v10)) + (v11 * v14);
+  v18 = *(a1 + 4);
+  v19 = a3[1];
+  v79 = v19;
+  v80 = a3;
+  v20 = a3[3].f32[0];
+  v21 = a3[2];
+  __asm { FMOV            V2.2S, #1.0 }
+
+  v27 = vdiv_f32(_D2, v21);
+  v77 = vrev64_s32(v27);
+  v28 = 1.0 / v20;
+  v78 = 1.0 / v20;
+  v29 = vmuls_lane_f32(v15, v27, 1);
+  v30 = v17 * (1.0 / v20);
+  if (v29 < 0.0)
+  {
+    goto LABEL_18;
+  }
+
+  if (v30 < 0.0)
+  {
+    goto LABEL_18;
+  }
+
+  v31 = *(*&v19 + 64);
+  if (v29 >= (v31 + 1.0))
+  {
+    goto LABEL_18;
+  }
+
+  v32 = *(*&v19 + 68);
+  if (v30 >= (v32 + 1.0))
+  {
+    goto LABEL_18;
+  }
+
+  v33 = fmaxf(v29, 0.0);
+  v34 = fmaxf(v30, 0.0);
+  v35 = (1.0 - ((v33 + 1.0) * 0.000001)) + v31;
+  if (v33 < v35)
+  {
+    v35 = v33;
+  }
+
+  v36 = (1.0 - ((v34 + 1.0) * 0.000001)) + v32;
+  if (v34 < v36)
+  {
+    v36 = v34;
+  }
+
+  v37 = floorf(v35);
+  v38 = v35 - v37;
+  v39 = floorf(v36);
+  v40 = v36 - v39;
+  v41 = (v39 + (v37 * *(*&v19 + 72)));
+  v42 = *(*&v19 + 80);
+  v43 = (v42 + 4 * v41);
+  if ((v43[1] & 0x80000000) == 0)
+  {
+    v44 = *(v42 + 4 * (*(*&v19 + 60) + v41));
+    v45 = *(v42 + 4 * (v41 + 1));
+    if ((v38 + v40) >= 1.0)
+    {
+      v52 = *(v42 + 4 * (*(*&v19 + 60) + v41 + 1));
+      v47 = v52 + ((1.0 - v40) * (v44 - v52));
+      v38 = 1.0 - v38;
+      v48 = v45 - v52;
+    }
+
+    else
+    {
+      v46 = *v43;
+      v47 = v46 + (v40 * (v45 - v46));
+      v48 = v44 - v46;
+    }
+
+    goto LABEL_15;
+  }
+
+  v49 = *v43;
+  v50 = *(v42 + 4 * (*(*&v19 + 60) + v41 + 1));
+  if (v40 > v38)
+  {
+    v51 = *(v42 + 4 * (v41 + 1));
+    v47 = v49 + (v40 * (v51 - v49));
+    v48 = v50 - v51;
+LABEL_15:
+    v53 = v47 + (v38 * v48);
+    goto LABEL_16;
+  }
+
+  v76 = *(v42 + 4 * (*(*&v19 + 60) + v41));
+  v53 = (v49 + (v38 * (v76 - v49))) + (v40 * (v50 - v76));
+LABEL_16:
+  if ((v16 - (v53 * v21.f32[0])) == 0.0)
+  {
+    return physx::Gu::HeightFieldUtil::getFaceIndexAtShapePoint(&v77, v15, v17) != -1;
+  }
+
+LABEL_18:
+  v55 = v18 * fabsf(*&v27.i32[1]);
+  v56 = v18 * fabsf(v28);
+  v58 = *(*&v19 + 56);
+  v57 = *(*&v19 + 60);
+  v59 = v58 - 2;
+  v60 = vcvtms_u32_f32(v29 - v55);
+  if ((v29 - v55) <= (v58 - 2))
+  {
+    v59 = v60;
+  }
+
+  if ((v29 - v55) >= 0.0)
+  {
+    v61 = v59;
+  }
+
+  else
+  {
+    v61 = 0;
+  }
+
+  v62 = v29 + v55;
+  v63 = v58 - 1;
+  v64 = vcvtps_u32_f32(v62);
+  if (v62 <= v63)
+  {
+    v63 = v64;
+  }
+
+  if (v62 >= 0.0)
+  {
+    v65 = v63;
+  }
+
+  else
+  {
+    v65 = 0;
+  }
+
+  v66 = v57 - 2;
+  v67 = vcvtms_u32_f32(v30 - v56);
+  if ((v30 - v56) <= (v57 - 2))
+  {
+    v66 = v67;
+  }
+
+  if ((v30 - v56) >= 0.0)
+  {
+    v68 = v66;
+  }
+
+  else
+  {
+    v68 = 0;
+  }
+
+  v69 = v30 + v56;
+  if (v69 >= 0.0)
+  {
+    v70 = v57 - 1;
+    if (v69 <= (v57 - 1))
+    {
+      v70 = vcvtps_u32_f32(v69);
+    }
+  }
+
+  else
+  {
+    v70 = 0;
+  }
+
+  if (v61 >= v65)
+  {
+    return 0;
+  }
+
+  v71 = v18 * v18;
+  while (v68 >= v70)
+  {
+LABEL_46:
+    result = 0;
+    v61 = (v61 + 1);
+    if (v61 == v65)
+    {
+      return result;
+    }
+  }
+
+  v72 = v68;
+  while (1)
+  {
+    v81[0] = v15;
+    v81[1] = v16;
+    v81[2] = v17;
+    ClosestPointsOnCell = physx::Gu::HeightFieldUtil::findClosestPointsOnCell(&v77, v61, v72, v81, v82);
+    if (ClosestPointsOnCell)
+    {
+      break;
+    }
+
+LABEL_45:
+    v72 = (v72 + 1);
+    if (v72 == v70)
+    {
+      goto LABEL_46;
+    }
+  }
+
+  v74 = ClosestPointsOnCell;
+  v75 = v83;
+  while (((((v16 - *(v75 - 1)) * (v16 - *(v75 - 1))) + ((v15 - *(v75 - 2)) * (v15 - *(v75 - 2)))) + ((v17 - *v75) * (v17 - *v75))) > v71)
+  {
+    v75 += 3;
+    if (!--v74)
+    {
+      goto LABEL_45;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t GeomOverlapCallback_CapsuleHeightfield(uint64_t a1, float *a2, float32x2_t *a3, float *a4, double a5, double a6, double a7, __n128 a8)
+{
+  LODWORD(v8) = 0;
+  v9 = 0;
+  v164 = *MEMORY[0x1E69E9840];
+  v10 = a4[1];
+  v11 = a4[2];
+  v12 = a4[3];
+  v13 = a2[4] - a4[4];
+  v14 = a2[5] - a4[5];
+  v15 = a2[6] - a4[6];
+  v16 = v13 + v13;
+  v17 = v14 + v14;
+  v18 = v15 + v15;
+  v19 = (v12 * v12) + -0.5;
+  v20 = (-(v10 * (v14 + v14)) - (*a4 * (v13 + v13))) - (v11 * v18);
+  v21 = ((v12 * ((v11 * (v14 + v14)) - (v10 * v18))) + ((v13 + v13) * v19)) - (*a4 * v20);
+  v22 = ((v12 * ((*a4 * v18) - (v11 * v16))) + ((v14 + v14) * v19)) - (v10 * v20);
+  v23 = ((v12 * ((v10 * v16) - (*a4 * v17))) + (v18 * v19)) - (v11 * v20);
+  v25 = a2[2];
+  v24 = a2[3];
+  v26 = a2[1];
+  v27 = (((v12 * *a2) - (*a4 * v24)) - (v10 * v25)) + (v26 * v11);
+  v28 = (((v12 * v26) - (v10 * v24)) - (v11 * *a2)) + (v25 * *a4);
+  v29 = (((v12 * v25) - (v11 * v24)) - (*a4 * v26)) + (*a2 * v10);
+  a8.n128_f32[0] = (((*a4 * *a2) + (v12 * v24)) + (v10 * v26)) + (v11 * v25);
+  v30 = a3[1];
+  v154 = v30;
+  v155 = a3;
+  v31 = a3[3].f32[0];
+  __asm { FMOV            V6.2S, #1.0 }
+
+  v37 = vdiv_f32(_D6, a3[2]);
+  v152 = vrev64_s32(v37);
+  v38 = 1.0;
+  v39 = 1.0 / v31;
+  v153 = 1.0 / v31;
+  v40 = ((v27 + v27) * v28) + (v29 * (a8.n128_f32[0] + a8.n128_f32[0]));
+  v41 = (v29 * (v27 + v27)) - (v28 * (a8.n128_f32[0] + a8.n128_f32[0]));
+  v42 = *(a1 + 4);
+  _D6.i32[0] = *(a1 + 8);
+  a8.n128_f32[0] = (((a8.n128_f32[0] * (a8.n128_f32[0] + a8.n128_f32[0])) + -1.0) + (v27 * (v27 + v27))) * _D6.f32[0];
+  v43 = v40 * _D6.f32[0];
+  v44 = v41 * _D6.f32[0];
+  v45 = v21 + a8.n128_f32[0];
+  v46 = v21 - a8.n128_f32[0];
+  v143 = a8.n128_f32[0] * -2.0;
+  v145 = v43 * -2.0;
+  a8.n128_f32[0] = v44 * -2.0;
+  v147 = a8;
+  v138 = v45;
+  v139 = v22 + v43;
+  *v162 = v45;
+  *&v162[1] = v22 + v43;
+  v47 = v162;
+  v141 = v23 + v44;
+  *&v162[2] = v23 + v44;
+  *v163 = v46;
+  *&v163[1] = v22 - v43;
+  *&v163[2] = v23 - v44;
+  v48 = *&v37.i32[1];
+  v49 = fabsf(*&v37.i32[1]) * v42;
+  v50 = fabsf(v39) * v42;
+  v51 = v42 * v42;
+  LODWORD(v52) = -1;
+  v53 = 1;
+  v54 = -1;
+  do
+  {
+    v55 = v53;
+    v56 = *v47;
+    v57 = v48 * *v47;
+    v58 = v47[2];
+    v59 = v39 * v58;
+    v61 = *(*&v30 + 56);
+    v60 = *(*&v30 + 60);
+    v62 = v61 - 2;
+    v63 = vcvtms_u32_f32(v57 - v49);
+    if ((v57 - v49) <= (v61 - 2))
+    {
+      v62 = v63;
+    }
+
+    if ((v57 - v49) >= 0.0)
+    {
+      v64 = v62;
+    }
+
+    else
+    {
+      v64 = 0;
+    }
+
+    v65 = v61 - 1;
+    v66 = vcvtps_u32_f32(v49 + v57);
+    if ((v49 + v57) <= v65)
+    {
+      v65 = v66;
+    }
+
+    if ((v49 + v57) >= 0.0)
+    {
+      v67 = v65;
+    }
+
+    else
+    {
+      v67 = 0;
+    }
+
+    v68 = v60 - 2;
+    v69 = vcvtms_u32_f32(v59 - v50);
+    if ((v59 - v50) <= (v60 - 2))
+    {
+      v68 = v69;
+    }
+
+    if ((v59 - v50) >= 0.0)
+    {
+      v70 = v68;
+    }
+
+    else
+    {
+      v70 = 0;
+    }
+
+    v71 = v50 + v59;
+    if ((v50 + v59) >= 0.0)
+    {
+      v72 = v60 - 1;
+      if (v71 <= (v60 - 1))
+      {
+        v72 = vcvtps_u32_f32(v71);
+      }
+    }
+
+    else
+    {
+      v72 = 0;
+    }
+
+    v73 = v47[1];
+    if (v64 >= v52)
+    {
+      v52 = v52;
+    }
+
+    else
+    {
+      v52 = v64;
+    }
+
+    if (v70 < v54)
+    {
+      v54 = v70;
+    }
+
+    if (v67 <= v8)
+    {
+      v8 = v8;
+    }
+
+    else
+    {
+      v8 = v67;
+    }
+
+    if (v72 > v9)
+    {
+      v9 = v72;
+    }
+
+    v150 = v54;
+    if (v57 < 0.0)
+    {
+      goto LABEL_50;
+    }
+
+    if (v59 < 0.0)
+    {
+      goto LABEL_50;
+    }
+
+    v74 = *(*&v30 + 64);
+    if (v57 >= (v74 + v38))
+    {
+      goto LABEL_50;
+    }
+
+    v75 = *(*&v30 + 68);
+    if (v59 >= (v75 + v38))
+    {
+      goto LABEL_50;
+    }
+
+    v76 = fmaxf(v57, 0.0);
+    v77 = fmaxf(v59, 0.0);
+    v78 = v38 - ((v77 + v38) * 0.000001);
+    v79 = (v38 - ((v76 + v38) * 0.000001)) + v74;
+    if (v76 >= v79)
+    {
+      v76 = v79;
+    }
+
+    if (v77 >= (v78 + v75))
+    {
+      v77 = v78 + v75;
+    }
+
+    v80 = floorf(v76);
+    v81 = v76 - v80;
+    v82 = floorf(v77);
+    v83 = v77 - v82;
+    v84 = (v82 + (v80 * *(*&v30 + 72)));
+    v85 = *(*&v30 + 80);
+    v86 = (v85 + 4 * v84);
+    if ((v86[1] & 0x80000000) == 0)
+    {
+      v87 = v60 + v84;
+      v88 = *(v85 + 4 * v87);
+      v89 = *(v85 + 4 * (v84 + 1));
+      if ((v81 + v83) < v38)
+      {
+        v90 = *v86;
+        v91 = v90 + (v83 * (v89 - v90));
+        v92 = v88 - v90;
+LABEL_46:
+        v96 = v91 + (v81 * v92);
+        goto LABEL_47;
+      }
+
+      v95 = *(v85 + 4 * (v87 + 1));
+      v91 = v95 + ((v38 - v83) * (v88 - v95));
+      v81 = v38 - v81;
+LABEL_45:
+      v92 = v89 - v95;
+      goto LABEL_46;
+    }
+
+    v93 = *v86;
+    v94 = v60 + v84;
+    v89 = *(v85 + 4 * (v94 + 1));
+    if (v83 > v81)
+    {
+      v95 = *(v85 + 4 * (v84 + 1));
+      v91 = v93 + (v83 * (v95 - v93));
+      goto LABEL_45;
+    }
+
+    v107 = *(v85 + 4 * v94);
+    v96 = (v93 + (v81 * (v107 - v93))) + (v83 * (v89 - v107));
+LABEL_47:
+    if ((v73 - (a3[2].f32[0] * v96)) == 0.0)
+    {
+      v97 = v9;
+      if (physx::Gu::HeightFieldUtil::getFaceIndexAtShapePoint(&v152, v56, v58) != -1)
+      {
+        return 1;
+      }
+
+      goto LABEL_60;
+    }
+
+LABEL_50:
+    v97 = v9;
+    if (v64 < v67)
+    {
+      while (1)
+      {
+        v98 = v30;
+        v99 = v52;
+        v100 = v55;
+        v101 = v8;
+        if (v70 < v72)
+        {
+          break;
+        }
+
+LABEL_59:
+        v64 = (v64 + 1);
+        v8 = v101;
+        v55 = v100;
+        v52 = v99;
+        v30 = v98;
+        if (v64 == v67)
+        {
+          goto LABEL_60;
+        }
+      }
+
+      v102 = v70;
+      while (1)
+      {
+        v160.i64[0] = __PAIR64__(LODWORD(v73), LODWORD(v56));
+        v160.f32[2] = v58;
+        ClosestPointsOnCell = physx::Gu::HeightFieldUtil::findClosestPointsOnCell(&v152, v64, v102, v160.f32, &v161);
+        if (ClosestPointsOnCell)
+        {
+          break;
+        }
+
+LABEL_58:
+        v102 = (v102 + 1);
+        if (v102 == v72)
+        {
+          goto LABEL_59;
+        }
+      }
+
+      v104 = ClosestPointsOnCell;
+      v105 = &v161.f32[2];
+      while (1)
+      {
+        v106 = v73 - *(v105 - 1);
+        if (v106 > 0.0 && (((v106 * v106) + ((v56 - *(v105 - 2)) * (v56 - *(v105 - 2)))) + ((v58 - *v105) * (v58 - *v105))) <= v51)
+        {
+          return 1;
+        }
+
+        v105 += 3;
+        if (!--v104)
+        {
+          goto LABEL_58;
+        }
+      }
+    }
+
+LABEL_60:
+    v53 = 0;
+    v47 = v163;
+    v9 = v97;
+    v54 = v150;
+    v38 = 1.0;
+  }
+
+  while ((v55 & 1) != 0);
+  v108.i64[0] = __PAIR64__(LODWORD(v139), LODWORD(v138));
+  v108.i64[1] = LODWORD(v141);
+  v161 = v108;
+  v109.i64[0] = __PAIR64__(LODWORD(v145), LODWORD(v143));
+  v109.i64[1] = v147.n128_u32[0];
+  v160 = v109;
+  if (v52 > v8)
+  {
+    return 0;
+  }
+
+  v146 = v147;
+  v151 = v147;
+  v144 = v147;
+  v142 = v147;
+  v149 = v147;
+  v135 = v9;
+  v136 = v8;
+  while (v150 > v9)
+  {
+LABEL_67:
+    LODWORD(v52) = v52 + 1;
+    if (v52 > v8)
     {
       return 0;
     }
   }
 
-  return *i;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::attachShape(physx::PxRigidActor *a1, physx::NpShape *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(a1 + 10))
+  if (v52 == v8)
   {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 233, "PxRigidActor::attachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8, v11);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  physx::NpShapeManager::attachShape((a1 + 40), a2, a1);
-  return 1;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::detachShape(physx::PxRigidActor *a1, physx::NpShape *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 247, "PxRigidActor::detachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8, v17);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  result = physx::NpShapeManager::detachShape((a1 + 40), a2, a1, a3);
-  if ((result & 1) == 0)
-  {
-    v16 = physx::shdfnd::Foundation::mInstance;
-
-    return physx::shdfnd::Foundation::error(v16, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 253, "PxRigidActor::detachShape: shape is not attached to this actor!", v13, v14, v15, a9);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::getShapes(uint64_t a1, void *a2, unsigned int a3, int a4)
-{
-  v4 = (a1 + 40);
-  v5 = *(a1 + 48);
-  if (v5 != 1)
-  {
-    v4 = *v4;
-  }
-
-  v6 = (v5 - a4) & ~((v5 - a4) >> 31);
-  if (v6 >= a3)
-  {
-    result = a3;
+    v111 = 1;
   }
 
   else
   {
-    result = v6;
+    v111 = 3;
   }
 
-  if (result)
+  v137 = *(*&v30 + 60);
+  v112 = v52;
+  v113 = v150;
+  while (1)
   {
-    v8 = &v4[a4];
-    v9 = result;
-    do
+    v114 = 2 * (v113 == v9);
+    if (v114 < v111)
     {
-      v10 = *v8++;
-      *a2++ = v10;
-      --v9;
+      break;
     }
 
-    while (v9);
+    v134 = v113 + 1;
+LABEL_88:
+    v113 = v134;
+    if (v134 > v9)
+    {
+      goto LABEL_67;
+    }
   }
 
-  return result;
+  v115 = v137 * v52 + v113;
+  v140 = (v115 + v137);
+  v116 = v113;
+  v117 = (v115 + 1);
+  while (1)
+  {
+    if (physx::Gu::HeightFieldUtil::getEdgeFaceIndex(*&v30, 3 * v115 + v114, v115, v52, v113) != -1)
+    {
+      if (v114 == 2)
+      {
+        v130 = *(*&v30 + 80);
+        v131 = a3[2].f32[0];
+        v118.n128_u32[0] = a3[2].u32[1];
+        v119.n128_f32[0] = v131 * *(v130 + 4 * v115);
+        v120.n128_f32[0] = v118.n128_f32[0] * v112;
+        v121.n128_f32[0] = a3[3].f32[0] * v116;
+        v123.n128_f32[0] = (v131 * *(v130 + 4 * v140)) - v119.n128_f32[0];
+        v122.n128_u64[0] = 0;
+      }
+
+      else if (v114 == 1)
+      {
+        v126 = *(*&v30 + 80);
+        v127 = (v126 + 4 * v115);
+        v128 = a3[2].f32[0];
+        if (v127[1] < 0)
+        {
+          v119.n128_f32[0] = v128 * *v127;
+          v118.n128_u32[0] = a3[2].u32[1];
+          v122.n128_u32[0] = a3[3].u32[0];
+          v120.n128_f32[0] = v118.n128_f32[0] * v112;
+          v121.n128_f32[0] = v122.n128_f32[0] * v116;
+          v123.n128_f32[0] = (v128 * *(v126 + 4 * (v117 + v137))) - v119.n128_f32[0];
+        }
+
+        else
+        {
+          v119.n128_f32[0] = v128 * *(v126 + 4 * v117);
+          v118.n128_u32[0] = a3[2].u32[1];
+          v129 = a3[3].f32[0];
+          v120.n128_f32[0] = v118.n128_f32[0] * v112;
+          v121.n128_f32[0] = v129 * (v113 + 1);
+          v123.n128_f32[0] = (v128 * *(v126 + 4 * v140)) - v119.n128_f32[0];
+          v122.n128_f32[0] = -v129;
+        }
+      }
+
+      else
+      {
+        v119 = v151;
+        v118 = v149;
+        v121 = v146;
+        v120 = v147;
+        v123 = v142;
+        v122 = v144;
+        if (!v114)
+        {
+          v124 = *(*&v30 + 80);
+          v125 = a3[2].f32[0];
+          v119.n128_f32[0] = v125 * *(v124 + 4 * v115);
+          v120.n128_f32[0] = a3[2].f32[1] * v112;
+          v122.n128_u32[0] = a3[3].u32[0];
+          v121.n128_f32[0] = v122.n128_f32[0] * v116;
+          v123.n128_f32[0] = (v125 * *(v124 + 4 * v117)) - v119.n128_f32[0];
+          v118.n128_u64[0] = 0;
+        }
+      }
+
+      v146 = v121;
+      v147 = v120;
+      v132.i64[0] = __PAIR64__(v119.n128_u32[0], v120.n128_u32[0]);
+      v151 = v119;
+      v132.i64[1] = v121.n128_u32[0];
+      v149 = v118;
+      v133.i64[0] = __PAIR64__(v123.n128_u32[0], v118.n128_u32[0]);
+      v142 = v123;
+      v144 = v122;
+      v133.i64[1] = v122.n128_u32[0];
+      v158 = v133;
+      v159 = v132;
+      if (physx::Gu::distanceSegmentSegmentSquared(&v161, &v160, &v159, &v158, &v157, &v156).f32[0] < v51)
+      {
+        return 1;
+      }
+    }
+
+    if (v111 == ++v114)
+    {
+      v9 = v135;
+      LODWORD(v8) = v136;
+      v134 = v113 + 1;
+      goto LABEL_88;
+    }
+  }
 }
 
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::getNbConstraints(uint64_t a1)
+uint64_t GeomOverlapCallback_BoxHeightfield(uint64_t a1, float *a2, float32x2_t *a3, uint64_t a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
-  v1 = *(a1 + 32);
-  if (!v1)
-  {
-    return 0;
-  }
+  v18 = 0;
+  v221[23] = *MEMORY[0x1E69E9840];
+  v19 = *(a4 + 4);
+  v20 = -*a4;
+  v21 = -v19;
+  v12.i32[0] = *(a4 + 8);
+  v22 = *(a4 + 12);
+  v23 = -*v12.i32;
+  v24 = a2[4] - *(a4 + 16);
+  v25 = a2[5] - *(a4 + 20);
+  v26 = a2[6] - *(a4 + 24);
+  *v11.i32 = v24 + v24;
+  v27 = v25 + v25;
+  v28 = v26 + v26;
+  v29 = (v22 * v22) + -0.5;
+  *&a10 = -(v19 * (v25 + v25)) - (*a4 * *v11.i32);
+  *&a11 = (v22 * ((*v12.i32 * v27) - (v19 * (v26 + v26)))) + (*v11.i32 * v29);
+  v30 = (v22 * ((*a4 * v28) - (*v12.i32 * *v11.i32))) + (v27 * v29);
+  v31 = v22 * ((v19 * *v11.i32) - (*a4 * v27));
+  v33 = a2[2];
+  v32 = a2[3];
+  v34 = a2[1];
+  v35 = (((v22 * *a2) - (*a4 * v32)) - (v19 * v33)) + (v34 * *v12.i32);
+  *v14.i32 = (((v22 * v34) - (v19 * v32)) - (*v12.i32 * *a2)) + (v33 * *a4);
+  *v11.i32 = (((v22 * v33) - (*v12.i32 * v32)) - (*a4 * v34)) + (*a2 * v19);
+  v36 = ((*a4 * *a2) + (v22 * v32)) + (v19 * v34);
+  v37 = vdup_lane_s32(v11, 0);
+  *v12.i32 = v36 + (*v12.i32 * v33);
+  v38 = vdup_lane_s32(v12, 0);
+  *v15.i32 = v35 + v35;
+  v39 = vdup_lane_s32(v15, 0);
+  v40 = v31 + (v28 * v29);
+  *v16.i32 = *v14.i32 + *v14.i32;
+  v41 = vdup_lane_s32(v16, 0);
+  *v13.i32 = v35 * (v35 + v35);
+  v42 = vmul_n_f32(vdup_lane_s32(v14, 0), *v14.i32 + *v14.i32);
+  v43 = vmul_n_f32(v37, *v11.i32 + *v11.i32);
+  v44 = vmul_n_f32(v39, *v14.i32);
+  v45 = vmul_n_f32(v38, v35 + v35);
+  v46 = vmul_n_f32(v37, *v14.i32 + *v14.i32);
+  v47 = vmul_n_f32(v38, *v11.i32 + *v11.i32);
+  LODWORD(v48) = vadd_f32(v44, v47).u32[0];
+  v49 = vsub_f32(v44, v47);
+  v204 = vadd_f32(v45, v46);
+  v202 = vsub_f32(v46, v45);
+  v50 = v49.f32[1];
+  v51 = *(a1 + 4);
+  v52 = *(a1 + 12);
+  v53 = a3[1];
+  v211 = v53;
+  v212 = a3;
+  v54 = a3[3].f32[0];
+  v55 = a3[2];
+  __asm { FMOV            V27.2S, #1.0 }
 
-  v2 = *(v1 + 80);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  LODWORD(result) = 0;
-  v4 = *(v1 + 72);
+  v61 = vdiv_f32(_D27, v55);
+  v209 = vrev64_s32(v61);
+  v62 = 1.0 / v54;
+  v210 = 1.0 / v54;
   do
   {
-    v5 = *v4;
-    v4 += 16;
-    if (v5)
-    {
-      result = result;
-    }
-
-    else
-    {
-      result = (result + 1);
-    }
-
-    --v2;
+    v63 = (&physx::Gu::signs + v18 * 8);
+    v224 = vld3q_f32(v63);
+    v222.val[0] = vmulq_n_f32(v224.val[0], v51.f32[0]);
+    v222.val[1] = vmulq_lane_f32(v224.val[1], v51, 1);
+    v222.val[2] = vmulq_n_f32(v224.val[2], v52);
+    v64 = &v221[v18 + 11];
+    vst3q_f32(v64, v222);
+    v18 += 6;
   }
 
-  while (v2);
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  physx::NpShapeManager::exportExtraData(a1 + 40, a2);
-
-  return physx::NpActor::exportExtraData((a1 + 24), a2);
-}
-
-void *physx::NpRigidActorTemplate<physx::PxRigidStatic>::importExtraData(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 48);
-  if (v2 >= 2)
-  {
-    v3 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-    *(a2 + 8) = v3 + 8 * v2;
-    *(a1 + 40) = v3;
-  }
-
-  v4 = *(a1 + 64);
-  if (v4 >= 2)
-  {
-    v5 = (*(a2 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-    *(a2 + 8) = v5 + 8 * v4;
-    *(a1 + 56) = v5;
-  }
-
-  return physx::NpActor::importExtraData((a1 + 24), a2);
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::resolveReferences(uint64_t a1, uint64_t (***a2)(void, uint64_t))
-{
-  v4 = (a1 + 40);
-  v5 = *(a1 + 48);
-  if (v5 != 1)
-  {
-    if (!*(a1 + 48))
-    {
-      goto LABEL_10;
-    }
-
-    v4 = *v4;
-  }
-
+  while (v18 != 12);
+  v200 = v52;
+  v207 = v51;
+  v65 = 0;
+  v66 = *&a10 + (v23 * v28);
+  v67 = *&a11 + (v20 * v66);
+  *&a11 = v30 + (v21 * v66);
+  *&a10 = v40 + (v23 * v66);
+  v68 = vmul_n_f32(v39, *v11.i32);
+  v69 = vmul_n_f32(v41, *v12.i32);
+  v70 = vsub_f32(_D27, vdup_lane_s32(v13, 0));
+  LODWORD(v71) = vsub_f32(v68, v69).u32[0];
+  LODWORD(v72) = vsub_f32(v70, v43).u32[0];
+  v73 = vadd_f32(v68, v69);
+  LODWORD(v74) = vsub_f32(v70, v42).u32[0];
+  v75 = (1.0 - v42.f32[1]) - v43.f32[1];
+  v76 = v73.f32[1];
+  v194 = v67;
+  v195 = LODWORD(a11);
+  v77 = vdupq_lane_s32(*v224.val[0].f32, 0);
+  v78 = vdupq_lane_s32(*&a11, 0);
+  v197 = LODWORD(a10);
+  v79 = vdupq_lane_s32(*&a10, 0);
   do
   {
-    if (*v4)
-    {
-      v6 = (**a2)(a2, 0x80000000);
-      *v4 = v6;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    atomic_fetch_add((v6 + 32), 1u);
-    if ((*(v6 + 264) & 0x80000000) != 0)
-    {
-      *(v6 + 40) = a1;
-    }
-
-    atomic_fetch_add((v6 + 264), 1u);
-    ++v4;
-    --v5;
+    v80 = &v221[v65 + 11];
+    v223 = vld3q_f32(v80);
+    v81 = vaddq_f32(vmulq_n_f32(v223.val[0], v75), vmulq_lane_f32(v223.val[1], v49, 1));
+    v82 = vaddq_f32(vmulq_n_f32(v223.val[0], v48), vmulq_n_f32(v223.val[1], v72));
+    v223.val[0] = vaddq_f32(vaddq_f32(vmulq_n_f32(v223.val[0], v71), vmulq_n_f32(v223.val[1], v204.f32[0])), vmulq_n_f32(v223.val[2], v74));
+    v223.val[1] = vaddq_f32(v77, vaddq_f32(v81, vmulq_lane_f32(v223.val[2], v73, 1)));
+    v223.val[2] = vaddq_f32(v78, vaddq_f32(v82, vmulq_n_f32(v223.val[2], v202.f32[0])));
+    v83 = vaddq_f32(v79, v223.val[0]);
+    v84 = &v220[v65 * 8];
+    vst3q_f32(v84, *(&v223 + 16));
+    v65 += 6;
   }
 
-  while (v5);
-LABEL_10:
-
-  return physx::NpActor::resolveReferences(a1 + 24, a2);
-}
-
-uint64_t physx::NpScene::getTaskManager(physx::NpScene *this)
-{
-  return *(this + 1170);
-}
-
-{
-  return *(this + 1170);
-}
-
-void physx::NpContactCallbackTask::~NpContactCallbackTask(physx::NpContactCallbackTask *this)
-{
-  *this = &unk_1F5D1C1B0;
-  *(this + 2) = 0;
-}
-
-{
-  *this = &unk_1F5D1C1B0;
-  *(this + 2) = 0;
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::release(physx::PxRigidActor *a1)
-{
-  physx::NpActor::releaseConstraints(a1 + 24, a1);
-  v5 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 4) + 18);
-  if (((*(v5 + 2) >> 30) - 1) > 1)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v6 = *v5;
-    if (v6)
-    {
-      v7 = (v6 - 16);
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-  }
-
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 200, "PxRigidActor::release: Actor is part of a pruning structure, pruning structure is now invalid!", v2, v3, v4, v16);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  result = physx::NpShapeManager::detachAll((a1 + 40), v7, a1);
-  v14 = *(a1 + 4);
-  if (v14)
-  {
-    v15 = *(*(v14 + 72) + 8);
-
-    return physx::NpAggregate::removeActorAndReinsert(v15, a1, 0, v9, v10, v11, v12, v13);
-  }
-
-  return result;
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidDynamic>::attachShape(physx::PxRigidActor *a1, physx::NpShape *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 233, "PxRigidActor::attachShape: Actor is part of a pruning structure, pruning structure is now invalid!", a6, a7, a8, v11);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  physx::NpShapeManager::attachShape((a1 + 40), a2, a1);
-  return 1;
-}
-
-physx::PxActor *physx::NpActorTemplate<physx::PxRigidDynamic>::release(physx::PxActor *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *(result + 4);
-  if (v8)
-  {
-    return physx::NpAggregate::removeActorAndReinsert(*(*(v8 + 72) + 8), result, 0, a4, a5, a6, a7, a8);
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxRigidDynamic>::setActorFlag(int32x2_t *result, int a2, int a3)
-{
-  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v4 = *(v3 + 8);
-  if (a3)
-  {
-    if (v4)
-    {
-      v6 = *(v3 + 16);
-      v7 = (v4 >> 24) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-    }
-
-    else
-    {
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3) + v3;
-      v6 = (v5 + 12);
-      v7 = (v4 >> 24) & 0xF;
-    }
-
-    v9 = *v6 | a2;
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v8 = *(v3 + 16);
-      v7 = (v4 >> 24) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-    }
-
-    else
-    {
-      LODWORD(v7) = BYTE3(v4) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-      v8 = (v5 + 12);
-    }
-
-    v9 = *v8 & ~a2;
-  }
-
-  v10 = v4 >> 30;
-  if (v10 == 2)
-  {
-    result = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else if (v10 == 3)
-  {
-    result = *v3;
-LABEL_14:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(result, v7);
-      *(v3 + 16) = Stream;
-      result = *v3;
-    }
-
-    *Stream = v9;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
-    *(v3 + 8) |= 1u;
-    return result;
-  }
-
-  if (v9 != *(v5 + 12))
-  {
-    *(v5 + 12) = v9;
-    result = *v5;
-    if (*v5)
-    {
-      v12 = *(*result + 16);
-
-      return v12();
-    }
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxRigidDynamic>::setActorFlags(int32x2_t *result, unsigned __int8 *a2)
-{
-  v2 = *a2;
-  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v4 = *(v3 + 8);
-  v5 = (v4 >> 24) & 0xF;
-  v6 = v4 >> 30;
-  if (v6 == 2)
-  {
-    result = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v6 == 3)
-  {
-    result = *v3;
-LABEL_5:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(result, v5);
-      *(v3 + 16) = Stream;
-      result = *v3;
-    }
-
-    *Stream = v2;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
-    *(v3 + 8) |= 1u;
-    return result;
-  }
-
-  v8 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3) + v3;
-  if (v2 != *(v8 + 12))
-  {
-    *(v8 + 12) = v2;
-    result = *v8;
-    if (*v8)
-    {
-      v9 = *(*result + 16);
-
-      return v9();
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::Scb::Body::setKinematicTarget(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *(v4 + 8176);
-  v6 = *(a1 + 8);
-  if (v6 >> 30 != 3 && (v6 >> 30 != 2 || (*(v4 + 7689) & 1) == 0))
-  {
-    result = physx::Sc::BodyCore::setKinematicTarget((a1 + 32), *(v4 + 4384), a2, v5);
-    *(a1 + 280) = 0;
-    *(a1 + 276) = v5;
-    return result;
-  }
-
-  Stream = *(a1 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(v4, HIBYTE(v6) & 0xF);
-    *(a1 + 16) = Stream;
-    v4 = *a1;
-  }
-
-  *(Stream + 272) = *a2;
-  *(Stream + 288) = *(a2 + 16);
-  *(Stream + 296) = *(a2 + 24);
-  physx::Scb::Scene::scheduleForUpdate(v4, a1);
-  *(a1 + 284) |= 0x8000u;
-  v8 = *(a1 + 8) >> 30;
-  if (v8 == 2)
-  {
-    v9 = *a1;
-    if (*(*a1 + 7689))
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else if (v8 == 3)
-  {
-    v9 = *a1;
-LABEL_11:
-    *(a1 + 280) = 0;
-    *(a1 + 276) = v5;
-    result = physx::Scb::Scene::scheduleForUpdate(v9, a1);
-    *(a1 + 284) = *(a1 + 284) & 0xF8FFFFFF | 0x5000000;
-    return result;
-  }
-
-  *(a1 + 280) = 0;
-  *(a1 + 276) = v5;
-
-  return physx::Sc::BodyCore::setWakeCounter(a1 + 32, v5, 1);
-}
-
-uint64_t physx::NpRigidActorTemplate<physx::PxRigidStatic>::release(physx::PxRigidActor *a1)
-{
-  physx::NpActor::releaseConstraints(a1 + 24, a1);
-  v5 = a1 + *(&physx::NpActor::sLazyInitOffsets + *(a1 + 4) + 18);
-  if (((*(v5 + 2) >> 30) - 1) > 1)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v6 = *v5;
-    if (v6)
-    {
-      v7 = (v6 - 16);
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-  }
-
-  if (*(a1 + 10))
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physx/src/NpRigidActorTemplate.h", 200, "PxRigidActor::release: Actor is part of a pruning structure, pruning structure is now invalid!", v2, v3, v4, v16);
-    physx::Sq::PruningStructure::invalidate(*(a1 + 10), a1);
-  }
-
-  result = physx::NpShapeManager::detachAll((a1 + 40), v7, a1);
-  v14 = *(a1 + 4);
-  if (v14)
-  {
-    v15 = *(*(v14 + 72) + 8);
-
-    return physx::NpAggregate::removeActorAndReinsert(v15, a1, 0, v9, v10, v11, v12, v13);
-  }
-
-  return result;
-}
-
-physx::PxActor *physx::NpActorTemplate<physx::PxRigidStatic>::release(physx::PxActor *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *(result + 4);
-  if (v8)
-  {
-    return physx::NpAggregate::removeActorAndReinsert(*(*(v8 + 72) + 8), result, 0, a4, a5, a6, a7, a8);
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxRigidStatic>::setActorFlag(int32x2_t *result, int a2, int a3)
-{
-  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v4 = *(v3 + 8);
-  if (a3)
-  {
-    if (v4)
-    {
-      v6 = *(v3 + 16);
-      v7 = (v4 >> 24) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-    }
-
-    else
-    {
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + ((v4 >> 24) & 0xF) + 3) + v3;
-      v6 = (v5 + 12);
-      v7 = (v4 >> 24) & 0xF;
-    }
-
-    v9 = *v6 | a2;
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v8 = *(v3 + 16);
-      v7 = (v4 >> 24) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-    }
-
-    else
-    {
-      LODWORD(v7) = BYTE3(v4) & 0xF;
-      v5 = *(&physx::Scb::Actor::sLazyInitOffsets + v7 + 3) + v3;
-      v8 = (v5 + 12);
-    }
-
-    v9 = *v8 & ~a2;
-  }
-
-  v10 = v4 >> 30;
-  if (v10 == 2)
-  {
-    result = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else if (v10 == 3)
-  {
-    result = *v3;
-LABEL_14:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(result, v7);
-      *(v3 + 16) = Stream;
-      result = *v3;
-    }
-
-    *Stream = v9;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
-    *(v3 + 8) |= 1u;
-    return result;
-  }
-
-  if (v9 != *(v5 + 12))
-  {
-    *(v5 + 12) = v9;
-    result = *v5;
-    if (*v5)
-    {
-      v12 = *(*result + 16);
-
-      return v12();
-    }
-  }
-
-  return result;
-}
-
-int32x2_t *physx::NpActorTemplate<physx::PxRigidStatic>::setActorFlags(int32x2_t *result, unsigned __int8 *a2)
-{
-  v2 = *a2;
-  v3 = result + *(&physx::NpActor::sLazyInitOffsets + result[1].u16[0] + 18);
-  v4 = *(v3 + 8);
-  v5 = (v4 >> 24) & 0xF;
-  v6 = v4 >> 30;
-  if (v6 == 2)
-  {
-    result = *v3;
-    if (*(*v3 + 7689))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else if (v6 == 3)
-  {
-    result = *v3;
-LABEL_5:
-    Stream = *(v3 + 16);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(result, v5);
-      *(v3 + 16) = Stream;
-      result = *v3;
-    }
-
-    *Stream = v2;
-    result = physx::Scb::Scene::scheduleForUpdate(result, v3);
-    *(v3 + 8) |= 1u;
-    return result;
-  }
-
-  v8 = *(&physx::Scb::Actor::sLazyInitOffsets + v5 + 3) + v3;
-  if (v2 != *(v8 + 12))
-  {
-    *(v8 + 12) = v2;
-    result = *v8;
-    if (*v8)
-    {
-      v9 = *(*result + 16);
-
-      return v9();
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::NpScene::SceneCompletion::release(physx::NpScene::SceneCompletion *this)
-{
-  v1 = *(this + 3);
-  result = physx::shdfnd::SyncImpl::set(**(this + 5));
-  if (v1)
-  {
-    v3 = *(*v1 + 40);
-
-    return v3(v1);
-  }
-
-  return result;
-}
-
-void physx::Cm::FlushPool::~FlushPool(physx::Cm::FlushPool *this)
-{
-  v2 = *(this + 4);
-  if (v2)
-  {
-    for (i = 0; i < v2; ++i)
-    {
-      if (*(*(this + 1) + 8 * i))
-      {
-        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-        v2 = *(this + 4);
-      }
-    }
-  }
-
-  v4 = *(this + 5);
-  if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0 && *(this + 1) != 0)
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this);
-}
-
-void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>(uint64_t a1, int a2)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v37 = v39;
-  v34 = 0x2000000000;
-  v35 = v39;
-  v36 = 0;
-  v2 = a2 - 1;
-  if (a2 - 1 < 1)
-  {
-    return;
-  }
-
-  v4 = 0;
-  v5 = a1 + 8;
-  v6 = v39;
-  memset(v39, 0, sizeof(v39));
+  while (v65 != 12);
+  v190 = v75;
+  v191 = v71;
+  v192 = v72;
+  v193 = v74;
+  v85 = 0;
+  v86 = *&v61.i32[1];
+  v206 = v55.i32[0];
   while (1)
   {
-    while (1)
-    {
-      if (v2 <= v4)
-      {
-        goto LABEL_34;
-      }
-
-      if ((v2 - v4) <= 4)
-      {
-        break;
-      }
-
-      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
-      v8 = *(a1 + 8 * ((v4 + v2) / 2));
-      v9 = *(a1 + 8 * v4);
-      if (v8 < v9)
-      {
-        *(a1 + 8 * v4) = v8;
-        *(a1 + 8 * v7) = v9;
-        v8 = v9;
-        v9 = *(a1 + 8 * v4);
-      }
-
-      v10 = (a1 + 8 * v2);
-      if (*v10 >= v9)
-      {
-        v9 = *v10;
-      }
-
-      else
-      {
-        *(a1 + 8 * v4) = *v10;
-        *v10 = v9;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      if (v9 < v8)
-      {
-        *(a1 + 8 * v7) = v9;
-        *v10 = v8;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      *(a1 + 8 * v7) = *(v10 - 1);
-      *(v10 - 1) = v8;
-      v11 = v2 - 1;
-      v12 = v4;
-      LODWORD(v13) = v2 - 1;
-      while (1)
-      {
-        v14 = 0;
-        v15 = v12;
-        v16 = (a1 + 8 * v12);
-        do
-        {
-          v18 = v16[1];
-          ++v16;
-          v17 = v18;
-          ++v14;
-        }
-
-        while (v18 < v8);
-        v13 = v13;
-        do
-        {
-          v19 = a1 + 8 * v13--;
-          v20 = *(v19 - 8);
-        }
-
-        while (v8 < v20);
-        if (v15 + v14 >= v13)
-        {
-          break;
-        }
-
-        *v16 = v20;
-        *(a1 + 8 * v13) = v17;
-        v8 = *(a1 + 8 * v11);
-        v12 = v14 + v15;
-      }
-
-      *v16 = v8;
-      *(a1 + 8 * v11) = v17;
-      v21 = v34;
-      v22 = HIDWORD(v34) - 1;
-      if (v15 - v4 + v14 >= v2 - v15 - v14)
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v14 + v15 + 1;
-        v24 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v24) = v2;
-        v2 = v15 + v14 - 1;
-      }
-
-      else
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v4;
-        v23 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v23) = v15 - 1 + v14;
-        v4 = v15 + v14 + 1;
-      }
-    }
-
-    v25 = v4;
-    v26 = v4 + 1;
-    do
-    {
-      v27 = v25++;
-      v28 = v26;
-      v29 = v27;
-      v30 = v27;
-      do
-      {
-        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
-        {
-          v30 = v28;
-        }
-
-        ++v29;
-        ++v28;
-      }
-
-      while (v29 < v2);
-      if (v30 != v27)
-      {
-        v31 = *(a1 + 8 * v30);
-        *(a1 + 8 * v30) = *(a1 + 8 * v27);
-        *(a1 + 8 * v27) = v31;
-      }
-
-      ++v26;
-    }
-
-    while (v25 != v2);
-LABEL_34:
-    v32 = v34;
-    if (!v34)
-    {
-      break;
-    }
-
-    LODWORD(v34) = v34 - 1;
-    v2 = *(v6 + (v32 - 1));
-    LODWORD(v34) = v32 - 2;
-    v4 = *(v6 + (v32 - 2));
-  }
-
-  if (v36)
-  {
-    if (v6)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      if (v38)
-      {
-        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
-      }
-    }
-  }
-}
-
-uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = &v6[v7];
-  if (v7)
-  {
-    v9 = *v3;
-    v10 = v6;
-    do
-    {
-      v11 = *v9++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v8);
-  }
-
-  *v8 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    LODWORD(v7) = *(v3 + 8);
-  }
-
-  *v3 = v6;
-  *(v3 + 8) = v7 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>>::grow(uint64_t a1)
-{
-  v2 = 2 * *(a1 + 8);
-  *(a1 + 8) = v2;
-  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,384u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
-  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
-  if (*(a1 + 24) == 1 && *(a1 + 16))
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *(a1 + 24) = 1;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>(uint64_t a1, int a2)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v37 = v39;
-  v34 = 0x2000000000;
-  v35 = v39;
-  v36 = 0;
-  v2 = a2 - 1;
-  if (a2 - 1 < 1)
-  {
-    return;
-  }
-
-  v4 = 0;
-  v5 = a1 + 8;
-  v6 = v39;
-  memset(v39, 0, sizeof(v39));
-  while (1)
-  {
-    while (1)
-    {
-      if (v2 <= v4)
-      {
-        goto LABEL_34;
-      }
-
-      if ((v2 - v4) <= 4)
-      {
-        break;
-      }
-
-      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
-      v8 = *(a1 + 8 * ((v4 + v2) / 2));
-      v9 = *(a1 + 8 * v4);
-      if (v8 < v9)
-      {
-        *(a1 + 8 * v4) = v8;
-        *(a1 + 8 * v7) = v9;
-        v8 = v9;
-        v9 = *(a1 + 8 * v4);
-      }
-
-      v10 = (a1 + 8 * v2);
-      if (*v10 >= v9)
-      {
-        v9 = *v10;
-      }
-
-      else
-      {
-        *(a1 + 8 * v4) = *v10;
-        *v10 = v9;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      if (v9 < v8)
-      {
-        *(a1 + 8 * v7) = v9;
-        *v10 = v8;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      *(a1 + 8 * v7) = *(v10 - 1);
-      *(v10 - 1) = v8;
-      v11 = v2 - 1;
-      v12 = v4;
-      LODWORD(v13) = v2 - 1;
-      while (1)
-      {
-        v14 = 0;
-        v15 = v12;
-        v16 = (a1 + 8 * v12);
-        do
-        {
-          v18 = v16[1];
-          ++v16;
-          v17 = v18;
-          ++v14;
-        }
-
-        while (v18 < v8);
-        v13 = v13;
-        do
-        {
-          v19 = a1 + 8 * v13--;
-          v20 = *(v19 - 8);
-        }
-
-        while (v8 < v20);
-        if (v15 + v14 >= v13)
-        {
-          break;
-        }
-
-        *v16 = v20;
-        *(a1 + 8 * v13) = v17;
-        v8 = *(a1 + 8 * v11);
-        v12 = v14 + v15;
-      }
-
-      *v16 = v8;
-      *(a1 + 8 * v11) = v17;
-      v21 = v34;
-      v22 = HIDWORD(v34) - 1;
-      if (v15 - v4 + v14 >= v2 - v15 - v14)
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v14 + v15 + 1;
-        v24 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v24) = v2;
-        v2 = v15 + v14 - 1;
-      }
-
-      else
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v4;
-        v23 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v23) = v15 - 1 + v14;
-        v4 = v15 + v14 + 1;
-      }
-    }
-
-    v25 = v4;
-    v26 = v4 + 1;
-    do
-    {
-      v27 = v25++;
-      v28 = v26;
-      v29 = v27;
-      v30 = v27;
-      do
-      {
-        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
-        {
-          v30 = v28;
-        }
-
-        ++v29;
-        ++v28;
-      }
-
-      while (v29 < v2);
-      if (v30 != v27)
-      {
-        v31 = *(a1 + 8 * v30);
-        *(a1 + 8 * v30) = *(a1 + 8 * v27);
-        *(a1 + 8 * v27) = v31;
-      }
-
-      ++v26;
-    }
-
-    while (v25 != v2);
-LABEL_34:
-    v32 = v34;
-    if (!v34)
-    {
-      break;
-    }
-
-    LODWORD(v34) = v34 - 1;
-    v2 = *(v6 + (v32 - 1));
-    LODWORD(v34) = v32 - 2;
-    v4 = *(v6 + (v32 - 2));
-  }
-
-  if (v36)
-  {
-    if (v6)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      if (v38)
-      {
-        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
-      }
-    }
-  }
-}
-
-uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = &v6[v7];
-  if (v7)
-  {
-    v9 = *v3;
-    v10 = v6;
-    do
-    {
-      v11 = *v9++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v8);
-  }
-
-  *v8 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    LODWORD(v7) = *(v3 + 8);
-  }
-
-  *v3 = v6;
-  *(v3 + 8) = v7 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>>::grow(uint64_t a1)
-{
-  v2 = 2 * *(a1 + 8);
-  *(a1 + 8) = v2;
-  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,256u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
-  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
-  if (*(a1 + 24) == 1 && *(a1 + 16))
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *(a1 + 24) = 1;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>(uint64_t a1, int a2)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v37 = v39;
-  v34 = 0x2000000000;
-  v35 = v39;
-  v36 = 0;
-  v2 = a2 - 1;
-  if (a2 - 1 < 1)
-  {
-    return;
-  }
-
-  v4 = 0;
-  v5 = a1 + 8;
-  v6 = v39;
-  memset(v39, 0, sizeof(v39));
-  while (1)
-  {
-    while (1)
-    {
-      if (v2 <= v4)
-      {
-        goto LABEL_34;
-      }
-
-      if ((v2 - v4) <= 4)
-      {
-        break;
-      }
-
-      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
-      v8 = *(a1 + 8 * ((v4 + v2) / 2));
-      v9 = *(a1 + 8 * v4);
-      if (v8 < v9)
-      {
-        *(a1 + 8 * v4) = v8;
-        *(a1 + 8 * v7) = v9;
-        v8 = v9;
-        v9 = *(a1 + 8 * v4);
-      }
-
-      v10 = (a1 + 8 * v2);
-      if (*v10 >= v9)
-      {
-        v9 = *v10;
-      }
-
-      else
-      {
-        *(a1 + 8 * v4) = *v10;
-        *v10 = v9;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      if (v9 < v8)
-      {
-        *(a1 + 8 * v7) = v9;
-        *v10 = v8;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      *(a1 + 8 * v7) = *(v10 - 1);
-      *(v10 - 1) = v8;
-      v11 = v2 - 1;
-      v12 = v4;
-      LODWORD(v13) = v2 - 1;
-      while (1)
-      {
-        v14 = 0;
-        v15 = v12;
-        v16 = (a1 + 8 * v12);
-        do
-        {
-          v18 = v16[1];
-          ++v16;
-          v17 = v18;
-          ++v14;
-        }
-
-        while (v18 < v8);
-        v13 = v13;
-        do
-        {
-          v19 = a1 + 8 * v13--;
-          v20 = *(v19 - 8);
-        }
-
-        while (v8 < v20);
-        if (v15 + v14 >= v13)
-        {
-          break;
-        }
-
-        *v16 = v20;
-        *(a1 + 8 * v13) = v17;
-        v8 = *(a1 + 8 * v11);
-        v12 = v14 + v15;
-      }
-
-      *v16 = v8;
-      *(a1 + 8 * v11) = v17;
-      v21 = v34;
-      v22 = HIDWORD(v34) - 1;
-      if (v15 - v4 + v14 >= v2 - v15 - v14)
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v14 + v15 + 1;
-        v24 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v24) = v2;
-        v2 = v15 + v14 - 1;
-      }
-
-      else
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v4;
-        v23 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v23) = v15 - 1 + v14;
-        v4 = v15 + v14 + 1;
-      }
-    }
-
-    v25 = v4;
-    v26 = v4 + 1;
-    do
-    {
-      v27 = v25++;
-      v28 = v26;
-      v29 = v27;
-      v30 = v27;
-      do
-      {
-        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
-        {
-          v30 = v28;
-        }
-
-        ++v29;
-        ++v28;
-      }
-
-      while (v29 < v2);
-      if (v30 != v27)
-      {
-        v31 = *(a1 + 8 * v30);
-        *(a1 + 8 * v30) = *(a1 + 8 * v27);
-        *(a1 + 8 * v27) = v31;
-      }
-
-      ++v26;
-    }
-
-    while (v25 != v2);
-LABEL_34:
-    v32 = v34;
-    if (!v34)
-    {
-      break;
-    }
-
-    LODWORD(v34) = v34 - 1;
-    v2 = *(v6 + (v32 - 1));
-    LODWORD(v34) = v32 - 2;
-    v4 = *(v6 + (v32 - 2));
-  }
-
-  if (v36)
-  {
-    if (v6)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      if (v38)
-      {
-        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
-      }
-    }
-  }
-}
-
-uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = &v6[v7];
-  if (v7)
-  {
-    v9 = *v3;
-    v10 = v6;
-    do
-    {
-      v11 = *v9++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v8);
-  }
-
-  *v8 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    LODWORD(v7) = *(v3 + 8);
-  }
-
-  *v3 = v6;
-  *(v3 + 8) = v7 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>>::grow(uint64_t a1)
-{
-  v2 = 2 * *(a1 + 8);
-  *(a1 + 8) = v2;
-  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<unsigned char,128u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
-  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
-  if (*(a1 + 24) == 1 && *(a1 + 16))
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *(a1 + 24) = 1;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>(uint64_t a1, int a2)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v37 = v39;
-  v34 = 0x2000000000;
-  v35 = v39;
-  v36 = 0;
-  v2 = a2 - 1;
-  if (a2 - 1 < 1)
-  {
-    return;
-  }
-
-  v4 = 0;
-  v5 = a1 + 8;
-  v6 = v39;
-  memset(v39, 0, sizeof(v39));
-  while (1)
-  {
-    while (1)
-    {
-      if (v2 <= v4)
-      {
-        goto LABEL_34;
-      }
-
-      if ((v2 - v4) <= 4)
-      {
-        break;
-      }
-
-      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
-      v8 = *(a1 + 8 * ((v4 + v2) / 2));
-      v9 = *(a1 + 8 * v4);
-      if (v8 < v9)
-      {
-        *(a1 + 8 * v4) = v8;
-        *(a1 + 8 * v7) = v9;
-        v8 = v9;
-        v9 = *(a1 + 8 * v4);
-      }
-
-      v10 = (a1 + 8 * v2);
-      if (*v10 >= v9)
-      {
-        v9 = *v10;
-      }
-
-      else
-      {
-        *(a1 + 8 * v4) = *v10;
-        *v10 = v9;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      if (v9 < v8)
-      {
-        *(a1 + 8 * v7) = v9;
-        *v10 = v8;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      *(a1 + 8 * v7) = *(v10 - 1);
-      *(v10 - 1) = v8;
-      v11 = v2 - 1;
-      v12 = v4;
-      LODWORD(v13) = v2 - 1;
-      while (1)
-      {
-        v14 = 0;
-        v15 = v12;
-        v16 = (a1 + 8 * v12);
-        do
-        {
-          v18 = v16[1];
-          ++v16;
-          v17 = v18;
-          ++v14;
-        }
-
-        while (v18 < v8);
-        v13 = v13;
-        do
-        {
-          v19 = a1 + 8 * v13--;
-          v20 = *(v19 - 8);
-        }
-
-        while (v8 < v20);
-        if (v15 + v14 >= v13)
-        {
-          break;
-        }
-
-        *v16 = v20;
-        *(a1 + 8 * v13) = v17;
-        v8 = *(a1 + 8 * v11);
-        v12 = v14 + v15;
-      }
-
-      *v16 = v8;
-      *(a1 + 8 * v11) = v17;
-      v21 = v34;
-      v22 = HIDWORD(v34) - 1;
-      if (v15 - v4 + v14 >= v2 - v15 - v14)
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v14 + v15 + 1;
-        v24 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v24) = v2;
-        v2 = v15 + v14 - 1;
-      }
-
-      else
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v4;
-        v23 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v23) = v15 - 1 + v14;
-        v4 = v15 + v14 + 1;
-      }
-    }
-
-    v25 = v4;
-    v26 = v4 + 1;
-    do
-    {
-      v27 = v25++;
-      v28 = v26;
-      v29 = v27;
-      v30 = v27;
-      do
-      {
-        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
-        {
-          v30 = v28;
-        }
-
-        ++v29;
-        ++v28;
-      }
-
-      while (v29 < v2);
-      if (v30 != v27)
-      {
-        v31 = *(a1 + 8 * v30);
-        *(a1 + 8 * v30) = *(a1 + 8 * v27);
-        *(a1 + 8 * v27) = v31;
-      }
-
-      ++v26;
-    }
-
-    while (v25 != v2);
-LABEL_34:
-    v32 = v34;
-    if (!v34)
-    {
-      break;
-    }
-
-    LODWORD(v34) = v34 - 1;
-    v2 = *(v6 + (v32 - 1));
-    LODWORD(v34) = v32 - 2;
-    v4 = *(v6 + (v32 - 2));
-  }
-
-  if (v36)
-  {
-    if (v6)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      if (v38)
-      {
-        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
-      }
-    }
-  }
-}
-
-uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = &v6[v7];
-  if (v7)
-  {
-    v9 = *v3;
-    v10 = v6;
-    do
-    {
-      v11 = *v9++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v8);
-  }
-
-  *v8 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    LODWORD(v7) = *(v3 + 8);
-  }
-
-  *v3 = v6;
-  *(v3 + 8) = v7 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>>::grow(uint64_t a1)
-{
-  v2 = 2 * *(a1 + 8);
-  *(a1 + 8) = v2;
-  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,32u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
-  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
-  if (*(a1 + 24) == 1 && *(a1 + 16))
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *(a1 + 24) = 1;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>(uint64_t a1, int a2)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v37 = v39;
-  v34 = 0x2000000000;
-  v35 = v39;
-  v36 = 0;
-  v2 = a2 - 1;
-  if (a2 - 1 < 1)
-  {
-    return;
-  }
-
-  v4 = 0;
-  v5 = a1 + 8;
-  v6 = v39;
-  memset(v39, 0, sizeof(v39));
-  while (1)
-  {
-    while (1)
-    {
-      if (v2 <= v4)
-      {
-        goto LABEL_34;
-      }
-
-      if ((v2 - v4) <= 4)
-      {
-        break;
-      }
-
-      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
-      v8 = *(a1 + 8 * ((v4 + v2) / 2));
-      v9 = *(a1 + 8 * v4);
-      if (v8 < v9)
-      {
-        *(a1 + 8 * v4) = v8;
-        *(a1 + 8 * v7) = v9;
-        v8 = v9;
-        v9 = *(a1 + 8 * v4);
-      }
-
-      v10 = (a1 + 8 * v2);
-      if (*v10 >= v9)
-      {
-        v9 = *v10;
-      }
-
-      else
-      {
-        *(a1 + 8 * v4) = *v10;
-        *v10 = v9;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      if (v9 < v8)
-      {
-        *(a1 + 8 * v7) = v9;
-        *v10 = v8;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      *(a1 + 8 * v7) = *(v10 - 1);
-      *(v10 - 1) = v8;
-      v11 = v2 - 1;
-      v12 = v4;
-      LODWORD(v13) = v2 - 1;
-      while (1)
-      {
-        v14 = 0;
-        v15 = v12;
-        v16 = (a1 + 8 * v12);
-        do
-        {
-          v18 = v16[1];
-          ++v16;
-          v17 = v18;
-          ++v14;
-        }
-
-        while (v18 < v8);
-        v13 = v13;
-        do
-        {
-          v19 = a1 + 8 * v13--;
-          v20 = *(v19 - 8);
-        }
-
-        while (v8 < v20);
-        if (v15 + v14 >= v13)
-        {
-          break;
-        }
-
-        *v16 = v20;
-        *(a1 + 8 * v13) = v17;
-        v8 = *(a1 + 8 * v11);
-        v12 = v14 + v15;
-      }
-
-      *v16 = v8;
-      *(a1 + 8 * v11) = v17;
-      v21 = v34;
-      v22 = HIDWORD(v34) - 1;
-      if (v15 - v4 + v14 >= v2 - v15 - v14)
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v14 + v15 + 1;
-        v24 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v24) = v2;
-        v2 = v15 + v14 - 1;
-      }
-
-      else
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v4;
-        v23 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v23) = v15 - 1 + v14;
-        v4 = v15 + v14 + 1;
-      }
-    }
-
-    v25 = v4;
-    v26 = v4 + 1;
-    do
-    {
-      v27 = v25++;
-      v28 = v26;
-      v29 = v27;
-      v30 = v27;
-      do
-      {
-        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
-        {
-          v30 = v28;
-        }
-
-        ++v29;
-        ++v28;
-      }
-
-      while (v29 < v2);
-      if (v30 != v27)
-      {
-        v31 = *(a1 + 8 * v30);
-        *(a1 + 8 * v30) = *(a1 + 8 * v27);
-        *(a1 + 8 * v27) = v31;
-      }
-
-      ++v26;
-    }
-
-    while (v25 != v2);
-LABEL_34:
-    v32 = v34;
-    if (!v34)
-    {
-      break;
-    }
-
-    LODWORD(v34) = v34 - 1;
-    v2 = *(v6 + (v32 - 1));
-    LODWORD(v34) = v32 - 2;
-    v4 = *(v6 + (v32 - 2));
-  }
-
-  if (v36)
-  {
-    if (v6)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      if (v38)
-      {
-        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
-      }
-    }
-  }
-}
-
-uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = &v6[v7];
-  if (v7)
-  {
-    v9 = *v3;
-    v10 = v6;
-    do
-    {
-      v11 = *v9++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v8);
-  }
-
-  *v8 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    LODWORD(v7) = *(v3 + 8);
-  }
-
-  *v3 = v6;
-  *(v3 + 8) = v7 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>>::grow(uint64_t a1)
-{
-  v2 = 2 * *(a1 + 8);
-  *(a1 + 8) = v2;
-  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,16u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
-  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
-  if (*(a1 + 24) == 1 && *(a1 + 16))
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *(a1 + 24) = 1;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-void physx::shdfnd::sort<void *,physx::shdfnd::Less<void *>,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>(uint64_t a1, int a2)
-{
-  v40 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v37 = v39;
-  v34 = 0x2000000000;
-  v35 = v39;
-  v36 = 0;
-  v2 = a2 - 1;
-  if (a2 - 1 < 1)
-  {
-    return;
-  }
-
-  v4 = 0;
-  v5 = a1 + 8;
-  v6 = v39;
-  memset(v39, 0, sizeof(v39));
-  while (1)
-  {
-    while (1)
-    {
-      if (v2 <= v4)
-      {
-        goto LABEL_34;
-      }
-
-      if ((v2 - v4) <= 4)
-      {
-        break;
-      }
-
-      v7 = (v4 + v2 + ((v4 + v2) >> 31)) >> 1;
-      v8 = *(a1 + 8 * ((v4 + v2) / 2));
-      v9 = *(a1 + 8 * v4);
-      if (v8 < v9)
-      {
-        *(a1 + 8 * v4) = v8;
-        *(a1 + 8 * v7) = v9;
-        v8 = v9;
-        v9 = *(a1 + 8 * v4);
-      }
-
-      v10 = (a1 + 8 * v2);
-      if (*v10 >= v9)
-      {
-        v9 = *v10;
-      }
-
-      else
-      {
-        *(a1 + 8 * v4) = *v10;
-        *v10 = v9;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      if (v9 < v8)
-      {
-        *(a1 + 8 * v7) = v9;
-        *v10 = v8;
-        v8 = *(a1 + 8 * v7);
-      }
-
-      *(a1 + 8 * v7) = *(v10 - 1);
-      *(v10 - 1) = v8;
-      v11 = v2 - 1;
-      v12 = v4;
-      LODWORD(v13) = v2 - 1;
-      while (1)
-      {
-        v14 = 0;
-        v15 = v12;
-        v16 = (a1 + 8 * v12);
-        do
-        {
-          v18 = v16[1];
-          ++v16;
-          v17 = v18;
-          ++v14;
-        }
-
-        while (v18 < v8);
-        v13 = v13;
-        do
-        {
-          v19 = a1 + 8 * v13--;
-          v20 = *(v19 - 8);
-        }
-
-        while (v8 < v20);
-        if (v15 + v14 >= v13)
-        {
-          break;
-        }
-
-        *v16 = v20;
-        *(a1 + 8 * v13) = v17;
-        v8 = *(a1 + 8 * v11);
-        v12 = v14 + v15;
-      }
-
-      *v16 = v8;
-      *(a1 + 8 * v11) = v17;
-      v21 = v34;
-      v22 = HIDWORD(v34) - 1;
-      if (v15 - v4 + v14 >= v2 - v15 - v14)
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v14 + v15 + 1;
-        v24 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v24) = v2;
-        v2 = v15 + v14 - 1;
-      }
-
-      else
-      {
-        if (v34 >= v22)
-        {
-          physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::grow(v33);
-          v21 = v34;
-          v6 = v35;
-        }
-
-        LODWORD(v34) = v21 + 1;
-        *(v6 + v21) = v4;
-        v23 = v34;
-        LODWORD(v34) = v34 + 1;
-        *(v6 + v23) = v15 - 1 + v14;
-        v4 = v15 + v14 + 1;
-      }
-    }
-
-    v25 = v4;
-    v26 = v4 + 1;
-    do
-    {
-      v27 = v25++;
-      v28 = v26;
-      v29 = v27;
-      v30 = v27;
-      do
-      {
-        if (*(v5 + 8 * v29) < *(a1 + 8 * v30))
-        {
-          v30 = v28;
-        }
-
-        ++v29;
-        ++v28;
-      }
-
-      while (v29 < v2);
-      if (v30 != v27)
-      {
-        v31 = *(a1 + 8 * v30);
-        *(a1 + 8 * v30) = *(a1 + 8 * v27);
-        *(a1 + 8 * v27) = v31;
-      }
-
-      ++v26;
-    }
-
-    while (v25 != v2);
-LABEL_34:
-    v32 = v34;
-    if (!v34)
-    {
-      break;
-    }
-
-    LODWORD(v34) = v34 - 1;
-    v2 = *(v6 + (v32 - 1));
-    LODWORD(v34) = v32 - 2;
-    v4 = *(v6 + (v32 - 2));
-  }
-
-  if (v36)
-  {
-    if (v6)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      if (v38)
-      {
-        physx::shdfnd::TempAllocator::deallocate(&v37, v37);
-      }
-    }
-  }
-}
-
-uint64_t physx::shdfnd::Array<void *,physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>::allocate(result, 8 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = &v6[v7];
-  if (v7)
-  {
-    v9 = *v3;
-    v10 = v6;
-    do
-    {
-      v11 = *v9++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v8);
-  }
-
-  *v8 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    LODWORD(v7) = *(v3 + 8);
-  }
-
-  *v3 = v6;
-  *(v3 + 8) = v7 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::Stack<physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>>::grow(uint64_t a1)
-{
-  v2 = 2 * *(a1 + 8);
-  *(a1 + 8) = v2;
-  v3 = physx::shdfnd::ReflectionAllocator<physx::Sc::Scene::Block<void *,8u>>::allocate(a1, 4 * v2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsSortInternals.h", 155);
-  result = memcpy(v3, *(a1 + 16), (4 * *(a1 + 4)));
-  if (*(a1 + 24) == 1 && *(a1 + 16))
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *(a1 + 24) = 1;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-uint64_t SqRefFinder::find(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + 8);
-  if (v3 == 5)
-  {
-    v4 = (a2 + 40);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v3 == 6)
-  {
-    v4 = (a2 + 40);
-  }
-
-  if (v3 == 13)
-  {
-    v5 = (a2 + 40);
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  v6 = *(v5 + 4);
-  v7 = v5;
-  if (v6 != 1)
-  {
-    if (!*(v5 + 4))
-    {
-      v9 = 0xFFFFFFFFLL;
-      goto LABEL_18;
-    }
-
-    v7 = *v5;
-  }
-
-  v8 = 0;
-  v9 = 0xFFFFFFFFLL;
-  while (v7[v8] != a3)
-  {
-    if (v6 == ++v8)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v9 = v8;
-LABEL_18:
-  v10 = v5 + 2;
-  if (*(v5 + 12) != 1)
-  {
-    v10 = *v10;
-  }
-
-  return v10[v9] >> 1;
-}
-
-uint64_t physx::shdfnd::Array<unsigned short,physx::shdfnd::ReflectionAllocator<unsigned short>>::resize(uint64_t result, unsigned int a2, __int16 *a3)
-{
-  v5 = result;
-  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
-  {
-    result = physx::shdfnd::Array<unsigned short,physx::shdfnd::ReflectionAllocator<unsigned short>>::recreate(result, a2);
-  }
-
-  v6 = *(v5 + 8);
-  if (v6 < a2)
-  {
-    v7 = 0;
-    v8 = *v5 + 2 * v6;
-    v9 = v8 + 2;
-    if (v8 + 2 <= *v5 + 2 * a2)
-    {
-      v9 = *v5 + 2 * a2;
-    }
-
-    v10 = (v9 + ~*v5 - 2 * v6) >> 1;
-    v11 = vdupq_n_s64(v10);
-    v12 = *a3;
-    v13 = (v10 & 0x7FFFFFFFFFFFFFF8) + 8;
-    v14 = (v8 + 8);
-    do
-    {
-      v15 = vdupq_n_s64(v7);
-      v16 = vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E3049620)));
-      if (vuzp1_s8(vuzp1_s16(v16, *v11.i8), *v11.i8).u8[0])
-      {
-        *(v14 - 4) = v12;
-      }
-
-      if (vuzp1_s8(vuzp1_s16(v16, *&v11), *&v11).i8[1])
-      {
-        *(v14 - 3) = v12;
-      }
-
-      if (vuzp1_s8(vuzp1_s16(*&v11, vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E3049640)))), *&v11).i8[2])
-      {
-        *(v14 - 2) = v12;
-        *(v14 - 1) = v12;
-      }
-
-      v17 = vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E3049660)));
-      if (vuzp1_s8(*&v11, vuzp1_s16(v17, *&v11)).i32[1])
-      {
-        *v14 = v12;
-      }
-
-      if (vuzp1_s8(*&v11, vuzp1_s16(v17, *&v11)).i8[5])
-      {
-        v14[1] = v12;
-      }
-
-      if (vuzp1_s8(*&v11, vuzp1_s16(*&v11, vmovn_s64(vcgeq_u64(v11, vorrq_s8(v15, xmmword_1E305F210))))).i8[6])
-      {
-        v14[2] = v12;
-        v14[3] = v12;
-      }
-
-      v7 += 8;
-      v14 += 8;
-    }
-
-    while (v13 != v7);
-  }
-
-  *(v5 + 8) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::resize(uint64_t result, unsigned int a2, uint64_t *a3)
-{
-  v5 = result;
-  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
-  {
-    result = physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::recreate(result, a2);
-  }
-
-  v6 = *(v5 + 8);
-  if (v6 < a2)
-  {
-    v7 = 0;
-    v8 = (*v5 + 8 * v6 + 8);
-    v9 = *v5 + 8 * a2;
-    if (v8 > v9)
-    {
-      v9 = *v5 + 8 * v6 + 8;
-    }
-
-    v10 = *a3;
-    v11 = (v9 + ~*v5 - 8 * v6) >> 3;
-    v12 = vdupq_n_s64(v11);
-    v13 = (v11 + 2) & 0x3FFFFFFFFFFFFFFELL;
-    do
-    {
-      v14 = vmovn_s64(vcgeq_u64(v12, vorrq_s8(vdupq_n_s64(v7), xmmword_1E3049620)));
-      if (v14.i8[0])
-      {
-        *(v8 - 1) = v10;
-      }
-
-      if (v14.i8[4])
-      {
-        *v8 = v10;
-      }
-
-      v7 += 2;
-      v8 += 2;
-    }
-
-    while (v13 != v7);
-  }
-
-  *(v5 + 8) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::allocate(result, 8 * a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v4 = result;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = *(v3 + 8);
-  v6 = *v3;
-  if (v5)
-  {
-    v7 = &v4[v5];
-    v8 = v4;
-    do
-    {
-      v9 = *v6++;
-      *v8++ = v9;
-    }
-
-    while (v8 < v7);
-    v6 = *v3;
-  }
-
-  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *v3 = v4;
-  *(v3 + 12) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v7 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::getName() [T = physx::Scb::Shape *]";
-  }
-
-  else
-  {
-    v8 = "<allocation names disabled>";
-  }
-
-  v9 = *(*(v7 + 24) + 16);
-
-  return v9(v7 + 24, a2, v8, a3, a4);
-}
-
-uint64_t physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::resize(uint64_t result, unsigned int a2, uint64_t *a3)
-{
-  v5 = result;
-  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
-  {
-    result = physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::recreate(result, a2);
-  }
-
-  v6 = *(v5 + 8);
-  if (v6 < a2)
-  {
-    v7 = 0;
-    v8 = (*v5 + 8 * v6 + 8);
-    v9 = *v5 + 8 * a2;
-    if (v8 > v9)
-    {
-      v9 = *v5 + 8 * v6 + 8;
-    }
-
-    v10 = *a3;
-    v11 = (v9 + ~*v5 - 8 * v6) >> 3;
-    v12 = vdupq_n_s64(v11);
-    v13 = (v11 + 2) & 0x3FFFFFFFFFFFFFFELL;
-    do
-    {
-      v14 = vmovn_s64(vcgeq_u64(v12, vorrq_s8(vdupq_n_s64(v7), xmmword_1E3049620)));
-      if (v14.i8[0])
-      {
-        *(v8 - 1) = v10;
-      }
-
-      if (v14.i8[4])
-      {
-        *v8 = v10;
-      }
-
-      v7 += 2;
-      v8 += 2;
-    }
-
-    while (v13 != v7);
-  }
-
-  *(v5 + 8) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2)
-  {
-    result = physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>::allocate(result, 8 * a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v4 = result;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = *(v3 + 8);
-  v6 = *v3;
-  if (v5)
-  {
-    v7 = &v4[v5];
-    v8 = v4;
-    do
-    {
-      v9 = *v6++;
-      *v8++ = v9;
-    }
-
-    while (v8 < v7);
-    v6 = *v3;
-  }
-
-  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  *v3 = v4;
-  *(v3 + 12) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v7 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>::getName() [T = physx::Scb::Actor *]";
-  }
-
-  else
-  {
-    v8 = "<allocation names disabled>";
-  }
-
-  v9 = *(*(v7 + 24) + 16);
-
-  return v9(v7 + 24, a2, v8, a3, a4);
-}
-
-uint64_t physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::InlineAllocator<32u,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 52);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = (8 * v5);
-    if (v6 > 0x20 || (*(result + 32) & 1) != 0)
-    {
-      result = physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>::allocate(result, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-      v7 = result;
-    }
-
-    else
-    {
-      *(result + 32) = 1;
-      v7 = result;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v8 = *(v3 + 48);
-  v9 = &v7[v8];
-  if (v8)
-  {
-    v10 = *(v3 + 40);
-    v11 = v7;
-    do
-    {
-      v12 = *v10++;
-      *v11++ = v12;
-    }
-
-    while (v11 < v9);
-  }
-
-  *v9 = *a2;
-  if ((*(v3 + 52) & 0x80000000) == 0)
-  {
-    v13 = *(v3 + 40);
-    if (v13 == v3)
-    {
-      *(v3 + 32) = 0;
-    }
-
-    else if (v13)
-    {
-      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-      LODWORD(v8) = *(v3 + 48);
-    }
-  }
-
-  *(v3 + 40) = v7;
-  *(v3 + 48) = v8 + 1;
-  *(v3 + 52) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Scb::RemovedShape,physx::shdfnd::InlineAllocator<64u,physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>>>::growAndPushBack(uint64_t result, _OWORD *a2)
-{
-  v3 = result;
-  v4 = *(result + 84);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = (16 * v5);
-    if (v6 > 0x40 || (*(result + 64) & 1) != 0)
-    {
-      result = physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>::allocate(result, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-      v7 = result;
-    }
-
-    else
-    {
-      *(result + 64) = 1;
-      v7 = result;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v8 = *(v3 + 80);
-  if (v8)
-  {
-    v9 = &v7[v8];
-    v10 = *(v3 + 72);
-    v11 = v7;
-    do
-    {
-      v12 = *v10++;
-      *v11++ = v12;
-    }
-
-    while (v11 < v9);
-    v13 = *(v3 + 80);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  v7[v13] = *a2;
-  if ((*(v3 + 84) & 0x80000000) == 0)
-  {
-    v14 = *(v3 + 72);
-    if (v14 == v3)
-    {
-      *(v3 + 64) = 0;
-    }
-
-    else if (v14)
-    {
-      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-  }
-
-  *(v3 + 72) = v7;
-  ++*(v3 + 80);
-  *(v3 + 84) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v7 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Scb::RemovedShape>::getName() [T = physx::Scb::RemovedShape]";
-  }
-
-  else
-  {
-    v8 = "<allocation names disabled>";
-  }
-
-  v9 = *(*(v7 + 24) + 16);
-
-  return v9(v7 + 24, a2, v8, a3, a4);
-}
-
-float getTriangle(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  getTriangle(a1, &v12, a3, a4, a6);
-  v8 = v15;
-  v9 = (((v12 * *(a5 + 8)) + (v13 * *(a5 + 20))) + (v14 * *(a5 + 32))) + *(a5 + 44);
-  *a2 = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a5, v12), vmul_n_f32(*(a5 + 12), v13)), vmul_n_f32(*(a5 + 24), v14)), *(a5 + 36));
-  *(a2 + 8) = v9;
-  v10 = (((v8 * *(a5 + 8)) + (v16 * *(a5 + 20))) + (v17 * *(a5 + 32))) + *(a5 + 44);
-  *(a2 + 12) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a5, v8), vmul_n_f32(*(a5 + 12), v16)), vmul_n_f32(*(a5 + 24), v17)), *(a5 + 36));
-  *(a2 + 20) = v10;
-  result = (((v18 * *(a5 + 8)) + (v19 * *(a5 + 20))) + (v20 * *(a5 + 32))) + *(a5 + 44);
-  *(a2 + 24) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a5, v18), vmul_n_f32(*(a5 + 12), v19)), vmul_n_f32(*(a5 + 24), v20)), *(a5 + 36));
-  *(a2 + 32) = result;
-  return result;
-}
-
-float getTriangle(int a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v5 = (3 * a1);
-  if (a5)
-  {
-    v6 = *(a4 + 2 * v5);
-    v7 = *(a4 + 2 * (v5 + 1));
-    v8 = *(a4 + 2 * (v5 + 2));
-  }
-
-  else
-  {
-    v6 = *(a4 + 4 * v5);
-    v7 = *(a4 + 4 * (v5 + 1));
-    v8 = *(a4 + 4 * (v5 + 2));
-  }
-
-  v9 = a3 + 12 * v6;
-  *a2 = *v9;
-  *(a2 + 8) = *(v9 + 8);
-  v10 = a3 + 12 * v7;
-  *(a2 + 12) = *v10;
-  *(a2 + 20) = *(v10 + 8);
-  v11 = a3 + 12 * v8;
-  *(a2 + 24) = *v11;
-  result = *(v11 + 8);
-  *(a2 + 32) = result;
-  return result;
-}
-
-physx::PxActor *physx::NpRigidActorTemplate<physx::PxRigidDynamic>::~NpRigidActorTemplate(physx::PxActor *a1)
-{
-  *a1 = &unk_1F5D26828;
-  v2 = *(physx::NpFactory::mInstance + 832);
-  physx::Cm::PtrTable::clear(a1 + 40, v2);
-  physx::Cm::PtrTable::clear(a1 + 56, v2);
-  *a1 = &unk_1F5D26AE8;
-  physx::NpFactory::onActorRelease(physx::NpFactory::mInstance, a1);
-  return a1;
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesStaticPrunerUpdate>::~DelegateTask(void *a1)
-{
-  *a1 = &unk_1F5D1C1B0;
-  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
-  a1[2] = 0;
-  return (*(v1 + 24))();
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesStaticPrunerUpdate>::runInternal(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  result = *(v1 + 8640);
-  if (result && *(v1 + 8680) == 1)
-  {
-    result = (*(*result + 144))(result, 0);
-    if (result)
-    {
-      *(v1 + 8848) = 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesDynamicPrunerUpdate>::~DelegateTask(void *a1)
-{
-  *a1 = &unk_1F5D1C1B0;
-  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
-  a1[2] = 0;
-  return (*(v1 + 24))();
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpSceneQueries,&physx::NpSceneQueries::sceneQueriesDynamicPrunerUpdate>::runInternal(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  result = *(v1 + 8688);
-  if (result && *(v1 + 8728) == 1)
-  {
-    result = (*(*result + 144))(result, 0);
-    if (result)
-    {
-      *(v1 + 8848) = 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpScene,&physx::NpScene::executeScene>::~DelegateTask(void *a1)
-{
-  *a1 = &unk_1F5D1C1B0;
-  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
-  a1[2] = 0;
-  return (*(v1 + 24))();
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpScene,&physx::NpScene::executeCollide>::~DelegateTask(void *a1)
-{
-  *a1 = &unk_1F5D1C1B0;
-  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
-  a1[2] = 0;
-  return (*(v1 + 24))();
-}
-
-uint64_t physx::Cm::DelegateTask<physx::NpScene,&physx::NpScene::executeAdvance>::~DelegateTask(void *a1)
-{
-  *a1 = &unk_1F5D1C1B0;
-  v1 = *(physx::shdfnd::Foundation::mInstance + 24);
-  a1[2] = 0;
-  return (*(v1 + 24))();
-}
-
-uint64_t physx::shdfnd::Array<physx::PxRigidActor *,physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2)
-  {
-    v4 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>::getName() [T = physx::PxRigidActor *]";
-    }
-
-    else
-    {
-      v5 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v4 + 24) + 16))(v4 + 24, 8 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = *v3;
-  if (v7)
-  {
-    v9 = &v6[v7];
-    v10 = v6;
-    do
-    {
-      v11 = *v8++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v9);
-    v8 = *v3;
-  }
-
-  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v6;
-  *(v3 + 12) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxBounds3,physx::shdfnd::InlineAllocator<192u,physx::shdfnd::ReflectionAllocator<physx::PxBounds3>>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2 > 8 || (*(result + 192) & 1) != 0)
-  {
-    v5 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxBounds3>::getName() [T = physx::PxBounds3]";
-    }
-
-    else
-    {
-      v6 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v5 + 24) + 16))(v5 + 24, 24 * a2, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v4 = result;
-  }
-
-  else
-  {
-    *(result + 192) = 1;
-    v4 = result;
-  }
-
-  v7 = *(v3 + 208);
-  v8 = *(v3 + 200);
-  if (v7)
-  {
-    v9 = &v4[3 * v7];
-    v10 = *(v3 + 200);
-    v11 = v4;
-    do
-    {
-      *v11 = *v10;
-      v11[1] = v10[1];
-      v11[2] = v10[2];
-      v11 += 3;
-      v10 += 3;
-    }
-
-    while (v11 < v9);
-  }
-
-  if ((*(v3 + 212) & 0x80000000) == 0)
-  {
-    if (v8 == v3)
-    {
-      *(v3 + 192) = 0;
-    }
-
-    else if (v8)
-    {
-      result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-  }
-
-  *(v3 + 200) = v4;
-  *(v3 + 212) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxRigidActor *,physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxRigidActor *>::getName() [T = physx::PxRigidActor *]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  v10 = &v8[v9];
-  if (v9)
-  {
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11++;
-      *v12++ = v13;
-    }
-
-    while (v12 < v10);
-  }
-
-  *v10 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    LODWORD(v9) = *(v3 + 8);
-  }
-
-  *v3 = v8;
-  *(v3 + 8) = v9 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void physx::Scb::RigidObject::resetFiltering(physx::Scb::RigidObject *this, physx::Scb::Shape **a2, unsigned int a3)
-{
-  v3 = a3;
-  v6 = *(this + 2);
-  if (v6 >> 30 == 3 || v6 >> 30 == 2 && (*(*this + 7689) & 1) != 0)
-  {
-    Stream = *(this + 2);
-    if (!Stream)
-    {
-      Stream = physx::Scb::Scene::getStream(*this, HIBYTE(v6) & 0xF);
-      *(this + 2) = Stream;
-    }
-
-    v8 = *(Stream + 160);
-    if (v8)
-    {
-      v9 = v8 + v3;
-      v10 = *this;
-      v11 = *(*this + 7816);
-      v35 = 0;
-      physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::resize(v10 + 7808, v11 + v8 + v3, &v35);
-      v12 = *(v10 + 7808);
-      if (!v12)
-      {
-        return;
-      }
-
-      v13 = *(Stream + 160);
-      if (v13 == 1)
-      {
-        v14 = (v12 + 8 * v11);
-        *v14 = *(Stream + 152);
-        v15 = v14 + 1;
-        v16 = v3;
-        do
-        {
-          v17 = *a2++;
-          *v15++ = v17;
-          --v16;
-        }
-
-        while (v16);
-      }
-
-      else
-      {
-        v21 = (v12 + 8 * v11);
-        if (v13)
-        {
-          v22 = (*(*this + 7808) + 8 * *(Stream + 152));
-          v23 = v21;
-          v24 = *(Stream + 160);
-          do
-          {
-            v25 = *v22++;
-            *v23++ = v25;
-            --v24;
-          }
-
-          while (v24);
-        }
-
-        v26 = v3;
-        do
-        {
-          v27 = *a2++;
-          v21[v13++] = v27;
-          --v26;
-        }
-
-        while (v26);
-      }
-
-      *(Stream + 152) = v11;
-      v3 = v9;
-    }
-
-    else if (v3 == 1)
-    {
-      *(Stream + 152) = *a2;
-    }
-
-    else
-    {
-      v28 = *this;
-      v29 = *(*this + 7816);
-      v35 = 0;
-      physx::shdfnd::Array<physx::Scb::Shape *,physx::shdfnd::ReflectionAllocator<physx::Scb::Shape *>>::resize(v28 + 7808, v29 + v3, &v35);
-      v30 = *(v28 + 7808);
-      if (!v30)
-      {
-        return;
-      }
-
-      v31 = (v30 + 8 * v29);
-      v32 = v3;
-      do
-      {
-        v33 = *a2++;
-        *v31++ = v33;
-        --v32;
-      }
-
-      while (v32);
-      *(Stream + 152) = v29;
-    }
-
-    *(Stream + 160) = v3;
-    physx::Scb::Scene::scheduleForUpdate(*this, this);
-    *(this + 2) |= 0x20u;
-  }
-
-  else
-  {
-    v18 = a3;
-    do
-    {
-      v19 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(this + 11) & 0xF) + 3);
-      v20 = *a2++;
-      LODWORD(v35) = 128;
-      v34 = 0;
-      physx::Sc::RigidCore::onShapeChange((this + v19), v20 + 32, &v35, &v34, 0);
-      --v18;
-    }
-
-    while (v18);
-  }
-}
-
-uint64_t physx::shdfnd::Array<physx::NpBatchQuery *,physx::shdfnd::ReflectionAllocator<physx::NpBatchQuery *>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::NpBatchQuery *>::getName() [T = physx::NpBatchQuery *]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  v10 = &v8[v9];
-  if (v9)
-  {
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11++;
-      *v12++ = v13;
-    }
-
-    while (v12 < v10);
-  }
-
-  *v10 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    LODWORD(v9) = *(v3 + 8);
-  }
-
-  *v3 = v8;
-  *(v3 + 8) = v9 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::clipHitsToNewMaxDist<physx::PxSweepHit>(uint64_t a1, uint64_t a2, float a3)
-{
-  if (a2)
-  {
-    v3 = 0;
-    do
-    {
-      v4 = a1 + 56 * v3;
-      if (*(v4 + 48) <= a3)
-      {
-        ++v3;
-      }
-
-      else
-      {
-        a2 = (a2 - 1);
-        v5 = (a1 + 56 * a2);
-        v6 = *v5;
-        *(v4 + 16) = *(v5 + 4);
-        *v4 = v6;
-        *(v4 + 20) = *(v5 + 10);
-        *(v4 + 24) = *(v5 + 24);
-        *(v4 + 40) = *(v5 + 5);
-        *(v4 + 48) = *(v5 + 12);
-        *(v4 + 52) = *(v5 + 13);
-      }
-    }
-
-    while (v3 != a2);
-  }
-
-  return a2;
-}
-
-uint64_t physx::Scb::Aggregate::addActor(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = v4 >> 30;
-  if ((v4 >> 30) - 1 >= 2)
-  {
-    if (v5 == 3)
-    {
-      return result;
-    }
-
-    goto LABEL_13;
-  }
-
-  result = *result;
-  if (!*v3 || (*(result + 7689) & 1) == 0)
-  {
-LABEL_13:
-    v12 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + a2;
-    *(v12 + 8) = *(v3 + 32) & 0xFFFFFF | (*(v12 + 11) << 24);
-    return result;
-  }
-
-  Stream = *(v3 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v4) & 0xF);
-    *(v3 + 16) = Stream;
-    result = *v3;
-  }
-
-  v7 = Stream[2];
-  if (v7 != -1)
-  {
-    v8 = Stream[3];
-    if (v8)
-    {
-      v9 = *(result + 7824) + 8 * v7;
-      v10 = Stream[3];
-      v11 = v9;
-      while (*v11 != a2)
-      {
-        ++v11;
-        if (!--v10)
-        {
-          goto LABEL_15;
-        }
-      }
-
-      v13 = v8 - 1;
-      *v11 = *(v9 + 8 * v13);
-      Stream[3] = v13;
-      result = *v3;
-    }
-  }
-
-LABEL_15:
-  v14 = *Stream;
-  if (*Stream == -1)
-  {
-    v16 = *(v3 + 36);
-    v15 = (result + 7824);
-    v14 = *(result + 7832);
-    v18 = 0;
-    result = physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::resize(result + 7824, v14 + v16, &v18);
-    *Stream = v14;
-  }
-
-  else
-  {
-    v15 = (result + 7824);
-  }
-
-  v17 = Stream[1];
-  *(*v15 + 8 * v14 + 8 * v17) = a2;
-  Stream[1] = v17 + 1;
-  if (v5 != 1)
-  {
-    result = physx::Scb::Scene::scheduleForUpdate(*v3, v3);
-  }
-
-  *(v3 + 8) |= 1u;
-  return result;
-}
-
-int32x2_t *physx::Scb::Aggregate::removeActor(int32x2_t *result, uint64_t a2, int a3)
-{
-  v4 = result;
-  v5 = result[1].u32[0];
-  v6 = (v5 >> 30) - 1;
-  if (v6 >= 2)
-  {
-    if (v5 >> 30 == 3)
-    {
-      return result;
-    }
-
-    goto LABEL_14;
-  }
-
-  result = *result;
-  if (!*v4 || (result[961].i8[1] & 1) == 0)
-  {
-LABEL_14:
-    v15 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((*(a2 + 8) >> 24) & 0xF) + 3) + a2);
-    v15[2] |= 0xFFFFFFu;
-    if (v6 <= 1)
-    {
-      if (*v4)
-      {
-        if (a3)
-        {
-          if (*v15)
-          {
-            for (i = *(*v15 + 56); i; i = *i)
-            {
-              result = physx::Sc::ShapeSim::reinsertBroadPhase(i);
-            }
-          }
-        }
-      }
-    }
-
-    return result;
-  }
-
-  Stream = *(v4 + 16);
-  if (!Stream)
-  {
-    Stream = physx::Scb::Scene::getStream(result, HIBYTE(v5) & 0xF);
-    *(v4 + 16) = Stream;
-    result = *v4;
-  }
-
-  v8 = *Stream;
-  if (v8 == -1 || (v9 = Stream[1]) == 0)
-  {
-LABEL_11:
-    v13 = Stream[2];
-    if (v13 == -1)
-    {
-      v17 = *(v4 + 36);
-      v14 = result + 978;
-      v13 = result[979].u32[0];
-      v20 = 0;
-      physx::shdfnd::Array<physx::Scb::Actor *,physx::shdfnd::ReflectionAllocator<physx::Scb::Actor *>>::resize(&result[978], v13 + v17, &v20);
-      Stream[2] = v13;
-    }
-
-    else
-    {
-      v14 = result + 978;
-    }
-
-    v18 = Stream[3];
-    *(*v14 + 8 * v13 + 8 * v18) = a2;
-    Stream[3] = v18 + 1;
-    result = physx::Scb::Scene::scheduleForUpdate(*v4, v4);
-    *(v4 + 8) |= 2u;
-  }
-
-  else
-  {
-    v10 = *&result[978] + 8 * v8;
-    v11 = Stream[1];
-    v12 = v10;
-    while (*v12 != a2)
-    {
-      ++v12;
-      if (!--v11)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v19 = v9 - 1;
-    *v12 = *(v10 + 8 * v19);
-    Stream[1] = v19;
-  }
-
-  return result;
-}
-
-uint64_t physx::Scb::Base::destroy(uint64_t this)
-{
-  v1 = *(this + 8);
-  if (v1 >> 30 != 3 && (v1 >> 30 != 2 || (*(*this + 7689) & 1) == 0))
-  {
-    return physx::NpDestroy(this);
-  }
-
-  *(this + 8) = v1 | 0x20000000;
-  return this;
-}
-
-int32x2_t *physx::Scb::ObjectTracker::scheduleForInsert(int32x2_t *result, uint64_t a2)
-{
-  v4 = *(a2 + 8);
-  if (v4 >> 30 == 3)
-  {
-    *(a2 + 8) = v4 & 0xBFFFFFFF;
-    if ((v4 & 0x10000000) == 0)
-    {
-
-      return physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(result, a2);
-    }
-  }
-
-  else
-  {
-    v7 = v2;
-    v8 = v3;
-    *(a2 + 8) = v4 & 0x3FFFFFFF | 0x40000000;
-    v5 = a2;
-    v6 = 0;
-    result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(result, &v5, &v6);
-    if ((v6 & 1) == 0)
-    {
-      *result = v5;
-    }
-  }
-
-  return result;
-}
-
-int32x2_t *physx::Scb::ObjectTracker::scheduleForRemove(int32x2_t *result, uint64_t a2)
-{
-  v4 = *(a2 + 8);
-  if (v4 >> 30 == 2)
-  {
-    *(a2 + 8) = v4 | 0xC0000000;
-    if ((v4 & 0x10000000) == 0)
-    {
-      v7 = v2;
-      v8 = v3;
-      v5 = a2;
-      v6 = 0;
-      result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(result, &v5, &v6);
-      if ((v6 & 1) == 0)
-      {
-        *result = v5;
-      }
-    }
-  }
-
-  else if (v4 >> 30 == 1)
-  {
-    *(a2 + 8) = v4 & 0x3FFFFFFF;
-
-    return physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(result, a2);
-  }
-
-  return result;
-}
-
-int32x2_t *physx::Scb::ObjectTracker::scheduleForUpdate(int32x2_t *result, uint64_t a2)
-{
-  v4 = *(a2 + 8);
-  if ((v4 & 0x10000000) == 0)
-  {
-    *(a2 + 8) = v4 | 0x10000000;
-    if (v4 >> 30 == 2)
-    {
-      v7 = v2;
-      v8 = v3;
-      v5 = a2;
-      v6 = 0;
-      result = physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(result, &v5, &v6);
-      if ((v6 & 1) == 0)
-      {
-        *result = v5;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::Scb::ObjectTracker::clear(uint64_t this)
-{
-  v1 = *(this + 52);
-  if (v1)
-  {
-    v2 = this;
-    v3 = 0;
-    v4 = *(this + 8);
-    do
-    {
-      v5 = *(v4 + 8 * v3);
-      v6 = *(v5 + 8);
-      v7 = v6 & 0xFFFFFFF;
-      if ((v6 >> 30) - 1 > 1)
-      {
-        *v5 = 0;
-      }
-
-      else
-      {
-        v7 |= 0x80000000;
-      }
-
-      *(v5 + 8) = v7;
-      if ((v6 & 0x20000000) != 0)
-      {
-        this = physx::NpDestroy(*(v4 + 8 * v3));
-        v1 = *(v2 + 52);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v1);
-    v8 = *(v2 + 36);
-    if (v8 && v1)
-    {
-      this = memset(*(v2 + 24), 255, (4 * v8));
-      v9 = *(v2 + 16);
-      v10 = (*(v2 + 32) - 1);
-      if (*(v2 + 32) == 1)
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        _X10 = v9 + 128;
-        v12 = 1;
-        do
-        {
-          __asm { PRFM            #0, [X10] }
-
-          *(_X10 - 128) = v12++;
-          _X10 += 4;
-          --v10;
-        }
-
-        while (v10);
-        v18 = (*(v2 + 32) - 1);
-      }
-
-      *(v9 + 4 * v18) = -1;
-      *(v2 + 44) = 0;
-      *(v2 + 52) = 0;
-    }
-  }
-
-  return this;
-}
-
-uint64_t physx::Scb::Scene::Scene(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  physx::Sc::Scene::Scene(a1 + 16, a2, a3);
-  *(a1 + 7664) = 0u;
-  v5 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-  }
-
-  else
-  {
-    v6 = "<allocation names disabled>";
-  }
-
-  v7 = (*(*(v5 + 24) + 16))(v5 + 24, 72, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-  *(a1 + 7680) = v7;
-  physx::shdfnd::MutexImpl::MutexImpl(v7);
-  *(a1 + 7688) = 0;
-  physx::Cm::FlushPool::FlushPool((a1 + 7696), 0x4000u);
-  *(a1 + 7768) = 0;
-  *(a1 + 7736) = 0u;
-  *(a1 + 7752) = 0u;
-  *(a1 + 7776) = -3233808384;
-  *(a1 + 7784) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7736, 0x40u);
-  *(a1 + 7872) = 0;
-  *(a1 + 7856) = 0u;
-  *(a1 + 7840) = 0u;
-  *(a1 + 7824) = 0u;
-  *(a1 + 7808) = 0u;
-  *(a1 + 7792) = 0u;
-  *(a1 + 7880) = -3233808384;
-  *(a1 + 7888) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7840, 0x40u);
-  *(a1 + 7928) = 0;
-  *(a1 + 7896) = 0u;
-  *(a1 + 7912) = 0u;
-  *(a1 + 7936) = -3233808384;
-  *(a1 + 7944) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7896, 0x40u);
-  *(a1 + 7984) = 0;
-  *(a1 + 7968) = 0u;
-  *(a1 + 7952) = 0u;
-  *(a1 + 7992) = -3233808384;
-  *(a1 + 8000) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 7952, 0x40u);
-  *(a1 + 8040) = 0;
-  *(a1 + 8008) = 0u;
-  *(a1 + 8024) = 0u;
-  *(a1 + 8048) = -3233808384;
-  *(a1 + 8056) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 8008, 0x40u);
-  *(a1 + 8096) = 0;
-  *(a1 + 8080) = 0u;
-  *(a1 + 8064) = 0u;
-  *(a1 + 8104) = -3233808384;
-  *(a1 + 8112) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 8064, 0x40u);
-  *(a1 + 8152) = 0;
-  *(a1 + 8120) = 0u;
-  *(a1 + 8136) = 0u;
-  *(a1 + 8160) = -3233808384;
-  *(a1 + 8168) = 0;
-  physx::shdfnd::internal::HashBase<physx::Sc::ConstraintSim *,physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::internal::HashSetBase<physx::Sc::ConstraintSim *,physx::shdfnd::Hash<physx::Sc::ConstraintSim *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1 + 8120, 0x40u);
-  *(a1 + 8176) = *(a2 + 232);
-  *(a1 + 8592) = 0;
-  *(a1 + 8604) = 0;
-  *(a1 + 8324) = 0u;
-  *(a1 + 8340) = 0u;
-  *(a1 + 8356) = 0u;
-  *(a1 + 8372) = 0u;
-  *(a1 + 8388) = 0u;
-  *(a1 + 8404) = 0u;
-  *(a1 + 8420) = 0u;
-  *(a1 + 8432) = 0u;
-  *(a1 + 8284) = 0;
-  *(a1 + 8292) = 0;
-  *(a1 + 8276) = 0;
-  return a1;
-}
-
-void physx::Scb::Scene::switchRigidToNoSim(physx::Scb::Scene *this, physx::Scb::RigidObject *a2, int a3)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 2);
-  if (v3 >> 30 == 2)
-  {
-    v13 = 0x4000000000;
-    v11[512] = 1;
-    v12 = v11;
-    v4 = (this + 16);
-    v5 = (a2 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3));
-    if (a3)
-    {
-      physx::Sc::Scene::removeBody(v4, v5, v11, 1);
-    }
-
-    else
-    {
-      physx::Sc::Scene::removeStatic(v4, v5, v11, 1);
-    }
-
-    v6 = v12;
-    if (v13)
-    {
-      v7 = 0;
-      do
-      {
-        v8 = *&v6[8 * v7];
-        if (atomic_fetch_add((v8 - 48), 0xFFFFFFFF) == 1)
-        {
-          (*(*(v8 - 56) + 16))();
-        }
-
-        ++v7;
-      }
-
-      while (v7 < v13);
-      v6 = v12;
-    }
-
-    if ((v13 & 0x8000000000000000) == 0 && (v13 & 0x7FFFFFFF00000000) != 0 && v6 != v11 && v6 != 0)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v6);
-    }
-  }
-}
-
-uint64_t physx::Scb::Scene::switchRigidFromNoSim(uint64_t this, physx::Scb::RigidObject *a2, int a3)
-{
-  v3 = *(a2 + 2);
-  if (v3 >> 30 != 2)
-  {
-    return this;
-  }
-
-  if (a3)
-  {
-    v4 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-    v5 = (v4 + 72);
-    v6 = *(v4 + 40);
-    if (v6 != 1)
-    {
-      v5 = *v5;
-    }
-
-    this = physx::Sc::Scene::addBody((this + 16), (a2 + *(&physx::Scb::Actor::sLazyInitOffsets + ((v3 >> 24) & 0xF) + 3)), v5, v6, 80, 0, *(v4 + 26) != -1);
-    if (!v6)
-    {
-      return this;
-    }
-
-LABEL_10:
-    v9 = v6;
-    do
-    {
-      v10 = *v5++;
-      atomic_fetch_add((v10 + 32), 1u);
-      --v9;
-    }
-
-    while (v9);
-    return this;
-  }
-
-  v7 = a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (BYTE3(v3) & 0xF) + 3);
-  v8 = &v7[*(&physx::Sc::gOffsetTable + v7[13] + 10)];
-  v5 = (v8 + 40);
-  v6 = *(v8 + 24);
-  if (v6 != 1)
-  {
-    v5 = *v5;
-  }
-
-  this = physx::Sc::Scene::addStatic(this + 16, v7, v5, *(v8 + 24), 80, 0);
-  if (v6)
-  {
-    goto LABEL_10;
-  }
-
-  return this;
-}
-
-int32x2_t *physx::Scb::Scene::addActor(int32x2_t *a1, uint64_t a2, char a3, uint64_t a4)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-
-    return physx::Scb::Scene::addRigidNoSim<false,physx::Scb::RigidStatic>(a1, a2, a1 + 980);
-  }
-
-  else
-  {
-    result = physx::Scb::Scene::add<physx::Scb::RigidStatic>(a1, a2, a1 + 980, a4);
-    if (a1[961].i8[1] != 1)
-    {
-      return result;
-    }
-
-    v19 = 0x4000000000;
-    v7 = 1;
-    v17[512] = 1;
-    v18 = v17;
-    v8 = *(a2 + 8);
-    v9 = *(&physx::Scb::Actor::sLazyInitOffsets + ((v8 >> 24) & 0xF) + 3) + a2;
-    v10 = v9 + *(&physx::Sc::gOffsetTable + *(v9 + 13) + 10);
-    v11 = (v10 + 40);
-    v12 = *(v10 + 48);
-    if (v12 != 1)
-    {
-      if (!v12)
-      {
-        return result;
-      }
-
-      v11 = *v11;
-      v7 = v12;
-    }
-
-    v13 = *a2;
-    v14 = v8 & 0xC0000000;
-    do
-    {
-      v15 = *v11;
-      v16 = *(*v11 + 56);
-      if ((v16 & 0xF000000) == 0x1000000)
-      {
-        *(v15 + 14) = v16 & 0x31FFFFFF | v14;
-        v15[6] = v13;
-      }
-
-      ++v11;
-      --v7;
-    }
-
-    while (v7);
-  }
-
-  return result;
-}
-
-int32x2_t *physx::Scb::Scene::addActor(int32x2_t *result, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
-{
-  v6 = result;
-  v46 = *MEMORY[0x1E69E9840];
-  *a2 = result;
-  if (a3)
-  {
-    if (result[961].i8[1])
-    {
-      result = physx::Scb::ObjectTracker::scheduleForInsert(result + 987, a2);
-      v45 = 0x4000000000;
-      v44 = v43;
-      v7 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-      v8 = v7 + 72;
-      v9 = *(v7 + 80);
-      if (v9 == 1)
-      {
-        v9 = 1;
-        goto LABEL_13;
-      }
-
-      if (v9)
-      {
-        v8 = *v8;
-LABEL_13:
-        v15 = *a2;
-        v16 = *(a2 + 8) & 0xC0000000;
-        do
-        {
-          v17 = *v8;
-          v18 = *(*v8 + 56);
-          if ((v18 & 0xF000000) == 0x1000000)
-          {
-            *(v17 + 56) = v18 & 0x31FFFFFF | v16;
-            *(v17 + 48) = v15;
-          }
-
-          v8 += 8;
-          --v9;
-        }
-
-        while (v9);
-      }
-
-LABEL_23:
-      *(a2 + 280) = *(a2 + 276) == 0.0 && *(a2 + 252) == 0.0 && *(a2 + 256) == 0.0 && *(a2 + 260) == 0.0 && *(a2 + 264) == 0.0 && *(a2 + 268) == 0.0 && *(a2 + 272) == 0.0;
-      return result;
-    }
-
-    *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
-    v45 = 0x4000000000;
-    v44 = v43;
-    v10 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-    v11 = v10 + 72;
-    v12 = *(v10 + 80);
-    if (v12 == 1)
-    {
-      v12 = 1;
-    }
-
-    else
-    {
-      if (!v12)
-      {
-        goto LABEL_23;
-      }
-
-      v11 = *v11;
-    }
-
-    do
-    {
-      v19 = *v11;
-      v20 = *(*v11 + 56);
-      if ((v20 & 0xF000000) == 0x1000000)
-      {
-        *(v19 + 56) = v20 & 0x31FFFFFF | 0x80000000;
-        *(v19 + 48) = result;
-      }
-
-      v11 += 8;
-      --v12;
-    }
-
-    while (v12);
-    goto LABEL_23;
-  }
-
-  if (result[961].i8[1])
-  {
-    result = physx::Scb::ObjectTracker::scheduleForInsert(result + 987, a2);
-  }
-
-  else
-  {
-    v13 = *(a2 + 8);
-    *(a2 + 8) = v13 & 0xFFFFFFF | 0x80000000;
-    if (v13)
-    {
-      v14 = *(a2 + 16);
-    }
-
-    else
-    {
-      v14 = (*(&physx::Scb::Actor::sLazyInitOffsets + ((v13 >> 24) & 0xF) + 3) + a2 + 12);
-    }
-
-    if ((*v14 & 8) != 0)
-    {
-      v45 = 0x4000000000;
-      v44 = v43;
-      v30 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-      v31 = v30 + 72;
-      v32 = *(v30 + 80);
-      if (v32 == 1)
-      {
-        v32 = 1;
-      }
-
-      else
-      {
-        if (!v32)
-        {
-          goto LABEL_57;
-        }
-
-        v31 = *v31;
-      }
-
-      do
-      {
-        v33 = *v31;
-        v34 = *(*v31 + 56);
-        if ((v34 & 0xF000000) == 0x1000000)
-        {
-          *(v33 + 56) = v34 & 0x31FFFFFF | 0x80000000;
-          *(v33 + 48) = result;
-        }
-
-        v31 += 8;
-        --v32;
-      }
-
-      while (v32);
-    }
-
-    else
-    {
-      v21 = (a2 + 32);
-      v45 = 0x4000000000;
-      v43[512] = 1;
-      v44 = v43;
-      v22 = a2 + 32 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-      v23 = (v22 + 40);
-      v24 = *(v22 + 48);
-      if (v24 != 1)
-      {
-        v23 = *v23;
-      }
-
-      result = physx::Sc::Scene::addBody(&result[2], v21, v23, *(v22 + 48), 80, a4, a5 != 0);
-      if (v24)
-      {
-        v25 = *a2;
-        do
-        {
-          v26 = *v23;
-          v27 = *(*v23 + 56);
-          if ((v27 & 0xF000000) == 0x1000000)
-          {
-            *(v26 + 14) = v27 & 0x31FFFFFF | 0x80000000;
-            v26[6] = v25;
-          }
-
-          atomic_fetch_add(v26 + 8, 1u);
-          ++v23;
-          --v24;
-        }
-
-        while (v24);
-      }
-
-      if ((v45 & 0x8000000000000000) == 0)
-      {
-        v28 = (v45 & 0x7FFFFFFF00000000) == 0 || v44 == v43;
-        if (!v28 && v44 != 0)
-        {
-          result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-        }
-      }
-    }
-  }
-
-LABEL_57:
-  v35 = *(a2 + 276) == 0.0 && *(a2 + 252) == 0.0 && *(a2 + 256) == 0.0 && *(a2 + 260) == 0.0 && *(a2 + 264) == 0.0 && *(a2 + 268) == 0.0 && *(a2 + 272) == 0.0;
-  *(a2 + 280) = v35;
-  if (v6[961].i8[1] == 1)
-  {
-    v45 = 0x4000000000;
-    v44 = v43;
-    v36 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-    v37 = v36 + 72;
-    v38 = *(v36 + 80);
-    if (v38 == 1)
-    {
-      v38 = 1;
-    }
-
-    else
-    {
-      if (!v38)
-      {
-        return result;
-      }
-
-      v37 = *v37;
-    }
-
-    v39 = *a2;
-    v40 = *(a2 + 8) & 0xC0000000;
-    do
-    {
-      v41 = *v37;
-      v42 = *(*v37 + 56);
-      if ((v42 & 0xF000000) == 0x1000000)
-      {
-        *(v41 + 56) = v42 & 0x31FFFFFF | v40;
-        *(v41 + 48) = v39;
-      }
-
-      v37 += 8;
-      --v38;
-    }
-
-    while (v38);
-  }
-
-  return result;
-}
-
-void physx::Scb::Scene::removeActor(int32x2_t *a1, uint64_t a2, int a3, char a4)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (a4)
-  {
-    physx::Scb::Scene::removeRigidNoSim<false,physx::Scb::RigidStatic>(a1, a2, a1 + 980);
-  }
-
-  else
-  {
-    physx::Scb::Scene::remove<physx::Scb::RigidStatic>(a1, a2, a1 + 980, a3);
-    if (a1[961].i8[1] == 1)
-    {
-      v7 = *(a2 + 8);
-      if (a3)
-      {
-        v7 |= 0x10u;
-        *(a2 + 8) = v7;
-      }
-
-      v19 = 0x4000000000;
-      v8 = 1;
-      v17[512] = 1;
-      v18 = v17;
-      v9 = *(&physx::Scb::Actor::sLazyInitOffsets + (HIBYTE(v7) & 0xF) + 3) + a2;
-      v10 = v9 + *(&physx::Sc::gOffsetTable + *(v9 + 13) + 10);
-      v11 = (v10 + 40);
-      v12 = *(v10 + 48);
-      if (v12 != 1)
-      {
-        if (!v12)
-        {
-          goto LABEL_13;
-        }
-
-        v11 = *v11;
-        v8 = v12;
-      }
-
-      v13 = *a2;
-      v14 = v7 & 0xC0000000;
-      do
-      {
-        v15 = *v11;
-        v16 = *(*v11 + 56);
-        if ((v16 & 0xF000000) == 0x1000000)
-        {
-          *(v15 + 14) = v16 & 0x31FFFFFF | v14;
-          v15[6] = v13;
-        }
-
-        ++v11;
-        --v8;
-      }
-
-      while (v8);
-    }
-  }
-
-LABEL_13:
-  *(a2 + 8) &= ~0x20u;
-}
-
-void physx::Scb::Scene::remove<physx::Scb::RigidStatic>(uint64_t a1, uint64_t a2, int32x2_t *a3, int a4)
-{
-  v27[1] = *MEMORY[0x1E69E9840];
-  if ((*(a1 + 7689) & 1) == 0)
-  {
-    v5 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + a2;
-    if ((*(v5 + 12) & 8) == 0)
-    {
-      v27[0] = 0x4000000000;
-      v25 = 1;
-      v26 = v24;
-      v6 = *(a1 + 4392);
-      if (v6)
-      {
-        v7 = (v6 + 536);
-      }
-
-      else
-      {
-        v7 = v24;
-      }
-
-      if (v6)
-      {
-        v8 = (v6 + 1056);
-      }
-
-      else
-      {
-        v8 = &v26;
-      }
-
-      if (v6)
-      {
-        v9 = (v6 + 1064);
-      }
-
-      else
-      {
-        v9 = v27;
-      }
-
-      physx::Sc::Scene::removeStatic((a1 + 16), (a2 + 32), v7, a4);
-      v10 = *v9;
-      if (v10)
-      {
-        v11 = *v8;
-        v12 = *a2;
-        do
-        {
-          v13 = *v11;
-          v14 = *(*v11 - 24);
-          if ((v14 & 0x10000000) != 0)
-          {
-            physx::Scb::Shape::syncState((v13 - 32));
-            physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v12 + 967, v13 - 32);
-            v14 = *(v13 - 24) & 0xEFFFFFFF;
-            *(v13 - 24) = v14;
-          }
-
-          if ((v14 & 0xF000000) == 0x1000000)
-          {
-            *(v13 - 24) = v14 & 0x31FFFFFF;
-            *(v13 - 32) = 0;
-          }
-
-          if (atomic_fetch_add((v13 - 48), 0xFFFFFFFF) == 1)
-          {
-            (*(*(v13 - 56) + 16))(v13 - 56);
-          }
-
-          ++v11;
-          --v10;
-        }
-
-        while (v10);
-      }
-
-      if ((v27[0] & 0x8000000000000000) != 0 || (v27[0] & 0x7FFFFFFF00000000) == 0)
-      {
-        goto LABEL_41;
-      }
-
-      v15 = v26;
-      goto LABEL_38;
-    }
-
-    v27[0] = 0x4000000000;
-    v16 = 1;
-    v25 = 1;
-    v26 = v24;
-    v17 = v5 + *(&physx::Sc::gOffsetTable + *(v5 + 13) + 10);
-    v18 = (v17 + 40);
-    v19 = *(v17 + 48);
-    if (v19 != 1)
-    {
-      if (!v19)
-      {
-        v15 = v24;
-        v23 = 64;
-        goto LABEL_37;
-      }
-
-      v18 = *v18;
-      v16 = v19;
-    }
-
-    v20 = *a2;
-    do
-    {
-      v21 = *v18;
-      v22 = *(*v18 + 56);
-      if ((v22 & 0x10000000) != 0)
-      {
-        physx::Scb::Shape::syncState((v21 + 6));
-        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v20 + 967, (v21 + 6));
-        v22 = v21[7] & 0xEFFFFFFF;
-        *(v21 + 14) = v22;
-      }
-
-      if ((v22 & 0xF000000) == 0x1000000)
-      {
-        *(v21 + 14) = v22 & 0x31FFFFFF;
-        v21[6] = 0;
-      }
-
-      ++v18;
-      --v16;
-    }
-
-    while (v16);
-    v15 = v26;
-    v23 = HIDWORD(v27[0]);
-    if ((v27[0] & 0x8000000000000000) != 0)
-    {
-      goto LABEL_41;
-    }
-
-LABEL_37:
-    if ((v23 & 0x7FFFFFFF) == 0)
-    {
-LABEL_41:
-      *(a2 + 8) &= 0xFFFFFFFu;
-      *a2 = 0;
-      return;
-    }
-
-LABEL_38:
-    if (v15 != v24 && v15)
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    goto LABEL_41;
-  }
-
-  physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
-}
-
-int32x2_t *physx::Scb::Scene::removeRigidNoSim<false,physx::Scb::RigidStatic>(int32x2_t *result, uint64_t a2, int32x2_t *a3)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  if ((result[961].i8[1] & 1) == 0)
-  {
-    v27 = 0x4000000000;
-    v14 = 1;
-    v25 = 1;
-    v26 = v24;
-    v15 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + a2;
-    v16 = v15 + *(&physx::Sc::gOffsetTable + *(v15 + 13) + 10);
-    v17 = (v16 + 40);
-    v18 = *(v16 + 48);
-    if (v18 != 1)
-    {
-      if (!v18)
-      {
-        v22 = v24;
-        v23 = 64;
-LABEL_20:
-        if ((v23 & 0x7FFFFFFF) != 0 && v22 != v24 && v22)
-        {
-          result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-        }
-
-LABEL_24:
-        *(a2 + 8) &= 0xFFFFFFFu;
-        *a2 = 0;
-        return result;
-      }
-
-      v17 = *v17;
-      v14 = v18;
-    }
-
-    v19 = *a2;
-    do
-    {
-      v20 = *v17;
-      v21 = *(*v17 + 56);
-      if ((v21 & 0x10000000) != 0)
-      {
-        physx::Scb::Shape::syncState((v20 + 6));
-        result = physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v19 + 967, (v20 + 6));
-        v21 = v20[7] & 0xEFFFFFFF;
-        *(v20 + 14) = v21;
-      }
-
-      if ((v21 & 0xF000000) == 0x1000000)
-      {
-        *(v20 + 14) = v21 & 0x31FFFFFF;
-        v20[6] = 0;
-      }
-
-      ++v17;
-      --v14;
-    }
-
-    while (v14);
-    v22 = v26;
-    v23 = HIDWORD(v27);
-    if (v27 < 0)
+    v73.i32[0] = *&v220[v85];
+    v78.f32[0] = v86 * v73.f32[0];
+    if ((v86 * v73.f32[0]) < 0.0)
     {
       goto LABEL_24;
     }
 
-    goto LABEL_20;
-  }
-
-  result = physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
-  v27 = 0x4000000000;
-  v4 = 1;
-  v25 = 1;
-  v26 = v24;
-  v5 = *(a2 + 8);
-  v6 = *(&physx::Scb::Actor::sLazyInitOffsets + ((v5 >> 24) & 0xF) + 3) + a2;
-  v7 = v6 + *(&physx::Sc::gOffsetTable + *(v6 + 13) + 10);
-  v8 = (v7 + 40);
-  v9 = *(v7 + 48);
-  if (v9 != 1)
-  {
-    if (!v9)
+    v77.i32[0] = *&v220[v85 + 8];
+    v87 = v62 * v77.f32[0];
+    if ((v62 * v77.f32[0]) < 0.0)
     {
-      return result;
+      goto LABEL_24;
     }
 
-    v8 = *v8;
-    v4 = v9;
-  }
-
-  v10 = *a2;
-  v11 = v5 & 0xC0000000;
-  do
-  {
-    v12 = *v8;
-    v13 = *(*v8 + 56);
-    if ((v13 & 0xF000000) == 0x1000000)
+    v88 = *(*&v53 + 64);
+    if (v78.f32[0] >= (v88 + 1.0))
     {
-      *(v12 + 14) = v13 & 0x31FFFFFF | v11;
-      v12[6] = v10;
+      goto LABEL_24;
     }
 
-    ++v8;
-    --v4;
-  }
-
-  while (v4);
-  return result;
-}
-
-void physx::Scb::Scene::removeActor(int32x2_t *this, physx::Scb::Body *a2, int a3, char a4)
-{
-  v60[1] = *MEMORY[0x1E69E9840];
-  if (a4)
-  {
-    v6 = a2 + 32;
-    if (this[961].i8[1])
+    v89 = *(*&v53 + 68);
+    if (v87 >= (v89 + 1.0))
     {
-      physx::Scb::ObjectTracker::scheduleForRemove(this + 987, a2);
-      v60[0] = 0x4000000000;
-      v59 = v57;
-      v7 = &v6[*(&physx::Sc::gOffsetTable + *(a2 + 45) + 10)];
-      v8 = v7 + 40;
-      v9 = *(v7 + 24);
-      if (v9 == 1)
-      {
-        v9 = 1;
-        goto LABEL_65;
-      }
-
-      if (v9)
-      {
-        v8 = *v8;
-LABEL_65:
-        v37 = *a2;
-        v38 = *(a2 + 2) & 0xC0000000;
-        do
-        {
-          v39 = *v8;
-          v40 = *(*v8 + 56);
-          if ((v40 & 0xF000000) == 0x1000000)
-          {
-            *(v39 + 14) = v40 & 0x31FFFFFF | v38;
-            *(v39 + 6) = v37;
-          }
-
-          v8 += 8;
-          --v9;
-        }
-
-        while (v9);
-      }
-
-LABEL_69:
-      v41 = *(a2 + 71);
-      v42 = (*(a2 + 2) + 348);
-      if ((v41 & 0x4000) == 0)
-      {
-        v42 = a2 + 76;
-      }
-
-      if (*v42)
-      {
-        physx::Scb::Body::putToSleepInternal(a2);
-      }
-
-      else
-      {
-        *(a2 + 70) = 1;
-        *(a2 + 71) = v41 & 0xFFF0FFFF;
-      }
-
-      *(a2 + 2) &= ~0x20u;
-      return;
+      goto LABEL_24;
     }
 
-    v60[0] = 0x4000000000;
-    v13 = 1;
-    v58 = 1;
-    v59 = v57;
-    v14 = &v6[*(&physx::Sc::gOffsetTable + *(a2 + 45) + 10)];
-    v15 = v14 + 40;
-    v16 = *(v14 + 24);
-    if (v16 != 1)
+    v90 = fmaxf(v78.f32[0], 0.0);
+    v91 = fmaxf(v87, 0.0);
+    v92 = 1.0 - ((v91 + 1.0) * 0.000001);
+    v93 = (1.0 - ((v90 + 1.0) * 0.000001)) + v88;
+    if (v90 >= v93)
     {
-      if (!v16)
+      v90 = v93;
+    }
+
+    if (v91 >= (v92 + v89))
+    {
+      v91 = v92 + v89;
+    }
+
+    v94 = floorf(v90);
+    v95 = v90 - v94;
+    v96 = floorf(v91);
+    v97 = v91 - v96;
+    v98 = (v96 + (v94 * *(*&v53 + 72)));
+    v99 = *(*&v53 + 80);
+    v100 = (v99 + 4 * v98);
+    if (v100[1] < 0)
+    {
+      v106 = *v100;
+      v102 = *(v99 + 4 * (*(*&v53 + 60) + v98 + 1));
+      if (v97 <= v95)
       {
-        v20 = v57;
-        v21 = 64;
+        v109 = *(v99 + 4 * (*(*&v53 + 60) + v98));
+        v108 = (v106 + (v95 * (v109 - v106))) + (v97 * (v102 - v109));
+        goto LABEL_22;
+      }
+
+      v107 = *(v99 + 4 * (v98 + 1));
+      v104 = v106 + (v97 * (v107 - v106));
+      goto LABEL_20;
+    }
+
+    v101 = *(v99 + 4 * (*(*&v53 + 60) + v98));
+    v102 = *(v99 + 4 * (v98 + 1));
+    if ((v95 + v97) >= 1.0)
+    {
+      v107 = *(v99 + 4 * (*(*&v53 + 60) + v98 + 1));
+      v104 = v107 + ((1.0 - v97) * (v101 - v107));
+      v95 = 1.0 - v95;
+LABEL_20:
+      v105 = v102 - v107;
+      goto LABEL_21;
+    }
+
+    v103 = *v100;
+    v104 = v103 + (v97 * (v102 - v103));
+    v105 = v101 - v103;
+LABEL_21:
+    v108 = v104 + (v95 * v105);
 LABEL_22:
-        if ((v21 & 0x7FFFFFFF) != 0 && v20 != v57 && v20)
+    v78.f32[0] = *&v220[v85 + 4] - (v55.f32[0] * v108);
+    if (v78.f32[0] == 0.0)
+    {
+      v55.i32[0] = v206;
+      if (physx::Gu::HeightFieldUtil::getFaceIndexAtShapePoint(&v209, v73.f32[0], v77.f32[0]) != -1)
+      {
+        return 1;
+      }
+    }
+
+LABEL_24:
+    v85 += 12;
+    if (v85 == 96)
+    {
+      v216 = &v209;
+      physx::Gu::HeightFieldUtil::computeLocalBounds(&v209, v217, *&v73, *v77.i64, *v78.i64);
+      v110 = v216;
+      v111 = 12;
+      v112 = &byte_1E3116BD1;
+      do
+      {
+        v113 = &v220[12 * *(v112 - 1)];
+        v215 = v113[1].f32[0];
+        v114 = &v220[12 * *v112];
+        v115 = v114[1].f32[0];
+        v213 = 0;
+        v214 = *v113;
+        v218 = vsub_f32(*v114, v214);
+        v219 = v115 - v215;
+        physx::Gu::HeightFieldTraceUtil::traceSegment<physx::Gu::TriggerTraceSegmentCallback,false,false>(v110, &v214, &v218, &v213, v217);
+        if (v213 == 1)
         {
-          (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+          return 1;
         }
 
-LABEL_26:
-        *(a2 + 2) &= 0xFFFFFFFu;
-        *a2 = 0;
-        goto LABEL_69;
+        v112 += 2;
+        --v111;
       }
 
-      v15 = *v15;
-      v13 = v16;
-    }
-
-    v17 = *a2;
-    do
-    {
-      v18 = *v15;
-      v19 = *(*v15 + 56);
-      if ((v19 & 0x10000000) != 0)
+      while (v111);
+      *v116.i32 = v48 - v50;
+      LODWORD(v117) = vsub_f32(v204, v202).u32[0];
+      v118 = v193 + ((1.0 - v190) - v192);
+      v119 = vadd_f32(v204, v202).u32[0];
+      if (v190 < -v192)
       {
-        physx::Scb::Shape::syncState((v18 + 48));
-        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v17 + 967, (v18 + 48));
-        v19 = *(v18 + 14) & 0xEFFFFFFF;
-        *(v18 + 14) = v19;
+        v120 = v193 + ((1.0 - v190) - v192);
       }
 
-      if ((v19 & 0xF000000) == 0x1000000)
+      else
       {
-        *(v18 + 14) = v19 & 0x31FFFFFF;
-        *(v18 + 6) = 0;
+        v120 = v193 + (v192 + (v190 + 1.0));
       }
 
-      v15 += 8;
-      --v13;
-    }
-
-    while (v13);
-    v20 = v59;
-    v21 = HIDWORD(v60[0]);
-    if ((v60[0] & 0x8000000000000000) != 0)
-    {
-      goto LABEL_26;
-    }
-
-    goto LABEL_22;
-  }
-
-  v11 = *(a2 + 26);
-  if (*(a2 + 2) >> 30 == 1 && v11 != 0)
-  {
-    physx::Sc::BodyCore::tearDownSimStateData(a2 + 32, *(*a2 + 4384), *(v11 + 31) == 1);
-  }
-
-  if (this[961].i8[1])
-  {
-    physx::Scb::ObjectTracker::scheduleForRemove(this + 987, a2);
-    goto LABEL_53;
-  }
-
-  *(a2 + 71) &= 0xF9FFFFFF;
-  if ((*(a2 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(a2 + 11) & 0xF) + 3) + 12) & 8) != 0)
-  {
-    v60[0] = 0x4000000000;
-    v43 = 1;
-    v58 = 1;
-    v59 = v57;
-    v44 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-    v45 = v44 + 72;
-    v46 = *(v44 + 40);
-    if (v46 != 1)
-    {
-      if (!v46)
+      if (v190 < -v192)
       {
-        v50 = v57;
-        v51 = 64;
-LABEL_85:
-        if ((v51 & 0x7FFFFFFF) != 0 && v50 != v57 && v50)
+        v121 = v191 + v76;
+      }
+
+      else
+      {
+        v121 = v117;
+      }
+
+      if (v190 < -v192)
+      {
+        v122 = *&v119;
+      }
+
+      else
+      {
+        v122 = v76 - v191;
+      }
+
+      if (v190 >= -v192)
+      {
+        v118 = v48 - v50;
+        *v116.i32 = v193 + (v192 + (v190 + 1.0));
+      }
+
+      v123 = (v192 + (1.0 - v190)) - v193;
+      v124 = ((v190 + 1.0) - v192) - v193;
+      if (v190 > v192)
+      {
+        v125 = ((v190 + 1.0) - v192) - v193;
+      }
+
+      else
+      {
+        v125 = (v192 + (1.0 - v190)) - v193;
+      }
+
+      if (v190 > v192)
+      {
+        v123 = v48 + v50;
+      }
+
+      else
+      {
+        v124 = v48 + v50;
+      }
+
+      if (v190 > v192)
+      {
+        v126 = v191 + v76;
+      }
+
+      else
+      {
+        v126 = *&v119;
+      }
+
+      if (v190 <= v192)
+      {
+        v117 = v76 - v191;
+      }
+
+      if (v193 < 0.0)
+      {
+        v127 = v125;
+      }
+
+      else
+      {
+        v127 = v120;
+      }
+
+      if (v193 < 0.0)
+      {
+        *v116.i32 = v117;
+      }
+
+      else
+      {
+        v124 = v121;
+        v123 = v122;
+        v126 = v118;
+      }
+
+      v128 = 0.5 / sqrtf(v127);
+      v129.f32[0] = v124 * v128;
+      v130 = v123 * v128;
+      v131.f32[0] = v124 * v128;
+      v131.f32[1] = v130;
+      v131.f32[2] = v128 * v126;
+      *v116.i32 = v128 * *v116.i32;
+      v131.i32[3] = v116.i32[0];
+      v132.i64[0] = __PAIR64__(v195, LODWORD(v194));
+      v132.i64[1] = v197;
+      v133 = vnegq_f32(v132);
+      v134 = v133;
+      v134.i32[3] = 0;
+      v135 = v131;
+      v135.i32[3] = 0;
+      v132.i64[0] = vdupq_lane_s32(v116, 0).u64[0];
+      v136 = vmulq_n_f32(v134, vmla_f32(0xBF000000BF000000, *v132.f32, *v132.f32).f32[0]);
+      v136.i32[3] = 0;
+      v129.f32[1] = v130;
+      v137 = vextq_s8(v135, v135, 8uLL).u64[0];
+      v138 = vextq_s8(v134, v134, 8uLL).u64[0];
+      v139 = vmls_f32(vmul_f32(vext_s8(*v133.f32, v138, 4uLL), v129), vext_s8(v129, v137, 4uLL), *v133.f32);
+      *v133.f32 = vext_s8(v139, vmls_f32(vmul_f32(*v133.f32, v137), v129, v138), 4uLL);
+      v133.i64[1] = v139.u32[0];
+      v140 = vmlsq_lane_f32(v136, v133, v116, 0);
+      v140.i64[1] = vextq_s8(v140, v140, 8uLL).u32[0];
+      v141 = vmulq_f32(v134, v135);
+      v141.i64[0] = vpaddq_f32(v141, v141).u64[0];
+      v142 = vmlaq_n_f32(v140, v135, vpadd_f32(*v141.f32, *v141.f32).f32[0]);
+      v143 = v221;
+      v144 = -3.4028e38;
+      v145 = 3.4028e38;
+      v146 = 8;
+      v147 = 3.4028e38;
+      v148 = -3.4028e38;
+      do
+      {
+        v149 = *(v143 - 2);
+        if (v149 < v145)
         {
-          (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+          v145 = *(v143 - 2);
         }
 
-        goto LABEL_52;
-      }
-
-      v45 = *v45;
-      v43 = v46;
-    }
-
-    v47 = *a2;
-    do
-    {
-      v48 = *v45;
-      v49 = *(*v45 + 56);
-      if ((v49 & 0x10000000) != 0)
-      {
-        physx::Scb::Shape::syncState((v48 + 48));
-        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v47 + 967, (v48 + 48));
-        v49 = *(v48 + 14) & 0xEFFFFFFF;
-        *(v48 + 14) = v49;
-      }
-
-      if ((v49 & 0xF000000) == 0x1000000)
-      {
-        *(v48 + 14) = v49 & 0x31FFFFFF;
-        *(v48 + 6) = 0;
-      }
-
-      v45 += 8;
-      --v43;
-    }
-
-    while (v43);
-    v50 = v59;
-    v51 = HIDWORD(v60[0]);
-    if ((v60[0] & 0x8000000000000000) != 0)
-    {
-      goto LABEL_52;
-    }
-
-    goto LABEL_85;
-  }
-
-  v60[0] = 0x4000000000;
-  v58 = 1;
-  v59 = v57;
-  v22 = this[549];
-  if (v22)
-  {
-    v23 = (*&v22 + 536);
-  }
-
-  else
-  {
-    v23 = v57;
-  }
-
-  if (v22)
-  {
-    v24 = (*&v22 + 1056);
-  }
-
-  else
-  {
-    v24 = &v59;
-  }
-
-  if (v22)
-  {
-    v25 = (*&v22 + 1064);
-  }
-
-  else
-  {
-    v25 = v60;
-  }
-
-  v56 = a3;
-  physx::Sc::Scene::removeBody(&this[2], a2 + 4, v23, a3);
-  v26 = *v25;
-  if (v26)
-  {
-    v27 = *v24;
-    v28 = *a2;
-    do
-    {
-      v29 = *v27;
-      v30 = *(*v27 - 24);
-      if ((v30 & 0x10000000) != 0)
-      {
-        physx::Scb::Shape::syncState((v29 - 32));
-        physx::shdfnd::internal::HashSetBase<physx::Sc::BodySim const*,physx::shdfnd::Hash<physx::Sc::BodySim const*>,physx::shdfnd::NonTrackingAllocator,true>::erase(v28 + 967, v29 - 32);
-        v30 = *(v29 - 24) & 0xEFFFFFFF;
-        *(v29 - 24) = v30;
-      }
-
-      if ((v30 & 0xF000000) == 0x1000000)
-      {
-        *(v29 - 24) = v30 & 0x31FFFFFF;
-        *(v29 - 32) = 0;
-      }
-
-      if (atomic_fetch_add((v29 - 48), 0xFFFFFFFF) == 1)
-      {
-        (*(*(v29 - 56) + 16))(v29 - 56);
-      }
-
-      ++v27;
-      --v26;
-    }
-
-    while (v26);
-  }
-
-  if ((v60[0] & 0x8000000000000000) == 0 && (v60[0] & 0x7FFFFFFF00000000) != 0 && v59 != v57 && v59)
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  a3 = v56;
-LABEL_52:
-  *(a2 + 2) &= 0xFFFFFFFu;
-  *a2 = 0;
-LABEL_53:
-  v31 = *(a2 + 71);
-  v32 = (*(a2 + 2) + 348);
-  if ((v31 & 0x4000) == 0)
-  {
-    v32 = a2 + 76;
-  }
-
-  if (*v32)
-  {
-    physx::Scb::Body::putToSleepInternal(a2);
-  }
-
-  else
-  {
-    *(a2 + 70) = 1;
-    *(a2 + 71) = v31 & 0xFFF0FFFF;
-  }
-
-  v33 = *(a2 + 2) & 0xFFFFFFDF;
-  *(a2 + 2) = v33;
-  if (this[961].i8[1] == 1)
-  {
-    if (a3)
-    {
-      v33 |= 0x10u;
-      *(a2 + 2) = v33;
-    }
-
-    v60[0] = 0x4000000000;
-    v59 = v57;
-    v34 = a2 + *(&physx::Sc::gOffsetTable + *(a2 + 45) + 10);
-    v35 = v34 + 72;
-    v36 = *(v34 + 40);
-    if (v36 == 1)
-    {
-      v36 = 1;
-    }
-
-    else
-    {
-      if (!v36)
-      {
-        return;
-      }
-
-      v35 = *v35;
-    }
-
-    v52 = *a2;
-    v53 = v33 & 0xC0000000;
-    do
-    {
-      v54 = *v35;
-      v55 = *(*v35 + 56);
-      if ((v55 & 0xF000000) == 0x1000000)
-      {
-        *(v54 + 14) = v55 & 0x31FFFFFF | v53;
-        *(v54 + 6) = v52;
-      }
-
-      v35 += 8;
-      --v36;
-    }
-
-    while (v36);
-  }
-}
-
-int32x2_t *physx::Scb::Scene::add<physx::Scb::Constraint>(int32x2_t *a1, uint64_t a2, int32x2_t *a3)
-{
-  *a2 = a1;
-  if ((a1[961].i8[1] & 1) == 0)
-  {
-    *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
-    v8 = 0;
-    v9 = 0;
-    v5 = a2 - 32;
-    (*(*(a2 - 32) + 56))(a2 - 32, &v9, &v8);
-    if (v9)
-    {
-      v6 = v9 + *(&physx::Scb::Actor::sLazyInitOffsets + (*(v9 + 107) & 0xF) + 3) + 96;
-      if (v8)
-      {
-LABEL_7:
-        v7 = *(&physx::Scb::Actor::sLazyInitOffsets + (*(v8 + 107) & 0xF) + 3) + v8 + 96;
-        return physx::Sc::Scene::addConstraint(a1 + 2, v5 + 56, v6, v7);
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-      if (v8)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v7 = 0;
-    return physx::Sc::Scene::addConstraint(a1 + 2, v5 + 56, v6, v7);
-  }
-
-  return physx::Scb::ObjectTracker::scheduleForInsert(a3, a2);
-}
-
-void physx::Scb::Scene::removeConstraint(int32x2_t *a1, uint64_t a2)
-{
-  if (a1[961].i8[1])
-  {
-    v3 = a1 + 994;
-
-    physx::Scb::ObjectTracker::scheduleForRemove(v3, a2);
-  }
-
-  else
-  {
-    physx::Sc::Scene::removeConstraint(&a1[2], a2 + 24);
-    *(a2 + 8) &= 0xFFFFFFFu;
-    *a2 = 0;
-  }
-}
-
-int32x2_t *physx::Scb::Scene::add<physx::Scb::Articulation>(int32x2_t *a1, uint64_t a2, int32x2_t *a3)
-{
-  *a2 = a1;
-  if (a1[961].i8[1])
-  {
-    return physx::Scb::ObjectTracker::scheduleForInsert(a3, a2);
-  }
-
-  *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
-  v4 = **(a2 + 120);
-  if (v4)
-  {
-    v5 = v4 + 96;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  return physx::Sc::Scene::addArticulation(a1 + 2, (a2 + 24), (v5 + 32));
-}
-
-int32x2_t *physx::Scb::Scene::removeArticulation(int32x2_t *this, physx::Scb::Articulation *a2)
-{
-  v4 = *(a2 + 3);
-  if (v4)
-  {
-    v5 = this[240];
-    v6 = *v4;
-    v8 = *(v4 + 18);
-    (*(**&v5 + 72))(v5, v6, &v8);
-  }
-
-  result = physx::Scb::Scene::remove<physx::Scb::Articulation>(this, a2, this + 1001);
-  *(a2 + 76) = 1;
-  return result;
-}
-
-int32x2_t *physx::Scb::Scene::remove<physx::Scb::Articulation>(int32x2_t *a1, uint64_t a2, int32x2_t *a3)
-{
-  if (a1[961].i8[1])
-  {
-
-    return physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
-  }
-
-  else
-  {
-    *(a2 + 8) &= 0xFFFFFCFF;
-    result = physx::Sc::Scene::removeArticulation(a1 + 2, (a2 + 24));
-    *(a2 + 8) &= 0xFFFFFFFu;
-    *a2 = 0;
-  }
-
-  return result;
-}
-
-int32x2_t *physx::Scb::Scene::add<physx::Scb::ArticulationJoint>(uint64_t a1, uint64_t a2, int32x2_t *a3)
-{
-  *a2 = a1;
-  if (*(a1 + 7689))
-  {
-    return physx::Scb::ObjectTracker::scheduleForInsert(a3, a2);
-  }
-
-  *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
-  return physx::Sc::Scene::addArticulationJoint(a1 + 16, a2 + 24, (*(a2 + 408) + 128), (*(a2 + 416) + 128));
-}
-
-int32x2_t *physx::Scb::Scene::remove<physx::Scb::ArticulationJoint>(uint64_t a1, uint64_t a2, int32x2_t *a3)
-{
-  if (*(a1 + 7689))
-  {
-
-    return physx::Scb::ObjectTracker::scheduleForRemove(a3, a2);
-  }
-
-  else
-  {
-    result = physx::Sc::Scene::removeArticulationJoint(a1 + 16, (a2 + 24));
-    *(a2 + 8) &= 0xFFFFFFFu;
-    *a2 = 0;
-  }
-
-  return result;
-}
-
-int32x2_t *physx::Scb::Scene::addAggregate(int32x2_t *a1, uint64_t a2)
-{
-  *a2 = a1;
-  if (a1[961].i8[1])
-  {
-    v3 = a1 + 1015;
-
-    return physx::Scb::ObjectTracker::scheduleForInsert(v3, a2);
-  }
-
-  else
-  {
-    result = physx::Sc::Scene::createAggregate(&a1[2], *(a2 + 24), *(a2 + 40));
-    *(a2 + 32) = result;
-    *(a2 + 8) = *(a2 + 8) & 0xFFFFFFF | 0x80000000;
-  }
-
-  return result;
-}
-
-void physx::Scb::Scene::removeAggregate(int32x2_t *a1, uint64_t a2)
-{
-  if (a1[961].i8[1])
-  {
-    v3 = a1 + 1015;
-
-    physx::Scb::ObjectTracker::scheduleForRemove(v3, a2);
-  }
-
-  else
-  {
-    physx::Sc::Scene::deleteAggregate(&a1[2], *(a2 + 32));
-    *(a2 + 8) &= 0xFFFFFFFu;
-    *a2 = 0;
-  }
-}
-
-uint64_t physx::Scb::Scene::addMaterial(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    result = pthread_mutex_lock(*(result + 7680));
-  }
-
-  LOWORD(v5) = *(a2 + 24);
-  HIDWORD(v5) = 0;
-  v4 = *(v3 + 7672);
-  if ((*(v3 + 7676) & 0x7FFFFFFFu) <= v4)
-  {
-    result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::growAndPushBack(v3 + 7664, &v5);
-  }
-
-  else
-  {
-    *(*(v3 + 7664) + 8 * v4) = v5;
-    ++*(v3 + 7672);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    return pthread_mutex_unlock(*(v3 + 7680));
-  }
-
-  return result;
-}
-
-uint64_t physx::Scb::Scene::updateMaterial(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    result = pthread_mutex_lock(*(result + 7680));
-  }
-
-  LOWORD(v5) = *(a2 + 24);
-  HIDWORD(v5) = 1;
-  v4 = *(v3 + 7672);
-  if ((*(v3 + 7676) & 0x7FFFFFFFu) <= v4)
-  {
-    result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::growAndPushBack(v3 + 7664, &v5);
-  }
-
-  else
-  {
-    *(*(v3 + 7664) + 8 * v4) = v5;
-    ++*(v3 + 7672);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    return pthread_mutex_unlock(*(v3 + 7680));
-  }
-
-  return result;
-}
-
-uint64_t physx::Scb::Scene::removeMaterial(uint64_t result, uint64_t a2)
-{
-  v4 = *(a2 + 24);
-  if (v4 != 0xFFFF)
-  {
-    v8[5] = v2;
-    v8[6] = v3;
-    v6 = result;
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      result = pthread_mutex_lock(*(result + 7680));
-      LOWORD(v4) = *(a2 + 24);
-    }
-
-    LOWORD(v8[0]) = v4;
-    HIDWORD(v8[0]) = 2;
-    v7 = *(v6 + 7672);
-    if ((*(v6 + 7676) & 0x7FFFFFFFu) <= v7)
-    {
-      result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::growAndPushBack(v6 + 7664, v8);
-    }
-
-    else
-    {
-      *(*(v6 + 7664) + 8 * v7) = v8[0];
-      ++*(v6 + 7672);
-    }
-
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      return pthread_mutex_unlock(*(v6 + 7680));
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::Scb::Scene::updateLowLevelMaterial(pthread_mutex_t **this, physx::NpMaterial **a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(this[960]);
-  }
-
-  if (*(this + 1918))
-  {
-    v4 = 0;
-    v5 = 0;
-    do
-    {
-      v6 = (this[958] + v4);
-      v7 = *v6;
-      v8 = *(v6 + 1);
-      if (v8 == 2)
-      {
-        if (*(this + 6) > v7)
+        v150 = *v143;
+        v143 += 3;
+        v151 = v150;
+        if (v150 < v147)
         {
-          v19 = this[2] + 32 * v7;
-          if (*(v19 + 24) == v7)
-          {
-            (*(**&this[232][27].__opaque[40] + 120))(*&this[232][27].__opaque[40], v19);
-            *(v19 + 24) = -1;
-          }
+          v147 = v151;
+        }
+
+        if (v149 > v144)
+        {
+          v144 = v149;
+        }
+
+        if (v151 > v148)
+        {
+          v148 = v151;
+        }
+
+        --v146;
+      }
+
+      while (v146);
+      v152 = v86 * v145;
+      v154 = *(*&v53 + 56);
+      v153 = *(*&v53 + 60);
+      v155 = v154 - 2;
+      v156 = vcvtms_u32_f32(v152);
+      if (v152 <= (v154 - 2))
+      {
+        v155 = v156;
+      }
+
+      if (v152 >= 0.0)
+      {
+        v157 = v155;
+      }
+
+      else
+      {
+        v157 = 0;
+      }
+
+      v158 = v86 * v144;
+      v159 = v154 - 1;
+      v160 = vcvtps_u32_f32(v158);
+      if (v158 <= v159)
+      {
+        v159 = v160;
+      }
+
+      if (v158 >= 0.0)
+      {
+        v161 = v159;
+      }
+
+      else
+      {
+        v161 = 0;
+      }
+
+      v162 = v153 - 2;
+      v163 = vcvtms_u32_f32(v62 * v147);
+      if ((v62 * v147) <= (v153 - 2))
+      {
+        v162 = v163;
+      }
+
+      if ((v62 * v147) >= 0.0)
+      {
+        v164 = v162;
+      }
+
+      else
+      {
+        v164 = 0;
+      }
+
+      v165 = v62 * v148;
+      if (v165 >= 0.0)
+      {
+        v166 = v153 - 1;
+        *v167.f32 = v207;
+        v168 = v200;
+        if (v165 <= (v153 - 1))
+        {
+          v166 = vcvtps_u32_f32(v165);
         }
       }
 
       else
       {
-        v9 = a2[v7];
-        if (v8 == 1)
+        v166 = 0;
+        *v167.f32 = v207;
+        v168 = v200;
+      }
+
+      if (v157 > v161)
+      {
+        return 0;
+      }
+
+      v170 = vaddq_f32(v142, v142);
+      v170.i32[3] = 0;
+      v203 = vnegq_f32(v131);
+      v205 = v170;
+      v171 = v203;
+      v171.i32[3] = v116.i32[0];
+      v167.i64[1] = LODWORD(v168) | 0x7F7FFFFF00000000;
+      v172 = vdupq_laneq_s32(v171, 3);
+      v171.i32[3] = 0;
+      LODWORD(v198) = vmla_f32(0xBF000000BF000000, *v172.i8, *v172.i8).u32[0];
+      v199 = v172;
+      v201 = v171;
+      v196 = vextq_s8(v171, v171, 8uLL).u64[0];
+      v173 = vext_s8(*v203.f32, v196, 4uLL);
+      v174 = v53;
+      v208 = v167;
+      while (v164 > v166)
+      {
+LABEL_105:
+        if (++v157 > v161)
         {
-          if (v9)
+          return 0;
+        }
+      }
+
+      v175 = v164;
+      while (1)
+      {
+        v176 = v175 + v157 * *(*&v53 + 60);
+        (*(*v174 + 104))(&v216, v174);
+        if ((v216 & 1) == 0)
+        {
+          break;
+        }
+
+        v174 = v211;
+        if (v157 && v175 && *(v211 + 14) - 1 > v157)
+        {
+          v178 = v208;
+          if (*(v211 + 15) - 1 > v175)
           {
-            v16 = *(v9 + 6);
-            v15 = v9 + 48;
-            v17 = this[2] + 32 * *(v15 + 12);
-            *(v17 + 8) = *(v15 + 2);
-            *v17 = v16;
-            *(v17 + 12) = *(v15 + 6);
-            *(v17 + 14) = *(v15 + 7);
-            v18 = *(v15 + 2);
-            *(v17 + 24) = *(v15 + 6);
-            *(v17 + 16) = v18;
-            (*(**&this[232][27].__opaque[40] + 112))(*&this[232][27].__opaque[40], v15);
+            goto LABEL_93;
           }
         }
 
         else
         {
-          if (v8)
+          v178 = v208;
+        }
+
+        if ((~*(*(v211 + 10) + 4 * v176 + 2) & 0x7F) != 0 || (isSolidVertex = physx::Gu::HeightField::isSolidVertex(v211, v176, v157, v175, &v216, v177), v178 = v208, isSolidVertex))
+        {
+LABEL_103:
+          v180.f32[0] = *(*(*&v53 + 80) + 4 * v176);
+          v180.f32[1] = v157;
+          *v181.f32 = vrev64_s32(vmul_f32(a3[2], v180));
+          v181.f32[2] = a3[3].f32[0] * v175;
+          v181.i32[3] = 0;
+          v182 = vmulq_n_f32(v181, v198);
+          v182.i32[3] = 0;
+          v183 = vextq_s8(v181, v181, 8uLL).u64[0];
+          v184 = vmls_f32(vmul_f32(*v203.f32, vext_s8(*v181.f32, v183, 4uLL)), v173, *v181.f32);
+          *v185.f32 = vext_s8(v184, vmls_f32(vmul_f32(v196, *v181.f32), *v203.f32, v183), 4uLL);
+          v185.i64[1] = v184.u32[0];
+          v186 = vmlaq_f32(v182, v199, v185);
+          v186.i64[1] = vextq_s8(v186, v186, 8uLL).u32[0];
+          v187 = vmulq_f32(v201, v181);
+          v187.i64[0] = vpaddq_f32(v187, v187).u64[0];
+          v188 = vmlaq_n_f32(v186, v201, vpadd_f32(*v187.f32, *v187.f32).f32[0]);
+          v188.i64[1] = vextq_s8(v188, v188, 8uLL).u32[0];
+          v181.i64[0] = 0x4000000040000000;
+          v181.i64[1] = 0x4000000040000000;
+          v189 = vmlaq_f32(v205, v181, v188);
+          v189.i64[1] = vextq_s8(v189, v189, 8uLL).u32[0];
+          *v189.i8 = vmovn_s32(vcgtq_f32(v178, vabsq_f32(v189)));
+          if (vuzp1_s8(*v189.i8, *v189.i8).u32[0] == -1)
           {
-            v10 = 1;
+            return 1;
+          }
+        }
+
+LABEL_104:
+        if (++v175 > v166)
+        {
+          goto LABEL_105;
+        }
+      }
+
+      v174 = v211;
+      v178 = v208;
+LABEL_93:
+      if (*(*(v174 + 10) + 4 * v176 + 3) < 0)
+      {
+        goto LABEL_103;
+      }
+
+      goto LABEL_104;
+    }
+  }
+}
+
+uint64_t GeomOverlapCallback_ConvexHeightfield(uint64_t a1, float *a2, float32x2_t *a3, uint64_t a4)
+{
+  v4 = *(a1 + 32);
+  v14 = a3[1];
+  v15 = a3;
+  v5 = a3[3].f32[0];
+  __asm { FMOV            V2.2S, #1.0 }
+
+  v12 = vrev64_s32(vdiv_f32(_D2, a3[2]));
+  v13 = 1.0 / v5;
+  return intersectHeightFieldConvex(&v12, a4, v4, a2, (a1 + 4));
+}
+
+uint64_t intersectHeightFieldConvex(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, float *a5)
+{
+  *(&v278[1] + 4) = *MEMORY[0x1E69E9840];
+  v7 = *a2;
+  v8 = *(a2 + 4);
+  v9 = v8 + v8;
+  v10 = *(a2 + 8);
+  v11 = *(a2 + 12);
+  v12 = v10 + v10;
+  v13 = v8 * (v8 + v8);
+  v14 = v10 * (v10 + v10);
+  v15 = (v7 + v7) * v8;
+  v16 = (v7 + v7) * v10;
+  v17 = (v7 + v7) * v11;
+  v18 = v9 * v10;
+  v19 = v9 * v11;
+  v20 = v12 * v11;
+  v275[0] = (1.0 - v13) - v14;
+  v275[1] = v15 + v20;
+  v275[2] = v16 - v19;
+  v21 = 1.0 - (v7 * (v7 + v7));
+  v275[3] = v15 - v20;
+  v275[4] = v21 - v14;
+  v275[5] = v18 + v17;
+  v22 = v21 - v13;
+  v275[6] = v16 + v19;
+  v275[7] = v18 - v17;
+  v23 = *a4;
+  v24 = a4[1];
+  v25 = a4[2];
+  v26 = a4[3];
+  v27 = v24 + v24;
+  v28 = v25 + v25;
+  v275[8] = v22;
+  v29 = v23 * (v23 + v23);
+  v30 = v24 * (v24 + v24);
+  v31 = v25 * (v25 + v25);
+  v276 = *(a2 + 16);
+  v32 = (v23 + v23) * v24;
+  v33 = (v23 + v23) * v25;
+  v34 = (v23 + v23) * v26;
+  v277 = *(a2 + 24);
+  v35 = v27 * v25;
+  v36 = v27 * v26;
+  v37 = v28 * v26;
+  v38 = (1.0 - v30) - v31;
+  v39 = v32 + v37;
+  v40 = v33 - v36;
+  v41 = v32 - v37;
+  v42 = 1.0 - v29;
+  v43 = (1.0 - v29) - v31;
+  v44 = v35 + v34;
+  v45 = v33 + v36;
+  v46 = v35 - v34;
+  v47 = v42 - v30;
+  v48 = a5[4];
+  v49 = a5[5];
+  v50 = a5[6];
+  v52 = a5[2];
+  v51 = a5[3];
+  v53 = v48 + v48;
+  v54 = v49 + v49;
+  v55 = v48 * (v48 + v48);
+  v56 = v49 * (v49 + v49);
+  v57 = (v51 + v51) * v48;
+  v58 = (v51 + v51) * v49;
+  v59 = (v51 + v51) * v50;
+  v60 = v53 * v49;
+  v61 = v53 * v50;
+  v62 = v54 * v50;
+  v63 = (1.0 - v55) - v56;
+  v64 = v57 + v62;
+  v65 = v58 - v61;
+  v66 = v57 - v62;
+  v67 = 1.0 - (v51 * (v51 + v51));
+  v68 = v67 - v56;
+  v69 = v60 + v59;
+  v70 = v58 + v61;
+  v71 = v60 - v59;
+  v72 = v67 - v55;
+  v73 = a5[1];
+  v74 = *a5 * v63;
+  v75 = *a5 * v66;
+  v76 = *a5 * v70;
+  v77 = v64 * v73;
+  v78 = v68 * v73;
+  v79 = v71 * v73;
+  v80 = v65 * v52;
+  v81 = v69 * v52;
+  v82 = v72 * v52;
+  v83 = ((v63 * v74) + (v64 * v77)) + (v65 * v80);
+  v84 = ((v63 * v75) + (v64 * v78)) + (v65 * v81);
+  v85 = ((v63 * v76) + (v64 * v79)) + (v65 * v82);
+  v86 = ((v66 * v74) + (v68 * v77)) + (v69 * v80);
+  v87 = ((v66 * v75) + (v68 * v78)) + (v69 * v81);
+  v88 = ((v70 * v74) + (v71 * v77)) + (v72 * v80);
+  v89 = ((v70 * v75) + (v71 * v78)) + (v72 * v81);
+  v90 = ((v70 * v76) + (v71 * v79)) + (v72 * v82);
+  v240 = v84;
+  v241 = v83;
+  v239 = v85;
+  v243 = v87;
+  v244 = v86;
+  v242 = ((v66 * v76) + (v68 * v79)) + (v69 * v82);
+  v270[0] = (v45 * v85) + ((v38 * v83) + (v41 * v84));
+  v270[1] = (v46 * v85) + ((v39 * v83) + (v43 * v84));
+  v270[2] = (v47 * v85) + ((v40 * v83) + (v44 * v84));
+  v270[3] = (v45 * v242) + ((v38 * v86) + (v41 * v87));
+  v270[4] = (v46 * v242) + ((v39 * v86) + (v43 * v87));
+  v270[5] = (v47 * v242) + ((v40 * v86) + (v44 * v87));
+  v271[3] = v41;
+  v271[6] = v45;
+  v270[6] = (v45 * v90) + ((v38 * v88) + (v41 * v89));
+  v270[7] = (v46 * v90) + ((v39 * v88) + (v43 * v89));
+  v91 = a4[5];
+  v272 = a4[4];
+  v270[8] = (v47 * v90) + ((v40 * v88) + (v44 * v89));
+  v270[9] = ((v45 * 0.0) + ((v38 * 0.0) + (v41 * 0.0))) + v272;
+  v271[0] = v38;
+  v271[1] = v39;
+  v271[4] = v43;
+  v271[5] = v44;
+  v271[2] = v40;
+  v271[7] = v46;
+  v271[8] = v47;
+  v273 = v91;
+  v274 = a4[6];
+  v270[10] = ((v46 * 0.0) + ((v39 * 0.0) + (v43 * 0.0))) + v91;
+  v270[11] = ((v47 * 0.0) + ((v40 * 0.0) + (v44 * 0.0))) + v274;
+  multiplyInverseRTLeft(&v262, v275, v270);
+  v92 = *(a3 + 70);
+  MEMORY[0x1EEE9AC00](v93);
+  v95 = &v227[-v94];
+  v247 = v96;
+  bzero(&v227[-v94], v96);
+  v99 = *(a3 + 72);
+  v246 = *(a3 + 71);
+  v245 = 5 * v246;
+  if (v92)
+  {
+    v100 = v263;
+    v101 = v265;
+    v102 = v267;
+    v103 = v262;
+    v104 = v264;
+    v105 = v266;
+    v106 = (v95 + 8);
+    v107 = v268;
+    v108 = (20 * v246 + v99 + 4);
+    v109 = v92;
+    v110 = v269;
+    v111 = v95;
+    do
+    {
+      v112 = *(v108 - 1);
+      v113 = v108[1];
+      v114 = v110 + (((v100 * v112) + (v101 * *v108)) + (v102 * v113));
+      *(v106 - 1) = vadd_f32(v107, vadd_f32(vadd_f32(vmul_n_f32(v103, v112), vmul_n_f32(v104, *v108)), vmul_n_f32(v105, v113)));
+      *v106 = v114;
+      v106 += 3;
+      v108 += 3;
+      --v109;
+    }
+
+    while (v109);
+    v115 = v92 - 1;
+    v116 = &v95[12 * (v92 - 1)];
+    v117.i64[0] = *v116;
+    v117.i64[1] = *(v116 + 2);
+    if (v92 == 1)
+    {
+      v119 = v117;
+    }
+
+    else
+    {
+      v118 = v95;
+      v119 = v117;
+      do
+      {
+        v120 = *v118;
+        v118 = (v118 + 12);
+        v119 = vminq_f32(v119, v120);
+        v117 = vmaxq_f32(v117, v120);
+        --v115;
+      }
+
+      while (v115);
+    }
+
+    v122 = v119.f32[1];
+    v121 = v119.f32[2];
+    v123 = v117.f32[2];
+  }
+
+  else
+  {
+    v121 = 8.5071e37;
+    v117.i32[0] = -25165825;
+    v122 = 8.5071e37;
+    v119.i32[0] = 2122317823;
+    v123 = -8.5071e37;
+    v111 = v95;
+  }
+
+  v124 = *(a1 + 16);
+  v125 = *(a1 + 8);
+  v126 = *a1;
+  v127 = *(v124 + 56);
+  v128 = v119.f32[0] * *a1;
+  if (*a1 > 0.0)
+  {
+    if (v128 >= 0.0)
+    {
+      v129 = v127 - 2;
+      if (v128 <= (v127 - 2))
+      {
+        v129 = vcvtms_u32_f32(v128);
+      }
+    }
+
+    else
+    {
+      v129 = 0;
+    }
+
+    v131 = v117.f32[0] * v126;
+    if (v131 >= 0.0)
+    {
+      v132 = v127 - 1;
+      if (v131 <= (v127 - 1))
+      {
+        v132 = vcvtps_u32_f32(v131);
+      }
+
+      goto LABEL_25;
+    }
+
+LABEL_24:
+    v132 = 0;
+    goto LABEL_25;
+  }
+
+  v130 = v117.f32[0] * v126;
+  if (v130 >= 0.0)
+  {
+    v129 = v127 - 2;
+    if (v130 <= (v127 - 2))
+    {
+      v129 = vcvtms_u32_f32(v130);
+    }
+  }
+
+  else
+  {
+    v129 = 0;
+  }
+
+  if (v128 < 0.0)
+  {
+    goto LABEL_24;
+  }
+
+  v132 = v127 - 1;
+  if (v128 <= (v127 - 1))
+  {
+    v132 = vcvtps_u32_f32(v128);
+  }
+
+LABEL_25:
+  v133 = *(v124 + 60);
+  v134 = v121 * v125;
+  if (v125 > 0.0)
+  {
+    if (v134 >= 0.0)
+    {
+      v135 = v133 - 2;
+      if (v134 <= (v133 - 2))
+      {
+        v135 = vcvtms_u32_f32(v134);
+      }
+    }
+
+    else
+    {
+      v135 = 0;
+    }
+
+    *&v98 = v123 * v125;
+    if (*&v98 >= 0.0)
+    {
+      v136 = v133 - 1;
+      if (*&v98 <= (v133 - 1))
+      {
+        v136 = vcvtps_u32_f32(*&v98);
+      }
+
+      goto LABEL_41;
+    }
+
+LABEL_40:
+    v136 = 0;
+    goto LABEL_41;
+  }
+
+  *&v98 = v123 * v125;
+  if (*&v98 >= 0.0)
+  {
+    v135 = v133 - 2;
+    if (*&v98 <= (v133 - 2))
+    {
+      v135 = vcvtms_u32_f32(*&v98);
+    }
+  }
+
+  else
+  {
+    v135 = 0;
+  }
+
+  if (v134 < 0.0)
+  {
+    goto LABEL_40;
+  }
+
+  v136 = v133 - 1;
+  *&v98 = (v133 - 1);
+  if (v134 <= *&v98)
+  {
+    v136 = vcvtps_u32_f32(v134);
+  }
+
+LABEL_41:
+  v137 = 1.0 / *(a1 + 4);
+  if (v129 <= v132)
+  {
+    v138 = v129 * v133;
+    LODWORD(v97) = -8388609;
+    v139 = v129;
+    do
+    {
+      if (v135 <= v136)
+      {
+        v141 = v135;
+        do
+        {
+          v140 = *(v124 + 80);
+          *&v98 = *(v140 + 4 * (v138 + v141));
+          if (*&v97 <= *&v98)
+          {
+            *&v97 = *(v140 + 4 * (v138 + v141));
           }
 
-          else
+          ++v141;
+        }
+
+        while (v141 <= v136);
+      }
+
+      ++v139;
+      v138 += v133;
+    }
+
+    while (v139 <= v132);
+  }
+
+  else
+  {
+    LODWORD(v97) = -8388609;
+  }
+
+  v142 = v137 * *&v97;
+  if (v122 > (v137 * *&v97))
+  {
+    return 0;
+  }
+
+  v234 = 1.0 / *(a1 + 4);
+  v236 = v135;
+  v237 = v132;
+  v235 = v129;
+  *v248 = v111;
+  v238 = v92;
+  if (!v92)
+  {
+LABEL_76:
+    v231 = v124;
+    v232 = a1;
+    v260 = 0u;
+    v261 = 0u;
+    v258 = 0u;
+    v259 = 0u;
+    v256 = 0u;
+    v257 = 0u;
+    v254 = 0u;
+    v255 = 0u;
+    v233 = a3;
+    v177 = *(a3 + 68);
+    v178 = v177 & 0x7FFF;
+    if (v177 >= 0)
+    {
+      v179 = 0;
+    }
+
+    else
+    {
+      v179 = 4 * v178;
+    }
+
+    v252 = a1;
+    physx::Gu::HeightFieldUtil::computeLocalBounds(a1, v253, 0.0, v97, v98);
+    v180 = *v248;
+    if (v246)
+    {
+      v245 = v99 + 4 * v245 + v247 + 2 * v178 + 3 * v238 + v179;
+      v181 = v252;
+      do
+      {
+        v247 = v99;
+        v182 = *(v99 + 18);
+        if (v182)
+        {
+          v183 = 0;
+          v184 = v245 + *(v247 + 16);
+          v185 = v182 - 1;
+          do
           {
-            v10 = v9 == 0;
+            v186 = *(v184 + v185);
+            v187 = *(v184 + v183);
+            if (v187 >= v186)
+            {
+              v188 = *(v184 + v185);
+            }
+
+            else
+            {
+              v188 = *(v184 + v183);
+            }
+
+            if (v187 > v186)
+            {
+              v186 = *(v184 + v183);
+            }
+
+            v189 = v186 | (v188 << 8);
+            v190 = 9 * ((~(v189 << 15) + v189) ^ ((~(v189 << 15) + v189) >> 10));
+            v191 = (v190 ^ (v190 >> 6)) + ~((v190 ^ (v190 >> 6)) << 11);
+            v192 = (v191 ^ BYTE2(v191)) & 0x3F;
+            if (*(&v254 + v192) == v189)
+            {
+              v193 = v183;
+            }
+
+            else
+            {
+              *(&v254 + v192) = v189;
+              v194 = &v180[12 * v188];
+              v195 = &v180[12 * v186];
+              v193 = (v183 + 1);
+              v196 = v194[1];
+              v197 = v195[1];
+              if (v196 <= v142 || v197 <= v142)
+              {
+                v250.f32[0] = *v194;
+                v250.f32[1] = v196;
+                v251 = v194[2];
+                v199 = *v195;
+                v200 = v195[2];
+                v249 = 0;
+                v278[0].f32[0] = v199 - v250.f32[0];
+                v278[0].f32[1] = v197 - v196;
+                v278[1].f32[0] = v200 - v251;
+                physx::Gu::HeightFieldTraceUtil::traceSegment<physx::Gu::TriggerTraceSegmentCallback,false,false>(v181, &v250, v278, &v249, v253);
+                v180 = *v248;
+                v185 = v183;
+                if (v249)
+                {
+                  return 1;
+                }
+              }
+
+              else
+              {
+                v185 = v183;
+              }
+            }
+
+            v183 = v193;
+            --v182;
           }
 
-          if (!v10)
+          while (v182);
+        }
+
+        v99 = v247 + 20;
+        v246 = (v246 - 1);
+      }
+
+      while (v246);
+    }
+
+    multiplyInverseRTLeft(&v254, v271, v275);
+    v201 = v235;
+    if (v235 > v237)
+    {
+      return 0;
+    }
+
+    v230 = ((v241 * *&v254) + (v244 * *(&v254 + 1))) + (v88 * *(&v254 + 2));
+    v228 = ((v239 * *&v254) + (v242 * *(&v254 + 1))) + (v90 * *(&v254 + 2));
+    v229 = ((v240 * *&v254) + (v243 * *(&v254 + 1))) + (v89 * *(&v254 + 2));
+    v248[0] = ((v241 * *(&v254 + 3)) + (v244 * *&v255)) + (v88 * *(&v255 + 1));
+    *&v247 = ((v240 * *(&v254 + 3)) + (v243 * *&v255)) + (v89 * *(&v255 + 1));
+    *&v246 = ((v239 * *(&v254 + 3)) + (v242 * *&v255)) + (v90 * *(&v255 + 1));
+    *&v245 = ((v241 * *(&v255 + 2)) + (v244 * *(&v255 + 3))) + (v88 * *&v256);
+    *&v238 = ((v240 * *(&v255 + 2)) + (v243 * *(&v255 + 3))) + (v89 * *&v256);
+    v202 = ((v239 * *(&v255 + 2)) + (v242 * *(&v255 + 3))) + (v90 * *&v256);
+    v203 = v231;
+    v204 = v231;
+    v205 = ((v240 * *(&v256 + 1)) + (v243 * *(&v256 + 2))) + (v89 * *(&v256 + 3));
+    v206 = ((v239 * *(&v256 + 1)) + (v242 * *(&v256 + 2))) + (v90 * *(&v256 + 3));
+    v207 = (((v241 * *(&v256 + 1)) + (v244 * *(&v256 + 2))) + (v88 * *(&v256 + 3))) + 0.0;
+    v208 = v205 + 0.0;
+    v209 = v206 + 0.0;
+    v244 = 1.0 / v126;
+    v210 = 1.0 / v125;
+    v212 = v232;
+    v211 = v233;
+    while (1)
+    {
+      v213 = v236;
+      if (v236 <= v136)
+      {
+        break;
+      }
+
+LABEL_101:
+      if (++v201 > v237)
+      {
+        return 0;
+      }
+    }
+
+    v214 = v244 * v201;
+    v215 = v230 * v214;
+    v216 = v229 * v214;
+    v217 = v228 * v214;
+    while (1)
+    {
+      v218 = v213 + *(v203 + 60) * v201;
+      (*(*v204 + 104))(&v252, v204);
+      if ((v252 & 1) == 0)
+      {
+        break;
+      }
+
+      v204 = *(v212 + 16);
+      if (v201 && v213 && *(v204 + 56) - 1 > v201 && *(v204 + 60) - 1 > v213)
+      {
+        goto LABEL_106;
+      }
+
+      if ((~*(*(v204 + 80) + 4 * v218 + 2) & 0x7F) != 0 || physx::Gu::HeightField::isSolidVertex(*(v212 + 16), v218, v201, v213, &v252, v219))
+      {
+LABEL_114:
+        v220 = *(v211 + 71);
+        if (!*(v211 + 71))
+        {
+          return 1;
+        }
+
+        v221 = v234 * *(*(v203 + 80) + 4 * v218);
+        v222 = v210 * v213;
+        v223 = (*&v238 * v222) + (v216 + (*&v247 * v221));
+        v224 = (v202 * v222) + (v217 + (*&v246 * v221));
+        v225 = v207 + ((*&v245 * v222) + (v215 + (v248[0] * v221)));
+        for (i = (*(v211 + 72) + 8); (i[1] + ((((v208 + v223) * *(i - 1)) + (v225 * *(i - 2))) + ((v209 + v224) * *i))) < 0.0; i += 5)
+        {
+          if (!--v220)
           {
-            v11 = *(v9 + 36);
-            physx::PxsMaterialManager::resize((this + 2), v11 + 1);
-            v12 = *(v9 + 6);
-            v13 = this[2] + 32 * v11;
-            *(v13 + 8) = *(v9 + 14);
-            *v13 = v12;
-            *(v13 + 12) = *(v9 + 30);
-            *(v13 + 14) = *(v9 + 31);
-            v14 = *(v9 + 8);
-            *(v13 + 24) = *(v9 + 18);
-            *(v13 + 16) = v14;
-            (*(**&this[232][27].__opaque[40] + 104))(*&this[232][27].__opaque[40]);
+            return 1;
           }
         }
       }
 
-      ++v5;
-      v4 += 8;
+LABEL_119:
+      if (++v213 > v136)
+      {
+        goto LABEL_101;
+      }
     }
 
-    while (v5 < *(this + 1918));
+    v204 = *(v212 + 16);
+LABEL_106:
+    if (*(*(v204 + 80) + 4 * v218 + 3) < 0)
+    {
+      goto LABEL_114;
+    }
+
+    goto LABEL_119;
   }
 
-  result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::resize((this + 958), 0, &v21);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  v144 = *(a1 + 24);
+  v145 = (v111 + 8);
+  v146 = v238;
+  while (1)
   {
-    return pthread_mutex_unlock(this[960]);
-  }
+    *&v98 = *(v145 - 1);
+    if (*&v98 >= v142)
+    {
+      goto LABEL_73;
+    }
 
-  return result;
+    v147 = *(v145 - 2);
+    v148 = v126 * v147;
+    if ((v126 * v147) < 0.0)
+    {
+      goto LABEL_73;
+    }
+
+    *&v97 = *v145;
+    v149 = v125 * *v145;
+    if (v149 < 0.0)
+    {
+      goto LABEL_73;
+    }
+
+    v150 = *(v124 + 64);
+    if (v148 >= (v150 + 1.0))
+    {
+      goto LABEL_73;
+    }
+
+    v151 = *(v124 + 68);
+    if (v149 >= (v151 + 1.0))
+    {
+      goto LABEL_73;
+    }
+
+    v152 = fmaxf(v148, 0.0);
+    v153 = fmaxf(v149, 0.0);
+    v154 = 1.0 - ((v153 + 1.0) * 0.000001);
+    v155 = (1.0 - ((v152 + 1.0) * 0.000001)) + v150;
+    if (v152 >= v155)
+    {
+      v152 = v155;
+    }
+
+    if (v153 >= (v154 + v151))
+    {
+      v153 = v154 + v151;
+    }
+
+    v156 = floorf(v152);
+    v157 = v152 - v156;
+    v158 = floorf(v153);
+    v159 = v153 - v158;
+    v160 = (v158 + (v156 * *(v124 + 72)));
+    v161 = *(v124 + 80);
+    v162 = (v161 + 4 * v160);
+    if (v162[1] < 0)
+    {
+      v168 = *v162;
+      v164 = *(v161 + 4 * (v133 + v160 + 1));
+      if (v159 <= v157)
+      {
+        v176 = *(v161 + 4 * (v133 + v160));
+        v170 = (v168 + (v157 * (v176 - v168))) + (v159 * (v164 - v176));
+        goto LABEL_71;
+      }
+
+      v169 = *(v161 + 4 * (v160 + 1));
+      v166 = v168 + (v159 * (v169 - v168));
+      goto LABEL_69;
+    }
+
+    v163 = *(v161 + 4 * (v133 + v160));
+    v164 = *(v161 + 4 * (v160 + 1));
+    if ((v157 + v159) >= 1.0)
+    {
+      v169 = *(v161 + 4 * (v133 + v160 + 1));
+      v166 = v169 + ((1.0 - v159) * (v163 - v169));
+      v157 = 1.0 - v157;
+LABEL_69:
+      v167 = v164 - v169;
+      goto LABEL_70;
+    }
+
+    v165 = *v162;
+    v166 = v165 + (v159 * (v164 - v165));
+    v167 = v163 - v165;
+LABEL_70:
+    v170 = v166 + (v157 * v167);
+LABEL_71:
+    *&v98 = *&v98 - (*(v144 + 16) * v170);
+    if (*&v98 == 0.0)
+    {
+      v171 = a1;
+      v172 = a1;
+      v173 = a3;
+      v174 = v144;
+      FaceIndexAtShapePoint = physx::Gu::HeightFieldUtil::getFaceIndexAtShapePoint(v171, v147, *&v97);
+      v144 = v174;
+      a3 = v173;
+      a1 = v172;
+      if (FaceIndexAtShapePoint != -1)
+      {
+        return 1;
+      }
+    }
+
+LABEL_73:
+    v145 += 3;
+    if (!--v146)
+    {
+      goto LABEL_76;
+    }
+  }
 }
 
-uint64_t physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::resize(uint64_t result, unsigned int a2, void *a3)
+uint64_t sweepCapsule_HeightFieldGeom(float32x2_t *a1, float32x2_t *a2, physx::Gu::Box *a3, float a4, float a5, uint64_t a6, float *a7, float32x2_t *a8, uint64_t a9, __int16 *a10)
 {
-  v5 = result;
-  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
+  v13 = a7;
+  v232 = *MEMORY[0x1E69E9840];
+  v17 = a7[6] + a5;
+  v217 = *a7;
+  v218 = *(a7 + 2);
+  v219 = v17;
+  physx::Gu::computeBoxAroundCapsule(&v217, v211, a3);
+  v18 = ((fabsf(v211[3]) * v215) + (fabsf(v211[0]) * v214)) + (fabsf(v211[6]) * v216);
+  v19 = ((fabsf(v211[4]) * v215) + (fabsf(v211[1]) * v214)) + (fabsf(v211[7]) * v216);
+  v20 = ((fabsf(v211[5]) * v215) + (fabsf(v211[2]) * v214)) + (fabsf(v211[8]) * v216);
+  v209 = a1[1];
+  v210 = a1;
+  v21 = a1[3].f32[0];
+  __asm { FMOV            V4.2S, #1.0 }
+
+  v207 = vrev64_s32(vdiv_f32(_D4, a1[2]));
+  v208 = 1.0 / v21;
+  v27 = *a10;
+  v197[1] = &v207;
+  v198 = v27;
+  v199 = 0;
+  v200 = (a1[3].i8[4] & 2 | v27 & 0x80) != 0;
+  v201 = (v27 & 0x40) != 0;
+  v197[0] = &unk_1F5D22150;
+  v202 = &v217;
+  v203 = a8;
+  v204 = a9;
+  v205 = a2;
+  v206 = a4;
+  *(a9 + 16) = -1;
+  *(a9 + 48) = 2139095039;
+  v28 = a2[3].f32[0] * -2.0;
+  v29.i32[0] = a2[1].i32[0];
+  v30.i32[0] = a2[1].i32[1];
+  v31 = (*v30.i32 * *v30.i32) + -0.5;
+  _S26 = v213 + v213;
+  _S22 = a8->f32[0] + a8->f32[0];
+  _S19 = a8->f32[1] + a8->f32[1];
+  _S20 = a8[1].f32[0] + a8[1].f32[0];
+  v36 = vdup_lane_s32(v30, 0);
+  v37 = a2[2];
+  v38 = vmul_f32(v37, 0xC0000000C0000000);
+  _D21 = *a2;
+  v37.i32[0] = HIDWORD(*a2);
+  v40 = (vmuls_lane_f32(*&v38.i32[1], *a2, 1) + (COERCE_FLOAT(*a2) * *v38.i32)) + (*v29.i32 * v28);
+  _D23 = vzip1_s32(v29, *a2);
+  v42.i32[0] = vdup_lane_s32(v38, 1).u32[0];
+  v42.f32[1] = v28;
+  v43 = vneg_f32(_D23);
+  _D9.i32[0] = vdup_lane_s32(*a2, 1).u32[0];
+  _D9.i32[1] = v29.i32[0];
+  v45 = vneg_f32(vmla_f32(vmul_f32(v42, v43), vext_s8(v42, v38, 4uLL), _D9));
+  v46 = vmla_n_f32(vmla_n_f32(vmul_n_f32(v45, *v30.i32), v38, v31), *a2, v40);
+  *v45.i32 = -*v37.i32;
+  *v38.i32 = ((v28 * v31) - (((-*v37.i32 * *v38.i32) + (COERCE_FLOAT(*a2) * *&v38.i32[1])) * *v30.i32)) + (*v29.i32 * v40);
+  _D29 = vadd_f32(v212, v212);
+  _S30 = _D29.i32[1];
+  __asm
   {
-    result = physx::shdfnd::Array<physx::Scb::MaterialEvent,physx::shdfnd::ReflectionAllocator<physx::Scb::MaterialEvent>>::recreate(result, a2);
+    FMLS            S9, S29, V23.S[1]
+    FMLS            S9, S26, V23.S[0]
   }
 
-  v6 = *(v5 + 8);
-  if (v6 < a2)
+  v49.i32[0] = vdup_lane_s32(_D29, 1).u32[0];
+  v49.f32[1] = v213 + v213;
+  v50 = vdup_lane_s32(v43, 0);
+  v50.f32[0] = -*v37.i32;
+  v51 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(_D23, v49), vext_s8(v49, _D29, 4uLL), v50), *v30.i32), _D29, v31), vext_s8(v43, v50, 4uLL), _D9.f32[0]);
+  __asm
   {
-    v7 = *v5 + 8 * a2;
-    v8 = (*v5 + 8 * v6);
-    do
+    FMLS            S29, S30, V23.S[1]
+    FMLS            S26, S9, V23.S[0]
+  }
+
+  v53 = *v38.i32 + _S26;
+  v195 = vadd_f32(v46, v51);
+  v196 = v53;
+  __asm
+  {
+    FMLS            S26, S22, V23.S[1]
+    FMLS            S26, S20, V23.S[0]
+    FMLS            S24, S20, V21.S[1]
+    FMLS            S10, S26, V23.S[1]
+    FMLS            S24, S22, V23.S[0]
+    FMLS            S12, S26, V21.S[1]
+    FMLS            S22, S19, V23.S[1]
+    FMLS            S11, S26, V23.S[0]
+  }
+
+  v193 = _S10;
+  v194 = __PAIR64__(LODWORD(_S11), LODWORD(_S12));
+  *v62.i32 = *&v43.i32[1] - *&_D21;
+  v63 = vdup_lane_s32(v62, 0);
+  *v37.i32 = -*v37.i32 - *v37.i32;
+  *v29.i32 = *v43.i32 - *v29.i32;
+  *v64.i32 = vmuls_lane_f32(*&v43.i32[1] - *&_D21, v43, 1);
+  v65 = vmul_n_f32(vdup_lane_s32(v45, 0), *v37.i32);
+  v66 = vmul_n_f32(vdup_lane_s32(v29, 0), *v43.i32);
+  v67 = vmul_n_f32(v63, *v45.i32);
+  v68 = vmul_n_f32(v63, *v43.i32);
+  v69 = vmul_n_f32(v36, *v62.i32);
+  v70 = vmul_n_f32(vdup_lane_s32(v37, 0), *v43.i32);
+  v71 = vmul_n_f32(v36, *v37.i32);
+  v72 = vmul_n_f32(v36, *v29.i32);
+  v73 = vsub_f32(_D4, vdup_lane_s32(v64, 0));
+  v74 = vdup_lane_s32(vadd_f32(v67, v72), 0);
+  v74.f32[0] = (1.0 - v65.f32[1]) - v66.f32[1];
+  v75 = vadd_f32(vabs_f32(vmul_n_f32(vext_s8(vadd_f32(v68, v71), vsub_f32(v70, v69), 4uLL), v20)), vadd_f32(vabs_f32(vmul_n_f32(v74, v18)), vabs_f32(vmul_n_f32(vext_s8(vsub_f32(v67, v72), vsub_f32(v73, v66), 4uLL), v19))));
+  v76 = fabsf(v20 * vsub_f32(v73, v65).f32[0]) + (fabsf(v18 * vsub_f32(v68, v71).f32[0]) + fabsf(v19 * vadd_f32(v69, v70).f32[0]));
+  v187 = v195;
+  *&v77 = ((v53 + v76) + (v76 - v53)) * 0.5;
+  v191 = COERCE_DOUBLE(vmul_f32(vadd_f32(vadd_f32(v75, v195), vsub_f32(v75, v195)), 0x3F0000003F000000));
+  v192 = LODWORD(v77);
+  HeightFieldTraceSegmentSweepHelper::HeightFieldTraceSegmentSweepHelper(v188, &v207, &v191, v77, v191, COERCE_DOUBLE(COERCE_UNSIGNED_INT(0.5) | 0x3F00000000000000));
+  v78 = v188[0];
+  v79 = v188[1];
+  v220 = 0;
+  if (physx::Gu::intersectRayAABB2(&v189, &v190, &v195, &v193, &v220 + 1, &v220, a4))
+  {
+    v81 = 0;
+    v82 = v187.f32[1];
+    v83 = *(v78 + 16);
+    v221.i8[0] = 0;
+    v221.i64[1] = v78;
+    v222 = v83;
+    v231 = 0;
+    v84 = v187.f32[0] + (_S10 * a4);
+    v85 = v187.f32[1] + (_S12 * a4);
+    if (v85 >= v187.f32[1])
     {
-      *v8++ = *a3;
+      v86 = v187.f32[1];
     }
 
-    while (v8 < v7);
+    else
+    {
+      v86 = v187.f32[1] + (_S12 * a4);
+    }
+
+    v87 = v79[1];
+    v88 = *(v78 + 4);
+    v89 = (v86 - v87) * v88;
+    if (v85 > v187.f32[1])
+    {
+      v82 = v187.f32[1] + (_S12 * a4);
+    }
+
+    v226 = v89;
+    v227 = (v82 + v87) * v88;
+    if (v84 >= v187.f32[0])
+    {
+      v90 = v187.f32[0];
+    }
+
+    else
+    {
+      v90 = v187.f32[0] + (_S10 * a4);
+    }
+
+    v91 = *v79;
+    v92 = v90 - *v79;
+    v93 = *v78;
+    v94 = *v78 * v92;
+    v95 = *(v83 + 56);
+    if (v94 >= 0.0)
+    {
+      v81 = v95 - 2;
+      if (v94 <= (v95 - 2))
+      {
+        v81 = vcvtms_u32_f32(v94);
+      }
+    }
+
+    v96 = v53 + (_S11 * a4);
+    v228.i32[0] = v81;
+    if (v84 <= v187.f32[0])
+    {
+      v84 = v187.f32[0];
+    }
+
+    v97 = v93 * (v84 + v91);
+    if (v97 >= 0.0)
+    {
+      v98 = v95 - 1;
+      if (v97 <= (v95 - 1))
+      {
+        v98 = vcvtps_u32_f32(v97);
+      }
+    }
+
+    else
+    {
+      v98 = 0;
+    }
+
+    v228.i32[1] = v98;
+    if (v96 >= v53)
+    {
+      v99 = v53;
+    }
+
+    else
+    {
+      v99 = v53 + (_S11 * a4);
+    }
+
+    v100 = v79[2];
+    v101 = v99 - v100;
+    v102 = *(v78 + 8);
+    v103 = v102 * v101;
+    v104 = *(v83 + 60);
+    if (v103 >= 0.0)
+    {
+      v105 = v104 - 2;
+      if (v103 <= (v104 - 2))
+      {
+        v105 = vcvtms_u32_f32(v103);
+      }
+    }
+
+    else
+    {
+      v105 = 0;
+    }
+
+    v228.i32[2] = v105;
+    if (v96 <= v53)
+    {
+      v96 = v53;
+    }
+
+    v106 = v102 * (v96 + v100);
+    v107 = v104 - 1;
+    if (v106 >= 0.0)
+    {
+      v108 = v104 - 1;
+      if (v106 <= v107)
+      {
+        v108 = vcvtps_u32_f32(v106);
+      }
+    }
+
+    else
+    {
+      v108 = 0;
+    }
+
+    v177 = v13;
+    v178 = a8;
+    v179 = a9;
+    v228.i32[3] = v108;
+    v109 = v91 * v93;
+    v110 = ceilf(v91 * v93);
+    v111 = v100 * v102;
+    v112 = ceilf(v100 * v102);
+    v224 = vcvtps_s32_f32(v109) + 1;
+    v225 = vcvtps_s32_f32(v111) + 1;
+    v113 = (v187.f32[0] + (_S10 * *(&v220 + 1))) * v93;
+    v114 = 0.0000001 - v110;
+    if (v113 > (0.0000001 - v110))
+    {
+      v114 = (v187.f32[0] + (_S10 * *(&v220 + 1))) * v93;
+    }
+
+    if (v114 >= (v110 + ((v95 - 1) * 1.0)))
+    {
+      v114 = v110 + ((v95 - 1) * 1.0);
+    }
+
+    v115 = (v53 + (_S11 * *(&v220 + 1))) * v102;
+    v116 = 0.0000001 - v112;
+    if (v115 > (0.0000001 - v112))
+    {
+      v116 = (v53 + (_S11 * *(&v220 + 1))) * v102;
+    }
+
+    v117 = v112 + (v107 * 1.0);
+    if (v116 < v117)
+    {
+      v117 = v116;
+    }
+
+    v118 = (v187.f32[0] + (_S10 * *&v220)) * v93;
+    v119 = (v53 + (_S11 * *&v220)) * v102;
+    if ((v118 - v113) < 0.0)
+    {
+      v120 = -1.0;
+    }
+
+    else
+    {
+      v120 = 1.0;
+    }
+
+    if ((v119 - v115) < 0.0)
+    {
+      v121 = -1.0;
+    }
+
+    else
+    {
+      v121 = 1.0;
+    }
+
+    if (vabds_f32(v118, v113) >= 1.0e-10)
+    {
+      v122 = v118 - v113;
+    }
+
+    else
+    {
+      v122 = v120 * 1.0e-10;
+    }
+
+    if (vabds_f32(v119, v115) >= 1.0e-10)
+    {
+      v123 = v119 - v115;
+    }
+
+    else
+    {
+      v123 = v121 * 1.0e-10;
+    }
+
+    v124 = floorf(v114);
+    v125 = ceilf(v114);
+    v126 = floorf(v117);
+    v127 = ceilf(v117);
+    if (v123 <= 0.0)
+    {
+      v128 = v127;
+    }
+
+    else
+    {
+      v128 = v126;
+    }
+
+    v129 = v124 + -1.0;
+    if (v124 != v114)
+    {
+      v129 = v124;
+    }
+
+    v130 = v125 + 1.0;
+    if (v125 != v114)
+    {
+      v130 = v125;
+    }
+
+    if (v122 <= 0.0)
+    {
+      v131 = v125;
+    }
+
+    else
+    {
+      v131 = v124;
+    }
+
+    if (v122 > 0.0)
+    {
+      v132 = v130;
+    }
+
+    else
+    {
+      v132 = v129;
+    }
+
+    v133 = v126 + -1.0;
+    if (v126 != v117)
+    {
+      v133 = v126;
+    }
+
+    if (v127 == v117)
+    {
+      v134 = v127 + 1.0;
+    }
+
+    else
+    {
+      v134 = v127;
+    }
+
+    if (v123 <= 0.0)
+    {
+      v134 = v133;
+    }
+
+    v135 = (v132 - v113) / v122;
+    v136 = (v134 - v115) / v123;
+    if (v135 < 0.0)
+    {
+      v135 = fabsf(0.0000001 / v122);
+    }
+
+    v137 = v131;
+    v138 = v128;
+    v139 = v120;
+    v140 = v121;
+    if (v136 < 0.0)
+    {
+      v136 = fabsf(0.0000001 / v123);
+    }
+
+    v141 = 1.0 / fabsf(v122);
+    v142 = fabsf(v123);
+    if (v139 >= 1)
+    {
+      v143 = 0;
+    }
+
+    else
+    {
+      v143 = -1;
+    }
+
+    if (v140 >= 1)
+    {
+      v144 = 0;
+    }
+
+    else
+    {
+      v144 = -1;
+    }
+
+    v184 = v144;
+    v185 = v104;
+    v80.i32[1] = 0;
+    v182 = v141;
+    v183 = 0.0 - v112;
+    v145 = v112 + v104;
+    v146 = 0.0 - v110;
+    v147 = v110 + v95;
+    v148 = 1.0 / v142;
+    while (1)
+    {
+      if (v135 >= v136)
+      {
+        v149 = v136;
+      }
+
+      else
+      {
+        v149 = v135;
+      }
+
+      if ((v221.i8[0] & 1) == 0)
+      {
+        v221.i8[0] = 1;
+        v223 = v197;
+        *v229 = v185;
+        *&v229[4] = v143;
+        v230[0] = xmmword_1E3116B20;
+        *&v229[8] = v184;
+        *&v229[12] = v137 - v224;
+        v153 = v224 + v137;
+        *&v229[16] = v224 + v137;
+        *&v229[20] = v138 - v225;
+        v154 = v225 + v138;
+        *&v229[24] = v225 + v138;
+        if ((v137 - v224) <= (v224 + v137))
+        {
+          v155 = v137 - v224 + v143;
+          v156 = v184;
+          v157 = v143;
+          do
+          {
+            if (v155 >= v228.i32[0])
+            {
+              if (v155 >= v228.i32[1])
+              {
+                break;
+              }
+
+              if (*&v229[20] <= v154)
+              {
+                v158 = *&v229[20] + v156;
+                do
+                {
+                  if (v158 >= v228.i32[2])
+                  {
+                    if (v158 >= v228.i32[3])
+                    {
+                      break;
+                    }
+
+                    if (!physx::Gu::HeightFieldTraceUtil::OverlapTraceSegment<CapsuleTraceSegmentReport>::testVertexIndex(&v221, v158 + v155 * *v229))
+                    {
+                      goto LABEL_151;
+                    }
+
+                    v154 = *&v229[24];
+                    v156 = *&v229[8];
+                  }
+
+                  v160 = v158++ < v154 + v156;
+                }
+
+                while (v160);
+                v153 = *&v229[16];
+                v157 = *&v229[4];
+              }
+            }
+
+            v160 = v155++ < (v153 + v157);
+          }
+
+          while (v160);
+          if (v231)
+          {
+            if (!(*(*v223 + 16))(v223))
+            {
+              goto LABEL_151;
+            }
+
+            v231 = 0;
+          }
+        }
+
+        goto LABEL_117;
+      }
+
+      v150 = v137 - v224;
+      LODWORD(v230[0]) = v137 - v224;
+      DWORD1(v230[0]) = v224 + v137;
+      v151 = v138 - v225;
+      DWORD2(v230[0]) = v138 - v225;
+      HIDWORD(v230[0]) = v225 + v138;
+      if (v137 - v224 != *&v229[12])
+      {
+        break;
+      }
+
+      if (v151 != *&v229[20])
+      {
+        if (v151 >= *&v229[20])
+        {
+          v151 = v225 + v138;
+        }
+
+        v181 = v151;
+        v186 = v137 - v224;
+        v152 = 4;
+LABEL_111:
+        LODWORD(a10) = *(v230 + v152);
+        v180 = v137 - v224 == *&v229[12];
+      }
+
+      if (v186 <= a10)
+      {
+        if (v180)
+        {
+          v163 = *&v229[8] + v181;
+          if (*&v229[8] + v181 >= v228.i32[2] && v163 < v228.i32[3])
+          {
+            v164 = *&v229[4];
+            v165 = *&v229[4] + v186;
+            do
+            {
+              if (v165 >= v228.i32[1])
+              {
+                break;
+              }
+
+              if (v165 >= v228.i32[0])
+              {
+                if (!physx::Gu::HeightFieldTraceUtil::OverlapTraceSegment<CapsuleTraceSegmentReport>::testVertexIndex(&v221, v163 + *v229 * v165))
+                {
+                  goto LABEL_151;
+                }
+
+                v164 = *&v229[4];
+              }
+
+              v160 = v165++ < a10 + v164;
+            }
+
+            while (v160);
+          }
+        }
+
+        else
+        {
+          v166 = *&v229[4] + v181;
+          if (*&v229[4] + v181 >= v228.i32[0] && v166 < v228.i32[1])
+          {
+            v167 = *&v229[8];
+            v168 = *&v229[8] + v186;
+            do
+            {
+              if (v168 >= v228.i32[3])
+              {
+                break;
+              }
+
+              if (v168 >= v228.i32[2])
+              {
+                if (!physx::Gu::HeightFieldTraceUtil::OverlapTraceSegment<CapsuleTraceSegmentReport>::testVertexIndex(&v221, v168 + *v229 * v166))
+                {
+                  goto LABEL_151;
+                }
+
+                v167 = *&v229[8];
+              }
+
+              v160 = v168++ < a10 + v167;
+            }
+
+            while (v160);
+          }
+        }
+      }
+
+      if (v231)
+      {
+        if (!(*(*v223 + 16))(v223))
+        {
+          goto LABEL_151;
+        }
+
+        v231 = 0;
+      }
+
+      *&v229[12] = v230[0];
+LABEL_117:
+      if (v135 >= v136)
+      {
+        v138 += v140;
+        v161 = (v138 + v140);
+        if (v183 > v161 || v145 <= v161)
+        {
+LABEL_151:
+          a8 = v178;
+          a9 = v179;
+          v13 = v177;
+          goto LABEL_152;
+        }
+
+        v136 = v148 + v136;
+      }
+
+      else
+      {
+        v137 += v139;
+        v159 = (v137 + v139);
+        v160 = v146 <= v159 && v147 > v159;
+        if (!v160)
+        {
+          goto LABEL_151;
+        }
+
+        v135 = v182 + v135;
+      }
+
+      if (v149 >= 1.0001)
+      {
+        goto LABEL_151;
+      }
+    }
+
+    if (v150 >= *&v229[12])
+    {
+      v150 = v224 + v137;
+    }
+
+    v181 = v150;
+    v186 = v138 - v225;
+    v152 = 12;
+    goto LABEL_111;
   }
 
-  *(v5 + 8) = a2;
-  return result;
+LABEL_152:
+  v169 = v199;
+  if (v199 == 1)
+  {
+    if (HIBYTE(v199) == 1)
+    {
+      *(a9 + 20) = 1026;
+      if ((v198 & 0x200) == 0 || (v170 = *v13, v170.i64[1] = *(v13 + 2), v171 = *(v13 + 3), v171.i64[1] = *(v13 + 5), v80.i32[0] = v13[6], LOBYTE(v224) = 1, *&v229[16] = vdup_lane_s32(v80, 0), v228 = v170, *v229 = v171, LODWORD(v222) = v80.i32[0], HIDWORD(v222) = v80.i32[0], v223 = (v80.u32[0] | 0x400000000), v172 = vaddq_f32(v170, v171), v171.i64[0] = 0x3F0000003F000000, v171.i64[1] = 0x3F0000003F000000, v173 = vmulq_f32(v172, v171), v173.i32[3] = 0, v221 = v173, (physx::Gu::computeCapsule_HeightFieldMTD(a1) & 1) == 0))
+      {
+        *(a9 + 48) = 0;
+        v175 = -a8[1].f32[0];
+        *(a9 + 36) = vneg_f32(*a8);
+        *(a9 + 44) = v175;
+        return v169;
+      }
+
+      v174 = *(a9 + 20) | 1;
+    }
+
+    else
+    {
+      v174 = 1027;
+    }
+
+    *(a9 + 20) = v174;
+  }
+
+  return v169;
+}
+
+uint64_t sweepConvex_HeightFieldGeom(float32x2_t *a1, int8x8_t *a2, uint64_t a3, float32x2_t *a4, float32x2_t *a5, uint64_t a6, __int16 *a7, double a8, float a9)
+{
+  v436 = *MEMORY[0x1E69E9840];
+  v17 = *(a3 + 32);
+  v18 = 1.0;
+  v20 = *(a3 + 4) == 1.0 && *(a3 + 8) == 1.0 && *(a3 + 12) == 1.0;
+  v21 = xmmword_1E3047670;
+  v371 = xmmword_1E3047670;
+  v372 = xmmword_1E3047670;
+  v373 = xmmword_1E3060D60;
+  v374 = xmmword_1E3047680;
+  v375 = 0x3F80000000000000;
+  v376 = 0;
+  __asm { FMOV            V8.2S, #1.0 }
+
+  v354 = a1;
+  v357 = a8;
+  if (v20)
+  {
+    v26 = 0;
+    v27 = 0.0;
+    v28 = 0.0;
+    v29 = _D8;
+    v30 = 0;
+  }
+
+  else
+  {
+    physx::Cm::FastVertex2ShapeScaling::init(&v371, (a3 + 4), (a3 + 16));
+    v21 = xmmword_1E3047670;
+    a8 = v357;
+    a1 = v354;
+    v29 = __PAIR64__(v372, v371);
+    v26 = __PAIR64__(DWORD1(v371), HIDWORD(v371));
+    v28 = *(&v371 + 2);
+    v27 = *(&v372 + 1);
+    v30 = *(&v372 + 8);
+    v18 = *&v373;
+  }
+
+  v31 = 0;
+  v32 = *(v17 + 32);
+  v33 = *(v17 + 40);
+  v34 = *(v17 + 44);
+  v35 = v18 * v33;
+  v36 = v28 * v34;
+  v37 = *(v17 + 48);
+  v38 = *(v17 + 52);
+  v9.f32[0] = v27 * v37;
+  v39 = v18 * v38;
+  v40 = vadd_f32(vmul_f32(v26, vrev64_s32(v32)), vmul_f32(v29, v32));
+  v41 = (v28 * *v32.i32) + vmuls_lane_f32(v27, v32, 1);
+  v42 = vmul_n_f32(v30, v33);
+  v46.i64[0] = __PAIR64__(v26.u32[1], v29.u32[0]);
+  v26.i32[1] = v29.i32[1];
+  v43 = vadd_f32(vabs_f32(vmul_n_f32(*v46.f32, v34)), vabs_f32(vmul_n_f32(v26, v37)));
+  v44 = vabs_f32(vmul_n_f32(v30, v38));
+  v45 = fabsf(v36) + fabsf(v9.f32[0]);
+  v46.f32[0] = fabsf(v39);
+  v369 = a1[1];
+  v370 = a1;
+  v47 = a1[3].f32[0];
+  v367 = vrev64_s32(vdiv_f32(_D8, a1[2]));
+  v368 = 1.0 / v47;
+  v48 = a5[1].f32[0];
+  v49 = *a7;
+  v396[1] = &v367;
+  v397 = v49;
+  v398 = 0;
+  v399 = (a1[3].i8[4] & 2 | v49 & 0x80) != 0;
+  v400 = (v49 & 0x40) != 0;
+  v396[0] = &unk_1F5D221A8;
+  v420 = 0uLL;
+  v407 = 0u;
+  v408 = 0u;
+  v409 = 0;
+  v422 = 0;
+  v425 = 0;
+  v423 = 0;
+  v424 = 0;
+  v50 = *a5;
+  *v9.f32 = vneg_f32(*a5);
+  v430 = v9.i64[0];
+  v431 = -v48;
+  v435 = a9;
+  v421 = -1;
+  v426 = LODWORD(a8);
+  v9.f32[2] = -v48;
+  *v51.f32 = a2[2];
+  v51.i64[1] = a2[3].u32[0];
+  v52 = *a4->f32;
+  *v53.f32 = a4[2];
+  v53.i64[1] = a4[3].u32[0];
+  v54 = vnegq_f32(*a4->f32);
+  v55 = vdupq_laneq_s32(*a4->f32, 3).u64[0];
+  v56 = vsubq_f32(v51, v53);
+  v57 = v54;
+  v57.i32[3] = 0;
+  v51.i32[0] = vmla_f32(0xBF000000BF000000, v55, v55).u32[0];
+  v58 = vmulq_n_f32(v56, v51.f32[0]);
+  v58.i32[3] = 0;
+  v59 = vextq_s8(v57, v57, 8uLL).u64[0];
+  v60 = vext_s8(*v54.f32, v59, 4uLL);
+  v61 = vmls_f32(vmul_f32(*v54.f32, *&vextq_s8(v56, v56, 4uLL)), v60, *v56.i8);
+  *v62.f32 = vext_s8(v61, vmls_f32(vmul_f32(v59, *v56.i8), *v54.f32, *&vextq_s8(v56, v56, 8uLL)), 4uLL);
+  v62.i64[1] = v61.u32[0];
+  v63 = vmlaq_laneq_f32(v58, v62, *a4->f32, 3);
+  v63.i64[1] = vextq_s8(v63, v63, 8uLL).u32[0];
+  v64 = vmulq_f32(v57, v56);
+  v64.i64[0] = vpaddq_f32(v64, v64).u64[0];
+  v65 = vmlaq_n_f32(v63, v57, vpadd_f32(*v64.f32, *v64.f32).f32[0]);
+  v66 = vaddq_f32(v65, v65);
+  v66.i32[3] = 0;
+  v67 = *a2->i8;
+  v67.i32[3] = 0;
+  v68 = vmulq_f32(v67, v57);
+  v68.i64[0] = vpaddq_f32(v68, v68).u64[0];
+  v69 = vmulq_laneq_f32(v67, *a4->f32, 3);
+  v67.i64[0] = vextq_s8(v67, v67, 8uLL).u64[0];
+  v70 = vmls_f32(vmul_f32(vext_s8(*a2, *v67.i8, 4uLL), *v54.f32), v60, *a2);
+  *v71.f32 = vext_s8(v70, vmls_f32(vmul_f32(*a2, v59), *v54.f32, *v67.i8), 4uLL);
+  *&v71.u32[2] = v70;
+  v72 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v57, *a2->i8, 3), v69), v71);
+  *v54.f32 = vdup_lane_s32(*v72.f32, 1);
+  *v67.i8 = vdup_laneq_s32(v72, 2);
+  v73 = vaddq_f32(v72, v72);
+  *v57.i8 = vsub_f32(vmul_f32(*&vextq_s8(*a2->i8, *a2->i8, 8uLL), *&vextq_s8(v52, v52, 8uLL)), vpadd_f32(*v68.f32, *v68.f32));
+  v74 = vdup_laneq_s32(v73, 2);
+  *v72.f32 = vdup_lane_s32(vmul_f32(*v72.f32, *v73.f32), 0);
+  *v69.f32 = vmul_lane_f32(*v54.f32, *v73.f32, 1);
+  v75 = vmul_laneq_f32(*v67.i8, v73, 2);
+  *v54.f32 = vmul_n_f32(*v54.f32, v73.f32[0]);
+  v76 = vmul_n_f32(*v67.i8, v73.f32[0]);
+  *v68.f32 = vmul_lane_f32(vdup_lane_s32(*v73.f32, 0), *v57.i8, 1);
+  *v67.i8 = vmul_lane_f32(*v67.i8, *v73.f32, 1);
+  *v73.f32 = vmul_lane_f32(vdup_lane_s32(*v73.f32, 1), *v57.i8, 1);
+  *v57.i8 = vmul_lane_f32(v74, *v57.i8, 1);
+  *v72.f32 = vsub_f32(_D8, *v72.f32);
+  *v62.f32 = vext_s8(vsub_f32(vsub_f32(_D8, *v69.f32), v75), vadd_f32(*v54.f32, *v57.i8), 4uLL);
+  v62.i64[1] = vsub_f32(v76, *v73.f32).u32[0];
+  *v54.f32 = vext_s8(vsub_f32(*v54.f32, *v57.i8), vsub_f32(*v72.f32, v75), 4uLL);
+  v54.i64[1] = vadd_f32(*v67.i8, *v68.f32).u32[0];
+  *v57.i8 = vext_s8(vadd_f32(v76, *v73.f32), vsub_f32(*v67.i8, *v68.f32), 4uLL);
+  v57.i64[1] = vsub_f32(*v72.f32, *v69.f32).u32[0];
+  v401 = v62;
+  v402 = v54;
+  v77 = vmulq_n_f32(v9, *&a8);
+  v77.i32[3] = 0;
+  v403 = v57;
+  v404 = v66;
+  v78 = vnegq_f32(v77);
+  v79 = v78;
+  v79.i32[3] = 0;
+  v80 = v52;
+  v80.i32[3] = 0;
+  v81 = vmulq_n_f32(v79, v51.f32[0]);
+  v81.i32[3] = 0;
+  v405 = v52;
+  v406 = v53;
+  v53.i64[0] = vextq_s8(v80, v80, 8uLL).u64[0];
+  v54.i64[0] = vextq_s8(v79, v79, 8uLL).u64[0];
+  *v57.i8 = vmls_f32(vmul_f32(vext_s8(*v78.f32, *v54.f32, 4uLL), *v52.i8), vext_s8(*v52.i8, *v53.f32, 4uLL), *v78.f32);
+  *v78.f32 = vext_s8(*v57.i8, vmls_f32(vmul_f32(*v78.f32, *v53.f32), *v52.i8, *v54.f32), 4uLL);
+  v78.i64[1] = v57.u32[0];
+  v82 = vmlsq_laneq_f32(v81, v78, v52, 3);
+  v82.i64[1] = vextq_s8(v82, v82, 8uLL).u32[0];
+  v83 = vmulq_f32(v79, v80);
+  v83.i64[0] = vpaddq_f32(v83, v83).u64[0];
+  v84 = vmlaq_n_f32(v82, v80, vpadd_f32(*v83.f32, *v83.f32).f32[0]);
+  v85 = vaddq_f32(v84, v84);
+  v85.i32[3] = 0;
+  v428 = v85;
+  v429 = vdupq_lane_s32(*&a8, 0).u64[0];
+  v86 = *(a3 + 4);
+  v87 = v86;
+  v87.i32[3] = 0;
+  v88 = *(a3 + 16);
+  v84.f32[0] = -2.0 * v50.f32[0];
+  v50.f32[0] = vmuls_lane_f32(-2.0, v50, 1);
+  v89 = v48 * -2.0;
+  v80.i32[0] = a2[1].i32[0];
+  v79.i32[0] = a2[1].i32[1];
+  v53.f32[0] = (*v79.i32 * *v79.i32) + -0.5;
+  v57.i32[0] = a2->i32[1];
+  *v67.i32 = ((v50.f32[0] * *v57.i32) + (*a2->i32 * v84.f32[0])) + (*v80.i32 * v89);
+  v73.f32[0] = ((v84.f32[0] * v53.f32[0]) - (((*v57.i32 * v89) - (*v80.i32 * v50.f32[0])) * *v79.i32)) + (*a2->i32 * *v67.i32);
+  v62.f32[0] = ((v50.f32[0] * v53.f32[0]) - (((*v80.i32 * v84.f32[0]) - (*a2->i32 * v89)) * *v79.i32)) + (*v57.i32 * *v67.i32);
+  v90 = ((v89 * v53.f32[0]) - (((*a2->i32 * v50.f32[0]) - (*v57.i32 * v84.f32[0])) * *v79.i32)) + (*v80.i32 * *v67.i32);
+  v432 = v73.i32[0];
+  v433 = v62.i32[0];
+  v434 = v90;
+  if (v86.f32[0] == 1.0 && v86.f32[1] == 1.0)
+  {
+    v31 = v86.f32[2] == 1.0;
+  }
+
+  v91 = vadd_f32(v40, v42);
+  *&a8 = v41 + v35;
+  v92 = vadd_f32(v43, v44);
+  v93 = v45 + v46.f32[0];
+  v94 = *(v17 + 72) + 20 * *(v17 + 71);
+  v95.i64[0] = *(v17 + 92);
+  v95.i64[1] = *(v17 + 100);
+  v96 = vmulq_f32(v87, v95);
+  *v96.i8 = vpmin_f32(vdup_laneq_s32(v96, 2), *v96.i8);
+  *v96.i32 = vpmin_f32(*v96.i8, *v96.i8).f32[0];
+  *&v408 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v96.i32);
+  *(&v408 + 2) = 0.025 * *v96.i32;
+  if (v31)
+  {
+    v410 = v21;
+    v411 = xmmword_1E3047680;
+    v412 = xmmword_1E30476A0;
+    v413 = v21;
+    v414 = xmmword_1E3047680;
+    v415 = xmmword_1E30476A0;
+  }
+
+  else
+  {
+    v97 = vrecpeq_f32(v87);
+    v98 = 4;
+    do
+    {
+      v97 = vmulq_f32(v97, vrecpsq_f32(v97, v87));
+      --v98;
+    }
+
+    while (v98);
+    *v99.f32 = vdup_lane_s32(*v86.f32, 0);
+    v99.i64[1] = v99.u32[0];
+    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v99, v87)), *&a8).u32[0] & 0xFFFFFF) != 0)
+    {
+      v106 = vdup_lane_s32(*v88.f32, 1);
+      v107 = vdup_laneq_s32(v88, 2);
+      v108 = vdup_laneq_s32(v88, 3);
+      _Q16 = vaddq_f32(v88, v88);
+      v110 = vdup_lane_s32(vmul_f32(*v88.f32, *_Q16.f32), 0);
+      v111 = vmul_lane_f32(v106, *_Q16.f32, 1);
+      v112 = vmul_laneq_f32(v107, _Q16, 2);
+      v113 = vmul_n_f32(v106, _Q16.f32[0]);
+      v114 = vmul_n_f32(v107, _Q16.f32[0]);
+      v115 = vmul_n_f32(v108, _Q16.f32[0]);
+      v116 = vmul_lane_f32(v107, *_Q16.f32, 1);
+      v117 = vmul_lane_f32(v108, *_Q16.f32, 1);
+      v118 = vmul_laneq_f32(v108, _Q16, 2);
+      __asm { FMOV            V16.2S, #1.0 }
+
+      v119 = vsub_f32(*_Q16.f32, v110);
+      v120 = vsub_f32(vsub_f32(*_Q16.f32, v111), v112);
+      v121 = vadd_f32(v113, v118);
+      v122 = vsub_f32(v114, v117);
+      v123 = vsub_f32(v113, v118);
+      *_Q16.f32 = vsub_f32(v119, v112);
+      v124 = vadd_f32(v116, v115);
+      v125 = vadd_f32(v114, v117);
+      v126 = vsub_f32(v116, v115);
+      v127 = vext_s8(v125, v126, 4uLL);
+      *v128.f32 = vext_s8(v120, *&vdupq_lane_s32(v123, 1), 4uLL);
+      v128.i64[1] = vdup_lane_s32(v127, 0).u32[0];
+      v129 = vsub_f32(v119, v111);
+      *v130.f32 = vext_s8(*&vdupq_lane_s32(v121, 0), *_Q16.f32, 4uLL);
+      v130.i64[1] = vdup_lane_s32(v127, 1).u32[0];
+      *v131.f32 = vext_s8(*&vdupq_lane_s32(v122, 0), v124, 4uLL);
+      v131.i64[1] = vdup_lane_s32(v129, 0).u32[0];
+      v132 = vmulq_n_f32(v128, v86.f32[0]);
+      v132.i32[3] = 0;
+      v133 = vmulq_lane_f32(v130, *v86.f32, 1);
+      v133.i32[3] = 0;
+      v134 = vmulq_laneq_f32(v131, v86, 2);
+      v134.i32[3] = 0;
+      v135 = vmulq_lane_f32(v132, v120, 1);
+      v135.i32[3] = 0;
+      v136 = vmulq_n_f32(v133, *v121.i32);
+      v136.i32[3] = 0;
+      v137 = vmulq_n_f32(v134, *v122.i32);
+      v137.i32[3] = 0;
+      v100 = vaddq_f32(v137, vaddq_f32(v135, v136));
+      v138 = vmulq_lane_f32(v132, v123, 1);
+      v138.i32[3] = 0;
+      v139 = vmulq_n_f32(v133, _Q16.f32[0]);
+      v139.i32[3] = 0;
+      v140 = vmulq_n_f32(v134, *v124.i32);
+      v140.i32[3] = 0;
+      v141 = vaddq_f32(v138, v139);
+      v142 = vmulq_lane_f32(v132, v125, 1);
+      v142.i32[3] = 0;
+      v143 = vmulq_n_f32(v133, *v126.i32);
+      v143.i32[3] = 0;
+      v144 = vmulq_n_f32(v134, *v129.i32);
+      v144.i32[3] = 0;
+      v101 = vaddq_f32(v140, v141);
+      v102 = vaddq_f32(v144, vaddq_f32(v142, v143));
+      v410 = v100;
+      v411 = v101;
+      v412 = v102;
+      v145 = vmulq_n_f32(v128, v97.f32[0]);
+      v145.i32[3] = 0;
+      v146 = vmulq_lane_f32(v130, *v97.f32, 1);
+      v146.i32[3] = 0;
+      v147 = vmulq_laneq_f32(v131, v97, 2);
+      v147.i32[3] = 0;
+      v148 = vmulq_lane_f32(v145, v120, 1);
+      v148.i32[3] = 0;
+      v149 = vmulq_n_f32(v146, *v121.i32);
+      v149.i32[3] = 0;
+      v150 = vmulq_n_f32(v147, *v122.i32);
+      v150.i32[3] = 0;
+      v103 = vaddq_f32(v150, vaddq_f32(v148, v149));
+      v151 = vmulq_lane_f32(v145, v123, 1);
+      v151.i32[3] = 0;
+      v152 = vmulq_n_f32(v146, _Q16.f32[0]);
+      v152.i32[3] = 0;
+      v46 = vmulq_n_f32(v147, *v124.i32);
+      v46.i32[3] = 0;
+      v153 = vaddq_f32(v151, v152);
+      v154 = vmulq_lane_f32(v145, v125, 1);
+      v154.i32[3] = 0;
+      v155 = vmulq_n_f32(v146, *v126.i32);
+      v155.i32[3] = 0;
+      v104 = vaddq_f32(v46, v153);
+      v156 = vmulq_n_f32(v147, *v129.i32);
+      v156.i32[3] = 0;
+      v105 = vaddq_f32(v156, vaddq_f32(v154, v155));
+    }
+
+    else
+    {
+      v97.i32[3] = 0;
+      v100 = vmulq_f32(v87, v21);
+      v101 = vmulq_f32(v87, xmmword_1E3047680);
+      v102 = vmulq_f32(v87, xmmword_1E30476A0);
+      v410 = v100;
+      v411 = v101;
+      v412 = v102;
+      v103 = vmulq_f32(v97, v21);
+      v104 = vmulq_f32(v97, xmmword_1E3047680);
+      v105 = vmulq_f32(v97, xmmword_1E30476A0);
+    }
+
+    v414 = v104;
+    v415 = v105;
+    v157 = vmulq_f32(v100, 0);
+    v157.i32[3] = 0;
+    v158 = vmulq_f32(v101, 0);
+    v158.i32[3] = 0;
+    v159 = vmulq_f32(v102, 0);
+    v159.i32[3] = 0;
+    v413 = v103;
+    v407 = vaddq_f32(v159, vaddq_f32(v158, v157));
+  }
+
+  v160 = vsub_f32(v91, v92);
+  v161 = *&a8 - v93;
+  v162 = vadd_f32(v91, v92);
+  v163 = *&a8 + v93;
+  v418 = v94;
+  v419 = *(v17 + 70);
+  v407 = 0uLL;
+  v164 = *(v17 + 80);
+  v417 = v164;
+  v416 = v17 + 32;
+  if (v164)
+  {
+    _X10 = *(v164 + 24);
+    _X8 = *(v164 + 32);
+    __asm
+    {
+      PRFM            #0, [X10]
+      PRFM            #0, [X10,#0x80]
+      PRFM            #0, [X8]
+    }
+  }
+
+  v170 = vmul_f32(vadd_f32(v160, v162), 0x3F0000003F000000);
+  v171 = vadd_f32(v170, v170);
+  _D18 = a4[1];
+  v170.i32[0] = HIDWORD(*a4);
+  _D21.i32[0] = vdup_lane_s32(v171, 1).u32[0];
+  _D21.f32[1] = ((v161 + v163) * 0.5) + ((v161 + v163) * 0.5);
+  v174 = vadd_f32(*a4, *a4);
+  v175 = vmuls_lane_f32(v170.f32[0] + v170.f32[0], *a4, 1);
+  v176 = vmuls_lane_f32(v174.f32[0], *a4, 1);
+  v177 = 1.0 - v175;
+  v178 = 1.0 - vmul_f32(*a4, v174).f32[0];
+  v179 = (v163 - v161) * 0.5;
+  v180 = v179 * (v178 - v175);
+  _S29 = _D18.i32[1];
+  __asm { FMLA            S9, S29, V18.S[1] }
+
+  v183 = (vmuls_lane_f32(*&v171.i32[1], *a4, 1) + (COERCE_FLOAT(*a4) * *v171.i32)) + (*_D18.i32 * _D21.f32[1]);
+  v184 = vmla_n_f32(vmla_n_f32(vmul_lane_f32(vmla_f32(vmul_f32(_D21, vneg_f32(vzip1_s32(_D18, *a4))), vext_s8(_D21, v171, 4uLL), vzip1_s32(vdup_lane_s32(*a4, 1), _D18)), _D18, 1), v171, _S9), *a4, v183);
+  v46.f32[0] = a4[3].f32[0] + ((vmuls_lane_f32((-v170.f32[0] * *v171.i32) + (COERCE_FLOAT(*a4) * *&v171.i32[1]), _D18, 1) + (_D21.f32[1] * _S9)) + (*_D18.i32 * v183));
+  v185 = vadd_f32(_D18, _D18);
+  v186 = vmul_f32(_D18, v185);
+  v187 = vmul_n_f32(_D18, v174.f32[0]);
+  _D20 = vrev64_s32(vmul_n_f32(_D18, v170.f32[0] + v170.f32[0]));
+  *v185.i32 = vmuls_lane_f32(*v185.i32, _D18, 1);
+  v189.i32[0] = vsub_f32(v187, _D20).u32[0];
+  _D25 = vadd_f32(v187, _D20);
+  v189.i32[1] = _D25.i32[1];
+  _D19 = vsub_f32(_D20, v187);
+  v192 = vmul_f32(vsub_f32(v162, v160), 0x3F0000003F000000);
+  v193 = (v177 - *v186.i32) * v192.f32[0];
+  *_D18.i32 = (v176 + *v185.i32) * v192.f32[0];
+  *v185.i32 = vmuls_lane_f32(v176 - *v185.i32, v192, 1);
+  *v186.i32 = vmuls_lane_f32(v178 - *v186.i32, v192, 1);
+  v194 = vmul_f32(v192, v189);
+  v195.f32[0] = fabsf(v193) + fabsf(*v185.i32);
+  v189.f32[0] = fabsf(v179 * _D25.f32[0]);
+  v174.f32[0] = fabsf(*_D18.i32) + fabsf(*v186.i32);
+  v196 = fabsf(vmuls_lane_f32(v179, _D19, 1));
+  v197 = fabsf(v180) + vaddv_f32(vabs_f32(v194));
+  v194.f32[0] = v46.f32[0] - v197;
+  *_D18.i32 = v46.f32[0] + v197;
+  v198 = (((v46.f32[0] + v197) - (v46.f32[0] - v197)) * 0.5) + a9;
+  v199 = *a2[3].i32 * -2.0;
+  v46.i32[0] = a2[1].i32[0];
+  v185.i32[0] = a2[1].i32[1];
+  *v186.i32 = (*v185.i32 * *v185.i32) + -0.5;
+  _D25.f32[0] = ((v194.f32[0] + *_D18.i32) * 0.5) + ((v194.f32[0] + *_D18.i32) * 0.5);
+  _D20.f32[0] = a5->f32[0] + a5->f32[0];
+  *_D18.i32 = a5->f32[1] + a5->f32[1];
+  *_D19.i32 = a5[1].f32[0] + a5[1].f32[0];
+  v200 = vdup_lane_s32(v185, 0);
+  v201 = vadd_f32(a4[2], v184);
+  v189.f32[1] = v196;
+  v195.i32[1] = v174.i32[0];
+  v202 = vadd_f32(v189, v195);
+  v203 = vsub_f32(v201, v202);
+  _D30 = vadd_f32(v201, v202);
+  v205 = vsub_f32(_D30, v203);
+  v202.f32[0] = (0.5 * v205.f32[0]) + a9;
+  v205.f32[0] = vmuls_lane_f32(0.5, v205, 1) + a9;
+  v206 = a2[2];
+  v207 = vmul_f32(v206, 0xC0000000C0000000);
+  _D24 = *a2;
+  v206.i32[0] = HIDWORD(*a2);
+  v209 = (vmuls_lane_f32(*&v207.i32[1], *a2, 1) + (COERCE_FLOAT(*a2) * *v207.i32)) + (v46.f32[0] * v199);
+  _D26 = vzip1_s32(*v46.f32, *a2);
+  v211.i32[0] = vdup_lane_s32(v207, 1).u32[0];
+  v211.f32[1] = v199;
+  v212 = vneg_f32(_D26);
+  v213.i32[0] = vdup_lane_s32(*a2, 1).u32[0];
+  v213.i32[1] = v46.i32[0];
+  v214 = vneg_f32(vmla_f32(vmul_f32(v211, v212), vext_s8(v211, v207, 4uLL), v213));
+  v215 = vmla_n_f32(vmla_n_f32(vmul_n_f32(v214, *v185.i32), v207, *v186.i32), *a2, v209);
+  *v214.i32 = -*v206.i32;
+  *v207.i32 = ((v199 * *v186.i32) - (((-*v206.i32 * *v207.i32) + (COERCE_FLOAT(*a2) * *&v207.i32[1])) * *v185.i32)) + (v46.f32[0] * v209);
+  v216 = vmul_f32(vadd_f32(v203, _D30), 0x3F0000003F000000);
+  _D29 = vadd_f32(v216, v216);
+  _D30.i32[0] = _D29.i32[1];
+  __asm
+  {
+    FMLS            S8, S29, V26.S[1]
+    FMLS            S8, S25, V26.S[0]
+  }
+
+  v220.i32[0] = vdup_lane_s32(_D29, 1).u32[0];
+  v220.i32[1] = _D25.i32[0];
+  v221 = vdup_lane_s32(v212, 0);
+  v221.f32[0] = -*v206.i32;
+  v222 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(_D26, v220), vext_s8(v220, _D29, 4uLL), v221), *v185.i32), _D29, *v186.i32), vext_s8(v212, v221, 4uLL), _S8);
+  __asm
+  {
+    FMLS            S29, S30, V26.S[1]
+    FMLS            S25, S8, V26.S[0]
+  }
+
+  v223 = *v207.i32 + _D25.f32[0];
+  v365 = vadd_f32(v215, v222);
+  v366 = v223;
+  __asm
+  {
+    FMLS            S25, S20, V26.S[1]
+    FMLS            S25, S19, V26.S[0]
+    FMLS            S21, S19, V24.S[1]
+    FMLS            S9, S25, V26.S[1]
+    FMLS            S21, S20, V26.S[0]
+    FMLS            S11, S25, V24.S[1]
+    FMLS            S20, S18, V26.S[1]
+    FMLS            S10, S25, V26.S[0]
+  }
+
+  v363 = _S9;
+  v364 = __PAIR64__(LODWORD(_S10), LODWORD(_S11));
+  *v186.i32 = *&v212.i32[1] - *_D24.i32;
+  v227 = vdup_lane_s32(v186, 0);
+  *_D19.i32 = -*v206.i32 - *v206.i32;
+  v46.f32[0] = *v212.i32 - v46.f32[0];
+  *v206.i32 = vmuls_lane_f32(*&v212.i32[1] - *_D24.i32, v212, 1);
+  v228 = vmul_n_f32(vdup_lane_s32(v214, 0), *_D19.i32);
+  v229 = vmul_n_f32(vdup_lane_s32(*v46.f32, 0), *v212.i32);
+  v230 = vmul_n_f32(v227, *v214.i32);
+  v231 = vmul_n_f32(v227, *v212.i32);
+  v232 = vmul_n_f32(v200, *v186.i32);
+  v233 = vmul_n_f32(vdup_lane_s32(_D19, 0), *v212.i32);
+  v234 = vmul_n_f32(v200, *_D19.i32);
+  v235 = vmul_n_f32(v200, v46.f32[0]);
+  __asm { FMOV            V7.2S, #1.0 }
+
+  v237 = vsub_f32(_D7, vdup_lane_s32(v206, 0));
+  v238 = vadd_f32(v230, v235);
+  v239 = vsub_f32(v230, v235);
+  v240 = vsub_f32(v237, v229);
+  v237.f32[0] = vsub_f32(v237, v228).f32[0];
+  v170.f32[0] = (1.0 - v228.f32[1]) - v229.f32[1];
+  v241 = vdup_lane_s32(v238, 0);
+  v241.i32[0] = v170.i32[0];
+  v242 = vadd_f32(vabs_f32(vmul_n_f32(vext_s8(vadd_f32(v231, v234), vsub_f32(v233, v232), 4uLL), v198)), vadd_f32(vabs_f32(vmul_n_f32(v241, v202.f32[0])), vabs_f32(vmul_n_f32(vext_s8(v239, v240, 4uLL), v205.f32[0]))));
+  v243 = fabsf(v198 * v237.f32[0]) + (fabsf(v202.f32[0] * vsub_f32(v231, v234).f32[0]) + fabsf(v205.f32[0] * vadd_f32(v232, v233).f32[0]));
+  v355 = v365;
+  v244 = vadd_f32(vadd_f32(v365, v242), vsub_f32(v242, v365));
+  *&a8 = ((v223 + v243) + (v243 - v223)) * 0.5;
+  v361 = COERCE_DOUBLE(vmul_f32(v244, 0x3F0000003F000000));
+  v362 = *&a8;
+  v245 = v358;
+  HeightFieldTraceSegmentSweepHelper::HeightFieldTraceSegmentSweepHelper(v358, &v367, &v361, a8, v361, *&v244);
+  v246 = v358[0];
+  v247 = v358[1];
+  v395 = 0;
+  if (physx::Gu::intersectRayAABB2(&v359, &v360, &v365, &v363, &v395 + 1, &v395, *&v357))
+  {
+    v248 = 0;
+    v249 = v355.f32[1];
+    v250 = *(v246 + 16);
+    v377[0] = 0;
+    v378 = v246;
+    v379 = v250;
+    v394 = 0;
+    v251 = v355.f32[0] + (_S9 * *&v357);
+    v252 = v355.f32[1] + (_S11 * *&v357);
+    if (v252 >= v355.f32[1])
+    {
+      v253 = v355.f32[1];
+    }
+
+    else
+    {
+      v253 = v355.f32[1] + (_S11 * *&v357);
+    }
+
+    v254 = *v247;
+    v255 = v247[1];
+    v256 = v253 - v255;
+    if (v252 > v355.f32[1])
+    {
+      v249 = v355.f32[1] + (_S11 * *&v357);
+    }
+
+    v257 = v249 + v255;
+    v258 = *v246;
+    v259 = *(v246 + 4);
+    v383 = v256 * v259;
+    v384 = v257 * v259;
+    if (v251 >= v355.f32[0])
+    {
+      v260 = v355.f32[0];
+    }
+
+    else
+    {
+      v260 = v355.f32[0] + (_S9 * *&v357);
+    }
+
+    v261 = v258 * (v260 - v254);
+    v262 = *(v250 + 56);
+    if (v261 >= 0.0)
+    {
+      v248 = v262 - 2;
+      if (v261 <= (v262 - 2))
+      {
+        v248 = vcvtms_u32_f32(v261);
+      }
+    }
+
+    v263 = v223 + (_S10 * *&v357);
+    v385 = v248;
+    if (v251 <= v355.f32[0])
+    {
+      v251 = v355.f32[0];
+    }
+
+    v264 = v258 * (v251 + v254);
+    if (v264 >= 0.0)
+    {
+      v265 = v262 - 1;
+      if (v264 <= (v262 - 1))
+      {
+        v265 = vcvtps_u32_f32(v264);
+      }
+    }
+
+    else
+    {
+      v265 = 0;
+    }
+
+    v386 = v265;
+    if (v263 >= v223)
+    {
+      v266 = v223;
+    }
+
+    else
+    {
+      v266 = v223 + (_S10 * *&v357);
+    }
+
+    v267 = v247[2];
+    v268 = v266 - v267;
+    v269 = *(v246 + 8);
+    v270 = v269 * v268;
+    v271 = *(v250 + 60);
+    if (v270 >= 0.0)
+    {
+      v272 = v271 - 2;
+      if (v270 <= (v271 - 2))
+      {
+        v272 = vcvtms_u32_f32(v270);
+      }
+    }
+
+    else
+    {
+      v272 = 0;
+    }
+
+    v387 = v272;
+    if (v263 <= v223)
+    {
+      v263 = v223;
+    }
+
+    v273 = v269 * (v263 + v267);
+    v274 = v271 - 1;
+    if (v273 >= 0.0)
+    {
+      v275 = v271 - 1;
+      if (v273 <= v274)
+      {
+        v275 = vcvtps_u32_f32(v273);
+      }
+    }
+
+    else
+    {
+      v275 = 0;
+    }
+
+    v388 = v275;
+    v276 = v254 * v258;
+    v277 = ceilf(v254 * v258);
+    v278 = v267 * v269;
+    v279 = ceilf(v267 * v269);
+    v381 = vcvtps_s32_f32(v276) + 1;
+    v382 = vcvtps_s32_f32(v278) + 1;
+    v280 = (v355.f32[0] + (_S9 * *(&v395 + 1))) * v258;
+    v281 = 0.0000001 - v277;
+    if (v280 > (0.0000001 - v277))
+    {
+      v281 = (v355.f32[0] + (_S9 * *(&v395 + 1))) * v258;
+    }
+
+    if (v281 >= (v277 + ((v262 - 1) * 1.0)))
+    {
+      v282 = v277 + ((v262 - 1) * 1.0);
+    }
+
+    else
+    {
+      v282 = v281;
+    }
+
+    v283 = (v223 + (_S10 * *(&v395 + 1))) * v269;
+    v284 = 0.0000001 - v279;
+    if (v283 > (0.0000001 - v279))
+    {
+      v284 = (v223 + (_S10 * *(&v395 + 1))) * v269;
+    }
+
+    v285 = v279 + (v274 * 1.0);
+    if (v284 < v285)
+    {
+      v285 = v284;
+    }
+
+    v286 = (v355.f32[0] + (_S9 * *&v395)) * v258;
+    v287 = (v223 + (_S10 * *&v395)) * v269;
+    if ((v286 - v280) < 0.0)
+    {
+      v288 = -1.0;
+    }
+
+    else
+    {
+      v288 = 1.0;
+    }
+
+    if ((v287 - v283) < 0.0)
+    {
+      v289 = -1.0;
+    }
+
+    else
+    {
+      v289 = 1.0;
+    }
+
+    if (vabds_f32(v286, v280) >= 1.0e-10)
+    {
+      v290 = v286 - v280;
+    }
+
+    else
+    {
+      v290 = v288 * 1.0e-10;
+    }
+
+    if (vabds_f32(v287, v283) >= 1.0e-10)
+    {
+      v291 = v287 - v283;
+    }
+
+    else
+    {
+      v291 = v289 * 1.0e-10;
+    }
+
+    v292 = floorf(v282);
+    v293 = ceilf(v282);
+    v294 = floorf(v285);
+    v295 = ceilf(v285);
+    if (v291 <= 0.0)
+    {
+      v296 = v295;
+    }
+
+    else
+    {
+      v296 = v294;
+    }
+
+    v297 = v292 + -1.0;
+    if (v292 != v282)
+    {
+      v297 = v292;
+    }
+
+    v298 = v293 + 1.0;
+    if (v293 != v282)
+    {
+      v298 = v293;
+    }
+
+    if (v290 <= 0.0)
+    {
+      v299 = v293;
+    }
+
+    else
+    {
+      v299 = v292;
+    }
+
+    if (v290 > 0.0)
+    {
+      v300 = v298;
+    }
+
+    else
+    {
+      v300 = v297;
+    }
+
+    if (v291 <= 0.0)
+    {
+      if (v294 == v285)
+      {
+        v301 = v294 + -1.0;
+      }
+
+      else
+      {
+        v301 = v294;
+      }
+    }
+
+    else if (v295 == v285)
+    {
+      v301 = v295 + 1.0;
+    }
+
+    else
+    {
+      v301 = v295;
+    }
+
+    v302 = (v300 - v280) / v290;
+    v303 = (v301 - v283) / v291;
+    if (v302 < 0.0)
+    {
+      v302 = fabsf(0.0000001 / v290);
+    }
+
+    v347 = a5;
+    v348 = a6;
+    v304 = v299;
+    v305 = v296;
+    v306 = v288;
+    v307 = v289;
+    if (v303 < 0.0)
+    {
+      v303 = fabsf(0.0000001 / v291);
+    }
+
+    v308 = 1.0 / fabsf(v290);
+    v309 = fabsf(v291);
+    if (v306 >= 1)
+    {
+      v310 = 0;
+    }
+
+    else
+    {
+      v310 = -1;
+    }
+
+    if (v307 >= 1)
+    {
+      v311 = 0;
+    }
+
+    else
+    {
+      v311 = -1;
+    }
+
+    v353 = v311;
+    v351 = v308;
+    v352 = 0.0 - v279;
+    v356 = v271;
+    v312 = v279 + v271;
+    v313 = 0.0 - v277;
+    v314 = v277 + v262;
+    v315 = 1.0 / v309;
+    while (1)
+    {
+      if (v302 >= v303)
+      {
+        v316 = v303;
+      }
+
+      else
+      {
+        v316 = v302;
+      }
+
+      if ((v377[0] & 1) == 0)
+      {
+        v377[0] = 1;
+        v380 = v396;
+        v389 = v356;
+        v390 = v310;
+        v393[0] = xmmword_1E3116B20;
+        v391 = v353;
+        LODWORD(v392) = v304 - v381;
+        v320 = v381 + v304;
+        DWORD1(v392) = v381 + v304;
+        DWORD2(v392) = v305 - v382;
+        v321 = v382 + v305;
+        HIDWORD(v392) = v382 + v305;
+        if ((v304 - v381) <= (v381 + v304))
+        {
+          v322 = v304 - v381 + v310;
+          v323 = v353;
+          v324 = v310;
+          do
+          {
+            if (v322 >= v385)
+            {
+              if (v322 >= v386)
+              {
+                break;
+              }
+
+              if (SDWORD2(v392) <= v321)
+              {
+                v325 = DWORD2(v392) + v323;
+                do
+                {
+                  if (v325 >= v387)
+                  {
+                    if (v325 >= v388)
+                    {
+                      break;
+                    }
+
+                    if (!physx::Gu::HeightFieldTraceUtil::OverlapTraceSegment<CapsuleTraceSegmentReport>::testVertexIndex(v377, v325 + v322 * v389))
+                    {
+                      goto LABEL_174;
+                    }
+
+                    v321 = HIDWORD(v392);
+                    v323 = v391;
+                  }
+
+                  v327 = v325++ < v321 + v323;
+                }
+
+                while (v327);
+                v320 = DWORD1(v392);
+                v324 = v390;
+              }
+            }
+
+            v327 = v322++ < (v320 + v324);
+          }
+
+          while (v327);
+          if (v394)
+          {
+            if (!(*(*v380 + 16))(v380))
+            {
+              goto LABEL_174;
+            }
+
+            v394 = 0;
+          }
+        }
+
+        goto LABEL_140;
+      }
+
+      v317 = v304 - v381;
+      LODWORD(v393[0]) = v304 - v381;
+      DWORD1(v393[0]) = v381 + v304;
+      v318 = v305 - v382;
+      DWORD2(v393[0]) = v305 - v382;
+      HIDWORD(v393[0]) = v382 + v305;
+      if (v304 - v381 != v392)
+      {
+        break;
+      }
+
+      if (v318 != DWORD2(v392))
+      {
+        if (v318 >= SDWORD2(v392))
+        {
+          v318 = v382 + v305;
+        }
+
+        v350 = v318;
+        LODWORD(v245) = v304 - v381;
+        v319 = 4;
+LABEL_134:
+        LODWORD(a7) = *(v393 + v319);
+        v349 = v304 - v381 == v392;
+      }
+
+      if (v245 <= a7)
+      {
+        if (v349)
+        {
+          v330 = v391 + v350;
+          if (v391 + v350 >= v387 && v330 < v388)
+          {
+            v331 = v390;
+            v332 = v390 + v245;
+            do
+            {
+              if (v332 >= v386)
+              {
+                break;
+              }
+
+              if (v332 >= v385)
+              {
+                if (!physx::Gu::HeightFieldTraceUtil::OverlapTraceSegment<CapsuleTraceSegmentReport>::testVertexIndex(v377, v330 + v389 * v332))
+                {
+                  goto LABEL_174;
+                }
+
+                v331 = v390;
+              }
+
+              v327 = v332++ < a7 + v331;
+            }
+
+            while (v327);
+          }
+        }
+
+        else
+        {
+          v333 = v390 + v350;
+          if (v390 + v350 >= v385 && v333 < v386)
+          {
+            v334 = v391;
+            v335 = v391 + v245;
+            do
+            {
+              if (v335 >= v388)
+              {
+                break;
+              }
+
+              if (v335 >= v387)
+              {
+                if (!physx::Gu::HeightFieldTraceUtil::OverlapTraceSegment<CapsuleTraceSegmentReport>::testVertexIndex(v377, v335 + v389 * v333))
+                {
+                  goto LABEL_174;
+                }
+
+                v334 = v391;
+              }
+
+              v327 = v335++ < a7 + v334;
+            }
+
+            while (v327);
+          }
+        }
+      }
+
+      if (v394)
+      {
+        if (!(*(*v380 + 16))(v380))
+        {
+          goto LABEL_174;
+        }
+
+        v394 = 0;
+      }
+
+      v392 = v393[0];
+LABEL_140:
+      if (v302 >= v303)
+      {
+        v305 += v307;
+        v328 = (v305 + v307);
+        if (v352 > v328 || v312 <= v328)
+        {
+LABEL_174:
+          a5 = v347;
+          a6 = v348;
+          goto LABEL_175;
+        }
+
+        v303 = v315 + v303;
+      }
+
+      else
+      {
+        v304 += v306;
+        v326 = (v304 + v306);
+        v327 = v313 <= v326 && v314 > v326;
+        if (!v327)
+        {
+          goto LABEL_174;
+        }
+
+        v302 = v351 + v302;
+      }
+
+      if (v316 >= 1.0001)
+      {
+        goto LABEL_174;
+      }
+    }
+
+    if (v317 >= v392)
+    {
+      v317 = v381 + v304;
+    }
+
+    v350 = v317;
+    LODWORD(v245) = v305 - v382;
+    v319 = 12;
+    goto LABEL_134;
+  }
+
+LABEL_175:
+  v336 = v398;
+  if (v398 == 1)
+  {
+    if (HIBYTE(v398) == 1)
+    {
+      if ((v397 & 0x200) == 0)
+      {
+        *(a6 + 16) = v421;
+        *(a6 + 20) = 1026;
+        v337 = -a5[1].f32[0];
+        *(a6 + 36) = vneg_f32(*a5);
+        *(a6 + 44) = v337;
+        *(a6 + 48) = 0;
+        return v336;
+      }
+
+      v345 = physx::Gu::computeConvex_HeightFieldMTD(v354);
+      *(a6 + 16) = v421;
+      *(a6 + 20) = 1026;
+      if (v345)
+      {
+        *(a6 + 20) = 1027;
+        return v336;
+      }
+
+      *(a6 + 48) = 0;
+      v344 = -a5[1].f32[0];
+      *(a6 + 36) = vneg_f32(*a5);
+    }
+
+    else
+    {
+      *a6 = v420;
+      *(a6 + 16) = v421;
+      *(a6 + 20) = v422;
+      *(a6 + 24) = v423;
+      v339 = *(&v424 + 1);
+      v338 = v424;
+      v340 = v425;
+      v341 = v426;
+      *(a6 + 52) = v427;
+      *(a6 + 32) = v338;
+      *(a6 + 36) = -v339;
+      *(a6 + 40) = -*&v340;
+      *(a6 + 44) = -*(&v340 + 1);
+      *(a6 + 48) = v341;
+      v342 = sqrtf(((*&v340 * *&v340) + (v339 * v339)) + (*(&v340 + 1) * *(&v340 + 1)));
+      if (v342 <= 0.0)
+      {
+        return v336;
+      }
+
+      v343 = 1.0 / v342;
+      *(a6 + 36) = v343 * -v339;
+      *(a6 + 40) = v343 * -*&v340;
+      v344 = v343 * -*(&v340 + 1);
+    }
+
+    *(a6 + 44) = v344;
+  }
+
+  return v336;
 }

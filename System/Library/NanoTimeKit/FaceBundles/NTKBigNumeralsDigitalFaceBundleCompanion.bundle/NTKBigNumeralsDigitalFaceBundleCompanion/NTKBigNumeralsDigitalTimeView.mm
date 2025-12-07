@@ -184,73 +184,71 @@ LABEL_8:
 
 - (void)layoutSubviews
 {
-  v47 = 0.0;
-  memset(v46, 0, sizeof(v46));
-  sub_2D6C(self->_device, v46);
+  v45 = 0.0;
+  memset(v44, 0, sizeof(v44));
+  sub_2D6C(self->_device, v44);
   [(NTKBigNumeralsDigitalTimeView *)self bounds];
   v4 = v3;
-  v42 = v5;
-  statusBarTransitionFraction = self->_statusBarTransitionFraction;
+  v40 = v5;
   CLKInterpolateBetweenFloatsClipped();
-  v8 = v7;
-  v9 = self->_statusBarTransitionFraction;
+  v7 = v6;
   CLKInterpolateBetweenFloatsClipped();
-  v39 = v10;
-  v40 = *(v46 + 1);
+  v37 = v8;
+  v38 = *(v44 + 1);
   [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel sizeToFit];
   [(NTKBigNumeralsTimeComponentLabel *)self->_bottomLabel sizeToFit];
   [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel bounds];
-  v12 = v11;
-  v44 = v13;
+  v10 = v9;
+  v42 = v11;
   [(NTKBigNumeralsTimeComponentLabel *)self->_bottomLabel bounds];
+  v13 = v12;
   v15 = v14;
-  v17 = v16;
   [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel _lastLineBaseline];
-  rect = v12;
-  v18 = v4 - v12 - v8;
-  v19 = v42 * 0.5;
-  v43 = v42 * 0.5 + v39 - v20;
-  [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel setFrame:v18];
+  rect = v10;
+  v16 = v4 - v10 - v7;
+  v17 = v40 * 0.5;
+  v41 = v40 * 0.5 + v37 - v18;
+  [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel setFrame:v16];
   [(NTKBigNumeralsTimeComponentLabel *)self->_bottomLabel _lastLineBaseline];
-  v21 = v15;
-  v41 = v15;
-  v22 = v4 - v15 - v8;
-  v24 = v19 + v40 - v23;
-  [(NTKBigNumeralsTimeComponentLabel *)self->_bottomLabel setFrame:v22, v24, v21, v17];
+  v19 = v13;
+  v39 = v13;
+  v20 = v4 - v13 - v7;
+  v22 = v17 + v38 - v21;
+  [(NTKBigNumeralsTimeComponentLabel *)self->_bottomLabel setFrame:v20, v22, v19, v15];
   [CATransaction setDisableActions:1];
-  v25 = v47;
-  v26 = v43 - v47;
-  v27 = v18 - v47;
+  v23 = v45;
+  v24 = v41 - v45;
+  v25 = v16 - v45;
   font = [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel font];
   [font ascender];
-  v30 = v29 + v25 * 2.0;
+  v28 = v27 + v23 * 2.0;
 
-  [(CALayer *)self->_topLabelColorLayer setFrame:v27, v26, rect + v25 * 2.0, v30];
-  v31 = v24 - v25;
+  [(CALayer *)self->_topLabelColorLayer setFrame:v25, v24, rect + v23 * 2.0, v28];
+  v29 = v22 - v23;
   font2 = [(NTKBigNumeralsTimeComponentLabel *)self->_topLabel font];
   [font2 ascender];
-  v34 = v33 + v25 * 2.0;
+  v32 = v31 + v23 * 2.0;
 
-  [(CALayer *)self->_bottomLabelColorLayer setFrame:v22 - v25, v31, v41 + v25 * 2.0, v34];
-  if (v18 >= v22)
+  [(CALayer *)self->_bottomLabelColorLayer setFrame:v20 - v23, v29, v39 + v23 * 2.0, v32];
+  if (v16 >= v20)
   {
-    v35 = v22;
+    v33 = v20;
   }
 
   else
   {
-    v35 = v18;
+    v33 = v16;
   }
 
-  v49.origin.x = v18;
-  v49.size.height = v44;
-  v49.origin.y = v43;
-  v49.size.width = rect;
-  v36 = CGRectGetMaxX(v49) - v35;
+  v47.origin.x = v16;
+  v47.size.height = v42;
+  v47.origin.y = v41;
+  v47.size.width = rect;
+  v34 = CGRectGetMaxX(v47) - v33;
   [(CALayer *)self->_bottomLabelColorLayer frame];
-  MaxY = CGRectGetMaxY(v50);
+  MaxY = CGRectGetMaxY(v48);
   [(CALayer *)self->_topLabelColorLayer frame];
-  [(CAGradientLayer *)self->_gradientLayer setFrame:v35, v43, v36, MaxY - v38];
+  [(CAGradientLayer *)self->_gradientLayer setFrame:v33, v41, v34, MaxY - v36];
 
   [CATransaction setDisableActions:0];
 }

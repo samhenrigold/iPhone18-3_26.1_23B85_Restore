@@ -28,22 +28,22 @@
   return v2;
 }
 
-void __32__ATXSleepSuggestionClient_init__block_invoke()
+void __32__ATXSleepSuggestionClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __32__ATXSleepSuggestionClient_init__block_invoke_cold_1(v0);
+    __32__ATXSleepSuggestionClient_init__block_invoke_cold_1(v1);
   }
 }
 
-void __32__ATXSleepSuggestionClient_init__block_invoke_5()
+void __32__ATXSleepSuggestionClient_init__block_invoke_5(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_INFO, "ATXSleepSuggestionClient: invalidation handler called", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_INFO, "ATXSleepSuggestionClient: invalidation handler called", v2, 2u);
   }
 }
 
@@ -64,7 +64,7 @@ void __32__ATXSleepSuggestionClient_init__block_invoke_5()
 void __74__ATXSleepSuggestionClient_predictedSleepSuggestionWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_sleep_schedule();
+  v4 = __atxlog_handle_sleep_schedule(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__ATXSleepSuggestionClient_predictedSleepSuggestionWithCompletionHandler___block_invoke_cold_1(v3, v4);

@@ -65,12 +65,14 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = PKPeerPaymentNumberPadActionButton;
-  [(PKPeerPaymentMessagesButton *)&v3 layoutSubviews];
+  v6.receiver = self;
+  v6.super_class = PKPeerPaymentNumberPadActionButton;
+  [(PKPeerPaymentMessagesButton *)&v6 layoutSubviews];
   [(PKPeerPaymentNumberPadActionButton *)self bounds];
-  CGRectGetWidth(v4);
-  PKFloatRoundToPixel();
+  Width = CGRectGetWidth(v7);
+  v4.n128_u64[0] = 0.5;
+  v5.n128_f64[0] = Width * 0.5;
+  PKFloatRoundToPixel(v5, v4);
   [(PKPeerPaymentNumberPadActionButton *)self _setContinuousCornerRadius:?];
 }
 

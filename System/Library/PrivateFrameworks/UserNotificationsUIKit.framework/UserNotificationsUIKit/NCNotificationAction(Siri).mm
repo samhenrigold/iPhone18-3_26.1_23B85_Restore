@@ -1,18 +1,18 @@
 @interface NCNotificationAction(Siri)
 - (uint64_t)_isSiriAction;
 - (uint64_t)isDrivingFocusEnabled;
-- (uint64_t)isSiriAction;
-- (uint64_t)isSiriAvailable;
 - (uint64_t)isSiriEnabled;
 - (uint64_t)isSiriRestricted;
 - (uint64_t)isSiriSupported;
 - (uint64_t)isUserConnectedToBluetoothDevice;
 - (uint64_t)isUserConnectedToCarPlay;
+- (void)isSiriAction;
+- (void)isSiriAvailable;
 @end
 
 @implementation NCNotificationAction(Siri)
 
-- (uint64_t)isSiriAction
+- (void)isSiriAction
 {
   result = _os_feature_enabled_impl();
   if (result)
@@ -46,7 +46,7 @@
   }
 }
 
-- (uint64_t)isSiriAvailable
+- (void)isSiriAvailable
 {
   result = [self isSiriEnabled];
   if (result)
@@ -54,7 +54,7 @@
     result = [self isSiriSupported];
     if (result)
     {
-      return [self isSiriRestricted] ^ 1;
+      return ([self isSiriRestricted] ^ 1);
     }
   }
 

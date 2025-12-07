@@ -13,23 +13,23 @@ void __38___ICQPhotosInfo__photosShutdownQueue__block_invoke()
 
 void __40___ICQPhotosInfo_getInfoWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _ICQGetLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Photos transfer progress %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Photos transfer progress %@", &v10, 0xCu);
   }
 
   v8 = _ICQGetLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "Photos transfer error %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "Photos transfer error %@", &v10, 0xCu);
   }
 
   if (!v5 || v6)
@@ -46,8 +46,6 @@ void __40___ICQPhotosInfo_getInfoWithCompletion___block_invoke(uint64_t a1, void
   }
 
   [*(a1 + 40) _shutDownPhotoLibrary];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __39___ICQPhotosInfo__shutDownPhotoLibrary__block_invoke(uint64_t a1)

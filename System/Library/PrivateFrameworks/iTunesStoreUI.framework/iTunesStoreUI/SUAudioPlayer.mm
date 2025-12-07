@@ -318,7 +318,7 @@ uint64_t __52__SUAudioPlayer__itemFailedToPlayToEndNotification___block_invoke(u
     asset = self->_asset;
     if (asset)
     {
-      [(AVURLAsset *)asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else
@@ -417,7 +417,7 @@ uint64_t __42__SUAudioPlayer__handleAssetValuesDidLoad__block_invoke(uint64_t a1
 
 - (void)_updateForPeriodicTickWithTime:(double)time
 {
-  [(SUPlayerStatus *)self->_status duration];
+  objc_msgSend_duration(self->_status, a2);
   v6 = v5;
   [(SUPlayerStatus *)self->_status setCurrentTime:time];
   if (v6 >= time)

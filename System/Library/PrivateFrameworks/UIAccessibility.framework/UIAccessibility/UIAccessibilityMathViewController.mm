@@ -42,7 +42,7 @@
     v7->_mathExpression = v10;
 
     v12 = objc_alloc(MEMORY[0x1E69DC708]);
-    v13 = UIAccessibilityBundle();
+    v13 = UIAccessibilityBundle(v12);
     v14 = [v13 localizedStringForKey:@"DONE" value:&stru_1F1DB9E20 table:@"Localized"];
     v15 = [v12 initWithTitle:v14 style:0 target:v7 action:sel__doneButtonTapped];
 
@@ -51,7 +51,7 @@
     [navigationItem setRightBarButtonItem:v15];
 
     v17 = objc_alloc(MEMORY[0x1E69DC708]);
-    v18 = UIAccessibilityBundle();
+    v18 = UIAccessibilityBundle(v17);
     v19 = [v18 localizedStringForKey:@"BACK" value:&stru_1F1DB9E20 table:@"Localized"];
     v20 = [v17 initWithTitle:v19 style:0 target:0 action:0];
 
@@ -112,28 +112,28 @@
   return v6;
 }
 
-void __48__UIAccessibilityMathViewController__htmlString__block_invoke()
+void __48__UIAccessibilityMathViewController__htmlString__block_invoke(uint64_t a1)
 {
-  v0 = UIAccessibilityBundle();
-  v1 = [v0 URLForResource:@"UIAccessibilityMathExpressionFormat" withExtension:@"html"];
+  v1 = UIAccessibilityBundle(a1);
+  v2 = [v1 URLForResource:@"UIAccessibilityMathExpressionFormat" withExtension:@"html"];
 
-  if (v1)
+  if (v2)
   {
-    v5 = 0;
-    v2 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v1 encoding:4 error:&v5];
-    v3 = v5;
-    v4 = _htmlString_HTMLFormat;
-    _htmlString_HTMLFormat = v2;
+    v6 = 0;
+    v3 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v2 encoding:4 error:&v6];
+    v4 = v6;
+    v5 = _htmlString_HTMLFormat;
+    _htmlString_HTMLFormat = v3;
 
-    if (v3)
+    if (v4)
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX: VoiceOver: Math: Error: Could not load HTML for expanding the math expression.  %@");
     }
   }
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX: VoiceOver: Math: Could not find HTML URL for expanding the math expression.");
   }
 }
 

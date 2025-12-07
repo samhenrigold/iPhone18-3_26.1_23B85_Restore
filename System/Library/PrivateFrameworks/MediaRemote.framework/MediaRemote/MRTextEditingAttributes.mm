@@ -36,20 +36,19 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = v5;
-  title = self->_title;
   if (self->_inputTraits.secureTextEntry)
   {
-    v8 = @"YES";
+    v7 = @"YES";
   }
 
   else
   {
-    v8 = @"NO";
+    v7 = @"NO";
   }
 
-  v9 = [v3 stringWithFormat:@"<%@ %p %@ secure=%@>", v5, self, self->_title, v8];
+  v8 = [v3 stringWithFormat:@"<%@ %p %@ secure=%@>", v5, self, self->_title, v7];
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

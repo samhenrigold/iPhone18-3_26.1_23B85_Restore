@@ -53,7 +53,7 @@
     {
       time = *value;
       v12 = CMTimeCopyDescription(0, &time);
-      v13 = _PTLogSystem();
+      v13 = _PTLogSystem(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         LODWORD(time.value) = 67109634;
@@ -76,7 +76,7 @@
   {
     v16 = *value;
     v14 = CMTimeCopyDescription(0, &v16);
-    v15 = _PTLogSystem();
+    v15 = _PTLogSystem(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PTParameterPairSerialization appendCMTimeParameter:parameterCopy value:v14 scale:v15 toOutput:?];

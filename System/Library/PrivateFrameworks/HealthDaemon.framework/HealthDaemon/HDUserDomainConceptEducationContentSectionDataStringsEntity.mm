@@ -10,13 +10,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"section_data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"section_data_id";
   v2 = +[(HDHealthEntity *)HDUserDomainConceptEducationContentSectionDataEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -40,7 +38,6 @@
 uint64_t __145__HDUserDomainConceptEducationContentSectionDataStringsEntity_insertEducationContentSectionDataString_sectionDataPersistentID_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 40));
-  v3 = *(a1 + 32);
 
   return HDSQLiteBindStringToStatement();
 }
@@ -59,12 +56,12 @@ uint64_t __145__HDUserDomainConceptEducationContentSectionDataStringsEntity_inse
   return error;
 }
 
-uint64_t __160__HDUserDomainConceptEducationContentSectionDataStringsEntity_enumerateSectionDataStringsForEducationContentSectionDataID_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __160__HDUserDomainConceptEducationContentSectionDataStringsEntity_enumerateSectionDataStringsForEducationContentSectionDataID_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = (*(*(a1 + 32) + 16))();
+  v3 = HDSQLiteColumnWithNameAsString();
+  v4 = (*(*(a1 + 32) + 16))();
 
-  return v3;
+  return v4;
 }
 
 + (uint64_t)_enumerateSectionDataRowsForEducationContentSectionDataPersistentID:(void *)d transaction:(uint64_t)transaction error:(void *)error enumerationHandler:
@@ -98,10 +95,10 @@ uint64_t __160__HDUserDomainConceptEducationContentSectionDataStringsEntity_enum
   return error;
 }
 
-uint64_t __126__HDUserDomainConceptEducationContentSectionDataStringsEntity_addSectionDataStringsToCodable_sectionDataID_transaction_error___block_invoke(uint64_t a1)
+uint64_t __126__HDUserDomainConceptEducationContentSectionDataStringsEntity_addSectionDataStringsToCodable_sectionDataID_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  [*(a1 + 32) addStringValues:v2];
+  v3 = HDSQLiteColumnWithNameAsString();
+  [*(a1 + 32) addStringValues:v3];
 
   return 1;
 }

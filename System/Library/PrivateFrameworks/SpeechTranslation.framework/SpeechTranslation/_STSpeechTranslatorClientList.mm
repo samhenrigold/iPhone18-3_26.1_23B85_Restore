@@ -50,80 +50,79 @@
 
 - (_STSpeechTranslatorClientList)initWithConfiguration:(id)configuration clientPeer:(id)peer translator:(id)translator
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   peerCopy = peer;
   translatorCopy = translator;
-  v31.receiver = self;
-  v31.super_class = _STSpeechTranslatorClientList;
-  v11 = [(_STSpeechTranslatorClientList *)&v31 init];
-  if (v11)
+  v33.receiver = self;
+  v33.super_class = _STSpeechTranslatorClientList;
+  v12 = [(_STSpeechTranslatorClientList *)&v33 init];
+  if (v12)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
-    [(_STSpeechTranslatorClientList *)v11 setIdentifier:uUID];
+    [(_STSpeechTranslatorClientList *)v12 setIdentifier:uUID];
 
-    v11->_state = 0;
-    v13 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-    v14 = dispatch_queue_create("com.apple.speechtranslation._STSpeechTranslatorClientList", v13);
-    stateQueue = v11->_stateQueue;
-    v11->_stateQueue = v14;
+    v12->_state = 0;
+    v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+    v15 = dispatch_queue_create("com.apple.speechtranslation._STSpeechTranslatorClientList", v14);
+    stateQueue = v12->_stateQueue;
+    v12->_stateQueue = v15;
 
-    v16 = objc_opt_class();
-    if (!v16)
+    v17 = objc_opt_class();
+    if (!v17)
     {
-      v16 = objc_opt_class();
+      v17 = objc_opt_class();
     }
 
-    v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    replyHandlers = v11->_replyHandlers;
-    v11->_replyHandlers = v17;
+    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    replyHandlers = v12->_replyHandlers;
+    v12->_replyHandlers = v18;
 
     sourceLocale = [configurationCopy sourceLocale];
-    [(_STSpeechTranslatorClientList *)v11 _prefetchPreferredAudioFormatWithSourceLocale:sourceLocale fromClass:v16];
+    [(_STSpeechTranslatorClientList *)v12 _prefetchPreferredAudioFormatWithSourceLocale:sourceLocale fromClass:v17];
 
     if (translatorCopy)
     {
-      v20 = translatorCopy;
+      v21 = translatorCopy;
     }
 
     else
     {
-      v20 = [[STSpeechTranslator alloc] initWithConfiguration:configurationCopy delegate:v11];
+      v21 = [[STSpeechTranslator alloc] initWithConfiguration:configurationCopy delegate:v12];
     }
 
-    translator = v11->_translator;
-    v11->_translator = v20;
+    translator = v12->_translator;
+    v12->_translator = v21;
 
-    v23 = [[_STSpeechTranslatorClientContext alloc] initWithClientPeer:peerCopy];
-    primaryClient = v11->_primaryClient;
-    v11->_primaryClient = v23;
+    v24 = [[_STSpeechTranslatorClientContext alloc] initWithClientPeer:peerCopy];
+    primaryClient = v12->_primaryClient;
+    v12->_primaryClient = v24;
 
-    v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    secondaryClients = v11->_secondaryClients;
-    v11->_secondaryClients = v25;
+    v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    secondaryClients = v12->_secondaryClients;
+    v12->_secondaryClients = v26;
 
-    v27 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v30 = _LTOSLogSTMultiprocess(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v33 = v11;
-      _os_log_impl(&dword_26B5BC000, v27, OS_LOG_TYPE_DEFAULT, "Created clientList: %{public}@ successfully", buf, 0xCu);
+      v35 = v12;
+      _os_log_impl(&dword_26B5BC000, v30, OS_LOG_TYPE_DEFAULT, "Created clientList: %{public}@ successfully", buf, 0xCu);
     }
 
-    v28 = v11;
+    v31 = v12;
   }
 
   else
   {
-    v21 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _LTOSLogSTMultiprocess(0, v11);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [_STSpeechTranslatorClientList initWithConfiguration:clientPeer:translator:];
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (NSString)description
@@ -274,14 +273,15 @@
 
 - (void)_notifyClientsOfTranslatorStartWhileDispatchedWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
   startReply = self->_startReply;
   if (!startReply)
   {
-    v7 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = _LTOSLogSTMultiprocess(0, v5);
+    v8 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [_STSpeechTranslatorClientList _notifyClientsOfTranslatorStartWhileDispatchedWithError:];
       if (errorCopy)
@@ -299,37 +299,37 @@ LABEL_9:
     clientPeer = [(_STSpeechTranslatorClientContext *)self->_primaryClient clientPeer];
     [clientPeer translationDidStart];
 
+    v22 = 0u;
+    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
     allValues = [(NSMutableDictionary *)self->_secondaryClients allValues];
-    v11 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v11)
+    v14 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v14)
     {
-      v12 = v11;
-      v13 = *v19;
+      v15 = v14;
+      v16 = *v21;
       do
       {
-        v14 = 0;
+        v17 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(allValues);
           }
 
-          clientPeer2 = [*(*(&v18 + 1) + 8 * v14) clientPeer];
+          clientPeer2 = [*(*(&v20 + 1) + 8 * v17) clientPeer];
           [clientPeer2 translationDidStart];
 
-          ++v14;
+          ++v17;
         }
 
-        while (v12 != v14);
-        v12 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+        while (v15 != v17);
+        v15 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
-      while (v12);
+      while (v15);
     }
 
     delegate = [(_STSpeechTranslatorClientList *)self delegate];
@@ -339,7 +339,7 @@ LABEL_9:
   }
 
   startReply[2](startReply, errorCopy);
-  v6 = self->_startReply;
+  v7 = self->_startReply;
   self->_startReply = 0;
 
   if (!errorCopy)
@@ -348,15 +348,13 @@ LABEL_9:
   }
 
 LABEL_6:
-  v8 = _LTOSLogSTMultiprocess();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v11 = _LTOSLogSTMultiprocess(v8, v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [_STSpeechTranslatorClientList _notifyClientsOfTranslatorStartWhileDispatchedWithError:];
   }
 
 LABEL_17:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetPauseReasons
@@ -370,39 +368,39 @@ LABEL_17:
 
 - (void)_notifyClientsOfTranslationDidResumeWhileDispatched
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
   clientPeer = [(_STSpeechTranslatorClientContext *)self->_primaryClient clientPeer];
   [clientPeer translationDidResume];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues = [(NSMutableDictionary *)self->_secondaryClients allValues];
-  v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        clientPeer2 = [*(*(&v12 + 1) + 8 * v8) clientPeer];
+        clientPeer2 = [*(*(&v11 + 1) + 8 * v8) clientPeer];
         [clientPeer2 translationDidResume];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -412,199 +410,191 @@ LABEL_17:
   [delegate translationDidResume];
 
   [(_STSpeechTranslatorClientList *)self _resetPauseReasons];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTranslatorStartCallbackWhileDispatchedWithError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v5 = _LTOSLogSTMultiprocess();
-  v6 = v5;
+  v7 = _LTOSLogSTMultiprocess(v5, v6);
+  v8 = v7;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [_STSpeechTranslatorClientList _handleTranslatorStartCallbackWhileDispatchedWithError:?];
+      [_STSpeechTranslatorClientList _handleTranslatorStartCallbackWhileDispatchedWithError:];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       translator = self->_translator;
-      v11 = 138543618;
+      v12 = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = translator;
-      _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "clientList: %{public}@ received callback from translator: %{public}@ start", &v11, 0x16u);
+      v14 = 2114;
+      v15 = translator;
+      _os_log_impl(&dword_26B5BC000, v8, OS_LOG_TYPE_INFO, "clientList: %{public}@ received callback from translator: %{public}@ start", &v12, 0x16u);
     }
 
-    v7 = 2;
+    v9 = 2;
   }
 
-  v9 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionToState:v7 withError:errorCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionToState:v9 withError:errorCopy];
 }
 
 - (void)_startTranslatorWhileDispatched
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
-  v3 = _LTOSLogSTMultiprocess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v5 = _LTOSLogSTMultiprocess(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     translator = self->_translator;
     *buf = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = translator;
-    _os_log_impl(&dword_26B5BC000, v3, OS_LOG_TYPE_INFO, "clientList: %{public}@ starting translator: %{public}@", buf, 0x16u);
+    v12 = 2114;
+    v13 = translator;
+    _os_log_impl(&dword_26B5BC000, v5, OS_LOG_TYPE_INFO, "clientList: %{public}@ starting translator: %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v5 = self->_translator;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __64___STSpeechTranslatorClientList__startTranslatorWhileDispatched__block_invoke;
-  v7[3] = &unk_279CF7C48;
-  objc_copyWeak(&v8, buf);
-  [(STSpeechTranslating *)v5 start:v7];
-  objc_destroyWeak(&v8);
+  v7 = self->_translator;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __64___STSpeechTranslatorClientList__startTranslatorWhileDispatched__block_invoke;
+  v8[3] = &unk_279CF7C48;
+  objc_copyWeak(&v9, buf);
+  [(STSpeechTranslating *)v7 start:v8];
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTranslatorStopCallbackWhileDispatchedWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v5 = _LTOSLogSTMultiprocess();
-  v6 = v5;
+  v7 = _LTOSLogSTMultiprocess(v5, v6);
+  v8 = v7;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [_STSpeechTranslatorClientList _handleTranslatorStopCallbackWhileDispatchedWithError:?];
+      [_STSpeechTranslatorClientList _handleTranslatorStopCallbackWhileDispatchedWithError:];
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     translator = self->_translator;
-    v10 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = translator;
-    _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "clientList: %{public}@ received callback from translator: %{public}@ stop", &v10, 0x16u);
+    v13 = 2114;
+    v14 = translator;
+    _os_log_impl(&dword_26B5BC000, v8, OS_LOG_TYPE_INFO, "clientList: %{public}@ received callback from translator: %{public}@ stop", &v11, 0x16u);
   }
 
-  v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionToState:0 withError:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionToState:0 withError:errorCopy];
 }
 
 - (void)_stopTranslatorWhileDispatchedWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v5 = _LTOSLogSTMultiprocess();
-  v6 = v5;
+  v7 = _LTOSLogSTMultiprocess(v5, v6);
+  v8 = v7;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [_STSpeechTranslatorClientList _stopTranslatorWhileDispatchedWithError:?];
+      [_STSpeechTranslatorClientList _stopTranslatorWhileDispatchedWithError:];
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     translator = self->_translator;
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = translator;
-    _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "clientList: %{public}@ stopping translator: %{public}@", buf, 0x16u);
+    v17 = 2114;
+    v18 = translator;
+    _os_log_impl(&dword_26B5BC000, v8, OS_LOG_TYPE_INFO, "clientList: %{public}@ stopping translator: %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v8 = self->_translator;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __73___STSpeechTranslatorClientList__stopTranslatorWhileDispatchedWithError___block_invoke;
-  v11[3] = &unk_279CF7BD0;
-  objc_copyWeak(&v13, buf);
-  v9 = errorCopy;
-  v12 = v9;
-  [(STSpeechTranslating *)v8 stop:v11];
+  v10 = self->_translator;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __73___STSpeechTranslatorClientList__stopTranslatorWhileDispatchedWithError___block_invoke;
+  v12[3] = &unk_279CF7BD0;
+  objc_copyWeak(&v14, buf);
+  v11 = errorCopy;
+  v13 = v11;
+  [(STSpeechTranslating *)v10 stop:v12];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyClientsOfTranslationDidPauseWhileDispatched
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = self->_enqueuedPauseReasons;
-  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v25;
+    v5 = *v24;
     do
     {
       v6 = 0;
       do
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * v6);
+        v7 = *(*(&v23 + 1) + 8 * v6);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         allValues = [(NSMutableDictionary *)self->_secondaryClients allValues];
-        v9 = [allValues countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v9 = [allValues countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v21;
+          v11 = *v20;
           do
           {
             v12 = 0;
             do
             {
-              if (*v21 != v11)
+              if (*v20 != v11)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              clientPeer = [*(*(&v20 + 1) + 8 * v12) clientPeer];
+              clientPeer = [*(*(&v19 + 1) + 8 * v12) clientPeer];
               [clientPeer translationDidPauseWithReason:v7];
 
               ++v12;
             }
 
             while (v10 != v12);
-            v10 = [allValues countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v10 = [allValues countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v10);
@@ -620,7 +610,7 @@ LABEL_17:
       }
 
       while (v6 != v4);
-      v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v4);
@@ -631,43 +621,42 @@ LABEL_17:
   self->_latestPauseReason = lastObject;
 
   [(NSMutableArray *)self->_enqueuedPauseReasons removeAllObjects];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyClientsOfTranslationDidStopWhileDispatchedWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
   [(_STSpeechTranslatorClientList *)self _resetPauseReasons];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_secondaryClients allValues];
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        clientPeer = [*(*(&v14 + 1) + 8 * v9) clientPeer];
+        clientPeer = [*(*(&v13 + 1) + 8 * v9) clientPeer];
         [clientPeer translationDidStopWithError:errorCopy];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -678,22 +667,20 @@ LABEL_17:
 
   delegate = [(_STSpeechTranslatorClientList *)self delegate];
   [delegate translationDidStopWithError:errorCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToInvalidatedWhileDispatchedAndStopTranslator:(BOOL)translator withError:(id)error
 {
   translatorCopy = translator;
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v7 = _LTOSLogSTMultiprocess();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = _LTOSLogSTMultiprocess(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_DEFAULT, "clientList: %{public}@ invalidating", buf, 0xCu);
+    _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_DEFAULT, "clientList: %{public}@ invalidating", buf, 0xCu);
   }
 
   [(_STSpeechTranslatorClientList *)self _resetPauseReasons];
@@ -702,37 +689,37 @@ LABEL_17:
     [(_STSpeechTranslatorClientList *)self _stopTranslatorWhileDispatchedWithError:errorCopy];
   }
 
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
   allValues = [(NSMutableDictionary *)self->_secondaryClients allValues];
-  v9 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v9)
+  v11 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v11)
   {
-    v10 = v9;
-    v11 = *v18;
+    v12 = v11;
+    v13 = *v19;
     do
     {
-      v12 = 0;
+      v14 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(allValues);
         }
 
-        clientPeer = [*(*(&v17 + 1) + 8 * v12) clientPeer];
+        clientPeer = [*(*(&v18 + 1) + 8 * v14) clientPeer];
         [clientPeer clientShouldDisconnect];
 
-        ++v12;
+        ++v14;
       }
 
-      while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v12 != v14);
+      v12 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v10);
+    while (v12);
   }
 
   delegate = [(_STSpeechTranslatorClientList *)self delegate];
@@ -741,8 +728,6 @@ LABEL_17:
   [(NSMutableArray *)self->_replyHandlers removeAllObjects];
   translator = self->_translator;
   self->_translator = 0;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translator:(id)translator producedSpeechResult:(id)result
@@ -815,20 +800,20 @@ LABEL_17:
 - (void)translator:(id)translator didFinishWithError:(id)error
 {
   errorCopy = error;
-  v5 = _LTOSLogSTMultiprocess();
-  v6 = v5;
+  v6 = _LTOSLogSTMultiprocess(errorCopy, v5);
+  v7 = v6;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [_STSpeechTranslatorClientList translator:didFinishWithError:];
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "Translator finished", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "Translator finished", v8, 2u);
   }
 }
 
@@ -1377,7 +1362,7 @@ LABEL_21:
 
 - (id)_whileDispatchedTransitionToState:(unint64_t)state withError:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_stateQueue);
   stateCopy = state;
@@ -1387,13 +1372,13 @@ LABEL_21:
     switch(state)
     {
       case 3:
-        v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromResumingToState:&stateCopy withError:errorCopy];
+        v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromResumingToState:&stateCopy withError:errorCopy];
         break;
       case 4:
-        v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromStoppingToState:&stateCopy withError:errorCopy];
+        v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromStoppingToState:&stateCopy withError:errorCopy];
         break;
       case 5:
-        v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromInvalidatedToState:&stateCopy];
+        v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromInvalidatedToState:&stateCopy];
         break;
       default:
         goto LABEL_15;
@@ -1404,7 +1389,7 @@ LABEL_21:
   {
     if (state == 1)
     {
-      v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromStartingToState:&stateCopy withError:errorCopy];
+      v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromStartingToState:&stateCopy withError:errorCopy];
     }
 
     else
@@ -1414,66 +1399,65 @@ LABEL_21:
         goto LABEL_15;
       }
 
-      v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromRunningToState:&stateCopy withError:errorCopy];
+      v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromRunningToState:&stateCopy withError:errorCopy];
     }
   }
 
   else
   {
-    v8 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromIdleToState:&stateCopy withError:errorCopy];
+    v10 = [(_STSpeechTranslatorClientList *)self _whileDispatchedTransitionFromIdleToState:&stateCopy withError:errorCopy];
   }
 
-  v9 = v8;
+  v11 = v10;
 
-  errorCopy = v9;
+  errorCopy = v11;
 LABEL_15:
-  v10 = stateCopy;
+  v12 = stateCopy;
   if (stateCopy != self->_state)
   {
-    v11 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = _LTOSLogSTMultiprocess(v7, v8);
+    v7 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
+    if (v7)
     {
-      v12 = self->_state;
-      v13 = v11;
-      v14 = [(_STSpeechTranslatorClientList *)self _descriptionForState:v12];
-      v15 = [(_STSpeechTranslatorClientList *)self _descriptionForState:stateCopy];
+      v14 = self->_state;
+      v15 = v13;
+      v16 = [(_STSpeechTranslatorClientList *)self _descriptionForState:v14];
+      v17 = [(_STSpeechTranslatorClientList *)self _descriptionForState:stateCopy];
       *buf = 138543874;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v15;
-      _os_log_impl(&dword_26B5BC000, v13, OS_LOG_TYPE_INFO, "clientList: %{public}@ transitioning from state: %{public}@ to state: %{public}@", buf, 0x20u);
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2114;
+      v29 = v17;
+      _os_log_impl(&dword_26B5BC000, v15, OS_LOG_TYPE_INFO, "clientList: %{public}@ transitioning from state: %{public}@ to state: %{public}@", buf, 0x20u);
     }
 
-    v10 = stateCopy;
+    v12 = stateCopy;
     self->_state = stateCopy;
   }
 
-  if (v10 != state)
+  if (v12 != state)
   {
     if (errorCopy)
     {
-      v16 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = _LTOSLogSTMultiprocess(v7, v8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v19 = v16;
-        v20 = [(_STSpeechTranslatorClientList *)self _descriptionForState:state];
-        v21 = [(_STSpeechTranslatorClientList *)self _descriptionForState:self->_state];
+        v20 = v18;
+        v21 = [(_STSpeechTranslatorClientList *)self _descriptionForState:state];
+        v22 = [(_STSpeechTranslatorClientList *)self _descriptionForState:self->_state];
         *buf = 138544130;
         selfCopy2 = self;
-        v25 = 2114;
-        v26 = v20;
-        v27 = 2114;
-        v28 = v21;
-        v29 = 2112;
-        v30 = errorCopy;
-        _os_log_error_impl(&dword_26B5BC000, v19, OS_LOG_TYPE_ERROR, "clientList: %{public}@ failed to reach desired state: %{public}@, current state: %{public}@, error: %@", buf, 0x2Au);
+        v26 = 2114;
+        v27 = v21;
+        v28 = 2114;
+        v29 = v22;
+        v30 = 2112;
+        v31 = errorCopy;
+        _os_log_error_impl(&dword_26B5BC000, v20, OS_LOG_TYPE_ERROR, "clientList: %{public}@ failed to reach desired state: %{public}@, current state: %{public}@, error: %@", buf, 0x2Au);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return errorCopy;
 }
@@ -1493,69 +1477,53 @@ LABEL_15:
 
 - (void)initWithConfiguration:clientPeer:translator:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyClientsOfTranslatorStartWhileDispatchedWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyClientsOfTranslatorStartWhileDispatchedWithError:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_handleTranslatorStartCallbackWhileDispatchedWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)_handleTranslatorStartCallbackWhileDispatchedWithError:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)_handleTranslatorStopCallbackWhileDispatchedWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)_handleTranslatorStopCallbackWhileDispatchedWithError:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)_stopTranslatorWhileDispatchedWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)_stopTranslatorWhileDispatchedWithError:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)translator:didFinishWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_26B5BC000, v0, OS_LOG_TYPE_ERROR, "Translator finished with error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B5BC000, v0, OS_LOG_TYPE_ERROR, "Translator finished with error: %@", v1, 0xCu);
 }
 
 @end

@@ -174,7 +174,7 @@ void __126__PLFakeCPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_i
 void __97__PLFakeCPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
@@ -231,7 +231,7 @@ void __97__PLFakeCPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNec
 void __84__PLFakeCPLLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;

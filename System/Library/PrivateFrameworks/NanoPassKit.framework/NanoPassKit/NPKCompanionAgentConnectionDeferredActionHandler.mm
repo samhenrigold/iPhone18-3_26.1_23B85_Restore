@@ -103,11 +103,11 @@ void __56__NPKCompanionAgentConnectionDeferredActionHandler_init__block_invoke(u
 
 - (void)performActionWhenCompanionAgentIsAvailable:(id)available forDevice:(id)device
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   deviceCopy = device;
   v8 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(v8);
   v10 = v9;
   if (v8)
   {
@@ -115,13 +115,13 @@ void __56__NPKCompanionAgentConnectionDeferredActionHandler_init__block_invoke(u
 
     if (v11)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = _Block_copy(availableCopy);
+        v14 = _Block_copy(availableCopy);
         *buf = 138412290;
-        v23 = v13;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Perform action when companion agent is available: %@", buf, 0xCu);
+        v24 = v14;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Perform action when companion agent is available: %@", buf, 0xCu);
       }
     }
 
@@ -131,31 +131,29 @@ void __56__NPKCompanionAgentConnectionDeferredActionHandler_init__block_invoke(u
     block[2] = __105__NPKCompanionAgentConnectionDeferredActionHandler_performActionWhenCompanionAgentIsAvailable_forDevice___block_invoke;
     block[3] = &unk_279945A48;
     block[4] = self;
-    v20 = v8;
-    v21 = availableCopy;
+    v21 = v8;
+    v22 = availableCopy;
     dispatch_async(internalQueue, block);
   }
 
   else
   {
-    v15 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v16 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-    if (v15)
+    if (v16)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = pk_Payment_log(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v17 = _Block_copy(availableCopy);
+        v19 = _Block_copy(availableCopy);
         *buf = 138412546;
-        v23 = deviceCopy;
-        v24 = 2112;
-        v25 = v17;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_ERROR, "Error: Not performing action when companion agent is available because pairing ID is nil! Device: %@, action: %@", buf, 0x16u);
+        v24 = deviceCopy;
+        v25 = 2112;
+        v26 = v19;
+        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: Not performing action when companion agent is available because pairing ID is nil! Device: %@, action: %@", buf, 0x16u);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __105__NPKCompanionAgentConnectionDeferredActionHandler_performActionWhenCompanionAgentIsAvailable_forDevice___block_invoke(uint64_t a1)
@@ -176,49 +174,48 @@ void __105__NPKCompanionAgentConnectionDeferredActionHandler_performActionWhenCo
 
 - (id)deferredSharedPaymentWebServiceContextForDevice:(id)device
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__4;
-  v21 = __Block_byref_object_dispose__4;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__4;
+  v22 = __Block_byref_object_dispose__4;
+  v23 = 0;
   internalQueue = [(NPKCompanionAgentConnectionDeferredActionHandler *)self internalQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __100__NPKCompanionAgentConnectionDeferredActionHandler_deferredSharedPaymentWebServiceContextForDevice___block_invoke;
   block[3] = &unk_279946940;
-  v16 = &v17;
+  v17 = &v18;
   block[4] = self;
   v7 = v5;
-  v15 = v7;
+  v16 = v7;
   dispatch_sync(internalQueue, block);
 
-  v8 = pk_Payment_log();
-  LODWORD(internalQueue) = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_Payment_log(v8);
+  LODWORD(internalQueue) = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (internalQueue)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v18[5];
+      v12 = v19[5];
       *buf = 138412546;
-      v24 = v10;
-      v25 = 2112;
-      v26 = deviceCopy;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Fetched deferred shared web service context %@ for device %@", buf, 0x16u);
+      v25 = v12;
+      v26 = 2112;
+      v27 = deviceCopy;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Fetched deferred shared web service context %@ for device %@", buf, 0x16u);
     }
   }
 
-  v11 = v18[5];
+  v13 = v19[5];
 
-  _Block_object_dispose(&v17, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 
-  return v11;
+  return v13;
 }
 
 void __100__NPKCompanionAgentConnectionDeferredActionHandler_deferredSharedPaymentWebServiceContextForDevice___block_invoke(uint64_t a1)
@@ -232,11 +229,11 @@ void __100__NPKCompanionAgentConnectionDeferredActionHandler_deferredSharedPayme
 
 - (void)setDeferredSharedPaymentWebServiceContext:(id)context forDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   deviceCopy = device;
   v8 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(v8);
   v10 = v9;
   if (v8)
   {
@@ -244,12 +241,12 @@ void __100__NPKCompanionAgentConnectionDeferredActionHandler_deferredSharedPayme
 
     if (v11)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v22 = contextCopy;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Setting deferred shared web service context: %@", buf, 0xCu);
+        v23 = contextCopy;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Setting deferred shared web service context: %@", buf, 0xCu);
       }
     }
 
@@ -258,12 +255,12 @@ void __100__NPKCompanionAgentConnectionDeferredActionHandler_deferredSharedPayme
     block[1] = 3221225472;
     block[2] = __104__NPKCompanionAgentConnectionDeferredActionHandler_setDeferredSharedPaymentWebServiceContext_forDevice___block_invoke;
     block[3] = &unk_279945880;
-    v18 = contextCopy;
+    v19 = contextCopy;
     selfCopy = self;
-    v20 = v8;
+    v21 = v8;
     dispatch_async(internalQueue, block);
 
-    v14 = v18;
+    v15 = v19;
   }
 
   else
@@ -275,19 +272,18 @@ void __100__NPKCompanionAgentConnectionDeferredActionHandler_deferredSharedPayme
       goto LABEL_8;
     }
 
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = pk_Payment_log(v17);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = deviceCopy;
-      v23 = 2112;
-      v24 = contextCopy;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_ERROR, "Error: Not setting deferred shared web service context because pairing ID is nil! Device: %@, context: %@", buf, 0x16u);
+      v23 = deviceCopy;
+      v24 = 2112;
+      v25 = contextCopy;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_ERROR, "Error: Not setting deferred shared web service context because pairing ID is nil! Device: %@, context: %@", buf, 0x16u);
     }
   }
 
 LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __104__NPKCompanionAgentConnectionDeferredActionHandler_setDeferredSharedPaymentWebServiceContext_forDevice___block_invoke(uint64_t a1)
@@ -312,19 +308,19 @@ void __104__NPKCompanionAgentConnectionDeferredActionHandler_setDeferredSharedPa
   passCopy = pass;
   deviceCopy = device;
   v8 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v21 = passCopy;
       v22 = 2112;
       v23 = deviceCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Setting deferred added payment pass: %@ for device: %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Setting deferred added payment pass: %@ for device: %@", buf, 0x16u);
     }
   }
 
@@ -336,11 +332,9 @@ void __104__NPKCompanionAgentConnectionDeferredActionHandler_setDeferredSharedPa
   v17 = passCopy;
   v18 = v8;
   selfCopy = self;
-  v13 = v8;
-  v14 = passCopy;
+  v14 = v8;
+  v15 = passCopy;
   dispatch_async(internalQueue, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __85__NPKCompanionAgentConnectionDeferredActionHandler_addDeferredPaymentPass_forDevice___block_invoke(uint64_t a1)
@@ -397,39 +391,38 @@ void __85__NPKCompanionAgentConnectionDeferredActionHandler_addDeferredPaymentPa
 
 - (id)deferredPaymentPassesForDevice:(id)device
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
+  v6 = v5;
   if (v5)
   {
     deferredAddedPaymentPasses = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredAddedPaymentPasses];
-    v7 = [deferredAddedPaymentPasses objectForKey:v5];
+    v8 = [deferredAddedPaymentPasses objectForKey:v6];
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = pk_Payment_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_Payment_log(v5);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2112;
-      v16 = deviceCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Returning deferred added payment passes: %@ for device: %@", &v13, 0x16u);
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = deviceCopy;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Returning deferred added payment passes: %@ for device: %@", &v14, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (id)deferredPaymentPassUniqueIDsForDevice:(id)device excludingDeactivated:(BOOL)deactivated
@@ -506,26 +499,26 @@ void __94__NPKCompanionAgentConnectionDeferredActionHandler_deferredPaymentPassW
   internalQueue = [(NPKCompanionAgentConnectionDeferredActionHandler *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
 
-  v4 = pk_Payment_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = pk_Payment_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Performing deferred actions…", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Performing deferred actions…", buf, 2u);
     }
   }
 
-  v7 = objc_alloc_init(NPKCompanionAgentConnection);
-  [(NPKCompanionAgentConnection *)v7 setQueueAppropriateFailedActions:1];
+  v9 = objc_alloc_init(NPKCompanionAgentConnection);
+  [(NPKCompanionAgentConnection *)v9 setQueueAppropriateFailedActions:1];
   deferredActions = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredActions];
-  v9 = [deferredActions copy];
+  v11 = [deferredActions copy];
 
   deferredSharedPaymentWebServiceContexts = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredSharedPaymentWebServiceContexts];
-  v11 = [deferredSharedPaymentWebServiceContexts copy];
+  v13 = [deferredSharedPaymentWebServiceContexts copy];
 
   deferredActions2 = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredActions];
   [deferredActions2 removeAllObjects];
@@ -533,18 +526,18 @@ void __94__NPKCompanionAgentConnectionDeferredActionHandler_deferredPaymentPassW
   deferredSharedPaymentWebServiceContexts2 = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredSharedPaymentWebServiceContexts];
   [deferredSharedPaymentWebServiceContexts2 removeAllObjects];
 
-  [v11 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_77];
-  [v9 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_81];
-  v14 = dispatch_get_global_queue(0, 0);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActions__block_invoke_82;
-  v17[3] = &unk_2799454E0;
-  v18 = v9;
-  v19 = v7;
-  v15 = v7;
-  v16 = v9;
-  dispatch_async(v14, v17);
+  [v13 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_77];
+  [v11 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_81];
+  v16 = dispatch_get_global_queue(0, 0);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActions__block_invoke_82;
+  v19[3] = &unk_2799454E0;
+  v20 = v11;
+  v21 = v9;
+  v17 = v9;
+  v18 = v11;
+  dispatch_async(v16, v19);
 }
 
 void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActions__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -552,23 +545,21 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
   v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412546;
       v11 = v4;
       v12 = 2112;
       v13 = v5;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Pairing ID %@: shared web service context %@", &v10, 0x16u);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Pairing ID %@: shared web service context %@", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActions__block_invoke_78(uint64_t a1, void *a2, void *a3)
@@ -576,23 +567,21 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
   v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412546;
       v11 = v4;
       v12 = 1024;
       v13 = [v5 count];
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Pairing ID %@: %u actions", &v10, 0x12u);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Pairing ID %@: %u actions", &v10, 0x12u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActions__block_invoke_82(uint64_t a1)
@@ -618,7 +607,7 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
 
 - (void)_cleanUpDeferredDataForPairingID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   internalQueue = [(NPKCompanionAgentConnectionDeferredActionHandler *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
@@ -629,21 +618,21 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
   deferredSharedPaymentWebServiceContexts = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredSharedPaymentWebServiceContexts];
   v9 = [deferredSharedPaymentWebServiceContexts objectForKey:dCopy];
 
-  v10 = pk_Payment_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = pk_Payment_log(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v12)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412802;
-      v17 = dCopy;
-      v18 = 1024;
-      v19 = [v7 count];
-      v20 = 2112;
-      v21 = v9;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Removing deferred data for pairing ID %@ (deferred action count %u deferred shared context %@)", &v16, 0x1Cu);
+      v17 = 138412802;
+      v18 = dCopy;
+      v19 = 1024;
+      v20 = [v7 count];
+      v21 = 2112;
+      v22 = v9;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Removing deferred data for pairing ID %@ (deferred action count %u deferred shared context %@)", &v17, 0x1Cu);
     }
   }
 
@@ -652,22 +641,20 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
 
   deferredSharedPaymentWebServiceContexts2 = [(NPKCompanionAgentConnectionDeferredActionHandler *)self deferredSharedPaymentWebServiceContexts];
   [deferredSharedPaymentWebServiceContexts2 removeObjectForKey:dCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCompanionAgentStarted
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: companion agent started", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: companion agent started", v7, 2u);
     }
   }
 
@@ -676,16 +663,16 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
 
 - (void)_handleDeviceBecameActive:(id)active
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device became active", buf, 2u);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device became active", buf, 2u);
     }
   }
 
@@ -711,16 +698,16 @@ void __75__NPKCompanionAgentConnectionDeferredActionHandler__performDeferredActi
 
 uint64_t __72__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePaired___block_invoke(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device paired", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device paired", v7, 2u);
     }
   }
 
@@ -748,17 +735,17 @@ void __74__NPKCompanionAgentConnectionDeferredActionHandler__handleDeviceUnpaire
   v3 = [v2 objectForKey:*MEMORY[0x277D2BC38]];
 
   v4 = [v3 valueForProperty:*MEMORY[0x277D2BBB8]];
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
       v10 = v4;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device unpaired (pairing ID %@)", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device unpaired (pairing ID %@)", &v9, 0xCu);
     }
   }
 
@@ -766,8 +753,6 @@ void __74__NPKCompanionAgentConnectionDeferredActionHandler__handleDeviceUnpaire
   {
     [*(a1 + 40) _cleanUpDeferredDataForPairingID:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDevicePairingFailure:(id)failure
@@ -783,47 +768,47 @@ void __74__NPKCompanionAgentConnectionDeferredActionHandler__handleDeviceUnpaire
 
 void __80__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePairingFailure___block_invoke(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device pairing failure", buf, 2u);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Deferred action handler: device pairing failure", buf, 2u);
     }
   }
 
-  v5 = [MEMORY[0x277D2BCF8] sharedInstance];
-  v6 = [MEMORY[0x277CBEB58] set];
-  v7 = [v5 getPairedDevices];
+  v6 = [MEMORY[0x277D2BCF8] sharedInstance];
+  v7 = [MEMORY[0x277CBEB58] set];
+  v8 = [v6 getPairedDevices];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __80__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePairingFailure___block_invoke_84;
+  v19[3] = &unk_279946A48;
+  v20 = v7;
+  v9 = v7;
+  [v8 enumerateObjectsUsingBlock:v19];
+  v10 = MEMORY[0x277CBEB58];
+  v11 = [*(a1 + 32) deferredActions];
+  v12 = [v11 allKeys];
+  v13 = [v10 setWithArray:v12];
+
+  v14 = MEMORY[0x277CBEB98];
+  v15 = [*(a1 + 32) deferredActions];
+  v16 = [v15 allKeys];
+  v17 = [v14 setWithArray:v16];
+  [v13 unionSet:v17];
+
+  [v13 minusSet:v9];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __80__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePairingFailure___block_invoke_84;
-  v18[3] = &unk_279946A48;
-  v19 = v6;
-  v8 = v6;
-  [v7 enumerateObjectsUsingBlock:v18];
-  v9 = MEMORY[0x277CBEB58];
-  v10 = [*(a1 + 32) deferredActions];
-  v11 = [v10 allKeys];
-  v12 = [v9 setWithArray:v11];
-
-  v13 = MEMORY[0x277CBEB98];
-  v14 = [*(a1 + 32) deferredActions];
-  v15 = [v14 allKeys];
-  v16 = [v13 setWithArray:v15];
-  [v12 unionSet:v16];
-
-  [v12 minusSet:v8];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __80__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePairingFailure___block_invoke_2;
-  v17[3] = &unk_279946A70;
-  v17[4] = *(a1 + 32);
-  [v12 enumerateObjectsUsingBlock:v17];
+  v18[2] = __80__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePairingFailure___block_invoke_2;
+  v18[3] = &unk_279946A70;
+  v18[4] = *(a1 + 32);
+  [v13 enumerateObjectsUsingBlock:v18];
 }
 
 void __80__NPKCompanionAgentConnectionDeferredActionHandler__handleDevicePairingFailure___block_invoke_84(uint64_t a1, void *a2)

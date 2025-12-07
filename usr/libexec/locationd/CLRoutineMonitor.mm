@@ -70,9 +70,9 @@
 - (void)sendLocations
 {
   [-[CLRoutineMonitor universe](self "universe")];
-  [-[NSXPCConnection _unboostingRemoteObjectProxy](-[CLRoutineMonitor connection](self "connection")];
-  v3 = sub_10000AE98();
-  sub_1005D5CFC(v3, [(CLRoutineMonitor *)self locations]);
+  v3 = [-[NSXPCConnection _unboostingRemoteObjectProxy](-[CLRoutineMonitor connection](self "connection")];
+  v5 = sub_10000AE98(v3, v4);
+  sub_1005D5CFC(v5, [(CLRoutineMonitor *)self locations]);
   [(NSMutableArray *)[(CLRoutineMonitor *)self locations] removeAllObjects];
 
   [(CLRoutineMonitor *)self setArmed:0];

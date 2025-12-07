@@ -127,7 +127,7 @@ LABEL_9:
       xpc_retain(a2);
       xpc_connection_resume(a2);
       v10 = &v9;
-      sub_1000019E0(&qword_100008018, &v9)[5] = a2;
+      sub_1000019E0(&qword_100008018, &v9, &unk_1000020D8, &v10)[5] = a2;
     }
   }
 }
@@ -202,119 +202,119 @@ void sub_100000C7C(uint64_t a1, void *a2)
   syslog(7, "%s: %zu outstanding requests left", "void register_new_client(xpc_connection_t)_block_invoke", qword_100008010);
 }
 
-void sub_100000ED0()
+void sub_100000ED0(uint64_t a1)
 {
-  v0 = &qword_100008000;
-  v1 = qword_100008008;
-  v2 = &qword_100008000;
+  v1 = &qword_100008000;
+  v2 = qword_100008008;
+  v3 = &qword_100008000;
   if (qword_100008008 != &qword_100008000)
   {
-    v3 = 0;
-    v4 = "void process_outstanding_requests()";
-    v5 = "%s: request %p timed out (now %f, last progress %f)";
-    v6 = "Timeout";
-    v7 = 0x10A0C40050E0BEALL;
+    v4 = 0;
+    v5 = "void process_outstanding_requests()";
+    v6 = "%s: request %p timed out (now %f, last progress %f)";
+    v7 = "Timeout";
+    v8 = 0x10A0C40050E0BEALL;
     while (1)
     {
-      v8 = v1[2];
-      if (*(v8 + 25))
+      v9 = v2[2];
+      if (*(v9 + 25))
       {
         break;
       }
 
-      v9 = qword_100008020;
+      v10 = qword_100008020;
       if (!qword_100008020)
       {
         goto LABEL_11;
       }
 
-      v10 = *v8;
-      v11 = &qword_100008020;
+      v11 = *v9;
+      v12 = &qword_100008020;
       do
       {
-        if (*(v9 + 32) >= v10)
+        if (*(v10 + 32) >= v11)
         {
-          v11 = v9;
+          v12 = v10;
         }
 
-        v9 = *(v9 + 8 * (*(v9 + 32) < v10));
+        v10 = *(v10 + 8 * (*(v10 + 32) < v11));
       }
 
-      while (v9);
-      if (v11 != &qword_100008020 && v10 >= *(v11 + 8))
+      while (v10);
+      if (v12 != &qword_100008020 && v11 >= *(v12 + 8))
       {
-        v27 = v11[5];
-        syslog(7, "%s: request %p sending message to source pid %d for client pid %d", v4, v8, v10, *(v8 + 4));
-        v16 = v3;
-        v17 = v0;
-        v18 = v2;
-        v19 = v7;
-        v20 = v4;
-        v21 = v6;
-        v22 = v5;
-        v23 = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_BOOL(v23, "MemoryListRequest", 1);
-        v24 = *v8;
+        v28 = v12[5];
+        syslog(7, "%s: request %p sending message to source pid %d for client pid %d", v5, v9, v11, *(v9 + 4));
+        v17 = v4;
+        v18 = v1;
+        v19 = v3;
+        v20 = v8;
+        v21 = v5;
+        v22 = v7;
+        v23 = v6;
+        v24 = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_BOOL(v24, "MemoryListRequest", 1);
+        v25 = *v9;
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 0x40000000;
         handler[2] = sub_100001258;
         handler[3] = &unk_100004218;
-        handler[4] = vrev64_s32(v24);
-        xpc_connection_send_message_with_reply(v27, v23, &_dispatch_main_q, handler);
-        v25 = v23;
-        v5 = v22;
-        v6 = v21;
-        v4 = v20;
-        v7 = v19;
-        v2 = v18;
-        v0 = v17;
-        v3 = v16;
-        xpc_release(v25);
-        *(v8 + 25) = 1;
+        handler[4] = vrev64_s32(v25);
+        xpc_connection_send_message_with_reply(v28, v24, &_dispatch_main_q, handler);
+        v26 = v24;
+        v6 = v23;
+        v7 = v22;
+        v5 = v21;
+        v8 = v20;
+        v3 = v19;
+        v1 = v18;
+        v4 = v17;
+        xpc_release(v26);
+        *(v9 + 25) = 1;
       }
 
       else
       {
 LABEL_11:
-        if (*(v8 + 24))
+        if (*(v9 + 24))
         {
           break;
         }
 
-        syslog(7, "%s: request %p did not find a connection to source pid %d sending check-in broadcast", v4, v1[2], *v8);
-        if ((v3 & 1) == 0)
+        syslog(7, "%s: request %p did not find a connection to source pid %d sending check-in broadcast", v5, v2[2], *v9);
+        if ((v4 & 1) == 0)
         {
           notify_post("com.apple.gpumemd.check_in_request");
         }
 
-        v3 = 1;
-        *(v8 + 24) = 1;
+        v4 = 1;
+        *(v9 + 24) = 1;
       }
 
-      *(v8 + 32) = sub_10000142C();
+      *(v9 + 32) = sub_10000142C();
 LABEL_19:
-      v1 = v1[1];
-      if (v1 == v0)
+      v2 = v2[1];
+      if (v2 == v1)
       {
         goto LABEL_20;
       }
     }
 
-    if (sub_10000142C() - *(v8 + 32) > 1.0)
+    if (sub_10000142C() - *(v9 + 32) > 1.0)
     {
-      v12 = sub_10000142C();
-      syslog(5, v5, v4, v8, *&v12, *(v8 + 32));
-      v13 = *v1;
-      v14 = v1[1];
-      *(v13 + 8) = v14;
-      *v14 = v13;
-      --v2[2];
-      operator delete(v1);
-      xpc_dictionary_set_BOOL(*(v8 + 16), v6, 1);
-      remote_connection = xpc_dictionary_get_remote_connection(*(v8 + 16));
-      xpc_connection_send_message(remote_connection, *(v8 + 16));
-      xpc_release(*(v8 + 8));
-      xpc_release(*(v8 + 16));
+      v13 = sub_10000142C();
+      syslog(5, v6, v5, v9, *&v13, *(v9 + 32));
+      v14 = *v2;
+      v15 = v2[1];
+      *(v14 + 8) = v15;
+      *v15 = v14;
+      --v3[2];
+      operator delete(v2);
+      xpc_dictionary_set_BOOL(*(v9 + 16), v7, 1);
+      remote_connection = xpc_dictionary_get_remote_connection(*(v9 + 16));
+      xpc_connection_send_message(remote_connection, *(v9 + 16));
+      xpc_release(*(v9 + 8));
+      xpc_release(*(v9 + 16));
       operator delete();
     }
 
@@ -322,12 +322,12 @@ LABEL_19:
   }
 
 LABEL_20:
-  if (v2[2])
+  if (v3[2])
   {
     if ((byte_100008030 & 1) == 0)
     {
-      v26 = dispatch_time(0, 250000000);
-      dispatch_after(v26, &_dispatch_main_q, &stru_100004258);
+      v27 = dispatch_time(0, 250000000);
+      dispatch_after(v27, &_dispatch_main_q, &stru_100004258);
       byte_100008030 = 1;
     }
   }
@@ -423,27 +423,19 @@ void sub_10000148C(uint64_t a1, xpc_object_t object)
     syslog(5, "source connection %p error received", *(a1 + 32));
     sub_100001568(&qword_100008018, (a1 + 40));
     xpc_connection_cancel(*(a1 + 32));
-    v6 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    xpc_release(v6);
+    xpc_release(v4);
+  }
+
+  else if (xpc_dictionary_get_BOOL(object, "CheckIn"))
+  {
+    syslog(7, "source connection %p for pid %d checked in");
   }
 
   else
   {
-    v4 = xpc_dictionary_get_BOOL(object, "CheckIn");
-    v5 = *(a1 + 32);
-    if (v4)
-    {
-      v7 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      syslog(7, "source connection %p for pid %d checked in");
-    }
-
-    else
-    {
-      v8 = *(a1 + 32);
-      syslog(5, "unexpected message from source connection %p");
-    }
+    syslog(5, "unexpected message from source connection %p");
   }
 }
 
@@ -608,31 +600,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -641,218 +632,218 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t *sub_1000019E0(uint64_t a1, int *a2)
+uint64_t *sub_1000019E0(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_100001AB4(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_100001AB4(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -878,12 +869,12 @@ uint64_t *sub_100001B0C(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -897,22 +888,22 @@ uint64_t *sub_100001B0C(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -946,13 +937,13 @@ uint64_t *sub_100001B0C(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 

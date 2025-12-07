@@ -9,9 +9,9 @@
 
 - (void)didTapContinue:(id)continue
 {
-  v4 = sub_1000F24EC(&qword_100AD5170);
+  v4 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v4 - 8);
-  v6 = &v12[-v5];
+  v6 = v12 - v5;
   swift_unknownObjectRetain();
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
@@ -44,7 +44,7 @@
   [standardUserDefaults setBool:1 forKey:v6];
 
   sub_1006F7B24();
-  sub_10000BA7C(&v7);
+  sub_10000BA7C(v7);
 }
 
 - (_TtC7Journal37NotificationsOnboardingViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

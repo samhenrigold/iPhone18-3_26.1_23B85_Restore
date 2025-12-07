@@ -1,13 +1,13 @@
 @interface PKAutoRefineTask
+- (_BYTE)cancel;
+- (_BYTE)strokesAnimationCompletedWithSuccess:(_BYTE *)result;
 - (id)debugInfo;
-- (uint64_t)cancel;
 - (uint64_t)hasOngoingAnimation;
 - (uint64_t)isInvalidatedGivenDrawing:(void *)drawing autoRefineController:(void *)controller currentStrokes:(void *)strokes inStrokesToReplace:(void *)replace lineDrawing:(void *)lineDrawing strokeGroups:(void *)groups outStrokeGroupsToReplace:(void *)toReplace outStrokesToPreserve:;
-- (uint64_t)queryItemIsEqualToQueryItem:(uint64_t)item;
-- (uint64_t)strokesAnimationCompletedWithSuccess:(uint64_t)result;
 - (void)dealloc;
 - (void)executeSynthesisWithSession:(void *)session processingBlock:(void *)block completionBlock:;
 - (void)locale;
+- (void)queryItemIsEqualToQueryItem:(void *)item;
 - (void)trimTaskForNewItem:(_BYTE *)item shouldCancel:;
 - (void)trimTaskForNewStroke:(char *)stroke shouldCancel:;
 - (void)updateCommittableRange;
@@ -252,10 +252,10 @@ void __42__PKAutoRefineTask_updateCommittableRange__block_invoke(void *a1, void 
     *(*(a1[5] + 8) + 24) = v7 + *(*(a1[5] + 8) + 24);
     if (v6)
     {
-      [v6 principalLines];
-      [v6 principalLines];
-      [v6 principalLines];
-      [v6 principalLines];
+      objc_msgSend_principalLines(v6);
+      objc_msgSend_principalLines(v6);
+      objc_msgSend_principalLines(v6);
+      objc_msgSend_principalLines(v6);
       v8 = *(&v37 + 1) + *(&v30 + 1) - *(&v23 + 1);
       v9 = *(&v16 + 1);
     }
@@ -366,7 +366,7 @@ void __42__PKAutoRefineTask_updateCommittableRange__block_invoke(void *a1, void 
   }
 }
 
-- (uint64_t)cancel
+- (_BYTE)cancel
 {
   v6 = *MEMORY[0x1E69E9840];
   if (result)
@@ -380,9 +380,9 @@ void __42__PKAutoRefineTask_updateCommittableRange__block_invoke(void *a1, void 
       _os_log_impl(&dword_1C7CCA000, v2, OS_LOG_TYPE_DEFAULT, "AutoRefine task cancelled %p.", &v4, 0xCu);
     }
 
-    *(v1 + 104) = 1;
+    v1[104] = 1;
     result = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    *(v1 + 64) = v3;
+    *(v1 + 8) = v3;
   }
 
   return result;
@@ -634,15 +634,15 @@ uint64_t __80__PKAutoRefineTask_executeSynthesisWithSession_processingBlock_comp
   return v2 & 1;
 }
 
-- (uint64_t)strokesAnimationCompletedWithSuccess:(uint64_t)result
+- (_BYTE)strokesAnimationCompletedWithSuccess:(_BYTE *)result
 {
   if (result)
   {
     v3 = result;
-    *(result + 105) = 1;
+    result[105] = 1;
     result = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    *(v3 + 64) = v4;
-    *(v3 + 107) = a2;
+    *(v3 + 8) = v4;
+    v3[107] = a2;
   }
 
   return result;
@@ -830,7 +830,7 @@ void __41__PKAutoRefineTask__serializedTextResult__block_invoke(uint64_t a1, NSU
   v149 = 0u;
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   path = [v5 path];
@@ -1524,7 +1524,7 @@ double __54__PKAutoRefineTask_trimTaskForNewStroke_shouldCancel___block_invoke_1
   return v7;
 }
 
-- (uint64_t)queryItemIsEqualToQueryItem:(uint64_t)item
+- (void)queryItemIsEqualToQueryItem:(void *)item
 {
   v3 = a2;
   v4 = v3;
@@ -1532,7 +1532,7 @@ double __54__PKAutoRefineTask_trimTaskForNewStroke_shouldCancel___block_invoke_1
   {
     if (v3)
     {
-      v5 = *(v3 + 12);
+      v5 = v3[12];
     }
 
     else
@@ -1541,7 +1541,7 @@ double __54__PKAutoRefineTask_trimTaskForNewStroke_shouldCancel___block_invoke_1
     }
 
     v6 = v5;
-    v7 = *(item + 8);
+    v7 = item[1];
     if (v7)
     {
       v7 = v7[12];
@@ -1564,7 +1564,7 @@ double __54__PKAutoRefineTask_trimTaskForNewStroke_shouldCancel___block_invoke_1
     v107 = v4;
     if (v4)
     {
-      v6 = *(v4 + 10);
+      v6 = v4[10];
       v7 = v5[12];
     }
 

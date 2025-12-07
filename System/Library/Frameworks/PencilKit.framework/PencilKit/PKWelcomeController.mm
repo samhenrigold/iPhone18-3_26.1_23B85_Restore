@@ -35,7 +35,7 @@
   inCopy = in;
   pencilEducationPanePresenter = [(PKWelcomeController *)self pencilEducationPanePresenter];
 
-  if (!pencilEducationPanePresenter && (hasCheckedThisLaunch & 1) == 0 && (hasCheckedThisLaunch = 1, +[PKHandwritingEducationPaneSettings sharedInstance](), v8 = objc_claimAutoreleasedReturnValue(), User = [(PKHandwritingEducationPaneSettings *)v8 isCurrentSystemVersionEqualToLastUserDrawn], v8, User) && (+[PKHandwritingEducationPaneSettings sharedInstance], v10 = objc_claimAutoreleasedReturnValue(), v11 = [(PKHandwritingEducationPaneSettings *)v10 seenFeatures], v10, PKIsPadDevice()) && CHGetPersonalizedSynthesisSupportState() >= 3 && PKCurrentAppSupportsRefinement())
+  if (!pencilEducationPanePresenter && (hasCheckedThisLaunch & 1) == 0 && (hasCheckedThisLaunch = 1, +[PKHandwritingEducationPaneSettings sharedInstance](PKHandwritingEducationPaneSettings), v8 = objc_claimAutoreleasedReturnValue(), User = [(PKHandwritingEducationPaneSettings *)v8 isCurrentSystemVersionEqualToLastUserDrawn], v8, User) && (+[PKHandwritingEducationPaneSettings sharedInstance], v10 = objc_claimAutoreleasedReturnValue(), v11 = [(PKHandwritingEducationPaneSettings *)v10 seenFeatures], v10, PKIsPadDevice()) && CHGetPersonalizedSynthesisSupportState() >= 3 && PKCurrentAppSupportsRefinement())
   {
     v12 = features & ~v11;
     hasAutoRefineLocaleEnabled = [objc_opt_class() hasAutoRefineLocaleEnabled];

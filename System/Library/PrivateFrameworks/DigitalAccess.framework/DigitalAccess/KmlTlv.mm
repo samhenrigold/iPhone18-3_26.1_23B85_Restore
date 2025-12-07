@@ -18,24 +18,24 @@
 
 + (id)TLVsWithData:(id)data
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length])
   {
     bytes = [dataCopy bytes];
-    array = +[KmlTlv _parseTLVs:end:](self, v11, bytes + [dataCopy length]);
+    array = +[KmlTlv _parseTLVs:end:](self, v10, bytes + [dataCopy length]);
   }
 
   else
   {
-    v7 = KmlLogger();
+    v7 = KmlLogger(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v11 = 136315394;
-      *&v11[4] = "+[KmlTlv TLVsWithData:]";
-      v12 = 1024;
-      v13 = 29;
-      _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_INFO, "%s : %i : nothing to parse", v11, 0x12u);
+      *v10 = 136315394;
+      *&v10[4] = "+[KmlTlv TLVsWithData:]";
+      v11 = 1024;
+      v12 = 29;
+      _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_INFO, "%s : %i : nothing to parse", v10, 0x12u);
     }
 
     array = [MEMORY[0x277CBEA60] array];
@@ -43,225 +43,222 @@
 
   v8 = array;
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)_parseTLVs:(unint64_t)vs end:
 {
-  *&v42[5] = *MEMORY[0x277D85DE8];
+  *&v43[5] = *MEMORY[0x277D85DE8];
   objc_opt_self();
   array = [MEMORY[0x277CBEB18] array];
-  v7 = *a2;
+  v7 = array;
+  v8 = *a2;
   if (*a2 >= vs)
   {
 LABEL_23:
-    v10 = KmlLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = KmlLogger(array);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v29 = [array count];
+      v31 = [v7 count];
       *buf = 136315650;
-      v38 = "+[KmlTlv _parseTLVs:end:]";
-      v39 = 1024;
-      v40 = 304;
-      v41 = 2048;
-      *v42 = v29;
-      _os_log_impl(&dword_248BF3000, v10, OS_LOG_TYPE_INFO, "%s : %i : TLV: found %lu tlvs", buf, 0x1Cu);
+      v39 = "+[KmlTlv _parseTLVs:end:]";
+      v40 = 1024;
+      v41 = 304;
+      v42 = 2048;
+      *v43 = v31;
+      _os_log_impl(&dword_248BF3000, v11, OS_LOG_TYPE_INFO, "%s : %i : TLV: found %lu tlvs", buf, 0x1Cu);
     }
   }
 
   else
   {
-    v8 = 0x277CBE000uLL;
+    v9 = 0x277CBE000uLL;
     *&v6 = 136315906;
-    v35 = v6;
+    v36 = v6;
     while (1)
     {
-      v9 = [*(v8 + 2704) dataWithBytes:v7 length:{vs - v7, v35}];
-      v10 = [KmlTlv TLVWithTag:0xFFFFLL value:v9];
+      v10 = [*(v9 + 2704) dataWithBytes:v8 length:{vs - v8, v36}];
+      v11 = [KmlTlv TLVWithTag:0xFFFFLL value:v10];
 
-      v11 = *a2;
-      v12 = (*a2 + 1);
-      *a2 = v12;
-      v13 = *v11;
-      if ((~v13 & 0x1F) == 0)
+      v13 = *a2;
+      v14 = (*a2 + 1);
+      *a2 = v14;
+      v15 = *v13;
+      if ((~v15 & 0x1F) == 0)
       {
-        while (v12 < vs)
+        while (v14 < vs)
         {
-          v14 = (v12 + 1);
-          *a2 = (v12 + 1);
-          v15 = *v12++;
-          v16 = v15 < -1;
-          v17 = v15 | (v13 << 8);
-          v13 = v17;
-          if (!v16)
+          v16 = (v14 + 1);
+          *a2 = (v14 + 1);
+          v17 = *v14++;
+          v18 = v17 < -1;
+          v19 = v17 | (v15 << 8);
+          v15 = v19;
+          if (!v18)
           {
             goto LABEL_8;
           }
         }
 
-        v23 = KmlLogger();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v25 = KmlLogger(v12);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v38 = "+[KmlTlv _parseTLVs:end:]";
-          v39 = 1024;
-          v40 = 252;
-          v30 = "%s : %i : TLV: Underflow";
+          v39 = "+[KmlTlv _parseTLVs:end:]";
+          v40 = 1024;
+          v41 = 252;
+          v32 = "%s : %i : TLV: Underflow";
 LABEL_27:
-          v31 = v23;
-          v32 = 18;
+          v33 = v25;
+          v34 = 18;
           goto LABEL_33;
         }
 
         goto LABEL_34;
       }
 
-      v14 = v12;
-      LOWORD(v17) = v13;
+      v16 = v14;
+      LOWORD(v19) = v15;
 LABEL_8:
-      if (v14 >= vs)
+      if (v16 >= vs)
       {
-        v23 = KmlLogger();
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v25 = KmlLogger(v12);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           goto LABEL_34;
         }
 
         *buf = 136315650;
-        v38 = "+[KmlTlv _parseTLVs:end:]";
-        v39 = 1024;
-        v40 = 266;
-        v41 = 1024;
-        v42[0] = v17;
-        v30 = "%s : %i : TLV: Underflow: tag=0x%x";
+        v39 = "+[KmlTlv _parseTLVs:end:]";
+        v40 = 1024;
+        v41 = 266;
+        v42 = 1024;
+        v43[0] = v19;
+        v32 = "%s : %i : TLV: Underflow: tag=0x%x";
 LABEL_32:
-        v31 = v23;
-        v32 = 24;
+        v33 = v25;
+        v34 = 24;
 LABEL_33:
-        _os_log_impl(&dword_248BF3000, v31, OS_LOG_TYPE_INFO, v30, buf, v32);
+        _os_log_impl(&dword_248BF3000, v33, OS_LOG_TYPE_INFO, v32, buf, v34);
         goto LABEL_34;
       }
 
-      v18 = v14 + 1;
-      *a2 = (v14 + 1);
-      v19 = *v14;
-      if (*v14 < 0)
+      v20 = v16 + 1;
+      *a2 = v16 + 1;
+      v21 = *v16;
+      if (*v16 < 0)
       {
-        v27 = v19 & 0x7F;
-        if ((v19 & 0x7F) != 0)
+        v29 = v21 & 0x7F;
+        if ((v21 & 0x7F) != 0)
         {
-          v19 = 0;
-          v28 = v14 + 1;
-          while (v28 < vs)
+          v21 = 0;
+          v30 = v16 + 1;
+          while (v30 < vs)
           {
-            v18 = v28 + 1;
-            *a2 = (v28 + 1);
-            v19 = *v28++ | (v19 << 8);
-            if (!--v27)
+            v20 = v30 + 1;
+            *a2 = v30 + 1;
+            v21 = *v30++ | (v21 << 8);
+            if (!--v29)
             {
               goto LABEL_10;
             }
           }
 
-          v23 = KmlLogger();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          v25 = KmlLogger(v12);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
             *buf = 136315650;
-            v38 = "+[KmlTlv _parseTLVs:end:]";
-            v39 = 1024;
-            v40 = 276;
-            v41 = 1024;
-            v42[0] = v17;
-            v30 = "%s : %i : TLV: Underflow: tag=0x%x";
+            v39 = "+[KmlTlv _parseTLVs:end:]";
+            v40 = 1024;
+            v41 = 276;
+            v42 = 1024;
+            v43[0] = v19;
+            v32 = "%s : %i : TLV: Underflow: tag=0x%x";
             goto LABEL_32;
           }
 
           goto LABEL_34;
         }
 
-        v19 = 0;
+        v21 = 0;
       }
 
 LABEL_10:
-      if (!v17 && !v19)
+      if (!v19 && !v21)
       {
         break;
       }
 
-      v36 = v10;
-      v20 = array;
-      v21 = v8;
-      v22 = vs - v18;
-      v23 = KmlLogger();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
-      if (v22 < v19)
+      v37 = v11;
+      v22 = v7;
+      v23 = v9;
+      v24 = vs - v20;
+      v25 = KmlLogger(v12);
+      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
+      if (v24 < v21)
       {
-        if (v24)
+        if (v26)
         {
-          *buf = v35;
-          v38 = "+[KmlTlv _parseTLVs:end:]";
-          v39 = 1024;
-          v40 = 295;
-          v41 = 1024;
-          v42[0] = v17;
-          LOWORD(v42[1]) = 1024;
-          *(&v42[1] + 2) = v19;
-          _os_log_impl(&dword_248BF3000, v23, OS_LOG_TYPE_INFO, "%s : %i : TLV: Underflow: tag=0x%x len=%u", buf, 0x1Eu);
+          *buf = v36;
+          v39 = "+[KmlTlv _parseTLVs:end:]";
+          v40 = 1024;
+          v41 = 295;
+          v42 = 1024;
+          v43[0] = v19;
+          LOWORD(v43[1]) = 1024;
+          *(&v43[1] + 2) = v21;
+          _os_log_impl(&dword_248BF3000, v25, OS_LOG_TYPE_INFO, "%s : %i : TLV: Underflow: tag=0x%x len=%u", buf, 0x1Eu);
         }
 
-        array = v20;
-        v10 = v36;
+        v7 = v22;
+        v11 = v37;
         goto LABEL_34;
       }
 
-      if (v24)
+      if (v26)
       {
-        *buf = v35;
-        v38 = "+[KmlTlv _parseTLVs:end:]";
-        v39 = 1024;
-        v40 = 299;
-        v41 = 1024;
-        v42[0] = v17;
-        LOWORD(v42[1]) = 1024;
-        *(&v42[1] + 2) = v19;
-        _os_log_impl(&dword_248BF3000, v23, OS_LOG_TYPE_INFO, "%s : %i : TLV: adding tag:0x%x, len:%u", buf, 0x1Eu);
+        *buf = v36;
+        v39 = "+[KmlTlv _parseTLVs:end:]";
+        v40 = 1024;
+        v41 = 299;
+        v42 = 1024;
+        v43[0] = v19;
+        LOWORD(v43[1]) = 1024;
+        *(&v43[1] + 2) = v21;
+        _os_log_impl(&dword_248BF3000, v25, OS_LOG_TYPE_INFO, "%s : %i : TLV: adding tag:0x%x, len:%u", buf, 0x1Eu);
       }
 
-      v8 = v21;
-      v25 = [*(v21 + 2704) dataWithBytes:*a2 length:v19];
-      v26 = [KmlTlv TLVWithTag:v17 value:v25];
-      array = v20;
-      [v20 addObject:v26];
+      v9 = v23;
+      v27 = [*(v23 + 2704) dataWithBytes:*a2 length:v21];
+      v28 = [KmlTlv TLVWithTag:v19 value:v27];
+      v7 = v22;
+      [v22 addObject:v28];
 
-      *a2 += v19;
-      v7 = *a2;
+      *a2 += v21;
+      v8 = *a2;
       if (*a2 >= vs)
       {
         goto LABEL_23;
       }
     }
 
-    v23 = KmlLogger();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v25 = KmlLogger(v12);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v38 = "+[KmlTlv _parseTLVs:end:]";
-      v39 = 1024;
-      v40 = 287;
-      v30 = "%s : %i : TLV: tag and length is 0";
+      v39 = "+[KmlTlv _parseTLVs:end:]";
+      v40 = 1024;
+      v41 = 287;
+      v32 = "%s : %i : TLV: tag and length is 0";
       goto LABEL_27;
     }
 
 LABEL_34:
 
-    [array addObject:v10];
+    [v7 addObject:v11];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return array;
+  return v7;
 }
 
 + (KmlTlv)TLVWithTag:(unsigned __int16)tag value:(id)value
@@ -350,46 +347,43 @@ LABEL_34:
   value = self->_value;
   if (!value)
   {
-    goto LABEL_10;
+    return 0;
   }
 
-  if ([(NSData *)value length]>= 5)
+  v4 = [(NSData *)value length];
+  if (v4 >= 5)
   {
-    v4 = KmlLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = KmlLogger(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = self->_value;
+      v6 = self->_value;
       v11 = 136315650;
       v12 = "[KmlTlv valueAsUnsignedLong]";
       v13 = 1024;
       v14 = 113;
       v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_248BF3000, v4, OS_LOG_TYPE_INFO, "%s : %i : TLV: Value too large: %@", &v11, 0x1Cu);
+      v16 = v6;
+      _os_log_impl(&dword_248BF3000, v5, OS_LOG_TYPE_INFO, "%s : %i : TLV: Value too large: %@", &v11, 0x1Cu);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   bytes = [(NSData *)self->_value bytes];
   if (![(NSData *)self->_value length])
   {
-LABEL_10:
-    v8 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
-  v7 = 0;
   v8 = 0;
+  v9 = 0;
   do
   {
-    v8 = bytes[v7++] | (v8 << 8);
+    v9 = bytes[v8++] | (v9 << 8);
   }
 
-  while ([(NSData *)self->_value length]> v7);
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  while ([(NSData *)self->_value length]> v8);
+  return v9;
 }
 
 - (unsigned)valueAsUnsignedChar
@@ -398,31 +392,31 @@ LABEL_11:
   value = self->_value;
   if (value)
   {
-    if ([(NSData *)value length]< 2)
+    v4 = [(NSData *)value length];
+    if (v4 < 2)
     {
       LOBYTE(value) = *[(NSData *)self->_value bytes];
     }
 
     else
     {
-      v4 = KmlLogger();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = KmlLogger(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v5 = self->_value;
+        v6 = self->_value;
         v8 = 136315650;
         v9 = "[KmlTlv valueAsUnsignedChar]";
         v10 = 1024;
         v11 = 132;
         v12 = 2112;
-        v13 = v5;
-        _os_log_impl(&dword_248BF3000, v4, OS_LOG_TYPE_INFO, "%s : %i : TLV: Value too large: %@", &v8, 0x1Cu);
+        v13 = v6;
+        _os_log_impl(&dword_248BF3000, v5, OS_LOG_TYPE_INFO, "%s : %i : TLV: Value too large: %@", &v8, 0x1Cu);
       }
 
       LOBYTE(value) = 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return value;
 }
 
@@ -432,46 +426,43 @@ LABEL_11:
   value = self->_value;
   if (!value)
   {
-    goto LABEL_10;
+    return 0;
   }
 
-  if ([(NSData *)value length]>= 3)
+  v4 = [(NSData *)value length];
+  if (v4 >= 3)
   {
-    v4 = KmlLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = KmlLogger(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = self->_value;
+      v6 = self->_value;
       v11 = 136315650;
       v12 = "[KmlTlv valueAsUnsignedShort]";
       v13 = 1024;
       v14 = 147;
       v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_248BF3000, v4, OS_LOG_TYPE_INFO, "%s : %i : TLV: Value too large: %@", &v11, 0x1Cu);
+      v16 = v6;
+      _os_log_impl(&dword_248BF3000, v5, OS_LOG_TYPE_INFO, "%s : %i : TLV: Value too large: %@", &v11, 0x1Cu);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   bytes = [(NSData *)self->_value bytes];
   if (![(NSData *)self->_value length])
   {
-LABEL_10:
-    v8 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
-  v7 = 0;
   v8 = 0;
+  v9 = 0;
   do
   {
-    v8 = bytes[v7++] | (v8 << 8);
+    v9 = bytes[v8++] | (v9 << 8);
   }
 
-  while ([(NSData *)self->_value length]> v7);
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  while ([(NSData *)self->_value length]> v8);
+  return v9;
 }
 
 + (id)_intToData:(uint64_t)data

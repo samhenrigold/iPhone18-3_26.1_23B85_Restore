@@ -6,9 +6,9 @@
 
 - (uint64_t)availableVersionUpgradeValue
 {
-  *x8_0 = 0u;
-  x8_0[1] = 0u;
-  return [self getValue:x8_0 size:32];
+  *a2 = 0u;
+  a2[1] = 0u;
+  return [self getValue:a2 size:32];
 }
 
 @end

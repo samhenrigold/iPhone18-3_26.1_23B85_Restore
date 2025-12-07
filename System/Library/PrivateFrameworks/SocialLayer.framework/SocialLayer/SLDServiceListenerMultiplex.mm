@@ -57,35 +57,33 @@
 
 - (void)_logFullDescription
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [self description];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)endpointForServiceClass:(Class)class
 {
-  if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
+  v5 = objc_opt_respondsToSelector();
+  if (v5 & 1) != 0 && (v5 = objc_opt_respondsToSelector(), (v5))
   {
     sharedService = [(objc_class *)class sharedService];
-    v6 = [(SLDServiceListenerMultiplex *)self _listenerForService:sharedService];
+    v7 = [(SLDServiceListenerMultiplex *)self _listenerForService:sharedService];
   }
 
   else
   {
-    v7 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SLDaemonLogHandle(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SLDServiceListenerMultiplex endpointForServiceClass:];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  endpoint = [v6 endpoint];
+  endpoint = [v7 endpoint];
 
   return endpoint;
 }
@@ -93,23 +91,23 @@
 - (id)_listenerForService:(id)service
 {
   serviceCopy = service;
-  anonymousListener = [(NSMapTable *)self->_serviceToListenerTable objectForKey:serviceCopy];
-  if (!anonymousListener)
+  resume = [(NSMapTable *)self->_serviceToListenerTable objectForKey:serviceCopy];
+  anonymousListener = resume;
+  if (!resume)
   {
     anonymousListener = [MEMORY[0x277CCAE98] anonymousListener];
     [(NSMapTable *)self->_serviceToListenerTable setObject:anonymousListener forKey:serviceCopy];
     [(NSMapTable *)self->_listenerToServiceTable setObject:serviceCopy forKey:anonymousListener];
-    [anonymousListener setDelegate:self];
-    v6 = SLDGlobalWorkloop();
-    [anonymousListener _setQueue:v6];
+    v7 = SLDGlobalWorkloop([anonymousListener setDelegate:self]);
+    [anonymousListener _setQueue:v7];
 
-    [anonymousListener resume];
+    resume = [anonymousListener resume];
   }
 
-  v7 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = SLDaemonLogHandle(resume);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [SLDServiceListenerMultiplex _listenerForService:];
+    [(SLDServiceListenerMultiplex *)anonymousListener _listenerForService:serviceCopy];
   }
 
   return anonymousListener;
@@ -119,10 +117,11 @@
 {
   connectionCopy = connection;
   v7 = [(NSMapTable *)self->_listenerToServiceTable objectForKey:listener];
-  if ((SLDConnectionIsEntitled(connectionCopy) & 1) == 0)
+  IsEntitled = SLDConnectionIsEntitled(connectionCopy);
+  if ((IsEntitled & 1) == 0)
   {
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = SLDaemonLogHandle(IsEntitled);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SLDServiceListenerMultiplex listener:shouldAcceptNewConnection:];
     }
@@ -132,8 +131,8 @@
 
   if (!v7)
   {
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = SLDaemonLogHandle(IsEntitled);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SLDServiceListenerMultiplex listener:shouldAcceptNewConnection:];
     }
@@ -141,32 +140,37 @@
     goto LABEL_14;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) != 0 && ([v7 allowsConnection:connectionCopy] & 1) == 0)
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = [v7 allowsConnection:connectionCopy];
+    if ((v9 & 1) == 0)
     {
-      [SLDServiceListenerMultiplex listener:shouldAcceptNewConnection:];
-    }
+      v12 = SLDaemonLogHandle(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        [SLDServiceListenerMultiplex listener:shouldAcceptNewConnection:];
+      }
 
 LABEL_14:
 
-    v9 = 0;
-    goto LABEL_15;
+      v11 = 0;
+      goto LABEL_15;
+    }
   }
 
-  v8 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = SLDaemonLogHandle(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [SLDServiceListenerMultiplex listener:shouldAcceptNewConnection:];
+    [SLDServiceListenerMultiplex listener:connectionCopy shouldAcceptNewConnection:v7];
   }
 
   [(SLDServiceListenerMultiplex *)self _acceptConnection:connectionCopy forService:v7];
   [(SLDServiceListenerMultiplex *)self _logFullDescription];
-  v9 = 1;
+  v11 = 1;
 LABEL_15:
 
-  return v9;
+  return v11;
 }
 
 - (void)_acceptConnection:(id)connection forService:(id)service
@@ -208,8 +212,7 @@ LABEL_15:
   }
 
   [connectionCopy setExportedObject:v9];
-  [connectionCopy setExportedInterface:v12];
-  v13 = SLDGlobalWorkloop();
+  v13 = SLDGlobalWorkloop([connectionCopy setExportedInterface:v12]);
   [connectionCopy _setQueue:v13];
 
   [connectionCopy resume];
@@ -233,10 +236,10 @@ void __60__SLDServiceListenerMultiplex__acceptConnection_forService___block_invo
 {
   _serviceCopy = _service;
   connectionCopy = connection;
-  v8 = SLDaemonLogHandle();
+  v8 = SLDaemonLogHandle(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [SLDServiceListenerMultiplex _service:lostConnection:];
+    [SLDServiceListenerMultiplex _service:connectionCopy lostConnection:_serviceCopy];
   }
 
   v9 = [(NSMapTable *)self->_serviceToConnectionsTable objectForKey:_serviceCopy];
@@ -280,71 +283,37 @@ void __60__SLDServiceListenerMultiplex__acceptConnection_forService___block_invo
   return WeakRetained;
 }
 
-- (void)endpointForServiceClass:.cold.1()
+- (void)_listenerForService:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "Service class does not implement the the required SLDService protocol: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_listenerForService:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1_3(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_3(v2);
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "XPC Connection does not have the proper entitlement: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_231772000, v1, OS_LOG_TYPE_ERROR, "Service: %@ denied connection: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_231772000, v1, OS_LOG_TYPE_ERROR, "Service: %@ denied connection: %@", v2, 0x16u);
 }
 
-- (void)listener:shouldAcceptNewConnection:.cold.3()
+- (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1_3(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_3(v2);
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-- (void)listener:shouldAcceptNewConnection:.cold.4()
+- (void)_service:(uint64_t)a1 lostConnection:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "There is not a service connected to this listener: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_service:lostConnection:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1_3(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_3(v2);
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 @end

@@ -106,15 +106,13 @@ LABEL_13:
 
 void __17__CATAddress_any__block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[1] = 0;
-  v6[0] = 528;
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:16];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v5[1] = 0;
+  v5[0] = 528;
+  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:16];
   v3 = [objc_alloc(*(a1 + 32)) initWithData:v2];
   v4 = any_any;
   any_any = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)localWiFi
@@ -136,15 +134,13 @@ void __17__CATAddress_any__block_invoke(uint64_t a1)
 
 void __23__CATAddress_localWiFi__block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[1] = 0;
-  v6[0] = 0xFEA900000210;
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:16];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v5[1] = 0;
+  v5[0] = 0xFEA900000210;
+  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:16];
   v3 = [objc_alloc(*(a1 + 32)) initWithData:v2];
   v4 = localWiFi_localWiFi;
   localWiFi_localWiFi = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (CATAddress)initWithString:(id)string

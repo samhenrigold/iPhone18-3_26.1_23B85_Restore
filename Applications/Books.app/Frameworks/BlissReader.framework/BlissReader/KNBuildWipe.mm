@@ -33,7 +33,7 @@
 {
   if (self)
   {
-    [(KNAnimationEffect *)self mvpMatrixWithContext:context];
+    objc_msgSend_mvpMatrixWithContext_(self, a2, context);
   }
 
   else

@@ -60,14 +60,13 @@
 {
   v4 = sub_251C70074();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251C70054();
   selfCopy = self;
-  sub_251BD8EC0(v8);
+  sub_251BD8EC0(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (id)exportedInterface

@@ -1,6 +1,7 @@
 @interface WFSettingsController
 - (WFSettingsController)initWithDetailsContext:(id)context;
 - (WFSettingsController)initWithDetailsContext:(id)context appearanceProxy:(id)proxy;
+- (id)_baseConfigForNetwork:(id)network current:(BOOL)current;
 - (void)_applySetupAppearances;
 - (void)_currentNetworkDidChange:(id)change;
 - (void)_ipStateDidChange:(id)change;
@@ -25,12 +26,12 @@
 
 - (WFSettingsController)initWithDetailsContext:(id)context appearanceProxy:(id)proxy
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   proxyCopy = proxy;
-  v35.receiver = self;
-  v35.super_class = WFSettingsController;
-  v9 = [(WFSettingsController *)&v35 init];
+  v38.receiver = self;
+  v38.super_class = WFSettingsController;
+  v9 = [(WFSettingsController *)&v38 init];
   v10 = v9;
   if (!v9)
   {
@@ -64,44 +65,46 @@ LABEL_24:
 
   v14 = WFLogForCategory(0);
   v15 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v14)
+  v16 = v15;
+  if (WFCurrentLogLevel(v15, v17) >= 3 && v14)
   {
-    v16 = v14;
-    if (os_log_type_enabled(v16, v15))
+    v18 = v14;
+    if (os_log_type_enabled(v18, v16))
     {
       profile = [(WFDetailsContext *)v10->_detailsContext profile];
       *buf = 136315394;
       *&buf[4] = "[WFSettingsController initWithDetailsContext:appearanceProxy:]";
-      v37 = 2112;
-      v38 = profile;
-      _os_log_impl(&dword_273ECD000, v16, v15, "%s: provided profile %@", buf, 0x16u);
+      v40 = 2112;
+      v41 = profile;
+      _os_log_impl(&dword_273ECD000, v18, v16, "%s: provided profile %@", buf, 0x16u);
     }
   }
 
-  v18 = objc_alloc_init(MEMORY[0x277CCABD8]);
+  v20 = objc_alloc_init(MEMORY[0x277CCABD8]);
   queue = v10->_queue;
-  v10->_queue = v18;
+  v10->_queue = v20;
 
-  v20 = v10->_queue;
-  if (!v20)
+  v22 = v10->_queue;
+  if (!v22)
   {
     goto LABEL_24;
   }
 
-  [(NSOperationQueue *)v20 setName:@"WFSettingsController Queue"];
+  [(NSOperationQueue *)v22 setName:@"WFSettingsController Queue"];
   [(NSOperationQueue *)v10->_queue setMaxConcurrentOperationCount:1];
   [(NSOperationQueue *)v10->_queue setQualityOfService:-1];
   v10->_cloudSyncRunning = WiFiCloudSyncEngineIsRunning() != 0;
-  v21 = WFLogForCategory(0);
-  v22 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v21 && os_log_type_enabled(v21, v22))
+  v23 = WFLogForCategory(0);
+  v24 = OSLogForWFLogLevel(3uLL);
+  v25 = v24;
+  if (WFCurrentLogLevel(v24, v26) >= 3 && v23 && os_log_type_enabled(v23, v25))
   {
     cloudSyncRunning = v10->_cloudSyncRunning;
     *buf = 136315394;
     *&buf[4] = "[WFSettingsController initWithDetailsContext:appearanceProxy:]";
-    v37 = 1024;
-    LODWORD(v38) = cloudSyncRunning;
-    _os_log_impl(&dword_273ECD000, v21, v22, "%s: cloudSyncRunning %d", buf, 0x12u);
+    v40 = 1024;
+    LODWORD(v41) = cloudSyncRunning;
+    _os_log_impl(&dword_273ECD000, v23, v25, "%s: cloudSyncRunning %d", buf, 0x12u);
   }
 
   ipMonitor = [(WFDetailsContext *)v10->_detailsContext ipMonitor];
@@ -115,9 +118,9 @@ LABEL_24:
   }
 
   v10->_currentNetwork = [(WFDetailsContext *)v10->_detailsContext isCurrent];
-  v26 = [(WFSettingsController *)v10 _baseConfigForNetwork:v10->_network current:[(WFDetailsContext *)v10->_detailsContext isCurrent]];
+  v30 = [(WFSettingsController *)v10 _baseConfigForNetwork:v10->_network current:[(WFDetailsContext *)v10->_detailsContext isCurrent]];
   config = v10->_config;
-  v10->_config = v26;
+  v10->_config = v30;
 
   if (!v10->_config)
   {
@@ -129,9 +132,9 @@ LABEL_24:
   hardwareMACAddress = v10->_hardwareMACAddress;
   v10->_hardwareMACAddress = hardwareMACAddress;
 
-  v30 = [objc_alloc(MEMORY[0x277D7B9E8]) initWithConfig:v10->_config detailsContext:v10->_detailsContext hardwareMACAddress:v10->_hardwareMACAddress appearanceProxy:v10->_appearanceProxy];
+  v34 = [objc_alloc(MEMORY[0x277D7B9E8]) initWithConfig:v10->_config detailsContext:v10->_detailsContext hardwareMACAddress:v10->_hardwareMACAddress appearanceProxy:v10->_appearanceProxy];
   settingsViewController = v10->_settingsViewController;
-  v10->_settingsViewController = v30;
+  v10->_settingsViewController = v34;
 
   [(WFNetworkSettingsViewController *)v10->_settingsViewController setDeviceCapability:WFCurrentDeviceCapability()];
   [(WFNetworkSettingsViewController *)v10->_settingsViewController setDataCoordinator:v10];
@@ -150,7 +153,6 @@ LABEL_24:
 
 LABEL_19:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -169,20 +171,19 @@ LABEL_19:
 - (void)_currentNetworkDidChange:(id)change
 {
   userInfo = [change userInfo];
-  v11 = [userInfo objectForKeyedSubscript:@"WFInterfaceNetworkKey"];
+  v10 = [userInfo objectForKeyedSubscript:@"WFInterfaceNetworkKey"];
 
   detailsContext = [(WFSettingsController *)self detailsContext];
   network = [detailsContext network];
-  v7 = [network isEquivalentRecord:v11];
+  v7 = [network isEquivalentRecord:v10];
 
   if (v7 != [(WFSettingsController *)self isCurrentNetwork])
   {
     self->_currentNetwork = v7;
     network2 = [(WFSettingsController *)self network];
-    v9 = [(WFSettingsController *)self _baseConfigForNetwork:network2 current:v11 != 0];
+    v9 = [(WFSettingsController *)self _baseConfigForNetwork:network2 current:v10 != 0];
 
     [(WFSettingsController *)self _refreshSettingsConfig:v9];
-    monitorIPChanges = self->_monitorIPChanges;
     if (self->_currentNetwork)
     {
       if (!self->_monitorIPChanges)
@@ -230,33 +231,363 @@ LABEL_8:
 
 - (void)_ipStateDidChange:(id)change
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 4 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
       userInfo = [changeCopy userInfo];
-      v12 = 136315394;
-      v13 = "[WFSettingsController _ipStateDidChange:]";
-      v14 = 2112;
-      v15 = userInfo;
-      _os_log_impl(&dword_273ECD000, v7, v6, "%s- %@", &v12, 0x16u);
+      v13 = 136315394;
+      v14 = "[WFSettingsController _ipStateDidChange:]";
+      v15 = 2112;
+      v16 = userInfo;
+      _os_log_impl(&dword_273ECD000, v9, v7, "%s- %@", &v13, 0x16u);
     }
   }
 
   if ([(WFSettingsController *)self isCurrentNetwork])
   {
     network = [(WFSettingsController *)self network];
-    v10 = [(WFSettingsController *)self _baseConfigForNetwork:network current:[(WFSettingsController *)self isCurrentNetwork]];
+    v12 = [(WFSettingsController *)self _baseConfigForNetwork:network current:[(WFSettingsController *)self isCurrentNetwork]];
 
-    [(WFSettingsController *)self _refreshSettingsConfig:v10];
+    [(WFSettingsController *)self _refreshSettingsConfig:v12];
+  }
+}
+
+- (id)_baseConfigForNetwork:(id)network current:(BOOL)current
+{
+  currentCopy = current;
+  v110 = *MEMORY[0x277D85DE8];
+  networkCopy = network;
+  v7 = objc_alloc_init(MEMORY[0x277D7B9E0]);
+  detailsContext = [(WFSettingsController *)self detailsContext];
+  if ([detailsContext entryContext] != 2)
+  {
+
+    goto LABEL_6;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  isHotspot20 = [networkCopy isHotspot20];
+
+  if (!isHotspot20)
+  {
+LABEL_6:
+    ssid = [networkCopy ssid];
+    [v7 setSsid:ssid];
+    goto LABEL_9;
+  }
+
+  ssid = [(WFSettingsController *)self detailsContext];
+  profile = [ssid profile];
+  displayedOperatorName = [profile displayedOperatorName];
+  if (displayedOperatorName)
+  {
+    detailsContext2 = [(WFSettingsController *)self detailsContext];
+    profile2 = [detailsContext2 profile];
+    displayedOperatorName2 = [profile2 displayedOperatorName];
+    [v7 setSsid:displayedOperatorName2];
+  }
+
+  else
+  {
+    detailsContext2 = [networkCopy ssid];
+    [v7 setSsid:detailsContext2];
+  }
+
+LABEL_9:
+  detailsContext3 = [(WFSettingsController *)self detailsContext];
+  profile3 = [detailsContext3 profile];
+  displayFriendlyName = [profile3 displayFriendlyName];
+  if (displayFriendlyName)
+  {
+    detailsContext4 = [(WFSettingsController *)self detailsContext];
+    profile4 = [detailsContext4 profile];
+    displayFriendlyName2 = [profile4 displayFriendlyName];
+    [v7 setDisplayFriendlyName:displayFriendlyName2];
+  }
+
+  else
+  {
+    detailsContext4 = [v7 ssid];
+    [v7 setDisplayFriendlyName:detailsContext4];
+  }
+
+  ipMonitor = [(WFSettingsController *)self ipMonitor];
+  [v7 setHttpProxyConfigurable:{objc_msgSend(ipMonitor, "globalProxyIsEnabled") ^ 1}];
+
+  [v7 setCurrent:currentCopy];
+  detailsContext5 = [(WFSettingsController *)self detailsContext];
+  v24 = detailsContext5;
+  if (currentCopy)
+  {
+    [v7 setDiagnosable:{objc_msgSend(detailsContext5, "diagnosable")}];
+
+    detailsContext6 = [(WFSettingsController *)self detailsContext];
+    recommendations = [detailsContext6 recommendations];
+    [v7 setHealthRecommendations:recommendations];
+
+    [v7 setForgetable:1];
+    v27 = WFLogForCategory(0);
+    v28 = OSLogForWFLogLevel(3uLL);
+    v29 = v28;
+    if (WFCurrentLogLevel(v28, v30) >= 3 && v27)
+    {
+      v31 = v27;
+      if (os_log_type_enabled(v31, v29))
+      {
+        healthRecommendations = [v7 healthRecommendations];
+        *buf = 138412290;
+        *v100 = healthRecommendations;
+        _os_log_impl(&dword_273ECD000, v31, v29, "Health recommendations %@", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    [v7 setJoinable:{objc_msgSend(detailsContext5, "isJoinable")}];
+
+    [v7 setCanRenewLease:0];
+  }
+
+  profile5 = [(WFDetailsContext *)self->_detailsContext profile];
+  v34 = WFLogForCategory(0);
+  v35 = OSLogForWFLogLevel(3uLL);
+  v36 = v35;
+  v39 = WFCurrentLogLevel(v35, v37) > 2 && v34 != 0;
+  if (profile5)
+  {
+    v98 = networkCopy;
+    if (v39 && os_log_type_enabled(v34, v36))
+    {
+      *buf = 138412290;
+      *v100 = profile5;
+      _os_log_impl(&dword_273ECD000, v34, v36, "Found profile %@", buf, 0xCu);
+    }
+
+    [v7 setAutoJoinConfigurable:{objc_msgSend(profile5, "autoJoinConfigurable")}];
+    if ([v7 autoJoinConfigurable])
+    {
+      [v7 setAutoJoinEnabled:{objc_msgSend(profile5, "isAutoJoinDisabled") ^ 1}];
+      if ([(WFDetailsContext *)self->_detailsContext autoJoinEnabled])
+      {
+        [v7 setAutoJoinEnabled:1];
+      }
+
+      v40 = +[WFMetricsManager sharedManager];
+      v41 = [WFUserEvent eventWithType:7];
+      [v40 processEvent:v41];
+
+      v42 = WFLogForCategory(0);
+      v43 = OSLogForWFLogLevel(3uLL);
+      v44 = v43;
+      if (WFCurrentLogLevel(v43, v45) >= 3 && v42)
+      {
+        v46 = v42;
+        if (os_log_type_enabled(v46, v44))
+        {
+          autoJoinEnabled = [v7 autoJoinEnabled];
+          *buf = 67109120;
+          *v100 = autoJoinEnabled;
+          _os_log_impl(&dword_273ECD000, v46, v44, "Auto join enabled %d", buf, 8u);
+        }
+      }
+    }
+
+    [v7 setAutoLoginConfigurable:{objc_msgSend(profile5, "autoLoginConfigurable")}];
+    if ([v7 autoLoginConfigurable])
+    {
+      [v7 setAutoLoginEnabled:{objc_msgSend(profile5, "bypassCaptive") ^ 1}];
+      v48 = +[WFMetricsManager sharedManager];
+      v49 = [WFUserEvent eventWithType:8];
+      [v48 processEvent:v49];
+
+      v50 = WFLogForCategory(0);
+      v51 = OSLogForWFLogLevel(3uLL);
+      v52 = v51;
+      if (WFCurrentLogLevel(v51, v53) >= 3 && v50)
+      {
+        v54 = v50;
+        if (os_log_type_enabled(v54, v52))
+        {
+          autoLoginEnabled = [v7 autoLoginEnabled];
+          *buf = 67109120;
+          *v100 = autoLoginEnabled;
+          _os_log_impl(&dword_273ECD000, v54, v52, "Auto login enabled %d", buf, 8u);
+        }
+      }
+    }
+
+    [v7 setSaveDataModeConfigurable:{objc_msgSend(profile5, "saveDataModeConfigurable")}];
+    if ([v7 saveDataModeConfigurable])
+    {
+      if ([profile5 lowDataMode] == 1)
+      {
+        v56 = 1;
+      }
+
+      else if ([profile5 isPersonalHotspot])
+      {
+        v56 = [profile5 lowDataMode] == 0;
+      }
+
+      else
+      {
+        v56 = 0;
+      }
+
+      [v7 setIsInSaveDataMode:v56];
+      v57 = WFLogForCategory(0);
+      v58 = OSLogForWFLogLevel(3uLL);
+      v59 = v58;
+      if (WFCurrentLogLevel(v58, v60) >= 3 && v57)
+      {
+        v61 = v57;
+        if (os_log_type_enabled(v61, v59))
+        {
+          isInSaveDataMode = [v7 isInSaveDataMode];
+          *buf = 67109120;
+          *v100 = isInSaveDataMode;
+          _os_log_impl(&dword_273ECD000, v61, v59, "Data-saver mode enabled %d", buf, 8u);
+        }
+      }
+    }
+
+    detailsContext7 = [(WFSettingsController *)self detailsContext];
+    [v7 setPrivacyProxyTierStatus:{objc_msgSend(detailsContext7, "privacyProxyTierStatus")}];
+
+    if ([v7 privacyProxyTierStatus])
+    {
+      [v7 setPrivacyProxyEnabled:{objc_msgSend(profile5, "isPrivacyProxyEnabled")}];
+      v64 = WFLogForCategory(0);
+      v65 = OSLogForWFLogLevel(3uLL);
+      v66 = v65;
+      if (WFCurrentLogLevel(v65, v67) >= 3 && v64)
+      {
+        v68 = v64;
+        if (os_log_type_enabled(v68, v66))
+        {
+          privacyProxyEnabled = [v7 privacyProxyEnabled];
+          *buf = 67109120;
+          *v100 = privacyProxyEnabled;
+          _os_log_impl(&dword_273ECD000, v68, v66, "Privacy Proxy enabled %d", buf, 8u);
+        }
+      }
+    }
+
+    [v7 setNetworkQualityVisible:{objc_msgSend(profile5, "networkQualityVisible")}];
+    if ([v7 networkQualityVisible])
+    {
+      [profile5 networkQualityResponsiveness];
+      [v7 setNetworkQualityResponsiveness:?];
+      networkQualityDate = [profile5 networkQualityDate];
+      v71 = [networkQualityDate copy];
+      [v7 setNetworkQualityDate:v71];
+    }
+
+    [v7 setForgetable:{objc_msgSend(profile5, "forgetable")}];
+    v34 = WFLogForCategory(0);
+    v72 = OSLogForWFLogLevel(3uLL);
+    v73 = v72;
+    if (WFCurrentLogLevel(v72, v74) >= 3 && v34)
+    {
+      v34 = v34;
+      if (os_log_type_enabled(v34, v73))
+      {
+        autoJoinConfigurable = [v7 autoJoinConfigurable];
+        autoLoginConfigurable = [v7 autoLoginConfigurable];
+        saveDataModeConfigurable = [v7 saveDataModeConfigurable];
+        forgetable = [v7 forgetable];
+        privacyProxyTierStatus = [v7 privacyProxyTierStatus];
+        networkQualityVisible = [v7 networkQualityVisible];
+        portalURL = [(WFDetailsContext *)self->_detailsContext portalURL];
+        *buf = 67110658;
+        *v100 = autoJoinConfigurable;
+        *&v100[4] = 1024;
+        *&v100[6] = autoLoginConfigurable;
+        *v101 = 1024;
+        *&v101[2] = saveDataModeConfigurable;
+        v102 = 1024;
+        v103 = forgetable;
+        v104 = 2048;
+        v105 = privacyProxyTierStatus;
+        networkCopy = v98;
+        v106 = 1024;
+        v107 = networkQualityVisible;
+        v108 = 2112;
+        v109 = portalURL;
+        _os_log_impl(&dword_273ECD000, v34, v73, "Network Details: Auto join configurable=%d, Auto login configurable=%d, Data-saver configurable=%d, Forgetable=%d, Privacy Proxy Configurable=%ld, Network Quality Visible=%d, portalURL='%@'", buf, 0x34u);
+      }
+    }
+  }
+
+  else if (v39 && os_log_type_enabled(v34, v36))
+  {
+    *buf = 138412290;
+    *v100 = networkCopy;
+    _os_log_impl(&dword_273ECD000, v34, v36, "No existing profile for network %@", buf, 0xCu);
+  }
+
+  if ([networkCopy isAirPortBaseStation])
+  {
+    v80 = networkCopy;
+    detailsContext8 = [(WFSettingsController *)self detailsContext];
+    [v7 setManageable:{objc_msgSend(detailsContext8, "supportsAirportManagement")}];
+
+    v82 = WFLogForCategory(0);
+    v83 = OSLogForWFLogLevel(3uLL);
+    v84 = v83;
+    if (WFCurrentLogLevel(v83, v85) >= 3 && v82)
+    {
+      v86 = v82;
+      if (os_log_type_enabled(v86, v84))
+      {
+        manageable = [v7 manageable];
+        *buf = 136315394;
+        *v100 = "[WFSettingsController _baseConfigForNetwork:current:]";
+        *&v100[8] = 1024;
+        *v101 = manageable;
+        _os_log_impl(&dword_273ECD000, v86, v84, "%s: airport management supported %d", buf, 0x12u);
+      }
+    }
+
+    networkCopy = v80;
+  }
+
+  if ([networkCopy isCloudSyncable])
+  {
+    cloudSyncRunning = [(WFSettingsController *)self cloudSyncRunning];
+  }
+
+  else
+  {
+    cloudSyncRunning = 0;
+  }
+
+  [v7 setCloudSyncable:cloudSyncRunning];
+  v89 = WFLogForCategory(0);
+  v90 = OSLogForWFLogLevel(3uLL);
+  v91 = v90;
+  if (WFCurrentLogLevel(v90, v92) >= 3 && v89)
+  {
+    v93 = v89;
+    if (os_log_type_enabled(v93, v91))
+    {
+      cloudSyncable = [v7 cloudSyncable];
+      *buf = 136315394;
+      *v100 = "[WFSettingsController _baseConfigForNetwork:current:]";
+      *&v100[8] = 1024;
+      *v101 = cloudSyncable;
+      _os_log_impl(&dword_273ECD000, v93, v91, "%s: network cloudSyncable %d", buf, 0x12u);
+    }
+  }
+
+  return v7;
 }
 
 - (void)_refreshSettingsConfig:(id)config
@@ -321,18 +652,18 @@ void __47__WFSettingsController__refreshSettingsConfig___block_invoke(uint64_t a
 
 void __47__WFSettingsController__refreshSettingsConfig___block_invoke_2(uint64_t a1)
 {
-  v193 = *MEMORY[0x277D85DE8];
+  v241 = *MEMORY[0x277D85DE8];
   v2 = a1 + 56;
-  v177 = [*(*(*(a1 + 56) + 8) + 40) settings];
+  v225 = [*(*(*(a1 + 56) + 8) + 40) settings];
   v3 = *(*v2 + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v178 = [WeakRetained ipMonitor];
+  v226 = [WeakRetained ipMonitor];
   v5 = [WeakRetained isCurrentNetwork];
-  v6 = [v177 ipv4Settings];
-  v175 = v6;
+  v6 = [v225 ipv4Settings];
+  v223 = v6;
   v7 = v6 != 0;
   if (v6)
   {
@@ -356,10 +687,10 @@ void __47__WFSettingsController__refreshSettingsConfig___block_invoke_2(uint64_t
 
   if (((v8 == 0x7FFFFFFFFFFFFFFFLL) & v5) == 1)
   {
-    v9 = [v178 ipv4ConfigMethod];
+    v9 = [v226 ipv4ConfigMethod];
   }
 
-  v173 = v7;
+  v221 = v7;
   if (v9 <= 3)
   {
     if (v9 != 1 && v9 != 3)
@@ -373,118 +704,120 @@ void __47__WFSettingsController__refreshSettingsConfig___block_invoke_2(uint64_t
   if (v9 == 4)
   {
     [*(a1 + 32) setIpv4Config:2];
-    v49 = WFLogForCategory(0);
-    v50 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v49)
+    v61 = WFLogForCategory(0);
+    v62 = OSLogForWFLogLevel(4uLL);
+    v63 = v62;
+    if (WFCurrentLogLevel(v62, v64) >= 4 && v61)
     {
-      v51 = v49;
-      if (os_log_type_enabled(v51, v50))
+      v65 = v61;
+      if (os_log_type_enabled(v65, v63))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v51, v50, "IPv4 config is manual", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v65, v63, "IPv4 config is manual", buf, 2u);
       }
     }
 
-    if (v175)
+    if (v223)
     {
-      v52 = [v175 addresses];
+      v66 = [v223 addresses];
 
-      if (v52)
+      if (v66)
       {
-        v53 = [v175 addresses];
-        v18 = [v53 firstObject];
+        v67 = [v223 addresses];
+        v22 = [v67 firstObject];
       }
 
       else
       {
-        v18 = 0;
+        v22 = 0;
       }
 
-      v56 = [v175 subnetMasks];
+      v70 = [v223 subnetMasks];
 
-      if (v56)
+      if (v70)
       {
-        v57 = [v175 subnetMasks];
-        v33 = [v57 firstObject];
+        v71 = [v223 subnetMasks];
+        v41 = [v71 firstObject];
       }
 
       else
       {
-        v33 = 0;
+        v41 = 0;
       }
 
-      v58 = [v175 router];
+      v72 = [v223 router];
     }
 
     else
     {
       if (!v5)
       {
-        v33 = 0;
-        v26 = 0;
-        v18 = 0;
+        v41 = 0;
+        v32 = 0;
+        v22 = 0;
         goto LABEL_85;
       }
 
-      v54 = [v178 ipv4Addresses];
+      v68 = [v226 ipv4Addresses];
 
-      if (v54)
+      if (v68)
       {
-        v55 = [v178 ipv4Addresses];
-        v18 = [v55 firstObject];
+        v69 = [v226 ipv4Addresses];
+        v22 = [v69 firstObject];
       }
 
       else
       {
-        v18 = 0;
+        v22 = 0;
       }
 
-      v59 = [v178 ipv4SubnetMasks];
+      v73 = [v226 ipv4SubnetMasks];
 
-      if (v59)
+      if (v73)
       {
-        v60 = [v178 ipv4SubnetMasks];
-        v33 = [v60 firstObject];
+        v74 = [v226 ipv4SubnetMasks];
+        v41 = [v74 firstObject];
       }
 
       else
       {
-        v33 = 0;
+        v41 = 0;
       }
 
-      v58 = [v178 ipv4Router];
+      v72 = [v226 ipv4Router];
     }
 
-    v26 = v58;
+    v32 = v72;
 LABEL_85:
-    v61 = WFLogForCategory(0);
-    v62 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v61)
+    v75 = WFLogForCategory(0);
+    v76 = OSLogForWFLogLevel(4uLL);
+    v77 = v76;
+    if (WFCurrentLogLevel(v76, v78) >= 4 && v75)
     {
-      v63 = v61;
-      if (os_log_type_enabled(v63, v62))
+      v79 = v75;
+      if (os_log_type_enabled(v79, v77))
       {
-        v64 = @"Setup:";
+        v80 = @"Setup:";
         *buf = 138413058;
-        if (v175)
+        if (v223)
         {
-          v64 = @"Custom:";
+          v80 = @"Custom:";
         }
 
-        v188 = v64;
-        v189 = 2112;
-        v190 = v18;
-        v191 = 2112;
-        *v192 = v26;
-        *&v192[8] = 2112;
-        *&v192[10] = v33;
-        _os_log_impl(&dword_273ECD000, v63, v62, "IPv4 (%@) Manual address %@, router %@, subnet mask: %@", buf, 0x2Au);
+        v236 = v80;
+        v237 = 2112;
+        v238 = v22;
+        v239 = 2112;
+        *v240 = v32;
+        *&v240[8] = 2112;
+        *&v240[10] = v41;
+        _os_log_impl(&dword_273ECD000, v79, v77, "IPv4 (%@) Manual address %@, router %@, subnet mask: %@", buf, 0x2Au);
       }
     }
 
-    [*(a1 + 32) setIpv4AddressManual:v18];
-    [*(a1 + 32) setIpv4RouterAddressManual:v26];
-    [*(a1 + 32) setIpv4SubnetMaskManual:v33];
+    [*(a1 + 32) setIpv4AddressManual:v22];
+    [*(a1 + 32) setIpv4RouterAddressManual:v32];
+    [*(a1 + 32) setIpv4SubnetMaskManual:v41];
     goto LABEL_93;
   }
 
@@ -497,15 +830,16 @@ LABEL_15:
   [*(a1 + 32) setIpv4Config:v9 == 5];
   if (v9 == 5 || ![WeakRetained isCurrentNetwork])
   {
-    v13 = WFLogForCategory(0);
-    v14 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v13)
+    v15 = WFLogForCategory(0);
+    v16 = OSLogForWFLogLevel(4uLL);
+    v17 = v16;
+    if (WFCurrentLogLevel(v16, v18) >= 4 && v15)
     {
-      v15 = v13;
-      if (os_log_type_enabled(v15, v14))
+      v19 = v15;
+      if (os_log_type_enabled(v19, v17))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v15, v14, "IPv4 config is BootP", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v19, v17, "IPv4 config is BootP", buf, 2u);
       }
     }
   }
@@ -514,13 +848,14 @@ LABEL_15:
   {
     v10 = WFLogForCategory(0);
     v11 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v10)
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 4 && v10)
     {
-      v12 = v10;
-      if (os_log_type_enabled(v12, v11))
+      v14 = v10;
+      if (os_log_type_enabled(v14, v12))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v12, v11, "IPv4 config is automatic/DHCP", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v14, v12, "IPv4 config is automatic/DHCP", buf, 2u);
       }
     }
 
@@ -529,141 +864,145 @@ LABEL_15:
 
   if (v5)
   {
-    v16 = [*(a1 + 40) detailsContext];
-    v17 = [v16 interface];
-    v18 = [v17 IPv4Addresses];
+    v20 = [*(a1 + 40) detailsContext];
+    v21 = [v20 interface];
+    v22 = [v21 IPv4Addresses];
 
-    if (v18)
+    if (v22)
     {
-      v19 = [v18 firstObject];
-      [*(a1 + 32) setIpv4Address:v19];
+      v23 = [v22 firstObject];
+      [*(a1 + 32) setIpv4Address:v23];
 
-      v20 = WFLogForCategory(0);
-      v21 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v20)
+      v24 = WFLogForCategory(0);
+      v25 = OSLogForWFLogLevel(4uLL);
+      v26 = v25;
+      if (WFCurrentLogLevel(v25, v27) >= 4 && v24)
       {
-        v22 = v20;
-        if (os_log_type_enabled(v22, v21))
+        v28 = v24;
+        if (os_log_type_enabled(v28, v26))
         {
-          v23 = [*(a1 + 32) ipv4Address];
+          v29 = [*(a1 + 32) ipv4Address];
           *buf = 138412290;
-          v188 = v23;
-          _os_log_impl(&dword_273ECD000, v22, v21, "IPv4 Address %@", buf, 0xCu);
+          v236 = v29;
+          _os_log_impl(&dword_273ECD000, v28, v26, "IPv4 Address %@", buf, 0xCu);
         }
       }
     }
 
-    v24 = [*(a1 + 40) detailsContext];
-    v25 = [v24 interface];
-    v26 = [v25 IPv4RouterAddress];
+    v30 = [*(a1 + 40) detailsContext];
+    v31 = [v30 interface];
+    v32 = [v31 IPv4RouterAddress];
 
-    if (v26)
+    if (v32)
     {
-      [*(a1 + 32) setIpv4RouterAddress:v26];
-      v27 = WFLogForCategory(0);
-      v28 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v27)
+      [*(a1 + 32) setIpv4RouterAddress:v32];
+      v33 = WFLogForCategory(0);
+      v34 = OSLogForWFLogLevel(4uLL);
+      v35 = v34;
+      if (WFCurrentLogLevel(v34, v36) >= 4 && v33)
       {
-        v29 = v27;
-        if (os_log_type_enabled(v29, v28))
+        v37 = v33;
+        if (os_log_type_enabled(v37, v35))
         {
-          v30 = [*(a1 + 32) ipv4RouterAddress];
+          v38 = [*(a1 + 32) ipv4RouterAddress];
           *buf = 138412290;
-          v188 = v30;
-          _os_log_impl(&dword_273ECD000, v29, v28, "IPv4 Router %@", buf, 0xCu);
+          v236 = v38;
+          _os_log_impl(&dword_273ECD000, v37, v35, "IPv4 Router %@", buf, 0xCu);
         }
       }
     }
 
-    v31 = [*(a1 + 40) detailsContext];
-    v32 = [v31 interface];
-    v33 = [v32 IPv4SubnetMasks];
+    v39 = [*(a1 + 40) detailsContext];
+    v40 = [v39 interface];
+    v41 = [v40 IPv4SubnetMasks];
 
-    if (v33)
+    if (v41)
     {
-      v34 = [v33 firstObject];
-      [*(a1 + 32) setIpv4SubnetMask:v34];
+      v42 = [v41 firstObject];
+      [*(a1 + 32) setIpv4SubnetMask:v42];
 
-      v35 = WFLogForCategory(0);
-      v36 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v35)
+      v43 = WFLogForCategory(0);
+      v44 = OSLogForWFLogLevel(4uLL);
+      v45 = v44;
+      if (WFCurrentLogLevel(v44, v46) >= 4 && v43)
       {
-        v37 = v35;
-        if (os_log_type_enabled(v37, v36))
+        v47 = v43;
+        if (os_log_type_enabled(v47, v45))
         {
-          v38 = [*(a1 + 32) ipv4SubnetMask];
+          v48 = [*(a1 + 32) ipv4SubnetMask];
           *buf = 138412290;
-          v188 = v38;
-          _os_log_impl(&dword_273ECD000, v37, v36, "IPv4 Subnet Mask %@", buf, 0xCu);
+          v236 = v48;
+          _os_log_impl(&dword_273ECD000, v47, v45, "IPv4 Subnet Mask %@", buf, 0xCu);
         }
       }
     }
 
-    v39 = v9 == 5;
-    v40 = [v178 ipv4DHCPClientID];
-    if (!v40)
+    v49 = v9 == 5;
+    v50 = [v226 ipv4DHCPClientID];
+    if (!v50)
     {
-      v39 = 1;
+      v49 = 1;
     }
 
-    if (!v39)
+    if (!v49)
     {
-      v41 = [v178 ipv4DHCPClientID];
-      [*(a1 + 32) setDhcpClientID:v41];
+      v51 = [v226 ipv4DHCPClientID];
+      [*(a1 + 32) setDhcpClientID:v51];
 
-      v42 = WFLogForCategory(0);
-      v43 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v42)
+      v52 = WFLogForCategory(0);
+      v53 = OSLogForWFLogLevel(4uLL);
+      v54 = v53;
+      if (WFCurrentLogLevel(v53, v55) >= 4 && v52)
       {
-        v44 = v42;
-        if (os_log_type_enabled(v44, v43))
+        v56 = v52;
+        if (os_log_type_enabled(v56, v54))
         {
-          v45 = [*(a1 + 32) dhcpClientID];
+          v57 = [*(a1 + 32) dhcpClientID];
           *buf = 138412290;
-          v188 = v45;
-          _os_log_impl(&dword_273ECD000, v44, v43, "IPv4 DHCP Client ID %@", buf, 0xCu);
+          v236 = v57;
+          _os_log_impl(&dword_273ECD000, v56, v54, "IPv4 DHCP Client ID %@", buf, 0xCu);
         }
       }
     }
 
-    v46 = [*(a1 + 40) network];
-    v47 = [v46 carPlayType] == 2;
+    v58 = [*(a1 + 40) network];
+    v59 = [v58 carPlayType] == 2;
 
-    if (v47)
+    if (v59)
     {
-      v48 = [v178 DHCPLeaseExpirationDate];
-      [*(a1 + 32) setDhcpLeaseExpirationDate:v48];
+      v60 = [v226 DHCPLeaseExpirationDate];
+      [*(a1 + 32) setDhcpLeaseExpirationDate:v60];
     }
 
 LABEL_93:
   }
 
 LABEL_94:
-  v65 = [v177 ipv6Settings];
-  v174 = v65;
-  if (v65)
+  v81 = [v225 ipv6Settings];
+  v222 = v81;
+  if (v81)
   {
-    v66 = [v65 method];
+    v82 = [v81 method];
   }
 
   else
   {
-    v66 = 0x7FFFFFFFFFFFFFFFLL;
+    v82 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  if (v66 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v82 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v67 = v5;
+    v83 = v5;
   }
 
   else
   {
-    v67 = 0;
+    v83 = 0;
   }
 
-  if (v67 == 1)
+  if (v83 == 1)
   {
-    v66 = [v178 ipv6ConfigMethod];
+    v82 = [v226 ipv6ConfigMethod];
   }
 
   else if (!v5)
@@ -671,261 +1010,266 @@ LABEL_94:
     goto LABEL_155;
   }
 
-  if (!v66)
+  if (!v82)
   {
     goto LABEL_155;
   }
 
-  v68 = +[WFMetricsManager sharedManager];
-  v69 = [WFUserEvent eventWithType:9];
-  [v68 processEvent:v69];
+  v84 = +[WFMetricsManager sharedManager];
+  v85 = [WFUserEvent eventWithType:9];
+  [v84 processEvent:v85];
 
-  switch(v66)
+  switch(v82)
   {
     case 3:
       [*(a1 + 32) setIpv6Config:1];
-      v77 = WFLogForCategory(0);
-      v78 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v77)
+      v95 = WFLogForCategory(0);
+      v96 = OSLogForWFLogLevel(4uLL);
+      v97 = v96;
+      if (WFCurrentLogLevel(v96, v98) >= 4 && v95)
       {
-        v79 = v77;
-        if (os_log_type_enabled(v79, v78))
+        v99 = v95;
+        if (os_log_type_enabled(v99, v97))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v79, v78, "IPv6 config is manual", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v99, v97, "IPv6 config is manual", buf, 2u);
         }
       }
 
-      if (!v174)
+      if (!v222)
       {
         goto LABEL_136;
       }
 
-      v80 = [v174 addresses];
+      v100 = [v222 addresses];
 
-      if (v80)
+      if (v100)
       {
-        v81 = [v174 addresses];
-        v82 = [v81 firstObject];
-        [*(a1 + 32) setIpv6AddressManual:v82];
+        v101 = [v222 addresses];
+        v102 = [v101 firstObject];
+        [*(a1 + 32) setIpv6AddressManual:v102];
       }
 
-      v83 = [v174 router];
+      v103 = [v222 router];
 
-      if (v83)
+      if (v103)
       {
-        v84 = [v174 router];
-        [*(a1 + 32) setIpv6RouterAddressManual:v84];
+        v104 = [v222 router];
+        [*(a1 + 32) setIpv6RouterAddressManual:v104];
       }
 
-      v85 = [v174 prefixLengths];
+      v105 = [v222 prefixLengths];
 
-      if (!v85)
+      if (!v105)
       {
         goto LABEL_136;
       }
 
-      v70 = [v174 prefixLengths];
-      v72 = [v70 firstObject];
-      [*(a1 + 32) setIpv6PrefixLengthManual:v72];
+      v86 = [v222 prefixLengths];
+      v89 = [v86 firstObject];
+      [*(a1 + 32) setIpv6PrefixLengthManual:v89];
       goto LABEL_134;
     case 2:
       [*(a1 + 32) setIpv6Config:2];
-      v70 = WFLogForCategory(0);
-      v71 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() < 4 || !v70)
+      v86 = WFLogForCategory(0);
+      v87 = OSLogForWFLogLevel(4uLL);
+      if (WFCurrentLogLevel(v87, v91) < 4 || !v86)
       {
         goto LABEL_135;
       }
 
-      v72 = v70;
-      if (!os_log_type_enabled(v72, v71))
+      v89 = v86;
+      if (!os_log_type_enabled(v89, v87))
       {
         goto LABEL_133;
       }
 
       *buf = 0;
-      v73 = "IPv6 config is link local";
+      v90 = "IPv6 config is link local";
       break;
     case 1:
       [*(a1 + 32) setIpv6Config:0];
-      v70 = WFLogForCategory(0);
-      v71 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() < 4 || !v70)
+      v86 = WFLogForCategory(0);
+      v87 = OSLogForWFLogLevel(4uLL);
+      if (WFCurrentLogLevel(v87, v88) < 4 || !v86)
       {
         goto LABEL_135;
       }
 
-      v72 = v70;
-      if (!os_log_type_enabled(v72, v71))
+      v89 = v86;
+      if (!os_log_type_enabled(v89, v87))
       {
         goto LABEL_133;
       }
 
       *buf = 0;
-      v73 = "IPv6 config is automatic";
+      v90 = "IPv6 config is automatic";
       break;
     default:
-      v70 = WFLogForCategory(0);
-      v86 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v70)
+      v86 = WFLogForCategory(0);
+      v106 = OSLogForWFLogLevel(1uLL);
+      if (!WFCurrentLogLevel(v106, v107) || !v86)
       {
         goto LABEL_135;
       }
 
-      v72 = v70;
-      if (!os_log_type_enabled(v72, v86))
+      v89 = v86;
+      if (!os_log_type_enabled(v89, v106))
       {
         goto LABEL_133;
       }
 
-      v87 = [v178 ipv6ConfigMethod];
+      v108 = [v226 ipv6ConfigMethod];
       *buf = 134349056;
-      v188 = v87;
-      v73 = "Unknown IPv6 configuration method %{public}lu";
-      v74 = v72;
-      v75 = v86;
-      v76 = 12;
+      v236 = v108;
+      v90 = "Unknown IPv6 configuration method %{public}lu";
+      v92 = v89;
+      v93 = v106;
+      v94 = 12;
       goto LABEL_132;
   }
 
-  v74 = v72;
-  v75 = v71;
-  v76 = 2;
+  v92 = v89;
+  v93 = v87;
+  v94 = 2;
 LABEL_132:
-  _os_log_impl(&dword_273ECD000, v74, v75, v73, buf, v76);
+  _os_log_impl(&dword_273ECD000, v92, v93, v90, buf, v94);
 LABEL_133:
-  v70 = v72;
+  v86 = v89;
 LABEL_134:
 
 LABEL_135:
 LABEL_136:
-  v88 = [v178 ipv6Addresses];
-  if (v88)
+  v109 = [v226 ipv6Addresses];
+  if (v109)
   {
   }
 
   else
   {
-    v89 = [v178 ipv6Router];
-    v90 = v89 == 0;
+    v110 = [v226 ipv6Router];
+    v111 = v110 == 0;
 
-    if (v90)
+    if (v111)
     {
       goto LABEL_155;
     }
   }
 
-  v91 = [v178 ipv6Addresses];
-  [*(a1 + 32) setIpv6Addresses:v91];
+  v112 = [v226 ipv6Addresses];
+  [*(a1 + 32) setIpv6Addresses:v112];
 
-  v92 = [v178 ipv6PrefixLengths];
-  [*(a1 + 32) setIpv6PrefixLengths:v92];
+  v113 = [v226 ipv6PrefixLengths];
+  [*(a1 + 32) setIpv6PrefixLengths:v113];
 
-  v93 = [v178 ipv6Router];
-  [*(a1 + 32) setIpv6RouterAddress:v93];
+  v114 = [v226 ipv6Router];
+  [*(a1 + 32) setIpv6RouterAddress:v114];
 
-  v94 = WFLogForCategory(0);
-  v95 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v94)
+  v115 = WFLogForCategory(0);
+  v116 = OSLogForWFLogLevel(4uLL);
+  v117 = v116;
+  if (WFCurrentLogLevel(v116, v118) >= 4 && v115)
   {
-    v96 = v94;
-    if (os_log_type_enabled(v96, v95))
+    v119 = v115;
+    if (os_log_type_enabled(v119, v117))
     {
-      v97 = [*(a1 + 32) ipv6Addresses];
+      v120 = [*(a1 + 32) ipv6Addresses];
       *buf = 138412290;
-      v188 = v97;
-      _os_log_impl(&dword_273ECD000, v96, v95, "IPv6 addresses %@", buf, 0xCu);
+      v236 = v120;
+      _os_log_impl(&dword_273ECD000, v119, v117, "IPv6 addresses %@", buf, 0xCu);
     }
   }
 
-  v98 = WFLogForCategory(0);
-  v99 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v98)
+  v121 = WFLogForCategory(0);
+  v122 = OSLogForWFLogLevel(4uLL);
+  v123 = v122;
+  if (WFCurrentLogLevel(v122, v124) >= 4 && v121)
   {
-    v100 = v98;
-    if (os_log_type_enabled(v100, v99))
+    v125 = v121;
+    if (os_log_type_enabled(v125, v123))
     {
-      v101 = [*(a1 + 32) ipv6PrefixLengths];
+      v126 = [*(a1 + 32) ipv6PrefixLengths];
       *buf = 138412290;
-      v188 = v101;
-      _os_log_impl(&dword_273ECD000, v100, v99, "IPv6 prefix lengths %@", buf, 0xCu);
+      v236 = v126;
+      _os_log_impl(&dword_273ECD000, v125, v123, "IPv6 prefix lengths %@", buf, 0xCu);
     }
   }
 
-  v102 = WFLogForCategory(0);
-  v103 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v102)
+  v127 = WFLogForCategory(0);
+  v128 = OSLogForWFLogLevel(4uLL);
+  v129 = v128;
+  if (WFCurrentLogLevel(v128, v130) >= 4 && v127)
   {
-    v104 = v102;
-    if (os_log_type_enabled(v104, v103))
+    v131 = v127;
+    if (os_log_type_enabled(v131, v129))
     {
-      v105 = [*(a1 + 32) ipv6RouterAddress];
+      v132 = [*(a1 + 32) ipv6RouterAddress];
       *buf = 138412290;
-      v188 = v105;
-      _os_log_impl(&dword_273ECD000, v104, v103, "IPv6 router address %@", buf, 0xCu);
+      v236 = v132;
+      _os_log_impl(&dword_273ECD000, v131, v129, "IPv6 router address %@", buf, 0xCu);
     }
   }
 
 LABEL_155:
-  v106 = [v177 dnsSettings];
-  v107 = v106;
-  if (v106)
+  v133 = [v225 dnsSettings];
+  v134 = v133;
+  if (v133)
   {
-    v108 = [v106 searchDomains];
+    v135 = [v133 searchDomains];
 
-    if (v108)
+    if (v135)
     {
-      v172 = [v107 searchDomains];
+      v220 = [v134 searchDomains];
     }
 
     else
     {
-      v172 = 0;
+      v220 = 0;
     }
 
-    v117 = [v107 serverAddresses];
+    v146 = [v134 serverAddresses];
 
-    if (v117)
+    if (v146)
     {
-      v171 = [v107 serverAddresses];
+      v219 = [v134 serverAddresses];
     }
 
     else
     {
-      v171 = 0;
+      v219 = 0;
     }
 
-    v109 = 1;
-    v173 = 1;
+    v136 = 1;
+    v221 = 1;
     goto LABEL_182;
   }
 
   if (!v5)
   {
-    v109 = 0;
-    v171 = 0;
-    v172 = 0;
+    v136 = 0;
+    v219 = 0;
+    v220 = 0;
     goto LABEL_182;
   }
 
-  LODWORD(v109) = [v178 isUsingCustomDNSSettings];
-  v110 = [v178 dnsSearchDomains];
-  v111 = [v178 dnsDomainName];
-  v112 = v111;
-  if (v110)
+  LODWORD(v136) = [v226 isUsingCustomDNSSettings];
+  v137 = [v226 dnsSearchDomains];
+  v138 = [v226 dnsDomainName];
+  v139 = v138;
+  if (v137)
   {
-    v113 = v110;
+    v140 = v137;
 
-    v114 = WFLogForCategory(0);
-    v115 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() < 4 || !v114)
+    v141 = WFLogForCategory(0);
+    v142 = OSLogForWFLogLevel(4uLL);
+    v143 = v142;
+    if (WFCurrentLogLevel(v142, v144) < 4 || !v141)
     {
       goto LABEL_177;
     }
 
-    v114 = v114;
-    if (!os_log_type_enabled(v114, v115))
+    v141 = v141;
+    if (!os_log_type_enabled(v141, v143))
     {
 LABEL_176:
 
@@ -934,131 +1278,136 @@ LABEL_177:
     }
 
     *buf = 138412290;
-    v188 = v113;
-    v116 = "Using dnsSearchDomains (%@) for dns info";
+    v236 = v140;
+    v145 = "Using dnsSearchDomains (%@) for dns info";
 LABEL_175:
-    _os_log_impl(&dword_273ECD000, v114, v115, v116, buf, 0xCu);
+    _os_log_impl(&dword_273ECD000, v141, v143, v145, buf, 0xCu);
     goto LABEL_176;
   }
 
-  if (v111)
+  if (v138)
   {
-    v186 = v111;
-    v113 = [MEMORY[0x277CBEA60] arrayWithObjects:&v186 count:1];
-    v114 = WFLogForCategory(0);
-    v115 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() < 4 || !v114)
+    v234 = v138;
+    v140 = [MEMORY[0x277CBEA60] arrayWithObjects:&v234 count:1];
+    v141 = WFLogForCategory(0);
+    v147 = OSLogForWFLogLevel(4uLL);
+    v143 = v147;
+    if (WFCurrentLogLevel(v147, v148) < 4 || !v141)
     {
       goto LABEL_177;
     }
 
-    v114 = v114;
-    if (!os_log_type_enabled(v114, v115))
+    v141 = v141;
+    if (!os_log_type_enabled(v141, v143))
     {
       goto LABEL_176;
     }
 
     *buf = 138412290;
-    v188 = v112;
-    v116 = "Using dnsDomainName (%@) for dns info";
+    v236 = v139;
+    v145 = "Using dnsDomainName (%@) for dns info";
     goto LABEL_175;
   }
 
 LABEL_178:
-  v118 = [v178 dnsServerAddresses];
+  v149 = [v226 dnsServerAddresses];
 
-  if (v118)
+  if (v149)
   {
-    v171 = [v178 dnsServerAddresses];
+    v219 = [v226 dnsServerAddresses];
   }
 
   else
   {
-    v171 = 0;
+    v219 = 0;
   }
 
-  v172 = 0;
-  v109 = v109;
+  v220 = 0;
+  v136 = v136;
 LABEL_182:
-  v119 = WFLogForCategory(0);
-  v120 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v119)
+  v150 = WFLogForCategory(0);
+  v151 = OSLogForWFLogLevel(4uLL);
+  v152 = v151;
+  if (WFCurrentLogLevel(v151, v153) >= 4 && v150)
   {
-    v121 = v119;
-    if (os_log_type_enabled(v121, v120))
+    v154 = v150;
+    if (os_log_type_enabled(v154, v152))
     {
-      v122 = [*(a1 + 32) dnsConfig];
-      v123 = @"Manual";
-      if (!v122)
+      v155 = [*(a1 + 32) dnsConfig];
+      v156 = @"Manual";
+      if (!v155)
       {
-        v123 = @"Automatic";
+        v156 = @"Automatic";
       }
 
       *buf = 138412290;
-      v188 = v123;
-      _os_log_impl(&dword_273ECD000, v121, v120, "DNS config is %@", buf, 0xCu);
+      v236 = v156;
+      _os_log_impl(&dword_273ECD000, v154, v152, "DNS config is %@", buf, 0xCu);
     }
   }
 
-  [*(a1 + 32) setDnsConfig:v109];
-  v124 = WFLogForCategory(0);
-  v125 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v124)
+  [*(a1 + 32) setDnsConfig:v136];
+  v157 = WFLogForCategory(0);
+  v158 = OSLogForWFLogLevel(4uLL);
+  v159 = v158;
+  if (WFCurrentLogLevel(v158, v160) >= 4 && v157)
   {
-    v126 = v124;
-    if (os_log_type_enabled(v126, v125))
+    v161 = v157;
+    if (os_log_type_enabled(v161, v159))
     {
-      v127 = [*(a1 + 32) dnsSearchDomains];
+      v162 = [*(a1 + 32) dnsSearchDomains];
       *buf = 138412290;
-      v188 = v127;
-      _os_log_impl(&dword_273ECD000, v126, v125, "DNS search domains %@", buf, 0xCu);
+      v236 = v162;
+      _os_log_impl(&dword_273ECD000, v161, v159, "DNS search domains %@", buf, 0xCu);
     }
   }
 
-  [*(a1 + 32) setDnsSearchDomains:v172];
-  v128 = WFLogForCategory(0);
-  v129 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v128)
+  [*(a1 + 32) setDnsSearchDomains:v220];
+  v163 = WFLogForCategory(0);
+  v164 = OSLogForWFLogLevel(4uLL);
+  v165 = v164;
+  if (WFCurrentLogLevel(v164, v166) >= 4 && v163)
   {
-    v130 = v128;
-    if (os_log_type_enabled(v130, v129))
+    v167 = v163;
+    if (os_log_type_enabled(v167, v165))
     {
-      v131 = [*(a1 + 32) dnsServerAddresses];
+      v168 = [*(a1 + 32) dnsServerAddresses];
       *buf = 138412290;
-      v188 = v131;
-      _os_log_impl(&dword_273ECD000, v130, v129, "DNS server addresses %@", buf, 0xCu);
+      v236 = v168;
+      _os_log_impl(&dword_273ECD000, v167, v165, "DNS server addresses %@", buf, 0xCu);
     }
   }
 
-  [*(a1 + 32) setDnsServerAddresses:v171];
-  v132 = [v177 proxySettings];
-  v133 = v132;
-  if (!v132)
+  [*(a1 + 32) setDnsServerAddresses:v219];
+  v169 = [v225 proxySettings];
+  v170 = v169;
+  if (!v169)
   {
-    if (!v5 || ![v178 isUsingCustomProxySetting])
+    if (!v5 || ![v226 isUsingCustomProxySetting])
     {
       goto LABEL_215;
     }
 
-    v169 = [v178 httpProxyAutoConfigured];
-    if (v169)
+    v217 = [v226 httpProxyAutoConfigured];
+    if (v217)
     {
-      v170 = [v178 httpProxyAutoConfigURL];
-      v140 = WFLogForCategory(0);
-      v141 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v140)
+      v218 = [v226 httpProxyAutoConfigURL];
+      v177 = WFLogForCategory(0);
+      v178 = OSLogForWFLogLevel(4uLL);
+      v179 = v178;
+      if (WFCurrentLogLevel(v178, v180) >= 4 && v177)
       {
-        v140 = v140;
-        if (os_log_type_enabled(v140, v141))
+        v177 = v177;
+        if (os_log_type_enabled(v177, v179))
         {
           *buf = 0;
-          v134 = 2;
-          _os_log_impl(&dword_273ECD000, v140, v141, "Using automatic HTTP proxy settings", buf, 2u);
+          v171 = 2;
+          _os_log_impl(&dword_273ECD000, v177, v179, "Using automatic HTTP proxy settings", buf, 2u);
         }
 
         else
         {
-          v134 = 2;
+          v171 = 2;
         }
 
 LABEL_234:
@@ -1066,173 +1415,177 @@ LABEL_234:
         goto LABEL_235;
       }
 
-      v134 = 2;
+      v171 = 2;
     }
 
     else
     {
-      v140 = WFLogForCategory(0);
-      v151 = OSLogForWFLogLevel(4uLL);
-      v170 = 0;
-      if (WFCurrentLogLevel() >= 4 && v140)
+      v177 = WFLogForCategory(0);
+      v191 = OSLogForWFLogLevel(4uLL);
+      v192 = v191;
+      v218 = 0;
+      if (WFCurrentLogLevel(v191, v193) >= 4 && v177)
       {
-        v140 = v140;
-        if (os_log_type_enabled(v140, v151))
+        v177 = v177;
+        if (os_log_type_enabled(v177, v192))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v140, v151, "Using manual HTTP proxy settings", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v177, v192, "Using manual HTTP proxy settings", buf, 2u);
         }
 
-        v170 = 0;
-        v134 = 1;
+        v218 = 0;
+        v171 = 1;
         goto LABEL_234;
       }
 
-      v134 = 1;
+      v171 = 1;
     }
 
 LABEL_235:
 
-    v152 = [v178 httpProxyServer];
+    v194 = [v226 httpProxyServer];
 
-    if (v152)
+    if (v194)
     {
-      v135 = [v178 httpProxyServer];
+      v172 = [v226 httpProxyServer];
     }
 
     else
     {
-      v135 = 0;
+      v172 = 0;
     }
 
-    v153 = [v178 httpProxyPort];
-    v154 = v153 == 0;
+    v195 = [v226 httpProxyPort];
+    v196 = v195 == 0;
 
-    if (v154)
+    if (v196)
     {
-      v155 = [v178 httpProxyPort];
-      v136 = [v155 stringValue];
-    }
-
-    else
-    {
-      v136 = 0;
-    }
-
-    if ([v178 httpProxyIsAuthenticated])
-    {
-      v137 = [v178 httpProxyIsAuthenticated];
+      v197 = [v226 httpProxyPort];
+      v173 = [v197 stringValue];
     }
 
     else
     {
-      v137 = 0;
+      v173 = 0;
     }
 
-    v138 = [v178 httpProxyUsername];
-
-    if (v138)
+    if ([v226 httpProxyIsAuthenticated])
     {
-      v138 = [v178 httpProxyUsername];
+      v174 = [v226 httpProxyIsAuthenticated];
     }
 
-    v156 = WFLogForCategory(0);
-    type = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v156)
+    else
     {
-      v157 = v156;
-      if (os_log_type_enabled(v157, type))
+      v174 = 0;
+    }
+
+    v175 = [v226 httpProxyUsername];
+
+    if (v175)
+    {
+      v175 = [v226 httpProxyUsername];
+    }
+
+    v198 = WFLogForCategory(0);
+    v199 = OSLogForWFLogLevel(4uLL);
+    type = v199;
+    if (WFCurrentLogLevel(v199, v200) >= 4 && v198)
+    {
+      v201 = v198;
+      if (os_log_type_enabled(v201, type))
       {
-        v158 = [*(a1 + 32) httpProxyAuthenticationRequired];
+        v202 = [*(a1 + 32) httpProxyAuthenticationRequired];
         *buf = 138413058;
-        v188 = v135;
-        v189 = 2112;
-        v190 = v136;
-        v191 = 1024;
-        *v192 = v158;
-        *&v192[4] = 2112;
-        *&v192[6] = v138;
-        _os_log_impl(&dword_273ECD000, v157, type, "HTTP proxy server %@ port %@ authenticated %d username %@", buf, 0x26u);
+        v236 = v172;
+        v237 = 2112;
+        v238 = v173;
+        v239 = 1024;
+        *v240 = v202;
+        *&v240[4] = 2112;
+        *&v240[6] = v175;
+        _os_log_impl(&dword_273ECD000, v201, type, "HTTP proxy server %@ port %@ authenticated %d username %@", buf, 0x26u);
       }
     }
 
-    if ((v137 & (v169 ^ 1)) == 1)
+    if ((v174 & (v217 ^ 1)) == 1)
     {
-      v159 = WFLogForCategory(0);
-      v160 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v159)
+      v203 = WFLogForCategory(0);
+      v204 = OSLogForWFLogLevel(4uLL);
+      v205 = v204;
+      if (WFCurrentLogLevel(v204, v206) >= 4 && v203)
       {
-        v161 = v159;
-        if (os_log_type_enabled(v161, v160))
+        v207 = v203;
+        if (os_log_type_enabled(v207, v205))
         {
           *buf = 0;
-          _os_log_impl(&dword_273ECD000, v161, v160, "Fetching HTTP proxy password from keychain", buf, 2u);
+          _os_log_impl(&dword_273ECD000, v207, v205, "Fetching HTTP proxy password from keychain", buf, 2u);
         }
       }
 
-      v162 = [WFProxyKeychainOperation getPasswordOperationForHost:v135 port:v136 username:v138];
-      if (v162)
+      v208 = [WFProxyKeychainOperation getPasswordOperationForHost:v172 port:v173 username:v175];
+      if (v208)
       {
-        objc_initWeak(buf, v162);
-        v179[0] = MEMORY[0x277D85DD0];
-        v179[1] = 3221225472;
-        v179[2] = __47__WFSettingsController__refreshSettingsConfig___block_invoke_31;
-        v179[3] = &unk_279EBE638;
-        objc_copyWeak(&v184, buf);
-        objc_copyWeak(&v185, (a1 + 64));
-        v180 = *(a1 + 48);
-        v181 = v135;
-        v182 = v136;
-        v183 = v138;
-        [v162 setCompletionBlock:v179];
-        v163 = objc_loadWeakRetained((a1 + 64));
-        v164 = [v163 queue];
-        [v164 addOperation:v162];
+        objc_initWeak(buf, v208);
+        v227[0] = MEMORY[0x277D85DD0];
+        v227[1] = 3221225472;
+        v227[2] = __47__WFSettingsController__refreshSettingsConfig___block_invoke_31;
+        v227[3] = &unk_279EBE638;
+        objc_copyWeak(&v232, buf);
+        objc_copyWeak(&v233, (a1 + 64));
+        v228 = *(a1 + 48);
+        v229 = v172;
+        v230 = v173;
+        v231 = v175;
+        [v208 setCompletionBlock:v227];
+        v209 = objc_loadWeakRetained((a1 + 64));
+        v210 = [v209 queue];
+        [v210 addOperation:v208];
 
-        objc_destroyWeak(&v185);
-        objc_destroyWeak(&v184);
+        objc_destroyWeak(&v233);
+        objc_destroyWeak(&v232);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v165 = WFLogForCategory(0);
-        v166 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v165)
+        v211 = WFLogForCategory(0);
+        v212 = OSLogForWFLogLevel(1uLL);
+        v213 = v212;
+        if (WFCurrentLogLevel(v212, v214) && v211)
         {
-          v167 = v165;
-          if (os_log_type_enabled(v167, v166))
+          v215 = v211;
+          if (os_log_type_enabled(v215, v213))
           {
             *buf = 138412802;
-            v188 = v135;
-            v189 = 2112;
-            v190 = v136;
-            v191 = 2112;
-            *v192 = v138;
-            _os_log_impl(&dword_273ECD000, v167, v166, "Failed to create WFProxyKeychainOperation for host: %@ port: %@ username: %@", buf, 0x20u);
+            v236 = v172;
+            v237 = 2112;
+            v238 = v173;
+            v239 = 2112;
+            *v240 = v175;
+            _os_log_impl(&dword_273ECD000, v215, v213, "Failed to create WFProxyKeychainOperation for host: %@ port: %@ username: %@", buf, 0x20u);
           }
         }
       }
 
-      v139 = 0;
-      v134 = 1;
-      v137 = 1;
+      v176 = 0;
+      v171 = 1;
+      v174 = 1;
     }
 
     else
     {
-      v139 = 0;
+      v176 = 0;
     }
 
 LABEL_205:
-    [*(a1 + 32) setHttpProxyConfig:v134];
-    [*(a1 + 32) setHttpProxyServerAddress:v135];
-    [*(a1 + 32) setHttpProxyServerPort:v136];
-    [*(a1 + 32) setHttpProxyAuthenticationRequired:v137];
-    [*(a1 + 32) setHttpProxyUsername:v138];
-    [*(a1 + 32) setHttpProxyPassword:v139];
-    [*(a1 + 32) setHttpProxyConfigPAC:v170];
-    if (!v173)
+    [*(a1 + 32) setHttpProxyConfig:v171];
+    [*(a1 + 32) setHttpProxyServerAddress:v172];
+    [*(a1 + 32) setHttpProxyServerPort:v173];
+    [*(a1 + 32) setHttpProxyAuthenticationRequired:v174];
+    [*(a1 + 32) setHttpProxyUsername:v175];
+    [*(a1 + 32) setHttpProxyPassword:v176];
+    [*(a1 + 32) setHttpProxyConfigPAC:v218];
+    if (!v221)
     {
       goto LABEL_223;
     }
@@ -1240,29 +1593,29 @@ LABEL_205:
     goto LABEL_216;
   }
 
-  if ([v132 customProxy])
+  if ([v169 customProxy])
   {
-    if ([v133 isAutomatic])
+    if ([v170 isAutomatic])
     {
-      v134 = 2;
+      v171 = 2;
     }
 
     else
     {
-      v134 = 1;
+      v171 = 1;
     }
 
-    v135 = [v133 server];
-    v136 = [v133 port];
-    v137 = [v133 authenticated];
-    v138 = [v133 username];
-    v139 = [v133 password];
-    v170 = [v133 autoConfigureURL];
-    v173 = 1;
+    v172 = [v170 server];
+    v173 = [v170 port];
+    v174 = [v170 authenticated];
+    v175 = [v170 username];
+    v176 = [v170 password];
+    v218 = [v170 autoConfigureURL];
+    v221 = 1;
     goto LABEL_205;
   }
 
-  LOBYTE(v173) = 1;
+  LOBYTE(v221) = 1;
 LABEL_215:
   [*(a1 + 32) setHttpProxyConfig:0];
   [*(a1 + 32) setHttpProxyServerAddress:0];
@@ -1271,12 +1624,12 @@ LABEL_215:
   [*(a1 + 32) setHttpProxyUsername:0];
   [*(a1 + 32) setHttpProxyPassword:0];
   [*(a1 + 32) setHttpProxyConfigPAC:0];
-  v139 = 0;
-  v170 = 0;
-  v138 = 0;
-  v136 = 0;
-  v135 = 0;
-  if ((v173 & 1) == 0)
+  v176 = 0;
+  v218 = 0;
+  v175 = 0;
+  v173 = 0;
+  v172 = 0;
+  if ((v221 & 1) == 0)
   {
     goto LABEL_223;
   }
@@ -1284,44 +1637,43 @@ LABEL_215:
 LABEL_216:
   if ([*(a1 + 40) cloudSyncRunning])
   {
-    v142 = WFLogForCategory(0);
-    v143 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v142)
+    v181 = WFLogForCategory(0);
+    v182 = OSLogForWFLogLevel(3uLL);
+    v183 = v182;
+    if (WFCurrentLogLevel(v182, v184) >= 3 && v181)
     {
-      v144 = v142;
-      if (os_log_type_enabled(v144, v143))
+      v185 = v181;
+      if (os_log_type_enabled(v185, v183))
       {
         *buf = 136315138;
-        v188 = "[WFSettingsController _refreshSettingsConfig:]_block_invoke";
-        _os_log_impl(&dword_273ECD000, v144, v143, "%s: network has custom settings and is not cloud syncable", buf, 0xCu);
+        v236 = "[WFSettingsController _refreshSettingsConfig:]_block_invoke";
+        _os_log_impl(&dword_273ECD000, v185, v183, "%s: network has custom settings and is not cloud syncable", buf, 0xCu);
       }
     }
 
-    v145 = [WeakRetained config];
-    [v145 setCloudSyncable:0];
+    v186 = [WeakRetained config];
+    [v186 setCloudSyncable:0];
   }
 
 LABEL_223:
-  v146 = *(a1 + 32);
-  v147 = [WeakRetained config];
-  LOBYTE(v146) = [v146 isEqual:v147];
+  v187 = *(a1 + 32);
+  v188 = [WeakRetained config];
+  LOBYTE(v187) = [v187 isEqual:v188];
 
-  if ((v146 & 1) == 0)
+  if ((v187 & 1) == 0)
   {
     [WeakRetained setConfig:*(a1 + 32)];
-    v148 = [WeakRetained settingsViewController];
-    [v148 refreshConfig:*(a1 + 32)];
+    v189 = [WeakRetained settingsViewController];
+    [v189 refreshConfig:*(a1 + 32)];
 
-    v149 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v149 postNotificationName:@"WFSettingsControllerDidRefreshConfigNotificationName" object:*(a1 + 40)];
+    v190 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v190 postNotificationName:@"WFSettingsControllerDidRefreshConfigNotificationName" object:*(a1 + 40)];
   }
-
-  v150 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WFSettingsController__refreshSettingsConfig___block_invoke_31(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained error];
   if (v3)
@@ -1335,68 +1687,69 @@ LABEL_3:
     {
       v6 = WFLogForCategory(0);
       v7 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v6)
+      v8 = v7;
+      if (WFCurrentLogLevel(v7, v9) && v6)
       {
-        v8 = v6;
-        if (os_log_type_enabled(v8, v7))
+        v10 = v6;
+        if (os_log_type_enabled(v10, v8))
         {
-          v9 = objc_loadWeakRetained((a1 + 64));
-          v10 = [v9 error];
+          v11 = objc_loadWeakRetained((a1 + 64));
+          v12 = [v11 error];
           *buf = 138543362;
-          v26 = v10;
-          _os_log_impl(&dword_273ECD000, v8, v7, "WFProxyKeychainOperation errro %{public}@", buf, 0xCu);
+          v31 = v12;
+          _os_log_impl(&dword_273ECD000, v10, v8, "WFProxyKeychainOperation errro %{public}@", buf, 0xCu);
         }
       }
     }
 
-    v11 = WFLogForCategory(0);
-    v12 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v11 && os_log_type_enabled(v11, v12))
+    v13 = WFLogForCategory(0);
+    v14 = OSLogForWFLogLevel(1uLL);
+    v15 = v14;
+    if (WFCurrentLogLevel(v14, v16) && v13 && os_log_type_enabled(v13, v15))
     {
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 48);
-      v15 = *(a1 + 56);
+      v17 = *(a1 + 40);
+      v18 = *(a1 + 48);
+      v19 = *(a1 + 56);
       *buf = 138412802;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v15;
-      _os_log_impl(&dword_273ECD000, v11, v12, "Failed to get password for host: %@ port: %@ username: %@", buf, 0x20u);
+      v31 = v17;
+      v32 = 2112;
+      v33 = v18;
+      v34 = 2112;
+      v35 = v19;
+      _os_log_impl(&dword_273ECD000, v13, v15, "Failed to get password for host: %@ port: %@ username: %@", buf, 0x20u);
     }
 
-    goto LABEL_21;
+    return;
   }
 
-  v16 = objc_loadWeakRetained((a1 + 64));
-  v17 = [v16 password];
+  v20 = objc_loadWeakRetained((a1 + 64));
+  v21 = [v20 password];
 
-  if (!v17)
+  if (!v21)
   {
     goto LABEL_3;
   }
 
-  v18 = WFLogForCategory(0);
-  v19 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v18 && os_log_type_enabled(v18, v19))
+  v22 = WFLogForCategory(0);
+  v23 = OSLogForWFLogLevel(3uLL);
+  v24 = v23;
+  if (WFCurrentLogLevel(v23, v25) >= 3 && v22 && os_log_type_enabled(v22, v24))
   {
     *buf = 0;
-    _os_log_impl(&dword_273ECD000, v18, v19, "Successfully fetched HTTP proxy password from keychain, updating config", buf, 2u);
+    _os_log_impl(&dword_273ECD000, v22, v24, "Successfully fetched HTTP proxy password from keychain, updating config", buf, 2u);
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__WFSettingsController__refreshSettingsConfig___block_invoke_32;
   block[3] = &unk_279EBD3A8;
-  objc_copyWeak(&v23, (a1 + 72));
-  objc_copyWeak(&v24, (a1 + 64));
-  v22 = *(a1 + 32);
+  objc_copyWeak(&v28, (a1 + 72));
+  objc_copyWeak(&v29, (a1 + 64));
+  v27 = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&v23);
-LABEL_21:
-  v20 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
 }
 
 void __47__WFSettingsController__refreshSettingsConfig___block_invoke_32(uint64_t a1)
@@ -1424,76 +1777,78 @@ void __47__WFSettingsController__refreshSettingsConfig___block_invoke_32(uint64_
 
 - (void)networkSettingsViewController:(id)controller saveConfig:(id)config errorHandler:(id)handler
 {
-  v181 = *MEMORY[0x277D85DE8];
+  v222 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   configCopy = config;
   handlerCopy = handler;
   val = self;
   config = [(WFSettingsController *)self config];
-  v149 = [config changesBetweenConfig:configCopy];
+  v190 = [config changesBetweenConfig:configCopy];
 
-  if ([v149 count])
+  if ([v190 count])
   {
     array = [MEMORY[0x277CBEB18] array];
-    v171 = 0u;
-    v172 = 0u;
-    v169 = 0u;
-    v170 = 0u;
-    obj = v149;
-    v163 = [obj countByEnumeratingWithState:&v169 objects:v177 count:16];
-    if (v163)
+    v212 = 0u;
+    v213 = 0u;
+    v210 = 0u;
+    v211 = 0u;
+    obj = v190;
+    v204 = [obj countByEnumeratingWithState:&v210 objects:v218 count:16];
+    if (v204)
     {
-      v166 = 0;
-      v161 = *MEMORY[0x277D7BA20];
-      v162 = *v170;
-      v159 = *MEMORY[0x277D7BA28];
-      v156 = *MEMORY[0x277D7BA18];
-      v154 = *MEMORY[0x277D7BA30];
-      v155 = vdupq_n_s64(2uLL);
-      v153 = vdupq_n_s64(5uLL);
+      v207 = 0;
+      v202 = *MEMORY[0x277D7BA20];
+      v203 = *v211;
+      v200 = *MEMORY[0x277D7BA28];
+      v197 = *MEMORY[0x277D7BA18];
+      v195 = *MEMORY[0x277D7BA30];
+      v196 = vdupq_n_s64(2uLL);
+      v194 = vdupq_n_s64(5uLL);
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v170 != v162)
+        if (*v211 != v203)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v169 + 1) + 8 * v9);
-        if ([v10 isEqualToString:v161])
+        v10 = *(*(&v210 + 1) + 8 * v9);
+        if ([v10 isEqualToString:v202])
         {
           break;
         }
 
-        if ([v10 isEqualToString:v159])
+        if ([v10 isEqualToString:v200])
         {
           v11 = [obj objectForKey:v10];
-          v21 = WFLogForCategory(0);
-          v22 = OSLogForWFLogLevel(4uLL);
-          if (WFCurrentLogLevel() >= 4 && v21 && os_log_type_enabled(v21, v22))
+          v23 = WFLogForCategory(0);
+          v24 = OSLogForWFLogLevel(4uLL);
+          v25 = v24;
+          if (WFCurrentLogLevel(v24, v26) >= 4 && v23 && os_log_type_enabled(v23, v25))
           {
             *buf = 138412290;
-            *v179 = v11;
-            _os_log_impl(&dword_273ECD000, v21, v22, "IPv6 changes: %@", buf, 0xCu);
+            *v220 = v11;
+            _os_log_impl(&dword_273ECD000, v23, v25, "IPv6 changes: %@", buf, 0xCu);
           }
 
           if (([configCopy validIPv6Configuration] & 1) == 0)
           {
-            v23 = WFLogForCategory(0);
-            v46 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v23 && os_log_type_enabled(v23, v46))
+            v27 = WFLogForCategory(0);
+            v56 = OSLogForWFLogLevel(3uLL);
+            v57 = v56;
+            if (WFCurrentLogLevel(v56, v58) >= 3 && v27 && os_log_type_enabled(v27, v57))
             {
               *buf = 138412290;
-              *v179 = v11;
-              _os_log_impl(&dword_273ECD000, v23, v46, "Disregarding ipv6 edits %@, invalid configuration", buf, 0xCu);
+              *v220 = v11;
+              _os_log_impl(&dword_273ECD000, v27, v57, "Disregarding ipv6 edits %@, invalid configuration", buf, 0xCu);
             }
 
             goto LABEL_165;
           }
 
-          v23 = [v11 objectForKey:@"ipv6Config"];
-          if (v23 || (ipv6Config = [0 integerValue], ipv6Config == -1))
+          v27 = [v11 objectForKey:@"ipv6Config"];
+          if (v27 || (ipv6Config = [0 integerValue], ipv6Config == -1))
           {
             ipv6Config = [configCopy ipv6Config];
           }
@@ -1506,48 +1861,48 @@ LABEL_4:
               break;
             case 1:
               ipv6AddressManual = [configCopy ipv6AddressManual];
-              v61 = [v11 objectForKey:@"ipv6AddressManual"];
+              v73 = [v11 objectForKey:@"ipv6AddressManual"];
 
-              if (v61)
+              if (v73)
               {
-                v62 = [v11 objectForKey:@"ipv6AddressManual"];
+                v74 = [v11 objectForKey:@"ipv6AddressManual"];
 
-                ipv6AddressManual = v62;
+                ipv6AddressManual = v74;
               }
 
               ipv6PrefixLengthManual = [configCopy ipv6PrefixLengthManual];
-              v64 = [v11 objectForKey:@"ipv6PrefixLengthManual"];
+              v76 = [v11 objectForKey:@"ipv6PrefixLengthManual"];
 
-              if (v64)
+              if (v76)
               {
-                v65 = [v11 objectForKey:@"ipv6PrefixLengthManual"];
+                v77 = [v11 objectForKey:@"ipv6PrefixLengthManual"];
 
-                ipv6PrefixLengthManual = v65;
+                ipv6PrefixLengthManual = v77;
               }
 
               ipv6RouterAddressManual = [configCopy ipv6RouterAddressManual];
-              v67 = [v11 objectForKey:@"ipv6RouterAddressManual"];
+              v79 = [v11 objectForKey:@"ipv6RouterAddressManual"];
 
-              if (v67)
+              if (v79)
               {
-                v68 = [v11 objectForKey:@"ipv6RouterAddressManual"];
+                v80 = [v11 objectForKey:@"ipv6RouterAddressManual"];
 
-                ipv6RouterAddressManual = v68;
+                ipv6RouterAddressManual = v80;
               }
 
-              v69 = [WFSettingsIPV6 alloc];
+              v81 = [WFSettingsIPV6 alloc];
               if (ipv6AddressManual)
               {
-                v174 = ipv6AddressManual;
-                v151 = [MEMORY[0x277CBEA60] arrayWithObjects:&v174 count:1];
-                v70 = v151;
+                v215 = ipv6AddressManual;
+                v192 = [MEMORY[0x277CBEA60] arrayWithObjects:&v215 count:1];
+                v82 = v192;
                 if (ipv6PrefixLengthManual)
                 {
                   goto LABEL_93;
                 }
 
 LABEL_147:
-                v72 = [(WFSettingsIPV6 *)v69 initWithMethod:3 addresses:v70 prefixLengths:0 router:ipv6RouterAddressManual];
+                v84 = [(WFSettingsIPV6 *)v81 initWithMethod:3 addresses:v82 prefixLengths:0 router:ipv6RouterAddressManual];
                 if (ipv6AddressManual)
                 {
                   goto LABEL_148;
@@ -1556,16 +1911,16 @@ LABEL_147:
 
               else
               {
-                v70 = 0;
+                v82 = 0;
                 if (!ipv6PrefixLengthManual)
                 {
                   goto LABEL_147;
                 }
 
 LABEL_93:
-                v173 = ipv6PrefixLengthManual;
-                v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v173 count:1];
-                v72 = [(WFSettingsIPV6 *)v69 initWithMethod:3 addresses:v70 prefixLengths:v71 router:ipv6RouterAddressManual];
+                v214 = ipv6PrefixLengthManual;
+                v83 = [MEMORY[0x277CBEA60] arrayWithObjects:&v214 count:1];
+                v84 = [(WFSettingsIPV6 *)v81 initWithMethod:3 addresses:v82 prefixLengths:v83 router:ipv6RouterAddressManual];
 
                 if (ipv6AddressManual)
                 {
@@ -1573,20 +1928,21 @@ LABEL_148:
                 }
               }
 
-              if (v72)
+              if (v84)
               {
-                [array addObject:v72];
+                [array addObject:v84];
               }
 
               else
               {
-                v98 = WFLogForCategory(0);
-                v99 = OSLogForWFLogLevel(1uLL);
-                if (WFCurrentLogLevel() && v98 && os_log_type_enabled(v98, v99))
+                v122 = WFLogForCategory(0);
+                v123 = OSLogForWFLogLevel(1uLL);
+                v124 = v123;
+                if (WFCurrentLogLevel(v123, v125) && v122 && os_log_type_enabled(v122, v124))
                 {
                   *buf = 138412290;
-                  *v179 = v11;
-                  _os_log_impl(&dword_273ECD000, v98, v99, "Failed to create WFSettingsIPV6 from ipv6Changes %@", buf, 0xCu);
+                  *v220 = v11;
+                  _os_log_impl(&dword_273ECD000, v122, v124, "Failed to create WFSettingsIPV6 from ipv6Changes %@", buf, 0xCu);
                 }
               }
 
@@ -1599,34 +1955,35 @@ LABEL_148:
 LABEL_158:
               config2 = [(WFSettingsController *)val config];
               ipv6Config2 = [config2 ipv6Config];
-              v102.i64[0] = ipv6Config;
-              v102.i64[1] = ipv6Config2;
-              v103 = vdupq_n_s64(1uLL);
-              v104 = vdupq_n_s64(2uLL);
-              v105 = vcgtq_u64(v104, vaddq_s64(v102, v103));
-              v106 = vceqq_s64(v102, v104);
-              v107 = vbslq_s8(v105, vdupq_n_s64(3uLL), vbslq_s8(vceqq_s64(v102, v103), vdupq_n_s64(4uLL), vornq_s8(vandq_s8(v106, v153), v106)));
-              v108 = v107.i64[1];
-              v109 = v107.i64[0];
-              if (v107.i64[0] == v107.i64[1])
+              v128.i64[0] = ipv6Config;
+              v128.i64[1] = ipv6Config2;
+              v129 = vdupq_n_s64(1uLL);
+              v130 = vdupq_n_s64(2uLL);
+              v131 = vcgtq_u64(v130, vaddq_s64(v128, v129));
+              v132 = vceqq_s64(v128, v130);
+              v133 = vbslq_s8(v131, vdupq_n_s64(3uLL), vbslq_s8(vceqq_s64(v128, v129), vdupq_n_s64(4uLL), vornq_s8(vandq_s8(v132, v194), v132)));
+              v134 = v133.i64[1];
+              v135 = v133.i64[0];
+              if (v133.i64[0] == v133.i64[1])
               {
-                v110 = WFLogForCategory(0);
-                v111 = OSLogForWFLogLevel(4uLL);
-                if (WFCurrentLogLevel() >= 4 && v110 && os_log_type_enabled(v110, v111))
+                v136 = WFLogForCategory(0);
+                v137 = OSLogForWFLogLevel(4uLL);
+                v138 = v137;
+                if (WFCurrentLogLevel(v137, v139) >= 4 && v136 && os_log_type_enabled(v136, v138))
                 {
                   *buf = 67109376;
-                  *v179 = v109;
-                  *&v179[4] = 1024;
-                  *&v179[6] = v109;
-                  _os_log_impl(&dword_273ECD000, v110, v111, "Dropping IPv6 configure event as the types didn't change %d -> %d", buf, 0xEu);
+                  *v220 = v135;
+                  *&v220[4] = 1024;
+                  *&v220[6] = v135;
+                  _os_log_impl(&dword_273ECD000, v136, v138, "Dropping IPv6 configure event as the types didn't change %d -> %d", buf, 0xEu);
                 }
               }
 
               else
               {
-                v110 = +[WFMetricsManager sharedManager];
-                v112 = [WFUserConfigureEvent configureEventWithType:1 new:v109 old:v108];
-                [v110 processEvent:v112];
+                v136 = +[WFMetricsManager sharedManager];
+                v140 = [WFUserConfigureEvent configureEventWithType:1 new:v135 old:v134];
+                [v136 processEvent:v140];
               }
 
 LABEL_165:
@@ -1636,25 +1993,26 @@ LABEL_165:
           goto LABEL_158;
         }
 
-        if ([v10 isEqualToString:v156])
+        if ([v10 isEqualToString:v197])
         {
           v11 = [obj objectForKey:v10];
-          v25 = WFLogForCategory(0);
-          v26 = OSLogForWFLogLevel(4uLL);
-          if (WFCurrentLogLevel() >= 4 && v25 && os_log_type_enabled(v25, v26))
+          v29 = WFLogForCategory(0);
+          v30 = OSLogForWFLogLevel(4uLL);
+          v31 = v30;
+          if (WFCurrentLogLevel(v30, v32) >= 4 && v29 && os_log_type_enabled(v29, v31))
           {
             *buf = 138412290;
-            *v179 = v11;
-            _os_log_impl(&dword_273ECD000, v25, v26, "DNS changes: %@", buf, 0xCu);
+            *v220 = v11;
+            _os_log_impl(&dword_273ECD000, v29, v31, "DNS changes: %@", buf, 0xCu);
           }
 
           dnsConfig = [configCopy dnsConfig];
-          v28 = [v11 objectForKey:@"dnsConfig"];
+          v34 = [v11 objectForKey:@"dnsConfig"];
 
-          if (v28)
+          if (v34)
           {
-            v29 = [v11 objectForKey:@"dnsConfig"];
-            dnsConfig = [v29 integerValue];
+            v35 = [v11 objectForKey:@"dnsConfig"];
+            dnsConfig = [v35 integerValue];
           }
 
           if (dnsConfig)
@@ -1671,107 +2029,111 @@ LABEL_165:
               dnsSearchDomains = [configCopy dnsSearchDomains];
             }
 
-            v32 = [[WFSettingsDNS alloc] initWithServerAddresses:dnsServerAddresses searchDomains:dnsSearchDomains];
-            if (v32)
+            v38 = [[WFSettingsDNS alloc] initWithServerAddresses:dnsServerAddresses searchDomains:dnsSearchDomains];
+            if (v38)
             {
-              [array addObject:v32];
+              [array addObject:v38];
             }
 
             else
             {
-              v75 = WFLogForCategory(0);
-              v76 = OSLogForWFLogLevel(1uLL);
-              if (WFCurrentLogLevel() && v75 && os_log_type_enabled(v75, v76))
+              v89 = WFLogForCategory(0);
+              v90 = OSLogForWFLogLevel(1uLL);
+              v91 = v90;
+              if (WFCurrentLogLevel(v90, v92) && v89 && os_log_type_enabled(v89, v91))
               {
                 *buf = 138412290;
-                *v179 = v11;
-                _os_log_impl(&dword_273ECD000, v75, v76, "Failed to create WFSettingsDNS from dnsChanges %@", buf, 0xCu);
+                *v220 = v11;
+                _os_log_impl(&dword_273ECD000, v89, v91, "Failed to create WFSettingsDNS from dnsChanges %@", buf, 0xCu);
               }
             }
 
-            v60 = 7;
+            v72 = 7;
           }
 
           else
           {
             dnsServerAddresses = +[WFSettingsDNS automaticConfig];
             [array addObject:dnsServerAddresses];
-            v60 = 6;
+            v72 = 6;
           }
 
           config3 = [(WFSettingsController *)val config];
           if ([config3 dnsConfig])
           {
-            v78 = 7;
+            v94 = 7;
           }
 
           else
           {
-            v78 = 6;
+            v94 = 6;
           }
 
-          if (v60 == v78)
+          if (v72 == v94)
           {
-            v79 = WFLogForCategory(0);
-            v80 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() >= 4 && v79 && os_log_type_enabled(v79, v80))
+            v95 = WFLogForCategory(0);
+            v96 = OSLogForWFLogLevel(4uLL);
+            v97 = v96;
+            if (WFCurrentLogLevel(v96, v98) >= 4 && v95 && os_log_type_enabled(v95, v97))
             {
               *buf = 67109376;
-              *v179 = v60;
-              *&v179[4] = 1024;
-              *&v179[6] = v60;
-              _os_log_impl(&dword_273ECD000, v79, v80, "Dropping DNS configure event as the types didn't change %d -> %d", buf, 0xEu);
+              *v220 = v72;
+              *&v220[4] = 1024;
+              *&v220[6] = v72;
+              _os_log_impl(&dword_273ECD000, v95, v97, "Dropping DNS configure event as the types didn't change %d -> %d", buf, 0xEu);
             }
           }
 
           else
           {
-            v79 = +[WFMetricsManager sharedManager];
-            v81 = [WFUserConfigureEvent configureEventWithType:2 new:v60 old:v78];
-            [v79 processEvent:v81];
+            v95 = +[WFMetricsManager sharedManager];
+            v99 = [WFUserConfigureEvent configureEventWithType:2 new:v72 old:v94];
+            [v95 processEvent:v99];
           }
 
           goto LABEL_166;
         }
 
-        if ([v10 isEqualToString:v154])
+        if ([v10 isEqualToString:v195])
         {
           v11 = [obj objectForKey:v10];
-          v36 = [v11 mutableCopy];
-          allKeys = [v36 allKeys];
-          v38 = [allKeys containsObject:@"httpProxyPassword"];
+          v44 = [v11 mutableCopy];
+          allKeys = [v44 allKeys];
+          v46 = [allKeys containsObject:@"httpProxyPassword"];
 
-          if (v38)
+          if (v46)
           {
-            [v36 setObject:@"<REDACTED>" forKey:@"httpProxyPassword"];
+            [v44 setObject:@"<REDACTED>" forKey:@"httpProxyPassword"];
           }
 
-          v39 = WFLogForCategory(0);
-          v40 = OSLogForWFLogLevel(4uLL);
-          if (WFCurrentLogLevel() >= 4 && v39 && os_log_type_enabled(v39, v40))
+          v47 = WFLogForCategory(0);
+          v48 = OSLogForWFLogLevel(4uLL);
+          v49 = v48;
+          if (WFCurrentLogLevel(v48, v50) >= 4 && v47 && os_log_type_enabled(v47, v49))
           {
             *buf = 138412290;
-            *v179 = v36;
-            _os_log_impl(&dword_273ECD000, v39, v40, "Proxy changes: %@", buf, 0xCu);
+            *v220 = v44;
+            _os_log_impl(&dword_273ECD000, v47, v49, "Proxy changes: %@", buf, 0xCu);
           }
 
           if (([configCopy validProxyConfiguration] & 1) == 0)
           {
             config4 = WFLogForCategory(0);
-            v74 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && config4 && os_log_type_enabled(config4, v74))
+            v86 = OSLogForWFLogLevel(3uLL);
+            v87 = v86;
+            if (WFCurrentLogLevel(v86, v88) >= 3 && config4 && os_log_type_enabled(config4, v87))
             {
               *buf = 138412290;
-              *v179 = v11;
-              _os_log_impl(&dword_273ECD000, config4, v74, "Disregarding proxy edits %@, invalid configuration", buf, 0xCu);
+              *v220 = v11;
+              _os_log_impl(&dword_273ECD000, config4, v87, "Disregarding proxy edits %@, invalid configuration", buf, 0xCu);
             }
 
             goto LABEL_210;
           }
 
-          v41 = [v11 objectForKey:@"httpProxyConfig"];
+          v51 = [v11 objectForKey:@"httpProxyConfig"];
 
-          if (!v41 || ([v11 objectForKey:@"httpProxyConfig"], v42 = objc_claimAutoreleasedReturnValue(), httpProxyConfig = objc_msgSend(v42, "integerValue"), v42, httpProxyConfig == -1))
+          if (!v51 || ([v11 objectForKey:@"httpProxyConfig"], v52 = objc_claimAutoreleasedReturnValue(), httpProxyConfig = objc_msgSend(v52, "integerValue"), v52, httpProxyConfig == -1))
           {
             httpProxyConfig = [configCopy httpProxyConfig];
           }
@@ -1782,19 +2144,20 @@ LABEL_165:
               httpProxyServerAddress = [v11 objectForKey:@"httpProxyConfigPAC"];
               if (![httpProxyServerAddress length])
               {
-                v116 = WFLogForCategory(0);
-                v117 = OSLogForWFLogLevel(3uLL);
-                if (WFCurrentLogLevel() >= 3 && v116 && os_log_type_enabled(v116, v117))
+                v144 = WFLogForCategory(0);
+                v145 = OSLogForWFLogLevel(3uLL);
+                v146 = v145;
+                if (WFCurrentLogLevel(v145, v147) >= 3 && v144 && os_log_type_enabled(v144, v146))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_273ECD000, v116, v117, "No httpProxyConfigPAC supplied, using auto discovery", buf, 2u);
+                  _os_log_impl(&dword_273ECD000, v144, v146, "No httpProxyConfigPAC supplied, using auto discovery", buf, 2u);
                 }
               }
 
-              v118 = [[WFSettingsProxy alloc] initWithAutoConfigureURL:httpProxyServerAddress];
-              [array addObject:v118];
+              v148 = [[WFSettingsProxy alloc] initWithAutoConfigureURL:httpProxyServerAddress];
+              [array addObject:v148];
 
-              v45 = 9;
+              v55 = 9;
               break;
             case 1:
               httpProxyServerAddress = [v11 objectForKey:@"httpProxyServerAddress"];
@@ -1823,85 +2186,88 @@ LABEL_165:
 
               if (![httpProxyServerAddress length] || !objc_msgSend(httpProxyServerPort, "length") || objc_msgSend(configCopy, "httpProxyAuthenticationRequired") && (!objc_msgSend(httpProxyUsername, "length") || !objc_msgSend(httpProxyPassword, "length")))
               {
-                v145 = WFLogForCategory(0);
-                v146 = OSLogForWFLogLevel(1uLL);
-                if (WFCurrentLogLevel() && v145 && os_log_type_enabled(v145, v146))
+                v185 = WFLogForCategory(0);
+                v186 = OSLogForWFLogLevel(1uLL);
+                v187 = v186;
+                if (WFCurrentLogLevel(v186, v188) && v185 && os_log_type_enabled(v185, v187))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_273ECD000, v145, v146, "Can't save proxy settings, missing fields", buf, 2u);
+                  _os_log_impl(&dword_273ECD000, v185, v187, "Can't save proxy settings, missing fields", buf, 2u);
                 }
 
                 interfaceName = obj;
                 goto LABEL_235;
               }
 
-              v115 = [[WFSettingsProxy alloc] initWithManualServer:httpProxyServerAddress port:httpProxyServerPort username:httpProxyUsername password:httpProxyPassword];
+              v143 = [[WFSettingsProxy alloc] initWithManualServer:httpProxyServerAddress port:httpProxyServerPort username:httpProxyUsername password:httpProxyPassword];
               if (array)
               {
-                [array addObject:v115];
+                [array addObject:v143];
               }
 
               else
               {
-                v119 = WFLogForCategory(0);
-                v120 = OSLogForWFLogLevel(1uLL);
-                if (WFCurrentLogLevel() && v119 && os_log_type_enabled(v119, v120))
+                v149 = WFLogForCategory(0);
+                v150 = OSLogForWFLogLevel(1uLL);
+                v151 = v150;
+                if (WFCurrentLogLevel(v150, v152) && v149 && os_log_type_enabled(v149, v151))
                 {
                   *buf = 138412290;
-                  *v179 = v11;
-                  _os_log_impl(&dword_273ECD000, v119, v120, "Failed to create WFSettingsProxy from proxyChanges %@", buf, 0xCu);
+                  *v220 = v11;
+                  _os_log_impl(&dword_273ECD000, v149, v151, "Failed to create WFSettingsProxy from proxyChanges %@", buf, 0xCu);
                 }
               }
 
-              v45 = 10;
+              v55 = 10;
               break;
             case 0:
               httpProxyServerAddress = +[WFSettingsProxy offConfig];
               [array addObject:httpProxyServerAddress];
-              v45 = 8;
+              v55 = 8;
               break;
             default:
-              v45 = -1;
+              v55 = -1;
 LABEL_200:
               config4 = [(WFSettingsController *)val config];
               httpProxyConfig2 = [config4 httpProxyConfig];
               if (httpProxyConfig2 > 2)
               {
-                v122 = -1;
+                v154 = -1;
               }
 
               else
               {
-                v122 = qword_273F75CC8[httpProxyConfig2];
+                v154 = qword_273F75CC8[httpProxyConfig2];
               }
 
-              if (v45 == v122)
+              if (v55 == v154)
               {
-                v123 = WFLogForCategory(0);
-                v124 = OSLogForWFLogLevel(4uLL);
-                if (WFCurrentLogLevel() >= 4 && v123 && os_log_type_enabled(v123, v124))
+                v155 = WFLogForCategory(0);
+                v156 = OSLogForWFLogLevel(4uLL);
+                v157 = v156;
+                if (WFCurrentLogLevel(v156, v158) >= 4 && v155 && os_log_type_enabled(v155, v157))
                 {
                   *buf = 67109376;
-                  *v179 = v45;
-                  *&v179[4] = 1024;
-                  *&v179[6] = v45;
-                  _os_log_impl(&dword_273ECD000, v123, v124, "Dropping HTTP Proxy configure event as the types didn't change %d -> %d", buf, 0xEu);
+                  *v220 = v55;
+                  *&v220[4] = 1024;
+                  *&v220[6] = v55;
+                  _os_log_impl(&dword_273ECD000, v155, v157, "Dropping HTTP Proxy configure event as the types didn't change %d -> %d", buf, 0xEu);
                 }
               }
 
               else
               {
-                v123 = +[WFMetricsManager sharedManager];
-                v125 = [WFUserConfigureEvent configureEventWithType:3 new:v45 old:v122];
-                [v123 processEvent:v125];
+                v155 = +[WFMetricsManager sharedManager];
+                v159 = [WFUserConfigureEvent configureEventWithType:3 new:v55 old:v154];
+                [v155 processEvent:v159];
               }
 
 LABEL_210:
 LABEL_166:
-              v35 = v166;
+              v43 = v207;
 LABEL_167:
 
-              v166 = v35;
+              v207 = v43;
               goto LABEL_168;
           }
 
@@ -1909,11 +2275,11 @@ LABEL_167:
         }
 
 LABEL_168:
-        if (v163 == ++v9)
+        if (v204 == ++v9)
         {
-          v126 = [obj countByEnumeratingWithState:&v169 objects:v177 count:16];
-          v163 = v126;
-          if (v126)
+          v160 = [obj countByEnumeratingWithState:&v210 objects:v218 count:16];
+          v204 = v160;
+          if (v160)
           {
             goto LABEL_4;
           }
@@ -1925,33 +2291,35 @@ LABEL_168:
       v11 = [obj objectForKey:v10];
       v12 = WFLogForCategory(0);
       v13 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v12 && os_log_type_enabled(v12, v13))
+      v14 = v13;
+      if (WFCurrentLogLevel(v13, v15) >= 4 && v12 && os_log_type_enabled(v12, v14))
       {
         *buf = 138412290;
-        *v179 = v11;
-        _os_log_impl(&dword_273ECD000, v12, v13, "IPv4 changes: %@", buf, 0xCu);
+        *v220 = v11;
+        _os_log_impl(&dword_273ECD000, v12, v14, "IPv4 changes: %@", buf, 0xCu);
       }
 
       if (([configCopy validIPv4Configuration] & 1) == 0)
       {
-        v33 = WFLogForCategory(0);
-        v34 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v33 && os_log_type_enabled(v33, v34))
+        v39 = WFLogForCategory(0);
+        v40 = OSLogForWFLogLevel(3uLL);
+        v41 = v40;
+        if (WFCurrentLogLevel(v40, v42) >= 3 && v39 && os_log_type_enabled(v39, v41))
         {
           *buf = 138412290;
-          *v179 = v11;
-          _os_log_impl(&dword_273ECD000, v33, v34, "Disregarding ipv4 edits %@, invalid configuration", buf, 0xCu);
+          *v220 = v11;
+          _os_log_impl(&dword_273ECD000, v39, v41, "Disregarding ipv4 edits %@, invalid configuration", buf, 0xCu);
         }
 
-        v35 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifikit.error" code:1 userInfo:v11];
+        v43 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifikit.error" code:1 userInfo:v11];
 
-        handlerCopy[2](handlerCopy, v35);
+        handlerCopy[2](handlerCopy, v43);
         goto LABEL_167;
       }
 
-      v14 = [v11 objectForKey:@"ipv4Config"];
-      v15 = v14;
-      if (!v14 || (ipv4Config = [v14 integerValue], ipv4Config == -1))
+      v16 = [v11 objectForKey:@"ipv4Config"];
+      v17 = v16;
+      if (!v16 || (ipv4Config = [v16 integerValue], ipv4Config == -1))
       {
         ipv4Config = [configCopy ipv4Config];
       }
@@ -1963,13 +2331,14 @@ LABEL_168:
           ipv4AddressManual = +[WFSettingsIPV4 bootPConfig];
           if (!ipv4AddressManual)
           {
-            v82 = WFLogForCategory(0);
-            v83 = OSLogForWFLogLevel(1uLL);
-            if (WFCurrentLogLevel() && v82 && os_log_type_enabled(v82, v83))
+            v100 = WFLogForCategory(0);
+            v101 = OSLogForWFLogLevel(1uLL);
+            v102 = v101;
+            if (WFCurrentLogLevel(v101, v103) && v100 && os_log_type_enabled(v100, v102))
             {
               *buf = 138412290;
-              *v179 = v11;
-              _os_log_impl(&dword_273ECD000, v82, v83, "Failed to create WFSettingsIPV4 from ipv4Changes %@", buf, 0xCu);
+              *v220 = v11;
+              _os_log_impl(&dword_273ECD000, v100, v102, "Failed to create WFSettingsIPV4 from ipv4Changes %@", buf, 0xCu);
             }
 
             goto LABEL_133;
@@ -1983,62 +2352,63 @@ LABEL_168:
 LABEL_134:
             config5 = [(WFSettingsController *)val config];
             ipv4Config2 = [config5 ipv4Config];
-            v88.i64[0] = ipv4Config;
-            v88.i64[1] = ipv4Config2;
-            v89 = vdupq_n_s64(1uLL);
-            v90 = vceqq_s64(v88, v89);
-            v91 = vbicq_s8(vbslq_s8(vceqq_s64(v88, v155), v155, vornq_s8(vandq_s8(v90, v89), v90)), vcgtq_u64(v155, vaddq_s64(v88, v89)));
-            v92 = v91.i64[1];
-            v93 = v91.i64[0];
-            if (v91.i64[0] == v91.i64[1])
+            v110.i64[0] = ipv4Config;
+            v110.i64[1] = ipv4Config2;
+            v111 = vdupq_n_s64(1uLL);
+            v112 = vceqq_s64(v110, v111);
+            v113 = vbicq_s8(vbslq_s8(vceqq_s64(v110, v196), v196, vornq_s8(vandq_s8(v112, v111), v112)), vcgtq_u64(v196, vaddq_s64(v110, v111)));
+            v114 = v113.i64[1];
+            v115 = v113.i64[0];
+            if (v113.i64[0] == v113.i64[1])
             {
-              v94 = WFLogForCategory(0);
-              v95 = OSLogForWFLogLevel(4uLL);
-              if (WFCurrentLogLevel() >= 4 && v94 && os_log_type_enabled(v94, v95))
+              v116 = WFLogForCategory(0);
+              v117 = OSLogForWFLogLevel(4uLL);
+              v118 = v117;
+              if (WFCurrentLogLevel(v117, v119) >= 4 && v116 && os_log_type_enabled(v116, v118))
               {
                 *buf = 67109376;
-                *v179 = v93;
-                *&v179[4] = 1024;
-                *&v179[6] = v93;
-                _os_log_impl(&dword_273ECD000, v94, v95, "Dropping IPv4 configure event as the types didn't change %d -> %d", buf, 0xEu);
+                *v220 = v115;
+                *&v220[4] = 1024;
+                *&v220[6] = v115;
+                _os_log_impl(&dword_273ECD000, v116, v118, "Dropping IPv4 configure event as the types didn't change %d -> %d", buf, 0xEu);
               }
             }
 
             else
             {
-              v94 = +[WFMetricsManager sharedManager];
-              if (v93 == 2)
+              v116 = +[WFMetricsManager sharedManager];
+              if (v115 == 2)
               {
-                v97 = [WFUserConfigureEvent configureEventWithType:2 new:2 old:v92];
-                [v94 processEvent:v97];
+                v121 = [WFUserConfigureEvent configureEventWithType:2 new:2 old:v114];
+                [v116 processEvent:v121];
               }
 
               else
               {
-                if (v93 == 1)
+                if (v115 == 1)
                 {
-                  [WFUserConfigureEvent configureEventWithType:1 new:1 old:v92];
+                  [WFUserConfigureEvent configureEventWithType:1 new:1 old:v114];
                 }
 
                 else
                 {
-                  [WFUserConfigureEvent configureEventWithType:0 new:v93 old:v92];
+                  [WFUserConfigureEvent configureEventWithType:0 new:v115 old:v114];
                 }
-                v96 = ;
-                [v94 processEvent:v96];
+                v120 = ;
+                [v116 processEvent:v120];
               }
             }
 
             goto LABEL_166;
           }
 
-          v17 = [v11 objectForKey:@"dhcpClientID"];
+          v19 = [v11 objectForKey:@"dhcpClientID"];
 
-          if (v17)
+          if (v19)
           {
-            v18 = [WFSettingsIPV4 alloc];
-            v19 = [v11 objectForKey:@"dhcpClientID"];
-            ipv4AddressManual = [(WFSettingsIPV4 *)v18 initWithMethod:1 addresses:0 subnetMasks:0 router:0 dhcpClientID:v19];
+            v20 = [WFSettingsIPV4 alloc];
+            v21 = [v11 objectForKey:@"dhcpClientID"];
+            ipv4AddressManual = [(WFSettingsIPV4 *)v20 initWithMethod:1 addresses:0 subnetMasks:0 router:0 dhcpClientID:v21];
           }
 
           else
@@ -2054,41 +2424,41 @@ LABEL_133:
       }
 
       ipv4AddressManual = [configCopy ipv4AddressManual];
-      v47 = [v11 objectForKey:@"ipv4AddressManual"];
+      v59 = [v11 objectForKey:@"ipv4AddressManual"];
 
-      if (v47)
+      if (v59)
       {
-        v48 = [v11 objectForKey:@"ipv4AddressManual"];
+        v60 = [v11 objectForKey:@"ipv4AddressManual"];
 
-        ipv4AddressManual = v48;
+        ipv4AddressManual = v60;
       }
 
       ipv4SubnetMaskManual = [configCopy ipv4SubnetMaskManual];
-      v50 = [v11 objectForKey:@"ipv4SubnetMaskManual"];
+      v62 = [v11 objectForKey:@"ipv4SubnetMaskManual"];
 
-      if (v50)
+      if (v62)
       {
-        v51 = [v11 objectForKey:@"ipv4SubnetMaskManual"];
+        v63 = [v11 objectForKey:@"ipv4SubnetMaskManual"];
 
-        ipv4SubnetMaskManual = v51;
+        ipv4SubnetMaskManual = v63;
       }
 
       ipv4RouterAddressManual = [configCopy ipv4RouterAddressManual];
-      v53 = [v11 objectForKey:@"ipv4RouterAddressManual"];
+      v65 = [v11 objectForKey:@"ipv4RouterAddressManual"];
 
-      if (v53)
+      if (v65)
       {
-        v54 = [v11 objectForKey:@"ipv4RouterAddressManual"];
+        v66 = [v11 objectForKey:@"ipv4RouterAddressManual"];
 
-        ipv4RouterAddressManual = v54;
+        ipv4RouterAddressManual = v66;
       }
 
-      v55 = [WFSettingsIPV4 alloc];
+      v67 = [WFSettingsIPV4 alloc];
       if (ipv4AddressManual)
       {
-        v176 = ipv4AddressManual;
-        v152 = [MEMORY[0x277CBEA60] arrayWithObjects:&v176 count:1];
-        v56 = v152;
+        v217 = ipv4AddressManual;
+        v193 = [MEMORY[0x277CBEA60] arrayWithObjects:&v217 count:1];
+        v68 = v193;
         if (ipv4SubnetMaskManual)
         {
           goto LABEL_77;
@@ -2097,13 +2467,13 @@ LABEL_133:
 
       else
       {
-        v56 = 0;
+        v68 = 0;
         if (ipv4SubnetMaskManual)
         {
 LABEL_77:
-          v175 = ipv4SubnetMaskManual;
-          v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v175 count:1];
-          v58 = [(WFSettingsIPV4 *)v55 initWithMethod:4 addresses:v56 subnetMasks:v57 router:ipv4RouterAddressManual dhcpClientID:0];
+          v216 = ipv4SubnetMaskManual;
+          v69 = [MEMORY[0x277CBEA60] arrayWithObjects:&v216 count:1];
+          v70 = [(WFSettingsIPV4 *)v67 initWithMethod:4 addresses:v68 subnetMasks:v69 router:ipv4RouterAddressManual dhcpClientID:0];
 
           if (!ipv4AddressManual)
           {
@@ -2114,24 +2484,25 @@ LABEL_77:
         }
       }
 
-      v58 = [(WFSettingsIPV4 *)v55 initWithMethod:4 addresses:v56 subnetMasks:0 router:ipv4RouterAddressManual dhcpClientID:0];
+      v70 = [(WFSettingsIPV4 *)v67 initWithMethod:4 addresses:v68 subnetMasks:0 router:ipv4RouterAddressManual dhcpClientID:0];
       if (!ipv4AddressManual)
       {
 LABEL_125:
-        if (v58)
+        if (v70)
         {
-          [array addObject:v58];
+          [array addObject:v70];
         }
 
         else
         {
-          v84 = WFLogForCategory(0);
-          v85 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v84 && os_log_type_enabled(v84, v85))
+          v104 = WFLogForCategory(0);
+          v105 = OSLogForWFLogLevel(1uLL);
+          v106 = v105;
+          if (WFCurrentLogLevel(v105, v107) && v104 && os_log_type_enabled(v104, v106))
           {
             *buf = 138412290;
-            *v179 = v11;
-            _os_log_impl(&dword_273ECD000, v84, v85, "Failed to create WFSettingsIPV4 from ipv4Changes %@", buf, 0xCu);
+            *v220 = v11;
+            _os_log_impl(&dword_273ECD000, v104, v106, "Failed to create WFSettingsIPV4 from ipv4Changes %@", buf, 0xCu);
           }
         }
 
@@ -2143,7 +2514,7 @@ LABEL_124:
       goto LABEL_125;
     }
 
-    v166 = 0;
+    v207 = 0;
 LABEL_219:
 
     if ([array count])
@@ -2152,82 +2523,83 @@ LABEL_219:
       interface = [detailsContext interface];
       interfaceName = [interface interfaceName];
 
-      v134 = [WFSaveSettingsOperation alloc];
+      v170 = [WFSaveSettingsOperation alloc];
       network = [(WFSettingsController *)val network];
       ssid = [network ssid];
-      v137 = [(WFSaveSettingsOperation *)v134 initWithSSID:ssid interfaceName:interfaceName settings:array];
+      v173 = [(WFSaveSettingsOperation *)v170 initWithSSID:ssid interfaceName:interfaceName settings:array];
 
-      v138 = WFLogForCategory(0);
-      v139 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && v138)
+      v174 = WFLogForCategory(0);
+      v175 = OSLogForWFLogLevel(4uLL);
+      v176 = v175;
+      if (WFCurrentLogLevel(v175, v177) >= 4 && v174)
       {
-        v140 = v138;
-        if (os_log_type_enabled(v140, v139))
+        v178 = v174;
+        if (os_log_type_enabled(v178, v176))
         {
           network2 = [(WFSettingsController *)val network];
           ssid2 = [network2 ssid];
           *buf = 138412546;
-          *v179 = array;
-          *&v179[8] = 2112;
-          v180 = ssid2;
-          _os_log_impl(&dword_273ECD000, v140, v139, "Saving new network settings %@ for %@", buf, 0x16u);
+          *v220 = array;
+          *&v220[8] = 2112;
+          v221 = ssid2;
+          _os_log_impl(&dword_273ECD000, v178, v176, "Saving new network settings %@ for %@", buf, 0x16u);
         }
       }
 
-      [(WFSaveSettingsOperation *)v137 setCurrentNetwork:[(WFSettingsController *)val isCurrentNetwork]];
+      [(WFSaveSettingsOperation *)v173 setCurrentNetwork:[(WFSettingsController *)val isCurrentNetwork]];
       objc_initWeak(buf, val);
-      v167[0] = MEMORY[0x277D85DD0];
-      v167[1] = 3221225472;
-      v167[2] = __78__WFSettingsController_networkSettingsViewController_saveConfig_errorHandler___block_invoke;
-      v167[3] = &unk_279EBCEA0;
-      objc_copyWeak(&v168, buf);
-      [(WFSaveSettingsOperation *)v137 setCompletionBlock:v167];
+      v208[0] = MEMORY[0x277D85DD0];
+      v208[1] = 3221225472;
+      v208[2] = __78__WFSettingsController_networkSettingsViewController_saveConfig_errorHandler___block_invoke;
+      v208[3] = &unk_279EBCEA0;
+      objc_copyWeak(&v209, buf);
+      [(WFSaveSettingsOperation *)v173 setCompletionBlock:v208];
       queue = [(WFSettingsController *)val queue];
-      [queue addOperation:v137];
+      [queue addOperation:v173];
 
-      objc_destroyWeak(&v168);
+      objc_destroyWeak(&v209);
       objc_destroyWeak(buf);
     }
 
     else
     {
       interfaceName = WFLogForCategory(0);
-      v144 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && interfaceName && os_log_type_enabled(interfaceName, v144))
+      v182 = OSLogForWFLogLevel(4uLL);
+      v183 = v182;
+      if (WFCurrentLogLevel(v182, v184) >= 4 && interfaceName && os_log_type_enabled(interfaceName, v183))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, interfaceName, v144, "Bailing of saving, no setting changes to persist", buf, 2u);
+        _os_log_impl(&dword_273ECD000, interfaceName, v183, "Bailing of saving, no setting changes to persist", buf, 2u);
       }
     }
 
 LABEL_235:
 
-    v129 = array;
+    v165 = array;
     goto LABEL_236;
   }
 
-  v127 = WFLogForCategory(0);
-  v128 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v127)
+  v161 = WFLogForCategory(0);
+  v162 = OSLogForWFLogLevel(3uLL);
+  v163 = v162;
+  if (WFCurrentLogLevel(v162, v164) >= 3 && v161)
   {
-    v129 = v127;
-    if (os_log_type_enabled(v129, v128))
+    v165 = v161;
+    if (os_log_type_enabled(v165, v163))
     {
       config6 = [(WFSettingsController *)val config];
       *buf = 138412546;
-      *v179 = config6;
-      *&v179[8] = 2112;
-      v180 = configCopy;
-      _os_log_impl(&dword_273ECD000, v129, v128, "No changes between configs (existing %@, new %@), nothing to do.", buf, 0x16u);
+      *v220 = config6;
+      *&v220[8] = 2112;
+      v221 = configCopy;
+      _os_log_impl(&dword_273ECD000, v165, v163, "No changes between configs (existing %@, new %@), nothing to do.", buf, 0x16u);
     }
 
-    v166 = v129;
+    v207 = v165;
 LABEL_236:
 
-    v127 = v166;
+    v161 = v207;
   }
-
-  v147 = *MEMORY[0x277D85DE8];
 }
 
 void __78__WFSettingsController_networkSettingsViewController_saveConfig_errorHandler___block_invoke(uint64_t a1)
@@ -2246,44 +2618,47 @@ void __78__WFSettingsController_networkSettingsViewController_saveConfig_errorHa
 
 - (void)initWithDetailsContext:(NSObject *)a1 appearanceProxy:.cold.1(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: ipmonitor is nil", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFSettingsController initWithDetailsContext:appearanceProxy:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: ipmonitor is nil", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDetailsContext:(NSObject *)a1 appearanceProxy:.cold.2(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: network is nil", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFSettingsController initWithDetailsContext:appearanceProxy:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: network is nil", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDetailsContext:(NSObject *)a1 appearanceProxy:.cold.3(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: details context is nil", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFSettingsController initWithDetailsContext:appearanceProxy:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: details context is nil", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

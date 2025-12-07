@@ -1,3 +1,501 @@
+uint64_t HostInterpreter::ProcessJoin(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t **a4)
+{
+  memset(&v48, 0, sizeof(v48));
+  ot::Settings::Init((*(this + 28) + 200));
+  memset(v47, 0, 7);
+  memset(v51, 0, sizeof(v51));
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0;
+  if (*(a4 + 32) != 1)
+  {
+    goto LABEL_44;
+  }
+
+  *(&__p.__r_.__value_.__s + 23) = 11;
+  strcpy(&__p, "NCP:Channel");
+  v46.__r_.__value_.__r.__words[0] = &__p;
+  v6 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v46);
+  v7 = v6[7];
+  if (v7)
+  {
+    v8 = (*(*v7 + 16))(v7);
+  }
+
+  else
+  {
+  }
+
+  v9 = (v8[1] & 0x7FFFFFFFFFFFFFFFLL);
+  v11 = (v10 & 0x7FFFFFFFFFFFFFFFLL);
+  if (v9 != (v10 & 0x7FFFFFFFFFFFFFFFLL) && strcmp(v9, (v10 & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    v46.__r_.__value_.__r.__words[0] = 0;
+    std::bad_cast::bad_cast(&v46);
+    v46.__r_.__value_.__r.__words[0] = off_1004C1D50;
+    boost::throw_exception<boost::bad_any_cast>(&v46);
+  }
+
+  WORD5(v55) = *(v6[7] + 8);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    LOBYTE(v58) = 1;
+    if ((*(a4 + 31) & 1) == 0)
+    {
+      goto LABEL_44;
+    }
+  }
+
+  else
+  {
+    LOBYTE(v58) = 1;
+    if ((*(a4 + 31) & 1) == 0)
+    {
+      goto LABEL_44;
+    }
+  }
+
+  *(&__p.__r_.__value_.__s + 23) = 13;
+  strcpy(&__p, "Network:PANID");
+  v46.__r_.__value_.__r.__words[0] = &__p;
+  v12 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v46);
+  v13 = v12[7];
+  if (v13)
+  {
+    v14 = (*((*(*v13 + 16))(v13) + 8) & 0x7FFFFFFFFFFFFFFFLL);
+    if (v14 == v11)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    if (v14 == v11)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  if (strcmp(v14, v11))
+  {
+    v46.__r_.__value_.__r.__words[0] = 0;
+    std::bad_cast::bad_cast(&v46);
+    v46.__r_.__value_.__r.__words[0] = off_1004C1D50;
+    boost::throw_exception<boost::bad_any_cast>(&v46);
+  }
+
+LABEL_16:
+  WORD4(v55) = *(v12[7] + 8);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    HIBYTE(v57) = 1;
+    if (*(a4 + 27))
+    {
+      goto LABEL_20;
+    }
+
+LABEL_44:
+    v23 = 0;
+    v24 = 0;
+LABEL_45:
+    v25 = 2;
+    v26 = 7;
+    goto LABEL_46;
+  }
+
+  HIBYTE(v57) = 1;
+  if ((*(a4 + 27) & 1) == 0)
+  {
+    goto LABEL_44;
+  }
+
+LABEL_20:
+  *(&v46.__r_.__value_.__s + 23) = 12;
+  strcpy(&v46, "Network:Name");
+  v49 = &v46;
+  v15 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v46.__r_.__value_.__l.__data_, &std::piecewise_construct, &v49);
+  boost::any_cast<std::string>((v15 + 7), &__p);
+  v48 = __p;
+  *(&__p.__r_.__value_.__s + 23) = 0;
+  __p.__r_.__value_.__s.__data_[0] = 0;
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  v53 = 0uLL;
+  LOBYTE(v54) = 0;
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v16 = &v48;
+  }
+
+  else
+  {
+    v16 = v48.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v48.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v48.__r_.__value_.__l.__size_;
+  }
+
+  memcpy(&v53, v16, size);
+  BYTE11(v57) = 1;
+  if ((*(a4 + 28) & 1) == 0)
+  {
+    goto LABEL_44;
+  }
+
+  *(&__p.__r_.__value_.__s + 23) = 14;
+  strcpy(&__p, "Network:XPANID");
+  v46.__r_.__value_.__r.__words[0] = &__p;
+  v18 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v46);
+  v19 = any_to_uint64(v18 + 7, 0);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (logging_obg)
+  {
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
+    {
+      LODWORD(__p.__r_.__value_.__l.__data_) = 134217984;
+      *(__p.__r_.__value_.__r.__words + 4) = v19;
+      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "DatasetTest buf extpanid saved: %llx", &__p, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [PowerEventHandler_Rcp init:];
+  }
+
+  *(&v54 + 5) = bswap32(v19);
+  BYTE4(v54) = BYTE4(v19);
+  BYTE3(v54) = BYTE5(v19);
+  BYTE2(v54) = BYTE6(v19);
+  BYTE1(v54) = HIBYTE(v19);
+  BYTE12(v57) = 1;
+  if (*(a4 + 26) != 1)
+  {
+    goto LABEL_44;
+  }
+
+  *(&v46.__r_.__value_.__s + 23) = 11;
+  strcpy(&v46, "Network:Key");
+  v49 = &v46;
+  v21 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v46.__r_.__value_.__l.__data_, &std::piecewise_construct, &v49);
+  any_to_data(&__p, v21 + 7);
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  v22 = 2 * (__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]);
+  if (v22 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v22 >= 0x17)
+  {
+    operator new();
+  }
+
+  *(&v46.__r_.__value_.__s + 23) = 2 * (__p.__r_.__value_.__s.__data_[8] - __p.__r_.__value_.__s.__data_[0]);
+  if (v22)
+  {
+    bzero(&v46, v22);
+  }
+
+  v46.__r_.__value_.__s.__data_[v22] = 0;
+  std::string::reserve(&v46, (2 * (__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0])) | 1);
+  if (__p.__r_.__value_.__l.__size_ == __p.__r_.__value_.__r.__words[0])
+  {
+    v29 = 0;
+  }
+
+  else
+  {
+    v29 = __p.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v30 = &v46;
+  }
+
+  else
+  {
+    v30 = v46.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v31 = 22;
+  }
+
+  else
+  {
+    v31 = (v46.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
+  }
+
+  encode_data_into_string(v29, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0], v30, v31, 0);
+  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v32 = &v46;
+  }
+
+  else
+  {
+    v32 = v46.__r_.__value_.__r.__words[0];
+  }
+
+  v26 = ot::Utils::CmdLineParser::ParseAsHexString(v32, &v52, 0x10);
+  if (v26)
+  {
+    v33 = 6;
+  }
+
+  else
+  {
+    v33 = 0;
+    BYTE10(v57) = 1;
+  }
+
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  if (__p.__r_.__value_.__r.__words[0])
+  {
+    __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v33)
+  {
+    v23 = 0;
+    v24 = 0;
+    if (!v26)
+    {
+LABEL_75:
+      v25 = 0;
+      goto LABEL_46;
+    }
+  }
+
+  else
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v46, "Network:NodeType");
+    v49 = &v46;
+    v34 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v46.__r_.__value_.__l.__data_, &std::piecewise_construct, &v49);
+    boost::any_cast<std::string>((v34 + 7), &__p);
+    v35 = __p.__r_.__value_.__l.__size_;
+    v23 = __p.__r_.__value_.__r.__words[0];
+    v47[0] = __p.__r_.__value_.__r.__words[2];
+    *(v47 + 3) = *(&__p.__r_.__value_.__r.__words[2] + 3);
+    v24 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+    *(&__p.__r_.__value_.__s + 23) = 0;
+    __p.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v46.__r_.__value_.__l.__data_);
+    }
+
+    if (v24 < 0)
+    {
+      std::string::__init_copy_ctor_external(&v45, v23, v35);
+    }
+
+    else
+    {
+      v45.__r_.__value_.__r.__words[0] = v23;
+      v45.__r_.__value_.__l.__size_ = v35;
+      LODWORD(v45.__r_.__value_.__r.__words[2]) = v47[0];
+      *(&v45.__r_.__value_.__r.__words[2] + 3) = *(v47 + 3);
+      *(&v45.__r_.__value_.__s + 23) = v24;
+    }
+
+    v26 = HostInterpreter::DeviceModeConfig(this, &v45);
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
+    if (!v26)
+    {
+      v26 = otDatasetSetActive(*(this + 28), v51);
+      if (!v26)
+      {
+        v36 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v36)
+        {
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          {
+            LOWORD(__p.__r_.__value_.__l.__data_) = 0;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Dataset commit active, Done", &__p, 2u);
+          }
+        }
+
+        else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          [PowerEventHandler_Rcp init:];
+        }
+
+        HostInterpreter::setExtendedMACAddressInDataSetIfAvailableinDB(this);
+        otIp6SetSlaacEnabled(*(this + 28), 1);
+        v26 = otIp6SetEnabled(*(this + 28), 1);
+        if (!v26)
+        {
+          v37 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v37)
+          {
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+            {
+              LOWORD(__p.__r_.__value_.__l.__data_) = 0;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Ifconfig up, Done", &__p, 2u);
+            }
+          }
+
+          else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            [PowerEventHandler_Rcp init:];
+          }
+
+          v26 = otThreadSetEnabled(*(this + 28), 1);
+          if (!v26)
+          {
+            LinkMode = otThreadGetLinkMode(*(this + 28));
+            if ((~LinkMode & 6) == 0 && (LinkMode & 1) == 0)
+            {
+              otThreadBecomeLeader(*(this + 28), 0);
+            }
+
+            v41 = log_get_logging_obg("com.apple.threadradiod", "default");
+            if (v41)
+            {
+              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+              {
+                LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
+                *(__p.__r_.__value_.__r.__words + 4) = "ProcessJoin";
+                _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%s Thread start, Done", &__p, 0xCu);
+              }
+            }
+
+            else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              [PowerEventHandler_Rcp init:];
+            }
+
+            HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(this);
+            isThreadSessionJoinEnabled = HostInterpreter::isThreadSessionJoinEnabled(v42);
+            if (!isThreadSessionJoinEnabled)
+            {
+              v44 = log_get_logging_obg("com.apple.threadradiod", "default");
+              if (v44)
+              {
+                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+                {
+                  LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
+                  *(__p.__r_.__value_.__r.__words + 4) = "ProcessJoin";
+                  _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s Thread Session Join THREAD_SESSION_ON", &__p, 0xCu);
+                }
+              }
+
+              else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                [PowerEventHandler_Rcp init:];
+              }
+
+              HostInterpreter::persistThreadSessionJoin(this, 1);
+            }
+
+            HostInterpreter::transactionEnabled(isThreadSessionJoinEnabled, 1);
+            v26 = 0;
+            goto LABEL_75;
+          }
+        }
+      }
+    }
+  }
+
+  HIDWORD(v39) = v26 - 1;
+  LODWORD(v39) = v26 - 1;
+  v38 = v39 >> 1;
+  if (v38 <= 2)
+  {
+    if (v38)
+    {
+      if (v38 == 2)
+      {
+        v25 = 9;
+        v26 = 5;
+        goto LABEL_46;
+      }
+    }
+
+    else
+    {
+      v26 = 1;
+    }
+
+    goto LABEL_107;
+  }
+
+  if (v38 != 6)
+  {
+    if (v38 == 3)
+    {
+      goto LABEL_45;
+    }
+
+LABEL_107:
+    v25 = 1;
+    goto LABEL_46;
+  }
+
+  v25 = 4;
+  v26 = 13;
+LABEL_46:
+  v27 = a4[5];
+  if (!v27)
+  {
+    std::runtime_error::runtime_error(&__p, "call to empty boost::function");
+    __p.__r_.__value_.__r.__words[0] = off_1004C1548;
+    boost::throw_exception<boost::bad_function_call>(&__p);
+  }
+
+  (*((v27 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 6, v25);
+  if (v24 < 0)
+  {
+    operator delete(v23);
+  }
+
+  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v48.__r_.__value_.__l.__data_);
+  }
+
+  return v26;
+}
+
 void sub_10011D97C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::bad_cast a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, std::runtime_error a32, int a33, __int16 a34, char a35, char a36)
 {
   if (v37 < 0)
@@ -15,7 +513,6 @@ void sub_10011D97C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t HostInterpreter::ProcessLeave(HostInterpreter *this, unsigned __int8 a2, char **a3, char *a4)
 {
-  v6 = *(this + 28);
   Rcp2Vendor2Enabled = otPlatRadioGetRcp2Vendor2Enabled();
   if (Rcp2Vendor2Enabled)
   {
@@ -23,12 +520,12 @@ uint64_t HostInterpreter::ProcessLeave(HostInterpreter *this, unsigned __int8 a2
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
     {
-      v9 = logging_obg;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v8 = logging_obg;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LODWORD(v36[0]) = 136315138;
-        *(v36 + 4) = "ProcessLeave";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s: Thread Stop Indication sent", v36, 0xCu);
+        LODWORD(v33[0]) = 136315138;
+        *(v33 + 4) = "ProcessLeave";
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: Thread Stop Indication sent", v33, 0xCu);
       }
     }
 
@@ -38,23 +535,23 @@ uint64_t HostInterpreter::ProcessLeave(HostInterpreter *this, unsigned __int8 a2
     }
 
     Rcp2Vendor2Enabled = otPlatVendorSetVendorThreadStartStop(*(this + 28), 0);
-    v10 = Rcp2Vendor2Enabled;
+    v9 = Rcp2Vendor2Enabled;
     if (Rcp2Vendor2Enabled)
     {
-      v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v11)
+      v10 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v10)
       {
         Rcp2Vendor2Enabled = syslog_is_the_mask_enabled(6);
         if (Rcp2Vendor2Enabled)
         {
-          Rcp2Vendor2Enabled = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+          Rcp2Vendor2Enabled = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
           if (Rcp2Vendor2Enabled)
           {
-            LODWORD(v36[0]) = 136315394;
-            *(v36 + 4) = "ProcessLeave";
-            WORD6(v36[0]) = 1024;
-            *(v36 + 14) = v10;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", v36, 0x12u);
+            LODWORD(v33[0]) = 136315394;
+            *(v33 + 4) = "ProcessLeave";
+            WORD6(v33[0]) = 1024;
+            *(v33 + 14) = v9;
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", v33, 0x12u);
           }
         }
       }
@@ -71,26 +568,26 @@ uint64_t HostInterpreter::ProcessLeave(HostInterpreter *this, unsigned __int8 a2
   }
 
   HostInterpreter::transactionEnabled(Rcp2Vendor2Enabled, 0);
-  v12 = *(this + 30);
-  *&v36[0] = _NSConcreteStackBlock;
-  *(&v36[0] + 1) = 0x40000000;
-  *&v36[1] = ___ZN15HostInterpreter38clearRcpSrpSignalMeshLocalAddressTimerEv_block_invoke;
-  *(&v36[1] + 1) = &__block_descriptor_tmp_39;
-  *&v37 = this;
-  dispatch_async(v12, v36);
-  if (!HostInterpreter::isThreadSessionJoinEnabled(v13))
+  v11 = *(this + 30);
+  *&v33[0] = _NSConcreteStackBlock;
+  *(&v33[0] + 1) = 0x40000000;
+  *&v33[1] = ___ZN15HostInterpreter38clearRcpSrpSignalMeshLocalAddressTimerEv_block_invoke;
+  *(&v33[1] + 1) = &__block_descriptor_tmp_39;
+  *&v34 = this;
+  dispatch_async(v11, v33);
+  if (!HostInterpreter::isThreadSessionJoinEnabled(v12))
   {
     goto LABEL_101;
   }
 
-  v14 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v14)
+  v13 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v13)
   {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v36[0]) = 136315138;
-      *(v36 + 4) = "ProcessLeave";
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s Thread Session Join THREAD_SESSION_OFF", v36, 0xCu);
+      LODWORD(v33[0]) = 136315138;
+      *(v33 + 4) = "ProcessLeave";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s Thread Session Join THREAD_SESSION_OFF", v33, 0xCu);
     }
   }
 
@@ -101,8 +598,8 @@ uint64_t HostInterpreter::ProcessLeave(HostInterpreter *this, unsigned __int8 a2
 
   saveStringValue("threadSessionJoin", "OFF");
   wcm_notify(0, *(this + 184));
-  v15 = HostInterpreter::detachIfWedConnectionInProgress(this);
-  if (!v15)
+  v14 = HostInterpreter::detachIfWedConnectionInProgress(this);
+  if (!v14)
   {
 LABEL_101:
     HostInterpreter::clearRcpSrpAnycastServiceCovergenceTimer(this);
@@ -112,14 +609,14 @@ LABEL_101:
     HostInterpreter::clearChildRoleDetectionTimer(this);
     HostInterpreter::clearRcpSrpServiceABCTimer(this);
     otIp6SetSlaacEnabled(*(this + 28), 0);
-    v16 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v16)
+    v15 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v15)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        LODWORD(v36[0]) = 136315138;
-        *(v36 + 4) = "ProcessLeave";
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s: SLAAC Disabled, Done", v36, 0xCu);
+        LODWORD(v33[0]) = 136315138;
+        *(v33 + 4) = "ProcessLeave";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%s: SLAAC Disabled, Done", v33, 0xCu);
       }
     }
 
@@ -128,17 +625,17 @@ LABEL_101:
       [PowerEventHandler_Rcp init:];
     }
 
-    v15 = otThreadSetEnabled(*(this + 28), 0);
-    if (!v15)
+    v14 = otThreadSetEnabled(*(this + 28), 0);
+    if (!v14)
     {
-      v17 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v17)
+      v16 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v16)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LODWORD(v36[0]) = 136315138;
-          *(v36 + 4) = "ProcessLeave";
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s: Thread stop, Done", v36, 0xCu);
+          LODWORD(v33[0]) = 136315138;
+          *(v33 + 4) = "ProcessLeave";
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s: Thread stop, Done", v33, 0xCu);
         }
       }
 
@@ -147,17 +644,17 @@ LABEL_101:
         [PowerEventHandler_Rcp init:];
       }
 
-      v15 = otIp6SetEnabled(*(this + 28), 0);
-      if (!v15)
+      v14 = otIp6SetEnabled(*(this + 28), 0);
+      if (!v14)
       {
-        v31 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v31)
+        v28 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v28)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            LODWORD(v36[0]) = 136315138;
-            *(v36 + 4) = "ProcessLeave";
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%s: Ifconfig down, Done", v36, 0xCu);
+            LODWORD(v33[0]) = 136315138;
+            *(v33 + 4) = "ProcessLeave";
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s: Ifconfig down, Done", v33, 0xCu);
           }
         }
 
@@ -166,15 +663,15 @@ LABEL_101:
           [PowerEventHandler_Rcp init:];
         }
 
-        if (otDatasetGetActive(*(this + 28), v36) != 23)
+        if (otDatasetGetActive(*(this + 28), v33) != 23)
         {
-          v32 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v32)
+          v29 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v29)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v44.__vftable) = 0;
-              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "OT Active Dataset present", &v44, 2u);
+              LOWORD(v41.__vftable) = 0;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "OT Active Dataset present", &v41, 2u);
             }
           }
 
@@ -183,27 +680,27 @@ LABEL_101:
             [PowerEventHandler_Rcp init:];
           }
 
-          v43 = 0;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
+          v40 = 0;
           v38 = 0u;
-          memset(v36, 0, sizeof(v36));
-          v15 = otDatasetSetActive(*(this + 28), v36);
-          if (v15)
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
+          memset(v33, 0, sizeof(v33));
+          v14 = otDatasetSetActive(*(this + 28), v33);
+          if (v14)
           {
             goto LABEL_37;
           }
 
-          v34 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v34)
+          v31 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v31)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v44.__vftable) = 0;
-              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "Deleted OT Active Dataset", &v44, 2u);
+              LOWORD(v41.__vftable) = 0;
+              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Deleted OT Active Dataset", &v41, 2u);
             }
           }
 
@@ -213,15 +710,15 @@ LABEL_101:
           }
         }
 
-        if (otDatasetGetPending(*(this + 28), v36) != 23)
+        if (otDatasetGetPending(*(this + 28), v33) != 23)
         {
-          v33 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v33)
+          v30 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v30)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v44.__vftable) = 0;
-              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "OT pending Dataset present", &v44, 2u);
+              LOWORD(v41.__vftable) = 0;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "OT pending Dataset present", &v41, 2u);
             }
           }
 
@@ -230,27 +727,27 @@ LABEL_101:
             [PowerEventHandler_Rcp init:];
           }
 
-          v43 = 0;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
+          v40 = 0;
           v38 = 0u;
-          memset(v36, 0, sizeof(v36));
-          v15 = otDatasetSetPending(*(this + 28), v36);
-          if (v15)
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
+          memset(v33, 0, sizeof(v33));
+          v14 = otDatasetSetPending(*(this + 28), v33);
+          if (v14)
           {
             goto LABEL_37;
           }
 
-          v35 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v35)
+          v32 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v32)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v44.__vftable) = 0;
-              _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Deleted OT pending Dataset", &v44, 2u);
+              LOWORD(v41.__vftable) = 0;
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Deleted OT pending Dataset", &v41, 2u);
             }
           }
 
@@ -264,31 +761,31 @@ LABEL_101:
         otThreadResetRloc16(*(this + 28));
         otNetDataReset(*(this + 28));
         HostInterpreter::remove_all_address_prefix_route_entries(this, 1);
-        v15 = 0;
-        v20 = 0;
-        v21 = *a4;
+        v14 = 0;
+        v19 = 0;
+        v20 = *a4;
         if (*a4)
         {
           goto LABEL_42;
         }
 
 LABEL_40:
-        v22 = std::runtime_error::runtime_error(&v44, "call to empty boost::function");
-        v44.__vftable = off_1004C1548;
-        boost::throw_exception<boost::bad_function_call>(v22);
+        v21 = std::runtime_error::runtime_error(&v41, "call to empty boost::function");
+        v41.__vftable = off_1004C1548;
+        boost::throw_exception<boost::bad_function_call>(v21);
       }
     }
   }
 
 LABEL_37:
   HostInterpreter::remove_all_address_prefix_route_entries(this, 1);
-  HIDWORD(v19) = v15 - 1;
-  LODWORD(v19) = v15 - 1;
-  v18 = v19 >> 1;
-  if (v18 > 6 || ((0x4Du >> v18) & 1) == 0)
+  HIDWORD(v18) = v14 - 1;
+  LODWORD(v18) = v14 - 1;
+  v17 = v18 >> 1;
+  if (v17 > 6 || ((0x4Du >> v17) & 1) == 0)
   {
-    v20 = 1;
-    v21 = *a4;
+    v19 = 1;
+    v20 = *a4;
     if (*a4)
     {
       goto LABEL_42;
@@ -297,24 +794,24 @@ LABEL_37:
     goto LABEL_40;
   }
 
-  v15 = dword_10044816C[v18];
-  v20 = dword_100448188[v18];
-  v21 = *a4;
+  v14 = dword_10044816C[v17];
+  v19 = dword_100448188[v17];
+  v20 = *a4;
   if (!*a4)
   {
     goto LABEL_40;
   }
 
 LABEL_42:
-  (*((v21 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, v20);
-  v23 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v23)
+  (*((v20 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, v19);
+  v22 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v22)
   {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v44.__vftable) = 136315138;
-      *(&v44.__vftable + 4) = "ProcessLeave";
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s: Closing settings fd", &v44, 0xCu);
+      LODWORD(v41.__vftable) = 136315138;
+      *(&v41.__vftable + 4) = "ProcessLeave";
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%s: Closing settings fd", &v41, 0xCu);
     }
   }
 
@@ -323,23 +820,21 @@ LABEL_42:
     [PowerEventHandler_Rcp init:];
   }
 
-  v24 = *(this + 28);
-  otPlatSettingsDeinit();
+  otPlatSettingsDeinit(*(this + 28));
   usleep(0x186A0u);
-  v25 = *(this + 28);
-  v26 = otPlatVendorResetRCP() == 0;
-  v27 = log_get_logging_obg("com.apple.threadradiod", "default");
-  v28 = v27;
-  if (!v26)
+  v23 = otPlatVendorResetRCP() == 0;
+  v24 = log_get_logging_obg("com.apple.threadradiod", "default");
+  v25 = v24;
+  if (!v23)
   {
-    if (v27)
+    if (v24)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v44.__vftable) = 0;
-        v29 = "Failed to Reset RCP2 to sleep state";
+        LOWORD(v41.__vftable) = 0;
+        v26 = "Failed to Reset RCP2 to sleep state";
 LABEL_57:
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, v29, &v44, 2u);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, v26, &v41, 2u);
         goto LABEL_62;
       }
 
@@ -356,7 +851,7 @@ LABEL_61:
     goto LABEL_62;
   }
 
-  if (!v27)
+  if (!v24)
   {
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -366,27 +861,27 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v44.__vftable) = 0;
-    v29 = "Reset RCP2 to sleep state";
+    LOWORD(v41.__vftable) = 0;
+    v26 = "Reset RCP2 to sleep state";
     goto LABEL_57;
   }
 
 LABEL_62:
   power_assertion_n = 0;
   Thread_DeassertPower();
-  return v15;
+  return v14;
 }
 
-uint64_t HostInterpreter::ProcessNetScan(HostInterpreter *this, unsigned __int8 a2, char **a3, char *a4)
+uint64_t HostInterpreter::ProcessNetScan(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t **a4)
 {
   v43 = 16;
   strcpy(__s1, "Scan:ChannelMask");
-  v6 = *(a4 + 1);
+  v6 = a4[1];
   if (v6)
   {
-    v7 = *(a4 + 1);
+    v7 = a4[1];
     do
     {
       v8 = *(v7 + 55);
@@ -402,7 +897,7 @@ uint64_t HostInterpreter::ProcessNetScan(HostInterpreter *this, unsigned __int8 
 
       if (v8 >= 0)
       {
-        v10 = (v7 + 4);
+        v10 = v7 + 4;
       }
 
       else
@@ -441,7 +936,7 @@ uint64_t HostInterpreter::ProcessNetScan(HostInterpreter *this, unsigned __int8 
           v43 = 16;
           strcpy(__s1, "Scan:ChannelMask");
           v41.__vftable = __s1;
-          v17 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+          v17 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v41);
           v18 = v17[7];
           if (v18)
           {
@@ -458,7 +953,7 @@ uint64_t HostInterpreter::ProcessNetScan(HostInterpreter *this, unsigned __int8 
             v41.__vftable = 0;
             std::bad_cast::bad_cast(&v41);
             v41.__vftable = off_1004C1D50;
-            boost::throw_exception<boost::bad_any_cast>();
+            boost::throw_exception<boost::bad_any_cast>(&v41);
           }
 
           v16 = *(v17[7] + 8);
@@ -467,7 +962,7 @@ uint64_t HostInterpreter::ProcessNetScan(HostInterpreter *this, unsigned __int8 
             operator delete(*__s1);
           }
 
-          v6 = *(a4 + 1);
+          v6 = a4[1];
           goto LABEL_29;
         }
 
@@ -506,7 +1001,7 @@ LABEL_48:
 
     if (v22 >= 0)
     {
-      v24 = (v6 + 4);
+      v24 = v6 + 4;
     }
 
     else
@@ -560,7 +1055,7 @@ LABEL_31:
   v43 = 11;
   v41.__vftable = __s1;
   strcpy(__s1, "Scan:Period");
-  v35 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+  v35 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v41);
   v36 = v35[7];
   if (v36)
   {
@@ -577,7 +1072,7 @@ LABEL_31:
     v41.__vftable = 0;
     std::bad_cast::bad_cast(&v41);
     v41.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v41);
   }
 
   v30 = *(v35[7] + 8);
@@ -592,7 +1087,7 @@ LABEL_49:
   active = otLinkActiveScan(*(this + 28), v16, v30, HostInterpreter::HandleActiveScanResultFromBeacon, this);
   if (active)
   {
-    v32 = *(a4 + 3);
+    v32 = a4[3];
     if (!v32)
     {
       std::runtime_error::runtime_error(__s1, "call to empty boost::function");
@@ -600,7 +1095,7 @@ LABEL_49:
       boost::throw_exception<boost::bad_function_call>(__s1);
     }
 
-    (*((v32 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 32, active);
+    (*((v32 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 4, active);
     TaskQueueWrapper::pop_front(RcpHostContext::sRcpHostContext);
   }
 
@@ -640,7 +1135,7 @@ void sub_10011E968(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void HostInterpreter::ProcessPeekCmd(HostInterpreter *this, unsigned __int8 a2, char **a3, unsigned int *a4)
+void HostInterpreter::ProcessPeekCmd(HostInterpreter *this, unsigned __int8 a2, char **a3, char *a4)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -732,11 +1227,11 @@ void sub_10011EE80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HostInterpreter::ProcessPrefixAdd(HostInterpreter *this, unsigned __int8 a2, char **a3, const in6_addr *a4)
+uint64_t HostInterpreter::ProcessPrefixAdd(uint64_t **this, unsigned __int8 a2, char **a3, const in6_addr *a4)
 {
-  v34[0] = 0;
-  v34[1] = 0;
-  v35 = 0;
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 0;
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
@@ -757,15 +1252,15 @@ uint64_t HostInterpreter::ProcessPrefixAdd(HostInterpreter *this, unsigned __int
 
   std::set<PrefixFlag>::set[abi:ne200100](v33, a4[2].__u6_addr8);
   v9 = OnMeshPrefixEntry::encode_flag_set(v33, a4[1].__u6_addr32[1]);
-  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(v33, v33[1]);
+  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(v33, v34);
   IPv6Prefix::IPv6Prefix(&v31, a4, a4[1].__u6_addr8[0]);
   v10 = a4[1].__u6_addr8[8];
   LODWORD(v29) = 2;
   WORD2(v29) = v9;
   BYTE6(v29) = v10;
   LOWORD(v30) = 0;
-  IPv6Prefix::to_string(&v31, buf);
-  if ((v38 & 0x80000000) == 0)
+  IPv6Prefix::to_string(buf, &v31);
+  if ((v39 & 0x80000000) == 0)
   {
     v11 = buf;
   }
@@ -775,9 +1270,9 @@ uint64_t HostInterpreter::ProcessPrefixAdd(HostInterpreter *this, unsigned __int
     v11 = *buf;
   }
 
-  v12 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(v11, v34);
+  v12 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(v11, v35);
   v13 = v12;
-  if (SBYTE3(v38) < 0)
+  if (SBYTE3(v39) < 0)
   {
     operator delete(*buf);
     if (v13)
@@ -810,16 +1305,16 @@ LABEL_12:
   {
     prefix_entry = HostInterpreter::find_prefix_entry(this, &v31, &v29);
     v19 = prefix_entry;
-    if ((this + 64) == prefix_entry)
+    if (this + 8 == prefix_entry)
     {
       *buf = v31;
-      v37 = v32;
-      v38 = v29;
-      v39 = v30;
+      v38 = v32;
+      v39 = v29;
+      v40 = v30;
       operator new();
     }
 
-    v20 = prefix_entry[52] == v9;
+    v20 = *(prefix_entry + 52) == v9;
     v21 = log_get_logging_obg("com.apple.threadradiod", "default");
     v22 = v21;
     if (v20)
@@ -883,8 +1378,8 @@ LABEL_55:
     v16 = 0;
   }
 
-  *(&v35 + 1) = (v9 >> 6) & 0x200 | (__rbit32(v9 & 0x3F) >> 24) | (v9 >> 4) & 0x400 | v16 | *(&v35 + 1) & 0xF800 | v15;
-  v13 = otBorderRouterAddOnMeshPrefix(*(this + 28), v34);
+  *(&v36 + 1) = (v9 >> 6) & 0x200 | (__rbit32(v9 & 0x3F) >> 24) | (v9 >> 4) & 0x400 | v16 | *(&v36 + 1) & 0xF800 | v15;
+  v13 = otBorderRouterAddOnMeshPrefix(this[28], v35);
   if (v13)
   {
     v17 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -908,7 +1403,7 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  v13 = otBorderRouterRegister(*(this + 28));
+  v13 = otBorderRouterRegister(this[28]);
   if (!v13)
   {
     v24 = 0;
@@ -977,16 +1472,16 @@ void sub_10011F5F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HostInterpreter::ProcessPrefixRemove(HostInterpreter *this, unsigned __int8 a2, char **a3, unsigned __int8 *a4)
+uint64_t HostInterpreter::ProcessPrefixRemove(HostInterpreter *this, unsigned __int8 a2, char **a3, const in6_addr *a4)
 {
-  memset(v37, 0, sizeof(v37));
-  std::set<PrefixFlag>::set[abi:ne200100](v36, a4 + 4);
-  v6 = OnMeshPrefixEntry::encode_flag_set(v36, *(a4 + 5));
-  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(v36, v36[1]);
-  IPv6Prefix::IPv6Prefix(&v35, a4, a4[16]);
+  memset(v38, 0, sizeof(v38));
+  std::set<PrefixFlag>::set[abi:ne200100](v36, a4[2].__u6_addr8);
+  v6 = OnMeshPrefixEntry::encode_flag_set(v36, a4[1].__u6_addr32[1]);
+  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(v36, v37);
+  IPv6Prefix::IPv6Prefix(&v35, a4, a4[1].__u6_addr8[0]);
   if ((gSrpModeNetInfo & 1) == 0)
   {
-    v7 = a4[24];
+    v7 = a4[1].__u6_addr8[8];
     v31 = 2;
     v32 = v6;
     v33 = v7;
@@ -1000,10 +1495,10 @@ uint64_t HostInterpreter::ProcessPrefixRemove(HostInterpreter *this, unsigned __
       {
         if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          OnMeshPrefixEntry::get_description(&v31, &v35, 0, &__p);
+          OnMeshPrefixEntry::get_description(&__p, &v31, &v35, 0);
           v12 = v30 >= 0 ? &__p : __p.__vftable;
           *buf = 136315138;
-          v39 = v12;
+          v40 = v12;
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "OnMeshPrefixes: [%s] Prefix not found", buf, 0xCu);
           if (v30 < 0)
           {
@@ -1025,10 +1520,10 @@ uint64_t HostInterpreter::ProcessPrefixRemove(HostInterpreter *this, unsigned __
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        OnMeshPrefixEntry::get_description(&v31, &v35, 0, &__p);
+        OnMeshPrefixEntry::get_description(&__p, &v31, &v35, 0);
         v11 = v30 >= 0 ? &__p : __p.__vftable;
         *buf = 136315138;
-        v39 = v11;
+        v40 = v11;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "OnMeshPrefixes: Removing %s", buf, 0xCu);
         if (v30 < 0)
         {
@@ -1078,7 +1573,7 @@ uint64_t HostInterpreter::ProcessPrefixRemove(HostInterpreter *this, unsigned __
     operator delete(prefix_entry);
   }
 
-  IPv6Prefix::to_string(&v35, &__p);
+  IPv6Prefix::to_string(&__p, &v35);
   if (v30 >= 0)
   {
     p_p = &__p;
@@ -1089,7 +1584,7 @@ uint64_t HostInterpreter::ProcessPrefixRemove(HostInterpreter *this, unsigned __
     p_p = __p.__vftable;
   }
 
-  v19 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(p_p, v37);
+  v19 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(p_p, v38);
   v20 = v19;
   if (v30 < 0)
   {
@@ -1124,7 +1619,7 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  v20 = otBorderRouterRemoveOnMeshPrefix(*(this + 28), v37);
+  v20 = otBorderRouterRemoveOnMeshPrefix(*(this + 28), v38);
   if (!v20)
   {
     v20 = otBorderRouterRegister(*(this + 28));
@@ -1151,7 +1646,7 @@ LABEL_60:
 
 LABEL_57:
     v24 = 0;
-    v25 = *(a4 + 7);
+    v25 = *&a4[3].__u6_addr32[2];
     if (v25)
     {
       goto LABEL_66;
@@ -1186,7 +1681,7 @@ LABEL_61:
   if (v26 > 6 || ((0x4Du >> v26) & 1) == 0)
   {
     v24 = 1;
-    v25 = *(a4 + 7);
+    v25 = *&a4[3].__u6_addr32[2];
     if (v25)
     {
       goto LABEL_66;
@@ -1197,14 +1692,14 @@ LABEL_61:
 
   v20 = dword_10044816C[v26];
   v24 = dword_100448188[v26];
-  v25 = *(a4 + 7);
+  v25 = *&a4[3].__u6_addr32[2];
   if (!v25)
   {
     goto LABEL_64;
   }
 
 LABEL_66:
-  (*((v25 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 64, v24);
+  (*((v25 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 4, v24);
   return v20;
 }
 
@@ -1223,7 +1718,7 @@ uint64_t HostInterpreter::ProcessPropertyGet(HostInterpreter *this, unsigned __i
 {
   v4 = __chkstk_darwin(this);
   v6 = v5;
-  v413 = v4;
+  v422 = v4;
   v7 = *(v5 + 23);
   *&__s1 = v5;
   if ((v7 & 0x80000000) == 0)
@@ -1452,21 +1947,21 @@ LABEL_249:
                                                                                                                                                                                                                               logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
                                                                                                                                                                                                                               if (logging_obg)
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                v340 = logging_obg;
-                                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v340, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                                                v344 = logging_obg;
+                                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v344, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                                                 {
-                                                                                                                                                                                                                                  v341 = __s1;
-                                                                                                                                                                                                                                  v342 = *(__s1 + 56);
+                                                                                                                                                                                                                                  v345 = __s1;
+                                                                                                                                                                                                                                  v346 = *(__s1 + 56);
                                                                                                                                                                                                                                   if (*(__s1 + 23) < 0)
                                                                                                                                                                                                                                   {
-                                                                                                                                                                                                                                    v341 = *__s1;
+                                                                                                                                                                                                                                    v345 = *__s1;
                                                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-                                                                                                                                                                                                                                  HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v342;
-                                                                                                                                                                                                                                  LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                                                                                                                                                                                  *(&v427[0].__r_.__value_.__r.__words[1] + 2) = v341;
-                                                                                                                                                                                                                                  _os_log_impl(&_mh_execute_header, v340, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v427, 0x12u);
+                                                                                                                                                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+                                                                                                                                                                                                                                  HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v346;
+                                                                                                                                                                                                                                  LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                                                                                                                                                                                  *(&v436[0].__r_.__value_.__r.__words[1] + 2) = v345;
+                                                                                                                                                                                                                                  _os_log_impl(&_mh_execute_header, v344, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v436, 0x12u);
                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                               }
 
@@ -1475,16 +1970,16 @@ LABEL_249:
                                                                                                                                                                                                                                 [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                                               }
 
-                                                                                                                                                                                                                              *v443 = 0;
-                                                                                                                                                                                                                              if (*(*(v413 + 28) + 143816) >= 0xF1u)
+                                                                                                                                                                                                                              *v452 = 0;
+                                                                                                                                                                                                                              if (*(v422[28] + 143816) >= 0xF1u)
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                HostInterpreter::get_srp_service_advertised_info(v413, v447, __s, v443, v449);
-                                                                                                                                                                                                                                if (!*v443)
+                                                                                                                                                                                                                                HostInterpreter::get_srp_service_advertised_info(v422, v456, __s, v452, v458);
+                                                                                                                                                                                                                                if (!*v452)
                                                                                                                                                                                                                                 {
-                                                                                                                                                                                                                                  v404 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                                                  if (v404)
+                                                                                                                                                                                                                                  v413 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                                                  if (v413)
                                                                                                                                                                                                                                   {
-                                                                                                                                                                                                                                    if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v404, OS_LOG_TYPE_ERROR))
+                                                                                                                                                                                                                                    if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v413, OS_LOG_TYPE_ERROR))
                                                                                                                                                                                                                                     {
                                                                                                                                                                                                                                       HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                                                                                     }
@@ -1515,11 +2010,11 @@ LABEL_249:
                                                                                                                                                                                                                                     v13 = *__s1;
                                                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                                                                                                                                                                                                                  *(v427[0].__r_.__value_.__r.__words + 4) = v13;
-                                                                                                                                                                                                                                  WORD2(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                                                                                                                                                                                  *(&v427[0].__r_.__value_.__r.__words[1] + 6) = "Prop NotFound";
-                                                                                                                                                                                                                                  _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v427, 0x16u);
+                                                                                                                                                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                                                                                                                                                                                                                  *(v436[0].__r_.__value_.__r.__words + 4) = v13;
+                                                                                                                                                                                                                                  WORD2(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                                                                                                                                                                                  *(&v436[0].__r_.__value_.__r.__words[1] + 6) = "Prop NotFound";
+                                                                                                                                                                                                                                  _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v436, 0x16u);
                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                               }
 
@@ -1528,7 +2023,7 @@ LABEL_249:
                                                                                                                                                                                                                                 [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                                               }
 
-                                                                                                                                                                                                                              std::string::basic_string[abi:ne200100]<0>(v427, "Property Not Found");
+                                                                                                                                                                                                                              std::string::basic_string[abi:ne200100]<0>(v436, "Property Not Found");
                                                                                                                                                                                                                               operator new();
                                                                                                                                                                                                                             }
 
@@ -1536,18 +2031,18 @@ LABEL_249:
                                                                                                                                                                                                                             {
                                                                                                                                                                                                                               if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                v343 = __s1;
-                                                                                                                                                                                                                                v344 = *(__s1 + 56);
+                                                                                                                                                                                                                                v347 = __s1;
+                                                                                                                                                                                                                                v348 = *(__s1 + 56);
                                                                                                                                                                                                                                 if (*(__s1 + 23) < 0)
                                                                                                                                                                                                                                 {
-                                                                                                                                                                                                                                  v343 = *__s1;
+                                                                                                                                                                                                                                  v347 = *__s1;
                                                                                                                                                                                                                                 }
 
-                                                                                                                                                                                                                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-                                                                                                                                                                                                                                HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v344;
-                                                                                                                                                                                                                                LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                                                                                                                                                                                *(&v427[0].__r_.__value_.__r.__words[1] + 2) = v343;
-                                                                                                                                                                                                                                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v427, 0x12u);
+                                                                                                                                                                                                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+                                                                                                                                                                                                                                HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v348;
+                                                                                                                                                                                                                                LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                                                                                                                                                                                *(&v436[0].__r_.__value_.__r.__words[1] + 2) = v347;
+                                                                                                                                                                                                                                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v436, 0x12u);
                                                                                                                                                                                                                               }
                                                                                                                                                                                                                             }
 
@@ -1556,29 +2051,29 @@ LABEL_249:
                                                                                                                                                                                                                               [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                                             }
 
-                                                                                                                                                                                                                            gettimeofday(v443, v447);
-                                                                                                                                                                                                                            std::string::basic_string[abi:ne200100]<0>(v427, "is_primary_resident");
-                                                                                                                                                                                                                            *v449 = v427;
-                                                                                                                                                                                                                            v398 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
-                                                                                                                                                                                                                            v399 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v398 + 7, "1");
-                                                                                                                                                                                                                            if (SHIBYTE(v427[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                                                                                                                            gettimeofday(v452, v456);
+                                                                                                                                                                                                                            std::string::basic_string[abi:ne200100]<0>(v436, "is_primary_resident");
+                                                                                                                                                                                                                            *v458 = v436;
+                                                                                                                                                                                                                            v407 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v458);
+                                                                                                                                                                                                                            v408 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v407 + 7, "1");
+                                                                                                                                                                                                                            if (SHIBYTE(v436[0].__r_.__value_.__r.__words[2]) < 0)
                                                                                                                                                                                                                             {
-                                                                                                                                                                                                                              operator delete(v427[0].__r_.__value_.__l.__data_);
+                                                                                                                                                                                                                              operator delete(v436[0].__r_.__value_.__l.__data_);
                                                                                                                                                                                                                             }
 
-                                                                                                                                                                                                                            v400 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                                            if (v400)
+                                                                                                                                                                                                                            v409 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                                            if (v409)
                                                                                                                                                                                                                             {
-                                                                                                                                                                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v400, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v409, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                v401 = *(v413 + 39);
-                                                                                                                                                                                                                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 134218496;
-                                                                                                                                                                                                                                *(v427[0].__r_.__value_.__r.__words + 4) = *v443;
-                                                                                                                                                                                                                                WORD2(v427[0].__r_.__value_.__r.__words[1]) = 2048;
-                                                                                                                                                                                                                                *(&v427[0].__r_.__value_.__r.__words[1] + 6) = v401;
-                                                                                                                                                                                                                                HIWORD(v427[0].__r_.__value_.__r.__words[2]) = 1024;
-                                                                                                                                                                                                                                LODWORD(v427[1].__r_.__value_.__l.__data_) = v399;
-                                                                                                                                                                                                                                _os_log_impl(&_mh_execute_header, v400, OS_LOG_TYPE_INFO, "Leader re-election attempt(Event) CurrTimeSec[%ld] LastTriggerTime[%ld] Primary[%d]", v427, 0x1Cu);
+                                                                                                                                                                                                                                v410 = v422[39];
+                                                                                                                                                                                                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 134218496;
+                                                                                                                                                                                                                                *(v436[0].__r_.__value_.__r.__words + 4) = *v452;
+                                                                                                                                                                                                                                WORD2(v436[0].__r_.__value_.__r.__words[1]) = 2048;
+                                                                                                                                                                                                                                *(&v436[0].__r_.__value_.__r.__words[1] + 6) = v410;
+                                                                                                                                                                                                                                HIWORD(v436[0].__r_.__value_.__r.__words[2]) = 1024;
+                                                                                                                                                                                                                                LODWORD(v436[1].__r_.__value_.__l.__data_) = v408;
+                                                                                                                                                                                                                                _os_log_impl(&_mh_execute_header, v409, OS_LOG_TYPE_INFO, "Leader re-election attempt(Event) CurrTimeSec[%ld] LastTriggerTime[%ld] Primary[%d]", v436, 0x1Cu);
                                                                                                                                                                                                                               }
                                                                                                                                                                                                                             }
 
@@ -1588,12 +2083,12 @@ LABEL_249:
                                                                                                                                                                                                                             }
 
                                                                                                                                                                                                                             ++*(RcpHostContext::sRcpHostContext + 6128);
-                                                                                                                                                                                                                            if (otThreadBecomeLeader(*(v413 + 28), 1))
+                                                                                                                                                                                                                            if (otThreadBecomeLeader(v422[28], 1))
                                                                                                                                                                                                                             {
-                                                                                                                                                                                                                              v405 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                                              if (v405)
+                                                                                                                                                                                                                              v414 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                                              if (v414)
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v405, OS_LOG_TYPE_ERROR))
+                                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v414, OS_LOG_TYPE_ERROR))
                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                   HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                                                                                 }
@@ -1607,11 +2102,11 @@ LABEL_249:
 
                                                                                                                                                                                                                             else
                                                                                                                                                                                                                             {
-                                                                                                                                                                                                                              *(v413 + 39) = *v443;
-                                                                                                                                                                                                                              v406 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                                              if (v406)
+                                                                                                                                                                                                                              v422[39] = *v452;
+                                                                                                                                                                                                                              v415 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                                              if (v415)
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v406, OS_LOG_TYPE_ERROR))
+                                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v415, OS_LOG_TYPE_ERROR))
                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                   HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                                                                                 }
@@ -1634,24 +2129,24 @@ LABEL_249:
                                                                                                                                                                                                                           }
 
 LABEL_1139:
-                                                                                                                                                                                                                          v335 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                                          if (v335)
+                                                                                                                                                                                                                          v339 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                                          if (v339)
                                                                                                                                                                                                                           {
-                                                                                                                                                                                                                            v336 = v335;
-                                                                                                                                                                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v336, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                                            v340 = v339;
+                                                                                                                                                                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v340, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                                             {
-                                                                                                                                                                                                                              v337 = __s1;
-                                                                                                                                                                                                                              v338 = *(__s1 + 56);
+                                                                                                                                                                                                                              v341 = __s1;
+                                                                                                                                                                                                                              v342 = *(__s1 + 56);
                                                                                                                                                                                                                               if (*(__s1 + 23) < 0)
                                                                                                                                                                                                                               {
-                                                                                                                                                                                                                                v337 = *__s1;
+                                                                                                                                                                                                                                v341 = *__s1;
                                                                                                                                                                                                                               }
 
-                                                                                                                                                                                                                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-                                                                                                                                                                                                                              HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v338;
-                                                                                                                                                                                                                              LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                                                                                                                                                                              *(&v427[0].__r_.__value_.__r.__words[1] + 2) = v337;
-                                                                                                                                                                                                                              _os_log_impl(&_mh_execute_header, v336, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v427, 0x12u);
+                                                                                                                                                                                                                              LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+                                                                                                                                                                                                                              HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v342;
+                                                                                                                                                                                                                              LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                                                                                                                                                                              *(&v436[0].__r_.__value_.__r.__words[1] + 2) = v341;
+                                                                                                                                                                                                                              _os_log_impl(&_mh_execute_header, v340, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v436, 0x12u);
                                                                                                                                                                                                                             }
                                                                                                                                                                                                                           }
 
@@ -1660,10 +2155,10 @@ LABEL_1139:
                                                                                                                                                                                                                             [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                                           }
 
-                                                                                                                                                                                                                          v427[0].__r_.__value_.__r.__words[0] = v427;
-                                                                                                                                                                                                                          v427[0].__r_.__value_.__l.__size_ = v427;
-                                                                                                                                                                                                                          v427[0].__r_.__value_.__r.__words[2] = 0;
-                                                                                                                                                                                                                          RcpHostContext::GetThreadStartMetrics(RcpHostContext::sRcpHostContext);
+                                                                                                                                                                                                                          v436[0].__r_.__value_.__r.__words[0] = v436;
+                                                                                                                                                                                                                          v436[0].__r_.__value_.__l.__size_ = v436;
+                                                                                                                                                                                                                          v436[0].__r_.__value_.__r.__words[2] = 0;
+                                                                                                                                                                                                                          RcpHostContext::GetThreadStartMetrics(RcpHostContext::sRcpHostContext, v436);
                                                                                                                                                                                                                         }
 
                                                                                                                                                                                                                         goto LABEL_1133;
@@ -1682,21 +2177,21 @@ LABEL_1139:
                                                                                                                                                                                                               }
 
 LABEL_1103:
-                                                                                                                                                                                                              v316 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                              if (v316)
+                                                                                                                                                                                                              v319 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                              if (v319)
                                                                                                                                                                                                               {
-                                                                                                                                                                                                                v317 = v316;
-                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v317, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                                v320 = v319;
+                                                                                                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v320, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                                 {
-                                                                                                                                                                                                                  v318 = __s1;
+                                                                                                                                                                                                                  v321 = __s1;
                                                                                                                                                                                                                   if (*(__s1 + 23) < 0)
                                                                                                                                                                                                                   {
-                                                                                                                                                                                                                    v318 = *__s1;
+                                                                                                                                                                                                                    v321 = *__s1;
                                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                                                                                                  *(v427[0].__r_.__value_.__r.__words + 4) = v318;
-                                                                                                                                                                                                                  _os_log_impl(&_mh_execute_header, v317, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                                                                                                  *(v436[0].__r_.__value_.__r.__words + 4) = v321;
+                                                                                                                                                                                                                  _os_log_impl(&_mh_execute_header, v320, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                                                                                                                 }
                                                                                                                                                                                                               }
 
@@ -1705,12 +2200,12 @@ LABEL_1103:
                                                                                                                                                                                                                 [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                               }
 
-                                                                                                                                                                                                              v447[0].__r_.__value_.__s.__data_[0] = 0;
-                                                                                                                                                                                                              IfsAckDataPerNeighbor = otPlatVendorGetIfsAckDataPerNeighbor(v427, v447);
+                                                                                                                                                                                                              v456[0].__r_.__value_.__s.__data_[0] = 0;
+                                                                                                                                                                                                              IfsAckDataPerNeighbor = otPlatVendorGetIfsAckDataPerNeighbor(v436, v456);
                                                                                                                                                                                                               if (!IfsAckDataPerNeighbor)
                                                                                                                                                                                                               {
-                                                                                                                                                                                                                HostInterpreter::GetIfsAckDataPerNeighborAsString(v427, v447[0].__r_.__value_.__s.__data_[0], v443);
-                                                                                                                                                                                                                boost::any::any<std::string &>();
+                                                                                                                                                                                                                HostInterpreter::GetIfsAckDataPerNeighborAsString(v436, v456[0].__r_.__value_.__s.__data_[0], v452);
+                                                                                                                                                                                                                boost::any::any<std::string &>(v458, v452);
                                                                                                                                                                                                               }
 
                                                                                                                                                                                                               goto LABEL_299;
@@ -1723,16 +2218,16 @@ LABEL_1103:
                                                                                                                                                                                                         }
 
 LABEL_1094:
-                                                                                                                                                                                                        v443[0] = 0;
-                                                                                                                                                                                                        v310 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                        if (v310)
+                                                                                                                                                                                                        v452[0] = 0;
+                                                                                                                                                                                                        v313 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                        if (v313)
                                                                                                                                                                                                         {
-                                                                                                                                                                                                          v311 = v310;
-                                                                                                                                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v311, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                          v314 = v313;
+                                                                                                                                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v314, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                           {
-                                                                                                                                                                                                            LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                                                                                            *(v427[0].__r_.__value_.__r.__words + 4) = "vendor:fem:enabled";
-                                                                                                                                                                                                            _os_log_impl(&_mh_execute_header, v311, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                                                                                                            LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                                                                                            *(v436[0].__r_.__value_.__r.__words + 4) = "vendor:fem:enabled";
+                                                                                                                                                                                                            _os_log_impl(&_mh_execute_header, v314, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                                                                                                           }
                                                                                                                                                                                                         }
 
@@ -1741,7 +2236,7 @@ LABEL_1094:
                                                                                                                                                                                                           [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                         }
 
-                                                                                                                                                                                                        IfsAckDataPerNeighbor = otPlatVendorGetFemEnabled(*(v413 + 28), v443);
+                                                                                                                                                                                                        IfsAckDataPerNeighbor = otPlatVendorGetFemEnabled(v422[28], v452);
                                                                                                                                                                                                         if (!IfsAckDataPerNeighbor)
                                                                                                                                                                                                         {
                                                                                                                                                                                                           operator new();
@@ -1751,16 +2246,16 @@ LABEL_1094:
                                                                                                                                                                                                       }
 
 LABEL_1090:
-                                                                                                                                                                                                      v443[0] = 0;
-                                                                                                                                                                                                      v308 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                      if (v308)
+                                                                                                                                                                                                      v452[0] = 0;
+                                                                                                                                                                                                      v311 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                      if (v311)
                                                                                                                                                                                                       {
-                                                                                                                                                                                                        v309 = v308;
-                                                                                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v309, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                        v312 = v311;
+                                                                                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v312, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                         {
-                                                                                                                                                                                                          LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                                                                                          *(v427[0].__r_.__value_.__r.__words + 4) = "vendor:power:limit:table:active:id";
-                                                                                                                                                                                                          _os_log_impl(&_mh_execute_header, v309, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                                                                                                          LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                                                                                          *(v436[0].__r_.__value_.__r.__words + 4) = "vendor:power:limit:table:active:id";
+                                                                                                                                                                                                          _os_log_impl(&_mh_execute_header, v312, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                                                                                                         }
                                                                                                                                                                                                       }
 
@@ -1769,7 +2264,7 @@ LABEL_1090:
                                                                                                                                                                                                         [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                       }
 
-                                                                                                                                                                                                      IfsAckDataPerNeighbor = otPlatVendorGetPowerLimitTableActiveId(*(v413 + 28), v443);
+                                                                                                                                                                                                      IfsAckDataPerNeighbor = otPlatVendorGetPowerLimitTableActiveId(v422[28], v452);
                                                                                                                                                                                                       if (!IfsAckDataPerNeighbor)
                                                                                                                                                                                                       {
                                                                                                                                                                                                         operator new();
@@ -1779,17 +2274,17 @@ LABEL_1090:
                                                                                                                                                                                                     }
 
 LABEL_1085:
-                                                                                                                                                                                                    IfsAckDataPerNeighbor = otPlatVendorGetPowerLimitTable(*(v413 + 28), v427);
+                                                                                                                                                                                                    IfsAckDataPerNeighbor = otPlatVendorGetPowerLimitTable(v422[28], v436);
                                                                                                                                                                                                     if (!IfsAckDataPerNeighbor)
                                                                                                                                                                                                     {
-                                                                                                                                                                                                      v307 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                      if (v307)
+                                                                                                                                                                                                      v310 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                      if (v310)
                                                                                                                                                                                                       {
-                                                                                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v307, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v310, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                         {
-                                                                                                                                                                                                          *v443 = 136315138;
-                                                                                                                                                                                                          *&v443[4] = "vendor:power:limit:table";
-                                                                                                                                                                                                          _os_log_impl(&_mh_execute_header, v307, OS_LOG_TYPE_INFO, "HI:PG0:%s", v443, 0xCu);
+                                                                                                                                                                                                          *v452 = 136315138;
+                                                                                                                                                                                                          *&v452[4] = "vendor:power:limit:table";
+                                                                                                                                                                                                          _os_log_impl(&_mh_execute_header, v310, OS_LOG_TYPE_INFO, "HI:PG0:%s", v452, 0xCu);
                                                                                                                                                                                                         }
                                                                                                                                                                                                       }
 
@@ -1798,8 +2293,8 @@ LABEL_1085:
                                                                                                                                                                                                         [PowerEventHandler_Rcp init:];
                                                                                                                                                                                                       }
 
-                                                                                                                                                                                                      HostInterpreter::GetPowerLimitTableAsString(v427, v443);
-                                                                                                                                                                                                      boost::any::any<std::string &>();
+                                                                                                                                                                                                      HostInterpreter::GetPowerLimitTableAsString(v436, v452);
+                                                                                                                                                                                                      boost::any::any<std::string &>(v458, v452);
                                                                                                                                                                                                     }
 
                                                                                                                                                                                                     goto LABEL_299;
@@ -1809,22 +2304,22 @@ LABEL_1085:
                                                                                                                                                                                                 }
 
 LABEL_1073:
-                                                                                                                                                                                                PcapStateTable = otLinkGetPcapStateTable(*(v413 + 28));
-                                                                                                                                                                                                v301 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                if (v301)
+                                                                                                                                                                                                PcapStateTable = otLinkGetPcapStateTable(v422[28]);
+                                                                                                                                                                                                v304 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                if (v304)
                                                                                                                                                                                                 {
-                                                                                                                                                                                                  v302 = v301;
-                                                                                                                                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v302, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                                  v305 = v304;
+                                                                                                                                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v305, OS_LOG_TYPE_INFO))
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v303 = __s1;
+                                                                                                                                                                                                    v306 = __s1;
                                                                                                                                                                                                     if (*(__s1 + 23) < 0)
                                                                                                                                                                                                     {
-                                                                                                                                                                                                      v303 = *__s1;
+                                                                                                                                                                                                      v306 = *__s1;
                                                                                                                                                                                                     }
 
-                                                                                                                                                                                                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                                                                                    *(v427[0].__r_.__value_.__r.__words + 4) = v303;
-                                                                                                                                                                                                    _os_log_impl(&_mh_execute_header, v302, OS_LOG_TYPE_INFO, "HI:PG0:%s ", v427, 0xCu);
+                                                                                                                                                                                                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                                                                                    *(v436[0].__r_.__value_.__r.__words + 4) = v306;
+                                                                                                                                                                                                    _os_log_impl(&_mh_execute_header, v305, OS_LOG_TYPE_INFO, "HI:PG0:%s ", v436, 0xCu);
                                                                                                                                                                                                   }
                                                                                                                                                                                                 }
 
@@ -1835,72 +2330,72 @@ LABEL_1073:
 
                                                                                                                                                                                                 if (PcapStateTable)
                                                                                                                                                                                                 {
-                                                                                                                                                                                                  *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-                                                                                                                                                                                                  v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-                                                                                                                                                                                                  memset(v443, 0, 24);
-                                                                                                                                                                                                  v370 = __s1;
+                                                                                                                                                                                                  *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+                                                                                                                                                                                                  v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+                                                                                                                                                                                                  memset(v452, 0, 24);
+                                                                                                                                                                                                  v377 = __s1;
                                                                                                                                                                                                   if (*(__s1 + 23) < 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v370 = *__s1;
+                                                                                                                                                                                                    v377 = *__s1;
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  std::string::basic_string[abi:ne200100]<0>(__s, v370);
-                                                                                                                                                                                                  std::string::basic_string[abi:ne200100]<0>(v448, "[");
-                                                                                                                                                                                                  if ((v448[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                                                                                                  std::string::basic_string[abi:ne200100]<0>(__s, v377);
+                                                                                                                                                                                                  std::string::basic_string[abi:ne200100]<0>(v457, "[");
+                                                                                                                                                                                                  if ((v457[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v371 = v448;
+                                                                                                                                                                                                    v378 = v457;
                                                                                                                                                                                                   }
 
                                                                                                                                                                                                   else
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v371 = v448[0].__r_.__value_.__r.__words[0];
+                                                                                                                                                                                                    v378 = v457[0].__r_.__value_.__r.__words[0];
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  if ((v448[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                                                                                                  if ((v457[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    size = HIBYTE(v448[0].__r_.__value_.__r.__words[2]);
+                                                                                                                                                                                                    size = HIBYTE(v457[0].__r_.__value_.__r.__words[2]);
                                                                                                                                                                                                   }
 
                                                                                                                                                                                                   else
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    size = v448[0].__r_.__value_.__l.__size_;
+                                                                                                                                                                                                    size = v457[0].__r_.__value_.__l.__size_;
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  v373 = std::string::append(__s, v371, size);
-                                                                                                                                                                                                  v374 = *&v373->__r_.__value_.__l.__data_;
-                                                                                                                                                                                                  v447[0].__r_.__value_.__r.__words[2] = v373->__r_.__value_.__r.__words[2];
-                                                                                                                                                                                                  *&v447[0].__r_.__value_.__l.__data_ = v374;
-                                                                                                                                                                                                  v373->__r_.__value_.__l.__size_ = 0;
-                                                                                                                                                                                                  v373->__r_.__value_.__r.__words[2] = 0;
-                                                                                                                                                                                                  v373->__r_.__value_.__r.__words[0] = 0;
-                                                                                                                                                                                                  std::to_string(&v446, 0);
-                                                                                                                                                                                                  if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                                                                                                  v380 = std::string::append(__s, v378, size);
+                                                                                                                                                                                                  v381 = *&v380->__r_.__value_.__l.__data_;
+                                                                                                                                                                                                  v456[0].__r_.__value_.__r.__words[2] = v380->__r_.__value_.__r.__words[2];
+                                                                                                                                                                                                  *&v456[0].__r_.__value_.__l.__data_ = v381;
+                                                                                                                                                                                                  v380->__r_.__value_.__l.__size_ = 0;
+                                                                                                                                                                                                  v380->__r_.__value_.__r.__words[2] = 0;
+                                                                                                                                                                                                  v380->__r_.__value_.__r.__words[0] = 0;
+                                                                                                                                                                                                  std::to_string(&v455, 0);
+                                                                                                                                                                                                  if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v375 = &v446;
+                                                                                                                                                                                                    v382 = &v455;
                                                                                                                                                                                                   }
 
                                                                                                                                                                                                   else
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v375 = v446.__r_.__value_.__r.__words[0];
+                                                                                                                                                                                                    v382 = v455.__r_.__value_.__r.__words[0];
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                                                                                                  if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v376 = HIBYTE(v446.__r_.__value_.__r.__words[2]);
+                                                                                                                                                                                                    v383 = HIBYTE(v455.__r_.__value_.__r.__words[2]);
                                                                                                                                                                                                   }
 
                                                                                                                                                                                                   else
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v376 = v446.__r_.__value_.__l.__size_;
+                                                                                                                                                                                                    v383 = v455.__r_.__value_.__l.__size_;
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  v377 = std::string::append(v447, v375, v376);
-                                                                                                                                                                                                  v378 = *&v377->__r_.__value_.__l.__data_;
-                                                                                                                                                                                                  *&v449[16] = *(&v377->__r_.__value_.__l + 2);
-                                                                                                                                                                                                  *v449 = v378;
-                                                                                                                                                                                                  v377->__r_.__value_.__l.__size_ = 0;
-                                                                                                                                                                                                  v377->__r_.__value_.__r.__words[2] = 0;
-                                                                                                                                                                                                  v377->__r_.__value_.__r.__words[0] = 0;
+                                                                                                                                                                                                  v384 = std::string::append(v456, v382, v383);
+                                                                                                                                                                                                  v385 = *&v384->__r_.__value_.__l.__data_;
+                                                                                                                                                                                                  *&v458[16] = *(&v384->__r_.__value_.__l + 2);
+                                                                                                                                                                                                  *v458 = v385;
+                                                                                                                                                                                                  v384->__r_.__value_.__l.__size_ = 0;
+                                                                                                                                                                                                  v384->__r_.__value_.__r.__words[2] = 0;
+                                                                                                                                                                                                  v384->__r_.__value_.__r.__words[0] = 0;
                                                                                                                                                                                                   std::string::basic_string[abi:ne200100]<0>(&buf, "]");
                                                                                                                                                                                                   if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                                                                                                   {
@@ -1914,39 +2409,39 @@ LABEL_1073:
 
                                                                                                                                                                                                   if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v380 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
+                                                                                                                                                                                                    v387 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
                                                                                                                                                                                                   }
 
                                                                                                                                                                                                   else
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    v380 = buf.__r_.__value_.__l.__size_;
+                                                                                                                                                                                                    v387 = buf.__r_.__value_.__l.__size_;
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  v381 = std::string::append(v449, p_buf, v380);
-                                                                                                                                                                                                  v382 = v381->__r_.__value_.__r.__words[0];
-                                                                                                                                                                                                  v456.__r_.__value_.__r.__words[0] = v381->__r_.__value_.__l.__size_;
-                                                                                                                                                                                                  *(v456.__r_.__value_.__r.__words + 7) = *(&v381->__r_.__value_.__r.__words[1] + 7);
-                                                                                                                                                                                                  v383 = HIBYTE(v381->__r_.__value_.__r.__words[2]);
-                                                                                                                                                                                                  v381->__r_.__value_.__l.__size_ = 0;
-                                                                                                                                                                                                  v381->__r_.__value_.__r.__words[2] = 0;
-                                                                                                                                                                                                  v381->__r_.__value_.__r.__words[0] = 0;
-                                                                                                                                                                                                  if ((v443[23] & 0x80000000) != 0)
+                                                                                                                                                                                                  v388 = std::string::append(v458, p_buf, v387);
+                                                                                                                                                                                                  v389 = v388->__r_.__value_.__r.__words[0];
+                                                                                                                                                                                                  v465.__r_.__value_.__r.__words[0] = v388->__r_.__value_.__l.__size_;
+                                                                                                                                                                                                  *(v465.__r_.__value_.__r.__words + 7) = *(&v388->__r_.__value_.__r.__words[1] + 7);
+                                                                                                                                                                                                  v390 = HIBYTE(v388->__r_.__value_.__r.__words[2]);
+                                                                                                                                                                                                  v388->__r_.__value_.__l.__size_ = 0;
+                                                                                                                                                                                                  v388->__r_.__value_.__r.__words[2] = 0;
+                                                                                                                                                                                                  v388->__r_.__value_.__r.__words[0] = 0;
+                                                                                                                                                                                                  if ((v452[23] & 0x80000000) != 0)
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    operator delete(*v443);
+                                                                                                                                                                                                    operator delete(*v452);
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  *v443 = v382;
-                                                                                                                                                                                                  *&v443[8] = v456.__r_.__value_.__r.__words[0];
-                                                                                                                                                                                                  *&v443[15] = *(v456.__r_.__value_.__r.__words + 7);
-                                                                                                                                                                                                  v443[23] = v383;
+                                                                                                                                                                                                  *v452 = v389;
+                                                                                                                                                                                                  *&v452[8] = v465.__r_.__value_.__r.__words[0];
+                                                                                                                                                                                                  *&v452[15] = *(v465.__r_.__value_.__r.__words + 7);
+                                                                                                                                                                                                  v452[23] = v390;
                                                                                                                                                                                                   if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                                                                                                                                                                                                   {
                                                                                                                                                                                                     operator delete(buf.__r_.__value_.__l.__data_);
-                                                                                                                                                                                                    if ((v449[23] & 0x80000000) != 0)
+                                                                                                                                                                                                    if ((v458[23] & 0x80000000) != 0)
                                                                                                                                                                                                     {
 LABEL_1328:
-                                                                                                                                                                                                      operator delete(*v449);
-                                                                                                                                                                                                      if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                                                                                                      operator delete(*v458);
+                                                                                                                                                                                                      if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                                                                                                       {
                                                                                                                                                                                                         goto LABEL_1329;
                                                                                                                                                                                                       }
@@ -1955,15 +2450,15 @@ LABEL_1328:
                                                                                                                                                                                                     }
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  else if ((v449[23] & 0x80000000) != 0)
+                                                                                                                                                                                                  else if ((v458[23] & 0x80000000) != 0)
                                                                                                                                                                                                   {
                                                                                                                                                                                                     goto LABEL_1328;
                                                                                                                                                                                                   }
 
-                                                                                                                                                                                                  if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                                                                                                  if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                                                                                                   {
 LABEL_1329:
-                                                                                                                                                                                                    if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                                                                                                    if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                                                                                                                                                                     {
                                                                                                                                                                                                       goto LABEL_1330;
                                                                                                                                                                                                     }
@@ -1972,12 +2467,12 @@ LABEL_1329:
                                                                                                                                                                                                   }
 
 LABEL_1336:
-                                                                                                                                                                                                  operator delete(v446.__r_.__value_.__l.__data_);
-                                                                                                                                                                                                  if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                                                                                                  operator delete(v455.__r_.__value_.__l.__data_);
+                                                                                                                                                                                                  if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                                                                                                                                                                   {
 LABEL_1330:
-                                                                                                                                                                                                    operator delete(v447[0].__r_.__value_.__l.__data_);
-                                                                                                                                                                                                    if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                                                                                                    operator delete(v456[0].__r_.__value_.__l.__data_);
+                                                                                                                                                                                                    if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                                                                                                     {
                                                                                                                                                                                                       goto LABEL_1331;
                                                                                                                                                                                                     }
@@ -1986,7 +2481,7 @@ LABEL_1330:
                                                                                                                                                                                                   }
 
 LABEL_1337:
-                                                                                                                                                                                                  if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                                                                                                  if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                                                                                                   {
 LABEL_1331:
                                                                                                                                                                                                     if ((SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -1998,13 +2493,13 @@ LABEL_1331:
                                                                                                                                                                                                   }
 
 LABEL_1338:
-                                                                                                                                                                                                  operator delete(v448[0].__r_.__value_.__l.__data_);
+                                                                                                                                                                                                  operator delete(v457[0].__r_.__value_.__l.__data_);
                                                                                                                                                                                                   if ((SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                                                                                                   {
 LABEL_1333:
-                                                                                                                                                                                                    *v449 = v443;
-                                                                                                                                                                                                    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v427, v443);
-                                                                                                                                                                                                    boost::any::operator=<unsigned short &>();
+                                                                                                                                                                                                    *v458 = v452;
+                                                                                                                                                                                                    v391 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v436, v452, &std::piecewise_construct, v458);
+                                                                                                                                                                                                    boost::any::operator=<unsigned short &>(v391 + 7, PcapStateTable);
                                                                                                                                                                                                   }
 
 LABEL_1332:
@@ -2012,12 +2507,12 @@ LABEL_1332:
                                                                                                                                                                                                   goto LABEL_1333;
                                                                                                                                                                                                 }
 
-                                                                                                                                                                                                v403 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                                if (v403)
+                                                                                                                                                                                                v412 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                                if (v412)
                                                                                                                                                                                                 {
-                                                                                                                                                                                                  if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v403, OS_LOG_TYPE_ERROR))
+                                                                                                                                                                                                  if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v412, OS_LOG_TYPE_ERROR))
                                                                                                                                                                                                   {
-                                                                                                                                                                                                    HostInterpreter::ProcessPropertyGet((__s1 + 23));
+                                                                                                                                                                                                    HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                                                   }
                                                                                                                                                                                                 }
 
@@ -2039,28 +2534,28 @@ LABEL_1332:
                                                                                                                                                                                         }
 
 LABEL_1050:
-                                                                                                                                                                                        v447[0].__r_.__value_.__s.__data_[0] = 0;
-                                                                                                                                                                                        MWSFrequencyTable = otPlatVendorGetMWSFrequencyTable(*(v413 + 28), v447, v443);
+                                                                                                                                                                                        v456[0].__r_.__value_.__s.__data_[0] = 0;
+                                                                                                                                                                                        MWSFrequencyTable = otPlatVendorGetMWSFrequencyTable(v422[28], v456, v452);
                                                                                                                                                                                         if (!MWSFrequencyTable)
                                                                                                                                                                                         {
-                                                                                                                                                                                          snprintf(v427, 1uLL, "%d", v447[0].__r_.__value_.__s.__data_[0]);
-                                                                                                                                                                                          if (v447[0].__r_.__value_.__s.__data_[0])
+                                                                                                                                                                                          snprintf(v436, 1uLL, "%d", v456[0].__r_.__value_.__s.__data_[0]);
+                                                                                                                                                                                          if (v456[0].__r_.__value_.__s.__data_[0])
                                                                                                                                                                                           {
-                                                                                                                                                                                            v288 = 0;
-                                                                                                                                                                                            v289 = &v427[0].__r_.__value_.__s.__data_[1];
+                                                                                                                                                                                            v292 = 0;
+                                                                                                                                                                                            v293 = &v436[0].__r_.__value_.__s.__data_[1];
                                                                                                                                                                                             do
                                                                                                                                                                                             {
-                                                                                                                                                                                              snprintf(v289, 2uLL, "%02x", v443[2 * v288++]);
-                                                                                                                                                                                              v289 += 2;
+                                                                                                                                                                                              snprintf(v293, 2uLL, "%02x", v452[2 * v292++]);
+                                                                                                                                                                                              v293 += 2;
                                                                                                                                                                                             }
 
-                                                                                                                                                                                            while (v288 < 2 * v447[0].__r_.__value_.__s.__data_[0]);
+                                                                                                                                                                                            while (v292 < 2 * v456[0].__r_.__value_.__s.__data_[0]);
                                                                                                                                                                                           }
 
-                                                                                                                                                                                          v290 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                          if (v290)
+                                                                                                                                                                                          v294 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                          if (v294)
                                                                                                                                                                                           {
-                                                                                                                                                                                            if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v290, OS_LOG_TYPE_DEBUG))
+                                                                                                                                                                                            if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v294, OS_LOG_TYPE_DEBUG))
                                                                                                                                                                                             {
                                                                                                                                                                                               HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                                             }
@@ -2079,16 +2574,16 @@ LABEL_1050:
                                                                                                                                                                                       }
 
 LABEL_1045:
-                                                                                                                                                                                      v443[0] = 0;
-                                                                                                                                                                                      IfsAckDataPerNeighbor = otPlatVendorGetAntenna(*(v413 + 28), v443);
+                                                                                                                                                                                      v452[0] = 0;
+                                                                                                                                                                                      IfsAckDataPerNeighbor = otPlatVendorGetAntenna(v422[28], v452);
                                                                                                                                                                                       if (!IfsAckDataPerNeighbor)
                                                                                                                                                                                       {
-                                                                                                                                                                                        v286 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                        if (v286)
+                                                                                                                                                                                        v290 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                        if (v290)
                                                                                                                                                                                         {
-                                                                                                                                                                                          if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v286, OS_LOG_TYPE_DEBUG))
+                                                                                                                                                                                          if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v290, OS_LOG_TYPE_DEBUG))
                                                                                                                                                                                           {
-                                                                                                                                                                                            HostInterpreter::ProcessPropertyGet(v443);
+                                                                                                                                                                                            HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                                           }
                                                                                                                                                                                         }
 
@@ -2107,19 +2602,19 @@ LABEL_1045:
                                                                                                                                                                                   }
 
 LABEL_1039:
-                                                                                                                                                                                  *v443 = 1300;
+                                                                                                                                                                                  *v452 = 1300;
                                                                                                                                                                                   __chkstk_darwin(v8);
-                                                                                                                                                                                  PTB = otPlatVendorGetPTB(*(v413 + 28), &v407, v443);
+                                                                                                                                                                                  PTB = otPlatVendorGetPTB(v422[28], &v416, v452);
                                                                                                                                                                                   if (!PTB)
                                                                                                                                                                                   {
-                                                                                                                                                                                    v285 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                    if (v285)
+                                                                                                                                                                                    v289 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                    if (v289)
                                                                                                                                                                                     {
-                                                                                                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v285, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v289, OS_LOG_TYPE_INFO))
                                                                                                                                                                                       {
-                                                                                                                                                                                        LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109120;
-                                                                                                                                                                                        HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = *v443;
-                                                                                                                                                                                        _os_log_impl(&_mh_execute_header, v285, OS_LOG_TYPE_INFO, "HI:PG0:Get RCP2 PTB file:PTB Read data response,Size=%d", v427, 8u);
+                                                                                                                                                                                        LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109120;
+                                                                                                                                                                                        HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = *v452;
+                                                                                                                                                                                        _os_log_impl(&_mh_execute_header, v289, OS_LOG_TYPE_INFO, "HI:PG0:Get RCP2 PTB file:PTB Read data response,Size=%d", v436, 8u);
                                                                                                                                                                                       }
                                                                                                                                                                                     }
 
@@ -2135,18 +2630,18 @@ LABEL_1039:
                                                                                                                                                                                 }
 
 LABEL_1034:
-                                                                                                                                                                                v443[0] = 0;
-                                                                                                                                                                                IfsAckDataPerNeighbor = otPlatVendorGetPower(*(v413 + 28), v443);
+                                                                                                                                                                                v452[0] = 0;
+                                                                                                                                                                                IfsAckDataPerNeighbor = otPlatVendorGetPower(v422[28], v452);
                                                                                                                                                                                 if (!IfsAckDataPerNeighbor)
                                                                                                                                                                                 {
-                                                                                                                                                                                  v283 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                                  if (v283)
+                                                                                                                                                                                  v287 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                                  if (v287)
                                                                                                                                                                                   {
-                                                                                                                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v283, OS_LOG_TYPE_INFO))
+                                                                                                                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v287, OS_LOG_TYPE_INFO))
                                                                                                                                                                                     {
-                                                                                                                                                                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 134217984;
-                                                                                                                                                                                      *(v427[0].__r_.__value_.__r.__words + 4) = vcvtd_n_f64_s32(v443[0], 2uLL);
-                                                                                                                                                                                      _os_log_impl(&_mh_execute_header, v283, OS_LOG_TYPE_INFO, "HI:PG0:VendorPower=%f dBm", v427, 0xCu);
+                                                                                                                                                                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 134217984;
+                                                                                                                                                                                      *(v436[0].__r_.__value_.__r.__words + 4) = vcvtd_n_f64_s32(v452[0], 2uLL);
+                                                                                                                                                                                      _os_log_impl(&_mh_execute_header, v287, OS_LOG_TYPE_INFO, "HI:PG0:VendorPower=%f dBm", v436, 0xCu);
                                                                                                                                                                                     }
                                                                                                                                                                                   }
 
@@ -2177,40 +2672,40 @@ LABEL_1034:
                                                                                                                                                                     }
 
 LABEL_984:
-                                                                                                                                                                    MeshLocalEid = otThreadGetMeshLocalEid(*(v413 + 28));
-                                                                                                                                                                    if (MeshLocalEid)
+                                                                                                                                                                    otThreadGetMeshLocalEid(v422[28]);
+                                                                                                                                                                    if (v255)
                                                                                                                                                                     {
-                                                                                                                                                                      otIp6AddressToString(MeshLocalEid, v427, 40);
-                                                                                                                                                                      v248 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                      if (v248)
+                                                                                                                                                                      otIp6AddressToString(v255, v436, 40);
+                                                                                                                                                                      v256 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                      if (v256)
                                                                                                                                                                       {
-                                                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v248, OS_LOG_TYPE_INFO))
+                                                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v256, OS_LOG_TYPE_INFO))
                                                                                                                                                                         {
-                                                                                                                                                                          v249 = __s1;
+                                                                                                                                                                          v257 = __s1;
                                                                                                                                                                           if (*(__s1 + 23) < 0)
                                                                                                                                                                           {
-                                                                                                                                                                            v249 = *__s1;
+                                                                                                                                                                            v257 = *__s1;
                                                                                                                                                                           }
 
-                                                                                                                                                                          std::string::basic_string[abi:ne200100]<0>(v443, v427);
-                                                                                                                                                                          if (v443[23] >= 0)
+                                                                                                                                                                          std::string::basic_string[abi:ne200100]<0>(v452, v436);
+                                                                                                                                                                          if (v452[23] >= 0)
                                                                                                                                                                           {
-                                                                                                                                                                            v250 = v443;
+                                                                                                                                                                            v258 = v452;
                                                                                                                                                                           }
 
                                                                                                                                                                           else
                                                                                                                                                                           {
-                                                                                                                                                                            v250 = *v443;
+                                                                                                                                                                            v258 = *v452;
                                                                                                                                                                           }
 
-                                                                                                                                                                          *v449 = 136315394;
-                                                                                                                                                                          *&v449[4] = v249;
-                                                                                                                                                                          *&v449[12] = 2080;
-                                                                                                                                                                          *&v449[14] = v250;
-                                                                                                                                                                          _os_log_impl(&_mh_execute_header, v248, OS_LOG_TYPE_INFO, "HI:PG0:%s,mleAddr:%s", v449, 0x16u);
-                                                                                                                                                                          if ((v443[23] & 0x80000000) != 0)
+                                                                                                                                                                          *v458 = 136315394;
+                                                                                                                                                                          *&v458[4] = v257;
+                                                                                                                                                                          *&v458[12] = 2080;
+                                                                                                                                                                          *&v458[14] = v258;
+                                                                                                                                                                          _os_log_impl(&_mh_execute_header, v256, OS_LOG_TYPE_INFO, "HI:PG0:%s,mleAddr:%s", v458, 0x16u);
+                                                                                                                                                                          if ((v452[23] & 0x80000000) != 0)
                                                                                                                                                                           {
-                                                                                                                                                                            operator delete(*v443);
+                                                                                                                                                                            operator delete(*v452);
                                                                                                                                                                           }
                                                                                                                                                                         }
                                                                                                                                                                       }
@@ -2220,17 +2715,17 @@ LABEL_984:
                                                                                                                                                                         [PowerEventHandler_Rcp init:];
                                                                                                                                                                       }
 
-                                                                                                                                                                      std::string::basic_string[abi:ne200100]<0>(v443, v427);
+                                                                                                                                                                      std::string::basic_string[abi:ne200100]<0>(v452, v436);
                                                                                                                                                                       operator new();
                                                                                                                                                                     }
 
-                                                                                                                                                                    v366 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                                    if (v366)
+                                                                                                                                                                    v373 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                                    if (v373)
                                                                                                                                                                     {
-                                                                                                                                                                      v367 = v366;
-                                                                                                                                                                      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v367, OS_LOG_TYPE_ERROR))
+                                                                                                                                                                      v374 = v373;
+                                                                                                                                                                      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v374, OS_LOG_TYPE_ERROR))
                                                                                                                                                                       {
-                                                                                                                                                                        HostInterpreter::ProcessPropertyGet((__s1 + 23));
+                                                                                                                                                                        HostInterpreter::ProcessPropertyGet();
                                                                                                                                                                       }
                                                                                                                                                                     }
 
@@ -2247,10 +2742,10 @@ LABEL_984:
                                                                                                                                                                 }
 
 LABEL_981:
-                                                                                                                                                                IfsAckDataPerNeighbor = otPlatVendorGetOpenThreadRadioCounters(*(v413 + 28), v427);
+                                                                                                                                                                IfsAckDataPerNeighbor = otPlatVendorGetOpenThreadRadioCounters(v422[28], v436);
                                                                                                                                                                 if (!IfsAckDataPerNeighbor)
                                                                                                                                                                 {
-                                                                                                                                                                  HostInterpreter::GetVendorOpenThreadRadioCountersAsValMap(v443);
+                                                                                                                                                                  HostInterpreter::GetVendorOpenThreadRadioCountersAsValMap(v452);
                                                                                                                                                                 }
 
                                                                                                                                                                 goto LABEL_299;
@@ -2275,21 +2770,21 @@ LABEL_981:
                                                                                                                                                   }
 
 LABEL_964:
-                                                                                                                                                  v240 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                                  if (v240)
+                                                                                                                                                  v248 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                                  if (v248)
                                                                                                                                                   {
-                                                                                                                                                    v241 = v240;
-                                                                                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v241, OS_LOG_TYPE_INFO))
+                                                                                                                                                    v249 = v248;
+                                                                                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v249, OS_LOG_TYPE_INFO))
                                                                                                                                                     {
-                                                                                                                                                      v242 = __s1;
+                                                                                                                                                      v250 = __s1;
                                                                                                                                                       if (*(__s1 + 23) < 0)
                                                                                                                                                       {
-                                                                                                                                                        v242 = *__s1;
+                                                                                                                                                        v250 = *__s1;
                                                                                                                                                       }
 
-                                                                                                                                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                                      *(v427[0].__r_.__value_.__r.__words + 4) = v242;
-                                                                                                                                                      _os_log_impl(&_mh_execute_header, v241, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                                      *(v436[0].__r_.__value_.__r.__words + 4) = v250;
+                                                                                                                                                      _os_log_impl(&_mh_execute_header, v249, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                                                     }
                                                                                                                                                   }
 
@@ -2298,8 +2793,8 @@ LABEL_964:
                                                                                                                                                     [PowerEventHandler_Rcp init:];
                                                                                                                                                   }
 
-                                                                                                                                                  v443[0] = 0;
-                                                                                                                                                  IfsAckDataPerNeighbor = otPlatVendorGetDeepSleepLogLevel(*(v413 + 28), v443);
+                                                                                                                                                  v452[0] = 0;
+                                                                                                                                                  IfsAckDataPerNeighbor = otPlatVendorGetDeepSleepLogLevel(v422[28], v452);
                                                                                                                                                   if (!IfsAckDataPerNeighbor)
                                                                                                                                                   {
                                                                                                                                                     operator new();
@@ -2312,21 +2807,21 @@ LABEL_964:
                                                                                                                                               }
 
 LABEL_952:
-                                                                                                                                              v234 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                              if (v234)
+                                                                                                                                              v242 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                              if (v242)
                                                                                                                                               {
-                                                                                                                                                v235 = v234;
-                                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v235, OS_LOG_TYPE_INFO))
+                                                                                                                                                v243 = v242;
+                                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v243, OS_LOG_TYPE_INFO))
                                                                                                                                                 {
-                                                                                                                                                  v236 = __s1;
+                                                                                                                                                  v244 = __s1;
                                                                                                                                                   if (*(__s1 + 23) < 0)
                                                                                                                                                   {
-                                                                                                                                                    v236 = *__s1;
+                                                                                                                                                    v244 = *__s1;
                                                                                                                                                   }
 
-                                                                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                                  *(v427[0].__r_.__value_.__r.__words + 4) = v236;
-                                                                                                                                                  _os_log_impl(&_mh_execute_header, v235, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                                  *(v436[0].__r_.__value_.__r.__words + 4) = v244;
+                                                                                                                                                  _os_log_impl(&_mh_execute_header, v243, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                                                 }
                                                                                                                                               }
 
@@ -2335,8 +2830,8 @@ LABEL_952:
                                                                                                                                                 [PowerEventHandler_Rcp init:];
                                                                                                                                               }
 
-                                                                                                                                              *v443 = 0;
-                                                                                                                                              IfsAckDataPerNeighbor = otPlatVendorGetHostWakeReason(*(v413 + 28), v443);
+                                                                                                                                              *v452 = 0;
+                                                                                                                                              IfsAckDataPerNeighbor = otPlatVendorGetHostWakeReason(v422[28], v452);
                                                                                                                                               if (!IfsAckDataPerNeighbor)
                                                                                                                                               {
                                                                                                                                                 operator new();
@@ -2355,21 +2850,21 @@ LABEL_952:
                                                                                                                                       }
 
 LABEL_928:
-                                                                                                                                      v222 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                                      if (v222)
+                                                                                                                                      v230 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                                      if (v230)
                                                                                                                                       {
-                                                                                                                                        v223 = v222;
-                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v223, OS_LOG_TYPE_INFO))
+                                                                                                                                        v231 = v230;
+                                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v231, OS_LOG_TYPE_INFO))
                                                                                                                                         {
-                                                                                                                                          v224 = __s1;
+                                                                                                                                          v232 = __s1;
                                                                                                                                           if (*(__s1 + 23) < 0)
                                                                                                                                           {
-                                                                                                                                            v224 = *__s1;
+                                                                                                                                            v232 = *__s1;
                                                                                                                                           }
 
-                                                                                                                                          LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                          *(v427[0].__r_.__value_.__r.__words + 4) = v224;
-                                                                                                                                          _os_log_impl(&_mh_execute_header, v223, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                                          LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                          *(v436[0].__r_.__value_.__r.__words + 4) = v232;
+                                                                                                                                          _os_log_impl(&_mh_execute_header, v231, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                                         }
                                                                                                                                       }
 
@@ -2380,31 +2875,31 @@ LABEL_928:
 
                                                                                                                                       if (*(RcpHostContext::sRcpHostContext + 5679) < 0)
                                                                                                                                       {
-                                                                                                                                        std::string::__init_copy_ctor_external(v427, *(RcpHostContext::sRcpHostContext + 5656), *(RcpHostContext::sRcpHostContext + 5664));
+                                                                                                                                        std::string::__init_copy_ctor_external(v436, *(RcpHostContext::sRcpHostContext + 5656), *(RcpHostContext::sRcpHostContext + 5664));
                                                                                                                                       }
 
                                                                                                                                       else
                                                                                                                                       {
-                                                                                                                                        v427[0] = *(RcpHostContext::sRcpHostContext + 5656);
+                                                                                                                                        v436[0] = *(RcpHostContext::sRcpHostContext + 5656);
                                                                                                                                       }
 
-                                                                                                                                      v402 = HIBYTE(v427[0].__r_.__value_.__r.__words[2]);
-                                                                                                                                      v221 = HIBYTE(v427[0].__r_.__value_.__r.__words[2]);
-                                                                                                                                      if ((v427[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                                                                                                                      v411 = HIBYTE(v436[0].__r_.__value_.__r.__words[2]);
+                                                                                                                                      v229 = HIBYTE(v436[0].__r_.__value_.__r.__words[2]);
+                                                                                                                                      if ((v436[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                                                                                                                       {
-                                                                                                                                        v402 = v427[0].__r_.__value_.__l.__size_;
+                                                                                                                                        v411 = v436[0].__r_.__value_.__l.__size_;
                                                                                                                                       }
 
-                                                                                                                                      if (v402)
+                                                                                                                                      if (v411)
                                                                                                                                       {
-                                                                                                                                        boost::any::any<std::string &>();
+                                                                                                                                        boost::any::any<std::string &>(v452, v436);
                                                                                                                                       }
 
 LABEL_1432:
                                                                                                                                       IfsAckDataPerNeighbor = 1;
-                                                                                                                                      if (v221 < 0)
+                                                                                                                                      if (v229 < 0)
                                                                                                                                       {
-                                                                                                                                        operator delete(v427[0].__r_.__value_.__l.__data_);
+                                                                                                                                        operator delete(v436[0].__r_.__value_.__l.__data_);
                                                                                                                                       }
 
                                                                                                                                       goto LABEL_299;
@@ -2417,10 +2912,10 @@ LABEL_1432:
                                                                                                                                 }
 
 LABEL_915:
-                                                                                                                                IfsAckDataPerNeighbor = otPlatVendorGetRadioCounters(*(v413 + 28), v443);
+                                                                                                                                IfsAckDataPerNeighbor = otPlatVendorGetRadioCounters(v422[28], v452);
                                                                                                                                 if (!IfsAckDataPerNeighbor)
                                                                                                                                 {
-                                                                                                                                  HostInterpreter::GetVendorRadioCountersAsValMap(v427);
+                                                                                                                                  HostInterpreter::GetVendorRadioCountersAsValMap(v436);
                                                                                                                                 }
 
                                                                                                                                 goto LABEL_299;
@@ -2430,18 +2925,18 @@ LABEL_915:
                                                                                                                             }
 
 LABEL_906:
-                                                                                                                            *v443 = 0;
-                                                                                                                            IfsAckDataPerNeighbor = otPlatRadioGetMinInterframeDelay(*(v413 + 28), v443);
+                                                                                                                            *v452 = 0;
+                                                                                                                            IfsAckDataPerNeighbor = otPlatRadioGetMinInterframeDelay(v422[28], v452);
                                                                                                                             if (!IfsAckDataPerNeighbor)
                                                                                                                             {
-                                                                                                                              v216 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                              if (v216)
+                                                                                                                              v224 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                              if (v224)
                                                                                                                               {
-                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v216, OS_LOG_TYPE_INFO))
+                                                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v224, OS_LOG_TYPE_INFO))
                                                                                                                                 {
-                                                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                                  *(v427[0].__r_.__value_.__r.__words + 4) = "vendor:min:mac:interframedelay";
-                                                                                                                                  _os_log_impl(&_mh_execute_header, v216, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                                                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                                  *(v436[0].__r_.__value_.__r.__words + 4) = "vendor:min:mac:interframedelay";
+                                                                                                                                  _os_log_impl(&_mh_execute_header, v224, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                                                                                                                                 }
                                                                                                                               }
 
@@ -2493,18 +2988,18 @@ LABEL_906:
                                                                                                   }
 
 LABEL_861:
-                                                                                                  *v443 = 0;
-                                                                                                  IfsAckDataPerNeighbor = otPlatVendorGenerateAssert(*(v413 + 28), v443);
+                                                                                                  *v452 = 0;
+                                                                                                  IfsAckDataPerNeighbor = otPlatVendorGenerateAssert(v422[28], v452);
                                                                                                   if (!IfsAckDataPerNeighbor)
                                                                                                   {
-                                                                                                    v207 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                    if (v207)
+                                                                                                    v213 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                    if (v213)
                                                                                                     {
-                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v207, OS_LOG_TYPE_INFO))
+                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v213, OS_LOG_TYPE_INFO))
                                                                                                       {
-                                                                                                        LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109120;
-                                                                                                        HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = *v443;
-                                                                                                        _os_log_impl(&_mh_execute_header, v207, OS_LOG_TYPE_INFO, "VendorAssert = %u", v427, 8u);
+                                                                                                        LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109120;
+                                                                                                        HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = *v452;
+                                                                                                        _os_log_impl(&_mh_execute_header, v213, OS_LOG_TYPE_INFO, "VendorAssert = %u", v436, 8u);
                                                                                                       }
                                                                                                     }
 
@@ -2523,15 +3018,15 @@ LABEL_861:
                                                                                               }
 
 LABEL_842:
-                                                                                              v203 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                              if (v203)
+                                                                                              v209 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                              if (v209)
                                                                                               {
-                                                                                                v204 = v203;
-                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v204, OS_LOG_TYPE_INFO))
+                                                                                                v210 = v209;
+                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v210, OS_LOG_TYPE_INFO))
                                                                                                 {
-                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                  *(v427[0].__r_.__value_.__r.__words + 4) = "Network:KeyIndex";
-                                                                                                  _os_log_impl(&_mh_execute_header, v204, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                  *(v436[0].__r_.__value_.__r.__words + 4) = "Network:KeyIndex";
+                                                                                                  _os_log_impl(&_mh_execute_header, v210, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                 }
                                                                                               }
 
@@ -2540,20 +3035,20 @@ LABEL_842:
                                                                                                 [PowerEventHandler_Rcp init:];
                                                                                               }
 
-                                                                                              otThreadGetKeySequenceCounter(*(v413 + 28));
+                                                                                              otThreadGetKeySequenceCounter(v422[28]);
                                                                                               operator new();
                                                                                             }
 
 LABEL_828:
-                                                                                            v199 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                            if (v199)
+                                                                                            v205 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                            if (v205)
                                                                                             {
-                                                                                              v200 = v199;
-                                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v200, OS_LOG_TYPE_INFO))
+                                                                                              v206 = v205;
+                                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v206, OS_LOG_TYPE_INFO))
                                                                                               {
-                                                                                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                *(v427[0].__r_.__value_.__r.__words + 4) = "Network:Key";
-                                                                                                _os_log_impl(&_mh_execute_header, v200, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                *(v436[0].__r_.__value_.__r.__words + 4) = "Network:Key";
+                                                                                                _os_log_impl(&_mh_execute_header, v206, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                               }
                                                                                             }
 
@@ -2562,32 +3057,32 @@ LABEL_828:
                                                                                               [PowerEventHandler_Rcp init:];
                                                                                             }
 
-                                                                                            otThreadGetNetworkKey(*(v413 + 28), v443);
-                                                                                            nl::Data::Data(v427, v443, 16);
-                                                                                            boost::any::any<nl::Data &>();
+                                                                                            otThreadGetNetworkKey(v422[28], v452);
+                                                                                            nl::Data::Data(v436, v452, 0x10uLL);
+                                                                                            boost::any::any<nl::Data &>(v458, v436);
                                                                                           }
 
 LABEL_819:
-                                                                                          std::string::basic_string[abi:ne200100]<0>(v443, "not-implemented");
-                                                                                          v196 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                          if (v196)
+                                                                                          std::string::basic_string[abi:ne200100]<0>(v452, "not-implemented");
+                                                                                          v202 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                          if (v202)
                                                                                           {
-                                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v196, OS_LOG_TYPE_INFO))
+                                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v202, OS_LOG_TYPE_INFO))
                                                                                             {
-                                                                                              v197 = *(__s1 + 56);
-                                                                                              v198 = v443;
-                                                                                              if (v443[23] < 0)
+                                                                                              v203 = *(__s1 + 56);
+                                                                                              v204 = v452;
+                                                                                              if (v452[23] < 0)
                                                                                               {
-                                                                                                v198 = *v443;
+                                                                                                v204 = *v452;
                                                                                               }
 
-                                                                                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109634;
-                                                                                              HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v197;
-                                                                                              LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                                              *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "ChannelUtilizationMonitor:State";
-                                                                                              WORD1(v427[0].__r_.__value_.__r.__words[2]) = 2080;
-                                                                                              *(&v427[0].__r_.__value_.__r.__words[2] + 4) = v198;
-                                                                                              _os_log_impl(&_mh_execute_header, v196, OS_LOG_TYPE_INFO, "HI:PG%d:%s=%s", v427, 0x1Cu);
+                                                                                              LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109634;
+                                                                                              HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v203;
+                                                                                              LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                                              *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "ChannelUtilizationMonitor:State";
+                                                                                              WORD1(v436[0].__r_.__value_.__r.__words[2]) = 2080;
+                                                                                              *(&v436[0].__r_.__value_.__r.__words[2] + 4) = v204;
+                                                                                              _os_log_impl(&_mh_execute_header, v202, OS_LOG_TYPE_INFO, "HI:PG%d:%s=%s", v436, 0x1Cu);
                                                                                             }
                                                                                           }
 
@@ -2598,23 +3093,23 @@ LABEL_819:
 
                                                                                           if (*(__s1 + 56))
                                                                                           {
-                                                                                            std::string::basic_string[abi:ne200100]<0>(v427, "ChannelUtilizationMonitor:State");
-                                                                                            boost::any::any<std::string &>();
+                                                                                            std::string::basic_string[abi:ne200100]<0>(v436, "ChannelUtilizationMonitor:State");
+                                                                                            boost::any::any<std::string &>(v458, v452);
                                                                                           }
 
-                                                                                          boost::any::any<std::string &>();
+                                                                                          boost::any::any<std::string &>(v436, v452);
                                                                                         }
 
 LABEL_810:
-                                                                                        v193 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                        if (v193)
+                                                                                        v199 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                        if (v199)
                                                                                         {
-                                                                                          v194 = v193;
-                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v194, OS_LOG_TYPE_INFO))
+                                                                                          v200 = v199;
+                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v200, OS_LOG_TYPE_INFO))
                                                                                           {
-                                                                                            LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                            *(v427[0].__r_.__value_.__r.__words + 4) = "Thread:Leader:ExtendedAddress";
-                                                                                            _os_log_impl(&_mh_execute_header, v194, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                                                                                            LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                            *(v436[0].__r_.__value_.__r.__words + 4) = "Thread:Leader:ExtendedAddress";
+                                                                                            _os_log_impl(&_mh_execute_header, v200, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                                                                                           }
                                                                                         }
 
@@ -2623,28 +3118,28 @@ LABEL_810:
                                                                                           [PowerEventHandler_Rcp init:];
                                                                                         }
 
-                                                                                        HostInterpreter::ProcessUpdateLeaderInfo(v413);
-                                                                                        *v449 = -1;
-                                                                                        nl::Data::Data(v427, v449, 8);
-                                                                                        v201 = *(v413 + 76);
-                                                                                        if (v201 == (otThreadGetLeaderRouterId(*(v413 + 28)) & 0x3F) << 10)
+                                                                                        HostInterpreter::ProcessUpdateLeaderInfo(v422);
+                                                                                        *v458 = -1;
+                                                                                        nl::Data::Data(v436, v458, 8uLL);
+                                                                                        v207 = *(v422 + 76);
+                                                                                        if (v207 == (otThreadGetLeaderRouterId(v422[28]) & 0x3F) << 10)
                                                                                         {
-                                                                                          nl::Data::Data(v443, v413 + 154, 8);
-                                                                                          if (v427[0].__r_.__value_.__r.__words[0])
+                                                                                          nl::Data::Data(v452, v422 + 154, 8uLL);
+                                                                                          if (v436[0].__r_.__value_.__r.__words[0])
                                                                                           {
-                                                                                            v427[0].__r_.__value_.__l.__size_ = v427[0].__r_.__value_.__r.__words[0];
-                                                                                            operator delete(v427[0].__r_.__value_.__l.__data_);
+                                                                                            v436[0].__r_.__value_.__l.__size_ = v436[0].__r_.__value_.__r.__words[0];
+                                                                                            operator delete(v436[0].__r_.__value_.__l.__data_);
                                                                                           }
 
-                                                                                          v427[0] = *v443;
+                                                                                          v436[0] = *v452;
                                                                                         }
 
                                                                                         else
                                                                                         {
-                                                                                          v202 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                          if (v202)
+                                                                                          v208 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                          if (v208)
                                                                                           {
-                                                                                            if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
+                                                                                            if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v208, OS_LOG_TYPE_ERROR))
                                                                                             {
                                                                                               HostInterpreter::ProcessPropertyGet();
                                                                                             }
@@ -2656,22 +3151,22 @@ LABEL_810:
                                                                                           }
                                                                                         }
 
-                                                                                        boost::any::any<nl::Data &>();
+                                                                                        boost::any::any<nl::Data &>(v452, v436);
                                                                                       }
 
 LABEL_802:
-                                                                                      LeaderRouterId = otThreadGetLeaderRouterId(*(v413 + 28));
-                                                                                      v191 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                      if (v191)
+                                                                                      LeaderRouterId = otThreadGetLeaderRouterId(v422[28]);
+                                                                                      v197 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                      if (v197)
                                                                                       {
-                                                                                        v192 = v191;
-                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v192, OS_LOG_TYPE_INFO))
+                                                                                        v198 = v197;
+                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v198, OS_LOG_TYPE_INFO))
                                                                                         {
-                                                                                          LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                                                                          *(v427[0].__r_.__value_.__r.__words + 4) = "Thread:Leader:RouterID";
-                                                                                          WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                                                                                          *(&v427[0].__r_.__value_.__r.__words[1] + 6) = LeaderRouterId;
-                                                                                          _os_log_impl(&_mh_execute_header, v192, OS_LOG_TYPE_INFO, "HI:PG0:%s=%d", v427, 0x12u);
+                                                                                          LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                                                                          *(v436[0].__r_.__value_.__r.__words + 4) = "Thread:Leader:RouterID";
+                                                                                          WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                                                                                          *(&v436[0].__r_.__value_.__r.__words[1] + 6) = LeaderRouterId;
+                                                                                          _os_log_impl(&_mh_execute_header, v198, OS_LOG_TYPE_INFO, "HI:PG0:%s=%d", v436, 0x12u);
                                                                                         }
                                                                                       }
 
@@ -2684,17 +3179,17 @@ LABEL_802:
                                                                                     }
 
 LABEL_795:
-                                                                                    *v443 = v443;
-                                                                                    *&v443[8] = v443;
-                                                                                    *&v443[16] = 0;
-                                                                                    v189 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                    if (v189)
+                                                                                    *v452 = v452;
+                                                                                    *&v452[8] = v452;
+                                                                                    *&v452[16] = 0;
+                                                                                    v195 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                    if (v195)
                                                                                     {
-                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v189, OS_LOG_TYPE_INFO))
+                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v195, OS_LOG_TYPE_INFO))
                                                                                       {
-                                                                                        *v449 = 136315138;
-                                                                                        *&v449[4] = "IPv6:AllAddresses";
-                                                                                        _os_log_impl(&_mh_execute_header, v189, OS_LOG_TYPE_INFO, "HI:PG0: %s", v449, 0xCu);
+                                                                                        *v458 = 136315138;
+                                                                                        *&v458[4] = "IPv6:AllAddresses";
+                                                                                        _os_log_impl(&_mh_execute_header, v195, OS_LOG_TYPE_INFO, "HI:PG0: %s", v458, 0xCu);
                                                                                       }
                                                                                     }
 
@@ -2703,27 +3198,27 @@ LABEL_795:
                                                                                       [PowerEventHandler_Rcp init:];
                                                                                     }
 
-                                                                                    UnicastAddresses = otIp6GetUnicastAddresses(*(v413 + 28));
+                                                                                    UnicastAddresses = otIp6GetUnicastAddresses(v422[28]);
                                                                                     if (UnicastAddresses)
                                                                                     {
-                                                                                      otIp6AddressToString(UnicastAddresses, v427, 40);
-                                                                                      std::string::basic_string[abi:ne200100]<0>(v449, v427);
+                                                                                      otIp6AddressToString(UnicastAddresses, v436, 40);
+                                                                                      std::string::basic_string[abi:ne200100]<0>(v458, v436);
                                                                                       operator new();
                                                                                     }
 
-                                                                                    boost::any::any<std::list<std::string> &>();
+                                                                                    boost::any::any<std::list<std::string> &>(v458, v452);
                                                                                   }
 
 LABEL_788:
-                                                                                  v187 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                  if (v187)
+                                                                                  v193 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                  if (v193)
                                                                                   {
-                                                                                    v188 = v187;
-                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v188, OS_LOG_TYPE_INFO))
+                                                                                    v194 = v193;
+                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v194, OS_LOG_TYPE_INFO))
                                                                                     {
-                                                                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                      *(v427[0].__r_.__value_.__r.__words + 4) = "NCP:HardwareAddress";
-                                                                                      _os_log_impl(&_mh_execute_header, v188, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                      *(v436[0].__r_.__value_.__r.__words + 4) = "NCP:HardwareAddress";
+                                                                                      _os_log_impl(&_mh_execute_header, v194, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                     }
                                                                                   }
 
@@ -2732,26 +3227,26 @@ LABEL_788:
                                                                                     [PowerEventHandler_Rcp init:];
                                                                                   }
 
-                                                                                  *v443 = 0;
-                                                                                  otPlatVendorGetAssignedHwMac(*(v413 + 28), v443);
-                                                                                  nl::Data::Data(v427, v443, 8);
-                                                                                  boost::any::any<nl::Data &>();
+                                                                                  *v452 = 0;
+                                                                                  otPlatVendorGetAssignedHwMac(v422[28], v452);
+                                                                                  nl::Data::Data(v436, v452, 8uLL);
+                                                                                  boost::any::any<nl::Data &>(v458, v436);
                                                                                 }
 
 LABEL_781:
-                                                                                *v449 = 0;
-                                                                                otPlatVendorGetAssignedHwMac(*(v413 + 28), v449);
-                                                                                snprintf(v427, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v449[0], v449[1], v449[2], v449[3], v449[4], v449[5], v449[6], v449[7]);
-                                                                                v186 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                if (v186)
+                                                                                *v458 = 0;
+                                                                                otPlatVendorGetAssignedHwMac(v422[28], v458);
+                                                                                snprintf(v436, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v458[0], v458[1], v458[2], v458[3], v458[4], v458[5], v458[6], v458[7]);
+                                                                                v192 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                if (v192)
                                                                                 {
-                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v186, OS_LOG_TYPE_INFO))
+                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v192, OS_LOG_TYPE_INFO))
                                                                                   {
-                                                                                    *v443 = 136315394;
-                                                                                    *&v443[4] = "vendor:assigned:hw:mac";
-                                                                                    *&v443[12] = 2080;
-                                                                                    *&v443[14] = v427;
-                                                                                    _os_log_impl(&_mh_execute_header, v186, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v443, 0x16u);
+                                                                                    *v452 = 136315394;
+                                                                                    *&v452[4] = "vendor:assigned:hw:mac";
+                                                                                    *&v452[12] = 2080;
+                                                                                    *&v452[14] = v436;
+                                                                                    _os_log_impl(&_mh_execute_header, v192, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v452, 0x16u);
                                                                                   }
                                                                                 }
 
@@ -2760,30 +3255,30 @@ LABEL_781:
                                                                                   [PowerEventHandler_Rcp init:];
                                                                                 }
 
-                                                                                std::string::basic_string[abi:ne200100]<0>(v443, v427);
+                                                                                std::string::basic_string[abi:ne200100]<0>(v452, v436);
                                                                                 operator new();
                                                                               }
 
 LABEL_772:
-                                                                              otPlatVendorGetDeviceId(*(v413 + 28), v447);
-                                                                              snprintf(v427, 0x1EuLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v447[0].__r_.__value_.__s.__data_[0], v447[0].__r_.__value_.__s.__data_[1], v447[0].__r_.__value_.__s.__data_[2], v447[0].__r_.__value_.__s.__data_[3], v447[0].__r_.__value_.__s.__data_[4], v447[0].__r_.__value_.__s.__data_[5], v447[0].__r_.__value_.__s.__data_[6], v447[0].__r_.__value_.__s.__data_[7]);
-                                                                              std::string::basic_string[abi:ne200100]<0>(v443, v427);
-                                                                              v183 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                              if (v183)
+                                                                              otPlatVendorGetDeviceId(v422[28], v456);
+                                                                              snprintf(v436, 0x1EuLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v456[0].__r_.__value_.__s.__data_[0], v456[0].__r_.__value_.__s.__data_[1], v456[0].__r_.__value_.__s.__data_[2], v456[0].__r_.__value_.__s.__data_[3], v456[0].__r_.__value_.__s.__data_[4], v456[0].__r_.__value_.__s.__data_[5], v456[0].__r_.__value_.__s.__data_[6], v456[0].__r_.__value_.__s.__data_[7]);
+                                                                              std::string::basic_string[abi:ne200100]<0>(v452, v436);
+                                                                              v189 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                              if (v189)
                                                                               {
-                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v183, OS_LOG_TYPE_INFO))
+                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v189, OS_LOG_TYPE_INFO))
                                                                                 {
-                                                                                  v184 = v443;
-                                                                                  if (v443[23] < 0)
+                                                                                  v190 = v452;
+                                                                                  if (v452[23] < 0)
                                                                                   {
-                                                                                    v184 = *v443;
+                                                                                    v190 = *v452;
                                                                                   }
 
-                                                                                  *v449 = 136315394;
-                                                                                  *&v449[4] = "NCP:HardwareSerialNumber";
-                                                                                  *&v449[12] = 2080;
-                                                                                  *&v449[14] = v184;
-                                                                                  _os_log_impl(&_mh_execute_header, v183, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v449, 0x16u);
+                                                                                  *v458 = 136315394;
+                                                                                  *&v458[4] = "NCP:HardwareSerialNumber";
+                                                                                  *&v458[12] = 2080;
+                                                                                  *&v458[14] = v190;
+                                                                                  _os_log_impl(&_mh_execute_header, v189, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v458, 0x16u);
                                                                                 }
                                                                               }
 
@@ -2792,22 +3287,22 @@ LABEL_772:
                                                                                 [PowerEventHandler_Rcp init:];
                                                                               }
 
-                                                                              boost::any::any<std::string &>();
+                                                                              boost::any::any<std::string &>(v458, v452);
                                                                             }
 
 LABEL_708:
-                                                                            PanId = otLinkGetPanId(*(v413 + 28));
-                                                                            v166 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                            if (v166)
+                                                                            PanId = otLinkGetPanId(v422[28]);
+                                                                            v172 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                            if (v172)
                                                                             {
-                                                                              v167 = v166;
-                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v167, OS_LOG_TYPE_INFO))
+                                                                              v173 = v172;
+                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v173, OS_LOG_TYPE_INFO))
                                                                               {
-                                                                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                                                                *(v427[0].__r_.__value_.__r.__words + 4) = "Network:PANID";
-                                                                                WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                                                                                *(&v427[0].__r_.__value_.__r.__words[1] + 6) = PanId;
-                                                                                _os_log_impl(&_mh_execute_header, v167, OS_LOG_TYPE_INFO, "HI:PG0:%s=0x%x6", v427, 0x12u);
+                                                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                                                                *(v436[0].__r_.__value_.__r.__words + 4) = "Network:PANID";
+                                                                                WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                                                                                *(&v436[0].__r_.__value_.__r.__words[1] + 6) = PanId;
+                                                                                _os_log_impl(&_mh_execute_header, v173, OS_LOG_TYPE_INFO, "HI:PG0:%s=0x%x6", v436, 0x12u);
                                                                               }
                                                                             }
 
@@ -2820,15 +3315,15 @@ LABEL_708:
                                                                           }
 
 LABEL_701:
-                                                                          v163 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                          if (v163)
+                                                                          v169 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                          if (v169)
                                                                           {
-                                                                            v164 = v163;
-                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
+                                                                            v170 = v169;
+                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v170, OS_LOG_TYPE_INFO))
                                                                             {
-                                                                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                              *(v427[0].__r_.__value_.__r.__words + 4) = "Network:XPANID";
-                                                                              _os_log_impl(&_mh_execute_header, v164, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                              LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                              *(v436[0].__r_.__value_.__r.__words + 4) = "Network:XPANID";
+                                                                              _os_log_impl(&_mh_execute_header, v170, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                             }
                                                                           }
 
@@ -2837,30 +3332,30 @@ LABEL_701:
                                                                             [PowerEventHandler_Rcp init:];
                                                                           }
 
-                                                                          otThreadGetExtendedPanId(*(v413 + 28));
-                                                                          nl::Data::Data(v427, v185, 8);
-                                                                          boost::any::any<nl::Data &>();
+                                                                          otThreadGetExtendedPanId(v422[28]);
+                                                                          nl::Data::Data(v436, v191, 8uLL);
+                                                                          boost::any::any<nl::Data &>(v452, v436);
                                                                         }
 
 LABEL_684:
-                                                                        otThreadGetNetworkName(*(v413 + 28));
-                                                                        std::string::basic_string[abi:ne200100]<0>(v427, v156);
-                                                                        v157 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                        if (v157)
+                                                                        otThreadGetNetworkName(v422[28]);
+                                                                        std::string::basic_string[abi:ne200100]<0>(v436, v163);
+                                                                        v164 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                        if (v164)
                                                                         {
-                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v157, OS_LOG_TYPE_INFO))
+                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
                                                                           {
-                                                                            v158 = v427;
-                                                                            if ((v427[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                                                            v165 = v436;
+                                                                            if ((v436[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                                                             {
-                                                                              v158 = v427[0].__r_.__value_.__r.__words[0];
+                                                                              v165 = v436[0].__r_.__value_.__r.__words[0];
                                                                             }
 
-                                                                            *v443 = 136315394;
-                                                                            *&v443[4] = "Network:Name";
-                                                                            *&v443[12] = 2080;
-                                                                            *&v443[14] = v158;
-                                                                            _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v443, 0x16u);
+                                                                            *v452 = 136315394;
+                                                                            *&v452[4] = "Network:Name";
+                                                                            *&v452[12] = 2080;
+                                                                            *&v452[14] = v165;
+                                                                            _os_log_impl(&_mh_execute_header, v164, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v452, 0x16u);
                                                                           }
                                                                         }
 
@@ -2869,27 +3364,27 @@ LABEL_684:
                                                                           [PowerEventHandler_Rcp init:];
                                                                         }
 
-                                                                        boost::any::any<std::string &>();
+                                                                        boost::any::any<std::string &>(v452, v436);
                                                                       }
 
 LABEL_628:
-                                                                      RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, v427);
-                                                                      v140 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                      if (v140)
+                                                                      RcpHostContext::get_rcp_state(v436, RcpHostContext::sRcpHostContext);
+                                                                      v148 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                      if (v148)
                                                                       {
-                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v140, OS_LOG_TYPE_INFO))
+                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v148, OS_LOG_TYPE_INFO))
                                                                         {
-                                                                          v141 = v427;
-                                                                          if ((v427[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                                                          v149 = v436;
+                                                                          if ((v436[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                                                           {
-                                                                            v141 = v427[0].__r_.__value_.__r.__words[0];
+                                                                            v149 = v436[0].__r_.__value_.__r.__words[0];
                                                                           }
 
-                                                                          *v443 = 136315394;
-                                                                          *&v443[4] = "NCP:State";
-                                                                          *&v443[12] = 2080;
-                                                                          *&v443[14] = v141;
-                                                                          _os_log_impl(&_mh_execute_header, v140, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v443, 0x16u);
+                                                                          *v452 = 136315394;
+                                                                          *&v452[4] = "NCP:State";
+                                                                          *&v452[12] = 2080;
+                                                                          *&v452[14] = v149;
+                                                                          _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_INFO, "HI:PG0:%s=%s", v452, 0x16u);
                                                                         }
                                                                       }
 
@@ -2898,30 +3393,30 @@ LABEL_628:
                                                                         [PowerEventHandler_Rcp init:];
                                                                       }
 
-                                                                      boost::any::any<std::string &>();
+                                                                      boost::any::any<std::string &>(v452, v436);
                                                                     }
 
 LABEL_623:
-                                                                    LODWORD(v456.__r_.__value_.__l.__data_) = 0;
-                                                                    v134 = *(v413 + 1);
-                                                                    v135 = *(v413 + 2);
-                                                                    v136 = (v413 + 8);
-                                                                    memset(v449, 0, 24);
-                                                                    std::vector<ServiceEntry>::__init_with_size[abi:ne200100]<ServiceEntry*,ServiceEntry*>(v449, v134, v135, 0xCCCCCCCCCCCCCCCDLL * ((v135 - v134) >> 4));
-                                                                    v447[0].__r_.__value_.__r.__words[0] = v447;
-                                                                    v447[0].__r_.__value_.__l.__size_ = v447;
-                                                                    v447[0].__r_.__value_.__r.__words[2] = 0;
-                                                                    v137 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                    if (v137)
+                                                                    LODWORD(v465.__r_.__value_.__l.__data_) = 0;
+                                                                    v142 = v422[1];
+                                                                    v143 = v422[2];
+                                                                    v144 = (v422 + 1);
+                                                                    memset(v458, 0, 24);
+                                                                    std::vector<ServiceEntry>::__init_with_size[abi:ne200100]<ServiceEntry*,ServiceEntry*>(v458, v142, v143, 0xCCCCCCCCCCCCCCCDLL * ((v143 - v142) >> 4));
+                                                                    v456[0].__r_.__value_.__r.__words[0] = v456;
+                                                                    v456[0].__r_.__value_.__l.__size_ = v456;
+                                                                    v456[0].__r_.__value_.__r.__words[2] = 0;
+                                                                    v145 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                    if (v145)
                                                                     {
-                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v137, OS_LOG_TYPE_INFO))
+                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v145, OS_LOG_TYPE_INFO))
                                                                       {
-                                                                        v139 = *(__s1 + 56);
-                                                                        *v443 = 67109378;
-                                                                        *&v443[4] = v139;
-                                                                        *&v443[8] = 2080;
-                                                                        *&v443[10] = "Thread:Services";
-                                                                        _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v443, 0x12u);
+                                                                        v147 = *(__s1 + 56);
+                                                                        *v452 = 67109378;
+                                                                        *&v452[4] = v147;
+                                                                        *&v452[8] = 2080;
+                                                                        *&v452[10] = "Thread:Services";
+                                                                        _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v452, 0x12u);
                                                                       }
                                                                     }
 
@@ -2932,38 +3427,36 @@ LABEL_623:
 
                                                                     if ((*(__s1 + 56) & 1) == 0)
                                                                     {
-                                                                      v162 = *(v413 + 1);
-                                                                      if (v162 != *(v413 + 2))
+                                                                      v167 = v422[1];
+                                                                      if (v167 != v422[2])
                                                                       {
-                                                                        *&v138 = 136315394;
-                                                                        v411 = v138;
-                                                                        *&v443[8] = 0;
-                                                                        *&v443[16] = 0;
-                                                                        *v443 = &v443[8];
-                                                                        LODWORD(v446.__r_.__value_.__l.__data_) = *(v162 + 12);
+                                                                        *&v146 = 136315394;
+                                                                        *v420 = v146;
+                                                                        *&v452[8] = 0;
+                                                                        *&v452[16] = 0;
+                                                                        *v452 = &v452[8];
+                                                                        LODWORD(v455.__r_.__value_.__l.__data_) = *(v167 + 3);
                                                                         std::string::basic_string[abi:ne200100]<0>(__s, "EnterpriseNumber");
-                                                                        v448[0].__r_.__value_.__r.__words[0] = __s;
-                                                                        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v443, &__s[0].__r_.__value_.__l.__data_);
-                                                                        boost::any::operator=<unsigned int &>();
+                                                                        v457[0].__r_.__value_.__r.__words[0] = __s;
+                                                                        v168 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v452, &__s[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v457);
+                                                                        boost::any::operator=<unsigned int &>(v168 + 7, &v455);
                                                                       }
 
-                                                                      boost::any::any<std::list<std::map<std::string,boost::any>> &>();
+                                                                      boost::any::any<std::list<std::map<std::string,boost::any>> &>(v452, v456);
                                                                     }
 
-                                                                    v159 = *(v413 + 28);
-                                                                    v160 = *(v159 + 143816);
-                                                                    LODWORD(v410) = *(v159 + 143816);
-                                                                    update_netdata_maxlength_metric(v160);
-                                                                    if (v410 < 0xF1)
+                                                                    LODWORD(v419) = *(v422[28] + 143816);
+                                                                    update_netdata_maxlength_metric(v419);
+                                                                    if (v419 < 0xF1)
                                                                     {
                                                                       goto LABEL_720;
                                                                     }
 
                                                                     update_netdata_full_metric(1);
-                                                                    v161 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                    if (v161)
+                                                                    v166 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                    if (v166)
                                                                     {
-                                                                      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
+                                                                      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
                                                                       {
                                                                         HostInterpreter::ProcessPropertyGet();
                                                                       }
@@ -2974,28 +3467,28 @@ LABEL_623:
                                                                       [PowerEventHandler_Rcp init:];
                                                                     }
 
-                                                                    v168 = RcpHostContext::sRcpHostContext;
-                                                                    std::string::basic_string[abi:ne200100]<0>(v418, "Stability");
-                                                                    std::string::basic_string[abi:ne200100]<0>(v416, "Network Data Health");
-                                                                    std::string::basic_string[abi:ne200100]<0>(v414, "Network Data full");
-                                                                    RcpHostContext::captureABC(v168, v418, v416, v414, 0, 1);
-                                                                    if (v415 < 0)
+                                                                    v174 = RcpHostContext::sRcpHostContext;
+                                                                    std::string::basic_string[abi:ne200100]<0>(v427, "Stability");
+                                                                    std::string::basic_string[abi:ne200100]<0>(v425, "Network Data Health");
+                                                                    std::string::basic_string[abi:ne200100]<0>(v423, "Network Data full");
+                                                                    RcpHostContext::captureABC(v174, v427, v425, v423, 0, 1);
+                                                                    if (v424 < 0)
                                                                     {
-                                                                      operator delete(v414[0]);
-                                                                      if ((v417 & 0x80000000) == 0)
+                                                                      operator delete(v423[0]);
+                                                                      if ((v426 & 0x80000000) == 0)
                                                                       {
 LABEL_719:
-                                                                        if ((v419 & 0x80000000) == 0)
+                                                                        if ((v428 & 0x80000000) == 0)
                                                                         {
 LABEL_720:
-                                                                          v169 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                          if (v169)
+                                                                          v175 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                          if (v175)
                                                                           {
-                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v169, OS_LOG_TYPE_INFO))
+                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v175, OS_LOG_TYPE_INFO))
                                                                             {
-                                                                              *v443 = 67109120;
-                                                                              *&v443[4] = v410;
-                                                                              _os_log_impl(&_mh_execute_header, v169, OS_LOG_TYPE_INFO, "NETDATA_LEN = %d", v443, 8u);
+                                                                              *v452 = 67109120;
+                                                                              *&v452[4] = v419;
+                                                                              _os_log_impl(&_mh_execute_header, v175, OS_LOG_TYPE_INFO, "NETDATA_LEN = %d", v452, 8u);
                                                                             }
                                                                           }
 
@@ -3004,33 +3497,33 @@ LABEL_720:
                                                                             [PowerEventHandler_Rcp init:];
                                                                           }
 
-                                                                          v171 = 0;
-                                                                          *&v170 = 136315394;
-                                                                          v409 = v170;
-                                                                          *&v170 = 67109120;
-                                                                          __s1 = v170;
-                                                                          *&v170 = 136315138;
-                                                                          v411 = v170;
+                                                                          v177 = 0;
+                                                                          *&v176 = 136315394;
+                                                                          v418 = v176;
+                                                                          *&v176 = 67109120;
+                                                                          __s1 = v176;
+                                                                          *&v176 = 136315138;
+                                                                          *v420 = v176;
                                                                           while (1)
                                                                           {
-                                                                            if (otNetDataGetNextService(*(v413 + 28), &v456, v427))
+                                                                            if (otNetDataGetNextService(v422[28], &v465, v436))
                                                                             {
-                                                                              v179 = *v449;
-                                                                              for (i = *&v449[8]; v179 != i; v179 += 80)
+                                                                              v185 = *v458;
+                                                                              for (i = *&v458[8]; v185 != i; v185 += 80)
                                                                               {
-                                                                                if (!*(v179 + 8))
+                                                                                if (!*(v185 + 8))
                                                                                 {
-                                                                                  v181 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                  if (v181)
+                                                                                  v187 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                  if (v187)
                                                                                   {
                                                                                     is_the_mask_enabled = syslog_is_the_mask_enabled(6);
                                                                                     if (is_the_mask_enabled)
                                                                                     {
-                                                                                      is_the_mask_enabled = os_log_type_enabled(v181, OS_LOG_TYPE_INFO);
+                                                                                      is_the_mask_enabled = os_log_type_enabled(v187, OS_LOG_TYPE_INFO);
                                                                                       if (is_the_mask_enabled)
                                                                                       {
-                                                                                        *v443 = 0;
-                                                                                        _os_log_impl(&_mh_execute_header, v181, OS_LOG_TYPE_INFO, "Find and erase NCP entry from mServiceEntries", v443, 2u);
+                                                                                        *v452 = 0;
+                                                                                        _os_log_impl(&_mh_execute_header, v187, OS_LOG_TYPE_INFO, "Find and erase NCP entry from mServiceEntries", v452, 2u);
                                                                                       }
                                                                                     }
                                                                                   }
@@ -3040,125 +3533,125 @@ LABEL_720:
                                                                                     is_the_mask_enabled = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
                                                                                     if (is_the_mask_enabled)
                                                                                     {
-                                                                                      *v443 = v409;
-                                                                                      *&v443[4] = "com.apple.wpantund.ncp";
-                                                                                      *&v443[12] = 2080;
-                                                                                      *&v443[14] = "default";
-                                                                                      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v443, 0x16u);
+                                                                                      *v452 = v418;
+                                                                                      *&v452[4] = "com.apple.wpantund.ncp";
+                                                                                      *&v452[12] = 2080;
+                                                                                      *&v452[14] = "default";
+                                                                                      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v452, 0x16u);
                                                                                     }
                                                                                   }
 
-                                                                                  HostInterpreter::find_and_erase_service_entry(is_the_mask_enabled, 0, *(v179 + 12), v179 + 16, v179 + 48, *(v179 + 72), v136);
-                                                                                  i = *&v449[8];
+                                                                                  HostInterpreter::find_and_erase_service_entry(is_the_mask_enabled, 0, *(v185 + 12), v185 + 16, v185 + 48, *(v185 + 72), v144);
+                                                                                  i = *&v458[8];
                                                                                 }
                                                                               }
 
-                                                                              HostInterpreter::signal_service_list_change(v413);
-                                                                              if (v410 >= 0xF1 && !v171)
+                                                                              HostInterpreter::signal_service_list_change(v422);
+                                                                              if (v419 >= 0xF1 && !v177)
                                                                               {
-                                                                                HostInterpreter::force_leader_reelection(v413);
+                                                                                HostInterpreter::force_leader_reelection(v422);
                                                                               }
 
-                                                                              std::list<std::map<std::string,boost::any>>::~list(v447);
-                                                                              std::vector<ServiceEntry>::~vector[abi:ne200100](v449);
+                                                                              std::list<std::map<std::string,boost::any>>::~list(v456);
+                                                                              std::vector<ServiceEntry>::~vector[abi:ne200100](v458);
                                                                               return 0;
                                                                             }
 
-                                                                            nl::Data::Data(__s, &v427[0].__r_.__value_.__s.__data_[9], v427[0].__r_.__value_.__s.__data_[8]);
-                                                                            if (v427[0].__r_.__value_.__s.__data_[8] == 1 && v427[0].__r_.__value_.__s.__data_[9] == 93)
+                                                                            nl::Data::Data(__s, &v436[0].__r_.__value_.__s.__data_[9], v436[0].__r_.__value_.__s.__data_[8]);
+                                                                            if (v436[0].__r_.__value_.__s.__data_[8] == 1 && v436[0].__r_.__value_.__s.__data_[9] == 93)
                                                                             {
-                                                                              v172 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                              ++v171;
-                                                                              if (v172)
+                                                                              v178 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                              ++v177;
+                                                                              if (v178)
                                                                               {
-                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v172, OS_LOG_TYPE_INFO))
+                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v178, OS_LOG_TYPE_INFO))
                                                                                 {
-                                                                                  *v443 = __s1;
-                                                                                  *&v443[4] = v171;
-                                                                                  _os_log_impl(&_mh_execute_header, v172, OS_LOG_TYPE_INFO, "unicast_service_count = %d", v443, 8u);
+                                                                                  *v452 = __s1;
+                                                                                  *&v452[4] = v177;
+                                                                                  _os_log_impl(&_mh_execute_header, v178, OS_LOG_TYPE_INFO, "unicast_service_count = %d", v452, 8u);
                                                                                 }
                                                                               }
 
                                                                               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                                                                               {
-                                                                                *v443 = v409;
-                                                                                *&v443[4] = "com.apple.wpantund.ncp";
-                                                                                *&v443[12] = 2080;
-                                                                                *&v443[14] = "default";
-                                                                                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v443, 0x16u);
+                                                                                *v452 = v418;
+                                                                                *&v452[4] = "com.apple.wpantund.ncp";
+                                                                                *&v452[12] = 2080;
+                                                                                *&v452[14] = "default";
+                                                                                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v452, 0x16u);
                                                                               }
                                                                             }
 
-                                                                            nl::Data::Data(v448, v441, v440);
-                                                                            v173 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                            if (v173)
+                                                                            nl::Data::Data(v457, v450, v449);
+                                                                            v179 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                            if (v179)
                                                                             {
-                                                                              v174 = syslog_is_the_mask_enabled(6);
-                                                                              if (v174)
+                                                                              v180 = syslog_is_the_mask_enabled(6);
+                                                                              if (v180)
                                                                               {
-                                                                                v174 = os_log_type_enabled(v173, OS_LOG_TYPE_INFO);
-                                                                                if (v174)
+                                                                                v180 = os_log_type_enabled(v179, OS_LOG_TYPE_INFO);
+                                                                                if (v180)
                                                                                 {
-                                                                                  *v443 = 0;
-                                                                                  _os_log_impl(&_mh_execute_header, v173, OS_LOG_TYPE_INFO, "Find and erase NCP entry from local entries", v443, 2u);
+                                                                                  *v452 = 0;
+                                                                                  _os_log_impl(&_mh_execute_header, v179, OS_LOG_TYPE_INFO, "Find and erase NCP entry from local entries", v452, 2u);
                                                                                 }
                                                                               }
                                                                             }
 
                                                                             else
                                                                             {
-                                                                              v174 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-                                                                              if (v174)
+                                                                              v180 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+                                                                              if (v180)
                                                                               {
-                                                                                *v443 = v409;
-                                                                                *&v443[4] = "com.apple.wpantund.ncp";
-                                                                                *&v443[12] = 2080;
-                                                                                *&v443[14] = "default";
-                                                                                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v443, 0x16u);
+                                                                                *v452 = v418;
+                                                                                *&v452[4] = "com.apple.wpantund.ncp";
+                                                                                *&v452[12] = 2080;
+                                                                                *&v452[14] = "default";
+                                                                                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v452, 0x16u);
                                                                               }
                                                                             }
 
-                                                                            HostInterpreter::find_and_erase_service_entry(v174, 0, SHIDWORD(v427[0].__r_.__value_.__r.__words[0]), __s, v448, v442, v449);
-                                                                            v175 = ServiceEntry::ServiceEntry(v443, 0, SHIDWORD(v427[0].__r_.__value_.__r.__words[0]), __s, v439 & 1, v448);
-                                                                            v176 = v442;
-                                                                            if ((HostInterpreter::find_service_entry(v175, 0, SHIDWORD(v427[0].__r_.__value_.__r.__words[0]), __s, v448, v442, v136) & 1) == 0)
+                                                                            HostInterpreter::find_and_erase_service_entry(v180, 0, SHIDWORD(v436[0].__r_.__value_.__r.__words[0]), __s, v457, v451, v458);
+                                                                            v181 = ServiceEntry::ServiceEntry(v452, 0, HIDWORD(v436[0].__r_.__value_.__r.__words[0]), __s, v448 & 1, v457);
+                                                                            v182 = v451;
+                                                                            if ((HostInterpreter::find_service_entry(v181, 0, SHIDWORD(v436[0].__r_.__value_.__r.__words[0]), __s, v457, v451, v144) & 1) == 0)
                                                                             {
-                                                                              WORD4(v444) = v176;
-                                                                              BYTE10(v444) = v427[0].__r_.__value_.__s.__data_[0];
-                                                                              std::vector<ServiceEntry>::emplace_back<ServiceEntry const&>(v136, v443);
-                                                                              v177 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                              if (v177)
+                                                                              WORD4(v453) = v182;
+                                                                              BYTE10(v453) = v436[0].__r_.__value_.__s.__data_[0];
+                                                                              std::vector<ServiceEntry>::emplace_back<ServiceEntry const&>(v144, v452);
+                                                                              v183 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                              if (v183)
                                                                               {
-                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v177, OS_LOG_TYPE_INFO))
+                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v183, OS_LOG_TYPE_INFO))
                                                                                 {
-                                                                                  ServiceEntry::get_description(v443);
+                                                                                  ServiceEntry::get_description(v452);
                                                                                 }
                                                                               }
 
                                                                               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                                                                               {
-                                                                                LODWORD(v446.__r_.__value_.__l.__data_) = v409;
-                                                                                *(v446.__r_.__value_.__r.__words + 4) = "com.apple.wpantund.ncp";
-                                                                                WORD2(v446.__r_.__value_.__r.__words[1]) = 2080;
-                                                                                *(&v446.__r_.__value_.__r.__words[1] + 6) = "default";
-                                                                                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", &v446, 0x16u);
-                                                                                ServiceEntry::~ServiceEntry(v443);
-                                                                                v178 = v448[0].__r_.__value_.__r.__words[0];
-                                                                                if (!v448[0].__r_.__value_.__r.__words[0])
+                                                                                LODWORD(v455.__r_.__value_.__l.__data_) = v418;
+                                                                                *(v455.__r_.__value_.__r.__words + 4) = "com.apple.wpantund.ncp";
+                                                                                WORD2(v455.__r_.__value_.__r.__words[1]) = 2080;
+                                                                                *(&v455.__r_.__value_.__r.__words[1] + 6) = "default";
+                                                                                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", &v455, 0x16u);
+                                                                                ServiceEntry::~ServiceEntry(v452);
+                                                                                v184 = v457[0].__r_.__value_.__r.__words[0];
+                                                                                if (!v457[0].__r_.__value_.__r.__words[0])
                                                                                 {
                                                                                   goto LABEL_750;
                                                                                 }
 
 LABEL_749:
-                                                                                v448[0].__r_.__value_.__l.__size_ = v178;
-                                                                                operator delete(v178);
+                                                                                v457[0].__r_.__value_.__l.__size_ = v184;
+                                                                                operator delete(v184);
                                                                                 goto LABEL_750;
                                                                               }
                                                                             }
 
-                                                                            ServiceEntry::~ServiceEntry(v443);
-                                                                            v178 = v448[0].__r_.__value_.__r.__words[0];
-                                                                            if (v448[0].__r_.__value_.__r.__words[0])
+                                                                            ServiceEntry::~ServiceEntry(v452);
+                                                                            v184 = v457[0].__r_.__value_.__r.__words[0];
+                                                                            if (v457[0].__r_.__value_.__r.__words[0])
                                                                             {
                                                                               goto LABEL_749;
                                                                             }
@@ -3173,18 +3666,18 @@ LABEL_750:
                                                                         }
 
 LABEL_771:
-                                                                        operator delete(v418[0]);
+                                                                        operator delete(v427[0]);
                                                                         goto LABEL_720;
                                                                       }
                                                                     }
 
-                                                                    else if ((v417 & 0x80000000) == 0)
+                                                                    else if ((v426 & 0x80000000) == 0)
                                                                     {
                                                                       goto LABEL_719;
                                                                     }
 
-                                                                    operator delete(v416[0]);
-                                                                    if ((v419 & 0x80000000) == 0)
+                                                                    operator delete(v425[0]);
+                                                                    if ((v428 & 0x80000000) == 0)
                                                                     {
                                                                       goto LABEL_720;
                                                                     }
@@ -3193,20 +3686,20 @@ LABEL_771:
                                                                   }
 
 LABEL_619:
-                                                                  LODWORD(v448[0].__r_.__value_.__l.__data_) = 0;
-                                                                  Rloc16 = otThreadGetRloc16(*(v413 + 28));
-                                                                  memset(v443, 0, sizeof(v443));
-                                                                  v444 = 0u;
-                                                                  memset(v445, 0, 20);
-                                                                  v132 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                  if (v132)
+                                                                  LODWORD(v457[0].__r_.__value_.__l.__data_) = 0;
+                                                                  Rloc16 = otThreadGetRloc16(v422[28]);
+                                                                  memset(v452, 0, sizeof(v452));
+                                                                  v453 = 0u;
+                                                                  memset(v454, 0, 20);
+                                                                  v140 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                  if (v140)
                                                                   {
-                                                                    v133 = v132;
-                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
+                                                                    v141 = v140;
+                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v141, OS_LOG_TYPE_INFO))
                                                                     {
-                                                                      *v449 = 136315138;
-                                                                      *&v449[4] = "nm:networkdata";
-                                                                      _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_INFO, "HI:PG1:%s", v449, 0xCu);
+                                                                      *v458 = 136315138;
+                                                                      *&v458[4] = "nm:networkdata";
+                                                                      _os_log_impl(&_mh_execute_header, v141, OS_LOG_TYPE_INFO, "HI:PG1:%s", v458, 0xCu);
                                                                     }
                                                                   }
 
@@ -3215,46 +3708,45 @@ LABEL_619:
                                                                     [PowerEventHandler_Rcp init:];
                                                                   }
 
-                                                                  otThreadGetPartitionId(*(v413 + 28));
-                                                                  v142 = *(*(v413 + 28) + 143816);
-                                                                  if (otNetDataGetNextService(*(v413 + 28), v448, v427))
+                                                                  otThreadGetPartitionId(v422[28]);
+                                                                  if (otNetDataGetNextService(v422[28], v457, v436))
                                                                   {
-                                                                    v143 = 0;
-                                                                    v144 = 0;
-                                                                    v145 = 0;
+                                                                    v150 = 0;
+                                                                    v151 = 0;
+                                                                    v152 = 0;
                                                                   }
 
                                                                   else
                                                                   {
-                                                                    v146 = 0;
-                                                                    v143 = 0;
-                                                                    v144 = 0;
-                                                                    v145 = 0;
+                                                                    v153 = 0;
+                                                                    v150 = 0;
+                                                                    v151 = 0;
+                                                                    v152 = 0;
                                                                     do
                                                                     {
-                                                                      nl::Data::Data(v449, &v427[0].__r_.__value_.__s.__data_[9], v427[0].__r_.__value_.__s.__data_[8]);
-                                                                      if (v427[0].__r_.__value_.__s.__data_[8] == 1 && v427[0].__r_.__value_.__s.__data_[9] == 93)
+                                                                      nl::Data::Data(v458, &v436[0].__r_.__value_.__s.__data_[9], v436[0].__r_.__value_.__s.__data_[8]);
+                                                                      if (v436[0].__r_.__value_.__s.__data_[8] == 1 && v436[0].__r_.__value_.__s.__data_[9] == 93)
                                                                       {
-                                                                        ++v144;
+                                                                        ++v151;
                                                                       }
 
-                                                                      else if (v427[0].__r_.__value_.__s.__data_[8] == 2 && v427[0].__r_.__value_.__s.__data_[9] == 92)
+                                                                      else if (v436[0].__r_.__value_.__s.__data_[8] == 2 && v436[0].__r_.__value_.__s.__data_[9] == 92)
                                                                       {
-                                                                        ++v143;
-                                                                        if (v146)
+                                                                        ++v150;
+                                                                        if (v153)
                                                                         {
-                                                                          v147 = v146;
-                                                                          v148 = v443;
-                                                                          v149 = v146;
+                                                                          v154 = v153;
+                                                                          v155 = v452;
+                                                                          v156 = v153;
                                                                           while (1)
                                                                           {
-                                                                            v150 = *v148++;
-                                                                            if (v150 == v427[0].__r_.__value_.__s.__data_[10])
+                                                                            v157 = *v155++;
+                                                                            if (v157 == v436[0].__r_.__value_.__s.__data_[10])
                                                                             {
                                                                               break;
                                                                             }
 
-                                                                            if (!--v149)
+                                                                            if (!--v156)
                                                                             {
                                                                               goto LABEL_650;
                                                                             }
@@ -3263,86 +3755,86 @@ LABEL_619:
 
                                                                         else
                                                                         {
-                                                                          v147 = 0;
+                                                                          v154 = 0;
 LABEL_650:
-                                                                          v443[v147] = v427[0].__r_.__value_.__s.__data_[10];
-                                                                          ++v146;
-                                                                          ++v145;
+                                                                          v452[v154] = v436[0].__r_.__value_.__s.__data_[10];
+                                                                          ++v153;
+                                                                          ++v152;
                                                                         }
                                                                       }
 
-                                                                      if (*v449)
+                                                                      if (*v458)
                                                                       {
-                                                                        *&v449[8] = *v449;
-                                                                        operator delete(*v449);
+                                                                        *&v458[8] = *v458;
+                                                                        operator delete(*v458);
                                                                       }
                                                                     }
 
-                                                                    while (!otNetDataGetNextService(*(v413 + 28), v448, v427));
-                                                                    if (v145 >= 2u)
+                                                                    while (!otNetDataGetNextService(v422[28], v457, v436));
+                                                                    if (v152 >= 2u)
                                                                     {
-                                                                      HostInterpreter::setRcpSrpAnycastServiceCovergenceTimer(v413);
+                                                                      HostInterpreter::setRcpSrpAnycastServiceCovergenceTimer(v422);
                                                                       goto LABEL_657;
                                                                     }
                                                                   }
 
-                                                                  HostInterpreter::clearRcpSrpAnycastServiceCovergenceTimer(v413);
+                                                                  HostInterpreter::clearRcpSrpAnycastServiceCovergenceTimer(v422);
 LABEL_657:
-                                                                  if (v144 < 2u)
+                                                                  if (v151 < 2u)
                                                                   {
-                                                                    HostInterpreter::clearRcpSrpUnicastServiceCovergenceTimer(v413);
+                                                                    HostInterpreter::clearRcpSrpUnicastServiceCovergenceTimer(v422);
                                                                   }
 
                                                                   else if ((*(RcpHostContext::sRcpHostContext + 5966) & 1) == 0)
                                                                   {
-                                                                    HostInterpreter::setRcpSrpUnicastServiceCovergenceTimer(v413);
+                                                                    HostInterpreter::setRcpSrpUnicastServiceCovergenceTimer(v422);
                                                                   }
 
-                                                                  LODWORD(v448[0].__r_.__value_.__l.__data_) = 0;
-                                                                  v151 = 0;
-                                                                  v152 = 0;
-                                                                  if (otNetDataGetNextOnMeshPrefix(*(v413 + 28), v448, v447))
+                                                                  LODWORD(v457[0].__r_.__value_.__l.__data_) = 0;
+                                                                  v158 = 0;
+                                                                  v159 = 0;
+                                                                  if (otNetDataGetNextOnMeshPrefix(v422[28], v457, v456))
                                                                   {
                                                                     goto LABEL_666;
                                                                   }
 
                                                                   do
                                                                   {
-                                                                    ++v152;
-                                                                    LOBYTE(v151) = (Rloc16 == WORD2(v447[0].__r_.__value_.__r.__words[2])) | v151;
+                                                                    ++v159;
+                                                                    LOBYTE(v158) = (Rloc16 == WORD2(v456[0].__r_.__value_.__r.__words[2])) | v158;
                                                                   }
 
-                                                                  while (!otNetDataGetNextOnMeshPrefix(*(v413 + 28), v448, v447));
-                                                                  v151 &= 1u;
-                                                                  if (v152 < 2u)
+                                                                  while (!otNetDataGetNextOnMeshPrefix(v422[28], v457, v456));
+                                                                  v158 &= 1u;
+                                                                  if (v159 < 2u)
                                                                   {
 LABEL_666:
-                                                                    HostInterpreter::clearSrpPrefixCovergenceTimer(v413);
+                                                                    HostInterpreter::clearSrpPrefixCovergenceTimer(v422);
                                                                   }
 
                                                                   else if ((*(RcpHostContext::sRcpHostContext + 5965) & 1) == 0)
                                                                   {
-                                                                    HostInterpreter::setSrpPrefixCovergenceTimer(v413);
+                                                                    HostInterpreter::setSrpPrefixCovergenceTimer(v422);
                                                                   }
 
-                                                                  if (*(v413 + 81) != v144 || *(v413 + 82) != v143 || *(v413 + 83) != v152)
+                                                                  if (*(v422 + 81) != v151 || *(v422 + 82) != v150 || *(v422 + 83) != v159)
                                                                   {
-                                                                    v153 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                    if (v153)
+                                                                    v160 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                    if (v160)
                                                                     {
-                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
+                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v160, OS_LOG_TYPE_INFO))
                                                                       {
-                                                                        *v449 = 67110144;
-                                                                        *&v449[8] = 1024;
-                                                                        *&v449[10] = v143;
-                                                                        *&v449[14] = 1024;
-                                                                        *&v449[4] = v144;
-                                                                        *&v449[16] = v152;
-                                                                        *&v449[20] = 1024;
-                                                                        *&v449[22] = v145;
-                                                                        v450 = 1024;
-                                                                        v451 = v151;
-                                                                        _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_INFO, "NetData: numUnicastServices = %d, numAnycastServices = %d, numOnmeshPrefixes = %d, numAnycastServicesUniqueSeq = %d, myOnmeshPrefixAdvertised = %d", v449, 0x20u);
+                                                                        *v458 = 67110144;
+                                                                        *&v458[8] = 1024;
+                                                                        *&v458[10] = v150;
+                                                                        *&v458[14] = 1024;
+                                                                        *&v458[4] = v151;
+                                                                        *&v458[16] = v159;
+                                                                        *&v458[20] = 1024;
+                                                                        *&v458[22] = v152;
+                                                                        v459 = 1024;
+                                                                        v460 = v158;
+                                                                        _os_log_impl(&_mh_execute_header, v160, OS_LOG_TYPE_INFO, "NetData: numUnicastServices = %d, numAnycastServices = %d, numOnmeshPrefixes = %d, numAnycastServicesUniqueSeq = %d, myOnmeshPrefixAdvertised = %d", v458, 0x20u);
                                                                       }
                                                                     }
 
@@ -3351,173 +3843,149 @@ LABEL_666:
                                                                       [PowerEventHandler_Rcp init:];
                                                                     }
 
-                                                                    v154 = v413;
-                                                                    *(v413 + 81) = v144;
-                                                                    *(v154 + 82) = v143;
-                                                                    *(v154 + 83) = v152;
+                                                                    v161 = v422;
+                                                                    *(v422 + 81) = v151;
+                                                                    *(v161 + 82) = v150;
+                                                                    *(v161 + 83) = v159;
                                                                   }
 
-                                                                  if (!(v145 | v144) || v152)
+                                                                  if (!(v152 | v151) || v159)
                                                                   {
-                                                                    HostInterpreter::clearSrpAdvertisedWithoutPrefixTimer(v413);
+                                                                    HostInterpreter::clearSrpAdvertisedWithoutPrefixTimer(v422);
                                                                   }
 
                                                                   else
                                                                   {
-                                                                    HostInterpreter::setSrpAdvertisedWithoutPrefixTimer(v413);
+                                                                    HostInterpreter::setSrpAdvertisedWithoutPrefixTimer(v422);
                                                                   }
 
-                                                                  std::string::basic_string[abi:ne200100]<0>(v449, "is_primary_resident");
-                                                                  __s[0].__r_.__value_.__r.__words[0] = v449;
-                                                                  v155 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, v449);
-                                                                  std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v155 + 7, "1");
-                                                                  if ((v449[23] & 0x80000000) != 0)
+                                                                  std::string::basic_string[abi:ne200100]<0>(v458, "is_primary_resident");
+                                                                  __s[0].__r_.__value_.__r.__words[0] = v458;
+                                                                  v162 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, v458, &std::piecewise_construct, __s);
+                                                                  std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v162 + 7, "1");
+                                                                  if ((v458[23] & 0x80000000) != 0)
                                                                   {
-                                                                    operator delete(*v449);
+                                                                    operator delete(*v458);
                                                                   }
 
                                                                   operator new();
                                                                 }
 
 LABEL_616:
-                                                                v427[0].__r_.__value_.__r.__words[0] = v427;
-                                                                v427[0].__r_.__value_.__l.__size_ = v427;
-                                                                v427[0].__r_.__value_.__r.__words[2] = 0;
-                                                                v130 = *(v413 + 10);
-                                                                if (v130 != (v413 + 88))
+                                                                v436[0].__r_.__value_.__r.__words[0] = v436;
+                                                                v436[0].__r_.__value_.__l.__size_ = v436;
+                                                                v436[0].__r_.__value_.__r.__words[2] = 0;
+                                                                v137 = v422[10];
+                                                                if (v137 != (v422 + 11))
                                                                 {
-                                                                  *&v443[8] = 0;
-                                                                  *&v443[16] = 0;
-                                                                  *v443 = &v443[8];
-                                                                  IPv6Prefix::to_string((v130 + 28), v449);
-                                                                  std::string::basic_string[abi:ne200100]<0>(v447, "address");
-                                                                  __s[0].__r_.__value_.__r.__words[0] = v447;
-                                                                  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v443, &v447[0].__r_.__value_.__l.__data_);
-                                                                  boost::any::operator=<std::string>();
+                                                                  *&v452[8] = 0;
+                                                                  *&v452[16] = 0;
+                                                                  *v452 = &v452[8];
+                                                                  IPv6Prefix::to_string(v458, (v137 + 28));
+                                                                  std::string::basic_string[abi:ne200100]<0>(v456, "address");
+                                                                  __s[0].__r_.__value_.__r.__words[0] = v456;
+                                                                  v138 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v452, &v456[0].__r_.__value_.__l.__data_, &std::piecewise_construct, __s);
+                                                                  boost::any::operator=<std::string>(v138 + 7, v458);
                                                                 }
 
-                                                                boost::any::any<std::list<std::map<std::string,boost::any>> &>();
+                                                                boost::any::any<std::list<std::map<std::string,boost::any>> &>(v452, v436);
                                                               }
 
 LABEL_613:
-                                                              v427[0].__r_.__value_.__r.__words[0] = v427;
-                                                              v427[0].__r_.__value_.__l.__size_ = v427;
-                                                              v427[0].__r_.__value_.__r.__words[2] = 0;
-                                                              v129 = *(v413 + 7);
-                                                              if (v129 != (v413 + 64))
+                                                              v436[0].__r_.__value_.__r.__words[0] = v436;
+                                                              v436[0].__r_.__value_.__l.__size_ = v436;
+                                                              v436[0].__r_.__value_.__r.__words[2] = 0;
+                                                              v136 = v422[7];
+                                                              if (v136 != (v422 + 8))
                                                               {
-                                                                OnMeshPrefixEntry::get_description((v129 + 48), (v129 + 28), 1, v443);
+                                                                OnMeshPrefixEntry::get_description(v452, (v136 + 48), (v136 + 28), 1);
                                                                 operator new();
                                                               }
 
-                                                              boost::any::any<std::list<std::string> &>();
+                                                              boost::any::any<std::list<std::string> &>(v452, v436);
                                                             }
 
 LABEL_612:
-                                                            HostInterpreter::get_num_unique_off_mesh_routes(v413);
+                                                            HostInterpreter::get_num_unique_off_mesh_routes(v422);
                                                             operator new();
                                                           }
 
 LABEL_611:
-                                                          HostInterpreter::get_num_routers(v413);
+                                                          HostInterpreter::get_num_routers(v422);
                                                           operator new();
                                                         }
 
 LABEL_610:
-                                                        HostInterpreter::get_num_unique_on_mesh_prefixes(v413);
+                                                        HostInterpreter::get_num_unique_on_mesh_prefixes(v422);
                                                         operator new();
                                                       }
 
 LABEL_609:
-                                                      *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-                                                      v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-                                                      LODWORD(v447[0].__r_.__value_.__l.__data_) = getIntValue("numResidentsInHome");
-                                                      std::string::basic_string[abi:ne200100]<0>(v443, "numResidentsInHome");
-                                                      *v449 = v443;
-                                                      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v427, v443);
-                                                      boost::any::operator=<unsigned int &>();
+                                                      *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+                                                      v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+                                                      LODWORD(v456[0].__r_.__value_.__l.__data_) = getIntValue("numResidentsInHome");
+                                                      std::string::basic_string[abi:ne200100]<0>(v452, "numResidentsInHome");
+                                                      *v458 = v452;
+                                                      v135 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v436, v452, &std::piecewise_construct, v458);
+                                                      boost::any::operator=<unsigned int &>(v135 + 7, v456);
                                                     }
 
 LABEL_599:
-                                                    *&v443[16] = 0;
-                                                    *&v443[8] = 0;
-                                                    *v443 = &v443[8];
-                                                    memset(v449, 0, 24);
-                                                    memset(v447, 0, 24);
+                                                    *&v452[16] = 0;
+                                                    *&v452[8] = 0;
+                                                    *v452 = &v452[8];
+                                                    memset(v458, 0, 24);
+                                                    memset(v456, 0, 24);
                                                     memset(__s, 0, 24);
                                                     StringValue = getStringValue("is_primary_resident");
                                                     if (StringValue)
                                                     {
-                                                      v124 = StringValue;
+                                                      v129 = StringValue;
                                                     }
 
                                                     else
                                                     {
-                                                      v124 = "0";
+                                                      v129 = "0";
                                                     }
 
-                                                    std::string::assign(v449, v124);
-                                                    v125 = getStringValue("is_primary_resident_thread_capable");
-                                                    if (v125)
+                                                    std::string::assign(v458, v129);
+                                                    v130 = getStringValue("is_primary_resident_thread_capable");
+                                                    if (v130)
                                                     {
-                                                      v126 = v125;
+                                                      v131 = v130;
                                                     }
 
                                                     else
                                                     {
-                                                      v126 = "0";
+                                                      v131 = "0";
                                                     }
 
-                                                    std::string::assign(v447, v126);
-                                                    v127 = getStringValue("primary_resident_info");
-                                                    if (v127)
+                                                    std::string::assign(v456, v131);
+                                                    v132 = getStringValue("primary_resident_info");
+                                                    if (v132)
                                                     {
-                                                      v128 = v127;
+                                                      v133 = v132;
                                                     }
 
                                                     else
                                                     {
-                                                      v128 = "0";
+                                                      v133 = "0";
                                                     }
 
-                                                    std::string::assign(__s, v128);
-                                                    std::string::basic_string[abi:ne200100]<0>(v427, "is_primary_resident");
-                                                    v448[0].__r_.__value_.__r.__words[0] = v427;
-                                                    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v443, &v427[0].__r_.__value_.__l.__data_);
-                                                    boost::any::operator=<std::string &>();
+                                                    std::string::assign(__s, v133);
+                                                    std::string::basic_string[abi:ne200100]<0>(v436, "is_primary_resident");
+                                                    v457[0].__r_.__value_.__r.__words[0] = v436;
+                                                    v134 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v452, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v457);
+                                                    boost::any::operator=<std::string &>(v134 + 7, v458);
                                                   }
 
 LABEL_589:
-                                                  *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-                                                  v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-                                                  memset(v443, 0, 24);
-                                                  memset(v449, 0, 24);
-                                                  memset(v447, 0, 24);
-                                                  v117 = getStringValue("num_daemon_restart_due_to_reboots");
-                                                  if (v117)
-                                                  {
-                                                    v118 = v117;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v118 = "0";
-                                                  }
-
-                                                  std::string::assign(v443, v118);
-                                                  v119 = getStringValue("num_daemon_restart_due_to_crashes_or_jetsams");
-                                                  if (v119)
-                                                  {
-                                                    v120 = v119;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v120 = "0";
-                                                  }
-
-                                                  std::string::assign(v449, v120);
-                                                  v121 = getStringValue("num_firmware_resets");
+                                                  *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+                                                  v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+                                                  memset(v452, 0, 24);
+                                                  memset(v458, 0, 24);
+                                                  memset(v456, 0, 24);
+                                                  v121 = getStringValue("num_daemon_restart_due_to_reboots");
                                                   if (v121)
                                                   {
                                                     v122 = v121;
@@ -3528,59 +3996,83 @@ LABEL_589:
                                                     v122 = "0";
                                                   }
 
-                                                  std::string::assign(v447, v122);
+                                                  std::string::assign(v452, v122);
+                                                  v123 = getStringValue("num_daemon_restart_due_to_crashes_or_jetsams");
+                                                  if (v123)
+                                                  {
+                                                    v124 = v123;
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v124 = "0";
+                                                  }
+
+                                                  std::string::assign(v458, v124);
+                                                  v125 = getStringValue("num_firmware_resets");
+                                                  if (v125)
+                                                  {
+                                                    v126 = v125;
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v126 = "0";
+                                                  }
+
+                                                  std::string::assign(v456, v126);
                                                   std::string::basic_string[abi:ne200100]<0>(__s, "num_daemon_restart_due_to_reboots");
-                                                  v448[0].__r_.__value_.__r.__words[0] = __s;
-                                                  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v427, &__s[0].__r_.__value_.__l.__data_);
-                                                  boost::any::operator=<std::string &>();
+                                                  v457[0].__r_.__value_.__r.__words[0] = __s;
+                                                  v127 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v436, &__s[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v457);
+                                                  boost::any::operator=<std::string &>(v127 + 7, v452);
                                                 }
 
 LABEL_567:
-                                                *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-                                                v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-                                                memset(v443, 0, 24);
-                                                memset(v449, 0, 24);
-                                                memset(v447, 0, 24);
-                                                v110 = getStringValue("ca_trigger_based_counters_num_daemon_restart_due_to_reboots");
-                                                if (v110)
+                                                *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+                                                v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+                                                memset(v452, 0, 24);
+                                                memset(v458, 0, 24);
+                                                memset(v456, 0, 24);
+                                                v111 = getStringValue("ca_trigger_based_counters_num_daemon_restart_due_to_reboots");
+                                                if (v111)
                                                 {
-                                                  v111 = v110;
+                                                  v112 = v111;
                                                 }
 
                                                 else
                                                 {
-                                                  v111 = "0";
+                                                  v112 = "0";
                                                 }
 
-                                                std::string::assign(v443, v111);
-                                                v112 = getStringValue("ca_trigger_based_counters_num_daemon_restart_due_to_crashes_or_jetsams");
-                                                if (v112)
+                                                std::string::assign(v452, v112);
+                                                v113 = getStringValue("ca_trigger_based_counters_num_daemon_restart_due_to_crashes_or_jetsams");
+                                                if (v113)
                                                 {
-                                                  v113 = v112;
+                                                  v114 = v113;
                                                 }
 
                                                 else
                                                 {
-                                                  v113 = "0";
+                                                  v114 = "0";
                                                 }
 
-                                                std::string::assign(v449, v113);
-                                                v114 = getStringValue("ca_trigger_based_counters_num_firmware_resets");
-                                                if (v114)
+                                                std::string::assign(v458, v114);
+                                                v115 = getStringValue("ca_trigger_based_counters_num_firmware_resets");
+                                                if (v115)
                                                 {
-                                                  v115 = v114;
+                                                  v116 = v115;
                                                 }
 
                                                 else
                                                 {
-                                                  v115 = "0";
+                                                  v116 = "0";
                                                 }
 
-                                                std::string::assign(v447, v115);
+                                                std::string::assign(v456, v116);
                                                 std::string::basic_string[abi:ne200100]<0>(__s, "ca_trigger_based_counters_num_daemon_restart_due_to_reboots");
-                                                v448[0].__r_.__value_.__r.__words[0] = __s;
-                                                std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v427, &__s[0].__r_.__value_.__l.__data_);
-                                                boost::any::operator=<std::string &>();
+                                                v457[0].__r_.__value_.__r.__words[0] = __s;
+                                                v117 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v436, &__s[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v457);
+                                                boost::any::operator=<std::string &>(v117 + 7, v452);
                                               }
 
 LABEL_530:
@@ -3592,26 +4084,26 @@ LABEL_530:
 
 LABEL_491:
                                           ThreadNetifName = otSysGetThreadNetifName();
-                                          std::string::basic_string[abi:ne200100]<0>(v443, ThreadNetifName);
-                                          v89 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                          if (v89)
+                                          std::string::basic_string[abi:ne200100]<0>(v452, ThreadNetifName);
+                                          v90 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                          if (v90)
                                           {
-                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
                                             {
-                                              v90 = *(__s1 + 56);
-                                              v91 = v443;
-                                              if (v443[23] < 0)
+                                              v91 = *(__s1 + 56);
+                                              v92 = v452;
+                                              if (v452[23] < 0)
                                               {
-                                                v91 = *v443;
+                                                v92 = *v452;
                                               }
 
-                                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109634;
-                                              HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v90;
-                                              LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                              *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "Config:TUN:InterfaceName";
-                                              WORD1(v427[0].__r_.__value_.__r.__words[2]) = 2080;
-                                              *(&v427[0].__r_.__value_.__r.__words[2] + 4) = v91;
-                                              _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_INFO, "HI:PG%d:%s=[%s]", v427, 0x1Cu);
+                                              LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109634;
+                                              HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v91;
+                                              LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                              *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "Config:TUN:InterfaceName";
+                                              WORD1(v436[0].__r_.__value_.__r.__words[2]) = 2080;
+                                              *(&v436[0].__r_.__value_.__r.__words[2] + 4) = v92;
+                                              _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_INFO, "HI:PG%d:%s=[%s]", v436, 0x1Cu);
                                             }
                                           }
 
@@ -3622,35 +4114,35 @@ LABEL_491:
 
                                           if (*(__s1 + 56))
                                           {
-                                            std::string::basic_string[abi:ne200100]<0>(v427, "Config:TUN:InterfaceName");
-                                            boost::any::any<std::string &>();
+                                            std::string::basic_string[abi:ne200100]<0>(v436, "Config:TUN:InterfaceName");
+                                            boost::any::any<std::string &>(v458, v452);
                                           }
 
-                                          boost::any::any<std::string &>();
+                                          boost::any::any<std::string &>(v436, v452);
                                         }
 
 LABEL_480:
-                                        otThreadGetWasChild(*(v413 + 28));
+                                        otThreadGetWasChild(v422[28]);
                                         operator new();
                                       }
 
 LABEL_465:
-                                      memset(v427, 0, 40);
-                                      std::string::basic_string[abi:ne200100]<0>(v449, "");
-                                      std::string::basic_string[abi:ne200100]<0>(v447, "");
-                                      v84 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v84)
+                                      memset(v436, 0, 40);
+                                      std::string::basic_string[abi:ne200100]<0>(v458, "");
+                                      std::string::basic_string[abi:ne200100]<0>(v456, "");
+                                      v85 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v85)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
                                         {
-                                          v85 = *(v6 + 56);
-                                          *v443 = 136315650;
-                                          *&v443[4] = "ProcessPropertyGet";
-                                          *&v443[12] = 1024;
-                                          *&v443[14] = v85;
-                                          *&v443[18] = 2080;
-                                          *&v443[20] = "NCP:WedMleId";
-                                          _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s] otThreadGetCslPeripheralMleID", v443, 0x1Cu);
+                                          v86 = *(v6 + 56);
+                                          *v452 = 136315650;
+                                          *&v452[4] = "ProcessPropertyGet";
+                                          *&v452[12] = 1024;
+                                          *&v452[14] = v86;
+                                          *&v452[18] = 2080;
+                                          *&v452[20] = "NCP:WedMleId";
+                                          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s] otThreadGetCslPeripheralMleID", v452, 0x1Cu);
                                         }
                                       }
 
@@ -3659,21 +4151,21 @@ LABEL_465:
                                         [PowerEventHandler_Rcp init:];
                                       }
 
-                                      LinkMode = otThreadGetLinkMode(*(v413 + 28));
+                                      LinkMode = otThreadGetLinkMode(v422[28]);
                                       if (~LinkMode & 6) != 0 || (LinkMode)
                                       {
-                                        v93 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                        if (v93)
+                                        v94 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                        if (v94)
                                         {
                                           v6 = __s1;
-                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
                                           {
-                                            v94 = otThreadGetLinkMode(*(v413 + 28));
-                                            *v443 = 136315394;
-                                            *&v443[4] = "ProcessPropertyGet";
-                                            *&v443[12] = 1024;
-                                            *&v443[14] = ((~v94 & 6) == 0) & (v94 ^ 1);
-                                            _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_INFO, "%s: isSleepyRouter=[%d]", v443, 0x12u);
+                                            v95 = otThreadGetLinkMode(v422[28]);
+                                            *v452 = 136315394;
+                                            *&v452[4] = "ProcessPropertyGet";
+                                            *&v452[12] = 1024;
+                                            *&v452[14] = ((~v95 & 6) == 0) & (v95 ^ 1);
+                                            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "%s: isSleepyRouter=[%d]", v452, 0x12u);
                                             v6 = __s1;
                                           }
                                         }
@@ -3690,33 +4182,33 @@ LABEL_465:
 
                                       else
                                       {
-                                        otThreadGetCslPeripheralMleID(*(v413 + 28), v427, 40);
+                                        otThreadGetCslPeripheralMleID(v422[28], v436, 40);
                                       }
 
-                                      if (v427[0].__r_.__value_.__s.__data_[0])
+                                      if (v436[0].__r_.__value_.__s.__data_[0])
                                       {
-                                        std::string::assign(v449, v427);
-                                        v98 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                        if (v98)
+                                        std::string::assign(v458, v436);
+                                        v99 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                        if (v99)
                                         {
-                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
                                           {
-                                            v99 = *(v6 + 56);
-                                            v100 = v449;
-                                            if (v449[23] < 0)
+                                            v100 = *(v6 + 56);
+                                            v101 = v458;
+                                            if (v458[23] < 0)
                                             {
-                                              v100 = *v449;
+                                              v101 = *v458;
                                             }
 
-                                            *v443 = 136315906;
-                                            *&v443[4] = "ProcessPropertyGet";
-                                            *&v443[12] = 1024;
-                                            *&v443[14] = v99;
-                                            *&v443[18] = 2080;
-                                            *&v443[20] = "NCP:WedMleId";
-                                            *&v443[28] = 2080;
-                                            *&v443[30] = v100;
-                                            _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s wedMleIdStr = %s", v443, 0x26u);
+                                            *v452 = 136315906;
+                                            *&v452[4] = "ProcessPropertyGet";
+                                            *&v452[12] = 1024;
+                                            *&v452[14] = v100;
+                                            *&v452[18] = 2080;
+                                            *&v452[20] = "NCP:WedMleId";
+                                            *&v452[28] = 2080;
+                                            *&v452[30] = v101;
+                                            _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s wedMleIdStr = %s", v452, 0x26u);
                                           }
 
                                           goto LABEL_538;
@@ -3730,35 +4222,35 @@ LABEL_465:
 
                                       else
                                       {
-                                        v101 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                        if (v101)
+                                        v102 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                        if (v102)
                                         {
                                           v6 = __s1;
-                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
                                           {
-                                            v102 = *(__s1 + 56);
-                                            *v443 = 136315650;
-                                            *&v443[4] = "ProcessPropertyGet";
-                                            *&v443[12] = 1024;
-                                            *&v443[14] = v102;
-                                            *&v443[18] = 2080;
-                                            *&v443[20] = "NCP:WedMleId";
-                                            _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s wedMleIdStr empty", v443, 0x1Cu);
+                                            v103 = *(__s1 + 56);
+                                            *v452 = 136315650;
+                                            *&v452[4] = "ProcessPropertyGet";
+                                            *&v452[12] = 1024;
+                                            *&v452[14] = v103;
+                                            *&v452[18] = 2080;
+                                            *&v452[20] = "NCP:WedMleId";
+                                            _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s wedMleIdStr empty", v452, 0x1Cu);
                                           }
 
 LABEL_538:
                                           if ((*(v6 + 56) & 1) == 0)
                                           {
-                                            v104 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                            if (v104)
+                                            v105 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                            if (v105)
                                             {
-                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
+                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
                                               {
-                                                *v443 = 136315394;
-                                                *&v443[4] = "ProcessPropertyGet";
-                                                *&v443[12] = 2080;
-                                                *&v443[14] = "NCP:WedMleId";
-                                                _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(0)]: %s] Events Off", v443, 0x16u);
+                                                *v452 = 136315394;
+                                                *&v452[4] = "ProcessPropertyGet";
+                                                *&v452[12] = 2080;
+                                                *&v452[14] = "NCP:WedMleId";
+                                                _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(0)]: %s] Events Off", v452, 0x16u);
                                               }
                                             }
 
@@ -3767,19 +4259,19 @@ LABEL_538:
                                               [PowerEventHandler_Rcp init:];
                                             }
 
-                                            boost::any::any<std::string &>();
+                                            boost::any::any<std::string &>(v452, v458);
                                           }
 
-                                          v103 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                          if (v103)
+                                          v104 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                          if (v104)
                                           {
-                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
                                             {
-                                              *v443 = 136315394;
-                                              *&v443[4] = "ProcessPropertyGet";
-                                              *&v443[12] = 2080;
-                                              *&v443[14] = "NCP:WedMleId";
-                                              _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(1)]: %s] Events On", v443, 0x16u);
+                                              *v452 = 136315394;
+                                              *&v452[4] = "ProcessPropertyGet";
+                                              *&v452[12] = 2080;
+                                              *&v452[14] = "NCP:WedMleId";
+                                              _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(1)]: %s] Events On", v452, 0x16u);
                                             }
                                           }
 
@@ -3788,37 +4280,37 @@ LABEL_538:
                                             [PowerEventHandler_Rcp init:];
                                           }
 
-                                          v105 = v449[23];
-                                          if (v449[23] < 0)
+                                          v106 = v458[23];
+                                          if (v458[23] < 0)
                                           {
-                                            v105 = *&v449[8];
+                                            v106 = *&v458[8];
                                           }
 
-                                          if (v105)
+                                          if (v106)
                                           {
-                                            CslPeripheralAddr = otThreadGetCslPeripheralAddr(*(v413 + 28));
+                                            CslPeripheralAddr = otThreadGetCslPeripheralAddr(v422[28]);
                                             if (!CslPeripheralAddr)
                                             {
                                               goto LABEL_588;
                                             }
 
-                                            std::string::assign(v447, CslPeripheralAddr);
-                                            v107 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                            if (v107)
+                                            std::string::assign(v456, CslPeripheralAddr);
+                                            v108 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                            if (v108)
                                             {
-                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
+                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
                                               {
-                                                v108 = v447;
-                                                if ((v447[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                                v109 = v456;
+                                                if ((v456[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                                 {
-                                                  v108 = v447[0].__r_.__value_.__r.__words[0];
+                                                  v109 = v456[0].__r_.__value_.__r.__words[0];
                                                 }
 
-                                                *v443 = 136315394;
-                                                *&v443[4] = "ProcessPropertyGet";
-                                                *&v443[12] = 2080;
-                                                *&v443[14] = v108;
-                                                v109 = "%s: Found Wed Address: %s";
+                                                *v452 = 136315394;
+                                                *&v452[4] = "ProcessPropertyGet";
+                                                *&v452[12] = 2080;
+                                                *&v452[14] = v109;
+                                                v110 = "%s: Found Wed Address: %s";
                                                 goto LABEL_563;
                                               }
 
@@ -3833,28 +4325,28 @@ LABEL_538:
 
                                           else
                                           {
-                                            v107 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                            if (v107)
+                                            v108 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                            if (v108)
                                             {
-                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
+                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
                                               {
-                                                *v443 = 136315394;
-                                                *&v443[4] = "ProcessPropertyGet";
-                                                *&v443[12] = 2080;
-                                                *&v443[14] = "WakeOnDeviceConnectionStatus";
-                                                v109 = "%s: no WED Found, Empty Signal: %s";
+                                                *v452 = 136315394;
+                                                *&v452[4] = "ProcessPropertyGet";
+                                                *&v452[12] = 2080;
+                                                *&v452[14] = "WakeOnDeviceConnectionStatus";
+                                                v110 = "%s: no WED Found, Empty Signal: %s";
 LABEL_563:
-                                                _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_INFO, v109, v443, 0x16u);
+                                                _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_INFO, v110, v452, 0x16u);
                                               }
 
 LABEL_588:
-                                              *&v443[16] = 0;
-                                              *&v443[8] = 0;
-                                              *v443 = &v443[8];
+                                              *&v452[16] = 0;
+                                              *&v452[8] = 0;
+                                              *v452 = &v452[8];
                                               std::string::basic_string[abi:ne200100]<0>(__s, "mleid");
-                                              v448[0].__r_.__value_.__r.__words[0] = __s;
-                                              std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v443, &__s[0].__r_.__value_.__l.__data_);
-                                              boost::any::operator=<std::string &>();
+                                              v457[0].__r_.__value_.__r.__words[0] = __s;
+                                              v120 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v452, &__s[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v457);
+                                              boost::any::operator=<std::string &>(v120 + 7, v458);
                                             }
 
                                             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -3879,27 +4371,27 @@ LABEL_588:
                                     }
 
 LABEL_434:
-                                    v72 = otThreadGetCslPeripheralAddr(*(v413 + 28));
-                                    std::string::basic_string[abi:ne200100]<0>(v427, "");
-                                    if (v72)
+                                    v73 = otThreadGetCslPeripheralAddr(v422[28]);
+                                    std::string::basic_string[abi:ne200100]<0>(v436, "");
+                                    if (v73)
                                     {
-                                      std::string::assign(v427, v72);
-                                      v73 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v73)
+                                      std::string::assign(v436, v73);
+                                      v74 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v74)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
                                         {
-                                          v74 = v427;
-                                          if ((v427[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                          v75 = v436;
+                                          if ((v436[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                           {
-                                            v74 = v427[0].__r_.__value_.__r.__words[0];
+                                            v75 = v436[0].__r_.__value_.__r.__words[0];
                                           }
 
-                                          *v443 = 136315394;
-                                          *&v443[4] = "NCP:WedExtendedAddress";
-                                          *&v443[12] = 2080;
-                                          *&v443[14] = v74;
-                                          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "HI:PG0:%s wedAddrStr = %s", v443, 0x16u);
+                                          *v452 = 136315394;
+                                          *&v452[4] = "NCP:WedExtendedAddress";
+                                          *&v452[12] = 2080;
+                                          *&v452[14] = v75;
+                                          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "HI:PG0:%s wedAddrStr = %s", v452, 0x16u);
                                         }
 
                                         goto LABEL_514;
@@ -3913,18 +4405,18 @@ LABEL_434:
 
                                     else
                                     {
-                                      v87 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v87)
+                                      v88 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v88)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
                                         {
-                                          *v443 = 136315138;
-                                          *&v443[4] = "NCP:WedExtendedAddress";
-                                          _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_INFO, "HI:PG0:%s wedAddrStr empty", v443, 0xCu);
+                                          *v452 = 136315138;
+                                          *&v452[4] = "NCP:WedExtendedAddress";
+                                          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "HI:PG0:%s wedAddrStr empty", v452, 0xCu);
                                         }
 
 LABEL_514:
-                                        boost::any::any<std::string &>();
+                                        boost::any::any<std::string &>(v452, v436);
                                       }
 
                                       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -3938,26 +4430,26 @@ LABEL_514:
                                   }
 
 LABEL_425:
-                                  PairingDeviceExtAddr = otLinkGetPairingDeviceExtAddr(*(v413 + 28));
-                                  memset(v443, 0, 24);
-                                  snprintf(v427, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", *PairingDeviceExtAddr, PairingDeviceExtAddr[1], PairingDeviceExtAddr[2], PairingDeviceExtAddr[3], PairingDeviceExtAddr[4], PairingDeviceExtAddr[5], PairingDeviceExtAddr[6], PairingDeviceExtAddr[7]);
-                                  std::string::assign(v443, v427);
-                                  v70 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                  if (v70)
+                                  PairingDeviceExtAddr = otLinkGetPairingDeviceExtAddr(v422[28]);
+                                  memset(v452, 0, 24);
+                                  snprintf(v436, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", *PairingDeviceExtAddr, PairingDeviceExtAddr[1], PairingDeviceExtAddr[2], PairingDeviceExtAddr[3], PairingDeviceExtAddr[4], PairingDeviceExtAddr[5], PairingDeviceExtAddr[6], PairingDeviceExtAddr[7]);
+                                  std::string::assign(v452, v436);
+                                  v71 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                  if (v71)
                                   {
-                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
                                     {
-                                      v71 = v443;
-                                      if (v443[23] < 0)
+                                      v72 = v452;
+                                      if (v452[23] < 0)
                                       {
-                                        v71 = *v443;
+                                        v72 = *v452;
                                       }
 
-                                      *v449 = 136315394;
-                                      *&v449[4] = "Thread:EmacId";
-                                      *&v449[12] = 2080;
-                                      *&v449[14] = v71;
-                                      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "HI:PG0:%s extAddr = %s", v449, 0x16u);
+                                      *v458 = 136315394;
+                                      *&v458[4] = "Thread:EmacId";
+                                      *&v458[12] = 2080;
+                                      *&v458[14] = v72;
+                                      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "HI:PG0:%s extAddr = %s", v458, 0x16u);
                                     }
                                   }
 
@@ -3966,24 +4458,24 @@ LABEL_425:
                                     [PowerEventHandler_Rcp init:];
                                   }
 
-                                  boost::any::any<std::string &>();
+                                  boost::any::any<std::string &>(v458, v452);
                                 }
 
 LABEL_418:
-                                v66 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                if (v66)
+                                v67 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                if (v67)
                                 {
-                                  v67 = v66;
-                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+                                  v68 = v67;
+                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
                                   {
-                                    v68 = *(v6 + 56);
-                                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315650;
-                                    *(v427[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
-                                    WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                                    *(&v427[0].__r_.__value_.__r.__words[1] + 6) = v68;
-                                    WORD1(v427[0].__r_.__value_.__r.__words[2]) = 2080;
-                                    *(&v427[0].__r_.__value_.__r.__words[2] + 4) = "Thread:NeighborMeshLocalAddress";
-                                    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s] ProcessDiagGetSingleHopPeerMeshLocalIPAddr", v427, 0x1Cu);
+                                    v69 = *(v6 + 56);
+                                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315650;
+                                    *(v436[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
+                                    WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                                    *(&v436[0].__r_.__value_.__r.__words[1] + 6) = v69;
+                                    WORD1(v436[0].__r_.__value_.__r.__words[2]) = 2080;
+                                    *(&v436[0].__r_.__value_.__r.__words[2] + 4) = "Thread:NeighborMeshLocalAddress";
+                                    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(%d)]: %s] ProcessDiagGetSingleHopPeerMeshLocalIPAddr", v436, 0x1Cu);
                                   }
                                 }
 
@@ -3992,38 +4484,38 @@ LABEL_418:
                                   [PowerEventHandler_Rcp init:];
                                 }
 
-                                v75 = otThreadGetLinkMode(*(v413 + 28));
-                                if ((~v75 & 6) != 0 || (v75) && !*(v413 + 32))
+                                v76 = otThreadGetLinkMode(v422[28]);
+                                if ((~v76 & 6) != 0 || (v76) && !v422[32])
                                 {
-                                  SingleHopPeerMeshLocalIPAddr = HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(v413);
+                                  SingleHopPeerMeshLocalIPAddr = HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(v422);
                                 }
 
                                 else
                                 {
-                                  v76 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                  if (v76)
+                                  v77 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                  if (v77)
                                   {
-                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
                                     {
-                                      v77 = otThreadGetLinkMode(*(v413 + 28));
-                                      v78 = *(v413 + 32);
-                                      *(v427[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
-                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315650;
-                                      if (v78)
+                                      v78 = otThreadGetLinkMode(v422[28]);
+                                      v79 = v422[32];
+                                      *(v436[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
+                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315650;
+                                      if (v79)
                                       {
-                                        v79 = "True";
+                                        v80 = "True";
                                       }
 
                                       else
                                       {
-                                        v79 = "False";
+                                        v80 = "False";
                                       }
 
-                                      WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                                      *(&v427[0].__r_.__value_.__r.__words[1] + 6) = ((~v77 & 6) == 0) & (v77 ^ 1);
-                                      WORD1(v427[0].__r_.__value_.__r.__words[2]) = 2080;
-                                      *(&v427[0].__r_.__value_.__r.__words[2] + 4) = v79;
-                                      _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_INFO, "%s: isSleepyRouter=%d, rcpSrpMeshLocalAddressTimer started = %s", v427, 0x1Cu);
+                                      WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                                      *(&v436[0].__r_.__value_.__r.__words[1] + 6) = ((~v78 & 6) == 0) & (v78 ^ 1);
+                                      WORD1(v436[0].__r_.__value_.__r.__words[2]) = 2080;
+                                      *(&v436[0].__r_.__value_.__r.__words[2] + 4) = v80;
+                                      _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, "%s: isSleepyRouter=%d, rcpSrpMeshLocalAddressTimer started = %s", v436, 0x1Cu);
                                     }
                                   }
 
@@ -4035,20 +4527,20 @@ LABEL_418:
                                   SingleHopPeerMeshLocalIPAddr = 23;
                                 }
 
-                                v81 = *(v6 + 56) == 0;
-                                v82 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                v83 = v82;
-                                if (v81)
+                                v82 = *(v6 + 56) == 0;
+                                v83 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                v84 = v83;
+                                if (v82)
                                 {
-                                  if (v82)
+                                  if (v83)
                                   {
-                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
                                     {
-                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                      *(v427[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
-                                      WORD2(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                      *(&v427[0].__r_.__value_.__r.__words[1] + 6) = "Thread:NeighborMeshLocalAddress";
-                                      _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(0)]: %s] Events Off", v427, 0x16u);
+                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                      *(v436[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
+                                      WORD2(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                      *(&v436[0].__r_.__value_.__r.__words[1] + 6) = "Thread:NeighborMeshLocalAddress";
+                                      _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(0)]: %s] Events Off", v436, 0x16u);
                                     }
                                   }
 
@@ -4060,15 +4552,15 @@ LABEL_418:
                                   operator new();
                                 }
 
-                                if (v82)
+                                if (v83)
                                 {
-                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
                                   {
-                                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                    *(v427[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
-                                    WORD2(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                    *(&v427[0].__r_.__value_.__r.__words[1] + 6) = "Thread:NeighborMeshLocalAddress";
-                                    _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(1)]: %s] Events On", v427, 0x16u);
+                                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                    *(v436[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
+                                    WORD2(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                    *(&v436[0].__r_.__value_.__r.__words[1] + 6) = "Thread:NeighborMeshLocalAddress";
+                                    _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_INFO, "%s: HostInterpreter::ProcessPropertyGet[E(1)]: %s] Events On", v436, 0x16u);
                                   }
                                 }
 
@@ -4079,16 +4571,16 @@ LABEL_418:
 
                                 if (SingleHopPeerMeshLocalIPAddr)
                                 {
-                                  v86 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                  if (v86)
+                                  v87 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                  if (v87)
                                   {
-                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
                                     {
-                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                      *(v427[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
-                                      WORD2(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                      *(&v427[0].__r_.__value_.__r.__words[1] + 6) = "ThreadNeighborMeshLocalAddress";
-                                      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "%s: no Neighbor Found, Empty Signal: %s", v427, 0x16u);
+                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                      *(v436[0].__r_.__value_.__r.__words + 4) = "ProcessPropertyGet";
+                                      WORD2(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                      *(&v436[0].__r_.__value_.__r.__words[1] + 6) = "ThreadNeighborMeshLocalAddress";
+                                      _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_INFO, "%s: no Neighbor Found, Empty Signal: %s", v436, 0x16u);
                                     }
                                   }
 
@@ -4097,27 +4589,27 @@ LABEL_418:
                                     [PowerEventHandler_Rcp init:];
                                   }
 
-                                  v427[0].__r_.__value_.__r.__words[0] = v427;
-                                  v427[0].__r_.__value_.__l.__size_ = v427;
-                                  v427[0].__r_.__value_.__r.__words[2] = 0;
-                                  std::string::basic_string[abi:ne200100]<0>(v443, "ThreadNeighborMeshLocalAddress");
-                                  boost::any::any<std::list<std::string> &>();
+                                  v436[0].__r_.__value_.__r.__words[0] = v436;
+                                  v436[0].__r_.__value_.__l.__size_ = v436;
+                                  v436[0].__r_.__value_.__r.__words[2] = 0;
+                                  std::string::basic_string[abi:ne200100]<0>(v452, "ThreadNeighborMeshLocalAddress");
+                                  boost::any::any<std::list<std::string> &>(v458, v436);
                                 }
 
                                 return 0;
                               }
 
 LABEL_411:
-                              ExtendedAddress = otLinkGetExtendedAddress(*(v413 + 28));
-                              nl::Data::Data(v427, ExtendedAddress, 8);
-                              v65 = log_get_logging_obg("com.apple.threadradiod", "default");
-                              if (v65)
+                              ExtendedAddress = otLinkGetExtendedAddress(v422[28]);
+                              nl::Data::Data(v436, ExtendedAddress, 8uLL);
+                              v66 = log_get_logging_obg("com.apple.threadradiod", "default");
+                              if (v66)
                               {
-                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
                                 {
-                                  *v443 = 136315138;
-                                  *&v443[4] = "NCP:ExtendedAddress";
-                                  _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v443, 0xCu);
+                                  *v452 = 136315138;
+                                  *&v452[4] = "NCP:ExtendedAddress";
+                                  _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v452, 0xCu);
                                 }
                               }
 
@@ -4126,20 +4618,20 @@ LABEL_411:
                                 [PowerEventHandler_Rcp init:];
                               }
 
-                              boost::any::any<nl::Data &>();
+                              boost::any::any<nl::Data &>(v452, v436);
                             }
 
 LABEL_404:
-                            otThreadGetPskc(*(v413 + 28), v443);
-                            nl::Data::Data(v427, v443, 16);
-                            v63 = log_get_logging_obg("com.apple.threadradiod", "default");
-                            if (v63)
+                            otThreadGetPskc(v422[28], v452);
+                            nl::Data::Data(v436, v452, 0x10uLL);
+                            v64 = log_get_logging_obg("com.apple.threadradiod", "default");
+                            if (v64)
                             {
-                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
                               {
-                                *v449 = 136315138;
-                                *&v449[4] = "Network:PSKc";
-                                _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v449, 0xCu);
+                                *v458 = 136315138;
+                                *&v458[4] = "Network:PSKc";
+                                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v458, 0xCu);
                               }
                             }
 
@@ -4148,29 +4640,29 @@ LABEL_404:
                               [PowerEventHandler_Rcp init:];
                             }
 
-                            boost::any::any<nl::Data &>();
+                            boost::any::any<nl::Data &>(v458, v436);
                           }
 
 LABEL_395:
-                          std::string::basic_string[abi:ne200100]<0>(v427, "wasPrimaryResident");
-                          *v443 = v427;
-                          v60 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
-                          v61 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v60 + 7, "1");
-                          if (SHIBYTE(v427[0].__r_.__value_.__r.__words[2]) < 0)
+                          std::string::basic_string[abi:ne200100]<0>(v436, "wasPrimaryResident");
+                          *v452 = v436;
+                          v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v452);
+                          v62 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v61 + 7, "1");
+                          if (SHIBYTE(v436[0].__r_.__value_.__r.__words[2]) < 0)
                           {
-                            operator delete(v427[0].__r_.__value_.__l.__data_);
+                            operator delete(v436[0].__r_.__value_.__l.__data_);
                           }
 
-                          v62 = log_get_logging_obg("com.apple.threadradiod", "default");
-                          if (v62)
+                          v63 = log_get_logging_obg("com.apple.threadradiod", "default");
+                          if (v63)
                           {
-                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
                             {
-                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                              *(v427[0].__r_.__value_.__r.__words + 4) = "wasPrimaryResident";
-                              WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                              *(&v427[0].__r_.__value_.__r.__words[1] + 6) = v61;
-                              _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_INFO, "HI:PG0:%s[%d]]", v427, 0x12u);
+                              LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                              *(v436[0].__r_.__value_.__r.__words + 4) = "wasPrimaryResident";
+                              WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                              *(&v436[0].__r_.__value_.__r.__words[1] + 6) = v62;
+                              _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "HI:PG0:%s[%d]]", v436, 0x12u);
                             }
                           }
 
@@ -4183,23 +4675,23 @@ LABEL_395:
                         }
 
 LABEL_381:
-                        std::string::basic_string[abi:ne200100]<0>(v427, "is_primary_resident");
-                        *v443 = v427;
-                        v58 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
-                        std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v58 + 7, "1");
-                        if (SHIBYTE(v427[0].__r_.__value_.__r.__words[2]) < 0)
+                        std::string::basic_string[abi:ne200100]<0>(v436, "is_primary_resident");
+                        *v452 = v436;
+                        v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v452);
+                        std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v59 + 7, "1");
+                        if (SHIBYTE(v436[0].__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v427[0].__r_.__value_.__l.__data_);
+                          operator delete(v436[0].__r_.__value_.__l.__data_);
                         }
 
-                        v59 = log_get_logging_obg("com.apple.threadradiod", "default");
-                        if (v59)
+                        v60 = log_get_logging_obg("com.apple.threadradiod", "default");
+                        if (v60)
                         {
-                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
                           {
-                            LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                            *(v427[0].__r_.__value_.__r.__words + 4) = "is_primary_resident";
-                            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                            LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                            *(v436[0].__r_.__value_.__r.__words + 4) = "is_primary_resident";
+                            _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                           }
                         }
 
@@ -4212,16 +4704,16 @@ LABEL_381:
                       }
 
 LABEL_374:
-                      otThreadGetRloc16(*(v413 + 28));
+                      otThreadGetRloc16(v422[28]);
                       v56 = log_get_logging_obg("com.apple.threadradiod", "default");
                       if (v56)
                       {
                         v57 = v56;
                         if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
                         {
-                          LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                          *(v427[0].__r_.__value_.__r.__words + 4) = "Thread:RLOC16";
-                          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                          LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                          *(v436[0].__r_.__value_.__r.__words + 4) = "Thread:RLOC16";
+                          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                         }
                       }
 
@@ -4234,7 +4726,7 @@ LABEL_374:
                     }
 
 LABEL_336:
-                    PartitionId = otThreadGetPartitionId(*(v413 + 28));
+                    PartitionId = otThreadGetPartitionId(v422[28]);
                     v48 = log_get_logging_obg("com.apple.threadradiod", "default");
                     if (v48)
                     {
@@ -4242,13 +4734,13 @@ LABEL_336:
                       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
                       {
                         v50 = *(v6 + 56);
-                        LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109634;
-                        HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v50;
-                        LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                        *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "Network:PartitionId";
-                        WORD1(v427[0].__r_.__value_.__r.__words[2]) = 1024;
-                        HIDWORD(v427[0].__r_.__value_.__r.__words[2]) = PartitionId;
-                        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "HI:PG%d:%s[%d]", v427, 0x18u);
+                        LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109634;
+                        HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v50;
+                        LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                        *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "Network:PartitionId";
+                        WORD1(v436[0].__r_.__value_.__r.__words[2]) = 1024;
+                        HIDWORD(v436[0].__r_.__value_.__r.__words[2]) = PartitionId;
+                        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "HI:PG%d:%s[%d]", v436, 0x18u);
                       }
                     }
 
@@ -4259,7 +4751,7 @@ LABEL_336:
 
                     if (*(v6 + 56))
                     {
-                      std::string::basic_string[abi:ne200100]<0>(v427, "Network:PartitionId");
+                      std::string::basic_string[abi:ne200100]<0>(v436, "Network:PartitionId");
                       operator new();
                     }
 
@@ -4273,23 +4765,23 @@ LABEL_318:
                     v39 = v38;
                     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
                     {
-                      std::string::basic_string[abi:ne200100]<0>(v427, "Network:LastRole");
-                      *v449 = v427;
-                      v40 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
+                      std::string::basic_string[abi:ne200100]<0>(v436, "Network:LastRole");
+                      *v458 = v436;
+                      v40 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v458);
                       v41 = v40 + 7;
                       if (*(v40 + 79) < 0)
                       {
                         v41 = *v41;
                       }
 
-                      *v443 = 136315394;
-                      *&v443[4] = "Network:PartitionId";
-                      *&v443[12] = 2080;
-                      *&v443[14] = v41;
-                      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "HI:PG0:%s[%s]", v443, 0x16u);
-                      if (SHIBYTE(v427[0].__r_.__value_.__r.__words[2]) < 0)
+                      *v452 = 136315394;
+                      *&v452[4] = "Network:PartitionId";
+                      *&v452[12] = 2080;
+                      *&v452[14] = v41;
+                      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "HI:PG0:%s[%s]", v452, 0x16u);
+                      if (SHIBYTE(v436[0].__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v427[0].__r_.__value_.__l.__data_);
+                        operator delete(v436[0].__r_.__value_.__l.__data_);
                       }
                     }
                   }
@@ -4299,24 +4791,24 @@ LABEL_318:
                     [PowerEventHandler_Rcp init:];
                   }
 
-                  std::string::basic_string[abi:ne200100]<0>(v427, "Network:LastRole");
-                  *v443 = v427;
-                  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
-                  boost::any::any<std::string &>();
+                  std::string::basic_string[abi:ne200100]<0>(v436, "Network:LastRole");
+                  *v452 = v436;
+                  v58 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v452);
+                  boost::any::any<std::string &>(v458, (v58 + 7));
                 }
 
 LABEL_313:
-                DeviceRole = otThreadGetDeviceRole(*(v413 + 28));
-                memset(v443, 0, 24);
+                DeviceRole = otThreadGetDeviceRole(v422[28]);
+                memset(v452, 0, 24);
                 if (DeviceRole >= 5)
                 {
-                  snprintf(v427, 0x10uLL, "(role-%u)", DeviceRole);
-                  std::string::assign(v443, v427);
+                  snprintf(v436, 0x10uLL, "(role-%u)", DeviceRole);
+                  std::string::assign(v452, v436);
                 }
 
                 else
                 {
-                  std::string::assign(v443, off_1004C5228[DeviceRole]);
+                  std::string::assign(v452, off_1004C5228[DeviceRole]);
                 }
 
                 v42 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -4325,19 +4817,19 @@ LABEL_313:
                   if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                   {
                     v43 = *(v6 + 56);
-                    v44 = v443;
-                    if (v443[23] < 0)
+                    v44 = v452;
+                    if (v452[23] < 0)
                     {
-                      v44 = *v443;
+                      v44 = *v452;
                     }
 
-                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109634;
-                    HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v43;
-                    LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                    *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "Network:Role";
-                    WORD1(v427[0].__r_.__value_.__r.__words[2]) = 2080;
-                    *(&v427[0].__r_.__value_.__r.__words[2] + 4) = v44;
-                    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "HI:PG%d:%s=%s", v427, 0x1Cu);
+                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109634;
+                    HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v43;
+                    LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                    *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "Network:Role";
+                    WORD1(v436[0].__r_.__value_.__r.__words[2]) = 2080;
+                    *(&v436[0].__r_.__value_.__r.__words[2] + 4) = v44;
+                    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "HI:PG%d:%s=%s", v436, 0x1Cu);
                   }
                 }
 
@@ -4348,34 +4840,34 @@ LABEL_313:
 
                 if (*(v6 + 56))
                 {
-                  std::string::basic_string[abi:ne200100]<0>(v427, "Network:Role");
-                  boost::any::any<std::string &>();
+                  std::string::basic_string[abi:ne200100]<0>(v436, "Network:Role");
+                  boost::any::any<std::string &>(v458, v452);
                 }
 
-                boost::any::any<std::string &>();
+                boost::any::any<std::string &>(v436, v452);
               }
 
 LABEL_301:
-              v29 = otThreadGetDeviceRole(*(v413 + 28));
-              v30 = otThreadGetLinkMode(*(v413 + 28));
+              v29 = otThreadGetDeviceRole(v422[28]);
+              v30 = otThreadGetLinkMode(v422[28]);
               v31 = v30;
-              memset(v443, 0, 24);
+              memset(v452, 0, 24);
               if (v29 <= 2)
               {
                 if (v29 < 2)
                 {
                   v32 = "unknown";
 LABEL_359:
-                  std::string::assign(v443, v32);
+                  std::string::assign(v452, v32);
                   goto LABEL_360;
                 }
 
                 if (v29 == 2)
                 {
-                  std::string::assign(v443, "end-device");
+                  std::string::assign(v452, "end-device");
                   if ((v31 & 2) == 0 && (v31 & 1) == 0)
                   {
-                    IsCslEnabled = otLinkIsCslEnabled(*(v413 + 28));
+                    IsCslEnabled = otLinkIsCslEnabled(v422[28]);
                     v36 = "sleepy-end-device";
                     v37 = "synchronized-sleepy-end-device";
                     v46 = !IsCslEnabled;
@@ -4383,28 +4875,28 @@ LABEL_359:
                   }
 
 LABEL_360:
-                  otInstanceGetUptimeAsString(*(v413 + 28), v449, 24);
+                  otInstanceGetUptimeAsString(v422[28], v458, 24);
                   v52 = log_get_logging_obg("com.apple.threadradiod", "default");
                   if (v52)
                   {
                     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
                     {
                       v53 = *(v6 + 56);
-                      v54 = v443;
-                      if (v443[23] < 0)
+                      v54 = v452;
+                      if (v452[23] < 0)
                       {
-                        v54 = *v443;
+                        v54 = *v452;
                       }
 
-                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315906;
-                      *(v427[0].__r_.__value_.__r.__words + 4) = v449;
-                      WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                      *(&v427[0].__r_.__value_.__r.__words[1] + 6) = v53;
-                      WORD1(v427[0].__r_.__value_.__r.__words[2]) = 2080;
-                      *(&v427[0].__r_.__value_.__r.__words[2] + 4) = "Network:NodeType";
-                      WORD2(v427[1].__r_.__value_.__r.__words[0]) = 2080;
-                      *(v427[1].__r_.__value_.__r.__words + 6) = v54;
-                      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "%s HI:PG%d:%s=%s", v427, 0x26u);
+                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315906;
+                      *(v436[0].__r_.__value_.__r.__words + 4) = v458;
+                      WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                      *(&v436[0].__r_.__value_.__r.__words[1] + 6) = v53;
+                      WORD1(v436[0].__r_.__value_.__r.__words[2]) = 2080;
+                      *(&v436[0].__r_.__value_.__r.__words[2] + 4) = "Network:NodeType";
+                      WORD2(v436[1].__r_.__value_.__r.__words[0]) = 2080;
+                      *(v436[1].__r_.__value_.__r.__words + 6) = v54;
+                      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "%s HI:PG%d:%s=%s", v436, 0x26u);
                     }
                   }
 
@@ -4415,17 +4907,17 @@ LABEL_360:
 
                   if (*(v6 + 56))
                   {
-                    *(&v427[0].__r_.__value_.__s + 23) = 16;
-                    strcpy(v427, "Network:NodeType");
+                    *(&v436[0].__r_.__value_.__s + 23) = 16;
+                    strcpy(v436, "Network:NodeType");
                     operator new();
                   }
 
-                  boost::any::any<std::string &>();
+                  boost::any::any<std::string &>(v436, v452);
                 }
 
 LABEL_373:
-                snprintf(v427, 0x10uLL, "(node-type-%u)", v29);
-                std::string::assign(v443, v427);
+                snprintf(v436, 0x10uLL, "(node-type-%u)", v29);
+                std::string::assign(v452, v436);
                 goto LABEL_360;
               }
 
@@ -4462,8 +4954,8 @@ LABEL_356:
             }
 
 LABEL_291:
-            v449[0] = 0;
-            IfsAckDataPerNeighbor = otPlatRadioGetTransmitPower(*(v413 + 28), v449);
+            v458[0] = 0;
+            IfsAckDataPerNeighbor = otPlatRadioGetTransmitPower(v422[28], v458);
             if (IfsAckDataPerNeighbor)
             {
               goto LABEL_299;
@@ -4474,11 +4966,11 @@ LABEL_291:
             {
               if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
               {
-                LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                *(v427[0].__r_.__value_.__r.__words + 4) = "NCP:TXPower";
-                WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                *(&v427[0].__r_.__value_.__r.__words[1] + 6) = v449[0];
-                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "HI:PG0:%s[%d]", v427, 0x12u);
+                LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                *(v436[0].__r_.__value_.__r.__words + 4) = "NCP:TXPower";
+                WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                *(&v436[0].__r_.__value_.__r.__words[1] + 6) = v458[0];
+                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "HI:PG0:%s[%d]", v436, 0x12u);
               }
             }
 
@@ -4487,41 +4979,41 @@ LABEL_291:
               [PowerEventHandler_Rcp init:];
             }
 
-            if (v449[0] < 8 || *(v413 + 336) != 3 && *(v413 + 336))
+            if (v458[0] < 8 || *(v422 + 336) != 3 && *(v422 + 336))
             {
 LABEL_353:
               operator new();
             }
 
             v51 = RcpHostContext::sRcpHostContext;
-            std::string::basic_string[abi:ne200100]<0>(v424, "Error");
-            std::string::basic_string[abi:ne200100]<0>(v422, "Regulatory Error");
-            std::string::basic_string[abi:ne200100]<0>(v420, "Power Level Exceeded for CN");
-            RcpHostContext::captureABC(v51, v424, v422, v420, 0, 1);
-            if (v421 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v433, "Error");
+            std::string::basic_string[abi:ne200100]<0>(v431, "Regulatory Error");
+            std::string::basic_string[abi:ne200100]<0>(v429, "Power Level Exceeded for CN");
+            RcpHostContext::captureABC(v51, v433, v431, v429, 0, 1);
+            if (v430 < 0)
             {
-              operator delete(v420[0]);
-              if ((v423 & 0x80000000) == 0)
+              operator delete(v429[0]);
+              if ((v432 & 0x80000000) == 0)
               {
 LABEL_352:
-                if ((v425 & 0x80000000) == 0)
+                if ((v434 & 0x80000000) == 0)
                 {
                   goto LABEL_353;
                 }
 
 LABEL_394:
-                operator delete(v424[0]);
+                operator delete(v433[0]);
                 goto LABEL_353;
               }
             }
 
-            else if ((v423 & 0x80000000) == 0)
+            else if ((v432 & 0x80000000) == 0)
             {
               goto LABEL_352;
             }
 
-            operator delete(v422[0]);
-            if ((v425 & 0x80000000) == 0)
+            operator delete(v431[0]);
+            if ((v434 & 0x80000000) == 0)
             {
               goto LABEL_353;
             }
@@ -4530,7 +5022,7 @@ LABEL_394:
           }
 
 LABEL_276:
-          SupportedChannelMask = otLinkGetSupportedChannelMask(*(v413 + 28));
+          SupportedChannelMask = otLinkGetSupportedChannelMask(v422[28]);
           v24 = log_get_logging_obg("com.apple.threadradiod", "default");
           if (v24)
           {
@@ -4538,13 +5030,13 @@ LABEL_276:
             if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               v26 = *(v6 + 56);
-              LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109634;
-              HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v26;
-              LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-              *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "NCP:ChannelMask";
-              WORD1(v427[0].__r_.__value_.__r.__words[2]) = 1024;
-              HIDWORD(v427[0].__r_.__value_.__r.__words[2]) = SupportedChannelMask;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "HI:PG:%d:%s[%u]", v427, 0x18u);
+              LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109634;
+              HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v26;
+              LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+              *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "NCP:ChannelMask";
+              WORD1(v436[0].__r_.__value_.__r.__words[2]) = 1024;
+              HIDWORD(v436[0].__r_.__value_.__r.__words[2]) = SupportedChannelMask;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "HI:PG:%d:%s[%u]", v436, 0x18u);
             }
           }
 
@@ -4553,20 +5045,20 @@ LABEL_276:
             [PowerEventHandler_Rcp init:];
           }
 
-          snprintf(v449, 0x10uLL, "0x%x", SupportedChannelMask);
-          v33 = strlen(v449);
+          snprintf(v458, 0x10uLL, "0x%x", SupportedChannelMask);
+          v33 = strlen(v458);
           if (v33 <= 0x7FFFFFFFFFFFFFF7)
           {
             v34 = v33;
             if (v33 < 0x17)
             {
-              *(&v427[0].__r_.__value_.__s + 23) = v33;
+              *(&v436[0].__r_.__value_.__s + 23) = v33;
               if (v33)
               {
-                memcpy(v427, v449, v33);
+                memcpy(v436, v458, v33);
               }
 
-              v427[0].__r_.__value_.__s.__data_[v34] = 0;
+              v436[0].__r_.__value_.__s.__data_[v34] = 0;
               operator new();
             }
 
@@ -4583,9 +5075,9 @@ LABEL_265:
           v21 = v20;
           if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-            *(v427[0].__r_.__value_.__r.__words + 4) = "nm:trigger:devicedata:interval";
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "HI:PG:%s", v427, 0xCu);
+            LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+            *(v436[0].__r_.__value_.__r.__words + 4) = "nm:trigger:devicedata:interval";
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "HI:PG:%s", v436, 0xCu);
           }
         }
 
@@ -4598,7 +5090,7 @@ LABEL_265:
       }
 
 LABEL_261:
-      Channel = otLinkGetChannel(*(v413 + 28));
+      Channel = otLinkGetChannel(v422[28]);
       v17 = log_get_logging_obg("com.apple.threadradiod", "default");
       if (v17)
       {
@@ -4606,13 +5098,13 @@ LABEL_261:
         if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = *(v6 + 56);
-          LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109634;
-          HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v19;
-          LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-          *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "NCP:Channel";
-          WORD1(v427[0].__r_.__value_.__r.__words[2]) = 1024;
-          HIDWORD(v427[0].__r_.__value_.__r.__words[2]) = Channel;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "HI:PG:%d:%s[%u]", v427, 0x18u);
+          LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109634;
+          HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v19;
+          LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+          *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "NCP:Channel";
+          WORD1(v436[0].__r_.__value_.__r.__words[2]) = 1024;
+          HIDWORD(v436[0].__r_.__value_.__r.__words[2]) = Channel;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "HI:PG:%d:%s[%u]", v436, 0x18u);
         }
       }
 
@@ -4623,8 +5115,8 @@ LABEL_261:
 
       if (*(v6 + 56))
       {
-        *(&v427[0].__r_.__value_.__s + 23) = 11;
-        strcpy(v427, "NCP:Channel");
+        *(&v436[0].__r_.__value_.__s + 23) = 11;
+        strcpy(v436, "NCP:Channel");
         operator new();
       }
 
@@ -4635,19 +5127,19 @@ LABEL_257:
     buf.__r_.__value_.__r.__words[0] = &buf;
     buf.__r_.__value_.__l.__size_ = &buf;
     buf.__r_.__value_.__r.__words[2] = 0;
-    memset(&v456, 0, sizeof(v456));
-    v426[0] = -1;
+    memset(&v465, 0, sizeof(v465));
+    v435[0] = -1;
     v14 = log_get_logging_obg("com.apple.threadradiod", "default");
     if (v14)
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = *(v6 + 56);
-        LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-        HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v15;
-        LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-        *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "Thread:NetworkData";
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "HI:PG:%d:%s", v427, 0x12u);
+        LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+        HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v15;
+        LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+        *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "Thread:NetworkData";
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "HI:PG:%d:%s", v436, 0x12u);
       }
     }
 
@@ -4656,7 +5148,7 @@ LABEL_257:
       [PowerEventHandler_Rcp init:];
     }
 
-    if (otNetDataGet(*(v413 + 28), 0, v443, v426))
+    if (otNetDataGet(v422[28], 0, v452, v435))
     {
       v22 = log_get_logging_obg("com.apple.threadradiod", "default");
       if (v22)
@@ -4672,23 +5164,23 @@ LABEL_257:
         [PowerEventHandler_Rcp init:];
       }
 
-      memset(v445, 0, 175);
-      v444 = 0u;
-      memset(v443, 0, sizeof(v443));
-      v426[0] = 1;
+      memset(v454, 0, 175);
+      v453 = 0u;
+      memset(v452, 0, sizeof(v452));
+      v435[0] = 1;
     }
 
-    otNetDataGetVersion(*(v413 + 28));
-    if (v426[0])
+    otNetDataGetVersion(v422[28]);
+    if (v435[0])
     {
       operator new();
     }
 
-    *&v409 = 0;
-    *(&v454 + 1) = 0;
-    v455 = 0;
-    *&v454 = &v454 + 8;
-    std::string::assign(&v456, "RAW");
+    *&v418 = 0;
+    *(&v463 + 1) = 0;
+    v464 = 0;
+    *&v463 = &v463 + 8;
+    std::string::assign(&v465, "RAW");
     operator new();
   }
 
@@ -4796,18 +5288,18 @@ LABEL_257:
   if (!strcmp(v9, "IPv6:Routes"))
   {
 LABEL_508:
-    v95 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v95)
+    v96 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v96)
     {
-      v96 = v95;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
+      v97 = v96;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
       {
-        v97 = *(__s1 + 56);
-        LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-        HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v97;
-        LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-        *(&v427[0].__r_.__value_.__r.__words[1] + 2) = "IPv6:Routes";
-        _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v427, 0x12u);
+        v98 = *(__s1 + 56);
+        LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+        HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v98;
+        LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+        *(&v436[0].__r_.__value_.__r.__words[1] + 2) = "IPv6:Routes";
+        _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v436, 0x12u);
       }
     }
 
@@ -4816,31 +5308,31 @@ LABEL_508:
       [PowerEventHandler_Rcp init:];
     }
 
-    v427[0].__r_.__value_.__r.__words[0] = v427;
-    v427[0].__r_.__value_.__l.__size_ = v427;
-    v427[0].__r_.__value_.__r.__words[2] = 0;
+    v436[0].__r_.__value_.__r.__words[0] = v436;
+    v436[0].__r_.__value_.__l.__size_ = v436;
+    v436[0].__r_.__value_.__r.__words[2] = 0;
     if ((*(__s1 + 56) & 1) == 0)
     {
-      v116 = *(v413 + 13);
-      if (v116 != (v413 + 112))
+      v118 = v422[13];
+      if (v118 != (v422 + 14))
       {
-        *&v443[8] = 0;
-        *&v443[16] = 0;
-        *v443 = &v443[8];
-        IPv6Prefix::to_string((v116 + 28), v449);
-        std::string::basic_string[abi:ne200100]<0>(v447, "Address");
-        __s[0].__r_.__value_.__r.__words[0] = v447;
-        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v443, &v447[0].__r_.__value_.__l.__data_);
-        boost::any::operator=<std::string>();
+        *&v452[8] = 0;
+        *&v452[16] = 0;
+        *v452 = &v452[8];
+        IPv6Prefix::to_string(v458, (v118 + 28));
+        std::string::basic_string[abi:ne200100]<0>(v456, "Address");
+        __s[0].__r_.__value_.__r.__words[0] = v456;
+        v119 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v452, &v456[0].__r_.__value_.__l.__data_, &std::piecewise_construct, __s);
+        boost::any::operator=<std::string>(v119 + 7, v458);
       }
 
-      boost::any::any<std::list<std::map<std::string,boost::any>> &>();
+      boost::any::any<std::list<std::map<std::string,boost::any>> &>(v452, v436);
     }
 
-    HostInterpreter::update_on_mesh_prefixes(v413);
-    HostInterpreter::update_off_mesh_routes(v413);
-    HostInterpreter::refresh_routes_on_interface(v413);
-    std::list<std::map<std::string,boost::any>>::~list(v427);
+    HostInterpreter::update_on_mesh_prefixes(v422);
+    HostInterpreter::update_off_mesh_routes(v422);
+    HostInterpreter::refresh_routes_on_interface(v422);
+    std::list<std::map<std::string,boost::any>>::~list(v436);
     return 0;
   }
 
@@ -5101,54 +5593,63 @@ LABEL_508:
                                                                                                                           }
 
 LABEL_1133:
-                                                                                                                          v331 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                          if (v331)
+                                                                                                                          v334 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                          if (v334)
                                                                                                                           {
-                                                                                                                            v332 = v331;
-                                                                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v332, OS_LOG_TYPE_INFO))
+                                                                                                                            v335 = v334;
+                                                                                                                            v336 = syslog_is_the_mask_enabled(6);
+                                                                                                                            if (v336)
                                                                                                                             {
-                                                                                                                              v333 = __s1;
-                                                                                                                              v334 = *(__s1 + 56);
-                                                                                                                              if (*(__s1 + 23) < 0)
+                                                                                                                              v336 = os_log_type_enabled(v335, OS_LOG_TYPE_INFO);
+                                                                                                                              if (v336)
                                                                                                                               {
-                                                                                                                                v333 = *__s1;
-                                                                                                                              }
+                                                                                                                                v337 = __s1;
+                                                                                                                                v338 = *(__s1 + 56);
+                                                                                                                                if (*(__s1 + 23) < 0)
+                                                                                                                                {
+                                                                                                                                  v337 = *__s1;
+                                                                                                                                }
 
-                                                                                                                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-                                                                                                                              HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v334;
-                                                                                                                              LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                                                                              *(&v427[0].__r_.__value_.__r.__words[1] + 2) = v333;
-                                                                                                                              _os_log_impl(&_mh_execute_header, v332, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v427, 0x12u);
+                                                                                                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+                                                                                                                                HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v338;
+                                                                                                                                LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                                                                                *(&v436[0].__r_.__value_.__r.__words[1] + 2) = v337;
+                                                                                                                                _os_log_impl(&_mh_execute_header, v335, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v436, 0x12u);
+                                                                                                                              }
                                                                                                                             }
                                                                                                                           }
 
-                                                                                                                          else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                                                                                                                          else
                                                                                                                           {
-                                                                                                                            [PowerEventHandler_Rcp init:];
+                                                                                                                            v336 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+                                                                                                                            if (v336)
+                                                                                                                            {
+                                                                                                                              [PowerEventHandler_Rcp init:];
+                                                                                                                            }
                                                                                                                           }
 
-                                                                                                                          v427[0].__r_.__value_.__r.__words[0] = v427;
-                                                                                                                          v427[0].__r_.__value_.__l.__size_ = v427;
-                                                                                                                          v427[0].__r_.__value_.__r.__words[2] = 0;
-                                                                                                                          HostInterpreter::GetThreadHealthMetrics();
+                                                                                                                          v436[0].__r_.__value_.__r.__words[0] = v436;
+                                                                                                                          v436[0].__r_.__value_.__l.__size_ = v436;
+                                                                                                                          v436[0].__r_.__value_.__r.__words[2] = 0;
+                                                                                                                          HostInterpreter::GetThreadHealthMetrics(v336, v436);
                                                                                                                         }
 
 LABEL_1127:
-                                                                                                                        v328 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                        if (v328)
+                                                                                                                        v331 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                        if (v331)
                                                                                                                         {
-                                                                                                                          v329 = v328;
-                                                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v329, OS_LOG_TYPE_INFO))
+                                                                                                                          v332 = v331;
+                                                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v332, OS_LOG_TYPE_INFO))
                                                                                                                           {
-                                                                                                                            v330 = __s1;
+                                                                                                                            v333 = __s1;
                                                                                                                             if (*(__s1 + 23) < 0)
                                                                                                                             {
-                                                                                                                              v330 = *__s1;
+                                                                                                                              v333 = *__s1;
                                                                                                                             }
 
-                                                                                                                            LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                            *(v427[0].__r_.__value_.__r.__words + 4) = v330;
-                                                                                                                            _os_log_impl(&_mh_execute_header, v329, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                            LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                            *(v436[0].__r_.__value_.__r.__words + 4) = v333;
+                                                                                                                            _os_log_impl(&_mh_execute_header, v332, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                           }
                                                                                                                         }
 
@@ -5157,27 +5658,27 @@ LABEL_1127:
                                                                                                                           [PowerEventHandler_Rcp init:];
                                                                                                                         }
 
-                                                                                                                        *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-                                                                                                                        v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-                                                                                                                        HostInterpreter::GetCoExRCP2BTWifiLoadAsValMap(v443);
+                                                                                                                        *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+                                                                                                                        v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+                                                                                                                        HostInterpreter::GetCoExRCP2BTWifiLoadAsValMap(v452);
                                                                                                                       }
 
 LABEL_1121:
-                                                                                                                      v325 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                      if (v325)
+                                                                                                                      v328 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                      if (v328)
                                                                                                                       {
-                                                                                                                        v326 = v325;
-                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v326, OS_LOG_TYPE_INFO))
+                                                                                                                        v329 = v328;
+                                                                                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v329, OS_LOG_TYPE_INFO))
                                                                                                                         {
-                                                                                                                          v327 = __s1;
+                                                                                                                          v330 = __s1;
                                                                                                                           if (*(__s1 + 23) < 0)
                                                                                                                           {
-                                                                                                                            v327 = *__s1;
+                                                                                                                            v330 = *__s1;
                                                                                                                           }
 
-                                                                                                                          LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                          *(v427[0].__r_.__value_.__r.__words + 4) = v327;
-                                                                                                                          _os_log_impl(&_mh_execute_header, v326, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                          LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                          *(v436[0].__r_.__value_.__r.__words + 4) = v330;
+                                                                                                                          _os_log_impl(&_mh_execute_header, v329, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                         }
                                                                                                                       }
 
@@ -5186,25 +5687,25 @@ LABEL_1121:
                                                                                                                         [PowerEventHandler_Rcp init:];
                                                                                                                       }
 
-                                                                                                                      HostInterpreter::GetCoExRCP2CountersAsValMap(v427);
+                                                                                                                      HostInterpreter::GetCoExRCP2CountersAsValMap(v436);
                                                                                                                     }
 
 LABEL_1115:
-                                                                                                                    v322 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                    if (v322)
+                                                                                                                    v325 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                    if (v325)
                                                                                                                     {
-                                                                                                                      v323 = v322;
-                                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v323, OS_LOG_TYPE_INFO))
+                                                                                                                      v326 = v325;
+                                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v326, OS_LOG_TYPE_INFO))
                                                                                                                       {
-                                                                                                                        v324 = __s1;
+                                                                                                                        v327 = __s1;
                                                                                                                         if (*(__s1 + 23) < 0)
                                                                                                                         {
-                                                                                                                          v324 = *__s1;
+                                                                                                                          v327 = *__s1;
                                                                                                                         }
 
-                                                                                                                        LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                        *(v427[0].__r_.__value_.__r.__words + 4) = v324;
-                                                                                                                        _os_log_impl(&_mh_execute_header, v323, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                        LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                        *(v436[0].__r_.__value_.__r.__words + 4) = v327;
+                                                                                                                        _os_log_impl(&_mh_execute_header, v326, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                       }
                                                                                                                     }
 
@@ -5213,130 +5714,130 @@ LABEL_1115:
                                                                                                                       [PowerEventHandler_Rcp init:];
                                                                                                                     }
 
-                                                                                                                    v437 = 0;
-                                                                                                                    v435 = 0u;
-                                                                                                                    v436 = 0u;
-                                                                                                                    v433 = 0u;
-                                                                                                                    v434 = 0u;
-                                                                                                                    v431 = 0u;
-                                                                                                                    v432 = 0u;
-                                                                                                                    v429 = 0u;
-                                                                                                                    v430 = 0u;
-                                                                                                                    v428 = 0u;
-                                                                                                                    memset(v427, 0, sizeof(v427));
-                                                                                                                    otGetStreamRawResponseHistogram(*(v413 + 28), v427);
-                                                                                                                    *&v443[16] = 0;
-                                                                                                                    *&v443[8] = 0;
-                                                                                                                    *v443 = &v443[8];
-                                                                                                                    memset(v449, 0, 24);
-                                                                                                                    v384 = __s1;
+                                                                                                                    v446 = 0;
+                                                                                                                    v444 = 0u;
+                                                                                                                    v445 = 0u;
+                                                                                                                    v442 = 0u;
+                                                                                                                    v443 = 0u;
+                                                                                                                    v440 = 0u;
+                                                                                                                    v441 = 0u;
+                                                                                                                    v438 = 0u;
+                                                                                                                    v439 = 0u;
+                                                                                                                    v437 = 0u;
+                                                                                                                    memset(v436, 0, sizeof(v436));
+                                                                                                                    otGetStreamRawResponseHistogram(v422[28], v436);
+                                                                                                                    *&v452[16] = 0;
+                                                                                                                    *&v452[8] = 0;
+                                                                                                                    *v452 = &v452[8];
+                                                                                                                    memset(v458, 0, 24);
+                                                                                                                    v392 = __s1;
                                                                                                                     if (*(__s1 + 23) < 0)
                                                                                                                     {
-                                                                                                                      v384 = *__s1;
+                                                                                                                      v392 = *__s1;
                                                                                                                     }
 
-                                                                                                                    std::string::basic_string[abi:ne200100]<0>(v448, v384);
-                                                                                                                    std::string::basic_string[abi:ne200100]<0>(&v446, "[");
-                                                                                                                    if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                    std::string::basic_string[abi:ne200100]<0>(v457, v392);
+                                                                                                                    std::string::basic_string[abi:ne200100]<0>(&v455, "[");
+                                                                                                                    if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                     {
-                                                                                                                      v385 = &v446;
+                                                                                                                      v393 = &v455;
                                                                                                                     }
 
                                                                                                                     else
                                                                                                                     {
-                                                                                                                      v385 = v446.__r_.__value_.__r.__words[0];
+                                                                                                                      v393 = v455.__r_.__value_.__r.__words[0];
                                                                                                                     }
 
-                                                                                                                    if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                    if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                     {
-                                                                                                                      v386 = HIBYTE(v446.__r_.__value_.__r.__words[2]);
+                                                                                                                      v394 = HIBYTE(v455.__r_.__value_.__r.__words[2]);
                                                                                                                     }
 
                                                                                                                     else
                                                                                                                     {
-                                                                                                                      v386 = v446.__r_.__value_.__l.__size_;
+                                                                                                                      v394 = v455.__r_.__value_.__l.__size_;
                                                                                                                     }
 
-                                                                                                                    v387 = std::string::append(v448, v385, v386);
-                                                                                                                    v388 = *&v387->__r_.__value_.__l.__data_;
-                                                                                                                    __s[0].__r_.__value_.__r.__words[2] = v387->__r_.__value_.__r.__words[2];
-                                                                                                                    *&__s[0].__r_.__value_.__l.__data_ = v388;
-                                                                                                                    v387->__r_.__value_.__l.__size_ = 0;
-                                                                                                                    v387->__r_.__value_.__r.__words[2] = 0;
-                                                                                                                    v387->__r_.__value_.__r.__words[0] = 0;
-                                                                                                                    std::to_string(&buf, 0);
-                                                                                                                    if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                                                                                                                    {
-                                                                                                                      v389 = &buf;
-                                                                                                                    }
-
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                      v389 = buf.__r_.__value_.__r.__words[0];
-                                                                                                                    }
-
-                                                                                                                    if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                                                                                                                    {
-                                                                                                                      v390 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
-                                                                                                                    }
-
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                      v390 = buf.__r_.__value_.__l.__size_;
-                                                                                                                    }
-
-                                                                                                                    v391 = std::string::append(__s, v389, v390);
-                                                                                                                    v392 = *&v391->__r_.__value_.__l.__data_;
-                                                                                                                    v447[0].__r_.__value_.__r.__words[2] = v391->__r_.__value_.__r.__words[2];
-                                                                                                                    *&v447[0].__r_.__value_.__l.__data_ = v392;
-                                                                                                                    v391->__r_.__value_.__l.__size_ = 0;
-                                                                                                                    v391->__r_.__value_.__r.__words[2] = 0;
-                                                                                                                    v391->__r_.__value_.__r.__words[0] = 0;
-                                                                                                                    std::string::basic_string[abi:ne200100]<0>(&v456, "]");
-                                                                                                                    if ((v456.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                                                                                                                    {
-                                                                                                                      v393 = &v456;
-                                                                                                                    }
-
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                      v393 = v456.__r_.__value_.__r.__words[0];
-                                                                                                                    }
-
-                                                                                                                    if ((v456.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                                                                                                                    {
-                                                                                                                      v394 = HIBYTE(v456.__r_.__value_.__r.__words[2]);
-                                                                                                                    }
-
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                      v394 = v456.__r_.__value_.__l.__size_;
-                                                                                                                    }
-
-                                                                                                                    v395 = std::string::append(v447, v393, v394);
-                                                                                                                    v396 = v395->__r_.__value_.__r.__words[0];
-                                                                                                                    *&v454 = v395->__r_.__value_.__l.__size_;
-                                                                                                                    *(&v454 + 7) = *(&v395->__r_.__value_.__r.__words[1] + 7);
-                                                                                                                    v397 = HIBYTE(v395->__r_.__value_.__r.__words[2]);
+                                                                                                                    v395 = std::string::append(v457, v393, v394);
+                                                                                                                    v396 = *&v395->__r_.__value_.__l.__data_;
+                                                                                                                    __s[0].__r_.__value_.__r.__words[2] = v395->__r_.__value_.__r.__words[2];
+                                                                                                                    *&__s[0].__r_.__value_.__l.__data_ = v396;
                                                                                                                     v395->__r_.__value_.__l.__size_ = 0;
                                                                                                                     v395->__r_.__value_.__r.__words[2] = 0;
                                                                                                                     v395->__r_.__value_.__r.__words[0] = 0;
-                                                                                                                    if ((v449[23] & 0x80000000) != 0)
+                                                                                                                    std::to_string(&buf, 0);
+                                                                                                                    if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                                                                                     {
-                                                                                                                      operator delete(*v449);
+                                                                                                                      v397 = &buf;
                                                                                                                     }
 
-                                                                                                                    *v449 = v396;
-                                                                                                                    *&v449[8] = v454;
-                                                                                                                    *&v449[15] = *(&v454 + 7);
-                                                                                                                    v449[23] = v397;
-                                                                                                                    if (SHIBYTE(v456.__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                    else
                                                                                                                     {
-                                                                                                                      operator delete(v456.__r_.__value_.__l.__data_);
-                                                                                                                      if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                      v397 = buf.__r_.__value_.__r.__words[0];
+                                                                                                                    }
+
+                                                                                                                    if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                    {
+                                                                                                                      v398 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
+                                                                                                                    }
+
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                      v398 = buf.__r_.__value_.__l.__size_;
+                                                                                                                    }
+
+                                                                                                                    v399 = std::string::append(__s, v397, v398);
+                                                                                                                    v400 = *&v399->__r_.__value_.__l.__data_;
+                                                                                                                    v456[0].__r_.__value_.__r.__words[2] = v399->__r_.__value_.__r.__words[2];
+                                                                                                                    *&v456[0].__r_.__value_.__l.__data_ = v400;
+                                                                                                                    v399->__r_.__value_.__l.__size_ = 0;
+                                                                                                                    v399->__r_.__value_.__r.__words[2] = 0;
+                                                                                                                    v399->__r_.__value_.__r.__words[0] = 0;
+                                                                                                                    std::string::basic_string[abi:ne200100]<0>(&v465, "]");
+                                                                                                                    if ((v465.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                    {
+                                                                                                                      v401 = &v465;
+                                                                                                                    }
+
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                      v401 = v465.__r_.__value_.__r.__words[0];
+                                                                                                                    }
+
+                                                                                                                    if ((v465.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                                                                                    {
+                                                                                                                      v402 = HIBYTE(v465.__r_.__value_.__r.__words[2]);
+                                                                                                                    }
+
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                      v402 = v465.__r_.__value_.__l.__size_;
+                                                                                                                    }
+
+                                                                                                                    v403 = std::string::append(v456, v401, v402);
+                                                                                                                    v404 = v403->__r_.__value_.__r.__words[0];
+                                                                                                                    *&v463 = v403->__r_.__value_.__l.__size_;
+                                                                                                                    *(&v463 + 7) = *(&v403->__r_.__value_.__r.__words[1] + 7);
+                                                                                                                    v405 = HIBYTE(v403->__r_.__value_.__r.__words[2]);
+                                                                                                                    v403->__r_.__value_.__l.__size_ = 0;
+                                                                                                                    v403->__r_.__value_.__r.__words[2] = 0;
+                                                                                                                    v403->__r_.__value_.__r.__words[0] = 0;
+                                                                                                                    if ((v458[23] & 0x80000000) != 0)
+                                                                                                                    {
+                                                                                                                      operator delete(*v458);
+                                                                                                                    }
+
+                                                                                                                    *v458 = v404;
+                                                                                                                    *&v458[8] = v463;
+                                                                                                                    *&v458[15] = *(&v463 + 7);
+                                                                                                                    v458[23] = v405;
+                                                                                                                    if (SHIBYTE(v465.__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                    {
+                                                                                                                      operator delete(v465.__r_.__value_.__l.__data_);
+                                                                                                                      if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                                                                                       {
 LABEL_1390:
-                                                                                                                        operator delete(v447[0].__r_.__value_.__l.__data_);
+                                                                                                                        operator delete(v456[0].__r_.__value_.__l.__data_);
                                                                                                                         if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                         {
                                                                                                                           goto LABEL_1391;
@@ -5346,7 +5847,7 @@ LABEL_1390:
                                                                                                                       }
                                                                                                                     }
 
-                                                                                                                    else if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                                                                    else if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                                                                                     {
                                                                                                                       goto LABEL_1390;
                                                                                                                     }
@@ -5368,7 +5869,7 @@ LABEL_1398:
                                                                                                                     {
 LABEL_1392:
                                                                                                                       operator delete(__s[0].__r_.__value_.__l.__data_);
-                                                                                                                      if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                      if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                       {
                                                                                                                         goto LABEL_1393;
                                                                                                                       }
@@ -5377,10 +5878,10 @@ LABEL_1392:
                                                                                                                     }
 
 LABEL_1399:
-                                                                                                                    if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                    if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                     {
 LABEL_1393:
-                                                                                                                      if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                      if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                       {
                                                                                                                         goto LABEL_1395;
                                                                                                                       }
@@ -5389,36 +5890,36 @@ LABEL_1393:
                                                                                                                     }
 
 LABEL_1400:
-                                                                                                                    operator delete(v446.__r_.__value_.__l.__data_);
-                                                                                                                    if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                                                                                    operator delete(v455.__r_.__value_.__l.__data_);
+                                                                                                                    if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                                                                                     {
 LABEL_1395:
-                                                                                                                      v447[0].__r_.__value_.__r.__words[0] = v449;
-                                                                                                                      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v443, v449);
-                                                                                                                      boost::any::operator=<unsigned int &>();
+                                                                                                                      v456[0].__r_.__value_.__r.__words[0] = v458;
+                                                                                                                      v406 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v452, v458, &std::piecewise_construct, v456);
+                                                                                                                      boost::any::operator=<unsigned int &>(v406 + 7, v436);
                                                                                                                     }
 
 LABEL_1394:
-                                                                                                                    operator delete(v448[0].__r_.__value_.__l.__data_);
+                                                                                                                    operator delete(v457[0].__r_.__value_.__l.__data_);
                                                                                                                     goto LABEL_1395;
                                                                                                                   }
 
 LABEL_1109:
-                                                                                                                  v319 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                                  if (v319)
+                                                                                                                  v322 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                                  if (v322)
                                                                                                                   {
-                                                                                                                    v320 = v319;
-                                                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v320, OS_LOG_TYPE_INFO))
+                                                                                                                    v323 = v322;
+                                                                                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v323, OS_LOG_TYPE_INFO))
                                                                                                                     {
-                                                                                                                      v321 = __s1;
+                                                                                                                      v324 = __s1;
                                                                                                                       if (*(__s1 + 23) < 0)
                                                                                                                       {
-                                                                                                                        v321 = *__s1;
+                                                                                                                        v324 = *__s1;
                                                                                                                       }
 
-                                                                                                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                                      *(v427[0].__r_.__value_.__r.__words + 4) = v321;
-                                                                                                                      _os_log_impl(&_mh_execute_header, v320, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                                      *(v436[0].__r_.__value_.__r.__words + 4) = v324;
+                                                                                                                      _os_log_impl(&_mh_execute_header, v323, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                                     }
                                                                                                                   }
 
@@ -5434,26 +5935,25 @@ LABEL_1109:
                                                                                                               }
 
 LABEL_1102:
-                                                                                                              std::string::basic_string[abi:ne200100]<0>(v427, "Daemon:PromiscuousPcap");
-                                                                                                              *v443 = v427;
-                                                                                                              std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
-                                                                                                              boost::any::any<std::string &>();
+                                                                                                              std::string::basic_string[abi:ne200100]<0>(v436, "Daemon:PromiscuousPcap");
+                                                                                                              *v452 = v436;
+                                                                                                              v318 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v452);
+                                                                                                              boost::any::any<std::string &>(v458, (v318 + 7));
                                                                                                             }
 
 LABEL_1098:
-                                                                                                            v312 = *(v413 + 28);
                                                                                                             PcapEnabled = otPlatRadioGetPcapEnabled();
-                                                                                                            v314 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                            if (v314)
+                                                                                                            v316 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                            if (v316)
                                                                                                             {
-                                                                                                              v315 = v314;
-                                                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v315, OS_LOG_TYPE_INFO))
+                                                                                                              v317 = v316;
+                                                                                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v317, OS_LOG_TYPE_INFO))
                                                                                                               {
-                                                                                                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                                                                                                *(v427[0].__r_.__value_.__r.__words + 4) = "NCP:PcapEnabled";
-                                                                                                                WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                                                                                                                *(&v427[0].__r_.__value_.__r.__words[1] + 6) = PcapEnabled;
-                                                                                                                _os_log_impl(&_mh_execute_header, v315, OS_LOG_TYPE_INFO, "HI:PG0:%s,isPcapEnable:%d", v427, 0x12u);
+                                                                                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                                                                                                *(v436[0].__r_.__value_.__r.__words + 4) = "NCP:PcapEnabled";
+                                                                                                                WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                                                                                                                *(&v436[0].__r_.__value_.__r.__words[1] + 6) = PcapEnabled;
+                                                                                                                _os_log_impl(&_mh_execute_header, v317, OS_LOG_TYPE_INFO, "HI:PG0:%s,isPcapEnable:%d", v436, 0x12u);
                                                                                                               }
                                                                                                             }
 
@@ -5475,21 +5975,21 @@ LABEL_1098:
                                                                                                     }
 
 LABEL_1079:
-                                                                                                    v304 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                    if (v304)
+                                                                                                    v307 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                    if (v307)
                                                                                                     {
-                                                                                                      v305 = v304;
-                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v305, OS_LOG_TYPE_INFO))
+                                                                                                      v308 = v307;
+                                                                                                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v308, OS_LOG_TYPE_INFO))
                                                                                                       {
-                                                                                                        v306 = __s1;
+                                                                                                        v309 = __s1;
                                                                                                         if (*(__s1 + 23) < 0)
                                                                                                         {
-                                                                                                          v306 = *__s1;
+                                                                                                          v309 = *__s1;
                                                                                                         }
 
-                                                                                                        LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                        *(v427[0].__r_.__value_.__r.__words + 4) = v306;
-                                                                                                        _os_log_impl(&_mh_execute_header, v305, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                        LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                        *(v436[0].__r_.__value_.__r.__words + 4) = v309;
+                                                                                                        _os_log_impl(&_mh_execute_header, v308, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                       }
                                                                                                     }
 
@@ -5506,21 +6006,21 @@ LABEL_1079:
                                                                                                 }
 
 LABEL_1067:
-                                                                                                v297 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                if (v297)
+                                                                                                v300 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                if (v300)
                                                                                                 {
-                                                                                                  v298 = v297;
-                                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v298, OS_LOG_TYPE_INFO))
+                                                                                                  v301 = v300;
+                                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v301, OS_LOG_TYPE_INFO))
                                                                                                   {
-                                                                                                    v299 = __s1;
+                                                                                                    v302 = __s1;
                                                                                                     if (*(__s1 + 23) < 0)
                                                                                                     {
-                                                                                                      v299 = *__s1;
+                                                                                                      v302 = *__s1;
                                                                                                     }
 
-                                                                                                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                                    *(v427[0].__r_.__value_.__r.__words + 4) = v299;
-                                                                                                    _os_log_impl(&_mh_execute_header, v298, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                                                                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                                    *(v436[0].__r_.__value_.__r.__words + 4) = v302;
+                                                                                                    _os_log_impl(&_mh_execute_header, v301, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                                                                   }
                                                                                                 }
 
@@ -5529,7 +6029,7 @@ LABEL_1067:
                                                                                                   [PowerEventHandler_Rcp init:];
                                                                                                 }
 
-                                                                                                if (!HostInterpreter::CoexCounterUpdate(v413, coexCounters))
+                                                                                                if (!HostInterpreter::CoexCounterUpdate(v422, coexCounters))
                                                                                                 {
                                                                                                   operator new();
                                                                                                 }
@@ -5538,18 +6038,18 @@ LABEL_1067:
                                                                                               }
 
 LABEL_1063:
-                                                                                              v294 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                              if (v294)
+                                                                                              v297 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                              if (v297)
                                                                                               {
-                                                                                                v295 = v294;
-                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v295, OS_LOG_TYPE_INFO))
+                                                                                                v298 = v297;
+                                                                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v298, OS_LOG_TYPE_INFO))
                                                                                                 {
-                                                                                                  v296 = *(v413 + 184);
-                                                                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315394;
-                                                                                                  *(v427[0].__r_.__value_.__r.__words + 4) = "is_bt_audioCall_on";
-                                                                                                  WORD2(v427[0].__r_.__value_.__r.__words[1]) = 1024;
-                                                                                                  *(&v427[0].__r_.__value_.__r.__words[1] + 6) = v296;
-                                                                                                  _os_log_impl(&_mh_execute_header, v295, OS_LOG_TYPE_INFO, "BT Load, Audio detection: HostInterpreter::ProcessPropertyGet[E(0)]: %s, BTAudioCallStatus is %d]", v427, 0x12u);
+                                                                                                  v299 = *(v422 + 184);
+                                                                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315394;
+                                                                                                  *(v436[0].__r_.__value_.__r.__words + 4) = "is_bt_audioCall_on";
+                                                                                                  WORD2(v436[0].__r_.__value_.__r.__words[1]) = 1024;
+                                                                                                  *(&v436[0].__r_.__value_.__r.__words[1] + 6) = v299;
+                                                                                                  _os_log_impl(&_mh_execute_header, v298, OS_LOG_TYPE_INFO, "BT Load, Audio detection: HostInterpreter::ProcessPropertyGet[E(0)]: %s, BTAudioCallStatus is %d]", v436, 0x12u);
                                                                                                 }
                                                                                               }
 
@@ -5562,14 +6062,13 @@ LABEL_1063:
                                                                                             }
 
 LABEL_1058:
-                                                                                            v291 = *(v413 + 28);
                                                                                             if (otPlatRadioGetRcp2Vendor2Enabled())
                                                                                             {
-                                                                                              v292 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                              if (v292)
+                                                                                              v295 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                              if (v295)
                                                                                               {
-                                                                                                v293 = v292;
-                                                                                                if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v293, OS_LOG_TYPE_DEBUG))
+                                                                                                v296 = v295;
+                                                                                                if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v296, OS_LOG_TYPE_DEBUG))
                                                                                                 {
                                                                                                   HostInterpreter::ProcessPropertyGet();
                                                                                                 }
@@ -5604,15 +6103,15 @@ LABEL_1044:
 
 LABEL_1030:
                                                                                 RcpHostContext::isThreadSessionEnabled(RcpHostContext::sRcpHostContext);
-                                                                                v281 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                if (v281)
+                                                                                v285 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                if (v285)
                                                                                 {
-                                                                                  v282 = v281;
-                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v282, OS_LOG_TYPE_INFO))
+                                                                                  v286 = v285;
+                                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v286, OS_LOG_TYPE_INFO))
                                                                                   {
-                                                                                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                                                    *(v427[0].__r_.__value_.__r.__words + 4) = "is_threadsession_on";
-                                                                                    _os_log_impl(&_mh_execute_header, v282, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                                                                                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                                                    *(v436[0].__r_.__value_.__r.__words + 4) = "is_threadsession_on";
+                                                                                    _os_log_impl(&_mh_execute_header, v286, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                                                                                   }
                                                                                 }
 
@@ -5625,175 +6124,171 @@ LABEL_1030:
                                                                               }
 
 LABEL_1017:
-                                                                              *v443 = v443;
-                                                                              *&v443[8] = v443;
-                                                                              *&v443[16] = 0;
-                                                                              std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v427);
-                                                                              memset(v449, 0, 24);
-                                                                              v268 = *(v413 + 28);
-                                                                              if (*(v268 + 85220) == 1)
+                                                                              *v452 = v452;
+                                                                              *&v452[8] = v452;
+                                                                              *&v452[16] = 0;
+                                                                              std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v436);
+                                                                              memset(v458, 0, 24);
+                                                                              v275 = v422[28];
+                                                                              if (*(v275 + 85220) == 1)
                                                                               {
-                                                                                v269 = (v268 + 65805);
-                                                                                v270 = *(v413 + 28);
-                                                                                std::string::basic_string[abi:ne200100]<0>(v447, "");
+                                                                                v276 = v275 + 65805;
+                                                                                std::string::basic_string[abi:ne200100]<0>(v456, "");
                                                                                 std::stringbuf::str();
-                                                                                if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                                if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                                                 {
-                                                                                  operator delete(v447[0].__r_.__value_.__l.__data_);
+                                                                                  operator delete(v456[0].__r_.__value_.__l.__data_);
                                                                                 }
 
-                                                                                v271 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], "Buf", 3);
-                                                                                *(v271 + *(*v271 - 24) + 24) = 3;
-                                                                                v447[0].__r_.__value_.__s.__data_[0] = 48;
-                                                                                std::operator<<[abi:ne200100]<std::char_traits<char>>(v271, v447);
+                                                                                v277 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], "Buf", 3);
+                                                                                *(v277 + *(*v277 - 24) + 24) = 3;
+                                                                                v456[0].__r_.__value_.__s.__data_[0] = 48;
+                                                                                std::operator<<[abi:ne200100]<std::char_traits<char>>(v277, v456);
                                                                                 std::ostream::operator<<();
-                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], ":", 1);
+                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], ":", 1);
                                                                                 std::ostream::operator<<();
-                                                                                if (*(v269 - 33))
+                                                                                if (*(v276 - 33))
                                                                                 {
-                                                                                  v272 = " (A), ";
+                                                                                  v278 = " (A), ";
                                                                                 }
 
                                                                                 else
                                                                                 {
-                                                                                  v272 = " (D), ";
+                                                                                  v278 = " (D), ";
                                                                                 }
 
-                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], v272, 6);
-                                                                                v273 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], "#A:", 3);
-                                                                                *(v273 + *(*v273 - 24) + 24) = 10;
-                                                                                v447[0].__r_.__value_.__s.__data_[0] = 48;
-                                                                                std::operator<<[abi:ne200100]<std::char_traits<char>>(v273, v447);
-                                                                                v274 = *(v269 - 41);
+                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], v278, 6);
+                                                                                v279 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], "#A:", 3);
+                                                                                *(v279 + *(*v279 - 24) + 24) = 10;
+                                                                                v456[0].__r_.__value_.__s.__data_[0] = 48;
+                                                                                std::operator<<[abi:ne200100]<std::char_traits<char>>(v279, v456);
                                                                                 std::ostream::operator<<();
-                                                                                v275 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], ", #D:", 5);
-                                                                                *(v275 + *(*v275 - 24) + 24) = 10;
-                                                                                v447[0].__r_.__value_.__s.__data_[0] = 48;
-                                                                                std::operator<<[abi:ne200100]<std::char_traits<char>>(v275, v447);
-                                                                                v276 = *(v269 - 37);
+                                                                                v280 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], ", #D:", 5);
+                                                                                *(v280 + *(*v280 - 24) + 24) = 10;
+                                                                                v456[0].__r_.__value_.__s.__data_[0] = 48;
+                                                                                std::operator<<[abi:ne200100]<std::char_traits<char>>(v280, v456);
                                                                                 std::ostream::operator<<();
-                                                                                if (*(v269 - 32))
+                                                                                if (*(v276 - 32))
                                                                                 {
-                                                                                  v277 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], ", LastAllocTimestamp: ", 22);
-                                                                                  v278 = strlen(v269 - 32);
-                                                                                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v277, (v269 - 32), v278);
+                                                                                  v281 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], ", LastAllocTimestamp: ", 22);
+                                                                                  v282 = strlen(v276 - 32);
+                                                                                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v281, (v276 - 32), v282);
                                                                                 }
 
-                                                                                if (*v269)
+                                                                                if (*v276)
                                                                                 {
-                                                                                  v279 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], ", LastDeallocTimestamp: ", 24);
-                                                                                  v280 = strlen(v269);
-                                                                                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v279, v269, v280);
+                                                                                  v283 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], ", LastDeallocTimestamp: ", 24);
+                                                                                  v284 = strlen(v276);
+                                                                                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v283, v276, v284);
                                                                                 }
 
                                                                                 std::stringbuf::str();
-                                                                                if ((v449[23] & 0x80000000) != 0)
+                                                                                if ((v458[23] & 0x80000000) != 0)
                                                                                 {
-                                                                                  operator delete(*v449);
+                                                                                  operator delete(*v458);
                                                                                 }
 
-                                                                                *v449 = v447[0];
-                                                                                std::list<std::string>::push_back();
+                                                                                *v458 = v456[0];
+                                                                                std::list<std::string>::push_back(v452, v458);
                                                                               }
 
-                                                                              std::string::basic_string[abi:ne200100]<0>(v447, "");
+                                                                              std::string::basic_string[abi:ne200100]<0>(v456, "");
                                                                               std::stringbuf::str();
-                                                                              if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                                              if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                                               {
-                                                                                operator delete(v447[0].__r_.__value_.__l.__data_);
+                                                                                operator delete(v456[0].__r_.__value_.__l.__data_);
                                                                               }
 
-                                                                              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], "BufferStats is disabled.", 24);
+                                                                              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], "BufferStats is disabled.", 24);
                                                                               std::stringbuf::str();
-                                                                              if ((v449[23] & 0x80000000) != 0)
+                                                                              if ((v458[23] & 0x80000000) != 0)
                                                                               {
-                                                                                operator delete(*v449);
+                                                                                operator delete(*v458);
                                                                               }
 
-                                                                              *v449 = v447[0];
-                                                                              std::list<std::string>::push_back();
+                                                                              *v458 = v456[0];
+                                                                              std::list<std::string>::push_back(v452, v458);
                                                                             }
 
 LABEL_1005:
-                                                                            *&v448[0].__r_.__value_.__l.__data_ = 0uLL;
-                                                                            v447[0].__r_.__value_.__r.__words[0] = v447;
-                                                                            v447[0].__r_.__value_.__l.__size_ = v447;
-                                                                            v447[0].__r_.__value_.__r.__words[2] = 0;
-                                                                            std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v427);
+                                                                            *&v457[0].__r_.__value_.__l.__data_ = 0uLL;
+                                                                            v456[0].__r_.__value_.__r.__words[0] = v456;
+                                                                            v456[0].__r_.__value_.__l.__size_ = v456;
+                                                                            v456[0].__r_.__value_.__r.__words[2] = 0;
+                                                                            std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v436);
                                                                             memset(__s, 0, 24);
-                                                                            if (!otThreadGetNextCacheEntry(*(v413 + 28), v449, v448))
+                                                                            if (!otThreadGetNextCacheEntry(v422[28], v458, v457))
                                                                             {
-                                                                              std::string::basic_string[abi:ne200100]<0>(v443, "");
+                                                                              std::string::basic_string[abi:ne200100]<0>(v452, "");
                                                                               std::stringbuf::str();
-                                                                              if ((v443[23] & 0x80000000) != 0)
+                                                                              if ((v452[23] & 0x80000000) != 0)
                                                                               {
-                                                                                operator delete(*v443);
+                                                                                operator delete(*v452);
                                                                               }
 
-                                                                              ot::Ip6::Address::ToString(v449, v443);
-                                                                              v259 = strlen(&v443[12]);
-                                                                              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], &v443[12], v259);
-                                                                              v260 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], " ", 1);
-                                                                              v443[0] = 48;
-                                                                              v261 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v260, v443);
-                                                                              v262 = *v261;
-                                                                              *(v261 + *(*v261 - 24) + 24) = 4;
-                                                                              *(v261 + *(v262 - 24) + 8) = *(v261 + *(v262 - 24) + 8) & 0xFFFFFFB5 | 8;
+                                                                              ot::Ip6::Address::ToString(v452, v458);
+                                                                              v266 = strlen(&v452[12]);
+                                                                              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], &v452[12], v266);
+                                                                              v267 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], " ", 1);
+                                                                              v452[0] = 48;
+                                                                              v268 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v267, v452);
+                                                                              v269 = *v268;
+                                                                              *(v268 + *(*v268 - 24) + 24) = 4;
+                                                                              *(v268 + *(v269 - 24) + 8) = *(v268 + *(v269 - 24) + 8) & 0xFFFFFFB5 | 8;
                                                                               std::ostream::operator<<();
-                                                                              v263 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], " ", 1);
-                                                                              v264 = strlen(HostInterpreter::ProcessPropertyGet(unsigned char,char **,void *)::kStateStrings[*&v449[20]]);
-                                                                              v265 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v263, HostInterpreter::ProcessPropertyGet(unsigned char,char **,void *)::kStateStrings[*&v449[20]], v264);
-                                                                              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v265, " canEvict=", 10);
+                                                                              v270 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], " ", 1);
+                                                                              v271 = strlen(HostInterpreter::ProcessPropertyGet(unsigned char,char **,void *)::kStateStrings[*&v458[20]]);
+                                                                              v272 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v270, HostInterpreter::ProcessPropertyGet(unsigned char,char **,void *)::kStateStrings[*&v458[20]], v271);
+                                                                              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v272, " canEvict=", 10);
                                                                               std::ostream::operator<<();
-                                                                              if (*&v449[20])
+                                                                              if (*&v458[20])
                                                                               {
-                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], " timeout=", 9);
+                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], " timeout=", 9);
                                                                                 std::ostream::operator<<();
                                                                               }
 
-                                                                              else if ((v449[24] & 4) != 0)
+                                                                              else if ((v458[24] & 4) != 0)
                                                                               {
-                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], " transTime=", 11);
+                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], " transTime=", 11);
                                                                                 std::ostream::operator<<();
-                                                                                v266 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], " eid=", 5);
-                                                                                ot::Ip6::Address::ToString(&v452, v443);
-                                                                                v267 = strlen(&v443[12]);
-                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v266, &v443[12], v267);
+                                                                                v273 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], " eid=", 5);
+                                                                                ot::Ip6::Address::ToString(v452, &v461);
+                                                                                v274 = strlen(&v452[12]);
+                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v273, &v452[12], v274);
                                                                               }
 
-                                                                              if (*&v449[20] == 3)
+                                                                              if (*&v458[20] == 3)
                                                                               {
-                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2], " retryDelay=", 12);
+                                                                                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2], " retryDelay=", 12);
                                                                                 std::ostream::operator<<();
                                                                               }
 
-                                                                              std::endl[abi:ne200100]<char,std::char_traits<char>>(&v427[0].__r_.__value_.__r.__words[2]);
+                                                                              std::endl[abi:ne200100]<char,std::char_traits<char>>(&v436[0].__r_.__value_.__r.__words[2]);
                                                                               std::stringbuf::str();
                                                                               if (SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) < 0)
                                                                               {
                                                                                 operator delete(__s[0].__r_.__value_.__l.__data_);
                                                                               }
 
-                                                                              __s[0] = *v443;
-                                                                              std::list<std::string>::push_back();
+                                                                              __s[0] = *v452;
+                                                                              std::list<std::string>::push_back(v456, __s);
                                                                             }
 
-                                                                            boost::any::any<std::list<std::string> &>();
+                                                                            boost::any::any<std::list<std::string> &>(v452, v456);
                                                                           }
 
 LABEL_1001:
-                                                                          v255 = *(v413 + 28);
                                                                           MaxRouterId = otThreadGetMaxRouterId();
-                                                                          *v449 = v449;
-                                                                          *&v449[8] = v449;
-                                                                          *&v449[16] = 0;
-                                                                          v257 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                          if (v257)
+                                                                          *v458 = v458;
+                                                                          *&v458[8] = v458;
+                                                                          *&v458[16] = 0;
+                                                                          v264 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                          if (v264)
                                                                           {
-                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v257, OS_LOG_TYPE_INFO))
+                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v264, OS_LOG_TYPE_INFO))
                                                                             {
-                                                                              *v443 = 0;
-                                                                              _os_log_impl(&_mh_execute_header, v257, OS_LOG_TYPE_INFO, "| ID | RLOC16 | ExtendedAddress | NextHop  | PathCost | LQIn | LQOut | Age | Link", v443, 2u);
+                                                                              *v452 = 0;
+                                                                              _os_log_impl(&_mh_execute_header, v264, OS_LOG_TYPE_INFO, "| ID | RLOC16 | ExtendedAddress | NextHop  | PathCost | LQIn | LQOut | Age | Link", v452, 2u);
                                                                             }
                                                                           }
 
@@ -5802,93 +6297,93 @@ LABEL_1001:
                                                                             [PowerEventHandler_Rcp init:];
                                                                           }
 
-                                                                          v368 = 0;
-                                                                          *&v258 = 136315394;
-                                                                          v411 = v258;
-                                                                          *&v258 = 67112960;
-                                                                          v410 = v258;
-                                                                          while (otThreadGetRouterInfo(*(v413 + 28), v368, v447))
+                                                                          v375 = 0;
+                                                                          *&v265 = 136315394;
+                                                                          *v420 = v265;
+                                                                          *&v265 = 67112960;
+                                                                          v419 = v265;
+                                                                          while (otThreadGetRouterInfo(v422[28], v375, v456))
                                                                           {
-                                                                            if (MaxRouterId < ++v368)
+                                                                            if (MaxRouterId < ++v375)
                                                                             {
-                                                                              boost::any::any<std::list<std::string> &>();
+                                                                              boost::any::any<std::list<std::string> &>(v452, v458);
                                                                             }
                                                                           }
 
-                                                                          v369 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                          if (v369)
+                                                                          v376 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                          if (v376)
                                                                           {
-                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v369, OS_LOG_TYPE_INFO))
+                                                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v376, OS_LOG_TYPE_INFO))
                                                                             {
-                                                                              *v443 = v410;
-                                                                              *&v443[8] = 1024;
-                                                                              *&v443[10] = LOWORD(v447[0].__r_.__value_.__r.__words[1]);
-                                                                              *&v443[14] = 1024;
-                                                                              *&v443[4] = v447[0].__r_.__value_.__s.__data_[10];
-                                                                              *&v443[16] = v447[0].__r_.__value_.__s.__data_[0];
-                                                                              *&v443[20] = 1024;
-                                                                              *&v443[22] = v447[0].__r_.__value_.__s.__data_[1];
-                                                                              *&v443[26] = 1024;
-                                                                              *&v443[32] = 1024;
-                                                                              *&v443[34] = v447[0].__r_.__value_.__s.__data_[3];
-                                                                              *&v443[38] = 1024;
-                                                                              *&v443[28] = v447[0].__r_.__value_.__s.__data_[2];
-                                                                              *&v443[40] = v447[0].__r_.__value_.__s.__data_[4];
-                                                                              *&v443[44] = 1024;
-                                                                              *&v443[46] = v447[0].__r_.__value_.__s.__data_[5];
-                                                                              *&v443[50] = 1024;
-                                                                              *&v443[56] = 1024;
-                                                                              *&v443[58] = v447[0].__r_.__value_.__s.__data_[7];
-                                                                              *&v443[62] = 1024;
-                                                                              *&v443[52] = v447[0].__r_.__value_.__s.__data_[6];
-                                                                              LODWORD(v444) = v447[0].__r_.__value_.__s.__data_[11];
-                                                                              WORD2(v444) = 1024;
-                                                                              *(&v444 + 6) = v447[0].__r_.__value_.__s.__data_[12];
-                                                                              WORD5(v444) = 1024;
-                                                                              LOWORD(v445[0]) = 1024;
-                                                                              *(v445 + 2) = v447[0].__r_.__value_.__s.__data_[14];
-                                                                              WORD3(v445[0]) = 1024;
-                                                                              HIDWORD(v444) = v447[0].__r_.__value_.__s.__data_[13];
-                                                                              DWORD2(v445[0]) = v447[0].__r_.__value_.__s.__data_[15];
-                                                                              WORD6(v445[0]) = 1024;
-                                                                              *(v445 + 14) = (v447[0].__r_.__value_.__s.__data_[16] >> 1) & 1;
-                                                                              _os_log_impl(&_mh_execute_header, v369, OS_LOG_TYPE_INFO, "| %2d| 0x%04x | %02X%02X%02X%02X%02X%02X%02X%02X | %8d | %8d | %9d | %3u | %3d |%2d", v443, 0x62u);
+                                                                              *v452 = v419;
+                                                                              *&v452[8] = 1024;
+                                                                              *&v452[10] = LOWORD(v456[0].__r_.__value_.__r.__words[1]);
+                                                                              *&v452[14] = 1024;
+                                                                              *&v452[4] = v456[0].__r_.__value_.__s.__data_[10];
+                                                                              *&v452[16] = v456[0].__r_.__value_.__s.__data_[0];
+                                                                              *&v452[20] = 1024;
+                                                                              *&v452[22] = v456[0].__r_.__value_.__s.__data_[1];
+                                                                              *&v452[26] = 1024;
+                                                                              *&v452[32] = 1024;
+                                                                              *&v452[34] = v456[0].__r_.__value_.__s.__data_[3];
+                                                                              *&v452[38] = 1024;
+                                                                              *&v452[28] = v456[0].__r_.__value_.__s.__data_[2];
+                                                                              *&v452[40] = v456[0].__r_.__value_.__s.__data_[4];
+                                                                              *&v452[44] = 1024;
+                                                                              *&v452[46] = v456[0].__r_.__value_.__s.__data_[5];
+                                                                              *&v452[50] = 1024;
+                                                                              *&v452[56] = 1024;
+                                                                              *&v452[58] = v456[0].__r_.__value_.__s.__data_[7];
+                                                                              *&v452[62] = 1024;
+                                                                              *&v452[52] = v456[0].__r_.__value_.__s.__data_[6];
+                                                                              LODWORD(v453) = v456[0].__r_.__value_.__s.__data_[11];
+                                                                              WORD2(v453) = 1024;
+                                                                              *(&v453 + 6) = v456[0].__r_.__value_.__s.__data_[12];
+                                                                              WORD5(v453) = 1024;
+                                                                              LOWORD(v454[0]) = 1024;
+                                                                              *(v454 + 2) = v456[0].__r_.__value_.__s.__data_[14];
+                                                                              WORD3(v454[0]) = 1024;
+                                                                              HIDWORD(v453) = v456[0].__r_.__value_.__s.__data_[13];
+                                                                              DWORD2(v454[0]) = v456[0].__r_.__value_.__s.__data_[15];
+                                                                              WORD6(v454[0]) = 1024;
+                                                                              *(v454 + 14) = (v456[0].__r_.__value_.__s.__data_[16] >> 1) & 1;
+                                                                              _os_log_impl(&_mh_execute_header, v376, OS_LOG_TYPE_INFO, "| %2d| 0x%04x | %02X%02X%02X%02X%02X%02X%02X%02X | %8d | %8d | %9d | %3u | %3d |%2d", v452, 0x62u);
                                                                             }
                                                                           }
 
                                                                           else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                                                                           {
-                                                                            *v443 = v411;
-                                                                            *&v443[4] = "com.apple.wpantund.ncp";
-                                                                            *&v443[12] = 2080;
-                                                                            *&v443[14] = "default";
-                                                                            _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v443, 0x16u);
+                                                                            *v452 = *v420;
+                                                                            *&v452[4] = "com.apple.wpantund.ncp";
+                                                                            *&v452[12] = 2080;
+                                                                            *&v452[14] = "default";
+                                                                            _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v452, 0x16u);
                                                                           }
 
-                                                                          snprintf(v427, 0x3E8uLL, "Router id = %u,RLOC16 = 0x%x,ExtendedAddress=%02X%02X%02X%02X%02X%02X%02X%02X,NextHop = %d,PathCost= %d, LQIn =%d, LQOut= %d, Age= %d, Link= %d", v447[0].__r_.__value_.__s.__data_[10], LOWORD(v447[0].__r_.__value_.__r.__words[1]), v447[0].__r_.__value_.__s.__data_[0], v447[0].__r_.__value_.__s.__data_[1], v447[0].__r_.__value_.__s.__data_[2], v447[0].__r_.__value_.__s.__data_[3], v447[0].__r_.__value_.__s.__data_[4], v447[0].__r_.__value_.__s.__data_[5], v447[0].__r_.__value_.__s.__data_[6], v447[0].__r_.__value_.__s.__data_[7], v447[0].__r_.__value_.__s.__data_[11], v447[0].__r_.__value_.__s.__data_[12], v447[0].__r_.__value_.__s.__data_[13], v447[0].__r_.__value_.__s.__data_[14], v447[0].__r_.__value_.__s.__data_[15], (v447[0].__r_.__value_.__s.__data_[16] >> 1) & 1);
-                                                                          std::string::basic_string[abi:ne200100]<0>(v443, v427);
+                                                                          snprintf(v436, 0x3E8uLL, "Router id = %u,RLOC16 = 0x%x,ExtendedAddress=%02X%02X%02X%02X%02X%02X%02X%02X,NextHop = %d,PathCost= %d, LQIn =%d, LQOut= %d, Age= %d, Link= %d", v456[0].__r_.__value_.__s.__data_[10], LOWORD(v456[0].__r_.__value_.__r.__words[1]), v456[0].__r_.__value_.__s.__data_[0], v456[0].__r_.__value_.__s.__data_[1], v456[0].__r_.__value_.__s.__data_[2], v456[0].__r_.__value_.__s.__data_[3], v456[0].__r_.__value_.__s.__data_[4], v456[0].__r_.__value_.__s.__data_[5], v456[0].__r_.__value_.__s.__data_[6], v456[0].__r_.__value_.__s.__data_[7], v456[0].__r_.__value_.__s.__data_[11], v456[0].__r_.__value_.__s.__data_[12], v456[0].__r_.__value_.__s.__data_[13], v456[0].__r_.__value_.__s.__data_[14], v456[0].__r_.__value_.__s.__data_[15], (v456[0].__r_.__value_.__s.__data_[16] >> 1) & 1);
+                                                                          std::string::basic_string[abi:ne200100]<0>(v452, v436);
                                                                           operator new();
                                                                         }
 
 LABEL_995:
-                                                                        v251 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                        if (v251)
+                                                                        v259 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                        if (v259)
                                                                         {
-                                                                          v252 = v251;
-                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
+                                                                          v260 = v259;
+                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v260, OS_LOG_TYPE_INFO))
                                                                           {
-                                                                            v253 = __s1;
-                                                                            v254 = *(__s1 + 56);
+                                                                            v261 = __s1;
+                                                                            v262 = *(__s1 + 56);
                                                                             if (*(__s1 + 23) < 0)
                                                                             {
-                                                                              v253 = *__s1;
+                                                                              v261 = *__s1;
                                                                             }
 
-                                                                            LODWORD(v427[0].__r_.__value_.__l.__data_) = 67109378;
-                                                                            HIDWORD(v427[0].__r_.__value_.__r.__words[0]) = v254;
-                                                                            LOWORD(v427[0].__r_.__value_.__r.__words[1]) = 2080;
-                                                                            *(&v427[0].__r_.__value_.__r.__words[1] + 2) = v253;
-                                                                            _os_log_impl(&_mh_execute_header, v252, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v427, 0x12u);
+                                                                            LODWORD(v436[0].__r_.__value_.__l.__data_) = 67109378;
+                                                                            HIDWORD(v436[0].__r_.__value_.__r.__words[0]) = v262;
+                                                                            LOWORD(v436[0].__r_.__value_.__r.__words[1]) = 2080;
+                                                                            *(&v436[0].__r_.__value_.__r.__words[1] + 2) = v261;
+                                                                            _os_log_impl(&_mh_execute_header, v260, OS_LOG_TYPE_INFO, "HI:PG%d:%s", v436, 0x12u);
                                                                           }
                                                                         }
 
@@ -5897,19 +6392,19 @@ LABEL_995:
                                                                           [PowerEventHandler_Rcp init:];
                                                                         }
 
-                                                                        v427[0].__r_.__value_.__r.__words[0] = v427;
-                                                                        v427[0].__r_.__value_.__l.__size_ = v427;
-                                                                        v427[0].__r_.__value_.__r.__words[2] = 0;
-                                                                        HostInterpreter::GetRcpStateInfo(v413);
+                                                                        v436[0].__r_.__value_.__r.__words[0] = v436;
+                                                                        v436[0].__r_.__value_.__l.__size_ = v436;
+                                                                        v436[0].__r_.__value_.__r.__words[2] = 0;
+                                                                        HostInterpreter::GetRcpStateInfo(v422, v436);
                                                                       }
 
                                                                       goto LABEL_984;
                                                                     }
 
 LABEL_983:
-                                                                    MeshLocalPrefix = otThreadGetMeshLocalPrefix(*(v413 + 28));
-                                                                    snprintf(v427, 0xC8uLL, "%x:%x:%x:%x::/64", __rev16(*MeshLocalPrefix), __rev16(MeshLocalPrefix[1]), __rev16(MeshLocalPrefix[2]), __rev16(MeshLocalPrefix[3]));
-                                                                    std::string::basic_string[abi:ne200100]<0>(v443, v427);
+                                                                    MeshLocalPrefix = otThreadGetMeshLocalPrefix(v422[28]);
+                                                                    snprintf(v436, 0xC8uLL, "%x:%x:%x:%x::/64", __rev16(*MeshLocalPrefix), __rev16(MeshLocalPrefix[1]), __rev16(MeshLocalPrefix[2]), __rev16(MeshLocalPrefix[3]));
+                                                                    std::string::basic_string[abi:ne200100]<0>(v452, v436);
                                                                     operator new();
                                                                   }
 
@@ -5917,64 +6412,64 @@ LABEL_983:
                                                                 }
 
 LABEL_980:
-                                                                v449[0] = 0;
-                                                                v447[0].__r_.__value_.__s.__data_[0] = 0;
-                                                                otLinkGetTxDirectRetrySuccessHistogram(*(v413 + 28), v449);
-                                                                otLinkGetTxIndirectRetrySuccessHistogram(*(v413 + 28), v447);
-                                                                HostInterpreter::GetMacRetryHistogramAsValMap(v449[0], v447[0].__r_.__value_.__s.__data_[0], v427);
-                                                                boost::any::any<std::map<std::string,boost::any> &>();
+                                                                v458[0] = 0;
+                                                                v456[0].__r_.__value_.__s.__data_[0] = 0;
+                                                                otLinkGetTxDirectRetrySuccessHistogram(v422[28], v458);
+                                                                otLinkGetTxIndirectRetrySuccessHistogram(v422[28], v456);
+                                                                HostInterpreter::GetMacRetryHistogramAsValMap(v436, v458[0], v456[0].__r_.__value_.__s.__data_[0]);
+                                                                boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
                                                               }
 
 LABEL_979:
-                                                              v449[0] = 0;
-                                                              v447[0].__r_.__value_.__s.__data_[0] = 0;
-                                                              otLinkGetRouterRssiHistogram(*(v413 + 28), v449);
-                                                              otLinkGetEndDeviceRssiHistogram(*(v413 + 28), v447);
-                                                              HostInterpreter::GetNeighRSSIHistogramAsValMap(v449[0], v447[0].__r_.__value_.__s.__data_[0], v427);
-                                                              boost::any::any<std::map<std::string,boost::any> &>();
+                                                              v458[0] = 0;
+                                                              v456[0].__r_.__value_.__s.__data_[0] = 0;
+                                                              otLinkGetRouterRssiHistogram(v422[28], v458);
+                                                              otLinkGetEndDeviceRssiHistogram(v422[28], v456);
+                                                              HostInterpreter::GetNeighRSSIHistogramAsValMap(v436, v458[0], v456[0].__r_.__value_.__s.__data_[0]);
+                                                              boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
                                                             }
 
 LABEL_978:
-                                                            v449[0] = 0;
-                                                            otLinkGetLqiHistogram(*(v413 + 28), v449);
-                                                            HostInterpreter::GetMacPacketLQIHistogramAsValMap(v449[0], v427);
-                                                            boost::any::any<std::map<std::string,boost::any> &>();
+                                                            v458[0] = 0;
+                                                            otLinkGetLqiHistogram(v422[28], v458);
+                                                            HostInterpreter::GetMacPacketLQIHistogramAsValMap(v436, v458[0]);
+                                                            boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
                                                           }
 
 LABEL_977:
-                                                          v449[0] = 0;
-                                                          v447[0].__r_.__value_.__s.__data_[0] = 0;
-                                                          otLinkGetTxDirectErrorNoAckHistogram(*(v413 + 28), v449);
-                                                          otLinkGetTxDirectErrorChannelAccessFailureHistogram(*(v413 + 28), v447);
-                                                          HostInterpreter::GetMacPacketErrHistogramAsValMap(v449[0], v447[0].__r_.__value_.__s.__data_[0], v427);
-                                                          boost::any::any<std::map<std::string,boost::any> &>();
+                                                          v458[0] = 0;
+                                                          v456[0].__r_.__value_.__s.__data_[0] = 0;
+                                                          otLinkGetTxDirectErrorNoAckHistogram(v422[28], v458);
+                                                          otLinkGetTxDirectErrorChannelAccessFailureHistogram(v422[28], v456);
+                                                          HostInterpreter::GetMacPacketErrHistogramAsValMap(v436, v458[0], v456[0].__r_.__value_.__s.__data_[0]);
+                                                          boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
                                                         }
 
 LABEL_976:
-                                                        v449[0] = 0;
-                                                        v447[0].__r_.__value_.__s.__data_[0] = 0;
-                                                        otLinkGetTxPacketSizeHistogram(*(v413 + 28), v449);
-                                                        otLinkGetRxPacketSizeHistogram(*(v413 + 28), v447);
-                                                        HostInterpreter::GetMacPacketSizeHistogramAsValMap(v449[0], v447[0].__r_.__value_.__s.__data_[0], v427);
-                                                        boost::any::any<std::map<std::string,boost::any> &>();
+                                                        v458[0] = 0;
+                                                        v456[0].__r_.__value_.__s.__data_[0] = 0;
+                                                        otLinkGetTxPacketSizeHistogram(v422[28], v458);
+                                                        otLinkGetRxPacketSizeHistogram(v422[28], v456);
+                                                        HostInterpreter::GetMacPacketSizeHistogramAsValMap(v436, v458[0], v456[0].__r_.__value_.__s.__data_[0]);
+                                                        boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
                                                       }
 
 LABEL_970:
-                                                      v243 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                      if (v243)
+                                                      v251 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                      if (v251)
                                                       {
-                                                        v244 = v243;
-                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v244, OS_LOG_TYPE_INFO))
+                                                        v252 = v251;
+                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
                                                         {
-                                                          v245 = __s1;
+                                                          v253 = __s1;
                                                           if (*(__s1 + 23) < 0)
                                                           {
-                                                            v245 = *__s1;
+                                                            v253 = *__s1;
                                                           }
 
-                                                          LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                          *(v427[0].__r_.__value_.__r.__words + 4) = v245;
-                                                          _os_log_impl(&_mh_execute_header, v244, OS_LOG_TYPE_INFO, "HI:PG0v:%s", v427, 0xCu);
+                                                          LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                          *(v436[0].__r_.__value_.__r.__words + 4) = v253;
+                                                          _os_log_impl(&_mh_execute_header, v252, OS_LOG_TYPE_INFO, "HI:PG0v:%s", v436, 0xCu);
                                                         }
                                                       }
 
@@ -5983,95 +6478,95 @@ LABEL_970:
                                                         [PowerEventHandler_Rcp init:];
                                                       }
 
-                                                      *&v443[16] = 0;
-                                                      *&v443[8] = 0;
-                                                      *v443 = &v443[8];
-                                                      v456.__r_.__value_.__s.__data_[0] = 0;
-                                                      DeepSleepFilterList = otPlatVendorGetDeepSleepFilterList(*(v413 + 28), v427, &v456);
+                                                      *&v452[16] = 0;
+                                                      *&v452[8] = 0;
+                                                      *v452 = &v452[8];
+                                                      v465.__r_.__value_.__s.__data_[0] = 0;
+                                                      DeepSleepFilterList = otPlatVendorGetDeepSleepFilterList(v422[28], v436, &v465);
                                                       if (DeepSleepFilterList)
                                                       {
-                                                        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v443, *&v443[8]);
+                                                        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v452, *&v452[8]);
                                                         IfsAckDataPerNeighbor = DeepSleepFilterList;
                                                         goto LABEL_299;
                                                       }
 
-                                                      if (!v456.__r_.__value_.__s.__data_[0])
+                                                      if (!v465.__r_.__value_.__s.__data_[0])
                                                       {
-                                                        boost::any::any<std::map<std::string,boost::any> &>();
+                                                        boost::any::any<std::map<std::string,boost::any> &>(v458, v452);
                                                       }
 
-                                                      std::string::basic_string[abi:ne200100]<0>(v448, "[");
-                                                      v356 = std::string::insert(v448, 0, "DeepSleepFilterList");
-                                                      v357 = *&v356->__r_.__value_.__l.__data_;
-                                                      __s[0].__r_.__value_.__r.__words[2] = v356->__r_.__value_.__r.__words[2];
-                                                      *&__s[0].__r_.__value_.__l.__data_ = v357;
-                                                      v356->__r_.__value_.__l.__size_ = 0;
-                                                      v356->__r_.__value_.__r.__words[2] = 0;
-                                                      v356->__r_.__value_.__r.__words[0] = 0;
-                                                      std::to_string(&v446, 0);
-                                                      if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                      std::string::basic_string[abi:ne200100]<0>(v457, "[");
+                                                      v362 = std::string::insert(v457, 0, "DeepSleepFilterList");
+                                                      v363 = *&v362->__r_.__value_.__l.__data_;
+                                                      __s[0].__r_.__value_.__r.__words[2] = v362->__r_.__value_.__r.__words[2];
+                                                      *&__s[0].__r_.__value_.__l.__data_ = v363;
+                                                      v362->__r_.__value_.__l.__size_ = 0;
+                                                      v362->__r_.__value_.__r.__words[2] = 0;
+                                                      v362->__r_.__value_.__r.__words[0] = 0;
+                                                      std::to_string(&v455, 0);
+                                                      if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                       {
-                                                        v358 = &v446;
-                                                      }
-
-                                                      else
-                                                      {
-                                                        v358 = v446.__r_.__value_.__r.__words[0];
-                                                      }
-
-                                                      if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                                                      {
-                                                        v359 = HIBYTE(v446.__r_.__value_.__r.__words[2]);
+                                                        v364 = &v455;
                                                       }
 
                                                       else
                                                       {
-                                                        v359 = v446.__r_.__value_.__l.__size_;
+                                                        v364 = v455.__r_.__value_.__r.__words[0];
                                                       }
 
-                                                      v360 = std::string::append(__s, v358, v359);
-                                                      v361 = *&v360->__r_.__value_.__l.__data_;
-                                                      v447[0].__r_.__value_.__r.__words[2] = v360->__r_.__value_.__r.__words[2];
-                                                      *&v447[0].__r_.__value_.__l.__data_ = v361;
-                                                      v360->__r_.__value_.__l.__size_ = 0;
-                                                      v360->__r_.__value_.__r.__words[2] = 0;
-                                                      v360->__r_.__value_.__r.__words[0] = 0;
+                                                      if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                      {
+                                                        v365 = HIBYTE(v455.__r_.__value_.__r.__words[2]);
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v365 = v455.__r_.__value_.__l.__size_;
+                                                      }
+
+                                                      v366 = std::string::append(__s, v364, v365);
+                                                      v367 = *&v366->__r_.__value_.__l.__data_;
+                                                      v456[0].__r_.__value_.__r.__words[2] = v366->__r_.__value_.__r.__words[2];
+                                                      *&v456[0].__r_.__value_.__l.__data_ = v367;
+                                                      v366->__r_.__value_.__l.__size_ = 0;
+                                                      v366->__r_.__value_.__r.__words[2] = 0;
+                                                      v366->__r_.__value_.__r.__words[0] = 0;
                                                       std::string::basic_string[abi:ne200100]<0>(&buf, "]");
                                                       if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                       {
-                                                        v362 = &buf;
+                                                        v368 = &buf;
                                                       }
 
                                                       else
                                                       {
-                                                        v362 = buf.__r_.__value_.__r.__words[0];
+                                                        v368 = buf.__r_.__value_.__r.__words[0];
                                                       }
 
                                                       if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                       {
-                                                        v363 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
+                                                        v369 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
                                                       }
 
                                                       else
                                                       {
-                                                        v363 = buf.__r_.__value_.__l.__size_;
+                                                        v369 = buf.__r_.__value_.__l.__size_;
                                                       }
 
-                                                      v364 = std::string::append(v447, v362, v363);
-                                                      v365 = *&v364->__r_.__value_.__l.__data_;
-                                                      *&v449[16] = *(&v364->__r_.__value_.__l + 2);
-                                                      *v449 = v365;
-                                                      v364->__r_.__value_.__l.__size_ = 0;
-                                                      v364->__r_.__value_.__r.__words[2] = 0;
-                                                      v364->__r_.__value_.__r.__words[0] = 0;
+                                                      v370 = std::string::append(v456, v368, v369);
+                                                      v371 = *&v370->__r_.__value_.__l.__data_;
+                                                      *&v458[16] = *(&v370->__r_.__value_.__l + 2);
+                                                      *v458 = v371;
+                                                      v370->__r_.__value_.__l.__size_ = 0;
+                                                      v370->__r_.__value_.__r.__words[2] = 0;
+                                                      v370->__r_.__value_.__r.__words[0] = 0;
                                                       if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                                                       {
                                                         operator delete(buf.__r_.__value_.__l.__data_);
-                                                        if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                        if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                         {
 LABEL_1233:
-                                                          operator delete(v447[0].__r_.__value_.__l.__data_);
-                                                          if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                          operator delete(v456[0].__r_.__value_.__l.__data_);
+                                                          if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                           {
                                                             goto LABEL_1234;
                                                           }
@@ -6080,12 +6575,12 @@ LABEL_1233:
                                                         }
                                                       }
 
-                                                      else if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                      else if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                       {
                                                         goto LABEL_1233;
                                                       }
 
-                                                      if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                      if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                       {
 LABEL_1234:
                                                         if (SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) < 0)
@@ -6097,26 +6592,26 @@ LABEL_1234:
                                                       }
 
 LABEL_1239:
-                                                      operator delete(v446.__r_.__value_.__l.__data_);
+                                                      operator delete(v455.__r_.__value_.__l.__data_);
                                                       if (SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) < 0)
                                                       {
 LABEL_1235:
                                                         operator delete(__s[0].__r_.__value_.__l.__data_);
-                                                        if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                        if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                         {
                                                           goto LABEL_1242;
                                                         }
 
 LABEL_1241:
-                                                        operator delete(v448[0].__r_.__value_.__l.__data_);
+                                                        operator delete(v457[0].__r_.__value_.__l.__data_);
 LABEL_1242:
-                                                        v447[0].__r_.__value_.__r.__words[0] = v449;
-                                                        std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v443, v449);
-                                                        boost::any::operator=<unsigned char &>();
+                                                        v456[0].__r_.__value_.__r.__words[0] = v458;
+                                                        v372 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v452, v458, &std::piecewise_construct, v456);
+                                                        boost::any::operator=<unsigned char &>(v372 + 7, v436);
                                                       }
 
 LABEL_1240:
-                                                      if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                      if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                       {
                                                         goto LABEL_1242;
                                                       }
@@ -6128,21 +6623,21 @@ LABEL_1240:
                                                   }
 
 LABEL_958:
-                                                  v237 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                  if (v237)
+                                                  v245 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                  if (v245)
                                                   {
-                                                    v238 = v237;
-                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v238, OS_LOG_TYPE_INFO))
+                                                    v246 = v245;
+                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v246, OS_LOG_TYPE_INFO))
                                                     {
-                                                      v239 = __s1;
+                                                      v247 = __s1;
                                                       if (*(__s1 + 23) < 0)
                                                       {
-                                                        v239 = *__s1;
+                                                        v247 = *__s1;
                                                       }
 
-                                                      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                      *(v427[0].__r_.__value_.__r.__words + 4) = v239;
-                                                      _os_log_impl(&_mh_execute_header, v238, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                      *(v436[0].__r_.__value_.__r.__words + 4) = v247;
+                                                      _os_log_impl(&_mh_execute_header, v246, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                     }
                                                   }
 
@@ -6151,96 +6646,96 @@ LABEL_958:
                                                     [PowerEventHandler_Rcp init:];
                                                   }
 
-                                                  *&v443[16] = 0;
-                                                  *&v443[8] = 0;
-                                                  *v443 = &v443[8];
-                                                  v456.__r_.__value_.__s.__data_[0] = -12;
-                                                  PTB = otPlatVendorGetDeepSleepRegionLogLevels(*(v413 + 28), v427, &v456);
+                                                  *&v452[16] = 0;
+                                                  *&v452[8] = 0;
+                                                  *v452 = &v452[8];
+                                                  v465.__r_.__value_.__s.__data_[0] = -12;
+                                                  PTB = otPlatVendorGetDeepSleepRegionLogLevels(v422[28], v436, &v465);
                                                   if (PTB)
                                                   {
-                                                    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v443, *&v443[8]);
+                                                    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v452, *&v452[8]);
 LABEL_1283:
                                                     IfsAckDataPerNeighbor = PTB;
                                                     goto LABEL_299;
                                                   }
 
-                                                  if (!v456.__r_.__value_.__s.__data_[0])
+                                                  if (!v465.__r_.__value_.__s.__data_[0])
                                                   {
-                                                    boost::any::any<std::map<std::string,boost::any> &>();
+                                                    boost::any::any<std::map<std::string,boost::any> &>(v458, v452);
                                                   }
 
-                                                  std::string::basic_string[abi:ne200100]<0>(v448, "[");
-                                                  v345 = std::string::insert(v448, 0, "DeepSleepRegionLogLevel");
-                                                  v346 = *&v345->__r_.__value_.__l.__data_;
-                                                  __s[0].__r_.__value_.__r.__words[2] = v345->__r_.__value_.__r.__words[2];
-                                                  *&__s[0].__r_.__value_.__l.__data_ = v346;
-                                                  v345->__r_.__value_.__l.__size_ = 0;
-                                                  v345->__r_.__value_.__r.__words[2] = 0;
-                                                  v345->__r_.__value_.__r.__words[0] = 0;
-                                                  std::to_string(&v446, 0);
-                                                  if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                  std::string::basic_string[abi:ne200100]<0>(v457, "[");
+                                                  v350 = std::string::insert(v457, 0, "DeepSleepRegionLogLevel");
+                                                  v351 = *&v350->__r_.__value_.__l.__data_;
+                                                  __s[0].__r_.__value_.__r.__words[2] = v350->__r_.__value_.__r.__words[2];
+                                                  *&__s[0].__r_.__value_.__l.__data_ = v351;
+                                                  v350->__r_.__value_.__l.__size_ = 0;
+                                                  v350->__r_.__value_.__r.__words[2] = 0;
+                                                  v350->__r_.__value_.__r.__words[0] = 0;
+                                                  std::to_string(&v455, 0);
+                                                  if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                   {
-                                                    v347 = &v446;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v347 = v446.__r_.__value_.__r.__words[0];
-                                                  }
-
-                                                  if ((v446.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                                                  {
-                                                    v348 = HIBYTE(v446.__r_.__value_.__r.__words[2]);
+                                                    v352 = &v455;
                                                   }
 
                                                   else
                                                   {
-                                                    v348 = v446.__r_.__value_.__l.__size_;
+                                                    v352 = v455.__r_.__value_.__r.__words[0];
                                                   }
 
-                                                  v349 = std::string::append(__s, v347, v348);
-                                                  v350 = *&v349->__r_.__value_.__l.__data_;
-                                                  v447[0].__r_.__value_.__r.__words[2] = v349->__r_.__value_.__r.__words[2];
-                                                  *&v447[0].__r_.__value_.__l.__data_ = v350;
-                                                  v349->__r_.__value_.__l.__size_ = 0;
-                                                  v349->__r_.__value_.__r.__words[2] = 0;
-                                                  v349->__r_.__value_.__r.__words[0] = 0;
+                                                  if ((v455.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                                                  {
+                                                    v353 = HIBYTE(v455.__r_.__value_.__r.__words[2]);
+                                                  }
+
+                                                  else
+                                                  {
+                                                    v353 = v455.__r_.__value_.__l.__size_;
+                                                  }
+
+                                                  v354 = std::string::append(__s, v352, v353);
+                                                  v355 = *&v354->__r_.__value_.__l.__data_;
+                                                  v456[0].__r_.__value_.__r.__words[2] = v354->__r_.__value_.__r.__words[2];
+                                                  *&v456[0].__r_.__value_.__l.__data_ = v355;
+                                                  v354->__r_.__value_.__l.__size_ = 0;
+                                                  v354->__r_.__value_.__r.__words[2] = 0;
+                                                  v354->__r_.__value_.__r.__words[0] = 0;
                                                   std::string::basic_string[abi:ne200100]<0>(&buf, "]");
                                                   if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                   {
-                                                    v351 = &buf;
+                                                    v356 = &buf;
                                                   }
 
                                                   else
                                                   {
-                                                    v351 = buf.__r_.__value_.__r.__words[0];
+                                                    v356 = buf.__r_.__value_.__r.__words[0];
                                                   }
 
                                                   if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                                   {
-                                                    v352 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
+                                                    v357 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
                                                   }
 
                                                   else
                                                   {
-                                                    v352 = buf.__r_.__value_.__l.__size_;
+                                                    v357 = buf.__r_.__value_.__l.__size_;
                                                   }
 
-                                                  v353 = std::string::append(v447, v351, v352);
-                                                  v354 = *&v353->__r_.__value_.__l.__data_;
-                                                  *&v449[16] = *(&v353->__r_.__value_.__l + 2);
-                                                  *v449 = v354;
-                                                  v353->__r_.__value_.__l.__size_ = 0;
-                                                  v353->__r_.__value_.__r.__words[2] = 0;
-                                                  v353->__r_.__value_.__r.__words[0] = 0;
+                                                  v358 = std::string::append(v456, v356, v357);
+                                                  v359 = *&v358->__r_.__value_.__l.__data_;
+                                                  *&v458[16] = *(&v358->__r_.__value_.__l + 2);
+                                                  *v458 = v359;
+                                                  v358->__r_.__value_.__l.__size_ = 0;
+                                                  v358->__r_.__value_.__r.__words[2] = 0;
+                                                  v358->__r_.__value_.__r.__words[0] = 0;
                                                   if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                                                   {
                                                     operator delete(buf.__r_.__value_.__l.__data_);
-                                                    if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                    if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                     {
 LABEL_1199:
-                                                      operator delete(v447[0].__r_.__value_.__l.__data_);
-                                                      if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                      operator delete(v456[0].__r_.__value_.__l.__data_);
+                                                      if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                       {
                                                         goto LABEL_1200;
                                                       }
@@ -6249,12 +6744,12 @@ LABEL_1199:
                                                     }
                                                   }
 
-                                                  else if (SHIBYTE(v447[0].__r_.__value_.__r.__words[2]) < 0)
+                                                  else if (SHIBYTE(v456[0].__r_.__value_.__r.__words[2]) < 0)
                                                   {
                                                     goto LABEL_1199;
                                                   }
 
-                                                  if ((SHIBYTE(v446.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                  if ((SHIBYTE(v455.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                   {
 LABEL_1200:
                                                     if (SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) < 0)
@@ -6266,26 +6761,26 @@ LABEL_1200:
                                                   }
 
 LABEL_1205:
-                                                  operator delete(v446.__r_.__value_.__l.__data_);
+                                                  operator delete(v455.__r_.__value_.__l.__data_);
                                                   if (SHIBYTE(__s[0].__r_.__value_.__r.__words[2]) < 0)
                                                   {
 LABEL_1201:
                                                     operator delete(__s[0].__r_.__value_.__l.__data_);
-                                                    if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                    if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                     {
                                                       goto LABEL_1208;
                                                     }
 
 LABEL_1207:
-                                                    operator delete(v448[0].__r_.__value_.__l.__data_);
+                                                    operator delete(v457[0].__r_.__value_.__l.__data_);
 LABEL_1208:
-                                                    v447[0].__r_.__value_.__r.__words[0] = v449;
-                                                    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v443, v449);
-                                                    boost::any::operator=<unsigned char &>();
+                                                    v456[0].__r_.__value_.__r.__words[0] = v458;
+                                                    v360 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v452, v458, &std::piecewise_construct, v456);
+                                                    boost::any::operator=<unsigned char &>(v360 + 7, v436);
                                                   }
 
 LABEL_1206:
-                                                  if ((SHIBYTE(v448[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                                                  if ((SHIBYTE(v457[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                                                   {
                                                     goto LABEL_1208;
                                                   }
@@ -6297,21 +6792,21 @@ LABEL_1206:
                                               }
 
 LABEL_946:
-                                              v231 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                              if (v231)
+                                              v239 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                              if (v239)
                                               {
-                                                v232 = v231;
-                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v232, OS_LOG_TYPE_INFO))
+                                                v240 = v239;
+                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v240, OS_LOG_TYPE_INFO))
                                                 {
-                                                  v233 = __s1;
+                                                  v241 = __s1;
                                                   if (*(__s1 + 23) < 0)
                                                   {
-                                                    v233 = *__s1;
+                                                    v241 = *__s1;
                                                   }
 
-                                                  LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                  *(v427[0].__r_.__value_.__r.__words + 4) = v233;
-                                                  _os_log_impl(&_mh_execute_header, v232, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                  LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                  *(v436[0].__r_.__value_.__r.__words + 4) = v241;
+                                                  _os_log_impl(&_mh_execute_header, v240, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                                 }
                                               }
 
@@ -6320,28 +6815,28 @@ LABEL_946:
                                                 [PowerEventHandler_Rcp init:];
                                               }
 
-                                              std::string::basic_string[abi:ne200100]<0>(v427, "Srp:NetdataMode");
-                                              *v443 = v427;
-                                              std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v427[0].__r_.__value_.__l.__data_);
-                                              boost::any::any<std::string &>();
+                                              std::string::basic_string[abi:ne200100]<0>(v436, "Srp:NetdataMode");
+                                              *v452 = v436;
+                                              v349 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v436[0].__r_.__value_.__l.__data_, &std::piecewise_construct, v452);
+                                              boost::any::any<std::string &>(v458, (v349 + 7));
                                             }
 
 LABEL_940:
-                                            v228 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                            if (v228)
+                                            v236 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                            if (v236)
                                             {
-                                              v229 = v228;
-                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v229, OS_LOG_TYPE_INFO))
+                                              v237 = v236;
+                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v237, OS_LOG_TYPE_INFO))
                                               {
-                                                v230 = __s1;
+                                                v238 = __s1;
                                                 if (*(__s1 + 23) < 0)
                                                 {
-                                                  v230 = *__s1;
+                                                  v238 = *__s1;
                                                 }
 
-                                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                                *(v427[0].__r_.__value_.__r.__words + 4) = v230;
-                                                _os_log_impl(&_mh_execute_header, v229, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                                *(v436[0].__r_.__value_.__r.__words + 4) = v238;
+                                                _os_log_impl(&_mh_execute_header, v237, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                               }
                                             }
 
@@ -6354,21 +6849,21 @@ LABEL_940:
                                           }
 
 LABEL_934:
-                                          v225 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                          if (v225)
+                                          v233 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                          if (v233)
                                           {
-                                            v226 = v225;
-                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v226, OS_LOG_TYPE_INFO))
+                                            v234 = v233;
+                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v234, OS_LOG_TYPE_INFO))
                                             {
-                                              v227 = __s1;
+                                              v235 = __s1;
                                               if (*(__s1 + 23) < 0)
                                               {
-                                                v227 = *__s1;
+                                                v235 = *__s1;
                                               }
 
-                                              LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                              *(v427[0].__r_.__value_.__r.__words + 4) = v227;
-                                              _os_log_impl(&_mh_execute_header, v226, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+                                              LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                              *(v436[0].__r_.__value_.__r.__words + 4) = v235;
+                                              _os_log_impl(&_mh_execute_header, v234, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
                                             }
                                           }
 
@@ -6377,25 +6872,25 @@ LABEL_934:
                                             [PowerEventHandler_Rcp init:];
                                           }
 
-                                          if (!otPlatVendorGetVersion(*(v413 + 28), v427, 500))
+                                          if (!otPlatVendorGetVersion(v422[28], v436, 500))
                                           {
-                                            std::string::basic_string[abi:ne200100]<0>(v443, v427);
-                                            if ((v443[23] & 0x80000000) != 0)
+                                            std::string::basic_string[abi:ne200100]<0>(v452, v436);
+                                            if ((v452[23] & 0x80000000) != 0)
                                             {
-                                              if (!*&v443[8])
+                                              if (!*&v452[8])
                                               {
                                                 IfsAckDataPerNeighbor = 1;
-                                                operator delete(*v443);
+                                                operator delete(*v452);
                                                 goto LABEL_299;
                                               }
                                             }
 
-                                            else if (!v443[23])
+                                            else if (!v452[23])
                                             {
                                               goto LABEL_300;
                                             }
 
-                                            boost::any::any<std::string &>();
+                                            boost::any::any<std::string &>(v458, v452);
                                           }
 
 LABEL_300:
@@ -6407,43 +6902,43 @@ LABEL_300:
 
 LABEL_924:
                                       VersionString = otGetVersionString();
-                                      std::string::basic_string[abi:ne200100]<0>(v427, VersionString);
-                                      v220 = HIBYTE(v427[0].__r_.__value_.__r.__words[2]);
-                                      v221 = HIBYTE(v427[0].__r_.__value_.__r.__words[2]);
-                                      if ((v427[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                                      std::string::basic_string[abi:ne200100]<0>(v436, VersionString);
+                                      v228 = HIBYTE(v436[0].__r_.__value_.__r.__words[2]);
+                                      v229 = HIBYTE(v436[0].__r_.__value_.__r.__words[2]);
+                                      if ((v436[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                       {
-                                        v220 = v427[0].__r_.__value_.__l.__size_;
+                                        v228 = v436[0].__r_.__value_.__l.__size_;
                                       }
 
-                                      if (v220)
+                                      if (v228)
                                       {
-                                        boost::any::any<std::string &>();
+                                        boost::any::any<std::string &>(v452, v436);
                                       }
 
                                       goto LABEL_1432;
                                     }
 
 LABEL_920:
-                                    v449[0] = 0;
-                                    otLinkGetJoinerRssiHistogram(*(v413 + 28), v449);
-                                    HostInterpreter::GetJoinerRssiHistogramAsValMap(v449[0], v427);
-                                    boost::any::any<std::map<std::string,boost::any> &>();
+                                    v458[0] = 0;
+                                    otLinkGetJoinerRssiHistogram(v422[28], v458);
+                                    HostInterpreter::GetJoinerRssiHistogramAsValMap(v436, v458[0]);
+                                    boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
                                   }
 
                                   goto LABEL_915;
                                 }
 
 LABEL_911:
-                                otLinkGetCslRequestAhead(*(v413 + 28));
-                                v217 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                if (v217)
+                                otLinkGetCslRequestAhead(v422[28]);
+                                v225 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                if (v225)
                                 {
-                                  v218 = v217;
-                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v218, OS_LOG_TYPE_INFO))
+                                  v226 = v225;
+                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v226, OS_LOG_TYPE_INFO))
                                   {
-                                    LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                    *(v427[0].__r_.__value_.__r.__words + 4) = "vendor:csl:tx:schedframe:reqahead:timeinus";
-                                    _os_log_impl(&_mh_execute_header, v218, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                                    LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                    *(v436[0].__r_.__value_.__r.__words + 4) = "vendor:csl:tx:schedframe:reqahead:timeinus";
+                                    _os_log_impl(&_mh_execute_header, v226, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                                   }
                                 }
 
@@ -6459,16 +6954,16 @@ LABEL_911:
                             }
 
 LABEL_902:
-                            otLinkGetMleAdvTxNum(*(v413 + 28));
-                            v214 = log_get_logging_obg("com.apple.threadradiod", "default");
-                            if (v214)
+                            otLinkGetMleAdvTxNum(v422[28]);
+                            v222 = log_get_logging_obg("com.apple.threadradiod", "default");
+                            if (v222)
                             {
-                              v215 = v214;
-                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v215, OS_LOG_TYPE_INFO))
+                              v223 = v222;
+                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v223, OS_LOG_TYPE_INFO))
                               {
-                                LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-                                *(v427[0].__r_.__value_.__r.__words + 4) = "vendor:mle:adv:tx:num";
-                                _os_log_impl(&_mh_execute_header, v215, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v427, 0xCu);
+                                LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+                                *(v436[0].__r_.__value_.__r.__words + 4) = "vendor:mle:adv:tx:num";
+                                _os_log_impl(&_mh_execute_header, v223, OS_LOG_TYPE_INFO, "HI:PG0:%s]", v436, 0xCu);
                               }
                             }
 
@@ -6481,80 +6976,79 @@ LABEL_902:
                           }
 
 LABEL_901:
-                          otLinkGetCounters(*(v413 + 28));
-                          HostInterpreter::GetMacCountersAsValMap(v427);
+                          otLinkGetCounters(v422[28]);
+                          HostInterpreter::GetMacCountersAsValMap(v436);
                         }
 
 LABEL_900:
-                        otAppGetCounters(*(v413 + 28));
-                        otAppUpdateMatterSubscriptionCountHistogram(*(v413 + 28));
-                        HostInterpreter::GetMatterSubscriptionHistogramsAsValMap(v427);
+                        otAppGetCounters(v422[28]);
+                        otAppUpdateMatterSubscriptionCountHistogram(v422[28]);
+                        HostInterpreter::GetMatterSubscriptionHistogramsAsValMap(v436);
                       }
 
 LABEL_898:
-                      otThreadGetIp6Counters(*(v413 + 28));
-                      otAppGetCounters(*(v413 + 28));
-                      HostInterpreter::GetOtIpCountersAsValMap(v427);
+                      otThreadGetIp6Counters(v422[28]);
+                      otAppGetCounters(v422[28]);
+                      HostInterpreter::GetOtIpCountersAsValMap(v436);
                     }
 
 LABEL_899:
-                    v427[0].__r_.__value_.__r.__words[0] = v427;
-                    v427[0].__r_.__value_.__l.__size_ = v427;
-                    v427[0].__r_.__value_.__r.__words[2] = 0;
-                    HostInterpreter::GetNeighborTriggerBasedCounters(v413);
-                    boost::any::any<std::list<std::map<std::string,boost::any>> &>();
+                    v436[0].__r_.__value_.__r.__words[0] = v436;
+                    v436[0].__r_.__value_.__l.__size_ = v436;
+                    v436[0].__r_.__value_.__r.__words[2] = 0;
+                    HostInterpreter::GetNeighborTriggerBasedCounters(v422, v436);
+                    boost::any::any<std::list<std::map<std::string,boost::any>> &>(v452, v436);
                   }
 
 LABEL_897:
-                  otThreadGetMleCounters(*(v413 + 28));
-                  HostInterpreter::GetMleOtCountersAsValMap(v427);
+                  otThreadGetMleCounters(v422[28]);
+                  HostInterpreter::GetMleOtCountersAsValMap(v436);
                 }
 
 LABEL_896:
-                otThreadGetMleLinkLossCounters(*(v413 + 28));
-                *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-                v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-                std::string::basic_string[abi:ne200100]<0>(v443, "link_loss_nbr_child_count");
-                *v449 = v443;
-                std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v427, v443);
-                boost::any::operator=<unsigned short &>();
+                MleLinkLossCounters = otThreadGetMleLinkLossCounters(v422[28]);
+                *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+                v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+                std::string::basic_string[abi:ne200100]<0>(v452, "link_loss_nbr_child_count");
+                *v458 = v452;
+                v221 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v436, v452, &std::piecewise_construct, v458);
+                boost::any::operator=<unsigned short &>(v221 + 7, MleLinkLossCounters);
               }
 
 LABEL_889:
-              otThreadGetBbrCounters(*(v413 + 28));
-              *&v427[0].__r_.__value_.__r.__words[1] = 0uLL;
-              v427[0].__r_.__value_.__r.__words[0] = &v427[0].__r_.__value_.__l.__size_;
-              std::string::basic_string[abi:ne200100]<0>(v443, "bbr_primary_count");
-              *v449 = v443;
-              std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v427, v443);
-              boost::any::operator=<unsigned short &>();
+              BbrCounters = otThreadGetBbrCounters(v422[28]);
+              *&v436[0].__r_.__value_.__r.__words[1] = 0uLL;
+              v436[0].__r_.__value_.__r.__words[0] = &v436[0].__r_.__value_.__l.__size_;
+              std::string::basic_string[abi:ne200100]<0>(v452, "bbr_primary_count");
+              *v458 = v452;
+              v219 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v436, v452, &std::piecewise_construct, v458);
+              boost::any::operator=<unsigned short &>(v219 + 7, BbrCounters);
             }
 
 LABEL_880:
-            v449[0] = 0;
-            v447[0].__r_.__value_.__s.__data_[0] = 0;
-            otThreadGetConnectedChildNodesHistogram(*(v413 + 28), v449);
-            otThreadGetConnectedRouterNodesHistogram(*(v413 + 28), v447);
-            HostInterpreter::GetNeighborsCountAsValMap(v449[0], v447[0].__r_.__value_.__s.__data_[0], v427);
-            boost::any::any<std::map<std::string,boost::any> &>();
+            v458[0] = 0;
+            v456[0].__r_.__value_.__s.__data_[0] = 0;
+            otThreadGetConnectedChildNodesHistogram(v422[28], v458);
+            otThreadGetConnectedRouterNodesHistogram(v422[28], v456);
+            HostInterpreter::GetNeighborsCountAsValMap(v436, v458[0], v456[0].__r_.__value_.__s.__data_[0]);
+            boost::any::any<std::map<std::string,boost::any> &>(v452, v436);
           }
 
 LABEL_881:
-          HostInterpreter::GetLeaderReelectCountersAsValMap(v427);
+          HostInterpreter::GetLeaderReelectCountersAsValMap(v436);
         }
 
 LABEL_878:
-        v211 = *(v413 + 28);
         if (!otPlatVendorGenerateStackOverflow())
         {
-          v212 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v212)
+          v216 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v216)
           {
-            v213 = v212;
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v213, OS_LOG_TYPE_INFO))
+            v217 = v216;
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v217, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v427[0].__r_.__value_.__l.__data_) = 0;
-              _os_log_impl(&_mh_execute_header, v213, OS_LOG_TYPE_INFO, "StackOverflow", v427, 2u);
+              LOWORD(v436[0].__r_.__value_.__l.__data_) = 0;
+              _os_log_impl(&_mh_execute_header, v217, OS_LOG_TYPE_INFO, "StackOverflow", v436, 2u);
             }
           }
 
@@ -6563,7 +7057,7 @@ LABEL_878:
             [PowerEventHandler_Rcp init:];
           }
 
-          std::string::basic_string[abi:ne200100]<0>(v427, "StackOverflow triggered");
+          std::string::basic_string[abi:ne200100]<0>(v436, "StackOverflow triggered");
           operator new();
         }
 
@@ -6571,17 +7065,16 @@ LABEL_878:
       }
 
 LABEL_869:
-      v208 = *(v413 + 28);
       if (!otPlatVendorGenerateHardFault())
       {
-        v209 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v209)
+        v214 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v214)
         {
-          v210 = v209;
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v210, OS_LOG_TYPE_INFO))
+          v215 = v214;
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v215, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v427[0].__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&_mh_execute_header, v210, OS_LOG_TYPE_INFO, "HardFault", v427, 2u);
+            LOWORD(v436[0].__r_.__value_.__l.__data_) = 0;
+            _os_log_impl(&_mh_execute_header, v215, OS_LOG_TYPE_INFO, "HardFault", v436, 2u);
           }
         }
 
@@ -6590,7 +7083,7 @@ LABEL_869:
           [PowerEventHandler_Rcp init:];
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v427, "Hard fault triggered");
+        std::string::basic_string[abi:ne200100]<0>(v436, "Hard fault triggered");
         operator new();
       }
 
@@ -6601,15 +7094,15 @@ LABEL_869:
   }
 
 LABEL_854:
-  v205 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v205)
+  v211 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v211)
   {
-    v206 = v205;
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v206, OS_LOG_TYPE_INFO))
+    v212 = v211;
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v212, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v427[0].__r_.__value_.__l.__data_) = 136315138;
-      *(v427[0].__r_.__value_.__r.__words + 4) = "Thread:ActiveDataset:Bytes";
-      _os_log_impl(&_mh_execute_header, v206, OS_LOG_TYPE_INFO, "HI:PG0:%s", v427, 0xCu);
+      LODWORD(v436[0].__r_.__value_.__l.__data_) = 136315138;
+      *(v436[0].__r_.__value_.__r.__words + 4) = "Thread:ActiveDataset:Bytes";
+      _os_log_impl(&_mh_execute_header, v212, OS_LOG_TYPE_INFO, "HI:PG0:%s", v436, 0xCu);
     }
   }
 
@@ -6618,11 +7111,11 @@ LABEL_854:
     [PowerEventHandler_Rcp init:];
   }
 
-  IfsAckDataPerNeighbor = otDatasetGetActiveTlvs(*(v413 + 28), v427);
+  IfsAckDataPerNeighbor = otDatasetGetActiveTlvs(v422[28], v436);
   if (!IfsAckDataPerNeighbor)
   {
-    nl::Data::Data(v443, v427, v438);
-    boost::any::any<nl::Data &>();
+    nl::Data::Data(v452, v436, v447);
+    boost::any::any<nl::Data &>(v458, v452);
   }
 
 LABEL_299:
@@ -6636,10 +7129,9 @@ LABEL_299:
 
 void sub_10012F0A8(_Unwind_Exception *exception_object)
 {
-  v3 = *(v1 + 560);
-  if (v3)
+  if (*(v1 + 560))
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(v3);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
@@ -6649,7 +7141,6 @@ void sub_100131544()
 {
   if (*(v0 + 495) < 0)
   {
-    v1 = *(v0 + 472);
     JUMPOUT(0x100131554);
   }
 
@@ -6660,7 +7151,6 @@ void sub_10013155C()
 {
   if (*(v0 + 12359) < 0)
   {
-    v1 = *(v0 + 12336);
     JUMPOUT(0x100131574);
   }
 
@@ -6678,7 +7168,7 @@ void sub_1001315CC(_Unwind_Exception *a1)
     {
 LABEL_3:
       operator delete(*(v2 - 152));
-      std::list<std::map<std::string,boost::any>>::~list(v2 - 128);
+      std::list<std::map<std::string,boost::any>>::~list((v2 - 128));
       _Unwind_Resume(a1);
     }
   }
@@ -6688,7 +7178,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  std::list<std::map<std::string,boost::any>>::~list(v2 - 128);
+  std::list<std::map<std::string,boost::any>>::~list((v2 - 128));
   _Unwind_Resume(a1);
 }
 
@@ -6852,7 +7342,7 @@ LABEL_69:
                                                                                                                           {
                                                                                                                             if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
                                                                                                                             {
-                                                                                                                              HostInterpreter::ProcessPropertySet(a4 + 23);
+                                                                                                                              HostInterpreter::ProcessPropertySet();
                                                                                                                             }
                                                                                                                           }
 
@@ -6877,11 +7367,11 @@ LABEL_133:
                                                                                                                   }
 
 LABEL_577:
-                                                                                                                  for (*v149 = 0; !otThreadGetNextNeighborInfo(*(this + 28), v149, &buf); v159 = 0u)
+                                                                                                                  for (LOWORD(v135.__r_.__value_.__l.__data_) = 0; !otThreadGetNextNeighborInfo(*(this + 28), &v135, &buf); v142 = 0u)
                                                                                                                   {
-                                                                                                                    v162 = 0u;
-                                                                                                                    v161 = 0u;
-                                                                                                                    v160 = 0u;
+                                                                                                                    v145 = 0u;
+                                                                                                                    v144 = 0u;
+                                                                                                                    v143 = 0u;
                                                                                                                   }
 
 LABEL_347:
@@ -6902,15 +7392,15 @@ LABEL_347:
                                                                                                         }
 
 LABEL_541:
-                                                                                                        v133 = any_to_int(a4 + 3);
-                                                                                                        v134 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                                                        if (v134)
+                                                                                                        v115 = any_to_int(a4 + 3);
+                                                                                                        v116 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                                                        if (v116)
                                                                                                         {
-                                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v134, OS_LOG_TYPE_INFO))
+                                                                                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v116, OS_LOG_TYPE_INFO))
                                                                                                           {
                                                                                                             LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                                                                                            HIDWORD(buf.__r_.__value_.__r.__words[0]) = v133;
-                                                                                                            _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_INFO, "Set PowerState:%u", &buf, 8u);
+                                                                                                            HIDWORD(buf.__r_.__value_.__r.__words[0]) = v115;
+                                                                                                            _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_INFO, "Set PowerState:%u", &buf, 8u);
                                                                                                           }
                                                                                                         }
 
@@ -6919,7 +7409,7 @@ LABEL_541:
                                                                                                           [PowerEventHandler_Rcp init:];
                                                                                                         }
 
-                                                                                                        BufferSize = otPlatRadioSetHostPowerState(*(this + 28), v133);
+                                                                                                        BufferSize = otPlatRadioSetHostPowerState(*(this + 28), v115);
                                                                                                         if (!BufferSize)
                                                                                                         {
                                                                                                           goto LABEL_558;
@@ -7013,7 +7503,6 @@ LABEL_496:
                                                                   }
 
 LABEL_494:
-                                                                  v122 = *(this + 28);
                                                                   BufferSize = otResetStreamRawResponseHistogram();
                                                                   if (BufferSize)
                                                                   {
@@ -7026,23 +7515,23 @@ LABEL_558:
                                                                 }
 
 LABEL_492:
-                                                                v120 = any_to_uint64(a4 + 3, 0);
-                                                                if (v120)
+                                                                v108 = any_to_uint64(a4 + 3, 0);
+                                                                if (v108)
                                                                 {
                                                                   *(RcpHostContext::sRcpHostContext + 5972) = 1;
                                                                   std::string::basic_string[abi:ne200100]<0>(&buf, "ca:reporting:enabled");
-                                                                  *v149 = &buf;
-                                                                  v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-                                                                  std::string::assign((v121 + 7), "1");
+                                                                  v135.__r_.__value_.__r.__words[0] = &buf;
+                                                                  v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+                                                                  std::string::assign((v109 + 7), "1");
                                                                 }
 
                                                                 else
                                                                 {
                                                                   *(RcpHostContext::sRcpHostContext + 5972) = 0;
                                                                   std::string::basic_string[abi:ne200100]<0>(&buf, "ca:reporting:enabled");
-                                                                  *v149 = &buf;
-                                                                  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-                                                                  std::string::assign((v123 + 7), "0");
+                                                                  v135.__r_.__value_.__r.__words[0] = &buf;
+                                                                  v110 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+                                                                  std::string::assign((v110 + 7), "0");
                                                                 }
 
                                                                 if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -7051,28 +7540,28 @@ LABEL_492:
                                                                 }
 
                                                                 std::string::basic_string[abi:ne200100]<0>(&buf, "ca:reporting:enabled");
-                                                                *v149 = &buf;
-                                                                v124 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-                                                                v125 = (v124 + 7);
-                                                                if (*(v124 + 79) < 0)
+                                                                v135.__r_.__value_.__r.__words[0] = &buf;
+                                                                v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+                                                                v112 = (v111 + 7);
+                                                                if (*(v111 + 79) < 0)
                                                                 {
-                                                                  v125 = *v125;
+                                                                  v112 = *v112;
                                                                 }
 
-                                                                saveStringValue("ca:reporting:enabled", v125);
+                                                                saveStringValue("ca:reporting:enabled", v112);
                                                                 if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                                                                 {
                                                                   operator delete(buf.__r_.__value_.__l.__data_);
                                                                 }
 
-                                                                v126 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                                if (v126)
+                                                                v113 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                                if (v113)
                                                                 {
-                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v126, OS_LOG_TYPE_INFO))
+                                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
                                                                   {
                                                                     LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                                                    HIDWORD(buf.__r_.__value_.__r.__words[0]) = v120;
-                                                                    _os_log_impl(&_mh_execute_header, v126, OS_LOG_TYPE_INFO, "mEnableCaReporting=%d", &buf, 8u);
+                                                                    HIDWORD(buf.__r_.__value_.__r.__words[0]) = v108;
+                                                                    _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_INFO, "mEnableCaReporting=%d", &buf, 8u);
                                                                   }
                                                                 }
 
@@ -7081,7 +7570,7 @@ LABEL_492:
                                                                   [PowerEventHandler_Rcp init:];
                                                                 }
 
-                                                                goto LABEL_558;
+                                                                goto LABEL_347;
                                                               }
 
 LABEL_490:
@@ -7112,13 +7601,13 @@ LABEL_483:
 
 LABEL_475:
                                                       otThreadResetBbrCounters(*(this + 28));
-                                                      v119 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                      if (v119)
+                                                      v107 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                      if (v107)
                                                       {
-                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+                                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
                                                         {
                                                           LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-                                                          _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_INFO, "ResetBBR counters", &buf, 2u);
+                                                          _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_INFO, "ResetBBR counters", &buf, 2u);
                                                         }
                                                       }
 
@@ -7138,15 +7627,15 @@ LABEL_470:
                                                   }
 
 LABEL_456:
-                                                  v116 = any_to_uint64(a4 + 3, 0);
-                                                  v117 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                  if (v117)
+                                                  v104 = any_to_uint64(a4 + 3, 0);
+                                                  v105 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                  if (v105)
                                                   {
-                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
+                                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
                                                     {
                                                       LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                                      HIDWORD(buf.__r_.__value_.__r.__words[0]) = v116;
-                                                      _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_INFO, "csl:tx:schedframe:reqahead:timeinus %d", &buf, 8u);
+                                                      HIDWORD(buf.__r_.__value_.__r.__words[0]) = v104;
+                                                      _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_INFO, "csl:tx:schedframe:reqahead:timeinus %d", &buf, 8u);
                                                     }
                                                   }
 
@@ -7155,25 +7644,25 @@ LABEL_456:
                                                     [PowerEventHandler_Rcp init:];
                                                   }
 
-                                                  BufferSize = otLinkSetCslRequestAhead(*(this + 28), v116);
+                                                  BufferSize = otLinkSetCslRequestAhead(*(this + 28), v104);
                                                   if (!BufferSize)
                                                   {
-                                                    persist_csl_request_ahead();
+                                                    persist_csl_request_ahead(v104);
                                                   }
 
                                                   goto LABEL_255;
                                                 }
 
 LABEL_448:
-                                                v114 = any_to_uint64(a4 + 3, 0);
-                                                v115 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                                if (v115)
+                                                v102 = any_to_uint64(a4 + 3, 0);
+                                                v103 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                                if (v103)
                                                 {
-                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
+                                                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
                                                   {
                                                     LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                                    HIDWORD(buf.__r_.__value_.__r.__words[0]) = v114;
-                                                    _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_INFO, "vendor:min:mac:interframedelay %d", &buf, 8u);
+                                                    HIDWORD(buf.__r_.__value_.__r.__words[0]) = v102;
+                                                    _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "vendor:min:mac:interframedelay %d", &buf, 8u);
                                                   }
                                                 }
 
@@ -7182,26 +7671,26 @@ LABEL_448:
                                                   [PowerEventHandler_Rcp init:];
                                                 }
 
-                                                BufferSize = otPlatRadioSetMinInterframeDelay(*(this + 28), v114);
+                                                BufferSize = otPlatRadioSetMinInterframeDelay(*(this + 28), v102);
                                                 if (!BufferSize)
                                                 {
                                                   boost::function1<void,int>::operator()(a4 + 4);
-                                                  persist_interframe_delay();
+                                                  persist_interframe_delay(v102);
                                                 }
 
                                                 goto LABEL_255;
                                               }
 
 LABEL_420:
-                                              v109 = any_to_uint64(a4 + 3, 0);
-                                              v110 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                              if (v110)
+                                              v97 = any_to_uint64(a4 + 3, 0);
+                                              v98 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                              if (v98)
                                               {
-                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
+                                                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
                                                 {
                                                   LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                                  HIDWORD(buf.__r_.__value_.__r.__words[0]) = v109;
-                                                  _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_INFO, "Daemon:VirtualInterface:ReadBufferSize %d", &buf, 8u);
+                                                  HIDWORD(buf.__r_.__value_.__r.__words[0]) = v97;
+                                                  _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_INFO, "Daemon:VirtualInterface:ReadBufferSize %d", &buf, 8u);
                                                 }
                                               }
 
@@ -7210,25 +7699,25 @@ LABEL_420:
                                                 [PowerEventHandler_Rcp init:];
                                               }
 
-                                              BufferSize = otSysSetThreadirtualInterfaceReadBufferSize(v109);
+                                              BufferSize = otSysSetThreadirtualInterfaceReadBufferSize(v97);
                                               if (!BufferSize)
                                               {
-                                                persist_virtual_interface_readbuffersize();
+                                                persist_virtual_interface_readbuffersize(v97);
                                               }
 
                                               goto LABEL_255;
                                             }
 
 LABEL_412:
-                                            v107 = any_to_uint64(a4 + 3, 0);
-                                            v108 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                            if (v108)
+                                            v95 = any_to_uint64(a4 + 3, 0);
+                                            v96 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                            if (v96)
                                             {
-                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+                                              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
                                               {
                                                 LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                                HIDWORD(buf.__r_.__value_.__r.__words[0]) = v107;
-                                                _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_INFO, "mle:adv:tx:num %d", &buf, 8u);
+                                                HIDWORD(buf.__r_.__value_.__r.__words[0]) = v95;
+                                                _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, "mle:adv:tx:num %d", &buf, 8u);
                                               }
                                             }
 
@@ -7237,25 +7726,25 @@ LABEL_412:
                                               [PowerEventHandler_Rcp init:];
                                             }
 
-                                            BufferSize = otLinkSetMleAdvTxNum(*(this + 28), v107);
+                                            BufferSize = otLinkSetMleAdvTxNum(*(this + 28), v95);
                                             if (!BufferSize)
                                             {
-                                              persist_num_mle_adv();
+                                              persist_num_mle_adv(v95);
                                             }
 
                                             goto LABEL_255;
                                           }
 
 LABEL_393:
-                                          v102 = any_to_uint64(a4 + 3, 0);
-                                          v103 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                          if (v103)
+                                          v90 = any_to_uint64(a4 + 3, 0);
+                                          v91 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                          if (v91)
                                           {
-                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+                                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
                                             {
                                               LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                              HIDWORD(buf.__r_.__value_.__r.__words[0]) = v102;
-                                              _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "Set hardResetTestMode:%u", &buf, 8u);
+                                              HIDWORD(buf.__r_.__value_.__r.__words[0]) = v90;
+                                              _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_INFO, "Set hardResetTestMode:%u", &buf, 8u);
                                             }
                                           }
 
@@ -7264,7 +7753,7 @@ LABEL_393:
                                             [PowerEventHandler_Rcp init:];
                                           }
 
-                                          BufferSize = otPlatVendorSetHardResetTest(*(this + 28), v102);
+                                          BufferSize = otPlatVendorSetHardResetTest(*(this + 28), v90);
                                           if (!BufferSize)
                                           {
                                             goto LABEL_558;
@@ -7274,15 +7763,15 @@ LABEL_393:
                                         }
 
 LABEL_369:
-                                        v96 = any_to_uint64(a4 + 3, 0);
-                                        v97 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                        if (v97)
+                                        v84 = any_to_uint64(a4 + 3, 0);
+                                        v85 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                        if (v85)
                                         {
-                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+                                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
                                           {
                                             LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                            HIDWORD(buf.__r_.__value_.__r.__words[0]) = v96;
-                                            _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_INFO, "vendor:assert %d", &buf, 8u);
+                                            HIDWORD(buf.__r_.__value_.__r.__words[0]) = v84;
+                                            _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_INFO, "vendor:assert %d", &buf, 8u);
                                           }
                                         }
 
@@ -7291,7 +7780,7 @@ LABEL_369:
                                           [PowerEventHandler_Rcp init:];
                                         }
 
-                                        BufferSize = otPlatVendorSetAssert(*(this + 28), v96);
+                                        BufferSize = otPlatVendorSetAssert(*(this + 28), v84);
                                         if (!BufferSize)
                                         {
                                           goto LABEL_558;
@@ -7302,15 +7791,15 @@ LABEL_369:
 
 LABEL_363:
                                       *(this + 336) = any_to_int(a4 + 3);
-                                      v88 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v88)
+                                      v82 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v82)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
                                         {
-                                          v95 = *(this + 336);
+                                          v83 = *(this + 336);
                                           LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                                          HIDWORD(buf.__r_.__value_.__r.__words[0]) = v95;
-                                          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "vendor:power:limit:table:active:id==activeId[%d]", &buf, 8u);
+                                          HIDWORD(buf.__r_.__value_.__r.__words[0]) = v83;
+                                          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_INFO, "vendor:power:limit:table:active:id==activeId[%d]", &buf, 8u);
                                         }
                                       }
 
@@ -7319,7 +7808,7 @@ LABEL_363:
                                         [PowerEventHandler_Rcp init:];
                                       }
 
-                                      BufferSize = otPlatVendorSetPowerLimitTableActiveId(*(this + 28), *(this + 336), v89, v90, v91, v92, v93, v94);
+                                      BufferSize = otPlatVendorSetPowerLimitTableActiveId(*(this + 28), *(this + 336));
                                       if (!BufferSize)
                                       {
                                         goto LABEL_558;
@@ -7329,15 +7818,15 @@ LABEL_363:
                                     }
 
 LABEL_357:
-                                    v84 = any_to_BOOL(a4 + 3);
-                                    RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, &buf);
-                                    v85 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                    if (v85)
+                                    v78 = any_to_BOOL(a4 + 3);
+                                    RcpHostContext::get_rcp_state(&buf, RcpHostContext::sRcpHostContext);
+                                    v79 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                    if (v79)
                                     {
                                       is_the_mask_enabled = syslog_is_the_mask_enabled(6);
                                       if (is_the_mask_enabled)
                                       {
-                                        is_the_mask_enabled = os_log_type_enabled(v85, OS_LOG_TYPE_INFO);
+                                        is_the_mask_enabled = os_log_type_enabled(v79, OS_LOG_TYPE_INFO);
                                         if (is_the_mask_enabled)
                                         {
                                           p_buf = &buf;
@@ -7346,9 +7835,9 @@ LABEL_357:
                                             p_buf = buf.__r_.__value_.__r.__words[0];
                                           }
 
-                                          *v149 = 136315138;
-                                          *&v149[4] = p_buf;
-                                          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_INFO, "CurrentRCPState = %s", v149, 0xCu);
+                                          LODWORD(v135.__r_.__value_.__l.__data_) = 136315138;
+                                          *(v135.__r_.__value_.__r.__words + 4) = p_buf;
+                                          _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_INFO, "CurrentRCPState = %s", &v135, 0xCu);
                                         }
                                       }
                                     }
@@ -7362,7 +7851,7 @@ LABEL_357:
                                       }
                                     }
 
-                                    if (v84)
+                                    if (v78)
                                     {
                                       RcpHostContext::init_threadstart_radio_start(RcpHostContext::sRcpHostContext);
                                       otIp6SetSlaacEnabled(*(this + 28), 1);
@@ -7372,14 +7861,13 @@ LABEL_357:
                                         goto LABEL_251;
                                       }
 
-                                      v98 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v98)
+                                      v86 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v86)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
                                         {
-                                          *v149 = 67109120;
-                                          *&v149[4] = 1;
-                                          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_INFO, "SetProp interfaceUp = %d", v149, 8u);
+                                          v135.__r_.__value_.__r.__words[0] = 0x104000100;
+                                          _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "SetProp interfaceUp = %d", &v135, 8u);
                                         }
                                       }
 
@@ -7400,13 +7888,13 @@ LABEL_357:
                                         otThreadBecomeLeader(*(this + 28), 0);
                                       }
 
-                                      v112 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v112)
+                                      v100 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v100)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
                                         {
-                                          *v149 = 0;
-                                          _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_INFO, "HI:ThreadStart,Done", v149, 2u);
+                                          LOWORD(v135.__r_.__value_.__l.__data_) = 0;
+                                          _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_INFO, "HI:ThreadStart,Done", &v135, 2u);
                                         }
                                       }
 
@@ -7416,7 +7904,7 @@ LABEL_357:
                                       }
 
                                       HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(this);
-                                      HostInterpreter::transactionEnabled(v118, 1);
+                                      HostInterpreter::transactionEnabled(v106, 1);
                                     }
 
                                     else
@@ -7429,13 +7917,13 @@ LABEL_357:
                                         goto LABEL_251;
                                       }
 
-                                      v99 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v99)
+                                      v87 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v87)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
                                         {
-                                          *v149 = 0;
-                                          _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_INFO, "HI:ThreadStop,Done", v149, 2u);
+                                          LOWORD(v135.__r_.__value_.__l.__data_) = 0;
+                                          _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_INFO, "HI:ThreadStop,Done", &v135, 2u);
                                         }
                                       }
 
@@ -7450,14 +7938,13 @@ LABEL_357:
                                         goto LABEL_251;
                                       }
 
-                                      v113 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                      if (v113)
+                                      v101 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                      if (v101)
                                       {
-                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
+                                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
                                         {
-                                          *v149 = 67109120;
-                                          *&v149[4] = 0;
-                                          _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_INFO, "SetProp interfaceUp=%d", v149, 8u);
+                                          v135.__r_.__value_.__r.__words[0] = 67109120;
+                                          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_INFO, "SetProp interfaceUp=%d", &v135, 8u);
                                         }
                                       }
 
@@ -7474,25 +7961,25 @@ LABEL_357:
                                 }
 
 LABEL_314:
-                                v149[0] = 0;
-                                any_to_string(a4 + 3, &buf);
+                                v135.__r_.__value_.__s.__data_[0] = 0;
+                                any_to_string(&buf, a4 + 3);
                                 if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                                 {
-                                  v78 = &buf;
+                                  v73 = &buf;
                                 }
 
                                 else
                                 {
-                                  v78 = buf.__r_.__value_.__r.__words[0];
+                                  v73 = buf.__r_.__value_.__r.__words[0];
                                 }
 
-                                BufferSize = ot::Utils::CmdLineParser::ParseAsInt8(v78, v149, v77);
+                                BufferSize = ot::Utils::CmdLineParser::ParseAsInt8(v73, &v135, v72);
                                 if (!BufferSize)
                                 {
-                                  BufferSize = otPlatRadioSetTransmitPower(*(this + 28), v149[0]);
+                                  BufferSize = otPlatRadioSetTransmitPower(*(this + 28), v135.__r_.__value_.__s.__data_[0]);
                                   if (!BufferSize)
                                   {
-                                    persist_tx_power();
+                                    persist_tx_power(v135.__r_.__value_.__s.__data_[0]);
                                   }
                                 }
 
@@ -7500,19 +7987,18 @@ LABEL_314:
                               }
 
 LABEL_308:
-                              any_to_string(a4 + 3, &buf);
-                              v75 = *(this + 28);
+                              any_to_string(&buf, a4 + 3);
                               if (otPlatRadioGetRcp2Vendor2Enabled())
                               {
-                                v76 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&buf, "quick-scan");
+                                v71 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&buf, "quick-scan");
                               }
 
                               else
                               {
-                                v76 = 0;
+                                v71 = 0;
                               }
 
-                              BufferSize = HostInterpreter::ProcessDiscoverScanForCurrentNetwork(this, v76);
+                              BufferSize = HostInterpreter::ProcessDiscoverScanForCurrentNetwork(this, v71);
                               if (!BufferSize)
                               {
                                 boost::function1<void,int>::operator()(a4 + 4);
@@ -7522,31 +8008,31 @@ LABEL_308:
                             }
 
 LABEL_302:
-                            any_to_string(a4 + 3, &buf);
+                            any_to_string(&buf, a4 + 3);
                             if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                             {
                               if (buf.__r_.__value_.__l.__size_)
                               {
-                                v74 = buf.__r_.__value_.__r.__words[0];
+                                v70 = buf.__r_.__value_.__r.__words[0];
 LABEL_322:
-                                BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v74, &v153, 8);
+                                BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v70, &v137, 8);
                                 if (!BufferSize)
                                 {
-                                  otLinkSetPairingDeviceExtAddr(*(this + 28), &v153);
-                                  v79 = log_get_logging_obg("com.apple.threadradiod", "default");
-                                  if (v79)
+                                  otLinkSetPairingDeviceExtAddr(*(this + 28), &v137);
+                                  v74 = log_get_logging_obg("com.apple.threadradiod", "default");
+                                  if (v74)
                                   {
-                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+                                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
                                     {
-                                      v80 = &buf;
+                                      v75 = &buf;
                                       if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                                       {
-                                        v80 = buf.__r_.__value_.__r.__words[0];
+                                        v75 = buf.__r_.__value_.__r.__words[0];
                                       }
 
-                                      *v149 = 136315138;
-                                      *&v149[4] = v80;
-                                      _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_INFO, "HI:PropThreadEmacId:%s", v149, 0xCu);
+                                      LODWORD(v135.__r_.__value_.__l.__data_) = 136315138;
+                                      *(v135.__r_.__value_.__r.__words + 4) = v75;
+                                      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "HI:PropThreadEmacId:%s", &v135, 0xCu);
                                     }
 
                                     goto LABEL_469;
@@ -7573,7 +8059,7 @@ LABEL_251:
 
                             else if (*(&buf.__r_.__value_.__s + 23))
                             {
-                              v74 = &buf;
+                              v70 = &buf;
                               goto LABEL_322;
                             }
 
@@ -7583,15 +8069,15 @@ LABEL_251:
 
 LABEL_293:
                           *(this + 171) = any_to_BOOL(a4 + 3);
-                          v71 = log_get_logging_obg("com.apple.threadradiod", "default");
-                          if (v71)
+                          v67 = log_get_logging_obg("com.apple.threadradiod", "default");
+                          if (v67)
                           {
-                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+                            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
                             {
-                              v72 = *(this + 171);
+                              v68 = *(this + 171);
                               LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                              HIDWORD(buf.__r_.__value_.__r.__words[0]) = v72;
-                              _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "HI:kWPANTUNDProperty_ThreadFWUpdate fwUpdate=[%d]", &buf, 8u);
+                              HIDWORD(buf.__r_.__value_.__r.__words[0]) = v68;
+                              _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "HI:kWPANTUNDProperty_ThreadFWUpdate fwUpdate=[%d]", &buf, 8u);
                             }
                           }
 
@@ -7611,15 +8097,15 @@ LABEL_293:
 
 LABEL_267:
                         *(this + 170) = any_to_BOOL(a4 + 3);
-                        v63 = log_get_logging_obg("com.apple.threadradiod", "default");
-                        if (v63)
+                        v61 = log_get_logging_obg("com.apple.threadradiod", "default");
+                        if (v61)
                         {
-                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                           {
-                            v64 = *(this + 170);
+                            v62 = *(this + 170);
                             LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-                            HIDWORD(buf.__r_.__value_.__r.__words[0]) = v64;
-                            _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "HI:kWPANTUNDProperty_ThreadPairingStatus pairingStatus=[%d]", &buf, 8u);
+                            HIDWORD(buf.__r_.__value_.__r.__words[0]) = v62;
+                            _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "HI:kWPANTUNDProperty_ThreadPairingStatus pairingStatus=[%d]", &buf, 8u);
                           }
                         }
 
@@ -7632,38 +8118,38 @@ LABEL_267:
                       }
 
 LABEL_258:
-                      LOBYTE(v153.var0) = 0;
-                      any_to_string(a4 + 3, &buf);
+                      v137.__r_.__value_.__s.__data_[0] = 0;
+                      any_to_string(&buf, a4 + 3);
                       if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                       {
-                        v61 = &buf;
+                        v59 = &buf;
                       }
 
                       else
                       {
-                        v61 = buf.__r_.__value_.__r.__words[0];
+                        v59 = buf.__r_.__value_.__r.__words[0];
                       }
 
-                      BufferSize = ot::Utils::CmdLineParser::ParseAsInt8(v61, &v153, v60);
+                      BufferSize = ot::Utils::CmdLineParser::ParseAsInt8(v59, &v137, v58);
                       if (BufferSize)
                       {
                         goto LABEL_251;
                       }
 
-                      BufferSize = otPlatVendorSetPower(*(this + 28), &v153);
+                      BufferSize = otPlatVendorSetPower(*(this + 28), &v137);
                       if (BufferSize)
                       {
                         goto LABEL_251;
                       }
 
-                      v62 = log_get_logging_obg("com.apple.threadradiod", "default");
-                      if (v62)
+                      v60 = log_get_logging_obg("com.apple.threadradiod", "default");
+                      if (v60)
                       {
-                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
                         {
-                          *v149 = 134217984;
-                          *&v149[4] = vcvtd_n_f64_s32(SLOBYTE(v153.var0), 2uLL);
-                          _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_INFO, "HI:PropSetVendorPower=%f dBm", v149, 0xCu);
+                          LODWORD(v135.__r_.__value_.__l.__data_) = 134217984;
+                          *(v135.__r_.__value_.__r.__words + 4) = vcvtd_n_f64_s32(v137.__r_.__value_.__s.__data_[0], 2uLL);
+                          _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "HI:PropSetVendorPower=%f dBm", &v135, 0xCu);
                         }
 
                         goto LABEL_469;
@@ -7682,16 +8168,15 @@ LABEL_469:
                     }
 
 LABEL_227:
-                    v51 = *(this + 28);
                     if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) != 0 || (BufferSize = otPlatVendorResetOrStopCoexCollection(*(this + 28), 1), !BufferSize))
                     {
-                      v52 = log_get_logging_obg("com.apple.threadradiod", "default");
-                      if (v52)
+                      v50 = log_get_logging_obg("com.apple.threadradiod", "default");
+                      if (v50)
                       {
-                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
                         {
                           LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-                          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "Clear coex counters but continue the data collection", &buf, 2u);
+                          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "Clear coex counters but continue the data collection", &buf, 2u);
                         }
                       }
 
@@ -7707,18 +8192,18 @@ LABEL_227:
                   }
 
 LABEL_222:
-                  v48 = any_to_BOOL(a4 + 3);
-                  v49 = log_get_logging_obg("com.apple.threadradiod", "default");
-                  v50 = v49;
-                  if (v48)
+                  v47 = any_to_BOOL(a4 + 3);
+                  v48 = log_get_logging_obg("com.apple.threadradiod", "default");
+                  v49 = v48;
+                  if (v47)
                   {
-                    if (v49)
+                    if (v48)
                     {
-                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
                       {
                         LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
                         *(buf.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
-                        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "%s Clear the counters and start coex counter collection.", &buf, 0xCu);
+                        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "%s Clear the counters and start coex counter collection.", &buf, 0xCu);
                       }
                     }
 
@@ -7727,24 +8212,23 @@ LABEL_222:
                       [PowerEventHandler_Rcp init:];
                     }
 
-                    v68 = *(this + 28);
                     if (otPlatRadioGetRcp2Vendor2Enabled())
                     {
                       goto LABEL_558;
                     }
 
-                    v69 = otPlatVendorResetOrStopCoexCollection(*(this + 28), 1);
+                    v66 = otPlatVendorResetOrStopCoexCollection(*(this + 28), 1);
                   }
 
                   else
                   {
-                    if (v49)
+                    if (v48)
                     {
-                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
                       {
                         LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
                         *(buf.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
-                        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "%s Stop coex counter collection.", &buf, 0xCu);
+                        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "%s Stop coex counter collection.", &buf, 0xCu);
                       }
                     }
 
@@ -7753,17 +8237,16 @@ LABEL_222:
                       [PowerEventHandler_Rcp init:];
                     }
 
-                    v70 = *(this + 28);
                     if (otPlatRadioGetRcp2Vendor2Enabled())
                     {
                       goto LABEL_558;
                     }
 
-                    v69 = otPlatVendorResetOrStopCoexCollection(*(this + 28), 0);
+                    v66 = otPlatVendorResetOrStopCoexCollection(*(this + 28), 0);
                   }
 
-                  BufferSize = v69;
-                  if (v69)
+                  BufferSize = v66;
+                  if (v66)
                   {
                     goto LABEL_255;
                   }
@@ -7772,15 +8255,15 @@ LABEL_222:
                 }
 
 LABEL_183:
-                v33 = any_to_uint64(a4 + 3, 0);
-                v34 = log_get_logging_obg("com.apple.threadradiod", "default");
-                if (v34)
+                v32 = any_to_uint64(a4 + 3, 0);
+                v33 = log_get_logging_obg("com.apple.threadradiod", "default");
+                if (v33)
                 {
-                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+                  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
                   {
                     LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
-                    *(buf.__r_.__value_.__r.__words + 4) = v33;
-                    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "BT Load: Vendor:coex:RadioLoad is 0x%llx", &buf, 0xCu);
+                    *(buf.__r_.__value_.__r.__words + 4) = v32;
+                    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "BT Load: Vendor:coex:RadioLoad is 0x%llx", &buf, 0xCu);
                   }
                 }
 
@@ -7792,30 +8275,30 @@ LABEL_183:
                 isCoexLoadSimulationEnabled = RcpHostContext::isCoexLoadSimulationEnabled(RcpHostContext::sRcpHostContext);
                 if (isCoexLoadSimulationEnabled)
                 {
-                  isCoexLoadSimulationEnabled = HostInterpreter::isSimulatedCoexLoad(isCoexLoadSimulationEnabled, v33);
+                  isCoexLoadSimulationEnabled = HostInterpreter::isSimulatedCoexLoad(isCoexLoadSimulationEnabled, v32);
                   if (!isCoexLoadSimulationEnabled)
                   {
                     return 0;
                   }
                 }
 
-                *(this + 22) = v33;
-                HostInterpreter::generateBTWIFIAudioLoadCAEventToTNM(isCoexLoadSimulationEnabled, v33);
+                *(this + 22) = v32;
+                HostInterpreter::generateBTWIFIAudioLoadCAEventToTNM(isCoexLoadSimulationEnabled, v32);
                 isAudioNoThreadFeatureEnabled = RcpHostContext::isAudioNoThreadFeatureEnabled(RcpHostContext::sRcpHostContext);
                 if (isAudioNoThreadFeatureEnabled)
                 {
-                  *(this + 184) = HostInterpreter::isAudioEscoLeaScoAos(isAudioNoThreadFeatureEnabled, v33);
-                  v55 = log_get_logging_obg("com.apple.threadradiod", "default");
-                  if (v55)
+                  *(this + 184) = HostInterpreter::isAudioEscoLeaScoAos(isAudioNoThreadFeatureEnabled, v32);
+                  v53 = log_get_logging_obg("com.apple.threadradiod", "default");
+                  if (v53)
                   {
-                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
                     {
-                      v56 = *(this + 184);
+                      v54 = *(this + 184);
                       LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
                       *(buf.__r_.__value_.__r.__words + 4) = "otError HostInterpreter::ProcessPropertySet(uint8_t, char **, void *)";
                       WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
-                      *(&buf.__r_.__value_.__r.__words[1] + 6) = v56;
-                      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "%s, BT Load, Audio detection: BTAudioCallStatus is %d", &buf, 0x12u);
+                      *(&buf.__r_.__value_.__r.__words[1] + 6) = v54;
+                      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "%s, BT Load, Audio detection: BTAudioCallStatus is %d", &buf, 0x12u);
                     }
                   }
 
@@ -7826,20 +8309,20 @@ LABEL_183:
 
                   if ((*(this + 170) & 1) == 0)
                   {
-                    v65 = *(this + 184);
-                    v66 = HostInterpreter::anyThreadSessionEnabled(this);
-                    if (v65)
+                    v63 = *(this + 184);
+                    v64 = HostInterpreter::anyThreadSessionEnabled(this);
+                    if (v63)
                     {
-                      if (v66)
+                      if (v64)
                       {
-                        v67 = log_get_logging_obg("com.apple.threadradiod", "default");
-                        if (v67)
+                        v65 = log_get_logging_obg("com.apple.threadradiod", "default");
+                        if (v65)
                         {
-                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+                          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
                           {
                             LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
                             *(buf.__r_.__value_.__r.__words + 4) = "otError HostInterpreter::ProcessPropertySet(uint8_t, char **, void *)";
-                            _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "%s, BT Load, Audio detection: Thread is ON and eSCO is happening, stop thread and notify HK", &buf, 0xCu);
+                            _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "%s, BT Load, Audio detection: Thread is ON and eSCO is happening, stop thread and notify HK", &buf, 0xCu);
                           }
                         }
 
@@ -7853,16 +8336,16 @@ LABEL_183:
                       }
                     }
 
-                    else if (!v66)
+                    else if (!v64)
                     {
-                      v73 = log_get_logging_obg("com.apple.threadradiod", "default");
-                      if (v73)
+                      v69 = log_get_logging_obg("com.apple.threadradiod", "default");
+                      if (v69)
                       {
-                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+                        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
                         {
                           LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
                           *(buf.__r_.__value_.__r.__words + 4) = "otError HostInterpreter::ProcessPropertySet(uint8_t, char **, void *)";
-                          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "%s, BT Load, Audio detection: eSCO is done, notify HK", &buf, 0xCu);
+                          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_INFO, "%s, BT Load, Audio detection: eSCO is done, notify HK", &buf, 0xCu);
                         }
                       }
 
@@ -7877,17 +8360,17 @@ LABEL_183:
                   }
                 }
 
-                otLinkSetCoexLoadMap(*(this + 28), v33);
+                otLinkSetCoexLoadMap(*(this + 28), v32);
                 if (!HostInterpreter::anyThreadSessionEnabled(this))
                 {
-                  v81 = log_get_logging_obg("com.apple.threadradiod", "default");
-                  if (v81)
+                  v76 = log_get_logging_obg("com.apple.threadradiod", "default");
+                  if (v76)
                   {
-                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
                     {
                       LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
                       *(buf.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
-                      _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_INFO, "BT Load: %s Receive coex load value when Thread is offline.", &buf, 0xCu);
+                      _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_INFO, "BT Load: %s Receive coex load value when Thread is offline.", &buf, 0xCu);
                     }
                   }
 
@@ -7901,10 +8384,9 @@ LABEL_183:
               }
 
 LABEL_180:
-              v32 = *(this + 28);
               if (otPlatRadioGetRcp2Vendor2Enabled())
               {
-                any_to_string(a4 + 3, &buf);
+                any_to_string(&buf, a4 + 3);
                 boost::function1<void,int>::operator()(a4 + 4);
                 if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                 {
@@ -7916,26 +8398,26 @@ LABEL_180:
             }
 
 LABEL_167:
-            strcpy(v147, "d");
-            any_to_string(a4 + 3, &v153);
+            strcpy(v133, "d");
+            any_to_string(&v137, a4 + 3);
             v27 = log_get_logging_obg("com.apple.threadradiod", "default");
             if (v27)
             {
               if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
               {
-                var0 = &v153;
-                if (v154 < 0)
+                v29 = &v137;
+                if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                 {
-                  var0 = v153.var0;
+                  v29 = v137.__r_.__value_.__r.__words[0];
                 }
 
-                *v149 = 136315650;
-                *&v149[4] = "ProcessPropertySet";
-                v150 = 2080;
-                *v151 = var0;
-                *&v151[8] = 1024;
-                v152 = 0;
-                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s WRM Notified Scan Table : %s,  error[%d]", v149, 0x1Cu);
+                LODWORD(v135.__r_.__value_.__l.__data_) = 136315650;
+                *(v135.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
+                WORD2(v135.__r_.__value_.__r.__words[1]) = 2080;
+                *(&v135.__r_.__value_.__r.__words[1] + 6) = v29;
+                HIWORD(v135.__r_.__value_.__r.__words[2]) = 1024;
+                v136 = 0;
+                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s WRM Notified Scan Table : %s,  error[%d]", &v135, 0x1Cu);
               }
             }
 
@@ -7944,29 +8426,29 @@ LABEL_167:
               [PowerEventHandler_Rcp init:];
             }
 
-            if (v154 >= 0)
+            if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v35 = &v153;
+              v34 = &v137;
             }
 
             else
             {
-              v35 = v153.var0;
+              v34 = v137.__r_.__value_.__r.__words[0];
             }
 
-            BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v35, v147, &buf, v28);
-            v36 = log_get_logging_obg("com.apple.threadradiod", "default");
-            if (v36)
+            BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v34, v133, &buf, v28);
+            v35 = log_get_logging_obg("com.apple.threadradiod", "default");
+            if (v35)
             {
-              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
               {
-                *v149 = 136315650;
-                *&v149[4] = "ProcessPropertySet";
-                v150 = 1024;
-                *v151 = *v147;
-                *&v151[4] = 1024;
-                *&v151[6] = buf.__r_.__value_.__s.__data_[0];
-                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "%s parse scan table : %d, [%x] ", v149, 0x18u);
+                LODWORD(v135.__r_.__value_.__l.__data_) = 136315650;
+                *(v135.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
+                WORD2(v135.__r_.__value_.__r.__words[1]) = 1024;
+                *(&v135.__r_.__value_.__r.__words[1] + 6) = *v133;
+                WORD1(v135.__r_.__value_.__r.__words[2]) = 1024;
+                HIDWORD(v135.__r_.__value_.__r.__words[2]) = buf.__r_.__value_.__s.__data_[0];
+                _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "%s parse scan table : %d, [%x] ", &v135, 0x18u);
               }
             }
 
@@ -7975,106 +8457,106 @@ LABEL_167:
               [PowerEventHandler_Rcp init:];
             }
 
-            v37 = buf.__r_.__value_.__s.__data_[0];
-            if (((2 * buf.__r_.__value_.__s.__data_[0]) | 1) != *v147)
+            v36 = buf.__r_.__value_.__s.__data_[0];
+            if (((2 * buf.__r_.__value_.__s.__data_[0]) | 1) != *v133)
             {
-              *v147 = buf.__r_.__value_.__s.__data_[0];
+              *v133 = buf.__r_.__value_.__s.__data_[0];
               if (buf.__r_.__value_.__s.__data_[0])
               {
-                v146 = this;
-                v38 = 0;
-                v39 = &buf.__r_.__value_.__s.__data_[2];
+                v132 = this;
+                v37 = 0;
+                v38 = &buf.__r_.__value_.__s.__data_[2];
                 do
                 {
-                  v40 = __rev16(*(v39 - 1));
-                  v156[v38] = v40;
-                  v41 = log_get_logging_obg("com.apple.threadradiod", "default");
-                  if (v41)
+                  v39 = __rev16(*(v38 - 1));
+                  v139[v37] = v39;
+                  v40 = log_get_logging_obg("com.apple.threadradiod", "default");
+                  if (v40)
                   {
-                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+                    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
                     {
-                      *v149 = 136315650;
-                      *&v149[4] = "ProcessPropertySet";
-                      v150 = 1024;
-                      *v151 = v38;
-                      *&v151[4] = 1024;
-                      *&v151[6] = v40;
-                      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%s scanLow : %d, [%d] ", v149, 0x18u);
+                      LODWORD(v135.__r_.__value_.__l.__data_) = 136315650;
+                      *(v135.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
+                      WORD2(v135.__r_.__value_.__r.__words[1]) = 1024;
+                      *(&v135.__r_.__value_.__r.__words[1] + 6) = v37;
+                      WORD1(v135.__r_.__value_.__r.__words[2]) = 1024;
+                      HIDWORD(v135.__r_.__value_.__r.__words[2]) = v39;
+                      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "%s scanLow : %d, [%d] ", &v135, 0x18u);
                     }
                   }
 
                   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                   {
-                    *v149 = 136315394;
-                    *&v149[4] = "com.apple.wpantund.ncp";
-                    v150 = 2080;
-                    *v151 = "default";
-                    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v149, 0x16u);
+                    LODWORD(v135.__r_.__value_.__l.__data_) = 136315394;
+                    *(v135.__r_.__value_.__r.__words + 4) = "com.apple.wpantund.ncp";
+                    WORD2(v135.__r_.__value_.__r.__words[1]) = 2080;
+                    *(&v135.__r_.__value_.__r.__words[1] + 6) = "default";
+                    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", &v135, 0x16u);
                   }
 
-                  v39 += 2;
-                  ++v38;
-                  v37 = v147[0];
+                  v38 += 2;
+                  ++v37;
+                  v36 = v133[0];
                 }
 
-                while (v38 < *v147);
-                if (*v147)
+                while (v37 < *v133);
+                if (*v133)
                 {
-                  v42 = 0;
-                  v43 = &buf.__r_.__value_.__s.__data_[2 * (v147[0] & 0x7F) + 2];
+                  v41 = 0;
+                  v42 = &buf.__r_.__value_.__s.__data_[2 * (v133[0] & 0x7F) + 2];
                   do
                   {
-                    v44 = __rev16(*(v43 - 1));
-                    v155[v42] = v44;
-                    v45 = log_get_logging_obg("com.apple.threadradiod", "default");
-                    if (v45)
+                    v43 = __rev16(*(v42 - 1));
+                    v138[v41] = v43;
+                    v44 = log_get_logging_obg("com.apple.threadradiod", "default");
+                    if (v44)
                     {
-                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+                      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                       {
-                        *v149 = 136315650;
-                        *&v149[4] = "ProcessPropertySet";
-                        v150 = 1024;
-                        *v151 = v42;
-                        *&v151[4] = 1024;
-                        *&v151[6] = v44;
-                        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "%s scanHigh : %d, [%d] ", v149, 0x18u);
+                        LODWORD(v135.__r_.__value_.__l.__data_) = 136315650;
+                        *(v135.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
+                        WORD2(v135.__r_.__value_.__r.__words[1]) = 1024;
+                        *(&v135.__r_.__value_.__r.__words[1] + 6) = v41;
+                        WORD1(v135.__r_.__value_.__r.__words[2]) = 1024;
+                        HIDWORD(v135.__r_.__value_.__r.__words[2]) = v43;
+                        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s scanHigh : %d, [%d] ", &v135, 0x18u);
                       }
                     }
 
                     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                     {
-                      *v149 = 136315394;
-                      *&v149[4] = "com.apple.wpantund.ncp";
-                      v150 = 2080;
-                      *v151 = "default";
-                      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v149, 0x16u);
+                      LODWORD(v135.__r_.__value_.__l.__data_) = 136315394;
+                      *(v135.__r_.__value_.__r.__words + 4) = "com.apple.wpantund.ncp";
+                      WORD2(v135.__r_.__value_.__r.__words[1]) = 2080;
+                      *(&v135.__r_.__value_.__r.__words[1] + 6) = "default";
+                      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", &v135, 0x16u);
                     }
 
-                    v43 += 2;
-                    ++v42;
-                    v37 = v147[0];
+                    v42 += 2;
+                    ++v41;
+                    v36 = v133[0];
                   }
 
-                  while (v42 < *v147);
+                  while (v41 < *v133);
                 }
 
-                this = v146;
+                this = v132;
               }
 
-              v46 = otPlatVendorSetMWSFrequencyTable(*(this + 28), v37, v156, v155);
-              v47 = *(a4 + 4);
-              if (!v47)
+              v45 = otPlatVendorSetMWSFrequencyTable(*(this + 28), v36, v139, v138);
+              v46 = *(a4 + 4);
+              if (!v46)
               {
-                std::runtime_error::runtime_error(v149, "call to empty boost::function");
-                *v149 = off_1004C1548;
-                boost::throw_exception<boost::bad_function_call>(v149);
+                std::runtime_error::runtime_error(&v135, "call to empty boost::function");
+                v135.__r_.__value_.__r.__words[0] = off_1004C1548;
+                boost::throw_exception<boost::bad_function_call>(&v135);
               }
 
-              BufferSize = v46;
-              (*((v47 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 0);
+              BufferSize = v45;
+              (*((v46 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 0);
             }
 
-            if ((v154 & 0x80000000) == 0)
+            if ((SHIBYTE(v137.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
 LABEL_254:
               if (!BufferSize)
@@ -8085,15 +8567,15 @@ LABEL_254:
               goto LABEL_255;
             }
 
-            v23 = v153.var0;
+            v23 = v137.__r_.__value_.__r.__words[0];
 LABEL_253:
             operator delete(v23);
             goto LABEL_254;
           }
 
 LABEL_158:
-          any_to_string(a4 + 3, &buf);
-          LOWORD(v153.var0) = 0;
+          any_to_string(&buf, a4 + 3);
+          LOWORD(v137.__r_.__value_.__l.__data_) = 0;
           if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
             v25 = &buf;
@@ -8104,7 +8586,7 @@ LABEL_158:
             v25 = buf.__r_.__value_.__r.__words[0];
           }
 
-          BufferSize = ot::Utils::CmdLineParser::ParseAsUint16(v25, &v153, v24);
+          BufferSize = ot::Utils::CmdLineParser::ParseAsUint16(v25, &v137, v24);
           if (!BufferSize)
           {
             if (getCoreBTState())
@@ -8117,11 +8599,11 @@ LABEL_158:
             {
               if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
               {
-                *v149 = 136315394;
-                *&v149[4] = "ProcessPropertySet";
-                v150 = 1024;
-                *v151 = LOWORD(v153.var0);
-                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s WRM notifies to switch Preferred Antenna :%d ", v149, 0x12u);
+                LODWORD(v135.__r_.__value_.__l.__data_) = 136315394;
+                *(v135.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
+                WORD2(v135.__r_.__value_.__r.__words[1]) = 1024;
+                *(&v135.__r_.__value_.__r.__words[1] + 6) = LOWORD(v137.__r_.__value_.__l.__data_);
+                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s WRM notifies to switch Preferred Antenna :%d ", &v135, 0x12u);
               }
             }
 
@@ -8130,19 +8612,19 @@ LABEL_158:
               [PowerEventHandler_Rcp init:];
             }
 
-            BufferSize = otPlatVendorSetPreferredAntenna(*(this + 28), v153.var0);
+            BufferSize = otPlatVendorSetPreferredAntenna(*(this + 28), v137.__r_.__value_.__l.__data_);
             if (!BufferSize)
             {
 LABEL_249:
-              v57 = *(a4 + 4);
-              if (!v57)
+              v55 = *(a4 + 4);
+              if (!v55)
               {
-                std::runtime_error::runtime_error(v149, "call to empty boost::function");
-                *v149 = off_1004C1548;
-                boost::throw_exception<boost::bad_function_call>(v149);
+                std::runtime_error::runtime_error(&v135, "call to empty boost::function");
+                v135.__r_.__value_.__r.__words[0] = off_1004C1548;
+                boost::throw_exception<boost::bad_function_call>(&v135);
               }
 
-              (*((v57 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 0);
+              (*((v55 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 0);
               BufferSize = 0;
             }
           }
@@ -8151,22 +8633,22 @@ LABEL_249:
         }
 
 LABEL_150:
-        any_to_string(a4 + 3, &buf);
+        any_to_string(&buf, a4 + 3);
         if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v148, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v134, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v148 = buf;
+          v134 = buf;
         }
 
-        v30 = HostInterpreter::DeviceModeConfig(this, &v148);
+        v30 = HostInterpreter::DeviceModeConfig(this, &v134);
         BufferSize = v30;
-        if (SHIBYTE(v148.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v148.__r_.__value_.__l.__data_);
+          operator delete(v134.__r_.__value_.__l.__data_);
           if (BufferSize)
           {
             goto LABEL_251;
@@ -8181,9 +8663,9 @@ LABEL_150:
         v31 = *(a4 + 4);
         if (!v31)
         {
-          std::runtime_error::runtime_error(v149, "call to empty boost::function");
-          *v149 = off_1004C1548;
-          boost::throw_exception<boost::bad_function_call>(v149);
+          std::runtime_error::runtime_error(&v135, "call to empty boost::function");
+          v135.__r_.__value_.__r.__words[0] = off_1004C1548;
+          boost::throw_exception<boost::bad_function_call>(&v135);
         }
 
         (*((v31 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 0);
@@ -8191,8 +8673,8 @@ LABEL_150:
       }
 
 LABEL_143:
-      any_to_string(a4 + 3, &buf);
-      v156[0] = 16;
+      any_to_string(&buf, a4 + 3);
+      v139[0] = 16;
       if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v18 = &buf;
@@ -8203,18 +8685,18 @@ LABEL_143:
         v18 = buf.__r_.__value_.__r.__words[0];
       }
 
-      BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v18, v156, &v153, v17);
+      BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v18, v139, &v137, v17);
       if (!BufferSize)
       {
-        BufferSize = otThreadSetPskc(*(this + 28), &v153);
+        BufferSize = otThreadSetPskc(*(this + 28), &v137);
         if (!BufferSize)
         {
           v20 = *(a4 + 4);
           if (!v20)
           {
-            std::runtime_error::runtime_error(v149, "call to empty boost::function");
-            *v149 = off_1004C1548;
-            boost::throw_exception<boost::bad_function_call>(v149);
+            std::runtime_error::runtime_error(&v135, "call to empty boost::function");
+            v135.__r_.__value_.__r.__words[0] = off_1004C1548;
+            boost::throw_exception<boost::bad_function_call>(&v135);
           }
 
           (*((v20 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 0);
@@ -8226,36 +8708,36 @@ LABEL_143:
     }
 
 LABEL_134:
-    v153.var0 = 0;
-    any_to_string(a4 + 3, v149);
-    if (v151[9] >= 0)
+    v137.__r_.__value_.__r.__words[0] = 0;
+    any_to_string(&v135, a4 + 3);
+    if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v13 = v149;
+      v13 = &v135;
     }
 
     else
     {
-      v13 = *v149;
+      v13 = v135.__r_.__value_.__r.__words[0];
     }
 
-    v14 = ot::Utils::CmdLineParser::ParseAsUint64(v13, &v153, v12);
+    v14 = ot::Utils::CmdLineParser::ParseAsUint64(v13, &v137, v12);
     v15 = log_get_logging_obg("com.apple.threadradiod", "default");
     if (v15)
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v16 = v149;
-        if (v151[9] < 0)
+        v16 = &v135;
+        if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v16 = *v149;
+          v16 = v135.__r_.__value_.__r.__words[0];
         }
 
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315650;
         *(buf.__r_.__value_.__r.__words + 4) = v16;
         WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-        *(&buf.__r_.__value_.__r.__words[1] + 6) = v153;
+        *(&buf.__r_.__value_.__r.__words[1] + 6) = v137.__r_.__value_.__r.__words[0];
         HIWORD(buf.__r_.__value_.__r.__words[2]) = 1024;
-        v158 = v14;
+        v141 = v14;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "LogTimestampBase:%s,[%llu],err:%d", &buf, 0x1Cu);
       }
     }
@@ -8265,7 +8747,7 @@ LABEL_134:
       [PowerEventHandler_Rcp init:];
     }
 
-    v21 = otPlatVendorSetLogTimestampBase(v153.var0);
+    v21 = otPlatVendorSetLogTimestampBase(v137.__r_.__value_.__l.__data_);
     v22 = *(a4 + 4);
     if (!v22)
     {
@@ -8358,17 +8840,16 @@ LABEL_134:
   if (!strcmp(v10, "Thread:ActiveDataset:Bytes"))
   {
 LABEL_349:
-    v82 = *(this + 28);
     if (otPlatRadioGetRcp2Vendor2Enabled())
     {
-      v83 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v83)
+      v77 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v77)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
         {
           LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
           *(buf.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
-          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%s:Thread Start Indication sent", &buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, "%s:Thread Start Indication sent", &buf, 0xCu);
         }
       }
 
@@ -8380,16 +8861,16 @@ LABEL_349:
       started = otPlatVendorSetVendorThreadStartStop(*(this + 28), 1);
       if (started)
       {
-        v101 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v101)
+        v89 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v89)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
           {
             LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
             *(buf.__r_.__value_.__r.__words + 4) = "ProcessPropertySet";
             WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
             *(&buf.__r_.__value_.__r.__words[1] + 6) = started;
-            _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_INFO, "%s:otPlatVendorSetVendorThreadStartStop Err: %d", &buf, 0x12u);
+            _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_INFO, "%s:otPlatVendorSetVendorThreadStartStop Err: %d", &buf, 0x12u);
           }
         }
 
@@ -8400,32 +8881,32 @@ LABEL_349:
       }
     }
 
-    any_to_string(a4 + 3, v149);
-    LOWORD(v153.var0) = 254;
-    if (v151[9] >= 0)
+    any_to_string(&v135, a4 + 3);
+    LOWORD(v137.__r_.__value_.__l.__data_) = 254;
+    if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v105 = v149;
+      v93 = &v135;
     }
 
     else
     {
-      v105 = *v149;
+      v93 = v135.__r_.__value_.__r.__words[0];
     }
 
-    BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v105, &v153, &buf, v104);
+    BufferSize = ot::Utils::CmdLineParser::ParseAsHexString(v93, &v137, &buf, v92);
     if (!BufferSize)
     {
-      v163 = v153.var0;
+      v146 = v137.__r_.__value_.__s.__data_[0];
       BufferSize = otDatasetSetActiveTlvs(*(this + 28), &buf);
       if (!BufferSize)
       {
-        v106 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v106)
+        v94 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v94)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
           {
-            v156[0] = 0;
-            _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_INFO, "Dataset commit active TLVs,Done", v156, 2u);
+            v139[0] = 0;
+            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "Dataset commit active TLVs,Done", v139, 2u);
           }
         }
 
@@ -8441,12 +8922,12 @@ LABEL_349:
     }
 
 LABEL_156:
-    if ((v151[9] & 0x80000000) == 0)
+    if ((SHIBYTE(v135.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_254;
     }
 
-    v23 = *v149;
+    v23 = v135.__r_.__value_.__r.__words[0];
     goto LABEL_253;
   }
 
@@ -8543,7 +9024,6 @@ LABEL_156:
   if (!strcmp(v10, "vendor:radio:stats"))
   {
 LABEL_513:
-    v127 = *(this + 28);
     BufferSize = otPlatVendorResetRadioStats();
     if (BufferSize)
     {
@@ -8556,7 +9036,6 @@ LABEL_513:
   if (!strcmp(v10, "vendor:radio:counters"))
   {
 LABEL_517:
-    v128 = *(this + 28);
     BufferSize = otPlatVendorResetRadioCounters();
     if (BufferSize)
     {
@@ -8574,8 +9053,8 @@ LABEL_517:
   if (!strcmp(v10, "vendor:deepsleep:filter:list"))
   {
 LABEL_521:
-    v149[0] = 0;
-    BufferSize = otPlatVendorSetDeepSleepFilterList(*(this + 28), &buf, v149);
+    v135.__r_.__value_.__s.__data_[0] = 0;
+    BufferSize = otPlatVendorSetDeepSleepFilterList(*(this + 28), &buf, &v135);
     if (!BufferSize)
     {
       boost::function1<void,int>::operator()(a4 + 4);
@@ -8587,8 +9066,8 @@ LABEL_521:
   if (!strcmp(v10, "vendor:deepsleep:loglevel"))
   {
 LABEL_523:
-    v129 = any_to_uint64(a4 + 3, 0);
-    BufferSize = otPlatVendorSetDeepSleepLogLevel(*(this + 28), v129);
+    v114 = any_to_uint64(a4 + 3, 0);
+    BufferSize = otPlatVendorSetDeepSleepLogLevel(*(this + 28), v114);
     if (BufferSize)
     {
       goto LABEL_255;
@@ -8600,8 +9079,8 @@ LABEL_523:
   if (!strcmp(v10, "vendor:deepsleep:region:loglevels"))
   {
 LABEL_525:
-    v149[0] = -12;
-    BufferSize = otPlatVendorSetDeepSleepRegionLogLevels(*(this + 28), &buf, v149);
+    v135.__r_.__value_.__s.__data_[0] = -12;
+    BufferSize = otPlatVendorSetDeepSleepRegionLogLevels(*(this + 28), &buf, &v135);
     if (!BufferSize)
     {
       boost::function1<void,int>::operator()(a4 + 4);
@@ -8613,7 +9092,6 @@ LABEL_525:
   if (!strcmp(v10, "vendor:last:host:wake:reason"))
   {
 LABEL_528:
-    v130 = *(this + 28);
     BufferSize = otPlatVendorSetHostWakeReason();
     if (BufferSize)
     {
@@ -8661,7 +9139,6 @@ LABEL_528:
   if (!strcmp(v10, "vendor:openthread:radio:counters"))
   {
 LABEL_537:
-    v131 = *(this + 28);
     BufferSize = otPlatVendorResetOpenThreadRadioCounters();
     if (BufferSize)
     {
@@ -8721,20 +9198,22 @@ LABEL_570:
           }
 
 LABEL_563:
-          if (any_to_int(a4 + 3) << 24)
+          v125 = any_to_int(a4 + 3);
+          v126 = v125;
+          if (v125 << 24)
           {
             std::string::basic_string[abi:ne200100]<0>(&buf, "Srp:NetdataMode");
-            *v149 = &buf;
-            v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-            std::string::assign((v143 + 7), "1");
+            v135.__r_.__value_.__r.__words[0] = &buf;
+            v127 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+            std::string::assign((v127 + 7), "1");
           }
 
           else
           {
             std::string::basic_string[abi:ne200100]<0>(&buf, "Srp:NetdataMode");
-            *v149 = &buf;
-            v145 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-            std::string::assign((v145 + 7), "0");
+            v135.__r_.__value_.__r.__words[0] = &buf;
+            v131 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+            std::string::assign((v131 + 7), "0");
           }
 
           if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -8742,23 +9221,23 @@ LABEL_563:
             operator delete(buf.__r_.__value_.__l.__data_);
           }
 
-          persist_srp_netdatamode();
+          persist_srp_netdatamode(v126);
         }
 
 LABEL_550:
-        v139 = any_to_BOOL(a4 + 3);
-        v140 = log_get_logging_obg("com.apple.threadradiod", "default");
-        v141 = v140;
-        if (v139)
+        v121 = any_to_BOOL(a4 + 3);
+        v122 = log_get_logging_obg("com.apple.threadradiod", "default");
+        v123 = v122;
+        if (v121)
         {
-          if (v140)
+          if (v122)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v141, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
             {
               buf.__r_.__value_.__r.__words[0] = 0x210B04000100;
-              v142 = "HI:%d:Start promiscuous pcap capture";
+              v124 = "HI:%d:Start promiscuous pcap capture";
 LABEL_569:
-              _os_log_impl(&_mh_execute_header, v141, OS_LOG_TYPE_INFO, v142, &buf, 8u);
+              _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_INFO, v124, &buf, 8u);
               goto LABEL_588;
             }
 
@@ -8773,17 +9252,17 @@ LABEL_569:
 
         else
         {
-          if (v140)
+          if (v122)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v141, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
             {
               buf.__r_.__value_.__r.__words[0] = 0x210D04000100;
-              v142 = "HI:%d:Stop promiscuous pcap capture";
+              v124 = "HI:%d:Stop promiscuous pcap capture";
               goto LABEL_569;
             }
 
 LABEL_588:
-            persist_promiscuous_pcap_enabled();
+            persist_promiscuous_pcap_enabled(v121);
           }
 
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -8797,51 +9276,51 @@ LABEL_588:
       }
 
 LABEL_545:
-      v135 = any_to_BOOL(a4 + 3);
-      v136 = log_get_logging_obg("com.apple.threadradiod", "default");
-      v137 = v136;
-      if (v135)
+      v117 = any_to_BOOL(a4 + 3);
+      v118 = log_get_logging_obg("com.apple.threadradiod", "default");
+      v119 = v118;
+      if (v117)
       {
-        if (v136)
+        if (v118)
         {
-          v138 = syslog_is_the_mask_enabled(6);
-          if (v138)
+          v120 = syslog_is_the_mask_enabled(6);
+          if (v120)
           {
-            v138 = os_log_type_enabled(v137, OS_LOG_TYPE_INFO);
-            if (v138)
+            v120 = os_log_type_enabled(v119, OS_LOG_TYPE_INFO);
+            if (v120)
             {
               LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
               *(buf.__r_.__value_.__r.__words + 4) = "otError HostInterpreter::ProcessPropertySet(uint8_t, char **, void *)";
               WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
               *(&buf.__r_.__value_.__r.__words[1] + 6) = 8408;
-              _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_INFO, "%s:%d:Start pcap capture", &buf, 0x12u);
+              _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_INFO, "%s:%d:Start pcap capture", &buf, 0x12u);
             }
           }
         }
 
         else
         {
-          v138 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-          if (v138)
+          v120 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+          if (v120)
           {
             [PowerEventHandler_Rcp init:];
           }
         }
 
-        PcapManagerInstance = PcapManager::getPcapManagerInstance(v138);
+        PcapManagerInstance = PcapManager::getPcapManagerInstance(v120);
         PcapManager::start_pcap_capture(PcapManagerInstance);
         std::string::basic_string[abi:ne200100]<0>(&buf, "Daemon:PromiscuousPcap");
-        *v149 = &buf;
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-        boost::any::any<std::string &>();
+        v135.__r_.__value_.__r.__words[0] = &buf;
+        v129 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+        boost::any::any<std::string &>(&v137, (v129 + 7));
       }
 
-      if (v136)
+      if (v118)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v137, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
         {
           buf.__r_.__value_.__r.__words[0] = 0x20E504000100;
-          _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_INFO, "HI:%d:Stop pcap capture", &buf, 8u);
+          _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_INFO, "HI:%d:Stop pcap capture", &buf, 8u);
         }
       }
 
@@ -8851,16 +9330,15 @@ LABEL_545:
       }
 
       std::string::basic_string[abi:ne200100]<0>(&buf, "Daemon:PromiscuousPcap");
-      *v149 = &buf;
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_);
-      boost::any::any<std::string &>();
+      v135.__r_.__value_.__r.__words[0] = &buf;
+      v130 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &buf.__r_.__value_.__l.__data_, &std::piecewise_construct, &v135);
+      boost::any::any<std::string &>(&v137, (v130 + 7));
     }
 
     goto LABEL_541;
   }
 
 LABEL_539:
-  v132 = *(this + 28);
   BufferSize = otPlatVendorCntrStatsReset();
   if (!BufferSize)
   {
@@ -8868,23 +9346,23 @@ LABEL_539:
   }
 
 LABEL_255:
-  v58 = *(a4 + 4);
-  if (!v58)
+  v56 = *(a4 + 4);
+  if (!v56)
   {
     std::runtime_error::runtime_error(&buf, "call to empty boost::function");
     buf.__r_.__value_.__r.__words[0] = off_1004C1548;
     boost::throw_exception<boost::bad_function_call>(&buf);
   }
 
-  (*((v58 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 1);
+  (*((v56 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 40, 1);
   return BufferSize;
 }
 
-void sub_1001350B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, std::runtime_error a44, int a45, __int16 a46, char a47, char a48)
+void sub_1001350B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, std::runtime_error a44, int a45, __int16 a46, char a47, char a48)
 {
   if (__p)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(__p);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     v48 = &a44;
   }
 
@@ -8902,70 +9380,70 @@ void HostInterpreter::ProcessRcpInit(HostInterpreter *this, unsigned __int8 a2, 
   HIBYTE(v6) = 11;
   strcpy(buf, "NCP:TXPower");
   *v4 = buf;
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, v4);
   operator new();
 }
 
-void sub_10013694C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+void sub_10013694C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a18)
   {
-    (*(*a18 + 8))(a18);
+    (*(*a18 + 8))(a18, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a19)
   {
-    (*(*a19 + 8))(a19);
+    (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a20)
   {
-    (*(*a20 + 8))(a20);
+    (*(*a20 + 8))(a20, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a21)
   {
-    (*(*a21 + 8))(a21);
+    (*(*a21 + 8))(a21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a23)
   {
-    (*(*a23 + 8))(a23);
+    (*(*a23 + 8))(a23, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a24)
   {
-    (*(*a24 + 8))(a24);
+    (*(*a24 + 8))(a24, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a25)
   {
-    (*(*a25 + 8))(a25);
+    (*(*a25 + 8))(a25, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a26)
   {
-    (*(*a26 + 8))(a26);
+    (*(*a26 + 8))(a26, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (!a27)
@@ -8973,7 +9451,7 @@ void sub_10013694C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     _Unwind_Resume(exception_object);
   }
 
-  (*(*a27 + 8))(a27);
+  (*(*a27 + 8))(a27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -9151,7 +9629,7 @@ uint64_t HostInterpreter::ProcessReset(HostInterpreter *this, unsigned __int8 a2
           goto LABEL_15;
         }
 
-        if (dskeychainRcp::FindAndGetDataSet(1u, v21))
+        if (dskeychainRcp::FindAndGetDataSet(1, v21))
         {
           v8 = otDatasetSetPending(*(this + 28), v21);
           if (v8)
@@ -9270,490 +9748,4 @@ LABEL_18:
 LABEL_20:
   (*((v13 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, v12);
   return v8;
-}
-
-uint64_t HostInterpreter::ProcessRouteAdd(HostInterpreter *this, unsigned __int8 a2, char **a3, in6_addr *a4)
-{
-  v31[1] = 0;
-  v32 = 0;
-  v31[0] = 0;
-  v6 = a4[1].__u6_addr32[1];
-  if (v6 == -1)
-  {
-    v7 = 3;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (v6 == 1)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  BYTE4(v32) = v8 | (8 * a4[1].__u6_addr8[8]) | (4 * a4[1].__u6_addr8[9]) | 0x10;
-  IPv6Prefix::IPv6Prefix(&v29, a4, a4[1].__u6_addr8[0]);
-  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (logging_obg)
-  {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
-    {
-      IPv6Prefix::to_string(&v29, __p);
-      v10 = (SBYTE3(v28) & 0x80u) == 0 ? __p : __p[0];
-      *buf = 136315394;
-      *&buf[4] = v10;
-      *&buf[12] = 1024;
-      *&buf[14] = gSrpModeNetInfo;
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "OffMeshPrefix::[%s],srpMode[%d]", buf, 0x12u);
-      if (SBYTE3(v28) < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-  }
-
-  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-  {
-    [PowerEventHandler_Rcp init:];
-  }
-
-  v11 = a4[1].__u6_addr32[1];
-  v12 = a4[1].__u6_addr8[8];
-  v13 = a4[1].__u6_addr8[9];
-  *buf = 2;
-  *&buf[4] = v11;
-  buf[8] = v12;
-  *&buf[10] = 0;
-  buf[12] = v13;
-  buf[13] = (v32 & 0x1000000000) != 0;
-  IPv6Prefix::to_string(&v29, __p);
-  if ((SBYTE3(v28) & 0x80u) == 0)
-  {
-    v14 = __p;
-  }
-
-  else
-  {
-    v14 = __p[0];
-  }
-
-  v15 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(v14, v31);
-  v16 = v15;
-  if (SBYTE3(v28) < 0)
-  {
-    operator delete(__p[0]);
-    if (v16)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  else if (v15)
-  {
-LABEL_22:
-    v17 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v17)
-    {
-      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        HostInterpreter::ProcessRouteAdd();
-      }
-
-      goto LABEL_56;
-    }
-
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_56;
-    }
-
-LABEL_55:
-    [PowerEventHandler_Rcp init:];
-    goto LABEL_56;
-  }
-
-  if ((gSrpModeNetInfo & 1) == 0)
-  {
-    if ((this + 88) == HostInterpreter::find_route_entry(this, &v29, buf))
-    {
-      *__p = v29;
-      v27 = v30;
-      v28 = *buf;
-      operator new();
-    }
-
-    v19 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v19)
-    {
-      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-      {
-        HostInterpreter::ProcessRouteAdd();
-      }
-    }
-
-    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      [PowerEventHandler_Rcp init:];
-    }
-
-    v16 = 0;
-    v21 = 0;
-    v22 = *a4[2].__u6_addr8;
-    if (v22)
-    {
-      goto LABEL_61;
-    }
-
-    goto LABEL_59;
-  }
-
-  v16 = otBorderRouterAddRoute(*(this + 28), v31);
-  if (!v16)
-  {
-    v16 = otBorderRouterRegister(*(this + 28));
-    if (v16)
-    {
-      v20 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (!v20)
-      {
-        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_56;
-        }
-
-        goto LABEL_55;
-      }
-
-      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-      {
-        HostInterpreter::ProcessRouteAdd();
-      }
-
-      goto LABEL_56;
-    }
-
-    v21 = 0;
-    v22 = *a4[2].__u6_addr8;
-    if (v22)
-    {
-      goto LABEL_61;
-    }
-
-LABEL_59:
-    std::runtime_error::runtime_error(__p, "call to empty boost::function");
-    __p[0] = off_1004C1548;
-    boost::throw_exception<boost::bad_function_call>(__p);
-  }
-
-  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (!v18)
-  {
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_56;
-    }
-
-    goto LABEL_55;
-  }
-
-  if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-  {
-    HostInterpreter::ProcessRouteAdd();
-  }
-
-LABEL_56:
-  HIDWORD(v24) = v16 - 1;
-  LODWORD(v24) = v16 - 1;
-  v23 = v24 >> 1;
-  if (v23 > 6 || ((0x4Du >> v23) & 1) == 0)
-  {
-    v21 = 1;
-    v22 = *a4[2].__u6_addr8;
-    if (v22)
-    {
-      goto LABEL_61;
-    }
-
-    goto LABEL_59;
-  }
-
-  v16 = dword_10044816C[v23];
-  v21 = dword_100448188[v23];
-  v22 = *a4[2].__u6_addr8;
-  if (!v22)
-  {
-    goto LABEL_59;
-  }
-
-LABEL_61:
-  (*((v22 & 0xFFFFFFFFFFFFFFFELL) + 8))(&a4[2].__u6_addr32[2], v21);
-  return v16;
-}
-
-void sub_100137E00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    _Unwind_Resume(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t HostInterpreter::ProcessRouteRemove(HostInterpreter *this, unsigned __int8 a2, char **a3, in6_addr *a4)
-{
-  memset(v32, 0, sizeof(v32));
-  IPv6Prefix::IPv6Prefix(&v31, a4, a4[1].__u6_addr8[0]);
-  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (logging_obg)
-  {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
-    {
-      IPv6Prefix::to_string(&v31, &__p);
-      v7 = v30 >= 0 ? &__p : __p.__vftable;
-      *buf = 136315394;
-      *&buf[4] = v7;
-      *&buf[12] = 1024;
-      v36 = gSrpModeNetInfo;
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "Off Mesh Prefix::[%s] srpMode[%d]", buf, 0x12u);
-      if (v30 < 0)
-      {
-        operator delete(__p.__vftable);
-      }
-    }
-  }
-
-  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-  {
-    [PowerEventHandler_Rcp init:];
-  }
-
-  if ((gSrpModeNetInfo & 1) == 0)
-  {
-    *buf = 2;
-    buf[8] = 1;
-    *&buf[10] = 0;
-    route_entry = HostInterpreter::find_route_entry(this, &v31, buf);
-    v9 = log_get_logging_obg("com.apple.threadradiod", "default");
-    v10 = v9;
-    if ((this + 88) == route_entry)
-    {
-      if (v9)
-      {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-        {
-          OffMeshRouteEntry::get_description(buf, &v31, 0, &__p);
-          v12 = v30 >= 0 ? &__p : __p.__vftable;
-          *v33 = 136315138;
-          v34 = v12;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "OffMeshPrefixes:[%s] Prefix not found", v33, 0xCu);
-          if (v30 < 0)
-          {
-            operator delete(__p.__vftable);
-          }
-        }
-      }
-
-      else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        [PowerEventHandler_Rcp init:];
-      }
-
-      v20 = 0;
-      goto LABEL_67;
-    }
-
-    if (v9)
-    {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-      {
-        OffMeshRouteEntry::get_description(buf, &v31, 0, &__p);
-        v11 = v30 >= 0 ? &__p : __p.__vftable;
-        *v33 = 136315138;
-        v34 = v11;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "OffMeshPrefixes:Removing %s", v33, 0xCu);
-        if (v30 < 0)
-        {
-          operator delete(__p.__vftable);
-        }
-      }
-    }
-
-    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      [PowerEventHandler_Rcp init:];
-    }
-
-    v13 = route_entry[1];
-    if (v13)
-    {
-      do
-      {
-        v14 = v13;
-        v13 = *v13;
-      }
-
-      while (v13);
-    }
-
-    else
-    {
-      v15 = route_entry;
-      do
-      {
-        v14 = v15[2];
-        v16 = *v14 == v15;
-        v15 = v14;
-      }
-
-      while (!v16);
-    }
-
-    if (*(this + 10) == route_entry)
-    {
-      *(this + 10) = v14;
-    }
-
-    v17 = *(this + 11);
-    --*(this + 12);
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v17, route_entry);
-    operator delete(route_entry);
-  }
-
-  IPv6Prefix::to_string(&v31, &__p);
-  if (v30 >= 0)
-  {
-    p_p = &__p;
-  }
-
-  else
-  {
-    p_p = __p.__vftable;
-  }
-
-  v19 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(p_p, v32);
-  v20 = v19;
-  if (v30 < 0)
-  {
-    operator delete(__p.__vftable);
-    if (v20)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  else if (v19)
-  {
-LABEL_45:
-    v21 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v21)
-    {
-      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-      {
-        HostInterpreter::ProcessRouteRemove();
-      }
-
-      goto LABEL_71;
-    }
-
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_71;
-    }
-
-LABEL_70:
-    [PowerEventHandler_Rcp init:];
-    goto LABEL_71;
-  }
-
-  v20 = otBorderRouterRemoveRoute(*(this + 28), v32);
-  if (!v20)
-  {
-    v20 = otBorderRouterRegister(*(this + 28));
-    if (v20)
-    {
-      v23 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (!v23)
-      {
-        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_71;
-        }
-
-        goto LABEL_70;
-      }
-
-      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-      {
-        HostInterpreter::ProcessRouteRemove();
-      }
-
-      goto LABEL_71;
-    }
-
-LABEL_67:
-    v24 = 0;
-    v25 = *&a4[1].__u6_addr32[2];
-    if (v25)
-    {
-      goto LABEL_76;
-    }
-
-LABEL_74:
-    std::runtime_error::runtime_error(&__p, "call to empty boost::function");
-    __p.__vftable = off_1004C1548;
-    boost::throw_exception<boost::bad_function_call>(&__p);
-  }
-
-  v22 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (!v22)
-  {
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_71;
-    }
-
-    goto LABEL_70;
-  }
-
-  if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-  {
-    HostInterpreter::ProcessRouteRemove();
-  }
-
-LABEL_71:
-  HIDWORD(v27) = v20 - 1;
-  LODWORD(v27) = v20 - 1;
-  v26 = v27 >> 1;
-  if (v26 > 6 || ((0x4Du >> v26) & 1) == 0)
-  {
-    v24 = 1;
-    v25 = *&a4[1].__u6_addr32[2];
-    if (v25)
-    {
-      goto LABEL_76;
-    }
-
-    goto LABEL_74;
-  }
-
-  v20 = dword_10044816C[v26];
-  v24 = dword_100448188[v26];
-  v25 = *&a4[1].__u6_addr32[2];
-  if (!v25)
-  {
-    goto LABEL_74;
-  }
-
-LABEL_76:
-  (*((v25 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 2, v24);
-  return v20;
 }

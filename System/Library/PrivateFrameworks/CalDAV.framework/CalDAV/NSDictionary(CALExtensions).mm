@@ -6,28 +6,28 @@
 
 - (void)mutableCopyWithElementsCopy
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [self mutableCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [self allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [v2 objectForKey:v8];
         if (objc_opt_respondsToSelector())
         {
@@ -38,13 +38,12 @@
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

@@ -8,59 +8,59 @@ uint64_t sub_1D145A100(uint64_t a1)
 void sub_1D145A15C(double *a1, uint64_t a2, int *a3)
 {
   v4 = *(a1 + 2);
-  v57 = a1[5];
-  v58 = a1[4];
-  v55 = a1[7];
-  v56 = a1[6];
-  v54 = a1[8];
-  v52 = *a1;
-  v53 = a1[9];
-  v77 = *a3;
-  v78 = *(a3 + 4);
+  v61 = a1[5];
+  v62 = a1[4];
+  v59 = a1[7];
+  v60 = a1[6];
+  v58 = a1[8];
+  v56 = *a1;
+  v57 = a1[9];
+  v81 = *a3;
+  v82 = *(a3 + 4);
   v5 = *(a3 + 5);
-  v63 = *(a3 + 6);
+  v67 = *(a3 + 6);
   v6 = *(a3 + 7);
-  v60 = *(a3 + 8);
+  v64 = *(a3 + 8);
   v7 = *(a3 + 9);
-  v76 = *(a3 + 25);
-  v75 = v7;
-  v62 = *(a2 + 16);
-  if (v62)
+  v80 = *(a3 + 25);
+  v79 = v7;
+  v66 = *(a2 + 16);
+  if (v66)
   {
     v8 = v3;
     v9 = 0;
-    v61 = a2 + 32;
+    v65 = a2 + 32;
     v10 = 41;
-    v51 = v3;
+    v55 = v3;
     do
     {
       v11 = *(v8 + 16);
       if (v9 >= *(v11 + 16))
       {
-        v67 = v77;
-        v68 = v78;
-        v65 = v75;
-        v13 = v76;
+        v71 = v81;
+        v72 = v82;
+        v69 = v79;
+        v13 = v80;
       }
 
       else
       {
         v12 = (v11 + v10);
-        v67 = *(v12 - 9);
-        v68 = *(v12 - 5);
+        v71 = *(v12 - 9);
+        v72 = *(v12 - 5);
         v5 = *(v12 - 4);
-        v63 = *(v12 - 3);
+        v67 = *(v12 - 3);
         v6 = *(v12 - 2);
-        v60 = *(v12 - 1);
-        v65 = *v12;
+        v64 = *(v12 - 1);
+        v69 = *v12;
         v13 = *(v12 + 8);
       }
 
-      v66 = v13;
-      v14 = *(v61 + 8 * v9);
+      v70 = v13;
+      v14 = *(v65 + 8 * v9);
       v15 = *(v14 + 16);
 
-      if (v15 && (v16 = sub_1D1451D94(2u), (v17 & 1) != 0))
+      if (v15 && (v16 = sub_1D1451D94(2), (v17 & 1) != 0))
       {
         v18 = *(*(v14 + 56) + 40 * v16);
       }
@@ -70,10 +70,10 @@ void sub_1D145A15C(double *a1, uint64_t a2, int *a3)
         v18 = MEMORY[0x1E69E7CC0];
       }
 
-      LOBYTE(v64.a) = v63;
+      LOBYTE(v68.a) = v67;
       v19.super.isa = DiagramConfiguration.Color.toColor()().super.isa;
-      LOBYTE(v64.a) = v6;
-      v20 = DiagramConfiguration.LineWidth.toPoints()();
+      LOBYTE(v68.a) = v6;
+      v21 = DiagramConfiguration.LineWidth.toPoints()(v20);
       if (v5 > 1u)
       {
         if (v5 != 3)
@@ -89,32 +89,32 @@ void sub_1D145A15C(double *a1, uint64_t a2, int *a3)
           goto LABEL_5;
         }
 
-        v30 = *(v18 + 32);
+        v31 = *(v18 + 32);
 
-        v85.origin.x = sub_1D145664C();
-        v81.y = CGRectGetMinY(v85);
-        v64.a = v58;
-        v64.b = v57;
-        v64.c = v56;
-        v64.d = v55;
-        v64.tx = v54;
-        v64.ty = v53;
-        v81.x = v30;
-        CGPointApplyAffineTransform(v81, &v64);
-        v86.origin.x = sub_1D145664C();
-        v82.y = CGRectGetMaxY(v86);
-        v64.a = v58;
-        v64.b = v57;
-        v64.c = v56;
-        v64.d = v55;
-        v64.tx = v54;
-        v64.ty = v53;
-        v82.x = v30;
-        CGPointApplyAffineTransform(v82, &v64);
-        CGContextSetLineWidth(v4, v20);
+        v89.origin.x = sub_1D145664C();
+        v85.y = CGRectGetMinY(v89);
+        v68.a = v62;
+        v68.b = v61;
+        v68.c = v60;
+        v68.d = v59;
+        v68.tx = v58;
+        v68.ty = v57;
+        v85.x = v31;
+        CGPointApplyAffineTransform(v85, &v68);
+        v90.origin.x = sub_1D145664C();
+        v86.y = CGRectGetMaxY(v90);
+        v68.a = v62;
+        v68.b = v61;
+        v68.c = v60;
+        v68.d = v59;
+        v68.tx = v58;
+        v68.ty = v57;
+        v86.x = v31;
+        CGPointApplyAffineTransform(v86, &v68);
+        CGContextSetLineWidth(v4, v21);
         CGContextSetLineCap(v4, kCGLineCapRound);
-        v31 = [(objc_class *)v19.super.isa CGColor];
-        CGContextSetStrokeColorWithColor(v4, v31);
+        v32 = [(objc_class *)v19.super.isa CGColor];
+        CGContextSetStrokeColorWithColor(v4, v32);
 
         sub_1D15A4298();
         sub_1D15A42A8();
@@ -128,53 +128,53 @@ void sub_1D145A15C(double *a1, uint64_t a2, int *a3)
 
           if (*(v14 + 16))
           {
-            v32 = sub_1D1451D94(2u);
-            if (v33)
+            v33 = sub_1D1451D94(2);
+            if (v34)
             {
-              v59 = v5;
-              v34 = (*(v14 + 56) + 40 * v32);
-              v35 = *v34;
-              v36 = v34[2];
+              v63 = v5;
+              v35 = (*(v14 + 56) + 40 * v33);
+              v36 = *v35;
+              v37 = v35[2];
 
-              if (*(v35 + 16))
+              if (*(v36 + 16))
               {
-                v37 = *(v35 + 40);
+                v38 = *(v36 + 40);
 
-                v64.a = v58;
-                v64.b = v57;
-                v64.c = v56;
-                v64.d = v55;
-                v64.tx = v54;
-                v64.ty = v53;
-                v83.x = 0.0;
-                v83.y = v37;
-                CGPointApplyAffineTransform(v83, &v64);
-                v64.a = v58;
-                v64.b = v57;
-                v64.c = v56;
-                v64.d = v55;
-                v64.tx = v54;
-                v64.ty = v53;
-                v84.x = 0.0;
-                v84.y = v37;
-                y = CGPointApplyAffineTransform(v84, &v64).y;
-                if (!v36)
+                v68.a = v62;
+                v68.b = v61;
+                v68.c = v60;
+                v68.d = v59;
+                v68.tx = v58;
+                v68.ty = v57;
+                v87.x = 0.0;
+                v87.y = v38;
+                CGPointApplyAffineTransform(v87, &v68);
+                v68.a = v62;
+                v68.b = v61;
+                v68.c = v60;
+                v68.d = v59;
+                v68.tx = v58;
+                v68.ty = v57;
+                v88.x = 0.0;
+                v88.y = v38;
+                y = CGPointApplyAffineTransform(v88, &v68).y;
+                if (!v37)
                 {
                   goto LABEL_31;
                 }
 
-                LOBYTE(v64.a) = v60;
+                LOBYTE(v68.a) = v64;
 
-                static DiagramGenerator.computeRightMarginAnnotationBounds(at:annotation:textAttributes:)(v36, &v64, &v73, v52, y);
+                static DiagramGenerator.computeRightMarginAnnotationBounds(at:annotation:textAttributes:)(v37, &v68, &v77, v56, y);
 
-                if (v74)
+                if (v78)
                 {
 
 LABEL_31:
-                  CGContextSetLineWidth(v4, v20);
+                  CGContextSetLineWidth(v4, v21);
                   CGContextSetLineCap(v4, kCGLineCapRound);
-                  v39 = [(objc_class *)v19.super.isa CGColor];
-                  CGContextSetStrokeColorWithColor(v4, v39);
+                  v40 = [(objc_class *)v19.super.isa CGColor];
+                  CGContextSetStrokeColorWithColor(v4, v40);
 
                   sub_1D15A4298();
                   sub_1D15A42A8();
@@ -182,37 +182,37 @@ LABEL_31:
 LABEL_43:
 
 LABEL_44:
-                  v77 = v67;
-                  v78 = v68;
-                  v75 = v65;
-                  v76 = v66;
-                  v5 = v59;
+                  v81 = v71;
+                  v82 = v72;
+                  v79 = v69;
+                  v80 = v70;
+                  v5 = v63;
                   goto LABEL_6;
                 }
 
-                x = v73.origin.x;
-                v43 = v73.origin.y;
-                CGRectGetWidth(v73);
-                CGContextSetLineWidth(v4, v20);
+                x = v77.origin.x;
+                v45 = v77.origin.y;
+                CGRectGetWidth(v77);
+                CGContextSetLineWidth(v4, v21);
                 CGContextSetLineCap(v4, kCGLineCapRound);
-                v45 = [(objc_class *)v19.super.isa CGColor];
-                CGContextSetStrokeColorWithColor(v4, v45);
+                v47 = [(objc_class *)v19.super.isa CGColor];
+                CGContextSetStrokeColorWithColor(v4, v47);
 
                 sub_1D15A4298();
                 sub_1D15A42A8();
                 CGContextStrokePath(v4);
-                v46 = sub_1D15A3EF8();
+                v48 = sub_1D15A3EF8();
 
-                LOBYTE(v64.a) = v60;
-                DiagramConfiguration.TextAttributes.toTextAttributes()();
+                LOBYTE(v68.a) = v64;
+                DiagramConfiguration.TextAttributes.toTextAttributes()(v49);
                 type metadata accessor for Key(0);
                 sub_1D14587E0();
-                v47 = sub_1D15A3E48();
+                v50 = sub_1D15A3E48();
 
-                [v46 drawAtPoint:v47 withAttributes:{x, v43}];
+                [v48 drawAtPoint:v50 withAttributes:{x, v45}];
 LABEL_42:
 
-                v8 = v51;
+                v8 = v55;
                 goto LABEL_43;
               }
 
@@ -228,98 +228,98 @@ LABEL_34:
 
           if (*(v14 + 16))
           {
-            v21 = sub_1D1451D94(2u);
-            if (v22)
+            v22 = sub_1D1451D94(2);
+            if (v23)
             {
-              v59 = v5;
-              v23 = (*(v14 + 56) + 40 * v21);
-              v24 = *v23;
-              v25 = v23[2];
-              v26 = v23[4];
+              v63 = v5;
+              v24 = (*(v14 + 56) + 40 * v22);
+              v25 = *v24;
+              v26 = v24[2];
+              v27 = v24[4];
 
-              if (!*(v24 + 16))
+              if (!*(v25 + 16))
               {
 
                 goto LABEL_34;
               }
 
-              v27 = *(v24 + 40);
+              v28 = *(v25 + 40);
 
-              v64.a = v58;
-              v64.b = v57;
-              v64.c = v56;
-              v64.d = v55;
-              v64.tx = v54;
-              v64.ty = v53;
-              v79.x = 0.0;
-              v79.y = v27;
-              v28 = CGPointApplyAffineTransform(v79, &v64);
-              v64.a = v58;
-              v64.b = v57;
-              v64.c = v56;
-              v64.d = v55;
-              v64.tx = v54;
-              v64.ty = v53;
-              v80.x = 0.0;
-              v80.y = v27;
-              CGPointApplyAffineTransform(v80, &v64);
-              CGContextSetLineWidth(v4, v20);
+              v68.a = v62;
+              v68.b = v61;
+              v68.c = v60;
+              v68.d = v59;
+              v68.tx = v58;
+              v68.ty = v57;
+              v83.x = 0.0;
+              v83.y = v28;
+              v29 = CGPointApplyAffineTransform(v83, &v68);
+              v68.a = v62;
+              v68.b = v61;
+              v68.c = v60;
+              v68.d = v59;
+              v68.tx = v58;
+              v68.ty = v57;
+              v84.x = 0.0;
+              v84.y = v28;
+              CGPointApplyAffineTransform(v84, &v68);
+              CGContextSetLineWidth(v4, v21);
               CGContextSetLineCap(v4, kCGLineCapRound);
-              v29 = [(objc_class *)v19.super.isa CGColor];
-              CGContextSetStrokeColorWithColor(v4, v29);
+              v30 = [(objc_class *)v19.super.isa CGColor];
+              CGContextSetStrokeColorWithColor(v4, v30);
 
               sub_1D15A4298();
               sub_1D15A42A8();
               CGContextStrokePath(v4);
-              if (v25)
+              if (v26)
               {
-                LOBYTE(v64.a) = v60;
+                LOBYTE(v68.a) = v64;
 
-                static DiagramGenerator.computeLeftMarginAnnotationBounds(at:annotation:above:textAttributes:)(v25, 1, &v64, v69, 0.0, v28.y);
-                if (v70)
+                static DiagramGenerator.computeLeftMarginAnnotationBounds(at:annotation:above:textAttributes:)(v26, 1, &v68, v73, 0.0, v29.y);
+                if (v74)
                 {
                 }
 
                 else
                 {
-                  v41 = *v69;
-                  v40 = *&v69[1];
-                  v50 = sub_1D15A3EF8();
+                  v42 = *v73;
+                  v41 = *&v73[1];
+                  v54 = sub_1D15A3EF8();
 
-                  LOBYTE(v64.a) = v60;
-                  DiagramConfiguration.TextAttributes.toTextAttributes()();
+                  LOBYTE(v68.a) = v64;
+                  DiagramConfiguration.TextAttributes.toTextAttributes()(v43);
                   type metadata accessor for Key(0);
                   sub_1D14587E0();
-                  v42 = sub_1D15A3E48();
+                  v44 = sub_1D15A3E48();
 
-                  [v50 drawAtPoint:v42 withAttributes:{v41, v40}];
+                  [v54 drawAtPoint:v44 withAttributes:{v42, v41}];
 
-                  v8 = v51;
+                  v8 = v55;
                 }
               }
 
-              if (!v26)
+              if (!v27)
               {
 
                 goto LABEL_44;
               }
 
-              LOBYTE(v64.a) = v60;
-              static DiagramGenerator.computeLeftMarginAnnotationBounds(at:annotation:above:textAttributes:)(v25, 0, &v64, v71, 0.0, v28.y);
+              LOBYTE(v68.a) = v64;
+              static DiagramGenerator.computeLeftMarginAnnotationBounds(at:annotation:above:textAttributes:)(v26, 0, &v68, v75, 0.0, v29.y);
 
-              if ((v72 & 1) == 0)
+              if ((v76 & 1) == 0)
               {
-                v49 = *v71;
-                v48 = *&v71[1];
-                v46 = sub_1D15A3EF8();
+                v52 = *v75;
+                v51 = *&v75[1];
+                v48 = sub_1D15A3EF8();
 
-                LOBYTE(v64.a) = v60;
-                DiagramConfiguration.TextAttributes.toTextAttributes()();
+                LOBYTE(v68.a) = v64;
+                DiagramConfiguration.TextAttributes.toTextAttributes()(v53);
                 type metadata accessor for Key(0);
                 sub_1D14587E0();
-                v47 = sub_1D15A3E48();
+                v50 = sub_1D15A3E48();
 
-                [v46 drawAtPoint:v47 withAttributes:{v49, v48}];
+                [v48 drawAtPoint:v50 withAttributes:{v52, v51}];
                 goto LABEL_42;
               }
 
@@ -332,16 +332,16 @@ LABEL_38:
       }
 
 LABEL_5:
-      v77 = v67;
-      v78 = v68;
-      v75 = v65;
-      v76 = v66;
+      v81 = v71;
+      v82 = v72;
+      v79 = v69;
+      v80 = v70;
 LABEL_6:
       ++v9;
       v10 += 32;
     }
 
-    while (v62 != v9);
+    while (v66 != v9);
   }
 }
 
@@ -354,55 +354,55 @@ void sub_1D145AAC0(double *a1, char a2, char *a3)
   v8 = a1[7];
   v10 = a1[8];
   v9 = a1[9];
-  v101 = a3[1];
-  v102 = *a3;
-  v99 = a3[3];
-  v100 = a3[2];
-  v98 = a3[4];
+  v104 = a3[1];
+  v105 = *a3;
+  v102 = a3[3];
+  v103 = a3[2];
+  v101 = a3[4];
   v11 = *(a3 + 5);
-  *(v140 + 14) = *(a3 + 19);
-  v140[0] = v11;
-  v95 = *(v3 + 96);
-  v92 = *(v95 + 16);
-  if (!v92)
+  *(v143 + 14) = *(a3 + 19);
+  v143[0] = v11;
+  v98 = *(v3 + 96);
+  v95 = *(v98 + 16);
+  if (!v95)
   {
     return;
   }
 
   v12 = 0;
   v13 = MEMORY[0x1E69E7CC0];
-  v90 = v6;
-  v91 = v5;
-  v104 = v7;
+  v93 = v6;
+  v94 = v5;
+  v107 = v7;
   while (1)
   {
-    if (v12 >= *(v95 + 16))
+    if (v12 >= *(v98 + 16))
     {
       __break(1u);
       goto LABEL_95;
     }
 
-    v14 = *(v94 + 16);
+    v14 = *(v97 + 16);
     if (v12 >= *(v14 + 16))
     {
-      v109[0] = v140[0];
-      v16 = *(v140 + 14);
+      v112[0] = v143[0];
+      v16 = *(v143 + 14);
     }
 
     else
     {
       v15 = v14 + 32 * v12;
-      v101 = *(v15 + 33);
-      v102 = *(v15 + 32);
-      v99 = *(v15 + 35);
-      v100 = *(v15 + 34);
-      v98 = *(v15 + 36);
-      v109[0] = *(v15 + 37);
+      v104 = *(v15 + 33);
+      v105 = *(v15 + 32);
+      v102 = *(v15 + 35);
+      v103 = *(v15 + 34);
+      v101 = *(v15 + 36);
+      v112[0] = *(v15 + 37);
       v16 = *(v15 + 51);
     }
 
-    *(v109 + 14) = v16;
-    v17 = *(v95 + 32 + 8 * v12);
+    *(v112 + 14) = v16;
+    v17 = *(v98 + 32 + 8 * v12);
     v18 = *(v17 + 16);
 
     if (!v18)
@@ -417,11 +417,11 @@ LABEL_34:
     v19 = sub_1D1451D94(0);
     if ((v20 & 1) != 0 && (v21 = *(*(v17 + 56) + 40 * v19), (v22 = *(v21 + 16)) != 0))
     {
-      v108 = v13;
+      v111 = v13;
 
       sub_1D145B8B4(0, v22, 0);
       sub_1D15A4148();
-      v23 = v108;
+      v23 = v111;
       v24 = (v21 + 40);
       do
       {
@@ -434,23 +434,23 @@ LABEL_34:
           swift_task_reportUnexpectedExecutor();
         }
 
-        v107.a = v6;
-        v107.b = v5;
-        v107.c = v7;
-        v107.d = v8;
-        v107.tx = v10;
-        v107.ty = v9;
-        v141.x = v25;
-        v141.y = v26;
-        v27 = CGPointApplyAffineTransform(v141, &v107);
+        v110.a = v6;
+        v110.b = v5;
+        v110.c = v7;
+        v110.d = v8;
+        v110.tx = v10;
+        v110.ty = v9;
+        v144.x = v25;
+        v144.y = v26;
+        v27 = CGPointApplyAffineTransform(v144, &v110);
 
-        v108 = v23;
+        v111 = v23;
         v29 = *(*&v23 + 16);
         v28 = *(*&v23 + 24);
         if (v29 >= v28 >> 1)
         {
           sub_1D145B8B4((v28 > 1), v29 + 1, 1);
-          v23 = v108;
+          v23 = v111;
         }
 
         *(*&v23 + 16) = v29 + 1;
@@ -477,7 +477,7 @@ LABEL_34:
       }
     }
 
-    v30 = sub_1D1451D94(1u);
+    v30 = sub_1D1451D94(1);
     if ((v31 & 1) == 0)
     {
       goto LABEL_34;
@@ -491,10 +491,10 @@ LABEL_34:
       goto LABEL_34;
     }
 
-    v108 = v13;
+    v111 = v13;
     sub_1D145B8B4(0, v33, 0);
     sub_1D15A4148();
-    v34 = v108;
+    v34 = v111;
     v35 = (v32 + 40);
     do
     {
@@ -507,23 +507,23 @@ LABEL_34:
         swift_task_reportUnexpectedExecutor();
       }
 
-      v107.a = v6;
-      v107.b = v5;
-      v107.c = v7;
-      v107.d = v8;
-      v107.tx = v10;
-      v107.ty = v9;
-      v142.x = v36;
-      v142.y = v37;
-      v38 = CGPointApplyAffineTransform(v142, &v107);
+      v110.a = v6;
+      v110.b = v5;
+      v110.c = v7;
+      v110.d = v8;
+      v110.tx = v10;
+      v110.ty = v9;
+      v145.x = v36;
+      v145.y = v37;
+      v38 = CGPointApplyAffineTransform(v145, &v110);
 
-      v108 = v34;
+      v111 = v34;
       v40 = *(*&v34 + 16);
       v39 = *(*&v34 + 24);
       if (v40 >= v39 >> 1)
       {
         sub_1D145B8B4((v39 > 1), v40 + 1, 1);
-        v34 = v108;
+        v34 = v111;
       }
 
       *(*&v34 + 16) = v40 + 1;
@@ -536,44 +536,46 @@ LABEL_34:
 
     v13 = MEMORY[0x1E69E7CC0];
 LABEL_35:
-    LOBYTE(v107.a) = v102;
-    v41 = DiagramConfiguration.LineWidth.toPoints()();
-    LOBYTE(v107.a) = v98;
-    v42 = DiagramConfiguration.LineRadius.toFloat()();
-    LOBYTE(v107.a) = v99;
-    v43 = DiagramConfiguration.LineRadius.toFloat()();
-    LOBYTE(v107.a) = v101;
-    v44.super.isa = DiagramConfiguration.Color.toColor()().super.isa;
-    LOBYTE(v107.a) = v100;
-    v45.super.isa = DiagramConfiguration.Color.toColor()().super.isa;
+    LOBYTE(v110.a) = v105;
+    v41.n128_f64[0] = DiagramConfiguration.LineWidth.toPoints()(v83);
+    v42 = v41.n128_f64[0];
+    LOBYTE(v110.a) = v101;
+    v43.n128_f64[0] = DiagramConfiguration.LineRadius.toFloat()(v41);
+    v44 = v43.n128_f64[0];
+    LOBYTE(v110.a) = v102;
+    v45 = DiagramConfiguration.LineRadius.toFloat()(v43);
+    LOBYTE(v110.a) = v104;
+    v46.super.isa = DiagramConfiguration.Color.toColor()().super.isa;
+    LOBYTE(v110.a) = v103;
+    v47.super.isa = DiagramConfiguration.Color.toColor()().super.isa;
     if ((a2 & 1) == 0)
     {
       break;
     }
 
-    v46 = *(*&v34 + 16);
-    if (!v46)
+    v48 = *(*&v34 + 16);
+    if (!v48)
     {
 
-      v140[0] = v109[0];
-      *(v140 + 14) = *(v109 + 14);
-      v7 = v104;
+      v143[0] = v112[0];
+      *(v143 + 14) = *(v112 + 14);
+      v7 = v107;
       goto LABEL_6;
     }
 
-    isa = v44.super.isa;
-    v105 = v12;
-    v107.a = v13;
-    v47 = v41 * 0.8;
-    sub_1D145BF98(0, v46, 0);
+    isa = v46.super.isa;
+    v108 = v12;
+    v110.a = v13;
+    v49 = v42 * 0.8;
+    sub_1D145BF98(0, v48, 0);
     sub_1D15A4148();
-    v48 = v43 + v43;
-    a = v107.a;
-    v50 = (*&v34 + 40);
+    v50 = v45 + v45;
+    a = v110.a;
+    v52 = (*&v34 + 40);
     do
     {
-      v51 = *(v50 - 1);
-      v52 = *v50;
+      v53 = *(v52 - 1);
+      v54 = *v52;
       sub_1D15A4138();
       sub_1D15A4128();
       if ((swift_task_isCurrentExecutor() & 1) == 0)
@@ -581,45 +583,45 @@ LABEL_35:
         swift_task_reportUnexpectedExecutor();
       }
 
-      v107.a = a;
-      v54 = *(*&a + 16);
-      v53 = *(*&a + 24);
-      if (v54 >= v53 >> 1)
+      v110.a = a;
+      v56 = *(*&a + 16);
+      v55 = *(*&a + 24);
+      if (v56 >= v55 >> 1)
       {
-        sub_1D145BF98((v53 > 1), v54 + 1, 1);
-        a = v107.a;
+        sub_1D145BF98((v55 > 1), v56 + 1, 1);
+        a = v110.a;
       }
 
-      *(*&a + 16) = v54 + 1;
-      v55 = (*&a + 32 * v54);
-      v55[4] = v51 - v43;
-      v55[5] = v52 - v43;
-      v55[6] = v48;
-      v55[7] = v48;
-      v50 += 2;
-      --v46;
+      *(*&a + 16) = v56 + 1;
+      v57 = (*&a + 32 * v56);
+      v57[4] = v53 - v45;
+      v57[5] = v54 - v45;
+      v57[6] = v50;
+      v57[7] = v50;
+      v52 += 2;
+      --v48;
     }
 
-    while (v46);
+    while (v48);
 
-    v66 = [(objc_class *)v45.super.isa CGColor];
-    CGContextSetFillColorWithColor(v4, v66);
+    v68 = [(objc_class *)v47.super.isa CGColor];
+    CGContextSetFillColorWithColor(v4, v68);
 
-    v12 = v105;
-    if (v47 > 0.0)
+    v12 = v108;
+    if (v49 > 0.0)
     {
       CGContextSetBlendMode(v4, kCGBlendModeClear);
-      v67 = *(*&a + 16);
-      if (v67)
+      v69 = *(*&a + 16);
+      if (v69)
       {
-        v68 = -v47;
-        v69 = (*&a + 56);
+        v70 = -v49;
+        v71 = (*&a + 56);
         do
         {
-          v70 = *(v69 - 3);
-          v71 = *(v69 - 2);
-          v72 = *(v69 - 1);
-          v73 = *v69;
+          v72 = *(v71 - 3);
+          v73 = *(v71 - 2);
+          v74 = *(v71 - 1);
+          v75 = *v71;
           sub_1D15A4138();
           sub_1D15A4128();
           if ((swift_task_isCurrentExecutor() & 1) == 0)
@@ -627,33 +629,33 @@ LABEL_35:
             swift_task_reportUnexpectedExecutor();
           }
 
-          v143.origin.x = v70;
-          v143.origin.y = v71;
-          v143.size.width = v72;
-          v143.size.height = v73;
-          v144 = CGRectInset(v143, v68, v68);
-          CGContextFillEllipseInRect(v4, v144);
+          v146.origin.x = v72;
+          v146.origin.y = v73;
+          v146.size.width = v74;
+          v146.size.height = v75;
+          v147 = CGRectInset(v146, v70, v70);
+          CGContextFillEllipseInRect(v4, v147);
 
-          v69 += 4;
-          --v67;
+          v71 += 4;
+          --v69;
         }
 
-        while (v67);
+        while (v69);
       }
     }
 
     CGContextSetBlendMode(v4, kCGBlendModeNormal);
-    v74 = *(*&a + 16);
-    if (v74)
+    v76 = *(*&a + 16);
+    if (v76)
     {
-      v75 = (*&a + 56);
-      v6 = v90;
+      v77 = (*&a + 56);
+      v6 = v93;
       do
       {
-        v76 = *(v75 - 3);
-        v77 = *(v75 - 2);
-        v78 = *(v75 - 1);
-        v79 = *v75;
+        v78 = *(v77 - 3);
+        v79 = *(v77 - 2);
+        v80 = *(v77 - 1);
+        v81 = *v77;
         sub_1D15A4138();
         sub_1D15A4128();
         if ((swift_task_isCurrentExecutor() & 1) == 0)
@@ -661,54 +663,54 @@ LABEL_35:
           swift_task_reportUnexpectedExecutor();
         }
 
-        v145.origin.x = v76;
-        v145.origin.y = v77;
-        v145.size.width = v78;
-        v145.size.height = v79;
-        CGContextFillEllipseInRect(v4, v145);
+        v148.origin.x = v78;
+        v148.origin.y = v79;
+        v148.size.width = v80;
+        v148.size.height = v81;
+        CGContextFillEllipseInRect(v4, v148);
 
-        v75 += 4;
-        --v74;
+        v77 += 4;
+        --v76;
       }
 
-      while (v74);
+      while (v76);
 
-      v140[0] = v109[0];
-      *(v140 + 14) = *(v109 + 14);
+      v143[0] = v112[0];
+      *(v143 + 14) = *(v112 + 14);
     }
 
     else
     {
 
-      v140[0] = v109[0];
-      *(v140 + 14) = *(v109 + 14);
-      v6 = v90;
+      v143[0] = v112[0];
+      *(v143 + 14) = *(v112 + 14);
+      v6 = v93;
     }
 
-    v5 = v91;
-    v7 = v104;
+    v5 = v94;
+    v7 = v107;
 LABEL_5:
     v13 = MEMORY[0x1E69E7CC0];
 LABEL_6:
-    if (++v12 == v92)
+    if (++v12 == v95)
     {
       return;
     }
   }
 
-  v56 = *(*&v23 + 16);
-  v7 = v104;
-  if (!v56)
+  v58 = *(*&v23 + 16);
+  v7 = v107;
+  if (!v58)
   {
 
-    v140[0] = v109[0];
-    *(v140 + 14) = *(v109 + 14);
+    v143[0] = v112[0];
+    *(v143 + 14) = *(v112 + 14);
     goto LABEL_6;
   }
 
-  v103 = v45.super.isa;
-  v97 = v44.super.isa;
-  if (v42 <= 0.0)
+  v106 = v47.super.isa;
+  v100 = v46.super.isa;
+  if (v44 <= 0.0)
   {
     Mutable = CGPathCreateMutable();
     sub_1D15A4148();
@@ -719,24 +721,24 @@ LABEL_6:
       swift_task_reportUnexpectedExecutor();
     }
 
-    v129 = 0;
-    v130 = 0;
-    v128 = 0x3FF0000000000000;
-    v131 = 0x3FF0000000000000;
     v132 = 0;
     v133 = 0;
+    v131 = 0x3FF0000000000000;
+    v134 = 0x3FF0000000000000;
+    v135 = 0;
+    v136 = 0;
     sub_1D15A43A8();
 
-    v80 = v56 - 1;
-    if (v56 == 1)
+    v82 = v58 - 1;
+    if (v58 == 1)
     {
-      v7 = v104;
+      v7 = v107;
     }
 
     else
     {
-      v106 = v12;
-      v81 = *&v23 + 56;
+      v109 = v12;
+      v84 = *&v23 + 56;
       do
       {
         sub_1D15A4138();
@@ -746,70 +748,70 @@ LABEL_6:
           swift_task_reportUnexpectedExecutor();
         }
 
-        v135 = 0;
-        v136 = 0;
-        v134 = 0x3FF0000000000000;
-        v137 = 0x3FF0000000000000;
         v138 = 0;
         v139 = 0;
+        v137 = 0x3FF0000000000000;
+        v140 = 0x3FF0000000000000;
+        v141 = 0;
+        v142 = 0;
         sub_1D15A43C8();
 
-        v81 += 16;
-        --v80;
+        v84 += 16;
+        --v82;
       }
 
-      while (v80);
-      v7 = v104;
+      while (v82);
+      v7 = v107;
 LABEL_80:
-      v12 = v106;
+      v12 = v109;
     }
 
-    v82 = Mutable;
-    CGContextSetLineWidth(v4, v41);
+    v85 = Mutable;
+    CGContextSetLineWidth(v4, v42);
     CGContextSetLineJoin(v4, kCGLineJoinRound);
     CGContextSetLineCap(v4, kCGLineCapRound);
     CGContextSetBlendMode(v4, kCGBlendModeNormal);
-    v83 = [(objc_class *)v97 CGColor];
-    CGContextSetStrokeColorWithColor(v4, v83);
+    v86 = [(objc_class *)v100 CGColor];
+    CGContextSetStrokeColorWithColor(v4, v86);
 
-    CGContextAddPath(v4, v82);
+    CGContextAddPath(v4, v85);
     CGContextStrokePath(v4);
 
-    v140[0] = v109[0];
-    *(v140 + 14) = *(v109 + 14);
+    v143[0] = v112[0];
+    *(v143 + 14) = *(v112 + 14);
     goto LABEL_5;
   }
 
-  v106 = v12;
-  v107.a = v23;
-  *&v107.b = *&v23 + 32;
-  *&v107.c = 1;
-  *&v107.d = (2 * v56) | 1;
+  v109 = v12;
+  v110.a = v23;
+  *&v110.b = *&v23 + 32;
+  *&v110.c = 1;
+  *&v110.d = (2 * v58) | 1;
 
-  sub_1D145B8D8(&unk_1F4D3AB38);
-  b = v107.b;
-  c = v107.c;
-  d = v107.d;
+  sub_1D145B8D8(qword_1F4D3AB38);
+  b = v110.b;
+  c = v110.c;
+  d = v110.d;
 
   Mutable = CGPathCreateMutable();
-  v61 = *(*&v23 + 16);
+  v63 = *(*&v23 + 16);
 
   swift_unknownObjectRetain();
-  v89 = v61;
-  if (!v61)
+  v92 = v63;
+  if (!v63)
   {
     goto LABEL_56;
   }
 
-  v62 = *&d >> 1;
+  v64 = *&d >> 1;
   if (*&c <= *&d >> 1)
   {
-    *&v63 = *&d >> 1;
+    *&v65 = *&d >> 1;
   }
 
   else
   {
-    v63 = c;
+    v65 = c;
   }
 
   if (!*(*&v23 + 16))
@@ -817,16 +819,16 @@ LABEL_80:
     goto LABEL_95;
   }
 
-  v87 = *&v63 - *&c;
-  v64 = __OFSUB__(v62, *&c);
-  v65 = v62 - *&c;
-  v88 = v65;
-  if (!v65)
+  v90 = *&v65 - *&c;
+  v66 = __OFSUB__(v64, *&c);
+  v67 = v64 - *&c;
+  v91 = v67;
+  if (!v67)
   {
     goto LABEL_56;
   }
 
-  if ((v65 < 0) ^ v64 | (v65 == 0))
+  if ((v67 < 0) ^ v66 | (v67 == 0))
   {
     goto LABEL_96;
   }
@@ -839,17 +841,17 @@ LABEL_80:
     swift_task_reportUnexpectedExecutor();
   }
 
-  v111 = 0;
-  v112 = 0;
-  v110 = 0x3FF0000000000000;
-  v113 = 0x3FF0000000000000;
   v114 = 0;
   v115 = 0;
+  v113 = 0x3FF0000000000000;
+  v116 = 0x3FF0000000000000;
+  v117 = 0;
+  v118 = 0;
   sub_1D15A43A8();
 
-  v5 = v91;
-  v7 = v104;
-  if (v61 == 1)
+  v5 = v94;
+  v7 = v107;
+  if (v63 == 1)
   {
 LABEL_56:
     swift_unknownObjectRelease_n();
@@ -857,17 +859,17 @@ LABEL_56:
     goto LABEL_80;
   }
 
-  v84 = *&b + 16 * *&c + 24;
-  v85 = *&v23 + 56;
-  v86 = 1;
-  while (v86 < *(*&v23 + 16))
+  v87 = *&b + 16 * *&c + 24;
+  v88 = *&v23 + 56;
+  v89 = 1;
+  while (v89 < *(*&v23 + 16))
   {
-    if (v88 == v86)
+    if (v91 == v89)
     {
       goto LABEL_56;
     }
 
-    if (v87 == v86)
+    if (v90 == v89)
     {
       goto LABEL_96;
     }
@@ -880,36 +882,36 @@ LABEL_56:
       swift_task_reportUnexpectedExecutor();
     }
 
-    if (v86 >= v56 - 1)
+    if (v89 >= v58 - 1)
     {
-      v123 = 0;
-      v124 = 0;
-      v122 = 0x3FF0000000000000;
-      v125 = 0x3FF0000000000000;
       v126 = 0;
       v127 = 0;
+      v125 = 0x3FF0000000000000;
+      v128 = 0x3FF0000000000000;
+      v129 = 0;
+      v130 = 0;
       sub_1D15A43C8();
     }
 
     else
     {
-      v117 = 0;
-      v118 = 0;
-      v116 = 0x3FF0000000000000;
-      v119 = 0x3FF0000000000000;
       v120 = 0;
       v121 = 0;
+      v119 = 0x3FF0000000000000;
+      v122 = 0x3FF0000000000000;
+      v123 = 0;
+      v124 = 0;
       sub_1D15A43B8();
     }
 
-    v6 = v90;
-    ++v86;
+    v6 = v93;
+    ++v89;
 
-    v84 += 16;
-    v85 += 16;
-    v5 = v91;
-    v7 = v104;
-    if (v89 == v86)
+    v87 += 16;
+    v88 += 16;
+    v5 = v94;
+    v7 = v107;
+    if (v92 == v89)
     {
       goto LABEL_56;
     }
@@ -1007,7 +1009,7 @@ char *sub_1D145B8B4(char *a1, int64_t a2, char a3)
   return result;
 }
 
-uint64_t sub_1D145B8D8(uint64_t result)
+void sub_1D145B8D8(void *result)
 {
   v3 = v1[2];
   v2 = v1[3];
@@ -1018,8 +1020,7 @@ uint64_t sub_1D145B8D8(uint64_t result)
     goto LABEL_34;
   }
 
-  v5 = result;
-  v6 = *(result + 16);
+  v6 = result[2];
   if ((v2 & 1) == 0)
   {
     goto LABEL_7;
@@ -1057,7 +1058,7 @@ LABEL_40:
   }
 
 LABEL_9:
-  result = v4 + v6;
+  v14 = v4 + v6;
   if (__OFADD__(v4, v6))
   {
 LABEL_34:
@@ -1067,7 +1068,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if (v10 < result)
+  if (v10 < v14)
   {
     if (v10 + 0x4000000000000000 < 0)
     {
@@ -1078,61 +1079,61 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    v14 = 2 * v10;
-    if (v14 > result)
+    v15 = 2 * v10;
+    if (v15 > v14)
     {
-      result = v14;
+      v14 = v15;
     }
   }
 
-  result = sub_1D145BAE8(result);
-  v16 = v1[2];
-  v15 = v1[3];
-  v17 = (v15 >> 1) - v16;
-  if (__OFSUB__(v15 >> 1, v16))
+  sub_1D145BAE8(v14);
+  v17 = v1[2];
+  v16 = v1[3];
+  v18 = (v16 >> 1) - v17;
+  if (__OFSUB__(v16 >> 1, v17))
   {
     goto LABEL_35;
   }
 
-  v18 = (v1[1] + 16 * v16 + 16 * v17);
-  if ((v15 & 1) == 0)
+  v19 = (v1[1] + 16 * v17 + 16 * v18);
+  if ((v16 & 1) == 0)
   {
 LABEL_20:
-    v21 = v17;
+    v22 = v18;
     goto LABEL_22;
   }
 
   sub_1D15A4BC8();
   swift_unknownObjectRetain();
-  v19 = swift_dynamicCastClass();
-  if (!v19)
+  v20 = swift_dynamicCastClass();
+  if (!v20)
   {
     swift_unknownObjectRelease();
-    v19 = MEMORY[0x1E69E7CC0];
+    v20 = MEMORY[0x1E69E7CC0];
   }
 
-  v20 = *(v19 + 16);
-  if (v18 != (v19 + 16 * v20 + 32))
+  v21 = *(v20 + 16);
+  if (v19 != (v20 + 16 * v21 + 32))
   {
 
     goto LABEL_20;
   }
 
-  v22 = *(v19 + 24);
+  v23 = *(v20 + 24);
 
-  v23 = (v22 >> 1) - v20;
-  v13 = __OFADD__(v17, v23);
-  v21 = v17 + v23;
+  v24 = (v23 >> 1) - v21;
+  v13 = __OFADD__(v18, v24);
+  v22 = v18 + v24;
   if (v13)
   {
 LABEL_41:
     __break(1u);
-    return result;
+    return;
   }
 
 LABEL_22:
-  v24 = v21 - v17;
-  if (__OFSUB__(v21, v17))
+  v25 = v22 - v18;
+  if (__OFSUB__(v22, v18))
   {
 LABEL_36:
     __break(1u);
@@ -1146,32 +1147,29 @@ LABEL_37:
     goto LABEL_28;
   }
 
-  if (v24 < v6)
+  if (v25 < v6)
   {
     goto LABEL_37;
   }
 
-  result = memcpy(v18, (v5 + 32), 16 * v6);
+  memcpy(v19, result + 4, 16 * v6);
   if (v6 <= 0)
   {
     goto LABEL_28;
   }
 
-  result = v17 + v6;
-  if (__OFADD__(v17, v6))
+  if (__OFADD__(v18, v6))
   {
     goto LABEL_39;
   }
 
-  result = sub_1D145BD6C(result);
+  sub_1D145BD6C(v18 + v6);
 LABEL_28:
-  if (v6 == v24)
+  if (v6 == v25)
   {
 
-    return sub_1D15235E0(v5, v6);
+    sub_1D15235E0(result, v6);
   }
-
-  return result;
 }
 
 uint64_t sub_1D145BAE8(uint64_t result)
@@ -1437,7 +1435,7 @@ id sub_1D145BE90(void *a1)
   return v4;
 }
 
-char *sub_1D145BF98(char *a1, int64_t a2, char a3)
+char *sub_1D145BF98(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1D145BFB8(a1, a2, a3, *v3);
   *v3 = result;
@@ -1531,132 +1529,133 @@ void sub_1D145C0E0(CGContext *a1, double *a2, unsigned __int8 *a3, CGFloat *a4, 
   v9 = a2[4];
   v11 = a2[5];
   v12 = a2[6];
-  v58 = *a3;
+  v60 = *a3;
   v13 = a3[1];
   v14 = a3[3];
-  v56 = a3[4];
+  v58 = a3[4];
   LODWORD(v15) = a3[5];
   v16 = a3[6];
   v17 = *a4;
   sub_1D145664C();
-  v67 = v8;
-  v68 = v7;
-  v82.a = v7;
-  v82.b = v8;
-  v82.c = v10;
-  v82.d = v9;
-  v82.tx = v11;
-  v82.ty = v12;
-  v83.x = 0.0;
-  y = CGPointApplyAffineTransform(v83, &v82).y;
+  v69 = v8;
+  v70 = v7;
+  v84.a = v7;
+  v84.b = v8;
+  v84.c = v10;
+  v84.d = v9;
+  v84.tx = v11;
+  v84.ty = v12;
+  v85.x = 0.0;
+  y = CGPointApplyAffineTransform(v85, &v84).y;
   v18 = *(v5 + 160);
   if (*(v5 + 168))
   {
     v18 = 0.0;
   }
 
-  v62 = v18;
+  v64 = v18;
   if (v15 > 1)
   {
-    v61 = 1;
+    v63 = 1;
   }
 
   else
   {
-    v61 = sub_1D15A4BA8();
+    v63 = sub_1D15A4BA8();
   }
 
   v15 = v15;
 
   if (v16 && v16 != 1)
   {
-    v57 = 1;
+    v59 = 1;
   }
 
   else
   {
-    v57 = sub_1D15A4BA8();
+    v59 = sub_1D15A4BA8();
   }
 
-  if (v56)
+  if (v58)
   {
-    v19 = -1.0;
+    v20 = -1.0;
   }
 
   else
   {
-    v19 = -2.0;
+    v20 = -2.0;
   }
 
-  if ((flt_1D15B3C74[v15] + v19) < 0.0)
+  v19.n128_f32[0] = flt_1D15B3C74[v15] + v20;
+  if (v19.n128_f32[0] < 0.0)
   {
-    v20 = 0.0;
+    v21 = 0.0;
   }
 
   else
   {
-    v20 = flt_1D15B3C74[v15] + v19;
+    v21 = flt_1D15B3C74[v15] + v20;
   }
 
-  LOBYTE(v82.a) = v13;
-  DiagramConfiguration.TextAttributes.toTextAttributes()();
+  LOBYTE(v84.a) = v13;
+  DiagramConfiguration.TextAttributes.toTextAttributes()(v19);
   Mutable = CGPathCreateMutable();
-  v82.a = v17;
+  v84.a = v17;
 
-  v22 = 0;
-  sub_1D145D014(&v82);
+  v23 = 0;
+  sub_1D145D014(&v84, v24);
   path = Mutable;
-  v54 = v14;
+  v56 = v14;
   c = a1;
-  a = v82.a;
-  v66 = *(*&v82.a + 16);
-  if (v66)
+  a = v84.a;
+  v68 = *(*&v84.a + 16);
+  if (v68)
   {
-    v24 = 0;
-    v25 = y + v62;
-    v65 = *&v82.a + 32;
-    v26 = v25 + (v20 * 0.5) + 2.0;
-    v27 = MEMORY[0x1E69E7CC0];
-    v60 = v82.a;
+    v26 = 0;
+    v27 = y + v64;
+    v67 = *&v84.a + 32;
+    v28 = v27 + (v21 * 0.5) + 2.0;
+    v29 = MEMORY[0x1E69E7CC0];
+    v62 = v84.a;
     do
     {
       while (1)
       {
-        if (v24 >= *(*&a + 16))
+        if (v26 >= *(*&a + 16))
         {
           goto LABEL_55;
         }
 
-        v28 = v65 + 40 * v24;
-        v29 = *(v28 + 8);
-        v30 = *(v28 + 24);
-        v84.x = *(v28 + 16);
-        v69.a = v68;
-        v69.b = v67;
-        v69.c = v10;
-        v69.d = v9;
-        v69.tx = v11;
-        v69.ty = v12;
-        v84.y = 0.0;
-        *&v31 = *&CGPointApplyAffineTransform(v84, &v69);
-        if (v30 < 2)
+        v30 = v67 + 40 * v26;
+        v31 = *(v30 + 8);
+        v32 = *(v30 + 24);
+        v86.x = *(v30 + 16);
+        v71.a = v70;
+        v71.b = v69;
+        v71.c = v10;
+        v71.d = v9;
+        v71.tx = v11;
+        v71.ty = v12;
+        v86.y = 0.0;
+        *&v33 = *&CGPointApplyAffineTransform(v86, &v71);
+        if (v32 < 2)
         {
           break;
         }
 
-        if (v30 != 2)
+        if (v32 != 2)
         {
           goto LABEL_56;
         }
 
-        if ((v57 & 1) == 0)
+        if ((v59 & 1) == 0)
         {
-          v82.b = 0.0;
-          v82.c = 0.0;
-          v82.a = 1.0;
-          v82.d = 1.0;
-          v82.tx = 0.0;
-          v82.ty = 0.0;
+          v84.b = 0.0;
+          v84.c = 0.0;
+          v84.a = 1.0;
+          v84.d = 1.0;
+          v84.tx = 0.0;
+          v84.ty = 0.0;
 
           sub_1D15A43A8();
           goto LABEL_33;
@@ -1664,52 +1663,52 @@ void sub_1D145C0E0(CGContext *a1, double *a2, unsigned __int8 *a3, CGFloat *a4, 
 
 LABEL_27:
 
-        ++v24;
-        if (v29)
+        ++v26;
+        if (v31)
         {
           goto LABEL_34;
         }
 
 LABEL_19:
-        if (v24 == v66)
+        if (v26 == v68)
         {
           goto LABEL_49;
         }
       }
 
-      if (v61)
+      if (v63)
       {
         goto LABEL_27;
       }
 
-      switch(v58)
+      switch(v60)
       {
         case 1:
 
           goto LABEL_31;
         default:
-          v32 = sub_1D15A4BA8();
+          v34 = sub_1D15A4BA8();
 
-          if (v32)
+          if (v34)
           {
 LABEL_31:
-            v71 = 0;
-            v72 = 0;
-            v70 = 0x3FF0000000000000;
-            v73 = 0x3FF0000000000000;
+            v73 = 0;
             v74 = 0;
-            v75 = 0;
+            v72 = 0x3FF0000000000000;
+            v75 = 0x3FF0000000000000;
+            v76 = 0;
+            v77 = 0;
             sub_1D15A43A8();
           }
 
           else
           {
-            v77 = 0;
-            v78 = 0;
-            v76 = 0x3FF0000000000000;
-            v79 = 0x3FF0000000000000;
+            v79 = 0;
             v80 = 0;
-            v81 = 0;
+            v78 = 0x3FF0000000000000;
+            v81 = 0x3FF0000000000000;
+            v82 = 0;
+            v83 = 0;
             sub_1D15A43A8();
           }
 
@@ -1718,47 +1717,47 @@ LABEL_31:
 
 LABEL_33:
       sub_1D15A43C8();
-      ++v24;
-      if (!v29)
+      ++v26;
+      if (!v31)
       {
         goto LABEL_19;
       }
 
 LABEL_34:
-      v33 = sub_1D15A3EF8();
+      v35 = sub_1D15A3EF8();
       type metadata accessor for Key(0);
-      sub_1D1458AD4(&qword_1EE05AD28, type metadata accessor for Key);
-      v34 = sub_1D15A3E48();
-      [v33 sizeWithAttributes_];
-      v36 = v35;
+      sub_1D1458AD4(&qword_1EE05AD28, type metadata accessor for Key, &unk_1D15ACAD0);
+      v36 = sub_1D15A3E48();
+      [v35 sizeWithAttributes_];
       v38 = v37;
+      v40 = v39;
 
-      v39 = v31 - v36 * 0.5;
-      v40 = v31 + v36 * 0.5;
-      if (v39 >= 0.0)
+      v41 = v33 - v38 * 0.5;
+      v42 = v33 + v38 * 0.5;
+      if (v41 >= 0.0)
       {
-        v41 = 0.0;
-        if (v40 <= a5)
+        v43 = 0.0;
+        if (v42 <= a5)
         {
           goto LABEL_39;
         }
       }
 
-      else if (v40 <= a5)
+      else if (v42 <= a5)
       {
-        v41 = 0.0 - v39;
+        v43 = 0.0 - v41;
         goto LABEL_39;
       }
 
-      v41 = a5 - v40;
+      v43 = a5 - v42;
 LABEL_39:
-      v42 = v39 + v41;
-      v43 = -*(v27 + 2);
-      v22 = -1;
-      v44 = v27 + 56;
-      while (v43 + v22 != -1)
+      v44 = v41 + v43;
+      v45 = -*(v29 + 2);
+      v23 = -1;
+      v46 = v29 + 56;
+      while (v45 + v23 != -1)
       {
-        if (++v22 >= *(v27 + 2))
+        if (++v23 >= *(v29 + 2))
         {
           __break(1u);
 LABEL_55:
@@ -1771,48 +1770,48 @@ LABEL_56:
           JUMPOUT(0x1D145CAD0);
         }
 
-        v45 = v44 + 32;
-        v85.origin.x = v42;
-        v85.origin.y = v26;
-        v85.size.width = v36;
-        v85.size.height = v38;
-        v46 = CGRectIntersectsRect(v85, *(v44 - 24));
-        v44 = v45;
-        if (v46)
+        v47 = v46 + 32;
+        v87.origin.x = v44;
+        v87.origin.y = v28;
+        v87.size.width = v38;
+        v87.size.height = v40;
+        v48 = CGRectIntersectsRect(v87, *(v46 - 24));
+        v46 = v47;
+        if (v48)
         {
 
-          a = v60;
+          a = v62;
           goto LABEL_19;
         }
       }
 
-      v47 = sub_1D15A3EF8();
+      v49 = sub_1D15A3EF8();
 
-      v48 = sub_1D15A3E48();
-      [v47 drawAtPoint:v48 withAttributes:{v42, v26}];
+      v50 = sub_1D15A3E48();
+      [v49 drawAtPoint:v50 withAttributes:{v44, v28}];
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v27 = sub_1D145D43C(0, *(v27 + 2) + 1, 1, v27);
+        v29 = sub_1D145D43C(0, *(v29 + 2) + 1, 1, v29);
       }
 
-      a = v60;
-      v22 = *(v27 + 2);
-      v49 = *(v27 + 3);
-      if (v22 >= v49 >> 1)
+      a = v62;
+      v23 = *(v29 + 2);
+      v51 = *(v29 + 3);
+      if (v23 >= v51 >> 1)
       {
-        v27 = sub_1D145D43C((v49 > 1), v22 + 1, 1, v27);
+        v29 = sub_1D145D43C((v51 > 1), v23 + 1, 1, v29);
       }
 
-      *(v27 + 2) = v22 + 1;
-      v50 = &v27[32 * v22];
-      v50[4] = v42;
-      v50[5] = v26;
-      v50[6] = v36;
-      v50[7] = v38;
+      *(v29 + 2) = v23 + 1;
+      v52 = &v29[32 * v23];
+      v52[4] = v44;
+      v52[5] = v28;
+      v52[6] = v38;
+      v52[7] = v40;
     }
 
-    while (v24 != v66);
+    while (v26 != v68);
   }
 
 LABEL_49:
@@ -1821,26 +1820,25 @@ LABEL_49:
   {
     CGContextSetBlendMode(c, kCGBlendModeNormal);
     CGContextSetLineCap(c, kCGLineCapRound);
-    v51 = 2.0;
-    if (v56)
+    v53 = 2.0;
+    if (v58)
     {
-      v51 = 1.0;
+      v53 = 1.0;
     }
 
-    CGContextSetLineWidth(c, v51);
-    LOBYTE(v69.a) = v54;
+    CGContextSetLineWidth(c, v53);
+    LOBYTE(v71.a) = v56;
     isa = DiagramConfiguration.Color.toColor()().super.isa;
-    v53 = [(objc_class *)isa CGColor];
+    v55 = [(objc_class *)isa CGColor];
 
-    CGContextSetStrokeColorWithColor(c, v53);
+    CGContextSetStrokeColorWithColor(c, v55);
     CGContextAddPath(c, path);
     CGContextStrokePath(c);
   }
 }
 
-uint64_t sub_1D145CB10(uint64_t result, uint64_t *a2, double a3, double a4)
+void sub_1D145CB10(CGContext *a1, uint64_t *a2, double a3, double a4)
 {
-  v6 = result;
   v7 = *a2;
   v8 = a2[1];
   v9 = a2[2];
@@ -1870,7 +1868,7 @@ uint64_t sub_1D145CB10(uint64_t result, uint64_t *a2, double a3, double a4)
       v20 = v15;
       v21 = *(v4 + 24);
 
-      sub_1D145C0E0(v6, &v27, v22, &v20, a3);
+      sub_1D145C0E0(a1, &v27, v22, &v20, a3);
 
       v14 = *(v4 + 64);
     }
@@ -1900,12 +1898,10 @@ uint64_t sub_1D145CB10(uint64_t result, uint64_t *a2, double a3, double a4)
         v20 = v18;
         v21 = *(v4 + 48);
 
-        sub_1D151BCD4(v6, &v27, v22, &v20, v19, a4);
+        sub_1D151BCD4(a1, &v27, v22, &v20, v19, a4);
       }
     }
   }
-
-  return result;
 }
 
 void sub_1D145CCBC(uint64_t a1)
@@ -1999,20 +1995,19 @@ LABEL_14:
   }
 }
 
-uint64_t sub_1D145D014(char **a1)
+void sub_1D145D014(char **a1, __n128 a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v2 = sub_1D145D1B4(v2);
+    v3 = sub_1D145D1B4(v3);
   }
 
-  v3 = *(v2 + 2);
-  v5[0] = v2 + 32;
-  v5[1] = v3;
-  result = sub_1D145D1C8(v5);
-  *a1 = v2;
-  return result;
+  v4 = *(v3 + 2);
+  v5[0] = (v3 + 32);
+  v5[1] = v4;
+  sub_1D145D1C8(v5);
+  *a1 = v3;
 }
 
 char *sub_1D145D080(char *result, int64_t a2, char a3, char *a4)
@@ -2088,37 +2083,39 @@ char *sub_1D145D080(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1D145D1C8(uint64_t a1)
+void sub_1D145D1C8(uint64_t *a1)
 {
-  v2 = *(a1 + 8);
-  result = sub_1D15A4B58();
-  if (result < v2)
+  v2 = a1[1];
+  v3 = sub_1D15A4B58();
+  if (v3 < v2)
   {
     if (v2 >= -1)
     {
-      v4 = result;
+      v5 = v3;
       if (v2 <= 1)
       {
-        v5 = MEMORY[0x1E69E7CC0];
+        v6 = MEMORY[0x1E69E7CC0];
       }
 
       else
       {
-        v5 = sub_1D15A40F8();
-        *(v5 + 16) = v2 / 2;
+        v6 = sub_1D15A40F8();
+        *(v6 + 16) = v2 / 2;
       }
 
-      v7[0] = (v5 + 32);
-      v7[1] = (v2 / 2);
-      v6 = v5;
-      sub_1D151D404(v7, v8, a1, v4);
-      *(v6 + 16) = 0;
+      v8[0] = (v6 + 32);
+      v8[1] = (v2 / 2);
+      v7 = v6;
+      sub_1D151D404(v8, v4, v9, a1, v5);
+      *(v7 + 16) = 0;
+
+      return;
     }
 
     __break(1u);
 LABEL_12:
     __break(1u);
-    return result;
+    return;
   }
 
   if (v2 < 0)
@@ -2128,10 +2125,8 @@ LABEL_12:
 
   if (v2)
   {
-    return sub_1D145D2C0(0, v2, 1, a1);
+    sub_1D145D2C0(0, v2, 1, a1);
   }
-
-  return result;
 }
 
 uint64_t sub_1D145D2C0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
@@ -2158,7 +2153,7 @@ LABEL_5:
       else
       {
         type metadata accessor for UILayoutPriority(0);
-        sub_1D1458AD4(&qword_1EE056728, type metadata accessor for UILayoutPriority);
+        sub_1D1458AD4(&qword_1EE056728, type metadata accessor for UILayoutPriority, MEMORY[0x1E69DC408]);
         result = sub_1D15A3EA8();
         if ((result & 1) == 0)
         {
@@ -2314,7 +2309,7 @@ uint64_t DiagramFactory.__deallocating_deinit()
 
 uint64_t sub_1D145D690()
 {
-  v1 = type metadata accessor for CoreChartTrendDistributionSeries();
+  v1 = type metadata accessor for CoreChartTrendDistributionSeries(0);
   v2 = *(*(v1 - 8) + 80);
   v3 = (v2 + 16) & ~v2;
   v13 = *(*(v1 - 8) + 64);
@@ -2524,12 +2519,11 @@ uint64_t sub_1D145DD0C@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_1D145DD44@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void sub_1D145DD44(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = sub_1D1476D60(a1);
 
   *a2 = v3;
-  return result;
 }
 
 uint64_t sub_1D145DD84(uint64_t a1, uint64_t a2)
@@ -2665,7 +2659,7 @@ _BYTE *sub_1D145E120(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D145E278(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D145E278(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2882,7 +2876,7 @@ uint64_t sub_1D145EA88()
 
 uint64_t sub_1D145EAC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for TimeBasedDistribution();
+  v6 = type metadata accessor for TimeBasedDistribution(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2904,7 +2898,7 @@ uint64_t sub_1D145EAC0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = type metadata accessor for TimeBasedDistributionChartModel();
+    v11 = type metadata accessor for TimeBasedDistributionChartModel(0);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 24);
 
@@ -2914,7 +2908,7 @@ uint64_t sub_1D145EAC0(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1D145EBE4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = type metadata accessor for TimeBasedDistribution();
+  result = type metadata accessor for TimeBasedDistribution(0);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2930,7 +2924,7 @@ uint64_t sub_1D145EBE4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = type metadata accessor for TimeBasedDistributionChartModel();
+    v11 = type metadata accessor for TimeBasedDistributionChartModel(0);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 24);
 
@@ -2940,7 +2934,7 @@ uint64_t sub_1D145EBE4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D145ED0C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D145ED0C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -3110,7 +3104,7 @@ uint64_t sub_1D145F25C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = type metadata accessor for TimeBasedDistributionChartDesign();
+    v8 = type metadata accessor for TimeBasedDistributionChartDesign(0);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a2)
     {
@@ -3142,7 +3136,7 @@ uint64_t sub_1D145F380(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = type metadata accessor for TimeBasedDistributionChartDesign();
+    v8 = type metadata accessor for TimeBasedDistributionChartDesign(0);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -3185,9 +3179,9 @@ uint64_t sub_1D145F534@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1D145F590(uint64_t a1, void *a2)
+uint64_t sub_1D145F590(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC19HealthVisualization16DiagramImageView_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -3222,7 +3216,7 @@ __n128 sub_1D145F658(uint64_t a1, void *a2)
 
 uint64_t sub_1D145F6BC(uint64_t a1, uint64_t a2, int *a3)
 {
-  v6 = type metadata accessor for TimeBasedDistribution();
+  v6 = type metadata accessor for TimeBasedDistribution(0);
   if (*(*(v6 - 8) + 84) == a2)
   {
     v7 = v6;
@@ -3232,7 +3226,7 @@ uint64_t sub_1D145F6BC(uint64_t a1, uint64_t a2, int *a3)
 
   else
   {
-    v10 = type metadata accessor for TimeBasedDistributionChartModel();
+    v10 = type metadata accessor for TimeBasedDistributionChartModel(0);
     if (*(*(v10 - 8) + 84) != a2)
     {
       v13 = *(a1 + a3[8]);
@@ -3259,7 +3253,7 @@ uint64_t sub_1D145F6BC(uint64_t a1, uint64_t a2, int *a3)
 
 uint64_t sub_1D145F7D4(uint64_t a1, uint64_t a2, int a3, int *a4)
 {
-  v8 = type metadata accessor for TimeBasedDistribution();
+  v8 = type metadata accessor for TimeBasedDistribution(0);
   if (*(*(v8 - 8) + 84) == a3)
   {
     v9 = v8;
@@ -3269,7 +3263,7 @@ uint64_t sub_1D145F7D4(uint64_t a1, uint64_t a2, int a3, int *a4)
 
   else
   {
-    result = type metadata accessor for TimeBasedDistributionChartModel();
+    result = type metadata accessor for TimeBasedDistributionChartModel(0);
     if (*(*(result - 8) + 84) != a3)
     {
       *(a1 + a4[8]) = a2 + 1;
@@ -3288,32 +3282,32 @@ uint64_t sub_1D145F7D4(uint64_t a1, uint64_t a2, int a3, int *a4)
 
 uint64_t sub_1D145F8D8(uint64_t a1)
 {
-  sub_1D149A700();
+  sub_1D149A700(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t sub_1D145F940(uint64_t a1, uint64_t a2)
 {
-  sub_1D149B6F4();
+  sub_1D149B6F4(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1D145F9A4()
 {
-  v1 = (type metadata accessor for TimeBasedDistributionChartModel() - 8);
+  v1 = (type metadata accessor for TimeBasedDistributionChartModel(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 17) & ~v2;
   v4 = *(*v1 + 64);
-  __swift_destroy_boxed_opaque_existential_1(v0 + v3 + 8);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v3 + 8));
   v5 = v0 + v3 + v1[8];
 
-  v6 = *(type metadata accessor for TimeBasedDistributionChartDesign() + 32);
+  v6 = *(type metadata accessor for TimeBasedDistributionChartDesign(0) + 32);
   v7 = sub_1D15A36F8();
   (*(*(v7 - 8) + 8))(v5 + v6, v7);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + v3 + v1[9]);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v3 + v1[9]));
   v8 = v1[10];
   v9 = sub_1D15A3268();
   (*(*(v9 - 8) + 8))(v0 + v3 + v8, v9);
@@ -3327,7 +3321,7 @@ uint64_t sub_1D145FB60()
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
-  v5 = (type metadata accessor for TimeBasedDistributionChartModel() - 8);
+  v5 = (type metadata accessor for TimeBasedDistributionChartModel(0) - 8);
   v6 = *(*v5 + 80);
   v7 = (v4 + v6 + v3 + 1) & ~v6;
   v8 = *(*v5 + 64);
@@ -3336,14 +3330,14 @@ uint64_t sub_1D145FB60()
   v11 = sub_1D15A23F8();
   (*(*(v11 - 8) + 8))(v0 + v3 + v10, v11);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + v7 + 8);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v7 + 8));
   v12 = v0 + v7 + v5[8];
 
-  v13 = *(type metadata accessor for TimeBasedDistributionChartDesign() + 32);
+  v13 = *(type metadata accessor for TimeBasedDistributionChartDesign(0) + 32);
   v14 = sub_1D15A36F8();
   (*(*(v14 - 8) + 8))(v12 + v13, v14);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + v7 + v5[9]);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v7 + v5[9]));
   v15 = v5[10];
   v16 = sub_1D15A3268();
   (*(*(v16 - 8) + 8))(v0 + v7 + v15, v16);
@@ -3417,7 +3411,7 @@ void sub_1D145FF44(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t sub_1D14600A0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D14600A0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -3525,7 +3519,7 @@ uint64_t sub_1D14603AC(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    sub_1D14C6FC0();
+    sub_1D14C6FC0(0);
     v9 = v8;
     v10 = *(*(v8 - 8) + 48);
     v11 = a1 + *(a3 + 52);
@@ -3544,7 +3538,7 @@ uint64_t sub_1D1460458(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    sub_1D14C6FC0();
+    sub_1D14C6FC0(0);
     v8 = v7;
     v9 = *(*(v7 - 8) + 56);
     v10 = v5 + *(a4 + 52);
@@ -3836,7 +3830,7 @@ uint64_t sub_1D14610A4(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      sub_1D14A0F04();
+      sub_1D14A0F04(0);
       v14 = v13;
       v15 = *(*(v13 - 8) + 48);
       v16 = a1 + *(a3 + 28);
@@ -3869,7 +3863,7 @@ uint64_t sub_1D14611C8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      sub_1D14A0F04();
+      sub_1D14A0F04(0);
       v14 = v13;
       v15 = *(*(v13 - 8) + 56);
       v16 = v5 + *(a4 + 28);
@@ -4374,14 +4368,14 @@ LABEL_5:
 
 uint64_t sub_1D1463ABC()
 {
-  sub_1D14EFBF8();
-  sub_1D14EFD80();
-  sub_1D14EFED0();
-  sub_1D14EFFDC();
-  sub_1D14F00B0();
+  sub_1D14EFBF8(255);
+  sub_1D14EFD80(255);
+  sub_1D14EFED0(255);
+  sub_1D14EFFDC(255);
+  sub_1D14F00B0(255);
   sub_1D15A35D8();
-  sub_1D14F0154();
-  sub_1D14F01E8();
+  sub_1D14F0154(255, v0);
+  sub_1D14F01E8(v1);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -4450,7 +4444,7 @@ uint64_t sub_1D1463FD8(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_1D14640B4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D14640B4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -4606,7 +4600,7 @@ uint64_t sub_1D14645A8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = type metadata accessor for TimeBasedDistribution();
+    v10 = type metadata accessor for TimeBasedDistribution(0);
     v11 = *(v10 - 8);
     if (*(v11 + 84) == a2)
     {
@@ -4619,7 +4613,7 @@ uint64_t sub_1D14645A8(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v15 = type metadata accessor for TimeBasedDistributionChartModel();
+      v15 = type metadata accessor for TimeBasedDistributionChartModel(0);
       v16 = *(*(v15 - 8) + 48);
       v17 = a1 + *(a3 + 32);
 
@@ -4638,7 +4632,7 @@ uint64_t sub_1D14646CC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = type metadata accessor for TimeBasedDistribution();
+    v8 = type metadata accessor for TimeBasedDistribution(0);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -4651,7 +4645,7 @@ uint64_t sub_1D14646CC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = type metadata accessor for TimeBasedDistributionChartModel();
+      v13 = type metadata accessor for TimeBasedDistributionChartModel(0);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 32);
 
@@ -4662,27 +4656,27 @@ uint64_t sub_1D14646CC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D14647F0(uint64_t a1)
+uint64_t sub_1D14647F0(uint64_t a1, __n128 a2)
 {
-  sub_1D14FB3B8();
-  (*(*(v2 - 8) + 8))(a1, v2);
+  sub_1D14FB3B8(0, a2);
+  (*(*(v3 - 8) + 8))(a1, v3);
   return a1;
 }
 
 uint64_t sub_1D1464858()
 {
-  v1 = (type metadata accessor for TimeBasedDistributionChartModel() - 8);
+  v1 = (type metadata accessor for TimeBasedDistributionChartModel(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 17) & ~v2;
   v4 = *(*v1 + 64);
-  __swift_destroy_boxed_opaque_existential_1(v0 + v3 + 8);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v3 + 8));
   v5 = v0 + v3 + v1[8];
 
-  v6 = *(type metadata accessor for TimeBasedDistributionChartDesign() + 32);
+  v6 = *(type metadata accessor for TimeBasedDistributionChartDesign(0) + 32);
   v7 = sub_1D15A36F8();
   (*(*(v7 - 8) + 8))(v5 + v6, v7);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + v3 + v1[9]);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v3 + v1[9]));
   v8 = v1[10];
   v9 = sub_1D15A3268();
   (*(*(v9 - 8) + 8))(v0 + v3 + v8, v9);
@@ -4696,7 +4690,7 @@ uint64_t sub_1D1464A14()
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
-  v5 = (type metadata accessor for TimeBasedDistributionChartModel() - 8);
+  v5 = (type metadata accessor for TimeBasedDistributionChartModel(0) - 8);
   v6 = *(*v5 + 80);
   v7 = (v4 + v6 + v3 + 1) & ~v6;
   v8 = *(*v5 + 64);
@@ -4706,14 +4700,14 @@ uint64_t sub_1D1464A14()
   v11 = sub_1D15A23F8();
   (*(*(v11 - 8) + 8))(v0 + v3 + v10, v11);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + v7 + 8);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v7 + 8));
   v12 = v0 + v7 + v5[8];
 
-  v13 = *(type metadata accessor for TimeBasedDistributionChartDesign() + 32);
+  v13 = *(type metadata accessor for TimeBasedDistributionChartDesign(0) + 32);
   v14 = sub_1D15A36F8();
   (*(*(v14 - 8) + 8))(v12 + v13, v14);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + v7 + v5[9]);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v7 + v5[9]));
   v15 = v5[10];
   v16 = sub_1D15A3268();
   (*(*(v16 - 8) + 8))(v0 + v7 + v15, v16);
@@ -4762,7 +4756,7 @@ uint64_t sub_1D1464DE4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return sub_1D149D62C(v3 + v4, a2);
 }
 
-void *sub_1D1464E44@<X0>(void *a1@<X8>)
+char *sub_1D1464E44@<X0>(char **a1@<X8>)
 {
   result = sub_1D14FE774();
   *a1 = result;
@@ -4961,7 +4955,7 @@ uint64_t sub_1D1465520()
   return MEMORY[0x1EEE6BDD0](v0, 50, 7);
 }
 
-uint64_t sub_1D1465570(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D1465570(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -5163,7 +5157,7 @@ uint64_t sub_1D1465EC4()
 
 uint64_t sub_1D1465F0C(uint64_t a1, uint64_t a2)
 {
-  sub_1D1514284();
+  sub_1D1514284(0);
   v5 = *(*(v4 - 8) + 48);
 
   return v5(a1, a2, v4);
@@ -5171,7 +5165,7 @@ uint64_t sub_1D1465F0C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1D1465F78(uint64_t a1, uint64_t a2)
 {
-  sub_1D1514284();
+  sub_1D1514284(0);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, a2, v4);
@@ -5282,7 +5276,7 @@ _BYTE *sub_1D1466214(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D146636C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D146636C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -5372,7 +5366,7 @@ uint64_t sub_1D14665F4()
   return MEMORY[0x1EEE6BDD0](v0, v5 + 8, v3 | 7);
 }
 
-uint64_t sub_1D14666A4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D14666A4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -5562,7 +5556,7 @@ uint64_t sub_1D14674D0()
 
 uint64_t sub_1D1467508(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for TimeBasedDistribution();
+  v6 = type metadata accessor for TimeBasedDistribution(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -5584,7 +5578,7 @@ uint64_t sub_1D1467508(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = type metadata accessor for TimeBasedDistributionChartModel();
+    v11 = type metadata accessor for TimeBasedDistributionChartModel(0);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 24);
 
@@ -5594,7 +5588,7 @@ uint64_t sub_1D1467508(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1D146762C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = type metadata accessor for TimeBasedDistribution();
+  result = type metadata accessor for TimeBasedDistribution(0);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -5610,7 +5604,7 @@ uint64_t sub_1D146762C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = type metadata accessor for TimeBasedDistributionChartModel();
+    v11 = type metadata accessor for TimeBasedDistributionChartModel(0);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 24);
 
@@ -5693,7 +5687,7 @@ uint64_t sub_1D1467C14()
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
 
-uint64_t sub_1D1467C5C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D1467C5C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -5788,7 +5782,7 @@ _BYTE *sub_1D1467E78(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_1D1467F34()
 {
-  v1 = type metadata accessor for CoreChartTrendLineSeries();
+  v1 = type metadata accessor for CoreChartTrendLineSeries(0);
   v2 = *(*(v1 - 8) + 80);
   v3 = (v2 + 16) & ~v2;
   v13 = *(*(v1 - 8) + 64);
@@ -6011,7 +6005,7 @@ uint64_t sub_1D1468A20(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_1D1468AA0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D1468AA0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -6054,7 +6048,7 @@ void *sub_1D1468B4C(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D1468BFC(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D1468BFC(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -6097,7 +6091,7 @@ void *sub_1D1468CA8(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D1468D4C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1D1468D4C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -6169,7 +6163,7 @@ uint64_t sub_1D1468E9C(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    sub_1D1491C64();
+    sub_1D1491C64(0);
     v11 = v10;
     v12 = *(*(v10 - 8) + 48);
     v13 = &a1[*(a3 + 24)];
@@ -6188,7 +6182,7 @@ _BYTE *sub_1D1468F4C(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    sub_1D1491C64();
+    sub_1D1491C64(0);
     v8 = v7;
     v9 = *(*(v7 - 8) + 56);
     v10 = &v5[*(a4 + 24)];
@@ -6201,7 +6195,7 @@ _BYTE *sub_1D1468F4C(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_1D14691C4()
 {
-  v1 = type metadata accessor for CoreChartTrendBarSeries();
+  v1 = type metadata accessor for CoreChartTrendBarSeries(0);
   v2 = *(*(v1 - 8) + 80);
   v3 = (v2 + 16) & ~v2;
   v13 = *(*(v1 - 8) + 64);
@@ -6329,18 +6323,11 @@ uint64_t sub_1D1469734(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1D14698BC@<X0>(_BYTE *a1@<X8>)
+double StudentsCDF(__n128 a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, double a7, double a8)
 {
-
-  *a1 = 1;
-  return result;
-}
-
-double StudentsCDF(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
-{
-  v9 = a2;
-  v10 = a1;
-  if (a2 <= 0.0)
+  v9 = a2.n128_u64[0];
+  v10 = a1.n128_u64[0];
+  if (a2.n128_f64[0] <= 0.0)
   {
     boost::math::policies::detail::raise_error<std::domain_error,double>("boost::math::students_t_distribution<%1%>::students_t_distribution", "Degrees of freedom argument is %1%, but must be > 0 !", &v9);
   }
@@ -6348,45 +6335,51 @@ double StudentsCDF(double a1, double a2, double a3, double a4, double a5, double
   return boost::math::cdf<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v9, &v10, a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
-double boost::math::cdf<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double *a1, double *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
+double boost::math::cdf<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double *a1, double *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, double a9, double a10)
 {
-  v10 = *a1;
-  v19 = v10;
-  if (v10 <= 0.0)
+  a4.n128_f64[0] = *a1;
+  v14 = a4.n128_u64[0];
+  if (a4.n128_f64[0] <= 0.0)
   {
-    boost::math::policies::detail::raise_error<std::domain_error,double>("boost::math::cdf(const students_t_distribution<%1%>&, %1%)", "Degrees of freedom argument is %1%, but must be > 0 !", &v19);
+    boost::math::policies::detail::raise_error<std::domain_error,double>("boost::math::cdf(const students_t_distribution<%1%>&, %1%)", "Degrees of freedom argument is %1%, but must be > 0 !", &v14);
   }
 
-  *&v18 = *a2;
+  *&v13 = *a2;
   result = 0.5;
-  if (*&v18 != 0.0)
+  if (*&v13 != 0.0)
   {
-    if (fabs(*&v18) == INFINITY)
+    if (fabs(*&v13) == INFINITY)
     {
       result = 1.0;
-      if (*&v18 < 0.0)
+      if (*&v13 < 0.0)
       {
         return 0.0;
       }
     }
 
-    else if (v10 <= 4.50359963e15)
+    else if (a4.n128_f64[0] <= 4.50359963e15)
     {
-      v13 = *&v18 * *&v18;
-      v14 = v13 + v13;
-      v15 = *&v18 * *&v18 + v10;
-      v16 = v10 * 0.5;
-      if (v10 <= v13 + v13)
+      a3.n128_f64[0] = *&v13 * *&v13;
+      a7.n128_f64[0] = a3.n128_f64[0] + a3.n128_f64[0];
+      a5.n128_f64[0] = *&v13 * *&v13 + a4.n128_f64[0];
+      a6.n128_f64[0] = a4.n128_f64[0] * 0.5;
+      if (a4.n128_f64[0] <= a3.n128_f64[0] + a3.n128_f64[0])
       {
-        v17 = boost::math::ibeta<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v16, 0.5, v10 / v15, v16, v14, a8, a9, a10);
+        a5.n128_f64[0] = a4.n128_f64[0] / a5.n128_f64[0];
+        a4.n128_u64[0] = 0.5;
+        a3.n128_u64[0] = a6.n128_u64[0];
+        v12 = boost::math::ibeta<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a3, a4, a5, a6, a7, a8, a9, a10);
       }
 
       else
       {
-        v17 = boost::math::ibetac<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(0.5, v10 * 0.5, v13 / v15, v16, v14, a8, a9, a10);
+        a5.n128_f64[0] = a3.n128_f64[0] / a5.n128_f64[0];
+        a3.n128_u64[0] = 0.5;
+        a4.n128_f64[0] = a4.n128_f64[0] * 0.5;
+        v12 = boost::math::ibetac<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a3, a4, a5, a6, a7, a8, a9, a10);
       }
 
-      result = v17 * 0.5;
+      result = v12 * 0.5;
       if (*a2 > 0.0)
       {
         return 1.0 - result;
@@ -6395,8 +6388,8 @@ double boost::math::cdf<double,boost::math::policies::policy<boost::math::polici
 
     else
     {
-      v18 = xmmword_1D15A60F0;
-      boost::math::cdf<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v18, a2);
+      v13 = xmmword_1D15A60F0;
+      boost::math::cdf<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v13, a2);
     }
   }
 
@@ -6502,7 +6495,7 @@ LABEL_9:
   }
 }
 
-void boost::math::policies::detail::raise_error<std::domain_error,double>(char *a1, char *a2, double *a3)
+void boost::math::policies::detail::raise_error<std::domain_error,double>(char *a1, char *a2, double *a3, ...)
 {
   v4 = "Unknown function operating on type %1%";
   if (a1)
@@ -6584,7 +6577,7 @@ void boost::math::policies::detail::raise_error<std::domain_error,double>(char *
   boost::throw_exception<std::domain_error>(&v11);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6598,13 +6591,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -6692,7 +6685,7 @@ LABEL_18:
       }
 
       result = v18 + 1;
-      v14 = v15 - (v18 + 1);
+      v14 = &v15[-v18 - 1];
     }
 
     while (v14 >= v13);
@@ -6701,7 +6694,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t boost::math::policies::detail::prec_format<double>@<X0>(double *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t boost::math::policies::detail::prec_format<double>@<X0>(double *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   *(&v9[0].__locale_ + *(v7 - 24)) = 17;
@@ -6723,9 +6716,9 @@ uint64_t boost::math::policies::detail::prec_format<double>@<X0>(double *a1@<X0>
   return MEMORY[0x1D388B600](&v11);
 }
 
-void sub_1D146A218(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D146A218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6790,7 +6783,7 @@ void sub_1D146A5C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 24);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6804,13 +6797,13 @@ const void *std::basic_stringstream<char,std::char_traits<char>,std::allocator<c
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -6977,11 +6970,12 @@ uint64_t boost::wrapexcept<std::domain_error>::~wrapexcept(uint64_t a1)
   return a1;
 }
 
-void sub_1D146ACC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_1D146ACC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a9);
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a10);
-  (*(*v10 + 24))(v10);
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
+  (*(*v9 + 24))(v9);
   _Unwind_Resume(a1);
 }
 
@@ -7114,14 +7108,14 @@ LABEL_11:
       boost::math::policies::detail::raise_error<std::domain_error,double>(boost::math::cdf<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(boost::math::normal_distribution<double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>> const&,double const&)::function, v6, &v8);
     }
 
-    if (fabs(boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(1, (v7 - v3) / (v2 * -1.41421356))) > 1.79769313e308)
+    if (fabs(boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(1, &v8, &v9, (v7 - v3) / (v2 * -1.41421356))) > 1.79769313e308)
     {
       boost::math::policies::detail::raise_error<std::overflow_error,double>("boost::math::erfc<%1%>(%1%, %1%)", "numeric overflow");
     }
   }
 }
 
-double boost::math::ibetac<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
+double boost::math::ibetac<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(__n128 a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, double a7, double a8)
 {
   v8 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v10, 1u, 1, 0, a1, a2, a3, a4, a5, a6, a7, a8);
   if (fabs(v8) > 1.79769313e308)
@@ -7132,7 +7126,7 @@ double boost::math::ibetac<double,double,double,boost::math::policies::policy<bo
   return v8;
 }
 
-double boost::math::ibeta<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
+double boost::math::ibeta<double,double,double,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(__n128 a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, double a7, double a8)
 {
   v8 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v10, 0, 1, 0, a1, a2, a3, a4, a5, a6, a7, a8);
   if (fabs(v8) > 1.79769313e308)
@@ -7143,42 +7137,42 @@ double boost::math::ibeta<double,double,double,boost::math::policies::policy<boo
   return v8;
 }
 
-double boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(int a1, long double a2)
+double boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(int a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v3 = a1;
-  if (a2 < 0.0)
+  v5 = a1;
+  if (a4 < 0.0)
   {
     if ((a1 & 1) == 0)
     {
-      return -boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(0, -a2);
+      return -boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(0, a2, a3, -a4);
     }
 
-    v4 = -a2;
-    if (a2 >= -0.5)
+    v6 = -a4;
+    if (a4 >= -0.5)
     {
-      return boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(0, v4) + 1.0;
+      return boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(0, a2, a3, v6) + 1.0;
     }
 
     else
     {
-      return 2.0 - boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(1, v4);
+      return 2.0 - boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(1, a2, a3, v6);
     }
   }
 
-  if (a2 < 0.5)
+  if (a4 < 0.5)
   {
-    if (a2 >= 1.0e-10)
+    if (a4 >= 1.0e-10)
     {
-      v8 = vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6230, xmmword_1D15A6220, a2 * a2 * (a2 * a2)), a2 * a2), vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6210, xmmword_1D15A6200, a2 * a2 * (a2 * a2)), a2 * a2 * (a2 * a2)), xmmword_1D15A6240));
-      v6 = (vdivq_f64(v8, vdupq_laneq_s64(v8, 1)).f64[0] + 1.04494858) * a2;
+      v10 = vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6230, xmmword_1D15A6220, a4 * a4 * (a4 * a4)), a4 * a4), vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6210, xmmword_1D15A6200, a4 * a4 * (a4 * a4)), a4 * a4 * (a4 * a4)), xmmword_1D15A6240));
+      v8 = (vdivq_f64(v10, vdupq_laneq_s64(v10, 1)).f64[0] + 1.04494858) * a4;
     }
 
     else
     {
-      v6 = 0.0;
-      if (a2 != 0.0)
+      v8 = 0.0;
+      if (a4 != 0.0)
       {
-        v6 = a2 * 0.0033791671 + a2 * 1.125;
+        v8 = a4 * 0.0033791671 + a4 * 1.125;
       }
     }
 
@@ -7187,79 +7181,79 @@ double boost::math::detail::erf_imp<long double,boost::math::policies::policy<bo
 
   if (a1)
   {
-    v7 = 28.0;
+    v9 = 28.0;
   }
 
   else
   {
-    v7 = 5.92999983;
+    v9 = 5.92999983;
   }
 
-  v3 = a1 ^ 1;
-  if (a2 >= v7)
+  v5 = a1 ^ 1;
+  if (a4 >= v9)
   {
-    v6 = 0.0;
+    v8 = 0.0;
     goto LABEL_25;
   }
 
-  if (a2 < 1.5)
+  if (a4 < 1.5)
   {
-    v9 = a2 + -0.5;
-    v10.f64[0] = v9 * v9 * 0.0195049001 + 0.191003696;
-    v10.f64[1] = v9 * v9 * (v9 * v9 * 0.00000337511472 + 0.123850975) + 1.42628005;
-    v11 = vaddq_f64(vaddq_f64(vmulq_n_f64(v10, v9 * v9), xmmword_1D15A61F0), vmulq_n_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A61D0, xmmword_1D15A61C0, v9 * v9), v9 * v9), xmmword_1D15A61E0), a2 + -0.5));
-    v6 = exp(-(a2 * a2)) / a2 * (vdivq_f64(v11, vdupq_laneq_s64(v11, 1)).f64[0] + 0.405935764);
+    v11 = a4 + -0.5;
+    v12.f64[0] = v11 * v11 * 0.0195049001 + 0.191003696;
+    v12.f64[1] = v11 * v11 * (v11 * v11 * 0.00000337511472 + 0.123850975) + 1.42628005;
+    v13 = vaddq_f64(vaddq_f64(vmulq_n_f64(v12, v11 * v11), xmmword_1D15A61F0), vmulq_n_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A61D0, xmmword_1D15A61C0, v11 * v11), v11 * v11), xmmword_1D15A61E0), a4 + -0.5));
+    v8 = exp(-(a4 * a4)) / a4 * (vdivq_f64(v13, vdupq_laneq_s64(v13, 1)).f64[0] + 0.405935764);
     goto LABEL_25;
   }
 
-  if (a2 < 2.5)
+  if (a4 < 2.5)
   {
-    v12 = a2 + -1.5;
-    v13 = vaddq_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6190, xmmword_1D15A6180, v12 * v12), v12 * v12), xmmword_1D15A61B0), vmulq_n_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6170, xmmword_1D15A6160, v12 * v12), v12 * v12), xmmword_1D15A61A0), a2 + -1.5));
-    v14 = vdivq_f64(v13, vdupq_laneq_s64(v13, 1)).f64[0] + 0.506728172;
-    v15 = frexp(a2, &__e);
-    v16 = __e;
+    v14 = a4 + -1.5;
+    v15 = vaddq_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6190, xmmword_1D15A6180, v14 * v14), v14 * v14), xmmword_1D15A61B0), vmulq_n_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6170, xmmword_1D15A6160, v14 * v14), v14 * v14), xmmword_1D15A61A0), a4 + -1.5));
+    v16 = vdivq_f64(v15, vdupq_laneq_s64(v15, 1)).f64[0] + 0.506728172;
+    v17 = frexp(a4, &__e);
+    v18 = __e;
 LABEL_23:
-    v19 = ldexp(v15, 26);
-    v20 = ldexp(floor(v19), v16 - 26);
-    v21 = a2 - v20;
-    v22 = v20 * v20 - a2 * a2 + (v20 + v20) * (a2 - v20);
-    v23 = exp(-(a2 * a2));
-    v6 = v14 * (v23 * exp(-(v22 + v21 * v21)) / a2);
+    v21 = ldexp(v17, 26);
+    v22 = ldexp(floor(v21), v18 - 26);
+    v23 = a4 - v22;
+    v24 = v22 * v22 - a4 * a4 + (v22 + v22) * (a4 - v22);
+    v25 = exp(-(a4 * a4));
+    v8 = v16 * (v25 * exp(-(v24 + v23 * v23)) / a4);
     goto LABEL_25;
   }
 
-  if (a2 < 4.5)
+  if (a4 < 4.5)
   {
-    v17 = a2 + -3.5;
-    v18 = vaddq_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6130, xmmword_1D15A6120, v17 * v17), v17 * v17), xmmword_1D15A6150), vmulq_n_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6110, xmmword_1D15A6100, v17 * v17), v17 * v17), xmmword_1D15A6140), a2 + -3.5));
-    v14 = vdivq_f64(v18, vdupq_laneq_s64(v18, 1)).f64[0] + 0.540575027;
-    v15 = frexp(a2, &v35);
-    v16 = v35;
+    v19 = a4 + -3.5;
+    v20 = vaddq_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6130, xmmword_1D15A6120, v19 * v19), v19 * v19), xmmword_1D15A6150), vmulq_n_f64(vaddq_f64(vmulq_n_f64(vmlaq_n_f64(xmmword_1D15A6110, xmmword_1D15A6100, v19 * v19), v19 * v19), xmmword_1D15A6140), a4 + -3.5));
+    v16 = vdivq_f64(v20, vdupq_laneq_s64(v20, 1)).f64[0] + 0.540575027;
+    v17 = frexp(a4, &v37);
+    v18 = v37;
     goto LABEL_23;
   }
 
-  v38 = 1.0 / a2;
-  v24 = boost::math::tools::evaluate_polynomial<7ul,long double,long double>(boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,BOOL,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,std::integral_constant<int,53> const&)::P, &v38);
-  v37 = 1.0 / a2;
-  v25 = v24 / boost::math::tools::evaluate_polynomial<7ul,long double,long double>(boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,BOOL,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,std::integral_constant<int,53> const&)::Q, &v37) + 0.557909012;
-  v26 = frexp(a2, &v36);
-  v27 = v36;
-  v28 = ldexp(v26, 26);
-  v29 = ldexp(floor(v28), v27 - 26);
-  v30 = a2 - v29;
-  v31 = v29 * v29 - a2 * a2 + (v29 + v29) * (a2 - v29);
-  v32 = exp(-(a2 * a2));
-  v6 = v32 * exp(-(v31 + v30 * v30)) / a2 * v25;
+  v40 = 1.0 / a4;
+  v26 = boost::math::tools::evaluate_polynomial<7ul,long double,long double>(boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,BOOL,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,std::integral_constant<int,53> const&)::P, &v40);
+  v39 = 1.0 / a4;
+  v27 = v26 / boost::math::tools::evaluate_polynomial<7ul,long double,long double>(boost::math::detail::erf_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,BOOL,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,std::integral_constant<int,53> const&)::Q, &v39) + 0.557909012;
+  v28 = frexp(a4, &v38);
+  v29 = v38;
+  v30 = ldexp(v28, 26);
+  v31 = ldexp(floor(v30), v29 - 26);
+  v32 = a4 - v31;
+  v33 = v31 * v31 - a4 * a4 + (v31 + v31) * (a4 - v31);
+  v34 = exp(-(a4 * a4));
+  v8 = v34 * exp(-(v33 + v32 * v32)) / a4 * v27;
 LABEL_25:
-  if (v3)
+  if (v5)
   {
-    return 1.0 - v6;
+    return 1.0 - v8;
   }
 
   else
   {
-    return v6;
+    return v8;
   }
 }
 
@@ -7436,15 +7430,15 @@ uint64_t boost::wrapexcept<std::overflow_error>::wrapexcept(uint64_t a1, uint64_
   return a1;
 }
 
-double boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(uint64_t a1, unsigned int a2, int a3, double *a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
+double boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(uint64_t a1, unsigned int a2, uint64_t a3, double *a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10, double a11, double a12)
 {
   v14 = a2;
-  v16 = a7;
-  v17 = a6;
-  v18 = a5;
-  v138 = a6;
-  v139 = a5;
-  v137 = a7;
+  v16 = a7.n128_f64[0];
+  v17 = a6.n128_f64[0];
+  v18 = a5.n128_f64[0];
+  v141 = a6.n128_f64[0];
+  v142 = a5.n128_f64[0];
+  v140 = a7.n128_f64[0];
   if (a4 && (a3 & 1) == 0)
   {
     boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>();
@@ -7456,52 +7450,46 @@ double boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<
   }
 
   v19 = 1.0;
-  if (a7 < 0.0 || a7 > 1.0)
+  if (a7.n128_f64[0] < 0.0 || a7.n128_f64[0] > 1.0)
   {
     v21 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
     v22 = "Parameter x outside the range [0,1] in the incomplete beta function (got x=%1%).";
-LABEL_10:
-    v23 = &v137;
-    goto LABEL_36;
+    goto LABEL_10;
   }
 
   if (a3)
   {
     if (v18 < 0.0)
     {
-      v21 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
-      v22 = "The argument a to the incomplete beta function must be >= zero (got a=%1%).";
-LABEL_33:
-      v23 = &v139;
-      goto LABEL_36;
+      v23 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
+      v24 = "The argument a to the incomplete beta function must be >= zero (got a=%1%).";
+      goto LABEL_33;
     }
 
-    if (a6 < 0.0)
+    if (a6.n128_f64[0] < 0.0)
     {
-      v21 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
-      v22 = "The argument b to the incomplete beta function must be >= zero (got b=%1%).";
-LABEL_35:
-      v23 = &v138;
-LABEL_36:
-      boost::math::policies::detail::raise_error<std::domain_error,long double>(v21, v22, v23);
+      v28 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
+      v29 = "The argument b to the incomplete beta function must be >= zero (got b=%1%).";
+      goto LABEL_35;
     }
 
     if (v18 == 0.0)
     {
-      if (a6 == 0.0)
+      if (a6.n128_f64[0] == 0.0)
       {
         v21 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
         v22 = "The arguments a and b to the incomplete beta function cannot both be zero, with x=%1%.";
-        goto LABEL_10;
+LABEL_10:
+        boost::math::policies::detail::raise_error<std::domain_error,long double>(v21, v22, &v140);
       }
 
-      if (a6 > 0.0)
+      if (a6.n128_f64[0] > 0.0)
       {
         return (a2 ^ 1);
       }
     }
 
-    else if (v18 > 0.0 && a6 == 0.0)
+    else if (v18 > 0.0 && a6.n128_f64[0] == 0.0)
     {
       return a2;
     }
@@ -7511,33 +7499,35 @@ LABEL_36:
   {
     if (v18 <= 0.0)
     {
-      v21 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
-      v22 = "The argument a to the incomplete beta function must be greater than zero (got a=%1%).";
-      goto LABEL_33;
+      v23 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
+      v24 = "The argument a to the incomplete beta function must be greater than zero (got a=%1%).";
+LABEL_33:
+      boost::math::policies::detail::raise_error<std::domain_error,long double>(v23, v24, &v142);
     }
 
-    if (a6 <= 0.0)
+    if (a6.n128_f64[0] <= 0.0)
     {
-      v21 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
-      v22 = "The argument b to the incomplete beta function must be greater than zero (got b=%1%).";
-      goto LABEL_35;
+      v28 = boost::math::detail::ibeta_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double,long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy> const&,BOOL,BOOL,long double*)::function;
+      v29 = "The argument b to the incomplete beta function must be greater than zero (got b=%1%).";
+LABEL_35:
+      boost::math::policies::detail::raise_error<std::domain_error,long double>(v28, v29, &v141);
     }
   }
 
-  if (a7 == 0.0)
+  if (a7.n128_f64[0] == 0.0)
   {
     if (a4)
     {
-      v24 = 4.45014772e-308;
-      a7 = 8.98846567e307;
+      v25 = 4.45014772e-308;
+      a7.n128_u64[0] = 0x7FDFFFFFFFFFFFFFLL;
       if (v18 < 1.0)
       {
-        v24 = 8.98846567e307;
+        v25 = 8.98846567e307;
       }
 
       if (v18 != 1.0)
       {
-        v19 = v24;
+        v19 = v25;
       }
 
       *a4 = v19;
@@ -7545,72 +7535,72 @@ LABEL_36:
 
     if (a2)
     {
-      v25 = 1.0;
+      v26 = 1.0;
     }
 
     else
     {
-      v25 = 0.0;
+      v26 = 0.0;
     }
 
     if (a2 && (a3 & 1) == 0)
     {
-      boost::math::detail::beta_imp<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v18, v17, a7, a8, a9, a10, a11, a12);
-      v25 = v26;
-      if (fabs(v26) > 1.79769313e308)
+      boost::math::detail::beta_imp<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v18, v17, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0], a11, a12);
+      v26 = v27;
+      if (fabs(v27) > 1.79769313e308)
       {
         boost::math::policies::detail::raise_error<std::overflow_error,long double>("boost::math::beta<%1%>(%1%,%1%)", "numeric overflow");
       }
     }
 
-    return v25;
+    return v26;
   }
 
-  if (a7 != 1.0)
+  if (a7.n128_f64[0] != 1.0)
   {
-    v29 = 1.0 - a7;
-    if (v18 == 0.5 && a6 == 0.5)
+    v32 = 1.0 - a7.n128_f64[0];
+    if (v18 == 0.5 && a6.n128_f64[0] == 0.5)
     {
       if (a4)
       {
-        *a4 = sqrt(v29 * a7) * 0.318309886;
+        *a4 = sqrt(v32 * a7.n128_f64[0]) * 0.318309886;
       }
 
       if (a2)
       {
-        v30 = 1.0 - a7;
+        v33 = 1.0 - a7.n128_f64[0];
       }
 
       else
       {
-        v30 = a7;
+        v33 = a7.n128_f64[0];
       }
 
-      v31 = asin(sqrt(v30)) / 1.57079633;
+      v34 = asin(sqrt(v33)) / 1.57079633;
       if (a3)
       {
-        return v31;
+        return v34;
       }
 
       else
       {
-        return v31 * 3.14159265;
+        return v34 * 3.14159265;
       }
     }
 
     if (v18 == 1.0)
     {
       v14 = a2 ^ 1;
-      v32 = a7;
-      goto LABEL_75;
+      v35 = a7.n128_f64[0];
+      goto LABEL_74;
     }
 
-    if (a6 == 1.0)
+    if (a6.n128_f64[0] == 1.0)
     {
-      v32 = 1.0 - a7;
+      v35 = 1.0 - a7.n128_f64[0];
       v17 = v18;
-      v29 = a7;
-LABEL_75:
+      v32 = a7.n128_f64[0];
+LABEL_74:
       if (v17 == 1.0)
       {
         if (a4)
@@ -7620,483 +7610,483 @@ LABEL_75:
 
         if (v14)
         {
-          return v32;
+          return v35;
         }
 
         else
         {
-          return v29;
+          return v32;
         }
       }
 
       if (a4)
       {
-        *a4 = v17 * pow(v29, v17 + -1.0);
+        *a4 = v17 * pow(v32, v17 + -1.0);
       }
 
-      if (v32 >= 0.5)
+      if (v35 >= 0.5)
       {
         if (v14)
         {
-          v34 = boost::math::detail::powm1_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, v29, v17);
-          goto LABEL_88;
+          v37 = boost::math::detail::powm1_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, v32, v17);
+          goto LABEL_87;
         }
 
-        v39 = pow(v29, v17);
+        v42 = pow(v32, v17);
       }
 
       else
       {
-        v33 = v17 * boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(-v32);
+        v36 = v17 * boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(-v35);
         if (v14)
         {
-          v34 = boost::math::expm1<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v33);
-LABEL_88:
-          v25 = -v34;
-          goto LABEL_101;
+          v37 = boost::math::expm1<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v36);
+LABEL_87:
+          v26 = -v37;
+          goto LABEL_100;
         }
 
-        v39 = exp(v33);
+        v42 = exp(v36);
       }
 
-      v25 = v39;
-LABEL_101:
+      v26 = v42;
+LABEL_100:
       if ((a3 & 1) == 0)
       {
-        return v25 / v17;
+        return v26 / v17;
       }
 
-      return v25;
+      return v26;
     }
 
-    if (a6 >= v18)
+    if (a6.n128_f64[0] >= v18)
     {
-      v35 = v18;
+      v38 = v18;
     }
 
     else
     {
-      v35 = a6;
+      v38 = a6.n128_f64[0];
     }
 
-    if (v35 > 1.0)
+    if (v38 > 1.0)
     {
-      v36 = -(a6 - (a6 + v18) * v29);
-      if (v18 < a6)
+      v39 = -(a6.n128_f64[0] - (a6.n128_f64[0] + v18) * v32);
+      if (v18 < a6.n128_f64[0])
       {
-        v36 = v18 - (a6 + v18) * a7;
+        v39 = v18 - (a6.n128_f64[0] + v18) * a7.n128_f64[0];
       }
 
-      if (v36 >= 0.0)
+      if (v39 >= 0.0)
       {
-        v37 = a7;
-        v38 = v18;
-        v18 = a6;
-        v16 = 1.0 - a7;
+        v40 = a7.n128_f64[0];
+        v41 = v18;
+        v18 = a6.n128_f64[0];
+        v16 = 1.0 - a7.n128_f64[0];
       }
 
       else
       {
-        v138 = v18;
-        v139 = a6;
+        v141 = v18;
+        v142 = a6.n128_f64[0];
         v14 = a2 ^ 1;
-        v37 = 1.0 - a7;
-        v38 = a6;
-        v137 = 1.0 - a7;
+        v40 = 1.0 - a7.n128_f64[0];
+        v41 = a6.n128_f64[0];
+        v140 = 1.0 - a7.n128_f64[0];
       }
 
       if (v18 >= 40.0)
       {
-        v55 = v38;
-        v56 = v18;
-        v57 = v37;
-        v58 = v16;
-        v59 = a3;
-LABEL_128:
-        boost::math::detail::ibeta_fraction2<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, v59, a4, v55, v56, v57, v58, a9, a10, a11, a12);
-        v25 = v60;
-LABEL_187:
+        v58 = v41;
+        v59 = v18;
+        v60 = v40;
+        v61 = v16;
+        v62 = a3;
+LABEL_127:
+        boost::math::detail::ibeta_fraction2<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, v62, a4, v58, v59, v60, v61, a9.n128_f64[0], a10.n128_f64[0], a11, a12);
+        v26 = v63;
+LABEL_186:
         if (a4)
         {
-          v130 = *a4;
-          v43 = v137;
+          v133 = *a4;
+          v46 = v140;
           if (*a4 < 0.0)
           {
-            boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v139, v138, v137, v16, 1.0, v46, v47, v48, &v136, 1, a1, "boost::math::ibeta<%1%>(%1%, %1%, %1%)");
-            *a4 = v130;
-            v43 = v137;
+            v133 = boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v139, 1, a1, "boost::math::ibeta<%1%>(%1%, %1%, %1%)", v142, v141, v140, v16, 1.0, v49, v50, v51);
+            *a4 = v133;
+            v46 = v140;
           }
 
-          if (v130 != 0.0)
+          if (v133 != 0.0)
           {
-            v131 = v16 * v43;
-            v43 = v16 * v43 * 1.79769313e308;
-            v132 = v130 / v131;
-            v133 = v43 < v130;
-            v134 = 8.98846567e307;
-            if (!v133)
+            v134 = v16 * v46;
+            v46 = v16 * v46 * 1.79769313e308;
+            v135 = v133 / v134;
+            v136 = v46 < v133;
+            v137 = 8.98846567e307;
+            if (!v136)
             {
-              v134 = v132;
+              v137 = v135;
             }
 
-            *a4 = v134;
+            *a4 = v137;
           }
         }
 
         if (v14)
         {
-          v135 = 1.0;
+          v138 = 1.0;
           if ((a3 & 1) == 0)
           {
-            v135 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v139, v138, v43, v44, v45, v46, v47, v48);
+            v138 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v142, v141, v46, v47, v48, v49, v50, v51);
           }
 
-          return v135 - v25;
+          return v138 - v26;
         }
 
-        return v25;
+        return v26;
       }
 
-      v42 = floor(v18);
-      if (v42 == v18 && floor(v38) == v38 && v38 < 2147483550.0 && v16 != 1.0)
+      v45 = floor(v18);
+      if (v45 == v18 && floor(v41) == v41 && v41 < 2147483550.0 && v16 != 1.0)
       {
-        v25 = boost::math::detail::binomial_ccdf<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v18 + v38 + -1.0, v38 + -1.0, v37, v16);
+        v26 = boost::math::detail::binomial_ccdf<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, v18 + v41 + -1.0, v41 + -1.0, v40, v16);
         if ((a3 & 1) == 0)
         {
-          v25 = v25 * boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v38, v18, v43, v44, v45, v46, v47, v48);
+          v26 = v26 * boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v18, v46, v47, v48, v49, v50, v51);
         }
 
-        goto LABEL_187;
+        goto LABEL_186;
       }
 
-      if (v18 * v37 > 0.7)
+      if (v18 * v40 > 0.7)
       {
-        if (v38 > 15.0)
+        if (v41 > 15.0)
         {
-          v136 = v42;
-          v69 = boost::math::itrunc<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v136);
-          v74 = v69 - (v138 == v69);
-          v75 = v138 - v74;
-          v76 = 1.0;
-          if ((a3 & 1) == 0 && v74 >= 1)
+          v139 = v45;
+          v72 = boost::math::itrunc<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v139);
+          v77 = v72 - (v141 == v72);
+          v78 = v141 - v77;
+          v79 = 1.0;
+          if ((a3 & 1) == 0 && v77 >= 1)
           {
-            v77 = 0.0;
-            v78 = v74;
+            v80 = 0.0;
+            v81 = v77;
             do
             {
-              v71 = v75 + v77;
-              v70 = (v75 + v139 + v77) / (v75 + v77);
-              v76 = v76 * v70;
-              v77 = v77 + 1.0;
-              --v78;
+              v74 = v78 + v80;
+              v73 = (v78 + v142 + v80) / (v78 + v80);
+              v79 = v79 * v73;
+              v80 = v80 + 1.0;
+              --v81;
             }
 
-            while (v78);
+            while (v81);
           }
 
-          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v74, a1, a3, 0, v138 - v74, v139, v16, v137, v70, v71, v72, v73);
-          v25 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, a3, v139, v75, v137, v16, v79, 1.0) / v76;
-          goto LABEL_187;
+          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v77, a1, a3, 0, v141 - v77, v142, v16, v140, v73, v74, v75, v76);
+          v26 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, a3, v142, v78, v140, v16, v82, 1.0) / v79;
+          goto LABEL_186;
         }
 
         if (a3)
         {
-          v136 = v42;
-          v86 = boost::math::itrunc<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v136);
-          v91 = v138 - v86;
-          if (v91 > 0.0)
+          v139 = v45;
+          v89 = boost::math::itrunc<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v139);
+          v94 = v141 - v89;
+          if (v94 > 0.0)
           {
-            v92 = v138 - v86;
+            v95 = v141 - v89;
           }
 
           else
           {
-            v92 = v91 + 1.0;
+            v95 = v94 + 1.0;
           }
 
-          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v86 - (v91 <= 0.0), a1, 1, 0, v92, v139, v16, v137, v87, v88, v89, v90);
-          v94 = v93;
-          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(20, a1, 1, 0, v139, v92, v137, v16, v95, v96, v97, v98);
-          v100 = v94 + v99;
+          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v89 - (v94 <= 0.0), a1, 1, 0, v95, v142, v16, v140, v90, v91, v92, v93);
+          v97 = v96;
+          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(20, a1, 1, 0, v142, v95, v140, v16, v98, v99, v100, v101);
+          v103 = v97 + v102;
           if (v14)
           {
-            v101 = v100 + -1.0;
+            v104 = v103 + -1.0;
           }
 
           else
           {
-            v101 = v100;
+            v104 = v103;
           }
 
-          v102 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, 1, v139 + 20.0, v92, v137, v16, v101, 1.0);
+          v105 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a1, 1, v142 + 20.0, v95, v140, v16, v104, 1.0);
           if (v14)
           {
-            v25 = -v102;
+            v26 = -v105;
           }
 
           else
           {
-            v25 = v102;
+            v26 = v105;
           }
 
-          goto LABEL_169;
+          goto LABEL_168;
         }
 
-        v55 = v38;
-        v56 = v18;
-        v57 = v37;
-        v58 = v16;
-        v59 = 0;
-        goto LABEL_128;
+        v58 = v41;
+        v59 = v18;
+        v60 = v40;
+        v61 = v16;
+        v62 = 0;
+        goto LABEL_127;
       }
 
       if (v14)
       {
-        v83 = 1.0;
+        v86 = 1.0;
         if ((a3 & 1) == 0)
         {
-          v83 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v38, v18, 0.7, a8, a9, a10, a11, a12);
+          v86 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v18, 0.7, a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0], a11, a12);
         }
 
-        v66 = -v83;
-        v67 = v38;
-        v68 = v18;
-LABEL_153:
+        v69 = -v86;
+        v70 = v41;
+        v71 = v18;
+LABEL_152:
         v14 = 0;
-        v25 = -boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v67, v68, v37, v66, v16, a10, a11, a12, &v136, a3, a4);
-        goto LABEL_187;
+        v26 = -boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v70, v71, v40, v69, v16, &v139, a3, a4, a10.n128_f64[0], a11, a12);
+        goto LABEL_186;
       }
 
-      v80 = v38;
-      v81 = v18;
-      goto LABEL_168;
+      v83 = v41;
+      v84 = v18;
+      goto LABEL_167;
     }
 
-    if (a7 <= 0.5)
+    if (a7.n128_f64[0] <= 0.5)
     {
-      v37 = a7;
-      v40 = v18;
-      v41 = a6;
-      v16 = 1.0 - a7;
+      v40 = a7.n128_f64[0];
+      v43 = v18;
+      v44 = a6.n128_f64[0];
+      v16 = 1.0 - a7.n128_f64[0];
     }
 
     else
     {
-      v138 = v18;
-      v139 = a6;
+      v141 = v18;
+      v142 = a6.n128_f64[0];
       v14 = a2 ^ 1;
-      v37 = 1.0 - a7;
-      v40 = a6;
-      v41 = v18;
-      v137 = 1.0 - a7;
+      v40 = 1.0 - a7.n128_f64[0];
+      v43 = a6.n128_f64[0];
+      v44 = v18;
+      v140 = 1.0 - a7.n128_f64[0];
     }
 
-    if (v40 >= v41)
+    if (v43 >= v44)
     {
-      v49 = v40;
+      v52 = v43;
     }
 
     else
     {
-      v49 = v41;
+      v52 = v44;
     }
 
-    if (v49 <= 1.0)
+    if (v52 <= 1.0)
     {
-      v61 = pow(v37, v40);
-      if (v40 < fmin(v41, 0.2) && v61 > 0.9)
+      v64 = pow(v40, v43);
+      if (v43 < fmin(v44, 0.2) && v64 > 0.9)
       {
-        v138 = v40;
-        v139 = v41;
-        v137 = v16;
-        if (v37 < 0.3)
+        v141 = v43;
+        v142 = v44;
+        v140 = v16;
+        if (v40 < 0.3)
         {
           if ((a3 & 1) == 0)
           {
-            v103 = v17 + v18;
-            v104 = 0.0;
-            v105 = 20;
-            v53 = 1.0;
+            v106 = v17 + v18;
+            v107 = 0.0;
+            v108 = 20;
+            v56 = 1.0;
             do
             {
-              v54 = v41 + v104;
-              v53 = v53 * ((v103 + v104) / (v41 + v104));
-              v104 = v104 + 1.0;
-              --v105;
+              v57 = v44 + v107;
+              v56 = v56 * ((v106 + v107) / (v44 + v107));
+              v107 = v107 + 1.0;
+              --v108;
             }
 
-            while (v105);
-            goto LABEL_172;
+            while (v108);
+            goto LABEL_171;
           }
 
-LABEL_133:
-          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(20, a1, 1, a4, v41, v40, v16, v37, a9, a10, a11, a12);
-          v63 = v62;
-          v53 = 1.0;
-          v64 = 1.0;
+LABEL_132:
+          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(20, a1, 1, a4, v44, v43, v16, v40, a9.n128_f64[0], a10.n128_f64[0], a11, a12);
+          v66 = v65;
+          v56 = 1.0;
+          v67 = 1.0;
           if (v14)
           {
-LABEL_173:
-            v113 = v41 + 20.0;
-            v114 = v40;
-            v115 = v16;
-            v116 = v37;
-            v117 = v63;
-            v118 = a1;
-            v119 = a3;
-            v120 = v53;
-LABEL_177:
-            v82 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v118, v119, v113, v114, v115, v116, v117, v120);
-            goto LABEL_178;
-          }
-
-          goto LABEL_180;
-        }
-
-LABEL_147:
-        if (v14)
-        {
-          v82 = boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v40, v16, 0.0, v37, a10, a11, a12, &v136, a3, a4);
-LABEL_178:
-          v25 = v82;
-          v14 = 0;
-LABEL_186:
-          v16 = v37;
-          goto LABEL_187;
-        }
-
-        v84 = 1.0;
-        if ((a3 & 1) == 0)
-        {
-          v84 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v40, a7, a8, a9, a10, a11, a12);
-        }
-
-        v85 = boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v40, v16, -v84, v37, a10, a11, a12, &v136, a3, a4);
-LABEL_185:
-        v14 = 0;
-        v25 = -v85;
-        goto LABEL_186;
-      }
-    }
-
-    else if (v41 > 1.0 && (v37 >= 0.1 || pow(v41 * v37, v40) > 0.7))
-    {
-      v138 = v40;
-      v139 = v41;
-      v137 = v16;
-      if (v37 < 0.3)
-      {
-        if (v41 >= 15.0)
-        {
-          if (v14)
-          {
-            v117 = 0.0;
-            v120 = 1.0;
-            v113 = v41;
-            v114 = v40;
-            v115 = v16;
-            v116 = v37;
-            v118 = a1;
-            v119 = a3;
+LABEL_172:
+            v116 = v44 + 20.0;
+            v117 = v43;
+            v118 = v16;
+            v119 = v40;
+            v120 = v66;
+            v121 = a1;
+            v122 = a3;
+            v123 = v56;
+LABEL_176:
+            v85 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v121, v122, v116, v117, v118, v119, v120, v123);
             goto LABEL_177;
           }
 
-          v129 = 1.0;
-          if ((a3 & 1) == 0)
+          goto LABEL_179;
+        }
+
+LABEL_146:
+        if (v14)
+        {
+          v85 = boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v44, v43, v16, 0.0, v40, &v139, a3, a4, a10.n128_f64[0], a11, a12);
+LABEL_177:
+          v26 = v85;
+          v14 = 0;
+LABEL_185:
+          v16 = v40;
+          goto LABEL_186;
+        }
+
+        v87 = 1.0;
+        if ((a3 & 1) == 0)
+        {
+          v87 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v44, v43, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0], a11, a12);
+        }
+
+        v88 = boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v44, v43, v16, -v87, v40, &v139, a3, a4, a10.n128_f64[0], a11, a12);
+LABEL_184:
+        v14 = 0;
+        v26 = -v88;
+        goto LABEL_185;
+      }
+    }
+
+    else if (v44 > 1.0 && (v40 >= 0.1 || pow(v44 * v40, v43) > 0.7))
+    {
+      v141 = v43;
+      v142 = v44;
+      v140 = v16;
+      if (v40 < 0.3)
+      {
+        if (v44 >= 15.0)
+        {
+          if (v14)
           {
-            v129 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v40, a7, a8, a9, a10, a11, a12);
+            v120 = 0.0;
+            v123 = 1.0;
+            v116 = v44;
+            v117 = v43;
+            v118 = v16;
+            v119 = v40;
+            v121 = a1;
+            v122 = a3;
+            goto LABEL_176;
           }
 
-          v121 = -v129;
-          v128 = 1.0;
-          v122 = v41;
-          v123 = v40;
-          v124 = v16;
-          v125 = v37;
-          v126 = a1;
-          v127 = a3;
-          goto LABEL_184;
+          v132 = 1.0;
+          if ((a3 & 1) == 0)
+          {
+            v132 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v44, v43, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0], a11, a12);
+          }
+
+          v124 = -v132;
+          v131 = 1.0;
+          v125 = v44;
+          v126 = v43;
+          v127 = v16;
+          v128 = v40;
+          v129 = a1;
+          v130 = a3;
+          goto LABEL_183;
         }
 
         if ((a3 & 1) == 0)
         {
-          v50 = v17 + v18;
-          v51 = 0.0;
-          v52 = 20;
-          v53 = 1.0;
+          v53 = v17 + v18;
+          v54 = 0.0;
+          v55 = 20;
+          v56 = 1.0;
           do
           {
-            v54 = v41 + v51;
-            v53 = v53 * ((v50 + v51) / (v41 + v51));
-            v51 = v51 + 1.0;
-            --v52;
+            v57 = v44 + v54;
+            v56 = v56 * ((v53 + v54) / (v44 + v54));
+            v54 = v54 + 1.0;
+            --v55;
           }
 
-          while (v52);
-LABEL_172:
-          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(20, a1, 0, a4, v41, v40, v16, v37, v54, a10, a11, a12);
-          v63 = v112;
+          while (v55);
+LABEL_171:
+          boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(20, a1, 0, a4, v44, v43, v16, v40, v57, a10.n128_f64[0], a11, a12);
+          v66 = v115;
           if (v14)
           {
-            goto LABEL_173;
+            goto LABEL_172;
           }
 
-          v64 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v41, v40, v106, v107, v108, v109, v110, v111);
-LABEL_180:
-          v121 = v63 - v64;
-          v122 = v41 + 20.0;
-          v123 = v40;
-          v124 = v16;
-          v125 = v37;
-          v126 = a1;
-          v127 = a3;
-          v128 = v53;
-LABEL_184:
-          v85 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v126, v127, v122, v123, v124, v125, v121, v128);
-          goto LABEL_185;
+          v67 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v44, v43, v109, v110, v111, v112, v113, v114);
+LABEL_179:
+          v124 = v66 - v67;
+          v125 = v44 + 20.0;
+          v126 = v43;
+          v127 = v16;
+          v128 = v40;
+          v129 = a1;
+          v130 = a3;
+          v131 = v56;
+LABEL_183:
+          v88 = boost::math::detail::beta_small_b_large_a_series<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v129, v130, v125, v126, v127, v128, v124, v131);
+          goto LABEL_184;
         }
 
-        goto LABEL_133;
+        goto LABEL_132;
       }
 
-      goto LABEL_147;
+      goto LABEL_146;
     }
 
     if (v14)
     {
-      v65 = 1.0;
+      v68 = 1.0;
       if ((a3 & 1) == 0)
       {
-        v65 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v40, v41, a7, a8, a9, a10, a11, a12);
+        v68 = boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v43, v44, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0], a11, a12);
       }
 
-      v66 = -v65;
-      v67 = v40;
-      v68 = v41;
-      goto LABEL_153;
+      v69 = -v68;
+      v70 = v43;
+      v71 = v44;
+      goto LABEL_152;
     }
 
-    v80 = v40;
-    v81 = v41;
+    v83 = v43;
+    v84 = v44;
+LABEL_167:
+    v26 = boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v83, v84, v40, 0.0, v16, &v139, a3, a4, a10.n128_f64[0], a11, a12);
 LABEL_168:
-    v25 = boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v80, v81, v37, 0.0, v16, a10, a11, a12, &v136, a3, a4);
-LABEL_169:
     v14 = 0;
-    goto LABEL_187;
+    goto LABEL_186;
   }
 
   if (a4)
   {
-    v28 = 4.45014772e-308;
-    a7 = 8.98846567e307;
+    v31 = 4.45014772e-308;
+    a7.n128_u64[0] = 0x7FDFFFFFFFFFFFFFLL;
     if (v17 < 1.0)
     {
-      v28 = 8.98846567e307;
+      v31 = 8.98846567e307;
     }
 
     if (v17 != 1.0)
     {
-      v19 = v28;
+      v19 = v31;
     }
 
     *a4 = v19;
@@ -8104,20 +8094,20 @@ LABEL_169:
 
   if (a2)
   {
-    v25 = 0.0;
+    v26 = 0.0;
   }
 
   else
   {
-    v25 = 1.0;
+    v26 = 1.0;
   }
 
   if (a2 & 1) != 0 || (a3)
   {
-    return v25;
+    return v26;
   }
 
-  return boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v18, v17, a7, a8, a9, a10, a11, a12);
+  return boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v18, v17, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0], a11, a12);
 }
 
 double boost::math::beta<long double,long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
@@ -8142,7 +8132,7 @@ double boost::math::expm1<long double,boost::math::policies::policy<boost::math:
   return v1;
 }
 
-double boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double a1)
+long double boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double a1)
 {
   v2 = a1;
   if (a1 < -1.0)
@@ -8158,17 +8148,17 @@ double boost::math::log1p<boost::math::policies::policy<boost::math::policies::p
   return log1pl(a1);
 }
 
-double boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double a1, long double a2, long double a3, double a4, long double a5, double a6, double a7, double a8, uint64_t a9, int a10, long double *a11)
+double boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double a1, long double a2, long double a3, double a4, long double a5, uint64_t a6, int a7, long double *a8, double a9, double a10, double a11)
 {
   v14 = a1;
   __y = a2;
   v63 = a1;
-  if (a11 && (a10 & 1) == 0)
+  if (a8 && (a7 & 1) == 0)
   {
     boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>();
   }
 
-  if (!a10)
+  if (!a7)
   {
     v44 = pow(a3, a1);
 LABEL_14:
@@ -8181,7 +8171,7 @@ LABEL_14:
   v16 = a2 + 6.02468004;
   v17 = v16 + -0.5;
   v18 = v64 + 6.02468004 + -0.5;
-  v19 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v64, v64 + 6.02468004, v16, 6.02468004, a1 + 6.02468004, a5, a6, a7, a8);
+  v19 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v64, v64 + 6.02468004, v16, 6.02468004, a1 + 6.02468004, a5, a9, a10, a11);
   v27 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v63, v19, v20, v21, v22, v23, v24, v25, v26);
   __x = v19 / (v27 * boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &__y, v27, v28, v29, v30, v31, v32, v33, v34));
   v57 = v18 / v17;
@@ -8199,10 +8189,10 @@ LABEL_14:
   {
     v45 = v41 + log(__x) + v38;
     v46 = (log(v61) + -1.0) * 0.5 + v45;
-    if (a11)
+    if (a8)
     {
       v47 = log(a5);
-      *a11 = exp(v46 + v36 * v47);
+      *a8 = exp(v46 + v36 * v47);
     }
 
     v44 = exp(v46);
@@ -8222,10 +8212,10 @@ LABEL_14:
   }
 
   v48 = sqrt(v61 / 2.71828183) * (__x * v43 * pow(v39, v14));
-  if (a11)
+  if (a8)
   {
     v56 = v48 * pow(a5, __y);
-    *a11 = v56;
+    *a8 = v56;
     if (v56 < 0.0)
     {
       boost::math::detail::ibeta_series<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>();
@@ -8266,9 +8256,9 @@ LABEL_15:
   return a4;
 }
 
-void boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(int a1, uint64_t a2, char a3, double *a4, long double a5, long double a6, long double a7, double a8, double a9, double a10, double a11, double a12)
+void boost::math::detail::ibeta_a_step<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(int a1, uint64_t a2, uint64_t a3, double *a4, long double a5, long double a6, long double a7, double a8, double a9, double a10, double a11, double a12)
 {
-  boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a5, a6, a7, a8, 1.0, a10, a11, a12, &v22, a3, a2, "boost::math::ibeta<%1%>(%1%, %1%, %1%)");
+  v17 = boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v22, a3, a2, "boost::math::ibeta<%1%>(%1%, %1%, %1%)", a5, a6, a7, a8, 1.0, a10, a11, a12);
   if (a4)
   {
     *a4 = v17;
@@ -8332,7 +8322,7 @@ double boost::math::detail::beta_small_b_large_a_series<long double,boost::math:
   {
     if (a2)
     {
-      v25 = boost::math::detail::tgamma_delta_ratio_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a3, a4, v18, v19, v20, v21, v22, v23);
+      v25 = boost::math::detail::tgamma_delta_ratio_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(&v55, a3, a4, v18, v19, v20, v21, v22, v23);
       if (fabs(v25) > 1.79769313e308)
       {
         boost::math::policies::detail::raise_error<std::overflow_error,long double>("boost::math::tgamma_delta_ratio<%1%>(%1%, %1%)", "numeric overflow");
@@ -8375,7 +8365,7 @@ double boost::math::detail::beta_small_b_large_a_series<long double,boost::math:
     v56 = 0u;
     v57 = 0u;
     v55 = 1.0;
-    v36 = boost::math::detail::gamma_incomplete_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(1, 1, &v54, 0, a4, *&v17, v30, v31, v32, v33, v34, v35);
+    v36 = boost::math::detail::gamma_incomplete_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(1, 1, &v54, 0, a4, v17, v30, v31, v32, v33, v34, v35);
     if (fabs(v36) > 1.79769313e308)
     {
       boost::math::policies::detail::raise_error<std::overflow_error,long double>("gamma_q<%1%>(%1%, %1%)", "numeric overflow");
@@ -8445,208 +8435,208 @@ double boost::math::detail::beta_small_b_large_a_series<long double,boost::math:
   return a7;
 }
 
-double boost::math::detail::binomial_ccdf<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double a1, double a2, long double a3, long double a4)
+double boost::math::detail::binomial_ccdf<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(uint64_t a1, double a2, double a3, long double a4, long double a5)
 {
-  v8 = pow(a3, a1);
-  if (v8 <= 2.22507386e-308)
+  v9 = pow(a4, a2);
+  if (v9 <= 2.22507386e-308)
   {
-    v10 = a1 * a3;
-    if (COERCE__INT64(fabs(a1 * a3)) >= 0x7FF0000000000000)
+    v11 = a2 * a4;
+    if (COERCE__INT64(fabs(a2 * a4)) >= 0x7FF0000000000000)
     {
-      v60 = a1 * a3;
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+      v61 = a2 * a4;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
     }
 
-    v18 = floor(v10);
-    v19 = ceil(v10);
-    if (v10 < 0.0)
+    v19 = floor(v11);
+    v20 = ceil(v11);
+    if (v11 < 0.0)
     {
-      v18 = v19;
+      v19 = v20;
     }
 
-    if (v18 > 2147483650.0 || v18 < -2147483650.0)
+    if (v19 > 2147483650.0 || v19 < -2147483650.0)
     {
-      v60 = a1 * a3;
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+      v61 = a2 * a4;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
     }
 
-    v21 = v18;
-    if (a2 + 1.0 >= v21)
+    v22 = v19;
+    if (a3 + 1.0 >= v22)
     {
-      v22 = a2 + 2.0;
-      if (COERCE__INT64(fabs(a2 + 2.0)) >= 0x7FF0000000000000)
+      v23 = a3 + 2.0;
+      if (COERCE__INT64(fabs(a3 + 2.0)) >= 0x7FF0000000000000)
       {
-        v60 = a2 + 2.0;
-        boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+        v61 = a3 + 2.0;
+        boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
       }
 
-      v23 = floor(v22);
-      v24 = ceil(v22);
-      if (v22 < 0.0)
+      v24 = floor(v23);
+      v25 = ceil(v23);
+      if (v23 < 0.0)
       {
-        v23 = v24;
+        v24 = v25;
       }
 
-      if (v23 > 2147483650.0 || v23 < -2147483650.0)
+      if (v24 > 2147483650.0 || v24 < -2147483650.0)
       {
-        v60 = a2 + 2.0;
-        boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+        v61 = a3 + 2.0;
+        boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
       }
 
-      v21 = v23;
+      v22 = v24;
     }
 
-    v26 = pow(a3, v21);
-    v33 = v26 * pow(a4, a1 - v21);
-    if ((*&a1 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+    v27 = pow(a4, v22);
+    v34 = v27 * pow(a5, a2 - v22);
+    if ((*&a2 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
-      v60 = a1;
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+      v61 = a2;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
     }
 
-    v34 = floor(a1);
-    v35 = ceil(a1);
-    if (a1 < 0.0)
+    v35 = floor(a2);
+    v36 = ceil(a2);
+    if (a2 < 0.0)
     {
-      v34 = v35;
+      v35 = v36;
     }
 
-    if (v34 > 2147483650.0 || v34 < -2147483650.0)
+    if (v35 > 2147483650.0 || v35 < -2147483650.0)
     {
-      v60 = a1;
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+      v61 = a2;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
     }
 
-    boost::math::binomial_coefficient<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v34, v21, v34, -2147483650.0, v27, v28, v29, v30, v31, v32);
-    v38 = v33 * v37;
-    v39 = (v21 - 1);
-    if (v38 == 0.0)
+    boost::math::binomial_coefficient<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v35, v22, v35, -2147483650.0, v28, v29, v30, v31, v32, v33);
+    v39 = v34 * v38;
+    v40 = (v22 - 1);
+    if (v39 == 0.0)
     {
-      if (v39 <= a2)
+      if (v40 <= a3)
       {
-        return v38;
+        return v39;
       }
 
       else
       {
-        v40 = floor(a1);
-        v41 = ceil(a1);
-        if (a1 >= 0.0)
+        v41 = floor(a2);
+        v42 = ceil(a2);
+        if (a2 >= 0.0)
         {
-          v41 = v40;
+          v42 = v41;
         }
 
-        v59 = v41;
-        v42 = v41 < -2147483650.0 || v41 > 2147483650.0;
-        v43 = v21 - 2;
-        v8 = v38;
+        v60 = v42;
+        v43 = v42 < -2147483650.0 || v42 > 2147483650.0;
+        v44 = v22 - 2;
+        v9 = v39;
         do
         {
-          v44 = pow(a3, (v43 + 1));
-          v52 = pow(a4, a1 - v39);
-          if ((*&a1 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+          v45 = pow(a4, (v44 + 1));
+          v53 = pow(a5, a2 - v40);
+          if ((*&a2 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
           {
-            v60 = a1;
-            boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+            v61 = a2;
+            boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
           }
 
-          if (v42)
+          if (v43)
           {
-            v60 = a1;
-            boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+            v61 = a2;
+            boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61, v60);
           }
 
-          if (((v43 + 1) & 0x80000000) != 0)
+          if (((v44 + 1) & 0x80000000) != 0)
           {
-            v60 = v39;
-            boost::math::policies::detail::raise_error<boost::math::rounding_error,double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+            v61 = v40;
+            boost::math::policies::detail::raise_error<boost::math::rounding_error,double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61, v60);
           }
 
-          boost::math::binomial_coefficient<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v59, v43 + 1, v59, v45, v46, v47, v48, v49, v50, v51);
-          v8 = v8 + v44 * v52 * v53;
-          v39 = v43--;
+          boost::math::binomial_coefficient<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v60, v44 + 1, v60, v46, v47, v48, v49, v50, v51, v52);
+          v9 = v9 + v45 * v53 * v54;
+          v40 = v44--;
         }
 
-        while (v39 > a2);
+        while (v40 > a3);
       }
     }
 
     else
     {
-      v8 = v38;
-      if (v39 > a2)
+      v9 = v39;
+      if (v40 > a3)
       {
-        v54 = v21;
-        v8 = v38;
-        v55 = v38;
+        v55 = v22;
+        v9 = v39;
+        v56 = v39;
         do
         {
-          v55 = v55 * (v54 * a4 / ((a1 - v39) * a3));
-          v8 = v8 + v55;
-          v39 = (v54 - 2);
-          --v54;
+          v56 = v56 * (v55 * a5 / ((a2 - v40) * a4));
+          v9 = v9 + v56;
+          v40 = (v55 - 2);
+          --v55;
         }
 
-        while (v39 > a2);
+        while (v40 > a3);
       }
 
-      v56 = (v21 + 1);
-      if (v56 <= a1)
+      v57 = (v22 + 1);
+      if (v57 <= a2)
       {
-        v57 = v21 + 2;
+        v58 = v22 + 2;
         do
         {
-          v38 = v38 * ((a1 - v56 + 1.0) * a3 / (v56 * a4));
-          v8 = v8 + v38;
-          v56 = v57++;
+          v39 = v39 * ((a2 - v57 + 1.0) * a4 / (v57 * a5));
+          v9 = v9 + v39;
+          v57 = v58++;
         }
 
-        while (v56 <= a1);
+        while (v57 <= a2);
       }
     }
   }
 
   else
   {
-    v9 = a1 + -1.0;
-    if (COERCE__INT64(fabs(a1 + -1.0)) >= 0x7FF0000000000000)
+    v10 = a2 + -1.0;
+    if (COERCE__INT64(fabs(a2 + -1.0)) >= 0x7FF0000000000000)
     {
-      v60 = a1 + -1.0;
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+      v61 = a2 + -1.0;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::trunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
     }
 
-    v11 = floor(v9);
-    v12 = ceil(v9);
-    if (v9 < 0.0)
+    v12 = floor(v10);
+    v13 = ceil(v10);
+    if (v10 < 0.0)
     {
-      v11 = v12;
+      v12 = v13;
     }
 
-    if (v11 > 2147483650.0 || v11 < -2147483650.0)
+    if (v12 > 2147483650.0 || v12 < -2147483650.0)
     {
-      v60 = a1 + -1.0;
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v60);
+      v61 = a2 + -1.0;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>("boost::math::itrunc<%1%>(%1%)", "Value %1% can not be represented in the target integer type.", &v61);
     }
 
-    v14 = v11;
-    v15 = v14;
-    if (v14 > a2)
+    v15 = v12;
+    v16 = v15;
+    if (v15 > a3)
     {
-      v16 = v14 + 1;
-      v17 = v8;
+      v17 = v15 + 1;
+      v18 = v9;
       do
       {
-        v17 = v17 * (v16 * a4 / ((a1 - v15) * a3));
-        v8 = v8 + v17;
-        v15 = (v16 - 2);
-        --v16;
+        v18 = v18 * (v17 * a5 / ((a2 - v16) * a4));
+        v9 = v9 + v18;
+        v16 = (v17 - 2);
+        --v17;
       }
 
-      while (v15 > a2);
+      while (v16 > a3);
     }
   }
 
-  return v8;
+  return v9;
 }
 
 uint64_t boost::math::itrunc<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double *a1)
@@ -8674,9 +8664,9 @@ uint64_t boost::math::itrunc<long double,boost::math::policies::policy<boost::ma
   return v2;
 }
 
-void boost::math::detail::ibeta_fraction2<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(uint64_t a1, char a2, double *a3, long double a4, long double a5, long double a6, double a7, double a8, double a9, double a10, double a11)
+void boost::math::detail::ibeta_fraction2<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(uint64_t a1, uint64_t a2, double *a3, long double a4, long double a5, long double a6, double a7, double a8, double a9, double a10, double a11)
 {
-  boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(a4, a5, a6, a7, 1.0, a9, a10, a11, v27, a2, a1, "boost::math::ibeta<%1%>(%1%, %1%, %1%)");
+  v16 = boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v27, a2, a1, "boost::math::ibeta<%1%>(%1%, %1%, %1%)", a4, a5, a6, a7, 1.0, a9, a10, a11);
   if (a3)
   {
     *a3 = v16;
@@ -8739,34 +8729,32 @@ void boost::math::detail::ibeta_fraction2<long double,boost::math::policies::pol
   }
 }
 
-void boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(long double a1, long double a2, long double a3, double a4, double a5, double a6, double a7, double a8, uint64_t a9, char a10, uint64_t a11, char *a12)
+long double boost::math::detail::ibeta_power_terms<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(uint64_t a1, char a2, uint64_t a3, char *a4, long double a5, long double a6, long double a7, double a8, double a9, double a10, double a11, double a12, ...)
 {
-  v84 = a2;
-  v85 = a1;
-  if ((a10 & 1) == 0)
+  v93 = a6;
+  v94 = a5;
+  if ((a2 & 1) == 0)
   {
-    pow(a3, a1);
-    v46 = a4;
-    v47 = a2;
-LABEL_15:
-    pow(v46, v47);
-    return;
+    v46 = pow(a7, a5);
+    v47 = a8;
+    v48 = a6;
+    goto LABEL_15;
   }
 
-  v83 = a1 + a2;
-  v17 = a1 + 6.02468004 + -0.5;
-  v18 = a2 + 6.02468004 + -0.5;
-  v19 = a1 + a2 + 6.02468004 + -0.5;
-  v20 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v83, a1 + a2 + 6.02468004, a2 + 6.02468004, 6.02468004, -0.5, a5, a6, a7, a8);
-  v28 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v85, v20, v21, v22, v23, v24, v25, v26, v27);
-  v36 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v84, v28, v29, v30, v31, v32, v33, v34, v35);
+  v92 = a5 + a6;
+  v17 = a5 + 6.02468004 + -0.5;
+  v18 = a6 + 6.02468004 + -0.5;
+  v19 = a5 + a6 + 6.02468004 + -0.5;
+  v20 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v92, a5 + a6 + 6.02468004, a6 + 6.02468004, 6.02468004, -0.5, a9, a10, a11, a12);
+  v28 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v94, v20, v21, v22, v23, v24, v25, v26, v27);
+  v36 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v93, v28, v29, v30, v31, v32, v33, v34, v35);
   v37 = v19;
-  __x = sqrt(v17 / v19) * (sqrt(v18 / 2.71828183) * (v20 / (v28 * v36) * a5));
-  v39 = v84;
-  v38 = v85;
-  v40 = (a3 * v84 - v17 * a4) / v17;
+  __x = sqrt(v17 / v19) * (sqrt(v18 / 2.71828183) * (v20 / (v28 * v36) * a9));
+  v39 = v93;
+  v38 = v94;
+  v40 = (a7 * v93 - v17 * a8) / v17;
   v41 = fabs(v40);
-  v42 = (a4 * v85 - v18 * a3) / v18;
+  v42 = (a8 * v94 - v18 * a7) / v18;
   v43 = fabs(v42);
   if (v43 >= v41)
   {
@@ -8778,205 +8766,206 @@ LABEL_15:
     v44 = v43;
   }
 
-  if (v44 >= 0.2)
+  if (v44 < 0.2)
   {
-    v48 = v37 * a3 / v17;
-    v49 = v37 * a4 / v18;
-    v50 = log(v48);
-    v51 = v50 * v38;
-    v52 = log(v49);
-    v53 = v52 * v39;
-    if (v50 * v38 < 709.0 && v51 > -708.0 && v53 < 709.0 && v53 > -708.0)
+    if (v40 * v42 > 0.0 || (v93 >= v94 ? (v45 = v94) : (v45 = v93), v45 < 1.0))
     {
-      pow(v48, v38);
-      pow(v49, v39);
-      return;
+      v88 = v37;
+      v90 = (a8 * v94 - v18 * a7) / v18;
+      if (v41 >= 0.1)
+      {
+        v62 = pow(v37 * a7 / v17, v94);
+      }
+
+      else
+      {
+        v95 = (a7 * v93 - v17 * a8) / v17;
+        if (v40 < -1.0)
+        {
+          boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v95);
+        }
+
+        if (v40 == -1.0)
+        {
+          boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
+        }
+
+        v73 = log1pl((a7 * v93 - v17 * a8) / v17);
+        v62 = exp(v38 * v73);
+      }
+
+      v46 = __x * v62;
+      if (v43 < 0.1)
+      {
+        v69 = v93;
+        v95 = v90;
+        if (v90 < -1.0)
+        {
+          boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v95, v90);
+        }
+
+        if (v90 == -1.0)
+        {
+          boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
+        }
+
+        v74 = log1pl(v90);
+        v49 = exp(v69 * v74);
+        return v46 * v49;
+      }
+
+      v48 = v93;
+      v47 = v88 * a8 / v18;
+LABEL_15:
+      v49 = pow(v47, v48);
+      return v46 * v49;
     }
 
-    if (v38 >= v39)
+    if (v41 >= v43)
     {
-      v58 = pow(v48, v38 / v39);
-      v59 = v39 * (v52 + log(v58));
-      if (v59 < 709.0 && v59 > -708.0)
-      {
-        v46 = v49 * v58;
-        v47 = v39;
-        goto LABEL_15;
-      }
+      v63 = v41;
     }
 
     else
     {
-      v54 = pow(v49, v39 / v38);
-      v55 = v38 * (v50 + log(v54));
-      if (v55 < 709.0 && v55 > -708.0)
-      {
-        v46 = v48 * v54;
-        v47 = v38;
-        goto LABEL_15;
-      }
+      v63 = v43;
     }
 
-    v60 = v52 * v39 + v51 + log(__x);
-    if (v60 < 709.0)
+    if (v63 < 0.5)
     {
-      goto LABEL_71;
-    }
-
-    goto LABEL_58;
-  }
-
-  if (v40 * v42 <= 0.0)
-  {
-    v45 = v84 >= v85 ? v85 : v84;
-    if (v45 >= 1.0)
-    {
-      if (v41 >= v43)
+      v64 = v93 / v94;
+      if ((v94 >= v93 || v64 * v42 >= 0.1) && (v94 < v93 || v40 / v64 <= 0.1))
       {
-        v56 = v41;
+        v81 = v40;
+        v82 = v42;
+        v83 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v81);
+        v84 = boost::math::expm1<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v83 / v64);
+        v85 = v82 + v84 + v84 * v82;
+        v80 = v93;
+        v87 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v85);
       }
 
       else
       {
-        v56 = v43;
-      }
-
-      if (v56 < 0.5)
-      {
-        v57 = v84 / v85;
-        if ((v85 >= v84 || v57 * v42 >= 0.1) && (v85 < v84 || v40 / v57 <= 0.1))
+        v95 = v42;
+        if (v42 < -1.0)
         {
-          v72 = v40;
-          v73 = v42;
-          v74 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v72);
-          v75 = boost::math::expm1<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v74 / v57);
-          v76 = v73 + v75 + v75 * v73;
-          v71 = v84;
-          v78 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v76);
+          boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v95);
         }
 
-        else
+        if (v42 == -1.0)
         {
-          v86 = v42;
-          if (v42 < -1.0)
-          {
-            boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v86);
-          }
-
-          if (v42 == -1.0)
-          {
-            boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
-          }
-
-          v77 = log1pl(v42);
-          v69 = boost::math::detail::expm1_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v57 * v77);
-          if (fabs(v69) > 1.79769313e308)
-          {
-            boost::math::policies::detail::raise_error<std::overflow_error,long double>("boost::math::expm1<%1%>(%1%)", "numeric overflow");
-          }
-
-          v70 = v40 + v69 + v69 * v40;
-          v71 = v85;
-          v86 = v70;
-          if (v70 < -1.0)
-          {
-            boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v86);
-          }
-
-          if (v70 == -1.0)
-          {
-            boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
-          }
-
-          v78 = log1pl(v70);
+          boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
         }
 
-        v60 = v71 * v78;
-        goto LABEL_71;
+        v86 = log1pl(v42);
+        v78 = boost::math::detail::expm1_imp<long double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v64 * v86);
+        if (fabs(v78) > 1.79769313e308)
+        {
+          boost::math::policies::detail::raise_error<std::overflow_error,long double>("boost::math::expm1<%1%>(%1%)", "numeric overflow");
+        }
+
+        v79 = v40 + v78 + v78 * v40;
+        v80 = v94;
+        v95 = v79;
+        if (v79 < -1.0)
+        {
+          boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v95);
+        }
+
+        if (v79 == -1.0)
+        {
+          boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
+        }
+
+        v87 = log1pl(v79);
       }
 
-      v80 = v37;
-      if (v41 >= v43)
-      {
-        v67 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v42);
-        v68 = v85;
-        v64 = log(v80 * a3 / v17) * v68 + v39 * v67;
-      }
-
-      else
-      {
-        v62 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>((a3 * v84 - v17 * a4) / v17);
-        v63 = v84;
-        v64 = log(v80 * a4 / v18) * v63 + v38 * v62;
-      }
-
-      if (v64 > -708.0 && v64 < 709.0)
-      {
-        v60 = v64;
-LABEL_71:
-        exp(v60);
-        return;
-      }
-
-      v60 = log(__x) + v64;
-      if (v60 < 709.0)
-      {
-        goto LABEL_71;
-      }
-
-LABEL_58:
-      boost::math::policies::detail::raise_error<std::overflow_error,long double>(a12, "Overflow Error");
+      v77 = v80 * v87;
+      goto LABEL_73;
     }
-  }
 
-  v79 = v37;
-  v81 = (a4 * v85 - v18 * a3) / v18;
-  if (v41 >= 0.1)
-  {
-    pow(v37 * a3 / v17, v85);
-  }
-
-  else
-  {
-    v86 = (a3 * v84 - v17 * a4) / v17;
-    if (v40 < -1.0)
+    v89 = v37;
+    if (v41 >= v43)
     {
-      boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v86);
+      v75 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(v42);
+      v76 = v94;
+      v72 = log(v89 * a7 / v17) * v76 + v39 * v75;
     }
 
-    if (v40 == -1.0)
+    else
     {
-      boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
+      v70 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>((a7 * v93 - v17 * a8) / v17);
+      v71 = v93;
+      v72 = log(v89 * a8 / v18) * v71 + v38 * v70;
     }
 
-    v65 = log1pl((a3 * v84 - v17 * a4) / v17);
-    exp(v38 * v65);
+    if (v72 > -708.0 && v72 < 709.0)
+    {
+      v77 = v72;
+LABEL_73:
+      v67 = exp(v77);
+      return __x * v67;
+    }
+
+    v68 = log(__x) + v72;
+    if (v68 >= 709.0)
+    {
+LABEL_60:
+      boost::math::policies::detail::raise_error<std::overflow_error,long double>(a4, "Overflow Error");
+    }
+
+    return exp(v68);
   }
 
-  if (v43 >= 0.1)
+  v51 = v37 * a7 / v17;
+  v52 = v37 * a8 / v18;
+  v53 = log(v51);
+  v54 = v53 * v38;
+  v55 = log(v52);
+  v56 = v55 * v39;
+  if (v53 * v38 < 709.0 && v54 > -708.0 && v56 < 709.0 && v56 > -708.0)
   {
-    v47 = v84;
-    v46 = v79 * a4 / v18;
-    goto LABEL_15;
+    v57 = pow(v51, v38);
+    return pow(v52, v39) * v57 * __x;
   }
 
-  v61 = v84;
-  v86 = v81;
-  if (v81 < -1.0)
+  if (v38 >= v39)
   {
-    boost::math::policies::detail::raise_error<std::domain_error,long double>("log1p<%1%>(%1%)", "log1p(x) requires x > -1, but got x = %1%.", &v86);
+    v65 = pow(v51, v38 / v39);
+    v66 = v39 * (v55 + log(v65));
+    if (v66 < 709.0 && v66 > -708.0)
+    {
+      v60 = v52 * v65;
+      v61 = v39;
+      goto LABEL_40;
+    }
+
+LABEL_41:
+    v68 = v55 * v39 + v54 + log(__x);
+    if (v68 >= 709.0)
+    {
+      goto LABEL_60;
+    }
+
+    return exp(v68);
   }
 
-  if (v81 == -1.0)
+  v58 = pow(v52, v39 / v38);
+  v59 = v38 * (v53 + log(v58));
+  if (v59 >= 709.0 || v59 <= -708.0)
   {
-    boost::math::policies::detail::raise_error<std::overflow_error,long double>("log1p<%1%>(%1%)", "Overflow Error");
+    goto LABEL_41;
   }
 
-  v66 = log1pl(v81);
-  exp(v61 * v66);
+  v60 = v51 * v58;
+  v61 = v38;
+LABEL_40:
+  v67 = pow(v60, v61);
+  return __x * v67;
 }
 
-void boost::math::policies::detail::raise_error<std::domain_error,long double>(char *a1, char *a2, double *a3)
+void boost::math::policies::detail::raise_error<std::domain_error,long double>(char *a1, char *a2, double *a3, ...)
 {
   v4 = "Unknown function operating on type %1%";
   if (a1)
@@ -9058,7 +9047,7 @@ void boost::math::policies::detail::raise_error<std::domain_error,long double>(c
   boost::throw_exception<std::domain_error>(&v11);
 }
 
-uint64_t boost::math::policies::detail::prec_format<long double>@<X0>(double *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t boost::math::policies::detail::prec_format<long double>@<X0>(double *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   *(&v9[0].__locale_ + *(v7 - 24)) = 17;
@@ -9080,9 +9069,9 @@ uint64_t boost::math::policies::detail::prec_format<long double>@<X0>(double *a1
   return MEMORY[0x1D388B600](&v11);
 }
 
-void sub_1D146E4F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D146E4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -9090,71 +9079,66 @@ void sub_1D146E4F8(_Unwind_Exception *a1, uint64_t a2, ...)
 void boost::math::detail::beta_imp<long double,boost::math::lanczos::lanczos13m53,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
   __y = a2;
-  v40 = a1;
+  v38 = a1;
   if (a1 <= 0.0)
   {
-    v10 = "The arguments to the beta function must be greater than zero (got a=%1%).";
-    p_y = &v40;
-    goto LABEL_12;
+    boost::math::policies::detail::raise_error<std::domain_error,long double>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", &v38);
   }
 
   if (a2 <= 0.0)
   {
-    v10 = "The arguments to the beta function must be greater than zero (got b=%1%).";
-    p_y = &__y;
-LABEL_12:
-    boost::math::policies::detail::raise_error<std::domain_error,long double>("boost::math::beta<%1%>(%1%,%1%)", v10, p_y);
+    boost::math::policies::detail::raise_error<std::domain_error,long double>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", &__y);
   }
 
   v8 = a1 + a2;
-  v38 = a1 + a2;
+  v36 = a1 + a2;
   v9 = a2 < 2.22044605e-16 && v8 == a1;
   if (!v9 && (a1 >= 2.22044605e-16 || v8 != a2) && a2 != 1.0 && a1 != 1.0 && v8 >= 2.22044605e-16)
   {
     if (a1 >= a2)
     {
-      v12 = a2;
+      v10 = a2;
       a2 = a1;
     }
 
     else
     {
       __y = a1;
-      v40 = a2;
-      v12 = a1;
+      v38 = a2;
+      v10 = a1;
     }
 
-    v13 = a2 + 6.02468004;
-    v14 = v13 + -0.5;
-    v15 = v12 + 6.02468004;
-    v16 = v8 + 6.02468004 + -0.5;
-    v17 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v40, v8 + 6.02468004, v13, v8, v12, a5, a6, a7, a8);
-    v25 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &__y, v17, v18, v19, v20, v21, v22, v23, v24);
-    boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v38, v25, v26, v27, v28, v29, v30, v31, v32);
-    v33 = v40 + -0.5 - __y;
-    if (fabs(__y * v33) >= v16 * 100.0 || v40 <= 100.0)
+    v11 = a2 + 6.02468004;
+    v12 = v11 + -0.5;
+    v13 = v10 + 6.02468004;
+    v14 = v8 + 6.02468004 + -0.5;
+    v15 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v38, v8 + 6.02468004, v11, v8, v10, a5, a6, a7, a8);
+    v23 = boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &__y, v15, v16, v17, v18, v19, v20, v21, v22);
+    boost::math::tools::detail::evaluate_rational_c_imp<long double,unsigned int,long double>(boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::num, boost::math::lanczos::lanczos13m53::lanczos_sum_expG_scaled<long double>(long double const&)::denom, &v36, v23, v24, v25, v26, v27, v28, v29, v30);
+    v31 = v38 + -0.5 - __y;
+    if (fabs(__y * v31) >= v14 * 100.0 || v38 <= 100.0)
     {
-      pow(v14 / v16, v40 + -0.5 - __y);
+      pow(v12 / v14, v38 + -0.5 - __y);
     }
 
     else
     {
-      v35 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(-__y / v16);
-      exp(v33 * v35);
+      v33 = boost::math::log1p<boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(-__y / v14);
+      exp(v31 * v33);
     }
 
-    v36 = v15 + -0.5;
-    if (v16 <= 1.0e10)
+    v34 = v13 + -0.5;
+    if (v14 <= 1.0e10)
     {
-      v37 = v14 * v36 / (v16 * v16);
+      v35 = v12 * v34 / (v14 * v14);
     }
 
     else
     {
-      v37 = v14 / v16 * (v36 / v16);
+      v35 = v12 / v14 * (v34 / v14);
     }
 
-    pow(v37, __y);
+    pow(v35, __y);
   }
 }
 
@@ -9440,7 +9424,7 @@ double boost::math::detail::powm1_imp<long double,boost::math::policies::policy<
   return v8;
 }
 
-void boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>(char *a1, char *a2, double *a3)
+void boost::math::policies::detail::raise_error<boost::math::rounding_error,long double>(char *a1, char *a2, double *a3, ...)
 {
   v4 = "Unknown function operating on type %1%";
   if (a1)
@@ -9662,7 +9646,7 @@ uint64_t boost::wrapexcept<boost::math::rounding_error>::wrapexcept(uint64_t a1,
   return a1;
 }
 
-void boost::math::policies::detail::raise_error<boost::math::evaluation_error,long double>(char *a1, char *a2, double *a3)
+void boost::math::policies::detail::raise_error<boost::math::evaluation_error,long double>(char *a1, char *a2, double *a3, ...)
 {
   v4 = "Unknown function operating on type %1%";
   if (a1)
@@ -9817,4 +9801,29 @@ void boost::wrapexcept<boost::math::evaluation_error>::rethrow(uint64_t a1)
 {
   exception = __cxa_allocate_exception(0x40uLL);
   boost::wrapexcept<boost::math::evaluation_error>::wrapexcept(exception, a1);
+}
+
+void boost::wrapexcept<boost::math::evaluation_error>::~wrapexcept(uint64_t a1)
+{
+  *(a1 + 24) = &unk_1F4D39E90;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 32));
+  std::runtime_error::~runtime_error((a1 + 8));
+
+  JUMPOUT(0x1D388B630);
+}
+
+void non-virtual thunk toboost::wrapexcept<boost::math::evaluation_error>::~wrapexcept(uint64_t a1)
+{
+  *(a1 + 16) = &unk_1F4D39E90;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 24));
+
+  std::runtime_error::~runtime_error(a1);
+}
+
+{
+  *(a1 + 16) = &unk_1F4D39E90;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 24));
+  std::runtime_error::~runtime_error(a1);
+
+  JUMPOUT(0x1D388B630);
 }

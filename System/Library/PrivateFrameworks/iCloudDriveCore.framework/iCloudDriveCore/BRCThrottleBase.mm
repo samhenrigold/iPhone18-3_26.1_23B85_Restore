@@ -192,93 +192,88 @@
 
 - (void)initWithName:andParameters:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _initialRetryCount <= _finalRetryCount%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _initialRetryCount <= _finalRetryCount%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithName:(void *)a1 andParameters:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _minimumNsecsBetweenRetries <= _maximumNsecsBetweenRetries%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _minimumNsecsBetweenRetries <= _maximumNsecsBetweenRetries%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *a1;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithName:andParameters:.cold.3()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _minimumNsecsBetweenRetries > 0%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _minimumNsecsBetweenRetries > 0%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithName:(void *)a1 andParameters:(void *)a2 .cold.4(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _maximumNsecsBetweenRetries > 0%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _maximumNsecsBetweenRetries > 0%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *a1;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithName:andParameters:.cold.5()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _nsecsBeforeForgettingCounter >= _maximumNsecsBetweenRetries%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _nsecsBeforeForgettingCounter >= _maximumNsecsBetweenRetries%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nsecsToNextRetry:(uint64_t)a1 retryCount:(NSObject *)a2 now:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Forgetting retry counter%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Forgetting retry counter%@", &v2, 0xCu);
 }
 
 - (void)nsecsToNextRetry:(uint64_t)a1 retryCount:(NSObject *)a2 now:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] We haven't finished the previous throttle%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] We haven't finished the previous throttle%@", &v2, 0xCu);
 }
 
 @end

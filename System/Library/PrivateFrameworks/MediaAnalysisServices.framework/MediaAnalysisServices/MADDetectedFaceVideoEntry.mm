@@ -74,7 +74,7 @@
   {
     if (coderCopy)
     {
-      [coderCopy decodeCMTimeRangeForKey:@"TimeRange"];
+      objc_msgSend_decodeCMTimeRangeForKey_(coderCopy);
     }
 
     else

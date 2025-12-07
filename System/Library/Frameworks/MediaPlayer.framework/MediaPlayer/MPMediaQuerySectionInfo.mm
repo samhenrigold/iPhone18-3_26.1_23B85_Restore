@@ -58,7 +58,7 @@
   return v7;
 }
 
-unint64_t __69__MPMediaQuerySectionInfo_indexOfSectionForSectionIndexTitleAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__69__MPMediaQuerySectionInfo_indexOfSectionForSectionIndexTitleAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 sectionIndexTitleIndex];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

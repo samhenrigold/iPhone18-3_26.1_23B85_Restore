@@ -223,7 +223,7 @@
     v3 = qword_1000DDBC8;
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
     {
-      sub_100070524(v3, self);
+      sub_100070524(v3);
     }
 
     if (self->_currentRequestedOpCode - 1 <= 1)

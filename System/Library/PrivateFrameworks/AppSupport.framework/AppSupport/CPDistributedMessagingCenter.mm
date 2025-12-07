@@ -1,9 +1,11 @@
 @interface CPDistributedMessagingCenter
++ (id)_centerNamed:(id)named requireLookupByPID:(BOOL)d;
 - (BOOL)_isTaskEntitled:(id *)entitled;
 - (BOOL)_sendMessage:(id)message userInfo:(id)info receiveReply:(id *)reply error:(id *)error toTarget:(id)target selector:(SEL)selector context:(void *)context nonBlocking:(BOOL)self0;
 - (BOOL)_sendMessage:(id)message userInfoData:(id)data oolKey:(id)key oolData:(id)oolData makeServer:(BOOL)server receiveReply:(id *)reply nonBlocking:(BOOL)blocking error:(id *)self0;
 - (BOOL)doesServerExist;
 - (id)_initAnonymousServer;
+- (id)_initClientWithPort:(unsigned int)port;
 - (id)_initWithServerName:(id)name requireLookupByPID:(BOOL)d;
 - (id)delayReply;
 - (id)sendMessageAndReceiveReplyName:(id)name userInfo:(id)info;
@@ -25,6 +27,39 @@
 @end
 
 @implementation CPDistributedMessagingCenter
+
++ (id)_centerNamed:(id)named requireLookupByPID:(BOOL)d
+{
+  dCopy = d;
+  if (!named)
+  {
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@ center name cannont be nil", self}];
+  }
+
+  pthread_mutex_lock(&_centerNamed_requireLookupByPID__instanceLock);
+  v7 = _centerNamed_requireLookupByPID__centers;
+  if (!_centerNamed_requireLookupByPID__centers)
+  {
+    v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    _centerNamed_requireLookupByPID__centers = v7;
+  }
+
+  v8 = [v7 objectForKey:named];
+  if (!v8)
+  {
+    if ([named lengthOfBytesUsingEncoding:4] >= 0x81)
+    {
+      pthread_mutex_unlock(&_centerNamed_requireLookupByPID__instanceLock);
+      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@ center name cannot be longer than %i UTF8 bytes", self, 128}];
+    }
+
+    v8 = [objc_alloc(objc_opt_class()) _initWithServerName:named requireLookupByPID:dCopy];
+    [_centerNamed_requireLookupByPID__centers setObject:v8 forKey:named];
+  }
+
+  pthread_mutex_unlock(&_centerNamed_requireLookupByPID__instanceLock);
+  return v8;
+}
 
 - (id)_initWithServerName:(id)name requireLookupByPID:(BOOL)d
 {
@@ -52,6 +87,19 @@
   }
 
   return v2;
+}
+
+- (id)_initClientWithPort:(unsigned int)port
+{
+  v3 = *&port;
+  v4 = [(CPDistributedMessagingCenter *)self _initWithServerName:0];
+  v5 = v4;
+  if (v4)
+  {
+    [v4 _setSendPort:v3];
+  }
+
+  return v5;
 }
 
 - (void)dealloc
@@ -162,11 +210,10 @@ void __56__CPDistributedMessagingCenter__setupInvalidationSource__block_invoke_3
       uTF8String = [(NSString *)self->_centerName UTF8String];
       if (requireLookupByPID)
       {
-        targetPID = self->_targetPID;
-        v8 = bootstrap_look_up2();
-        if (v8)
+        v7 = bootstrap_look_up2();
+        if (v7)
         {
-          NSLog(@"Failed looking up per pid service %d for name %@", v8, self->_centerName);
+          NSLog(@"Failed looking up per pid service %d for name %@", v7, self->_centerName);
           self->_sendPort = 0;
         }
       }
@@ -180,9 +227,9 @@ void __56__CPDistributedMessagingCenter__setupInvalidationSource__block_invoke_3
     }
   }
 
-  v9 = self->_sendPort;
+  v8 = self->_sendPort;
   [(NSLock *)self->_lock unlock];
-  return v9;
+  return v8;
 }
 
 - (void)_setSendPort:(unsigned int)port
@@ -543,7 +590,6 @@ LABEL_55:
   }
 
   uTF8String = [(NSString *)self->_centerName UTF8String];
-  v7 = MEMORY[0x1E69E99F8];
   if (self->_requireLookupByPID)
   {
     if (!bootstrap_check_in2())
@@ -557,13 +603,11 @@ LABEL_55:
     goto LABEL_12;
   }
 
-  v8 = MEMORY[0x1E69E9A60];
-  if (!mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &sp) && !mach_port_insert_right(*v8, sp, sp, 0x14u))
+  v7 = MEMORY[0x1E69E9A60];
+  if (!mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &sp) && !mach_port_insert_right(*v7, sp, sp, 0x14u))
   {
-    requireLookupByPID = self->_requireLookupByPID;
-    v10 = *v7;
     bootstrap_register2();
-    mach_port_deallocate(*v8, sp);
+    mach_port_deallocate(*v7, sp);
   }
 
 LABEL_12:
@@ -571,17 +615,17 @@ LABEL_12:
   {
     [(NSLock *)self->_lock unlock];
     centerName = self->_centerName;
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *v5;
-    v15 = objc_opt_class();
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *v5;
+    v12 = objc_opt_class();
     if (centerName)
     {
-      [v13 raise:v14 format:{@"%@ unable to register for '%@'", v15, self->_centerName}];
+      [v10 raise:v11 format:{@"%@ unable to register for '%@'", v12, self->_centerName}];
     }
 
     else
     {
-      [v13 raise:v14 format:{@"%@ unable to create server for invalid right: %i", v15, sp}];
+      [v10 raise:v11 format:{@"%@ unable to create server for invalid right: %i", v12, sp}];
     }
   }
 

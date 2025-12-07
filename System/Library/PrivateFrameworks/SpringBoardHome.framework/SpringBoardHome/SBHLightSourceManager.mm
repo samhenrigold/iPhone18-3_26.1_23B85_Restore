@@ -75,46 +75,47 @@
 
 - (void)pauseLightAngleUpdates
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   allObjects = [(NSHashTable *)self->_observers allObjects];
-  v4 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) setLightActivityLevel:0];
+        [*(*(&v12 + 1) + 8 * v7++) setLightActivityLevel:0];
       }
 
       while (v5 != v7);
-      v5 = [allObjects countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
   lightSourceDisplayLink = [(SBHLightSourceManager *)self lightSourceDisplayLink];
-  if (([lightSourceDisplayLink isPaused] & 1) == 0)
+  isPaused = [lightSourceDisplayLink isPaused];
+  if ((isPaused & 1) == 0)
   {
-    v9 = SBLogLightAngle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = SBLogLightAngle(isPaused);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_INFO, "Pausing light angle update display link", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_INFO, "Pausing light angle update display link", v11, 2u);
     }
 
     [lightSourceDisplayLink setPaused:1];
@@ -244,13 +245,14 @@ void __53__SBHLightSourceManager_setUpLightSourceSubscription__block_invoke(uint
 - (void)startUpdates
 {
   BSDispatchQueueAssertMain();
-  if ([(SBHLightSourceManager *)self shouldUpdateLight])
+  shouldUpdateLight = [(SBHLightSourceManager *)self shouldUpdateLight];
+  if (shouldUpdateLight)
   {
-    v3 = SBLogLightAngle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = SBLogLightAngle(shouldUpdateLight);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_INFO, "Starting light angle updates", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_INFO, "Starting light angle updates", v5, 2u);
     }
 
     [(SBHLightSourceManager *)self setUpLightSourceSubscription];
@@ -260,9 +262,11 @@ void __53__SBHLightSourceManager_setUpLightSourceSubscription__block_invoke(uint
 
 uint64_t __38__SBHLightSourceManager_sharedManager__block_invoke()
 {
-  sharedManager_sharedManager = objc_alloc_init(SBHLightSourceManager);
+  v0 = objc_alloc_init(SBHLightSourceManager);
+  v1 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)addLayer:(id)layer inView:(id)view
@@ -350,12 +354,13 @@ void __58__SBHLightSourceManager__didAddLightSourceObserverInView___block_invoke
 {
   layerCopy = layer;
   BSDispatchQueueAssertMain();
-  if ([(NSHashTable *)self->_layers containsObject:layerCopy])
+  v5 = [(NSHashTable *)self->_layers containsObject:layerCopy];
+  if (v5)
   {
-    v5 = SBLogLightAngle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SBLogLightAngle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(SBHLightSourceManager *)layerCopy removeLayer:v5];
+      [(SBHLightSourceManager *)layerCopy removeLayer:v6];
     }
 
     [(NSHashTable *)self->_layers removeObject:layerCopy];
@@ -381,12 +386,13 @@ void __58__SBHLightSourceManager__didAddLightSourceObserverInView___block_invoke
 {
   observerCopy = observer;
   BSDispatchQueueAssertMain();
-  if ([(NSHashTable *)self->_observers containsObject:observerCopy])
+  v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+  if (v5)
   {
-    v5 = SBLogLightAngle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SBLogLightAngle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(SBHLightSourceManager *)observerCopy removeObserver:v5];
+      [(SBHLightSourceManager *)observerCopy removeObserver:v6];
     }
 
     [(NSHashTable *)self->_observers removeObject:observerCopy];
@@ -406,66 +412,66 @@ void __58__SBHLightSourceManager__didAddLightSourceObserverInView___block_invoke
 
 - (id)pauseUpdatesForReason:(id)reason
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  BSDispatchQueueAssertMain();
-  v5 = SBLogLightAngle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogLightAngle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543362;
-    v12 = reasonCopy;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "Pausing light angle updates for reason '%{public}@'", &v11, 0xCu);
+    v12 = 138543362;
+    v13 = reasonCopy;
+    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Pausing light angle updates for reason '%{public}@'", &v12, 0xCu);
   }
 
-  v6 = [[SBHLightSourceManagerAssertion alloc] initWithLightSourceManager:self type:0 reason:reasonCopy];
+  v7 = [[SBHLightSourceManagerAssertion alloc] initWithLightSourceManager:self type:0 reason:reasonCopy];
   disableUpdatesAssertions = self->_disableUpdatesAssertions;
   if (!disableUpdatesAssertions)
   {
     weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-    v9 = self->_disableUpdatesAssertions;
+    v10 = self->_disableUpdatesAssertions;
     self->_disableUpdatesAssertions = weakObjectsHashTable;
 
     disableUpdatesAssertions = self->_disableUpdatesAssertions;
   }
 
-  [(NSHashTable *)disableUpdatesAssertions addObject:v6];
+  [(NSHashTable *)disableUpdatesAssertions addObject:v7];
   if (![(SBHLightSourceManager *)self areUpdatesDisabled])
   {
     [(SBHLightSourceManager *)self setUpdatesDisabled:1];
     [(SBHLightSourceManager *)self stopUpdates];
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)reduceUpdateFrequencyForReason:(id)reason
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  BSDispatchQueueAssertMain();
-  v5 = SBLogLightAngle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogLightAngle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543362;
-    v12 = reasonCopy;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "Reducing light angle update frequency for reason '%{public}@'", &v11, 0xCu);
+    v12 = 138543362;
+    v13 = reasonCopy;
+    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Reducing light angle update frequency for reason '%{public}@'", &v12, 0xCu);
   }
 
-  v6 = [[SBHLightSourceManagerAssertion alloc] initWithLightSourceManager:self type:1 reason:reasonCopy];
+  v7 = [[SBHLightSourceManagerAssertion alloc] initWithLightSourceManager:self type:1 reason:reasonCopy];
   reduceUpdateFreqencyAssertions = self->_reduceUpdateFreqencyAssertions;
   if (!reduceUpdateFreqencyAssertions)
   {
     weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-    v9 = self->_reduceUpdateFreqencyAssertions;
+    v10 = self->_reduceUpdateFreqencyAssertions;
     self->_reduceUpdateFreqencyAssertions = weakObjectsHashTable;
 
     reduceUpdateFreqencyAssertions = self->_reduceUpdateFreqencyAssertions;
   }
 
-  [(NSHashTable *)reduceUpdateFreqencyAssertions addObject:v6];
+  [(NSHashTable *)reduceUpdateFreqencyAssertions addObject:v7];
   [(SBHLightSourceManager *)self updateLightSourceRefreshRate];
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)canUpdateLight
@@ -549,16 +555,16 @@ void __58__SBHLightSourceManager__didAddLightSourceObserverInView___block_invoke
 - (void)updateLightSourceUpdateActivityLevel:(unsigned __int8)level
 {
   levelCopy = level;
-  v10 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
-  v5 = SBLogLightAngle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogLightAngle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = 134218240;
+    v7 = 134218240;
     currentActivityLevel = [(SBHLightSourceManager *)self currentActivityLevel];
-    v8 = 2048;
-    v9 = levelCopy;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "Light source update activity level changed: %li -> %li", &v6, 0x16u);
+    v9 = 2048;
+    v10 = levelCopy;
+    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Light source update activity level changed: %li -> %li", &v7, 0x16u);
   }
 
   [(SBHLightSourceManager *)self setCurrentActivityLevel:levelCopy];
@@ -705,8 +711,7 @@ LABEL_16:
     [(SBHLightSourceManager *)self setLastLightIntensity:v36];
     [(SBHLightSourceManager *)self setLastLightTimestamp:timestamp];
     [(SBHLightSourceManager *)self setLastLightTimestamp2:v29];
-    [(SBHLightSourceOverlayManager *)self->_overlayManager noteLightAngleDidUpdate];
-    v40 = SBLogLightAngle();
+    v40 = SBLogLightAngle([(SBHLightSourceOverlayManager *)self->_overlayManager noteLightAngleDidUpdate]);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       [(SBHLightSourceManager *)v40 updateLightSourceForTargetTimestamp:v38];
@@ -831,18 +836,19 @@ LABEL_6:
 
 - (void)invalidateDisableUpdatesAssertion:(id)assertion
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   BSDispatchQueueAssertMain();
-  if ([(NSHashTable *)self->_disableUpdatesAssertions containsObject:assertionCopy])
+  v5 = [(NSHashTable *)self->_disableUpdatesAssertions containsObject:assertionCopy];
+  if (v5)
   {
-    v5 = SBLogLightAngle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogLightAngle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       reason = [assertionCopy reason];
-      v7 = 138543362;
-      v8 = reason;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "Light angle pause reason '%{public}@' did invalidate", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = reason;
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Light angle pause reason '%{public}@' did invalidate", &v8, 0xCu);
     }
 
     [(NSHashTable *)self->_disableUpdatesAssertions removeObject:assertionCopy];
@@ -856,18 +862,19 @@ LABEL_6:
 
 - (void)invalidateReduceUpdateFrequencyAssertion:(id)assertion
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   BSDispatchQueueAssertMain();
-  if ([(NSHashTable *)self->_reduceUpdateFreqencyAssertions containsObject:assertionCopy])
+  v5 = [(NSHashTable *)self->_reduceUpdateFreqencyAssertions containsObject:assertionCopy];
+  if (v5)
   {
-    v5 = SBLogLightAngle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogLightAngle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       reason = [assertionCopy reason];
-      v7 = 138543362;
-      v8 = reason;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "Light angle update frequency reason '%{public}@' did invalidate", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = reason;
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Light angle update frequency reason '%{public}@' did invalidate", &v8, 0xCu);
     }
 
     [(NSHashTable *)self->_reduceUpdateFreqencyAssertions removeObject:assertionCopy];

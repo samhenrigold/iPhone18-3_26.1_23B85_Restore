@@ -9,6 +9,7 @@
 - (WFHMServiceParameterState)serviceParameterState;
 - (WFHomeAccessoryConditionalSubjectState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter;
 - (WFHomeAccessoryConditionalSubjectState)initWithSerializedWFHMServiceParameter:(id)parameter serializedWFHMCharacteristicSubstitutableState:(id)state negatesValue:(BOOL)value;
+- (WFHomeAccessoryConditionalSubjectState)initWithService:(id)service characteristic:(id)characteristic homeIdentifier:(id)identifier negatesValue:(BOOL)value;
 - (id)homeIdentifier;
 - (id)localizedLabelForEnumerationPossibleState:(id)state;
 - (id)maximumLength;
@@ -254,7 +255,7 @@ WFNumberSubstitutableState *__92__WFHomeAccessoryConditionalSubjectState_getEnum
   format = [metadata format];
 
   v6 = getHMCharacteristicMetadataFormatBool_2135();
-  LOBYTE(metadata) = [format isEqualToString:v6];
+  LOBYTE(metadata) = objc_msgSend_isEqualToString_(format);
 
   if (metadata)
   {
@@ -263,31 +264,31 @@ WFNumberSubstitutableState *__92__WFHomeAccessoryConditionalSubjectState_getEnum
   }
 
   v8 = getHMCharacteristicMetadataFormatString_2136();
-  v9 = [format isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(format);
 
-  if (v9)
+  if (isEqualToString)
   {
     v7 = 2;
     goto LABEL_19;
   }
 
   v10 = getHMCharacteristicMetadataFormatInt_2137();
-  if (([format isEqualToString:v10] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(format) & 1) == 0)
   {
     v11 = getHMCharacteristicMetadataFormatFloat_2138();
-    if (([format isEqualToString:v11] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(format) & 1) == 0)
     {
       v12 = getHMCharacteristicMetadataFormatUInt8_2139();
-      if (([format isEqualToString:v12] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(format) & 1) == 0)
       {
         v13 = getHMCharacteristicMetadataFormatUInt16_2140();
-        if (([format isEqualToString:v13] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(format) & 1) == 0)
         {
           v14 = getHMCharacteristicMetadataFormatUInt32_2141();
-          if (([format isEqualToString:v14] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(format) & 1) == 0)
           {
             v17 = getHMCharacteristicMetadataFormatUInt64_2142();
-            v18 = [format isEqualToString:v17];
+            v18 = objc_msgSend_isEqualToString_(format);
 
             if ((v18 & 1) == 0)
             {
@@ -349,44 +350,43 @@ void __82__WFHomeAccessoryConditionalSubjectState_getContentWithContext_completi
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) characteristic];
-    v17 = [v5 value];
+    v4 = [*(a1 + 32) characteristic];
+    v16 = [v4 value];
 
     if ([*(a1 + 32) negatesValue])
     {
-      v6 = MEMORY[0x1E696AD98];
-      v7 = objc_opt_class();
-      v8 = WFEnforceClass_1501(v17, v7);
-      v9 = [v6 numberWithInt:{objc_msgSend(v8, "BOOLValue") ^ 1}];
+      v5 = MEMORY[0x1E696AD98];
+      v6 = objc_opt_class();
+      v7 = WFEnforceClass_1501(v16, v6);
+      v8 = [v5 numberWithInt:{objc_msgSend(v7, "BOOLValue") ^ 1}];
 
-      v17 = v9;
+      v16 = v8;
     }
 
-    v10 = objc_opt_new();
-    v11 = [*(a1 + 32) unit];
+    v9 = objc_opt_new();
+    v10 = [*(a1 + 32) unit];
 
-    if (v11)
+    if (v10)
     {
-      v12 = objc_alloc(MEMORY[0x1E696AD28]);
-      [v17 doubleValue];
-      v14 = v13;
-      v15 = [*(a1 + 32) unit];
-      v16 = [v12 initWithDoubleValue:v15 unit:v14];
+      v11 = objc_alloc(MEMORY[0x1E696AD28]);
+      [v16 doubleValue];
+      v13 = v12;
+      v14 = [*(a1 + 32) unit];
+      v15 = [v11 initWithDoubleValue:v14 unit:v13];
 
-      [v10 addObject:v16];
+      [v9 addObject:v15];
     }
 
     else
     {
-      [v10 addObject:v17];
+      [v9 addObject:v16];
     }
 
     (*(*(a1 + 40) + 16))();
@@ -538,6 +538,46 @@ LABEL_14:
   }
 
   return v4;
+}
+
+- (WFHomeAccessoryConditionalSubjectState)initWithService:(id)service characteristic:(id)characteristic homeIdentifier:(id)identifier negatesValue:(BOOL)value
+{
+  valueCopy = value;
+  characteristicCopy = characteristic;
+  identifierCopy = identifier;
+  serviceCopy = service;
+  v13 = [[WFHMServiceParameterState alloc] initWithService:serviceCopy homeIdentifier:identifierCopy];
+
+  serializedRepresentation = [(WFHMServiceParameterState *)v13 serializedRepresentation];
+  v15 = objc_opt_class();
+  v16 = WFEnforceClass_1501(serializedRepresentation, v15);
+
+  if (v16)
+  {
+    if (characteristicCopy)
+    {
+      v17 = [[WFHMCharacteristicSubstitutableState alloc] initWithCharacteristic:characteristicCopy homeIdentifier:identifierCopy];
+      serializedRepresentation2 = [(WFHMCharacteristicSubstitutableState *)v17 serializedRepresentation];
+      v19 = objc_opt_class();
+      v20 = WFEnforceClass_1501(serializedRepresentation2, v19);
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    self = [(WFHomeAccessoryConditionalSubjectState *)self initWithSerializedWFHMServiceParameter:v16 serializedWFHMCharacteristicSubstitutableState:v20 negatesValue:valueCopy];
+
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (WFHomeAccessoryConditionalSubjectState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter

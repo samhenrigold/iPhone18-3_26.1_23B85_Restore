@@ -52,8 +52,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_20BD4E6E4(highlighted);
+  sub_20BD4E6E4(highlightedCopy);
 }
 
 - (void)setTitle:(id)title forState:(unint64_t)state
@@ -81,7 +82,7 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_20BD4EC48();
+  sub_20BD4EC48(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -93,7 +94,7 @@
 
 - (void)textSizeChanged:(id)changed
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C765E10);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C765E10, &unk_20C161460);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   if (changed)

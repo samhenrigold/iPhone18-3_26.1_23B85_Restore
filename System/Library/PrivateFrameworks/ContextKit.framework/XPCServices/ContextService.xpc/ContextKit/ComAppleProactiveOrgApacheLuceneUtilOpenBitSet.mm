@@ -30,6 +30,7 @@
 - (void)clearWithLong:(int64_t)long withLong:(int64_t)withLong;
 - (void)dealloc;
 - (void)ensureCapacityWithLong:(int64_t)long;
+- (void)ensureCapacityWordsWithInt:(int)int;
 - (void)fastClearWithInt:(int)int;
 - (void)fastClearWithLong:(int64_t)long;
 - (void)fastFlipWithInt:(int)int;
@@ -273,7 +274,6 @@ LABEL_12:
         size = v18->super.size_;
         if ((v7 & 0x80000000) != 0 || size <= v7)
         {
-          v21 = selfCopy->bits_;
           IOSArray_throwOutOfBoundsWithMsg(size, v7);
         }
 
@@ -407,7 +407,6 @@ LABEL_17:
       v12 = ((withInt - 1) >> 6);
       if (v5 < 0 || v5 >= v11->super.size_)
       {
-        v19 = self->bits_;
         IOSArray_throwOutOfBoundsWithMsg(v11->super.size_, (int >> 6));
       }
 
@@ -470,7 +469,6 @@ LABEL_17:
 
       if ((v5 & 0x80000000) != 0 || v12->super.size_ <= v5)
       {
-        v19 = self->bits_;
         IOSArray_throwOutOfBoundsWithMsg(v12->super.size_, long >> 6);
       }
 
@@ -765,7 +763,7 @@ LABEL_27:
     v8 = bits->buffer_[v3] >> (int & 0x3F);
     if (v8)
     {
-      return JavaLangLong_numberOfTrailingZerosWithLong_(v8) + intCopy;
+      return JavaLangLong_numberOfTrailingZerosWithLong_(v8, a2) + intCopy;
     }
 
     v10 = v3 + 1;
@@ -783,7 +781,7 @@ LABEL_27:
       intCopy += 64;
       if (v8)
       {
-        return JavaLangLong_numberOfTrailingZerosWithLong_(v8) + intCopy;
+        return JavaLangLong_numberOfTrailingZerosWithLong_(v8, a2) + intCopy;
       }
     }
   }
@@ -811,7 +809,7 @@ LABEL_27:
     v7 = bits->buffer_[v3] >> long;
     if (v7)
     {
-      return (v3 << 6) + (JavaLangLong_numberOfTrailingZerosWithLong_(v7) + (long & 0x3F));
+      return (v3 << 6) + (JavaLangLong_numberOfTrailingZerosWithLong_(v7, a2) + (long & 0x3F));
     }
 
     v9 = v3 + 1;
@@ -829,7 +827,7 @@ LABEL_27:
       v10 += 64;
       if (v13)
       {
-        return v10 + JavaLangLong_numberOfTrailingZerosWithLong_(v13);
+        return v10 + JavaLangLong_numberOfTrailingZerosWithLong_(v13, a2);
       }
     }
   }
@@ -920,14 +918,14 @@ LABEL_11:
       if (v9)
       {
         v7 = 63;
-        return (v7 | (v10 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9);
+        return (v7 | (v10 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9, a2);
       }
     }
   }
 
 LABEL_6:
   v10 = v4;
-  return (v7 | (v10 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9);
+  return (v7 | (v10 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9, a2);
 }
 
 - (int64_t)prevSetBitWithLong:(int64_t)long
@@ -983,7 +981,7 @@ LABEL_10:
   v12 = v4;
   if (v9)
   {
-    return (v7 | (v12 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9);
+    return (v7 | (v12 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9, a2);
   }
 
   v14 = v4 - 1;
@@ -1007,7 +1005,7 @@ LABEL_10:
     LODWORD(v4) = v4 - 1;
     if (v9)
     {
-      return (v7 | (v12 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9);
+      return (v7 | (v12 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v9, a2);
     }
   }
 
@@ -1306,6 +1304,13 @@ LABEL_13:
   return v8 >= 0;
 }
 
+- (void)ensureCapacityWordsWithInt:(int)int
+{
+  v10 = OrgApacheLuceneUtilArrayUtil_growWithLongArray_withInt_(self->bits_, int, *&int, v3, v4, v5, v6, v7);
+  JreStrongAssign(&self->bits_, v10);
+  self->wlen_ = int;
+}
+
 - (void)ensureCapacityWithLong:(int64_t)long
 {
   if ((atomic_load_explicit(ComAppleProactiveOrgApacheLuceneUtilOpenBitSet__initialized, memory_order_acquire) & 1) == 0)
@@ -1527,10 +1532,11 @@ LABEL_29:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = ComAppleProactiveOrgApacheLuceneUtilOpenBitSet_class_();
-    qword_1005541D8 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v2);
+    v4 = ComAppleProactiveOrgApacheLuceneUtilOpenBitSet_class_(v3);
+    qword_1005541D8 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfInstanceWithIOSClass_(v4);
     atomic_store(1u, ComAppleProactiveOrgApacheLuceneUtilOpenBitSet__initialized);
   }
 }

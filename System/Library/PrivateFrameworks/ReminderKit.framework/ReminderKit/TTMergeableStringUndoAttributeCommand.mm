@@ -39,9 +39,9 @@
 
 - (void)updateTopoIDRange:(TopoIDRange *)range toNewRangeID:(TopoIDRange *)d
 {
-  v24 = 0;
-  v25 = 0;
-  v26 = 0;
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
   attributeRanges = self->_attributeRanges;
   v8 = *attributeRanges;
   v9 = attributeRanges[1];
@@ -50,29 +50,29 @@
     selfCopy = self;
     do
     {
-      v21 = 0;
-      v22 = 0;
-      v23 = 0;
-      updateTopoIDRange(v8, range, d, &v21);
-      v10 = v21;
-      v11 = v22;
+      v25 = 0;
+      v26 = 0;
+      v27 = 0;
+      updateTopoIDRange(v8, range, d, &v25);
+      v10 = v25;
+      v11 = v26;
       while (v10 != v11)
       {
         v12 = *v10;
         v13 = *(v10 + 8);
         v14 = *(v10 + 16);
         v15 = v12;
-        v17 = v15;
-        v18 = v13;
-        v19 = v14;
-        v20 = v8[1].var0.var0;
-        std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::push_back[abi:ne200100](&v24, &v17);
+        v21 = v15;
+        v22 = v13;
+        v23 = v14;
+        v24 = v8[1].var0.var0;
+        std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::push_back[abi:ne200100](&v28, &v21, v16, v17, v18, v19);
 
         v10 += 24;
       }
 
-      v17 = &v21;
-      std::vector<TopoIDRange>::__destroy_vector::operator()[abi:ne200100](&v17);
+      v21 = &v25;
+      std::vector<TopoIDRange>::__destroy_vector::operator()[abi:ne200100](&v21);
       v8 = (v8 + 32);
     }
 
@@ -80,13 +80,13 @@
     attributeRanges = selfCopy->_attributeRanges;
   }
 
-  if (attributeRanges != &v24)
+  if (attributeRanges != &v28)
   {
-    std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::__assign_with_size[abi:ne200100]<std::pair<TopoIDRange,NSDictionary * {__strong}>*,std::pair<TopoIDRange,NSDictionary * {__strong}>*>(attributeRanges, v24, v25, (v25 - v24) >> 5);
+    std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::__assign_with_size[abi:ne200100]<std::pair<TopoIDRange,NSDictionary * {__strong}>*,std::pair<TopoIDRange,NSDictionary * {__strong}>*>(attributeRanges, v28, v29, (v29 - v28) >> 5);
   }
 
-  v17 = &v24;
-  std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::__destroy_vector::operator()[abi:ne200100](&v17);
+  v21 = &v28;
+  std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::__destroy_vector::operator()[abi:ne200100](&v21);
 }
 
 - (BOOL)hasTopoIDsThatCanChange

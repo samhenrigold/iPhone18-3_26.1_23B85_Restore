@@ -2,42 +2,43 @@
 - (void)_repairRecordsForContainer:(void *)container database:;
 - (void)_repairStoreRecordWithRandomOwnerIdentifier:(uint64_t)identifier;
 - (void)main;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncRepairStoreRecordsOperation
 
 - (void)main
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D10BB0]);
   taskGroup = self->_taskGroup;
   self->_taskGroup = v3;
 
   [(HDSynchronousTaskGroup *)self->_taskGroup setDelegate:self];
   [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   allCKContainers = [repository allCKContainers];
 
-  v8 = [allCKContainers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [allCKContainers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(allCKContainers);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         privateCloudDatabase = [v12 privateCloudDatabase];
         [(HDCloudSyncRepairStoreRecordsOperation *)self _repairRecordsForContainer:v12 database:privateCloudDatabase];
 
@@ -45,19 +46,18 @@
         [(HDCloudSyncRepairStoreRecordsOperation *)self _repairRecordsForContainer:v12 database:sharedCloudDatabase];
       }
 
-      v9 = [allCKContainers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [allCKContainers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   [(HDSynchronousTaskGroup *)self->_taskGroup finishTask];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_repairRecordsForContainer:(void *)container database:
 {
-  v155 = *MEMORY[0x277D85DE8];
+  v152 = *MEMORY[0x277D85DE8];
   v5 = a2;
   containerCopy = container;
   if (self)
@@ -66,12 +66,12 @@
     configuration = [self configuration];
     cachedCloudState = [configuration cachedCloudState];
     containerIdentifier = [v5 containerIdentifier];
-    v126 = 0;
-    v11 = [cachedCloudState zoneIdentifiersForContainerIdentifier:containerIdentifier databaseScope:objc_msgSend(containerCopy error:{"databaseScope"), &v126}];
-    v12 = v126;
+    v123 = 0;
+    v11 = [cachedCloudState zoneIdentifiersForContainerIdentifier:containerIdentifier databaseScope:objc_msgSend(containerCopy error:{"databaseScope"), &v123}];
+    v12 = v123;
 
-    v103 = v12;
-    v97 = v11;
+    v100 = v12;
+    v94 = v11;
     if (!v11 && v12)
     {
       _HKInitializeLogging();
@@ -89,12 +89,12 @@ LABEL_74:
       v16 = CKDatabaseScopeString();
       *buf = 138544130;
       selfCopy6 = self;
-      v149 = 2114;
-      v150 = containerIdentifier2;
-      v151 = 2114;
-      v152 = v16;
-      v153 = 2114;
-      v154 = v12;
+      v146 = 2114;
+      v147 = containerIdentifier2;
+      v148 = 2114;
+      v149 = v16;
+      v150 = 2114;
+      v151 = v12;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get zone identifiers for container %{public}@, database %{public}@, %{public}@", buf, 0x2Au);
       goto LABEL_77;
     }
@@ -102,22 +102,22 @@ LABEL_74:
     if (!v11)
     {
       _HKInitializeLogging();
-      v94 = *MEMORY[0x277CCC328];
+      v92 = *MEMORY[0x277CCC328];
       if (!os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_74;
       }
 
-      v14 = v94;
+      v14 = v92;
       containerIdentifier2 = [v5 containerIdentifier];
       [containerCopy databaseScope];
       v16 = CKDatabaseScopeString();
       *buf = 138543874;
       selfCopy6 = self;
-      v149 = 2114;
-      v150 = containerIdentifier2;
-      v151 = 2114;
-      v152 = v16;
+      v146 = 2114;
+      v147 = containerIdentifier2;
+      v148 = 2114;
+      v149 = v16;
       _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "%{public}@ No zones cached for container %{public}@, database %{public}@", buf, 0x20u);
 LABEL_77:
 
@@ -125,189 +125,189 @@ LABEL_72:
       goto LABEL_74;
     }
 
-    v124 = 0u;
-    v125 = 0u;
+    v121 = 0u;
     v122 = 0u;
-    v123 = 0u;
+    v119 = 0u;
+    v120 = 0u;
     obj = v11;
     v17 = v5;
-    v98 = v7;
-    v99 = v5;
-    v96 = containerCopy;
-    v104 = [obj countByEnumeratingWithState:&v122 objects:v133 count:16];
-    if (!v104)
+    v95 = v7;
+    v96 = v5;
+    v93 = containerCopy;
+    v101 = [obj countByEnumeratingWithState:&v119 objects:v130 count:16];
+    if (!v101)
     {
 LABEL_57:
 
       v14 = v7;
       v5 = v17;
-      v71 = v17;
-      containerCopy = v96;
-      v72 = v96;
+      v69 = v17;
+      containerCopy = v93;
+      v70 = v93;
       if (v14 && [v14 count])
       {
         _HKInitializeLogging();
-        v73 = MEMORY[0x277CCC328];
-        v74 = *MEMORY[0x277CCC328];
+        v71 = MEMORY[0x277CCC328];
+        v72 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
         {
-          v75 = v74;
-          v76 = [v14 count];
-          containerIdentifier3 = [v71 containerIdentifier];
-          v78 = HDCKDatabaseScopeToString([v72 databaseScope]);
+          v73 = v72;
+          v74 = [v14 count];
+          containerIdentifier3 = [v69 containerIdentifier];
+          v76 = HDCKDatabaseScopeToString([v70 databaseScope]);
           *buf = 138544130;
           selfCopy6 = self;
-          v149 = 2048;
-          v150 = v76;
-          v151 = 2114;
-          v152 = containerIdentifier3;
-          v153 = 2114;
-          v154 = v78;
-          _os_log_impl(&dword_228986000, v75, OS_LOG_TYPE_DEFAULT, "%{public}@: Saving %ld repaired records in %{public}@:%{public}@", buf, 0x2Au);
+          v146 = 2048;
+          v147 = v74;
+          v148 = 2114;
+          v149 = containerIdentifier3;
+          v150 = 2114;
+          v151 = v76;
+          _os_log_impl(&dword_228986000, v73, OS_LOG_TYPE_DEFAULT, "%{public}@: Saving %ld repaired records in %{public}@:%{public}@", buf, 0x2Au);
         }
 
-        v116 = v72;
-        v118 = v71;
+        v113 = v70;
+        v115 = v69;
         selfCopy4 = self;
-        v136 = 0u;
-        v137 = 0u;
+        v133 = 0u;
         v134 = 0u;
-        v135 = 0u;
-        v120 = v14;
-        v80 = v14;
-        v81 = [v80 countByEnumeratingWithState:&v134 objects:buf count:16];
-        if (v81)
+        v131 = 0u;
+        v132 = 0u;
+        v117 = v14;
+        v78 = v14;
+        v79 = [v78 countByEnumeratingWithState:&v131 objects:buf count:16];
+        if (v79)
         {
-          v82 = v81;
-          v83 = *v135;
+          v80 = v79;
+          v81 = *v132;
           do
           {
-            for (i = 0; i != v82; ++i)
+            for (i = 0; i != v80; ++i)
             {
-              if (*v135 != v83)
+              if (*v132 != v81)
               {
-                objc_enumerationMutation(v80);
+                objc_enumerationMutation(v78);
               }
 
-              v85 = *(*(&v134 + 1) + 8 * i);
+              v83 = *(*(&v131 + 1) + 8 * i);
               _HKInitializeLogging();
-              v86 = *v73;
-              if (os_log_type_enabled(*v73, OS_LOG_TYPE_DEFAULT))
+              v84 = *v71;
+              if (os_log_type_enabled(*v71, OS_LOG_TYPE_DEFAULT))
               {
-                v87 = v86;
-                recordID = [v85 recordID];
-                *v138 = 138543618;
-                *&v138[4] = selfCopy4;
-                *&v138[12] = 2114;
-                *&v138[14] = recordID;
-                _os_log_impl(&dword_228986000, v87, OS_LOG_TYPE_DEFAULT, "%{public}@: Repaired %{public}@", v138, 0x16u);
+                v85 = v84;
+                recordID = [v83 recordID];
+                *v135 = 138543618;
+                *&v135[4] = selfCopy4;
+                *&v135[12] = 2114;
+                *&v135[14] = recordID;
+                _os_log_impl(&dword_228986000, v85, OS_LOG_TYPE_DEFAULT, "%{public}@: Repaired %{public}@", v135, 0x16u);
               }
             }
 
-            v82 = [v80 countByEnumeratingWithState:&v134 objects:buf count:16];
+            v80 = [v78 countByEnumeratingWithState:&v131 objects:buf count:16];
           }
 
-          while (v82);
+          while (v80);
         }
 
-        v89 = selfCopy4;
+        v87 = selfCopy4;
         [selfCopy4[13] beginTask];
-        v90 = [v80 hk_map:&__block_literal_global_175];
-        v91 = [HDCloudSyncModifyRecordsOperation alloc];
+        v88 = [v78 hk_map:&__block_literal_global_175];
+        v89 = [HDCloudSyncModifyRecordsOperation alloc];
         configuration2 = [selfCopy4 configuration];
-        v71 = v118;
-        v93 = [(HDCloudSyncModifyRecordsOperation *)v91 initWithConfiguration:configuration2 container:v118 recordsToSave:v90 recordIDsToDelete:0];
+        v69 = v115;
+        v91 = [(HDCloudSyncModifyRecordsOperation *)v89 initWithConfiguration:configuration2 container:v115 recordsToSave:v88 recordIDsToDelete:0];
 
-        *v138 = MEMORY[0x277D85DD0];
-        *&v138[8] = 3221225472;
-        *&v138[16] = __82__HDCloudSyncRepairStoreRecordsOperation__saveRepairedRecords_container_database___block_invoke_2;
-        *&v138[24] = &unk_278613088;
-        *&v139 = v89;
-        [(HDCloudSyncOperation *)v93 setOnError:v138];
-        *&v127 = MEMORY[0x277D85DD0];
-        *(&v127 + 1) = 3221225472;
-        *&v128 = __82__HDCloudSyncRepairStoreRecordsOperation__saveRepairedRecords_container_database___block_invoke_3;
-        *(&v128 + 1) = &unk_278613060;
-        *&v129 = v89;
-        [(HDCloudSyncOperation *)v93 setOnSuccess:&v127];
-        [(HDCloudSyncOperation *)v93 start];
+        *v135 = MEMORY[0x277D85DD0];
+        *&v135[8] = 3221225472;
+        *&v135[16] = __82__HDCloudSyncRepairStoreRecordsOperation__saveRepairedRecords_container_database___block_invoke_2;
+        *&v135[24] = &unk_278613088;
+        *&v136 = v87;
+        [(HDCloudSyncOperation *)v91 setOnError:v135];
+        *&v124 = MEMORY[0x277D85DD0];
+        *(&v124 + 1) = 3221225472;
+        *&v125 = __82__HDCloudSyncRepairStoreRecordsOperation__saveRepairedRecords_container_database___block_invoke_3;
+        *(&v125 + 1) = &unk_278613060;
+        *&v126 = v87;
+        [(HDCloudSyncOperation *)v91 setOnSuccess:&v124];
+        [(HDCloudSyncOperation *)v91 start];
 
-        v7 = v98;
-        v5 = v99;
-        containerCopy = v96;
-        v12 = v103;
-        v14 = v120;
-        v72 = v116;
+        v7 = v95;
+        v5 = v96;
+        containerCopy = v93;
+        v12 = v100;
+        v14 = v117;
+        v70 = v113;
       }
 
       goto LABEL_72;
     }
 
-    v102 = *v123;
+    v99 = *v120;
     v18 = MEMORY[0x277CCC328];
     selfCopy5 = self;
 LABEL_9:
     v19 = 0;
     while (1)
     {
-      if (*v123 != v102)
+      if (*v120 != v99)
       {
         objc_enumerationMutation(obj);
       }
 
-      v106 = v19;
-      v20 = *(*(&v122 + 1) + 8 * v19);
-      v109 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v103 = v19;
+      v20 = *(*(&v119 + 1) + 8 * v19);
+      v106 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v21 = [HDCloudSyncCachedZone alloc];
       configuration3 = [self configuration];
       repository = [configuration3 repository];
       configuration4 = [self configuration];
       accessibilityAssertion = [configuration4 accessibilityAssertion];
-      v110 = v20;
+      v107 = v20;
       v26 = [(HDCloudSyncCachedZone *)v21 initForZoneIdentifier:v20 repository:repository accessibilityAssertion:accessibilityAssertion];
 
       v27 = v26;
       v28 = objc_opt_class();
-      v131 = 0;
-      v29 = [v26 recordsForClass:v28 error:&v131];
-      v30 = v131;
+      v128 = 0;
+      v29 = [v26 recordsForClass:v28 error:&v128];
+      v30 = v128;
       v31 = v29 || v30 == 0;
-      v105 = v30;
+      v102 = v30;
       if (v31)
       {
         break;
       }
 
-      v66 = v30;
+      v64 = v30;
       _HKInitializeLogging();
-      v67 = *v18;
+      v65 = *v18;
       if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
       {
-        v69 = v67;
+        v67 = v65;
         zoneIdentifier = [v27 zoneIdentifier];
         *buf = 138543874;
         selfCopy6 = self;
-        v149 = 2114;
-        v150 = zoneIdentifier;
-        v151 = 2114;
-        v152 = v66;
-        _os_log_error_impl(&dword_228986000, v69, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
+        v146 = 2114;
+        v147 = zoneIdentifier;
+        v148 = 2114;
+        v149 = v64;
+        _os_log_error_impl(&dword_228986000, v67, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
       }
 
 LABEL_54:
-      v64 = 0;
-      v65 = v106;
-      v34 = v109;
-      v33 = v110;
+      v62 = 0;
+      v63 = v103;
+      v33 = v106;
+      v32 = v107;
 LABEL_55:
 
-      [v7 addObjectsFromArray:v64];
-      v19 = v65 + 1;
-      v12 = v103;
-      if (v19 == v104)
+      [v7 addObjectsFromArray:v62];
+      v19 = v63 + 1;
+      v12 = v100;
+      if (v19 == v101)
       {
-        v104 = [obj countByEnumeratingWithState:&v122 objects:v133 count:16];
-        if (!v104)
+        v101 = [obj countByEnumeratingWithState:&v119 objects:v130 count:16];
+        if (!v101)
         {
           goto LABEL_57;
         }
@@ -321,130 +321,128 @@ LABEL_55:
       goto LABEL_54;
     }
 
-    v129 = 0u;
-    v130 = 0u;
+    v126 = 0u;
     v127 = 0u;
-    v128 = 0u;
-    v101 = v29;
-    v114 = v29;
-    v32 = 0x27860D000uLL;
-    v34 = v109;
-    v33 = v110;
-    v119 = [v114 countByEnumeratingWithState:&v127 objects:&v134 count:16];
-    if (!v119)
+    v124 = 0u;
+    v125 = 0u;
+    v98 = v29;
+    v111 = v29;
+    v33 = v106;
+    v32 = v107;
+    v116 = [v111 countByEnumeratingWithState:&v124 objects:&v131 count:16];
+    if (!v116)
     {
       goto LABEL_51;
     }
 
-    v117 = *v128;
-    v108 = v26;
+    v114 = *v125;
+    v105 = v26;
 LABEL_20:
-    v35 = 0;
+    v34 = 0;
     while (1)
     {
-      if (*v128 != v117)
+      if (*v125 != v114)
       {
-        objc_enumerationMutation(v114);
+        objc_enumerationMutation(v111);
       }
 
-      v36 = *(*(&v127 + 1) + 8 * v35);
-      ownerIdentifier = [v36 ownerIdentifier];
+      v35 = *(*(&v124 + 1) + 8 * v34);
+      ownerIdentifier = [v35 ownerIdentifier];
 
       if (ownerIdentifier)
       {
         goto LABEL_49;
       }
 
-      if ([v33 type] != 2)
+      if ([v32 type] != 2)
       {
         break;
       }
 
-      v121 = v36;
-      v38 = v27;
-      v39 = *(v32 + 3968);
-      v40 = objc_opt_class();
-      v132 = 0;
-      v113 = v38;
-      v41 = [v38 recordsForClass:v40 error:&v132];
-      v42 = v132;
-      v112 = v42;
-      if (v41 || !v42)
+      v118 = v35;
+      v37 = v27;
+      v38 = objc_opt_class();
+      v129 = 0;
+      v110 = v37;
+      v39 = [v37 recordsForClass:v38 error:&v129];
+      v40 = v129;
+      v109 = v40;
+      if (v39 || !v40)
       {
-        if (v41)
+        if (v39)
         {
-          v111 = v41;
-          if ([v41 count] >= 2)
+          v108 = v39;
+          if ([v39 count] >= 2)
           {
             _HKInitializeLogging();
-            v46 = *v18;
+            v44 = *v18;
             if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
             {
-              v62 = v46;
-              zoneIdentifier2 = [v113 zoneIdentifier];
-              *v141 = 138543618;
+              v60 = v44;
+              zoneIdentifier2 = [v110 zoneIdentifier];
+              *v138 = 138543618;
               selfCopy8 = self;
-              v143 = 2114;
-              v144 = zoneIdentifier2;
-              _os_log_error_impl(&dword_228986000, v62, OS_LOG_TYPE_ERROR, "%{public}@ Retrieved multiple cached registry records for %{public}@,", v141, 0x16u);
+              v140 = 2114;
+              v141 = zoneIdentifier2;
+              _os_log_error_impl(&dword_228986000, v60, OS_LOG_TYPE_ERROR, "%{public}@ Retrieved multiple cached registry records for %{public}@,", v138, 0x16u);
             }
           }
 
-          firstObject = [v41 firstObject];
+          firstObject = [v39 firstObject];
           ownerIdentifiers = [firstObject ownerIdentifiers];
-          memset(v138, 0, sizeof(v138));
-          v139 = 0u;
-          v140 = 0u;
-          v115 = ownerIdentifiers;
-          v49 = [v115 countByEnumeratingWithState:v138 objects:buf count:16];
-          if (v49)
+          memset(v135, 0, sizeof(v135));
+          v136 = 0u;
+          v137 = 0u;
+          v112 = ownerIdentifiers;
+          v47 = [v112 countByEnumeratingWithState:v135 objects:buf count:16];
+          if (v47)
           {
-            v50 = v49;
-            v51 = **&v138[16];
+            v48 = v47;
+            v49 = **&v135[16];
             while (2)
             {
-              for (j = 0; j != v50; ++j)
+              for (j = 0; j != v48; ++j)
               {
-                if (**&v138[16] != v51)
+                if (**&v135[16] != v49)
                 {
-                  objc_enumerationMutation(v115);
+                  objc_enumerationMutation(v112);
                 }
 
-                v53 = *(*&v138[8] + 8 * j);
-                v54 = [firstObject storeIdentifiersForOwnerIdentifier:v53];
-                storeIdentifier = [v121 storeIdentifier];
-                v56 = [v54 containsObject:storeIdentifier];
+                v51 = *(*&v135[8] + 8 * j);
+                v52 = [firstObject storeIdentifiersForOwnerIdentifier:v51];
+                storeIdentifier = [v118 storeIdentifier];
+                v54 = [v52 containsObject:storeIdentifier];
 
-                if (v56)
+                if (v54)
                 {
                   _HKInitializeLogging();
                   v18 = MEMORY[0x277CCC328];
-                  v59 = *MEMORY[0x277CCC328];
+                  v57 = *MEMORY[0x277CCC328];
                   self = selfCopy5;
-                  v58 = v121;
+                  v56 = v118;
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
                   {
-                    v60 = v59;
-                    storeIdentifier2 = [v121 storeIdentifier];
-                    *v141 = 138543874;
+                    v58 = v57;
+                    storeIdentifier2 = [v118 storeIdentifier];
+                    *v138 = 138543874;
                     selfCopy8 = selfCopy5;
-                    v143 = 2114;
-                    v144 = storeIdentifier2;
-                    v145 = 2114;
-                    v146 = v53;
-                    _os_log_impl(&dword_228986000, v60, OS_LOG_TYPE_DEFAULT, "%{public}@: Found broken store identifier %{public}@ in set for owner %{public}@; repairing.", v141, 0x20u);
+                    v140 = 2114;
+                    v141 = storeIdentifier2;
+                    v142 = 2114;
+                    v143 = v51;
+                    _os_log_impl(&dword_228986000, v58, OS_LOG_TYPE_DEFAULT, "%{public}@: Found broken store identifier %{public}@ in set for owner %{public}@; repairing.", v138, 0x20u);
                   }
 
-                  [v121 repairOwnerIdentifier:v53];
-                  [v121 setRepaired:1];
-                  v57 = v115;
+                  [v118 repairOwnerIdentifier:v51];
+                  [v118 setRepaired:1];
+                  v55 = v112;
 
                   goto LABEL_47;
                 }
               }
 
-              v50 = [v115 countByEnumeratingWithState:v138 objects:buf count:16];
-              if (v50)
+              v48 = [v112 countByEnumeratingWithState:v135 objects:buf count:16];
+              if (v48)
               {
                 continue;
               }
@@ -453,18 +451,17 @@ LABEL_20:
             }
           }
 
-          v57 = v115;
+          v55 = v112;
 
           self = selfCopy5;
-          v58 = v121;
-          [(HDCloudSyncRepairStoreRecordsOperation *)selfCopy5 _repairStoreRecordWithRandomOwnerIdentifier:v121];
+          v56 = v118;
+          [(HDCloudSyncRepairStoreRecordsOperation *)selfCopy5 _repairStoreRecordWithRandomOwnerIdentifier:v118];
           v18 = MEMORY[0x277CCC328];
 LABEL_47:
 
-          v32 = 0x27860D000;
-          v34 = v109;
-          v33 = v110;
-          v27 = v108;
+          v33 = v106;
+          v32 = v107;
+          v27 = v105;
           goto LABEL_48;
         }
       }
@@ -472,36 +469,36 @@ LABEL_47:
       else
       {
         _HKInitializeLogging();
-        v43 = *v18;
+        v41 = *v18;
         if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
         {
-          v44 = v43;
-          zoneIdentifier3 = [v113 zoneIdentifier];
-          *v141 = 138543874;
+          v42 = v41;
+          zoneIdentifier3 = [v110 zoneIdentifier];
+          *v138 = 138543874;
           selfCopy8 = self;
-          v143 = 2114;
-          v144 = zoneIdentifier3;
-          v145 = 2114;
-          v146 = v112;
-          _os_log_error_impl(&dword_228986000, v44, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", v141, 0x20u);
+          v140 = 2114;
+          v141 = zoneIdentifier3;
+          v142 = 2114;
+          v143 = v109;
+          _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", v138, 0x20u);
 
-          v27 = v108;
+          v27 = v105;
         }
       }
 
 LABEL_49:
-      if (++v35 == v119)
+      if (++v34 == v116)
       {
-        v119 = [v114 countByEnumeratingWithState:&v127 objects:&v134 count:16];
-        if (!v119)
+        v116 = [v111 countByEnumeratingWithState:&v124 objects:&v131 count:16];
+        if (!v116)
         {
 LABEL_51:
 
-          v64 = v34;
-          v7 = v98;
-          v17 = v99;
-          v65 = v106;
-          v29 = v101;
+          v62 = v33;
+          v7 = v95;
+          v17 = v96;
+          v63 = v103;
+          v29 = v98;
           goto LABEL_55;
         }
 
@@ -509,20 +506,18 @@ LABEL_51:
       }
     }
 
-    [(HDCloudSyncRepairStoreRecordsOperation *)self _repairStoreRecordWithRandomOwnerIdentifier:v36];
+    [(HDCloudSyncRepairStoreRecordsOperation *)self _repairStoreRecordWithRandomOwnerIdentifier:v35];
 LABEL_48:
-    [v34 addObject:{v36, v96}];
+    [v33 addObject:{v35, v93}];
     goto LABEL_49;
   }
 
 LABEL_75:
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_repairStoreRecordWithRandomOwnerIdentifier:(uint64_t)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
@@ -532,8 +527,8 @@ LABEL_75:
     storeIdentifier = [v3 storeIdentifier];
     *buf = 138543618;
     identifierCopy = identifier;
-    v18 = 2114;
-    v19 = storeIdentifier;
+    v17 = 2114;
+    v18 = storeIdentifier;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Repairing broken store record with identifier %{public}@ by generating random owner identifier.", buf, 0x16u);
   }
 
@@ -548,7 +543,13 @@ LABEL_75:
   [v3 repairOwnerIdentifier:v14];
 
   [v3 setRepaired:1];
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

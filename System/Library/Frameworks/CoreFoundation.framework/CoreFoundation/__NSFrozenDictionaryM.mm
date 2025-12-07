@@ -17,7 +17,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&self->cow);
   if (v3)
   {
@@ -44,10 +44,9 @@
     cow_cleanup(self, 0);
   }
 
-  v8.receiver = self;
-  v8.super_class = __NSFrozenDictionaryM;
-  [(__NSFrozenDictionaryM *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __NSFrozenDictionaryM;
+  [(__NSFrozenDictionaryM *)&v7 dealloc];
 }
 
 - (id)mutableCopy
@@ -88,15 +87,15 @@
   v5 = count >> 61;
   if (objects && v5 || keys && v5)
   {
-    v17 = _os_log_pack_size();
-    v19 = v23 - ((MEMORY[0x1EEE9AC00](v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v20 = _os_log_pack_fill();
+    v16 = _os_log_pack_size();
+    v19 = v23 - ((MEMORY[0x1EEE9AC00](v16, v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = _os_log_pack_fill(v19, v16, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous");
     *v20 = 136315394;
     *(v20 + 4) = "[__NSFrozenDictionaryM getObjects:andKeys:count:]";
     *(v20 + 12) = 2048;
     *(v20 + 14) = count;
     v21 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSFrozenDictionaryM getObjects:andKeys:count:]", count);
-    v22 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v21) osLogPack:0 size:v19, v17];
+    v22 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v21) osLogPack:0 size:v19, v16];
     objc_exception_throw(v22);
   }
 
@@ -162,8 +161,6 @@
 
     while (countCopy);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectForKey:(id)key
@@ -248,62 +245,60 @@ LABEL_22:
 {
   if (!__apply)
   {
-    v12 = __CFExceptionProem(self, a2);
-    v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%@: function pointer is NULL", v12);
-    v14 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13), 0];
-    objc_exception_throw(v14);
+    v10 = __CFExceptionProem(self, a2);
+    v11 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%@: function pointer is NULL", v10);
+    v12 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v11), 0];
+    objc_exception_throw(v12);
   }
 
   v4 = self->storage.var0.var0.mutations >> 58;
   if (v4)
   {
     v6 = v4;
-    v7 = LODWORD(__NSDictionarySizes_0[v6]);
     buffer = self->storage.buffer;
-    if (v7 <= 1)
+    if (LODWORD(__NSDictionarySizes_0[v6]) <= 1uLL)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = LODWORD(__NSDictionarySizes_0[v6]);
+      v8 = LODWORD(__NSDictionarySizes_0[v6]);
     }
 
     do
     {
       if (*buffer)
       {
-        v10 = *buffer == &___NSDictionaryM_DeletedMarker;
+        v9 = *buffer == &___NSDictionaryM_DeletedMarker;
       }
 
       else
       {
-        v10 = 1;
+        v9 = 1;
       }
 
-      if (!v10)
+      if (!v9)
       {
-        v11 = buffer[v7];
         (__apply)();
       }
 
       ++buffer;
-      --v9;
+      --v8;
     }
 
-    while (v9);
+    while (v8);
   }
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!objects && count)
   {
-    v13 = _os_log_pack_size();
-    v15 = v22 - ((MEMORY[0x1EEE9AC00](v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v16 = _os_log_pack_fill();
+    v12 = _os_log_pack_size();
+    v15 = &v23 - ((MEMORY[0x1EEE9AC00](v12, v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = _os_log_pack_fill(v15, v12, 0, &dword_1830E6000, "*** %s: pointer to objects array is NULL but length is %lu", v23, v24);
     *v16 = 136315394;
     *(v16 + 4) = "[__NSFrozenDictionaryM countByEnumeratingWithState:objects:count:]";
     *(v16 + 12) = 2048;
@@ -314,17 +309,17 @@ LABEL_22:
 
   if (count >> 61)
   {
-    v13 = _os_log_pack_size();
-    v15 = v22 - ((MEMORY[0x1EEE9AC00](v13, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v20 = _os_log_pack_fill();
-    *v20 = 136315394;
-    *(v20 + 4) = "[__NSFrozenDictionaryM countByEnumeratingWithState:objects:count:]";
-    *(v20 + 12) = 2048;
-    *(v20 + 14) = count;
+    v12 = _os_log_pack_size();
+    v15 = &v23 - ((MEMORY[0x1EEE9AC00](v12, v19, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = _os_log_pack_fill(v15, v12, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous", v23, v24);
+    *v21 = 136315394;
+    *(v21 + 4) = "[__NSFrozenDictionaryM countByEnumeratingWithState:objects:count:]";
+    *(v21 + 12) = 2048;
+    *(v21 + 14) = count;
     v17 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSFrozenDictionaryM countByEnumeratingWithState:objects:count:]", count);
 LABEL_20:
-    v21 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v17) osLogPack:0 size:v15, v13];
-    objc_exception_throw(v21);
+    v22 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v17) osLogPack:0 size:v15, v12];
+    objc_exception_throw(v22);
   }
 
   var0 = state->var0;
@@ -336,44 +331,39 @@ LABEL_20:
 
   if (var0 >= v6)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  buffer = self->storage.buffer;
+  state->var1 = objects;
+  result = 0;
+  if (count)
   {
-    buffer = self->storage.buffer;
-    state->var1 = objects;
-    result = 0;
-    if (count)
+    do
     {
-      do
+      v9 = buffer[var0];
+      if (v9)
       {
-        v9 = buffer[var0];
-        if (v9)
-        {
-          v10 = v9 == &___NSDictionaryM_DeletedMarker;
-        }
-
-        else
-        {
-          v10 = 1;
-        }
-
-        if (!v10)
-        {
-          objects[result++] = v9;
-        }
-
-        ++var0;
+        v10 = v9 == &___NSDictionaryM_DeletedMarker;
       }
 
-      while (var0 < v6 && result < count);
+      else
+      {
+        v10 = 1;
+      }
+
+      if (!v10)
+      {
+        objects[result++] = v9;
+      }
+
+      ++var0;
     }
 
-    state->var0 = var0;
+    while (var0 < v6 && result < count);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
+  state->var0 = var0;
   return result;
 }
 
@@ -382,14 +372,14 @@ LABEL_20:
   v21[7] = *MEMORY[0x1E69E9840];
   if (!block)
   {
-    v14 = _os_log_pack_size();
-    v16 = &v20[-((MEMORY[0x1EEE9AC00](v14, v15) + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v17 = _os_log_pack_fill();
-    *v17 = 136315138;
-    *(v17 + 4) = "[__NSFrozenDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]";
-    v18 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSFrozenDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]");
-    v19 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v18) osLogPack:0 size:v16, v14];
-    objc_exception_throw(v19);
+    v12 = _os_log_pack_size();
+    v15 = &v19 - ((MEMORY[0x1EEE9AC00](v12, v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = _os_log_pack_fill(v15, v12, 0, &dword_1830E6000, "*** %s: block cannot be nil", v19);
+    *v16 = 136315138;
+    *(v16 + 4) = "[__NSFrozenDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]";
+    v17 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSFrozenDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]");
+    v18 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v17) osLogPack:0 size:v15, v12];
+    objc_exception_throw(v18);
   }
 
   buffer = self->storage.buffer;
@@ -404,7 +394,7 @@ LABEL_20:
   v21[6] = &buffer[v7];
   if ((__NSCollectionHandleConcurrentEnumerationIfSpecified(options, 0, v7, v21) & 1) == 0)
   {
-    v20[15] = 0;
+    v20 = 0;
     if (mutations >> 58)
     {
       v8 = 0;
@@ -424,7 +414,6 @@ LABEL_20:
         if (!v10)
         {
           v11 = _CFAutoreleasePoolPush();
-          v12 = *(&buffer[v7] + v8);
           __NSDICTIONARY_IS_CALLING_OUT_TO_A_BLOCK__(block);
           _CFAutoreleasePoolPop(v11);
         }
@@ -435,36 +424,34 @@ LABEL_20:
       while (v8 < v7);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyOfEntryWithOptions:(unint64_t)options passingTest:(id)test
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   buffer = self->storage.buffer;
   mutations = self->storage.var0.var0.mutations;
   v7 = *(__NSDictionarySizes_0 + ((mutations >> 55) & 0x1F8));
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __mdict_keyOfEntryWithOptionsPassingTest_block_invoke;
-  v17[3] = &unk_1E6DD29A8;
-  v17[6] = buffer;
-  v17[7] = &buffer[v7];
-  v17[4] = test;
-  v17[5] = &v18;
-  if (__NSCollectionHandleConcurrentEnumerationIfSpecified(options, 0, v7, v17))
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __mdict_keyOfEntryWithOptionsPassingTest_block_invoke;
+  v16[3] = &unk_1E6DD29A8;
+  v16[6] = buffer;
+  v16[7] = &buffer[v7];
+  v16[4] = test;
+  v16[5] = &v17;
+  if (__NSCollectionHandleConcurrentEnumerationIfSpecified(options, 0, v7, v16))
   {
-    v8 = atomic_load(v19 + 3);
+    v8 = atomic_load(v18 + 3);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
     if (mutations >> 58)
     {
       v8 = 0;
@@ -495,14 +482,14 @@ LABEL_20:
         {
           v12 = buffer[v7];
           v13 = _CFAutoreleasePoolPush();
-          if ((*(test + 2))(test, v10, v12, &v16))
+          if ((*(test + 2))(test, v10, v12, &v15))
           {
-            v16 = 1;
+            v15 = 1;
             v8 = v10;
           }
 
           _CFAutoreleasePoolPop(v13);
-          if (v16)
+          if (v15)
           {
             break;
           }
@@ -521,26 +508,24 @@ LABEL_20:
     }
   }
 
-  _Block_object_dispose(&v18, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
   return v8;
 }
 
 - (id)keysOfEntriesWithOptions:(unint64_t)options passingTest:(id)test
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (!test)
   {
-    v7 = _os_log_pack_size();
-    v8 = _os_log_pack_fill();
-    *v8 = 136315138;
-    *(v8 + 4) = "[__NSFrozenDictionaryM keysOfEntriesWithOptions:passingTest:]";
-    v9 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: predicate cannot be nil", "[__NSFrozenDictionaryM keysOfEntriesWithOptions:passingTest:]");
-    v10 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v9) osLogPack:0 size:v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7];
-    objc_exception_throw(v10);
+    v6 = _os_log_pack_size();
+    v7 = _os_log_pack_fill(v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6, 0, &dword_1830E6000, "*** %s: predicate cannot be nil", v10[0]);
+    *v7 = 136315138;
+    *(v7 + 4) = "[__NSFrozenDictionaryM keysOfEntriesWithOptions:passingTest:]";
+    v8 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: predicate cannot be nil", "[__NSFrozenDictionaryM keysOfEntriesWithOptions:passingTest:]");
+    v9 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v8) osLogPack:0 size:v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6];
+    objc_exception_throw(v9);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   p_storage = &self->storage;
 
   return mdict_keysOfEntriesWithOptionsPassingTest(p_storage, options, test);

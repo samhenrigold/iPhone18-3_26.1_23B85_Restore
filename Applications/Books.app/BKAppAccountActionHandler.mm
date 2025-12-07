@@ -38,7 +38,7 @@
 
 - (void)account:(unint64_t)account didChangeWithReason:(unint64_t)reason
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = sub_1007A2744();
@@ -71,7 +71,7 @@
 
   v8 = sub_100542C28(action, v10);
 
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
   return v8 & 1;
 }
 
@@ -100,7 +100,7 @@
 
   sub_100543678();
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_viewMyAccount:(id)account
@@ -118,7 +118,7 @@
   }
 
   [objc_opt_self() openAccountSummaryPage];
-  sub_100007840(v3, &unk_100AD5B40);
+  sub_100007840(v3, &unk_100AD5B40, &unk_100811300);
 }
 
 - (BKAppAccountActionHandler)init

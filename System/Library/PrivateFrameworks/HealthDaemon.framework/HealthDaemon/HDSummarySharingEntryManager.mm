@@ -2,6 +2,7 @@
 - (BOOL)deleteEntryWithUUID:(id)d error:(id *)error;
 - (BOOL)disableAllSharingEntriesWithError:(id *)error;
 - (BOOL)enumerateCodableEntriesWithPredicate:(id)predicate error:(id *)error handler:(id)handler;
+- (BOOL)insertOrReplaceCodableEntries:(id)entries ignoreIfExists:(BOOL)exists shouldResolveCNContact:(BOOL)contact syncProvenance:(int64_t)provenance error:(id *)error;
 - (BOOL)lookupEntryWithPredicate:(id)predicate wasFound:(BOOL *)found error:(id *)error;
 - (BOOL)pauseActiveEntriesWithError:(id *)error;
 - (BOOL)pauseStatusForEntryWithUUID:(id)d error:(id *)error;
@@ -9,6 +10,7 @@
 - (BOOL)updateEntryWithInvitationUUID:(id)d newNotificationStatus:(int64_t)status error:(id *)error;
 - (BOOL)updateEntryWithInvitationUUID:(id)d newStatus:(int64_t)status dateAccepted:(id)accepted ownerParticipant:(id)participant error:(id *)error;
 - (BOOL)updateEntryWithUUID:(id)d authorizationsToAdd:(id)add authorizationsToDelete:(id)delete deleteOnCommit:(BOOL)commit error:(id *)error;
+- (BOOL)updateEntryWithUUID:(id)d pauseStatus:(BOOL)status error:(id *)error;
 - (HDProfile)profile;
 - (HDSummarySharingEntryManager)initWithProfile:(id)profile;
 - (HDSummarySharingEntryManagerDelegate)delegate;
@@ -86,6 +88,50 @@
   }
 }
 
+- (BOOL)insertOrReplaceCodableEntries:(id)entries ignoreIfExists:(BOOL)exists shouldResolveCNContact:(BOOL)contact syncProvenance:(int64_t)provenance error:(id *)error
+{
+  contactCopy = contact;
+  existsCopy = exists;
+  v25 = *MEMORY[0x277D85DE8];
+  entriesCopy = entries;
+  v13 = [[HDInsertCodableSummarySharingEntryOperation alloc] initWithCodableEntries:entriesCopy ignoreIfExists:existsCopy provenance:provenance shouldResolveCNContact:contactCopy];
+  profile = [(HDSummarySharingEntryManager *)self profile];
+  v15 = [(HDJournalableOperation *)v13 performOrJournalWithProfile:profile error:error];
+
+  if (v15)
+  {
+    if ([(HDJournalableOperation *)v13 didJournal])
+    {
+      _HKInitializeLogging();
+      v16 = HKLogSummarySharing();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        selfCopy = self;
+        _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "[database] %{public}@: Successfully journaled sharing entries.", buf, 0xCu);
+      }
+
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      v18 = [entriesCopy hk_map:&__block_literal_global_70];
+      [WeakRetained sharingEntryManager:self didJournalEntries:v18];
+    }
+
+    else
+    {
+      observerSet = self->_observerSet;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __121__HDSummarySharingEntryManager_insertOrReplaceCodableEntries_ignoreIfExists_shouldResolveCNContact_syncProvenance_error___block_invoke_2;
+      v21[3] = &unk_27861D148;
+      v22 = entriesCopy;
+      [(HKObserverSet *)observerSet notifyObservers:v21];
+      WeakRetained = v22;
+    }
+  }
+
+  return v15;
+}
+
 void __121__HDSummarySharingEntryManager_insertOrReplaceCodableEntries_ignoreIfExists_shouldResolveCNContact_syncProvenance_error___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -127,15 +173,13 @@ void __121__HDSummarySharingEntryManager_insertOrReplaceCodableEntries_ignoreIfE
 
 void __108__HDSummarySharingEntryManager_updateEntryWithInvitationUUID_newStatus_dateAccepted_ownerParticipant_error___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 sharingEntry];
-  v7[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v3 sharingEntriesDidUpdate:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateEntryWithInvitationUUID:(id)d newNotificationStatus:(int64_t)status error:(id *)error
@@ -169,15 +213,13 @@ void __108__HDSummarySharingEntryManager_updateEntryWithInvitationUUID_newStatus
 
 void __90__HDSummarySharingEntryManager_updateEntryWithInvitationUUID_newNotificationStatus_error___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 sharingEntry];
-  v7[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v3 sharingEntriesDidUpdate:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateEntryWithUUID:(id)d authorizationsToAdd:(id)add authorizationsToDelete:(id)delete deleteOnCommit:(BOOL)commit error:(id *)error
@@ -370,15 +412,13 @@ LABEL_29:
 
 void __116__HDSummarySharingEntryManager_updateEntryWithUUID_authorizationsToAdd_authorizationsToDelete_deleteOnCommit_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(*(*(a1 + 32) + 8) + 40);
   v3 = a2;
   v4 = [v2 sharingEntry];
-  v7[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v3 sharingEntriesDidUpdate:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)pauseActiveEntriesWithError:(id *)error
@@ -422,6 +462,97 @@ uint64_t __60__HDSummarySharingEntryManager_pauseActiveEntriesWithError___block_
   return 1;
 }
 
+- (BOOL)updateEntryWithUUID:(id)d pauseStatus:(BOOL)status error:(id *)error
+{
+  statusCopy = status;
+  dCopy = d;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__66;
+  v28 = __Block_byref_object_dispose__66;
+  v29 = 0;
+  v9 = HDSummarySharingEntryPredicateForUUID(dCopy);
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_error___block_invoke;
+  v23[3] = &unk_27861D1E8;
+  v23[4] = &v24;
+  v11 = [HDSummarySharingEntryEntity enumerateCodableEntriesWithPredicate:v9 profile:WeakRetained error:error handler:v23];
+
+  if (v11)
+  {
+    v12 = v25[5];
+    if (v12)
+    {
+      if (![v12 direction] && (!objc_msgSend(v25[5], "status") || objc_msgSend(v25[5], "status") == 1))
+      {
+        uUID = [v25[5] UUID];
+        [HDSummarySharingEntryEntity updatePauseStateForEntryWithUUID:uUID shouldPause:statusCopy];
+
+        [v25[5] _setIsPaused:statusCopy];
+        observerSet = self->_observerSet;
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_error___block_invoke_2;
+        v22[3] = &unk_27861D198;
+        v22[4] = &v24;
+        [(HKObserverSet *)observerSet notifyObservers:v22];
+        v16 = 1;
+        goto LABEL_17;
+      }
+
+      v13 = MEMORY[0x277CCA9B8];
+      uUIDString = [dCopy UUIDString];
+      v15 = [v13 hk_error:118 format:{@"Invitation with UUID %@ is not active outgoing", uUIDString}];
+      if (v15)
+      {
+        if (!error)
+        {
+          goto LABEL_15;
+        }
+
+LABEL_10:
+        v18 = v15;
+        v16 = 0;
+        *error = v15;
+LABEL_16:
+
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v17 = MEMORY[0x277CCA9B8];
+      uUIDString = [dCopy UUIDString];
+      v15 = [v17 hk_error:118 format:{@"Cannot find invitation with UUID %@", uUIDString}];
+      if (v15)
+      {
+        if (!error)
+        {
+LABEL_15:
+          _HKLogDroppedError();
+          v16 = 0;
+          goto LABEL_16;
+        }
+
+        goto LABEL_10;
+      }
+    }
+
+    v16 = 1;
+    goto LABEL_16;
+  }
+
+  v16 = 0;
+LABEL_17:
+  _Block_object_dispose(&v24, 8);
+
+  return v16;
+}
+
 uint64_t __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 sharingEntry];
@@ -434,50 +565,48 @@ uint64_t __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_erro
 
 void __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(*(*(a1 + 32) + 8) + 40);
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = *(*(*(a1 + 32) + 8) + 40);
   v2 = MEMORY[0x277CBEA60];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v6 count:1];
-  [v3 sharingEntriesDidUpdate:{v4, v6, v7}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [v2 arrayWithObjects:&v5 count:1];
+  [v3 sharingEntriesDidUpdate:{v4, v5, v6}];
 }
 
 - (void)pauseStatusesForUUIDS:(id)s completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sCopy = s;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v10 = sCopy;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     v14 = MEMORY[0x277CBEC28];
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v28 + 1) + 8 * i);
         [v9 setObject:v14 forKeyedSubscript:v16];
         v17 = HDSummarySharingEntryPredicateForUUID(v16);
         [v8 addObject:v17];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
@@ -485,15 +614,15 @@ void __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_error___
 
   v18 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v8];
   profile = [(HDSummarySharingEntryManager *)self profile];
-  v28 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __65__HDSummarySharingEntryManager_pauseStatusesForUUIDS_completion___block_invoke;
-  v26[3] = &unk_27861D1C0;
+  v27 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __65__HDSummarySharingEntryManager_pauseStatusesForUUIDS_completion___block_invoke;
+  v25[3] = &unk_27861D1C0;
   v20 = v9;
-  v27 = v20;
-  v21 = [HDSummarySharingEntryEntity enumerateCodableEntriesWithPredicate:v18 profile:profile error:&v28 handler:v26];
-  v22 = v28;
+  v26 = v20;
+  v21 = [HDSummarySharingEntryEntity enumerateCodableEntriesWithPredicate:v18 profile:profile error:&v27 handler:v25];
+  v22 = v27;
 
   if (v21)
   {
@@ -508,8 +637,6 @@ void __70__HDSummarySharingEntryManager_updateEntryWithUUID_pauseStatus_error___
   }
 
   completionCopy[2](completionCopy, v23, v24);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__HDSummarySharingEntryManager_pauseStatusesForUUIDS_completion___block_invoke(uint64_t a1, void *a2)
@@ -579,26 +706,26 @@ uint64_t __65__HDSummarySharingEntryManager_pauseStatusesForUUIDS_completion___b
 
 - (id)anyCodableEntryWithPredicate:(id)predicate errorOut:(id *)out
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__66;
-  v23 = __Block_byref_object_dispose__66;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__66;
+  v22 = __Block_byref_object_dispose__66;
+  v23 = 0;
   profile = [(HDSummarySharingEntryManager *)self profile];
   sharingEntryManager = [profile sharingEntryManager];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __70__HDSummarySharingEntryManager_anyCodableEntryWithPredicate_errorOut___block_invoke;
-  v18[3] = &unk_27861D1E8;
-  v18[4] = &v19;
-  v9 = [sharingEntryManager enumerateCodableEntriesWithPredicate:predicateCopy error:out handler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __70__HDSummarySharingEntryManager_anyCodableEntryWithPredicate_errorOut___block_invoke;
+  v17[3] = &unk_27861D1E8;
+  v17[4] = &v18;
+  v9 = [sharingEntryManager enumerateCodableEntriesWithPredicate:predicateCopy error:out handler:v17];
 
   if (v9)
   {
-    v10 = v20[5];
+    v10 = v19[5];
     if (v10)
     {
       v11 = v10;
@@ -630,17 +757,15 @@ uint64_t __65__HDSummarySharingEntryManager_pauseStatusesForUUIDS_completion___b
     {
       *buf = 138543618;
       selfCopy = self;
-      v27 = 2114;
-      v28 = predicateCopy;
+      v26 = 2114;
+      v27 = predicateCopy;
       _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "[sharing] %{public}@: Error retrieving entry with predicate %{public}@.", buf, 0x16u);
     }
   }
 
   v11 = 0;
 LABEL_13:
-  _Block_object_dispose(&v19, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 
   return v11;
 }
@@ -765,13 +890,13 @@ uint64_t __83__HDSummarySharingEntryManager_enumerateCodableEntriesWithPredicate
 
 - (BOOL)disableAllSharingEntriesWithError:(id *)error
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v5 = HDSummarySharingEntryPredicateForTypeAndStatus(0, 0);
   v6 = HDSummarySharingEntryPredicateForTypeAndStatus(0, 1);
   v7 = MEMORY[0x277D10B20];
-  v22[0] = v5;
-  v22[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = v5;
+  v21[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v9 = [v7 predicateMatchingAnyPredicates:v8];
 
   _HKInitializeLogging();
@@ -779,23 +904,22 @@ uint64_t __83__HDSummarySharingEntryManager_enumerateCodableEntriesWithPredicate
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = objc_opt_class();
-    v11 = v21;
+    v20 = objc_opt_class();
+    v11 = v20;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[sharing] %{public}@: Disabling all sharing entries", buf, 0xCu);
   }
 
   profile = [(HDSummarySharingEntryManager *)self profile];
   database = [profile database];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__HDSummarySharingEntryManager_disableAllSharingEntriesWithError___block_invoke;
-  v18[3] = &unk_278613218;
-  v18[4] = self;
-  v19 = v9;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__HDSummarySharingEntryManager_disableAllSharingEntriesWithError___block_invoke;
+  v17[3] = &unk_278613218;
+  v17[4] = self;
+  v18 = v9;
   v14 = v9;
-  v15 = [(HDHealthEntity *)HDSummarySharingEntryEntity performWriteTransactionWithHealthDatabase:database error:error block:v18];
+  v15 = [(HDHealthEntity *)HDSummarySharingEntryEntity performWriteTransactionWithHealthDatabase:database error:error block:v17];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -969,38 +1093,36 @@ uint64_t __88__HDSummarySharingEntryManager_authorizationIdentifiersForEntriesNo
 
 - (id)authorizationIdentifiersByContactIdentifiersForOutgoingPendingAndAcceptedParticipants:(id)participants error:(id *)error
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = HDSummarySharingEntryPredicateForTypeStatusAndDirection(0, 0, 0);
   v9 = HDSummarySharingEntryPredicateForTypeStatusAndDirection(0, 1, 0);
   v10 = MEMORY[0x277D10B20];
-  v26[0] = v8;
-  v26[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = v8;
+  v25[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v12 = [v10 predicateMatchingAnyPredicates:v11];
 
   profile = [(HDSummarySharingEntryManager *)self profile];
   database = [profile database];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __124__HDSummarySharingEntryManager_authorizationIdentifiersByContactIdentifiersForOutgoingPendingAndAcceptedParticipants_error___block_invoke;
-  v22[3] = &unk_27861B120;
-  v22[4] = self;
-  v23 = v12;
-  v24 = participantsCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __124__HDSummarySharingEntryManager_authorizationIdentifiersByContactIdentifiersForOutgoingPendingAndAcceptedParticipants_error___block_invoke;
+  v21[3] = &unk_27861B120;
+  v21[4] = self;
+  v22 = v12;
+  v23 = participantsCopy;
   v15 = v7;
-  v25 = v15;
+  v24 = v15;
   v16 = participantsCopy;
   v17 = v12;
-  v18 = [(HDHealthEntity *)HDSharingAuthorizationsEntity performReadTransactionWithHealthDatabase:database error:error block:v22];
+  v18 = [(HDHealthEntity *)HDSharingAuthorizationsEntity performReadTransactionWithHealthDatabase:database error:error block:v21];
 
   if (!error || (v19 = 0, v18))
   {
     v19 = v15;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1108,11 +1230,10 @@ BOOL __124__HDSummarySharingEntryManager_authorizationIdentifiersByContactIdenti
 
 - (uint64_t)_resolveContactsWithError:(uint64_t)error
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   if (!error)
   {
-    v20 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   _HKInitializeLogging();
@@ -1127,22 +1248,22 @@ BOOL __124__HDSummarySharingEntryManager_authorizationIdentifiersByContactIdenti
   v5 = HDSummarySharingEntryPredicateForTypeAndStatus(0, 0);
   v6 = HDSummarySharingEntryPredicateForTypeAndStatus(0, 1);
   v7 = MEMORY[0x277D10B20];
-  v33[0] = v5;
-  v33[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v32[0] = v5;
+  v32[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   v9 = [v7 predicateMatchingAnyPredicates:v8];
 
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   hd_contactStoreWithHealthAppIdentity = [MEMORY[0x277CBDAB8] hd_contactStoreWithHealthAppIdentity];
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __58__HDSummarySharingEntryManager__resolveContactsWithError___block_invoke;
-  v26 = &unk_27861D260;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __58__HDSummarySharingEntryManager__resolveContactsWithError___block_invoke;
+  v25 = &unk_27861D260;
   v12 = hd_contactStoreWithHealthAppIdentity;
-  v27 = v12;
+  v26 = v12;
   v13 = v10;
-  v28 = v13;
-  if (![error enumerateCodableEntriesWithPredicate:v9 error:a2 handler:&v23])
+  v27 = v13;
+  if (![error enumerateCodableEntriesWithPredicate:v9 error:a2 handler:&v22])
   {
     goto LABEL_11;
   }
@@ -1156,8 +1277,8 @@ BOOL __124__HDSummarySharingEntryManager_authorizationIdentifiersByContactIdenti
       v15 = [v13 count];
       *buf = 138543618;
       errorCopy2 = error;
-      v31 = 2048;
-      v32 = v15;
+      v30 = 2048;
+      v31 = v15;
       _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[sharing] %{public}@: Updating %lu entries.", buf, 0x16u);
     }
 
@@ -1185,8 +1306,6 @@ LABEL_10:
   os_unfair_lock_unlock((error + 16));
 LABEL_12:
 
-LABEL_13:
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1197,25 +1316,14 @@ uint64_t __58__HDSummarySharingEntryManager__resolveContactsWithError___block_in
   v5 = HDCNContactForCodableEntry(v4, *(a1 + 32));
 
   v6 = [v3 codableEntry];
-  v7 = [v6 copy];
+  v7 = objc_msgSend_copy(v6);
 
   v8 = [v3 CNContactIdentifier];
   v9 = v8;
   if (v5)
   {
-    if (!v8)
+    if (!v8 || ([v3 codableEntry], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "givenName"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "familyName"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v10, "isEqualFirstName:lastName:", v11, v12), v12, v11, v10, v9, (v13 & 1) == 0))
     {
-      goto LABEL_4;
-    }
-
-    v10 = [v3 codableEntry];
-    v11 = [v5 givenName];
-    v12 = [v5 familyName];
-    v13 = [v10 isEqualFirstName:v11 lastName:v12];
-
-    if ((v13 & 1) == 0)
-    {
-LABEL_4:
       v14 = [v5 givenName];
       [v7 setFirstName:v14];
 
@@ -1243,7 +1351,7 @@ LABEL_7:
 
 - (void)_contactStoreDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogSummarySharing();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -1253,9 +1361,9 @@ LABEL_7:
     _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[sharing] %{public}@: Contacts changed notification received.", buf, 0xCu);
   }
 
-  v8 = 0;
+  v7 = 0;
   v4 = [(HDSummarySharingEntryManager *)self _resolveContactsWithError:?];
-  v5 = v8;
+  v5 = v7;
   if ((v4 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -1264,97 +1372,95 @@ LABEL_7:
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v11 = 2114;
-      v12 = v5;
+      v10 = 2114;
+      v11 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing] %{public}@: Error resolving contacts %{public}@.", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportDailyAnalyticsWithCoordinator:(id)coordinator completion:(id)completion
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   completionCopy = completion;
+  v114 = 0;
   v115 = 0;
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x2020000000;
+  v116 = &v115;
+  v117 = 0x2020000000;
+  v118 = 0;
   v111 = 0;
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x2020000000;
+  v112 = &v111;
+  v113 = 0x2020000000;
   v107 = 0;
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x2020000000;
-  v103 = -1;
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x2020000000;
+  v108 = &v107;
+  v109 = 0x2020000000;
+  v110 = 0;
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x2020000000;
+  v106 = 0;
   v99 = 0;
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x2020000000;
+  v100 = &v99;
+  v101 = 0x2020000000;
+  v102 = -1;
   v95 = 0;
+  v96 = &v95;
+  v97 = 0x2020000000;
+  v98 = 0;
+  v91 = 0;
+  v92 = &v91;
+  v93 = 0x2020000000;
+  v94 = 0;
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
   selfCopy = self;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v91 = 0;
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __79__HDSummarySharingEntryManager_reportDailyAnalyticsWithCoordinator_completion___block_invoke;
-  v82[3] = &unk_27861D2B0;
-  v84 = &v116;
-  v85 = &v112;
-  v82[4] = selfCopy;
-  v86 = &v108;
-  v64 = v6;
-  v83 = v64;
-  v87 = &v104;
-  v88 = &v100;
-  v89 = &v96;
-  v90 = &v92;
-  v63 = [(HDHealthEntity *)HDSummarySharingEntryEntity performReadTransactionWithHealthDatabase:database error:&v91 block:v82];
-  v62 = v91;
+  v90 = 0;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __79__HDSummarySharingEntryManager_reportDailyAnalyticsWithCoordinator_completion___block_invoke;
+  v81[3] = &unk_27861D2B0;
+  v83 = &v115;
+  v84 = &v111;
+  v81[4] = selfCopy;
+  v85 = &v107;
+  v63 = v6;
+  v82 = v63;
+  v86 = &v103;
+  v87 = &v99;
+  v88 = &v95;
+  v89 = &v91;
+  v62 = [(HDHealthEntity *)HDSummarySharingEntryEntity performReadTransactionWithHealthDatabase:database error:&v90 block:v81];
+  v61 = v90;
 
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   profile = [(HDSummarySharingEntryManager *)selfCopy profile];
   daemon = [profile daemon];
   profileManager = [daemon profileManager];
   obj = [profileManager allProfileIdentifiers];
 
-  v12 = [obj countByEnumeratingWithState:&v78 objects:v124 count:16];
+  v12 = [obj countByEnumeratingWithState:&v77 objects:v123 count:16];
   if (v12)
   {
-    v66 = 0;
-    v69 = 0;
-    v70 = 0;
+    v65 = 0;
     v68 = 0;
-    v72 = *v79;
+    v69 = 0;
+    v67 = 0;
+    v71 = *v78;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v79 != v72)
+        if (*v78 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v78 + 1) + 8 * i);
+        v14 = *(*(&v77 + 1) + 8 * i);
         if ([v14 type] == 2)
         {
           profile2 = [(HDSummarySharingEntryManager *)selfCopy profile];
@@ -1364,9 +1470,9 @@ LABEL_7:
 
           if (v18)
           {
-            v77 = 0;
-            v19 = [(HDSummarySharingEntryManager *)selfCopy _areNotificationsEnabledForFeature:v14 profileIdentifier:coordinatorCopy coordinator:&v77 error:?];
-            v20 = v77;
+            v76 = 0;
+            v19 = [(HDSummarySharingEntryManager *)selfCopy _areNotificationsEnabledForFeature:v14 profileIdentifier:coordinatorCopy coordinator:&v76 error:?];
+            v20 = v76;
             v21 = v20 == 0;
             v22 = v21 & v19;
             if ((v21 & v19) != 0)
@@ -1379,9 +1485,9 @@ LABEL_7:
               v23 = v20;
             }
 
-            v76 = v23;
-            v24 = [(HDSummarySharingEntryManager *)selfCopy _areNotificationsEnabledForFeature:v14 profileIdentifier:coordinatorCopy coordinator:&v76 error:?];
-            v25 = v76;
+            v75 = v23;
+            v24 = [(HDSummarySharingEntryManager *)selfCopy _areNotificationsEnabledForFeature:v14 profileIdentifier:coordinatorCopy coordinator:&v75 error:?];
+            v25 = v75;
 
             v26 = v25 == 0;
             v27 = v26 & v24;
@@ -1395,9 +1501,9 @@ LABEL_7:
               v28 = v25;
             }
 
-            v75 = v28;
-            v29 = [(HDSummarySharingEntryManager *)selfCopy _areNotificationsEnabledForFeature:v14 profileIdentifier:coordinatorCopy coordinator:&v75 error:?];
-            v30 = v75;
+            v74 = v28;
+            v29 = [(HDSummarySharingEntryManager *)selfCopy _areNotificationsEnabledForFeature:v14 profileIdentifier:coordinatorCopy coordinator:&v74 error:?];
+            v30 = v74;
 
             v31 = v30 == 0;
             v32 = v31 & v29;
@@ -1412,25 +1518,25 @@ LABEL_7:
             }
 
             sharedSummaryManager = [v18 sharedSummaryManager];
-            v74 = 0;
-            v35 = [sharedSummaryManager mostRecentTransactionCreationDateWithError:&v74];
-            v36 = v74;
+            v73 = 0;
+            v35 = [sharedSummaryManager mostRecentTransactionCreationDateWithError:&v73];
+            v36 = v73;
 
             if (v35)
             {
-              if (v66)
+              if (v65)
               {
                 if ([v35 hk_isAfterDate:?])
                 {
                   v37 = v35;
 
-                  v66 = v37;
+                  v65 = v37;
                 }
               }
 
               else
               {
-                v66 = v35;
+                v65 = v35;
               }
             }
 
@@ -1441,21 +1547,21 @@ LABEL_7:
               if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v121 = selfCopy;
-                v122 = 2114;
-                v123 = v36;
+                v120 = selfCopy;
+                v121 = 2114;
+                v122 = v36;
                 _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "[analytics] %{public}@: Failed to retrieve most recent transaction creation date for analytics: %{public}@", buf, 0x16u);
               }
             }
 
-            v68 += v22;
-            v69 += v27;
-            v70 += v32;
+            v67 += v22;
+            v68 += v27;
+            v69 += v32;
           }
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v78 objects:v124 count:16];
+      v12 = [obj countByEnumeratingWithState:&v77 objects:v123 count:16];
     }
 
     while (v12);
@@ -1463,10 +1569,10 @@ LABEL_7:
 
   else
   {
-    v66 = 0;
-    v69 = 0;
-    v70 = 0;
+    v65 = 0;
     v68 = 0;
+    v69 = 0;
+    v67 = 0;
   }
 
   v39 = objc_alloc(MEMORY[0x277CBEBD0]);
@@ -1475,29 +1581,29 @@ LABEL_7:
   v42 = [v40 integerForKey:*MEMORY[0x277CCE400]];
   v43 = [v40 integerForKey:*MEMORY[0x277CCE3F8]];
   v44 = [v40 integerForKey:*MEMORY[0x277CCE3F0]];
-  if (v63)
+  if (v62)
   {
     v45 = v44;
     v46 = objc_alloc_init(HDSummarySharingAnalytics);
-    -[HDSummarySharingAnalytics setNumberAuthorizationsSharingOut:](v46, "setNumberAuthorizationsSharingOut:", [v64 count]);
-    v47 = v113[3];
+    -[HDSummarySharingAnalytics setNumberAuthorizationsSharingOut:](v46, "setNumberAuthorizationsSharingOut:", [v63 count]);
+    v47 = v112[3];
     if (v47)
     {
-      [(HDSummarySharingAnalytics *)v46 setAverageNumberAuthorizationsSharedOutPerPerson:(v109[3] / v47)];
+      [(HDSummarySharingAnalytics *)v46 setAverageNumberAuthorizationsSharedOutPerPerson:(v108[3] / v47)];
     }
 
-    [(HDSummarySharingAnalytics *)v46 setMaxAuthorizationsSharedOutPerPerson:v105[3], v62];
-    [(HDSummarySharingAnalytics *)v46 setMinAuthorizationsSharedOutPerPerson:v101[3]];
-    [(HDSummarySharingAnalytics *)v46 setNumberPeopleSharingOut:v113[3]];
-    [(HDSummarySharingAnalytics *)v46 setNumberPeopleSharingIn:v117[3]];
-    if (v117[3])
+    [(HDSummarySharingAnalytics *)v46 setMaxAuthorizationsSharedOutPerPerson:v104[3], v61];
+    [(HDSummarySharingAnalytics *)v46 setMinAuthorizationsSharedOutPerPerson:v100[3]];
+    [(HDSummarySharingAnalytics *)v46 setNumberPeopleSharingOut:v112[3]];
+    [(HDSummarySharingAnalytics *)v46 setNumberPeopleSharingIn:v116[3]];
+    if (v116[3])
     {
-      [(HDSummarySharingAnalytics *)v46 setMostRecentIncomingTransactionDate:v66];
+      [(HDSummarySharingAnalytics *)v46 setMostRecentIncomingTransactionDate:v65];
     }
 
-    [(HDSummarySharingAnalytics *)v46 setNumberOfAlertNotificationsEnabled:v68];
-    [(HDSummarySharingAnalytics *)v46 setNumberOfTrendNotificationsEnabled:v69];
-    [(HDSummarySharingAnalytics *)v46 setNumberOfUpdateNotificationsEnabled:v70];
+    [(HDSummarySharingAnalytics *)v46 setNumberOfAlertNotificationsEnabled:v67];
+    [(HDSummarySharingAnalytics *)v46 setNumberOfTrendNotificationsEnabled:v68];
+    [(HDSummarySharingAnalytics *)v46 setNumberOfUpdateNotificationsEnabled:v69];
     if (v42 >= 1)
     {
       v48 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:v42];
@@ -1541,11 +1647,11 @@ LABEL_7:
 LABEL_53:
 
 LABEL_54:
-        v57 = NSStringFromHKBiologicalSex(v93[3]);
+        v57 = NSStringFromHKBiologicalSex(v92[3]);
         v58 = objc_loadWeakRetained(&selfCopy->_profile);
         daemon3 = [v58 daemon];
         analyticsSubmissionCoordinator = [daemon3 analyticsSubmissionCoordinator];
-        [analyticsSubmissionCoordinator summarySharing_reportDailyAnalytics:v46 activeWatchProductType:v55 age:v97[3] sex:v57];
+        [analyticsSubmissionCoordinator summarySharing_reportDailyAnalytics:v46 activeWatchProductType:v55 age:v96[3] sex:v57];
 
         goto LABEL_55;
       }
@@ -1555,7 +1661,7 @@ LABEL_54:
       if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v121 = selfCopy;
+        v120 = selfCopy;
         _os_log_impl(&dword_228986000, v56, OS_LOG_TYPE_DEFAULT, "[sharing] %{public}@: No watch product type retrieved, returning unavailable", buf, 0xCu);
       }
 
@@ -1569,7 +1675,7 @@ LABEL_54:
       if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v121 = selfCopy;
+        v120 = selfCopy;
         _os_log_impl(&dword_228986000, v54, OS_LOG_TYPE_DEFAULT, "[sharing] %{public}@: No active paired device, returning unavailable", buf, 0xCu);
       }
     }
@@ -1581,15 +1687,13 @@ LABEL_54:
 LABEL_55:
   (*(completionCopy + 2))(completionCopy, 0, 0, 0);
 
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v96, 8);
-  _Block_object_dispose(&v100, 8);
-  _Block_object_dispose(&v104, 8);
-  _Block_object_dispose(&v108, 8);
-  _Block_object_dispose(&v112, 8);
-  _Block_object_dispose(&v116, 8);
-
-  v61 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v95, 8);
+  _Block_object_dispose(&v99, 8);
+  _Block_object_dispose(&v103, 8);
+  _Block_object_dispose(&v107, 8);
+  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(&v115, 8);
 }
 
 BOOL __79__HDSummarySharingEntryManager_reportDailyAnalyticsWithCoordinator_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -1778,7 +1882,7 @@ LABEL_15:
   v8 = 0;
   if (v7)
   {
-    v8 = [v6 copy];
+    v8 = objc_msgSend_copy(v6, v10, v11, v12, v13, selfCopy);
   }
 
   return v8;

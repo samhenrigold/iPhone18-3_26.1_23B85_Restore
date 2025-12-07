@@ -100,9 +100,11 @@
 
 uint64_t __30__ICDefaults_standardDefaults__block_invoke()
 {
-  standardDefaults_sSharedInstance = objc_alloc_init(ICDefaults);
+  v0 = objc_alloc_init(ICDefaults);
+  v1 = standardDefaults_sSharedInstance;
+  standardDefaults_sSharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICDefaults)init

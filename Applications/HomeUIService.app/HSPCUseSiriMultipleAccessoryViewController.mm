@@ -14,6 +14,7 @@
 - (void)_launchSiriPrivacySheet;
 - (void)_updateUseSiriButtonEnabledState;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCUseSiriMultipleAccessoryViewController
@@ -241,6 +242,45 @@
   v55[2] = v36;
   v37 = [NSArray arrayWithObjects:v55 count:3];
   [NSLayoutConstraint activateConstraints:v37];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = HSPCUseSiriMultipleAccessoryViewController;
+  [(HSPCUseSiriMultipleAccessoryViewController *)&v16 viewWillAppear:appear];
+  tableView = [(HSPCUseSiriMultipleAccessoryViewController *)self tableView];
+  [tableView reloadData];
+
+  siriEndpointAccessories = [(HSPCUseSiriMultipleAccessoryViewController *)self siriEndpointAccessories];
+  v6 = [siriEndpointAccessories count];
+
+  if (v6 >= 1)
+  {
+    v7 = 0;
+    do
+    {
+      v8 = [NSIndexPath indexPathForRow:v7 inSection:0];
+      tableView2 = [(HSPCUseSiriMultipleAccessoryViewController *)self tableView];
+      [tableView2 selectRowAtIndexPath:v8 animated:1 scrollPosition:0];
+
+      ++v7;
+      siriEndpointAccessories2 = [(HSPCUseSiriMultipleAccessoryViewController *)self siriEndpointAccessories];
+      v11 = [siriEndpointAccessories2 count];
+    }
+
+    while (v7 < v11);
+  }
+
+  tableView3 = [(HSPCUseSiriMultipleAccessoryViewController *)self tableView];
+  [tableView3 layoutIfNeeded];
+
+  contentView = [(HSPCUseSiriMultipleAccessoryViewController *)self contentView];
+  [contentView setNeedsUpdateConstraints];
+
+  view = [(HSPCUseSiriMultipleAccessoryViewController *)self view];
+  [view bounds];
+  [(HSPCUseSiriMultipleAccessoryViewController *)self updatePreferredContentSizeForCardWidth:v15];
 }
 
 - (id)tableView:(id)view willSelectRowAtIndexPath:(id)path

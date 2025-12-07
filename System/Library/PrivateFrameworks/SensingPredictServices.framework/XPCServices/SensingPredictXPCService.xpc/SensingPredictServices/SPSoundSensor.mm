@@ -1,6 +1,7 @@
 @interface SPSoundSensor
 + (id)sharedSoundSensorModule;
 - (BOOL)subscribeToNoiseLevelForClient:(id)client callback:(id)callback;
+- (BOOL)subscribeToSoundForClient:(id)client soundType:(unsigned int)type callback:(id)callback;
 - (BOOL)unsubscribeFromNoiseLevel:(id)level;
 - (BOOL)unsubscribeFromSound:(id)sound;
 - (SPSoundSensor)init;
@@ -9,6 +10,7 @@
 - (void)activate;
 - (void)invalidate;
 - (void)setNoiseLevel:(float)level;
+- (void)setSoundProbability:(unsigned int)probability value:(float)value;
 @end
 
 @implementation SPSoundSensor
@@ -123,6 +125,79 @@
   }
 }
 
+- (void)setSoundProbability:(unsigned int)probability value:(float)value
+{
+  v5 = *&probability;
+  soundTypeToThreshold = self->_soundTypeToThreshold;
+  v8 = [NSNumber numberWithUnsignedInt:?];
+  v9 = [(NSDictionary *)soundTypeToThreshold objectForKeyedSubscript:v8];
+  [v9 floatValue];
+  v11 = v10;
+
+  currentSoundState = self->_currentSoundState;
+  v13 = self->_currentSoundState[v5];
+  if (v11 <= value)
+  {
+    if ((v13 | 2) != 2)
+    {
+      return;
+    }
+
+    currentSoundState[v5] = 1;
+    if (dword_100015D30 <= 50 && (dword_100015D30 != -1 || _LogCategory_Initialize()))
+    {
+      sub_100009598();
+    }
+  }
+
+  else
+  {
+    if (v13 > 1)
+    {
+      return;
+    }
+
+    currentSoundState[v5] = 2;
+    if (dword_100015D30 <= 50 && (dword_100015D30 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1000095F8();
+    }
+  }
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v14 = self->_soundSubscribers;
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v22;
+    do
+    {
+      for (i = 0; i != v16; i = i + 1)
+      {
+        if (*v22 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v21 + 1) + 8 * i);
+        if ([v19 soundType] == v5)
+        {
+          callback = [v19 callback];
+          callback[2](callback, v5, currentSoundState[v5]);
+        }
+      }
+
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v16);
+  }
+}
+
 - (void)setNoiseLevel:(float)level
 {
   if (level <= 90.0)
@@ -212,6 +287,27 @@
       while (v11);
     }
   }
+}
+
+- (BOOL)subscribeToSoundForClient:(id)client soundType:(unsigned int)type callback:(id)callback
+{
+  v5 = *&type;
+  callbackCopy = callback;
+  clientCopy = client;
+  v10 = objc_alloc_init(SoundSubscriber);
+  [(SoundSubscriber *)v10 setClient:clientCopy];
+
+  [(SoundSubscriber *)v10 setCallback:callbackCopy];
+  [(SoundSubscriber *)v10 setSoundType:v5];
+  [(NSMutableArray *)self->_soundSubscribers addObject:v10];
+  callbackCopy[2](callbackCopy, v5, self->_currentSoundState[v5]);
+
+  if (dword_100015D30 <= 50 && (dword_100015D30 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10000969C();
+  }
+
+  return 1;
 }
 
 - (BOOL)subscribeToNoiseLevelForClient:(id)client callback:(id)callback

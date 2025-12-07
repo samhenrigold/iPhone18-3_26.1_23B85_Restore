@@ -284,7 +284,7 @@ void __46__PXGAnimationDataStore_diagnosticDescription__block_invoke(uint64_t a1
   {
     v8 = groupInfos;
     v9 = 0;
-    indexSet = 0;
+    v10 = 0;
     v11 = &spriteInfos->var23.var1 + 2;
     do
     {
@@ -293,12 +293,12 @@ void __46__PXGAnimationDataStore_diagnosticDescription__block_invoke(uint64_t a1
         v12 = v8 + 76 * *(v11 - 1);
         if (*(v12 + 2) <= time && !*(v12 + 52))
         {
-          if (!indexSet)
+          if (!v10)
           {
-            indexSet = [MEMORY[0x277CCAB58] indexSet];
+            v10 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
           }
 
-          [indexSet addIndex:v9];
+          [v10 addIndex:v9];
         }
       }
 
@@ -311,10 +311,10 @@ void __46__PXGAnimationDataStore_diagnosticDescription__block_invoke(uint64_t a1
 
   else
   {
-    indexSet = 0;
+    v10 = 0;
   }
 
-  return indexSet;
+  return v10;
 }
 
 - (void)applySpriteChangeDetails:(id)details

@@ -55,30 +55,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_iconHash)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_appName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_navBarTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -144,7 +143,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_version != *(equalCopy + 8))
@@ -156,7 +154,7 @@
   else if (*(equalCopy + 36))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -178,17 +176,17 @@ LABEL_13:
   navBarTitle = self->_navBarTitle;
   if (navBarTitle | *(equalCopy + 3))
   {
-    v9 = [(NSString *)navBarTitle isEqual:?];
+    v8 = [(NSString *)navBarTitle isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -1,8 +1,12 @@
 @interface ATXAnchorModelPBAnchorMetadata
 - (BOOL)isEqual:(id)equal;
+- (id)anchorEventTypeAsString:(int)string;
+- (id)anchorTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dayOfWeekAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)locationTypeAsString:(int)string;
 - (int)StringAsAnchorEventType:(id)type;
 - (int)StringAsAnchorType:(id)type;
 - (int)StringAsDayOfWeek:(id)week;
@@ -51,6 +55,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)anchorTypeAsString:(int)string
+{
+  if (string >= 0x12)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859EC08[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAnchorType:(id)type
@@ -165,6 +184,21 @@
   {
     return 0;
   }
+}
+
+- (id)anchorEventTypeAsString:(int)string
+{
+  if (string >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859EC98[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAnchorEventType:(id)type
@@ -416,6 +450,21 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)dayOfWeekAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859EDA0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDayOfWeek:(id)week
 {
   weekCopy = week;
@@ -493,6 +542,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)locationTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859EDE0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLocationType:(id)type
@@ -674,7 +738,6 @@ LABEL_25:
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    anchorType = self->_anchorType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -686,7 +749,6 @@ LABEL_25:
   has = self->_has;
   if (has)
   {
-    anchorEventType = self->_anchorEventType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -706,7 +768,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  month = self->_month;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -721,7 +782,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  dayOfMonth = self->_dayOfMonth;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -736,12 +796,10 @@ LABEL_9:
   }
 
 LABEL_21:
-  hourOfDay = self->_hourOfDay;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_10:
-    dayOfWeek = self->_dayOfWeek;
     PBDataWriterWriteInt32Field();
   }
 
@@ -753,7 +811,6 @@ LABEL_11:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    locationType = self->_locationType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -949,7 +1006,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 56);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_anchorType != *(equalCopy + 5))
@@ -974,7 +1030,6 @@ LABEL_9:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 56);
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_anchorEventType != *(equalCopy + 4))
@@ -1050,12 +1105,12 @@ LABEL_9:
     }
 
 LABEL_42:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_43;
   }
 
 LABEL_38:
-  v10 = (*(equalCopy + 56) & 0x20) == 0;
+  v8 = (*(equalCopy + 56) & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 56) & 0x20) == 0 || self->_locationType != *(equalCopy + 12))
@@ -1063,12 +1118,12 @@ LABEL_38:
       goto LABEL_42;
     }
 
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_43:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -14,25 +14,26 @@
   contextCopy = context;
   identifiersCopy = identifiers;
   v8 = objc_alloc(getPRUISIncomingCallSnapshotDefinitionClass());
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v9 = getPRPosterSnapshotDefinitionIdentifierIncomingCallCompositeSymbolLoc_ptr;
-  v20 = getPRPosterSnapshotDefinitionIdentifierIncomingCallCompositeSymbolLoc_ptr;
+  v21 = getPRPosterSnapshotDefinitionIdentifierIncomingCallCompositeSymbolLoc_ptr;
   if (!getPRPosterSnapshotDefinitionIdentifierIncomingCallCompositeSymbolLoc_ptr)
   {
     v10 = PosterBoardUIServicesLibrary();
-    v18[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallComposite");
-    getPRPosterSnapshotDefinitionIdentifierIncomingCallCompositeSymbolLoc_ptr = v18[3];
-    v9 = v18[3];
+    v19[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallComposite");
+    getPRPosterSnapshotDefinitionIdentifierIncomingCallCompositeSymbolLoc_ptr = v19[3];
+    v9 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v9)
   {
-    v16 = +[CNUIIDSRequest IDSServiceForService:];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v16);
+    +[CNUIIDSRequest IDSServiceForService:];
+    v17 = v16;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v17);
   }
 
   v11 = *v9;
@@ -49,25 +50,26 @@
   contextCopy = context;
   identifiersCopy = identifiers;
   v8 = objc_alloc(getPRUISIncomingCallSnapshotDefinitionClass());
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v9 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentViewSymbolLoc_ptr;
-  v20 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentViewSymbolLoc_ptr;
+  v21 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentViewSymbolLoc_ptr;
   if (!getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentViewSymbolLoc_ptr)
   {
     v10 = PosterBoardUIServicesLibrary();
-    v18[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentView");
-    getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentViewSymbolLoc_ptr = v18[3];
-    v9 = v18[3];
+    v19[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentView");
+    getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithObscurableContentViewSymbolLoc_ptr = v19[3];
+    v9 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v9)
   {
-    v16 = +[CNUIIDSRequest IDSServiceForService:];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v16);
+    +[CNUIIDSRequest IDSServiceForService:];
+    v17 = v16;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v17);
   }
 
   v11 = *v9;
@@ -84,25 +86,26 @@
   contextCopy = context;
   identifiersCopy = identifiers;
   v8 = objc_alloc(getPRUISIncomingCallSnapshotDefinitionClass());
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v9 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlaySymbolLoc_ptr;
-  v20 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlaySymbolLoc_ptr;
+  v21 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlaySymbolLoc_ptr;
   if (!getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlaySymbolLoc_ptr)
   {
     v10 = PosterBoardUIServicesLibrary();
-    v18[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlay");
-    getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlaySymbolLoc_ptr = v18[3];
-    v9 = v18[3];
+    v19[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlay");
+    getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsWithOverlaySymbolLoc_ptr = v19[3];
+    v9 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v9)
   {
-    v16 = +[CNUIIDSRequest IDSServiceForService:];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v16);
+    +[CNUIIDSRequest IDSServiceForService:];
+    v17 = v16;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v17);
   }
 
   v11 = *v9;
@@ -119,25 +122,26 @@
   contextCopy = context;
   identifiersCopy = identifiers;
   v8 = objc_alloc(getPRUISIncomingCallSnapshotDefinitionClass());
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v9 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnlySymbolLoc_ptr;
-  v20 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnlySymbolLoc_ptr;
+  v21 = getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnlySymbolLoc_ptr;
   if (!getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnlySymbolLoc_ptr)
   {
     v10 = PosterBoardUIServicesLibrary();
-    v18[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnly");
-    getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnlySymbolLoc_ptr = v18[3];
-    v9 = v18[3];
+    v19[3] = dlsym(v10, "PRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnly");
+    getPRPosterSnapshotDefinitionIdentifierIncomingCallPosterContentsOnlySymbolLoc_ptr = v19[3];
+    v9 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v9)
   {
-    v16 = +[CNUIIDSRequest IDSServiceForService:];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v16);
+    +[CNUIIDSRequest IDSServiceForService:];
+    v17 = v16;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v17);
   }
 
   v11 = *v9;

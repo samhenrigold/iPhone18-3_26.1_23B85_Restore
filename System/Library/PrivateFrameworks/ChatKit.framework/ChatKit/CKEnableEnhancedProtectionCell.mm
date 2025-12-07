@@ -59,29 +59,29 @@
   self->_ktTitleLabel = v4;
 
   v6 = self->_ktTitleLabel;
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"KT_ENABLE_KT_CELL_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  [(UILabel *)v6 setText:v8];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"KT_ENABLE_KT_CELL_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  [(UILabel *)v6 setText:v9];
 
-  v9 = self->_ktTitleLabel;
+  v10 = self->_ktTitleLabel;
   textLabel = [(CKEnableEnhancedProtectionCell *)self textLabel];
   font = [textLabel font];
-  [(UILabel *)v9 setFont:font];
+  [(UILabel *)v10 setFont:font];
 
-  v12 = self->_ktTitleLabel;
-  v13 = +[CKUIBehavior sharedBehaviors];
-  theme = [v13 theme];
+  v13 = self->_ktTitleLabel;
+  v14 = +[CKUIBehavior sharedBehaviors];
+  theme = [v14 theme];
   detailsTextColor = [theme detailsTextColor];
-  [(UILabel *)v12 setTextColor:detailsTextColor];
+  [(UILabel *)v13 setTextColor:detailsTextColor];
 
   [(UILabel *)self->_ktTitleLabel setNumberOfLines:0];
   [(UILabel *)self->_ktTitleLabel setLineBreakMode:4];
   [(UILabel *)self->_ktTitleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
   mEMORY[0x1E69A5B00] = [MEMORY[0x1E69A5B00] sharedInstance];
-  LODWORD(v13) = [mEMORY[0x1E69A5B00] isSatelliteConnectionActive];
+  LODWORD(v14) = [mEMORY[0x1E69A5B00] isSatelliteConnectionActive];
 
-  [(CKEnableEnhancedProtectionCell *)self setUserInteractionEnabled:v13 ^ 1];
-  [(UILabel *)self->_ktTitleLabel setEnabled:v13 ^ 1];
+  [(CKEnableEnhancedProtectionCell *)self setUserInteractionEnabled:v14 ^ 1];
+  [(UILabel *)self->_ktTitleLabel setEnabled:v14 ^ 1];
   contentView = [(CKEnableEnhancedProtectionCell *)self contentView];
   [contentView addSubview:self->_ktTitleLabel];
 }

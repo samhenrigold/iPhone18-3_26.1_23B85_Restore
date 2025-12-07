@@ -1,4 +1,5 @@
 @interface HMDAccessoryReachabilityTuple
++ (id)tupleWithAccessoryUUID:(id)d reachable:(BOOL)reachable;
 - (BOOL)isEqual:(id)equal;
 - (id)description;
 - (unint64_t)hash;
@@ -41,6 +42,19 @@
 
   LOBYTE(equalCopy) = [accessoryUUID isEqual:accessoryUUID2];
   return equalCopy;
+}
+
++ (id)tupleWithAccessoryUUID:(id)d reachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  dCopy = d;
+  v6 = objc_alloc_init(HMDAccessoryReachabilityTuple);
+  [(HMDAccessoryReachabilityTuple *)v6 setAccessoryUUID:dCopy];
+
+  [(HMDAccessoryReachabilityTuple *)v6 setPreviouslySentReachability:reachableCopy ^ 1];
+  [(HMDAccessoryReachabilityTuple *)v6 setCurrentReachability:reachableCopy];
+
+  return v6;
 }
 
 @end

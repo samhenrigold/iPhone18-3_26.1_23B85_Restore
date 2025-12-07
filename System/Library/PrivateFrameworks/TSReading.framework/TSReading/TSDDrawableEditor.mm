@@ -202,7 +202,7 @@ LABEL_3:
   return [(NSSet *)infos objectsPassingTest:&__block_literal_global_19];
 }
 
-void *__55__TSDDrawableEditor_selectedObjectsSupportingTextInset__block_invoke()
+void *__55__TSDDrawableEditor_selectedObjectsSupportingTextInset__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = TSUDynamicCast();
@@ -222,7 +222,7 @@ void *__55__TSDDrawableEditor_selectedObjectsSupportingTextInset__block_invoke()
   return [(NSSet *)infos objectsPassingTest:&__block_literal_global_22];
 }
 
-void *__61__TSDDrawableEditor_selectedObjectsSupportingShrinkTextToFit__block_invoke()
+void *__61__TSDDrawableEditor_selectedObjectsSupportingShrinkTextToFit__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = TSUDynamicCast();

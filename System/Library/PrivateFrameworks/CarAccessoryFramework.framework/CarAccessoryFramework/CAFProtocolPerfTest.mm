@@ -23,7 +23,9 @@
 - (signed)testInt16;
 - (unsigned)testUInt16;
 - (unsigned)testUInt32;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setTestInt16:(signed __int16)int16;
 - (void)setTestString2:(id)string2;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -163,6 +165,13 @@
   int16Value = [testInt16Characteristic int16Value];
 
   return int16Value;
+}
+
+- (void)setTestInt16:(signed __int16)int16
+{
+  int16Copy = int16;
+  testInt16Characteristic = [(CAFProtocolPerfTest *)self testInt16Characteristic];
+  [testInt16Characteristic setInt16Value:int16Copy];
 }
 
 - (CAFInt16Range)testInt16Range
@@ -330,6 +339,144 @@
   string2Copy = string2;
   testString2Characteristic = [(CAFProtocolPerfTest *)self testString2Characteristic];
   [testString2Characteristic setStringValue:string2Copy];
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x00000000FF000008"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    testInt32Characteristic = [(CAFProtocolPerfTest *)self testInt32Characteristic];
+    uniqueIdentifier2 = [testInt32Characteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers protocolPerfTestService:self didUpdateTestInt32:{-[CAFProtocolPerfTest testInt32](self, "testInt32")}];
+LABEL_25:
+
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x00000000FF000007"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    testInt16Characteristic = [(CAFProtocolPerfTest *)self testInt16Characteristic];
+    uniqueIdentifier4 = [testInt16Characteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers protocolPerfTestService:self didUpdateTestInt16:{-[CAFProtocolPerfTest testInt16](self, "testInt16")}];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x00000000FF000004"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    testUInt32Characteristic = [(CAFProtocolPerfTest *)self testUInt32Characteristic];
+    uniqueIdentifier6 = [testUInt32Characteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers protocolPerfTestService:self didUpdateTestUInt32:{-[CAFProtocolPerfTest testUInt32](self, "testUInt32")}];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x00000000FF000003"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    testUInt16Characteristic = [(CAFProtocolPerfTest *)self testUInt16Characteristic];
+    uniqueIdentifier8 = [testUInt16Characteristic uniqueIdentifier];
+    v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v27)
+    {
+      observers = [(CAFService *)self observers];
+      [observers protocolPerfTestService:self didUpdateTestUInt16:{-[CAFProtocolPerfTest testUInt16](self, "testUInt16")}];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x00000000FF00000B"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    testStringCharacteristic = [(CAFProtocolPerfTest *)self testStringCharacteristic];
+    uniqueIdentifier10 = [testStringCharacteristic uniqueIdentifier];
+    v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v32)
+    {
+      observers2 = [(CAFService *)self observers];
+      testString = [(CAFProtocolPerfTest *)self testString];
+      [observers2 protocolPerfTestService:self didUpdateTestString:testString];
+
+      observers = [(CAFService *)self observers];
+      name = [(CAFProtocolPerfTest *)self name];
+      [observers protocolPerfTestService:self didUpdateName:name];
+LABEL_24:
+
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x00000000FF000023"])
+  {
+    goto LABEL_25;
+  }
+
+  uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+  testString2Characteristic = [(CAFProtocolPerfTest *)self testString2Characteristic];
+  uniqueIdentifier12 = [testString2Characteristic uniqueIdentifier];
+  v39 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+  if (v39)
+  {
+    observers = [(CAFService *)self observers];
+    name = [(CAFProtocolPerfTest *)self testString2];
+    [observers protocolPerfTestService:self didUpdateTestString2:name];
+    goto LABEL_24;
+  }
+
+LABEL_26:
+  v40.receiver = self;
+  v40.super_class = CAFProtocolPerfTest;
+  [(CAFService *)&v40 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTestInt32

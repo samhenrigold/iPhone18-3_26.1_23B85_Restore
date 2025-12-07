@@ -220,7 +220,7 @@
 
 - (id)description
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   [string appendFormat:@"Alisha Key Information:\n"];
   [string appendFormat:@"    KeyName         : %@\n", self->_name];
@@ -255,30 +255,30 @@
   [string appendFormat:@"    VEP supported   : %d\n", self->_vehicleSupportsSharingPassword];
   [string appendFormat:@"    LongTermSecretLength   : %lu\n", self->_longTermSharedSecretLength];
   [string appendFormat:@"    SupportedTransports :"];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = self->_supportedTransports;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = DAKeyTransportTypeAsString([*(*(&v16 + 1) + 8 * i) shortValue]);
+        v11 = DAKeyTransportTypeAsString([*(*(&v15 + 1) + 8 * i) shortValue]);
         [string appendFormat:@"%@, ", v11];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -294,7 +294,6 @@
   [string appendFormat:@"    AgreedFrameworkVersion       : %02lx\n", self->_agreedFrameworkVersion];
   [string appendFormat:@"    AgreedAppletVersion          : %02lx\n", self->_agreedAppletVersion];
   [string appendFormat:@"    AgreedVehicleServerVersion   : %02lx\n", self->_agreedVehicleServerVersion];
-  v14 = *MEMORY[0x277D85DE8];
 
   return string;
 }

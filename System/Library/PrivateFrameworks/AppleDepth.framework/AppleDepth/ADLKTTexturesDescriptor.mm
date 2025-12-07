@@ -203,7 +203,7 @@
   sizesCopy = sizes;
   if ((prioritization & 0xFFFFFFFFFFFFFFFDLL) == 0)
   {
-    +[ADLKTOpticalFlow defaultConfig];
+    objc_msgSend_defaultConfig(ADLKTOpticalFlow);
     if (self)
     {
       v7 = v14;
@@ -222,7 +222,7 @@ LABEL_16:
     case 4:
       goto LABEL_5;
     case 3:
-      +[ADLKTOpticalFlow highQualityConfig];
+      objc_msgSend_highQualityConfig(ADLKTOpticalFlow);
       if (self)
       {
         v7 = v12;
@@ -233,7 +233,7 @@ LABEL_16:
       goto LABEL_16;
     case 1:
 LABEL_5:
-      +[ADLKTOpticalFlow highPerformanceConfig];
+      objc_msgSend_highPerformanceConfig(ADLKTOpticalFlow);
       if (self)
       {
         v7 = v13;

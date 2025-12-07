@@ -1366,9 +1366,9 @@ LABEL_6:
             if (isKindOfClass)
             {
               step = [(RouteStepManeuverItem *)self step];
-              [step transportType];
+              v15 = 2 * ([step transportType] == 2);
 
-              v15 = sub_100C168BC(infoCopy, toCopy);
+              v16 = sub_100C168BC(infoCopy, toCopy, v15);
             }
 
             else
@@ -1387,10 +1387,10 @@ LABEL_6:
                 goto LABEL_8;
               }
 
-              v15 = [infoCopy isEquivalentToLaneInfo:toCopy];
+              v16 = [infoCopy isEquivalentToLaneInfo:toCopy];
             }
 
-            LOBYTE(v12) = v15 ^ 1;
+            LOBYTE(v12) = v16 ^ 1;
             goto LABEL_9;
           }
         }

@@ -20,17 +20,17 @@
   v5->_text = v6;
 
   v8 = [dictionaryCopy PKStringForKey:@"linkAction"];
-  if ([v8 isEqualToString:@"openURL"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
-    v9 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
-    v9 = [v8 isEqualToString:@"showMerchantDetails"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
   }
 
-  v5->_action = v9;
+  v5->_action = isEqualToString;
 
   if (v5->_action)
   {

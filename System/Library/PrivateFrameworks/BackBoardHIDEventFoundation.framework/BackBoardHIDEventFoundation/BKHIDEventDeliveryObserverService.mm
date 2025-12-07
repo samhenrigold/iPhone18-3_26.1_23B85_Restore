@@ -12,33 +12,33 @@
 
 - (void)_locked_postChainsToObservingClients
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_assert_owner((self + 16));
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = *(self + 32);
-    v23 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (!v23)
+    v22 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+    if (!v22)
     {
       goto LABEL_36;
     }
 
-    v22 = *v29;
+    v21 = *v28;
     while (1)
     {
       v2 = 0;
       do
       {
-        if (*v29 != v22)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v28 + 1) + 8 * v2);
+        v3 = *(*(&v27 + 1) + 8 * v2);
         v4 = [*(self + 8) userInfoForConnection:v3];
         v5 = v4;
         if (v4)
@@ -56,43 +56,43 @@
         v8 = v7;
         if ([v8 count])
         {
-          v24 = v3;
-          v25 = v6;
+          v23 = v3;
+          v24 = v6;
           v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           v10 = v8;
-          v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v33;
+            v13 = *v32;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v33 != v13)
+                if (*v32 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = [*(self + 48) objectForKey:*(*(&v32 + 1) + 8 * i)];
+                v15 = [*(self + 48) objectForKey:*(*(&v31 + 1) + 8 * i)];
                 if (v15)
                 {
                   [v9 addObject:v15];
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
             }
 
             while (v12);
           }
 
-          v3 = v24;
-          v6 = v25;
+          v3 = v23;
+          v6 = v24;
         }
 
         else
@@ -115,12 +115,12 @@
           v16 = 0;
         }
 
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __73__BKHIDEventDeliveryObserverService__locked_postChainsToObservingClients__block_invoke;
-        v26[3] = &__block_descriptor_36_e34__16__0__BKSHIDEventDeliveryChain_8l;
-        v27 = v16;
-        v17 = [v9 bs_map:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __73__BKHIDEventDeliveryObserverService__locked_postChainsToObservingClients__block_invoke;
+        v25[3] = &__block_descriptor_36_e34__16__0__BKSHIDEventDeliveryChain_8l;
+        v26 = v16;
+        v17 = [v9 bs_map:v25];
 
         v9 = v17;
 LABEL_25:
@@ -138,19 +138,17 @@ LABEL_25:
         ++v2;
       }
 
-      while (v2 != v23);
-      v19 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-      v23 = v19;
+      while (v2 != v22);
+      v19 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v22 = v19;
       if (!v19)
       {
 LABEL_36:
 
-        break;
+        return;
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidTerminate:(id)terminate
@@ -164,35 +162,35 @@ LABEL_36:
 
 - (void)connection:(id)connection setObservesDeferringChainIdentities:(id)identities entitled:(BOOL)entitled
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   identitiesCopy = identities;
   os_unfair_lock_lock(&self->_lock);
   v10 = [(BKHIDDomainServiceServer *)self->_server userInfoForConnection:connectionCopy];
   if (!v10)
   {
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing record"];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing record"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v18 = NSStringFromSelector(a2);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       *buf = 138544642;
-      v24 = v19;
-      v25 = 2114;
-      v26 = v21;
-      v27 = 2048;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      v26 = 2048;
       selfCopy = self;
-      v29 = 2114;
-      v30 = @"BKHIDEventDeliveryObserverService.m";
-      v31 = 1024;
-      v32 = 318;
-      v33 = 2114;
-      v34 = v18;
+      v28 = 2114;
+      v29 = @"BKHIDEventDeliveryObserverService.m";
+      v30 = 1024;
+      v31 = 318;
+      v32 = 2114;
+      v33 = v17;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v18 UTF8String];
+    [v17 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CD829CLL);
@@ -217,14 +215,12 @@ LABEL_36:
   [(NSMutableSet *)lock_deferringChainObserverConnections addObject:connectionCopy];
   [(BKHIDEventDeliveryObserverService *)self _locked_postChainsToObservingClients];
   os_unfair_lock_unlock(&self->_lock);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)connection:(id)connection setObservesDeferringResolutions:(BOOL)resolutions
 {
   resolutionsCopy = resolutions;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   if (!connectionCopy)
   {
@@ -235,28 +231,28 @@ LABEL_36:
   v8 = [(BKHIDDomainServiceServer *)self->_server userInfoForConnection:connectionCopy];
   if (!v8)
   {
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing record"];
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing record"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v17 = NSStringFromSelector(a2);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v16 = NSStringFromSelector(a2);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138544642;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v19;
-      v24 = 2048;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v18;
+      v23 = 2048;
       selfCopy = self;
-      v26 = 2114;
-      v27 = @"BKHIDEventDeliveryObserverService.m";
-      v28 = 1024;
-      v29 = 295;
-      v30 = 2114;
-      v31 = v16;
+      v25 = 2114;
+      v26 = @"BKHIDEventDeliveryObserverService.m";
+      v27 = 1024;
+      v28 = 295;
+      v29 = 2114;
+      v30 = v15;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v16 UTF8String];
+    [v15 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CD84E0);
@@ -281,14 +277,12 @@ LABEL_36:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)deliveryChainDidUpdate:(id)update forIdentity:(id)identity reason:(id)reason
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   identityCopy = identity;
   reasonCopy = reason;
@@ -304,25 +298,25 @@ LABEL_36:
     _os_log_impl(&dword_223CBE000, v11, OS_LOG_TYPE_DEFAULT, "chain did update (%{public}@) %{public}@", buf, 0x16u);
   }
 
-  v50 = reasonCopy;
+  v49 = reasonCopy;
 
   v12 = objc_alloc_init(MEMORY[0x277CCAB58]);
   lock_identityToPIDToObservations = self->_lock_identityToPIDToObservations;
-  v79[0] = MEMORY[0x277D85DD0];
-  v79[1] = 3221225472;
-  v79[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke;
-  v79[3] = &unk_2784F68E0;
-  v49 = v12;
-  v80 = v49;
-  v14 = v79;
+  v78[0] = MEMORY[0x277D85DD0];
+  v78[1] = 3221225472;
+  v78[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke;
+  v78[3] = &unk_2784F68E0;
+  v48 = v12;
+  v79 = v48;
+  v14 = v78;
   if (lock_identityToPIDToObservations)
   {
     v15 = [(NSMutableDictionary *)lock_identityToPIDToObservations->_trunkToBranchDictionary objectForKey:identityCopy];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __43__BKThreeLevelForest_enumerateTrunk_block___block_invoke;
-    v84 = &unk_2784F69D0;
-    v85 = v14;
+    v83 = &unk_2784F69D0;
+    v84 = v14;
     [v15 enumerateKeysAndObjectsUsingBlock:buf];
   }
 
@@ -341,21 +335,21 @@ LABEL_36:
     compatibilityDisplay = [updateCopy display];
   }
 
-  v58 = identityCopy;
-  v51 = updateCopy;
+  v57 = identityCopy;
+  v50 = updateCopy;
   deferringPath = [updateCopy deferringPath];
-  v54 = [deferringPath count];
+  v53 = [deferringPath count];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   v18 = deferringPath;
-  v19 = [v18 countByEnumeratingWithState:&v75 objects:v82 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v74 objects:v81 count:16];
   if (v19)
   {
     v20 = v19;
     v21 = 0;
-    v22 = *v76;
+    v22 = *v75;
     v23 = -1;
     do
     {
@@ -363,12 +357,12 @@ LABEL_36:
       v25 = v21 + 1;
       do
       {
-        if (*v76 != v22)
+        if (*v75 != v22)
         {
           objc_enumerationMutation(v18);
         }
 
-        token = [*(*(&v75 + 1) + 8 * v24) token];
+        token = [*(*(&v74 + 1) + 8 * v24) token];
         _isString = [token _isString];
 
         if (_isString)
@@ -382,7 +376,7 @@ LABEL_36:
 
       while (v20 != v24);
       v21 += v20;
-      v20 = [v18 countByEnumeratingWithState:&v75 objects:v82 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v74 objects:v81 count:16];
     }
 
     while (v20);
@@ -393,57 +387,57 @@ LABEL_36:
     v23 = -1;
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   obj = v18;
-  v28 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+  v28 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
   if (v28)
   {
     v29 = v28;
     v30 = 0;
-    v53 = *v72;
+    v52 = *v71;
     v31 = 0xFFFFFFFFLL;
     do
     {
       for (i = 0; i != v29; ++i)
       {
         v33 = v31;
-        if (*v72 != v53)
+        if (*v71 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v71 + 1) + 8 * i);
+        v34 = *(*(&v70 + 1) + 8 * i);
         ++v30;
         v31 = [v34 pid];
         v35 = MEMORY[0x277CF06C0];
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke_2;
-        v64[3] = &unk_2784F6908;
-        v64[4] = v34;
-        v65 = environment;
-        v66 = selectionPath;
-        v67 = compatibilityDisplay;
-        v68 = v30;
-        v69 = v54;
-        v70 = v23;
-        v36 = [v35 build:v64];
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke_2;
+        v63[3] = &unk_2784F6908;
+        v63[4] = v34;
+        v64 = environment;
+        v65 = selectionPath;
+        v66 = compatibilityDisplay;
+        v67 = v30;
+        v68 = v53;
+        v69 = v23;
+        v36 = [v35 build:v63];
         v37 = selfCopy->_lock_identityToPIDToObservations;
         v38 = [MEMORY[0x277CCABB0] numberWithInt:v31];
-        [(BKThreeLevelForest *)v37 addLeaf:v36 toBranch:v38 trunk:v58];
+        [(BKThreeLevelForest *)v37 addLeaf:v36 toBranch:v38 trunk:v57];
 
         if (v33 >= 1 && v33 != v31)
         {
           v39 = selfCopy->_lock_identityToPIDToObservations;
           v40 = [MEMORY[0x277CCABB0] numberWithInt:v33];
-          [(BKThreeLevelForest *)v39 addLeaf:v36 toBranch:v40 trunk:v58];
+          [(BKThreeLevelForest *)v39 addLeaf:v36 toBranch:v40 trunk:v57];
         }
       }
 
-      v29 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+      v29 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
     }
 
     while (v29);
@@ -457,34 +451,32 @@ LABEL_36:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __58__BKThreeLevelForest_dictionaryContainingBranchesToLeaves__block_invoke;
-    v84 = &unk_2784F6A20;
+    v83 = &unk_2784F6A20;
     v41 = v42;
-    v85 = v41;
+    v84 = v41;
     [(NSMutableDictionary *)trunkToBranchDictionary enumerateKeysAndObjectsUsingBlock:buf];
   }
 
   v44 = [(BKThreeLevelForest *)v41 mutableCopy];
 
   v45 = objc_alloc_init(MEMORY[0x277CBEB98]);
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke_3;
-  v61[3] = &unk_2784F6930;
-  v62 = v44;
-  v63 = v45;
-  v46 = v45;
-  v47 = v44;
-  [v49 enumerateIndexesUsingBlock:v61];
   v60[0] = MEMORY[0x277D85DD0];
   v60[1] = 3221225472;
-  v60[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke_4;
-  v60[3] = &unk_2784F6958;
-  v60[4] = selfCopy;
-  [v47 enumerateKeysAndObjectsUsingBlock:v60];
+  v60[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke_3;
+  v60[3] = &unk_2784F6930;
+  v61 = v44;
+  v62 = v45;
+  v46 = v45;
+  v47 = v44;
+  [v48 enumerateIndexesUsingBlock:v60];
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke_4;
+  v59[3] = &unk_2784F6958;
+  v59[4] = selfCopy;
+  [v47 enumerateKeysAndObjectsUsingBlock:v59];
   [(BKHIDEventDeliveryObserverService *)selfCopy _locked_postChainsToObservingClients];
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__BKHIDEventDeliveryObserverService_deliveryChainDidUpdate_forIdentity_reason___block_invoke(uint64_t a1, void *a2)

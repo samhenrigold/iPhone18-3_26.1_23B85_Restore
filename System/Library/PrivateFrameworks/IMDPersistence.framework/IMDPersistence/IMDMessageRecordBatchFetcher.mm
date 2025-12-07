@@ -1,4 +1,5 @@
 @interface IMDMessageRecordBatchFetcher
+- (IMDMessageRecordBatchFetcher)initWithAssociatedChatGUID:(id)d sortAscending:(BOOL)ascending;
 - (IMDMessageRecordBatchFetcher)initWithChatPredicate:(id)predicate sortAscending:(BOOL)ascending;
 - (id)_rowIDPredicate;
 - (id)nextBatchWithSize:(unint64_t)size;
@@ -8,29 +9,29 @@
 
 - (id)_rowIDPredicate
 {
-  if (objc_msgSend_lastRowID(self, a2, v2) == -1)
+  if (objc_msgSend_lastRowID(self, a2, v2, v3) == -1)
   {
-    v12 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v6 = objc_msgSend_sortAscending(self, v4, v5);
-    v7 = MEMORY[0x1E696AE18];
-    RowID = objc_msgSend_lastRowID(self, v8, v9);
-    if (v6)
+    v8 = objc_msgSend_sortAscending(self, v5, v6, v7);
+    v9 = MEMORY[0x1E696AE18];
+    RowID = objc_msgSend_lastRowID(self, v10, v11, v12);
+    if (v8)
     {
-      objc_msgSend_predicateWithFormat_(v7, v11, @"%K > %lld", @"rowID", RowID);
+      objc_msgSend_predicateWithFormat_(v9, v14, @"%K > %lld", v15, @"rowID", RowID);
     }
 
     else
     {
-      objc_msgSend_predicateWithFormat_(v7, v11, @"%K < %lld", @"rowID", RowID);
+      objc_msgSend_predicateWithFormat_(v9, v14, @"%K < %lld", v15, @"rowID", RowID);
     }
-    v12 = ;
+    v16 = ;
   }
 
-  return v12;
+  return v16;
 }
 
 - (IMDMessageRecordBatchFetcher)initWithChatPredicate:(id)predicate sortAscending:(BOOL)ascending
@@ -49,94 +50,114 @@
   return v9;
 }
 
-- (id)nextBatchWithSize:(unint64_t)size
+- (IMDMessageRecordBatchFetcher)initWithAssociatedChatGUID:(id)d sortAscending:(BOOL)ascending
 {
-  v67[2] = *MEMORY[0x1E69E9840];
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_1B7AE18C4;
-  v63 = sub_1B7AE2458;
-  v64 = 0;
-  v5 = objc_alloc(MEMORY[0x1E696AEB0]);
-  v8 = objc_msgSend_sortAscending(self, v6, v7);
-  v10 = objc_msgSend_initWithKey_ascending_(v5, v9, @"rowID", v8);
-  v13 = objc_msgSend__rowIDPredicate(self, v11, v12);
-  v16 = objc_msgSend_predicate(self, v14, v15);
-  v17 = v16 == 0;
-
-  if (v17)
+  ascendingCopy = ascending;
+  dCopy = d;
+  if (dCopy)
   {
-    v28 = v13;
+    v9 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v6, @"%K = %@", v7, *MEMORY[0x1E69A6B70], dCopy);
   }
 
   else
   {
-    if (v13)
+    v9 = 0;
+  }
+
+  associatedChatGUID = self->_associatedChatGUID;
+  self->_associatedChatGUID = dCopy;
+
+  v12 = objc_msgSend_initWithChatPredicate_sortAscending_(self, v11, v9, ascendingCopy);
+  return v12;
+}
+
+- (id)nextBatchWithSize:(unint64_t)size
+{
+  v79[2] = *MEMORY[0x1E69E9840];
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x3032000000;
+  v74 = sub_1B7AE18C4;
+  v75 = sub_1B7AE2458;
+  v76 = 0;
+  v5 = objc_alloc(MEMORY[0x1E696AEB0]);
+  v9 = objc_msgSend_sortAscending(self, v6, v7, v8);
+  v11 = objc_msgSend_initWithKey_ascending_(v5, v10, @"rowID", v9);
+  v15 = objc_msgSend__rowIDPredicate(self, v12, v13, v14);
+  v19 = objc_msgSend_predicate(self, v16, v17, v18);
+  v20 = v19 == 0;
+
+  if (v20)
+  {
+    v34 = v15;
+  }
+
+  else
+  {
+    if (v15)
     {
-      v20 = MEMORY[0x1E696AB28];
-      v67[0] = v13;
-      v21 = objc_msgSend_predicate(self, v18, v19);
-      v67[1] = v21;
-      v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, v67, 2);
-      v25 = objc_msgSend_andPredicateWithSubpredicates_(v20, v24, v23);
+      v24 = MEMORY[0x1E696AB28];
+      v79[0] = v15;
+      v25 = objc_msgSend_predicate(self, v21, v22, v23);
+      v79[1] = v25;
+      v27 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v26, v79, 2);
+      v30 = objc_msgSend_andPredicateWithSubpredicates_(v24, v28, v27, v29);
 
       goto LABEL_7;
     }
 
-    v28 = objc_msgSend_predicate(self, v18, v19);
+    v34 = objc_msgSend_predicate(self, v21, v22, v23);
   }
 
-  v25 = v28;
+  v30 = v34;
 LABEL_7:
-  v29 = objc_msgSend_chatPredicate(self, v26, v27);
+  v35 = objc_msgSend_chatPredicate(self, v31, v32, v33);
 
-  objc_msgSend_synchronousDatabase(IMDDatabase, v30, v31);
-  if (v29)
-    v32 = {;
-    v66 = v10;
-    v34 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v33, &v66, 1);
-    v37 = objc_msgSend_chatPredicate(self, v35, v36);
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = sub_1B7B08264;
-    v58[3] = &unk_1E7CB6860;
-    v58[4] = &v59;
-    objc_msgSend_fetchMessageRecordsFilteredUsingPredicate_sortedUsingDescriptors_inChatsFilteredUsingPredicate_limit_completionHandler_(v32, v38, v25, v34, v37, size, v58);
+  objc_msgSend_synchronousDatabase(IMDDatabase, v36, v37, v38);
+  if (v35)
+    v39 = {;
+    v78 = v11;
+    v41 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v40, &v78, 1);
+    v45 = objc_msgSend_chatPredicate(self, v42, v43, v44);
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 3221225472;
+    v70[2] = sub_1B7B08264;
+    v70[3] = &unk_1E7CB6860;
+    v70[4] = &v71;
+    objc_msgSend_fetchMessageRecordsFilteredUsingPredicate_sortedUsingDescriptors_inChatsFilteredUsingPredicate_limit_completionHandler_(v39, v46, v30, v41, v45, size, v70);
   }
 
   else
-    v32 = {;
-    v65 = v10;
-    v34 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v39, &v65, 1);
-    v42 = objc_msgSend_parentedOnly(self, v40, v41);
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = sub_1B7B08274;
-    v57[3] = &unk_1E7CB6860;
-    v57[4] = &v59;
-    objc_msgSend_fetchMessageRecordsFilteredUsingPredicate_sortedUsingDescriptors_parentedOnly_limit_completionHandler_(v32, v43, v25, v34, v42, size, v57);
+    v39 = {;
+    v77 = v11;
+    v41 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v47, &v77, 1);
+    v51 = objc_msgSend_parentedOnly(self, v48, v49, v50);
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 3221225472;
+    v69[2] = sub_1B7B08274;
+    v69[3] = &unk_1E7CB6860;
+    v69[4] = &v71;
+    objc_msgSend_fetchMessageRecordsFilteredUsingPredicate_sortedUsingDescriptors_parentedOnly_limit_completionHandler_(v39, v52, v30, v41, v51, size, v69);
   }
 
-  if (objc_msgSend_count(v60[5], v44, v45))
+  if (objc_msgSend_count(v72[5], v53, v54, v55))
   {
-    v48 = objc_msgSend_lastObject(v60[5], v46, v47);
-    v51 = objc_msgSend_rowID(v48, v49, v50);
-    objc_msgSend_setLastRowID_(self, v52, v51);
+    v59 = objc_msgSend_lastObject(v72[5], v56, v57, v58);
+    v63 = objc_msgSend_rowID(v59, v60, v61, v62);
+    objc_msgSend_setLastRowID_(self, v64, v63, v65);
   }
 
-  v53 = v60[5];
-  if (!v53)
+  v66 = v72[5];
+  if (!v66)
   {
-    v53 = MEMORY[0x1E695E0F0];
+    v66 = MEMORY[0x1E695E0F0];
   }
 
-  v54 = v53;
+  v67 = v66;
 
-  _Block_object_dispose(&v59, 8);
-  v55 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v71, 8);
 
-  return v54;
+  return v67;
 }
 
 @end

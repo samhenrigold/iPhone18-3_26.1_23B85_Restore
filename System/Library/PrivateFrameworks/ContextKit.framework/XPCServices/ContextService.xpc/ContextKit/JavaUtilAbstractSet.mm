@@ -15,22 +15,22 @@
 
   else
   {
-    v5 = [JavaUtilSet_class_() isInstance:equal];
+    v5 = [JavaUtilSet_class_(self a2)];
     if (v5)
     {
-      v6 = JavaUtilSet_class_();
-      if (equal && ([v6 isInstance:equal] & 1) == 0)
+      v7 = JavaUtilSet_class_(v5, v6);
+      if (equal && ([v7 isInstance:equal] & 1) == 0)
       {
         JreThrowClassCastException();
       }
 
-      v7 = [(JavaUtilAbstractCollection *)self size];
+      v8 = [(JavaUtilAbstractCollection *)self size];
       if (!equal)
       {
         JreThrowNullPointerException();
       }
 
-      if (v7 == [equal size])
+      if (v8 == [equal size])
       {
         LOBYTE(v5) = [(JavaUtilAbstractCollection *)self containsAllWithJavaUtilCollection:equal];
       }

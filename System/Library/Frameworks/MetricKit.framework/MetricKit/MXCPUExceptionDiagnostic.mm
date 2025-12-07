@@ -1,11 +1,40 @@
 @interface MXCPUExceptionDiagnostic
 - (MXCPUExceptionDiagnostic)initWithCoder:(id)coder;
 - (MXCPUExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version callStack:(id)stack totalCpuTime:(id)time totalSampledTime:(id)sampledTime;
+- (MXCPUExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid callStack:(id)stack totalCpuTime:(id)time totalSampledTime:(id)sampledTime;
 - (id)toDictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MXCPUExceptionDiagnostic
+
+- (MXCPUExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid callStack:(id)stack totalCpuTime:(id)time totalSampledTime:(id)sampledTime
+{
+  v11 = *&pid;
+  stackCopy = stack;
+  timeCopy = time;
+  sampledTimeCopy = sampledTime;
+  v24.receiver = self;
+  v24.super_class = MXCPUExceptionDiagnostic;
+  v18 = [(MXDiagnostic *)&v24 initWithMetaData:data applicationVersion:version signpostData:signpostData andPID:v11];
+  if (v18)
+  {
+    if (!stackCopy || ([timeCopy doubleValue], v19 <= 0.0) || (objc_msgSend(sampledTimeCopy, "doubleValue"), v20 <= 0.0))
+    {
+      v21 = 0;
+      goto LABEL_8;
+    }
+
+    objc_storeStrong(&v18->_callStackTree, stack);
+    objc_storeStrong(&v18->_totalCPUTime, time);
+    objc_storeStrong(&v18->_totalSampledTime, sampledTime);
+  }
+
+  v21 = v18;
+LABEL_8:
+
+  return v21;
+}
 
 - (MXCPUExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version callStack:(id)stack totalCpuTime:(id)time totalSampledTime:(id)sampledTime
 {

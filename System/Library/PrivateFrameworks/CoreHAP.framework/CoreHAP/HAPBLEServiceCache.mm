@@ -13,40 +13,40 @@
 
 - (id)description
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   cachedCharacteristics = [(HAPBLEServiceCache *)self cachedCharacteristics];
   v5 = [v3 stringWithFormat:@"\nList of Characteristics: %tu\n", objc_msgSend(cachedCharacteristics, "count")];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   cachedCharacteristics2 = [(HAPBLEServiceCache *)self cachedCharacteristics];
-  v7 = [cachedCharacteristics2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [cachedCharacteristics2 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       v10 = 0;
       v11 = v5;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(cachedCharacteristics2);
         }
 
-        v5 = [v11 stringByAppendingFormat:@"%@", *(*(&v26 + 1) + 8 * v10)];
+        v5 = [v11 stringByAppendingFormat:@"%@", *(*(&v25 + 1) + 8 * v10)];
 
         ++v10;
         v11 = v5;
       }
 
       while (v8 != v10);
-      v8 = [cachedCharacteristics2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [cachedCharacteristics2 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
@@ -61,9 +61,9 @@
   v18 = string;
   if (serviceProperties)
   {
-    v24 = [string stringByAppendingString:@": Primary"];
+    v23 = [string stringByAppendingString:@": Primary"];
 
-    v18 = v24;
+    v18 = v23;
     if ((serviceProperties & 2) == 0)
     {
 LABEL_10:
@@ -81,9 +81,9 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v25 = [v18 stringByAppendingString:@": Hidden"];
+  v24 = [v18 stringByAppendingString:@": Hidden"];
 
-  v18 = v25;
+  v18 = v24;
   if ((serviceProperties & 4) != 0)
   {
 LABEL_11:
@@ -96,68 +96,26 @@ LABEL_12:
   linkedServices = [(HAPBLEServiceCache *)self linkedServices];
   v21 = [v12 stringWithFormat:@"\n\nService Info:\n\tService UUID: %@, \n\tInstanceId: %@, \n\tOrder: %lu, \n\tProperties: %@, \n\tLinkedServices: %@, \n\t %@", serviceUUID, serviceInstanceId, serviceInstanceOrder, v18, linkedServices, v5];
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (HAPBLEServiceCache)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = HAPBLEServiceCache;
-  v5 = [(HAPBLEServiceCache *)&v23 init];
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SUUI"];
-  serviceUUID = v5->_serviceUUID;
-  v5->_serviceUUID = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SI"];
-  serviceInstanceId = v5->_serviceInstanceId;
-  v5->_serviceInstanceId = v8;
-
-  v5->_serviceInstanceOrder = [coderCopy decodeIntegerForKey:@"SO"];
-  v5->_serviceProperties = [coderCopy decodeIntegerForKey:@"SP"];
-  v10 = MEMORY[0x277CBEB98];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
-  v12 = [v10 setWithArray:v11];
-  v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"LS"];
-  linkedServices = v5->_linkedServices;
-  v5->_linkedServices = v13;
-
-  v15 = MEMORY[0x277CBEB98];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v17 = [v15 setWithArray:v16];
-  v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"CC"];
-  cachedCharacteristics = v5->_cachedCharacteristics;
-  v5->_cachedCharacteristics = v18;
-
-  if (!v5->_serviceInstanceId)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_serviceUUID)
+  v22.receiver = self;
+  v22.super_class = HAPBLEServiceCache;
+  v5 = [(HAPBLEServiceCache *)&v22 init];
+  if (v5 && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SUUI"], v6 = objc_claimAutoreleasedReturnValue(), serviceUUID = v5->_serviceUUID, v5->_serviceUUID = v6, serviceUUID, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"SI"), v8 = objc_claimAutoreleasedReturnValue(), serviceInstanceId = v5->_serviceInstanceId, v5->_serviceInstanceId = v8, serviceInstanceId, v5->_serviceInstanceOrder = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"SO"), v5->_serviceProperties = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"SP"), v10 = MEMORY[0x277CBEB98], v24[0] = objc_opt_class(), v24[1] = objc_opt_class(), objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v24, 2), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "setWithArray:", v11), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v12, @"LS"), v13 = objc_claimAutoreleasedReturnValue(), linkedServices = v5->_linkedServices, v5->_linkedServices = v13, linkedServices, v12, v11, v15 = MEMORY[0x277CBEB98], v23[0] = objc_opt_class(), v23[1] = objc_opt_class(), objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v23, 2), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "setWithArray:", v16), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v17, @"CC"), v18 = objc_claimAutoreleasedReturnValue(), cachedCharacteristics = v5->_cachedCharacteristics, v5->_cachedCharacteristics = v18, cachedCharacteristics, v17, v16, v5->_serviceInstanceId) && v5->_serviceUUID)
   {
     v20 = v5;
   }
 
   else
   {
-LABEL_5:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -181,28 +139,28 @@ LABEL_5:
 
 - (void)updateWithCharacteristic:(id)characteristic
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   cachedCharacteristics = [(HAPBLEServiceCache *)self cachedCharacteristics];
-  v6 = [cachedCharacteristics countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [cachedCharacteristics countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(cachedCharacteristics);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 isEqual:characteristicCopy])
         {
           [v10 updateWithCharacteristic:characteristicCopy];
@@ -210,7 +168,7 @@ LABEL_5:
         }
       }
 
-      v7 = [cachedCharacteristics countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [cachedCharacteristics countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -223,8 +181,6 @@ LABEL_5:
   cachedCharacteristics = [(HAPBLEServiceCache *)self cachedCharacteristics];
   [cachedCharacteristics addObject:characteristicCopy];
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithService:(id)service

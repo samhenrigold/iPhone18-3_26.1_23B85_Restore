@@ -1227,7 +1227,7 @@ LABEL_34:
 
 - (void)askToShowMessageForClient:(id)client message:(id)message pendingURL:(id)l connection:(id)connection
 {
-  v11 = sub_100080FB4(&unk_1003D0540);
+  v11 = sub_100080FB4(&unk_1003D0540, &unk_1002EDD50);
   __chkstk_darwin(v11 - 8);
   v13 = &v20 - v12;
   if (l)
@@ -1250,7 +1250,7 @@ LABEL_34:
   selfCopy = self;
   sub_1001C1B60();
 
-  sub_10013B1E8(v13, &unk_1003D0540);
+  sub_10013B1E8(v13, &unk_1003D0540, &unk_1002EDD50);
 }
 
 - (void)displayMessageForMessageInfo:(id)info client:(id)client

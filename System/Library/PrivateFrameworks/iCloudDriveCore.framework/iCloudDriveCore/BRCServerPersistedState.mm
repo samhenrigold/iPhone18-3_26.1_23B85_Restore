@@ -24,18 +24,17 @@
 
 - (id)_stateToData
 {
-  v7 = 0;
-  v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
-  if (v7)
+  v8 = 0;
+  v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
+  if (v8)
   {
     abc_report_panic_with_signature();
-    [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected error while converting server state to data!"];
-    objc_claimAutoreleasedReturnValue();
-    v4 = brc_bread_crumbs();
-    v5 = brc_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected error while converting server state to data!"];
+    v5 = brc_bread_crumbs();
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1();
+      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1(v4);
     }
 
     brc_append_system_info_to_message();
@@ -246,13 +245,12 @@
     if (([bCopy execute:{@"UPDATE server_state SET state = %@", _dataPendingSave}] & 1) == 0)
     {
       abc_report_panic_with_signature();
-      [MEMORY[0x277CCACA8] stringWithFormat:@"unable to update the server_state"];
-      objc_claimAutoreleasedReturnValue();
-      v6 = brc_bread_crumbs();
-      v7 = brc_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"unable to update the server_state"];
+      v7 = brc_bread_crumbs();
+      v8 = brc_default_log();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1();
+        __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1(v6);
       }
 
       brc_append_system_info_to_message();
@@ -275,30 +273,30 @@
 
 - (void)initiateMigrationQueryForMangledIDs:(id)ds key:(id)key
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   keyCopy = key;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = dsCopy;
-  v9 = [dsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [dsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * v12);
+        v13 = *(*(&v22 + 1) + 8 * v12);
         pendingMigrations = self->_pendingMigrations;
         if (!pendingMigrations)
         {
@@ -324,7 +322,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -335,15 +333,13 @@
   v21 = brc_default_log();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    [BRCServerPersistedState initiateMigrationQueryForMangledIDs:? key:?];
+    [BRCServerPersistedState initiateMigrationQueryForMangledIDs:key:];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)abortMigrationsOfMigrationKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   pendingMigrations = self->_pendingMigrations;
   if (pendingMigrations)
@@ -351,27 +347,27 @@
     allKeys = [(NSMutableDictionary *)pendingMigrations allKeys];
     v7 = [allKeys copy];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [(NSMutableDictionary *)self->_pendingMigrations objectForKeyedSubscript:v13, v18];
+          v13 = *(*(&v17 + 1) + 8 * i);
+          v14 = [(NSMutableDictionary *)self->_pendingMigrations objectForKeyedSubscript:v13, v17];
           v15 = v14;
           if (v14)
           {
@@ -383,7 +379,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -397,40 +393,38 @@
 
     self->_needsSave = 1;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)migrationQueryKeyForMangledID:(id)d continuationCursor:(id *)cursor
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v6 = [(NSMutableDictionary *)self->_pendingMigrations objectForKeyedSubscript:?];
   if (v6)
   {
     cursorCopy = cursor;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v7 = +[BRCMigrationQueryOperation allMigrationKeysOrdered];
-    v8 = [v7 countByEnumeratingWithState:&v33 objects:v45 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v32 objects:v44 count:16];
     if (v8)
     {
       v10 = v8;
-      v11 = *v34;
+      v11 = *v33;
       *&v9 = 138412546;
-      v30 = v9;
+      v29 = v9;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v34 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * v12);
+        v13 = *(*(&v32 + 1) + 8 * v12);
         v14 = +[BRCMigrationQueryOperation folderShareAliasesMigrationKey];
         if (([v13 isEqualToString:v14] & 1) == 0)
         {
@@ -449,17 +443,17 @@ LABEL_4:
         v18 = brc_default_log();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v30;
-          v38 = dCopy;
-          v39 = 2112;
-          v40 = v17;
+          *buf = v29;
+          v37 = dCopy;
+          v38 = 2112;
+          v39 = v17;
           _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] Ignoring share alias migration key for %@ because the user default is no%@", buf, 0x16u);
         }
 
 LABEL_14:
         if (v10 == ++v12)
         {
-          v10 = [v7 countByEnumeratingWithState:&v33 objects:v45 count:16];
+          v10 = [v7 countByEnumeratingWithState:&v32 objects:v44 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -502,15 +496,15 @@ LABEL_13:
         v26 = brc_default_log();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          v29 = prettyPrintMigrationCursor(v22);
+          v28 = prettyPrintMigrationCursor(v22);
           *buf = 138413058;
-          v38 = dCopy;
-          v39 = 2112;
-          v40 = v13;
-          v41 = 2112;
-          v42 = v29;
-          v43 = 2112;
-          v44 = v25;
+          v37 = dCopy;
+          v38 = 2112;
+          v39 = v13;
+          v40 = 2112;
+          v41 = v28;
+          v42 = 2112;
+          v43 = v25;
           _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] pending migration for %@: %@ from cursor:%@%@", buf, 0x2Au);
         }
 
@@ -539,8 +533,6 @@ LABEL_28:
   {
     v21 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -579,7 +571,7 @@ LABEL_28:
     v15 = brc_default_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      [BRCServerPersistedState migrationQueryForMangledID:? key:? didUpdateWithCursor:?];
+      [BRCServerPersistedState migrationQueryForMangledID:key:didUpdateWithCursor:];
     }
   }
 

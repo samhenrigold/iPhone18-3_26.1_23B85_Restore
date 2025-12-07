@@ -1,7 +1,7 @@
 @interface ShockwaveEffectViewController
 - (_TtC9AirDropUI29ShockwaveEffectViewController)initWithCoder:(id)coder;
 - (_TtC9AirDropUI29ShockwaveEffectViewController)initWithNibName:(id)name bundle:(id)bundle;
-- (uint64_t)viewDidDisappear:;
+- (double)viewDidDisappear:;
 - (void)viewDidAppear:(BOOL)appear;
 @end
 
@@ -38,7 +38,7 @@
   return result;
 }
 
-- (uint64_t)viewDidDisappear:
+- (double)viewDidDisappear:
 {
   if (qword_100172218 != -1)
   {

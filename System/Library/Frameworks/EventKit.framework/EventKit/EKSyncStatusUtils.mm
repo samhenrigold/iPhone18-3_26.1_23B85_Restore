@@ -74,41 +74,37 @@
   return v3;
 }
 
-void __71__EKSyncStatusUtils__permittedClassesForArchivingLastSyncErrorUserInfo__block_invoke()
+void __71__EKSyncStatusUtils__permittedClassesForArchivingLastSyncErrorUserInfo__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = _permittedClassesForArchivingLastSyncErrorUserInfo_permittedClasses;
-  _permittedClassesForArchivingLastSyncErrorUserInfo_permittedClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = _permittedClassesForArchivingLastSyncErrorUserInfo_permittedClasses;
+  _permittedClassesForArchivingLastSyncErrorUserInfo_permittedClasses = v4;
 }
 
 + (void)dataFromErrorUserInfo:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Could not archive last sync user info, error = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Could not archive last sync user info, error = %@", &v2, 0xCu);
 }
 
 + (void)errorUserInfoFromData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Could not unarchive last sync user info, error = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Could not unarchive last sync user info, error = %@", &v2, 0xCu);
 }
 
 @end

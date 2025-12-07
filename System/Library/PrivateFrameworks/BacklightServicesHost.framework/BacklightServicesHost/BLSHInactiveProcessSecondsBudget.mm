@@ -77,7 +77,7 @@
 
 - (id)validateAndChargeFutureSpecifier:(id)specifier nextSpecifier:(id)nextSpecifier expectedFidelity:(int64_t)fidelity
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   nextSpecifierCopy = nextSpecifier;
   if (fidelity != 2)
@@ -149,21 +149,21 @@ LABEL_14:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     identifier = self->_identifier;
-    v34 = self->_lock_previousSecondsFutureSpecifier;
+    v33 = self->_lock_previousSecondsFutureSpecifier;
     lock_exemptedSecondsFutureSpecifier = self->_lock_exemptedSecondsFutureSpecifier;
-    v36 = 134219266;
+    v35 = 134219266;
     selfCopy = self;
-    v38 = 2114;
-    v39 = identifier;
-    v40 = 2114;
-    v41 = v13;
-    v42 = 2114;
-    v43 = v34;
-    v44 = 2114;
-    v45 = v12;
-    v46 = 2114;
-    v47 = lock_exemptedSecondsFutureSpecifier;
-    _os_log_debug_impl(&dword_21FD11000, v27, OS_LOG_TYPE_DEBUG, "%p:%{public}@ expectedFidelity:BLSUpdateFidelitySeconds specifier:%{public}@ denied - previous:%{public}@ next:%{public}@ exempted:%{public}@", &v36, 0x3Eu);
+    v37 = 2114;
+    v38 = identifier;
+    v39 = 2114;
+    v40 = v13;
+    v41 = 2114;
+    v42 = v33;
+    v43 = 2114;
+    v44 = v12;
+    v45 = 2114;
+    v46 = lock_exemptedSecondsFutureSpecifier;
+    _os_log_debug_impl(&dword_21FD11000, v27, OS_LOG_TYPE_DEBUG, "%p:%{public}@ expectedFidelity:BLSUpdateFidelitySeconds specifier:%{public}@ denied - previous:%{public}@ next:%{public}@ exempted:%{public}@", &v35, 0x3Eu);
   }
 
   v28 = 0;
@@ -173,7 +173,6 @@ LABEL_15:
   v30 = v13;
 
   os_unfair_lock_unlock(&self->_lock);
-  v31 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -208,7 +207,7 @@ LABEL_15:
 
 - (void)invalidateAtRequestDate:(id)date expectedFidelity:(int64_t)fidelity invalidationBlock:(id)block
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   blockCopy = block;
   if (fidelity != 2)
@@ -232,12 +231,12 @@ LABEL_15:
         [(BSTimerScheduleQuerying *)self->_lock_invalidationTimer timeRemaining];
         *buf = 134218754;
         selfCopy2 = self;
-        v31 = 2114;
-        v32 = identifier;
-        v33 = 2114;
-        v34 = bls_shortLoggingString;
-        v35 = 2048;
-        v36 = v19;
+        v30 = 2114;
+        v31 = identifier;
+        v32 = 2114;
+        v33 = bls_shortLoggingString;
+        v34 = 2048;
+        v35 = v19;
         _os_log_impl(&dword_21FD11000, v15, OS_LOG_TYPE_INFO, "%p:%{public}@ will ignore budgeted invalidation (BLSUpdateFidelitySeconds) requesteDate:%{public}@ already have scheduled invalidation in %.3lfs", buf, 0x2Au);
       }
     }
@@ -251,29 +250,29 @@ LABEL_15:
         bls_shortLoggingString3 = [(NSDate *)self->_lock_lastInvalidation bls_shortLoggingString];
         *buf = 134219010;
         selfCopy2 = self;
-        v31 = 2114;
-        v32 = v20;
-        v33 = 2114;
-        v34 = bls_shortLoggingString2;
-        v35 = 2048;
-        v36 = 0x3FE0000000000000;
-        v37 = 2114;
-        v38 = bls_shortLoggingString3;
+        v30 = 2114;
+        v31 = v20;
+        v32 = 2114;
+        v33 = bls_shortLoggingString2;
+        v34 = 2048;
+        v35 = 0x3FE0000000000000;
+        v36 = 2114;
+        v37 = bls_shortLoggingString3;
         _os_log_impl(&dword_21FD11000, v15, OS_LOG_TYPE_INFO, "%p:%{public}@ will schedule budgeted invalidation (BLSUpdateFidelitySeconds) requesteDate:%{public}@ in %.0lfs  previous:%{public}@", buf, 0x34u);
       }
 
       [(BSTimerScheduleQuerying *)self->_lock_invalidationTimer invalidate];
       osTimerProvider = self->_osTimerProvider;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __95__BLSHInactiveProcessSecondsBudget_invalidateAtRequestDate_expectedFidelity_invalidationBlock___block_invoke;
-      v27[3] = &unk_27841F3C8;
-      v28 = v12;
-      v24 = [(BLSHOSTimerProviding *)osTimerProvider scheduledTimerWithIdentifier:@"SecondsInvalidationBudgetExceeded" interval:v27 leewayInterval:0.5 handler:0.125];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __95__BLSHInactiveProcessSecondsBudget_invalidateAtRequestDate_expectedFidelity_invalidationBlock___block_invoke;
+      v26[3] = &unk_27841F3C8;
+      v27 = v12;
+      v24 = [(BLSHOSTimerProviding *)osTimerProvider scheduledTimerWithIdentifier:@"SecondsInvalidationBudgetExceeded" interval:v26 leewayInterval:0.5 handler:0.125];
       lock_invalidationTimer = self->_lock_invalidationTimer;
       self->_lock_invalidationTimer = v24;
 
-      v15 = v28;
+      v15 = v27;
     }
 
     os_unfair_lock_unlock(&self->_lock);
@@ -285,8 +284,6 @@ LABEL_15:
     os_unfair_lock_unlock(&self->_lock);
     v12[2](v12);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__BLSHInactiveProcessSecondsBudget_invalidateAtRequestDate_expectedFidelity_invalidationBlock___block_invoke(uint64_t a1, void *a2)
@@ -316,22 +313,8 @@ uint64_t __95__BLSHInactiveProcessSecondsBudget_invalidateAtRequestDate_expected
   dateCopy = date;
   os_unfair_lock_lock(&self->_lock);
   lock_previousSecondsRenderedSpecifier = self->_lock_previousSecondsRenderedSpecifier;
-  if (lock_previousSecondsRenderedSpecifier)
+  if (lock_previousSecondsRenderedSpecifier && (-[BLSAlwaysOnDateSpecifier date](lock_previousSecondsRenderedSpecifier, "date"), v6 = objc_claimAutoreleasedReturnValue(), [dateCopy timeIntervalSinceDate:v6], v8 = v7, v6, v8 < 1.0) || (lock_previousSecondsFutureSpecifier = self->_lock_previousSecondsFutureSpecifier) != 0 && (-[BLSAlwaysOnDateSpecifier date](lock_previousSecondsFutureSpecifier, "date"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dateCopy, "timeIntervalSinceDate:", v10), v12 = v11, v10, v12 < 1.0))
   {
-    date = [(BLSAlwaysOnDateSpecifier *)lock_previousSecondsRenderedSpecifier date];
-    [dateCopy timeIntervalSinceDate:date];
-    v8 = v7;
-
-    if (v8 < 1.0)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  lock_previousSecondsFutureSpecifier = self->_lock_previousSecondsFutureSpecifier;
-  if (lock_previousSecondsFutureSpecifier && (-[BLSAlwaysOnDateSpecifier date](lock_previousSecondsFutureSpecifier, "date"), v10 = objc_claimAutoreleasedReturnValue(), [dateCopy timeIntervalSinceDate:v10], v12 = v11, v10, v12 < 1.0))
-  {
-LABEL_5:
     v13 = 1;
   }
 
@@ -353,15 +336,14 @@ LABEL_5:
 
 - (void)allowedFidelityAtDate:(char *)a1 expectedFidelity:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"expectedFidelity == BLSUpdateFidelitySeconds"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"expectedFidelity == BLSUpdateFidelitySeconds", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -371,15 +353,14 @@ LABEL_5:
 
 - (void)validateAndChargeFutureSpecifier:(char *)a1 nextSpecifier:expectedFidelity:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"expectedFidelity == BLSUpdateFidelitySeconds"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"expectedFidelity == BLSUpdateFidelitySeconds", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -389,15 +370,14 @@ LABEL_5:
 
 - (void)chargeRenderedSpecifier:(char *)a1 expectedFidelity:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"expectedFidelity == BLSUpdateFidelitySeconds"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"expectedFidelity == BLSUpdateFidelitySeconds", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -407,15 +387,14 @@ LABEL_5:
 
 - (void)invalidateAtRequestDate:(char *)a1 expectedFidelity:invalidationBlock:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"expectedFidelity == BLSUpdateFidelitySeconds"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"expectedFidelity == BLSUpdateFidelitySeconds", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

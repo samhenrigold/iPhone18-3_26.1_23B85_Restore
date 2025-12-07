@@ -67,7 +67,7 @@
     v4 = __UIAccessibilityCastAsSafeCategory();
     v3 = MEMORY[0x29EDC9748](v4);
     objc_storeStrong(&v4, 0);
-    [UICollectionViewAccessibility _axSetShouldIgnorePromiseRegions:v3];
+    [(UICollectionViewAccessibility *)v3 _axSetShouldIgnorePromiseRegions:?];
     *&v1 = MEMORY[0x29EDC9740](v3).n128_u64[0];
     [v9 setAccessibilityShouldBypassCollectionViewAccessibility:{1, v1}];
     objc_storeStrong(&v9, 0);

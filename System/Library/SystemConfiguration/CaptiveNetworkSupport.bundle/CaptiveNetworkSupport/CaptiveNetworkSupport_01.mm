@@ -1,120 +1,3 @@
-void BBMonitorSetState(uint64_t a1, unsigned int a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  logger = mysyslog_get_logger();
-  v5 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(logger, v5))
-  {
-    if (a2 > 6)
-    {
-      v6 = "<unknown>";
-    }
-
-    else
-    {
-      v6 = off_27A714780[a2];
-    }
-
-    v8 = 136315138;
-    v9 = v6;
-    _os_log_impl(&dword_277237000, logger, v5, "BBMonitorState: %s", &v8, 0xCu);
-  }
-
-  *(a1 + 28) = a2;
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t BBMonitorReportState(uint64_t result, int a2)
-{
-  v3 = result;
-  v14 = *MEMORY[0x277D85DE8];
-  if ((*(result + 4) & 2) == 0 || (*(result + 4) & 1) != a2)
-  {
-    state64 = 0;
-    logger = mysyslog_get_logger();
-    v5 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v5))
-    {
-      v6 = "";
-      if (!a2)
-      {
-        v6 = "not ";
-      }
-
-      *buf = 136315138;
-      v13 = v6;
-      _os_log_impl(&dword_277237000, logger, v5, "BrokenBackhaul: telling symptoms backhaul is %sbroken", buf, 0xCu);
-    }
-
-    notify_get_state(*(v3 + 64), &state64);
-    result = CaptiveSymptomReportBackhaulState();
-    v7 = *(v3 + 4);
-    v8 = v7 | 3;
-    v9 = v7 & 0xFFFFFFFC | 2;
-    if (a2)
-    {
-      v9 = v8;
-    }
-
-    *(v3 + 4) = v9;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void BBMonitorSetInterfaceAdvisory(uint64_t a1, int a2)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  if (a2)
-  {
-    v2 = @"unable to reach probe server";
-  }
-
-  else
-  {
-    v2 = @"probe server is reachable again";
-  }
-
-  if (((*(a1 + 4) >> 2) & 1) != a2)
-  {
-    v5 = *(a1 + 8);
-    v6 = SCNetworkInterfaceSetAdvisory();
-    logger = mysyslog_get_logger();
-    v8 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v8))
-    {
-      v9 = "Set";
-      if (!a2)
-      {
-        v9 = "Clear";
-      }
-
-      v12 = 136315650;
-      v13 = v9;
-      if (v6)
-      {
-        v10 = "";
-      }
-
-      else
-      {
-        v10 = " FAILED";
-      }
-
-      v14 = 2112;
-      v15 = v2;
-      v16 = 2080;
-      v17 = v10;
-      _os_log_impl(&dword_277237000, logger, v8, "BBMonitor: %sAdvisory '%@'%s", &v12, 0x20u);
-    }
-
-    *(a1 + 4) = *(a1 + 4) & 0xFFFFFFFB | (4 * (a2 != 0));
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
 BOOL BBMonitorStartProbe(uint64_t a1)
 {
   BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 8));
@@ -145,7 +28,7 @@ BOOL BBMonitorStartProbe(uint64_t a1)
 
 void BBMonitor_Selecting(uint64_t a1, int a2, _BYTE *a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (a2 == 3)
   {
     *(a1 + 112) = CFAbsoluteTimeGetCurrent();
@@ -158,24 +41,11 @@ void BBMonitor_Selecting(uint64_t a1, int a2, _BYTE *a3)
       SSID = WiFiNetworkGetSSID();
       if (SSID && CFEqual(SSID, *(a1 + 16)))
       {
-        if (*(a1 + 120))
-        {
-          v25 = MEMORY[0x277CBED28];
-        }
-
-        else
-        {
-          v25 = MEMORY[0x277CBED10];
-        }
-
-        v26 = *v25;
-        v27 = *MEMORY[0x277CF7F10];
         WiFiNetworkSetProperty();
-        v28 = CFDateCreate(0, *(a1 + 112));
-        v29 = *MEMORY[0x277CF7EF8];
+        v25 = CFDateCreate(0, *(a1 + 112));
         WiFiNetworkSetProperty();
-        BBMonitorLogUserChoice(a1, "Saved", v28);
-        CFRelease(v28);
+        BBMonitorLogUserChoice(a1, "Saved", v25);
+        CFRelease(v25);
       }
 
       NetIFUpdateWiFiNetwork();
@@ -187,7 +57,7 @@ void BBMonitor_Selecting(uint64_t a1, int a2, _BYTE *a3)
   {
     if (a2)
     {
-      goto LABEL_51;
+      return;
     }
 
     BBMonitorSetState(a1, 3u);
@@ -195,7 +65,7 @@ void BBMonitor_Selecting(uint64_t a1, int a2, _BYTE *a3)
     v4 = CFAbsoluteTimeGetCurrent() - *(a1 + 112);
     if (v4 > *&S_BBMPromptInterval)
     {
-      *v49 = 0;
+      *v45 = 0;
       if (S_bb)
       {
         logger = mysyslog_get_logger();
@@ -270,113 +140,110 @@ void BBMonitor_Selecting(uint64_t a1, int a2, _BYTE *a3)
       add_localized_string(Bundle, v9, Mutable, *MEMORY[0x277CBF198], v14);
       add_localized_string(Bundle, v9, Mutable, *MEMORY[0x277CBF1E8], @"BROKEN_BACKHAUL_DEFAULT_BUTTON");
       add_localized_string(Bundle, v9, Mutable, *MEMORY[0x277CBF1C0], v12);
-      v40 = CFUserNotificationCreate(0, 0.0, 0, v49, Mutable);
+      v37 = CFUserNotificationCreate(0, 0.0, 0, v45, Mutable);
       CFRelease(Mutable);
       CFRelease(v9);
-      if (v40)
+      if (v37)
       {
-        RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v40, BBMonitorUserResponse, 0);
+        RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v37, BBMonitorUserResponse, 0);
         Current = CFRunLoopGetCurrent();
         CFRunLoopAddSource(Current, RunLoopSource, *MEMORY[0x277CBF058]);
-        *(a1 + 88) = v40;
+        *(a1 + 88) = v37;
         *(a1 + 96) = RunLoopSource;
         *(a1 + 104) = CFAbsoluteTimeGetCurrent();
         S_bb = a1;
-        v43 = mysyslog_get_logger();
-        v44 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v43, v44))
+        v40 = mysyslog_get_logger();
+        v41 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v40, v41))
         {
           *buf = 0;
-          _os_log_impl(&dword_277237000, v43, v44, "BBMonitor: prompting user, waiting for response", buf, 2u);
+          _os_log_impl(&dword_277237000, v40, v41, "BBMonitor: prompting user, waiting for response", buf, 2u);
         }
       }
 
       else
       {
-        v45 = mysyslog_get_logger();
-        v46 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v45, v46))
+        v42 = mysyslog_get_logger();
+        v43 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v42, v43))
         {
           *buf = 0;
-          _os_log_impl(&dword_277237000, v45, v46, "BBMonitor: failed to create CFUserNotification", buf, 2u);
+          _os_log_impl(&dword_277237000, v42, v43, "BBMonitor: failed to create CFUserNotification", buf, 2u);
         }
 
-        v49[0] = 0;
-        BBMonitor_Idle(a1, 0, v49);
+        v45[0] = 0;
+        BBMonitor_Idle(a1, 0, v45);
       }
 
-      goto LABEL_51;
+      return;
     }
 
-    v30 = mysyslog_get_logger();
-    v31 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v30, v31))
+    v26 = mysyslog_get_logger();
+    v27 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v26, v27))
     {
-      *v49 = 134218240;
-      v50 = v4;
-      v51 = 2048;
-      v52 = S_BBMPromptInterval;
-      _os_log_impl(&dword_277237000, v30, v31, "BBMonitor: can't show prompt (%g < %g)", v49, 0x16u);
+      *v45 = 134218240;
+      v46 = v4;
+      v47 = 2048;
+      v48 = S_BBMPromptInterval;
+      _os_log_impl(&dword_277237000, v26, v27, "BBMonitor: can't show prompt (%g < %g)", v45, 0x16u);
     }
   }
 
-  v32 = *(a1 + 120);
-  v33 = mysyslog_get_logger();
-  v34 = _SC_syslog_os_log_mapping();
-  v35 = os_log_type_enabled(v33, v34);
-  if (v32)
+  v28 = *(a1 + 120);
+  v29 = mysyslog_get_logger();
+  v30 = _SC_syslog_os_log_mapping();
+  v31 = os_log_type_enabled(v29, v30);
+  if (v28)
   {
-    if (v35)
+    if (v31)
     {
-      v36 = *(a1 + 28);
-      if (v36 > 6)
+      v33 = *(a1 + 28);
+      if (v33 > 6)
       {
-        v37 = "<unknown>";
+        v34 = "<unknown>";
       }
 
       else
       {
-        v37 = off_27A714780[v36];
+        v34 = off_27A714780[v33];
       }
 
-      *v49 = 136315138;
-      v50 = *&v37;
-      _os_log_impl(&dword_277237000, v33, v34, "BBMonitor(%s): using cellular", v49, 0xCu);
+      *v45 = 136315138;
+      v46 = *&v34;
+      _os_log_impl(&dword_277237000, v29, v30, "BBMonitor(%s): using cellular", v45, 0xCu);
     }
 
-    BBMonitor_Broken(a1, 0, 0);
+    BBMonitor_Broken(a1, 0, 0, v32);
   }
 
   else
   {
-    if (v35)
+    if (v31)
     {
-      v38 = *(a1 + 28);
-      if (v38 > 6)
+      v35 = *(a1 + 28);
+      if (v35 > 6)
       {
-        v39 = "<unknown>";
+        v36 = "<unknown>";
       }
 
       else
       {
-        v39 = off_27A714780[v38];
+        v36 = off_27A714780[v35];
       }
 
-      *v49 = 136315138;
-      v50 = *&v39;
-      _os_log_impl(&dword_277237000, v33, v34, "BBMonitor(%s): staying on Wi-Fi", v49, 0xCu);
+      *v45 = 136315138;
+      v46 = *&v36;
+      _os_log_impl(&dword_277237000, v29, v30, "BBMonitor(%s): staying on Wi-Fi", v45, 0xCu);
     }
 
     BBMonitor_Ignoring(a1, 0);
   }
-
-LABEL_51:
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void HandleProbeResult(uint64_t a1, unsigned int a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   *(a1 + 72) = 0;
   logger = mysyslog_get_logger();
   v5 = _SC_syslog_os_log_mapping();
@@ -393,9 +260,9 @@ void HandleProbeResult(uint64_t a1, unsigned int a2)
     }
 
     *buf = 136315394;
-    v23 = v6;
-    v24 = 1024;
-    LODWORD(v25) = a2;
+    v22 = v6;
+    v23 = 1024;
+    LODWORD(v24) = a2;
     _os_log_impl(&dword_277237000, logger, v5, "BBMonitor: probe result '%s' (%d)", buf, 0x12u);
   }
 
@@ -407,7 +274,7 @@ void HandleProbeResult(uint64_t a1, unsigned int a2)
     {
       if (((1 << a2) & 0x1E02) != 0)
       {
-        v21 = 0;
+        v20 = 0;
         v9 = "";
 LABEL_11:
         v10 = mysyslog_get_logger();
@@ -426,20 +293,20 @@ LABEL_11:
           }
 
           *buf = 136315650;
-          v23 = v12;
-          v24 = 2080;
-          v25 = v13;
-          v26 = 2080;
-          v27 = v9;
+          v22 = v12;
+          v23 = 2080;
+          v24 = v13;
+          v25 = 2080;
+          v26 = v9;
           _os_log_impl(&dword_277237000, v10, v11, "BBMonitor (%s): Probe Complete: Result %s%s", buf, 0x20u);
         }
 
-        v8(a1, 1, &v21);
+        v8(a1, 1, &v20);
         v17 = *(a1 + 32);
-        if (v17 && (v21 - 1) <= 1)
+        if (v17 && (v20 - 1) <= 1)
         {
           v18 = (*(a1 + 4) >> 2) & 2;
-          if (v21 == 2)
+          if (v20 == 2)
           {
             ++v18;
           }
@@ -457,12 +324,12 @@ LABEL_11:
           v17(*(a1 + 40), v19);
         }
 
-        goto LABEL_29;
+        return;
       }
 
       if (((1 << a2) & 0xC) != 0)
       {
-        v21 = 2;
+        v20 = 2;
         v16 = *(a1 + 4);
         if ((v16 & 8) != 0)
         {
@@ -481,13 +348,13 @@ LABEL_11:
 
       if (!a2)
       {
-        v21 = 1;
+        v20 = 1;
         v9 = " [not captive]";
         goto LABEL_11;
       }
     }
 
-    v21 = 3;
+    v20 = 3;
     v9 = " [broken]";
     goto LABEL_11;
   }
@@ -497,88 +364,84 @@ LABEL_11:
   if (os_log_type_enabled(v14, v15))
   {
     *buf = 67109120;
-    LODWORD(v23) = v7;
+    LODWORD(v22) = v7;
     _os_log_impl(&dword_277237000, v14, v15, "BBMonitor: no function for state %d", buf, 8u);
   }
-
-LABEL_29:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void BBMonitor_Broken(__CFRunLoopTimer *a1, int a2, _DWORD *a3)
+void BBMonitor_Broken(__CFRunLoopTimer *result, int a2, _DWORD *a3, __n128 a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 2)
   {
     logger = mysyslog_get_logger();
-    v10 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v10))
+    v9 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(logger, v9))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_277237000, logger, v10, "BBMonitor: woke up, probing again", &v14, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_277237000, logger, v9, "BBMonitor: woke up, probing again", &v12, 2u);
     }
 
-    BBMonitorCancelEvents(a1);
-    if (BBMonitorStartProbe(a1))
+    BBMonitorCancelEvents(result);
+    if (!BBMonitorStartProbe(result))
     {
-      goto LABEL_19;
-    }
-
-    v6 = *&S_BBMProbeInterval;
-    goto LABEL_15;
-  }
-
-  if (a2 != 1)
-  {
-    if (a2)
-    {
-LABEL_19:
-      v13 = *MEMORY[0x277D85DE8];
-      return;
-    }
-
-    BBMonitorSetState(a1, 4u);
-    BBMonitorCancelEvents(a1);
-    BBMonitorReportState(a1, 1);
-    BBMonitorSetInterfaceAdvisory(a1, 1);
-    v4 = mysyslog_get_logger();
-    v5 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v4, v5))
-    {
-      v14 = 134217984;
-      v15 = S_BBMProbeInterval;
-      _os_log_impl(&dword_277237000, v4, v5, "BBMonitor: setting timer to wake up in %g seconds", &v14, 0xCu);
-    }
-
-    v6 = *&S_BBMProbeInterval;
+      v7.n128_u64[0] = S_BBMProbeInterval;
 LABEL_15:
-    BBMonitorSetTimer(a1, a1, v6);
-    goto LABEL_19;
+      BBMonitorSetTimer(result, v7, result);
+    }
   }
 
-  if (*a3 != 3)
+  else
   {
-    v11 = mysyslog_get_logger();
-    v12 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v11, v12))
+    if (a2 != 1)
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_277237000, v11, v12, "BBMonitor: no longer broken", &v14, 2u);
+      if (a2)
+      {
+        return;
+      }
+
+      BBMonitorSetState(result, 4u);
+      BBMonitorCancelEvents(result);
+      BBMonitorReportState(result, 1);
+      BBMonitorSetInterfaceAdvisory(result, 1);
+      v5 = mysyslog_get_logger();
+      v6 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v5, v6))
+      {
+        v12 = 134217984;
+        v13 = S_BBMProbeInterval;
+        _os_log_impl(&dword_277237000, v5, v6, "BBMonitor: setting timer to wake up in %g seconds", &v12, 0xCu);
+      }
+
+      v7.n128_u64[0] = S_BBMProbeInterval;
+      goto LABEL_15;
     }
 
-    BBMonitor_Idle(a1, 0, 0);
-    goto LABEL_19;
+    if (*a3 == 3)
+    {
+      a4.n128_u64[0] = S_BBMProbeInterval;
+
+      BBMonitorSetTimer(result, a4, result);
+    }
+
+    else
+    {
+      v10 = mysyslog_get_logger();
+      v11 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v10, v11))
+      {
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_277237000, v10, v11, "BBMonitor: no longer broken", &v12, 2u);
+      }
+
+      BBMonitor_Idle(result, 0, 0);
+    }
   }
-
-  v7 = *&S_BBMProbeInterval;
-  v8 = *MEMORY[0x277D85DE8];
-
-  BBMonitorSetTimer(a1, a1, v7);
 }
 
 void BBMonitor_Ignoring(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     BBMonitorSetState(a1, 5u);
@@ -599,21 +462,20 @@ void BBMonitor_Ignoring(uint64_t a1, int a2)
         v7 = off_27A714780[v6];
       }
 
-      v9 = 136315394;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_277237000, logger, v5, "BBMonitor(%s): waiting to prompt again until %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_277237000, logger, v5, "BBMonitor(%s): waiting to prompt again until %@", &v8, 0x16u);
     }
 
     CFRelease(v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void BBMonitorSetTimer(uint64_t a1, __CFRunLoopTimer *a2, double a3)
+void BBMonitorSetTimer(uint64_t a1, __n128 a2, __CFRunLoopTimer *a3)
 {
+  v4 = a2.n128_f64[0];
   v6 = *(a1 + 80);
   if (!v6)
   {
@@ -621,7 +483,7 @@ void BBMonitorSetTimer(uint64_t a1, __CFRunLoopTimer *a2, double a3)
     *(a1 + 80) = v6;
   }
 
-  TimerSet(v6, BBMonitor_Broken, a2, 2, 0, a3);
+  TimerSet(v6, BBMonitor_Broken, a3, 2, 0, v4);
 }
 
 void add_localized_string(uint64_t a1, uint64_t a2, __CFDictionary *a3, const void *a4, const void *a5)
@@ -644,14 +506,14 @@ void add_localized_string(uint64_t a1, uint64_t a2, __CFDictionary *a3, const vo
 
 void BBMonitorUserResponse(uint64_t a1, const char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   logger = mysyslog_get_logger();
   v5 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v5))
   {
-    v22 = 134217984;
-    v23 = a2;
-    _os_log_impl(&dword_277237000, logger, v5, "response flags 0x%lx", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = a2;
+    _os_log_impl(&dword_277237000, logger, v5, "response flags 0x%lx", &v21, 0xCu);
   }
 
   v6 = S_bb;
@@ -676,48 +538,49 @@ void BBMonitorUserResponse(uint64_t a1, const char *a2)
       }
 
       S_bb = 0;
-      if (*(v6 + 28) != 3)
+      if (*(v6 + 28) == 3)
       {
-        v17 = mysyslog_get_logger();
-        v18 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v17, v18))
+        LOBYTE(v21) = (a2 & 3) == 0;
+        if ((a2 & 3) != 0)
         {
-          goto LABEL_23;
-        }
-
-        v19 = *(v6 + 28);
-        if (v19 > 6)
-        {
-          v20 = "<unknown>";
+          v16 = 2;
         }
 
         else
         {
-          v20 = off_27A714780[v19];
+          v16 = 1;
         }
 
-        v22 = 136315138;
-        v23 = v20;
-        v9 = "BBMonitor: not selecting (%s), ignoring";
-        v10 = v17;
-        v11 = v18;
-        v12 = 12;
-        goto LABEL_10;
-      }
-
-      LOBYTE(v22) = (a2 & 3) == 0;
-      if ((a2 & 3) != 0)
-      {
-        v16 = 2;
+        _BBMonitorPostEvent(v6, v16);
+        BBMonitor_Selecting(v6, 3, &v21);
       }
 
       else
       {
-        v16 = 1;
-      }
+        v17 = mysyslog_get_logger();
+        v18 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v17, v18))
+        {
+          v19 = *(v6 + 28);
+          if (v19 > 6)
+          {
+            v20 = "<unknown>";
+          }
 
-      _BBMonitorPostEvent(v6, v16);
-      BBMonitor_Selecting(v6, 3, &v22);
+          else
+          {
+            v20 = off_27A714780[v19];
+          }
+
+          v21 = 136315138;
+          v22 = v20;
+          v9 = "BBMonitor: not selecting (%s), ignoring";
+          v10 = v17;
+          v11 = v18;
+          v12 = 12;
+          goto LABEL_10;
+        }
+      }
     }
 
     else
@@ -726,14 +589,14 @@ void BBMonitorUserResponse(uint64_t a1, const char *a2)
       LOBYTE(v8) = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(v7, v8))
       {
-        LOWORD(v22) = 0;
+        LOWORD(v21) = 0;
         v9 = "BBMonitorUserResponse: mismatch cfun";
 LABEL_9:
         v10 = v7;
         v11 = v8;
         v12 = 2;
 LABEL_10:
-        _os_log_impl(&dword_277237000, v10, v11, v9, &v22, v12);
+        _os_log_impl(&dword_277237000, v10, v11, v9, &v21, v12);
       }
     }
   }
@@ -744,14 +607,11 @@ LABEL_10:
     v8 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v7, v8))
     {
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v9 = "BBMonitorUserResponse: why S_bb NULL?";
       goto LABEL_9;
     }
   }
-
-LABEL_23:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t WebSheetStateSetIsAllowed(uint64_t result, char a2)
@@ -798,7 +658,7 @@ void WebSheetStateIssueExitCommand(uint64_t a1)
 
 CFDictionaryRef createCommand(int a1, CFStringRef a2, uint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valuePtr = a1;
   if (a2)
   {
@@ -811,10 +671,10 @@ CFDictionaryRef createCommand(int a1, CFStringRef a2, uint64_t a3, void *a4)
     a2 = v6;
   }
 
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
   keys[0] = @"UniqueID";
   values[0] = a2;
   v7 = *MEMORY[0x277CBECE8];
@@ -823,8 +683,8 @@ CFDictionaryRef createCommand(int a1, CFStringRef a2, uint64_t a3, void *a4)
   values[1] = v8;
   if (a3)
   {
-    v18 = @"Info";
-    v15 = a3;
+    v17 = @"Info";
+    v14 = a3;
     v9 = 3;
     if (!a4)
     {
@@ -854,7 +714,6 @@ LABEL_7:
     CFRelease(v6);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -887,9 +746,9 @@ uint64_t WebSheetStateIssueCommand(uint64_t a1, void *value, int a3)
   return result;
 }
 
-void WebSheetStateCleanup(uint64_t *a1)
+void WebSheetStateCleanup(const void **a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1 && *(a1 + 120))
   {
     *(a1 + 120) = 0;
@@ -911,7 +770,7 @@ void WebSheetStateCleanup(uint64_t *a1)
     v4 = Count;
     if (Count < 0xB)
     {
-      v5 = v15;
+      v5 = v14;
     }
 
     else
@@ -919,7 +778,7 @@ void WebSheetStateCleanup(uint64_t *a1)
       v5 = malloc_type_malloc(16 * Count, 0xC0040B8AA526DuLL);
     }
 
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     if (v4 >= 1)
     {
       CFDictionaryGetKeysAndValues(S_prober_list, v5, &v5[v4]);
@@ -940,7 +799,7 @@ void WebSheetStateCleanup(uint64_t *a1)
       while (v7);
     }
 
-    if (v5 != v15)
+    if (v5 != v14)
     {
       free(v5);
     }
@@ -973,17 +832,16 @@ void WebSheetStateCleanup(uint64_t *a1)
   v13 = a1[1];
   if (*a1)
   {
-    *(v12 + 8) = v13;
+    v12[1] = v13;
   }
 
   *v13 = v12;
   free(a1);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 CFRunLoopTimerRef *WebSheetStateLaunchApplication(__CFRunLoopTimer *a1, const void *a2, const void *a3, const void *a4, char a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   TypeID = CFStringGetTypeID();
   if (!a2 || CFGetTypeID(a2) != TypeID)
   {
@@ -991,20 +849,18 @@ CFRunLoopTimerRef *WebSheetStateLaunchApplication(__CFRunLoopTimer *a1, const vo
     v13 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(logger, v13))
     {
-LABEL_10:
-      v11 = 0;
-      goto LABEL_11;
+      return 0;
     }
 
-    LODWORD(v31.version) = 138412290;
-    *(&v31.version + 4) = a2;
+    LODWORD(v30.version) = 138412290;
+    *(&v30.version + 4) = a2;
     v14 = "Unable to find WebSheet state given interface: %@";
     v15 = logger;
     v16 = v13;
     v17 = 12;
 LABEL_9:
-    _os_log_impl(&dword_277237000, v15, v16, v14, &v31, v17);
-    goto LABEL_10;
+    _os_log_impl(&dword_277237000, v15, v16, v14, &v30, v17);
+    return 0;
   }
 
   v11 = &S_WebSheetStateHeadStorage;
@@ -1022,22 +878,22 @@ LABEL_9:
     }
   }
 
-  v20 = CFStringGetTypeID();
-  if (CFGetTypeID(a2) == v20)
+  v19 = CFStringGetTypeID();
+  if (CFGetTypeID(a2) == v19)
   {
-    v21 = malloc_type_malloc(0x80uLL, 0x10E004009A3741EuLL);
-    v11 = v21;
-    if (v21)
+    v20 = malloc_type_malloc(0x80uLL, 0x10E004009A3741EuLL);
+    v11 = v20;
+    if (v20)
     {
-      *(v21 + 6) = 0u;
-      *(v21 + 7) = 0u;
-      *(v21 + 4) = 0u;
-      *(v21 + 5) = 0u;
-      *(v21 + 2) = 0u;
-      *(v21 + 3) = 0u;
-      *v21 = 0u;
-      *(v21 + 1) = 0u;
-      v21[2] = CFRetain(a2);
+      *(v20 + 6) = 0u;
+      *(v20 + 7) = 0u;
+      *(v20 + 4) = 0u;
+      *(v20 + 5) = 0u;
+      *(v20 + 2) = 0u;
+      *(v20 + 3) = 0u;
+      *v20 = 0u;
+      *(v20 + 1) = 0u;
+      v20[2] = CFRetain(a2);
     }
   }
 
@@ -1046,11 +902,11 @@ LABEL_9:
     v11 = 0;
   }
 
-  v22 = S_WebSheetStateHeadStorage;
+  v21 = S_WebSheetStateHeadStorage;
   *v11 = S_WebSheetStateHeadStorage;
-  if (v22)
+  if (v21)
   {
-    *(v22 + 8) = v11;
+    *(v21 + 8) = v11;
   }
 
   S_WebSheetStateHeadStorage = v11;
@@ -1062,49 +918,47 @@ LABEL_19:
   *(v11 + 96) = a5;
   if (v11[8] || v11[3] || v11[13] || v11[14])
   {
-    v23 = mysyslog_get_logger();
-    v24 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v23, v24))
+    v22 = mysyslog_get_logger();
+    v23 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v22, v23))
     {
-      LOWORD(v31.version) = 0;
-      _os_log_impl(&dword_277237000, v23, v24, "WebSheet is already running", &v31, 2u);
+      LOWORD(v30.version) = 0;
+      _os_log_impl(&dword_277237000, v22, v23, "WebSheet is already running", &v30, 2u);
     }
 
-    goto LABEL_11;
+    return v11;
   }
 
   if (_AMLaunchApplicationWithIdentifier(@"com.apple.WebSheet", 1))
   {
-    v25 = mysyslog_get_logger();
-    v26 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v25, v26))
+    v24 = mysyslog_get_logger();
+    v25 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v24, v25))
     {
-      goto LABEL_10;
+      return 0;
     }
 
-    LOWORD(v31.version) = 0;
+    LOWORD(v30.version) = 0;
     v14 = "Failed to launch WebSheet";
-    v15 = v25;
-    v16 = v26;
+    v15 = v24;
+    v16 = v25;
     v17 = 2;
     goto LABEL_9;
   }
 
-  v31.version = 0;
-  memset(&v31.retain, 0, 24);
-  v31.info = v11;
-  v27 = *MEMORY[0x277CBECE8];
+  v30.version = 0;
+  memset(&v30.retain, 0, 24);
+  v30.info = v11;
+  v26 = *MEMORY[0x277CBECE8];
   Current = CFAbsoluteTimeGetCurrent();
-  v29 = CFRunLoopTimerCreate(v27, Current + 10.0, 0.0, 0, 0, WebSheetLaunchTimeout, &v31);
-  v11[3] = v29;
-  if (v29)
+  v28 = CFRunLoopTimerCreate(v26, Current + 10.0, 0.0, 0, 0, WebSheetLaunchTimeout, &v30);
+  v11[3] = v28;
+  if (v28)
   {
-    v30 = CFRunLoopGetCurrent();
-    CFRunLoopAddTimer(v30, v11[3], *MEMORY[0x277CBF048]);
+    v29 = CFRunLoopGetCurrent();
+    CFRunLoopAddTimer(v29, v11[3], *MEMORY[0x277CBF048]);
   }
 
-LABEL_11:
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1163,18 +1017,18 @@ uint64_t WebSheetStateGetIsUIRequired(uint64_t result)
 void WebSheetHandlerInitialize(uint64_t (*a1)(void, void, void))
 {
   S_WebSheetStateHeadStorage = 0;
-  CommandHandlerClassRegister(1u, WebSheetHandlerMethods);
+  CommandHandlerClassRegister(1, WebSheetHandlerMethods);
   S_webSheetDoneCallback = a1;
 }
 
-uint64_t CNSServerDebugLaunchWebsheet(uint64_t a1, UInt8 *a2, unsigned int a3, _DWORD *a4, _OWORD *a5)
+uint64_t CNSServerDebugLaunchWebsheet(uint64_t a1, UInt8 *a2, int a3, _DWORD *a4, _OWORD *a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *a4 = 1;
   v8 = a5[1];
-  v31[0] = *a5;
-  v31[1] = v8;
-  if (isCallingInternalProcEntitled(v31))
+  v30[0] = *a5;
+  v30[1] = v8;
+  if (isCallingInternalProcEntitled(v30, "com.apple.captive.private"))
   {
     if (!CaptiveIsActive())
     {
@@ -1214,9 +1068,9 @@ uint64_t CNSServerDebugLaunchWebsheet(uint64_t a1, UInt8 *a2, unsigned int a3, _
       v21 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(logger, v21))
       {
-        LODWORD(v31[0]) = 138412290;
-        *(v31 + 4) = v9;
-        _os_log_impl(&dword_277237000, logger, v21, "launching websheet: %@", v31, 0xCu);
+        LODWORD(v30[0]) = 138412290;
+        *(v30 + 4) = v9;
+        _os_log_impl(&dword_277237000, logger, v21, "launching websheet: %@", v30, 0xCu);
       }
 
       v22 = WebSheetStateLaunchApplication(0, v16, v13, v19, 0);
@@ -1228,12 +1082,12 @@ uint64_t CNSServerDebugLaunchWebsheet(uint64_t a1, UInt8 *a2, unsigned int a3, _
 
       else
       {
-        v29 = mysyslog_get_logger();
-        v30 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v29, v30))
+        v28 = mysyslog_get_logger();
+        v29 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v28, v29))
         {
-          LOWORD(v31[0]) = 0;
-          _os_log_impl(&dword_277237000, v29, v30, "CreateWebSheet failed", v31, 2u);
+          LOWORD(v30[0]) = 0;
+          _os_log_impl(&dword_277237000, v28, v29, "CreateWebSheet failed", v30, 2u);
         }
       }
 
@@ -1246,8 +1100,8 @@ LABEL_24:
     v26 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v25, v26))
     {
-      LOWORD(v31[0]) = 0;
-      _os_log_impl(&dword_277237000, v25, v26, "WebSheet data is invalid", v31, 2u);
+      LOWORD(v30[0]) = 0;
+      _os_log_impl(&dword_277237000, v25, v26, "WebSheet data is invalid", v30, 2u);
     }
 
     *a4 = 22;
@@ -1264,8 +1118,8 @@ LABEL_24:
     v24 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v23, v24))
     {
-      LOWORD(v31[0]) = 0;
-      _os_log_impl(&dword_277237000, v23, v24, "Calling application is not entitled", v31, 2u);
+      LOWORD(v30[0]) = 0;
+      _os_log_impl(&dword_277237000, v23, v24, "Calling application is not entitled", v30, 2u);
     }
   }
 
@@ -1275,7 +1129,6 @@ LABEL_25:
     MEMORY[0x277CABBC0](*MEMORY[0x277D85F48], a2, a3);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1297,7 +1150,7 @@ void WebSheetStateClearCheckInTimer(uint64_t a1)
 
 void ProberContextRemove(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = ProberContextGet(a1);
   if (v2)
   {
@@ -1310,11 +1163,11 @@ void ProberContextRemove(void *a1)
       if (os_log_type_enabled(logger, v6))
       {
         v7 = *v4;
-        v14 = 138412546;
-        v15 = a1;
-        v16 = 2048;
-        v17 = v7;
-        _os_log_impl(&dword_277237000, logger, v6, "prober %@ detect %p removed", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = a1;
+        v15 = 2048;
+        v16 = v7;
+        _os_log_impl(&dword_277237000, logger, v6, "prober %@ detect %p removed", &v13, 0x16u);
       }
 
       captive_agent_abort_probe(v4);
@@ -1329,25 +1182,26 @@ void ProberContextRemove(void *a1)
       if (os_log_type_enabled(v10, v11))
       {
         v12 = *v8;
-        v14 = 138412546;
-        v15 = a1;
-        v16 = 2048;
-        v17 = v12;
-        _os_log_impl(&dword_277237000, v10, v11, "prober %@ query_api %p removed", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = a1;
+        v15 = 2048;
+        v16 = v12;
+        _os_log_impl(&dword_277237000, v10, v11, "prober %@ query_api %p removed", &v13, 0x16u);
       }
 
       captive_agent_abort_query(v8);
     }
 
     CFDictionaryRemoveValue(S_prober_list, a1);
-    if (!CFDictionaryGetCount(S_prober_list) && S_prober_list)
+    if (!CFDictionaryGetCount(S_prober_list))
     {
-      CFRelease(S_prober_list);
-      S_prober_list = 0;
+      if (S_prober_list)
+      {
+        CFRelease(S_prober_list);
+        S_prober_list = 0;
+      }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 const UInt8 *ProberContextGet(void *key)
@@ -1368,15 +1222,15 @@ const UInt8 *ProberContextGet(void *key)
 
 uint64_t WebSheetAuthorize(_OWORD *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = a1[1];
-  *v20 = *a1;
-  *&v20[16] = v2;
-  pid = audit_token_get_pid(v20);
+  *v19 = *a1;
+  *&v19[16] = v2;
+  pid = audit_token_get_pid(v19);
   v4 = a1[1];
-  *v20 = *a1;
-  *&v20[16] = v4;
-  has_BOOLean_entitlement = audit_token_has_BOOLean_entitlement(v20, @"com.apple.captive.private");
+  *v19 = *a1;
+  *&v19[16] = v4;
+  has_BOOLean_entitlement = audit_token_has_BOOLean_entitlement(v19, @"com.apple.captive.private");
   logger = mysyslog_get_logger();
   v7 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v7))
@@ -1387,13 +1241,13 @@ uint64_t WebSheetAuthorize(_OWORD *a1)
       v8 = "does not have";
     }
 
-    *v20 = 67109634;
-    *&v20[4] = pid;
-    *&v20[8] = 2080;
-    *&v20[10] = v8;
-    *&v20[18] = 2080;
-    *&v20[20] = "com.apple.captive.private";
-    _os_log_impl(&dword_277237000, logger, v7, "pid %d %s entitlement [%s]", v20, 0x1Cu);
+    *v19 = 67109634;
+    *&v19[4] = pid;
+    *&v19[8] = 2080;
+    *&v19[10] = v8;
+    *&v19[18] = 2080;
+    *&v19[20] = "com.apple.captive.private";
+    _os_log_impl(&dword_277237000, logger, v7, "pid %d %s entitlement [%s]", v19, 0x1Cu);
   }
 
   if (has_BOOLean_entitlement)
@@ -1417,11 +1271,11 @@ uint64_t WebSheetAuthorize(_OWORD *a1)
           {
             v12 = v9[2];
             v13 = *(v9 + 19);
-            *v20 = 138412546;
-            *&v20[4] = v12;
-            *&v20[12] = 1024;
-            *&v20[14] = v13;
-            _os_log_impl(&dword_277237000, v10, v11, "WebSheet for %@ already associated with pid %d", v20, 0x12u);
+            *v19 = 138412546;
+            *&v19[4] = v12;
+            *&v19[12] = 1024;
+            *&v19[14] = v13;
+            _os_log_impl(&dword_277237000, v10, v11, "WebSheet for %@ already associated with pid %d", v19, 0x12u);
           }
 
           goto LABEL_12;
@@ -1451,7 +1305,7 @@ uint64_t WebSheetAuthorize(_OWORD *a1)
           }
 
           *(v16 + 19) = v17;
-          goto LABEL_21;
+          return has_BOOLean_entitlement;
         }
       }
     }
@@ -1461,13 +1315,11 @@ LABEL_12:
     v15 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v14, v15))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_277237000, v14, v15, "No state found to support WebSheet", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_277237000, v14, v15, "No state found to support WebSheet", v19, 2u);
     }
   }
 
-LABEL_21:
-  v18 = *MEMORY[0x277D85DE8];
   return has_BOOLean_entitlement;
 }
 
@@ -1477,145 +1329,141 @@ uint64_t WebSheetRegister(uint64_t *a1)
   PID = CommandHandlerGetPID(*a1);
   v3 = *a1;
   v4 = CommandHandlerGetPID(*a1);
-  v5 = DisplayIDCopy();
-  if (v5)
+  v5 = v4;
+  v6 = DisplayIDCopy(v4);
+  if (v6)
   {
-    v6 = v5;
-    v7 = &S_WebSheetStateHeadStorage;
+    v7 = v6;
+    v8 = &S_WebSheetStateHeadStorage;
     while (1)
     {
-      v7 = *v7;
-      if (!v7)
+      v8 = *v8;
+      if (!v8)
       {
         break;
       }
 
-      v8 = *(v7 + 19);
-      if (v8 == v4 && v8 > 0)
+      v9 = *(v8 + 19);
+      if (v9 == v5 && v9 > 0)
       {
-        CommandHandlerSetInformation(v3, v5);
-        my_FieldSetRetainedCFType(v7 + 8, v3);
-        WebSheetStateClearCheckInTimer(v7);
-        CFRelease(v6);
-        v10 = &S_WebSheetStateHeadStorage;
+        CommandHandlerSetInformation(v3, v6);
+        my_FieldSetRetainedCFType(v8 + 8, v3);
+        WebSheetStateClearCheckInTimer(v8);
+        CFRelease(v7);
+        v11 = &S_WebSheetStateHeadStorage;
         while (1)
         {
-          v10 = *v10;
-          if (!v10)
+          v11 = *v11;
+          if (!v11)
           {
             break;
           }
 
-          v11 = *(v10 + 19);
-          if (v11 == PID && v11 > 0)
+          v12 = *(v11 + 19);
+          if (v12 == PID && v12 > 0)
           {
-            if (*(v10 + 96))
+            if (*(v11 + 96))
             {
-              v13 = MEMORY[0x277CBED28];
+              v14 = MEMORY[0x277CBED28];
             }
 
             else
             {
-              v13 = MEMORY[0x277CBED10];
+              v14 = MEMORY[0x277CBED10];
             }
 
-            v14 = *v13;
-            v15 = *MEMORY[0x277CF8008];
+            v15 = *v14;
+            v16 = *MEMORY[0x277CF8008];
             keys[0] = *MEMORY[0x277CF7FE0];
-            keys[1] = v15;
-            v16 = *MEMORY[0x277CF7FD8];
+            keys[1] = v16;
+            v17 = *MEMORY[0x277CF7FD8];
             keys[2] = *MEMORY[0x277CF7FF0];
-            keys[3] = v16;
-            v36 = v10[2];
-            v37 = vextq_s8(*(v10 + 5), *(v10 + 5), 8uLL);
-            v38 = v14;
-            v17 = CFDictionaryCreate(0, keys, &v36, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            if (v17)
+            keys[3] = v17;
+            v36 = v11[2];
+            v37 = vextq_s8(*(v11 + 5), *(v11 + 5), 8uLL);
+            v38 = v15;
+            v18 = CFDictionaryCreate(0, keys, &v36, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+            if (v18)
             {
-              v18 = v17;
-              v19 = 1;
-              Command = createCommand(1, 0, v17, 0);
-              CFRelease(v18);
-              my_FieldSetRetainedCFType(v10 + 5, Command);
+              v19 = v18;
+              v20 = 1;
+              Command = createCommand(1, 0, v18, 0);
+              CFRelease(v19);
+              my_FieldSetRetainedCFType(v11 + 5, Command);
               CFRelease(Command);
-              v21 = v10[8];
-              if (v21)
+              v22 = v11[8];
+              if (v22)
               {
-                CommandHandlerNotify(v21);
+                CommandHandlerNotify(v22);
               }
 
-              goto LABEL_32;
+              return v20;
             }
 
             logger = mysyslog_get_logger();
-            v33 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(logger, v33))
+            v34 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(logger, v34))
             {
               LOWORD(keys[0]) = 0;
-              v28 = "info dict is NULL";
-              v29 = logger;
-              v30 = v33;
-              v31 = 2;
+              v29 = "info dict is NULL";
+              v30 = logger;
+              v31 = v34;
+              v32 = 2;
 LABEL_30:
-              _os_log_impl(&dword_277237000, v29, v30, v28, keys, v31);
+              _os_log_impl(&dword_277237000, v30, v31, v29, keys, v32);
             }
 
-            goto LABEL_31;
+            return 1;
           }
         }
 
-        v26 = mysyslog_get_logger();
-        v27 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v26, v27))
+        v27 = mysyslog_get_logger();
+        v28 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v27, v28))
         {
           LODWORD(keys[0]) = 67109120;
           HIDWORD(keys[0]) = PID;
-          v28 = "Couldn't find the state for pid: %d";
-          v29 = v26;
+          v29 = "Couldn't find the state for pid: %d";
           v30 = v27;
-          v31 = 8;
+          v31 = v28;
+          v32 = 8;
           goto LABEL_30;
         }
 
-LABEL_31:
-        v19 = 1;
-        goto LABEL_32;
+        return 1;
       }
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
   else
   {
-    v22 = mysyslog_get_logger();
-    v23 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v22, v23))
+    v23 = mysyslog_get_logger();
+    v24 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v23, v24))
     {
       LODWORD(keys[0]) = 67109120;
-      HIDWORD(keys[0]) = v4;
-      _os_log_impl(&dword_277237000, v22, v23, "Cannot get display ID for pid %d", keys, 8u);
+      HIDWORD(keys[0]) = v5;
+      _os_log_impl(&dword_277237000, v23, v24, "Cannot get display ID for pid %d", keys, 8u);
     }
   }
 
-  v24 = mysyslog_get_logger();
-  v25 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v24, v25))
+  v25 = mysyslog_get_logger();
+  v26 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v25, v26))
   {
     LODWORD(keys[0]) = 67109120;
     HIDWORD(keys[0]) = PID;
-    _os_log_impl(&dword_277237000, v24, v25, "Failed to register pid %d", keys, 8u);
+    _os_log_impl(&dword_277237000, v25, v26, "Failed to register pid %d", keys, 8u);
   }
 
-  v19 = 0;
-LABEL_32:
-  v34 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 0;
 }
 
 void WebSheetRemove(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   PID = CommandHandlerGetPID(a1);
   v2 = PID;
   v3 = &S_WebSheetStateHeadStorage;
@@ -1639,28 +1487,24 @@ void WebSheetRemove(uint64_t a1)
         }
       }
 
-      v6 = *MEMORY[0x277D85DE8];
-
       WebSheetStateCleanup(v3);
       return;
     }
   }
 
   logger = mysyslog_get_logger();
-  v8 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(logger, v8))
+  v7 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(logger, v7))
   {
-    v10[0] = 67109120;
-    v10[1] = v2;
-    _os_log_impl(&dword_277237000, logger, v8, "Couldn't find the state for pid: %d", v10, 8u);
+    v8[0] = 67109120;
+    v8[1] = v2;
+    _os_log_impl(&dword_277237000, logger, v7, "Couldn't find the state for pid: %d", v8, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 BOOL WebSheetProvideCommand(uint64_t *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   PID = CommandHandlerGetPID(*a1);
   v3 = PID;
   v4 = &S_WebSheetStateHeadStorage;
@@ -1695,9 +1539,9 @@ BOOL WebSheetProvideCommand(uint64_t *a1)
         v14 = v4[6];
         if (v14)
         {
-          v18.location = 0;
-          v18.length = Count;
-          CFArrayAppendArray(Mutable, v14, v18);
+          v17.location = 0;
+          v17.length = Count;
+          CFArrayAppendArray(Mutable, v14, v17);
         }
       }
 
@@ -1712,8 +1556,7 @@ BOOL WebSheetProvideCommand(uint64_t *a1)
       }
 
       a1[1] = Mutable;
-      result = 1;
-      goto LABEL_19;
+      return 1;
     }
   }
 
@@ -1722,20 +1565,18 @@ BOOL WebSheetProvideCommand(uint64_t *a1)
   result = os_log_type_enabled(logger, v11);
   if (result)
   {
-    v16[0] = 67109120;
-    v16[1] = v3;
-    _os_log_impl(&dword_277237000, logger, v11, "Couldn't find the state for pid: %d", v16, 8u);
-    result = 0;
+    v15[0] = 67109120;
+    v15[1] = v3;
+    _os_log_impl(&dword_277237000, logger, v11, "Couldn't find the state for pid: %d", v15, 8u);
+    return 0;
   }
 
-LABEL_19:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t WebSheetProcessResponse(uint64_t *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   PID = CommandHandlerGetPID(*a1);
   v3 = &S_WebSheetStateHeadStorage;
   do
@@ -1748,19 +1589,19 @@ uint64_t WebSheetProcessResponse(uint64_t *a1)
       result = os_log_type_enabled(logger, v16);
       if (!result)
       {
-        goto LABEL_25;
+        return result;
       }
 
       v18 = CommandHandlerGetPID(*a1);
-      v31[0] = 67109120;
-      v31[1] = v18;
+      v30[0] = 67109120;
+      v30[1] = v18;
       v19 = "Couldn't find the state for pid: %d";
       v20 = logger;
       v21 = v16;
       v22 = 8;
 LABEL_23:
-      _os_log_impl(&dword_277237000, v20, v21, v19, v31, v22);
-      goto LABEL_24;
+      _os_log_impl(&dword_277237000, v20, v21, v19, v30, v22);
+      return 0;
     }
 
     v4 = *(v3 + 19);
@@ -1777,10 +1618,10 @@ LABEL_23:
     result = os_log_type_enabled(v23, v24);
     if (!result)
     {
-      goto LABEL_25;
+      return result;
     }
 
-    LOWORD(v31[0]) = 0;
+    LOWORD(v30[0]) = 0;
     v19 = "missing/invalid uniqueID";
     v20 = v23;
     v21 = v24;
@@ -1791,12 +1632,12 @@ LABEL_23:
   v9 = v3[5];
   if (v9 && commandContainsUniqueID(v9, Value))
   {
-    v31[0] = 0;
+    v30[0] = 0;
     v10 = CFDictionaryGetValue(v6, @"Result");
     v11 = CFNumberGetTypeID();
-    if (!v10 || CFGetTypeID(v10) != v11 || !CFNumberGetValue(v10, kCFNumberSInt32Type, v31))
+    if (!v10 || CFGetTypeID(v10) != v11 || !CFNumberGetValue(v10, kCFNumberSInt32Type, v30))
     {
-      v31[0] = 4;
+      v30[0] = 4;
     }
 
     v12 = CFDictionaryGetValue(v6, @"ResultOptions");
@@ -1821,15 +1662,15 @@ LABEL_23:
 
     if (!*(v3 + 73))
     {
-      v30 = v31[0];
+      v29 = v30[0];
       *(v3 + 73) = 1;
       if (*(v3 + 72) == 1)
       {
-        S_webSheetDoneCallback(v3[4], v30, v14);
+        S_webSheetDoneCallback(v3[4], v29, v14);
       }
     }
 
-    goto LABEL_37;
+    return 1;
   }
 
   result = v3[6];
@@ -1838,41 +1679,36 @@ LABEL_23:
     Count = CFArrayGetCount(result);
     if (Count >= 1)
     {
-      v27 = Count;
-      v28 = 0;
+      v26 = Count;
+      v27 = 0;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v3[6], v28);
+        ValueAtIndex = CFArrayGetValueAtIndex(v3[6], v27);
         result = commandContainsUniqueID(ValueAtIndex, Value);
         if (result)
         {
           break;
         }
 
-        if (v27 == ++v28)
+        if (v26 == ++v27)
         {
-          goto LABEL_25;
+          return result;
         }
       }
 
-      CFArrayRemoveValueAtIndex(v3[6], v28);
-LABEL_37:
-      result = 1;
-      goto LABEL_25;
+      CFArrayRemoveValueAtIndex(v3[6], v27);
+      return 1;
     }
 
-LABEL_24:
-    result = 0;
+    return 0;
   }
 
-LABEL_25:
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t WebSheetProcessControl(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   PID = CommandHandlerGetPID(*a1);
   v3 = PID;
@@ -1891,7 +1727,7 @@ uint64_t WebSheetProcessControl(uint64_t a1)
         _os_log_impl(&dword_277237000, logger, v20, "Couldn't find the state for pid: %d", buf, 8u);
       }
 
-      goto LABEL_16;
+      return 0;
     }
 
     v5 = *(v4 + 19);
@@ -1902,22 +1738,20 @@ uint64_t WebSheetProcessControl(uint64_t a1)
   TypeID = CFNumberGetTypeID();
   if (!Value || CFGetTypeID(Value) != TypeID)
   {
-    goto LABEL_16;
+    return 0;
   }
 
   v9 = 0;
   if (!CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr) || valuePtr != 1)
   {
-    goto LABEL_17;
+    return v9;
   }
 
   v10 = v4[2];
   v11 = CaptiveCopyInterfaceSSID(v10);
   if (!v11)
   {
-LABEL_16:
-    v9 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v12 = v11;
@@ -1941,8 +1775,8 @@ LABEL_16:
       CFRetain(@"http://www.apple.com/library/test/success.html");
     }
 
-    v23 = CFRunLoopGetCurrent();
-    v18 = captive_agent_send_probe(v12, v10, 0, v17, 0x28u, WebSheetProbeComplete, v13, v23);
+    v22 = CFRunLoopGetCurrent();
+    v18 = captive_agent_send_probe(v12, v10, 0, v17, 0x28u, WebSheetProbeComplete, v13, v22);
     api = 0;
   }
 
@@ -1950,7 +1784,7 @@ LABEL_16:
   {
     keys = @"ProbeID";
     *(a1 + 16) = CFDictionaryCreate(0, &keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v26 = values;
+    v25 = values;
     if (!S_prober_list)
     {
       S_prober_list = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -1959,18 +1793,18 @@ LABEL_16:
     *buf = v4;
     *&buf[8] = v18;
     *&buf[16] = api;
-    v27 = CFDataCreate(0, buf, 24);
-    CFDictionarySetValue(S_prober_list, v26, v27);
-    CFRelease(v27);
-    v28 = mysyslog_get_logger();
-    v29 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v28, v29))
+    v26 = CFDataCreate(0, buf, 24);
+    CFDictionarySetValue(S_prober_list, v25, v26);
+    CFRelease(v26);
+    v27 = mysyslog_get_logger();
+    v28 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v27, v28))
     {
       *buf = 138412546;
-      *&buf[4] = v26;
+      *&buf[4] = v25;
       *&buf[12] = 2048;
       *&buf[14] = v18;
-      _os_log_impl(&dword_277237000, v28, v29, "prober %@ detect %p added", buf, 0x16u);
+      _os_log_impl(&dword_277237000, v27, v28, "prober %@ detect %p added", buf, 0x16u);
     }
 
     v9 = 1;
@@ -1978,12 +1812,12 @@ LABEL_16:
 
   else
   {
-    v24 = mysyslog_get_logger();
-    v25 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v24, v25))
+    v23 = mysyslog_get_logger();
+    v24 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v23, v24))
     {
       *buf = 0;
-      _os_log_impl(&dword_277237000, v24, v25, "Unable to send probe to the network", buf, 2u);
+      _os_log_impl(&dword_277237000, v23, v24, "Unable to send probe to the network", buf, 2u);
     }
 
     v9 = 0;
@@ -2005,8 +1839,6 @@ LABEL_16:
     CFRelease(values);
   }
 
-LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2023,7 +1855,7 @@ const void *commandContainsUniqueID(const __CFDictionary *a1, const void *a2)
 
 void WebSheetQueryAPIComplete(__CFString *a1, int a2, const void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = ProberContextGet(a1);
   logger = mysyslog_get_logger();
   if (v6)
@@ -2033,11 +1865,11 @@ void WebSheetQueryAPIComplete(__CFString *a1, int a2, const void *a3)
     {
       v9 = v6[2];
       *buf = 138412802;
-      v17 = a1;
-      v18 = 2048;
-      v19 = v9;
-      v20 = 1024;
-      v21 = a2;
+      v16 = a1;
+      v17 = 2048;
+      v18 = v9;
+      v19 = 1024;
+      v20 = a2;
       _os_log_impl(&dword_277237000, logger, v8, "prober %@ query_api %p complete, result %d", buf, 0x1Cu);
     }
 
@@ -2068,17 +1900,15 @@ void WebSheetQueryAPIComplete(__CFString *a1, int a2, const void *a3)
     if (os_log_type_enabled(logger, v13))
     {
       *buf = 138412290;
-      v17 = a1;
+      v16 = a1;
       _os_log_impl(&dword_277237000, logger, v13, "No context for %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void WebSheetProbeComplete(__CFString *a1, unsigned int a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = ProberContextGet(a1);
   if (v4)
   {
@@ -2096,13 +1926,13 @@ LABEL_9:
         {
           v11 = v5[1];
           *buf = 138413058;
-          v17 = a1;
-          v18 = 2048;
-          v19 = v11;
-          v20 = 1024;
-          v21 = a2;
-          v22 = 1024;
-          v23 = v6;
+          v16 = a1;
+          v17 = 2048;
+          v18 = v11;
+          v19 = 1024;
+          v20 = a2;
+          v21 = 1024;
+          v22 = v6;
           _os_log_impl(&dword_277237000, logger, v10, "prober %@ detect %p complete, result %d, websheet probe result %d", buf, 0x22u);
         }
 
@@ -2113,7 +1943,7 @@ LABEL_9:
         v5[1] = 0;
         ProberContextRemove(a1);
         CFRelease(Command);
-        goto LABEL_12;
+        return;
       }
 
       v6 = a2;
@@ -2132,19 +1962,16 @@ LABEL_9:
   if (os_log_type_enabled(v7, v8))
   {
     *buf = 138412290;
-    v17 = a1;
+    v16 = a1;
     _os_log_impl(&dword_277237000, v7, v8, "No context for %@", buf, 0xCu);
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL CaptivePostDataToUserNameAndPassword(const __CFString *a1, const __CFString *a2, CFTypeRef *a3, CFTypeRef *a4)
 {
   v4 = a4;
   v5 = a3;
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   *a4 = 0;
   *a3 = 0;
   v8 = CaptiveCopySettings();
@@ -2161,7 +1988,7 @@ BOOL CaptivePostDataToUserNameAndPassword(const __CFString *a1, const __CFString
 
     if (!v9)
     {
-      goto LABEL_55;
+      return 0;
     }
 
     v45 = v9;
@@ -2184,7 +2011,7 @@ BOOL CaptivePostDataToUserNameAndPassword(const __CFString *a1, const __CFString
         if (os_log_type_enabled(v14, v15))
         {
           *buf = 138412290;
-          v100 = a1;
+          v99 = a1;
           _os_log_impl(&dword_277237000, v14, v15, "content-type: %@. content:", buf, 0xCu);
         }
 
@@ -2193,7 +2020,7 @@ BOOL CaptivePostDataToUserNameAndPassword(const __CFString *a1, const __CFString
         if (os_log_type_enabled(v16, v17))
         {
           *buf = 138477827;
-          v100 = a2;
+          v99 = a2;
           _os_log_impl(&dword_277237000, v16, v17, "%{private}@", buf, 0xCu);
         }
       }
@@ -2203,18 +2030,18 @@ BOOL CaptivePostDataToUserNameAndPassword(const __CFString *a1, const __CFString
         v18 = CFStringFind(a1, @"boundary=", 1uLL);
         if (v18.location == -1 || (v19 = CaptiveCopyValueAfterEqual(a1, v18.location + v18.length)) == 0)
         {
-          v50 = mysyslog_get_logger();
-          v51 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v50, v51))
+          v49 = mysyslog_get_logger();
+          v50 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v49, v50))
           {
             *buf = 138412290;
-            v100 = a1;
-            v52 = "Failed to find divider in %@";
+            v99 = a1;
+            v51 = "Failed to find divider in %@";
+            v52 = v49;
             v53 = v50;
-            v54 = v51;
-            v55 = 12;
+            v54 = 12;
 LABEL_61:
-            _os_log_impl(&dword_277237000, v53, v54, v52, buf, v55);
+            _os_log_impl(&dword_277237000, v52, v53, v51, buf, v54);
           }
         }
 
@@ -2229,13 +2056,13 @@ LABEL_61:
             Count = CFArrayGetCount(ArrayBySeparatingStrings);
             Mutable = CFDictionaryCreateMutable(v21, Count, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
             v25 = Mutable;
-            v97 = Count;
+            v96 = Count;
             if (Count >= 1 && Mutable)
             {
-              v94 = v12;
-              v95 = v21;
+              v93 = v12;
+              v94 = v21;
               v26 = 0;
-              v96 = v5;
+              v95 = v5;
               while (1)
               {
                 ValueAtIndex = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v26);
@@ -2351,15 +2178,15 @@ LABEL_37:
                     v4 = v29;
                   }
 
-                  v21 = v95;
-                  v5 = v96;
+                  v21 = v94;
+                  v5 = v95;
                 }
 
                 else
                 {
                   v4 = v29;
-                  v21 = v95;
-                  v5 = v96;
+                  v21 = v94;
+                  v5 = v95;
                   if (!v39)
                   {
                     goto LABEL_48;
@@ -2368,7 +2195,7 @@ LABEL_37:
 
                 CFRelease(v39);
 LABEL_48:
-                if (++v26 == v97)
+                if (++v26 == v96)
                 {
                   goto LABEL_79;
                 }
@@ -2379,29 +2206,29 @@ LABEL_83:
             CFRelease(ArrayBySeparatingStrings);
             if (v25)
             {
-              v71 = CFDictionaryGetValue(v12, @"UserFields");
-              if (v71)
+              v70 = CFDictionaryGetValue(v12, @"UserFields");
+              if (v70)
               {
-                v72 = v71;
-                v73 = CFGetTypeID(v71);
-                if (v73 == CFArrayGetTypeID())
+                v71 = v70;
+                v72 = CFGetTypeID(v70);
+                if (v72 == CFArrayGetTypeID())
                 {
-                  v74 = CFArrayGetCount(v72);
-                  v75 = v74 - 1;
-                  if (v74 >= 1)
+                  v73 = CFArrayGetCount(v71);
+                  v74 = v73 - 1;
+                  if (v73 >= 1)
                   {
-                    v76 = 0;
+                    v75 = 0;
                     do
                     {
-                      v77 = CFArrayGetValueAtIndex(v72, v76);
-                      v78 = CFDictionaryGetValue(v25, v77);
-                      *v5 = v78;
-                      if (v78)
+                      v76 = CFArrayGetValueAtIndex(v71, v75);
+                      v77 = CFDictionaryGetValue(v25, v76);
+                      *v5 = v77;
+                      if (v77)
                       {
                         break;
                       }
 
-                      v41 = v75 == v76++;
+                      v41 = v74 == v75++;
                     }
 
                     while (!v41);
@@ -2409,29 +2236,29 @@ LABEL_83:
                 }
               }
 
-              v79 = CFDictionaryGetValue(v12, @"PasswordFields");
-              if (v79)
+              v78 = CFDictionaryGetValue(v12, @"PasswordFields");
+              if (v78)
               {
-                v80 = v79;
-                v81 = CFGetTypeID(v79);
-                if (v81 == CFArrayGetTypeID())
+                v79 = v78;
+                v80 = CFGetTypeID(v78);
+                if (v80 == CFArrayGetTypeID())
                 {
-                  v82 = CFArrayGetCount(v80);
-                  v83 = v82 - 1;
-                  if (v82 >= 1)
+                  v81 = CFArrayGetCount(v79);
+                  v82 = v81 - 1;
+                  if (v81 >= 1)
                   {
-                    v84 = 0;
+                    v83 = 0;
                     do
                     {
-                      v85 = CFArrayGetValueAtIndex(v80, v84);
-                      v86 = CFDictionaryGetValue(v25, v85);
-                      *v4 = v86;
-                      if (v86)
+                      v84 = CFArrayGetValueAtIndex(v79, v83);
+                      v85 = CFDictionaryGetValue(v25, v84);
+                      *v4 = v85;
+                      if (v85)
                       {
                         break;
                       }
 
-                      v41 = v83 == v84++;
+                      v41 = v82 == v83++;
                     }
 
                     while (!v41);
@@ -2439,27 +2266,27 @@ LABEL_83:
                 }
               }
 
-              v87 = CFDictionaryGetValue(v12, @"RealmFields");
-              if (v87)
+              v86 = CFDictionaryGetValue(v12, @"RealmFields");
+              if (v86)
               {
-                v88 = v87;
-                v89 = CFGetTypeID(v87);
-                if (v89 == CFArrayGetTypeID())
+                v87 = v86;
+                v88 = CFGetTypeID(v86);
+                if (v88 == CFArrayGetTypeID())
                 {
-                  v90 = CFArrayGetCount(v88);
-                  v91 = v90 - 1;
-                  if (v90 >= 1)
+                  v89 = CFArrayGetCount(v87);
+                  v90 = v89 - 1;
+                  if (v89 >= 1)
                   {
-                    v92 = 0;
+                    v91 = 0;
                     do
                     {
-                      v93 = CFArrayGetValueAtIndex(v88, v92);
-                      if (CFDictionaryGetValue(v25, v93))
+                      v92 = CFArrayGetValueAtIndex(v87, v91);
+                      if (CFDictionaryGetValue(v25, v92))
                       {
                         break;
                       }
 
-                      v41 = v91 == v92++;
+                      v41 = v90 == v91++;
                     }
 
                     while (!v41);
@@ -2499,25 +2326,24 @@ LABEL_114:
               CFRelease(v12);
               if (*v5)
               {
-                result = *v4 != 0;
-                goto LABEL_56;
+                return *v4 != 0;
               }
 
-              goto LABEL_55;
+              return 0;
             }
 
             goto LABEL_116;
           }
 
-          v69 = mysyslog_get_logger();
-          v70 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v69, v70))
+          v68 = mysyslog_get_logger();
+          v69 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v68, v69))
           {
             *buf = 0;
-            v52 = "CFStringCreateArrayBySeparatingStrings failed";
+            v51 = "CFStringCreateArrayBySeparatingStrings failed";
+            v52 = v68;
             v53 = v69;
-            v54 = v70;
-            v55 = 2;
+            v54 = 2;
             goto LABEL_61;
           }
         }
@@ -2526,90 +2352,90 @@ LABEL_116:
         v45 = v12;
 LABEL_54:
         CFRelease(v45);
-        goto LABEL_55;
+        return 0;
       }
 
-      v56 = *MEMORY[0x277CBECE8];
-      v57 = CFStringCreateArrayBySeparatingStrings(*MEMORY[0x277CBECE8], a2, @"&");
-      if (!v57)
+      v55 = *MEMORY[0x277CBECE8];
+      v56 = CFStringCreateArrayBySeparatingStrings(*MEMORY[0x277CBECE8], a2, @"&");
+      if (!v56)
       {
         goto LABEL_116;
       }
 
-      ArrayBySeparatingStrings = v57;
-      v58 = CFArrayGetCount(v57);
-      if (v58 < 1)
+      ArrayBySeparatingStrings = v56;
+      v57 = CFArrayGetCount(v56);
+      if (v57 < 1)
       {
         v25 = 0;
         goto LABEL_83;
       }
 
-      v59 = v58;
-      v94 = v12;
-      v60 = 0;
+      v58 = v57;
+      v93 = v12;
+      v59 = 0;
       v25 = 0;
-      v98 = ArrayBySeparatingStrings;
+      v97 = ArrayBySeparatingStrings;
       while (1)
       {
         if (!v25)
         {
-          v25 = CFDictionaryCreateMutable(v56, v59, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+          v25 = CFDictionaryCreateMutable(v55, v58, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
           if (!v25)
           {
 LABEL_79:
-            v12 = v94;
+            v12 = v93;
             goto LABEL_83;
           }
         }
 
-        v61 = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v60);
-        v62 = CFStringCreateArrayBySeparatingStrings(v56, v61, @"=");
-        if (v62)
+        v60 = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v59);
+        v61 = CFStringCreateArrayBySeparatingStrings(v55, v60, @"=");
+        if (v61)
         {
           break;
         }
 
 LABEL_78:
-        if (v59 == ++v60)
+        if (v58 == ++v59)
         {
           goto LABEL_79;
         }
       }
 
-      v63 = v62;
-      if (CFArrayGetCount(v62) != 2)
+      v62 = v61;
+      if (CFArrayGetCount(v61) != 2)
       {
 LABEL_77:
-        CFRelease(v63);
+        CFRelease(v62);
         goto LABEL_78;
       }
 
-      v64 = CFArrayGetValueAtIndex(v63, 0);
-      v65 = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(v56, v64, &stru_28865E0D8, 0x8000100u);
-      v66 = CFArrayGetValueAtIndex(v63, 1);
-      v67 = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(v56, v66, &stru_28865E0D8, 0x8000100u);
-      if (v65)
+      v63 = CFArrayGetValueAtIndex(v62, 0);
+      v64 = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(v55, v63, &stru_28865E0D8, 0x8000100u);
+      v65 = CFArrayGetValueAtIndex(v62, 1);
+      v66 = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(v55, v65, &stru_28865E0D8, 0x8000100u);
+      if (v64)
       {
-        v68 = CFStringCopyToLower(v65);
-        CFRelease(v65);
-        if (v68 && v67)
+        v67 = CFStringCopyToLower(v64);
+        CFRelease(v64);
+        if (v67 && v66)
         {
-          CFDictionaryAddValue(v25, v68, v67);
+          CFDictionaryAddValue(v25, v67, v66);
         }
 
-        else if (!v68)
+        else if (!v67)
         {
           goto LABEL_75;
         }
 
-        CFRelease(v68);
+        CFRelease(v67);
       }
 
 LABEL_75:
-      ArrayBySeparatingStrings = v98;
-      if (v67)
+      ArrayBySeparatingStrings = v97;
+      if (v66)
       {
-        CFRelease(v67);
+        CFRelease(v66);
       }
 
       goto LABEL_77;
@@ -2617,20 +2443,16 @@ LABEL_75:
   }
 
   CFRelease(v9);
-  v48 = mysyslog_get_logger();
-  v49 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(v48, v49);
-  if (!result)
+  v47 = mysyslog_get_logger();
+  v48 = _SC_syslog_os_log_mapping();
+  result = os_log_type_enabled(v47, v48);
+  if (result)
   {
-    goto LABEL_56;
+    *buf = 0;
+    _os_log_impl(&dword_277237000, v47, v48, "no scraping parameters", buf, 2u);
+    return 0;
   }
 
-  *buf = 0;
-  _os_log_impl(&dword_277237000, v48, v49, "no scraping parameters", buf, 2u);
-LABEL_55:
-  result = 0;
-LABEL_56:
-  v47 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2904,7 +2726,7 @@ CFIndex my_CFArrayFindValue(const __CFArray *a1, const void *a2)
   return CFArrayGetFirstIndexOfValue(a1, v4, a2);
 }
 
-uint64_t my_CFArrayFindDictWithKeyAndValue(const __CFArray *a1, const void *a2, const void *a3)
+CFIndex my_CFArrayFindDictWithKeyAndValue(const __CFArray *a1, const void *a2, const void *a3)
 {
   if (a1)
   {
@@ -2970,13 +2792,13 @@ CFStringRef URLStringCopyHostName(CFStringRef URLString)
 
 void CNSPreferencesFlush()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   logger = mysyslog_get_logger();
   v1 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v1))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_277237000, logger, v1, &unk_27726D325, &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_277237000, logger, v1, &unk_27726D325, &v16, 2u);
   }
 
   if (preferencesURL)
@@ -2989,75 +2811,74 @@ void CNSPreferencesFlush()
     v2 = 1;
   }
 
-  if (!v2)
+  if (v2)
   {
-    v9 = CFWriteStreamCreateWithFile(*MEMORY[0x277CBECE8], preferencesURL);
-    if (v9)
+    v3 = mysyslog_get_logger();
+    v4 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v3, v4))
     {
-      v10 = v9;
-      v11 = CFWriteStreamOpen(v9);
-      v12 = v11 != 0;
-      if (v11 && CFPropertyListWrite(preferences, v10, preferencesFormat, 0, 0))
-      {
-        CFRelease(v10);
-        v3 = mysyslog_get_logger();
-        v4 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v3, v4))
-        {
-          LOWORD(v17) = 0;
-          v5 = "Updated preferences";
-          goto LABEL_10;
-        }
-
-        goto LABEL_23;
-      }
-
-      CFRelease(v10);
+      return;
     }
 
-    else
-    {
-      v12 = 0;
-    }
-
-    v13 = mysyslog_get_logger();
-    v14 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v13, v14))
-    {
-      v15 = "failed to open write stream";
-      if (v12)
-      {
-        v15 = "failed to write to stream";
-      }
-
-      v17 = 136315138;
-      v18 = v15;
-      v5 = "Failed to flush preferences. err =%s";
-      v6 = v13;
-      v7 = v14;
-      v8 = 12;
-      goto LABEL_22;
-    }
-
-    goto LABEL_23;
-  }
-
-  v3 = mysyslog_get_logger();
-  v4 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v3, v4))
-  {
-    LOWORD(v17) = 0;
+    LOWORD(v16) = 0;
     v5 = "not saving preferences - URL or preferences is NULL";
 LABEL_10:
     v6 = v3;
     v7 = v4;
     v8 = 2;
-LABEL_22:
-    _os_log_impl(&dword_277237000, v6, v7, v5, &v17, v8);
+    goto LABEL_22;
   }
 
-LABEL_23:
-  v16 = *MEMORY[0x277D85DE8];
+  v9 = CFWriteStreamCreateWithFile(*MEMORY[0x277CBECE8], preferencesURL);
+  if (v9)
+  {
+    v10 = v9;
+    v11 = CFWriteStreamOpen(v9);
+    v12 = v11 != 0;
+    if (v11 && CFPropertyListWrite(preferences, v10, preferencesFormat, 0, 0))
+    {
+      CFRelease(v10);
+      v3 = mysyslog_get_logger();
+      v4 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v3, v4))
+      {
+        return;
+      }
+
+      LOWORD(v16) = 0;
+      v5 = "Updated preferences";
+      goto LABEL_10;
+    }
+
+    CFRelease(v10);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = mysyslog_get_logger();
+  v14 = _SC_syslog_os_log_mapping();
+  if (!os_log_type_enabled(v13, v14))
+  {
+    return;
+  }
+
+  v15 = "failed to open write stream";
+  if (v12)
+  {
+    v15 = "failed to write to stream";
+  }
+
+  v16 = 136315138;
+  v17 = v15;
+  v5 = "Failed to flush preferences. err =%s";
+  v6 = v13;
+  v7 = v14;
+  v8 = 12;
+LABEL_22:
+  _os_log_impl(&dword_277237000, v6, v7, v5, &v16, v8);
 }
 
 const void *CNSPreferencesGet(const void *a1)
@@ -3323,11 +3144,11 @@ void NotificationDispose(void *a1)
 
 void CNAccountsImportCarrierCredentials()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v0 = CNAccountsGet();
   if (!v0)
   {
-    goto LABEL_20;
+    return;
   }
 
   v1 = v0;
@@ -3357,8 +3178,8 @@ void CNAccountsImportCarrierCredentials()
     v19 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(logger, v19))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_277237000, logger, v19, "no carrier credentials", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_277237000, logger, v19, "no carrier credentials", &v22, 2u);
     }
 
     goto LABEL_17;
@@ -3373,20 +3194,20 @@ void CNAccountsImportCarrierCredentials()
   {
     if (v13)
     {
-      v23 = 138412290;
-      v24 = v9;
+      v22 = 138412290;
+      v23 = v9;
       v14 = "merging carrier accounts: %@";
       v15 = v11;
       v16 = v12;
       v17 = 12;
 LABEL_15:
-      _os_log_impl(&dword_277237000, v15, v16, v14, &v23, v17);
+      _os_log_impl(&dword_277237000, v15, v16, v14, &v22, v17);
     }
   }
 
   else if (v13)
   {
-    LOWORD(v23) = 0;
+    LOWORD(v22) = 0;
     v14 = "merging carrier accounts";
     v15 = v11;
     v16 = v12;
@@ -3403,14 +3224,11 @@ LABEL_17:
     v21 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v20, v21))
     {
-      v23 = 138412290;
-      v24 = v1;
-      _os_log_impl(&dword_277237000, v20, v21, "accounts: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v1;
+      _os_log_impl(&dword_277237000, v20, v21, "accounts: %@", &v22, 0xCu);
     }
   }
-
-LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 const void *CNAccountsGet()
@@ -3455,7 +3273,7 @@ const void *CNAccountsGet()
 
 void CNAccountsCarrierMergeApplier(const void *a1, const __CFDictionary *a2, __CFDictionary *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = CFGetTypeID(a1);
   if (v6 == CFStringGetTypeID() && (v7 = CFGetTypeID(a2), v7 == CFDictionaryGetTypeID()))
   {
@@ -3463,9 +3281,9 @@ void CNAccountsCarrierMergeApplier(const void *a1, const __CFDictionary *a2, __C
     v9 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(logger, v9))
     {
-      v14 = 138412290;
-      v15 = a1;
-      _os_log_impl(&dword_277237000, logger, v9, "merging credential %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = a1;
+      _os_log_impl(&dword_277237000, logger, v9, "merging credential %@", &v13, 0xCu);
     }
 
     MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, a2);
@@ -3483,21 +3301,19 @@ void CNAccountsCarrierMergeApplier(const void *a1, const __CFDictionary *a2, __C
     v12 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v11, v12))
     {
-      v14 = 138412290;
-      v15 = a1;
-      _os_log_impl(&dword_277237000, v11, v12, "invalid carrier credential %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = a1;
+      _os_log_impl(&dword_277237000, v11, v12, "invalid carrier credential %@", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 CFMutableArrayRef CNAccountsCopyMatching(uint64_t a1, const __CFDictionary *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!a1 && a2)
   {
-    goto LABEL_3;
+    return 0;
   }
 
   logger = mysyslog_get_logger();
@@ -3526,16 +3342,16 @@ CFMutableArrayRef CNAccountsCopyMatching(uint64_t a1, const __CFDictionary *a2)
     }
 
     *(&buf + 1) = v10;
-    v22 = Mutable;
+    v21 = Mutable;
     v13 = mysyslog_get_logger();
     v14 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v13, v14))
     {
-      v17 = 138412546;
-      v18 = a1;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_277237000, v13, v14, "Matching on ssid=%@, host=%@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = a1;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_277237000, v13, v14, "Matching on ssid=%@, host=%@", &v16, 0x16u);
     }
 
     if (!a2 || v10)
@@ -3562,17 +3378,15 @@ CFMutableArrayRef CNAccountsCopyMatching(uint64_t a1, const __CFDictionary *a2)
   if (!CFArrayGetCount(Mutable) && Mutable)
   {
     CFRelease(Mutable);
-LABEL_3:
-    Mutable = 0;
+    return 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
 void CNAccountsMatchDictionaryIterator(const void *a1, const void *a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   TypeID = CFStringGetTypeID();
   if (!a1 || CFGetTypeID(a1) != TypeID || (v7 = CFDictionaryGetTypeID(), !a2) || CFGetTypeID(a2) != v7)
   {
@@ -3580,10 +3394,10 @@ void CNAccountsMatchDictionaryIterator(const void *a1, const void *a2, uint64_t 
     v11 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(logger, v11))
     {
-      goto LABEL_13;
+      return;
     }
 
-    LOWORD(v31) = 0;
+    LOWORD(v30) = 0;
     v12 = "accounts contain invalid data";
     v13 = logger;
     v14 = v11;
@@ -3594,47 +3408,49 @@ void CNAccountsMatchDictionaryIterator(const void *a1, const void *a2, uint64_t 
   if (*a3 && !CFEqual(*a3, a1))
   {
     Value = CFDictionaryGetValue(a2, @"MatchingSSIDs");
-    v18 = CFDictionaryGetTypeID();
-    if (Value && CFGetTypeID(Value) == v18)
+    v17 = CFDictionaryGetTypeID();
+    if (Value && CFGetTypeID(Value) == v17)
     {
       if (!CFDictionaryContainsKey(Value, *a3) || !*(a3 + 8))
       {
-        goto LABEL_13;
+        return;
       }
 
-      v19 = CFDictionaryGetValue(Value, *a3);
-      if (!v19)
+      v18 = CFDictionaryGetValue(Value, *a3);
+      if (!v18)
       {
-        v28 = mysyslog_get_logger();
-        v29 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v28, v29))
+        v27 = mysyslog_get_logger();
+        v28 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v27, v28))
         {
-          goto LABEL_13;
+          return;
         }
 
-        v30 = *a3;
-        v31 = 138412546;
-        v32 = a1;
-        v33 = 2112;
-        v34 = v30;
+        v29 = *a3;
+        v30 = 138412546;
+        v31 = a1;
+        v32 = 2112;
+        v33 = v29;
         v12 = "%@ does not match ssid %@";
-        v13 = v28;
-        v14 = v29;
+        v13 = v27;
+        v14 = v28;
         v15 = 22;
-        goto LABEL_12;
+LABEL_12:
+        _os_log_impl(&dword_277237000, v13, v14, v12, &v30, v15);
+        return;
       }
 
-      v20 = v19;
-      Count = CFArrayGetCount(v19);
+      v19 = v18;
+      Count = CFArrayGetCount(v18);
       if (Count >= 1)
       {
-        v22 = Count;
-        v23 = 0;
+        v21 = Count;
+        v22 = 0;
         do
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v20, v23);
-          v25 = CFGetTypeID(ValueAtIndex);
-          if (v25 == CFStringGetTypeID())
+          ValueAtIndex = CFArrayGetValueAtIndex(v19, v22);
+          v24 = CFGetTypeID(ValueAtIndex);
+          if (v24 == CFStringGetTypeID())
           {
             if (CFStringHasSuffix(*(a3 + 8), ValueAtIndex))
             {
@@ -3643,41 +3459,39 @@ void CNAccountsMatchDictionaryIterator(const void *a1, const void *a2, uint64_t 
           }
         }
 
-        while (v22 != ++v23);
+        while (v21 != ++v22);
       }
 
-      v26 = mysyslog_get_logger();
-      v27 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v26, v27))
+      v25 = mysyslog_get_logger();
+      v26 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v25, v26))
       {
-        goto LABEL_13;
+        return;
       }
 
-      v31 = 138412290;
-      v32 = a1;
+      v30 = 138412290;
+      v31 = a1;
       v12 = "%@ matches ssid but not trusted hosts";
     }
 
     else
     {
-      v26 = mysyslog_get_logger();
-      v27 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v26, v27))
+      v25 = mysyslog_get_logger();
+      v26 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v25, v26))
       {
-        goto LABEL_13;
+        return;
       }
 
-      v31 = 138412290;
-      v32 = a1;
+      v30 = 138412290;
+      v31 = a1;
       v12 = "%@ contains no matching SSIDs";
     }
 
-    v13 = v26;
-    v14 = v27;
+    v13 = v25;
+    v14 = v26;
     v15 = 12;
-LABEL_12:
-    _os_log_impl(&dword_277237000, v13, v14, v12, &v31, v15);
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
 LABEL_7:
@@ -3685,14 +3499,12 @@ LABEL_7:
   v9 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v8, v9))
   {
-    v31 = 138412290;
-    v32 = a1;
-    _os_log_impl(&dword_277237000, v8, v9, "%@ matches", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = a1;
+    _os_log_impl(&dword_277237000, v8, v9, "%@ matches", &v30, 0xCu);
   }
 
   CFArrayAppendValue(*(a3 + 16), a1);
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 BOOL CNAccountsIsCarrierSSID(uint64_t a1)
@@ -3723,32 +3535,33 @@ BOOL CNAccountsIsCarrierSSID(uint64_t a1)
   return result;
 }
 
-void CNAccountsIsCarrierSSIDIterator(const void *a1, const __CFDictionary *a2, uint64_t a3)
+void CNAccountsIsCarrierSSIDIterator(const void *a1, const void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   TypeID = CFStringGetTypeID();
-  if (a1 && CFGetTypeID(a1) == TypeID && (v7 = CFDictionaryGetTypeID(), a2) && CFGetTypeID(a2) == v7)
+  if (!a1 || CFGetTypeID(a1) != TypeID || (v7 = CFDictionaryGetTypeID(), !a2) || CFGetTypeID(a2) != v7)
   {
-    if (CNAccountsIsCarrierCredential(a1) && *a3)
+    logger = mysyslog_get_logger();
+    v16 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(logger, v16))
     {
-      Value = CFDictionaryGetValue(a2, @"MatchingSSIDs");
-      v9 = CFDictionaryGetTypeID();
-      if (!Value || CFGetTypeID(Value) != v9)
-      {
-        logger = mysyslog_get_logger();
-        v11 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(logger, v11))
-        {
-          goto LABEL_15;
-        }
+      return;
+    }
 
-        v21 = 138412290;
-        v22 = a1;
-        v13 = "%@ contains no matching SSIDs";
-        v14 = logger;
-        goto LABEL_18;
-      }
+    LOWORD(v20) = 0;
+    v13 = "accounts contain invalid data";
+    v14 = logger;
+    v17 = v16;
+    v18 = 2;
+    goto LABEL_14;
+  }
 
+  if (CNAccountsIsCarrierCredential(a1) && *a3)
+  {
+    Value = CFDictionaryGetValue(a2, @"MatchingSSIDs");
+    v9 = CFDictionaryGetTypeID();
+    if (Value && CFGetTypeID(Value) == v9)
+    {
       if (CFDictionaryContainsKey(Value, *a3) == 1)
       {
         *(a3 + 8) = *MEMORY[0x277CBED28];
@@ -3757,37 +3570,33 @@ void CNAccountsIsCarrierSSIDIterator(const void *a1, const __CFDictionary *a2, u
         if (os_log_type_enabled(v10, v11))
         {
           v12 = *a3;
-          v21 = 138412290;
-          v22 = v12;
+          v20 = 138412290;
+          v21 = v12;
           v13 = "Found the carrier ssid: %@";
           v14 = v10;
 LABEL_18:
           v17 = v11;
           v18 = 12;
-          goto LABEL_14;
+LABEL_14:
+          _os_log_impl(&dword_277237000, v14, v17, v13, &v20, v18);
         }
       }
     }
-  }
 
-  else
-  {
-    v15 = mysyslog_get_logger();
-    v16 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v15, v16))
+    else
     {
-      LOWORD(v21) = 0;
-      v13 = "accounts contain invalid data";
-      v14 = v15;
-      v17 = v16;
-      v18 = 2;
-LABEL_14:
-      _os_log_impl(&dword_277237000, v14, v17, v13, &v21, v18);
+      v19 = mysyslog_get_logger();
+      v11 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v19, v11))
+      {
+        v20 = 138412290;
+        v21 = a1;
+        v13 = "%@ contains no matching SSIDs";
+        v14 = v19;
+        goto LABEL_18;
+      }
     }
   }
-
-LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 const void *CNAccountsLookupPasswordType(const void *a1)
@@ -3854,24 +3663,22 @@ LABEL_12:
 
 uint64_t CNAccountsCredentialsValidate(const void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = CNAccountsGet();
   if (!v2)
   {
     logger = mysyslog_get_logger();
-    v16 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v16))
+    v15 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(logger, v15))
     {
-      LOWORD(v18) = 0;
-      v11 = "Unable to create account setting";
-      v12 = logger;
-      v13 = v16;
-      v14 = 2;
+      LOWORD(v16) = 0;
+      v10 = "Unable to create account setting";
+      v11 = logger;
+      v12 = v15;
+      v13 = 2;
       goto LABEL_13;
     }
 
-LABEL_14:
-    v17 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
@@ -3879,37 +3686,35 @@ LABEL_14:
   TypeID = CFDictionaryGetTypeID();
   if (!Value || CFGetTypeID(Value) != TypeID)
   {
-    v9 = mysyslog_get_logger();
-    v10 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v9, v10))
+    v8 = mysyslog_get_logger();
+    v9 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v8, v9))
     {
-      v18 = 138412290;
-      v19 = a1;
-      v11 = "Account %@ not found";
+      v16 = 138412290;
+      v17 = a1;
+      v10 = "Account %@ not found";
+      v11 = v8;
       v12 = v9;
-      v13 = v10;
-      v14 = 12;
+      v13 = 12;
 LABEL_13:
-      _os_log_impl(&dword_277237000, v12, v13, v11, &v18, v14);
-      goto LABEL_14;
+      _os_log_impl(&dword_277237000, v11, v12, v10, &v16, v13);
+      return 0;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   v5 = CNAccountsLookupSource(Value);
   if (!v5)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   v6 = v5[4];
   if (!v6)
   {
-    goto LABEL_14;
+    return 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6();
 }
@@ -3935,11 +3740,11 @@ uint64_t *CNAccountsLookupSource(const __CFDictionary *a1)
 
 void *CNAccountsCredentialsQueryStart(const __CFString *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v30 = 0;
+  v32 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   if (CNAccountsGet())
   {
-    v12 = CNAccountCopyCurrentAccountRecord(a2, a1, &v30);
+    v12 = CNAccountCopyCurrentAccountRecord(a2, a1, &v29);
     TypeID = CFDictionaryGetTypeID();
     if (v12 && CFGetTypeID(v12) == TypeID)
     {
@@ -3947,7 +3752,7 @@ void *CNAccountsCredentialsQueryStart(const __CFString *a1, const __CFString *a2
       v15 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(logger, v15))
       {
-        if (v30)
+        if (v29)
         {
           v16 = "ssid";
         }
@@ -3958,14 +3763,14 @@ void *CNAccountsCredentialsQueryStart(const __CFString *a1, const __CFString *a2
         }
 
         *buf = 136315138;
-        v32 = v16;
+        v31 = v16;
         _os_log_impl(&dword_277237000, logger, v15, "account found for %s ", buf, 0xCu);
       }
 
       v17 = CNAccountsLookupSource(v12);
       if (v17 && (v18 = v17[2]) != 0)
       {
-        if (v30)
+        if (v29)
         {
           v19 = a2;
         }
@@ -3991,7 +3796,7 @@ void *CNAccountsCredentialsQueryStart(const __CFString *a1, const __CFString *a2
         if (os_log_type_enabled(v26, v27))
         {
           *buf = 138412290;
-          v32 = a1;
+          v31 = a1;
           _os_log_impl(&dword_277237000, v26, v27, "unsupported password type for account %@", buf, 0xCu);
         }
 
@@ -4000,7 +3805,7 @@ void *CNAccountsCredentialsQueryStart(const __CFString *a1, const __CFString *a2
 
 LABEL_26:
       CFRelease(v12);
-      goto LABEL_27;
+      return v21;
     }
 
     v22 = mysyslog_get_logger();
@@ -4008,7 +3813,7 @@ LABEL_26:
     if (os_log_type_enabled(v22, v23))
     {
       *buf = 138412290;
-      v32 = a1;
+      v31 = a1;
       _os_log_impl(&dword_277237000, v22, v23, "account %@ not found", buf, 0xCu);
     }
 
@@ -4029,11 +3834,9 @@ LABEL_26:
       _os_log_impl(&dword_277237000, v24, v25, "Unable to create accounts setting", buf, 2u);
     }
 
-    v21 = 0;
+    return 0;
   }
 
-LABEL_27:
-  v28 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -4138,18 +3941,18 @@ const __CFDictionary *CNAccountsIsCarrierCredential(const void *a1)
   return result;
 }
 
-void CNAccountsAddInternal(const __CFString *a1, const void *a2, const __CFString *a3, const __CFString *a4, int a5, int a6)
+void CNAccountsAddInternal(const __CFString *a1, const void *a2, const __CFString *a3, __CFString *a4, int a5, int a6)
 {
   values[1] = *MEMORY[0x277D85DE8];
   v12 = CNAccountsGet();
-  v79 = 0;
+  v78 = 0;
   if (!v12)
   {
     logger = mysyslog_get_logger();
     v19 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(logger, v19))
     {
-      goto LABEL_87;
+      return;
     }
 
     *buf = 0;
@@ -4157,13 +3960,11 @@ void CNAccountsAddInternal(const __CFString *a1, const void *a2, const __CFStrin
     v21 = logger;
     v22 = v19;
     v23 = 2;
-LABEL_24:
-    _os_log_impl(&dword_277237000, v21, v22, v20, buf, v23);
-    goto LABEL_87;
+    goto LABEL_24;
   }
 
   v13 = v12;
-  v14 = CNAccountCopyCurrentAccountRecord(a3, a1, &v79);
+  v14 = CNAccountCopyCurrentAccountRecord(a3, a1, &v78);
   v15 = v14;
   if (v14)
   {
@@ -4202,7 +4003,7 @@ LABEL_24:
     v34 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(v33, v34))
     {
-      goto LABEL_87;
+      return;
     }
 
     *buf = 138412290;
@@ -4211,11 +4012,13 @@ LABEL_24:
     v21 = v33;
     v22 = v34;
     v23 = 12;
-    goto LABEL_24;
+LABEL_24:
+    _os_log_impl(&dword_277237000, v21, v22, v20, buf, v23);
+    return;
   }
 
   v29 = Mutable;
-  v79 = a1 == 0;
+  v78 = a1 == 0;
   if (a6)
   {
     v30 = @"Websheet";
@@ -4253,7 +4056,7 @@ LABEL_24:
   CFDictionaryAddValue(v36, v32, v35);
 LABEL_26:
   v37 = a3;
-  if (!v79)
+  if (!v78)
   {
     v38 = CFDictionaryCreateMutable(v27, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     CFDictionaryAddValue(v16, @"MatchingSSIDs", v38);
@@ -4267,7 +4070,7 @@ LABEL_26:
 
   CFDictionaryAddValue(v13, v37, v16);
 LABEL_30:
-  v78 = v16;
+  v77 = v16;
   if (a1)
   {
     v39 = a1;
@@ -4358,10 +4161,10 @@ LABEL_42:
     goto LABEL_48;
   }
 
-  v85[0] = 67109120;
-  v85[1] = v48;
+  v84[0] = 67109120;
+  v84[1] = v48;
   v51 = "SecItemUpdate failed: %d";
-  v52 = v85;
+  v52 = v84;
   v53 = v49;
 LABEL_46:
   v56 = v50;
@@ -4374,7 +4177,7 @@ LABEL_48:
     CFRelease(v43);
   }
 
-  v17 = v78;
+  v17 = v77;
   if (!v15)
   {
     v61 = 0;
@@ -4387,7 +4190,7 @@ LABEL_48:
   }
 
 LABEL_51:
-  if (v79)
+  if (v78)
   {
     Value = CFDictionaryGetValue(v17, @"AuthScheme");
     TypeID = CFStringGetTypeID();
@@ -4417,7 +4220,7 @@ LABEL_76:
 LABEL_86:
       CFRelease(v17);
       CNSPreferencesFlush();
-      goto LABEL_87;
+      return;
     }
 
 LABEL_77:
@@ -4445,7 +4248,7 @@ LABEL_77:
   }
 
 LABEL_62:
-  if (!a4 || v79)
+  if (!a4 || v78)
   {
     goto LABEL_76;
   }
@@ -4457,10 +4260,10 @@ LABEL_62:
   {
     *buf = 138412802;
     *&buf[4] = a3;
-    v81 = 2112;
-    v82 = v62;
-    v83 = 2112;
-    v84 = a1;
+    v80 = 2112;
+    v81 = v62;
+    v82 = 2112;
+    v83 = a1;
     _os_log_impl(&dword_277237000, v63, v64, "adding ssid=%@, host=%@ to %@", buf, 0x20u);
   }
 
@@ -4489,9 +4292,9 @@ LABEL_62:
   if (v68)
   {
 LABEL_72:
-    v87.length = CFArrayGetCount(v68);
-    v87.location = 0;
-    if (!CFArrayContainsValue(v68, v87, v62))
+    v86.length = CFArrayGetCount(v68);
+    v86.location = 0;
+    if (!CFArrayContainsValue(v68, v86, v62))
     {
       CFArrayAppendValue(v68, v62);
     }
@@ -4514,18 +4317,16 @@ LABEL_72:
     goto LABEL_72;
   }
 
-  v76 = mysyslog_get_logger();
-  v77 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v76, v77))
+  v75 = mysyslog_get_logger();
+  v76 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v75, v76))
   {
     *buf = 0;
-    _os_log_impl(&dword_277237000, v76, v77, "failed to add trusted hosts", buf, 2u);
+    _os_log_impl(&dword_277237000, v75, v76, "failed to add trusted hosts", buf, 2u);
   }
 
   CFRelease(v62);
   CFRelease(v17);
-LABEL_87:
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 void CNAccountsRejected(const void *a1, const void *a2, uint64_t a3, uint64_t a4)
@@ -4574,7 +4375,7 @@ void CNAccountsRejected(const void *a1, const void *a2, uint64_t a3, uint64_t a4
 
 void CNAccountsPurgeSSID(const void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = CNAccountsGet();
   if (v2)
   {
@@ -4586,7 +4387,7 @@ void CNAccountsPurgeSSID(const void *a1)
       if (os_log_type_enabled(logger, v5))
       {
         *buf = 138412290;
-        v24 = a1;
+        v23 = a1;
         _os_log_impl(&dword_277237000, logger, v5, "Removing ssid %@ from all accounts", buf, 0xCu);
       }
 
@@ -4620,9 +4421,9 @@ void CNAccountsPurgeSSID(const void *a1)
                 if (os_log_type_enabled(v15, v16))
                 {
                   *buf = 138412546;
-                  v24 = v14;
-                  v25 = 2112;
-                  v26 = a1;
+                  v23 = v14;
+                  v24 = 2112;
+                  v25 = a1;
                   _os_log_impl(&dword_277237000, v15, v16, "Checking Account=[%@] for ssid=[%@]", buf, 0x16u);
                 }
 
@@ -4643,7 +4444,7 @@ void CNAccountsPurgeSSID(const void *a1)
                         if (os_log_type_enabled(v20, v21))
                         {
                           *buf = 138412290;
-                          v24 = v14;
+                          v23 = v14;
                           _os_log_impl(&dword_277237000, v20, v21, "Account %@ has no more ssids. PURGE!", buf, 0xCu);
                         }
 
@@ -4669,13 +4470,11 @@ void CNAccountsPurgeSSID(const void *a1)
       CNSPreferencesFlush();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void CNAccountsKeychainRemovePassword(const void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
@@ -4694,16 +4493,14 @@ void CNAccountsKeychainRemovePassword(const void *a1)
       v7 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(logger, v7))
       {
-        v9[0] = 67109120;
-        v9[1] = v5;
-        _os_log_impl(&dword_277237000, logger, v7, "SecItemDelete failed: %d", v9, 8u);
+        v8[0] = 67109120;
+        v8[1] = v5;
+        _os_log_impl(&dword_277237000, logger, v7, "SecItemDelete failed: %d", v8, 8u);
       }
     }
 
     CFRelease(v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *CNAccountsCredentialQueryInvalidate(uint64_t *result)
@@ -4732,16 +4529,18 @@ CFDictionaryRef WISPrCredentialsDictionaryCreate(void *a1, void *a2)
 {
   result = 0;
   keys[2] = *MEMORY[0x277D85DE8];
-  if (a1 && a2)
+  if (a1)
   {
-    keys[0] = @"UserName";
-    keys[1] = @"Password";
-    values[0] = a1;
-    values[1] = a2;
-    result = CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (a2)
+    {
+      keys[0] = @"UserName";
+      keys[1] = @"Password";
+      values[0] = a1;
+      values[1] = a2;
+      return CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4777,7 +4576,7 @@ CFRunLoopSourceRef *CNAccountsKeychainQueryStart(__CFRunLoopSource *a1, __CFRunL
 
 void CNAccountsKeychainQueryDo(uint64_t *a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   CFRunLoopSourceInvalidate(a1[6]);
   Current = CFRunLoopGetCurrent();
   CFRunLoopRemoveSource(Current, a1[6], *MEMORY[0x277CBF048]);
@@ -4819,11 +4618,11 @@ void CNAccountsKeychainQueryDo(uint64_t *a1)
   *&buf = *MEMORY[0x277CDC228];
   *(&buf + 1) = v9;
   v10 = *MEMORY[0x277CDC0A8];
-  v37 = *MEMORY[0x277CDBF20];
-  v38 = v10;
+  v36 = *MEMORY[0x277CDBF20];
+  v37 = v10;
   v11 = *MEMORY[0x277CDC558];
-  v39 = *MEMORY[0x277CDBF38];
-  v40 = v11;
+  v38 = *MEMORY[0x277CDBF38];
+  v39 = v11;
   values[0] = *MEMORY[0x277CDC248];
   values[1] = kWISPrSecurityDomain;
   v12 = *MEMORY[0x277CDC0C0];
@@ -4841,18 +4640,18 @@ void CNAccountsKeychainQueryDo(uint64_t *a1)
     CFRelease(v15);
   }
 
-  if (v16 || (v25 = result, TypeID = CFDataGetTypeID(), !v25) || CFGetTypeID(v25) != TypeID)
+  if (v16 || (v24 = result, TypeID = CFDataGetTypeID(), !v24) || CFGetTypeID(v24) != TypeID)
   {
     v17 = mysyslog_get_logger();
     v18 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v17, v18))
     {
       v19 = a1[4];
-      *v31 = 138412546;
-      v32 = v19;
-      v33 = 1024;
-      v34 = v16;
-      _os_log_impl(&dword_277237000, v17, v18, "Failed to get password for %@: %d", v31, 0x12u);
+      *v30 = 138412546;
+      v31 = v19;
+      v32 = 1024;
+      v33 = v16;
+      _os_log_impl(&dword_277237000, v17, v18, "Failed to get password for %@: %d", v30, 0x12u);
     }
 
     v20 = 0;
@@ -4860,27 +4659,27 @@ void CNAccountsKeychainQueryDo(uint64_t *a1)
   }
 
   v20 = CFStringCreateFromExternalRepresentation(v14, result, 0x8000100u);
-  v27 = WISPrCredentialsDictionaryCreate(a1[4], v20);
-  if (!v27)
+  v26 = WISPrCredentialsDictionaryCreate(a1[4], v20);
+  if (!v26)
   {
 LABEL_15:
     MutableCopy = 0;
     goto LABEL_16;
   }
 
-  v28 = v27;
-  MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v27);
+  v27 = v26;
+  MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v26);
   if (CFDictionaryContainsKey(a1[5], kTokenAuthLoginURL[0]))
   {
     Value = CFDictionaryGetValue(a1[5], kTokenAuthLoginURL[0]);
     CFDictionaryAddValue(MutableCopy, kTokenAuthLoginURL[0], Value);
-    CFRelease(v28);
+    CFRelease(v27);
   }
 
   else
   {
     CFRelease(MutableCopy);
-    MutableCopy = v28;
+    MutableCopy = v27;
   }
 
 LABEL_16:
@@ -4916,7 +4715,6 @@ LABEL_16:
   }
 
   free(a1);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void CNAccountsKeychainQueryAbort(uint64_t a1)
@@ -4957,7 +4755,7 @@ void CNAccountsCarrierPurgeApplier(const void *a1, CFTypeRef cf, __CFArray *a3)
   }
 }
 
-CFRunLoopSourceRef *CNAccountsATTQueryStart(__CFRunLoopSource *a1, __CFRunLoopSource *a2, uint64_t a3, uint64_t a4, __CFRunLoopSource *a5, __CFRunLoopSource *a6, __CFRunLoopSource *a7)
+NSObject *CNAccountsATTQueryStart(objc_class *a1, objc_class *a2, uint64_t a3, uint64_t a4, objc_class *a5, objc_class *a6, objc_class *a7)
 {
   v12 = CopySIMStatus();
   v13 = v12;
@@ -4980,22 +4778,22 @@ CFRunLoopSourceRef *CNAccountsATTQueryStart(__CFRunLoopSource *a1, __CFRunLoopSo
         memset(&v18.retain, 0, 56);
         v18.info = v15;
         v18.perform = CNAccountsATTQueryDo;
-        *v15 = 0u;
-        *(v15 + 1) = 0u;
-        *(v15 + 2) = 0u;
-        *(v15 + 3) = 0u;
-        v15[1] = CNAccountsATTQueryAbort;
-        v15[2] = a6;
-        v15[3] = a7;
-        v15[7] = CFRunLoopSourceCreate(*MEMORY[0x277CBECE8], 0, &v18);
+        *&v15->isa = 0u;
+        *&v15[2].isa = 0u;
+        *&v15[4].isa = 0u;
+        *&v15[6].isa = 0u;
+        v15[1].isa = CNAccountsATTQueryAbort;
+        v15[2].isa = a6;
+        v15[3].isa = a7;
+        v15[7].isa = CFRunLoopSourceCreate(*MEMORY[0x277CBECE8], 0, &v18);
         Current = CFRunLoopGetCurrent();
-        CFRunLoopAddSource(Current, v13[7], *MEMORY[0x277CBF048]);
-        CFRunLoopSourceSignal(v13[7]);
-        v13[4] = a1;
+        CFRunLoopAddSource(Current, v13[7].isa, *MEMORY[0x277CBF048]);
+        CFRunLoopSourceSignal(v13[7].isa);
+        v13[4].isa = a1;
         CFRetain(a1);
-        v13[6] = a2;
+        v13[6].isa = a2;
         CFRetain(a2);
-        v13[5] = a5;
+        v13[5].isa = a5;
         CFRetain(a5);
       }
     }
@@ -5347,48 +5145,43 @@ BOOL CNAccountsATTValidate()
 
 CFStringRef CNAccountsATTCopyPhoneNumber()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = CopyPhoneNumber();
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    logger = mysyslog_get_logger();
-    v3 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v3))
-    {
-      v8 = 138412290;
-      v9 = v1;
-      _os_log_impl(&dword_277237000, logger, v3, "phone number: %@", &v8, 0xCu);
-    }
-
-    Length = CFStringGetLength(v1);
-    if (Length < 10)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v11.length = 10;
-      v11.location = Length - 10;
-      v5 = CFStringCreateWithSubstring(*MEMORY[0x277CBECE8], v1, v11);
-    }
-
-    CFRelease(v1);
+    return 0;
   }
 
-  else
+  v1 = v0;
+  logger = mysyslog_get_logger();
+  v3 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(logger, v3))
+  {
+    v7 = 138412290;
+    v8 = v1;
+    _os_log_impl(&dword_277237000, logger, v3, "phone number: %@", &v7, 0xCu);
+  }
+
+  Length = CFStringGetLength(v1);
+  if (Length < 10)
   {
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v10.length = 10;
+    v10.location = Length - 10;
+    v5 = CFStringCreateWithSubstring(*MEMORY[0x277CBECE8], v1, v10);
+  }
+
+  CFRelease(v1);
   return v5;
 }
 
 char *CaptiveAccountsATTMD5Hash(const __CFString *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
   result = malloc_type_malloc(Length + 1, 0x7E8FD519uLL);
   if (result)
@@ -5397,27 +5190,26 @@ char *CaptiveAccountsATTMD5Hash(const __CFString *a1)
     if (CFStringGetCString(a1, result, Length + 1, 0x8000100u))
     {
       *md = 0;
-      v8 = 0;
+      v7 = 0;
       v5 = strlen(v4);
       CC_MD5(v4, v5, md);
       free(v4);
-      result = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v8, BYTE1(v8), BYTE2(v8), BYTE3(v8), BYTE4(v8), BYTE5(v8), BYTE6(v8), HIBYTE(v8));
+      return CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v7, BYTE1(v7), BYTE2(v7), BYTE3(v7), BYTE4(v7), BYTE5(v7), BYTE6(v7), HIBYTE(v7));
     }
 
     else
     {
       free(v4);
-      result = 0;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void CNAccountsSFRRejected(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *a6 = 0;
   v7 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -5437,7 +5229,7 @@ void CNAccountsSFRRejected(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   if (os_log_type_enabled(logger, v11))
   {
     *buf = 138412290;
-    v14 = a1;
+    v13 = a1;
     _os_log_impl(&dword_277237000, logger, v11, "Purged credentials for account %@", buf, 0xCu);
   }
 
@@ -5445,8 +5237,6 @@ void CNAccountsSFRRejected(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   {
     CFRelease(Mutable);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void SFRHandleGetResult(uint64_t a1, int a2, const __CFDictionary *a3)
@@ -5454,7 +5244,7 @@ void SFRHandleGetResult(uint64_t a1, int a2, const __CFDictionary *a3)
   values[2] = *MEMORY[0x277D85DE8];
   if (!*(a1 + 56))
   {
-    goto LABEL_45;
+    return;
   }
 
   if (a2 != 5)
@@ -5594,9 +5384,9 @@ LABEL_40:
     ExternalRepresentation = CFStringCreateExternalRepresentation(v19, v17, 0x8000100u, 0);
     if (!ExternalRepresentation)
     {
-      v50 = mysyslog_get_logger();
-      v51 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v50, v51))
+      v49 = mysyslog_get_logger();
+      v50 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v49, v50))
       {
         goto LABEL_54;
       }
@@ -5604,9 +5394,9 @@ LABEL_40:
       *keys = 0;
       v32 = "CFStringCreateExternalRepresentation failed";
       v33 = keys;
-      v34 = v50;
-      v35 = v51;
-      v52 = 2;
+      v34 = v49;
+      v35 = v50;
+      v51 = 2;
       goto LABEL_53;
     }
 
@@ -5620,9 +5410,9 @@ LABEL_40:
       v27 = v26;
       if (v26 != -25299)
       {
-        v55 = mysyslog_get_logger();
-        v56 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v55, v56))
+        v54 = mysyslog_get_logger();
+        v55 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v54, v55))
         {
           goto LABEL_54;
         }
@@ -5631,8 +5421,8 @@ LABEL_40:
         *&keys[4] = v27;
         v32 = "SecItemAdd failed: %d";
         v33 = keys;
-        v34 = v55;
-        v35 = v56;
+        v34 = v54;
+        v35 = v55;
         goto LABEL_52;
       }
 
@@ -5657,16 +5447,16 @@ LABEL_40:
           goto LABEL_54;
         }
 
-        v58[0] = 67109120;
-        v58[1] = v29;
+        v57[0] = 67109120;
+        v57[1] = v29;
         v32 = "SecItemUpdate failed: %d";
-        v33 = v58;
+        v33 = v57;
         v34 = v30;
         v35 = v31;
 LABEL_52:
-        v52 = 8;
+        v51 = 8;
 LABEL_53:
-        _os_log_impl(&dword_277237000, v34, v35, v32, v33, v52);
+        _os_log_impl(&dword_277237000, v34, v35, v32, v33, v51);
 LABEL_54:
         if (Mutable)
         {
@@ -5677,9 +5467,9 @@ LABEL_54:
       }
     }
 
-    v53 = mysyslog_get_logger();
-    v54 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v53, v54))
+    v52 = mysyslog_get_logger();
+    v53 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v52, v53))
     {
       goto LABEL_54;
     }
@@ -5688,9 +5478,9 @@ LABEL_54:
     *&keys[4] = v14;
     v32 = "added password for account %@ to keychain";
     v33 = keys;
-    v34 = v53;
-    v35 = v54;
-    v52 = 12;
+    v34 = v52;
+    v35 = v53;
+    v51 = 12;
     goto LABEL_53;
   }
 
@@ -5706,9 +5496,6 @@ LABEL_41:
 
     SFRStateCleanup(a1);
   }
-
-LABEL_45:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void SFRStateCleanup(void *a1)
@@ -5781,7 +5568,7 @@ CFRunLoopSourceRef *CNAccountsSFRQueryStart(__CFRunLoopSource *a1, __CFRunLoopSo
 
 void SFRQueryDo(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   CFRunLoopSourceInvalidate(*(a1 + 48));
   Current = CFRunLoopGetCurrent();
   CFRunLoopRemoveSource(Current, *(a1 + 48), *MEMORY[0x277CBF048]);
@@ -5808,18 +5595,18 @@ void SFRQueryDo(uint64_t a1)
   *&buf = *MEMORY[0x277CDC228];
   *(&buf + 1) = v9;
   v10 = *MEMORY[0x277CDBF38];
-  v37 = *MEMORY[0x277CDC0A8];
-  v38 = v10;
+  v35 = *MEMORY[0x277CDC0A8];
+  v36 = v10;
   v11 = *MEMORY[0x277CDC550];
-  v39 = *MEMORY[0x277CDC558];
-  v40 = v11;
+  v37 = *MEMORY[0x277CDC558];
+  v38 = v11;
   values[0] = *MEMORY[0x277CDC248];
   values[1] = v8;
   v12 = *MEMORY[0x277CDBF48];
   values[2] = *MEMORY[0x277CDC0C0];
   values[3] = v12;
-  v34 = *MEMORY[0x277CBED28];
-  v35 = v34;
+  v32 = *MEMORY[0x277CBED28];
+  v33 = v32;
   v13 = CFDictionaryCreate(v7, &buf, values, 6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (v8)
   {
@@ -5866,7 +5653,7 @@ void SFRQueryDo(uint64_t a1)
         CFRelease(v18);
       }
 
-      goto LABEL_38;
+      return;
     }
 
     if (v17)
@@ -5883,67 +5670,63 @@ void SFRQueryDo(uint64_t a1)
   v19 = CFDictionaryGetValue(*(a1 + 40), @"CredentialsURL");
   if (!v19)
   {
-    v28 = mysyslog_get_logger();
-    v29 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v28, v29))
+    v27 = mysyslog_get_logger();
+    v28 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v27, v28))
     {
-      *v41 = 0;
-      v30 = "carrier account is missing CredentialsURL";
+      *v39 = 0;
+      v29 = "carrier account is missing CredentialsURL";
       goto LABEL_36;
     }
 
 LABEL_37:
     (*(a1 + 16))(*(a1 + 24), 0);
     SFRStateCleanup(a1);
-    goto LABEL_38;
+    return;
   }
 
   v20 = v19;
   v21 = CFDictionaryGetValue(*(a1 + 40), @"ServiceType");
-  v22 = *MEMORY[0x277CC39D8];
   if (v21)
   {
-    v23 = v21;
+    v22 = v21;
   }
 
   else
   {
-    v23 = *MEMORY[0x277CC39D8];
+    v22 = *MEMORY[0x277CC39D8];
   }
 
   if (CaptiveIsDebug())
   {
-    v24 = mysyslog_get_logger();
-    v25 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v24, v25))
+    v23 = mysyslog_get_logger();
+    v24 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v23, v24))
     {
-      *v41 = 138412290;
-      v42 = v20;
-      _os_log_impl(&dword_277237000, v24, v25, "getting credentials from %@", v41, 0xCu);
+      *v39 = 138412290;
+      v40 = v20;
+      _os_log_impl(&dword_277237000, v23, v24, "getting credentials from %@", v39, 0xCu);
     }
   }
 
-  v26 = CFRunLoopGetCurrent();
-  credentials = captive_agent_get_credentials(v20, v23, @"CaptiveNetworkSupport-514.0.0.0.1", 0x1Eu, SFRHandleGetResult, a1, v26);
+  v25 = CFRunLoopGetCurrent();
+  credentials = captive_agent_get_credentials(v20, v22, @"CaptiveNetworkSupport-514.0.0.0.1", 0x1Eu, SFRHandleGetResult, a1, v25);
   *(a1 + 56) = credentials;
   if (!credentials)
   {
-    v28 = mysyslog_get_logger();
-    v29 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v28, v29))
+    v27 = mysyslog_get_logger();
+    v28 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v27, v28))
     {
-      *v41 = 0;
-      v30 = "failed to start http GET";
+      *v39 = 0;
+      v29 = "failed to start http GET";
 LABEL_36:
-      _os_log_impl(&dword_277237000, v28, v29, v30, v41, 2u);
+      _os_log_impl(&dword_277237000, v27, v28, v29, v39, 2u);
       goto LABEL_37;
     }
 
     goto LABEL_37;
   }
-
-LABEL_38:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void PowerChangeRegister(uint64_t (*a1)(void))
@@ -6248,9 +6031,9 @@ void __enable_prefs_observer_block_invoke()
   }
 }
 
-uint64_t CNPluginHandleResponse(uint64_t a1, const __CFDictionary *a2)
+uint64_t CNPluginHandleResponse(const void *a1, const __CFDictionary *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   result = CNPluginStateProcessResponse(a1, a2);
   if (result)
   {
@@ -6274,45 +6057,45 @@ LABEL_10:
         {
           if (v11 != v6[14])
           {
-            goto LABEL_12;
+            return 1;
           }
 
           DisplayID = CNPluginStateGetDisplayID(a1);
           logger = mysyslog_get_logger();
-          v18 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(logger, v18))
+          v17 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(logger, v17))
           {
             *buf = 138412546;
-            v42 = DisplayID;
-            v43 = 2112;
-            v44 = a2;
-            _os_log_impl(&dword_277237000, logger, v18, "%@: filter results = %@", buf, 0x16u);
+            v41 = DisplayID;
+            v42 = 2112;
+            v43 = a2;
+            _os_log_impl(&dword_277237000, logger, v17, "%@: filter results = %@", buf, 0x16u);
           }
 
           if (!S_filter_request_count)
           {
-            goto LABEL_12;
+            return 1;
           }
 
-          v19 = responseGetResult(a2);
-          if (v19)
+          v18 = responseGetResult(a2);
+          if (v18)
           {
-            v20 = v19;
-            v21 = mysyslog_get_logger();
-            v22 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v21, v22))
+            v19 = v18;
+            v20 = mysyslog_get_logger();
+            v21 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v20, v21))
             {
               *buf = 138412290;
-              v42 = DisplayID;
-              _os_log_impl(&dword_277237000, v21, v22, "%@: FilterScanList failed", buf, 0xCu);
+              v41 = DisplayID;
+              _os_log_impl(&dword_277237000, v20, v21, "%@: FilterScanList failed", buf, 0xCu);
             }
 
-            if (v20 == 3)
+            if (v19 == 3)
             {
               CNPluginStateDisableFilterCommand(a1);
             }
 
-            goto LABEL_12;
+            return 1;
           }
 
           Value = CFDictionaryGetValue(a2, @"NetworkList");
@@ -6322,117 +6105,115 @@ LABEL_10:
             BSDName = SCNetworkInterfaceGetBSDName(v6[4]);
             CNPluginStateSetFilterResults(a1, BSDName, Value);
             CNScanListFilterAggregateResults(v6);
-            goto LABEL_12;
+            return 1;
           }
 
-          v38 = mysyslog_get_logger();
-          v39 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v38, v39))
+          v37 = mysyslog_get_logger();
+          v38 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v37, v38))
           {
-            goto LABEL_12;
+            return 1;
           }
 
           *buf = 138412290;
-          v42 = DisplayID;
-          v31 = "%@: FilterScanList network list invalid";
+          v41 = DisplayID;
+          v30 = "%@: FilterScanList network list invalid";
+          v31 = v37;
           v32 = v38;
-          v33 = v39;
-          v34 = 12;
+          v33 = 12;
 LABEL_48:
-          _os_log_impl(&dword_277237000, v32, v33, v31, buf, v34);
-          goto LABEL_12;
+          _os_log_impl(&dword_277237000, v31, v32, v30, buf, v33);
+          return 1;
         }
 
-        v40[0] = a1;
-        v40[1] = a2;
-        v13 = *(v6 + 14);
-        if (v13 > 4)
+        v39[0] = a1;
+        v39[1] = a2;
+        v12 = *(v6 + 14);
+        if (v12 > 4)
         {
-          switch(v13)
+          switch(v12)
           {
             case 5:
-              v25 = mysyslog_get_logger();
-              v26 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v25, v26))
+              v24 = mysyslog_get_logger();
+              v25 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v24, v25))
               {
                 *buf = 138412290;
-                v42 = CNPluginStateGetDisplayID(a1);
-                _os_log_impl(&dword_277237000, v25, v26, "[%@] responded to maintain command", buf, 0xCu);
+                v41 = CNPluginStateGetDisplayID(a1);
+                _os_log_impl(&dword_277237000, v24, v25, "[%@] responded to maintain command", buf, 0xCu);
               }
 
-              CNInfoMaintaining(v6, 1, v40);
-              goto LABEL_12;
+              CNInfoMaintaining(v6, 1, v39);
+              return 1;
             case 7:
-              v27 = mysyslog_get_logger();
-              v28 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v27, v28))
+              v26 = mysyslog_get_logger();
+              v27 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v26, v27))
               {
                 *buf = 138412290;
-                v42 = CNPluginStateGetDisplayID(a1);
-                _os_log_impl(&dword_277237000, v27, v28, "[%@] responded to present-ui command", buf, 0xCu);
+                v41 = CNPluginStateGetDisplayID(a1);
+                _os_log_impl(&dword_277237000, v26, v27, "[%@] responded to present-ui command", buf, 0xCu);
               }
 
-              CNInfoPresentingUI(v6, 1, v40);
-              goto LABEL_12;
+              CNInfoPresentingUI(v6, 1, v39);
+              return 1;
             case 8:
-              v14 = mysyslog_get_logger();
-              v15 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v14, v15))
+              v13 = mysyslog_get_logger();
+              v14 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v13, v14))
               {
                 *buf = 138412290;
-                v42 = CNPluginStateGetDisplayID(a1);
-                _os_log_impl(&dword_277237000, v14, v15, "[%@] responded to log-off command", buf, 0xCu);
+                v41 = CNPluginStateGetDisplayID(a1);
+                _os_log_impl(&dword_277237000, v13, v14, "[%@] responded to log-off command", buf, 0xCu);
               }
 
               CNInfoLoggingOff(v6, 1);
-              goto LABEL_12;
+              return 1;
           }
 
           goto LABEL_41;
         }
 
-        if (v13 == 2)
+        if (v12 == 2)
         {
-          CNInfoEvaluating(v6, 1, v40);
+          CNInfoEvaluating(v6, 1, v39);
         }
 
         else
         {
-          if (v13 == 3)
+          if (v12 == 3)
           {
-            v23 = mysyslog_get_logger();
-            v24 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v23, v24))
+            v22 = mysyslog_get_logger();
+            v23 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v22, v23))
             {
               *buf = 138412290;
-              v42 = CNPluginStateGetDisplayID(a1);
-              _os_log_impl(&dword_277237000, v23, v24, "[%@] responded to authenticate command", buf, 0xCu);
+              v41 = CNPluginStateGetDisplayID(a1);
+              _os_log_impl(&dword_277237000, v22, v23, "[%@] responded to authenticate command", buf, 0xCu);
             }
 
-            CNInfoAuthenticating(v6, 1, v40);
-            goto LABEL_12;
+            CNInfoAuthenticating(v6, 1, v39);
+            return 1;
           }
 
 LABEL_41:
-          v29 = mysyslog_get_logger();
-          v30 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v29, v30))
+          v28 = mysyslog_get_logger();
+          v29 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v28, v29))
           {
             *buf = 138412546;
-            v42 = CNPluginStateGetDisplayID(a1);
-            v43 = 2112;
-            v44 = a2;
-            v31 = "%@: ignoring response %@";
+            v41 = CNPluginStateGetDisplayID(a1);
+            v42 = 2112;
+            v43 = a2;
+            v30 = "%@: ignoring response %@";
+            v31 = v28;
             v32 = v29;
-            v33 = v30;
-            v34 = 22;
+            v33 = 22;
             goto LABEL_48;
           }
         }
 
-LABEL_12:
-        result = 1;
-        goto LABEL_13;
+        return 1;
       }
 
       if (my_CFDictionaryContainsKeyAndValue(v6[14], v5))
@@ -6449,14 +6230,12 @@ LABEL_12:
     if (result)
     {
       *buf = 138412290;
-      v42 = a2;
+      v41 = a2;
       _os_log_impl(&dword_277237000, v9, v10, "can't find cninfo for %@", buf, 0xCu);
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6502,15 +6281,15 @@ __CFArray *CNPluginHandlerCopyInterfaceList()
   return Mutable;
 }
 
-void *CNPluginHandlerForgetSSID()
+void *CNPluginHandlerForgetSSID(uint64_t result)
 {
   for (i = S_CNInfoHeadStorage; i; i = *i)
   {
     CNPluginStateStopHotspotAuthenticationProvider(*(i + 72));
-    result = NetCacheApplyFunction(*(i + 136), RemoveCacheEntryWithSSID);
+    v2 = NetCacheApplyFunction(*(i + 136), RemoveCacheEntryWithSSID);
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t RemoveCacheEntryWithSSID(uint64_t *a1, const void *a2)
@@ -6534,8 +6313,8 @@ void *CNPluginHandlerInitialize(uint64_t a1)
 {
   cf = 0;
   v5 = 0;
-  CommandHandlerClassRegister(3u, CNPluginHandlerMethods);
-  CommandHandlerClassRegister(5u, CNScanListFilterHandlerMethods);
+  CommandHandlerClassRegister(3, CNPluginHandlerMethods);
+  CommandHandlerClassRegister(5, CNScanListFilterHandlerMethods);
   CNPluginStateListInitialize();
   S_CNInfoHeadStorage = 0;
   CNPluginMonitorHandlerInitialize();
@@ -6573,7 +6352,7 @@ void CNPluginHandlerNWIChanged()
 
 void CNPluginHandlerInterfaceAttached(__CFString *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!CNInfoFind(a1))
   {
     v2 = CNInfoGet(a1);
@@ -6584,9 +6363,9 @@ void CNPluginHandlerInterfaceAttached(__CFString *a1)
       v5 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(logger, v5))
       {
-        v9 = 138412290;
-        v10 = a1;
-        _os_log_impl(&dword_277237000, logger, v5, "%@ added", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = a1;
+        _os_log_impl(&dword_277237000, logger, v5, "%@ added", &v8, 0xCu);
       }
 
       UIAllowedNewInterface(a1);
@@ -6596,9 +6375,9 @@ void CNPluginHandlerInterfaceAttached(__CFString *a1)
         v7 = _SC_syslog_os_log_mapping();
         if (os_log_type_enabled(v6, v7))
         {
-          v9 = 138412290;
-          v10 = a1;
-          _os_log_impl(&dword_277237000, v6, v7, "%@: joined unsecure network, setting interface rank to Never", &v9, 0xCu);
+          v8 = 138412290;
+          v9 = a1;
+          _os_log_impl(&dword_277237000, v6, v7, "%@: joined unsecure network, setting interface rank to Never", &v8, 0xCu);
         }
 
         NetIFSetRankNever(v3[4]);
@@ -6607,28 +6386,26 @@ void CNPluginHandlerInterfaceAttached(__CFString *a1)
       CNPluginHandlerNetworkInformationChanged();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void CNScanListFilterHandleScanResults(const __CFString *a1, const __CFArray *a2)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_84;
+    return;
   }
 
   if (!S_filter_request_count)
   {
-    goto LABEL_84;
+    return;
   }
 
   v3 = a1;
   v4 = CNInfoGet(a1);
   if (!v4)
   {
-    goto LABEL_84;
+    return;
   }
 
   v5 = v4;
@@ -6712,11 +6489,11 @@ LABEL_52:
   }
 
   v18 = v17;
-  v65 = v5;
-  v66 = v3;
+  v64 = v5;
+  v65 = v3;
   v19 = 0;
   v20 = 0;
-  v67 = ScanListProcessCommand;
+  v66 = ScanListProcessCommand;
   do
   {
     ValueAtIndex = CFArrayGetValueAtIndex(ScanListProcessCommand, v20);
@@ -6771,10 +6548,10 @@ LABEL_32:
         v34 = CFArrayCreate(0, &values, 1, MEMORY[0x277CBF128]);
         *buf = xmmword_27A714900;
         *&buf[16] = @"PluginNames";
-        v72 = ValueAtIndex;
-        v73 = v33;
-        v74 = v34;
-        v32 = CFDictionaryCreate(0, buf, &v72, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v71 = ValueAtIndex;
+        v72 = v33;
+        v73 = v34;
+        v32 = CFDictionaryCreate(0, buf, &v71, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (v34)
         {
           CFRelease(v34);
@@ -6800,15 +6577,15 @@ LABEL_32:
       CFRelease(v32);
     }
 
-    ScanListProcessCommand = v67;
+    ScanListProcessCommand = v66;
 LABEL_46:
     ++v20;
   }
 
   while (v18 != v20);
   CFRelease(ScanListProcessCommand);
-  v5 = v65;
-  v3 = v66;
+  v5 = v64;
+  v3 = v65;
   if (v19)
   {
     v35 = mysyslog_get_logger();
@@ -6820,7 +6597,7 @@ LABEL_46:
       _os_log_impl(&dword_277237000, v35, v36, "Wi-Fi Info list based on the pre-evaluated SSIDs: %@", buf, 0xCu);
     }
 
-    ScanListProcessCommand = createScanListProcessCommand(v66, v19);
+    ScanListProcessCommand = createScanListProcessCommand(v65, v19);
     CFRelease(v19);
     if (ScanListProcessCommand)
     {
@@ -6835,7 +6612,27 @@ LABEL_53:
     Current = CFAbsoluteTimeGetCurrent();
     v38 = Current;
     v39 = *(v5 + 128);
-    if (!v39 || ((v40 = Current - *(v5 + 120), v39 >= 3) ? (v41 = 30.0) : (v41 = 5.0), v40 >= v41))
+    if (v39 && ((v40 = Current - *(v5 + 120), v39 >= 3) ? (v41 = 30.0) : (v41 = 5.0), v40 < v41))
+    {
+      v42 = mysyslog_get_logger();
+      v43 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v42, v43))
+      {
+        *buf = 138412802;
+        *&buf[4] = v3;
+        *&buf[12] = 2048;
+        *&buf[14] = v40;
+        *&buf[22] = 2048;
+        *&buf[24] = v41;
+        v44 = "%@: NOT issuing filter command (elapsed %g < %g)";
+        v45 = v42;
+        v46 = v43;
+        v47 = 32;
+        goto LABEL_81;
+      }
+    }
+
+    else
     {
       v48 = v5;
       v49 = CFArrayGetCount(a2);
@@ -6849,14 +6646,14 @@ LABEL_53:
         {
           v54 = CFArrayGetValueAtIndex(a2, v52);
           memset(buf, 0, sizeof(buf));
+          v69 = 0u;
           v70 = 0u;
-          v71 = 0u;
           if (v54)
           {
             v55 = v54;
             CFRetain(v54);
-            *&v70 = v55;
-            *&v71 = v53;
+            *&v69 = v55;
+            *&v70 = v53;
           }
 
           v56 = copy_network_dict(buf);
@@ -6878,20 +6675,20 @@ LABEL_53:
         LODWORD(values) = 1;
         if (!v51)
         {
-          goto LABEL_84;
+          return;
         }
 
         v57 = my_CFUUIDStringCreate(0);
         *buf = @"UniqueID";
-        v72 = v57;
+        v71 = v57;
         v58 = CFNumberCreate(v50, kCFNumberSInt32Type, &values);
         *&buf[8] = @"Type";
         *&buf[16] = @"InterfaceName";
-        v73 = v58;
-        v74 = v3;
+        v72 = v58;
+        v73 = v3;
         *&buf[24] = @"NetworkList";
-        v75 = v51;
-        v59 = CFDictionaryCreate(0, buf, &v72, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v74 = v51;
+        v59 = CFDictionaryCreate(0, buf, &v71, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (v57)
         {
           CFRelease(v57);
@@ -6929,28 +6726,10 @@ LABEL_53:
 
       else if (!v51)
       {
-        goto LABEL_84;
+        return;
       }
 
       CFRelease(v51);
-      goto LABEL_84;
-    }
-
-    v42 = mysyslog_get_logger();
-    v43 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v42, v43))
-    {
-      *buf = 138412802;
-      *&buf[4] = v3;
-      *&buf[12] = 2048;
-      *&buf[14] = v40;
-      *&buf[22] = 2048;
-      *&buf[24] = v41;
-      v44 = "%@: NOT issuing filter command (elapsed %g < %g)";
-      v45 = v42;
-      v46 = v43;
-      v47 = 32;
-      goto LABEL_81;
     }
   }
 
@@ -6972,9 +6751,6 @@ LABEL_81:
       _os_log_impl(&dword_277237000, v45, v46, v44, buf, v47);
     }
   }
-
-LABEL_84:
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CNPluginHandlerGetLandingPageURL(void *a1)
@@ -7046,7 +6822,7 @@ uint64_t *CNInfoFind(const void *a1)
 
 void CNPluginHandlerCheckPreferences()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   BBMonitorCheckPreferences();
   S_UnwhitelistedNetworkProbeInterval = CCPGetUnwhitelistedNetworkProbeInterval();
   S_WhitelistedNetworkProbeInterval = CCPGetWhitelistedNetworkProbeInterval();
@@ -7054,18 +6830,18 @@ void CNPluginHandlerCheckPreferences()
   v1 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v1))
   {
-    v11 = 134217984;
-    v12 = S_UnwhitelistedNetworkProbeInterval;
-    _os_log_impl(&dword_277237000, logger, v1, "UnwhitelistedNetworkProbeInterval = %g", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = S_UnwhitelistedNetworkProbeInterval;
+    _os_log_impl(&dword_277237000, logger, v1, "UnwhitelistedNetworkProbeInterval = %g", &v10, 0xCu);
   }
 
   v2 = mysyslog_get_logger();
   v3 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v2, v3))
   {
-    v11 = 134217984;
-    v12 = S_WhitelistedNetworkProbeInterval;
-    _os_log_impl(&dword_277237000, v2, v3, "WhitelistedNetworkProbeInterval = %g", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = S_WhitelistedNetworkProbeInterval;
+    _os_log_impl(&dword_277237000, v2, v3, "WhitelistedNetworkProbeInterval = %g", &v10, 0xCu);
   }
 
   S_WhitelistedNetworkDetectionEnabled = CCPGetWhitelistedNetworkDetectionEnabled();
@@ -7084,9 +6860,9 @@ void CNPluginHandlerCheckPreferences()
       v6 = "off";
     }
 
-    v11 = 136315138;
-    v12 = v6;
-    _os_log_impl(&dword_277237000, v4, v5, "WhitelistedNetworkDetectionEnabled = %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v6;
+    _os_log_impl(&dword_277237000, v4, v5, "WhitelistedNetworkDetectionEnabled = %s", &v10, 0xCu);
   }
 
   v7 = mysyslog_get_logger();
@@ -7103,87 +6879,86 @@ void CNPluginHandlerCheckPreferences()
       v9 = "off";
     }
 
-    v11 = 136315138;
-    v12 = v9;
-    _os_log_impl(&dword_277237000, v7, v8, "WhitelistedProtectedNetworkDetectionEnabled = %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v9;
+    _os_log_impl(&dword_277237000, v7, v8, "WhitelistedProtectedNetworkDetectionEnabled = %s", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 CFDictionaryRef CNPluginHandlerCopyCurrentNetworkInfo(uint64_t a1)
 {
   keys[3] = *MEMORY[0x277D85DE8];
-  if (a1 && (v1 = NetIFCopyCurrentWiFiNetwork(a1)) != 0)
+  if (!a1)
   {
-    v2 = v1;
-    Property = WiFiNetworkGetProperty();
-    SSIDData = WiFiNetworkGetSSIDData();
-    SSID = WiFiNetworkGetSSID();
-    v6 = 0;
-    if (SSIDData && SSID && Property)
-    {
-      v7 = *MEMORY[0x277CE1618];
-      keys[0] = *MEMORY[0x277CE1620];
-      keys[1] = v7;
-      keys[2] = *MEMORY[0x277CE1610];
-      values[0] = SSIDData;
-      values[1] = SSID;
-      values[2] = Property;
-      v6 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    }
-
-    CFRelease(v2);
+    return 0;
   }
 
-  else
+  v1 = NetIFCopyCurrentWiFiNetwork(a1);
+  if (!v1)
   {
-    v6 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v2 = v1;
+  Property = WiFiNetworkGetProperty();
+  SSIDData = WiFiNetworkGetSSIDData();
+  SSID = WiFiNetworkGetSSID();
+  v6 = 0;
+  if (SSIDData && SSID && Property)
+  {
+    v7 = *MEMORY[0x277CE1618];
+    keys[0] = *MEMORY[0x277CE1620];
+    keys[1] = v7;
+    keys[2] = *MEMORY[0x277CE1610];
+    values[0] = SSIDData;
+    values[1] = SSID;
+    values[2] = Property;
+    v6 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  }
+
+  CFRelease(v2);
   return v6;
 }
 
-void CNInfoEvaluating(uint64_t a1, int a2, uint64_t a3)
+void CNInfoEvaluating(uint64_t a1, int a2, CFTypeRef *a3)
 {
-  v98 = *MEMORY[0x277D85DE8];
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
-  v94 = 0u;
+  v94 = *MEMORY[0x277D85DE8];
+  v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   if (a2 > 1)
   {
     if (a2 == 2)
     {
       CNPluginStateListHandleUnregistered();
       CNPluginStateListStopHotspotEvaluationProviders();
-      v22 = *(a1 + 72);
-      if (v22)
+      v21 = *(a1 + 72);
+      if (v21)
       {
-        DisplayID = CNPluginStateGetDisplayID(v22);
+        DisplayID = CNPluginStateGetDisplayID(v21);
         logger = mysyslog_get_logger();
-        v25 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(logger, v25))
+        v24 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(logger, v24))
         {
           LODWORD(buf.isa) = 138412290;
           *(&buf.isa + 4) = DisplayID;
-          v26 = "Evaluate timeout fired, using %@";
+          v25 = "Evaluate timeout fired, using %@";
 LABEL_44:
-          _os_log_impl(&dword_277237000, logger, v25, v26, &buf, 0xCu);
+          _os_log_impl(&dword_277237000, logger, v24, v25, &buf, 0xCu);
         }
 
 LABEL_100:
         CNInfoAuthenticating(a1, 0, 0);
-        goto LABEL_102;
+        return;
       }
 
-      v32 = mysyslog_get_logger();
-      v33 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v32, v33))
+      v31 = mysyslog_get_logger();
+      v32 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v31, v32))
       {
         LOWORD(buf.isa) = 0;
-        _os_log_impl(&dword_277237000, v32, v33, "Evaluate timed out, these plugins did not respond:", &buf, 2u);
+        _os_log_impl(&dword_277237000, v31, v32, "Evaluate timed out, these plugins did not respond:", &buf, 2u);
       }
 
       CNPluginStateListLogPendingCommand(*(a1 + 64));
@@ -7206,11 +6981,11 @@ LABEL_100:
           }
 
           EvaluationProvider = CNEvaluatedNetworksGetEvaluationProvider(SSID);
-          v37 = CNPluginStateGet(EvaluationProvider);
+          v36 = CNPluginStateGet(EvaluationProvider);
           NetIFSetRankNever(*(a1 + 32));
-          v38 = mysyslog_get_logger();
-          v39 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v38, v39))
+          v37 = mysyslog_get_logger();
+          v38 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v37, v38))
           {
             LODWORD(buf.isa) = 138412802;
             *(&buf.isa + 4) = EvaluationProvider;
@@ -7218,28 +6993,28 @@ LABEL_100:
             *(&buf.info + 6) = SSID;
             HIWORD(buf.data) = 2080;
             buf.length = CNPConfidenceGetString(2u);
-            _os_log_impl(&dword_277237000, v38, v39, "%@: network [%@] is captive Confidence: %s", &buf, 0x20u);
+            _os_log_impl(&dword_277237000, v37, v38, "%@: network [%@] is captive Confidence: %s", &buf, 0x20u);
           }
 
-          if ((!*(a1 + 72) || *(a1 + 80) <= 1u) && CNPluginStateIsProvider(v37))
+          if ((!*(a1 + 72) || *(a1 + 80) <= 1u) && CNPluginStateIsProvider(v36))
           {
-            AuthenticationProvider = CNPluginStateGetAuthenticationProvider(v37);
+            AuthenticationProvider = CNPluginStateGetAuthenticationProvider(v36);
             if (AuthenticationProvider)
             {
-              v41 = AuthenticationProvider;
-              v42 = mysyslog_get_logger();
-              v43 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v42, v43))
+              v40 = AuthenticationProvider;
+              v41 = mysyslog_get_logger();
+              v42 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v41, v42))
               {
-                v44 = CNPluginStateGetDisplayID(v41);
+                v43 = CNPluginStateGetDisplayID(v40);
                 LODWORD(buf.isa) = 138412290;
-                *(&buf.isa + 4) = v44;
-                _os_log_impl(&dword_277237000, v42, v43, "making hotspot provider [%@] best plugin", &buf, 0xCu);
+                *(&buf.isa + 4) = v43;
+                _os_log_impl(&dword_277237000, v41, v42, "making hotspot provider [%@] best plugin", &buf, 0xCu);
               }
 
-              my_FieldSetRetainedCFType((a1 + 72), v41);
+              my_FieldSetRetainedCFType((a1 + 72), v40);
               *(a1 + 80) = 2;
-              CNPluginStateStartHotspotProvider(v41);
+              CNPluginStateStartHotspotProvider(v40);
               CNInfoAuthenticating(a1, 0, 0);
             }
           }
@@ -7247,42 +7022,42 @@ LABEL_100:
           *(a1 + 164) = 0;
         }
 
-        goto LABEL_102;
+        return;
       }
 
-      v27 = mysyslog_get_logger();
-      v28 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v27, v28))
+      v26 = mysyslog_get_logger();
+      v27 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v26, v27))
       {
         LOWORD(buf.isa) = 0;
-        _os_log_impl(&dword_277237000, v27, v28, "Evaluate acknowledgement timeout fired", &buf, 2u);
+        _os_log_impl(&dword_277237000, v26, v27, "Evaluate acknowledgement timeout fired", &buf, 2u);
       }
 
       CNPluginStateListSetEvaluateCmdAckTimeoutStatus();
       if (CNPluginStateListIsEvaluateResponsePending())
       {
-        v18 = *(a1 + 88);
-        v19 = 40.0;
-        v20 = a1;
-        v21 = 2;
+        v17 = *(a1 + 88);
+        v18 = 40.0;
+        v19 = a1;
+        v20 = 2;
 LABEL_75:
-        TimerSet(v18, CNInfoEvaluating, v20, v21, 0, v19);
-        goto LABEL_102;
+        TimerSet(v17, CNInfoEvaluating, v19, v20, 0, v18);
+        return;
       }
 
       CNPluginStateListHandleUnregistered();
       CNPluginStateListStopHotspotEvaluationProviders();
-      v34 = *(a1 + 72);
-      if (v34)
+      v33 = *(a1 + 72);
+      if (v33)
       {
-        v35 = CNPluginStateGetDisplayID(v34);
+        v34 = CNPluginStateGetDisplayID(v33);
         logger = mysyslog_get_logger();
-        v25 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(logger, v25))
+        v24 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(logger, v24))
         {
           LODWORD(buf.isa) = 138412290;
-          *(&buf.isa + 4) = v35;
-          v26 = "Evaluate acknowledgement timeout fired, using %@";
+          *(&buf.isa + 4) = v34;
+          v25 = "Evaluate acknowledgement timeout fired, using %@";
           goto LABEL_44;
         }
 
@@ -7292,7 +7067,7 @@ LABEL_75:
 
 LABEL_101:
     CNInfoAuthenticated(a1, 0, 0);
-    goto LABEL_102;
+    return;
   }
 
   if (!a2)
@@ -7304,80 +7079,80 @@ LABEL_101:
     TimerCancel(*(a1 + 88));
     CNInfoFlushAuthCommand(a1);
     *(a1 + 104) &= ~1u;
-    networkAttributesInit(&v93, *(a1 + 40), 1, 0);
+    networkAttributesInit(&v89, *(a1 + 40), 1, 0);
     if (a3)
     {
-      *(&v93 + 1) = *a3;
+      *(&v89 + 1) = *a3;
     }
 
-    if (v95)
+    if (v91)
     {
-      if (NetIFGetWiFiNetworkWasCaptive(v95))
+      if (NetIFGetWiFiNetworkWasCaptive(v91))
       {
-        *&v94 = *MEMORY[0x277CBED28];
+        *&v90 = *MEMORY[0x277CBED28];
       }
 
       BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-      *(&v96 + 1) = networkCopyCaptivePortalAPIURL(BSDName);
+      *(&v92 + 1) = networkCopyCaptivePortalAPIURL(BSDName);
     }
 
     CacheEntry = CNInfoGetCacheEntry(a1);
     if (CacheEntry)
     {
-      v31 = CacheEntry;
+      v30 = CacheEntry;
       if (NetCacheEntryGetIsCaptive(CacheEntry))
       {
-        NetCacheEntryDestroy(v31);
+        NetCacheEntryDestroy(v30);
       }
 
       else
       {
-        *(&v94 + 1) = *MEMORY[0x277CBED28];
+        *(&v90 + 1) = *MEMORY[0x277CBED28];
       }
     }
 
-    v58 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-    AuthCommand = createAuthCommand(v58, 2, &v93);
-    networkAttributesRelease(&v93);
+    v57 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+    AuthCommand = createAuthCommand(v57, 2, &v89);
+    networkAttributesRelease(&v89);
     my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
-    v60 = CNPluginStateListIssueEvaluateCommand(AuthCommand, *(a1 + 96));
+    v59 = CNPluginStateListIssueEvaluateCommand(AuthCommand, *(a1 + 96));
     CFRelease(AuthCommand);
-    if (v60)
+    if (v59)
     {
-      v18 = *(a1 + 88);
-      v19 = 5.0;
-      v20 = a1;
-      v21 = 3;
+      v17 = *(a1 + 88);
+      v18 = 5.0;
+      v19 = a1;
+      v20 = 3;
       goto LABEL_75;
     }
 
     buf.info = @"Evaluate command has no recipients";
     buf.isa = 1;
-    v61 = mysyslog_get_logger();
-    v62 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v61, v62))
+    v60 = mysyslog_get_logger();
+    v61 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v60, v61))
     {
-      *v92 = 0;
-      _os_log_impl(&dword_277237000, v61, v62, "Evaluate command has no recipients", v92, 2u);
+      *v88 = 0;
+      _os_log_impl(&dword_277237000, v60, v61, "Evaluate command has no recipients", v88, 2u);
     }
 
     CNInfoFailure(a1, &buf);
-    goto LABEL_102;
+    return;
   }
 
   if (a2 != 1)
   {
-    goto LABEL_102;
+    return;
   }
 
   v6 = CNPluginStateGetDisplayID(*a3);
-  Value = CFDictionaryGetValue(*(a3 + 8), @"RedirectHostname");
+  Value = CFDictionaryGetValue(a3[1], @"RedirectHostname");
   if (Value)
   {
     PassiveDetectSetRedirectURLHostname(Value);
   }
 
-  Result = responseGetResult(*(a3 + 8));
+  Result = responseGetResult(a3[1]);
   v9 = mysyslog_get_logger();
   v10 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v9, v10))
@@ -7405,28 +7180,27 @@ LABEL_101:
       _os_log_impl(&dword_277237000, v11, v12, "%@: Evaluate result is %s (%d)", &buf, 0x1Cu);
     }
 
-    v14 = *(a1 + 40);
     if (NetIFWiFiNetworkIsCarPlayAndInternet())
     {
-      v15 = mysyslog_get_logger();
-      v16 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v15, v16))
+      v14 = mysyslog_get_logger();
+      v15 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v14, v15))
       {
-        v17 = *(a1 + 40);
-        if (v17)
+        v16 = *(a1 + 40);
+        if (v16)
         {
-          v17 = WiFiNetworkGetSSID();
+          v16 = WiFiNetworkGetSSID();
         }
 
         LODWORD(buf.isa) = 138412290;
-        *(&buf.isa + 4) = v17;
-        _os_log_impl(&dword_277237000, v15, v16, "continuing to evaluate CarPlay Wi-Fi %@", &buf, 0xCu);
+        *(&buf.isa + 4) = v16;
+        _os_log_impl(&dword_277237000, v14, v15, "continuing to evaluate CarPlay Wi-Fi %@", &buf, 0xCu);
       }
 
-      v18 = *(a1 + 88);
-      v19 = 300.0;
-      v20 = a1;
-      v21 = 0;
+      v17 = *(a1 + 88);
+      v18 = 300.0;
+      v19 = a1;
+      v20 = 0;
       goto LABEL_75;
     }
 
@@ -7434,33 +7208,33 @@ LABEL_101:
     if (*(a1 + 232) == 1)
     {
       *(a1 + 232) = 3;
-      v63 = mysyslog_get_logger();
-      v64 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v63, v64))
+      v62 = mysyslog_get_logger();
+      v63 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v62, v63))
       {
         LODWORD(buf.isa) = 138412290;
         *(&buf.isa + 4) = v6;
-        _os_log_impl(&dword_277237000, v63, v64, "%@: Evaluation with IPv6 Only configuration failed", &buf, 0xCu);
+        _os_log_impl(&dword_277237000, v62, v63, "%@: Evaluation with IPv6 Only configuration failed", &buf, 0xCu);
       }
 
       _handleIPv6OnlyEvaluationFailure(a1);
-      goto LABEL_102;
+      return;
     }
 
     goto LABEL_83;
   }
 
-  v45 = CFDictionaryGetValue(*(a3 + 8), @"Network");
+  v44 = CFDictionaryGetValue(a3[1], @"Network");
   TypeID = CFDictionaryGetTypeID();
-  if (!v45 || CFGetTypeID(v45) != TypeID || (v47 = CFDictionaryGetValue(v45, @"IsCaptive"), v48 = CFBooleanGetTypeID(), !v47) || CFGetTypeID(v47) != v48 || !CFBooleanGetValue(v47))
+  if (!v44 || CFGetTypeID(v44) != TypeID || (v46 = CFDictionaryGetValue(v44, @"IsCaptive"), v47 = CFBooleanGetTypeID(), !v46) || CFGetTypeID(v46) != v47 || !CFBooleanGetValue(v46))
   {
-    v56 = mysyslog_get_logger();
-    v57 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v56, v57))
+    v55 = mysyslog_get_logger();
+    v56 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v55, v56))
     {
       LODWORD(buf.isa) = 138412290;
       *(&buf.isa + 4) = v6;
-      _os_log_impl(&dword_277237000, v56, v57, "%@: network is not captive", &buf, 0xCu);
+      _os_log_impl(&dword_277237000, v55, v56, "%@: network is not captive", &buf, 0xCu);
     }
 
     if (CNPluginStateIsBuiltin(*a3) == 1)
@@ -7474,86 +7248,86 @@ LABEL_83:
   }
 
   NetIFSetRankNever(*(a1 + 32));
-  v49 = CFDictionaryGetValue(*(a3 + 8), @"Network");
-  Confidence = networkGetConfidence(v49, v6);
-  v51 = CFDictionaryGetValue(*(a3 + 8), @"Network");
-  v52 = CFDictionaryGetTypeID();
-  if (v51)
+  v48 = CFDictionaryGetValue(a3[1], @"Network");
+  Confidence = networkGetConfidence(v48, v6);
+  v50 = CFDictionaryGetValue(a3[1], @"Network");
+  v51 = CFDictionaryGetTypeID();
+  if (v50)
   {
-    if (CFGetTypeID(v51) == v52 && (v51 = CFDictionaryGetValue(v51, @"DetectionType"), LODWORD(buf.isa) = 0, v53 = CFNumberGetTypeID(), v51) && CFGetTypeID(v51) == v53)
+    if (CFGetTypeID(v50) == v51 && (v50 = CFDictionaryGetValue(v50, @"DetectionType"), LODWORD(buf.isa) = 0, v52 = CFNumberGetTypeID(), v50) && CFGetTypeID(v50) == v52)
     {
-      CFNumberGetValue(v51, kCFNumberSInt32Type, &buf);
-      LODWORD(v51) = buf.isa;
+      CFNumberGetValue(v50, kCFNumberSInt32Type, &buf);
+      LODWORD(v50) = buf.isa;
       if (LODWORD(buf.isa) >= 4)
       {
-        v54 = mysyslog_get_logger();
-        v55 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v54, v55))
+        v53 = mysyslog_get_logger();
+        v54 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v53, v54))
         {
           LODWORD(buf.isa) = 138412546;
           *(&buf.isa + 4) = v6;
           WORD2(buf.info) = 1024;
-          *(&buf.info + 6) = v51;
-          _os_log_impl(&dword_277237000, v54, v55, "%@: invalid captive detection type value %d treating as None", &buf, 0x12u);
+          *(&buf.info + 6) = v50;
+          _os_log_impl(&dword_277237000, v53, v54, "%@: invalid captive detection type value %d treating as None", &buf, 0x12u);
         }
       }
     }
 
     else
     {
-      LODWORD(v51) = 0;
+      LODWORD(v50) = 0;
     }
   }
 
-  v76 = mysyslog_get_logger();
-  v77 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v76, v77))
+  v72 = mysyslog_get_logger();
+  v73 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v72, v73))
   {
-    v78 = CNPConfidenceGetString(Confidence);
-    v79 = CNPCaptiveDetectionTypeGetString(v51);
+    v74 = CNPConfidenceGetString(Confidence);
+    v75 = CNPCaptiveDetectionTypeGetString(v50);
     LODWORD(buf.isa) = 138412802;
     *(&buf.isa + 4) = v6;
     WORD2(buf.info) = 2080;
-    *(&buf.info + 6) = v78;
+    *(&buf.info + 6) = v74;
     HIWORD(buf.data) = 2080;
-    buf.length = v79;
-    _os_log_impl(&dword_277237000, v76, v77, "%@: network is captive Confidence: %s, Detection Type: %s", &buf, 0x20u);
+    buf.length = v75;
+    _os_log_impl(&dword_277237000, v72, v73, "%@: network is captive Confidence: %s, Detection Type: %s", &buf, 0x20u);
   }
 
   if (!*(a1 + 72) || Confidence > *(a1 + 80))
   {
     if (CNPluginStateIsProvider(*a3))
     {
-      v80 = CNPluginStateGetAuthenticationProvider(*a3);
-      if (v80)
+      v76 = CNPluginStateGetAuthenticationProvider(*a3);
+      if (v76)
       {
-        v81 = v80;
-        v82 = mysyslog_get_logger();
-        v83 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v82, v83))
+        v77 = v76;
+        v78 = mysyslog_get_logger();
+        v79 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v78, v79))
         {
-          v84 = CNPluginStateGetDisplayID(v81);
+          v80 = CNPluginStateGetDisplayID(v77);
           LODWORD(buf.isa) = 138412290;
-          *(&buf.isa + 4) = v84;
-          _os_log_impl(&dword_277237000, v82, v83, "making hotspot provider [%@] best plugin", &buf, 0xCu);
+          *(&buf.isa + 4) = v80;
+          _os_log_impl(&dword_277237000, v78, v79, "making hotspot provider [%@] best plugin", &buf, 0xCu);
         }
 
-        my_FieldSetRetainedCFType((a1 + 72), v81);
+        my_FieldSetRetainedCFType((a1 + 72), v77);
         *(a1 + 80) = Confidence;
-        CNPluginStateStartHotspotProvider(v81);
+        CNPluginStateStartHotspotProvider(v77);
       }
     }
 
     else
     {
-      v85 = mysyslog_get_logger();
-      v86 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v85, v86))
+      v81 = mysyslog_get_logger();
+      v82 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v81, v82))
       {
-        v87 = CNPluginStateGetDisplayID(*a3);
+        v83 = CNPluginStateGetDisplayID(*a3);
         LODWORD(buf.isa) = 138412290;
-        *(&buf.isa + 4) = v87;
-        _os_log_impl(&dword_277237000, v85, v86, "making plugin [%@] best plugin", &buf, 0xCu);
+        *(&buf.isa + 4) = v83;
+        _os_log_impl(&dword_277237000, v81, v82, "making plugin [%@] best plugin", &buf, 0xCu);
       }
 
       my_FieldSetRetainedCFType((a1 + 72), *a3);
@@ -7561,62 +7335,57 @@ LABEL_83:
     }
   }
 
-  *(a1 + 164) = v51;
+  *(a1 + 164) = v50;
   HasNeverBeenCaptive = NetIFWiFiNetworkHasNeverBeenCaptive(*(a1 + 40));
   *(a1 + 161) = HasNeverBeenCaptive;
   if (HasNeverBeenCaptive)
   {
-    v89 = mysyslog_get_logger();
-    v90 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v89, v90))
+    v85 = mysyslog_get_logger();
+    v86 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v85, v86))
     {
-      v91 = *(a1 + 40);
-      if (v91)
+      v87 = *(a1 + 40);
+      if (v87)
       {
-        v91 = WiFiNetworkGetSSID();
+        v87 = WiFiNetworkGetSSID();
       }
 
       LODWORD(buf.isa) = 138412290;
-      *(&buf.isa + 4) = v91;
-      _os_log_impl(&dword_277237000, v89, v90, "SSID %@ became captive network", &buf, 0xCu);
+      *(&buf.isa + 4) = v87;
+      _os_log_impl(&dword_277237000, v85, v86, "SSID %@ became captive network", &buf, 0xCu);
     }
   }
 
 LABEL_84:
-  if (CNPluginStateIsBuiltin(*a3))
+  if (CNPluginStateIsBuiltin(*a3) && NetIFIsQuickProbeRequired())
   {
-    v65 = *(a1 + 40);
-    if (NetIFIsQuickProbeRequired())
+    v64 = mysyslog_get_logger();
+    v65 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v64, v65))
     {
-      v66 = mysyslog_get_logger();
-      v67 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v66, v67))
+      v66 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+      v67 = *(a1 + 40);
+      if (v67)
       {
-        v68 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-        v69 = *(a1 + 40);
-        if (v69)
-        {
-          v69 = WiFiNetworkGetSSID();
-        }
-
-        v70 = "failure";
-        LODWORD(buf.isa) = 138412802;
-        *(&buf.isa + 4) = v68;
-        if (!Result)
-        {
-          v70 = "success";
-        }
-
-        WORD2(buf.info) = 2112;
-        *(&buf.info + 6) = v69;
-        HIWORD(buf.data) = 2080;
-        buf.length = v70;
-        _os_log_impl(&dword_277237000, v66, v67, "%@: SSID '%@' reporting quick probe %s", &buf, 0x20u);
+        v67 = WiFiNetworkGetSSID();
       }
 
-      v71 = *(a1 + 40);
-      NetIFReportQuickProbeResult();
+      v68 = "failure";
+      LODWORD(buf.isa) = 138412802;
+      *(&buf.isa + 4) = v66;
+      if (!Result)
+      {
+        v68 = "success";
+      }
+
+      WORD2(buf.info) = 2112;
+      *(&buf.info + 6) = v67;
+      HIWORD(buf.data) = 2080;
+      buf.length = v68;
+      _os_log_impl(&dword_277237000, v64, v65, "%@: SSID '%@' reporting quick probe %s", &buf, 0x20u);
     }
+
+    NetIFReportQuickProbeResult();
   }
 
   IsEvaluateResponsePending = CNPluginStateListIsEvaluateResponsePending();
@@ -7625,12 +7394,12 @@ LABEL_84:
     if (!IsEvaluateResponsePending)
     {
       TimerCancel(*(a1 + 88));
-      v73 = mysyslog_get_logger();
-      v74 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v73, v74))
+      v70 = mysyslog_get_logger();
+      v71 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v70, v71))
       {
         LOWORD(buf.isa) = 0;
-        _os_log_impl(&dword_277237000, v73, v74, "all the plugins/providers responded to Evaluate command", &buf, 2u);
+        _os_log_impl(&dword_277237000, v70, v71, "all the plugins/providers responded to Evaluate command", &buf, 2u);
       }
     }
 
@@ -7642,18 +7411,15 @@ LABEL_84:
 
     goto LABEL_101;
   }
-
-LABEL_102:
-  v75 = *MEMORY[0x277D85DE8];
 }
 
-void CNInfoAuthenticating(uint64_t a1, int a2, uint64_t a3)
+void CNInfoAuthenticating(uint64_t a1, int a2, uint64_t *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v37 = 0u;
-  v38 = 0u;
-  v36 = 0u;
-  memset(&v35, 0, sizeof(v35));
+  v42 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
+  v35 = 0u;
+  v33 = 0u;
+  memset(&v32, 0, sizeof(v32));
   if (a2 == 2)
   {
     logger = mysyslog_get_logger();
@@ -7670,73 +7436,73 @@ void CNInfoAuthenticating(uint64_t a1, int a2, uint64_t a3)
 
   if (a2 != 1)
   {
-    if (!a2)
+    if (a2)
     {
-      CNInfoSetAuthState(a1, 3);
-      CNInfoFlushAuthCommand(a1);
-      *(a1 + 104) &= 0xFFFFFFFC;
-      *(a1 + 232) = 0;
-      v4 = *(a1 + 72);
-      if (v4)
-      {
-        NetIFWiFiNetworkSetCaptive(*(a1 + 40), 1u);
-        CNInfoUpdateWiFiNetwork(a1);
-        if (CNPluginStateIsAuthenticationProvider(v4))
-        {
-          p_data = 0;
-        }
-
-        else
-        {
-          p_data = &v35.data;
-          networkAttributesInit(&v35.data, *(a1 + 40), 1, 0);
-        }
-
-        BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-        AuthCommand = createAuthCommand(BSDName, 3, p_data);
-        networkAttributesRelease(&v35.data);
-        my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
-        CNPluginStateIssueCommand(v4, AuthCommand);
-        CFRelease(AuthCommand);
-        TimerSet(*(a1 + 88), CNInfoAuthenticating, a1, 2, 0, 45.0);
-        if (*(a1 + 184) > 0.0)
-        {
-          ++*(a1 + 192);
-          Current = CFAbsoluteTimeGetCurrent();
-          v27 = *(a1 + 184);
-          if (Current > v27)
-          {
-            *(a1 + 200) = Current - v27 + *(a1 + 200);
-          }
-
-          *(a1 + 184) = 0;
-        }
-
-        goto LABEL_38;
-      }
-
-      LOBYTE(v35.isa) = 1;
-      v35.info = @"no plugin";
-      v22 = mysyslog_get_logger();
-      v23 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v22, v23))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_277237000, v22, v23, "no plugin", buf, 2u);
-      }
-
-      goto LABEL_37;
+      return;
     }
 
-LABEL_38:
-    v31 = *MEMORY[0x277D85DE8];
+    CNInfoSetAuthState(a1, 3);
+    CNInfoFlushAuthCommand(a1);
+    *(a1 + 104) &= 0xFFFFFFFC;
+    *(a1 + 232) = 0;
+    v4 = *(a1 + 72);
+    if (v4)
+    {
+      NetIFWiFiNetworkSetCaptive(*(a1 + 40), 1u);
+      CNInfoUpdateWiFiNetwork(a1);
+      if (CNPluginStateIsAuthenticationProvider(v4))
+      {
+        p_data = 0;
+      }
+
+      else
+      {
+        p_data = &v32.data;
+        networkAttributesInit(&v32.data, *(a1 + 40), 1, 0);
+      }
+
+      BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+      AuthCommand = createAuthCommand(BSDName, 3, p_data);
+      networkAttributesRelease(&v32.data);
+      my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
+      CNPluginStateIssueCommand(v4, AuthCommand);
+      CFRelease(AuthCommand);
+      TimerSet(*(a1 + 88), CNInfoAuthenticating, a1, 2, 0, 45.0);
+      if (*(a1 + 184) > 0.0)
+      {
+        ++*(a1 + 192);
+        Current = CFAbsoluteTimeGetCurrent();
+        v26 = *(a1 + 184);
+        if (Current > v26)
+        {
+          *(a1 + 200) = Current - v26 + *(a1 + 200);
+        }
+
+        *(a1 + 184) = 0;
+      }
+
+      return;
+    }
+
+    LOBYTE(v32.isa) = 1;
+    v32.info = @"no plugin";
+    v21 = mysyslog_get_logger();
+    v22 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v21, v22))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_277237000, v21, v22, "no plugin", buf, 2u);
+    }
+
+LABEL_37:
+    CNInfoFailure(a1, &v32);
     return;
   }
 
   PassiveDetectSetCallBack(0, 0);
   TimerCancel(*(a1 + 88));
   DisplayID = CNPluginStateGetDisplayID(*a3);
-  Result = responseGetResult(*(a3 + 8));
+  Result = responseGetResult(a3[1]);
   v9 = Result;
   v10 = 1;
   v11 = @"authentication failure";
@@ -7778,49 +7544,47 @@ LABEL_33:
           my_FieldSetRetainedCFType((a1 + 64), v18);
           CNPluginStateIssueCommand(v14, v18);
           CFRelease(v18);
-          goto LABEL_38;
+          return;
         }
 
         goto LABEL_33;
       }
 
 LABEL_34:
-      LOBYTE(v35.isa) = v10;
-      v35.info = v11;
-      v28 = mysyslog_get_logger();
-      v29 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v28, v29))
+      LOBYTE(v32.isa) = v10;
+      v32.info = v11;
+      v27 = mysyslog_get_logger();
+      v28 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v27, v28))
       {
         String = CNPResultGetString(v9);
         *buf = 138412802;
-        v40 = DisplayID;
-        v41 = 2080;
-        v42 = String;
-        v43 = 1024;
-        v44 = v9;
-        _os_log_impl(&dword_277237000, v28, v29, "%@: Authenticate result %s (%d)", buf, 0x1Cu);
+        v37 = DisplayID;
+        v38 = 2080;
+        v39 = String;
+        v40 = 1024;
+        v41 = v9;
+        _os_log_impl(&dword_277237000, v27, v28, "%@: Authenticate result %s (%d)", buf, 0x1Cu);
       }
 
       CNPluginStateStopHotspotAuthenticationProvider(*a3);
-LABEL_37:
-      CNInfoFailure(a1, &v35);
-      goto LABEL_38;
+      goto LABEL_37;
     }
 
-    v32 = mysyslog_get_logger();
-    v33 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v32, v33))
+    v30 = mysyslog_get_logger();
+    v31 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v30, v31))
     {
       *buf = 138412290;
-      v40 = DisplayID;
-      _os_log_impl(&dword_277237000, v32, v33, "%@: Authenticate failed: Unsupported Network", buf, 0xCu);
+      v37 = DisplayID;
+      _os_log_impl(&dword_277237000, v30, v31, "%@: Authenticate failed: Unsupported Network", buf, 0xCu);
     }
 
     CNPluginStateStopHotspotAuthenticationProvider(*a3);
     CNInfoAddExcludedDisplayID(a1, DisplayID);
 LABEL_20:
     CNInfoEvaluating(a1, 0, 0);
-    goto LABEL_38;
+    return;
   }
 
   if (Result)
@@ -7830,147 +7594,204 @@ LABEL_20:
       goto LABEL_34;
     }
 
-    v21 = *MEMORY[0x277D85DE8];
-
     CNInfoPresentingUI(a1, 0, 0);
   }
 
   else
   {
-    v34 = *MEMORY[0x277D85DE8];
 
     CNInfoAuthenticated(a1, 0, a3);
   }
 }
 
-void CNInfoMaintaining(uint64_t a1, int a2, uint64_t a3)
+void CNInfoMaintaining(uint64_t a1, int a2, uint64_t *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  memset(v34, 0, sizeof(v34));
+  v34 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
+  memset(v31, 0, sizeof(v31));
   if (a2 > 1)
   {
-    if (a2 != 2)
+    if (a2 == 2)
     {
-      if (a2 == 3)
+      logger = mysyslog_get_logger();
+      v16 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(logger, v16))
       {
-        logger = mysyslog_get_logger();
-        v11 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(logger, v11))
-        {
-          LOWORD(buf.isa) = 0;
-          _os_log_impl(&dword_277237000, logger, v11, "Maintain timed out at wake, setting interface rank to Never", &buf, 2u);
-        }
-
-        CNPluginStateStopHotspotAuthenticationProvider(*(a1 + 72));
-        NetIFSetRankNever(*(a1 + 32));
+        LOWORD(buf.isa) = 0;
+        _os_log_impl(&dword_277237000, logger, v16, "Maintain timed out", &buf, 2u);
       }
 
-      goto LABEL_53;
+      v17 = *(a1 + 72);
+      goto LABEL_35;
     }
 
-    v16 = mysyslog_get_logger();
-    v17 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v16, v17))
+    if (a2 == 3)
     {
-      LOWORD(buf.isa) = 0;
-      _os_log_impl(&dword_277237000, v16, v17, "Maintain timed out", &buf, 2u);
-    }
+      v9 = mysyslog_get_logger();
+      v10 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v9, v10))
+      {
+        LOWORD(buf.isa) = 0;
+        _os_log_impl(&dword_277237000, v9, v10, "Maintain timed out at wake, setting interface rank to Never", &buf, 2u);
+      }
 
-    v18 = *(a1 + 72);
-    goto LABEL_35;
+      CNPluginStateStopHotspotAuthenticationProvider(*(a1 + 72));
+      NetIFSetRankNever(*(a1 + 32));
+    }
   }
 
-  if (!a2)
+  else if (a2)
+  {
+    if (a2 != 1)
+    {
+      return;
+    }
+
+    PassiveDetectSetCallBack(0, 0);
+    TimerCancel(*(a1 + 88));
+    DisplayID = CNPluginStateGetDisplayID(*a3);
+    Value = CFDictionaryGetValue(a3[1], @"RedirectHostname");
+    if (Value)
+    {
+      PassiveDetectSetRedirectURLHostname(Value);
+    }
+
+    Result = responseGetResult(a3[1]);
+    if (Result != 4)
+    {
+      v8 = Result;
+      if (!Result)
+      {
+        PassiveDetectReportNotCaptive();
+        if (*(a1 + 162))
+        {
+          ++*(a1 + 212);
+        }
+
+        CNInfoAuthenticated(a1, 0, a3);
+        return;
+      }
+
+      v20 = mysyslog_get_logger();
+      v21 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v20, v21))
+      {
+        LODWORD(buf.isa) = 138412802;
+        *(&buf.isa + 4) = DisplayID;
+        WORD2(buf.info) = 2080;
+        *(&buf.info + 6) = CNPResultGetString(v8);
+        HIWORD(buf.data) = 1024;
+        LODWORD(buf.length) = v8;
+        _os_log_impl(&dword_277237000, v20, v21, "%@: Maintain result is %s (%d)", &buf, 0x1Cu);
+      }
+
+      NetIFSetRankNever(*(a1 + 32));
+      v17 = *a3;
+LABEL_35:
+      CNPluginStateStopHotspotAuthenticationProvider(v17);
+      CNInfoEvaluating(a1, 0, 0);
+      return;
+    }
+
+    NetIFSetRankNever(*(a1 + 32));
+    if (*(a1 + 162))
+    {
+      ++*(a1 + 208);
+    }
+
+    CNInfoAuthenticating(a1, 0, 0);
+  }
+
+  else
   {
     CNInfoSetAuthState(a1, 5);
     PassiveDetectSetCallBack(0, 0);
     TimerCancel(*(a1 + 88));
     CNInfoFlushAuthCommand(a1);
     *(a1 + 104) &= ~1u;
-    v12 = *(a1 + 72);
-    if (v12)
+    v11 = *(a1 + 72);
+    if (v11)
     {
       if (CNPluginStateIsAuthenticationProvider(*(a1 + 72)))
       {
-        v13 = 0;
-        v14 = 2;
-        v15 = 45.0;
+        v12 = 0;
+        v13 = 2;
+        v14 = 45.0;
       }
 
       else
       {
-        networkAttributesInit(v34, *(a1 + 40), 1, 0);
+        networkAttributesInit(v31, *(a1 + 40), 1, 0);
         if (a3)
         {
-          *(&v34[0] + 1) = *a3;
+          *(&v31[0] + 1) = *a3;
           if (*(a3 + 8))
           {
-            v15 = 3.0;
+            v14 = 3.0;
           }
 
           else
           {
-            v15 = 45.0;
+            v14 = 45.0;
           }
 
           if (*(a3 + 8))
           {
-            v14 = 3;
+            v13 = 3;
           }
 
           else
           {
-            v14 = 2;
+            v13 = 2;
           }
         }
 
         else
         {
-          v14 = 2;
-          v15 = 45.0;
+          v13 = 2;
+          v14 = 45.0;
         }
 
-        *(&v35 + 1) = NetIFWiFiNetworkCopyCaptivePortalAPIURL(*(a1 + 40));
-        if (!*(&v35 + 1))
+        *(&v32 + 1) = NetIFWiFiNetworkCopyCaptivePortalAPIURL(*(a1 + 40));
+        if (!*(&v32 + 1))
         {
-          v24 = mysyslog_get_logger();
-          v25 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v24, v25))
+          v22 = mysyslog_get_logger();
+          v23 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v22, v23))
           {
             LOWORD(buf.isa) = 0;
-            _os_log_impl(&dword_277237000, v24, v25, "NetIFWiFiNetworkCopyCaptivePortalAPIURL() returned NULL", &buf, 2u);
+            _os_log_impl(&dword_277237000, v22, v23, "NetIFWiFiNetworkCopyCaptivePortalAPIURL() returned NULL", &buf, 2u);
           }
 
           BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-          *(&v35 + 1) = networkCopyCaptivePortalAPIURL(BSDName);
+          *(&v32 + 1) = networkCopyCaptivePortalAPIURL(BSDName);
         }
 
-        v13 = v34;
+        v12 = v31;
       }
 
-      v27 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-      AuthCommand = createAuthCommand(v27, 5, v13);
-      networkAttributesRelease(v34);
-      if (CNPluginStateIsBuiltin(v12) || CNPluginStateIsProvider(v12) || CNPluginStateIsHelperAppRunning(v12))
+      v25 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+      AuthCommand = createAuthCommand(v25, 5, v12);
+      networkAttributesRelease(v31);
+      if (CNPluginStateIsBuiltin(v11) || CNPluginStateIsProvider(v11) || CNPluginStateIsHelperAppRunning(v11))
       {
         my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
-        CNPluginStateIssueCommand(v12, AuthCommand);
-        CNPluginStateStartHotspotProvider(v12);
+        CNPluginStateIssueCommand(v11, AuthCommand);
+        CNPluginStateStartHotspotProvider(v11);
         CFRelease(AuthCommand);
-        TimerSet(*(a1 + 88), CNInfoMaintaining, a1, v14, 0, v15);
+        TimerSet(*(a1 + 88), CNInfoMaintaining, a1, v13, 0, v14);
       }
 
       else
       {
-        v30 = mysyslog_get_logger();
-        v31 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v30, v31))
+        v27 = mysyslog_get_logger();
+        v28 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v27, v28))
         {
-          DisplayID = CNPluginStateGetDisplayID(v12);
+          v29 = CNPluginStateGetDisplayID(v11);
           LODWORD(buf.isa) = 138412290;
-          *(&buf.isa + 4) = DisplayID;
-          _os_log_impl(&dword_277237000, v30, v31, "The best plugin [%@] is not running, unable to maintain this network", &buf, 0xCu);
+          *(&buf.isa + 4) = v29;
+          _os_log_impl(&dword_277237000, v27, v28, "The best plugin [%@] is not running, unable to maintain this network", &buf, 0xCu);
         }
 
         NetIFSetRankNever(*(a1 + 32));
@@ -7985,199 +7806,131 @@ void CNInfoMaintaining(uint64_t a1, int a2, uint64_t a3)
     else
     {
       *&buf.isa = xmmword_27A7148D0;
-      v19 = mysyslog_get_logger();
-      v20 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v19, v20))
+      v18 = mysyslog_get_logger();
+      v19 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v18, v19))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_277237000, v19, v20, "no plugin", v33, 2u);
+        *v30 = 0;
+        _os_log_impl(&dword_277237000, v18, v19, "no plugin", v30, 2u);
       }
 
       CNInfoFailure(a1, &buf);
     }
-
-    goto LABEL_53;
   }
+}
 
-  if (a2 != 1)
+void CNInfoPresentingUI(uint64_t a1, int a2, uint64_t *a3)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
+  v21 = 0u;
+  memset(&v20, 0, sizeof(v20));
+  if (a2)
   {
-LABEL_53:
-    v29 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  PassiveDetectSetCallBack(0, 0);
-  TimerCancel(*(a1 + 88));
-  v5 = CNPluginStateGetDisplayID(*a3);
-  Value = CFDictionaryGetValue(*(a3 + 8), @"RedirectHostname");
-  if (Value)
-  {
-    PassiveDetectSetRedirectURLHostname(Value);
-  }
-
-  Result = responseGetResult(*(a3 + 8));
-  if (Result != 4)
-  {
-    v8 = Result;
-    if (!Result)
+    DisplayID = CNPluginStateGetDisplayID(*a3);
+    Result = responseGetResult(a3[1]);
+    v7 = Result;
+    if (Result == 6)
     {
-      PassiveDetectReportNotCaptive();
-      if (*(a1 + 162))
+      v12 = 0;
+      v13 = 0;
+LABEL_16:
+      LOBYTE(v20.isa) = v13;
+      v20.info = v12;
+      logger = mysyslog_get_logger();
+      v15 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(logger, v15))
       {
-        ++*(a1 + 212);
+        *buf = 138412802;
+        v25 = DisplayID;
+        v26 = 2080;
+        String = CNPResultGetString(v7);
+        v28 = 1024;
+        v29 = v7;
+        _os_log_impl(&dword_277237000, logger, v15, "%@: PresentUI result %s (%d)", buf, 0x1Cu);
       }
 
-      v9 = *MEMORY[0x277D85DE8];
-
-      CNInfoAuthenticated(a1, 0, a3);
+      CNPluginStateStopHotspotAuthenticationProvider(*a3);
+LABEL_19:
+      CNInfoFailure(a1, &v20);
       return;
     }
 
-    v22 = mysyslog_get_logger();
-    v23 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v22, v23))
+    if (Result != 5)
     {
-      LODWORD(buf.isa) = 138412802;
-      *(&buf.isa + 4) = v5;
-      WORD2(buf.info) = 2080;
-      *(&buf.info + 6) = CNPResultGetString(v8);
-      HIWORD(buf.data) = 1024;
-      LODWORD(buf.length) = v8;
-      _os_log_impl(&dword_277237000, v22, v23, "%@: Maintain result is %s (%d)", &buf, 0x1Cu);
-    }
-
-    NetIFSetRankNever(*(a1 + 32));
-    v18 = *a3;
-LABEL_35:
-    CNPluginStateStopHotspotAuthenticationProvider(v18);
-    CNInfoEvaluating(a1, 0, 0);
-    goto LABEL_53;
-  }
-
-  NetIFSetRankNever(*(a1 + 32));
-  if (*(a1 + 162))
-  {
-    ++*(a1 + 208);
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
-
-  CNInfoAuthenticating(a1, 0, 0);
-}
-
-void CNInfoPresentingUI(uint64_t a1, int a2, uint64_t a3)
-{
-  v32 = *MEMORY[0x277D85DE8];
-  v24 = 0u;
-  v25 = 0u;
-  v23 = 0u;
-  memset(&v22, 0, sizeof(v22));
-  if (!a2)
-  {
-    CNInfoSetAuthState(a1, 7);
-    PassiveDetectSetCallBack(0, 0);
-    TimerCancel(*(a1 + 88));
-    CNInfoFlushAuthCommand(a1);
-    v9 = *(a1 + 72);
-    if (v9)
-    {
-      if (CNPluginStateIsAuthenticationProvider(*(a1 + 72)))
+      if (!Result)
       {
-        p_data = 0;
+
+        CNInfoAuthenticated(a1, 0, a3);
+        return;
       }
 
-      else
-      {
-        p_data = &v22.data;
-        networkAttributesInit(&v22.data, *(a1 + 40), 1, *(a1 + 161));
-      }
-
-      BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-      AuthCommand = createAuthCommand(BSDName, 4, p_data);
-      networkAttributesRelease(&v22.data);
-      my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
-      CNPluginStateIssueForegroundCommand(v9, AuthCommand);
-      CFRelease(AuthCommand);
-      goto LABEL_24;
+      v13 = 1;
+      v12 = @"PresentUI failure";
+      goto LABEL_16;
     }
 
-    LOBYTE(v22.isa) = 1;
-    v22.info = @"no plugin";
-    logger = mysyslog_get_logger();
-    v18 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v18))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_277237000, logger, v18, "no plugin", buf, 2u);
-    }
-
-LABEL_19:
-    CNInfoFailure(a1, &v22);
-LABEL_24:
-    v21 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  DisplayID = CNPluginStateGetDisplayID(*a3);
-  Result = responseGetResult(*(a3 + 8));
-  v7 = Result;
-  if (Result == 6)
-  {
-    v13 = 0;
-    v14 = 0;
-LABEL_16:
-    LOBYTE(v22.isa) = v14;
-    v22.info = v13;
-    v15 = mysyslog_get_logger();
-    v16 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v15, v16))
-    {
-      *buf = 138412802;
-      v27 = DisplayID;
-      v28 = 2080;
-      String = CNPResultGetString(v7);
-      v30 = 1024;
-      v31 = v7;
-      _os_log_impl(&dword_277237000, v15, v16, "%@: PresentUI result %s (%d)", buf, 0x1Cu);
-    }
-
-    CNPluginStateStopHotspotAuthenticationProvider(*a3);
-    goto LABEL_19;
-  }
-
-  if (Result == 5)
-  {
-    v11 = mysyslog_get_logger();
-    v12 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v11, v12))
+    v10 = mysyslog_get_logger();
+    v11 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v10, v11))
     {
       *buf = 138412290;
-      v27 = DisplayID;
-      _os_log_impl(&dword_277237000, v11, v12, "%@: PresentUI failed: Unsupported Network", buf, 0xCu);
+      v25 = DisplayID;
+      _os_log_impl(&dword_277237000, v10, v11, "%@: PresentUI failed: Unsupported Network", buf, 0xCu);
     }
 
     CNPluginStateStopHotspotAuthenticationProvider(*a3);
     CNInfoAddExcludedDisplayID(a1, DisplayID);
     CNInfoEvaluating(a1, 0, 0);
-    goto LABEL_24;
   }
 
-  if (Result)
+  else
   {
-    v14 = 1;
-    v13 = @"PresentUI failure";
-    goto LABEL_16;
+    CNInfoSetAuthState(a1, 7);
+    PassiveDetectSetCallBack(0, 0);
+    TimerCancel(*(a1 + 88));
+    CNInfoFlushAuthCommand(a1);
+    v8 = *(a1 + 72);
+    if (!v8)
+    {
+      LOBYTE(v20.isa) = 1;
+      v20.info = @"no plugin";
+      v16 = mysyslog_get_logger();
+      v17 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v16, v17))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_277237000, v16, v17, "no plugin", buf, 2u);
+      }
+
+      goto LABEL_19;
+    }
+
+    if (CNPluginStateIsAuthenticationProvider(*(a1 + 72)))
+    {
+      p_data = 0;
+    }
+
+    else
+    {
+      p_data = &v20.data;
+      networkAttributesInit(&v20.data, *(a1 + 40), 1, *(a1 + 161));
+    }
+
+    BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+    AuthCommand = createAuthCommand(BSDName, 4, p_data);
+    networkAttributesRelease(&v20.data);
+    my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
+    CNPluginStateIssueForegroundCommand(v8, AuthCommand);
+    CFRelease(AuthCommand);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  CNInfoAuthenticated(a1, 0, a3);
 }
 
 void CNInfoLoggingOff(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  memset(v16, 0, sizeof(v16));
+  v20 = *MEMORY[0x277D85DE8];
+  memset(v15, 0, sizeof(v15));
   v2 = *(a1 + 72);
   if (v2)
   {
@@ -8192,13 +7945,13 @@ void CNInfoLoggingOff(uint64_t a1, int a2)
         v12 = 0;
         if (!CNPluginStateIsAuthenticationProvider(v2))
         {
-          v12 = v16;
-          networkAttributesInit(v16, *(a1 + 40), 1, 0);
+          v12 = v15;
+          networkAttributesInit(v15, *(a1 + 40), 1, 0);
         }
 
         BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
         AuthCommand = createAuthCommand(BSDName, 6, v12);
-        networkAttributesRelease(v16);
+        networkAttributesRelease(v15);
         my_FieldSetRetainedCFType((a1 + 64), AuthCommand);
         CNPluginStateIssueCommand(v2, AuthCommand);
         CFRelease(AuthCommand);
@@ -8220,9 +7973,9 @@ void CNInfoLoggingOff(uint64_t a1, int a2)
         }
 
         *buf = 136315394;
-        v18 = v8;
-        v19 = 2112;
-        v20 = DisplayID;
+        v17 = v8;
+        v18 = 2112;
+        v19 = DisplayID;
         _os_log_impl(&dword_277237000, logger, v7, "CNPluginHandler: Logoff %s (%@)", buf, 0x16u);
       }
 
@@ -8251,8 +8004,6 @@ void CNInfoLoggingOff(uint64_t a1, int a2)
       _os_log_impl(&dword_277237000, v10, v11, "no plugin", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t my_CFDictionaryContainsKeyAndValue(const __CFDictionary *a1, const void *a2)
@@ -8273,7 +8024,7 @@ uint64_t my_CFDictionaryContainsKeyAndValue(const __CFDictionary *a1, const void
 
 void CNInfoSetAuthState(uint64_t a1, int a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 72);
   *(a1 + 56) = a2;
   logger = mysyslog_get_logger();
@@ -8281,37 +8032,42 @@ void CNInfoSetAuthState(uint64_t a1, int a2)
   v6 = os_log_type_enabled(logger, v5);
   if (v3)
   {
-    if (v6)
+    if (!v6)
     {
-      BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-      v8 = *(a1 + 56);
-      if (v8 <= 8)
-      {
-        v9 = AuthStateString_strings[v8];
-      }
-
-      else
-      {
-        v9 = "<unknown>";
-      }
-
-      v18 = 138412802;
-      v19 = BSDName;
-      v20 = 2080;
-      v21 = v9;
-      v22 = 2112;
-      DisplayID = CNPluginStateGetDisplayID(v3);
-      v13 = "CNPluginHandler %@: %s (%@)";
-      v14 = logger;
-      v15 = v5;
-      v16 = 32;
-LABEL_12:
-      _os_log_impl(&dword_277237000, v14, v15, v13, &v18, v16);
+      return;
     }
+
+    BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+    v8 = *(a1 + 56);
+    if (v8 <= 8)
+    {
+      v9 = AuthStateString_strings[v8];
+    }
+
+    else
+    {
+      v9 = "<unknown>";
+    }
+
+    v17 = 138412802;
+    v18 = BSDName;
+    v19 = 2080;
+    v20 = v9;
+    v21 = 2112;
+    DisplayID = CNPluginStateGetDisplayID(v3);
+    v13 = "CNPluginHandler %@: %s (%@)";
+    v14 = logger;
+    v15 = v5;
+    v16 = 32;
   }
 
-  else if (v6)
+  else
   {
+    if (!v6)
+    {
+      return;
+    }
+
     v10 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
     v11 = *(a1 + 56);
     if (v11 <= 8)
@@ -8324,18 +8080,17 @@ LABEL_12:
       v12 = "<unknown>";
     }
 
-    v18 = 138412546;
-    v19 = v10;
-    v20 = 2080;
-    v21 = v12;
+    v17 = 138412546;
+    v18 = v10;
+    v19 = 2080;
+    v20 = v12;
     v13 = "CNPluginHandler %@: %s";
     v14 = logger;
     v15 = v5;
     v16 = 22;
-    goto LABEL_12;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_277237000, v14, v15, v13, &v17, v16);
 }
 
 void CNInfoFlushAuthCommand(uint64_t a1)
@@ -8424,10 +8179,10 @@ const __CFDictionary *networkCopyCaptivePortalAPIURL(uint64_t a1)
 
 CFDictionaryRef createAuthCommand(void *a1, int a2, uint64_t *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   valuePtr = a2;
-  v17 = 0;
-  v15 = 0;
+  v16 = 0;
+  v14 = 0;
   v5 = my_CFUUIDStringCreate(0);
   keys[0] = @"UniqueID";
   values[0] = v5;
@@ -8444,8 +8199,8 @@ CFDictionaryRef createAuthCommand(void *a1, int a2, uint64_t *a3)
     if (v8)
     {
       v9 = 0;
-      v17 = @"Network";
-      v15 = v8;
+      v16 = @"Network";
+      v14 = v8;
       v6 = 4;
     }
 
@@ -8477,7 +8232,6 @@ CFDictionaryRef createAuthCommand(void *a1, int a2, uint64_t *a3)
     CFRelease(a3);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -8601,22 +8355,21 @@ void postNonCaptiveAnalyticsEvent(uint64_t a1)
 {
   if (!NetIFGetWiFiNetworkWasCaptive(*(a1 + 40)))
   {
-    v5 = 0;
-    v2 = *(a1 + 40);
-    SecurityType = NetIFWiFiNetworkGetSecurityType();
+    v4 = 0;
+    SecurityType = NetIFWiFiNetworkGetSecurityType(*(a1 + 40));
     if ((SecurityType - 1) >= 4)
     {
-      v4 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v4 = SecurityType;
+      v3 = SecurityType;
     }
 
-    LODWORD(v5) = v4;
-    BYTE4(v5) = NetIFWiFiNetworkIsUserBypass(*(a1 + 40));
-    CaptiveAnalyticsSessionPostNonCaptiveEvent(&v5);
+    LODWORD(v4) = v3;
+    BYTE4(v4) = NetIFWiFiNetworkIsUserBypass(*(a1 + 40));
+    CaptiveAnalyticsSessionPostNonCaptiveEvent(&v4);
   }
 }
 
@@ -8657,7 +8410,7 @@ void CNInfoAuthenticated(uint64_t a1, int a2, unsigned __int8 *a3)
   {
     if (a2)
     {
-      goto LABEL_119;
+      return;
     }
 
     CNInfoSetAuthState(a1, 4);
@@ -8797,76 +8550,77 @@ LABEL_61:
         }
       }
 
-      if (!*(a1 + 40))
+      v52 = *(a1 + 40);
+      if (!v52)
       {
         goto LABEL_80;
       }
 
-      WhitelistedCaptiveNetworkProbeDate = NetIFWiFiNetworkGetWhitelistedCaptiveNetworkProbeDate();
+      WhitelistedCaptiveNetworkProbeDate = NetIFWiFiNetworkGetWhitelistedCaptiveNetworkProbeDate(v52);
       if (WhitelistedCaptiveNetworkProbeDate)
       {
-        v53 = WhitelistedCaptiveNetworkProbeDate;
+        v54 = WhitelistedCaptiveNetworkProbeDate;
         IsWhitelistedCaptiveNetwork = NetIFWiFiNetworkIsWhitelistedCaptiveNetwork(*(a1 + 40));
-        v55 = mysyslog_get_logger();
-        v56 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v55, v56))
+        v56 = mysyslog_get_logger();
+        v57 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v56, v57))
         {
           BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-          v58 = *(a1 + 40);
-          if (v58)
+          v59 = *(a1 + 40);
+          if (v59)
           {
-            v58 = WiFiNetworkGetSSID();
+            v59 = WiFiNetworkGetSSID();
           }
 
-          v59 = "already ";
+          v60 = "already ";
           *buf = 138412802;
           *&buf[4] = BSDName;
           if (!IsWhitelistedCaptiveNetwork)
           {
-            v59 = "not ";
+            v60 = "not ";
           }
 
           v107 = 2112;
-          v108 = v58;
+          v108 = v59;
           v109 = 2080;
-          v110 = *&v59;
-          _os_log_impl(&dword_277237000, v55, v56, "%@: %@ %smarked whitelisted", buf, 0x20u);
+          v110 = *&v60;
+          _os_log_impl(&dword_277237000, v56, v57, "%@: %@ %smarked whitelisted", buf, 0x20u);
         }
 
-        v60 = CFAbsoluteTimeGetCurrent();
-        v61 = CFDateCreate(0, v60);
-        TimeIntervalSinceDate = CFDateGetTimeIntervalSinceDate(v61, v53);
-        CFRelease(v61);
-        v63 = &S_WhitelistedNetworkProbeInterval;
+        v61 = CFAbsoluteTimeGetCurrent();
+        v62 = CFDateCreate(0, v61);
+        TimeIntervalSinceDate = CFDateGetTimeIntervalSinceDate(v62, v54);
+        CFRelease(v62);
+        v64 = &S_WhitelistedNetworkProbeInterval;
         if (!IsWhitelistedCaptiveNetwork)
         {
-          v63 = &S_UnwhitelistedNetworkProbeInterval;
+          v64 = &S_UnwhitelistedNetworkProbeInterval;
         }
 
-        v64 = *v63;
-        v65 = mysyslog_get_logger();
-        v66 = _SC_syslog_os_log_mapping();
-        v67 = os_log_type_enabled(v65, v66);
-        if (TimeIntervalSinceDate < v64)
+        v65 = *v64;
+        v66 = mysyslog_get_logger();
+        v67 = _SC_syslog_os_log_mapping();
+        v68 = os_log_type_enabled(v66, v67);
+        if (TimeIntervalSinceDate < v65)
         {
-          if (v67)
+          if (v68)
           {
-            v68 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-            v69 = *(a1 + 40);
-            if (v69)
+            v69 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+            v70 = *(a1 + 40);
+            if (v70)
             {
-              v69 = WiFiNetworkGetSSID();
+              v70 = WiFiNetworkGetSSID();
             }
 
             *buf = 138413058;
-            *&buf[4] = v68;
+            *&buf[4] = v69;
             v107 = 2112;
-            v108 = v69;
+            v108 = v70;
             v109 = 2048;
             v110 = TimeIntervalSinceDate;
             v111 = 2048;
-            v112 = v64;
-            _os_log_impl(&dword_277237000, v65, v66, "%@: %@ BrokenBackhaulMonitor can't probe yet (%g < %g)", buf, 0x2Au);
+            v112 = v65;
+            _os_log_impl(&dword_277237000, v66, v67, "%@: %@ BrokenBackhaulMonitor can't probe yet (%g < %g)", buf, 0x2Au);
           }
 
 LABEL_80:
@@ -8880,54 +8634,54 @@ LABEL_106:
 
           if (v5)
           {
-            v78 = mysyslog_get_logger();
-            v79 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v78, v79))
+            v79 = mysyslog_get_logger();
+            v80 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v79, v80))
             {
-              v80 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-              v81 = *(a1 + 40);
-              if (v81)
+              v81 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+              v82 = *(a1 + 40);
+              if (v82)
               {
-                v81 = WiFiNetworkGetSSID();
+                v82 = WiFiNetworkGetSSID();
               }
 
               *buf = 138412546;
-              *&buf[4] = v80;
+              *&buf[4] = v81;
               v107 = 2112;
-              v108 = v81;
-              _os_log_impl(&dword_277237000, v78, v79, "%@ reporting inconclusive captive evaluation for '%@' to symptoms", buf, 0x16u);
+              v108 = v82;
+              _os_log_impl(&dword_277237000, v79, v80, "%@ reporting inconclusive captive evaluation for '%@' to symptoms", buf, 0x16u);
             }
 
             CaptiveSymptomReportInconclusiveCaptiveEvaluation();
-            v71 = 66;
+            v72 = 66;
           }
 
           else
           {
-            v71 = 2;
+            v72 = 2;
           }
 
           goto LABEL_117;
         }
 
-        if (v67)
+        if (v68)
         {
-          v76 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-          v77 = *(a1 + 40);
-          if (v77)
+          v77 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+          v78 = *(a1 + 40);
+          if (v78)
           {
-            v77 = WiFiNetworkGetSSID();
+            v78 = WiFiNetworkGetSSID();
           }
 
           *buf = 138413058;
-          *&buf[4] = v76;
+          *&buf[4] = v77;
           v107 = 2112;
-          v108 = v77;
+          v108 = v78;
           v109 = 2048;
           v110 = TimeIntervalSinceDate;
           v111 = 2048;
-          v112 = v64;
-          _os_log_impl(&dword_277237000, v65, v66, "%@: %@ BrokenBackhaulMonitor can probe again (%g >= %g)", buf, 0x2Au);
+          v112 = v65;
+          _os_log_impl(&dword_277237000, v66, v67, "%@: %@ BrokenBackhaulMonitor can probe again (%g >= %g)", buf, 0x2Au);
         }
       }
 
@@ -8972,22 +8726,22 @@ LABEL_85:
       PowerChangeRegister(CNPluginHandlerPowerChange);
       if (v20)
       {
-        v70 = 3;
+        v71 = 3;
       }
 
       else
       {
-        v70 = 7;
+        v71 = 7;
       }
 
       if (v19)
       {
-        v71 = v70;
+        v72 = v71;
       }
 
       else
       {
-        v71 = v70 | 0x20;
+        v72 = v71 | 0x20;
       }
 
       CNScanListFilterAggregateResults(a1);
@@ -9003,19 +8757,19 @@ LABEL_85:
 
       if (!IsBuiltin && !*(a1 + 224))
       {
-        v72 = CaptiveCopyProbeSettings();
-        if (!v72)
+        v73 = CaptiveCopyProbeSettings();
+        if (!v73)
         {
-          v74 = 0;
+          v75 = 0;
           goto LABEL_132;
         }
 
-        v73 = v72;
-        v74 = CFDictionaryGetValue(v72, @"ProbeURL");
-        v75 = CFStringGetTypeID();
-        if (v74 && CFGetTypeID(v74) == v75)
+        v74 = v73;
+        v75 = CFDictionaryGetValue(v73, @"ProbeURL");
+        v76 = CFStringGetTypeID();
+        if (v75 && CFGetTypeID(v75) == v76)
         {
-          CFRelease(v73);
+          CFRelease(v74);
 LABEL_132:
           v96 = mysyslog_get_logger();
           v97 = _SC_syslog_os_log_mapping();
@@ -9037,14 +8791,14 @@ LABEL_132:
 
           v99 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
           v100 = CFRunLoopGetCurrent();
-          v101 = captive_agent_send_probe(v98, v99, 0, v74, 0xAu, HandleInternetAccessProbeResult, a1, v100);
+          v101 = captive_agent_send_probe(v98, v99, 0, v75, 0xAu, HandleInternetAccessProbeResult, a1, v100);
           v51 = 0;
           *(a1 + 224) = v101;
 LABEL_117:
-          NetIFWiFiNetworkSetCaptive(*(a1 + 40), v71);
+          NetIFWiFiNetworkSetCaptive(*(a1 + 40), v72);
           if (!v18 || *(a1 + 152))
           {
-            goto LABEL_119;
+            return;
           }
 
           v83 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
@@ -9069,12 +8823,12 @@ LABEL_117:
               }
 
               BBMonitorStart(*(a1 + 152));
-              goto LABEL_119;
+              return;
             }
 
             if (!v90)
             {
-              goto LABEL_119;
+              return;
             }
 
             *buf = 0;
@@ -9089,7 +8843,7 @@ LABEL_117:
             v92 = _SC_syslog_os_log_mapping();
             if (!os_log_type_enabled(v91, v92))
             {
-              goto LABEL_119;
+              return;
             }
 
             *buf = 0;
@@ -9099,10 +8853,10 @@ LABEL_117:
           }
 
           _os_log_impl(&dword_277237000, v94, v95, v93, buf, 2u);
-          goto LABEL_119;
+          return;
         }
 
-        CFRelease(v73);
+        CFRelease(v74);
       }
 
       v51 = 0;
@@ -9193,156 +8947,147 @@ LABEL_117:
 
     CNInfoStopBrokenBackhaulMonitor(a1);
   }
-
-LABEL_119:
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 CFDictionaryRef copy_network_dict(uint64_t *a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v30 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   *keys = 0u;
-  v24 = 0;
-  memset(v23, 0, sizeof(v23));
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
   v2 = a1[4];
   if (v2)
   {
-    v3 = a1[4];
     SSID = WiFiNetworkGetSSID();
     if (SSID)
     {
       keys[0] = @"SSIDString";
-      *&v23[0] = SSID;
-      v5 = 1;
+      *&v20[0] = SSID;
+      v4 = 1;
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
     SSIDData = WiFiNetworkGetSSIDData();
     if (SSIDData)
     {
-      *(keys | (8 * v5)) = @"SSID";
-      *(v23 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5++ & 1))) = SSIDData;
+      *(keys | (8 * v4)) = @"SSID";
+      *(v20 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4++ & 1))) = SSIDData;
     }
 
     Property = WiFiNetworkGetProperty();
     TypeID = CFStringGetTypeID();
     if (Property && CFGetTypeID(Property) == TypeID)
     {
-      keys[v5] = @"BSSID";
-      *(v23 + v5++) = Property;
+      keys[v4] = @"BSSID";
+      *(v20 + v4++) = Property;
     }
 
     IsProtected = NetIFWiFiNetworkIsProtected(v2);
-    v10 = MEMORY[0x277CBED28];
+    v9 = MEMORY[0x277CBED28];
     if (IsProtected)
     {
-      keys[v5] = @"IsProtected";
-      *(v23 + v5++) = *v10;
+      keys[v4] = @"IsProtected";
+      *(v20 + v4++) = *v9;
     }
 
     if (NetIFWiFiNetworkIsUserBypass(v2))
     {
-      keys[v5] = @"CaptiveBypass";
-      *(v23 + v5++) = *v10;
+      keys[v4] = @"CaptiveBypass";
+      *(v20 + v4++) = *v9;
     }
 
-    v11 = *MEMORY[0x277D29900];
-    v12 = WiFiNetworkGetProperty();
-    v13 = CFNumberGetTypeID();
-    if (v12 && CFGetTypeID(v12) == v13)
+    v10 = WiFiNetworkGetProperty();
+    v11 = CFNumberGetTypeID();
+    if (v10 && CFGetTypeID(v10) == v11)
     {
-      keys[v5] = @"SignalStrength";
-      *(v23 + v5++) = v12;
+      keys[v4] = @"SignalStrength";
+      *(v20 + v4++) = v10;
     }
 
     if (NetIFWiFiNetworkIsCarPlayAndInternet())
     {
-      keys[v5] = @"CarPlayAndInternet";
-      *(v23 + v5++) = *v10;
+      keys[v4] = @"CarPlayAndInternet";
+      *(v20 + v4++) = *v9;
     }
 
     if (NetIFIsQuickProbeRequired())
     {
-      keys[v5] = @"QuickProbeRequired";
-      *(v23 + v5++) = *v10;
+      keys[v4] = @"QuickProbeRequired";
+      *(v20 + v4++) = *v9;
     }
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v14 = *a1;
+  v12 = *a1;
   if (*a1)
   {
-    keys[v5] = @"WasAutoJoined";
-    *(v23 + v5++) = v14;
+    keys[v4] = @"WasAutoJoined";
+    *(v20 + v4++) = v12;
   }
 
-  v15 = a1[1];
+  v13 = a1[1];
+  if (v13)
+  {
+    keys[v4] = @"WasJustJoined";
+    *(v20 + v4++) = v13;
+  }
+
+  v14 = a1[2];
+  if (v14)
+  {
+    keys[v4] = @"WasCaptive";
+    *(v20 + v4++) = v14;
+  }
+
+  v15 = a1[3];
   if (v15)
   {
-    keys[v5] = @"WasJustJoined";
-    *(v23 + v5++) = v15;
+    keys[v4] = @"IsCached";
+    *(v20 + v4++) = v15;
   }
 
-  v16 = a1[2];
+  v16 = a1[5];
   if (v16)
   {
-    keys[v5] = @"WasCaptive";
-    *(v23 + v5++) = v16;
+    keys[v4] = @"IsChosenPlugin";
+    *(v20 + v4++) = v16;
   }
 
-  v17 = a1[3];
+  v17 = a1[6];
   if (v17)
   {
-    keys[v5] = @"IsCached";
-    *(v23 + v5++) = v17;
+    keys[v4] = @"BecameCaptive";
+    *(v20 + v4++) = v17;
   }
 
-  v18 = a1[5];
+  v18 = a1[7];
   if (v18)
   {
-    keys[v5] = @"IsChosenPlugin";
-    *(v23 + v5++) = v18;
+    keys[v4] = @"PortalURL";
+    *(v20 + v4++) = v18;
   }
 
-  v19 = a1[6];
-  if (v19)
+  else if (!v4)
   {
-    keys[v5] = @"BecameCaptive";
-    *(v23 + v5++) = v19;
+    return 0;
   }
 
-  v20 = a1[7];
-  if (v20)
-  {
-    keys[v5] = @"PortalURL";
-    *(v23 + v5++) = v20;
-  }
-
-  else if (!v5)
-  {
-    result = 0;
-    goto LABEL_38;
-  }
-
-  result = CFDictionaryCreate(0, keys, v23, v5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-LABEL_38:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return CFDictionaryCreate(0, keys, v20, v4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
 }
 
 void CNInfoInactive(uint64_t a1, int a2)
@@ -9352,10 +9097,10 @@ void CNInfoInactive(uint64_t a1, int a2)
     PassiveDetectSetCallBack(0, 0);
     TimerCancel(*(a1 + 88));
     my_FieldSetRetainedCFType((a1 + 48), 0);
-    v14 = *(a1 + 40);
-    if (v14)
+    v13 = *(a1 + 40);
+    if (v13)
     {
-      CFRelease(v14);
+      CFRelease(v13);
       *(a1 + 40) = 0;
     }
 
@@ -9367,7 +9112,7 @@ void CNInfoInactive(uint64_t a1, int a2)
   else if (!a2)
   {
     BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-    NetIFSetCarPlayModeChangeCallBack(BSDName, 0);
+    NetIFSetCarPlayModeChangeCallBack(BSDName, 0, 0);
     v4 = *(a1 + 72);
     Current = CFAbsoluteTimeGetCurrent();
     if (v4)
@@ -9388,9 +9133,9 @@ void CNInfoInactive(uint64_t a1, int a2)
         if (CNPluginStateIsBuiltin(v4))
         {
           DisplayID = 0u;
-          memset(v19, 0, sizeof(v19));
+          memset(v18, 0, sizeof(v18));
           LODWORD(DisplayID) = *(a1 + 164);
-          v17 = v7;
+          v16 = v7;
           v8 = *(a1 + 192);
           if (v8 >= 1)
           {
@@ -9398,32 +9143,31 @@ void CNInfoInactive(uint64_t a1, int a2)
             *(&DisplayID + 1) = llround(*(a1 + 200) / v8);
             *&v10 = v9;
             *(&v10 + 1) = SHIDWORD(v9);
-            *(v19 + 8) = v10;
+            *(v18 + 8) = v10;
           }
 
-          v11 = *(a1 + 40);
-          SecurityType = NetIFWiFiNetworkGetSecurityType();
+          SecurityType = NetIFWiFiNetworkGetSecurityType(*(a1 + 40));
           if ((SecurityType - 1) >= 4)
           {
-            v13 = 0;
+            v12 = 0;
           }
 
           else
           {
-            v13 = SecurityType;
+            v12 = SecurityType;
           }
 
-          DWORD2(v19[1]) = v13;
-          LOBYTE(v19[0]) = *(a1 + 216);
-          CaptiveAnalyticsSessionPostBuiltinEvent(&v17);
+          DWORD2(v18[1]) = v12;
+          LOBYTE(v18[0]) = *(a1 + 216);
+          CaptiveAnalyticsSessionPostBuiltinEvent(&v16);
         }
 
         else
         {
-          v17 = v7;
+          v16 = v7;
           DisplayID = CNPluginStateGetDisplayID(v4);
           BYTE8(DisplayID) = *(a1 + 217);
-          CaptiveAnalyticsSessionPostHSHelperEvent(&v17);
+          CaptiveAnalyticsSessionPostHSHelperEvent(&v16);
         }
       }
     }
@@ -9436,17 +9180,17 @@ void CNInfoInactive(uint64_t a1, int a2)
     CNInfoFlushAuthCommand(a1);
     SendCleanupCommandToBuiltinPluginIfNecessary(a1, 1);
     my_FieldSetRetainedCFType((a1 + 48), 0);
-    v15 = *(a1 + 40);
-    if (v15)
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      CFRelease(v15);
+      CFRelease(v14);
       *(a1 + 40) = 0;
     }
 
-    v16 = *(a1 + 96);
-    if (v16)
+    v15 = *(a1 + 96);
+    if (v15)
     {
-      CFRelease(v16);
+      CFRelease(v15);
       *(a1 + 96) = 0;
     }
 
@@ -9482,30 +9226,28 @@ void CNInfoStopBrokenBackhaulMonitor(uint64_t a1)
   }
 }
 
-uint64_t ___handleIPv6OnlyEvaluationFailure_block_invoke(uint64_t a1)
+void ___handleIPv6OnlyEvaluationFailure_block_invoke(uint64_t a1)
 {
   logger = mysyslog_get_logger();
   v3 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v3))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_277237000, logger, v3, "scheduling captive evaluation retry", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_277237000, logger, v3, "scheduling captive evaluation retry", v4, 2u);
   }
 
-  return CNInfoEvaluating(*(a1 + 32), 0, 0);
+  CNInfoEvaluating(*(a1 + 32), 0, 0);
 }
 
 const void *networkGetConfidence(const void *Confidence, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   TypeID = CFDictionaryGetTypeID();
   if (Confidence)
   {
     if (CFGetTypeID(Confidence) != TypeID)
     {
-LABEL_6:
-      Confidence = 0;
-      goto LABEL_7;
+      return 0;
     }
 
     Value = CFDictionaryGetValue(Confidence, @"Confidence");
@@ -9516,19 +9258,17 @@ LABEL_6:
       v7 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(logger, v7))
       {
-        v10 = 138412546;
-        v11 = a2;
-        v12 = 1024;
-        v13 = Confidence;
-        _os_log_impl(&dword_277237000, logger, v7, "%@: invalid Confidence value %d treating as None", &v10, 0x12u);
+        v9 = 138412546;
+        v10 = a2;
+        v11 = 1024;
+        v12 = Confidence;
+        _os_log_impl(&dword_277237000, logger, v7, "%@: invalid Confidence value %d treating as None", &v9, 0x12u);
       }
 
-      goto LABEL_6;
+      return 0;
     }
   }
 
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
   return Confidence;
 }
 
@@ -9547,12 +9287,12 @@ uint64_t numberGetConfidence(const void *a1)
 
 void CNPluginHandlerDetectedCaptive(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v8 = 0;
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0;
   if (*(a1 + 56) == 4)
   {
     *(a1 + 162) = 1;
-    CNInfoAuthenticated(a1, 4, &v8);
+    CNInfoAuthenticated(a1, 4, &v7);
   }
 
   else
@@ -9574,19 +9314,17 @@ void CNPluginHandlerDetectedCaptive(uint64_t a1)
       }
 
       *buf = 138412546;
-      v10 = BSDName;
-      v11 = 2080;
-      v12 = v6;
+      v9 = BSDName;
+      v10 = 2080;
+      v11 = v6;
       _os_log_impl(&dword_277237000, logger, v3, "CNPluginHandler %@: passive detected in %s state, ignoring", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void CNPluginHandlerPowerChange(int a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   logger = mysyslog_get_logger();
   v3 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v3))
@@ -9617,18 +9355,17 @@ void CNPluginHandlerPowerChange(int a1)
           {
             v8 = v7;
             SSID = WiFiNetworkGetSSID();
-            v10 = *(i + 40);
-            v11 = WiFiNetworkGetSSID();
-            LODWORD(SSID) = my_CFEqual(SSID, v11);
+            v10 = WiFiNetworkGetSSID();
+            LODWORD(SSID) = my_CFEqual(SSID, v10);
             CFRelease(v8);
             if (SSID)
             {
-              v12 = mysyslog_get_logger();
-              v13 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v12, v13))
+              v11 = mysyslog_get_logger();
+              v12 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v11, v12))
               {
-                *v15 = 0;
-                _os_log_impl(&dword_277237000, v12, v13, "wake on the same captive network", v15, 2u);
+                *v13 = 0;
+                _os_log_impl(&dword_277237000, v11, v12, "wake on the same captive network", v13, 2u);
               }
 
               *buf = 0;
@@ -9640,68 +9377,65 @@ void CNPluginHandlerPowerChange(int a1)
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void CNScanListFilterAggregateResults(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (S_filter_request_count)
   {
-    v26 = 0u;
-    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     *theArray = 0u;
     BSDName = SCNetworkInterfaceGetBSDName(*(a1 + 32));
     v2 = *(a1 + 40);
     if (v2)
     {
-      v3 = *(a1 + 40);
-      *(&v26 + 1) = WiFiNetworkGetSSID();
-      LOBYTE(v27) = NetIFWiFiNetworkIsProtected(v2);
-      *(&v27 + 1) = *(a1 + 72);
+      *(&v24 + 1) = WiFiNetworkGetSSID();
+      LOBYTE(v25) = NetIFWiFiNetworkIsProtected(v2);
+      *(&v25 + 1) = *(a1 + 72);
     }
 
     CNPluginStateListApplyFunction(CNScanListFilterAggregateResultsApplier, &BSDName);
-    v4 = theArray[0];
+    v3 = theArray[0];
     if (theArray[0])
     {
       if (*(a1 + 144) || (Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]), (*(a1 + 144) = Mutable) != 0))
       {
-        Count = CFArrayGetCount(v4);
+        Count = CFArrayGetCount(v3);
         if (Count >= 1)
         {
-          v7 = Count;
-          for (i = 0; i != v7; ++i)
+          v6 = Count;
+          for (i = 0; i != v6; ++i)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v4, i);
+            ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
             if (!NetworkArrayContainsNetwork(*(a1 + 144), ValueAtIndex))
             {
               MutableCopy = CFDictionaryCreateMutableCopy(0, 0, ValueAtIndex);
               if (MutableCopy)
               {
-                v11 = MutableCopy;
+                v10 = MutableCopy;
                 CFDictionaryRemoveValue(MutableCopy, @"Password");
-                CFDictionaryRemoveValue(v11, @"PluginNames");
-                CFArrayAppendValue(*(a1 + 144), v11);
-                CFRelease(v11);
+                CFDictionaryRemoveValue(v10, @"PluginNames");
+                CFArrayAppendValue(*(a1 + 144), v10);
+                CFRelease(v10);
               }
             }
           }
         }
 
-        v12 = CFArrayGetCount(*(a1 + 144));
-        if (v12 >= 1)
+        v11 = CFArrayGetCount(*(a1 + 144));
+        if (v11 >= 1)
         {
-          v13 = v12;
-          for (j = 0; j < v13; ++j)
+          v12 = v11;
+          for (j = 0; j < v12; ++j)
           {
-            v15 = CFArrayGetValueAtIndex(*(a1 + 144), j);
-            if (!NetworkArrayContainsNetwork(v4, v15))
+            v14 = CFArrayGetValueAtIndex(*(a1 + 144), j);
+            if (!NetworkArrayContainsNetwork(v3, v14))
             {
-              CFArrayAppendValue(v4, v15);
+              CFArrayAppendValue(v3, v14);
               CFArrayRemoveValueAtIndex(*(a1 + 144), j);
-              --v13;
+              --v12;
               if (j <= 0)
               {
                 j = 0;
@@ -9719,32 +9453,32 @@ void CNScanListFilterAggregateResults(uint64_t a1)
       else
       {
         logger = mysyslog_get_logger();
-        v23 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(logger, v23))
+        v21 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(logger, v21))
         {
           *buf = 0;
-          _os_log_impl(&dword_277237000, logger, v23, "failed to allocate memory for cached filter results.", buf, 2u);
+          _os_log_impl(&dword_277237000, logger, v21, "failed to allocate memory for cached filter results.", buf, 2u);
         }
       }
 
-      v16 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
-      ScanListProcessCommand = createScanListProcessCommand(v16, theArray[0]);
+      v15 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+      ScanListProcessCommand = createScanListProcessCommand(v15, theArray[0]);
       CFRelease(theArray[0]);
       if (ScanListProcessCommand)
       {
         CommandHandlerListApplyFunction(5u, CNScanListFilterAppendCommandApplier, ScanListProcessCommand);
         if (CaptiveIsDebug())
         {
-          v18 = mysyslog_get_logger();
-          v19 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v18, v19))
+          v17 = mysyslog_get_logger();
+          v18 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v17, v18))
           {
-            v20 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
+            v19 = SCNetworkInterfaceGetBSDName(*(a1 + 32));
             *buf = 138412546;
-            v29 = v20;
-            v30 = 2112;
-            v31 = ScanListProcessCommand;
-            _os_log_impl(&dword_277237000, v18, v19, "%@: %@", buf, 0x16u);
+            v27 = v19;
+            v28 = 2112;
+            v29 = ScanListProcessCommand;
+            _os_log_impl(&dword_277237000, v17, v18, "%@: %@", buf, 0x16u);
           }
         }
 
@@ -9757,13 +9491,11 @@ void CNScanListFilterAggregateResults(uint64_t a1)
       CNScanListFilterSendClearResults(a1);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void CNInfoUpdateWiFiNetwork(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40))
   {
     SSID = WiFiNetworkGetSSID();
@@ -9797,11 +9529,11 @@ void CNInfoUpdateWiFiNetwork(uint64_t a1)
               v13 = WiFiNetworkGetSSID();
             }
 
-            v19 = 138412546;
-            v20 = v12;
-            v21 = 2112;
-            v22 = v13;
-            _os_log_impl(&dword_277237000, logger, v11, "%@: %@ updated", &v19, 0x16u);
+            v18 = 138412546;
+            v19 = v12;
+            v20 = 2112;
+            v21 = v13;
+            _os_log_impl(&dword_277237000, logger, v11, "%@: %@ updated", &v18, 0x16u);
           }
         }
 
@@ -9818,13 +9550,13 @@ void CNInfoUpdateWiFiNetwork(uint64_t a1)
               v17 = WiFiNetworkGetSSID();
             }
 
-            v19 = 138412802;
-            v20 = v16;
-            v21 = 2112;
-            v22 = v17;
-            v23 = 2112;
-            v24 = v8;
-            _os_log_impl(&dword_277237000, v14, v15, "%@: %@ not updated (new %@)", &v19, 0x20u);
+            v18 = 138412802;
+            v19 = v16;
+            v20 = 2112;
+            v21 = v17;
+            v22 = 2112;
+            v23 = v8;
+            _os_log_impl(&dword_277237000, v14, v15, "%@: %@ not updated (new %@)", &v18, 0x20u);
           }
 
           CFRelease(v6);
@@ -9832,6 +9564,188 @@ void CNInfoUpdateWiFiNetwork(uint64_t a1)
       }
     }
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+void CNScanListFilterAggregateResultsApplier(uint64_t a1, uint64_t a2)
+{
+  v3 = a1;
+  ApplicationIDOfProvider = CNPluginStateGetApplicationIDOfProvider(a1);
+  if (!ApplicationIDOfProvider)
+  {
+    ApplicationIDOfProvider = CNPluginStateGetDisplayID(v3);
+  }
+
+  FilterResults = CNPluginStateGetFilterResults(v3, *a2);
+  if (FilterResults)
+  {
+    v6 = FilterResults;
+    Count = CFArrayGetCount(FilterResults);
+    if (Count)
+    {
+      if (!*(a2 + 8))
+      {
+        *(a2 + 8) = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+      }
+
+      if (Count >= 1)
+      {
+        v7 = 0;
+        v39 = ApplicationIDOfProvider;
+        while (1)
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(v6, v7);
+          MutableCopy = CFDictionaryCreateMutableCopy(0, 0, ValueAtIndex);
+          if (MutableCopy)
+          {
+            break;
+          }
+
+LABEL_36:
+          if (Count == ++v7)
+          {
+            return;
+          }
+        }
+
+        v10 = MutableCopy;
+        if (ApplicationIDOfProvider)
+        {
+          CFDictionarySetValue(MutableCopy, @"PluginBundleID", ApplicationIDOfProvider);
+        }
+
+        Name = CNPluginStateGetName(v3);
+        TypeID = CFDictionaryGetTypeID();
+        if (CFGetTypeID(v10) == TypeID)
+        {
+          Value = CFDictionaryGetValue(v10, @"SSIDString");
+          v14 = CFStringGetTypeID();
+          if (Value && CFGetTypeID(Value) != v14)
+          {
+            Value = 0;
+          }
+
+          v15 = v3;
+          v16 = CFDictionaryGetValue(v10, @"BSSID");
+          v17 = CFStringGetTypeID();
+          v18 = !v16 || CFGetTypeID(v16) != v17;
+          v19 = CFDictionaryGetValue(v10, @"IsProtected");
+          v20 = CFBooleanGetTypeID();
+          if (v19 && CFGetTypeID(v19) == v20)
+          {
+            v21 = CFBooleanGetValue(v19);
+          }
+
+          else
+          {
+            v21 = 0;
+          }
+
+          v22 = Value == 0 || v18;
+          v3 = v15;
+          ApplicationIDOfProvider = v39;
+          if (!v22)
+          {
+            v23 = *(a2 + 48);
+            if (!v23 || v23 == v3 || v21 != *(a2 + 40) || (v24 = *(a2 + 32)) == 0 || !CFEqual(v24, Value))
+            {
+              DisplayID = CNPluginStateGetDisplayID(v3);
+              Confidence = networkGetConfidence(v10, DisplayID);
+              v27 = CFArrayBSearchValues(*(a2 + 8), *(a2 + 16), v10, filterDictCompare, 0);
+              if (v27 >= *(a2 + 24))
+              {
+                v31 = CFDictionaryCreateMutableCopy(0, 0, v10);
+                filterDictAnnotate(v31, Name, Confidence);
+                CFArrayAppendValue(*(a2 + 8), v31);
+                goto LABEL_34;
+              }
+
+              v28 = v27;
+              v29 = CFArrayGetValueAtIndex(*(a2 + 8), v27);
+              v30 = filterDictCompare(v10, v29);
+              if (v30 == kCFCompareEqualTo)
+              {
+                v32 = CFArrayGetValueAtIndex(*(a2 + 8), v28);
+                filterDictAnnotate(v32, Name, Confidence);
+                v33 = CFDictionaryGetValue(v10, @"Password");
+                v34 = CFStringGetTypeID();
+                if (v33 && CFGetTypeID(v33) == v34)
+                {
+                  v35 = CFDictionaryGetValue(v32, @"Password");
+                  v36 = CFStringGetTypeID();
+                  if (v35 && CFGetTypeID(v35) == v36)
+                  {
+                    if (!CFEqual(v33, v35))
+                    {
+                      logger = mysyslog_get_logger();
+                      v38 = _SC_syslog_os_log_mapping();
+                      if (os_log_type_enabled(logger, v38))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_277237000, logger, v38, "Different passwords provided for the same network", buf, 2u);
+                      }
+                    }
+                  }
+
+                  else
+                  {
+                    CFDictionarySetValue(v32, @"Password", v33);
+                  }
+                }
+
+                goto LABEL_35;
+              }
+
+              if (v30 == kCFCompareLessThan)
+              {
+                v31 = CFDictionaryCreateMutableCopy(0, 0, v10);
+                filterDictAnnotate(v31, Name, Confidence);
+                CFArrayInsertValueAtIndex(*(a2 + 8), v28, v31);
+LABEL_34:
+                CFRelease(v31);
+                ++*(a2 + 24);
+              }
+            }
+          }
+        }
+
+LABEL_35:
+        CFRelease(v10);
+        goto LABEL_36;
+      }
+    }
+  }
+}
+
+CFDictionaryRef createScanListProcessCommand(void *a1, CFArrayRef theArray)
+{
+  v2 = theArray;
+  keys[4] = *MEMORY[0x277D85DE8];
+  valuePtr = 1;
+  if (theArray)
+  {
+    if (CFArrayGetCount(theArray))
+    {
+      keys[3] = 0;
+      values[3] = 0;
+      v4 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
+      keys[0] = @"Type";
+      keys[1] = @"InterfaceName";
+      values[0] = v4;
+      values[1] = a1;
+      keys[2] = @"NetworkList";
+      values[2] = v2;
+      v2 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (v4)
+      {
+        CFRelease(v4);
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v2;
 }

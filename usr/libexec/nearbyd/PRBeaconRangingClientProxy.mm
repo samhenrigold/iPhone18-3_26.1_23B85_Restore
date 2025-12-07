@@ -207,7 +207,7 @@
           v13 = *(*(&v22 + 1) + 8 * i);
           *buf = [v13 mac_addr];
           *&buf[8] = v10;
-          sub_100052568(self + 56, buf);
+          sub_100052568(self + 56, buf, buf);
           if (v14)
           {
             v15 = qword_1009F9820;

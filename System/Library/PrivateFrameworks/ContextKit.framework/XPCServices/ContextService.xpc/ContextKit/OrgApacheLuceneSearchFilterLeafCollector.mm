@@ -1,5 +1,5 @@
 @interface OrgApacheLuceneSearchFilterLeafCollector
-- (NSString)description;
+- (void)collectWithInt:(int)int;
 - (void)dealloc;
 - (void)setScorerWithOrgApacheLuceneSearchScorer:(id)scorer;
 @end
@@ -17,11 +17,15 @@
   [(OrgApacheLuceneSearchLeafCollector *)in setScorerWithOrgApacheLuceneSearchScorer:scorer];
 }
 
-- (NSString)description
+- (void)collectWithInt:(int)int
 {
-  v3 = [-[OrgApacheLuceneSearchFilterLeafCollector getClass](self "getClass")];
   in = self->in_;
-  return JreStrcat("$C@C", v4, v5, v6, v7, v8, v9, v10, v3);
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(OrgApacheLuceneSearchLeafCollector *)in collectWithInt:*&int];
 }
 
 - (void)dealloc

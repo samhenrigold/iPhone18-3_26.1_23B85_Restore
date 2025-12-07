@@ -151,10 +151,9 @@ uint64_t __62__CNVirtualScheduler_performCancelableBlock_qualityOfService___bloc
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;

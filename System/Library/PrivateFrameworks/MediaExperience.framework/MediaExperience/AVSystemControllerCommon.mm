@@ -16,15 +16,15 @@
 
 - (AVSystemControllerCommon)init
 {
-  v6.receiver = self;
-  v6.super_class = AVSystemControllerCommon;
-  v2 = [(AVSystemControllerCommon *)&v6 init];
+  v5.receiver = self;
+  v5.super_class = AVSystemControllerCommon;
+  v2 = [(AVSystemControllerCommon *)&v5 init];
   v3 = v2;
   if (v2)
   {
     [(AVSystemControllerCommon *)v2 initializeAttributeForKeyMappingToFig];
     objc_storeWeak(&selfWeakAVSCReference, [(AVSystemControllerCommon *)v3 selfWeak]);
-    if (FigSystemControllerRemoteCreate(*MEMORY[0x1E695E480], 0, &v3->mFigController) || !v3->mFigController || (CMNotificationCenterGetDefaultLocalCenter(), mFigController = v3->mFigController, FigNotificationCenterAddWeakListeners()) || !v3->mFigController)
+    if (FigSystemControllerRemoteCreate(*MEMORY[0x1E695E480], 0, &v3->mFigController) || !v3->mFigController || (CMNotificationCenterGetDefaultLocalCenter(), FigNotificationCenterAddWeakListeners()) || !v3->mFigController)
     {
 
       return 0;
@@ -107,19 +107,18 @@ void __76__AVSystemControllerCommon_postNotificationOnMainQueue_notification_obj
   if (self->mFigController)
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    mFigController = self->mFigController;
     FigNotificationCenterRemoveWeakListeners();
-    v4 = self->mFigController;
-    if (v4)
+    mFigController = self->mFigController;
+    if (mFigController)
     {
-      CFRelease(v4);
+      CFRelease(mFigController);
       self->mFigController = 0;
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = AVSystemControllerCommon;
-  [(AVSystemControllerCommon *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = AVSystemControllerCommon;
+  [(AVSystemControllerCommon *)&v4 dealloc];
 }
 
 - (id)attributeForKey:(id)key
@@ -176,87 +175,82 @@ void __76__AVSystemControllerCommon_postNotificationOnMainQueue_notification_obj
   {
     v11 = v10;
     mFigController = self->mFigController;
-    VTable = CMBaseObjectGetVTable();
-    v14 = *(*(VTable + 8) + 56);
-    if (v14)
+    v13 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v13)
     {
-      v15 = *(VTable + 8) + 56;
-      v16 = v14(mFigController, v11, attribute);
+      v14 = v13(mFigController, v11, attribute);
     }
 
     else
     {
-      v16 = 4294954514;
+      v14 = 4294954514;
     }
 
-    v17 = 0;
-    if (error && v16)
+    v15 = 0;
+    if (error && v14)
     {
-      v18 = @"setAttribute failed: '%@'";
+      v16 = @"setAttribute failed: '%@'";
 LABEL_18:
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:v18, 0, key];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:v16, 0, key];
     }
   }
 
   else
   {
-    v19 = [key isEqualToString:AVSystemController_PostNotificationsFromMainThreadOnly];
-    v17 = 0;
-    if (v19)
+    v17 = [key isEqualToString:AVSystemController_PostNotificationsFromMainThreadOnly];
+    v15 = 0;
+    if (v17)
     {
-      v16 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v16 = 4294967246;
+      v14 = 4294967246;
     }
 
-    if ((v19 & 1) == 0 && error)
+    if ((v17 & 1) == 0 && error)
     {
-      v18 = @"unsupported attribute: '%@'";
-      v16 = 4294967246;
+      v16 = @"unsupported attribute: '%@'";
+      v14 = 4294967246;
       goto LABEL_18;
     }
   }
 
   if (error)
   {
-    if (v16)
+    if (v14)
     {
-      *error = [(AVSystemControllerCommon *)self errorWithCode:v16 description:v17];
+      *error = [(AVSystemControllerCommon *)self errorWithCode:v14 description:v15];
     }
   }
 
-  return v16 == 0;
+  return v14 == 0;
 }
 
 - (void)releaseSharedInstance
+{
+  v3 = *MEMORY[0x1E69E9840];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+}
+
+- (id)copySetAttributeForKeyMappingToFig
 {
   v4 = *MEMORY[0x1E69E9840];
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (id)copySetAttributeForKeyMappingToFig
-{
-  v5 = *MEMORY[0x1E69E9840];
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-  fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)copyAttributeForKeyMappingToFig
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

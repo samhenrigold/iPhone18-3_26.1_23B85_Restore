@@ -235,16 +235,15 @@ LABEL_7:
       while (2)
       {
         v5 = v4;
-        v4 = v4[2];
-        v6 = v5[1];
+        v4 = *(v4 + 16);
+        v6 = *(v5 + 8);
         switch(v6)
         {
           case -3:
             IOHIDValueGetBytePtr(newValue);
             IOHIDValueGetLength(newValue);
             __memcpy_chk();
-            v11 = *v5;
-            goto LABEL_11;
+            goto LABEL_10;
           case -2:
             IOHIDValueGetIntegerValue(newValue);
             goto LABEL_10;
@@ -260,10 +259,8 @@ LABEL_7:
           case 2:
             IOHIDValueGetScaledValue(newValue, v6);
 LABEL_10:
-            v11 = *v5;
-LABEL_11:
-            v12 = OUTLINED_FUNCTION_0_0(v11);
-            v13(v12);
+            OUTLINED_FUNCTION_0_0();
+            v10();
             if (!v4)
             {
               return;
@@ -271,8 +268,8 @@ LABEL_11:
 
             continue;
           default:
-            v9 = OUTLINED_FUNCTION_0_0(*v5);
-            v10(v9);
+            OUTLINED_FUNCTION_0_0();
+            v9();
             if (v4)
             {
               continue;

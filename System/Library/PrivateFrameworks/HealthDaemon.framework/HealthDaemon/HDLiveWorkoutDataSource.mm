@@ -89,48 +89,46 @@
 
 void __57__HDLiveWorkoutDataSource_remote_startTaskServerIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Couldn't notify live workout data source client of new collected types with error: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Couldn't notify live workout data source client of new collected types with error: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HDLiveWorkoutDataSource__setDataSourceConfiguration___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [*(a1 + 32) filtersBySampleType];
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       v6 = 0;
       do
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * v6);
+        v7 = *(*(&v20 + 1) + 8 * v6);
         v8 = [*(a1 + 40) client];
         v9 = [*(a1 + 32) filtersBySampleType];
         v10 = [v9 objectForKeyedSubscript:v7];
@@ -141,7 +139,7 @@ void __55__HDLiveWorkoutDataSource__setDataSourceConfiguration___block_invoke(ui
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v4);
@@ -155,8 +153,6 @@ void __55__HDLiveWorkoutDataSource__setDataSourceConfiguration___block_invoke(ui
   v17 = *(a1 + 40);
   v18 = *(v17 + 56);
   *(v17 + 56) = v16;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_lock_shouldAddSample:(uint64_t)sample
@@ -196,23 +192,21 @@ void __55__HDLiveWorkoutDataSource__setDataSourceConfiguration___block_invoke(ui
 
 - (void)workoutDataDestination:(id)destination didUpdateConfiguration:(id)configuration
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(HDWorkoutBasicDataSource *)self->_basicDataSource setWorkoutConfiguration:configuration];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_INFO, "%{public}@:Updated workout configuration", &v7, 0xCu);
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_INFO, "%{public}@:Updated workout configuration", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutDataDestination:(id)destination didAttachDataSourceToSessionIdentifer:(id)identifer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identiferCopy = identifer;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC330];
@@ -222,32 +216,29 @@ void __55__HDLiveWorkoutDataSource__setDataSourceConfiguration___block_invoke(ui
     uUIDString = [identiferCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = uUIDString;
+    v17 = 2114;
+    v18 = uUIDString;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Registering for session: %{public}@", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   workoutManager = [WeakRetained workoutManager];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __88__HDLiveWorkoutDataSource_workoutDataDestination_didAttachDataSourceToSessionIdentifer___block_invoke;
-  v13[3] = &unk_278613858;
-  v14 = identiferCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __88__HDLiveWorkoutDataSource_workoutDataDestination_didAttachDataSourceToSessionIdentifer___block_invoke;
+  v12[3] = &unk_278613858;
+  v13 = identiferCopy;
   selfCopy2 = self;
   v11 = identiferCopy;
-  [workoutManager sessionServerFromSessionIdentifier:v11 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [workoutManager sessionServerFromSessionIdentifier:v11 completion:v12];
 }
 
 void __88__HDLiveWorkoutDataSource_workoutDataDestination_didAttachDataSourceToSessionIdentifer___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(*(a1 + 40) + 64);
-    v4 = *MEMORY[0x277D85DE8];
 
     [v3 setSessionServer:a2];
   }
@@ -255,72 +246,70 @@ void __88__HDLiveWorkoutDataSource_workoutDataDestination_didAttachDataSourceToS
   else
   {
     _HKInitializeLogging();
-    v5 = *MEMORY[0x277CCC330];
+    v4 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = v5;
-      v9 = [v7 UUIDString];
-      v10 = 138543362;
-      v11 = v9;
-      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Failed to link data source to session %{public}@", &v10, 0xCu);
+      v5 = *(a1 + 32);
+      v6 = v4;
+      v7 = [v5 UUIDString];
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to link data source to session %{public}@", &v8, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)addQuantities:(id)quantities dataSource:(id)source
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   quantitiesCopy = quantities;
   sourceCopy = source;
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3032000000;
-  v23[3] = __Block_byref_object_copy__79;
-  v23[4] = __Block_byref_object_dispose__79;
-  v24 = 0;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = __Block_byref_object_copy__79;
+  v22[4] = __Block_byref_object_dispose__79;
+  v23 = 0;
   client = [(HDStandardTaskServer *)self client];
   authorizationOracle = [client authorizationOracle];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke;
-  v19[3] = &unk_27861F0F0;
-  v21 = v23;
-  v22 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke;
+  v18[3] = &unk_27861F0F0;
+  v20 = v22;
+  v21 = 0;
   v10 = quantitiesCopy;
-  v20 = v10;
-  v11 = [authorizationOracle performReadAuthorizationTransactionWithError:&v22 handler:v19];
-  v12 = v22;
+  v19 = v10;
+  v11 = [authorizationOracle performReadAuthorizationTransactionWithError:&v21 handler:v18];
+  v12 = v21;
 
   if (v11)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v26 = __Block_byref_object_copy__79;
-    v27 = __Block_byref_object_dispose__79;
-    v28 = 0;
+    v25 = __Block_byref_object_copy__79;
+    v26 = __Block_byref_object_dispose__79;
+    v27 = 0;
     lock = self->_lock;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke_416;
-    v18[3] = &unk_27861F140;
-    v18[5] = buf;
-    v18[6] = v23;
-    v18[4] = self;
-    [(NSLock *)lock hk_withLock:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke_416;
+    v17[3] = &unk_27861F140;
+    v17[5] = buf;
+    v17[6] = v22;
+    v17[4] = self;
+    [(NSLock *)lock hk_withLock:v17];
     if ([*(*&buf[8] + 40) count])
     {
       workoutDataFlowLink = self->_workoutDataFlowLink;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke_3;
-      v17[3] = &unk_27861F168;
-      v17[4] = self;
-      v17[5] = buf;
-      [(HKDataFlowLink *)workoutDataFlowLink sendToDestinationProcessors:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke_3;
+      v16[3] = &unk_27861F168;
+      v16[4] = self;
+      v16[5] = buf;
+      [(HKDataFlowLink *)workoutDataFlowLink sendToDestinationProcessors:v16];
     }
 
     _Block_object_dispose(buf, 8);
@@ -340,8 +329,7 @@ void __88__HDLiveWorkoutDataSource_workoutDataDestination_didAttachDataSourceToS
     }
   }
 
-  _Block_object_dispose(v23, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 uint64_t __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke(uint64_t a1, void *a2)
@@ -397,42 +385,42 @@ uint64_t __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke_2
 
 - (void)addOtherSamples:(id)samples dataSource:(id)source
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   samplesCopy = samples;
   client = [(HDStandardTaskServer *)self client];
   authorizationOracle = [client authorizationOracle];
-  v21 = 0;
-  v10 = [authorizationOracle filteredObjectsForReadAuthorization:samplesCopy anchor:0 error:&v21];
+  v20 = 0;
+  v10 = [authorizationOracle filteredObjectsForReadAuthorization:samplesCopy anchor:0 error:&v20];
 
-  v11 = v21;
+  v11 = v20;
   if (v10)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v23 = __Block_byref_object_copy__79;
-    v24 = __Block_byref_object_dispose__79;
-    v25 = 0;
+    v22 = __Block_byref_object_copy__79;
+    v23 = __Block_byref_object_dispose__79;
+    v24 = 0;
     lock = self->_lock;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __54__HDLiveWorkoutDataSource_addOtherSamples_dataSource___block_invoke;
-    v17[3] = &unk_27861F190;
-    v20 = buf;
-    v18 = v10;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __54__HDLiveWorkoutDataSource_addOtherSamples_dataSource___block_invoke;
+    v16[3] = &unk_27861F190;
+    v19 = buf;
+    v17 = v10;
     selfCopy = self;
-    [(NSLock *)lock hk_withLock:v17];
+    [(NSLock *)lock hk_withLock:v16];
     if ([*(*&buf[8] + 40) count])
     {
       workoutDataFlowLink = self->_workoutDataFlowLink;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __54__HDLiveWorkoutDataSource_addOtherSamples_dataSource___block_invoke_3;
-      v16[3] = &unk_27861F168;
-      v16[4] = self;
-      v16[5] = buf;
-      [(HKDataFlowLink *)workoutDataFlowLink sendToDestinationProcessors:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __54__HDLiveWorkoutDataSource_addOtherSamples_dataSource___block_invoke_3;
+      v15[3] = &unk_27861F168;
+      v15[4] = self;
+      v15[5] = buf;
+      [(HKDataFlowLink *)workoutDataFlowLink sendToDestinationProcessors:v15];
     }
 
     _Block_object_dispose(buf, 8);
@@ -451,8 +439,6 @@ uint64_t __52__HDLiveWorkoutDataSource_addQuantities_dataSource___block_invoke_2
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Failed to filter objects for read authorization: %{public}@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDLiveWorkoutDataSource_addOtherSamples_dataSource___block_invoke(void *a1)
@@ -526,7 +512,7 @@ void __87__HDLiveWorkoutDataSource_addMetadataToWorkoutActivity_withSampleStartD
 - (void)workoutDataDestination:(id)destination didUpdateGeneratedTypesWithConfiguration:(id)configuration sampleTypes:(id)types didUpdateActivity:(BOOL)activity date:(id)date
 {
   activityCopy = activity;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   dateCopy = date;
   configurationCopy = configuration;
@@ -537,8 +523,8 @@ void __87__HDLiveWorkoutDataSource_addMetadataToWorkoutActivity_withSampleStartD
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v41 = 2114;
-    v42 = typesCopy;
+    v40 = 2114;
+    v41 = typesCopy;
     _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Generated samples types updated to: %{public}@", buf, 0x16u);
   }
 
@@ -585,56 +571,52 @@ LABEL_6:
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v41 = 2114;
-    v42 = v16;
+    v40 = 2114;
+    v41 = v16;
     _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: Collected samples updated. Notifying client with types: %{public}@", buf, 0x16u);
   }
 
   [(HDWorkoutBasicDataSource *)self->_basicDataSource setSampleTypesToCollect:v16];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v38 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __126__HDLiveWorkoutDataSource_workoutDataDestination_didUpdateGeneratedTypesWithConfiguration_sampleTypes_didUpdateActivity_date___block_invoke;
-  v36[3] = &unk_278613218;
-  v36[4] = self;
-  v37 = dateCopy;
-  [(HDHealthEntity *)HDSampleEntity performWriteTransactionWithHealthDatabase:database error:&v38 block:v36];
-  v29 = v38;
+  v37 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __126__HDLiveWorkoutDataSource_workoutDataDestination_didUpdateGeneratedTypesWithConfiguration_sampleTypes_didUpdateActivity_date___block_invoke;
+  v35[3] = &unk_278613218;
+  v35[4] = self;
+  v36 = dateCopy;
+  [(HDHealthEntity *)HDSampleEntity performWriteTransactionWithHealthDatabase:database error:&v37 block:v35];
+  v29 = v37;
 
   client = [(HDStandardTaskServer *)self client];
   connection = [client connection];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __126__HDLiveWorkoutDataSource_workoutDataDestination_didUpdateGeneratedTypesWithConfiguration_sampleTypes_didUpdateActivity_date___block_invoke_2;
-  v35[3] = &unk_2786138D0;
-  v35[4] = self;
-  v32 = [connection remoteObjectProxyWithErrorHandler:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __126__HDLiveWorkoutDataSource_workoutDataDestination_didUpdateGeneratedTypesWithConfiguration_sampleTypes_didUpdateActivity_date___block_invoke_2;
+  v34[3] = &unk_2786138D0;
+  v34[4] = self;
+  v32 = [connection remoteObjectProxyWithErrorHandler:v34];
 
   [v32 clientRemote_didUpdateDataSourceConfiguration:self->_dataSourceConfiguration shouldUpdateSampleTypesToCollect:activityCopy];
 LABEL_11:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __126__HDLiveWorkoutDataSource_workoutDataDestination_didUpdateGeneratedTypesWithConfiguration_sampleTypes_didUpdateActivity_date___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Couldn't notify live workout data source client of new collected types with error: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Couldn't notify live workout data source client of new collected types with error: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (HDWorkoutDataAccumulator)workoutDataAccumulator

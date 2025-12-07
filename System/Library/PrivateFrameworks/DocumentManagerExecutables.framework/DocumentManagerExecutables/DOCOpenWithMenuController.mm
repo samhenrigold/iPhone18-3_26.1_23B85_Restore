@@ -35,7 +35,7 @@
 
 - (void)openWithMenuFromConstructorDidSelectAppStoreItem:(id)item
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_249B9A480;
   *(v3 + 56) = MEMORY[0x277D837D0];
@@ -50,14 +50,14 @@
   swift_unknownObjectRetain();
   errorCopy = error;
   selfCopy = self;
-  specialized DOCOpenWithMenuController.openWithFlow(_:didFailToOpenUsing:error:)();
+  specialized DOCOpenWithMenuController.openWithFlow(_:didFailToOpenUsing:error:)(bundle, errorCopy);
 
   swift_unknownObjectRelease();
 }
 
 - (void)openWithFlowDidOpenAppStore:(id)store
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_249B9A480;
   *(v3 + 56) = MEMORY[0x277D837D0];
@@ -71,7 +71,7 @@
   flowCopy = flow;
   errorCopy = error;
   selfCopy = self;
-  specialized DOCOpenWithMenuController.openWithFlow(_:didFailToOpenAppStoreWithError:)();
+  specialized DOCOpenWithMenuController.openWithFlow(_:didFailToOpenAppStoreWithError:)(errorCopy);
 }
 
 - (_TtC26DocumentManagerExecutables25DOCOpenWithMenuController)init

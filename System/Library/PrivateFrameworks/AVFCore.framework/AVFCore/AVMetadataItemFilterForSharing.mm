@@ -28,7 +28,7 @@
   return allowList_sAllowList;
 }
 
-uint64_t __43__AVMetadataItemFilterForSharing_allowList__block_invoke()
+void *__43__AVMetadataItemFilterForSharing_allowList__block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [AVMetadataItemFilterForSharing addKeySpace:@"comn" key:@"copyrights" toAllowListDictionary:v0];

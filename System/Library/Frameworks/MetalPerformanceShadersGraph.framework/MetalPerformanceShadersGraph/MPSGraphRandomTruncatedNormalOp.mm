@@ -29,14 +29,14 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphRandomTruncatedNormalOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRandomOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphRandomTruncatedNormalOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRandomOps.mm");
   v12 = nameCopy;
-  v57 = 260;
-  v56[0] = __p;
-  v45 = v12;
-  StringAttr = mlir::Builder::getStringAttr(builder, v56);
+  v70 = 260;
+  v69[0] = __p;
+  v58 = v12;
+  StringAttr = mlir::Builder::getStringAttr(builder, v69);
   v14 = mlir::FileLineColLoc::get(StringAttr, 0x155u, 0);
   if (!v12)
   {
@@ -51,157 +51,157 @@
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v19 = v17;
+  v20 = v17;
   if (v17 >= 0x17)
   {
     operator new();
   }
 
-  v65[0].n128_u8[15] = v17;
+  *(&__dst.__r_.__value_.__s + 23) = v17;
   if (v17)
   {
     memmove(&__dst, uTF8String, v17);
   }
 
-  *(&__dst + v19) = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v18, &v61);
-  v20 = v61.__r_.__value_.__r.__words[0];
-  if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  __dst.__r_.__value_.__s.__data_[v20] = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v74, v18, v19);
+  v21 = v74.__r_.__value_.__r.__words[0];
+  if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v61;
+    v21 = &v74;
   }
 
-  v21 = 1;
-  HIBYTE(v57) = 1;
-  if (v20->__r_.__value_.__s.__data_[0])
+  v22 = 1;
+  HIBYTE(v70) = 1;
+  if (v21->__r_.__value_.__s.__data_[0])
   {
-    v56[0] = v20;
-    v21 = 3;
+    v69[0] = v21;
+    v22 = 3;
   }
 
-  LOBYTE(v57) = v21;
-  v22 = mlir::Builder::getStringAttr(builder, v56);
-  v23 = mlir::NameLoc::get(v22, v14);
-  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v70) = v22;
+  v23 = mlir::Builder::getStringAttr(builder, v69);
+  v24 = mlir::NameLoc::get(v23, v14);
+  if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v61.__r_.__value_.__l.__data_);
-    if ((v65[0].n128_i8[15] & 0x80000000) == 0)
+    operator delete(v74.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_15;
     }
   }
 
-  else if ((v65[0].n128_i8[15] & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_15;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_15:
 
-  if (v48 < 0)
+  if (v61 < 0)
   {
     operator delete(__p[0]);
   }
 
   MLIRElementType = getMLIRElementType(*builder, *(&self->_dataType + 1));
-  v25 = *values;
+  v29 = *values;
   if (*(values + 1) - *values <= 8uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v26 = MLIRElementType;
-  v27 = llvm::detail::IEEEFloat::IEEEFloat(v56, self->_mean);
-  v28 = llvm::APFloatBase::IEEEsingle(v27);
-  llvm::APFloat::Storage::Storage(&v53, v56, v28);
-  llvm::detail::IEEEFloat::~IEEEFloat(v56);
-  llvm::detail::IEEEFloat::IEEEFloat(v56, self->_standardDeviation);
-  llvm::APFloat::Storage::Storage(&v52, v56, v28);
-  llvm::detail::IEEEFloat::~IEEEFloat(v56);
-  llvm::detail::IEEEFloat::IEEEFloat(v56, self->_minimum);
-  llvm::APFloat::Storage::Storage(&v51, v56, v28);
-  llvm::detail::IEEEFloat::~IEEEFloat(v56);
-  llvm::detail::IEEEFloat::IEEEFloat(v56, self->_maximum);
-  llvm::APFloat::Storage::Storage(&v50, v56, v28);
-  llvm::detail::IEEEFloat::~IEEEFloat(v56);
+  v30 = MLIRElementType;
+  v31 = llvm::detail::IEEEFloat::IEEEFloat(v69, self->_mean, v26, v27, v28);
+  v32 = llvm::APFloatBase::IEEEsingle(v31);
+  llvm::APFloat::Storage::Storage(&v66, v69, v32);
+  llvm::detail::IEEEFloat::~IEEEFloat(v69);
+  llvm::detail::IEEEFloat::IEEEFloat(v69, self->_standardDeviation, v33, v34, v35);
+  llvm::APFloat::Storage::Storage(&v65, v69, v32);
+  llvm::detail::IEEEFloat::~IEEEFloat(v69);
+  llvm::detail::IEEEFloat::IEEEFloat(v69, self->_minimum, v36, v37, v38);
+  llvm::APFloat::Storage::Storage(&v64, v69, v32);
+  llvm::detail::IEEEFloat::~IEEEFloat(v69);
+  llvm::detail::IEEEFloat::IEEEFloat(v69, self->_maximum, v39, v40, v41);
+  llvm::APFloat::Storage::Storage(&v63, v69, v32);
+  llvm::detail::IEEEFloat::~IEEEFloat(v69);
   samplingMethod = self->_samplingMethod;
-  v49 = v23;
-  Context = mlir::Attribute::getContext(&v49);
-  v31 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::RandomTruncatedNormalOp,void>::id, Context);
-  if ((v32 & 1) == 0)
+  v62 = v24;
+  Context = mlir::Attribute::getContext(&v62);
+  v44 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::RandomTruncatedNormalOp,void>::id, Context);
+  if ((v45 & 1) == 0)
   {
-    v63 = 1283;
-    v61.__r_.__value_.__r.__words[2] = "mps.random_truncated_normal";
-    v62 = 27;
-    v60 = 259;
-    llvm::operator+(&v61, &v58, &__dst);
+    v76 = 1283;
+    v74.__r_.__value_.__r.__words[2] = "mps.random_truncated_normal";
+    v75 = 27;
+    v73 = 259;
+    llvm::operator+(&v74, &v71, &__dst);
     llvm::report_fatal_error(&__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v56, v23, v31);
-  v33 = v26;
-  v34 = *v25;
-  v35 = v25[1];
-  v36 = v53.n128_u64[0];
-  v38 = llvm::APFloatBase::PPCDoubleDouble(v37);
-  if (v38 == v36)
+  mlir::OperationState::OperationState(v69, v24, v44);
+  v46 = v30;
+  v47 = *v29;
+  v48 = v29[1];
+  v49 = v66.n128_u64[0];
+  v51 = llvm::APFloatBase::PPCDoubleDouble(v50);
+  if (v51 == v49)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v65, &v53);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&__dst.__r_.__value_.__r.__words[1], &v66);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(v65, &v53);
+    llvm::detail::IEEEFloat::IEEEFloat(&__dst.__r_.__value_.__l.__size_, &v66);
   }
 
-  if (v38 == v52.n128_u64[0])
+  if (v51 == v65.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61.__r_.__value_.__r.__words[1], &v52);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::IEEEFloat(&v61.__r_.__value_.__l.__size_, &v52);
-  }
-
-  if (v38 == v51.n128_u64[0])
-  {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v59, &v51);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v74.__r_.__value_.__r.__words[1], &v65);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v59, &v51);
+    llvm::detail::IEEEFloat::IEEEFloat(&v74.__r_.__value_.__l.__size_, &v65);
   }
 
-  if (v38 == v50.n128_u64[0])
+  if (v51 == v64.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v55, &v50);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v72, &v64);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v55, &v50);
+    llvm::detail::IEEEFloat::IEEEFloat(&v72, &v64);
   }
 
-  mlir::mps::RandomTruncatedNormalOp::build(builder, v56, v34, v35, v33, &__dst, &v61, &v58, v54, samplingMethod);
-  if (v38 == v55.n128_u64[0])
+  if (v51 == v63.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v55);
-    v39 = v45;
-    if (v38 != v59.n128_u64[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v68, &v63);
+  }
+
+  else
+  {
+    llvm::detail::IEEEFloat::IEEEFloat(&v68, &v63);
+  }
+
+  mlir::mps::RandomTruncatedNormalOp::build(builder, v69, v47, v48, v46, &__dst, &v74, &v71, v67, samplingMethod);
+  if (v51 == v68.n128_u64[0])
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v68);
+    v52 = v58;
+    if (v51 != v72.n128_u64[0])
     {
 LABEL_35:
-      llvm::detail::IEEEFloat::~IEEEFloat(&v59);
-      if (v38 != v61.__r_.__value_.__l.__size_)
+      llvm::detail::IEEEFloat::~IEEEFloat(&v72);
+      if (v51 != v74.__r_.__value_.__l.__size_)
       {
         goto LABEL_36;
       }
 
 LABEL_40:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61.__r_.__value_.__r.__words[1]);
-      if (v38 != v65[0].n128_u64[0])
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v74.__r_.__value_.__r.__words[1]);
+      if (v51 != __dst.__r_.__value_.__l.__size_)
       {
         goto LABEL_37;
       }
@@ -212,97 +212,97 @@ LABEL_40:
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(&v55);
-    v39 = v45;
-    if (v38 != v59.n128_u64[0])
+    llvm::detail::IEEEFloat::~IEEEFloat(&v68);
+    v52 = v58;
+    if (v51 != v72.n128_u64[0])
     {
       goto LABEL_35;
     }
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v59);
-  if (v38 == v61.__r_.__value_.__l.__size_)
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v72);
+  if (v51 == v74.__r_.__value_.__l.__size_)
   {
     goto LABEL_40;
   }
 
 LABEL_36:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v61.__r_.__value_.__r.__words[1]);
-  if (v38 != v65[0].n128_u64[0])
+  llvm::detail::IEEEFloat::~IEEEFloat(&v74.__r_.__value_.__r.__words[1]);
+  if (v51 != __dst.__r_.__value_.__l.__size_)
   {
 LABEL_37:
-    llvm::detail::IEEEFloat::~IEEEFloat(v65);
+    llvm::detail::IEEEFloat::~IEEEFloat(&__dst.__r_.__value_.__r.__words[1]);
     goto LABEL_42;
   }
 
 LABEL_41:
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(v65);
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__dst.__r_.__value_.__r.__words[1]);
 LABEL_42:
-  v40 = mlir::OpBuilder::create(builder, v56);
-  v41 = *(*(v40 + 48) + 16);
-  mlir::OperationState::~OperationState(v56);
-  if (v41 == &mlir::detail::TypeIDResolver<mlir::mps::RandomTruncatedNormalOp,void>::id)
+  v53 = mlir::OpBuilder::create(builder, v69);
+  v54 = *(*(v53 + 6) + 16);
+  mlir::OperationState::~OperationState(v69);
+  if (v54 == &mlir::detail::TypeIDResolver<mlir::mps::RandomTruncatedNormalOp,void>::id)
   {
-    v42 = v40;
+    v55 = v53;
   }
 
   else
   {
-    v42 = 0;
+    v55 = 0;
   }
 
-  v46 = v42 - 16;
-  if (v38 == v50.n128_u64[0])
+  v59 = v55 - 16;
+  if (v51 == v63.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v50);
-    if (v38 != v51.n128_u64[0])
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v63);
+    if (v51 != v64.n128_u64[0])
     {
 LABEL_47:
-      llvm::detail::IEEEFloat::~IEEEFloat(&v51);
-      if (v38 != v52.n128_u64[0])
+      llvm::detail::IEEEFloat::~IEEEFloat(&v64);
+      if (v51 != v65.n128_u64[0])
       {
         goto LABEL_48;
       }
 
 LABEL_52:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v52);
-      if (v38 != v53.n128_u64[0])
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v65);
+      if (v51 != v66.n128_u64[0])
       {
         goto LABEL_49;
       }
 
 LABEL_53:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v53);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v66);
       goto LABEL_54;
     }
   }
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(&v50);
-    if (v38 != v51.n128_u64[0])
+    llvm::detail::IEEEFloat::~IEEEFloat(&v63);
+    if (v51 != v64.n128_u64[0])
     {
       goto LABEL_47;
     }
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v51);
-  if (v38 == v52.n128_u64[0])
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
+  if (v51 == v65.n128_u64[0])
   {
     goto LABEL_52;
   }
 
 LABEL_48:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v52);
-  if (v38 == v53.n128_u64[0])
+  llvm::detail::IEEEFloat::~IEEEFloat(&v65);
+  if (v51 == v66.n128_u64[0])
   {
     goto LABEL_53;
   }
 
 LABEL_49:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v53);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v66);
 LABEL_54:
-  DefiningOp = mlir::Value::getDefiningOp(&v46);
+  DefiningOp = mlir::Value::getDefiningOp(&v59);
 
   return DefiningOp;
 }

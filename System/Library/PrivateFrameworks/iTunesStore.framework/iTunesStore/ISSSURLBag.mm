@@ -227,10 +227,7 @@ void __32__ISSSURLBag_valueForKey_error___block_invoke(uint64_t a1, void *a2, vo
 
 uint64_t __35__ISSSURLBag_existingBagDictionary__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 72) URLBagDictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) URLBagDictionary];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -310,10 +307,7 @@ void __38__ISSSURLBag_loadWithCompletionBlock___block_invoke_3(uint64_t a1, void
 
 uint64_t __34__ISSSURLBag_storeFrontIdentifier__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 72) storeFrontIdentifier];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) storeFrontIdentifier];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -432,41 +426,37 @@ void __47__ISSSURLBag__finishOperationWithURLBag_error___block_invoke(uint64_t a
 
 void __47__ISSSURLBag__finishOperationWithURLBag_error___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v11;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        v8 = *(a1 + 48);
-        (*(*(*(&v10 + 1) + 8 * v6) + 16))(*(*(&v10 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

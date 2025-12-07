@@ -69,14 +69,14 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   unsignedIntValue = 0;
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   unsignedCharValue = 0;
-  v20[0] = 0;
-  v20[1] = 0;
-  v19 = v20;
+  v19[0] = 0;
+  v19[1] = 0;
+  v18 = v19;
   forecastID = [(MTRDeviceEnergyManagementClusterModifyForecastRequestParams *)self forecastID];
   unsignedIntValue = [forecastID unsignedIntValue];
 
@@ -88,40 +88,40 @@
     operator new();
   }
 
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   cause = [(MTRDeviceEnergyManagementClusterModifyForecastRequestParams *)self cause];
   unsignedCharValue = [cause unsignedCharValue];
 
-  sub_2393D9C18(0x62FuLL, 0, &v18);
-  if (v18)
+  sub_2393D9C18(0x62FuLL, 0, &v17);
+  if (v17)
   {
     sub_2393C7B90(buf);
+    v26 = 0;
     v27 = 0;
+    v25 = &unk_284BB83A8;
     v28 = 0;
-    v26 = &unk_284BB83A8;
-    v29 = 0;
-    sub_238EA16C4(&v26, &v18, 0);
-    sub_2393C7BF0(buf, &v26, 0xFFFFFFFF);
+    sub_238EA16C4(&v25, &v17, 0);
+    sub_2393C7BF0(buf, &v25, 0xFFFFFFFF);
     v8 = sub_238F0EB04(&unsignedIntValue, buf, 0x100uLL);
     v10 = v8;
-    if (v8 || (v8 = sub_238DD2EFC(buf, &v18), v10 = v8, v8))
+    if (v8 || (v8 = sub_238DD2EFC(buf, &v17), v10 = v8, v8))
     {
       v11 = v9;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v18);
+      sub_238DD2F90(reader, &v17);
       v8 = sub_2393C7114(reader, 21, 256);
-      v11 = v16;
+      v11 = v15;
       v10 = v8;
     }
 
     v12 = v8 & 0xFFFFFFFF00000000;
-    v26 = &unk_284BB83A8;
-    sub_238EA1758(&v28);
+    v25 = &unk_284BB83A8;
     sub_238EA1758(&v27);
+    sub_238EA1758(&v26);
   }
 
   else
@@ -131,14 +131,13 @@
     v10 = 11;
   }
 
-  sub_238EA1758(&v18);
-  sub_238EA1790(&v19);
-  v13 = *MEMORY[0x277D85DE8];
-  v14 = v12 | v10;
-  v15 = v11;
-  result.mFile = v15;
-  result.mError = v14;
-  result.mLine = HIDWORD(v14);
+  sub_238EA1758(&v17);
+  sub_238EA1790(&v18);
+  v13 = v12 | v10;
+  v14 = v11;
+  result.mFile = v14;
+  result.mError = v13;
+  result.mLine = HIDWORD(v13);
   return result;
 }
 

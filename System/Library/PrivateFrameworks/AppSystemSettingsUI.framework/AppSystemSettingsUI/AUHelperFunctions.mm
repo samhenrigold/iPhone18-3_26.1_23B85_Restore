@@ -16,7 +16,7 @@
 {
   swift_getObjCClassMetadata();
   serviceCopy = service;
-  sub_21BB20B5C();
+  sub_21BB20B5C(serviceCopy);
   v6 = v5;
 
   if (v6)

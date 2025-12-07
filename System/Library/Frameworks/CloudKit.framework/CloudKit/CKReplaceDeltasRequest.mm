@@ -19,17 +19,8 @@
   v45 = 0;
   v13 = _CKCheckArgument("valueID", dCopy, 0, 0, 0, &v45);
   v14 = v45;
-  if ((v13 & 1) == 0)
+  if ((v13 & 1) == 0 || (v14, v44 = 0, v15 = _CKCheckArgument("deltaIdentifiersToReplace", replaceCopy, 0, 0, 0, &v44), v14 = v44, (v15 & 1) == 0) || (v14, v43 = 0, v16 = _CKCheckArgument("replacementDeltas", deltasCopy, 0, 0, 0, &v43), v14 = v43, (v16 & 1) == 0))
   {
-    goto LABEL_7;
-  }
-
-  v44 = 0;
-  v15 = _CKCheckArgument("deltaIdentifiersToReplace", replaceCopy, 0, 0, 0, &v44);
-  v14 = v44;
-  if ((v15 & 1) == 0 || (v14, v43 = 0, v16 = _CKCheckArgument("replacementDeltas", deltasCopy, 0, 0, 0, &v43), v14 = v43, (v16 & 1) == 0))
-  {
-LABEL_7:
     v31 = v14;
     v32 = [CKException alloc];
     v35 = objc_msgSend_code(v31, v33, v34);
@@ -81,51 +72,26 @@ LABEL_7:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v33 = 1;
+    isEqual = 1;
   }
 
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    v7 = objc_msgSend_replacementDeltasContainNewData(self, v5, v6);
-    if (v7 != objc_msgSend_replacementDeltasContainNewData(equalCopy, v8, v9))
-    {
-      goto LABEL_7;
-    }
-
-    v12 = objc_msgSend_valueID(self, v10, v11);
-    v15 = objc_msgSend_valueID(equalCopy, v13, v14);
-    isEqual = objc_msgSend_isEqual_(v12, v16, v15);
-
-    if (!isEqual)
-    {
-      goto LABEL_7;
-    }
-
-    v20 = objc_msgSend_deltaIdentifiersToReplace(self, v18, v19);
-    v23 = objc_msgSend_deltaIdentifiersToReplace(equalCopy, v21, v22);
-    v25 = objc_msgSend_isEqual_(v20, v24, v23);
-
-    if (v25)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (v7 = objc_msgSend_replacementDeltasContainNewData(self, v5, v6), v7 == objc_msgSend_replacementDeltasContainNewData(equalCopy, v8, v9)) && (objc_msgSend_valueID(self, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend_valueID(equalCopy, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_isEqual_(v12, v16, v15), v15, v12, v17) && (objc_msgSend_deltaIdentifiersToReplace(self, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend_deltaIdentifiersToReplace(equalCopy, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend_isEqual_(v20, v24, v23), v23, v20, v25))
     {
       v28 = objc_msgSend_replacementDeltas(self, v26, v27);
       v31 = objc_msgSend_replacementDeltas(equalCopy, v29, v30);
-      v33 = objc_msgSend_isEqual_(v28, v32, v31);
+      isEqual = objc_msgSend_isEqual_(v28, v32, v31);
     }
 
     else
     {
-LABEL_7:
-      v33 = 0;
+      isEqual = 0;
     }
   }
 
-  return v33;
+  return isEqual;
 }
 
 - (unint64_t)hash

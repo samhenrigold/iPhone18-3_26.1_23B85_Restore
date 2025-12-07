@@ -19,7 +19,7 @@
 
 - (_MLCCPUSlice)initWithDevice:(id)device begin:(id)begin end:(id)end stride:(id)stride
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   beginCopy = begin;
   endCopy = end;
@@ -70,16 +70,16 @@
     while (v15 < [beginCopy count]);
   }
 
-  v42 = endCopy;
+  v41 = endCopy;
   v31 = [MEMORY[0x277CBEBF8] mutableCopy];
-  memset(v46, 0, sizeof(v46));
-  v32 = [MEMORY[0x277CBEA90] dataWithBytes:v46 length:176];
-  v33 = [MEMORY[0x277CBEA90] dataWithBytes:v46 length:176];
-  v41 = v32;
-  v48[0] = v32;
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
-  v47 = v33;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+  memset(v45, 0, sizeof(v45));
+  v32 = [MEMORY[0x277CBEA90] dataWithBytes:v45 length:176];
+  v33 = [MEMORY[0x277CBEA90] dataWithBytes:v45 length:176];
+  v40 = v32;
+  v47[0] = v32;
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+  v46 = v33;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
   v36 = [MLCSliceCPUDeviceOps deviceOpsWithType:48 params:0 inDeltaData:v34 outDeltaData:v35 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v36)
@@ -91,11 +91,10 @@
   }
 
   v37 = [v31 copy];
-  v45.receiver = self;
-  v45.super_class = _MLCCPUSlice;
-  v38 = [(_MLCCPULayer *)&v45 initWithDevice:deviceCopy deviceOps:v37];
+  v44.receiver = self;
+  v44.super_class = _MLCCPUSlice;
+  v38 = [(_MLCCPULayer *)&v44 initWithDevice:deviceCopy deviceOps:v37];
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -108,17 +107,17 @@
   v12 = [inDeltaData objectAtIndexedSubscript:0];
   bytes = [v12 bytes];
 
-  v63 = v10;
+  v62 = v10;
   outDeltaData = [v10 outDeltaData];
   v14 = [outDeltaData objectAtIndexedSubscript:0];
   bytes2 = [v14 bytes];
 
-  v62 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v60 = tensorCopy;
+  v61 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v59 = tensorCopy;
   descriptor = [tensorCopy descriptor];
   dimensionCount = [descriptor dimensionCount];
 
-  v61 = tensorsCopy;
+  v60 = tensorsCopy;
   if (dimensionCount)
   {
     v17 = 0;
@@ -131,23 +130,23 @@
       stride = [descriptor2 stride];
       v23 = [stride objectAtIndexedSubscript:v17];
       unsignedIntegerValue = [v23 unsignedIntegerValue];
-      stride2 = [v63 stride];
+      stride2 = [v62 stride];
       v26 = [stride2 objectAtIndexedSubscript:v17];
       v27 = [v19 numberWithUnsignedInteger:{objc_msgSend(v26, "unsignedIntegerValue") * unsignedIntegerValue}];
-      [v62 addObject:v27];
+      [v61 addObject:v27];
 
-      tensorsCopy = v61;
-      v28 = [v61 objectAtIndexedSubscript:0];
+      tensorsCopy = v60;
+      v28 = [v60 objectAtIndexedSubscript:0];
       descriptor3 = [v28 descriptor];
       stride3 = [descriptor3 stride];
       v31 = [stride3 objectAtIndexedSubscript:v17];
       unsignedIntegerValue2 = [v31 unsignedIntegerValue];
-      begin = [v63 begin];
+      begin = [v62 begin];
       v34 = [begin objectAtIndexedSubscript:v17];
       v18 += [v34 unsignedIntegerValue] * unsignedIntegerValue2;
 
       ++v17;
-      descriptor4 = [v60 descriptor];
+      descriptor4 = [v59 descriptor];
       dimensionCount2 = [descriptor4 dimensionCount];
     }
 
@@ -159,59 +158,59 @@
     v18 = 0;
   }
 
-  v37 = v63;
-  [v63 setBeginOffset:v18];
-  [v63 setStride:v62];
-  v38 = [v63 count];
+  v37 = v62;
+  [v62 setBeginOffset:v18];
+  [v62 setStride:v61];
+  v38 = [v62 count];
   v39 = [tensorsCopy objectAtIndexedSubscript:0];
   descriptor5 = [v39 descriptor];
   dataType = [descriptor5 dataType];
   v42 = [tensorsCopy objectAtIndexedSubscript:0];
   descriptor6 = [v42 descriptor];
-  LOBYTE(dataType) = CPU_BuildBNNSNDArrayDescriptorRowMajor(bytes, v38, v62, 0, dataType, [descriptor6 dimensionCount], 0);
+  LOBYTE(dataType) = CPU_BuildBNNSNDArrayDescriptorRowMajor(bytes, v38, v61, 0, dataType, [descriptor6 dimensionCount], 0);
 
   if (dataType)
   {
-    v44 = v60;
-    descriptor7 = [v60 descriptor];
+    v44 = v59;
+    descriptor7 = [v59 descriptor];
     shape = [descriptor7 shape];
-    descriptor8 = [v60 descriptor];
+    descriptor8 = [v59 descriptor];
     stride4 = [descriptor8 stride];
-    descriptor9 = [v60 descriptor];
+    descriptor9 = [v59 descriptor];
     dataType2 = [descriptor9 dataType];
-    descriptor10 = [v60 descriptor];
-    v52 = CPU_BuildBNNSNDArrayDescriptorRowMajor(bytes2, shape, stride4, 0, dataType2, [descriptor10 dimensionCount], 0);
+    descriptor10 = [v59 descriptor];
+    LODWORD(dataType2) = CPU_BuildBNNSNDArrayDescriptorRowMajor(bytes2, shape, stride4, 0, dataType2, [descriptor10 dimensionCount], 0);
 
-    if (v52)
+    if (dataType2)
     {
       objc_opt_class();
-      v53 = objc_opt_new();
-      v37 = v63;
-      [v63 setLayer:v53];
+      v52 = objc_opt_new();
+      v37 = v62;
+      [v62 setLayer:v52];
 
-      v54 = 1;
-      v55 = v61;
+      v53 = 1;
+      v54 = v60;
     }
 
     else
     {
-      v54 = 0;
-      v55 = v61;
-      v37 = v63;
+      v53 = 0;
+      v54 = v60;
+      v37 = v62;
     }
 
-    v56 = v62;
+    v55 = v61;
   }
 
   else
   {
-    v56 = v62;
-    v54 = 0;
-    v44 = v60;
     v55 = v61;
+    v53 = 0;
+    v44 = v59;
+    v54 = v60;
   }
 
-  return v54;
+  return v53;
 }
 
 @end

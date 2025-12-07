@@ -32,10 +32,10 @@
 
 - (id)newSAPersonFromABPerson:(void *)person
 {
-  descriptorsForRequiredKeys = [(objc_class *)getCNAssistantConversionClass() descriptorsForRequiredKeys];
-  v5 = [ABSPublicABCNCompatibility contactFromPublicABPerson:person keysToFetch:descriptorsForRequiredKeys];
+  v4 = [getCNAssistantConversionClass(self a2)];
+  v5 = [ABSPublicABCNCompatibility contactFromPublicABPerson:person keysToFetch:v4];
 
-  v6 = [(objc_class *)getCNAssistantConversionClass() createSAPersonFromCNContact:v5];
+  v6 = [(objc_class *)(getCNAssistantConversionClass)() createSAPersonFromCNContact:v5];
 
   return v6;
 }

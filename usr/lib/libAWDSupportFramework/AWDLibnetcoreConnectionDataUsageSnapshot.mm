@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    bytesIn = self->_bytesIn;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  bytesOut = self->_bytesOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  multipathBytesInCell = self->_multipathBytesInCell;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  multipathBytesOutCell = self->_multipathBytesOutCell;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  multipathBytesInWiFi = self->_multipathBytesInWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    multipathBytesInInitial = self->_multipathBytesInInitial;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  multipathBytesOutWiFi = self->_multipathBytesOutWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  multipathBytesOutInitial = self->_multipathBytesOutInitial;
 
   PBDataWriterWriteUint64Field();
 }

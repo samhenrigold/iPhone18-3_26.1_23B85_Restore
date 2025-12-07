@@ -53,7 +53,7 @@ uint64_t InitializeFactPatterns(uint64_t a1)
   return AddPatternParser(a1, v6);
 }
 
-uint64_t PlaceFactPattern(uint64_t a1, uint64_t a2)
+uint64_t PlaceFactPattern(void *a1, uint64_t a2)
 {
   v27 = 0;
   v4 = *(a2 + 192);
@@ -99,7 +99,7 @@ uint64_t PlaceFactPattern(uint64_t a1, uint64_t a2)
   v9[19] = *(a2 + 152);
   *(a2 + 152) = 0;
   ImportedConstruct = FindImportedConstruct(a1, "deftemplate", 0, v5, &v26, 1, 0);
-  v12 = *(a1 + 48);
+  v12 = a1[6];
   *(*(v12 + 24) + 368) = ImportedConstruct;
   v13 = *(a2 + 192);
   if (!v13)
@@ -181,7 +181,7 @@ uint64_t PlaceFactPattern(uint64_t a1, uint64_t a2)
   return NewPatternNode;
 }
 
-uint64_t DetachFactPattern(uint64_t a1, uint64_t a2)
+uint64_t DetachFactPattern(void *a1, uint64_t a2)
 {
   result = EnvGetNextFact(a1, 0);
   if (result)
@@ -208,7 +208,7 @@ uint64_t DetachFactPattern(uint64_t a1, uint64_t a2)
             }
 
             *v8 = *v6;
-            v9 = *(a1 + 48);
+            v9 = a1[6];
             *(*(v9 + 472) + 32) = v6;
             **(*(v9 + 472) + 32) = *(*(*(v9 + 472) + 40) + 192);
             *(*(*(v9 + 472) + 40) + 192) = *(*(v9 + 472) + 32);
@@ -297,7 +297,7 @@ uint64_t DetachFactPattern(uint64_t a1, uint64_t a2)
 
       RemoveHashedExpression(a1, *(a2 + 56));
       result = RemoveHashedExpression(a1, *(a2 + 24));
-      v13 = *(a1 + 48);
+      v13 = a1[6];
       *(*(v13 + 472) + 32) = a2;
       **(*(v13 + 472) + 32) = *(*(*(v13 + 472) + 40) + 768);
       *(*(*(v13 + 472) + 40) + 768) = *(*(v13 + 472) + 32);
@@ -328,7 +328,7 @@ LABEL_37:
 
     RemoveHashedExpression(a1, *(a2 + 56));
     result = RemoveHashedExpression(a1, *(a2 + 24));
-    v16 = *(a1 + 48);
+    v16 = a1[6];
     *(*(v16 + 472) + 32) = a2;
     **(*(v16 + 472) + 32) = *(*(*(v16 + 472) + 40) + 768);
     *(*(*(v16 + 472) + 40) + 768) = *(*(v16 + 472) + 32);
@@ -370,7 +370,7 @@ uint64_t DestroyFactPatternNetwork(uint64_t result, uint64_t a2)
   return result;
 }
 
-unsigned __int16 *RemoveUnneededSlots(uint64_t a1, unsigned __int16 *a2)
+unsigned __int16 *RemoveUnneededSlots(void *a1, unsigned __int16 *a2)
 {
   v2 = a2;
   if (a2)
@@ -429,19 +429,21 @@ LABEL_9:
                 *(*(v10 + 128) + 24) = v11;
               }
 
-              *(*(v5 + 25) + 88) = CombineExpressions(a1, v9, *(v10 + 88));
-              v12 = RemoveUnneededSlots(a1);
-              *(v5 + 25) = v12;
-              if (!v12)
+              v12 = CombineExpressions(a1, v9, *(v10 + 88));
+              v13 = *(v5 + 25);
+              *(v13 + 88) = v12;
+              v14 = RemoveUnneededSlots(a1, v13);
+              *(v5 + 25) = v14;
+              if (!v14)
               {
 LABEL_25:
-                v13 = *(v5 + 24);
+                v15 = *(v5 + 24);
                 if (v4)
                 {
-                  *(v4 + 24) = v13;
+                  *(v4 + 24) = v15;
                   *(v5 + 24) = 0;
                   ReturnLHSParseNodes(a1, v5);
-                  v13 = *(v4 + 24);
+                  v15 = *(v4 + 24);
                   v5 = v4;
                 }
 
@@ -450,7 +452,7 @@ LABEL_25:
                   *(v5 + 24) = 0;
                   ReturnLHSParseNodes(a1, v5);
                   v5 = 0;
-                  v2 = v13;
+                  v2 = v15;
                 }
 
                 goto LABEL_30;
@@ -473,11 +475,11 @@ LABEL_25:
       }
 
 LABEL_29:
-      v13 = *(v5 + 24);
+      v15 = *(v5 + 24);
 LABEL_30:
       v4 = v5;
-      v5 = v13;
-      if (!v13)
+      v5 = v15;
+      if (!v15)
       {
         return v2;
       }
@@ -494,7 +496,7 @@ LABEL_30:
   return v2;
 }
 
-uint64_t FindPatternNode(uint64_t a1, unsigned __int16 *a2, void *a3, int a4, int a5)
+uint64_t FindPatternNode(uint64_t a1, unsigned __int16 *a2, uint64_t *a3, int a4, int a5)
 {
   v8 = a1;
   *a3 = 0;
@@ -2295,7 +2297,7 @@ uint64_t IOFunctionDefinitions(uint64_t a1)
 
 void PrintoutFunction(uint64_t a1)
 {
-  v2 = EnvArgCountCheck(a1, "printout", 1u, 1);
+  v2 = EnvArgCountCheck(a1, "printout", 1, 1);
   if (v2 != -1)
   {
     v3 = v2;
@@ -2317,79 +2319,79 @@ void PrintoutFunction(uint64_t a1)
 
         v6 = v3 - 1;
         v7 = 2;
-        v20 = 0u;
-        v21 = 0u;
-        v19 = 0u;
+        v14 = 0u;
+        v15 = 0u;
+        v13 = 0u;
         while (1)
         {
-          EnvRtnUnknown(a1, v7, &v19);
-          v14 = *(a1 + 48);
-          if (*(*(v14 + 352) + 12))
+          EnvRtnUnknown(a1, v7, &v13);
+          v8 = *(a1 + 48);
+          if (*(*(v8 + 352) + 12))
           {
             return;
           }
 
-          if (WORD4(v19) == 3)
+          if (WORD4(v13) == 3)
           {
-            v18 = *(v20 + 24);
-            v16 = a1;
-            v17 = v5;
+            v12 = *(v14 + 24);
+            v10 = a1;
+            v11 = v5;
           }
 
           else
           {
-            if (WORD4(v19) != 2)
+            if (WORD4(v13) != 2)
             {
-              PrintDataObject(a1, v5, &v19, v13, v8, v9, v10, v11, v12);
+              PrintDataObject(a1, v5, &v13);
               goto LABEL_27;
             }
 
-            v15 = *(v20 + 24);
-            if (!strcmp(v15, "crlf"))
+            v9 = *(v14 + 24);
+            if (!strcmp(v9, "crlf"))
             {
-              v16 = a1;
-              v17 = v5;
-              if (*(*(v14 + 512) + 8))
+              v10 = a1;
+              v11 = v5;
+              if (*(*(v8 + 512) + 8))
               {
-                v18 = "\r\n";
+                v12 = "\r\n";
               }
 
               else
               {
-                v18 = "\n";
+                v12 = "\n";
               }
             }
 
-            else if (!strcmp(v15, "tab"))
+            else if (!strcmp(v9, "tab"))
             {
-              v16 = a1;
-              v17 = v5;
-              v18 = "\t";
+              v10 = a1;
+              v11 = v5;
+              v12 = "\t";
             }
 
-            else if (!strcmp(v15, "vtab"))
+            else if (!strcmp(v9, "vtab"))
             {
-              v16 = a1;
-              v17 = v5;
-              v18 = "\v";
+              v10 = a1;
+              v11 = v5;
+              v12 = "\v";
             }
 
-            else if (*v15 == 102 && v15[1] == 102 && !v15[2])
+            else if (*v9 == 102 && v9[1] == 102 && !v9[2])
             {
-              v16 = a1;
-              v17 = v5;
-              v18 = "\f";
+              v10 = a1;
+              v11 = v5;
+              v12 = "\f";
             }
 
             else
             {
-              v16 = a1;
-              v17 = v5;
-              v18 = v15;
+              v10 = a1;
+              v11 = v5;
+              v12 = v9;
             }
           }
 
-          EnvPrintRouter(v16, v17, v18);
+          EnvPrintRouter(v10, v11, v12);
 LABEL_27:
           ++v7;
           if (!--v6)
@@ -2414,7 +2416,7 @@ LABEL_27:
 
 uint64_t *ReadFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = EnvArgCountCheck(a1, "read", 2u, 1);
+  v4 = EnvArgCountCheck(a1, "read", 2, 1);
   if (v4 == 1)
   {
     LogicalName = GetLogicalName(a1, 1, "stdin");
@@ -2580,7 +2582,7 @@ FILE *OpenFunction(uint64_t a1)
 
         else
         {
-          result = EnvArgTypeCheck(a1, "open", 3, 3, &v10);
+          result = EnvArgTypeCheck(a1, "open", 3, 3u, &v10);
           if (!result)
           {
             return result;
@@ -2614,7 +2616,7 @@ FILE *OpenFunction(uint64_t a1)
 
 uint64_t CloseFunction(uint64_t a1)
 {
-  v2 = EnvArgCountCheck(a1, "close", 2u, 1);
+  v2 = EnvArgCountCheck(a1, "close", 2, 1);
   if (v2 == -1)
   {
     return 0;
@@ -2640,7 +2642,7 @@ uint64_t CloseFunction(uint64_t a1)
 
 uint64_t GetCharFunction(uint64_t a1)
 {
-  result = EnvArgCountCheck(a1, "get-char", 2u, 1);
+  result = EnvArgCountCheck(a1, "get-char", 2, 1);
   if (result == -1)
   {
     return result;
@@ -2710,7 +2712,7 @@ FILE *PutCharFunction(uint64_t a1)
       v4 = a1;
       v5 = 2;
 LABEL_8:
-      result = EnvArgTypeCheck(v4, "put-char", v5, 1, &v8);
+      result = EnvArgTypeCheck(v4, "put-char", v5, 1u, &v8);
       if (result)
       {
         v7 = *(v9 + 24);
@@ -2773,15 +2775,15 @@ BOOL RenameFunction(uint64_t a1)
 
 uint64_t *FormatFunction(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v55 = 0;
-  v56 = 0;
-  v54 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v31 = 0;
+  v32 = 0;
+  v30 = 0;
   v2 = EnvAddSymbol(a1, "");
-  v3 = EnvArgCountCheck(a1, "format", 1u, 2);
+  v3 = EnvArgCountCheck(a1, "format", 1, 2);
   if (v3 == -1)
   {
-    goto LABEL_58;
+    return v2;
   }
 
   v4 = v3;
@@ -2797,21 +2799,21 @@ uint64_t *FormatFunction(uint64_t a1)
   if (strcmp(LogicalName, "nil") && !QueryRouters(a1, v6))
   {
     UnrecognizedRouterMessage(a1, v6);
-    goto LABEL_58;
+    return v2;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v58 = 0u;
-  if (EnvArgTypeCheck(a1, "format", 2, 3, &v58))
+  v35 = 0u;
+  v36 = 0u;
+  v34 = 0u;
+  if (EnvArgTypeCheck(a1, "format", 2, 3u, &v34))
   {
-    v12 = 0;
-    v13 = 0;
-    v14 = *(v59 + 24);
-    while (*(v14 + v12) == 37)
+    v7 = 0;
+    v8 = 0;
+    v9 = *(v35 + 24);
+    while (*(v9 + v7) == 37)
     {
-      v57 = v12 + 1;
-      FormatFlag = FindFormatFlag(v14, &v57, __s, v7, v8, v9, v10, v11);
+      v33 = v7 + 1;
+      FormatFlag = FindFormatFlag(v9, &v33, __s);
       if (FormatFlag != 32)
       {
         if (FormatFlag == 45)
@@ -2823,35 +2825,34 @@ uint64_t *FormatFunction(uint64_t a1)
           goto LABEL_57;
         }
 
-        ++v13;
+        ++v8;
       }
 
 LABEL_13:
-      v12 = v57;
+      v7 = v33;
     }
 
-    if (*(v14 + v12))
+    if (*(v9 + v7))
     {
-      v57 = v12 + 1;
+      v33 = v7 + 1;
       goto LABEL_13;
     }
 
-    if (v13 == v4 - 2)
+    if (v8 == v4 - 2)
     {
-      v16 = 0;
+      v11 = 0;
       appended = 0;
-      v18 = 3;
+      v13 = 3;
       while (1)
       {
-        v19 = *(v14 + v16);
-        if (v19 != 37)
+        v14 = *(v9 + v11);
+        if (v14 != 37)
         {
-          if (!*(v14 + v16))
+          if (!*(v9 + v11))
           {
             if (!appended)
             {
-              v2 = EnvAddSymbol(a1, "");
-              goto LABEL_58;
+              return EnvAddSymbol(a1, "");
             }
 
             v2 = EnvAddSymbol(a1, appended);
@@ -2863,179 +2864,177 @@ LABEL_13:
             goto LABEL_66;
           }
 
-          v20 = 0;
-          while (v19 && v19 != 37)
+          v15 = 0;
+          while (v14 && v14 != 37)
           {
-            LOBYTE(v19) = *(v14 + 1 + v16 + v20++);
+            LOBYTE(v14) = *(v9 + 1 + v11 + v15++);
           }
 
-          v56 = v16 + v20;
-          appended = AppendNToString(a1, (v14 + v16), appended, v20, &v54, &v55);
+          v32 = v11 + v15;
+          appended = AppendNToString(a1, (v9 + v11), appended, v15, &v30, &v31);
           goto LABEL_53;
         }
 
-        v56 = v16 + 1;
-        v21 = FindFormatFlag(v14, &v56, __s, v7, v8, v9, v10, v11);
-        if (v21 == 32)
+        v32 = v11 + 1;
+        v16 = FindFormatFlag(v9, &v32, __s);
+        if (v16 == 32)
         {
-          appended = AppendToString(a1, __s, appended, &v54, &v55);
+          appended = AppendToString(a1, __s, appended, &v30, &v31);
           if (!appended)
           {
-            goto LABEL_58;
+            return v2;
           }
 
           goto LABEL_53;
         }
 
-        v59 = 0u;
-        v60 = 0u;
-        v58 = 0u;
-        if (v21 - 100 > 0x14)
+        v35 = 0u;
+        v36 = 0u;
+        v34 = 0u;
+        if (v16 - 100 > 0x14)
         {
           goto LABEL_44;
         }
 
-        if (((1 << (v21 - 100)) & 0x120801) != 0)
+        if (((1 << (v16 - 100)) & 0x120801) != 0)
         {
-          if (!EnvArgTypeCheck(a1, "format", v18, 180, &v58))
+          if (!EnvArgTypeCheck(a1, "format", v13, 0xB4u, &v34))
           {
             goto LABEL_65;
           }
 
-          v22 = strlen(__s) + 200;
-          v23 = gm2(a1, v22);
-          v33 = setlocale(4, 0);
-          v25 = EnvAddSymbol(a1, v33);
+          v17 = strlen(__s) + 200;
+          v18 = gm2(a1, v17);
+          v22 = setlocale(4, 0);
+          v20 = EnvAddSymbol(a1, v22);
           setlocale(4, *(**(*(a1 + 48) + 512) + 24));
-          if (WORD4(v58))
+          if (WORD4(v34))
           {
-            v40 = *(v59 + 24);
+            v23 = *(v35 + 24);
           }
 
           else
           {
-            v40 = *(v59 + 24);
+            v23 = *(v35 + 24);
           }
 
-          gensprintf(v23, __s, v34, v35, v36, v37, v38, v39, v40);
+          gensprintf(v18, __s, v23);
         }
 
         else
         {
-          if (((1 << (v21 - 100)) & 0xE) == 0)
+          if (((1 << (v16 - 100)) & 0xE) == 0)
           {
-            if (v21 == 115)
+            if (v16 == 115)
             {
-              if (!EnvArgTypeCheck(a1, "format", v18, 181, &v58))
+              if (!EnvArgTypeCheck(a1, "format", v13, 0xB5u, &v34))
               {
                 goto LABEL_65;
               }
 
-              v41 = strlen(__s);
-              v22 = v41 + strlen(*(v59 + 24)) + 200;
-              v42 = gm2(a1, v22);
-              v23 = v42;
-              v49 = *(v59 + 24);
+              v24 = strlen(__s);
+              v17 = v24 + strlen(*(v35 + 24)) + 200;
+              v25 = gm2(a1, v17);
+              v18 = v25;
+              v26 = *(v35 + 24);
             }
 
             else
             {
 LABEL_44:
-              if (v21 != 99)
+              if (v16 != 99)
               {
                 EnvPrintRouter(a1, "werror", " Error in format, the conversion character");
                 EnvPrintRouter(a1, "werror", " for formatted output is not valid\n");
                 goto LABEL_65;
               }
 
-              EnvRtnUnknown(a1, v18, &v58);
-              if ((WORD4(v58) & 0xFFFE) == 2)
+              EnvRtnUnknown(a1, v13, &v34);
+              if ((WORD4(v34) & 0xFFFE) == 2)
               {
-                v22 = strlen(__s) + 200;
-                v42 = gm2(a1, v22);
-                v23 = v42;
-                LOBYTE(v49) = **(v59 + 24);
+                v17 = strlen(__s) + 200;
+                v25 = gm2(a1, v17);
+                v18 = v25;
+                v26 = **(v35 + 24);
               }
 
               else
               {
-                if (WORD4(v58) != 1)
+                if (WORD4(v34) != 1)
                 {
-                  ExpectedTypeError1(a1, "format", v18, "symbol, string, or integer");
+                  ExpectedTypeError1(a1, "format", v13, "symbol, string, or integer");
 LABEL_65:
                   if (!appended)
                   {
-                    goto LABEL_58;
+                    return v2;
                   }
 
 LABEL_66:
-                  rm(a1, appended, v55);
-                  goto LABEL_58;
+                  rm(a1, appended, v31);
+                  return v2;
                 }
 
-                v22 = strlen(__s) + 200;
-                v42 = gm2(a1, v22);
-                v23 = v42;
-                LOBYTE(v49) = *(v59 + 24);
+                v17 = strlen(__s) + 200;
+                v25 = gm2(a1, v17);
+                v18 = v25;
+                v26 = *(v35 + 24);
               }
             }
 
-            gensprintf(v42, __s, v43, v44, v45, v46, v47, v48, v49);
+            gensprintf(v25, __s, v26);
             goto LABEL_50;
           }
 
-          if (!EnvArgTypeCheck(a1, "format", v18, 180, &v58))
+          if (!EnvArgTypeCheck(a1, "format", v13, 0xB4u, &v34))
           {
             goto LABEL_65;
           }
 
-          v22 = strlen(__s) + 200;
-          v23 = gm2(a1, v22);
-          v24 = setlocale(4, 0);
-          v25 = EnvAddSymbol(a1, v24);
+          v17 = strlen(__s) + 200;
+          v18 = gm2(a1, v17);
+          v19 = setlocale(4, 0);
+          v20 = EnvAddSymbol(a1, v19);
           setlocale(4, *(**(*(a1 + 48) + 512) + 24));
-          if (WORD4(v58))
+          if (WORD4(v34))
           {
-            v32 = *(v59 + 24);
+            v21 = *(v35 + 24);
           }
 
           else
           {
-            v32 = *(v59 + 24);
+            v21 = *(v35 + 24);
           }
 
-          gensprintf(v23, __s, v26, v27, v28, v29, v30, v31, SLOBYTE(v32));
+          gensprintf(v18, __s, *&v21);
         }
 
-        setlocale(4, v25[3]);
+        setlocale(4, v20[3]);
 LABEL_50:
-        v50 = EnvAddSymbol(a1, v23)[3];
-        rm(a1, v23, v22);
-        if (!v50)
+        v27 = EnvAddSymbol(a1, v18)[3];
+        rm(a1, v18, v17);
+        if (!v27)
         {
           goto LABEL_65;
         }
 
-        v51 = AppendToString(a1, v50, appended, &v54, &v55);
-        if (!v51)
+        v28 = AppendToString(a1, v27, appended, &v30, &v31);
+        if (!v28)
         {
-          goto LABEL_58;
+          return v2;
         }
 
-        appended = v51;
-        ++v18;
+        appended = v28;
+        v13 = (v13 + 1);
 LABEL_53:
-        v16 = v56;
+        v11 = v32;
       }
     }
 
-    ExpectedCountError(a1, "format", 0, v13 + 2);
+    ExpectedCountError(a1, "format", 0, v8 + 2);
 LABEL_57:
     SetEvaluationError(a1, 1);
   }
 
-LABEL_58:
-  v52 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3043,7 +3042,7 @@ uint64_t *ReadlineFunction(uint64_t a1, uint64_t a2)
 {
   v14 = 0;
   *(a2 + 8) = 3;
-  v4 = EnvArgCountCheck(a1, "readline", 2u, 1);
+  v4 = EnvArgCountCheck(a1, "readline", 2, 1);
   if (v4)
   {
     if (v4 == -1)
@@ -3131,15 +3130,15 @@ LABEL_18:
   return result;
 }
 
-uint64_t SetLocaleFunction(uint64_t a1, uint64_t a2)
+uint64_t SetLocaleFunction(void *a1, uint64_t a2)
 {
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  result = EnvArgCountCheck(a1, "set-locale", 2u, 1);
+  result = EnvArgCountCheck(a1, "set-locale", 2, 1);
   if (result)
   {
-    if (result == -1 || !EnvArgTypeCheck(a1, "set-locale", 1, 3, &v7))
+    if (result == -1 || !EnvArgTypeCheck(a1, "set-locale", 1, 3u, &v7))
     {
       *(a2 + 8) = 2;
       result = EnvFalseSymbol(a1);
@@ -3149,10 +3148,10 @@ uint64_t SetLocaleFunction(uint64_t a1, uint64_t a2)
     else
     {
       *(a2 + 8) = 3;
-      v5 = *(a1 + 48);
+      v5 = a1[6];
       *(a2 + 16) = **(v5 + 512);
       result = DecrementSymbolCount(a1, **(v5 + 512));
-      v6 = *(a1 + 48);
+      v6 = a1[6];
       **(v6 + 512) = v8;
       ++*(**(v6 + 512) + 8);
     }
@@ -3161,7 +3160,7 @@ uint64_t SetLocaleFunction(uint64_t a1, uint64_t a2)
   else
   {
     *(a2 + 8) = 3;
-    *(a2 + 16) = **(*(a1 + 48) + 512);
+    *(a2 + 16) = **(a1[6] + 512);
   }
 
   return result;
@@ -3169,7 +3168,7 @@ uint64_t SetLocaleFunction(uint64_t a1, uint64_t a2)
 
 uint64_t *ReadNumberFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = EnvArgCountCheck(a1, "read", 2u, 1);
+  v4 = EnvArgCountCheck(a1, "read", 2, 1);
   if (v4 == 1)
   {
     LogicalName = GetLogicalName(a1, 1, "stdin");
@@ -3252,90 +3251,89 @@ uint64_t SetFullCRLF(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t FindFormatFlag(uint64_t a1, void *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t FindFormatFlag(uint64_t a1, void *a2, char *a3)
 {
-  v9 = *(a1 + *a2);
-  if (v9 <= 0x71)
+  v4 = *(a1 + *a2);
+  if (v4 <= 0x71)
   {
-    if (v9 == 37)
+    if (v4 == 37)
     {
-      v10 = "%%";
+      gensprintf(a3, "%%");
       goto LABEL_12;
     }
 
-    if (v9 == 110)
+    if (v4 == 110)
     {
-      v10 = "\n";
+      gensprintf(a3, "\n");
       goto LABEL_12;
     }
 
 LABEL_14:
     *a3 = 37;
-    v13 = a3 + 2;
+    v7 = a3 + 2;
     for (i = 74; ; --i)
     {
-      *(v13 - 1) = 0;
-      v15 = *(a1 + *a2);
-      v11 = 32;
+      *(v7 - 1) = 0;
+      v9 = *(a1 + *a2);
+      v5 = 32;
       if (!*(a1 + *a2))
       {
-        return v11;
+        return v5;
       }
 
-      v16 = *(a1 + *a2);
-      if (v16 == 37 || !i)
+      v10 = *(a1 + *a2);
+      if (v10 == 37 || !i)
       {
-        return v11;
+        return v5;
       }
 
       ++*a2;
-      if ((v16 - 99) <= 0x15)
+      if ((v10 - 99) <= 0x15)
       {
-        v17 = 1 << (v15 - 99);
-        if ((v17 & 0x1001D) != 0)
+        v11 = 1 << (v9 - 99);
+        if ((v11 & 0x1001D) != 0)
         {
-          *(v13 - 1) = v16;
-          return v15;
+          *(v7 - 1) = v10;
+          return v9;
         }
 
-        if ((v17 & 0x241002) != 0)
+        if ((v11 & 0x241002) != 0)
         {
-          *(v13 - 1) = 27756;
-          *(v13 + 1) = v16;
-          return v15;
+          *(v7 - 1) = 27756;
+          *(v7 + 1) = v10;
+          return v9;
         }
       }
 
-      if ((v15 - 47) <= 0xFDu && (v15 - 58) <= 0xFFFFFFF5)
+      if ((v9 - 47) <= 0xFDu && (v9 - 58) <= 0xFFFFFFF5)
       {
-        *(v13 - 1) = v16;
+        *(v7 - 1) = v10;
         return 45;
       }
 
-      *(v13++ - 1) = v15;
+      *(v7++ - 1) = v9;
     }
   }
 
-  if (v9 == 114)
+  if (v4 == 114)
   {
-    v10 = "\r";
+    gensprintf(a3, "\r");
     goto LABEL_12;
   }
 
-  if (v9 == 116)
+  if (v4 == 116)
   {
-    v10 = "\t";
+    gensprintf(a3, "\t");
     goto LABEL_12;
   }
 
-  if (v9 != 118)
+  if (v4 != 118)
   {
     goto LABEL_14;
   }
 
-  v10 = "\v";
+  gensprintf(a3, "\v");
 LABEL_12:
-  gensprintf(a3, v10, a3, a4, a5, a6, a7, a8, v19);
   ++*a2;
   return 32;
 }
@@ -3532,7 +3530,7 @@ uint64_t _unloadCrashReporterSupport()
   return result;
 }
 
-uint64_t _loadCrashReporterSupport()
+uint64_t _loadCrashReporterSupport(uint64_t a1, uint64_t a2)
 {
   if (_loadCrashReporterSupport_symbolLoadOnce != -1)
   {
@@ -3615,7 +3613,7 @@ LABEL_13:
   _os_log_impl(&dword_23255B000, v6, v7, v4, v5, 2u);
 }
 
-void *AddAfterModuleDefinedFunction(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+_DWORD *AddAfterModuleDefinedFunction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = AddFunctionToCallList(a1, a2, a4, a3, *(*(*(a1 + 48) + 32) + 104), 1);
   *(*(*(a1 + 48) + 32) + 104) = result;
@@ -4531,59 +4529,59 @@ uint64_t NotExportedErrorMessage(uint64_t a1, char *a2, char *a3, char *a4)
   return EnvPrintRouter(a1, "werror", ".\n");
 }
 
-_BYTE *EnvInitializeEnvironment(_BYTE *result)
+_BYTE *EnvInitializeEnvironment(_BYTE *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if ((*result & 1) == 0)
   {
-    v1 = result;
+    v6 = result;
     InitializeMemory(result);
-    InitializeCommandLineData(v1);
-    InitializeConstructData(v1);
-    InitializeEvaluationData(v1);
-    InitializeExternalFunctionData(v1);
-    InitializePrettyPrintData(v1);
-    InitializePrintUtilityData(v1);
-    InitializeScannerData(v1);
-    AllocateEnvironmentData(v1, 0x3Au, 0x38uLL, 0);
-    InitializeUserDataData(v1);
-    InitializeUtilityData(v1);
-    InitializeWatchData(v1);
-    InitializeAtomTables(v1);
-    InitializeDefaultRouters(v1);
-    ProceduralFunctionDefinitions(v1);
-    MiscFunctionDefinitions(v1);
-    IOFunctionDefinitions(v1);
-    PredicateFunctionDefinitions(v1);
-    BasicMathFunctionDefinitions(v1);
-    FileCommandDefinitions(v1);
-    SortFunctionDefinitions(v1);
-    WatchFunctionDefinitions(v1);
-    MultifieldFunctionDefinitions(v1);
-    StringFunctionDefinitions(v1);
-    ConstructProfilingFunctionDefinitions(v1);
-    v2 = ParseFunctionDefinitions(v1);
-    gensystem(v2);
-    gensystem(v1);
-    InitializeConstraints(v1);
-    InitExpressionData(v1);
-    InitializeConstructs(v1);
-    AllocateDefmoduleGlobals(v1);
-    InitializeDefrules(v1);
-    InitializeDeffacts(v1);
-    SetupGenericFunctions(v1);
-    SetupDeffunctions(v1);
-    InitializeDefglobals(v1);
-    InitializeDeftemplates(v1);
-    InitializeDefmodules(v1);
-    InstallProcedurePrimitives(v1);
-    result = EnvClear(v1);
-    *v1 |= 1u;
+    InitializeCommandLineData(v6);
+    InitializeConstructData(v6);
+    InitializeEvaluationData(v6);
+    InitializeExternalFunctionData(v6);
+    InitializePrettyPrintData(v6);
+    InitializePrintUtilityData(v6);
+    InitializeScannerData(v6);
+    AllocateEnvironmentData(v6, 0x3Au, 0x38uLL, 0);
+    InitializeUserDataData(v6);
+    InitializeUtilityData(v6);
+    InitializeWatchData(v6);
+    InitializeAtomTables(v6);
+    InitializeDefaultRouters(v6);
+    ProceduralFunctionDefinitions(v6);
+    MiscFunctionDefinitions(v6);
+    IOFunctionDefinitions(v6);
+    PredicateFunctionDefinitions(v6);
+    BasicMathFunctionDefinitions(v6);
+    FileCommandDefinitions(v6);
+    SortFunctionDefinitions(v6);
+    WatchFunctionDefinitions(v6);
+    MultifieldFunctionDefinitions(v6);
+    StringFunctionDefinitions(v6);
+    ConstructProfilingFunctionDefinitions(v6);
+    ParseFunctionDefinitions(v6);
+    gensystem();
+    gensystem();
+    InitializeConstraints(v6);
+    InitExpressionData(v6);
+    InitializeConstructs(v6);
+    AllocateDefmoduleGlobals(v6);
+    InitializeDefrules(v6);
+    InitializeDeffacts(v6);
+    SetupGenericFunctions(v6);
+    SetupDeffunctions(v6);
+    InitializeDefglobals(v6);
+    InitializeDeftemplates(v6);
+    InitializeDefmodules(v6);
+    InstallProcedurePrimitives(v6);
+    result = EnvClear(v6);
+    *v6 |= 1u;
   }
 
   return result;
 }
 
-uint64_t RerouteStdin(uint64_t result, int a2, uint64_t a3)
+void *RerouteStdin(void *result, int a2, uint64_t a3)
 {
   if (a2 >= 3 && a3)
   {
@@ -5036,7 +5034,7 @@ uint64_t CloseAllFiles(uint64_t a1)
   return 1;
 }
 
-uint64_t ReorderPatterns(void *a1, uint64_t a2, _DWORD *a3)
+unsigned __int16 *ReorderPatterns(void *a1, uint64_t a2, _DWORD *a3)
 {
   if (!a2)
   {
@@ -5194,110 +5192,112 @@ uint64_t PropagateWhichCE(unsigned __int16 *a1, uint64_t a2)
   return a2;
 }
 
-unsigned __int16 *ReorderDriver(void *a1, unsigned __int16 *a2, _DWORD *a3, int a4, int a5)
+unsigned __int16 *ReorderDriver(void *a1, unsigned __int16 *a2, _DWORD *a3, uint64_t a4, int a5)
 {
-  v5 = a4;
-  v6 = a3;
-  v72 = 0;
+  v5 = a5;
+  v6 = a4;
+  v7 = a3;
+  v73 = 0;
   *a3 = 0;
+  v70 = a4;
   do
   {
     if (*a2 - 151 > 2)
     {
-      v32 = 0;
+      v33 = 0;
       goto LABEL_124;
     }
 
-    v9 = (a2 + 96);
-    if (v5 != 1)
+    v10 = a2 + 96;
+    if (v6 != 1)
     {
-      v33 = *(a2 + 24);
-      if (!v33)
+      v34 = *(a2 + 24);
+      if (!v34)
       {
 LABEL_64:
-        v11 = 0;
+        v12 = 0;
         goto LABEL_65;
       }
 
-      v11 = 0;
+      v12 = 0;
       while (1)
       {
         while (*a2 != 153)
         {
 LABEL_52:
-          v33 = *(v33 + 25);
-          if (!v33)
+          v34 = *(v34 + 25);
+          if (!v34)
           {
             goto LABEL_65;
           }
         }
 
-        v34 = *v33;
-        switch(v34)
+        v35 = *v34;
+        switch(v35)
         {
           case 150:
-            CopyLHSParseNode(a1, a2, v33, 0);
+            CopyLHSParseNode(a1, a2, v34, 0);
             *(a2 + 4) = *(a2 + 4) & 0xFFFFFFF8 | 1;
-            *(a2 + 24) = *(v33 + 24);
-            *(v33 + 25) = 0;
-            *(v33 + 92) = 0u;
-            *(v33 + 84) = 0u;
-            *(v33 + 76) = 0u;
-            *(v33 + 68) = 0u;
-            *(v33 + 60) = 0u;
-            *(v33 + 52) = 0u;
-            *(v33 + 44) = 0u;
+            *(a2 + 24) = *(v34 + 24);
+            *(v34 + 25) = 0;
+            *(v34 + 92) = 0u;
+            *(v34 + 84) = 0u;
+            *(v34 + 76) = 0u;
+            *(v34 + 68) = 0u;
+            *(v34 + 60) = 0u;
+            *(v34 + 52) = 0u;
+            *(v34 + 44) = 0u;
             break;
           case 151:
             goto LABEL_60;
           case 153:
-            v35 = *(v33 + 24);
-            if (!v35)
+            v36 = *(v34 + 24);
+            if (!v36)
             {
 LABEL_60:
-              *a2 = v34;
-              v37 = *(a2 + 4) & 0xFFFFFFFE | *(v33 + 4) & 1;
-              *(a2 + 4) = v37;
-              v38 = v37 & 0xFFFFFFFD | (2 * ((*(v33 + 4) >> 1) & 1));
+              *a2 = v35;
+              v38 = *(a2 + 4) & 0xFFFFFFFE | *(v34 + 4) & 1;
               *(a2 + 4) = v38;
-              v39 = v38 & 0xFFFFFFFB | (4 * ((*(v33 + 4) >> 2) & 1));
+              v39 = v38 & 0xFFFFFFFD | (2 * ((*(v34 + 4) >> 1) & 1));
               *(a2 + 4) = v39;
-              *(a2 + 1) = *(v33 + 1);
-              *(a2 + 4) = v39 & 0xFFFFFFF7 | (8 * ((*(v33 + 4) >> 3) & 1));
-              *(a2 + 24) = *(v33 + 24);
-              *(v33 + 24) = 0;
-              *(v33 + 25) = 0;
-              ReturnLHSParseNodes(a1, v33);
+              v40 = v39 & 0xFFFFFFFB | (4 * ((*(v34 + 4) >> 2) & 1));
+              *(a2 + 4) = v40;
+              *(a2 + 1) = *(v34 + 1);
+              *(a2 + 4) = v40 & 0xFFFFFFF7 | (8 * ((*(v34 + 4) >> 3) & 1));
+              *(a2 + 24) = *(v34 + 24);
+              *(v34 + 24) = 0;
+              *(v34 + 25) = 0;
+              ReturnLHSParseNodes(a1, v34);
               IncrementNandDepth(a1, *(a2 + 24), 1);
               goto LABEL_61;
             }
 
-            v36 = *v35;
-            if (v36 == 150)
+            v37 = *v36;
+            if (v37 == 150)
             {
-              CopyLHSParseNode(a1, a2, v35, 0);
+              CopyLHSParseNode(a1, a2, v36, 0);
               *(a2 + 4) = *(a2 + 4) & 0xFFFFFFF8 | 3;
-              *(a2 + 24) = *(*(v33 + 24) + 192);
-              v40 = *(v33 + 24);
-              *(v40 + 120) = 0;
-              *(v40 + 104) = 0u;
-              *(v40 + 88) = 0u;
-              *(v40 + 144) = 0u;
-              *(v40 + 160) = 0u;
-              *(v40 + 176) = 0u;
-              *(v40 + 192) = 0;
-              *(*(v33 + 24) + 200) = 0;
+              *(a2 + 24) = *(*(v34 + 24) + 192);
+              v41 = *(v34 + 24);
+              *(v41 + 120) = 0;
+              *(v41 + 104) = 0u;
+              *(v41 + 88) = 0u;
+              *(v41 + 144) = 0u;
+              *(v41 + 160) = 0u;
+              *(v41 + 176) = 0u;
+              *(v41 + 192) = 0;
+              *(*(v34 + 24) + 200) = 0;
             }
 
             else
             {
-              if (v36 != 153)
+              if (v37 != 153)
               {
                 goto LABEL_60;
               }
 
-              *v9 = *(v35 + 24);
-              *(*(v33 + 24) + 192) = 0;
+              *v10 = *(v36 + 24);
+              *(*(v34 + 24) + 192) = 0;
             }
 
             break;
@@ -5305,46 +5305,46 @@ LABEL_60:
             goto LABEL_52;
         }
 
-        ReturnLHSParseNodes(a1, v33);
+        ReturnLHSParseNodes(a1, v34);
 LABEL_61:
-        v33 = *v9;
-        v11 = 1;
-        if (!*v9)
+        v34 = *v10;
+        v12 = 1;
+        if (!*v10)
         {
           goto LABEL_65;
         }
       }
     }
 
-    v10 = *v9;
-    if (!*v9)
+    v11 = *v10;
+    if (!*v10)
     {
       goto LABEL_64;
     }
 
-    v11 = 0;
+    v12 = 0;
     while (2)
     {
-      v12 = 0;
-      LOBYTE(v13) = 1;
-      v14 = 1;
+      v13 = 0;
+      LOBYTE(v14) = 1;
+      v15 = 1;
 LABEL_7:
-      v15 = *a2;
-      v16 = v14 - 1;
-      v17 = v10;
+      v16 = *a2;
+      v17 = v15 - 1;
+      v18 = v11;
       while (1)
       {
-        if (v15 == 153)
+        if (v16 == 153)
         {
-          if (*v17 == 152)
+          if (*v18 == 152)
           {
-            v22 = *(v17 + 24);
-            *(v17 + 24) = 0;
-            *(v17 + 25) = 0;
-            ReturnLHSParseNodes(a1, v17);
+            v23 = *(v18 + 24);
+            *(v18 + 24) = 0;
+            *(v18 + 25) = 0;
+            ReturnLHSParseNodes(a1, v18);
             *a2 = 151;
-            *v9 = v22;
-            if (!v22)
+            *v10 = v23;
+            if (!v23)
             {
               goto LABEL_66;
             }
@@ -5352,27 +5352,27 @@ LABEL_7:
             do
             {
               GetLHSParseNode(a1);
-              v24 = v23;
-              CopyLHSParseNode(a1, v23, v22, 0);
-              *(v24 + 192) = *(v22 + 192);
-              *(v24 + 200) = 0;
-              *v22 = 153;
-              *(v22 + 16) &= 0xFFFFFFF0;
-              *(v22 + 8) = 0;
-              *(v22 + 168) = 0;
-              *(v22 + 176) = 0;
-              *(v22 + 192) = v24;
-              v22 = *(v22 + 200);
+              v25 = v24;
+              CopyLHSParseNode(a1, v24, v23, 0);
+              *(v25 + 192) = *(v23 + 192);
+              *(v25 + 200) = 0;
+              *v23 = 153;
+              *(v23 + 16) &= 0xFFFFFFF0;
+              *(v23 + 8) = 0;
+              *(v23 + 168) = 0;
+              *(v23 + 176) = 0;
+              *(v23 + 192) = v25;
+              v23 = *(v23 + 200);
             }
 
-            while (v22);
-            v11 = 1;
+            while (v23);
+            v12 = 1;
 LABEL_31:
-            v12 = 0;
-            v10 = *v9;
-            LOBYTE(v13) = 1;
-            v14 = 1;
-            if (*v9)
+            v13 = 0;
+            v11 = *v10;
+            LOBYTE(v14) = 1;
+            v15 = 1;
+            if (*v10)
             {
               goto LABEL_7;
             }
@@ -5383,39 +5383,39 @@ LABEL_31:
           goto LABEL_17;
         }
 
-        if (v15 == 152)
+        if (v16 == 152)
         {
-          if (*v17 == 152)
+          if (*v18 == 152)
           {
 LABEL_20:
-            if ((v17[8] & 8) != 0)
+            if ((v18[8] & 8) != 0)
             {
               *(a2 + 4) |= 8u;
             }
 
-            v10 = *(v17 + 24);
-            v19 = *(v17 + 25);
-            *(v17 + 24) = 0;
-            *(v17 + 25) = 0;
-            ReturnLHSParseNodes(a1, v17);
-            v20 = (v12 + 100);
-            if (!v12)
+            v11 = *(v18 + 24);
+            v20 = *(v18 + 25);
+            *(v18 + 24) = 0;
+            *(v18 + 25) = 0;
+            ReturnLHSParseNodes(a1, v18);
+            v21 = v13 + 100;
+            if (!v13)
             {
-              v20 = v9;
+              v21 = v10;
             }
 
-            *v20 = v10;
-            v13 = v10;
+            *v21 = v11;
+            v14 = v11;
             do
             {
-              v21 = v13;
-              v13 = *(v13 + 25);
+              v22 = v14;
+              v14 = *(v14 + 25);
             }
 
-            while (v13);
-            *(v21 + 25) = v19;
-            v11 = 1;
-            if (v10)
+            while (v14);
+            *(v22 + 25) = v20;
+            v12 = 1;
+            if (v11)
             {
               goto LABEL_7;
             }
@@ -5426,28 +5426,28 @@ LABEL_20:
           goto LABEL_17;
         }
 
-        if (v15 == 151)
+        if (v16 == 151)
         {
-          v18 = *v17;
-          if (v18 == 151)
+          v19 = *v18;
+          if (v19 == 151)
           {
             goto LABEL_20;
           }
 
-          if (v18 == 152)
+          if (v19 == 152)
           {
             break;
           }
         }
 
 LABEL_17:
-        ++v14;
-        ++v16;
-        v12 = v17;
-        v17 = *(v17 + 25);
-        if (!v17)
+        ++v15;
+        ++v17;
+        v13 = v18;
+        v18 = *(v18 + 25);
+        if (!v18)
         {
-          if (v13)
+          if (v14)
           {
             goto LABEL_65;
           }
@@ -5456,59 +5456,59 @@ LABEL_17:
         }
       }
 
-      v25 = *(v17 + 24);
-      if (v25)
+      v26 = *(v18 + 24);
+      if (v26)
       {
-        v26 = 0;
         v27 = 0;
+        v28 = 0;
         do
         {
-          v28 = CopyLHSParseNodes(a1, a2);
-          v29 = *(v28 + 24);
-          if (v14 != 1)
+          v29 = CopyLHSParseNodes(a1, a2);
+          v30 = *(v29 + 24);
+          if (v15 != 1)
           {
-            v30 = v16;
+            v31 = v17;
             do
             {
-              v29 = *(v29 + 200);
-              --v30;
+              v30 = *(v30 + 200);
+              --v31;
             }
 
-            while (v30);
+            while (v31);
           }
 
-          ReturnLHSParseNodes(a1, *(v29 + 192));
-          CopyLHSParseNode(a1, v29, v25, 1);
-          *(v29 + 192) = CopyLHSParseNodes(a1, *(v25 + 192));
-          v10 = v28;
-          if (v26)
+          ReturnLHSParseNodes(a1, *(v30 + 192));
+          CopyLHSParseNode(a1, v30, v26, 1);
+          *(v30 + 192) = CopyLHSParseNodes(a1, *(v26 + 192));
+          v11 = v29;
+          if (v27)
           {
-            *(v26 + 25) = v28;
-            v10 = v27;
+            *(v27 + 25) = v29;
+            v11 = v28;
           }
 
-          *(v28 + 25) = 0;
-          v25 = *(v25 + 200);
-          v26 = v28;
-          v27 = v10;
+          *(v29 + 25) = 0;
+          v26 = *(v26 + 200);
+          v27 = v29;
+          v28 = v11;
         }
 
-        while (v25);
+        while (v26);
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
       ReturnLHSParseNodes(a1, a2);
       GetLHSParseNode(a1);
-      a2 = v31;
-      *v31 = 152;
-      *(v31 + 24) = v10;
-      v9 = (v31 + 96);
-      v11 = 1;
-      if (v10)
+      a2 = v32;
+      *v32 = 152;
+      *(v32 + 24) = v11;
+      v10 = v32 + 96;
+      v12 = 1;
+      if (v11)
       {
         continue;
       }
@@ -5517,40 +5517,41 @@ LABEL_17:
     }
 
 LABEL_65:
-    if (v11)
+    if (v12)
     {
 LABEL_66:
-      v32 = 1;
+      v33 = 1;
       *a3 = 1;
     }
 
     else
     {
-      v32 = 0;
+      v33 = 0;
     }
 
-    v42 = (a2 + 96);
-    v41 = *(a2 + 24);
-    if (!v41)
+    v73 = 0;
+    v43 = a2 + 96;
+    v42 = *(a2 + 24);
+    if (!v42)
     {
-      v43 = 0;
+      v44 = 0;
       goto LABEL_121;
     }
 
-    v43 = 0;
     v44 = 0;
     v45 = 0;
+    v46 = 0;
     while (2)
     {
-      v46 = *a2;
-      if (v46 == 151)
+      v47 = *a2;
+      if (v47 == 151)
       {
-        v47 = *v41;
-        if (v47 != 150)
+        v48 = *v42;
+        if (v48 != 150)
         {
-          if (v47 != 154)
+          if (v48 != 154)
           {
-            if (v47 != 151)
+            if (v48 != 151)
             {
               goto LABEL_111;
             }
@@ -5558,176 +5559,176 @@ LABEL_66:
             goto LABEL_81;
           }
 
-          v53 = *(v41 + 25);
-          if (v53)
+          v54 = *(v42 + 25);
+          if (v54)
           {
-            if (*v53 == 154)
+            if (*v54 == 154)
             {
-              v54 = *(v41 + 19);
-              if (v54 == *(v41 + 20) && v54 == *(v53 + 76))
+              v55 = *(v42 + 19);
+              if (v55 == *(v42 + 20) && v55 == *(v54 + 76))
               {
-                *(v41 + 21) = CombineLHSParseNodes(a1, *(v41 + 21), *(v53 + 168));
-                v55 = *(v41 + 25);
-                *(v55 + 168) = 0;
+                *(v42 + 21) = CombineLHSParseNodes(a1, *(v42 + 21), *(v54 + 168));
+                v56 = *(v42 + 25);
+                *(v56 + 168) = 0;
 LABEL_94:
-                *(v41 + 25) = *(v55 + 200);
-                *(v55 + 200) = 0;
-                ReturnLHSParseNodes(a1, v55);
-                v43 = 1;
-                v48 = v41;
+                *(v42 + 25) = *(v56 + 200);
+                *(v56 + 200) = 0;
+                ReturnLHSParseNodes(a1, v56);
+                v44 = 1;
+                v49 = v42;
                 goto LABEL_88;
               }
             }
 
 LABEL_111:
-            v48 = *(v41 + 25);
+            v49 = *(v42 + 25);
             goto LABEL_112;
           }
 
-          if (*v42 != v41)
+          if (*v43 != v42)
           {
             goto LABEL_111;
           }
 
-          CopyLHSParseNode(a1, a2, v41, 1);
+          CopyLHSParseNode(a1, a2, v42, 1);
           *(a2 + 24) = 0;
 LABEL_110:
-          ReturnLHSParseNodes(a1, v41);
-          v43 = 1;
+          ReturnLHSParseNodes(a1, v42);
+          v44 = 1;
           goto LABEL_114;
         }
 
-        v56 = *(v41 + 25);
-        if (!v56)
+        v57 = *(v42 + 25);
+        if (!v57)
         {
-          if (a5 < 2 || *v42 != v41)
+          if (a5 < 2 || *v43 != v42)
           {
             goto LABEL_111;
           }
 
-          CopyLHSParseNode(a1, a2, v41, 0);
-          *(a2 + 24) = *(v41 + 24);
-          *(v41 + 25) = 0;
-          *(v41 + 92) = 0u;
-          *(v41 + 84) = 0u;
-          *(v41 + 76) = 0u;
-          *(v41 + 68) = 0u;
-          *(v41 + 60) = 0u;
-          *(v41 + 52) = 0u;
-          *(v41 + 44) = 0u;
+          CopyLHSParseNode(a1, a2, v42, 0);
+          *(a2 + 24) = *(v42 + 24);
+          *(v42 + 25) = 0;
+          *(v42 + 92) = 0u;
+          *(v42 + 84) = 0u;
+          *(v42 + 76) = 0u;
+          *(v42 + 68) = 0u;
+          *(v42 + 60) = 0u;
+          *(v42 + 52) = 0u;
+          *(v42 + 44) = 0u;
           goto LABEL_110;
         }
 
-        if (*v56 != 154)
+        if (*v57 != 154)
         {
           goto LABEL_111;
         }
 
-        if ((v41[8] & 3) != 0)
+        if ((v42[8] & 3) != 0)
         {
           goto LABEL_111;
         }
 
-        v57 = *(v41 + 19);
-        if (v57 != *(v41 + 20) || v57 != *(v56 + 76))
+        v58 = *(v42 + 19);
+        if (v58 != *(v42 + 20) || v58 != *(v57 + 76))
         {
           goto LABEL_111;
         }
 
-        v58 = *(v56 + 80);
-        *(v41 + 21) = CombineLHSParseNodes(a1, *(v41 + 21), *(v56 + 168));
-        v55 = *(v41 + 25);
-        *(v55 + 168) = 0;
-        if (*v42 != v41 || *(v41 + 19) - 1 != v58)
+        v59 = *(v57 + 80);
+        *(v42 + 21) = CombineLHSParseNodes(a1, *(v42 + 21), *(v57 + 168));
+        v56 = *(v42 + 25);
+        *(v56 + 168) = 0;
+        if (*v43 != v42 || *(v42 + 19) - 1 != v59)
         {
           goto LABEL_94;
         }
 
-        v59 = *(v41 + 4);
-        if (v59)
+        v60 = *(v42 + 4);
+        if (v60)
         {
-          v60 = v59 & 0xFFFFFFFC | 2;
+          v61 = v60 & 0xFFFFFFFC | 2;
         }
 
         else
         {
-          if ((v59 & 2) == 0)
+          if ((v60 & 2) == 0)
           {
-            *(v41 + 4) = v59 | 1;
+            *(v42 + 4) = v60 | 1;
 LABEL_119:
-            PropagateNandDepth(v41, v58, v58);
-            v55 = *(v41 + 25);
+            PropagateNandDepth(v42, v59, v59);
+            v56 = *(v42 + 25);
             goto LABEL_94;
           }
 
-          v60 = v59 & 0xFFFFFFFC | 1;
+          v61 = v60 & 0xFFFFFFFC | 1;
         }
 
-        *(v41 + 4) = v60;
-        v61 = LHSParseNodesToExpression(a1, *(v41 + 22));
-        v62 = NegateExpression(a1, v61);
-        ReturnLHSParseNodes(a1, *(v41 + 22));
-        *(v41 + 22) = ExpressionToLHSParseNodes(a1, v62);
-        ReturnExpression(a1, v62);
+        *(v42 + 4) = v61;
+        v62 = LHSParseNodesToExpression(a1, *(v42 + 22));
+        v63 = NegateExpression(a1, v62);
+        ReturnLHSParseNodes(a1, *(v42 + 22));
+        *(v42 + 22) = ExpressionToLHSParseNodes(a1, v63);
+        ReturnExpression(a1, v63);
         goto LABEL_119;
       }
 
-      if (v46 != 153)
+      if (v47 != 153)
       {
-        if (v46 != 152 || *v41 != 152)
+        if (v47 != 152 || *v42 != 152)
         {
           goto LABEL_111;
         }
 
 LABEL_81:
-        if ((v41[8] & 8) != 0)
+        if ((v42[8] & 8) != 0)
         {
           *(a2 + 4) |= 8u;
         }
 
-        v48 = *(v41 + 24);
-        v49 = *(v41 + 25);
-        *(v41 + 24) = 0;
-        *(v41 + 25) = 0;
-        ReturnLHSParseNodes(a1, v41);
-        v50 = (v45 + 100);
-        if (!v45)
+        v49 = *(v42 + 24);
+        v50 = *(v42 + 25);
+        *(v42 + 24) = 0;
+        *(v42 + 25) = 0;
+        ReturnLHSParseNodes(a1, v42);
+        v51 = v46 + 100;
+        if (!v46)
         {
-          v50 = (a2 + 96);
+          v51 = a2 + 96;
         }
 
-        *v50 = v48;
-        v51 = v48;
+        *v51 = v49;
+        v52 = v49;
         do
         {
-          v52 = v51;
-          v51 = *(v51 + 25);
+          v53 = v52;
+          v52 = *(v52 + 25);
         }
 
-        while (v51);
-        *(v52 + 25) = v49;
-        v43 = 1;
-LABEL_88:
-        v41 = v45;
+        while (v52);
+        *(v53 + 25) = v50;
         v44 = 1;
+LABEL_88:
+        v42 = v46;
+        v45 = 1;
 LABEL_112:
-        v45 = v41;
-        v41 = v48;
-        if (v48)
+        v46 = v42;
+        v42 = v49;
+        if (v49)
         {
           continue;
         }
 
-        if (!v44)
+        if (!v45)
         {
           goto LABEL_121;
         }
 
 LABEL_114:
-        v44 = 0;
         v45 = 0;
-        v41 = *v42;
-        if (!*v42)
+        v46 = 0;
+        v42 = *v43;
+        if (!*v43)
         {
           goto LABEL_121;
         }
@@ -5738,78 +5739,80 @@ LABEL_114:
       break;
     }
 
-    if (*v41 != 154)
+    if (*v42 != 154)
     {
       goto LABEL_111;
     }
 
     GetLHSParseNode(a1);
-    *v63 = 30;
-    *(v63 + 8) = *(*(a1[6] + 360) + 32);
-    *(v63 + 200) = *(v41 + 21);
-    *(v41 + 21) = v63;
-    v43 = 1;
-    CopyLHSParseNode(a1, a2, v41, 1);
-    ReturnLHSParseNodes(a1, v41);
+    *v64 = 30;
+    *(v64 + 8) = *(*(a1[6] + 360) + 32);
+    *(v64 + 200) = *(v42 + 21);
+    *(v42 + 21) = v64;
+    v44 = 1;
+    CopyLHSParseNode(a1, a2, v42, 1);
+    ReturnLHSParseNodes(a1, v42);
     *(a2 + 24) = 0;
 LABEL_121:
-    v72 = v43;
-    if (v43)
+    v73 = v44;
+    if (v44)
     {
-      v32 = 1;
-      v6 = a3;
+      v33 = 1;
+      v7 = a3;
       *a3 = 1;
-      v5 = a4;
+      v6 = v70;
+      v5 = a5;
     }
 
     else
     {
-      v5 = a4;
-      v6 = a3;
+      v6 = v70;
+      v5 = a5;
+      v7 = a3;
     }
 
 LABEL_124:
-    v64 = *(a2 + 24);
-    if (v64)
+    v65 = *(a2 + 24);
+    if (v65)
     {
-      v65 = 0;
+      v66 = 0;
       do
       {
-        v66 = v64;
-        v64 = *(v64 + 25);
-        if (*v66 - 151 <= 2)
+        v67 = v65;
+        v65 = *(v65 + 25);
+        if (*v67 - 151 <= 2)
         {
-          *(v66 + 25) = 0;
-          v67 = ReorderDriver(a1);
-          v66 = v67;
-          if (v65)
+          *(v67 + 25) = 0;
+          v68 = ReorderDriver(a1, v67, &v73, v6, v5 + 1);
+          v67 = v68;
+          if (v66)
           {
-            *(v65 + 25) = v67;
-            *(v67 + 200) = v64;
-            v66 = *(v65 + 25);
+            *(v66 + 25) = v68;
+            *(v68 + 25) = v65;
+            v67 = *(v66 + 25);
           }
 
           else
           {
-            *(a2 + 24) = v67;
-            *(v67 + 200) = v64;
+            *(a2 + 24) = v68;
+            *(v68 + 25) = v65;
           }
 
-          if (v72)
+          if (v73)
           {
-            v32 = 1;
-            *v6 = 1;
+            v33 = 1;
+            *v7 = 1;
           }
         }
 
-        v65 = v66;
+        v66 = v67;
       }
 
-      while (v64);
+      while (v65);
     }
   }
 
-  while (v32);
+  while (v33);
   return a2;
 }
 
@@ -5930,15 +5933,21 @@ unsigned __int16 *AssignPatternIndices(unsigned __int16 *a1, signed __int16 a2, 
   v4 = a1;
   if (a1)
   {
-    while (*(v4 + 19) <= a3)
+    while (1)
     {
-      v9 = *v4;
-      if (v9 == 150)
+      v8 = *(v4 + 19);
+      if (v8 > a3)
       {
-        v10 = *(v4 + 21);
-        if (v10)
+        break;
+      }
+
+      v10 = *v4;
+      if (v10 == 150)
+      {
+        v11 = *(v4 + 21);
+        if (v11)
         {
-          PropagateJoinDepth(v10, a4);
+          PropagateJoinDepth(v11, a4);
           PropagateNandDepth(*(v4 + 21), *(v4 + 19), *(v4 + 20));
         }
 
@@ -5952,11 +5961,11 @@ unsigned __int16 *AssignPatternIndices(unsigned __int16 *a1, signed __int16 a2, 
           PropagateIndexSlotPatternValues(i, a2, *(i + 58), *(i + 64), *(i + 72));
         }
 
-        v8 = *(v4 + 20);
+        v9 = *(v4 + 20);
         goto LABEL_15;
       }
 
-      if (v9 == 154)
+      if (v10 == 154)
       {
         if ((a4 & 0xFFFE) == 0)
         {
@@ -5980,10 +5989,10 @@ LABEL_17:
       }
     }
 
-    v4 = AssignPatternIndices(v4, a2);
-    v8 = *(v4 + 20);
+    v4 = AssignPatternIndices(v4, a2, v8, a4);
+    v9 = *(v4 + 20);
 LABEL_15:
-    if (v8 < a3)
+    if (v9 < a3)
     {
       return v4;
     }
@@ -6115,7 +6124,7 @@ void *CopyLHSParseNode(void *result, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-uint64_t ReturnLHSParseNodes(uint64_t result, uint64_t a2)
+void *ReturnLHSParseNodes(void *result, uint64_t a2)
 {
   if (a2)
   {
@@ -6148,7 +6157,7 @@ uint64_t ReturnLHSParseNodes(uint64_t result, uint64_t a2)
       }
     }
 
-    v5 = *(v3 + 48);
+    v5 = v3[6];
     *(*(v5 + 472) + 32) = a2;
     **(*(v5 + 472) + 32) = *(*(*(v5 + 472) + 40) + 1664);
     *(*(*(v5 + 472) + 40) + 1664) = *(*(v5 + 472) + 32);
@@ -6164,38 +6173,38 @@ uint64_t ExpressionToLHSParseNodes(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  LHSParseNode = GetLHSParseNode(a1);
-  v6 = v5;
-  *v5 = *a2;
-  *(v5 + 8) = *(a2 + 8);
-  *(v5 + 192) = ExpressionToLHSParseNodes(a1, *(a2 + 24), LHSParseNode);
-  v8 = ExpressionToLHSParseNodes(a1, *(a2 + 16), v7);
-  *(v6 + 200) = v8;
-  if (*v6 == 30)
+  GetLHSParseNode(a1);
+  v5 = v4;
+  *v4 = *a2;
+  *(v4 + 8) = *(a2 + 8);
+  *(v4 + 192) = ExpressionToLHSParseNodes(a1, *(a2 + 24));
+  v6 = ExpressionToLHSParseNodes(a1, *(a2 + 16));
+  *(v5 + 200) = v6;
+  if (*v5 == 30)
   {
-    v9 = v8;
-    if (v8)
+    v7 = v6;
+    if (v6)
     {
-      v10 = *(v6 + 8);
-      v11 = 1;
+      v8 = *(v5 + 8);
+      v9 = 1;
       do
       {
-        if (*v9 == 35)
+        if (*v7 == 35)
         {
-          NthRestriction = GetNthRestriction(v10, v11);
-          *(v9 + 32) = ArgumentTypeToConstraintRecord(a1, NthRestriction);
-          *(v9 + 16) |= 0x40u;
+          NthRestriction = GetNthRestriction(v8, v9);
+          *(v7 + 32) = ArgumentTypeToConstraintRecord(a1, NthRestriction);
+          *(v7 + 16) |= 0x40u;
         }
 
-        v9 = *(v9 + 192);
-        ++v11;
+        v7 = *(v7 + 192);
+        ++v9;
       }
 
-      while (v9);
+      while (v7);
     }
   }
 
-  return v6;
+  return v5;
 }
 
 void *LHSParseNodesToExpression(uint64_t a1, uint64_t a2)
@@ -6561,51 +6570,11 @@ void *EmptyDrive(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = result;
   v8 = *(a2 + 72);
-  if (!v8)
+  if (!v8 || (v9 = result[6], v10 = *(v9 + 144), v11 = v10[12], v12 = v10[13], v13 = v10[14], v10[12] = 0, *(*(v9 + 144) + 104) = a3, *(*(v9 + 144) + 112) = a2, result = EvaluateJoinExpression(result, v8, a2), v14 = v7[6], *(*(v14 + 352) + 8) = 0, *(*(v14 + 144) + 96) = v11, *(*(v14 + 144) + 104) = v12, *(*(v14 + 144) + 112) = v13, result))
   {
-    goto LABEL_34;
-  }
-
-  v9 = result[6];
-  v10 = *(v9 + 144);
-  v11 = v10[12];
-  v12 = v10[13];
-  v13 = v10[14];
-  v10[12] = 0;
-  *(*(v9 + 144) + 104) = a3;
-  *(*(v9 + 144) + 112) = a2;
-  result = EvaluateJoinExpression(result, v8, a2);
-  v14 = v7[6];
-  *(*(v14 + 352) + 8) = 0;
-  *(*(v14 + 144) + 96) = v11;
-  *(*(v14 + 144) + 104) = v12;
-  *(*(v14 + 144) + 112) = v13;
-  if (result)
-  {
-LABEL_34:
     v15 = *(a2 + 80);
-    if (!v15)
+    if (!v15 || (v16 = v7[6], v17 = *(v16 + 144), v18 = v17[12], v19 = v17[13], v20 = v17[14], v17[12] = 0, *(*(v16 + 144) + 104) = a3, *(*(v16 + 144) + 112) = a2, result = EvaluateJoinExpression(v7, v15, a2), v21 = v7[6], *(*(v21 + 352) + 8) = 0, *(*(v21 + 144) + 96) = v18, *(*(v21 + 144) + 104) = v19, *(*(v21 + 144) + 112) = v20, result))
     {
-      goto LABEL_6;
-    }
-
-    v16 = v7[6];
-    v17 = *(v16 + 144);
-    v18 = v17[12];
-    v19 = v17[13];
-    v20 = v17[14];
-    v17[12] = 0;
-    *(*(v16 + 144) + 104) = a3;
-    *(*(v16 + 144) + 112) = a2;
-    result = EvaluateJoinExpression(v7, v15, a2);
-    v21 = v7[6];
-    *(*(v21 + 352) + 8) = 0;
-    *(*(v21 + 144) + 96) = v18;
-    *(*(v21 + 144) + 104) = v19;
-    *(*(v21 + 144) + 112) = v20;
-    if (result)
-    {
-LABEL_6:
       if ((*a2 & 8) != 0 || (*a2 & 0x14) == 4)
       {
         v23 = **(*(a2 + 56) + 16);
@@ -6706,9 +6675,9 @@ LABEL_25:
   return result;
 }
 
-uint64_t NetworkAssertRight(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *NetworkAssertRight(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (*(*(*(result + 48) + 144) + 84))
+  if (*(*(result[6] + 144) + 84))
   {
     v4 = (*a3 & 0x20) == 0;
   }
@@ -6841,7 +6810,7 @@ LABEL_26:
       }
     }
 
-    return EmptyDrive();
+    return EmptyDrive(result, a3, a2, a4);
   }
 
   return result;
@@ -6882,7 +6851,7 @@ LABEL_6:
     v11 = *(v10 + 352);
     v12 = *v4;
     v13 = v11[v12 + 3];
-    if (v13 && *(v13 + 40))
+    if (v13 && *(v13 + 5))
     {
       v14 = *v11;
       *v11 = v4;
@@ -6976,7 +6945,7 @@ LABEL_28:
   return 0;
 }
 
-uint64_t PPDrive(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *PPDrive(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = *(a4 + 112);
   if (v5)
@@ -7029,7 +6998,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t NetworkAssertLeft(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t NetworkAssertLeft(uint64_t result, uint64_t a2, int *a3, uint64_t a4)
 {
   v7 = result;
   if (a4 == 1)
@@ -7051,17 +7020,17 @@ uint64_t NetworkAssertLeft(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a
     }
   }
 
-  v10 = *(a3 + 136);
+  v10 = *(a3 + 17);
   if (v10)
   {
 
     return AddActivation(v7, v10, a2);
   }
 
-  v11 = *(a3 + 104);
+  v11 = *(a3 + 13);
   if (!v11)
   {
-    v12 = *(a3 + 72);
+    v12 = *(a3 + 9);
     if (!v12)
     {
       goto LABEL_16;
@@ -7106,7 +7075,7 @@ LABEL_16:
   }
 
   v18 = result;
-  if (!result && !*(a3 + 80))
+  if (!result && !*(a3 + 10))
   {
     v23 = 0;
     v21 = 0;
@@ -7115,7 +7084,7 @@ LABEL_16:
 LABEL_47:
     if ((*a3 & 0xC) != 0 && (*a3 & 0x10) == 0 && !*(a2 + 24))
     {
-      v30 = *(a3 + 80);
+      v30 = *(a3 + 10);
       if (!v30)
       {
         goto LABEL_54;
@@ -7167,8 +7136,8 @@ LABEL_54:
       }
     }
 
-    ++*(a3 + 48);
-    v24 = *(a3 + 72);
+    ++*(a3 + 6);
+    v24 = *(a3 + 9);
     if (v24)
     {
       *(*(*(v7 + 48) + 144) + 104) = v18;
@@ -7195,7 +7164,7 @@ LABEL_54:
       v25 = 1;
     }
 
-    v26 = *(a3 + 80);
+    v26 = *(a3 + 10);
     if (v26)
     {
       v27 = v25 == 0;
@@ -7313,7 +7282,7 @@ uint64_t BetaMemoryHashValue(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uin
     v15 = *(v14 + 352);
     v16 = *v5;
     v17 = v15[v16 + 3];
-    if (v17 && *(v17 + 40))
+    if (v17 && *(v17 + 5))
     {
       v18 = *v15;
       *v15 = v5;
@@ -7366,7 +7335,7 @@ LABEL_16:
   return v7;
 }
 
-uint64_t EPMDrive(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *EPMDrive(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a3 + 112);
   if (v4)
@@ -7411,18 +7380,19 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2325D1918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2325D1918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2325D2180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_2325D2180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  objc_sync_exit(v19);
+  va_start(va, a18);
+  objc_sync_exit(v18);
   _Block_object_dispose(&a15, 8);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7520,10 +7490,11 @@ void sub_2325F0704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_1_1()
@@ -7532,16 +7503,16 @@ BOOL OUTLINED_FUNCTION_1_1()
   return os_log_type_enabled(v0, OS_LOG_TYPE_FAULT);
 }
 
-id activityLogHandle()
+id activityLogHandle(uint64_t a1)
 {
   if (activityLogHandle_activityPred != -1)
   {
     activityLogHandle_cold_1();
   }
 
-  v1 = activityLogHandle_activityHandle;
+  v2 = activityLogHandle_activityHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __activityLogHandle_block_invoke()
@@ -7553,16 +7524,16 @@ uint64_t __activityLogHandle_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id metricstreamLogHandle()
+id metricstreamLogHandle(uint64_t a1)
 {
   if (metricstreamLogHandle_metricstreamPred != -1)
   {
     metricstreamLogHandle_cold_1();
   }
 
-  v1 = metricstreamLogHandle_metricstreamHandle;
+  v2 = metricstreamLogHandle_metricstreamHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __metricstreamLogHandle_block_invoke()
@@ -7574,16 +7545,16 @@ uint64_t __metricstreamLogHandle_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id algosLogHandle()
+id algosLogHandle(uint64_t a1)
 {
   if (algosLogHandle_algosPred != -1)
   {
     algosLogHandle_cold_1();
   }
 
-  v1 = algosLogHandle_algosHandle;
+  v2 = algosLogHandle_algosHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __algosLogHandle_block_invoke()
@@ -7635,7 +7606,7 @@ double FirstFunction(uint64_t a1, uint64_t a2)
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  if (!EnvArgTypeCheck(a1, "first$", 1, 4, &v7))
+  if (!EnvArgTypeCheck(a1, "first$", 1, 4u, &v7))
   {
     return EnvSetMultifieldErrorValue(a1, a2);
   }
@@ -7659,7 +7630,7 @@ double RestFunction(uint64_t a1, uint64_t a2)
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  if (!EnvArgTypeCheck(a1, "rest$", 1, 4, &v7))
+  if (!EnvArgTypeCheck(a1, "rest$", 1, 4u, &v7))
   {
     return EnvSetMultifieldErrorValue(a1, a2);
   }
@@ -7683,7 +7654,7 @@ void SubseqFunction(uint64_t a1, uint64_t a2)
   v12 = 0u;
   v13 = 0u;
   v11 = 0u;
-  if (EnvArgTypeCheck(a1, "subseq$", 1, 4, &v11) && (v4 = v12, v5 = v13, EnvArgTypeCheck(a1, "subseq$", 2, 1, &v11)) && (v6 = *(v12 + 24), EnvArgTypeCheck(a1, "subseq$", 3, 1, &v11)) && ((v7 = *(v12 + 24), v7 >= 1) ? (v8 = v7 < v6) : (v8 = 1), !v8 && (v9 = v5 - *(&v4 + 1) + 1, v6 <= v9)))
+  if (EnvArgTypeCheck(a1, "subseq$", 1, 4u, &v11) && (v4 = v12, v5 = v13, EnvArgTypeCheck(a1, "subseq$", 2, 1u, &v11)) && (v6 = *(v12 + 24), EnvArgTypeCheck(a1, "subseq$", 3, 1u, &v11)) && ((v7 = *(v12 + 24), v7 >= 1) ? (v8 = v7 < v6) : (v8 = 1), !v8 && (v9 = v5 - *(&v4 + 1) + 1, v6 <= v9)))
   {
     if (v7 >= v9)
     {
@@ -7714,7 +7685,7 @@ void SubseqFunction(uint64_t a1, uint64_t a2)
 
 double DeleteMemberFunction(uint64_t a1, _OWORD *a2)
 {
-  v4 = EnvArgCountCheck(a1, "delete-member$", 1u, 2);
+  v4 = EnvArgCountCheck(a1, "delete-member$", 1, 2);
   if (v4 == -1)
   {
     SetEvaluationError(a1, 1);
@@ -7728,7 +7699,7 @@ double DeleteMemberFunction(uint64_t a1, _OWORD *a2)
     v20 = 0u;
     v21 = 0u;
     v19 = 0u;
-    if (EnvArgTypeCheck(a1, "delete-member$", 1, 4, &v19))
+    if (EnvArgTypeCheck(a1, "delete-member$", 1, 4u, &v19))
     {
       v6 = v5 - 1;
       v7 = gm2(a1, (48 * (v5 - 1)));
@@ -7741,7 +7712,7 @@ LABEL_7:
         if (!FindDOsInSegment(v8, v6, &v19, &v15, &v14, 0, 0))
         {
 LABEL_11:
-          rm(a1, v8, (48 * v6));
+          rm(a1, v8, 48 * v6);
           v12 = v20;
           *a2 = v19;
           a2[1] = v12;
@@ -7781,7 +7752,7 @@ LABEL_11:
         }
       }
 
-      rm(a1, v8, (48 * v6));
+      rm(a1, v8, 48 * v6);
     }
 
     SetEvaluationError(a1, 1);
@@ -7789,49 +7760,55 @@ LABEL_11:
   }
 }
 
-void ReplaceMemberFunction(uint64_t a1, _OWORD *a2)
+double ReplaceMemberFunction(uint64_t a1, _OWORD *a2)
 {
-  v31[2] = *MEMORY[0x277D85DE8];
-  v4 = EnvArgCountCheck(a1, "replace-member$", 1u, 3);
-  if (v4 != -1)
+  v30[2] = *MEMORY[0x277D85DE8];
+  v4 = EnvArgCountCheck(a1, "replace-member$", 1, 3);
+  if (v4 == -1)
+  {
+    SetEvaluationError(a1, 1);
+
+    return EnvSetMultifieldErrorValue(a1, a2);
+  }
+
+  else
   {
     v5 = v4;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    if (EnvArgTypeCheck(a1, "replace-member$", 1, 4, &v28) && EnvRtnUnknown(a1, 2, &v25))
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    if (EnvArgTypeCheck(a1, "replace-member$", 1, 4u, &v27) && EnvRtnUnknown(a1, 2, &v24))
     {
-      v19 = WORD4(v25);
-      v7 = *(&v26 + 1);
-      v6 = v27;
+      v18 = WORD4(v24);
+      v7 = *(&v25 + 1);
+      v6 = v26;
       v8 = v5 - 2;
       v9 = gm2(a1, (48 * (v5 - 2)));
       v10 = v9;
       if (v5 < 3)
       {
 LABEL_8:
+        v19 = 0;
         v20 = 0;
-        v21 = 0;
-        if (!FindDOsInSegment(v10, v8, &v28, &v21, &v20, 0, 0))
+        if (!FindDOsInSegment(v10, v8, &v27, &v20, &v19, 0, 0))
         {
 LABEL_14:
-          rm(a1, v10, (48 * v8));
-          v16 = v29;
-          *a2 = v28;
+          rm(a1, v10, 48 * v8);
+          v16 = v28;
+          *a2 = v27;
           a2[1] = v16;
-          a2[2] = v30;
-LABEL_20:
-          v18 = *MEMORY[0x277D85DE8];
-          return;
+          result = *&v29;
+          a2[2] = v29;
+          return result;
         }
 
-        v23 = 0u;
-        v24 = 0u;
         v22 = 0u;
-        if (v19 == 4)
+        v23 = 0u;
+        v21 = 0u;
+        if (v18 == 4)
         {
           v14 = v6 - v7;
         }
@@ -7843,18 +7820,18 @@ LABEL_20:
 
         while (1)
         {
-          v15 = v21;
-          if (!ReplaceMultiValueField(a1, &v22, &v28, v21, v20, &v25, "replace-member$"))
+          v15 = v20;
+          if (!ReplaceMultiValueField(a1, &v21, &v27, v20, v19, &v24, "replace-member$"))
           {
             break;
           }
 
+          v27 = v21;
           v28 = v22;
           v29 = v23;
-          v30 = v24;
-          v31[0] = 1;
-          v31[1] = v14 + v15;
-          if (!FindDOsInSegment(v10, v8, &v28, &v21, &v20, v31, 1))
+          v30[0] = 1;
+          v30[1] = v14 + v15;
+          if (!FindDOsInSegment(v10, v8, &v27, &v20, &v19, v30, 1u))
           {
             goto LABEL_14;
           }
@@ -7877,18 +7854,12 @@ LABEL_20:
         }
       }
 
-      rm(a1, v10, (48 * v8));
+      rm(a1, v10, 48 * v8);
     }
 
     SetEvaluationError(a1, 1);
-    EnvSetMultifieldErrorValue(a1, a2);
-    goto LABEL_20;
+    return EnvSetMultifieldErrorValue(a1, a2);
   }
-
-  SetEvaluationError(a1, 1);
-  v17 = *MEMORY[0x277D85DE8];
-
-  EnvSetMultifieldErrorValue(a1, a2);
 }
 
 double DeleteFunction(uint64_t a1, uint64_t a2)
@@ -7900,7 +7871,7 @@ double DeleteFunction(uint64_t a1, uint64_t a2)
   v8 = 0u;
   v5 = 0u;
   v6 = 0u;
-  if (!EnvArgTypeCheck(a1, "delete$", 1, 4, v11) || !EnvArgTypeCheck(a1, "delete$", 2, 1, &v8) || !EnvArgTypeCheck(a1, "delete$", 3, 1, &v5) || !DeleteMultiValueField(a1, a2, v11, *(v9 + 24), *(v6 + 24), "delete$"))
+  if (!EnvArgTypeCheck(a1, "delete$", 1, 4u, v11) || !EnvArgTypeCheck(a1, "delete$", 2, 1u, &v8) || !EnvArgTypeCheck(a1, "delete$", 3, 1u, &v5) || !DeleteMultiValueField(a1, a2, v11, *(v9 + 24), *(v6 + 24), "delete$"))
   {
     SetEvaluationError(a1, 1);
     return EnvSetMultifieldErrorValue(a1, a2);
@@ -7919,7 +7890,7 @@ double ReplaceFunction(uint64_t a1, uint64_t a2)
   v6 = 0u;
   v7 = 0u;
   memset(v5, 0, sizeof(v5));
-  if (!EnvArgTypeCheck(a1, "replace$", 1, 4, v12) || !EnvArgTypeCheck(a1, "replace$", 2, 1, &v9) || !EnvArgTypeCheck(a1, "replace$", 3, 1, &v6))
+  if (!EnvArgTypeCheck(a1, "replace$", 1, 4u, v12) || !EnvArgTypeCheck(a1, "replace$", 2, 1u, &v9) || !EnvArgTypeCheck(a1, "replace$", 3, 1u, &v6))
   {
     goto LABEL_8;
   }
@@ -7951,7 +7922,7 @@ double InsertFunction(uint64_t a1, uint64_t a2)
   v8 = 0u;
   v6 = 0u;
   memset(v5, 0, sizeof(v5));
-  if (!EnvArgTypeCheck(a1, "insert$", 1, 4, v9) || !EnvArgTypeCheck(a1, "insert$", 2, 1, &v6))
+  if (!EnvArgTypeCheck(a1, "insert$", 1, 4u, v9) || !EnvArgTypeCheck(a1, "insert$", 2, 1u, &v6))
   {
     goto LABEL_7;
   }
@@ -7991,7 +7962,7 @@ void ExplodeFunction(uint64_t a1, uint64_t a2)
     v7 = 0u;
     v8 = 0u;
     v6 = 0u;
-    if (EnvArgTypeCheck(a1, "explode$", 1, 3, &v6))
+    if (EnvArgTypeCheck(a1, "explode$", 1, 3u, &v6))
     {
       Multifield = StringToMultifield(a1, *(v7 + 24));
       if (Multifield)
@@ -8030,10 +8001,10 @@ uint64_t *ImplodeFunction(uint64_t a1)
 
   else
   {
-    memset(v9, 0, sizeof(v9));
-    if (EnvArgTypeCheck(a1, "implode$", 1, 4, v9))
+    memset(v3, 0, sizeof(v3));
+    if (EnvArgTypeCheck(a1, "implode$", 1, 4u, v3))
     {
-      return ImplodeMultifield(a1, v9, v2, v3, v4, v5, v6, v7);
+      return ImplodeMultifield(a1, v3);
     }
 
     else
@@ -8058,7 +8029,7 @@ uint64_t *NthFunction(uint64_t a1, uint64_t a2)
     v11 = 0u;
     v8 = 0u;
     v9 = 0u;
-    if (EnvArgTypeCheck(a1, "nth$", 1, 1, &v11) && EnvArgTypeCheck(a1, "nth$", 2, 4, &v8))
+    if (EnvArgTypeCheck(a1, "nth$", 1, 1u, &v11) && EnvArgTypeCheck(a1, "nth$", 2, 4u, &v8))
     {
       v4 = *(v12 + 24);
       if (v4 >= 1 && v4 <= v10 - *(&v9 + 1) + 1)
@@ -8088,11 +8059,11 @@ double MemberFunction(uint64_t a1, uint64_t a2)
     memset(v13, 0, sizeof(v13));
     memset(v12, 0, sizeof(v12));
     EnvRtnUnknown(a1, 1, v13);
-    if (EnvArgTypeCheck(a1, "member$", 2, 4, v12))
+    if (EnvArgTypeCheck(a1, "member$", 2, 4u, v12))
     {
       v10 = 0;
       v11 = 0;
-      if (FindDOsInSegment(v13, 1, v12, &v11, &v10, 0, 0))
+      if (FindDOsInSegment(v13, 1u, v12, &v11, &v10, 0, 0))
       {
         v5 = v10;
         v6 = v11;
@@ -8136,10 +8107,10 @@ uint64_t SubsetpFunction(uint64_t a1)
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  result = EnvArgTypeCheck(a1, "subsetp", 1, 4, &v15);
+  result = EnvArgTypeCheck(a1, "subsetp", 1, 4u, &v15);
   if (result)
   {
-    result = EnvArgTypeCheck(a1, "subsetp", 2, 4, &v12);
+    result = EnvArgTypeCheck(a1, "subsetp", 2, 4u, &v12);
     if (result)
     {
       v3 = v17;
@@ -8160,7 +8131,7 @@ uint64_t SubsetpFunction(uint64_t a1)
           v6 = v4 + 2;
           WORD4(v9) = *(v4 - 4);
           *&v10 = *v4;
-          result = FindDOsInSegment(&v9, 1, &v12, &v8, &v7, 0, 0);
+          result = FindDOsInSegment(&v9, 1u, &v12, &v8, &v7, 0, 0);
           v4 = v6;
           if (!result)
           {
@@ -8185,7 +8156,7 @@ double MVReplaceFunction(uint64_t a1, uint64_t a2)
   v7 = 0u;
   memset(v6, 0, sizeof(v6));
   memset(v5, 0, sizeof(v5));
-  if (!EnvArgTypeCheck(a1, "mv-replace", 1, 1, &v7) || !EnvArgTypeCheck(a1, "mv-replace", 2, 4, v6) || (EvaluateExpression(a1, *(*(*(**(*(a1 + 48) + 352) + 16) + 24) + 24), v5), !ReplaceMultiValueField(a1, a2, v6, *(v8 + 24), *(v8 + 24), v5, "mv-replace")))
+  if (!EnvArgTypeCheck(a1, "mv-replace", 1, 1u, &v7) || !EnvArgTypeCheck(a1, "mv-replace", 2, 4u, v6) || (EvaluateExpression(a1, *(*(*(**(*(a1 + 48) + 352) + 16) + 24) + 24), v5), !ReplaceMultiValueField(a1, a2, v6, *(v8 + 24), *(v8 + 24), v5, "mv-replace")))
   {
     SetEvaluationError(a1, 1);
     return EnvSetMultifieldErrorValue(a1, a2);
@@ -8199,7 +8170,7 @@ void MVSubseqFunction(uint64_t a1, uint64_t a2)
   v12 = 0u;
   v13 = 0u;
   v11 = 0u;
-  if (EnvArgTypeCheck(a1, "mv-subseq", 1, 1, &v11) && (v4 = *(v12 + 24), EnvArgTypeCheck(a1, "mv-subseq", 2, 1, &v11)) && ((v5 = *(v12 + 24), v5 >= 1) ? (v6 = v5 < v4) : (v6 = 1), !v6 && EnvArgTypeCheck(a1, "mv-subseq", 3, 4, &v11) && (v7 = *(&v12 + 1), v8 = v13 - *(&v12 + 1) + 1, v4 <= v8)))
+  if (EnvArgTypeCheck(a1, "mv-subseq", 1, 1u, &v11) && (v4 = *(v12 + 24), EnvArgTypeCheck(a1, "mv-subseq", 2, 1u, &v11)) && ((v5 = *(v12 + 24), v5 >= 1) ? (v6 = v5 < v4) : (v6 = 1), !v6 && EnvArgTypeCheck(a1, "mv-subseq", 3, 4u, &v11) && (v7 = *(&v12 + 1), v8 = v13 - *(&v12 + 1) + 1, v4 <= v8)))
   {
     v9 = v12;
     if (v5 < v8)
@@ -8235,7 +8206,7 @@ double MVDeleteFunction(uint64_t a1, uint64_t a2)
   v8 = 0u;
   v6 = 0u;
   memset(v5, 0, sizeof(v5));
-  if (!EnvArgTypeCheck(a1, "mv-delete", 1, 1, &v6) || !EnvArgTypeCheck(a1, "mv-delete", 2, 4, v5) || !DeleteMultiValueField(a1, a2, v5, *(v7 + 24), *(v7 + 24), "mv-delete"))
+  if (!EnvArgTypeCheck(a1, "mv-delete", 1, 1u, &v6) || !EnvArgTypeCheck(a1, "mv-delete", 2, 4u, v5) || !DeleteMultiValueField(a1, a2, v5, *(v7 + 24), *(v7 + 24), "mv-delete"))
   {
     SetEvaluationError(a1, 1);
     return EnvSetMultifieldErrorValue(a1, a2);
@@ -8732,7 +8703,7 @@ uint64_t ReplaceMultiValueField(uint64_t a1, uint64_t a2, void *a3, uint64_t a4,
   }
 }
 
-uint64_t FindDOsInSegment(uint64_t a1, int a2, void *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, int a7)
+uint64_t FindDOsInSegment(uint64_t a1, unsigned int a2, void *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, unsigned int a7)
 {
   v7 = a3[3];
   v8 = a3[4] - v7;
@@ -8978,7 +8949,7 @@ LABEL_31:
   return 1;
 }
 
-uint64_t MVRangeCheck(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t MVRangeCheck(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   v4 = 1;
   if (a3 && a4 >= 1)
@@ -9036,7 +9007,7 @@ void *MultifieldPrognDriver(void *a1, uint64_t a2, char *a3)
   **(v10 + 80) = v9;
   *(a2 + 8) = 2;
   *(a2 + 16) = EnvFalseSymbol(a1);
-  result = EnvArgTypeCheck(a1, a3, 1, 4, &v29);
+  result = EnvArgTypeCheck(a1, a3, 1, 4u, &v29);
   if (result)
   {
     v12 = a1[6];
@@ -9153,13 +9124,13 @@ uint64_t MVRangeError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *
   else
   {
     EnvPrintRouter(a1, "werror", "range ");
-    PrintLongInteger(a1, "werror", a2, v15, v16, v17, v18, v19);
+    PrintLongInteger(a1, "werror", a2);
     EnvPrintRouter(a1, "werror", "..");
   }
 
-  PrintLongInteger(a1, "werror", a3, v10, v11, v12, v13, v14);
+  PrintLongInteger(a1, "werror", a3);
   EnvPrintRouter(a1, "werror", " out of range 1..");
-  PrintLongInteger(a1, "werror", a4, v20, v21, v22, v23, v24);
+  PrintLongInteger(a1, "werror", a4);
   if (a5)
   {
     EnvPrintRouter(a1, "werror", " in function ");

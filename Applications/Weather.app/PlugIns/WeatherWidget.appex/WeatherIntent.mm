@@ -25,14 +25,15 @@
 
 - (WeatherIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_1000EBE84();
+  v6 = sub_1000EBE84();
+  v8 = v7;
   sub_1000EBE84();
   if (name)
   {
     sub_1000EBDD4();
   }
 
-  return WeatherIntent.init(domain:verb:parametersByName:)();
+  return WeatherIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

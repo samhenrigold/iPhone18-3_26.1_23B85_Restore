@@ -12,8 +12,7 @@
     var1 = finish->var1;
     var6 = finish->var6;
     v7 = IMFileLocationTrimFileName(finish);
-    var2 = finish->var0.var2;
-    NSLog(&cfstr_PerfIdLldEFFil.isa, var1, *&var6, v7, finish->var0.var4, var2, finish->var3);
+    NSLog(&cfstr_PerfIdLldEFFil.isa, var1, *&var6, v7, finish->var0.var4, finish->var0.var2, finish->var3);
   }
 }
 

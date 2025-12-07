@@ -333,7 +333,7 @@ uint64_t __27__AADeviceInfo_currentInfo__block_invoke()
   if (v5)
   {
     v6 = v4;
-    v7 = _AALogSystem();
+    v7 = _AALogSystem(v4);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (v6)
     {
@@ -352,13 +352,14 @@ uint64_t __27__AADeviceInfo_currentInfo__block_invoke()
       CFDictionaryAddValue(Mutable, *MEMORY[0x1E697ABD8], *MEMORY[0x1E697ABE8]);
       CFDictionaryAddValue(Mutable, *MEMORY[0x1E697B3C0], v11);
       CFDictionaryRemoveValue(Mutable, v3);
-      if (SecItemAdd(Mutable, 0))
+      v12 = SecItemAdd(Mutable, 0);
+      if (v12)
       {
-        v12 = _AALogSystem();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = _AALogSystem(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "There was an error saving the AppleIDClientIdentifier to the keychain", buf, 2u);
+          _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "There was an error saving the AppleIDClientIdentifier to the keychain", buf, 2u);
         }
       }
     }
@@ -377,13 +378,12 @@ uint64_t __27__AADeviceInfo_currentInfo__block_invoke()
 
   else
   {
-    v13 = objc_alloc(MEMORY[0x1E696AEC0]);
-    uUIDString2 = [v13 initWithData:result encoding:4];
+    v14 = objc_alloc(MEMORY[0x1E696AEC0]);
+    uUIDString2 = [v14 initWithData:result encoding:4];
     CFRelease(result);
   }
 
   CFRelease(Mutable);
-  v15 = *MEMORY[0x1E69E9840];
 
   return uUIDString2;
 }

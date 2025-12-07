@@ -13,7 +13,7 @@ void ComputeHash::ComputeHash(ComputeHash *this)
   *(this + 2) = 2;
 }
 
-void ComputeHash::setDigestGenerator(uint64_t a1, uint64_t *a2)
+void ComputeHash::setDigestGenerator(uint64_t result, uint64_t *a2)
 {
   v3 = *a2;
   v2 = a2[1];
@@ -22,9 +22,9 @@ void ComputeHash::setDigestGenerator(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = *(a1 + 24);
-  *(a1 + 16) = v3;
-  *(a1 + 24) = v2;
+  v4 = *(result + 24);
+  *(result + 16) = v3;
+  *(result + 24) = v2;
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -54,7 +54,7 @@ const __CFData *ComputeHash::digest_file(ComputeHash *this, FileSystemManager *a
     return 0;
   }
 
-  FileSystemManager::fileContentsAtPath(a2, &cf);
+  FileSystemManager::fileContentsAtPath(&cf, a2);
   v4 = cf;
   v6 = cf;
   if (cf)
@@ -76,10 +76,11 @@ const __CFData *ComputeHash::digest_file(ComputeHash *this, FileSystemManager *a
   return v2;
 }
 
-void sub_296002BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+void sub_296002BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(&a9);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(&a10);
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
@@ -332,24 +333,23 @@ LABEL_6:
 
 uint64_t ComputeHash::digest_number(uint64_t a1, CFNumberRef *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   if (!*(a1 + 8) && !CFNumberIsFloatType(*a2))
   {
     ByteSize = CFNumberGetByteSize(*a2);
     if (ByteSize >= 9)
     {
-      v8 = bswap32(ByteSize);
+      v7 = bswap32(ByteSize);
       if (!*(a1 + 8))
       {
-        (*(**(a1 + 16) + 8))(*(a1 + 16), &v8, 4);
+        (*(**(a1 + 16) + 8))(*(a1 + 16), &v7, 4);
       }
 
       Type = CFNumberGetType(*a2);
-      CFNumberGetValue(*a2, Type, &v8);
+      CFNumberGetValue(*a2, Type, &v7);
     }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -589,24 +589,24 @@ LABEL_43:
   return v2 & 1;
 }
 
-void sub_2960037AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2960037AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, const void *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, const void *);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   va_copy(va2, va1);
-  v15 = va_arg(va2, const void *);
+  v19 = va_arg(va2, const void *);
   ctu::cf::CFSharedRef<__CFArray const>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef(va2);
-  ctu::cf::CFSharedRef<void const>::~CFSharedRef((v5 - 88));
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef((v9 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -847,21 +847,21 @@ LABEL_49:
   return v2;
 }
 
-void sub_296003C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296003C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, const void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, const void *);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   va_copy(va2, va1);
-  v12 = va_arg(va2, const void *);
-  v14 = va_arg(va2, void);
+  v17 = va_arg(va2, const void *);
+  v19 = va_arg(va2, void);
   ctu::cf::CFSharedRef<__CFNumber const>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFString const>::~CFSharedRef(va2);
-  ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef((v6 - 72));
+  ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef((v11 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -963,24 +963,23 @@ void add_key(const void *a1, const void *a2, __CFArray *a3)
 
 uint64_t ComputeHash::finalize@<X0>(ComputeHash *this@<X0>, const void **a2@<X8>)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   *a2 = 0;
   v4 = (*(**(this + 2) + 24))(*(this + 2));
   result = MEMORY[0x2A1C7C4A8]();
-  v7 = v9 - v6;
+  v7 = v8 - v6;
   if (!*(this + 2))
   {
     bzero(v7, v4);
     result = (*(**(this + 2) + 16))(*(this + 2), v7);
     if ((result & 0x80000000) == 0)
     {
-      v9[0] = CFDataCreate(*MEMORY[0x29EDB8ED8], v7, v4);
-      result = ctu::cf::CFSharedRef<__CFData const>::operator=(a2, v9);
+      v8[0] = CFDataCreate(*MEMORY[0x29EDB8ED8], v7, v4);
+      result = ctu::cf::CFSharedRef<__CFData const>::operator=(a2, v8);
       *(this + 2) = 1;
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1198,7 +1197,7 @@ void CBSignUtilityLogger::CBSignUtilityLogger(CBSignUtilityLogger *this)
   *this = defaultLogFunction;
 }
 
-uint64_t CBSignUtilityLogger::getMyInstance(CBSignUtilityLogger *this)
+void *CBSignUtilityLogger::getMyInstance(CBSignUtilityLogger *this)
 {
   result = CBSignUtilityLogger::myInstance;
   if (!CBSignUtilityLogger::myInstance)
@@ -1212,16 +1211,14 @@ uint64_t CBSignUtilityLogger::getMyInstance(CBSignUtilityLogger *this)
 uint64_t writeLog(const char *__format, ...)
 {
   va_start(va, __format);
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   vsnprintf(__str, 0x400uLL, __format, va);
   if (!CBSignUtilityLogger::myInstance)
   {
     operator new();
   }
 
-  result = (*CBSignUtilityLogger::myInstance)(__str);
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*CBSignUtilityLogger::myInstance)(__str);
 }
 
 void *PublicKeys::get_public_key(uint64_t a1, int a2, int a3)
@@ -1574,43 +1571,43 @@ void sub_296004B7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CarrierBundle::classifyFiles(uint64_t a1, char *a2, uint64_t a3)
 {
-  v17 = &v17;
-  v18 = &v17;
-  v19 = 0;
-  if (FileSystemManager::directoryContentsAtPath(a2, &v17, 1))
+  v18 = &v18;
+  v19 = &v18;
+  v20 = 0;
+  if (FileSystemManager::directoryContentsAtPath(a2, &v18, 1))
   {
-    std::list<std::string>::__sort<std::__less<void,void>>(v18, &v17, v19, &v12);
-    v5 = v18;
-    if (v18 != &v17)
+    std::list<std::string>::__sort<std::__less<void,void>>(v19, &v18, v20, &v13);
+    v5 = v19;
+    if (v19 != &v18)
     {
       while (1)
       {
-        memset(&v16, 0, sizeof(v16));
-        FileSystemManager::getFileExtension((v5 + 16));
-        if (!std::string::compare(&v16, "lproj") || !std::string::compare(&v16, "loctable"))
+        memset(&v17, 0, sizeof(v17));
+        FileSystemManager::getFileExtension(v5 + 2);
+        if (!std::string::compare(&v17, "lproj") || !std::string::compare(&v17, "loctable"))
         {
           break;
         }
 
-        FileSystemManager::basename(v5 + 16, &v12);
-        if (!std::string::compare(&v12, "version.plist"))
+        FileSystemManager::basename((v5 + 2), &v13);
+        if (!std::string::compare(&v13, "version.plist"))
         {
           v6 = 1;
         }
 
         else
         {
-          FileSystemManager::basename(v5 + 16, &v15);
-          v6 = std::string::compare(&v15, "signatures") == 0;
-          if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+          FileSystemManager::basename((v5 + 2), &v16);
+          v6 = std::string::compare(&v16, "signatures") == 0;
+          if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v15.__r_.__value_.__l.__data_);
+            operator delete(v16.__r_.__value_.__l.__data_);
           }
         }
 
-        if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v12.__r_.__value_.__l.__data_);
+          operator delete(v13.__r_.__value_.__l.__data_);
           if (v6)
           {
             break;
@@ -1622,9 +1619,9 @@ uint64_t CarrierBundle::classifyFiles(uint64_t a1, char *a2, uint64_t a3)
           break;
         }
 
-        if (FileSystemManager::isDirectory((v5 + 16)))
+        if (FileSystemManager::isDirectory(v5 + 16))
         {
-          if (CarrierBundle::classifyFiles(a1, v5 + 16, a3))
+          if (CarrierBundle::classifyFiles(a1, (v5 + 2), a3))
           {
             goto LABEL_38;
           }
@@ -1632,66 +1629,67 @@ uint64_t CarrierBundle::classifyFiles(uint64_t a1, char *a2, uint64_t a3)
 
         else
         {
-          if (!FileSystemManager::isRegularFile((v5 + 16)))
+          if (!FileSystemManager::isRegularFile(v5 + 16))
           {
 LABEL_38:
             v7 = 0;
             goto LABEL_12;
           }
 
-          FileSystemManager::basename(v5 + 16, &v11);
-          CarrierBundle::getDeviceModelName(&v11, &v12);
-          v15 = v12;
-          memset(&v12, 0, sizeof(v12));
-          if (v14 < 0)
+          FileSystemManager::basename((v5 + 2), &v12);
+          CarrierBundle::getDeviceModelName(&v12, &v13);
+          v16 = v13;
+          memset(&v13, 0, sizeof(v13));
+          if (v15 < 0)
           {
             operator delete(__p);
-            if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v12.__r_.__value_.__l.__data_);
+              operator delete(v13.__r_.__value_.__l.__data_);
             }
           }
 
-          if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v11.__r_.__value_.__l.__data_);
+            operator delete(v12.__r_.__value_.__l.__data_);
           }
 
-          if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v16.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            size = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+            size = HIBYTE(v16.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            size = v15.__r_.__value_.__l.__size_;
+            size = v16.__r_.__value_.__l.__size_;
           }
 
           if (size)
           {
-            if (a3 + 8 != std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::find<std::string>(a3, &v15.__r_.__value_.__l.__data_))
+            v9 = std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::find<std::string>(a3, &v16.__r_.__value_.__l.__data_);
+            if (a3 + 8 != v9)
             {
-              std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>();
+              std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>(v9 + 56, 0, 0, (v5 + 2));
             }
 
-            v11.__r_.__value_.__r.__words[0] = &v11;
-            v11.__r_.__value_.__l.__size_ = &v11;
-            v11.__r_.__value_.__r.__words[2] = 0;
-            std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>();
+            v12.__r_.__value_.__r.__words[0] = &v12;
+            v12.__r_.__value_.__l.__size_ = &v12;
+            v12.__r_.__value_.__r.__words[2] = 0;
+            std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>(&v12, 0, 0, (v5 + 2));
           }
 
           writeLog("Invalid file format\n");
-          if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v15.__r_.__value_.__l.__data_);
+            operator delete(v16.__r_.__value_.__l.__data_);
           }
         }
 
         v7 = 1;
 LABEL_13:
-        if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v16.__r_.__value_.__l.__data_);
+          operator delete(v17.__r_.__value_.__l.__data_);
         }
 
         if ((v7 | 2) != 2)
@@ -1699,7 +1697,7 @@ LABEL_13:
           goto LABEL_41;
         }
 
-        if (v5 == &v17)
+        if (v5 == &v18)
         {
           goto LABEL_42;
         }
@@ -1707,22 +1705,22 @@ LABEL_13:
 
       v7 = 2;
 LABEL_12:
-      v5 = *(v5 + 8);
+      v5 = v5[1];
       goto LABEL_13;
     }
 
 LABEL_42:
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
 LABEL_41:
-    v9 = 0;
+    v10 = 0;
   }
 
-  std::__list_imp<std::string>::clear(&v17);
-  return v9;
+  std::__list_imp<std::string>::clear(&v18);
+  return v10;
 }
 
 void sub_296004F14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
@@ -1745,7 +1743,7 @@ void sub_296004F14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CarrierBundle::getDeviceModelName(const std::string *a1@<X1>, std::string *a2@<X8>)
 {
-  memset(&v31, 0, sizeof(v31));
+  memset(&v28, 0, sizeof(v28));
   memset(&__p, 0, sizeof(__p));
   size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
   if ((size & 0x80u) != 0)
@@ -1758,7 +1756,7 @@ void CarrierBundle::getDeviceModelName(const std::string *a1@<X1>, std::string *
     goto LABEL_7;
   }
 
-  MEMORY[0x29C256590](&v31, "common");
+  MEMORY[0x29C256590](&v28, "common");
   v5 = HIBYTE(a1->__r_.__value_.__r.__words[2]);
   if ((v5 & 0x80u) != 0)
   {
@@ -1768,195 +1766,179 @@ void CarrierBundle::getDeviceModelName(const std::string *a1@<X1>, std::string *
   if (v5 <= 8)
   {
 LABEL_7:
-    std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, &v31, &__p);
+    std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, &v28, &__p);
     goto LABEL_21;
   }
 
-  std::string::basic_string(&v29, a1, 0, 9uLL, &__str);
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string(&v26, a1, 0, 9uLL, &__str);
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    if (v29.__r_.__value_.__l.__size_ != 9)
+    if (v26.__r_.__value_.__l.__size_ != 9)
     {
       goto LABEL_18;
     }
 
-    v6 = v29.__r_.__value_.__r.__words[0];
+    v6 = v26.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) != 9)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) != 9)
     {
       goto LABEL_18;
     }
 
-    v6 = &v29;
+    v6 = &v26;
   }
 
   v7 = v6->__r_.__value_.__r.__words[0];
   v8 = v6->__r_.__value_.__s.__data_[8];
   if (v7 == 0x656469727265766FLL && v8 == 115)
   {
-    v10 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
-    if (v10 < 0)
-    {
-      v11 = a1->__r_.__value_.__r.__words[0];
-    }
-
-    if (v10 >= 0)
-    {
-      v12 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v12 = a1->__r_.__value_.__l.__size_;
-    }
-
     if (!ctu::starts_with())
     {
-      goto LABEL_44;
+      goto LABEL_39;
     }
 
-    v13 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
-    v14 = HIBYTE(a1->__r_.__value_.__r.__words[2]);
-    v15 = v13 < 0;
-    if (v13 >= 0)
+    v10 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+    v11 = HIBYTE(a1->__r_.__value_.__r.__words[2]);
+    v12 = v10 < 0;
+    if (v10 >= 0)
     {
-      v16 = a1;
+      v13 = a1;
     }
 
     else
     {
-      v16 = a1->__r_.__value_.__r.__words[0];
+      v13 = a1->__r_.__value_.__r.__words[0];
     }
 
-    if (v15)
+    if (v12)
     {
-      v14 = a1->__r_.__value_.__l.__size_;
+      v11 = a1->__r_.__value_.__l.__size_;
     }
 
-    if (v14 < 0xF)
+    if (v11 < 0xF)
     {
-      goto LABEL_44;
+      goto LABEL_39;
     }
 
-    v17 = 14;
-    while (v16->__r_.__value_.__s.__data_[v17] != 95)
+    v14 = 14;
+    while (v13->__r_.__value_.__s.__data_[v14] != 95)
     {
-      if (v14 == ++v17)
+      if (v11 == ++v14)
       {
-        goto LABEL_44;
+        goto LABEL_39;
       }
     }
 
-    if (v14 == v17 || v17 == -1)
+    if (v11 == v14 || v14 == -1)
     {
-LABEL_44:
-      v17 = 9;
+LABEL_39:
+      v14 = 9;
     }
 
-    std::string::basic_string(&__str, a1, v17, 0xFFFFFFFFFFFFFFFFLL, &v27);
-    v18 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+    std::string::basic_string(&__str, a1, v14, 0xFFFFFFFFFFFFFFFFLL, &v24);
+    v15 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v18 = __str.__r_.__value_.__l.__size_;
+      v15 = __str.__r_.__value_.__l.__size_;
     }
 
-    if (v18 && *std::string::at(&__str, 0) == 42)
+    if (v15 && *std::string::at(&__str, 0) == 42)
     {
       p_str = &__str;
       std::string::erase(&__str, 0, 1uLL);
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v20 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+        v17 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v20 = __str.__r_.__value_.__l.__size_;
+        v17 = __str.__r_.__value_.__l.__size_;
         p_str = __str.__r_.__value_.__r.__words[0];
       }
 
-      for (; v20; --v20)
+      for (; v17; --v17)
       {
-        v21 = p_str->__r_.__value_.__s.__data_[0];
-        if (v21 == 46)
+        v18 = p_str->__r_.__value_.__s.__data_[0];
+        if (v18 == 46)
         {
           break;
         }
 
-        if (v21 == 95)
+        if (v18 == 95)
         {
           break;
         }
 
-        std::string::push_back(&__p, v21);
+        std::string::push_back(&__p, v18);
         p_str = (p_str + 1);
       }
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v22 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v22 = __p.__r_.__value_.__l.__size_;
+      v19 = __p.__r_.__value_.__l.__size_;
     }
 
-    std::string::basic_string(&v27, &__str, v22, 0xFFFFFFFFFFFFFFFFLL, &v32);
-    v23 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+    std::string::basic_string(&v24, &__str, v19, 0xFFFFFFFFFFFFFFFFLL, &v29);
+    v20 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v23 = __str.__r_.__value_.__l.__size_;
+      v20 = __str.__r_.__value_.__l.__size_;
     }
 
-    if (v23 && *std::string::at(&v27, 0) == 95)
+    if (v20 && *std::string::at(&v24, 0) == 95)
     {
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
       {
-        *v31.__r_.__value_.__l.__data_ = 0;
-        v31.__r_.__value_.__l.__size_ = 0;
+        *v28.__r_.__value_.__l.__data_ = 0;
+        v28.__r_.__value_.__l.__size_ = 0;
       }
 
       else
       {
-        v31.__r_.__value_.__s.__data_[0] = 0;
-        *(&v31.__r_.__value_.__s + 23) = 0;
+        v28.__r_.__value_.__s.__data_[0] = 0;
+        *(&v28.__r_.__value_.__s + 23) = 0;
       }
 
-      v24 = &v27;
-      std::string::erase(&v27, 0, 1uLL);
-      if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v21 = &v24;
+      std::string::erase(&v24, 0, 1uLL);
+      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v25 = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+        v22 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v25 = v27.__r_.__value_.__l.__size_;
-        v24 = v27.__r_.__value_.__r.__words[0];
+        v22 = v24.__r_.__value_.__l.__size_;
+        v21 = v24.__r_.__value_.__r.__words[0];
       }
 
-      for (; v25; --v25)
+      for (; v22; --v22)
       {
-        v26 = v24->__r_.__value_.__s.__data_[0];
-        if (v26 == 46)
+        v23 = v21->__r_.__value_.__s.__data_[0];
+        if (v23 == 46)
         {
           break;
         }
 
-        std::string::push_back(&v31, v26);
-        v24 = (v24 + 1);
+        std::string::push_back(&v28, v23);
+        v21 = (v21 + 1);
       }
     }
 
-    std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, &v31, &__p);
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, &v28, &__p);
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1968,11 +1950,11 @@ LABEL_44:
   }
 
 LABEL_18:
-  std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, &v31, &__p);
+  std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, &v28, &__p);
 LABEL_19:
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
 LABEL_21:
@@ -1981,9 +1963,9 @@ LABEL_21:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2012,9 +1994,9 @@ void sub_296005328(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CarrierBundle::readBundle(char **this)
+uint64_t CarrierBundle::readBundle(CarrierBundle *this)
 {
-  if (!CarrierBundle::classifyFiles(this, *this, (this + 1)))
+  if (!CarrierBundle::classifyFiles(this, *this, this + 8))
   {
     return 0;
   }
@@ -2035,7 +2017,7 @@ LABEL_72:
 
   else
   {
-    if ((CarrierBundle::classifyFiles(this, &v31, (this + 4)) & 1) == 0)
+    if ((CarrierBundle::classifyFiles(this, &v31, this + 32) & 1) == 0)
     {
       v4 = &v31;
       if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -2046,8 +2028,8 @@ LABEL_72:
       writeLog("Unable to read and classify the signatures fies : %s\n", v4);
     }
 
-    v5 = this[1];
-    if (v5 != (this + 2))
+    v5 = *(this + 1);
+    if (v5 != (this + 16))
     {
       do
       {
@@ -2071,7 +2053,7 @@ LABEL_72:
           if (v20[0])
           {
             std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>::pair[abi:ne200100]<std::string&,ctu::cf::CFSharedRef<__CFData const>&,0>(&__p, &v27, v20);
-            std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(&v28, &__p.__r_.__value_.__l.__data_);
+            std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(&v28, &__p.__r_.__value_.__l.__data_, &__p);
             ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&cf);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -2108,7 +2090,7 @@ LABEL_72:
         }
 
         std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>&,0>(&__p, v5 + 2, &v28);
-        std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>((this + 7), &__p.__r_.__value_.__l.__data_);
+        std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>(this + 7, &__p.__r_.__value_.__l.__data_, &__p);
         std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::destroy(&cf, v26);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -2143,11 +2125,11 @@ LABEL_72:
         v5 = v10;
       }
 
-      while (v10 != (this + 2));
+      while (v10 != (this + 16));
     }
 
-    v12 = this[4];
-    if (v12 == (this + 5))
+    v12 = *(this + 4);
+    if (v12 == (this + 40))
     {
       v3 = 1;
     }
@@ -2189,7 +2171,7 @@ LABEL_72:
               CFRetain(v22);
             }
 
-            std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>(&v28, &__p.__r_.__value_.__l.__data_);
+            std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>(&v28, &__p.__r_.__value_.__l.__data_, &__p);
             if (cf)
             {
               CFRelease(cf);
@@ -2240,7 +2222,7 @@ LABEL_72:
         }
 
         std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>&,0>(&__p, v12 + 2, &v28);
-        std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>((this + 10), &__p.__r_.__value_.__l.__data_);
+        std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>(this + 10, &__p.__r_.__value_.__l.__data_, &__p);
         std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::destroy(&cf, v26);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -2276,7 +2258,7 @@ LABEL_72:
         v12 = v18;
       }
 
-      while (v18 != (this + 5));
+      while (v18 != (this + 40));
     }
   }
 
@@ -2288,7 +2270,7 @@ LABEL_72:
   return v3;
 }
 
-void sub_296005804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, char a36, char *a37)
+void sub_296005804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char *a37)
 {
   std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>::~pair(&a22);
   std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::destroy(&a36, a37);
@@ -2302,8 +2284,7 @@ void sub_296005804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 std::string *CarrierBundle::getSignatureDirPath@<X0>(const std::string **this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::operator=(a2, *this);
   v4 = *this;
@@ -2331,14 +2312,14 @@ void sub_296005990(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void CarrierBundle::readFile(uint64_t a1@<X1>, const void **a2@<X8>)
+void CarrierBundle::readFile(char *a1@<X1>, const void **a2@<X8>)
 {
   *a2 = 0;
   memset(&v10, 0, sizeof(v10));
   FileSystemManager::getFileExtension(a1);
   if (!std::string::compare(&v10, "plist"))
   {
-    if (*(a1 + 23) >= 0)
+    if (a1[23] >= 0)
     {
       v5 = a1;
     }
@@ -2362,7 +2343,7 @@ void CarrierBundle::readFile(uint64_t a1@<X1>, const void **a2@<X8>)
 
   else
   {
-    if (*(a1 + 23) >= 0)
+    if (a1[23] >= 0)
     {
       v4 = a1;
     }
@@ -2372,7 +2353,7 @@ void CarrierBundle::readFile(uint64_t a1@<X1>, const void **a2@<X8>)
       v4 = *a1;
     }
 
-    FileSystemManager::fileContentsAtPath(v4, &v11);
+    FileSystemManager::fileContentsAtPath(&v11, v4);
     if (&v11 != a2)
     {
       __p[0] = *a2;
@@ -2428,7 +2409,7 @@ uint64_t std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDat
   return a1;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2442,17 +2423,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t CarrierBundle::verifySignatures(uint64_t a1, int a2, uint64_t a3, _BOOL8 a4, int a5)
+uint64_t CarrierBundle::verifySignatures(uint64_t a1, uint64_t a2, uint64_t a3, __SecKey *a4, int a5)
 {
   if ((CarrierBundle::verifySignaturesOfGroup(a1, a2, a3, a4) & 1) == 0)
   {
@@ -2518,7 +2499,7 @@ void sub_296005D2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CarrierBundle::verifySignaturesOfGroup(uint64_t a1, int a2, uint64_t a3, _BOOL8 a4)
+uint64_t CarrierBundle::verifySignaturesOfGroup(uint64_t a1, uint64_t a2, uint64_t a3, __SecKey *a4)
 {
   DigestForCBSignatureType = getDigestForCBSignatureType(a2);
   v35[0] = 0;
@@ -2744,7 +2725,7 @@ void sub_2960060C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CarrierBundle::verifySignaturesOfFiles(uint64_t a1, int a2, uint64_t a3, _BOOL8 a4, uint64_t a5)
+uint64_t CarrierBundle::verifySignaturesOfFiles(uint64_t a1, uint64_t a2, uint64_t a3, __SecKey *a4, uint64_t a5)
 {
   DigestForCBSignatureType = getDigestForCBSignatureType(a2);
   v42[0] = 0;
@@ -2814,7 +2795,7 @@ LABEL_70:
       }
 
       v15 = v9[7];
-      if (v15 == (v9 + 8))
+      if (v15 == v9 + 8)
       {
 LABEL_28:
         v22 = 1;
@@ -3028,7 +3009,7 @@ void sub_2960065C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CarrierBundle::computeHash(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CarrierBundle::computeHash(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "common");
   v6 = std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::find<std::string>(a1 + 56, __p);
@@ -3076,7 +3057,7 @@ LABEL_33:
 
   ComputeHash::finalize(__p, &cf);
   std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>::pair[abi:ne200100]<std::string&,ctu::cf::CFSharedRef<__CFData const>&,0>(&v20, (v6 + 32), &cf);
-  std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(a3, &v20.__r_.__value_.__l.__data_);
+  std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(a3, &v20.__r_.__value_.__l.__data_, &v20);
   ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v21);
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3138,7 +3119,7 @@ LABEL_29:
     }
 
     std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>::pair[abi:ne200100]<std::string&,ctu::cf::CFSharedRef<__CFData const>&,0>(&v20, v9 + 2, &v18);
-    std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(a3, &v20.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(a3, &v20.__r_.__value_.__l.__data_, &v20);
     ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v21);
     if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3200,10 +3181,10 @@ LABEL_43:
   return v16;
 }
 
-void sub_29600699C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, __int16 a11, char a12, char a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, const void *a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+void sub_29600699C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&a10);
-  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&a21);
+  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&a22);
   ComputeHash::~ComputeHash(&__p);
   v31 = *(v29 - 72);
   if (v31)
@@ -3238,7 +3219,7 @@ const void **ctu::cf::CFSharedRef<__CFData const>::CFSharedRef(const void **a1, 
   return a1;
 }
 
-uint64_t CarrierBundle::computeHashForFiles(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CarrierBundle::computeHashForFiles(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4)
 {
   DigestGenerator::getDigestGenerator(a2, &v41);
   ComputeHash::ComputeHash(v40);
@@ -3280,7 +3261,7 @@ LABEL_54:
 
 LABEL_46:
       std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>&,0>(&__p, v7 + 2, &v36);
-      std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>(a3, &__p.__r_.__value_.__l.__data_);
+      std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>(a3, &__p.__r_.__value_.__l.__data_, &__p);
       std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::destroy(v28, v28[1]);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -3341,7 +3322,7 @@ LABEL_46:
         {
           ComputeHash::finalize(v40, &v29);
           std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>::pair[abi:ne200100]<std::string&,ctu::cf::CFSharedRef<__CFData const>&,0>(&__p, v34, &v29);
-          std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(&v36, &__p.__r_.__value_.__l.__data_);
+          std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(&v36, &__p.__r_.__value_.__l.__data_, &__p);
           ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(v28);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
@@ -3445,7 +3426,7 @@ void sub_296006DCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -3468,7 +3449,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -3513,7 +3494,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   return result;
 }
 
-uint64_t CarrierBundle::removeSignaturesDir(uint64_t **this)
+uint64_t CarrierBundle::removeSignaturesDir(const char **this)
 {
   v2 = *this;
   std::string::basic_string[abi:ne200100]<0>(__p, "signatures");
@@ -3534,7 +3515,7 @@ uint64_t CarrierBundle::removeSignaturesDir(uint64_t **this)
   }
 
   v5 = *this;
-  if (*(*this + 23) < 0)
+  if ((*this)[23] < 0)
   {
     v5 = *v5;
   }
@@ -3936,20 +3917,20 @@ uint64_t std::pair<std::string,std::list<std::string>>::~pair(uint64_t a1)
   return a1;
 }
 
-void std::__list_imp<std::string>::clear(void *a1)
+void std::__list_imp<std::string>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     v4[1] = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = *(v2 + 8);
-      std::__list_imp<std::string>::__delete_node[abi:ne200100](a1, v2);
+      std::__list_imp<std::string>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -4083,7 +4064,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::map<std::s
   }
 }
 
-uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, uint64_t **a2, unint64_t a3, uint64_t a4)
+uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(const void **a1, uint64_t **a2, unint64_t a3, uint64_t a4)
 {
   v4 = a1;
   if (a3 >= 2)
@@ -4091,7 +4072,7 @@ uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, ui
     if (a3 == 2)
     {
       v8 = *a2;
-      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a4, *a2 + 2, (a1 + 16)))
+      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a4, *a2 + 2, a1 + 2))
       {
         v10 = *v8;
         v9 = v8[1];
@@ -4113,14 +4094,14 @@ uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, ui
       v15 = a1;
       do
       {
-        v15 = *(v15 + 8);
+        v15 = v15[1];
         --v14;
       }
 
       while (v14 > 1);
       v16 = std::list<std::string>::__sort<std::__less<void,void>>(a1, v15, a3 >> 1, a4);
       v4 = std::list<std::string>::__sort<std::__less<void,void>>(v15, a2, a3 - v13, a4);
-      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a4, (v4 + 16), (v16 + 16)))
+      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a4, v4 + 2, v16 + 2))
       {
           ;
         }
@@ -4131,16 +4112,16 @@ uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, ui
         *(v21 + 8) = v20;
         *v20 = v21;
         v22 = *v16;
-        v18 = *(v16 + 8);
+        v18 = v16[1];
         *(v22 + 8) = v4;
         *v4 = v22;
         *v16 = v19;
-        *(v19 + 8) = v16;
+        v19[1] = v16;
       }
 
       else
       {
-        v18 = *(v16 + 8);
+        v18 = v16[1];
         i = v4;
         v4 = v16;
       }
@@ -4150,7 +4131,7 @@ uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, ui
         v23 = i;
         do
         {
-          if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a4, (i + 16), v18 + 2))
+          if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a4, i + 2, (v18 + 16)))
           {
               ;
             }
@@ -4158,7 +4139,7 @@ uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, ui
             v25 = *j;
             v26 = *(*j + 8);
             v27 = *i;
-            *(v27 + 8) = v26;
+            v27[1] = v26;
             *v26 = v27;
             if (v23 == i)
             {
@@ -4166,18 +4147,18 @@ uint64_t *std::list<std::string>::__sort<std::__less<void,void>>(uint64_t a1, ui
             }
 
             v29 = *v18;
-            v28 = v18[1];
-            v29[1] = i;
+            v28 = *(v18 + 8);
+            *(v29 + 8) = i;
             *i = v29;
             *v18 = v25;
-            *(v25 + 8) = v18;
+            v25[1] = v18;
             v18 = v28;
             i = j;
           }
 
           else
           {
-            v18 = v18[1];
+            v18 = *(v18 + 8);
           }
         }
 
@@ -4327,7 +4308,7 @@ std::string *std::pair<std::string,std::list<std::string>>::pair[abi:ne200100]<s
     *&this->__r_.__value_.__l.__data_ = v5;
   }
 
-  std::list<std::string>::list(this[1].__r_.__value_.__r.__words, a3);
+  std::list<std::string>::list(&this[1], a3);
   return this;
 }
 
@@ -4341,28 +4322,29 @@ void sub_296007E00(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::list<std::string>::list(void *result, uint64_t a2)
+uint64_t *std::list<std::string>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
-  if (*(a2 + 8) != a2)
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
+  v2 = *(a2 + 8);
+  if (v2 != a2)
   {
-    std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>();
+    std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>(a1, 0, 0, v2 + 16);
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::list<std::string>>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::list<std::string>>>(uint64_t a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)
@@ -4411,7 +4393,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -4451,8 +4433,7 @@ uint64_t std::pair<std::string const,std::list<std::string>>::pair[abi:ne200100]
   v2 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(result + 24) = result + 24;
   *(result + 32) = result + 24;
@@ -4486,12 +4467,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4505,22 +4486,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4554,13 +4535,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4643,15 +4624,15 @@ std::string *std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>::pair[a
   return this;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFData const>>>(uint64_t **a1, const void **a2, __int128 *a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -4685,7 +4666,7 @@ std::string *std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__C
     *&this->__r_.__value_.__l.__data_ = v5;
   }
 
-  std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::map[abi:ne200100](this[1].__r_.__value_.__r.__words, a3);
+  std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::map[abi:ne200100](&this[1], a3);
   return this;
 }
 
@@ -4699,16 +4680,16 @@ void sub_296008510(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::map[abi:ne200100](void *a1, const void ***a2)
+uint64_t **std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::map[abi:ne200100](uint64_t **a1, const void ***a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,void *> *,long>>>(a1, *a2, a2 + 1);
   return a1;
 }
 
-uint64_t std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+uint64_t **std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,void *> *,long>>>(uint64_t **result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -4716,7 +4697,7 @@ uint64_t std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::insert[abi:
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFData const>> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFData const>> const&>(v5, (v5 + 1), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -4750,20 +4731,20 @@ uint64_t std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>::insert[abi:
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFData const>> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFData const>> const&>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__construct_node<std::pair<std::string const,ctu::cf::CFSharedRef<__CFData const>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
+  v9 = a1 + 1;
   if (a1 + 1 != a2 && !std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a1, a5, (a2 + 32)))
   {
     if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a1, (a2 + 32), a5))
@@ -4792,7 +4773,7 @@ uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData
       v18 = a2;
       do
       {
-        v15 = v18[2];
+        v15 = *(v18 + 16);
         v17 = *v15 == v18;
         v18 = v15;
       }
@@ -4802,7 +4783,7 @@ uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData
 
     if (v15 != v9)
     {
-      if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a1, a5, v15 + 4))
+      if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a1, a5, (v15 + 32)))
       {
         goto LABEL_28;
       }
@@ -4831,7 +4812,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return (v12 + 8);
     }
 
     else
@@ -4894,15 +4875,15 @@ std::string *std::pair<std::string const,ctu::cf::CFSharedRef<__CFData const>>::
   return this;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__construct_node<std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -4943,15 +4924,15 @@ void std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictiona
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,void *>>>::operator()[abi:ne200100](uint64_t a1, char *__p)
@@ -4992,7 +4973,7 @@ std::string *std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__C
     *&this->__r_.__value_.__l.__data_ = v5;
   }
 
-  std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::map[abi:ne200100](this[1].__r_.__value_.__r.__words, a3);
+  std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::map[abi:ne200100](&this[1], a3);
   return this;
 }
 
@@ -5006,16 +4987,16 @@ void sub_296008C88(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::map[abi:ne200100](void *a1, const void ***a2)
+uint64_t **std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::map[abi:ne200100](uint64_t **a1, const void ***a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,void *> *,long>>>(a1, *a2, a2 + 1);
   return a1;
 }
 
-uint64_t std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+uint64_t **std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__tree_node<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,void *> *,long>>>(uint64_t **result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -5023,7 +5004,7 @@ uint64_t std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::inser
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFDictionary const>> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFDictionary const>> const&>(v5, (v5 + 1), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -5057,9 +5038,9 @@ uint64_t std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>::inser
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFDictionary const>> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,ctu::cf::CFSharedRef<__CFDictionary const>> const&>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFData const>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>::__construct_node<std::pair<std::string const,ctu::cf::CFSharedRef<__CFDictionary const>> const&>();
@@ -5093,15 +5074,15 @@ std::string *std::pair<std::string const,ctu::cf::CFSharedRef<__CFDictionary con
   return this;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::list<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<std::string>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>>::__construct_node<std::pair<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFData const>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,ctu::cf::CFSharedRef<__CFDictionary const>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -5121,7 +5102,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5133,11 +5114,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 std::string *std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(std::string *this, __int128 *a2, __int128 *a3)
@@ -5181,33 +5162,33 @@ void sub_296009140(_Unwind_Exception *exception_object)
 
 void getSignatureFileName(std::string *a1@<X0>, std::string *a2@<X8>)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v12 = 0;
-  v13 = 0uLL;
+  v14 = *MEMORY[0x29EDCA608];
+  v11 = 0;
+  v12 = 0uLL;
   if (std::string::compare(a1, "common"))
   {
     *(&__p.__r_.__value_.__s + 23) = 9;
     strcpy(&__p, "overrides");
     v4 = std::string::append(&__p, "_");
     v5 = v4->__r_.__value_.__r.__words[0];
-    v14.__r_.__value_.__r.__words[0] = v4->__r_.__value_.__l.__size_;
-    *(v14.__r_.__value_.__r.__words + 7) = *(&v4->__r_.__value_.__r.__words[1] + 7);
+    v13.__r_.__value_.__r.__words[0] = v4->__r_.__value_.__l.__size_;
+    *(v13.__r_.__value_.__r.__words + 7) = *(&v4->__r_.__value_.__r.__words[1] + 7);
     v6 = HIBYTE(v4->__r_.__value_.__r.__words[2]);
     v4->__r_.__value_.__l.__size_ = 0;
     v4->__r_.__value_.__r.__words[2] = 0;
     v4->__r_.__value_.__r.__words[0] = 0;
-    *(&v13 + 7) = *(v14.__r_.__value_.__r.__words + 7);
-    v12 = v5;
-    *&v13 = v14.__r_.__value_.__r.__words[0];
-    HIBYTE(v13) = v6;
+    *(&v12 + 7) = *(v13.__r_.__value_.__r.__words + 7);
+    v11 = v5;
+    *&v12 = v13.__r_.__value_.__r.__words[0];
+    HIBYTE(v12) = v6;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v12, &a1->__r_.__value_.__l.__data_, &v14);
-  v7 = std::string::append(&v14, ".");
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v11, &a1->__r_.__value_.__l.__data_, &v13);
+  v7 = std::string::append(&v13, ".");
   v8 = *&v7->__r_.__value_.__l.__data_;
   __p.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
   *&__p.__r_.__value_.__l.__data_ = v8;
@@ -5224,17 +5205,15 @@ void getSignatureFileName(std::string *a1@<X0>, std::string *a2@<X8>)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(v13.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v13) < 0)
+  if (SHIBYTE(v12) < 0)
   {
-    operator delete(v12);
+    operator delete(v11);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2960092CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -5249,8 +5228,7 @@ void sub_2960092CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *getSignatureDirPath@<X0>(std::string *__str@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::operator=(a2, __str);
   size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -5293,9 +5271,9 @@ void FileSystemManager::~FileSystemManager(id *this)
 {
 }
 
-_BYTE *FileSystemManager::basename@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *FileSystemManager::basename@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (*(a1 + 23) >= 0)
   {
     v3 = a1;
@@ -5308,14 +5286,12 @@ _BYTE *FileSystemManager::basename@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 
   strlcpy(__dst, v3, 0x400uLL);
   v4 = basename(__dst);
-  result = std::string::basic_string[abi:ne200100]<0>(a2, v4);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(a2, v4);
 }
 
-_BYTE *FileSystemManager::dirname@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *FileSystemManager::dirname@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (*(a1 + 23) >= 0)
   {
     v3 = a1;
@@ -5328,15 +5304,13 @@ _BYTE *FileSystemManager::dirname@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 
   strlcpy(__dst, v3, 0x400uLL);
   v4 = dirname(__dst);
-  result = std::string::basic_string[abi:ne200100]<0>(a2, v4);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(a2, v4);
 }
 
-BOOL FileSystemManager::directoryContentsAtPath(char *a1, void *a2, int a3)
+BOOL FileSystemManager::directoryContentsAtPath(char *a1, uint64_t *a2, int a3)
 {
-  v32 = *MEMORY[0x29EDCA608];
-  v29 = 0;
+  v28 = *MEMORY[0x29EDCA608];
+  v25 = 0;
   v6 = [MEMORY[0x29EDB9FB8] defaultManager];
   if (a1[23] >= 0)
   {
@@ -5348,21 +5322,16 @@ BOOL FileSystemManager::directoryContentsAtPath(char *a1, void *a2, int a3)
     v7 = *a1;
   }
 
-  obj = [v6 contentsOfDirectoryAtPath:objc_msgSend(MEMORY[0x29EDBA0F8] error:{"stringWithUTF8String:", v7), &v29}];
+  obj = [v6 contentsOfDirectoryAtPath:objc_msgSend(MEMORY[0x29EDBA0F8] error:{"stringWithUTF8String:", v7), &v25}];
   if (obj)
   {
     std::__list_imp<std::string>::clear(a2);
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    if ([obj countByEnumeratingWithState:&v25 objects:v31 count:16])
+    memset(v24, 0, sizeof(v24));
+    if ([obj countByEnumeratingWithState:v24 objects:v27 count:16])
     {
-      *v26;
-      *v26;
-      v8 = **(&v25 + 1);
+      v8 = **(&v24[0] + 1);
       __p = 0;
-      v24 = 0uLL;
+      v23 = 0uLL;
       if (a3)
       {
         if (a1[23] >= 0)
@@ -5375,15 +5344,15 @@ BOOL FileSystemManager::directoryContentsAtPath(char *a1, void *a2, int a3)
           v9 = *(a1 + 1);
         }
 
-        std::string::basic_string[abi:ne200100](&v22, v9 + 1);
-        if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v21, v9 + 1);
+        if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v10 = &v22;
+          v10 = &v21;
         }
 
         else
         {
-          v10 = v22.__r_.__value_.__r.__words[0];
+          v10 = v21.__r_.__value_.__r.__words[0];
         }
 
         if (v9)
@@ -5402,52 +5371,52 @@ BOOL FileSystemManager::directoryContentsAtPath(char *a1, void *a2, int a3)
         }
 
         *(&v10->__r_.__value_.__l.__data_ + v9) = 47;
-        std::string::basic_string[abi:ne200100]<0>(v20, [v8 UTF8String]);
-        if ((v21 & 0x80u) == 0)
+        std::string::basic_string[abi:ne200100]<0>(v19, [v8 UTF8String]);
+        if ((v20 & 0x80u) == 0)
         {
-          v12 = v20;
+          v12 = v19;
         }
 
         else
         {
-          v12 = v20[0];
+          v12 = v19[0];
         }
 
-        if ((v21 & 0x80u) == 0)
+        if ((v20 & 0x80u) == 0)
         {
-          v13 = v21;
+          v13 = v20;
         }
 
         else
         {
-          v13 = v20[1];
+          v13 = v19[1];
         }
 
-        v14 = std::string::append(&v22, v12, v13);
+        v14 = std::string::append(&v21, v12, v13);
         v15 = v14->__r_.__value_.__r.__words[0];
-        v30[0] = v14->__r_.__value_.__l.__size_;
-        *(v30 + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
+        v26[0] = v14->__r_.__value_.__l.__size_;
+        *(v26 + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
         v16 = HIBYTE(v14->__r_.__value_.__r.__words[2]);
         v14->__r_.__value_.__l.__size_ = 0;
         v14->__r_.__value_.__r.__words[2] = 0;
         v14->__r_.__value_.__r.__words[0] = 0;
-        if (SHIBYTE(v24) < 0)
+        if (SHIBYTE(v23) < 0)
         {
           operator delete(__p);
         }
 
         __p = v15;
-        *&v24 = v30[0];
-        *(&v24 + 7) = *(v30 + 7);
-        HIBYTE(v24) = v16;
-        if (v21 < 0)
+        *&v23 = v26[0];
+        *(&v23 + 7) = *(v26 + 7);
+        HIBYTE(v23) = v16;
+        if (v20 < 0)
         {
-          operator delete(v20[0]);
+          operator delete(v19[0]);
         }
 
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v22.__r_.__value_.__l.__data_);
+          operator delete(v21.__r_.__value_.__l.__data_);
         }
       }
 
@@ -5456,22 +5425,11 @@ BOOL FileSystemManager::directoryContentsAtPath(char *a1, void *a2, int a3)
         MEMORY[0x29C256590](&__p, [v8 UTF8String]);
       }
 
-      std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>();
+      std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>(a2, 0, 0, &__p);
     }
   }
 
-  if (v29)
-  {
-    result = [v29 code] == 0;
-  }
-
-  else
-  {
-    result = 1;
-  }
-
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
+  return !v25 || [v25 code] == 0;
 }
 
 void sub_29600986C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -5586,14 +5544,14 @@ CFDataRef FileSystemManager::copyBinaryPlistAsXML(uint64_t a1)
   return Data;
 }
 
-void sub_296009B4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296009B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   ctu::cf::CFSharedRef<__CFReadStream>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<__CFURL const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFString const>::~CFSharedRef(va2);
@@ -5658,7 +5616,7 @@ void FileSystemManager::getFileNameWithExtensionRemoved(uint64_t *a1)
 
 ssize_t FileSystemManager::readLink@<X0>(const char *a1@<X0>, void *a2@<X8>)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
@@ -5667,14 +5625,13 @@ ssize_t FileSystemManager::readLink@<X0>(const char *a1@<X0>, void *a2@<X8>)
     a1 = *a1;
   }
 
-  result = readlink(a1, v5, 0x3FFuLL);
+  result = readlink(a1, v4, 0x3FFuLL);
   if (result != -1)
   {
-    v5[result] = 0;
-    result = MEMORY[0x29C256590](a2, v5);
+    v4[result] = 0;
+    return MEMORY[0x29C256590](a2, v4);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5798,16 +5755,16 @@ CFTypeRef FileSystemManager::dictionaryFromPath@<X0>(uint64_t *a1@<X0>, void *a2
   return result;
 }
 
-uint64_t FileSystemManager::fileContentsAtPath@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *FileSystemManager::fileContentsAtPath@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
-    v5 = objc_alloc(MEMORY[0x29EDB8DA0]);
-    this = [v5 initWithContentsOfFile:{objc_msgSend(MEMORY[0x29EDBA0F8], "stringWithUTF8String:", v4)}];
+    v3 = this;
+    v4 = objc_alloc(MEMORY[0x29EDB8DA0]);
+    this = [v4 initWithContentsOfFile:{objc_msgSend(MEMORY[0x29EDBA0F8], "stringWithUTF8String:", v3)}];
   }
 
-  *a2 = this;
+  *a1 = this;
   return this;
 }
 
@@ -6065,7 +6022,7 @@ void sub_29600A43C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ComputeHashForCarrierBundle::computeIpccDigest(char *a1, ComputeHash *this, const void **a3)
+uint64_t ComputeHashForCarrierBundle::computeIpccDigest(FileSystemManager *a1, ComputeHash *this, const void **a3)
 {
   if ((ComputeHash::init(this) & 1) == 0)
   {
@@ -6073,7 +6030,7 @@ uint64_t ComputeHashForCarrierBundle::computeIpccDigest(char *a1, ComputeHash *t
     return 0;
   }
 
-  if (a1[23] >= 0)
+  if (*(a1 + 23) >= 0)
   {
     v6 = a1;
   }
@@ -6085,26 +6042,21 @@ uint64_t ComputeHashForCarrierBundle::computeIpccDigest(char *a1, ComputeHash *t
 
   if ((ComputeHash::digest_file(this, v6) & 1) == 0)
   {
-    if (a1[23] < 0)
-    {
-      v9 = *a1;
-    }
-
     writeLog("Error: Failed to compute digest for %s\n");
     return 0;
   }
 
-  ComputeHash::finalize(this, &v10);
-  if (&v10 != a3)
+  ComputeHash::finalize(this, &v9);
+  if (&v9 != a3)
   {
     v7 = *a3;
-    *a3 = v10;
-    v10 = 0;
-    v11 = v7;
-    ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v11);
+    *a3 = v9;
+    v9 = 0;
+    v10 = v7;
+    ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v10);
   }
 
-  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v10);
+  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&v9);
   return 1;
 }
 
@@ -6190,14 +6142,14 @@ BOOL ComputeHashForCarrierBundle::computeVersionXmlDigestLegacy(uint64_t a1, Com
   return v11;
 }
 
-void sub_29600A74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29600A74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va2);
@@ -6255,9 +6207,9 @@ uint64_t ComputeHashForCarrierBundle::computeVersionXmlDigest(CFTypeRef *a1, Com
   return 1;
 }
 
-void sub_29600A8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29600A8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -6298,7 +6250,7 @@ void *ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<__CFDictionary,voi
   return ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::SharedRef(a1, v5);
 }
 
-uint64_t DigestGenerator::getDigestGenerator@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+uint64_t DigestGenerator::getDigestGenerator@<X0>(uint64_t result@<X0>, uint64_t *a2@<X8>)
 {
   switch(result)
   {
@@ -6383,7 +6335,7 @@ void std::__shared_ptr_emplace<DigestGenerator384>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x29C256620);
 }
 
-uint64_t getDigestGeneratorFor@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+void *getDigestGeneratorFor@<X0>(void *result@<X0>, void *a2@<X8>)
 {
   switch(result)
   {
@@ -6413,7 +6365,7 @@ uint64_t getDigestForCBSignatureType(int a1)
   }
 }
 
-_BYTE *getPrefixForDigestType@<X0>(_BYTE *result@<X0>, uint64_t a2@<X8>)
+void *getPrefixForDigestType@<X0>(void *result@<X0>, void *a2@<X8>)
 {
   switch(result)
   {
@@ -6429,8 +6381,8 @@ _BYTE *getPrefixForDigestType@<X0>(_BYTE *result@<X0>, uint64_t a2@<X8>)
   }
 
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   return result;
 }
 
@@ -6496,7 +6448,7 @@ const char *asString(int a1)
   }
 }
 
-BOOL doSecVerify_iOS(const void **a1, const void **a2, _BOOL8 a3, int a4)
+BOOL doSecVerify_iOS(const void **a1, const void **a2, __SecKey *a3, uint64_t a4)
 {
   v4 = a3;
   if (a3)
@@ -6539,7 +6491,7 @@ BOOL doSecVerify_iOS(const void **a1, const void **a2, _BOOL8 a3, int a4)
 
   else
   {
-    writeLog("signKeyRef is NULL");
+    writeLog("signKeyRef is NULL", a2, 0, a4);
   }
 
   return v4;
@@ -6571,20 +6523,19 @@ BOOL SecKeyVerifySignature_OSX_iOS(__SecKey *a1, const __CFData **a2, const __CF
   return v9;
 }
 
-void sub_29600B16C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29600B16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(va);
   ctu::SharedRef<__CFError,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFError>::~SharedRef(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t createSecKeyRef(const unsigned __int8 *a1)
+uint64_t createSecKeyRef(const unsigned __int8 *a1, int a2)
 {
-  v1 = *MEMORY[0x29EDB8ED8];
   RSAPublicKey = SecKeyCreateRSAPublicKey();
   if (!RSAPublicKey)
   {
@@ -6594,31 +6545,31 @@ uint64_t createSecKeyRef(const unsigned __int8 *a1)
   return RSAPublicKey;
 }
 
-uint64_t createECDSASecKeyRef(const unsigned __int8 *a1)
+uint64_t createECDSASecKeyRef(const unsigned __int8 *a1, int a2)
 {
-  v1 = SecKeyCreateFromPublicBytes();
-  if (!v1)
+  v2 = SecKeyCreateFromPublicBytes();
+  if (!v2)
   {
     writeLog("Unable to create the ECDSA SecKey Ref\n");
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t getSecKeyRef(const unsigned __int8 *a1, uint64_t a2, int a3)
+uint64_t getSecKeyRef(const unsigned __int8 *a1, int a2, int a3)
 {
   if (a3 == 2)
   {
-    return createECDSASecKeyRef(a1);
+    return createECDSASecKeyRef(a1, a2);
   }
 
   else
   {
-    return createSecKeyRef(a1);
+    return createSecKeyRef(a1, a2);
   }
 }
 
-BOOL VerifyDigest(const void **a1, const void **a2, _BOOL8 a3, int a4)
+BOOL VerifyDigest(const void **a1, const void **a2, __SecKey *a3, uint64_t a4)
 {
   ctu::cf::CFSharedRef<__CFData const>::CFSharedRef(&v10, a1);
   ctu::cf::CFSharedRef<__CFData const>::CFSharedRef(&cf, a2);
@@ -6682,7 +6633,7 @@ uint64_t VerifyCarrierBundleVersionsXMLSignature(const __CFDictionary *a1, uint6
 
   if (a3 != 2)
   {
-    writeLog("Error : Unsupported signature type for version xml verification.\n", v3, v4);
+    writeLog("Error : Unsupported signature type for version xml verification.\n", a2, v3, v4);
     return 0;
   }
 
@@ -6700,8 +6651,9 @@ uint64_t VerifyCarrierBundleVersionsXMLSignature(const __CFDictionary *a1, uint6
   return VerifyCarrierBundleVersionsXMLFormat2(a1, a2, 1);
 }
 
-uint64_t VerifyCarrierBundleVersionsXMLFormat1(const __CFDictionary *a1, uint64_t a2, int a3)
+uint64_t VerifyCarrierBundleVersionsXMLFormat1(const __CFDictionary *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   Value = CFDictionaryGetValue(a1, @"MobileDeviceCarrierBundlesByProductVersion");
   if (!Value || (v6 = Value, v7 = CFGetTypeID(Value), v7 != CFDictionaryGetTypeID()))
   {
@@ -6736,7 +6688,7 @@ uint64_t VerifyCarrierBundleVersionsXMLFormat1(const __CFDictionary *a1, uint64_
       CFRetain(cf);
     }
 
-    v14 = VerifyXMLDigestForType(&v18, &v17, 2);
+    v14 = VerifyXMLDigestForType(&v18, &v17, 2, v3);
     if (v17)
     {
       CFRelease(v17);
@@ -6744,12 +6696,12 @@ uint64_t VerifyCarrierBundleVersionsXMLFormat1(const __CFDictionary *a1, uint64_
 
     ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v18);
     v15 = "Unknown";
-    if (a3 == 1)
+    if (v3 == 1)
     {
       v15 = "production";
     }
 
-    if (!a3)
+    if (!v3)
     {
       v15 = "development";
     }
@@ -6784,15 +6736,16 @@ uint64_t VerifyCarrierBundleVersionsXMLFormat1(const __CFDictionary *a1, uint64_
   return v14;
 }
 
-void sub_29600B8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29600B8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t VerifyCarrierBundleVersionsXMLFormat2(const __CFDictionary *a1, uint64_t a2, int a3)
+uint64_t VerifyCarrierBundleVersionsXMLFormat2(const __CFDictionary *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   Value = CFDictionaryGetValue(a1, @"CarrierBundleSignatures");
   if (!Value || (v6 = Value, v7 = CFGetTypeID(Value), v7 != CFDictionaryGetTypeID()))
   {
@@ -6860,7 +6813,7 @@ uint64_t VerifyCarrierBundleVersionsXMLFormat2(const __CFDictionary *a1, uint64_
           CFRetain(v29);
         }
 
-        v17 = VerifyXMLDigestForType(v25, &cf, 2);
+        v17 = VerifyXMLDigestForType(v25, &cf, 2, v3);
         if (cf)
         {
           CFRelease(cf);
@@ -6868,12 +6821,12 @@ uint64_t VerifyCarrierBundleVersionsXMLFormat2(const __CFDictionary *a1, uint64_
 
         ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(v25);
         v23 = "Unknown";
-        if (a3 == 1)
+        if (v3 == 1)
         {
           v23 = "production";
         }
 
-        if (!a3)
+        if (!v3)
         {
           v23 = "development";
         }
@@ -6927,35 +6880,35 @@ LABEL_17:
   return v17;
 }
 
-void sub_29600BC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29600BC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va5, a3);
-  va_start(va4, a3);
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, const void *);
+  va_start(va5, a5);
+  va_start(va4, a5);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v9 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v9 = va_arg(va3, const void *);
+  v11 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v11 = va_arg(va4, const void *);
+  v13 = va_arg(va4, const void *);
   va_copy(va5, va4);
-  v13 = va_arg(va5, const void *);
+  v15 = va_arg(va5, const void *);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va1);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va2);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va3);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va4);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va5);
-  ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef((v3 - 48));
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v3 - 40));
+  ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef((v5 - 48));
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v5 - 40));
   _Unwind_Resume(a1);
 }
 
-uint64_t VerifyCarrierBundleVersionsXMLSignatureWithKeyType(const __CFDictionary *a1, uint64_t a2, int a3, int a4)
+uint64_t VerifyCarrierBundleVersionsXMLSignatureWithKeyType(const __CFDictionary *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -6964,7 +6917,7 @@ uint64_t VerifyCarrierBundleVersionsXMLSignatureWithKeyType(const __CFDictionary
 
   if (a3 != 2)
   {
-    writeLog("Error : Unsupported signature type for version xml verification.\n", v4, v5);
+    writeLog("Error : Unsupported signature type for version xml verification.\n", a2, a3, a4, v4, v5);
     return 0;
   }
 
@@ -6982,16 +6935,16 @@ uint64_t VerifyCarrierBundleVersionsXMLSignatureWithKeyType(const __CFDictionary
   return VerifyCarrierBundleVersionsXMLFormat2(a1, a2, a4);
 }
 
-uint64_t VerifyXMLDigestForType(const void **a1, uint64_t a2, uint64_t a3)
+uint64_t VerifyXMLDigestForType(const void **a1, const void **a2, void *a3, int a4)
 {
-  v3 = a3;
-  getDigestGeneratorFor(a3, &v14);
-  v5 = v14;
-  if (!v14)
+  v4 = a3;
+  getDigestGeneratorFor(a3, &v15);
+  v6 = v15;
+  if (!v15)
   {
-    writeLog("Error: Failed to get digest generator for digest type: %d\n", v3);
-    v6 = v15;
-    if (!v15)
+    writeLog("Error: Failed to get digest generator for digest type: %d\n", v4);
+    v7 = v16;
+    if (!v16)
     {
       return 0;
     }
@@ -6999,29 +6952,29 @@ uint64_t VerifyXMLDigestForType(const void **a1, uint64_t a2, uint64_t a3)
     goto LABEL_14;
   }
 
-  ComputeHash::ComputeHash(v13);
-  v6 = v15;
-  v11 = v5;
-  v12 = v15;
-  if (v15)
+  ComputeHash::ComputeHash(v14);
+  v7 = v16;
+  v12 = v6;
+  v13 = v16;
+  if (v16)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  ComputeHash::setDigestGenerator(v13, &v11);
-  if (v12)
+  ComputeHash::setDigestGenerator(v14, &v12);
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  if (ComputeHash::init(v13))
+  if (ComputeHash::init(v14))
   {
-    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::SharedRef(&v10, a1);
-    v7 = ComputeHash::digest_dictionary(v13, &v10);
-    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v10);
-    if (v7)
+    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::SharedRef(&v11, a1);
+    v8 = ComputeHash::digest_dictionary(v14, &v11);
+    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v11);
+    if (v8)
     {
-      ComputeHash::finalize(v13, &cf);
+      ComputeHash::finalize(v14, &cf);
       _ZNSt3__115allocate_sharedB8ne200100I10PublicKeysNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
     }
 
@@ -7033,45 +6986,45 @@ uint64_t VerifyXMLDigestForType(const void **a1, uint64_t a2, uint64_t a3)
     writeLog("Error:ComputeHash object needs to be reset before initilazing\n");
   }
 
-  ComputeHash::~ComputeHash(v13);
-  if (v6)
+  ComputeHash::~ComputeHash(v14);
+  if (v7)
   {
 LABEL_14:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   return 0;
 }
 
-void sub_29600BF4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29600BF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, const void *);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
-  v9 = va_arg(va2, void);
-  v10 = va_arg(va2, std::__shared_weak_count *);
+  v8 = va_arg(va2, const void *);
+  v10 = va_arg(va2, void);
+  v11 = va_arg(va2, std::__shared_weak_count *);
   va_copy(va3, va2);
-  v11 = va_arg(va3, const void *);
-  v13 = va_arg(va3, void);
+  v12 = va_arg(va3, const void *);
   v14 = va_arg(va3, void);
   v15 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va1);
-  if (v10)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va2);
   ComputeHash::~ComputeHash(va3);
-  v4 = *(v2 - 64);
-  if (v4)
+  v5 = *(v3 - 64);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   _Unwind_Resume(a1);
@@ -7086,7 +7039,7 @@ uint64_t VerifyCountryBundleVersionsXMLSignatureWithKeyType(const __CFDictionary
 
   if (a3 != 2)
   {
-    writeLog("Error : Unsupported signature type for version xml verification.\n", v4, v5);
+    writeLog("Error : Unsupported signature type for version xml verification.\n", a2, v4, v5);
     return 0;
   }
 
@@ -7151,7 +7104,7 @@ LABEL_25:
     CFRetain(v20);
   }
 
-  v11 = VerifyXMLDigestForType(&v16, &v15, 2);
+  v11 = VerifyXMLDigestForType(&v16, &v15, 2, a3);
   if (v15)
   {
     CFRelease(v15);
@@ -7395,7 +7348,7 @@ LABEL_46:
       *&v49.__r_.__value_.__r.__words[1] = v32;
     }
 
-    std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::__emplace_unique_key_args<int,std::pair<int,std::string>>(&v61, &v49);
+    std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::__emplace_unique_key_args<int,std::pair<int,std::string>>(&v61, &v49, &v49);
     if (SHIBYTE(v50) < 0)
     {
       operator delete(v49.__r_.__value_.__l.__size_);
@@ -7640,17 +7593,17 @@ void findMatchingFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unin
   else
   {
 LABEL_15:
-    writeLog("None of the arguments to this function can be empty\n");
+    writeLog("None of the arguments to this function can be empty\n", a2, a3);
     *a4 = 0;
     a4[1] = 0;
     a4[2] = 0;
   }
 }
 
-void sub_29600CB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16, char *a17)
+void sub_29600CB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17)
 {
   std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::destroy(&a16, a17);
-  a16 = (v17 - 64);
+  a16 = v17 - 64;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a16);
   _Unwind_Resume(a1);
 }
@@ -7739,7 +7692,7 @@ void dictAfterMergingPlistsAtPath(const void **a1@<X0>, uint64_t *a2@<X1>, const
       {
         if (*a3)
         {
-          copyMergedDictionaries(*a3, v17, &v16);
+          copyMergedDictionaries(&v16, *a3, v17);
           if (&v16 != a3)
           {
             v18.__r_.__value_.__r.__words[0] = *a3;
@@ -7781,7 +7734,7 @@ void dictAfterMergingPlistsAtPath(const void **a1@<X0>, uint64_t *a2@<X1>, const
   }
 }
 
-void sub_29600CD88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, const void *a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_29600CD88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&a11);
   if (a23 < 0)
@@ -7793,19 +7746,19 @@ void sub_29600CD88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void copyMergedDictionaries(const __CFDictionary *a1@<X0>, const __CFDictionary *a2@<X1>, void *a3@<X8>)
+void copyMergedDictionaries(uint64_t *__return_ptr a1@<X8>, const __CFDictionary *a2@<X0>, const __CFDictionary *a3@<X1>)
 {
-  theDict = CFDictionaryCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, a1);
-  Count = CFDictionaryGetCount(a2);
+  theDict = CFDictionaryCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, a2);
+  Count = CFDictionaryGetCount(a3);
   std::vector<void const*>::vector[abi:ne200100](keys, Count);
   std::vector<void const*>::vector[abi:ne200100](values, Count);
-  CFDictionaryGetKeysAndValues(a2, keys[0], values[0]);
+  CFDictionaryGetKeysAndValues(a3, keys[0], values[0]);
   if (Count >= 1)
   {
     for (i = 0; i != Count; ++i)
     {
-      v8 = CFDictionaryGetValue(a1, keys[0][i]);
-      v9 = CFDictionaryGetValue(a2, keys[0][i]);
+      v8 = CFDictionaryGetValue(a2, keys[0][i]);
+      v9 = CFDictionaryGetValue(a3, keys[0][i]);
       v10 = v9;
       if (v8 && (v11 = CFGetTypeID(v9), v11 == CFDictionaryGetTypeID()))
       {
@@ -7846,7 +7799,7 @@ void copyMergedDictionaries(const __CFDictionary *a1@<X0>, const __CFDictionary 
     }
   }
 
-  ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<__CFDictionary,void>(a3, &theDict);
+  ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<__CFDictionary,void>(a1, &theDict);
   if (values[0])
   {
     values[1] = values[0];
@@ -7878,7 +7831,7 @@ void sub_29600CF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void copyPRISignatureForDeviceNameOnSHA(const void **a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, int a4@<W3>, const void **a5@<X8>)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   writeLog("-------------------------------------copyPRISignatureForDeviceName begins-------------------------------------------\n");
   *a5 = 0;
   if (*(a1 + 23) >= 0)
@@ -7891,11 +7844,11 @@ void copyPRISignatureForDeviceNameOnSHA(const void **a1@<X0>, uint64_t a2@<X1>, 
     v10 = a1[1];
   }
 
-  v11 = &v33;
-  std::string::basic_string[abi:ne200100](&v33, v10 + 1);
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v11 = &v32;
+  std::string::basic_string[abi:ne200100](&v32, v10 + 1);
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v11 = v33.__r_.__value_.__r.__words[0];
+    v11 = v32.__r_.__value_.__r.__words[0];
   }
 
   if (v10)
@@ -7914,43 +7867,43 @@ void copyPRISignatureForDeviceNameOnSHA(const void **a1@<X0>, uint64_t a2@<X1>, 
   }
 
   *(&v11->__r_.__value_.__l.__data_ + v10) = 47;
-  v13 = std::string::append(&v33, "signatures");
+  v13 = std::string::append(&v32, "signatures");
   v14 = *&v13->__r_.__value_.__l.__data_;
-  v35 = v13->__r_.__value_.__r.__words[2];
-  *v34 = v14;
+  v34 = v13->__r_.__value_.__r.__words[2];
+  *v33 = v14;
   v13->__r_.__value_.__l.__size_ = 0;
   v13->__r_.__value_.__r.__words[2] = 0;
   v13->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v33.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  v15 = std::string::basic_string[abi:ne200100]<0>(&v36, "common");
+  v15 = std::string::basic_string[abi:ne200100]<0>(&v35, "common");
   v16 = std::string::append(v15, ".");
   v17 = *&v16->__r_.__value_.__l.__data_;
-  v33.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v33.__r_.__value_.__l.__data_ = v17;
+  v32.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v32.__r_.__value_.__l.__data_ = v17;
   v16->__r_.__value_.__l.__size_ = 0;
   v16->__r_.__value_.__r.__words[2] = 0;
   v16->__r_.__value_.__r.__words[0] = 0;
-  v18 = std::string::append(&v33, "plist");
+  v18 = std::string::append(&v32, "plist");
   v19 = v18->__r_.__value_.__r.__words[0];
   size = v18->__r_.__value_.__l.__size_;
-  v32[0] = v18->__r_.__value_.__r.__words[2];
-  *(v32 + 3) = *(&v18->__r_.__value_.__r.__words[2] + 3);
+  v31[0] = v18->__r_.__value_.__r.__words[2];
+  *(v31 + 3) = *(&v18->__r_.__value_.__r.__words[2] + 3);
   v21 = SHIBYTE(v18->__r_.__value_.__r.__words[2]);
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v33.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
     if ((v21 & 0x80000000) == 0)
     {
       goto LABEL_17;
@@ -7960,35 +7913,35 @@ void copyPRISignatureForDeviceNameOnSHA(const void **a1@<X0>, uint64_t a2@<X1>, 
   else if ((v21 & 0x80000000) == 0)
   {
 LABEL_17:
-    v36.__r_.__value_.__r.__words[0] = v19;
-    v36.__r_.__value_.__l.__size_ = size;
-    LODWORD(v36.__r_.__value_.__r.__words[2]) = v32[0];
-    *(&v36.__r_.__value_.__r.__words[2] + 3) = *(v32 + 3);
-    *(&v36.__r_.__value_.__s + 23) = v21;
+    v35.__r_.__value_.__r.__words[0] = v19;
+    v35.__r_.__value_.__l.__size_ = size;
+    LODWORD(v35.__r_.__value_.__r.__words[2]) = v31[0];
+    *(&v35.__r_.__value_.__r.__words[2] + 3) = *(v31 + 3);
+    *(&v35.__r_.__value_.__s + 23) = v21;
     goto LABEL_20;
   }
 
-  std::string::__init_copy_ctor_external(&v36, v19, size);
+  std::string::__init_copy_ctor_external(&v35, v19, size);
 LABEL_20:
-  memset(&v33, 0, sizeof(v33));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v33, &v36, &v37, 1uLL);
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  memset(&v32, 0, sizeof(v32));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v32, &v35, &v36, 1uLL);
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "plist");
-  findMatchingFile(v34, __p, a2, &v36);
-  if (SHIBYTE(v31) < 0)
+  findMatchingFile(v33, __p, a2, &v35);
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p[0]);
   }
 
-  std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(&v33, v33.__r_.__value_.__l.__size_, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v36.__r_.__value_.__l.__size_ - v36.__r_.__value_.__r.__words[0]) >> 3));
-  dictAfterMergingPlistsAtPath(v34, &v33, &theDict);
+  std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(&v32, v32.__r_.__value_.__l.__size_, v35.__r_.__value_.__l.__data_, v35.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v35.__r_.__value_.__l.__size_ - v35.__r_.__value_.__r.__words[0]) >> 3));
+  dictAfterMergingPlistsAtPath(v33, &v32, &theDict);
   __p[0] = 0;
   __p[1] = 0;
-  v31 = 0;
+  v30 = 0;
   if (a4 == 1)
   {
     v22 = "2";
@@ -8008,7 +7961,7 @@ LABEL_20:
   if (theDict)
   {
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, __p, cStr);
-    if (v28 < 0)
+    if (v27 < 0)
     {
       if (!cStr[1])
       {
@@ -8022,7 +7975,7 @@ LABEL_37:
 
     else
     {
-      if (!v28)
+      if (!v27)
       {
         goto LABEL_38;
       }
@@ -8031,15 +7984,15 @@ LABEL_37:
     }
 
     v24 = CFStringCreateWithCString(*MEMORY[0x29EDB8ED8], v23, 0x8000100u);
-    v26[1] = v24;
-    v26[0] = CFDictionaryGetValue(theDict, v24);
-    ctu::cf::CFSharedRef<__CFData const>::operator=<void const,void>(a5, v26);
+    v25[1] = v24;
+    v25[0] = CFDictionaryGetValue(theDict, v24);
+    ctu::cf::CFSharedRef<__CFData const>::operator=<void const,void>(a5, v25);
     if (v24)
     {
       CFRelease(v24);
     }
 
-    if (v28 < 0)
+    if (v27 < 0)
     {
       goto LABEL_37;
     }
@@ -8047,27 +8000,25 @@ LABEL_37:
 
 LABEL_38:
   writeLog("-------------------------------------copyPRISignatureForDeviceName ends----------------------------------------------\n");
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p[0]);
   }
 
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&theDict);
-  __p[0] = &v36;
+  __p[0] = &v35;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-  v36.__r_.__value_.__r.__words[0] = &v33;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v36);
+  v35.__r_.__value_.__r.__words[0] = &v32;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v35);
   if (v21 < 0)
   {
     operator delete(v19);
   }
 
-  if (SHIBYTE(v35) < 0)
+  if (SHIBYTE(v34) < 0)
   {
-    operator delete(v34[0]);
+    operator delete(v33[0]);
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29600D38C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -8094,7 +8045,7 @@ const void **ctu::cf::CFSharedRef<__CFData const>::operator=<void const,void>(co
   return a1;
 }
 
-void getDigestForIpcc(char *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
+void getDigestForIpcc(FileSystemManager *a1@<X0>, void *a2@<X1>, const void **a3@<X8>)
 {
   v3 = a2;
   getDigestGeneratorFor(a2, &v13);
@@ -8118,7 +8069,7 @@ void getDigestForIpcc(char *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
 
     if (ComputeHash::init(v12))
     {
-      if (a1[23] >= 0)
+      if (*(a1 + 23) >= 0)
       {
         v8 = a1;
       }
@@ -8134,7 +8085,7 @@ void getDigestForIpcc(char *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
         goto LABEL_20;
       }
 
-      if (a1[23] >= 0)
+      if (*(a1 + 23) >= 0)
       {
         v9 = a1;
       }
@@ -8232,17 +8183,17 @@ const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::
   return a1;
 }
 
-void *std::vector<void const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<void const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<void const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_29600D7D0(_Unwind_Exception *exception_object)
@@ -8257,7 +8208,7 @@ void sub_29600D7D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8410,41 +8361,41 @@ void std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::__emplace_unique_key_args<int,std::pair<int,std::string>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::string>,std::__map_value_compare<int,std::__value_type<int,std::string>,std::less<int>,true>,std::allocator<std::__value_type<int,std::string>>>::__emplace_unique_key_args<int,std::pair<int,std::string>>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8579,7 +8530,7 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8596,7 +8547,7 @@ void sub_29600E298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8670,7 +8621,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-std::string *std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(std::vector<std::string> *a1, std::vector<std::string>::pointer __from_s, __int128 *a3, __int128 *a4, uint64_t a5)
+std::string *std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(std::vector<std::string> *a1, std::vector<std::string>::pointer __from_s, std::string *a3, __int128 *a4, uint64_t a5)
 {
   v5 = __from_s;
   if (a5 >= 1)

@@ -259,61 +259,61 @@
 
 - (void)commitCommandBuffers:(GTMTLCoreSync *)buffers
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v5 = self->_commandEncoders;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v70 objects:v78 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v69 objects:v77 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v71;
+    v8 = *v70;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v71 != v8)
+        if (*v70 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(NSMutableDictionary *)self->_commandEncoders objectForKeyedSubscript:*(*(&v70 + 1) + 8 * i)];
+        v10 = [(NSMutableDictionary *)self->_commandEncoders objectForKeyedSubscript:*(*(&v69 + 1) + 8 * i)];
         [v10 endEncoding];
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v70 objects:v78 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v69 objects:v77 count:16];
     }
 
     while (v7);
   }
 
   [(NSMutableDictionary *)self->_commandEncoders removeAllObjects];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v11 = self->_parallelRenderCommandEncoders;
-  v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v66 objects:v77 count:16];
+  v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v65 objects:v76 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v67;
+    v14 = *v66;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v67 != v14)
+        if (*v66 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [(NSMutableDictionary *)self->_parallelRenderCommandEncoders objectForKeyedSubscript:*(*(&v66 + 1) + 8 * j)];
+        v16 = [(NSMutableDictionary *)self->_parallelRenderCommandEncoders objectForKeyedSubscript:*(*(&v65 + 1) + 8 * j)];
         [v16 endEncoding];
       }
 
-      v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v66 objects:v77 count:16];
+      v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v65 objects:v76 count:16];
     }
 
     while (v13);
@@ -322,62 +322,62 @@
   buffersCopy = buffers;
 
   [(NSMutableDictionary *)self->_parallelRenderCommandEncoders removeAllObjects];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v17 = self->_commandBuffers;
-  v18 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v62 objects:v76 count:16];
+  v18 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v61 objects:v75 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v63;
+    v20 = *v62;
     do
     {
       for (k = 0; k != v19; ++k)
       {
-        if (*v63 != v20)
+        if (*v62 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v62 + 1) + 8 * k);
+        v22 = *(*(&v61 + 1) + 8 * k);
         v23 = [(NSMutableDictionary *)self->_commandBuffers objectForKeyedSubscript:v22];
         [g_activityLog logCommandBuffer:v23 withKey:{objc_msgSend(v22, "unsignedLongLongValue")}];
         GTMTLReplay_commitCommandBuffer(v23);
       }
 
-      v19 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v62 objects:v76 count:16];
+      v19 = [(NSMutableDictionary *)v17 countByEnumeratingWithState:&v61 objects:v75 count:16];
     }
 
     while (v19);
   }
 
   [(NSMutableDictionary *)self->_commandBuffers removeAllObjects];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v24 = self->_mtl4CommandEncoders;
-  v25 = [(NSMutableDictionary *)v24 countByEnumeratingWithState:&v58 objects:v75 count:16];
+  v25 = [(NSMutableDictionary *)v24 countByEnumeratingWithState:&v57 objects:v74 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v59;
+    v27 = *v58;
     do
     {
       for (m = 0; m != v26; ++m)
       {
-        if (*v59 != v27)
+        if (*v58 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [(NSMutableDictionary *)self->_mtl4CommandEncoders objectForKeyedSubscript:*(*(&v58 + 1) + 8 * m)];
+        v29 = [(NSMutableDictionary *)self->_mtl4CommandEncoders objectForKeyedSubscript:*(*(&v57 + 1) + 8 * m)];
         [v29 endEncoding];
       }
 
-      v26 = [(NSMutableDictionary *)v24 countByEnumeratingWithState:&v58 objects:v75 count:16];
+      v26 = [(NSMutableDictionary *)v24 countByEnumeratingWithState:&v57 objects:v74 count:16];
     }
 
     while (v26);
@@ -394,33 +394,33 @@
     v30 = 0;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v31 = self->_mtl4OpenCommandBuffers;
-  v32 = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v54 objects:v74 count:16];
+  v32 = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v53 objects:v73 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v55;
+    v34 = *v54;
     do
     {
       for (n = 0; n != v33; ++n)
       {
-        if (*v55 != v34)
+        if (*v54 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v54 + 1) + 8 * n);
+        v36 = *(*(&v53 + 1) + 8 * n);
         v37 = [(NSMutableDictionary *)self->_mtl4OpenCommandBuffers objectForKeyedSubscript:v36];
         [v37 endCommandBuffer];
         [v30 addObject:v36];
         [(NSMutableArray *)self->_encodedCommandBuffers addObject:v37];
       }
 
-      v33 = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v54 objects:v74 count:16];
+      v33 = [(NSMutableDictionary *)v31 countByEnumeratingWithState:&v53 objects:v73 count:16];
     }
 
     while (v33);
@@ -439,8 +439,8 @@
 
     [(NSMutableArray *)self->_encodedCommandBuffers count];
     MEMORY[0x28223BE20]();
-    v42 = &v52 - v41;
-    bzero(&v52 - v41, v43);
+    v42 = &v51 - v41;
+    bzero(&v51 - v41, v43);
     if ([(NSMutableArray *)self->_encodedCommandBuffers count])
     {
       v44 = 0;
@@ -473,8 +473,6 @@
   }
 
   [(NSMutableArray *)self->_encodedCommandBuffers removeAllObjects];
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encoderForKey:(unint64_t)key ofType:(BOOL)type
@@ -3294,30 +3292,30 @@
 
 - (void)setLayerClass:(Class)class
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self->_layerClass != class)
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[NSMutableDictionary count](self->_layers, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = self->_layers;
-    v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
+      v8 = *v26;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * i);
+          v10 = *(*(&v25 + 1) + 8 * i);
           v11 = [(NSMutableDictionary *)self->_layers objectForKeyedSubscript:v10];
           v12 = objc_alloc_init(class);
           device = [v11 device];
@@ -3334,36 +3332,36 @@
           [v12 setContentsScale:?];
           if (v11)
           {
-            [v11 transform];
+            objc_msgSend_transform(v11);
           }
 
           else
           {
-            v24 = 0u;
-            v25 = 0u;
-            v22 = 0u;
             v23 = 0u;
-            v20 = 0u;
+            v24 = 0u;
             v21 = 0u;
-            v18 = 0u;
+            v22 = 0u;
             v19 = 0u;
+            v20 = 0u;
+            v17 = 0u;
+            v18 = 0u;
           }
 
-          v17[4] = v22;
-          v17[5] = v23;
-          v17[6] = v24;
-          v17[7] = v25;
-          v17[0] = v18;
-          v17[1] = v19;
-          v17[2] = v20;
-          v17[3] = v21;
-          [v12 setTransform:v17];
+          v16[4] = v21;
+          v16[5] = v22;
+          v16[6] = v23;
+          v16[7] = v24;
+          v16[0] = v17;
+          v16[1] = v18;
+          v16[2] = v19;
+          v16[3] = v20;
+          [v12 setTransform:v16];
           [v11 anchorPoint];
           [v12 setAnchorPoint:?];
           [(NSMutableDictionary *)v5 setObject:v12 forKeyedSubscript:v10];
         }
 
-        v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v7);
@@ -3374,37 +3372,35 @@
 
     self->_layerClass = class;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeResourcesForKeys:(id)keys
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = objc_autoreleasePoolPush();
   null = [MEMORY[0x277CBEB68] null];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = [(NSMutableDictionary *)self->_resources objectsForKeys:keysCopy notFoundMarker:null, 0];
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (v12 != null)
         {
           MakeRootResourceAliasable(v12);
@@ -3414,7 +3410,7 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -3470,7 +3466,6 @@
   [(NSMutableDictionary *)self->_mpsExternalPluginBases removeObjectsForKeys:keysCopy];
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (GTMTLReplayObjectMap)initWithDevice:(id)device

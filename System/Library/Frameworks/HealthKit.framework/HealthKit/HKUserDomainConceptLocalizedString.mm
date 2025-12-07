@@ -6,6 +6,7 @@
 - (HKUserDomainConceptLocalizedString)init;
 - (HKUserDomainConceptLocalizedString)initWithCoder:(id)coder;
 - (HKUserDomainConceptLocalizedString)initWithType:(int64_t)type stringValue:(id)value locale:(id)locale version:(int64_t)version;
+- (HKUserDomainConceptLocalizedString)initWithType:(int64_t)type stringValue:(id)value locale:(id)locale version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
 - (HKUserDomainConceptLocalizedString)initWithType:(int64_t)type version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -33,6 +34,48 @@
   return 0;
 }
 
+- (HKUserDomainConceptLocalizedString)initWithType:(int64_t)type stringValue:(id)value locale:(id)locale version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted
+{
+  deletedCopy = deleted;
+  valueCopy = value;
+  localeCopy = locale;
+  v16 = localeCopy;
+  if (valueCopy)
+  {
+    if (localeCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    [HKUserDomainConceptLocalizedString initWithType:stringValue:locale:version:timestamp:deleted:];
+    if (v16)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  [HKUserDomainConceptLocalizedString initWithType:stringValue:locale:version:timestamp:deleted:];
+LABEL_3:
+  v23.receiver = self;
+  v23.super_class = HKUserDomainConceptLocalizedString;
+  v17 = [(HKUserDomainConceptProperty *)&v23 initWithType:type version:version timestamp:deletedCopy deleted:timestamp];
+  if (v17)
+  {
+    v18 = [valueCopy copy];
+    stringValue = v17->_stringValue;
+    v17->_stringValue = v18;
+
+    v20 = [v16 copy];
+    locale = v17->_locale;
+    v17->_locale = v20;
+  }
+
+  return v17;
+}
+
 + (id)nullPropertyWithType:(int64_t)type locale:(id)locale version:(int64_t)version
 {
   localeCopy = locale;
@@ -52,25 +95,25 @@
 
 + (id)mergeListsOfPropertiesWithType:(int64_t)type intoListOfProperties:(id)properties fromListOfProperties:(id)ofProperties options:(unint64_t)options
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   ofPropertiesCopy = ofProperties;
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __119__HKUserDomainConceptLocalizedString_mergeListsOfPropertiesWithType_intoListOfProperties_fromListOfProperties_options___block_invoke;
-  v50[3] = &__block_descriptor_40_e37_B16__0__HKUserDomainConceptProperty_8l;
-  v50[4] = type;
-  if (([propertiesCopy hk_allObjectsPassTest:v50] & 1) == 0)
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __119__HKUserDomainConceptLocalizedString_mergeListsOfPropertiesWithType_intoListOfProperties_fromListOfProperties_options___block_invoke;
+  v49[3] = &__block_descriptor_40_e37_B16__0__HKUserDomainConceptProperty_8l;
+  v49[4] = type;
+  if (([propertiesCopy hk_allObjectsPassTest:v49] & 1) == 0)
   {
     +[HKUserDomainConceptLocalizedString mergeListsOfPropertiesWithType:intoListOfProperties:fromListOfProperties:options:];
   }
 
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __119__HKUserDomainConceptLocalizedString_mergeListsOfPropertiesWithType_intoListOfProperties_fromListOfProperties_options___block_invoke_2;
-  v49[3] = &__block_descriptor_40_e37_B16__0__HKUserDomainConceptProperty_8l;
-  v49[4] = type;
-  if (([ofPropertiesCopy hk_allObjectsPassTest:v49] & 1) == 0)
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __119__HKUserDomainConceptLocalizedString_mergeListsOfPropertiesWithType_intoListOfProperties_fromListOfProperties_options___block_invoke_2;
+  v48[3] = &__block_descriptor_40_e37_B16__0__HKUserDomainConceptProperty_8l;
+  v48[4] = type;
+  if (([ofPropertiesCopy hk_allObjectsPassTest:v48] & 1) == 0)
   {
     +[HKUserDomainConceptLocalizedString mergeListsOfPropertiesWithType:intoListOfProperties:fromListOfProperties:options:];
   }
@@ -83,33 +126,33 @@
 
   v10 = [self _propertiesByLocale:propertiesCopy];
   v11 = [self _propertiesByLocale:ofPropertiesCopy];
-  v38 = v10;
-  v36 = [v10 mutableCopy];
+  v37 = v10;
+  v35 = [v10 mutableCopy];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v45 objects:v52 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v44 objects:v51 count:16];
   if (v13)
   {
     v14 = v13;
-    v33 = ofPropertiesCopy;
-    v34 = propertiesCopy;
-    v35 = 0;
-    v15 = *v46;
+    v32 = ofPropertiesCopy;
+    v33 = propertiesCopy;
+    v34 = 0;
+    v15 = *v45;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v46 != v15)
+        if (*v45 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v45 + 1) + 8 * i);
+        v17 = *(*(&v44 + 1) + 8 * i);
         v18 = [v12 objectForKeyedSubscript:v17];
-        v19 = [v38 objectForKeyedSubscript:v17];
+        v19 = [v37 objectForKeyedSubscript:v17];
         v20 = v19;
         v21 = MEMORY[0x1E695E0F0];
         if (v19)
@@ -119,50 +162,50 @@
 
         v22 = v21;
 
-        v44.receiver = self;
-        v44.super_class = &OBJC_METACLASS___HKUserDomainConceptLocalizedString;
-        v23 = objc_msgSendSuper2(&v44, sel_mergeListsOfPropertiesWithType_intoListOfProperties_fromListOfProperties_options_, type, v22, v18, options);
+        v43.receiver = self;
+        v43.super_class = &OBJC_METACLASS___HKUserDomainConceptLocalizedString;
+        v23 = objc_msgSendSuper2(&v43, sel_mergeListsOfPropertiesWithType_intoListOfProperties_fromListOfProperties_options_, type, v22, v18, options);
 
         if (v23 != v22)
         {
-          [v36 setObject:v23 forKeyedSubscript:v17];
-          v35 = 1;
+          [v35 setObject:v23 forKeyedSubscript:v17];
+          v34 = 1;
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v44 objects:v51 count:16];
     }
 
     while (v14);
 
-    ofPropertiesCopy = v33;
-    propertiesCopy = v34;
-    if (v35)
+    ofPropertiesCopy = v32;
+    propertiesCopy = v33;
+    if (v34)
     {
       v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
-      allValues = [v36 allValues];
-      v26 = [allValues countByEnumeratingWithState:&v40 objects:v51 count:16];
+      allValues = [v35 allValues];
+      v26 = [allValues countByEnumeratingWithState:&v39 objects:v50 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v41;
+        v28 = *v40;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v41 != v28)
+            if (*v40 != v28)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [v24 addObjectsFromArray:*(*(&v40 + 1) + 8 * j)];
+            [v24 addObjectsFromArray:*(*(&v39 + 1) + 8 * j)];
           }
 
-          v27 = [allValues countByEnumeratingWithState:&v40 objects:v51 count:16];
+          v27 = [allValues countByEnumeratingWithState:&v39 objects:v50 count:16];
         }
 
         while (v27);
@@ -181,7 +224,6 @@
 LABEL_29:
 
 LABEL_30:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
@@ -357,29 +399,29 @@ LABEL_21:
 
 + (id)_propertiesByLocale:(id)locale
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = localeCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         locale = [v10 locale];
         v12 = [v4 objectForKeyedSubscript:locale];
         if (!v12)
@@ -391,14 +433,13 @@ LABEL_21:
         [v12 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

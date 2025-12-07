@@ -4,6 +4,7 @@
 - (BOOL)matchesDictionary:(id)dictionary;
 - (id)container;
 - (id)dictionaryRepresentation;
+- (id)innerDescriptionWithPrivateData:(BOOL)data;
 - (id)minimalDictionaryRepresentation;
 - (id)wholeDiskIdentifier;
 - (void)updateWithDictionary:(id)dictionary;
@@ -84,6 +85,35 @@
   objc_sync_exit(selfCopy);
 
   return dictionaryRepresentation;
+}
+
+- (id)innerDescriptionWithPrivateData:(BOOL)data
+{
+  v4 = MEMORY[0x277CCACA8];
+  apfsUUID = [(SKAPFSDisk *)self apfsUUID];
+  if (apfsUUID)
+  {
+    apfsUUID2 = [(SKAPFSDisk *)self apfsUUID];
+  }
+
+  else
+  {
+    apfsUUID2 = @"--";
+  }
+
+  isEncrypted = [(SKAPFSDisk *)self isEncrypted];
+  v8 = @"No";
+  if (isEncrypted)
+  {
+    v8 = @"Yes";
+  }
+
+  v9 = [v4 stringWithFormat:@"APFS UUID: %@, Encrypted: %@", apfsUUID2, v8];
+  if (apfsUUID)
+  {
+  }
+
+  return v9;
 }
 
 - (id)container

@@ -31,18 +31,14 @@
 
 - (void)setContentType:(id)type
 {
-  v4 = [type copy];
-  contentType = self->super._contentType;
-  self->super._contentType = v4;
+  self->super._contentType = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCommunicationContext:(id)context
 {
-  v4 = [context copy];
-  communicationContext = self->super._communicationContext;
-  self->super._communicationContext = v4;
+  self->super._communicationContext = [context copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -59,7 +55,6 @@
     v4 = MEMORY[0x1E695E0F0];
   }
 
-  v5 = self->super._attachments;
   self->super._attachments = v4;
 
   MEMORY[0x1EEE66BB8]();
@@ -67,27 +62,21 @@
 
 - (void)setBadge:(NSNumber *)badge
 {
-  v4 = [(NSNumber *)badge copy];
-  v5 = self->super._badge;
-  self->super._badge = v4;
+  self->super._badge = [(NSNumber *)badge copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBody:(NSString *)body
 {
-  v4 = [(NSString *)body copy];
-  v5 = self->super._body;
-  self->super._body = v4;
+  self->super._body = [(NSString *)body copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAttributedBody:(id)body
 {
-  v4 = [body copy];
-  attributedBody = self->super._attributedBody;
-  self->super._attributedBody = v4;
+  self->super._attributedBody = [body copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -104,7 +93,6 @@
     v4 = &stru_1F308F460;
   }
 
-  v5 = self->super._categoryIdentifier;
   self->super._categoryIdentifier = v4;
 
   MEMORY[0x1EEE66BB8]();
@@ -112,54 +100,42 @@
 
 - (void)setDefaultActionTitle:(id)title
 {
-  v4 = [title copy];
-  defaultActionTitle = self->super._defaultActionTitle;
-  self->super._defaultActionTitle = v4;
+  self->super._defaultActionTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDefaultActionURL:(id)l
 {
-  v4 = [l copy];
-  defaultActionURL = self->super._defaultActionURL;
-  self->super._defaultActionURL = v4;
+  self->super._defaultActionURL = [l copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDefaultActionBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  defaultActionBundleIdentifier = self->super._defaultActionBundleIdentifier;
-  self->super._defaultActionBundleIdentifier = v4;
+  self->super._defaultActionBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setExpirationDate:(id)date
 {
-  v4 = [date copy];
-  expirationDate = self->super._expirationDate;
-  self->super._expirationDate = v4;
+  self->super._expirationDate = [date copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setHeader:(id)header
 {
-  v4 = [header copy];
-  header = self->super._header;
-  self->super._header = v4;
+  self->super._header = [header copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setFooter:(id)footer
 {
-  v4 = [footer copy];
-  footer = self->super._footer;
-  self->super._footer = v4;
+  self->super._footer = [footer copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -191,7 +167,6 @@
     v4 = MEMORY[0x1E695E0F0];
   }
 
-  peopleIdentifiers = self->super._peopleIdentifiers;
   self->super._peopleIdentifiers = v4;
 
   MEMORY[0x1EEE66BB8]();
@@ -199,9 +174,7 @@
 
 - (void)setSound:(UNNotificationSound *)sound
 {
-  v4 = [(UNNotificationSound *)sound copy];
-  v5 = self->super._sound;
-  self->super._sound = v4;
+  self->super._sound = [(UNNotificationSound *)sound copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -218,7 +191,6 @@
     v4 = &stru_1F308F460;
   }
 
-  v5 = self->super._threadIdentifier;
   self->super._threadIdentifier = v4;
 
   MEMORY[0x1EEE66BB8]();
@@ -226,36 +198,28 @@
 
 - (void)setTitle:(NSString *)title
 {
-  v4 = [(NSString *)title copy];
-  v5 = self->super._title;
-  self->super._title = v4;
+  self->super._title = [(NSString *)title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTopicIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  topicIdentifiers = self->super._topicIdentifiers;
-  self->super._topicIdentifiers = v4;
+  self->super._topicIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSummaryArgument:(NSString *)summaryArgument
 {
-  v4 = [(NSString *)summaryArgument copy];
-  v5 = self->super._summaryArgument;
-  self->super._summaryArgument = v4;
+  self->super._summaryArgument = [(NSString *)summaryArgument copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTargetContentIdentifier:(NSString *)targetContentIdentifier
 {
-  v4 = [(NSString *)targetContentIdentifier copy];
-  v5 = self->super._targetContentIdentifier;
-  self->super._targetContentIdentifier = v4;
+  self->super._targetContentIdentifier = [(NSString *)targetContentIdentifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -283,27 +247,21 @@
 
 - (void)setFilterCriteria:(NSString *)filterCriteria
 {
-  v4 = [(NSString *)filterCriteria copy];
-  v5 = self->super._filterCriteria;
-  self->super._filterCriteria = v4;
+  self->super._filterCriteria = [(NSString *)filterCriteria copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSpeechLanguage:(id)language
 {
-  v4 = [language copy];
-  speechLanguage = self->super._speechLanguage;
-  self->super._speechLanguage = v4;
+  self->super._speechLanguage = [language copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUserInfo:(NSDictionary *)userInfo
 {
-  v4 = [(NSDictionary *)userInfo copy];
-  v5 = self->super._userInfo;
-  self->super._userInfo = v4;
+  self->super._userInfo = [(NSDictionary *)userInfo copy];
 
   MEMORY[0x1EEE66BB8]();
 }

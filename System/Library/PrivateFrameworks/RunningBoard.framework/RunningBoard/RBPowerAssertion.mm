@@ -1,16 +1,16 @@
 @interface RBPowerAssertion
 + (__CFString)_nameForPreventIdleSleepIdentifiers:(uint64_t)identifiers;
 - (RBPowerAssertion)init;
-- (id)_calculateNewName;
 - (id)description;
 - (uint64_t)invalidateWithHandler:(uint64_t)handler;
+- (void)_calculateNewName;
 - (void)dealloc;
 - (void)updateWithAcquisitionHandler:(void *)handler invalidationHander:;
 @end
 
 @implementation RBPowerAssertion
 
-- (id)_calculateNewName
+- (void)_calculateNewName
 {
   selfCopy = self;
   if (self)
@@ -51,7 +51,7 @@
 
 + (__CFString)_nameForPreventIdleSleepIdentifiers:(uint64_t)identifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   if ([v2 count])
@@ -64,30 +64,30 @@
     else
     {
       v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v5 = v2;
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v19;
+        v8 = *v18;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v19 != v8)
+            if (*v18 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = [*(*(&v18 + 1) + 8 * i) description];
+            v10 = [*(*(&v17 + 1) + 8 * i) description];
             [v4 addObject:v10];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v7);
@@ -128,8 +128,6 @@
     anyObject = &stru_287507640;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return anyObject;
 }
 
@@ -147,7 +145,7 @@
 
 - (void)updateWithAcquisitionHandler:(void *)handler invalidationHander:
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   handlerCopy = handler;
   if (self)
@@ -172,9 +170,8 @@
           v11 = rbs_power_log();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            v12 = *(self + 8);
             OUTLINED_FUNCTION_0_3();
-            LODWORD(v36) = v10;
+            LODWORD(v33) = v10;
             _os_log_error_impl(&dword_262485000, v11, OS_LOG_TYPE_ERROR, "Error releasing power assertion with ID %{public}d: 0x%{public}x", buf, 0xEu);
           }
         }
@@ -184,18 +181,18 @@
           v11 = rbs_ttl_log();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = *(self + 8);
+            v12 = *(self + 8);
             *buf = 67240192;
-            v34 = v13;
+            v31 = v12;
             _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_DEFAULT, "Released power assertion with ID %{public}d", buf, 8u);
           }
         }
 
         *(self + 8) = 0;
-        v14 = *(self + 24);
+        v13 = *(self + 24);
         *(self + 24) = 0;
 
-        v15 = *(self + 16);
+        v14 = *(self + 16);
         *(self + 16) = 0;
       }
     }
@@ -207,31 +204,30 @@
         _calculateNewName = [(RBPowerAssertion *)self _calculateNewName];
         if (([*(self + 24) isEqualToString:_calculateNewName] & 1) == 0)
         {
-          v24 = rbs_ttl_log();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v22 = rbs_ttl_log();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = *(self + 8);
-            v26 = *(self + 32);
+            v23 = *(self + 8);
+            v24 = *(self + 32);
             *buf = 67240706;
-            v34 = v25;
-            v35 = 2114;
-            v36 = v26;
-            v37 = 2114;
-            v38 = _calculateNewName;
-            _os_log_impl(&dword_262485000, v24, OS_LOG_TYPE_DEFAULT, "Attempting to rename power assertion %{public}d for target %{public}@ to %{public}@", buf, 0x1Cu);
+            v31 = v23;
+            v32 = 2114;
+            v33 = v24;
+            v34 = 2114;
+            v35 = _calculateNewName;
+            _os_log_impl(&dword_262485000, v22, OS_LOG_TYPE_DEFAULT, "Attempting to rename power assertion %{public}d for target %{public}@ to %{public}@", buf, 0x1Cu);
           }
 
-          v27 = IOPMAssertionSetProperty(*(self + 8), @"AssertName", _calculateNewName);
-          if (v27)
+          v25 = IOPMAssertionSetProperty(*(self + 8), @"AssertName", _calculateNewName);
+          if (v25)
           {
-            v28 = v27;
-            v29 = rbs_power_log();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v26 = v25;
+            v27 = rbs_power_log();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              v32 = *(self + 8);
               OUTLINED_FUNCTION_0_3();
-              LODWORD(v36) = v28;
-              _os_log_error_impl(&dword_262485000, v29, OS_LOG_TYPE_ERROR, "Error renaming power assertion with ID %{public}d: 0x%{public}x", buf, 0xEu);
+              LODWORD(v33) = v26;
+              _os_log_error_impl(&dword_262485000, v27, OS_LOG_TYPE_ERROR, "Error renaming power assertion with ID %{public}d: 0x%{public}x", buf, 0xEu);
             }
           }
 
@@ -243,41 +239,41 @@
       {
         _calculateNewName = [(RBPowerAssertion *)self _calculateNewName];
         dictionary = [MEMORY[0x277CBEB38] dictionary];
-        v39[0] = @"AssertName";
-        v39[1] = @"AssertionOnBehalfOfPID";
-        v40[0] = _calculateNewName;
-        v19 = [MEMORY[0x277CCABB0] numberWithInt:_targetPid];
-        v40[1] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-        [dictionary addEntriesFromDictionary:v20];
+        v36[0] = @"AssertName";
+        v36[1] = @"AssertionOnBehalfOfPID";
+        v37[0] = _calculateNewName;
+        v17 = [MEMORY[0x277CCABB0] numberWithInt:_targetPid];
+        v37[1] = v17;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+        [dictionary addEntriesFromDictionary:v18];
 
-        v21 = IOPMAssertionDeclareSystemActivityWithProperties();
-        if (v21)
+        v19 = IOPMAssertionDeclareSystemActivityWithProperties();
+        if (v19)
         {
-          v22 = v21;
-          v23 = rbs_power_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v20 = v19;
+          v21 = rbs_power_log();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 67240448;
-            v34 = _targetPid;
-            v35 = 1026;
-            LODWORD(v36) = v22;
-            _os_log_error_impl(&dword_262485000, v23, OS_LOG_TYPE_ERROR, "Error acquiring process power assertion for pid %{public}d: 0x%{public}x", buf, 0xEu);
+            v31 = _targetPid;
+            v32 = 1026;
+            LODWORD(v33) = v20;
+            _os_log_error_impl(&dword_262485000, v21, OS_LOG_TYPE_ERROR, "Error acquiring process power assertion for pid %{public}d: 0x%{public}x", buf, 0xEu);
           }
         }
 
         else
         {
-          v30 = rbs_power_log();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v28 = rbs_power_log();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             OUTLINED_FUNCTION_0_3();
-            LODWORD(v36) = _targetPid;
-            _os_log_impl(&dword_262485000, v30, OS_LOG_TYPE_DEFAULT, "Acquired process power assertion with ID %{public}d for pid %{public}d", buf, 0xEu);
+            LODWORD(v33) = _targetPid;
+            _os_log_impl(&dword_262485000, v28, OS_LOG_TYPE_DEFAULT, "Acquired process power assertion with ID %{public}d for pid %{public}d", buf, 0xEu);
           }
 
           date = [MEMORY[0x277CBEAA8] date];
-          v23 = *(self + 16);
+          v21 = *(self + 16);
           *(self + 16) = date;
         }
       }
@@ -285,8 +281,6 @@
 
     os_unfair_lock_unlock((self + 44));
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)invalidateWithHandler:(uint64_t)handler

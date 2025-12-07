@@ -114,19 +114,19 @@
   }
 
   noiseReductionOptions = self->_noiseReductionOptions;
-  v43 = 0;
+  v46 = 0;
   v7 = CMGetAttachment(buffer, @"StillSettings", 0);
   v8 = v7;
   if (!v7)
   {
     cf = noiseReductionOptions;
     [BWNoiseReducerNode renderSampleBuffer:forInput:];
-    v25 = 0;
-    v23 = 0;
-    v42 = 0;
-    v13 = 0;
+    v28 = 0;
     v26 = 0;
-    v27 = 4294954516;
+    v45 = 0;
+    v13 = 0;
+    v29 = 0;
+    v30 = 4294954516;
     goto LABEL_22;
   }
 
@@ -146,33 +146,33 @@
 
     v15 = *off_1E798D3A8;
     v16 = CMGetAttachment(buffer, *off_1E798D3A8, 0);
-    v42 = v16 != 0;
+    v45 = v16 != 0;
     if (v16)
     {
-      v17 = v16;
-      v18 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:self->_noiseReductionOptions];
-      v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:{-[NSDictionary objectForKeyedSubscript:](self->_noiseReductionOptions, "objectForKeyedSubscript:", @"ChromaNoiseReductionTuningParameters"}];
-      v20 = v17;
-      v21 = v18;
-      [v20 floatValue];
-      [v19 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:"), v15}];
-      v22 = v18;
-      v23 = v19;
-      [v22 setObject:v19 forKeyedSubscript:@"ChromaNoiseReductionTuningParameters"];
+      v20 = v16;
+      v21 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:self->_noiseReductionOptions];
+      v22 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:{-[NSDictionary objectForKeyedSubscript:](self->_noiseReductionOptions, "objectForKeyedSubscript:", @"ChromaNoiseReductionTuningParameters"}];
+      v23 = v20;
+      v24 = v21;
+      [v23 floatValue];
+      [v22 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:"), v15}];
+      v25 = v21;
+      v26 = v22;
+      [v25 setObject:v22 forKeyedSubscript:@"ChromaNoiseReductionTuningParameters"];
     }
 
     else
     {
-      v23 = 0;
-      v21 = v9;
+      v26 = 0;
+      v24 = v9;
     }
 
-    cf = v21;
+    cf = v24;
     if (self->_useInPlaceAlgorithm)
     {
-      v27 = noiseReductionWithTuningOptions(self->_context, buffer, self->_processLuma, self->_threaded, v21);
-      v25 = 0;
-      v43 = CFRetain(buffer);
+      v30 = noiseReductionWithTuningOptions(self->_context, buffer, self->_processLuma, self->_threaded, v24, v17, v18, v19);
+      v28 = 0;
+      v46 = CFRetain(buffer);
       if (!v13)
       {
         goto LABEL_21;
@@ -183,68 +183,68 @@
 
     ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
     newPixelBuffer = [(BWPixelBufferPool *)[(BWNodeOutput *)self->super._output livePixelBufferPool] newPixelBuffer];
-    v25 = newPixelBuffer;
+    v28 = newPixelBuffer;
     if (!newPixelBuffer)
     {
       [BWNoiseReducerNode renderSampleBuffer:forInput:];
-      v27 = 4294954510;
+      v30 = 4294954510;
       goto LABEL_28;
     }
 
     CMSetAttachment(newPixelBuffer, @"InputPixelBufferForAsyncNR", ImageBuffer, 0);
-    BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v25, &self->_outputFormatDescription, &v43);
-    v30 = noiseReductionInOutWithTuningOptions(self->_context, buffer, v43, self->_processLuma, self->_threaded, v21);
-    if (v30)
+    BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v28, &self->_outputFormatDescription, &v46);
+    v33 = noiseReductionInOutWithTuningOptions(self->_context, buffer, v46, self->_processLuma, self->_threaded, v24);
+    if (v33)
     {
-      v31 = v30;
+      v34 = v33;
       [BWNoiseReducerNode renderSampleBuffer:forInput:];
-      v27 = v31;
+      v30 = v34;
     }
 
     else
     {
-      v27 = 0;
+      v30 = 0;
       if (v13)
       {
 LABEL_17:
-        v26 = value;
-        CMSetAttachment(v43, v10, value, 1u);
+        v29 = value;
+        CMSetAttachment(v46, v10, value, 1u);
         goto LABEL_22;
       }
     }
 
 LABEL_21:
-    v26 = value;
+    v29 = value;
     goto LABEL_22;
   }
 
   cf = noiseReductionOptions;
-  v24 = CFRetain(buffer);
-  v25 = 0;
-  v23 = 0;
-  v42 = 0;
-  v13 = 0;
+  v27 = CFRetain(buffer);
+  v28 = 0;
   v26 = 0;
-  v27 = 0;
-  v43 = v24;
+  v45 = 0;
+  v13 = 0;
+  v29 = 0;
+  v30 = 0;
+  v46 = v27;
 LABEL_22:
-  if (!v43 || v27 == -12786 || v27 == -12783)
+  if (!v46 || v30 == -12786 || v30 == -12783)
   {
-    value = v26;
+    value = v29;
 LABEL_28:
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v36 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v36, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWNoiseReducerNode.m", 267, @"LastShownDate:BWNoiseReducerNode.m:267", @"LastShownBuild:BWNoiseReducerNode.m:267", 0);
-    free(v36);
-    v26 = value;
-    v37 = [BWNodeError newError:v27 sourceNode:self stillImageSettings:v8 metadata:value];
-    [(BWNodeOutput *)self->super._output emitNodeError:v37];
+    v39 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v39, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWNoiseReducerNode.m", 267, @"LastShownDate:BWNoiseReducerNode.m:267", @"LastShownBuild:BWNoiseReducerNode.m:267", 0);
+    free(v39);
+    v29 = value;
+    v40 = [BWNodeError newError:v30 sourceNode:self stillImageSettings:v8 metadata:value];
+    [(BWNodeOutput *)self->super._output emitNodeError:v40];
 
-    v38 = MEMORY[0x1E695FF58];
-    if (!v42)
+    v41 = MEMORY[0x1E695FF58];
+    if (!v45)
     {
       goto LABEL_33;
     }
@@ -252,20 +252,20 @@ LABEL_28:
     goto LABEL_31;
   }
 
-  if (v27)
+  if (v30)
   {
-    v32 = FigCaptureGetFrameworkRadarComponent();
-    v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+    v35 = FigCaptureGetFrameworkRadarComponent();
+    v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v39 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(v32, v39, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWNoiseReducerNode.m", 275, @"LastShownDate:BWNoiseReducerNode.m:275", @"LastShownBuild:BWNoiseReducerNode.m:275", 0);
-    free(v39);
+    v42 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(v35, v42, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWNoiseReducerNode.m", 275, @"LastShownDate:BWNoiseReducerNode.m:275", @"LastShownBuild:BWNoiseReducerNode.m:275", 0);
+    free(v42);
   }
 
   [(BWNodeOutput *)self->super._output emitSampleBuffer:?];
-  v38 = MEMORY[0x1E695FF58];
-  if (v42)
+  v41 = MEMORY[0x1E695FF58];
+  if (v45)
   {
 LABEL_31:
     if (cf)
@@ -275,22 +275,22 @@ LABEL_31:
   }
 
 LABEL_33:
-  if (v23)
+  if (v26)
   {
-    CFRelease(v23);
+    CFRelease(v26);
   }
 
-  if (v25)
+  if (v28)
   {
-    CFRelease(v25);
+    CFRelease(v28);
   }
 
-  if (v43)
+  if (v46)
   {
-    CFRelease(v43);
+    CFRelease(v46);
   }
 
-  if (*v38 == 1)
+  if (*v41 == 1)
   {
     kdebug_trace();
   }
@@ -347,27 +347,6 @@ LABEL_33:
 
     [(BWNodeOutput *)output setFormat:format];
   }
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

@@ -50,9 +50,9 @@
     +[NSDate(NotesDateUtilities) _notes_todayDateFormatter];
   }
 
-  v1 = __notesTodayDateFormatter;
+  v2 = __notesTodayDateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)_notes_relativeDateFormatter
@@ -62,9 +62,9 @@
     +[NSDate(NotesDateUtilities) _notes_relativeDateFormatter];
   }
 
-  v1 = __notesRelativeDateFormatter;
+  v2 = __notesRelativeDateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)_notes_fallbackDateFormatter
@@ -74,9 +74,9 @@
     +[NSDate(NotesDateUtilities) _notes_fallbackDateFormatter];
   }
 
-  v1 = __notesFallbackFormatter;
+  v2 = __notesFallbackFormatter;
 
-  return v1;
+  return v2;
 }
 
 - (id)userFriendlyString

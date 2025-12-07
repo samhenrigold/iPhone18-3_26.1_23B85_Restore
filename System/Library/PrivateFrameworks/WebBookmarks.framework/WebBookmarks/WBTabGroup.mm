@@ -115,26 +115,26 @@
 
 - (WBTab)firstUnpinnedTab
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_tabs;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if (![v6 isPinned])
         {
           v3 = [v6 copy];
@@ -142,7 +142,7 @@
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -153,8 +153,6 @@
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -319,39 +317,31 @@ BOOL __29__WBTabGroup_pinnedStartPage__block_invoke(uint64_t a1, void *a2)
 {
   storageCopy = storage;
   dCopy = d;
-  v32.receiver = self;
-  v32.super_class = WBTabGroup;
-  v11 = [(WBTabGroup *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = WBTabGroup;
+  v11 = [(WBTabGroup *)&v31 init];
   if (v11 && ([storageCopy value], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isFolder"), v12, v13))
   {
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-    v11->_isMutable = isKindOfClass & 1;
-    v15 = off_279E749E0;
-    if ((isKindOfClass & 1) == 0)
-    {
-      v15 = off_279E74A10;
-    }
-
-    v16 = *v15;
-    v17 = objc_opt_class();
-    objc_storeStrong(&v11->_tabClass, v17);
+    v11->_isMutable = objc_opt_isKindOfClass() & 1;
+    v14 = objc_opt_class();
+    objc_storeStrong(&v11->_tabClass, v14);
     objc_storeStrong(&v11->_bookmarkStorage, storage);
-    v18 = [dCopy copy];
+    v15 = [dCopy copy];
     lastSelectedTabUUID = v11->_lastSelectedTabUUID;
-    v11->_lastSelectedTabUUID = v18;
+    v11->_lastSelectedTabUUID = v15;
 
     if (v11->_isMutable)
     {
-      v20 = 0x277CBEB18;
+      v17 = 0x277CBEB18;
     }
 
     else
     {
-      v20 = 0x277CBEA60;
+      v17 = 0x277CBEA60;
     }
 
-    array = [*v20 array];
+    array = [*v17 array];
     tabs = v11->_tabs;
     v11->_tabs = array;
 
@@ -360,30 +350,31 @@ BOOL __29__WBTabGroup_pinnedStartPage__block_invoke(uint64_t a1, void *a2)
     v11->_tabsByUUID = dictionary;
 
     v11->_kind = kind;
-    v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
     deletedTabs = v11->_deletedTabs;
-    v11->_deletedTabs = v25;
+    v11->_deletedTabs = v22;
 
     objc_storeStrong(&v11->_profileIdentifier, *MEMORY[0x277D49BD8]);
     uuid = [(WBTabGroup *)v11 uuid];
-    if (!uuid || (v28 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:uuid], v28, !v28))
+    v26 = uuid;
+    if (!uuid || (v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:uuid], v27, !v27))
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v28 = WBS_LOG_CHANNEL_PREFIXTabGroup(uuid, v25);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
-        [WBTabGroup initWithBookmarkStorage:v29 lastSelectedTabUUID:v11 kind:?];
+        [WBTabGroup initWithBookmarkStorage:v28 lastSelectedTabUUID:v11 kind:?];
       }
     }
 
-    v30 = v11;
+    v29 = v11;
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  return v30;
+  return v29;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -594,8 +585,8 @@ id __47__WBTabGroup_initWithDictionaryRepresentation___block_invoke(uint64_t a1,
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = @"bookmark";
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = @"bookmark";
   value = [(WBSCopyOnWriteValue *)self->_bookmarkStorage value];
   dictionaryRepresentationForInMemoryChangeTracking = [value dictionaryRepresentationForInMemoryChangeTracking];
   v5 = dictionaryRepresentationForInMemoryChangeTracking;
@@ -605,18 +596,16 @@ id __47__WBTabGroup_initWithDictionaryRepresentation___block_invoke(uint64_t a1,
     lastSelectedTabUUID = &stru_288259858;
   }
 
-  v13[0] = dictionaryRepresentationForInMemoryChangeTracking;
-  v13[1] = lastSelectedTabUUID;
-  v12[1] = @"lastSelectedTabUUID";
-  v12[2] = @"tabs";
+  v12[0] = dictionaryRepresentationForInMemoryChangeTracking;
+  v12[1] = lastSelectedTabUUID;
+  v11[1] = @"lastSelectedTabUUID";
+  v11[2] = @"tabs";
   v7 = [(NSArray *)self->_tabs valueForKey:@"dictionaryRepresentation"];
-  v13[2] = v7;
-  v12[3] = @"type";
+  v12[2] = v7;
+  v11[3] = @"type";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_kind];
-  v13[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   return v9;
 }
@@ -656,7 +645,7 @@ id __47__WBTabGroup_initWithDictionaryRepresentation___block_invoke(uint64_t a1,
 
 - (NSString)htmlString
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithCapacity:{70 * -[NSArray count](self->_tabs, "count") + 52}];
   [v3 appendString:@"<html><body>"];
   if ([(WBTabGroup *)self isSyncable])
@@ -666,32 +655,32 @@ id __47__WBTabGroup_initWithDictionaryRepresentation___block_invoke(uint64_t a1,
   }
 
   [v3 appendString:@"<ul>"];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = self->_tabs;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 url];
         title2 = [v10 title];
-        [v3 appendFormat:@"<li><a href='%@'>%@</a></li>", v11, title2, v15];
+        [v3 appendFormat:@"<li><a href='%@'>%@</a></li>", v11, title2, v14];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -699,7 +688,6 @@ id __47__WBTabGroup_initWithDictionaryRepresentation___block_invoke(uint64_t a1,
 
   [v3 appendString:@"</ul>"];
   [v3 appendString:@"</body></html>"];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -782,28 +770,28 @@ BOOL __31__WBTabGroup_representativeURL__block_invoke(uint64_t a1, void *a2)
 
 - (WBTab)lastPinnedTab
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = self->_tabs;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 isPinned])
         {
           v9 = v8;
@@ -812,7 +800,7 @@ BOOL __31__WBTabGroup_representativeURL__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -824,36 +812,35 @@ BOOL __31__WBTabGroup_representativeURL__block_invoke(uint64_t a1, void *a2)
   }
 
   v10 = [v5 copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)lastPinnedTabExcluding:(id)excluding
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   excludingCopy = excluding;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = self->_tabs;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         isPinned = [v11 isPinned];
         if (v11 != excludingCopy && isPinned != 0)
         {
@@ -863,7 +850,7 @@ BOOL __31__WBTabGroup_representativeURL__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -875,7 +862,6 @@ BOOL __31__WBTabGroup_representativeURL__block_invoke(uint64_t a1, void *a2)
   }
 
   v15 = [v8 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1100,53 +1086,50 @@ void __34__WBTabGroup_debugSyncDescription__block_invoke(uint64_t a1, void *a2)
 
 - (NSString)debugRecursiveSyncDescription
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   debugSyncDescription = [(WBTabGroup *)self debugSyncDescription];
   v4 = [debugSyncDescription mutableCopy];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_tabs;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        debugSyncDescription2 = [*(*(&v13 + 1) + 8 * i) debugSyncDescription];
+        debugSyncDescription2 = [*(*(&v12 + 1) + 8 * i) debugSyncDescription];
         [v4 appendFormat:@"\n\t%@", debugSyncDescription2];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)detectDuplicatedTabs
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   tabs = [a2 tabs];
   v5 = [tabs safari_mapObjectsUsingBlock:&__block_literal_global_85];
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v6, v7, "All tabs: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v6, v7, "All tabs: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (BOOL)isEmpty
@@ -1163,14 +1146,12 @@ void __34__WBTabGroup_debugSyncDescription__block_invoke(uint64_t a1, void *a2)
 
 - (void)initWithBookmarkStorage:(void *)a1 lastSelectedTabUUID:(void *)a2 kind:.cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_fault_impl(&dword_272C20000, v3, OS_LOG_TYPE_FAULT, "WBTabGroup must have a valid UUID %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_fault_impl(&dword_272C20000, v3, OS_LOG_TYPE_FAULT, "WBTabGroup must have a valid UUID %{public}@", &v5, 0xCu);
 }
 
 @end

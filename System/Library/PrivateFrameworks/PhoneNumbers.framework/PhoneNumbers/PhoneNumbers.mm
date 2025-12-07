@@ -1,4 +1,4 @@
-uint64_t pn_default_log()
+uint64_t pn_default_log(uint64_t a1, uint64_t a2)
 {
   if (pn_default_log_onceToken != -1)
   {

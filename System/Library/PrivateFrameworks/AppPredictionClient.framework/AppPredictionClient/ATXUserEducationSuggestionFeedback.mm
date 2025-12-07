@@ -44,52 +44,52 @@
 
 - (ATXUserEducationSuggestionFeedback)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_context_user_education_suggestions();
+  v7 = __atxlog_handle_context_user_education_suggestions(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"ATXUserEducationSuggestionFeedback.codingKeyForUserEducationSuggestion" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.ATXUserEducationSuggestionFeedback" errorCode:-7 logHandle:v7];
 
   error = [coderCopy error];
 
   if (error)
   {
-    v10 = __atxlog_handle_context_user_education_suggestions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_context_user_education_suggestions(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_6:
       error2 = [coderCopy error];
       *buf = 136315394;
-      v17 = "[ATXUserEducationSuggestionFeedback initWithCoder:]";
-      v18 = 2114;
-      v19 = error2;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%s: decoding error: %{public}@", buf, 0x16u);
+      v19 = "[ATXUserEducationSuggestionFeedback initWithCoder:]";
+      v20 = 2114;
+      v21 = error2;
+      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: decoding error: %{public}@", buf, 0x16u);
     }
   }
 
   else
   {
-    v11 = [coderCopy decodeIntegerForKey:@"ATXUserEducationSuggestionFeedback.codingKeyForUserEducationSuggestionFeedbackType"];
+    v12 = [coderCopy decodeIntegerForKey:@"ATXUserEducationSuggestionFeedback.codingKeyForUserEducationSuggestionFeedbackType"];
     error3 = [coderCopy error];
 
     if (!error3)
     {
-      v14 = [objc_alloc(objc_opt_class()) initWithUserEducationSuggestion:v8 feedbackType:v11];
+      v16 = [objc_alloc(objc_opt_class()) initWithUserEducationSuggestion:v8 feedbackType:v12];
       goto LABEL_8;
     }
 
-    v10 = __atxlog_handle_context_user_education_suggestions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_context_user_education_suggestions(v14);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_6;
     }
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_8:
 
-  return v14;
+  return v16;
 }
 
 @end

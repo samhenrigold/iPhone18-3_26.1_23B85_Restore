@@ -1,709 +1,5 @@
-uint64_t sentencepiece::TrainerSpec::ByteSizeLong(sentencepiece::TrainerSpec *this)
-{
-  v2 = google::protobuf::internal::ExtensionSet::ByteSize((this + 16));
-  v3 = *(this + 16);
-  v4 = v2 + v3;
-  if (v3 >= 1)
-  {
-    v5 = 0;
-    do
-    {
-      v6 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 56, v5);
-      v7 = *(v6 + 23);
-      if ((v7 & 0x80u) != 0)
-      {
-        v7 = *(v6 + 8);
-      }
-
-      v4 += v7 + ((9 * (__clz(v7 | 1) ^ 0x1F) + 73) >> 6);
-      ++v5;
-    }
-
-    while (v3 != v5);
-  }
-
-  v8 = *(this + 22);
-  v9 = v4 + v8;
-  if (v8 >= 1)
-  {
-    v10 = 0;
-    do
-    {
-      v11 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 80, v10);
-      v12 = *(v11 + 23);
-      if ((v12 & 0x80u) != 0)
-      {
-        v12 = *(v11 + 8);
-      }
-
-      v9 += v12 + ((9 * (__clz(v12 | 1) ^ 0x1F) + 73) >> 6);
-      ++v10;
-    }
-
-    while (v8 != v10);
-  }
-
-  v13 = *(this + 28);
-  v14 = v9 + 2 * v13;
-  if (v13 >= 1)
-  {
-    v15 = 0;
-    do
-    {
-      v16 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 104, v15);
-      v17 = *(v16 + 23);
-      if ((v17 & 0x80u) != 0)
-      {
-        v17 = *(v16 + 8);
-      }
-
-      v14 += v17 + ((9 * (__clz(v17 | 1) ^ 0x1F) + 73) >> 6);
-      ++v15;
-    }
-
-    while (v13 != v15);
-  }
-
-  v18 = *(this + 34);
-  v19 = v14 + 2 * v18;
-  if (v18 >= 1)
-  {
-    v20 = 0;
-    do
-    {
-      v21 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 128, v20);
-      v22 = *(v21 + 23);
-      if ((v22 & 0x80u) != 0)
-      {
-        v22 = *(v21 + 8);
-      }
-
-      v19 += v22 + ((9 * (__clz(v22 | 1) ^ 0x1F) + 73) >> 6);
-      ++v20;
-    }
-
-    while (v18 != v20);
-  }
-
-  v23 = *(this + 10);
-  if (!v23)
-  {
-    goto LABEL_33;
-  }
-
-  if (v23)
-  {
-    v58 = *(this + 19) & 0xFFFFFFFFFFFFFFFELL;
-    v59 = *(v58 + 23);
-    v60 = *(v58 + 8);
-    if ((v59 & 0x80u) == 0)
-    {
-      v60 = v59;
-    }
-
-    v19 += v60 + ((9 * (__clz(v60 | 1) ^ 0x1F) + 73) >> 6) + 1;
-    if ((v23 & 2) == 0)
-    {
-LABEL_24:
-      if ((v23 & 4) == 0)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_131;
-    }
-  }
-
-  else if ((v23 & 2) == 0)
-  {
-    goto LABEL_24;
-  }
-
-  v61 = *(this + 20) & 0xFFFFFFFFFFFFFFFELL;
-  v62 = *(v61 + 23);
-  v63 = *(v61 + 8);
-  if ((v62 & 0x80u) == 0)
-  {
-    v63 = v62;
-  }
-
-  v19 += v63 + ((9 * (__clz(v63 | 1) ^ 0x1F) + 73) >> 6) + 1;
-  if ((v23 & 4) == 0)
-  {
-LABEL_25:
-    if ((v23 & 8) == 0)
-    {
-      goto LABEL_26;
-    }
-
-    goto LABEL_134;
-  }
-
-LABEL_131:
-  v64 = *(this + 21) & 0xFFFFFFFFFFFFFFFELL;
-  v65 = *(v64 + 23);
-  v66 = *(v64 + 8);
-  if ((v65 & 0x80u) == 0)
-  {
-    v66 = v65;
-  }
-
-  v19 += v66 + ((9 * (__clz(v66 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  if ((v23 & 8) == 0)
-  {
-LABEL_26:
-    if ((v23 & 0x10) == 0)
-    {
-      goto LABEL_27;
-    }
-
-    goto LABEL_137;
-  }
-
-LABEL_134:
-  v67 = *(this + 22) & 0xFFFFFFFFFFFFFFFELL;
-  v68 = *(v67 + 23);
-  v69 = *(v67 + 8);
-  if ((v68 & 0x80u) == 0)
-  {
-    v69 = v68;
-  }
-
-  v19 += v69 + ((9 * (__clz(v69 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  if ((v23 & 0x10) == 0)
-  {
-LABEL_27:
-    if ((v23 & 0x20) == 0)
-    {
-      goto LABEL_28;
-    }
-
-LABEL_140:
-    v73 = *(this + 24) & 0xFFFFFFFFFFFFFFFELL;
-    v74 = *(v73 + 23);
-    v75 = *(v73 + 8);
-    if ((v74 & 0x80u) == 0)
-    {
-      v75 = v74;
-    }
-
-    v19 += v75 + ((9 * (__clz(v75 | 1) ^ 0x1F) + 73) >> 6) + 2;
-    if ((v23 & 0x40) == 0)
-    {
-LABEL_29:
-      if ((v23 & 0x80) == 0)
-      {
-        goto LABEL_33;
-      }
-
-      goto LABEL_30;
-    }
-
-    goto LABEL_143;
-  }
-
-LABEL_137:
-  v70 = *(this + 23) & 0xFFFFFFFFFFFFFFFELL;
-  v71 = *(v70 + 23);
-  v72 = *(v70 + 8);
-  if ((v71 & 0x80u) == 0)
-  {
-    v72 = v71;
-  }
-
-  v19 += v72 + ((9 * (__clz(v72 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  if ((v23 & 0x20) != 0)
-  {
-    goto LABEL_140;
-  }
-
-LABEL_28:
-  if ((v23 & 0x40) == 0)
-  {
-    goto LABEL_29;
-  }
-
-LABEL_143:
-  v76 = *(this + 25) & 0xFFFFFFFFFFFFFFFELL;
-  v77 = *(v76 + 23);
-  v78 = *(v76 + 8);
-  if ((v77 & 0x80u) == 0)
-  {
-    v78 = v77;
-  }
-
-  v19 += v78 + ((9 * (__clz(v78 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  if ((v23 & 0x80) != 0)
-  {
-LABEL_30:
-    v24 = *(this + 26) & 0xFFFFFFFFFFFFFFFELL;
-    v25 = *(v24 + 23);
-    v26 = *(v24 + 8);
-    if ((v25 & 0x80u) == 0)
-    {
-      v26 = v25;
-    }
-
-    v19 += v26 + ((9 * (__clz(v26 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  }
-
-LABEL_33:
-  if ((v23 & 0xFF00) == 0)
-  {
-    goto LABEL_50;
-  }
-
-  if ((v23 & 0x100) != 0)
-  {
-    v79 = *(this + 27) & 0xFFFFFFFFFFFFFFFELL;
-    v80 = *(v79 + 23);
-    v81 = *(v79 + 8);
-    if ((v80 & 0x80u) == 0)
-    {
-      v81 = v80;
-    }
-
-    v19 += v81 + ((9 * (__clz(v81 | 1) ^ 0x1F) + 73) >> 6) + 2;
-    if ((v23 & 0x200) == 0)
-    {
-LABEL_36:
-      if ((v23 & 0x400) == 0)
-      {
-        goto LABEL_37;
-      }
-
-      goto LABEL_154;
-    }
-  }
-
-  else if ((v23 & 0x200) == 0)
-  {
-    goto LABEL_36;
-  }
-
-  v82 = *(this + 56);
-  v83 = ((9 * (__clz(v82 | 1) ^ 0x1F) + 73) >> 6) + 1;
-  if (v82 >= 0)
-  {
-    v84 = v83;
-  }
-
-  else
-  {
-    v84 = 11;
-  }
-
-  v19 += v84;
-  if ((v23 & 0x400) == 0)
-  {
-LABEL_37:
-    if ((v23 & 0x800) == 0)
-    {
-      goto LABEL_38;
-    }
-
-LABEL_158:
-    v19 += ((9 * (__clz(*(this + 29) | 1) ^ 0x3F) + 73) >> 6) + 1;
-    if ((v23 & 0x1000) != 0)
-    {
-      goto LABEL_39;
-    }
-
-    goto LABEL_43;
-  }
-
-LABEL_154:
-  v85 = *(this + 57);
-  v86 = ((9 * (__clz(v85 | 1) ^ 0x1F) + 73) >> 6) + 1;
-  if (v85 >= 0)
-  {
-    v87 = v86;
-  }
-
-  else
-  {
-    v87 = 11;
-  }
-
-  v19 += v87;
-  if ((v23 & 0x800) != 0)
-  {
-    goto LABEL_158;
-  }
-
-LABEL_38:
-  if ((v23 & 0x1000) != 0)
-  {
-LABEL_39:
-    v27 = *(this + 60);
-    v28 = ((9 * (__clz(v27 | 1) ^ 0x1F) + 73) >> 6) + 1;
-    if (v27 >= 0)
-    {
-      v29 = v28;
-    }
-
-    else
-    {
-      v29 = 11;
-    }
-
-    v19 += v29;
-  }
-
-LABEL_43:
-  v30 = v19 + 3;
-  if ((v23 & 0x2000) == 0)
-  {
-    v30 = v19;
-  }
-
-  if ((v23 & 0x4000) != 0)
-  {
-    v30 += 3;
-  }
-
-  if ((v23 & 0x8000) != 0)
-  {
-    v19 = v30 + 3;
-  }
-
-  else
-  {
-    v19 = v30;
-  }
-
-LABEL_50:
-  if ((v23 & 0xFF0000) != 0)
-  {
-    v31 = v19 + 3;
-    if ((v23 & 0x10000) == 0)
-    {
-      v31 = v19;
-    }
-
-    if ((v23 & 0x20000) != 0)
-    {
-      v31 += 3;
-    }
-
-    if ((v23 & 0x40000) != 0)
-    {
-      v31 += 3;
-    }
-
-    if ((v23 & 0x80000) != 0)
-    {
-      v31 += 3;
-    }
-
-    if ((v23 & 0x100000) != 0)
-    {
-      v32 = *(this + 63);
-      v33 = ((9 * (__clz(v32 | 1) ^ 0x1F) + 73) >> 6) + 2;
-      if (v32 >= 0)
-      {
-        v34 = v33;
-      }
-
-      else
-      {
-        v34 = 12;
-      }
-
-      v31 += v34;
-    }
-
-    if ((v23 & 0x200000) != 0)
-    {
-      v19 = v31 + 6;
-    }
-
-    else
-    {
-      v19 = v31;
-    }
-
-    if ((v23 & 0x400000) != 0)
-    {
-      v19 += ((9 * (__clz(*(this + 33) | 1) ^ 0x3F) + 73) >> 6) + 2;
-    }
-
-    if ((v23 & 0x800000) != 0)
-    {
-      v35 = *(this + 68);
-      v36 = ((9 * (__clz(v35 | 1) ^ 0x1F) + 73) >> 6) + 1;
-      if (v35 >= 0)
-      {
-        v37 = v36;
-      }
-
-      else
-      {
-        v37 = 11;
-      }
-
-      v19 += v37;
-    }
-  }
-
-  if (!HIBYTE(v23))
-  {
-    goto LABEL_94;
-  }
-
-  if ((v23 & 0x1000000) != 0)
-  {
-    v38 = *(this + 69);
-    v39 = ((9 * (__clz(v38 | 1) ^ 0x1F) + 73) >> 6) + 1;
-    if (v38 >= 0)
-    {
-      v40 = v39;
-    }
-
-    else
-    {
-      v40 = 11;
-    }
-
-    v19 += v40;
-  }
-
-  v41 = v19 + 5;
-  if ((v23 & 0x2000000) == 0)
-  {
-    v41 = v19;
-  }
-
-  if ((v23 & 0x4000000) != 0)
-  {
-    v42 = *(this + 71);
-    v43 = ((9 * (__clz(v42 | 1) ^ 0x1F) + 73) >> 6) + 1;
-    if (v42 >= 0)
-    {
-      v44 = v43;
-    }
-
-    else
-    {
-      v44 = 11;
-    }
-
-    v41 += v44;
-  }
-
-  if ((v23 & 0x8000000) != 0)
-  {
-    v19 = v41 + 5;
-  }
-
-  else
-  {
-    v19 = v41;
-  }
-
-  if ((v23 & 0x10000000) == 0)
-  {
-    if ((v23 & 0x20000000) == 0)
-    {
-      goto LABEL_92;
-    }
-
-LABEL_164:
-    v91 = *(this + 74);
-    v92 = ((9 * (__clz(v91 | 1) ^ 0x1F) + 73) >> 6) + 2;
-    if (v91 >= 0)
-    {
-      v93 = v92;
-    }
-
-    else
-    {
-      v93 = 12;
-    }
-
-    v19 += v93;
-    if ((v23 & 0x40000000) == 0)
-    {
-LABEL_93:
-      if ((v23 & 0x80000000) == 0)
-      {
-        goto LABEL_94;
-      }
-
-      goto LABEL_172;
-    }
-
-    goto LABEL_168;
-  }
-
-  v88 = *(this + 73);
-  v89 = ((9 * (__clz(v88 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  if (v88 >= 0)
-  {
-    v90 = v89;
-  }
-
-  else
-  {
-    v90 = 12;
-  }
-
-  v19 += v90;
-  if ((v23 & 0x20000000) != 0)
-  {
-    goto LABEL_164;
-  }
-
-LABEL_92:
-  if ((v23 & 0x40000000) == 0)
-  {
-    goto LABEL_93;
-  }
-
-LABEL_168:
-  v94 = *(this + 75);
-  v95 = ((9 * (__clz(v94 | 1) ^ 0x1F) + 73) >> 6) + 2;
-  if (v94 >= 0)
-  {
-    v96 = v95;
-  }
-
-  else
-  {
-    v96 = 12;
-  }
-
-  v19 += v96;
-  if ((v23 & 0x80000000) != 0)
-  {
-LABEL_172:
-    v97 = *(this + 76);
-    v98 = ((9 * (__clz(v97 | 1) ^ 0x1F) + 73) >> 6) + 2;
-    if (v97 >= 0)
-    {
-      v99 = v98;
-    }
-
-    else
-    {
-      v99 = 12;
-    }
-
-    v19 += v99;
-  }
-
-LABEL_94:
-  v45 = *(this + 11);
-  if (v45)
-  {
-    v46 = v19 + 3;
-    if ((v45 & 1) == 0)
-    {
-      v46 = v19;
-    }
-
-    if ((v45 & 2) != 0)
-    {
-      v46 += 3;
-    }
-
-    if ((v45 & 4) != 0)
-    {
-      v46 += 3;
-    }
-
-    if ((v45 & 8) != 0)
-    {
-      v46 += 3;
-    }
-
-    if ((v45 & 0x10) != 0)
-    {
-      v46 += 3;
-    }
-
-    if ((v45 & 0x20) != 0)
-    {
-      v19 = v46 + 3;
-    }
-
-    else
-    {
-      v19 = v46;
-    }
-
-    if ((v45 & 0x40) != 0)
-    {
-      v47 = *(this + 79);
-      v48 = ((9 * (__clz(v47 | 1) ^ 0x1F) + 73) >> 6) + 2;
-      if (v47 >= 0)
-      {
-        v49 = v48;
-      }
-
-      else
-      {
-        v49 = 12;
-      }
-
-      v19 += v49;
-    }
-
-    if ((v45 & 0x80) != 0)
-    {
-      v50 = *(this + 80);
-      v51 = ((9 * (__clz(v50 | 1) ^ 0x1F) + 73) >> 6) + 2;
-      if (v50 >= 0)
-      {
-        v52 = v51;
-      }
-
-      else
-      {
-        v52 = 12;
-      }
-
-      v19 += v52;
-    }
-  }
-
-  if ((v45 & 0x100) != 0)
-  {
-    v53 = *(this + 81);
-    v54 = ((9 * (__clz(v53 | 1) ^ 0x1F) + 73) >> 6) + 2;
-    if (v53 >= 0)
-    {
-      v55 = v54;
-    }
-
-    else
-    {
-      v55 = 12;
-    }
-
-    v19 += v55;
-  }
-
-  v56 = *(this + 1);
-  if (v56)
-  {
-    v100 = v56 & 0xFFFFFFFFFFFFFFFELL;
-    v101 = *((v56 & 0xFFFFFFFFFFFFFFFELL) + 31);
-    if (v101 < 0)
-    {
-      v101 = *(v100 + 16);
-    }
-
-    v19 += v101;
-  }
-
-  *(this + 12) = v19;
-  return v19;
-}
-
 void sentencepiece::TrainerSpec::CheckTypeAndMergeFrom(sentencepiece::TrainerSpec *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -1347,9 +643,9 @@ LABEL_90:
   }
 }
 
-void sub_2228E95C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228E95C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1451,9 +747,9 @@ LABEL_4:
   return result;
 }
 
-void sub_2228E982C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228E982C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1471,7 +767,7 @@ void non-virtual thunk tosentencepiece::NormalizerSpec::~NormalizerSpec(sentence
 
 void sentencepiece::NormalizerSpec::Clear(sentencepiece::NormalizerSpec *this)
 {
-  google::protobuf::internal::ExtensionSet::Clear((this + 24));
+  google::protobuf::internal::ExtensionSet::Clear(this + 24);
   v2 = *(this + 12);
   if ((v2 & 7) != 0)
   {
@@ -1722,7 +1018,7 @@ LABEL_57:
             v31 = *(this + 1);
             if (v31)
             {
-              v32 = ((v31 & 0xFFFFFFFFFFFFFFFELL) + 8);
+              v32 = (v31 & 0xFFFFFFFFFFFFFFFELL) + 8;
             }
 
             else
@@ -1870,7 +1166,7 @@ LABEL_2:
   return v41;
 }
 
-unsigned __int8 *sentencepiece::NormalizerSpec::_InternalSerialize(sentencepiece::NormalizerSpec *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::NormalizerSpec::_InternalSerialize(sentencepiece::NormalizerSpec *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 12);
@@ -2110,7 +1406,6 @@ LABEL_11:
 
 void sentencepiece::NormalizerSpec::CheckTypeAndMergeFrom(sentencepiece::NormalizerSpec *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -2282,9 +1577,9 @@ LABEL_35:
   }
 }
 
-void sub_2228EA390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EA390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2369,9 +1664,9 @@ LABEL_4:
   return result;
 }
 
-void sub_2228EA56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EA56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2525,7 +1820,7 @@ LABEL_26:
     v11 = *(this + 1);
     if (v11)
     {
-      v12 = ((v11 & 0xFFFFFFFFFFFFFFFELL) + 8);
+      v12 = (v11 & 0xFFFFFFFFFFFFFFFELL) + 8;
     }
 
     else
@@ -2546,7 +1841,7 @@ LABEL_27:
   return v20;
 }
 
-unsigned __int8 *sentencepiece::SelfTestData_Sample::_InternalSerialize(sentencepiece::SelfTestData_Sample *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::SelfTestData_Sample::_InternalSerialize(sentencepiece::SelfTestData_Sample *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -2653,7 +1948,6 @@ LABEL_12:
 
 void sentencepiece::SelfTestData_Sample::CheckTypeAndMergeFrom(sentencepiece::SelfTestData_Sample *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -2742,9 +2036,9 @@ void sentencepiece::SelfTestData_Sample::MergeFrom(sentencepiece::SelfTestData_S
   }
 }
 
-void sub_2228EAB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EAB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2808,16 +2102,16 @@ LABEL_4:
   JUMPOUT(0x223DC4D00);
 }
 
-void sub_2228EACC0(void *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EACC0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   __clang_call_terminate(a1);
 }
 
 void sentencepiece::SelfTestData::Clear(sentencepiece::SelfTestData *this)
 {
-  google::protobuf::internal::ExtensionSet::Clear((this + 16));
+  google::protobuf::internal::ExtensionSet::Clear(this + 16);
   google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(this + 40);
   v2 = *(this + 1);
   if (v2)
@@ -2870,7 +2164,7 @@ google::protobuf::internal *sentencepiece::SelfTestData::_InternalParse(sentence
 LABEL_6:
       if (v6 == 10)
       {
-        v10 = v5 - 1;
+        v10 = (v5 - 1);
         while (1)
         {
           v11 = (v10 + 1);
@@ -2919,7 +2213,7 @@ LABEL_20:
 
         v13 = *(this + 13);
 LABEL_16:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 10, v13 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 40), v13 + 1);
         v12 = *(this + 7);
         v13 = *v12;
         goto LABEL_17;
@@ -2946,7 +2240,7 @@ LABEL_16:
         v18 = *(this + 1);
         if (v18)
         {
-          v19 = ((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+          v19 = (v18 & 0xFFFFFFFFFFFFFFFELL) + 8;
         }
 
         else
@@ -2985,7 +2279,7 @@ LABEL_5:
   return v23;
 }
 
-unsigned __int8 *sentencepiece::SelfTestData::_InternalSerialize(sentencepiece::SelfTestData *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::SelfTestData::_InternalSerialize(sentencepiece::SelfTestData *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 12);
   if (v6)
@@ -3118,7 +2412,6 @@ uint64_t sentencepiece::SelfTestData::ByteSizeLong(sentencepiece::SelfTestData *
 
 void sentencepiece::SelfTestData::CheckTypeAndMergeFrom(sentencepiece::SelfTestData *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -3180,9 +2473,9 @@ void sentencepiece::SelfTestData::MergeFrom(sentencepiece::SelfTestData *this, c
   google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(this + 5, a2 + 40);
 }
 
-void sub_2228EB300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EB300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3254,16 +2547,16 @@ LABEL_4:
   }
 }
 
-void sub_2228EB4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EB4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
 void sentencepiece::ModelProto_SentencePiece::Clear(sentencepiece::ModelProto_SentencePiece *this)
 {
-  google::protobuf::internal::ExtensionSet::Clear((this + 16));
+  google::protobuf::internal::ExtensionSet::Clear(this + 16);
   v2 = *(this + 10);
   if (v2)
   {
@@ -3430,7 +2723,7 @@ LABEL_25:
         v21 = *(this + 1);
         if (v21)
         {
-          v22 = ((v21 & 0xFFFFFFFFFFFFFFFELL) + 8);
+          v22 = (v21 & 0xFFFFFFFFFFFFFFFELL) + 8;
         }
 
         else
@@ -3472,7 +2765,7 @@ LABEL_2:
   return v23;
 }
 
-unsigned __int8 *sentencepiece::ModelProto_SentencePiece::_InternalSerialize(sentencepiece::ModelProto_SentencePiece *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::ModelProto_SentencePiece::_InternalSerialize(sentencepiece::ModelProto_SentencePiece *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 10);
@@ -3642,7 +2935,6 @@ uint64_t sentencepiece::ModelProto_SentencePiece::ByteSizeLong(sentencepiece::Mo
 
 void sentencepiece::ModelProto_SentencePiece::CheckTypeAndMergeFrom(sentencepiece::ModelProto_SentencePiece *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -3746,9 +3038,9 @@ LABEL_17:
   }
 }
 
-void sub_2228EBC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EBC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3849,9 +3141,9 @@ LABEL_4:
   }
 }
 
-void sub_2228EBE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EBE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3869,7 +3161,7 @@ void non-virtual thunk tosentencepiece::ModelProto::~ModelProto(sentencepiece::M
 
 void sentencepiece::ModelProto::Clear(sentencepiece::ModelProto *this)
 {
-  google::protobuf::internal::ExtensionSet::Clear((this + 24));
+  google::protobuf::internal::ExtensionSet::Clear(this + 24);
   google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(this + 56);
   v2 = *(this + 12);
   if ((v2 & 0xF) != 0)
@@ -3954,9 +3246,9 @@ void sentencepiece::ModelProto::Clear(sentencepiece::ModelProto *this)
   }
 }
 
-void sub_2228EC0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EC0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4075,7 +3367,7 @@ LABEL_33:
           goto LABEL_54;
         }
 
-        v19 = v6 - 1;
+        v19 = (v6 - 1);
         while (2)
         {
           v20 = (v19 + 1);
@@ -4094,7 +3386,7 @@ LABEL_33:
             if (v22 == *(this + 17))
             {
 LABEL_44:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 14, v22 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 56), v22 + 1);
               v21 = *(this + 9);
               v22 = *v21;
             }
@@ -4173,7 +3465,7 @@ LABEL_54:
         v30 = *(this + 1);
         if (v30)
         {
-          v31 = ((v30 & 0xFFFFFFFFFFFFFFFELL) + 8);
+          v31 = (v30 & 0xFFFFFFFFFFFFFFFELL) + 8;
         }
 
         else
@@ -4213,7 +3505,7 @@ LABEL_6:
   return v32;
 }
 
-unsigned __int8 *sentencepiece::ModelProto::_InternalSerialize(sentencepiece::ModelProto *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *sentencepiece::ModelProto::_InternalSerialize(sentencepiece::ModelProto *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 16);
   if (v6)
@@ -4606,7 +3898,6 @@ LABEL_13:
 
 void sentencepiece::ModelProto::CheckTypeAndMergeFrom(sentencepiece::ModelProto *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     sentencepiece::SentencePieceText_SentencePiece::CheckTypeAndMergeFrom();
   }
@@ -4799,14 +4090,14 @@ LABEL_43:
   }
 }
 
-void sub_2228ECC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228ECC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::ModelProto::CopyFrom(sentencepiece::ModelProto *this, const sentencepiece::ModelProto *a2)
+void sentencepiece::ModelProto::CopyFrom(std::string *this, std::string *a2)
 {
   if (a2 != this)
   {
@@ -4920,9 +4211,9 @@ LABEL_18:
   return result;
 }
 
-void sub_2228ECE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228ECE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5042,7 +4333,7 @@ uint64_t google::protobuf::Arena::CreateMaybeMessage<sentencepiece::ModelProto>(
   return AlignedNoHook;
 }
 
-unint64_t sentencepiece::ModelProto::UnkSurface(sentencepiece::ModelProto *this)
+char *sentencepiece::ModelProto::UnkSurface(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 10);
   if (!v1)
@@ -5053,7 +4344,7 @@ unint64_t sentencepiece::ModelProto::UnkSurface(sentencepiece::ModelProto *this)
   v2 = v1[22];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5065,17 +4356,15 @@ unint64_t sentencepiece::ModelProto::UnkSurface(sentencepiece::ModelProto *this)
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t sentencepiece::ModelProto::UnkPiece(sentencepiece::ModelProto *this)
+char *sentencepiece::ModelProto::UnkPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 10);
   if (!v1)
@@ -5086,7 +4375,7 @@ unint64_t sentencepiece::ModelProto::UnkPiece(sentencepiece::ModelProto *this)
   v2 = v1[23];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5098,17 +4387,15 @@ unint64_t sentencepiece::ModelProto::UnkPiece(sentencepiece::ModelProto *this)
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t sentencepiece::ModelProto::BosPiece(sentencepiece::ModelProto *this)
+char *sentencepiece::ModelProto::BosPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 10);
   if (!v1)
@@ -5119,7 +4406,7 @@ unint64_t sentencepiece::ModelProto::BosPiece(sentencepiece::ModelProto *this)
   v2 = v1[24];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5131,17 +4418,15 @@ unint64_t sentencepiece::ModelProto::BosPiece(sentencepiece::ModelProto *this)
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t sentencepiece::ModelProto::EosPiece(sentencepiece::ModelProto *this)
+char *sentencepiece::ModelProto::EosPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 10);
   if (!v1)
@@ -5152,7 +4437,7 @@ unint64_t sentencepiece::ModelProto::EosPiece(sentencepiece::ModelProto *this)
   v2 = v1[25];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5164,17 +4449,15 @@ unint64_t sentencepiece::ModelProto::EosPiece(sentencepiece::ModelProto *this)
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t sentencepiece::ModelProto::PadPiece(sentencepiece::ModelProto *this)
+char *sentencepiece::ModelProto::PadPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 10);
   if (!v1)
@@ -5185,7 +4468,7 @@ unint64_t sentencepiece::ModelProto::PadPiece(sentencepiece::ModelProto *this)
   v2 = v1[26];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5197,11 +4480,9 @@ unint64_t sentencepiece::ModelProto::PadPiece(sentencepiece::ModelProto *this)
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
@@ -5229,14 +4510,12 @@ uint64_t sentencepiece::ModelProto::HasUnkSurface(sentencepiece::ModelProto *thi
   return (v1[40] >> 3) & 1;
 }
 
-uint64_t *sentencepiece::ModelProto::IdToPiece(sentencepiece::ModelProto *this, int a2)
+char *sentencepiece::ModelProto::IdToPiece(sentencepiece::ModelProto *this, int a2)
 {
-  v2 = *(google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(this + 56, a2) + 48);
-  result = (v2 & 0xFFFFFFFFFFFFFFFELL);
-  if ((*((v2 & 0xFFFFFFFFFFFFFFFELL) + 23) & 0x8000000000000000) != 0)
+  result = (*(google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(this + 56, a2) + 48) & 0xFFFFFFFFFFFFFFFELL);
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    result = *result;
-    v4 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 8);
+    return *result;
   }
 
   return result;
@@ -5286,7 +4565,7 @@ uint64_t sentencepiece::ModelProto::GetModelType(sentencepiece::ModelProto *this
   }
 }
 
-unint64_t non-virtual thunk tosentencepiece::ModelProto::UnkSurface(sentencepiece::ModelProto *this)
+char *non-virtual thunk tosentencepiece::ModelProto::UnkSurface(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 8);
   if (!v1)
@@ -5297,7 +4576,7 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::UnkSurface(sentencepiec
   v2 = v1[22];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5309,17 +4588,15 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::UnkSurface(sentencepiec
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t non-virtual thunk tosentencepiece::ModelProto::UnkPiece(sentencepiece::ModelProto *this)
+char *non-virtual thunk tosentencepiece::ModelProto::UnkPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 8);
   if (!v1)
@@ -5330,7 +4607,7 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::UnkPiece(sentencepiece:
   v2 = v1[23];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5342,17 +4619,15 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::UnkPiece(sentencepiece:
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t non-virtual thunk tosentencepiece::ModelProto::BosPiece(sentencepiece::ModelProto *this)
+char *non-virtual thunk tosentencepiece::ModelProto::BosPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 8);
   if (!v1)
@@ -5363,7 +4638,7 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::BosPiece(sentencepiece:
   v2 = v1[24];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5375,17 +4650,15 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::BosPiece(sentencepiece:
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t non-virtual thunk tosentencepiece::ModelProto::EosPiece(sentencepiece::ModelProto *this)
+char *non-virtual thunk tosentencepiece::ModelProto::EosPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 8);
   if (!v1)
@@ -5396,7 +4669,7 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::EosPiece(sentencepiece:
   v2 = v1[25];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5408,17 +4681,15 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::EosPiece(sentencepiece:
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
 }
 
-unint64_t non-virtual thunk tosentencepiece::ModelProto::PadPiece(sentencepiece::ModelProto *this)
+char *non-virtual thunk tosentencepiece::ModelProto::PadPiece(sentencepiece::ModelProto *this)
 {
   v1 = *(this + 8);
   if (!v1)
@@ -5429,7 +4700,7 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::PadPiece(sentencepiece:
   v2 = v1[26];
   if (v2)
   {
-    result = v2 & 0xFFFFFFFFFFFFFFFELL;
+    result = (v2 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   else
@@ -5441,11 +4712,9 @@ unint64_t non-virtual thunk tosentencepiece::ModelProto::PadPiece(sentencepiece:
     }
   }
 
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    v5 = result;
-    result = *result;
-    v4 = *(v5 + 8);
+    return *result;
   }
 
   return result;
@@ -5495,14 +4764,12 @@ uint64_t non-virtual thunk tosentencepiece::ModelProto::GetModelType(sentencepie
   }
 }
 
-uint64_t *non-virtual thunk tosentencepiece::ModelProto::IdToPiece(sentencepiece::ModelProto *this, int a2)
+char *non-virtual thunk tosentencepiece::ModelProto::IdToPiece(sentencepiece::ModelProto *this, int a2)
 {
-  v2 = *(google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(this + 40, a2) + 48);
-  result = (v2 & 0xFFFFFFFFFFFFFFFELL);
-  if ((*((v2 & 0xFFFFFFFFFFFFFFFELL) + 23) & 0x8000000000000000) != 0)
+  result = (*(google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(this + 40, a2) + 48) & 0xFFFFFFFFFFFFFFFELL);
+  if ((result[23] & 0x8000000000000000) != 0)
   {
-    result = *result;
-    v4 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 8);
+    return *result;
   }
 
   return result;
@@ -5559,9 +4826,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_2228EDD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EDD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5604,9 +4871,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_2228EDE3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EDE3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5632,9 +4899,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_2228EDF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EDF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5665,9 +4932,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_2228EDFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EDFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5698,14 +4965,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_2228EE07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EE07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(signed int **this, uint64_t a2)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(int **this, uint64_t a2)
 {
   if (a2 == this)
   {
@@ -5731,14 +4998,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_2228EE168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EE168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(std::string *result, std::string **a2, const std::string **a3, unsigned int a4, unsigned int a5)
+std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(std::string *result, std::string **a2, const std::string **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -5771,7 +5038,7 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoo
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = v9->__words[0];
+    v18 = v9->__r_.__value_.__r.__words[0];
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -5841,7 +5108,7 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Destroy<google::protobuf:
   a1[2] = 0;
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(signed int **this, uint64_t a2)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(int **this, uint64_t a2)
 {
   if (a2 == this)
   {
@@ -5867,14 +5134,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_2228EE41C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EE41C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(uint64_t *a1, sentencepiece::SelfTestData_Sample **a2, sentencepiece::SelfTestData_Sample **a3, unsigned int a4, unsigned int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::SelfTestData_Sample>::TypeHandler>(uint64_t *result, sentencepiece::SelfTestData_Sample **a2, sentencepiece::SelfTestData_Sample **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -5906,7 +5173,7 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -5960,7 +5227,7 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Destroy<google::protobuf:
   a1[2] = 0;
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(signed int **this, uint64_t a2)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(int **this, uint64_t a2)
 {
   if (a2 == this)
   {
@@ -5986,14 +5253,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_2228EE688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228EE688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(uint64_t *a1, sentencepiece::ModelProto_SentencePiece **a2, sentencepiece::ModelProto_SentencePiece **a3, unsigned int a4, unsigned int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>(uint64_t *result, sentencepiece::ModelProto_SentencePiece **a2, sentencepiece::ModelProto_SentencePiece **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -6025,7 +5292,7 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -6041,17 +5308,10 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google
   }
 }
 
-void *OUTLINED_FUNCTION_2()
+unint64_t OUTLINED_FUNCTION_2()
 {
 
   return google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v0, 0x18, google::protobuf::internal::arena_destruct_object<std::string>);
-}
-
-uint64_t *OUTLINED_FUNCTION_8()
-{
-  result = *(*(v0 + 32) + 32);
-  v2 = *result;
-  return result;
 }
 
 void *OUTLINED_FUNCTION_17(void *result)
@@ -6083,69 +5343,69 @@ void sentencepiece::ModelProto_SentencePiece::_InternalParse(unint64_t *a1, unin
   google::protobuf::internal::WriteVarint(3, a2, v3);
 }
 
-void *sentencepiece::filesystem::PosixReadableFile::PosixReadableFile(void *a1, const char *a2, uint64_t a3)
+void *sentencepiece::filesystem::PosixReadableFile::PosixReadableFile(void *a1, const char *a2, uint64_t a3, int a4)
 {
   *a1 = &unk_2835E3990;
-  v6 = a1 + 1;
+  v7 = a1 + 1;
   sentencepiece::util::Status::Status(a1 + 1);
   if (a3)
   {
     operator new();
   }
 
-  v7 = MEMORY[0x277D82668];
+  v8 = MEMORY[0x277D82668];
   a1[2] = MEMORY[0x277D82668];
-  if ((*(v7 + *(*v7 - 24) + 32) & 5) != 0)
+  if ((*(v8 + *(*v8 - 24) + 32) & 5) != 0)
   {
-    v15 = 5;
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "", 1);
-    v8 = strlen(a2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, a2, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, ": ", 3);
-    v9 = __error();
-    sentencepiece::util::StrError(*v9);
-    if ((v14 & 0x80u) == 0)
+    v16 = 5;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v17);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "", 1);
+    v9 = strlen(a2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, a2, v9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, ": ", 3);
+    v10 = __error();
+    sentencepiece::util::StrError(*v10);
+    if ((v15 & 0x80u) == 0)
     {
-      v10 = __p;
+      v11 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v11 = __p[0];
     }
 
-    if ((v14 & 0x80u) == 0)
+    if ((v15 & 0x80u) == 0)
     {
-      v11 = v14;
+      v12 = v15;
     }
 
     else
     {
-      v11 = __p[1];
+      v12 = __p[1];
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, v10, v11);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v15, &v21);
-    sentencepiece::util::Status::operator=(v6, &v21);
-    sentencepiece::util::Status::~Status(&v21);
-    if (v14 < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, v11, v12);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v16, &v22);
+    sentencepiece::util::Status::operator=(v7, &v22);
+    sentencepiece::util::Status::~Status(&v22);
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v16 = *MEMORY[0x277D82828];
-    *(&v16 + *(v16 - 24)) = *(MEMORY[0x277D82828] + 24);
-    v17 = MEMORY[0x277D82878] + 16;
-    if (v19 < 0)
+    v17 = *MEMORY[0x277D82828];
+    *(&v17 + *(v17 - 24)) = *(MEMORY[0x277D82828] + 24);
+    v18 = MEMORY[0x277D82878] + 16;
+    if (v20 < 0)
     {
-      operator delete(v18[7].__locale_);
+      operator delete(v19[7].__locale_);
     }
 
-    v17 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v18);
+    v18 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v19);
     std::ostream::~ostream();
-    MEMORY[0x223DC4C10](&v20);
+    MEMORY[0x223DC4C10](&v21);
   }
 
   return a1;
@@ -6265,8 +5525,7 @@ void sub_2228EF044(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 BOOL std::string::__init_with_sentinel[abi:ne200100]<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>(std::string *a1, void *a2, void *a3)
 {
   v11 = a3;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = 0;
   while (1)
   {
@@ -6358,22 +5617,22 @@ BOOL std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](void **a1)
   return 1;
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
+  v4 = MEMORY[0x277D82860] + 64;
   a1[52] = MEMORY[0x277D82860] + 64;
-  v3 = *(MEMORY[0x277D82810] + 16);
-  v4 = *(MEMORY[0x277D82810] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82810] + 16);
+  v6 = *(MEMORY[0x277D82810] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x223DC47B0](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -6402,11 +5661,11 @@ uint64_t sentencepiece::GetRandomGeneratorSeed(sentencepiece *this)
   return v2;
 }
 
-void sub_2228EF460(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, std::random_device a11, std::random_device a12)
+void sub_2228EF460(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, std::random_device argC, std::random_device a11, int a13, std::random_device a12)
 {
-  std::random_device::~random_device(&a11);
+  std::random_device::~random_device(&argC);
   __cxa_begin_catch(a1);
-  atomic_load(v12);
+  atomic_load(v14);
   __cxa_end_catch();
   JUMPOUT(0x2228EF44CLL);
 }
@@ -6443,15 +5702,15 @@ uint64_t sentencepiece::random::GetRandomGenerator(sentencepiece::random *this)
   return sentencepiece::random::GetRandomGenerator(void)::mt(&sentencepiece::random::GetRandomGenerator(void)::mt);
 }
 
-uint64_t sentencepiece::util::StrError(sentencepiece::util *this)
+uint64_t *sentencepiece::util::StrError(sentencepiece::util *this)
 {
   v13 = *MEMORY[0x277D85DE8];
   strerror_r(this, __strerrbuf, 0x3FFuLL);
   std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
-  v2 = strlen(__strerrbuf);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, __strerrbuf, v2);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " Error #", 8);
-  MEMORY[0x223DC4920](v4, this);
+  v3 = strlen(__strerrbuf);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, __strerrbuf, v3);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " Error #", 8);
+  MEMORY[0x223DC4920](v5, this);
   std::stringbuf::str();
   v7 = *MEMORY[0x277D82828];
   *(&v7 + *(v7 - 24)) = *(MEMORY[0x277D82828] + 24);
@@ -6464,9 +5723,7 @@ uint64_t sentencepiece::util::StrError(sentencepiece::util *this)
   v8 = MEMORY[0x277D82868] + 16;
   std::locale::~locale(v9);
   std::ostream::~ostream();
-  result = MEMORY[0x223DC4C10](&v11);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x223DC4C10](&v11);
 }
 
 void sentencepiece::mmap_util::Padding(std::string *this)
@@ -6519,89 +5776,89 @@ sentencepiece::bpe::Model *sentencepiece::bpe::Model::Model(sentencepiece::bpe::
   return this;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,std::pair<std::string_view,std::string_view>>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view const&>,std::tuple<>>(void *a1, uint64_t **a2, uint64_t a3, _OWORD **a4)
 {
-  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_20:
     operator new();
   }
 
-  v14 = a2;
-  v12 = *a2;
-  v13 = *(v14 + 8);
+  v16 = a2;
+  v14 = *a2;
+  v15 = v16[1];
   while (1)
   {
-    v15 = v11[1];
-    if (v15 == v5)
+    v17 = v13[1];
+    if (v17 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v15 >= *&v6)
+      if (v17 >= *&v8)
       {
-        v15 %= *&v6;
+        v17 %= *&v8;
       }
     }
 
     else
     {
-      v15 &= *&v6 - 1;
+      v17 &= *&v8 - 1;
     }
 
-    if (v15 != v9)
+    if (v17 != v11)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_20;
     }
   }
 
-  if (v11[3] != v13 || memcmp(v11[2], v12, v13))
+  if (v13[3] != v15 || memcmp(v13[2], v14, v15))
   {
     goto LABEL_19;
   }
 
-  return v11;
+  return v13;
 }
 
-void *std::__split_buffer<sentencepiece::bpe::Model::SampleEncode(std::string_view,float)::Symbol,std::allocator<sentencepiece::bpe::Model::SampleEncode(std::string_view,float)::Symbol> &>::__split_buffer(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__split_buffer<sentencepiece::bpe::Model::SampleEncode(std::string_view,float)::Symbol,std::allocator<sentencepiece::bpe::Model::SampleEncode(std::string_view,float)::Symbol> &>::__split_buffer(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
     if (!(a2 >> 59))
@@ -6612,11 +5869,11 @@ void *std::__split_buffer<sentencepiece::bpe::Model::SampleEncode(std::string_vi
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  *result = 0;
-  result[1] = 32 * a3;
-  result[2] = 32 * a3;
-  result[3] = 0;
-  return result;
+  *a1 = 0;
+  a1[1] = 32 * a3;
+  a1[2] = 32 * a3;
+  a1[3] = 0;
+  return a1;
 }
 
 void sentencepiece::model::FreeList<sentencepiece::bpe::Model::SampleEncode(std::string_view,float)::SymbolPair>::~FreeList(void *a1)
@@ -6910,9 +6167,9 @@ uint64_t google::protobuf::internal::SerialArena::Block::Pointer(google::protobu
   return this + a2;
 }
 
-void sub_2228F03F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F03F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6943,9 +6200,9 @@ void *google::protobuf::internal::SerialArena::New(google::protobuf::internal::S
   return v10;
 }
 
-void sub_2228F04F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F04F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7022,9 +6279,9 @@ void *google::protobuf::internal::ArenaImpl::NewBuffer(google::protobuf::interna
   return result;
 }
 
-void sub_2228F062C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F062C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7046,7 +6303,7 @@ google::protobuf::internal::SerialArena::Block *google::protobuf::internal::Seri
   return google::protobuf::internal::SerialArena::Block::Block(v8, v9, this, 0, 0);
 }
 
-void *google::protobuf::internal::SerialArena::AddCleanupFallback(google::protobuf::internal::SerialArena *this, void *a2, void (*a3)(void *), google::protobuf::internal::ArenaImpl *a4)
+uint64_t *google::protobuf::internal::SerialArena::AddCleanupFallback(google::protobuf::internal::SerialArena *this, uint64_t a2, void (*a3)(void *), google::protobuf::internal::ArenaImpl *a4)
 {
   result = *(this + 3);
   do
@@ -7116,14 +6373,14 @@ unint64_t google::protobuf::internal::SerialArena::AllocateAligned(google::proto
   return result;
 }
 
-void sub_2228F0824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F0824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(atomic_ullong *this, google::protobuf::internal::SerialArena::Block *a2, void (*a3)(void *))
+unint64_t google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(atomic_ullong *this, google::protobuf::internal::SerialArena::Block *a2, void (*a3)(void *))
 {
   v6 = google::protobuf::internal::ArenaImpl::thread_cache(this);
   if (*(v6 + 1) == this[3])
@@ -7134,7 +6391,7 @@ void *google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(atomic
 
   v10 = google::protobuf::internal::ArenaImpl::thread_cache(v6);
   explicit = atomic_load_explicit(this + 1, memory_order_acquire);
-  if (explicit && *(explicit + 1) == v10)
+  if (explicit && *(explicit + 8) == v10)
   {
 LABEL_3:
 
@@ -7144,12 +6401,12 @@ LABEL_3:
   return google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanupFallback(this, a2, a3);
 }
 
-void *google::protobuf::internal::SerialArena::AllocateAlignedAndAddCleanup(google::protobuf::internal::SerialArena *this, google::protobuf::internal::SerialArena::Block *a2, void (*a3)(void *), google::protobuf::internal::ArenaImpl *a4)
+unint64_t google::protobuf::internal::SerialArena::AllocateAlignedAndAddCleanup(unint64_t **this, google::protobuf::internal::SerialArena::Block *a2, void (*a3)(void *), google::protobuf::internal::ArenaImpl *a4)
 {
   Aligned = google::protobuf::internal::SerialArena::AllocateAligned(this, a2, a3, a4);
   v8 = Aligned;
-  v9 = *(this + 7);
-  if (v9 == *(this + 8))
+  v9 = this[7];
+  if (v9 == this[8])
   {
     google::protobuf::internal::SerialArena::AddCleanupFallback(this, Aligned, a3, v7);
   }
@@ -7158,13 +6415,13 @@ void *google::protobuf::internal::SerialArena::AllocateAlignedAndAddCleanup(goog
   {
     *v9 = Aligned;
     v9[1] = a3;
-    *(this + 7) = v9 + 2;
+    this[7] = v9 + 2;
   }
 
   return v8;
 }
 
-void *google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanupFallback(google::protobuf::internal::ArenaImpl *this, google::protobuf::internal::SerialArena::Block *a2, void (*a3)(void *))
+unint64_t google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanupFallback(google::protobuf::internal::ArenaImpl *this, google::protobuf::internal::SerialArena::Block *a2, void (*a3)(void *))
 {
   v6 = google::protobuf::internal::ArenaImpl::thread_cache(this);
   SerialArenaFallback = google::protobuf::internal::ArenaImpl::GetSerialArenaFallback(this, v6);
@@ -7180,15 +6437,15 @@ unint64_t google::protobuf::internal::ArenaImpl::AllocateAlignedFallback(google:
   return google::protobuf::internal::SerialArena::AllocateAligned(SerialArenaFallback, a2, v6, v7);
 }
 
-google::protobuf::internal::ArenaImpl *google::protobuf::internal::ArenaImpl::GetSerialArenaFallback(atomic_ullong *this, google::protobuf::internal::SerialArena::Block *a2)
+atomic_ullong *google::protobuf::internal::ArenaImpl::GetSerialArenaFallback(atomic_ullong *this, google::protobuf::internal::SerialArena::Block *a2)
 {
   v3 = this;
   explicit = atomic_load_explicit(this, memory_order_acquire);
   if (explicit)
   {
-    while (*(explicit + 1) != a2)
+    while (explicit[1] != a2)
     {
-      explicit = *(explicit + 4);
+      explicit = explicit[4];
       if (!explicit)
       {
         goto LABEL_4;
@@ -7231,7 +6488,7 @@ LABEL_4:
   return explicit;
 }
 
-uint64_t google::protobuf::internal::SerialArena::AllocateAlignedFallback(google::protobuf::internal::SerialArena *this, google::protobuf::internal::SerialArena::Block *a2, uint64_t a3, google::protobuf::internal::ArenaImpl *a4)
+unint64_t google::protobuf::internal::SerialArena::AllocateAlignedFallback(google::protobuf::internal::SerialArena *this, google::protobuf::internal::SerialArena::Block *a2, uint64_t a3, google::protobuf::internal::ArenaImpl *a4)
 {
   v6 = *(this + 2);
   *(v6 + 1) = *(v6 + 2) - *(this + 6) + *(this + 5);
@@ -7286,9 +6543,9 @@ google::protobuf::internal::SerialArena::Block *google::protobuf::internal::Seri
   return this;
 }
 
-void sub_2228F0C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F0C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7340,61 +6597,6 @@ atomic_ullong *google::protobuf::internal::LazyString::Init(atomic_ullong *this)
   return explicit;
 }
 
-void google::protobuf::internal::ArenaStringPtr::Set(google::protobuf::internal::ArenaStringPtr *this, uint64_t a2, __int128 *a3, google::protobuf::internal::ArenaImpl *a4)
-{
-  if (*this != a2)
-  {
-    google::protobuf::internal::ArenaStringPtr::UnsafeMutablePointer(this);
-    if (*(a3 + 23) >= 0)
-    {
-      v7 = *(a3 + 23);
-    }
-
-    else
-    {
-      v6 = *a3;
-      v7 = *(a3 + 1);
-    }
-
-    JUMPOUT(0x223DC46E0);
-  }
-
-  if (!a4)
-  {
-    operator new();
-  }
-
-  if (*(a4 + 24))
-  {
-    google::protobuf::internal::ArenaStringPtr::Set(a4);
-  }
-
-  AlignedAndAddCleanup = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(a4, 0x18, google::protobuf::internal::arena_destruct_object<std::string>);
-  v10 = AlignedAndAddCleanup;
-  if (*(a3 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(AlignedAndAddCleanup, *a3, *(a3 + 1));
-  }
-
-  else
-  {
-    v11 = *a3;
-    AlignedAndAddCleanup->__r_.__value_.__r.__words[2] = *(a3 + 2);
-    *&AlignedAndAddCleanup->__r_.__value_.__l.__data_ = v11;
-  }
-
-  *this = v10;
-}
-
-void google::protobuf::internal::ArenaStringPtr::Set(google::protobuf::internal::ArenaStringPtr *a1, __int128 *a2, google::protobuf::internal::ArenaImpl *a3)
-{
-  google::protobuf::internal::ArenaStringPtr::Set(a1, &google::protobuf::internal::fixed_address_empty_string, a2, a3);
-}
-
-{
-  google::protobuf::internal::ArenaStringPtr::Set(a1, 0, a2, a3);
-}
-
 uint64_t *google::protobuf::internal::ArenaStringPtr::Mutable(uint64_t **a1, google::protobuf::internal::ArenaImpl *a2)
 {
   if (*a1 == &google::protobuf::internal::fixed_address_empty_string)
@@ -7436,9 +6638,9 @@ uint64_t *google::protobuf::internal::ArenaStringPtr::MutableSlow<>(uint64_t **a
   return result;
 }
 
-void sub_2228F0FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F0FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7525,13 +6727,6 @@ std::string *google::protobuf::internal::ArenaStringPtr::ClearToDefault(std::str
   return result;
 }
 
-uint64_t *OUTLINED_FUNCTION_1_0(uint64_t a1)
-{
-  result = *(*(a1 + 32) + 32);
-  v2 = *result;
-  return result;
-}
-
 void google::protobuf::internal::LazyString::Init()
 {
   {
@@ -7604,9 +6799,9 @@ LABEL_12:
   return v9;
 }
 
-void sub_2228F1458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F1458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7688,9 +6883,9 @@ LABEL_14:
   return v3;
 }
 
-void sub_2228F161C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F161C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7745,9 +6940,9 @@ LABEL_6:
   return this + 16;
 }
 
-void sub_2228F17A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F17A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7782,14 +6977,14 @@ uint64_t google::protobuf::io::EpsCopyOutputStream::GetSize(google::protobuf::io
   return v3 - a2 + 16;
 }
 
-void sub_2228F18E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F18E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteAliasedRaw(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteAliasedRaw(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
 {
   if (google::protobuf::io::EpsCopyOutputStream::GetSize(this, a4) <= a3)
   {
@@ -7813,7 +7008,7 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteAliasedRaw(goog
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(this, a2, a3, a4);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, int a2, void **a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, int a2, const void ***a3, char *a4)
 {
   v4 = a4;
   v8 = *this;
@@ -7909,14 +7104,14 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAlia
   return google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(this, v18, v9, v17);
 }
 
-void sub_2228F1B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F1B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
 {
   if (*(this + 57) == 1)
   {
@@ -8040,50 +7235,50 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringOutline(g
   return &v17[v9];
 }
 
-void sub_2228F1DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F1DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
 void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this, google::protobuf::internal *a2, const std::string::value_type *a3, const char *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (a2 > 3014000)
   {
-    LODWORD(v22) = 3;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/common.cc";
-    v24 = 76;
-    memset(&v25, 0, sizeof(v25));
-    std::string::append(&v25, "This program requires version ");
-    google::protobuf::internal::VersionString(a2, &v19);
-    if ((v21 & 0x80u) == 0)
+    LODWORD(v21) = 3;
+    v22 = "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/common.cc";
+    v23 = 76;
+    memset(&v24, 0, sizeof(v24));
+    std::string::append(&v24, "This program requires version ");
+    google::protobuf::internal::VersionString(&v18, a2);
+    if ((v20 & 0x80u) == 0)
     {
-      v7 = &v19;
+      v7 = &v18;
     }
 
     else
     {
-      v7 = v19;
+      v7 = v18;
     }
 
-    if ((v21 & 0x80u) == 0)
-    {
-      v8 = v21;
-    }
-
-    else
+    if ((v20 & 0x80u) == 0)
     {
       v8 = v20;
     }
 
-    std::string::append(&v25, v7, v8);
-    std::string::append(&v25, " of the Protocol Buffer runtime library, but the installed version is ");
+    else
+    {
+      v8 = v19;
+    }
+
+    std::string::append(&v24, v7, v8);
+    std::string::append(&v24, " of the Protocol Buffer runtime library, but the installed version is ");
     snprintf(__str, 0x80uLL, "%d.%d.%d", 3, 14, 0);
-    v27 = 0;
+    v26 = 0;
     std::string::basic_string[abi:ne200100]<0>(&__p, __str);
-    if ((v18 & 0x80u) == 0)
+    if ((v17 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -8093,71 +7288,71 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
       p_p = __p;
     }
 
-    if ((v18 & 0x80u) == 0)
-    {
-      v10 = v18;
-    }
-
-    else
+    if ((v17 & 0x80u) == 0)
     {
       v10 = v17;
     }
 
-    std::string::append(&v25, p_p, v10);
-    std::string::append(&v25, ".  Please update your library.  If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library.  (Version verification failed in ");
-    std::string::append(&v25, a3);
-    std::string::append(&v25, ".)");
-    google::protobuf::internal::LogMessage::Finish(&v22);
-    if (v18 < 0)
+    else
+    {
+      v10 = v16;
+    }
+
+    std::string::append(&v24, p_p, v10);
+    std::string::append(&v24, ".  Please update your library.  If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library.  (Version verification failed in ");
+    std::string::append(&v24, a3);
+    std::string::append(&v24, ".)");
+    google::protobuf::internal::LogMessage::Finish(&v21);
+    if (v17 < 0)
     {
       operator delete(__p);
     }
 
-    if (v21 < 0)
+    if (v20 < 0)
     {
-      operator delete(v19);
+      operator delete(v18);
     }
 
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
   }
 
   if (this < 3014000)
   {
-    LODWORD(v22) = 3;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/common.cc";
-    v24 = 87;
-    memset(&v25, 0, sizeof(v25));
-    std::string::append(&v25, "This program was compiled against version ");
-    google::protobuf::internal::VersionString(this, &v19);
-    if ((v21 & 0x80u) == 0)
+    LODWORD(v21) = 3;
+    v22 = "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/common.cc";
+    v23 = 87;
+    memset(&v24, 0, sizeof(v24));
+    std::string::append(&v24, "This program was compiled against version ");
+    google::protobuf::internal::VersionString(&v18, this);
+    if ((v20 & 0x80u) == 0)
     {
-      v11 = &v19;
+      v11 = &v18;
     }
 
     else
     {
-      v11 = v19;
+      v11 = v18;
     }
 
-    if ((v21 & 0x80u) == 0)
-    {
-      v12 = v21;
-    }
-
-    else
+    if ((v20 & 0x80u) == 0)
     {
       v12 = v20;
     }
 
-    std::string::append(&v25, v11, v12);
-    std::string::append(&v25, " of the Protocol Buffer runtime library, which is not compatible with the installed version (");
+    else
+    {
+      v12 = v19;
+    }
+
+    std::string::append(&v24, v11, v12);
+    std::string::append(&v24, " of the Protocol Buffer runtime library, which is not compatible with the installed version (");
     snprintf(__str, 0x80uLL, "%d.%d.%d", 3, 14, 0);
-    v27 = 0;
+    v26 = 0;
     std::string::basic_string[abi:ne200100]<0>(&__p, __str);
-    if ((v18 & 0x80u) == 0)
+    if ((v17 & 0x80u) == 0)
     {
       v13 = &__p;
     }
@@ -8167,38 +7362,36 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
       v13 = __p;
     }
 
-    if ((v18 & 0x80u) == 0)
-    {
-      v14 = v18;
-    }
-
-    else
+    if ((v17 & 0x80u) == 0)
     {
       v14 = v17;
     }
 
-    std::string::append(&v25, v13, v14);
-    std::string::append(&v25, ").  Contact the program author for an update.  If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library.  (Version verification failed in ");
-    std::string::append(&v25, a3);
-    std::string::append(&v25, ".)");
-    google::protobuf::internal::LogMessage::Finish(&v22);
-    if (v18 < 0)
+    else
+    {
+      v14 = v16;
+    }
+
+    std::string::append(&v24, v13, v14);
+    std::string::append(&v24, ").  Contact the program author for an update.  If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library.  (Version verification failed in ");
+    std::string::append(&v24, a3);
+    std::string::append(&v24, ".)");
+    google::protobuf::internal::LogMessage::Finish(&v21);
+    if (v17 < 0)
     {
       operator delete(__p);
     }
 
-    if (v21 < 0)
+    if (v20 < 0)
     {
-      operator delete(v19);
+      operator delete(v18);
     }
 
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2228F20C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -8255,14 +7448,12 @@ std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1,
   return a1;
 }
 
-_BYTE *google::protobuf::internal::VersionString@<X0>(google::protobuf::internal *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *google::protobuf::internal::VersionString@<X0>(uint64_t *__return_ptr a1@<X8>, google::protobuf::internal *this@<X0>)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%d.%d.%d", this / 1000000, this / 1000 % 1000, this % 1000);
   __str[127] = 0;
-  result = std::string::basic_string[abi:ne200100]<0>(a2, __str);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(a1, __str);
 }
 
 void google::protobuf::internal::LogMessage::~LogMessage(void **this)
@@ -8299,21 +7490,19 @@ uint64_t google::protobuf::internal::DefaultLogHandler(uint64_t result, const ch
 
 std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%d", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%lu", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -8341,7 +7530,7 @@ LABEL_6:
   if (*v1 == 3)
   {
     exception = __cxa_allocate_exception(0x30uLL);
-    google::protobuf::FatalException::FatalException(exception, v1[1], *(v1 + 4), v1 + 3);
+    google::protobuf::FatalException::FatalException(exception, v1[1], *(v1 + 4), (v1 + 3));
   }
 
   return this;
@@ -8550,9 +7739,9 @@ LABEL_20:
   }
 }
 
-void sub_2228F2970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F2970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8561,10 +7750,10 @@ void google::protobuf::internal::ExtensionSet::SetInt32(google::protobuf::intern
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a5;
+  *(v8 + 2) = a5;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8581,12 +7770,12 @@ void google::protobuf::internal::ExtensionSet::SetInt32(google::protobuf::intern
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 348);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -8594,7 +7783,7 @@ void google::protobuf::internal::ExtensionSet::SetInt32(google::protobuf::intern
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8612,13 +7801,13 @@ void google::protobuf::internal::ExtensionSet::SetInt32(google::protobuf::intern
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a4;
 }
 
-void sub_2228F2B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F2B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8627,10 +7816,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt32(google::protobuf::in
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a6;
+  *(v11 + 2) = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8647,8 +7836,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt32(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -8668,7 +7857,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt32(google::protobuf::in
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 348);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -8676,7 +7865,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt32(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8693,7 +7882,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt32(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 348);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -8723,9 +7912,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt32(google::protobuf::in
   return result;
 }
 
-void sub_2228F2E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F2E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8734,10 +7923,10 @@ void google::protobuf::internal::ExtensionSet::SetInt64(google::protobuf::intern
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a5;
+  *(v8 + 2) = a5;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8754,12 +7943,12 @@ void google::protobuf::internal::ExtensionSet::SetInt64(google::protobuf::intern
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 349);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -8767,7 +7956,7 @@ void google::protobuf::internal::ExtensionSet::SetInt64(google::protobuf::intern
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8785,13 +7974,13 @@ void google::protobuf::internal::ExtensionSet::SetInt64(google::protobuf::intern
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a4;
 }
 
-void sub_2228F3090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F3090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8800,10 +7989,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt64(google::protobuf::in
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a6;
+  *(v11 + 2) = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8820,8 +8009,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt64(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -8841,7 +8030,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt64(google::protobuf::in
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 349);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -8849,7 +8038,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt64(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8866,7 +8055,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt64(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 349);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -8896,9 +8085,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddInt64(google::protobuf::in
   return result;
 }
 
-void sub_2228F3398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F3398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8907,10 +8096,10 @@ void google::protobuf::internal::ExtensionSet::SetUInt32(google::protobuf::inter
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a5;
+  *(v8 + 2) = a5;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8927,12 +8116,12 @@ void google::protobuf::internal::ExtensionSet::SetUInt32(google::protobuf::inter
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 350);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -8940,7 +8129,7 @@ void google::protobuf::internal::ExtensionSet::SetUInt32(google::protobuf::inter
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8958,13 +8147,13 @@ void google::protobuf::internal::ExtensionSet::SetUInt32(google::protobuf::inter
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a4;
 }
 
-void sub_2228F35B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F35B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8973,10 +8162,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt32(google::protobuf::i
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a6;
+  *(v11 + 2) = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -8993,8 +8182,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt32(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -9014,7 +8203,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt32(google::protobuf::i
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 350);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -9022,7 +8211,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt32(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9039,7 +8228,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt32(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 350);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -9069,9 +8258,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt32(google::protobuf::i
   return result;
 }
 
-void sub_2228F38BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F38BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9080,10 +8269,10 @@ void google::protobuf::internal::ExtensionSet::SetUInt64(google::protobuf::inter
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a5;
+  *(v8 + 2) = a5;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9100,12 +8289,12 @@ void google::protobuf::internal::ExtensionSet::SetUInt64(google::protobuf::inter
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 351);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -9113,7 +8302,7 @@ void google::protobuf::internal::ExtensionSet::SetUInt64(google::protobuf::inter
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9131,13 +8320,13 @@ void google::protobuf::internal::ExtensionSet::SetUInt64(google::protobuf::inter
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a4;
 }
 
-void sub_2228F3AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F3AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9146,10 +8335,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt64(google::protobuf::i
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a6;
+  *(v11 + 2) = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9166,8 +8355,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt64(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -9187,7 +8376,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt64(google::protobuf::i
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 351);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -9195,7 +8384,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt64(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9212,7 +8401,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt64(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 351);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -9242,9 +8431,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddUInt64(google::protobuf::i
   return result;
 }
 
-void sub_2228F3DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F3DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9253,10 +8442,10 @@ void google::protobuf::internal::ExtensionSet::SetFloat(google::protobuf::intern
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a4;
+  *(v8 + 2) = a4;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9273,12 +8462,12 @@ void google::protobuf::internal::ExtensionSet::SetFloat(google::protobuf::intern
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -9286,7 +8475,7 @@ void google::protobuf::internal::ExtensionSet::SetFloat(google::protobuf::intern
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9304,13 +8493,13 @@ void google::protobuf::internal::ExtensionSet::SetFloat(google::protobuf::intern
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a5;
 }
 
-void sub_2228F4004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F4004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9319,10 +8508,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddFloat(google::protobuf::in
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a5;
+  *(v11 + 2) = a5;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9339,8 +8528,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddFloat(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -9360,7 +8549,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddFloat(google::protobuf::in
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -9368,7 +8557,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddFloat(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9385,7 +8574,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddFloat(google::protobuf::in
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -9415,9 +8604,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddFloat(google::protobuf::in
   return result;
 }
 
-void sub_2228F4314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F4314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9426,10 +8615,10 @@ void google::protobuf::internal::ExtensionSet::SetDouble(google::protobuf::inter
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a4;
+  *(v8 + 2) = a4;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9446,12 +8635,12 @@ void google::protobuf::internal::ExtensionSet::SetDouble(google::protobuf::inter
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -9459,7 +8648,7 @@ void google::protobuf::internal::ExtensionSet::SetDouble(google::protobuf::inter
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9477,13 +8666,13 @@ void google::protobuf::internal::ExtensionSet::SetDouble(google::protobuf::inter
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a5;
 }
 
-void sub_2228F4538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F4538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9492,10 +8681,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddDouble(google::protobuf::i
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a5;
+  *(v11 + 2) = a5;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9512,8 +8701,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddDouble(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -9533,7 +8722,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddDouble(google::protobuf::i
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -9541,7 +8730,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddDouble(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9558,7 +8747,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddDouble(google::protobuf::i
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -9588,9 +8777,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddDouble(google::protobuf::i
   return result;
 }
 
-void sub_2228F4848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F4848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9599,10 +8788,10 @@ void google::protobuf::internal::ExtensionSet::SetBool(google::protobuf::interna
 {
   v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v9 = v8;
-  v8[2] = a5;
+  *(v8 + 2) = a5;
   if (v10)
   {
-    *(v8 + 8) = a3;
+    v8[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9619,12 +8808,12 @@ void google::protobuf::internal::ExtensionSet::SetBool(google::protobuf::interna
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    *(v9 + 9) = 0;
+    v9[9] = 0;
   }
 
   else
   {
-    if (*(v8 + 9))
+    if (v8[9])
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 354);
       v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -9632,7 +8821,7 @@ void google::protobuf::internal::ExtensionSet::SetBool(google::protobuf::interna
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
     }
 
-    v14 = *(v9 + 8);
+    v14 = v9[8];
     if ((v14 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9650,13 +8839,13 @@ void google::protobuf::internal::ExtensionSet::SetBool(google::protobuf::interna
     }
   }
 
-  *(v9 + 10) &= 0xF0u;
+  v9[10] &= 0xF0u;
   *v9 = a4;
 }
 
-void sub_2228F4A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F4A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9665,10 +8854,10 @@ uint64_t google::protobuf::internal::ExtensionSet::AddBool(google::protobuf::int
 {
   v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v12 = v11;
-  v11[2] = a6;
+  *(v11 + 2) = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
+    v11[8] = a3;
     if ((a3 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9685,8 +8874,8 @@ uint64_t google::protobuf::internal::ExtensionSet::AddBool(google::protobuf::int
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    v12[9] = 1;
+    v12[11] = a4;
     v16 = *a1;
     if (!*a1)
     {
@@ -9706,7 +8895,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddBool(google::protobuf::int
 
   else
   {
-    if ((*(v11 + 9) & 1) == 0)
+    if ((v11[9] & 1) == 0)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 354);
       v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
@@ -9714,7 +8903,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddBool(google::protobuf::int
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    v19 = *(v12 + 8);
+    v19 = v12[8];
     if ((v19 - 19) <= 0xFFFFFFED)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -9731,7 +8920,7 @@ uint64_t google::protobuf::internal::ExtensionSet::AddBool(google::protobuf::int
       google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
     }
 
-    if (*(v12 + 11) != a4)
+    if (v12[11] != a4)
     {
       google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 354);
       v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -9761,9 +8950,9 @@ uint64_t google::protobuf::internal::ExtensionSet::AddBool(google::protobuf::int
   return result;
 }
 
-void sub_2228F4D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2228F4D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9772,15 +8961,15 @@ uint64_t google::protobuf::internal::ExtensionSet::MutableRawRepeatedField(googl
 {
   v9 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
   v10 = v9;
-  v9[2] = a5;
+  *(v9 + 2) = a5;
   if ((v11 & 1) == 0)
   {
     return *v10;
   }
 
-  *(v9 + 9) = 1;
-  *(v9 + 8) = a3;
-  *(v9 + 11) = a4;
+  v9[9] = 1;
+  v9[8] = a3;
+  v9[11] = a4;
   v12 = google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3];
   if (v12 > 5)
   {
@@ -9968,4 +9157,785 @@ LABEL_56:
   }
 
   return *v10;
+}
+
+void google::protobuf::internal::ExtensionSet::SetEnum(google::protobuf::internal::ExtensionSet *a1, int a2, int a3, int a4, uint64_t a5)
+{
+  v8 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
+  v9 = v8;
+  *(v8 + 2) = a5;
+  if (v10)
+  {
+    v8[8] = a3;
+    if ((a3 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v11 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v17, &v11->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3] != 8)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 460);
+      v12 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_ENUM): ");
+      google::protobuf::internal::LogFinisher::operator=(&v17, &v12->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
+    }
+
+    v9[9] = 0;
+  }
+
+  else
+  {
+    if (v8[9])
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 463);
+      v13 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
+      google::protobuf::internal::LogFinisher::operator=(&v17, &v13->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
+    }
+
+    v14 = v9[8];
+    if ((v14 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v15 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v17, &v15->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v14] != 8)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 463);
+      v16 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: (cpp_type((*extension).type)) == (WireFormatLite::CPPTYPE_ENUM): ");
+      google::protobuf::internal::LogFinisher::operator=(&v17, &v16->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
+    }
+  }
+
+  v9[10] &= 0xF0u;
+  *v9 = a4;
+}
+
+void sub_2228F5278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t google::protobuf::internal::ExtensionSet::AddEnum(google::protobuf::internal::ExtensionSet *a1, int a2, int a3, int a4, int a5, uint64_t a6)
+{
+  v11 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
+  v12 = v11;
+  *(v11 + 2) = a6;
+  if (v13)
+  {
+    v11[8] = a3;
+    if ((a3 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v14 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v27, &v14->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3] != 8)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 488);
+      v15 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_ENUM): ");
+      google::protobuf::internal::LogFinisher::operator=(&v27, &v15->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
+    }
+
+    v12[9] = 1;
+    v12[11] = a4;
+    v16 = *a1;
+    if (!*a1)
+    {
+      operator new();
+    }
+
+    if (*(v16 + 24))
+    {
+      google::protobuf::internal::ExtensionSet::AddInt32(*a1);
+    }
+
+    AlignedAndAddCleanup = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v16, 0x10, google::protobuf::internal::arena_destruct_object<google::protobuf::RepeatedField<int>>);
+    *AlignedAndAddCleanup = 0;
+    AlignedAndAddCleanup[1] = v16;
+    *v12 = AlignedAndAddCleanup;
+  }
+
+  else
+  {
+    if ((v11[9] & 1) == 0)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 494);
+      v18 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
+      google::protobuf::internal::LogFinisher::operator=(&v27, &v18->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
+    }
+
+    v19 = v12[8];
+    if ((v19 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v20 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v27, &v20->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v19] != 8)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 494);
+      v21 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (cpp_type((*extension).type)) == (WireFormatLite::CPPTYPE_ENUM): ");
+      google::protobuf::internal::LogFinisher::operator=(&v27, &v21->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
+    }
+
+    if (v12[11] != a4)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 495);
+      v22 = google::protobuf::internal::LogMessage::operator<<(v28, "CHECK failed: (extension->is_packed) == (packed): ");
+      google::protobuf::internal::LogFinisher::operator=(&v27, &v22->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v28[0].__r_.__value_.__l.__data_);
+    }
+  }
+
+  v23 = *v12;
+  v24 = *v23;
+  if (v24 == v23[1])
+  {
+    v25 = v24 + 1;
+    google::protobuf::RepeatedField<int>::Reserve(v23, v24 + 1);
+    result = google::protobuf::RepeatedField<int>::elements(v23);
+    *(result + 4 * v24) = a5;
+  }
+
+  else
+  {
+    result = google::protobuf::RepeatedField<int>::elements(v23);
+    *(result + 4 * v24) = a5;
+    v25 = v24 + 1;
+  }
+
+  *v23 = v25;
+  return result;
+}
+
+void sub_2228F5580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t google::protobuf::internal::ExtensionSet::MutableString(google::protobuf::internal::ExtensionSet *a1, int a2, int a3, uint64_t a4)
+{
+  v7 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
+  v8 = v7;
+  *(v7 + 2) = a4;
+  if (v9)
+  {
+    v7[8] = a3;
+    if ((a3 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v20, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v10 = google::protobuf::internal::LogMessage::operator<<(v20, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v19, &v10->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v20[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3] != 9)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v20, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 520);
+      v11 = google::protobuf::internal::LogMessage::operator<<(v20, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_STRING): ");
+      google::protobuf::internal::LogFinisher::operator=(&v19, &v11->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v20[0].__r_.__value_.__l.__data_);
+    }
+
+    v8[9] = 0;
+    v12 = *a1;
+    if (!v12)
+    {
+      operator new();
+    }
+
+    if (*(v12 + 24))
+    {
+      google::protobuf::internal::ArenaStringPtr::MutableSlow<>(v12);
+    }
+
+    AlignedAndAddCleanup = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v12, 0x18, google::protobuf::internal::arena_destruct_object<std::string>);
+    *AlignedAndAddCleanup = 0;
+    AlignedAndAddCleanup[1] = 0;
+    AlignedAndAddCleanup[2] = 0;
+    *v8 = AlignedAndAddCleanup;
+  }
+
+  else
+  {
+    if (v7[9])
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v20, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 524);
+      v14 = google::protobuf::internal::LogMessage::operator<<(v20, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
+      google::protobuf::internal::LogFinisher::operator=(&v19, &v14->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v20[0].__r_.__value_.__l.__data_);
+    }
+
+    v15 = v8[8];
+    if ((v15 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v20, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v16 = google::protobuf::internal::LogMessage::operator<<(v20, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v19, &v16->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v20[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v15] != 9)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v20, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 524);
+      v17 = google::protobuf::internal::LogMessage::operator<<(v20, "CHECK failed: (cpp_type((*extension).type)) == (WireFormatLite::CPPTYPE_STRING): ");
+      google::protobuf::internal::LogFinisher::operator=(&v19, &v17->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v20[0].__r_.__value_.__l.__data_);
+    }
+  }
+
+  v8[10] &= 0xF0u;
+  return *v8;
+}
+
+void sub_2228F57FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void *google::protobuf::internal::ExtensionSet::AddString(google::protobuf::internal::ExtensionSet *a1, int a2, int a3, uint64_t a4)
+{
+  v7 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
+  v8 = v7;
+  *(v7 + 2) = a4;
+  if (v9)
+  {
+    v7[8] = a3;
+    if ((a3 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v27, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v10 = google::protobuf::internal::LogMessage::operator<<(v27, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v26, &v10->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v27[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3] != 9)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v27, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 550);
+      v11 = google::protobuf::internal::LogMessage::operator<<(v27, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_STRING): ");
+      google::protobuf::internal::LogFinisher::operator=(&v26, &v11->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v27[0].__r_.__value_.__l.__data_);
+    }
+
+    v8[9] = 1;
+    v8[11] = 0;
+    v12 = *a1;
+    if (!v12)
+    {
+      operator new();
+    }
+
+    if (*(v12 + 24))
+    {
+      google::protobuf::internal::ExtensionSet::AddString(v12);
+    }
+
+    AlignedAndAddCleanup = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v12, 0x18, google::protobuf::internal::arena_destruct_object<google::protobuf::RepeatedPtrField<std::string>>);
+    AlignedAndAddCleanup[2] = 0;
+    *AlignedAndAddCleanup = v12;
+    AlignedAndAddCleanup[1] = 0;
+    *v8 = AlignedAndAddCleanup;
+  }
+
+  else
+  {
+    if ((v7[9] & 1) == 0)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v27, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 556);
+      v14 = google::protobuf::internal::LogMessage::operator<<(v27, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
+      google::protobuf::internal::LogFinisher::operator=(&v26, &v14->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v27[0].__r_.__value_.__l.__data_);
+    }
+
+    v15 = v8[8];
+    if ((v15 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v27, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v16 = google::protobuf::internal::LogMessage::operator<<(v27, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v26, &v16->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v27[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v15] != 9)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v27, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 556);
+      v17 = google::protobuf::internal::LogMessage::operator<<(v27, "CHECK failed: (cpp_type((*extension).type)) == (WireFormatLite::CPPTYPE_STRING): ");
+      google::protobuf::internal::LogFinisher::operator=(&v26, &v17->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v27[0].__r_.__value_.__l.__data_);
+    }
+  }
+
+  v18 = *v8;
+  v19 = v18[2];
+  if (!v19)
+  {
+    v21 = *(v18 + 3);
+LABEL_22:
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v18, v21 + 1);
+    v19 = v18[2];
+    v21 = *v19;
+    goto LABEL_23;
+  }
+
+  v20 = *(v18 + 2);
+  v21 = *v19;
+  if (v20 < *v19)
+  {
+    *(v18 + 2) = v20 + 1;
+    return *&v19[2 * v20 + 2];
+  }
+
+  if (v21 == *(v18 + 3))
+  {
+    goto LABEL_22;
+  }
+
+LABEL_23:
+  *v19 = v21 + 1;
+  v23 = *v18;
+  if (!*v18)
+  {
+    operator new();
+  }
+
+  if (*(v23 + 24))
+  {
+    google::protobuf::internal::ArenaStringPtr::MutableSlow<>(*v18);
+  }
+
+  result = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v23, 0x18, google::protobuf::internal::arena_destruct_object<std::string>);
+  *result = 0;
+  result[1] = 0;
+  result[2] = 0;
+  v24 = *(v18 + 2);
+  v25 = v18[2] + 8 * v24;
+  *(v18 + 2) = v24 + 1;
+  *(v25 + 8) = result;
+  return result;
+}
+
+void sub_2228F5B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t google::protobuf::internal::ExtensionSet::MutableMessage(google::protobuf::internal::ExtensionSet *a1, int a2, int a3, uint64_t a4, uint64_t a5)
+{
+  v9 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
+  v10 = v9;
+  *(v9 + 2) = a5;
+  if (v11)
+  {
+    v9[8] = a3;
+    if ((a3 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v21, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v12 = google::protobuf::internal::LogMessage::operator<<(v21, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v20, &v12->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v21[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3] != 10)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v21, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 591);
+      v13 = google::protobuf::internal::LogMessage::operator<<(v21, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_MESSAGE): ");
+      google::protobuf::internal::LogFinisher::operator=(&v20, &v13->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v21[0].__r_.__value_.__l.__data_);
+    }
+
+    v10[9] = 0;
+    v10[10] &= 0xFu;
+    result = (*(*a4 + 32))(a4, *a1);
+    *v10 = result;
+    v10[10] &= 0xF0u;
+  }
+
+  else
+  {
+    if (v9[9])
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v21, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 598);
+      v15 = google::protobuf::internal::LogMessage::operator<<(v21, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
+      google::protobuf::internal::LogFinisher::operator=(&v20, &v15->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v21[0].__r_.__value_.__l.__data_);
+    }
+
+    v16 = v10[8];
+    if ((v16 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v21, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v17 = google::protobuf::internal::LogMessage::operator<<(v21, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v20, &v17->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v21[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v16] != 10)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v21, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 598);
+      v18 = google::protobuf::internal::LogMessage::operator<<(v21, "CHECK failed: (cpp_type((*extension).type)) == (WireFormatLite::CPPTYPE_MESSAGE): ");
+      google::protobuf::internal::LogFinisher::operator=(&v20, &v18->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v21[0].__r_.__value_.__l.__data_);
+    }
+
+    v19 = v10[10];
+    v10[10] = v19 & 0xF0;
+    result = *v10;
+    if ((v19 & 0x10) != 0)
+    {
+      return (*(*result + 32))(result, a4);
+    }
+  }
+
+  return result;
+}
+
+void sub_2228F5DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t google::protobuf::internal::ExtensionSet::AddMessage(google::protobuf::internal::ExtensionSet *a1, int a2, int a3, uint64_t a4, uint64_t a5)
+{
+  v9 = google::protobuf::internal::ExtensionSet::Insert(a1, a2);
+  v10 = v9;
+  *(v9 + 2) = a5;
+  if (v11)
+  {
+    v9[8] = a3;
+    if ((a3 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v26, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v12 = google::protobuf::internal::LogMessage::operator<<(v26, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v25, &v12->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v26[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[a3] != 10)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v26, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 762);
+      v13 = google::protobuf::internal::LogMessage::operator<<(v26, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_MESSAGE): ");
+      google::protobuf::internal::LogFinisher::operator=(&v25, &v13->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v26[0].__r_.__value_.__l.__data_);
+    }
+
+    v10[9] = 1;
+    v14 = *a1;
+    if (!*a1)
+    {
+      operator new();
+    }
+
+    if (*(v14 + 24))
+    {
+      google::protobuf::internal::ExtensionSet::AddMessage(*a1);
+    }
+
+    AlignedAndAddCleanup = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v14, 0x18, google::protobuf::internal::arena_destruct_object<google::protobuf::RepeatedPtrField<google::protobuf::MessageLite>>);
+    AlignedAndAddCleanup[2] = 0;
+    *AlignedAndAddCleanup = v14;
+    AlignedAndAddCleanup[1] = 0;
+    *v10 = AlignedAndAddCleanup;
+  }
+
+  else
+  {
+    if ((v9[9] & 1) == 0)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v26, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 767);
+      v16 = google::protobuf::internal::LogMessage::operator<<(v26, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (REPEATED_FIELD): ");
+      google::protobuf::internal::LogFinisher::operator=(&v25, &v16->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v26[0].__r_.__value_.__l.__data_);
+    }
+
+    v17 = v10[8];
+    if ((v17 - 19) <= 0xFFFFFFED)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v26, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v18 = google::protobuf::internal::LogMessage::operator<<(v26, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      google::protobuf::internal::LogFinisher::operator=(&v25, &v18->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v26[0].__r_.__value_.__l.__data_);
+    }
+
+    if (google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v17] != 10)
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v26, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 767);
+      v19 = google::protobuf::internal::LogMessage::operator<<(v26, "CHECK failed: (cpp_type((*extension).type)) == (WireFormatLite::CPPTYPE_MESSAGE): ");
+      google::protobuf::internal::LogFinisher::operator=(&v25, &v19->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v26[0].__r_.__value_.__l.__data_);
+    }
+  }
+
+  v20 = *v10;
+  v21 = *(*v10 + 16);
+  if (!v21 || (v22 = *(v20 + 8), v22 >= *v21) || (*(v20 + 8) = v22 + 1, (v23 = *&v21[2 * v22 + 2]) == 0))
+  {
+    v23 = (*(*a4 + 32))(a4, *a1);
+    google::protobuf::internal::RepeatedPtrFieldBase::AddAllocatedInternal<google::protobuf::RepeatedPtrField<google::protobuf::MessageLite>::TypeHandler>(*v10, v23);
+  }
+
+  return v23;
+}
+
+void sub_2228F60CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *google::protobuf::internal::ExtensionSet::GrowCapacity(uint64_t *this, size_t __sz)
+{
+  v2 = *(this + 4);
+  if (v2 <= 0x100 && v2 < __sz)
+  {
+    v4 = this;
+    do
+    {
+      if (v2)
+      {
+        LOWORD(v2) = 4 * v2;
+      }
+
+      else
+      {
+        LOWORD(v2) = 1;
+      }
+    }
+
+    while (v2 < __sz);
+    v5 = this[2];
+    v6 = *(this + 5);
+    v7 = *this;
+    if (v2 < 0x101u)
+    {
+      v8 = 32 * v2;
+      if (v7)
+      {
+        if (*(v7 + 24))
+        {
+          google::protobuf::internal::ExtensionSet::GrowCapacity(*this);
+          v8 = 32 * v2;
+        }
+
+        this = google::protobuf::Arena::AllocateAlignedNoHook(v7, v8);
+      }
+
+      else
+      {
+        this = operator new[](32 * v2);
+      }
+
+      v9 = this;
+      if (v6)
+      {
+        this = memmove(this, v5, 32 * v6);
+      }
+    }
+
+    else
+    {
+      if (!v7)
+      {
+        operator new();
+      }
+
+      if (*(v7 + 24))
+      {
+        google::protobuf::internal::ExtensionSet::GrowCapacity(*this);
+      }
+
+      this = google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(v7, 0x18, google::protobuf::internal::arena_destruct_object<std::map<int,google::protobuf::internal::ExtensionSet::Extension>>);
+      v9 = this;
+      this[1] = 0;
+      v10 = this + 1;
+      this[2] = 0;
+      *this = (this + 1);
+      if (v6)
+      {
+        v11 = &v5[32 * v6];
+        v12 = v5;
+        do
+        {
+          v15 = *v12;
+          v13 = *(v12 + 3);
+          v16 = *(v12 + 8);
+          v17 = v13;
+          this = std::__tree<std::__value_type<int,google::protobuf::internal::ExtensionSet::Extension>,std::__map_value_compare<int,std::__value_type<int,google::protobuf::internal::ExtensionSet::Extension>,std::less<int>,true>,std::allocator<std::__value_type<int,google::protobuf::internal::ExtensionSet::Extension>>>::__emplace_hint_unique_key_args<int,std::pair<int const,google::protobuf::internal::ExtensionSet::Extension>>(v9, v10, &v15, &v15);
+          v10 = this;
+          v12 += 32;
+        }
+
+        while (v12 != v11);
+      }
+    }
+
+    if (*v4)
+    {
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = v5 == 0;
+    }
+
+    if (!v14)
+    {
+      this = MEMORY[0x223DC4CD0](v5, 0x1062C802AB6010CLL);
+    }
+
+    *(v4 + 4) = v2;
+    v4[2] = v9;
+    if (v2 >= 0x101u)
+    {
+      *(v4 + 5) = 0;
+    }
+  }
+
+  return this;
+}
+
+uint64_t google::protobuf::internal::anonymous namespace::SizeOfUnion<google::protobuf::internal::ExtensionSet::KeyValue *,std::__map_iterator<std::__tree_iterator<std::__value_type<int,google::protobuf::internal::ExtensionSet::Extension>,std::__tree_node<std::__value_type<int,google::protobuf::internal::ExtensionSet::Extension>,void *> *,long>>>(char *a1, char *a2, void *a3, void *a4)
+{
+  v4 = 0;
+  if (a1 != a2 && a3 != a4)
+  {
+    v4 = 0;
+    do
+    {
+      v5 = *(a3 + 8);
+      if (*a1 >= v5)
+      {
+        if (*a1 == v5)
+        {
+          a1 += 32;
+          v6 = a3[1];
+          if (v6)
+          {
+            do
+            {
+              a3 = v6;
+              v6 = *v6;
+            }
+
+            while (v6);
+          }
+
+          else
+          {
+            do
+            {
+              v7 = a3;
+              a3 = a3[2];
+            }
+
+            while (*a3 != v7);
+          }
+        }
+
+        else
+        {
+          v8 = a3[1];
+          if (v8)
+          {
+            do
+            {
+              a3 = v8;
+              v8 = *v8;
+            }
+
+            while (v8);
+          }
+
+          else
+          {
+            do
+            {
+              v9 = a3;
+              a3 = a3[2];
+            }
+
+            while (*a3 != v9);
+          }
+        }
+      }
+
+      else
+      {
+        a1 += 32;
+      }
+
+      ++v4;
+    }
+
+    while (a1 != a2 && a3 != a4);
+  }
+
+  if (a3 == a4)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = 0;
+    do
+    {
+      v11 = a3[1];
+      if (v11)
+      {
+        do
+        {
+          v12 = v11;
+          v11 = *v11;
+        }
+
+        while (v11);
+      }
+
+      else
+      {
+        do
+        {
+          v12 = a3[2];
+          v13 = *v12 == a3;
+          a3 = v12;
+        }
+
+        while (!v13);
+      }
+
+      ++v10;
+      a3 = v12;
+    }
+
+    while (v12 != a4);
+  }
+
+  return v4 + ((a2 - a1) >> 5) + v10;
 }

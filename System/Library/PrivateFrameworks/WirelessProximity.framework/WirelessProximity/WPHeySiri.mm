@@ -209,7 +209,7 @@
 
 - (void)startAdvertisingWithData:(id)data
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = [WPAdvertisingRequest requestForClientType:8];
   [v5 setUpdateTime:45.0];
@@ -242,17 +242,15 @@
     advertisingData = [v5 advertisingData];
     advertisementRequestedAt = [v5 advertisementRequestedAt];
     *buf = 138412546;
-    v16 = advertisingData;
-    v17 = 2048;
+    v15 = advertisingData;
+    v16 = 2048;
     longLongValue = [advertisementRequestedAt longLongValue];
     _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "HeySiri start advertising data=%@ at %llu", buf, 0x16u);
   }
 
-  v14.receiver = self;
-  v14.super_class = WPHeySiri;
-  [(WPClient *)&v14 startAdvertising:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = WPHeySiri;
+  [(WPClient *)&v13 startAdvertising:v5];
 }
 
 - (void)updateAdvertisingRequest:(id)request withUpdate:(id)update
@@ -380,7 +378,7 @@
 
 - (void)advertisingStartedOfTypeAt:(unsigned __int8)at
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = mach_absolute_time();
   if (WPLogInitOnce != -1)
   {
@@ -390,9 +388,9 @@
   v5 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = v4;
-    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "HeySiri started advertising at %llu", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v4;
+    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "HeySiri started advertising at %llu", &v9, 0xCu);
   }
 
   objc_sync_enter(&unk_28835C870);
@@ -406,7 +404,6 @@
   }
 
   objc_sync_exit(&unk_28835C870);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
@@ -470,7 +467,7 @@
 
 - (void)deviceDiscovered:(id)discovered
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   objc_sync_enter(&unk_28835C870);
   delegate = [(WPHeySiri *)self delegate];
@@ -496,23 +493,23 @@
         [WPHeySiri deviceDiscovered:];
       }
 
-      v18[0] = v8;
-      v17[0] = @"WPHeySiriKeyDeviceUUID";
-      v17[1] = @"WPHeySiriKeyDeviceAddress";
+      v17[0] = v8;
+      v16[0] = @"WPHeySiriKeyDeviceUUID";
+      v16[1] = @"WPHeySiriKeyDeviceAddress";
       data = v9;
       if (!v9)
       {
         data = [MEMORY[0x277CBEA90] data];
       }
 
-      v18[1] = data;
-      v18[2] = v12;
-      v17[2] = @"WPHeySiriKeyManufacturerData";
-      v17[3] = @"WPHeySiriKeyDeviceTime";
-      v17[4] = @"WPHeySiriKeyDeviceRSSI";
-      v18[3] = v10;
-      v18[4] = v11;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+      v17[1] = data;
+      v17[2] = v12;
+      v16[2] = @"WPHeySiriKeyManufacturerData";
+      v16[3] = @"WPHeySiriKeyDeviceTime";
+      v16[4] = @"WPHeySiriKeyDeviceRSSI";
+      v17[3] = v10;
+      v17[4] = v11;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
       if (!v9)
       {
       }
@@ -536,8 +533,6 @@
   }
 
   objc_sync_exit(&unk_28835C870);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanningStartedOfType:(unsigned __int8)type
@@ -613,7 +608,7 @@
 
 - (void)startScanningAndAdvertisingWithOptions:(id)options
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (WPLogInitOnce != -1)
   {
@@ -642,9 +637,9 @@
     }
 
     v17 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CCA450];
-    v47[0] = @"Non-test client calling test API.";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x277CCA450];
+    v46[0] = @"Non-test client calling test API.";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v19 = [v17 errorWithDomain:@"WPErrorDomain" code:29 userInfo:v18];
 
     [(WPHeySiri *)self scanningFailedToStart:v19 ofType:8];
@@ -741,9 +736,9 @@
         }
       }
 
-      v43.receiver = self;
-      v43.super_class = WPHeySiri;
-      [(WPClient *)&v43 startAdvertising:v25];
+      v42.receiver = self;
+      v42.super_class = WPHeySiri;
+      [(WPClient *)&v42 startAdvertising:v25];
     }
   }
 
@@ -777,7 +772,7 @@
     v19 = objc_opt_new();
     *&buf = 3000 / integerValue;
     *(&buf + 1) = 3000 / integerValue;
-    v45 = 30;
+    v44 = 30;
     [v19 setScanningRates:&buf];
     v37 = [optionsCopy objectForKeyedSubscript:@"kWPHeySiriTestActiveScan"];
     if (v37)
@@ -806,75 +801,51 @@
     [v19 setRssiThreshold:&unk_28835C888];
     [v19 setClientType:8];
     [v19 setPriorityCritical:1];
-    v42.receiver = self;
-    v42.super_class = WPHeySiri;
-    [(WPClient *)&v42 startScanning:v19];
+    v41.receiver = self;
+    v41.super_class = WPHeySiri;
+    [(WPClient *)&v41 startScanning:v19];
 LABEL_51:
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAdvertisingRequest:(void *)a1 withUpdate:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 updateTime];
-  v6 = 134217984;
-  v7 = v4;
-  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "HeySiri advertising updateTime set to %.2f", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateAdvertisingRequest:withUpdate:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_274327000, v0, v1, "HeySiri timed-out advertising request with data: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 134217984;
+  v6 = v4;
+  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "HeySiri advertising updateTime set to %.2f", &v5, 0xCu);
 }
 
 - (void)updateScanningRequest:(void *)a3 withUpdate:.cold.2(void *a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   [a2 updateTime];
-  v8 = 134218240;
-  v9 = v6;
-  v10 = 1024;
-  v11 = [a3 isScanning];
-  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "HeySiri scan updateTime set to %.2f, current scan: %d", &v8, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateScanningRequest:withUpdate:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_274327000, v0, v1, "HeySiri timed-out scan request with data: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 134218240;
+  v8 = v6;
+  v9 = 1024;
+  v10 = [a3 isScanning];
+  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "HeySiri scan updateTime set to %.2f, current scan: %d", &v7, 0x12u);
 }
 
 - (void)deviceDiscovered:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "HeySiri data=%@ from %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "HeySiri data=%@ from %{public}@", v2, 0x16u);
 }
 
 - (void)deviceDiscovered:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "HeySiri invalid TLD=%@ from %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "HeySiri invalid TLD=%@ from %{public}@", v2, 0x16u);
 }
 
 @end

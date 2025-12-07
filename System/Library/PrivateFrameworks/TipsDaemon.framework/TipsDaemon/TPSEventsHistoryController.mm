@@ -132,32 +132,32 @@ void __60__TPSEventsHistoryController_contextualEventsForIdentifiers__block_invo
 
 void __57__TPSEventsHistoryController_contextualEventsBySourceMap__block_invoke(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 32) allValues];
   v3 = *(a1[5] + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = *(*(a1[5] + 8) + 40);
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 matchedDate];
         if (v11)
         {
@@ -193,13 +193,11 @@ void __57__TPSEventsHistoryController_contextualEventsBySourceMap__block_invoke(
         [v16 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allContextualEvents
@@ -227,54 +225,49 @@ void __57__TPSEventsHistoryController_contextualEventsBySourceMap__block_invoke(
 
 uint64_t __49__TPSEventsHistoryController_allContextualEvents__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) allValues];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)contextualEventsForIdentifiers:(id)identifiers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(TPSEventsHistoryController *)self _contextualEventForIdentifier:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(TPSEventsHistoryController *)self _contextualEventForIdentifier:*(*(&v14 + 1) + 8 * i), v14];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -307,10 +300,7 @@ uint64_t __49__TPSEventsHistoryController_allContextualEvents__block_invoke(uint
 
 uint64_t __60__TPSEventsHistoryController__contextualEventForIdentifier___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -347,31 +337,31 @@ void __64__TPSEventsHistoryController__setContextualEvent_forIdentifier___block_
 - (void)_addEvents:(id)events contentIdentifier:(id)identifier eventSinceDate:(id)date minObservationCount:(unint64_t)count
 {
   countCopy = count;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   identifierCopy = identifier;
   dateCopy = date;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = eventsCopy;
-  v12 = [eventsCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [eventsCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       v15 = 0;
       do
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * v15);
+        v16 = *(*(&v24 + 1) + 8 * v15);
         v17 = [MEMORY[0x277D71730] identifierFromEventInfoDictionary:{v16, countCopy}];
         v18 = [(TPSEventsHistoryController *)self _contextualEventForIdentifier:v17];
         if (v18)
@@ -413,14 +403,12 @@ LABEL_9:
       }
 
       while (v13 != v15);
-      v21 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v21 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       v13 = v21;
     }
 
     while (v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEventsFromTriggerEvents:(id)events desiredOutcomeEvents:(id)outcomeEvents contentIdentifier:(id)identifier eventSinceDate:(id)date
@@ -495,7 +483,7 @@ LABEL_9:
 
 void __81__TPSEventsHistoryController_processEventProviderQueryResults_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 identifier];
   v5 = [*(a1 + 32) _contextualEventForIdentifier:v4];
@@ -529,9 +517,9 @@ void __81__TPSEventsHistoryController_processEventProviderQueryResults_completio
         {
           v15 = [v5 eventSinceDate];
           *buf = 138412546;
-          v48 = v15;
-          v49 = 2112;
-          v50 = v9;
+          v47 = v15;
+          v48 = 2112;
+          v49 = v9;
           _os_log_impl(&dword_232D6F000, v14, OS_LOG_TYPE_DEFAULT, "Event since date (%@) for delivery event is later in time than result date (%@). Skipping result...", buf, 0x16u);
         }
 
@@ -572,13 +560,13 @@ void __81__TPSEventsHistoryController_processEventProviderQueryResults_completio
       v27 = [MEMORY[0x277D71778] discoverability];
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = [v3 identifier];
+        v38 = [v3 identifier];
         *buf = 138412802;
-        v48 = v39;
-        v49 = 2048;
-        v50 = [v26 count];
-        v51 = 1024;
-        v52 = [v5 minObservationCount];
+        v47 = v38;
+        v48 = 2048;
+        v49 = [v26 count];
+        v50 = 1024;
+        v51 = [v5 minObservationCount];
         _os_log_impl(&dword_232D6F000, v27, OS_LOG_TYPE_DEFAULT, "Event %@, current observation count: %zd. Expected observation count: %d ", buf, 0x1Cu);
       }
 
@@ -593,15 +581,15 @@ void __81__TPSEventsHistoryController_processEventProviderQueryResults_completio
     aBlock[1] = 3221225472;
     aBlock[2] = __81__TPSEventsHistoryController_processEventProviderQueryResults_completionHandler___block_invoke_15;
     aBlock[3] = &unk_2789B1068;
-    v46 = *(a1 + 40);
+    v45 = *(a1 + 40);
     v29 = v5;
-    v41 = v29;
-    v42 = v9;
+    v40 = v29;
+    v41 = v9;
     v14 = v23;
     v30 = *(a1 + 32);
-    v43 = v14;
-    v44 = v30;
-    v45 = v3;
+    v42 = v14;
+    v43 = v30;
+    v44 = v3;
     v31 = _Block_copy(aBlock);
     if ([v29 status] == 1)
     {
@@ -630,7 +618,7 @@ void __81__TPSEventsHistoryController_processEventProviderQueryResults_completio
       {
         v37 = [v29 identifier];
         *buf = 138412290;
-        v48 = v37;
+        v47 = v37;
         _os_log_impl(&dword_232D6F000, v36, OS_LOG_TYPE_DEFAULT, "Event %@ invalidated due to absent event observed.", buf, 0xCu);
       }
 
@@ -642,13 +630,11 @@ LABEL_29:
 
 LABEL_30:
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __81__TPSEventsHistoryController_processEventProviderQueryResults_completionHandler___block_invoke_15(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!*(*(*(a1 + 72) + 8) + 40))
   {
@@ -673,14 +659,12 @@ void __81__TPSEventsHistoryController_processEventProviderQueryResults_completio
   {
     v10 = [*(a1 + 32) identifier];
     v11 = [*(a1 + 32) matchedDate];
-    v13 = 138412546;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    _os_log_impl(&dword_232D6F000, v9, OS_LOG_TYPE_DEFAULT, "Event %@, matched at %@.", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_232D6F000, v9, OS_LOG_TYPE_DEFAULT, "Event %@, matched at %@.", &v12, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_persistUserInfo:(id)info forObserverIdentifiers:(id)identifiers
@@ -764,7 +748,7 @@ void __56__TPSEventsHistoryController_removeObserverIdentifiers___block_invoke(i
 
 void __56__TPSEventsHistoryController_removeObserverIdentifiers___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [v6 removeObserverIdentifiers:*(a1 + 32)];
@@ -775,13 +759,11 @@ void __56__TPSEventsHistoryController_removeObserverIdentifiers___block_invoke_2
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v6 description];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_232D6F000, v7, OS_LOG_TYPE_DEFAULT, "Remove unused contextualEvent: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_232D6F000, v7, OS_LOG_TYPE_DEFAULT, "Remove unused contextualEvent: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserverIdentifiers:(id)identifiers fromEventIdentifiers:(id)eventIdentifiers
@@ -825,7 +807,7 @@ void __77__TPSEventsHistoryController_removeObserverIdentifiers_fromEventIdentif
 
 void __77__TPSEventsHistoryController_removeObserverIdentifiers_fromEventIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) contextualEventIdentifierToContextualEventMap];
   v5 = [v4 objectForKeyedSubscript:v3];
@@ -838,18 +820,16 @@ void __77__TPSEventsHistoryController_removeObserverIdentifiers_fromEventIdentif
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [v5 debugDescription];
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_232D6F000, v6, OS_LOG_TYPE_DEFAULT, "Remove unused contextualEvent: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_232D6F000, v6, OS_LOG_TYPE_DEFAULT, "Remove unused contextualEvent: %@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restartTrackingForEventIdentifiers:(id)identifiers date:(id)date
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   dateCopy = date;
   v8 = [(TPSEventsHistoryController *)self contextualEventsForIdentifiers:identifiersCopy];
@@ -868,44 +848,42 @@ void __77__TPSEventsHistoryController_removeObserverIdentifiers_fromEventIdentif
   if (os_log_type_enabled(discoverability, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v25 = identifiersCopy;
-    v26 = 2112;
-    v27 = dateCopy;
+    v24 = identifiersCopy;
+    v25 = 2112;
+    v26 = dateCopy;
     _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "Restart tracking for event identifiers: %@ on %@", buf, 0x16u);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * i);
-        [v17 setMatchedDate:{0, v19}];
+        v17 = *(*(&v18 + 1) + 8 * i);
+        [v17 setMatchedDate:{0, v18}];
         [v17 removeAllObservations];
         [v17 setEventSinceDate:v10];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCacheData
@@ -971,20 +949,18 @@ void __45__TPSEventsHistoryController_removeCacheData__block_invoke(uint64_t a1)
 
 void __81__TPSEventsHistoryController_processEventProviderQueryResults_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 bookmark];
-  OUTLINED_FUNCTION_0_4(&dword_232D6F000, v2, v3, "Bookmark: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_4(&dword_232D6F000, v2, v3, "Bookmark: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __81__TPSEventsHistoryController_processEventProviderQueryResults_completionHandler___block_invoke_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 observationMap];
-  OUTLINED_FUNCTION_0_4(&dword_232D6F000, v2, v3, "Dates: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_4(&dword_232D6F000, v2, v3, "Dates: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

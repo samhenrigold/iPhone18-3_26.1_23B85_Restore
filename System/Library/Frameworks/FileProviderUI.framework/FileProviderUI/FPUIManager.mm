@@ -2,6 +2,7 @@
 + (BOOL)isAction:(id)action eligibleForItems:(id)items;
 + (id)actionsForProviderDomain:(id)domain;
 + (id)authenticationActionForProviderDomain:(id)domain;
++ (id)createFPUIActionWithIdentifier:(id)identifier uiActionProviderIdentifier:(id)providerIdentifier fileProviderIdentifier:(id)fileProviderIdentifier displayName:(id)name predicate:(id)predicate displayInline:(BOOL)inline isNonUIAction:(BOOL)action fpProviderDomain:(id)self0;
 + (id)extensionMatchingDictionaryForItems:(id)items fpProviderDomain:(id)domain;
 + (id)valueForKey:(id)key inActionPlist:(id)plist;
 + (void)getExtensionRecordsForUseCase:(unint64_t)case uiExtensionRecord:(id *)record nonUIExtensionRecord:(id *)extensionRecord forProviderDomain:(id)domain;
@@ -35,234 +36,252 @@
   return v11;
 }
 
++ (id)createFPUIActionWithIdentifier:(id)identifier uiActionProviderIdentifier:(id)providerIdentifier fileProviderIdentifier:(id)fileProviderIdentifier displayName:(id)name predicate:(id)predicate displayInline:(BOOL)inline isNonUIAction:(BOOL)action fpProviderDomain:(id)self0
+{
+  inlineCopy = inline;
+  domainCopy = domain;
+  predicateCopy = predicate;
+  nameCopy = name;
+  fileProviderIdentifierCopy = fileProviderIdentifier;
+  providerIdentifierCopy = providerIdentifier;
+  identifierCopy = identifier;
+  LOBYTE(v24) = action;
+  v22 = [[FPUIAction alloc] initWithIdentifier:identifierCopy uiActionProviderIdentifier:providerIdentifierCopy fileProviderIdentifier:fileProviderIdentifierCopy displayName:nameCopy predicate:predicateCopy displayInline:inlineCopy isNonUIAction:v24 fpProviderDomain:domainCopy];
+
+  return v22;
+}
+
 + (id)valueForKey:(id)key inActionPlist:(id)plist
 {
   keyCopy = key;
   v6 = [plist objectForKeyedSubscript:keyCopy];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = v6;
+    v9 = v6;
   }
 
   else
   {
-    v8 = fpuiLogHandle;
+    v10 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v8 = fpuiLogHandle;
+      FPUIInitLogging(isKindOfClass, v8);
+      v10 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [FPUIManager valueForKey:keyCopy inActionPlist:v8];
+      [(FPUIManager *)keyCopy valueForKey:v10 inActionPlist:v6];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 + (id)actionsForProviderDomain:(id)domain
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
-  v3 = fpuiLogHandle;
+  v55 = domainCopy;
+  v5 = fpuiLogHandle;
   if (!fpuiLogHandle)
   {
-    FPUIInitLogging();
-    v3 = fpuiLogHandle;
+    FPUIInitLogging(domainCopy, v4);
+    v5 = fpuiLogHandle;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [(FPUIManager *)domainCopy actionsForProviderDomain:v3];
+    [(FPUIManager *)v55 actionsForProviderDomain:v5];
   }
 
-  v59 = 0;
-  v60 = 0;
-  [self getExtensionRecordsForUseCase:1 uiExtensionRecord:&v60 nonUIExtensionRecord:&v59 forProviderDomain:domainCopy];
-  v36 = v60;
-  v43 = v59;
-  v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v68 = 0;
+  v69 = 0;
+  [self getExtensionRecordsForUseCase:1 uiExtensionRecord:&v69 nonUIExtensionRecord:&v68 forProviderDomain:v55];
+  v45 = v69;
+  v52 = v68;
+  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
   array = [MEMORY[0x277CBEB18] array];
-  v5 = array;
-  if (v36)
+  v7 = array;
+  if (v45)
   {
-    [array addObject:v36];
+    [array addObject:v45];
   }
 
-  if (v43)
+  if (v52)
   {
-    [v5 addObject:v43];
+    [v7 addObject:v52];
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  obj = v5;
-  v39 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
-  if (v39)
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  obj = v7;
+  v48 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
+  if (v48)
   {
-    v38 = *v56;
+    v47 = *v65;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v48; ++i)
       {
-        if (*v56 != v38)
+        if (*v65 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = *(*(&v55 + 1) + 8 * i);
-        v41 = [v44 fpui_extensionInfoForKey:@"NSExtensionFileProviderActions" ofClass:objc_opt_class()];
-        if (v41)
+        v53 = *(*(&v64 + 1) + 8 * i);
+        v50 = [v53 fpui_extensionInfoForKey:@"NSExtensionFileProviderActions" ofClass:objc_opt_class()];
+        if (v50)
         {
-          v6 = [v44 URL];
+          v9 = [v53 URL];
           bundle = _CFBundleCreateUnique();
 
           if (bundle)
           {
-            v53 = 0u;
-            v54 = 0u;
-            v51 = 0u;
-            v52 = 0u;
-            v45 = v41;
-            v49 = [v45 countByEnumeratingWithState:&v51 objects:v61 count:16];
-            if (!v49)
+            v62 = 0u;
+            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
+            v54 = v50;
+            v58 = [v54 countByEnumeratingWithState:&v60 objects:v70 count:16];
+            if (!v58)
             {
               goto LABEL_55;
             }
 
-            v47 = *v52;
+            v56 = *v61;
             while (1)
             {
-              v7 = 0;
+              v12 = 0;
               do
               {
-                if (*v52 != v47)
+                if (*v61 != v56)
                 {
-                  objc_enumerationMutation(v45);
+                  objc_enumerationMutation(v54);
                 }
 
-                v8 = *(*(&v51 + 1) + 8 * v7);
-                v9 = [self valueForKey:@"NSExtensionFileProviderActionIdentifier" inActionPlist:v8];
-                v10 = [self valueForKey:@"NSExtensionFileProviderActionName" inActionPlist:v8];
-                v11 = [self valueForKey:@"NSExtensionFileProviderActionActivationRule" inActionPlist:v8];
-                v12 = CFBundleCopyLocalizedString(bundle, v10, v10, @"Localizable");
-                v13 = v12;
-                if (v12)
+                v13 = *(*(&v60 + 1) + 8 * v12);
+                v14 = [self valueForKey:@"NSExtensionFileProviderActionIdentifier" inActionPlist:v13];
+                v15 = [self valueForKey:@"NSExtensionFileProviderActionName" inActionPlist:v13];
+                v16 = [self valueForKey:@"NSExtensionFileProviderActionActivationRule" inActionPlist:v13];
+                v17 = CFBundleCopyLocalizedString(bundle, v15, v15, @"Localizable");
+                v18 = v17;
+                if (v17)
                 {
-                  v14 = v12;
-                }
-
-                else
-                {
-                  v14 = v10;
-                }
-
-                v15 = v14;
-
-                if (v9)
-                {
-                  v16 = v10 == 0;
+                  v19 = v17;
                 }
 
                 else
                 {
-                  v16 = 1;
+                  v19 = v15;
                 }
 
-                if (!v16 && v11 != 0)
+                v20 = v19;
+
+                if (v14)
                 {
-                  v18 = [MEMORY[0x277CCAC30] predicateWithValue:1];
-                  if ([v11 length])
+                  v21 = v15 == 0;
+                }
+
+                else
+                {
+                  v21 = 1;
+                }
+
+                if (!v21 && v16 != 0)
+                {
+                  v23 = [MEMORY[0x277CCAC30] predicateWithValue:1];
+                  v24 = [v16 length];
+                  if (v24)
                   {
-                    v19 = v11;
-                    [v19 rangeOfString:@"%"];
-                    if (v20)
+                    v26 = v16;
+                    [v26 rangeOfString:@"%"];
+                    if (v27)
                     {
                       goto LABEL_33;
                     }
 
-                    v21 = [MEMORY[0x277CCAC30] predicateWithFormat:v19];
-                    if (!v21)
+                    v28 = [MEMORY[0x277CCAC30] predicateWithFormat:v26];
+                    if (!v28)
                     {
-                      v27 = fpuiLogHandle;
+                      v37 = fpuiLogHandle;
                       if (!fpuiLogHandle)
                       {
-                        FPUIInitLogging();
-                        v27 = fpuiLogHandle;
+                        FPUIInitLogging(0, v29);
+                        v37 = fpuiLogHandle;
                       }
 
-                      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412290;
-                        v63 = v19;
-                        _os_log_error_impl(&dword_238356000, v27, OS_LOG_TYPE_ERROR, "couldn't get predicate from string: %@", buf, 0xCu);
+                        v72 = v26;
+                        _os_log_error_impl(&dword_238356000, v37, OS_LOG_TYPE_ERROR, "couldn't get predicate from string: %@", buf, 0xCu);
                       }
 
 LABEL_33:
-                      v21 = 0;
+                      v28 = 0;
                     }
                   }
 
                   else
                   {
-                    v21 = v18;
+                    v28 = v23;
                   }
 
-                  if (v21)
+                  if (v28)
                   {
-                    bundleIdentifier = [v44 bundleIdentifier];
-                    providerID = [domainCopy providerID];
-                    LOBYTE(v35) = v44 == v43;
-                    v24 = [FPUIManager createFPUIActionWithIdentifier:v9 uiActionProviderIdentifier:bundleIdentifier fileProviderIdentifier:providerID displayName:v15 predicate:v21 displayInline:0 isNonUIAction:v35 fpProviderDomain:domainCopy];
+                    bundleIdentifier = [v53 bundleIdentifier];
+                    providerID = [v55 providerID];
+                    LOBYTE(v44) = v53 == v52;
+                    v32 = [FPUIManager createFPUIActionWithIdentifier:v14 uiActionProviderIdentifier:bundleIdentifier fileProviderIdentifier:providerID displayName:v20 predicate:v28 displayInline:0 isNonUIAction:v44 fpProviderDomain:v55];
 
-                    [v42 addObject:v24];
-                    v25 = fpuiLogHandle;
+                    v33 = [v51 addObject:v32];
+                    v35 = fpuiLogHandle;
                     if (!fpuiLogHandle)
                     {
-                      FPUIInitLogging();
-                      v25 = fpuiLogHandle;
+                      FPUIInitLogging(v33, v34);
+                      v35 = fpuiLogHandle;
                     }
 
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+                    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
-                      v63 = v9;
-                      _os_log_error_impl(&dword_238356000, v25, OS_LOG_TYPE_ERROR, "Found action for %{public}@", buf, 0xCu);
+                      v72 = v14;
+                      _os_log_error_impl(&dword_238356000, v35, OS_LOG_TYPE_ERROR, "Found action for %{public}@", buf, 0xCu);
                     }
                   }
 
                   else
                   {
-                    v26 = fpuiLogHandle;
+                    v36 = fpuiLogHandle;
                     if (!fpuiLogHandle)
                     {
-                      FPUIInitLogging();
-                      v26 = fpuiLogHandle;
+                      FPUIInitLogging(v24, v25);
+                      v36 = fpuiLogHandle;
                     }
 
-                    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
-                      v63 = v9;
-                      _os_log_error_impl(&dword_238356000, v26, OS_LOG_TYPE_ERROR, "Invalid activation rule for %{public}@", buf, 0xCu);
+                      v72 = v14;
+                      _os_log_error_impl(&dword_238356000, v36, OS_LOG_TYPE_ERROR, "Invalid activation rule for %{public}@", buf, 0xCu);
                     }
                   }
                 }
 
-                ++v7;
+                ++v12;
               }
 
-              while (v49 != v7);
-              v28 = [v45 countByEnumeratingWithState:&v51 objects:v61 count:16];
-              v49 = v28;
-              if (!v28)
+              while (v58 != v12);
+              v38 = [v54 countByEnumeratingWithState:&v60 objects:v70 count:16];
+              v58 = v38;
+              if (!v38)
               {
 LABEL_55:
 
@@ -272,99 +291,99 @@ LABEL_55:
             }
           }
 
-          v30 = fpuiLogHandle;
+          v40 = fpuiLogHandle;
           if (!fpuiLogHandle)
           {
-            FPUIInitLogging();
-            v30 = fpuiLogHandle;
+            FPUIInitLogging(v10, v11);
+            v40 = fpuiLogHandle;
           }
 
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
-            v31 = v30;
-            v32 = [v44 URL];
+            v41 = v40;
+            v42 = [v53 URL];
             *buf = 138543618;
-            v63 = domainCopy;
-            v64 = 2112;
-            v65 = v32;
-            _os_log_error_impl(&dword_238356000, v31, OS_LOG_TYPE_ERROR, "No extension bundle found for domain: %{public}@ at url %@", buf, 0x16u);
+            v72 = v55;
+            v73 = 2112;
+            v74 = v42;
+            _os_log_error_impl(&dword_238356000, v41, OS_LOG_TYPE_ERROR, "No extension bundle found for domain: %{public}@ at url %@", buf, 0x16u);
           }
         }
 
         else
         {
-          v29 = fpuiLogHandle;
+          v39 = fpuiLogHandle;
           if (!fpuiLogHandle)
           {
-            FPUIInitLogging();
-            v29 = fpuiLogHandle;
+            FPUIInitLogging(0, v8);
+            v39 = fpuiLogHandle;
           }
 
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v63 = domainCopy;
-            _os_log_error_impl(&dword_238356000, v29, OS_LOG_TYPE_ERROR, "No action plists found for domain: %{public}@", buf, 0xCu);
+            v72 = v55;
+            _os_log_error_impl(&dword_238356000, v39, OS_LOG_TYPE_ERROR, "No action plists found for domain: %{public}@", buf, 0xCu);
           }
         }
 
 LABEL_64:
       }
 
-      v39 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
+      v48 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
     }
 
-    while (v39);
+    while (v48);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v42;
+  return v51;
 }
 
 + (BOOL)isAction:(id)action eligibleForItems:(id)items
 {
   selfCopy = self;
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   itemsCopy = items;
   predicate = [actionCopy predicate];
   if (predicate)
   {
-    v24 = 0u;
-    v25 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v7 = itemsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
-      v9 = *v23;
-      v10 = 0x278A51000uLL;
+      v9 = *v20;
       while (2)
       {
-        v11 = 0;
-        v12 = *(v10 + 3752);
-        do
+        for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * v11);
-          if ((objc_opt_respondsToSelector() & 1) != 0 && ![v13 isKnownByTheProvider] || (objc_msgSend(actionCopy, "fileProviderIdentifier", selfCopy), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "providerID"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, !v16))
+          v11 = *(*(&v19 + 1) + 8 * i);
+          if ((objc_opt_respondsToSelector() & 1) == 0 || [v11 isKnownByTheProvider])
           {
-            v17 = 0;
-            goto LABEL_15;
+            fileProviderIdentifier = [actionCopy fileProviderIdentifier];
+            providerID = [v11 providerID];
+            v14 = [fileProviderIdentifier isEqualToString:providerID];
+
+            if (v14)
+            {
+              continue;
+            }
           }
 
-          ++v11;
+          v15 = 0;
+          goto LABEL_15;
         }
 
-        while (v8 != v11);
-        v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
-        v10 = 0x278A51000;
+        v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v8)
         {
           continue;
@@ -375,22 +394,21 @@ LABEL_64:
     }
 
     v7 = [selfCopy extensionMatchingDictionaryForItems:v7 fpProviderDomain:0];
-    v17 = [predicate evaluateWithObject:v7];
+    v15 = [predicate evaluateWithObject:v7];
 LABEL_15:
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v15;
 }
 
 + (void)getExtensionRecordsForUseCase:(unint64_t)case uiExtensionRecord:(id *)record nonUIExtensionRecord:(id *)extensionRecord forProviderDomain:(id)domain
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   providerID = [domainCopy providerID];
   v11 = [providerID isEqualToString:@"com.apple.CloudDocs.MobileDocumentsFileProvider"];
@@ -433,28 +451,28 @@ LABEL_15:
         fpui_containingApplicationRecord = [v16 fpui_containingApplicationRecord];
         if (fpui_containingApplicationRecord)
         {
-          v32 = fpui_containingApplicationRecord;
+          v31 = fpui_containingApplicationRecord;
           recordCopy = record;
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
           v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           obj = [fpui_containingApplicationRecord applicationExtensionRecords];
-          v21 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v21 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v35;
+            v23 = *v34;
             while (2)
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v35 != v23)
+                if (*v34 != v23)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v25 = *(*(&v34 + 1) + 8 * i);
+                v25 = *(*(&v33 + 1) + 8 * i);
                 v26 = [v25 fpui_extensionInfoForKey:@"NSExtensionPointIdentifier" ofClass:objc_opt_class()];
                 if ([v26 isEqualToString:@"com.apple.fileprovider-actionsui"])
                 {
@@ -473,7 +491,7 @@ LABEL_15:
                 }
               }
 
-              v22 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+              v22 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
               if (v22)
               {
                 continue;
@@ -485,93 +503,84 @@ LABEL_15:
 
 LABEL_25:
 
-          fpui_containingApplicationRecord = v32;
+          fpui_containingApplicationRecord = v31;
         }
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 + (id)extensionMatchingDictionaryForItems:(id)items fpProviderDomain:(id)domain
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   domainCopy = domain;
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
-        v14 = objc_autoreleasePoolPush();
-        v15 = FPExtensionMatchingDictionaryForItem();
-        [v7 addObject:{v15, v19}];
+        v13 = objc_autoreleasePoolPush();
+        v14 = FPExtensionMatchingDictionaryForItem();
+        [v7 addObject:{v14, v17}];
 
-        objc_autoreleasePoolPop(v14);
+        objc_autoreleasePoolPop(v13);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
-  v16 = objc_opt_new();
-  [v16 setObject:v7 forKey:@"fileproviderItems"];
+  v15 = objc_opt_new();
+  [v15 setObject:v7 forKey:@"fileproviderItems"];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
-+ (void)valueForKey:(uint64_t)a1 inActionPlist:(void *)a2 .cold.1(uint64_t a1, void *a2)
++ (void)valueForKey:(uint64_t)a3 inActionPlist:.cold.1(uint64_t a1, void *a2, uint64_t a3)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v3 = a2;
+  v4 = a2;
   v5 = 138543618;
   v6 = a1;
   v7 = 2114;
   v8 = objc_opt_class();
-  _os_log_error_impl(&dword_238356000, v3, OS_LOG_TYPE_ERROR, "Invalid value for %{public}@ got %{public}@ expected string", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238356000, v4, OS_LOG_TYPE_ERROR, "Invalid value for %{public}@ got %{public}@ expected string", &v5, 0x16u);
 }
 
 + (void)actionsForProviderDomain:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_238356000, a2, OS_LOG_TYPE_DEBUG, "Getting actionsForProviderDomain: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_238356000, a2, OS_LOG_TYPE_DEBUG, "Getting actionsForProviderDomain: %{public}@", &v2, 0xCu);
 }
 
 + (void)isAction:(os_log_t)log eligibleForItems:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_238356000, log, OS_LOG_TYPE_ERROR, "Predicate evaluation threw an exception. Predicate: %@, Exception: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_238356000, log, OS_LOG_TYPE_ERROR, "Predicate evaluation threw an exception. Predicate: %@, Exception: %@", &v3, 0x16u);
 }
 
 @end

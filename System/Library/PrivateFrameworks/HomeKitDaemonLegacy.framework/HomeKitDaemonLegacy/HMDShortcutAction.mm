@@ -66,7 +66,7 @@
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -100,9 +100,9 @@
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v23 = v17;
-        v24 = 2112;
-        v25 = v14;
+        v22 = v17;
+        v23 = 2112;
+        v24 = v14;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to process model update with error: %@", buf, 0x16u);
       }
 
@@ -120,12 +120,10 @@
 
   else
   {
-    v21.receiver = self;
-    v21.super_class = HMDShortcutAction;
-    [(HMDAction *)&v21 transactionObjectUpdated:updatedCopy newValues:v11 message:messageCopy];
+    v20.receiver = self;
+    v20.super_class = HMDShortcutAction;
+    [(HMDAction *)&v20 transactionObjectUpdated:updatedCopy newValues:v11 message:messageCopy];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
@@ -224,7 +222,7 @@
         v19 = [(HMDAction *)&v25 initWithUUID:uuid actionSet:parentCopy];
         if (v19)
         {
-          v20 = [data copy];
+          v20 = objc_msgSend_copy(data);
           __HMDShortcutActionInitializeWithSerializedShortcut(v19, v20);
         }
 
@@ -319,19 +317,19 @@ LABEL_34:
 
 BOOL __39__HMDShortcutAction_isUnsecuringAction__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   if (v2)
   {
     v4 = +[HMDHAPMetadata getSharedInstance];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __61__HMDShortcutAction_doesAnyCharacteristicTupleUnsecureAHome___block_invoke;
-    v21[3] = &unk_279720BC8;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __61__HMDShortcutAction_doesAnyCharacteristicTupleUnsecureAHome___block_invoke;
+    v20[3] = &unk_279720BC8;
     v5 = v4;
-    v22 = v5;
-    Property = [v3 na_firstObjectPassingTest:v21];
+    v21 = v5;
+    Property = [v3 na_firstObjectPassingTest:v20];
     v8 = Property;
     if (Property)
     {
@@ -352,16 +350,16 @@ BOOL __39__HMDShortcutAction_isUnsecuringAction__block_invoke(uint64_t a1, void 
       v17 = v16;
       v18 = @"does not";
       *buf = 138543874;
-      v24 = v14;
-      v25 = 2112;
+      v23 = v14;
+      v24 = 2112;
       if (v9)
       {
         v18 = &stru_286509E58;
       }
 
-      v26 = v16;
-      v27 = 2112;
-      v28 = v18;
+      v25 = v16;
+      v26 = 2112;
+      v27 = v18;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[%@] %@ requires device to be unlock", buf, 0x20u);
     }
 
@@ -373,23 +371,22 @@ BOOL __39__HMDShortcutAction_isUnsecuringAction__block_invoke(uint64_t a1, void 
     v10 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t __39__HMDShortcutAction_isUnsecuringAction__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   if (v2)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __58__HMDShortcutAction_doesActionSetContainUnsecuringAction___block_invoke;
-    v12[3] = &unk_27972F278;
-    v12[4] = v2;
-    v4 = [(HMDShortcutAction *)v2 doesActionSetContainItemsPassingTest:v12 actionSetUUIDs:v3];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __58__HMDShortcutAction_doesActionSetContainUnsecuringAction___block_invoke;
+    v11[3] = &unk_27972F278;
+    v11[4] = v2;
+    v4 = [(HMDShortcutAction *)v2 doesActionSetContainItemsPassingTest:v11 actionSetUUIDs:v3];
     v5 = objc_autoreleasePoolPush();
     v6 = v2;
     v7 = HMFGetOSLogHandle();
@@ -398,9 +395,9 @@ uint64_t __39__HMDShortcutAction_isUnsecuringAction__block_invoke_2(uint64_t a1,
       v8 = HMFGetLogIdentifier();
       v9 = HMFBooleanToString();
       *buf = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Does this shortcut action contain any unsecuring actions: [%@]", buf, 0x16u);
     }
 
@@ -412,16 +409,15 @@ uint64_t __39__HMDShortcutAction_isUnsecuringAction__block_invoke_2(uint64_t a1,
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (uint64_t)doesAnyCharacteristicWriteTuplePassTest:(void *)test orDoesAnyActionSetPassTest:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   testCopy = test;
-  if (self && WorkflowKitLibraryCore())
+  if (self && WorkflowKitLibraryCore(0))
   {
     context = objc_autoreleasePoolPush();
     v7 = objc_autoreleasePoolPush();
@@ -431,7 +427,7 @@ uint64_t __39__HMDShortcutAction_isUnsecuringAction__block_invoke_2(uint64_t a1,
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v10;
+      v30 = v10;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Shortcuts framework is available on this OS", buf, 0xCu);
     }
 
@@ -470,7 +466,7 @@ uint64_t __39__HMDShortcutAction_isUnsecuringAction__block_invoke_2(uint64_t a1,
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v22;
+        v30 = v22;
         v23 = "%{public}@There are no characteristics or actionSets present in this shortcut.";
         v24 = v21;
         v25 = OS_LOG_TYPE_INFO;
@@ -488,11 +484,11 @@ uint64_t __39__HMDShortcutAction_isUnsecuringAction__block_invoke_2(uint64_t a1,
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v31 = v22;
-        v32 = 2112;
-        v33 = homeIdentifier;
-        v34 = 2112;
-        v35 = home;
+        v30 = v22;
+        v31 = 2112;
+        v32 = homeIdentifier;
+        v33 = 2112;
+        v34 = home;
         v23 = "%{public}@This shortcut action does not belong to this home. Current: %@, Expected Home UUID: %@";
         v24 = v21;
         v25 = OS_LOG_TYPE_ERROR;
@@ -513,13 +509,12 @@ LABEL_16:
   v18 = 0;
 LABEL_17:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)getCharacteristicsAndActionSetsFromShortcut:(void *)shortcut characteristicWriteTuples:(void *)tuples homeUUID:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   shortcutCopy = shortcut;
   tuplesCopy = tuples;
@@ -533,24 +528,24 @@ LABEL_17:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v14;
-      v32 = 2112;
-      v33 = shortcutsDictionaryRepresentations;
+      v30 = v14;
+      v31 = 2112;
+      v32 = shortcutsDictionaryRepresentations;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Going to deserialize shortcut dictionary [%@]", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __100__HMDShortcutAction_getCharacteristicsAndActionSetsFromShortcut_characteristicWriteTuples_homeUUID___block_invoke;
-    v26[3] = &unk_279720BF0;
-    v26[4] = selfCopy;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __100__HMDShortcutAction_getCharacteristicsAndActionSetsFromShortcut_characteristicWriteTuples_homeUUID___block_invoke;
+    v25[3] = &unk_279720BF0;
+    v25[4] = selfCopy;
     v15 = v7;
-    v27 = v15;
+    v26 = v15;
     v16 = shortcutCopy;
-    v28 = v16;
-    v29 = tuplesCopy;
-    [shortcutsDictionaryRepresentations hmf_enumerateWithAutoreleasePoolUsingBlock:v26];
+    v27 = v16;
+    v28 = tuplesCopy;
+    [shortcutsDictionaryRepresentations hmf_enumerateWithAutoreleasePoolUsingBlock:v25];
     v17 = objc_autoreleasePoolPush();
     v18 = selfCopy;
     v19 = HMFGetOSLogHandle();
@@ -558,9 +553,9 @@ LABEL_17:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v15;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v15;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Found actionSets from shortcut dictionary : %@", buf, 0x16u);
     }
 
@@ -572,21 +567,19 @@ LABEL_17:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v16;
+      v30 = v24;
+      v31 = 2112;
+      v32 = v16;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Found characteristics from shortcut dictionary : %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unpackActionsAndActionSets:(void *)sets actionSets:(void *)actionSets characteristicWriteTuples:(void *)tuples homeUUID:
 {
-  v240 = *MEMORY[0x277D85DE8];
+  v239 = *MEMORY[0x277D85DE8];
   v9 = a2;
   setsCopy = sets;
   actionSetsCopy = actionSets;
@@ -621,9 +614,9 @@ LABEL_17:
           goto LABEL_159;
         }
 
-        v199 = v15;
+        v198 = v15;
         v16 = [objc_alloc(MEMORY[0x277CD1CC8]) initWithData:v15];
-        v200 = v16;
+        v199 = v16;
         if (!v16)
         {
           v159 = objc_autoreleasePoolPush();
@@ -638,7 +631,7 @@ LABEL_17:
           }
 
           objc_autoreleasePoolPop(v159);
-          v154 = v199;
+          v154 = v198;
           goto LABEL_158;
         }
 
@@ -647,7 +640,7 @@ LABEL_17:
         uuid = [v16 uuid];
         v20 = [v17 hmf_UUIDWithBytesAsData:uuid];
 
-        v204 = v20;
+        v203 = v20;
         if (v20)
         {
           if ([v18 hasHomeUUID])
@@ -658,43 +651,43 @@ LABEL_17:
 
             if (v23)
             {
-              v193 = v23;
+              v192 = v23;
               if ([tuplesCopy isEqual:v23])
               {
-                v181 = setsCopy;
-                v182 = v9;
-                [setsCopy addObject:v204];
+                v180 = setsCopy;
+                v181 = v9;
+                [setsCopy addObject:v203];
                 actionSet = [self actionSet];
                 home = [actionSet home];
 
-                v214 = 0u;
-                v215 = 0u;
-                v212 = 0u;
                 v213 = 0u;
-                obj = [v200 actions];
-                v25 = [obj countByEnumeratingWithState:&v212 objects:v224 count:16];
+                v214 = 0u;
+                v211 = 0u;
+                v212 = 0u;
+                obj = [v199 actions];
+                v25 = [obj countByEnumeratingWithState:&v211 objects:v223 count:16];
                 if (!v25)
                 {
                   goto LABEL_132;
                 }
 
                 v27 = v25;
-                v28 = *v213;
+                v28 = *v212;
                 *&v26 = 138544130;
-                v178 = v26;
-                v206 = *v213;
+                v177 = v26;
+                v205 = *v212;
                 while (1)
                 {
                   v29 = 0;
-                  v209 = v27;
+                  v208 = v27;
                   do
                   {
-                    if (*v213 != v28)
+                    if (*v212 != v28)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v30 = *(*(&v212 + 1) + 8 * v29);
+                    v30 = *(*(&v211 + 1) + 8 * v29);
                     if ([v30 type] != 1)
                     {
                       v66 = 0;
@@ -736,41 +729,41 @@ LABEL_17:
                           if ([serviceReference hasAccessoryReference])
                           {
                             accessoryReference = [serviceReference accessoryReference];
-                            v198 = accessoryReference;
+                            v197 = accessoryReference;
                             if ([accessoryReference hasUniqueIdentifier])
                             {
                               if ([accessoryReference hasHomeReference])
                               {
-                                v201 = serviceReference;
+                                v200 = serviceReference;
                                 v39 = MEMORY[0x277CCAD78];
                                 uniqueIdentifier2 = [accessoryReference uniqueIdentifier];
                                 v41 = [v39 hmf_UUIDWithBytesAsData:uniqueIdentifier2];
 
-                                v197 = v41;
+                                v196 = v41;
                                 if (v41)
                                 {
                                   homeReference = [accessoryReference homeReference];
-                                  v192 = homeReference;
+                                  v191 = homeReference;
                                   if ([homeReference hasUniqueIdentifier])
                                   {
                                     v43 = MEMORY[0x277CCAD78];
                                     uniqueIdentifier3 = [homeReference uniqueIdentifier];
-                                    v185 = [v43 hmf_UUIDWithBytesAsData:uniqueIdentifier3];
+                                    v184 = [v43 hmf_UUIDWithBytesAsData:uniqueIdentifier3];
 
                                     uniqueIdentifier4 = [homeReference uniqueIdentifier];
 
                                     if (uniqueIdentifier4)
                                     {
                                       spiClientIdentifier = [v32 spiClientIdentifier];
-                                      v47 = v185;
-                                      v48 = [v185 isEqual:spiClientIdentifier];
+                                      v47 = v184;
+                                      v48 = [v184 isEqual:spiClientIdentifier];
 
-                                      if (v48 & 1) != 0 || ([v32 uuid], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v185, "isEqual:", v49), v49, (v50))
+                                      if (v48 & 1) != 0 || ([v32 uuid], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v184, "isEqual:", v49), v49, (v50))
                                       {
-                                        v51 = [v32 accessoryWithSPIClientIdentifier:v197];
+                                        v51 = [v32 accessoryWithSPIClientIdentifier:v196];
                                         if (!v51)
                                         {
-                                          v51 = [v32 accessoryWithUUID:v197];
+                                          v51 = [v32 accessoryWithUUID:v196];
                                         }
 
                                         v52 = v51;
@@ -786,13 +779,13 @@ LABEL_17:
                                         }
 
                                         v54 = v53;
-                                        v179 = v52;
+                                        v178 = v52;
 
-                                        v180 = v54;
+                                        v179 = v54;
                                         if (v54)
                                         {
                                           v55 = MEMORY[0x277CCAD78];
-                                          uniqueIdentifier5 = [v201 uniqueIdentifier];
+                                          uniqueIdentifier5 = [v200 uniqueIdentifier];
                                           v57 = [v55 hmf_UUIDWithBytesAsData:uniqueIdentifier5];
 
                                           context = v57;
@@ -810,48 +803,48 @@ LABEL_17:
                                             }
 
                                             objc_autoreleasePoolPop(v58);
-                                            v54 = v180;
+                                            v54 = v179;
                                           }
 
-                                          v222 = 0u;
-                                          v223 = 0u;
-                                          v220 = 0u;
                                           v221 = 0u;
+                                          v222 = 0u;
+                                          v219 = 0u;
+                                          v220 = 0u;
                                           services = [v54 services];
-                                          serviceReference = v201;
-                                          v188 = [services countByEnumeratingWithState:&v220 objects:buf count:16];
-                                          if (v188)
+                                          serviceReference = v200;
+                                          v187 = [services countByEnumeratingWithState:&v219 objects:buf count:16];
+                                          if (v187)
                                           {
-                                            v186 = *v221;
+                                            v185 = *v220;
 LABEL_40:
                                             v62 = 0;
                                             while (1)
                                             {
-                                              if (*v221 != v186)
+                                              if (*v220 != v185)
                                               {
                                                 objc_enumerationMutation(services);
                                               }
 
-                                              v194 = *(*(&v220 + 1) + 8 * v62);
-                                              uuid2 = [v194 uuid];
+                                              v193 = *(*(&v219 + 1) + 8 * v62);
+                                              uuid2 = [v193 uuid];
                                               if ([uuid2 isEqual:context])
                                               {
                                                 break;
                                               }
 
-                                              spiClientIdentifier2 = [v194 spiClientIdentifier];
+                                              spiClientIdentifier2 = [v193 spiClientIdentifier];
                                               v65 = [spiClientIdentifier2 isEqual:context];
 
-                                              serviceReference = v201;
+                                              serviceReference = v200;
                                               if (v65)
                                               {
                                                 goto LABEL_86;
                                               }
 
-                                              if (v188 == ++v62)
+                                              if (v187 == ++v62)
                                               {
-                                                v188 = [services countByEnumeratingWithState:&v220 objects:buf count:16];
-                                                if (v188)
+                                                v187 = [services countByEnumeratingWithState:&v219 objects:buf count:16];
+                                                if (v187)
                                                 {
                                                   goto LABEL_40;
                                                 }
@@ -861,33 +854,33 @@ LABEL_40:
                                             }
 
 LABEL_86:
-                                            v113 = v194;
+                                            v113 = v193;
 
                                             if (!v113)
                                             {
                                               goto LABEL_96;
                                             }
 
-                                            v218 = 0u;
-                                            v219 = 0u;
-                                            v216 = 0u;
                                             v217 = 0u;
-                                            v184 = v113;
+                                            v218 = 0u;
+                                            v215 = 0u;
+                                            v216 = 0u;
+                                            v183 = v113;
                                             characteristics = [v113 characteristics];
-                                            v196 = [characteristics countByEnumeratingWithState:&v216 objects:v229 count:16];
-                                            if (v196)
+                                            v195 = [characteristics countByEnumeratingWithState:&v215 objects:v228 count:16];
+                                            if (v195)
                                             {
-                                              v189 = *v217;
+                                              v188 = *v216;
 LABEL_89:
                                               v114 = 0;
                                               while (1)
                                               {
-                                                if (*v217 != v189)
+                                                if (*v216 != v188)
                                                 {
                                                   objc_enumerationMutation(characteristics);
                                                 }
 
-                                                v115 = *(*(&v216 + 1) + 8 * v114);
+                                                v115 = *(*(&v215 + 1) + 8 * v114);
                                                 spiClientIdentifier3 = [v115 spiClientIdentifier];
                                                 v117 = [spiClientIdentifier3 isEqual:v36];
 
@@ -897,11 +890,11 @@ LABEL_89:
                                                 }
 
                                                 ++v114;
-                                                serviceReference = v201;
-                                                if (v196 == v114)
+                                                serviceReference = v200;
+                                                if (v195 == v114)
                                                 {
-                                                  v196 = [characteristics countByEnumeratingWithState:&v216 objects:v229 count:16];
-                                                  if (v196)
+                                                  v195 = [characteristics countByEnumeratingWithState:&v215 objects:v228 count:16];
+                                                  if (v195)
                                                   {
                                                     goto LABEL_89;
                                                   }
@@ -912,7 +905,7 @@ LABEL_89:
 
                                               v66 = v115;
 
-                                              serviceReference = v201;
+                                              serviceReference = v200;
                                               if (v66)
                                               {
                                                 goto LABEL_103;
@@ -930,13 +923,13 @@ LABEL_95:
                                             if (os_log_type_enabled(v124, OS_LOG_TYPE_INFO))
                                             {
                                               v125 = HMFGetLogIdentifier();
-                                              *v225 = 138543618;
-                                              v226 = v125;
-                                              v227 = 2112;
-                                              v228 = v36;
-                                              _os_log_impl(&dword_2531F8000, v124, OS_LOG_TYPE_INFO, "%{public}@Unable to find the characteristic with uniqueIdentifier: %@", v225, 0x16u);
+                                              *v224 = 138543618;
+                                              v225 = v125;
+                                              v226 = 2112;
+                                              v227 = v36;
+                                              _os_log_impl(&dword_2531F8000, v124, OS_LOG_TYPE_INFO, "%{public}@Unable to find the characteristic with uniqueIdentifier: %@", v224, 0x16u);
 
-                                              serviceReference = v201;
+                                              serviceReference = v200;
                                             }
 
                                             objc_autoreleasePoolPop(v122);
@@ -955,13 +948,13 @@ LABEL_96:
                                             if (os_log_type_enabled(v120, OS_LOG_TYPE_INFO))
                                             {
                                               v121 = HMFGetLogIdentifier();
-                                              *v229 = 138543618;
-                                              v230 = v121;
-                                              v231 = 2112;
-                                              v232 = context;
-                                              _os_log_impl(&dword_2531F8000, v120, OS_LOG_TYPE_INFO, "%{public}@Unable to find the service with uniqueIdentifier : %@", v229, 0x16u);
+                                              *v228 = 138543618;
+                                              v229 = v121;
+                                              v230 = 2112;
+                                              v231 = context;
+                                              _os_log_impl(&dword_2531F8000, v120, OS_LOG_TYPE_INFO, "%{public}@Unable to find the service with uniqueIdentifier : %@", v228, 0x16u);
 
-                                              serviceReference = v201;
+                                              serviceReference = v200;
                                             }
 
                                             objc_autoreleasePoolPop(v118);
@@ -980,17 +973,17 @@ LABEL_96:
                                             *buf = 138543618;
                                             *&buf[4] = v108;
                                             *&buf[12] = 2112;
-                                            *&buf[14] = v197;
+                                            *&buf[14] = v196;
                                             _os_log_impl(&dword_2531F8000, v107, OS_LOG_TYPE_ERROR, "%{public}@Can't find accessory %@", buf, 0x16u);
                                           }
 
                                           objc_autoreleasePoolPop(v105);
                                           v66 = 0;
-                                          serviceReference = v201;
+                                          serviceReference = v200;
                                         }
 
-                                        accessoryReference = v198;
-                                        v47 = v185;
+                                        accessoryReference = v197;
+                                        v47 = v184;
                                       }
 
                                       else
@@ -1003,23 +996,23 @@ LABEL_96:
                                           v110 = HMFGetLogIdentifier();
                                           spiClientIdentifier4 = [v32 spiClientIdentifier];
                                           uuid3 = [v32 uuid];
-                                          *buf = v178;
+                                          *buf = v177;
                                           *&buf[4] = v110;
                                           *&buf[12] = 2112;
-                                          *&buf[14] = v185;
-                                          v234 = 2112;
-                                          v235 = spiClientIdentifier4;
-                                          v236 = 2112;
-                                          v237 = uuid3;
+                                          *&buf[14] = v184;
+                                          v233 = 2112;
+                                          v234 = spiClientIdentifier4;
+                                          v235 = 2112;
+                                          v236 = uuid3;
                                           _os_log_impl(&dword_2531F8000, v109, OS_LOG_TYPE_ERROR, "%{public}@Trying to dereference characteristic reference from different home [Looking for :%@] against [spiIdenfitifer : %@], [UUID : %@]", buf, 0x2Au);
 
-                                          v47 = v185;
-                                          accessoryReference = v198;
+                                          v47 = v184;
+                                          accessoryReference = v197;
                                         }
 
                                         objc_autoreleasePoolPop(contexta);
                                         v66 = 0;
-                                        serviceReference = v201;
+                                        serviceReference = v200;
                                       }
                                     }
 
@@ -1038,9 +1031,9 @@ LABEL_96:
 
                                       objc_autoreleasePoolPop(v101);
                                       v66 = 0;
-                                      serviceReference = v201;
-                                      accessoryReference = v198;
-                                      v47 = v185;
+                                      serviceReference = v200;
+                                      accessoryReference = v197;
+                                      v47 = v184;
                                     }
                                   }
 
@@ -1059,8 +1052,8 @@ LABEL_96:
 
                                     objc_autoreleasePoolPop(v97);
                                     v66 = 0;
-                                    serviceReference = v201;
-                                    accessoryReference = v198;
+                                    serviceReference = v200;
+                                    accessoryReference = v197;
                                   }
                                 }
 
@@ -1079,8 +1072,8 @@ LABEL_96:
 
                                   objc_autoreleasePoolPop(v93);
                                   v66 = 0;
-                                  serviceReference = v201;
-                                  accessoryReference = v198;
+                                  serviceReference = v200;
+                                  accessoryReference = v197;
                                 }
 
 LABEL_109:
@@ -1096,7 +1089,7 @@ LABEL_111:
                               if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
                               {
                                 HMFGetLogIdentifier();
-                                v203 = v32;
+                                v202 = v32;
                                 v88 = v36;
                                 v90 = v89 = serviceReference;
                                 *buf = 138543362;
@@ -1108,7 +1101,7 @@ LABEL_68:
 
                                 serviceReference = v89;
                                 v36 = v88;
-                                v32 = v203;
+                                v32 = v202;
                               }
                             }
 
@@ -1120,7 +1113,7 @@ LABEL_68:
                               if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
                               {
                                 HMFGetLogIdentifier();
-                                v203 = v32;
+                                v202 = v32;
                                 v88 = v36;
                                 v90 = v89 = serviceReference;
                                 *buf = 138543362;
@@ -1133,7 +1126,7 @@ LABEL_68:
 
                             objc_autoreleasePoolPop(v85);
                             v66 = 0;
-                            accessoryReference = v198;
+                            accessoryReference = v197;
                             goto LABEL_109;
                           }
 
@@ -1143,7 +1136,7 @@ LABEL_68:
                           if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
                           {
                             HMFGetLogIdentifier();
-                            v202 = v32;
+                            v201 = v32;
                             v80 = v36;
                             v82 = v81 = serviceReference;
                             *buf = 138543362;
@@ -1155,7 +1148,7 @@ LABEL_62:
 
                             serviceReference = v81;
                             v36 = v80;
-                            v32 = v202;
+                            v32 = v201;
                           }
                         }
 
@@ -1167,7 +1160,7 @@ LABEL_62:
                           if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
                           {
                             HMFGetLogIdentifier();
-                            v202 = v32;
+                            v201 = v32;
                             v80 = v36;
                             v82 = v81 = serviceReference;
                             *buf = 138543362;
@@ -1221,9 +1214,9 @@ LABEL_112:
                     v126 = MEMORY[0x277CCAAC8];
                     allowedTargetValueClassesForShortcuts = [MEMORY[0x277CD19A8] allowedTargetValueClassesForShortcuts];
                     targetValue = [characteristicWriteAction targetValue];
-                    v211 = 0;
-                    v129 = [v126 unarchivedObjectOfClasses:allowedTargetValueClassesForShortcuts fromData:targetValue error:&v211];
-                    v130 = v211;
+                    v210 = 0;
+                    v129 = [v126 unarchivedObjectOfClasses:allowedTargetValueClassesForShortcuts fromData:targetValue error:&v210];
+                    v130 = v210;
 
                     if (v130)
                     {
@@ -1237,12 +1230,12 @@ LABEL_112:
                         *&buf[4] = v134;
                         *&buf[12] = 2112;
                         *&buf[14] = v130;
-                        v234 = 2112;
-                        v235 = v66;
-                        v236 = 2112;
-                        v237 = v204;
-                        v238 = 2112;
-                        v239 = tuplesCopy;
+                        v233 = 2112;
+                        v234 = v66;
+                        v235 = 2112;
+                        v236 = v203;
+                        v237 = 2112;
+                        v238 = tuplesCopy;
                         _os_log_impl(&dword_2531F8000, v133, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive allowed target value from target value data (%@) for characteristic: %@ in action set: %@ home: %@", buf, 0x34u);
                       }
 
@@ -1251,7 +1244,7 @@ LABEL_112:
 
                     if (v66)
                     {
-                      v28 = v206;
+                      v28 = v205;
                       if (v129)
                       {
                         v135 = [HMDCharacteristicWriteTuple alloc];
@@ -1290,13 +1283,13 @@ LABEL_112:
                         objc_autoreleasePoolPop(v143);
                       }
 
-                      v27 = v209;
+                      v27 = v208;
                       goto LABEL_130;
                     }
 
                     v66 = v129;
-                    v27 = v209;
-                    v28 = v206;
+                    v27 = v208;
+                    v28 = v205;
 LABEL_123:
                     v139 = objc_autoreleasePoolPush();
                     selfCopy20 = self;
@@ -1316,13 +1309,13 @@ LABEL_130:
                   }
 
                   while (v29 != v27);
-                  v27 = [obj countByEnumeratingWithState:&v212 objects:v224 count:16];
+                  v27 = [obj countByEnumeratingWithState:&v211 objects:v223 count:16];
                   if (!v27)
                   {
 LABEL_132:
 
-                    setsCopy = v181;
-                    v9 = v182;
+                    setsCopy = v180;
+                    v9 = v181;
                     goto LABEL_155;
                   }
                 }
@@ -1338,15 +1331,15 @@ LABEL_132:
                 *&buf[4] = v176;
                 *&buf[12] = 2112;
                 *&buf[14] = tuplesCopy;
-                v234 = 2112;
-                v235 = v193;
+                v233 = 2112;
+                v234 = v192;
                 _os_log_impl(&dword_2531F8000, v175, OS_LOG_TYPE_ERROR, "%{public}@Cannot deserialize actionSet for different home. expected home :%@, found home :%@", buf, 0x20u);
               }
 
               objc_autoreleasePoolPop(v173);
 LABEL_155:
-              v154 = v199;
-              v168 = v193;
+              v154 = v198;
+              v168 = v192;
             }
 
             else
@@ -1364,7 +1357,7 @@ LABEL_155:
               }
 
               objc_autoreleasePoolPop(v169);
-              v154 = v199;
+              v154 = v198;
             }
 
             goto LABEL_157;
@@ -1400,7 +1393,7 @@ LABEL_147:
         }
 
         objc_autoreleasePoolPop(v163);
-        v154 = v199;
+        v154 = v198;
 LABEL_157:
 
 LABEL_158:
@@ -1427,8 +1420,8 @@ LABEL_159:
       *&buf[4] = v151;
       *&buf[12] = 2112;
       *&buf[14] = v152;
-      v234 = 2112;
-      v235 = v153;
+      v233 = 2112;
+      v234 = v153;
       _os_log_impl(&dword_2531F8000, v149, OS_LOG_TYPE_ERROR, "%{public}@Protobuf version mismatch : ProtoKey: %@, ProtoVersion: %@", buf, 0x20u);
 
       setsCopy = v150;
@@ -1438,13 +1431,11 @@ LABEL_159:
   }
 
 LABEL_160:
-
-  v177 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__HMDShortcutAction_doesActionSetContainUnsecuringAction___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 containsUnsecuringAction];
   v5 = objc_autoreleasePoolPush();
@@ -1454,22 +1445,21 @@ uint64_t __58__HMDShortcutAction_doesActionSetContainUnsecuringAction___block_in
   {
     v8 = HMFGetLogIdentifier();
     v9 = @"does not";
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
     if (v4)
     {
       v9 = @"does";
     }
 
-    v15 = v9;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@ActionSet %@ unsecure the home : %@", &v12, 0x20u);
+    v14 = v9;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@ActionSet %@ unsecure the home : %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1494,7 +1484,7 @@ uint64_t __58__HMDShortcutAction_doesActionSetContainUnsecuringAction___block_in
 
 uint64_t __73__HMDShortcutAction_doesActionSetContainItemsPassingTest_actionSetUUIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) uuid];
   if (![v4 isEqual:v3])
@@ -1518,38 +1508,38 @@ uint64_t __73__HMDShortcutAction_doesActionSetContainItemsPassingTest_actionSetU
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v19;
+        v30 = v19;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find actionSet based on actionSet.uuid. Now searching using spiClientIdentifier", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
       v20 = [v14 actionSets];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __73__HMDShortcutAction_doesActionSetContainItemsPassingTest_actionSetUUIDs___block_invoke_194;
-      v28[3] = &unk_27972F278;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __73__HMDShortcutAction_doesActionSetContainItemsPassingTest_actionSetUUIDs___block_invoke_194;
+      v27[3] = &unk_27972F278;
       v21 = v3;
-      v29 = v21;
-      v15 = [v20 na_firstObjectPassingTest:v28];
+      v28 = v21;
+      v15 = [v20 na_firstObjectPassingTest:v27];
 
       if (!v15)
       {
-        v24 = objc_autoreleasePoolPush();
-        v25 = *(a1 + 40);
-        v26 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v23 = objc_autoreleasePoolPush();
+        v24 = *(a1 + 40);
+        v25 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v27 = HMFGetLogIdentifier();
+          v26 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v27;
-          v32 = 2112;
-          v33 = v21;
-          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Could not find actionSet [%@]", buf, 0x16u);
+          v30 = v26;
+          v31 = 2112;
+          v32 = v21;
+          _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Could not find actionSet [%@]", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v24);
+        objc_autoreleasePoolPop(v23);
         v13 = 0;
-        v15 = v29;
+        v15 = v28;
         goto LABEL_13;
       }
     }
@@ -1570,13 +1560,13 @@ LABEL_4:
     v11 = [*(a1 + 32) uuid];
     v12 = [*(a1 + 32) spiClientIdentifier];
     *buf = 138544130;
-    v31 = v10;
-    v32 = 2112;
-    v33 = v3;
-    v34 = 2112;
-    v35 = v11;
-    v36 = 2112;
-    v37 = v12;
+    v30 = v10;
+    v31 = 2112;
+    v32 = v3;
+    v33 = 2112;
+    v34 = v11;
+    v35 = 2112;
+    v36 = v12;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Skipping actionSet to avoid cycle. [Checking ActionSet : %@] against [ActionSetUUID: %@] [ActionSet SPI Identifier: %@]", buf, 0x2Au);
   }
 
@@ -1584,7 +1574,6 @@ LABEL_4:
   v13 = 0;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1652,19 +1641,19 @@ uint64_t __61__HMDShortcutAction_doesAnyCharacteristicTupleUnsecureAHome___block
 
 BOOL __41__HMDShortcutAction_requiresDeviceUnlock__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   if (v2)
   {
     v4 = +[HMDHAPMetadata getSharedInstance];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __67__HMDShortcutAction_doesAnyCharacteristicTupleRequireDeviceUnlock___block_invoke;
-    v21[3] = &unk_279720BC8;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __67__HMDShortcutAction_doesAnyCharacteristicTupleRequireDeviceUnlock___block_invoke;
+    v20[3] = &unk_279720BC8;
     v5 = v4;
-    v22 = v5;
-    Property = [v3 na_firstObjectPassingTest:v21];
+    v21 = v5;
+    Property = [v3 na_firstObjectPassingTest:v20];
     v8 = Property;
     if (Property)
     {
@@ -1685,16 +1674,16 @@ BOOL __41__HMDShortcutAction_requiresDeviceUnlock__block_invoke(uint64_t a1, voi
       v17 = v16;
       v18 = @"does not";
       *buf = 138543874;
-      v24 = v14;
-      v25 = 2112;
+      v23 = v14;
+      v24 = 2112;
       if (v9)
       {
         v18 = &stru_286509E58;
       }
 
-      v26 = v16;
-      v27 = 2112;
-      v28 = v18;
+      v25 = v16;
+      v26 = 2112;
+      v27 = v18;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[%@] %@ requires device to be unlock", buf, 0x20u);
     }
 
@@ -1706,23 +1695,22 @@ BOOL __41__HMDShortcutAction_requiresDeviceUnlock__block_invoke(uint64_t a1, voi
     v10 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t __41__HMDShortcutAction_requiresDeviceUnlock__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   if (v2)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __62__HMDShortcutAction_doesActionSetContainSecureCharacteristic___block_invoke;
-    v12[3] = &unk_27972F278;
-    v12[4] = v2;
-    v4 = [(HMDShortcutAction *)v2 doesActionSetContainItemsPassingTest:v12 actionSetUUIDs:v3];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __62__HMDShortcutAction_doesActionSetContainSecureCharacteristic___block_invoke;
+    v11[3] = &unk_27972F278;
+    v11[4] = v2;
+    v4 = [(HMDShortcutAction *)v2 doesActionSetContainItemsPassingTest:v11 actionSetUUIDs:v3];
     v5 = objc_autoreleasePoolPush();
     v6 = v2;
     v7 = HMFGetOSLogHandle();
@@ -1731,9 +1719,9 @@ uint64_t __41__HMDShortcutAction_requiresDeviceUnlock__block_invoke_2(uint64_t a
       v8 = HMFGetLogIdentifier();
       v9 = HMFBooleanToString();
       *buf = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Does this shortcut action contain any secure class accessories: [%@]", buf, 0x16u);
     }
 
@@ -1745,13 +1733,12 @@ uint64_t __41__HMDShortcutAction_requiresDeviceUnlock__block_invoke_2(uint64_t a
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t __62__HMDShortcutAction_doesActionSetContainSecureCharacteristic___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 containsSecureCharacteristic];
   v5 = objc_autoreleasePoolPush();
@@ -1761,22 +1748,21 @@ uint64_t __62__HMDShortcutAction_doesActionSetContainSecureCharacteristic___bloc
   {
     v8 = HMFGetLogIdentifier();
     v9 = @"does not";
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
     if (v4)
     {
       v9 = @"does";
     }
 
-    v15 = v9;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@ActionSet %@ contain secure class accessory : %@", &v12, 0x20u);
+    v14 = v9;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@ActionSet %@ contain secure class accessory : %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1805,10 +1791,10 @@ uint64_t __67__HMDShortcutAction_doesAnyCharacteristicTupleRequireDeviceUnlock__
 
 - (void)executeWithSource:(unint64_t)source clientName:(id)name completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
-  if (WorkflowKitLibraryCore() && self->_controller)
+  if (WorkflowKitLibraryCore(0) && self->_controller)
   {
     v9 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -1818,24 +1804,24 @@ uint64_t __67__HMDShortcutAction_doesAnyCharacteristicTupleRequireDeviceUnlock__
       v12 = HMFGetLogIdentifier();
       shortcut = selfCopy->_shortcut;
       *buf = 138543618;
-      v25 = v12;
-      v26 = 2114;
-      v27 = shortcut;
+      v24 = v12;
+      v25 = 2114;
+      v26 = shortcut;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Executing shortcut action : %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     objc_initWeak(buf, selfCopy);
     controller = self->_controller;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __68__HMDShortcutAction_executeWithSource_clientName_completionHandler___block_invoke;
-    v21[3] = &unk_279720B50;
-    objc_copyWeak(&v23, buf);
-    v22 = handlerCopy;
-    [(WFHomeWorkflowController *)controller startWithCompletionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __68__HMDShortcutAction_executeWithSource_clientName_completionHandler___block_invoke;
+    v20[3] = &unk_279720B50;
+    objc_copyWeak(&v22, buf);
+    v21 = handlerCopy;
+    [(WFHomeWorkflowController *)controller startWithCompletionHandler:v20];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 
@@ -1848,7 +1834,7 @@ uint64_t __67__HMDShortcutAction_doesAnyCharacteristicTupleRequireDeviceUnlock__
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v18;
+      v24 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@The shortcut action is unavailable to execute", buf, 0xCu);
     }
 
@@ -1859,13 +1845,11 @@ uint64_t __67__HMDShortcutAction_doesAnyCharacteristicTupleRequireDeviceUnlock__
       (*(handlerCopy + 2))(handlerCopy, v19);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDShortcutAction_executeWithSource_clientName_completionHandler___block_invoke(uint64_t a1, void *a2, int a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = objc_autoreleasePoolPush();
@@ -1878,13 +1862,13 @@ void __68__HMDShortcutAction_executeWithSource_clientName_completionHandler___bl
     {
       v11 = HMFGetLogIdentifier();
       v12 = v8[4];
-      v22 = 138543874;
-      v23 = v11;
-      v24 = 2114;
-      v25 = v12;
-      v26 = 2114;
-      v27 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to execute shortcut action %{public}@ with error: %{public}@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v12;
+      v25 = 2114;
+      v26 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to execute shortcut action %{public}@ with error: %{public}@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1901,11 +1885,11 @@ LABEL_9:
     {
       v15 = HMFGetLogIdentifier();
       v16 = v8[4];
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = v16;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@shortcut action execution was cancelled : %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@shortcut action execution was cancelled : %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1915,13 +1899,13 @@ LABEL_9:
 
   if (v14)
   {
-    v20 = HMFGetLogIdentifier();
-    v21 = v8[4];
-    v22 = 138543618;
-    v23 = v20;
-    v24 = 2112;
-    v25 = v21;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Shortcut action successfully executed : %@", &v22, 0x16u);
+    v19 = HMFGetLogIdentifier();
+    v20 = v8[4];
+    v21 = 138543618;
+    v22 = v19;
+    v23 = 2112;
+    v24 = v20;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Shortcut action successfully executed : %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -1932,8 +1916,6 @@ LABEL_10:
   {
     (*(v18 + 16))(v18, v17);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateDump
@@ -1970,24 +1952,22 @@ id __30__HMDShortcutAction_stateDump__block_invoke(int a1, id self)
 
 - (id)dictionaryRepresentation
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = HMDShortcutAction;
-  dictionaryRepresentation = [(HMDAction *)&v10 dictionaryRepresentation];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = HMDShortcutAction;
+  dictionaryRepresentation = [(HMDAction *)&v9 dictionaryRepresentation];
   v4 = [dictionaryRepresentation mutableCopy];
 
   shortcutData = self->_shortcutData;
   if (shortcutData)
   {
-    v11 = *MEMORY[0x277CD1598];
-    v12[0] = shortcutData;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CD1598];
+    v11[0] = shortcutData;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     [v4 addEntriesFromDictionary:v6];
   }
 
-  v7 = [v4 copy];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = objc_msgSend_copy(v4);
 
   return v7;
 }
@@ -2023,7 +2003,7 @@ id __30__HMDShortcutAction_stateDump__block_invoke(int a1, id self)
     v9 = [(HMDAction *)&v13 initWithUUID:uuid actionSet:set];
     if (v9)
     {
-      v10 = [shortcutCopy copy];
+      v10 = objc_msgSend_copy(shortcutCopy);
       __HMDShortcutActionInitializeWithSerializedShortcut(v9, v10);
     }
 
@@ -2053,15 +2033,16 @@ id __30__HMDShortcutAction_stateDump__block_invoke(int a1, id self)
 
 uint64_t __32__HMDShortcutAction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v54 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v54;
+  logCategory__hmf_once_v54 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)actionWithDictionaryRepresentation:(id)representation home:(id)home actionSet:(id)set
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   homeCopy = home;
   setCopy = set;
@@ -2084,11 +2065,11 @@ uint64_t __32__HMDShortcutAction_logCategory__block_invoke()
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v23;
-        v28 = 2112;
-        v29 = representationCopy;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Missing serialized shortcut: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v23;
+        v27 = 2112;
+        v28 = representationCopy;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Missing serialized shortcut: %@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v20);
@@ -2104,18 +2085,16 @@ uint64_t __32__HMDShortcutAction_logCategory__block_invoke()
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v19;
-      v28 = 2112;
-      v29 = v11;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Invalid action type: %@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v11;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Invalid action type: %@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
     v15 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

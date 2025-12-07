@@ -383,9 +383,9 @@ LABEL_10:
     v23 = v14 - 1;
     v24 = [v11 row];
     LOBYTE(v14) = v14 - 1 == v24;
-    options = [(TransitDirectionsStepsListDataSource *)self options];
+    v25 = objc_msgSend_options(self);
     _supportsFooterItem = [(TransitDirectionsStepsListDataSource *)self _supportsFooterItem];
-    if ((options & 8) != 0 && v23 == v24)
+    if ((v25 & 8) != 0 && v23 == v24)
     {
       v27 = -2;
       if (!_supportsFooterItem)
@@ -413,7 +413,7 @@ LABEL_10:
       [(TransitDirectionsStepsListDataSource *)self leadingInstructionMargin];
       leading = v28;
       trailing = 16.0;
-      if ((options & 8) == 0 && v23 == v24)
+      if ((v25 & 8) == 0 && v23 == v24)
       {
         LOBYTE(v14) = (_numberOfSections - 1) != [v11 section] && v23 == v24;
       }
@@ -1702,10 +1702,10 @@ LABEL_7:
 
     v16 = (v15 - 1);
     v17 = [pathCopy row];
-    options = [(TransitDirectionsStepsListDataSource *)self options];
+    v18 = objc_msgSend_options(self);
     _supportsFooterItem = [(TransitDirectionsStepsListDataSource *)self _supportsFooterItem];
     v20 = 1;
-    if ((options & 8) != 0 && v16 == v17)
+    if ((v18 & 8) != 0 && v16 == v17)
     {
       v21 = -2;
       if (!_supportsFooterItem)
@@ -4531,7 +4531,7 @@ LABEL_10:
 - (unint64_t)_numberOfRowsInSection:(unint64_t)section
 {
   _numberOfSections = [(TransitDirectionsStepsListDataSource *)self _numberOfSections];
-  if ([(TransitDirectionsStepsListDataSource *)self _supportsFooterItem]&& ([(TransitDirectionsStepsListDataSource *)self options]& 8) != 0 && _numberOfSections - 1 == section)
+  if ([(TransitDirectionsStepsListDataSource *)self _supportsFooterItem]&& (objc_msgSend_options(self) & 8) != 0 && _numberOfSections - 1 == section)
   {
     return 1;
   }
@@ -4549,7 +4549,7 @@ LABEL_10:
 
   if ([(TransitDirectionsStepsListDataSource *)self _supportsFooterItem])
   {
-    numberOfSections += ([(TransitDirectionsStepsListDataSource *)self options]>> 3) & 1;
+    numberOfSections += (objc_msgSend_options(self) >> 3) & 1;
   }
 
   return numberOfSections;
@@ -4561,7 +4561,7 @@ LABEL_10:
   if (pathCopy)
   {
     _numberOfSections = [(TransitDirectionsStepsListDataSource *)self _numberOfSections];
-    if (-[TransitDirectionsStepsListDataSource _supportsFooterItem](self, "_supportsFooterItem") && (-[TransitDirectionsStepsListDataSource options](self, "options") & 8) != 0 && (_numberOfSections - 1) == [pathCopy section])
+    if (-[TransitDirectionsStepsListDataSource _supportsFooterItem](self, "_supportsFooterItem") && (objc_msgSend_options(self) & 8) != 0 && (_numberOfSections - 1) == [pathCopy section])
     {
       v6 = @"TransitDirectionsListSharingIdentifier";
     }
@@ -5135,11 +5135,11 @@ LABEL_13:
 
   if (listView)
   {
-    options = [(TransitDirectionsStepsListDataSource *)self options];
+    v4 = objc_msgSend_options(self);
     listView2 = [(TransitDirectionsStepsListDataSource *)self listView];
     footerView = [listView2 footerView];
     v7 = footerView;
-    if ((options & 8) != 0)
+    if ((v4 & 8) != 0)
     {
 
       if (v7)

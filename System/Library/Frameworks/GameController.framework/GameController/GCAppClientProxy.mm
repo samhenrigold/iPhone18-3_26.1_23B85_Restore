@@ -39,15 +39,14 @@ void __64___GCAppClientProxy_connectToControllerServiceWithClient_reply___block_
     objc_sync_enter(obj);
     if (!*(*(a1 + 40) + 56))
     {
-      v4 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-      v5 = *(a1 + 40);
-      v6 = *(v5 + 72);
-      *(v5 + 72) = v4;
+      v3 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+      v4 = *(a1 + 40);
+      v5 = *(v4 + 72);
+      *(v4 + 72) = v3;
 
       [*(*(a1 + 40) + 8) addObserver:*(a1 + 40) forKeyPath:@"activeControllerDevices" options:5 context:0];
       objc_storeStrong((*(a1 + 40) + 56), *(a1 + 32));
       *(*(a1 + 40) + 64) = 0;
-      v7 = *(a1 + 40);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -56,10 +55,9 @@ void __64___GCAppClientProxy_connectToControllerServiceWithClient_reply___block_
 
   else
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
 
-    v3();
+    v2();
   }
 }
 
@@ -236,7 +234,7 @@ void __77___GCAppClientProxy_ControllerService__fetchControllerDescriptionsWithR
   v5 = [v4 allObjects];
 
   objc_sync_exit(v3);
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v6, v7))
   {
     __77___GCAppClientProxy_ControllerService__fetchControllerDescriptionsWithReply___block_invoke_cold_1(v2);
   }
@@ -491,17 +489,13 @@ void __97___GCAppClientProxy_SettingsXPCProxyService__settingsXPCProxyServiceCli
 
 void __77___GCAppClientProxy_ControllerService__fetchControllerDescriptionsWithReply___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
-    v5 = *(*a1 + 24);
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0x16u);
+    _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

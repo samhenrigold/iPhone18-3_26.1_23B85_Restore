@@ -1,9 +1,31 @@
 @interface LACDTOMutableNotificationAction
 + (id)doNotStartNewDelayAction;
 + (id)startNewDelayAction;
+- (LACDTOMutableNotificationAction)initWithIdentifier:(id)identifier title:(id)title isTitleLocalized:(BOOL)localized isDestructive:(BOOL)destructive;
 @end
 
 @implementation LACDTOMutableNotificationAction
+
+- (LACDTOMutableNotificationAction)initWithIdentifier:(id)identifier title:(id)title isTitleLocalized:(BOOL)localized isDestructive:(BOOL)destructive
+{
+  destructiveCopy = destructive;
+  localizedCopy = localized;
+  identifierCopy = identifier;
+  titleCopy = title;
+  v15.receiver = self;
+  v15.super_class = LACDTOMutableNotificationAction;
+  v12 = [(LACDTOMutableNotificationAction *)&v15 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(LACDTOMutableNotificationAction *)v12 setIdentifier:identifierCopy];
+    [(LACDTOMutableNotificationAction *)v13 setTitle:titleCopy];
+    [(LACDTOMutableNotificationAction *)v13 setIsTitleLocalized:localizedCopy];
+    [(LACDTOMutableNotificationAction *)v13 setIsDestructive:destructiveCopy];
+  }
+
+  return v13;
+}
 
 + (id)doNotStartNewDelayAction
 {

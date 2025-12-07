@@ -43,7 +43,7 @@ void __44__NRTermsAcknowledgementRegistry_connection__block_invoke()
 
 - (void)add:(id)add forDeviceID:(id)d withCompletion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   addCopy = add;
   dCopy = d;
   completionCopy = completion;
@@ -52,20 +52,20 @@ void __44__NRTermsAcknowledgementRegistry_connection__block_invoke()
 
   if (v12 > 9)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke_2;
-    v20[3] = &unk_1E86DACE8;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke_2;
+    v19[3] = &unk_1E86DACE8;
     v14 = completionCopy;
-    v21 = v14;
-    v15 = [(NRTermsAcknowledgementRegistry *)self proxyWithErrorHandler:v20];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke_189;
-    v17[3] = &unk_1E86DAD10;
-    v18 = addCopy;
-    v19 = v14;
-    [v15 add:v18 forDeviceID:dCopy withCompletion:v17];
+    v20 = v14;
+    v15 = [(NRTermsAcknowledgementRegistry *)self proxyWithErrorHandler:v19];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke_189;
+    v16[3] = &unk_1E86DAD10;
+    v17 = addCopy;
+    v18 = v14;
+    [v15 add:v17 forDeviceID:dCopy withCompletion:v16];
   }
 
   else
@@ -76,25 +76,21 @@ void __44__NRTermsAcknowledgementRegistry_connection__block_invoke()
     block[2] = __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke;
     block[3] = &unk_1E86DACC0;
     block[4] = self;
-    v23 = completionCopy;
+    v22 = completionCopy;
     dispatch_async(v13, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke(uint64_t a1)
+void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = [objc_opt_class() errorWithEnum:10];
-  (*(v2 + 16))(v2, v4);
+  v2 = *(a1 + 40);
+  v3 = [objc_opt_class() errorWithEnum:10];
+  (*(v2 + 16))(v2, v3);
 }
 
 void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = nr_framework_log();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
@@ -104,20 +100,18 @@ void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block
     v6 = nr_framework_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry add:forEventID:withCompletion: XPC error %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry add:forEventID:withCompletion: XPC error %@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block_invoke_189(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -129,24 +123,22 @@ void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block
       v6 = nr_framework_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(a1 + 32);
-        v9 = 138412546;
-        v10 = v3;
-        v11 = 2112;
-        v12 = v8;
-        _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry add:forEventID:withCompletion: returning error %@ event %@", &v9, 0x16u);
+        v7 = *(a1 + 32);
+        v8 = 138412546;
+        v9 = v3;
+        v10 = 2112;
+        v11 = v7;
+        _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry add:forEventID:withCompletion: returning error %@ event %@", &v8, 0x16u);
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkForAcknowledgement:(id)acknowledgement forDeviceID:(id)d withCompletion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   acknowledgementCopy = acknowledgement;
   dCopy = d;
   completionCopy = completion;
@@ -167,9 +159,9 @@ void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v29 = v14;
-          v30 = 2112;
-          v31 = acknowledgementCopy;
+          v28 = v14;
+          v29 = 2112;
+          v30 = acknowledgementCopy;
           _os_log_error_impl(&dword_1E0ADF000, v17, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry checkForAcknowledgement:forEventID:withCompletion: exception %@ event %@", buf, 0x16u);
         }
       }
@@ -179,20 +171,20 @@ void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block
 
     else
     {
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke_190;
-      v24[3] = &unk_1E86DACE8;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke_190;
+      v23[3] = &unk_1E86DACE8;
       v18 = completionCopy;
-      v25 = v18;
-      v19 = [(NRTermsAcknowledgementRegistry *)self proxyWithErrorHandler:v24];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke_191;
-      v21[3] = &unk_1E86DAD38;
-      v22 = acknowledgementCopy;
-      v23 = v18;
-      [v19 checkForAcknowledgement:v22 forDeviceID:dCopy withCompletion:v21];
+      v24 = v18;
+      v19 = [(NRTermsAcknowledgementRegistry *)self proxyWithErrorHandler:v23];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke_191;
+      v20[3] = &unk_1E86DAD38;
+      v21 = acknowledgementCopy;
+      v22 = v18;
+      [v19 checkForAcknowledgement:v21 forDeviceID:dCopy withCompletion:v20];
     }
   }
 
@@ -204,25 +196,21 @@ void __65__NRTermsAcknowledgementRegistry_add_forDeviceID_withCompletion___block
     block[2] = __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke;
     block[3] = &unk_1E86DACC0;
     block[4] = self;
-    v27 = completionCopy;
+    v26 = completionCopy;
     dispatch_async(v13, block);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke(uint64_t a1)
+void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = [objc_opt_class() errorWithEnum:10];
-  (*(v2 + 16))(v2, 0, v4);
+  v2 = *(a1 + 40);
+  v3 = [objc_opt_class() errorWithEnum:10];
+  (*(v2 + 16))(v2, 0, v3);
 }
 
 void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke_190(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = nr_framework_log();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
@@ -232,20 +220,18 @@ void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_wi
     v6 = nr_framework_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry checkForAcknowledgement:forEventID:withCompletion: XPC error %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry checkForAcknowledgement:forEventID:withCompletion: XPC error %@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_withCompletion___block_invoke_191(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
@@ -257,19 +243,17 @@ void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_wi
       v7 = nr_framework_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
-        v10 = 138412546;
-        v11 = v4;
-        v12 = 2112;
-        v13 = v9;
-        _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry checkForAcknowledgement:forEventID:withCompletion: returning error %@ event %@", &v10, 0x16u);
+        v8 = *(a1 + 32);
+        v9 = 138412546;
+        v10 = v4;
+        v11 = 2112;
+        v12 = v8;
+        _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "NRTermsAcknowledgementRegistry checkForAcknowledgement:forEventID:withCompletion: returning error %@ event %@", &v9, 0x16u);
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)errorStringWithEnum:(unint64_t)enum
@@ -287,15 +271,13 @@ void __85__NRTermsAcknowledgementRegistry_checkForAcknowledgement_forDeviceID_wi
 
 + (id)errorWithEnum:(unint64_t)enum
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
+  v9 = *MEMORY[0x1E696A278];
   v5 = [NRTermsAcknowledgementRegistry errorStringWithEnum:?];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v4 errorWithDomain:@"com.apple.nanoregistry.termsacknowledgementregistry" code:enum userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

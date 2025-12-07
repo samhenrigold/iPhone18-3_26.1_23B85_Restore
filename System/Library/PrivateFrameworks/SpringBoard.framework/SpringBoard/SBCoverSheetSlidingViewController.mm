@@ -183,7 +183,7 @@
   }
 
   positionView = [(SBCoverSheetSlidingViewController *)self positionView];
-  [positionView frame];
+  objc_msgSend_frame(positionView);
   Height = CGRectGetHeight(v8);
 
   return fmin(fmax(v4 / Height, -10.0), 10.0);
@@ -1790,7 +1790,7 @@ uint64_t __138__SBCoverSheetSlidingViewController__finishTransitionToPresented_f
   return [v2 sb_modifyAnimationsWithPreferredFrameRateRange:1114125 updateReason:v6 animations:{*&v11.minimum, *&v11.maximum, *&v11.preferred}];
 }
 
-uint64_t __138__SBCoverSheetSlidingViewController__finishTransitionToPresented_forcingTransition_ignoringPreflightRequirements_animated_withCompletion___block_invoke_2(uint64_t a1)
+void *__138__SBCoverSheetSlidingViewController__finishTransitionToPresented_forcingTransition_ignoringPreflightRequirements_animated_withCompletion___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _updateForLocation:0 interactive:{*(a1 + 40), *(a1 + 48)}];
   result = CSFeatureEnabled();
@@ -2050,7 +2050,7 @@ void __83__SBCoverSheetSlidingViewController__performAppFlyInToPresented_animate
   recognizerCopy = recognizer;
   systemGesturesDelegate = [(SBCoverSheetSlidingViewController *)self systemGesturesDelegate];
   dismissGestures = [systemGesturesDelegate dismissGestures];
-  v8 = [dismissGestures containsObject:recognizerCopy];
+  v8 = objc_msgSend_containsObject_(dismissGestures);
 
   if (dismissalSlidingMode == 2)
   {
@@ -2193,7 +2193,7 @@ void __83__SBCoverSheetSlidingViewController__performAppFlyInToPresented_animate
   recognizerCopy = recognizer;
   systemGesturesDelegate = [(SBCoverSheetSlidingViewController *)self systemGesturesDelegate];
   dismissGestures = [systemGesturesDelegate dismissGestures];
-  v8 = [dismissGestures containsObject:recognizerCopy];
+  v8 = objc_msgSend_containsObject_(dismissGestures);
 
   return v4 & v8;
 }
@@ -2676,7 +2676,7 @@ void __73__SBCoverSheetSlidingViewController__transitionTickForPresentationValue
   valueCopy = value;
   positionView = [(SBCoverSheetSlidingViewController *)self positionView];
   contentView = [positionView contentView];
-  [contentView frame];
+  objc_msgSend_frame(contentView);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -3215,12 +3215,12 @@ LABEL_26:
 - (void)_updateHomeGestureSettings:(id)settings
 {
   settingsCopy = settings;
-  [settingsCopy minimumYDistanceForHomeOrAppSwitcher];
-  *&SBCoverSheetMinimumYDistanceForDismissal = v4 * SBMainScreenPointsPerMillimeter();
+  minimumYDistanceForHomeOrAppSwitcher = [settingsCopy minimumYDistanceForHomeOrAppSwitcher];
+  *&SBCoverSheetMinimumYDistanceForDismissal = v6 * SBMainScreenPointsPerMillimeter(minimumYDistanceForHomeOrAppSwitcher, v5);
   [settingsCopy minimumYVelocityForHome];
-  v6 = v5;
+  v8 = v7;
 
-  *&SBCoverSheetMinimumYVelocityForDismissal = v6 * SBMainScreenPointsPerMillimeter();
+  *&SBCoverSheetMinimumYVelocityForDismissal = v8 * SBMainScreenPointsPerMillimeter(v9, v10);
 }
 
 - (void)_updateCoverSheetDismissSettings:(id)settings
@@ -3350,7 +3350,7 @@ id __97__SBCoverSheetSlidingViewController__studyLogForGestureRecognizerState_bo
 
 - (void)_studyLogForCompletionOfTransitionToPresented:(BOOL)presented
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
   isEnabled = [mEMORY[0x277D6A798] isEnabled];
 
@@ -3375,7 +3375,7 @@ id __97__SBCoverSheetSlidingViewController__studyLogForGestureRecognizerState_bo
 
   if (presented)
   {
-    v13 = @"CoverSheet";
+    v14 = @"CoverSheet";
     goto LABEL_20;
   }
 
@@ -3386,7 +3386,7 @@ id __97__SBCoverSheetSlidingViewController__studyLogForGestureRecognizerState_bo
   {
     if (unlockedEnvironmentMode != 2)
     {
-      v13 = @"HomeScreen";
+      v14 = @"HomeScreen";
       goto LABEL_20;
     }
 
@@ -3405,67 +3405,67 @@ id __97__SBCoverSheetSlidingViewController__studyLogForGestureRecognizerState_bo
 
       application = [sceneHandle application];
       bundleIdentifier = [application bundleIdentifier];
-      v25 = bundleIdentifier;
-      v26 = @"Unknown";
+      v24 = bundleIdentifier;
+      v25 = @"Unknown";
       if (bundleIdentifier)
       {
-        v26 = bundleIdentifier;
+        v25 = bundleIdentifier;
       }
 
-      v13 = v26;
+      v14 = v25;
 
       currentInterfaceOrientation = [sceneHandle currentInterfaceOrientation];
       if (isEnabled)
       {
-        v28 = [MEMORY[0x277CCABB0] numberWithInteger:currentInterfaceOrientation];
-        [dictionary setObject:v28 forKeyedSubscript:@"AppInterfaceOrientation"];
+        v27 = [MEMORY[0x277CCABB0] numberWithInteger:currentInterfaceOrientation];
+        [dictionary setObject:v27 forKeyedSubscript:@"AppInterfaceOrientation"];
       }
 
       goto LABEL_18;
     }
   }
 
-  interfaceOrientation = [v17 interfaceOrientation];
+  unlockedEnvironmentMode = [v17 interfaceOrientation];
   if (isEnabled)
   {
-    sceneHandle = [MEMORY[0x277CCABB0] numberWithInteger:interfaceOrientation];
+    sceneHandle = [MEMORY[0x277CCABB0] numberWithInteger:unlockedEnvironmentMode];
     [dictionary setObject:sceneHandle forKeyedSubscript:@"SwitcherInterfaceOrientation"];
-    v13 = @"AppSwitcher";
+    v14 = @"AppSwitcher";
 LABEL_18:
 
     goto LABEL_20;
   }
 
-  v13 = @"AppSwitcher";
+  v14 = @"AppSwitcher";
 LABEL_20:
-  v29 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+  v28 = SBLogSystemGestureAppSwitcher(unlockedEnvironmentMode);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
+    v29 = BSInterfaceOrientationDescription();
     v30 = BSInterfaceOrientationDescription();
     v31 = BSInterfaceOrientationDescription();
-    v32 = BSInterfaceOrientationDescription();
     *buf = 138413058;
-    v39 = v13;
-    v40 = 2112;
-    v41 = v30;
-    v42 = 2112;
-    v43 = v31;
-    v44 = 2112;
-    v45 = v32;
-    _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_INFO, "Visible UI change seen by Cover Sheet: transition to %@ (SB interface orientation: %@, switcher interface orientation: %@,  app interface orientation: %@)", buf, 0x2Au);
+    v38 = v14;
+    v39 = 2112;
+    v40 = v29;
+    v41 = 2112;
+    v42 = v30;
+    v43 = 2112;
+    v44 = v31;
+    _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_INFO, "Visible UI change seen by Cover Sheet: transition to %@ (SB interface orientation: %@, switcher interface orientation: %@,  app interface orientation: %@)", buf, 0x2Au);
   }
 
   if (isEnabled)
   {
-    v33 = [MEMORY[0x277CCABB0] numberWithInteger:activeInterfaceOrientation];
-    [dictionary setObject:v33 forKeyedSubscript:@"SBInterfaceOrientation"];
+    v32 = [MEMORY[0x277CCABB0] numberWithInteger:activeInterfaceOrientation];
+    [dictionary setObject:v32 forKeyedSubscript:@"SBInterfaceOrientation"];
 
-    [dictionary setObject:v13 forKeyedSubscript:v8];
+    [dictionary setObject:v14 forKeyedSubscript:v8];
     mEMORY[0x277D6A798]2 = [MEMORY[0x277D6A798] sharedInstance];
-    v36 = @"VisibleUIChanged";
-    v37 = dictionary;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    [mEMORY[0x277D6A798]2 log:v35];
+    v35 = @"VisibleUIChanged";
+    v36 = dictionary;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    [mEMORY[0x277D6A798]2 log:v34];
   }
 }
 

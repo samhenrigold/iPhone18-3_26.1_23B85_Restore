@@ -13,18 +13,17 @@
 {
   v3 = sub_22A4DB7DC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  result = sub_229609A64(self + OBJC_IVAR___HMDActionSetResponse_internalActionSetUUID, v10);
-  if (v11)
+  v6 = &v9[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  result = sub_229609A64(self + OBJC_IVAR___HMDActionSetResponse_internalActionSetUUID, v9);
+  if (v10)
   {
-    sub_229543C58(v10, v12);
+    sub_229543C58(v9, v11);
     swift_dynamicCast();
-    v9 = sub_22A4DB77C();
-    (*(v4 + 8))(v7, v3);
+    v8 = sub_22A4DB77C();
+    (*(v4 + 8))(v6, v3);
 
-    return v9;
+    return v8;
   }
 
   else
@@ -39,20 +38,19 @@
 {
   v6 = sub_22A4DB7DC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB79C();
-  v11 = (self + OBJC_IVAR___HMDActionSetResponse_internalActionSetUUID);
-  v11[3] = v6;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v11);
-  (*(v7 + 16))(boxed_opaque_existential_1, v10, v6);
+  v10 = (self + OBJC_IVAR___HMDActionSetResponse_internalActionSetUUID);
+  v10[3] = v6;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v10);
+  (*(v7 + 16))(boxed_opaque_existential_1, v9, v6);
   *(&self->super.super.isa + OBJC_IVAR___HMDActionSetResponse_state) = state;
-  v15.receiver = self;
-  v15.super_class = HMDActionSetResponse;
-  v13 = [(HMDActionSetResponse *)&v15 init];
-  (*(v7 + 8))(v10, v6);
-  return v13;
+  v14.receiver = self;
+  v14.super_class = HMDActionSetResponse;
+  v12 = [(HMDActionSetResponse *)&v14 init];
+  (*(v7 + 8))(v9, v6);
+  return v12;
 }
 
 + (id)responsesFromSerializedResponses:(id)responses

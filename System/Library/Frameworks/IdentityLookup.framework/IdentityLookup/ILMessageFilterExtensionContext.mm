@@ -32,7 +32,7 @@
 void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithCompletion___block_invoke_cold_1();
@@ -43,18 +43,18 @@ void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithComplet
 
 void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithCompletion___block_invoke_1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = ILDefaultLog();
+  v7 = ILDefaultLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_238A41000, v8, OS_LOG_TYPE_DEFAULT, "response: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_238A41000, v8, OS_LOG_TYPE_DEFAULT, "response: %@", &v9, 0xCu);
     }
   }
 
@@ -64,7 +64,6 @@ void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithComplet
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deferReportRequestToNetworkWithCompletion:(id)completion
@@ -89,7 +88,7 @@ void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithComplet
 void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithCompletion___block_invoke_cold_1();
@@ -100,18 +99,18 @@ void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithComple
 
 void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = ILDefaultLog();
+  v7 = ILDefaultLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_238A41000, v8, OS_LOG_TYPE_DEFAULT, "response: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_238A41000, v8, OS_LOG_TYPE_DEFAULT, "response: %@", &v9, 0xCu);
     }
   }
 
@@ -121,12 +120,11 @@ void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithComple
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finish
 {
-  v3 = ILDefaultLog();
+  v3 = ILDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -151,8 +149,8 @@ void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithComple
 
   else
   {
-    v11 = ILDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ILDefaultLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ILMessageFilterExtensionContext handleQueryRequest:? reply:?];
     }
@@ -176,8 +174,8 @@ void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithComple
 
   else
   {
-    v11 = ILDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ILDefaultLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ILMessageFilterExtensionContext handleReportRequest:? reply:?];
     }
@@ -201,8 +199,8 @@ void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithComple
 
   else
   {
-    v11 = ILDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ILDefaultLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ILMessageFilterExtensionContext handleCapabilitiesQueryRequest:? reply:?];
     }
@@ -220,58 +218,25 @@ void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithComple
   return v6;
 }
 
-void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "remoteObjectProxy error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__ILMessageFilterExtensionContext_deferQueryRequestToNetworkWithCompletion___block_invoke_1_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "deferQueryRequestToNetwork error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __77__ILMessageFilterExtensionContext_deferReportRequestToNetworkWithCompletion___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "deferReportRequestToNetwork error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)handleQueryRequest:(void *)a1 reply:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 extension];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_238A41000, v2, v3, "Extension %@ does not conform to protocol ILMessageFilterQueryHandling", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_238A41000, v2, v3, "Extension %@ does not conform to protocol ILMessageFilterQueryHandling", v4, v5, v6, v7);
 }
 
 - (void)handleReportRequest:(void *)a1 reply:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 extension];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_238A41000, v2, v3, "Extension %@ does not conform to protocol ILMessageFilterReportHandling", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_238A41000, v2, v3, "Extension %@ does not conform to protocol ILMessageFilterReportHandling", v4, v5, v6, v7);
 }
 
 - (void)handleCapabilitiesQueryRequest:(void *)a1 reply:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 extension];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_238A41000, v2, v3, "Extension %@ does not conform to protocol ILMessageFilterCapabilitiesQueryHandling", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_238A41000, v2, v3, "Extension %@ does not conform to protocol ILMessageFilterCapabilitiesQueryHandling", v4, v5, v6, v7);
 }
 
 @end

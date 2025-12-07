@@ -1,7 +1,7 @@
 @interface _UIImageContentProvider
-+ (void)providerWithDrawingProvider:(void *)provider CGImageProvider:(void *)imageProvider rbSymbolConfigurationProvider:;
++ (_UIImageContentProvider)providerWithDrawingProvider:(void *)provider CGImageProvider:(void *)imageProvider rbSymbolConfigurationProvider:;
+- (_UIImageContentProvider)providerWithCGImageProvider:(uint64_t)provider;
 - (void)CGImageProvider;
-- (void)providerWithCGImageProvider:(uint64_t)provider;
 - (void)rbSymbolConfigurationProvider;
 @end
 
@@ -49,7 +49,7 @@
   return self;
 }
 
-+ (void)providerWithDrawingProvider:(void *)provider CGImageProvider:(void *)imageProvider rbSymbolConfigurationProvider:
++ (_UIImageContentProvider)providerWithDrawingProvider:(void *)provider CGImageProvider:(void *)imageProvider rbSymbolConfigurationProvider:
 {
   imageProviderCopy = imageProvider;
   providerCopy = provider;
@@ -72,7 +72,7 @@
   return v9;
 }
 
-- (void)providerWithCGImageProvider:(uint64_t)provider
+- (_UIImageContentProvider)providerWithCGImageProvider:(uint64_t)provider
 {
   if (provider)
   {

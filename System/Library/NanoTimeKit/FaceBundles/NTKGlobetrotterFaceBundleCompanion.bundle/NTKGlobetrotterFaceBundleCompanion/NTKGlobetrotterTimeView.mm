@@ -9,6 +9,7 @@
 - (id)_digitalLabelFont;
 - (void)_applyColorToAnalogHands;
 - (void)_applyColorToDigitalLabelAndTicks;
+- (void)_setCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated;
 - (void)_setupAnalogHandsView;
 - (void)applyDataMode:(int64_t)mode;
 - (void)applyTransitionFraction:(double)fraction fromNumeralOption:(id)option toNumeralOption:(id)numeralOption;
@@ -19,6 +20,7 @@
 - (void)setNumberSystem:(unint64_t)system;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setPalette:(id)palette;
+- (void)setTimeZoneHourOffset:(int64_t)offset animated:(BOOL)animated;
 @end
 
 @implementation NTKGlobetrotterTimeView
@@ -82,6 +84,27 @@
   [v9 setColorize:{*vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_n_f64(v10, v13)), v11).i64}];
   *&v12 = v17;
   [v9 setAnimatedFloat:11 forKey:COERCE_DOUBLE(v12)];
+}
+
+- (void)setTimeZoneHourOffset:(int64_t)offset animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  p_cityCoordinate = &self->_cityCoordinate;
+  +[NTKGlobetrotterCityManager idealizedCityCoordinate];
+  p_cityCoordinate->latitude = v8;
+  p_cityCoordinate->longitude = v9;
+  [(NTKGlobetrotterTimeView *)self _northPoleCoordinate];
+  [(NTKGlobetrotterTimeView *)self _setCoordinate:animatedCopy animated:?];
+  self->_centeredOnCity = 0;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1398;
+  v11[3] = &unk_10448;
+  v11[4] = offset;
+  scene = [(NUNIAstronomyVistaView *)self->_astronomyVistaView scene];
+  [scene setCurrentDateBlock:v11];
+
+  [(NUNIAstronomyVistaView *)self->_astronomyVistaView updateSunLocationAnimated:animatedCopy adjustEarthRotation:0];
 }
 
 - (void)setOverrideDate:(id)date duration:(double)duration
@@ -205,6 +228,17 @@ LABEL_7:
   return v11;
 }
 
+- (void)_setCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  longitude = coordinate.longitude;
+  latitude = coordinate.latitude;
+  self->_centerCoordinate = coordinate;
+  v7 = [(NUNIAstronomyVistaView *)self->_astronomyVistaView rotatable:0];
+  [v7 setHomeCoordinate:{latitude, longitude}];
+  [v7 setCenterCoordinate:animatedCopy animated:{latitude, longitude}];
+}
+
 - (CLLocationCoordinate2D)_northPoleCoordinate
 {
   v4 = CLLocationCoordinate2DMake(89.9, self->_cityCoordinate.longitude);
@@ -230,7 +264,7 @@ LABEL_7:
 {
   device = [(NTKGlobetrotterTimeView *)self device];
   sub_2218(device, v5);
-  v3 = v5[0];
+  v3 = *v5;
 
   return v3;
 }

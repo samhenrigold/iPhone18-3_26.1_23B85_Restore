@@ -16,7 +16,7 @@
 
 + (id)columns
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"URLHash" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clipBundleID" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"appBundleID" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -25,17 +25,15 @@
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fullURL" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"referrerURL" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"referrerBundleID" dataType:2 requestOnly:0 fieldNumber:8 protoDataType:13 convertedType:0];
-  v13[0] = v2;
-  v13[1] = v3;
-  v13[2] = v4;
-  v13[3] = v5;
-  v13[4] = v6;
-  v13[5] = v7;
-  v13[6] = v8;
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[0] = v2;
+  v12[1] = v3;
+  v12[2] = v4;
+  v12[3] = v5;
+  v12[4] = v6;
+  v12[5] = v7;
+  v12[6] = v8;
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }
@@ -209,7 +207,7 @@ LABEL_31:
 
 - (id)jsonDictionary
 {
-  v29[8] = *MEMORY[0x1E69E9840];
+  v28[8] = *MEMORY[0x1E69E9840];
   uRLHash = [(BMAppClipInFocus *)self URLHash];
   clipBundleID = [(BMAppClipInFocus *)self clipBundleID];
   appBundleID = [(BMAppClipInFocus *)self appBundleID];
@@ -218,77 +216,77 @@ LABEL_31:
   fullURL = [(BMAppClipInFocus *)self fullURL];
   referrerURL = [(BMAppClipInFocus *)self referrerURL];
   referrerBundleID = [(BMAppClipInFocus *)self referrerBundleID];
-  v28[0] = @"URLHash";
+  v27[0] = @"URLHash";
   null = uRLHash;
   if (!uRLHash)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null;
-  v29[0] = null;
-  v28[1] = @"clipBundleID";
+  v22 = null;
+  v28[0] = null;
+  v27[1] = @"clipBundleID";
   null2 = clipBundleID;
   if (!clipBundleID)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null2;
-  v29[1] = null2;
-  v28[2] = @"appBundleID";
+  v21 = null2;
+  v28[1] = null2;
+  v27[2] = @"appBundleID";
   null3 = appBundleID;
   if (!appBundleID)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = uRLHash;
-  v21 = null3;
-  v29[2] = null3;
-  v28[3] = @"webAppBundleID";
+  v26 = uRLHash;
+  v20 = null3;
+  v28[2] = null3;
+  v27[3] = @"webAppBundleID";
   null4 = webAppBundleID;
   if (!webAppBundleID)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = clipBundleID;
-  v29[3] = null4;
-  v28[4] = @"launchReason";
+  v25 = clipBundleID;
+  v28[3] = null4;
+  v27[4] = @"launchReason";
   null5 = launchReason;
   if (!launchReason)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = appBundleID;
-  v29[4] = null5;
-  v28[5] = @"fullURL";
+  v24 = appBundleID;
+  v28[4] = null5;
+  v27[5] = @"fullURL";
   null6 = fullURL;
   if (!fullURL)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[5] = null6;
-  v28[6] = @"referrerURL";
+  v28[5] = null6;
+  v27[6] = @"referrerURL";
   null7 = referrerURL;
   if (!referrerURL)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[6] = null7;
-  v28[7] = @"referrerBundleID";
+  v28[6] = null7;
+  v27[7] = @"referrerBundleID";
   null8 = referrerBundleID;
   if (!referrerBundleID)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[7] = null8;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
+  v28[7] = null8;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:8];
   if (referrerBundleID)
   {
     if (referrerURL)
@@ -328,16 +326,16 @@ LABEL_20:
   {
   }
 
-  if (v25)
+  if (v24)
   {
-    if (v26)
+    if (v25)
     {
       goto LABEL_26;
     }
 
 LABEL_34:
 
-    if (v27)
+    if (v26)
     {
       goto LABEL_27;
     }
@@ -345,13 +343,13 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_34;
   }
 
 LABEL_26:
-  if (v27)
+  if (v26)
   {
     goto LABEL_27;
   }
@@ -359,14 +357,13 @@ LABEL_26:
 LABEL_35:
 
 LABEL_27:
-  v19 = *MEMORY[0x1E69E9840];
 
-  return v24;
+  return v23;
 }
 
 - (BMAppClipInFocus)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v87[1] = *MEMORY[0x1E69E9840];
+  v86[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"URLHash"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -386,32 +383,32 @@ LABEL_4:
         }
 
         errorCopy = error;
-        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v34 = *MEMORY[0x1E698F240];
-        v84 = *MEMORY[0x1E696A578];
+        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v33 = *MEMORY[0x1E698F240];
+        v83 = *MEMORY[0x1E696A578];
         v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clipBundleID"];
-        v85 = v15;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-        v36 = v34;
-        v11 = v35;
-        v37 = [v33 initWithDomain:v36 code:2 userInfo:v35];
+        v84 = v15;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v35 = v33;
+        v11 = v34;
+        v36 = [v32 initWithDomain:v35 code:2 userInfo:v34];
         v25 = 0;
         error = 0;
-        *errorCopy = v37;
+        *errorCopy = v36;
         goto LABEL_44;
       }
 
-      v71 = v9;
+      v70 = v9;
     }
 
     else
     {
-      v71 = 0;
+      v70 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"appBundleID"];
-    v69 = v7;
-    v67 = v10;
+    v68 = v7;
+    v66 = v10;
     errorCopy2 = error;
     if (v10 && (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -421,20 +418,20 @@ LABEL_4:
         if (!error)
         {
           v15 = 0;
-          v25 = v71;
+          v25 = v70;
           goto LABEL_44;
         }
 
-        v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v39 = *MEMORY[0x1E698F240];
-        v82 = *MEMORY[0x1E696A578];
-        v70 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"appBundleID"];
-        v83 = v70;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-        v40 = [v38 initWithDomain:v39 code:2 userInfo:v24];
+        v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v38 = *MEMORY[0x1E698F240];
+        v81 = *MEMORY[0x1E696A578];
+        v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"appBundleID"];
+        v82 = v69;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+        v39 = [v37 initWithDomain:v38 code:2 userInfo:v24];
         v15 = 0;
         error = 0;
-        *errorCopy2 = v40;
+        *errorCopy2 = v39;
         goto LABEL_42;
       }
 
@@ -460,52 +457,52 @@ LABEL_4:
       {
         if (!error)
         {
-          v70 = 0;
-          v25 = v71;
+          v69 = 0;
+          v25 = v70;
           v24 = v16;
           self = selfCopy2;
           v9 = v13;
           v8 = v12;
-          v7 = v69;
+          v7 = v68;
           goto LABEL_43;
         }
 
-        v41 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v42 = v15;
-        v43 = *MEMORY[0x1E698F240];
-        v80 = *MEMORY[0x1E696A578];
-        v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"webAppBundleID"];
-        v81 = v68;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-        v44 = v43;
-        v15 = v42;
+        v40 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v41 = v15;
+        v42 = *MEMORY[0x1E698F240];
+        v79 = *MEMORY[0x1E696A578];
+        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"webAppBundleID"];
+        v80 = v67;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+        v43 = v42;
+        v15 = v41;
         v24 = v16;
-        v45 = [v41 initWithDomain:v44 code:2 userInfo:v17];
-        v70 = 0;
+        v44 = [v40 initWithDomain:v43 code:2 userInfo:v17];
+        v69 = 0;
         error = 0;
-        *errorCopy2 = v45;
+        *errorCopy2 = v44;
         self = selfCopy2;
         v9 = v13;
         v8 = v12;
         goto LABEL_75;
       }
 
-      v61 = v16;
-      v70 = v16;
+      v60 = v16;
+      v69 = v16;
     }
 
     else
     {
-      v61 = v16;
-      v70 = 0;
+      v60 = v16;
+      v69 = 0;
     }
 
     v17 = [dictionaryCopy objectForKeyedSubscript:@"launchReason"];
     self = selfCopy2;
-    v66 = v12;
+    v65 = v12;
     if (!v17)
     {
-      v68 = 0;
+      v67 = 0;
       v9 = v13;
       goto LABEL_27;
     }
@@ -514,62 +511,62 @@ LABEL_4:
     v9 = v13;
     if (objc_opt_isKindOfClass())
     {
-      v68 = 0;
+      v67 = 0;
 LABEL_27:
       v18 = [dictionaryCopy objectForKeyedSubscript:@"fullURL"];
-      v63 = v15;
+      v62 = v15;
       if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
-        v7 = v69;
+        v7 = v68;
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (!error)
           {
-            v64 = 0;
+            v63 = 0;
             error = 0;
             goto LABEL_39;
           }
 
           errorCopy3 = self;
-          v65 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v52 = *MEMORY[0x1E698F240];
-          v76 = *MEMORY[0x1E696A578];
+          v64 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v51 = *MEMORY[0x1E698F240];
+          v75 = *MEMORY[0x1E696A578];
           v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"fullURL"];
-          v77 = v21;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-          v53 = [v65 initWithDomain:v52 code:2 userInfo:v19];
-          v64 = 0;
+          v76 = v21;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+          v52 = [v64 initWithDomain:v51 code:2 userInfo:v19];
+          v63 = 0;
           error = 0;
-          *errorCopy2 = v53;
+          *errorCopy2 = v52;
 LABEL_38:
 
           self = errorCopy3;
-          v7 = v69;
+          v7 = v68;
 LABEL_39:
-          v15 = v63;
-          v24 = v61;
+          v15 = v62;
+          v24 = v60;
 LABEL_40:
 
-          v8 = v66;
+          v8 = v65;
 LABEL_41:
 
 LABEL_42:
-          v25 = v71;
+          v25 = v70;
 LABEL_43:
 
-          v11 = v67;
+          v11 = v66;
 LABEL_44:
 
           goto LABEL_45;
         }
 
-        v64 = v18;
+        v63 = v18;
       }
 
       else
       {
-        v64 = 0;
+        v63 = 0;
       }
 
       v19 = [dictionaryCopy objectForKeyedSubscript:@"referrerURL"];
@@ -586,16 +583,16 @@ LABEL_44:
             goto LABEL_38;
           }
 
-          v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v54 = *MEMORY[0x1E698F240];
-          v74 = *MEMORY[0x1E696A578];
+          v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v53 = *MEMORY[0x1E698F240];
+          v73 = *MEMORY[0x1E696A578];
           v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"referrerURL"];
-          v75 = v23;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-          v55 = [v59 initWithDomain:v54 code:2 userInfo:v22];
+          v74 = v23;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+          v54 = [v58 initWithDomain:v53 code:2 userInfo:v22];
           v21 = 0;
           error = 0;
-          *errorCopy2 = v55;
+          *errorCopy2 = v54;
           goto LABEL_37;
         }
 
@@ -616,13 +613,13 @@ LABEL_44:
         {
           if (error)
           {
-            v60 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v58 = *MEMORY[0x1E698F240];
-            v72 = *MEMORY[0x1E696A578];
-            v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"referrerBundleID"];
-            v73 = v56;
-            v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-            *errorCopy2 = [v60 initWithDomain:v58 code:2 userInfo:v57];
+            v59 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v57 = *MEMORY[0x1E698F240];
+            v71 = *MEMORY[0x1E696A578];
+            v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"referrerBundleID"];
+            v72 = v55;
+            v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+            *errorCopy2 = [v59 initWithDomain:v57 code:2 userInfo:v56];
           }
 
           v23 = 0;
@@ -638,7 +635,7 @@ LABEL_44:
         v23 = 0;
       }
 
-      error = [(BMAppClipInFocus *)errorCopy3 initWithURLHash:v66 clipBundleID:v71 appBundleID:v63 webAppBundleID:v70 launchReason:v68 fullURL:v64 referrerURL:v21 referrerBundleID:v23];
+      error = [(BMAppClipInFocus *)errorCopy3 initWithURLHash:v65 clipBundleID:v70 appBundleID:v62 webAppBundleID:v69 launchReason:v67 fullURL:v63 referrerURL:v21 referrerBundleID:v23];
       errorCopy3 = error;
 LABEL_37:
 
@@ -648,36 +645,36 @@ LABEL_37:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v68 = v17;
+      v67 = v17;
       goto LABEL_27;
     }
 
     if (error)
     {
       errorCopy4 = error;
-      v47 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v48 = v15;
-      v49 = *MEMORY[0x1E698F240];
-      v78 = *MEMORY[0x1E696A578];
-      v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"launchReason"];
-      v79 = v64;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-      v50 = v49;
-      v15 = v48;
-      v51 = [v47 initWithDomain:v50 code:2 userInfo:v18];
-      v68 = 0;
+      v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v47 = v15;
+      v48 = *MEMORY[0x1E698F240];
+      v77 = *MEMORY[0x1E696A578];
+      v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"launchReason"];
+      v78 = v63;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+      v49 = v48;
+      v15 = v47;
+      v50 = [v46 initWithDomain:v49 code:2 userInfo:v18];
+      v67 = 0;
       error = 0;
-      *errorCopy4 = v51;
-      v24 = v61;
-      v7 = v69;
+      *errorCopy4 = v50;
+      v24 = v60;
+      v7 = v68;
       goto LABEL_40;
     }
 
-    v68 = 0;
+    v67 = 0;
     v8 = v12;
-    v24 = v61;
+    v24 = v60;
 LABEL_75:
-    v7 = v69;
+    v7 = v68;
     goto LABEL_41;
   }
 
@@ -695,20 +692,19 @@ LABEL_75:
   }
 
   errorCopy5 = error;
-  v29 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v30 = *MEMORY[0x1E698F240];
-  v86 = *MEMORY[0x1E696A578];
+  v28 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v29 = *MEMORY[0x1E698F240];
+  v85 = *MEMORY[0x1E696A578];
   v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"URLHash"];
-  v87[0] = v25;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1];
-  v31 = [v29 initWithDomain:v30 code:2 userInfo:v9];
+  v86[0] = v25;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:&v85 count:1];
+  v30 = [v28 initWithDomain:v29 code:2 userInfo:v9];
   v8 = 0;
   error = 0;
-  *errorCopy5 = v31;
+  *errorCopy5 = v30;
 LABEL_45:
 
 LABEL_46:
-  v26 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -922,26 +918,24 @@ LABEL_24:
 
 + (id)protoFields
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"URLHash" number:1 type:13 subMessageClass:0];
-  v13[0] = v2;
+  v12[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clipBundleID" number:2 type:13 subMessageClass:0];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"appBundleID" number:3 type:13 subMessageClass:0];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"webAppBundleID" number:4 type:13 subMessageClass:0];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"launchReason" number:5 type:13 subMessageClass:0];
-  v13[4] = v6;
+  v12[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fullURL" number:6 type:13 subMessageClass:0];
-  v13[5] = v7;
+  v12[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"referrerURL" number:7 type:13 subMessageClass:0];
-  v13[6] = v8;
+  v12[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"referrerBundleID" number:8 type:13 subMessageClass:0];
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }

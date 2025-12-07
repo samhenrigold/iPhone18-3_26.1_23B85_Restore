@@ -195,7 +195,7 @@ LABEL_13:
               if (objc_opt_isKindOfClass())
               {
                 [v23 timeOffset];
-                [v23 duration];
+                objc_msgSend_duration(v23);
                 TimeForKeyframeAttributesInPlug([v23 timeOffsetKind], 0, v11);
                 v30 = v29;
                 [v11 fullDuration];
@@ -587,13 +587,13 @@ LABEL_7:
             v24 = v21 - v20;
             do
             {
-              [objc_msgSend(v16 "vector")];
+              [objc_msgSend_vector(v16) valueAtIndex:v22];
               v26 = v25;
               if (v13)
               {
-                [objc_msgSend(v13 "vector")];
+                [objc_msgSend_vector(v13) valueAtIndex:v22];
                 v28 = v27;
-                [objc_msgSend(v16 "vector")];
+                [objc_msgSend_vector(v16) valueAtIndex:v22];
                 v30 = v23 * (v28 - v29) / v24;
               }
 
@@ -621,7 +621,7 @@ LABEL_7:
     lastObject = [orderedKeyframes lastObject];
   }
 
-  return [lastObject vector];
+  return objc_msgSend_vector(lastObject);
 }
 
 + (double)scaledFilterPresetScalarValue:(double)value withKey:(id)key forFilterID:(id)d andPresetID:(id)iD
@@ -918,7 +918,7 @@ LABEL_9:
               v44 = 0;
               v41 = v45;
               v42 = v46;
-              [MPUtilities scaledFilterPresetVectorValue:&v41 withKey:v11 forFilterID:dCopy andPresetID:iDCopy];
+              objc_msgSend_scaledFilterPresetVectorValue_withKey_forFilterID_andPresetID_(MPUtilities);
               v32 = [objc_msgSend(v13 objectForKey:{@"keyTimes", "objectAtIndex:", j}];
               if (isKindOfClass)
               {
@@ -1109,7 +1109,7 @@ LABEL_9:
 
               else if ([v29 isMemberOfClass:objc_opt_class()])
               {
-                [v28 createKeyframeWithVector:+[MPUtilities computeVectorValueForAnimationPath:atTime:defaultsTo:](MPUtilities atTime:"computeVectorValueForAnimationPath:atTime:defaultsTo:" offsetType:{v28, objc_msgSend(v29, "vector"), v24), v27, v26}];
+                [v28 createKeyframeWithVector:+[MPUtilities computeVectorValueForAnimationPath:atTime:defaultsTo:](MPUtilities atTime:"computeVectorValueForAnimationPath:atTime:defaultsTo:" offsetType:{v28, objc_msgSend_vector(v29), v24), v27, v26}];
               }
             }
 
@@ -1178,14 +1178,14 @@ LABEL_9:
               v20 = *(*(&v26 + 1) + 8 * j);
               if (v14 <= time)
               {
-                [*(*(&v26 + 1) + 8 * j) duration];
+                objc_msgSend_duration(*(*(&v26 + 1) + 8 * j));
                 if (v14 + v21 >= time)
                 {
                   [v6 addObject:v20];
                 }
               }
 
-              [v20 duration];
+              objc_msgSend_duration(v20);
               v23 = v22;
               [v20 outroTransitionDuration];
               v14 = v14 + v23 - v24;

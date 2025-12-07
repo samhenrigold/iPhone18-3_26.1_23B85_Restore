@@ -1,7 +1,6 @@
 uint64_t MediaIntentsSample.name.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -9,7 +8,6 @@ uint64_t MediaIntentsSample.name.getter()
 uint64_t MediaIntentsSample.property.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }

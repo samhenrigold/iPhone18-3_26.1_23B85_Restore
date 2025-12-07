@@ -1,6 +1,7 @@
 @interface AEExplorerViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_handleAttemptedSelectionToggleOfAssetReference:(id)reference cancelIfAlreadySelected:(BOOL)selected suppressLivePhotoContent:(BOOL)content;
 @end
 
 @implementation AEExplorerViewControllerAccessibility
@@ -26,6 +27,22 @@
     [v3 accessibilitySetIdentification:@"AXExplorerViewControllerScrollViewController"];
     v4 = [v3 safeValueForKey:@"scrollView"];
     [v4 setAccessibilityIdentifier:@"AXExplorerViewControllerScrollView"];
+  }
+}
+
+- (void)_handleAttemptedSelectionToggleOfAssetReference:(id)reference cancelIfAlreadySelected:(BOOL)selected suppressLivePhotoContent:(BOOL)content
+{
+  contentCopy = content;
+  selectedCopy = selected;
+  referenceCopy = reference;
+  v10.receiver = self;
+  v10.super_class = AEExplorerViewControllerAccessibility;
+  [(AEExplorerViewControllerAccessibility *)&v10 _handleAttemptedSelectionToggleOfAssetReference:referenceCopy cancelIfAlreadySelected:selectedCopy suppressLivePhotoContent:contentCopy];
+  v9 = [referenceCopy safeValueForKey:@"asset"];
+
+  if (v9)
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
   }
 }
 

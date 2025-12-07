@@ -19,7 +19,7 @@
 
 - (void)fetchURL:(id)l completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
   v8 = [objc_alloc(MEMORY[0x277CCACD8]) initWithMemoryCapacity:0x400000 diskCapacity:20971520 directoryURL:0];
@@ -31,12 +31,12 @@
   [defaultSessionConfiguration setURLCache:v8];
   [defaultSessionConfiguration set_alternativeServicesStorage:0];
   v10 = [MEMORY[0x277CCAD30] sessionWithConfiguration:defaultSessionConfiguration];
-  v29 = lCopy;
+  v28 = lCopy;
   v11 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:lCopy];
   [v11 setHTTPMethod:@"GET"];
   configuration = [v10 configuration];
   uRLCache = [configuration URLCache];
-  v31 = v11;
+  v30 = v11;
   v14 = [uRLCache cachedResponseForRequest:v11];
 
   v15 = v14;
@@ -53,7 +53,7 @@
 
   v17 = v16;
 
-  v30 = v17;
+  v29 = v17;
   if (v17)
   {
     v18 = objc_autoreleasePoolPush();
@@ -63,23 +63,23 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v21;
-      v36 = 2112;
-      v37 = v30;
+      v34 = v21;
+      v35 = 2112;
+      v36 = v29;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Found a cached vendor info response: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __50__HMDDefaultSimpleDownloader_fetchURL_completion___block_invoke;
-  v32[3] = &unk_27972D4A0;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __50__HMDDefaultSimpleDownloader_fetchURL_completion___block_invoke;
+  v31[3] = &unk_27972D4A0;
+  v31[4] = self;
   v22 = completionCopy;
-  v33 = v22;
-  v23 = [v10 dataTaskWithRequest:v31 completionHandler:v32];
+  v32 = v22;
+  v23 = [v10 dataTaskWithRequest:v30 completionHandler:v31];
   v24 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v26 = HMFGetOSLogHandle();
@@ -87,21 +87,19 @@
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v35 = v27;
-    v36 = 2112;
-    v37 = v23;
+    v34 = v27;
+    v35 = 2112;
+    v36 = v23;
     _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Resuming task: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v24);
   [v23 resume];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDDefaultSimpleDownloader_fetchURL_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -130,23 +128,23 @@ void __50__HMDDefaultSimpleDownloader_fetchURL_completion___block_invoke(uint64_
       if (v20)
       {
         v21 = HMFGetLogIdentifier();
-        v28 = 138543618;
-        v29 = v21;
-        v30 = 1024;
-        LODWORD(v31) = [v16 statusCode];
+        v27 = 138543618;
+        v28 = v21;
+        v29 = 1024;
+        LODWORD(v30) = [v16 statusCode];
         v22 = "%{public}@Data task finished with HTTP status code %d";
         v23 = v19;
         v24 = 18;
 LABEL_13:
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, v22, &v28, v24);
+        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, v22, &v27, v24);
       }
     }
 
     else if (v20)
     {
       v21 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v21;
+      v27 = 138543362;
+      v28 = v21;
       v22 = "%{public}@Data task finished";
       v23 = v19;
       v24 = 12;
@@ -163,11 +161,11 @@ LABEL_13:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v13 = HMFGetLogIdentifier();
-    v28 = 138543618;
-    v29 = v13;
-    v30 = 2112;
-    v31 = v9;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Data task finished with error: %@", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v13;
+    v29 = 2112;
+    v30 = v9;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Data task finished with error: %@", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -178,8 +176,6 @@ LABEL_15:
   {
     (*(v25 + 2))(v25, v7, v8, v9);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDefaultSimpleDownloader)initWithLogIdentifier:(id)identifier
@@ -208,12 +204,11 @@ LABEL_15:
 
 uint64_t __41__HMDDefaultSimpleDownloader_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_135767;
-  logCategory__hmf_once_v9_135767 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_135767;
+  logCategory__hmf_once_v9_135767 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

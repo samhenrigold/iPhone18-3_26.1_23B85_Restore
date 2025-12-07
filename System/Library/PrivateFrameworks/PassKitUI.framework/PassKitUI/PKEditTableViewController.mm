@@ -210,80 +210,88 @@ void __60__PKEditTableViewController_loadPlaceholdersWithCompletion___block_invo
   PKPassFrontFaceContentSize();
   v10 = v9;
   v12 = v11;
-  v13 = PKPassFaceShadowInsets();
-  v14 = UIEdgeInsetsForPKEdgeInsets(v13);
-  v17 = v10 + v15 + v16;
-  v19.n128_f64[0] = v14 + v18;
-  v20 = v12;
-  v21 = v12 + v19.n128_f64[0];
-  v22 = fmin(v4 / v10, v8 / v20);
-  v23.n128_f64[0] = v22 * v17;
-  v24.n128_f64[0] = v22 * v21;
-  PKSizeCeilToPixel(v23, v24, v19);
-  v62 = v25;
-  v63 = v26;
-  v61 = fmin(v26, v6);
+  PKPassFaceShadowInsets();
+  UIEdgeInsetsForPKEdgeInsets();
+  v71 = v14;
+  v72 = v13;
+  v73 = v10;
+  v74 = v12;
+  v16 = v10 + v14 + v15;
+  v18.n128_f64[0] = v13 + v17;
+  v19 = v12;
+  v20 = v12 + v18.n128_f64[0];
+  v21 = fmin(v4 / v10, v8 / v19);
+  v22.n128_f64[0] = v21 * v16;
+  v23.n128_f64[0] = v21 * v20;
+  PKSizeCeilToPixel(v22, v23, v18);
+  v69 = v24;
+  v70 = v25;
+  v68 = fmin(v25, v6);
   preferredFormat = [MEMORY[0x1E69DCA80] preferredFormat];
-  v28 = objc_autoreleasePoolPush();
-  v29 = log(v22);
-  v30 = exp(v29 * 0.15 + 0.0);
-  v31.n128_f64[0] = v17 * v30;
-  v32.n128_f64[0] = v21 * v30;
-  PKSizeCeilToPixel(v31, v32, v33);
-  v35 = v34;
-  v37 = v36;
-  v38 = PKPassGrayPlaceholderImage();
-  v39 = objc_alloc(MEMORY[0x1E69DCA78]);
-  v40 = *MEMORY[0x1E695EFF8];
-  v41 = *(MEMORY[0x1E695EFF8] + 8);
-  v42 = [v39 initWithBounds:preferredFormat format:{*MEMORY[0x1E695EFF8], v41, v35, v37}];
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __PKEditPassesResizedPlaceholderImage_block_invoke;
-  v68[3] = &unk_1E801EE78;
-  v69 = v38;
-  v70 = v30;
-  v71 = v17;
-  v72 = v21;
-  v43 = v38;
-  v44 = [v42 imageWithActions:v68];
+  v27 = objc_autoreleasePoolPush();
+  v28 = log(v21);
+  v29 = exp(v28 * 0.15 + 0.0);
+  v30.n128_f64[0] = v16 * v29;
+  v31.n128_f64[0] = v20 * v29;
+  PKSizeCeilToPixel(v30, v31, v32);
+  v34 = v33;
+  v36 = v35;
+  v37 = PKPassGrayPlaceholderImage();
+  v38 = objc_alloc(MEMORY[0x1E69DCA78]);
+  v39 = *MEMORY[0x1E695EFF8];
+  v40 = *(MEMORY[0x1E695EFF8] + 8);
+  v41 = [v38 initWithBounds:preferredFormat format:{*MEMORY[0x1E695EFF8], v40, v34, v36}];
+  v79[0] = MEMORY[0x1E69E9820];
+  v79[1] = 3221225472;
+  v79[2] = __PKEditPassesResizedPlaceholderImage_block_invoke;
+  v79[3] = &unk_1E801EE78;
+  v80 = v37;
+  v81 = v29;
+  v82 = v16;
+  v83 = v20;
+  v42 = v37;
+  v43 = [v41 imageWithActions:v79];
 
-  objc_autoreleasePoolPop(v28);
-  v45 = objc_autoreleasePoolPush();
-  v46 = [objc_alloc(MEMORY[0x1E69DCA78]) initWithBounds:preferredFormat format:{v40, v41, v62, v61}];
-  v64[0] = MEMORY[0x1E69E9820];
-  v64[1] = 3221225472;
-  v64[2] = __PKEditPassesResizedPlaceholderImage_block_invoke_2;
-  v64[3] = &unk_1E801EEA0;
-  v47 = v44;
-  v65 = v47;
-  v66 = v62;
-  v67 = v63;
-  v48 = [v46 imageWithActions:v64];
+  objc_autoreleasePoolPop(v27);
+  v44 = objc_autoreleasePoolPush();
+  v45 = [objc_alloc(MEMORY[0x1E69DCA78]) initWithBounds:preferredFormat format:{v39, v40, v69, v68}];
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = __PKEditPassesResizedPlaceholderImage_block_invoke_2;
+  v75[3] = &unk_1E801EEA0;
+  v46 = v43;
+  v76 = v46;
+  v77 = v69;
+  v78 = v70;
+  v47 = [v45 imageWithActions:v75];
 
-  objc_autoreleasePoolPop(v45);
-  PKFloatRoundToPixel();
-  v50 = v49;
-  PKFloatRoundToPixel();
-  v52 = v51;
-  PKFloatRoundToPixel();
-  v54 = v53;
-  PKFloatRoundToPixel();
-  v56 = v63 - v52 - v55;
-  v57 = fmax(v56 - (v63 - v61), 0.0);
-  if (v63 <= v61)
+  objc_autoreleasePoolPop(v44);
+  v48.n128_f64[0] = v71 * v21;
+  PKFloatRoundToPixel(v48, v49);
+  v51 = v50;
+  v52.n128_f64[0] = v72 * v21;
+  PKFloatRoundToPixel(v52, v53);
+  v55 = v54;
+  v56.n128_f64[0] = v73 * v21;
+  PKFloatRoundToPixel(v56, v57);
+  v59 = v58;
+  v60.n128_f64[0] = v74 * v21;
+  PKFloatRoundToPixel(v60, v61);
+  v63 = v70 - v55 - v62;
+  v64 = fmax(v63 - (v70 - v68), 0.0);
+  if (v70 <= v68)
   {
-    v58 = v56;
+    v65 = v63;
   }
 
   else
   {
-    v58 = v57;
+    v65 = v64;
   }
 
-  v59 = [v48 imageWithAlignmentRectInsets:{v52, v50, v58, v62 - v50 - v54}];
+  v66 = [v47 imageWithAlignmentRectInsets:{v55, v51, v65, v69 - v51 - v59}];
 
-  return v59;
+  return v66;
 }
 
 - (void)_placeholderImageForStyle:(int64_t)style completion:(id)completion
@@ -378,17 +386,23 @@ void __60__PKEditTableViewController_loadPlaceholdersWithCompletion___block_invo
       v16 = v15;
       v18 = v17;
 
-      [(PKEditTableNoPassesView *)self->_noPassesView sizeThatFits:v16 + -16.0, v18 + -16.0];
-      v19 = self->_noPassesView;
-      PKSizeAlignedInRect();
-      [(PKEditTableNoPassesView *)v19 setFrame:?];
+      v19 = v16 + -16.0;
+      v20 = v18 + -16.0;
+      [(PKEditTableNoPassesView *)self->_noPassesView sizeThatFits:v19, v20];
+      v21 = self->_noPassesView;
+      v22.n128_u64[0] = 8.0;
+      v23.n128_u64[0] = 8.0;
+      v24.n128_f64[0] = v19;
+      v25.n128_f64[0] = v20;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v26, v27, v22, v23, v24, v25, v28);
+      [(PKEditTableNoPassesView *)v21 setFrame:?];
       noPassesView = self->_noPassesView;
     }
 
     [(PKEditTableNoPassesView *)noPassesView setHidden:0];
     tableView = self->_tableView;
-    v21 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v5, v6, v7, v8}];
-    [(UITableView *)tableView setTableFooterView:v21];
+    v30 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v5, v6, v7, v8}];
+    [(UITableView *)tableView setTableFooterView:v30];
   }
 
   else
@@ -1515,18 +1529,16 @@ LABEL_14:
   dispatch_after(v5, MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __73__PKEditTableViewController_resumeRequestIfNoScrollingAfterTimeInterval___block_invoke(uint64_t a1)
+void __73__PKEditTableViewController_resumeRequestIfNoScrollingAfterTimeInterval___block_invoke(uint64_t a1)
 {
   mach_absolute_time();
-  result = PKSecondsFromMachTimeInterval();
-  if (v3 >= *(a1 + 40) * 0.5)
+  PKSecondsFromMachTimeInterval();
+  if (v2 >= *(a1 + 40) * 0.5)
   {
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v4 _setShouldProcessLowPriorityRequests:1];
+    [v3 _setShouldProcessLowPriorityRequests:1];
   }
-
-  return result;
 }
 
 - (void)findApps

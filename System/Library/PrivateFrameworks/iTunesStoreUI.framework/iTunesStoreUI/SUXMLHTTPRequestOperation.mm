@@ -50,17 +50,17 @@
 
 - (void)run
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69D49F8] contextWithBagType:0];
-  v29 = 0;
-  v4 = [(SUXMLHTTPRequestOperation *)self loadedURLBagWithContext:v3 returningError:&v29];
-  v5 = v29;
+  v28 = 0;
+  v4 = [(SUXMLHTTPRequestOperation *)self loadedURLBagWithContext:v3 returningError:&v28];
+  v5 = v28;
   if (!v4)
   {
     v10 = 0;
     response = 0;
     output = 0;
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v6 = [(SSURLRequestProperties *)self->_requestProperties URL];
@@ -72,16 +72,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -92,32 +97,30 @@
       requestProperties = self->_requestProperties;
       v21 = v19;
       v22 = [(SSURLRequestProperties *)requestProperties URL];
-      v30 = 138412546;
-      v31 = v19;
-      v32 = 2112;
-      v33 = v22;
-      LODWORD(v27) = 22;
-      v26 = &v30;
-      v23 = _os_log_send_and_compose_impl();
+      v29 = 138412546;
+      v30 = v19;
+      v31 = 2112;
+      v32 = v22;
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Deny access to URL: %@", &v29, 22);
 
       if (!v23)
       {
-LABEL_14:
+LABEL_15:
 
         v11 = SSError();
         v10 = 0;
         response = 0;
         output = 0;
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v30, v27}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
       free(v23);
       v26 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E69E4808]);
@@ -125,19 +128,19 @@ LABEL_14:
   [v8 setDataProvider:provider];
 
   [v8 setRequestProperties:self->_requestProperties];
-  v28 = v5;
-  v10 = [(SUXMLHTTPRequestOperation *)self runSubOperation:v8 returningError:&v28];
-  v11 = v28;
+  v27 = v5;
+  v10 = [(SUXMLHTTPRequestOperation *)self runSubOperation:v8 returningError:&v27];
+  v11 = v27;
 
   dataProvider = [v8 dataProvider];
   output = [dataProvider output];
 
   response = [v8 response];
   v5 = v8;
-LABEL_15:
+LABEL_16:
 
   v5 = v11;
-LABEL_16:
+LABEL_17:
   outputBlock = [(SUXMLHTTPRequestOperation *)self outputBlock];
   v25 = outputBlock;
   if (outputBlock)

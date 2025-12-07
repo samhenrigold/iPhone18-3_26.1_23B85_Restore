@@ -12,13 +12,12 @@ unint64_t sub_1740()
 
 uint64_t sub_17B0()
 {
-  v0 = *(*(sub_6998() - 8) + 64);
+  sub_6998();
   __chkstk_darwin();
-  v1 = sub_6978();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
+  v0 = sub_6978();
+  v1 = *(v0 - 8);
   __chkstk_darwin();
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B58(0, &qword_10D20, &off_C240);
   sub_6988();
   sub_6968();
@@ -26,17 +25,17 @@ uint64_t sub_17B0()
   sub_1B58(0, &qword_10D28, NSBundle_ptr);
   if (!sub_69E8())
   {
-    v6 = [objc_opt_self() mainBundle];
+    v4 = [objc_opt_self() mainBundle];
   }
 
-  v7 = sub_69B8();
+  v5 = sub_69B8();
+  v7 = v6;
   v9 = v8;
-  v11 = v10;
   sub_1B00();
   sub_69C8();
-  sub_1BA0(v7, v9, v11 & 1);
+  sub_1BA0(v5, v7, v9 & 1);
 
-  return (*(v2 + 8))(v5, v1);
+  return (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_1A10()
@@ -53,7 +52,6 @@ uint64_t sub_1AB8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -74,12 +72,11 @@ unint64_t sub_1B00()
   return result;
 }
 
-uint64_t sub_1B58(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_1B58(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -92,7 +89,7 @@ uint64_t sub_1BA0(uint64_t a1, uint64_t a2, char a3)
 {
   if (a3)
   {
-    return _swift_release();
+    return _swift_release(a1, a2);
   }
 
   else
@@ -118,7 +115,6 @@ uint64_t sub_1C28(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -363,9 +359,9 @@ void sub_4808(uint64_t a1)
   [v1 reloadSpecifier:v2];
 }
 
-void sub_49B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_49B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -384,9 +380,9 @@ uint64_t sub_49D0(uint64_t a1, void *a2, uint64_t a3)
   return v5();
 }
 
-void sub_563C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_563C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -403,15 +399,19 @@ uint64_t sub_5670(uint64_t result, void *a2, uint64_t a3)
   if (!a3)
   {
     v4 = result;
-    v5 = [a2 firstObject];
-    v6 = *(*(v4 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(*(v4 + 32) + 8) + 40) = [a2 firstObject];
 
     return _objc_release_x1();
   }
 
   return result;
+}
+
+void sub_5AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void *sub_5AE8(void *result, uint64_t a2, uint64_t a3)

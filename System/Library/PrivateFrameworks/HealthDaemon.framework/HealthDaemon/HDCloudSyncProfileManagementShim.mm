@@ -139,14 +139,4 @@ void __107__HDCloudSyncProfileManagementShim_createProfileForIdentifier_firstNam
   dispatch_async(queue, v17);
 }
 
-uint64_t __95__HDCloudSyncProfileManagementShim_profileExistsForProfileIdentifier_configuration_completion___block_invoke(uint64_t a1)
-{
-  if (!*(a1 + 32))
-  {
-    *(a1 + 48);
-  }
-
-  return (*(*(a1 + 40) + 16))();
-}
-
 @end

@@ -49,7 +49,7 @@
 
   selfCopy = self;
   sub_28180(v7, v6);
-  sub_2C0EC(v7);
+  sub_2C0EC(v7, v6);
 }
 
 - (void)stopWithCompletion:(id)completion
@@ -71,7 +71,7 @@
 
   selfCopy = self;
   sub_28580(v7, v6);
-  sub_2C0EC(v7);
+  sub_2C0EC(v7, v6);
 }
 
 @end

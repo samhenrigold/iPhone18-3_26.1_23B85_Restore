@@ -3,16 +3,14 @@
 
 @implementation DecodeFrameSynchronously
 
-uint64_t __jpeg_DecodeFrameSynchronously_block_invoke(uint64_t a1, int a2)
+uint64_t __jpeg_DecodeFrameSynchronously_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 32);
-  if (!a2 && !*(v2 + 240))
+  v4 = *(a1 + 32);
+  if (!a2 && !*(v4 + 240))
   {
-    *(v2 + 240) = 1;
+    *(v4 + 240) = 1;
   }
 
-  v3 = *(v2 + 8);
-  v4 = *(a1 + 40);
   return VTDecoderSessionEmitDecodedFrame();
 }
 

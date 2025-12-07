@@ -31,9 +31,11 @@
 
 uint64_t __34__INPreferences_sharedPreferences__block_invoke()
 {
-  sSharedPreferences = [[INPreferences alloc] _init];
+  v0 = [[INPreferences alloc] _init];
+  v1 = sSharedPreferences;
+  sSharedPreferences = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init
@@ -268,27 +270,27 @@ void __42__INPreferences_requestSiriAuthorization___block_invoke(uint64_t a1, ui
 
 - (void)_updateWithExtensionContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   inputItems = [context inputItems];
-  v5 = [inputItems countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [inputItems countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(inputItems);
         }
 
-        userInfo = [*(*(&v12 + 1) + 8 * i) userInfo];
+        userInfo = [*(*(&v11 + 1) + 8 * i) userInfo];
         v10 = [userInfo objectForKey:@"Session Language"];
 
         if (v10)
@@ -299,7 +301,7 @@ void __42__INPreferences_requestSiriAuthorization___block_invoke(uint64_t a1, ui
         }
       }
 
-      v6 = [inputItems countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [inputItems countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -310,8 +312,6 @@ void __42__INPreferences_requestSiriAuthorization___block_invoke(uint64_t a1, ui
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (INPreferences)init

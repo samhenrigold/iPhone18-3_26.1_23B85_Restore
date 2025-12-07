@@ -111,17 +111,18 @@
 
 - (id)resultGroupForSection:(int64_t)section
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (section < 0 || [(TUSearchResults *)self numberOfSections]<= section)
+  selfCopy = self;
+  v13 = *MEMORY[0x1E69E9840];
+  if (section < 0 || (self = [(TUSearchResults *)self numberOfSections], self <= section))
   {
-    v7 = TUDefaultLog();
+    v7 = TUDefaultLog(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218240;
+      v9 = 134218240;
       sectionCopy = section;
-      v12 = 2048;
-      v13 = [(TUSearchResults *)self numberOfSections]- 1;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Attempting to get section results with out of bounds range (%li) for actual range (0..%li)", &v10, 0x16u);
+      v11 = 2048;
+      v12 = [(TUSearchResults *)selfCopy numberOfSections]- 1;
+      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Attempting to get section results with out of bounds range (%li) for actual range (0..%li)", &v9, 0x16u);
     }
 
     v6 = 0;
@@ -129,11 +130,9 @@
 
   else
   {
-    resultGroups = [(TUSearchResults *)self resultGroups];
+    resultGroups = [(TUSearchResults *)selfCopy resultGroups];
     v6 = [resultGroups objectAtIndex:section];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -157,7 +156,7 @@
 
 - (void)removeDuplicateResults
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   resultGroups = [(TUSearchResults *)self resultGroups];
   v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"groupType=%d", 1];
   v5 = [resultGroups filteredArrayUsingPredicate:v4];
@@ -168,59 +167,59 @@
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"groupType=%d", 2];
   v9 = [resultGroups2 filteredArrayUsingPredicate:v8];
 
-  v50 = lastObject;
-  v46 = v9;
+  v49 = lastObject;
+  v45 = v9;
   if ([v9 count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v78 = 0u;
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
-    v82 = 0u;
     obj = v9;
-    v53 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-    if (v53)
+    v52 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+    if (v52)
     {
-      v51 = *v80;
+      v50 = *v79;
       do
       {
         v11 = 0;
         do
         {
-          if (*v80 != v51)
+          if (*v79 != v50)
           {
             objc_enumerationMutation(obj);
           }
 
-          v55 = v11;
-          v12 = *(*(&v79 + 1) + 8 * v11);
+          v54 = v11;
+          v12 = *(*(&v78 + 1) + 8 * v11);
           array2 = [MEMORY[0x1E695DF70] array];
+          v74 = 0u;
           v75 = 0u;
           v76 = 0u;
           v77 = 0u;
-          v78 = 0u;
           results = [v12 results];
-          v15 = [results countByEnumeratingWithState:&v75 objects:v87 count:16];
+          v15 = [results countByEnumeratingWithState:&v74 objects:v86 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v76;
+            v17 = *v75;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v76 != v17)
+                if (*v75 != v17)
                 {
                   objc_enumerationMutation(results);
                 }
 
-                v19 = *(*(&v75 + 1) + 8 * i);
-                v74[0] = MEMORY[0x1E69E9820];
-                v74[1] = 3221225472;
-                v74[2] = __41__TUSearchResults_removeDuplicateResults__block_invoke;
-                v74[3] = &unk_1E7426300;
-                v74[4] = v19;
-                if ([array indexOfObjectPassingTest:v74] == 0x7FFFFFFFFFFFFFFFLL)
+                v19 = *(*(&v74 + 1) + 8 * i);
+                v73[0] = MEMORY[0x1E69E9820];
+                v73[1] = 3221225472;
+                v73[2] = __41__TUSearchResults_removeDuplicateResults__block_invoke;
+                v73[3] = &unk_1E7426300;
+                v73[4] = v19;
+                if ([array indexOfObjectPassingTest:v73] == 0x7FFFFFFFFFFFFFFFLL)
                 {
                   v20 = array;
                 }
@@ -233,104 +232,104 @@
                 [v20 addObject:v19];
               }
 
-              v16 = [results countByEnumeratingWithState:&v75 objects:v87 count:16];
+              v16 = [results countByEnumeratingWithState:&v74 objects:v86 count:16];
             }
 
             while (v16);
           }
 
-          v72 = 0u;
-          v73 = 0u;
-          v70 = 0u;
           v71 = 0u;
+          v72 = 0u;
+          v69 = 0u;
+          v70 = 0u;
           v21 = array2;
-          v22 = [v21 countByEnumeratingWithState:&v70 objects:v86 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v69 objects:v85 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v71;
+            v24 = *v70;
             do
             {
               for (j = 0; j != v23; ++j)
               {
-                if (*v71 != v24)
+                if (*v70 != v24)
                 {
                   objc_enumerationMutation(v21);
                 }
 
-                [v12 removeSearchItem:*(*(&v70 + 1) + 8 * j)];
+                [v12 removeSearchItem:*(*(&v69 + 1) + 8 * j)];
               }
 
-              v23 = [v21 countByEnumeratingWithState:&v70 objects:v86 count:16];
+              v23 = [v21 countByEnumeratingWithState:&v69 objects:v85 count:16];
             }
 
             while (v23);
           }
 
-          v11 = v55 + 1;
+          v11 = v54 + 1;
         }
 
-        while (v55 + 1 != v53);
-        v53 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+        while (v54 + 1 != v52);
+        v52 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
       }
 
-      while (v53);
+      while (v52);
     }
 
-    lastObject = v50;
+    lastObject = v49;
   }
 
   if ([v9 count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v47 = v9;
-    v52 = [v47 countByEnumeratingWithState:&v66 objects:v85 count:16];
-    if (v52)
+    v46 = v9;
+    v51 = [v46 countByEnumeratingWithState:&v65 objects:v84 count:16];
+    if (v51)
     {
-      obja = *v67;
+      obja = *v66;
       do
       {
         v26 = 0;
         do
         {
-          if (*v67 != obja)
+          if (*v66 != obja)
           {
-            objc_enumerationMutation(v47);
+            objc_enumerationMutation(v46);
           }
 
-          v54 = v26;
-          v27 = *(*(&v66 + 1) + 8 * v26);
+          v53 = v26;
+          v27 = *(*(&v65 + 1) + 8 * v26);
+          v61 = 0u;
           v62 = 0u;
           v63 = 0u;
           v64 = 0u;
-          v65 = 0u;
           results2 = [lastObject results];
-          v29 = [results2 countByEnumeratingWithState:&v62 objects:v84 count:16];
+          v29 = [results2 countByEnumeratingWithState:&v61 objects:v83 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v63;
+            v31 = *v62;
             do
             {
               for (k = 0; k != v30; ++k)
               {
-                if (*v63 != v31)
+                if (*v62 != v31)
                 {
                   objc_enumerationMutation(results2);
                 }
 
-                v33 = *(*(&v62 + 1) + 8 * k);
+                v33 = *(*(&v61 + 1) + 8 * k);
                 results3 = [v27 results];
-                v61[0] = MEMORY[0x1E69E9820];
-                v61[1] = 3221225472;
-                v61[2] = __41__TUSearchResults_removeDuplicateResults__block_invoke_2;
-                v61[3] = &unk_1E7426300;
-                v61[4] = v33;
-                v35 = [results3 indexOfObjectPassingTest:v61];
+                v60[0] = MEMORY[0x1E69E9820];
+                v60[1] = 3221225472;
+                v60[2] = __41__TUSearchResults_removeDuplicateResults__block_invoke_2;
+                v60[3] = &unk_1E7426300;
+                v60[4] = v33;
+                v35 = [results3 indexOfObjectPassingTest:v60];
 
                 if (v35 != 0x7FFFFFFFFFFFFFFFLL)
                 {
@@ -338,52 +337,52 @@
                 }
               }
 
-              v30 = [results2 countByEnumeratingWithState:&v62 objects:v84 count:16];
+              v30 = [results2 countByEnumeratingWithState:&v61 objects:v83 count:16];
             }
 
             while (v30);
           }
 
-          v26 = v54 + 1;
-          lastObject = v50;
+          v26 = v53 + 1;
+          lastObject = v49;
         }
 
-        while (v54 + 1 != v52);
-        v52 = [v47 countByEnumeratingWithState:&v66 objects:v85 count:16];
+        while (v53 + 1 != v51);
+        v51 = [v46 countByEnumeratingWithState:&v65 objects:v84 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v36 = array3;
-    v37 = [v36 countByEnumeratingWithState:&v57 objects:v83 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v56 objects:v82 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v58;
+      v39 = *v57;
       do
       {
         for (m = 0; m != v38; ++m)
         {
-          if (*v58 != v39)
+          if (*v57 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          [lastObject removeSearchItem:*(*(&v57 + 1) + 8 * m)];
+          [lastObject removeSearchItem:*(*(&v56 + 1) + 8 * m)];
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v57 objects:v83 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v56 objects:v82 count:16];
       }
 
       while (v38);
     }
 
-    v9 = v46;
+    v9 = v45;
   }
 
   if (lastObject)
@@ -397,8 +396,6 @@
       [resultGroups3 removeObject:lastObject];
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__TUSearchResults_removeDuplicateResults__block_invoke(uint64_t a1, void *a2)
@@ -474,33 +471,33 @@ uint64_t __41__TUSearchResults_removeDuplicateResults__block_invoke_2(uint64_t a
 
 - (void)removeSearchItem:(id)item
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   itemCopy = item;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   resultGroups = [(TUSearchResults *)self resultGroups];
-  v6 = [resultGroups countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [resultGroups countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(resultGroups);
         }
 
-        [*(*(&v13 + 1) + 8 * v9++) removeSearchItem:itemCopy];
+        [*(*(&v12 + 1) + 8 * v9++) removeSearchItem:itemCopy];
       }
 
       while (v7 != v9);
-      v7 = [resultGroups countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [resultGroups countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -511,8 +508,6 @@ uint64_t __41__TUSearchResults_removeDuplicateResults__block_invoke_2(uint64_t a
 
   allDataItemsCache = [(TUSearchResults *)self allDataItemsCache];
   [allDataItemsCache removeObject:itemCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)numberOfTableViewRows

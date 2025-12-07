@@ -17,9 +17,9 @@
 {
   objc_opt_class();
   NSRequestConcreteImplementation();
-  v0 = objc_alloc_init(MEMORY[0x277D755B8]);
+  v2 = objc_alloc_init(MEMORY[0x277D755B8]);
 
-  return v0;
+  return v2;
 }
 
 @end

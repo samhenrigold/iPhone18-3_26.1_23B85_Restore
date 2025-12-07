@@ -8,7 +8,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_10008FFE8();
+  sub_10008FFE8(selfCopy);
 }
 
 - (_TtC14HDSViewService27HomePodSetupProgressBarView)initWithFrame:(CGRect)frame

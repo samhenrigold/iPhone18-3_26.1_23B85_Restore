@@ -8,6 +8,7 @@
 - (WRM_BWEvalManager)init;
 - (id)getSpeedTestMetrics;
 - (id)getiRATClientFromList:(int)list;
+- (int)evaluateLink:(unint64_t)link :(int)a4 :(int)a5;
 - (int)getDeltaIPStats:(unint64_t *)stats :(unint64_t *)a4 :(unint64_t *)a5 :(unint64_t *)a6;
 - (unint64_t)getLPMState;
 - (unsigned)countStreamingEvent;
@@ -20,6 +21,7 @@
 - (void)calcAdjustedBandwith:(id *)bandwith :(float)a4;
 - (void)createMLModel;
 - (void)dealloc;
+- (void)deleteiRATClient:(int)client;
 - (void)evaluateCellularBandwidth:(id *)bandwidth;
 - (void)evaluateSDMBWChangeNotification:(unint64_t)notification;
 - (void)evaluateWiFiBandwidth:(id *)bandwidth;
@@ -39,11 +41,18 @@
 - (void)handleNrPhyMetricsRequest:(id)request;
 - (void)handleQSHMetrics:(id)metrics;
 - (void)handleSessionNotification:(id)notification;
+- (void)handleStreamingStateChange:(int)change appId:(id)id;
+- (void)handleSubscribeStatusUpdate:(id)update :(BOOL)a4;
 - (void)handleUpdateStallMessage:(id)message;
+- (void)handleVoIPStateChange:(int)change appId:(id)id;
+- (void)handleVoIPStateChangeConference:(int)conference appId:(id)id;
+- (void)handleVoIPandStreamingStateChange:(int)change appId:(id)id;
 - (void)handleWiFiMetricsRequest:(id)request;
 - (void)handleWiFiRegistered;
 - (void)handleWiFiStateChaneEvents:(id)events;
+- (void)notifyEHBState:(unsigned __int8)state;
 - (void)notifyScreenStatePassCodeNotEnabled:(int)enabled;
+- (void)notifyStreamingState:(unsigned __int8)state :(unsigned int)a4;
 - (void)processSessionStatusUpdate:(id)update;
 - (void)pruneOldStreamingEvents;
 - (void)queryInterfaceStats:(const char *)stats :(unint64_t *)a4 :(unint64_t *)a5 :(unint64_t *)a6 :(unint64_t *)a7;
@@ -52,6 +61,7 @@
 - (void)registerWebkitStreamingNotification;
 - (void)removeiRatClient:(id)client;
 - (void)resetStreamingState:(BOOL)state;
+- (void)sendMessage:(int)message withMsg:(id)msg;
 - (void)startPeriodicTask:(double)task :(id)a4;
 - (void)stopPeriodicTask;
 - (void)subscribeAppStateChangeEvent;
@@ -779,6 +789,32 @@ LABEL_28:
   dispatch_async([+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")], v3);
 }
 
+- (void)handleVoIPStateChangeConference:(int)conference appId:(id)id
+{
+  [WCM_Logging logLevel:24 message:@"handleVoIPStateChangeConference state=%d appId=%@", *&conference, id];
+  if (conference == 8)
+  {
+    [qword_1002B7B08 addObject:id];
+    v6 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
+    v7 = 1;
+  }
+
+  else
+  {
+    [qword_1002B7B08 removeObject:id];
+    if ([qword_1002B7B08 count])
+    {
+      [WCM_Logging logLevel:24 message:@"handleVoIPStateChange skip rxVoIPAppNotification %@", qword_1002B7B08];
+      return;
+    }
+
+    v6 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
+    v7 = 0;
+  }
+
+  [v6 rxVoIPAppNotification:v7 callType:2];
+}
+
 - (void)getInitialIPStats
 {
   v9 = 0;
@@ -816,10 +852,10 @@ LABEL_28:
 
 - (int)getDeltaIPStats:(unint64_t *)stats :(unint64_t *)a4 :(unint64_t *)a5 :(unint64_t *)a6
 {
-  v23 = 0;
-  v24 = 0;
   v21 = 0;
   v22 = 0;
+  v19 = 0;
+  v20 = 0;
   v11 = [+[WRM_SCService WRM_SCServiceControllerSingleton](WRM_SCService "WRM_SCServiceControllerSingleton")];
   if (v11)
   {
@@ -842,21 +878,19 @@ LABEL_28:
   }
 
   [(WRM_BWEvalManager *)self queryInterfaceStats:uTF8String];
-  v14 = v24;
-  *stats = v24 - qword_1002B7D00;
-  v15 = v23;
-  *a4 = v23 - qword_1002B7D08;
-  v16 = v22;
-  *a5 = v22 - qword_1002B7D10;
-  v17 = v21;
-  *a6 = v21 - qword_1002B7D18;
+  v14 = v22;
+  *stats = v22 - qword_1002B7D00;
+  v15 = v21;
+  *a4 = v21 - qword_1002B7D08;
+  v16 = v20;
+  *a5 = v20 - qword_1002B7D10;
+  v17 = v19;
+  *a6 = v19 - qword_1002B7D18;
   [WCM_Logging logLevel:24 message:@"sPackets: %llu, rPackets: %llu, txBytes: %llu, rxBytes: %llu", v14, v15, v16, v17];
-  qword_1002B7D00 = v24;
-  qword_1002B7D08 = v23;
-  qword_1002B7D10 = v22;
-  qword_1002B7D18 = v21;
-  v18 = *stats;
-  v19 = *a6;
+  qword_1002B7D00 = v22;
+  qword_1002B7D08 = v21;
+  qword_1002B7D10 = v20;
+  qword_1002B7D18 = v19;
   [WCM_Logging logLevel:24 message:@"Delta TX: %llu, RX: %llu, RX Bytes: %llu, TX Bytes: %llu", *stats, *a4, *a6, *a5];
   return v11;
 }
@@ -880,6 +914,94 @@ LABEL_28:
     dispatch_source_cancel(qword_1002B7B20);
     dispatch_release(qword_1002B7B20);
     qword_1002B7B20 = 0;
+  }
+}
+
+- (void)handleVoIPStateChange:(int)change appId:(id)id
+{
+  [WCM_Logging logLevel:24 message:@"handleVoIPStateChange state= %d, appId=%@", *&change, id];
+  if (change == 8)
+  {
+    if (id)
+    {
+      [qword_1002B7B08 addObject:id];
+    }
+
+    [(WRM_BWEvalManager *)self getInitialIPStats];
+
+    [(WRM_BWEvalManager *)self startPeriodicTask:&stru_10023DC30];
+  }
+
+  else
+  {
+    if (id)
+    {
+      [qword_1002B7B08 removeObject:id];
+    }
+
+    if ([qword_1002B7B08 count])
+    {
+      [WCM_Logging logLevel:24 message:@"handleVoIPStateChange skip rxVoIPAppNotification %@", qword_1002B7B08];
+    }
+
+    else
+    {
+      [(WRM_BWEvalManager *)self stopPeriodicTask];
+      v7 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
+
+      [v7 rxVoIPAppNotification:0 callType:2];
+    }
+  }
+}
+
+- (void)handleStreamingStateChange:(int)change appId:(id)id
+{
+  [WCM_Logging logLevel:24 message:@"handleStreamingStateChange state=%d appId=%@", *&change, id];
+  if (change == 8)
+  {
+    [(WRM_BWEvalManager *)self getInitialIPStats];
+    v7 = 1;
+    byte_1002B7CF8 = 1;
+    if (id)
+    {
+      [qword_1002B7B10 addObject:id];
+      v7 = byte_1002B7CF8;
+    }
+
+    [WCM_Logging logLevel:24 message:@"FG Streaming app active: %d, LPM Mode: %d", v7, byte_1002B7B34];
+    v8 = dispatch_time(0, 10000000000);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10002BAE4;
+    block[3] = &unk_10023DB28;
+    block[4] = self;
+    dispatch_after(v8, [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")], block);
+  }
+
+  else
+  {
+    if (id)
+    {
+      [qword_1002B7B10 removeObject:id];
+    }
+
+    if ([qword_1002B7B10 count])
+    {
+      [WCM_Logging logLevel:24 message:@"handleStreamingStateChange skip rxVoIPAppNotification %@", qword_1002B7B10, v9];
+    }
+
+    else
+    {
+      byte_1002B7CF8 = 0;
+      [(WRM_BWEvalManager *)self stopPeriodicTask];
+      if (byte_1002B7B01 == 1)
+      {
+        [(WRM_BWEvalManager *)self notifyStreamingState:2];
+        byte_1002B7B01 = 0;
+      }
+
+      [WCM_Logging logLevel:24 message:@"FG Streaming app active: %d, LP Mode: %d", byte_1002B7CF8, byte_1002B7B34];
+    }
   }
 }
 
@@ -943,6 +1065,58 @@ LABEL_28:
   }
 
   return byte_1002B7C6A;
+}
+
+- (void)handleVoIPandStreamingStateChange:(int)change appId:(id)id
+{
+  [WCM_Logging logLevel:24 message:@"handleVoIPandStreamingStateChange state= %d, appId=%@", *&change, id];
+  [(WRM_BWEvalManager *)self resetStreamingRecord];
+  if (change == 8)
+  {
+    if (id)
+    {
+      [qword_1002B7B18 addObject:id];
+    }
+
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10002C04C;
+    v7[3] = &unk_10023DC58;
+    v7[4] = self;
+    [(WRM_BWEvalManager *)self getInitialIPStats];
+    [(WRM_BWEvalManager *)self startPeriodicTask:v7];
+  }
+
+  else
+  {
+    if (id)
+    {
+      [qword_1002B7B18 removeObject:id];
+    }
+
+    if ([qword_1002B7B18 count])
+    {
+      [WCM_Logging logLevel:24 message:@"handleVoIPandStreamingStateChange skip, some apps are still active %@", qword_1002B7B18];
+    }
+
+    else
+    {
+      [(WRM_BWEvalManager *)self stopPeriodicTask];
+      if (byte_1002B7B02 == 1)
+      {
+        [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
+        byte_1002B7B02 = 0;
+      }
+
+      if (byte_1002B7B01 == 1)
+      {
+        [(WRM_BWEvalManager *)self notifyStreamingState:2];
+        byte_1002B7B01 = 0;
+
+        [(WRM_BWEvalManager *)self resetStreamingRecord];
+      }
+    }
+  }
 }
 
 - (void)handleAppStateChange:(id)change
@@ -1531,6 +1705,243 @@ LABEL_11:
   [(WRM_BWEvalManager *)self notifyStreamingState:0];
 }
 
+- (void)handleSubscribeStatusUpdate:(id)update :(BOOL)a4
+{
+  self->mWrmiRATStreaming->event = 1;
+  [(WRM_BWEvalManager *)self feedAWDRadioStats:update];
+  uint64 = xpc_dictionary_get_uint64(update, "kClientType");
+  v7 = WRM_IPTelephonyController;
+  if ((uint64 - 1) >= 0x15)
+  {
+    v8 = "UNKNOWN_WRM_CLIENT_TYPE!!!";
+    if (uint64 == 22)
+    {
+      v8 = "ClientCoreMediaStreaming";
+    }
+  }
+
+  else
+  {
+    v8 = off_10023F1C0[(uint64 - 1)];
+  }
+
+  [WCM_Logging logLevel:28 message:@"iRAT Video BW Mgr: Status update Msg recvd from client %d(%s)", uint64, v8];
+  value = xpc_dictionary_get_value(update, "kMessageArgs");
+  v10 = xpc_dictionary_get_value(value, "kWRMApplicationTypeList");
+  count = xpc_array_get_count(v10);
+  if (count)
+  {
+    v12 = count;
+    for (i = 0; v12 != i; ++i)
+    {
+      v14 = xpc_array_get_value(v10, i);
+      v15 = xpc_dictionary_get_uint64(v14, "kWRMApplicationType");
+      if (xpc_dictionary_get_value(v14, "kWRMVideoStreamingStarted"))
+      {
+        [&v7[98] logLevel:28 message:{@"%s: reseting SDM recommendation", "-[WRM_BWEvalManager(privateFunctions) handleSubscribeStatusUpdate::]"}];
+        mProximityMsgQueue = self->mProximityMsgQueue;
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_10006A5A0;
+        block[3] = &unk_10023DC80;
+        block[4] = self;
+        block[5] = v14;
+        dispatch_async(mProximityMsgQueue, block);
+        [&v7[98] logLevel:28 message:{@"Streaming session active: %d, Contains BW achieved: %d", self->mStreamingSessionActive, 0, v46, v47, v48, v49, v50, v51, v52}];
+      }
+
+      else
+      {
+        v53 = v15;
+        if (xpc_dictionary_get_value(v14, "kWRMStreamingDataSentCount"))
+        {
+          v17 = v7;
+          v18 = xpc_dictionary_get_uint64(v14, "kWRMStreamingDataSentCount");
+          v19 = xpc_dictionary_get_uint64(v14, "kWRMStreamingDataSentDuration");
+          v20 = xpc_dictionary_get_uint64(v14, "kWRMCurrentLinkBandwidthAchieved");
+          v21 = xpc_dictionary_get_uint64(v14, "kSesLatency");
+          v22 = v18;
+          if (!v18 || !v19 || !v20)
+          {
+            return;
+          }
+
+          v7 = v17;
+          self->mDataSent = v22;
+          self->mDuration = v19;
+          self->mHarvestedBW = v20;
+          self->mHarvestedLatency = v21;
+          mMovAVGAchievedBW = self->mMovAVGAchievedBW;
+          v24 = 12000.0;
+          if (mMovAVGAchievedBW != 0.0)
+          {
+            v24 = v20 * 0.2 + mMovAVGAchievedBW * 0.8;
+          }
+
+          self->mMovAVGAchievedBW = v24;
+          [(WRM_BWEvalManager *)self evaluateSDMBWChangeNotification:?];
+        }
+
+        else if (byte_1002B7B7C != 1)
+        {
+          return;
+        }
+
+        if ([(WRM_BWEvalManager *)self isWiFiPrimary])
+        {
+          mAchievedWiFiBW = self->mAchievedWiFiBW;
+          self->mAchievedPreviousBW = mAchievedWiFiBW;
+          self->mAchievedPreviousWiFiBW = mAchievedWiFiBW;
+          v26 = xpc_dictionary_get_uint64(v14, "kWRMCurrentLinkBandwidthAchieved");
+          self->mAchievedBW = v26;
+          self->mAchievedWiFiBW = v26;
+          mAchievedMovAvgWiFiBW = self->mAchievedMovAvgWiFiBW;
+          if (mAchievedMovAvgWiFiBW)
+          {
+            v28 = (v26 - mAchievedMovAvgWiFiBW + 8 * mAchievedMovAvgWiFiBW) >> 3;
+          }
+
+          else
+          {
+            v28 = v26;
+          }
+
+          self->mAchievedMovAvgWiFiBW = v28;
+          [&v7[98] logLevel:28 message:@"streaming on WiFi"];
+        }
+
+        else
+        {
+          mAchievedCellBW = self->mAchievedCellBW;
+          self->mAchievedPreviousCellBW = mAchievedCellBW;
+          self->mAchievedPreviousBW = mAchievedCellBW;
+          v30 = xpc_dictionary_get_uint64(v14, "kWRMCurrentLinkBandwidthAchieved");
+          self->mAchievedBW = v30;
+          self->mAchievedCellBW = v30;
+          if (self->mWrmiRATStreaming->coldStartTypeCellular)
+          {
+            byte_1002B7BA8 = 1;
+          }
+
+          [&v7[98] logLevel:28 message:{@"ThroughputPrediction: streaming on cellular: mAchievedCellBW: %llu", v30}];
+        }
+
+        [&v7[98] logLevel:28 message:{@"%s: Record#=%d, IMG Video Application Type=%llu, Achieved BW:%llu, Previous Achieved BW:%llu, Data Sent:%llu, Duration:%llu, mAchievedWiFiBW:%llu, mAchievedCellBW:%llu", "-[WRM_BWEvalManager(privateFunctions) handleSubscribeStatusUpdate::]", i, v53, self->mAchievedBW, self->mAchievedPreviousBW, self->mDataSent, self->mDuration, self->mAchievedWiFiBW, self->mAchievedCellBW}];
+      }
+    }
+  }
+
+  [(WRM_BWEvalManager *)self evaluateWiFiLink];
+  [(NSDate *)self->mCMStatusUpdateEvaluationTimer timeIntervalSinceNow];
+  v32 = self->mTimeSinceCMStatusEvaluationStarted - v31;
+  mWrmiRATStreaming = self->mWrmiRATStreaming;
+  v34 = self->mAchievedBW - mWrmiRATStreaming[5].u32[1];
+  v35 = (v34 + (self->mMovingAvgDeviation * 7.0)) * 0.125;
+  self->mDeviation = v34;
+  self->mMovingAvgDeviation = v35;
+  if (v32 >= 120.0 || (byte_1002B7B7C & 1) != 0 || byte_1002B7BA8 == 1)
+  {
+    [(NSDate *)self->mCMStatusUpdateEvaluationTimer timeIntervalSinceNow];
+    self->mTimeSinceCMStatusEvaluationStarted = v36;
+    mWrmiRATStreaming = self->mWrmiRATStreaming;
+    if (mWrmiRATStreaming[47].i8[5] == 1)
+    {
+      v37 = dword_1002B7C90;
+      mWrmiRATStreaming[1].i32[0] = dword_1002B7C90;
+      dword_1002B7C90 = v37 + 1;
+      mWrmiRATStreaming[46].i32[0] = self->mStreamingStallDetected;
+      mWrmiRATStreaming[47].i8[0] = self->mStreamingFatalErrorDetected;
+      mAchievedBW = self->mAchievedBW;
+      mWrmiRATStreaming[7] = vmovn_s64(*&self->mDataSent);
+      mWrmiRATStreaming[2].i32[1] = mWrmiRATStreaming[5].i32[0];
+      mWrmiRATStreaming[3].i32[0] = mAchievedBW;
+      mWrmiRATStreaming[4].i32[1] = self->mMovingAvgDeviation;
+      if ([(WRM_BWEvalManager *)self isWiFiPrimary])
+      {
+        mAchievedMaxWiFiBW = self->mAchievedMaxWiFiBW;
+        v40 = self->mWrmiRATStreaming;
+        v40->pActualLowBandwidth = self->mAchievedPreviousWiFiBW;
+        v40->maxOfActualLowBandwidth = mAchievedMaxWiFiBW;
+        [&v7[98] logLevel:28 message:{@"ThroughputPrediction streaming getMLPredictedWiFiBW mAchievedMaxWiFiBW=%llu", mAchievedMaxWiFiBW}];
+        [&v7[98] logLevel:28 message:{@"Actual Throughput: %d, ThroughputPrediction: cell: %d, wifi: %d, cell_prediction_error: %f", self->mAchievedWiFiBW, 0, -[WRM_BWEvalManager getMLPredictedWiFiBW](self, "getMLPredictedWiFiBW"), 0}];
+      }
+
+      else if (byte_1002B7BA8 == 1)
+      {
+        if (self->mWrmiRATStreaming->coldStartTypeCellular == 1)
+        {
+          v41 = @"COLD START: Actual Throughput: %d, ThroughputPrediction: cell: %d, wifi: %d, cell_prediction_error: %f";
+        }
+
+        else
+        {
+          v41 = @"SEMI COLD START: Actual Throughput: %d, ThroughputPrediction: cell: %d, wifi: %d, cell_prediction_error: %f";
+        }
+
+        [&v7[98] logLevel:28 message:{v41, self->mAchievedCellBW, dword_1002B7BA0, dword_1002B7BA4, self->mAchievedCellBW / 1000.0 - dword_1002B7BA0 / 1000.0}];
+        byte_1002B7BA8 = 0;
+      }
+
+      else
+      {
+        mAchievedMaxCellBW = self->mAchievedMaxCellBW;
+        v43 = self->mWrmiRATStreaming;
+        v43->pActualLowBandwidth = self->mAchievedPreviousCellBW;
+        v43->maxOfActualLowBandwidth = mAchievedMaxCellBW;
+        [&v7[98] logLevel:28 message:{@"ThroughputPrediction streaming getMLPredictedCellBW mAchievedMaxCellBW=%llu", mAchievedMaxCellBW}];
+        getMLPredictedCellBW = [(WRM_BWEvalManager *)self getMLPredictedCellBW];
+        [&v7[98] logLevel:28 message:{@"Actual Throughput: %d, ThroughputPrediction: cell: %d, wifi: %d, cell_prediction_error: %f", self->mAchievedCellBW, getMLPredictedCellBW, 0, self->mAchievedCellBW / 1000.0 - getMLPredictedCellBW / 1000.0}];
+      }
+
+      [&v7[98] logLevel:28 message:{@"%s: Sending AWD report Act Low BW =%llu, Est. Low BW =%llu, Deviation =%lld, data sent =%llu, duration= %llu", "-[WRM_BWEvalManager(privateFunctions) handleSubscribeStatusUpdate::]", self->mAchievedBW, self->mWrmiRATStreaming->estimatedLowBandwidth, self->mAchievedBW - self->mWrmiRATStreaming->estimatedLowBandwidth, self->mWrmiRATStreaming->cmDataSentCount, self->mWrmiRATStreaming->cmDataSentDuration}];
+      v45 = self->mProximityMsgQueue;
+      v54[0] = _NSConcreteStackBlock;
+      v54[1] = 3221225472;
+      v54[2] = sub_10006A5AC;
+      v54[3] = &unk_10023DB28;
+      v54[4] = self;
+      dispatch_async(v45, v54);
+      mWrmiRATStreaming = self->mWrmiRATStreaming;
+    }
+  }
+
+  if (mWrmiRATStreaming[47].i8[5] == 1)
+  {
+    [&v7[98] logLevel:28 message:{@"%s: Act Low BW =%llu, Est. Low BW =%llu, Deviation =%.2f, Mov Deviation = %.2f", "-[WRM_BWEvalManager(privateFunctions) handleSubscribeStatusUpdate::]", self->mAchievedBW, mWrmiRATStreaming[5].u32[1], self->mDeviation, self->mMovingAvgDeviation}];
+  }
+}
+
+- (int)evaluateLink:(unint64_t)link :(int)a4 :(int)a5
+{
+  v6 = [(WRM_BWEvalManager *)self isWiFiPrimary:link];
+  v7 = "CT_DATA";
+  v8 = "CT_VOICE";
+  v9 = "UNKNOWN_APP!!!";
+  if (link == 2)
+  {
+    v9 = "CT_Th_Call";
+  }
+
+  if (link != 1)
+  {
+    v8 = v9;
+  }
+
+  if (link)
+  {
+    v7 = v8;
+  }
+
+  v10 = "CELLULAR";
+  if (v6)
+  {
+    v10 = "WIFI";
+  }
+
+  [WCM_Logging logLevel:28 message:@"{%s}iRAT: Evaluate link preferred: %s", v7, v10];
+  return v6;
+}
+
 - (void)evaluateCellularBandwidth:(id *)bandwidth
 {
   mAchievedCellBW = self->mAchievedCellBW;
@@ -1547,37 +1958,36 @@ LABEL_11:
 
 - (void)calcAdjustedBandwith:(id *)bandwith :(float)a4
 {
-  var0 = bandwith->var0;
   [WCM_Logging logLevel:28 message:@"calcAdjustedBandwith:minEvalBW: %d, CM reported BW:%d, Correction Factor:%.2f, maxBW: %d", bandwith->var0, self->mAchievedMaxWiFiBW, a4, self->mAchievedMaxWiFiBW];
   mScallingFactor = self->mScallingFactor;
-  v8 = bandwith->var0;
+  var0 = bandwith->var0;
   if (mScallingFactor > 1.0)
   {
-    v9 = bandwith->var1 / mScallingFactor;
-    if (v8 > v9)
+    v8 = bandwith->var1 / mScallingFactor;
+    if (var0 > v8)
     {
-      bandwith->var0 = v9;
-      v8 = v9;
+      bandwith->var0 = v8;
+      var0 = v8;
     }
   }
 
   mAchievedMovAvgWiFiBW = self->mAchievedMovAvgWiFiBW;
-  if (v8 > mAchievedMovAvgWiFiBW && mAchievedMovAvgWiFiBW)
+  if (var0 > mAchievedMovAvgWiFiBW && mAchievedMovAvgWiFiBW)
   {
     [WCM_Logging logLevel:28 message:@"Link is backhaul limited, use historical bandwitdh"];
-    v11 = self->mAchievedMovAvgWiFiBW;
-    bandwith->var0 = v11;
+    v10 = self->mAchievedMovAvgWiFiBW;
+    bandwith->var0 = v10;
   }
 
   else
   {
     [WCM_Logging logLevel:28 message:@"Link is not backhaul limited, use WiFi estimated bandwitdh"];
-    v11 = bandwith->var0;
+    v10 = bandwith->var0;
   }
 
-  v12 = (v11 - self->mEvalMovAvgWiFiBW + 8 * self->mEvalMovAvgWiFiBW) >> 3;
-  self->mEvalMovAvgWiFiBW = v12;
-  bandwith->var2 = v12;
+  v11 = (v10 - self->mEvalMovAvgWiFiBW + 8 * self->mEvalMovAvgWiFiBW) >> 3;
+  self->mEvalMovAvgWiFiBW = v11;
+  bandwith->var2 = v11;
 }
 
 - (void)evaluateWiFiBandwidth:(id *)bandwidth
@@ -1665,6 +2075,27 @@ LABEL_11:
   [(WRM_BWEvalManager *)self existingContexts];
 
   objc_sync_exit(miRATClientContexts);
+}
+
+- (void)deleteiRATClient:(int)client
+{
+  v3 = *&client;
+  miRATClientContexts = self->miRATClientContexts;
+  objc_sync_enter(miRATClientContexts);
+  v6 = [(WRM_BWEvalManager *)self getiRATClientFromList:v3];
+  if (v6)
+  {
+    [(WRM_BWEvalManager *)self removeiRatClient:v6];
+  }
+
+  objc_sync_exit(miRATClientContexts);
+  if (self->mWiFi && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    mWiFi = self->mWiFi;
+    needWiFiLQM = [(WRM_BWEvalManager *)self needWiFiLQM];
+
+    [(WCM_WiFiController *)mWiFi toggleWiFiLQMIfNeeded:needWiFiLQM];
+  }
 }
 
 - (void)handleControllerAvailability:(unint64_t)availability
@@ -2583,6 +3014,13 @@ LABEL_32:
   return [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:18];
 }
 
+- (void)sendMessage:(int)message withMsg:(id)msg
+{
+  v5 = [+[WCM_Server singleton](WCM_Server "singleton")];
+
+  [v5 sendMessage:msg];
+}
+
 - (void)subscribeForDeviceLockStateInfo
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -2613,6 +3051,23 @@ LABEL_32:
   v3 = +[NSNotificationCenter defaultCenter];
 
   [(NSNotificationCenter *)v3 removeObserver:self];
+}
+
+- (void)notifyStreamingState:(unsigned __int8)state :(unsigned int)a4
+{
+  v4 = a4;
+  stateCopy = state;
+  v6 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
+
+  [v6 notifyAVStatus:stateCopy :v4];
+}
+
+- (void)notifyEHBState:(unsigned __int8)state
+{
+  stateCopy = state;
+  v4 = +[WRM_HandoverManager WRM_HandoverManagerSingleton];
+
+  [v4 notifyEHBState:stateCopy];
 }
 
 - (void)notifyScreenStatePassCodeNotEnabled:(int)enabled

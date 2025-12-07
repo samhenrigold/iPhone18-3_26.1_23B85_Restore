@@ -4,8 +4,10 @@
 + (__CFDictionary)_copyAllKeysAndValuesFromDomain:(__CFString *)domain usingPreferencesScope:(int)scope;
 + (__CFString)copySharedResourcesPreferencesDomain;
 + (id)_existingPerTopicPreferenceKeyPrefixesWithRegularPreferenceKeys:(const void *)keys regularPreferenceKeysCount:(unint64_t)count;
++ (void)_enumerateKeysAndValuesWithEligibleKeyPrefixes:(id)prefixes inDomain:(__CFString *)domain usingPreferencesScope:(int)scope withBlock:(id)block;
 + (void)_setValue:(void *)value forKey:(__CFString *)key inDomain:(__CFString *)domain usingPreferencesScope:(int)scope;
 + (void)_synchronizeDomain:(__CFString *)domain usingPreferencesScope:(int)scope;
++ (void)migratePerTopicPreferencesInDomain:(__CFString *)domain withRegularPreferenceKeys:(const void *)keys regularPreferenceKeysCount:(unint64_t)count intoSinglePerTopicPreferenceWithSuffix:(id)suffix usingPreferencesScope:(int)scope;
 @end
 
 @implementation TLPreferencesUtilities
@@ -15,6 +17,46 @@
   preferencesDomain = [self preferencesDomain];
 
   return [self copySharedResourcesPreferencesDomainForDomain:preferencesDomain];
+}
+
++ (void)migratePerTopicPreferencesInDomain:(__CFString *)domain withRegularPreferenceKeys:(const void *)keys regularPreferenceKeysCount:(unint64_t)count intoSinglePerTopicPreferenceWithSuffix:(id)suffix usingPreferencesScope:(int)scope
+{
+  v7 = *&scope;
+  suffixCopy = suffix;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v13 = [self _existingPerTopicPreferenceKeyPrefixesWithRegularPreferenceKeys:keys regularPreferenceKeysCount:count];
+  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __175__TLPreferencesUtilities_migratePerTopicPreferencesInDomain_withRegularPreferenceKeys_regularPreferenceKeysCount_intoSinglePerTopicPreferenceWithSuffix_usingPreferencesScope___block_invoke;
+  v26[3] = &unk_1E8578E18;
+  v15 = v14;
+  selfCopy = self;
+  domainCopy = domain;
+  v31 = v7;
+  v27 = v15;
+  v28 = &v32;
+  [self _enumerateKeysAndValuesWithEligibleKeyPrefixes:v13 inDomain:domain usingPreferencesScope:v7 withBlock:v26];
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __175__TLPreferencesUtilities_migratePerTopicPreferencesInDomain_withRegularPreferenceKeys_regularPreferenceKeysCount_intoSinglePerTopicPreferenceWithSuffix_usingPreferencesScope___block_invoke_2;
+  v20 = &unk_1E8578E40;
+  v16 = suffixCopy;
+  selfCopy2 = self;
+  domainCopy2 = domain;
+  v25 = v7;
+  v21 = v16;
+  v22 = &v32;
+  [v15 enumerateKeysAndObjectsUsingBlock:&v17];
+  if (*(v33 + 24) == 1)
+  {
+    [self _synchronizeDomain:domain usingPreferencesScope:{v7, v17, v18, v19, v20}];
+  }
+
+  _Block_object_dispose(&v32, 8);
 }
 
 void __175__TLPreferencesUtilities_migratePerTopicPreferencesInDomain_withRegularPreferenceKeys_regularPreferenceKeysCount_intoSinglePerTopicPreferenceWithSuffix_usingPreferencesScope___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -64,7 +106,7 @@ void __175__TLPreferencesUtilities_migratePerTopicPreferencesInDomain_withRegula
 
 void __47__TLPreferencesUtilities_canAccessNanoRegistry__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = SecTaskCreateFromSelf(0);
   if (v2)
   {
@@ -73,16 +115,14 @@ void __47__TLPreferencesUtilities_canAccessNanoRegistry__block_invoke(uint64_t a
     v5 = [*(a1 + 32) _valueForEntitlement:@"com.apple.nano.nanoregistry" task:v3];
     CFRelease(v3);
     canAccessNanoRegistry__TLPreferenceUtilitiesCanAccessNanoRegistry = (v4 | v5) & 1;
-    v6 = TLLogGeneral();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = TLLogGeneral(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = canAccessNanoRegistry__TLPreferenceUtilitiesCanAccessNanoRegistry;
-      _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "Can access NanoRegistry: %{BOOL}u.", v8, 8u);
+      v9[0] = 67109120;
+      v9[1] = canAccessNanoRegistry__TLPreferenceUtilitiesCanAccessNanoRegistry;
+      _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "Can access NanoRegistry: %{BOOL}u.", v9, 8u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_valueForEntitlement:(id)entitlement task:(__SecTask *)task
@@ -91,20 +131,20 @@ void __47__TLPreferencesUtilities_canAccessNanoRegistry__block_invoke(uint64_t a
   entitlementCopy = entitlement;
   error = 0;
   v6 = SecTaskCopyValueForEntitlement(task, entitlementCopy, &error);
-  v7 = TLLogGeneral();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = TLLogGeneral(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     v14 = entitlementCopy;
     v15 = 2114;
     v16 = v6;
-    _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "Value of %{public}@ entitlement for current process: %{public}@.", buf, 0x16u);
+    _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "Value of %{public}@ entitlement for current process: %{public}@.", buf, 0x16u);
   }
 
   if (v6)
   {
-    v8 = CFGetTypeID(v6);
-    if (v8 == CFBooleanGetTypeID())
+    v9 = CFGetTypeID(v6);
+    if (v9 == CFBooleanGetTypeID())
     {
       bOOLValue = [v6 BOOLValue];
     }
@@ -127,7 +167,6 @@ void __47__TLPreferencesUtilities_canAccessNanoRegistry__block_invoke(uint64_t a
     CFRelease(error);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -147,9 +186,29 @@ void __47__TLPreferencesUtilities_canAccessNanoRegistry__block_invoke(uint64_t a
   return i;
 }
 
++ (void)_enumerateKeysAndValuesWithEligibleKeyPrefixes:(id)prefixes inDomain:(__CFString *)domain usingPreferencesScope:(int)scope withBlock:(id)block
+{
+  v7 = *&scope;
+  prefixesCopy = prefixes;
+  blockCopy = block;
+  v12 = [self _copyAllKeysAndValuesFromDomain:domain usingPreferencesScope:v7];
+  if (v12)
+  {
+    v13 = v12;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __114__TLPreferencesUtilities__enumerateKeysAndValuesWithEligibleKeyPrefixes_inDomain_usingPreferencesScope_withBlock___block_invoke;
+    v14[3] = &unk_1E8578E68;
+    v15 = prefixesCopy;
+    v16 = blockCopy;
+    [v13 enumerateKeysAndObjectsUsingBlock:v14];
+    CFRelease(v13);
+  }
+}
+
 void __114__TLPreferencesUtilities__enumerateKeysAndValuesWithEligibleKeyPrefixes_inDomain_usingPreferencesScope_withBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -160,33 +219,33 @@ void __114__TLPreferencesUtilities__enumerateKeysAndValuesWithEligibleKeyPrefixe
     {
       v7 = v5;
       v8 = v6;
+      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
       v9 = *(a1 + 32);
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v16;
+        v12 = *v15;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v16 != v12)
+            if (*v15 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            if ([v7 hasPrefix:{*(*(&v15 + 1) + 8 * i), v15}])
+            if ([v7 hasPrefix:{*(*(&v14 + 1) + 8 * i), v14}])
             {
               (*(*(a1 + 40) + 16))();
               goto LABEL_13;
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v11)
           {
             continue;
@@ -199,8 +258,6 @@ void __114__TLPreferencesUtilities__enumerateKeysAndValuesWithEligibleKeyPrefixe
 LABEL_13:
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (__CFDictionary)_copyAllKeysAndValuesFromDomain:(__CFString *)domain usingPreferencesScope:(int)scope

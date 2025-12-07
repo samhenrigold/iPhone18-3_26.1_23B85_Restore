@@ -27,6 +27,7 @@
 - (unint64_t)checkQueryInfoFreshness:(id)freshness receiptDate:(id)date error:(id *)error;
 - (unint64_t)checkQueryResponseFreshness:(id)freshness receiptDate:(id)date error:(id *)error;
 - (unint64_t)checkResponseFreshness:(id)freshness smh:(id)smh receiptDate:(id)date error:(id *)error;
+- (unint64_t)checkServerStatus:(int)status isInsert:(BOOL)insert error:(id *)error;
 - (unint64_t)handleBatchQueryResponse:(id)response queryRequest:(id)request receiptDate:(id)date fetchId:(id)id error:(id *)error queryInfoHandler:(id)handler;
 - (unint64_t)handleBatchQueryResponse:(id)response queryRequest:(id)request receiptDate:(id)date fetchId:(id)id error:(id *)error transparentDataHandler:(id)handler;
 - (unint64_t)handleInsertResponse:(id)response uri:(id)uri fetchId:(id)id error:(id *)error transparentDataHandler:(id)handler;
@@ -35,6 +36,7 @@
 - (unint64_t)verifyAccountKeyWitness:(id)witness accountKey:(id)key error:(id *)error;
 - (unint64_t)verifyConsistencyProofResponse:(id)response startRevision:(int64_t)revision receivedRevisions:(id)revisions error:(id *)error;
 - (unint64_t)verifyInclusionProof:(id)proof mapLeaf:(id *)leaf error:(id *)error;
+- (unint64_t)verifyLogConsistencyResponse:(id)response startRevision:(int64_t)revision receivedRevisions:(id)revisions forwards:(BOOL)forwards serverHint:(id)hint error:(id *)error;
 - (unint64_t)verifyRevisionLogProofLogEntry:(id)entry patSTH:(id *)h error:(id *)error;
 - (unint64_t)verifyRevisionLogTopLevelProof:(id)proof patSTH:(id)h error:(id *)error;
 - (unint64_t)verifySMTTimestamps:(id)timestamps receiptDate:(id)date error:(id *)error;
@@ -1286,28 +1288,17 @@ LABEL_42:
     goto LABEL_23;
   }
 
-  if (![mutationCopy hasOptInExtension])
+  if (![mutationCopy hasOptInExtension] || (objc_msgSend(mutationCopy, "getOptInOutWithExt"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(mutationCopy, "idsDeviceMutation"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "accountKeyHash"), v9 = objc_claimAutoreleasedReturnValue(), v10 = +[KTContextVerifier verifyOptInOutWithExtMerged:accountKeyHash:mapLeaf:pendingAccountAdds:](KTContextVerifier, "verifyOptInOutWithExtMerged:accountKeyHash:mapLeaf:pendingAccountAdds:", v7, v9, leafCopy, 0), v9, v8, v7, !v10))
   {
-    goto LABEL_7;
-  }
-
-  getOptInOutWithExt = [mutationCopy getOptInOutWithExt];
-  idsDeviceMutation = [mutationCopy idsDeviceMutation];
-  accountKeyHash = [idsDeviceMutation accountKeyHash];
-  v10 = [KTContextVerifier verifyOptInOutWithExtMerged:getOptInOutWithExt accountKeyHash:accountKeyHash mapLeaf:leafCopy pendingAccountAdds:0];
-
-  if (!v10)
-  {
-LABEL_7:
+    idsDeviceMutation = [mutationCopy idsDeviceMutation];
+    accountKeyHash = [idsDeviceMutation accountKeyHash];
     idsDeviceMutation2 = [mutationCopy idsDeviceMutation];
-    accountKeyHash2 = [idsDeviceMutation2 accountKeyHash];
+    deviceIdHash = [idsDeviceMutation2 deviceIdHash];
     idsDeviceMutation3 = [mutationCopy idsDeviceMutation];
-    deviceIdHash = [idsDeviceMutation3 deviceIdHash];
+    appVersion = [idsDeviceMutation3 appVersion];
     idsDeviceMutation4 = [mutationCopy idsDeviceMutation];
-    appVersion = [idsDeviceMutation4 appVersion];
-    idsDeviceMutation5 = [mutationCopy idsDeviceMutation];
-    clientDataHash = [idsDeviceMutation5 clientDataHash];
-    v19 = [leafCopy recordForAccountKeyHash:accountKeyHash2 deviceIdHash:deviceIdHash appVersion:appVersion clientDataHash:clientDataHash];
+    clientDataHash = [idsDeviceMutation4 clientDataHash];
+    v19 = [leafCopy recordForAccountKeyHash:accountKeyHash deviceIdHash:deviceIdHash appVersion:appVersion clientDataHash:clientDataHash];
 
     if (v19)
     {
@@ -1341,12 +1332,12 @@ LABEL_22:
 
     else if ([mutationCopy mutationType] == 1 || objc_msgSend(mutationCopy, "mutationType") == 4)
     {
-      idsDeviceMutation6 = [mutationCopy idsDeviceMutation];
-      accountKeyHash3 = [idsDeviceMutation6 accountKeyHash];
-      v25 = [leafCopy accountForAccountKeyHash:accountKeyHash3];
+      idsDeviceMutation5 = [mutationCopy idsDeviceMutation];
+      accountKeyHash2 = [idsDeviceMutation5 accountKeyHash];
+      v25 = [leafCopy accountForAccountKeyHash:accountKeyHash2];
 
-      LOBYTE(idsDeviceMutation6) = [v25 hasOptInAfter:{objc_msgSend(mutationCopy, "mutationMs")}];
-      if ((idsDeviceMutation6 & 1) == 0)
+      LOBYTE(idsDeviceMutation5) = [v25 hasOptInAfter:{objc_msgSend(mutationCopy, "mutationMs")}];
+      if ((idsDeviceMutation5 & 1) == 0)
       {
         v10 = -68;
         goto LABEL_22;
@@ -2013,6 +2004,40 @@ LABEL_63:
   }
 
   return v16;
+}
+
+- (unint64_t)checkServerStatus:(int)status isInsert:(BOOL)insert error:(id *)error
+{
+  v6 = status == 3 && insert;
+  result = 1;
+  if (status != 1 && !v6)
+  {
+    v9 = *&status;
+    if (error)
+    {
+      *error = [TransparencyError errorWithDomain:kTransparencyErrorServer code:status description:@"Query response indicates server failure: %d", *&status];
+    }
+
+    if (qword_10039CB60 != -1)
+    {
+      sub_10025D658();
+    }
+
+    v10 = qword_10039CB68;
+    if (os_log_type_enabled(qword_10039CB68, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v13 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Response indicates server failure: %d", buf, 8u);
+    }
+
+    applicationKeyStore = [(KTContextVerifier *)self applicationKeyStore];
+    [applicationKeyStore triggerRefreshFromServerStatus:v9];
+
+    return 2 * (v9 == 5);
+  }
+
+  return result;
 }
 
 - (unint64_t)checkResponseFreshness:(id)freshness smh:(id)smh receiptDate:(id)date error:(id *)error
@@ -3097,6 +3122,89 @@ LABEL_43:
   return v14;
 }
 
+- (unint64_t)verifyLogConsistencyResponse:(id)response startRevision:(int64_t)revision receivedRevisions:(id)revisions forwards:(BOOL)forwards serverHint:(id)hint error:(id *)error
+{
+  forwardsCopy = forwards;
+  responseCopy = response;
+  revisionsCopy = revisions;
+  hintCopy = hint;
+  v17 = [TransparencyConsistencyProofVerifier alloc];
+  applicationKeyStore = [(KTContextVerifier *)self applicationKeyStore];
+  appSthKeyStore = [applicationKeyStore appSthKeyStore];
+  v20 = [(TransparencyConsistencyProofVerifier *)v17 initWithTrustedKeyStore:appSthKeyStore];
+
+  [responseCopy setVerifier:v20];
+  dataStore = [(KTContextVerifier *)self dataStore];
+  [responseCopy setDataStore:dataStore];
+
+  v22 = [NSNumber numberWithLongLong:revision];
+  [responseCopy setStartRevision:v22];
+
+  [responseCopy setMetadataValue:hintCopy key:kTransparencyResponseMetadataKeyServerHint];
+  [responseCopy setForwards:forwardsCopy];
+  context = [(KTContextVerifier *)self context];
+  optInServer = [context optInServer];
+  [responseCopy setOptInServer:optInServer];
+
+  context2 = [(KTContextVerifier *)self context];
+  followUp = [context2 followUp];
+  [responseCopy setFollowUp:followUp];
+
+  if ([responseCopy hasStartSlh])
+  {
+    startSlh = [responseCopy startSlh];
+
+    if (startSlh)
+    {
+      startSlh2 = [responseCopy startSlh];
+      v29 = [SignedLogHead signedTypeWithObject:startSlh2];
+
+      if (revisionsCopy)
+      {
+        parsedLogHead = [v29 parsedLogHead];
+        v31 = parsedLogHead;
+        if (parsedLogHead)
+        {
+          v32 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [parsedLogHead revision]);
+          [revisionsCopy addObject:v32];
+        }
+      }
+
+      startSlh3 = [responseCopy startSlh];
+      [(KTContextVerifier *)self checkHeadEpoch:startSlh3];
+    }
+  }
+
+  if ([responseCopy hasEndSlh])
+  {
+    endSlh = [responseCopy endSlh];
+
+    if (endSlh)
+    {
+      endSlh2 = [responseCopy endSlh];
+      v36 = [SignedLogHead signedTypeWithObject:endSlh2];
+
+      if (revisionsCopy)
+      {
+        parsedLogHead2 = [v36 parsedLogHead];
+        v38 = parsedLogHead2;
+        if (parsedLogHead2)
+        {
+          v39 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [parsedLogHead2 revision]);
+          [revisionsCopy addObject:v39];
+        }
+      }
+
+      endSlh3 = [responseCopy endSlh];
+      [(KTContextVerifier *)self checkHeadEpoch:endSlh3];
+    }
+  }
+
+  v41 = [responseCopy verifyWithError:error];
+
+  return v41;
+}
+
 - (unint64_t)verifyConsistencyProofResponse:(id)response startRevision:(int64_t)revision receivedRevisions:(id)revisions error:(id *)error
 {
   responseCopy = response;
@@ -3108,19 +3216,8 @@ LABEL_43:
   logType = [responseCopy logType];
   if (metadata)
   {
-    if (logType != 2)
+    if (logType != 2 || (-[KTContextVerifier applicationID](self, "applicationID"), v14 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [responseCopy application]), v15 = objc_claimAutoreleasedReturnValue(), +[TransparencyApplication applicationIdentifierForValue:](TransparencyApplication, "applicationIdentifierForValue:", v15), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v14, "isEqualToString:", v16), v16, v15, v14, (v17 & 1) == 0))
     {
-      goto LABEL_4;
-    }
-
-    applicationID = [(KTContextVerifier *)self applicationID];
-    v15 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [responseCopy application]);
-    v16 = [TransparencyApplication applicationIdentifierForValue:v15];
-    v17 = [applicationID isEqualToString:v16];
-
-    if ((v17 & 1) == 0)
-    {
-LABEL_4:
       if (error)
       {
         *error = [TransparencyError errorWithDomain:kTransparencyErrorDecode code:-187 description:@"LogConsistencyResponse for wrong application or tree"];
@@ -3599,27 +3696,16 @@ LABEL_38:
   applicationID = [(KTContextVerifier *)self applicationID];
   v19 = [TransparencyAnalytics formatEventName:@"VerifyPATInclusionProofEvent" application:applicationID];
 
-  if (!+[TransparencyAnalytics hasInternalDiagnostics])
+  if (!+[TransparencyAnalytics hasInternalDiagnostics](TransparencyAnalytics, "hasInternalDiagnostics") || ([entryCopy metadata], v20 = objc_claimAutoreleasedReturnValue(), v21 = kTransparencyResponseMetadataKeyServerHint, objc_msgSend(v20, "objectForKeyedSubscript:", kTransparencyResponseMetadataKeyServerHint), v22 = objc_claimAutoreleasedReturnValue(), v23 = v22 == 0, v22, v20, v23))
   {
-    goto LABEL_23;
-  }
-
-  metadata = [entryCopy metadata];
-  v21 = kTransparencyResponseMetadataKeyServerHint;
-  v22 = [metadata objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
-  v23 = v22 == 0;
-
-  if (v23)
-  {
-LABEL_23:
     v26 = 0;
   }
 
   else
   {
     v54 = v21;
-    metadata2 = [entryCopy metadata];
-    v25 = [metadata2 objectForKeyedSubscript:v21];
+    metadata = [entryCopy metadata];
+    v25 = [metadata objectForKeyedSubscript:v21];
     v55 = v25;
     v26 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
   }
@@ -3735,27 +3821,16 @@ LABEL_23:
     [dataStore performBlockAndWait:v32];
   }
 
-  if (!+[TransparencyAnalytics hasInternalDiagnostics])
+  if (!+[TransparencyAnalytics hasInternalDiagnostics](TransparencyAnalytics, "hasInternalDiagnostics") || ([entryCopy metadata], v18 = objc_claimAutoreleasedReturnValue(), v19 = kTransparencyResponseMetadataKeyServerHint, objc_msgSend(v18, "objectForKeyedSubscript:", kTransparencyResponseMetadataKeyServerHint), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v18, v21))
   {
-    goto LABEL_23;
-  }
-
-  metadata = [entryCopy metadata];
-  v19 = kTransparencyResponseMetadataKeyServerHint;
-  v20 = [metadata objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
-  v21 = v20 == 0;
-
-  if (v21)
-  {
-LABEL_23:
     v24 = 0;
   }
 
   else
   {
     v48 = v19;
-    metadata2 = [entryCopy metadata];
-    v23 = [metadata2 objectForKeyedSubscript:v19];
+    metadata = [entryCopy metadata];
+    v23 = [metadata objectForKeyedSubscript:v19];
     v49 = v23;
     v24 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
   }

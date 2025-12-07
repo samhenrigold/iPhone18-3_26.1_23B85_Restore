@@ -10,25 +10,25 @@
 
 - (WKSOSecretDelegate)initWithSession:(void *)session
 {
-  v10.receiver = self;
-  v10.super_class = WKSOSecretDelegate;
-  v4 = [(WKSOSecretDelegate *)&v10 init];
-  if (v4)
+  v11.receiver = self;
+  v11.super_class = WKSOSecretDelegate;
+  v5 = [(WKSOSecretDelegate *)&v11 init];
+  if (v5)
   {
-    v5 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(session + 1);
-    v7 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v5);
-    m_ptr = v4->_weakSession.m_controlBlock.m_ptr;
-    v4->_weakSession.m_controlBlock.m_ptr = v7;
+    v6 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock(session + 1, v4);
+    v8 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v6);
+    m_ptr = v5->_weakSession.m_controlBlock.m_ptr;
+    v5->_weakSession.m_controlBlock.m_ptr = v8;
     if (m_ptr)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::weakDeref(m_ptr, v6);
+      WTF::ThreadSafeWeakPtrControlBlock::weakDeref(m_ptr, v7);
     }
 
-    v4->_weakSession.m_objectOfCorrectType.m_ptr = session;
-    v4->_isFirstNavigation = 1;
+    v5->_weakSession.m_objectOfCorrectType.m_ptr = session;
+    v5->_isFirstNavigation = 1;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)webViewDidClose:(id)close
@@ -36,13 +36,13 @@
   m_ptr = self->_weakSession.m_controlBlock.m_ptr;
   if (m_ptr)
   {
-    WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::LibWebRTCCodecsProxy>(&v6, m_ptr, self->_weakSession.m_objectOfCorrectType.m_ptr);
-    v5 = v6;
-    if (v6)
+    WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::LibWebRTCCodecsProxy>(&v7, m_ptr, self->_weakSession.m_objectOfCorrectType.m_ptr);
+    v5 = v7;
+    if (v7)
     {
-      WebKit::PopUpSOAuthorizationSession::close(v6, close);
+      WebKit::PopUpSOAuthorizationSession::close(v7, close);
 
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::SOAuthorizationSession,(WTF::DestructionThread)2>::deref(v5 + 1);
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::SOAuthorizationSession,(WTF::DestructionThread)2>::deref(v5 + 1, v6);
     }
   }
 }
@@ -68,13 +68,13 @@
   m_ptr = self->_weakSession.m_controlBlock.m_ptr;
   if (m_ptr)
   {
-    WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::LibWebRTCCodecsProxy>(&v7, m_ptr, self->_weakSession.m_objectOfCorrectType.m_ptr);
-    v6 = v7;
-    if (v7)
+    WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::LibWebRTCCodecsProxy>(&v8, m_ptr, self->_weakSession.m_objectOfCorrectType.m_ptr);
+    v6 = v8;
+    if (v8)
     {
-      WebKit::PopUpSOAuthorizationSession::close(v7, view);
+      WebKit::PopUpSOAuthorizationSession::close(v8, view);
 
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::SOAuthorizationSession,(WTF::DestructionThread)2>::deref(v6 + 1);
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::SOAuthorizationSession,(WTF::DestructionThread)2>::deref(v6 + 1, v7);
     }
   }
 }

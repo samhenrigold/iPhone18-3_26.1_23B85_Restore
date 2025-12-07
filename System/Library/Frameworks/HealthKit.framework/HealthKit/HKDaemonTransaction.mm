@@ -49,17 +49,15 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = *(self + 16);
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
   v6 = v4;
-  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "%@ %@ was not invalidated prior to deallocation", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "%@ %@ was not invalidated prior to deallocation", &v7, 0x16u);
 }
 
 + (id)transactionWithName:(id)name
@@ -102,7 +100,7 @@
 {
   transaction = self->_transaction;
   self->_transaction = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, transaction);
 }
 
 - (void)_initWithName:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

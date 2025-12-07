@@ -40,7 +40,7 @@
 
 - (id)commandsForDomain:(id)domain
 {
-  v3 = [(NSDictionary *)self->_commandRegistry objectForKey:domain];
+  v3 = objc_msgSend_objectForKey_(self->_commandRegistry, a2, domain);
   allKeys = [v3 allKeys];
 
   return allKeys;
@@ -49,15 +49,15 @@
 - (SEL)_selectorForCommandClass:(id)class andDomain:(id)domain
 {
   classCopy = class;
-  v7 = [(NSDictionary *)self->_commandRegistry objectForKey:domain];
-  v8 = v7;
-  if (v7)
+  v6 = objc_msgSend_objectForKey_(self->_commandRegistry);
+  v7 = v6;
+  if (v6)
   {
-    v9 = [v7 objectForKey:classCopy];
-    v10 = v9;
-    if (v9)
+    v8 = objc_msgSend_objectForKey_(v6);
+    v9 = v8;
+    if (v8)
     {
-      pointerValue = [v9 pointerValue];
+      pointerValue = [v8 pointerValue];
     }
 
     else
@@ -81,7 +81,7 @@
   if (registryCopy)
   {
     classCopy = class;
-    v11 = [registryCopy objectForKey:domainCopy];
+    v11 = objc_msgSend_objectForKey_(registryCopy);
     if (!v11)
     {
       v11 = +[NSMutableDictionary dictionary];

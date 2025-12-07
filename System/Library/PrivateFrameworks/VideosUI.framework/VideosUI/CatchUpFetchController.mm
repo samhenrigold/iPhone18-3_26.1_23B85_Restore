@@ -14,7 +14,7 @@
   selfCopy = self;
   sub_1E3AC7314();
 
-  sub_1E3280A90(0, &qword_1EE23B350);
+  sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062A4();
   OUTLINED_FUNCTION_50();
@@ -24,7 +24,7 @@
 
 - (void)setMediaInfos:(id)infos
 {
-  sub_1E3280A90(0, &qword_1EE23B350);
+  sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   selfCopy = self;
@@ -33,7 +33,7 @@
 
 - (void)appendMediaInfos:(id)infos
 {
-  sub_1E3280A90(0, &qword_1EE23B350);
+  sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   selfCopy = self;
@@ -64,7 +64,7 @@
 
 - (_TtC8VideosUI22CatchUpFetchController)initWithMediaInfos:(id)infos
 {
-  sub_1E3280A90(0, &qword_1EE23B350);
+  sub_1E3280A90(0, &qword_1EE23B350, off_1E8728420);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   sub_1E3AC9C80();

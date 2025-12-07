@@ -10,6 +10,7 @@
 - (void)dealloc;
 - (void)enableCloudLibraryWithCompletionHandler:(id)handler;
 - (void)resetInvitationURLForCollaborationWithPersistentID:(id)d completion:(id)completion;
+- (void)respondToPendingCollaborator:(id)collaborator onCollaborationWithPersistentID:(id)d withApproval:(BOOL)approval completion:(id)completion;
 - (void)setCloudAddToPlaylistBehavior:(int64_t)behavior completionHandler:(id)handler;
 - (void)updateSharingMode:(int64_t)mode onCollaborationWithPersistentID:(id)d completion:(id)completion;
 @end
@@ -136,45 +137,45 @@
 
 - (void)enableCloudLibraryWithCompletionHandler:(id)handler
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v5 = getMPCloudControllerEnableCloudLibraryOptionStartInitialImportSymbolLoc_ptr;
-  v18 = getMPCloudControllerEnableCloudLibraryOptionStartInitialImportSymbolLoc_ptr;
+  v17 = getMPCloudControllerEnableCloudLibraryOptionStartInitialImportSymbolLoc_ptr;
   if (!getMPCloudControllerEnableCloudLibraryOptionStartInitialImportSymbolLoc_ptr)
   {
     v6 = MediaPlayerLibrary_10();
-    v16[3] = dlsym(v6, "MPCloudControllerEnableCloudLibraryOptionStartInitialImport");
-    getMPCloudControllerEnableCloudLibraryOptionStartInitialImportSymbolLoc_ptr = v16[3];
-    v5 = v16[3];
+    v15[3] = dlsym(v6, "MPCloudControllerEnableCloudLibraryOptionStartInitialImport");
+    getMPCloudControllerEnableCloudLibraryOptionStartInitialImportSymbolLoc_ptr = v15[3];
+    v5 = v15[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v5)
   {
     goto LABEL_8;
   }
 
   v7 = *v5;
-  v19 = v7;
+  v18 = v7;
   v8 = MEMORY[0x1E695E118];
-  v21[0] = MEMORY[0x1E695E118];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v20[0] = MEMORY[0x1E695E118];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v9 = getMPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrarySymbolLoc_ptr;
-  v18 = getMPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrarySymbolLoc_ptr;
+  v17 = getMPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrarySymbolLoc_ptr;
   if (!getMPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrarySymbolLoc_ptr)
   {
     v10 = MediaPlayerLibrary_10();
-    v16[3] = dlsym(v10, "MPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrary");
-    getMPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrarySymbolLoc_ptr = v16[3];
-    v9 = v16[3];
+    v15[3] = dlsym(v10, "MPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrary");
+    getMPCloudControllerEnableCloudLibraryOptionMergeWithCloudLibrarySymbolLoc_ptr = v15[3];
+    v9 = v15[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v9)
   {
 LABEL_8:
@@ -182,14 +183,22 @@ LABEL_8:
     __break(1u);
   }
 
-  v20 = *v9;
-  v21[1] = v8;
+  v19 = *v9;
+  v20[1] = v8;
   v11 = MEMORY[0x1E695DF20];
-  v12 = v20;
-  v13 = [v11 dictionaryWithObjects:v21 forKeys:&v19 count:2];
+  v12 = v19;
+  v13 = [v11 dictionaryWithObjects:v20 forKeys:&v18 count:2];
 
   [(MPCloudController *)self->_underlyingCloudController enableCloudLibraryWithOptions:v13 completionHandler:handlerCopy];
-  v14 = *MEMORY[0x1E69E9840];
+}
+
+- (void)respondToPendingCollaborator:(id)collaborator onCollaborationWithPersistentID:(id)d withApproval:(BOOL)approval completion:(id)completion
+{
+  approvalCopy = approval;
+  underlyingCloudController = self->_underlyingCloudController;
+  completionCopy = completion;
+  collaboratorCopy = collaborator;
+  -[MPCloudController respondToPendingCollaborator:onCollaborationWithPersistentID:withApproval:completion:](underlyingCloudController, "respondToPendingCollaborator:onCollaborationWithPersistentID:withApproval:completion:", collaboratorCopy, [d longLongValue], approvalCopy, completionCopy);
 }
 
 - (void)updateSharingMode:(int64_t)mode onCollaborationWithPersistentID:(id)d completion:(id)completion

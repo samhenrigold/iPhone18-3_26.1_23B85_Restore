@@ -4,6 +4,7 @@
 - (MCGmailAccountPayloadHandler)initWithPayload:(id)payload profileHandler:(id)handler;
 - (id)MCACAccountIdentifier;
 - (id)_installWithAccountDictionary:(id)dictionary;
+- (id)accountDictionaryWithIsInstalledByMDM:(BOOL)m personaID:(id)d rmAccountIdentifier:(id)identifier;
 - (id)unhashedAccountIdentifier;
 - (void)_remove;
 - (void)remove;
@@ -43,6 +44,78 @@
   mCHashedIdentifier = [unhashedAccountIdentifier MCHashedIdentifier];
 
   return mCHashedIdentifier;
+}
+
+- (id)accountDictionaryWithIsInstalledByMDM:(BOOL)m personaID:(id)d rmAccountIdentifier:(id)identifier
+{
+  mCopy = m;
+  dCopy = d;
+  identifierCopy = identifier;
+  payload = [(MCNewPayloadHandler *)self payload];
+  emailAddress = [payload emailAddress];
+  if (emailAddress)
+  {
+    accountDescription = [payload accountDescription];
+    v26 = dCopy;
+    if (![accountDescription length])
+    {
+      v13 = emailAddress;
+
+      accountDescription = v13;
+    }
+
+    accountName = [payload accountName];
+    unhashedAccountIdentifier = [(MCGmailAccountPayloadHandler *)self unhashedAccountIdentifier];
+    profile = [payload profile];
+    displayName = [profile displayName];
+    v25 = unhashedAccountIdentifier;
+    v18 = [NSString stringWithFormat:@"%@|%@", unhashedAccountIdentifier, displayName];
+
+    v27[0] = MFMailAccountDescription;
+    v27[1] = MFMailAccountUsername;
+    v28[0] = accountDescription;
+    v28[1] = emailAddress;
+    v28[2] = v18;
+    v27[2] = MailAccountManagedTag;
+    v27[3] = @"MCAccountIsManaged";
+    v19 = [NSNumber numberWithBool:mCopy];
+    v27[4] = MailAccountSSLEnabled;
+    v28[3] = v19;
+    v28[4] = &__kCFBooleanTrue;
+    v20 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:5];
+    v21 = [NSMutableDictionary dictionaryWithDictionary:v20];
+
+    if ([accountName length])
+    {
+      [v21 setObject:accountName forKey:MailAccountFullUserName];
+    }
+
+    communicationServiceRules = [payload communicationServiceRules];
+
+    if (communicationServiceRules)
+    {
+      communicationServiceRules2 = [payload communicationServiceRules];
+      [v21 setObject:communicationServiceRules2 forKeyedSubscript:kMCCommunicationServiceRulesAccountProperty];
+    }
+
+    dCopy = v26;
+    if ([v26 length])
+    {
+      [v21 setObject:v26 forKeyedSubscript:ACAccountPropertyPersonaIdentifier];
+    }
+
+    if (identifierCopy)
+    {
+      [v21 setObject:identifierCopy forKeyedSubscript:ACAccountPropertyRemoteManagingAccountIdentifier];
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  return v21;
 }
 
 - (id)_installWithAccountDictionary:(id)dictionary

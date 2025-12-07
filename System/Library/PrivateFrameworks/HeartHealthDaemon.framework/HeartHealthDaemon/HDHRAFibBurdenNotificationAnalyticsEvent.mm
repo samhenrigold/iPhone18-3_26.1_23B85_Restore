@@ -208,36 +208,4 @@ LABEL_14:
   return v5;
 }
 
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Error when determining biological sex, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Error when determining age, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_5_0(&dword_229486000, v0, v1, "[%{public}@] No onboarding completion when sending notification analytics event", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_notificationTypeStringForType:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_5_0(&dword_229486000, v0, v1, "[%{public}@] Sending notification event when we actually do not have notification", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 @end

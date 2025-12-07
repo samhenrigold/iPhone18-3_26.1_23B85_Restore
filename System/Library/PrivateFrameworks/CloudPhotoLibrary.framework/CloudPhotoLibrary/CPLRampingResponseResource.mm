@@ -88,7 +88,6 @@ LABEL_3:
       goto LABEL_11;
     }
 
-    v8 = *(equalCopy + 24);
     if (self->_allowed)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -178,27 +177,25 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_resource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    allowed = self->_allowed;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    retryAfterMillis = self->_retryAfterMillis;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

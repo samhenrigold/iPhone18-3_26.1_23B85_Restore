@@ -1,6 +1,5 @@
 uint64_t sub_10000108C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100016CE0 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -32,7 +31,7 @@ void sub_1000039BC(uint64_t a1, uint64_t a2, void *a3)
     v5 = sub_100003D54(off_100016A30);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000051A0(a1);
+      sub_1000051A0();
     }
   }
 
@@ -166,18 +165,18 @@ void sub_100004A64(uint64_t a1)
   }
 }
 
-void sub_100004D10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004D10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100004D2C(uint64_t *a1)
+void sub_100004D2C()
 {
-  v1 = *a1;
   sub_100003C58();
   sub_100003C4C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100004F2C()
@@ -201,12 +200,11 @@ void sub_100005024()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000051A0(uint64_t a1)
+void sub_1000051A0()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   sub_100003C58();
-  sub_100003C6C(&_mh_execute_header, v2, v3, "%s: Failed to open URL %@: %@", v4);
+  sub_100003C6C(&_mh_execute_header, v0, v1, "%s: Failed to open URL %@: %@", v2);
 }
 
 void sub_100005220(uint64_t a1, NSObject *a2)
@@ -232,4 +230,39 @@ void sub_100005338(os_log_t log)
   v1 = 136315138;
   v2 = "[AppDeletionUISceneDelegate scene:willConnectToSession:options:]";
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "%s: Scene class is not of kind SBSUIRemoteAlertScene; failing!", &v1, 0xCu);
+}
+
+void sub_1000053BC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AppDeletionUISceneDelegate scene:willConnectToSession:options:]";
+  sub_100004D10(&_mh_execute_header, a1, a3, "%s: Failed to initialize AppDeletionPresentingViewController", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100005434(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AppDeletionUISceneDelegate scene:willConnectToSession:options:]";
+  sub_100004D10(&_mh_execute_header, a1, a3, "%s: Failed to retrieve alertData from remote alert", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000054AC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AppDeletionUISceneDelegate scene:willConnectToSession:options:]";
+  sub_100004D10(&_mh_execute_header, a1, a3, "%s: Failed to retrieve daemon connection endpoint from remote alert", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100005524(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AppDeletionUISceneDelegate communicateButtonPressWithButtonDisposition:]";
+  sub_100004D10(&_mh_execute_header, a1, a3, "%s: Failed to communicate button response back to daemon!! No presenterConnection found!!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000559C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AppDeletionUISceneDelegate _communicateAlertInvalidate]";
+  sub_100004D10(&_mh_execute_header, a1, a3, "%s: Failed to communicate alert invalidation back to daemon!! No presenterConnection/remoteAlertScene found!!", a5, a6, a7, a8, v8, DWORD2(v8));
 }

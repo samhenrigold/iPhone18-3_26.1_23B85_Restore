@@ -7,9 +7,11 @@
 - (id)startRecordingNetworkTransfer:(id)transfer;
 - (id)stopRecordingNetworkTransfer:(id)transfer;
 - (void)endProfilingForActivity:(id)activity completed:(BOOL)completed withState:(id)state;
+- (void)queue_endProfilingForActivity:(id)activity completed:(BOOL)completed withState:(id)state;
 - (void)queue_startProfilingForActivity:(id)activity withState:(id)state;
 - (void)startProfilingForActivity:(id)activity withState:(id)state;
 - (void)startProfilingSnapshotForActivity:(id)activity withState:(id)state;
+- (void)stopProfilingSnapshotForActivity:(id)activity endDate:(id)date completionStatus:(BOOL)status currentProfile:(id)profile withState:(id)state;
 @end
 
 @implementation _DASActivityProfiler
@@ -225,7 +227,7 @@ LABEL_11:
   name4 = [activityCopy name];
   v23 = [(NSMutableDictionary *)v21 objectForKeyedSubscript:name4];
 
-  if ([v23 count] == 3)
+  if (objc_msgSend_count(v23) == 3)
   {
     lastObject = [v23 lastObject];
     v25 = +[NSDate date];
@@ -532,6 +534,569 @@ LABEL_20:
   v11 = stateCopy;
   v12 = activityCopy;
   dispatch_async(queue, v13);
+}
+
+- (void)queue_endProfilingForActivity:(id)activity completed:(BOOL)completed withState:(id)state
+{
+  completedCopy = completed;
+  activityCopy = activity;
+  stateCopy = state;
+  activityToProfile = self->_activityToProfile;
+  v11 = [activityCopy description];
+  v12 = [(NSMutableDictionary *)activityToProfile objectForKeyedSubscript:v11];
+
+  if (v12)
+  {
+    v13 = sub_100009078();
+    v14 = [v12 objectForKeyedSubscript:@"cpuAwakeTime"];
+    v15 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", v13 - [v14 unsignedIntegerValue]);
+    [v12 setObject:v15 forKeyedSubscript:@"cpuAwakeTime"];
+
+    v16 = +[NSDate date];
+    [(_DASActivityProfiler *)self stopProfilingSnapshotForActivity:activityCopy endDate:v16 completionStatus:completedCopy currentProfile:v12 withState:stateCopy];
+
+    v17 = qword_10020B5A8;
+    if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v40 = v12;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "endProfiling: %@", buf, 0xCu);
+    }
+
+    v18 = self->_activityToProfile;
+    v19 = [activityCopy description];
+    [(NSMutableDictionary *)v18 removeObjectForKey:v19];
+
+    if (objc_msgSend_count(self->_activityToProfilerStartDates) >= 0xB)
+    {
+      allKeys = [(NSMutableDictionary *)self->_activityToProfilerStartDates allKeys];
+      v34 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v21 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
+      if (v21)
+      {
+        v22 = v21;
+        v32 = stateCopy;
+        v33 = activityCopy;
+        v23 = 0;
+        v24 = *v35;
+        do
+        {
+          for (i = 0; i != v22; i = i + 1)
+          {
+            if (*v35 != v24)
+            {
+              objc_enumerationMutation(allKeys);
+            }
+
+            v26 = *(*(&v34 + 1) + 8 * i);
+            v27 = [(NSMutableDictionary *)self->_activityToProfilerStartDates objectForKeyedSubscript:v26, v32, v33];
+            firstObject = [v27 firstObject];
+
+            [firstObject timeIntervalSinceNow];
+            if (v29 < -60.0)
+            {
+              [(NSMutableDictionary *)self->_activityToProfilerStartDates removeObjectForKey:v26];
+              ++v23;
+            }
+          }
+
+          v22 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
+        }
+
+        while (v22);
+        stateCopy = v32;
+        activityCopy = v33;
+        if (v23)
+        {
+          v30 = qword_10020B5A8;
+          if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_INFO))
+          {
+            *buf = 134217984;
+            v40 = v23;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Cleaned up %llu stale rate-limiting records", buf, 0xCu);
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v31 = qword_10020B5A8;
+    if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v40 = activityCopy;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "endProfiling: %@ Didn't start profiling", buf, 0xCu);
+    }
+  }
+}
+
+- (void)stopProfilingSnapshotForActivity:(id)activity endDate:(id)date completionStatus:(BOOL)status currentProfile:(id)profile withState:(id)state
+{
+  statusCopy = status;
+  activityCopy = activity;
+  dateCopy = date;
+  profileCopy = profile;
+  stateCopy = state;
+  v16 = [profileCopy objectForKeyedSubscript:@"startTime"];
+
+  if (v16)
+  {
+    startDate = [activityCopy startDate];
+    [dateCopy timeIntervalSinceDate:startDate];
+    v19 = v18;
+
+    v20 = [NSNumber numberWithDouble:v19];
+    [profileCopy setObject:v20 forKeyedSubscript:@"runTime"];
+  }
+
+  else
+  {
+    [profileCopy setObject:&off_1001CA0A8 forKeyedSubscript:@"runTime"];
+  }
+
+  v21 = +[NSTimeZone localTimeZone];
+  secondsFromGMT = [v21 secondsFromGMT];
+
+  [dateCopy timeIntervalSince1970WithTimeZoneOffset:secondsFromGMT];
+  v23 = [NSNumber numberWithDouble:?];
+  [profileCopy setObject:v23 forKeyedSubscript:@"endTime"];
+
+  v24 = [NSNumber numberWithBool:statusCopy];
+  [profileCopy setObject:v24 forKeyedSubscript:@"completed"];
+
+  v25 = +[_CDContextQueries keyPathForPluginStatus];
+  v26 = [stateCopy objectForKeyedSubscript:v25];
+  bOOLValue = [v26 BOOLValue];
+
+  v28 = +[_CDContextQueries keyPathForInUseStatus];
+  v29 = [stateCopy objectForKeyedSubscript:v28];
+
+  unsignedLongLongValue = [v29 unsignedLongLongValue];
+  currentBatteryTemperature = [(_DASBatteryTemperatureRecorder *)self->_batteryTemperatureRecorder currentBatteryTemperature];
+  v32 = [NSNumber numberWithInt:bOOLValue ^ 1];
+  [profileCopy setObject:v32 forKeyedSubscript:@"endedOnBattery"];
+
+  v33 = [NSNumber numberWithBool:unsignedLongLongValue == 0];
+  [profileCopy setObject:v33 forKeyedSubscript:@"endedInIdle"];
+
+  v34 = [NSNumber numberWithInteger:currentBatteryTemperature];
+  [profileCopy setObject:v34 forKeyedSubscript:@"endBatteryTemperature"];
+
+  activityToSession = self->_activityToSession;
+  v36 = [activityCopy description];
+  v37 = [(NSMutableDictionary *)activityToSession objectForKeyedSubscript:v36];
+  pointerValue = [v37 pointerValue];
+
+  if (pointerValue)
+  {
+    v39 = pc_session_end();
+    v40 = pc_session_process();
+    if (v39 | v40)
+    {
+      v41 = v40;
+      v42 = qword_10020B5A8;
+      if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_DEBUG))
+      {
+        LODWORD(buffer[0]) = 138412802;
+        *(buffer + 4) = activityCopy;
+        WORD2(buffer[1]) = 1024;
+        *(&buffer[1] + 6) = v39;
+        WORD1(buffer[2]) = 1024;
+        HIDWORD(buffer[2]) = v41;
+        _os_log_debug_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "endProfiling: %@ : Failed to end/process session with end_ret: %d procsess_ret: %d", buffer, 0x18u);
+      }
+
+      v43 = &__kCFBooleanFalse;
+    }
+
+    else
+    {
+      info = 0;
+      buffer[0] = 0;
+      value = pc_session_get_value();
+      v45 = [activityCopy description];
+      v46 = [(_DASActivityProfiler *)self errorCheck:0x63707574696D6500 withError:value onActivity:v45];
+
+      if ((v46 & 1) == 0)
+      {
+        *buffer = *buffer / 1000000.0;
+        if (*buffer != 0.0)
+        {
+          v47 = [NSNumber numberWithDouble:?];
+          [profileCopy setObject:v47 forKeyedSubscript:@"cpuTime"];
+        }
+      }
+
+      v48 = pc_session_get_value();
+      v49 = [activityCopy description];
+      [(_DASActivityProfiler *)self errorCheck:0x6D656D64656C7461 withError:v48 onActivity:v49];
+
+      v50 = pc_session_get_value();
+      v51 = [activityCopy description];
+      [(_DASActivityProfiler *)self errorCheck:0x73746F7264697274 withError:v50 onActivity:v51];
+
+      v43 = &__kCFBooleanTrue;
+    }
+
+    [profileCopy setObject:v43 forKeyedSubscript:@"sessionProfSuccess"];
+    pc_session_destroy();
+  }
+
+  else
+  {
+    if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100123518();
+    }
+
+    [profileCopy setObject:&__kCFBooleanFalse forKeyedSubscript:@"sessionProfSuccess"];
+  }
+
+  activityToSnapshot = self->_activityToSnapshot;
+  v53 = [activityCopy description];
+  v54 = [(NSMutableDictionary *)activityToSnapshot objectForKeyedSubscript:v53];
+
+  v55 = [v54 objectForKeyedSubscript:@"rusage"];
+  if (!v55)
+  {
+    if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_DEBUG))
+    {
+      sub_1001235E8();
+    }
+
+    goto LABEL_23;
+  }
+
+  v183 = 0u;
+  v184 = 0u;
+  v181 = 0u;
+  v182 = 0u;
+  v179 = 0u;
+  v180 = 0u;
+  v177 = 0u;
+  v178 = 0u;
+  v175 = 0u;
+  v176 = 0u;
+  v173 = 0u;
+  v174 = 0u;
+  v171 = 0u;
+  v172 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  v167 = 0u;
+  v168 = 0u;
+  v165 = 0u;
+  v166 = 0u;
+  v163 = 0u;
+  v164 = 0u;
+  v161 = 0u;
+  v162 = 0u;
+  v159 = 0u;
+  v160 = 0u;
+  v158 = 0u;
+  memset(buffer, 0, sizeof(buffer));
+  if (proc_pid_rusage([activityCopy pid], 6, buffer))
+  {
+    if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100123580();
+    }
+
+LABEL_23:
+    v56 = &__kCFBooleanFalse;
+    goto LABEL_62;
+  }
+
+  v57 = v172;
+  v145 = *(&v168 + 1);
+  v146 = v169;
+  v58 = v172;
+  v59 = v166;
+  v60 = v166;
+  v61 = v167;
+  v151 = *(&v172 + 1);
+  v152 = v173;
+  v148 = v168;
+  v149 = v165;
+  info = 0;
+  mach_timebase_info(&info);
+  if (v57)
+  {
+    v62 = [v55 objectForKeyedSubscript:@"cpuCycle"];
+    [v62 doubleValue];
+    v58 = v58 - v63;
+
+    if (v59)
+    {
+      v64 = [NSNumber numberWithDouble:v58];
+      [profileCopy setObject:v64 forKeyedSubscript:@"cpuCycle"];
+
+      goto LABEL_28;
+    }
+  }
+
+  else if (v59)
+  {
+LABEL_28:
+    v65 = [v55 objectForKeyedSubscript:{@"qosDefault", v145}];
+    [v65 doubleValue];
+    v60 = (v60 - v66) * (info.numer / info.denom) / 1000000.0;
+
+    if (v60 != 0.0)
+    {
+      v67 = [NSNumber numberWithDouble:v60];
+      [profileCopy setObject:v67 forKeyedSubscript:@"qosDefault"];
+    }
+  }
+
+  v68 = *(&v59 + 1);
+  if (*(&v59 + 1))
+  {
+    v69 = [v55 objectForKeyedSubscript:@"qosMaintenance"];
+    [v69 doubleValue];
+    v68 = (v68 - v70) * (info.numer / info.denom) / 1000000.0;
+
+    if (v68 != 0.0)
+    {
+      v71 = [NSNumber numberWithDouble:v68];
+      [profileCopy setObject:v71 forKeyedSubscript:@"qosMaintenance"];
+    }
+  }
+
+  v72 = v61;
+  if (v61)
+  {
+    v73 = [v55 objectForKeyedSubscript:@"qosBackground"];
+    [v73 doubleValue];
+    v72 = (v72 - v74) * (info.numer / info.denom) / 1000000.0;
+
+    if (v72 != 0.0)
+    {
+      v75 = [NSNumber numberWithDouble:v72];
+      [profileCopy setObject:v75 forKeyedSubscript:@"qosBackground"];
+    }
+  }
+
+  v76 = *(&v61 + 1);
+  if (*(&v61 + 1))
+  {
+    v77 = [v55 objectForKeyedSubscript:@"qosUtility"];
+    [v77 doubleValue];
+    v76 = (v76 - v78) * (info.numer / info.denom) / 1000000.0;
+
+    if (v76 != 0.0)
+    {
+      v79 = [NSNumber numberWithDouble:v76];
+      [profileCopy setObject:v79 forKeyedSubscript:@"qosUtility"];
+    }
+  }
+
+  v80 = v145;
+  if (v145)
+  {
+    v81 = [v55 objectForKeyedSubscript:@"qosUserInit"];
+    [v81 doubleValue];
+    v80 = (v80 - v82) * (info.numer / info.denom) / 1000000.0;
+
+    if (v80 != 0.0)
+    {
+      v83 = [NSNumber numberWithDouble:v80];
+      [profileCopy setObject:v83 forKeyedSubscript:@"qosUserInit"];
+    }
+  }
+
+  v84 = v146;
+  if (v146)
+  {
+    v85 = [v55 objectForKeyedSubscript:@"qosUserInteractive"];
+    [v85 doubleValue];
+    v84 = (v84 - v86) * (info.numer / info.denom) / 1000000.0;
+
+    if (v84 != 0.0)
+    {
+      v87 = [NSNumber numberWithDouble:v84];
+      [profileCopy setObject:v87 forKeyedSubscript:@"qosUserInteractive"];
+    }
+  }
+
+  v88 = v148;
+  v153 = v58;
+  if (v148)
+  {
+    v89 = [v55 objectForKeyedSubscript:@"qosLegacy"];
+    [v89 doubleValue];
+    v88 = (v88 - v90) * (info.numer / info.denom) / 1000000.0;
+
+    if (v88 != 0.0)
+    {
+      v91 = [NSNumber numberWithDouble:v88];
+      [profileCopy setObject:v91 forKeyedSubscript:@"qosLegacy"];
+    }
+  }
+
+  v92 = v149;
+  v150 = v60;
+  if (v149)
+  {
+    v93 = [v55 objectForKeyedSubscript:@"ioRead"];
+    [v93 doubleValue];
+    v92 = v92 - v94;
+
+    if (v92 != 0.0)
+    {
+      v95 = [NSNumber numberWithDouble:v92];
+      [profileCopy setObject:v95 forKeyedSubscript:@"ioRead"];
+    }
+  }
+
+  v96 = *(&v149 + 1);
+  v154 = v76;
+  v147 = v84;
+  if (!*(&v149 + 1) || ([v55 objectForKeyedSubscript:@"ioWrite"], v97 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v97, "doubleValue"), v96 = v96 - v98, v97, v96 == 0.0))
+  {
+    v99 = v68;
+  }
+
+  else
+  {
+    v99 = v68;
+    v100 = [NSNumber numberWithDouble:v96];
+    [profileCopy setObject:v100 forKeyedSubscript:@"ioWrite"];
+  }
+
+  v101 = v80;
+  v102 = v151;
+  v103 = v72;
+  if (v151)
+  {
+    v104 = [v55 objectForKeyedSubscript:@"billedEnergy"];
+    [v104 doubleValue];
+    v102 = v102 - v105;
+
+    if (v102 != 0.0)
+    {
+      v106 = [NSNumber numberWithDouble:v102];
+      [profileCopy setObject:v106 forKeyedSubscript:@"billedEnergy"];
+    }
+  }
+
+  if (v152)
+  {
+    v107 = [v55 objectForKeyedSubscript:@"servicedEnergy"];
+    [v107 doubleValue];
+    v109 = v152 - v108;
+
+    if (v109 != 0.0)
+    {
+      v110 = [NSNumber numberWithDouble:v109];
+      [profileCopy setObject:v110 forKeyedSubscript:@"servicedEnergy"];
+    }
+  }
+
+  [activityCopy setCpuTimeConsumed:{v150 + v99 + v103 + v154 + v101 + v147 + v88, v145}];
+  [activityCopy setCpuCycleConsumed:v153];
+  [activityCopy setDiskIOConsumed:v92 + v96];
+  [activityCopy setDiskIOWrites:v96];
+  [activityCopy setBilledEnergy:v102];
+  v56 = &__kCFBooleanTrue;
+LABEL_62:
+  [profileCopy setObject:v56 forKeyedSubscript:@"rusageProfSuccess"];
+  v111 = [v54 objectForKeyedSubscript:@"network"];
+  if (v111)
+  {
+    v112 = [(_DASActivityProfiler *)self stopRecordingNetworkTransfer:activityCopy];
+    if (v112)
+    {
+      v155 = dateCopy;
+      if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_DEBUG))
+      {
+        sub_100123650();
+      }
+
+      v113 = [v112 objectForKeyedSubscript:@"wifiDown"];
+      [v113 doubleValue];
+      v115 = v114;
+      v116 = [v111 objectForKeyedSubscript:@"wifiDown"];
+      [v116 doubleValue];
+      v118 = v115 - v117;
+
+      if (v118 != 0.0)
+      {
+        v119 = [NSNumber numberWithDouble:v118];
+        [profileCopy setObject:v119 forKeyedSubscript:@"wifiDown"];
+      }
+
+      v120 = [v112 objectForKeyedSubscript:@"cellDown"];
+      [v120 doubleValue];
+      v122 = v121;
+      v123 = [v111 objectForKeyedSubscript:@"cellDown"];
+      [v123 doubleValue];
+      v125 = v122 - v124;
+
+      if (v125 != 0.0)
+      {
+        v126 = [NSNumber numberWithDouble:v125];
+        [profileCopy setObject:v126 forKeyedSubscript:@"cellDown"];
+      }
+
+      v127 = [v112 objectForKeyedSubscript:@"wifiUp"];
+      [v127 doubleValue];
+      v129 = v128;
+      v130 = [v111 objectForKeyedSubscript:@"wifiUp"];
+      [v130 doubleValue];
+      v132 = v129 - v131;
+
+      if (v132 != 0.0)
+      {
+        v133 = [NSNumber numberWithDouble:v132];
+        [profileCopy setObject:v133 forKeyedSubscript:@"wifiUp"];
+      }
+
+      v134 = [v112 objectForKeyedSubscript:@"cellUp"];
+      [v134 doubleValue];
+      v136 = v135;
+      v137 = [v111 objectForKeyedSubscript:@"cellUp"];
+      [v137 doubleValue];
+      v139 = v136 - v138;
+
+      if (v139 != 0.0)
+      {
+        v140 = [NSNumber numberWithDouble:v139];
+        [profileCopy setObject:v140 forKeyedSubscript:@"cellUp"];
+      }
+
+      [activityCopy setDataConsumed:v118 + v125 + v132 + v139];
+      [profileCopy setObject:&__kCFBooleanTrue forKeyedSubscript:@"networkProfSuccess"];
+      dateCopy = v155;
+    }
+
+    else
+    {
+      [profileCopy setObject:&__kCFBooleanFalse forKeyedSubscript:@"networkProfSuccess"];
+      if (os_log_type_enabled(qword_10020B5A8, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1001236B8();
+      }
+    }
+  }
+
+  else
+  {
+    [profileCopy setObject:&__kCFBooleanFalse forKeyedSubscript:@"networkProfSuccess"];
+  }
+
+  v141 = self->_activityToSession;
+  v142 = [activityCopy description];
+  [(NSMutableDictionary *)v141 removeObjectForKey:v142];
+
+  v143 = self->_activityToSnapshot;
+  v144 = [activityCopy description];
+  [(NSMutableDictionary *)v143 removeObjectForKey:v144];
 }
 
 - (id)startRecordingNetworkTransfer:(id)transfer

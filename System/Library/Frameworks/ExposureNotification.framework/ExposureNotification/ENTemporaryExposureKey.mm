@@ -89,14 +89,14 @@
 
 - (void)deriveRollingProximityIdentifiersWithBuffer:(id *)buffer count:(unint64_t)count
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (![(ENTemporaryExposureKey *)self isValid])
   {
     [ENTemporaryExposureKey deriveRollingProximityIdentifiersWithBuffer:a2 count:self];
   }
 
-  v9[2] = 0;
-  v9[3] = 0;
+  v9[0] = 0;
+  v9[1] = 0;
   [(NSData *)self->_keyData bytes];
   if ([(NSData *)self->_keyData length]<= 0xF)
   {
@@ -104,21 +104,22 @@
   }
 
   __memcpy_chk();
-  v9[0] = 0;
-  v9[1] = 0;
-  ENRPIKDerive();
-  ENRPIDeriveBatch(buffer, v9, self->_rollingStartNumber, count);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = 0;
+  v8[1] = 0;
+  ENRPIKDerive(v8, v9);
+  ENRPIDeriveBatch(buffer, v8, self->_rollingStartNumber, count);
 }
 
 - (void)getAEMBytes:(void *)bytes input:(const void *)input length:(unint64_t)length RPI:(id *)i
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (![(ENTemporaryExposureKey *)self isValid])
   {
     [ENTemporaryExposureKey getAEMBytes:a2 input:self length:? RPI:?];
   }
 
+  v13[0] = 0;
+  v13[1] = 0;
   [(NSData *)self->_keyData bytes];
   if ([(NSData *)self->_keyData length]<= 0xF)
   {
@@ -126,89 +127,109 @@
   }
 
   __memcpy_chk();
-  ENAEMKDerive();
-  ENAEMCrypt();
-  v8 = *MEMORY[0x277D85DE8];
+  v12[0] = 0;
+  v12[1] = 0;
+  ENAEMKDerive(v12, v13);
+  ENAEMCrypt(bytes, input, length, v12, i);
 }
 
 - (id)description
 {
-  v30 = 0;
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v34 = 0;
+  NSAppendPrintF_safe(&v34, "ENTemporaryExposureKey");
+  v3 = v34;
   v4 = v3;
   if (self->_revised)
   {
-    v29 = v3;
-    v21 = "yes";
-    NSAppendPrintF_safe();
-    v5 = v29;
+    v33 = v3;
+    NSAppendPrintF_safe(&v33, ", Revised %s", "yes");
+    v5 = v33;
 
     v4 = v5;
   }
 
-  v28[2] = v4;
-  [(NSData *)self->_keyData bytes];
-  [(NSData *)self->_keyData length];
-  NSAppendPrintF();
-  v6 = v4;
+  v32 = v4;
+  NSAppendPrintF(&v32, ", KeyData %.3H", [(NSData *)self->_keyData bytes], [(NSData *)self->_keyData length], 16);
+  v6 = v32;
 
-  v28[1] = v6;
-  NSAppendPrintF_safe();
-  v7 = v6;
+  v31 = v6;
+  NSAppendPrintF_safe(&v31, ", DaysSinceOnset ");
+  v7 = v31;
 
   if (self->_daysSinceOnsetOfSymptoms == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v27 = v7;
-    v8 = &v27;
+    v29 = v7;
+    v8 = &v29;
+    NSAppendPrintF_safe(&v29, "<>");
   }
 
   else
   {
-    v28[0] = v7;
-    v8 = v28;
+    v30 = v7;
+    v8 = &v30;
+    NSAppendPrintF_safe(&v30, "%ld");
   }
 
-  NSAppendPrintF_safe();
   v9 = *v8;
 
+  v28 = v9;
   diagnosisReportType = self->_diagnosisReportType;
-  if (diagnosisReportType <= 5)
+  if (diagnosisReportType > 5)
+  {
+    v11 = "?";
+  }
+
+  else
   {
     v11 = off_278A4AFD0[diagnosisReportType];
   }
 
-  v22 = self->_diagnosisReportType;
-  NSAppendPrintF_safe();
-  v12 = v9;
+  NSAppendPrintF_safe(&v28, ", ReportType %u (%s)", self->_diagnosisReportType, v11);
+  v12 = v28;
 
-  rollingPeriod = self->_rollingPeriod;
-  NSAppendPrintF_safe();
-  v13 = v12;
+  v27 = v12;
+  NSAppendPrintF_safe(&v27, ", RollingPeriod %u", self->_rollingPeriod);
+  v13 = v27;
 
-  rollingStartNumber = self->_rollingStartNumber;
-  NSAppendPrintF_safe();
-  v14 = v13;
+  v26 = v13;
+  NSAppendPrintF_safe(&v26, ", RollingStart %u", self->_rollingStartNumber);
+  v14 = v26;
 
-  transmissionRiskLevel = self->_transmissionRiskLevel;
-  NSAppendPrintF_safe();
-  v15 = v14;
+  v25 = v14;
+  NSAppendPrintF_safe(&v25, ", RiskLevel %u", self->_transmissionRiskLevel);
+  v15 = v25;
 
-  self->_vaccinated;
-  NSAppendPrintF_safe();
-  v16 = v15;
-
-  variantOfConcernType = self->_variantOfConcernType;
-  if (variantOfConcernType <= 4)
+  v24 = v15;
+  if (self->_vaccinated)
   {
-    v18 = off_278A4B000[variantOfConcernType];
+    v16 = "yes";
   }
 
-  v26 = self->_variantOfConcernType;
-  NSAppendPrintF_safe();
-  v19 = v16;
+  else
+  {
+    v16 = "no";
+  }
 
-  return v16;
+  NSAppendPrintF_safe(&v24, ", Vaccinated %s ", v16);
+  v17 = v24;
+
+  v23 = v17;
+  variantOfConcernType = self->_variantOfConcernType;
+  if (variantOfConcernType > 4)
+  {
+    v19 = "?";
+  }
+
+  else
+  {
+    v19 = off_278A4B000[variantOfConcernType];
+  }
+
+  NSAppendPrintF_safe(&v23, ", VariantOfConcernType %u (%s)", self->_variantOfConcernType, v19);
+  v20 = v23;
+  v21 = v23;
+
+  return v20;
 }
 
 - (ENTemporaryExposureKey)initWithXPCObject:(id)object error:(id *)error
@@ -219,11 +240,11 @@
   {
     if (!error)
     {
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
-LABEL_24:
-    ENErrorF(2);
+    ENErrorF(2, "super init failed");
+LABEL_25:
     *error = v13 = 0;
     goto LABEL_20;
   }
@@ -232,10 +253,11 @@ LABEL_24:
   {
     if (!error)
     {
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
-    goto LABEL_24;
+    ENErrorF(2, "XPC non-dict");
+    goto LABEL_25;
   }
 
   v8 = CUXPCDecodeSInt64RangedEx();
@@ -246,7 +268,7 @@ LABEL_24:
 
   else if (v8 == 5)
   {
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   OUTLINED_FUNCTION_0();
@@ -258,12 +280,12 @@ LABEL_24:
 
   else if (v9 == 5)
   {
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   if (!CUXPCDecodeNSDataOfLength())
   {
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   OUTLINED_FUNCTION_0();
@@ -275,7 +297,7 @@ LABEL_24:
 
   else if (v10 == 5)
   {
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   OUTLINED_FUNCTION_0();
@@ -287,7 +309,7 @@ LABEL_24:
 
   else if (v11 == 5)
   {
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   OUTLINED_FUNCTION_0();
@@ -299,7 +321,7 @@ LABEL_24:
       goto LABEL_19;
     }
 
-LABEL_25:
+LABEL_26:
     v13 = 0;
     goto LABEL_20;
   }

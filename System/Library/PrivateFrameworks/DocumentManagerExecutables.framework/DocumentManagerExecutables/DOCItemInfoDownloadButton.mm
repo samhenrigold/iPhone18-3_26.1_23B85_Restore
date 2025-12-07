@@ -385,7 +385,9 @@ void __53__DOCItemInfoDownloadButton_userDidTapDownloadButton__block_invoke_cold
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 displayName];
-  OUTLINED_FUNCTION_0_0(&dword_2493AC000, v5, v6, "user did download node %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_2493AC000, v5, v6, "user did download node %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __53__DOCItemInfoDownloadButton_userDidTapDownloadButton__block_invoke_25_cold_1(uint64_t a1, void *a2)
@@ -393,7 +395,9 @@ void __53__DOCItemInfoDownloadButton_userDidTapDownloadButton__block_invoke_25_c
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 displayName];
-  OUTLINED_FUNCTION_0_0(&dword_2493AC000, v5, v6, "user did evict node %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_2493AC000, v5, v6, "user did evict node %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

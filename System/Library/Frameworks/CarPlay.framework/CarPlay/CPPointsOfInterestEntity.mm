@@ -64,28 +64,28 @@
 
 - (id)objectForIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   pointsOfInterest = [(CPPointsOfInterestEntity *)self pointsOfInterest];
-  v6 = [pointsOfInterest countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [pointsOfInterest countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(pointsOfInterest);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         primaryButton = [v10 primaryButton];
         v12 = primaryButton;
         if (primaryButton)
@@ -115,7 +115,7 @@
         }
       }
 
-      v7 = [pointsOfInterest countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [pointsOfInterest countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v7)
       {
         continue;
@@ -127,8 +127,6 @@
 
   v16 = 0;
 LABEL_15:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

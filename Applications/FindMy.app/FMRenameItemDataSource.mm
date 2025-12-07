@@ -62,7 +62,7 @@
 LABEL_5:
     roles = [v8 roles];
 
-    sub_10000905C(0, &unk_1006B20A0);
+    sub_10000905C(0, &unk_1006B20A0, SPBeaconRole_ptr);
     v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     if (!(v10 >> 62))

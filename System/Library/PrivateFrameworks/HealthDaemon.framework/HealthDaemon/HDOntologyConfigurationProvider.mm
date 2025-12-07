@@ -46,7 +46,7 @@
 
 - (BOOL)isCountrySupported:(id)supported
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   supportedCopy = supported;
   countryCode = [supportedCopy countryCode];
 
@@ -62,17 +62,16 @@
     v8 = HKLogHealthOntology();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543618;
+      v10 = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = supportedCopy;
-      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: passing a locale without country code (%{public}@) to isCountrySupported:, will return NO", &v11, 0x16u);
+      v12 = 2114;
+      v13 = supportedCopy;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: passing a locale without country code (%{public}@) to isCountrySupported:, will return NO", &v10, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

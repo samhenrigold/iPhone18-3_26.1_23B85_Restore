@@ -13,7 +13,7 @@
     JreThrowNullPointerException();
   }
 
-  v3 = [class asSubclass:OrgApacheLuceneUtilAttribute_class_()];
+  v3 = [class asSubclass:{OrgApacheLuceneUtilAttribute_class_(self, a2)}];
   v4 = sub_1000C7704(v3);
 
   return OrgApacheLuceneUtilAttributeFactory_findAttributeImplCtorWithIOSClass_(v4);

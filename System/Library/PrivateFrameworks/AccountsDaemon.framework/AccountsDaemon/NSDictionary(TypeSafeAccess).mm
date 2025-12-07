@@ -13,23 +13,24 @@
   if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = v5;
+      v7 = v5;
       goto LABEL_8;
     }
 
-    v7 = _ACDLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACDLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [NSDictionary(TypeSafeAccess) stringValueForKey:];
+      [(NSDictionary(TypeSafeAccess) *)v4 stringValueForKey:v5];
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 - (id)dataValueForKey:()TypeSafeAccess
@@ -39,23 +40,24 @@ LABEL_8:
   if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = v5;
+      v7 = v5;
       goto LABEL_8;
     }
 
-    v7 = _ACDLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACDLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [NSDictionary(TypeSafeAccess) dataValueForKey:];
+      [(NSDictionary(TypeSafeAccess) *)v4 dataValueForKey:v5];
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 - (uint64_t)BOOLValueForKey:()TypeSafeAccess
@@ -69,12 +71,13 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v6 = objc_opt_respondsToSelector();
+  if ((v6 & 1) == 0)
   {
-    v7 = _ACDLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACDLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [NSDictionary(TypeSafeAccess) dataValueForKey:];
+      [(NSDictionary(TypeSafeAccess) *)v4 dataValueForKey:v5];
     }
 
     goto LABEL_7;
@@ -86,26 +89,20 @@ LABEL_8:
   return bOOLValue;
 }
 
-- (void)stringValueForKey:()TypeSafeAccess .cold.1()
+- (void)stringValueForKey:()TypeSafeAccess .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_4(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_0_4(v2);
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-- (void)dataValueForKey:()TypeSafeAccess .cold.1()
+- (void)dataValueForKey:()TypeSafeAccess .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_4(v0);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_0_4(v2);
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 @end

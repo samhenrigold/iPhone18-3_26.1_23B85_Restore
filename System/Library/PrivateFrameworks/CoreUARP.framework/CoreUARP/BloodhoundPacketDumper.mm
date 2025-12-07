@@ -2,6 +2,7 @@
 - (BloodhoundPacketDumper)initWithDumper:(pcap_dumper *)dumper;
 - (BloodhoundPacketDumper)initWithFileName:(id)name;
 - (void)dealloc;
+- (void)dumpPacket:(id)packet type:(unsigned int)type metadata:(void *)metadata metadataLength:(unint64_t)length;
 @end
 
 @implementation BloodhoundPacketDumper
@@ -62,6 +63,34 @@ LABEL_7:
   v5.receiver = self;
   v5.super_class = BloodhoundPacketDumper;
   [(BloodhoundPacketDumper *)&v5 dealloc];
+}
+
+- (void)dumpPacket:(id)packet type:(unsigned int)type metadata:(void *)metadata metadataLength:(unint64_t)length
+{
+  v8 = *&type;
+  v14 = *MEMORY[0x277D85DE8];
+  packetCopy = packet;
+  v11 = objc_autoreleasePoolPush();
+  data = [MEMORY[0x277CBEB28] data];
+  [data appendLittleInt32:v8];
+  if (metadata)
+  {
+    [data appendBytes:metadata length:length];
+  }
+
+  if (packetCopy)
+  {
+    [data appendData:packetCopy];
+  }
+
+  memset(&v13, 0, sizeof(v13));
+  gettimeofday(&v13.ts, 0);
+  v13.caplen = [data length];
+  v13.len = [data length];
+  pcap_dump(self->_dumper, &v13, [data bytes]);
+  pcap_dump_flush(self->_dumper);
+
+  objc_autoreleasePoolPop(v11);
 }
 
 @end

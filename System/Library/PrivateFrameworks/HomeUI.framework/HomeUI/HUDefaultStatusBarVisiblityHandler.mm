@@ -39,7 +39,7 @@
     v3 = MEMORY[0x277D75A88];
     settingsCopy = settings;
     initWithDefaultParameters = [[v3 alloc] initWithDefaultParameters];
-    [settingsCopy duration];
+    objc_msgSend_duration(settingsCopy);
     [initWithDefaultParameters setDuration:?];
     [initWithDefaultParameters setAnimationFactory:settingsCopy];
   }

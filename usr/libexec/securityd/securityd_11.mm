@@ -1876,9 +1876,9 @@ void sub_1001E57BC(uint64_t a1)
   }
 }
 
-void sub_1001E5A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001E5A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1898,9 +1898,9 @@ void sub_1001E5A18(uint64_t a1)
   }
 }
 
-void sub_1001E5BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001E5BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3316,9 +3316,11 @@ void sub_1001ED7A8(id a1)
   v2 = qword_10039E2C8;
   qword_10039E2C8 = v1;
 
-  qword_10039E2D0 = +[CKKSLockStateTracker globalTracker];
+  v3 = +[CKKSLockStateTracker globalTracker];
+  v4 = qword_10039E2D0;
+  qword_10039E2D0 = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, v4);
 }
 
 void sub_1001F005C(id a1)
@@ -3933,9 +3935,9 @@ LABEL_25:
   }
 }
 
-void sub_1001F5C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001F5C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3963,12 +3965,12 @@ uint64_t sub_1001F5C6C(uint64_t a1)
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v5);
 }
 
-void sub_1001F5E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001F5E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3986,6 +3988,13 @@ void sub_1001F5E30(uint64_t a1)
 
   v6 = [*(a1 + 32) fetchScheduler];
   [v6 trigger];
+}
+
+void sub_1001F616C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1001F619C(uint64_t a1)
@@ -4307,12 +4316,13 @@ LABEL_43:
 LABEL_44:
 }
 
-void sub_1001F8720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1001F8720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4557,18 +4567,18 @@ void sub_1001F8EB8(uint64_t a1)
   }
 }
 
-void sub_1001F9394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1001F9394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4605,11 +4615,11 @@ uint64_t sub_1001F94BC(uint64_t a1)
   return result;
 }
 
-void sub_1001F9890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1001F9890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4632,9 +4642,11 @@ void sub_1001FA19C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1001FA1B8(id a1)
 {
-  qword_10039E2F0 = dispatch_queue_create("metadata_store", 0);
+  v1 = dispatch_queue_create("metadata_store", 0);
+  v2 = qword_10039E2F0;
+  qword_10039E2F0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1001FA254(id a1)
@@ -4649,9 +4661,9 @@ void sub_1001FA254(id a1)
   qword_10039E2E8 = 0;
 }
 
-void sub_1001FA810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001FA810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5013,12 +5025,13 @@ id sub_1001FF500(uint64_t a1, void *a2)
   return v3;
 }
 
-void sub_1001FF780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1001FF780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5100,11 +5113,11 @@ id sub_1001FFAE4(uint64_t a1, void *a2)
   return v3;
 }
 
-void sub_100200010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100200010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5200,7 +5213,7 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-xpc_object_t sub_100201208(xpc_object_t message, CFTypeRef *a2)
+xpc_object_t sub_100201208(xpc_object_t message, CFErrorRef *a2)
 {
   if (qword_10039E328 != -1)
   {
@@ -5268,7 +5281,7 @@ void sub_100201394(id a1, void *a2)
   }
 }
 
-xpc_object_t sub_10020144C(unsigned int a1, CFTypeRef *a2)
+xpc_object_t sub_10020144C(unsigned int a1, CFErrorRef *a2)
 {
   v4 = xpc_dictionary_create(0, 0, 0);
   v6 = v4;
@@ -5320,8 +5333,8 @@ LABEL_21:
     data = xpc_dictionary_get_data(v5, "userinfo", &v21);
     if (data)
     {
-      v16 = data + v21;
-      v17 = sub_1000068E0(kCFAllocatorDefault, &cf, 0, data, data + v21);
+      v16 = &data[v21];
+      v17 = sub_1000068E0(kCFAllocatorDefault, &cf, 0, data, &data[v21]);
       v18 = cf;
       if (v17 == v16)
       {
@@ -5385,7 +5398,7 @@ LABEL_27:
   return valuePtr;
 }
 
-BOOL sub_10020171C(unsigned int a1, const void *a2, const __CFDictionary *a3, CFTypeRef *a4, uint64_t a5)
+BOOL sub_10020171C(unsigned int a1, const void *a2, const __CFDictionary *a3, CFErrorRef *a4, uint64_t a5)
 {
   v9 = sub_10020144C(a1, a4);
   if (!v9)
@@ -6077,9 +6090,9 @@ void sub_100205AD0(id a1)
   qword_10039E348 = v1;
 }
 
-void sub_100205CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100205CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6107,9 +6120,9 @@ uint64_t sub_100205CD4(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-void sub_100205DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100205DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6121,37 +6134,36 @@ void sub_100205DCC(uint64_t a1, CFTypeRef cf)
     v4 = CFGetTypeID(cf);
     if (v4 == SOSPeerInfoGetTypeID())
     {
-      v5 = *(a1 + 56);
       if (SOSCircleUpdatePeerInfo())
       {
         *(*(*(a1 + 40) + 8) + 24) = 1;
-        v6 = sub_100006274("retirement");
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v5 = sub_100006274("retirement");
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = *(a1 + 56);
+          v6 = *(a1 + 56);
           *buf = 138412546;
-          v15 = cf;
-          v16 = 2112;
-          v17 = v7;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updated retired peer %@ in %@", buf, 0x16u);
+          v14 = cf;
+          v15 = 2112;
+          v16 = v6;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updated retired peer %@ in %@", buf, 0x16u);
         }
 
         cfa = 0;
-        v8 = [*(a1 + 32) trust];
-        v9 = [*(a1 + 32) kvs_message_transport];
-        v10 = [*(a1 + 32) circle_transport];
-        v11 = [v8 cleanupAfterPeer:v9 circleTransport:v10 seconds:86400 circle:*(a1 + 56) cleanupPeer:cf err:&cfa];
+        v7 = [*(a1 + 32) trust];
+        v8 = [*(a1 + 32) kvs_message_transport];
+        v9 = [*(a1 + 32) circle_transport];
+        v10 = [v7 cleanupAfterPeer:v8 circleTransport:v9 seconds:86400 circle:*(a1 + 56) cleanupPeer:cf err:&cfa];
 
-        if ((v11 & 1) == 0)
+        if ((v10 & 1) == 0)
         {
-          v12 = sub_100006274("SecError");
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v11 = sub_100006274("SecError");
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v15 = cf;
-            v16 = 2112;
-            v17 = cfa;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Error cleanup up after peer (%@): %@", buf, 0x16u);
+            v14 = cf;
+            v15 = 2112;
+            v16 = cfa;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Error cleanup up after peer (%@): %@", buf, 0x16u);
           }
         }
 
@@ -6185,7 +6197,7 @@ id sub_10020649C(void *a1, uint64_t a2)
   return v6;
 }
 
-void *sub_100206858(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+void *sub_100206858(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   v4 = sub_10021363C(*(a1 + 32), *(a1 + 40), a3);
   v5 = sub_100006274("backup");
@@ -6263,14 +6275,14 @@ LABEL_14:
   }
 }
 
-void sub_100207810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100207810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6348,9 +6360,9 @@ void sub_10020802C()
   }
 }
 
-void sub_100208144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100208144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6397,16 +6409,16 @@ LABEL_7:
 
 uint64_t sub_1002082D8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10039E340 = result;
   return result;
 }
 
-void sub_100208750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100208750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6427,8 +6439,9 @@ void sub_100208788(uint64_t a1, void *a2)
   [v12 sendMetricWithResult:*(a1 + 56) != 0 error:*(*(*(a1 + 72) + 8) + 24)];
 }
 
-id sub_1002088AC(void *a1, const void *a2, int a3, void *a4)
+id sub_1002088AC(void *a1, const void *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   v7 = a1;
   v8 = [v7 trust];
   v36 = 0;
@@ -6459,7 +6472,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v11 = sub_100217CE0(v7);
+  v11 = sub_100217CE0(v7, a4);
   if (!v11)
   {
     v15 = sub_100006274("circleOps");
@@ -6505,7 +6518,7 @@ LABEL_16:
 
   sub_100228AD0(v7, @"initialsynctimeout", 0);
   sub_100220520(v7);
-  sub_100208C80(@"Joining", v7, cf, v35, v36, a3);
+  sub_100208C80(@"Joining", v7, cf, v35, v36, v5);
   v23 = [v7 circle_transport];
   v27[0] = _NSConcreteStackBlock;
   v27[1] = 3221225472;
@@ -6627,11 +6640,11 @@ uint64_t sub_100208E7C(uint64_t a1, uint64_t a2)
   return _SOSCircleAcceptPeerFromHSA2(a2, v7, v4, v5, v6, v8, v9);
 }
 
-void sub_1002091A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1002091A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6687,23 +6700,23 @@ uint64_t sub_100209358(void *a1, void *a2, void *a3, void *a4, char a5, uint64_t
 
   if (![v13 getCircleStatus:a7])
   {
-    if (sub_100218428(v13))
+    if (sub_100218428(v13, a7))
     {
       if (a6)
       {
         v23 = [AAFAnalyticsEventSecurity alloc];
         v24 = kSecurityRTCEventNameVerifySOSApplication;
         sub_10020802C();
-        LOBYTE(v39) = a5;
-        v20 = [v23 initWithKeychainCircleMetrics:0 altDSID:v14 flowID:v15 deviceSessionID:v16 eventName:v24 testsAreEnabled:v25 canSendMetrics:v39 category:kSecurityRTCEventCategoryAccountDataAccessRecovery];
+        LOBYTE(v38) = a5;
+        v20 = [v23 initWithKeychainCircleMetrics:0 altDSID:v14 flowID:v15 deviceSessionID:v16 eventName:v24 testsAreEnabled:v25 canSendMetrics:v38 category:kSecurityRTCEventCategoryAccountDataAccessRecovery];
         if ((SOSPeerInfoApplicationVerify() & 1) == 0)
         {
-          v41 = v14;
-          v35 = sub_100006274("circleOps");
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v40 = v14;
+          v34 = sub_100006274("circleOps");
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Peer application wasn't signed with the correct userKey", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Peer application wasn't signed with the correct userKey", buf, 2u);
           }
 
           v27 = 0;
@@ -6713,7 +6726,7 @@ uint64_t sub_100209358(void *a1, void *a2, void *a3, void *a4, char a5, uint64_t
           v21 = 0;
           if (!a7)
           {
-            goto LABEL_27;
+            goto LABEL_26;
           }
 
           goto LABEL_18;
@@ -6725,15 +6738,15 @@ uint64_t sub_100209358(void *a1, void *a2, void *a3, void *a4, char a5, uint64_t
         if (v26)
         {
           v27 = v26;
-          v41 = v14;
+          v40 = v14;
           v28 = [v13 trust];
           v29 = [v28 getCircle:a7];
 
           if (!v29 || (v30 = SOSCircleCopyCircle()) == 0)
           {
             v21 = 0;
-            v14 = v41;
-            goto LABEL_34;
+            v14 = v40;
+            goto LABEL_33;
           }
 
           v31 = v30;
@@ -6742,7 +6755,7 @@ uint64_t sub_100209358(void *a1, void *a2, void *a3, void *a4, char a5, uint64_t
             v21 = 0;
             v32 = 0;
             GenSignatureWithPeerAdded = 0;
-            goto LABEL_28;
+            goto LABEL_27;
           }
 
           SOSCircleGetGeneration();
@@ -6751,27 +6764,27 @@ uint64_t sub_100209358(void *a1, void *a2, void *a3, void *a4, char a5, uint64_t
           if (!GenSignatureWithPeerAdded)
           {
             v21 = 0;
-            goto LABEL_28;
+            goto LABEL_27;
           }
 
           sub_100208C80(@"Accepting", v13, v32, v27, GenSignatureWithPeerAdded, 1);
           v21 = SOSPiggyBackBlobCopyEncodedData();
           if (!a7)
           {
-LABEL_27:
+LABEL_26:
             [NSError errorWithDomain:kSOSErrorDomain code:12 description:@"Peer application wasn't signed with the correct userKey"];
-            v40 = v16;
-            v37 = v36 = v15;
-            [v20 sendMetricWithResult:0 error:v37];
+            v39 = v16;
+            v36 = v35 = v15;
+            [v20 sendMetricWithResult:0 error:v36];
 
-            v15 = v36;
-            v16 = v40;
+            v15 = v35;
+            v16 = v39;
             if (!v31)
             {
-              goto LABEL_29;
+              goto LABEL_28;
             }
 
-            goto LABEL_28;
+            goto LABEL_27;
           }
 
 LABEL_18:
@@ -6780,13 +6793,13 @@ LABEL_18:
             [v20 sendMetricWithResult:0 error:?];
             if (!v31)
             {
-LABEL_29:
+LABEL_28:
               if (v32)
               {
                 CFRelease(v32);
               }
 
-              v14 = v41;
+              v14 = v40;
               if (GenSignatureWithPeerAdded)
               {
                 CFRelease(GenSignatureWithPeerAdded);
@@ -6794,13 +6807,13 @@ LABEL_29:
 
               if (!v27)
               {
-LABEL_35:
+LABEL_34:
                 if (!a7)
                 {
                   goto LABEL_8;
                 }
 
-LABEL_42:
+LABEL_40:
                 if (v21)
                 {
                   goto LABEL_8;
@@ -6809,48 +6822,43 @@ LABEL_42:
                 v18 = sub_100006274("circleOps");
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
                 {
-                  v38 = *a7;
+                  v37 = *a7;
                   *buf = 138412290;
-                  v43 = v38;
+                  v42 = v37;
                   _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Failed to make circle joining piggyback blob as sponsor %@", buf, 0xCu);
                 }
 
                 goto LABEL_7;
               }
 
-LABEL_34:
+LABEL_33:
               CFRelease(v27);
-              goto LABEL_35;
+              goto LABEL_34;
             }
 
-LABEL_28:
+LABEL_27:
             CFRelease(v31);
-            goto LABEL_29;
+            goto LABEL_28;
           }
 
-          goto LABEL_27;
+          goto LABEL_26;
         }
 
-LABEL_41:
+LABEL_39:
         v21 = 0;
         if (!a7)
         {
           goto LABEL_8;
         }
 
-        goto LABEL_42;
-      }
-
-      if (a7)
-      {
-        v34 = *a7;
+        goto LABEL_40;
       }
 
       SOSCreateError();
     }
 
     v20 = 0;
-    goto LABEL_41;
+    goto LABEL_39;
   }
 
   v18 = sub_100006274("circleOps");
@@ -6858,7 +6866,7 @@ LABEL_41:
   {
     v19 = SOSCCGetStatusDescription();
     *buf = 138412290;
-    v43 = v19;
+    v42 = v19;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Invalid circle status: %@ to accept piggyback as sponsor (SOSAccountCopyCircleJoiningBlob)", buf, 0xCu);
   }
 
@@ -6952,52 +6960,44 @@ CFStringRef sub_100209CB8(void *a1)
   return v17;
 }
 
-void sub_100209E64(uint64_t a1)
+void sub_100209E64(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
   [*(a1 + 40) accountKey];
-  v4 = *(a1 + 56);
-  v5 = SOSCirclePeerInfoCopyStateString();
-  [v2 addObject:v5];
+  v3 = SOSCirclePeerInfoCopyStateString();
+  [v2 addObject:v3];
 }
 
-void sub_100209EDC(uint64_t a1)
+void sub_100209EDC(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
   [*(a1 + 40) accountKey];
-  v4 = *(a1 + 56);
-  v5 = SOSCirclePeerInfoCopyStateString();
-  [v2 addObject:v5];
+  v3 = SOSCirclePeerInfoCopyStateString();
+  [v2 addObject:v3];
 }
 
-void sub_100209F54(uint64_t a1)
+void sub_100209F54(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
   [*(a1 + 40) accountKey];
-  v4 = *(a1 + 56);
-  v5 = SOSCirclePeerInfoCopyStateString();
-  [v2 addObject:v5];
+  v3 = SOSCirclePeerInfoCopyStateString();
+  [v2 addObject:v3];
 }
 
-void sub_100209FCC(uint64_t a1)
+void sub_100209FCC(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   [*(a1 + 40) accountKey];
-  v3 = *(a1 + 48);
-  v4 = SOSPeerInfoCopyStateString();
-  [v2 addObject:v4];
+  v3 = SOSPeerInfoCopyStateString();
+  [v2 addObject:v3];
 }
 
-void sub_10020A040(uint64_t a1)
+void sub_10020A040(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   [*(a1 + 40) accountKey];
-  v3 = *(a1 + 48);
-  v4 = SOSPeerInfoCopyStateString();
-  [v2 addObject:v4];
+  v3 = SOSPeerInfoCopyStateString();
+  [v2 addObject:v3];
 }
 
 void sub_10020A148(uint64_t a1, uint64_t a2)
@@ -7020,44 +7020,47 @@ void sub_10020A148(uint64_t a1, uint64_t a2)
   (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_10020A7B8(uint64_t a1)
+uint64_t sub_10020A7B8(uint64_t a1, uint64_t a2)
 {
   PeerID = SOSPeerInfoGetPeerID();
   Copy = CFStringCreateCopy(kCFAllocatorDefault, PeerID);
+  v5 = Copy;
   if (Copy)
   {
-    [*(a1 + 32) addObject:Copy];
+    v7 = Copy;
+    Copy = [*(a1 + 32) addObject:Copy];
+    v5 = v7;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(Copy, v5);
 }
 
-void sub_10020A82C(uint64_t a1)
+void sub_10020A82C(uint64_t a1, uint64_t a2)
 {
-  v2 = SOSCopyIDOfKey();
-  if (v2)
+  v3 = SOSCopyIDOfKey();
+  if (v3)
   {
-    v3 = v2;
-    [*(a1 + 32) addObject:v2];
+    v4 = v3;
+    [*(a1 + 32) addObject:v3];
   }
 
   else
   {
-    v3 = sub_100006274("iCloudIdentity");
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("iCloudIdentity");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v5 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "couldn't make ID from key (%@)", buf, 0xCu);
+      v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "couldn't make ID from key (%@)", buf, 0xCu);
     }
   }
 }
 
-void sub_10020AD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10020AD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7247,17 +7250,18 @@ id sub_10020AF0C(uint64_t a1, void *a2)
   return [v26 ghostBustFollowup];
 }
 
-void sub_10020B404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10020B404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10020B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10020B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7284,11 +7288,11 @@ void sub_10020B7F0(uint64_t a1, void *a2)
   *(v5 + 40) = v4;
 }
 
-void sub_10020BA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10020BA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7299,11 +7303,10 @@ void sub_10020BA88(uint64_t a1, void *a2)
 
   if (v4)
   {
-    v5 = *(*(a1 + 32) + 8);
-    v6 = SOSPeerInfoCopyEncodedData();
-    v7 = *(*(a1 + 40) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v5 = SOSPeerInfoCopyEncodedData();
+    v6 = *(*(a1 + 40) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
 
     CFRelease(v4);
   }
@@ -7313,7 +7316,7 @@ uint64_t sub_10020BB34(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = [v3 trust];
-  if (sub_100217CE0(v3) && [v4 ensureFullPeerAvailable:v3 err:a2] && (objc_msgSend(v4, "fullPeerInfo"), SOSFullPeerInfoPromoteToApplication()))
+  if (sub_100217CE0(v3, a2) && [v4 ensureFullPeerAvailable:v3 err:a2] && (objc_msgSend(v4, "fullPeerInfo"), SOSFullPeerInfoPromoteToApplication()))
   {
     [v4 peerInfo];
     Copy = SOSPeerInfoCreateCopy();
@@ -7329,56 +7332,67 @@ uint64_t sub_10020BB34(void *a1, uint64_t a2)
 
 uint64_t sub_10020BDE4(uint64_t a1)
 {
-  v16 = 0;
-  if ([*(a1 + 32) syncWaitAndFlush:*(a1 + 40) flowID:*(a1 + 48) deviceSessionID:*(a1 + 56) canSendMetrics:*(a1 + 80) error:&v16])
+  v18 = 0;
+  if ([*(a1 + 32) syncWaitAndFlush:*(a1 + 40) flowID:*(a1 + 48) deviceSessionID:*(a1 + 56) canSendMetrics:*(a1 + 80) error:&v18])
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 0;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
     sleep(1u);
     v2 = *(a1 + 32);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10020BFF4;
-    v7[3] = &unk_100344E40;
-    v8 = *(a1 + 64);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10020BFF4;
+    v9[3] = &unk_100344E40;
+    v10 = *(a1 + 64);
     v3 = *(a1 + 72);
-    v9 = *(a1 + 32);
-    v10 = v3;
-    v11 = &v12;
-    [v2 performTransaction:v7];
-    if (*(v13 + 24) == 1 && (sub_10020C374() & 1) == 0)
+    v11 = *(a1 + 32);
+    v12 = v3;
+    v13 = &v14;
+    [v2 performTransaction:v9];
+    if (*(v15 + 24) == 1)
     {
-      v4 = sub_100006274("pairing");
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      cf = 0;
+      if ((sub_10020C374(&cf) & 1) == 0)
       {
-        *buf = 138412290;
-        v18 = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "failed final flush: %@", buf, 0xCu);
+        v4 = sub_100006274("pairing");
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v20 = cf;
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "failed final flush: %@", buf, 0xCu);
+        }
+      }
+
+      v5 = cf;
+      if (cf)
+      {
+        cf = 0;
+        CFRelease(v5);
       }
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v14, 8);
   }
 
   else
   {
     (*(*(a1 + 72) + 16))();
-    v5 = v16;
-    if (v16)
+    v6 = v18;
+    if (v18)
     {
-      v16 = 0;
-      CFRelease(v5);
+      v18 = 0;
+      CFRelease(v6);
     }
   }
 
   return 1;
 }
 
-void sub_10020BFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10020BFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7472,51 +7486,51 @@ LABEL_17:
 LABEL_19:
 }
 
-uint64_t sub_10020C374()
+uint64_t sub_10020C374(uint64_t a1)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v0 = dispatch_semaphore_create(0);
-  v1 = sub_100006274("flush");
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
+  v1 = dispatch_semaphore_create(0);
+  v2 = sub_100006274("flush");
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Starting", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Starting", buf, 2u);
   }
 
-  v2 = dispatch_get_global_queue(-2, 0);
-  v3 = v0;
+  v3 = dispatch_get_global_queue(-2, 0);
+  v4 = v1;
   SOSCloudKeychainFlush();
 
-  dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-  v4 = sub_100006274("flush");
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
+  v5 = sub_100006274("flush");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    if (*(v9 + 24))
+    if (*(v10 + 24))
     {
-      v5 = "Success";
+      v6 = "Success";
     }
 
     else
     {
-      v5 = "Failure";
+      v6 = "Failure";
     }
 
     *buf = 136315138;
-    v13 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Returned %s", buf, 0xCu);
+    v14 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Returned %s", buf, 0xCu);
   }
 
-  v6 = *(v9 + 24);
-  _Block_object_dispose(&v8, 8);
-  return v6 & 1;
+  v7 = *(v10 + 24);
+  _Block_object_dispose(&v9, 8);
+  return v7 & 1;
 }
 
-void sub_10020C564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10020C564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7620,7 +7634,6 @@ void sub_10020C77C(uint64_t a1)
 void sub_10020CE50(uint64_t a1)
 {
   v2 = dispatch_get_global_queue(-2, 0);
-  v8 = *(a1 + 48);
   v7 = *(a1 + 32);
   v3 = v7;
   SOSCloudKeychainSynchronizeAndWait();
@@ -7646,9 +7659,9 @@ void sub_10020CE50(uint64_t a1)
     }
 
     *buf = 136315394;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v5;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "EFP complete: %s %@", buf, 0x16u);
   }
 }
@@ -7835,7 +7848,7 @@ LABEL_10:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Changing DSID from: %@ to %@", &v9, 0x16u);
   }
 
-  sub_100089FEC(@"DSID Change is unexpected", 1405091857);
+  sub_100089FEC(@"DSID Change is unexpected", 0x53C00011u);
   sub_10020E5C0(v3);
   sub_10020E534(v3, a2);
   a2 = 1;
@@ -8040,7 +8053,6 @@ uint64_t sub_10020EDE4(uint64_t result, CFTypeRef cf)
     result = SOSPeerInfoGetTypeID();
     if (v3 == result)
     {
-      v4 = *(v2 + 40);
       result = SOSCircleUpdatePeerInfo();
       *(*(*(v2 + 32) + 8) + 24) = 1;
     }
@@ -8059,17 +8071,17 @@ void sub_10020EE4C(void *a1, void *a2)
   [v4 addObject:v5];
 }
 
-BOOL sub_10020EED0(void *a1, uint64_t a2)
+BOOL sub_10020EED0(void *a1, uint64_t a2, CFTypeRef *a3)
 {
-  v3 = a1;
-  v4 = [v3 trust];
-  v5 = [v4 fullPeerInfo];
-  v6 = [v4 retirees];
-  if (v5)
+  v4 = a1;
+  v5 = [v4 trust];
+  v6 = [v5 fullPeerInfo];
+  v7 = [v5 retirees];
+  if (v6)
   {
-    v23[1] = 0;
-    v7 = SOSFullPeerInfoPromoteToRetiredAndCopy();
-    if (v7)
+    v24[1] = 0;
+    v8 = SOSFullPeerInfoPromoteToRetiredAndCopy();
+    if (v8)
     {
       if (SOSCircleHasApplicant())
       {
@@ -8078,93 +8090,93 @@ BOOL sub_10020EED0(void *a1, uint64_t a2)
 
       else if (SOSCircleHasPeer() && SOSCircleUpdatePeerInfo())
       {
-        v23[0] = 0;
-        v9 = [v3 trust];
-        v10 = [v3 kvs_message_transport];
-        v11 = [v3 circle_transport];
-        v12 = [v9 cleanupAfterPeer:v10 circleTransport:v11 seconds:86400 circle:a2 cleanupPeer:v7 err:v23];
+        v24[0] = 0;
+        v10 = [v4 trust];
+        v11 = [v4 kvs_message_transport];
+        v12 = [v4 circle_transport];
+        v13 = [v10 cleanupAfterPeer:v11 circleTransport:v12 seconds:86400 circle:a2 cleanupPeer:v8 err:v24];
 
-        if ((v12 & 1) == 0)
+        if ((v13 & 1) == 0)
         {
-          v13 = sub_100006274("SecError");
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = sub_100006274("SecError");
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v25 = v7;
-            v26 = 2112;
-            v27 = v23[0];
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Error cleanup up after peer (%@): %@", buf, 0x16u);
+            v26 = v8;
+            v27 = 2112;
+            v28 = v24[0];
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Error cleanup up after peer (%@): %@", buf, 0x16u);
           }
         }
 
-        if (v23[0])
+        if (v24[0])
         {
-          CFRelease(v23[0]);
+          CFRelease(v24[0]);
         }
       }
 
-      CFSetAddValue(v6, v7);
-      [v4 setRetirees:v6];
-      v23[0] = 0;
-      v14 = [v3 circle_transport];
-      v15 = [v14 postRetirement:SOSCircleGetName() peer:v7 err:v23];
+      CFSetAddValue(v7, v8);
+      [v5 setRetirees:v7];
+      v24[0] = 0;
+      v15 = [v4 circle_transport];
+      v16 = [v15 postRetirement:SOSCircleGetName() peer:v8 err:v24];
 
-      if ((v15 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
-        v16 = sub_100006274("SecWarning");
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v25 = v23[0];
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Couldn't post retirement (%@)", buf, 0xCu);
-        }
-      }
-
-      v17 = [v3 circle_transport];
-      v18 = [v17 flushChanges:v23];
-
-      if ((v18 & 1) == 0)
-      {
-        v19 = sub_100006274("SecWarning");
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100006274("SecWarning");
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v25 = v23[0];
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Couldn't flush retirement data (%@)", buf, 0xCu);
+          v26 = v24[0];
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Couldn't post retirement (%@)", buf, 0xCu);
         }
       }
 
-      v20 = v23[0];
-      if (v23[0])
+      v18 = [v4 circle_transport];
+      v19 = [v18 flushChanges:v24];
+
+      if ((v19 & 1) == 0)
       {
-        v23[0] = 0;
-        CFRelease(v20);
+        v20 = sub_100006274("SecWarning");
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v26 = v24[0];
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Couldn't flush retirement data (%@)", buf, 0xCu);
+        }
+      }
+
+      v21 = v24[0];
+      if (v24[0])
+      {
+        v24[0] = 0;
+        CFRelease(v21);
       }
     }
 
     else
     {
-      v8 = sub_100006274("SecError");
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100006274("SecError");
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v25 = v5;
-        v26 = 2112;
-        v27 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Create ticket failed for peer %@: %@", buf, 0x16u);
+        v26 = v6;
+        v27 = 2112;
+        v28 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Create ticket failed for peer %@: %@", buf, 0x16u);
       }
     }
 
-    v21 = [v3 trust];
-    [v21 purgeIdentity];
+    v22 = [v4 trust];
+    [v22 purgeIdentity];
 
-    if (v7)
+    if (v8)
     {
-      CFRelease(v7);
+      CFRelease(v8);
     }
   }
 
-  return v5 != 0;
+  return v6 != 0;
 }
 
 void sub_10020F320(uint64_t a1, const void *a2)
@@ -8192,7 +8204,7 @@ uint64_t sub_10020F3AC(void *a1, int a2, uint64_t a3)
   v5 = a1;
   v6 = [v5 account];
   v7 = [v6 trust];
-  v8 = sub_100217CE0(v6);
+  v8 = sub_100217CE0(v6, a3);
   if (!v8)
   {
     goto LABEL_45;
@@ -8386,28 +8398,23 @@ LABEL_44:
   return v15;
 }
 
-void sub_10020FA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10020FA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10020FA30(uint64_t a1)
+uint64_t sub_10020FA30(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 72);
   sub_10020649C(*(a1 + 32), @"EscrowRecord");
   *(*(*(a1 + 48) + 8) + 24) = SOSFullPeerInfoReplaceEscrowRecords();
-  v5 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = *(a1 + 64);
   *(*(*(a1 + 48) + 8) + 24) &= SOSCircleRequestAdmission();
   [*(a1 + 40) setDepartureCode:1];
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
@@ -8417,35 +8424,32 @@ uint64_t sub_10020FA30(uint64_t a1)
       SOSFullPeerInfoGetPeerInfo();
       if (SOSPeerInfoGetPeerID() && SOSCircleHasActivePeerWithID())
       {
-        v7 = *(a1 + 80);
-        v8 = *(a1 + 64);
-        v9 = *(*(*(a1 + 56) + 8) + 24);
         SOSFullPeerInfoGetPeerInfo();
         SOSCircleAcceptRequest();
       }
 
-      v10 = *(*(*(a1 + 48) + 8) + 24);
+      v3 = *(*(*(a1 + 48) + 8) + 24);
     }
 
     else
     {
-      v10 = 1;
+      v3 = 1;
     }
   }
 
   else
   {
-    v10 = 0;
+    v3 = 0;
   }
 
-  return v10 & 1;
+  return v3 & 1;
 }
 
 uint64_t sub_10020FBF8(void *a1, const __CFArray *a2, uint64_t a3)
 {
   v5 = a1;
   sub_100085ABC(a2, @"[", @"]", &stru_100345090);
-  v6 = sub_100217CE0(v5);
+  v6 = sub_100217CE0(v5, a3);
   if (!v6)
   {
     v17 = sub_100006274("circleOps");
@@ -8523,19 +8527,18 @@ LABEL_15:
 
 uint64_t sub_10020FEA4(uint64_t a1, uint64_t a2)
 {
-  if (!CFSetGetCount(*(a1 + 40)) || (v5 = *(a1 + 40), v4 = *(a1 + 48), v6 = *(a1 + 56), v7 = *(a1 + 64), result = SOSCircleRemovePeers(), result) && (v9 = *(a1 + 64), result = sub_100217C70(*(a1 + 32)), result))
+  if (!CFSetGetCount(*(a1 + 40)) || (result = SOSCircleRemovePeers(), result) && (result = sub_100217C70(*(a1 + 32), *(a1 + 64)), result))
   {
     if (*(a1 + 72) == 1)
     {
-      v10 = sub_100006274("circleOps");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100006274("circleOps");
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Leaving circle by client request (SOSAccountRemovePeersFromCircle)", v12, 2u);
+        *v6 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Leaving circle by client request (SOSAccountRemovePeersFromCircle)", v6, 2u);
       }
 
-      v11 = *(a1 + 64);
-      return sub_10020EED0(*(a1 + 32), a2);
+      return sub_10020EED0(*(a1 + 32), a2, *(a1 + 64));
     }
 
     else
@@ -8590,18 +8593,15 @@ BOOL sub_100210184(uint64_t a1, uint64_t a2)
   v4 = sub_100006274("circleOps");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Leaving circle by client request (Bail)", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Leaving circle by client request (Bail)", v6, 2u);
   }
 
-  v5 = *(a1 + 40);
-  return sub_10020EED0(*(a1 + 32), a2);
+  return sub_10020EED0(*(a1 + 32), a2, *(a1 + 40));
 }
 
-uint64_t sub_100210210(void *a1)
+uint64_t sub_100210210(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a1[5];
-  v3 = a1[6];
   result = SOSCircleAcceptRequest();
   if (result)
   {
@@ -8678,9 +8678,9 @@ uint64_t sub_100210434(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_100210540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100210540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8694,7 +8694,6 @@ uint64_t sub_100210558(uint64_t result, CFTypeRef cf)
     result = SOSPeerInfoGetTypeID();
     if (v4 == result)
     {
-      v5 = *(v3 + 56);
       result = SOSCircleHasApplicant();
       if (result)
       {
@@ -8710,20 +8709,19 @@ uint64_t sub_100210558(uint64_t result, CFTypeRef cf)
   return result;
 }
 
-uint64_t sub_1002105F4(void *a1)
+uint64_t sub_1002105F4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a1[6];
-  v3 = SOSCircleRejectRequest();
-  if (v3)
+  v5 = SOSCircleRejectRequest();
+  if (v5)
   {
-    v4 = *(*(a1[5] + 8) + 24);
-    v5 = SOSCircleCountPeers();
-    if (v4 > v5)
+    v6 = *(*(a1[5] + 8) + 24);
+    v7 = SOSCircleCountPeers();
+    if (v6 > v7)
     {
-      v5 = v4;
+      v7 = v6;
     }
 
-    *(*(a1[5] + 8) + 24) = v5;
+    *(*(a1[5] + 8) + 24) = v7;
   }
 
   else
@@ -8731,7 +8729,7 @@ uint64_t sub_1002105F4(void *a1)
     *(*(a1[4] + 8) + 24) = 0;
   }
 
-  return v3;
+  return v5;
 }
 
 void sub_100210680(void *a1)
@@ -8791,33 +8789,32 @@ LABEL_12:
 
 void sub_100210874(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 48);
   if ((SOSPeerInfoPeerIDEqual() & 1) == 0)
   {
     cf = 0;
-    v5 = [*(a1 + 32) kvs_message_transport];
-    v6 = [v5 SOSTransportMessageGetEngine];
-    v7 = [*(a1 + 40) fullPeerInfo];
+    v4 = [*(a1 + 32) kvs_message_transport];
+    v5 = [v4 SOSTransportMessageGetEngine];
+    v6 = [*(a1 + 40) fullPeerInfo];
     if ([OTSOSActualAdapter sosEnabled]_0())
     {
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x2020000000;
-      v17 = 1;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2020000000;
+      v16 = 1;
       PeerID = SOSPeerInfoGetPeerID();
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100147BD8;
-      v19 = &unk_100338098;
-      v20 = &v14;
-      v21 = v6;
-      v22 = PeerID;
-      v23 = v7;
-      v24 = a2;
+      v18 = &unk_100338098;
+      v19 = &v13;
+      v20 = v5;
+      v21 = PeerID;
+      v22 = v6;
+      v23 = a2;
       p_cf = &cf;
-      v9 = sub_10014811C(v6, PeerID, &cf, buf);
-      *(v15 + 24) &= v9;
-      _Block_object_dispose(&v14, 8);
+      v8 = sub_10014811C(v5, PeerID, &cf, buf);
+      *(v14 + 24) &= v8;
+      _Block_object_dispose(&v13, 8);
     }
 
     else
@@ -8827,32 +8824,32 @@ void sub_100210874(uint64_t a1, uint64_t a2)
 
     if (cf)
     {
-      v10 = sub_100006274("updates");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100006274("updates");
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [*(a1 + 40) fullPeerInfo];
+        v10 = [*(a1 + 40) fullPeerInfo];
         *buf = 138412802;
         *&buf[4] = a2;
         *&buf[12] = 2112;
-        *&buf[14] = v11;
+        *&buf[14] = v10;
         *&buf[22] = 2112;
-        v19 = cf;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "can't initialize transport for peer %@ with %@ (%@)", buf, 0x20u);
+        v18 = cf;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "can't initialize transport for peer %@ with %@ (%@)", buf, 0x20u);
       }
 
-      v12 = cf;
+      v11 = cf;
       if (cf)
       {
         cf = 0;
-        CFRelease(v12);
+        CFRelease(v11);
       }
     }
   }
 }
 
-void sub_100210A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100210A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8920,7 +8917,7 @@ void sub_100210B48(void *a1, uint64_t *a2)
     Mutable = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
     v13 = [v11 trust];
     [v13 trustedCircle];
-    sub_100218428(v11);
+    sub_100218428(v11, 0);
 
     *context = _NSConcreteStackBlock;
     *&context[8] = 3221225472;

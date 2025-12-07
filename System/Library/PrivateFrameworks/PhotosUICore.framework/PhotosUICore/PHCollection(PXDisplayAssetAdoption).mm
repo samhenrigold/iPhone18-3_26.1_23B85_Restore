@@ -5,7 +5,7 @@
 - (uint64_t)px_canRearrangeContent;
 - (uint64_t)px_isInReadWriteCloudLibrary;
 - (uint64_t)px_isRecentsCollection;
-- (uint64_t)px_isUserCreated;
+- (void)px_isUserCreated;
 @end
 
 @implementation PHCollection(PXDisplayAssetAdoption)
@@ -36,27 +36,27 @@
   return [self px_isRecentlySharedCollection];
 }
 
-- (uint64_t)px_isUserCreated
+- (void)px_isUserCreated
 {
   if ([self px_isRegularAlbum])
   {
-    return [self isTransient] ^ 1;
+    return ([self isTransient] ^ 1);
   }
 
   if ([self px_isRegularFolder])
   {
-    return [self isTransient] ^ 1;
+    return ([self isTransient] ^ 1);
   }
 
   if ([self px_isUserSmartAlbum])
   {
-    return [self isTransient] ^ 1;
+    return ([self isTransient] ^ 1);
   }
 
   result = [self px_isProject];
   if (result)
   {
-    return [self isTransient] ^ 1;
+    return ([self isTransient] ^ 1);
   }
 
   return result;

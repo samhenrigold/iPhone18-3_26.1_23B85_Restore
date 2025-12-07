@@ -9,6 +9,7 @@
 - (MTLToolsResource)initWithBaseObject:(id)object parent:(id)parent heap:(id)heap;
 - (NSString)label;
 - (int)responsibleProcess;
+- (int)setOwnerWithIdentity:(unsigned int)identity;
 - (unint64_t)allocatedSize;
 - (unint64_t)allocationID;
 - (unint64_t)cpuCacheMode;
@@ -22,6 +23,7 @@
 - (void)dealloc;
 - (void)makeAliasable;
 - (void)setLabel:(id)label;
+- (void)setResponsibleProcess:(int)process;
 - (void)validateCPUReadable;
 - (void)validateCPUWriteable;
 - (void)waitUntilComplete;
@@ -120,6 +122,14 @@
   return [baseObject responsibleProcess];
 }
 
+- (void)setResponsibleProcess:(int)process
+{
+  v3 = *&process;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setResponsibleProcess:v3];
+}
+
 - (unint64_t)protectionOptions
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -183,12 +193,12 @@
 
 - (BOOL)doesAliasAllResources:(const void *)resources count:(unint64_t)count
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v6 = v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[1] = *MEMORY[0x277D85DE8];
+  v6 = v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     resourcesCopy = resources;
-    v8 = (v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v8 = (v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     countCopy = count;
     do
     {
@@ -200,19 +210,17 @@
     while (countCopy);
   }
 
-  result = [-[MTLToolsObject baseObject](self baseObject];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [-[MTLToolsObject baseObject](self baseObject];
 }
 
 - (BOOL)doesAliasAnyResources:(const void *)resources count:(unint64_t)count
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v6 = v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[1] = *MEMORY[0x277D85DE8];
+  v6 = v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (count)
   {
     resourcesCopy = resources;
-    v8 = (v13 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
+    v8 = (v12 - ((8 * count + 15) & 0xFFFFFFFFFFFFFFF0));
     countCopy = count;
     do
     {
@@ -224,9 +232,7 @@
     while (countCopy);
   }
 
-  result = [-[MTLToolsObject baseObject](self baseObject];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [-[MTLToolsObject baseObject](self baseObject];
 }
 
 - (BOOL)isComplete
@@ -246,36 +252,18 @@
 - (void)validateCPUReadable
 {
   v2 = self->_options >> 4;
-  if (v2 == 2)
+  if (v2 == 2 || v2 == 3)
   {
-    options = self->_options;
-LABEL_6:
     MTLReportFailure();
-    return;
-  }
-
-  if (v2 == 3)
-  {
-    v4 = self->_options;
-    goto LABEL_6;
   }
 }
 
 - (void)validateCPUWriteable
 {
   v2 = self->_options >> 4;
-  if (v2 == 2)
+  if (v2 == 2 || v2 == 3)
   {
-    options = self->_options;
-LABEL_6:
     MTLReportFailure();
-    return;
-  }
-
-  if (v2 == 3)
-  {
-    v4 = self->_options;
-    goto LABEL_6;
   }
 }
 
@@ -284,6 +272,14 @@ LABEL_6:
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject allocatedSize];
+}
+
+- (int)setOwnerWithIdentity:(unsigned int)identity
+{
+  v3 = *&identity;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject setOwnerWithIdentity:v3];
 }
 
 @end

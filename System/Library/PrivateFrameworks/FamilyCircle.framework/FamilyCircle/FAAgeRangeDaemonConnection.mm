@@ -28,11 +28,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v2, 0xCu);
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -110,8 +109,7 @@ id __41__FAAgeRangeDaemonConnection__connection__block_invoke(uint64_t a1)
     v23[3] = &unk_1E7CA5308;
     objc_copyWeak(&v24, &location);
     [v13 setInvalidationHandler:v23];
-    [*(*(a1 + 32) + 16) resume];
-    v14 = _FALogSystem();
+    v14 = _FALogSystem([*(*(a1 + 32) + 16) resume]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       __41__FAAgeRangeDaemonConnection__connection__block_invoke_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
@@ -140,7 +138,7 @@ void __41__FAAgeRangeDaemonConnection__connection__block_invoke_3(uint64_t a1)
 
 - (void)_connectionInterruptionHandler
 {
-  v2 = _FALogSystem();
+  v2 = _FALogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     [(FAAgeRangeDaemonConnection *)v2 _connectionInterruptionHandler:v3];
@@ -149,7 +147,7 @@ void __41__FAAgeRangeDaemonConnection__connection__block_invoke_3(uint64_t a1)
 
 - (void)_connectionInvalidationHandler
 {
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(FAAgeRangeDaemonConnection *)v3 _connectionInvalidationHandler:v4];

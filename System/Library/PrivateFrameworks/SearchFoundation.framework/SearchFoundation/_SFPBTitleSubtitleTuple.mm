@@ -211,18 +211,14 @@ LABEL_13:
 
 - (void)setSubtitle:(id)subtitle
 {
-  v4 = [subtitle copy];
-  subtitle = self->_subtitle;
-  self->_subtitle = v4;
+  self->_subtitle = [subtitle copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

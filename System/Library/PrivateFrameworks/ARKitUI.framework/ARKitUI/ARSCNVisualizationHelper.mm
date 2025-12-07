@@ -26,13 +26,13 @@
 
 + (id)createAxesNode:(double)node
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   redColor = [MEMORY[0x277D75348] redColor];
-  v25 = [ARSCNVisualizationHelper createMaterialWithTexture:redColor];
+  v24 = [ARSCNVisualizationHelper createMaterialWithTexture:redColor];
 
   v5 = [MEMORY[0x277CDBA40] boxWithWidth:node height:node / 50.0 length:node / 50.0 chamferRadius:node / 50.0 * 0.5];
-  v28[0] = v25;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = v24;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   [v5 setMaterials:v6];
 
   v7 = [MEMORY[0x277CDBAA8] nodeWithGeometry:v5];
@@ -44,8 +44,8 @@
   v11 = [ARSCNVisualizationHelper createMaterialWithTexture:greenColor];
 
   v12 = [MEMORY[0x277CDBA40] boxWithWidth:node / 50.0 height:node length:node / 50.0 chamferRadius:node / 50.0 * 0.5];
-  v27 = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   [v12 setMaterials:v13];
 
   v14 = [MEMORY[0x277CDBAA8] nodeWithGeometry:v12];
@@ -55,8 +55,8 @@
   v17 = [ARSCNVisualizationHelper createMaterialWithTexture:blueColor];
 
   v18 = [MEMORY[0x277CDBA40] boxWithWidth:node / 50.0 height:node / 50.0 length:node chamferRadius:node / 50.0 * 0.5];
-  v26 = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v25 = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
   [v18 setMaterials:v19];
 
   v20 = [MEMORY[0x277CDBAA8] nodeWithGeometry:v18];
@@ -67,14 +67,12 @@
   [node addChildNode:v14];
   [node addChildNode:v20];
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return node;
 }
 
 + (id)createGeometryForPointCloud:(id)cloud
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEA90];
   cloudCopy = cloud;
   v5 = [v3 dataWithBytes:objc_msgSend(cloudCopy length:{"points"), 16 * objc_msgSend(cloudCopy, "count")}];
@@ -87,17 +85,15 @@
   [v9 setMinimumPointScreenSpaceRadius:8.0];
   [v9 setMaximumPointScreenSpaceRadius:72.0];
   v10 = MEMORY[0x277CDBA68];
-  v19[0] = v6;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v18 = v9;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v18[0] = v6;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17 = v9;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
   v13 = [v10 geometryWithSources:v11 elements:v12];
 
   v14 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.800000012 blue:0.0 alpha:1.0];
   v15 = [ARSCNVisualizationHelper createMaterialWithTexture:v14];
   [v13 setFirstMaterial:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

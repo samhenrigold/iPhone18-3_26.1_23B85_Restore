@@ -26,13 +26,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100107E88();
+  sub_100107E88(v2);
 }
 
 - (void)prepareForReuse
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SearchResultCollectionViewCell();
+  v8.super_class = type metadata accessor for SearchResultCollectionViewCell(0);
   v2 = v8.receiver;
   [(SearchResultCollectionViewCell *)&v8 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC8AppStore30SearchResultCollectionViewCell_resultContents];

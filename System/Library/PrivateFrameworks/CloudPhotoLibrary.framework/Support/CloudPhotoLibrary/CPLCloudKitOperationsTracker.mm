@@ -26,18 +26,18 @@
 
 - (void)_emitLogForCurrentTasks
 {
-  v3 = sub_100004B38();
+  v3 = sub_100004B38(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
   if (v4 && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100004B38();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100004B38(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       _pendingTaskStatus = [(CPLCloudKitOperationsTracker *)self _pendingTaskStatus];
-      v7 = 138412290;
-      v8 = _pendingTaskStatus;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = _pendingTaskStatus;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%@", &v8, 0xCu);
     }
   }
 }

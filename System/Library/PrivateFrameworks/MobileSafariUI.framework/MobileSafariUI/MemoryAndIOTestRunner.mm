@@ -72,19 +72,19 @@ LABEL_8:
   return v12;
 }
 
-uint64_t __65__MemoryAndIOTestRunner_initWithTestName_browserController_type___block_invoke(uint64_t result)
+void *__65__MemoryAndIOTestRunner_initWithTestName_browserController_type___block_invoke(void *result)
 {
-  if (*(*(*(result + 40) + 8) + 40))
+  if (*(*(result[5] + 8) + 40))
   {
     v1 = result;
     v2 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v2 removeObserver:*(*(*(v1 + 40) + 8) + 40)];
+    [v2 removeObserver:*(*(v1[5] + 8) + 40)];
 
-    v3 = *(*(v1 + 40) + 8);
+    v3 = *(v1[5] + 8);
     v4 = *(v3 + 40);
     *(v3 + 40) = 0;
 
-    v5 = *(v1 + 32);
+    v5 = v1[4];
 
     return [v5 _collectTestResults];
   }

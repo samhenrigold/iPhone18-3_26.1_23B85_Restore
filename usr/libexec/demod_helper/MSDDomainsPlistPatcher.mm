@@ -13,21 +13,22 @@
   if (v5)
   {
     v7 = [v5 objectForKey:@"SystemDomains"];
-    if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v8 = v7;
+    if (v7 && (objc_opt_class(), v7 = objc_opt_isKindOfClass(), (v7 & 1) != 0))
     {
-      v8 = [v7 objectForKey:@"CameraRollDomain"];
-      v48 = plistCopy;
-      if (v8)
+      v9 = [v8 objectForKey:@"CameraRollDomain"];
+      v50 = plistCopy;
+      if (v9)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v9 = [v8 objectForKey:@"RelativePathsNotToBackup"];
-          if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v10 = [v9 objectForKey:@"RelativePathsNotToBackup"];
+          if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            [v9 removeObject:@"Media/PhotoData/Sync"];
-            [v8 setObject:v9 forKey:@"RelativePathsNotToBackup"];
-            [v7 setObject:v8 forKey:@"CameraRollDomain"];
+            [v10 removeObject:@"Media/PhotoData/Sync"];
+            [v9 setObject:v10 forKey:@"RelativePathsNotToBackup"];
+            [v8 setObject:v9 forKey:@"CameraRollDomain"];
           }
 
           else if (has_internal_content)
@@ -36,14 +37,14 @@
             goto LABEL_172;
           }
 
-          v10 = [v8 objectForKey:@"RelativePathsToRemoveOnRestore"];
+          v11 = [v9 objectForKey:@"RelativePathsToRemoveOnRestore"];
 
-          if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            [v10 removeObject:@"Media/PhotoData/Sync"];
-            [v10 removeObject:@"Media/PhotoData/Metadata/PhotoData/Sync"];
-            [v8 setObject:v10 forKey:@"RelativePathsToRemoveOnRestore"];
-            [v7 setObject:v8 forKey:@"CameraRollDomain"];
+            [v11 removeObject:@"Media/PhotoData/Sync"];
+            [v11 removeObject:@"Media/PhotoData/Metadata/PhotoData/Sync"];
+            [v9 setObject:v11 forKey:@"RelativePathsToRemoveOnRestore"];
+            [v8 setObject:v9 forKey:@"CameraRollDomain"];
           }
 
           else if (has_internal_content)
@@ -53,23 +54,23 @@
           }
 
 LABEL_16:
-          v11 = [v7 objectForKey:@"HomeKitDomain"];
+          v12 = [v8 objectForKey:@"HomeKitDomain"];
 
-          if (v11)
+          if (v12)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v12 = [v11 objectForKey:@"RelativePathsToRemoveOnRestore"];
+              v13 = [v12 objectForKey:@"RelativePathsToRemoveOnRestore"];
 
-              if (v12 || (v12 = objc_alloc_init(NSMutableArray)) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass()))
+              if (v13 || (v13 = objc_alloc_init(NSMutableArray)) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass()))
               {
-                [v12 addObject:@"Library/homed/protected-home.config"];
-                [v12 addObject:@"Library/homed/datastore.sqlite"];
-                [v12 addObject:@"Library/homed/datastore.sqlite-shm"];
-                [v12 addObject:@"Library/homed/datastore.sqlite-wal"];
-                [v11 setObject:v12 forKey:@"RelativePathsToRemoveOnRestore"];
-                [v7 setObject:v11 forKey:@"HomeKitDomain"];
+                [v13 addObject:@"Library/homed/protected-home.config"];
+                [v13 addObject:@"Library/homed/datastore.sqlite"];
+                [v13 addObject:@"Library/homed/datastore.sqlite-shm"];
+                [v13 addObject:@"Library/homed/datastore.sqlite-wal"];
+                [v12 setObject:v13 forKey:@"RelativePathsToRemoveOnRestore"];
+                [v8 setObject:v12 forKey:@"HomeKitDomain"];
               }
 
               else if (has_internal_content)
@@ -78,15 +79,15 @@ LABEL_16:
                 goto LABEL_172;
               }
 
-              v13 = [v11 objectForKey:@"RelativePathsNotToBackupToService"];
+              v14 = [v12 objectForKey:@"RelativePathsNotToBackupToService"];
 
-              if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                [v13 removeObject:@"Library/homed/datastore.sqlite"];
-                [v13 removeObject:@"Library/homed/datastore.sqlite-shm"];
-                [v13 removeObject:@"Library/homed/datastore.sqlite-wal"];
-                [v11 setObject:v13 forKey:@"RelativePathsNotToBackupToService"];
-                [v7 setObject:v11 forKey:@"HomeKitDomain"];
+                [v14 removeObject:@"Library/homed/datastore.sqlite"];
+                [v14 removeObject:@"Library/homed/datastore.sqlite-shm"];
+                [v14 removeObject:@"Library/homed/datastore.sqlite-wal"];
+                [v12 setObject:v14 forKey:@"RelativePathsNotToBackupToService"];
+                [v8 setObject:v12 forKey:@"HomeKitDomain"];
               }
 
               else if (has_internal_content)
@@ -95,15 +96,15 @@ LABEL_16:
                 goto LABEL_172;
               }
 
-              v14 = [v11 objectForKey:@"RelativePathsNotToBackupInMegaBackup"];
+              v15 = [v12 objectForKey:@"RelativePathsNotToBackupInMegaBackup"];
 
-              if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                [v14 removeObject:@"Library/homed/datastore.sqlite"];
-                [v14 removeObject:@"Library/homed/datastore.sqlite-shm"];
-                [v14 removeObject:@"Library/homed/datastore.sqlite-wal"];
-                [v11 setObject:v14 forKey:@"RelativePathsNotToBackupInMegaBackup"];
-                [v7 setObject:v11 forKey:@"HomeKitDomain"];
+                [v15 removeObject:@"Library/homed/datastore.sqlite"];
+                [v15 removeObject:@"Library/homed/datastore.sqlite-shm"];
+                [v15 removeObject:@"Library/homed/datastore.sqlite-wal"];
+                [v12 setObject:v15 forKey:@"RelativePathsNotToBackupInMegaBackup"];
+                [v8 setObject:v12 forKey:@"HomeKitDomain"];
               }
 
               else if (has_internal_content)
@@ -112,16 +113,16 @@ LABEL_16:
                 goto LABEL_172;
               }
 
-              v15 = [v11 objectForKey:@"RelativePathsToRestoreOnly"];
+              v16 = [v12 objectForKey:@"RelativePathsToRestoreOnly"];
 
-              if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              if (v16 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                [v15 removeObject:@"Library/homed/protected-home.config"];
-                [v15 removeObject:@"Library/homed/datastore.sqlite"];
-                [v15 removeObject:@"Library/homed/datastore.sqlite-shm"];
-                [v15 removeObject:@"Library/homed/datastore.sqlite-wal"];
-                [v11 setObject:v15 forKey:@"RelativePathsToRestoreOnly"];
-                [v7 setObject:v11 forKey:@"HomeKitDomain"];
+                [v16 removeObject:@"Library/homed/protected-home.config"];
+                [v16 removeObject:@"Library/homed/datastore.sqlite"];
+                [v16 removeObject:@"Library/homed/datastore.sqlite-shm"];
+                [v16 removeObject:@"Library/homed/datastore.sqlite-wal"];
+                [v12 setObject:v16 forKey:@"RelativePathsToRestoreOnly"];
+                [v8 setObject:v12 forKey:@"HomeKitDomain"];
               }
 
               else if (has_internal_content)
@@ -130,16 +131,16 @@ LABEL_16:
                 goto LABEL_172;
               }
 
-              v10 = [v11 objectForKey:@"RelativePathsToOnlyBackupEncrypted"];
+              v11 = [v12 objectForKey:@"RelativePathsToOnlyBackupEncrypted"];
 
-              if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                [v10 removeObject:@"Library/homed/protected-home.config"];
-                [v10 removeObject:@"Library/homed/datastore.sqlite"];
-                [v10 removeObject:@"Library/homed/datastore.sqlite-shm"];
-                [v10 removeObject:@"Library/homed/datastore.sqlite-wal"];
-                [v11 setObject:v10 forKey:@"RelativePathsToOnlyBackupEncrypted"];
-                [v7 setObject:v11 forKey:@"HomeKitDomain"];
+                [v11 removeObject:@"Library/homed/protected-home.config"];
+                [v11 removeObject:@"Library/homed/datastore.sqlite"];
+                [v11 removeObject:@"Library/homed/datastore.sqlite-shm"];
+                [v11 removeObject:@"Library/homed/datastore.sqlite-wal"];
+                [v12 setObject:v11 forKey:@"RelativePathsToOnlyBackupEncrypted"];
+                [v8 setObject:v12 forKey:@"HomeKitDomain"];
               }
 
               else if (has_internal_content)
@@ -150,22 +151,22 @@ LABEL_16:
             }
           }
 
-          v16 = [v7 objectForKey:@"HomeDomain"];
+          v17 = [v8 objectForKey:@"HomeDomain"];
 
-          if (v16 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v17 = [v16 objectForKey:@"RelativePathsNotToBackup"];
+            v18 = [v17 objectForKey:@"RelativePathsNotToBackup"];
 
-            if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v17 addObject:@"Library/Preferences/com.apple.identityservices.idstatuscache.plist"];
-              [v17 addObject:@"Library/Preferences/com.apple.identityservicesd.plist"];
-              [v17 addObject:@"Library/Preferences/com.apple.ids.deviceproperties.plist"];
-              [v17 addObject:@"Library/Preferences/com.apple.ids.subservices.plist"];
-              [v17 addObject:@"Library/Preferences/com.apple.ids.plist"];
-              [v17 removeObject:@"Library/MobileBluetooth/com.apple.MobileBluetooth.ledevices.other.db"];
-              [v16 setObject:v17 forKey:@"RelativePathsNotToBackup"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v18 addObject:@"Library/Preferences/com.apple.identityservices.idstatuscache.plist"];
+              [v18 addObject:@"Library/Preferences/com.apple.identityservicesd.plist"];
+              [v18 addObject:@"Library/Preferences/com.apple.ids.deviceproperties.plist"];
+              [v18 addObject:@"Library/Preferences/com.apple.ids.subservices.plist"];
+              [v18 addObject:@"Library/Preferences/com.apple.ids.plist"];
+              [v18 removeObject:@"Library/MobileBluetooth/com.apple.MobileBluetooth.ledevices.other.db"];
+              [v17 setObject:v18 forKey:@"RelativePathsNotToBackup"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -174,40 +175,41 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v19 = [v16 objectForKey:@"RelativePathsToBackupAndRestore"];
+            v20 = [v17 objectForKey:@"RelativePathsToBackupAndRestore"];
 
-            if (v19 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v20 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v19 removeObject:@"Library/Accounts"];
-              [v19 removeObject:@"Library/DeviceRegistry"];
-              [v19 removeObject:@"Library/DeviceRegistry.state"];
-              [v19 removeObject:@"Library/MobileBluetooth"];
-              [v19 removeObject:@"Library/Mobile Documents"];
-              [v19 addObject:@"Library/Application Support/ScreenSaverManager"];
-              v18 = [v16 objectForKey:@"RelativePathsToBackupToDriveAndStandardAccount"];
-              if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              [v20 removeObject:@"Library/Accounts"];
+              [v20 removeObject:@"Library/DeviceRegistry"];
+              [v20 removeObject:@"Library/DeviceRegistry.state"];
+              [v20 removeObject:@"Library/MobileBluetooth"];
+              [v20 removeObject:@"Library/Mobile Documents"];
+              [v20 addObject:@"Library/Application Support/ScreenSaverManager"];
+              isKindOfClass = [v17 objectForKey:@"RelativePathsToBackupToDriveAndStandardAccount"];
+              v19 = isKindOfClass;
+              if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
               {
-                v20 = [v19 arrayByAddingObjectsFromArray:v18];
-                v21 = [v20 mutableCopy];
+                v22 = [v20 arrayByAddingObjectsFromArray:v19];
+                v23 = [v22 mutableCopy];
 
-                v22 = +[NSMutableArray array];
-                [v16 setObject:v22 forKey:@"RelativePathsToBackupToDriveAndStandardAccount"];
+                v24 = +[NSMutableArray array];
+                [v17 setObject:v24 forKey:@"RelativePathsToBackupToDriveAndStandardAccount"];
 
-                v19 = v21;
+                v20 = v23;
               }
 
               else
               {
-                v23 = sub_100021268();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+                v25 = sub_100021268(isKindOfClass);
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Cannot find RelativePathsToBackupToDriveAndStandardAccount under HomeDomain.", buf, 2u);
+                  _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Cannot find RelativePathsToBackupToDriveAndStandardAccount under HomeDomain.", buf, 2u);
                 }
               }
 
-              [v16 setObject:v19 forKey:@"RelativePathsToBackupAndRestore"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v17 setObject:v20 forKey:@"RelativePathsToBackupAndRestore"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else
@@ -218,17 +220,17 @@ LABEL_16:
                 goto LABEL_172;
               }
 
-              v18 = 0;
+              v19 = 0;
             }
 
-            v24 = [v16 objectForKey:@"RelativePathsToBackupAndRestore"];
+            v26 = [v17 objectForKey:@"RelativePathsToBackupAndRestore"];
 
-            if (v24 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v24 addObject:@"Library/DoNotDisturb/DB/ModeConfigurations.json"];
-              [v24 addObject:@"Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
-              [v16 setObject:v24 forKey:@"RelativePathsToBackupAndRestore"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v26 addObject:@"Library/DoNotDisturb/DB/ModeConfigurations.json"];
+              [v26 addObject:@"Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
+              [v17 setObject:v26 forKey:@"RelativePathsToBackupAndRestore"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -237,14 +239,14 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v25 = [v16 objectForKey:@"RelativePathsToRestoreOnly"];
+            v27 = [v17 objectForKey:@"RelativePathsToRestoreOnly"];
 
-            if (v25 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v27 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v25 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurations.json"];
-              [v25 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
-              [v16 setObject:v25 forKey:@"RelativePathsToRestoreOnly"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v27 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurations.json"];
+              [v27 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
+              [v17 setObject:v27 forKey:@"RelativePathsToRestoreOnly"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -253,14 +255,14 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v26 = [v16 objectForKey:@"RelativePathsToOnlyBackupEncrypted"];
+            v28 = [v17 objectForKey:@"RelativePathsToOnlyBackupEncrypted"];
 
-            if (v26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v26 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurations.json"];
-              [v26 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
-              [v16 setObject:v26 forKey:@"RelativePathsToOnlyBackupEncrypted"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v28 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurations.json"];
+              [v28 removeObject:@"Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
+              [v17 setObject:v28 forKey:@"RelativePathsToOnlyBackupEncrypted"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -269,13 +271,13 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v27 = [v16 objectForKey:@"RelativePathsToBackupAndRestore"];
+            v29 = [v17 objectForKey:@"RelativePathsToBackupAndRestore"];
 
-            if (v27 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v29 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v27 addObject:@"Library/Safari/SafariTabs.db"];
-              [v16 setObject:v27 forKey:@"RelativePathsToBackupAndRestore"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v29 addObject:@"Library/Safari/SafariTabs.db"];
+              [v17 setObject:v29 forKey:@"RelativePathsToBackupAndRestore"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -284,13 +286,13 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v28 = [v16 objectForKey:@"RelativePathsToRestoreOnly"];
+            v30 = [v17 objectForKey:@"RelativePathsToRestoreOnly"];
 
-            if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v28 removeObject:@"Library/Safari/SafariTabs.db"];
-              [v16 setObject:v28 forKey:@"RelativePathsToRestoreOnly"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v30 removeObject:@"Library/Safari/SafariTabs.db"];
+              [v17 setObject:v30 forKey:@"RelativePathsToRestoreOnly"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -299,13 +301,13 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v29 = [v16 objectForKey:@"RelativePathsToOnlyBackupEncrypted"];
+            v31 = [v17 objectForKey:@"RelativePathsToOnlyBackupEncrypted"];
 
-            if (v29 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v31 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v29 removeObject:@"Library/Safari/SafariTabs.db"];
-              [v16 setObject:v29 forKey:@"RelativePathsToOnlyBackupEncrypted"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v31 removeObject:@"Library/Safari/SafariTabs.db"];
+              [v17 setObject:v31 forKey:@"RelativePathsToOnlyBackupEncrypted"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -314,13 +316,13 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v10 = [v16 objectForKey:@"RelativePathsNotToBackupToService"];
+            v11 = [v17 objectForKey:@"RelativePathsNotToBackupToService"];
 
-            if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v10 removeObject:@"Library/Safari/SafariTabs.db"];
-              [v16 setObject:v10 forKey:@"RelativePathsNotToBackupToService"];
-              [v7 setObject:v16 forKey:@"HomeDomain"];
+              [v11 removeObject:@"Library/Safari/SafariTabs.db"];
+              [v17 setObject:v11 forKey:@"RelativePathsNotToBackupToService"];
+              [v8 setObject:v17 forKey:@"HomeDomain"];
             }
 
             else if (has_internal_content)
@@ -338,17 +340,17 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v18 = 0;
+            v19 = 0;
           }
 
-          v30 = [v7 objectForKey:@"KeychainDomain"];
+          v32 = [v8 objectForKey:@"KeychainDomain"];
 
-          if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v31 = +[NSMutableArray array];
-            [v30 setObject:v31 forKey:@"RelativePathsToBackupAndRestore"];
+            v33 = +[NSMutableArray array];
+            [v32 setObject:v33 forKey:@"RelativePathsToBackupAndRestore"];
 
-            [v7 setObject:v30 forKey:@"KeychainDomain"];
+            [v8 setObject:v32 forKey:@"KeychainDomain"];
           }
 
           else if (has_internal_content)
@@ -357,36 +359,36 @@ LABEL_16:
             goto LABEL_172;
           }
 
-          v32 = [v7 objectForKey:@"MediaDomain"];
+          v34 = [v8 objectForKey:@"MediaDomain"];
 
-          if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          if (v34 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            [v32 removeObjectForKey:@"RelativePathsNotToBackupToDrive"];
-            [v7 setObject:v32 forKey:@"MediaDomain"];
-            v33 = [v32 objectForKey:@"RelativePathsToBackupAndRestore"];
+            [v34 removeObjectForKey:@"RelativePathsNotToBackupToDrive"];
+            [v8 setObject:v34 forKey:@"MediaDomain"];
+            v35 = [v34 objectForKey:@"RelativePathsToBackupAndRestore"];
 
-            if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v35 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v33 removeObject:@"Media/iTunes_Control/Device/Trainer"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/iTunesPrefs.plist"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/MobileSync.plist"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/iPhotoAlbumPrefs"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/ApertureAlbumPrefs"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/PSAlbumAlbums"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/PSElementsAlbums"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/PhotosFolderPrefs"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/PhotosFolderAlbums"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/PhotosFolderName"];
-              [v33 removeObject:@"Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb"];
-              [v33 addObject:@"Media/iTunes_Control/iTunes"];
-              [v33 addObject:@"Media/iTunes_Control/Music"];
-              [v33 addObject:@"Media/iTunes_Control/Sync"];
-              [v33 addObject:@"Media/iTunes_Control/Artwork"];
-              [v33 addObject:@"Media/Books"];
-              [v33 addObject:@"Media/ManagedPurchases"];
-              [v33 addObject:@"Media/Music/Downloads"];
-              [v32 setObject:v33 forKey:@"RelativePathsToBackupAndRestore"];
-              [v7 setObject:v32 forKey:@"MediaDomain"];
+              [v35 removeObject:@"Media/iTunes_Control/Device/Trainer"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/iTunesPrefs.plist"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/MobileSync.plist"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/iPhotoAlbumPrefs"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/ApertureAlbumPrefs"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/PSAlbumAlbums"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/PSElementsAlbums"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/PhotosFolderPrefs"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/PhotosFolderAlbums"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/PhotosFolderName"];
+              [v35 removeObject:@"Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb"];
+              [v35 addObject:@"Media/iTunes_Control/iTunes"];
+              [v35 addObject:@"Media/iTunes_Control/Music"];
+              [v35 addObject:@"Media/iTunes_Control/Sync"];
+              [v35 addObject:@"Media/iTunes_Control/Artwork"];
+              [v35 addObject:@"Media/Books"];
+              [v35 addObject:@"Media/ManagedPurchases"];
+              [v35 addObject:@"Media/Music/Downloads"];
+              [v34 setObject:v35 forKey:@"RelativePathsToBackupAndRestore"];
+              [v8 setObject:v34 forKey:@"MediaDomain"];
             }
 
             else if (has_internal_content)
@@ -404,20 +406,20 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v33 = v10;
+            v35 = v11;
           }
 
-          v34 = [v7 objectForKey:@"RootDomain"];
+          v36 = [v8 objectForKey:@"RootDomain"];
 
-          if (v34 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          if (v36 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v35 = [v34 objectForKey:@"RelativePathsToRemoveOnRestore"];
+            v37 = [v36 objectForKey:@"RelativePathsToRemoveOnRestore"];
 
-            if (v35 || (v35 = objc_alloc_init(NSMutableArray)) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass()))
+            if (v37 || (v37 = objc_alloc_init(NSMutableArray)) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass()))
             {
-              [v35 addObject:@"Library/Preferences/com.apple.ASPCarryLog.plist"];
-              [v34 setObject:v35 forKey:@"RelativePathsToRemoveOnRestore"];
-              [v7 setObject:v34 forKey:@"RootDomain"];
+              [v37 addObject:@"Library/Preferences/com.apple.ASPCarryLog.plist"];
+              [v36 setObject:v37 forKey:@"RelativePathsToRemoveOnRestore"];
+              [v8 setObject:v36 forKey:@"RootDomain"];
             }
 
             else if (has_internal_content)
@@ -426,13 +428,13 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v36 = [v34 objectForKey:@"RelativePathsNotToRemoveIfNotRestored"];
+            v38 = [v36 objectForKey:@"RelativePathsNotToRemoveIfNotRestored"];
 
-            if (v36 || (v36 = objc_alloc_init(NSMutableArray)) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass()))
+            if (v38 || (v38 = objc_alloc_init(NSMutableArray)) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass()))
             {
-              [v36 addObject:@"Library/Preferences/com.apple.MobileAsset.plist"];
-              [v34 setObject:v36 forKey:@"RelativePathsNotToRemoveIfNotRestored"];
-              [v7 setObject:v34 forKey:@"RootDomain"];
+              [v38 addObject:@"Library/Preferences/com.apple.MobileAsset.plist"];
+              [v36 setObject:v38 forKey:@"RelativePathsNotToRemoveIfNotRestored"];
+              [v8 setObject:v36 forKey:@"RootDomain"];
             }
 
             else if (has_internal_content)
@@ -441,14 +443,14 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v37 = [v34 objectForKey:@"RelativePathsNotToRestore"];
+            v39 = [v36 objectForKey:@"RelativePathsNotToRestore"];
 
-            if (v37 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v39 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v37 removeObject:@"Library/Preferences/com.apple.powerd.lowpowermode.state.plist"];
-              [v37 removeObject:@"Library/Preferences/com.apple.osanalytics.internal.plist"];
-              [v34 setObject:v37 forKey:@"RelativePathsNotToRestore"];
-              [v7 setObject:v34 forKey:@"RootDomain"];
+              [v39 removeObject:@"Library/Preferences/com.apple.powerd.lowpowermode.state.plist"];
+              [v39 removeObject:@"Library/Preferences/com.apple.osanalytics.internal.plist"];
+              [v36 setObject:v39 forKey:@"RelativePathsNotToRestore"];
+              [v8 setObject:v36 forKey:@"RootDomain"];
             }
 
             else if (has_internal_content)
@@ -457,14 +459,14 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v33 = [v34 objectForKey:@"RelativePathsNotToBackup"];
+            v35 = [v36 objectForKey:@"RelativePathsNotToBackup"];
 
-            if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v35 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v33 removeObject:@"Library/Preferences/com.apple.powerd.lowpowermode.state.plist"];
-              [v33 removeObject:@"Library/Preferences/com.apple.osanalytics.internal.plist"];
-              [v34 setObject:v33 forKey:@"RelativePathsNotToBackup"];
-              [v7 setObject:v34 forKey:@"RootDomain"];
+              [v35 removeObject:@"Library/Preferences/com.apple.powerd.lowpowermode.state.plist"];
+              [v35 removeObject:@"Library/Preferences/com.apple.osanalytics.internal.plist"];
+              [v36 setObject:v35 forKey:@"RelativePathsNotToBackup"];
+              [v8 setObject:v36 forKey:@"RootDomain"];
             }
 
             else if (has_internal_content)
@@ -480,18 +482,18 @@ LABEL_16:
             goto LABEL_172;
           }
 
-          v38 = [v7 objectForKey:@"SystemPreferencesDomain"];
+          v40 = [v8 objectForKey:@"SystemPreferencesDomain"];
 
-          if (v38 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          if (v40 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v39 = [v38 objectForKey:@"RelativePathsNotToBackup"];
+            v41 = [v40 objectForKey:@"RelativePathsNotToBackup"];
 
-            if (v39 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            if (v41 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              [v39 addObject:@"SystemConfiguration/com.apple.wifi.plist"];
-              [v39 addObject:@"SystemConfiguration/com.apple.wifi-networks.plist"];
-              [v38 setObject:v39 forKey:@"RelativePathsNotToBackup"];
-              [v7 setObject:v38 forKey:@"SystemPreferencesDomain"];
+              [v41 addObject:@"SystemConfiguration/com.apple.wifi.plist"];
+              [v41 addObject:@"SystemConfiguration/com.apple.wifi-networks.plist"];
+              [v40 setObject:v41 forKey:@"RelativePathsNotToBackup"];
+              [v8 setObject:v40 forKey:@"SystemPreferencesDomain"];
             }
 
             else if (has_internal_content)
@@ -509,24 +511,24 @@ LABEL_16:
               goto LABEL_172;
             }
 
-            v39 = v33;
+            v41 = v35;
           }
 
-          v40 = [v7 objectForKey:@"KeyboardDomain"];
+          v42 = [v8 objectForKey:@"KeyboardDomain"];
 
-          if (v40)
+          if (v42)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v41 = [v40 objectForKey:@"RelativePathsToBackupAndRestore"];
+              v43 = [v42 objectForKey:@"RelativePathsToBackupAndRestore"];
 
-              if (v41)
+              if (v43)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [v41 addObject:@"Library/KeyboardServices"];
+                  [v43 addObject:@"Library/KeyboardServices"];
                 }
               }
 
@@ -536,72 +538,72 @@ LABEL_16:
 
           if (!has_internal_content)
           {
-            v41 = v39;
+            v43 = v41;
 LABEL_135:
-            v42 = objc_alloc_init(NSMutableDictionary);
+            v44 = objc_alloc_init(NSMutableDictionary);
 
-            [v42 setObject:@"/var/MobileAsset" forKey:@"RootPath"];
-            v43 = objc_alloc_init(NSMutableArray);
+            [v44 setObject:@"/var/MobileAsset" forKey:@"RootPath"];
+            v45 = objc_alloc_init(NSMutableArray);
 
-            [v43 addObject:@"AssetsV2/com_apple_MobileAsset_SystemEnvironmentAsset"];
-            [v43 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_FM_GenerativeModels"];
-            [v43 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_Siri_Understanding"];
-            [v43 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_IF_Planner"];
-            [v43 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_Photos_MagicCleanup"];
-            [v43 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_FM_Visual"];
-            [v42 setObject:v43 forKey:@"RelativePathsToBackupAndRestore"];
-            [v7 setObject:v42 forKey:@"MobileAssetDomain"];
-            v44 = +[NSMutableDictionary dictionary];
-
-            [v44 setObject:@"/var/mobile/XcodeBuiltProducts" forKey:@"RootPath"];
-            v45 = +[NSMutableArray array];
-
-            [v45 addObject:@"PressDemoScripts.xctestproducts"];
+            [v45 addObject:@"AssetsV2/com_apple_MobileAsset_SystemEnvironmentAsset"];
+            [v45 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_FM_GenerativeModels"];
+            [v45 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_Siri_Understanding"];
+            [v45 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_IF_Planner"];
+            [v45 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_Photos_MagicCleanup"];
+            [v45 addObject:@"PreinstalledAssetsV2/InstallWithOs/com_apple_MobileAsset_UAF_FM_Visual"];
             [v44 setObject:v45 forKey:@"RelativePathsToBackupAndRestore"];
-            [v7 setObject:v44 forKey:@"DemoPortalScriptsDomain"];
-            [v6 setObject:v7 forKey:@"SystemDomains"];
-            v46 = v6;
+            [v8 setObject:v44 forKey:@"MobileAssetDomain"];
+            v46 = +[NSMutableDictionary dictionary];
+
+            [v46 setObject:@"/var/mobile/XcodeBuiltProducts" forKey:@"RootPath"];
+            v47 = +[NSMutableArray array];
+
+            [v47 addObject:@"PressDemoScripts.xctestproducts"];
+            [v46 setObject:v47 forKey:@"RelativePathsToBackupAndRestore"];
+            [v8 setObject:v46 forKey:@"DemoPortalScriptsDomain"];
+            [v6 setObject:v8 forKey:@"SystemDomains"];
+            v48 = v6;
 
 LABEL_136:
-            plistCopy = v48;
+            plistCopy = v50;
             goto LABEL_137;
           }
 
           sub_10002C2A4();
 LABEL_172:
-          v46 = 0;
+          v48 = 0;
           goto LABEL_136;
         }
       }
 
       if (!has_internal_content)
       {
-        v10 = 0;
+        v11 = 0;
         goto LABEL_16;
       }
 
-      sub_10002C528(v8);
+      sub_10002C528(v9);
     }
 
     else
     {
-      sub_10002C59C();
+      sub_10002C59C(v7);
     }
   }
 
   else
   {
-    v7 = sub_100021268();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100021268(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10002C604(plistCopy, v7);
+      sub_10002C604(plistCopy, v8);
     }
   }
 
-  v46 = 0;
+  v48 = 0;
 LABEL_137:
 
-  return v46;
+  return v48;
 }
 
 @end

@@ -65,19 +65,18 @@ void sub_100002B70(uint64_t a1)
     v2 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v6 = *(a1 + 40);
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ faceSnapshotChangedForKey:%@", &v8, 0x16u);
+      v3 = objc_opt_class();
+      v4 = NSStringFromClass(v3);
+      v5 = *(a1 + 40);
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ faceSnapshotChangedForKey:%@", &v7, 0x16u);
     }
 
-    v7 = [*(*(a1 + 32) + 8) remoteObjectProxy];
-    [v7 faceSnapshotChangedForKey:*(a1 + 40)];
+    v6 = [*(*(a1 + 32) + 8) remoteObjectProxy];
+    [v6 faceSnapshotChangedForKey:*(a1 + 40)];
   }
 }
 
@@ -400,9 +399,9 @@ void sub_1000045E8(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100004758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -972,7 +971,7 @@ void sub_10000729C(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  v5 = sub_100007344();
+  v5 = sub_100007344(v4);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_100007388;
@@ -982,16 +981,16 @@ void sub_10000729C(void *a1, void *a2)
   dispatch_sync(v5, v6);
 }
 
-id sub_100007344()
+id sub_100007344(uint64_t a1)
 {
   if (qword_100066B90 != -1)
   {
     sub_10003DE84();
   }
 
-  v1 = qword_100066B88;
+  v2 = qword_100066B88;
 
-  return v1;
+  return v2;
 }
 
 void sub_100007388(uint64_t a1)
@@ -1007,13 +1006,13 @@ void sub_100007388(uint64_t a1)
     v6 = [v4 stringByAppendingString:v3];
   }
 
-  v7 = sub_100007840();
+  v7 = sub_100007840(v4);
   v8 = [v7 objectForKey:v6];
 
   if (!v8)
   {
     v8 = objc_alloc_init(NSMutableArray);
-    v9 = sub_100007840();
+    v9 = sub_100007840(v8);
     [v9 setObject:v8 forKey:v6];
   }
 
@@ -1036,7 +1035,7 @@ void sub_1000074E8(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  v5 = sub_100007344();
+  v5 = sub_100007344(v4);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_100007590;
@@ -1065,7 +1064,7 @@ void sub_100007590(uint64_t a1)
   [v7 incrementTransactionCount];
 
   v8 = dispatch_time(0, 30000000000);
-  v9 = sub_100007344();
+  v9 = sub_100007344(v8);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000077B8;
@@ -1086,7 +1085,7 @@ void sub_100007590(uint64_t a1)
     v17 = [v15 stringByAppendingString:v14];
   }
 
-  v18 = sub_100007840();
+  v18 = sub_100007840(v15);
   v19 = [v18 objectForKey:v17];
 
   if ([v19 count])
@@ -1119,16 +1118,16 @@ void sub_100007800(id a1)
   _objc_release_x1();
 }
 
-id sub_100007840()
+id sub_100007840(uint64_t a1)
 {
   if (qword_100066BA0 != -1)
   {
     sub_10003DF00();
   }
 
-  v1 = qword_100066B98;
+  v2 = qword_100066B98;
 
-  return v1;
+  return v2;
 }
 
 void sub_100007884(id a1)
@@ -1138,22 +1137,23 @@ void sub_100007884(id a1)
   _objc_release_x1();
 }
 
-void sub_1000078C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000078C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-__CFString *sub_100007BCC()
+__CFString *sub_100007BCC(uint64_t a1)
 {
   if (qword_100066BA8 != -1)
   {
     sub_10003DF28();
   }
 
-  v1 = off_100066350;
+  v2 = off_100066350;
 
-  return v1;
+  return v2;
 }
 
 void sub_100007C10(id a1)
@@ -1166,7 +1166,7 @@ void sub_100007C10(id a1)
 void sub_100007C58(id a1)
 {
   v2 = NTKBuildVersion();
-  v1 = sub_100007BCC();
+  v1 = sub_100007BCC(v2);
   byte_100066BB8 = [v2 isEqualToString:v1] ^ 1;
 }
 
@@ -1287,9 +1287,9 @@ void sub_100008630(uint64_t a1)
   sub_1000074E0(@"com.apple.ntkd.galleryphotosfacecurator.asyncwork");
 }
 
-void sub_10000890C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000890C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2045,38 +2045,37 @@ void sub_10000CC6C(uint64_t a1)
   {
     v3 = [*(a1 + 32) collectionIdentifier];
     v4 = [*(a1 + 32) deviceUUID];
-    v5 = *(a1 + 72);
-    v6 = NTKFaceStyleDescription();
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
+    v5 = NTKFaceStyleDescription();
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
     *buf = 138413314;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v4;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v7;
-    v25 = 2112;
-    v26 = v8;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v6;
+    v24 = 2112;
+    v25 = v7;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "outgoing to client: <%@,%@> remove face of style %@ for UUID %@ (seqId = %@)", buf, 0x34u);
   }
 
-  v9 = *(*(a1 + 56) + 8);
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10000CE78;
-  v15[3] = &unk_10005D010;
-  v16 = *(a1 + 64);
-  v10 = [v9 remoteObjectProxyWithErrorHandler:v15];
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10000CE88;
-  v13[3] = &unk_10005CB10;
-  v14 = *(a1 + 64);
-  [v10 removeFaceForUUID:v11 seqId:v12 completion:v13];
+  v8 = *(*(a1 + 56) + 8);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10000CE78;
+  v14[3] = &unk_10005D010;
+  v15 = *(a1 + 64);
+  v9 = [v8 remoteObjectProxyWithErrorHandler:v14];
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000CE88;
+  v12[3] = &unk_10005CB10;
+  v13 = *(a1 + 64);
+  [v9 removeFaceForUUID:v10 seqId:v11 completion:v12];
 }
 
 void sub_10000CF58(uint64_t a1)
@@ -2424,113 +2423,111 @@ void sub_10000F95C(uint64_t a1)
   v2 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v6 = *(a1 + 40);
+    v3 = objc_opt_class();
+    v4 = NSStringFromClass(v3);
+    v5 = *(a1 + 40);
     *buf = 138412802;
-    *&buf[4] = v5;
+    *&buf[4] = v4;
     *&buf[12] = 2080;
     *&buf[14] = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke_2";
     *&buf[22] = 2112;
-    v54 = v6;
+    v51 = v5;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@: %s operation block started with face: %@", buf, 0x20u);
   }
 
-  v7 = dispatch_group_create();
-  dispatch_group_enter(v7);
+  v6 = dispatch_group_create();
+  dispatch_group_enter(v6);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v54 = sub_10000FE84;
-  v55 = sub_10000FE94;
-  v56 = [[NSXPCConnection alloc] initWithServiceName:@"com.apple.NTKFaceSnapshotService"];
-  v8 = +[NSXPCInterface faceSnapshotServiceInterface];
-  [*(*&buf[8] + 40) setRemoteObjectInterface:v8];
+  v51 = sub_10000FE84;
+  v52 = sub_10000FE94;
+  v53 = [[NSXPCConnection alloc] initWithServiceName:@"com.apple.NTKFaceSnapshotService"];
+  v7 = +[NSXPCInterface faceSnapshotServiceInterface];
+  [*(*&buf[8] + 40) setRemoteObjectInterface:v7];
 
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x2020000000;
-  v44 = 0;
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_10000FE9C;
-  v35[3] = &unk_10005D2B8;
-  v42 = *(a1 + 64);
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 32);
-  v36 = v9;
-  v37 = v10;
-  v40 = v43;
-  v39 = *(a1 + 56);
-  v41 = buf;
-  v11 = v7;
-  v38 = v11;
-  v12 = objc_retainBlock(v35);
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_10000FE9C;
+  v32[3] = &unk_10005D2B8;
+  v39 = *(a1 + 64);
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 32);
+  v33 = v8;
+  v34 = v9;
+  v37 = v40;
+  v36 = *(a1 + 56);
+  v38 = buf;
+  v10 = v6;
+  v35 = v10;
+  v11 = objc_retainBlock(v32);
   [*(*&buf[8] + 40) resume];
-  v13 = *(*&buf[8] + 40);
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_100010330;
-  v33[3] = &unk_10005D010;
-  v14 = v12;
-  v34 = v14;
-  v15 = [v13 remoteObjectProxyWithErrorHandler:v33];
-  v16 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-  {
-    v17 = *(a1 + 32);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = *(a1 + 40);
-    *v45 = 138413058;
-    v46 = v19;
-    v47 = 2080;
-    v48 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke";
-    v49 = 2112;
-    v50 = v20;
-    v51 = 2112;
-    v52 = v15;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ calling proxy: %@", v45, 0x2Au);
-  }
-
-  v21 = [*(a1 + 40) instanceDescriptor];
-  v22 = *(a1 + 40);
-  v23 = *(a1 + 48);
+  v12 = *(*&buf[8] + 40);
   v30[0] = _NSConcreteStackBlock;
   v30[1] = 3221225472;
-  v30[2] = sub_1000103B4;
-  v30[3] = &unk_10005D2E0;
-  v30[4] = *(a1 + 32);
-  v31 = v22;
-  v24 = v14;
-  v32 = v24;
-  [v15 requestSnapshotOfFaceInstanceDescriptor:v21 options:v23 completion:v30];
-  dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-  v25 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v30[2] = sub_100010330;
+  v30[3] = &unk_10005D010;
+  v13 = v11;
+  v31 = v13;
+  v14 = [v12 remoteObjectProxyWithErrorHandler:v30];
+  v15 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = *(a1 + 32);
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
-    v29 = *(a1 + 40);
-    *v45 = 138412802;
-    v46 = v28;
-    v47 = 2080;
-    v48 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke";
-    v49 = 2112;
-    v50 = v29;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ Done!", v45, 0x20u);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = *(a1 + 40);
+    *v42 = 138413058;
+    v43 = v17;
+    v44 = 2080;
+    v45 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke";
+    v46 = 2112;
+    v47 = v18;
+    v48 = 2112;
+    v49 = v14;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ calling proxy: %@", v42, 0x2Au);
   }
 
-  _Block_object_dispose(v43, 8);
+  v19 = [*(a1 + 40) instanceDescriptor];
+  v20 = *(a1 + 40);
+  v21 = *(a1 + 48);
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000103B4;
+  v27[3] = &unk_10005D2E0;
+  v27[4] = *(a1 + 32);
+  v28 = v20;
+  v22 = v13;
+  v29 = v22;
+  [v14 requestSnapshotOfFaceInstanceDescriptor:v19 options:v21 completion:v27];
+  dispatch_group_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
+  v23 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = *(a1 + 40);
+    *v42 = 138412802;
+    v43 = v25;
+    v44 = 2080;
+    v45 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke";
+    v46 = 2112;
+    v47 = v26;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ Done!", v42, 0x20u);
+  }
+
+  _Block_object_dispose(v40, 8);
   _Block_object_dispose(buf, 8);
 }
 
-void sub_10000FE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000FE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 160), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2552,20 +2549,19 @@ void sub_10000FE9C(uint64_t a1, void *a2, void *a3)
     v9 = v7;
     if (*(a1 + 80) == 1)
     {
-      v10 = *(a1 + 32);
-      v11 = NTKCacheSnapshotResultOfFace();
-      v12 = v11;
-      if (v11)
+      v10 = NTKCacheSnapshotResultOfFace();
+      v11 = v10;
+      if (v10)
       {
-        v13 = v11;
+        v12 = v10;
       }
 
       else
       {
-        v13 = v8;
+        v12 = v8;
       }
 
-      v9 = v13;
+      v9 = v12;
     }
   }
 
@@ -2578,18 +2574,18 @@ void sub_10000FE9C(uint64_t a1, void *a2, void *a3)
   block[1] = 3221225472;
   block[2] = sub_10001001C;
   block[3] = &unk_10005D290;
-  v18 = *(a1 + 32);
-  v14 = v18.i64[0];
-  v21 = vextq_s8(v18, v18, 8uLL);
-  v19 = *(a1 + 56);
-  v15 = v19;
-  v25 = v19;
-  v22 = v9;
-  v23 = v6;
-  v26 = *(a1 + 72);
-  v24 = *(a1 + 48);
-  v16 = v6;
-  v17 = v9;
+  v17 = *(a1 + 32);
+  v13 = v17.i64[0];
+  v20 = vextq_s8(v17, v17, 8uLL);
+  v18 = *(a1 + 56);
+  v14 = v18;
+  v24 = v18;
+  v21 = v9;
+  v22 = v6;
+  v25 = *(a1 + 72);
+  v23 = *(a1 + 48);
+  v15 = v6;
+  v16 = v9;
   dispatch_async(&_dispatch_main_q, block);
 }
 
@@ -2598,71 +2594,68 @@ void sub_10001001C(uint64_t a1)
   v2 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v6 = *(a1 + 40);
-    v7 = *(*(*(a1 + 80) + 8) + 24);
+    v3 = objc_opt_class();
+    v4 = NSStringFromClass(v3);
+    v5 = *(a1 + 40);
+    v6 = *(*(*(a1 + 80) + 8) + 24);
     *buf = 138413058;
-    v20 = v5;
-    v21 = 2080;
-    v22 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke_2";
-    v23 = 2112;
-    v24 = v6;
-    v25 = 1024;
-    v26 = v7;
+    v19 = v4;
+    v20 = 2080;
+    v21 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke_2";
+    v22 = 2112;
+    v23 = v5;
+    v24 = 1024;
+    v25 = v6;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ callbackExecuted: %d.", buf, 0x26u);
   }
 
-  v8 = *(*(a1 + 80) + 8);
-  if ((*(v8 + 24) & 1) == 0)
+  v7 = *(*(a1 + 80) + 8);
+  if ((*(v7 + 24) & 1) == 0)
   {
-    *(v8 + 24) = 1;
-    v9 = dispatch_get_global_queue(21, 0);
+    *(v7 + 24) = 1;
+    v8 = dispatch_get_global_queue(21, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001021C;
     block[3] = &unk_10005D268;
-    v10 = *(a1 + 72);
-    v11 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    v18 = *(a1 + 88);
-    *&v13 = *(a1 + 64);
-    *(&v13 + 1) = v10;
-    *&v14 = v11;
-    *(&v14 + 1) = v12;
-    v16 = v14;
-    v17 = v13;
-    dispatch_async(v9, block);
+    v9 = *(a1 + 72);
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 56);
+    v17 = *(a1 + 88);
+    *&v12 = *(a1 + 64);
+    *(&v12 + 1) = v9;
+    *&v13 = v10;
+    *(&v13 + 1) = v11;
+    v15 = v13;
+    v16 = v12;
+    dispatch_async(v8, block);
   }
 }
 
 void sub_10001021C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
   [*(*(*(a1 + 64) + 8) + 40) invalidate];
-  v4 = *(*(a1 + 64) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = 0;
+  v2 = *(*(a1 + 64) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 
   if (NTKUseComplicationSnapshotService())
   {
-    v6 = *(a1 + 48);
+    v4 = *(a1 + 48);
 
-    dispatch_group_leave(v6);
+    dispatch_group_leave(v4);
   }
 
   else
   {
-    v7 = dispatch_time(0, 250000000);
+    v5 = dispatch_time(0, 250000000);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100010328;
     block[3] = &unk_10005CA70;
-    v9 = *(a1 + 48);
-    dispatch_after(v7, &_dispatch_main_q, block);
+    v7 = *(a1 + 48);
+    dispatch_after(v5, &_dispatch_main_q, block);
   }
 }
 
@@ -2685,21 +2678,20 @@ void sub_1000103B4(void *a1, void *a2, void *a3)
   v7 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = a1[4];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = a1[5];
-    v12 = 138413314;
-    v13 = v10;
-    v14 = 2080;
-    v15 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke";
-    v16 = 2112;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ requestSnapshotOfFaceInstanceDescriptor competionBlock: %@ %@.", &v12, 0x34u);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = a1[5];
+    v11 = 138413314;
+    v12 = v9;
+    v13 = 2080;
+    v14 = "[NTKDFaceSnapshotController requestSnapshotOfFace:options:completion:]_block_invoke";
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: %s face: %@ requestSnapshotOfFaceInstanceDescriptor competionBlock: %@ %@.", &v11, 0x34u);
   }
 
   (*(a1[6] + 16))();
@@ -2745,12 +2737,12 @@ LABEL_4:
 LABEL_7:
 }
 
-void sub_100010E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100010E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  _Block_object_dispose((v14 - 208), 8);
+  va_start(va, a21);
+  _Block_object_dispose((v21 - 208), 8);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 160), 8);
+  _Block_object_dispose((v21 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3096,6 +3088,13 @@ id sub_1000125AC(uint64_t a1)
   result = [*(a1 + 32) _queue_updateAllSnapshots];
   *(*(*(a1 + 40) + 8) + 24) = 1;
   return result;
+}
+
+void sub_100012B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100012B98(uint64_t a1, void *a2)
@@ -3664,10 +3663,10 @@ void sub_1000151E4(id a1)
   [v1 postNotificationName:CLKClearCacheRequestNotification object:0];
 }
 
-void sub_100015DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_100015DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3678,16 +3677,16 @@ uint64_t sub_100015E0C(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_100015E24()
+id sub_100015E24(uint64_t a1)
 {
   if (qword_100066C38 != -1)
   {
     sub_10003E450();
   }
 
-  v1 = qword_100066C30;
+  v2 = qword_100066C30;
 
-  return v1;
+  return v2;
 }
 
 id sub_100015E68(uint64_t a1)
@@ -3714,10 +3713,7 @@ id sub_100015E68(uint64_t a1)
 
 uint64_t sub_100015F28(uint64_t a1)
 {
-  v2 = sub_100015F70();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = sub_100015F70();
 
   return _objc_release_x1();
 }
@@ -3891,23 +3887,24 @@ void sub_1000166B0(id a1)
   qword_100066C20 = v1;
 }
 
-void sub_100016DCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint8_t buf)
+void sub_100016DCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   if (a2 == 1)
   {
-    v32 = objc_begin_catch(exception_object);
+    v31 = objc_begin_catch(exception_object);
     if (a13)
     {
-      v33 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v32 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v34 = [a10 stringByAppendingPathComponent:@"deleted.plist"];
-        v35 = [v32 reason];
-        sub_10003E48C(v34, v35, &buf, v33);
+        v33 = [a10 stringByAppendingPathComponent:@"deleted.plist"];
+        v34 = [v31 reason];
+        sub_10003E48C(v33, v34, va, v32);
       }
     }
 
-    [v31 removeAllObjects];
+    [v30 removeAllObjects];
 
     objc_end_catch();
     JUMPOUT(0x100016CA0);
@@ -4650,64 +4647,62 @@ void sub_10001A264(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 57) == 1 && (v3 = [v2 _queue_isEmptyExceptForUUID:*(a1 + 40)], v2 = *(a1 + 32), v3))
   {
-    v4 = [v2 _queue_faceForUUID:*(a1 + 40)];
-    v5 = *(a1 + 40);
-    v26 = v4;
+    v24 = [v2 _queue_faceForUUID:*(a1 + 40)];
     [*(a1 + 32) _queue_notifyDidAddFace:? forUUID:? skipSyncObserver:?];
   }
 
   else
   {
-    v6 = [*(v2 + 64) faceStyleForUUID:*(a1 + 40)];
+    v4 = [*(v2 + 64) faceStyleForUUID:*(a1 + 40)];
     if ([*(*(a1 + 32) + 64) removeUUID:*(a1 + 40)])
     {
-      v7 = sub_10001A564(*(*(a1 + 32) + 16), *(a1 + 40));
+      v5 = sub_10001A564(*(*(a1 + 32) + 16), *(a1 + 40));
       [*(*(a1 + 32) + 72) removeObjectForKey:*(a1 + 40)];
       sub_10001A5D8(*(*(a1 + 32) + 16), *(*(a1 + 32) + 64));
-      v8 = *(a1 + 40);
-      v9 = *(*(a1 + 32) + 16);
-      v10 = v8;
-      v11 = +[NSFileManager defaultManager];
-      v12 = sub_10002045C(v9, v10);
+      v6 = *(a1 + 40);
+      v7 = *(*(a1 + 32) + 16);
+      v8 = v6;
+      v9 = +[NSFileManager defaultManager];
+      v10 = sub_10002045C(v7, v8);
 
-      [v11 removeItemAtPath:v12 error:0];
+      [v9 removeItemAtPath:v10 error:0];
       [*(a1 + 32) _queue_incrementSeqId];
-      v13 = *(a1 + 32);
-      v14 = *(v13 + 24);
-      v15 = [*(v13 + 16) stringByAppendingPathComponent:@"last-delete-sequence-id.string"];
-      sub_100019988(v14, v15);
+      v11 = *(a1 + 32);
+      v12 = *(v11 + 24);
+      v13 = [*(v11 + 16) stringByAppendingPathComponent:@"last-delete-sequence-id.string"];
+      sub_100019988(v12, v13);
 
       [*(*(a1 + 32) + 88) setObject:*(*(a1 + 32) + 24) forKey:*(a1 + 40)];
       sub_10001A648(*(*(a1 + 32) + 16), *(*(a1 + 32) + 88));
-      v16 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v14 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 32);
-        v18 = *(a1 + 40);
-        v19 = v17[12];
-        v20 = v17[13];
-        v21 = v17[3];
+        v15 = *(a1 + 32);
+        v16 = *(a1 + 40);
+        v17 = v15[12];
+        v18 = v15[13];
+        v19 = v15[3];
         *buf = 138413058;
-        v30 = v19;
+        v28 = v17;
+        v29 = 2112;
+        v30 = v18;
         v31 = 2112;
-        v32 = v20;
+        v32 = v19;
         v33 = 2112;
-        v34 = v21;
-        v35 = 2112;
-        v36 = v18;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "<%@,%@,%@> remove face for UUID %@", buf, 0x2Au);
+        v34 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "<%@,%@,%@> remove face for UUID %@", buf, 0x2Au);
       }
 
-      v22 = *(a1 + 32);
-      v23 = *(a1 + 40);
-      v24 = *(a1 + 48);
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_10001A7A4;
-      v27[3] = &unk_10005CA70;
-      v28 = v7;
-      v25 = v7;
-      [v22 _queue_notifyDidRemoveFaceOfStyle:v6 forUUID:v23 skipSyncObserver:v24 completion:v27];
+      v20 = *(a1 + 32);
+      v21 = *(a1 + 40);
+      v22 = *(a1 + 48);
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_10001A7A4;
+      v25[3] = &unk_10005CA70;
+      v26 = v5;
+      v23 = v5;
+      [v20 _queue_notifyDidRemoveFaceOfStyle:v4 forUUID:v21 skipSyncObserver:v22 completion:v25];
     }
   }
 }
@@ -4878,7 +4873,7 @@ void sub_10001AD54(uint64_t a1)
     v5 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10003E638(v2);
+      sub_10003E638();
     }
   }
 
@@ -4920,7 +4915,7 @@ uint64_t sub_10001AF20(uint64_t result)
     v2 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_10003E6B4(v1);
+      sub_10003E6B4();
     }
 
     return (*(*(v1 + 40) + 16))();
@@ -5993,9 +5988,9 @@ void sub_100022B38(uint64_t a1)
   }
 }
 
-void sub_100022E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100022E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6076,16 +6071,16 @@ void sub_100023754(uint64_t a1, void *a2)
   dispatch_async(v9, v12);
 }
 
-id sub_1000239C8()
+id sub_1000239C8(uint64_t a1)
 {
   if (qword_100066CB8 != -1)
   {
     sub_10003EB30();
   }
 
-  v1 = qword_100066CB0;
+  v2 = qword_100066CB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100023A0C(uint64_t a1)
@@ -6280,26 +6275,26 @@ void sub_1000245D4(uint64_t a1, void *a2)
   [v5 enumerateObjectsUsingBlock:v7];
 }
 
-void sub_1000246A4(uint64_t a1, void *a2)
+void sub_1000246A4(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = [[NTKComplicationKey alloc] initWithClientIdentifier:*(a1 + 32) complicationIdentifier:v3];
+  v4 = [[NTKComplicationKey alloc] initWithClientIdentifier:a1[4] complicationIdentifier:v3];
   v5 = objc_autoreleasePoolPush();
-  v6 = sub_10002482C(*(*(a1 + 40) + 16), *(a1 + 32), v3);
+  v6 = sub_10002482C(*(a1[5] + 16), a1[4], v3);
   if (v6)
   {
 
     objc_autoreleasePoolPop(v5);
-    v7 = [*(*(a1 + 40) + 64) familiesWithSampleTemplateForKey:v4];
+    v7 = [*(a1[5] + 64) familiesWithSampleTemplateForKey:v4];
     v8 = [v7 copy];
 
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
     v12[2] = sub_1000248B4;
     v12[3] = &unk_10005DC10;
-    v12[4] = *(a1 + 40);
+    v12[4] = a1[5];
     v9 = v4;
-    v10 = *(a1 + 48);
+    v10 = a1[6];
     v13 = v9;
     v14 = v10;
     [v8 enumerateObjectsUsingBlock:v12];
@@ -6313,8 +6308,8 @@ void sub_1000246A4(uint64_t a1, void *a2)
       sub_10003EBB8(v4, v11);
     }
 
-    [*(*(a1 + 40) + 64) removeSampleTemplatesForKey:v4];
-    *(*(*(a1 + 48) + 8) + 24) = 1;
+    [*(a1[5] + 64) removeSampleTemplatesForKey:v4];
+    *(*(a1[6] + 8) + 24) = 1;
     objc_autoreleasePoolPop(v5);
   }
 }
@@ -6340,16 +6335,13 @@ void sub_1000248B4(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a2;
   v7 = objc_autoreleasePoolPush();
-  v8 = a1[5];
-  v9 = *(a1[4] + 16);
-  [v6 intValue];
-  v10 = sub_1000249A0(v9, v8);
-  if (!v10)
+  v8 = sub_1000249A0(*(a1[4] + 16), a1[5], [v6 intValue]);
+  if (!v8)
   {
-    v11 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10003EC30(v6, a1 + 5);
+      sub_10003EC30(v6);
     }
 
     [*(a1[4] + 64) removeSampleTemplatesForKey:a1[5]];
@@ -6360,33 +6352,33 @@ void sub_1000248B4(void *a1, void *a2, uint64_t a3, _BYTE *a4)
   objc_autoreleasePoolPop(v7);
 }
 
-id sub_1000249A0(void *a1, void *a2)
+id sub_1000249A0(void *a1, void *a2, uint64_t a3)
 {
-  v3 = a1;
-  v4 = a2;
-  v5 = sub_100025030(v3, v4);
-  v12 = 0;
-  v6 = [[NSData alloc] initWithContentsOfFile:v5 options:1 error:&v12];
-  v7 = v12;
-  if (v7)
+  v5 = a1;
+  v6 = a2;
+  v7 = sub_100025030(v5, v6, a3);
+  v14 = 0;
+  v8 = [[NSData alloc] initWithContentsOfFile:v7 options:1 error:&v14];
+  v9 = v14;
+  if (v9)
   {
-    v8 = CLKLoggingObjectForDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = CLKLoggingObjectForDomain();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10003ECC8();
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v6 error:0];
-    [v10 setDecodingFailurePolicy:0];
-    v9 = [v10 decodeObjectOfClass:objc_opt_class() forKey:NSKeyedArchiveRootObjectKey];
+    v12 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v8 error:0];
+    [v12 setDecodingFailurePolicy:0];
+    v11 = [v12 decodeObjectOfClass:objc_opt_class() forKey:NSKeyedArchiveRootObjectKey];
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_100024B68(uint64_t a1)
@@ -6443,17 +6435,17 @@ void sub_100024B68(uint64_t a1)
   }
 }
 
-id sub_100025030(void *a1, void *a2)
+id sub_100025030(void *a1, void *a2, uint64_t a3)
 {
-  v2 = sub_10002A650(a1, a2);
-  v3 = [v2 stringByAppendingPathComponent:@"sample-template"];
+  v3 = sub_10002A650(a1, a2, a3);
+  v4 = [v3 stringByAppendingPathComponent:@"sample-template"];
 
-  return v3;
+  return v4;
 }
 
-void sub_1000253DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000253DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6577,29 +6569,29 @@ void sub_100026230(uint64_t a1)
 void sub_1000266B0(uint64_t a1)
 {
   v2 = objc_alloc_init(NSMutableOrderedSet);
+  v54 = 0u;
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
   obj = [*(a1 + 32) supportedFamilies];
-  v42 = v2;
-  v46 = [obj countByEnumeratingWithState:&v56 objects:v70 count:16];
-  if (v46)
+  v40 = v2;
+  v44 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
+  if (v44)
   {
-    v4 = *v57;
+    v4 = *v55;
     *&v3 = 138544130;
-    v40 = v3;
-    v41 = *v57;
+    v38 = v3;
+    v39 = *v55;
     do
     {
-      for (i = 0; i != v46; i = i + 1)
+      for (i = 0; i != v44; i = i + 1)
       {
-        if (*v57 != v4)
+        if (*v55 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v56 + 1) + 8 * i);
+        v6 = *(*(&v54 + 1) + 8 * i);
         v7 = [v6 integerValue];
         if ([*(*(a1 + 40) + 64) addKey:*(a1 + 48) supportForSampleTemplateForFamily:v7])
         {
@@ -6609,20 +6601,20 @@ void sub_1000266B0(uint64_t a1)
         v8 = [*(a1 + 32) templatePathForFamily:v7];
         if (!v8)
         {
-          v8 = sub_100025030(*(*(a1 + 40) + 16), *(a1 + 48));
+          v8 = sub_100025030(*(*(a1 + 40) + 16), *(a1 + 48), v7);
           [*(a1 + 32) setTemplatePath:v8 forFamily:v7];
         }
 
-        sub_100026C4C(*(*(a1 + 40) + 16), *(a1 + 48));
+        sub_100026C4C(*(*(a1 + 40) + 16), *(a1 + 48), v7);
         context = objc_autoreleasePoolPush();
         v9 = [*(a1 + 32) templateForFamily:v7];
         if (_os_feature_enabled_impl())
         {
           v10 = objc_alloc_init(NTKKeyedHashingEncoder);
           [v10 encodeRootObject:v9];
-          v45 = v10;
-          v44 = [v10 encodedData];
-          v11 = [v44 clk_hexEncodedString];
+          v43 = v10;
+          v42 = [v10 encodedData];
+          v11 = [v42 clk_hexEncodedString];
           v12 = sub_100026CBC(*(*(a1 + 40) + 16), *(a1 + 48), v7);
           LODWORD(v10) = [v12 isEqualToString:v11];
           v13 = _NTKLoggingObjectForDomain();
@@ -6634,14 +6626,14 @@ void sub_1000266B0(uint64_t a1)
               v15 = *(a1 + 48);
               v16 = CLKStringForComplicationFamily();
               *buf = 138543618;
-              v63 = v15;
-              v64 = 2114;
-              v65 = v16;
+              v61 = v15;
+              v62 = 2114;
+              v63 = v16;
               _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Skipped updating sample template for key %{public}@, family %{public}@: previously-stored template content is identical.", buf, 0x16u);
             }
 
-            v4 = v41;
-            v2 = v42;
+            v4 = v39;
+            v2 = v40;
             goto LABEL_22;
           }
 
@@ -6649,20 +6641,20 @@ void sub_1000266B0(uint64_t a1)
           {
             v17 = *(a1 + 48);
             v18 = CLKStringForComplicationFamily();
-            *buf = v40;
-            v63 = v17;
-            v64 = 2114;
-            v65 = v18;
+            *buf = v38;
+            v61 = v17;
+            v62 = 2114;
+            v63 = v18;
             v19 = v18;
+            v64 = 2114;
+            v65 = v12;
             v66 = 2114;
-            v67 = v12;
-            v68 = 2114;
-            v69 = v11;
+            v67 = v11;
             _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updating sample template for key %{public}@, family %{public}@: previously-stored template content hash %{public}@ differs from new hash %{public}@.", buf, 0x2Au);
           }
 
-          v4 = v41;
-          v2 = v42;
+          v4 = v39;
+          v2 = v40;
         }
 
         else
@@ -6670,10 +6662,10 @@ void sub_1000266B0(uint64_t a1)
           v11 = 0;
         }
 
-        sub_100026E94(*(*(a1 + 40) + 16), v9, *(a1 + 48));
+        sub_100026E94(*(*(a1 + 40) + 16), v9, *(a1 + 48), v7);
         if (v11)
         {
-          sub_100027018(*(*(a1 + 40) + 16), v11, *(a1 + 48));
+          sub_100027018(*(*(a1 + 40) + 16), v11, *(a1 + 48), v7);
         }
 
         [v2 addObject:v6];
@@ -6682,10 +6674,10 @@ LABEL_22:
         objc_autoreleasePoolPop(context);
       }
 
-      v46 = [obj countByEnumeratingWithState:&v56 objects:v70 count:16];
+      v44 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
     }
 
-    while (v46);
+    while (v44);
   }
 
   if ([v2 count])
@@ -6697,85 +6689,82 @@ LABEL_22:
     v22 = [*(v20 + 16) stringByAppendingPathComponent:@"manifest-sequence-id.string"];
     sub_100019988(v21, v22);
 
-    v54 = 0u;
-    v55 = 0u;
     v52 = 0u;
     v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v23 = v2;
-    v24 = [v23 countByEnumeratingWithState:&v52 objects:v61 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v53;
+      v26 = *v51;
       do
       {
         for (j = 0; j != v25; j = j + 1)
         {
-          if (*v53 != v26)
+          if (*v51 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
           v28 = *(a1 + 40);
-          v29 = *(a1 + 48);
-          v31 = *(v28 + 16);
-          v30 = *(v28 + 24);
-          [*(*(&v52 + 1) + 8 * j) integerValue];
-          v32 = sub_100027180(v31, v29);
-          sub_100019988(v30, v32);
+          v29 = *(v28 + 24);
+          v30 = sub_100027180(*(v28 + 16), *(a1 + 48), [*(*(&v50 + 1) + 8 * j) integerValue]);
+          sub_100019988(v29, v30);
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v25);
     }
 
-    v50 = 0u;
-    v51 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v33 = v23;
-    v34 = [v33 countByEnumeratingWithState:&v48 objects:v60 count:16];
-    if (v34)
+    v46 = 0u;
+    v47 = 0u;
+    v31 = v23;
+    v32 = [v31 countByEnumeratingWithState:&v46 objects:v58 count:16];
+    if (v32)
     {
-      v35 = v34;
-      v36 = *v49;
+      v33 = v32;
+      v34 = *v47;
       do
       {
-        for (k = 0; k != v35; k = k + 1)
+        for (k = 0; k != v33; k = k + 1)
         {
-          if (*v49 != v36)
+          if (*v47 != v34)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v31);
           }
 
-          v38 = [*(*(&v48 + 1) + 8 * k) integerValue];
-          v39 = [*(a1 + 32) templateReferenceForFamily:v38];
-          [*(a1 + 40) _queue_notifyDidUpdateSampleTemplateReference:v39 forKey:*(a1 + 48) family:v38 skipSyncObserver:*(a1 + 56)];
+          v36 = [*(*(&v46 + 1) + 8 * k) integerValue];
+          v37 = [*(a1 + 32) templateReferenceForFamily:v36];
+          [*(a1 + 40) _queue_notifyDidUpdateSampleTemplateReference:v37 forKey:*(a1 + 48) family:v36 skipSyncObserver:*(a1 + 56)];
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v48 objects:v60 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v46 objects:v58 count:16];
       }
 
-      while (v35);
+      while (v33);
     }
 
-    v2 = v42;
+    v2 = v40;
   }
 }
 
-void sub_100026C4C(void *a1, void *a2)
+void sub_100026C4C(void *a1, void *a2, uint64_t a3)
 {
-  v3 = sub_10002A650(a1, a2);
-  v2 = +[NSFileManager defaultManager];
-  [v2 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:0];
+  v4 = sub_10002A650(a1, a2, a3);
+  v3 = +[NSFileManager defaultManager];
+  [v3 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:0];
 }
 
 NSObject *sub_100026CBC(void *a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v6 = sub_10002A6C4(a1, v5);
+  v6 = sub_10002A6C4(a1, v5, a3);
   v15 = 0;
   v7 = [[NSData alloc] initWithContentsOfFile:v6 options:0 error:&v15];
   v8 = v15;
@@ -6822,70 +6811,70 @@ NSObject *sub_100026CBC(void *a1, void *a2, uint64_t a3)
   return v11;
 }
 
-void sub_100026E94(void *a1, uint64_t a2, void *a3)
+void sub_100026E94(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v5 = a1;
-  v6 = a3;
-  v7 = [NSKeyedArchiver archivedDataWithRootObject:a2 requiringSecureCoding:1 error:0];
-  v8 = sub_100025030(v5, v6);
-  v9 = [v7 writeToFile:v8 atomically:1];
+  v7 = a1;
+  v8 = a3;
+  v9 = [NSKeyedArchiver archivedDataWithRootObject:a2 requiringSecureCoding:1 error:0];
+  v10 = sub_100025030(v7, v8, a4);
+  v11 = [v9 writeToFile:v10 atomically:1];
 
-  v10 = CLKLoggingObjectForDomain();
-  v11 = v10;
-  if (v9)
+  v12 = CLKLoggingObjectForDomain();
+  v13 = v12;
+  if (v11)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = CLKStringForComplicationFamily();
-      v13 = 138412546;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Successfully wrote complication sample template for key %@, family %@", &v13, 0x16u);
+      v14 = CLKStringForComplicationFamily();
+      v15 = 138412546;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Successfully wrote complication sample template for key %@, family %@", &v15, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_10003EE54();
+    sub_10003EE54(v8, a4);
   }
 
-  sub_10002A7E0(v5, v6);
+  sub_10002A7E0(v7, v8, a4);
 }
 
-void sub_100027018(void *a1, void *a2, void *a3)
+void sub_100027018(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v5 = a3;
-  v6 = a2;
-  v7 = sub_10002A6C4(a1, v5);
-  v8 = [v6 dataUsingEncoding:4];
+  v7 = a3;
+  v8 = a2;
+  v9 = sub_10002A6C4(a1, v7, a4);
+  v10 = [v8 dataUsingEncoding:4];
 
-  v13 = 0;
-  v9 = [v8 writeToFile:v7 options:1 error:&v13];
-  v10 = v13;
-  if ((v9 & 1) == 0)
+  v15 = 0;
+  v11 = [v10 writeToFile:v9 options:1 error:&v15];
+  v12 = v15;
+  if ((v11 & 1) == 0)
   {
-    v11 = CLKLoggingObjectForDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CLKLoggingObjectForDomain();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v12 = CLKStringForComplicationFamily();
+      v14 = CLKStringForComplicationFamily();
       *buf = 138543874;
-      v15 = v5;
-      v16 = 2114;
-      v17 = v12;
+      v17 = v7;
       v18 = 2114;
-      v19 = v10;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to write complication sample template content hash for key %{public}@, family %{public}@: %{public}@", buf, 0x20u);
+      v19 = v14;
+      v20 = 2114;
+      v21 = v12;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to write complication sample template content hash for key %{public}@, family %{public}@: %{public}@", buf, 0x20u);
     }
   }
 }
 
-id sub_100027180(void *a1, void *a2)
+id sub_100027180(void *a1, void *a2, uint64_t a3)
 {
-  v2 = sub_10002A650(a1, a2);
-  v3 = [v2 stringByAppendingPathComponent:@"sample-template-sequence-id.string"];
+  v3 = sub_10002A650(a1, a2, a3);
+  v4 = [v3 stringByAppendingPathComponent:@"sample-template-sequence-id.string"];
 
-  return v3;
+  return v4;
 }
 
 void sub_1000272CC(uint64_t a1)
@@ -6894,85 +6883,78 @@ void sub_1000272CC(uint64_t a1)
   v2 = [*(a1 + 48) templatePathForFamily:*(a1 + 64)];
   if (!v2)
   {
-    v3 = *(a1 + 64);
-    v2 = sub_100025030(*(*(a1 + 32) + 16), *(a1 + 40));
+    v2 = sub_100025030(*(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 64));
     [*(a1 + 48) setTemplatePath:v2 forFamily:*(a1 + 64)];
   }
 
-  v4 = *(a1 + 64);
-  sub_100026C4C(*(*(a1 + 32) + 16), *(a1 + 40));
+  sub_100026C4C(*(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 64));
   if (_os_feature_enabled_impl())
   {
-    v5 = objc_alloc_init(NTKKeyedHashingEncoder);
-    [v5 encodeRootObject:*(a1 + 56)];
-    v6 = [v5 encodedData];
-    v7 = [v6 clk_hexEncodedString];
-    v8 = sub_100026CBC(*(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 64));
-    v9 = [v8 isEqualToString:v7];
-    v10 = _NTKLoggingObjectForDomain();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v3 = objc_alloc_init(NTKKeyedHashingEncoder);
+    [v3 encodeRootObject:*(a1 + 56)];
+    v4 = [v3 encodedData];
+    v5 = [v4 clk_hexEncodedString];
+    v6 = sub_100026CBC(*(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 64));
+    v7 = [v6 isEqualToString:v5];
+    v8 = _NTKLoggingObjectForDomain();
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v11)
+      if (v9)
       {
-        v12 = *(a1 + 40);
-        v13 = *(a1 + 64);
-        v14 = CLKStringForComplicationFamily();
-        v27 = 138543618;
-        v28 = v12;
-        v29 = 2114;
-        v30 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Skipped updating sample template for key %{public}@, family %{public}@: previously-stored template content is identical.", &v27, 0x16u);
+        v10 = *(a1 + 40);
+        v11 = CLKStringForComplicationFamily();
+        v20 = 138543618;
+        v21 = v10;
+        v22 = 2114;
+        v23 = v11;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Skipped updating sample template for key %{public}@, family %{public}@: previously-stored template content is identical.", &v20, 0x16u);
       }
 
       goto LABEL_15;
     }
 
-    if (v11)
+    if (v9)
     {
-      v15 = *(a1 + 40);
-      v16 = *(a1 + 64);
-      v17 = CLKStringForComplicationFamily();
-      v27 = 138544130;
-      v28 = v15;
-      v29 = 2114;
-      v30 = v17;
-      v31 = 2114;
-      v32 = v8;
-      v33 = 2114;
-      v34 = v7;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Updating sample template for key %{public}@, family %{public}@: previously-stored template content hash %{public}@ differs from new hash %{public}@.", &v27, 0x2Au);
+      v12 = *(a1 + 40);
+      v13 = CLKStringForComplicationFamily();
+      v20 = 138544130;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v13;
+      v24 = 2114;
+      v25 = v6;
+      v26 = 2114;
+      v27 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating sample template for key %{public}@, family %{public}@: previously-stored template content hash %{public}@ differs from new hash %{public}@.", &v20, 0x2Au);
     }
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  v18 = *(a1 + 64);
-  sub_100026E94(*(*(a1 + 32) + 16), *(a1 + 56), *(a1 + 40));
-  if (v7)
+  sub_100026E94(*(*(a1 + 32) + 16), *(a1 + 56), *(a1 + 40), *(a1 + 64));
+  if (v5)
   {
-    v19 = *(a1 + 64);
-    sub_100027018(*(*(a1 + 32) + 16), v7, *(a1 + 40));
+    sub_100027018(*(*(a1 + 32) + 16), v5, *(a1 + 40), *(a1 + 64));
   }
 
   sub_10001A5D8(*(*(a1 + 32) + 16), *(*(a1 + 32) + 64));
   [*(a1 + 32) _queue_incrementSeqId];
-  v20 = *(a1 + 32);
-  v21 = *(v20 + 24);
-  v22 = [*(v20 + 16) stringByAppendingPathComponent:@"manifest-sequence-id.string"];
-  sub_100019988(v21, v22);
+  v14 = *(a1 + 32);
+  v15 = *(v14 + 24);
+  v16 = [*(v14 + 16) stringByAppendingPathComponent:@"manifest-sequence-id.string"];
+  sub_100019988(v15, v16);
 
-  v23 = *(a1 + 32);
-  v24 = *(v23 + 24);
-  v25 = *(a1 + 64);
-  v26 = sub_100027180(*(v23 + 16), *(a1 + 40));
-  sub_100019988(v24, v26);
+  v17 = *(a1 + 32);
+  v18 = *(v17 + 24);
+  v19 = sub_100027180(*(v17 + 16), *(a1 + 40), *(a1 + 64));
+  sub_100019988(v18, v19);
 
-  v5 = [*(a1 + 48) templateReferenceForFamily:*(a1 + 64)];
-  [*(a1 + 32) _queue_notifyDidUpdateSampleTemplateReference:v5 forKey:*(a1 + 40) family:*(a1 + 64) skipSyncObserver:*(a1 + 72)];
+  v3 = [*(a1 + 48) templateReferenceForFamily:*(a1 + 64)];
+  [*(a1 + 32) _queue_notifyDidUpdateSampleTemplateReference:v3 forKey:*(a1 + 40) family:*(a1 + 64) skipSyncObserver:*(a1 + 72)];
 LABEL_15:
 }
 
@@ -7224,9 +7206,9 @@ void sub_1000281EC(void *a1, void *a2)
   [v5 writeToFile:v6 atomically:1];
 }
 
-void sub_100028528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100028528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7323,7 +7305,7 @@ void sub_100029310(uint64_t a1, void *a2)
         }
 
         v9 = [*(*(&v18 + 1) + 8 * v8) integerValue];
-        v10 = sub_100027180(*(*(a1 + 32) + 16), v3);
+        v10 = sub_100027180(*(*(a1 + 32) + 16), v3, v9);
         v11 = sub_100016FD0(v10);
 
         if (v11 && sub_1000171F8(*(a1 + 40), v11))
@@ -7503,9 +7485,10 @@ id sub_10002A0DC(uint64_t a1)
     return [v3 complicationStore:v4 didSuppressNotificationForSeqId:*(a1 + 48)];
   }
 
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 48);
-  return [v3 complicationStore:v4 didUpdateComplicationDescriptors:*(a1 + 56) forClientIdentifier:? seqId:?];
+  else
+  {
+    return [v3 complicationStore:v4 didUpdateComplicationDescriptors:*(a1 + 56) forClientIdentifier:? seqId:?];
+  }
 }
 
 void sub_10002A34C(uint64_t a1)
@@ -7574,21 +7557,21 @@ id sub_10002A590(void *a1, void *a2)
   return v8;
 }
 
-id sub_10002A650(void *a1, void *a2)
+id sub_10002A650(void *a1, void *a2, uint64_t a3)
 {
-  v2 = sub_10002A590(a1, a2);
-  v3 = CLKStringForComplicationFamily();
-  v4 = [v2 stringByAppendingPathComponent:v3];
+  v3 = sub_10002A590(a1, a2);
+  v4 = CLKStringForComplicationFamily();
+  v5 = [v3 stringByAppendingPathComponent:v4];
 
-  return v4;
+  return v5;
 }
 
-id sub_10002A6C4(void *a1, void *a2)
+id sub_10002A6C4(void *a1, void *a2, uint64_t a3)
 {
-  v2 = sub_10002A650(a1, a2);
-  v3 = [v2 stringByAppendingPathComponent:@"sample-template-content-hash.string"];
+  v3 = sub_10002A650(a1, a2, a3);
+  v4 = [v3 stringByAppendingPathComponent:@"sample-template-content-hash.string"];
 
-  return v3;
+  return v4;
 }
 
 id sub_10002A718(void *a1, void *a2, void *a3)
@@ -7608,11 +7591,11 @@ id sub_10002A78C(void *a1, void *a2, void *a3)
   return v4;
 }
 
-void sub_10002A7E0(void *a1, void *a2)
+void sub_10002A7E0(void *a1, void *a2, uint64_t a3)
 {
-  v3 = sub_10002A6C4(a1, a2);
-  v2 = +[NSFileManager defaultManager];
-  [v2 removeItemAtPath:v3 error:0];
+  v4 = sub_10002A6C4(a1, a2, a3);
+  v3 = +[NSFileManager defaultManager];
+  [v3 removeItemAtPath:v4 error:0];
 }
 
 void sub_10002A848(uint64_t a1, void *a2, void *a3)
@@ -7766,7 +7749,7 @@ void sub_10002C1FC(uint64_t a1, int a2, void *a3, void *a4)
     v10 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10003F178(a1);
+      sub_10003F178();
     }
 
     goto LABEL_14;
@@ -7950,16 +7933,16 @@ void sub_10002EC40(uint64_t a1)
   }
 }
 
-id sub_10002F050()
+id sub_10002F050(uint64_t a1)
 {
   if (qword_100066CC8 != -1)
   {
     sub_10003F8A0();
   }
 
-  v1 = qword_100066CC0;
+  v2 = qword_100066CC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10002FA94(id a1)
@@ -8275,7 +8258,7 @@ id sub_100031AE4()
   v12 = 0u;
   v13 = 0u;
   v1 = +[NSFileManager defaultManager];
-  v2 = sub_10003D76C();
+  v2 = sub_10003D76C(v1);
   v3 = [v1 contentsOfDirectoryAtPath:v2 error:0];
 
   v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
@@ -8824,4 +8807,144 @@ id sub_100036010(uint64_t a1)
   v6 = *(a1 + 32);
 
   return [v6 _queue_requestSyncIfNecessary];
+}
+
+void sub_1000361FC(uint64_t a1)
+{
+  sub_100007294(@"com.apple.ntkd.synccontroller.outgoingsession");
+  ++*(*(a1 + 32) + 168);
+  v2 = [*(*(a1 + 32) + 24) pdrDevice];
+  v3 = [v2 pairingID];
+
+  v4 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = LogBool();
+    *buf = 138412546;
+    v54 = v5;
+    v55 = 2112;
+    v56 = v3;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "outgoing session (reset=%@) did start for device with UUID: %@", buf, 0x16u);
+  }
+
+  v6 = [*(a1 + 32) _queue_checkoutLibraryStoreForDeviceUUID:v3];
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 120);
+  *(v7 + 120) = v6;
+
+  v9 = [*(a1 + 32) _queue_storeStatusForDeviceUUID:v3];
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 104);
+  *(v10 + 104) = v9;
+
+  v12 = [*(a1 + 32) _queue_checkoutComplicationStoresForDeviceUUID:v3];
+  v13 = *(a1 + 32);
+  v14 = *(v13 + 128);
+  *(v13 + 128) = v12;
+
+  v15 = *(a1 + 32);
+  v16 = [v15[16] allKeys];
+  v17 = [v15 _queue_complicationStoreStatusesForDeviceUUID:v3 withIdentifiers:v16];
+  v18 = *(a1 + 32);
+  v19 = *(v18 + 112);
+  *(v18 + 112) = v17;
+
+  *(*(a1 + 32) + 136) = *(a1 + 40);
+  if ([*(*(a1 + 32) + 184) prepareForSyncing:?])
+  {
+    v20 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#color-sync Prepared for syncing pigment list.", buf, 2u);
+    }
+  }
+
+  v21 = *(a1 + 40);
+  v22 = [*(a1 + 32) _queue_outgoingMessageListForDeviceUUID:v3];
+  v23 = v22;
+  if (v21 == 1)
+  {
+    [v22 clearAllMessages];
+
+    v24 = [[_MessageList alloc] initWithPersistencePath:0];
+    v25 = *(a1 + 32);
+    v26 = *(v25 + 96);
+    *(v25 + 96) = v24;
+
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v27 = [*(*(a1 + 32) + 120) orderedUUIDs];
+    v28 = [v27 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    if (v28)
+    {
+      v29 = v28;
+      v30 = *v49;
+      do
+      {
+        v31 = 0;
+        do
+        {
+          if (*v49 != v30)
+          {
+            objc_enumerationMutation(v27);
+          }
+
+          v32 = *(*(a1 + 32) + 96);
+          v33 = [NTKDSyncMessage messageOfType:0 withFaceUUID:*(*(&v48 + 1) + 8 * v31)];
+          [v32 enqueueMessage:v33];
+
+          v31 = v31 + 1;
+        }
+
+        while (v29 != v31);
+        v29 = [v27 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      }
+
+      while (v29);
+    }
+
+    v34 = *(*(a1 + 32) + 96);
+    v35 = [NTKDSyncMessage messageOfType:5];
+    [v34 enqueueMessage:v35];
+
+    v36 = *(*(a1 + 32) + 96);
+    v37 = [NTKDSyncMessage messageOfType:4];
+    [v36 enqueueMessage:v37];
+
+    v38 = *(a1 + 32);
+    v39 = *(v38 + 128);
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_1000366BC;
+    v47[3] = &unk_10005E1F8;
+    v47[4] = v38;
+    [v39 enumerateKeysAndObjectsUsingBlock:v47];
+  }
+
+  else
+  {
+    v40 = *(a1 + 32);
+    v41 = *(v40 + 96);
+    *(v40 + 96) = v22;
+  }
+
+  *(*(a1 + 32) + 144) = [*(*(a1 + 32) + 96) count];
+  *(*(a1 + 32) + 152) = 0;
+  v42 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  {
+    v43 = *(*(a1 + 32) + 144);
+    *buf = 134217984;
+    v54 = v43;
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "estimated number of messages to send (except color-sync): %lu", buf, 0xCu);
+  }
+
+  [*(*(a1 + 32) + 96) suspendCoalescing];
+  v44 = [*(*(a1 + 32) + 96) messageEnumerator];
+  v45 = *(a1 + 32);
+  v46 = *(v45 + 160);
+  *(v45 + 160) = v44;
 }

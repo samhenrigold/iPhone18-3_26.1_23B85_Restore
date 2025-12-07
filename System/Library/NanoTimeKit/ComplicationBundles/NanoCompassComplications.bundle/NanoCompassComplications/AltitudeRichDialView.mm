@@ -13,20 +13,20 @@
 
 - (id)initFullColorImageViewWithDevice:(id)device
 {
-  v18.receiver = self;
-  v18.super_class = AltitudeRichDialView;
-  v3 = [(AltitudeRichDialView *)&v18 init];
-  v7 = v3;
+  v14.receiver = self;
+  v14.super_class = AltitudeRichDialView;
+  v3 = [(AltitudeRichDialView *)&v14 init];
+  v6 = v3;
   if (v3)
   {
-    v8 = objc_msgSend_topView(v3, v4, v5, v6);
-    objc_msgSend_addSubview_(v7, v9, v8, v10);
+    v7 = objc_msgSend_topView(v3, v4, v5);
+    objc_msgSend_addSubview_(v6, v8, v7);
 
-    v14 = objc_msgSend_bottomView(v7, v11, v12, v13);
-    objc_msgSend_addSubview_(v7, v15, v14, v16);
+    v11 = objc_msgSend_bottomView(v6, v9, v10);
+    objc_msgSend_addSubview_(v6, v12, v11);
   }
 
-  return v7;
+  return v6;
 }
 
 - (UIView)topView
@@ -34,9 +34,9 @@
   topView = self->_topView;
   if (!topView)
   {
-    v6 = objc_msgSend__newTopView(self, a2, v2, v3);
-    v7 = self->_topView;
-    self->_topView = v6;
+    v5 = objc_msgSend__newTopView(self, a2, v2);
+    v6 = self->_topView;
+    self->_topView = v5;
 
     topView = self->_topView;
   }
@@ -49,9 +49,9 @@
   bottomView = self->_bottomView;
   if (!bottomView)
   {
-    v6 = objc_msgSend__newBottomView(self, a2, v2, v3);
-    v7 = self->_bottomView;
-    self->_bottomView = v6;
+    v5 = objc_msgSend__newBottomView(self, a2, v2);
+    v6 = self->_bottomView;
+    self->_bottomView = v5;
 
     bottomView = self->_bottomView;
   }
@@ -79,15 +79,15 @@
 
 - (void)layoutSubviews
 {
-  v16.receiver = self;
-  v16.super_class = AltitudeRichDialView;
-  [(AltitudeRichDialView *)&v16 layoutSubviews];
-  objc_msgSend_bounds(self, v3, v4, v5);
+  v13.receiver = self;
+  v13.super_class = AltitudeRichDialView;
+  [(AltitudeRichDialView *)&v13 layoutSubviews];
+  objc_msgSend_bounds(self, v3, v4);
   UIRectGetCenter();
-  v7 = v6;
-  v9 = v8;
-  objc_msgSend_setCenter_(self->_topView, v10, v11, v12);
-  objc_msgSend_setCenter_(self->_bottomView, v13, v14, v15, v7, v9);
+  v6 = v5;
+  v8 = v7;
+  objc_msgSend_setCenter_(self->_topView, v9, v10);
+  objc_msgSend_setCenter_(self->_bottomView, v11, v12, v6, v8);
 }
 
 - (id)_newTopView

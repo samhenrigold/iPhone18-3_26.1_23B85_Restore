@@ -17,6 +17,7 @@
 - (void)_loadEffectsView;
 - (void)_loadLogoView;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadCornerOverlayView;
 - (void)_unloadEffectsView;
 - (void)_unloadLogoView;
@@ -376,6 +377,17 @@ LABEL_8:
   [(NTKMagmaButton *)self->_logoButton setTintColor:swoosh];
 
   [(NTKMagmaEffectsView *)self->_effectsView setColorPalette:paletteCopy];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v8.receiver = self;
+  v8.super_class = NTKMagmaFaceView;
+  groupCopy = group;
+  [(NTKMagmaFaceView *)&v8 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  v7 = [(NTKMagmaEffectsView *)self->_effectsView quadView:v8.receiver];
+  [v7 renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
 }
 
 + (id)_swatchForEditModeDependsOnOptions:(int64_t)options forDevice:(id)device

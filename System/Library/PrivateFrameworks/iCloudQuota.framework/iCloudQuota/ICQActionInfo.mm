@@ -20,29 +20,29 @@
     goto LABEL_27;
   }
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"isDefault"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   bOOLValue = [v6 BOOLValue];
 
   [(ICQActionInfo *)v5 setIsDefault:bOOLValue];
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"isDestructive"];
+  v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   bOOLValue2 = [v8 BOOLValue];
 
   [(ICQActionInfo *)v5 setIsDestructive:bOOLValue2];
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+  v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(ICQActionInfo *)v5 setTitle:v10];
   }
 
-  v11 = [dictionaryCopy objectForKeyedSubscript:@"subTitle"];
+  v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(ICQActionInfo *)v5 setSubtitle:v11];
   }
 
-  v12 = [dictionaryCopy objectForKeyedSubscript:@"actionURL"];
+  v12 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -53,7 +53,7 @@
     }
   }
 
-  v14 = [dictionaryCopy objectForKeyedSubscript:@"confirmation"];
+  v14 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -61,8 +61,8 @@
     [(ICQActionInfo *)v5 setConfirmation:v15];
   }
 
-  v16 = [dictionaryCopy objectForKeyedSubscript:@"actionType"];
-  v17 = [dictionaryCopy objectForKeyedSubscript:@"actionParameters"];
+  v16 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
+  v17 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   if (v16)
   {
     v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -71,9 +71,9 @@
     {
       v28 = v12;
       v29 = v10;
-      v19 = [v17 objectForKeyedSubscript:@"purchaseAttribution"];
-      v20 = [v17 objectForKeyedSubscript:@"route"];
-      v21 = [v17 objectForKeyedSubscript:@"identifier"];
+      v19 = objc_msgSend_objectForKeyedSubscript_(v17);
+      v20 = objc_msgSend_objectForKeyedSubscript_(v17);
+      v21 = objc_msgSend_objectForKeyedSubscript_(v17);
       if (v19)
       {
         [v18 setObject:v19 forKeyedSubscript:@"purchaseAttribution"];

@@ -77,9 +77,9 @@ id __44__PKAccountFetchPeriods_initWithDictionary___block_invoke(uint64_t a1, vo
     goto LABEL_26;
   }
 
-  v6 = [(__CFString *)v4 isEqualToString:@"account"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v6)
+  if (isEqualToString)
   {
 LABEL_4:
     v7 = 1;
@@ -87,49 +87,49 @@ LABEL_4:
   }
 
   v8 = v5;
-  if (v8 == @"extendedAccount" || (v9 = v8, v10 = [(__CFString *)v8 isEqualToString:@"extendedAccount"], v9, (v10 & 1) != 0))
+  if (v8 == @"extendedAccount" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(v8), v9, (v10 & 1) != 0))
   {
     v7 = 2;
     goto LABEL_27;
   }
 
   v11 = v9;
-  if (v11 == @"users" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"users"], v12, (v13 & 1) != 0))
+  if (v11 == @"users" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(v11), v12, (v13 & 1) != 0))
   {
     v7 = 3;
     goto LABEL_27;
   }
 
   v14 = v12;
-  if (v14 == @"sharedAccountCloudStore" || (v15 = v14, v16 = [(__CFString *)v14 isEqualToString:@"sharedAccountCloudStore"], v15, (v16 & 1) != 0))
+  if (v14 == @"sharedAccountCloudStore" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(v14), v15, (v16 & 1) != 0))
   {
     v7 = 4;
     goto LABEL_27;
   }
 
   v17 = v15;
-  if (v17 == @"financingPlans" || (v18 = v17, v19 = [(__CFString *)v17 isEqualToString:@"financingPlans"], v18, (v19 & 1) != 0))
+  if (v17 == @"financingPlans" || (v18 = v17, v19 = objc_msgSend_isEqualToString_(v17), v18, (v19 & 1) != 0))
   {
     v7 = 5;
     goto LABEL_27;
   }
 
   v20 = v18;
-  if (v20 == @"promotions" || (v21 = v20, v22 = [(__CFString *)v20 isEqualToString:@"promotions"], v21, (v22 & 1) != 0))
+  if (v20 == @"promotions" || (v21 = v20, v22 = objc_msgSend_isEqualToString_(v20), v21, (v22 & 1) != 0))
   {
     v7 = 7;
     goto LABEL_27;
   }
 
   v23 = v21;
-  if (v23 == @"recoveryPaymentPlans" || (v24 = v23, v25 = [(__CFString *)v23 isEqualToString:@"recoveryPaymentPlans"], v24, (v25 & 1) != 0))
+  if (v23 == @"recoveryPaymentPlans" || (v24 = v23, v25 = objc_msgSend_isEqualToString_(v23), v24, (v25 & 1) != 0))
   {
     v7 = 8;
     goto LABEL_27;
   }
 
   v26 = v24;
-  if (v26 == @"physicalCards" || (v27 = v26, v28 = [(__CFString *)v26 isEqualToString:@"physicalCards"], v27, v28))
+  if (v26 == @"physicalCards" || (v27 = v26, v28 = objc_msgSend_isEqualToString_(v26), v27, v28))
   {
     v7 = 9;
   }

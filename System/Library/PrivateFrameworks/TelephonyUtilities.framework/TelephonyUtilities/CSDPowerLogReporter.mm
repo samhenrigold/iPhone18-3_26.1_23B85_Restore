@@ -8,6 +8,7 @@
 - (void)_registerCallStopEvent;
 - (void)_registerEventWithContext:(id)context status:(id)status;
 - (void)_reportScreeningDurationEventForCall:(id)call;
+- (void)_reportScreeningEnabledEvent:(BOOL)event;
 - (void)_reportScreeningEventForCall:(id)call;
 - (void)_stopScreeningEventIfNecessaryForCall:(id)call;
 - (void)allCallsBackgroundedForReportingController:(id)controller;
@@ -233,6 +234,17 @@ LABEL_6:
     uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
     [screeningCalls2 setObject:0 forKeyedSubscript:uniqueProxyIdentifier2];
   }
+}
+
+- (void)_reportScreeningEnabledEvent:(BOOL)event
+{
+  eventCopy = event;
+  v7 = objc_alloc_init(NSMutableDictionary);
+  v5 = [NSNumber numberWithBool:eventCopy];
+  [v7 setObject:v5 forKeyedSubscript:@"Enabled"];
+
+  eventBlock = [(CSDPowerLogReporter *)self eventBlock];
+  (eventBlock)[2](eventBlock, @"CallScreeningEnabled", v7);
 }
 
 - (void)_reportScreeningDurationEventForCall:(id)call

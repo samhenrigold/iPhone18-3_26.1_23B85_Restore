@@ -68,91 +68,91 @@
 
 - (void)saveCommandBuffer:(const void *)buffer queue:(id)queue profilingResults:(id)results
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v69 = 0;
+  v71 = *MEMORY[0x277D85DE8];
   v68 = 0;
-  memset(&v67.stream, 0, sizeof(v67.stream));
-  v67._vptr$AppendBuffer = &unk_2841C0150;
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "{", 1uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "version:", 0xBuLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "0.908", 5uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, ",handle:", 0xBuLL);
+  v67 = 0;
+  memset(&v66.stream, 0, sizeof(v66.stream));
+  v66._vptr$AppendBuffer = &unk_2841C0150;
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "{", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "version:", 0xBuLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "0.908", 5uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, ",handle:", 0xBuLL);
   v8 = snprintf(__str, 0x20uLL, "%p", buffer);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v8);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, ",device:{", 0xBuLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v8);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, ",device:{", 0xBuLL);
   device = [queue device];
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "handle:", 0xAuLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "handle:", 0xAuLL);
   v10 = snprintf(__str, 0x20uLL, "%p", device);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v10);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v10);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
   v11 = [objc_msgSend(queue "device")];
-  AppendBuffer::WriteBytes(&v67, &v67.stream, ",name:", 9uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, [v11 UTF8String], objc_msgSend(v11, "lengthOfBytesUsingEncoding:", 4));
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, ",queue:{", 0xAuLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "handle:", 0xAuLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, ",name:", 9uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, [v11 UTF8String], objc_msgSend(v11, "lengthOfBytesUsingEncoding:", 4));
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, ",queue:{", 0xAuLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "handle:", 0xAuLL);
   queueCopy = queue;
   v12 = snprintf(__str, 0x20uLL, "%p", queue);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v12);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v12);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
   if (results)
   {
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",events:{", 0xBuLL);
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",events:{", 0xBuLL);
     v64 = 0u;
-    v13 = [results countByEnumeratingWithState:&v63 objects:v70 count:16];
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v13 = [results countByEnumeratingWithState:&v62 objects:v69 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 1;
-      v16 = *v64;
+      v16 = *v63;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v64 != v16)
+          if (*v63 != v16)
           {
             objc_enumerationMutation(results);
           }
 
-          v18 = *(*(&v63 + 1) + 8 * i);
+          v18 = *(*(&v62 + 1) + 8 * i);
           if ((v15 & 1) == 0)
           {
-            AppendBuffer::WriteBytes(&v67, &v67.stream, ",", 1uLL);
+            AppendBuffer::WriteBytes(&v66, &v66.stream, ",", 1uLL);
           }
 
           v19 = [objc_msgSend(results objectForKey:{v18), "unsignedIntegerValue"}];
-          AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
-          AppendBuffer::WriteBytes(&v67, &v67.stream, [v18 UTF8String], objc_msgSend(v18, "lengthOfBytesUsingEncoding:", 4));
-          AppendBuffer::WriteBytes(&v67, &v67.stream, ":", 2uLL);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, [v18 UTF8String], objc_msgSend(v18, "lengthOfBytesUsingEncoding:", 4));
+          AppendBuffer::WriteBytes(&v66, &v66.stream, ":", 2uLL);
           v20 = snprintf(__str, 0x20uLL, "%llu", v19);
-          AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v20);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v20);
           v15 = 0;
         }
 
-        v14 = [results countByEnumeratingWithState:&v63 objects:v70 count:16];
+        v14 = [results countByEnumeratingWithState:&v62 objects:v69 count:16];
         v15 = 0;
       }
 
       while (v14);
     }
 
-    AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
   }
 
   v21 = ",";
   selfCopy4 = self;
-  v62 = (*(self->_commands._vptr$AppendBuffer + 3))(&self->_commands, &v69, &v68);
+  v61 = (*(self->_commands._vptr$AppendBuffer + 3))(&self->_commands, &v68, &v67);
   v23 = "";
-  if (v68)
+  if (v67)
   {
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",methods:[", 0xCuLL);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",methods:[", 0xCuLL);
     v24 = &qword_2787B3FA8;
     v25 = 137;
     do
@@ -167,29 +167,29 @@
         v26 = ",";
       }
 
-      AppendBuffer::WriteBytes(&v67, &v67.stream, v26, v25 != 137);
-      AppendBuffer::WriteBytes(&v67, &v67.stream, "{selector:", 0xDuLL);
+      AppendBuffer::WriteBytes(&v66, &v66.stream, v26, v25 != 137);
+      AppendBuffer::WriteBytes(&v66, &v66.stream, "{selector:", 0xDuLL);
       v27 = strlen(*(v24 - 1));
-      AppendBuffer::WriteBytes(&v67, &v67.stream, *(v24 - 1), v27);
-      AppendBuffer::WriteBytes(&v67, &v67.stream, "", 1uLL);
+      AppendBuffer::WriteBytes(&v66, &v66.stream, *(v24 - 1), v27);
+      AppendBuffer::WriteBytes(&v66, &v66.stream, "", 1uLL);
       if (*v24)
       {
-        StringBuffer::Append<char [10],unsigned long long>(&v67, ",flags:", v24);
+        StringBuffer::Append<char [10],unsigned long long>(&v66, ",flags:", v24);
       }
 
-      AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+      AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
       v24 += 2;
       --v25;
     }
 
     while (v25);
-    AppendBuffer::WriteBytes(&v67, &v67.stream, "]", 1uLL);
-    StringBuffer::Append<char [14],NSData *,char [2]>(&v67, ",commands:", &v62, "");
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",commandBufferLength:", 0x17uLL);
-    v28 = snprintf(__str, 0x20uLL, "%llu", v68);
-    AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v28);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, "]", 1uLL);
+    StringBuffer::Append<char [14],NSData *,char [2]>(&v66, ",commands:", &v61, "");
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",commandBufferLength:", 0x17uLL);
+    v28 = snprintf(__str, 0x20uLL, "%llu", v67);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v28);
     v29 = 16;
-    if (!v69)
+    if (!v68)
     {
       v29 = 0;
     }
@@ -200,7 +200,7 @@
 
   if ([(NSMutableArray *)selfCopy4->_encoders count])
   {
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",encoders:[", 0xDuLL);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",encoders:[", 0xDuLL);
     v30 = [(NSMutableArray *)selfCopy4->_encoders count];
     if (v30)
     {
@@ -218,44 +218,44 @@
           v34 = "";
         }
 
-        AppendBuffer::WriteBytes(&v67, &v67.stream, v34, j != 0);
+        AppendBuffer::WriteBytes(&v66, &v66.stream, v34, j != 0);
         *__str = [v33 flags];
-        StringBuffer::Append<char [10],unsigned long long>(&v67, "{flags:", __str);
+        StringBuffer::Append<char [10],unsigned long long>(&v66, "{flags:", __str);
         [v33 segment];
         if (v35)
         {
           segment = [v33 segment];
           [v33 segment];
           v38 = v37;
-          AppendBuffer::WriteBytes(&v67, &v67.stream, ",segment:{location:", 0x17uLL);
-          v58 = segment;
+          AppendBuffer::WriteBytes(&v66, &v66.stream, ",segment:{location:", 0x17uLL);
+          v57 = segment;
           selfCopy4 = self;
-          v39 = snprintf(__str, 0x20uLL, "%llu", v58);
-          AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v39);
-          AppendBuffer::WriteBytes(&v67, &v67.stream, ",length:", 0xAuLL);
+          v39 = snprintf(__str, 0x20uLL, "%llu", v57);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v39);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, ",length:", 0xAuLL);
           v40 = snprintf(__str, 0x20uLL, "%llu", v38);
-          AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v40);
-          AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v40);
+          AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
         }
 
-        AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+        AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
       }
     }
 
-    AppendBuffer::WriteBytes(&v67, &v67.stream, "]", 1uLL);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, "]", 1uLL);
     v21 = ",";
   }
 
-  v61 = (*(selfCopy4->_samples._vptr$AppendBuffer + 3))(&selfCopy4->_samples, &v69, &v68);
-  if (v68)
+  v60 = (*(selfCopy4->_samples._vptr$AppendBuffer + 3))(&selfCopy4->_samples, &v68, &v67);
+  if (v67)
   {
     v41 = (~[queueCopy getStatLocations] & 0xF300) == 0;
-    v42 = v69 | (2 * v41);
+    v42 = v68 | (2 * v41);
     getRequestedCounters = [queueCopy getRequestedCounters];
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",statistics:{flags:", 0x17uLL);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",statistics:{flags:", 0x17uLL);
     v44 = snprintf(__str, 0x20uLL, "%llu", v42);
-    AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v44);
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",counters:[", 0xDuLL);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v44);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",counters:[", 0xDuLL);
     v45 = [getRequestedCounters count];
     if (v45)
     {
@@ -272,36 +272,34 @@
         v50 = [getRequestedCounters objectAtIndexedSubscript:k];
         v51 = v21;
         v21 = v48;
-        AppendBuffer::WriteBytes(&v67, &v67.stream, v51, k != 0);
-        AppendBuffer::WriteBytes(&v67, &v67.stream, "{name:", 9uLL);
+        AppendBuffer::WriteBytes(&v66, &v66.stream, v51, k != 0);
+        AppendBuffer::WriteBytes(&v66, &v66.stream, "{name:", 9uLL);
         uTF8String = [v50 UTF8String];
         v53 = v50;
         v23 = v49;
-        AppendBuffer::WriteBytes(&v67, &v67.stream, uTF8String, [v53 lengthOfBytesUsingEncoding:4]);
-        AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 2uLL);
+        AppendBuffer::WriteBytes(&v66, &v66.stream, uTF8String, [v53 lengthOfBytesUsingEncoding:4]);
+        AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 2uLL);
       }
     }
 
-    StringBuffer::Append<char [14],NSData *,char [2]>(&v67, "],samples:", &v61, "");
-    AppendBuffer::WriteBytes(&v67, &v67.stream, ",sampleBufferLength:", 0x16uLL);
-    v54 = snprintf(__str, 0x20uLL, "%llu", v68);
-    AppendBuffer::WriteBytes(&v67, &v67.stream, __str, v54);
-    AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+    StringBuffer::Append<char [14],NSData *,char [2]>(&v66, "],samples:", &v60, "");
+    AppendBuffer::WriteBytes(&v66, &v66.stream, ",sampleBufferLength:", 0x16uLL);
+    v54 = snprintf(__str, 0x20uLL, "%llu", v67);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, __str, v54);
+    AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
     selfCopy4 = self;
   }
 
-  StringBuffer::Append<char [10],unsigned long long>(&v67, ",flags:", &selfCopy4->_flags);
-  AppendBuffer::WriteBytes(&v67, &v67.stream, "}", 1uLL);
+  StringBuffer::Append<char [10],unsigned long long>(&v66, ",flags:", &selfCopy4->_flags);
+  AppendBuffer::WriteBytes(&v66, &v66.stream, "}", 1uLL);
   v55 = [objc_msgSend(queueCopy "tracePath")];
   *__str = 0;
-  v56 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v67.stream.bytes length:v67.stream.pWrite - v67.stream.bytes freeWhenDone:1];
-  memset(&v67.stream, 0, sizeof(v67.stream));
+  v56 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v66.stream.bytes length:v66.stream.pWrite - v66.stream.bytes freeWhenDone:1];
+  memset(&v66.stream, 0, sizeof(v66.stream));
   if (([v56 writeToFile:v55 options:0 error:__str] & 1) == 0)
   {
     NSLog(&cfstr_ErrorSavingFil.isa, v55, [*__str localizedDescription]);
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

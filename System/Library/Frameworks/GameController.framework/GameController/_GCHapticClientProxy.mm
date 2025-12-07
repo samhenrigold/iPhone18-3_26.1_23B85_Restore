@@ -65,9 +65,9 @@
 {
   connectionCopy = connection;
   serverCopy = server;
-  v32.receiver = self;
-  v32.super_class = _GCHapticClientProxy;
-  v11 = [(_GCHapticClientProxy *)&v32 init];
+  v35.receiver = self;
+  v35.super_class = _GCHapticClientProxy;
+  v11 = [(_GCHapticClientProxy *)&v35 init];
   v12 = v11;
   if (v11)
   {
@@ -103,7 +103,7 @@
     aBlock[2] = __60___GCHapticClientProxy__initWithConnection_server_clientID___block_invoke;
     aBlock[3] = &unk_1E841A280;
     v23 = v12;
-    v31 = v23;
+    v34 = v23;
     v24 = _Block_copy(aBlock);
     v25 = [(_GCIPCIncomingConnection *)v12->_connection addInvalidationHandler:v24];
     connectionInvalidationRegistration = v23->_connectionInvalidationRegistration;
@@ -113,10 +113,12 @@
     connectionInterruptedRegistration = v23->_connectionInterruptedRegistration;
     v23->_connectionInterruptedRegistration = v27;
 
-    v23->_initializationTime = mach_absolute_time() * 0.0000000416666667;
-    if (gc_isInternalBuild())
+    v29 = mach_absolute_time();
+    v23->_initializationTime = v29 * 0.0000000416666667;
+    isInternalBuild = gc_isInternalBuild(v29, v30);
+    if (isInternalBuild)
     {
-      getGCHapticsLogger();
+      getGCHapticsLogger(isInternalBuild);
       objc_claimAutoreleasedReturnValue();
       [_GCHapticClientProxy _initWithConnection:server:clientID:];
     }
@@ -195,30 +197,24 @@
 
 - (void)invalidateDueToControllerDisconnect
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = getGCHapticsLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = getGCHapticsLogger(self);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v2))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBundleIdentifier:(id)identifier
@@ -230,19 +226,21 @@
     objc_storeStrong(&self->_bundleIdentifier, identifier);
     if (([(NSString *)*p_bundleIdentifier isEqual:@"com.apple.TVSettings"]& 1) != 0)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v7 = [(NSString *)*p_bundleIdentifier isEqual:@"com.apple.Preferences"];
+      v8 = [(NSString *)*p_bundleIdentifier isEqual:@"com.apple.Preferences"];
     }
 
-    self->_neverMute = v7;
-    if (gc_isInternalBuild())
+    self->_neverMute = v8;
+    isInternalBuild = gc_isInternalBuild(v8, v7);
+    if (isInternalBuild)
     {
-      v8 = getGCHapticsLogger();
-      [(_GCHapticClientProxy *)v8 setBundleIdentifier:&self->_neverMute];
+      getGCHapticsLogger(isInternalBuild);
+      objc_claimAutoreleasedReturnValue();
+      [_GCHapticClientProxy setBundleIdentifier:];
     }
 
     [(_GCHapticClientProxy *)self refreshUserSettingForMuteHaptics];
@@ -251,49 +249,50 @@
 
 - (void)refreshUserSettingForMuteHaptics
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [(_GCHapticClientProxy *)self setMute:0 forReason:4];
   v3 = [(GCSSettingsStoreService *)self->_settingsStore profileForPersistentControllerIdentifier:self->_persistentControllerIdentifier appBundleIdentifier:self->_bundleIdentifier];
   v4 = v3;
   if (v3)
   {
-    [v3 hapticStrength];
-    v6 = v5;
+    hapticStrength = [v3 hapticStrength];
     v7 = v6;
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(hapticStrength, v8);
+    v10 = v7;
+    v11 = v10;
+    if (isInternalBuild)
     {
-      v10 = getGCHapticsLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = getGCHapticsLogger(isInternalBuild);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         bundleIdentifier = self->_bundleIdentifier;
-        v12 = 138412802;
+        v15 = 138412802;
         selfCopy = self;
-        v14 = 1024;
-        v15 = v7 < 0.01;
-        v16 = 2112;
-        v17 = bundleIdentifier;
-        _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "%@ setMute=%d for %@", &v12, 0x1Cu);
+        v17 = 1024;
+        v18 = v11 < 0.01;
+        v19 = 2112;
+        v20 = bundleIdentifier;
+        _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_DEFAULT, "%@ setMute=%d for %@", &v15, 0x1Cu);
       }
     }
 
-    [(_GCHapticClientProxy *)self setMute:v7 < 0.01 forReason:4];
-    if (v7 >= 0.01)
+    [(_GCHapticClientProxy *)self setMute:v11 < 0.01 forReason:4];
+    if (v11 >= 0.01)
     {
-      *&v8 = v6;
-      [(_GCHapticClientProxy *)self setHapticStrength:v8];
+      *&v12 = v10;
+      [(_GCHapticClientProxy *)self setHapticStrength:v12];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyClientOnStopWithReason:(int64_t)reason error:(id)error
 {
   errorCopy = error;
-  [(_GCHapticClientProxy *)self stopRunning];
-  if (gc_isInternalBuild())
+  stopRunning = [(_GCHapticClientProxy *)self stopRunning];
+  isInternalBuild = gc_isInternalBuild(stopRunning, v8);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy notifyClientOnStopWithReason:error:];
   }
@@ -368,9 +367,10 @@
 - (void)notifyClientCompletedWithError:(id)error
 {
   errorCopy = error;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(errorCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy notifyClientCompletedWithError:];
   }
@@ -384,9 +384,9 @@
   if (self->_complete != complete)
   {
     completeCopy = complete;
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(self, a2))
     {
-      [_GCHapticClientProxy setComplete:];
+      [_GCHapticClientProxy setComplete:?];
     }
 
     self->_complete = completeCopy;
@@ -473,53 +473,55 @@
 
 - (void)_configureActuatorsLegacyWithOptions:(id)options
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v5 = [optionsCopy objectForKey:@"hapticEngineInfo"];
-  if (!v5)
+  v6 = [optionsCopy objectForKey:@"hapticEngineInfo"];
+  if (!v6)
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(0, v5);
+    if (isInternalBuild)
     {
-      v20 = getGCHapticsLogger();
-      [_GCHapticClientProxy(HapticServer) _configureActuatorsLegacyWithOptions:v20];
+      v30 = getGCHapticsLogger(isInternalBuild);
+      [_GCHapticClientProxy(HapticServer) _configureActuatorsLegacyWithOptions:v30];
     }
 
-    v7 = [optionsCopy objectForKey:@"hapticEngineLabel"];
-    if (!v7)
+    v8 = [optionsCopy objectForKey:@"hapticEngineLabel"];
+    if (!v8)
     {
-      v14 = [optionsCopy objectForKey:@"hapticEngineName"];
-      if (v14)
+      v21 = [optionsCopy objectForKey:@"hapticEngineName"];
+      if (v21)
       {
-        v7 = v14;
+        v8 = v21;
       }
 
       else
       {
-        v7 = @"Unknown";
+        v8 = @"Unknown";
       }
     }
 
-    v15 = [optionsCopy objectForKey:@"hapticEngineIndex"];
-    if (v15)
+    v22 = [optionsCopy objectForKey:@"hapticEngineIndex"];
+    if (v22)
     {
-      v6 = v15;
+      v7 = v22;
     }
 
     else
     {
-      v6 = &unk_1F4E8F1E8;
+      v7 = &unk_1F4E8F1E8;
     }
 
-    v12 = [optionsCopy objectForKey:@"hapticEngineType"];
-    v16 = [[GCHapticActuator alloc] initWithLabel:v7 type:[v12 isEqualToString:@"LRA"] index:[(__CFString *)v6 integerValue]];
-    v22 = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v18 = [optionsCopy objectForKey:@"hapticEngineType"];
+    v23 = [[GCHapticActuator alloc] initWithLabel:v8 type:[v18 isEqualToString:@"LRA"] index:[(__CFString *)v7 integerValue]];
+    v32 = v23;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
     actuators = self->_actuators;
-    self->_actuators = v17;
+    self->_actuators = v24;
 
-    if (gc_isInternalBuild())
+    v28 = gc_isInternalBuild(v26, v27);
+    if (v28)
     {
-      getGCHapticsLogger();
+      getGCHapticsLogger(v28);
       objc_claimAutoreleasedReturnValue();
       [_GCHapticClientProxy(HapticServer) _configureActuatorsLegacyWithOptions:];
     }
@@ -527,41 +529,43 @@
     goto LABEL_18;
   }
 
-  v21 = 0;
-  v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v21];
-  v7 = v21;
-  v25[0] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-  v9 = self->_actuators;
-  self->_actuators = v8;
+  v31 = 0;
+  v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v31];
+  v8 = v31;
+  v35[0] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+  v10 = self->_actuators;
+  self->_actuators = v9;
 
-  if (!v7)
+  if (!v8)
   {
-    if (!gc_isInternalBuild())
+    v29 = gc_isInternalBuild(v11, v12);
+    if (!v29)
     {
       goto LABEL_20;
     }
 
-    v12 = getGCHapticsLogger();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v18 = getGCHapticsLogger(v29);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_18;
     }
 
     *buf = 138412290;
-    v24 = v6;
-    v13 = "Haptic actuator received: %@";
+    v34 = v7;
+    v19 = "Haptic actuator received: %@";
     goto LABEL_23;
   }
 
-  v10 = +[GCAnalytics instance];
-  v11 = currentProcessBundleIdentifier();
-  [v10 sendHapticsErrorRaisedEventFromSource:v11 productCategory:self->_controllerProductCategory errorType:@"ConfigureActuatorsLegacyFailure"];
+  v13 = +[GCAnalytics instance];
+  v14 = currentProcessBundleIdentifier(v13);
+  [v13 sendHapticsErrorRaisedEventFromSource:v14 productCategory:self->_controllerProductCategory errorType:@"ConfigureActuatorsLegacyFailure"];
 
-  if (gc_isInternalBuild())
+  v17 = gc_isInternalBuild(v15, v16);
+  if (v17)
   {
-    v12 = getGCHapticsLogger();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v18 = getGCHapticsLogger(v17);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_18:
 
@@ -569,81 +573,86 @@ LABEL_18:
     }
 
     *buf = 138412290;
-    v24 = v7;
-    v13 = "Failed to unarchive haptic actuator! %@";
+    v34 = v8;
+    v19 = "Failed to unarchive haptic actuator! %@";
 LABEL_23:
-    _os_log_impl(&dword_1D2CD5000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
+    _os_log_impl(&dword_1D2CD5000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 0xCu);
     goto LABEL_18;
   }
 
 LABEL_20:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureWithOptions:(id)options reply:(id)reply
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v8);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
   }
 
-  v8 = [optionsCopy objectForKey:@"controllerProductCategory"];
+  v10 = [optionsCopy objectForKey:@"controllerProductCategory"];
   controllerProductCategory = self->_controllerProductCategory;
-  self->_controllerProductCategory = v8;
+  self->_controllerProductCategory = v10;
 
-  if (self->_controllerProductCategory && gc_isInternalBuild())
+  if (self->_controllerProductCategory)
   {
-    getGCHapticsLogger();
-    objc_claimAutoreleasedReturnValue();
-    [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
+    v14 = gc_isInternalBuild(v12, v13);
+    if (v14)
+    {
+      getGCHapticsLogger(v14);
+      objc_claimAutoreleasedReturnValue();
+      [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
+    }
   }
 
-  v10 = [optionsCopy objectForKey:@"actuators"];
-  if (v10)
+  v15 = [optionsCopy objectForKey:@"actuators"];
+  if (v15)
   {
-    v30 = 0;
-    v11 = [MEMORY[0x1E696ACD0] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v10 error:&v30];
-    v12 = v30;
-    if (v12)
+    v51 = 0;
+    v16 = [MEMORY[0x1E696ACD0] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v15 error:&v51];
+    v18 = v51;
+    if (v18)
     {
-      v13 = +[GCAnalytics instance];
-      v14 = currentProcessBundleIdentifier();
-      [v13 sendHapticsErrorRaisedEventFromSource:v14 productCategory:self->_controllerProductCategory errorType:@"ConfigureActuatorsFailure"];
+      v19 = +[GCAnalytics instance];
+      v20 = currentProcessBundleIdentifier(v19);
+      [v19 sendHapticsErrorRaisedEventFromSource:v20 productCategory:self->_controllerProductCategory errorType:@"ConfigureActuatorsFailure"];
 
-      if (!gc_isInternalBuild())
+      v23 = gc_isInternalBuild(v21, v22);
+      if (!v23)
       {
 LABEL_16:
 
         goto LABEL_17;
       }
 
-      p_super = getGCHapticsLogger();
+      p_super = getGCHapticsLogger(v23);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *&buf[4] = v12;
+        *&buf[4] = v18;
         _os_log_impl(&dword_1D2CD5000, p_super, OS_LOG_TYPE_DEFAULT, "Failed to unarchive haptic actuator! %@", buf, 0xCu);
       }
     }
 
     else
     {
-      if (gc_isInternalBuild())
+      v25 = gc_isInternalBuild(0, v17);
+      if (v25)
       {
-        getGCHapticsLogger();
+        getGCHapticsLogger(v25);
         objc_claimAutoreleasedReturnValue();
         [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
       }
 
-      v16 = v11;
+      v26 = v16;
       p_super = &self->_actuators->super;
-      self->_actuators = v16;
+      self->_actuators = v26;
     }
 
     goto LABEL_16;
@@ -651,70 +660,83 @@ LABEL_16:
 
   [(_GCHapticClientProxy *)self _configureActuatorsLegacyWithOptions:optionsCopy];
 LABEL_17:
-  v17 = [optionsCopy objectForKey:@"controllerIdentifier"];
+  v27 = [optionsCopy objectForKey:@"controllerIdentifier"];
   identifier = self->_identifier;
-  self->_identifier = v17;
+  self->_identifier = v27;
 
-  if (self->_identifier && gc_isInternalBuild())
+  if (self->_identifier)
   {
-    getGCHapticsLogger();
-    objc_claimAutoreleasedReturnValue();
-    [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
+    v31 = gc_isInternalBuild(v29, v30);
+    if (v31)
+    {
+      getGCHapticsLogger(v31);
+      objc_claimAutoreleasedReturnValue();
+      [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
+    }
   }
 
-  v19 = [optionsCopy objectForKey:@"persistentControllerIdentifier"];
+  v32 = [optionsCopy objectForKey:@"persistentControllerIdentifier"];
   persistentControllerIdentifier = self->_persistentControllerIdentifier;
-  self->_persistentControllerIdentifier = v19;
+  self->_persistentControllerIdentifier = v32;
 
-  v21 = self->_persistentControllerIdentifier;
-  if (!v21)
+  v36 = self->_persistentControllerIdentifier;
+  if (!v36)
   {
     self->_persistentControllerIdentifier = @"__Unknown";
     goto LABEL_24;
   }
 
-  if (gc_isInternalBuild())
+  v37 = gc_isInternalBuild(v34, v35);
+  if (v37)
   {
-    v22 = getGCHapticsLogger();
-    [(_GCHapticClientProxy(HapticServer) *)v22 configureWithOptions:buf reply:?];
-    v21 = *buf;
+    v38 = getGCHapticsLogger(v37);
+    [(_GCHapticClientProxy(HapticServer) *)v38 configureWithOptions:buf reply:?];
+    v36 = *buf;
 LABEL_24:
   }
 
-  v23 = [optionsCopy objectForKey:@"isDummyServer"];
-  v24 = v23;
-  if (v23 && [v23 BOOLValue])
+  v39 = [optionsCopy objectForKey:@"isDummyServer"];
+  v40 = v39;
+  if (v39 && (v41 = [v39 BOOLValue], v41))
   {
-    if (gc_isInternalBuild())
+    v43 = gc_isInternalBuild(v41, v42);
+    if (v43)
     {
-      getGCHapticsLogger();
+      getGCHapticsLogger(v43);
       objc_claimAutoreleasedReturnValue();
       [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
     }
 
-    v25 = 1;
+    v44 = 1;
   }
 
   else
   {
-    v25 = 0;
+    v44 = 0;
   }
 
-  [(_GCHapticClientProxy *)self setMockClient:v25];
-  v26 = [optionsCopy objectForKey:@"shouldSquareContinuousIntensity"];
-  v27 = v26;
-  if (v26 && [v26 BOOLValue] && gc_isInternalBuild())
+  [(_GCHapticClientProxy *)self setMockClient:v44];
+  v45 = [optionsCopy objectForKey:@"shouldSquareContinuousIntensity"];
+  v46 = v45;
+  if (v45)
   {
-    getGCHapticsLogger();
-    objc_claimAutoreleasedReturnValue();
-    [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
+    bOOLValue = [v45 BOOLValue];
+    if (bOOLValue)
+    {
+      v49 = gc_isInternalBuild(bOOLValue, v48);
+      if (v49)
+      {
+        getGCHapticsLogger(v49);
+        objc_claimAutoreleasedReturnValue();
+        [_GCHapticClientProxy(HapticServer) configureWithOptions:reply:];
+      }
+    }
   }
 
-  v28 = +[_GCHapticServerManager sharedInstance];
-  [v28 hapticClientProxyInitialized:self];
+  v50 = +[_GCHapticServerManager sharedInstance];
+  [v50 hapticClientProxyInitialized:self];
 
   replyCopy[2](replyCopy, self->_clientID);
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryCapabilities:(id)capabilities reply:(id)reply
@@ -742,35 +764,36 @@ LABEL_24:
 - (void)allocateClientResources:(id)resources
 {
   resourcesCopy = resources;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(resourcesCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) allocateClientResources:];
   }
 
-  v9 = xpc_null_create();
-  v8 = 5376;
-  v5 = HapticSharedMemory::allocate(&self->_sharedMemory, &v9, &v8);
-  if (v5)
+  v11 = xpc_null_create();
+  v10 = 5376;
+  v7 = HapticSharedMemory::allocate(&self->_sharedMemory, &v11, &v10);
+  if (v7)
   {
-    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.GameController.gamecontrollerd.haptics" code:v5 userInfo:0];
+    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.GameController.gamecontrollerd.haptics" code:v7 userInfo:0];
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  resourcesCopy[2](resourcesCopy, v9, v8, v6);
+  resourcesCopy[2](resourcesCopy, v11, v10, v8);
 
-  v7 = v9;
-  v9 = 0;
+  v9 = v11;
+  v11 = 0;
 }
 
 - (void)releaseClientResources
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [(_GCHapticClientProxy(HapticServer) *)self releaseClientResources];
   }
@@ -781,9 +804,10 @@ LABEL_24:
 - (void)getHapticLatency:(id)latency
 {
   latencyCopy = latency;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(latencyCopy, v4);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) getHapticLatency:];
   }
@@ -794,45 +818,46 @@ LABEL_24:
 - (void)setPlayerBehavior:(unint64_t)behavior reply:(id)reply
 {
   behaviorCopy = behavior;
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v7);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) setPlayerBehavior:reply:];
   }
 
-  v7 = behaviorCopy & 0x40;
-  if ([(_GCHapticClientProxy *)self isMutedForReason:0]!= v7 >> 6)
+  v9 = [(_GCHapticClientProxy *)self isMutedForReason:0];
+  v11 = behaviorCopy & 0x40;
+  if (v9 != v11 >> 6)
   {
-    if (gc_isInternalBuild())
+    v12 = gc_isInternalBuild(v9, v10);
+    if (v12)
     {
-      v9 = getGCHapticsLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = getGCHapticsLogger(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         identifier = [(_GCHapticClientProxy *)self identifier];
-        v11 = @"Unmute";
-        if (v7)
+        v15 = @"Unmute";
+        if (v11)
         {
-          v11 = @"Mute";
+          v15 = @"Mute";
         }
 
-        v13 = 138412546;
-        v14 = v11;
-        v15 = 2112;
+        v17 = 138412546;
+        v18 = v15;
+        v19 = 2112;
+        v20 = identifier;
         v16 = identifier;
-        v12 = identifier;
-        _os_log_impl(&dword_1D2CD5000, v9, OS_LOG_TYPE_INFO, "%@ haptics for client %@", &v13, 0x16u);
+        _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_INFO, "%@ haptics for client %@", &v17, 0x16u);
       }
     }
 
-    [(_GCHapticClientProxy *)self setMute:v7 != 0 forReason:0];
+    [(_GCHapticClientProxy *)self setMute:v11 != 0 forReason:0];
   }
 
   replyCopy[2](replyCopy, 0);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)teardownAndReleaseChannels
@@ -894,55 +919,58 @@ LABEL_24:
 
 - (void)setChannelEventBehavior:(unint64_t)behavior behavior:(unint64_t)a4 reply:(id)reply
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v10);
+  if (isInternalBuild)
   {
-    v15 = getGCHapticsLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v19 = getGCHapticsLogger(isInternalBuild);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       clientID = self->_clientID;
-      v23 = 134218496;
-      v24 = clientID;
-      v25 = 2048;
+      v27 = 134218496;
+      v28 = clientID;
+      v29 = 2048;
       behaviorCopy = behavior;
-      v27 = 2048;
-      v28 = a4;
-      _os_log_impl(&dword_1D2CD5000, v15, OS_LOG_TYPE_DEFAULT, "HapticClient %lu - setChannelEventBehavior %lu, behavior %lu", &v23, 0x20u);
+      v31 = 2048;
+      v32 = a4;
+      _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_DEFAULT, "HapticClient %lu - setChannelEventBehavior %lu, behavior %lu", &v27, 0x20u);
     }
   }
 
   hapticPlayers = self->_hapticPlayers;
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:behavior];
-  v12 = [(NSMutableDictionary *)hapticPlayers objectForKeyedSubscript:v11];
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:behavior];
+  v14 = [(NSMutableDictionary *)hapticPlayers objectForKeyedSubscript:v13];
 
-  if (v12)
+  if (v14)
   {
-    v13 = a4 & 2;
-    if ([v12 isMutedForReason:0] != v13 >> 1)
+    v15 = [v14 isMutedForReason:0];
+    v17 = a4 & 2;
+    if (v15 != v17 >> 1)
     {
-      if (gc_isInternalBuild())
+      v18 = gc_isInternalBuild(v15, v16);
+      if (v18)
       {
-        v19 = getGCHapticsLogger();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v23 = getGCHapticsLogger(v18);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          identifier = [v12 identifier];
-          v21 = identifier;
-          v22 = @"Unmute";
-          if (v13)
+          identifier = [v14 identifier];
+          v25 = identifier;
+          v26 = @"Unmute";
+          if (v17)
           {
-            v22 = @"Mute";
+            v26 = @"Mute";
           }
 
-          v23 = 138412546;
-          v24 = v22;
-          v25 = 2112;
+          v27 = 138412546;
+          v28 = v26;
+          v29 = 2112;
           behaviorCopy = identifier;
-          _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_INFO, "%@ haptics for player %@", &v23, 0x16u);
+          _os_log_impl(&dword_1D2CD5000, v23, OS_LOG_TYPE_INFO, "%@ haptics for player %@", &v27, 0x16u);
         }
       }
 
-      [v12 setMute:v13 != 0 forReason:0];
+      [v14 setMute:v17 != 0 forReason:0];
     }
 
     replyCopy[2](replyCopy, 0);
@@ -953,206 +981,211 @@ LABEL_24:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"GCHapticClientProxy.mm" lineNumber:618 description:@"Attempting to setChannelEventBehavior for unbound channel!"];
 
-    v18 = NSErrorFromOSStatus(-4804);
-    (replyCopy)[2](replyCopy, v18);
+    v22 = NSErrorFromOSStatus(-4804);
+    (replyCopy)[2](replyCopy, v22);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadHapticEvent:(id)event reply:(id)reply
 {
   eventCopy = event;
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v7);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) loadHapticEvent:reply:];
   }
 
-  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, -1, v7);
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, -1, v9);
 }
 
 - (void)loadHapticSequenceFromData:(id)data reply:(id)reply
 {
   dataCopy = data;
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v7);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) loadHapticSequenceFromData:reply:];
   }
 
-  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, -1, -1, v7, -1.0);
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, -1, -1, v9, -1.0);
 }
 
 - (void)loadHapticSequenceFromEvents:(id)events reply:(id)reply
 {
   eventsCopy = events;
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v7);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) loadHapticSequenceFromEvents:reply:];
   }
 
-  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, -1, -1, v7, -1.0);
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, -1, -1, v9, -1.0);
 }
 
 - (void)loadVibePattern:(id)pattern reply:(id)reply
 {
   patternCopy = pattern;
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v7);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) loadVibePattern:reply:];
   }
 
-  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, -1, v7);
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, -1, v9);
 }
 
 - (void)setSequenceEventBehavior:(unint64_t)behavior behavior:(unint64_t)a4 channelIndex:(unint64_t)index reply:(id)reply
 {
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v7);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) setSequenceEventBehavior:behavior:channelIndex:reply:];
+  }
+
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, v9);
+}
+
+- (void)createCustomAudioEvent:(id)event format:(id)format frames:(unint64_t)frames options:(id)options reply:(id)reply
+{
+  v31 = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  formatCopy = format;
+  optionsCopy = options;
+  replyCopy = reply;
+  isInternalBuild = gc_isInternalBuild(replyCopy, v16);
+  if (isInternalBuild)
+  {
+    v19 = getGCHapticsLogger(isInternalBuild);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      clientID = self->_clientID;
+      v21 = 134219010;
+      v22 = clientID;
+      v23 = 2112;
+      v24 = eventCopy;
+      v25 = 2112;
+      v26 = formatCopy;
+      v27 = 2048;
+      framesCopy = frames;
+      v29 = 2112;
+      v30 = optionsCopy;
+      _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_DEFAULT, "HapticClient %lu - createCustomAudioEvent %@ format %@, frames %lu, options %@", &v21, 0x34u);
+    }
+  }
+
+  v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, -1, v18);
+}
+
+- (void)copyCustomAudioEvent:(unint64_t)event options:(id)options reply:(id)reply
+{
+  v21 = *MEMORY[0x1E69E9840];
+  optionsCopy = options;
+  replyCopy = reply;
+  isInternalBuild = gc_isInternalBuild(replyCopy, v10);
+  if (isInternalBuild)
+  {
+    v13 = getGCHapticsLogger(isInternalBuild);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      clientID = self->_clientID;
+      v15 = 134218498;
+      v16 = clientID;
+      v17 = 2048;
+      eventCopy = event;
+      v19 = 2112;
+      v20 = optionsCopy;
+      _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_DEFAULT, "HapticClient %lu - copyCustomAudioEvent %lu, options %@", &v15, 0x20u);
+    }
+  }
+
+  v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, -1, v12);
+}
+
+- (void)referenceCustomAudioEvent:(unint64_t)event reply:(id)reply
+{
+  replyCopy = reply;
+  isInternalBuild = gc_isInternalBuild(replyCopy, v5);
+  if (isInternalBuild)
+  {
+    getGCHapticsLogger(isInternalBuild);
+    objc_claimAutoreleasedReturnValue();
+    [_GCHapticClientProxy(HapticServer) referenceCustomAudioEvent:reply:];
   }
 
   v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
   replyCopy[2](replyCopy, v7);
 }
 
-- (void)createCustomAudioEvent:(id)event format:(id)format frames:(unint64_t)frames options:(id)options reply:(id)reply
-{
-  v30 = *MEMORY[0x1E69E9840];
-  eventCopy = event;
-  formatCopy = format;
-  optionsCopy = options;
-  replyCopy = reply;
-  if (gc_isInternalBuild())
-  {
-    v18 = getGCHapticsLogger();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      clientID = self->_clientID;
-      v20 = 134219010;
-      v21 = clientID;
-      v22 = 2112;
-      v23 = eventCopy;
-      v24 = 2112;
-      v25 = formatCopy;
-      v26 = 2048;
-      framesCopy = frames;
-      v28 = 2112;
-      v29 = optionsCopy;
-      _os_log_impl(&dword_1D2CD5000, v18, OS_LOG_TYPE_DEFAULT, "HapticClient %lu - createCustomAudioEvent %@ format %@, frames %lu, options %@", &v20, 0x34u);
-    }
-  }
-
-  v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, -1, v16);
-
-  v17 = *MEMORY[0x1E69E9840];
-}
-
-- (void)copyCustomAudioEvent:(unint64_t)event options:(id)options reply:(id)reply
-{
-  v20 = *MEMORY[0x1E69E9840];
-  optionsCopy = options;
-  replyCopy = reply;
-  if (gc_isInternalBuild())
-  {
-    v12 = getGCHapticsLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      clientID = self->_clientID;
-      v14 = 134218498;
-      v15 = clientID;
-      v16 = 2048;
-      eventCopy = event;
-      v18 = 2112;
-      v19 = optionsCopy;
-      _os_log_impl(&dword_1D2CD5000, v12, OS_LOG_TYPE_DEFAULT, "HapticClient %lu - copyCustomAudioEvent %lu, options %@", &v14, 0x20u);
-    }
-  }
-
-  v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, -1, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-- (void)referenceCustomAudioEvent:(unint64_t)event reply:(id)reply
-{
-  replyCopy = reply;
-  if (gc_isInternalBuild())
-  {
-    getGCHapticsLogger();
-    objc_claimAutoreleasedReturnValue();
-    [_GCHapticClientProxy(HapticServer) referenceCustomAudioEvent:reply:];
-  }
-
-  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, v5);
-}
-
 - (void)releaseCustomAudioEvent:(unint64_t)event reply:(id)reply
 {
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) releaseCustomAudioEvent:reply:];
   }
 
-  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, v5);
+  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, v7);
 }
 
 - (void)removeCustomAudioEvent:(unint64_t)event reply:(id)reply
 {
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) removeCustomAudioEvent:reply:];
   }
 
-  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, v5);
+  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, v7);
 }
 
 - (void)prepareHapticSequence:(unint64_t)sequence reply:(id)reply
 {
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) prepareHapticSequence:reply:];
   }
 
-  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
-  replyCopy[2](replyCopy, v5);
+  v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CoreHaptics" code:-4809 userInfo:0];
+  replyCopy[2](replyCopy, v7);
 }
 
 - (void)detachSequence:(unint64_t)sequence
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [_GCHapticClientProxy(HapticServer) detachSequence:?];
   }
@@ -1161,9 +1194,10 @@ LABEL_24:
 - (void)prewarm:(id)prewarm
 {
   prewarmCopy = prewarm;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(prewarmCopy, v4);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) prewarm:];
   }
@@ -1173,7 +1207,7 @@ LABEL_24:
 
 - (void)stopPrewarm
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [(_GCHapticClientProxy(HapticServer) *)self stopPrewarm];
   }
@@ -1182,9 +1216,10 @@ LABEL_24:
 - (void)startRunning:(id)running
 {
   runningCopy = running;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(runningCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) startRunning:];
   }
@@ -1195,7 +1230,7 @@ LABEL_24:
 
 - (void)stopRunning
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [(_GCHapticClientProxy(HapticServer) *)self stopRunning];
   }
@@ -1206,9 +1241,10 @@ LABEL_24:
 - (void)stopRunning:(id)running
 {
   runningCopy = running;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(runningCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) stopRunning:];
   }
@@ -1221,9 +1257,10 @@ LABEL_24:
 - (void)debugExpectNotifyOnFinishAfter:(double)after reply:(id)reply
 {
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v5);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     [_GCHapticClientProxy(HapticServer) debugExpectNotifyOnFinishAfter:reply:];
   }
@@ -1234,73 +1271,57 @@ LABEL_24:
 - (void)_initWithConnection:server:clientID:.cold.1()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_8_8(v2))
+  if (OUTLINED_FUNCTION_8_8(v1))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)setBundleIdentifier:(unsigned __int8 *)a3 .cold.1(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+- (void)setBundleIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_6_4();
-  v5 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v6))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
-    v7 = *a3;
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v8, v9, v10, v11, v12, 0x12u);
+    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyClientOnStopWithReason:error:.cold.1()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v2))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
     OUTLINED_FUNCTION_1_9();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
+    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyClientCompletedWithError:.cold.1()
 {
   OUTLINED_FUNCTION_3_12();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v2))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
     OUTLINED_FUNCTION_1_9();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
+    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)setComplete:.cold.1()
+- (void)setComplete:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = getGCHapticsLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = getGCHapticsLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_10_9();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

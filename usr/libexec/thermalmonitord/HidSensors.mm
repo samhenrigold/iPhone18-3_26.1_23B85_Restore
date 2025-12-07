@@ -68,7 +68,6 @@ LABEL_69:
         if (self->_callbackTemperaturesQueue)
         {
           self->_callbackTemperatures = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, 0, &kCFTypeDictionaryValueCallBacks);
-          hidEventSystem = self->_hidEventSystem;
           IOHIDEventSystemClientRegisterEventCallback();
         }
 
@@ -76,22 +75,22 @@ LABEL_69:
         self->_serviceToName = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, 0, &kCFTypeDictionaryValueCallBacks);
         hidSensorKeys = [+[HidSensors sharedInstance](HidSensors hidSensorKeys];
         tempSensors = self->_tempSensors;
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_10000DB94;
-        v48[3] = &unk_1000851C8;
-        v48[4] = v3;
-        v48[5] = hidSensorKeys;
-        v48[6] = self;
-        v35 = [(__CFArray *)tempSensors filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:v48]];
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = sub_10000DB94;
+        v47[3] = &unk_1000851C8;
+        v47[4] = v3;
+        v47[5] = hidSensorKeys;
+        v47[6] = self;
+        v34 = [(__CFArray *)tempSensors filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:v47]];
         CFRelease(self->_tempSensors);
-        self->_tempSensors = v35;
-        if (v35)
+        self->_tempSensors = v34;
+        if (v34)
         {
-          CFRetain(v35);
-          v36 = CFArrayGetCount(self->_tempSensors);
-          self->_count = v36;
-          if (v36 != CFArrayGetCount(self->hidSensorKeys) - self->_shadowSensorCount && os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+          CFRetain(v34);
+          v35 = CFArrayGetCount(self->_tempSensors);
+          self->_count = v35;
+          if (v35 != CFArrayGetCount(self->hidSensorKeys) - self->_shadowSensorCount && os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
           {
             sub_1000510F8();
           }
@@ -117,11 +116,11 @@ LABEL_69:
       }
     }
 
-    v37 = qword_1000AB718;
+    v36 = qword_1000AB718;
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "<Notice> Could not create HIDArray (will retry)", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "<Notice> Could not create HIDArray (will retry)", buf, 2u);
     }
 
     return 0;
@@ -172,7 +171,7 @@ LABEL_2:
         goto LABEL_40;
       }
 
-      v47 = 0;
+      v46 = 0;
       if (self->_callbackTemperaturesQueue)
       {
         callbackTemperatures = self->_callbackTemperatures;
@@ -183,7 +182,7 @@ LABEL_2:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
-            LODWORD(v50) = 0;
+            LODWORD(v49) = 0;
             callbackTemperaturesQueue = self->_callbackTemperaturesQueue;
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
@@ -220,7 +219,7 @@ LABEL_2:
       }
 
       value = [+[SensorDispatcherHelper sharedInstance](SensorDispatcherHelper getTemperatureFromSMCForKey:"getTemperatureFromSMCForKey:", Value];
-      v47 = value;
+      v46 = value;
       if (value == -12800)
       {
         break;
@@ -232,7 +231,7 @@ LABEL_2:
         v20 = self->_sensorDict;
         if (v19)
         {
-          sub_100002FB4(v20, Value, kCFNumberSInt32Type, &v47);
+          sub_100002FB4(v20, Value, kCFNumberSInt32Type, &v46);
           goto LABEL_35;
         }
 
@@ -250,17 +249,17 @@ LABEL_34:
         valuePtr = v17;
         if (!value2)
         {
-          v44 = (v17 * 100.0);
-          v43 = 0;
-          if (sub_100002A20(self->_potentiallyStaleSensorTimestamps, Value, kCFNumberLongType, &v43))
+          v43 = (v17 * 100.0);
+          v42 = 0;
+          if (sub_100002A20(self->_potentiallyStaleSensorTimestamps, Value, kCFNumberLongType, &v42))
           {
             TimeStamp = IOHIDEventGetTimeStamp();
-            if (TimeStamp == v43)
+            if (TimeStamp == v42)
             {
               goto LABEL_48;
             }
 
-            if (!v43)
+            if (!v42)
             {
               info = 0;
               if (!mach_timebase_info(&info))
@@ -274,23 +273,23 @@ LABEL_34:
                   *buf = 138413058;
                   *&buf[4] = Value;
                   *&buf[12] = 2048;
-                  *&buf[14] = v43;
+                  *&buf[14] = v42;
                   *&buf[22] = 2048;
-                  v50 = TimeStamp;
-                  v51 = 2048;
-                  v52 = v28;
+                  v49 = TimeStamp;
+                  v50 = 2048;
+                  v51 = v28;
                   _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "<Notice> Sensor reset for %@, prior %lld, event %lld, now %lld", buf, 0x2Au);
                 }
 
                 if (TimeStamp + 60000000000 * denom / numer < v28)
                 {
 LABEL_48:
-                  sub_100002A20(self->_potentiallyStaleSensorDefaults, Value, kCFNumberSInt32Type, &v44);
+                  sub_100002A20(self->_potentiallyStaleSensorDefaults, Value, kCFNumberSInt32Type, &v43);
                 }
               }
             }
 
-            if (TimeStamp != v43)
+            if (TimeStamp != v42)
             {
               sub_100002FB4(self->_potentiallyStaleSensorTimestamps, Value, kCFNumberLongType, &TimeStamp);
             }
@@ -302,7 +301,7 @@ LABEL_48:
             goto LABEL_28;
           }
 
-          sub_100002FB4(self->_sensorDict, Value, kCFNumberSInt32Type, &v44);
+          sub_100002FB4(self->_sensorDict, Value, kCFNumberSInt32Type, &v43);
 LABEL_35:
           tempOffsetDict = self->_tempOffsetDict;
           if (tempOffsetDict)
@@ -579,7 +578,7 @@ LABEL_28:
             sub_100050BB0(&v32, v33);
           }
 
-          v17 = sub_100031D48(v15, @"filterParams_INTMIN");
+          v17 = sub_100031D48(v15, @"filterParams_INTMIN") != 0;
           *(p_last - 1) = v34;
           *p_last = v17 << 31;
           if (sub_100031D64(v15, @"requiresWatchDog", 1))
@@ -1164,10 +1163,8 @@ LABEL_28:
 
       if (Mutable)
       {
-        hidEventSystem = self->_hidEventSystem;
         IOHIDEventSystemClientSetMatchingMultiple();
         CFRelease(Mutable);
-        v12 = self->_hidEventSystem;
 
         IOHIDEventSystemClientScheduleWithRunLoop();
       }

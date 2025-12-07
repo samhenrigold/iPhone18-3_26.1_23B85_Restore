@@ -46,7 +46,7 @@
 
 - (void)setString:(id)string
 {
-  if (([string isEqualToString:self->_string] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(string, a2, self->_string) & 1) == 0)
   {
 
     self->_string = [string copy];
@@ -63,7 +63,7 @@
 
 - (void)setFont:(id)font
 {
-  if (([(UIFont *)[(_UILegibilityLabel *)self font] isEqual:font]& 1) == 0)
+  if ((objc_msgSend_isEqual_([(_UILegibilityLabel *)self font]) & 1) == 0)
   {
 
     self->_font = font;

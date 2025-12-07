@@ -17,13 +17,11 @@
 
   if (outcome)
   {
-    outcome = self->_outcome;
     PBDataWriterWriteStringField();
   }
 
   if (*&self->_has)
   {
-    isSuccess = self->_isSuccess;
     PBDataWriterWriteBOOLField();
   }
 }

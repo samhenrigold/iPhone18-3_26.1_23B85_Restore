@@ -427,7 +427,7 @@ LABEL_15:
   [(PGPrerollIndicatorView *)self labelSize];
   [(UILabel *)self->_contentTypeLabel setFrame:v6, v7, v10 + 12.0, v9];
   v11 = self->_contentTypeLabel;
-  [(PGPrerollIndicatorView *)self _subviewTransform];
+  objc_msgSend__subviewTransform(self);
   [(UILabel *)v11 setTransform:v12];
   [(UILabel *)self->_contentTypeLabel setFrameOrigin:v6, v7];
 }
@@ -456,7 +456,7 @@ LABEL_15:
   [objc_opt_class() preferredHeight];
   [(PGButtonView *)self->_skipPrerollButtonView setFrame:v14, 0.0, v10, v15];
   v16 = self->_skipPrerollButtonView;
-  [(PGPrerollIndicatorView *)self _subviewTransform];
+  objc_msgSend__subviewTransform(self);
   [(PGButtonView *)v16 setTransform:v19];
   v17 = self->_skipPrerollButtonView;
   [(PGPrerollIndicatorView *)self bounds];

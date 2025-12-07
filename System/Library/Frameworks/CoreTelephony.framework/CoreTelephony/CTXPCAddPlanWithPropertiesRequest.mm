@@ -12,25 +12,24 @@
 
 - (CTXPCAddPlanWithPropertiesRequest)initWithRequest:(id)request appName:(id)name appType:(unint64_t)type properties:(id)properties
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   nameCopy = name;
   propertiesCopy = properties;
-  v19[0] = @"request";
-  v19[1] = @"appName";
-  v20[0] = requestCopy;
-  v20[1] = nameCopy;
-  v19[2] = @"appType";
+  v18[0] = @"request";
+  v18[1] = @"appName";
+  v19[0] = requestCopy;
+  v19[1] = nameCopy;
+  v18[2] = @"appType";
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-  v19[3] = @"properties";
-  v20[2] = v13;
-  v20[3] = propertiesCopy;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
-  v18.receiver = self;
-  v18.super_class = CTXPCAddPlanWithPropertiesRequest;
-  v15 = [(CTXPCMessage *)&v18 initWithNamedArguments:v14];
+  v18[3] = @"properties";
+  v19[2] = v13;
+  v19[3] = propertiesCopy;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v17.receiver = self;
+  v17.super_class = CTXPCAddPlanWithPropertiesRequest;
+  v15 = [(CTXPCMessage *)&v17 initWithNamedArguments:v14];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -60,18 +59,16 @@ void __81__CTXPCAddPlanWithPropertiesRequest_performRequestWithHandler_completio
 
 + (id)allowedClassesForArguments
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCAddPlanWithPropertiesRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
+  v7[4] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCAddPlanWithPropertiesRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v7[3] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

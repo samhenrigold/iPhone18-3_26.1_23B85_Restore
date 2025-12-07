@@ -191,12 +191,12 @@ LABEL_10:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v9 = objc_msgSend_vertex(selfCopy, v5, v6, v7, v8);
-  objc_msgSend_bufferInfo(v9, v10, v11, v12, v13);
-  v18 = objc_msgSend_resourceWithType_resource_arrays_geometry_(TSCH3DGeometryResource, v14, v15, v16, v17, v3, v9, selfCopy->_arrays, selfCopy->_geometry);
+  objc_msgSend_bufferInfo(v9, v10, v11, v12);
+  v17 = objc_msgSend_resourceWithType_resource_arrays_geometry_(TSCH3DGeometryResource, v13, v14, v15, v16, v3, v9, selfCopy->_arrays, selfCopy->_geometry);
 
   objc_sync_exit(selfCopy);
 
-  return v18;
+  return v17;
 }
 
 - (void)regenerateBounds

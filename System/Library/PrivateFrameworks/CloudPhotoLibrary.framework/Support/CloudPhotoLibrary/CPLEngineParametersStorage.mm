@@ -41,9 +41,9 @@
   defaultsCopy = defaults;
   identifierCopy = identifier;
   identifiersCopy = identifiers;
-  v36.receiver = self;
-  v36.super_class = CPLEngineParametersStorage;
-  v12 = [(CPLEngineParametersStorage *)&v36 init];
+  v37.receiver = self;
+  v37.super_class = CPLEngineParametersStorage;
+  v12 = [(CPLEngineParametersStorage *)&v37 init];
   v13 = v12;
   if (v12)
   {
@@ -66,7 +66,8 @@ LABEL_37:
     }
 
     v20 = [v18 objectForKeyedSubscript:@"libraryIdentifier"];
-    if ([v20 isEqualToString:@"MobileSlideShow"])
+    v21 = [v20 isEqualToString:@"MobileSlideShow"];
+    if (v21)
     {
       sub_1001903E4(v20, buf);
       v20 = *buf;
@@ -74,16 +75,17 @@ LABEL_37:
       {
 LABEL_5:
         v21 = [(CPLEngineParametersStorage *)v13 keyForLibraryIdentifier:v20 error:0];
+        v22 = v21;
         if (!v21)
         {
           v23 = 0;
           goto LABEL_15;
         }
 
-        v22 = [(CPLEngineParametersStorage *)v13 _savedParametersForKey:v21];
-        if (v22)
+        v21 = [(CPLEngineParametersStorage *)v13 _savedParametersForKey:v21];
+        if (v21)
         {
-          v23 = v22;
+          v23 = v21;
 LABEL_15:
           if (_CPLSilentLogging)
           {
@@ -93,7 +95,7 @@ LABEL_36:
             goto LABEL_37;
           }
 
-          v24 = sub_100023BA4();
+          v24 = sub_100023BA4(v21);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
@@ -108,8 +110,8 @@ LABEL_35:
 
         v24 = [v19 objectForKeyedSubscript:@"clientLibraryBasePath"];
         v25 = [v19 objectForKeyedSubscript:@"cloudLibraryStateStoragePath"];
-        v34 = [v19 objectForKeyedSubscript:@"cloudLibraryResourceStoragePath"];
-        v32 = v24;
+        v35 = [v19 objectForKeyedSubscript:@"cloudLibraryResourceStoragePath"];
+        v33 = v24;
         if (v24)
         {
           v24 = [NSURL fileURLWithPath:v24 isDirectory:1];
@@ -117,43 +119,43 @@ LABEL_35:
 
         if (v25)
         {
-          v33 = [NSURL fileURLWithPath:v25 isDirectory:1];
+          v34 = [NSURL fileURLWithPath:v25 isDirectory:1];
         }
 
         else
         {
-          v33 = 0;
+          v34 = 0;
         }
 
-        if (v34)
+        if (v35)
         {
-          v35 = [NSURL fileURLWithPath:v34 isDirectory:1];
+          v36 = [NSURL fileURLWithPath:v35 isDirectory:1];
         }
 
         else
         {
-          v35 = 0;
+          v36 = 0;
         }
 
         v26 = [v19 objectForKeyedSubscript:@"options"];
         integerValue = [v26 integerValue];
 
-        if (v25 && v24 && v35)
+        if (v25 && v24 && v36)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v27 = sub_100023BA4();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v28 = sub_100023BA4(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
               *&buf[4] = v20;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Upgrading old engine info for %{public}@", buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Upgrading old engine info for %{public}@", buf, 0xCu);
             }
           }
 
-          v28 = [CPLEngineParameters alloc];
-          v29 = [(CPLEngineParameters *)v28 initWithClientLibraryBaseURL:v24 cloudLibraryStateStorageURL:v33 cloudLibraryResourceStorageURL:v35 libraryIdentifier:v20 mainScopeIdentifier:CPLPrimaryScopeIdentifier options:integerValue];
-          [(CPLEngineParametersStorage *)v13 _saveParameters:v29 withKey:v21];
+          v29 = [CPLEngineParameters alloc];
+          v30 = [(CPLEngineParameters *)v29 initWithClientLibraryBaseURL:v24 cloudLibraryStateStorageURL:v34 cloudLibraryResourceStorageURL:v36 libraryIdentifier:v20 mainScopeIdentifier:CPLPrimaryScopeIdentifier options:integerValue];
+          [(CPLEngineParametersStorage *)v13 _saveParameters:v30 withKey:v22];
         }
 
         else
@@ -166,14 +168,14 @@ LABEL_34:
             goto LABEL_35;
           }
 
-          v29 = sub_100023BA4();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v30 = sub_100023BA4(v27);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
             *&buf[4] = v20;
-            v38 = 2112;
-            v39 = v19;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Discarding old invalid engine info for %{public}@: %@", buf, 0x16u);
+            v39 = 2112;
+            v40 = v19;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Discarding old invalid engine info for %{public}@: %@", buf, 0x16u);
           }
         }
 
@@ -187,7 +189,7 @@ LABEL_34:
     }
 
     v23 = 0;
-    v21 = 0;
+    v22 = 0;
     goto LABEL_15;
   }
 
@@ -204,20 +206,21 @@ LABEL_38:
   {
     v6 = [[CPLEngineParameters alloc] initWithPlist:v5];
     asPlist = [(CPLEngineParameters *)v6 asPlist];
-    if (([asPlist isEqual:v5] & 1) == 0)
+    v8 = [asPlist isEqual:v5];
+    if ((v8 & 1) == 0)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v8 = sub_100023BA4();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_100023BA4(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 138543874;
-          v11 = keyCopy;
-          v12 = 2112;
-          v13 = v5;
-          v14 = 2112;
-          v15 = asPlist;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating plist for %{public}@ from %@ to %@", &v10, 0x20u);
+          v11 = 138543874;
+          v12 = keyCopy;
+          v13 = 2112;
+          v14 = v5;
+          v15 = 2112;
+          v16 = asPlist;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updating plist for %{public}@ from %@ to %@", &v11, 0x20u);
         }
       }
 

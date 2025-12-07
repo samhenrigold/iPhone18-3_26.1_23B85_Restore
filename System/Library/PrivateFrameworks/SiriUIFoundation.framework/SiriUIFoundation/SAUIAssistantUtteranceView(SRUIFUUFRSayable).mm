@@ -6,7 +6,7 @@
 
 - (id)sruif__uufrSaid
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277D5AC48]);
   dialogIdentifier = [self dialogIdentifier];
   [v2 setDialogIdentifier:dialogIdentifier];
@@ -17,10 +17,8 @@
   encodedClassName = [self encodedClassName];
   [v2 setAceViewClass:encodedClassName];
 
-  v9[0] = v2;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v2;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }

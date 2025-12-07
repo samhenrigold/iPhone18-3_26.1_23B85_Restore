@@ -9,7 +9,7 @@ uint64_t start(int a1, char **a2)
   return v7;
 }
 
-void sub_100002474(CFIndex a1, const __CFString *a2, __CFString *cf, CFTypeRef *a4, CFStringRef format, va_list arguments)
+void sub_100002474(CFIndex a1, const __CFString *a2, __CFString *cf, CFErrorRef *a4, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -242,7 +242,7 @@ BOOL sub_1000027EC(void *a1, void *a2, __CFString **a3)
   return result;
 }
 
-xpc_object_t sub_100002A2C(xpc_object_t message, CFTypeRef *a2)
+xpc_object_t sub_100002A2C(xpc_object_t message, CFErrorRef *a2)
 {
   if (qword_10000D4E8 != -1)
   {
@@ -310,7 +310,7 @@ void sub_100002BAC(id a1, void *a2)
   }
 }
 
-xpc_object_t sub_100002C64(unsigned int a1, CFTypeRef *a2)
+xpc_object_t sub_100002C64(unsigned int a1, CFErrorRef *a2)
 {
   v4 = xpc_dictionary_create(0, 0, 0);
   v8 = v4;
@@ -339,7 +339,7 @@ BOOL sub_100002CD8(void *a1, uint64_t *a2)
   return v4 == 0;
 }
 
-BOOL sub_100002D24(const void *a1, uint64_t a2, CFTypeRef *a3)
+BOOL sub_100002D24(const void *a1, uint64_t a2, CFErrorRef *a3)
 {
   v6 = sub_100002C64(6u, a3);
   if (v6)

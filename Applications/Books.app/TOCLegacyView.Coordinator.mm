@@ -126,18 +126,19 @@
   controllerCopy = controller;
   chapterCopy = chapter;
   selfCopy = self;
-  v9 = sub_100674D60(chapter);
+  sub_100674D60(chapter);
+  v10 = v9;
 
-  return v9;
+  return v10;
 }
 
 - (void)tocViewController:(id)controller shareAnnotations:(id)annotations sourceView:(id)view
 {
-  v7 = sub_1001F1160(&unk_100AE6A30);
+  v7 = sub_1001F1160(&unk_100AE6A30, &unk_100812750);
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = &v16 - v9;
-  sub_10000A7C4(0, &qword_100AECB40);
+  sub_10000A7C4(0, &qword_100AECB40, AEAnnotation_ptr);
   v11 = sub_1007A25E4();
   v12 = self + OBJC_IVAR____TtCV5Books13TOCLegacyView11Coordinator_parent;
   swift_beginAccess();
@@ -225,7 +226,7 @@
   v16 = v10;
   v13[15] = editing;
 
-  sub_1001F1160(&qword_100AF10C0);
+  sub_1001F1160(&qword_100AF10C0, &qword_100824EC8);
   sub_10079E1D4();
   sub_100674224(v8);
 }

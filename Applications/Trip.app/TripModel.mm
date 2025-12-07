@@ -20,7 +20,7 @@
   [defaultCenter removeObserver:static NSNotificationName.ClusterEvent];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for TripModel();
+  v6.super_class = type metadata accessor for TripModel(0);
   [(TripModel *)&v6 dealloc];
 }
 
@@ -28,16 +28,16 @@
 {
   accessoriesCopy = accessories;
   selfCopy = self;
-  v5 = sub_100034CE8(0xD000000000000027, 0x80000001000431F0, 0xD00000000000001BLL, 0x80000001000431D0, 240);
-  sub_10001BC14(v5);
+  sub_100034CE8(0xD000000000000027, 0x80000001000431F0, 0xD00000000000001BLL, 0x80000001000431D0, 240);
+  sub_10001BC14();
 }
 
 - (void)carDidUpdate:(id)update receivedAllValues:(BOOL)values
 {
   updateCopy = update;
   selfCopy = self;
-  v6 = sub_100034CE8(0xD00000000000002ELL, 0x80000001000431A0, 0xD000000000000022, 0x8000000100043170, 245);
-  sub_10001BC14(v6);
+  sub_100034CE8(0xD00000000000002ELL, 0x80000001000431A0, 0xD000000000000022, 0x8000000100043170, 245);
+  sub_10001BC14();
 }
 
 - (_TtC4Trip9TripModel)init

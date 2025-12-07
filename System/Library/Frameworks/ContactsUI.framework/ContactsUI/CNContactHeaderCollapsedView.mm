@@ -107,8 +107,8 @@ LABEL_12:
     v13.receiver = self;
     v13.super_class = CNContactHeaderCollapsedView;
     [(CNContactHeaderView *)&v13 reloadDataPreservingChanges:changesCopy];
-    contacts = [(CNContactHeaderView *)self contacts];
-    v9 = [(CNContactHeaderCollapsedView *)self _headerStringForContacts:contacts];
+    v8 = objc_msgSend_contacts(self);
+    v9 = [(CNContactHeaderCollapsedView *)self _headerStringForContacts:v8];
 
     if (v9)
     {
@@ -135,16 +135,16 @@ LABEL_12:
 {
   photoView = [(CNContactHeaderView *)self photoView];
   isHidden = [photoView isHidden];
-  contacts = [(CNContactHeaderView *)self contacts];
-  if ([contacts count] > 1)
+  v4 = objc_msgSend_contacts(self);
+  if ([v4 count] > 1)
   {
     [photoView setHidden:0];
   }
 
   else
   {
-    contacts2 = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
     if ([firstObject imageDataAvailable])
     {
       v7 = 0;
@@ -548,10 +548,11 @@ void __49__CNContactHeaderCollapsedView_updateConstraints__block_invoke(uint64_t
 
 - (void)didFinishUsing
 {
+  v2 = sCollapsedContactHeaderView;
   if (sCollapsedContactHeaderView == self)
   {
     sCollapsedContactHeaderView = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, v2);
   }
 }
 
@@ -615,8 +616,8 @@ void __49__CNContactHeaderCollapsedView_updateConstraints__block_invoke(uint64_t
 
 - (void)updateBackgroundWithPosterSnapshotImage:(id)image
 {
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v4 = objc_msgSend_contacts(self, a2, image);
+  firstObject = [v4 firstObject];
   backgroundColors = [firstObject backgroundColors];
   contactPoster = [backgroundColors contactPoster];
 

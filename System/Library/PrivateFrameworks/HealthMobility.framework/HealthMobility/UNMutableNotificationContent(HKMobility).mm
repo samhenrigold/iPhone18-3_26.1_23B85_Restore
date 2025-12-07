@@ -95,25 +95,15 @@ LABEL_5:
   return v16;
 }
 
-+ (void)_hkmobility_contentWithCategory:()HKMobility shouldHidePregnancyContent:expirationDate:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_251952000, v0, v1, "[UNNotificationRequest+HKMobility] Unable to localize notification title for category: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_makeUserInfoForCategory:()HKMobility isShowingPregnancyContent:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v7 = 2112;
-  v8 = a3;
-  _os_log_error_impl(&dword_251952000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to determine URL for category: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 2112;
+  v7 = a3;
+  _os_log_error_impl(&dword_251952000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to determine URL for category: %@", v5, 0x16u);
 }
 
 @end

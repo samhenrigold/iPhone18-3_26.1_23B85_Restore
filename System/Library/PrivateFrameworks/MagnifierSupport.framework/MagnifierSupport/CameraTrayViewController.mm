@@ -163,31 +163,31 @@
 {
   v0 = sub_257ECF120();
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v7[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v0, v2, v3, v4, v5);
+  v7 = &v15[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (qword_281544FE0 != -1)
   {
     swift_once();
   }
 
-  v4 = qword_281548348 + OBJC_IVAR____TtCV16MagnifierSupport13MFEnvironment12UserControls__longPressHintShouldDisplay;
+  v8 = qword_281548348 + OBJC_IVAR____TtCV16MagnifierSupport13MFEnvironment12UserControls__longPressHintShouldDisplay;
   swift_beginAccess();
-  v8[0] = 0;
+  v16[0] = 0;
   if (qword_2815447E0 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_257ECF110();
-  MEMORY[0x28223BE20](v5);
-  *&v7[-16] = v8;
-  *&v7[-8] = v4;
+  v9 = sub_257ECF110();
+  MEMORY[0x28223BE20](v9, v10, v11, v12, v13);
+  *&v15[-16] = v16;
+  *&v15[-8] = v8;
   sub_257ECFD40();
-  (*(v1 + 8))(v3, v0);
+  (*(v1 + 8))(v7, v0);
   swift_endAccess();
   swift_getKeyPath();
   swift_getKeyPath();
-  v8[1] = 1;
+  v16[1] = 1;
   sub_257ECC3F0();
   return sub_257ECDD70();
 }

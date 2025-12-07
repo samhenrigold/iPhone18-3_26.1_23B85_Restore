@@ -48,10 +48,10 @@
 
       if ((v11 & 1) == 0)
       {
-        v12 = sub_100002660();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = sub_100002660(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          sub_1001C0730(self);
+          sub_1001C0730(self, v8);
         }
 
         [(BCCloudData *)self setSystemFields:0];
@@ -72,36 +72,36 @@
       {
         recordType2 = [(BCCloudData *)self recordType];
         identifier3 = [(BCCloudData *)self identifier];
-        v17 = [privacyDelegate recordNameFromRecordType:recordType2 identifier:identifier3];
+        v18 = [privacyDelegate recordNameFromRecordType:recordType2 identifier:identifier3];
 
-        if (v17)
+        if (v18)
         {
           saltedHashedID = [(BCCloudData *)self saltedHashedID];
 
           if (!saltedHashedID)
           {
-            [(BCCloudData *)self setSaltedHashedID:v17];
+            [(BCCloudData *)self setSaltedHashedID:v18];
           }
 
-          v19 = [CKRecordZoneID alloc];
+          v21 = [CKRecordZoneID alloc];
           zoneName = [(BCCloudData *)self zoneName];
-          v21 = [v19 initWithZoneName:zoneName ownerName:CKCurrentUserDefaultName];
+          v23 = [v21 initWithZoneName:zoneName ownerName:CKCurrentUserDefaultName];
 
-          v22 = [[CKRecordID alloc] initWithRecordName:v17 zoneID:v21];
-          v23 = [CKRecord alloc];
+          v24 = [[CKRecordID alloc] initWithRecordName:v18 zoneID:v23];
+          v25 = [CKRecord alloc];
           recordType3 = [(BCCloudData *)self recordType];
-          v25 = [v23 initWithRecordType:recordType3 recordID:v22];
+          v27 = [v25 initWithRecordType:recordType3 recordID:v24];
 
-          [(BCCloudData *)self setSystemFields:v25];
+          [(BCCloudData *)self setSystemFields:v27];
           [(BCCloudData *)self incrementEditGeneration];
 
-          ckSystemFields = v25;
+          ckSystemFields = v27;
         }
 
         else
         {
-          v21 = sub_100002660();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v23 = sub_100002660(v19);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             sub_1001C07FC(self);
           }
@@ -311,20 +311,8 @@ LABEL_12:
 {
   recordCopy = record;
   systemFields = [(BCCloudData *)self systemFields];
-  if (!systemFields)
+  if (!systemFields || (v6 = systemFields, -[BCCloudData systemFields](self, "systemFields"), v7 = objc_claimAutoreleasedReturnValue(), [v7 recordChangeTag], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(recordCopy, "recordChangeTag"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, v6, (v10 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v6 = systemFields;
-  systemFields2 = [(BCCloudData *)self systemFields];
-  recordChangeTag = [systemFields2 recordChangeTag];
-  recordChangeTag2 = [recordCopy recordChangeTag];
-  v10 = [recordChangeTag isEqualToString:recordChangeTag2];
-
-  if ((v10 & 1) == 0)
-  {
-LABEL_3:
     [(BCCloudData *)self setSystemFields:recordCopy];
     recordID = [recordCopy recordID];
     recordName = [recordID recordName];
@@ -354,25 +342,25 @@ LABEL_3:
 
     if (recordName)
     {
-      v16 = sub_10000DB80();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_10000DB80(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         recordID2 = [v8 recordID];
         recordName2 = [recordID2 recordName];
-        v20 = 138543874;
-        v21 = recordName2;
-        v22 = 2114;
-        v23 = v11;
-        v24 = 1024;
-        v25 = v14;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "\\Comparing %{public}@ record name %{public}@  hasValidSalt:%{BOOL}d\\"", &v20, 0x1Cu);
+        v21 = 138543874;
+        v22 = recordName2;
+        v23 = 2114;
+        v24 = v11;
+        v25 = 1024;
+        v26 = v14;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "\\Comparing %{public}@ record name %{public}@  hasValidSalt:%{BOOL}d\", &v21, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v8 = sub_100002660();
+    v8 = sub_100002660(ckSystemFields);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1001C0668(privacyDelegate, self);
@@ -447,14 +435,14 @@ LABEL_8:
 
   if (verboseLoggingEnabled)
   {
-    v5 = sub_10000DB80();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000DB80(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134218242;
+      v7 = 134218242;
       editGeneration = [(BCCloudData *)self editGeneration];
-      v8 = 2112;
+      v9 = 2112;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "\\Incrementing edit generation to: %lld for %@\\"", &v6, 0x16u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "\\Incrementing edit generation to: %lld for %@\", &v7, 0x16u);
     }
   }
 }
@@ -471,7 +459,7 @@ LABEL_8:
 
 - (id)recordType
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C088C();
@@ -482,7 +470,7 @@ LABEL_8:
 
 - (id)identifier
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C08C0();
@@ -493,7 +481,7 @@ LABEL_8:
 
 - (id)zoneName
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C08F4();
@@ -504,7 +492,7 @@ LABEL_8:
 
 + (id)propertyIDKey
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C0928();

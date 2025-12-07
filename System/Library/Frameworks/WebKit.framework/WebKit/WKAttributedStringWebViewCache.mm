@@ -7,16 +7,16 @@ uint64_t __58___WKAttributedStringWebViewCache_retrieveOrCreateWebView__block_in
 {
   v2 = WTF::MemoryPressureHandler::singleton(a1);
   v3 = *(a1 + 4);
-  v4 = WTF::fastMalloc(0x10);
-  *v4 = &unk_1F10F4728;
-  v4[1] = v3;
+  v5 = WTF::fastMalloc(v4, 0x10);
+  *v5 = &unk_1F10F4728;
+  v5[1] = v3;
   result = *(v2 + 48);
-  *(v2 + 48) = v4;
+  *(v2 + 48) = v5;
   if (result)
   {
-    v6 = *(*result + 8);
+    v7 = *(*result + 8);
 
-    return v6();
+    return v7();
   }
 
   return result;

@@ -61,36 +61,36 @@
 
 - (GCGenericDeviceDataInputElementAttributeExpressionModelBuilder)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v23.receiver = self;
-  v23.super_class = GCGenericDeviceDataInputElementAttributeExpressionModelBuilder;
-  v7 = [(GCGenericDeviceDataProcessorExpressionModelBuilder *)&v23 initWithDictionaryRepresentation:representationCopy error:error];
+  v22.receiver = self;
+  v22.super_class = GCGenericDeviceDataInputElementAttributeExpressionModelBuilder;
+  v7 = [(GCGenericDeviceDataProcessorExpressionModelBuilder *)&v22 initWithDictionaryRepresentation:representationCopy error:error];
   if (!v7)
   {
     goto LABEL_12;
   }
 
-  v22 = 0;
-  v8 = [representationCopy gc_requiredObjectForKey:@"ElementIdentifier" ofClass:objc_opt_class() error:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [representationCopy gc_requiredObjectForKey:@"ElementIdentifier" ofClass:objc_opt_class() error:&v21];
+  v9 = v21;
   if (!v8)
   {
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v26[0] = *MEMORY[0x1E696A578];
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
-      v27[0] = v15;
-      v26[1] = *MEMORY[0x1E696A588];
+      v13 = MEMORY[0x1E696ABC0];
+      v25[0] = *MEMORY[0x1E696A578];
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
+      v26[0] = v14;
+      v25[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v9 localizedFailureReason];
-      v27[1] = localizedFailureReason;
-      v17 = MEMORY[0x1E695DF20];
-      v18 = v27;
-      v19 = v26;
+      v26[1] = localizedFailureReason;
+      v16 = MEMORY[0x1E695DF20];
+      v17 = v26;
+      v18 = v25;
 LABEL_10:
-      v20 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:2];
-      *error = [(NSError *)v14 gc_modelError:v20 userInfo:?];
+      v19 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:2];
+      *error = [(NSError *)v13 gc_modelError:v19 userInfo:?];
     }
 
 LABEL_11:
@@ -102,23 +102,23 @@ LABEL_12:
 
   [(GCGenericDeviceDataInputElementAttributeExpressionModelBuilder *)v7 setElementIdentifier:v8];
 
-  v21 = 0;
-  v10 = [representationCopy gc_requiredObjectForKey:@"Attribute" ofClass:objc_opt_class() error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v10 = [representationCopy gc_requiredObjectForKey:@"Attribute" ofClass:objc_opt_class() error:&v20];
+  v9 = v20;
   if (!v10)
   {
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v24[0] = *MEMORY[0x1E696A578];
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
-      v25[0] = v15;
-      v24[1] = *MEMORY[0x1E696A588];
+      v13 = MEMORY[0x1E696ABC0];
+      v23[0] = *MEMORY[0x1E696A578];
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
+      v24[0] = v14;
+      v23[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v9 localizedFailureReason];
-      v25[1] = localizedFailureReason;
-      v17 = MEMORY[0x1E695DF20];
-      v18 = v25;
-      v19 = v24;
+      v24[1] = localizedFailureReason;
+      v16 = MEMORY[0x1E695DF20];
+      v17 = v24;
+      v18 = v23;
       goto LABEL_10;
     }
 
@@ -130,7 +130,6 @@ LABEL_12:
   v11 = v7;
 LABEL_5:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

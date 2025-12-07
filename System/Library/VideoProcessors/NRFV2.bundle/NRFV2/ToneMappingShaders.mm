@@ -53,7 +53,7 @@ LABEL_45:
 
   if (!v5->_ltmApply)
   {
-    sub_2958BF270();
+    sub_2958BF270(&v68);
     goto LABEL_45;
   }
 
@@ -65,7 +65,7 @@ LABEL_45:
 
   if (!v5->_ltmApplyBG)
   {
-    sub_2958BF1E4();
+    sub_2958BF1E4(&v68);
     goto LABEL_45;
   }
 

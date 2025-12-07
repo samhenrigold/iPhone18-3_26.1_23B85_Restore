@@ -4573,7 +4573,7 @@ void sub_1DDC892F8(void *a1, uint64_t a2, ...)
   JUMPOUT(0x1DDC892A8);
 }
 
-void std::vector<std::vector<float>>::resize(uint64_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<std::vector<float>>::resize(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
   v5 = *a1;
   v4 = a1[1];
@@ -4645,7 +4645,7 @@ void std::vector<std::vector<float>>::resize(uint64_t *a1, unint64_t a2, uint64_
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a3, a3[1], (a3[1] - *a3) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
       v4 += 3;
       v18 -= 24;
     }

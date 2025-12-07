@@ -22,7 +22,7 @@
 
 - (THTOCViewController)initWithBookPropertiesDelegate:(id)delegate delegate:(id)a4
 {
-  v7 = THBundle();
+  v7 = THBundle(self, a2);
 
   return [(THTOCViewController *)self initWithNibName:0 bundle:v7 bookPropertiesDelegate:delegate delegate:a4];
 }
@@ -149,7 +149,7 @@
     layer = [(UIView *)[(THTOCViewController *)self viewToShroud] layer];
     if (layer)
     {
-      [(CALayer *)layer transform];
+      objc_msgSend_transform(layer);
     }
 
     else

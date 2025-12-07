@@ -57,7 +57,7 @@
     {
       container_query_get_last_error();
       v12 = container_error_copy_unlocalized_description();
-      v13 = BookUtilityLog();
+      v13 = BookUtilityLog(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_241DCFCC0(v12, v13);
@@ -94,7 +94,7 @@
 
   else
   {
-    v7 = BookUtilityLog();
+    v7 = BookUtilityLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_241DCFD38(v7);
@@ -110,7 +110,7 @@
 {
   if (self->_containerQuery)
   {
-    v3 = BookUtilityLog();
+    v3 = BookUtilityLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;

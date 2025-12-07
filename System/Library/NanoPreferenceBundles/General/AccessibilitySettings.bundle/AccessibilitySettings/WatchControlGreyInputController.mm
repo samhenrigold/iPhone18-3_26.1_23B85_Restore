@@ -13,9 +13,39 @@
 - (void)setAction:(unint64_t)action forDetailController:(id)controller;
 - (void)setCustomActionType:(int64_t)type withCustomActionIdentifier:(id)identifier forDetailController:(id)controller;
 - (void)setShowDetectedGestureBanner:(id)banner;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WatchControlGreyInputController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = WatchControlGreyInputController;
+  [(AccessibilityBridgeBaseController *)&v16 viewWillAppear:appear];
+  v3 = [WatchControlStringLookup stringResourceForKey:@"input.source.grey"];
+  if (v3)
+  {
+    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL = [v4 bundleURL];
+    v8 = [v5 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale bundleURL:bundleURL];
+
+    v9 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL2 = [v4 bundleURL];
+    v12 = [v9 initWithKey:@"WATCH_CONTROL_ROW_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale2 bundleURL:bundleURL2];
+
+    v13 = MEMORY[0x277CF3470];
+    v17[0] = v8;
+    v17[1] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v15 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID/GREY_INPUT_ID"];
+    [v13 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v3 localizedNavigationComponents:v14 deepLink:v15];
+  }
+}
 
 - (id)specifierIdentifierForGreyEvent:(int64_t)event
 {
@@ -32,12 +62,12 @@
 
 - (id)inputSourceCustomizationSpecifiers
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v4 = MEMORY[0x277D3FAD8];
   v5 = settingsLocString(@"GREY_CUSTOMIZATIONS_TITLE", @"AccessibilitySettings-watchcontrol");
   v6 = [v4 groupSpecifierWithName:v5];
-  v45 = array;
+  v44 = array;
   v7 = array;
   v8 = 0x277D3F000uLL;
   [v7 addObject:v6];
@@ -45,25 +75,25 @@
   mEMORY[0x277D7A910] = [MEMORY[0x277D7A910] sharedInstance];
   greyEventActionCustomizations = [mEMORY[0x277D7A910] greyEventActionCustomizations];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = WCAvailableGreyEvents();
-  v46 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-  if (v46)
+  v45 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+  if (v45)
   {
-    v43 = *v48;
+    v42 = *v47;
     do
     {
-      for (i = 0; i != v46; ++i)
+      for (i = 0; i != v45; ++i)
       {
-        if (*v48 != v43)
+        if (*v47 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v47 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v46 + 1) + 8 * i) unsignedIntegerValue];
         v12 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue];
         v13 = [greyEventActionCustomizations objectForKeyedSubscript:v12];
         unsignedIntegerValue2 = [v13 unsignedIntegerValue];
@@ -73,15 +103,15 @@
         v17 = WCNameForGreyEvent();
         v18 = [v16 preferenceSpecifierNamed:v17 target:self set:0 get:sel__actionValueForSpecifier_ detail:objc_opt_class() cell:2 edit:0];
 
-        v51[0] = @"GreyEvent";
+        v50[0] = @"GreyEvent";
         v19 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue];
-        v52[0] = v19;
-        v51[1] = @"Action";
+        v51[0] = v19;
+        v50[1] = @"Action";
         v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue2];
-        v51[2] = @"ActionDetailDelegate";
-        v52[1] = v20;
-        v52[2] = self;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
+        v50[2] = @"ActionDetailDelegate";
+        v51[1] = v20;
+        v51[2] = self;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
         [v18 setUserInfo:v21];
 
         v22 = [(WatchControlGreyInputController *)self specifierIdentifierForGreyEvent:unsignedIntegerValue];
@@ -90,38 +120,38 @@
           [v18 setIdentifier:v22];
         }
 
-        [v45 addObject:v18];
+        [v44 addObject:v18];
 
         v8 = v15;
       }
 
-      v46 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v45 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
   [*(v8 + 2776) emptyGroupSpecifier];
   v24 = v23 = v8;
-  [v45 addObject:v24];
+  [v44 addObject:v24];
 
   v25 = *(v23 + 2776);
   v26 = settingsLocString(@"GREY_RESET_CUSTOMIZATIONS_TITLE", @"AccessibilitySettings-watchcontrol");
   v27 = [v25 preferenceSpecifierNamed:v26 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
   [v27 setButtonAction:sel_resetGreyCustomizations];
-  [v45 addObject:v27];
+  [v44 addObject:v27];
   emptyGroupSpecifier = [*(v23 + 2776) emptyGroupSpecifier];
   v29 = settingsLocString(@"GREY_GESTURE_TO_START_FOOTER", @"AccessibilitySettings-watchcontrol");
   [emptyGroupSpecifier setProperty:v29 forKey:*MEMORY[0x277D3FF88]];
 
-  [v45 addObject:emptyGroupSpecifier];
+  [v44 addObject:emptyGroupSpecifier];
   v30 = *(v23 + 2776);
   v31 = settingsLocString(@"GREY_GESTURE_TO_START_TITLE", @"AccessibilitySettings-watchcontrol");
   v32 = [v30 preferenceSpecifierNamed:v31 target:self set:0 get:sel_activationGestureTitle detail:objc_opt_class() cell:2 edit:0];
 
   [v32 setIdentifier:@"ACTIVATION_GESTURE_ID"];
-  [v45 addObject:v32];
+  [v44 addObject:v32];
   v33 = AXGetActivePairedDevice();
   v34 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"93EA0155-DFC4-4F9D-B8F0-DECC5B9C0C1D"];
   v35 = [v33 supportsCapability:v34];
@@ -129,17 +159,15 @@
   if ((v35 & 1) == 0)
   {
     emptyGroupSpecifier2 = [*(v23 + 2776) emptyGroupSpecifier];
-    [v45 addObject:emptyGroupSpecifier2];
+    [v44 addObject:emptyGroupSpecifier2];
 
     v37 = *(v23 + 2776);
     v38 = settingsLocString(@"GREY_QUICK_ACTIONS_SWITCH", @"AccessibilitySettings-watchcontrol");
     v39 = [v37 preferenceSpecifierNamed:v38 target:self set:0 get:sel_greyQuickActionsEnabled detail:objc_opt_class() cell:2 edit:0];
-    [v45 addObject:v39];
+    [v44 addObject:v39];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v44;
 }
 
 - (void)customizeEnableInputSourceGroupSpecifier:(id)specifier

@@ -14,7 +14,7 @@
 
   else
   {
-    v4 = &TST::_TableInfoArchive_default_instance_;
+    v4 = TST::_TableInfoArchive_default_instance_;
   }
 
   v5.receiver = self;
@@ -26,9 +26,9 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[58], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[58], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 @end

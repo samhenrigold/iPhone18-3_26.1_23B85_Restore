@@ -5,6 +5,9 @@
 - (BOOL)getLearnedRoutesAccess:(int *)access forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (BOOL)getVisitHistoryAccess:(int *)access forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (BOOL)getVisitHistoryAccessAllowedTime:(double *)time forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
+- (BOOL)registerCircularInterestZoneWithId:(id)id latitude:(double)latitude longitude:(double)longitude radius:(double)radius serviceMaskOperator:(int)operator provenanceType:(int)type forBundleId:(id)bundleId orBundlePath:(id)self0 error:(id *)self1;
+- (BOOL)registerPhenolicInterestZoneWithId:(id)id phenolicLocation:(int)location serviceMaskOperator:(int)operator provenanceType:(int)type forBundleId:(id)bundleId orBundlePath:(id)path error:(id *)error;
+- (BOOL)setRelevance:(BOOL)relevance forInterestZoneWithId:(id)id registeredForBundleId:(id)bundleId orBundlePath:(id)path error:(id *)error;
 - (BOOL)startStopAdvertisingBeacon:(id)beacon power:(id)power;
 - (__CFArray)copyActivityAlarms;
 - (__CFArray)copyGnssBandsInUse;
@@ -29,6 +32,7 @@
 - (id)getOdometryBatchedLocations;
 - (id)getPipelinedCache;
 - (id)getTemporaryAuthorizationStatusForBundleId:(id)id orBundlePath:(id)path error:(id *)error;
+- (id)setAuthorizationPromptMapDisplayEnabled:(unsigned __int8)enabled;
 - (id)setTemporaryAuthorizationStatusForBundleId:(id)id orBundlePath:(id)path statusData:(id)data;
 - (id)synchronousRemoteObject;
 - (id)timeZoneAtLocation:(id)location;
@@ -45,6 +49,7 @@
 - (unsigned)getAuthorizationPromptMapDisplayEnabled:(char *)enabled;
 - (unsigned)getAuthorizationStatus:(int *)status forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (unsigned)getAuthorizationStatusForApp:(int *)app withAuditToken:(id *)token;
+- (unsigned)getControlPlaneStatusReportClear:(int)clear startTime:(double *)time endTime:(double *)endTime latitude:(double *)latitude longitude:(double *)longitude altitude:(double *)altitude accuracy:(double *)accuracy status:(unsigned int *)self0;
 - (unsigned)getEmergencyLocationSettingsCompatibilityVersion:(int *)version andContentVersion:(int *)contentVersion;
 - (unsigned)getGestureServiceEnabled:(char *)enabled;
 - (unsigned)getGroundAltitudeForBundleID:(__CFString *)d orBundlePath:(__CFString *)path location:(id)location groundAltitude:(id *)altitude;
@@ -56,16 +61,29 @@
 - (unsigned)getPinnedLocationAuthorizationState:(CLLocationCoordinate2D *)state;
 - (unsigned)getPrecisionPermission:(char *)permission forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (unsigned)getPrivateMode;
+- (unsigned)getStatusBarIconEnabled:(BOOL *)enabled forEntityClass:(unsigned int)class;
 - (unsigned)gyroCalibrationDatabaseSupportsMiniCalibration:(int *)calibration;
 - (unsigned)gyroCalibrationDatabaseWipe;
 - (unsigned)insertGyroCalibrationDatabaseBiasEstimateIfValid:(id)valid temperature:(float)temperature variance:(id)variance timestamp:(double)timestamp;
 - (unsigned)performMigration;
 - (unsigned)pingDaemon;
+- (unsigned)reportLocationUtilityEvent:(int)event atDate:(__CFDate *)date;
+- (unsigned)setAuthorizationStatus:(unsigned __int8)status withCorrectiveCompensation:(int)compensation forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
+- (unsigned)setAuthorizationStatusByType:(int)type withCorrectiveCompensation:(int)compensation andZoneIdentifier:(__CFString *)identifier andSubIdentityIdentifier:(__CFString *)identityIdentifier forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (unsigned)setBackgroundIndicatorForBundleID:(__CFString *)d orBundlePath:(__CFString *)path enabled:(unsigned __int8)enabled;
+- (unsigned)setIncidentalUseMode:(int)mode forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
+- (unsigned)setLearnedRoutesAccess:(int)access forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
+- (unsigned)setLocationButtonUseMode:(int)mode forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
+- (unsigned)setPinnedLocationAuthorization:(unsigned __int8)authorization;
+- (unsigned)setStatusBarIconEnabled:(BOOL)enabled forEntityClass:(unsigned int)class;
+- (unsigned)setTemporaryAuthorizationGranted:(unsigned __int8)granted forBundleID:(__CFString *)d orBundlePath:(__CFString *)path orAuditToken:(id *)token byLocationButton:(unsigned __int8)button voiceInteractionEnabled:(unsigned __int8)enabled;
+- (unsigned)setTemporaryPreciseAuthorizationGranted:(unsigned __int8)granted forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
+- (unsigned)setVisitHistoryAccess:(int)access forBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (unsigned)shouldDisplayEEDUI;
 - (unsigned)shutdownDaemon;
 - (unsigned)tearDownLocationAuthPromptForBundleID:(__CFString *)d orBundlePath:(__CFString *)path;
 - (unsigned)timeSyncMachTimeStamp:(unint64_t *)stamp oscarTimeStamp:(unint64_t *)timeStamp;
+- (unsigned)updatePillButtonChoiceForOutstandingPrompt:(int)prompt;
 - (unsigned)updatePromptedLatitude:(double)latitude longitude:(double)longitude;
 - (void)checkAndExerciseLearnedRoutesAuthorizationForBundleID:(id)d orBundlePath:(id)path replyBlock:(id)block;
 - (void)checkAndExercisePushClientAuthorizationForBundleID:(id)d replyBlock:(id)block;
@@ -74,7 +92,11 @@
 - (void)isEligibleForAlwaysAuthorizationRequestForBundleID:(id)d orBundlePath:(id)path replyBlock:(id)block;
 - (void)notifyPassKitPayment:(id)payment transaction:(id)transaction info:(id)info;
 - (void)notifyWeatherForecast:(id)forecast airQualityConditions:(id)conditions hourlyForecasts:(id)forecasts dailyForecasts:(id)dailyForecasts latitude:(double)latitude longitude:(double)longitude;
+- (void)setGestureServiceEnabled:(unsigned __int8)enabled;
 - (void)setLocationDefaultForKey:(__CFString *)key value:(void *)value;
+- (void)setLocationServicesEnabled:(unsigned __int8)enabled;
+- (void)setMapMatchingRouteHint:(id *)hint count:(int)count routingType:(int)type stepType:(int)stepType;
+- (void)setPrivateMode:(unsigned __int8)mode;
 - (void)setTrackRunHint:(id *)hint;
 @end
 
@@ -137,6 +159,26 @@
   return v7;
 }
 
+- (unsigned)setAuthorizationStatus:(unsigned __int8)status withCorrectiveCompensation:(int)compensation forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  v8 = *&compensation;
+  statusCopy = status;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v10 = objc_msgSend_synchronousRemoteObject(self, a2, status);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_19B6FAC40;
+  v13[3] = &unk_1E75351C8;
+  v13[4] = &v14;
+  objc_msgSend_setAuthorizationStatus_withCorrectiveCompensation_forBundleID_orBundlePath_replyBlock_(v10, v11, statusCopy != 0, v8, d, path, v13);
+  LOBYTE(path) = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
+  return path;
+}
+
 - (unsigned)getIncidentalUseMode:(int *)mode forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
 {
   v12 = 0;
@@ -154,6 +196,25 @@
   LOBYTE(path) = *(v13 + 24);
   _Block_object_dispose(&v12, 8);
   return path;
+}
+
+- (unsigned)reportLocationUtilityEvent:(int)event atDate:(__CFDate *)date
+{
+  v5 = *&event;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v6 = objc_msgSend_synchronousRemoteObject(self, a2, *&event);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19B6FAE30;
+  v9[3] = &unk_1E75351C8;
+  v9[4] = &v10;
+  objc_msgSend_reportLocationUtilityEvent_atDate_withReplyBlock_(v6, v7, v5, date, v9);
+  LOBYTE(date) = *(v11 + 24);
+  _Block_object_dispose(&v10, 8);
+  return date;
 }
 
 - (void)clearLocationAuthorizationForBundleId:(__CFString *)id orBundlePath:(__CFString *)path
@@ -405,7 +466,6 @@ LABEL_7:
     }
 
     v10 = objc_msgSend_synchronousRemoteObject(self, a2, key);
-    v11 = *MEMORY[0x1E69E9840];
 
     MEMORY[0x1EEE66B58](v10, sel_setLocationDefaultForKey_andValue_replyBlock_, key);
   }
@@ -433,15 +493,15 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v8 = _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 17, "#Spi, Key is NULL!", v11, 2);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion setLocationDefaultForKey:value:]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -517,6 +577,14 @@ LABEL_7:
   return v8;
 }
 
+- (void)setPrivateMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  v4 = objc_msgSend_synchronousRemoteObject(self, a2, mode);
+
+  MEMORY[0x1EEE66B58](v4, sel_setPrivateMode_replyBlock_, modeCopy != 0);
+}
+
 - (unsigned)getPrivateMode
 {
   v8 = 0;
@@ -553,6 +621,17 @@ LABEL_7:
   return v5;
 }
 
+- (void)setLocationServicesEnabled:(unsigned __int8)enabled
+{
+  enabledCopy = enabled;
+  v4 = objc_msgSend_synchronousRemoteObject(self, a2, enabled);
+  objc_msgSend_setLocationServicesEnabled_replyBlock_(v4, v5, enabledCopy != 0, &unk_1F0E3B220);
+  v6 = *MEMORY[0x1E695E8B8];
+  v7 = *MEMORY[0x1E695E898];
+
+  CFPreferencesSynchronize(@"com.apple.locationd", v6, v7);
+}
+
 - (unsigned)getLocationServicesEnabled:(char *)enabled
 {
   enabledCopy = enabled;
@@ -575,6 +654,27 @@ LABEL_7:
   }
 
   return enabledCopy;
+}
+
+- (id)setAuthorizationPromptMapDisplayEnabled:(unsigned __int8)enabled
+{
+  enabledCopy = enabled;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3052000000;
+  v12 = sub_19B428ADC;
+  v13 = sub_19B429064;
+  v14 = 0;
+  v4 = objc_msgSend_synchronousRemoteObject(self, a2, enabled);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_19B6FC924;
+  v8[3] = &unk_1E75351C8;
+  v8[4] = &v9;
+  objc_msgSend_setAuthorizationPromptMapDisplayEnabled_replyBlock_(v4, v5, enabledCopy != 0, v8);
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
+  return v6;
 }
 
 - (unsigned)getAuthorizationPromptMapDisplayEnabled:(char *)enabled
@@ -687,6 +787,14 @@ LABEL_7:
   return v5;
 }
 
+- (void)setGestureServiceEnabled:(unsigned __int8)enabled
+{
+  enabledCopy = enabled;
+  v4 = objc_msgSend_synchronousRemoteObject(self, a2, enabled);
+
+  MEMORY[0x1EEE66B58](v4, sel_setGestureServiceEnabled_replyBlock_, enabledCopy != 0);
+}
+
 - (unsigned)getGestureServiceEnabled:(char *)enabled
 {
   enabledCopy = enabled;
@@ -754,28 +862,28 @@ LABEL_7:
 
 - (unsigned)getPrecisionPermission:(char *)permission forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = sub_19B428ADC;
-  v24 = sub_19B429064;
+  v34 = *MEMORY[0x1E69E9840];
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = sub_19B428ADC;
+  v23 = sub_19B429064;
+  v24 = 0;
   v8 = objc_msgSend_synchronousRemoteObject(self, a2, permission);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_19B6FDE74;
-  v19[3] = &unk_1E75353A8;
-  v19[5] = &v20;
-  v19[6] = permission;
-  v19[4] = &v26;
-  objc_msgSend_getPrecisionPermissionForBundleID_orBundlePath_replyBlock_(v8, v9, d, path, v19);
-  v10 = v21;
-  if (v21[5])
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_19B6FDE74;
+  v18[3] = &unk_1E75353A8;
+  v18[5] = &v19;
+  v18[6] = permission;
+  v18[4] = &v25;
+  objc_msgSend_getPrecisionPermissionForBundleID_orBundlePath_replyBlock_(v8, v9, d, path, v18);
+  v10 = v20;
+  if (v20[5])
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -785,12 +893,12 @@ LABEL_7:
     v11 = qword_1ED71C7E0;
     if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_FAULT))
     {
-      v12 = v21[5];
+      v12 = v20[5];
       buf = 68289282;
-      v31 = 2082;
-      v32 = "";
-      v33 = 2114;
-      v34 = v12;
+      v30 = 2082;
+      v31 = "";
+      v32 = 2114;
+      v33 = v12;
       _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#Spi, CLInternalGetPrecisionPermission failed, error:%{public, location:escape_only}@}", &buf, 0x1Cu);
       if (qword_1ED71C7D0 != -1)
       {
@@ -800,42 +908,41 @@ LABEL_7:
 
     v13 = qword_1ED71C7E0;
     v14 = os_signpost_enabled(qword_1ED71C7E0);
-    v10 = v21;
+    v10 = v20;
     if (v14)
     {
-      v15 = v21[5];
+      v15 = v20[5];
       buf = 68289282;
-      v31 = 2082;
-      v32 = "";
-      v33 = 2114;
-      v34 = v15;
+      v30 = 2082;
+      v31 = "";
+      v32 = 2114;
+      v33 = v15;
       _os_signpost_emit_with_name_impl(&dword_19B41C000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Spi, CLInternalGetPrecisionPermission failed", "{msg%{public}.0s:#Spi, CLInternalGetPrecisionPermission failed, error:%{public, location:escape_only}@}", &buf, 0x1Cu);
-      v10 = v21;
+      v10 = v20;
     }
   }
 
-  v16 = *(v27 + 24);
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *(v26 + 24);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
   return v16;
 }
 
 - (unsigned)performMigration
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v3 = objc_msgSend_synchronousRemoteObject(self, a2, v2);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_19B6FE10C;
-  v11[3] = &unk_1E75351C8;
-  v11[4] = &v12;
-  objc_msgSend_performMigrationWithReplyBlock_(v3, v4, v11);
-  if (!*(v13 + 24))
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_19B6FE10C;
+  v12[3] = &unk_1E75351C8;
+  v12[4] = &v13;
+  objc_msgSend_performMigrationWithReplyBlock_(v3, v4, v12);
+  if (!*(v14 + 24))
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -858,36 +965,37 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v7 = _os_log_send_and_compose_impl();
+      v11 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 17, "#Spi, _CLInternalPerformMigration failed", &v11, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion performMigration]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
   }
 
-  v8 = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  v9 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  return v9;
 }
 
 - (unsigned)shutdownDaemon
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v3 = objc_msgSend_synchronousRemoteObject(self, a2, v2);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_19B6FE36C;
-  v11[3] = &unk_1E75351C8;
-  v11[4] = &v12;
-  objc_msgSend_shutdownDaemonWithReplyBlock_(v3, v4, v11);
-  if (!*(v13 + 24))
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_19B6FE36C;
+  v12[3] = &unk_1E75351C8;
+  v12[4] = &v13;
+  objc_msgSend_shutdownDaemonWithReplyBlock_(v3, v4, v12);
+  if (!*(v14 + 24))
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -910,36 +1018,37 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v7 = _os_log_send_and_compose_impl();
+      v11 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 17, "#Spi, _CLShutdownDaemon failed", &v11, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion shutdownDaemon]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
   }
 
-  v8 = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  v9 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  return v9;
 }
 
 - (unsigned)displayStatistics
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v3 = objc_msgSend_synchronousRemoteObject(self, a2, v2);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_19B6FE5C8;
-  v11[3] = &unk_1E75351C8;
-  v11[4] = &v12;
-  objc_msgSend_displayStatisticsWithReplyBlock_(v3, v4, v11);
-  if (!*(v13 + 24))
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_19B6FE5C8;
+  v12[3] = &unk_1E75351C8;
+  v12[4] = &v13;
+  objc_msgSend_displayStatisticsWithReplyBlock_(v3, v4, v12);
+  if (!*(v14 + 24))
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -962,36 +1071,37 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v7 = _os_log_send_and_compose_impl();
+      v11 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 17, "#Spi, _CLDisplayStatistics failed", &v11, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion displayStatistics]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
   }
 
-  v8 = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  v9 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  return v9;
 }
 
 - (unsigned)dumpLogs:(__CFString *)logs
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v4 = objc_msgSend_synchronousRemoteObject(self, a2, logs);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_19B6FE830;
-  v12[3] = &unk_1E75351C8;
-  v12[4] = &v13;
-  objc_msgSend_dumpLogsWithDescription_replyBlock_(v4, v5, logs, v12);
-  if (!*(v14 + 24))
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_19B6FE830;
+  v13[3] = &unk_1E75351C8;
+  v13[4] = &v14;
+  objc_msgSend_dumpLogsWithDescription_replyBlock_(v4, v5, logs, v13);
+  if (!*(v15 + 24))
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -1014,19 +1124,20 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v8 = _os_log_send_and_compose_impl();
+      v12 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 17, "#Spi, _CLDumpLogs failed", &v12, 2);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion dumpLogs:]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
   }
 
-  v9 = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
-  v10 = *MEMORY[0x1E69E9840];
-  return v9;
+  v10 = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
+  return v10;
 }
 
 - (__CFDictionary)copyMonitoredRegionsForBundleIdentifier:(__CFString *)identifier orBundlePath:(__CFString *)path
@@ -1088,6 +1199,108 @@ LABEL_7:
   _Block_object_dispose(&v18, 8);
   _Block_object_dispose(&v22, 8);
   _Block_object_dispose(&v28, 8);
+  return v15;
+}
+
+- (BOOL)registerCircularInterestZoneWithId:(id)id latitude:(double)latitude longitude:(double)longitude radius:(double)radius serviceMaskOperator:(int)operator provenanceType:(int)type forBundleId:(id)bundleId orBundlePath:(id)self0 error:(id *)self1
+{
+  v14 = *&type;
+  v15 = *&operator;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3052000000;
+  v29 = sub_19B428ADC;
+  v30 = sub_19B429064;
+  v31 = 0;
+  v20 = objc_msgSend_synchronousRemoteObject(self, a2, id);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = sub_19B6FED00;
+  v25[3] = &unk_1E7535240;
+  v25[4] = &v26;
+  v25[5] = &v32;
+  objc_msgSend_registerCircularInterestZoneWithId_latitude_longitude_radius_serviceMaskOperator_provenanceType_forBundleId_orBundlePath_replyBlock_(v20, v21, id, v15, v14, bundleId, path, v25, latitude, longitude, radius);
+  v22 = v27[5];
+  if (error)
+  {
+    *error = v27[5];
+  }
+
+  v23 = *(v33 + 24) != 0;
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v32, 8);
+  return v23;
+}
+
+- (BOOL)registerPhenolicInterestZoneWithId:(id)id phenolicLocation:(int)location serviceMaskOperator:(int)operator provenanceType:(int)type forBundleId:(id)bundleId orBundlePath:(id)path error:(id *)error
+{
+  v11 = *&type;
+  v12 = *&operator;
+  v13 = *&location;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3052000000;
+  v24 = sub_19B428ADC;
+  v25 = sub_19B429064;
+  v26 = 0;
+  v15 = objc_msgSend_synchronousRemoteObject(self, a2, id);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_19B6FEECC;
+  v20[3] = &unk_1E7535240;
+  v20[4] = &v21;
+  v20[5] = &v27;
+  objc_msgSend_registerPhenolicInterestZoneWithId_phenolicLocation_serviceMaskOperator_provenanceType_forBundleId_orBundlePath_replyBlock_(v15, v16, id, v13, v12, v11, bundleId, path, v20);
+  v17 = v22[5];
+  if (error)
+  {
+    *error = v22[5];
+  }
+
+  v18 = *(v28 + 24) != 0;
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+  return v18;
+}
+
+- (BOOL)setRelevance:(BOOL)relevance forInterestZoneWithId:(id)id registeredForBundleId:(id)bundleId orBundlePath:(id)path error:(id *)error
+{
+  relevanceCopy = relevance;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3052000000;
+  v21 = sub_19B428ADC;
+  v22 = sub_19B429064;
+  v23 = 0;
+  v12 = objc_msgSend_synchronousRemoteObject(self, a2, relevance);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_19B6FF088;
+  v17[3] = &unk_1E7535240;
+  v17[4] = &v18;
+  v17[5] = &v24;
+  objc_msgSend_setRelevance_forInterestZoneWithId_registeredForBundleId_orBundlePath_replyBlock_(v12, v13, relevanceCopy, id, bundleId, path, v17);
+  v14 = v19[5];
+  if (error)
+  {
+    *error = v19[5];
+  }
+
+  v15 = *(v25 + 24) != 0;
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
   return v15;
 }
 
@@ -1173,9 +1386,103 @@ LABEL_7:
   return v6;
 }
 
+- (void)setMapMatchingRouteHint:(id *)hint count:(int)count routingType:(int)type stepType:(int)stepType
+{
+  v37 = *MEMORY[0x1E69E9840];
+  if (count < 501)
+  {
+    v11 = *&stepType;
+    v12 = *&type;
+    if (qword_1ED71C7D0 != -1)
+    {
+      dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+    }
+
+    v15 = qword_1ED71C7E0;
+    if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67240704;
+      countCopy3 = count;
+      v33 = 1026;
+      v34 = v12;
+      v35 = 1026;
+      v36 = v11;
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEBUG, "#Spi,RouteHint,LocationInternal,Received route hint road segments,%{public}d,routeType,%{public}d,stepType,%{public}d", buf, 0x14u);
+    }
+
+    v16 = sub_19B420058();
+    if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C7D0 != -1)
+      {
+        dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+      }
+
+      v25 = 67240704;
+      countCopy4 = count;
+      v27 = 1026;
+      v28 = v12;
+      v29 = 1026;
+      v30 = v11;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 2, "#Spi,RouteHint,LocationInternal,Received route hint road segments,%{public}d,routeType,%{public}d,stepType,%{public}d", &v25, 20);
+      v19 = v18;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion setMapMatchingRouteHint:count:routingType:stepType:]", "CoreLocation: %s\n", v18);
+      if (v19 != buf)
+      {
+        free(v19);
+      }
+    }
+
+    v20 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v17, hint, 40 * count);
+    v23 = objc_msgSend_synchronousRemoteObject(self, v21, v22);
+    objc_msgSend_setMapMatchingRouteHint_routingType_stepType_replyBlock_(v23, v24, v20, v12, v11, &unk_1F0E3B260);
+  }
+
+  else
+  {
+    if (qword_1ED71C7D0 != -1)
+    {
+      dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+    }
+
+    v7 = qword_1ED71C7E0;
+    if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67240448;
+      countCopy3 = count;
+      v33 = 1026;
+      v34 = 500;
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_ERROR, "#Spi,RouteHintError, Exceeded max number of route hint road segments (%{public}d > %{public}d)", buf, 0xEu);
+    }
+
+    v8 = sub_19B420058();
+    if ((*(v8 + 160) & 0x80000000) == 0 || (*(v8 + 164) & 0x80000000) == 0 || (*(v8 + 168) & 0x80000000) == 0 || *(v8 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C7D0 != -1)
+      {
+        dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+      }
+
+      v25 = 67240448;
+      countCopy4 = count;
+      v27 = 1026;
+      v28 = 500;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 16, "#Spi,RouteHintError, Exceeded max number of route hint road segments (%{public}d > %{public}d)", &v25, 14);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion setMapMatchingRouteHint:count:routingType:stepType:]", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
+      {
+        free(v10);
+      }
+    }
+  }
+}
+
 - (void)setTrackRunHint:(id *)hint
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C7D0 != -1)
   {
     dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
@@ -1197,23 +1504,24 @@ LABEL_7:
       dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
     }
 
-    v8 = _os_log_send_and_compose_impl();
+    v15[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 1, "#Spi,CLTR,CLTrackRunHint received,framework side", v15, 2);
+    v9 = v8;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion setTrackRunHint:]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    if (v9 != buf)
     {
-      free(v8);
+      free(v9);
     }
   }
 
-  v9 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v7, hint, 16);
-  v12 = objc_msgSend_synchronousRemoteObject(self, v10, v11);
-  objc_msgSend_setTrackRunHint_replyBlock_(v12, v13, v9, &unk_1F0E3B280);
-  v14 = *MEMORY[0x1E69E9840];
+  v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v7, hint, 16);
+  v13 = objc_msgSend_synchronousRemoteObject(self, v11, v12);
+  objc_msgSend_setTrackRunHint_replyBlock_(v13, v14, v10, &unk_1F0E3B280);
 }
 
 - (int)getAccessoryTypeBitSet
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v14 = 0;
   v15 = &v14;
   v16 = 0x2020000000;
@@ -1235,7 +1543,7 @@ LABEL_7:
   {
     v6 = *(v15 + 6);
     *buf = 67109120;
-    v21 = v6;
+    v20 = v6;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEBUG, "#Spi,getAccessoryTypeBitSet,%d", buf, 8u);
   }
 
@@ -1249,25 +1557,25 @@ LABEL_7:
     }
 
     v8 = *(v15 + 6);
-    v18 = 67109120;
-    v19 = v8;
-    v9 = _os_log_send_and_compose_impl();
+    v18[0] = 67109120;
+    v18[1] = v8;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 2, "#Spi,getAccessoryTypeBitSet,%d", v18);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion getAccessoryTypeBitSet]", "CoreLocation: %s\n", v9);
-    if (v9 != buf)
+    if (v10 != buf)
     {
-      free(v9);
+      free(v10);
     }
   }
 
-  v10 = *(v15 + 6);
+  v11 = *(v15 + 6);
   _Block_object_dispose(&v14, 8);
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
 - (int)getAccessoryPASCDTransmissionState
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v14 = 0;
   v15 = &v14;
   v16 = 0x2020000000;
@@ -1289,7 +1597,7 @@ LABEL_7:
   {
     v6 = *(v15 + 6);
     *buf = 67109120;
-    v21 = v6;
+    v20 = v6;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEBUG, "#Spi,getAccessoryPASCDTransmissionState,%d", buf, 8u);
   }
 
@@ -1303,39 +1611,39 @@ LABEL_7:
     }
 
     v8 = *(v15 + 6);
-    v18 = 67109120;
-    v19 = v8;
-    v9 = _os_log_send_and_compose_impl();
+    v18[0] = 67109120;
+    v18[1] = v8;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 2, "#Spi,getAccessoryPASCDTransmissionState,%d", v18);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion getAccessoryPASCDTransmissionState]", "CoreLocation: %s\n", v9);
-    if (v9 != buf)
+    if (v10 != buf)
     {
-      free(v9);
+      free(v10);
     }
   }
 
-  v10 = *(v15 + 6);
+  v11 = *(v15 + 6);
   _Block_object_dispose(&v14, 8);
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
 - (id)getOdometryBatchedLocations
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3052000000;
-  v21 = sub_19B428ADC;
-  v22 = sub_19B429064;
-  v23 = 0;
+  v29 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = sub_19B428ADC;
+  v23 = sub_19B429064;
+  v24 = 0;
   v3 = objc_msgSend_synchronousRemoteObject(self, a2, v2);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_19B7008FC;
-  v17[3] = &unk_1E7535268;
-  v17[4] = &v18;
-  objc_msgSend_getOdometryBatchedLocationsWithReplyBlock_(v3, v4, v17);
-  if (v19[5])
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_19B7008FC;
+  v18[3] = &unk_1E7535268;
+  v18[4] = &v19;
+  objc_msgSend_getOdometryBatchedLocationsWithReplyBlock_(v3, v4, v18);
+  if (v20[5])
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -1345,9 +1653,9 @@ LABEL_7:
     v5 = qword_1ED71C7E0;
     if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_DEBUG))
     {
-      v8 = objc_msgSend_count(v19[5], v6, v7);
+      v8 = objc_msgSend_count(v20[5], v6, v7);
       *buf = 134349056;
-      v27 = v8;
+      v28 = v8;
       _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEBUG, "#Spi,getOdometryBatchedLocations,returned with count,%{public}lu", buf, 0xCu);
     }
 
@@ -1360,39 +1668,40 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v12 = objc_msgSend_count(v19[5], v10, v11);
-      v24 = 134349056;
-      v25 = v12;
-      v13 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion getOdometryBatchedLocations]", "CoreLocation: %s\n", v13);
-      if (v13 != buf)
+      v12 = qword_1ED71C7E0;
+      v13 = objc_msgSend_count(v20[5], v10, v11);
+      v25 = 134349056;
+      v26 = v13;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 2, "#Spi,getOdometryBatchedLocations,returned with count,%{public}lu", &v25, 12);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion getOdometryBatchedLocations]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
       {
-        free(v13);
+        free(v15);
       }
     }
   }
 
-  v14 = v19[5];
-  _Block_object_dispose(&v18, 8);
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  v16 = v20[5];
+  _Block_object_dispose(&v19, 8);
+  return v16;
 }
 
 - (unsigned)copyLastLog
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v3 = objc_msgSend_synchronousRemoteObject(self, a2, v2);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_19B700E7C;
-  v11[3] = &unk_1E75351C8;
-  v11[4] = &v12;
-  objc_msgSend_copyLastLogWithReplyBlock_(v3, v4, v11);
-  if (!*(v13 + 24))
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_19B700E7C;
+  v12[3] = &unk_1E75351C8;
+  v12[4] = &v13;
+  objc_msgSend_copyLastLogWithReplyBlock_(v3, v4, v12);
+  if (!*(v14 + 24))
   {
     if (qword_1ED71C7D0 != -1)
     {
@@ -1415,19 +1724,98 @@ LABEL_7:
         dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
       }
 
-      v7 = _os_log_send_and_compose_impl();
+      v11 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 17, "#Spi, _CLCopyLastLog failed", &v11, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLLocationInternalClient_CoreMotion copyLastLog]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
   }
 
-  v8 = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  v9 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  return v9;
+}
+
+- (unsigned)setStatusBarIconEnabled:(BOOL)enabled forEntityClass:(unsigned int)class
+{
+  v4 = *&class;
+  enabledCopy = enabled;
+  v23 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v6 = objc_msgSend_synchronousRemoteObject(self, a2, enabled);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_19B7010D8;
+  v12[3] = &unk_1E75351C8;
+  v12[4] = &v13;
+  objc_msgSend_setStatusBarIconEnabledForEntityClass_enabled_replyBlock_(v6, v7, v4, enabledCopy, v12);
+  if (!*(v14 + 24))
+  {
+    if (qword_1ED71C7D0 != -1)
+    {
+      dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+    }
+
+    v8 = qword_1ED71C7E0;
+    if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289282;
+      v18 = 0;
+      v19 = 2082;
+      v20 = "";
+      v21 = 2050;
+      v22 = v4;
+      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#Spi, Setting status bar enabled for entity class failed, entityClass:%{public, location:CLLocationDictionaryUtilitiesEntityClass}lld}", buf, 0x1Cu);
+      if (qword_1ED71C7D0 != -1)
+      {
+        dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+      }
+    }
+
+    v9 = qword_1ED71C7E0;
+    if (os_signpost_enabled(qword_1ED71C7E0))
+    {
+      *buf = 68289282;
+      v18 = 0;
+      v19 = 2082;
+      v20 = "";
+      v21 = 2050;
+      v22 = v4;
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Spi, Setting status bar enabled for entity class failed", "{msg%{public}.0s:#Spi, Setting status bar enabled for entity class failed, entityClass:%{public, location:CLLocationDictionaryUtilitiesEntityClass}lld}", buf, 0x1Cu);
+    }
+  }
+
+  v10 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+  return v10;
+}
+
+- (unsigned)getStatusBarIconEnabled:(BOOL *)enabled forEntityClass:(unsigned int)class
+{
+  v4 = *&class;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v6 = objc_msgSend_synchronousRemoteObject(self, a2, enabled);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19B7011C8;
+  v9[3] = &unk_1E7535448;
+  v9[4] = &v11;
+  v9[5] = enabled;
+  v10 = v4;
+  objc_msgSend_getStatusBarIconEnabledForEntityClass_replyBlock_(v6, v7, v4, v9);
+  LOBYTE(v4) = *(v12 + 24);
+  _Block_object_dispose(&v11, 8);
+  return v4;
 }
 
 - (int)getStatusBarIconState
@@ -1620,6 +2008,104 @@ LABEL_7:
   LOBYTE(v3) = *(v10 + 24);
   _Block_object_dispose(&v9, 8);
   return v3;
+}
+
+- (unsigned)getControlPlaneStatusReportClear:(int)clear startTime:(double *)time endTime:(double *)endTime latitude:(double *)latitude longitude:(double *)longitude altitude:(double *)altitude accuracy:(double *)accuracy status:(unsigned int *)self0
+{
+  HIDWORD(v29) = clear;
+  v10 = 0;
+  v42 = *MEMORY[0x1E69E9840];
+  if (longitude && latitude && time && endTime && status)
+  {
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3052000000;
+    v38 = sub_19B428ADC;
+    v39 = sub_19B429064;
+    v40 = 0;
+    v15 = objc_msgSend_synchronousRemoteObject(self, a2, *&clear);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = sub_19B701F54;
+    v34[3] = &unk_1E7535470;
+    v34[6] = endTime;
+    v34[7] = latitude;
+    v34[8] = longitude;
+    v34[9] = altitude;
+    v34[10] = accuracy;
+    v34[11] = status;
+    v34[4] = &v35;
+    v34[5] = time;
+    objc_msgSend_getControlPlaneStatusReportClear_replyBlock_(v15, v16, HIDWORD(v29), v34);
+    while (1)
+    {
+      v19 = v36[5];
+      if (!v19)
+      {
+        v10 = 1;
+        goto LABEL_24;
+      }
+
+      if (objc_msgSend_code(v19, v17, v18) != 1)
+      {
+        break;
+      }
+
+      if (qword_1ED71C7D0 != -1)
+      {
+        dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+      }
+
+      v20 = qword_1ED71C7E0;
+      if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEBUG, "#Spi, Blocking Mig routine deferred on Daemon side... waiting and retrying", buf, 2u);
+      }
+
+      v21 = sub_19B420058();
+      if (*(v21 + 160) > 1 || *(v21 + 164) > 1 || *(v21 + 168) > 1 || *(v21 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1ED71C7D0 != -1)
+        {
+          dispatch_once(&qword_1ED71C7D0, &unk_1F0E28020);
+        }
+
+        v33[0] = 0;
+        LODWORD(v29) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7E0, 2, "#Spi, Blocking Mig routine deferred on Daemon side... waiting and retrying", v33, v29);
+        v23 = v22;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CLLocationInternalClient_CoreMotion getControlPlaneStatusReportClear:startTime:endTime:latitude:longitude:altitude:accuracy:status:]", "CoreLocation: %s\n", v22);
+        if (v23 != buf)
+        {
+          free(v23);
+        }
+      }
+
+      sleep(1u);
+      v26 = objc_msgSend_synchronousRemoteObject(self, v24, v25);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = sub_19B701F90;
+      v32[3] = &unk_1E7535470;
+      v32[6] = endTime;
+      v32[7] = latitude;
+      v32[8] = longitude;
+      v32[9] = altitude;
+      v32[10] = accuracy;
+      v32[11] = status;
+      v32[4] = &v35;
+      v32[5] = time;
+      objc_msgSend_getControlPlaneStatusReportClear_replyBlock_(v26, v27, HIDWORD(v29), v32);
+    }
+
+    v10 = v36[5] == 0;
+LABEL_24:
+    _Block_object_dispose(&v35, 8);
+  }
+
+  return v10;
 }
 
 - (unsigned)getEmergencyLocationSettingsCompatibilityVersion:(int *)version andContentVersion:(int *)contentVersion
@@ -1849,6 +2335,49 @@ LABEL_7:
   return v7;
 }
 
+- (unsigned)setTemporaryAuthorizationGranted:(unsigned __int8)granted forBundleID:(__CFString *)d orBundlePath:(__CFString *)path orAuditToken:(id *)token byLocationButton:(unsigned __int8)button voiceInteractionEnabled:(unsigned __int8)enabled
+{
+  enabledCopy = enabled;
+  buttonCopy = button;
+  grantedCopy = granted;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v14 = objc_msgSend_synchronousRemoteObject(self, a2, granted);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_19B702C30;
+  v19[3] = &unk_1E75351C8;
+  v19[4] = &v20;
+  v15 = *&token->var0[4];
+  v18[0] = *token->var0;
+  v18[1] = v15;
+  objc_msgSend_setTemporaryAuthorizationGranted_forBundleID_orBundlePath_orAuditToken_byLocationButton_voiceInteractionEnabled_replyBlock_(v14, v16, grantedCopy != 0, d, path, v18, buttonCopy != 0, enabledCopy != 0, v19);
+  LOBYTE(path) = *(v21 + 24);
+  _Block_object_dispose(&v20, 8);
+  return path;
+}
+
+- (unsigned)setTemporaryPreciseAuthorizationGranted:(unsigned __int8)granted forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  grantedCopy = granted;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8 = objc_msgSend_synchronousRemoteObject(self, a2, granted);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B702D2C;
+  v11[3] = &unk_1E75351C8;
+  v11[4] = &v12;
+  objc_msgSend_setTemporaryPreciseAuthorizationGranted_forBundleID_orBundlePath_replyBlock_(v8, v9, grantedCopy != 0, d, path, v11);
+  LOBYTE(path) = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
+  return path;
+}
+
 - (unsigned)tearDownLocationAuthPromptForBundleID:(__CFString *)d orBundlePath:(__CFString *)path
 {
   v10 = 0;
@@ -1865,6 +2394,25 @@ LABEL_7:
   LOBYTE(path) = *(v11 + 24);
   _Block_object_dispose(&v10, 8);
   return path;
+}
+
+- (unsigned)setPinnedLocationAuthorization:(unsigned __int8)authorization
+{
+  authorizationCopy = authorization;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
+  v4 = objc_msgSend_synchronousRemoteObject(self, a2, authorization);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_19B702EFC;
+  v7[3] = &unk_1E75351C8;
+  v7[4] = &v8;
+  objc_msgSend_setPinnedLocationAuthorization_replyBlock_(v4, v5, authorizationCopy, v7);
+  LOBYTE(authorizationCopy) = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  return authorizationCopy;
 }
 
 - (unsigned)getPinnedLocationAuthorizationState:(CLLocationCoordinate2D *)state
@@ -1926,6 +2474,45 @@ LABEL_7:
   return v5;
 }
 
+- (unsigned)setAuthorizationStatusByType:(int)type withCorrectiveCompensation:(int)compensation andZoneIdentifier:(__CFString *)identifier andSubIdentityIdentifier:(__CFString *)identityIdentifier forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  v12 = *&compensation;
+  v13 = *&type;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v14 = objc_msgSend_synchronousRemoteObject(self, a2, *&type);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_19B7032BC;
+  v17[3] = &unk_1E75351C8;
+  v17[4] = &v18;
+  objc_msgSend_setAuthorizationStatusByType_withCorrectiveCompensation_andZoneIdentifier_andSubIdentityIdentifier_forBundleID_orBundlePath_replyBlock_(v14, v15, v13, v12, identifier, identityIdentifier, d, path, v17);
+  LOBYTE(path) = *(v19 + 24);
+  _Block_object_dispose(&v18, 8);
+  return path;
+}
+
+- (unsigned)updatePillButtonChoiceForOutstandingPrompt:(int)prompt
+{
+  v3 = *&prompt;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
+  v4 = objc_msgSend_synchronousRemoteObject(self, a2, *&prompt);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_19B70339C;
+  v7[3] = &unk_1E75351C8;
+  v7[4] = &v8;
+  objc_msgSend_updatePillButtonChoiceForOutstandingPrompt_replyBlock_(v4, v5, v3, v7);
+  LOBYTE(v3) = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  return v3;
+}
+
 - (unsigned)updatePromptedLatitude:(double)latitude longitude:(double)longitude
 {
   v12 = 0;
@@ -1942,6 +2529,44 @@ LABEL_7:
   v9 = *(v13 + 24);
   _Block_object_dispose(&v12, 8);
   return v9;
+}
+
+- (unsigned)setIncidentalUseMode:(int)mode forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  v7 = *&mode;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8 = objc_msgSend_synchronousRemoteObject(self, a2, *&mode);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B703584;
+  v11[3] = &unk_1E75351C8;
+  v11[4] = &v12;
+  objc_msgSend_setIncidentalUseMode_forBundleID_orBundlePath_replyBlock_(v8, v9, v7, d, path, v11);
+  LOBYTE(path) = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
+  return path;
+}
+
+- (unsigned)setLocationButtonUseMode:(int)mode forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  v7 = *&mode;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8 = objc_msgSend_synchronousRemoteObject(self, a2, *&mode);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B70367C;
+  v11[3] = &unk_1E75351C8;
+  v11[4] = &v12;
+  objc_msgSend_setLocationButtonUseMode_forBundleID_orBundlePath_replyBlock_(v8, v9, v7, d, path, v11);
+  LOBYTE(path) = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
+  return path;
 }
 
 - (unsigned)setBackgroundIndicatorForBundleID:(__CFString *)d orBundlePath:(__CFString *)path enabled:(unsigned __int8)enabled
@@ -2002,6 +2627,44 @@ LABEL_7:
   LOBYTE(stampCopy) = *(v11 + 24);
   _Block_object_dispose(&v10, 8);
   return stampCopy;
+}
+
+- (unsigned)setVisitHistoryAccess:(int)access forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  v7 = *&access;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8 = objc_msgSend_synchronousRemoteObject(self, a2, *&access);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B703BF0;
+  v11[3] = &unk_1E75351C8;
+  v11[4] = &v12;
+  objc_msgSend_setVisitHistoryAccess_forBundleID_orBundlePath_replyBlock_(v8, v9, v7, d, path, v11);
+  LOBYTE(path) = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
+  return path;
+}
+
+- (unsigned)setLearnedRoutesAccess:(int)access forBundleID:(__CFString *)d orBundlePath:(__CFString *)path
+{
+  v7 = *&access;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8 = objc_msgSend_synchronousRemoteObject(self, a2, *&access);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B703CE8;
+  v11[3] = &unk_1E75351C8;
+  v11[4] = &v12;
+  objc_msgSend_setLearnedRoutesAccess_forBundleID_orBundlePath_replyBlock_(v8, v9, v7, d, path, v11);
+  LOBYTE(path) = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
+  return path;
 }
 
 - (BOOL)getVisitHistoryAccessAllowedTime:(double *)time forBundleID:(__CFString *)d orBundlePath:(__CFString *)path

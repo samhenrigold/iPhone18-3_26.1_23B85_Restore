@@ -62,25 +62,23 @@
 
 - (id)serializedParametersForContextualActionMediaIntent:(id)intent
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D7C638];
   intentCopy = intent;
   v5 = [[v3 alloc] initWithIntent:intentCopy];
 
   v6 = [objc_alloc(MEMORY[0x277D7C640]) initWithValue:v5];
-  v11 = @"WFMediaItems";
+  v10 = @"WFMediaItems";
   serializedRepresentation = [v6 serializedRepresentation];
-  v12[0] = serializedRepresentation;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[0] = serializedRepresentation;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   return v8;
 }
 
 - (void)fetchSuggestedEntitiesForParameterWithKey:(id)key completionHandler:(id)handler
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   handlerCopy = handler;
   v8 = [(WFPlayMusicAction *)self systemEntityCollectionIdentifierForDisambiguatingParameterWithKey:keyCopy];
@@ -97,17 +95,15 @@
     v11 = MEMORY[0x277CCA9B8];
     v12 = *MEMORY[0x277D7CB30];
     v13 = *MEMORY[0x277CCA450];
-    v17[0] = *MEMORY[0x277CCA470];
-    v17[1] = v13;
-    v18[0] = mEMORY[0x277D7C840];
-    v18[1] = v10;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[0] = *MEMORY[0x277CCA470];
+    v16[1] = v13;
+    v17[0] = mEMORY[0x277D7C840];
+    v17[1] = v10;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     v15 = [v11 errorWithDomain:v12 code:5 userInfo:v14];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canOfferSuggestionsForParameterWithKey:(id)key
@@ -188,7 +184,7 @@
 
 - (id)serializedParametersForDonatedIntent:(id)intent allowDroppingUnconfigurableValues:(BOOL)values
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -218,9 +214,9 @@ LABEL_8:
 
       if (serializedRepresentation && ([serializedRepresentation objectForKey:@"itemName"], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEB68], "null"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, (v22 & 1) == 0))
       {
-        v25 = @"WFMediaItems";
-        v26[0] = serializedRepresentation;
-        mediaItems = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        v24 = @"WFMediaItems";
+        v25[0] = serializedRepresentation;
+        mediaItems = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       }
 
       else
@@ -251,7 +247,6 @@ LABEL_8:
 LABEL_13:
 
 LABEL_14:
-  v23 = *MEMORY[0x277D85DE8];
 
   return mediaItems;
 }
@@ -412,26 +407,24 @@ void __67__WFPlayMusicAction_playContent_withMusicPlayer_completionHandler___blo
 
 void __67__WFPlayMusicAction_playContent_withMusicPlayer_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = getWFActionsLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136315394;
-      v7 = "[WFPlayMusicAction playContent:withMusicPlayer:completionHandler:]_block_invoke_2";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_FAULT, "%s Error preparing to play music: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[WFPlayMusicAction playContent:withMusicPlayer:completionHandler:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_FAULT, "%s Error preparing to play music: %@", &v5, 0x16u);
     }
   }
 
   [*(a1 + 32) setShuffleAndRepeatModesOnMusicPlayer:*(a1 + 40)];
   [*(a1 + 40) play];
   (*(*(a1 + 48) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playContentViaMusicPlayer:(id)player
@@ -733,94 +726,86 @@ LABEL_24:
 
 void __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     if (([*(a1 + 40) isLocalDevice] & 1) == 0)
     {
       v4 = [*(a1 + 40) routeUID];
-      v12[0] = v4;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11[0] = v4;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
       [v3 setOutputDeviceUIDs:v5];
     }
 
     v6 = *(a1 + 32);
     v7 = [*(a1 + 48) playbackArchive];
     v8 = *(a1 + 56);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_invoke_2;
-    v10[3] = &unk_278C1AAE0;
-    v10[4] = *(a1 + 32);
-    v11 = v3;
-    [v6 sendPlaybackArchive:v7 orPlaybackQueue:v8 toDestination:v11 completion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_invoke_2;
+    v9[3] = &unk_278C1AAE0;
+    v9[4] = *(a1 + 32);
+    v10 = v3;
+    [v6 sendPlaybackArchive:v7 orPlaybackQueue:v8 toDestination:v10 completion:v9];
   }
 
   else
   {
     [*(a1 + 32) finishRunningWithError:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a2)
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     return [v3 finishRunningWithError:a2];
   }
 
   else
   {
-    v6 = [v3 repeatMode];
-    if (v6)
+    v5 = [v3 repeatMode];
+    if (v5)
     {
-      v7 = v6;
-      v8 = objc_alloc_init(getMPCAssistantCommandClass());
-      v12 = *MEMORY[0x277D27DC8];
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
-      v13[0] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v6 = v5;
+      v7 = objc_alloc_init(getMPCAssistantCommandClass());
+      v10 = *MEMORY[0x277D27DC8];
+      v8 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
+      v11[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
-      [v8 sendCommand:25 toDestination:*(a1 + 40) withOptions:v10 completion:&__block_literal_global_208_12363];
+      [v7 sendCommand:25 toDestination:*(a1 + 40) withOptions:v9 completion:&__block_literal_global_208_12363];
     }
 
-    result = [*(a1 + 32) finishRunningWithError:0];
-    v11 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 32) finishRunningWithError:0];
   }
-
-  return result;
 }
 
 void __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_invoke_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = getWFActionsLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      v5 = 136315394;
-      v6 = "[WFPlayMusicAction playContentViaMPCAssistant:routeDescriptor:]_block_invoke_3";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_23DE30000, v3, OS_LOG_TYPE_FAULT, "%s Error when trying to change repeat mode which is expected for certain content e.g. radio stations: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFPlayMusicAction playContentViaMPCAssistant:routeDescriptor:]_block_invoke_3";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_23DE30000, v3, OS_LOG_TYPE_FAULT, "%s Error when trying to change repeat mode which is expected for certain content e.g. radio stations: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mediaQueryFromMediaCollection:(id)collection
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   itemsQuery = [collectionCopy itemsQuery];
 
@@ -831,125 +816,123 @@ void __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_
 
   else
   {
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2050000000;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2050000000;
     v6 = getMPMediaPropertyPredicateClass_softClass_12367;
-    v36 = getMPMediaPropertyPredicateClass_softClass_12367;
+    v35 = getMPMediaPropertyPredicateClass_softClass_12367;
     if (!getMPMediaPropertyPredicateClass_softClass_12367)
     {
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __getMPMediaPropertyPredicateClass_block_invoke_12368;
-      v31 = &unk_278C222B8;
-      v32 = &v33;
-      __getMPMediaPropertyPredicateClass_block_invoke_12368(&v28);
-      v6 = v34[3];
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3221225472;
+      v29 = __getMPMediaPropertyPredicateClass_block_invoke_12368;
+      v30 = &unk_278C222B8;
+      v31 = &v32;
+      __getMPMediaPropertyPredicateClass_block_invoke_12368(&v27);
+      v6 = v33[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v33, 8);
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
+    _Block_object_dispose(&v32, 8);
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
     v8 = getMPMediaItemPropertyIsPlayableSymbolLoc_ptr;
-    v36 = getMPMediaItemPropertyIsPlayableSymbolLoc_ptr;
+    v35 = getMPMediaItemPropertyIsPlayableSymbolLoc_ptr;
     if (!getMPMediaItemPropertyIsPlayableSymbolLoc_ptr)
     {
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __getMPMediaItemPropertyIsPlayableSymbolLoc_block_invoke;
-      v31 = &unk_278C222B8;
-      v32 = &v33;
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3221225472;
+      v29 = __getMPMediaItemPropertyIsPlayableSymbolLoc_block_invoke;
+      v30 = &unk_278C222B8;
+      v31 = &v32;
       v9 = MediaPlayerLibrary_12333();
       v10 = dlsym(v9, "MPMediaItemPropertyIsPlayable");
-      *(v32[1] + 24) = v10;
-      getMPMediaItemPropertyIsPlayableSymbolLoc_ptr = *(v32[1] + 24);
-      v8 = v34[3];
+      *(v31[1] + 24) = v10;
+      getMPMediaItemPropertyIsPlayableSymbolLoc_ptr = *(v31[1] + 24);
+      v8 = v33[3];
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
     if (!v8)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getMPMediaItemPropertyIsPlayable(void)"];
-      [currentHandler handleFailureInFunction:v23 file:@"WFPlayMusicAction.m" lineNumber:36 description:{@"%s", dlerror()}];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getMPMediaItemPropertyIsPlayable(void)"];
+      [currentHandler handleFailureInFunction:v22 file:@"WFPlayMusicAction.m" lineNumber:36 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
 
     v11 = *v8;
     v12 = [v6 predicateWithValue:MEMORY[0x277CBEC38] forProperty:v11];
-    v38[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+    v37[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
 
     v14 = objc_alloc(getMPMediaQueryClass());
     items = [collectionCopy items];
     itemsQuery2 = [v14 initWithEntities:items entityType:0];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v16 = v13;
-    v17 = [v16 countByEnumeratingWithState:&v24 objects:v37 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v23 objects:v36 count:16];
     if (v17)
     {
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          [itemsQuery2 addFilterPredicate:*(*(&v24 + 1) + 8 * i)];
+          [itemsQuery2 addFilterPredicate:*(*(&v23 + 1) + 8 * i)];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v24 objects:v37 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v23 objects:v36 count:16];
       }
 
       while (v17);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return itemsQuery2;
 }
 
 - (void)getContentWithCompletionHandler:(id)handler
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = [(WFPlayMusicAction *)self parameterValueForKey:@"WFMediaItems" ofClass:objc_opt_class()];
   playbackArchiveData = [v5 playbackArchiveData];
   if (playbackArchiveData)
   {
     v7 = MEMORY[0x277CCAAC8];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v8 = getMPPlaybackArchiveClass_softClass;
-    v25 = getMPPlaybackArchiveClass_softClass;
+    v24 = getMPPlaybackArchiveClass_softClass;
     if (!getMPPlaybackArchiveClass_softClass)
     {
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __getMPPlaybackArchiveClass_block_invoke;
-      v21[3] = &unk_278C222B8;
-      v21[4] = &v22;
-      __getMPPlaybackArchiveClass_block_invoke(v21);
-      v8 = v23[3];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __getMPPlaybackArchiveClass_block_invoke;
+      v20[3] = &unk_278C222B8;
+      v20[4] = &v21;
+      __getMPPlaybackArchiveClass_block_invoke(v20);
+      v8 = v22[3];
     }
 
     v9 = v8;
-    _Block_object_dispose(&v22, 8);
-    v20 = 0;
-    v10 = [v7 unarchivedObjectOfClass:v8 fromData:playbackArchiveData error:&v20];
-    v11 = v20;
+    _Block_object_dispose(&v21, 8);
+    v19 = 0;
+    v10 = [v7 unarchivedObjectOfClass:v8 fromData:playbackArchiveData error:&v19];
+    v11 = v19;
     v12 = [[WFPlayMusicActionContent alloc] initWithPlaybackArchive:v10];
     handlerCopy[2](handlerCopy, v12, v11);
   }
@@ -966,16 +949,16 @@ void __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_
     v15 = [(WFPlayMusicAction *)self parameterValueForKey:@"WFMediaItems" ofClass:objc_opt_class()];
     if (v15)
     {
-      v26[0] = objc_opt_class();
-      v26[1] = objc_opt_class();
-      v26[2] = objc_opt_class();
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __53__WFPlayMusicAction_getContentWithCompletionHandler___block_invoke;
-      v18[3] = &unk_278C1EE80;
-      v19 = handlerCopy;
-      [v15 generateCollectionByCoercingToItemClasses:v16 completionHandler:v18];
+      v25[0] = objc_opt_class();
+      v25[1] = objc_opt_class();
+      v25[2] = objc_opt_class();
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __53__WFPlayMusicAction_getContentWithCompletionHandler___block_invoke;
+      v17[3] = &unk_278C1EE80;
+      v18 = handlerCopy;
+      [v15 generateCollectionByCoercingToItemClasses:v16 completionHandler:v17];
     }
 
     else
@@ -983,8 +966,6 @@ void __64__WFPlayMusicAction_playContentViaMPCAssistant_routeDescriptor___block_
       handlerCopy[2](handlerCopy, 0, 0);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFPlayMusicAction_getContentWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

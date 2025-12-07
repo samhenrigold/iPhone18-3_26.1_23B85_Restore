@@ -52,18 +52,21 @@
   if (v9)
   {
     v9 = v9;
-    v34 = v29;
+    v36 = v29;
     do
     {
-      v30 = *indexesCopy++;
-      PXGCreateTextureInfo(*(&styles[1].var3 + 160 * v30 + 2), v35, v18, v20, v22, v24, scale, 0.0, 0.0, COERCE_FLOAT(*(&geometries[1].var0.var0 + 4 * v30)), COERCE_FLOAT(HIDWORD(*(&geometries[1].var0.var0 + 4 * v30))), v29, v26, v28);
-      v29 = v34;
-      v31 = v35[1];
-      *&infosCopy->var0 = v35[0];
-      *&infosCopy[2].var0 = v31;
-      v32 = v35[3];
-      *&infosCopy[4].var0 = v35[2];
-      *&infosCopy[6].var0 = v32;
+      v32 = *indexesCopy++;
+      v30.n128_u64[0] = v22;
+      v31.n128_u64[0] = v24;
+      PXGCreateTextureInfo(*(&styles[1].var3 + 160 * v32 + 2), v37, v18, v20, v30, v31, scale, 0.0, 0.0, COERCE_FLOAT(*(&geometries[1].var0.var0 + 4 * v32)), COERCE_FLOAT(HIDWORD(*(&geometries[1].var0.var0 + 4 * v32))), v29, v26, v28);
+      v29 = v36;
+      v33 = v37[1];
+      *&infosCopy->var0 = v37[0];
+      *&infosCopy[2].var0 = v33;
+      v30.n128_u64[1] = *(&v38 + 1);
+      v34 = v39;
+      *&infosCopy[4].var0 = v38;
+      *&infosCopy[6].var0 = v34;
       infosCopy += 8;
       --v9;
     }

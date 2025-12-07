@@ -7,6 +7,7 @@
 - (id)_conversationReference:(id)reference;
 - (id)_convertEmailAddress:(id)address;
 - (id)_convertEmailAddresses:(id)addresses;
+- (id)_copyPredictiveModelSummaryForMessage:(id)message downloadIfNecessary:(BOOL)necessary;
 - (id)_dateReceived:(id)received;
 - (id)_dateSent:(id)sent;
 - (id)_defaultAttachmentManager;
@@ -201,6 +202,35 @@
   defaultAttachmentManager = [v2 defaultAttachmentManager];
 
   return defaultAttachmentManager;
+}
+
+- (id)_copyPredictiveModelSummaryForMessage:(id)message downloadIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  messageCopy = message;
+  v7 = [MFMessageLoadingContext alloc];
+  _defaultAttachmentManager = [(MFMessageResultsGenerator *)self _defaultAttachmentManager];
+  v9 = [v7 initWithMessage:messageCopy attachmentManager:_defaultAttachmentManager];
+
+  v10 = +[EFScheduler immediateScheduler];
+  [v9 load:0 scheduler:v10 shouldDownload:necessaryCopy];
+
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_100077AD4;
+  v19 = sub_100077AE4;
+  v20 = 0;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100077AEC;
+  v14[3] = &unk_100159438;
+  v14[4] = &v15;
+  v11 = [v9 addLoadObserver:v14];
+  v12 = v16[5];
+  _Block_object_dispose(&v15, 8);
+
+  return v12;
 }
 
 - (void)_addressBook

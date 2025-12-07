@@ -27,11 +27,11 @@
 
 - (void)beginTransitionWithToolbar:(id)toolbar items:(id)items animated:(BOOL)animated
 {
-  sub_188A34624(0, &qword_1ED48E8C0);
-  sub_18A4A7548();
+  sub_188A34624(0, &qword_1ED48E8C0, off_1E70E94D0);
+  v7 = sub_18A4A7548();
   toolbarCopy = toolbar;
   selfCopy = self;
-  sub_188F12AE0(toolbarCopy);
+  sub_188F12AE0(toolbarCopy, v7);
 }
 
 - (void)dealloc

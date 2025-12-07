@@ -11,13 +11,14 @@ __CFString *SAGeofenceEventTypeToString(unint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void TARegisterLogs()
+void TARegisterLogs(uint64_t result, uint64_t a2)
 {
   if (TARegisterLogs_onceToken != -1)
   {
@@ -166,9 +167,9 @@ id std::vector<SAAlarmTask * {__strong}>::push_back[abi:ne200100](void *a1, id *
   return result;
 }
 
-void sub_26570F710(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26570F710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<SAAlarmTask * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }

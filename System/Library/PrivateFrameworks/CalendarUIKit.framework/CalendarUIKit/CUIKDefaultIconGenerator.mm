@@ -143,10 +143,10 @@ LABEL_11:
   return v22;
 }
 
-uint64_t __101__CUIKDefaultIconGenerator_iconImageWithDateComponents_calendar_format_size_scale_appearance_layers___block_invoke(uint64_t result, uint64_t a2)
+id *__101__CUIKDefaultIconGenerator_iconImageWithDateComponents_calendar_format_size_scale_appearance_layers___block_invoke(id *result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 40);
+  v4 = result[5];
   if ((v4 & 1) == 0)
   {
     if ((v4 & 4) == 0)
@@ -155,8 +155,8 @@ uint64_t __101__CUIKDefaultIconGenerator_iconImageWithDateComponents_calendar_fo
     }
 
 LABEL_6:
-    result = [*(v3 + 32) _drawDayNumberWithContext:a2];
-    if ((*(v3 + 40) & 2) == 0)
+    result = [v3[4] _drawDayNumberWithContext:a2];
+    if ((v3[5] & 2) == 0)
     {
       return result;
     }
@@ -164,8 +164,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  result = [*(result + 32) _drawBackgroundWithContext:a2];
-  v4 = *(v3 + 40);
+  result = [result[4] _drawBackgroundWithContext:a2];
+  v4 = v3[5];
   if ((v4 & 4) != 0)
   {
     goto LABEL_6;
@@ -178,7 +178,7 @@ LABEL_3:
   }
 
 LABEL_7:
-  v5 = *(v3 + 32);
+  v5 = v3[4];
 
   return [v5 _drawDateNameWithContext:a2];
 }

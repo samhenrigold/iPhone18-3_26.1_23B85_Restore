@@ -28,9 +28,9 @@
     geoTrackingStatus = v5->_geoTrackingStatus;
     v5->_geoTrackingStatus = geoTrackingStatus;
 
-    location = [frameCopy location];
+    v14 = objc_msgSend_location(frameCopy);
     location = v5->_location;
-    v5->_location = location;
+    v5->_location = v14;
 
     vlState = [frameCopy vlState];
     vlState = v5->_vlState;

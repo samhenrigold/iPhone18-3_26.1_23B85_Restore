@@ -3,7 +3,7 @@
 
 @implementation PFModelMap
 
-uint64_t __43___PFModelMap_ancillaryModelFactoryClasses__block_invoke()
+void *__43___PFModelMap_ancillaryModelFactoryClasses__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
   v1 = objc_opt_class();

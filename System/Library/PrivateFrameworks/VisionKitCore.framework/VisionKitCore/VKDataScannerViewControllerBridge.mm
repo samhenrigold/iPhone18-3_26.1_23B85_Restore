@@ -49,7 +49,7 @@ void __41__VKDataScannerViewControllerBridge_init__block_invoke(uint64_t a1)
 
 + (BOOL)isOpticalFlowForTextEnabled
 {
-  v2 = vk_supportsOpticalFlowTracking();
+  v2 = vk_supportsOpticalFlowTracking(self, a2);
   if (v2)
   {
     if (vk_isInternalBuild())

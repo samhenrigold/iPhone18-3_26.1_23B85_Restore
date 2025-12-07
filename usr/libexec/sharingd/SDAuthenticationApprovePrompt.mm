@@ -105,14 +105,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
   }
 
@@ -133,7 +131,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    biometricOnly = self->_biometricOnly;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -228,7 +225,6 @@
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_version != *(equalCopy + 9))
@@ -279,13 +275,13 @@
     }
   }
 
-  v9 = (*(equalCopy + 44) & 4) == 0;
+  v8 = (*(equalCopy + 44) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0)
     {
 LABEL_20:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_21;
     }
 
@@ -302,12 +298,12 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_21:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -4,7 +4,7 @@
 
 @implementation FigCaptureCMIOExtensionSessionDeviceDelegate
 
-uint64_t __73__FigCaptureCMIOExtensionSessionDeviceDelegate_device_propertiesChanged___block_invoke(uint64_t a1)
+void *__73__FigCaptureCMIOExtensionSessionDeviceDelegate_device_propertiesChanged___block_invoke(uint64_t a1)
 {
   v18 = 0u;
   v19 = 0u;
@@ -66,7 +66,7 @@ LABEL_11:
         CMNotificationCenterGetDefaultLocalCenter();
 LABEL_12:
         CMNotificationCenterPostNotification();
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v3 != v6);

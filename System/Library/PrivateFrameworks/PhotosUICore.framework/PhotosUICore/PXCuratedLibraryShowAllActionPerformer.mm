@@ -16,9 +16,9 @@
 {
   v24 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  layout = [(PXCuratedLibraryShowAllActionPerformer *)self layout];
-  rootLayout = [layout rootLayout];
-  v7 = [layout spriteReferenceForObjectReference:self];
+  v5 = objc_msgSend_layout(self);
+  rootLayout = [v5 rootLayout];
+  v7 = [v5 spriteReferenceForObjectReference:self];
   viewModel = [(PXCuratedLibraryActionPerformer *)self viewModel];
   v9 = [viewModel zoomLevelInDirection:1 fromZoomLevel:{-[PXCuratedLibraryActionPerformer actionZoomLevel](self, "actionZoomLevel")}];
 

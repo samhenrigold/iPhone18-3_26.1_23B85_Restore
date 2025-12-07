@@ -9,15 +9,15 @@
 
 - (PFMirroredManyToManyRelationshipV2)initWithRecordID:(id)d forRecordWithID:(id)iD relatedToRecordWithID:(id)withID byRelationship:(id)relationship withInverse:(id)inverse andType:(unint64_t)type
 {
-  v27[2] = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = PFMirroredManyToManyRelationshipV2;
-  v14 = [(PFMirroredManyToManyRelationshipV2 *)&v26 init];
+  v26[2] = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = PFMirroredManyToManyRelationshipV2;
+  v14 = [(PFMirroredManyToManyRelationshipV2 *)&v25 init];
   if (v14)
   {
-    v27[0] = relationship;
-    v27[1] = inverse;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v26[0] = relationship;
+    v26[1] = inverse;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     objc_opt_self();
     v16 = [v15 mutableCopy];
     [v16 sortUsingComparator:&__block_literal_global_21];
@@ -46,7 +46,6 @@
     [(PFMirroredManyToManyRelationship *)v18 _setManyToManyRecordID:dCopy2 manyToManyRecordType:@"CDMR" ckRecordID:withIDCopy2 relatedCKRecordID:iDCopy2 relationshipDescription:inverseCopy2 inverseRelationshipDescription:relationshipCopy2 type:type];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -91,8 +90,8 @@
       v18 = 0;
     }
 
-    v19 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(v13 zoneID:{"objectAtIndex:", 0), objc_msgSend(objc_msgSend(record, "recordID"), "zoneID")}];
-    v20 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(v13 zoneID:{"objectAtIndex:", 1), objc_msgSend(objc_msgSend(record, "recordID"), "zoneID")}];
+    v19 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(v13 zoneID:{"objectAtIndex:", 0), objc_msgSend(objc_msgSend(record, "recordID"), "zoneID")}];
+    v20 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(v13 zoneID:{"objectAtIndex:", 1), objc_msgSend(objc_msgSend(record, "recordID"), "zoneID")}];
     -[PFMirroredManyToManyRelationship _setManyToManyRecordID:manyToManyRecordType:ckRecordID:relatedCKRecordID:relationshipDescription:inverseRelationshipDescription:type:](v10, [record recordID], objc_msgSend(record, "recordType"), v19, v20, objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(model, "entitiesByName"), "objectForKey:", objc_msgSend(v18, "objectAtIndex:", 0)), "relationshipsByName"), "objectForKey:", objc_msgSend(v15, "objectAtIndex:", 0)), objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(model, "entitiesByName"), "objectForKey:", objc_msgSend(v18, "objectAtIndex:", 1)), "relationshipsByName"), "objectForKey:", objc_msgSend(v15, "objectAtIndex:", 1)), type);
   }
 
@@ -101,7 +100,7 @@
 
 - (void)populateRecordValues:(id)values
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     recordName = [(CKRecordID *)self->super._ckRecordID recordName];
@@ -114,9 +113,9 @@
     relatedCKRecordID = 0;
   }
 
-  v17[0] = recordName;
-  v17[1] = [relatedCKRecordID recordName];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = recordName;
+  v16[1] = [relatedCKRecordID recordName];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   objc_opt_self();
   [values setObject:objc_msgSend(v7 forKey:{"componentsJoinedByString:", @":", @"CD_recordNames"}];
   if (self)
@@ -131,9 +130,9 @@
     inverseRelationshipDescription = 0;
   }
 
-  v16[0] = name;
-  v16[1] = [(NSPropertyDescription *)inverseRelationshipDescription name];
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = name;
+  v15[1] = [(NSPropertyDescription *)inverseRelationshipDescription name];
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   objc_opt_self();
   [values setObject:objc_msgSend(v10 forKey:{"componentsJoinedByString:", @":", @"CD_relationships"}];
   if (self)
@@ -148,12 +147,11 @@
     v12 = 0;
   }
 
-  v15[0] = name2;
-  v15[1] = [(NSEntityDescription *)[(NSPropertyDescription *)v12 entity] name];
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = name2;
+  v14[1] = [(NSEntityDescription *)[(NSPropertyDescription *)v12 entity] name];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   objc_opt_self();
   [values setObject:objc_msgSend(v13 forKey:{"componentsJoinedByString:", @":", @"CD_entityNames"}];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_isValidMirroredRelationshipRecord:(id)record values:(id)values

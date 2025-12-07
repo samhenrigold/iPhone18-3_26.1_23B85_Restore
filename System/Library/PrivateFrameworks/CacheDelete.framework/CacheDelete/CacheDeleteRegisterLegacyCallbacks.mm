@@ -5,7 +5,7 @@
 
 uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -17,9 +17,9 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke(uint64_t a1)
     v4 = CDGetLogHandle("client");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
+      v9 = *(a1 + 40);
       *buf = 138412290;
-      v14 = v10;
+      v13 = v9;
       _os_log_error_impl(&dword_1BA7F1000, v4, OS_LOG_TYPE_ERROR, "%@ has a PURGEABLE property, but the callback is NULL", buf, 0xCu);
     }
 
@@ -28,16 +28,15 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke(uint64_t a1)
 
   v5 = getRootVolume();
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:{v3, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v5}];
-  v12[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:2];
+  v11[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:2];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_348(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = [a3 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -63,9 +62,9 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_348(uint64_t a1, int
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
-      *v23 = 445;
-      *&v23[4] = 2112;
-      *&v23[6] = v5;
+      *v22 = 445;
+      *&v22[4] = 2112;
+      *&v22[6] = v5;
       _os_log_error_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_ERROR, "%d num is not a number: %@", buf, 0x12u);
     }
 
@@ -81,11 +80,11 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_348(uint64_t a1, int
     {
       v13 = *(a1 + 40);
       *buf = 138412802;
-      *v23 = v13;
-      *&v23[8] = 2048;
-      *&v23[10] = v6;
-      v24 = 1024;
-      v25 = a2;
+      *v22 = v13;
+      *&v22[8] = 2048;
+      *&v22[10] = v6;
+      v23 = 1024;
+      v24 = a2;
       _os_log_impl(&dword_1BA7F1000, v12, OS_LOG_TYPE_DEFAULT, "calling %@'s purge with %lld at urgency %d", buf, 0x1Cu);
     }
 
@@ -95,9 +94,9 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_348(uint64_t a1, int
     {
       v15 = *(a1 + 40);
       *buf = 138412546;
-      *v23 = v15;
-      *&v23[8] = 2048;
-      *&v23[10] = v14;
+      *v22 = v15;
+      *&v22[8] = 2048;
+      *&v22[10] = v14;
       _os_log_impl(&dword_1BA7F1000, v12, OS_LOG_TYPE_DEFAULT, "%@ returned: %lld", buf, 0x16u);
     }
   }
@@ -106,9 +105,9 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_348(uint64_t a1, int
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v19 = *(a1 + 40);
+      v18 = *(a1 + 40);
       *buf = 138412290;
-      *v23 = v19;
+      *v22 = v18;
       _os_log_error_impl(&dword_1BA7F1000, v12, OS_LOG_TYPE_ERROR, "%@ has a PURGE property, but the callback is NULL", buf, 0xCu);
     }
 
@@ -117,17 +116,16 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_348(uint64_t a1, int
 
   v7 = getRootVolume();
   v16 = [MEMORY[0x1E696AD98] numberWithLongLong:{v14, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v7}];
-  v21[1] = v16;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:2];
+  v20[1] = v16;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:2];
 
 LABEL_18:
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_349(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = [a3 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
   v6 = [v5 longLongValue];
   if (v6 == -1)
@@ -149,9 +147,9 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_349(uint64_t a1, uin
       v11 = CDGetLogHandle("client");
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 40);
+        v15 = *(a1 + 40);
         *buf = 138412290;
-        v20 = v16;
+        v19 = v15;
         _os_log_error_impl(&dword_1BA7F1000, v11, OS_LOG_TYPE_ERROR, "%@ has periodic property in CacheDelete.plist, but a NULL callback", buf, 0xCu);
       }
 
@@ -160,11 +158,10 @@ uint64_t ___CacheDeleteRegisterLegacyCallbacks_block_invoke_349(uint64_t a1, uin
 
     v12 = getRootVolume();
     v13 = [MEMORY[0x1E696AD98] numberWithLongLong:{v9, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v12}];
-    v18[1] = v13;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:2];
+    v17[1] = v13;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:2];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -98,8 +98,8 @@
   v7[4] = self;
   v7[5] = v9;
   [PPTNotificationCenter addOnceObserverForName:@"MapsPinsDroppedForSearchResultsNotification" object:0 usingBlock:v7];
-  options = [(MapsAppTest *)self options];
-  v4 = [options objectForKeyedSubscript:@"searchString"];
+  v3 = objc_msgSend_options(self);
+  v4 = [v3 objectForKeyedSubscript:@"searchString"];
 
   v5 = objc_alloc_init(SearchFieldItem);
   [(SearchFieldItem *)v5 setSearchString:v4];
@@ -122,22 +122,22 @@
 - (BOOL)runTest
 {
   [(MapsAppTest *)self setupForVKTest];
-  options = [(MapsAppTest *)self options];
-  [options _mapstest_jumpPoint];
+  v3 = objc_msgSend_options(self);
+  [v3 _mapstest_jumpPoint];
   v5 = v4;
   v7 = v6;
   v9 = v8;
 
-  options2 = [(MapsAppTest *)self options];
-  [options2 _mapstest_pitch];
+  v10 = objc_msgSend_options(self);
+  [v10 _mapstest_pitch];
   v12 = v11;
 
-  options3 = [(MapsAppTest *)self options];
-  [options3 _mapstest_yaw];
+  v13 = objc_msgSend_options(self);
+  [v13 _mapstest_yaw];
   v15 = v14;
 
-  options4 = [(MapsAppTest *)self options];
-  _mapstest_mapType = [options4 _mapstest_mapType];
+  v16 = objc_msgSend_options(self);
+  _mapstest_mapType = [v16 _mapstest_mapType];
 
   [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];

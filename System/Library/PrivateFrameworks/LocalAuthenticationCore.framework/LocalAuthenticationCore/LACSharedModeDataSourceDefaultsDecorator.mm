@@ -41,64 +41,60 @@
   v24 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   completionCopy = completion;
-  if ([(LACSharedModeDataSourceDefaultsDecorator *)self _shouldUseMockedResponse])
+  _shouldUseMockedResponse = [(LACSharedModeDataSourceDefaultsDecorator *)self _shouldUseMockedResponse];
+  if (_shouldUseMockedResponse)
   {
-    v8 = LACLogSharedMode();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LACLogSharedMode(_shouldUseMockedResponse);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
+      _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
     }
 
-    v9 = +[LACGlobalDomain isSharedModeActive];
-    bOOLValue = [v9 BOOLValue];
+    v10 = +[LACGlobalDomain isSharedModeActive];
+    bOOLValue = [v10 BOOLValue];
 
-    v11 = [[LACSharedMode alloc] initWithActive:bOOLValue confirmed:0];
-    v12 = +[LACGlobalDomain sharedModeLatency];
-    [v12 doubleValue];
-    v14 = v13;
+    v12 = [[LACSharedMode alloc] initWithActive:bOOLValue confirmed:0];
+    v13 = +[LACGlobalDomain sharedModeLatency];
+    [v13 doubleValue];
+    v15 = v14;
 
-    v15 = dispatch_time(0, (v14 * 1000000000.0));
+    v16 = dispatch_time(0, (v15 * 1000000000.0));
     replyQueue = self->_replyQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __82__LACSharedModeDataSourceDefaultsDecorator_fetchSharedModeWithOptions_completion___block_invoke;
     block[3] = &unk_1E7A953B0;
     block[4] = self;
-    v20 = v11;
+    v20 = v12;
     v21 = completionCopy;
-    v17 = v11;
-    dispatch_after(v15, replyQueue, block);
+    v18 = v12;
+    dispatch_after(v16, replyQueue, block);
   }
 
   else
   {
     [(LACSharedModeDataSource *)self->_dataSource fetchSharedModeWithOptions:optionsCopy completion:completionCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__LACSharedModeDataSourceDefaultsDecorator_fetchSharedModeWithOptions_completion___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = LACLogSharedMode();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = LACLogSharedMode(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v8 = 138543618;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %{public}@", &v8, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %{public}@", &v6, 0x16u);
   }
 
-  v5 = a1[5];
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 @end

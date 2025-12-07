@@ -3,6 +3,10 @@
 - (ACCVoiceOverServer)initWithXPCServiceName:(id)name andFeatureNotification:(const char *)notification;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)shouldAcceptXPCConnection:(id)connection;
+- (void)accessoryVoiceOver:(id)over performAction:(int)action parameters:(id)parameters;
+- (void)accessoryVoiceOver:(id)over requestConfiguration:(int)configuration param:(id)param;
+- (void)accessoryVoiceOver:(id)over setContext:(int)context;
+- (void)accessoryVoiceOver:(id)over setEnabled:(BOOL)enabled;
 - (void)accessoryVoiceOverAttached:(id)attached;
 - (void)accessoryVoiceOverDetached:(id)detached;
 - (void)accessoryVoiceOverStartCursorInformationUpdate:(id)update;
@@ -641,6 +645,324 @@ void __57__ACCVoiceOverServer_listener_shouldAcceptNewConnection___block_invoke_
 
   remoteObject = [(_ACCVoiceOverProviderInfo *)self->_voiceOverProviderInfo remoteObject];
   [remoteObject accessoryVoiceOverDetached:detachedCopy];
+}
+
+- (void)accessoryVoiceOver:(id)over setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  overCopy = over;
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v15 = 138412546;
+    v16 = overCopy;
+    v17 = 1024;
+    v18 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "VoiceOver server, accessoryVoiceOver: %@ setEnabled: %d", &v15, 0x12u);
+  }
+
+  v10 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:overCopy];
+  if (gLogObjects && gNumLogObjects >= 5)
+  {
+    v11 = *(gLogObjects + 32);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v11 = &_os_log_default;
+    v12 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    voiceOverProviderInfo = self->_voiceOverProviderInfo;
+    v15 = 138413058;
+    v16 = overCopy;
+    v17 = 1024;
+    v18 = enabledCopy;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = voiceOverProviderInfo;
+    _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "VoiceOver server, accessoryVoiceOver: %@ setEnabled: %d, accessory=%@ _voiceOverProviderInfo=%@", &v15, 0x26u);
+  }
+
+  if (v10)
+  {
+    remoteObject = [(_ACCVoiceOverProviderInfo *)self->_voiceOverProviderInfo remoteObject];
+    [remoteObject accessoryVoiceOver:overCopy setEnabled:enabledCopy];
+  }
+}
+
+- (void)accessoryVoiceOver:(id)over setContext:(int)context
+{
+  v4 = *&context;
+  overCopy = over;
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v15 = 138412546;
+    v16 = overCopy;
+    v17 = 1024;
+    v18 = v4;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "voiceOver serve, accessoryVoiceOver: %@  setContext: %d", &v15, 0x12u);
+  }
+
+  v10 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:overCopy];
+  if (gLogObjects && gNumLogObjects >= 5)
+  {
+    v11 = *(gLogObjects + 32);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v11 = &_os_log_default;
+    v12 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    voiceOverProviderInfo = self->_voiceOverProviderInfo;
+    v15 = 138413058;
+    v16 = overCopy;
+    v17 = 1024;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = voiceOverProviderInfo;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "voiceOver serve, accessoryVoiceOver: %@  setContext: %d, accessory=%@ _voiceOverProviderInfo=%@", &v15, 0x26u);
+  }
+
+  if (v10)
+  {
+    remoteObject = [(_ACCVoiceOverProviderInfo *)self->_voiceOverProviderInfo remoteObject];
+    [remoteObject accessoryVoiceOver:overCopy setContext:v4];
+  }
+}
+
+- (void)accessoryVoiceOver:(id)over performAction:(int)action parameters:(id)parameters
+{
+  v6 = *&action;
+  overCopy = over;
+  parametersCopy = parameters;
+  if (gLogObjects)
+  {
+    v10 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (v10)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v12 = &_os_log_default;
+    v11 = &_os_log_default;
+  }
+
+  else
+  {
+    v12 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    v18 = 138412802;
+    v19 = overCopy;
+    v20 = 1024;
+    v21 = v6;
+    v22 = 2112;
+    v23 = parametersCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "voiceOver serve, accessoryVoiceOver: %@  performAction: %d parameters: %@", &v18, 0x1Cu);
+  }
+
+  v13 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:overCopy];
+  if (gLogObjects && gNumLogObjects >= 5)
+  {
+    v14 = *(gLogObjects + 32);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v14 = &_os_log_default;
+    v15 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    voiceOverProviderInfo = self->_voiceOverProviderInfo;
+    v18 = 138413314;
+    v19 = overCopy;
+    v20 = 1024;
+    v21 = v6;
+    v22 = 2112;
+    v23 = parametersCopy;
+    v24 = 2112;
+    v25 = v13;
+    v26 = 2112;
+    v27 = voiceOverProviderInfo;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "voiceOver serve, accessoryVoiceOver: %@  performAction: %d parameters: %@, accessory=%@ _voiceOverProviderInfo=%@", &v18, 0x30u);
+  }
+
+  if (v13)
+  {
+    remoteObject = [(_ACCVoiceOverProviderInfo *)self->_voiceOverProviderInfo remoteObject];
+    [remoteObject accessoryVoiceOver:overCopy performAction:v6 parameters:parametersCopy];
+  }
+}
+
+- (void)accessoryVoiceOver:(id)over requestConfiguration:(int)configuration param:(id)param
+{
+  v6 = *&configuration;
+  overCopy = over;
+  paramCopy = param;
+  if (gLogObjects)
+  {
+    v10 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (v10)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v12 = &_os_log_default;
+    v11 = &_os_log_default;
+  }
+
+  else
+  {
+    v12 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    v18 = 138412802;
+    v19 = overCopy;
+    v20 = 1024;
+    v21 = v6;
+    v22 = 2112;
+    v23 = paramCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "VoiceOver server, requestSetConfiguration: %@ type: %d param: %@", &v18, 0x1Cu);
+  }
+
+  v13 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:overCopy];
+  if (gLogObjects && gNumLogObjects >= 5)
+  {
+    v14 = *(gLogObjects + 32);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v14 = &_os_log_default;
+    v15 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    voiceOverProviderInfo = self->_voiceOverProviderInfo;
+    v18 = 138413314;
+    v19 = overCopy;
+    v20 = 1024;
+    v21 = v6;
+    v22 = 2112;
+    v23 = paramCopy;
+    v24 = 2112;
+    v25 = v13;
+    v26 = 2112;
+    v27 = voiceOverProviderInfo;
+    _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "VoiceOver server, requestInformationUpdate: %@ type: %d param: %@, accessory=%@ _voiceOverProviderInfo=%@", &v18, 0x30u);
+  }
+
+  if (v13)
+  {
+    remoteObject = [(_ACCVoiceOverProviderInfo *)self->_voiceOverProviderInfo remoteObject];
+    [remoteObject accessoryVoiceOver:overCopy requestConfiguration:v6 param:paramCopy];
+  }
 }
 
 - (void)accessoryVoiceOverStartInformationUpdate:(id)update

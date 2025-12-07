@@ -1,5 +1,6 @@
 @interface MSInputContextHistory
 - (BOOL)isEqual:(id)equal;
+- (MSInputContextHistory)initWithThreadIdentifier:(id)identifier senderEmailAddress:(id)address toRecipients:(id)recipients ccRecipients:(id)ccRecipients subject:(id)subject hasCustomSignature:(BOOL)signature showSmartReplySuggestions:(BOOL)suggestions originalMessageCategorySubtype:(id)self0 originalContentMessages:(id)self1;
 - (NSDictionary)ccRecipientNamesByEmailAddress;
 - (NSDictionary)infoDict;
 - (NSDictionary)recipientNamesByEmailAddress;
@@ -14,6 +15,48 @@
 @end
 
 @implementation MSInputContextHistory
+
+- (MSInputContextHistory)initWithThreadIdentifier:(id)identifier senderEmailAddress:(id)address toRecipients:(id)recipients ccRecipients:(id)ccRecipients subject:(id)subject hasCustomSignature:(BOOL)signature showSmartReplySuggestions:(BOOL)suggestions originalMessageCategorySubtype:(id)self0 originalContentMessages:(id)self1
+{
+  signatureCopy = signature;
+  identifierCopy = identifier;
+  addressCopy = address;
+  recipientsCopy = recipients;
+  ccRecipientsCopy = ccRecipients;
+  subjectCopy = subject;
+  subtypeCopy = subtype;
+  messagesCopy = messages;
+  v33.receiver = self;
+  v33.super_class = MSInputContextHistory;
+  v22 = [(MSInputContextHistory *)&v33 init];
+  if (v22)
+  {
+    v23 = [identifierCopy copy];
+    [(MSInputContextHistory *)v22 setThreadIdentifier:v23];
+
+    [(MSInputContextHistory *)v22 setSenderEmailAddress:addressCopy];
+    v24 = *MEMORY[0x277D07110];
+    v25 = [recipientsCopy ef_filter:*MEMORY[0x277D07110]];
+    [(MSInputContextHistory *)v22 setToRecipients:v25];
+
+    v26 = [ccRecipientsCopy ef_filter:v24];
+    [(MSInputContextHistory *)v22 setCcRecipients:v26];
+
+    v27 = [subjectCopy copy];
+    [(MSInputContextHistory *)v22 setSubject:v27];
+
+    [(MSInputContextHistory *)v22 setHasCustomSignature:signatureCopy];
+    [(MSInputContextHistory *)v22 setShowSmartReplySuggestions:suggestions];
+    v28 = [subtypeCopy copy];
+    [(MSInputContextHistory *)v22 setOriginalMessageCategorySubtype:v28];
+
+    [(MSInputContextHistory *)v22 setOriginalContentMessages:messagesCopy];
+    v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(MSInputContextHistory *)v22 setParticipantsByEmailAddress:v29];
+  }
+
+  return v22;
+}
 
 - (NSDictionary)toRecipientNamesByEmailAddress
 {
@@ -49,7 +92,7 @@
 
 - (NSDictionary)recipientNamesByEmailAddress
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   recipientNamesByEmailAddress = self->_recipientNamesByEmailAddress;
   if (!recipientNamesByEmailAddress)
   {
@@ -57,7 +100,7 @@
     senderEmailAddress = [(MSInputContextHistory *)self senderEmailAddress];
     v5 = [(MSInputContextHistory *)selfCopy _participantNameAndEmailAddressFromEmailAddress:senderEmailAddress];
 
-    v29 = v5;
+    v28 = v5;
     first = [v5 first];
     second = [v5 second];
     originalContentMessages = [(MSInputContextHistory *)selfCopy originalContentMessages];
@@ -68,27 +111,27 @@
     aBlock[3] = &unk_27985B5D8;
     aBlock[4] = selfCopy;
     v7 = _Block_copy(aBlock);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     obj = originalContentMessages;
-    v8 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v8 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v8)
     {
-      v9 = *v41;
+      v9 = *v40;
       v10 = *MEMORY[0x277D07118];
       do
       {
-        v35 = v8;
-        for (i = 0; i != v35; ++i)
+        v34 = v8;
+        for (i = 0; i != v34; ++i)
         {
-          if (*v41 != v9)
+          if (*v40 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           if (((*(v10 + 16))(v10, v12) & 1) == 0)
           {
             sender = [v12 sender];
@@ -98,28 +141,28 @@
             ccList = [v12 ccList];
             v16 = [toList arrayByAddingObjectsFromArray:ccList];
 
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
             v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
             v17 = v16;
-            v18 = [v17 countByEnumeratingWithState:&v36 objects:v45 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v35 objects:v44 count:16];
             if (v18)
             {
-              v19 = *v37;
+              v19 = *v36;
               do
               {
                 for (j = 0; j != v18; ++j)
                 {
-                  if (*v37 != v19)
+                  if (*v36 != v19)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  v7[2](v7, *(*(&v36 + 1) + 8 * j), v6);
+                  v7[2](v7, *(*(&v35 + 1) + 8 * j), v6);
                 }
 
-                v18 = [v17 countByEnumeratingWithState:&v36 objects:v45 count:16];
+                v18 = [v17 countByEnumeratingWithState:&v35 objects:v44 count:16];
               }
 
               while (v18);
@@ -127,7 +170,7 @@
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v8 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v8);
@@ -156,8 +199,6 @@
 
     recipientNamesByEmailAddress = selfCopy->_recipientNamesByEmailAddress;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return recipientNamesByEmailAddress;
 }
@@ -242,15 +283,15 @@ void __53__MSInputContextHistory_recipientNamesByEmailAddress__block_invoke(uint
 
 - (NSDictionary)infoDict
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   infoDict = self->_infoDict;
   if (!infoDict)
   {
     v4 = MEMORY[0x277CBEB38];
-    v15 = @"hasCustomSignature";
+    v14 = @"hasCustomSignature";
     v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[MSInputContextHistory hasCustomSignature](self, "hasCustomSignature")}];
-    v16[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v7 = [v4 dictionaryWithDictionary:v6];
 
     subject = [(MSInputContextHistory *)self subject];
@@ -271,35 +312,33 @@ void __53__MSInputContextHistory_recipientNamesByEmailAddress__block_invoke(uint
     infoDict = *p_infoDict;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return infoDict;
 }
 
 - (id)_participantNamesByEmailAddressFromRecipients:(id)recipients
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   recipientsCopy = recipients;
   v5 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = recipientsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = [(MSInputContextHistory *)self _participantNameAndEmailAddressFromEmailAddress:*(*(&v16 + 1) + 8 * i), v16];
+        v10 = [(MSInputContextHistory *)self _participantNameAndEmailAddressFromEmailAddress:*(*(&v15 + 1) + 8 * i), v15];
         v11 = v10;
         if (v10)
         {
@@ -309,13 +348,11 @@ void __53__MSInputContextHistory_recipientNamesByEmailAddress__block_invoke(uint
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -370,35 +407,35 @@ void __53__MSInputContextHistory_recipientNamesByEmailAddress__block_invoke(uint
 
 - (NSString)ef_publicDescription
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   currentDevice = [MEMORY[0x277D07148] currentDevice];
   isInternal = [currentDevice isInternal];
 
   if (isInternal)
   {
-    v32 = [objc_alloc(MEMORY[0x277D07090]) initWithStyle:2];
+    v31 = [objc_alloc(MEMORY[0x277D07090]) initWithStyle:2];
     senderEmailAddress = [(MSInputContextHistory *)self senderEmailAddress];
     if (senderEmailAddress)
     {
       senderEmailAddress2 = [(MSInputContextHistory *)self senderEmailAddress];
-      v33[0] = senderEmailAddress2;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+      v32[0] = senderEmailAddress2;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
     }
 
     else
     {
-      v31 = MEMORY[0x277CBEBF8];
+      v30 = MEMORY[0x277CBEBF8];
     }
 
     v11 = MEMORY[0x277CCACA8];
     v12 = objc_opt_class();
-    v28 = NSStringFromClass(v12);
+    v27 = NSStringFromClass(v12);
     threadIdentifier = [(MSInputContextHistory *)self threadIdentifier];
-    v26 = [v32 stringFromEmailAddressList:v31];
+    v25 = [v31 stringFromEmailAddressList:v30];
     toRecipients = [(MSInputContextHistory *)self toRecipients];
-    v29 = [v32 stringFromEmailAddressList:?];
+    v28 = [v31 stringFromEmailAddressList:?];
     ccRecipients = [(MSInputContextHistory *)self ccRecipients];
-    v30 = [v32 stringFromEmailAddressList:?];
+    v29 = [v31 stringFromEmailAddressList:?];
     v13 = MEMORY[0x277D07198];
     subject = [(MSInputContextHistory *)self subject];
     v15 = [v13 ec_partiallyRedactedStringForSubjectOrSummary:subject];
@@ -408,7 +445,7 @@ void __53__MSInputContextHistory_recipientNamesByEmailAddress__block_invoke(uint
     originalContentMessages = [(MSInputContextHistory *)self originalContentMessages];
     v20 = [originalContentMessages count];
     originalContentMessages2 = [(MSInputContextHistory *)self originalContentMessages];
-    v10 = [v11 stringWithFormat:@"<%@: %p>\n\tthreadIdentifier:%@\n\tsenderEmailAddress:%@\n\ttoRecipients:%@\n\tccRecipients:%@\n\tsubject:%@\n\thasCustomSignature:%d\n\tshowSmartReplySuggestions:%d\n\toriginalMessageCategorySubtype:%@\n\toriginalContentMessages: (%lu) %@\n", v28, self, threadIdentifier, v26, v29, v30, v15, hasCustomSignature, showSmartReplySuggestions, originalMessageCategorySubtype, v20, originalContentMessages2];
+    v10 = [v11 stringWithFormat:@"<%@: %p>\n\tthreadIdentifier:%@\n\tsenderEmailAddress:%@\n\ttoRecipients:%@\n\tccRecipients:%@\n\tsubject:%@\n\thasCustomSignature:%d\n\tshowSmartReplySuggestions:%d\n\toriginalMessageCategorySubtype:%@\n\toriginalContentMessages: (%lu) %@\n", v27, self, threadIdentifier, v25, v28, v29, v15, hasCustomSignature, showSmartReplySuggestions, originalMessageCategorySubtype, v20, originalContentMessages2];
   }
 
   else
@@ -418,8 +455,6 @@ void __53__MSInputContextHistory_recipientNamesByEmailAddress__block_invoke(uint
     v9 = NSStringFromClass(v8);
     v10 = [v7 stringWithFormat:@"<%@: %p>", v9, self];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

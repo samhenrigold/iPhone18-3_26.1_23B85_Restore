@@ -149,13 +149,13 @@ LABEL_6:
   PXMap();
 }
 
-void __66__PXAddUnverifiedPeopleActionPerformer_performUserInteractionTask__block_invoke_377()
+void __66__PXAddUnverifiedPeopleActionPerformer_performUserInteractionTask__block_invoke_377(uint64_t a1, uint64_t a2)
 {
-  v0 = PLUIGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PLUIGetLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1A3C1C000, v0, OS_LOG_TYPE_DEFAULT, "Presented unverified people picker", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "Presented unverified people picker", v3, 2u);
   }
 }
 

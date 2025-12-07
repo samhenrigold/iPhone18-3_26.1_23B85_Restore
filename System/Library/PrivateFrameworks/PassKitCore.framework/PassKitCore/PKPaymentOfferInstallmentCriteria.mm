@@ -676,9 +676,9 @@ uint64_t __80__PKPaymentOfferInstallmentCriteria_eligibleWithConfiguration_ineli
           }
 
           v22 = v20;
-          v23 = [(NSString *)v19 isEqualToString:v20];
+          isEqualToString = objc_msgSend_isEqualToString_(v19);
 
-          if (!v23)
+          if (!isEqualToString)
           {
             goto LABEL_55;
           }
@@ -701,7 +701,7 @@ uint64_t __80__PKPaymentOfferInstallmentCriteria_eligibleWithConfiguration_ineli
           }
 
           v26 = v25;
-          v27 = [(NSString *)v19 isEqualToString:v25];
+          v27 = objc_msgSend_isEqualToString_(v19);
 
           if (!v27)
           {
@@ -756,7 +756,7 @@ uint64_t __80__PKPaymentOfferInstallmentCriteria_eligibleWithConfiguration_ineli
           }
 
           v35 = v34;
-          v36 = [(NSString *)v19 isEqualToString:v34];
+          v36 = objc_msgSend_isEqualToString_(v19);
 
           if (!v36)
           {
@@ -876,7 +876,7 @@ uint64_t __80__PKPaymentOfferInstallmentCriteria_eligibleWithConfiguration_ineli
           }
 
           v51 = v50;
-          v52 = [(NSString *)v19 isEqualToString:v50];
+          v52 = objc_msgSend_isEqualToString_(v19);
 
           if (!v52)
           {
@@ -901,7 +901,7 @@ uint64_t __80__PKPaymentOfferInstallmentCriteria_eligibleWithConfiguration_ineli
           }
 
           v55 = v54;
-          v56 = [(NSString *)v19 isEqualToString:v54];
+          v56 = objc_msgSend_isEqualToString_(v19);
 
           if (!v56)
           {
@@ -923,7 +923,7 @@ uint64_t __80__PKPaymentOfferInstallmentCriteria_eligibleWithConfiguration_ineli
         if (v19 && v58)
         {
           v59 = v58;
-          v60 = [(NSString *)v19 isEqualToString:v58];
+          v60 = objc_msgSend_isEqualToString_(v19);
 
           if (v60)
           {
@@ -944,7 +944,7 @@ LABEL_119:
               if (v19 && v63)
               {
                 v64 = v63;
-                v65 = [(NSString *)v19 isEqualToString:v63];
+                v65 = objc_msgSend_isEqualToString_(v19);
                 v21 = v64;
                 v10 = v65;
               }

@@ -117,9 +117,9 @@
   }
 
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
-  auditToken = [v9 auditToken];
+  v11 = objc_msgSend_auditToken(v9);
   v15 = 0;
-  v12 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v12 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v11 error:&v15];
   v13 = v15;
 
   if (v12)
@@ -158,9 +158,9 @@
   }
 
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
-  auditToken = [v12 auditToken];
+  v14 = objc_msgSend_auditToken(v12);
   v18 = 0;
-  v15 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v15 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v14 error:&v18];
   v16 = v18;
 
   if (v15)
@@ -198,9 +198,9 @@
   }
 
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
-  auditToken = [v9 auditToken];
+  v11 = objc_msgSend_auditToken(v9);
   v15 = 0;
-  v12 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v12 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v11 error:&v15];
   v13 = v15;
 
   if (v12)
@@ -237,9 +237,9 @@
   }
 
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
-  auditToken = [v6 auditToken];
+  v8 = objc_msgSend_auditToken(v6);
   v12 = 0;
-  v9 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v12];
+  v9 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v8 error:&v12];
   v10 = v12;
 
   if (v9)
@@ -324,7 +324,7 @@
   OUTLINED_FUNCTION_5_1();
   [v0 pid];
   OUTLINED_FUNCTION_0_27();
-  OUTLINED_FUNCTION_3_6(&dword_21ED4E000, v1, v2, "SBKeyboardFocusService: Failed to authenticate client with pid %i -  %{public}@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3_6(&dword_21ED4E000, v1, v2, "SBKeyboardFocusService: Failed to authenticate client with pid %i -  %{public}@", v3, v4, v5, v6);
 }
 
 - (void)requestKeyboardFocusForSceneIdentity:pid:completion:.cold.3()

@@ -1,5 +1,6 @@
 @interface _TSF_TSDgPTPUnicastLinkLayerPtPPort
 + (id)diagnosticInfoForService:(id)service;
+- (_TSF_TSDgPTPUnicastLinkLayerPtPPort)initWithService:(id)service pid:(int)pid;
 - (id)_destinationAddressString;
 - (id)_destinationMACAddress;
 - (id)_sourceAddressString;
@@ -8,18 +9,34 @@
 
 @implementation _TSF_TSDgPTPUnicastLinkLayerPtPPort
 
+- (_TSF_TSDgPTPUnicastLinkLayerPtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = _TSF_TSDgPTPUnicastLinkLayerPtPPort;
+  v4 = [(_TSF_TSDgPTPFDPtPPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _destinationMACAddress = [(_TSF_TSDgPTPUnicastLinkLayerPtPPort *)v4 _destinationMACAddress];
+    destinationMACAddress = v5->_destinationMACAddress;
+    v5->_destinationMACAddress = _destinationMACAddress;
+  }
+
+  return v5;
+}
+
 - (id)_sourceAddressString
 {
   v9.receiver = self;
   v9.super_class = _TSF_TSDgPTPUnicastLinkLayerPtPPort;
   _sourceAddressString = [(_TSF_TSDgPTPNetworkPort *)&v9 _sourceAddressString];
   service = [(_TSF_TSDgPTPPort *)self service];
-  v5 = [service iodPropertyForKey:@"SourceMACAddress"];
+  v5 = [service iodPropertyForKey:?];
 
   if (v5)
   {
     bytes = [v5 bytes];
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
 
     _sourceAddressString = v7;
   }
@@ -33,12 +50,12 @@
   v9.super_class = _TSF_TSDgPTPUnicastLinkLayerPtPPort;
   _destinationAddressString = [(_TSF_TSDgPTPNetworkPort *)&v9 _destinationAddressString];
   service = [(_TSF_TSDgPTPPort *)self service];
-  v5 = [service iodPropertyForKey:@"DestinationMACAddress"];
+  v5 = [service iodPropertyForKey:?];
 
   if (v5)
   {
     bytes = [v5 bytes];
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
 
     _destinationAddressString = v7;
   }
@@ -49,7 +66,7 @@
 - (id)_destinationMACAddress
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"DestinationMACAddress"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3;
 }
@@ -60,12 +77,12 @@
   v9.super_class = _TSF_TSDgPTPUnicastLinkLayerPtPPort;
   propertiesForXPC = [(_TSF_TSDgPTPNetworkPort *)&v9 propertiesForXPC];
   service = [(_TSF_TSDgPTPPort *)self service];
-  v5 = [service iodPropertyForKey:@"SourceMACAddress"];
-  [propertiesForXPC setObject:v5 forKeyedSubscript:@"SourceMACAddress"];
+  v5 = [service iodPropertyForKey:?];
+  [propertiesForXPC setObject:? forKeyedSubscript:?];
 
   service2 = [(_TSF_TSDgPTPPort *)self service];
-  v7 = [service2 iodPropertyForKey:@"DestinationMACAddress"];
-  [propertiesForXPC setObject:v7 forKeyedSubscript:@"DestinationMACAddress"];
+  v7 = [service2 iodPropertyForKey:?];
+  [propertiesForXPC setObject:? forKeyedSubscript:?];
 
   return propertiesForXPC;
 }
@@ -76,25 +93,25 @@
   v15.receiver = self;
   v15.super_class = &OBJC_METACLASS____TSF_TSDgPTPUnicastLinkLayerPtPPort;
   v5 = objc_msgSendSuper2(&v15, sel_diagnosticInfoForService_, serviceCopy);
-  v6 = [MEMORY[0x277CCABB0] numberWithInt:2];
-  [v5 setObject:v6 forKeyedSubscript:@"PortType"];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  [v5 setObject:? forKeyedSubscript:?];
 
-  v7 = [serviceCopy iodPropertyForKey:@"SourceMACAddress"];
+  v7 = [serviceCopy iodPropertyForKey:?];
   v8 = v7;
   if (v7)
   {
     bytes = [v7 bytes];
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
-    [v5 setObject:v10 forKeyedSubscript:@"SourceAddress"];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+    [v5 setObject:? forKeyedSubscript:?];
   }
 
-  v11 = [serviceCopy iodPropertyForKey:@"DestinationMACAddress"];
+  v11 = [serviceCopy iodPropertyForKey:?];
 
   if (v11)
   {
     bytes2 = [v11 bytes];
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", *bytes2, bytes2[1], bytes2[2], bytes2[3], bytes2[4], bytes2[5]];
-    [v5 setObject:v13 forKeyedSubscript:@"DestinationAddress"];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes2, bytes2[1], bytes2[2], bytes2[3], bytes2[4], bytes2[5]];
+    [v5 setObject:? forKeyedSubscript:?];
   }
 
   return v5;

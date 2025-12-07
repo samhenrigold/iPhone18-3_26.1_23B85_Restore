@@ -96,7 +96,7 @@
       v8 = resultCopy;
       memset(v18, 0, sizeof(v18));
       v17 = 0u;
-      [v8 timeRange];
+      objc_msgSend_timeRange(v8);
       *&v16.value = v17;
       v16.epoch = *&v18[0];
       memset(&v15, 0, sizeof(v15));

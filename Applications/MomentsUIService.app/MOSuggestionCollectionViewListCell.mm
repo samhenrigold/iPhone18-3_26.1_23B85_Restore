@@ -55,9 +55,9 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = MOSuggestionCollectionViewListCell.hitTest(_:with:)(event, x, y);
+  v11 = MOSuggestionCollectionViewListCell.hitTest(_:with:)(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (void)prepareForReuse

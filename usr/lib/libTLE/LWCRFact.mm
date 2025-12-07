@@ -58,20 +58,19 @@
   factCopy = fact;
   v4 = objc_alloc_init(LWCRFact);
   v4->fact.type = 1;
-  v5 = *MEMORY[0x29EDC9140];
-  v6 = CESerializeCFDictionary();
-  v7 = MEMORY[0x29EDC9178];
-  if (v6 == *MEMORY[0x29EDC9178] && (dataFactStorage = v4->dataFactStorage, v4->dataFactStorage = 0, dataFactStorage, v9 = v4->dataFactStorage, CEManagedContextFromCFData() == *v7))
+  v5 = CESerializeCFDictionary();
+  v6 = MEMORY[0x29EDC9178];
+  if (v5 == *MEMORY[0x29EDC9178] && (dataFactStorage = v4->dataFactStorage, v4->dataFactStorage = 0, dataFactStorage, CEManagedContextFromCFData() == *v6))
   {
-    v10 = v4;
+    v8 = v4;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 + (id)stringFact:(id)fact

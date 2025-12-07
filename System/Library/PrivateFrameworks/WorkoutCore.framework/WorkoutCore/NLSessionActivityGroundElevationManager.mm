@@ -108,15 +108,15 @@ void __49__NLSessionActivityGroundElevationManager__setup__block_invoke(void *a1
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__NLSessionActivityGroundElevationManager__setup__block_invoke_295(uint64_t a1)
+double __49__NLSessionActivityGroundElevationManager__setup__block_invoke_295(uint64_t a1)
 {
   objc_storeStrong((*(a1 + 32) + 8), *(a1 + 40));
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
   [WeakRetained groundElevationManagerDidFinishSetup];
-  return MEMORY[0x277D82BD8](WeakRetained);
+  *&result = MEMORY[0x277D82BD8](WeakRetained).n128_u64[0];
+  return result;
 }
 
 - (void)setActive:(BOOL)active
@@ -147,8 +147,6 @@ uint64_t __49__NLSessionActivityGroundElevationManager__setup__block_invoke_295(
       [(NLSessionActivityGroundElevationManager *)selfCopy _stopRequestingGroundElevation];
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_startRequestingGroundElevation
@@ -219,7 +217,6 @@ void __74__NLSessionActivityGroundElevationManager__startRequestingGroundElevati
   objc_storeStrong(v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateElevation:(id)elevation
@@ -293,47 +290,45 @@ void __74__NLSessionActivityGroundElevationManager__startRequestingGroundElevati
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)elevationError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, error);
   _HKInitializeLogging();
-  v11 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-  v10 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+  v11 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_1_8_64(v13, location[0]);
-    _os_log_impl(&dword_20AEA4000, v11, v10, "[CMAltimeterManager] Elevation Update Error: %@", v13, 0xCu);
+    __os_log_helper_16_2_1_8_64(v14, location[0]);
+    _os_log_impl(&dword_20AEA4000, v12, v11, "[CMAltimeterManager] Elevation Update Error: %@", v14, 0xCu);
   }
 
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v12, 0);
   domain = [location[0] domain];
-  v5 = *MEMORY[0x277CC1BC0];
-  MEMORY[0x277D82BD8](domain);
-  if (domain == v5 && ([location[0] code] == 109 || objc_msgSend(location[0], "code") == 110 || objc_msgSend(location[0], "code") == 111 || objc_msgSend(location[0], "code") == 104 || objc_msgSend(location[0], "code") == 106 || objc_msgSend(location[0], "code") == 105))
+  v6 = *MEMORY[0x277CC1BC0];
+  *&v3 = MEMORY[0x277D82BD8](domain).n128_u64[0];
+  if (domain == v6 && ([location[0] code] == 109 || objc_msgSend(location[0], "code") == 110 || objc_msgSend(location[0], "code") == 111 || objc_msgSend(location[0], "code") == 104 || objc_msgSend(location[0], "code") == 106 || objc_msgSend(location[0], "code") == 105))
   {
     _HKInitializeLogging();
-    v9 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v8 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v9 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = v9;
-      v4 = v8;
-      __os_log_helper_16_0_0(v7);
-      _os_log_impl(&dword_20AEA4000, v3, v4, "[CMAltimeterManager] Elevation Not Supported", v7, 2u);
+      v4 = v10;
+      v5 = v9;
+      __os_log_helper_16_0_0(v8);
+      _os_log_impl(&dword_20AEA4000, v4, v5, "[CMAltimeterManager] Elevation Not Supported", v8, 2u);
     }
 
-    objc_storeStrong(&v9, 0);
+    objc_storeStrong(&v10, 0);
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionActivity:(id)activity didChangeFromState:(unint64_t)state toState:(unint64_t)toState

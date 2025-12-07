@@ -1,6 +1,6 @@
-void sub_1000018EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000018EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -88,29 +88,27 @@ void sub_100001BC0(uint64_t a1)
     if (v4)
     {
       v5 = [WeakRetained contactlessSession];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_100001D64;
-      v12[3] = &unk_100008230;
-      v12[4] = WeakRetained;
-      [v5 endSessionWithCompletion:v12];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100001D64;
+      v10[3] = &unk_100008230;
+      v10[4] = WeakRetained;
+      [v5 endSessionWithCompletion:v10];
     }
 
-    v7 = *(a1 + 48);
-    v6 = (a1 + 48);
-    v8 = *(*(v6 - 2) + 16);
-    v9 = dispatch_time(0, (v7 * 1000000000.0));
-    if (dispatch_semaphore_wait(v8, v9))
+    v6 = *(*(a1 + 32) + 16);
+    v7 = dispatch_time(0, (*(a1 + 48) * 1000000000.0));
+    if (dispatch_semaphore_wait(v6, v7))
     {
-      v10 = DiagnosticLogHandleForCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = DiagnosticLogHandleForCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100002C24(v6);
+        sub_100002C24();
       }
     }
 
-    v11 = [WeakRetained contactlessSession];
-    [v11 setDelegate:0];
+    v9 = [WeakRetained contactlessSession];
+    [v9 setDelegate:0];
 
     [WeakRetained setContactlessSession:0];
     [WeakRetained setSessionController:0];
@@ -169,13 +167,6 @@ void sub_100002B68()
   sub_100002828();
   sub_10000281C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_100002C24(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000281C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_100002C9C()

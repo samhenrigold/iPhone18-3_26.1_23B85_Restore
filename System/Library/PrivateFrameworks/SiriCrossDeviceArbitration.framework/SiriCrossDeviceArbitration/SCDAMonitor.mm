@@ -14,6 +14,7 @@
 - (void)_enqueueBlock:(id)block forReason:(id)reason;
 - (void)_flushCompletions:(BOOL)completions;
 - (void)_registerForMyriadEvents;
+- (void)_resultSeenWithValue:(BOOL)value;
 - (void)_setDecisionIsPending;
 - (void)dealloc;
 - (void)dequeueBlocksWaitingForMyriadDecision;
@@ -40,7 +41,7 @@
 
 - (void)_deregisterFromRepostedDecisionResultsObservers
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(SCDAMonitor *)self _cancelRepostedMyriadDecisionTimer];
   repostedWonObserver = self->_repostedWonObserver;
   if (repostedWonObserver)
@@ -48,9 +49,9 @@
     v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[SCDAMonitor _deregisterFromRepostedDecisionResultsObservers]";
-      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from reposted Myriad event notification.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SCDAMonitor _deregisterFromRepostedDecisionResultsObservers]";
+      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from reposted Myriad event notification.", &v6, 0xCu);
       repostedWonObserver = self->_repostedWonObserver;
     }
 
@@ -58,8 +59,6 @@
     v5 = self->_repostedWonObserver;
     self->_repostedWonObserver = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dequeueBlocksWaitingForMyriadDecision
@@ -75,18 +74,16 @@
 
 uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SCDAMonitor dequeueBlocksWaitingForMyriadDecision]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDAMonitor dequeueBlocksWaitingForMyriadDecision]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _dequeueBlocksWithSignal:-1000];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _dequeueBlocksWithSignal:-1000];
 }
 
 + (id)sharedMonitor
@@ -103,7 +100,7 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
 
 - (void)_registerForMyriadEvents
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = observerWithNotificationName("com.apple.siri.myriad.decision.begin", self->_instanceContext, 1, self, self->_myriadMonitorQueue);
   beginObserver = self->_beginObserver;
   self->_beginObserver = v3;
@@ -128,32 +125,30 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
     v13 = self->_wonObserver;
     v14 = self->_lostObserver;
     v15 = self->_repostedWonObserver;
-    v17 = 136316162;
-    v18 = "[SCDAMonitor _registerForMyriadEvents]";
-    v19 = 2048;
-    v20 = v12;
-    v21 = 2048;
-    v22 = v13;
-    v23 = 2048;
-    v24 = v14;
-    v25 = 2048;
-    v26 = v15;
-    _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Registering for Myriad event notifications (beginObserver: %p, wonObserver: %p, lostObserver: %p, decisionRepostObserver: %p).", &v17, 0x34u);
+    v16 = 136316162;
+    v17 = "[SCDAMonitor _registerForMyriadEvents]";
+    v18 = 2048;
+    v19 = v12;
+    v20 = 2048;
+    v21 = v13;
+    v22 = 2048;
+    v23 = v14;
+    v24 = 2048;
+    v25 = v15;
+    _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Registering for Myriad event notifications (beginObserver: %p, wonObserver: %p, lostObserver: %p, decisionRepostObserver: %p).", &v16, 0x34u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setDecisionIsPending
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (self->_state == 1)
   {
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v16 = "[SCDAMonitor _setDecisionIsPending]";
+      v15 = "[SCDAMonitor _setDecisionIsPending]";
       _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Myriad decision is already in pending state.", buf, 0xCu);
       v3 = SCDALogContextCore;
     }
@@ -164,7 +159,7 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v16 = "[SCDAMonitor _setDecisionIsPending]";
+        v15 = "[SCDAMonitor _setDecisionIsPending]";
         _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Myriad monitor cancelling existing watch dog timer.", buf, 0xCu);
         timer = self->_timer;
       }
@@ -180,7 +175,7 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "[SCDAMonitor _setDecisionIsPending]";
+    v15 = "[SCDAMonitor _setDecisionIsPending]";
     _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Myriad decision is pending.", buf, 0xCu);
   }
 
@@ -192,28 +187,56 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
     {
       myriadEventMonitorTimeout = self->_myriadEventMonitorTimeout;
       *buf = 136315394;
-      v16 = "[SCDAMonitor _setDecisionIsPending]";
-      v17 = 2048;
-      v18 = myriadEventMonitorTimeout;
+      v15 = "[SCDAMonitor _setDecisionIsPending]";
+      v16 = 2048;
+      v17 = myriadEventMonitorTimeout;
       _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Myriad monitor initializing safety timer with timeout: %f seconds", buf, 0x16u);
     }
 
     v8 = [SCDAWatchdogTimer alloc];
     v9 = self->_myriadEventMonitorTimeout;
     myriadMonitorQueue = self->_myriadMonitorQueue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __36__SCDAMonitor__setDecisionIsPending__block_invoke;
-    v14[3] = &unk_1E85D3850;
-    v14[4] = self;
-    v11 = [(SCDAWatchdogTimer *)v8 initWithTimeoutInterval:myriadMonitorQueue onQueue:v14 timeoutHandler:v9];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __36__SCDAMonitor__setDecisionIsPending__block_invoke;
+    v13[3] = &unk_1E85D3850;
+    v13[4] = self;
+    v11 = [(SCDAWatchdogTimer *)v8 initWithTimeoutInterval:myriadMonitorQueue onQueue:v13 timeoutHandler:v9];
     v12 = self->_timer;
     self->_timer = v11;
 
     [(SCDAWatchdogTimer *)self->_timer start];
   }
+}
 
+- (void)_resultSeenWithValue:(BOOL)value
+{
+  valueCopy = value;
   v13 = *MEMORY[0x1E69E9840];
+  if (value)
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  self->_state = v5;
+  v6 = SCDALogContextCore;
+  if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
+  {
+    v7 = v6;
+    v8 = [(SCDAMonitor *)self _myriadStateToString:v5];
+    v9 = 136315394;
+    v10 = "[SCDAMonitor _resultSeenWithValue:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s Myriad decision seen: state is %@.", &v9, 0x16u);
+  }
+
+  [(SCDAMonitor *)self _flushCompletions:valueCopy];
 }
 
 - (void)_flushCompletions:(BOOL)completions
@@ -236,67 +259,66 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
 
 - (void)_clear
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     state = self->_state;
     v5 = v3;
     v6 = [(SCDAMonitor *)self _myriadStateToString:state];
-    v8 = 136315394;
-    v9 = "[SCDAMonitor _clear]";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s Clear pending for Myriad decision: %@.", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SCDAMonitor _clear]";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s Clear pending for Myriad decision: %@.", &v7, 0x16u);
   }
 
   self->_state = 0;
   [(SCDAMonitor *)self _flushCompletions:0];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dequeueBlocksWithSignal:(int64_t)signal
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     completions = self->_completions;
     v7 = v5;
     *buf = 136315394;
-    v20 = "[SCDAMonitor _dequeueBlocksWithSignal:]";
-    v21 = 1024;
-    v22 = [(NSMutableArray *)completions count];
+    v19 = "[SCDAMonitor _dequeueBlocksWithSignal:]";
+    v20 = 1024;
+    v21 = [(NSMutableArray *)completions count];
     _os_log_impl(&dword_1DA758000, v7, OS_LOG_TYPE_INFO, "%s Myriad decision had %d block(s) waiting", buf, 0x12u);
   }
 
   if ([(NSMutableArray *)self->_completions count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = self->_completions;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * v12++) invokeWithSignal:{signal, v14}];
+          [*(*(&v13 + 1) + 8 * v12++) invokeWithSignal:{signal, v13}];
         }
 
         while (v10 != v12);
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -304,48 +326,45 @@ uint64_t __52__SCDAMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(u
 
     [(NSMutableArray *)self->_completions removeAllObjects];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void *__36__SCDAMonitor__setDecisionIsPending__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[SCDAMonitor _setDecisionIsPending]_block_invoke";
-    _os_log_error_impl(&dword_1DA758000, v2, OS_LOG_TYPE_ERROR, "%s Myriad monitor times out, Myriad is probably unable to finish, clear pending blocks", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SCDAMonitor _setDecisionIsPending]_block_invoke";
+    _os_log_error_impl(&dword_1DA758000, v2, OS_LOG_TYPE_ERROR, "%s Myriad monitor times out, Myriad is probably unable to finish, clear pending blocks", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result[1] == 1)
   {
     [result _deregisterFromRepostedDecisionResultsObservers];
-    result = [*(a1 + 32) _clear];
+    return [*(a1 + 32) _clear];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)notifyObserver:(id)observer didChangeStateFrom:(unint64_t)from to:(unint64_t)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   v9 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315906;
-    v13 = "[SCDAMonitor notifyObserver:didChangeStateFrom:to:]";
-    v14 = 2048;
-    v15 = observerCopy;
-    v16 = 2048;
+    v11 = 136315906;
+    v12 = "[SCDAMonitor notifyObserver:didChangeStateFrom:to:]";
+    v13 = 2048;
+    v14 = observerCopy;
+    v15 = 2048;
     fromCopy = from;
-    v18 = 2048;
+    v17 = 2048;
     toCopy = to;
-    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s notifyObserver %p didChangeStateFrom %ld -> %ld", &v12, 0x2Au);
+    _os_log_impl(&dword_1DA758000, v9, OS_LOG_TYPE_INFO, "%s notifyObserver %p didChangeStateFrom %ld -> %ld", &v11, 0x2Au);
   }
 
   if (!from && self->_repostedWonObserver == observerCopy)
@@ -353,8 +372,6 @@ void *__36__SCDAMonitor__setDecisionIsPending__block_invoke(uint64_t a1)
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.siri.myriad.get.decision", 0, 0, 1u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserver:(id)observer didReceiveNotificationWithToken:(int)token
@@ -373,7 +390,7 @@ void *__36__SCDAMonitor__setDecisionIsPending__block_invoke(uint64_t a1)
 
 void __62__SCDAMonitor_notifyObserver_didReceiveNotificationWithToken___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) name];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -386,19 +403,19 @@ LABEL_10:
       v9 = v3;
       v10 = 1;
 LABEL_14:
-      [v9 _resultSeenWithValue:{v10, *v14, *&v14[16]}];
+      [v9 _resultSeenWithValue:{v10, *v13, *&v13[8]}];
 LABEL_15:
       [*(a1 + 40) _deregisterFromRepostedDecisionResultsObservers];
       goto LABEL_16;
     }
 
-    *v14 = 136315394;
-    *&v14[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-    *&v14[12] = 2112;
-    *&v14[14] = v2;
+    *v13 = 136315394;
+    *&v13[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+    *&v13[12] = 2112;
+    *&v13[14] = v2;
     v8 = "%s Myriad Delay Monitor result: YES (%@)";
 LABEL_9:
-    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, v8, v14, 0x16u);
+    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, v8, v13, 0x16u);
     v3 = *(a1 + 40);
     goto LABEL_10;
   }
@@ -408,11 +425,11 @@ LABEL_9:
     v11 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-      *&v14[12] = 2112;
-      *&v14[14] = v2;
-      _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor result: NO (%@)", v14, 0x16u);
+      *v13 = 136315394;
+      *&v13[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+      *&v13[12] = 2112;
+      *&v13[14] = v2;
+      _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor result: NO (%@)", v13, 0x16u);
       v3 = *(a1 + 40);
     }
 
@@ -423,14 +440,14 @@ LABEL_9:
 
   if (v4 == v3[9])
   {
-    v13 = SCDALogContextCore;
+    v12 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-      *&v14[12] = 2112;
-      *&v14[14] = v2;
-      _os_log_impl(&dword_1DA758000, v13, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor Begin (%@)", v14, 0x16u);
+      *v13 = 136315394;
+      *&v13[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+      *&v13[12] = 2112;
+      *&v13[14] = v2;
+      _os_log_impl(&dword_1DA758000, v12, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor Begin (%@)", v13, 0x16u);
       v3 = *(a1 + 40);
     }
 
@@ -448,38 +465,36 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    *v14 = 136315394;
-    *&v14[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-    *&v14[12] = 2112;
-    *&v14[14] = v2;
+    *v13 = 136315394;
+    *&v13[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+    *&v13[12] = 2112;
+    *&v13[14] = v2;
     v8 = "%s Myriad Delay Monitor received reposted result: YES (%@)";
     goto LABEL_9;
   }
 
   if (v7)
   {
-    *v14 = 136315138;
-    *&v14[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Received notification of unregistered observer", v14, 0xCu);
+    *v13 = 136315138;
+    *&v13[4] = "[SCDAMonitor notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s Received notification of unregistered observer", v13, 0xCu);
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deregisterFromMyriadEventNotifications
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   beginObserver = self->_beginObserver;
   if (*&self->_beginObserver != 0 || self->_lostObserver)
   {
     v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[SCDAMonitor _deregisterFromMyriadEventNotifications]";
-      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from Myriad event notifications.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SCDAMonitor _deregisterFromMyriadEventNotifications]";
+      _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from Myriad event notifications.", &v8, 0xCu);
       beginObserver = self->_beginObserver;
     }
 
@@ -498,8 +513,6 @@ LABEL_16:
     self->_isRegisteredForMyriadEventNotification = 0;
     [(SCDAMonitor *)self _deregisterFromRepostedDecisionResultsObservers];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_fetchCurrentMyriadDecisionWithWaitTime:(double)time
@@ -518,23 +531,21 @@ LABEL_16:
 
 void __55__SCDAMonitor__fetchCurrentMyriadDecisionWithWaitTime___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 8) == 1 && (*(v1 + 65) & 1) == 0 && *(v1 + 96))
   {
     v2 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[SCDAMonitor _fetchCurrentMyriadDecisionWithWaitTime:]_block_invoke";
-      _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Fetching reposted Myriad event notification.", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[SCDAMonitor _fetchCurrentMyriadDecisionWithWaitTime:]_block_invoke";
+      _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Fetching reposted Myriad event notification.", &v4, 0xCu);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.siri.myriad.get.decision", 0, 0, 1u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_myriadStateToString:(int64_t)string
@@ -654,16 +665,16 @@ _BYTE *__29__SCDAMonitor_stopMonitoring__block_invoke(uint64_t a1)
 
 void __34__SCDAMonitor_ignoreMyriadEvents___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v8 = 136315394;
-    v9 = "[SCDAMonitor ignoreMyriadEvents:]_block_invoke";
-    v10 = 1024;
-    v11 = v3;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Should ignoring Myriad events -> %d.", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "[SCDAMonitor ignoreMyriadEvents:]_block_invoke";
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Should ignoring Myriad events -> %d.", &v7, 0x12u);
   }
 
   v4 = *(a1 + 40);
@@ -676,8 +687,6 @@ void __34__SCDAMonitor_ignoreMyriadEvents___block_invoke(uint64_t a1)
     v6 = *(v5 + 32);
     *(v5 + 32) = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startMonitoringWithTimeoutInterval:(double)interval instanceContext:(id)context
@@ -697,19 +706,19 @@ void __34__SCDAMonitor_ignoreMyriadEvents___block_invoke(uint64_t a1)
 
 void __66__SCDAMonitor_startMonitoringWithTimeoutInterval_instanceContext___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 48);
     v4 = *(a1 + 32);
-    v10 = 136315650;
-    v11 = "[SCDAMonitor startMonitoringWithTimeoutInterval:instanceContext:]_block_invoke";
-    v12 = 2048;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE delay monitor watchdog timeout %f context %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[SCDAMonitor startMonitoringWithTimeoutInterval:instanceContext:]_block_invoke";
+    v11 = 2048;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s BTLE delay monitor watchdog timeout %f context %@", &v9, 0x20u);
   }
 
   *(*(a1 + 40) + 66) = 1;
@@ -728,8 +737,6 @@ void __66__SCDAMonitor_startMonitoringWithTimeoutInterval_instanceContext___bloc
 
     [*(*(a1 + 40) + 40) start];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)waitForMyriadDecisionForReason:(id)reason withCompletion:(id)completion
@@ -751,7 +758,7 @@ void __66__SCDAMonitor_startMonitoringWithTimeoutInterval_instanceContext___bloc
 
 - (void)_enqueueBlock:(id)block forReason:(id)reason
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   reasonCopy = reason;
   v8 = reasonCopy;
@@ -773,25 +780,25 @@ void __66__SCDAMonitor_startMonitoringWithTimeoutInterval_instanceContext___bloc
         v16 = v15;
         v17 = [(SCDAMonitor *)self _myriadStateToString:1];
         *buf = 136315650;
-        v28 = "[SCDAMonitor _enqueueBlock:forReason:]";
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v10;
+        v27 = "[SCDAMonitor _enqueueBlock:forReason:]";
+        v28 = 2112;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v10;
         _os_log_impl(&dword_1DA758000, v16, OS_LOG_TYPE_INFO, "%s Queueing command waiting for Myriad decision: %@ (reason = %@).", buf, 0x20u);
       }
 
       Current = CFAbsoluteTimeGetCurrent();
       completions = self->_completions;
       v20 = [SCDASafetyBlock alloc];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __39__SCDAMonitor__enqueueBlock_forReason___block_invoke;
-      v23[3] = &unk_1E85D37B0;
-      v26 = Current;
-      v24 = v10;
-      v25 = blockCopy;
-      v21 = [(SCDASafetyBlock *)v20 initWithBlock:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __39__SCDAMonitor__enqueueBlock_forReason___block_invoke;
+      v22[3] = &unk_1E85D37B0;
+      v25 = Current;
+      v23 = v10;
+      v24 = blockCopy;
+      v21 = [(SCDASafetyBlock *)v20 initWithBlock:v22];
       [(NSMutableArray *)completions addObject:v21];
     }
 
@@ -803,11 +810,11 @@ void __66__SCDAMonitor_startMonitoringWithTimeoutInterval_instanceContext___bloc
         v13 = v12;
         v14 = [(SCDAMonitor *)self _myriadStateToString:state];
         *buf = 136315650;
-        v28 = "[SCDAMonitor _enqueueBlock:forReason:]";
-        v29 = 2112;
-        v30 = v14;
-        v31 = 2112;
-        v32 = v10;
+        v27 = "[SCDAMonitor _enqueueBlock:forReason:]";
+        v28 = 2112;
+        v29 = v14;
+        v30 = 2112;
+        v31 = v10;
         _os_log_impl(&dword_1DA758000, v13, OS_LOG_TYPE_INFO, "%s Dequeueing command for Myriad decision: %@ (reason = %@).", buf, 0x20u);
       }
 
@@ -822,33 +829,29 @@ void __66__SCDAMonitor_startMonitoringWithTimeoutInterval_instanceContext___bloc
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __39__SCDAMonitor__enqueueBlock_forReason___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v5 = v4;
     v6 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
     v7 = *(a1 + 32);
-    v10 = 136315906;
-    v11 = "[SCDAMonitor _enqueueBlock:forReason:]_block_invoke";
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2048;
-    v17 = a2;
-    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s Dequeuing after %f seconds for Myriad decision (reason = %@) and dequeue signal %zd.", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[SCDAMonitor _enqueueBlock:forReason:]_block_invoke";
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2048;
+    v16 = a2;
+    _os_log_impl(&dword_1DA758000, v5, OS_LOG_TYPE_INFO, "%s Dequeuing after %f seconds for Myriad decision (reason = %@) and dequeue signal %zd.", &v9, 0x2Au);
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), a2 == 0);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), a2 == 0);
 }
 
 - (SCDAMonitor)init

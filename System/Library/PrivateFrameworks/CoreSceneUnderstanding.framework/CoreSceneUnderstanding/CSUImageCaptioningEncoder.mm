@@ -73,26 +73,24 @@
 
 - (id)computeEncodedCaptioningFeaturesForImage:(__CVBuffer *)image error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_loadResources_(self, a2, error, error, v4))
+  v21 = *MEMORY[0x1E69E9840];
+  Resources = objc_msgSend_loadResources_(self, a2, error, error, v4);
+  if (Resources)
   {
     if (image)
     {
-      ptr = self->_net.__ptr_;
-      v12 = objc_msgSend_inputImageTensorName(self->_configuration, v7, v8, v9, v10);
-      v20[7] = objc_msgSend_UTF8String(v12, v13, v14, v15, v16);
-      sub_1AC06B064(v20, image);
+      v12 = objc_msgSend_inputImageTensorName(self->_configuration, v8, v9, v10, v11);
+      v19[7] = objc_msgSend_UTF8String(v12, v13, v14, v15, v16);
+      sub_1AC06B064(v19, image);
     }
 
-    v17 = sub_1AC090E50();
+    v17 = sub_1AC090E50(Resources);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
       _os_log_impl(&dword_1AC05D000, v17, OS_LOG_TYPE_INFO, "Input image to computeEncodedCaptioningFeaturesForImage is null", buf, 2u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return 0;
 }

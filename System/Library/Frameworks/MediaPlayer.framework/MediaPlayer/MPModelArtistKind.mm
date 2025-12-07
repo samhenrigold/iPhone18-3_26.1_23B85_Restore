@@ -134,7 +134,7 @@
   v4 = songKind;
   if (songKind)
   {
-    [songKind predicateWithBaseProperty:0];
+    objc_msgSend_predicateWithBaseProperty_(songKind);
   }
 
   v6 = mlcore::ArtistPropertyPersistentID(v5);

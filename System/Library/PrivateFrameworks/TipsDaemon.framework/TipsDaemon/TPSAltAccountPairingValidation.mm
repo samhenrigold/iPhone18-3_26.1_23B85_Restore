@@ -7,7 +7,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   value = [(TPSTargetingValidation *)self value];
   v6 = 0x277D71000uLL;
@@ -23,28 +23,28 @@
     mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
     v16 = [mEMORY[0x277D2BCF8] getAllDevicesWithArchivedAltAccountDevicesMatching:targeting];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v17 = v16;
-    v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v18)
     {
       v19 = v18;
-      v31 = completionCopy;
-      v20 = *v33;
+      v30 = completionCopy;
+      v20 = *v32;
       v21 = *MEMORY[0x277D2BB28];
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v23 = [*(*(&v32 + 1) + 8 * i) valueForProperty:v21];
+          v23 = [*(*(&v31 + 1) + 8 * i) valueForProperty:v21];
           bOOLValue = [v23 BOOLValue];
 
           if (v13 == bOOLValue)
@@ -54,7 +54,7 @@
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v19)
         {
           continue;
@@ -65,7 +65,7 @@
 
       v25 = 0;
 LABEL_16:
-      completionCopy = v31;
+      completionCopy = v30;
       v6 = 0x277D71000;
     }
 
@@ -83,10 +83,10 @@ LABEL_16:
       value4 = [(TPSTargetingValidation *)self value];
       value5 = [(TPSTargetingValidation *)self value];
       *buf = 138412546;
-      v37 = value4;
-      v38 = 2112;
-      v39 = objc_opt_class();
-      v28 = v39;
+      v36 = value4;
+      v37 = 2112;
+      v38 = objc_opt_class();
+      v28 = v38;
       _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@.", buf, 0x16u);
     }
 
@@ -100,7 +100,6 @@ LABEL_16:
   }
 
   completionCopy[2](completionCopy, v25, 0);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 + (id)deviceSelectorBlockForMatchingType:(int64_t)type

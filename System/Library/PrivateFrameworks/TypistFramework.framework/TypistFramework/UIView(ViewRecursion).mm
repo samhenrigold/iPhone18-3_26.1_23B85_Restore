@@ -30,36 +30,36 @@
 
 - (id)firstSubviewOfClass:()ViewRecursion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [self allSubViews];
-  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v1 = v13 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v13 = 0u;
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
   {
-    v3 = v2;
-    v4 = *v11;
+    v5 = v4;
+    v6 = *v12;
     while (2)
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v4)
+        if (*v12 != v6)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v3);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v7 = v6;
+          v9 = v8;
           goto LABEL_11;
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v3)
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v5)
       {
         continue;
       }
@@ -68,12 +68,10 @@
     }
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v9;
 }
 
 + (uint64_t)viewExistsOnScreen:()ViewRecursion

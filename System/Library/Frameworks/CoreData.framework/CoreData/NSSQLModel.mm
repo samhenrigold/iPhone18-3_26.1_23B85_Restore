@@ -11,7 +11,7 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   entityDescriptionToSQLMap = self->_entityDescriptionToSQLMap;
   if (entityDescriptionToSQLMap)
   {
@@ -22,30 +22,30 @@
   entities = self->_entities;
   if (entities)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v5 = [(NSArray *)entities countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v5 = [(NSArray *)entities countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(entities);
           }
 
-          CFRelease(*(*(&v11 + 1) + 8 * v8++));
+          CFRelease(*(*(&v10 + 1) + 8 * v8++));
         }
 
         while (v6 != v8);
-        v6 = [(NSArray *)entities countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [(NSArray *)entities countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -57,19 +57,18 @@
 
   self->_entitiesByName = 0;
   self->_mom = 0;
-  v10.receiver = self;
-  v10.super_class = NSSQLModel;
-  [(NSStoreMapping *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = NSSQLModel;
+  [(NSStoreMapping *)&v9 dealloc];
 }
 
 - (id)initWithManagedObjectModel:(uint64_t)model configurationName:(char)name retainHashHack:(uint64_t)hack brokenHashVersion:
 {
   selfCopy = self;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_38;
+    return selfCopy;
   }
 
   if (model)
@@ -118,9 +117,9 @@ LABEL_40:
     objc_autoreleasePoolPop(v10);
   }
 
-  v26.receiver = selfCopy;
-  v26.super_class = NSSQLModel;
-  selfCopy = objc_msgSendSuper2(&v26, sel_init);
+  v25.receiver = selfCopy;
+  v25.super_class = NSSQLModel;
+  selfCopy = objc_msgSendSuper2(&v25, sel_init);
   if (selfCopy)
   {
     *(selfCopy + 2) = a2;
@@ -132,8 +131,8 @@ LABEL_40:
     *(selfCopy + 57) = v14;
     *(selfCopy + 15) = [objc_msgSend(MEMORY[0x1E696AD98] numberWithLong:{objc_msgSend(a2, "_modelsReferenceIDOffset")), "unsignedIntValue"}];
     *(selfCopy + 16) = 0;
-    v25 = 0;
-    if (![selfCopy _generateModelWithError:&v25])
+    v24 = 0;
+    if (![selfCopy _generateModelWithError:&v24])
     {
       v15 = PFUseToolchainBehaviors();
       v16 = objc_autoreleasePoolPush();
@@ -148,7 +147,7 @@ LABEL_40:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              modelCopy2 = v25;
+              modelCopy2 = v24;
               _os_log_error_impl(&dword_18565F000, v17, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to generate optimized model (sql model generation failed %@)\n", buf, 0xCu);
             }
           }
@@ -159,13 +158,13 @@ LABEL_40:
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              modelCopy2 = v25;
+              modelCopy2 = v24;
               _os_log_impl(&dword_18565F000, v20, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: Unable to generate optimized model (sql model generation failed %@)\n", buf, 0xCu);
             }
           }
         }
 
-        v21 = v25;
+        v21 = v24;
         if (_pflogging_catastrophic_mode)
         {
           v22 = 1;
@@ -191,7 +190,7 @@ LABEL_40:
           }
 
           *buf = 138412290;
-          modelCopy2 = v25;
+          modelCopy2 = v24;
           v19 = "CoreData: error: Unable to generate optimized model (sql model generation failed %@)\n";
         }
 
@@ -204,7 +203,7 @@ LABEL_40:
           }
 
           *buf = 138412290;
-          modelCopy2 = v25;
+          modelCopy2 = v24;
           v19 = "CoreData: warning: Unable to generate optimized model (sql model generation failed %@)\n";
         }
 
@@ -212,7 +211,7 @@ LABEL_40:
       }
 
 LABEL_34:
-      v21 = v25;
+      v21 = v24;
       if (_pflogging_catastrophic_mode)
       {
         v22 = 1;
@@ -227,45 +226,43 @@ LABEL_37:
       _NSCoreDataLog_console(v22, "Unable to generate optimized model (sql model generation failed %@)", v21);
       objc_autoreleasePoolPop(v16);
 
-      selfCopy = 0;
+      return 0;
     }
   }
 
-LABEL_38:
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BOOL)_generateModelWithError:(id *)error
 {
-  v125 = *MEMORY[0x1E69E9840];
-  v77 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v124 = *MEMORY[0x1E69E9840];
+  v76 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   managedObjectModel = [(NSSQLModel *)self managedObjectModel];
   v5 = [(NSManagedObjectModel *)managedObjectModel _sortedEntitiesForConfiguration:?];
-  v75 = [v5 count];
-  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v75];
+  v74 = [v5 count];
+  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v74];
+  v111 = 0u;
   v112 = 0u;
   v113 = 0u;
   v114 = 0u;
-  v115 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v112 objects:v124 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v111 objects:v123 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v113;
+    v9 = *v112;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v113 != v9)
+        if (*v112 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v6 addObject:{objc_msgSend(*(*(&v112 + 1) + 8 * i), "name")}];
+        [v6 addObject:{objc_msgSend(*(*(&v111 + 1) + 8 * i), "name")}];
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v112 objects:v124 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v111 objects:v123 count:16];
     }
 
     while (v8);
@@ -273,29 +270,29 @@ LABEL_38:
 
   self->_entitiesByName = [[NSKnownKeysDictionary alloc] initForKeys:v6];
 
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
   v109 = 0u;
-  v11 = [v5 countByEnumeratingWithState:&v108 objects:v123 count:16];
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
+  v11 = [v5 countByEnumeratingWithState:&v107 objects:v122 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v109;
+    v13 = *v108;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v109 != v13)
+        if (*v108 != v13)
         {
           objc_enumerationMutation(v5);
         }
 
-        v15 = [[NSSQLEntity alloc] initWithModel:self entityDescription:*(*(&v108 + 1) + 8 * j)];
+        v15 = [[NSSQLEntity alloc] initWithModel:self entityDescription:*(*(&v107 + 1) + 8 * j)];
         [(NSKnownKeysDictionary *)self->_entitiesByName setObject:v15 forKey:[(NSSQLEntity *)v15 name]];
       }
 
-      v12 = [v5 countByEnumeratingWithState:&v108 objects:v123 count:16];
+      v12 = [v5 countByEnumeratingWithState:&v107 objects:v122 count:16];
     }
 
     while (v12);
@@ -303,58 +300,58 @@ LABEL_38:
 
   allValues = [(NSKnownKeysDictionary *)self->_entitiesByName allValues];
   entityIDOffset = self->_entityIDOffset;
+  v103 = 0u;
   v104 = 0u;
   v105 = 0u;
   v106 = 0u;
-  v107 = 0u;
-  v18 = [allValues countByEnumeratingWithState:&v104 objects:v122 count:16];
+  v18 = [allValues countByEnumeratingWithState:&v103 objects:v121 count:16];
   if (v18)
   {
     v19 = v18;
     v20 = entityIDOffset + 1;
-    v21 = *v105;
+    v21 = *v104;
     do
     {
       for (k = 0; k != v19; ++k)
       {
-        if (*v105 != v21)
+        if (*v104 != v21)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v23 = *(*(&v104 + 1) + 8 * k);
+        v23 = *(*(&v103 + 1) + 8 * k);
         if (![objc_msgSend(v23 "entityDescription")])
         {
           v20 = [(NSSQLEntity *)v23 _generateIDWithSuperEntity:v20 nextID:?];
         }
       }
 
-      v19 = [allValues countByEnumeratingWithState:&v104 objects:v122 count:16];
+      v19 = [allValues countByEnumeratingWithState:&v103 objects:v121 count:16];
     }
 
     while (v19);
   }
 
   errorCopy = error;
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
-  v24 = [allValues countByEnumeratingWithState:&v100 objects:v121 count:16];
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
+  v24 = [allValues countByEnumeratingWithState:&v99 objects:v120 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v101;
+    v26 = *v100;
     do
     {
       for (m = 0; m != v25; ++m)
       {
-        if (*v101 != v26)
+        if (*v100 != v26)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v28 = *(*(&v100 + 1) + 8 * m);
+        v28 = *(*(&v99 + 1) + 8 * m);
         v29 = objc_autoreleasePoolPush();
         if (v28)
         {
@@ -373,135 +370,135 @@ LABEL_38:
         objc_autoreleasePoolPop(v29);
       }
 
-      v25 = [allValues countByEnumeratingWithState:&v100 objects:v121 count:16];
+      v25 = [allValues countByEnumeratingWithState:&v99 objects:v120 count:16];
     }
 
     while (v25);
   }
 
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
   v97 = 0u;
-  v31 = [allValues countByEnumeratingWithState:&v96 objects:v120 count:16];
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v31 = [allValues countByEnumeratingWithState:&v95 objects:v119 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v97;
+    v33 = *v96;
     do
     {
       for (n = 0; n != v32; ++n)
       {
-        if (*v97 != v33)
+        if (*v96 != v33)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v35 = *(*(&v96 + 1) + 8 * n);
+        v35 = *(*(&v95 + 1) + 8 * n);
         v36 = objc_autoreleasePoolPush();
         [(NSSQLEntity *)v35 _generateInverseRelationshipsAndMore];
         objc_autoreleasePoolPop(v36);
       }
 
-      v32 = [allValues countByEnumeratingWithState:&v96 objects:v120 count:16];
+      v32 = [allValues countByEnumeratingWithState:&v95 objects:v119 count:16];
     }
 
     while (v32);
   }
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
   v93 = 0u;
-  v37 = [allValues countByEnumeratingWithState:&v92 objects:v119 count:16];
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v37 = [allValues countByEnumeratingWithState:&v91 objects:v118 count:16];
   if (!v37)
   {
 LABEL_51:
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
-    v42 = [allValues countByEnumeratingWithState:&v88 objects:v118 count:16];
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v42 = [allValues countByEnumeratingWithState:&v87 objects:v117 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v89;
+      v44 = *v88;
       do
       {
         for (ii = 0; ii != v43; ++ii)
         {
-          if (*v89 != v44)
+          if (*v88 != v44)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v46 = *(*(&v88 + 1) + 8 * ii);
+          v46 = *(*(&v87 + 1) + 8 * ii);
+          v83 = 0u;
           v84 = 0u;
           v85 = 0u;
           v86 = 0u;
-          v87 = 0u;
           attributes = [v46 attributes];
-          v48 = [attributes countByEnumeratingWithState:&v84 objects:v117 count:16];
+          v48 = [attributes countByEnumeratingWithState:&v83 objects:v116 count:16];
           if (v48)
           {
             v49 = v48;
-            v50 = *v85;
+            v50 = *v84;
             do
             {
               for (jj = 0; jj != v49; ++jj)
               {
-                if (*v85 != v50)
+                if (*v84 != v50)
                 {
                   objc_enumerationMutation(attributes);
                 }
 
-                v52 = *(*(&v84 + 1) + 8 * jj);
+                v52 = *(*(&v83 + 1) + 8 * jj);
                 if (v52 && v52[24] == 1)
                 {
                 }
               }
 
-              v49 = [attributes countByEnumeratingWithState:&v84 objects:v117 count:16];
+              v49 = [attributes countByEnumeratingWithState:&v83 objects:v116 count:16];
             }
 
             while (v49);
           }
         }
 
-        v43 = [allValues countByEnumeratingWithState:&v88 objects:v118 count:16];
+        v43 = [allValues countByEnumeratingWithState:&v87 objects:v117 count:16];
       }
 
       while (v43);
     }
 
-    v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v75];
-    if (!v75)
+    v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v74];
+    if (!v74)
     {
 
       self->_entitiesByName = [[NSKnownKeysDictionary alloc] initForKeys:v53];
       v56 = 0;
-      v83 = 0;
+      v82 = 0;
 LABEL_89:
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
       v80 = 0u;
-      v61 = [managedObjectModel countByEnumeratingWithState:&v79 objects:v116 count:16];
+      v81 = 0u;
+      v78 = 0u;
+      v79 = 0u;
+      v61 = [managedObjectModel countByEnumeratingWithState:&v78 objects:v115 count:16];
       if (v61)
       {
         v62 = v61;
-        v63 = *v80;
+        v63 = *v79;
         do
         {
           v64 = 0;
           do
           {
-            if (*v80 != v63)
+            if (*v79 != v63)
             {
               objc_enumerationMutation(managedObjectModel);
             }
 
-            v65 = *(*(&v79 + 1) + 8 * v64);
+            v65 = *(*(&v78 + 1) + 8 * v64);
             if (v65)
             {
               v66 = v65[20];
@@ -517,7 +514,7 @@ LABEL_89:
           }
 
           while (v62 != v64);
-          v67 = [managedObjectModel countByEnumeratingWithState:&v79 objects:v116 count:16];
+          v67 = [managedObjectModel countByEnumeratingWithState:&v78 objects:v115 count:16];
           v62 = v67;
         }
 
@@ -527,7 +524,7 @@ LABEL_89:
       entities = self->_entities;
       self->_entities = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:entities];
 
-      [v77 drain];
+      [v76 drain];
       v69 = self->_retainLeopardStyleDictionaries & v56;
       if (v69)
       {
@@ -535,9 +532,9 @@ LABEL_89:
         {
           v70 = MEMORY[0x1E696ABC0];
           v71 = *MEMORY[0x1E696A250];
-          if (v83)
+          if (v82)
           {
-            v72 = [MEMORY[0x1E695DF20] dictionaryWithObject:v83 forKey:*MEMORY[0x1E696AA08]];
+            v72 = [MEMORY[0x1E695DF20] dictionaryWithObject:v82 forKey:*MEMORY[0x1E696AA08]];
           }
 
           else
@@ -550,10 +547,10 @@ LABEL_89:
       }
 
       v60 = v69 ^ 1;
-      goto LABEL_108;
+      return v60 & 1;
     }
 
-    for (kk = 0; kk != v75; ++kk)
+    for (kk = 0; kk != v74; ++kk)
     {
       [v53 addObject:{objc_msgSend(-[NSArray objectAtIndex:](self->_entities, "objectAtIndex:", kk), "name")}];
     }
@@ -561,7 +558,7 @@ LABEL_89:
     self->_entitiesByName = [[NSKnownKeysDictionary alloc] initForKeys:v53];
     v55 = 0;
     v56 = 0;
-    v83 = 0;
+    v82 = 0;
     while (1)
     {
       v57 = [(NSArray *)self->_entities objectAtIndex:v55];
@@ -577,7 +574,7 @@ LABEL_89:
       }
 
 LABEL_85:
-      if (v75 == ++v55)
+      if (v74 == ++v55)
       {
         goto LABEL_89;
       }
@@ -595,9 +592,9 @@ LABEL_76:
         {
           if ([(NSSQLEntity *)v57 _entityIsBroken:?])
           {
-            if (v83)
+            if (v82)
             {
-              v59 = v83;
+              v59 = v82;
             }
 
             v56 = 1;
@@ -625,17 +622,17 @@ LABEL_76:
   }
 
   v38 = v37;
-  v39 = *v93;
+  v39 = *v92;
 LABEL_45:
   v40 = 0;
   while (1)
   {
-    if (*v93 != v39)
+    if (*v92 != v39)
     {
       objc_enumerationMutation(allValues);
     }
 
-    v41 = *(*(&v92 + 1) + 8 * v40);
+    v41 = *(*(&v91 + 1) + 8 * v40);
     [(NSSQLEntity *)v41 _generateMulticolumnUniquenessConstraints];
     if (![(NSSQLEntity *)v41 _generateAttributeDerivations:error])
     {
@@ -644,7 +641,7 @@ LABEL_45:
 
     if (v38 == ++v40)
     {
-      v38 = [allValues countByEnumeratingWithState:&v92 objects:v119 count:16];
+      v38 = [allValues countByEnumeratingWithState:&v91 objects:v118 count:16];
       if (!v38)
       {
         goto LABEL_51;
@@ -655,17 +652,15 @@ LABEL_45:
   }
 
   v60 = 0;
-LABEL_108:
-  v73 = *MEMORY[0x1E69E9840];
   return v60 & 1;
 }
 
 - (void)_sqlEntityWithRenamingIdentifier:(uint64_t)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!identifier)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v4 = [*(identifier + 24) objectForKey:a2];
@@ -674,56 +669,50 @@ LABEL_108:
     v5 = v4;
     if ([a2 isEqualToString:{objc_msgSend(objc_msgSend(v4, "entityDescription"), "renamingIdentifier")}])
     {
-      goto LABEL_14;
+      return v5;
     }
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   allValues = [*(identifier + 24) allValues];
-  v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (!v7)
   {
-LABEL_13:
-    v5 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v8 = v7;
-  v9 = *v14;
+  v9 = *v13;
 LABEL_6:
   v10 = 0;
   while (1)
   {
-    if (*v14 != v9)
+    if (*v13 != v9)
     {
       objc_enumerationMutation(allValues);
     }
 
-    v5 = *(*(&v13 + 1) + 8 * v10);
+    v5 = *(*(&v12 + 1) + 8 * v10);
     if ([objc_msgSend(objc_msgSend(v5 "entityDescription")])
     {
-      break;
+      return v5;
     }
 
     if (v8 == ++v10)
     {
-      v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
       v5 = 0;
       if (v8)
       {
         goto LABEL_6;
       }
 
-      break;
+      return v5;
     }
   }
-
-LABEL_14:
-  v11 = *MEMORY[0x1E69E9840];
-  return v5;
 }
 
 - (id)entityForID:(unint64_t)d

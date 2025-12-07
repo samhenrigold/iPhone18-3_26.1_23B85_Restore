@@ -15,7 +15,7 @@
   selfCopy = self;
   sub_20BE8FA88();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v3 = sub_20C13CC54();
 
   return v3;
@@ -31,7 +31,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SessionVideoPlayerViewController();
+  v8.super_class = type metadata accessor for SessionVideoPlayerViewController(0);
   v4 = v8.receiver;
   [(SessionVideoPlayerViewController *)&v8 viewWillAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR____TtC9SeymourUI32SessionVideoPlayerViewController_presenter];
@@ -53,7 +53,7 @@
 {
   disappearCopy = disappear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SessionVideoPlayerViewController();
+  v8.super_class = type metadata accessor for SessionVideoPlayerViewController(0);
   v4 = v8.receiver;
   [(SessionVideoPlayerViewController *)&v8 viewWillDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC9SeymourUI32SessionVideoPlayerViewController_presenter];
@@ -74,7 +74,7 @@
 - (void)viewSafeAreaInsetsDidChange
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for SessionVideoPlayerViewController();
+  v2.super_class = type metadata accessor for SessionVideoPlayerViewController(0);
   [(SessionVideoPlayerViewController *)&v2 viewSafeAreaInsetsDidChange];
 }
 

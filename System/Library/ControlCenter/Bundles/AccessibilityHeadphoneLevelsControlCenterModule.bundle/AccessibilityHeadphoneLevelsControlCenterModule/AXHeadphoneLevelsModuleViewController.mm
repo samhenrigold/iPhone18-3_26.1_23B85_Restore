@@ -3,6 +3,7 @@
 - (BOOL)canDismissPresentedContent;
 - (id)containerViewsForPlatterTreatment;
 - (void)_updateAlphas;
+- (void)dismissPresentedContentAnimated:(BOOL)animated completion:(id)completion;
 - (void)headphoneLevelsIconButtonTapped;
 - (void)setPlatterContentAlpha:(double)alpha;
 - (void)shortcutDidChangeSize:(id)size;
@@ -101,6 +102,21 @@
   objc_msgSend_invalidateContainerViewsForPlatterTreatment(v25, v22, v23, v24);
 }
 
+- (void)dismissPresentedContentAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v7 = HCLogHearing();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *v13 = 0;
+    _os_log_impl(&dword_29C921000, v7, OS_LOG_TYPE_DEFAULT, "Dismissing Control Center", v13, 2u);
+  }
+
+  v11 = objc_msgSend_presentedViewController(self, v8, v9, v10);
+  objc_msgSend_dismissViewControllerAnimated_completion_(v11, v12, animatedCopy, completionCopy);
+}
+
 - (void)headphoneLevelsIconButtonTapped
 {
   v4 = objc_msgSend_contentModuleContext(self->_shortcutController, a2, v2, v3);
@@ -116,7 +132,7 @@
 
 - (id)containerViewsForPlatterTreatment
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   if (objc_msgSend_isExpanded(self, a2, v2, v3))
   {
     v8 = objc_msgSend_containerViewsForPlatterTreatment(self->_shortcutController, v5, v6, v7);
@@ -125,11 +141,9 @@
   else
   {
     v9 = objc_msgSend_buttonView(self, v5, v6, v7);
-    v13[0] = v9;
-    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v10, v13, 1);
+    v12[0] = v9;
+    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v10, v12, 1);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

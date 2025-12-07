@@ -56,15 +56,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -75,13 +81,12 @@
       v18 = objc_opt_class();
       v19 = 2112;
       typeCopy = type;
-      LODWORD(v16) = 22;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not find operation for type: %@", &v17, 22);
+      if (v15)
       {
-        v15 = v14;
-        [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v17, v16}];
-        free(v15);
+        v16 = v15;
+        [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+        free(v16);
         SSFileLog();
       }
     }
@@ -141,47 +146,51 @@ LABEL_6:
 
 - (void)run
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
+    v7 = objc_opt_class();
     wrappedOperation = self->_wrappedOperation;
-    v22 = 138412546;
-    v23 = v6;
-    v24 = 2112;
-    v25 = wrappedOperation;
-    LODWORD(v20) = 22;
-    v18 = &v22;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v24 = 138412546;
+    v25 = v7;
+    v26 = 2112;
+    v27 = wrappedOperation;
+    v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Running script operation: %@", &v24, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v22, v20}];
-      free(v9);
-      v18 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v20 = v11;
       SSFileLog();
     }
   }
 
-  v21 = 0;
-  if ([(SUScriptOperation *)self runSubOperation:self->_wrappedOperation returningError:&v21, v18])
+  v23 = 0;
+  if ([(SUScriptOperation *)self runSubOperation:self->_wrappedOperation returningError:&v23, v20])
   {
     [(SUScriptOperation *)self setSuccess:1];
   }
@@ -192,40 +201,45 @@ LABEL_6:
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v14) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v14) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v13 &= 2u;
+      v14 = v14;
     }
 
-    if (v13)
+    else
     {
-      v14 = objc_opt_class();
-      v22 = 138412546;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v21;
-      LODWORD(v20) = 22;
-      v19 = &v22;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v14 &= 2u;
+    }
+
+    if (v14)
+    {
+      v16 = objc_opt_class();
+      v24 = 138412546;
+      v25 = v16;
+      v26 = 2112;
+      v27 = v23;
+      LODWORD(v22) = 22;
+      v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 2, "%@: Post operation failed with error: %@", &v24, v22);
+      if (v17)
       {
-        v16 = v15;
-        v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v22, v20}];
-        free(v16);
-        v19 = v17;
+        v18 = v17;
+        v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+        free(v18);
+        v21 = v19;
         SSFileLog();
       }
     }
 
-    [(SUScriptOperation *)self setError:v21, v19];
+    [(SUScriptOperation *)self setError:v23, v21];
   }
 
   [(SUScriptOperation *)self performSelectorOnMainThread:sel__sendCompletionCallback withObject:0 waitUntilDone:1];
@@ -254,7 +268,7 @@ LABEL_6:
 
 - (void)_sendCompletionCallback
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   _scriptOptions = [(SUScriptOperation *)self _scriptOptions];
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -265,37 +279,41 @@ LABEL_6:
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v6 = shouldLog | 2;
+        LODWORD(v6) = shouldLog | 2;
       }
 
       else
       {
-        v6 = shouldLog;
+        LODWORD(v6) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v6 = v6;
+      }
+
+      else
       {
         v6 &= 2u;
       }
 
       if (v6)
       {
-        *v28 = 138412290;
-        *&v28[4] = objc_opt_class();
-        LODWORD(v27) = 12;
-        v26 = v28;
-        v7 = _os_log_send_and_compose_impl();
-        if (v7)
+        *v31 = 138412290;
+        *&v31[4] = objc_opt_class();
+        v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Using options callbackFunction", v31, 12);
+        if (v8)
         {
-          v8 = v7;
-          v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, v28, v27}];
-          free(v8);
-          v26 = v9;
+          v9 = v8;
+          v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+          free(v9);
+          v29 = v10;
           SSFileLog();
         }
       }
 
-      self->_callbackFunction = [_scriptOptions safeValueForKey:{@"completionCallback", v26}];
+      self->_callbackFunction = [_scriptOptions safeValueForKey:{@"completionCallback", v29}];
     }
 
     objc_opt_class();
@@ -304,38 +322,43 @@ LABEL_6:
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v14) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v14) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v13 &= 2u;
+      v14 = v14;
+    }
+
+    else
+    {
+      v14 &= 2u;
     }
 
     if (isKindOfClass)
     {
-      if (v13)
+      if (v14)
       {
-        v14 = objc_opt_class();
+        v16 = objc_opt_class();
         success = [(SUScriptOperation *)self success];
-        *v28 = 138412546;
-        *&v28[4] = v14;
-        *&v28[12] = 1024;
-        *&v28[14] = success;
-        LODWORD(v27) = 18;
-        v26 = v28;
-        v16 = _os_log_send_and_compose_impl();
-        if (v16)
+        *v31 = 138412546;
+        *&v31[4] = v16;
+        *&v31[12] = 1024;
+        *&v31[14] = success;
+        LODWORD(v30) = 18;
+        v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 2, "%@: Invoking callback with success: %d", v31, v30);
+        if (v18)
         {
-          v17 = v16;
-          v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, v28, v27}];
-          free(v17);
-          v26 = v18;
+          v19 = v18;
+          v20 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
+          free(v19);
+          v29 = v20;
           SSFileLog();
         }
       }
@@ -346,53 +369,63 @@ LABEL_6:
         wrappedOperation = self;
       }
 
-      [(ISOperation *)wrappedOperation sendCompletionCallback:self->_callbackFunction, v26];
+      [(ISOperation *)wrappedOperation sendCompletionCallback:self->_callbackFunction, v29];
       return;
     }
 
-    if (!v13)
+    if (!v14)
     {
       return;
     }
 
-    v20 = objc_opt_class();
-    *v28 = 138412290;
-    *&v28[4] = v20;
-    LODWORD(v27) = 12;
-    goto LABEL_34;
-  }
-
-  mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
-  shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
-  if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
-  {
-    v23 = shouldLog3 | 2;
+    v22 = objc_opt_class();
+    *v31 = 138412290;
+    *&v31[4] = v22;
+    LODWORD(v30) = 12;
+    v23 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 2, "%@: No (or invalid) callback", v31, v30, *v31, *&v31[8]);
   }
 
   else
   {
-    v23 = shouldLog3;
-  }
+    mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
+    if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
+    {
+      LODWORD(v26) = shouldLog3 | 2;
+    }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]3 OSLogObject], OS_LOG_TYPE_DEBUG))
-  {
-    v23 &= 2u;
+    else
+    {
+      LODWORD(v26) = shouldLog3;
+    }
+
+    oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    {
+      v26 = v26;
+    }
+
+    else
+    {
+      v26 &= 2u;
+    }
+
+    if (!v26)
+    {
+      return;
+    }
+
+    *v31 = 138412290;
+    *&v31[4] = objc_opt_class();
+    v23 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 2, "%@: No (or invalid) options/callback", v31, 12, *v31, *&v31[8]);
   }
 
   if (v23)
   {
-    *v28 = 138412290;
-    *&v28[4] = objc_opt_class();
-    LODWORD(v27) = 12;
-LABEL_34:
-    v24 = _os_log_send_and_compose_impl();
-    if (v24)
-    {
-      v25 = v24;
-      [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, v28, v27, *v28}];
-      free(v25);
-      SSFileLog();
-    }
+    v28 = v23;
+    [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
+    free(v28);
+    SSFileLog();
   }
 }
 

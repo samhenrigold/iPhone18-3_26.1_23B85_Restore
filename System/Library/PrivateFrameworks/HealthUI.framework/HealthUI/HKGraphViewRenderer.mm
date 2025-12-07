@@ -441,7 +441,7 @@
               v70 = 0u;
               v71 = 0u;
               v69 = 0u;
-              [(HKGraphViewRenderer *)self xAxisCoordinateTransform];
+              objc_msgSend_xAxisCoordinateTransform(self);
               v67 = 0u;
               v68 = 0u;
               v66 = 0u;
@@ -450,7 +450,7 @@
                 v63 = v69;
                 v64 = v70;
                 v65 = v71;
-                [v39 coordinateTransformFromXAxisTransform:&v63 chartRect:{v27, v29, v31, v33}];
+                objc_msgSend_coordinateTransformFromXAxisTransform_chartRect_(v39, v27, v29, v31, v33);
               }
 
               v63 = v66;

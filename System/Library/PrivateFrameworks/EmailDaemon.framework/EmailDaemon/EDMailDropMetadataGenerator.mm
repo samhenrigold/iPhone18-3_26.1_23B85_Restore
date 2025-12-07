@@ -111,38 +111,38 @@ void __57__EDMailDropMetadataGenerator_withTimeout_do_completion___block_invoke_
 
 - (void)tearDownWebView
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   webView = [(EDMailDropMetadataGenerator *)self webView];
   configuration = [webView configuration];
   userContentController = [configuration userContentController];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   scriptHandlers = [(EDMailDropMetadataGenerator *)self scriptHandlers];
-  v7 = [scriptHandlers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [scriptHandlers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(scriptHandlers);
         }
 
-        name = [*(*(&v14 + 1) + 8 * v9) name];
+        name = [*(*(&v13 + 1) + 8 * v9) name];
         [userContentController removeScriptMessageHandlerForName:name];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [scriptHandlers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [scriptHandlers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -155,7 +155,6 @@ void __57__EDMailDropMetadataGenerator_withTimeout_do_completion___block_invoke_
   [webView2 _close];
 
   [(EDMailDropMetadataGenerator *)self setWebView:0];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldSearchForMailDropNodesInFileURL:(id)l
@@ -165,43 +164,44 @@ void __57__EDMailDropMetadataGenerator_withTimeout_do_completion___block_invoke_
   v5 = v4;
   if (!v4)
   {
-    v7 = _ef_log_EDMailDropMetadataGenerator();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ef_log_EDMailDropMetadataGenerator(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(EDMailDropMetadataGenerator *)lCopy _shouldSearchForMailDropNodesInFileURL:v7];
+      [(EDMailDropMetadataGenerator *)lCopy _shouldSearchForMailDropNodesInFileURL:v8];
     }
 
     goto LABEL_7;
   }
 
   v6 = [v4 containsString:*MEMORY[0x1E699A798]];
-  v7 = _ef_log_EDMailDropMetadataGenerator();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-  if (v6)
+  v7 = v6;
+  v8 = _ef_log_EDMailDropMetadataGenerator(v6);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v7)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      v9 = 1;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "HTML file seems to contain Mail Drop tags; proceeding with node search", buf, 2u);
+      v10 = 1;
+      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_INFO, "HTML file seems to contain Mail Drop tags; proceeding with node search", buf, 2u);
       goto LABEL_11;
     }
 
 LABEL_7:
-    v9 = 1;
+    v10 = 1;
     goto LABEL_11;
   }
 
-  if (v8)
+  if (v9)
   {
-    *v11 = 0;
-    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "HTML file does not contain Mail Drop tags; skipping node search", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_INFO, "HTML file does not contain Mail Drop tags; skipping node search", v12, 2u);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v9;
+  return v10;
 }
 
 - (void)_findMailDropNodesInFileURL:(id)l promise:(id)promise
@@ -252,66 +252,61 @@ void __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___blo
 
   if (v5)
   {
-    v7 = _ef_log_EDMailDropMetadataGenerator();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _ef_log_EDMailDropMetadataGenerator(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [a1[5] lastPathComponent];
+      v9 = [a1[5] lastPathComponent];
       *buf = 138412290;
-      v22 = v8;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Creating a webview for parsing MailDrop nodes for HTML file %@", buf, 0xCu);
+      v22 = v9;
+      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Creating a webview for parsing MailDrop nodes for HTML file %@", buf, 0xCu);
     }
 
-    v9 = objc_alloc(MEMORY[0x1E69853A0]);
-    v10 = [v9 initWithFrame:v2 configuration:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-    [a1[4] setWebView:v10];
+    v10 = objc_alloc(MEMORY[0x1E69853A0]);
+    v11 = [v10 initWithFrame:v2 configuration:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    [a1[4] setWebView:v11];
 
-    v11 = a1[4];
-    v12 = [v11 webView];
-    [v12 setNavigationDelegate:v11];
+    v12 = a1[4];
+    v13 = [v12 webView];
+    [v13 setNavigationDelegate:v12];
   }
 
   objc_initWeak(buf, a1[4]);
-  v13 = a1[4];
+  v14 = a1[4];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
   v17[2] = __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_21;
   v17[3] = &unk_1E82535B8;
   objc_copyWeak(&v19, buf);
   v18 = a1[6];
-  [v13 _addScriptHandlerForKey:@"FinishedParsingMailDropNodes" handler:v17];
-  v14 = [a1[4] webView];
-  v15 = [v14 loadFileURL:a1[5] allowingReadAccessToURL:a1[5]];
+  [v14 _addScriptHandlerForKey:@"FinishedParsingMailDropNodes" handler:v17];
+  v15 = [a1[4] webView];
+  v16 = [v15 loadFileURL:a1[5] allowingReadAccessToURL:a1[5]];
 
   objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v2 pathForResource:@"EDMailDropSupport" ofType:@"js"];
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 pathForResource:@"EDMailDropSupport" ofType:@"js"];
 
-  v10 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v3 encoding:4 error:&v10];
-  v5 = v10;
-  v6 = _block_invoke_mailDropSupportSource;
-  _block_invoke_mailDropSupportSource = v4;
+  v9 = 0;
+  v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v2 encoding:4 error:&v9];
+  v4 = v9;
+  v5 = _block_invoke_mailDropSupportSource;
+  _block_invoke_mailDropSupportSource = v3;
 
   if (!_block_invoke_mailDropSupportSource)
   {
-    v7 = _ef_log_EDMailDropMetadataGenerator();
+    v7 = _ef_log_EDMailDropMetadataGenerator(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v5 ef_publicDescription];
-      __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_2_cold_1(v8, v11, v7);
+      v8 = [v4 ef_publicDescription];
+      __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_2_cold_1(v8, v10, v7);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_21(uint64_t a1, void *a2)
@@ -319,7 +314,7 @@ void __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___blo
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = _ef_log_EDMailDropMetadataGenerator();
+  v5 = _ef_log_EDMailDropMetadataGenerator(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v12 = 138412290;
@@ -344,25 +339,23 @@ void __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___blo
   {
   }
 
-  v8 = _ef_log_EDMailDropMetadataGenerator();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = _ef_log_EDMailDropMetadataGenerator(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_21_cold_1(v8);
+    __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_21_cold_1(v9);
   }
 
-  v9 = *(a1 + 32);
-  v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E699A730] code:2049 userInfo:0];
-  [v9 finishWithError:v10];
+  v10 = *(a1 + 32);
+  v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E699A730] code:2049 userInfo:0];
+  [v10 finishWithError:v11];
 
   [WeakRetained tearDownWebView];
 LABEL_10:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webViewWebContentProcessDidTerminate:(id)terminate
 {
-  v4 = _ef_log_EDMailDropMetadataGenerator();
+  v4 = _ef_log_EDMailDropMetadataGenerator(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [EDMailDropMetadataGenerator webViewWebContentProcessDidTerminate:v4];
@@ -377,36 +370,33 @@ LABEL_10:
 
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v7 = _ef_log_EDMailDropMetadataGenerator();
+  v7 = _ef_log_EDMailDropMetadataGenerator(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     ef_publicDescription = [errorCopy ef_publicDescription];
-    [EDMailDropMetadataGenerator webView:ef_publicDescription didFailProvisionalNavigation:v11 withError:v7];
+    [EDMailDropMetadataGenerator webView:ef_publicDescription didFailProvisionalNavigation:v10 withError:v7];
   }
 
   activePromise = [(EDMailDropMetadataGenerator *)self activePromise];
   [activePromise finishWithError:errorCopy];
 
   [(EDMailDropMetadataGenerator *)self tearDownWebView];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webView:(id)view didFinishNavigation:(id)navigation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   viewCopy = view;
-  v5 = _ef_log_EDMailDropMetadataGenerator();
+  v5 = _ef_log_EDMailDropMetadataGenerator(viewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [viewCopy URL];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "MailDrop: Finished loading webview for URL %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "MailDrop: Finished loading webview for URL %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertMailDropAttachmentViewForContentURL:(id)l HTMLByContentID:(id)d completionHandler:(id)handler
@@ -463,7 +453,7 @@ void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentUR
 
 void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentURL_HTMLByContentID_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -471,9 +461,9 @@ void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentUR
   {
 
     v7 = *(a1 + 32);
-    v18 = 0;
-    v8 = [v5 writeToURL:v7 atomically:1 encoding:4 error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v8 = [v5 writeToURL:v7 atomically:1 encoding:4 error:&v17];
+    v9 = v17;
     v6 = v9;
     if (v8)
     {
@@ -481,18 +471,18 @@ void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentUR
       goto LABEL_15;
     }
 
-    v12 = _ef_log_EDMailDropMetadataGenerator();
+    v12 = _ef_log_EDMailDropMetadataGenerator(v9);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = [v6 ef_publicDescription];
-      __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentURL_HTMLByContentID_completionHandler___block_invoke_2_cold_1(v13, v23, v12);
+      __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentURL_HTMLByContentID_completionHandler___block_invoke_2_cold_1(v13, v22, v12);
     }
 
     if (v6)
     {
-      v21 = *MEMORY[0x1E696AA08];
-      v22 = v6;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x1E696AA08];
+      v21 = v6;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     }
 
     else
@@ -507,9 +497,9 @@ void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentUR
   {
     if (v6)
     {
-      v19 = *MEMORY[0x1E696AA08];
-      v20 = v6;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x1E696AA08];
+      v19 = v6;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     }
 
     else
@@ -535,8 +525,6 @@ LABEL_15:
     v16 = [MEMORY[0x1E695DFB0] null];
     [v15 finishWithResult:v16];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentURL_HTMLByContentID_completionHandler___block_invoke_30(uint64_t a1, uint64_t a2, void *a3)
@@ -577,11 +565,10 @@ void __107__EDMailDropMetadataGenerator_insertMailDropAttachmentViewForContentUR
 
 - (void)_shouldSearchForMailDropNodesInFileURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Could not load contents of URL %@ for pre-screening; proceeding with node search", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Could not load contents of URL %@ for pre-screening; proceeding with node search", &v2, 0xCu);
 }
 
 void __67__EDMailDropMetadataGenerator__findMailDropNodesInFileURL_promise___block_invoke_2_cold_1(void *a1, uint64_t a2, NSObject *a3)

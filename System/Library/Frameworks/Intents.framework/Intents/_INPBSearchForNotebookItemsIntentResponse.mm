@@ -3,6 +3,7 @@
 - (_INPBSearchForNotebookItemsIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)sortTypeAsString:(int)string;
 - (int)StringAsSortType:(id)type;
 - (unint64_t)hash;
 - (void)addNotes:(id)notes;
@@ -20,35 +21,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_notes count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v5 = self->_notes;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v38;
+      v8 = *v37;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v38 != v8)
+          if (*v37 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v7);
@@ -84,30 +85,30 @@
   if ([(NSArray *)self->_taskLists count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v14 = self->_taskLists;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v42 count:16];
+    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v32 objects:v41 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v34;
+      v17 = *v33;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation2 = [*(*(&v33 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v32 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v32 objects:v41 count:16];
       }
 
       while (v16);
@@ -119,30 +120,30 @@
   if ([(NSArray *)self->_tasks count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v21 = self->_tasks;
-    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v29 objects:v41 count:16];
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v28 objects:v40 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v30;
+      v24 = *v29;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v30 != v24)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation3 = [*(*(&v29 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v28 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation3];
         }
 
-        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v28 objects:v40 count:16];
       }
 
       while (v23);
@@ -150,8 +151,6 @@
 
     [dictionary setObject:array3 forKeyedSubscript:@"tasks"];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -332,35 +331,34 @@ LABEL_22:
 
 - (void)writeTo:(id)to
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_notes;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v34 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
@@ -368,75 +366,70 @@ LABEL_22:
 
   if ([(_INPBSearchForNotebookItemsIntentResponse *)self hasSortType])
   {
-    sortType = self->_sortType;
     PBDataWriterWriteInt32Field();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v12 = self->_taskLists;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
-  if (v13)
-  {
-    v14 = v13;
-    v15 = *v30;
-    do
-    {
-      v16 = 0;
-      do
-      {
-        if (*v30 != v15)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        v17 = *(*(&v29 + 1) + 8 * v16);
-        PBDataWriterWriteSubmessage();
-        ++v16;
-      }
-
-      while (v14 != v16);
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
-    }
-
-    while (v14);
-  }
-
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v18 = self->_tasks;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v37 count:16];
-  if (v19)
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v10 = self->_taskLists;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v20 = v19;
-    v21 = *v26;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v22 = 0;
+      v14 = 0;
       do
       {
-        if (*v26 != v21)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v10);
         }
 
-        v23 = *(*(&v25 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        ++v22;
+        ++v14;
       }
 
-      while (v20 != v22);
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v20);
+    while (v12);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_tasks;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
+  }
 }
 
 - (void)addTasks:(id)tasks
@@ -504,6 +497,29 @@ LABEL_22:
   else
   {
     v4 = [typeCopy isEqualToString:@"BY_DATE"];
+  }
+
+  return v4;
+}
+
+- (id)sortTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"BY_DATE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"AS_IS";
   }
 
   return v4;

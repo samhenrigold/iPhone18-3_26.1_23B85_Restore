@@ -47,16 +47,15 @@
 {
   if (type - 1 > 4)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_279E5E680[type - 1];
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
-  return v5;
+  return v4;
 }
 
 - (WLKBasicContentMetadata)initWithDictionary:(id)dictionary

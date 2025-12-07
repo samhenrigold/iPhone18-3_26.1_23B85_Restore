@@ -47,6 +47,7 @@
 - (void)_sendDelegateSendingAudioChanged;
 - (void)_sendDelegateStarted;
 - (void)_setEndedWithReason:(int64_t)reason error:(id)error;
+- (void)_setMuted:(BOOL)muted;
 - (void)_setUpDidStartTimeout;
 - (void)_stop;
 - (void)cancel;
@@ -103,45 +104,46 @@
 - (CSDAVConference)initWithFeatureFlags:(id)flags
 {
   flagsCopy = flags;
-  v18.receiver = self;
-  v18.super_class = CSDAVConference;
-  v6 = [(CSDAVConference *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = CSDAVConference;
+  v6 = [(CSDAVConference *)&v19 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17[0] = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "initWithFeatureFlags for CSDAVConference", v17, 2u);
+      v18[0] = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "initWithFeatureFlags for CSDAVConference", v18, 2u);
     }
 
-    v8 = dispatch_queue_create("com.apple.telephonyutilities.callservicesdaemon.csdavconference", 0);
-    queue = v6->_queue;
-    v6->_queue = v8;
+    v9 = dispatch_queue_create("com.apple.telephonyutilities.callservicesdaemon.csdavconference", 0);
+    queue = v7->_queue;
+    v7->_queue = v9;
 
-    v10 = +[TUCallCenter sharedInstance];
-    queue = [v10 queue];
-    delegateQueue = v6->_delegateQueue;
-    v6->_delegateQueue = queue;
+    v11 = +[TUCallCenter sharedInstance];
+    queue = [v11 queue];
+    delegateQueue = v7->_delegateQueue;
+    v7->_delegateQueue = queue;
 
-    v6->_connectionTimeout = 30.0;
-    v6->_remoteVideoPresentationSize = NSZeroSize;
-    *&v6->_state = 1;
-    objc_storeStrong(&v6->_featureFlags, flags);
-    conferenceProviderCreationBlock = v6->_conferenceProviderCreationBlock;
-    v6->_conferenceProviderCreationBlock = &stru_100619E08;
+    v7->_connectionTimeout = 30.0;
+    v7->_remoteVideoPresentationSize = NSZeroSize;
+    *&v7->_state = 1;
+    objc_storeStrong(&v7->_featureFlags, flags);
+    conferenceProviderCreationBlock = v7->_conferenceProviderCreationBlock;
+    v7->_conferenceProviderCreationBlock = &stru_100619E08;
 
     if (TUAllowLocalVideoRecording())
     {
-      v14 = +[NSNotificationCenter defaultCenter];
-      [v14 addObserver:v6 selector:"startedCapturingLocalVideo:" name:@"CSDMomentsControllerStartedLocalVideoCaptureNotification" object:0];
-
       v15 = +[NSNotificationCenter defaultCenter];
-      [v15 addObserver:v6 selector:"stoppedCapturingLocalVideo:" name:@"CSDMomentsControllerStoppedLocalVideoCaptureNotification" object:0];
+      [v15 addObserver:v7 selector:"startedCapturingLocalVideo:" name:@"CSDMomentsControllerStartedLocalVideoCaptureNotification" object:0];
+
+      v16 = +[NSNotificationCenter defaultCenter];
+      [v16 addObserver:v7 selector:"stoppedCapturingLocalVideo:" name:@"CSDMomentsControllerStoppedLocalVideoCaptureNotification" object:0];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -179,7 +181,7 @@
 - (void)startConnectionWithTransport:(id)transport
 {
   transportCopy = transport;
-  v5 = sub_100004778();
+  v5 = sub_100004778(transportCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     configuration = [(CSDAVConference *)self configuration];
@@ -223,34 +225,35 @@
     if (state <= 5)
     {
       [(CSDAVConference *)self setState:6];
-      if (TUAllowLocalVideoRecording() && [(CSDAVConference *)self capturingLocalVideo])
+      v5 = TUAllowLocalVideoRecording();
+      if (v5 && (v5 = [(CSDAVConference *)self capturingLocalVideo], v5))
       {
-        v5 = sub_100004778();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = sub_100004778(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Delaying stop on conference...", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Delaying stop on conference...", buf, 2u);
         }
 
-        v6 = dispatch_time(0, 1000000000);
+        v7 = dispatch_time(0, 1000000000);
         queue2 = [(CSDAVConference *)self queue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100069F00;
         block[3] = &unk_100619D38;
         block[4] = self;
-        dispatch_after(v6, queue2, block);
+        dispatch_after(v7, queue2, block);
       }
 
       else
       {
-        v8 = sub_100004778();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_100004778(v5);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           conferenceProvider = [(CSDAVConference *)self conferenceProvider];
           *buf = 138412290;
-          v13 = conferenceProvider;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling stop on conference %@", buf, 0xCu);
+          v14 = conferenceProvider;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling stop on conference %@", buf, 0xCu);
         }
 
         conferenceProvider2 = [(CSDAVConference *)self conferenceProvider];
@@ -590,42 +593,42 @@
 
   p_state = &self->_state;
   state = self->_state;
-  v8 = sub_100004778();
-  v9 = v8;
+  v9 = sub_100004778(v8);
+  v10 = v9;
   if (state >= state)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1004713C4(&self->_state, state, v9);
+      sub_1004713C4(&self->_state, state, v10);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *p_state;
-      v11[0] = 67109376;
-      v11[1] = state;
-      v12 = 1024;
-      v13 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "set CSDAVConferenceState to %d from %d", v11, 0xEu);
+      v11 = *p_state;
+      v12[0] = 67109376;
+      v12[1] = state;
+      v13 = 1024;
+      v14 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "set CSDAVConferenceState to %d from %d", v12, 0xEu);
     }
 
     *p_state = state;
     switch(state)
     {
       case 7:
-        v9 = +[NSDate date];
-        [(CSDAVConference *)self setDateEnded:v9];
+        v10 = +[NSDate date];
+        [(CSDAVConference *)self setDateEnded:v10];
         break;
       case 5:
-        v9 = +[NSDate date];
-        [(CSDAVConference *)self setDateConnected:v9];
+        v10 = +[NSDate date];
+        [(CSDAVConference *)self setDateConnected:v10];
         break;
       case 4:
-        v9 = +[NSDate date];
-        [(CSDAVConference *)self setDateStartedConnecting:v9];
+        v10 = +[NSDate date];
+        [(CSDAVConference *)self setDateStartedConnecting:v10];
         break;
       default:
         return;
@@ -701,6 +704,16 @@
   v6[4] = self;
   mutedCopy = muted;
   dispatch_async(queue, v6);
+}
+
+- (void)_setMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  queue = [(CSDAVConference *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conferenceProvider = [(CSDAVConference *)self conferenceProvider];
+  [conferenceProvider setMicrophoneMuted:mutedCopy];
 }
 
 - (void)setAudioInjectionAllowed:(BOOL)allowed
@@ -938,7 +951,6 @@
   queue = [(CSDAVConference *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  sendingVideoExpected = self->_sendingVideoExpected;
   p_sendingVideoExpected = &self->_sendingVideoExpected;
   if ((TUObjectsAreEqualOrNil() & 1) == 0)
   {

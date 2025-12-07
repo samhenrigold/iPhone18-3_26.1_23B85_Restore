@@ -204,7 +204,7 @@ LABEL_11:
     v67 = 0u;
     v68 = 0u;
     v66 = 0u;
-    objc_msgSend_transformToConvertChartLayoutToRepElement(self, v12, 0.0, v15, v16);
+    objc_msgSend_transformToConvertChartLayoutToRepElement(self, 0.0, v15, v16);
     v64 = 0u;
     v65 = 0u;
     v62 = 0u;
@@ -492,17 +492,17 @@ LABEL_11:
   v51 = v50;
   v53 = v52;
   v55 = v54;
-  objc_msgSend_transformToConvertChartLayoutToRepElement(self, v56, v48, v50, v52);
-  v60 = v59;
-  v61.origin.x = v49;
-  v61.origin.y = v51;
-  v61.size.width = v53;
-  v61.size.height = v55;
-  v62 = CGRectApplyAffineTransform(v61, &v60);
-  objc_msgSend_setChartBodyFrameInRepElementSpace_(infoCopy, v57, v62.origin.x, v62.origin.y, v62.size.width, v62.size.height);
-  v58.receiver = self;
-  v58.super_class = TSCHMultiDataBarChartRep;
-  [(TSCHMultiDataBarChartRep *)&v58 updateElementLayerLayoutForCurrentRepElementIndexAnimationInfo:infoCopy];
+  objc_msgSend_transformToConvertChartLayoutToRepElement(self, v48, v50, v52);
+  v59 = v58;
+  v60.origin.x = v49;
+  v60.origin.y = v51;
+  v60.size.width = v53;
+  v60.size.height = v55;
+  v61 = CGRectApplyAffineTransform(v60, &v59);
+  objc_msgSend_setChartBodyFrameInRepElementSpace_(infoCopy, v56, v61.origin.x, v61.origin.y, v61.size.width, v61.size.height);
+  v57.receiver = self;
+  v57.super_class = TSCHMultiDataBarChartRep;
+  [(TSCHMultiDataBarChartRep *)&v57 updateElementLayerLayoutForCurrentRepElementIndexAnimationInfo:infoCopy];
 }
 
 - (void)updateElementFrame:(CGRect)frame forElementLayer:(id)layer series:(id)series addingAnimationsToAnimationInfo:(id)info

@@ -43,8 +43,8 @@
   v4 = objc_alloc(objc_opt_class());
   person = [(HFPersonItem *)self person];
   personManager = [(HFPersonItem *)self personManager];
-  home = [(HFPersonItem *)self home];
-  v8 = [v4 initWithPerson:person fromPersonManager:personManager home:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [v4 initWithPerson:person fromPersonManager:personManager home:v7];
 
   [v8 copyLatestResultsFromItem:self];
   return v8;
@@ -74,7 +74,7 @@ id __44__HFPersonItem__subclass_updateWithOptions___block_invoke(uint64_t a1, vo
   v4 = [HFPersonItemUpdateRequest alloc];
   v5 = [*(a1 + 32) person];
   v6 = [*(a1 + 32) personManager];
-  v7 = [*(a1 + 32) home];
+  v7 = objc_msgSend_home(*(a1 + 32));
   v8 = [(HFPersonItemUpdateRequest *)v4 initWithPerson:v5 personManager:v6 home:v7];
 
   v9 = [(HFPersonItemUpdateRequest *)v8 updateWithOptions:*(a1 + 40)];

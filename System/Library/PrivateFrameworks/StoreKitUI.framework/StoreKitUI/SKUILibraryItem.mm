@@ -5,6 +5,8 @@
 - (id)description;
 - (unint64_t)hash;
 - (void)description;
+- (void)hash;
+- (void)storeItemIdentifier;
 @end
 
 @implementation SKUILibraryItem
@@ -107,21 +109,27 @@
     storeFlavorIdentifier = self->_storeFlavorIdentifier;
     if (storeFlavorIdentifier == equalCopy[2])
     {
-      v14 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v14 = [(NSString *)storeFlavorIdentifier isEqualToString:?];
+      isEqualToString = objc_msgSend_isEqualToString_(storeFlavorIdentifier);
     }
   }
 
   else
   {
-    v14 = 0;
+    isEqualToString = 0;
   }
 
-  return v14;
+  return isEqualToString;
+}
+
+- (void)storeItemIdentifier
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILibraryItem storeItemIdentifier]";
 }
 
 - (void)copyWithZone:.cold.1()
@@ -136,6 +144,18 @@
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUILibraryItem description]";
+}
+
+- (void)hash
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILibraryItem hash]";
+}
+
+- (void)isEqual:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILibraryItem isEqual:]";
 }
 
 @end

@@ -40,7 +40,7 @@
   idCopy = id;
   layoutAttributes = [(TUIReusableBaseView *)self layoutAttributes];
   refId = [layoutAttributes refId];
-  v7 = [refId isEqualToString:idCopy];
+  v7 = objc_msgSend_isEqualToString_(refId);
 
   if (!v7)
   {
@@ -54,9 +54,9 @@
 
 - (id)feedControllerHost
 {
-  objc_opt_class();
-  v3 = TUIPlatformAncestorOfClass(self);
-  controllerHost = [v3 controllerHost];
+  v3 = objc_opt_class();
+  v4 = TUIPlatformAncestorOfClass(self, v3);
+  controllerHost = [v4 controllerHost];
 
   return controllerHost;
 }

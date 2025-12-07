@@ -13,7 +13,7 @@
   {
     v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v13, v14))
     {
       objc_exception_throw(v12);
     }
@@ -22,10 +22,10 @@
     return 0;
   }
 
-  v15.receiver = self;
-  v15.super_class = AVCaptureSynchronizedDepthData;
-  v14 = *timestamp;
-  v10 = [(AVCaptureSynchronizedData *)&v15 _initWithTimestamp:&v14];
+  v17.receiver = self;
+  v17.super_class = AVCaptureSynchronizedDepthData;
+  v16 = *timestamp;
+  v10 = [(AVCaptureSynchronizedData *)&v17 _initWithTimestamp:&v16];
   if (v10)
   {
     v11 = objc_alloc_init(AVCaptureSynchronizedDepthDataInternal);

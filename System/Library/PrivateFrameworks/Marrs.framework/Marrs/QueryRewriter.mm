@@ -7,7 +7,7 @@
 
 - (id)predictWithInput:(id)input status:(id *)status
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   v6 = +[MarrsSiriNLUTypesUtils emptyResponse];
   v7 = MEMORY[0x277D5DEF8];
@@ -17,14 +17,14 @@
   if (v9)
   {
     nluRequestId = [inputCopy nluRequestId];
-    v27 = v9;
+    v26 = v9;
     trpId = [v9 trpId];
     targetUUID = [v9 targetUUID];
     resultCandidateId = [inputCopy resultCandidateId];
     cdmRequestId2 = [inputCopy cdmRequestId];
     v15 = +[QRSELFLoggingUtils createEventMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithRequester:](QRSELFLoggingUtils, "createEventMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithRequester:", nluRequestId, trpId, targetUUID, resultCandidateId, [cdmRequestId2 requester]);
 
-    v9 = v27;
+    v9 = v26;
   }
 
   else
@@ -53,74 +53,72 @@
   }
 
   ptr = self->_plugin.__ptr_;
-  [MarrsSiriNLUTypesConverter toPluginRequestObj:inputCopy];
-  (**ptr)(buf, ptr, v34);
-  v33 = &v34[8];
-  std::vector<marrs::qr::orchestration::QRInteraction>::__destroy_vector::operator()[abi:ne200100](&v33);
+  objc_msgSend_toPluginRequestObj_(MarrsSiriNLUTypesConverter);
+  (**ptr)(buf, ptr, v33);
+  v32 = &v33[8];
+  std::vector<marrs::qr::orchestration::QRInteraction>::__destroy_vector::operator()[abi:ne200100](&v32);
   v19 = [MarrsSiriNLUTypesConverter fromPluginResponseObj:buf];
 
-  memset(v29, 0, sizeof(v29));
-  std::vector<marrs::qr::orchestration::QRHypothesis>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRHypothesis*,marrs::qr::orchestration::QRHypothesis*>(v29, *buf, *&buf[8], 0x6DB6DB6DB6DB6DB7 * ((*&buf[8] - *buf) >> 3));
+  memset(v28, 0, sizeof(v28));
+  std::vector<marrs::qr::orchestration::QRHypothesis>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRHypothesis*,marrs::qr::orchestration::QRHypothesis*>(v28, *buf, *&buf[8], 0x6DB6DB6DB6DB6DB7 * ((*&buf[8] - *buf) >> 3));
+  v29 = v37;
   v30 = v38;
   v31 = v39;
-  v32 = v40;
-  [QRSELFLoggingUtils emitQueryRewriteEvaluatedEventWithResponse:v29 andNLXMetadata:v15 byPredictorType:self->_predictorType];
-  *v34 = v29;
-  std::vector<marrs::qr::orchestration::QRHypothesis>::__destroy_vector::operator()[abi:ne200100](v34);
+  [QRSELFLoggingUtils emitQueryRewriteEvaluatedEventWithResponse:v28 andNLXMetadata:v15 byPredictorType:self->_predictorType];
+  *v33 = v28;
+  std::vector<marrs::qr::orchestration::QRHypothesis>::__destroy_vector::operator()[abi:ne200100](v33);
   v20 = QRLoggerForCategory(0);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v26 = self->_predictorName;
-    *v34 = 136315394;
-    *&v34[4] = "[QueryRewriter predictWithInput:status:]";
-    v35 = 2112;
-    v36 = v26;
-    _os_log_debug_impl(&dword_2227A9000, v20, OS_LOG_TYPE_DEBUG, "%s Self logging emitted evaluated event for predictor type %@", v34, 0x16u);
+    v25 = self->_predictorName;
+    *v33 = 136315394;
+    *&v33[4] = "[QueryRewriter predictWithInput:status:]";
+    v34 = 2112;
+    v35 = v25;
+    _os_log_debug_impl(&dword_2227A9000, v20, OS_LOG_TYPE_DEBUG, "%s Self logging emitted evaluated event for predictor type %@", v33, 0x16u);
   }
 
-  if (v40)
+  if (v39)
   {
     v21 = QRLoggerForCategory(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      *v34 = 136315138;
-      *&v34[4] = "[QueryRewriter predictWithInput:status:]";
-      _os_log_debug_impl(&dword_2227A9000, v21, OS_LOG_TYPE_DEBUG, "%s Removing rewriteHypotheses as rewrite is not needed", v34, 0xCu);
+      *v33 = 136315138;
+      *&v33[4] = "[QueryRewriter predictWithInput:status:]";
+      _os_log_debug_impl(&dword_2227A9000, v21, OS_LOG_TYPE_DEBUG, "%s Removing rewriteHypotheses as rewrite is not needed", v33, 0xCu);
     }
 
     rewriteHypotheses = [v19 rewriteHypotheses];
     [rewriteHypotheses removeAllObjects];
   }
 
-  *v34 = buf;
-  std::vector<marrs::qr::orchestration::QRHypothesis>::__destroy_vector::operator()[abi:ne200100](v34);
+  *v33 = buf;
+  std::vector<marrs::qr::orchestration::QRHypothesis>::__destroy_vector::operator()[abi:ne200100](v33);
   [PredictorUtils reportPredictStatusWithPredictorName:self->_predictorName domain:@"com.apple.siri.marrs.QueryRewrite" code:0 locale:self->_locale];
   if (status)
   {
     *status = [PredictorUtils getPredictStatusWithPredictorName:self->_predictorName domain:@"com.apple.siri.marrs.QueryRewrite" code:0];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (QueryRewriter)initWithLocale:(id)locale filesPath:(id)path predictorType:(int)type status:(id *)status
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   pathCopy = path;
-  v19.receiver = self;
-  v19.super_class = QueryRewriter;
-  v9 = [(QueryRewriter *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = QueryRewriter;
+  v9 = [(QueryRewriter *)&v18 init];
   v9->_predictorType = type;
   v10 = QRLoggerForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     buf = 136315394;
     buf_4 = "[QueryRewriter initWithLocale:filesPath:predictorType:status:]";
-    v22 = 1024;
-    LODWORD(v23) = type;
+    v21 = 1024;
+    LODWORD(v22) = type;
     _os_log_debug_impl(&dword_2227A9000, v10, OS_LOG_TYPE_DEBUG, "%s Marrs Predictor Initializing: Setting up type %d predictor", &buf, 0x12u);
   }
 
@@ -129,10 +127,10 @@
   {
     buf = 136315650;
     buf_4 = "[QueryRewriter initWithLocale:filesPath:predictorType:status:]";
-    v22 = 2112;
-    v23 = pathCopy;
-    v24 = 2112;
-    v25 = localeCopy;
+    v21 = 2112;
+    v22 = pathCopy;
+    v23 = 2112;
+    v24 = localeCopy;
     _os_log_debug_impl(&dword_2227A9000, v11, OS_LOG_TYPE_DEBUG, "%s Path: %@, locale: %@", &buf, 0x20u);
   }
 
@@ -140,15 +138,15 @@
   {
     if (!type)
     {
-      [MarrsSiriNLUTypesConverter NSString2StdString:pathCopy];
-      [MarrsSiriNLUTypesConverter NSString2StdString:localeCopy];
+      objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
+      objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
       operator new();
     }
 
     if (type == 1)
     {
-      [MarrsSiriNLUTypesConverter NSString2StdString:pathCopy];
-      [MarrsSiriNLUTypesConverter NSString2StdString:localeCopy];
+      objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
+      objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
       operator new();
     }
   }
@@ -158,16 +156,16 @@
     switch(type)
     {
       case 2:
-        [MarrsSiriNLUTypesConverter NSString2StdString:pathCopy];
-        [MarrsSiriNLUTypesConverter NSString2StdString:localeCopy];
+        objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
+        objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
         operator new();
       case 3:
-        [MarrsSiriNLUTypesConverter NSString2StdString:pathCopy];
-        [MarrsSiriNLUTypesConverter NSString2StdString:localeCopy];
+        objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
+        objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
         operator new();
       case 4:
-        [MarrsSiriNLUTypesConverter NSString2StdString:pathCopy];
-        [MarrsSiriNLUTypesConverter NSString2StdString:localeCopy];
+        objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
+        objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
         operator new();
     }
   }
@@ -191,7 +189,6 @@
 
   v13 = v9;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

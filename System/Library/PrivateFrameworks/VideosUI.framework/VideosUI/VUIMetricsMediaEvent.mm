@@ -26,11 +26,11 @@
 
   if (isAdultContent)
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "ignore media event for adult content", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "ignore media event for adult content", v13, 2u);
     }
   }
 
@@ -38,17 +38,17 @@
   {
     if (extrasCopy)
     {
-      v10 = @"extras";
+      v11 = @"extras";
     }
 
     else
     {
-      v10 = @"play";
+      v11 = @"play";
     }
 
-    v9 = [self _metricsDataFromPlayable:playCopy actionType:v10 canonicalIdOverride:0 position:0 durationOverride:0 contentType:0];
-    v11 = +[VUIMetricsController sharedInstance];
-    [v11 recordMedia:v9];
+    v10 = [self _metricsDataFromPlayable:playCopy actionType:v11 canonicalIdOverride:0 position:0 durationOverride:0 contentType:0];
+    v12 = +[VUIMetricsController sharedInstance];
+    [v12 recordMedia:v10];
   }
 }
 
@@ -60,97 +60,97 @@
 
   if (isAdultContent)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "ignore media event for adult content", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "ignore media event for adult content", v10, 2u);
     }
   }
 
   else
   {
-    v7 = [self _metricsDataFromPlayable:stopCopy actionType:@"stop" canonicalIdOverride:0 position:0 durationOverride:0 contentType:0];
-    v8 = +[VUIMetricsController sharedInstance];
-    [v8 recordMedia:v7];
+    v8 = [self _metricsDataFromPlayable:stopCopy actionType:@"stop" canonicalIdOverride:0 position:0 durationOverride:0 contentType:0];
+    v9 = +[VUIMetricsController sharedInstance];
+    [v9 recordMedia:v8];
   }
 }
 
 + (void)recordClipPlay:(id)play canonicalId:(id)id position:(id)position duration:(double)duration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   playCopy = play;
   idCopy = id;
   positionCopy = position;
   metadata = [playCopy metadata];
   isAdultContent = [metadata isAdultContent];
 
-  v15 = VUIDefaultLogObject();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+  v16 = VUIDefaultLogObject(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
   if (isAdultContent)
   {
-    if (v16)
+    if (v17)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "ignore media event for adult content", &v19, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "ignore media event for adult content", &v20, 2u);
     }
   }
 
   else
   {
-    if (v16)
+    if (v17)
     {
-      v19 = 138412546;
-      v20 = idCopy;
-      v21 = 2048;
+      v20 = 138412546;
+      v21 = idCopy;
+      v22 = 2048;
       durationCopy = duration;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "record clip play %@ - %1.2f", &v19, 0x16u);
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "record clip play %@ - %1.2f", &v20, 0x16u);
     }
 
-    v17 = [MEMORY[0x1E696AD98] numberWithDouble:duration];
-    v15 = [self _metricsDataFromPlayable:playCopy actionType:@"play" canonicalIdOverride:idCopy position:positionCopy durationOverride:v17 contentType:@"KeyPlay"];
+    v18 = [MEMORY[0x1E696AD98] numberWithDouble:duration];
+    v16 = [self _metricsDataFromPlayable:playCopy actionType:@"play" canonicalIdOverride:idCopy position:positionCopy durationOverride:v18 contentType:@"KeyPlay"];
 
-    v18 = +[VUIMetricsController sharedInstance];
-    [v18 recordMedia:v15];
+    v19 = +[VUIMetricsController sharedInstance];
+    [v19 recordMedia:v16];
   }
 }
 
 + (void)recordClipStop:(id)stop canonicalId:(id)id position:(id)position duration:(double)duration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   stopCopy = stop;
   idCopy = id;
   positionCopy = position;
   metadata = [stopCopy metadata];
   isAdultContent = [metadata isAdultContent];
 
-  v15 = VUIDefaultLogObject();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+  v16 = VUIDefaultLogObject(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
   if (isAdultContent)
   {
-    if (v16)
+    if (v17)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "ignore media event for adult content", &v19, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "ignore media event for adult content", &v20, 2u);
     }
   }
 
   else
   {
-    if (v16)
+    if (v17)
     {
-      v19 = 138412546;
-      v20 = idCopy;
-      v21 = 2048;
+      v20 = 138412546;
+      v21 = idCopy;
+      v22 = 2048;
       durationCopy = duration;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "record clip stop %@ - %1.2f", &v19, 0x16u);
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "record clip stop %@ - %1.2f", &v20, 0x16u);
     }
 
-    v17 = [MEMORY[0x1E696AD98] numberWithDouble:duration];
-    v15 = [self _metricsDataFromPlayable:stopCopy actionType:@"stop" canonicalIdOverride:idCopy position:positionCopy durationOverride:v17 contentType:@"KeyPlay"];
+    v18 = [MEMORY[0x1E696AD98] numberWithDouble:duration];
+    v16 = [self _metricsDataFromPlayable:stopCopy actionType:@"stop" canonicalIdOverride:idCopy position:positionCopy durationOverride:v18 contentType:@"KeyPlay"];
 
-    v18 = +[VUIMetricsController sharedInstance];
-    [v18 recordMedia:v15];
+    v19 = +[VUIMetricsController sharedInstance];
+    [v19 recordMedia:v16];
   }
 }
 
@@ -327,34 +327,35 @@ LABEL_40:
 
 + (void)recordPunchout:(id)punchout isUrlForPlay:(BOOL)play
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   punchoutCopy = punchout;
-  if ([punchoutCopy isAdultContent])
+  isAdultContent = [punchoutCopy isAdultContent];
+  if (isAdultContent)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = VUIDefaultLogObject(isAdultContent);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "ignore media event for adult content", v27, 2u);
+      *v28 = 0;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "ignore media event for adult content", v28, 2u);
     }
   }
 
   else
   {
-    v5 = objc_opt_new();
-    [v5 setObject:@"punchout" forKey:@"actionType"];
-    v28 = @"isEntitledToPlay";
-    v6 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(punchoutCopy, "isEntitledToPlay")}];
-    v29[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v6 = objc_opt_new();
+    [v6 setObject:@"punchout" forKey:@"actionType"];
+    v29 = @"isEntitledToPlay";
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(punchoutCopy, "isEntitledToPlay")}];
+    v30[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
 
-    [v5 setObject:v7 forKey:@"actionDetails"];
+    [v6 setObject:v8 forKey:@"actionDetails"];
     canonicalID = [punchoutCopy canonicalID];
 
     if (canonicalID)
     {
       canonicalID2 = [punchoutCopy canonicalID];
-      [v5 setObject:canonicalID2 forKey:@"id"];
+      [v6 setObject:canonicalID2 forKey:@"id"];
     }
 
     externalID = [punchoutCopy externalID];
@@ -362,7 +363,7 @@ LABEL_40:
     if (externalID)
     {
       externalID2 = [punchoutCopy externalID];
-      [v5 setObject:externalID2 forKey:@"externalId"];
+      [v6 setObject:externalID2 forKey:@"externalId"];
     }
 
     referenceID = [punchoutCopy referenceID];
@@ -370,7 +371,7 @@ LABEL_40:
     if (referenceID)
     {
       referenceID2 = [punchoutCopy referenceID];
-      [v5 setObject:referenceID2 forKey:@"referenceId"];
+      [v6 setObject:referenceID2 forKey:@"referenceId"];
     }
 
     mediaType = [punchoutCopy mediaType];
@@ -378,7 +379,7 @@ LABEL_40:
     if (mediaType)
     {
       mediaType2 = [punchoutCopy mediaType];
-      [v5 setObject:mediaType2 forKey:@"contentType"];
+      [v6 setObject:mediaType2 forKey:@"contentType"];
     }
 
     channelDetails = [punchoutCopy channelDetails];
@@ -388,15 +389,15 @@ LABEL_40:
     {
       channelDetails2 = [punchoutCopy channelDetails];
       channelID2 = [channelDetails2 channelID];
-      [v5 setObject:channelID2 forKey:@"brandId"];
+      [v6 setObject:channelID2 forKey:@"brandId"];
 
-      v20 = [v5 objectForKey:@"id"];
+      v21 = [v6 objectForKey:@"id"];
 
-      if (!v20)
+      if (!v21)
       {
         channelDetails3 = [punchoutCopy channelDetails];
         channelID3 = [channelDetails3 channelID];
-        [v5 setObject:channelID3 forKey:@"id"];
+        [v6 setObject:channelID3 forKey:@"id"];
       }
     }
 
@@ -407,11 +408,11 @@ LABEL_40:
       punchoutURL2 = [punchoutCopy punchoutURL];
       absoluteString = [punchoutURL2 absoluteString];
 
-      [v5 setObject:absoluteString forKey:@"url"];
+      [v6 setObject:absoluteString forKey:@"url"];
     }
 
-    v26 = +[VUIMetricsController sharedInstance];
-    [v26 recordMedia:v5];
+    v27 = +[VUIMetricsController sharedInstance];
+    [v27 recordMedia:v6];
   }
 }
 
@@ -426,19 +427,19 @@ LABEL_40:
 
   if (bOOLValue)
   {
-    v14 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = VUIDefaultLogObject(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "ignore media event for adult content", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "ignore media event for adult content", v17, 2u);
     }
   }
 
   else
   {
-    v14 = [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:itemCopy contentPosition:positionCopy isBackground:1 isAmbient:ambientCopy actionType:typeCopy];
-    v15 = +[VUIMetricsController sharedInstance];
-    [v15 recordMedia:v14];
+    v15 = [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:itemCopy contentPosition:positionCopy isBackground:1 isAmbient:ambientCopy actionType:typeCopy];
+    v16 = +[VUIMetricsController sharedInstance];
+    [v16 recordMedia:v15];
   }
 }
 
@@ -450,19 +451,19 @@ LABEL_40:
 
   if (bOOLValue)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "ignore media event for adult content", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "ignore media event for adult content", v9, 2u);
     }
   }
 
   else
   {
-    v6 = [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:itemCopy contentPosition:0 isBackground:0 isAmbient:0 actionType:0];
-    v7 = +[VUIMetricsController sharedInstance];
-    [v7 recordMedia:v6];
+    v7 = [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:itemCopy contentPosition:0 isBackground:0 isAmbient:0 actionType:0];
+    v8 = +[VUIMetricsController sharedInstance];
+    [v8 recordMedia:v7];
   }
 }
 
@@ -474,25 +475,25 @@ LABEL_40:
 
   if (bOOLValue)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "ignore media event for adult content", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "ignore media event for adult content", v9, 2u);
     }
   }
 
   else
   {
-    v6 = [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:itemCopy contentPosition:0 isBackground:0 isAmbient:0 actionType:@"stop"];
-    v7 = +[VUIMetricsController sharedInstance];
-    [v7 recordMedia:v6];
+    v7 = [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:itemCopy contentPosition:0 isBackground:0 isAmbient:0 actionType:@"stop"];
+    v8 = +[VUIMetricsController sharedInstance];
+    [v8 recordMedia:v7];
   }
 }
 
 + (id)clickMetricsFromTVPMediaItem:(id)item targetType:(id)type
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   itemCopy = item;
   v7 = objc_opt_new();
@@ -514,23 +515,23 @@ LABEL_40:
 
     if ((v13 & 1) == 0)
     {
-      v14 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = VUIDefaultLogObject(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        *v17 = 0;
-        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUIMetricsMediaEvent: No media ID found for non-trailer TVPMediaItem", v17, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "VUIMetricsMediaEvent: No media ID found for non-trailer TVPMediaItem", v18, 2u);
       }
 
       v11 = &stru_1F5DB25C0;
     }
   }
 
-  v18[0] = @"targetId";
-  v18[1] = @"targetType";
-  v19[0] = v11;
-  v19[1] = typeCopy;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  [v7 addEntriesFromDictionary:v15];
+  v19[0] = @"targetId";
+  v19[1] = @"targetType";
+  v20[0] = v11;
+  v20[1] = typeCopy;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  [v7 addEntriesFromDictionary:v16];
 
   [v7 removeObjectForKey:@"startType"];
   [v7 removeObjectForKey:@"url"];
@@ -682,7 +683,7 @@ LABEL_40:
     [v13 setObject:absoluteString forKey:@"url"];
   }
 
-  v50 = typeCopy;
+  v51 = typeCopy;
   if (typeCopy)
   {
     v17 = typeCopy;
@@ -728,7 +729,7 @@ LABEL_40:
     [v13 setObject:v26 forKey:@"referenceId"];
   }
 
-  v49 = v23;
+  v50 = v23;
   v27 = [itemCopy mediaItemMetadataForProperty:*MEMORY[0x1E69D5AD0]];
   if (v27)
   {
@@ -830,16 +831,17 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  if (([(__CFString *)v38 isEqualToString:*MEMORY[0x1E69D5ED0]]& 1) != 0)
+  v46 = [(__CFString *)v38 isEqualToString:*MEMORY[0x1E69D5ED0]];
+  if (v46)
   {
     v43 = @"episode";
     goto LABEL_42;
   }
 
-  v46 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+  v47 = VUIDefaultLogObject(v46);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
-    [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:v46 contentPosition:? isBackground:? isAmbient:? actionType:?];
+    [VUIMetricsMediaEvent _metricsDataFromTVPMediaItem:v47 contentPosition:? isBackground:? isAmbient:? actionType:?];
   }
 
 LABEL_44:

@@ -47,7 +47,7 @@
   v10 = ((LOBYTE(range.var1.var0) + range.var0.var1 - 1) | ((*&range.var0 + range.var1.var1) << 16)) - 0x10000;
   checkboxCopy = checkbox;
   dispatch_semaphore_wait(self->mSem, 0xFFFFFFFFFFFFFFFFLL);
-  std::__tree<TSTMergeRangeElem,TSTMergeRangeElemCompare,std::allocator<TSTMergeRangeElem>>::__emplace_unique_key_args<TSTMergeRangeElem,TSTMergeRangeElem const&>(self->mSet, &rangeCopy);
+  std::__tree<TSTMergeRangeElem,TSTMergeRangeElemCompare,std::allocator<TSTMergeRangeElem>>::__emplace_unique_key_args<TSTMergeRangeElem,TSTMergeRangeElem const&>(self->mSet, &rangeCopy, &rangeCopy);
   dispatch_semaphore_signal(self->mSem);
 }
 
@@ -145,7 +145,7 @@
 - (UIEdgeInsets)getPaddingInsets
 {
   ptr = self->mIter.__ptr_;
-  v3 = &TSDEdgeInsetsZero + 1;
+  v3 = &TSDEdgeInsetsZero[8];
   v4 = ptr == self->mSet + 1;
   v5 = ptr + 7;
   v6 = ptr + 8;
@@ -153,7 +153,7 @@
   v8 = ptr + 10;
   if (v4)
   {
-    v5 = &TSDEdgeInsetsZero;
+    v5 = TSDEdgeInsetsZero;
   }
 
   else
@@ -163,7 +163,7 @@
 
   if (v4)
   {
-    v9 = &qword_26CA652C0;
+    v9 = &TSDEdgeInsetsZero[16];
   }
 
   else
@@ -173,7 +173,7 @@
 
   if (v4)
   {
-    v8 = &qword_26CA652C8;
+    v8 = &TSDEdgeInsetsZero[24];
   }
 
   v10 = *v8;

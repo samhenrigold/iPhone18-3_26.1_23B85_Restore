@@ -120,7 +120,7 @@ void __86__AVCMNotificationDispatcher_addListenerWithWeakReference_callback_name
   [v7 addObject:v5];
 }
 
-uint64_t __86__AVCMNotificationDispatcher_addListenerWithWeakReference_callback_name_object_flags___block_invoke_2(uint64_t a1, void *a2)
+void *__86__AVCMNotificationDispatcher_addListenerWithWeakReference_callback_name_object_flags___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) referencedObject];
   if (result)
@@ -175,17 +175,17 @@ uint64_t __86__AVCMNotificationDispatcher_addListenerWithWeakReference_callback_
   return v7;
 }
 
-void __100__AVCMNotificationDispatcher__copyAndRemoveObserverForWeakReferenceToListener_callback_name_object___block_invoke(uint64_t a1)
+void __100__AVCMNotificationDispatcher__copyAndRemoveObserverForWeakReferenceToListener_callback_name_object___block_invoke(void *a1)
 {
-  v2 = [AVCMNotificationDispatcherListenerKey listenerKeyWithWeakReferenceToListener:*(a1 + 32) callback:*(a1 + 56) name:*(a1 + 64) object:*(a1 + 72)];
-  v3 = [*(*(a1 + 40) + 24) objectForKeyedSubscript:v2];
+  v2 = [AVCMNotificationDispatcherListenerKey listenerKeyWithWeakReferenceToListener:a1[4] callback:a1[7] name:a1[8] object:a1[9]];
+  v3 = [*(a1[5] + 24) objectForKeyedSubscript:v2];
   if (v3 && (v9 = v3, [v3 count]))
   {
-    *(*(*(a1 + 48) + 8) + 40) = [v9 lastObject];
+    *(*(a1[6] + 8) + 40) = [v9 lastObject];
     [v9 removeObjectAtIndex:{objc_msgSend(v9, "count") - 1}];
     if (![v9 count])
     {
-      v10 = *(*(a1 + 40) + 24);
+      v10 = *(a1[5] + 24);
 
       [v10 removeObjectForKey:v2];
     }
@@ -193,10 +193,10 @@ void __100__AVCMNotificationDispatcher__copyAndRemoveObserverForWeakReferenceToL
 
   else
   {
-    v13 = *(a1 + 64);
-    v14 = *(a1 + 72);
-    v12 = *(a1 + 56);
-    v11 = AVMethodExceptionReasonWithObjectAndSelector(*(a1 + 40), *(a1 + 80), @"Cannot remove a listener %@ (callback %p) for %@ from object %p that was never added.  Break on AVCMNotificationDispatcherUnbalancedUnregistrationBreak() to debug.", v4, v5, v6, v7, v8, *(a1 + 32));
+    v13 = a1[8];
+    v14 = a1[9];
+    v12 = a1[7];
+    v11 = AVMethodExceptionReasonWithObjectAndSelector(a1[5], a1[10], @"Cannot remove a listener %@ (callback %p) for %@ from object %p that was never added.  Break on AVCMNotificationDispatcherUnbalancedUnregistrationBreak() to debug.", v4, v5, v6, v7, v8, a1[4]);
     NSLog(&stru_1F0A8FBF0.isa, v11, v12, v13, v14);
   }
 }

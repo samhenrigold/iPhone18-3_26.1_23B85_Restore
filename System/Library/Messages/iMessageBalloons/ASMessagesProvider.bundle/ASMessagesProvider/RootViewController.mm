@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for RootViewController();
+  v6.super_class = type metadata accessor for RootViewController(0);
   v2 = v6.receiver;
   [(RootViewController *)&v6 viewDidLoad];
   view = [v2 view];
@@ -62,7 +62,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RootViewController();
+  v5.super_class = type metadata accessor for RootViewController(0);
   v4 = v5.receiver;
   [(RootViewController *)&v5 viewWillAppear:appearCopy];
   sub_4A890();
@@ -72,7 +72,7 @@
 {
   appearingCopy = appearing;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RootViewController();
+  v5.super_class = type metadata accessor for RootViewController(0);
   v4 = v5.receiver;
   [(RootViewController *)&v5 viewIsAppearing:appearingCopy];
   if ([*&v4[OBJC_IVAR___RootViewController_appProtectionSubject] isLocked])
@@ -90,7 +90,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RootViewController();
+  v5.super_class = type metadata accessor for RootViewController(0);
   v4 = v5.receiver;
   [(RootViewController *)&v5 viewDidAppear:appearCopy];
   if (([*&v4[OBJC_IVAR___RootViewController_appProtectionSubject] isLocked] & 1) == 0)
@@ -174,7 +174,7 @@
 
 - (void)setStoreLaunchURL:(id)l sourceApplication:(id)application
 {
-  v7 = sub_BD88(&unk_93FD30);
+  v7 = sub_BD88(&unk_93FD30, qword_77F240);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   if (l)
@@ -204,7 +204,7 @@
   selfCopy = self;
   sub_4B9B8(v9, v12, application);
 
-  sub_10A2C(v9, &unk_93FD30);
+  sub_10A2C(v9, &unk_93FD30, qword_77F240);
 }
 
 - (void)storeRootViewController:(id)controller didComplete:(id)complete

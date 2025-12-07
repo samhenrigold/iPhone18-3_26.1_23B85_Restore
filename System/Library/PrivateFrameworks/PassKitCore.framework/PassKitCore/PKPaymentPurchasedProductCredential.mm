@@ -207,9 +207,9 @@ LABEL_13:
     goto LABEL_23;
   }
 
-  v13 = [v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v13)
+  if (isEqualToString)
   {
 LABEL_7:
     metadata = [(PKPaymentPurchasedProductCredential *)self metadata];
@@ -240,7 +240,7 @@ LABEL_7:
 
     if (v16 && v17)
     {
-      v19 = [(NSString *)v16 isEqualToString:v17];
+      v19 = objc_msgSend_isEqualToString_(v16);
 
       if (!v19)
       {

@@ -10,7 +10,7 @@
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC11MusicJSCore18JSStoreHTTPRequest_urlRequest);
   if (v4)
   {
-    sub_100009F78(0, &qword_10118EAF8);
+    sub_100009F78(0, &qword_10118EAF8, ICURLSessionManager_ptr);
     selfCopy = self;
     v6 = v4;
     v7 = static ICURLSessionManager.musicSession.getter();

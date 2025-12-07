@@ -46,7 +46,7 @@
     {
       v10 = self->_title;
       title2 = [v6 title];
-      v12 = [(NSString *)v10 isEqualToString:title2];
+      v12 = objc_msgSend_isEqualToString_(v10);
     }
   }
 

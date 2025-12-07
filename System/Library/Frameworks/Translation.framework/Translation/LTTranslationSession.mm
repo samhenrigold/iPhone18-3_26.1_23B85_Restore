@@ -40,8 +40,8 @@ void __75___LTTranslationSession__ensureServiceConnection_useDedicatedTextMachPo
 void __75___LTTranslationSession__ensureServiceConnection_useDedicatedTextMachPort___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _LTOSLogXPC();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = _LTOSLogXPC(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __75___LTTranslationSession__ensureServiceConnection_useDedicatedTextMachPort___block_invoke_2_cold_1();
   }
@@ -94,174 +94,173 @@ void __75___LTTranslationSession__ensureServiceConnection_useDedicatedTextMachPo
 
 void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = _LTOSLogXPC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _LTOSLogXPC(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_cold_1(a1, v4);
+      __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_cold_1(a1, v6);
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v54 objects:v62 count:16];
-    if (v6)
+    v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v7 = *(a1 + 32);
+    v8 = [v7 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    if (v8)
     {
-      v7 = *v55;
+      v9 = *v59;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v55 != v7)
+          if (*v59 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v7);
           }
 
-          v9 = [*(*(&v54 + 1) + 8 * i) completionHandler];
-          (v9)[2](v9, 0, v3);
+          v11 = [*(*(&v58 + 1) + 8 * i) completionHandler];
+          (v11)[2](v11, 0, v5);
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v54 objects:v62 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v58 objects:v66 count:16];
       }
 
-      while (v6);
+      while (v8);
     }
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v5 = WeakRetained;
+    v7 = WeakRetained;
     if (WeakRetained)
     {
       dispatch_assert_queue_V2(WeakRetained[10]);
-      v11 = v5[9];
-      if (v11 && (v12 = (a1 + 32), ([v11 allowedForRequests:{objc_msgSend(*(a1 + 32), "count")}] & 1) == 0))
+      v13 = v7[9];
+      if (v13 && (v14 = (a1 + 32), v15 = [v13 allowedForRequests:{objc_msgSend(*(a1 + 32), "count")}], (v15 & 1) == 0))
       {
-        v33 = _LTOSLogXPC();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v38 = _LTOSLogXPC(v15, v16);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_cold_2(v12, v33);
+          __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_cold_2(v14, v38);
         }
 
-        v34 = MEMORY[0x277CCA9B8];
-        v35 = [MEMORY[0x277CCA8D8] mainBundle];
-        v36 = [v35 localizedStringForKey:@"RATE_LIMIT_EXCEEDED_ERROR_DESCRIPTION" value:&stru_284DBB9B8 table:0];
-        v32 = [v34 lt_errorWithCode:15 description:v36 userInfo:0];
+        v39 = MEMORY[0x277CCA9B8];
+        v40 = [MEMORY[0x277CCA8D8] mainBundle];
+        v41 = [v40 localizedStringForKey:@"RATE_LIMIT_EXCEEDED_ERROR_DESCRIPTION" value:&stru_284DBB9B8 table:0];
+        v37 = [v39 lt_errorWithCode:15 description:v41 userInfo:0];
 
-        v52 = 0u;
-        v53 = 0u;
-        v51 = 0u;
-        v50 = 0u;
-        v26 = *v12;
-        v37 = [v26 countByEnumeratingWithState:&v50 objects:v61 count:16];
-        if (v37)
+        v56 = 0u;
+        v57 = 0u;
+        v55 = 0u;
+        v54 = 0u;
+        v31 = *v14;
+        v42 = [v31 countByEnumeratingWithState:&v54 objects:v65 count:16];
+        if (v42)
         {
-          v38 = *v51;
+          v43 = *v55;
           do
           {
-            for (j = 0; j != v37; ++j)
+            for (j = 0; j != v42; ++j)
             {
-              if (*v51 != v38)
+              if (*v55 != v43)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v31);
               }
 
-              v40 = [*(*(&v50 + 1) + 8 * j) completionHandler];
-              (v40)[2](v40, 0, v32);
+              v45 = [*(*(&v54 + 1) + 8 * j) completionHandler];
+              (v45)[2](v45, 0, v37);
             }
 
-            v37 = [v26 countByEnumeratingWithState:&v50 objects:v61 count:16];
+            v42 = [v31 countByEnumeratingWithState:&v54 objects:v65 count:16];
           }
 
-          while (v37);
+          while (v42);
         }
       }
 
       else
       {
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
-        v47 = 0u;
-        v13 = *(a1 + 32);
-        v14 = [v13 countByEnumeratingWithState:&v46 objects:v60 count:16];
-        if (v14)
+        v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        v17 = *(a1 + 32);
+        v18 = [v17 countByEnumeratingWithState:&v50 objects:v64 count:16];
+        if (v18)
         {
-          v15 = *v47;
+          v19 = *v51;
           do
           {
-            for (k = 0; k != v14; ++k)
+            for (k = 0; k != v18; ++k)
             {
-              if (*v47 != v15)
+              if (*v51 != v19)
               {
-                objc_enumerationMutation(v13);
+                objc_enumerationMutation(v17);
               }
 
-              v17 = *(*(&v46 + 1) + 8 * k);
-              v18 = v5[1];
-              v19 = [v17 uniqueID];
-              [v18 setObject:v17 forKeyedSubscript:v19];
+              v21 = *(*(&v50 + 1) + 8 * k);
+              v22 = v7[1];
+              v23 = [v21 uniqueID];
+              [v22 setObject:v21 forKeyedSubscript:v23];
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v46 objects:v60 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v50 objects:v64 count:16];
           }
 
-          while (v14);
+          while (v18);
         }
 
-        v20 = [*(a1 + 32) _ltCompactMap:&__block_literal_global_15];
-        v21 = _LTOSLogXPC();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v24 = [*(a1 + 32) _ltCompactMap:&__block_literal_global_15];
+        v26 = _LTOSLogXPC(v24, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v22 = *(a1 + 32);
-          v23 = v21;
-          v24 = [v22 count];
+          v27 = *(a1 + 32);
+          v28 = v26;
+          v29 = [v27 count];
           *buf = 134217984;
-          v59 = v24;
-          _os_log_impl(&dword_23AAF5000, v23, OS_LOG_TYPE_INFO, "Session sending %zd requests", buf, 0xCu);
+          v63 = v29;
+          _os_log_impl(&dword_23AAF5000, v28, OS_LOG_TYPE_INFO, "Session sending %zd requests", buf, 0xCu);
         }
 
-        v25 = [*(a1 + 32) firstObject];
-        v26 = [v25 requestContext];
+        v30 = [*(a1 + 32) firstObject];
+        v31 = [v30 requestContext];
 
-        v27 = [v5[3] UUIDString];
-        [v26 setSessionID:v27];
+        v32 = [v7[3] UUIDString];
+        [v31 setSessionID:v32];
 
-        [v26 setLogIdentifier:v5[6]];
-        if (!v5[2])
+        [v31 setLogIdentifier:v7[6]];
+        if (!v7[2])
         {
-          [v26 setSourceURL:v5[5]];
-          v28 = objc_alloc_init(_LTSafariLatencyLoggingRequest);
-          v29 = [v26 localePair];
-          [(_LTSafariLatencyLoggingRequest *)v28 setLocalePair:v29];
+          [v31 setSourceURL:v7[5]];
+          v33 = objc_alloc_init(_LTSafariLatencyLoggingRequest);
+          v34 = [v31 localePair];
+          [(_LTSafariLatencyLoggingRequest *)v33 setLocalePair:v34];
 
-          v30 = v5[2];
-          v5[2] = v28;
+          v35 = v7[2];
+          v7[2] = v33;
         }
 
-        v31 = [v5 service];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_19;
-        v42[3] = &unk_278B6DCD0;
-        objc_copyWeak(&v45, (a1 + 40));
-        v32 = v20;
-        v43 = v32;
-        v44 = *(a1 + 32);
-        [v31 translateParagraphs:v32 withContext:v26 completion:v42];
+        v36 = [v7 service];
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_19;
+        v46[3] = &unk_278B6DCD0;
+        objc_copyWeak(&v49, (a1 + 40));
+        v37 = v24;
+        v47 = v37;
+        v48 = *(a1 + 32);
+        [v36 translateParagraphs:v37 withContext:v31 completion:v46];
 
-        objc_destroyWeak(&v45);
+        objc_destroyWeak(&v49);
       }
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_19(id *a1, void *a2)
@@ -284,70 +283,68 @@ void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invo
   }
 }
 
-void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_2(uint64_t a1)
+void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v26 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = _LTOSLogTranslationEngine();
-  v5 = v4;
-  if (v3)
+  v3 = (a1 + 32);
+  v4 = *(a1 + 32);
+  v5 = _LTOSLogTranslationEngine(a1, a2);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_2_cold_1(a1, v5, v2);
+      __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_2_cold_1(a1, v6);
     }
 
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v6 = *(a1 + 48);
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
-    if (v7)
+    v7 = *(a1 + 48);
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v20;
+      v9 = v8;
+      v10 = *v20;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v9)
+          if (*v20 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
-          v12 = [v11 completionHandler];
+          v12 = *(*(&v19 + 1) + 8 * i);
+          v13 = [v12 completionHandler];
 
-          if (v12)
+          if (v13)
           {
-            v13 = [v11 completionHandler];
-            v13[2](v13, 0, *v2);
+            v14 = [v12 completionHandler];
+            v14[2](v14, 0, *v3);
           }
 
-          v14 = *(*(a1 + 56) + 8);
-          v15 = [v11 uniqueID];
-          [v14 removeObjectForKey:v15];
+          v15 = *(*(a1 + 56) + 8);
+          v16 = [v12 uniqueID];
+          [v15 removeObjectForKey:v16];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v16 = *(a1 + 40);
-    v17 = v5;
+    v17 = *(a1 + 40);
+    v18 = v6;
     *buf = 134217984;
-    v24 = [v16 count];
-    _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Finished sending %zu paragraphs", buf, 0xCu);
+    v24 = [v17 count];
+    _os_log_impl(&dword_23AAF5000, v18, OS_LOG_TYPE_INFO, "Finished sending %zu paragraphs", buf, 0xCu);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __42___LTTranslationSession_cancelPendingWork__block_invoke(uint64_t a1, uint64_t a2)
@@ -355,7 +352,7 @@ void __42___LTTranslationSession_cancelPendingWork__block_invoke(uint64_t a1, ui
   v11 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = _LTOSLogXPC();
+    v2 = _LTOSLogXPC(a1, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __42___LTTranslationSession_cancelPendingWork__block_invoke_cold_1(v2);
@@ -369,29 +366,28 @@ void __42___LTTranslationSession_cancelPendingWork__block_invoke(uint64_t a1, ui
     if (WeakRetained)
     {
       v5 = [WeakRetained sessionID];
-      v6 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogTranslationEngine(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v9 = 138543362;
         v10 = v5;
-        _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Client requested to cancel pending work for sessionID %{public}@", &v9, 0xCu);
+        _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_INFO, "Client requested to cancel pending work for sessionID %{public}@", &v9, 0xCu);
       }
 
-      v7 = [v4 service];
-      [v7 attemptToCancelRequestsWithSessionID:v5];
+      v8 = [v4 service];
+      [v8 attemptToCancelRequestsWithSessionID:v5];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41___LTTranslationSession_provideFeedback___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = _LTOSLogXPC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _LTOSLogXPC(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __41___LTTranslationSession_provideFeedback___block_invoke_cold_1();
     }
@@ -400,27 +396,28 @@ void __41___LTTranslationSession_provideFeedback___block_invoke(uint64_t a1, voi
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
+    v9 = WeakRetained;
     if (WeakRetained)
     {
-      v6 = _LTOSLogUserFeedback();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v10 = _LTOSLogUserFeedback(WeakRetained, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_DEFAULT, "Session sending feedback", v10, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_DEFAULT, "Session sending feedback", v14, 2u);
       }
 
-      v7 = [*(a1 + 32) localePair];
+      v11 = [*(a1 + 32) localePair];
 
-      if (!v7)
+      if (!v11)
       {
-        v8 = [WeakRetained[2] localePair];
-        [*(a1 + 32) setLocalePair:v8];
+        v12 = [v9[2] localePair];
+        [*(a1 + 32) setLocalePair:v12];
       }
 
-      v9 = [WeakRetained[3] UUIDString];
-      [*(a1 + 32) setSessionID:v9];
+      v13 = [v9[3] UUIDString];
+      [*(a1 + 32) setSessionID:v13];
 
-      [WeakRetained[7] log:*(a1 + 32)];
+      [v9[7] log:*(a1 + 32)];
     }
   }
 }
@@ -488,57 +485,46 @@ void __59___LTTranslationSession_paragraphTranslation_result_error___block_invok
 
 void __75___LTTranslationSession__ensureServiceConnection_useDedicatedTextMachPort___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_ERROR, "Error ensuring service connection %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_ERROR, "Error ensuring service connection %@", v1, 0xCu);
 }
 
 void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   [v2 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v4, v5, "Translation XPC connection failure, ignoring %zu requests", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v4, v5, "Translation XPC connection failure, ignoring %zu requests", v6, v7, v8, v9);
 }
 
 void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_cold_2(void **a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   [v2 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v4, v5, "Translation rate limit reached, ignoring %zu requests", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v4, v5, "Translation rate limit reached, ignoring %zu requests", v6, v7, v8, v9);
 }
 
-void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t *a3)
+void __60___LTTranslationSession_translate_useDedicatedTextMachPort___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 40);
-  v5 = a2;
-  [v4 count];
-  v6 = *a3;
-  OUTLINED_FUNCTION_1();
-  v10 = 2114;
-  v11 = v7;
-  _os_log_error_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_ERROR, "Error sending %zd paragraphs %{public}@", v9, 0x16u);
-
   v8 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 40);
+  v3 = a2;
+  [v2 count];
+  OUTLINED_FUNCTION_1();
+  v6 = 2114;
+  v7 = v4;
+  _os_log_error_impl(&dword_23AAF5000, v3, OS_LOG_TYPE_ERROR, "Error sending %zd paragraphs %{public}@", v5, 0x16u);
 }
 
 void __41___LTTranslationSession_provideFeedback___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_ERROR, "Translation XPC connection failure, abort sending session feedback: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_ERROR, "Translation XPC connection failure, abort sending session feedback: %@", v1, 0xCu);
 }
 
 @end

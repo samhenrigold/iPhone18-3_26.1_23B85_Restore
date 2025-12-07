@@ -7738,7 +7738,7 @@ LABEL_331:
   return v5;
 }
 
-void sub_100092FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, char *a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+void sub_100092FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, char *a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
 {
   if (a35 < 0)
   {
@@ -8471,7 +8471,7 @@ LABEL_238:
   return v5;
 }
 
-void sub_100093FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, char *a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+void sub_100093FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, char *a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
 {
   if (a29 < 0)
   {
@@ -9529,324 +9529,324 @@ __n128 AWDMetricsHandlers_handle_update_stabilityData(uint64_t a1)
   return result;
 }
 
-void AWDMetricsHandlers_Get_HealthInfo(void)
+void AWDMetricsHandlers_Get_HealthInfo()
 {
-  memset(&v35, 0, sizeof(v35));
-  std::string::append(&v35, "Daemon Restart = ");
-  std::to_string(&v34, dword_10052B080);
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  memset(&v36, 0, sizeof(v36));
+  std::string::append(&v36, "Daemon Restart = ");
+  std::to_string(&v35, dword_10052B080);
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v0 = &v34;
+    v1 = &v35;
   }
 
   else
   {
-    v0 = v34.__r_.__value_.__r.__words[0];
+    v1 = v35.__r_.__value_.__r.__words[0];
   }
 
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v34.__r_.__value_.__l.__size_;
+    size = v35.__r_.__value_.__l.__size_;
   }
 
-  std::string::append(&v35, v0, size);
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  std::string::append(&v36, v1, size);
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 
-  std::string::append(&v35, ". ");
-  std::string::append(&v35, "RCP FW Resets = ");
-  std::to_string(&v34, xmmword_10052B084);
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::append(&v36, ". ");
+  std::string::append(&v36, "RCP FW Resets = ");
+  std::to_string(&v35, xmmword_10052B084);
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v2 = &v34;
+    v3 = &v35;
   }
 
   else
   {
-    v2 = v34.__r_.__value_.__r.__words[0];
+    v3 = v35.__r_.__value_.__r.__words[0];
   }
 
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v3 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+    v4 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v3 = v34.__r_.__value_.__l.__size_;
+    v4 = v35.__r_.__value_.__l.__size_;
   }
 
-  std::string::append(&v35, v2, v3);
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  std::string::append(&v36, v3, v4);
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 
-  std::string::append(&v35, ". ");
-  std::string::append(&v35, "Time since last reset= ");
+  std::string::append(&v36, ". ");
+  std::string::append(&v36, "Time since last reset= ");
   if (!xmmword_10052B084)
   {
-    std::string::append(&v35, "N.A");
+    std::string::append(&v36, "N.A");
     goto LABEL_80;
   }
 
-  v4 = qword_10052B098;
+  v5 = qword_10052B098;
   if (qword_10052B098 >= 0xE3C7A73401)
   {
-    v4 = (qword_10052B098 - 978307200000) / 0x3E8uLL;
+    v5 = (qword_10052B098 - 978307200000) / 0x3E8uLL;
   }
 
-  v5 = CFAbsoluteTimeGetCurrent() - v4;
-  if (v5 > 0.0)
+  v6 = CFAbsoluteTimeGetCurrent() - v5;
+  if (v6 > 0.0)
   {
-    std::to_string(&v34, v5);
-    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v35, v6);
+    if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v6 = &v34;
+      v7 = &v35;
     }
 
     else
     {
-      v6 = v34.__r_.__value_.__r.__words[0];
+      v7 = v35.__r_.__value_.__r.__words[0];
     }
 
-    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v7 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+      v8 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v7 = v34.__r_.__value_.__l.__size_;
+      v8 = v35.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(&v35, v6, v7);
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    std::string::append(&v36, v7, v8);
+    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34.__r_.__value_.__l.__data_);
+      operator delete(v35.__r_.__value_.__l.__data_);
     }
 
-    std::string::append(&v35, "sec. ");
+    std::string::append(&v36, "sec. ");
   }
 
-  std::to_string(&v32, DWORD1(xmmword_10052B084));
-  v8 = std::string::insert(&v32, 0, "#Asserts= ");
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v33.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v33.__r_.__value_.__l.__data_ = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v33, ". ");
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v34.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v34.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::to_string(&v33, DWORD1(xmmword_10052B084));
+  v9 = std::string::insert(&v33, 0, "#Asserts= ");
+  v10 = *&v9->__r_.__value_.__l.__data_;
+  v34.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+  *&v34.__r_.__value_.__l.__data_ = v10;
+  v9->__r_.__value_.__l.__size_ = 0;
+  v9->__r_.__value_.__r.__words[2] = 0;
+  v9->__r_.__value_.__r.__words[0] = 0;
+  v11 = std::string::append(&v34, ". ");
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v35.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v35.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = &v34;
-  }
-
-  else
-  {
-    v12 = v34.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v13 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+    v13 = &v35;
   }
 
   else
   {
-    v13 = v34.__r_.__value_.__l.__size_;
+    v13 = v35.__r_.__value_.__r.__words[0];
   }
 
-  std::string::append(&v35, v12, v13);
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    operator delete(v34.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    v14 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v14 = v35.__r_.__value_.__l.__size_;
+  }
+
+  std::string::append(&v36, v13, v14);
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v35.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_38:
-      if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_39;
       }
 
 LABEL_70:
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v33.__r_.__value_.__l.__data_);
 LABEL_39:
-      std::to_string(&v32, DWORD2(xmmword_10052B084));
-      v14 = std::string::insert(&v32, 0, "#HardFaults= ");
-      v15 = *&v14->__r_.__value_.__l.__data_;
-      v33.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-      *&v33.__r_.__value_.__l.__data_ = v15;
-      v14->__r_.__value_.__l.__size_ = 0;
-      v14->__r_.__value_.__r.__words[2] = 0;
-      v14->__r_.__value_.__r.__words[0] = 0;
-      v16 = std::string::append(&v33, ". ");
-      v17 = *&v16->__r_.__value_.__l.__data_;
-      v34.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-      *&v34.__r_.__value_.__l.__data_ = v17;
-      v16->__r_.__value_.__l.__size_ = 0;
-      v16->__r_.__value_.__r.__words[2] = 0;
-      v16->__r_.__value_.__r.__words[0] = 0;
-      if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::to_string(&v33, DWORD2(xmmword_10052B084));
+      v15 = std::string::insert(&v33, 0, "#HardFaults= ");
+      v16 = *&v15->__r_.__value_.__l.__data_;
+      v34.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+      *&v34.__r_.__value_.__l.__data_ = v16;
+      v15->__r_.__value_.__l.__size_ = 0;
+      v15->__r_.__value_.__r.__words[2] = 0;
+      v15->__r_.__value_.__r.__words[0] = 0;
+      v17 = std::string::append(&v34, ". ");
+      v18 = *&v17->__r_.__value_.__l.__data_;
+      v35.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+      *&v35.__r_.__value_.__l.__data_ = v18;
+      v17->__r_.__value_.__l.__size_ = 0;
+      v17->__r_.__value_.__r.__words[2] = 0;
+      v17->__r_.__value_.__r.__words[0] = 0;
+      if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v18 = &v34;
+        v19 = &v35;
       }
 
       else
       {
-        v18 = v34.__r_.__value_.__r.__words[0];
+        v19 = v35.__r_.__value_.__r.__words[0];
       }
 
-      if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v19 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+        v20 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v19 = v34.__r_.__value_.__l.__size_;
+        v20 = v35.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(&v35, v18, v19);
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+      std::string::append(&v36, v19, v20);
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v34.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        operator delete(v35.__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_47:
-          if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_48;
           }
 
 LABEL_73:
-          operator delete(v32.__r_.__value_.__l.__data_);
+          operator delete(v33.__r_.__value_.__l.__data_);
 LABEL_48:
-          std::to_string(&v32, HIDWORD(xmmword_10052B084));
-          v20 = std::string::insert(&v32, 0, "#StackOverflows= ");
-          v21 = *&v20->__r_.__value_.__l.__data_;
-          v33.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-          *&v33.__r_.__value_.__l.__data_ = v21;
-          v20->__r_.__value_.__l.__size_ = 0;
-          v20->__r_.__value_.__r.__words[2] = 0;
-          v20->__r_.__value_.__r.__words[0] = 0;
-          v22 = std::string::append(&v33, ". ");
-          v23 = *&v22->__r_.__value_.__l.__data_;
-          v34.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-          *&v34.__r_.__value_.__l.__data_ = v23;
-          v22->__r_.__value_.__l.__size_ = 0;
-          v22->__r_.__value_.__r.__words[2] = 0;
-          v22->__r_.__value_.__r.__words[0] = 0;
-          if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v33, HIDWORD(xmmword_10052B084));
+          v21 = std::string::insert(&v33, 0, "#StackOverflows= ");
+          v22 = *&v21->__r_.__value_.__l.__data_;
+          v34.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+          *&v34.__r_.__value_.__l.__data_ = v22;
+          v21->__r_.__value_.__l.__size_ = 0;
+          v21->__r_.__value_.__r.__words[2] = 0;
+          v21->__r_.__value_.__r.__words[0] = 0;
+          v23 = std::string::append(&v34, ". ");
+          v24 = *&v23->__r_.__value_.__l.__data_;
+          v35.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+          *&v35.__r_.__value_.__l.__data_ = v24;
+          v23->__r_.__value_.__l.__size_ = 0;
+          v23->__r_.__value_.__r.__words[2] = 0;
+          v23->__r_.__value_.__r.__words[0] = 0;
+          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v24 = &v34;
+            v25 = &v35;
           }
 
           else
           {
-            v24 = v34.__r_.__value_.__r.__words[0];
+            v25 = v35.__r_.__value_.__r.__words[0];
           }
 
-          if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v25 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+            v26 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v25 = v34.__r_.__value_.__l.__size_;
+            v26 = v35.__r_.__value_.__l.__size_;
           }
 
-          std::string::append(&v35, v24, v25);
-          if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+          std::string::append(&v36, v25, v26);
+          if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v34.__r_.__value_.__l.__data_);
-            if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            operator delete(v35.__r_.__value_.__l.__data_);
+            if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
 LABEL_56:
-              if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
                 goto LABEL_57;
               }
 
 LABEL_76:
-              operator delete(v32.__r_.__value_.__l.__data_);
+              operator delete(v33.__r_.__value_.__l.__data_);
 LABEL_57:
-              std::to_string(&v32, dword_10052B094);
-              v26 = std::string::insert(&v32, 0, "#UnknownFaults= ");
-              v27 = *&v26->__r_.__value_.__l.__data_;
-              v33.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-              *&v33.__r_.__value_.__l.__data_ = v27;
-              v26->__r_.__value_.__l.__size_ = 0;
-              v26->__r_.__value_.__r.__words[2] = 0;
-              v26->__r_.__value_.__r.__words[0] = 0;
-              v28 = std::string::append(&v33, ". ");
-              v29 = *&v28->__r_.__value_.__l.__data_;
-              v34.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-              *&v34.__r_.__value_.__l.__data_ = v29;
-              v28->__r_.__value_.__l.__size_ = 0;
-              v28->__r_.__value_.__r.__words[2] = 0;
-              v28->__r_.__value_.__r.__words[0] = 0;
-              if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              std::to_string(&v33, dword_10052B094);
+              v27 = std::string::insert(&v33, 0, "#UnknownFaults= ");
+              v28 = *&v27->__r_.__value_.__l.__data_;
+              v34.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
+              *&v34.__r_.__value_.__l.__data_ = v28;
+              v27->__r_.__value_.__l.__size_ = 0;
+              v27->__r_.__value_.__r.__words[2] = 0;
+              v27->__r_.__value_.__r.__words[0] = 0;
+              v29 = std::string::append(&v34, ". ");
+              v30 = *&v29->__r_.__value_.__l.__data_;
+              v35.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+              *&v35.__r_.__value_.__l.__data_ = v30;
+              v29->__r_.__value_.__l.__size_ = 0;
+              v29->__r_.__value_.__r.__words[2] = 0;
+              v29->__r_.__value_.__r.__words[0] = 0;
+              if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v30 = &v34;
+                v31 = &v35;
               }
 
               else
               {
-                v30 = v34.__r_.__value_.__r.__words[0];
+                v31 = v35.__r_.__value_.__r.__words[0];
               }
 
-              if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v31 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
+                v32 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                v31 = v34.__r_.__value_.__l.__size_;
+                v32 = v35.__r_.__value_.__l.__size_;
               }
 
-              std::string::append(&v35, v30, v31);
-              if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+              std::string::append(&v36, v31, v32);
+              if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v34.__r_.__value_.__l.__data_);
-                if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                operator delete(v35.__r_.__value_.__l.__data_);
+                if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
 LABEL_65:
-                  if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                  if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                   {
                     goto LABEL_80;
                   }
 
 LABEL_79:
-                  operator delete(v32.__r_.__value_.__l.__data_);
+                  operator delete(v33.__r_.__value_.__l.__data_);
 LABEL_80:
                   operator new();
                 }
               }
 
-              else if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              else if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
                 goto LABEL_65;
               }
 
-              operator delete(v33.__r_.__value_.__l.__data_);
-              if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              operator delete(v34.__r_.__value_.__l.__data_);
+              if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
                 goto LABEL_80;
               }
@@ -9855,13 +9855,13 @@ LABEL_80:
             }
           }
 
-          else if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          else if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_56;
           }
 
-          operator delete(v33.__r_.__value_.__l.__data_);
-          if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          operator delete(v34.__r_.__value_.__l.__data_);
+          if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_57;
           }
@@ -9870,13 +9870,13 @@ LABEL_80:
         }
       }
 
-      else if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      else if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_47;
       }
 
-      operator delete(v33.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      operator delete(v34.__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_48;
       }
@@ -9885,13 +9885,13 @@ LABEL_80:
     }
   }
 
-  else if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  else if ((SHIBYTE(v34.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_38;
   }
 
-  operator delete(v33.__r_.__value_.__l.__data_);
-  if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  operator delete(v34.__r_.__value_.__l.__data_);
+  if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_39;
   }

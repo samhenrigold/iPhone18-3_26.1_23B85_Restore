@@ -27,14 +27,14 @@
 
 - (id)_newAssertion:(BOOL)assertion
 {
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -42,37 +42,38 @@
   block[3] = &unk_278D1D8A8;
   assertionCopy = assertion;
   block[4] = self;
-  block[5] = &v20;
-  block[6] = &v16;
+  block[5] = &v21;
+  block[6] = &v17;
   dispatch_sync(queue, block);
-  v5 = 0;
-  if (*(v21 + 24) == 1)
+  v6 = 0;
+  if (*(v22 + 24) == 1)
   {
-    v6 = [_BUCountingAssertion alloc];
-    v7 = self->_queue;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_241DC1194;
-    v13[3] = &unk_278D1D148;
-    v13[4] = self;
-    v5 = objc_msgSend_initWithQueue_block_(v6, v8, v7, v13);
+    v7 = [_BUCountingAssertion alloc];
+    v8 = self->_queue;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_241DC1194;
+    v14[3] = &unk_278D1D148;
+    v14[4] = self;
+    v5 = objc_msgSend_initWithQueue_block_(v7, v9, v8, v14);
+    v6 = v5;
   }
 
-  if (*(v17 + 24) == 1)
+  if (*(v18 + 24) == 1)
   {
-    v9 = BUAssertionLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = BUAssertionLog(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      sub_241DD08C4(v9);
+      sub_241DD08C4(v10);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    objc_msgSend_countingAssertProviderTransitionToNonZero_(WeakRetained, v11, self);
+    objc_msgSend_countingAssertProviderTransitionToNonZero_(WeakRetained, v12, self);
   }
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
-  return v5;
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  return v6;
 }
 
 - (BOOL)_endAssertion
@@ -80,19 +81,19 @@
   dispatch_assert_queue_V2(self->_queue);
   count = self->_count;
   p_count = &self->_count;
-  v4 = count;
+  v5 = count;
   if (count)
   {
-    *p_count = v4 - 1;
+    *p_count = v5 - 1;
   }
 
-  v6 = BUAssertionLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = BUAssertionLog(v3);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_241DD09CC(p_count, v4 == 1, v6);
+    sub_241DD09CC(p_count, v5 == 1, v7);
   }
 
-  return v4 == 1;
+  return v5 == 1;
 }
 
 @end

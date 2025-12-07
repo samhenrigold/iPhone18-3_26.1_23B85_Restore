@@ -7,17 +7,17 @@
 - (id)_initWithHandle:(id)handle
 {
   handleCopy = handle;
-  v14.receiver = self;
-  v14.super_class = IMSatelliteAvailabilityChatItem;
-  v6 = [(IMChatItem *)&v14 _initWithItem:0];
+  v11.receiver = self;
+  v11.super_class = IMSatelliteAvailabilityChatItem;
+  v6 = [(IMChatItem *)&v11 _initWithItem:0];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(v6 + 7, handle);
-    v10 = objc_msgSend_ID(v7[7], v8, v9);
-    v11 = sub_1A83AC604();
+    v8 = [v7[7] ID];
+    v9 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v7, v12, v11);
+    [v7 _setGUID:v9];
   }
 
   return v7;

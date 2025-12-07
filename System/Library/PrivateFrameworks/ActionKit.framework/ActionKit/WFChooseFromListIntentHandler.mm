@@ -45,7 +45,7 @@
 
 - (void)resolveChosenItemsForChooseFromList:(id)list withCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   listCopy = list;
   chosenItems = [listCopy chosenItems];
@@ -66,16 +66,16 @@
     {
       firstObject = [v8 firstObject];
       v10 = [WFChooseFromListItemResolutionResult successWithResolvedChooseFromListItem:firstObject];
-      v14 = v10;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+      v13 = v10;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
       completionCopy[2](completionCopy, v11);
     }
 
     else
     {
       firstObject = +[WFChooseFromListItemResolutionResult needsValue];
-      v13 = firstObject;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+      v12 = firstObject;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
       completionCopy[2](completionCopy, v10);
     }
   }
@@ -83,12 +83,10 @@
   else
   {
     firstObject = [WFChooseFromListItemResolutionResult disambiguationWithChooseFromListItemsToDisambiguate:v8];
-    v15[0] = firstObject;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = firstObject;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     completionCopy[2](completionCopy, v10);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleChooseFromList:(id)list completion:(id)completion

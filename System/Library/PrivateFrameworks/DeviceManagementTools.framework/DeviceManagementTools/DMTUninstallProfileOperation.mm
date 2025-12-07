@@ -45,13 +45,12 @@ void __38__DMTUninstallProfileOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)uninstallProfile
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_24891B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to uninstall profile: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_24891B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to uninstall profile: %{public}@", &v3, 0x16u);
 }
 
 @end

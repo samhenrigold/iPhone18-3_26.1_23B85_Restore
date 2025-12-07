@@ -67,13 +67,13 @@
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection
 {
-  v93[1] = *MEMORY[0x277D85DE8];
+  v92[1] = *MEMORY[0x277D85DE8];
   personCopy = person;
   collectionCopy = collection;
-  v87.receiver = self;
-  v87.super_class = HDDemoDataMindfulnessSampleGenerator;
+  v86.receiver = self;
+  v86.super_class = HDDemoDataMindfulnessSampleGenerator;
   dateCopy = date;
-  [(HDDemoDataBaseSampleGenerator *)&v87 generateObjectsForDemoPerson:personCopy fromTime:dateCopy toTime:collectionCopy currentDate:toTime objectCollection:toTime];
+  [(HDDemoDataBaseSampleGenerator *)&v86 generateObjectsForDemoPerson:personCopy fromTime:dateCopy toTime:collectionCopy currentDate:toTime objectCollection:toTime];
   v14 = personCopy;
   v15 = dateCopy;
   if (!self || self->_nextMindfulSessionSampleTime > toTime)
@@ -92,7 +92,7 @@
   activitySampleGenerator = [demoDataGenerator2 activitySampleGenerator];
   if (([activitySampleGenerator _isDemoPersonInWorkoutRecovery:v14 atTime:toTime] & 1) == 0)
   {
-    v82 = v14;
+    v81 = v14;
     demoDataGenerator3 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
     generatorState = [demoDataGenerator3 generatorState];
     selfCopy = self;
@@ -101,16 +101,16 @@
     if (isExercising)
     {
       v16 = 0;
-      v14 = v82;
+      v14 = v81;
       self = selfCopy;
       goto LABEL_15;
     }
 
-    v14 = v82;
-    [v82 mindfulSessionFrequency];
+    v14 = v81;
+    [v81 mindfulSessionFrequency];
     self = selfCopy;
     selfCopy->_nextMindfulSessionSampleTime = v24 + toTime;
-    [v82 mindfulSessionFrequency];
+    [v81 mindfulSessionFrequency];
     v26 = exp2(v25 * -2.0) * 100.0;
     if (v26 <= arc4random_uniform(0x64u))
     {
@@ -121,21 +121,21 @@ LABEL_3:
 
     demoDataGenerator4 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
     statisticsSampleGenerator = [demoDataGenerator4 statisticsSampleGenerator];
-    [statisticsSampleGenerator computeNoiseFromTime:toTime stdDev:{objc_msgSend(v82, "mindfulSessionStdDev")}];
+    [statisticsSampleGenerator computeNoiseFromTime:toTime stdDev:{objc_msgSend(v81, "mindfulSessionStdDev")}];
     v30 = v29;
 
-    v31 = llround(v30 + [v82 mindfulSessionMean]);
+    v31 = llround(v30 + [v81 mindfulSessionMean]);
     demoDataGenerator = [&unk_283CB0420 objectAtIndexedSubscript:{arc4random_uniform(objc_msgSend(&unk_283CB0420, "count"))}];
     v32 = arc4random_uniform(0x1Eu);
     v33 = *MEMORY[0x277CCDFC8];
-    v88[0] = *MEMORY[0x277CCE060];
-    v88[1] = v33;
-    v89[0] = demoDataGenerator;
-    v89[1] = &unk_283CB4248;
-    v88[2] = *MEMORY[0x277CCDFD0];
+    v87[0] = *MEMORY[0x277CCE060];
+    v87[1] = v33;
+    v88[0] = demoDataGenerator;
+    v88[1] = &unk_283CB4248;
+    v87[2] = *MEMORY[0x277CCDFD0];
     v34 = [MEMORY[0x277CCABB0] numberWithInteger:v32 + 60];
-    v89[2] = v34;
-    sleepSampleGenerator = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:3];
+    v88[2] = v34;
+    sleepSampleGenerator = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:3];
 
     if (v31 >= 1)
     {
@@ -164,9 +164,9 @@ LABEL_15:
     v37 = v14;
     if (self)
     {
-      v80 = v16;
-      v81 = collectionCopy;
-      v83 = v14;
+      v79 = v16;
+      v80 = collectionCopy;
+      v82 = v14;
       selfCopy2 = self;
       endDate = [v36 endDate];
       startDate = [v36 startDate];
@@ -175,13 +175,13 @@ LABEL_15:
 
       v43 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
       array = [MEMORY[0x277CBEB18] array];
-      v79 = v36;
+      v78 = v36;
       startDate2 = [v36 startDate];
       [startDate2 timeIntervalSinceReferenceDate];
       v47 = v46;
 
       v48 = *MEMORY[0x277CCE030];
-      v86 = v37;
+      v85 = v37;
       if (v42 >= 1)
       {
         do
@@ -195,13 +195,13 @@ LABEL_15:
           v54 = [v52 quantityWithUnit:v53 doubleValue:v50];
 
           v55 = MEMORY[0x277CCD800];
-          v88[0] = v48;
-          v89[0] = &unk_283CB4260;
-          v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:1];
+          v87[0] = v48;
+          v88[0] = &unk_283CB4260;
+          v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:1];
           v57 = [v55 quantitySampleWithType:v43 quantity:v54 startDate:v51 endDate:v51 metadata:v56];
 
           [array addObject:v57];
-          v37 = v86;
+          v37 = v85;
 
           --v42;
         }
@@ -211,7 +211,7 @@ LABEL_15:
 
       restingHeartRate2 = [v37 restingHeartRate];
       v59 = (restingHeartRate2 + arc4random_uniform(3u) + 2);
-      startDate3 = [v79 startDate];
+      startDate3 = [v78 startDate];
       v61 = [startDate3 dateByAddingTimeInterval:-180.0];
 
       v62 = MEMORY[0x277CCD7E8];
@@ -219,16 +219,16 @@ LABEL_15:
       v64 = [v62 quantityWithUnit:v63 doubleValue:v59];
 
       v65 = MEMORY[0x277CCD800];
-      v92 = v48;
-      v93[0] = &unk_283CB4218;
-      v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:&v92 count:1];
+      v91 = v48;
+      v92[0] = &unk_283CB4218;
+      v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:&v91 count:1];
       v67 = [v65 quantitySampleWithType:v43 quantity:v64 startDate:v61 endDate:v61 metadata:v66];
 
       v38 = array;
       [array addObject:v67];
       restingHeartRate3 = [v37 restingHeartRate];
       v69 = (restingHeartRate3 + arc4random_uniform(3u) + 2);
-      startDate4 = [v79 startDate];
+      startDate4 = [v78 startDate];
       v71 = [startDate4 dateByAddingTimeInterval:120.0];
 
       v72 = MEMORY[0x277CCD7E8];
@@ -236,19 +236,19 @@ LABEL_15:
       v74 = [v72 quantityWithUnit:v73 doubleValue:v69];
 
       v75 = MEMORY[0x277CCD800];
-      v90 = v48;
-      v91 = &unk_283CB4218;
-      v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+      v89 = v48;
+      v90 = &unk_283CB4218;
+      v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
       v77 = [v75 quantitySampleWithType:v43 quantity:v74 startDate:v71 endDate:v71 metadata:v76];
 
       [v38 addObject:v77];
-      v37 = v86;
-      v36 = v79;
+      v37 = v85;
+      v36 = v78;
 
-      collectionCopy = v81;
-      v14 = v83;
+      collectionCopy = v80;
+      v14 = v82;
       self = selfCopy2;
-      v16 = v80;
+      v16 = v79;
     }
 
     else
@@ -267,8 +267,6 @@ LABEL_15:
   {
     self->_didGenerateMindfulnessMinute = 0;
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 @end

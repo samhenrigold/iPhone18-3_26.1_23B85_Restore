@@ -12,6 +12,7 @@
 - (void)_serviceReset;
 - (void)_serviceResetAndIncreaseFailCount;
 - (void)addLabelWithName:(id)name;
+- (void)addObserver:(id)observer withToken:(id)token isLowLatency:(BOOL)latency;
 - (void)connection:(id)connection didCompleteRequest:(id)request withError:(id)error;
 - (void)connection:(id)connection didEnableMicrolocationAtCurrentLocationWithError:(id)error;
 - (void)connection:(id)connection didFailWithError:(id)error;
@@ -75,18 +76,63 @@
   return v6;
 }
 
+- (void)addObserver:(id)observer withToken:(id)token isLowLatency:(BOOL)latency
+{
+  latencyCopy = latency;
+  v26 = *MEMORY[0x277D85DE8];
+  observerCopy = observer;
+  tokenCopy = token;
+  v10 = dispatch_get_specific(*MEMORY[0x277D21308]);
+  v11 = *MEMORY[0x277D21260];
+  if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
+  {
+    v12 = MEMORY[0x277CCABB0];
+    v13 = v11;
+    v14 = [v12 numberWithBool:latencyCopy];
+    v18 = 136315906;
+    v19 = "#milo-provider, ";
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = tokenCopy;
+    v24 = 2112;
+    v25 = v14;
+    _os_log_impl(&dword_25543D000, v13, OS_LOG_TYPE_INFO, "%s[%@], Adding MiLo observer with token: %@, isLowLatency: %@", &v18, 0x2Au);
+  }
+
+  observer = [(IRMiLoProvider *)self observer];
+
+  if (!observer)
+  {
+    [(IRMiLoProvider *)self setNumberOfConsecutiveMiLoFailAttempts:0];
+    [(IRMiLoProvider *)self setObserver:observerCopy];
+    [(IRMiLoProvider *)self setIsLowLatency:latencyCopy];
+    v16 = [MEMORY[0x277D28780] createServiceIdentifierForToken:tokenCopy];
+    [(IRMiLoProvider *)self setServiceUUID:v16];
+
+    serviceUUID = [(IRMiLoProvider *)self serviceUUID];
+
+    if (!serviceUUID)
+    {
+      [IRMiLoProvider addObserver:tokenCopy withToken:? isLowLatency:?];
+    }
+
+    [(IRMiLoProvider *)self _connectToLslService];
+  }
+}
+
 - (void)removeObserver
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v4 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "#milo-provider, ";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_INFO, "%s[%@], Removing MiLo observer", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "#milo-provider, ";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_INFO, "%s[%@], Removing MiLo observer", &v6, 0x16u);
   }
 
   observer = [(IRMiLoProvider *)self observer];
@@ -99,37 +145,33 @@
     [(IRMiLoProvider *)self setNumberOfConsecutiveMiLoFailAttempts:0];
     [(IRMiLoProvider *)self _serviceReset];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLabelWithName:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v6 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315650;
-    v11 = "#milo-provider, ";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = nameCopy;
-    _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_INFO, "%s[%@], addLabelWithName: name: %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "#milo-provider, ";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = nameCopy;
+    _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_INFO, "%s[%@], addLabelWithName: name: %@", &v9, 0x20u);
   }
 
   v7 = [objc_alloc(MEMORY[0x277D287A0]) initWithName:nameCopy];
   connection = [(IRMiLoProvider *)self connection];
   [connection addLabel:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)requestSinglePrediction
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([(IRMiLoProvider *)self isMiLoServiceStateRunning]&& ([(IRMiLoProvider *)self observer], (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = v3, [(IRMiLoProvider *)self requestSinglePredictionIdentifier], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5))
   {
     connection = [(IRMiLoProvider *)self connection];
@@ -150,28 +192,26 @@
   {
     v9 = v8;
     requestSinglePredictionIdentifier = [(IRMiLoProvider *)self requestSinglePredictionIdentifier];
-    v17 = 136315906;
-    v18 = "#milo-provider, ";
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = requestSinglePredictionIdentifier;
-    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_INFO, "%s[%@], Single prediction requested, complied = %@, request-id (updated if complied): %@", &v17, 0x2Au);
+    v16 = 136315906;
+    v17 = "#milo-provider, ";
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v6;
+    v22 = 2112;
+    v23 = requestSinglePredictionIdentifier;
+    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_INFO, "%s[%@], Single prediction requested, complied = %@, request-id (updated if complied): %@", &v16, 0x2Au);
   }
 
   requestSinglePredictionIdentifier2 = [(IRMiLoProvider *)self requestSinglePredictionIdentifier];
   uUIDString = [requestSinglePredictionIdentifier2 UUIDString];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return uUIDString;
 }
 
 - (BOOL)startLowLatencyMiLo
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(IRMiLoProvider *)self miLoConnectionProgressStatus]!= 2)
   {
     v3 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -181,13 +221,13 @@
       v6 = MEMORY[0x277CCABB0];
       v7 = v5;
       v8 = [v6 numberWithUnsignedInt:{-[IRMiLoProvider miLoConnectionProgressStatus](self, "miLoConnectionProgressStatus")}];
-      v16 = 136315650;
-      v17 = "#milo-provider, ";
-      v18 = 2112;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - MiLo start low latency] MiLo connection status is not connected: %@", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "#milo-provider, ";
+      v17 = 2112;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - MiLo start low latency] MiLo connection status is not connected: %@", &v15, 0x20u);
     }
 
     goto LABEL_7;
@@ -199,11 +239,11 @@
     v4 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315394;
-      v17 = "#milo-provider, ";
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - MiLo start low latency] API was called after low latency is already enabled", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "#milo-provider, ";
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - MiLo start low latency] API was called after low latency is already enabled", &v15, 0x16u);
     }
 
 LABEL_7:
@@ -214,29 +254,28 @@ LABEL_7:
   v9 = 1;
   [(IRMiLoProvider *)self setIsLowLatency:1];
   connection = [(IRMiLoProvider *)self connection];
-  v13 = [objc_alloc(MEMORY[0x277D28818]) initWithIsLowLatency:{-[IRMiLoProvider isLowLatency](self, "isLowLatency")}];
-  v14 = [connection startUpdatingWithConfiguration:v13];
+  v12 = [objc_alloc(MEMORY[0x277D28818]) initWithIsLowLatency:{-[IRMiLoProvider isLowLatency](self, "isLowLatency")}];
+  v13 = [connection startUpdatingWithConfiguration:v12];
 
   v3 = dispatch_get_specific(*MEMORY[0x277D21308]);
-  v15 = *MEMORY[0x277D21260];
+  v14 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v16 = 136315394;
-    v17 = "#milo-provider, ";
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_25543D000, v15, OS_LOG_TYPE_INFO, "%s[%@], Starting LowLatency connection for MiLo", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "#milo-provider, ";
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_INFO, "%s[%@], Starting LowLatency connection for MiLo", &v15, 0x16u);
   }
 
 LABEL_8:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)setSpotOnLocation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   spotOnLocationRequested = [(IRMiLoProvider *)self spotOnLocationRequested];
   v4 = MEMORY[0x277D21308];
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -248,9 +287,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "#milo-provider, ";
-      v22 = 2112;
-      v23 = v5;
+      v20 = "#milo-provider, ";
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - MiLo provider got setSpotOnLocation twice] MiLo already waiting for spotOn response", buf, 0x16u);
     }
   }
@@ -260,9 +299,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v21 = "#milo-provider, ";
-      v22 = 2112;
-      v23 = v5;
+      v20 = "#milo-provider, ";
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_INFO, "%s[%@], MiLo provider got setSpotOnLocation", buf, 0x16u);
     }
 
@@ -281,42 +320,39 @@ LABEL_8:
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v21 = "#milo-provider, ";
-        v22 = 2112;
-        v23 = v10;
+        v20 = "#milo-provider, ";
+        v21 = 2112;
+        v22 = v10;
         _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "%s[%@], MiLo not connected, responding to setSpotOnLocation with error", buf, 0x16u);
       }
 
       observer = [(IRMiLoProvider *)self observer];
       v13 = MEMORY[0x277CCA9B8];
       v14 = *MEMORY[0x277D21258];
-      v18 = *MEMORY[0x277CCA470];
-      v19 = @"MiLo Unavailable";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA470];
+      v18 = @"MiLo Unavailable";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       v16 = [v13 errorWithDomain:v14 code:-12899 userInfo:v15];
       [observer didSpotOnLocationCompleteWithError:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSpotOnLocationRequest
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v4 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315394;
-    v7 = "#milo-provider, ";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_INFO, "%s[%@], resetting spotOnLocationRquest", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "#milo-provider, ";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_INFO, "%s[%@], resetting spotOnLocationRquest", &v5, 0x16u);
   }
 
   [(IRMiLoProvider *)self setSpotOnLocationRequested:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getMiloServiceStatusStringQEWithPrediction:(id)prediction
@@ -366,20 +402,20 @@ LABEL_8:
 
 - (void)_connectToLslService
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v4 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     v5 = v4;
     serviceUUID = [(IRMiLoProvider *)self serviceUUID];
-    v14 = 136315650;
-    v15 = "#milo-provider, ";
-    v16 = 2112;
-    v17 = v3;
-    v18 = 2112;
-    v19 = serviceUUID;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "%s[%@], Connecting to LSL service for identifier: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "#milo-provider, ";
+    v15 = 2112;
+    v16 = v3;
+    v17 = 2112;
+    v18 = serviceUUID;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "%s[%@], Connecting to LSL service for identifier: %@", &v13, 0x20u);
   }
 
   connection = [(IRMiLoProvider *)self connection];
@@ -396,23 +432,22 @@ LABEL_8:
   connect = [connection2 connect];
 
   [(IRMiLoProvider *)self setMiLoConnectionProgressStatus:1];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_miloServiceStatusLogStringFromMap:(id)map
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mapCopy = map;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   serviceSuspendReasons = [mapCopy serviceSuspendReasons];
-  v5 = [serviceSuspendReasons countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [serviceSuspendReasons countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     v8 = @"<";
     do
     {
@@ -420,12 +455,12 @@ LABEL_8:
       v10 = v8;
       do
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(serviceSuspendReasons);
         }
 
-        [*(*(&v20 + 1) + 8 * v9) suspendReasonEnum];
+        [*(*(&v19 + 1) + 8 * v9) suspendReasonEnum];
         v11 = ULServiceSuspendReasonToString();
         v8 = [(__CFString *)v10 stringByAppendingString:v11];
 
@@ -434,7 +469,7 @@ LABEL_8:
       }
 
       while (v6 != v9);
-      v6 = [serviceSuspendReasons countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [serviceSuspendReasons countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
@@ -462,8 +497,6 @@ LABEL_8:
 
   locationOfInterest = [mapCopy locationOfInterest];
   v17 = [v13 stringWithFormat:@"MiLo State:\n State: %@\n Suspend reasons: %@\n isMapValid: %@\n locationOfInterest: %@\n", v14, v12, v15, locationOfInterest];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -499,31 +532,31 @@ LABEL_8:
 
 - (int64_t)_bitmapFromServiceSuspendedReasonArray:(id)array
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [arrayCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v6 |= 1 << [*(*(&v11 + 1) + 8 * i) suspendReasonEnum];
+        v6 |= 1 << [*(*(&v10 + 1) + 8 * i) suspendReasonEnum];
       }
 
-      v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [arrayCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -534,13 +567,12 @@ LABEL_8:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (int)_locationOfInterestToIRLocationSemantic:(id)semantic
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   semanticCopy = semantic;
   v4 = semanticCopy;
   if (!semanticCopy)
@@ -563,13 +595,13 @@ LABEL_12:
           v9 = MEMORY[0x277CCABB0];
           v10 = v8;
           v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(v4, "locationOfInterestType")}];
-          v14 = 136315650;
-          v15 = "#milo-provider, ";
-          v16 = 2112;
-          v17 = v7;
-          v18 = 2112;
-          v19 = v11;
-          _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_FAULT, "%s[%@], [ErrorId - Milo location type unsupported] Milo provided LOI type not handled %@", &v14, 0x20u);
+          v13 = 136315650;
+          v14 = "#milo-provider, ";
+          v15 = 2112;
+          v16 = v7;
+          v17 = 2112;
+          v18 = v11;
+          _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_FAULT, "%s[%@], [ErrorId - Milo location type unsupported] Milo provided LOI type not handled %@", &v13, 0x20u);
         }
 
         goto LABEL_15;
@@ -603,7 +635,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -620,7 +651,7 @@ LABEL_16:
 
 void __41__IRMiLoProvider_connectionDidUpdateMap___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 observer];
   if (!v4)
@@ -660,12 +691,12 @@ void __41__IRMiLoProvider_connectionDidUpdateMap___block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
       v19 = v21;
-      *v32 = 136315650;
-      *&v32[4] = "#milo-provider, ";
-      *&v32[12] = 2112;
-      *&v32[14] = v17;
-      *&v32[22] = 1024;
-      LODWORD(v33) = [v3 miLoConnectionProgressStatus];
+      *v31 = 136315650;
+      *&v31[4] = "#milo-provider, ";
+      *&v31[12] = 2112;
+      *&v31[14] = v17;
+      *&v31[22] = 1024;
+      LODWORD(v32) = [v3 miLoConnectionProgressStatus];
       v20 = "%s[%@], Milo service state suspended, %d";
       goto LABEL_10;
     }
@@ -683,15 +714,15 @@ LABEL_11:
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
       v19 = v18;
-      *v32 = 136315650;
-      *&v32[4] = "#milo-provider, ";
-      *&v32[12] = 2112;
-      *&v32[14] = v17;
-      *&v32[22] = 1024;
-      LODWORD(v33) = [v3 miLoConnectionProgressStatus];
+      *v31 = 136315650;
+      *&v31[4] = "#milo-provider, ";
+      *&v31[12] = 2112;
+      *&v31[14] = v17;
+      *&v31[22] = 1024;
+      LODWORD(v32) = [v3 miLoConnectionProgressStatus];
       v20 = "%s[%@], Milo service state running, %d";
 LABEL_10:
-      _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_INFO, v20, v32, 0x1Cu);
+      _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_INFO, v20, v31, 0x1Cu);
 
       goto LABEL_11;
     }
@@ -700,7 +731,7 @@ LABEL_10:
   }
 
 LABEL_12:
-  v22 = [v3 _miloServiceStatusLogStringFromMap:{v6, *v32, *&v32[16], v33}];
+  v22 = [v3 _miloServiceStatusLogStringFromMap:{v6, *v31, *&v31[8], v32}];
   [v3 setMiloServiceStatusStringQE:v22];
 
   v23 = dispatch_get_specific(*v16);
@@ -709,13 +740,13 @@ LABEL_12:
   {
     v25 = v24;
     v26 = [v3 miloServiceStatusStringQE];
-    *v32 = 136315650;
-    *&v32[4] = "#milo-provider, ";
-    *&v32[12] = 2112;
-    *&v32[14] = v23;
-    *&v32[22] = 2112;
-    v33 = v26;
-    _os_log_impl(&dword_25543D000, v25, OS_LOG_TYPE_DEFAULT, "%s[%@], Milo status changed: %@", v32, 0x20u);
+    *v31 = 136315650;
+    *&v31[4] = "#milo-provider, ";
+    *&v31[12] = 2112;
+    *&v31[14] = v23;
+    *&v31[22] = 2112;
+    v32 = v26;
+    _os_log_impl(&dword_25543D000, v25, OS_LOG_TYPE_DEFAULT, "%s[%@], Milo status changed: %@", v31, 0x20u);
   }
 
   v27 = *(a1 + 32);
@@ -729,7 +760,6 @@ LABEL_12:
   }
 
 LABEL_18:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidUpdatePredictionContext:(id)context
@@ -740,7 +770,7 @@ LABEL_18:
 
 void __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 connection];
   v4 = [v3 currentMap];
@@ -755,15 +785,15 @@ void __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke(ui
     v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "isPredictionValid")}];
     v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v4, "isMapValid")}];
     *buf = 136316162;
-    v33 = "#milo-provider, ";
-    v34 = 2112;
-    v35 = v6;
-    v36 = 2112;
-    v37 = v9;
-    v38 = 2112;
-    v39 = v10;
-    v40 = 2112;
-    v41 = v11;
+    v32 = "#milo-provider, ";
+    v33 = 2112;
+    v34 = v6;
+    v35 = 2112;
+    v36 = v9;
+    v37 = 2112;
+    v38 = v10;
+    v39 = 2112;
+    v40 = v11;
     _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], MiLo prediction received, uniqueIdentifier: %@, isPredictionValid: %@, isMapValid: %@", buf, 0x34u);
   }
 
@@ -779,13 +809,13 @@ void __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke(ui
   if ([v2 isLowLatency])
   {
     v15 = [v4 mapItems];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke_52;
-    v30[3] = &unk_2797E0F70;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke_52;
+    v29[3] = &unk_2797E0F70;
     v16 = v4;
-    v31 = v16;
-    v29 = [v15 compactMap:v30];
+    v30 = v16;
+    v28 = [v15 compactMap:v29];
 
     v17 = [v5 uniqueIdentifier];
     v18 = [v17 UUIDString];
@@ -793,7 +823,7 @@ void __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke(ui
     v20 = [v5 isPredictionValid];
     v21 = [v16 isMapValid];
     v22 = [v5 isMotionDetected];
-    v23 = [MEMORY[0x277CBEB98] setWithArray:v29];
+    v23 = [MEMORY[0x277CBEB98] setWithArray:v28];
     v24 = [v5 timestamp];
     v25 = v20;
     v4 = v19;
@@ -802,8 +832,6 @@ void __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke(ui
     v27 = [v2 observer];
     [v27 onPrediction:v26];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke_52(uint64_t a1, void *a2)
@@ -854,7 +882,7 @@ id __55__IRMiLoProvider_connectionDidUpdatePredictionContext___block_invoke_52(u
 
 void __58__IRMiLoProvider_connection_didCompleteRequest_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v4 || [v4 code] == -1)
@@ -873,15 +901,15 @@ void __58__IRMiLoProvider_connection_didCompleteRequest_withError___block_invoke
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 40);
-    v13 = 136315906;
-    v14 = "#milo-provider, ";
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], didCompleteRequest: requestIdentifier: %@, error: %@", &v13, 0x2Au);
+    v12 = 136315906;
+    v13 = "#milo-provider, ";
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], didCompleteRequest: requestIdentifier: %@, error: %@", &v12, 0x2Au);
   }
 
   v10 = *(a1 + 40);
@@ -892,8 +920,6 @@ void __58__IRMiLoProvider_connection_didCompleteRequest_withError___block_invoke
   {
     [v3 setRequestSinglePredictionIdentifier:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didFailWithError:(id)error
@@ -911,7 +937,7 @@ void __58__IRMiLoProvider_connection_didCompleteRequest_withError___block_invoke
 
 void __46__IRMiLoProvider_connection_didFailWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 code];
@@ -924,13 +950,13 @@ void __46__IRMiLoProvider_connection_didFailWithError___block_invoke(uint64_t a1
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_FAULT))
     {
       v10 = *(a1 + 32);
-      v15 = 136315650;
-      v16 = "#milo-provider, ";
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_FAULT, "%s[%@], [ErrorId - IRMiLoProvider:connection:didFailWithError] IRMiLoProvider:connection:didFailWithError: %@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "#milo-provider, ";
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_FAULT, "%s[%@], [ErrorId - IRMiLoProvider:connection:didFailWithError] IRMiLoProvider:connection:didFailWithError: %@", &v14, 0x20u);
     }
   }
 
@@ -939,17 +965,16 @@ void __46__IRMiLoProvider_connection_didFailWithError___block_invoke(uint64_t a1
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
   {
     v13 = *(a1 + 32);
-    v15 = 136315650;
-    v16 = "#milo-provider, ";
-    v17 = 2112;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v13;
-    _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - didFailWithError] didFailWithError: %@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "#milo-provider, ";
+    v16 = 2112;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - didFailWithError] didFailWithError: %@", &v14, 0x20u);
   }
 
   [v4 _serviceResetAndIncreaseFailCount];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didEnableMicrolocationAtCurrentLocationWithError:(id)error
@@ -967,7 +992,7 @@ void __46__IRMiLoProvider_connection_didFailWithError___block_invoke(uint64_t a1
 
 void __78__IRMiLoProvider_connection_didEnableMicrolocationAtCurrentLocationWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v4 || [v4 code] == -1)
@@ -985,20 +1010,18 @@ void __78__IRMiLoProvider_connection_didEnableMicrolocationAtCurrentLocationWith
   v8 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v11 = 136315650;
-    v12 = "#milo-provider, ";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], didEnableMicrolocationAtCurrentLocationWithError: error: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "#milo-provider, ";
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], didEnableMicrolocationAtCurrentLocationWithError: error: %@", &v10, 0x20u);
   }
 
   [v3 resetSpotOnLocationRequest];
   v9 = [v3 observer];
   [v9 didSpotOnLocationCompleteWithError:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (IRMiLoProviderObserverProtocol)observer

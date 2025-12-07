@@ -48,48 +48,48 @@
 
       else
       {
-        v7 = pk_Payment_log();
+        v7 = pk_Payment_log(0);
         v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
 
         if (v8)
         {
-          v9 = pk_Payment_log();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v10 = pk_Payment_log(v9);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Missing remote DeviceID from archived context, generating a new one", buf, 2u);
+            _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Missing remote DeviceID from archived context, generating a new one", buf, 2u);
           }
         }
       }
 
-      v10 = MEMORY[0x277CBEB98];
-      v11 = objc_opt_class();
+      v11 = MEMORY[0x277CBEB98];
       v12 = objc_opt_class();
-      v13 = [v10 setWithObjects:{v11, v12, objc_opt_class(), 0}];
-      v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"eventsToServiceNames"];
+      v13 = objc_opt_class();
+      v14 = [v11 setWithObjects:{v12, v13, objc_opt_class(), 0}];
+      v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"eventsToServiceNames"];
 
-      if (v14)
+      if (v15)
       {
-        v15 = [v14 mutableCopy];
+        v17 = [v15 mutableCopy];
         p_super = &v5->_eventsToServiceNames->super.super;
-        v5->_eventsToServiceNames = v15;
+        v5->_eventsToServiceNames = v17;
       }
 
       else
       {
-        v18 = pk_Payment_log();
-        v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+        v20 = pk_Payment_log(v16);
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
 
-        if (!v19)
+        if (!v21)
         {
           goto LABEL_13;
         }
 
-        p_super = pk_Payment_log();
+        p_super = pk_Payment_log(v22);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
-          *v20 = 0;
-          _os_log_impl(&dword_25B300000, p_super, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Missing registered event from archived context, starting fresh", v20, 2u);
+          *v23 = 0;
+          _os_log_impl(&dword_25B300000, p_super, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Missing registered event from archived context, starting fresh", v23, 2u);
         }
       }
 

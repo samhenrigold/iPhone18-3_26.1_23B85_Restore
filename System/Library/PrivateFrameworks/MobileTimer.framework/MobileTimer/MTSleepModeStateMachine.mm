@@ -1,15 +1,19 @@
 @interface MTSleepModeStateMachine
 - (BOOL)isSleepModeEnabled:(BOOL *)enabled;
 - (BOOL)isUserAsleep;
+- (BOOL)stateMachine:(id)machine disengageSleepModeUserRequested:(BOOL)requested;
+- (BOOL)stateMachine:(id)machine engageSleepModeUntilDate:(id)date userEngaged:(BOOL)engaged;
 - (MTSleepModeStateMachine)initWithDelegate:(id)delegate infoProvider:(id)provider;
 - (id)currentDate;
 - (id)keepOffUntilDate;
 - (id)onStateWithSleepModeEndDate:(id)date;
 - (id)sleepAlarm;
 - (id)userRequestedOffStateWithKeepOffUntilDate:(id)date;
+- (void)sleepModeEnabled:(BOOL)enabled userRequested:(BOOL)requested date:(id)date;
 - (void)stateMachine:(id)machine keepSleepModeOffUntilDate:(id)date;
 - (void)stateMachine:(id)machine scheduleUpdateForSecondsFromNow:(double)now;
 - (void)stateMachineClearKeepSleepModeOff:(id)off;
+- (void)updateState:(BOOL)state;
 - (void)userWokeUp;
 @end
 
@@ -56,6 +60,22 @@
   return v5;
 }
 
+- (void)updateState:(BOOL)state
+{
+  stateCopy = state;
+  currentState = [(MTStateMachine *)self currentState];
+  [currentState updateState:stateCopy];
+}
+
+- (void)sleepModeEnabled:(BOOL)enabled userRequested:(BOOL)requested date:(id)date
+{
+  requestedCopy = requested;
+  enabledCopy = enabled;
+  dateCopy = date;
+  currentState = [(MTStateMachine *)self currentState];
+  [currentState sleepModeEnabled:enabledCopy userRequested:requestedCopy date:dateCopy];
+}
+
 - (void)userWokeUp
 {
   currentState = [(MTStateMachine *)self currentState];
@@ -100,6 +120,27 @@
   isUserAsleep = [infoProvider isUserAsleep];
 
   return isUserAsleep;
+}
+
+- (BOOL)stateMachine:(id)machine engageSleepModeUntilDate:(id)date userEngaged:(BOOL)engaged
+{
+  engagedCopy = engaged;
+  dateCopy = date;
+  machineCopy = machine;
+  delegate = [(MTStateMachine *)self delegate];
+  LOBYTE(engagedCopy) = [delegate stateMachine:machineCopy engageSleepModeUntilDate:dateCopy userEngaged:engagedCopy];
+
+  return engagedCopy;
+}
+
+- (BOOL)stateMachine:(id)machine disengageSleepModeUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  machineCopy = machine;
+  delegate = [(MTStateMachine *)self delegate];
+  LOBYTE(requestedCopy) = [delegate stateMachine:machineCopy disengageSleepModeUserRequested:requestedCopy];
+
+  return requestedCopy;
 }
 
 - (void)stateMachine:(id)machine keepSleepModeOffUntilDate:(id)date

@@ -176,9 +176,9 @@
   if (observerCopy)
   {
     v7 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v7;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = [(SBAssistantSceneController *)self observers];
       [observers addObject:v7];

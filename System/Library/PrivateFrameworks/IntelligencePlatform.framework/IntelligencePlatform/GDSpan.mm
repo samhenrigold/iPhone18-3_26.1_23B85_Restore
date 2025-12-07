@@ -46,7 +46,7 @@
 
 - (GDSpan)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_text);
@@ -73,9 +73,9 @@ LABEL_11:
     if (!error)
     {
       v16 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A578];
-      v24 = @"GDSpan range is nil";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x1E696A578];
+      v23 = @"GDSpan range is nil";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       v18 = [v16 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v17];
       [coderCopy failWithError:v18];
     }
@@ -91,9 +91,9 @@ LABEL_10:
   if (!error2)
   {
     v19 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"GDSpan text is nil";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = @"GDSpan text is nil";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v20 = [v19 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v10];
     [coderCopy failWithError:v20];
 
@@ -103,7 +103,6 @@ LABEL_10:
   selfCopy = 0;
 LABEL_12:
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

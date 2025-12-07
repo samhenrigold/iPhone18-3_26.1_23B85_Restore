@@ -95,7 +95,7 @@
     goto LABEL_7;
   }
 
-  tableCellGroupedBackgroundColor = [(EKUIDividedGridViewCell *)self tintColor];
+  tableCellGroupedBackgroundColor = objc_msgSend_tintColor(self);
   if (tableCellGroupedBackgroundColor)
   {
 LABEL_7:

@@ -2,10 +2,10 @@
 + (id)sb_emojiWithoutVS16Set;
 - (BOOL)sb_containsEmoji;
 - (id)_adjustedFontForScripts:()SBAdditions forFont:withPointAdjustment:ignoringContent:;
-- (uint64_t)_isEntirelyCharactersInScript:()SBAdditions;
 - (uint64_t)_isEntirelyCommon;
 - (uint64_t)_isInScript:()SBAdditions useLocaleOnly:;
 - (uint64_t)sb_isEntirelyCharactersInSet:()SBAdditions;
+- (void)_isEntirelyCharactersInScript:()SBAdditions;
 @end
 
 @implementation NSString(SBAdditions)
@@ -25,9 +25,9 @@
     +[NSString(SBAdditions) sb_emojiWithoutVS16Set];
   }
 
-  v1 = sb_emojiWithoutVS16Set___emojiWithoutVS16Set;
+  v2 = sb_emojiWithoutVS16Set___emojiWithoutVS16Set;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)sb_isEntirelyCharactersInSet:()SBAdditions
@@ -46,7 +46,7 @@
   return result;
 }
 
-- (uint64_t)_isEntirelyCharactersInScript:()SBAdditions
+- (void)_isEntirelyCharactersInScript:()SBAdditions
 {
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -63,7 +63,7 @@
   result = [self sb_isEntirelyCharactersInSet:_isEntirelyCharactersInScript____set];
   if (result)
   {
-    return [self _isEntirelyCommon] ^ 1;
+    return ([self _isEntirelyCommon] ^ 1);
   }
 
   return result;
@@ -116,12 +116,13 @@
 
 - (id)_adjustedFontForScripts:()SBAdditions forFont:withPointAdjustment:ignoringContent:
 {
+  v8 = a4;
   v10 = a5;
   v11 = [self _isInScript:1 useLocaleOnly:a6];
   v12 = [self _isInScript:2 useLocaleOnly:a6];
   v13 = [self _isInScript:4 useLocaleOnly:a6];
   v14 = [self _isInScript:8 useLocaleOnly:a6];
-  if ((a4 & 3) != 0 && ((((a4 & 2) != 0) & v12) != 0 || (a4 & v11 & 1) != 0 || (((a4 & 4) != 0) & v13) != 0 || (((a4 & 8) != 0) & v14) != 0))
+  if ((v8 & 3) != 0 && ((((v8 & 2) != 0) & v12) != 0 || (v8 & v11 & 1) != 0 || (((v8 & 4) != 0) & v13) != 0 || (((v8 & 8) != 0) & v14) != 0))
   {
     v16 = 2.0;
     if (v12)

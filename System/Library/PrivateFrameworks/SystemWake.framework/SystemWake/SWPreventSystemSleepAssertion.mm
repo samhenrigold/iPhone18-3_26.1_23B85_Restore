@@ -57,7 +57,7 @@ uint64_t __56__SWPreventSystemSleepAssertion_sharedHighPriorityQueue__block_invo
 
 - (void)acquireWithTimeout:(double)timeout handler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_lock);
   lock_state = self->_lock_state;
@@ -66,25 +66,25 @@ uint64_t __56__SWPreventSystemSleepAssertion_sharedHighPriorityQueue__block_invo
     lock_state = [MEMORY[0x277CCACA8] stringWithFormat:@"SWPreventSystemSleepAssertion:%p id:%@ state:%u can only be acquired once", self, self->_identifier, lock_state];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v12 = NSStringFromSelector(a2);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138544642;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v15;
-      v24 = 2048;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v14;
+      v23 = 2048;
       selfCopy = self;
-      v26 = 2114;
-      v27 = @"SWPreventSystemSleepAssertion.m";
-      v28 = 1024;
-      v29 = 69;
-      v30 = 2114;
-      v31 = lock_state;
+      v25 = 2114;
+      v26 = @"SWPreventSystemSleepAssertion.m";
+      v27 = 1024;
+      v28 = 69;
+      v29 = 2114;
+      v30 = lock_state;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v16 = lock_state;
+    v15 = lock_state;
     [lock_state UTF8String];
     _bs_set_crash_log_message();
     __break(0);
@@ -100,16 +100,14 @@ uint64_t __56__SWPreventSystemSleepAssertion_sharedHighPriorityQueue__block_invo
   block[3] = &unk_279D43308;
   timeoutCopy = timeout;
   block[4] = self;
-  v18 = handlerCopy;
+  v17 = handlerCopy;
   v10 = handlerCopy;
   dispatch_async(v9, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SWPreventSystemSleepAssertion_acquireWithTimeout_handler___block_invoke(uint64_t a1)
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 48);
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -126,17 +124,17 @@ void __60__SWPreventSystemSleepAssertion_acquireWithTimeout_handler___block_invo
 
   else
   {
-    v25[0] = @"AssertType";
-    v25[1] = @"AssertName";
+    v24[0] = @"AssertType";
+    v24[1] = @"AssertName";
     v4 = *(v2 + 8);
-    v26[0] = @"NoIdleSleepAssertion";
-    v26[1] = v4;
-    v25[2] = @"TimeoutSeconds";
+    v25[0] = @"NoIdleSleepAssertion";
+    v25[1] = v4;
+    v24[2] = @"TimeoutSeconds";
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:v1];
-    v25[3] = @"TimeoutAction";
-    v26[2] = v5;
-    v26[3] = @"TimeoutActionRelease";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+    v24[3] = @"TimeoutAction";
+    v25[2] = v5;
+    v25[3] = @"TimeoutActionRelease";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
 
     v7 = IOPMAssertionCreateWithProperties(v6, &AssertionID);
   }
@@ -162,11 +160,11 @@ void __60__SWPreventSystemSleepAssertion_acquireWithTimeout_handler___block_invo
       {
         v13 = *(v2 + 8);
         *buf = 134218498;
-        v20 = v2;
-        v21 = 2114;
-        v22 = v13;
-        v23 = 1024;
-        LODWORD(v24) = AssertionID;
+        v19 = v2;
+        v20 = 2114;
+        v21 = v13;
+        v22 = 1024;
+        LODWORD(v23) = AssertionID;
         _os_log_impl(&dword_26C657000, v9, OS_LOG_TYPE_INFO, "%p power assertion taken identifier:%{public}@ id:%d", buf, 0x1Cu);
       }
 
@@ -179,13 +177,13 @@ LABEL_9:
     v9 = SWLogPower();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(v2 + 8);
+      v16 = *(v2 + 8);
       *buf = 134218498;
-      v20 = v2;
-      v21 = 2048;
-      v22 = v7;
-      v23 = 2114;
-      v24 = v17;
+      v19 = v2;
+      v20 = 2048;
+      v21 = v7;
+      v22 = 2114;
+      v23 = v16;
       _os_log_error_impl(&dword_26C657000, v9, OS_LOG_TYPE_ERROR, "%p error:%ld creating power assertion identifier:%{public}@", buf, 0x20u);
     }
 
@@ -217,18 +215,16 @@ LABEL_12:
   {
     v15 = *(v2 + 8);
     *buf = 134218498;
-    v20 = v2;
-    v21 = 2112;
-    v22 = v15;
-    v23 = 1024;
-    LODWORD(v24) = AssertionID;
+    v19 = v2;
+    v20 = 2112;
+    v21 = v15;
+    v22 = 1024;
+    LODWORD(v23) = AssertionID;
     _os_log_impl(&dword_26C657000, v14, OS_LOG_TYPE_DEFAULT, "%p power assertion take complete after invalidation, will release immediately, identifier:%@ id:%d", buf, 0x1Cu);
   }
 
   IOPMAssertionRelease(AssertionID);
 LABEL_23:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isActive
@@ -259,7 +255,7 @@ LABEL_23:
 
 - (void)invalidate
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_assertionID = self->_lock_assertionID;
   self->_lock_assertionID = 0;
@@ -286,10 +282,10 @@ LABEL_23:
           identifier = self->_identifier;
           *buf = 134218498;
           selfCopy6 = self;
-          v27 = 2114;
-          v28 = identifier;
-          v29 = 1024;
-          LODWORD(selfCopy4) = lock_assertionID;
+          v26 = 2114;
+          v27 = identifier;
+          v28 = 1024;
+          LODWORD(selfCopy5) = lock_assertionID;
           _os_log_debug_impl(&dword_26C657000, v9, OS_LOG_TYPE_DEBUG, "%p power assertion timed out; identifier:%{public}@ id:%d", buf, 0x1Cu);
         }
 
@@ -300,9 +296,11 @@ LABEL_14:
         block[1] = 3221225472;
         block[2] = __43__SWPreventSystemSleepAssertion_invalidate__block_invoke;
         block[3] = &__block_descriptor_36_e5_v8__0l;
-        v24 = lock_assertionID;
+        v23 = lock_assertionID;
         dispatch_async(v11, block);
-        goto LABEL_15;
+LABEL_15:
+
+        return;
       }
     }
 
@@ -312,10 +310,10 @@ LABEL_14:
       v14 = self->_identifier;
       *buf = 134218498;
       selfCopy6 = self;
-      v27 = 2114;
-      v28 = v14;
-      v29 = 1024;
-      LODWORD(selfCopy4) = lock_assertionID;
+      v26 = 2114;
+      v27 = v14;
+      v28 = 1024;
+      LODWORD(selfCopy5) = lock_assertionID;
       _os_log_impl(&dword_26C657000, v9, OS_LOG_TYPE_INFO, "%p will invalidate power assertion; identifier:%{public}@ id:%d", buf, 0x1Cu);
     }
 
@@ -323,15 +321,31 @@ LABEL_14:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  if (lock_state > 1)
+  if (lock_state <= 1)
   {
-    if (lock_state != 2)
+    if (lock_state)
     {
-      if (lock_state != 3)
+      if (lock_state != 1)
       {
-        goto LABEL_16;
+        return;
       }
 
+      v11 = SWLogPower();
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_15;
+      }
+
+      v12 = self->_identifier;
+      *buf = 134218242;
+      selfCopy6 = self;
+      v26 = 2114;
+      v27 = v12;
+      v13 = "%p invalidated power assertion during acquisition identifier:%{public}@";
+    }
+
+    else
+    {
       v11 = SWLogPower();
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
@@ -341,91 +355,70 @@ LABEL_14:
       v16 = self->_identifier;
       *buf = 134218242;
       selfCopy6 = self;
-      v27 = 2114;
-      v28 = v16;
-      v13 = "%p already invalidated power assertion identifier:%{public}@";
-      goto LABEL_23;
+      v26 = 2114;
+      v27 = v16;
+      v13 = "%p invalidated power assertion before starting acquisition identifier:%{public}@";
     }
 
+    goto LABEL_23;
+  }
+
+  if (lock_state == 2)
+  {
     if (self->_lock_state == 2)
     {
-      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"SWPreventSystemSleepAssertion:%p id:%@ state:%u acquired but assertionID null before invalidation", self, self->_identifier, 2];
+      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"SWPreventSystemSleepAssertion:%p id:%@ state:%u acquired but assertionID null before invalidation", self, self->_identifier, 2];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v19 = NSStringFromSelector(a2);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v18 = NSStringFromSelector(a2);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138544642;
-        selfCopy6 = v19;
-        v27 = 2114;
-        v28 = v21;
-        v29 = 2048;
-        selfCopy4 = self;
-        v31 = 2114;
-        v32 = @"SWPreventSystemSleepAssertion.m";
-        v33 = 1024;
-        v34 = 177;
-        v35 = 2114;
-        v36 = v18;
+        selfCopy6 = v18;
+        v26 = 2114;
+        v27 = v20;
+        v28 = 2048;
+        selfCopy5 = self;
+        v30 = 2114;
+        v31 = @"SWPreventSystemSleepAssertion.m";
+        v32 = 1024;
+        v33 = 177;
+        v34 = 2114;
+        v35 = v17;
         _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v22 = v18;
-      [v18 UTF8String];
+      v21 = v17;
+      [v17 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x26C6638D0);
     }
   }
 
-  else
+  else if (lock_state == 3)
   {
-    if (!lock_state)
+    v11 = SWLogPower();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v11 = SWLogPower();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_15;
-      }
-
-      v17 = self->_identifier;
-      *buf = 134218242;
-      selfCopy6 = self;
-      v27 = 2114;
-      v28 = v17;
-      v13 = "%p invalidated power assertion before starting acquisition identifier:%{public}@";
-      goto LABEL_23;
-    }
-
-    if (lock_state == 1)
-    {
-      v11 = SWLogPower();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-LABEL_15:
-
-        goto LABEL_16;
-      }
-
-      v12 = self->_identifier;
-      *buf = 134218242;
-      selfCopy6 = self;
-      v27 = 2114;
-      v28 = v12;
-      v13 = "%p invalidated power assertion during acquisition identifier:%{public}@";
-LABEL_23:
-      _os_log_debug_impl(&dword_26C657000, v11, OS_LOG_TYPE_DEBUG, v13, buf, 0x16u);
       goto LABEL_15;
     }
-  }
 
-LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
+    v15 = self->_identifier;
+    *buf = 134218242;
+    selfCopy6 = self;
+    v26 = 2114;
+    v27 = v15;
+    v13 = "%p already invalidated power assertion identifier:%{public}@";
+LABEL_23:
+    _os_log_debug_impl(&dword_26C657000, v11, OS_LOG_TYPE_DEBUG, v13, buf, 0x16u);
+    goto LABEL_15;
+  }
 }
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_state = self->_lock_state;
   if (lock_state != 3)
@@ -433,25 +426,25 @@ LABEL_16:
     lock_state = [MEMORY[0x277CCACA8] stringWithFormat:@"SWPreventSystemSleepAssertion:%p id:%@ state:%u dealloced before invalidation", self, self->_identifier, lock_state];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v6 = NSStringFromSelector(a2);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138544642;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2048;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"SWPreventSystemSleepAssertion.m";
-      v20 = 1024;
-      v21 = 188;
-      v22 = 2114;
-      v23 = lock_state;
+      v17 = 2114;
+      v18 = @"SWPreventSystemSleepAssertion.m";
+      v19 = 1024;
+      v20 = 188;
+      v21 = 2114;
+      v22 = lock_state;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v10 = lock_state;
+    v9 = lock_state;
     [lock_state UTF8String];
     _bs_set_crash_log_message();
     __break(0);
@@ -459,10 +452,9 @@ LABEL_16:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v11.receiver = self;
-  v11.super_class = SWPreventSystemSleepAssertion;
-  [(SWPreventSystemSleepAssertion *)&v11 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = SWPreventSystemSleepAssertion;
+  [(SWPreventSystemSleepAssertion *)&v10 dealloc];
 }
 
 @end

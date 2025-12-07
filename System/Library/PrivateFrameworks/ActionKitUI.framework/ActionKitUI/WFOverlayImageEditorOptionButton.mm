@@ -8,18 +8,18 @@
 
 - (CGSize)intrinsicContentSize
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   currentImage = [(WFOverlayImageEditorOptionButton *)self currentImage];
   [currentImage size];
   v5 = v4;
   v7 = v6;
 
   currentTitle = [(WFOverlayImageEditorOptionButton *)self currentTitle];
-  v20 = *MEMORY[0x277D740A8];
+  v19 = *MEMORY[0x277D740A8];
   titleLabel = [(WFOverlayImageEditorOptionButton *)self titleLabel];
   font = [titleLabel font];
-  v21[0] = font;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v20[0] = font;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   [currentTitle sizeWithAttributes:v11];
   v13 = v12;
   v15 = v14;
@@ -34,11 +34,10 @@
     v16 = v13;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  v18 = ceil(v16);
-  v19 = ceil(v7 + v15);
-  result.height = v19;
-  result.width = v18;
+  v17 = ceil(v16);
+  v18 = ceil(v7 + v15);
+  result.height = v18;
+  result.width = v17;
   return result;
 }
 
@@ -48,25 +47,23 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   remainder = rect;
   currentTitle = [(WFOverlayImageEditorOptionButton *)self currentTitle];
-  v16 = *MEMORY[0x277D740A8];
+  v15 = *MEMORY[0x277D740A8];
   customFont = [(WFOverlayImageEditorOptionButton *)self customFont];
-  v17[0] = customFont;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = customFont;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   [currentTitle sizeWithAttributes:v10];
   v12 = v11;
 
-  memset(&v14, 0, sizeof(v14));
-  v18.origin.x = x;
-  v18.origin.y = y;
-  v18.size.width = width;
-  v18.size.height = height;
-  CGRectDivide(v18, &v14, &remainder, v12, CGRectMaxYEdge);
-  result = CGRectIntegral(v14);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  memset(&v13, 0, sizeof(v13));
+  v17.origin.x = x;
+  v17.origin.y = y;
+  v17.size.width = width;
+  v17.size.height = height;
+  CGRectDivide(v17, &v13, &remainder, v12, CGRectMaxYEdge);
+  return CGRectIntegral(v13);
 }
 
 - (WFOverlayImageEditorOptionButton)initWithFrame:(CGRect)frame

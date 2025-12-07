@@ -57,15 +57,13 @@ void __30__EKPersistentAlarm_relations__block_invoke()
 
 void __44__EKPersistentAlarm_defaultPropertiesToLoad__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992490];
-  v4[0] = *MEMORY[0x1E6992478];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992478];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = defaultPropertiesToLoad_defaultProperties;
   defaultPropertiesToLoad_defaultProperties = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)semanticIdentifier

@@ -326,15 +326,14 @@ void __69__CATConcreteIDSServiceConnectionDataMessageQueue_retransmitContent___b
 
 void __69__CATConcreteIDSServiceConnectionDataMessageQueue_retransmitContent___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v5 = 138543618;
-  v6 = v2;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ failed to send data contents: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v2;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ failed to send data contents: %{public}@", &v4, 0x16u);
 }
 
 @end

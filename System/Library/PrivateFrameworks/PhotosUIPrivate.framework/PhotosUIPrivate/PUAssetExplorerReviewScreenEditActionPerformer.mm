@@ -107,12 +107,12 @@ uint64_t __76__PUAssetExplorerReviewScreenEditActionPerformer_performUserInterac
   v5 = *(a1 + 32);
   if (a5)
   {
-    return [v5 _presentEditViewControllerForReviewAsset:a5];
+    return [v5 _presentEditViewControllerForReviewAsset:{a5, a4}];
   }
 
   else
   {
-    return [v5 completeUserInteractionTaskWithSuccess:0 error:?];
+    return [v5 completeUserInteractionTaskWithSuccess:0 error:a4];
   }
 }
 

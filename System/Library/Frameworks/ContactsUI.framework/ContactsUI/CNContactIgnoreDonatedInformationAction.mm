@@ -52,7 +52,7 @@
   v11 = v16[5];
   if (v11)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactIgnoreDonatedInformationAction.m", 85, 3, @"Error rejecting donated me card %@", v7, v8, v9, v10, v16[5]);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactIgnoreDonatedInformationAction.m", 85, 3u, @"Error rejecting donated me card %@", v7, v8, v9, v10, v16[5]);
   }
 
   _Block_object_dispose(&v15, 8);

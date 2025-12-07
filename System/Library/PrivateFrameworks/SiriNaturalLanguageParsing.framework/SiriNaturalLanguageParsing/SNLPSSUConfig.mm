@@ -24,7 +24,7 @@
 
 + (id)loadAppShortcutAlwaysTriggeredAllowListPlist
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:self];
   v4 = [v3 URLForResource:@"SSUAppShortcutAlwaysTriggeredAllowList" withExtension:@"plist"];
 
@@ -34,7 +34,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = @"SSUAppShortcutAlwaysTriggeredAllowList";
+      v22 = @"SSUAppShortcutAlwaysTriggeredAllowList";
       _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_ERROR, "Could not load framework plist: %@. Returning no plist allowlist entries.", buf, 0xCu);
     }
 
@@ -48,7 +48,7 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = @"SSUAppShortcutAlwaysTriggeredAllowList";
+      v22 = @"SSUAppShortcutAlwaysTriggeredAllowList";
       _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_ERROR, "Could not load array contents of framework plist: %@. Returning no plist allowlist entries.", buf, 0xCu);
     }
 
@@ -60,26 +60,26 @@ LABEL_21:
 
   v6 = v5;
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -92,22 +92,21 @@ LABEL_21:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v23 = v13;
-            v24 = 2112;
-            v25 = @"SSUAppShortcutAlwaysTriggeredAllowList";
+            v22 = v13;
+            v23 = 2112;
+            v24 = @"SSUAppShortcutAlwaysTriggeredAllowList";
             _os_log_impl(&dword_22284A000, v14, OS_LOG_TYPE_ERROR, "Found non-string entry (%@) in framework plist: %@. Skipping.", buf, 0x16u);
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v10);
   }
 
 LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -124,7 +123,7 @@ LABEL_22:
 
 + (id)loadAppShortcutAlwaysTriggeredAllowListUserDefaults
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.SiriNaturalLanguageParsing"];
   v3 = v2;
   if (v2)
@@ -138,11 +137,11 @@ LABEL_22:
     v5 = SNLPOSLoggerForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
-      v10 = @"SSUAppShortcutAlwaysTriggeredAllowList";
+      v8 = 138412290;
+      v9 = @"SSUAppShortcutAlwaysTriggeredAllowList";
       v6 = "User defaults string array key not configured: %@. Returning no user defaults.";
 LABEL_7:
-      _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, v6, &v9, 0xCu);
+      _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, v6, &v8, 0xCu);
     }
   }
 
@@ -151,8 +150,8 @@ LABEL_7:
     v5 = SNLPOSLoggerForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
-      v10 = @"com.apple.SiriNaturalLanguageParsing";
+      v8 = 138412290;
+      v9 = @"com.apple.SiriNaturalLanguageParsing";
       v6 = "User defaults suite not configured: %@. Returning no user defaults.";
       goto LABEL_7;
     }
@@ -160,8 +159,6 @@ LABEL_7:
 
   v4 = 0;
 LABEL_9:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

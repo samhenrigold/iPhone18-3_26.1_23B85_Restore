@@ -9,24 +9,24 @@
 {
   handlerCopy = handler;
   resumeCopy = resume;
-  v11.receiver = self;
-  v11.super_class = CLSiloIdleHandler;
-  v8 = [(CLSiloIdleHandler *)&v11 init];
-  v9 = v8;
+  v13.receiver = self;
+  v13.super_class = CLSiloIdleHandler;
+  v8 = [(CLSiloIdleHandler *)&v13 init];
+  v10 = v8;
   if (v8)
   {
-    [(CLSiloIdleHandler *)v8 setOnIdle:handlerCopy];
-    [(CLSiloIdleHandler *)v9 setOnResume:resumeCopy];
+    objc_msgSend_setOnIdle_(v8, v9, handlerCopy);
+    objc_msgSend_setOnResume_(v10, v11, resumeCopy);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)invalidate
 {
-  [(CLSiloIdleHandler *)self setOnIdle:0];
+  objc_msgSend_setOnIdle_(self, a2, 0);
 
-  [(CLSiloIdleHandler *)self setOnResume:0];
+  objc_msgSend_setOnResume_(self, v3, 0);
 }
 
 @end

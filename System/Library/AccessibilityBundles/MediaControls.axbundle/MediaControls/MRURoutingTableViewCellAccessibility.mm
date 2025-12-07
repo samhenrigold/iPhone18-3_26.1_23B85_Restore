@@ -131,34 +131,32 @@ LABEL_11:
 
 - (id)accessibilityCustomActions
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   if ([(MRURoutingTableViewCellAccessibility *)self safeBoolForKey:@"showChevron"])
   {
     objc_initWeak(&location, self);
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
     v4 = accessibilityLocalizedString(@"expand.group.action");
-    v10[0] = MEMORY[0x29EDCA5F8];
-    v10[1] = 3221225472;
-    v10[2] = __66__MRURoutingTableViewCellAccessibility_accessibilityCustomActions__block_invoke;
-    v10[3] = &unk_29F2CF360;
-    objc_copyWeak(&v11, &location);
-    v5 = [v3 initWithName:v4 actionHandler:v10];
+    v9[0] = MEMORY[0x29EDCA5F8];
+    v9[1] = 3221225472;
+    v9[2] = __66__MRURoutingTableViewCellAccessibility_accessibilityCustomActions__block_invoke;
+    v9[3] = &unk_29F2CF360;
+    objc_copyWeak(&v10, &location);
+    v5 = [v3 initWithName:v4 actionHandler:v9];
 
-    v13[0] = v5;
-    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+    v12[0] = v5;
+    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = MRURoutingTableViewCellAccessibility;
-    accessibilityCustomActions = [(MRURoutingTableViewCellAccessibility *)&v9 accessibilityCustomActions];
+    v8.receiver = self;
+    v8.super_class = MRURoutingTableViewCellAccessibility;
+    accessibilityCustomActions = [(MRURoutingTableViewCellAccessibility *)&v8 accessibilityCustomActions];
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return accessibilityCustomActions;
 }
@@ -241,11 +239,10 @@ uint64_t __66__MRURoutingTableViewCellAccessibility_accessibilityCustomActions__
 
 - (void)accessibilityLabel
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_29BF3C000, a2, OS_LOG_TYPE_ERROR, "Missing icon type for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_29BF3C000, a2, OS_LOG_TYPE_ERROR, "Missing icon type for %@", &v2, 0xCu);
 }
 
 @end

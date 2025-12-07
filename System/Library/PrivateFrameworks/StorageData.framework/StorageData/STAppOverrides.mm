@@ -59,32 +59,32 @@
 
 + (id)overridesForApplication:(id)application
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   applicationIdentifier = [applicationCopy applicationIdentifier];
   v6 = [self overridesFor:applicationIdentifier];
 
   if (!v6)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     counterpartIdentifiers = [applicationCopy counterpartIdentifiers];
-    v6 = [counterpartIdentifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [counterpartIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(counterpartIdentifiers);
           }
 
-          v10 = [self overridesFor:*(*(&v13 + 1) + 8 * i)];
+          v10 = [self overridesFor:*(*(&v12 + 1) + 8 * i)];
           if (v10)
           {
             v6 = v10;
@@ -94,7 +94,7 @@
           }
         }
 
-        v6 = [counterpartIdentifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [counterpartIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -106,8 +106,6 @@
 
 LABEL_12:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -260,42 +258,40 @@ void __27__STAppOverrides_overrides__block_invoke()
   v38[1] = @"forceHidden";
   v39[0] = &unk_287C8E830;
   v38[0] = @"includeFsPaths";
-  v8 = STStorageDeviceIsiPad();
-  v9 = MEMORY[0x277CBEC28];
-  if (v8)
+  v9 = STStorageDeviceIsiPad(v7, v8);
+  v10 = MEMORY[0x277CBEC28];
+  if (v9)
   {
-    v9 = v6;
+    v10 = v6;
   }
 
-  v39[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-  v72[14] = v10;
+  v39[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v72[14] = v11;
   v71[15] = @"com.apple.reminders";
   v36 = @"includeFsPaths";
   v37 = &unk_287C8E848;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-  v72[15] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:16];
-  [v28 addEntriesFromDictionary:v12];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+  v72[15] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:16];
+  [v28 addEntriesFromDictionary:v13];
 
-  v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v34[0] = MEMORY[0x277D85DD0];
   v34[1] = 3221225472;
   v34[2] = __27__STAppOverrides_overrides__block_invoke_221;
   v34[3] = &unk_279D1D130;
-  v14 = v13;
-  v35 = v14;
+  v15 = v14;
+  v35 = v15;
   [v28 enumerateKeysAndObjectsUsingBlock:v34];
-  v15 = _appOverrides;
-  _appOverrides = v14;
-  v16 = v14;
+  v16 = _appOverrides;
+  _appOverrides = v15;
+  v17 = v15;
 
-  v17 = [STAppOverrides alloc];
-  v18 = [(STAppOverrides *)v17 initWithDictionary:MEMORY[0x277CBEC10]];
-  v19 = _defaultAppOverrides;
-  _defaultAppOverrides = v18;
-
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = [STAppOverrides alloc];
+  v19 = [(STAppOverrides *)v18 initWithDictionary:MEMORY[0x277CBEC10]];
+  v20 = _defaultAppOverrides;
+  _defaultAppOverrides = v19;
 }
 
 void __27__STAppOverrides_overrides__block_invoke_221(uint64_t a1, void *a2, void *a3)

@@ -87,7 +87,7 @@
   result = [self decodeObjectOfClass:objc_opt_class() forKey:a2];
   if (result)
   {
-    result = [result oz_SIMDDouble3Value];
+    result = objc_msgSend_oz_SIMDDouble3Value(result);
     v5 = v7;
     v6 = v8;
   }

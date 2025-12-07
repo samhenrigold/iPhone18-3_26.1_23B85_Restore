@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)clear;
@@ -17,6 +18,21 @@
 @end
 
 @implementation BRFieldPkgItem
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278500C90[string - 1];
+  }
+
+  return v4;
+}
 
 - (int)StringAsType:(id)type
 {
@@ -193,8 +209,6 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v12 = toCopy;
   PBDataWriterWriteInt32Field();
   if (self->_path)
   {
@@ -204,50 +218,46 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    mtime = self->_mtime;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
-  v8 = v12;
+  v5 = toCopy;
   if ((has & 8) != 0)
   {
-    isWritable = self->_isWritable;
     PBDataWriterWriteBOOLField();
-    v8 = v12;
+    v5 = toCopy;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isExecutable = self->_isExecutable;
     PBDataWriterWriteBOOLField();
-    v8 = v12;
+    v5 = toCopy;
   }
 
   if (self->_symlinkContent)
   {
     PBDataWriterWriteStringField();
-    v8 = v12;
+    v5 = toCopy;
   }
 
   if (self->_quarantineInfo)
   {
     PBDataWriterWriteDataField();
-    v8 = v12;
+    v5 = toCopy;
   }
 
   if (self->_signature)
   {
     PBDataWriterWriteDataField();
-    v8 = v12;
+    v5 = toCopy;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    xattrIndex = self->_xattrIndex;
     PBDataWriterWriteInt64Field();
-    v8 = v12;
+    v5 = toCopy;
   }
 }
 
@@ -404,7 +414,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_mtime != *(equalCopy + 1))
@@ -425,7 +434,6 @@ LABEL_5:
       goto LABEL_35;
     }
 
-    v11 = *(equalCopy + 61);
     if (self->_isWritable)
     {
       if ((*(equalCopy + 61) & 1) == 0)
@@ -453,7 +461,7 @@ LABEL_5:
     }
 
 LABEL_35:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_36;
   }
 
@@ -462,7 +470,6 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v12 = *(equalCopy + 60);
   if (self->_isExecutable)
   {
     if ((*(equalCopy + 60) & 1) == 0)
@@ -501,7 +508,7 @@ LABEL_14:
     }
   }
 
-  v10 = (*(equalCopy + 64) & 2) == 0;
+  v9 = (*(equalCopy + 64) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_xattrIndex != *(equalCopy + 2))
@@ -509,12 +516,12 @@ LABEL_14:
       goto LABEL_35;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_36:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

@@ -54,34 +54,28 @@ void __24__SPEmbeddingResult_log__block_invoke(uint64_t a1)
 
 - (unint64_t)elementCount
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   elementType = self->_elementType;
   if (elementType == 2)
   {
-    result = [(NSData *)self->_embeddingData length]>> 2;
+    return [(NSData *)self->_embeddingData length]>> 2;
   }
 
-  else if (elementType == 1)
+  if (elementType == 1)
   {
-    result = [(NSData *)self->_embeddingData length]>> 1;
+    return [(NSData *)self->_embeddingData length]>> 1;
   }
 
-  else
+  v5 = [objc_opt_class() log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_opt_class() log];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v6 = self->_elementType;
-      v8[0] = 67109120;
-      v8[1] = v6;
-      _os_log_impl(&dword_26B793000, v5, OS_LOG_TYPE_ERROR, "Embedding has unknown element type (%d); cannot derive count", v8, 8u);
-    }
-
-    result = 0;
+    v6 = self->_elementType;
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_impl(&dword_26B793000, v5, OS_LOG_TYPE_ERROR, "Embedding has unknown element type (%d); cannot derive count", v7, 8u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)description

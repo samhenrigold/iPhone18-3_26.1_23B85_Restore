@@ -6,6 +6,7 @@
 - (id)_schema;
 - (id)displayName;
 - (id)validStatesWithDocument:(id)document;
+- (int64_t)_renditionKeyValueForTokenIdentifier:(unsigned __int16)identifier;
 - (unint64_t)partFeatures;
 - (void)dealloc;
 - (void)didTurnIntoFault;
@@ -124,6 +125,23 @@ LABEL_9:
   v7 = MEMORY[0x277CBEA60];
 
   return [v7 arrayWithArray:array];
+}
+
+- (int64_t)_renditionKeyValueForTokenIdentifier:(unsigned __int16)identifier
+{
+  identifierCopy = identifier;
+  if (![(NSArray *)[(TDSchemaPartDefinition *)self renditions] count])
+  {
+    [(TDSchemaPartDefinition *)self updateDerivedRenditionData];
+  }
+
+  if ([(NSArray *)[(TDSchemaPartDefinition *)self renditions] count])
+  {
+    return [-[NSArray objectAtIndex:](self->renditions objectAtIndex:{0), "valueForTokenIdentifier:", identifierCopy}];
+  }
+
+  [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
+  return -1;
 }
 
 - (id)displayName

@@ -57,14 +57,14 @@
 
 - (void)validateCompoundPredicate:(id)predicate
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if (objc_msgSend_compoundPredicateType(predicateCopy, v5, v6) != 1)
   {
     if (objc_msgSend_compoundPredicateType(predicateCopy, v7, v8))
     {
-      v22 = [CKException alloc];
-      v24 = objc_msgSend_initWithCode_format_(v22, v23, 1009, @"Unexpected expression: %@", predicateCopy);
+      v21 = [CKException alloc];
+      v23 = objc_msgSend_initWithCode_format_(v21, v22, 1009, @"Unexpected expression: %@", predicateCopy);
     }
 
     else
@@ -79,44 +79,42 @@
         goto LABEL_13;
       }
 
-      v25 = [CKException alloc];
-      v24 = objc_msgSend_initWithCode_format_(v25, v26, 1009, @"Expected comparison subpredicate: %@", predicateCopy);
+      v24 = [CKException alloc];
+      v23 = objc_msgSend_initWithCode_format_(v24, v25, 1009, @"Expected comparison subpredicate: %@", predicateCopy);
     }
 
-    objc_exception_throw(v24);
+    objc_exception_throw(v23);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v9 = objc_msgSend_subpredicates(predicateCopy, v7, v8);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v27, v31, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v26, v30, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        objc_msgSend_validate_(self, v12, *(*(&v27 + 1) + 8 * i));
+        objc_msgSend_validate_(self, v12, *(*(&v26 + 1) + 8 * i));
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v27, v31, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v26, v30, 16);
     }
 
     while (v13);
   }
 
 LABEL_13:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateComparisonPredicate:(id)predicate
@@ -673,26 +671,8 @@ LABEL_12:
     v12 = objc_msgSend_constantValue(v24, v25, v26);
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v12, v27, v28) != 2 || (objc_msgSend_objectAtIndexedSubscript_(v12, v29, 0), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend_CKExpressionValue(v30, v31, v32), v33 = objc_claimAutoreleasedReturnValue(), v30, objc_msgSend_objectAtIndexedSubscript_(v12, v34, 1), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend_CKExpressionValue(v35, v36, v37), v38 = objc_claimAutoreleasedReturnValue(), v35, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      goto LABEL_13;
-    }
-
-    if (objc_msgSend_count(v12, v27, v28) != 2)
-    {
-      goto LABEL_13;
-    }
-
-    v30 = objc_msgSend_objectAtIndexedSubscript_(v12, v29, 0);
-    v33 = objc_msgSend_CKExpressionValue(v30, v31, v32);
-
-    v35 = objc_msgSend_objectAtIndexedSubscript_(v12, v34, 1);
-    v38 = objc_msgSend_CKExpressionValue(v35, v36, v37);
-
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-    {
-LABEL_13:
       v39 = [CKException alloc];
       v41 = objc_msgSend_initWithCode_format_(v39, v40, 1009, @"Expected array with two number arguments on right hand side: %@", predicateCopy);
       objc_exception_throw(v41);

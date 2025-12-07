@@ -1,537 +1,3 @@
-time_t LSDBHeader::reset(LSDBHeader *this)
-{
-  *this = [__LSDefaultsGetSharedInstance() currentSchemaVersion];
-  *(this + 1) = 208;
-  *(this + 8) = kLSVersionNumberNull;
-  *(this + 24) = unk_1817E90C0;
-  *(this + 11) = 0;
-  std::string::basic_string[abi:nn200100]<0>(__p, "");
-  *(this + 12) = 0;
-  *(this + 13) = 0;
-  if (v7 >= 0)
-  {
-    v2 = __p;
-  }
-
-  else
-  {
-    v2 = __p[0];
-  }
-
-  strlcpy(this + 96, v2, 0x10uLL);
-  if (v7 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(__p, "");
-  *(this + 9) = 0;
-  *(this + 10) = 0;
-  if (v7 >= 0)
-  {
-    v3 = __p;
-  }
-
-  else
-  {
-    v3 = __p[0];
-  }
-
-  strlcpy(this + 72, v3, 0x10uLL);
-  if (v7 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(__p, "");
-  *(this + 7) = 0u;
-  *(this + 9) = 0u;
-  *(this + 10) = 0u;
-  *(this + 8) = 0u;
-  if (v7 >= 0)
-  {
-    v4 = __p;
-  }
-
-  else
-  {
-    v4 = __p[0];
-  }
-
-  strlcpy(this + 112, v4, 0x40uLL);
-  if (v7 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *(this + 22) = 0;
-  uuid_generate_random(this + 184);
-  result = time(0);
-  *(this + 25) = result;
-  return result;
-}
-
-void sub_1816FBD6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL _LSDatabaseSaveSystemContentDatabase(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = objc_autoreleasePoolPush();
-  v28[0] = 0;
-  SnapshotAgainstAccessContext = _LSDatabaseCreateSnapshotAgainstAccessContext(v3, 0, v28);
-  v6 = v28[0];
-  if (SnapshotAgainstAccessContext)
-  {
-    v26 = a2;
-    v27 = v3;
-    v7 = SnapshotAgainstAccessContext;
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x4812000000;
-    v51 = __Block_byref_object_copy__15;
-    v52 = __Block_byref_object_dispose__15;
-    v53 = &unk_1818533FF;
-    v55 = 0;
-    v56 = 0;
-    v54 = 0;
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x4812000000;
-    v42 = __Block_byref_object_copy__15;
-    v43 = __Block_byref_object_dispose__15;
-    v44 = &unk_1818533FF;
-    v46 = 0;
-    v47 = 0;
-    __p = 0;
-    v8 = v7;
-    v9 = v8[5];
-    v10 = *(v8 + 13);
-    v32 = MEMORY[0x1E69E9820];
-    v33 = 3221225472;
-    v34 = ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke;
-    v35 = &unk_1E6A1B850;
-    v37 = &v48;
-    v11 = v7;
-    v36 = v11;
-    v38 = &v39;
-    _CSStoreEnumerateUnits();
-    v12 = v11;
-    v13 = v7[5];
-    v14 = v12;
-    v15 = v11[409];
-    v28[1] = MEMORY[0x1E69E9820];
-    v28[2] = 3221225472;
-    v28[3] = ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke_2;
-    v28[4] = &unk_1E6A1B850;
-    v30 = &v48;
-    v16 = v11;
-    v29 = v16;
-    v31 = &v39;
-    _CSStoreEnumerateUnits();
-    v17 = v49[6];
-    for (i = v49[7]; v17 != i; ++v17)
-    {
-      _LSAliasRemove(v16, *v17);
-    }
-
-    v19 = v40[6];
-    v20 = v40[7];
-    while (v19 != v20)
-    {
-      _LSPlistRemove(v16, *v19++);
-    }
-
-    _Block_object_dispose(&v39, 8);
-    if (__p)
-    {
-      v46 = __p;
-      operator delete(__p);
-    }
-
-    _Block_object_dispose(&v48, 8);
-    a2 = v26;
-    if (v54)
-    {
-      v55 = v54;
-      operator delete(v54);
-    }
-
-    [(_LSDatabase *)v16 setSeeded:?];
-    _LSDatabaseSetHeaderFlag(v16, 2, 0);
-    v21 = v7[5];
-    [__LSDefaultsGetSharedInstance() systemContentDatabaseStoreFileURL];
-    _LSDatabaseGetFileResourceProperties();
-    v22 = _CSStoreWriteToURL() != 0;
-
-    v6 = 0;
-    v3 = v27;
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  objc_autoreleasePoolPop(v4);
-  if (a2)
-  {
-    v23 = v22;
-  }
-
-  else
-  {
-    v23 = 1;
-  }
-
-  if ((v23 & 1) == 0)
-  {
-    v24 = v6;
-    *a2 = v6;
-  }
-
-  return v22;
-}
-
-void sub_1816FC0D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35)
-{
-  _Block_object_dispose(&a28, 8);
-  if (__p)
-  {
-    a35 = __p;
-    operator delete(__p);
-  }
-
-  _Block_object_dispose((v37 - 176), 8);
-  v39 = *(v37 - 128);
-  if (v39)
-  {
-    *(v37 - 120) = v39;
-    operator delete(v39);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-id _LSDatabaseGetFileResourceProperties(void)
-{
-  v0 = [MEMORY[0x1E695DF90] dictionary];
-  if (v0)
-  {
-    v1 = CFFileSecurityCreate(*MEMORY[0x1E695E480]);
-    if (v1)
-    {
-      v2 = [__LSDefaultsGetSharedInstance() databaseStoreFileMode];
-      CFFileSecuritySetMode(v1, v2);
-      [v0 setObject:v1 forKeyedSubscript:*MEMORY[0x1E695DB48]];
-      CFRelease(v1);
-    }
-
-    [v0 setObject:*MEMORY[0x1E695DAF8] forKeyedSubscript:*MEMORY[0x1E695DAF0]];
-  }
-
-  return v0;
-}
-
-void sub_1816FC228(_Unwind_Exception *a1)
-{
-  CFRelease(v2);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t _LSDatabaseFindBindingMapIndexWithTargetTable(char *a1, int a2)
-{
-  v3 = 0;
-  v4 = a1 + 48;
-  if (!a1)
-  {
-    v4 = 0;
-  }
-
-  v5 = (v4 + 120);
-  while (1)
-  {
-    a1 = a1;
-    v6 = *v5;
-    v5 += 26;
-    if (v6 == a2)
-    {
-      break;
-    }
-
-    if (++v3 == 14)
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  return v3;
-}
-
-uint64_t _LSDatabaseFindBindingMapTargetTable(void *a1, int a2)
-{
-  v3 = a1;
-  if (a2 > 13 || (a2 - 6) > 7)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v4 = &kLSBindingInfo + 32 * a2;
-    v3 = v3;
-    v5 = v3 + 48;
-    if (!v3)
-    {
-      v5 = 0;
-    }
-
-    v6 = *&v5[*(v4 + 3)];
-  }
-
-  return v6;
-}
-
-uint64_t _LSDatabaseCreateStringForCFString(void *a1, const __CFString *a2, int a3)
-{
-  v13[20] = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  if (!a2 || (v6 = CFGetTypeID(a2), v6 != CFStringGetTypeID()))
-  {
-    XCFBufInit(v13);
-    goto LABEL_8;
-  }
-
-  Length = CFStringGetLength(a2);
-  if (!XCFBufInitWithCFStringRange(v13, a2, 0, Length, a3))
-  {
-LABEL_8:
-    v10 = 0;
-    goto LABEL_9;
-  }
-
-  v8 = v5;
-  if (v5)
-  {
-    v9 = v5[5];
-  }
-
-  v10 = _CSCopyStringForCharacters();
-  XCFBufDestroy(v13);
-LABEL_9:
-
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
-}
-
-uint64_t _LSDatabaseCreateStringArray(void *a1, void *a2, int a3, _BYTE *a4)
-{
-  v7 = a1;
-  v8 = a2;
-  StringArrayCommon = _LSDatabaseCreateStringArrayCommon(v7, v8, [v8 count], 0, a3, a4);
-
-  return StringArrayCommon;
-}
-
-uint64_t _LSDatabaseCreateStringArrayCommon(void *a1, void *a2, std::vector<unsigned int>::size_type a3, int a4, int a5, _BYTE *a6)
-{
-  v54 = *MEMORY[0x1E69E9840];
-  v40 = a1;
-  v39 = a2;
-  if (a6)
-  {
-    *a6 = 0;
-  }
-
-  memset(&v48, 0, sizeof(v48));
-  std::vector<unsigned int>::reserve(&v48, a3);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v11 = v39;
-  v12 = [v11 countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v12)
-  {
-    v13 = *v45;
-    do
-    {
-      v14 = 0;
-      do
-      {
-        if (*v45 != v13)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v15 = *(*(&v44 + 1) + 8 * v14);
-        if (v15)
-        {
-          v16 = 1;
-        }
-
-        else
-        {
-          v16 = a4 == 0;
-        }
-
-        if (v16)
-        {
-          v17 = *(*(&v44 + 1) + 8 * v14);
-          if (_NSIsNSString())
-          {
-            LODWORD(v41) = _LSDatabaseCreateStringForCFString(v40, v15, a5);
-            if (v41)
-            {
-              std::vector<unsigned int>::push_back[abi:nn200100](&v48.__begin_, &v41);
-              goto LABEL_35;
-            }
-
-            if (a6)
-            {
-              *a6 = 1;
-            }
-
-            v27 = _LSDatabaseGetLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 138477827;
-              v50 = v15;
-              _os_log_error_impl(&dword_18162D000, v27, OS_LOG_TYPE_ERROR, "Could not create a CSString for CFString %{private}@", buf, 0xCu);
-            }
-          }
-
-          else
-          {
-            if (a6)
-            {
-              *a6 = 1;
-            }
-
-            v27 = _LSDatabaseGetLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-            {
-              v30 = objc_opt_class();
-              v31 = NSStringFromClass(v30);
-              *buf = 138478083;
-              v50 = v15;
-              v51 = 2114;
-              v52 = v31;
-              _os_log_debug_impl(&dword_18162D000, v27, OS_LOG_TYPE_DEBUG, "Expected %{private}@ to be a string, but instead it was a %{public}@", buf, 0x16u);
-            }
-          }
-        }
-
-        else
-        {
-          end = v48.__end_;
-          if (v48.__end_ >= v48.__end_cap_.__value_)
-          {
-            begin = v48.__begin_;
-            v21 = v48.__end_ - v48.__begin_;
-            v22 = v48.__end_ - v48.__begin_;
-            v23 = v22 + 1;
-            if ((v22 + 1) >> 62)
-            {
-              std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
-            }
-
-            v24 = v48.__end_cap_.__value_ - v48.__begin_;
-            if ((v48.__end_cap_.__value_ - v48.__begin_) >> 1 > v23)
-            {
-              v23 = v24 >> 1;
-            }
-
-            v25 = v24 >= 0x7FFFFFFFFFFFFFFCLL;
-            v26 = 0x3FFFFFFFFFFFFFFFLL;
-            if (!v25)
-            {
-              v26 = v23;
-            }
-
-            if (v26)
-            {
-              std::allocator<unsigned int>::allocate_at_least[abi:nn200100](&v48, v26);
-            }
-
-            *(4 * v22) = 0;
-            v19 = (4 * v22 + 4);
-            memcpy(0, begin, v21);
-            v28 = v48.__begin_;
-            v48.__begin_ = 0;
-            v48.__end_ = v19;
-            v48.__end_cap_.__value_ = 0;
-            if (v28)
-            {
-              operator delete(v28);
-            }
-          }
-
-          else
-          {
-            *v48.__end_ = 0;
-            v19 = end + 1;
-          }
-
-          v48.__end_ = v19;
-          v29 = _LSDatabaseGetLog();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
-          {
-            _LSDatabaseCreateStringArrayCommon(&v42, v43, v29);
-          }
-        }
-
-LABEL_35:
-        ++v14;
-      }
-
-      while (v12 != v14);
-      v32 = [v11 countByEnumeratingWithState:&v44 objects:v53 count:16];
-      v12 = v32;
-    }
-
-    while (v32);
-  }
-
-  v41 = 0;
-  v33 = v40;
-  if (v40)
-  {
-    v34 = v40[5];
-  }
-
-  v35 = _CSArrayCreate();
-  if (!v35)
-  {
-    v36 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218242;
-      v50 = v48.__end_ - v48.__begin_;
-      v51 = 2114;
-      v52 = v41;
-      _os_log_error_impl(&dword_18162D000, v36, OS_LOG_TYPE_ERROR, "Failed to create CSArray with %zu elements: %{public}@", buf, 0x16u);
-    }
-  }
-
-  if (v48.__begin_)
-  {
-    v48.__end_ = v48.__begin_;
-    operator delete(v48.__begin_);
-  }
-
-  v37 = *MEMORY[0x1E69E9840];
-  return v35;
-}
-
 void sub_1816FC8DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29)
 {
   if (__p)
@@ -551,26 +17,17 @@ uint64_t _LSDatabaseCreateStringArrayWithNullValues(void *a1, void *a2, int a3, 
   return StringArrayCommon;
 }
 
-void _LSDatabaseDisposeStringArray(void *a1, int a2)
+void _LSDatabaseDisposeStringArray(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = a1;
   v4 = v3;
-  if (a2)
+  if (v2)
   {
     v5 = v3;
-    if (v4)
-    {
-      v6 = v4[5];
-    }
-
     v7 = v4;
     _CSArrayEnumerateAllValues();
-    v8 = v7;
-    if (v4)
-    {
-      v9 = v7[5];
-    }
-
+    v6 = v7;
     _CSArrayDispose();
   }
 }
@@ -582,48 +39,46 @@ unsigned __int8 *LSResetDatabaseKnownAvailable(_LSDServiceDomain *a1)
   return result;
 }
 
-uint64_t __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_IS_USING_INSECURE_SPI__()
+void *__LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_IS_USING_INSECURE_SPI__()
 {
   result = _LSCurrentProcessMayMapDatabase();
   if (result)
   {
-    return __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION__("forbidden-ls-deprecated-symbol");
+    return __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION__("forbidden-ls-deprecated-symbol", v1);
   }
 
   return result;
 }
 
-uint64_t __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION__(const char *a1)
+void *__LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION__(const char *a1, uint64_t a2)
 {
-  result = [__LSDefaultsGetSharedInstance() issueSandboxExceptionsIfMayNotMapDatabase];
+  result = [__LSDefaultsGetSharedInstance(a1 a2)];
   if (result)
   {
-    v2 = _LSGetAuditTokenForSelf();
-    v3 = *v2;
-    v4 = v2[1];
+    _LSGetAuditTokenForSelf(result, v3);
     return sandbox_check_by_audit_token();
   }
 
   return result;
 }
 
-void __LAUNCH_SERVICES_IS_FAULTING_BECAUSE_THIS_PROCESS_IS_USING_VERY_EXPENSIVE_SPI__()
+void __LAUNCH_SERVICES_IS_FAULTING_BECAUSE_THIS_PROCESS_IS_USING_VERY_EXPENSIVE_SPI__(uint64_t a1)
 {
-  v0 = _LSDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _LSDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    *v1 = 0;
-    _os_log_fault_impl(&dword_18162D000, v0, OS_LOG_TYPE_FAULT, "This process is not entitled to map the LS database. It is using SPI that is very expensive, causing many megabytes of memory to be dirtied in both the client (this process) and the database server. This will become a hard abort soon.", v1, 2u);
+    *v2 = 0;
+    _os_log_fault_impl(&dword_18162D000, v1, OS_LOG_TYPE_FAULT, "This process is not entitled to map the LS database. It is using SPI that is very expensive, causing many megabytes of memory to be dirtied in both the client (this process) and the database server. This will become a hard abort soon.", v2, 2u);
   }
 }
 
-void _LSContextInvalidate()
+void _LSContextInvalidate(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  v7 = *MEMORY[0x1E69E9840];
+  if ([__LSDefaultsGetSharedInstance(a1 a2)])
   {
-    v0 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v2 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       _LSContextInvalidate_cold_2();
     }
@@ -631,18 +86,16 @@ void _LSContextInvalidate()
 
   else
   {
-    v1 = _CFGetEUID();
-    v2 = v1;
-    _LSReleaseLocalDatabase(v2);
-    v0 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v3 = _CFGetEUID();
+    v4 = v3;
+    _LSReleaseLocalDatabase(v4);
+    v2 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v3 = _LSSessionKeyCopyDescription(v1);
-      _LSContextInvalidate_cold_1(v3, v5, v0);
+      v5 = _LSSessionKeyCopyDescription(v3);
+      _LSContextInvalidate_cold_1(v5, v6, v2);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 BOOL _LSContextInitWithPath(id *a1, uint64_t a2, void *a3)
@@ -696,27 +149,34 @@ LABEL_3:
   return v11;
 }
 
-uint64_t _LSContextUpdate(_LSDatabase **a1, int a2, void *a3)
+uint64_t _LSContextUpdate(_LSDatabase **a1, uint64_t a2, void *a3)
 {
-  if (a2 && ([__LSDefaultsGetSharedInstance() isServer] & 1) == 0 && objc_msgSend(__LSDefaultsGetSharedInstance(), "hasServer"))
+  if (a2)
   {
-    if (a1 && *a1)
+    v5 = [__LSDefaultsGetSharedInstance(a1 a2)];
+    if ((v5 & 1) == 0)
     {
-      sessionKey = (*a1)->sessionKey;
-      _LSReleaseLocalDatabase(sessionKey);
-      goto LABEL_9;
+      if ([__LSDefaultsGetSharedInstance(v5 v6)])
+      {
+        if (a1 && *a1)
+        {
+          sessionKey = (*a1)->sessionKey;
+          _LSReleaseLocalDatabase(sessionKey);
+          goto LABEL_9;
+        }
+
+        v9 = +[_LSDServiceDomain defaultServiceDomain];
+        v11 = [(_LSDServiceDomain *)v9 resolvedSessionKey];
+        _LSReleaseLocalDatabase(v11);
+
+        if (a1)
+        {
+          goto LABEL_9;
+        }
+
+        return 1;
+      }
     }
-
-    v7 = +[_LSDServiceDomain defaultServiceDomain];
-    v8 = [(_LSDServiceDomain *)v7 resolvedSessionKey];
-    _LSReleaseLocalDatabase(v8);
-
-    if (a1)
-    {
-      goto LABEL_9;
-    }
-
-    return 1;
   }
 
   if (!a1 || !_LSDatabaseNeedsUpdate(*a1))
@@ -732,7 +192,7 @@ LABEL_9:
 
 uint64_t _LSReleaseLocalDatabase(LSSessionKey a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   v2 = a1;
   v3 = _LSGetSession(v2);
@@ -742,9 +202,9 @@ uint64_t _LSReleaseLocalDatabase(LSSessionKey a1)
     v6 = _LSDatabaseGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 136446210;
-      v10 = "void _LSReleaseLocalDatabase(LSSessionKey)";
-      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_INFO, "Ignoring call to %{public}s because the database was pushed by another process.", &v9, 0xCu);
+      v8 = 136446210;
+      v9 = "void _LSReleaseLocalDatabase(LSSessionKey)";
+      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_INFO, "Ignoring call to %{public}s because the database was pushed by another process.", &v8, 0xCu);
     }
   }
 
@@ -753,9 +213,7 @@ uint64_t _LSReleaseLocalDatabase(LSSessionKey a1)
     LSSession::setDatabase(v3, 0);
   }
 
-  result = os_unfair_recursive_lock_unlock();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return os_unfair_recursive_lock_unlock();
 }
 
 uint64_t _LSDatabaseGetNoServerLock()
@@ -771,16 +229,17 @@ uint64_t _LSDatabaseGetNoServerLock()
 void _LSContextRemoveChangeObserver(void *a1)
 {
   v1 = a1;
+  v2 = v1;
   if (v1)
   {
-    v2 = _LSGetDispatchTokenQueue();
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = ___LSContextRemoveChangeObserver_block_invoke;
-    v3[3] = &unk_1E6A1ABE8;
-    v4 = v1;
-    v5 = v4;
-    dispatch_barrier_async(v2, v3);
+    v3 = _LSGetDispatchTokenQueue(v1);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = ___LSContextRemoveChangeObserver_block_invoke;
+    v4[3] = &unk_1E6A1ABE8;
+    v5 = v2;
+    v6 = v5;
+    dispatch_barrier_async(v3, v4);
   }
 }
 
@@ -851,22 +310,22 @@ void _LSContextReleaseObservedChange(LSSessionKey **a1)
     {
       pthread_mutex_lock(_LSDatabaseGetNoServerLock::result);
       v3 = (*a1)[2];
-      _LSReleaseLocalDatabaseEvenIfForced(v3);
-      v4 = _LSGetAuditTokenForSelf();
-      v5 = _LSAuditTokenMayMapDatabase(v4);
-      _LSSetCurrentProcessMayMapDatabase(v5);
+      v4 = _LSReleaseLocalDatabaseEvenIfForced(v3);
+      v6 = _LSGetAuditTokenForSelf(v4, v5);
+      MayMapDatabase = _LSAuditTokenMayMapDatabase(v6);
+      _LSSetCurrentProcessMayMapDatabase(MayMapDatabase);
 
       pthread_mutex_unlock(v2);
     }
 
     else
     {
-      v6 = (*a1)[2];
-      _LSReleaseLocalDatabaseEvenIfForced(v6);
-      v7 = _LSGetAuditTokenForSelf();
-      v8 = _LSAuditTokenMayMapDatabase(v7);
+      v8 = (*a1)[2];
+      v9 = _LSReleaseLocalDatabaseEvenIfForced(v8);
+      v11 = _LSGetAuditTokenForSelf(v9, v10);
+      v12 = _LSAuditTokenMayMapDatabase(v11);
 
-      _LSSetCurrentProcessMayMapDatabase(v8);
+      _LSSetCurrentProcessMayMapDatabase(v12);
     }
   }
 }
@@ -885,16 +344,16 @@ uint64_t _LSDatabaseSentinelGet()
 {
   pthread_mutex_lock(&sentinelLock);
   v0 = sentinelCount;
-  pthread_mutex_unlock(&sentinelLock);
+  v1 = pthread_mutex_unlock(&sentinelLock);
   if (v0)
   {
     return 1;
   }
 
-  v2 = [__LSDefaultsGetSharedInstance() dbSentinelFileURL];
-  v1 = _LSDatabaseRecoveryFileExists(v2);
+  v4 = [__LSDefaultsGetSharedInstance(v1 v2)];
+  v3 = _LSDatabaseRecoveryFileExists(v4);
 
-  return v1;
+  return v3;
 }
 
 void _LSDatabaseSentinelIncrement()
@@ -903,8 +362,8 @@ void _LSDatabaseSentinelIncrement()
   v0 = sentinelCount;
   if (sentinelCount == -1)
   {
-    v1 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       _LSDatabaseSentinelIncrement_cold_1();
     }
@@ -913,11 +372,11 @@ void _LSDatabaseSentinelIncrement()
   }
 
   ++sentinelCount;
-  pthread_mutex_unlock(&sentinelLock);
+  v1 = pthread_mutex_unlock(&sentinelLock);
   if (!v0)
   {
-    v2 = [__LSDefaultsGetSharedInstance() dbSentinelFileURL];
-    _LSDatabaseCreateRecoveryFile(v2);
+    v4 = [__LSDefaultsGetSharedInstance(v1 v2)];
+    _LSDatabaseCreateRecoveryFile(v4);
   }
 }
 
@@ -944,173 +403,177 @@ void _LSDatabaseSentinelFlush()
 {
   pthread_mutex_lock(&sentinelLock);
   v0 = sentinelCount;
-  pthread_mutex_unlock(&sentinelLock);
+  v1 = pthread_mutex_unlock(&sentinelLock);
   if (!v0)
   {
-    v1 = [__LSDefaultsGetSharedInstance() dbSentinelFileURL];
-    _LSDatabaseDeleteRecoveryFile(v1);
+    v3 = [__LSDefaultsGetSharedInstance(v1 v2)];
+    _LSDatabaseDeleteRecoveryFile(v3);
   }
 }
 
-uint64_t _LSDatabaseGetSyncInterrupted()
+void *_LSDatabaseGetSyncInterrupted(uint64_t a1, uint64_t a2)
 {
-  v0 = [__LSDefaultsGetSharedInstance() dbSyncInterruptedFileURL];
-  v1 = _LSDatabaseRecoveryFileExists(v0);
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  v3 = _LSDatabaseRecoveryFileExists(v2);
 
-  return v1;
+  return v3;
 }
 
-void _LSDatabaseSetSyncInterrupted()
+void _LSDatabaseSetSyncInterrupted(uint64_t a1, uint64_t a2)
 {
-  v0 = [__LSDefaultsGetSharedInstance() dbSyncInterruptedFileURL];
-  _LSDatabaseCreateRecoveryFile(v0);
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  _LSDatabaseCreateRecoveryFile(v2);
 }
 
-void _LSDatabaseClearSyncInterrupted()
+void _LSDatabaseClearSyncInterrupted(uint64_t a1, uint64_t a2)
 {
-  v0 = [__LSDefaultsGetSharedInstance() dbSyncInterruptedFileURL];
-  _LSDatabaseDeleteRecoveryFile(v0);
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  _LSDatabaseDeleteRecoveryFile(v2);
 }
 
-id _LSDatabaseGetMobileInstallSyncupGroup()
+id _LSDatabaseGetMobileInstallSyncupGroup(uint64_t a1, uint64_t a2)
 {
-  if ([__LSDefaultsGetSharedInstance() isServer] && _LSDatabaseGetMobileInstallSyncupGroup::onceToken != -1)
+  if ([__LSDefaultsGetSharedInstance(a1 a2)] && _LSDatabaseGetMobileInstallSyncupGroup::onceToken != -1)
   {
     _LSDatabaseGetMobileInstallSyncupGroup_cold_1();
   }
 
-  v0 = _LSDatabaseGetMobileInstallSyncupGroup::syncupGroup;
+  v2 = _LSDatabaseGetMobileInstallSyncupGroup::syncupGroup;
 
-  return v0;
+  return v2;
 }
 
-id _LSDatabaseGetInstallingGroup()
+id _LSDatabaseGetInstallingGroup(uint64_t a1, uint64_t a2)
 {
-  if ([__LSDefaultsGetSharedInstance() isServer] && _LSDatabaseGetInstallingGroup::once != -1)
+  if ([__LSDefaultsGetSharedInstance(a1 a2)] && _LSDatabaseGetInstallingGroup::once != -1)
   {
     _LSDatabaseGetInstallingGroup_cold_1();
   }
 
-  v0 = _LSDatabaseGetInstallingGroup::installingGroup;
+  v2 = _LSDatabaseGetInstallingGroup::installingGroup;
 
-  return v0;
+  return v2;
 }
 
-void _LSArmSaveTimerWithObserver(char a1, void *a2)
+void _LSArmSaveTimerWithObserver(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  [__LSDefaultsGetSharedInstance() databaseSaveInterval];
-  _LSArmSaveTimerWithTimeout(a1, v4, v3);
+  v2 = a1;
+  v5 = a2;
+  [__LSDefaultsGetSharedInstance(v5 v3)];
+  _LSArmSaveTimerWithTimeout(v2, v5, v4);
 }
 
 void _LSArmSaveTimerWithTimeout(char a1, void *a2, double a3)
 {
   v5 = a2;
-  if ([__LSDefaultsGetSharedInstance() isServer] && (objc_msgSend(__LSDefaultsGetSharedInstance(), "isInSyncBubble") & 1) == 0)
+  v7 = [__LSDefaultsGetSharedInstance(v5 v6)];
+  if (v7 && ([__LSDefaultsGetSharedInstance(v7 v8)] & 1) == 0)
   {
-    os_unfair_recursive_lock_lock_with_options();
-    v6 = _LSServer_SelfSessionKey();
-    v7 = _LSGetSession(v6);
-    v8 = v7;
-    *v7 |= a1;
+    v9 = os_unfair_recursive_lock_lock_with_options();
+    v11 = _LSServer_SelfSessionKey(v9, v10);
+    v12 = _LSGetSession(v11);
+    v13 = v12;
+    *v12 |= a1;
     if (v5)
     {
-      LSSession::addSaveObserver(v7, v5);
+      LSSession::addSaveObserver(v12, v5);
     }
 
-    if ((v8[20] & 1) == 0)
+    if ((v13[20] & 1) == 0)
     {
-      v9 = _LSServer_DatabaseExecutionContext();
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke;
-      v15[3] = &__block_descriptor_40_e5_v8__0l;
-      v15[4] = v8;
-      v10 = MEMORY[0x1865D71B0](v15);
-      v11 = [(LSDBExecutionContext *)v9 maintenanceQueue];
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_394;
-      v12[3] = &unk_1E6A19728;
-      v13 = v9;
-      v14 = v10;
-      _LSDispatchCoalescedAfterDelay(v8 + 8, v11, v12, a3);
+      v14 = _LSServer_DatabaseExecutionContext();
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke;
+      v20[3] = &__block_descriptor_40_e5_v8__0l;
+      v20[4] = v13;
+      v15 = MEMORY[0x1865D71B0](v20);
+      v16 = [(LSDBExecutionContext *)v14 maintenanceQueue];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_394;
+      v17[3] = &unk_1E6A19728;
+      v18 = v14;
+      v19 = v15;
+      _LSDispatchCoalescedAfterDelay(v13 + 8, v16, v17, a3);
     }
 
     os_unfair_recursive_lock_unlock();
   }
 }
 
-void _LSResetServer()
+void _LSResetServer(uint64_t a1, uint64_t a2)
 {
-  if ([__LSDefaultsGetSharedInstance() hasServer] && (objc_msgSend(__LSDefaultsGetSharedInstance(), "isServer") & 1) == 0)
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  if (v2 && ([__LSDefaultsGetSharedInstance(v2 v3)] & 1) == 0)
   {
-    v8 = objc_autoreleasePoolPush();
-    v9 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:?];
-    [v9 resetServerStoreWithCompletionHandler:&__block_literal_global_130];
+    v16 = objc_autoreleasePoolPush();
+    v17 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:?];
+    [v17 resetServerStoreWithCompletionHandler:&__block_literal_global_130];
 
-    objc_autoreleasePoolPop(v8);
+    objc_autoreleasePoolPop(v16);
   }
 
   else
   {
-    v15 = 0;
-    v0 = _LSCreateEmptyStore(&v15);
-    v1 = v15;
-    if (v0)
+    v26 = 0;
+    v4 = _LSCreateEmptyStore(&v26);
+    v5 = v26;
+    v6 = v5;
+    if (v4)
     {
-      v2 = _LSGetStoreNode();
-      v3 = _LSServer_SelfSessionKey();
-      v13 = v1;
-      v4 = _LSDatabaseCreate(v2, v3, v0, &v13);
-      v5 = v13;
+      v7 = _LSGetStoreNode(v5);
+      v9 = _LSServer_SelfSessionKey(v7, v8);
+      v24 = v6;
+      v10 = _LSDatabaseCreate(v7, v9, v4, &v24);
+      v11 = v24;
 
-      v14 = v4;
-      if (v4)
+      v25 = v10;
+      if (v10)
       {
-        if ([__LSDefaultsGetSharedInstance() isServer])
+        if ([__LSDefaultsGetSharedInstance(v12 v13)])
         {
-          v6 = _LSServer_DatabaseExecutionContext();
-          [(LSDBExecutionContext *)v6 setServerDatabase:v4];
+          v14 = _LSServer_DatabaseExecutionContext();
+          [(LSDBExecutionContext *)v14 setServerDatabase:v10];
         }
 
         else
         {
-          _LSSetLocalDatabase(v4);
+          _LSSetLocalDatabase(v10);
         }
 
-        _LSDatabaseClean(&v14);
-        v12 = [__LSDefaultsGetSharedInstance() isServer];
-        v11 = v14;
-        if (v12)
+        _LSDatabaseClean(&v25);
+        v22 = [__LSDefaultsGetSharedInstance(v20 v21)];
+        v19 = v25;
+        if (v22)
         {
-          _LSDatabaseCommit(v14);
+          _LSDatabaseCommit(v25, v23);
         }
       }
 
       else
       {
-        v10 = _LSDatabaseGetLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v18 = _LSDatabaseGetLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           _LSResetServer_cold_1();
         }
 
-        v11 = 0;
+        v19 = 0;
       }
 
-      CFRelease(v0);
+      CFRelease(v4);
     }
 
     else
     {
-      v7 = _LSDatabaseGetLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v15 = _LSDatabaseGetLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         _LSResetServer_cold_2();
       }
 
-      v5 = v1;
+      v11 = v6;
     }
   }
 }
@@ -1122,326 +585,287 @@ void sub_1816FDE70(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _LSGetStoreNode(void)
+id _LSGetStoreNode(uint64_t a1)
 {
   if (_LSGetStoreNode(void)::once != -1)
   {
     _LSGetStoreNode();
   }
 
-  v1 = _LSGetStoreNode(void)::result;
+  v2 = _LSGetStoreNode(void)::result;
 
-  return v1;
+  return v2;
 }
 
 void _LSDatabaseDisplayHeader(void *a1, void *a2, _BYTE *a3)
 {
-  v112 = *MEMORY[0x1E69E9840];
-  v68 = a1;
+  v99 = *MEMORY[0x1E69E9840];
+  v55 = a1;
   v5 = a2;
   if (a3)
   {
     *a3 = 1;
   }
 
-  [v68 write:@"Checking data integrity..."];
+  [v55 write:@"Checking data integrity..."];
   v6 = v5;
-  if (v5)
-  {
-    v7 = *(v5 + 5);
-  }
-
   if (_CSStoreValidate())
   {
+    v7 = v5;
     v8 = v5;
-    if (v5)
-    {
-      v9 = *(v5 + 5);
-    }
-
-    v10 = v5;
-    if (v5)
-    {
-      v11 = v5 + 12;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    v12 = v11[395];
-    v93 = MEMORY[0x1E69E9820];
-    v94 = 3221225472;
-    v95 = ___LSDatabaseDisplayHeader_block_invoke;
-    v96 = &unk_1E6A1B740;
-    v13 = v5;
-    v97 = v13;
-    v14 = v68;
-    v98 = v14;
+    v80 = MEMORY[0x1E69E9820];
+    v81 = 3221225472;
+    v82 = ___LSDatabaseDisplayHeader_block_invoke;
+    v83 = &unk_1E6A1B740;
+    v84 = v5;
+    v85 = v55;
     _CSStoreEnumerateUnits();
-    v15 = v13;
-    if (v5)
-    {
-      v16 = *(v13 + 5);
-    }
-
-    v17 = v13;
-    v18 = v11[1];
-    v87 = MEMORY[0x1E69E9820];
-    v88 = 3221225472;
-    v89 = ___LSDatabaseDisplayHeader_block_invoke_3;
-    v90 = &unk_1E6A1B740;
-    v19 = v13;
-    v91 = v19;
-    v20 = v14;
-    v92 = v20;
+    v9 = v84;
+    v10 = v84;
+    v74 = MEMORY[0x1E69E9820];
+    v75 = 3221225472;
+    v76 = ___LSDatabaseDisplayHeader_block_invoke_3;
+    v77 = &unk_1E6A1B740;
+    v78 = v84;
+    v79 = v85;
     _CSStoreEnumerateUnits();
-    v21 = v19;
-    if (v5)
-    {
-      v22 = *(v19 + 5);
-    }
-
-    v23 = v19;
-    v24 = v11[2];
-    v81 = MEMORY[0x1E69E9820];
-    v82 = 3221225472;
-    v83 = ___LSDatabaseDisplayHeader_block_invoke_6;
-    v84 = &unk_1E6A1B740;
-    v25 = v19;
-    v85 = v25;
-    v26 = v20;
-    v86 = v26;
+    v11 = v78;
+    v12 = v78;
+    v68 = MEMORY[0x1E69E9820];
+    v69 = 3221225472;
+    v70 = ___LSDatabaseDisplayHeader_block_invoke_6;
+    v71 = &unk_1E6A1B740;
+    v13 = v78;
+    v72 = v13;
+    v14 = v79;
+    v73 = v14;
     _CSStoreEnumerateUnits();
-    [v26 write:@"...done."];
-    v27 = _LSGetStatus();
-    if ((v27 & 0x80) != 0)
+    [v14 write:@"...done."];
+    v15 = _LSGetStatus();
+    if ((v15 & 0x80) != 0)
     {
-      v79[0] = MEMORY[0x1E69E9820];
-      v79[1] = 3221225472;
-      v79[2] = ___LSDatabaseDisplayHeader_block_invoke_8;
-      v79[3] = &unk_1E6A1A830;
-      v80 = v26;
-      [v80 withTextColor:0x7FFFLL block:v79];
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = ___LSDatabaseDisplayHeader_block_invoke_8;
+      v66[3] = &unk_1E6A1A830;
+      v67 = v14;
+      [v67 withTextColor:0x7FFFLL block:v66];
     }
 
-    if ((v27 & 0x100) != 0)
+    if ((v15 & 0x100) != 0)
     {
-      v77[0] = MEMORY[0x1E69E9820];
-      v77[1] = 3221225472;
-      v77[2] = ___LSDatabaseDisplayHeader_block_invoke_9;
-      v77[3] = &unk_1E6A1A830;
-      v78 = v26;
-      [v78 withTextColor:48896 block:v77];
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 3221225472;
+      v64[2] = ___LSDatabaseDisplayHeader_block_invoke_9;
+      v64[3] = &unk_1E6A1A830;
+      v65 = v14;
+      [v65 withTextColor:48896 block:v64];
     }
 
-    if ((v27 & 0x200) != 0)
+    if ((v15 & 0x200) != 0)
     {
-      v75[0] = MEMORY[0x1E69E9820];
-      v75[1] = 3221225472;
-      v75[2] = ___LSDatabaseDisplayHeader_block_invoke_10;
-      v75[3] = &unk_1E6A1A830;
-      v76 = v26;
-      [v76 withTextColor:0x7FFFLL block:v75];
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = ___LSDatabaseDisplayHeader_block_invoke_10;
+      v62[3] = &unk_1E6A1A830;
+      v63 = v14;
+      [v63 withTextColor:0x7FFFLL block:v62];
     }
 
-    v28 = @"are NOT";
+    v16 = @"are NOT";
     if (v5)
     {
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
-      v109 = 0u;
-      v106 = 0u;
-      v107 = 0u;
-      v104 = 0u;
-      v105 = 0u;
-      v102 = 0u;
-      v103 = 0u;
-      v100 = 0u;
-      v101 = 0u;
-      v99 = 0u;
-      _LSDatabaseGetHeader(v25, &v99);
-      if (BYTE8(v104))
+      v97 = 0u;
+      v98 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
+      v89 = 0u;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      v86 = 0u;
+      _LSDatabaseGetHeader(&v86, v13);
+      if (BYTE8(v91))
       {
-        v28 = @"are";
+        v16 = @"are";
       }
     }
 
-    [v26 write:@"Status" format:{@"Preferences %@ loaded.", v28}];
-    v29 = _LSDatabaseGetSeededSystemVersion(v25);
-    v64 = v29;
-    if (v29)
+    [v14 write:@"Status" format:{@"Preferences %@ loaded.", v16}];
+    v17 = _LSDatabaseGetSeededSystemVersion(v13);
+    v51 = v17;
+    if (v17)
     {
-      [v26 write:@"Seeded System Version" string:v29];
+      [v14 write:@"Seeded System Version" string:v17];
     }
 
-    v30 = _LSDatabaseGetSeededCryptexVersion(v25);
-    v63 = v30;
-    if (v30)
+    v18 = _LSDatabaseGetSeededCryptexVersion(v13);
+    v50 = v18;
+    if (v18)
     {
-      [v26 write:@"Seeded Cryptex Version" string:v30];
+      [v14 write:@"Seeded Cryptex Version" string:v18];
     }
 
-    v31 = _LSDatabaseGetSeededModelCode(v25);
-    v65 = v31;
-    if (v31)
+    v19 = _LSDatabaseGetSeededModelCode(v13);
+    v52 = v19;
+    if (v19)
     {
-      [v26 write:@"Seeded Model Code" string:v31];
+      [v14 write:@"Seeded Model Code" string:v19];
     }
 
-    v32 = _LSDatabaseGetCacheGUID(v25);
-    v66 = v32;
-    if (v32)
+    v20 = _LSDatabaseGetCacheGUID(v13);
+    v53 = v20;
+    if (v20)
     {
-      v33 = [v32 UUIDString];
-      [v26 write:@"CacheGUID" string:v33];
-    }
-
-    else
-    {
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = 3221225472;
-      v73[2] = ___LSDatabaseDisplayHeader_block_invoke_11;
-      v73[3] = &unk_1E6A1A830;
-      v74 = v26;
-      [v74 withWarningColors:v73];
-      v33 = v74;
-    }
-
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
-    v101 = 0u;
-    v99 = 0u;
-    _LSDatabaseGetHeader(v25, &v99);
-    if (v110)
-    {
-      v34 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-      [v26 write:@"CacheSequenceNum" number:v34];
+      v21 = [v20 UUIDString];
+      [v14 write:@"CacheGUID" string:v21];
     }
 
     else
     {
-      v71[0] = MEMORY[0x1E69E9820];
-      v71[1] = 3221225472;
-      v71[2] = ___LSDatabaseDisplayHeader_block_invoke_12;
-      v71[3] = &unk_1E6A1A830;
-      v72 = v26;
-      [v72 withWarningColors:v71];
-      v34 = v72;
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = ___LSDatabaseDisplayHeader_block_invoke_11;
+      v60[3] = &unk_1E6A1A830;
+      v61 = v14;
+      [v61 withWarningColors:v60];
+      v21 = v61;
     }
 
-    v35 = v25;
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
-    v101 = 0u;
-    v99 = 0u;
-    _LSDatabaseGetHeader(v35, &v99);
-    if (*(&v111 + 1))
+    v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v86 = 0u;
+    _LSDatabaseGetHeader(&v86, v13);
+    if (v97)
     {
-      v67 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:*(&v111 + 1)];
+      v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+      [v14 write:@"CacheSequenceNum" number:v22];
+    }
 
-      if (v67)
+    else
+    {
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = ___LSDatabaseDisplayHeader_block_invoke_12;
+      v58[3] = &unk_1E6A1A830;
+      v59 = v14;
+      [v59 withWarningColors:v58];
+      v22 = v59;
+    }
+
+    v23 = v13;
+    v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v86 = 0u;
+    _LSDatabaseGetHeader(&v86, v23);
+    if (*(&v98 + 1))
+    {
+      v54 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:*(&v98 + 1)];
+
+      if (v54)
       {
-        [v67 timeIntervalSinceReferenceDate];
-        [v26 write:@"Date Initialized" interval:?];
-LABEL_43:
-        v36 = [(FSNode *)v35->node pathWithError:0];
-        if (v36)
+        [v54 timeIntervalSinceReferenceDate];
+        [v14 write:@"Date Initialized" interval:?];
+LABEL_32:
+        v24 = [(FSNode *)v23->node pathWithError:0];
+        if (v24)
         {
-          v37 = v35->node;
-          v38 = [(FSNode *)v37 URL];
-          v39 = [v26 linkURL:v38 linkedText:v36];
-          [v26 write:@"Path" string:v39];
+          v25 = v23->node;
+          v26 = [(FSNode *)v25 URL];
+          v27 = [v14 linkURL:v26 linkedText:v24];
+          [v14 write:@"Path" string:v27];
         }
 
         else
         {
-          v69[0] = MEMORY[0x1E69E9820];
-          v69[1] = 3221225472;
-          v69[2] = ___LSDatabaseDisplayHeader_block_invoke_13;
-          v69[3] = &unk_1E6A1A830;
-          v70 = v26;
-          [(FSNode *)v70 withWarningColors:v69];
-          v37 = v70;
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = ___LSDatabaseDisplayHeader_block_invoke_13;
+          v56[3] = &unk_1E6A1A830;
+          v57 = v14;
+          [(FSNode *)v57 withWarningColors:v56];
+          v25 = v57;
         }
 
-        v40 = [(_LSDatabase *)v35 description];
-        [v26 write:@"DB Object" string:v40];
+        v28 = [(_LSDatabase *)v23 description];
+        [v14 write:@"DB Object" string:v28];
 
-        v41 = _LSGetBundle();
-        v42 = v41;
-        v43 = MEMORY[0x1E695E500];
-        if (v41)
+        v31 = _LSGetBundle(v29, v30);
+        v32 = v31;
+        v33 = MEMORY[0x1E695E500];
+        if (v31)
         {
-          v44 = CFBundleCopyBundleURL(v41);
-          v45 = CFBundleGetValueForInfoDictionaryKey(v42, *v43);
-          v46 = [(__CFURL *)v44 path];
-          v47 = [v26 linkURL:v44 linkedText:v46];
-          if (v45)
+          v34 = CFBundleCopyBundleURL(v31);
+          v35 = CFBundleGetValueForInfoDictionaryKey(v32, *v33);
+          v36 = [(__CFURL *)v34 path];
+          v37 = [v14 linkURL:v34 linkedText:v36];
+          if (v35)
           {
-            [v26 write:@"DB Bundle" format:{@"%@ (v %@)", v47, v45, v63, v64, v65, v66}];
+            [v14 write:@"DB Bundle" format:{@"%@ (v %@)", v37, v35, v50, v51, v52, v53}];
           }
 
           else
           {
-            [v26 write:@"DB Bundle" string:v47];
+            [v14 write:@"DB Bundle" string:v37];
           }
         }
 
-        v48 = v35;
-        v49 = [(__CSStore *)v35->_store description];
-        [v26 write:@"Store Object" string:v49];
+        v38 = v23;
+        v39 = [(__CSStore *)v23->_store description];
+        [v14 write:@"Store Object" string:v39];
 
-        v50 = [MEMORY[0x1E696AAE8] bundleForClass:_CSStoreGetXPCClass()];
-        v51 = v50;
-        if (v50)
+        v40 = [MEMORY[0x1E696AAE8] bundleForClass:_CSStoreGetXPCClass()];
+        v41 = v40;
+        if (v40)
         {
-          v52 = [v50 bundleURL];
-          v53 = [v51 objectForInfoDictionaryKey:*v43];
-          v54 = [v52 path];
-          v55 = [v26 linkURL:v52 linkedText:v54];
-          if (v53)
+          v42 = [v40 bundleURL];
+          v43 = [v41 objectForInfoDictionaryKey:*v33];
+          v44 = [v42 path];
+          v45 = [v14 linkURL:v42 linkedText:v44];
+          if (v43)
           {
-            [v26 write:@"Store Bundle" format:{@"%@ (v %@)", v55, v53}];
+            [v14 write:@"Store Bundle" format:{@"%@ (v %@)", v45, v43}];
           }
 
           else
           {
-            [v26 write:@"Store Bundle" string:v55];
+            [v14 write:@"Store Bundle" string:v45];
           }
         }
 
-        v56 = v35;
-        store = v35->_store;
-        v58 = _CSStoreCopyDebugDescriptionOfBytesInRange();
-        [v26 writeAttributedString:v58];
+        v46 = v23;
+        v47 = _CSStoreCopyDebugDescriptionOfBytesInRange();
+        [v14 writeAttributedString:v47];
 
-        v59 = v35;
-        v60 = v35->_store;
-        v61 = _CSStoreCopyMemoryStatistics();
-        [v26 writeAttributedString:v61];
+        v48 = v23;
+        v49 = _CSStoreCopyMemoryStatistics();
+        [v14 writeAttributedString:v49];
 
-        goto LABEL_57;
+        goto LABEL_46;
       }
     }
 
@@ -1449,19 +873,17 @@ LABEL_43:
     {
     }
 
-    v67 = 0;
-    goto LABEL_43;
+    v54 = 0;
+    goto LABEL_32;
   }
 
-  [v68 write:@"Data integrity check failed."];
+  [v55 write:@"Data integrity check failed."];
   if (a3)
   {
     *a3 = 0;
   }
 
-LABEL_57:
-
-  v62 = *MEMORY[0x1E69E9840];
+LABEL_46:
 }
 
 void _LSSetCrashReporterMessage(NSString *a1)
@@ -1471,7 +893,7 @@ void _LSSetCrashReporterMessage(NSString *a1)
   if (v1)
   {
     v3 = strdup([(NSString *)v1 UTF8String]);
-    v4 = _LSDefaultLog();
+    v4 = _LSDefaultLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       _LSSetCrashReporterMessage_cold_1();
@@ -1513,7 +935,7 @@ uint64_t ___ZL16_LSDatabaseCleanPU8__strongP11_LSDatabase_block_invoke(uint64_t 
   v11 = *a3;
   v12 = *(a3 + 4);
   v10 = 0;
-  v5 = _LSAliasGetPath(*(a1 + 32), SHIDWORD(v11));
+  v5 = _LSAliasGetPath(*(a1 + 32), HIDWORD(v11));
   if (v5)
   {
     v6 = [[FSNode alloc] initWithPath:v5 flags:0 error:0];
@@ -1615,7 +1037,7 @@ void LSCrashMessage::LSCrashMessage(LSCrashMessage *this, NSString *a2)
 
 void ___ZL52_LSDatabaseRegisterCanonicalNamesFromStringLocalizerP11_LSDatabaseP18_LSStringLocalizer_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1631,21 +1053,19 @@ void ___ZL52_LSDatabaseRegisterCanonicalNamesFromStringLocalizerP11_LSDatabaseP1
       v11 = _LSDatabaseGetLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138543874;
-        v14 = v7;
-        v15 = 2114;
-        v16 = v8;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_error_impl(&dword_18162D000, v11, OS_LOG_TYPE_ERROR, "Failed to add canonical string %{public}@, localizations %{public}@, missingLocalizations %{public}@", &v13, 0x20u);
+        v12 = 138543874;
+        v13 = v7;
+        v14 = 2114;
+        v15 = v8;
+        v16 = 2114;
+        v17 = v9;
+        _os_log_error_impl(&dword_18162D000, v11, OS_LOG_TYPE_ERROR, "Failed to add canonical string %{public}@, localizations %{public}@, missingLocalizations %{public}@", &v12, 0x20u);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke(uint64_t result, uint64_t a2, _DWORD *a3)
+uint64_t ___ZL41_LSSystemContentDatabaseSanitizeForExportP11_LSDatabase_block_invoke(uint64_t result, uint64_t a2, int *a3)
 {
   v4 = result;
   if (a3[24])
@@ -1695,58 +1115,55 @@ void ___ZL45_LSDatabaseCreateSnapshotAgainstAccessContextP11_LSDatabaseP22__CSSt
 {
   if (a1[7])
   {
-    v2 = *(a1[5] + 8);
     MutableCopy = CSStoreCreateMutableCopy();
     if (MutableCopy)
     {
-      v4 = MutableCopy;
-      v5 = *(a1[4] + 16);
-      v6 = *(a1[4] + 8);
-      v7 = a1[7];
-      v8 = *(a1[5] + 8);
-      obj = *(v8 + 40);
-      v9 = v5;
-      v10 = _LSDatabaseCreateWithAccessContext(v6, v9, v7, 0, &obj);
-      objc_storeStrong((v8 + 40), obj);
-      v11 = *(a1[6] + 8);
-      v12 = *(v11 + 40);
-      *(v11 + 40) = v10;
+      v3 = MutableCopy;
+      v4 = *(a1[4] + 16);
+      v5 = *(a1[4] + 8);
+      v6 = a1[7];
+      v7 = *(a1[5] + 8);
+      obj = *(v7 + 40);
+      v8 = v4;
+      v9 = _LSDatabaseCreateWithAccessContext(v5, v8, v6, 0, &obj);
+      objc_storeStrong((v7 + 40), obj);
+      v10 = *(a1[6] + 8);
+      v11 = *(v10 + 40);
+      *(v10 + 40) = v9;
 
-      CFRelease(v4);
+      CFRelease(v3);
     }
   }
 
   else
   {
-    v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, 0, "_LSDatabaseCreateSnapshotAgainstAccessContext_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 2845);
-    v14 = *(a1[5] + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, 0, "_LSDatabaseCreateSnapshotAgainstAccessContext_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 2845);
+    v13 = *(a1[5] + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
   }
 }
 
 void ___ZL34LSCheckDatabaseAvailableWithServerP17_LSDServiceDomain_block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = _LSDatabaseGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = v2;
-    v6 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v7 = [v5 domain];
-    v8 = [v5 code];
-    v9 = [v5 userInfo];
-    v10 = [v6 initWithFormat:@"(Error domain %@ code %llu, ui: %@)", v7, v8, v9];
+    v4 = v2;
+    v5 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v6 = [v4 domain];
+    v7 = [v4 code];
+    v8 = [v4 userInfo];
+    v9 = [v5 initWithFormat:@"(Error domain %@ code %llu, ui: %@)", v6, v7, v8];
 
     *buf = 136315394;
-    v12 = "LSCheckDatabaseAvailableWithServer_block_invoke";
-    v13 = 2112;
-    v14 = v10;
+    v11 = "LSCheckDatabaseAvailableWithServer_block_invoke";
+    v12 = 2112;
+    v13 = v9;
     _os_log_error_impl(&dword_18162D000, v3, OS_LOG_TYPE_ERROR, "%s: Error on proxy: %@", buf, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___ZL34LSCheckDatabaseAvailableWithServerP17_LSDServiceDomain_block_invoke_382(uint64_t result, int a2)
@@ -1758,17 +1175,17 @@ uint64_t ___ZL34LSCheckDatabaseAvailableWithServerP17_LSDServiceDomain_block_inv
 
 uint64_t ___ZL31_LSDatabaseNotificationRegister12LSSessionKey_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = _LSDatabaseGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = _LSSessionKeyCopyDescription(*(a1 + 40));
-    v10 = 138543618;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "NotifyToken::RegisterDispatch(%{public}@) fired for session key %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "NotifyToken::RegisterDispatch(%{public}@) fired for session key %@", &v9, 0x16u);
   }
 
   v5 = *(a1 + 40);
@@ -1777,9 +1194,7 @@ uint64_t ___ZL31_LSDatabaseNotificationRegister12LSSessionKey_block_invoke(uint6
   v6 = *(a1 + 40);
   v7 = _LSGetSession(v6);
   LaunchServices::notifyd::NotifyToken::cancel((v7 + 12));
-  result = os_unfair_recursive_lock_unlock();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return os_unfair_recursive_lock_unlock();
 }
 
 void ___ZL30_LSClearCrashMessageAfterDelayi_block_invoke()
@@ -1925,7 +1340,7 @@ void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErr
       v68 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
-      _LSDatabaseGetHeader(v13, buf);
+      _LSDatabaseGetHeader(buf, v13);
       if ((DWORD2(v69) & 0x1000000) != 0)
       {
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -1944,7 +1359,7 @@ void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErr
       v68 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
-      _LSDatabaseGetHeader(v13, buf);
+      _LSDatabaseGetHeader(buf, v13);
       if ((DWORD2(v69) & 0x2000000) != 0)
       {
         v15 = CFNotificationCenterGetDarwinNotifyCenter();
@@ -1963,7 +1378,7 @@ void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErr
       v68 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
-      _LSDatabaseGetHeader(v13, buf);
+      _LSDatabaseGetHeader(buf, v13);
       if ((DWORD2(v69) & 0x4000000) != 0)
       {
         v16 = CFNotificationCenterGetDarwinNotifyCenter();
@@ -1982,7 +1397,7 @@ void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErr
       v68 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
-      _LSDatabaseGetHeader(v13, buf);
+      _LSDatabaseGetHeader(buf, v13);
       if ((DWORD2(v69) & 0x8000000) != 0)
       {
         v17 = CFNotificationCenterGetDarwinNotifyCenter();
@@ -2030,18 +1445,18 @@ LABEL_23:
 LABEL_37:
       if ((v12 & 2) != 0 && v23)
       {
-        v31 = LSHandlerPref::Save(v11, v10);
-        if (v31)
+        v34 = LSHandlerPref::Save(v11, v10);
+        if (v34)
         {
-          v32 = _LSDatabaseGetLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v35 = _LSDatabaseGetLog();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             _LSSessionKeyCopyDescription(v11[2]);
             ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_4();
           }
 
-          v22 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v31, 0, "_LSSessionSave", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 916);
-          v33 = v22;
+          v22 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v34, 0, "_LSSessionSave", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 916);
+          v36 = v22;
           LOBYTE(v23) = 0;
         }
 
@@ -2051,23 +1466,23 @@ LABEL_37:
         }
       }
 
-      v34 = v22;
+      v37 = v22;
       if ((v23 & 1) == 0)
       {
-        v35 = _LSDatabaseGetLog();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v38 = _LSDatabaseGetLog();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_5();
         }
       }
 
-      v37 = *(&v59 + 1);
-      for (i = v59; i != v37; ++i)
+      v40 = *(&v59 + 1);
+      for (i = v59; i != v40; ++i)
       {
-        v38 = MEMORY[0x1865D71B0](*i);
-        v39 = objc_autoreleasePoolPush();
-        (v38)[2](v38, 1, v11, v34);
-        objc_autoreleasePoolPop(v39);
+        v41 = MEMORY[0x1865D71B0](*i);
+        v42 = objc_autoreleasePoolPush();
+        (v41)[2](v41, 1, v11, v37);
+        objc_autoreleasePoolPop(v42);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -2076,25 +1491,26 @@ LABEL_37:
 
     v62 = 0;
     v24 = v11;
-    if (![__LSDefaultsGetSharedInstance() isServer] || objc_msgSend(__LSDefaultsGetSharedInstance(), "isInSyncBubble"))
+    v26 = [__LSDefaultsGetSharedInstance(v24 v25)];
+    if (!v26 || [__LSDefaultsGetSharedInstance(v26 v27)])
     {
-      _LSDatabaseCommit(v24);
+      _LSDatabaseCommit(v24, v27);
 LABEL_28:
       v23 = 1;
 LABEL_29:
 
-      v25 = v62;
+      v28 = v62;
       if (v23)
       {
-        v26 = _LSDatabaseGetLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v29 = _LSDatabaseGetLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = _LSSessionKeyCopyDescription(v24[2]);
+          v30 = _LSSessionKeyCopyDescription(v24[2]);
           *buf = 136446466;
           *&buf[4] = "_LSSessionSave";
           *&buf[12] = 2112;
-          *&buf[14] = v27;
-          _os_log_impl(&dword_18162D000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s: saved database for session %@", buf, 0x16u);
+          *&buf[14] = v30;
+          _os_log_impl(&dword_18162D000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s: saved database for session %@", buf, 0x16u);
         }
 
         v22 = 0;
@@ -2102,41 +1518,39 @@ LABEL_29:
 
       else
       {
-        v28 = _LSDatabaseGetLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v31 = _LSDatabaseGetLog();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v29 = _LSSessionKeyCopyDescription(v24[2]);
-          ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_3(v29, v25, buf, v28);
+          v32 = _LSSessionKeyCopyDescription(v24[2]);
+          ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErrorE_block_invoke_cold_3(v32, v28, buf, v31);
         }
 
-        v30 = v25;
-        v22 = v25;
+        v33 = v28;
+        v22 = v28;
       }
 
       goto LABEL_37;
     }
 
-    v41 = v24[1];
-    v42 = [v41 pathWithError:&v62];
+    v43 = v24[1];
+    v44 = [v43 pathWithError:&v62];
 
-    if (v42)
+    if (v44)
     {
-      v43 = v24;
-      v44 = v24[5];
-      v45 = _CSStoreValidate();
-      if (!v45)
+      v45 = v24;
+      v46 = _CSStoreValidate();
+      if (!v46)
       {
-        v46 = [v42 stringByAppendingString:@"_corrupt"];
+        v47 = [v44 stringByAppendingString:@"_corrupt"];
 
-        v42 = v46;
+        v44 = v47;
       }
 
-      v47 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v42 isDirectory:0];
-      if (v47)
+      v48 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v44 isDirectory:0];
+      if (v48)
       {
         *buf = 0;
-        v48 = v24;
-        v49 = v24[5];
+        v49 = v24;
         _LSDatabaseGetFileResourceProperties();
         v50 = *buf;
         *buf = 0;
@@ -2149,7 +1563,7 @@ LABEL_29:
         if (v51)
         {
           _LSDatabaseSentinelFlush();
-          if (v45)
+          if (v46)
           {
             v52 = 0;
           }
@@ -2195,7 +1609,7 @@ LABEL_29:
             v68 = 0u;
             v66 = 0u;
             memset(buf, 0, sizeof(buf));
-            _LSDatabaseGetHeader(v54, buf);
+            _LSDatabaseGetHeader(buf, v54);
             v55 = v75;
             v56 = _LSServer_DatabaseExecutionContext();
             *buf = MEMORY[0x1E69E9820];
@@ -2233,8 +1647,6 @@ LABEL_29:
 LABEL_52:
   v63[0] = &v59;
   std::vector<LSApplicationRecord * {__strong}>::__destroy_vector::operator()[abi:nn200100](v63);
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1817002D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, CFTypeRef cf, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
@@ -2261,7 +1673,7 @@ void ___ZL26_LSArmSaveTimerWithTimeouthdU13block_pointerFvbP11_LSDatabaseP7NSErr
   [(LSDBExecutionContext *)v1 syncRead:v2];
 }
 
-void std::vector<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSError *),std::allocator<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSError *)>>::__vdeallocate(void **a1)
+void std::vector<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSError *),std::allocator<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSError *)>>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -2302,8 +1714,8 @@ void ___ZL34_LSDatabasePostChangeNotificationsP11_LSDatabase_block_invoke(uint64
 
   if (!v8)
   {
-    v10 = _LSDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _LSDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v17 = +[_LSDServiceDomain defaultServiceDomain];
       v18 = LaunchServices::Database::Context::_get(&v20, v17, 0);
@@ -2322,19 +1734,19 @@ void ___ZL34_LSDatabasePostChangeNotificationsP11_LSDatabase_block_invoke(uint64
       *&buf[4] = "_LSDatabasePostChangeNotifications_block_invoke";
       v25 = 2112;
       v26 = v19;
-      _os_log_error_impl(&dword_18162D000, v10, OS_LOG_TYPE_ERROR, "could not connect to database in %s: %@", buf, 0x16u);
+      _os_log_error_impl(&dword_18162D000, v11, OS_LOG_TYPE_ERROR, "could not connect to database in %s: %@", buf, 0x16u);
     }
 
     goto LABEL_5;
   }
 
-  v9 = *(a1 + 32);
-  if (*v8 != v9)
+  v10 = *(a1 + 32);
+  if (*v8 != v10)
   {
-    _LSDefaultLog();
+    _LSDefaultLog(v10);
     objc_claimAutoreleasedReturnValue();
     ___ZL34_LSDatabasePostChangeNotificationsP11_LSDatabase_block_invoke_cold_1();
-    v10 = *buf;
+    v11 = *buf;
 LABEL_5:
 
     goto LABEL_11;
@@ -2342,19 +1754,19 @@ LABEL_5:
 
   if (*v8)
   {
-    _LSDatabaseSetHeaderFlag(v9, 0x1000000, 0);
-    v11 = *(a1 + 32);
-    if (v11)
+    _LSDatabaseSetHeaderFlag(v10, 0x1000000, 0);
+    v12 = *(a1 + 32);
+    if (v12)
     {
-      _LSDatabaseSetHeaderFlag(v11, 0x2000000, 0);
-      v12 = *(a1 + 32);
-      if (v12)
+      _LSDatabaseSetHeaderFlag(v12, 0x2000000, 0);
+      v13 = *(a1 + 32);
+      if (v13)
       {
-        _LSDatabaseSetHeaderFlag(v12, 0x4000000, 0);
-        v13 = *(a1 + 32);
-        if (v13)
+        _LSDatabaseSetHeaderFlag(v13, 0x4000000, 0);
+        v14 = *(a1 + 32);
+        if (v14)
         {
-          _LSDatabaseSetHeaderFlag(v13, 0x8000000, 0);
+          _LSDatabaseSetHeaderFlag(v14, 0x8000000, 0);
         }
       }
     }
@@ -2366,101 +1778,98 @@ LABEL_11:
     _LSContextDestroy(v20);
   }
 
-  v14 = v21;
+  v15 = v21;
   v20 = 0;
   v21 = 0;
 
   v22 = 0;
-  v15 = v23;
+  v16 = v23;
   v23 = 0;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  os_unfair_recursive_lock_lock_with_options();
-  v2 = _LSServer_SelfSessionKey();
-  v3 = _LSGetSession(v2);
-  if (!*(v3 + 24))
+  v45 = *MEMORY[0x1E69E9840];
+  v2 = os_unfair_recursive_lock_lock_with_options();
+  v4 = _LSServer_SelfSessionKey(v2, v3);
+  v5 = _LSGetSession(v4);
+  if (!*(v5 + 24))
   {
     os_unfair_recursive_lock_unlock();
     goto LABEL_9;
   }
 
-  v5 = (v3 + 24);
-  v4 = *(v3 + 24);
-  v42 = 0u;
+  v7 = (v5 + 24);
+  v6 = *(v5 + 24);
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
   *buf = 0u;
-  _LSDatabaseGetHeader(v4, buf);
-  v6 = v42;
-  LODWORD(v5) = [(_LSDatabase *)*v5 isSeeded];
+  _LSDatabaseGetHeader(buf, v6);
+  v8 = v43;
+  LODWORD(v7) = [(_LSDatabase *)*v7 isSeeded];
   os_unfair_recursive_lock_unlock();
-  if (!v5 || *(a1 + 48) != v6)
+  if (!v7 || *(a1 + 48) != v8)
   {
 LABEL_9:
     gSkippedRemap = 1;
-    v15 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(&v15->super, OS_LOG_TYPE_DEFAULT))
+    v17 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(&v17->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       *&buf[4] = "_LSDatabaseRemap_block_invoke";
-      _os_log_impl(&dword_18162D000, &v15->super, OS_LOG_TYPE_DEFAULT, "%{public}s Skipping database remap because there are unsaved local changes", buf, 0xCu);
+      _os_log_impl(&dword_18162D000, &v17->super, OS_LOG_TYPE_DEFAULT, "%{public}s Skipping database remap because there are unsaved local changes", buf, 0xCu);
     }
 
 LABEL_11:
-    v19 = 0;
+    v20 = 0;
     goto LABEL_12;
   }
 
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 1);
-  v9 = v8;
-  if (v8)
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 1);
+  v11 = v10;
+  if (v10)
   {
     *buf = 0;
-    v10 = _LSCreateStoreWithFileContents(v8, buf);
-    v11 = *buf;
-    v12 = v11;
-    if (v10)
+    v12 = _LSCreateStoreWithFileContents(v10, buf);
+    v13 = *buf;
+    v14 = v13;
+    if (v12)
     {
-      v13 = *(v7 + 2);
-      v14 = *(v7 + 3);
-      v30 = v11;
-      v15 = _LSDatabaseCreateWithAccessContext(v9, v13, v10, v14, &v30);
-      v16 = v30;
+      v15 = *(v9 + 2);
+      v16 = *(v9 + 3);
+      v31 = v13;
+      v17 = _LSDatabaseCreateWithAccessContext(v11, v15, v12, v16, &v31);
+      v18 = v31;
 
-      CFRelease(v10);
-      if (v15)
+      CFRelease(v12);
+      if (v17)
       {
-        v17 = v7;
-        _LSSchemaTransferCache(v7 + 48, &v15->_schema);
-        v18 = *(v7 + 3);
-        [_LSDatabase setAccessContext:v15];
+        v19 = v9;
+        _LSSchemaTransferCache(v9 + 48, &v17->_schema);
+        [_LSDatabase setAccessContext:v17];
 
-        v12 = 0;
+        v14 = 0;
         goto LABEL_18;
       }
 
-      v12 = v16;
+      v14 = v18;
     }
   }
 
   else
   {
-    v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, 0, "_LSDatabaseCreateByRemappingDatabase", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 1477);
+    v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, 0, "_LSDatabaseCreateByRemappingDatabase", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 1477);
   }
 
   v22 = _LSDatabaseGetLog();
@@ -2469,13 +1878,13 @@ LABEL_11:
     ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke_cold_1();
   }
 
-  v23 = v12;
-  v15 = 0;
-  v16 = v12;
+  v23 = v14;
+  v17 = 0;
+  v18 = v14;
 LABEL_18:
 
-  v19 = v12;
-  if (!v15)
+  v20 = v14;
+  if (!v17)
   {
     v24 = _LSDatabaseGetLog();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -2483,48 +1892,48 @@ LABEL_18:
       ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke_cold_2();
     }
 
-    v29 = v19;
-    v25 = _LSDatabaseCreateFromPersistentStore(7, 0, &v29);
-    v26 = v29;
+    v30 = v20;
+    v25 = _LSDatabaseCreateFromPersistentStore(7, 0, &v30);
+    v26 = v30;
 
     if (!v25)
     {
-      v28 = _LSDatabaseGetLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v29 = _LSDatabaseGetLog();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         ___ZL16_LSDatabaseRemapP11_LSDatabaseU13block_pointerFvbP7NSErrorP8NSStringE_block_invoke_cold_3();
       }
 
-      v15 = 0;
+      v17 = 0;
       goto LABEL_31;
     }
 
-    v15 = v25;
-    v19 = v26;
+    v17 = v25;
+    v20 = v26;
   }
 
-  if ([(_LSDatabase *)v15 isSeeded])
+  if ([(_LSDatabase *)v17 isSeeded])
   {
 
     v27 = _LSServer_DatabaseExecutionContext();
-    [(LSDBExecutionContext *)v27 setServerDatabase:v15];
+    [(LSDBExecutionContext *)v27 setServerDatabase:v17];
 
-    _LSDatabaseCommit(v15);
+    _LSDatabaseCommit(v17, v28);
     if (gSkippedRemap == 1)
     {
       gSkippedRemap = 0;
-      v28 = _LSDatabaseGetLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = _LSDatabaseGetLog();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
         *&buf[4] = "_LSDatabaseRemap_block_invoke";
-        _os_log_impl(&dword_18162D000, v28, OS_LOG_TYPE_DEFAULT, "%{public}s remapped the database after skipping a previous remap", buf, 0xCu);
+        _os_log_impl(&dword_18162D000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s remapped the database after skipping a previous remap", buf, 0xCu);
       }
 
       v26 = 0;
 LABEL_31:
 
-      v19 = v26;
+      v20 = v26;
       goto LABEL_12;
     }
 
@@ -2533,37 +1942,36 @@ LABEL_31:
 
 LABEL_12:
 
-  v20 = (*(*(a1 + 40) + 16))(*(a1 + 40), v19 == 0, v19, 0);
-  MEMORY[0x1865D7C50](v20);
-
-  v21 = *MEMORY[0x1E69E9840];
+  v21 = (*(*(a1 + 40) + 16))(*(a1 + 40), v20 == 0, v20, 0);
+  MEMORY[0x1865D7C50](v21);
 }
 
 void ___ZL15_LSGetStoreNodev_block_invoke()
 {
   v0 = objc_autoreleasePoolPush();
-  v1 = [__LSDefaultsGetSharedInstance() databaseStoreFileURL];
-  if (v1)
+  v2 = [__LSDefaultsGetSharedInstance(v0 v1)];
+  if (v2)
   {
-    v2 = [[FSNode alloc] initWithURL:v1 flags:0 error:0];
-    v3 = _LSGetStoreNode(void)::result;
-    _LSGetStoreNode(void)::result = v2;
+    v3 = [[FSNode alloc] initWithURL:v2 flags:0 error:0];
+    v4 = _LSGetStoreNode(void)::result;
+    _LSGetStoreNode(void)::result = v3;
   }
 
   objc_autoreleasePoolPop(v0);
 }
 
-void OUTLINED_FUNCTION_7_1(uint64_t a1, _DWORD *a2)
+void OUTLINED_FUNCTION_7_1(uint64_t a1, int *a2)
 {
   v3 = (*(*(a1 + 48) + 8) + 48);
 
   std::vector<unsigned int>::push_back[abi:nn200100](v3, a2);
 }
 
-void OUTLINED_FUNCTION_10_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_12_1(float a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2574,7 +1982,7 @@ void OUTLINED_FUNCTION_12_1(float a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *(a3 + 14) = v4;
 }
 
-void OUTLINED_FUNCTION_18_0(uint64_t a1, _DWORD *a2)
+void OUTLINED_FUNCTION_18_0(uint64_t a1, int *a2)
 {
   v3 = (*(*(a1 + 40) + 8) + 48);
 
@@ -2588,16 +1996,16 @@ id OUTLINED_FUNCTION_21_0(uint64_t a1)
   return v2;
 }
 
-id getAppProtectionServiceQueue(void)
+id getAppProtectionServiceQueue(uint64_t a1)
 {
   if (getAppProtectionServiceQueue(void)::sOnce != -1)
   {
     getAppProtectionServiceQueue();
   }
 
-  v1 = getAppProtectionServiceQueue(void)::sQueue;
+  v2 = getAppProtectionServiceQueue(void)::sQueue;
 
-  return v1;
+  return v2;
 }
 
 void ___Z28getAppProtectionServiceQueuev_block_invoke()
@@ -2610,30 +2018,30 @@ void ___Z28getAppProtectionServiceQueuev_block_invoke()
 
 void computeAddedAndRemovedBundleIDs(void *a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = [MEMORY[0x1E695DFA8] setWithArray:v8];
   v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = v7;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         [v9 removeObject:v15];
         if (([v8 ls_caseInsensitiveContainsString:v15] & 1) == 0)
         {
@@ -2641,7 +2049,7 @@ void computeAddedAndRemovedBundleIDs(void *a1, void *a2, void *a3, void *a4)
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -2651,8 +2059,6 @@ void computeAddedAndRemovedBundleIDs(void *a1, void *a2, void *a3, void *a4)
   *a1 = v9;
   v17 = v10;
   *a2 = v10;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void notifyLSObservers(void *a1, void *a2, char a3, void *a4)
@@ -2682,7 +2088,7 @@ void notifyLSObservers(void *a1, void *a2, char a3, void *a4)
   _Block_object_dispose(&v17, 8);
 }
 
-void sub_181701920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_181701920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -2691,121 +2097,134 @@ void sub_181701920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZL17notifyLSObserversP5NSSetS0_bPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   CurrentContext = _LSDatabaseContextGetCurrentContext(v6);
+  v29 = 0;
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
-  v33 = 0;
   v7 = +[_LSDServiceDomain defaultServiceDomain];
   v8 = LaunchServices::Database::Context::_get(&CurrentContext, v7, 0);
 
   if (v8)
   {
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = *(a1 + 32);
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v33 count:16];
     if (v10)
     {
-      v11 = *v27;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(a1 + 56);
-          updateProtectedBundleFlag(v8, *(*(&v26 + 1) + 8 * i));
+          updateProtectedBundleFlag(v8, *(*(&v24 + 1) + 8 * i), *(a1 + 56), 1);
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v24 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v14 = *(a1 + 40);
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v34 count:16];
-    if (v15)
+    v20 = 0u;
+    v21 = 0u;
+    v13 = *(a1 + 40);
+    v14 = [v13 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    if (v14)
     {
-      v16 = *v23;
+      v15 = *v21;
       do
       {
-        for (j = 0; j != v15; ++j)
+        for (j = 0; j != v14; ++j)
         {
-          if (*v23 != v16)
+          if (*v21 != v15)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v18 = *(a1 + 56);
-          updateProtectedBundleFlag(v8, *(*(&v22 + 1) + 8 * j));
+          updateProtectedBundleFlag(v8, *(*(&v20 + 1) + 8 * j), *(a1 + 56), 0);
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v22 objects:v34 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v20 objects:v32 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
 
     _LSArmSaveTimer(1);
-    _LSDatabaseCommit(v8->db);
+    _LSDatabaseCommit(v8->db, v17);
     if (v6)
     {
       objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
     }
   }
 
-  if (CurrentContext && v32 == 1)
+  if (CurrentContext && v30 == 1)
   {
     _LSContextDestroy(CurrentContext);
   }
 
-  v19 = v31;
+  v18 = v29;
   CurrentContext = 0;
+  v29 = 0;
+
+  v30 = 0;
+  v19 = v31;
   v31 = 0;
-
-  v32 = 0;
-  v20 = v33;
-  v33 = 0;
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
-void updateProtectedBundleFlag(LSContext *a1, NSString *a2)
+void updateProtectedBundleFlag(LSContext *a1, NSString *a2, char a3, char a4)
 {
-  v3 = a2;
+  v5 = a2;
   [(_LSDatabase *)a1->db store];
-  v4 = *([(_LSDatabase *)a1->db schema]+ 4);
-  v5 = v3;
+  [(_LSDatabase *)a1->db schema];
+  v6 = v5;
   _CSStoreEnumerateUnits();
 }
 
 void ___ZL25updateProtectedBundleFlagP9LSContextP8NSStringbb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   [(_LSDatabase *)**(a1 + 40) store];
-  v5 = *(a1 + 32);
   v6 = _CSGetStringForCFString();
   if (v6 && *(a3 + 12) == v6)
   {
     v7 = *(a3 + 189);
     v8 = *(a1 + 49);
-    *(a1 + 48);
-    *(a1 + 48);
-    v9 = **(a1 + 40);
+    if (*(a1 + 48))
+    {
+      v9 = 20;
+    }
 
-    _LSBundleSetMoreFlags(v9);
+    else
+    {
+      v9 = 21;
+    }
+
+    if (*(a1 + 48))
+    {
+      v10 = -1048577;
+    }
+
+    else
+    {
+      v10 = -2097153;
+    }
+
+    v11 = **(a1 + 40);
+
+    _LSBundleSetMoreFlags(v11, a2, (v8 << v9) | v7 & v10);
   }
 }
 
@@ -2819,62 +2238,62 @@ void sub_1817037FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZL47dispatchEnumerateAndRegisterWithDiagnosticFramet_block_invoke()
+void ___ZL47dispatchEnumerateAndRegisterWithDiagnosticFramet_block_invoke()
 {
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_CREATION_FROM_STORE_FAILED__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_IT_WAS_CORRUPT__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_IT_DID_NOT_EXIST__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_A_RECOVERY_FILE_EXISTED__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_ALLOC_FAILED_DURING_STORE_CREATION__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_STORE_CREATION_FAILED_UNEXPECTEDLY__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_CREATION_FROM_FRESH_FAILED__);
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_BECAUSE_THE_DATABASE_WAS_CREATED_FRESH__);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 
-  return std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_IS_REBUILDING_THE_DATABASE_UNEXPECTEDLY__);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2, uint64_t a3)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v3 = a2;
+  v5 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v16, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v17, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_21;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v11 = v6;
-    if (v6 >= *&v8)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v11 = v6 % *&v8;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v6;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_21:
     operator new();
@@ -2882,44 +2301,44 @@ LABEL_21:
 
   while (1)
   {
-    v14 = v13[1];
-    if (v14 == v7)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v10 > 1)
+    if (v11 > 1)
     {
-      if (v14 >= *&v8)
+      if (v15 >= *&v9)
       {
-        v14 %= *&v8;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v14 &= *&v8 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v14 != v11)
+    if (v15 != v12)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v13 = *v13;
-    if (!v13)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](a1, v13 + 2, v2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](a1, v14 + 2, v3))
   {
     goto LABEL_20;
   }
 
-  return v13;
+  return v14;
 }
 
 BOOL std::equal_to<std::string>::operator()[abi:nn200100](uint64_t a1, const void **a2, const void **a3)
@@ -3131,18 +2550,18 @@ void _LSDatabaseContextStopAccessing(LaunchServices::DatabaseContext *a1)
     _LSDatabaseContextStopAccessing_cold_1(PerThreadStateReference, v2);
   }
 
-  v3 = PerThreadStateReference[4];
+  v3 = *(PerThreadStateReference + 4);
   if (v3 <= 0)
   {
     v7 = [MEMORY[0x1E696AAA8] currentHandler];
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _LSDatabaseContextStopAccessing()"];
     [v7 handleFailureInFunction:v8 file:@"LSDatabaseContext.mm" lineNumber:220 description:@"Called +stopAccessing when not accessing the database. This is a bug in the Launch Services client."];
 
-    v3 = PerThreadStateReference[4];
+    v3 = *(PerThreadStateReference + 4);
   }
 
   v4 = v3 - 1;
-  PerThreadStateReference[4] = v4;
+  *(PerThreadStateReference + 4) = v4;
   if (!v4)
   {
     if (*PerThreadStateReference)
@@ -3153,13 +2572,13 @@ void _LSDatabaseContextStopAccessing(LaunchServices::DatabaseContext *a1)
       }
     }
 
-    v5 = PerThreadStateReference[1];
+    v5 = *(PerThreadStateReference + 1);
     *PerThreadStateReference = 0;
-    PerThreadStateReference[1] = 0;
+    *(PerThreadStateReference + 1) = 0;
 
     *(PerThreadStateReference + 16) = 0;
-    v6 = PerThreadStateReference[3];
-    PerThreadStateReference[3] = 0;
+    v6 = *(PerThreadStateReference + 3);
+    *(PerThreadStateReference + 3) = 0;
   }
 }
 
@@ -3194,58 +2613,58 @@ void _LSDatabaseContextAccessUsingBlock(const unsigned int *a1, uint64_t a2, uin
 void _LSDatabaseContextAccessContextUsingBlock(LaunchServices::DatabaseContext *a1, uint64_t a2)
 {
   PerThreadStateReference = LaunchServices::DatabaseContext::getPerThreadStateReference(a1);
-  if (*(PerThreadStateReference + 4) >= 1)
+  if (PerThreadStateReference[4] >= 1)
   {
     v10 = [MEMORY[0x1E696AAA8] currentHandler];
     v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _LSDatabaseContextAccessContextUsingBlock(LSContext * _Nonnull, void (^const __strong _Nonnull)())"}];
     [v10 handleFailureInFunction:v11 file:@"LSDatabaseContext.mm" lineNumber:251 description:@"Already accessing a database context when asked to access one explicitly. The results of this operation are undefined."];
   }
 
-  if (*PerThreadStateReference && PerThreadStateReference[16] == 1)
+  if (*PerThreadStateReference && *(PerThreadStateReference + 16) == 1)
   {
     _LSContextDestroy(*PerThreadStateReference);
   }
 
-  v5 = *(PerThreadStateReference + 1);
+  v5 = PerThreadStateReference[1];
   *PerThreadStateReference = 0;
-  *(PerThreadStateReference + 1) = 0;
+  PerThreadStateReference[1] = 0;
 
-  PerThreadStateReference[16] = 0;
-  v6 = *(PerThreadStateReference + 3);
-  *(PerThreadStateReference + 3) = 0;
+  *(PerThreadStateReference + 16) = 0;
+  v6 = PerThreadStateReference[3];
+  PerThreadStateReference[3] = 0;
 
   if (a1)
   {
-    *PerThreadStateReference = PerThreadStateReference + 8;
+    *PerThreadStateReference = PerThreadStateReference + 1;
     objc_storeStrong(PerThreadStateReference + 1, *a1);
-    PerThreadStateReference[16] = 0;
+    *(PerThreadStateReference + 16) = 0;
   }
 
-  v7 = *(PerThreadStateReference + 3);
-  *(PerThreadStateReference + 3) = 0;
+  v7 = PerThreadStateReference[3];
+  PerThreadStateReference[3] = 0;
 
-  *(PerThreadStateReference + 4) = 1;
+  PerThreadStateReference[4] = 1;
   (*(a2 + 16))(a2);
-  *(PerThreadStateReference + 4) = 0;
-  if (*PerThreadStateReference && PerThreadStateReference[16] == 1)
+  PerThreadStateReference[4] = 0;
+  if (*PerThreadStateReference && *(PerThreadStateReference + 16) == 1)
   {
     _LSContextDestroy(*PerThreadStateReference);
   }
 
-  v8 = *(PerThreadStateReference + 1);
+  v8 = PerThreadStateReference[1];
   *PerThreadStateReference = 0;
-  *(PerThreadStateReference + 1) = 0;
+  PerThreadStateReference[1] = 0;
 
-  PerThreadStateReference[16] = 0;
-  v9 = *(PerThreadStateReference + 3);
-  *(PerThreadStateReference + 3) = 0;
+  *(PerThreadStateReference + 16) = 0;
+  v9 = PerThreadStateReference[3];
+  PerThreadStateReference[3] = 0;
 }
 
-_BYTE *_LSDatabaseContextSetDetachProxyObjects(LaunchServices::DatabaseContext *a1)
+void *_LSDatabaseContextSetDetachProxyObjects(LaunchServices::DatabaseContext *a1)
 {
   v1 = a1 ^ 1;
   result = LaunchServices::DatabaseContext::getPerThreadStateReference(a1);
-  result[40] = v1;
+  *(result + 40) = v1;
   return result;
 }
 
@@ -3256,6 +2675,7 @@ id getXPCObjectForNodeAndStore(FSNode *a1, const __CSStore *a2)
   v12 = 0;
   LODWORD(a1) = [(FSNode *)a1 getFileSystemRepresentation:string error:&v12];
   v4 = v12;
+  v5 = v4;
   if (a1)
   {
     xpc_dictionary_set_string(v3, "path", string);
@@ -3263,37 +2683,35 @@ id getXPCObjectForNodeAndStore(FSNode *a1, const __CSStore *a2)
 
   else
   {
-    v5 = _LSDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _LSDefaultLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      getXPCObjectForNodeAndStore(v4, v5);
+      getXPCObjectForNodeAndStore(v5, v6);
     }
   }
 
   cf = 0;
-  v6 = _CSStoreCreateXPCRepresentation();
-  if (v6)
+  v7 = _CSStoreCreateXPCRepresentation();
+  if (v7)
   {
-    xpc_dictionary_set_value(v3, "store", v6);
+    xpc_dictionary_set_value(v3, "store", v7);
   }
 
   else
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      getXPCObjectForNodeAndStore(&cf, v7);
+      getXPCObjectForNodeAndStore(&cf, v8);
     }
   }
 
-  v8 = getpid();
-  xpc_dictionary_set_uint64(v3, "insecureProcessID", v8);
+  v9 = getpid();
+  xpc_dictionary_set_uint64(v3, "insecureProcessID", v9);
   if (cf)
   {
     CFRelease(cf);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -3340,14 +2758,7 @@ void ___ZN14LaunchServices15DatabaseContextL6getLogEv_block_invoke()
   LaunchServices::DatabaseContext::getLog(void)::result = v0;
 }
 
-void _LSContextCreateVisualizer(uint64_t *a1)
-{
-  v1 = *MEMORY[0x1E69E9840];
-  [objc_alloc(MEMORY[0x1E69991A0]) initWithStore:-[_LSDatabase store](*a1)];
-  operator new();
-}
-
-void sub_181705FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_181705FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>>>::~__hash_table(v65 + 32);
   std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>>>::~__hash_table(&a35);
@@ -3363,34 +2774,35 @@ void sub_181705FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void _LSServer_BeginProvidingVisualizationArchives()
+void _LSServer_BeginProvidingVisualizationArchives(uint64_t a1, uint64_t a2)
 {
-  _LSAssertRunningInServer("void _LSServer_BeginProvidingVisualizationArchives()");
-  if ([__LSDefaultsGetSharedInstance() isAppleInternal])
+  _LSAssertRunningInServer("void _LSServer_BeginProvidingVisualizationArchives()", a2);
+  v4 = [__LSDefaultsGetSharedInstance(v2 v3)];
+  if (v4)
   {
     if (_LSServer_BeginProvidingVisualizationArchives::onceToken != -1)
     {
       _LSServer_BeginProvidingVisualizationArchives_cold_1();
     }
 
-    v0 = MEMORY[0x1E6999198];
-    v1 = [__LSDefaultsGetSharedInstance() serviceNameForConnectionType:9];
-    [v0 beginProvidingVisualizationArchivesWithMachServiceName:? queue:? creatingVisualizersWithBlock:?];
+    v6 = MEMORY[0x1E6999198];
+    v7 = [__LSDefaultsGetSharedInstance(v4 v5)];
+    [v6 beginProvidingVisualizationArchivesWithMachServiceName:? queue:? creatingVisualizersWithBlock:?];
   }
 }
 
-void sub_181706620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_181706620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1817067C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1817067C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
-  CFRelease(v5);
+  CFRelease(v7);
   LaunchServices::Database::Context::~Context(va);
 
   _Unwind_Resume(a1);
@@ -3399,14 +2811,14 @@ void sub_1817067C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 uint64_t _LSDisplayHumanReadableData(uint64_t *a1, FILE *a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7)
 {
   v12 = a3;
-  v29 = a4;
-  v31 = a5;
-  v32 = a1;
+  v28 = a4;
+  v30 = a5;
+  v31 = a1;
   [(_LSDatabase *)*a1 store];
   CatalogTable = _CSStoreGetCatalogTable();
   if (LaunchServices::DatabaseVisualization::shouldDumpTable(a1, v12, CatalogTable, a6))
   {
-    v14 = v31 == 0;
+    v14 = v30 == 0;
   }
 
   else
@@ -3414,32 +2826,14 @@ uint64_t _LSDisplayHumanReadableData(uint64_t *a1, FILE *a2, void *a3, void *a4,
     v14 = 0;
   }
 
-  if (!v14 || (a6 & 0x12) != 0)
+  v15 = v14 && (a6 & 0x12) == 0;
+  if (v15 && (v23 = objc_alloc_init(MEMORY[0x1E696AD40])) != 0 && ((v24 = [MEMORY[0x1E6999190] newWithStore:-[_LSDatabase store](*a1) buffer:v23], LOBYTE(v37[0]) = 0, _LSDatabaseDisplayHeader(v24, *a1, v37), !LOBYTE(v37[0])) ? (v25 = _LSGetNSErrorFromOSStatusImpl(-10817, a7, 0, "_LSDisplayHumanReadableData", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Visualization/LSDatabaseVisualization.mm", 266)) : (v25 = 1), objc_msgSend(v23, "cs_writeToFileHandle:", a2), fputc(10, a2), v24, v23, !v25))
   {
-    goto LABEL_8;
-  }
-
-  v24 = objc_alloc_init(MEMORY[0x1E696AD40]);
-  if (!v24)
-  {
-    goto LABEL_8;
-  }
-
-  v25 = [MEMORY[0x1E6999190] newWithStore:-[_LSDatabase store](*a1) buffer:v24];
-  LOBYTE(v38[0]) = 0;
-  _LSDatabaseDisplayHeader(v25, *a1, v38);
-  v26 = LOBYTE(v38[0]) || _LSGetNSErrorFromOSStatusImpl(-10817, a7, 0, "_LSDisplayHumanReadableData", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Visualization/LSDatabaseVisualization.mm", 266);
-  [v24 cs_writeToFileHandle:a2];
-  fputc(10, a2);
-
-  if (!v26)
-  {
-    v22 = 0;
+    v21 = 0;
   }
 
   else
   {
-LABEL_8:
     if ((a6 & 2) == 0)
     {
       _LSContextCreateVisualizer(a1);
@@ -3448,48 +2842,47 @@ LABEL_8:
     v16 = [objc_alloc(MEMORY[0x1E69991A0]) initWithStore:-[_LSDatabase store](*a1) useStandardTableFunctions:0];
     if (!v16)
     {
-      v27 = [MEMORY[0x1E696AAA8] currentHandler];
-      v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSDisplayHumanReadableData(LSContext * _Nonnull, FILE * _Nonnull, NSSet<NSString *> *__strong _Nullable, NSSet<NSString *> *__strong _Nullable, NSPredicate *__strong _Nullable, _LSDisplayDataOptions, NSError *__autoreleasing * _Nullable)"}];
-      [v27 handleFailureInFunction:v28 file:@"LSDatabaseVisualization.mm" lineNumber:288 description:@"Failed to create database visualizer."];
+      v26 = [MEMORY[0x1E696AAA8] currentHandler];
+      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _LSDisplayHumanReadableData(LSContext * _Nonnull, FILE * _Nonnull, NSSet<NSString *> *__strong _Nullable, NSSet<NSString *> *__strong _Nullable, NSPredicate *__strong _Nullable, _LSDisplayDataOptions, NSError *__autoreleasing * _Nullable)"}];
+      [v26 handleFailureInFunction:v27 file:@"LSDatabaseVisualization.mm" lineNumber:288 description:@"Failed to create database visualizer."];
     }
 
     v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a6];
     v18 = [v16 userInfo];
     [v18 setObject:v17 forKeyedSubscript:@"Options"];
 
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x2020000000;
-    v39 = 1;
+    v37[0] = 0;
+    v37[1] = v37;
+    v37[2] = 0x2020000000;
+    v38 = 1;
     if ((a6 & 0x10) != 0)
     {
       fputc(91, a2);
     }
 
-    LaunchServices::DatabaseVisualization::getTablesToDisplay(a1, v12, a6, &v36);
-    v20 = v36;
-    v19 = v37;
-    if (v36 != v37)
+    LaunchServices::DatabaseVisualization::getTablesToDisplay(a1, v12, a6, &v35);
+    v20 = v35;
+    v19 = v36;
+    if (v35 != v36)
     {
       do
       {
-        v21 = *v20;
-        [(_LSDatabase *)*v32 store];
-        v33 = v16;
-        v34 = v29;
-        v35 = v31;
+        [(_LSDatabase *)*v31 store];
+        v32 = v16;
+        v33 = v28;
+        v34 = v30;
         _CSStoreEnumerateUnits();
 
-        ++v20;
+        v20 += 4;
       }
 
       while (v20 != v19);
-      v20 = v36;
+      v20 = v35;
     }
 
     if (v20)
     {
-      v37 = v20;
+      v36 = v20;
       operator delete(v20);
     }
 
@@ -3498,16 +2891,17 @@ LABEL_8:
       fputc(93, a2);
     }
 
-    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v37, 8);
 
-    v22 = 1;
+    v21 = 1;
   }
 
-  return v22;
+  return v21;
 }
 
-uint64_t LaunchServices::DatabaseVisualization::shouldDumpTable(uint64_t *a1, void *a2, int a3, char a4)
+uint64_t LaunchServices::DatabaseVisualization::shouldDumpTable(uint64_t *a1, void *a2, uint64_t a3, char a4)
 {
+  v5 = a3;
   v7 = a2;
   v8 = v7;
   if (v7)
@@ -3528,7 +2922,7 @@ uint64_t LaunchServices::DatabaseVisualization::shouldDumpTable(uint64_t *a1, vo
   }
 
   [(_LSDatabase *)*a1 store];
-  if (_CSStoreGetStringTable() == a3 || *([(_LSDatabase *)*a1 schema]+ 1596) == a3 || *([(_LSDatabase *)*a1 schema]+ 24) == a3)
+  if (_CSStoreGetStringTable() == v5 || *([(_LSDatabase *)*a1 schema]+ 1596) == v5 || *([(_LSDatabase *)*a1 schema]+ 24) == v5)
   {
 LABEL_7:
     v9 = 0;
@@ -3537,20 +2931,20 @@ LABEL_7:
 
   [(_LSDatabase *)*a1 store];
   ArrayTable = _CSStoreGetArrayTable();
-  if ((a4 & 1) != 0 || ArrayTable == a3)
+  if ((a4 & 1) != 0 || ArrayTable == v5)
   {
-    if (ArrayTable == a3)
+    if (ArrayTable == v5)
     {
       goto LABEL_7;
     }
   }
 
-  else if (*([(_LSDatabase *)*a1 schema]+ 1584) == a3)
+  else if (*([(_LSDatabase *)*a1 schema]+ 1584) == v5)
   {
     goto LABEL_7;
   }
 
-  if (*([(_LSDatabase *)*a1 schema]+ 1600) == a3 || *([(_LSDatabase *)*a1 schema]+ 1604) == a3 || *([(_LSDatabase *)*a1 schema]+ 1608) == a3)
+  if (*([(_LSDatabase *)*a1 schema]+ 1600) == v5 || *([(_LSDatabase *)*a1 schema]+ 1604) == v5 || *([(_LSDatabase *)*a1 schema]+ 1608) == v5)
   {
     goto LABEL_7;
   }
@@ -3560,8 +2954,8 @@ LABEL_7:
   do
   {
     v15 = *(v13 + v14);
-    v9 = v15 != a3;
-    if (v15 == a3)
+    v9 = v15 != v5;
+    if (v15 == v5)
     {
       break;
     }
@@ -3576,31 +2970,31 @@ LABEL_9:
   return v9;
 }
 
-void LaunchServices::DatabaseVisualization::getTablesToDisplay(uint64_t *a1@<X0>, void *a2@<X1>, char a3@<W2>, void *a4@<X8>)
+void LaunchServices::DatabaseVisualization::getTablesToDisplay(uint64_t *a1@<X0>, void *a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x4812000000;
-  v15 = __Block_byref_object_copy__17;
-  v16 = __Block_byref_object_dispose__17;
-  v17 = &unk_1818533FF;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x4812000000;
+  v14 = __Block_byref_object_copy__17;
+  v15 = __Block_byref_object_dispose__17;
+  v16 = &unk_1818533FF;
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
   __p = 0;
-  v21[0] = *([(_LSDatabase *)*a1 schema]+ 4);
-  v21[1] = *([(_LSDatabase *)*a1 schema]+ 1580);
-  v21[2] = *([(_LSDatabase *)*a1 schema]+ 1588);
-  v21[3] = *([(_LSDatabase *)*a1 schema]+ 1592);
+  v20[0] = *([(_LSDatabase *)*a1 schema]+ 4);
+  v20[1] = *([(_LSDatabase *)*a1 schema]+ 1580);
+  v20[2] = *([(_LSDatabase *)*a1 schema]+ 1588);
+  v20[3] = *([(_LSDatabase *)*a1 schema]+ 1592);
   v8 = 0;
-  v21[4] = *([(_LSDatabase *)*a1 schema]+ 1576);
+  v20[4] = *([(_LSDatabase *)*a1 schema]+ 1576);
   do
   {
-    v11 = v21[v8];
-    if (LaunchServices::DatabaseVisualization::shouldDumpTable(a1, v7, v11, a3))
+    v10 = v20[v8];
+    if (LaunchServices::DatabaseVisualization::shouldDumpTable(a1, v7, v10, a3))
     {
-      std::vector<unsigned int>::push_back[abi:nn200100](v13 + 6, &v11);
+      std::vector<unsigned int>::push_back[abi:nn200100](v12 + 6, &v10);
     }
 
     ++v8;
@@ -3610,19 +3004,17 @@ void LaunchServices::DatabaseVisualization::getTablesToDisplay(uint64_t *a1@<X0>
   [(_LSDatabase *)*a1 store];
   v9 = v7;
   _CSStoreEnumerateTables();
-  std::vector<LSBundleClass>::vector[abi:nn200100](a4, v13 + 6);
+  std::vector<LSBundleClass>::vector[abi:nn200100](a4, v12 + 6);
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v11, 8);
   if (__p)
   {
-    v19 = __p;
+    v18 = __p;
     operator delete(__p);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void sub_18170706C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_18170706C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   _Block_object_dispose(&a18, 8);
   if (__p)
@@ -3738,7 +3130,7 @@ void ___ZN14LaunchServices21DatabaseVisualizationL14getAllHandlersEP9LSContext_b
   v5 = a2;
   if (!std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>((a1 + 32), &v5))
   {
-    v4 = _LSDefaultLog();
+    v4 = _LSDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       ___ZN14LaunchServices21DatabaseVisualizationL14getAllHandlersEP9LSContext_block_invoke_cold_1(a3, v4);
@@ -3746,33 +3138,33 @@ void ___ZN14LaunchServices21DatabaseVisualizationL14getAllHandlersEP9LSContext_b
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3780,44 +3172,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::unordered_map<unsigned int,_LSDatabaseTableVisualizationFunctions>::unordered_map(uint64_t a1, uint64_t a2)
@@ -3828,39 +3220,39 @@ uint64_t std::unordered_map<unsigned int,_LSDatabaseTableVisualizationFunctions>
   std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,_LSDatabaseTableVisualizationFunctions> const&>(a1, i + 4);
+    std::__hash_table<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,_LSDatabaseTableVisualizationFunctions> const&>(a1, i + 4, i + 1);
   }
 
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,_LSDatabaseTableVisualizationFunctions> const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,_LSDatabaseTableVisualizationFunctions>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,_LSDatabaseTableVisualizationFunctions> const&>(void *a1, unsigned int *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3868,47 +3260,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void ___ZN14LaunchServices21DatabaseVisualizationL18getTablesToDisplayEP9LSContextP5NSSetIP8NSStringEj_block_invoke(uint64_t a1, int a2)
+void ___ZN14LaunchServices21DatabaseVisualizationL18getTablesToDisplayEP9LSContextP5NSSetIP8NSStringEj_block_invoke(uint64_t a1, uint64_t a2)
 {
   v5 = a2;
   v4 = *(*(*(a1 + 40) + 8) + 48);
@@ -3936,14 +3328,12 @@ void ___ZN14LaunchServices21DatabaseVisualizationL18getTablesToDisplayEP9LSConte
 
 __n128 __Block_byref_object_copy__71(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4055,33 +3445,33 @@ void std::allocator<_NSRange>::allocate_at_least[abi:nn200100](uint64_t a1, unin
   std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4089,49 +3479,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_1817086B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1817086B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -4143,9 +3533,9 @@ void sub_181708980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1817099D4(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1817099D4(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   LaunchServices::Database::Context::~Context(va);
   _Unwind_Resume(a1);
@@ -4241,7 +3631,7 @@ Class initUMUserManager(void)
   return result;
 }
 
-uint64_t __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_IS_USING_PRIVATE_SYMBOLS__()
+void *__LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_IS_USING_PRIVATE_SYMBOLS__()
 {
   if (__LSDefaultsGetSharedInstance_onceToken != -1)
   {
@@ -4251,9 +3641,7 @@ uint64_t __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCES
   result = [__LSDefaultsGetSharedInstance_sharedInstance issueSandboxExceptionsIfMayNotMapDatabase];
   if (result)
   {
-    v1 = _LSGetAuditTokenForSelf();
-    v2 = *v1;
-    v3 = v1[1];
+    _LSGetAuditTokenForSelf(result, v1);
     return sandbox_check_by_audit_token();
   }
 
@@ -4262,51 +3650,50 @@ uint64_t __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCES
 
 id _LSDefaultsBaseSystemContainerURL()
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v0 = getenv("LS_DATABASE_DIR");
   if (!v0)
   {
-    v18 = 0;
-    v15 = 1;
+    v17 = 0;
+    v14 = 1;
     v1 = container_system_path_for_identifier();
     if (!v1)
     {
       error_description = container_get_error_description();
-      v7 = _LSDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = _LSDefaultLog(error_description);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        _LSDefaultsBaseSystemContainerURL_cold_1(&v15, error_description, v7);
+        _LSDefaultsBaseSystemContainerURL_cold_1(&v14, error_description, v6);
       }
 
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error getting container url (%s)! Cannot continue.", error_description];
-      v9 = MEMORY[0x1E695DF30];
-      v10 = *MEMORY[0x1E695D930];
-      v16 = @"LSContainerErrorNumber";
-      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v15];
-      v17 = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-      v13 = [v9 exceptionWithName:v10 reason:v8 userInfo:v12];
-      v14 = v13;
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error getting container url (%s)! Cannot continue.", error_description];
+      v8 = MEMORY[0x1E695DF30];
+      v9 = *MEMORY[0x1E695D930];
+      v15 = @"LSContainerErrorNumber";
+      v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v14];
+      v16 = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v12 = [v8 exceptionWithName:v9 reason:v7 userInfo:v11];
+      v13 = v12;
 
-      objc_exception_throw(v13);
+      objc_exception_throw(v12);
     }
 
     v2 = v1;
-    v0 = &v18;
+    v0 = &v17;
     __strlcpy_chk();
     free(v2);
   }
 
   v3 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithFileSystemRepresentation:v0 isDirectory:1 relativeToURL:0];
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
-uint64_t emitSandboxExceptionAndMaybeAbortForSneakyURLUsage()
+void *emitSandboxExceptionAndMaybeAbortForSneakyURLUsage(uint64_t a1)
 {
-  v0 = _LSDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _LSDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     emitSandboxExceptionAndMaybeAbortForSneakyURLUsage_cold_1();
   }
@@ -4321,12 +3708,12 @@ void sub_18170D638(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _LSPerUserEntropyURL(void)
+id _LSPerUserEntropyURL(uint64_t a1, uint64_t a2)
 {
-  v0 = [__LSDefaultsGetSharedInstance() userContainerURL];
-  v1 = [v0 URLByAppendingPathComponent:@"com.apple.LaunchServices.DeviceIdentifierEntropy" isDirectory:0];
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  v3 = [v2 URLByAppendingPathComponent:@"com.apple.LaunchServices.DeviceIdentifierEntropy" isDirectory:0];
 
-  return v1;
+  return v3;
 }
 
 Class initUMUserPersona(void)
@@ -4357,50 +3744,50 @@ uint64_t initMKBDeviceUnlockedSinceBoot(void)
   return v1();
 }
 
-void sub_18170F530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18170F530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18170F808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18170F808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_18170F9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18170F9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_18170FB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18170FB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_18170FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18170FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_181710008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_181710008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4414,7 +3801,7 @@ void sub_1817102D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1817118AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1817118AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -4747,7 +4134,7 @@ LABEL_4:
   return v14;
 }
 
-void sub_1817129B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_1817129B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   v36 = v34;
 
@@ -4798,7 +4185,7 @@ id XNSDictionaryObjectForKeyOfClass(NSDictionary *a1, objc_object *a2, objc_clas
   return v5;
 }
 
-void sub_1817147F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1817147F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4833,16 +4220,16 @@ void std::vector<int>::resize(std::vector<int> *this, std::vector<int>::size_typ
   }
 }
 
-void sub_18171536C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18171536C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1817161C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1817161C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -4909,7 +4296,7 @@ void std::vector<int>::__append(std::vector<int> *this, std::vector<int>::size_t
   }
 }
 
-void std::vector<unsigned short>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4970,7 +4357,7 @@ id _LSGetDMFPolicyNoCache(void *a1, void *a2)
   return v5;
 }
 
-void sub_181716968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_181716968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -4980,17 +4367,16 @@ void sub_181716968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14LaunchServices10DMFSupportL10getMonitorEb_block_invoke_2(LaunchServices::DMFSupport *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = LaunchServices::DMFSupport::getLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "getMonitor_block_invoke_2";
-    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEFAULT, "%s: DMF policies changed.", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "getMonitor_block_invoke_2";
+    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEFAULT, "%s: DMF policies changed.", &v2, 0xCu);
   }
 
   LaunchServices::DMFSupport::reloadAllPolicies(LaunchServices::DMFSupport::getMonitor(BOOL)::cachingMonitor);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14LaunchServices10DMFSupportL10getMonitorEb_block_invoke_19(LaunchServices::DMFSupport *a1)
@@ -5060,19 +4446,19 @@ void sub_181717224(_Unwind_Exception *a1)
 
 uint64_t _LSNodeIsOnCryptex(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v20 = 0;
-  v6 = *MEMORY[0x1E695DEA0];
   v19 = 0;
-  v7 = [v5 getResourceValue:&v20 forKey:v6 options:1 error:&v19];
-  v8 = v19;
+  v6 = *MEMORY[0x1E695DEA0];
+  v18 = 0;
+  v7 = [v5 getResourceValue:&v19 forKey:v6 options:1 error:&v18];
+  v8 = v18;
   if (!v7)
   {
     goto LABEL_6;
   }
 
-  if (![v20 isEqualToString:@"apfs"])
+  if (![v19 isEqualToString:@"apfs"])
   {
     v14 = 0;
     if (!a2)
@@ -5083,15 +4469,15 @@ uint64_t _LSNodeIsOnCryptex(void *a1, void *a2, void *a3)
     goto LABEL_12;
   }
 
-  v18 = v8;
-  v9 = [v5 getFileSystemRepresentation:v21 error:&v18];
-  v10 = v18;
+  v17 = v8;
+  v9 = [v5 getFileSystemRepresentation:v20 error:&v17];
+  v10 = v17;
 
   if (v9)
   {
-    v17[0] = 0;
-    v17[1] = 0;
-    if (fsctl(v21, 0xC0104A66uLL, v17, 0))
+    v16[0] = 0;
+    v16[1] = 0;
+    if (fsctl(v20, 0xC0104A66uLL, v16, 0))
     {
       v11 = __error();
       v8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], *v11, 0, "_LSNodeIsOnCryptex", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSCryptexUtils.mm", 40);
@@ -5101,7 +4487,7 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v14 = BYTE4(v17[0]) != 0;
+    v14 = BYTE4(v16[0]) != 0;
     v8 = v10;
     if (!a2)
     {
@@ -5131,13 +4517,12 @@ LABEL_7:
   v8 = v10;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 uint64_t getFailableNumericFromBaseProperties<unsigned long long>(void *a1, void *a2, const char *a3, void *a4, void *a5)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a2;
   v11 = NSStringFromSelector(a3);
@@ -5181,22 +4566,21 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v21 = *MEMORY[0x1E696A278];
-  v22[0] = v11;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v20 = *MEMORY[0x1E696A278];
+  v21[0] = v11;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v18, "getFailableNumericFromBaseProperties", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 284);
   *a5 = v17 = 0;
   v14 = v18;
 LABEL_13:
 
 LABEL_14:
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 uint64_t getFailableNumericFromBaseProperties<double>(void *a1, void *a2, const char *a3, void *a4, void *a5)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a2;
   v11 = NSStringFromSelector(a3);
@@ -5241,16 +4625,15 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v22 = *MEMORY[0x1E696A278];
-  v23[0] = v11;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v21 = *MEMORY[0x1E696A278];
+  v22[0] = v11;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v19, "getFailableNumericFromBaseProperties", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 284);
   *a5 = v18 = 0;
   v14 = v19;
 LABEL_13:
 
 LABEL_14:
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -5261,9 +4644,9 @@ void sub_18171B044(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_18171B05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18171B05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5276,13 +4659,13 @@ void sub_18171B19C(void *a1)
   objc_exception_rethrow();
 }
 
-void __LS_DETECTED_ATTEMPT_TO_FETCH_DSIDS_FROM_REDACTED_RECORD__()
+void __LS_DETECTED_ATTEMPT_TO_FETCH_DSIDS_FROM_REDACTED_RECORD__(uint64_t a1)
 {
-  v0 = _LSDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _LSDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    *v1 = 0;
-    _os_log_fault_impl(&dword_18162D000, v0, OS_LOG_TYPE_FAULT, "This process has made an attempt to access DSIDs from a record that has had that data redacted for privacy reasons. Break on __LS_DETECTED_ATTEMPT_TO_FETCH_DSIDS_FROM_REDACTED_RECORD__ to debug.", v1, 2u);
+    *v2 = 0;
+    _os_log_fault_impl(&dword_18162D000, v1, OS_LOG_TYPE_FAULT, "This process has made an attempt to access DSIDs from a record that has had that data redacted for privacy reasons. Break on __LS_DETECTED_ATTEMPT_TO_FETCH_DSIDS_FROM_REDACTED_RECORD__ to debug.", v2, 2u);
   }
 }
 
@@ -5293,9 +4676,9 @@ void sub_18171B394(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_18171B3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18171B3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5308,9 +4691,9 @@ void sub_18171B4D0(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_18171B4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18171B4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5323,27 +4706,27 @@ void sub_18171B60C(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_18171B624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18171B624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id pendingSaveTokenInterface(void)
+id pendingSaveTokenInterface(uint64_t a1)
 {
   if (pendingSaveTokenInterface(void)::onceToken != -1)
   {
     pendingSaveTokenInterface();
   }
 
-  v1 = pendingSaveTokenInterface(void)::result;
+  v2 = pendingSaveTokenInterface(void)::result;
 
-  return v1;
+  return v2;
 }
 
-void sub_18171D5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, CFTypeRef cf, char a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_18171D5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, CFTypeRef cf, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a39, 8);
@@ -5363,11 +4746,11 @@ void sub_18171D5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   _Block_object_dispose(&a65, 8);
 
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a67, 8);
   _Block_object_dispose(&STACK[0x220], 8);
 
   _Block_object_dispose(&STACK[0x250], 8);
-  _Block_object_dispose((v76 - 240), 8);
+  _Block_object_dispose((v72 - 240), 8);
 
   _Unwind_Resume(a1);
 }
@@ -5425,9 +4808,9 @@ void sub_18171E364(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18171E8D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_18171E8D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   LaunchServices::Database::Context::~Context(va);
   _Unwind_Resume(a1);
@@ -5459,7 +4842,7 @@ void sub_181720504(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_181720AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_181720AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5474,7 +4857,7 @@ void sub_181720E60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_181721374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_181721374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -5489,7 +4872,7 @@ void sub_18172178C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_181721FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_181721FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -5503,7 +4886,7 @@ void sub_18172265C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1817231DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50)
+void sub_1817231DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50)
 {
   LaunchServices::Database::Context::~Context(&a41);
   _Block_object_dispose(&a45, 8);
@@ -5575,7 +4958,7 @@ void sub_181725230(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1817258B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35)
+void sub_1817258B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35)
 {
   _Block_object_dispose(&a30, 8);
 
@@ -5583,7 +4966,7 @@ void sub_1817258B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_181725F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_181725F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -5591,9 +4974,9 @@ void sub_181725F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1817261D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1817261D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   LaunchServices::Database::Context::~Context(va);
 
   _Unwind_Resume(a1);
@@ -5606,7 +4989,7 @@ void sub_181726E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1817271F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_1817271F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -5614,7 +4997,7 @@ void sub_1817271F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_181727F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, char a42, int a43, __int16 a44)
+void sub_181727F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char *__p, char *a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, char a42, int a43, __int16 a44)
 {
   if (__p)
   {
@@ -5652,7 +5035,7 @@ uint64_t ___ZL25pendingSaveTokenInterfacev_block_invoke()
   return [v2 setClass:v3 forSelector:sel_waitForResult_ argumentIndex:1 ofReply:1];
 }
 
-uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::push_back[abi:nn200100](void *a1, uint64_t a2)
+uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::push_back[abi:nn200100](uint64_t *a1, uint64_t *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -5665,7 +5048,7 @@ uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::push_back[
     v4 = *a2;
     *a2 = 0;
     *v3 = v4;
-    *(v3 + 8) = *(a2 + 8);
+    *(v3 + 8) = *(a2 + 2);
     result = v3 + 16;
   }
 
@@ -5673,7 +5056,7 @@ uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::push_back[
   return result;
 }
 
-uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::__emplace_back_slow_path<std::tuple<NSString * {__strong},unsigned int>>(void *a1, uint64_t *a2)
+uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::__emplace_back_slow_path<std::tuple<NSString * {__strong},unsigned int>>(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -5723,9 +5106,9 @@ uint64_t std::vector<std::tuple<NSString * {__strong},unsigned int>>::__emplace_
   return v14;
 }
 
-void sub_181729394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_181729394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::tuple<NSString * {__strong},unsigned int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5809,14 +5192,12 @@ void std::vector<std::tuple<NSString * {__strong},unsigned int>>::__destroy_vect
 
 __n128 __Block_byref_object_copy__388(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -5890,7 +5271,7 @@ void ___ZL23pluginsUnitIDsForBundleP9LSContextPK12LSBundleData_block_invoke(uint
   v4[7] = v7;
 }
 
-char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -5899,8 +5280,8 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -5938,23 +5319,24 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -5969,14 +5351,14 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -5991,11 +5373,11 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -6015,7 +5397,7 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -6042,14 +5424,6 @@ id ___ZL45sendPersonaChangedNotificationsForIdentifiersP9LSContextP5NSSetIP8NSSt
   return v2;
 }
 
-uint64_t OUTLINED_FUNCTION_4_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 8) = a3;
-  v4 = *(result + 32);
-  v5 = *(*(*a2 + 8) + 40);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_7_2(uint64_t result, uint64_t a2, float a3)
 {
   *a2 = a3;
@@ -6064,17 +5438,17 @@ void sub_18172A6F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18172B9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_18172B9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v79 = v75;
+  v74 = v70;
 
-  if (a66 == 1)
+  if (a65 == 1)
   {
-    LaunchServices::BindingEvaluator::~BindingEvaluator((v78 + 64));
+    LaunchServices::BindingEvaluator::~BindingEvaluator((v73 + 64));
   }
 
   _Block_object_dispose(&a16, 8);
-  _Block_object_dispose(&a68, 8);
+  _Block_object_dispose(&a66, 8);
 
   if (LOBYTE(STACK[0x330]) == 1)
   {
@@ -6083,7 +5457,7 @@ void sub_18172B9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   LaunchServices::Database::Context::~Context(&a23);
 
-  objc_sync_exit(v72);
+  objc_sync_exit(v67);
   _Block_object_dispose(&a30, 8);
 
   _Unwind_Resume(a1);
@@ -6140,9 +5514,9 @@ void sub_18172C71C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18172CD98(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18172CD98(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   LaunchServices::Database::Context::~Context(va);
   _Unwind_Resume(a1);
@@ -6270,10 +5644,10 @@ void sub_1817344C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_181734854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_181734854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  v13 = v12;
+  va_start(va, a9);
+  v17 = v16;
 
   LaunchServices::Database::Context::~Context(va);
   _Unwind_Resume(a1);
@@ -6286,15 +5660,15 @@ void sub_181734D78(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void configureUIDForUserSession(NSXPCConnection *a1)
+void configureUIDForUserSession(NSXPCConnection *a1, uint64_t a2)
 {
-  v1 = [(NSXPCConnection *)a1 _xpcConnection];
+  v2 = [(NSXPCConnection *)a1 _xpcConnection];
   xpc_connection_set_target_user_session_uid();
 }
 
-void _LSDServiceStartAllServices()
+void _LSDServiceStartAllServices(uint64_t a1, uint64_t a2)
 {
-  _LSAssertRunningInServer("void _LSDServiceStartAllServices()");
+  _LSAssertRunningInServer("void _LSDServiceStartAllServices()", a2);
   if (_LSDServiceStartAllServices::once != -1)
   {
     _LSDServiceStartAllServices_cold_1();
@@ -6354,9 +5728,9 @@ uint64_t _LSSetDatabaseIsSeeded(int a1)
   return v4;
 }
 
-void sub_18173768C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18173768C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6394,9 +5768,9 @@ uint64_t _LSRegisterItemInfo(void *a1, void *a2, void *a3, uint64_t a4, uint64_t
   return v19;
 }
 
-void sub_1817378AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1817378AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6427,9 +5801,9 @@ uint64_t _LSRegisterExtensionPointClient(uint64_t a1, uint64_t a2, uint64_t a3, 
   return v10;
 }
 
-void sub_181737B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_181737B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6460,93 +5834,92 @@ uint64_t _LSUnregisterExtensionPointClient(uint64_t a1, uint64_t a2, uint64_t a3
   return v10;
 }
 
-void sub_181737D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_181737D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _LSSetContentTypeHandler(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v8 = objc_autoreleasePoolPush();
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = ___LSSetContentTypeHandler_block_invoke;
-  v15[3] = &unk_1E6A198D0;
-  v15[4] = &v16;
-  v9 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v15];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = ___LSSetContentTypeHandler_block_invoke_2;
-  v14[3] = &unk_1E6A19A00;
-  v14[4] = &v16;
+  v14[2] = ___LSSetContentTypeHandler_block_invoke;
+  v14[3] = &unk_1E6A198D0;
+  v14[4] = &v15;
+  v9 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = ___LSSetContentTypeHandler_block_invoke_2;
+  v13[3] = &unk_1E6A19A00;
+  v13[4] = &v15;
   v10 = a4[1];
-  v20[0] = *a4;
-  v20[1] = v10;
-  [v9 setHandler:a3 version:v20 roles:a2 forContentType:a1 completionHandler:v14];
+  v19[0] = *a4;
+  v19[1] = v10;
+  [v9 setHandler:a3 version:v19 roles:a2 forContentType:a1 completionHandler:v13];
 
   objc_autoreleasePoolPop(v8);
-  v11 = *(v17 + 6);
-  _Block_object_dispose(&v16, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *(v16 + 6);
+  _Block_object_dispose(&v15, 8);
   return v11;
 }
 
-void sub_181737F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_181737F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _LSSetSchemeHandler(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
   v6 = objc_autoreleasePoolPush();
-  if (_LSBundleDataGetUnsupportedFormatFlag() && (v7 = _LSGetAuditTokenForSelf(), !_LSCheckEntitlementForChangingDefaultHandler(v7, a1, 0)))
+  UnsupportedFormatFlag = _LSBundleDataGetUnsupportedFormatFlag();
+  if (UnsupportedFormatFlag && (v9 = _LSGetAuditTokenForSelf(UnsupportedFormatFlag, v8), !_LSCheckEntitlementForChangingDefaultHandler(v9, a1, 0)))
   {
-    *(v16 + 6) = -10822;
+    *(v17 + 6) = -10822;
   }
 
   else
   {
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = ___LSSetSchemeHandler_block_invoke;
+    v15[3] = &unk_1E6A198D0;
+    v15[4] = &v16;
+    v10 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v15];
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
-    v14[2] = ___LSSetSchemeHandler_block_invoke;
-    v14[3] = &unk_1E6A198D0;
-    v14[4] = &v15;
-    v8 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v14];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = ___LSSetSchemeHandler_block_invoke_2;
-    v13[3] = &unk_1E6A19A00;
-    v13[4] = &v15;
-    v9 = a3[1];
-    v19[0] = *a3;
-    v19[1] = v9;
-    [v8 setHandler:a2 version:v19 forURLScheme:a1 completionHandler:v13];
+    v14[2] = ___LSSetSchemeHandler_block_invoke_2;
+    v14[3] = &unk_1E6A19A00;
+    v14[4] = &v16;
+    v11 = a3[1];
+    v20[0] = *a3;
+    v20[1] = v11;
+    [v10 setHandler:a2 version:v20 forURLScheme:a1 completionHandler:v14];
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *(v16 + 6);
-  _Block_object_dispose(&v15, 8);
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  v12 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+  return v12;
 }
 
-void sub_181738188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_181738188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6577,9 +5950,9 @@ uint64_t _LSRemoveSchemeHandler(uint64_t a1)
   return v4;
 }
 
-void sub_181738374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_181738374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6600,55 +5973,66 @@ uint64_t _LSCheckEntitlementForNSXPCConnection(void *a1, void *a2)
   v4 = a2;
   if (v3)
   {
-    v5 = [v3 valueForEntitlement:v4];
-    if (v5)
+    isKindOfClass = [v3 valueForEntitlement:v4];
+    v6 = isKindOfClass;
+    if (isKindOfClass)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if ([v5 compare:@"YES" options:1] && !objc_msgSend(v5, "intValue"))
+        if ([v6 compare:@"YES" options:1])
         {
-          goto LABEL_11;
+          isKindOfClass = [v6 intValue];
+          if (!isKindOfClass)
+          {
+            goto LABEL_11;
+          }
         }
       }
 
       else
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || ![v5 integerValue])
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
+        {
+          goto LABEL_11;
+        }
+
+        isKindOfClass = [v6 integerValue];
+        if (!isKindOfClass)
         {
           goto LABEL_11;
         }
       }
 
-      v6 = 1;
+      v7 = 1;
 LABEL_14:
 
       goto LABEL_15;
     }
 
 LABEL_11:
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _LSDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      [v3 auditToken];
-      v8 = audit_token_to_pid(&v11);
+      objc_msgSend_auditToken(v3);
+      v9 = audit_token_to_pid(&v11);
       *buf = 134218242;
-      v13 = v8;
+      v13 = v9;
       v14 = 2114;
       v15 = v4;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Connection from process %llu does not have the required entitlement %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Connection from process %llu does not have the required entitlement %{public}@", buf, 0x16u);
     }
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_15:
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 uint64_t _LSCheckMIAllowedSPIForXPCConnection(void *a1, void *a2)
@@ -6686,9 +6070,9 @@ uint64_t _LSCheckMIAllowedSPIForXPCConnection(void *a1, void *a2)
   return v5;
 }
 
-void sub_1817388F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1817388F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6735,39 +6119,40 @@ uint64_t _LSCheckOpenSensitiveURLForXPCConnection(void *a1, uint64_t a2)
   return v5;
 }
 
-void sub_181738AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_181738AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t _LSCheckLSDServiceAccessForAuditToken(__int128 *a1, void *a2)
+BOOL _LSCheckLSDServiceAccessForAuditToken(_OWORD *a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
+  v6 = v4;
   if (_LSCheckLSDServiceAccessForAuditToken::once != -1)
   {
     _LSCheckLSDServiceAccessForAuditToken_cold_1();
   }
 
-  v5 = 0;
+  v7 = 0;
   if (a1 && a2)
   {
-    if (_LSCheckLSDServiceAccessForAuditToken::lsdServiceClass && ![a2 isSubclassOfClass:?])
+    if (_LSCheckLSDServiceAccessForAuditToken::lsdServiceClass && (v4 = [a2 isSubclassOfClass:?], !v4))
     {
-      v5 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = [__LSDefaultsGetSharedInstance() serviceNameForConnectionType:{objc_msgSend(a2, "connectionType")}];
-      v5 = _LSCheckMachPortAccessForAuditToken(a1, v6);
+      v8 = [__LSDefaultsGetSharedInstance(v4 v5)];
+      v7 = _LSCheckMachPortAccessForAuditToken(a1, v8);
     }
   }
 
-  objc_autoreleasePoolPop(v4);
-  return v5;
+  objc_autoreleasePoolPop(v6);
+  return v7;
 }
 
 void _LSSetCurrentProcessMayMapDatabase(int a1)
@@ -6781,12 +6166,10 @@ void _LSSetCurrentProcessMayMapDatabase(int a1)
   atomic_store(a1 != 0, mayMapDatabase);
 }
 
-__int128 *_LSIsAuditTokenPlatformBinary(__int128 *result)
+_OWORD *_LSIsAuditTokenPlatformBinary(_OWORD *result)
 {
   if (result)
   {
-    v2 = *result;
-    v3 = result[1];
     pidp = 0;
     v1 = result[1];
     *atoken.val = *result;
@@ -6799,7 +6182,7 @@ __int128 *_LSIsAuditTokenPlatformBinary(__int128 *result)
   return result;
 }
 
-__int128 *_LSIsXPCConnectionPlatformBinary(void *a1)
+_OWORD *_LSIsXPCConnectionPlatformBinary(void *a1)
 {
   v1 = a1;
   if (v1)
@@ -6874,7 +6257,7 @@ CFURLRef _LSCopyExecutableURLForXPCConnection(void *a1)
 
 void _LSEnumeratorFireErrorHandler(atomic_uchar *a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((atomic_exchange(a1 + 16, 1u) & 1) == 0)
   {
@@ -6889,9 +6272,9 @@ void _LSEnumeratorFireErrorHandler(atomic_uchar *a1, void *a2)
       v5 = objc_autoreleasePoolPush();
       if (!v3)
       {
-        v8 = *MEMORY[0x1E696A278];
-        v9[0] = @"Fallback for nil error in enumerator error handler";
-        v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+        v7 = *MEMORY[0x1E696A278];
+        v8[0] = @"Fallback for nil error in enumerator error handler";
+        v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
         v3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10810, v6, "_LSEnumeratorFireErrorHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/Enumerator/LSEnumerator.mm", 178);
       }
 
@@ -6899,8 +6282,6 @@ void _LSEnumeratorFireErrorHandler(atomic_uchar *a1, void *a2)
       objc_autoreleasePoolPop(v5);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_181739A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -6954,10 +6335,10 @@ LABEL_10:
   return a1;
 }
 
-uint64_t _LSGetOSStatusFromPOSIXErrorCode(uint64_t a1)
+uint64_t _LSGetOSStatusFromPOSIXErrorCode(int *a1)
 {
   v1 = a1;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   if (a1 < -1)
   {
@@ -7031,13 +6412,15 @@ LABEL_30:
   switch(a1)
   {
     case -1:
-      if (*__error() == -1)
+      a1 = __error();
+      if (*a1 == -1)
       {
         goto LABEL_30;
       }
 
-      v6 = __error();
-      v2 = _LSGetOSStatusFromPOSIXErrorCode(*v6);
+      v5 = __error();
+      a1 = _LSGetOSStatusFromPOSIXErrorCode(*v5);
+      v2 = a1;
       break;
     case 0:
       break;
@@ -7080,25 +6463,24 @@ LABEL_30:
   }
 
 LABEL_6:
-  v3 = _LSErrorLog();
+  v3 = _LSErrorLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 67109634;
-    v7[1] = v1;
-    v8 = 2082;
-    v9 = strerror(v1);
-    v10 = 2048;
-    v11 = v2;
-    _os_log_debug_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEBUG, "Converted POSIX error %i (%{public}s) to OSStatus %li", v7, 0x1Cu);
+    v6[0] = 67109634;
+    v6[1] = v1;
+    v7 = 2082;
+    v8 = strerror(v1);
+    v9 = 2048;
+    v10 = v2;
+    _os_log_debug_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEBUG, "Converted POSIX error %i (%{public}s) to OSStatus %li", v6, 0x1Cu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 uint64_t _LSGetOSStatusFromNSError(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (!v1)
@@ -7110,44 +6492,53 @@ uint64_t _LSGetOSStatusFromNSError(void *a1)
   v3 = [v1 domain];
   v4 = [v2 code];
   v5 = [v2 userInfo];
-  if (![v3 isEqual:*MEMORY[0x1E696A768]])
+  v6 = [v3 isEqual:*MEMORY[0x1E696A768]];
+  if (!v6)
   {
     if (![v3 isEqual:*MEMORY[0x1E696A798]])
     {
       if ((v4 - 4096) > 0x80)
       {
-        if (v4 == 4 && ([v3 isEqual:*MEMORY[0x1E696A250]] & 1) != 0)
+        if (v4 == 4)
         {
-          v4 = 4294967253;
-          goto LABEL_22;
+          v6 = [v3 isEqual:*MEMORY[0x1E696A250]];
+          if (v6)
+          {
+            v4 = 4294967253;
+            goto LABEL_22;
+          }
         }
-      }
-
-      else if ([v3 isEqual:*MEMORY[0x1E696A250]])
-      {
-        v6 = _LSErrorLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-        {
-          _LSGetOSStatusFromNSError_cold_2(v2, v6);
-        }
-
-        v4 = 4294956474;
-        goto LABEL_22;
-      }
-
-      v7 = [v5 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
-      v8 = v7;
-      if (v7 && v7 != v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-      {
-        v4 = _LSGetOSStatusFromNSError(v8);
       }
 
       else
       {
-        v9 = _LSErrorLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v7 = [v3 isEqual:*MEMORY[0x1E696A250]];
+        if (v7)
         {
-          _LSGetOSStatusFromNSError_cold_1(v2, v9);
+          v8 = _LSErrorLog(v7);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          {
+            _LSGetOSStatusFromNSError_cold_2(v2, v8);
+          }
+
+          v4 = 4294956474;
+          goto LABEL_22;
+        }
+      }
+
+      isKindOfClass = [v5 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+      v10 = isKindOfClass;
+      if (isKindOfClass && isKindOfClass != v2 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
+      {
+        v4 = _LSGetOSStatusFromNSError(v10);
+      }
+
+      else
+      {
+        v11 = _LSErrorLog(isKindOfClass);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          _LSGetOSStatusFromNSError_cold_1(v2, v11);
         }
 
         v4 = 4294956486;
@@ -7156,46 +6547,46 @@ uint64_t _LSGetOSStatusFromNSError(void *a1)
       goto LABEL_22;
     }
 
-    v4 = _LSGetOSStatusFromPOSIXErrorCode(v4);
+    v6 = _LSGetOSStatusFromPOSIXErrorCode(v4);
+    v4 = v6;
   }
 
 LABEL_22:
-  v10 = _LSErrorLog();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  v12 = _LSErrorLog(v6);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
 
-  if (v11)
+  if (v13)
   {
-    v12 = [v5 objectForKeyedSubscript:@"_LSFunction"];
-    if (v12)
+    v14 = [v5 objectForKeyedSubscript:@"_LSFunction"];
+    if (v14)
     {
-      v13 = [v5 objectForKeyedSubscript:@"_LSLine"];
-      v14 = _LSErrorLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = [v5 objectForKeyedSubscript:@"_LSLine"];
+      v16 = _LSErrorLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 138544130;
-        v18 = v12;
-        v19 = 2114;
-        v20 = v13;
-        v21 = 2048;
-        v22 = v4;
-        v23 = 2114;
-        v24 = v2;
-        _os_log_debug_impl(&dword_18162D000, v14, OS_LOG_TYPE_DEBUG, "Launch Services constructed an error at %{public}@:%{public}@, translating to OSStatus %li: %{public}@", &v17, 0x2Au);
+        v18 = 138544130;
+        v19 = v14;
+        v20 = 2114;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v4;
+        v24 = 2114;
+        v25 = v2;
+        _os_log_debug_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEBUG, "Launch Services constructed an error at %{public}@:%{public}@, translating to OSStatus %li: %{public}@", &v18, 0x2Au);
       }
     }
 
     else
     {
-      v13 = _LSErrorLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = _LSErrorLog(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        _LSGetOSStatusFromNSError_cold_3(v4, v2, v13);
+        _LSGetOSStatusFromNSError_cold_3(v4, v2, v15);
       }
     }
   }
 
 LABEL_31:
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -7265,37 +6656,34 @@ LABEL_17:
   return v4;
 }
 
-void std::vector<void *>::resize(void *a1, unint64_t a2)
+void std::vector<void *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void *>::__append(a1, a2 - v2);
+    std::vector<void *>::__append(result, a2 - v2);
   }
 }
 
-void *std::vector<void *>::reserve(void *result, unint64_t a2)
+void std::vector<void *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::allocator<LSApplicationRecord * {__strong}>::allocate_at_least[abi:nn200100](result, a2);
+      std::allocator<LSApplicationRecord * {__strong}>::allocate_at_least[abi:nn200100](a1, a2);
     }
 
     std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void sub_18173AE0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -7314,7 +6702,6 @@ void std::vector<char>::reserve(std::vector<char> *this, std::vector<char>::size
   {
     if ((__n & 0x8000000000000000) == 0)
     {
-      v2 = this->__end_ - this->__begin_;
       operator new();
     }
 
@@ -7322,7 +6709,7 @@ void std::vector<char>::reserve(std::vector<char> *this, std::vector<char>::size
   }
 }
 
-void std::vector<char>::push_back[abi:nn200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:nn200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -7485,43 +6872,43 @@ void std::vector<void *>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void _LSParseLoadCommands()
+void _LSParseLoadCommands(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v7 = v0;
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v8 = v1;
   v43 = *MEMORY[0x1E69E9840];
-  v9 = v8;
-  lseek(v7, 0, 0);
-  if (v6 >= 0x2000)
-  {
-    v10 = 0x2000;
-  }
-
-  else
-  {
-    v10 = v6;
-  }
-
-  if (v6 <= 0)
+  v10 = v9;
+  lseek(v8, 0, 0);
+  if (v7 >= 0x2000)
   {
     v11 = 0x2000;
   }
 
   else
   {
-    v11 = v10;
+    v11 = v7;
   }
 
-  v12 = read(v7, &v42, v11);
-  if (v12 < 28)
+  if (v7 <= 0)
   {
-    v15 = handleWeirdHeaderTypes(&v42, v12, v4, v9);
-    if (v2 && !v15)
+    v12 = 0x2000;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  v13 = read(v8, &v42, v12);
+  if (v13 < 28)
+  {
+    v16 = handleWeirdHeaderTypes(&v42, v13, v5, v10);
+    if (v3 && !v16)
     {
-      *v2 = 1;
+      *v3 = 1;
     }
 
     goto LABEL_53;
@@ -7532,25 +6919,25 @@ void _LSParseLoadCommands()
   {
     if (v42.magic != -1095041334 && v42.magic != -889275714)
     {
-      v14 = -822415874;
+      v15 = -822415874;
 LABEL_42:
-      if (v42.magic == v14)
+      if (v42.magic == v15)
       {
-        CFDictionaryAddValue(v4, @"LSExecutableFormat", @"LSExecutableMachOFormat");
-        appendSliceForCPUTypeSubtype(v9, bswap32(v42.cputype), bswap32(v42.cpusubtype));
-        v16 = &v42;
+        CFDictionaryAddValue(v5, @"LSExecutableFormat", @"LSExecutableMachOFormat");
+        appendSliceForCPUTypeSubtype(v10, bswap32(v42.cputype), bswap32(v42.cpusubtype));
+        v17 = &v42;
         goto LABEL_44;
       }
 
-      handleWeirdHeaderTypes(&v42, v12, v4, v9);
+      handleWeirdHeaderTypes(&v42, v13, v5, v10);
       goto LABEL_53;
     }
 
-    CFDictionaryAddValue(v4, @"LSExecutableFormat", @"LSExecutableMachOFormat");
-    v17 = bswap32(v42.cputype);
+    CFDictionaryAddValue(v5, @"LSExecutableFormat", @"LSExecutableMachOFormat");
+    v18 = bswap32(v42.cputype);
     if (magic == -1095041334)
     {
-      cputype = v17;
+      cputype = v18;
     }
 
     else
@@ -7563,15 +6950,15 @@ LABEL_42:
       goto LABEL_53;
     }
 
-    v16 = 0;
+    v17 = 0;
     p_cpusubtype = &v42.cpusubtype;
-    v20 = (&v40 + v12 + 12);
+    v21 = (&v40 + v13 + 12);
     while (1)
     {
-      if (p_cpusubtype > v20)
+      if (p_cpusubtype > v21)
       {
 LABEL_39:
-        if (!v16)
+        if (!v17)
         {
           goto LABEL_53;
         }
@@ -7591,35 +6978,35 @@ LABEL_44:
         v30 = 0;
         dyld_get_active_platform();
         dyld_get_image_versions();
-        v25 = *(v32 + 6);
-        if (v25)
+        v26 = *(v32 + 6);
+        if (v26)
         {
           v40 = 0u;
           v41 = 0u;
-          _LSVersionNumberMakeWithDYLDVersion(v25, &v40);
+          _LSVersionNumberMakeWithDYLDVersion(v26, &v40);
           v39[0] = v40;
           v39[1] = v41;
-          v26 = _LSVersionNumberCopyStringRepresentation(v39);
-          if (v26)
+          v27 = _LSVersionNumberCopyStringRepresentation(v39);
+          if (v27)
           {
-            CFDictionarySetValue(v4, @"LSExecutableSDKVersion", v26);
-            CFRelease(v26);
+            CFDictionarySetValue(v5, @"LSExecutableSDKVersion", v27);
+            CFRelease(v27);
           }
         }
 
         if (*(v36 + 6))
         {
-          v27 = CFNumberCreate(0, kCFNumberSInt32Type, v36 + 3);
-          if (v27)
+          v28 = CFNumberCreate(0, kCFNumberSInt32Type, v36 + 3);
+          if (v28)
           {
-            CFDictionarySetValue(v4, @"LSExecutablePlatformKey", v27);
-            CFRelease(v27);
+            CFDictionarySetValue(v5, @"LSExecutablePlatformKey", v28);
+            CFRelease(v28);
           }
         }
 
-        if (v16 != &v42)
+        if (v17 != &v42)
         {
-          free(v16);
+          free(v17);
         }
 
         _Block_object_dispose(v29, 8);
@@ -7628,33 +7015,33 @@ LABEL_44:
         goto LABEL_53;
       }
 
-      v21 = p_cpusubtype[2];
+      v22 = p_cpusubtype[2];
       if (magic == -889275714)
       {
-        appendSliceForCPUTypeSubtype(v9, *p_cpusubtype, p_cpusubtype[1]);
+        appendSliceForCPUTypeSubtype(v10, *p_cpusubtype, p_cpusubtype[1]);
       }
 
       else
       {
-        appendSliceForCPUTypeSubtype(v9, bswap32(*p_cpusubtype), bswap32(p_cpusubtype[1]));
-        v21 = bswap32(v21);
+        appendSliceForCPUTypeSubtype(v10, bswap32(*p_cpusubtype), bswap32(p_cpusubtype[1]));
+        v22 = bswap32(v22);
       }
 
-      v22 = mallocMachHeader(v7, v21);
-      v23 = v22;
-      if (v22)
+      v23 = mallocMachHeader(v8, v22);
+      v24 = v23;
+      if (v23)
       {
-        if ((v22->magic & 0xFFFFFFFE) == 0xFEEDFACE)
+        if ((v23->magic & 0xFFFFFFFE) == 0xFEEDFACE)
         {
-          addUUID(v22, v4);
+          addUUID(v23, v5);
         }
 
-        if (v16)
+        if (v17)
         {
-          if ((v16->magic & 0xFFFFFFFE) == 0xFEEDFACE)
+          if ((v17->magic & 0xFFFFFFFE) == 0xFEEDFACE)
           {
-            v24 = v23;
-            if (v16 == v23)
+            v25 = v24;
+            if (v17 == v24)
             {
               goto LABEL_38;
             }
@@ -7662,16 +7049,16 @@ LABEL_44:
 
           else
           {
-            v24 = v16;
-            v16 = v23;
+            v25 = v17;
+            v17 = v24;
           }
 
-          free(v24);
+          free(v25);
         }
 
         else
         {
-          v16 = v23;
+          v17 = v24;
         }
       }
 
@@ -7686,28 +7073,27 @@ LABEL_38:
 
   if (v42.magic + 17958194 >= 2)
   {
-    v14 = -805638658;
+    v15 = -805638658;
     goto LABEL_42;
   }
 
-  CFDictionaryAddValue(v4, @"LSExecutableFormat", @"LSExecutableMachOFormat");
-  appendSliceForCPUTypeSubtype(v9, v42.cputype, v42.cpusubtype);
-  v16 = &v42;
-  if (machHeaderSize(&v42) <= v12 || (v16 = mallocMachHeader(v7, 0)) != 0)
+  CFDictionaryAddValue(v5, @"LSExecutableFormat", @"LSExecutableMachOFormat");
+  appendSliceForCPUTypeSubtype(v10, v42.cputype, v42.cpusubtype);
+  v17 = &v42;
+  if (machHeaderSize(&v42) <= v13 || (v17 = mallocMachHeader(v8, 0)) != 0)
   {
-    addUUID(v16, v4);
+    addUUID(v17, v5);
     goto LABEL_44;
   }
 
 LABEL_53:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void appendSliceForCPUTypeSubtype(void *a1, uint64_t a2, uint64_t a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a1;
+  v6 = v5;
   if (!v5)
   {
     goto LABEL_16;
@@ -7718,22 +7104,22 @@ void appendSliceForCPUTypeSubtype(void *a1, uint64_t a2, uint64_t a3)
     if (((a2 - 16777223) > 0xB || ((1 << (a2 - 7)) & 0x821) == 0) && a2 != 33554444)
     {
 LABEL_10:
-      v6 = _LSDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _LSDefaultLog(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v10 = 134218240;
         v11 = a2;
         v12 = 2048;
         v13 = a3;
-        _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "LaunchServices: CPU type %lu (subtype %lu) not recognized", &v10, 0x16u);
+        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "LaunchServices: CPU type %lu (subtype %lu) not recognized", &v10, 0x16u);
       }
 
       goto LABEL_16;
     }
 
 LABEL_15:
-    v7 = [[LSSliceInfo alloc] initWithType:a2 subtype:a3];
-    [v5 addObject:v7];
+    v8 = [[LSSliceInfo alloc] initWithType:a2 subtype:a3];
+    [v6 addObject:v8];
 
     goto LABEL_16;
   }
@@ -7758,7 +7144,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v9 = _LSDefaultLog();
+  v9 = _LSDefaultLog(v5);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134217984;
@@ -7767,7 +7153,6 @@ LABEL_15:
   }
 
 LABEL_16:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t machHeaderSize(const mach_header *a1)
@@ -7832,7 +7217,7 @@ void *mallocMachHeader(int a1, off_t a2)
 
 void addUUID(const mach_header *a1, __CFDictionary *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   ncmds = a1->ncmds;
   v5 = machHeaderSize(a1);
   if (a1->magic == -17958194)
@@ -7840,7 +7225,7 @@ void addUUID(const mach_header *a1, __CFDictionary *a2)
     v6 = 28;
     if (!ncmds)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -7848,24 +7233,23 @@ void addUUID(const mach_header *a1, __CFDictionary *a2)
   {
     if (a1->magic != -17958193)
     {
-      goto LABEL_25;
+      return;
     }
 
     v6 = 32;
     if (!ncmds)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
   v7 = a1 + v5;
   v8 = a1 + v6;
-  v9 = ncmds - 1;
-  while (1)
+  for (i = ncmds - 1; ; --i)
   {
     if (v8 + 8 >= v7)
     {
-      goto LABEL_25;
+      return;
     }
 
     v10 = *(v8 + 1);
@@ -7875,18 +7259,18 @@ void addUUID(const mach_header *a1, __CFDictionary *a2)
     }
 
     v8 += v10;
-    if (v8 >= v7 || v9-- == 0)
+    if (v8 >= v7 || i == 0)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
   if (&v8[v10] < v7)
   {
-    memset(v22, 0, sizeof(v22));
-    uuid_unparse_upper(v8 + 8, v22);
+    memset(v21, 0, sizeof(v21));
+    uuid_unparse_upper(v8 + 8, v21);
     v12 = *MEMORY[0x1E695E480];
-    v13 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v22, 0x8000100u);
+    v13 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v21, 0x8000100u);
     if (v13)
     {
       v14 = v13;
@@ -7897,7 +7281,7 @@ void addUUID(const mach_header *a1, __CFDictionary *a2)
         {
 LABEL_24:
           CFRelease(v14);
-          goto LABEL_25;
+          return;
         }
 
         Count = CFArrayGetCount(v16);
@@ -7920,9 +7304,6 @@ LABEL_24:
       goto LABEL_24;
     }
   }
-
-LABEL_25:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t handleWeirdHeaderTypes(unsigned __int8 *a1, unint64_t a2, __CFDictionary *a3, void *a4)
@@ -7978,29 +7359,29 @@ LABEL_17:
   return v8;
 }
 
-void _LSAddExecutableFormatInfo()
+void _LSAddExecutableFormatInfo(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
   v23 = *MEMORY[0x1E69E9840];
-  v7 = v0;
-  v8 = v6;
+  v8 = v1;
+  v9 = v7;
   v20 = 0;
-  v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v10 = _LSGetBundleClassForHFSType(v4);
-  if (v4 == 1095782476 || v10 != 2)
+  v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v11 = _LSGetBundleClassForHFSType(v5);
+  if (v5 == 1095782476 || v11 != 2)
   {
-    if ([v7 getFileSystemRepresentation:v21 error:0])
+    if ([v8 getFileSystemRepresentation:v21 error:0])
     {
       v19 = 0;
-      v11 = open(v21, 0, 511);
-      if (v11 < 0 || ((v12 = [v7 getLength:&v19 error:0], v19) ? (v13 = v12) : (v13 = 0), v13 != 1))
+      v12 = open(v21, 0, 511);
+      if ((v12 & 0x80000000) != 0 || ((v13 = [v8 getLength:&v19 error:0], v19) ? (v14 = v13) : (v14 = 0), v14 != 1))
       {
         v20 = 1;
-        CFDictionaryAddValue(v2, @"_LSNoExecutableInfo", *MEMORY[0x1E695E4D0]);
-        if (v11 < 0)
+        CFDictionaryAddValue(v3, @"_LSNoExecutableInfo", *MEMORY[0x1E695E4D0]);
+        if ((v12 & 0x80000000) != 0)
         {
           goto LABEL_23;
         }
@@ -8008,25 +7389,25 @@ void _LSAddExecutableFormatInfo()
 
       else
       {
-        fcntl(v11, 48, 1);
-        _LSParseLoadCommands();
+        fcntl(v12, 48, 1);
+        _LSParseLoadCommands(v12);
         if (v19 >= 0x2000)
         {
-          v14 = 0x2000;
+          v15 = 0x2000;
         }
 
         else
         {
-          v14 = v19;
+          v15 = v19;
         }
 
-        if (pread(v11, __buf, v14, 0) >= 28)
+        if (pread(v12, __buf, v15, 0) >= 28)
         {
-          v15 = v8;
-          if (v2 && (Value = CFDictionaryGetValue(v2, @"DTPlatformName")) != 0 && (TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(Value)) && (CFStringCompare(Value, @"iphonesimulator", 1uLL) == kCFCompareEqualTo || CFStringCompare(Value, @"appletvsimulator", 1uLL) == kCFCompareEqualTo || CFStringCompare(Value, @"watchsimulator", 1uLL) == kCFCompareEqualTo))
+          v16 = v9;
+          if (v3 && (Value = CFDictionaryGetValue(v3, @"DTPlatformName")) != 0 && (TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(Value)) && (CFStringCompare(Value, @"iphonesimulator", 1uLL) == kCFCompareEqualTo || CFStringCompare(Value, @"appletvsimulator", 1uLL) == kCFCompareEqualTo || CFStringCompare(Value, @"watchsimulator", 1uLL) == kCFCompareEqualTo))
           {
 
-            CFDictionaryAddValue(v2, @"_LSRequiresIPhoneSimulator", *MEMORY[0x1E695E4D0]);
+            CFDictionaryAddValue(v3, @"_LSRequiresIPhoneSimulator", *MEMORY[0x1E695E4D0]);
           }
 
           else
@@ -8035,20 +7416,18 @@ void _LSAddExecutableFormatInfo()
         }
       }
 
-      close(v11);
+      close(v12);
     }
   }
 
   else
   {
-    CFDictionaryAddValue(v2, @"LSExecutableFormat", @"LSExecutableCFMFormat");
-    appendSliceForCPUTypeSubtype(v9, 18, 0);
+    CFDictionaryAddValue(v3, @"LSExecutableFormat", @"LSExecutableCFMFormat");
+    appendSliceForCPUTypeSubtype(v10, 18, 0);
   }
 
 LABEL_23:
-  CFDictionaryAddValue(v2, @"_LSSliceInfosKey", v9);
-
-  v18 = *MEMORY[0x1E69E9840];
+  CFDictionaryAddValue(v3, @"_LSSliceInfosKey", v10);
 }
 
 uint64_t _LSExtensionPointAdd(void *a1, _DWORD *a2)
@@ -8064,38 +7443,39 @@ LABEL_12:
 
   *a2 = CFAbsoluteTimeGetCurrent();
   [(_LSDatabase *)v4 store];
-  v5 = *([(_LSDatabase *)v4 schema]+ 1592);
-  v6 = CSStoreAllocUnitWithData();
-  if (!v6)
+  [(_LSDatabase *)v4 schema];
+  v5 = CSStoreAllocUnitWithData();
+  v6 = v5;
+  if (!v5)
   {
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _LSDefaultLog(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Failed to allocate store unit with extension point data", v11, 2u);
+      v12[0] = 0;
+      _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Failed to allocate store unit with extension point data", v12, 2u);
     }
 
     goto LABEL_12;
   }
 
-  v7 = a2[1];
-  if (_LSBindableActivate(v4, v6))
+  v7 = _LSBindableActivate(v4, v5, 0xCu, a2[1], _LSExtensionPointComparePriority_BindableComparitor, 0);
+  if (v7)
   {
-    v8 = _LSDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _LSDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Failed to activate binding for extension point data, this extension point will not be found", buf, 2u);
+      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Failed to activate binding for extension point data, this extension point will not be found", buf, 2u);
     }
   }
 
-  _LSDatabaseCommit(v4);
+  _LSDatabaseCommit(v4, v8);
 LABEL_13:
 
   return v6;
 }
 
-uint64_t _LSExtensionPointComparePriority_BindableComparitor(void *a1, int a2, int a3)
+uint64_t _LSExtensionPointComparePriority_BindableComparitor(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
   v6 = _LSGetExtensionPointData(v5, a2);
@@ -8105,88 +7485,78 @@ uint64_t _LSExtensionPointComparePriority_BindableComparitor(void *a1, int a2, i
   return v8;
 }
 
-void _LSExtensionPointRemove(void *a1, int a2)
+void _LSExtensionPointRemove(void *a1, uint64_t a2)
 {
-  v10 = a1;
-  if (v10 && a2 && [(_LSDatabase *)v10 store])
+  v7 = a1;
+  if (v7 && a2 && [(_LSDatabase *)v7 store])
   {
-    v3 = _LSGetExtensionPointData(v10, a2);
-    v4 = v3;
+    v3 = _LSGetExtensionPointData(v7, a2);
+    v5 = v3;
     if (v3)
     {
-      v5 = *(v3 + 4);
-      _LSBindableDeactivate(v10, a2);
-      v6 = v4[1];
-      [(_LSDatabase *)v10 store];
+      _LSBindableDeactivate(v7, a2, 0xCu, *(v3 + 4), 0);
+      [(_LSDatabase *)v7 store];
       _CSStringRelease();
-      v7 = v4[10];
-      [(_LSDatabase *)v10 store];
+      [(_LSDatabase *)v7 store];
       _CSStringRelease();
-      _LSPlistRemove(v10, v4[12]);
-      v8 = v4[13];
-      if (v8)
+      _LSPlistRemove(v7, *(v5 + 48));
+      v6 = *(v5 + 52);
+      if (v6)
       {
-        _LSAliasRemove(v10, v8);
+        _LSAliasRemove(v7, v6);
       }
 
-      v9 = *([(_LSDatabase *)v10 schema]+ 1592);
+      [(_LSDatabase *)v7 schema];
       CSStoreFreeUnit();
     }
 
-    _LSDatabaseCommit(v10);
+    _LSDatabaseCommit(v7, v4);
   }
 }
 
 uint64_t _LSExtensionPointComparePriority(_LSDatabase *a1, const LSExtensionPointData *a2, const LSExtensionPointData *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2 == a3)
   {
-    v4 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   if (!a2)
   {
-    goto LABEL_9;
+    return -1;
   }
 
   if (!a3)
   {
-LABEL_10:
-    v4 = 1;
-    goto LABEL_11;
+    return 1;
   }
 
   var2 = a2->var2;
-  v7 = a3->var2;
-  v10 = var2;
-  memset(&v9, 0, sizeof(v9));
-  if (!_LSVersionNumberCompare(&v10, &v9))
+  v6 = a3->var2;
+  v9 = var2;
+  memset(&v8, 0, sizeof(v8));
+  if (!_LSVersionNumberCompare(&v9, &v8))
   {
-LABEL_9:
-    v4 = -1;
-    goto LABEL_11;
+    return -1;
   }
 
-  v10 = v7;
-  memset(&v9, 0, sizeof(v9));
-  if (!_LSVersionNumberCompare(&v10, &v9))
+  v9 = v6;
+  memset(&v8, 0, sizeof(v8));
+  if (!_LSVersionNumberCompare(&v9, &v8))
   {
-    goto LABEL_10;
+    return 1;
   }
 
-  v10 = var2;
-  v9 = v7;
-  v3 = _LSVersionNumberCompare(&v10, &v9);
+  v9 = var2;
+  v8 = v6;
+  v3 = _LSVersionNumberCompare(&v9, &v8);
   v4 = v3 == 1;
   if (v3 == -1)
   {
-    v4 = -1;
+    return -1;
   }
 
-LABEL_11:
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -8194,38 +7564,38 @@ uint64_t _LSExtensionPointUnregisterUnderFrameworkURL(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x4812000000;
-  v14 = __Block_byref_object_copy__3;
-  v15 = __Block_byref_object_dispose__4;
-  v16 = &unk_1818533FF;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x4812000000;
+  v13 = __Block_byref_object_copy__3;
+  v14 = __Block_byref_object_dispose__4;
+  v15 = &unk_1818533FF;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
   __p = 0;
   [(_LSDatabase *)v3 store];
-  v5 = *([(_LSDatabase *)v3 schema]+ 1592);
-  v6 = v3;
-  v7 = v4;
+  [(_LSDatabase *)v3 schema];
+  v5 = v3;
+  v6 = v4;
   _CSStoreEnumerateUnits();
-  v8 = v12[6];
-  v9 = v12[7];
-  while (v8 != v9)
+  v7 = v11[6];
+  v8 = v11[7];
+  while (v7 != v8)
   {
-    _LSExtensionPointRemove(v6, *v8++);
+    _LSExtensionPointRemove(v5, *v7++);
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v10, 8);
   if (__p)
   {
-    v18 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 
   return 0;
 }
 
-void sub_18173C82C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
+void sub_18173C82C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
 {
   _Block_object_dispose(&a16, 8);
   if (__p)
@@ -8239,39 +7609,33 @@ void sub_18173C82C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__3(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
-void _LSExtensionPointGetVisualizationFunctions(unsigned int *(**a1)(void **this, LSContext *a2, int a3)@<X8>)
+void _LSExtensionPointGetVisualizationFunctions(unsigned int *(**a1)(void **this, LSContext *a2, uint64_t a3)@<X8>)
 {
   *a1 = LaunchServices::ExtensionPoints::getSummary;
   a1[1] = LaunchServices::ExtensionPoints::display;
   a1[2] = 0;
 }
 
-unsigned int *LaunchServices::ExtensionPoints::getSummary(void **this, LSContext *a2, int a3)
+unsigned int *LaunchServices::ExtensionPoints::getSummary(void **this, LSContext *a2, uint64_t a3)
 {
   v4 = _LSGetExtensionPointData(*this, a3);
   if (v4)
   {
-    v5 = v4;
-    v6 = v4[1];
     [(_LSDatabase *)*this store];
     v4 = _CSStringCopyCFString();
     if (!v4)
     {
-      v7 = *this;
-      v8 = v5[10];
-      [(_LSDatabase *)v7 store];
+      [(_LSDatabase *)*this store];
       v4 = _CSStringCopyCFString();
     }
   }
@@ -8279,7 +7643,7 @@ unsigned int *LaunchServices::ExtensionPoints::getSummary(void **this, LSContext
   return v4;
 }
 
-BOOL LaunchServices::ExtensionPoints::display(void **this, LSContext *a2, int a3, void *a4, CSStoreAttributedStringWriter *a5)
+BOOL LaunchServices::ExtensionPoints::display(void **this, LSContext *a2, uint64_t a3, void *a4, CSStoreAttributedStringWriter *a5)
 {
   v7 = a4;
   v8 = _LSGetExtensionPointData(*this, a3);
@@ -8356,15 +7720,15 @@ BOOL LaunchServices::ExtensionPoints::display(void **this, LSContext *a2, int a3
   return v9 != 0;
 }
 
-void sub_18173D5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18173D5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _LSCheckEntitlementForChangingDefaultHandler(__int128 *a1, uint64_t a2, uint64_t a3)
+uint64_t _LSCheckEntitlementForChangingDefaultHandler(_OWORD *a1, uint64_t a2, uint64_t a3)
 {
   v5 = _LSCopyEntitlementValueForAuditToken(a1, @"com.apple.private.launchservices.changedefaulthandlers");
   v6 = _LSCheckEntitlementValueForChangingDefaultHandlerCheckingDefaultApps(v5, a2, a3, 1);
@@ -8586,7 +7950,7 @@ void sub_18173E98C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18173EC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18173EC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v22 = v21;
 
@@ -8594,17 +7958,16 @@ void sub_18173EC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t LSInit(int a1)
+uint64_t LSInit(uint64_t result, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (a1 == 1)
+  v8 = *MEMORY[0x1E69E9840];
+  if (result == 1)
   {
-    result = 4294967292;
-    goto LABEL_21;
+    return 4294967292;
   }
 
-  v2 = a1;
-  if ((a1 & 0x400) == 0 || (result = _LSValidateDatabase(0), !result))
+  v2 = result;
+  if ((result & 0x400) == 0 || (result = _LSValidateDatabase(0), !result))
   {
     if ((v2 & 0x20) != 0)
     {
@@ -8626,7 +7989,7 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    [__LSDefaultsGetSharedInstance() setHasServer:0];
+    result = [__LSDefaultsGetSharedInstance(result a2)];
     if ((v2 & 0x10) == 0)
     {
 LABEL_8:
@@ -8639,41 +8002,38 @@ LABEL_8:
     }
 
 LABEL_12:
-    _LSResetServer();
+    _LSResetServer(result, a2);
     if ((v2 & 0x100) == 0)
     {
 LABEL_16:
       if ((v2 & 0x80) != 0)
       {
-        v4 = _LSDefaultLog();
+        v4 = _LSDefaultLog(result);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           v5 = _CFGetEUID();
-          LSInit_cold_1(v5, &v7, v4);
+          LSInit_cold_1(v5, &v6, v4);
         }
 
         _LSSetDatabaseIsSeeded(1);
       }
 
-      result = 0;
-      goto LABEL_21;
+      return 0;
     }
 
 LABEL_13:
-    v3 = _LSDefaultLog();
+    v3 = _LSDefaultLog(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
-      v8 = _CFGetEUID();
-      _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "LaunchServices: Begin database seeding for uid %lli", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = _CFGetEUID();
+      _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "LaunchServices: Begin database seeding for uid %lli", &v6, 0xCu);
     }
 
-    _LSSetDatabaseIsSeeded(0);
+    result = _LSSetDatabaseIsSeeded(0);
     goto LABEL_16;
   }
 
-LABEL_21:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8730,9 +8090,9 @@ uint64_t _LSGetStatus()
   return v2;
 }
 
-void sub_18173F788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18173F788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8781,7 +8141,7 @@ uint64_t _LSValidateDatabase(const char *a1)
   return v4;
 }
 
-__CFSet *_LSCreatePackageExtensionsArray(const __CFAllocator *a1)
+CFArrayRef _LSCreatePackageExtensionsArray(const __CFAllocator *a1)
 {
   v4.db = 0;
   if (_LSContextInit(&v4.db))
@@ -8804,7 +8164,7 @@ uint64_t _LSUnregisterPluginsInDirectory(const __CFURL *a1)
   v2 = _LSContextInit(&v9);
   if (!v2)
   {
-    if (a1 && (v3 = _LSCopyPluginsWithURL(&v9, a1), (v4 = v3) != 0))
+    if (a1 && (v3 = _LSCopyPluginsWithURL(&v9, a1, 1), (v4 = v3) != 0))
     {
       Count = CFArrayGetCount(v3);
       if (Count < 1)
@@ -8870,73 +8230,68 @@ uint64_t _LSRemoveDefaultRoleHandlerForContentType(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-void sub_18173FB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18173FB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _LSSetDefaultWebBrowserWithBundleIdentifierAndVersion(uint64_t a1, __CFString *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = _LSGetAuditTokenForSelf();
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = _LSGetAuditTokenForSelf(a1, a2);
   v5 = _LSCheckEntitlementForChangingDefaultHandler(v4, @"http", 0);
   v6 = v5;
   if (a1)
   {
-    v12 = 0u;
-    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     if (a2)
     {
-      _LSGetVersionFromString(a2, &v12);
+      _LSGetVersionFromString(a2, &v10);
       if (!v6)
       {
-        goto LABEL_13;
+        return 4294967242;
       }
 
-LABEL_11:
-      v10 = v12;
-      v11 = v13;
-      result = _LSSetSchemeHandler(@"http", a1, &v10);
-      if (!result)
-      {
-        v10 = v12;
-        v11 = v13;
-        result = _LSSetSchemeHandler(@"https", a1, &v10);
-      }
-
-      goto LABEL_14;
-    }
-
-    v12 = kLSVersionNumberNull;
-    v13 = unk_1817E90C0;
-    if (v5)
-    {
       goto LABEL_11;
     }
 
-LABEL_13:
-    result = 4294967242;
-    goto LABEL_14;
+    v10 = kLSVersionNumberNull;
+    v11 = unk_1817E90C0;
+    if (v5)
+    {
+LABEL_11:
+      v8 = v10;
+      v9 = v11;
+      result = _LSSetSchemeHandler(@"http", a1, &v8);
+      if (!result)
+      {
+        v8 = v10;
+        v9 = v11;
+        return _LSSetSchemeHandler(@"https", a1, &v8);
+      }
+
+      return result;
+    }
+
+    return 4294967242;
   }
 
   if (!v5)
   {
-    goto LABEL_13;
+    return 4294967242;
   }
 
   result = _LSRemoveSchemeHandler(@"http");
-  if (result)
+  if (!result)
   {
-LABEL_14:
-    v9 = *MEMORY[0x1E69E9840];
-    return result;
+
+    return _LSRemoveSchemeHandler(@"https");
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return _LSRemoveSchemeHandler(@"https");
+  return result;
 }
 
 uint64_t _LSAdvertisementBytesKind(uint64_t result)
@@ -9176,7 +8531,7 @@ void sub_18174017C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 CFDataRef _LSCreateHashedBytesForAdvertisingFromString(uint64_t a1, CFStringRef theString)
 {
   Copy = theString;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a1 == 2 && theString)
   {
     v4 = *MEMORY[0x1E695E480];
@@ -9187,7 +8542,7 @@ CFDataRef _LSCreateHashedBytesForAdvertisingFromString(uint64_t a1, CFStringRef 
     CFRelease(MutableCopy);
     if (!Copy)
     {
-      goto LABEL_17;
+      return 0;
     }
 
 LABEL_7:
@@ -9196,15 +8551,15 @@ LABEL_7:
       v12 = 0;
 LABEL_39:
       CFRelease(Copy);
-      goto LABEL_40;
+      return v12;
     }
 
-    memset(v19, 0, sizeof(v19));
-    CC_SHA512(buffer, v7, v19);
+    memset(v18, 0, sizeof(v18));
+    CC_SHA512(buffer, v7, v18);
     for (i = 7; i != 64; ++i)
     {
-      v9 = (v19 | (i - 7 * ((((i - ((37 * i) >> 8)) >> 1) + ((37 * i) >> 8)) >> 2)));
-      *v9 ^= *(v19 + i);
+      v9 = (v18 | (i - 7 * ((((i - ((37 * i) >> 8)) >> 1) + ((37 * i) >> 8)) >> 2)));
+      *v9 ^= *(v18 + i);
     }
 
     if (a1 > 2)
@@ -9212,8 +8567,8 @@ LABEL_39:
       switch(a1)
       {
         case 3:
-          *(v19 + 3) = 0;
-          LODWORD(v19[0]) = 0;
+          *(v18 + 3) = 0;
+          LODWORD(v18[0]) = 0;
           if (CFEqual(Copy, @"com.apple.Siri"))
           {
             v16 = 2;
@@ -9234,19 +8589,19 @@ LABEL_39:
             v16 = 0;
           }
 
-          BYTE6(v19[0]) = v16;
+          BYTE6(v18[0]) = v16;
           break;
         case 4:
-          LOBYTE(v19[0]) |= 0xC0u;
+          LOBYTE(v18[0]) |= 0xC0u;
           break;
         case 5:
-          *(v19 + 3) = 0;
-          LODWORD(v19[0]) = 0;
+          *(v18 + 3) = 0;
+          LODWORD(v18[0]) = 0;
           v13 = rand();
-          BYTE6(v19[0]) = v13 + v13 / 255;
+          BYTE6(v18[0]) = v13 + v13 / 255;
           if (CFEqual(Copy, @"com.apple.private.handoff.ping"))
           {
-            v14 = BYTE5(v19[0]);
+            v14 = BYTE5(v18[0]);
             v15 = 0x80;
           }
 
@@ -9257,11 +8612,11 @@ LABEL_39:
               break;
             }
 
-            v14 = BYTE5(v19[0]);
+            v14 = BYTE5(v18[0]);
             v15 = 64;
           }
 
-          BYTE5(v19[0]) = v15 & 0xC0 | v14 & 0x3F;
+          BYTE5(v18[0]) = v15 & 0xC0 | v14 & 0x3F;
           break;
       }
     }
@@ -9270,27 +8625,27 @@ LABEL_39:
     {
       if (a1 == 1)
       {
-        v10 = v19[0];
+        v10 = v18[0];
         v11 = 0x80;
         goto LABEL_27;
       }
 
       if (a1 == 2)
       {
-        v10 = v19[0];
+        v10 = v18[0];
         v11 = 64;
 LABEL_27:
-        LOBYTE(v19[0]) = v11 & 0xC0 | v10 & 0x3F;
+        LOBYTE(v18[0]) = v11 & 0xC0 | v10 & 0x3F;
       }
     }
 
     else
     {
-      *(v19 + 3) = 0;
-      LODWORD(v19[0]) = 0;
+      *(v18 + 3) = 0;
+      LODWORD(v18[0]) = 0;
     }
 
-    v12 = CFDataCreate(*MEMORY[0x1E695E480], v19, 7);
+    v12 = CFDataCreate(*MEMORY[0x1E695E480], v18, 7);
     goto LABEL_39;
   }
 
@@ -9300,11 +8655,7 @@ LABEL_27:
     goto LABEL_7;
   }
 
-LABEL_17:
-  v12 = 0;
-LABEL_40:
-  v17 = *MEMORY[0x1E69E9840];
-  return v12;
+  return 0;
 }
 
 uint64_t _LSCompareHashedBytesFromAdvertisingStrings(CFDataRef theData, const __CFData *a2)
@@ -9375,45 +8726,45 @@ CFStringRef _LSCopyAdvertisementStringForTeamIdentifierAndActivityType(const __C
 
 uint64_t _LSCopyClaimedActivityIdentifiersAndDomains(void *a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = -10810;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v51 = *MEMORY[0x1E69E9840];
   v46 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = -10810;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   if (_LSCurrentProcessMayMapDatabase())
   {
-    v38 = 0;
+    v37 = 0;
+    v34 = 0;
     v35 = 0;
     v36 = 0;
-    v37 = 0;
     v4 = +[_LSDServiceDomain defaultServiceDomain];
-    v5 = LaunchServices::Database::Context::_get(&v35, v4, 0);
+    v5 = LaunchServices::Database::Context::_get(&v34, v4, 0);
 
     if (v5)
     {
       v6 = *MEMORY[0x1E695E480];
       Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9F8]);
-      v44[3] = Mutable;
+      v43[3] = Mutable;
       v8 = CFSetCreateMutable(v6, 0, MEMORY[0x1E695E9F8]);
-      v40[3] = v8;
-      if (v44[3] && v8)
+      v39[3] = v8;
+      if (v43[3] && v8)
       {
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = ___LSCopyClaimedActivityIdentifiersAndDomains_block_invoke;
-        v34[3] = &unk_1E6A1CE50;
-        v34[4] = &v43;
-        v34[5] = &v39;
-        v34[6] = v5;
-        _LSEnumerateViableBundlesOfClass(v5, 2, v34);
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = ___LSCopyClaimedActivityIdentifiersAndDomains_block_invoke;
+        v33[3] = &unk_1E6A1CE50;
+        v33[4] = &v42;
+        v33[5] = &v38;
+        v33[6] = v5;
+        _LSEnumerateViableBundlesOfClass(v5, 2, v33);
         v9 = CFArrayCreateMutable(v6, 0, MEMORY[0x1E695E9C0]);
         if (v9)
         {
@@ -9436,28 +8787,28 @@ uint64_t _LSCopyClaimedActivityIdentifiersAndDomains(void *a1, void *a2)
           Copy = 0;
         }
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v15 = Copy;
-        v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v30 objects:v51 count:16];
+        v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v29 objects:v50 count:16];
         if (v16)
         {
-          v17 = *v31;
+          v17 = *v30;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v31 != v17)
+              if (*v30 != v17)
               {
                 objc_enumerationMutation(v15);
               }
 
-              CFSetAddValue(v44[3], *(*(&v30 + 1) + 8 * j));
+              CFSetAddValue(v43[3], *(*(&v29 + 1) + 8 * j));
             }
 
-            v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v30 objects:v51 count:16];
+            v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v29 objects:v50 count:16];
           }
 
           while (v16);
@@ -9466,50 +8817,50 @@ uint64_t _LSCopyClaimedActivityIdentifiersAndDomains(void *a1, void *a2)
 
       else
       {
-        *(v48 + 6) = -41;
+        *(v47 + 6) = -41;
       }
     }
 
-    if (v35 && v37 == 1)
+    if (v34 && v36 == 1)
     {
-      _LSContextDestroy(v35);
+      _LSContextDestroy(v34);
     }
 
-    v19 = v36;
+    v19 = v35;
+    v34 = 0;
     v35 = 0;
-    v36 = 0;
 
+    v36 = 0;
+    v20 = v37;
     v37 = 0;
-    v20 = v38;
-    v38 = 0;
   }
 
   else
   {
     v13 = objc_autoreleasePoolPush();
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = ___LSCopyClaimedActivityIdentifiersAndDomains_block_invoke_2;
-    v29[3] = &unk_1E6A18DF0;
-    v29[4] = &v47;
-    v14 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v29];
     v28[0] = MEMORY[0x1E69E9820];
     v28[1] = 3221225472;
-    v28[2] = ___LSCopyClaimedActivityIdentifiersAndDomains_block_invoke_3;
-    v28[3] = &unk_1E6A1CE78;
-    v28[4] = &v43;
-    v28[5] = &v39;
-    v28[6] = &v47;
-    [v14 getAllUserActivityTypesAndDomainNamesWithCompletionHandler:v28];
+    v28[2] = ___LSCopyClaimedActivityIdentifiersAndDomains_block_invoke_2;
+    v28[3] = &unk_1E6A18DF0;
+    v28[4] = &v46;
+    v14 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = ___LSCopyClaimedActivityIdentifiersAndDomains_block_invoke_3;
+    v27[3] = &unk_1E6A1CE78;
+    v27[4] = &v42;
+    v27[5] = &v38;
+    v27[6] = &v46;
+    [v14 getAllUserActivityTypesAndDomainNamesWithCompletionHandler:v27];
 
     objc_autoreleasePoolPop(v13);
   }
 
-  if (!*(v48 + 6))
+  if (!*(v47 + 6))
   {
     if (a1)
     {
-      v21 = v44[3];
+      v21 = v43[3];
       if (v21)
       {
         v21 = CFRetain(v21);
@@ -9520,7 +8871,7 @@ uint64_t _LSCopyClaimedActivityIdentifiersAndDomains(void *a1, void *a2)
 
     if (a2)
     {
-      v22 = v40[3];
+      v22 = v39[3];
       if (v22)
       {
         v22 = CFRetain(v22);
@@ -9530,22 +8881,648 @@ uint64_t _LSCopyClaimedActivityIdentifiersAndDomains(void *a1, void *a2)
     }
   }
 
-  v23 = v44[3];
+  v23 = v43[3];
   if (v23)
   {
     CFRelease(v23);
   }
 
-  v24 = v40[3];
+  v24 = v39[3];
   if (v24)
   {
     CFRelease(v24);
   }
 
-  v25 = *(v48 + 6);
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v47, 8);
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *(v47 + 6);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
   return v25;
+}
+
+uint64_t _LSCopyUserActivityDomainNamesForBundleID(uint64_t a1)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (!a1 || !_LSIsSWCAvailable())
+  {
+    return 0;
+  }
+
+  v2 = objc_alloc(_LSSWCServiceSpecifierClass());
+  v3 = _LSSWCServiceTypeActivityContinuation();
+  v4 = [v2 initWithServiceType:v3 applicationIdentifier:a1 domain:0];
+
+  v24 = 0;
+  v5 = [(objc_class *)_LSSWCServiceDetailsClass() serviceDetailsWithServiceSpecifier:v4 error:&v24];
+  v6 = v24;
+  v19 = v6;
+  if (v5)
+  {
+    v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v8 = v5;
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    if (v9)
+    {
+      v10 = *v21;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v21 != v10)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v12 = *(*(&v20 + 1) + 8 * i);
+          if ([v12 isApproved])
+          {
+            v13 = [v12 serviceSpecifier];
+            v14 = [v13 domain];
+            v15 = [v14 lowercaseString];
+
+            if ([v15 length])
+            {
+              [v7 addObject:v15];
+            }
+          }
+        }
+
+        v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      }
+
+      while (v9);
+    }
+
+    v16 = [v7 copy];
+  }
+
+  else
+  {
+    v17 = v6;
+    v7 = _LSDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      _LSCopyUserActivityDomainNamesForBundleID_cold_1(v17, v7);
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+CFArrayRef _LSCopyActivityTypesClaimedHashedAdvertisingStrings(uint64_t a1, __CFString *a2, const __CFDictionary *a3, const __CFDictionary *a4)
+{
+  v57 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E695E480];
+  Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9F8]);
+  if (a1)
+  {
+    v10 = &stru_1EEF65710;
+    if (a2)
+    {
+      v10 = a2;
+    }
+
+    v11 = CFStringCreateWithFormat(v8, 0, @"%@#%@:%@", @"NOTIFICATION", v10, a1);
+    appendStringAndHashedBytesOfType(Mutable, 4, v11);
+    CFRelease(v11);
+  }
+
+  if (a3)
+  {
+    Value = CFDictionaryGetValue(a3, @"NSUserActivityTypes");
+    if (Value)
+    {
+      v13 = Value;
+      TypeID = CFArrayGetTypeID();
+      if (TypeID == CFGetTypeID(v13) && CFArrayGetCount(v13) >= 1)
+      {
+        v15 = 0;
+        do
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(v13, v15);
+          if (ValueAtIndex)
+          {
+            v17 = ValueAtIndex;
+            v18 = CFStringGetTypeID();
+            if (v18 == CFGetTypeID(v17))
+            {
+              v19 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType(v8, a2, v17);
+              if (v19)
+              {
+                v20 = v19;
+                appendStringAndHashedBytesOfType(Mutable, 1, v19);
+                CFRelease(v20);
+              }
+            }
+          }
+
+          ++v15;
+        }
+
+        while (v15 < CFArrayGetCount(v13));
+      }
+    }
+
+    v21 = CFDictionaryGetValue(a3, *MEMORY[0x1E695E128]);
+    if (v21)
+    {
+      v22 = v21;
+      v23 = CFArrayGetTypeID();
+      if (v23 == CFGetTypeID(v22))
+      {
+        Count = CFArrayGetCount(v22);
+        if (Count >= 1)
+        {
+          v25 = Count;
+          for (i = 0; i != v25; ++i)
+          {
+            v27 = CFArrayGetValueAtIndex(v22, i);
+            if (v27)
+            {
+              v28 = v27;
+              v29 = CFDictionaryGetTypeID();
+              if (v29 == CFGetTypeID(v28))
+              {
+                v30 = CFDictionaryGetValue(v28, @"NSUbiquitousDocumentUserActivityType");
+                if (v30)
+                {
+                  v31 = v30;
+                  v32 = CFStringGetTypeID();
+                  if (v32 == CFGetTypeID(v31))
+                  {
+                    v33 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType(v8, a2, v31);
+                    if (v33)
+                    {
+                      v34 = v33;
+                      appendStringAndHashedBytesOfType(Mutable, 1, v33);
+                      CFRelease(v34);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (a4 && _LSIsSWCAvailable())
+  {
+    v35 = objc_autoreleasePoolPush();
+    v36 = CFDictionaryGetValue(a4, @"com.apple.developer.associated-domains");
+    if (v36)
+    {
+      v37 = _LSSWCServiceSpecifierClass();
+      v38 = _LSSWCServiceTypeActivityContinuation();
+      v39 = [(objc_class *)v37 serviceSpecifiersWithEntitlementValue:v36 serviceType:v38 error:0];
+
+      v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v40 = v39;
+      v41 = [v40 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      if (v41)
+      {
+        v42 = *v52;
+        do
+        {
+          v43 = 0;
+          do
+          {
+            if (*v52 != v42)
+            {
+              objc_enumerationMutation(v40);
+            }
+
+            v44 = [*(*(&v51 + 1) + 8 * v43) domain];
+            v45 = [v44 lowercaseString];
+
+            appendStringAndHashedBytesOfType(Mutable, 2, v45);
+            ++v43;
+          }
+
+          while (v41 != v43);
+          v41 = [v40 countByEnumeratingWithState:&v51 objects:v55 count:16];
+        }
+
+        while (v41);
+      }
+    }
+
+    objc_autoreleasePoolPop(v35);
+  }
+
+  if (!Mutable)
+  {
+    return 0;
+  }
+
+  if (CFSetGetCount(Mutable) < 1)
+  {
+    v48 = 0;
+  }
+
+  else
+  {
+    if (CFSetGetCount(Mutable))
+    {
+      v46 = CFSetGetCount(Mutable);
+      v47 = malloc_type_malloc(8 * v46, 0xC0040B8AA526DuLL);
+    }
+
+    else
+    {
+      v47 = v56;
+    }
+
+    memset(v56, 0, 512);
+    CFSetGetValues(Mutable, v47);
+    v49 = CFSetGetCount(Mutable);
+    v48 = CFArrayCreate(v8, v47, v49, MEMORY[0x1E695E9C0]);
+    if (v47 != v56)
+    {
+      free(v47);
+    }
+  }
+
+  CFRelease(Mutable);
+  return v48;
+}
+
+void appendStringAndHashedBytesOfType(__CFSet *a1, uint64_t a2, CFStringRef theString)
+{
+  v5 = _LSCreateHashedBytesForAdvertisingFromString(a2, theString);
+  if (v5)
+  {
+    v6 = v5;
+    v7 = _LSCreateDatabaseLookupStringFromHashedBytesForAdvertising(v5);
+    if (v7)
+    {
+      v8 = v7;
+      CFSetAddValue(a1, theString);
+      CFSetAddValue(a1, v8);
+      CFRelease(v8);
+    }
+
+    CFRelease(v6);
+  }
+}
+
+uint64_t _LSDatabaseCopyURLForUser(uint64_t a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  v4 = [__LSDefaultsGetSharedInstance(v2 v3)];
+  objc_autoreleasePoolPop(v2);
+  return v4;
+}
+
+BOOL _LSDisplayData(FILE *a1, const char *a2, unsigned int *a3, void *a4, CFArrayRef theArray, void *a6, uint64_t a7, void *a8)
+{
+  v12 = a4;
+  if (a4)
+  {
+    v12 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:a4];
+  }
+
+  if (theArray)
+  {
+    theArray = XCFSetCreateWithArray(*MEMORY[0x1E695E480], theArray, &kXCFCaseInsensitiveStringSetCallBacks);
+  }
+
+  v16 = a6;
+  if (!a2)
+  {
+    v48 = 0;
+    if (a3)
+    {
+      v24 = [[_LSDServiceDomain alloc] initWithUID:?];
+    }
+
+    else
+    {
+      v24 = +[_LSDServiceDomain defaultServiceDomain];
+    }
+
+    v26 = v24;
+    v46 = 0;
+    v27 = _LSContextInitWithOptions(&v48, v24, 0, &v46);
+    v23 = v46;
+
+    if (!v27)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_16;
+  }
+
+  v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
+  v18 = [v17 lowercaseString];
+  v19 = [v18 hasSuffix:@".csstoredump"];
+
+  if (!v19)
+  {
+    v47 = 0;
+    v48 = 0;
+    v25 = _LSContextInitWithPath(&v48, a2, &v47);
+    v23 = v47;
+    if (!v25)
+    {
+LABEL_13:
+      v22 = 0;
+      goto LABEL_20;
+    }
+
+LABEL_16:
+    if (a7)
+    {
+      v45 = v23;
+      v28 = &v45;
+      v29 = _LSDisplayMachineReadableData(&v48, a1, v12, v16, a7, &v45);
+    }
+
+    else
+    {
+      v44 = v23;
+      v28 = &v44;
+      v29 = _LSDisplayHumanReadableData(&v48, a1, v12, theArray, v16, a7, &v44);
+    }
+
+    v22 = v29;
+    v30 = *v28;
+
+    v23 = v30;
+    _LSContextDestroy(&v48);
+LABEL_20:
+
+    if ((a7 & 4) == 0)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_21;
+  }
+
+  v20 = fopen(a2, "rb");
+  v21 = v20;
+  if (v20)
+  {
+    v49 = 0;
+    v22 = _LSDisplayHumanReadableCopyOfMachineReadableData(v20, a1, v12, theArray, v16, a7, &v49);
+    v23 = v49;
+    fclose(v21);
+    if ((a7 & 4) == 0)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    v37 = __error();
+    v23 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], *v37, 0, "_LSDisplayData", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSExternalPriv.mm", 2593);
+    v22 = 0;
+    if ((a7 & 4) == 0)
+    {
+      goto LABEL_25;
+    }
+  }
+
+LABEL_21:
+  if (!v22)
+  {
+    v31 = objc_opt_new();
+    v32 = v31;
+    if (v31)
+    {
+      v38 = MEMORY[0x1E69E9820];
+      v39 = 3221225472;
+      v40 = ___LSDisplayData_block_invoke;
+      v41 = &unk_1E6A1ABE8;
+      v33 = v31;
+      v42 = v33;
+      v43 = v23;
+      [v33 withWarningColors:&v38];
+      v34 = [v33 attributedString];
+      [v34 cs_writeToFileHandle:*MEMORY[0x1E69E9848]];
+    }
+  }
+
+LABEL_25:
+  if (a8)
+  {
+    v35 = v22;
+  }
+
+  else
+  {
+    v35 = 1;
+  }
+
+  if ((v35 & 1) == 0)
+  {
+    *a8 = v23;
+  }
+
+  return v22;
+}
+
+void ___ZL22initActivationObserverv_block_invoke()
+{
+  if (getkNotificationActivationStateChanged())
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    v1 = getkNotificationActivationStateChanged();
+
+    CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, handleActivationStateChanged, v1, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+  }
+
+  else
+  {
+    v2 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      ___ZL22initActivationObserverv_block_invoke_cold_1();
+    }
+  }
+}
+
+uint64_t initkNotificationActivationStateChanged(void)
+{
+  v0 = MobileActivationLibrary(void)::frameworkLibrary;
+  if (!MobileActivationLibrary(void)::frameworkLibrary)
+  {
+    v0 = dlopen("/System/Library/PrivateFrameworks/MobileActivation.framework/MobileActivation", 2);
+    MobileActivationLibrary(void)::frameworkLibrary = v0;
+  }
+
+  result = *dlsym(v0, "kNotificationActivationStateChanged");
+  constantkNotificationActivationStateChanged = result;
+  getkNotificationActivationStateChanged = kNotificationActivationStateChangedFunction;
+  return result;
+}
+
+uint64_t (*initMAECopyActivationRecordWithError(uint64_t a1))(void)
+{
+  v2 = MobileActivationLibrary(void)::frameworkLibrary;
+  if (!MobileActivationLibrary(void)::frameworkLibrary)
+  {
+    v2 = dlopen("/System/Library/PrivateFrameworks/MobileActivation.framework/MobileActivation", 2);
+    MobileActivationLibrary(void)::frameworkLibrary = v2;
+  }
+
+  v3 = dlsym(v2, "MAECopyActivationRecordWithError");
+  softLinkMAECopyActivationRecordWithError = v3;
+  if (v3)
+  {
+    v3 = v3(a1);
+  }
+
+  return v3;
+}
+
+void sub_1817436A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21)
+{
+  LaunchServices::notifyd::NotifyToken::~NotifyToken((v24 - 84));
+
+  _Unwind_Resume(a1);
+}
+
+void sub_181743BFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
+{
+  a9.super_class = _LSInProcessSettingsStore;
+  [(_Unwind_Exception *)&a9 dealloc:a3];
+  _Unwind_Resume(a1);
+}
+
+void sub_181743D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_181745338(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
+{
+  v10 = v9;
+  a9.receiver = v10;
+  a9.super_class = _LSClientSettingsStore;
+  [(_Unwind_Exception *)&a9 dealloc:a3];
+  _Unwind_Resume(a1);
+}
+
+void sub_181745604(_Unwind_Exception *a1)
+{
+  _Block_object_dispose((v2 - 112), 8);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_181745B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 144), 8);
+
+  _Block_object_dispose((v20 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_181746010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 192), 8);
+
+  _Block_object_dispose((v30 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_181746510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 160), 8);
+
+  _Block_object_dispose((v27 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+id ___ZL29pluginKitUserElectionStoreURLv_block_invoke()
+{
+  v5 = 1;
+  v0 = container_create_or_lookup_path_for_current_user();
+  if (v0)
+  {
+    v1 = v0;
+    v2 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v0 isDirectory:1 relativeToURL:0];
+    free(v1);
+  }
+
+  else
+  {
+    v3 = _LSExtensionsLog(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      ___ZL29pluginKitUserElectionStoreURLv_block_invoke_cold_1(&v5, v3);
+    }
+
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"unable to locate user container: error %llu", v5}];
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+void ___ZL29pluginKitUserElectionStoreURLv_block_invoke_250(uint64_t a1)
+{
+  v21[1] = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E696A370];
+  v21[0] = &unk_1EEF8EFF0;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  if (getUMUserManagerClass() && (-[objc_class sharedManager](getUMUserManagerClass(), "sharedManager"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 isMultiUser], v3, v4))
+  {
+    v5 = (*(*(a1 + 32) + 16))();
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/var/db/PlugInKit-Annotations"];
+  }
+
+  v6 = v5;
+  v7 = [v5 URLByAppendingPathComponent:@"com.apple.pluginkit/"];
+  v8 = [MEMORY[0x1E696AC08] defaultManager];
+  v18 = 0;
+  v9 = [v8 createDirectoryAtURL:v7 withIntermediateDirectories:1 attributes:v2 error:&v18];
+  v10 = v18;
+
+  if ((v9 & 1) == 0)
+  {
+    v12 = _LSExtensionsLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      ___ZL29pluginKitUserElectionStoreURLv_block_invoke_250_cold_1();
+    }
+  }
+
+  v13 = [v7 URLByAppendingPathComponent:@"Annotations"];
+  v14 = pluginKitUserElectionStoreURL(void)::annotations;
+  pluginKitUserElectionStoreURL(void)::annotations = v13;
+
+  v16 = _LSExtensionsLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    v17 = [pluginKitUserElectionStoreURL(void)::annotations path];
+    ___ZL29pluginKitUserElectionStoreURLv_block_invoke_250_cold_2(v17, v19);
+  }
 }

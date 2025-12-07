@@ -56,18 +56,16 @@
 {
   v11 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  objc_storeWeak(&self->_delegate, delegateCopy);
-  v5 = DILogHandleDevice();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_storeWeak(&self->_delegate, delegateCopy);
+  v6 = DILogHandleDevice(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
     v8 = &stru_285D02BA8;
     v9 = 2112;
     v10 = delegateCopy;
-    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", &v7, 0x16u);
+    _os_log_impl(&dword_249DA7000, v6, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -212,26 +210,24 @@ uint64_t __31__DIDevice_setStateExpiration___block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
 
-  v2 = DILogHandleDevice();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = DILogHandleDevice(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v8 = &stru_285D02BA8;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Drop In availability expired: updating state to unavailable.", buf, 0xCu);
+    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_DEFAULT, "%@Drop In availability expired: updating state to unavailable.", buf, 0xCu);
   }
 
-  v3 = [*(a1 + 32) lock];
+  v4 = [*(a1 + 32) lock];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __31__DIDevice_setStateExpiration___block_invoke_39;
   v6[3] = &unk_278FB8F78;
   v6[4] = *(a1 + 32);
-  [v3 di_synchronize:v6];
+  [v4 di_synchronize:v6];
 
   [*(a1 + 32) notifyDeviceDidChange];
-  result = [*(a1 + 32) notifyDidUpdateState];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) notifyDidUpdateState];
 }
 
 uint64_t __31__DIDevice_setStateExpiration___block_invoke_39(uint64_t a1)
@@ -311,10 +307,7 @@ uint64_t __25__DIDevice_copyWithZone___block_invoke(uint64_t a1)
   v8 = [*(a1 + 40) stateReason];
   [*(a1 + 32) setStateReason:v8];
 
-  v9 = [*(a1 + 40) stateExpiration];
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 72);
-  *(v10 + 72) = v9;
+  *(*(a1 + 32) + 72) = [*(a1 + 40) stateExpiration];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -336,20 +329,20 @@ uint64_t __25__DIDevice_copyWithZone___block_invoke(uint64_t a1)
 
 - (void)updateState:(int64_t)state reason:(id)reason completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   handlerCopy = handler;
-  v10 = DILogHandleDevice();
+  v10 = DILogHandleDevice(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = _Block_copy(handlerCopy);
     *buf = 138413058;
-    v28 = &stru_285D02BA8;
-    v29 = 2048;
+    v27 = &stru_285D02BA8;
+    v28 = 2048;
     stateCopy = state;
-    v31 = 2112;
-    v32 = v11;
-    v33 = 2112;
+    v30 = 2112;
+    v31 = v11;
+    v32 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_249DA7000, v10, OS_LOG_TYPE_DEBUG, "%@Requesting state update to %ld. Handler = %@, Device = %@", buf, 0x2Au);
   }
@@ -357,27 +350,27 @@ uint64_t __25__DIDevice_copyWithZone___block_invoke(uint64_t a1)
   if ([(DIDevice *)self isCurrentDevice])
   {
     stateUpdateThrottler = [(DIDevice *)self stateUpdateThrottler];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_2;
-    v22[3] = &unk_278FB8FF0;
-    v22[4] = self;
-    v23 = handlerCopy;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_2;
+    v21[3] = &unk_278FB8FF0;
+    v21[4] = self;
+    v22 = handlerCopy;
     v13 = handlerCopy;
-    [stateUpdateThrottler handleState:state reason:reasonCopy handler:v22];
+    [stateUpdateThrottler handleState:state reason:reasonCopy handler:v21];
 
-    v14 = v23;
+    v14 = v22;
   }
 
   else
   {
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.dropin" code:2 userInfo:0];
-    v16 = DILogHandleDevice();
+    v16 = DILogHandleDevice(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v28 = &stru_285D02BA8;
-      v29 = 2112;
+      v27 = &stru_285D02BA8;
+      v28 = 2112;
       stateCopy = v15;
       _os_log_impl(&dword_249DA7000, v16, OS_LOG_TYPE_ERROR, "%@Attempting to update state for non-current device %@", buf, 0x16u);
     }
@@ -385,25 +378,23 @@ uint64_t __25__DIDevice_copyWithZone___block_invoke(uint64_t a1)
     connectionManager = [(DIDevice *)self connectionManager];
     manager = [connectionManager manager];
     clientQueue = [manager clientQueue];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke;
-    v24[3] = &unk_278FB8CF0;
-    v25 = v15;
-    v26 = handlerCopy;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke;
+    v23[3] = &unk_278FB8CF0;
+    v24 = v15;
+    v25 = handlerCopy;
     v14 = v15;
     v20 = handlerCopy;
-    [DIUtilities onQueue:clientQueue block:v24];
+    [DIUtilities onQueue:clientQueue block:v23];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DIDevice_updateState_reason_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v8 = DILogHandleDevice();
+  v8 = DILogHandleDevice(v7);
   v9 = v8;
   if (a4)
   {
@@ -411,23 +402,23 @@ void __49__DIDevice_updateState_reason_completionHandler___block_invoke_2(uint64
     {
       v10 = _Block_copy(*(a1 + 40));
       *buf = 138412546;
-      v30 = &stru_285D02BA8;
-      v31 = 2112;
-      v32 = v10;
+      v29 = &stru_285D02BA8;
+      v30 = 2112;
+      v31 = v10;
       _os_log_impl(&dword_249DA7000, v9, OS_LOG_TYPE_DEBUG, "%@Throttled State Update Request. Handler = %@", buf, 0x16u);
     }
 
     v11 = [*(a1 + 32) connectionManager];
     v12 = [v11 manager];
     v13 = [v12 clientQueue];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_63;
-    v27[3] = &unk_278FB8FC8;
-    v28 = *(a1 + 40);
-    [DIUtilities onQueue:v13 block:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_63;
+    v26[3] = &unk_278FB8FC8;
+    v27 = *(a1 + 40);
+    [DIUtilities onQueue:v13 block:v26];
 
-    v14 = v28;
+    v14 = v27;
   }
 
   else
@@ -436,99 +427,94 @@ void __49__DIDevice_updateState_reason_completionHandler___block_invoke_2(uint64
     {
       v15 = _Block_copy(*(a1 + 40));
       *buf = 138412546;
-      v30 = &stru_285D02BA8;
-      v31 = 2112;
-      v32 = v15;
+      v29 = &stru_285D02BA8;
+      v30 = 2112;
+      v31 = v15;
       _os_log_impl(&dword_249DA7000, v9, OS_LOG_TYPE_DEFAULT, "%@Allowing State Update Request. Handler = %@", buf, 0x16u);
     }
 
     v16 = [*(a1 + 32) connectionManager];
     v17 = [v16 manager];
     v18 = [v17 connection];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_64;
-    v25[3] = &unk_278FB8D18;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_64;
+    v24[3] = &unk_278FB8D18;
     v19 = *(a1 + 40);
-    v25[4] = *(a1 + 32);
-    v26 = v19;
-    v20 = [v18 remoteObjectProxyWithErrorHandler:v25];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_2_67;
-    v23[3] = &unk_278FB8D18;
+    v24[4] = *(a1 + 32);
+    v25 = v19;
+    v20 = [v18 remoteObjectProxyWithErrorHandler:v24];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_2_67;
+    v22[3] = &unk_278FB8D18;
     v21 = *(a1 + 40);
-    v23[4] = *(a1 + 32);
-    v24 = v21;
-    [v20 updateState:a2 reason:v7 completionHandler:v23];
+    v22[4] = *(a1 + 32);
+    v23 = v21;
+    [v20 updateState:a2 reason:v7 completionHandler:v22];
 
-    v14 = v26;
+    v14 = v25;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DIDevice_updateState_reason_completionHandler___block_invoke_64(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = DILogHandleDevice();
+  v4 = DILogHandleDevice(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v15 = &stru_285D02BA8;
-    v16 = 2112;
-    v17 = v3;
+    v14 = &stru_285D02BA8;
+    v15 = 2112;
+    v16 = v3;
     _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to update state %@", buf, 0x16u);
   }
 
   v5 = [*(a1 + 32) connectionManager];
   v6 = [v5 manager];
   v7 = [v6 clientQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_65;
-  v11[3] = &unk_278FB8CF0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_65;
+  v10[3] = &unk_278FB8CF0;
   v8 = *(a1 + 40);
-  v12 = v3;
-  v13 = v8;
+  v11 = v3;
+  v12 = v8;
   v9 = v3;
-  [DIUtilities onQueue:v7 block:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v7 block:v10];
 }
 
 void __49__DIDevice_updateState_reason_completionHandler___block_invoke_2_67(uint64_t a1, void *a2)
 {
   v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = DILogHandleDevice();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = DILogHandleDevice(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       v15 = &stru_285D02BA8;
       v16 = 2112;
-      v17 = v3;
-      _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to update state %@", buf, 0x16u);
+      v17 = v4;
+      _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_ERROR, "%@Failed to update state %@", buf, 0x16u);
     }
   }
 
-  v5 = [*(a1 + 32) connectionManager];
-  v6 = [v5 manager];
-  v7 = [v6 clientQueue];
+  v6 = [*(a1 + 32) connectionManager];
+  v7 = [v6 manager];
+  v8 = [v7 clientQueue];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __49__DIDevice_updateState_reason_completionHandler___block_invoke_68;
   v11[3] = &unk_278FB8CF0;
-  v8 = *(a1 + 40);
-  v12 = v3;
-  v13 = v8;
-  v9 = v3;
-  [DIUtilities onQueue:v7 block:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *(a1 + 40);
+  v12 = v4;
+  v13 = v9;
+  v10 = v4;
+  [DIUtilities onQueue:v8 block:v11];
 }
 
 - (void)notifyDeviceDidChange
@@ -556,18 +542,16 @@ void __33__DIDevice_notifyDeviceDidChange__block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) delegate];
   [v2 deviceDidChange:*(a1 + 32)];
 
-  v3 = DILogHandleDevice();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = DILogHandleDevice(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     v6 = 138412546;
     v7 = &stru_285D02BA8;
     v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_DEFAULT, "%@Call delegate device did change %@", &v6, 0x16u);
+    v9 = v5;
+    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_DEFAULT, "%@Call delegate device did change %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidUpdateState
@@ -595,26 +579,24 @@ void __32__DIDevice_notifyDidUpdateState__block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) delegate];
   [v2 device:*(a1 + 32) didUpdateState:{objc_msgSend(*(a1 + 32), "state")}];
 
-  v3 = DILogHandleDevice();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = DILogHandleDevice(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [*(a1 + 32) state];
+    v5 = [*(a1 + 32) state];
     v6 = 138412546;
     v7 = &stru_285D02BA8;
     v8 = 2048;
-    v9 = v4;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_DEFAULT, "%@Call delegate did update state %ld", &v6, 0x16u);
+    v9 = v5;
+    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_DEFAULT, "%@Call delegate did update state %ld", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithDevice:(id)device updateState:(BOOL)state
 {
   stateCopy = state;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v7 = DILogHandleDevice();
+  v7 = DILogHandleDevice(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -622,27 +604,27 @@ void __32__DIDevice_notifyDidUpdateState__block_invoke(uint64_t a1)
     *&buf[12] = 2112;
     *&buf[14] = self;
     *&buf[22] = 2112;
-    v21 = deviceCopy;
+    v20 = deviceCopy;
     _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_DEFAULT, "%@Update device:\n%@\n\nWith other device:\n%@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v21 = 0;
+  v20 = 0;
   lock = [(DIDevice *)self lock];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __41__DIDevice_updateWithDevice_updateState___block_invoke;
-  v15 = &unk_278FB9018;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __41__DIDevice_updateWithDevice_updateState___block_invoke;
+  v14 = &unk_278FB9018;
   selfCopy = self;
   v9 = deviceCopy;
-  v19 = stateCopy;
-  v17 = v9;
-  v18 = buf;
-  [lock di_synchronize:&v12];
+  v18 = stateCopy;
+  v16 = v9;
+  v17 = buf;
+  [lock di_synchronize:&v11];
 
-  [(DIDevice *)self notifyDeviceDidChange:v12];
+  [(DIDevice *)self notifyDeviceDidChange:v11];
   if (stateCopy)
   {
     v10 = *(*&buf[8] + 24);
@@ -653,7 +635,6 @@ void __32__DIDevice_notifyDidUpdateState__block_invoke(uint64_t a1)
   }
 
   _Block_object_dispose(buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __41__DIDevice_updateWithDevice_updateState___block_invoke(uint64_t a1)
@@ -709,42 +690,40 @@ void __41__DIDevice_updateWithDevice_updateState___block_invoke(uint64_t a1)
 
 void __46__DIDevice_refreshStateWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = DILogHandleDevice();
+  v4 = DILogHandleDevice(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
     *buf = 138412802;
-    v16 = &stru_285D02BA8;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v3;
+    v15 = &stru_285D02BA8;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v3;
     _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to request state for device %@, error = %@", buf, 0x20u);
   }
 
   v6 = [*(a1 + 32) connectionManager];
   v7 = [v6 manager];
   v8 = [v7 clientQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __46__DIDevice_refreshStateWithCompletionHandler___block_invoke_74;
-  v12[3] = &unk_278FB8CF0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __46__DIDevice_refreshStateWithCompletionHandler___block_invoke_74;
+  v11[3] = &unk_278FB8CF0;
   v9 = *(a1 + 40);
-  v13 = v3;
-  v14 = v9;
+  v12 = v3;
+  v13 = v9;
   v10 = v3;
-  [DIUtilities onQueue:v8 block:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v8 block:v11];
 }
 
 void __46__DIDevice_refreshStateWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = DILogHandleDevice();
+  v4 = DILogHandleDevice(v3);
   v5 = v4;
   if (v3)
   {
@@ -752,11 +731,11 @@ void __46__DIDevice_refreshStateWithCompletionHandler___block_invoke_2(uint64_t 
     {
       v6 = *(a1 + 32);
       *buf = 138412802;
-      v22 = &stru_285D02BA8;
-      v23 = 2112;
-      v24 = v3;
-      v25 = 2112;
-      v26 = v6;
+      v21 = &stru_285D02BA8;
+      v22 = 2112;
+      v23 = v3;
+      v24 = 2112;
+      v25 = v6;
       v7 = "%@Failed to refresh state for device. Error = %@, Device = %@";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
@@ -770,9 +749,9 @@ LABEL_6:
   {
     v11 = *(a1 + 32);
     *buf = 138412546;
-    v22 = &stru_285D02BA8;
-    v23 = 2112;
-    v24 = v11;
+    v21 = &stru_285D02BA8;
+    v22 = 2112;
+    v23 = v11;
     v7 = "%@Refreshed state for device %@";
     v8 = v5;
     v9 = OS_LOG_TYPE_DEFAULT;
@@ -783,17 +762,15 @@ LABEL_6:
   v12 = [*(a1 + 32) connectionManager];
   v13 = [v12 manager];
   v14 = [v13 clientQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __46__DIDevice_refreshStateWithCompletionHandler___block_invoke_75;
-  v18[3] = &unk_278FB8CF0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __46__DIDevice_refreshStateWithCompletionHandler___block_invoke_75;
+  v17[3] = &unk_278FB8CF0;
   v15 = *(a1 + 40);
-  v19 = v3;
-  v20 = v15;
+  v18 = v3;
+  v19 = v15;
   v16 = v3;
-  [DIUtilities onQueue:v14 block:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v14 block:v17];
 }
 
 - (void)encodeWithCoder:(id)coder

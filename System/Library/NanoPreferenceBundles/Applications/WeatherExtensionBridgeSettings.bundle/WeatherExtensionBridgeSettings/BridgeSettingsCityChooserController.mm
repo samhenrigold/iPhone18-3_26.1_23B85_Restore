@@ -3,6 +3,7 @@
 - (id)localizedPaneTitle;
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BridgeSettingsCityChooserController
@@ -13,6 +14,32 @@
   v3 = [v2 localizedStringForKey:@"DEFAULT_CITY" value:&stru_8488 table:@"WeatherBridgeSettings"];
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = BridgeSettingsCityChooserController;
+  [(BridgeSettingsCityChooserController *)&v16 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleIdentifier = [v3 bundleIdentifier];
+
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = [_NSLocalizedStringResource alloc];
+  v8 = +[NSLocale currentLocale];
+  v9 = [v7 initWithKey:@"DEFAULT_CITY" table:@"WeatherBridgeSettings" locale:v8 bundleURL:bundleURL];
+
+  v10 = [_NSLocalizedStringResource alloc];
+  v11 = +[NSLocale currentLocale];
+  v12 = [v10 initWithKey:@"APP_PANE_TITLE" table:@"WeatherBridgeSettings" locale:v11 bundleURL:bundleURL];
+
+  v13 = [NSString stringWithFormat:@"bridge:root=%1$@&path=%2$@", bundleIdentifier, @"WEATHER_SETTING_CITY_CHOOSER_ID"];
+  v14 = [NSURL URLWithString:v13];
+  v17 = v12;
+  v15 = [NSArray arrayWithObjects:&v17 count:1];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v9 localizedNavigationComponents:v15 deepLink:v14];
 }
 
 - (id)specifiers

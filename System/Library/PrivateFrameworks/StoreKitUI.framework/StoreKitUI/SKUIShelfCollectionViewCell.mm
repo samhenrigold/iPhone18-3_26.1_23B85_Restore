@@ -178,51 +178,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIShelfCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v31.receiver = self;
-  v31.super_class = SKUIShelfCollectionViewCell;
-  [(SKUICollectionViewCell *)&v31 layoutSubviews];
-  contentView = [(SKUIShelfCollectionViewCell *)self contentView];
-  [contentView bounds];
-  top = self->_contentInset.top;
-  left = self->_contentInset.left;
-  v15 = v14 + left;
-  v17 = v16 + top;
-  v19 = v18 - (left + self->_contentInset.right);
-  v21 = v20 - (top + self->_contentInset.bottom);
-
-  [(UICollectionView *)self->_collectionView frame];
-  v33.origin.x = v22;
-  v33.origin.y = v23;
-  v25 = v24;
-  v33.size.height = v26;
-  v32.origin.x = v15;
-  v32.origin.y = v17;
-  v32.size.width = v19;
-  v32.size.height = v21;
-  v33.size.width = v25;
-  if (!CGRectEqualToRect(v32, v33))
-  {
-    [(UICollectionView *)self->_collectionView contentOffset];
-    v28 = v27;
-    v30 = v29;
-    [(UICollectionView *)self->_collectionView setFrame:v15, v17, v19, v21];
-    if (v19 == v25)
-    {
-      [(UICollectionView *)self->_collectionView setContentOffset:v28, v30];
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -289,22 +246,8 @@
 
 - (void)updateForChangedDistanceFromVanishingPoint
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIShelfCollectionViewCell *)v3 updateForChangedDistanceFromVanishingPoint:v4];
-      }
-    }
-  }
-
-  if (self->_rendersWithParallax)
-  {
-    SKUICollectionViewUpdatePerspectiveCells(self->_collectionView, 0);
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell updateForChangedDistanceFromVanishingPoint]";
 }
 
 - (UIEdgeInsets)contentInset
@@ -318,6 +261,66 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)setCollectionView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setCollectionView:]";
+}
+
+- (void)setSemanticContentAttribute:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setSemanticContentAttribute:]";
+}
+
+- (void)setContentInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setContentInset:]";
+}
+
+- (void)setRendersWithPerspective:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setRendersWithPerspective:]";
+}
+
+- (void)setRendersWithParallax:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setRendersWithParallax:]";
+}
+
+- (void)applyLayoutAttributes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell applyLayoutAttributes:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setBackgroundColor:]";
+}
+
++ (void)maximumPerspectiveHeightForSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIShelfCollectionViewCell maximumPerspectiveHeightForSize:]";
+}
+
+- (void)setPerspectiveTargetView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setPerspectiveTargetView:]";
+}
+
+- (void)setVanishingPoint:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShelfCollectionViewCell setVanishingPoint:]";
 }
 
 @end

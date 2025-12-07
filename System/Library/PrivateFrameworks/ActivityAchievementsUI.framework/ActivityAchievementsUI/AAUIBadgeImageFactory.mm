@@ -76,7 +76,7 @@
   achievementsCopy = achievements;
   if ([achievementsCopy count])
   {
-    v12 = AAUIAchievementBadgeCacheKey(achievementsCopy, v7, v6);
+    v12 = AAUIAchievementBadgeCacheKey(achievementsCopy, v7, v6, width, height);
     os_unfair_lock_lock(&self->_cacheLock);
     cache = [(AAUIBadgeImageFactory *)self cache];
     v14 = [cache objectForKey:v12];
@@ -192,7 +192,7 @@ void __91__AAUIBadgeImageFactory_thumbnailImageForAchievements_size_alignment_st
 
 - (BOOL)hasCachedThumbnailImageForAchievements:(id)achievements size:(CGSize)size alignment:(int)alignment stackType:(int)type
 {
-  v7 = AAUIAchievementBadgeCacheKey(achievements, *&alignment, *&type);
+  v7 = AAUIAchievementBadgeCacheKey(achievements, *&alignment, *&type, size.width, size.height);
   os_unfair_lock_lock(&self->_cacheLock);
   cache = [(AAUIBadgeImageFactory *)self cache];
   v9 = [cache objectForKey:v7];
@@ -341,7 +341,7 @@ LABEL_11:
   _Block_object_dispose(v48, 8);
 }
 
-void __87__AAUIBadgeImageFactory__queue_thumbnailImageForAchievements_size_alignment_stackType___block_invoke_2(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
+void __87__AAUIBadgeImageFactory__queue_thumbnailImageForAchievements_size_alignment_stackType___block_invoke_2(uint64_t a1, void *a2, char *a3, _BYTE *a4)
 {
   v19 = a2;
   v7 = objc_autoreleasePoolPush();

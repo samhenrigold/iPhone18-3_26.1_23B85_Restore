@@ -7,7 +7,7 @@
 - (id)hv_firstHeaderForKey:()SuggestionsExtensions
 {
   v5 = a3;
-  v6 = [self count];
+  v6 = objc_msgSend_count(self);
   if (v6)
   {
     v7 = v6;

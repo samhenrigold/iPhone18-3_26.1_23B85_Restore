@@ -12,11 +12,18 @@
 - (RWIProtocolRuntimeRemoteObject)set;
 - (RWIProtocolRuntimeRemoteObject)symbol;
 - (RWIProtocolRuntimeRemoteObject)value;
+- (void)setConfigurable:(BOOL)configurable;
+- (void)setEnumerable:(BOOL)enumerable;
 - (void)setGet:(id)get;
+- (void)setIsOwn:(BOOL)own;
+- (void)setIsPrivate:(BOOL)private;
 - (void)setName:(id)name;
+- (void)setNativeGetter:(BOOL)getter;
 - (void)setSet:(id)set;
 - (void)setSymbol:(id)symbol;
 - (void)setValue:(id)value;
+- (void)setWasThrown:(BOOL)thrown;
+- (void)setWritable:(BOOL)writable;
 @end
 
 @implementation RWIProtocolRuntimePropertyDescriptor
@@ -75,7 +82,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimePropertyDescriptor;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"value"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -119,6 +126,13 @@
   return v7;
 }
 
+- (void)setWritable:(BOOL)writable
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:writable forKey:@"writable"];
+}
+
 - (BOOL)writable
 {
   v3.receiver = self;
@@ -144,7 +158,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimePropertyDescriptor;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"get"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -206,7 +220,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimePropertyDescriptor;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"set"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -250,11 +264,25 @@
   return v7;
 }
 
+- (void)setWasThrown:(BOOL)thrown
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:thrown forKey:@"wasThrown"];
+}
+
 - (BOOL)wasThrown
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolRuntimePropertyDescriptor;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"wasThrown"];
+}
+
+- (void)setConfigurable:(BOOL)configurable
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:configurable forKey:@"configurable"];
 }
 
 - (BOOL)configurable
@@ -264,11 +292,25 @@
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"configurable"];
 }
 
+- (void)setEnumerable:(BOOL)enumerable
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:enumerable forKey:@"enumerable"];
+}
+
 - (BOOL)enumerable
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolRuntimePropertyDescriptor;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"enumerable"];
+}
+
+- (void)setIsOwn:(BOOL)own
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:own forKey:@"isOwn"];
 }
 
 - (BOOL)isOwn
@@ -296,7 +338,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimePropertyDescriptor;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"symbol"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -340,11 +382,25 @@
   return v7;
 }
 
+- (void)setIsPrivate:(BOOL)private
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:private forKey:@"isPrivate"];
+}
+
 - (BOOL)isPrivate
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolRuntimePropertyDescriptor;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"isPrivate"];
+}
+
+- (void)setNativeGetter:(BOOL)getter
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyDescriptor;
+  [(RWIProtocolJSONObject *)&v3 setBool:getter forKey:@"nativeGetter"];
 }
 
 - (BOOL)nativeGetter

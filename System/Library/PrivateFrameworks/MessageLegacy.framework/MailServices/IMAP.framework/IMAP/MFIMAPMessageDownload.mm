@@ -97,11 +97,9 @@
         {
           if (![(MFMimePart *)self->_topLevelPart bodyParameterForKey:@"boundary"])
           {
-            v15 = *MEMORY[0x277D06F88];
             [v9 length];
             if (ECGetNextHeaderFromDataInRange())
             {
-              topLevelPart = self->_topLevelPart;
               [v9 bytes];
               MFMimePartParseContentTypeHeader();
             }
@@ -114,8 +112,8 @@
         v9 = [objc_alloc(MEMORY[0x277D24F70]) initWithBytes:"\n" length:1];
       }
 
-      v17 = objc_alloc_init(MEMORY[0x277D28470]);
-      [v17 appendDataForMimePart:self->_topLevelPart toData:v9 withPartData:Mutable];
+      v15 = objc_alloc_init(MEMORY[0x277D28470]);
+      [v15 appendDataForMimePart:self->_topLevelPart toData:v9 withPartData:Mutable];
 
       if (Mutable)
       {
@@ -243,13 +241,12 @@ LABEL_11:
   [(MFIMAPMessageDownload *)self mf_lock];
   if ((*(self + 64) & 4) == 0)
   {
-    v7 = *(self + 64);
-    if (v7)
+    if (*(self + 64))
     {
       if ((*(self + 64) & 0x40) != 0)
       {
         messageSize = [(MFMessage *)self->_message messageSize];
-        v8 = 2 * (messageSize >= [pipeline chunkSize]);
+        v7 = 2 * (messageSize >= [pipeline chunkSize]);
         goto LABEL_10;
       }
     }
@@ -259,9 +256,9 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    v8 = 2;
+    v7 = 2;
 LABEL_10:
-    *(self + 64) = *(self + 64) & 0xFD | v8;
+    *(self + 64) = *(self + 64) & 0xFD | v7;
 LABEL_11:
     if (!self->_headerConsumer)
     {
@@ -298,9 +295,9 @@ LABEL_11:
   }
 
 LABEL_19:
-  v10.receiver = self;
-  v10.super_class = MFIMAPMessageDownload;
-  [(MFIMAPCompoundDownload *)&v10 addCommandsToPipeline:pipeline withCache:cache];
+  v9.receiver = self;
+  v9.super_class = MFIMAPMessageDownload;
+  [(MFIMAPCompoundDownload *)&v9 addCommandsToPipeline:pipeline withCache:cache];
   [(MFIMAPMessageDownload *)self mf_unlock];
 }
 

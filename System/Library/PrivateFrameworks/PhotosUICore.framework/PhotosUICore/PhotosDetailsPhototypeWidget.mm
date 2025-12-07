@@ -28,7 +28,7 @@
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1A3E76688(contextCopy);
+  sub_1A3E76688(contextCopy, selfCopy);
 }
 
 - (NSString)snappableWidgetIdentifier
@@ -43,14 +43,14 @@
 
 - (_TtC12PhotosUICore28PhotosDetailsPhototypeWidget)init
 {
-  swift_unknownObjectWeakInit();
-  v3 = (self + OBJC_IVAR____TtC12PhotosUICore28PhotosDetailsPhototypeWidget_contextObservation);
-  v4 = type metadata accessor for PhotosDetailsPhototypeWidget();
-  *v3 = 0;
-  v3[1] = 0;
-  v6.receiver = self;
-  v6.super_class = v4;
-  return [(PXPhotosDetailsWidget *)&v6 init];
+  v3 = swift_unknownObjectWeakInit();
+  v4 = (self + OBJC_IVAR____TtC12PhotosUICore28PhotosDetailsPhototypeWidget_contextObservation);
+  v6 = type metadata accessor for PhotosDetailsPhototypeWidget(v3, v5);
+  *v4 = 0;
+  v4[1] = 0;
+  v8.receiver = self;
+  v8.super_class = v6;
+  return [(PXPhotosDetailsWidget *)&v8 init];
 }
 
 @end

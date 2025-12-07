@@ -350,7 +350,7 @@ void __66__SBAppContainerViewController_sceneHandle_didUpdateContentState___bloc
 - (void)applicationSceneViewController:(id)controller didUpdateStatusBarSettings:(id)settings
 {
   settingsCopy = settings;
-  v6 = SBLogAppStatusBars();
+  v6 = SBLogAppStatusBars(settingsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(SBAppContainerViewController *)self applicationSceneViewController:settingsCopy didUpdateStatusBarSettings:v6];

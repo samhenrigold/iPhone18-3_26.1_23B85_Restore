@@ -14,16 +14,16 @@ void __socVersionFromSOCGen_block_invoke()
   socVersionFromSOCGen_regex = v0;
 }
 
-id HSLogHandle()
+id HSLogHandle(uint64_t a1)
 {
   if (HSLogHandle_onceToken != -1)
   {
     HSLogHandle_cold_1();
   }
 
-  v1 = HSLogHandle__handle;
+  v2 = HSLogHandle__handle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __HSLogHandle_block_invoke()
@@ -33,7 +33,7 @@ uint64_t __HSLogHandle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __HSDescribeFigStreamStatus(int a1)
+__CFString *__HSDescribeFigStreamStatus(int a1)
 {
   if (a1 > -12687)
   {
@@ -97,7 +97,7 @@ LABEL_15:
 
 id _unwrapFigCaptureValue(void *a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -118,40 +118,40 @@ LABEL_5:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = v1;
-    v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+    v5 = v1;
+    v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v9)
+    v7 = v5;
+    v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v31;
+      v9 = v8;
+      v10 = *v30;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v31 != v11)
+          if (*v30 != v10)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v13 = _unwrapFigCaptureValue(*(*(&v30 + 1) + 8 * i));
-          [v7 addObject:v13];
+          v12 = _unwrapFigCaptureValue(*(*(&v29 + 1) + 8 * i));
+          [v6 addObject:v12];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
 
-    v14 = [MEMORY[0x277CBEA60] arrayWithArray:v7];
+    v13 = [MEMORY[0x277CBEA60] arrayWithArray:v6];
 LABEL_18:
-    v3 = v14;
+    v3 = v13;
 
     goto LABEL_6;
   }
@@ -159,66 +159,64 @@ LABEL_18:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = [v1 allObjects];
-    v3 = _unwrapFigCaptureValue(v15);
+    v14 = [v1 allObjects];
+    v3 = _unwrapFigCaptureValue(v14);
   }
 
   else
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v17 = v1;
-    v3 = v17;
+    v16 = v1;
+    v3 = v16;
     if (isKindOfClass)
     {
-      v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v17, "count")}];
+      v6 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v8 = v3;
-      v18 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
-      if (v18)
+      v7 = v3;
+      v17 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      if (v17)
       {
-        v19 = v18;
-        v20 = *v27;
+        v18 = v17;
+        v19 = *v26;
         do
         {
-          for (j = 0; j != v19; ++j)
+          for (j = 0; j != v18; ++j)
           {
-            if (*v27 != v20)
+            if (*v26 != v19)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v7);
             }
 
-            v22 = *(*(&v26 + 1) + 8 * j);
-            v23 = [v8 objectForKeyedSubscript:{v22, v26}];
-            v24 = (_unwrapFigCaptureValue)();
-            v25 = _unwrapFigCaptureValue(v22);
-            [v7 setObject:v24 forKey:v25];
+            v21 = *(*(&v25 + 1) + 8 * j);
+            v22 = [v7 objectForKeyedSubscript:{v21, v25}];
+            v23 = _unwrapFigCaptureValue(v22);
+            v24 = _unwrapFigCaptureValue(v21);
+            [v6 setObject:v23 forKey:v24];
           }
 
-          v19 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v18 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
         }
 
-        while (v19);
+        while (v18);
       }
 
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v7];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v6];
       goto LABEL_18;
     }
   }
 
 LABEL_6:
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 id _wrapFigCaptureValue(void *a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (!v3)
@@ -246,40 +244,40 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = v3;
-    v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v10 = v3;
+    v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
-    if (v14)
+    v12 = v10;
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v36;
+      v14 = v13;
+      v15 = *v35;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v16)
+          if (*v35 != v15)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = _wrapFigCaptureValue(*(*(&v35 + 1) + 8 * i), v4);
-          [v12 addObject:v18];
+          v17 = _wrapFigCaptureValue(*(*(&v34 + 1) + 8 * i), v4);
+          [v11 addObject:v17];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
 
-    v19 = [MEMORY[0x277CBEA60] arrayWithArray:v12];
+    v18 = [MEMORY[0x277CBEA60] arrayWithArray:v11];
 LABEL_20:
-    v7 = v19;
+    v7 = v18;
 
     goto LABEL_8;
   }
@@ -287,59 +285,57 @@ LABEL_20:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = [v3 allObjects];
-    v7 = _wrapFigCaptureValue(v20, v4);
+    v19 = [v3 allObjects];
+    v7 = _wrapFigCaptureValue(v19, v4);
   }
 
   else
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v22 = v3;
-    v7 = v22;
+    v21 = v3;
+    v7 = v21;
     if (isKindOfClass)
     {
-      v12 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v22, "count")}];
+      v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v21, "count")}];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v13 = v7;
-      v23 = [v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
-      if (v23)
+      v12 = v7;
+      v22 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      if (v22)
       {
-        v24 = v23;
-        v25 = *v32;
+        v23 = v22;
+        v24 = *v31;
         do
         {
-          for (j = 0; j != v24; ++j)
+          for (j = 0; j != v23; ++j)
           {
-            if (*v32 != v25)
+            if (*v31 != v24)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            v27 = *(*(&v31 + 1) + 8 * j);
-            v28 = [v13 objectForKeyedSubscript:{v27, v31}];
-            v29 = _wrapFigCaptureValue(v28, v4);
-            v30 = _wrapFigCaptureValue(v27, v4);
-            [v12 setObject:v29 forKey:v30];
+            v26 = *(*(&v30 + 1) + 8 * j);
+            v27 = [v12 objectForKeyedSubscript:{v26, v30}];
+            v28 = _wrapFigCaptureValue(v27, v4);
+            v29 = _wrapFigCaptureValue(v26, v4);
+            [v11 setObject:v28 forKey:v29];
           }
 
-          v24 = [v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v23 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
-        while (v24);
+        while (v23);
       }
 
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v12];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v11];
       goto LABEL_20;
     }
   }
 
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -357,10 +353,11 @@ __CFString *__HSDescribeFigDeviceStatus(int a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void HSRequestConcreteImplementation(void *a1, const char *a2)
@@ -377,16 +374,16 @@ void HSRequestConcreteImplementation(void *a1, const char *a2)
 
 void __deviceRemovedCallback(void *a1, int a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (a2)
   {
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device removal failed!"];
     v5 = MEMORY[0x277CCA9B8];
     v6 = *MEMORY[0x277CCA4A8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = v4;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = v4;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v8 = [v5 errorWithDomain:v6 code:a2 userInfo:v7];
   }
 
@@ -402,22 +399,20 @@ void __deviceRemovedCallback(void *a1, int a2)
     v10 = [v3 deviceRemovedCallback];
     (v10)[2](v10, v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __deviceInputReportCallback(void *a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v11 = a1;
   if (a2)
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Input report callback failed!"];
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA4A8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = v12;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v16 = [v13 errorWithDomain:v14 code:a2 userInfo:v15];
   }
 
@@ -434,22 +429,20 @@ void __deviceInputReportCallback(void *a1, int a2, uint64_t a3, uint64_t a4, uns
     v19 = [v11 inputReportCallback];
     (v19)[2](v19, a5, v18, v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __managerDeviceMatchingCallback(void *a1, int a2, uint64_t a3, const void *a4)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v6 = a1;
   if (a2)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device failed to enumerate!"];
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277CCA4A8];
-    v16 = *MEMORY[0x277CCA450];
-    v17[0] = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x277CCA450];
+    v16[0] = v7;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v11 = [v8 errorWithDomain:v9 code:a2 userInfo:v10];
   }
 
@@ -467,22 +460,20 @@ void __managerDeviceMatchingCallback(void *a1, int a2, uint64_t a3, const void *
     v14 = [v6 deviceEnumeratedCallback];
     (v14)[2](v14, v12, v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __managerDeviceRemovalCallback(void *a1, int a2, uint64_t a3, const void *a4)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v6 = a1;
   if (a2)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device removal failed!"];
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277CCA4A8];
-    v16 = *MEMORY[0x277CCA450];
-    v17[0] = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x277CCA450];
+    v16[0] = v7;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v11 = [v8 errorWithDomain:v9 code:a2 userInfo:v10];
   }
 
@@ -500,6 +491,4 @@ void __managerDeviceRemovalCallback(void *a1, int a2, uint64_t a3, const void *a
     v14 = [v6 deviceRemovedCallback];
     (v14)[2](v14, v12, v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }

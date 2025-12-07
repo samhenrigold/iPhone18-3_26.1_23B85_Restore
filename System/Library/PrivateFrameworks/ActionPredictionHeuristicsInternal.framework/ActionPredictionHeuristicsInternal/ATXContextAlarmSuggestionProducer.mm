@@ -31,149 +31,148 @@
 
 - (id)morningAlarmToggleSuggestionsWithEnvironment:(id)environment
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   v4 = [(ATXContextAlarmSuggestionProducer *)self _morningAlarmsWithEnvironment:?];
-  v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   selfCopy = self;
   reasonCode = self->_reasonCode;
-  v37 = objc_opt_new();
-  v47 = 0u;
-  v48 = 0u;
+  v39 = objc_opt_new();
   v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v4;
-  v44 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v46 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
   v6 = 0;
-  if (v44)
+  if (v46)
   {
-    v36 = 1 << reasonCode;
-    v7 = *v48;
+    v38 = 1 << reasonCode;
+    v7 = *v50;
     v8 = 0x278C3C000uLL;
-    v38 = *v48;
+    v40 = *v50;
     do
     {
-      for (i = 0; i != v44; ++i)
+      for (i = 0; i != v46; ++i)
       {
-        if (*v48 != v7)
+        if (*v50 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v47 + 1) + 8 * i);
+        v10 = *(*(&v49 + 1) + 8 * i);
         v11 = [*(v8 + 744) localizedTimeWithAlarmDict:v10];
-        v12 = __atxlog_handle_context_heuristic();
+        v12 = __atxlog_handle_context_heuristic(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = [v10 objectForKeyedSubscript:@"displayTitle"];
           *buf = 138412547;
-          v52 = v11;
-          v53 = 2117;
-          v54 = v13;
+          v54 = v11;
+          v55 = 2117;
+          v56 = v13;
           _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment found one morning alarm that fires at %@, %{sensitive}@", buf, 0x16u);
 
           v8 = 0x278C3C000uLL;
         }
 
         v14 = [v10 objectForKeyedSubscript:@"isSleepAlarm"];
-        if ([v14 BOOLValue])
+        bOOLValue = [v14 BOOLValue];
+        if (bOOLValue)
         {
-          v15 = __atxlog_handle_context_heuristic();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = __atxlog_handle_context_heuristic(bOOLValue);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             [v10 objectForKeyedSubscript:@"isSleepAlarm"];
-            v17 = v16 = v14;
+            v18 = v17 = v14;
             *buf = 138412546;
-            v52 = v11;
-            v53 = 2112;
-            v54 = v17;
-            _os_log_impl(&dword_23E3EA000, v15, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: %@ morningAlarm[isSleepAlarm]=%@, skipping", buf, 0x16u);
+            v54 = v11;
+            v55 = 2112;
+            v56 = v18;
+            _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: %@ morningAlarm[isSleepAlarm]=%@, skipping", buf, 0x16u);
 
-            v14 = v16;
+            v14 = v17;
           }
         }
 
         else
         {
-          v43 = v14;
+          v45 = v14;
           if (v11)
           {
-            v18 = v11;
+            v19 = v11;
           }
 
           else
           {
-            v18 = [v35 localizedStringForKey:@"TOGGLE_ALARM_TITLE" value:&stru_2850AD368 table:0];
+            v19 = [v37 localizedStringForKey:@"TOGGLE_ALARM_TITLE" value:&stru_2850AD368 table:0];
           }
 
-          v42 = v18;
+          v44 = v19;
 
-          v19 = __atxlog_handle_context_heuristic();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v21 = __atxlog_handle_context_heuristic(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23E3EA000, v19, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment Creating update alarm action for one alarm", buf, 2u);
+            _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment Creating update alarm action for one alarm", buf, 2u);
           }
 
-          v41 = v11;
+          v43 = v11;
 
-          v15 = [*(v8 + 744) alarmDataWithAlarmDict:v10];
-          v20 = objc_alloc(MEMORY[0x277D7A180]);
-          v21 = [v10 objectForKeyedSubscript:@"alarmID"];
-          v22 = [v10 objectForKeyedSubscript:@"displayTitle"];
-          v23 = [v20 initWithAlarmIdentifier:v21 alarmName:v22 alarmData:v15 operation:2];
+          v16 = [*(v8 + 744) alarmDataWithAlarmDict:v10];
+          v22 = objc_alloc(MEMORY[0x277D7A180]);
+          v23 = [v10 objectForKeyedSubscript:@"alarmID"];
+          v24 = [v10 objectForKeyedSubscript:@"displayTitle"];
+          v25 = [v22 initWithAlarmIdentifier:v23 alarmName:v24 alarmData:v16 operation:2];
 
-          v24 = __atxlog_handle_context_heuristic();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v27 = __atxlog_handle_context_heuristic(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23E3EA000, v24, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment Creating WFToggleAlarmContextualAction for one alarm", buf, 2u);
+            _os_log_impl(&dword_23E3EA000, v27, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment Creating WFToggleAlarmContextualAction for one alarm", buf, 2u);
           }
 
-          v25 = [(ATXContextAlarmSuggestionProducer *)selfCopy _criteriaWithAlarm:v10];
-          if (v25)
+          v28 = [(ATXContextAlarmSuggestionProducer *)selfCopy _criteriaWithAlarm:v10];
+          if (v28)
           {
-            v26 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v23 criteria:v25];
-            v27 = [*(v8 + 744) fireDateWithAlarmDict:v10];
-            v28 = MEMORY[0x277CCACA8];
-            [v27 timeIntervalSinceReferenceDate];
-            v30 = [v28 stringWithFormat:@"%f", v29];
-            v6 = v42;
-            v31 = [ATXContextHeuristicSuggestionProducer suggestionWithShortcutAction:v26 predictionReasons:v36 localizedReason:0 title:v42 subtitle:v30 score:0 dateInterval:selfCopy->_score];
+            v29 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v25 criteria:v28];
+            v30 = [*(v8 + 744) fireDateWithAlarmDict:v10];
+            v31 = MEMORY[0x277CCACA8];
+            [v30 timeIntervalSinceReferenceDate];
+            v33 = [v31 stringWithFormat:@"%f", v32];
+            v6 = v44;
+            v34 = [ATXContextHeuristicSuggestionProducer suggestionWithShortcutAction:v29 predictionReasons:v38 localizedReason:0 title:v44 subtitle:v33 score:0 dateInterval:selfCopy->_score];
 
             v8 = 0x278C3C000;
-            [v37 addObject:v31];
+            [v39 addObject:v34];
 
-            v14 = v43;
+            v14 = v45;
           }
 
           else
           {
-            v31 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+            v34 = __atxlog_handle_context_heuristic(0);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
             {
-              [(ATXContextAlarmSuggestionProducer *)&v45 morningAlarmToggleSuggestionsWithEnvironment:v46, v31];
+              [(ATXContextAlarmSuggestionProducer *)&v47 morningAlarmToggleSuggestionsWithEnvironment:v48, v34];
             }
 
-            v6 = v42;
-            v14 = v43;
+            v6 = v44;
+            v14 = v45;
           }
 
-          v11 = v41;
+          v11 = v43;
 
-          v7 = v38;
+          v7 = v40;
         }
       }
 
-      v44 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v46 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
-    while (v44);
+    while (v46);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v39;
 }
 
 - (id)_criteriaWithAlarm:(id)alarm
@@ -198,7 +197,7 @@
       goto LABEL_10;
     }
 
-    v15 = __atxlog_handle_context_heuristic();
+    v15 = __atxlog_handle_context_heuristic(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       [ATXContextAlarmSuggestionProducer _criteriaWithAlarm:v15];
@@ -207,7 +206,7 @@
 
   else
   {
-    v7 = __atxlog_handle_context_heuristic();
+    v7 = __atxlog_handle_context_heuristic(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [ATXContextAlarmSuggestionProducer _criteriaWithAlarm:v7];
@@ -222,14 +221,14 @@ LABEL_10:
 
 - (id)editNextAlarmSuggestionsWithEnvironment:(id)environment
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = self->_validDateInterval;
   v6 = [(ATXContextAlarmSuggestionProducer *)self _nextMorningAlarmsWithEnvironment:environment];
-  v7 = __atxlog_handle_context_heuristic();
+  v7 = __atxlog_handle_context_heuristic(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v36 = v6;
+    v37 = v6;
     _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: editNextAlarmSuggestionsWithEnvironment morningAlarms=%@", buf, 0xCu);
   }
 
@@ -245,79 +244,77 @@ LABEL_10:
       v12 = [ATXHeuristicAlarmUtilities firstFiringAmongAlarms:v6];
       if (v12)
       {
-        v33 = [ATXHeuristicAlarmUtilities localizedTimeWithAlarmDict:v12];
-        v13 = __atxlog_handle_context_heuristic();
+        v34 = [ATXHeuristicAlarmUtilities localizedTimeWithAlarmDict:v12];
+        v13 = __atxlog_handle_context_heuristic(v34);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           v14 = [v12 objectForKeyedSubscript:@"displayTitle"];
           *buf = 138412547;
-          v36 = v33;
-          v37 = 2117;
-          v38 = v14;
+          v37 = v34;
+          v38 = 2117;
+          v39 = v14;
           _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: editNextAlarmSuggestionsWithEnvironment found one morning alarm that fires at %@, %{sensitive}@", buf, 0x16u);
         }
 
-        v15 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = __atxlog_handle_context_heuristic(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23E3EA000, v15, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: editNextAlarmSuggestionsWithEnvironment Creating update alarm action for one alarm", buf, 2u);
+          _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: editNextAlarmSuggestionsWithEnvironment Creating update alarm action for one alarm", buf, 2u);
         }
 
-        v31 = 1 << self->_reasonCode;
-        v16 = [ATXHeuristicAlarmUtilities alarmDataWithAlarmDict:v12];
-        v17 = objc_alloc(MEMORY[0x277D7A180]);
-        v18 = [v12 objectForKeyedSubscript:@"alarmID"];
-        v19 = [v12 objectForKeyedSubscript:@"displayTitle"];
-        v32 = v16;
-        v20 = [v17 initWithAlarmIdentifier:v18 alarmName:v19 alarmData:v16 operation:2];
+        v32 = 1 << self->_reasonCode;
+        v17 = [ATXHeuristicAlarmUtilities alarmDataWithAlarmDict:v12];
+        v18 = objc_alloc(MEMORY[0x277D7A180]);
+        v19 = [v12 objectForKeyedSubscript:@"alarmID"];
+        v20 = [v12 objectForKeyedSubscript:@"displayTitle"];
+        v33 = v17;
+        v21 = [v18 initWithAlarmIdentifier:v19 alarmName:v20 alarmData:v17 operation:2];
 
-        v21 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = __atxlog_handle_context_heuristic(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment Creating WFToggleAlarmContextualAction for one alarm", buf, 2u);
+          _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: morningAlarmToggleSuggestionsWithEnvironment Creating WFToggleAlarmContextualAction for one alarm", buf, 2u);
         }
 
-        v22 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v20 criteria:v11];
-        v23 = [ATXHeuristicAlarmUtilities fireDateWithAlarmDict:v12];
-        v24 = MEMORY[0x277CCACA8];
-        [v23 timeIntervalSinceReferenceDate];
-        v26 = [v24 stringWithFormat:@"%f", v25];
-        v27 = [ATXContextHeuristicSuggestionProducer suggestionWithShortcutAction:v22 predictionReasons:v31 localizedReason:0 title:v33 subtitle:v26 score:0 dateInterval:self->_score];
+        v24 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v21 criteria:v11];
+        v25 = [ATXHeuristicAlarmUtilities fireDateWithAlarmDict:v12];
+        v26 = MEMORY[0x277CCACA8];
+        [v25 timeIntervalSinceReferenceDate];
+        v28 = [v26 stringWithFormat:@"%f", v27];
+        v29 = [ATXContextHeuristicSuggestionProducer suggestionWithShortcutAction:v24 predictionReasons:v32 localizedReason:0 title:v34 subtitle:v28 score:0 dateInterval:self->_score];
 
-        if (v27)
+        if (v29)
         {
-          v34 = v27;
-          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+          v35 = v29;
+          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
         }
 
         else
         {
-          v28 = MEMORY[0x277CBEBF8];
+          v30 = MEMORY[0x277CBEBF8];
         }
       }
 
       else
       {
-        v28 = MEMORY[0x277CBEBF8];
+        v30 = MEMORY[0x277CBEBF8];
       }
     }
 
     else
     {
-      v28 = MEMORY[0x277CBEBF8];
+      v30 = MEMORY[0x277CBEBF8];
     }
   }
 
   else
   {
-    v28 = objc_opt_new();
+    v30 = objc_opt_new();
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v30;
 }
 
 - (BOOL)_isToggleContextualAction:(id)action
@@ -374,40 +371,40 @@ LABEL_10:
 
 - (id)_alarmsWithEnvironment:(id)environment startTimestamp:(double)timestamp endTimestamp:(double)endTimestamp
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v9 = __atxlog_handle_context_heuristic();
+  v9 = __atxlog_handle_context_heuristic(environmentCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [MEMORY[0x277CCABB0] numberWithDouble:timestamp];
     v11 = locDate(v10);
     v12 = [MEMORY[0x277CCABB0] numberWithDouble:endTimestamp];
     v13 = locDate(v12);
-    v29 = 138412546;
-    v30 = v11;
-    v31 = 2112;
-    v32 = v13;
-    _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment looking for alarms between %@ and %@", &v29, 0x16u);
+    v28 = 138412546;
+    v29 = v11;
+    v30 = 2112;
+    v31 = v13;
+    _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment looking for alarms between %@ and %@", &v28, 0x16u);
   }
 
   v14 = [ATXHeuristicTimeUtilities enabledAlarmsFromTS:environmentCopy toTS:timestamp environment:endTimestamp];
 
   v15 = [v14 count];
-  v16 = __atxlog_handle_context_heuristic();
+  v16 = __atxlog_handle_context_heuristic(v15);
   v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (v15)
   {
     if (v17)
     {
       v18 = [v14 count];
-      v29 = 134217984;
-      v30 = v18;
-      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment Found a total of %lu alarm(s)", &v29, 0xCu);
+      v28 = 134217984;
+      v29 = v18;
+      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment Found a total of %lu alarm(s)", &v28, 0xCu);
     }
 
     v19 = [(ATXContextAlarmSuggestionProducer *)self _filterAlarmsEligible:v14 proposedInterval:self->_validDateInterval];
     v20 = [v19 count];
-    v21 = __atxlog_handle_context_heuristic();
+    v21 = __atxlog_handle_context_heuristic(v20);
     v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
     if (v20)
     {
@@ -415,11 +412,11 @@ LABEL_10:
       {
         v23 = [v19 count];
         endDate = [(NSDateInterval *)self->_validDateInterval endDate];
-        v29 = 134218242;
-        v30 = v23;
-        v31 = 2112;
-        v32 = endDate;
-        _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment Found %lu morning alarm(s) that will fire before %@", &v29, 0x16u);
+        v28 = 134218242;
+        v29 = v23;
+        v30 = 2112;
+        v31 = endDate;
+        _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment Found %lu morning alarm(s) that will fire before %@", &v28, 0x16u);
       }
 
       v19 = v19;
@@ -431,9 +428,9 @@ LABEL_10:
       if (v22)
       {
         endDate2 = [(NSDateInterval *)self->_validDateInterval endDate];
-        v29 = 138412290;
-        v30 = endDate2;
-        _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment Suppressing action because there are no enabled alarms before %@", &v29, 0xCu);
+        v28 = 138412290;
+        v29 = endDate2;
+        _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment Suppressing action because there are no enabled alarms before %@", &v28, 0xCu);
       }
 
       v25 = MEMORY[0x277CBEBF8];
@@ -444,15 +441,13 @@ LABEL_10:
   {
     if (v17)
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment No existing alarms found", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _alarmsWithEnvironment No existing alarms found", &v28, 2u);
     }
 
     v19 = MEMORY[0x277CBEBF8];
     v25 = MEMORY[0x277CBEBF8];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -475,24 +470,25 @@ BOOL __76__ATXContextAlarmSuggestionProducer__filterAlarmsEligible_proposedInter
 {
   v3 = a2;
   keyExistsAndHasValidFormat = 0;
-  if (CFPreferencesGetAppBooleanValue(@"zkwAllowModifedAlarms", *MEMORY[0x277CEBD00], &keyExistsAndHasValidFormat))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"zkwAllowModifedAlarms", *MEMORY[0x277CEBD00], &keyExistsAndHasValidFormat);
+  if (AppBooleanValue)
   {
-    v4 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_context_heuristic(AppBooleanValue);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _filterAlarmsEligible  internal setting zkwAllowModifedAlarms is on. Allowing even modified alarms", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "ATXContextAlarmSuggestionProducer: _filterAlarmsEligible  internal setting zkwAllowModifedAlarms is on. Allowing even modified alarms", v8, 2u);
     }
 
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v5 = [ATXHeuristicAlarmUtilities isValidNonRecentlyModifiedAlarm:v3 duringInterval:*(a1 + 32)];
+    v6 = [ATXHeuristicAlarmUtilities isValidNonRecentlyModifiedAlarm:v3 duringInterval:*(a1 + 32)];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)morningAlarmToggleSuggestionsWithEnvironment:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

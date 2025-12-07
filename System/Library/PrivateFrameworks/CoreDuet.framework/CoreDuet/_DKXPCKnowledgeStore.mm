@@ -83,7 +83,7 @@
 - (id)saveObjects:(id)objects synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   queueCopy = queue;
   completionCopy = completion;
@@ -97,20 +97,20 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__25;
-  v35 = __Block_byref_object_dispose__25;
-  v36 = 0;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke;
-  v28[3] = &unk_1E736A830;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__25;
+  v34 = __Block_byref_object_dispose__25;
+  v35 = 0;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke;
+  v27[3] = &unk_1E736A830;
   v14 = completionCopy;
-  v30 = v14;
+  v29 = v14;
   v15 = queueCopy;
-  v29 = v15;
+  v28 = v15;
   p_buf = &buf;
-  v16 = MEMORY[0x193B00C50](v28);
+  v16 = MEMORY[0x193B00C50](v27);
   connection = self->_connection;
   if (synchronousCopy)
   {
@@ -122,21 +122,20 @@
     [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v16];
   }
   v18 = ;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_3;
-  v24[3] = &unk_1E736A858;
-  v24[4] = self;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_3;
+  v23[3] = &unk_1E736A858;
+  v23[4] = self;
   v19 = v14;
-  v26 = v19;
+  v25 = v19;
   v20 = v15;
-  v25 = v20;
-  v27 = &buf;
-  [v18 saveObjects:objectsCopy reply:v24];
+  v24 = v20;
+  v26 = &buf;
+  [v18 saveObjects:objectsCopy reply:v23];
   v21 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -158,7 +157,7 @@
 - (id)deleteObjects:(id)objects synchronous:(BOOL)synchronous responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   queueCopy = queue;
   completionCopy = completion;
@@ -174,20 +173,20 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v39 = 0x3032000000;
-    v40 = __Block_byref_object_copy__25;
-    v41 = __Block_byref_object_dispose__25;
-    v42 = 0;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_2;
-    v32[3] = &unk_1E736A830;
+    v38 = 0x3032000000;
+    v39 = __Block_byref_object_copy__25;
+    v40 = __Block_byref_object_dispose__25;
+    v41 = 0;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_2;
+    v31[3] = &unk_1E736A830;
     v14 = completionCopy;
-    v34 = v14;
+    v33 = v14;
     v15 = queueCopy;
-    v33 = v15;
+    v32 = v15;
     p_buf = &buf;
-    v16 = MEMORY[0x193B00C50](v32);
+    v16 = MEMORY[0x193B00C50](v31);
     connection = self->_connection;
     if (synchronousCopy)
     {
@@ -200,15 +199,15 @@
     }
     v24 = ;
     v25 = objc_autoreleasePoolPush();
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_3;
-    v28[3] = &unk_1E736A858;
-    v28[4] = self;
-    v30 = v14;
-    v29 = v15;
-    v31 = &buf;
-    [v24 deleteObjects:objectsCopy reply:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_3;
+    v27[3] = &unk_1E736A858;
+    v27[4] = self;
+    v29 = v14;
+    v28 = v15;
+    v30 = &buf;
+    [v24 deleteObjects:objectsCopy reply:v27];
 
     objc_autoreleasePoolPop(v25);
     v23 = *(*(&buf + 1) + 40);
@@ -232,28 +231,26 @@
         [_DKXPCKnowledgeStore deleteObjects:synchronous:responseQueue:withCompletion:];
       }
 
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke;
-      v36[3] = &unk_1E7367840;
-      v37 = completionCopy;
-      v19 = v36;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke;
+      v35[3] = &unk_1E7367840;
+      v36 = completionCopy;
+      v19 = v35;
       v20 = queueCopy;
       v21 = os_transaction_create();
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v39 = __cd_dispatch_async_capture_tx_block_invoke_11;
-      v40 = &unk_1E7367818;
-      v41 = v21;
-      v42 = v19;
+      v38 = __cd_dispatch_async_capture_tx_block_invoke_11;
+      v39 = &unk_1E7367818;
+      v40 = v21;
+      v41 = v19;
       v22 = v21;
       dispatch_async(v20, &buf);
     }
 
     v23 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -275,7 +272,7 @@
 - (unint64_t)deleteAllEventsInEventStream:(id)stream synchronous:(BOOL)synchronous error:(id *)error responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   queueCopy = queue;
   completionCopy = completion;
@@ -290,26 +287,26 @@
       _os_log_impl(&dword_191750000, v16, OS_LOG_TYPE_INFO, "Starting deleteAllEventsInEventStream with stream %@.", &buf, 0xCu);
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy__25;
-    v47 = __Block_byref_object_dispose__25;
-    v48 = 0;
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_11;
-    v34[3] = &unk_1E736A830;
+    v44 = 0x3032000000;
+    v45 = __Block_byref_object_copy__25;
+    v46 = __Block_byref_object_dispose__25;
+    v47 = 0;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_11;
+    v33[3] = &unk_1E736A830;
     v17 = v15;
-    v36 = v17;
+    v35 = v17;
     v18 = queueCopy;
-    v35 = v18;
+    v34 = v18;
     p_buf = &buf;
-    v19 = MEMORY[0x193B00C50](v34);
+    v19 = MEMORY[0x193B00C50](v33);
     connection = self->_connection;
     if (synchronousCopy)
     {
@@ -322,26 +319,26 @@
     }
     v25 = ;
     name = [streamCopy name];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_3;
-    v29[3] = &unk_1E736A8A8;
-    v29[4] = self;
-    v32 = &v38;
-    v33 = &buf;
-    v31 = v17;
-    v30 = v18;
-    [v25 deleteAllEventsInEventStreamNamed:name reply:v29];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_3;
+    v28[3] = &unk_1E736A8A8;
+    v28[4] = self;
+    v31 = &v37;
+    v32 = &buf;
+    v30 = v17;
+    v29 = v18;
+    [v25 deleteAllEventsInEventStreamNamed:name reply:v28];
 
     if (error)
     {
       *error = *(*(&buf + 1) + 40);
     }
 
-    v24 = v39[3];
+    v24 = v38[3];
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
@@ -353,19 +350,19 @@
         [_DKXPCKnowledgeStore deleteAllEventsInEventStream:synchronous:error:responseQueue:withCompletion:];
       }
 
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke;
-      v42[3] = &unk_1E7367840;
-      v43 = completionCopy;
-      v21 = v42;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke;
+      v41[3] = &unk_1E7367840;
+      v42 = completionCopy;
+      v21 = v41;
       v22 = os_transaction_create();
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v45 = __cd_dispatch_async_capture_tx_block_invoke_11;
-      v46 = &unk_1E7367818;
-      v47 = v22;
-      v48 = v21;
+      v44 = __cd_dispatch_async_capture_tx_block_invoke_11;
+      v45 = &unk_1E7367818;
+      v46 = v22;
+      v47 = v21;
       v23 = v22;
       dispatch_async(queueCopy, &buf);
     }
@@ -377,7 +374,6 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -398,7 +394,7 @@
 - (unint64_t)deleteAllEventsMatchingPredicate:(id)predicate synchronous:(BOOL)synchronous error:(id *)error responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   queueCopy = queue;
   completionCopy = completion;
@@ -414,26 +410,26 @@
       _os_log_impl(&dword_191750000, v16, OS_LOG_TYPE_INFO, "Starting deleteAllEventsMatchingPredicate with predicate %@.", &buf, 0xCu);
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy__25;
-    v47 = __Block_byref_object_dispose__25;
-    v48 = 0;
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_14;
-    v34[3] = &unk_1E736A830;
+    v44 = 0x3032000000;
+    v45 = __Block_byref_object_copy__25;
+    v46 = __Block_byref_object_dispose__25;
+    v47 = 0;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_14;
+    v33[3] = &unk_1E736A830;
     v18 = v15;
-    v36 = v18;
+    v35 = v18;
     v19 = queueCopy;
-    v35 = v19;
+    v34 = v19;
     p_buf = &buf;
-    v20 = MEMORY[0x193B00C50](v34);
+    v20 = MEMORY[0x193B00C50](v33);
     connection = self->_connection;
     if (synchronousCopy)
     {
@@ -445,25 +441,25 @@
       [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v20];
     }
     v26 = ;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_3;
-    v29[3] = &unk_1E736A8A8;
-    v29[4] = self;
-    v32 = &v38;
-    v33 = &buf;
-    v31 = v18;
-    v30 = v19;
-    [v26 deleteAllEventsMatchingPredicate:predicateCopy reply:v29];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_3;
+    v28[3] = &unk_1E736A8A8;
+    v28[4] = self;
+    v31 = &v37;
+    v32 = &buf;
+    v30 = v18;
+    v29 = v19;
+    [v26 deleteAllEventsMatchingPredicate:predicateCopy reply:v28];
     if (error)
     {
       *error = *(*(&buf + 1) + 40);
     }
 
-    v25 = v39[3];
+    v25 = v38[3];
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
@@ -475,19 +471,19 @@
         [_DKXPCKnowledgeStore deleteAllEventsMatchingPredicate:synchronous:error:responseQueue:withCompletion:];
       }
 
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke;
-      v42[3] = &unk_1E7367840;
-      v43 = completionCopy;
-      v22 = v42;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke;
+      v41[3] = &unk_1E7367840;
+      v42 = completionCopy;
+      v22 = v41;
       v23 = os_transaction_create();
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v45 = __cd_dispatch_async_capture_tx_block_invoke_11;
-      v46 = &unk_1E7367818;
-      v47 = v23;
-      v48 = v22;
+      v44 = __cd_dispatch_async_capture_tx_block_invoke_11;
+      v45 = &unk_1E7367818;
+      v46 = v23;
+      v47 = v22;
       v24 = v23;
       dispatch_async(queueCopy, &buf);
     }
@@ -499,7 +495,6 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -520,7 +515,7 @@
 - (id)executeQuery:(id)query synchronous:(BOOL)synchronous error:(id *)error responseQueue:(id)queue withCompletion:(id)completion
 {
   synchronousCopy = synchronous;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   queueCopy = queue;
   completionCopy = completion;
@@ -537,20 +532,20 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v49 = 0x3032000000;
-    v50 = __Block_byref_object_copy__25;
-    v51 = __Block_byref_object_dispose__25;
-    v52 = 0;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_2;
-    v42[3] = &unk_1E736A830;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy__25;
+    v50 = __Block_byref_object_dispose__25;
+    v51 = 0;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_2;
+    v41[3] = &unk_1E736A830;
     v16 = completionCopy;
-    v44 = v16;
+    v43 = v16;
     v17 = queueCopy;
-    v43 = v17;
+    v42 = v17;
     p_buf = &buf;
-    v18 = MEMORY[0x193B00C50](v42);
+    v18 = MEMORY[0x193B00C50](v41);
     connection = self->_connection;
     if (synchronousCopy)
     {
@@ -562,31 +557,31 @@
       [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v18];
     }
     v26 = ;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy__25;
-    v40 = __Block_byref_object_dispose__25;
-    v41 = 0;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_3;
-    v30[3] = &unk_1E736A8D0;
-    v30[4] = self;
-    v31 = v15;
-    v33 = v16;
-    v32 = v17;
-    v34 = &buf;
-    v35 = &v36;
-    [v26 executeQuery:queryCopy reply:v30];
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__25;
+    v39 = __Block_byref_object_dispose__25;
+    v40 = 0;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_3;
+    v29[3] = &unk_1E736A8D0;
+    v29[4] = self;
+    v30 = v15;
+    v32 = v16;
+    v31 = v17;
+    v33 = &buf;
+    v34 = &v35;
+    [v26 executeQuery:queryCopy reply:v29];
     if (error)
     {
       *error = *(*(&buf + 1) + 40);
     }
 
-    v25 = v37[5];
+    v25 = v36[5];
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v35, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -605,20 +600,20 @@
         [_DKXPCKnowledgeStore executeQuery:synchronous:error:responseQueue:withCompletion:];
       }
 
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke;
-      v46[3] = &unk_1E7367840;
-      v47 = completionCopy;
-      v21 = v46;
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke;
+      v45[3] = &unk_1E7367840;
+      v46 = completionCopy;
+      v21 = v45;
       v22 = queueCopy;
       v23 = os_transaction_create();
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v49 = __cd_dispatch_async_capture_tx_block_invoke_11;
-      v50 = &unk_1E7367818;
-      v51 = v23;
-      v52 = v21;
+      v48 = __cd_dispatch_async_capture_tx_block_invoke_11;
+      v49 = &unk_1E7367818;
+      v50 = v23;
+      v51 = v21;
       v24 = v23;
       dispatch_async(v22, &buf);
     }
@@ -626,27 +621,24 @@
     v25 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (void)executeQuery:(id)query responseQueue:(id)queue withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   queueCopy = queue;
   completionCopy = completion;
   v11 = +[_CDLogging knowledgeChannel];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = queryCopy;
-    _os_log_impl(&dword_191750000, v11, OS_LOG_TYPE_INFO, "Starting executeQuery with query %@.", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = queryCopy;
+    _os_log_impl(&dword_191750000, v11, OS_LOG_TYPE_INFO, "Starting executeQuery with query %@.", &v13, 0xCu);
   }
 
   v12 = [(_DKXPCKnowledgeStore *)self executeQuery:queryCopy synchronous:0 error:0 responseQueue:queueCopy withCompletion:completionCopy];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)executeQuery:(id)query error:(id *)error
@@ -1030,12 +1022,10 @@
 
 - (void)executeQuery:(NSObject *)a1 synchronous:error:responseQueue:withCompletion:.cold.1(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = +[_DKQuery queryNotExecutableError];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_191750000, a1, OS_LOG_TYPE_ERROR, "Completed executeQuery with success=0. Error: %@.", v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, a1, OS_LOG_TYPE_ERROR, "Completed executeQuery with success=0. Error: %@.", v3, 0xCu);
 }
 
 @end

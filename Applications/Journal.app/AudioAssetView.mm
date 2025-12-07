@@ -14,7 +14,7 @@
 
 - (void)removeFromSuperview
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v11 - v4;
   v6 = type metadata accessor for TaskPriority();

@@ -237,18 +237,18 @@
     v4 = 0;
   }
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002880(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = @"NO";
+    v7 = @"NO";
     if (v4)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Activation lock is allowed - [%@]", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Activation lock is allowed - [%@]", &v9, 0xCu);
   }
 
   return v4;
@@ -339,32 +339,33 @@
 - (unint64_t)unlockState
 {
   v2 = MKBDeviceUnlockedSinceBoot();
-  v3 = sub_100002880();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = v2;
+  v4 = sub_100002880(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10022C174(v2, v3);
+    sub_10022C174(v3, v4);
   }
 
-  if (v2 != 1 && (v2 & 0x80000000) == 0)
+  if (v3 != 1 && (v3 & 0x80000000) == 0)
   {
     return 1;
   }
 
-  v5 = MKBGetDeviceLockState();
-  v6 = 2;
-  if (v5 != 1)
+  v6 = MKBGetDeviceLockState();
+  v7 = 2;
+  if (v6 != 1)
   {
-    v6 = 3;
+    v7 = 3;
   }
 
-  if (v5 == 2)
+  if (v6 == 2)
   {
     return 4;
   }
 
   else
   {
-    return v6;
+    return v7;
   }
 }
 
@@ -399,7 +400,7 @@
   {
     if (v4)
     {
-      v7 = sub_100002880();
+      v7 = sub_100002880(v4);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10022C214(pscSUIURL, v5, v7);
@@ -423,7 +424,7 @@
   if (v2)
   {
     v3 = v2;
-    v4 = sub_100002880();
+    v4 = sub_100002880(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315138;
@@ -530,7 +531,7 @@
 
 - (void)_handleGestaltError:(int)error forKey:(__CFString *)key
 {
-  v6 = sub_100002880();
+  v6 = sub_100002880(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_10022C04C(key, error, v6);
@@ -567,7 +568,7 @@
 
 - (void)deviceNameMayNeedUpdate
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -578,9 +579,9 @@
   self->_deviceNameUpToDate = 0;
   deviceName2 = [(FMDSystemConfig_ios *)self deviceName];
   v6 = deviceName2;
-  if (!deviceName && deviceName2 || deviceName && !deviceName2 || ([deviceName isEqualToString:deviceName2] & 1) == 0)
+  if (!deviceName && deviceName2 || deviceName && !deviceName2 || (deviceName2 = [deviceName isEqualToString:deviceName2], (deviceName2 & 1) == 0))
   {
-    v7 = sub_100002880();
+    v7 = sub_100002880(deviceName2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -775,13 +776,14 @@
 - (BOOL)isLocked
 {
   v2 = MKBGetDeviceLockState();
-  v3 = sub_100002880();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = v2;
+  v4 = sub_100002880(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10022C0FC(v2, v3);
+    sub_10022C0FC(v3, v4);
   }
 
-  return v2 == 1 || v2 == 4;
+  return v3 == 1 || v3 == 4;
 }
 
 - (void)currentPasscodeStateMayNeedUpdate

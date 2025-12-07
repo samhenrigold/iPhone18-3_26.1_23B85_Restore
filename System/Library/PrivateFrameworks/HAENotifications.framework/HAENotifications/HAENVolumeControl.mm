@@ -8,6 +8,7 @@
 - (float)getCurrentVolumeForCategory:(__CFString *)category route:(id *)route;
 - (unsigned)limitVolume:(id)volume;
 - (void)_fetchCategory:(__CFString *)category routeInfo:(id *)info;
+- (void)_setMXVolumeLimit:(BOOL)limit;
 - (void)_updateFlags;
 - (void)_updateMXVolumeLimit;
 - (void)applyVolumeLoweringAtNextSession;
@@ -54,21 +55,21 @@ uint64_t __35__HAENVolumeControl_sharedInstance__block_invoke()
     v4 = +[HAENDefaults sharedInstance];
     v2[13] = [v4 isSKVolumeLimitOn];
 
-    v5 = HAENotificationsLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = HAENotificationsLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [MEMORY[0x277CCABB0] numberWithBool:v2[12]];
-      v7 = [MEMORY[0x277CCABB0] numberWithBool:v2[13]];
+      v7 = [MEMORY[0x277CCABB0] numberWithBool:v2[12]];
+      v8 = [MEMORY[0x277CCABB0] numberWithBool:v2[13]];
       *buf = 138412546;
-      v20 = v6;
+      v20 = v7;
       v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "HAENVolumeControl: EU VLT [%@], South Korea VLT [%@]", buf, 0x16u);
+      v22 = v8;
+      _os_log_impl(&dword_25081E000, v6, OS_LOG_TYPE_DEFAULT, "HAENVolumeControl: EU VLT [%@], South Korea VLT [%@]", buf, 0x16u);
     }
 
-    v8 = objc_alloc_init(MEMORY[0x277CEFB38]);
-    v9 = [v8 getPreferenceFor:*MEMORY[0x277CEFB18]];
-    v2[15] = [v9 BOOLValue];
+    v9 = objc_alloc_init(MEMORY[0x277CEFB38]);
+    v10 = [v9 getPreferenceFor:*MEMORY[0x277CEFB18]];
+    v2[15] = [v10 BOOLValue];
 
     v2[16] = 0;
     __asm { FMOV            V0.2S, #-1.0 }
@@ -78,18 +79,17 @@ uint64_t __35__HAENVolumeControl_sharedInstance__block_invoke()
     [v2 _updateFlags];
     if (v2[12])
     {
-      v15 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v15 = v2[13];
+      v16 = v2[13];
     }
 
-    [v2 _setMXVolumeLimit:v15 & 1];
+    [v2 _setMXVolumeLimit:v16 & 1];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -164,17 +164,14 @@ uint64_t __35__HAENVolumeControl_sharedInstance__block_invoke()
 - (float)getCurrentVolumeForCategory:(__CFString *)category route:(id *)route
 {
   [HAENVolumeControl _fetchCategory:"_fetchCategory:routeInfo:" routeInfo:?];
-  var0 = route->var0;
-  var1 = route->var1;
-  var2 = route->var2;
-  pid = self->_pid;
-  if (!CMSessionManagerPerformVolumeOperationWithSequenceNumber())
+  v4 = CMSessionManagerPerformVolumeOperationWithSequenceNumber();
+  if (!v4)
   {
     return -1.0;
   }
 
-  v10 = HAENotificationsLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v5 = HAENotificationsLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [HAENVolumeControl getCurrentVolumeForCategory:route:];
   }
@@ -194,23 +191,20 @@ uint64_t __35__HAENVolumeControl_sharedInstance__block_invoke()
 
 void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(double a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   LODWORD(a1) = 1057618919;
-  [MEMORY[0x277D26E70] applyVolumeReductionToHeadphoneRoutes:a1];
-  v1 = HAENotificationsLog();
+  v1 = HAENotificationsLog([MEMORY[0x277D26E70] applyVolumeReductionToHeadphoneRoutes:a1]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 134217984;
-    v4 = 0x3FE13F7CED916873;
-    _os_log_impl(&dword_25081E000, v1, OS_LOG_TYPE_DEFAULT, "headphone volume will be lowered to %.2f at the next session", &v3, 0xCu);
+    v2 = 134217984;
+    v3 = 0x3FE13F7CED916873;
+    _os_log_impl(&dword_25081E000, v1, OS_LOG_TYPE_DEFAULT, "headphone volume will be lowered to %.2f at the next session", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)limitVolume:(id)volume
 {
-  v4 = HAENotificationsLog();
+  v4 = HAENotificationsLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -223,26 +217,24 @@ void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(doub
 
 - (void)limitVolumeTo:(float)to category:(__CFString *)category route:(id *)route actionResult:(unsigned int *)result
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v11 = HAENotificationsLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v18 = *MEMORY[0x277D85DE8];
+  v9 = HAENotificationsLog(self);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     toCopy = to;
-    v21 = 2112;
+    v16 = 2112;
     toCopy2 = *&category;
-    _os_log_impl(&dword_25081E000, v11, OS_LOG_TYPE_DEFAULT, ">>> limiting volume to %.2f for category %@, ", buf, 0x16u);
+    _os_log_impl(&dword_25081E000, v9, OS_LOG_TYPE_DEFAULT, ">>> limiting volume to %.2f for category %@, ", buf, 0x16u);
   }
 
-  var0 = route->var0;
-  var2 = route->var2;
-  pid = self->_pid;
-  v15 = CMSessionManagerPerformVolumeOperationWithSequenceNumber();
-  v16 = HAENotificationsLog();
-  v17 = v16;
-  if (v15)
+  v10 = CMSessionManagerPerformVolumeOperationWithSequenceNumber();
+  v11 = v10;
+  v12 = HAENotificationsLog(v10);
+  v13 = v12;
+  if (v11)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [HAENVolumeControl limitVolumeTo:category:route:actionResult:];
     }
@@ -252,25 +244,23 @@ void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(doub
 
   else
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       toCopy = *&category;
-      v21 = 2048;
+      v16 = 2048;
       toCopy2 = to;
-      _os_log_impl(&dword_25081E000, v17, OS_LOG_TYPE_DEFAULT, "========> SET %@ volume to: %.2f", buf, 0x16u);
+      _os_log_impl(&dword_25081E000, v13, OS_LOG_TYPE_DEFAULT, "========> SET %@ volume to: %.2f", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchCategory:(__CFString *)category routeInfo:(id *)info
 {
   v19 = *MEMORY[0x277D85DE8];
-  CMSessionMgrCopyDeviceRouteForRouteConfiguration();
-  v6 = HAENotificationsLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = CMSessionMgrCopyDeviceRouteForRouteConfiguration();
+  v7 = HAENotificationsLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     var0 = info->var0;
     var1 = info->var1;
@@ -283,10 +273,8 @@ void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(doub
     v16 = var1;
     v17 = 2112;
     v18 = var2;
-    _os_log_impl(&dword_25081E000, v6, OS_LOG_TYPE_DEFAULT, ">>> category '%@', route: '%@', device: '%@', route subtype: '%@'", &v11, 0x2Au);
+    _os_log_impl(&dword_25081E000, v7, OS_LOG_TYPE_DEFAULT, ">>> category '%@', route: '%@', device: '%@', route subtype: '%@'", &v11, 0x2Au);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateFlags
@@ -295,19 +283,42 @@ void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(doub
   v3 = +[HAENDefaults sharedInstance];
   self->_haenFeatureEnabled = [v3 isHAENFeatureEnabled];
 
-  v4 = HAENotificationsLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = HAENotificationsLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_haenFeatureEnabled];
-    v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_wiredHeadphoneConnected];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_haenFeatureEnabled];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_wiredHeadphoneConnected];
     v8 = 138412546;
-    v9 = v5;
+    v9 = v6;
     v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_25081E000, v4, OS_LOG_TYPE_DEFAULT, "HAENVolumeControl: HAEN Feature [%@], wired headphone connected[%@]", &v8, 0x16u);
+    v11 = v7;
+    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "HAENVolumeControl: HAEN Feature [%@], wired headphone connected[%@]", &v8, 0x16u);
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)_setMXVolumeLimit:(BOOL)limit
+{
+  limitCopy = limit;
+  v13 = *MEMORY[0x277D85DE8];
+  self->_mxVolumeLimitOn = limit;
+  v4 = objc_alloc_init(MEMORY[0x277CEFB38]);
+  v5 = *MEMORY[0x277CEFB18];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:limitCopy];
+  v7 = [v4 setPreferenceFor:v5 value:v6];
+
+  v9 = HAENotificationsLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = "OFF";
+    if (limitCopy)
+    {
+      v10 = "ON";
+    }
+
+    v11 = 136315138;
+    v12 = v10;
+    _os_log_impl(&dword_25081E000, v9, OS_LOG_TYPE_DEFAULT, "*** set MX VLT Status to [%s]", &v11, 0xCu);
+  }
 }
 
 - (BOOL)_RLSAllowsMXVolumeLimit
@@ -319,29 +330,26 @@ void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(doub
   v4 = +[HAENDefaults sharedInstance];
   getReduceLoudSoundThreshold = [v4 getReduceLoudSoundThreshold];
 
-  v6 = HAENotificationsLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = HAENotificationsLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:isReduceLoudSoundEnabled];
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:isReduceLoudSoundEnabled];
     v10 = 138412546;
-    v11 = v7;
+    v11 = v8;
     v12 = 1024;
     v13 = getReduceLoudSoundThreshold;
-    _os_log_impl(&dword_25081E000, v6, OS_LOG_TYPE_DEFAULT, "RLS volume limit %@, threshold %d", &v10, 0x12u);
+    _os_log_impl(&dword_25081E000, v7, OS_LOG_TYPE_DEFAULT, "RLS volume limit %@, threshold %d", &v10, 0x12u);
   }
 
   if (getReduceLoudSoundThreshold > 99)
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = isReduceLoudSoundEnabled ^ 1;
+    return isReduceLoudSoundEnabled ^ 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)updateMXVolumeLimitStatus
@@ -355,11 +363,12 @@ void __53__HAENVolumeControl_applyVolumeLoweringAtNextSession__block_invoke(doub
 
 - (void)_updateMXVolumeLimit
 {
-  if (self->_wiredHeadphoneConnected && (self->_haenFeatureEnabled || self->_EUVolumeLimitFlagOn || self->_SKVolumeLimitFlagOn) && [(HAENVolumeControl *)self _RLSAllowsMXVolumeLimit])
+  selfCopy = self;
+  if (self->_wiredHeadphoneConnected && (self->_haenFeatureEnabled || self->_EUVolumeLimitFlagOn || self->_SKVolumeLimitFlagOn) && (self = [(HAENVolumeControl *)self _RLSAllowsMXVolumeLimit], self))
   {
-    if (self->_mxVolumeLimitOn)
+    if (selfCopy->_mxVolumeLimitOn)
     {
-      v3 = HAENotificationsLog();
+      v3 = HAENotificationsLog(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 0;
@@ -373,15 +382,15 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    selfCopy2 = self;
+    v6 = selfCopy;
     v7 = 1;
   }
 
   else
   {
-    if (!self->_mxVolumeLimitOn)
+    if (!selfCopy->_mxVolumeLimitOn)
     {
-      v3 = HAENotificationsLog();
+      v3 = HAENotificationsLog(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 0;
@@ -395,11 +404,11 @@ LABEL_14:
       return;
     }
 
-    selfCopy2 = self;
+    v6 = selfCopy;
     v7 = 0;
   }
 
-  [(HAENVolumeControl *)selfCopy2 _setMXVolumeLimit:v7];
+  [(HAENVolumeControl *)v6 _setMXVolumeLimit:v7];
 }
 
 - (void)wiredHeadphoneConnected:(BOOL)connected
@@ -415,42 +424,42 @@ LABEL_14:
 - (BOOL)PME_enabled
 {
   v11 = *MEMORY[0x277D85DE8];
-  if (objc_opt_class())
+  v2 = objc_opt_class();
+  if (v2)
   {
     mEMORY[0x277D3A1D8] = [MEMORY[0x277D3A1D8] sharedInstance];
     if ([mEMORY[0x277D3A1D8] personalMediaEnabled])
     {
       mEMORY[0x277D3A1D8]2 = [MEMORY[0x277D3A1D8] sharedInstance];
-      v4 = ([mEMORY[0x277D3A1D8]2 personalAudioAccommodationTypes] >> 2) & 1;
+      v5 = ([mEMORY[0x277D3A1D8]2 personalAudioAccommodationTypes] >> 2) & 1;
     }
 
     else
     {
-      LODWORD(v4) = 0;
+      LODWORD(v5) = 0;
     }
   }
 
   else
   {
-    LODWORD(v4) = 0;
+    LODWORD(v5) = 0;
   }
 
-  v5 = HAENotificationsLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = HAENotificationsLog(v2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = "OFF";
-    if (v4)
+    v7 = "OFF";
+    if (v5)
     {
-      v6 = "ON";
+      v7 = "ON";
     }
 
     v9 = 136315138;
-    v10 = v6;
-    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "PME status: %s", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_25081E000, v6, OS_LOG_TYPE_DEFAULT, "PME status: %s", &v9, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 - (void)setDeviceInfo:(id)info
@@ -480,10 +489,10 @@ LABEL_14:
     {
       [v10 floatValue];
       self->_targetVolume74dB = v13;
-      [v9 floatValue];
-      self->_targetVolume80dB = v14;
-      v15 = HAENotificationsLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      floatValue = [v9 floatValue];
+      self->_targetVolume80dB = v15;
+      v16 = HAENotificationsLog(floatValue);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         targetVolume80dB = self->_targetVolume80dB;
         targetVolume74dB = self->_targetVolume74dB;
@@ -491,7 +500,7 @@ LABEL_14:
         v20 = targetVolume80dB;
         v21 = 2048;
         v22 = targetVolume74dB;
-        _os_log_impl(&dword_25081E000, v15, OS_LOG_TYPE_DEFAULT, "setting target scalar 80dB volume: %.2f, scalar 74dB volume: %.2f", &v19, 0x16u);
+        _os_log_impl(&dword_25081E000, v16, OS_LOG_TYPE_DEFAULT, "setting target scalar 80dB volume: %.2f, scalar 74dB volume: %.2f", &v19, 0x16u);
       }
     }
 
@@ -502,8 +511,6 @@ LABEL_14:
   {
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - ($C4267C7EEAC0F1C362AD94E813CFAD30)getStats
@@ -518,22 +525,6 @@ LABEL_14:
   result.var1 = *(&v5 + 1);
   result.var2 = v6;
   return result;
-}
-
-- (void)getCurrentVolumeForCategory:route:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25081E000, v0, v1, "failed to get %@ volume %lld");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)limitVolumeTo:category:route:actionResult:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25081E000, v0, v1, "failed to SET %@ volume %lld");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -38,17 +38,17 @@
 
 - (BOOL)readFromFile:(void *)file error:
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   [(NSBinaryObjectStoreFile *)self clearCurrentValues];
   v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:a2 options:1 error:file];
   if (!v6)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   v7 = v6;
@@ -68,10 +68,10 @@
 LABEL_11:
         *file = [v11 errorWithDomain:v12 code:v13 userInfo:v10];
 
-        goto LABEL_12;
+        return 0;
       }
 
-      goto LABEL_12;
+      return 0;
     }
 
     if (*[v7 bytes] != 0x6174614465726F43)
@@ -87,167 +87,165 @@ LABEL_11:
         goto LABEL_11;
       }
 
-LABEL_12:
-      v14 = 0;
-      goto LABEL_13;
+      return 0;
     }
 
     if ([v7 length] > 0x3F)
     {
-      v54 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+      v53 = objc_alloc_init(MEMORY[0x1E696AAC8]);
       if (byte_1ED4BEEC6 == 1)
       {
-        v20 = [*(self + 40) objectForKey:@"_NSBinaryStoreInsecureDecodingCompatibilityOption"];
-        if (v20)
+        v19 = [*(self + 40) objectForKey:@"_NSBinaryStoreInsecureDecodingCompatibilityOption"];
+        if (v19)
         {
-          v21 = [v20 BOOLValue] ^ 1;
+          v20 = [v19 BOOLValue] ^ 1;
         }
 
         else
         {
-          v21 = 1;
+          v20 = 1;
         }
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
       error = 0;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
-      *&v22 = SetHostHeaderWithBigHeader(&v58, [v7 bytes]);
-      v14 = DWORD2(v58) == 1;
-      if (DWORD2(v58) == 1)
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      *&v21 = SetHostHeaderWithBigHeader(&v57, [v7 bytes]);
+      v14 = DWORD2(v57) == 1;
+      if (DWORD2(v57) == 1)
       {
-        *(self + 8) = HIDWORD(v58);
-        v23 = [v7 subdataWithRange:{v59, v22}];
-        v24 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v23 error:&error];
+        *(self + 8) = HIDWORD(v57);
+        v22 = [v7 subdataWithRange:{v58, v21}];
+        v23 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v22 error:&error];
         if (error)
         {
           code = [error code];
-          v56 = *MEMORY[0x1E696AA08];
-          v57 = error;
-          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v44 = [_NSCoreDataException exceptionWithName:code code:@"Keyed archiver failure" reason:v43 userInfo:?];
-          objc_exception_throw(v44);
+          v55 = *MEMORY[0x1E696AA08];
+          v56 = error;
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v43 = [_NSCoreDataException exceptionWithName:code code:@"Keyed archiver failure" reason:v42 userInfo:?];
+          objc_exception_throw(v43);
         }
 
-        v25 = +[_PFRoutines plistClassesForSecureCoding];
-        if (v21)
+        v24 = +[_PFRoutines plistClassesForSecureCoding];
+        if (v20)
         {
-          [v24 setRequiresSecureCoding:1];
-          [v24 _allowDecodingCyclesInSecureMode];
-          v26 = [*(self + 40) objectForKey:@"NSBinaryStoreSecureDecodingClasses"];
-          if (v26)
+          [v23 setRequiresSecureCoding:1];
+          [v23 _allowDecodingCyclesInSecureMode];
+          v25 = [*(self + 40) objectForKey:@"NSBinaryStoreSecureDecodingClasses"];
+          if (v25)
           {
-            v25 = [v25 mutableCopy];
-            [v25 unionSet:v26];
+            v24 = [v24 mutableCopy];
+            [v24 unionSet:v25];
           }
         }
 
         else
         {
-          [v24 setRequiresSecureCoding:0];
+          [v23 setRequiresSecureCoding:0];
         }
 
-        [v24 setDecodingFailurePolicy:1];
-        v31 = [v24 decodeObjectOfClasses:v25 forKey:@"metadata"];
-        if ([v24 error])
+        [v23 setDecodingFailurePolicy:1];
+        v30 = [v23 decodeObjectOfClasses:v24 forKey:@"metadata"];
+        if ([v23 error])
         {
-          error = [v24 error];
+          error = [v23 error];
           code2 = [error code];
-          v56 = *MEMORY[0x1E696AA08];
-          v57 = error;
-          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v47 = [_NSCoreDataException exceptionWithName:code2 code:@"Keyed archiver failure" reason:v46 userInfo:?];
-          objc_exception_throw(v47);
+          v55 = *MEMORY[0x1E696AA08];
+          v56 = error;
+          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v46 = [_NSCoreDataException exceptionWithName:code2 code:@"Keyed archiver failure" reason:v45 userInfo:?];
+          objc_exception_throw(v46);
         }
 
-        [v24 finishDecoding];
+        [v23 finishDecoding];
 
-        if (*(self + 16) != v31)
+        if (*(self + 16) != v30)
         {
-          v32 = [v31 copy];
+          v31 = [v30 copy];
 
-          *(self + 16) = v32;
+          *(self + 16) = v31;
         }
 
-        v33 = *(&v60 + 1);
-        *(self + 24) = v61;
-        v34 = [v7 subdataWithRange:{v60, v33}];
-        v35 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v34 error:&error];
+        v32 = *(&v59 + 1);
+        *(self + 24) = v60;
+        v33 = [v7 subdataWithRange:{v59, v32}];
+        v34 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v33 error:&error];
         if (error)
         {
           code3 = [error code];
-          v56 = *MEMORY[0x1E696AA08];
-          v57 = error;
-          v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v50 = [_NSCoreDataException exceptionWithName:code3 code:@"Keyed archiver failure" reason:v49 userInfo:?];
-          objc_exception_throw(v50);
+          v55 = *MEMORY[0x1E696AA08];
+          v56 = error;
+          v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v49 = [_NSCoreDataException exceptionWithName:code3 code:@"Keyed archiver failure" reason:v48 userInfo:?];
+          objc_exception_throw(v49);
         }
 
-        v36 = +[NSBinaryObjectStore _classesForPropertyValues];
-        if (v21)
+        v35 = +[NSBinaryObjectStore _classesForPropertyValues];
+        if (v20)
         {
-          [v35 setRequiresSecureCoding:1];
-          [v35 _allowDecodingCyclesInSecureMode];
-          v37 = [*(self + 40) objectForKey:@"NSBinaryStoreSecureDecodingClasses"];
-          if (v37)
+          [v34 setRequiresSecureCoding:1];
+          [v34 _allowDecodingCyclesInSecureMode];
+          v36 = [*(self + 40) objectForKey:@"NSBinaryStoreSecureDecodingClasses"];
+          if (v36)
           {
-            v36 = [v36 mutableCopy];
-            [v36 unionSet:v37];
+            v35 = [v35 mutableCopy];
+            [v35 unionSet:v36];
           }
         }
 
         else
         {
-          [v35 setRequiresSecureCoding:0];
+          [v34 setRequiresSecureCoding:0];
         }
 
-        [v35 setDecodingFailurePolicy:1];
-        v38 = [v35 decodeObjectOfClasses:v36 forKey:@"mapData"];
-        if ([v35 error])
+        [v34 setDecodingFailurePolicy:1];
+        v37 = [v34 decodeObjectOfClasses:v35 forKey:@"mapData"];
+        if ([v34 error])
         {
-          error = [v35 error];
+          error = [v34 error];
           code4 = [error code];
-          v56 = *MEMORY[0x1E696AA08];
-          v57 = error;
-          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v53 = [_NSCoreDataException exceptionWithName:code4 code:@"Keyed archiver failure" reason:v52 userInfo:?];
-          objc_exception_throw(v53);
+          v55 = *MEMORY[0x1E696AA08];
+          v56 = error;
+          v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v52 = [_NSCoreDataException exceptionWithName:code4 code:@"Keyed archiver failure" reason:v51 userInfo:?];
+          objc_exception_throw(v52);
         }
 
-        [v35 finishDecoding];
+        [v34 finishDecoding];
 
-        [(NSXPCStoreServerConnectionContext *)self setActiveStore:v38];
-        v30 = 0;
+        [(NSXPCStoreServerConnectionContext *)self setActiveStore:v37];
+        v29 = 0;
       }
 
       else if (file)
       {
-        v27 = objc_alloc(MEMORY[0x1E695DF20]);
-        v28 = [v27 initWithObjectsAndKeys:{a2, *MEMORY[0x1E696A368], 0}];
-        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v30 = [v29 initWithDomain:*MEMORY[0x1E696A250] code:134000 userInfo:v28];
+        v26 = objc_alloc(MEMORY[0x1E695DF20]);
+        v27 = [v26 initWithObjectsAndKeys:{a2, *MEMORY[0x1E696A368], 0}];
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v29 = [v28 initWithDomain:*MEMORY[0x1E696A250] code:134000 userInfo:v27];
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
-      v39 = v30;
+      v38 = v29;
 
-      [v54 drain];
-      v40 = 0;
-      v41 = v30;
-      if (file && v30)
+      [v53 drain];
+      v39 = 0;
+      v40 = v29;
+      if (file && v29)
       {
-        *file = v30;
+        *file = v29;
       }
     }
 
@@ -255,9 +253,9 @@ LABEL_12:
     {
       if (file)
       {
-        v18 = objc_alloc(MEMORY[0x1E695DF20]);
-        v19 = [v18 initWithObjectsAndKeys:{a2, *MEMORY[0x1E696A368], 0}];
-        *file = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:v19];
+        v17 = objc_alloc(MEMORY[0x1E695DF20]);
+        v18 = [v17 initWithObjectsAndKeys:{a2, *MEMORY[0x1E696A368], 0}];
+        *file = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:v18];
       }
 
       v14 = 0;
@@ -267,26 +265,22 @@ LABEL_12:
   else
   {
 
-    v14 = 1;
+    return 1;
   }
 
-LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (uint64_t)writeMetadataToFile:(id *)file error:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-LABEL_9:
-    v12 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   v6 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v25 = 0;
+  v24 = 0;
   v7 = [MEMORY[0x1E696AC00] fileHandleForUpdatingAtPath:a2];
   if (!v7)
   {
@@ -298,27 +292,27 @@ LABEL_9:
       *file = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:v14];
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
   v8 = v7;
   v9 = [v7 readDataOfLength:64];
   if (*[v9 bytes] == 0x6174614465726F43)
   {
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    memset(v26, 0, sizeof(v26));
-    *&v15 = SetHostHeaderWithBigHeader(v26, [v9 bytes]);
-    if (DWORD2(v26[0]) == 1)
+    memset(v25, 0, sizeof(v25));
+    *&v15 = SetHostHeaderWithBigHeader(v25, [v9 bytes]);
+    if (DWORD2(v25[0]) == 1)
     {
-      [v8 seekToFileOffset:{v27, v15}];
-      v16 = [v8 readDataOfLength:*(&v27 + 1)];
+      [v8 seekToFileOffset:{v26, v15}];
+      v16 = [v8 readDataOfLength:*(&v26 + 1)];
       v17 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:512];
       v18 = [objc_alloc(MEMORY[0x1E696ACC8]) initForWritingWithMutableData:v17];
       [v18 encodeObject:self[2] forKey:@"metadata"];
       [v18 finishEncoding];
 
-      v12 = [self _writeMetadataData:v17 andMapDataData:v16 toFile:a2 error:&v25];
+      v12 = [self _writeMetadataData:v17 andMapDataData:v16 toFile:a2 error:&v24];
     }
 
     else
@@ -327,7 +321,7 @@ LABEL_9:
       {
         v19 = objc_alloc(MEMORY[0x1E695DF20]);
         v20 = [v19 initWithObjectsAndKeys:{a2, *MEMORY[0x1E696A368], 0}];
-        v25 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134000 userInfo:v20];
+        v24 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134000 userInfo:v20];
       }
 
       v12 = 0;
@@ -340,34 +334,32 @@ LABEL_9:
     {
       v10 = objc_alloc(MEMORY[0x1E695DF20]);
       v11 = [v10 initWithObjectsAndKeys:{a2, *MEMORY[0x1E696A368], 0}];
-      v25 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134000 userInfo:v11];
+      v24 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134000 userInfo:v11];
     }
 
     v12 = 0;
   }
 
-  v21 = v25;
+  v21 = v24;
   [v8 closeFile];
   [v6 drain];
-  v22 = v25;
-  if (file && v25)
+  v22 = v24;
+  if (file && v24)
   {
-    *file = v25;
+    *file = v24;
   }
 
-LABEL_18:
-  v23 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (uint64_t)readMetadataFromFile:(int)file securely:(void *)securely error:
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   if (!self)
   {
 LABEL_9:
     v18 = 0;
-    goto LABEL_39;
+    return v18 & 1;
   }
 
   [(NSBinaryObjectStoreFile *)self clearCurrentValues];
@@ -395,7 +387,7 @@ LABEL_9:
     v19 = 0;
     v15 = 0;
     v20 = 0;
-    v47 = 1;
+    v46 = 1;
     goto LABEL_34;
   }
 
@@ -415,7 +407,7 @@ LABEL_9:
 
     v19 = 0;
     v20 = 0;
-    v47 = 0;
+    v46 = 0;
     goto LABEL_34;
   }
 
@@ -437,21 +429,21 @@ LABEL_9:
     goto LABEL_33;
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  *&v23 = SetHostHeaderWithBigHeader(&v52, [v11 bytes]);
-  v20 = DWORD2(v52) == 1;
-  if (DWORD2(v52) == 1)
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  *&v23 = SetHostHeaderWithBigHeader(&v51, [v11 bytes]);
+  v20 = DWORD2(v51) == 1;
+  if (DWORD2(v51) == 1)
   {
-    *(self + 8) = HIDWORD(v52);
-    v24 = v53;
-    *(self + 24) = v55;
+    *(self + 8) = HIDWORD(v51);
+    v24 = v52;
+    *(self + 24) = v54;
     [v10 seekToFileOffset:{v24, v23}];
-    v25 = [v10 readDataOfLength:*(&v53 + 1)];
+    v25 = [v10 readDataOfLength:*(&v52 + 1)];
     v26 = [v25 length];
-    if (v26 != *(&v53 + 1))
+    if (v26 != *(&v52 + 1))
     {
       if (securely)
       {
@@ -465,7 +457,7 @@ LABEL_9:
         v15 = 0;
       }
 
-      v47 = 0;
+      v46 = 0;
       v19 = 0;
       v20 = 0;
       goto LABEL_34;
@@ -475,11 +467,11 @@ LABEL_9:
     if (error)
     {
       code = [error code];
-      v50 = *MEMORY[0x1E696AA08];
-      v51 = error;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-      v42 = [_NSCoreDataException exceptionWithName:code code:@"Keyed archiver failure" reason:v41 userInfo:?];
-      objc_exception_throw(v42);
+      v49 = *MEMORY[0x1E696AA08];
+      v50 = error;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v41 = [_NSCoreDataException exceptionWithName:code code:@"Keyed archiver failure" reason:v40 userInfo:?];
+      objc_exception_throw(v41);
     }
 
     v28 = +[_PFRoutines plistClassesForSecureCoding];
@@ -487,7 +479,7 @@ LABEL_9:
     {
       [v27 setRequiresSecureCoding:1];
       [v27 _allowDecodingCyclesInSecureMode];
-      v29 = [*(self + 40) valueForKey:@"NSBinaryStoreSecureDecodingClasses"];
+      v29 = objc_msgSend_valueForKey_(*(self + 40));
       if (v29)
       {
         v28 = [v28 mutableCopy];
@@ -506,11 +498,11 @@ LABEL_9:
     {
       error = [v27 error];
       code2 = [error code];
-      v48 = *MEMORY[0x1E696AA08];
-      v49 = error;
-      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-      v45 = [_NSCoreDataException exceptionWithName:code2 code:@"Keyed archiver failure" reason:v44 userInfo:?];
-      objc_exception_throw(v45);
+      v47 = *MEMORY[0x1E696AA08];
+      v48 = error;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v44 = [_NSCoreDataException exceptionWithName:code2 code:@"Keyed archiver failure" reason:v43 userInfo:?];
+      objc_exception_throw(v44);
     }
 
     [v27 finishDecoding];
@@ -550,24 +542,22 @@ LABEL_34:
     *securely = v15;
   }
 
-  v18 = v47;
+  v18 = v46;
   if (v19)
   {
     v18 = v20;
   }
 
-LABEL_39:
-  v38 = *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 
 - (BOOL)_writeMetadataData:(id)data andMapDataData:(id)dataData toFile:(id)file error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v30 = 0;
+  v42 = *MEMORY[0x1E69E9840];
+  v29 = 0;
   v11 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v35 = 0x6174614465726F43;
-  v36 = 0x1000000;
+  v34 = 0x6174614465726F43;
+  v35 = 0x1000000;
   if (self)
   {
     databaseVersion = self->_databaseVersion;
@@ -578,12 +568,12 @@ LABEL_39:
     databaseVersion = 0;
   }
 
-  v42 = 0u;
-  v37 = bswap32(databaseVersion);
-  v38 = bswap64([dataData length] + 64);
-  v39 = bswap64([data length]);
-  v40 = 0x4000000000000000;
-  v41 = bswap64([dataData length]);
+  v41 = 0u;
+  v36 = bswap32(databaseVersion);
+  v37 = bswap64([dataData length] + 64);
+  v38 = bswap64([data length]);
+  v39 = 0x4000000000000000;
+  v40 = bswap64([dataData length]);
   if (self)
   {
     primaryKeyGeneration = self->_primaryKeyGeneration;
@@ -594,14 +584,14 @@ LABEL_39:
     primaryKeyGeneration = 0;
   }
 
-  v42 = bswap64(primaryKeyGeneration);
+  v41 = bswap64(primaryKeyGeneration);
   v14 = [dataData length];
   v15 = [data length];
   v16 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:v14 + v15 + 64];
-  [v16 appendBytes:&v35 length:64];
+  [v16 appendBytes:&v34 length:64];
   [v16 appendData:dataData];
   [v16 appendData:data];
-  v17 = [(NSDictionary *)self->_storeOptions valueForKey:@"NSPersistentStoreFileProtectionKey"];
+  v17 = objc_msgSend_valueForKey_(self->_storeOptions);
   if (v17)
   {
     if ([*MEMORY[0x1E696A3A8] isEqualToString:v17])
@@ -641,7 +631,7 @@ LABEL_39:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v17;
+        v31 = v17;
 LABEL_36:
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Unrecognized value '%@' passed into options for NSPersistentStoreFileProtectionKey\n", buf, 0xCu);
       }
@@ -653,7 +643,7 @@ LABEL_36:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v17;
+        v31 = v17;
         goto LABEL_36;
       }
     }
@@ -676,7 +666,7 @@ LABEL_22:
   }
 
 LABEL_23:
-  v21 = [v16 writeToFile:file options:v18 error:&v30];
+  v21 = [v16 writeToFile:file options:v18 error:&v29];
   if ((v21 & 1) == 0)
   {
     v22 = objc_autoreleasePoolPush();
@@ -698,33 +688,32 @@ LABEL_23:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
 LABEL_34:
-          v28 = v30;
-          userInfo = [v30 userInfo];
+          v27 = v29;
+          userInfo = [v29 userInfo];
           *buf = 138412546;
-          v32 = v28;
-          v33 = 2112;
-          v34 = userInfo;
+          v31 = v27;
+          v32 = 2112;
+          v33 = userInfo;
           _os_log_error_impl(&dword_18565F000, v23, OS_LOG_TYPE_ERROR, "CoreData: error: Binary store: writeToFile error = %@ and userInfo = %@\n", buf, 0x16u);
         }
       }
     }
 
-    _NSCoreDataLog_console(1, "Binary store: writeToFile error = %@ and userInfo = %@", v30, [v30 userInfo]);
+    _NSCoreDataLog_console(1, "Binary store: writeToFile error = %@ and userInfo = %@", v29, [v29 userInfo]);
     objc_autoreleasePoolPop(v22);
   }
 
-  v24 = v30;
+  v24 = v29;
   [v11 drain];
-  if (v30)
+  if (v29)
   {
-    v25 = v30;
+    v25 = v29;
     if (error)
     {
-      *error = v30;
+      *error = v29;
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

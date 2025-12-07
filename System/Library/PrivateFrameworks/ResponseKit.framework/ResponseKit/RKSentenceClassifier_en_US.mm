@@ -9,31 +9,30 @@
 
 + (id)preProcessTextMessageForLinguisticTagger:(id)tagger
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAE8];
   taggerCopy = tagger;
   v5 = [v3 alloc];
-  v19[0] = *MEMORY[0x277CCA3E0];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = *MEMORY[0x277CCA3E0];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v7 = [v5 initWithTagSchemes:v6 options:6];
 
   [v7 setString:taggerCopy];
   v8 = [taggerCopy mutableCopy];
 
   v9 = [v8 length];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __71__RKSentenceClassifier_en_US_preProcessTextMessageForLinguisticTagger___block_invoke;
-  v16[3] = &unk_279B102B0;
-  v17 = v7;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __71__RKSentenceClassifier_en_US_preProcessTextMessageForLinguisticTagger___block_invoke;
+  v15[3] = &unk_279B102B0;
+  v16 = v7;
   v10 = v8;
-  v18 = v10;
+  v17 = v10;
   v11 = v7;
-  [v10 enumerateSubstringsInRange:0 options:v9 usingBlock:{259, v16}];
-  v12 = v18;
+  [v10 enumerateSubstringsInRange:0 options:v9 usingBlock:{259, v15}];
+  v12 = v17;
   v13 = v10;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -49,39 +48,37 @@
 
 - (void)analyzeSentence
 {
-  v15[5] = *MEMORY[0x277D85DE8];
+  v14[5] = *MEMORY[0x277D85DE8];
   sentenceEntities = [(RKSentenceClassifier *)self sentenceEntities];
   [sentenceEntities enumerateObjectsUsingBlock:&__block_literal_global_3];
 
-  v14.receiver = self;
-  v14.super_class = RKSentenceClassifier_en_US;
-  [(RKSentenceClassifier *)&v14 analyzeSentence];
+  v13.receiver = self;
+  v13.super_class = RKSentenceClassifier_en_US;
+  [(RKSentenceClassifier *)&v13 analyzeSentence];
   array = [MEMORY[0x277CBEA60] array];
   [(RKSentenceClassifier *)self setInversions:array];
 
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874E6EE0];
   v6 = MEMORY[0x277CBEB98];
   v7 = *MEMORY[0x277CCA3C8];
-  v15[0] = *MEMORY[0x277CCA368];
-  v15[1] = v7;
+  v14[0] = *MEMORY[0x277CCA368];
+  v14[1] = v7;
   v8 = *MEMORY[0x277CCA3B8];
-  v15[2] = *MEMORY[0x277CCA3B0];
-  v15[3] = v8;
-  v15[4] = *MEMORY[0x277CCA388];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:5];
+  v14[2] = *MEMORY[0x277CCA3B0];
+  v14[3] = v8;
+  v14[4] = *MEMORY[0x277CCA388];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:5];
   v10 = [v6 setWithArray:v9];
 
   sentenceEntities2 = [(RKSentenceClassifier *)self sentenceEntities];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __45__RKSentenceClassifier_en_US_analyzeSentence__block_invoke_2;
-  v13[3] = &unk_279B102F8;
-  v13[4] = v10;
-  v13[5] = self;
-  v13[6] = v5;
-  [sentenceEntities2 enumerateObjectsUsingBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __45__RKSentenceClassifier_en_US_analyzeSentence__block_invoke_2;
+  v12[3] = &unk_279B102F8;
+  v12[4] = v10;
+  v12[5] = self;
+  v12[6] = v5;
+  [sentenceEntities2 enumerateObjectsUsingBlock:v12];
 }
 
 - (id)classifySentence
@@ -136,22 +133,8 @@
     v52 = v55;
     [sentenceEntities2 enumerateObjectsUsingBlock:v48];
 
-    if (v57[3])
+    if (v57[3] || (-[RKSentenceClassifier sentenceEntities](self, "sentenceEntities"), v11 = objc_claimAutoreleasedReturnValue(), -[RKSentenceClassifier alternatives](self, "alternatives"), v12 = objc_claimAutoreleasedReturnValue(), -[RKSentenceClassifier alternatives](self, "alternatives"), v13 = objc_claimAutoreleasedReturnValue(), [v12 objectAtIndexedSubscript:{objc_msgSend(v13, "count") - 1}], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectAtIndexedSubscript:", objc_msgSend(v14, "rangeValue")), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "word"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", @"so"), v16, v15, v14, v13, v12, v11, v17))
     {
-      goto LABEL_10;
-    }
-
-    sentenceEntities3 = [(RKSentenceClassifier *)self sentenceEntities];
-    alternatives = [(RKSentenceClassifier *)self alternatives];
-    alternatives2 = [(RKSentenceClassifier *)self alternatives];
-    v14 = [alternatives objectAtIndexedSubscript:{objc_msgSend(alternatives2, "count") - 1}];
-    v15 = [sentenceEntities3 objectAtIndexedSubscript:{objc_msgSend(v14, "rangeValue")}];
-    word = [v15 word];
-    v17 = [word isEqualToString:@"so"];
-
-    if (v17)
-    {
-LABEL_10:
       [v10 setSentenceType:0];
       [v10 setCustomResponses:0];
     }
@@ -176,8 +159,8 @@ LABEL_10:
   if ([v3 sentenceType] == 19)
   {
     v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"partOfSpeech == %@ && lemma == 'time'", *MEMORY[0x277CCA368]];
-    sentenceEntities4 = [(RKSentenceClassifier *)self sentenceEntities];
-    v21 = [sentenceEntities4 filteredArrayUsingPredicate:v19];
+    sentenceEntities3 = [(RKSentenceClassifier *)self sentenceEntities];
+    v21 = [sentenceEntities3 filteredArrayUsingPredicate:v19];
     v22 = [v21 count];
 
     if (v22)
@@ -204,8 +187,8 @@ LABEL_20:
     v29 = *MEMORY[0x277CCA418];
     v30 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(partOfSpeech == %@ && lemma == 'will') || (partOfSpeech == %@ && lemma == 'next')", *MEMORY[0x277CCA418], *MEMORY[0x277CCA3C0]];
     v31 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(partOfSpeech == %@ && string.lowercaseString IN %@) || (partOfSpeech == %@ && lemma == 'last')", v29, v19, *MEMORY[0x277CCA320]];
-    sentenceEntities5 = [(RKSentenceClassifier *)self sentenceEntities];
-    v33 = [sentenceEntities5 filteredArrayUsingPredicate:v28];
+    sentenceEntities4 = [(RKSentenceClassifier *)self sentenceEntities];
+    v33 = [sentenceEntities4 filteredArrayUsingPredicate:v28];
     v34 = [v33 count];
 
     if (v34)
@@ -215,8 +198,8 @@ LABEL_20:
 
     else
     {
-      sentenceEntities6 = [(RKSentenceClassifier *)self sentenceEntities];
-      v37 = [sentenceEntities6 filteredArrayUsingPredicate:v31];
+      sentenceEntities5 = [(RKSentenceClassifier *)self sentenceEntities];
+      v37 = [sentenceEntities5 filteredArrayUsingPredicate:v31];
       v38 = [v37 count];
 
       if (v38)
@@ -226,8 +209,8 @@ LABEL_20:
 
       else
       {
-        sentenceEntities7 = [(RKSentenceClassifier *)self sentenceEntities];
-        v40 = [sentenceEntities7 filteredArrayUsingPredicate:v30];
+        sentenceEntities6 = [(RKSentenceClassifier *)self sentenceEntities];
+        v40 = [sentenceEntities6 filteredArrayUsingPredicate:v30];
         v41 = [v40 count];
 
         if (!v41)
@@ -246,8 +229,8 @@ LABEL_29:
   }
 
   v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"partOfSpeech == %@ && lemma == 'you'", *MEMORY[0x277CCA3C8]];
-  sentenceEntities8 = [(RKSentenceClassifier *)self sentenceEntities];
-  v26 = [sentenceEntities8 filteredArrayUsingPredicate:v19];
+  sentenceEntities7 = [(RKSentenceClassifier *)self sentenceEntities];
+  v26 = [sentenceEntities7 filteredArrayUsingPredicate:v19];
   v27 = [v26 count];
 
   if (v27)

@@ -26,7 +26,7 @@
   v15 = objc_opt_new();
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

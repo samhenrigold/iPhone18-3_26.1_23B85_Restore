@@ -19,12 +19,15 @@
 - (void)_handleSagaAuthentication:(id)authentication finishedForReason:(int64_t)reason explicitUserAction:(BOOL)action shouldStartInitialImport:(BOOL)import completionHandler:(id)handler;
 - (void)_handleUserIdentityStoreDidChangeNotification:(id)notification;
 - (void)_performInitialJaliscoImportWithClientIdentity:(id)identity completion:(id)completion;
+- (void)_performInitialSagaImportWithClientIdentity:(id)identity allowingNoisyAuthPrompt:(BOOL)prompt completionHandler:(id)handler;
 - (void)_performJaliscoImportWithClientIdentity:(id)identity byAddingMediaKind:(int64_t)kind completionHandler:(id)handler;
 - (void)_postLibraryUpdateProgressChangedForLibraryType:(int64_t)type;
 - (void)_registerDeviceAndPerformInitialImportWithUserIdentityProperties:(id)properties cloudLibraryEnableReason:(int64_t)reason completionHandler:(id)handler;
 - (void)_reloadSubscriptionStatusAndEnableCloudMusicLibraryWithReason:(int64_t)reason completionHandler:(id)handler;
+- (void)_removeCloudSourcesForReason:(int64_t)reason withClientIdentity:(id)identity byDisablingActiveLockerAccount:(BOOL)account completionHandler:(id)handler;
 - (void)_resetInternalCloudLibraryState;
 - (void)_retryEnablingCloudMusicLibraryForReason:(int64_t)reason;
+- (void)_runSagaAuthenticateOperationWithClientIdentity:(id)identity mergePreference:(id)preference allowNoisyPrompt:(BOOL)prompt cloudLibraryEnableReason:(int64_t)reason completionHandler:(id)handler;
 - (void)_runSubscriptionStatusCheckOperationWithReason:(int64_t)reason completionHandler:(id)handler;
 - (void)_tryEnablingCloudMusicLibraryForReason:(int64_t)reason completionHandler:(id)handler;
 - (void)_tryEnablingICMLOnDevicesSupportingSideLoadedContentWithProperties:(id)properties reason:(int64_t)reason withCompletionHandler:(id)handler;
@@ -493,6 +496,111 @@ LABEL_14:
   }
 }
 
+- (void)_performInitialSagaImportWithClientIdentity:(id)identity allowingNoisyAuthPrompt:(BOOL)prompt completionHandler:(id)handler
+{
+  promptCopy = prompt;
+  identityCopy = identity;
+  handlerCopy = handler;
+  musicLibrary = [(BaseRequestHandler *)self musicLibrary];
+  sagaOnDiskDatabaseRevision = [musicLibrary sagaOnDiskDatabaseRevision];
+
+  musicLibrary2 = [(BaseRequestHandler *)self musicLibrary];
+  sagaNeedsFullUpdate = [musicLibrary2 sagaNeedsFullUpdate];
+
+  musicLibrary3 = [(BaseRequestHandler *)self musicLibrary];
+  sagaInitiateClientResetSync = [musicLibrary3 sagaInitiateClientResetSync];
+
+  if (MSVDeviceOSIsInternalInstall())
+  {
+    v16 = +[ICDefaults standardDefaults];
+    shouldForceServerToUseDAAPDebugFeature = [v16 shouldForceServerToUseDAAPDebugFeature];
+  }
+
+  else
+  {
+    shouldForceServerToUseDAAPDebugFeature = 0;
+  }
+
+  if (self->_sagaRequestHandler && (sagaOnDiskDatabaseRevision == 0) | (sagaNeedsFullUpdate | shouldForceServerToUseDAAPDebugFeature) & 1)
+  {
+    v18 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138544386;
+      selfCopy3 = self;
+      v31 = 1024;
+      *v32 = sagaOnDiskDatabaseRevision;
+      *&v32[4] = 1024;
+      *&v32[6] = sagaNeedsFullUpdate;
+      *&v32[10] = 1024;
+      *&v32[12] = sagaInitiateClientResetSync;
+      *&v32[16] = 1024;
+      *&v32[18] = shouldForceServerToUseDAAPDebugFeature;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ - performing initial saga update, sagaDatabaseVersion=%d, sagaNeedsFullUpdate=%{BOOL}u, sagaInitiateClientResetSync=%{BOOL}u, shouldForceServerToUseDAAPDebugFeature=%{BOOL}u", buf, 0x24u);
+    }
+
+    [(SagaRequestHandler *)self->_sagaRequestHandler updateLibraryWithClientIdentity:identityCopy reason:1 allowNoisyAuthPrompt:promptCopy isExplicitUserAction:promptCopy reconcileLibraryPins:0 completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v19 = +[ICDeviceInfo currentDeviceInfo];
+    buildVersion = [v19 buildVersion];
+
+    musicLibrary4 = [(BaseRequestHandler *)self musicLibrary];
+    sagaLastCloudUpdateClientBuildVersion = [musicLibrary4 sagaLastCloudUpdateClientBuildVersion];
+
+    if ([sagaLastCloudUpdateClientBuildVersion length] && (!objc_msgSend(buildVersion, "length") || (objc_msgSend(buildVersion, "isEqualToString:", sagaLastCloudUpdateClientBuildVersion) & 1) != 0))
+    {
+      musicLibrary5 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+      if (os_log_type_enabled(musicLibrary5, OS_LOG_TYPE_DEFAULT))
+      {
+        sagaRequestHandler = self->_sagaRequestHandler;
+        *buf = 138544386;
+        selfCopy3 = self;
+        v31 = 1024;
+        *v32 = sagaOnDiskDatabaseRevision;
+        *&v32[4] = 2114;
+        *&v32[6] = buildVersion;
+        *&v32[14] = 2114;
+        *&v32[16] = sagaLastCloudUpdateClientBuildVersion;
+        v33 = 2048;
+        v34 = sagaRequestHandler;
+        _os_log_impl(&_mh_execute_header, musicLibrary5, OS_LOG_TYPE_DEFAULT, "%{public}@ - not performing initial saga import. sagaDatabaseVersion=%d, currentBuildVersion=%{public}@, sagaCloudUpdateClientBuildVersion=%{public}@, _sagaRequestHandler=%p", buf, 0x30u);
+      }
+    }
+
+    else
+    {
+      v25 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543874;
+        selfCopy3 = self;
+        v31 = 2114;
+        *v32 = buildVersion;
+        *&v32[8] = 2114;
+        *&v32[10] = sagaLastCloudUpdateClientBuildVersion;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ - clearing last cloud update time as build versions are different currentBuildVersion=%{public}@, sagaCloudUpdateClientBuildVersion=%{public}@", buf, 0x20u);
+      }
+
+      musicLibrary5 = [(BaseRequestHandler *)self musicLibrary];
+      [musicLibrary5 setSagaLastLibraryUpdateTime:0];
+    }
+
+    if (handlerCopy)
+    {
+      calloutQueue = self->_calloutQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_10000D704;
+      block[3] = &unk_1001DF5C8;
+      v28 = handlerCopy;
+      dispatch_async(calloutQueue, block);
+    }
+  }
+}
+
 - (void)_performJaliscoImportWithClientIdentity:(id)identity byAddingMediaKind:(int64_t)kind completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -693,6 +801,215 @@ LABEL_20:
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring store did change notification", buf, 0xCu);
     }
+  }
+}
+
+- (void)_removeCloudSourcesForReason:(int64_t)reason withClientIdentity:(id)identity byDisablingActiveLockerAccount:(BOOL)account completionHandler:(id)handler
+{
+  accountCopy = account;
+  identityCopy = identity;
+  handlerCopy = handler;
+  deauthOperationCount = self->_deauthOperationCount;
+  if (deauthOperationCount < 1 || reason == -11 || reason == -5)
+  {
+    v15 = reason == -11;
+    self->_deauthOperationCount = deauthOperationCount + 1;
+    v16 = [(ICDCloudMusicLibraryRequestHandler *)self _cloudSourcesToRemoveForReason:reason];
+    if (v15)
+    {
+      v17 = MSVDeviceSupportsMultipleLibraries();
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v18 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138544130;
+      selfCopy6 = self;
+      v47 = 1024;
+      v48 = v17;
+      v49 = 1024;
+      reasonCopy = accountCopy;
+      v51 = 2114;
+      v52 = v16;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ - Running RemoveCloudSourcesOperation deletingDatabase:%{BOOL}u, disableActiveLockerAccount:%{BOOL}u, removeSources=%{public}@", buf, 0x22u);
+    }
+
+    configuration = [(BaseRequestHandler *)self configuration];
+    v20 = [(BaseRequestHandler *)ArtistImageRequestHandler handlerForConfiguration:configuration];
+    [v20 cancelAllOperations];
+
+    v21 = +[CloudContentTasteUpdateRequestListener sharedContentTasteRequestListener];
+    configuration2 = [(BaseRequestHandler *)self configuration];
+    [v21 removeContentTasteOperationsForConnectionConfiguration:configuration2];
+
+    v23 = self->_sagaRequestHandler;
+    sagaRequestHandler = self->_sagaRequestHandler;
+    self->_sagaRequestHandler = 0;
+
+    [(ICDCloudMusicLibraryRequestHandler *)self _resetInternalCloudLibraryState];
+    v25 = [RemoveCloudSourcesOperation alloc];
+    configuration3 = [(BaseRequestHandler *)self configuration];
+    v27 = [(CloudLibraryOperation *)v25 initWithConfiguration:configuration3 clientIdentity:identityCopy];
+
+    [(RemoveCloudSourcesOperation *)v27 setDeleteDB:v17];
+    [(RemoveCloudSourcesOperation *)v27 setDisableActiveLockerAccount:accountCopy];
+    [(RemoveCloudSourcesOperation *)v27 setRemoveCloudSouceAttributes:v16];
+    if ([v16 containsObject:&off_1001ECFD0] && self->_jaliscoRequestHandler)
+    {
+      v28 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        selfCopy6 = self;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelling all Jalisco operations.", buf, 0xCu);
+      }
+
+      [(JaliscoRequestHandler *)self->_jaliscoRequestHandler cancelAllOperations];
+    }
+
+    v29 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+    if (v23)
+    {
+      if (v30)
+      {
+        *buf = 138543362;
+        selfCopy6 = self;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelling all Saga operations.", buf, 0xCu);
+      }
+
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_10000E8A0;
+      v39[3] = &unk_1001DDEA8;
+      v40 = v27;
+      selfCopy4 = self;
+      v42 = handlerCopy;
+      [(SagaRequestHandler *)v23 cancelOperationsWithCompletionHandler:v39];
+    }
+
+    else
+    {
+      if (v30)
+      {
+        *buf = 138543362;
+        selfCopy6 = self;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ - No valid SagaRequestHandler - not cancelling pending SagaLibrary operations.", buf, 0xCu);
+      }
+
+      objc_initWeak(buf, v27);
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_10000E9C0;
+      v36[3] = &unk_1001DD5D0;
+      objc_copyWeak(&v38, buf);
+      v36[4] = self;
+      v37 = handlerCopy;
+      [(RemoveCloudSourcesOperation *)v27 setCompletionBlock:v36];
+      [(RemoveCloudSourcesOperation *)v27 setName:@"com.apple.itunescloudd.ICDCloudMusicLibraryRequestHandler.sagaDeauthenticateOperation"];
+      v31 = +[ICDServer server];
+      [v31 addOperation:v27 priority:2];
+
+      objc_destroyWeak(&v38);
+      objc_destroyWeak(buf);
+    }
+  }
+
+  else
+  {
+    v32 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = self->_deauthOperationCount;
+      *buf = 138543874;
+      selfCopy6 = self;
+      v47 = 1024;
+      v48 = v34;
+      v49 = 1024;
+      reasonCopy = reason;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ - We already have a pending deauthentication operation _deauthOperationCount=%d. Will not deauthenticate again for reason=%d.", buf, 0x18u);
+    }
+
+    accessQueue = self->_accessQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000E810;
+    block[3] = &unk_1001DF5C8;
+    v44 = handlerCopy;
+    dispatch_async(accessQueue, block);
+    v16 = v44;
+  }
+}
+
+- (void)_runSagaAuthenticateOperationWithClientIdentity:(id)identity mergePreference:(id)preference allowNoisyPrompt:(BOOL)prompt cloudLibraryEnableReason:(int64_t)reason completionHandler:(id)handler
+{
+  promptCopy = prompt;
+  identityCopy = identity;
+  preferenceCopy = preference;
+  handlerCopy = handler;
+  if (!self->_isPendingAuthentication)
+  {
+    self->_isPendingAuthentication = 1;
+    v19 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543874;
+      selfCopy2 = self;
+      v30 = 1024;
+      intValue = [preferenceCopy intValue];
+      v32 = 1024;
+      v33 = promptCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ - Enqueueing CloudAuthenticateOperation shouldMerge:%d, allowNoisyPrompt:%{BOOL}u", buf, 0x18u);
+    }
+
+    v20 = [CloudAuthenticateOperation alloc];
+    configuration = [(BaseRequestHandler *)self configuration];
+    v18 = [(CloudAuthenticateOperation *)v20 initWithConfiguration:configuration mergeToCloudLibraryPreference:preferenceCopy allowNoisyAuthPrompt:promptCopy enableLibraryReason:reason clientIdentity:identityCopy];
+
+    objc_initWeak(buf, v18);
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10000EFDC;
+    v25[3] = &unk_1001DA5C0;
+    objc_copyWeak(v27, buf);
+    v25[4] = self;
+    v27[1] = a2;
+    v27[2] = reason;
+    v26 = handlerCopy;
+    [(CloudAuthenticateOperation *)v18 setCompletionBlock:v25];
+    [(CloudAuthenticateOperation *)v18 setName:@"com.apple.itunescloudd.ICDCloudMusicLibraryRequestHandler.cloudAuthenticateOperation"];
+    v22 = +[ICDServer server];
+    [v22 addOperation:v18 priority:2];
+
+    objc_destroyWeak(v27);
+    objc_destroyWeak(buf);
+    goto LABEL_9;
+  }
+
+  v16 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy2 = self;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ - We already have a pending authentication operation. Will not authenticate again.", buf, 0xCu);
+  }
+
+  if (handlerCopy)
+  {
+    accessQueue = self->_accessQueue;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10000F2AC;
+    v23[3] = &unk_1001DF5C8;
+    v24 = handlerCopy;
+    dispatch_async(accessQueue, v23);
+    v18 = v24;
+LABEL_9:
   }
 }
 

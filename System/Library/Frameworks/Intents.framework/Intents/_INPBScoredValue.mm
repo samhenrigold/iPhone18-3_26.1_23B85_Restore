@@ -136,18 +136,16 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBScoredValue *)self hasScore])
   {
-    score = self->_score;
     PBDataWriterWriteInt64Field();
   }
 
   value = [(_INPBScoredValue *)self value];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (value)
   {
-    value = self->_value;
     PBDataWriterWriteStringField();
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 

@@ -12,12 +12,14 @@
 
 - (TSTimeConverter)init
 {
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  resourceURL = [v3 resourceURL];
-  v5 = [resourceURL URLByAppendingPathComponent:@"tai_utc_history.plist"];
+  v3 = MEMORY[0x277CCA8D8];
+  objc_opt_class();
+  v4 = [v3 bundleForClass:?];
+  resourceURL = [v4 resourceURL];
+  v6 = [resourceURL URLByAppendingPathComponent:?];
 
-  v6 = [(TSTimeConverter *)self initWithContentsOfURL:v5];
-  return v6;
+  v7 = [(TSTimeConverter *)self initWithContentsOfURL:?];
+  return v7;
 }
 
 - (TSTimeConverter)initWithTAIUTCArray:(id)array
@@ -47,55 +49,45 @@
 
 - (TSTimeConverter)initWithContentsOfURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
   lCopy = l;
   array = [MEMORY[0x277CBEB18] array];
-  v6 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:lCopy];
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:?];
+  v7 = [v6 countByEnumeratingWithState:0 objects:? count:?];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = MEMORY[0];
     do
     {
-      v10 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v16 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [[TSTAIUTCValue alloc] initWithDictionary:*(*(&v15 + 1) + 8 * v10)];
+        v11 = [[TSTAIUTCValue alloc] initWithDictionary:?];
         if (v11)
         {
-          [array addObject:v11];
+          [array addObject:?];
         }
-
-        ++v10;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v8);
   }
 
-  v12 = [(TSTimeConverter *)self initWithTAIUTCArray:array];
+  v12 = [(TSTimeConverter *)self initWithTAIUTCArray:?];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)taiDateFromUTCDate:(id)date
 {
   dateCopy = date;
-  [(TSTimeConverter *)self leapSecondForUTCDate:dateCopy];
+  [(TSTimeConverter *)self leapSecondForUTCDate:?];
   v5 = [dateCopy dateByAddingTimeInterval:?];
 
   return v5;
@@ -104,10 +96,10 @@
 - (id)utcDateFromTAIDate:(id)date
 {
   dateCopy = date;
-  [(TSTimeConverter *)self leapSecondForTAIDate:dateCopy];
-  v6 = [dateCopy dateByAddingTimeInterval:-v5];
+  [(TSTimeConverter *)self leapSecondForTAIDate:?];
+  v5 = [dateCopy dateByAddingTimeInterval:?];
 
-  return v6;
+  return v5;
 }
 
 - (double)leapSecondForUTCDate:(id)date
@@ -120,9 +112,9 @@
     v7 = 0;
     while (1)
     {
-      v8 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+      v8 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
       utcDate = [v8 utcDate];
-      [dateCopy timeIntervalSinceDate:utcDate];
+      [dateCopy timeIntervalSinceDate:?];
       v11 = v10;
 
       if (v11 >= 0.0)
@@ -136,11 +128,11 @@
       }
     }
 
-    v13 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+    v13 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
     [v13 coefficient];
     v15 = v14;
 
-    v16 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+    v16 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
     v17 = v16;
     if (v15 == 0.0)
     {
@@ -151,17 +143,17 @@
     else
     {
       utcDate2 = [v16 utcDate];
-      [dateCopy timeIntervalSinceDate:utcDate2];
+      [dateCopy timeIntervalSinceDate:?];
       v20 = v19 / 86400.0;
-      v21 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+      v21 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
       v22 = (v20 + [v21 modifiedJulianDay]);
 
-      v17 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+      v17 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
       [v17 constant];
       v24 = v23;
-      v25 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+      v25 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
       v26 = (v22 - [v25 offset]);
-      v27 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+      v27 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
       [v27 coefficient];
       v12 = v24 + v26 * v28;
     }
@@ -186,9 +178,9 @@ LABEL_5:
     v7 = 0;
     while (1)
     {
-      v8 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+      v8 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
       taiDate = [v8 taiDate];
-      [dateCopy timeIntervalSinceDate:taiDate];
+      [dateCopy timeIntervalSinceDate:?];
       v11 = v10;
 
       if (v11 >= 0.0)
@@ -202,51 +194,48 @@ LABEL_5:
       }
     }
 
-    v13 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+    v13 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
     [v13 coefficient];
     v15 = v14;
 
-    v16 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
+    v16 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
     v17 = v16;
     if (v15 == 0.0)
     {
       [v16 constant];
-      v12 = v44;
+      v12 = v36;
     }
 
     else
     {
       taiDate2 = [v16 taiDate];
-      [dateCopy timeIntervalSinceDate:taiDate2];
-      v20 = v19 / 86400.0;
-      v21 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      v22 = (v20 + [v21 modifiedJulianDay]);
+      [dateCopy timeIntervalSinceDate:?];
+      v19 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      [v19 modifiedJulianDay];
 
-      v23 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      [v23 constant];
-      v25 = v24;
-      v26 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      v27 = (v22 - [v26 offset]);
-      v28 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      [v28 coefficient];
-      v30 = v29;
+      v20 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      [v20 constant];
+      v21 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      [v21 offset];
+      v22 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      [v22 coefficient];
 
-      v17 = [dateCopy dateByAddingTimeInterval:-(v25 + v27 * v30)];
-      v31 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      utcDate = [v31 utcDate];
-      [v17 timeIntervalSinceDate:utcDate];
-      v34 = v33 / 86400.0;
-      v35 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      v36 = (v34 + [v35 modifiedJulianDay]);
+      v17 = [dateCopy dateByAddingTimeInterval:?];
+      v23 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      utcDate = [v23 utcDate];
+      [v17 timeIntervalSinceDate:?];
+      v26 = v25 / 86400.0;
+      v27 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      v28 = (v26 + [v27 modifiedJulianDay]);
 
-      v37 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      [v37 constant];
-      v39 = v38;
-      v40 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      v41 = (v36 - [v40 offset]);
-      v42 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:v7];
-      [v42 coefficient];
-      v12 = v39 + v41 * v43;
+      v29 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      [v29 constant];
+      v31 = v30;
+      v32 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      v33 = (v28 - [v32 offset]);
+      v34 = [(NSArray *)self->_taiutc objectAtIndexedSubscript:?];
+      [v34 coefficient];
+      v12 = v31 + v33 * v35;
     }
   }
 

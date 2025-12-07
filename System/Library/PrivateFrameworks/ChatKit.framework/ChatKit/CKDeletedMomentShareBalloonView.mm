@@ -6,7 +6,7 @@
 
 + (id)_secondaryLabelString
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"CKDeletedMomentShareBalloonViewMessage" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;

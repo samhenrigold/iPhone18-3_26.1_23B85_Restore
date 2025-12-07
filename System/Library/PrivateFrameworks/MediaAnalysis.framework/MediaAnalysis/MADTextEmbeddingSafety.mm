@@ -149,49 +149,52 @@ LABEL_12:
 
 - (int)_loadResources
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_plan)
   {
-    return 0;
+    LODWORD(v2) = 0;
   }
 
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3221225472;
-  aBlock[2] = __40__MADTextEmbeddingSafety__loadResources__block_invoke;
-  aBlock[3] = &unk_1E834DFE0;
-  aBlock[4] = self;
-  v3 = _Block_copy(aBlock);
-  v4 = VCPSignPostPersistentLog();
-  v5 = os_signpost_id_generate(v4);
-
-  v6 = VCPSignPostPersistentLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  else
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADTextEmbeddingSafety_loadResources", " enableTelemetry=YES ", buf, 2u);
-  }
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __40__MADTextEmbeddingSafety__loadResources__block_invoke;
+    aBlock[3] = &unk_1E834DFE0;
+    aBlock[4] = self;
+    v3 = _Block_copy(aBlock);
+    v4 = VCPSignPostPersistentLog(v3);
+    v5 = os_signpost_id_generate(v4);
 
-  v2 = v3[2](v3);
-  v8 = VCPSignPostPersistentLog();
-  v9 = v8;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
-  {
-    v10 = qos_class_self();
-    v11 = VCPMAQoSDescription(v10);
-    v12 = v11;
-    uTF8String = [v11 UTF8String];
-    v14 = "Failure";
-    if (!v2)
+    v7 = VCPSignPostPersistentLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v14 = "Success";
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADTextEmbeddingSafety_loadResources", " enableTelemetry=YES ", buf, 2u);
     }
 
-    *buf = 136446466;
-    v18 = uTF8String;
-    v19 = 2082;
-    v20 = v14;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_END, v5, "MADTextEmbeddingSafety_loadResources", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
+    v2 = v3[2](v3);
+    v9 = VCPSignPostPersistentLog(v2);
+    v10 = v9;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    {
+      v11 = qos_class_self();
+      v12 = VCPMAQoSDescription(v11);
+      v13 = v12;
+      uTF8String = [v12 UTF8String];
+      v15 = "Failure";
+      if (!v2)
+      {
+        v15 = "Success";
+      }
+
+      *buf = 136446466;
+      v19 = uTF8String;
+      v20 = 2082;
+      v21 = v15;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v5, "MADTextEmbeddingSafety_loadResources", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
+    }
   }
 
   return v2;
@@ -278,7 +281,7 @@ LABEL_2:
   return v3;
 }
 
-uint64_t __39__MADTextEmbeddingSafety_loadResources__block_invoke(uint64_t a1)
+void *__39__MADTextEmbeddingSafety_loadResources__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _loadResources];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -287,10 +290,10 @@ uint64_t __39__MADTextEmbeddingSafety_loadResources__block_invoke(uint64_t a1)
 
 - (int)_processEmbedding:(id)embedding safetyScore:(float *)score isSafe:(BOOL *)safe
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
-  _loadResources = [(MADTextEmbeddingSafety *)self _loadResources];
-  if (_loadResources)
+  LODWORD(v9) = [(MADTextEmbeddingSafety *)self _loadResources];
+  if (v9)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -301,50 +304,50 @@ uint64_t __39__MADTextEmbeddingSafety_loadResources__block_invoke(uint64_t a1)
 
   else
   {
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __63__MADTextEmbeddingSafety__processEmbedding_safetyScore_isSafe___block_invoke;
-    v26 = &unk_1E8351918;
-    v27 = embeddingCopy;
+    v24 = MEMORY[0x1E69E9820];
+    v25 = 3221225472;
+    v26 = __63__MADTextEmbeddingSafety__processEmbedding_safetyScore_isSafe___block_invoke;
+    v27 = &unk_1E8351918;
+    v28 = embeddingCopy;
     selfCopy = self;
     scoreCopy = score;
     safeCopy = safe;
-    v10 = _Block_copy(&v23);
-    v11 = VCPSignPostPersistentLog();
+    v10 = _Block_copy(&v24);
+    v11 = VCPSignPostPersistentLog(v10);
     v12 = os_signpost_id_generate(v11);
 
-    v13 = VCPSignPostPersistentLog();
-    v14 = v13;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v14 = VCPSignPostPersistentLog(v13);
+    v15 = v14;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MADTextEmbeddingSafety_processEmbedding", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MADTextEmbeddingSafety_processEmbedding", " enableTelemetry=YES ", buf, 2u);
     }
 
-    _loadResources = v10[2](v10);
-    v15 = VCPSignPostPersistentLog();
-    v16 = v15;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    v9 = v10[2](v10);
+    v16 = VCPSignPostPersistentLog(v9);
+    v17 = v16;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      v17 = qos_class_self();
-      v18 = VCPMAQoSDescription(v17);
-      v19 = v18;
-      uTF8String = [v18 UTF8String];
-      v21 = "Failure";
-      if (!_loadResources)
+      v18 = qos_class_self();
+      v19 = VCPMAQoSDescription(v18);
+      v20 = v19;
+      uTF8String = [v19 UTF8String];
+      v22 = "Failure";
+      if (!v9)
       {
-        v21 = "Success";
+        v22 = "Success";
       }
 
       *buf = 136446466;
-      v32 = uTF8String;
-      v33 = 2082;
-      v34 = v21;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v12, "MADTextEmbeddingSafety_processEmbedding", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
+      v33 = uTF8String;
+      v34 = 2082;
+      v35 = v22;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v12, "MADTextEmbeddingSafety_processEmbedding", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
     }
   }
 
-  return _loadResources;
+  return v9;
 }
 
 uint64_t __63__MADTextEmbeddingSafety__processEmbedding_safetyScore_isSafe___block_invoke(uint64_t a1)
@@ -492,7 +495,7 @@ uint64_t __63__MADTextEmbeddingSafety__processEmbedding_safetyScore_isSafe___blo
   return score;
 }
 
-uint64_t __62__MADTextEmbeddingSafety_processEmbedding_safetyScore_isSafe___block_invoke(uint64_t a1)
+void *__62__MADTextEmbeddingSafety_processEmbedding_safetyScore_isSafe___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _processEmbedding:*(a1 + 40) safetyScore:*(a1 + 56) isSafe:*(a1 + 64)];
   *(*(*(a1 + 48) + 8) + 24) = result;

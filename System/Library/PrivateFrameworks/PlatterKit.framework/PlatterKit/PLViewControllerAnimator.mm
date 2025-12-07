@@ -14,6 +14,7 @@
 - (void)_performTransitionWithContext:(id)context;
 - (void)addObserver:(id)observer;
 - (void)animateTransition:(id)transition;
+- (void)animationEnded:(BOOL)ended;
 - (void)performTransitionWithContext:(id)context;
 - (void)prepareForTransitionWithContext:(id)context;
 - (void)removeObserver:(id)observer;
@@ -275,7 +276,7 @@ LABEL_7:
       memset(&v48, 0, sizeof(v48));
       if (contextCopy)
       {
-        [contextCopy targetTransform];
+        objc_msgSend_targetTransform(contextCopy);
       }
 
       v47 = v48;
@@ -336,7 +337,7 @@ LABEL_15:
     memset(&v48, 0, sizeof(v48));
     if (contextCopy)
     {
-      [contextCopy targetTransform];
+      objc_msgSend_targetTransform(contextCopy);
     }
 
     v47 = v48;
@@ -559,6 +560,13 @@ void __60__PLViewControllerAnimator_prepareForTransitionWithContext___block_invo
   v7 = transitionCopy;
   v5 = transitionCopy;
   [(PLViewControllerAnimator *)self _animateTransitionWithContext:v5 completion:v6];
+}
+
+- (void)animationEnded:(BOOL)ended
+{
+  propertyAnimator = self->_propertyAnimator;
+  self->_propertyAnimator = 0;
+  MEMORY[0x2821F96F8](self, propertyAnimator);
 }
 
 @end

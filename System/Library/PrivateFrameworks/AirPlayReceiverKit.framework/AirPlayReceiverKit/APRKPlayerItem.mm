@@ -21,167 +21,161 @@
   optionsCopy = options;
   if (dictionaryCopy)
   {
-    v14 = [dictionaryCopy objectForKey:*MEMORY[0x277CC1020]];
+    v14 = [dictionaryCopy objectForKey:?];
     if (v14)
     {
-      memset(&v56, 0, sizeof(v56));
+      memset(&v53, 0, sizeof(v53));
       dictionary = [MEMORY[0x277CBEB38] dictionary];
-      v16 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0FB8]];
-      integerValue = [v16 integerValue];
+      v16 = [dictionaryCopy objectForKey:?];
+      [v16 integerValue];
 
-      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
-      [dictionary setObject:v18 forKey:*MEMORY[0x277CE6260]];
+      v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+      [dictionary setObject:? forKey:?];
 
-      v19 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0F88]];
+      v18 = [dictionaryCopy objectForKey:?];
+      if (v18)
+      {
+        [dictionary setObject:? forKey:?];
+      }
+
+      v50 = v18;
+      v19 = [dictionaryCopy objectForKey:?];
+      v20 = MEMORY[0x277CCABB0];
+      v49 = v19;
       if (v19)
       {
-        [dictionary setObject:v19 forKey:*MEMORY[0x277CE6238]];
+        [v19 BOOLValue];
       }
 
-      v53 = v19;
-      v20 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0F50]];
-      v21 = MEMORY[0x277CCABB0];
-      v52 = v20;
-      if (v20)
-      {
-        bOOLValue = [v20 BOOLValue];
-      }
-
-      else
-      {
-        bOOLValue = 0;
-      }
-
-      v24 = [v21 numberWithBool:bOOLValue];
-      [dictionary setObject:v24 forKey:*MEMORY[0x277CE6228]];
+      v22 = [v20 numberWithBool:?];
+      [dictionary setObject:? forKey:?];
 
       if (optionsCopy)
       {
-        [dictionary addEntriesFromDictionary:optionsCopy];
+        [dictionary addEntriesFromDictionary:?];
       }
 
-      v25 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0F40]];
-      v26 = +[APRKReachability reachabilityForInternetConnection];
-      currentReachabilityStatus = [v26 currentReachabilityStatus];
+      v23 = [dictionaryCopy objectForKey:?];
+      v24 = +[APRKReachability reachabilityForInternetConnection];
+      currentReachabilityStatus = [v24 currentReachabilityStatus];
 
-      if ((v25 && currentReachabilityStatus || ([dictionaryCopy objectForKey:*MEMORY[0x277CC0F10]], v28 = objc_claimAutoreleasedReturnValue(), v25, (v25 = v28) != 0)) && (objc_msgSend(MEMORY[0x277CBEBC0], "URLWithString:", v25), (v29 = objc_claimAutoreleasedReturnValue()) != 0))
+      if ((v23 && currentReachabilityStatus || ([dictionaryCopy objectForKey:?], v26 = objc_claimAutoreleasedReturnValue(), v23, (v23 = v26) != 0)) && (objc_msgSend(MEMORY[0x277CBEBC0], "URLWithString:"), (v27 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v30 = v29;
-        v31 = [objc_alloc(MEMORY[0x277CE6650]) initWithURL:v29 options:dictionary];
-        v50 = v30;
-        v51 = v31;
-        v49 = helperCopy;
-        if (v31)
+        v28 = v27;
+        v29 = [objc_alloc(MEMORY[0x277CE6650]) initWithURL:? options:?];
+        v47 = v28;
+        v48 = v29;
+        v46 = helperCopy;
+        if (v29)
         {
-          v32 = v31;
-          [helperCopy registerAVURLAsset:v31];
-          [keyHelperCopy registerAVURLAsset:v32];
-          v33 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0ED8]];
+          v30 = v29;
+          [helperCopy registerAVURLAsset:?];
+          [keyHelperCopy registerAVURLAsset:?];
+          v31 = [dictionaryCopy objectForKey:?];
 
-          if (v33)
+          if (v31)
           {
-            longValue = [v33 longValue];
-            resourceLoader = [v32 resourceLoader];
-            [resourceLoader setAllowedCommonMediaClientDataKeys:longValue];
+            [v31 longValue];
+            resourceLoader = [v30 resourceLoader];
+            [resourceLoader setAllowedCommonMediaClientDataKeys:?];
 
             if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
             {
-              [APRKPlayerItem initWithDictionary:v33 resourceLoaderHelper:? contentKeyHelper:? options:?];
+              [APRKPlayerItem initWithDictionary:v31 resourceLoaderHelper:? contentKeyHelper:? options:?];
             }
-
-            v30 = v50;
           }
         }
 
         else
         {
-          [keyHelperCopy registerAVURLAsset:0];
-          v33 = v25;
+          [keyHelperCopy registerAVURLAsset:?];
+          v31 = v23;
         }
 
-        v55.receiver = self;
-        v55.super_class = APRKPlayerItem;
-        v37 = [(APRKPlayerItem *)&v55 initWithAsset:v51];
-        v38 = v37;
-        if (v37)
+        v52.receiver = self;
+        v52.super_class = APRKPlayerItem;
+        v34 = [(APRKPlayerItem *)&v52 initWithAsset:v48];
+        v35 = v34;
+        if (v34)
         {
-          [(APRKPlayerItem *)v37 setUUIDString:v14];
-          objc_storeStrong(&v38->_contentLocation, v30);
-          v39 = [dictionaryCopy objectForKey:*MEMORY[0x277CC1140]];
+          [(APRKPlayerItem *)v34 setUUIDString:?];
+          objc_storeStrong(&v35->_contentLocation, v28);
+          v36 = [dictionaryCopy objectForKey:?];
+
+          if (v36)
+          {
+            CMTimeMakeFromDictionary(&v53, v36);
+            v51 = v53;
+            [(APRKPlayerItem *)v35 setForwardPlaybackEndTime:?];
+          }
+
+          v37 = [dictionaryCopy objectForKey:?];
+
+          if (v37)
+          {
+            CMTimeMakeFromDictionary(&v51, v37);
+            v53 = v51;
+            [(APRKPlayerItem *)v35 setReversePlaybackEndTime:?];
+          }
+
+          v38 = [dictionaryCopy objectForKey:?];
+
+          if (v38)
+          {
+            objc_storeStrong(&v35->_startDate, v38);
+          }
+
+          v39 = [dictionaryCopy objectForKey:?];
 
           if (v39)
           {
-            CMTimeMakeFromDictionary(&v56, v39);
-            v54 = v56;
-            [(APRKPlayerItem *)v38 setForwardPlaybackEndTime:&v54];
+            CMTimeMakeFromDictionary(&v51, v39);
+            v40 = *&v51.value;
+            v35->_startPosition.epoch = v51.epoch;
+            *&v35->_startPosition.value = v40;
           }
 
-          v40 = [dictionaryCopy objectForKey:*MEMORY[0x277CC1180]];
-
-          if (v40)
-          {
-            CMTimeMakeFromDictionary(&v54, v40);
-            v56 = v54;
-            [(APRKPlayerItem *)v38 setReversePlaybackEndTime:&v54];
-          }
-
-          v41 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0FE0]];
+          v41 = [dictionaryCopy objectForKey:?];
 
           if (v41)
           {
-            objc_storeStrong(&v38->_startDate, v41);
+            v35->_expectsSecureStop = [v41 BOOLValue];
           }
 
-          v42 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0FE8]];
+          v42 = [dictionaryCopy objectForKey:?];
 
           if (v42)
           {
-            CMTimeMakeFromDictionary(&v54, v42);
-            v43 = *&v54.value;
-            v38->_startPosition.epoch = v54.epoch;
-            *&v38->_startPosition.value = v43;
+            v35->_isAudioOnly = [v42 BOOLValue];
           }
 
-          v44 = [dictionaryCopy objectForKey:*MEMORY[0x277CC09A0]];
+          v43 = [dictionaryCopy objectForKey:?];
+
+          v35->_actionAtItemEnd = v43;
+          v44 = [dictionaryCopy objectForKey:?];
 
           if (v44)
           {
-            v38->_expectsSecureStop = [v44 BOOLValue];
+            [(APRKPlayerItem *)v35 setTextStyleRulesUsingArray:?];
           }
 
-          v45 = [dictionaryCopy objectForKey:*MEMORY[0x277CC1118]];
+          v31 = [dictionaryCopy objectForKey:?];
 
-          if (v45)
+          if (v31)
           {
-            v38->_isAudioOnly = [v45 BOOLValue];
+            [v31 integerValue];
+            [(APRKPlayerItem *)v35 setRestrictions:?];
           }
 
-          v46 = [dictionaryCopy objectForKey:*MEMORY[0x277CC1110]];
-
-          v38->_actionAtItemEnd = v46;
-          v47 = [dictionaryCopy objectForKey:*MEMORY[0x277CC1190]];
-
-          if (v47)
-          {
-            [(APRKPlayerItem *)v38 setTextStyleRulesUsingArray:v47];
-          }
-
-          v33 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0F98]];
-
-          if (v33)
-          {
-            -[APRKPlayerItem setRestrictions:](v38, "setRestrictions:", [v33 integerValue]);
-          }
-
-          v30 = v50;
+          v28 = v47;
         }
 
-        self = v38;
+        self = v35;
 
-        v25 = v33;
+        v23 = v31;
         selfCopy = self;
-        v36 = v52;
-        helperCopy = v49;
+        v33 = v49;
+        helperCopy = v46;
       }
 
       else
@@ -192,7 +186,7 @@
         }
 
         selfCopy = 0;
-        v36 = v52;
+        v33 = v49;
       }
     }
 
@@ -228,69 +222,65 @@
 
 - (id)UUIDOnlyDictionaryRepresentation
 {
-  v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v3 setValue:self->_UUIDString forKey:*MEMORY[0x277CC1020]];
+  v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v2 setValue:? forKey:?];
 
-  return v3;
+  return v2;
 }
 
 - (void)setTextStyleRulesUsingArray:(id)array
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (arrayCopy)
   {
     selfCopy = self;
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
     v6 = arrayCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = MEMORY[0];
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (MEMORY[0] != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [MEMORY[0x277CE6638] textStyleRuleWithTextMarkupAttributes:{*(*(&v14 + 1) + 8 * v10), selfCopy}];
-          if (v11)
+          v11 = *(8 * v10);
+          v12 = [MEMORY[0x277CE6638] textStyleRuleWithTextMarkupAttributes:selfCopy];
+          if (v12)
           {
-            [v5 addObject:v11];
+            [v5 addObject:?];
             if (gLogCategory_AirPlayReceiverKit <= 10 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
             {
-              [APRKPlayerItem setTextStyleRulesUsingArray:v11];
+              [APRKPlayerItem setTextStyleRulesUsingArray:v12];
             }
           }
 
           else if (gLogCategory_AirPlayReceiverKit <= 60 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
           {
-            [APRKPlayerItem setTextStyleRulesUsingArray:];
+            [APRKPlayerItem setTextStyleRulesUsingArray:v11];
           }
 
-          ++v10;
+          v10 = (v10 + 1);
         }
 
         while (v8 != v10);
-        v12 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        v8 = v12;
+        v13 = [v6 countByEnumeratingWithState:? objects:? count:?];
+        v8 = v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
     if ([v5 count])
     {
-      [(APRKPlayerItem *)selfCopy setTextStyleRules:v5];
+      [(APRKPlayerItem *)selfCopy setTextStyleRules:?];
     }
   }
 }
@@ -298,10 +288,10 @@
 - (BOOL)enabledStateForTrackWithID:(int)d
 {
   v3 = *&d;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   asset = [(APRKPlayerItem *)self asset];
 
   if (asset)
@@ -309,23 +299,18 @@
     v6 = dispatch_semaphore_create(0);
     v7 = dispatch_time(0, 60000000000);
     asset2 = [(APRKPlayerItem *)self asset];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __45__APRKPlayerItem_enabledStateForTrackWithID___block_invoke;
-    v12[3] = &unk_278C62C18;
-    v14 = &v15;
+    v12 = MEMORY[0x277D85DD0];
     v9 = v6;
-    v13 = v9;
-    [asset2 loadTrackWithTrackID:v3 completionHandler:v12];
+    [asset2 loadTrackWithTrackID:? completionHandler:?];
 
     if (dispatch_semaphore_wait(v9, v7) && gLogCategory_AirPlayReceiverKit <= 60 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKPlayerItem enabledStateForTrackWithID:]", 33554492, "Loading Track %d timed out for item %@", v3, self, v12, 3221225472, __45__APRKPlayerItem_enabledStateForTrackWithID___block_invoke, &unk_278C62C18);
     }
   }
 
-  v10 = *(v16 + 24);
-  _Block_object_dispose(&v15, 8);
+  v10 = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
   return v10;
 }
 
@@ -343,50 +328,43 @@ intptr_t __45__APRKPlayerItem_enabledStateForTrackWithID___block_invoke(uint64_t
 
 - (void)setEnabledState:(BOOL)state forTrackWithID:(int)d
 {
-  v4 = *&d;
-  stateCopy = state;
-  v23 = *MEMORY[0x277D85DE8];
   asset = [(APRKPlayerItem *)self asset];
 
   if (asset)
   {
     asset2 = [(APRKPlayerItem *)self asset];
-    v9 = [asset2 trackWithTrackID:v4];
+    v7 = [asset2 trackWithTrackID:?];
 
-    if (v9)
+    if (v7)
     {
-      [(APRKPlayerItem *)self tracks];
-      v18 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v10 = v21 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      if (v11)
+      tracks = [(APRKPlayerItem *)self tracks];
+      v9 = [tracks countByEnumeratingWithState:0 objects:? count:?];
+      if (v9)
       {
-        v12 = v11;
-        v13 = *v19;
+        v10 = v9;
+        v11 = MEMORY[0];
         while (2)
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v10; i = (i + 1))
           {
-            if (*v19 != v13)
+            if (MEMORY[0] != v11)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(tracks);
             }
 
-            v15 = *(*(&v18 + 1) + 8 * i);
-            assetTrack = [v15 assetTrack];
-            v17 = [assetTrack isEqual:v9];
+            v13 = *(8 * i);
+            assetTrack = [v13 assetTrack];
+            v15 = [assetTrack isEqual:?];
 
-            if (v17)
+            if (v15)
             {
-              [v15 setEnabled:stateCopy];
+              [v13 setEnabled:?];
               goto LABEL_13;
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
-          if (v12)
+          v10 = [tracks countByEnumeratingWithState:? objects:? count:?];
+          if (v10)
           {
             continue;
           }
@@ -411,7 +389,7 @@ LABEL_13:
 - (CGSize)naturalSize
 {
   asset = [(APRKPlayerItem *)self asset];
-  v3 = [asset tracksWithMediaType:*MEMORY[0x277CE5EA8]];
+  v3 = [asset tracksWithMediaType:?];
 
   if ([v3 count])
   {
@@ -444,7 +422,7 @@ LABEL_13:
 - (void)setTextStyleRulesUsingArray:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 debugDescription];
-  LogPrintF();
+  LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKPlayerItem setTextStyleRulesUsingArray:]", 33554442, "Adding text style rule: %@", v1);
 }
 
 @end

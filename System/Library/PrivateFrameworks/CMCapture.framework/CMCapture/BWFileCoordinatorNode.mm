@@ -3,34 +3,33 @@
 - (BOOL)updateStopPTS:(id *)s audioOffset:(id *)offset previousStopPTS:(id *)tS previousAudioOffset:(id *)audioOffset;
 - (BWFileCoordinatorNode)initWithNumberOfVideoInputs:(unint64_t)inputs numberOfAudioInputs:(unint64_t)audioInputs numberOfMetadataInputs:(unint64_t)metadataInputs numberOfActionOnlyOutputs:(unint64_t)outputs overCaptureEnabled:(BOOL)enabled allowLowLatencyWhenPossible:(BOOL)possible useTrueVideoFileRecordingStaging:(BOOL)staging motionDataTimeMachine:(id)self0;
 - (CMSampleBufferRef)_createEmptyMetadataSBufWithPTS:(uint64_t)s forInputIndex:;
-- (dispatch_semaphore_t)_setupStateForWaitingForRecordingStop;
+- (double)_setupStateForWaitingForRecordingStop;
 - (id)_addFlushingFutureCinematicMetadataToSampleBuffer:(id *)result;
+- (id)_clearPendingIrisRequestMarkerBuffers;
+- (id)_completeTransitionToNotRecording;
 - (id)_emitStagedBufferForIndex:(id *)result stoppingOrPausing:(uint64_t)pausing;
+- (id)_flushEligibleBuffersFromRecordingStagingQueues;
+- (id)_flushPendingIrisRequestMarkerBuffers;
+- (id)_flushSampleBuffersWaitingForMotionData;
 - (int)startRecordingWithSettings:(id)settings videoSettings:(id)videoSettings maxFrameRate:(id)rate stopAtPTS:(id *)s startAfterPTS:(id *)tS;
 - (opaqueCMSampleBuffer)_copyFirstValidLowLatencyAudioBuffer:(uint64_t)buffer inputIndex:(CMTime *)index sbufPTS:;
-- (uint64_t)_cinematicFutureMetadataForFlushingSampleBuffer:(uint64_t)result;
-- (uint64_t)_clearPendingIrisRequestMarkerBuffers;
-- (uint64_t)_completeTransitionToNotRecording;
-- (uint64_t)_emitSampleBuffer:(uint64_t)result forInput:toOutput:;
 - (uint64_t)_flushAllBuffersFromRecordingStagingQueues;
 - (uint64_t)_flushBuffersFromRecordingStagingQueuesWithPTSCutoff:(int)cutoff factorInAudioDuration:;
-- (uint64_t)_flushPendingIrisRequestMarkerBuffers;
-- (uint64_t)_flushSampleBuffersWaitingForMotionData;
-- (uint64_t)_handleIrisMovieRequest:(uint64_t)request input:(uint64_t)input sbuf:;
 - (uint64_t)_irisMovieInfosFromPendingIrisRequestMarkerBuffers;
-- (uint64_t)_sendPrefersNoInterruptionsByRingtonesAndAlertsNotificationWithState:(uint64_t)result;
 - (uint64_t)pauseRecording;
 - (unint64_t)_earliestPTSStagedForRecording:(int)recording@<W2> factorInAudioDuration:(uint64_t)duration@<X8>;
-- (unint64_t)_flushEligibleBuffersFromRecordingStagingQueues;
 - (void)_addLookAheadMotionDataToMetadataForSampleBuffer:(void *)buffer lookAheadMotionData:;
+- (void)_cinematicFutureMetadataForFlushingSampleBuffer:(void *)result;
 - (void)_doStartingToRecordWithSBuf:(unint64_t)buf inputIndex:(__int128 *)index sbufPTS:;
 - (void)_doStoppingOrPausingWithSBuf:(unint64_t)buf inputIndex:(uint64_t)index sbufPTS:;
 - (void)_emitMarkerBufferCopyOnAllOutputs:(void *)result;
 - (void)_emitMarkerBufferForFileWriterAction:(uint64_t)action withPTS:(uint64_t)s settings:(uint64_t)settings settingsID:(uint64_t)d errorCode:;
 - (void)_emitOrQueueSampleBuffer:(uint64_t)buffer forInput:(CMSampleBufferRef)sbuf toOutput:(void *)output stoppingOrPausing:(uint64_t)pausing;
+- (void)_emitSampleBuffer:(void *)result forInput:toOutput:;
 - (void)_emitSampleBuffersWaitingForMotionData;
 - (void)_ensureLuxMetadata:(uint64_t)metadata forNodeInputIndex:;
 - (void)_finishStoppingOrPausing:(uint64_t)pausing withErrorCode:(uint64_t)code;
+- (void)_handleIrisMovieRequest:(uint64_t)request input:(uint64_t)input sbuf:;
 - (void)_logNumBuffersReceivedDuringStartingRecording;
 - (void)_performFlushAction;
 - (void)_prepareOverCaptureVideoBufferForEmission:(const void *)emission emissionTimeStamp:;
@@ -288,15 +287,15 @@ LABEL_13:
   return v16;
 }
 
-uint64_t __224__BWFileCoordinatorNode_initWithNumberOfVideoInputs_numberOfAudioInputs_numberOfMetadataInputs_numberOfActionOnlyOutputs_overCaptureEnabled_allowLowLatencyWhenPossible_useTrueVideoFileRecordingStaging_motionDataTimeMachine___block_invoke()
+double __224__BWFileCoordinatorNode_initWithNumberOfVideoInputs_numberOfAudioInputs_numberOfMetadataInputs_numberOfActionOnlyOutputs_overCaptureEnabled_allowLowLatencyWhenPossible_useTrueVideoFileRecordingStaging_motionDataTimeMachine___block_invoke()
 {
-  result = notify_register_check("com.apple.avcapture.prefersnointerruptionsbyringtonesandalerts", &gPrefersNoInterruptionsByRingtonesAndAlertsToken);
-  gValidPrefersNoInterruptionsByRingtonesAndAlertsToken = result == 0;
-  if (result)
+  v0 = notify_register_check("com.apple.avcapture.prefersnointerruptionsbyringtonesandalerts", &gPrefersNoInterruptionsByRingtonesAndAlertsToken);
+  gValidPrefersNoInterruptionsByRingtonesAndAlertsToken = v0 == 0;
+  if (v0)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   return result;
@@ -495,7 +494,7 @@ LABEL_18:
   {
     if (recordingState == 3)
     {
-      [(BWFileCoordinatorNode *)self _finishStoppingOrPausing:0 withErrorCode:v7, v8, v9, v10, v11];
+      [(BWFileCoordinatorNode *)&self->super.super.isa _finishStoppingOrPausing:0 withErrorCode:v7, v8, v9, v10, v11];
     }
 
 LABEL_13:
@@ -520,7 +519,7 @@ LABEL_13:
     {
       if (d && self->_recordingState)
       {
-        [(BWFileCoordinatorNode *)self _completeTransitionToNotRecording];
+        [(BWFileCoordinatorNode *)&self->super.super.isa _completeTransitionToNotRecording];
         [(BWFileCoordinatorNode *)self _releaseSettings];
       }
 
@@ -620,7 +619,7 @@ LABEL_24:
       if (v13.flags)
       {
         [-[NSArray objectAtIndexedSubscript:](recordingStagingQueues objectAtIndexedSubscript:{index), "addObject:", buffer}];
-        [(BWFileCoordinatorNode *)self _flushEligibleBuffersFromRecordingStagingQueues];
+        [(BWFileCoordinatorNode *)&self->super.super.isa _flushEligibleBuffersFromRecordingStagingQueues];
         if (index < self->_numVideoInputs && [-[NSArray objectAtIndexedSubscript:](self->_recordingStagingQueues objectAtIndexedSubscript:{index), "count"}] > self->_recordingStagingQueueLimitForVideo)
         {
           v10 = CFRetain([-[NSArray objectAtIndexedSubscript:](self->_recordingStagingQueues objectAtIndexedSubscript:{index), "firstObject"}]);
@@ -1728,12 +1727,12 @@ LABEL_123:
 
 - (void)_doStoppingOrPausingWithSBuf:(unint64_t)buf inputIndex:(uint64_t)index sbufPTS:
 {
-  if (!self)
+  if (!result)
   {
     return;
   }
 
-  v8 = [*(self + 128) objectAtIndex:?];
+  v8 = [*(result + 128) objectAtIndex:?];
   if (!v8)
   {
     FigSimpleMutexUnlock();
@@ -1743,9 +1742,9 @@ LABEL_123:
   v9 = v8;
   [v8 addObject:a2];
   v10 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
-  if (*(self + 696) != buf)
+  if (*(result + 696) != buf)
   {
-    if (*(self + 672) + *(self + 664) <= buf)
+    if (*(result + 672) + *(result + 664) <= buf)
     {
       goto LABEL_12;
     }
@@ -1755,8 +1754,8 @@ LABEL_123:
       goto LABEL_12;
     }
 
-    *&time1.duration.value = *(self + 328);
-    time1.duration.epoch = *(self + 344);
+    *&time1.duration.value = *(result + 328);
+    time1.duration.epoch = *(result + 344);
     *&time2.duration.value = *index;
     time2.duration.epoch = *(index + 16);
     if ((CMTimeCompare(&time1.duration, &time2.duration) & 0x80000000) == 0)
@@ -1765,19 +1764,19 @@ LABEL_123:
     }
 
     v11 = *(index + 16);
-    *(self + 328) = *index;
-    *(self + 344) = v11;
+    *(result + 328) = *index;
+    *(result + 344) = v11;
 LABEL_11:
-    v12 = [*(self + 128) objectAtIndex:*(self + 696)];
-    v13 = self + 400;
-    if (*(self + 412))
+    v12 = [*(result + 128) objectAtIndex:*(result + 696)];
+    v13 = result + 400;
+    if (*(result + 412))
     {
       v22 = v12;
       v23 = MEMORY[0x1E6960C70];
       do
       {
-        *&time1.duration.value = *(self + 328);
-        time1.duration.epoch = *(self + 344);
+        *&time1.duration.value = *(result + 328);
+        time1.duration.epoch = *(result + 344);
         *&time2.duration.value = *v13;
         time2.duration.epoch = *(v13 + 16);
         if (CMTimeCompare(&time1.duration, &time2.duration) < 1)
@@ -1785,52 +1784,52 @@ LABEL_11:
           break;
         }
 
-        [BWFileCoordinatorNode _emitStagedBufferForIndex:self stoppingOrPausing:*(self + 696)];
-        v24 = (self + 400);
+        [BWFileCoordinatorNode _emitStagedBufferForIndex:*(result + 696) stoppingOrPausing:?];
+        v24 = (result + 400);
         if ([v22 count])
         {
           fcn_getEndingPTSOfFirstBufferInStagingQueue(v22, &time1.duration);
           *v24 = *&time1.duration.value;
-          *(self + 416) = time1.duration.epoch;
+          *(result + 416) = time1.duration.epoch;
         }
 
         else
         {
           *v24 = *v23;
-          *(self + 416) = *(v23 + 16);
+          *(result + 416) = *(v23 + 16);
         }
 
-        v13 = self + 400;
+        v13 = result + 400;
       }
 
-      while ((*(self + 412) & 1) != 0);
+      while ((*(result + 412) & 1) != 0);
     }
 
     goto LABEL_12;
   }
 
-  if ((*(self + 412) & 1) == 0)
+  if ((*(result + 412) & 1) == 0)
   {
     fcn_getEndingPTSOfFirstBufferInStagingQueue(v9, &time1.duration);
-    *(self + 400) = *&time1.duration.value;
-    *(self + 416) = time1.duration.epoch;
-    if (*(self + 412))
+    *(result + 400) = *&time1.duration.value;
+    *(result + 416) = time1.duration.epoch;
+    if (*(result + 412))
     {
       goto LABEL_11;
     }
   }
 
 LABEL_12:
-  if (*(self + 412))
+  if (*(result + 412))
   {
-    if (*(self + 720) == 1 && [objc_msgSend(*(self + 128) objectAtIndexedSubscript:{1), "count"}])
+    if (*(result + 720) == 1 && [objc_msgSend(*(result + 128) objectAtIndexedSubscript:{1), "count"}])
     {
-      *(self + 612) = 1;
+      *(result + 612) = 1;
     }
 
-    if (*(self + 612) == 1)
+    if (*(result + 612) == 1)
     {
-      v14 = [*(self + 128) objectAtIndex:*(self + 696)];
+      v14 = [*(result + 128) objectAtIndex:*(result + 696)];
       if ([v14 count] >= 2)
       {
         do
@@ -1842,14 +1841,14 @@ LABEL_12:
       }
     }
 
-    if (*(self + 648))
+    if (*(result + 648))
     {
       v15 = 0;
       do
       {
-        if (v15 != *(self + 696))
+        if (v15 != *(result + 696))
         {
-          v16 = [*(self + 128) objectAtIndex:v15];
+          v16 = [*(result + 128) objectAtIndex:v15];
           fcn_getEndingPTSOfFirstBufferInStagingQueue(v16, &time1.duration);
           lhs.value = time1.duration.value;
           flags = time1.duration.flags;
@@ -1863,14 +1862,14 @@ LABEL_12:
               time1.duration.timescale = lhs.timescale;
               time1.duration.flags = flags;
               time1.duration.epoch = epoch;
-              *&time2.duration.value = *(self + 400);
-              time2.duration.epoch = *(self + 416);
+              *&time2.duration.value = *(result + 400);
+              time2.duration.epoch = *(result + 416);
               if (CMTimeCompare(&time1.duration, &time2.duration) > 0)
               {
                 break;
               }
 
-              [BWFileCoordinatorNode _emitStagedBufferForIndex:self stoppingOrPausing:v15];
+              [BWFileCoordinatorNode _emitStagedBufferForIndex:v15 stoppingOrPausing:?];
               fcn_getEndingPTSOfFirstBufferInStagingQueue(v16, &time1.duration);
               lhs.value = time1.duration.value;
               flags = time1.duration.flags;
@@ -1885,19 +1884,19 @@ LABEL_12:
         ++v15;
       }
 
-      while (v15 < *(self + 648));
+      while (v15 < *(result + 648));
     }
 
-    v19 = *(self + 664);
-    v20 = *(self + 672);
+    v19 = *(result + 664);
+    v20 = *(result + 672);
     if (v20 + v19)
     {
       v21 = 0;
       while (1)
       {
-        if (v21 != *(self + 696))
+        if (v21 != *(result + 696))
         {
-          fcn_getEndingPTSOfFirstBufferInStagingQueue([*(self + 128) objectAtIndex:v21], &v62);
+          fcn_getEndingPTSOfFirstBufferInStagingQueue([*(result + 128) objectAtIndex:v21], &v62);
           if ((v62.flags & 1) == 0)
           {
             break;
@@ -1905,16 +1904,16 @@ LABEL_12:
         }
 
         ++v21;
-        v19 = *(self + 664);
-        v20 = *(self + 672);
+        v19 = *(result + 664);
+        v20 = *(result + 672);
         if (v21 >= v20 + v19)
         {
           goto LABEL_44;
         }
       }
 
-      v19 = *(self + 664);
-      v20 = *(self + 672);
+      v19 = *(result + 664);
+      v20 = *(result + 672);
     }
 
     else
@@ -1932,29 +1931,29 @@ LABEL_44:
         allocator = *MEMORY[0x1E695E480];
         do
         {
-          v29 = [*(self + 128) objectAtIndex:v28];
+          v29 = [*(result + 128) objectAtIndex:v28];
           v30 = [v29 objectAtIndexedSubscript:0];
           v31 = v30;
-          if (v28 == *(self + 696))
+          if (v28 == *(result + 696))
           {
             memset(&time1, 0, 24);
             CMSampleBufferGetPresentationTimeStamp(&time1.duration, v30);
-            *&time2.duration.value = *(self + 472);
-            time2.duration.epoch = *(self + 488);
+            *&time2.duration.value = *(result + 472);
+            time2.duration.epoch = *(result + 488);
             lhs = time1.duration;
             if (CMTimeCompare(&time2.duration, &lhs))
             {
-              *(self + 472) = *&time1.duration.value;
-              *(self + 488) = time1.duration.epoch;
+              *(result + 472) = *&time1.duration.value;
+              *(result + 488) = time1.duration.epoch;
             }
           }
 
           else
           {
             CMSampleBufferGetDuration(&v61, v30);
-            if ((v61.flags & 1) != 0 || (CMSampleBufferGetPresentationTimeStamp(&time2.duration, v31), lhs = *(self + 400), CMTimeSubtract(&time1.duration, &lhs, &time2.duration), CMTimeGetSeconds(&time1.duration) >= 0.002))
+            if ((v61.flags & 1) != 0 || (CMSampleBufferGetPresentationTimeStamp(&time2.duration, v31), lhs = *(result + 400), CMTimeSubtract(&time1.duration, &lhs, &time2.duration), CMTimeGetSeconds(&time1.duration) >= 0.002))
             {
-              v60 = *(self + 400);
+              v60 = *(result + 400);
               sampleBufferOut[0] = 0;
               memset(&lhs, 0, sizeof(lhs));
               CMSampleBufferGetDuration(&lhs, v31);
@@ -2010,12 +2009,12 @@ LABEL_44:
           }
 
           ++v28;
-          v26 = *(self + v10[226]);
+          v26 = *(result + v10[226]);
         }
 
         while (v28 < v26);
         v27 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
-        v20 = *(self + 672);
+        v20 = *(result + 672);
         v25 = MEMORY[0x1E695E480];
       }
 
@@ -2029,16 +2028,16 @@ LABEL_44:
       if (v26 >= v20 + v26)
       {
 LABEL_83:
-        for (i = *(self + 648); v35 < i; i = *(self + 648))
+        for (i = *(result + 648); v35 < i; i = *(result + 648))
         {
-          if (v35 != *(self + 696))
+          if (v35 != *(result + 696))
           {
-            v47 = [*(self + 128) objectAtIndex:v35];
+            v47 = [*(result + 128) objectAtIndex:v35];
             if ([v47 count])
             {
               firstObject = [v47 firstObject];
               CMSampleBufferGetPresentationTimeStamp(&time2.duration, firstObject);
-              lhs = *(self + 400);
+              lhs = *(result + 400);
               CMTimeSubtract(&time1.duration, &lhs, &time2.duration);
               if (CMTimeGetSeconds(&time1.duration) < 0.002 || (memset(&time1, 0, 24), CMSampleBufferGetDuration(&time1.duration, firstObject), (time1.duration.flags & 1) != 0))
               {
@@ -2067,10 +2066,10 @@ LABEL_83:
           v56 = *MEMORY[0x1E695E4D0];
           do
           {
-            v57 = [*(self + 128) objectAtIndex:v55];
+            v57 = [*(result + 128) objectAtIndex:v55];
             if ([v57 count])
             {
-              if (v55 == *(self + 696) && *(self + 721) == 1 && *(self + v10[226]))
+              if (v55 == *(result + 696) && *(result + 721) == 1 && *(result + v10[226]))
               {
                 firstObject2 = [v57 firstObject];
                 if (firstObject2)
@@ -2079,37 +2078,37 @@ LABEL_83:
                 }
               }
 
-              [BWFileCoordinatorNode _emitStagedBufferForIndex:self stoppingOrPausing:v55];
+              [BWFileCoordinatorNode _emitStagedBufferForIndex:v55 stoppingOrPausing:?];
               [v57 count];
             }
 
             ++v55;
           }
 
-          while (v55 < *(self + 648));
+          while (v55 < *(result + 648));
         }
 
-        [(BWFileCoordinatorNode *)self _flushSampleBuffersWaitingForMotionData];
-        [(BWFileCoordinatorNode *)self _finishStoppingOrPausing:*(self + 616) withErrorCode:v50, v51, v52, v53, v54];
-        *(self + 616) = 0;
+        [(BWFileCoordinatorNode *)result _flushSampleBuffersWaitingForMotionData];
+        [(BWFileCoordinatorNode *)result _finishStoppingOrPausing:*(result + 616) withErrorCode:v50, v51, v52, v53, v54];
+        *(result + 616) = 0;
         return;
       }
 
       v36 = *v25;
-      while (v26 == *(self + 696))
+      while (v26 == *(result + 696))
       {
 LABEL_75:
         ++v26;
-        v35 = *(self + v27[227]) + *(self + v10[226]);
+        v35 = *(result + v27[227]) + *(result + v10[226]);
         if (v26 >= v35)
         {
           goto LABEL_83;
         }
       }
 
-      v37 = [*(self + 128) objectAtIndex:v26];
+      v37 = [*(result + 128) objectAtIndex:v26];
       firstObject3 = [v37 firstObject];
-      v60 = *(self + 400);
+      v60 = *(result + 400);
       timingArrayEntriesNeededOut = 0;
       sampleBufferOut[0] = 0;
       v39 = CMSampleBufferGetNumSamples(firstObject3);
@@ -2192,7 +2191,7 @@ LABEL_74:
     {
       if (sample)
       {
-        [sample pts];
+        objc_msgSend_pts(sample, a2);
       }
 
       else
@@ -2256,7 +2255,7 @@ LABEL_74:
     if (settingsID == [settings settingsID])
     {
       [(BWFileCoordinatorNode *)self _releaseSettings];
-      [(BWFileCoordinatorNode *)self _completeTransitionToNotRecording];
+      [(BWFileCoordinatorNode *)&self->super.super.isa _completeTransitionToNotRecording];
     }
   }
 
@@ -2311,7 +2310,7 @@ LABEL_74:
 
   else if (recordingState == 3)
   {
-    [(BWFileCoordinatorNode *)self _finishStoppingOrPausing:0 withErrorCode:v3, v4, v5, v6, v7];
+    [(BWFileCoordinatorNode *)&self->super.super.isa _finishStoppingOrPausing:0 withErrorCode:v3, v4, v5, v6, v7];
   }
 
   FigSimpleMutexUnlock();
@@ -2373,7 +2372,7 @@ LABEL_74:
   }
 }
 
-uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoSettings_maxFrameRate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoSettings_maxFrameRate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   FigSimpleMutexLock();
   if ([*(*(a1 + 32) + 144) settingsID] == a3)
@@ -2437,9 +2436,9 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
   {
     pausingCopy = pausing;
     selfCopy = self;
-    v10 = *(self + 196);
+    v10 = *(self + 49);
     v12 = v10 == 4 || v10 == 2;
-    v13 = *(self + 152);
+    v13 = self[19];
     if (a2)
     {
       [(BWFileCoordinatorNode *)self _logNumBuffersReceivedDuringStartingRecording];
@@ -2447,7 +2446,7 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
       {
         if (dword_1ED844310)
         {
-          v14 = OUTLINED_FUNCTION_35_2();
+          v14 = OUTLINED_FUNCTION_35_2(qword_1ED844308);
           v15 = OUTLINED_FUNCTION_58(v14);
           if (OUTLINED_FUNCTION_5_24(v15))
           {
@@ -2457,30 +2456,30 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_13_0();
+          OUTLINED_FUNCTION_13_0(v17, v18, v19, v20, v21);
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [*(selfCopy + 144) isIrisRecording])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [selfCopy[18] isIrisRecording])
         {
           _irisMovieInfosFromPendingIrisRequestMarkerBuffers = [(BWFileCoordinatorNode *)selfCopy _irisMovieInfosFromPendingIrisRequestMarkerBuffers];
-          v18 = 0;
+          v23 = 0;
         }
 
         else
         {
-          v18 = *(selfCopy + 144);
+          v23 = selfCopy[18];
           _irisMovieInfosFromPendingIrisRequestMarkerBuffers = 0;
         }
 
         [(BWFileCoordinatorNode *)selfCopy _clearPendingIrisRequestMarkerBuffers];
-        if (*(selfCopy + 152))
+        if (selfCopy[19])
         {
           if (dword_1ED844310)
           {
-            v20 = OUTLINED_FUNCTION_35_2();
-            v21 = OUTLINED_FUNCTION_58(v20);
-            if (OUTLINED_FUNCTION_5_24(v21))
+            v25 = OUTLINED_FUNCTION_35_2(qword_1ED844308);
+            v26 = OUTLINED_FUNCTION_58(v25);
+            if (OUTLINED_FUNCTION_5_24(v26))
             {
               OUTLINED_FUNCTION_29_1();
               OUTLINED_FUNCTION_4_4();
@@ -2488,11 +2487,11 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
             }
 
             OUTLINED_FUNCTION_2_4();
-            OUTLINED_FUNCTION_13_0();
+            OUTLINED_FUNCTION_13_0(v27, v28, v29, v30, v31);
           }
 
-          v22 = OUTLINED_FUNCTION_2_28();
-          [(BWFileCoordinatorNode *)v22 _emitMarkerBufferForFileWriterAction:v23 withPTS:v24 settings:v25 settingsID:v26 errorCode:0];
+          v32 = OUTLINED_FUNCTION_2_28();
+          [(BWFileCoordinatorNode *)v32 _emitMarkerBufferForFileWriterAction:v33 withPTS:v34 settings:v35 settingsID:v36 errorCode:0];
           pausingCopy = 0;
           v12 = 1;
         }
@@ -2501,14 +2500,14 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
         {
           if (dword_1ED844310)
           {
-            v19 = OUTLINED_FUNCTION_35_2();
-            os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+            v24 = OUTLINED_FUNCTION_35_2(qword_1ED844308);
+            os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
             OUTLINED_FUNCTION_2_4();
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
           pausingCopy = 4294950878;
-          [*(selfCopy + 760) fileCoordinator:selfCopy stoppedBeforeStartedRecordingForSettings:v18 pendingIrisMovieInfos:_irisMovieInfosFromPendingIrisRequestMarkerBuffers errorCode:4294950878];
+          [selfCopy[95] fileCoordinator:selfCopy stoppedBeforeStartedRecordingForSettings:v23 pendingIrisMovieInfos:_irisMovieInfosFromPendingIrisRequestMarkerBuffers errorCode:4294950878];
         }
       }
 
@@ -2522,46 +2521,46 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
         self = [(BWFileCoordinatorNode *)self _sendPrefersNoInterruptionsByRingtonesAndAlertsNotificationWithState:?];
       }
 
-      *(selfCopy + 196) = 2;
+      *(selfCopy + 49) = 2;
     }
 
-    v27 = *(selfCopy + 128);
-    v28 = OUTLINED_FUNCTION_60_0(self, a2, pausing, code, a5, a6, a7, a8, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, 0);
-    if (v28)
+    v37 = selfCopy[16];
+    v38 = OUTLINED_FUNCTION_60_0(self, a2, pausing, code, a5, a6, a7, a8, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93);
+    if (v38)
     {
-      v29 = v28;
-      v30 = MEMORY[0];
+      v39 = v38;
+      v40 = MEMORY[0];
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v39; ++i)
         {
-          if (MEMORY[0] != v30)
+          if (MEMORY[0] != v40)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v37);
           }
 
           removeAllObjects = [*(8 * i) removeAllObjects];
         }
 
-        v29 = OUTLINED_FUNCTION_60_0(removeAllObjects, v33, v34, v35, v36, v37, v38, v39, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v85);
+        v39 = OUTLINED_FUNCTION_60_0(removeAllObjects, v43, v44, v45, v46, v47, v48, v49, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94);
       }
 
-      while (v29);
+      while (v39);
     }
 
-    [*(selfCopy + 776) removeAllObjects];
-    *(selfCopy + 792) = 0;
-    *(selfCopy + 800) = 0;
+    [selfCopy[97] removeAllObjects];
+    selfCopy[99] = 0;
+    selfCopy[100] = 0;
     if (v12)
     {
-      v40 = OUTLINED_FUNCTION_2_28();
-      [(BWFileCoordinatorNode *)v40 _emitMarkerBufferForFileWriterAction:v41 withPTS:v42 settings:v43 settingsID:v13 errorCode:pausingCopy];
+      v50 = OUTLINED_FUNCTION_2_28();
+      [(BWFileCoordinatorNode *)v50 _emitMarkerBufferForFileWriterAction:v51 withPTS:v52 settings:v53 settingsID:v13 errorCode:pausingCopy];
       if (*(selfCopy + 864) == 1)
       {
-        v44 = *(selfCopy + 856);
-        if (v44)
+        v54 = selfCopy[107];
+        if (v54)
         {
-          dispatch_semaphore_signal(v44);
+          dispatch_semaphore_signal(v54);
         }
 
         *(selfCopy + 864) = 0;
@@ -2570,23 +2569,23 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
 
     else if (v10 != 3)
     {
-      v45 = OUTLINED_FUNCTION_2_28();
-      [(BWFileCoordinatorNode *)v45 _emitMarkerBufferForFileWriterAction:v46 withPTS:v47 settings:v48 settingsID:v13 errorCode:pausingCopy];
+      v55 = OUTLINED_FUNCTION_2_28();
+      [(BWFileCoordinatorNode *)v55 _emitMarkerBufferForFileWriterAction:v56 withPTS:v57 settings:v58 settingsID:v13 errorCode:pausingCopy];
     }
 
     [(BWFileCoordinatorNode *)selfCopy _releaseSettings];
   }
 }
 
-- (uint64_t)_completeTransitionToNotRecording
+- (id)_completeTransitionToNotRecording
 {
   if (result)
   {
     v1 = result;
-    *(result + 196) = 0;
-    *(result + 152) = 0;
+    *(result + 49) = 0;
+    result[19] = 0;
     *(result + 173) = 0;
-    [*(result + 752) unprepareForRecording];
+    [result[94] unprepareForRecording];
     if (*(v1 + 172) == 1 && gValidPrefersNoInterruptionsByRingtonesAndAlertsToken != 0)
     {
       [(BWFileCoordinatorNode *)v1 _sendPrefersNoInterruptionsByRingtonesAndAlertsNotificationWithState:?];
@@ -2668,7 +2667,7 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
         if (dword_1ED844310)
         {
           LODWORD(lhs.value) = 0;
-          v60 = 0;
+          v74[0] = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
           OUTLINED_FUNCTION_4_0();
@@ -2676,68 +2675,73 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
           {
             OUTLINED_FUNCTION_15_8(request + 424);
             Seconds = CMTimeGetSeconds(&time);
-            v7 = [objc_msgSend(a2 "settings")];
-            [OUTLINED_FUNCTION_24_2() movieEndTime];
-            v8 = CMTimeGetSeconds(&time);
-            [OUTLINED_FUNCTION_24_2() movieEndingVideoPTS];
-            v9 = CMTimeGetSeconds(&time);
-            OUTLINED_FUNCTION_15_8(request + 448);
+            v8 = [objc_msgSend(a2 "settings")];
+            v9 = OUTLINED_FUNCTION_24_2();
+            objc_msgSend_movieEndTime(v9);
             v10 = CMTimeGetSeconds(&time);
-            [OUTLINED_FUNCTION_24_2() audioOffset];
-            v11 = CMTimeGetSeconds(&time);
-            v12 = fcn_stringForRecordingState(*(request + 196));
+            v11 = OUTLINED_FUNCTION_24_2();
+            objc_msgSend_movieEndingVideoPTS(v11);
+            v12 = CMTimeGetSeconds(&time);
+            OUTLINED_FUNCTION_15_8(request + 448);
+            v13 = CMTimeGetSeconds(&time);
+            v14 = OUTLINED_FUNCTION_24_2();
+            objc_msgSend_audioOffset(v14);
+            v15 = CMTimeGetSeconds(&time);
+            v16 = fcn_stringForRecordingState(*(request + 196));
             LODWORD(rhs.value) = 136317442;
             *(&rhs.value + 4) = "[BWFileCoordinatorNode _updateRecordingStateWithIrisMovieRequest:]";
             LOWORD(rhs.flags) = 2048;
             *(&rhs.flags + 2) = request;
             HIWORD(rhs.epoch) = 2048;
-            v54 = *&Seconds;
-            *v55 = 2048;
-            *&v55[2] = v7;
-            *&v55[10] = 2048;
-            *&v55[12] = v8;
-            *&v55[20] = 2048;
-            *&v55[22] = v9;
-            *&v55[30] = 2048;
-            v56 = *&v10;
-            *v57 = 2048;
-            *&v57[2] = v11;
-            *&v57[10] = 2112;
-            *&v57[12] = v12;
-            *&v57[20] = 2112;
-            *&v57[22] = a2;
-            LODWORD(v46) = 102;
+            v68 = *&Seconds;
+            *v69 = 2048;
+            *&v69[2] = v8;
+            *&v69[10] = 2048;
+            *&v69[12] = v10;
+            *&v69[20] = 2048;
+            *&v69[22] = v12;
+            *&v69[30] = 2048;
+            v70 = *&v13;
+            *v71 = 2048;
+            *&v71[2] = v15;
+            *&v71[10] = 2112;
+            *&v71[12] = v16;
+            *&v71[20] = 2112;
+            *&v71[22] = a2;
+            LODWORD(v60) = 102;
             p_rhs = &rhs;
             OUTLINED_FUNCTION_4_4();
             _os_log_send_and_compose_impl();
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_39_0();
+          OUTLINED_FUNCTION_39_0(v17, v18, v19, v20, v21);
         }
 
-        [a2 movieEndingVideoPTS];
-        if ((v51 & 0x100000000) != 0)
+        objc_msgSend_movieEndingVideoPTS(a2, p_rhs);
+        v22 = OUTLINED_FUNCTION_24_2();
+        if (BYTE4(v65))
         {
-          movieEndingVideoPTS = [OUTLINED_FUNCTION_24_2() movieEndingVideoPTS];
+          v23 = objc_msgSend_movieEndingVideoPTS(v22);
         }
 
         else
         {
-          movieEndingVideoPTS = [OUTLINED_FUNCTION_24_2() movieEndTime];
+          v23 = objc_msgSend_movieEndTime(v22);
         }
 
-        OUTLINED_FUNCTION_18_6(movieEndingVideoPTS, v14, v15, v16, v17, v18, v19, v20, v43, v46, lhs.value, *&lhs.timescale, lhs.epoch, v50, v51, v52, rhs.value, *&rhs.timescale, rhs.epoch, v54, *v55, *&v55[8], *&v55[16], *&v55[24], v56, *v57, *&v57[8], *&v57[16], *&v57[24], v58, v21, time.value);
+        OUTLINED_FUNCTION_18_6(v23, v24, v25, v26, v27, v28, v29, v30, v31, v57, v60, lhs.value, *&lhs.timescale, lhs.epoch, v64, v65, v66, rhs.value, *&rhs.timescale, rhs.epoch, v68, *v69, *&v69[8], *&v69[16], *&v69[24], v70, *v71, *&v71[8], *&v71[16], *&v71[24], v72, v32, time.value);
         CMTimeMake(&rhs, 5, 1000);
         lhs = *(request + 424);
-        v22 = CMTimeSubtract(&time, &lhs, &rhs);
-        OUTLINED_FUNCTION_18_6(v22, v23, v24, v25, v26, v27, v28, v29, v44, v47, lhs.value, *&lhs.timescale, lhs.epoch, v50, v51, v52, rhs.value, *&rhs.timescale, rhs.epoch, v54, *v55, *&v55[8], *&v55[16], *&v55[24], v56, *v57, *&v57[8], *&v57[16], *&v57[24], v58, v30, time.value);
-        audioOffset = [OUTLINED_FUNCTION_24_2() audioOffset];
-        OUTLINED_FUNCTION_18_6(audioOffset, v32, v33, v34, v35, v36, v37, v38, v45, v48, lhs.value, *&lhs.timescale, lhs.epoch, v50, v51, v52, rhs.value, *&rhs.timescale, rhs.epoch, v54, *v55, *&v55[8], *&v55[16], *&v55[24], v56, *v57, *&v57[8], *&v57[16], *&v57[24], v58, v39, time.value);
+        v33 = CMTimeSubtract(&time, &lhs, &rhs);
+        OUTLINED_FUNCTION_18_6(v33, v34, v35, v36, v37, v38, v39, v40, v41, v58, v61, lhs.value, *&lhs.timescale, lhs.epoch, v64, v65, v66, rhs.value, *&rhs.timescale, rhs.epoch, v68, *v69, *&v69[8], *&v69[16], *&v69[24], v70, *v71, *&v71[8], *&v71[16], *&v71[24], v72, v42, time.value);
+        v43 = OUTLINED_FUNCTION_24_2();
+        v44 = objc_msgSend_audioOffset(v43);
+        OUTLINED_FUNCTION_18_6(v44, v45, v46, v47, v48, v49, v50, v51, v52, v59, v62, lhs.value, *&lhs.timescale, lhs.epoch, v64, v65, v66, rhs.value, *&rhs.timescale, rhs.epoch, v68, *v69, *&v69[8], *&v69[16], *&v69[24], v70, *v71, *&v71[8], *&v71[16], *&v71[24], v72, v53, time.value);
         OUTLINED_FUNCTION_32_1();
-        if (v41)
+        if (v55)
         {
-          OUTLINED_FUNCTION_15_8(v40);
+          OUTLINED_FUNCTION_15_8(v54);
           OUTLINED_FUNCTION_43_2(MEMORY[0x1E6960CC0]);
           if (CMTimeCompare(&time, &rhs) >= 1)
           {
@@ -2751,30 +2755,30 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
 
     else
     {
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, lhs.value, *&lhs.timescale, LODWORD(lhs.epoch), v64, v65, v66);
     }
   }
 }
 
-- (uint64_t)_handleIrisMovieRequest:(uint64_t)request input:(uint64_t)input sbuf:
+- (void)_handleIrisMovieRequest:(uint64_t)request input:(uint64_t)input sbuf:
 {
   if (result)
   {
     v4 = result;
-    if (*(result + 8) == request)
+    if (result[1] == request)
     {
       [(BWFileCoordinatorNode *)result _updateRecordingStateWithIrisMovieRequest:a2];
       if (dword_1ED844310)
       {
         v6 = OUTLINED_FUNCTION_25_2();
-        if (os_log_type_enabled(v6, v8))
+        if (os_log_type_enabled(v6, v13))
         {
-          v7 = v9;
+          v7 = v14;
         }
 
         else
         {
-          v7 = v9 & 0xFFFFFFFE;
+          v7 = v14 & 0xFFFFFFFE;
         }
 
         if (v7)
@@ -2785,10 +2789,10 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v8, v9, v10, v11, v12);
       }
 
-      return [*(v4 + 16) emitSampleBuffer:input];
+      return [v4[2] emitSampleBuffer:input];
     }
   }
 
@@ -2831,12 +2835,12 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
   }
 }
 
-- (unint64_t)_flushEligibleBuffersFromRecordingStagingQueues
+- (id)_flushEligibleBuffersFromRecordingStagingQueues
 {
   if (result)
   {
     v1 = result;
-    result = [objc_msgSend(*(result + 160) objectAtIndexedSubscript:{*(result + 696)), "count"}];
+    result = [objc_msgSend(result[20] objectAtIndexedSubscript:{result[87]), "count"}];
     if (result >= 3)
     {
       do
@@ -2844,11 +2848,11 @@ uint64_t __89__BWFileCoordinatorNode__prepareToStartRecordingWithSettings_videoS
         v2 = [OUTLINED_FUNCTION_22_2() objectAtIndexedSubscript:2];
         memset(&v31, 0, sizeof(v31));
         CMSampleBufferGetPresentationTimeStamp(&v31, v2);
-        v3 = *(v1 + 664);
-        v4 = *(v1 + 672) + v3;
+        v3 = v1[83];
+        v4 = &v3[v1[84]];
         while (v3 < v4)
         {
-          if (![objc_msgSend(*(v1 + 160) objectAtIndexedSubscript:{v3), "lastObject"}] || (OUTLINED_FUNCTION_11_14(), PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(v6, v5), OUTLINED_FUNCTION_16_4(PresentationTimeStamp, v8, v9, v10, v11, v12, v13, v14, v26.value, *&v26.timescale, v26.epoch, v27, time1.value, *&time1.timescale, time1.epoch, v29, v30), OUTLINED_FUNCTION_53_3(), CMTimeCompare(&time1, &v26) < 0))
+          if (![objc_msgSend(v1[20] objectAtIndexedSubscript:{v3), "lastObject"}] || (OUTLINED_FUNCTION_11_14(), PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(v6, v5), OUTLINED_FUNCTION_16_4(PresentationTimeStamp, v8, v9, v10, v11, v12, v13, v14, v26.value, *&v26.timescale, v26.epoch, v27, time1.value, *&time1.timescale, time1.epoch, v29, v30), OUTLINED_FUNCTION_53_3(), CMTimeCompare(&time1, &v26) < 0))
           {
             v15 = 0;
             goto LABEL_9;
@@ -2883,7 +2887,7 @@ LABEL_9:
   }
 
   index = [buffer index];
-  v105 = [objc_msgSend(self "outputs")];
+  v109 = [objc_msgSend(self "outputs")];
   if (*(self + 173) == 1 && (*(self + 174) & 1) == 0 && (*(self + 609) & 1) == 0)
   {
     OUTLINED_FUNCTION_41_2();
@@ -2893,8 +2897,8 @@ LABEL_9:
     }
   }
 
-  memset(&v123, 0, sizeof(v123));
-  CMSampleBufferGetPresentationTimeStamp(&v123, a2);
+  memset(&v127, 0, sizeof(v127));
+  CMSampleBufferGetPresentationTimeStamp(&v127, a2);
   OUTLINED_FUNCTION_41_2();
   if ((index == v7 || index == *(self + 704)) && *(self + 196) == 1)
   {
@@ -2912,7 +2916,7 @@ LABEL_9:
           OUTLINED_FUNCTION_32_1();
           if ((v13 & 1) == 0)
           {
-            *v12 = v123;
+            *v12 = v127;
           }
         }
 
@@ -2939,7 +2943,7 @@ LABEL_9:
           if (!v15)
           {
             OUTLINED_FUNCTION_41_2();
-            if (index != v56)
+            if (index != v60)
             {
               goto LABEL_47;
             }
@@ -2959,87 +2963,87 @@ LABEL_9:
           {
             rhs = time1;
             OUTLINED_FUNCTION_42_2(v18);
-            CMTimeAdd(&time2, &rhs, &v121);
+            CMTimeAdd(&time2, &rhs, &v125);
           }
         }
 
         OUTLINED_FUNCTION_6_3(self + 352);
         if (index == *(self + 704))
         {
-          CMTimeMake(&v121, 1, 10000);
-          lhs = v123;
-          v20 = CMTimeAdd(&rhs, &lhs, &v121);
-          OUTLINED_FUNCTION_55_1(v20, v21, v22, v23, v24, v25, v26, v27, v99, v101, v103, v105, v28, time2.value);
-          if (CMTimeCompare(&v121, &rhs) <= 0)
+          CMTimeMake(&v125, 1, 10000);
+          lhs = v127;
+          v20 = CMTimeAdd(&rhs, &lhs, &v125);
+          OUTLINED_FUNCTION_55_1(v20, v21, v22, v23, v24, v25, v26, v27, v28, v103, v105, v107, v109, v29, time2.value);
+          if (CMTimeCompare(&v125, &rhs) <= 0)
           {
             OUTLINED_FUNCTION_40_3();
             memset(&rhs, 0, sizeof(rhs));
             Duration = CMSampleBufferGetDuration(&rhs, a2);
             if (rhs.flags)
             {
-              OUTLINED_FUNCTION_55_1(Duration, v30, v31, v32, v33, v34, v35, v36, v99, v101, v103, v105, v37, time2.value);
+              OUTLINED_FUNCTION_55_1(Duration, v31, v32, v33, v34, v35, v36, v37, v38, v103, v105, v107, v109, v39, time2.value);
               lhs = rhs;
-              CMTimeAdd(&time2, &v121, &lhs);
+              CMTimeAdd(&time2, &v125, &lhs);
             }
           }
         }
 
         OUTLINED_FUNCTION_33();
-        if (!v84 || (OUTLINED_FUNCTION_56_2(v38, v39, v40, v41, v42, v43, v44, v45, v99, v101, v103, v105, v46, time2.value), OUTLINED_FUNCTION_42_2(MEMORY[0x1E6960C80]), v47 = CMTimeCompare(&rhs, &v121), v47 <= 0) || (OUTLINED_FUNCTION_56_2(v47, v48, v49, v50, v51, v52, v53, v54, v100, v102, v104, v106, v55, time2.value), v121 = time1, (CMTimeCompare(&rhs, &v121) & 0x80000000) == 0))
+        if (!v88 || (OUTLINED_FUNCTION_56_2(v40, v41, v42, v43, v44, v45, v46, v47, v48, v103, v105, v107, v109, v49, time2.value), OUTLINED_FUNCTION_42_2(MEMORY[0x1E6960C80]), v50 = CMTimeCompare(&rhs, &v125), v50 <= 0) || (OUTLINED_FUNCTION_56_2(v50, v51, v52, v53, v54, v55, v56, v57, v58, v104, v106, v108, v110, v59, time2.value), v125 = time1, (CMTimeCompare(&rhs, &v125) & 0x80000000) == 0))
         {
 LABEL_36:
           OUTLINED_FUNCTION_33();
-          if (v84)
+          if (v88)
           {
-            v58 = OUTLINED_FUNCTION_8_17();
-            v60 = v59;
-            [BWFileCoordinatorNode _emitOrQueueSampleBuffer:v58 forInput:v61 toOutput:v62 stoppingOrPausing:v63];
-            v57 = v60;
+            v62 = OUTLINED_FUNCTION_8_17();
+            v64 = v63;
+            [BWFileCoordinatorNode _emitOrQueueSampleBuffer:v62 forInput:v65 toOutput:v66 stoppingOrPausing:v67];
+            v61 = v64;
           }
 
           if (dword_1ED844310)
           {
-            v64 = v57;
+            v68 = v61;
             LODWORD(rhs.value) = 0;
-            LOBYTE(v121.value) = 0;
+            LOBYTE(v125.value) = 0;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             value = rhs.value;
-            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v121.value))
+            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v125.value))
             {
-              v67 = value;
+              v71 = value;
             }
 
             else
             {
-              v67 = value & 0xFFFFFFFE;
+              v71 = value & 0xFFFFFFFE;
             }
 
-            if (v67)
+            if (v71)
             {
-              v68 = *(self + 152);
-              v69 = fcn_stringForRecordingState(*(self + 196));
-              time1 = v123;
+              v72 = *(self + 152);
+              v73 = fcn_stringForRecordingState(*(self + 196));
+              time1 = v127;
               Seconds = CMTimeGetSeconds(&time1);
-              OUTLINED_FUNCTION_1_34(*(v64 + 1028));
-              v71 = CMTimeGetSeconds(&time1);
+              OUTLINED_FUNCTION_1_34(*(v68 + 1028));
+              v75 = CMTimeGetSeconds(&time1);
               OUTLINED_FUNCTION_1_34(424);
-              v72 = CMTimeGetSeconds(&time1);
+              v76 = CMTimeGetSeconds(&time1);
               OUTLINED_FUNCTION_1_34(448);
               CMTimeGetSeconds(&time1);
               LODWORD(time2.value) = 136316930;
               OUTLINED_FUNCTION_47_4();
-              HIWORD(time2.epoch) = v73;
-              v108 = v68;
-              v109 = 2112;
-              v110 = v69;
-              v111 = v73;
-              v112 = Seconds;
-              v113 = v73;
-              v114 = v71;
-              v115 = v73;
-              v116 = v72;
-              v117 = v73;
-              v118 = v74;
+              HIWORD(time2.epoch) = v77;
+              v112 = v72;
+              v113 = 2112;
+              v114 = v73;
+              v115 = v77;
+              v116 = Seconds;
+              v117 = v77;
+              v118 = v75;
+              v119 = v77;
+              v120 = v76;
+              v121 = v77;
+              v122 = v78;
               OUTLINED_FUNCTION_13();
               _os_log_send_and_compose_impl();
             }
@@ -3055,34 +3059,34 @@ LABEL_36:
   }
 
 LABEL_47:
-  v75 = *(self + 196);
-  if ((v75 - 4) < 2)
+  v79 = *(self + 196);
+  if ((v79 - 4) < 2)
   {
     OUTLINED_FUNCTION_48_2();
-    if (index < v79 || (time1 = v123, OUTLINED_FUNCTION_6_3(self + 304), CMTimeCompare(&time1, &time2) >= 1))
+    if (index < v83 || (time1 = v127, OUTLINED_FUNCTION_6_3(self + 304), CMTimeCompare(&time1, &time2) >= 1))
     {
-      v80 = OUTLINED_FUNCTION_3_21();
-      [(BWFileCoordinatorNode *)v80 _doStoppingOrPausingWithSBuf:v81 inputIndex:index sbufPTS:v82];
+      v84 = OUTLINED_FUNCTION_3_21();
+      [(BWFileCoordinatorNode *)v84 _doStoppingOrPausingWithSBuf:v85 inputIndex:index sbufPTS:v86];
     }
   }
 
   else
   {
-    if (v75 != 1)
+    if (v79 != 1)
     {
-      if (v75 == 3)
+      if (v79 == 3)
       {
-        v76 = OUTLINED_FUNCTION_3_21();
-        [(BWFileCoordinatorNode *)v76 _doStartingToRecordWithSBuf:v77 inputIndex:index sbufPTS:v78];
+        v80 = OUTLINED_FUNCTION_3_21();
+        [(BWFileCoordinatorNode *)v80 _doStartingToRecordWithSBuf:v81 inputIndex:index sbufPTS:v82];
       }
 
       return;
     }
 
     OUTLINED_FUNCTION_48_2();
-    if (index >= v83)
+    if (index >= v87)
     {
-      time1 = v123;
+      time1 = v127;
       OUTLINED_FUNCTION_6_3(self + 304);
       if (CMTimeCompare(&time1, &time2) < 1)
       {
@@ -3090,26 +3094,26 @@ LABEL_47:
       }
 
 LABEL_63:
-      v85 = OUTLINED_FUNCTION_8_17();
-      [BWFileCoordinatorNode _emitOrQueueSampleBuffer:v85 forInput:v86 toOutput:v87 stoppingOrPausing:v88];
+      v89 = OUTLINED_FUNCTION_8_17();
+      [BWFileCoordinatorNode _emitOrQueueSampleBuffer:v89 forInput:v90 toOutput:v91 stoppingOrPausing:v92];
       return;
     }
 
     OUTLINED_FUNCTION_33();
-    v84 = v84 && index == 1;
-    if (!v84 || (*(self + 613) & 1) != 0)
+    v88 = v88 && index == 1;
+    if (!v88 || (*(self + 613) & 1) != 0)
     {
       goto LABEL_63;
     }
 
-    v89 = OUTLINED_FUNCTION_3_21();
-    v93 = [(BWFileCoordinatorNode *)v89 _copyFirstValidLowLatencyAudioBuffer:v90 inputIndex:v91 sbufPTS:v92];
-    if (v93)
+    v93 = OUTLINED_FUNCTION_3_21();
+    v97 = [(BWFileCoordinatorNode *)v93 _copyFirstValidLowLatencyAudioBuffer:v94 inputIndex:v95 sbufPTS:v96];
+    if (v97)
     {
-      v94 = v93;
-      v95 = OUTLINED_FUNCTION_8_17();
-      [BWFileCoordinatorNode _emitOrQueueSampleBuffer:v95 forInput:v96 toOutput:v97 stoppingOrPausing:v98];
-      CFRelease(v94);
+      v98 = v97;
+      v99 = OUTLINED_FUNCTION_8_17();
+      [BWFileCoordinatorNode _emitOrQueueSampleBuffer:v99 forInput:v100 toOutput:v101 stoppingOrPausing:v102];
+      CFRelease(v98);
     }
   }
 }
@@ -3161,26 +3165,26 @@ LABEL_63:
       SampleTimingInfoArray = CMSampleBufferGetSampleTimingInfoArray(sbuf, 0, 0, &timingArrayEntriesNeededOut.value);
       if (timingArrayEntriesNeededOut.value >= 1)
       {
-        MEMORY[0x1EEE9AC00](SampleTimingInfoArray);
-        v12 = (v65 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-        if (!CMSampleBufferGetSampleTimingInfoArray(sbuf, timingArrayEntriesNeededOut.value, v12, 0))
+        MEMORY[0x1EEE9AC00](SampleTimingInfoArray, v11, v12, v13);
+        v15 = (v68 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+        if (!CMSampleBufferGetSampleTimingInfoArray(sbuf, timingArrayEntriesNeededOut.value, v15, 0))
         {
-          v65[1] = pausing;
+          v68[1] = pausing;
           if (timingArrayEntriesNeededOut.value >= 1)
           {
-            v13 = 0;
-            p_timescale = &v12->presentationTimeStamp.timescale;
+            v16 = 0;
+            p_timescale = &v15->presentationTimeStamp.timescale;
             do
             {
               if (p_timescale[1])
               {
-                v15 = *p_timescale;
+                v18 = *p_timescale;
                 time2 = *(p_timescale - 2);
                 OUTLINED_FUNCTION_14_6((buffer + 208));
-                v16 = OUTLINED_FUNCTION_51_1();
-                CMTimeSubtract(v18, v16, v17);
+                v19 = OUTLINED_FUNCTION_51_1();
+                CMTimeSubtract(v21, v19, v20);
                 OUTLINED_FUNCTION_50_1();
-                if (*p_timescale != v15)
+                if (*p_timescale != v18)
                 {
                   *&time2.value = *(p_timescale - 2);
                   OUTLINED_FUNCTION_36_3(*(p_timescale + 1));
@@ -3190,13 +3194,13 @@ LABEL_63:
 
               if (p_timescale[7])
               {
-                v19 = p_timescale[6];
+                v22 = p_timescale[6];
                 time2 = *(p_timescale + 4);
                 OUTLINED_FUNCTION_14_6((buffer + 208));
-                v20 = OUTLINED_FUNCTION_51_1();
-                CMTimeSubtract(v22, v20, v21);
+                v23 = OUTLINED_FUNCTION_51_1();
+                CMTimeSubtract(v25, v23, v24);
                 OUTLINED_FUNCTION_49_1();
-                if (p_timescale[6] != v19)
+                if (p_timescale[6] != v22)
                 {
                   *&time2.value = *(p_timescale + 1);
                   OUTLINED_FUNCTION_36_3(*(p_timescale + 4));
@@ -3204,15 +3208,15 @@ LABEL_63:
                 }
               }
 
-              ++v13;
+              ++v16;
               p_timescale += 18;
             }
 
-            while (v13 < timingArrayEntriesNeededOut.value);
+            while (v16 < timingArrayEntriesNeededOut.value);
           }
 
-          v23 = CFGetAllocator(sbuf);
-          CMSampleBufferCreateCopyWithNewTiming(v23, sbuf, timingArrayEntriesNeededOut.value, v12, &sampleBufferOut);
+          v26 = CFGetAllocator(sbuf);
+          CMSampleBufferCreateCopyWithNewTiming(v26, sbuf, timingArrayEntriesNeededOut.value, v15, &sampleBufferOut);
         }
 
         v8 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
@@ -3241,8 +3245,8 @@ LABEL_63:
         goto LABEL_41;
       }
 
-      v24 = OUTLINED_FUNCTION_52_2();
-      CMSampleBufferGetPresentationTimeStamp(v25, v24);
+      v27 = OUTLINED_FUNCTION_52_2();
+      CMSampleBufferGetPresentationTimeStamp(v28, v27);
       value = time1.value;
       flags = time1.flags;
       timescale = time1.timescale;
@@ -3263,41 +3267,41 @@ LABEL_63:
         goto LABEL_36;
       }
 
-      v66 = value;
-      v67 = timescale;
+      v69 = value;
+      v70 = timescale;
       memset(&time1, 0, sizeof(time1));
-      v28 = OUTLINED_FUNCTION_52_2();
-      CMSampleBufferGetDuration(v29, v28);
+      v31 = OUTLINED_FUNCTION_52_2();
+      CMSampleBufferGetDuration(v32, v31);
       if (time1.flags)
       {
-        v71 = value;
-        v72 = timescale;
-        v73 = flags;
-        v74 = epoch;
+        v74 = value;
+        v75 = timescale;
+        v76 = flags;
+        v77 = epoch;
         timingArrayEntriesNeededOut = time1;
-        v30 = OUTLINED_FUNCTION_26_1();
-        CMTimeAdd(v32, v30, v31);
-        v66 = time2.value;
+        v33 = OUTLINED_FUNCTION_26_1();
+        CMTimeAdd(v35, v33, v34);
+        v69 = time2.value;
         flags = time2.flags;
-        v67 = time2.timescale;
+        v70 = time2.timescale;
         epoch = time2.epoch;
       }
 
       time2 = *(buffer + 352);
-      v71 = v66;
-      v72 = v67;
-      v73 = flags;
-      v74 = epoch;
-      v33 = OUTLINED_FUNCTION_51_1();
-      if (CMTimeCompare(v33, v34) < 0)
+      v74 = v69;
+      v75 = v70;
+      v76 = flags;
+      v77 = epoch;
+      v36 = OUTLINED_FUNCTION_51_1();
+      if (CMTimeCompare(v36, v37) < 0)
       {
-        v35 = buffer + 352;
-        *(buffer + 352) = v66;
-        v36 = v67;
+        v38 = buffer + 352;
+        *(buffer + 352) = v69;
+        v39 = v70;
 LABEL_36:
-        *(v35 + 8) = v36;
-        *(v35 + 12) = flags;
-        *(v35 + 16) = epoch;
+        *(v38 + 8) = v39;
+        *(v38 + 12) = flags;
+        *(v38 + 16) = epoch;
       }
 
 LABEL_41:
@@ -3311,26 +3315,26 @@ LABEL_41:
         if (*(buffer + v8[267]))
         {
           [*(buffer + 776) addObject:?];
-          v59 = sampleBufferOut;
+          v62 = sampleBufferOut;
           if (!sampleBufferOut)
           {
             return;
           }
 
 LABEL_55:
-          CFRelease(v59);
+          CFRelease(v62);
           return;
         }
 
-        v60 = [objc_msgSend(CMGetAttachment(sampleBufferOut *off_1E798A3C8];
-        if (v60)
+        v63 = [objc_msgSend(CMGetAttachment(sampleBufferOut *off_1E798A3C8];
+        if (v63)
         {
-          v61 = v60;
-          v62 = [*(buffer + 768) copyMotionDataForSerialNumber:*(buffer + 784) + v60];
-          if (v62)
+          v64 = v63;
+          v65 = [*(buffer + 768) copyMotionDataForSerialNumber:*(buffer + 784) + v63];
+          if (v65)
           {
-            v64 = v62;
-            [(BWFileCoordinatorNode *)buffer _addLookAheadMotionDataToMetadataForSampleBuffer:v62 lookAheadMotionData:?];
+            v67 = v65;
+            [(BWFileCoordinatorNode *)buffer _addLookAheadMotionDataToMetadataForSampleBuffer:v65 lookAheadMotionData:?];
           }
 
           else
@@ -3342,7 +3346,7 @@ LABEL_55:
               sampleBufferOut = 0;
             }
 
-            *(buffer + v8[267]) = v61;
+            *(buffer + v8[267]) = v64;
           }
         }
       }
@@ -3353,85 +3357,85 @@ LABEL_55:
       }
 
       [BWFileCoordinatorNode _emitSampleBuffer:buffer forInput:? toOutput:?];
-      v59 = sampleBufferOut;
+      v62 = sampleBufferOut;
       goto LABEL_55;
     }
 
-    v37 = OUTLINED_FUNCTION_52_2();
-    CMSampleBufferGetPresentationTimeStamp(v38, v37);
+    v40 = OUTLINED_FUNCTION_52_2();
+    CMSampleBufferGetPresentationTimeStamp(v41, v40);
     value = time1.value;
-    v39 = time1.flags;
+    v42 = time1.flags;
     timescale = time1.timescale;
     if ((time1.flags & 1) == 0)
     {
       goto LABEL_41;
     }
 
-    v40 = time1.epoch;
+    v43 = time1.epoch;
     memset(&time1, 0, sizeof(time1));
-    v41 = OUTLINED_FUNCTION_52_2();
-    CMSampleBufferGetDuration(v42, v41);
+    v44 = OUTLINED_FUNCTION_52_2();
+    CMSampleBufferGetDuration(v45, v44);
     if (time1.flags)
     {
-      v51 = *&time1.value;
+      v54 = *&time1.value;
       *(buffer + 256) = *&time1.value;
-      v52 = time1.epoch;
+      v55 = time1.epoch;
       *(buffer + 272) = time1.epoch;
-      v47 = buffer + 280;
-      v71 = value;
-      v72 = timescale;
-      v73 = v39;
-      v74 = v40;
-      *&timingArrayEntriesNeededOut.value = v51;
-      timingArrayEntriesNeededOut.epoch = v52;
-      v53 = OUTLINED_FUNCTION_26_1();
-      CMTimeAdd(v55, v53, v54);
+      v50 = buffer + 280;
+      v74 = value;
+      v75 = timescale;
+      v76 = v42;
+      v77 = v43;
+      *&timingArrayEntriesNeededOut.value = v54;
+      timingArrayEntriesNeededOut.epoch = v55;
+      v56 = OUTLINED_FUNCTION_26_1();
+      CMTimeAdd(v58, v56, v57);
     }
 
     else
     {
       OUTLINED_FUNCTION_17_5(280);
-      *(v43 + 8) = v44;
-      *(v43 + 12) = v39;
-      *(v43 + 16) = v40;
+      *(v46 + 8) = v47;
+      *(v46 + 12) = v42;
+      *(v46 + 16) = v43;
       if ((*(buffer + 244) & 1) == 0)
       {
 LABEL_40:
         OUTLINED_FUNCTION_17_5(232);
-        *(v57 + 8) = v58;
-        *(v57 + 12) = v39;
-        *(v57 + 16) = v40;
+        *(v60 + 8) = v61;
+        *(v60 + 12) = v42;
+        *(v60 + 16) = v43;
         goto LABEL_41;
       }
 
       time2.value = value;
       time2.timescale = timescale;
-      time2.flags = v39;
-      time2.epoch = v40;
+      time2.flags = v42;
+      time2.epoch = v43;
       OUTLINED_FUNCTION_14_6((buffer + 232));
-      v45 = OUTLINED_FUNCTION_51_1();
-      v47 = buffer + 256;
-      if (CMTimeCompare(v45, v46) < 1)
+      v48 = OUTLINED_FUNCTION_51_1();
+      v50 = buffer + 256;
+      if (CMTimeCompare(v48, v49) < 1)
       {
-        v63 = MEMORY[0x1E6960C70];
-        *v47 = *MEMORY[0x1E6960C70];
-        v56 = *(v63 + 16);
+        v66 = MEMORY[0x1E6960C70];
+        *v50 = *MEMORY[0x1E6960C70];
+        v59 = *(v66 + 16);
         goto LABEL_39;
       }
 
-      v71 = value;
-      v72 = timescale;
-      v73 = v39;
-      v74 = v40;
+      v74 = value;
+      v75 = timescale;
+      v76 = v42;
+      v77 = v43;
       timingArrayEntriesNeededOut = *(buffer + 232);
-      v48 = OUTLINED_FUNCTION_26_1();
-      CMTimeSubtract(v50, v48, v49);
+      v51 = OUTLINED_FUNCTION_26_1();
+      CMTimeSubtract(v53, v51, v52);
     }
 
-    *v47 = *&time2.value;
-    v56 = time2.epoch;
+    *v50 = *&time2.value;
+    v59 = time2.epoch;
 LABEL_39:
-    *(v47 + 16) = v56;
+    *(v50 + 16) = v59;
     goto LABEL_40;
   }
 }
@@ -3457,12 +3461,12 @@ LABEL_39:
       case 1:
         *(code + 616) = a2;
         OUTLINED_FUNCTION_19_1((code + 400));
-        v25 = OUTLINED_FUNCTION_34_2((code + 328));
+        OUTLINED_FUNCTION_34_2((code + 328));
         *(code + 612) = 0;
         *(code + 196) = 4;
         [(BWFileCoordinatorNode *)code _flushAllBuffersFromRecordingStagingQueues];
         OUTLINED_FUNCTION_33();
-        if (v26)
+        if (v25)
         {
 
           [(BWFileCoordinatorNode *)code _performFlushAction];
@@ -3682,7 +3686,7 @@ LABEL_10:
   FigSimpleMutexLock();
   if (stopCopy)
   {
-    [(BWFileCoordinatorNode *)&self->super.super _setupStateForWaitingForRecordingStop];
+    [(BWFileCoordinatorNode *)self _setupStateForWaitingForRecordingStop];
   }
 
   [(BWFileCoordinatorNode *)self _stopRecordingWithErrorCode:v5];
@@ -3690,18 +3694,16 @@ LABEL_10:
   FigSimpleMutexUnlock();
 }
 
-- (dispatch_semaphore_t)_setupStateForWaitingForRecordingStop
+- (double)_setupStateForWaitingForRecordingStop
 {
-  if (result)
+  if (self)
   {
-    v1 = result;
-    if (HIDWORD(result[24].isa) == 1)
+    if (*(self + 196) == 1)
     {
-      if ((result[108].isa & 1) == 0 && !result[107].isa)
+      if ((*(self + 864) & 1) == 0 && !*(self + 856))
       {
         OUTLINED_FUNCTION_21_4(864);
-        result = dispatch_semaphore_create(0);
-        v1[107].isa = result;
+        *(self + 856) = dispatch_semaphore_create(0);
       }
     }
 
@@ -3710,7 +3712,7 @@ LABEL_10:
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       OUTLINED_FUNCTION_2_4();
-      return fig_log_call_emit_and_clean_up_after_send_and_compose();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
@@ -3764,7 +3766,7 @@ LABEL_10:
   [(BWFileCoordinatorNode *)self _flushAllBuffersFromRecordingStagingQueues];
   if (self->_currSettingsID == terminated)
   {
-    [(BWFileCoordinatorNode *)self _completeTransitionToNotRecording];
+    [(BWFileCoordinatorNode *)&self->super.super.isa _completeTransitionToNotRecording];
     v5 = OUTLINED_FUNCTION_20_3();
     [(BWFileCoordinatorNode *)v5 _emitMarkerBufferForFileWriterAction:v6 withPTS:v7 settings:v8 settingsID:terminated errorCode:0];
     [(BWFileCoordinatorNode *)self _releaseSettings];
@@ -3916,20 +3918,6 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_sendPrefersNoInterruptionsByRingtonesAndAlertsNotificationWithState:(uint64_t)result
-{
-  if (result)
-  {
-    if (notify_set_state(gPrefersNoInterruptionsByRingtonesAndAlertsToken, state64) || (result = notify_post("com.apple.avcapture.prefersnointerruptionsbyringtonesandalerts"), result))
-    {
-      OUTLINED_FUNCTION_0_6();
-      return FigDebugAssert3();
-    }
-  }
-
-  return result;
-}
-
 - (void)_emitMarkerBufferCopyOnAllOutputs:(void *)result
 {
   if (result)
@@ -4066,7 +4054,7 @@ LABEL_10:
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_13_0(v30, v31, v32, v33, v34);
     }
   }
 }
@@ -4118,7 +4106,7 @@ LABEL_10:
   return array;
 }
 
-- (uint64_t)_clearPendingIrisRequestMarkerBuffers
+- (id)_clearPendingIrisRequestMarkerBuffers
 {
   if (result)
   {
@@ -4126,29 +4114,29 @@ LABEL_10:
     if (dword_1ED844310)
     {
       v2 = OUTLINED_FUNCTION_25_2();
-      if (os_log_type_enabled(v2, v4))
+      if (os_log_type_enabled(v2, v9))
       {
-        v3 = v5;
+        v3 = v10;
       }
 
       else
       {
-        v3 = v5 & 0xFFFFFFFE;
+        v3 = v10 & 0xFFFFFFFE;
       }
 
       if (v3)
       {
-        [*(v1 + 136) count];
+        [v1[17] count];
         OUTLINED_FUNCTION_5();
         OUTLINED_FUNCTION_13();
         _os_log_send_and_compose_impl();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_13_0(v4, v5, v6, v7, v8);
     }
 
-    return [*(v1 + 136) removeAllObjects];
+    return [v1[17] removeAllObjects];
   }
 
   return result;
@@ -4200,7 +4188,7 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_emitSampleBuffer:(uint64_t)result forInput:toOutput:
+- (void)_emitSampleBuffer:(void *)result forInput:toOutput:
 {
   if (result)
   {
@@ -4217,7 +4205,7 @@ LABEL_10:
       v9 = v8;
       v10 = *(v3 + 824) ? *(v3 + 824) : v8;
       CMSetAttachment(v2, @"LastPortType", v10, 1u);
-      if (([*(v3 + 824) isEqualToString:v9] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(*(v3 + 824)) & 1) == 0)
       {
 
         *(v3 + 824) = v9;
@@ -4238,14 +4226,14 @@ LABEL_10:
   return result;
 }
 
-- (uint64_t)_flushPendingIrisRequestMarkerBuffers
+- (id)_flushPendingIrisRequestMarkerBuffers
 {
   if (result)
   {
     v1 = result;
-    for (result = [*(result + 136) count]; result; result = objc_msgSend(*(v1 + 136), "count"))
+    for (result = [result[17] count]; result; result = objc_msgSend(v1[17], "count"))
     {
-      firstObject = [*(v1 + 136) firstObject];
+      firstObject = [v1[17] firstObject];
       if (dword_1ED844310)
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -4254,15 +4242,15 @@ LABEL_10:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      [*(v1 + 16) emitSampleBuffer:firstObject];
-      [*(v1 + 136) removeObjectAtIndex:0];
+      [v1[2] emitSampleBuffer:firstObject];
+      [v1[17] removeObjectAtIndex:0];
     }
   }
 
   return result;
 }
 
-- (uint64_t)_flushSampleBuffersWaitingForMotionData
+- (id)_flushSampleBuffersWaitingForMotionData
 {
   if (!result)
   {
@@ -4271,22 +4259,22 @@ LABEL_10:
 
   v2 = result;
   v3 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
-  if (!*(result + 792))
+  if (!result[99])
   {
     return result;
   }
 
   v4 = [OUTLINED_FUNCTION_23_2() count];
   v5 = v4;
-  if ((*(v2 + 808) & 1) == 0 && v4)
+  if ((v2[101] & 1) == 0 && v4)
   {
     firstObject = [OUTLINED_FUNCTION_23_2() firstObject];
     v7 = [objc_msgSend(CMGetAttachment(firstObject *off_1E798A3C8];
     [OUTLINED_FUNCTION_57_2() earliestAvailableMotionDataSerialNumber];
     latestAvailableMotionDataSerialNumber = [OUTLINED_FUNCTION_57_2() latestAvailableMotionDataSerialNumber];
-    if (latestAvailableMotionDataSerialNumber >= v7 + *(v2 + 784) - 1)
+    if (latestAvailableMotionDataSerialNumber >= v2[98] + v7 - 1)
     {
-      v9 = v7 + *(v2 + 784) - 1;
+      v9 = v2[98] + v7 - 1;
     }
 
     else
@@ -4299,7 +4287,7 @@ LABEL_10:
     {
       v11 = v10;
       fcn_addAllLookAheadMotionDataToMetadata(firstObject, 0, [v10 objectForKeyedSubscript:BWMotionDataTimeMachineKeyPrimaryMotionData]);
-      *(v2 + 800) = v9;
+      v2[100] = v9;
       if ([OUTLINED_FUNCTION_57_2() synchronizedSlaveMotionDataCachingEnabled])
       {
         v12 = fcn_synchronizedSlaveFrameForSampleBuffer(firstObject);
@@ -4319,7 +4307,7 @@ LABEL_15:
     while (1)
     {
       v15 = [OUTLINED_FUNCTION_23_2() objectAtIndexedSubscript:v13];
-      if ([objc_msgSend(CMGetAttachment(v15 v14] > *(v2 + 800))
+      if ([objc_msgSend(CMGetAttachment(v15 v14] > v2[100])
       {
         goto LABEL_20;
       }
@@ -4355,12 +4343,12 @@ LABEL_20:
     }
 
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_39_0();
+    OUTLINED_FUNCTION_39_0(v18, v19, v20, v21, v22);
   }
 
   result = [OUTLINED_FUNCTION_23_2() removeAllObjects];
   *(v2 + v3[267]) = 0;
-  *(v2 + 800) = 0;
+  v2[100] = 0;
   return result;
 }
 
@@ -4392,7 +4380,7 @@ LABEL_20:
   return result;
 }
 
-- (uint64_t)_cinematicFutureMetadataForFlushingSampleBuffer:(uint64_t)result
+- (void)_cinematicFutureMetadataForFlushingSampleBuffer:(void *)result
 {
   if (result)
   {
@@ -4400,7 +4388,7 @@ LABEL_20:
     v3 = CMGetAttachment(target, *off_1E798A3C8, 0);
     v4 = *off_1E798CE70;
     v5 = [objc_msgSend(v3 objectForKeyedSubscript:{*off_1E798CE70), "unsignedLongLongValue"}];
-    v6 = *(v2 + 784);
+    v6 = v2[98];
     v7 = MEMORY[0x1E695DF90];
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v6 + v5];
     return [v7 dictionaryWithObjectsAndKeys:{v8, v4, MEMORY[0x1E695E118], *off_1E798CE68, 0}];
@@ -4442,16 +4430,16 @@ LABEL_18:
 LABEL_7:
     if (self[725] == 1)
     {
-      v21 = 0;
+      v26 = 0;
       memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
       CMSampleBufferGetPresentationTimeStamp(&__dst.presentationTimeStamp, target);
-      if (!OUTLINED_FUNCTION_7_17(*MEMORY[0x1E695E480], v7, v8, v9, v10, v11, v12, v13, &__dst, 0, 0, &v21))
+      if (!OUTLINED_FUNCTION_7_17(*MEMORY[0x1E695E480], v7, v8, v9, v10, v11, v12, v13, &__dst, 0, 0, &v26))
       {
         v14 = &unk_1E799C000;
         if (dword_1ED844310)
         {
-          v19 = 0;
-          v18 = 0;
+          v24 = 0;
+          v23 = 0;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
           OUTLINED_FUNCTION_4_0();
@@ -4466,13 +4454,13 @@ LABEL_7:
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_39_0();
+          OUTLINED_FUNCTION_39_0(v17, v18, v19, v20, v21);
           v14 = &unk_1E799C000;
         }
 
-        CMSetAttachment(v21, @"FileWriterAction", v14[470], 1u);
-        BWSampleBufferSetAttachedMedia(target, @"SynchronizedSlaveFrame", v21);
-        CFRelease(v21);
+        CMSetAttachment(v26, @"FileWriterAction", v14[470], 1u);
+        BWSampleBufferSetAttachedMedia(target, @"SynchronizedSlaveFrame", v26);
+        CFRelease(v26);
         if (([CMGetAttachment(target @"SampleDataToBeDropped"] & 1) == 0)
         {
           self[725] = 0;
@@ -4519,47 +4507,59 @@ LABEL_7:
   if (result)
   {
     v4 = result;
-    v13 = 0;
+    v18 = 0;
     if (*(*(result + 79) + 8 * s))
     {
       v6 = *(result + 78);
       v7 = *MEMORY[0x1E695E480];
       if (v6)
       {
-LABEL_7:
-        memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
-        __dst.presentationTimeStamp = *a2;
-        DataLength = CMBlockBufferGetDataLength(v6);
-        v9 = *(v4 + 78);
-        sampleSizeArray = DataLength;
-        if (!CMSampleBufferCreate(v7, v9, 1u, 0, 0, *(*(v4 + 79) + 8 * s), 1, 1, &__dst, 1, &sampleSizeArray, &v13))
+        goto LABEL_7;
+      }
+
+      if (CMBlockBufferCreateWithMemoryBlock(v7, 0, 8uLL, v7, 0, 0, 8uLL, 1u, result + 78))
+      {
+        OUTLINED_FUNCTION_0_6();
+        LODWORD(blockBufferOut) = v11;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
+      }
+
+      else
+      {
+        dataPointerOut = 0;
+        if (!CMBlockBufferGetDataPointer(*(v4 + 78), 0, 0, 0, &dataPointerOut))
         {
-          return v13;
+          *dataPointerOut = 0x8000000;
+          v6 = *(v4 + 78);
+LABEL_7:
+          memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
+          __dst.presentationTimeStamp = *a2;
+          DataLength = CMBlockBufferGetDataLength(v6);
+          v9 = *(v4 + 78);
+          sampleSizeArray = DataLength;
+          if (CMSampleBufferCreate(v7, v9, 1u, 0, 0, *(*(v4 + 79) + 8 * s), 1, 1, &__dst, 1, &sampleSizeArray, &v18))
+          {
+            OUTLINED_FUNCTION_0_6();
+            LODWORD(blockBufferOuta) = v10;
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta);
+          }
+
+          return v18;
         }
 
         OUTLINED_FUNCTION_0_6();
-LABEL_14:
-        FigDebugAssert3();
-        return v13;
-      }
-
-      if (!CMBlockBufferCreateWithMemoryBlock(v7, 0, 8uLL, v7, 0, 0, 8uLL, 1u, result + 78))
-      {
-        dataPointerOut = 0;
-        if (CMBlockBufferGetDataPointer(*(v4 + 78), 0, 0, 0, &dataPointerOut))
-        {
-          OUTLINED_FUNCTION_0_6();
-          goto LABEL_14;
-        }
-
-        *dataPointerOut = 0x8000000;
-        v6 = *(v4 + 78);
-        goto LABEL_7;
+        LODWORD(blockBufferOut) = v12;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
       }
     }
 
-    OUTLINED_FUNCTION_0_6();
-    goto LABEL_14;
+    else
+    {
+      OUTLINED_FUNCTION_0_6();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    }
+
+    return v18;
   }
 
   return result;

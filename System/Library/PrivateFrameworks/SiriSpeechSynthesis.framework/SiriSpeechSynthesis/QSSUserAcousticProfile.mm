@@ -121,11 +121,7 @@ uint64_t __44__QSSUserAcousticProfile_addObjectToBuffer___block_invoke(uint64_t 
 
 - (void)acoustic_profile_blob:(id)acoustic_profile_blob
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   acoustic_profile_blobCopy = acoustic_profile_blob;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = acoustic_profile_blobCopy;
   (*(acoustic_profile_blob + 2))();
 }
 

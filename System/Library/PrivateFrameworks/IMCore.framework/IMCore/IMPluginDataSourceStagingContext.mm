@@ -1,4 +1,5 @@
 @interface IMPluginDataSourceStagingContext
++ (IMPluginDataSourceStagingContext)stagingContextWithIdentifier:(id)identifier isEmbeddedInTextView:(BOOL)view;
 - (IMPluginDataSourceStagingContext)initWithTransientIdentifier:(id)identifier isEmbeddedInTextView:(BOOL)view;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
@@ -21,14 +22,22 @@
   return v9;
 }
 
++ (IMPluginDataSourceStagingContext)stagingContextWithIdentifier:(id)identifier isEmbeddedInTextView:(BOOL)view
+{
+  viewCopy = view;
+  identifierCopy = identifier;
+  v6 = [[IMPluginDataSourceStagingContext alloc] initWithTransientIdentifier:identifierCopy isEmbeddedInTextView:viewCopy];
+
+  return v6;
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [IMPluginDataSourceStagingContext alloc];
-  v7 = objc_msgSend_transientIdentifier(self, v5, v6);
-  isEmbeddedInTextView = objc_msgSend_isEmbeddedInTextView(self, v8, v9);
-  v12 = objc_msgSend_initWithTransientIdentifier_isEmbeddedInTextView_(v4, v11, v7, isEmbeddedInTextView);
+  transientIdentifier = [(IMPluginDataSourceStagingContext *)self transientIdentifier];
+  v6 = [(IMPluginDataSourceStagingContext *)v4 initWithTransientIdentifier:transientIdentifier isEmbeddedInTextView:[(IMPluginDataSourceStagingContext *)self isEmbeddedInTextView]];
 
-  return v12;
+  return v6;
 }
 
 @end

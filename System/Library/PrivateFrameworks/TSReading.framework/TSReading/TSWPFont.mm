@@ -162,7 +162,7 @@
     compatibilityName = [(TSWPFont *)self compatibilityName];
     if (compatibilityName)
     {
-      displayName = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSWPBundle(), "localizedStringForKey:value:table:", @"%@ (%@)", &stru_287D36338, @"TSText", displayName, compatibilityName];
+      displayName = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSWPBundle(compatibilityName, v7), "localizedStringForKey:value:table:", @"%@ (%@)", &stru_287D36338, @"TSText", displayName, compatibilityName];
     }
 
     self->_displayName = [(NSString *)displayName copy];

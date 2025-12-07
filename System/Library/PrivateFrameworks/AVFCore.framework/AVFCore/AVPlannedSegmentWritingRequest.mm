@@ -54,10 +54,10 @@
   assemblyTrackID = [(AVPlannedSegmentWritingRequest *)self assemblyTrackID];
   if (self)
   {
-    [(AVPlannedSegmentWritingRequest *)self timeRange];
+    objc_msgSend_timeRange(self);
     time = v10;
     Seconds = CMTimeGetSeconds(&time);
-    [(AVPlannedSegmentWritingRequest *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else

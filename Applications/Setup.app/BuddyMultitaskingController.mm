@@ -70,9 +70,9 @@
 - (BOOL)controllerNeedsToRun
 {
   selfCopy = self;
-  v3 = sub_10000E56C();
+  v4 = sub_10000E56C(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)performExtendedInitializationWithCompletion:(id)completion

@@ -243,7 +243,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0, 0x10uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0, 16, 1);
     if (!DataForKey)
     {
       return;
@@ -283,7 +283,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0x22u, 0x10uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 34, 16, 1);
     if (!DataForKey)
     {
       return;
@@ -323,7 +323,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 8u, 0x10uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 8, 16, 1);
     if (!DataForKey)
     {
       return;
@@ -371,7 +371,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0x28u, 0x18uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 40, 24, 1);
     if (!DataForKey)
     {
       return;
@@ -420,7 +420,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0x2Au, 0x18uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 42, 24, 1);
     if (!DataForKey)
     {
       return;
@@ -472,7 +472,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0x17u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 23, 4, 1);
     if (!DataForKey)
     {
       return;
@@ -522,7 +522,7 @@ LABEL_46:
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0x1Du, 0x10uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 29, 16, 1);
     if (!DataForKey)
     {
       return;
@@ -580,7 +580,7 @@ LABEL_46:
 - (void)setAxLabel:(id)label
 {
   v4 = [label copy];
-  TUI::Util::PartialStruct::Storage::setObjectForKey(&self->_storage, 0xEu, v4);
+  TUI::Util::PartialStruct::Storage::setObjectForKey(&self->_storage, 14, v4);
 }
 
 - (NSString)axValue
@@ -593,7 +593,7 @@ LABEL_46:
 - (void)setAxValue:(id)value
 {
   v4 = [value copy];
-  TUI::Util::PartialStruct::Storage::setObjectForKey(&self->_storage, 0x1Eu, v4);
+  TUI::Util::PartialStruct::Storage::setObjectForKey(&self->_storage, 30, v4);
 }
 
 - (NSString)axHint
@@ -606,7 +606,7 @@ LABEL_46:
 - (void)setAxHint:(id)hint
 {
   v4 = [hint copy];
-  TUI::Util::PartialStruct::Storage::setObjectForKey(&self->_storage, 0x20u, v4);
+  TUI::Util::PartialStruct::Storage::setObjectForKey(&self->_storage, 32, v4);
 }
 
 - (TUIAnimationGroupCollection)animationGroups
@@ -1324,8 +1324,8 @@ LABEL_6:
   v4 = NSStringFromClass(v3);
   width = [(TUIBox *)self width];
   v7 = TUILengthDescription(width, v6);
-  height = [(TUIBox *)self height];
-  v10 = TUILengthDescription(height, v9);
+  v8 = objc_msgSend_height(self);
+  v10 = TUILengthDescription(v8, v9);
   v11 = [NSMutableString stringWithFormat:@"<%@ %p w=%@ h=%@ anchor-position=%lu", v4, self, v7, v10, [(TUIBox *)self anchorPosition]];
 
   [(TUIBox *)self appendBoxDescription:v11];

@@ -4,6 +4,7 @@
 - (void)_hasPlanScheduledWorkoutsForTodayWithCompletion:(id)completion;
 - (void)_postNotificationWithRequest:(id)request completion:(id)completion;
 - (void)hasPlanScheduledWorkoutsForTodayWithCompletion:(id)completion;
+- (void)postNotificationForType:(id)type force:(BOOL)force showTomorrowPlan:(BOOL)plan completion:(id)completion;
 @end
 
 @implementation FCCFitnessPlusPlanClient
@@ -32,6 +33,27 @@
   }
 
   return v10;
+}
+
+- (void)postNotificationForType:(id)type force:(BOOL)force showTomorrowPlan:(BOOL)plan completion:(id)completion
+{
+  planCopy = plan;
+  forceCopy = force;
+  completionCopy = completion;
+  typeCopy = type;
+  v12 = [[FCCFitnessPlusPlanPostNotificationRequest alloc] initWithType:typeCopy force:forceCopy showTomorrowPlan:planCopy];
+
+  dispatchQueue = self->_dispatchQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __86__FCCFitnessPlusPlanClient_postNotificationForType_force_showTomorrowPlan_completion___block_invoke;
+  block[3] = &unk_279009F10;
+  block[4] = self;
+  v17 = v12;
+  v18 = completionCopy;
+  v14 = completionCopy;
+  v15 = v12;
+  dispatch_async(dispatchQueue, block);
 }
 
 - (void)hasPlanScheduledWorkoutsForTodayWithCompletion:(id)completion

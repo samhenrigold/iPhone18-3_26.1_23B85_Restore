@@ -35,7 +35,7 @@
   durationCopy = duration;
   [(HUClipScrubberTimeController *)self _numberOfPosterFrameUnitsForEvent:durationCopy timeScale:10.0];
   v6 = v5;
-  [durationCopy duration];
+  objc_msgSend_duration(durationCopy);
   v8 = v7;
 
   v9 = v8 / v6;
@@ -125,7 +125,7 @@
 - (double)_numberOfPosterFrameUnitsForEvent:(id)event timeScale:(double)scale
 {
   eventCopy = event;
-  [eventCopy duration];
+  objc_msgSend_duration(eventCopy);
   v8 = v7;
   [(HUClipScrubberTimeController *)self timeScale];
   if (fabs(v9 + -10.0) >= 0.00000011920929)
@@ -135,7 +135,7 @@
 
   else
   {
-    [eventCopy duration];
+    objc_msgSend_duration(eventCopy);
     v11 = sqrt(v10);
   }
 

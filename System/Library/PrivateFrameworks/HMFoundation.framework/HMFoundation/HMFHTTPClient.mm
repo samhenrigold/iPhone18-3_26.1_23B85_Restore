@@ -44,7 +44,7 @@
 
 + (id)baseURLWithScheme:(id)scheme hostAddress:(id)address port:(unint64_t)port
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   schemeCopy = scheme;
   addressCopy = address;
   v10 = addressCopy;
@@ -52,18 +52,18 @@
   {
     v16 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v18 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle(selfCopy3, v18);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_13;
     }
 
-    v19 = HMFGetLogIdentifier(selfCopy3);
+    v20 = HMFGetLogIdentifier(selfCopy3);
     *buf = 138543362;
-    v28 = v19;
-    v20 = "%{public}@Scheme is required";
+    v30 = v20;
+    v21 = "%{public}@Scheme is required";
 LABEL_12:
-    _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
+    _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_ERROR, v21, buf, 0xCu);
 
     goto LABEL_13;
   }
@@ -72,16 +72,16 @@ LABEL_12:
   {
     v16 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v18 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle(selfCopy3, v22);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_13;
     }
 
-    v19 = HMFGetLogIdentifier(selfCopy3);
+    v20 = HMFGetLogIdentifier(selfCopy3);
     *buf = 138543362;
-    v28 = v19;
-    v20 = "%{public}@Host address is required";
+    v30 = v20;
+    v21 = "%{public}@Host address is required";
     goto LABEL_12;
   }
 
@@ -89,13 +89,13 @@ LABEL_12:
   {
     v16 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle(selfCopy3, v23);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = HMFGetLogIdentifier(selfCopy3);
+      v20 = HMFGetLogIdentifier(selfCopy3);
       *buf = 138543362;
-      v28 = v19;
-      v20 = "%{public}@Port is required";
+      v30 = v20;
+      v21 = "%{public}@Port is required";
       goto LABEL_12;
     }
 
@@ -118,16 +118,14 @@ LABEL_13:
 
   else
   {
-    v23 = MEMORY[0x277CBEBC0];
-    v24 = MEMORY[0x277CCACA8];
+    v25 = MEMORY[0x277CBEBC0];
+    v26 = MEMORY[0x277CCACA8];
     addressString2 = [v10 addressString];
-    port2 = [v24 stringWithFormat:@"%@://%@:%tu", schemeCopy, addressString2, port];
-    v15 = [v23 URLWithString:port2];
+    port2 = [v26 stringWithFormat:@"%@://%@:%tu", schemeCopy, addressString2, port];
+    v15 = [v25 URLWithString:port2];
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -235,10 +233,10 @@ LABEL_5:
         v20 = 0;
       }
 
-      v26 = [(HMFHTTPClient *)self createNSURLSession:configurationCopy];
-      selfCopy = [(HMFHTTPClient *)self initWithBaseURL:v11 configuration:configurationCopy session:v26 reachabilityMonitor:v20 netManager:managerCopy];
+      v27 = [(HMFHTTPClient *)self createNSURLSession:configurationCopy];
+      selfCopy = [(HMFHTTPClient *)self initWithBaseURL:v11 configuration:configurationCopy session:v27 reachabilityMonitor:v20 netManager:managerCopy];
 
-      v25 = selfCopy;
+      v26 = selfCopy;
       goto LABEL_14;
     }
   }
@@ -249,23 +247,22 @@ LABEL_5:
 
   v21 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v23 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v24 = HMFGetOSLogHandle(selfCopy, v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    v24 = HMFGetLogIdentifier(selfCopy);
+    v25 = HMFGetLogIdentifier(selfCopy);
     v29 = 138543618;
-    v30 = v24;
+    v30 = v25;
     v31 = 2112;
     v32 = v11;
-    _os_log_impl(&dword_22ADEC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid base URL: %@", &v29, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Invalid base URL: %@", &v29, 0x16u);
   }
 
   objc_autoreleasePoolPop(v21);
-  v25 = 0;
+  v26 = 0;
 LABEL_14:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v26;
 }
 
 - (HMFHTTPClient)initWithBaseURL:(id)l configuration:(id)configuration session:(id)session reachabilityMonitor:(id)monitor netManager:(id)manager
@@ -373,31 +370,30 @@ LABEL_5:
       v11 = 0;
     }
 
-    v17 = [(HMFHTTPClient *)self createNSURLSession:configurationCopy];
-    selfCopy = [(HMFHTTPClient *)self initWithService:serviceCopy configuration:configurationCopy session:v17 reachabilityMonitor:v11 netManager:managerCopy];
+    v18 = [(HMFHTTPClient *)self createNSURLSession:configurationCopy];
+    selfCopy = [(HMFHTTPClient *)self initWithService:serviceCopy configuration:configurationCopy session:v18 reachabilityMonitor:v11 netManager:managerCopy];
 
-    v16 = selfCopy;
+    v17 = selfCopy;
   }
 
   else
   {
     v12 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v14 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = HMFGetOSLogHandle(selfCopy, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v15 = HMFGetLogIdentifier(selfCopy);
+      v16 = HMFGetLogIdentifier(selfCopy);
       v20 = 138543362;
-      v21 = v15;
-      _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Network service is required", &v20, 0xCu);
+      v21 = v16;
+      _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_ERROR, "%{public}@Network service is required", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
-    v16 = 0;
+    v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (HMFHTTPClient)initWithService:(id)service configuration:(id)configuration session:(id)session reachabilityMonitor:(id)monitor netManager:(id)manager
@@ -479,13 +475,13 @@ LABEL_5:
   {
     v4 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = HMFGetOSLogHandle(selfCopy, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(selfCopy);
+      v8 = HMFGetLogIdentifier(selfCopy);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Registering for WOW assertion", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering for WOW assertion", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -493,7 +489,6 @@ LABEL_5:
   }
 
   [(HMFHTTPClient *)self resolveWithCompletionHandler:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 HMFExponentialBackoffTimer *__43__HMFHTTPClient_finishCommonInitialization__block_invoke()
@@ -513,15 +508,13 @@ HMFExponentialBackoffTimer *__43__HMFHTTPClient_finishCommonInitialization__bloc
 
 - (id)attributeDescriptions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   baseURL = [(HMFHTTPClient *)self baseURL];
   v5 = +[HMFPrivateObjectFormatter defaultFormatter];
   v6 = [(HMFAttributeDescription *)v3 initWithName:@"URL" value:baseURL options:0 formatter:v5];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
@@ -660,15 +653,15 @@ LABEL_26:
         {
           v20 = objc_autoreleasePoolPush();
           selfCopy = self;
-          v22 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v23 = HMFGetOSLogHandle(selfCopy, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            v23 = HMFGetLogIdentifier(selfCopy);
+            v24 = HMFGetLogIdentifier(selfCopy);
             *buf = 138543618;
-            v32 = v23;
+            v32 = v24;
             v33 = 2112;
             v34 = v12;
-            _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_INFO, "%{public}@No available IPv4 address, falling back to '%@', WoW may fail.", buf, 0x16u);
+            _os_log_impl(&dword_22ADEC000, v23, OS_LOG_TYPE_INFO, "%{public}@No available IPv4 address, falling back to '%@', WoW may fail.", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v20);
@@ -684,8 +677,6 @@ LABEL_26:
     v8 = self->_baseURL;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
@@ -700,11 +691,10 @@ LABEL_26:
 - (void)setReachable:(BOOL)reachable
 {
   reachableCopy = reachable;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (self->_reachable == reachableCopy)
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -719,12 +709,12 @@ LABEL_26:
 
     os_unfair_lock_unlock(&self->_lock);
     selfCopy = self;
-    v7 = objc_autoreleasePoolPush();
-    v8 = selfCopy;
-    v9 = HMFGetOSLogHandle();
+    v6 = objc_autoreleasePoolPush();
+    v7 = selfCopy;
+    v9 = HMFGetOSLogHandle(v7, v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier(v8);
+      v10 = HMFGetLogIdentifier(v7);
       v11 = v10;
       v12 = @"unreachable";
       if (reachableCopy)
@@ -732,29 +722,27 @@ LABEL_26:
         v12 = @"reachable";
       }
 
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of reachablity change to %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v12;
+      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of reachablity change to %@", &v14, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
-    delegate = [(HMFHTTPClient *)v8 delegate];
+    objc_autoreleasePoolPop(v6);
+    delegate = [(HMFHTTPClient *)v7 delegate];
     if (reachableCopy)
     {
       if (objc_opt_respondsToSelector())
       {
-        [delegate clientDidBecomeReachable:v8];
+        [delegate clientDidBecomeReachable:v7];
       }
     }
 
     else if (objc_opt_respondsToSelector())
     {
-      [delegate clientDidBecomeUnreachable:v8];
+      [delegate clientDidBecomeUnreachable:v7];
     }
-
-    v14 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -787,7 +775,7 @@ LABEL_26:
 
 void __39__HMFHTTPClient_startReachabilityProbe__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 56);
   v3 = v2;
   if (v2)
@@ -796,50 +784,50 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke(uint64_t a1)
     {
       v4 = objc_autoreleasePoolPush();
       v5 = *(a1 + 32);
-      v6 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = HMFGetOSLogHandle(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = HMFGetLogIdentifier(v5);
+        v8 = HMFGetLogIdentifier(v5);
         *buf = 138543362;
-        v24 = v7;
-        _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Starting net service reachability resolution", buf, 0xCu);
+        v25 = v8;
+        _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Starting net service reachability resolution", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
-      v8 = objc_alloc_init(HMFBlockOperation);
+      v9 = objc_alloc_init(HMFBlockOperation);
       objc_initWeak(buf, *(a1 + 32));
-      objc_initWeak(&location, v8);
-      v15 = MEMORY[0x277D85DD0];
-      v16 = 3221225472;
-      v17 = __39__HMFHTTPClient_startReachabilityProbe__block_invoke_74;
-      v18 = &unk_2786E7910;
-      objc_copyWeak(&v20, &location);
-      objc_copyWeak(&v21, buf);
-      v19 = v3;
-      [(HMFBlockOperation *)v8 addExecutionBlock:&v15];
-      v9 = [*(a1 + 32) reachabilityProbeQueue];
-      [v9 addOperation:v8];
+      objc_initWeak(&location, v9);
+      v16 = MEMORY[0x277D85DD0];
+      v17 = 3221225472;
+      v18 = __39__HMFHTTPClient_startReachabilityProbe__block_invoke_74;
+      v19 = &unk_2786E7910;
+      objc_copyWeak(&v21, &location);
+      objc_copyWeak(&v22, buf);
+      v20 = v3;
+      [(HMFBlockOperation *)v9 addExecutionBlock:&v16];
+      v10 = [*(a1 + 32) reachabilityProbeQueue];
+      [v10 addOperation:v9];
 
+      objc_destroyWeak(&v22);
       objc_destroyWeak(&v21);
-      objc_destroyWeak(&v20);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
     }
 
     else if ([*(a1 + 32) isReachable] && (objc_msgSend(*(a1 + 32), "isPinging") & 1) == 0)
     {
-      v10 = objc_autoreleasePoolPush();
-      v11 = *(a1 + 32);
-      v12 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = objc_autoreleasePoolPush();
+      v12 = *(a1 + 32);
+      v14 = HMFGetOSLogHandle(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = HMFGetLogIdentifier(v11);
+        v15 = HMFGetLogIdentifier(v12);
         *buf = 138543362;
-        v24 = v13;
-        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Service is unreachable, performing a one-time ping", buf, 0xCu);
+        v25 = v15;
+        _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Service is unreachable, performing a one-time ping", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v10);
+      objc_autoreleasePoolPop(v11);
       if (([*(a1 + 32) requestClientReachabilityPingWithRetry:0] & 1) == 0)
       {
         [*(a1 + 32) setReachable:0];
@@ -851,8 +839,6 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke(uint64_t a1)
   {
     [*(a1 + 32) setReachable:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_74(uint64_t a1)
@@ -865,37 +851,35 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_74(uint64_t a1)
     v4 = objc_loadWeakRetained((a1 + 48));
     v5 = objc_autoreleasePoolPush();
     v6 = v4;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(v6);
-      v9 = *(a1 + 32);
+      v9 = HMFGetLogIdentifier(v6);
+      v10 = *(a1 + 32);
       *buf = 138543618;
-      v16 = v8;
+      v16 = v9;
       v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting confirmation for service: %@", buf, 0x16u);
+      v18 = v10;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting confirmation for service: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75;
     v12[3] = &unk_2786E75F8;
     objc_copyWeak(&v13, (a1 + 40));
     objc_copyWeak(&v14, (a1 + 48));
-    [v10 confirmWithTimeout:v12 completionHandler:15.0];
+    [v11 confirmWithTimeout:v12 completionHandler:15.0];
     objc_destroyWeak(&v14);
     objc_destroyWeak(&v13);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -908,16 +892,16 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, vo
       v8 = [v6 isReachable];
       v9 = objc_autoreleasePoolPush();
       v10 = v7;
-      v11 = HMFGetOSLogHandle();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      v12 = HMFGetOSLogHandle(v10, v11);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
       if (v8)
       {
-        if (v12)
+        if (v13)
         {
-          v13 = HMFGetLogIdentifier(v10);
-          v22 = 138543362;
-          v23 = v13;
-          _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to confirm service, marking the client as unreachable", &v22, 0xCu);
+          v14 = HMFGetLogIdentifier(v10);
+          v23 = 138543362;
+          v24 = v14;
+          _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to confirm service, marking the client as unreachable", &v23, 0xCu);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -926,12 +910,12 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, vo
 
       else
       {
-        if (v12)
+        if (v13)
         {
-          v20 = HMFGetLogIdentifier(v10);
-          v22 = 138543362;
-          v23 = v20;
-          _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to confirm service, the client is already unreachable", &v22, 0xCu);
+          v22 = HMFGetLogIdentifier(v10);
+          v23 = 138543362;
+          v24 = v22;
+          _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to confirm service, the client is already unreachable", &v23, 0xCu);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -940,33 +924,31 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, vo
 
     else
     {
-      v14 = [v6 reachabilityProbeQueue];
-      [v14 cancelAllOperations];
+      v15 = [v6 reachabilityProbeQueue];
+      [v15 cancelAllOperations];
 
-      v15 = [v7 delegatedPingTimer];
+      v16 = [v7 delegatedPingTimer];
 
-      if (!v15)
+      if (!v16)
       {
-        v16 = objc_autoreleasePoolPush();
-        v17 = v7;
-        v18 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v17 = objc_autoreleasePoolPush();
+        v18 = v7;
+        v20 = HMFGetOSLogHandle(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v19 = HMFGetLogIdentifier(v17);
-          v22 = 138543362;
-          v23 = v19;
-          _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_INFO, "%{public}@Confirmed service, requesting application ping", &v22, 0xCu);
+          v21 = HMFGetLogIdentifier(v18);
+          v23 = 138543362;
+          v24 = v21;
+          _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_INFO, "%{public}@Confirmed service, requesting application ping", &v23, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v16);
-        [v17 requestClientReachabilityPingWithRetry:1];
+        objc_autoreleasePoolPop(v17);
+        [v18 requestClientReachabilityPingWithRetry:1];
       }
     }
 
     [v5 finish];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)requestClientReachabilityPingWithRetry:(BOOL)retry
@@ -979,16 +961,16 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, vo
     isPinging = [(HMFHTTPClient *)self isPinging];
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    v11 = HMFGetOSLogHandle(selfCopy, v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
     if (isPinging)
     {
-      if (v11)
+      if (v12)
       {
-        v12 = HMFGetLogIdentifier(selfCopy);
+        v13 = HMFGetLogIdentifier(selfCopy);
         *buf = 138543362;
-        v20 = v12;
-        _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Client ping in progress, dropping ping request", buf, 0xCu);
+        v20 = v13;
+        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Client ping in progress, dropping ping request", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -996,12 +978,12 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, vo
 
     else
     {
-      if (v11)
+      if (v12)
       {
-        v13 = HMFGetLogIdentifier(selfCopy);
+        v14 = HMFGetLogIdentifier(selfCopy);
         *buf = 138543362;
-        v20 = v13;
-        _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Requesting client to perform a ping", buf, 0xCu);
+        v20 = v14;
+        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Requesting client to perform a ping", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -1019,26 +1001,25 @@ void __39__HMFHTTPClient_startReachabilityProbe__block_invoke_75(uint64_t a1, vo
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
 void __56__HMFHTTPClient_requestClientReachabilityPingWithRetry___block_invoke(uint64_t a1, char a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setPinging:0];
   if (a2)
   {
     v5 = objc_autoreleasePoolPush();
     v6 = WeakRetained;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(v6);
-      v17 = 138543362;
-      v18 = v8;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Delegated ping succeeded, marking the client as reachable", &v17, 0xCu);
+      v9 = HMFGetLogIdentifier(v6);
+      v18 = 138543362;
+      v19 = v9;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Delegated ping succeeded, marking the client as reachable", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1048,45 +1029,43 @@ void __56__HMFHTTPClient_requestClientReachabilityPingWithRetry___block_invoke(u
 
   else
   {
-    v9 = [WeakRetained isReachable];
-    v10 = objc_autoreleasePoolPush();
-    v11 = WeakRetained;
-    v12 = HMFGetOSLogHandle();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v10 = [WeakRetained isReachable];
+    v11 = objc_autoreleasePoolPush();
+    v12 = WeakRetained;
+    v14 = HMFGetOSLogHandle(v12, v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v13)
+      if (v15)
       {
-        v14 = HMFGetLogIdentifier(v11);
-        v17 = 138543362;
-        v18 = v14;
-        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Delegated ping failed, marking the client as unreachable", &v17, 0xCu);
+        v16 = HMFGetLogIdentifier(v12);
+        v18 = 138543362;
+        v19 = v16;
+        _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Delegated ping failed, marking the client as unreachable", &v18, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v10);
-      [v11 setReachable:0];
+      objc_autoreleasePoolPop(v11);
+      [v12 setReachable:0];
     }
 
     else
     {
-      if (v13)
+      if (v15)
       {
-        v15 = HMFGetLogIdentifier(v11);
-        v17 = 138543362;
-        v18 = v15;
-        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Delegated ping failed, the client is already unreachable", &v17, 0xCu);
+        v17 = HMFGetLogIdentifier(v12);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Delegated ping failed, the client is already unreachable", &v18, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v10);
+      objc_autoreleasePoolPop(v11);
     }
 
     if (*(a1 + 40) == 1)
     {
-      [v11 startDelegatedPingTimer];
+      [v12 startDelegatedPingTimer];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDelegatedPingTimer
@@ -1105,36 +1084,34 @@ void __40__HMFHTTPClient_startDelegatedPingTimer__block_invoke(uint64_t a1)
   v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v14 = 138543362;
-    v15 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@Going to attempt to retry delegated ping later", &v14, 0xCu);
+    v15 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Going to attempt to retry delegated ping later", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = [*(a1 + 32) delegatedPingTimer];
+  v7 = [*(a1 + 32) delegatedPingTimer];
 
-  if (!v6)
+  if (!v7)
   {
-    v7 = *(a1 + 32);
-    v8 = [v7 timerFactory];
-    v9 = v8[2]();
-    [v7 setDelegatedPingTimer:v9];
-
-    v10 = [*(a1 + 32) delegatedPingTimer];
-    [v10 setDelegateQueue:*(*(a1 + 32) + 16)];
+    v8 = *(a1 + 32);
+    v9 = [v8 timerFactory];
+    v10 = v9[2]();
+    [v8 setDelegatedPingTimer:v10];
 
     v11 = [*(a1 + 32) delegatedPingTimer];
-    [v11 setDelegate:*(a1 + 32)];
+    [v11 setDelegateQueue:*(*(a1 + 32) + 16)];
+
+    v12 = [*(a1 + 32) delegatedPingTimer];
+    [v12 setDelegate:*(a1 + 32)];
   }
 
-  v12 = [*(a1 + 32) delegatedPingTimer];
-  [v12 resume];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13 = [*(a1 + 32) delegatedPingTimer];
+  [v13 resume];
 }
 
 - (void)stopDelegatedPingTimer
@@ -1262,7 +1239,7 @@ void __47__HMFHTTPClient_sendRequest_completionHandler___block_invoke_2(id *a1, 
 
 void __47__HMFHTTPClient_sendRequest_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1282,13 +1259,13 @@ void __47__HMFHTTPClient_sendRequest_completionHandler___block_invoke_3(uint64_t
     {
       v12 = objc_autoreleasePoolPush();
       v13 = *(a1 + 32);
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = HMFGetOSLogHandle(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v15 = HMFGetLogIdentifier(v13);
-        v32 = 138543362;
-        v33 = v15;
-        _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Request cancelled, reachability probe is not started", &v32, 0xCu);
+        v16 = HMFGetLogIdentifier(v13);
+        v34 = 138543362;
+        v35 = v16;
+        _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_INFO, "%{public}@Request cancelled, reachability probe is not started", &v34, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -1300,44 +1277,44 @@ void __47__HMFHTTPClient_sendRequest_completionHandler___block_invoke_3(uint64_t
   {
   }
 
-  v16 = v8;
-  v17 = [v16 domain];
-  if ([v17 isEqualToString:v10])
+  v17 = v8;
+  v18 = [v17 domain];
+  if ([v18 isEqualToString:v10])
   {
-    v18 = [v16 code];
+    v19 = [v17 code];
 
-    if (v18 == -1001)
+    if (v19 == -1001)
     {
-      v19 = [*(a1 + 32) isReachable];
-      v20 = objc_autoreleasePoolPush();
-      v21 = *(a1 + 32);
-      v22 = HMFGetOSLogHandle();
-      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
-      if (v19)
+      v20 = [*(a1 + 32) isReachable];
+      v21 = objc_autoreleasePoolPush();
+      v22 = *(a1 + 32);
+      v24 = HMFGetOSLogHandle(v22, v23);
+      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
+      if (v20)
       {
-        if (v23)
+        if (v25)
         {
-          v24 = HMFGetLogIdentifier(v21);
-          v32 = 138543362;
-          v33 = v24;
-          _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_INFO, "%{public}@Request timed out, marking the client as unreachable", &v32, 0xCu);
+          v26 = HMFGetLogIdentifier(v22);
+          v34 = 138543362;
+          v35 = v26;
+          _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_INFO, "%{public}@Request timed out, marking the client as unreachable", &v34, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v20);
+        objc_autoreleasePoolPop(v21);
         [*(a1 + 32) setReachable:0];
       }
 
       else
       {
-        if (v23)
+        if (v25)
         {
-          v31 = HMFGetLogIdentifier(v21);
-          v32 = 138543362;
-          v33 = v31;
-          _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_INFO, "%{public}@Request timed out, the client is already unreachable", &v32, 0xCu);
+          v33 = HMFGetLogIdentifier(v22);
+          v34 = 138543362;
+          v35 = v33;
+          _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_INFO, "%{public}@Request timed out, the client is already unreachable", &v34, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v20);
+        objc_autoreleasePoolPop(v21);
       }
     }
   }
@@ -1346,32 +1323,30 @@ void __47__HMFHTTPClient_sendRequest_completionHandler___block_invoke_3(uint64_t
   {
   }
 
-  v25 = objc_autoreleasePoolPush();
-  v26 = *(a1 + 32);
-  v27 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v27 = objc_autoreleasePoolPush();
+  v28 = *(a1 + 32);
+  v30 = HMFGetOSLogHandle(v28, v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
-    v28 = HMFGetLogIdentifier(v26);
-    v32 = 138543362;
-    v33 = v28;
-    _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_INFO, "%{public}@Request failed, starting reachability probe", &v32, 0xCu);
+    v31 = HMFGetLogIdentifier(v28);
+    v34 = 138543362;
+    v35 = v31;
+    _os_log_impl(&dword_22ADEC000, v30, OS_LOG_TYPE_INFO, "%{public}@Request failed, starting reachability probe", &v34, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v25);
+  objc_autoreleasePoolPop(v27);
   [*(a1 + 32) startReachabilityProbe];
 LABEL_18:
-  v29 = *(a1 + 40);
-  if (v29)
+  v32 = *(a1 + 40);
+  if (v32)
   {
-    (*(v29 + 16))(v29, v5, v7);
+    (*(v32 + 16))(v32, v5, v7);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRequest:(id)request baseURL:(id)l completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   lCopy = l;
   handlerCopy = handler;
@@ -1393,201 +1368,198 @@ LABEL_18:
   {
     v21 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v23 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v24 = HMFGetOSLogHandle(selfCopy, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      v24 = HMFGetLogIdentifier(selfCopy);
+      v25 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      v47 = v24;
-      v48 = 2112;
-      v49 = v16;
-      _os_log_impl(&dword_22ADEC000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Override the request URL to: %@", buf, 0x16u);
+      v49 = v25;
+      v50 = 2112;
+      v51 = v16;
+      _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Override the request URL to: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
     [v12 setURL:v16];
   }
 
-  v25 = [v12 valueForHTTPHeaderField:@"Host"];
+  v26 = [v12 valueForHTTPHeaderField:@"Host"];
 
-  if (!v25)
+  if (!v26)
   {
-    v26 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
-    host = [v26 host];
+    v27 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
+    host = [v27 host];
 
     [v12 setValue:host forHTTPHeaderField:@"Host"];
   }
 
-  v28 = objc_autoreleasePoolPush();
+  v29 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v30 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v32 = HMFGetOSLogHandle(selfCopy2, v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = HMFGetLogIdentifier(selfCopy2);
+    v33 = HMFGetLogIdentifier(selfCopy2);
     *buf = 138543618;
-    v47 = v31;
-    v48 = 2112;
-    v49 = v12;
-    _os_log_impl(&dword_22ADEC000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Sending request: %@", buf, 0x16u);
+    v49 = v33;
+    v50 = 2112;
+    v51 = v12;
+    _os_log_impl(&dword_22ADEC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Sending request: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v28);
+  objc_autoreleasePoolPop(v29);
   session = [(HMFHTTPClient *)selfCopy2 session];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __56__HMFHTTPClient__sendRequest_baseURL_completionHandler___block_invoke;
-  v43[3] = &unk_2786E79D8;
-  v43[4] = selfCopy2;
-  v33 = requestCopy;
-  v44 = v33;
-  v34 = handlerCopy;
-  v45 = v34;
-  v35 = [session dataTaskWithRequest:v12 completionHandler:v43];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __56__HMFHTTPClient__sendRequest_baseURL_completionHandler___block_invoke;
+  v45[3] = &unk_2786E79D8;
+  v45[4] = selfCopy2;
+  v35 = requestCopy;
+  v46 = v35;
+  v36 = handlerCopy;
+  v47 = v36;
+  v37 = [session dataTaskWithRequest:v12 completionHandler:v45];
 
-  v36 = objc_autoreleasePoolPush();
-  v37 = selfCopy2;
-  v38 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+  v38 = objc_autoreleasePoolPush();
+  v39 = selfCopy2;
+  v41 = HMFGetOSLogHandle(v39, v40);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
-    v39 = HMFGetLogIdentifier(v37);
+    v42 = HMFGetLogIdentifier(v39);
     *buf = 138543618;
-    v47 = v39;
-    v48 = 2112;
-    v49 = v35;
-    _os_log_impl(&dword_22ADEC000, v38, OS_LOG_TYPE_INFO, "%{public}@Resuming task: %@", buf, 0x16u);
+    v49 = v42;
+    v50 = 2112;
+    v51 = v37;
+    _os_log_impl(&dword_22ADEC000, v41, OS_LOG_TYPE_INFO, "%{public}@Resuming task: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v36);
-  internal = [v33 internal];
+  objc_autoreleasePoolPop(v38);
+  internal = [v35 internal];
   activity = [internal activity];
   [activity markWithReason:@"Sending"];
 
-  [v35 resume];
-  v42 = *MEMORY[0x277D85DE8];
+  [v37 resume];
 }
 
 void __56__HMFHTTPClient__sendRequest_baseURL_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = objc_autoreleasePoolPush();
   v11 = *(a1 + 32);
-  v12 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = HMFGetOSLogHandle(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v13 = HMFGetLogIdentifier(v11);
-    v14 = [*(a1 + 40) shortDescription];
-    v37 = 138544130;
-    v38 = v13;
-    v39 = 2112;
-    v40 = v8;
+    v14 = HMFGetLogIdentifier(v11);
+    v15 = [*(a1 + 40) shortDescription];
+    v39 = 138544130;
+    v40 = v14;
     v41 = 2112;
-    v42 = v14;
+    v42 = v8;
     v43 = 2112;
-    v44 = v9;
-    _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Received response, %@, to request, %@, with error: %@", &v37, 0x2Au);
+    v44 = v15;
+    v45 = 2112;
+    v46 = v9;
+    _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Received response, %@, to request, %@, with error: %@", &v39, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v10);
-  v15 = v9;
-  v16 = v15;
-  if (v15)
+  v16 = v9;
+  v17 = v16;
+  if (v16)
   {
     goto LABEL_4;
   }
 
-  v23 = v8;
+  v25 = v8;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v24 = v23;
+    v26 = v25;
   }
 
   else
   {
-    v24 = 0;
+    v26 = 0;
   }
 
-  v25 = v24;
+  v27 = v26;
 
-  if (v25)
+  if (v27)
   {
-    v26 = [*(a1 + 40) internal];
-    v27 = [v26 responseWithStatusCode:{-[HMFHTTPResponse statusCode](v25, "statusCode")}];
+    v28 = [*(a1 + 40) internal];
+    v29 = [v28 responseWithStatusCode:{-[HMFHTTPResponse statusCode](v27, "statusCode")}];
 
-    v28 = [(HMFHTTPResponse *)v25 allHeaderFields];
-    [v27 setHeaderFields:v28];
+    v30 = [(HMFHTTPResponse *)v27 allHeaderFields];
+    [v29 setHeaderFields:v30];
 
-    [v27 setBody:v7];
-    v22 = [[HMFHTTPResponse alloc] initWithRequest:*(a1 + 40) internalResponse:v27];
+    [v29 setBody:v7];
+    v24 = [[HMFHTTPResponse alloc] initWithRequest:*(a1 + 40) internalResponse:v29];
   }
 
   else
   {
-    v16 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"Invalid response scheme type"];
-    if (v16)
+    v17 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"Invalid response scheme type"];
+    if (v17)
     {
 LABEL_4:
-      v17 = objc_autoreleasePoolPush();
-      v18 = *(a1 + 32);
-      v19 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = objc_autoreleasePoolPush();
+      v19 = *(a1 + 32);
+      v21 = HMFGetOSLogHandle(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = HMFGetLogIdentifier(v18);
-        v21 = *(a1 + 40);
-        v37 = 138543874;
-        v38 = v20;
-        v39 = 2112;
-        v40 = v21;
+        v22 = HMFGetLogIdentifier(v19);
+        v23 = *(a1 + 40);
+        v39 = 138543874;
+        v40 = v22;
         v41 = 2112;
-        v42 = v16;
-        _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send request, %@, with error: %@", &v37, 0x20u);
+        v42 = v23;
+        v43 = 2112;
+        v44 = v17;
+        _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send request, %@, with error: %@", &v39, 0x20u);
       }
 
-      v22 = 0;
+      v24 = 0;
       goto LABEL_15;
     }
 
-    v22 = 0;
+    v24 = 0;
   }
 
-  v17 = objc_autoreleasePoolPush();
-  v18 = *(a1 + 32);
-  v19 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v18 = objc_autoreleasePoolPush();
+  v19 = *(a1 + 32);
+  v21 = HMFGetOSLogHandle(v19, v31);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = HMFGetLogIdentifier(v18);
-    v37 = 138543618;
-    v38 = v29;
-    v39 = 2112;
-    v40 = v22;
-    _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Received response: %@", &v37, 0x16u);
+    v32 = HMFGetLogIdentifier(v19);
+    v39 = 138543618;
+    v40 = v32;
+    v41 = 2112;
+    v42 = v24;
+    _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Received response: %@", &v39, 0x16u);
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_15:
 
-  objc_autoreleasePoolPop(v17);
+  objc_autoreleasePoolPop(v18);
   if (*(a1 + 48))
   {
-    v30 = [*(a1 + 40) internal];
-    v31 = [v30 activity];
-    [v31 markWithReason:@"Received response"];
+    v33 = [*(a1 + 40) internal];
+    v34 = [v33 activity];
+    [v34 markWithReason:@"Received response"];
 
     (*(*(a1 + 48) + 16))();
   }
 
-  v32 = [(HMFHTTPResponse *)v22 internal];
-  v33 = [v32 activity];
-  [v33 invalidate];
+  v35 = [(HMFHTTPResponse *)v24 internal];
+  v36 = [v35 activity];
+  [v36 invalidate];
 
-  v34 = [*(a1 + 40) internal];
-  v35 = [v34 activity];
-  [v35 invalidate];
-
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = [*(a1 + 40) internal];
+  v38 = [v37 activity];
+  [v38 invalidate];
 }
 
 - (void)cancelPendingRequests
@@ -1606,28 +1578,27 @@ void __38__HMFHTTPClient_cancelPendingRequests__block_invoke(uint64_t a1)
   v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     *buf = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling all pending requests", buf, 0xCu);
+    v11 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling all pending requests", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   objc_initWeak(buf, *(a1 + 32));
-  v6 = [*(a1 + 32) session];
+  v7 = [*(a1 + 32) session];
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = __38__HMFHTTPClient_cancelPendingRequests__block_invoke_103;
   v8[3] = &unk_2786E7A00;
   objc_copyWeak(&v9, buf);
-  [v6 getAllTasksWithCompletionHandler:v8];
+  [v7 getAllTasksWithCompletionHandler:v8];
 
   objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HMFHTTPClient_cancelPendingRequests__block_invoke_103(uint64_t a1, void *a2)
@@ -1657,15 +1628,15 @@ void __38__HMFHTTPClient_cancelPendingRequests__block_invoke_103(uint64_t a1, vo
         v10 = *(*(&v16 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = WeakRetained;
-        v13 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v14 = HMFGetOSLogHandle(v12, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v14 = HMFGetLogIdentifier(v12);
+          v15 = HMFGetLogIdentifier(v12);
           *buf = 138543618;
-          v21 = v14;
+          v21 = v15;
           v22 = 2112;
           v23 = v10;
-          _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Canceling task: %@", buf, 0x16u);
+          _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Canceling task: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v11);
@@ -1677,8 +1648,6 @@ void __38__HMFHTTPClient_cancelPendingRequests__block_invoke_103(uint64_t a1, vo
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1697,20 +1666,18 @@ void __27__HMFHTTPClient_invalidate__block_invoke(uint64_t a1)
   v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@Invalidating the client", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating the client", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = [*(a1 + 32) session];
-  [v6 invalidateAndCancel];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = [*(a1 + 32) session];
+  [v7 invalidateAndCancel];
 }
 
 - (void)resolveWithCompletionHandler:(id)handler
@@ -1816,31 +1783,29 @@ uint64_t __28__HMFHTTPClient_logCategory__block_invoke()
 
 void __43__HMFHTTPClient_networkMonitorIsReachable___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[7])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     __HMFHTTPClientHandleReachabilityChange(v2, 1);
   }
 
   else
   {
-    v4 = objc_autoreleasePoolPush();
-    v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
+    v3 = objc_autoreleasePoolPush();
+    v4 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle(v4, v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(v5);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification that the client is now reachable", &v9, 0xCu);
+      v7 = HMFGetLogIdentifier(v4);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification that the client is now reachable", &v8, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v4);
+    objc_autoreleasePoolPop(v3);
     [*(a1 + 32) setReachable:1];
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1857,48 +1822,46 @@ void __43__HMFHTTPClient_networkMonitorIsReachable___block_invoke(uint64_t a1)
 
 void __45__HMFHTTPClient_networkMonitorIsUnreachable___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[7])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     __HMFHTTPClientHandleReachabilityChange(v2, 0);
   }
 
   else
   {
-    v4 = objc_autoreleasePoolPush();
-    v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
+    v3 = objc_autoreleasePoolPush();
+    v4 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle(v4, v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(v5);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification that the client is no longer reachable", &v9, 0xCu);
+      v7 = HMFGetLogIdentifier(v4);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Received notification that the client is no longer reachable", &v8, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v4);
+    objc_autoreleasePoolPop(v3);
     [*(a1 + 32) setReachable:0];
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
-    v15 = 138543362;
-    v16 = v8;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Delegated ping timer fired", &v15, 0xCu);
+    v9 = HMFGetLogIdentifier(selfCopy);
+    v16 = 138543362;
+    v17 = v9;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Delegated ping timer fired", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1906,25 +1869,23 @@ void __45__HMFHTTPClient_networkMonitorIsUnreachable___block_invoke(uint64_t a1)
   netService = selfCopy->_netService;
   if (!netService || [(HMFNetService *)netService isPublishing])
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = selfCopy;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = objc_autoreleasePoolPush();
+    v12 = selfCopy;
+    v14 = HMFGetOSLogHandle(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = HMFGetLogIdentifier(v11);
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Retrying delegated ping", &v15, 0xCu);
+      v15 = HMFGetLogIdentifier(v12);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Retrying delegated ping", &v16, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v10);
-    if (![(HMFHTTPClient *)v11 requestClientReachabilityPingWithRetry:1])
+    objc_autoreleasePoolPop(v11);
+    if (![(HMFHTTPClient *)v12 requestClientReachabilityPingWithRetry:1])
     {
-      [(HMFHTTPClient *)v11 stopDelegatedPingTimer];
+      [(HMFHTTPClient *)v12 stopDelegatedPingTimer];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
@@ -1934,67 +1895,64 @@ void __45__HMFHTTPClient_networkMonitorIsUnreachable___block_invoke(uint64_t a1)
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = HMFGetOSLogHandle(selfCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = HMFGetLogIdentifier(selfCopy);
+    v12 = HMFGetLogIdentifier(selfCopy);
     v13 = 138543618;
-    v14 = v11;
+    v14 = v12;
     v15 = 2112;
     v16 = errorCopy;
-    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Session did become invalid with error: %@", &v13, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Session did become invalid with error: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   challengeCopy = challenge;
   handlerCopy = handler;
   v11 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v13 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = HMFGetOSLogHandle(selfCopy, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v14 = HMFGetLogIdentifier(selfCopy);
-    v23 = 138543618;
-    v24 = v14;
-    v25 = 2112;
-    v26 = challengeCopy;
-    _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Received challenge: %@", &v23, 0x16u);
+    v15 = HMFGetLogIdentifier(selfCopy);
+    v24 = 138543618;
+    v25 = v15;
+    v26 = 2112;
+    v27 = challengeCopy;
+    _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Received challenge: %@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   if ([(HMFHTTPClientConfiguration *)selfCopy->_configuration allowsAnonymousConnection]|| [(HMFHTTPClient *)selfCopy allowAnonymousConnection])
   {
-    v15 = objc_autoreleasePoolPush();
-    v16 = selfCopy;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = objc_autoreleasePoolPush();
+    v17 = selfCopy;
+    v19 = HMFGetOSLogHandle(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v18 = HMFGetLogIdentifier(v16);
-      v23 = 138543362;
-      v24 = v18;
-      _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_INFO, "%{public}@Received connection challenge, accepting the server's certificate as the client is set to allow anonymous connections", &v23, 0xCu);
+      v20 = HMFGetLogIdentifier(v17);
+      v24 = 138543362;
+      v25 = v20;
+      _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_INFO, "%{public}@Received connection challenge, accepting the server's certificate as the client is set to allow anonymous connections", &v24, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = MEMORY[0x277CBAB80];
+    objc_autoreleasePoolPop(v16);
+    v21 = MEMORY[0x277CBAB80];
     protectionSpace = [challengeCopy protectionSpace];
-    v21 = [v19 credentialForTrust:{objc_msgSend(protectionSpace, "serverTrust")}];
-    handlerCopy[2](handlerCopy, 0, v21);
+    v23 = [v21 credentialForTrust:{objc_msgSend(protectionSpace, "serverTrust")}];
+    handlerCopy[2](handlerCopy, 0, v23);
   }
 
   else
   {
     handlerCopy[2](handlerCopy, 1, 0);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFHTTPClientDelegate)delegate

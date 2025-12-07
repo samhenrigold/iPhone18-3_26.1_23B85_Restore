@@ -591,7 +591,7 @@ LABEL_8:
   {
     animation = [MEMORY[0x1E6979538] animation];
     [animation setDelegate:self];
-    [transition duration];
+    objc_msgSend_duration(transition);
     v15 = v14;
     UIAnimationDragCoefficient();
     [animation setDuration:v15 * v16];

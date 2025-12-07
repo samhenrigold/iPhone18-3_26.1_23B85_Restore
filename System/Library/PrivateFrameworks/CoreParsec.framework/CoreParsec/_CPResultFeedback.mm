@@ -57,7 +57,6 @@ LABEL_9:
   toCopy = to;
   if ([(_CPResultFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 

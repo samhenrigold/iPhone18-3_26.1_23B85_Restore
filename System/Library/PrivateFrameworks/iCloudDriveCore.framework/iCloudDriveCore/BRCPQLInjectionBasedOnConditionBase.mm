@@ -1,8 +1,19 @@
 @interface BRCPQLInjectionBasedOnConditionBase
 + (id)_createInjectionWithCondition:(BOOL)condition;
+- (BRCPQLInjectionBasedOnConditionBase)initWithCondition:(BOOL)condition;
 @end
 
 @implementation BRCPQLInjectionBasedOnConditionBase
+
+- (BRCPQLInjectionBasedOnConditionBase)initWithCondition:(BOOL)condition
+{
+  v4 = [objc_opt_class() _createInjectionWithCondition:condition];
+  v7.receiver = self;
+  v7.super_class = BRCPQLInjectionBasedOnConditionBase;
+  v5 = [(BRCPQLInjectionBase *)&v7 initWithActualInjection:v4];
+
+  return v5;
+}
 
 + (id)_createInjectionWithCondition:(BOOL)condition
 {

@@ -17,14 +17,14 @@
 
 - (id)initForContext:(id)context repository:(id)repository accessibilityAssertion:(id)assertion queue:(id)queue
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   repositoryCopy = repository;
   assertionCopy = assertion;
   queueCopy = queue;
-  v62.receiver = self;
-  v62.super_class = HDCloudSyncPipeline;
-  v12 = [(HDCloudSyncPipeline *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = HDCloudSyncPipeline;
+  v12 = [(HDCloudSyncPipeline *)&v61 init];
   if (v12)
   {
     if (!repositoryCopy)
@@ -34,7 +34,7 @@
     }
 
     v12->_status = 0;
-    v13 = [contextCopy copy];
+    v13 = objc_msgSend_copy(contextCopy);
     context = v12->_context;
     v12->_context = v13;
 
@@ -56,19 +56,19 @@
     v23 = NSStringFromClass(v22);
     if (assertionCopy)
     {
-      v61 = 0;
-      v24 = [database cloneAccessibilityAssertion:assertionCopy ownerIdentifier:v23 error:&v61];
-      v25 = &v61;
+      v60 = 0;
+      v24 = [database cloneAccessibilityAssertion:assertionCopy ownerIdentifier:v23 error:&v60];
+      v25 = &v60;
     }
 
     else
     {
-      v60 = 0;
-      v24 = [database takeAccessibilityAssertionWithOwnerIdentifier:v23 timeout:&v60 error:600.0];
-      v25 = &v60;
+      v59 = 0;
+      v24 = [database takeAccessibilityAssertionWithOwnerIdentifier:v23 timeout:&v59 error:600.0];
+      v25 = &v59;
     }
 
-    v54 = *v25;
+    v53 = *v25;
     accessibilityAssertion = v12->_accessibilityAssertion;
     v12->_accessibilityAssertion = v24;
 
@@ -80,21 +80,21 @@
       {
         *location = 138543874;
         *&location[4] = repositoryCopy;
-        v64 = 2114;
-        v65 = v12;
-        v66 = 2114;
-        v67 = v54;
+        v63 = 2114;
+        v64 = v12;
+        v65 = 2114;
+        v66 = v53;
         _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@: Failed to acquire database accessibility assertion for cloud sync in repo: %{public}@, with error: %{public}@", location, 0x20u);
       }
     }
 
     objc_initWeak(location, v12);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_queue___block_invoke;
-    v58[3] = &unk_278616F38;
-    objc_copyWeak(&v59, location);
-    v28 = [HDPowerAssertion powerAssertionWithIdentifier:@"Health Sync" timeout:v58 timeoutHandler:600.0];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_queue___block_invoke;
+    v57[3] = &unk_278616F38;
+    objc_copyWeak(&v58, location);
+    v28 = [HDPowerAssertion powerAssertionWithIdentifier:@"Health Sync" timeout:v57 timeoutHandler:600.0];
     powerAssertion = v12->_powerAssertion;
     v12->_powerAssertion = v28;
 
@@ -137,17 +137,16 @@
     {
     }
 
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v58);
     objc_destroyWeak(location);
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_queue___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -156,12 +155,10 @@ void __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v5 = WeakRetained;
+      v4 = WeakRetained;
       _os_log_impl(&dword_228986000, v1, OS_LOG_TYPE_DEFAULT, "%{public}@: Power assertion has expired.", buf, 0xCu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -210,18 +207,18 @@ void __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_
 
 - (id)analyticsDictionary
 {
-  v38[13] = *MEMORY[0x277D85DE8];
-  v37[0] = @"syncIdentifier";
+  v37[13] = *MEMORY[0x277D85DE8];
+  v36[0] = @"syncIdentifier";
   syncIdentifier = [(HDCloudSyncOperationConfiguration *)self->_operationConfiguration syncIdentifier];
   uUIDString = [syncIdentifier UUIDString];
-  v38[0] = uUIDString;
-  v37[1] = @"pipelineIdentifier";
+  v37[0] = uUIDString;
+  v36[1] = @"pipelineIdentifier";
   uUIDString2 = [(NSUUID *)self->_identifier UUIDString];
-  v38[1] = uUIDString2;
-  v37[2] = @"syncCircleIdentifier";
+  v37[1] = uUIDString2;
+  v36[2] = @"syncCircleIdentifier";
   syncCircleIdentifier = [(HDCloudSyncRepository *)self->_repository syncCircleIdentifier];
-  v38[2] = syncCircleIdentifier;
-  v37[3] = @"primaryContainerIdentifier";
+  v37[2] = syncCircleIdentifier;
+  v36[3] = @"primaryContainerIdentifier";
   primaryCKContainer = [(HDCloudSyncRepository *)self->_repository primaryCKContainer];
   containerIdentifier = [primaryCKContainer containerIdentifier];
   analyticsCloudKitIdentifier = &stru_283BF39C8;
@@ -230,23 +227,23 @@ void __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_
     analyticsCloudKitIdentifier = self->_analyticsCloudKitIdentifier;
   }
 
-  v31 = containerIdentifier;
-  v38[3] = containerIdentifier;
-  v38[4] = analyticsCloudKitIdentifier;
-  v37[4] = @"cloudKitIdentifier";
-  v37[5] = @"reason";
-  v30 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDCloudSyncContext reason](self->_context, "reason")}];
-  v38[5] = v30;
-  v37[6] = @"options";
-  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDCloudSyncContext options](self->_context, "options")}];
-  v38[6] = v29;
-  v37[7] = @"operationType";
-  v28 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDCloudSyncContext purpose](self->_context, "purpose")}];
-  v38[7] = v28;
-  v37[8] = @"purpose";
+  v30 = containerIdentifier;
+  v37[3] = containerIdentifier;
+  v37[4] = analyticsCloudKitIdentifier;
+  v36[4] = @"cloudKitIdentifier";
+  v36[5] = @"reason";
+  v29 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDCloudSyncContext reason](self->_context, "reason")}];
+  v37[5] = v29;
+  v36[6] = @"options";
+  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDCloudSyncContext options](self->_context, "options")}];
+  v37[6] = v28;
+  v36[7] = @"operationType";
   v27 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDCloudSyncContext purpose](self->_context, "purpose")}];
-  v38[8] = v27;
-  v37[9] = @"duration";
+  v37[7] = v27;
+  v36[8] = @"purpose";
+  v26 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDCloudSyncContext purpose](self->_context, "purpose")}];
+  v37[8] = v26;
+  v36[9] = @"duration";
   v5 = MEMORY[0x277CCABB0];
   status = self->_status;
   if ((status - 2) >= 2)
@@ -267,33 +264,31 @@ void __78__HDCloudSyncPipeline_initForContext_repository_accessibilityAssertion_
 
   v8 = Current - self->_startTime;
 LABEL_8:
-  v26 = [v5 numberWithDouble:v8];
-  v38[9] = v26;
-  v37[10] = @"changesPullOperationCount";
+  v25 = [v5 numberWithDouble:v8];
+  v37[9] = v25;
+  v36[10] = @"changesPullOperationCount";
   v9 = MEMORY[0x277CCABB0];
   operationConfiguration = [(HDCloudSyncPipeline *)self operationConfiguration];
   computedState = [operationConfiguration computedState];
   pullTargets = [computedState pullTargets];
   v12 = [v9 numberWithUnsignedInteger:{objc_msgSend(pullTargets, "count")}];
-  v38[10] = v12;
-  v37[11] = @"changesPushOperationCount";
+  v37[10] = v12;
+  v36[11] = @"changesPushOperationCount";
   v13 = MEMORY[0x277CCABB0];
   operationConfiguration2 = [(HDCloudSyncPipeline *)self operationConfiguration];
   computedState2 = [operationConfiguration2 computedState];
   pushTargets = [computedState2 pushTargets];
   v17 = [v13 numberWithUnsignedInteger:{objc_msgSend(pushTargets, "count")}];
-  v38[11] = v17;
-  v37[12] = @"changesRebaseCount";
+  v37[11] = v17;
+  v36[12] = @"changesRebaseCount";
   v18 = MEMORY[0x277CCABB0];
   operationConfiguration3 = [(HDCloudSyncPipeline *)self operationConfiguration];
   computedState3 = [operationConfiguration3 computedState];
   v21 = [v18 numberWithUnsignedInteger:{objc_msgSend(computedState3, "countOfRebaselineOperations")}];
-  v38[12] = v21;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:13];
+  v37[12] = v21;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:13];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (void)addStage:(id)stage
@@ -341,11 +336,11 @@ LABEL_8:
 
 void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   *(*(a1 + 32) + 72) = CFAbsoluteTimeGetCurrent();
-  v54 = [*(*(a1 + 32) + 8) hk_map:&__block_literal_global_86];
+  v53 = [*(*(a1 + 32) + 8) hk_map:&__block_literal_global_86];
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -357,7 +352,7 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
     v12 = [v9 count];
     v13 = [*(*(a1 + 32) + 128) profile];
     v14 = [v13 profileIdentifier];
-    v15 = [v54 componentsJoinedByString:{@", "}];
+    v15 = [v53 componentsJoinedByString:{@", "}];
     [*(a1 + 32) accessibilityAssertion];
     v17 = v16 = a1;
     *buf = 138544386;
@@ -366,11 +361,11 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
     *&buf[14] = v12;
     v5 = v11;
     *&buf[22] = 2114;
-    v66 = v14;
-    *v67 = 2114;
-    *&v67[2] = v15;
-    v68 = 2114;
-    v69 = v17;
+    v65 = v14;
+    *v66 = 2114;
+    *&v66[2] = v15;
+    v67 = 2114;
+    v68 = v17;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting %ld-stage pipeline for %{public}@: %{public}@ with assertion: %{public}@", buf, 0x34u);
 
     a1 = v16;
@@ -379,16 +374,16 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
   v18 = *(a1 + 32);
   if (*(v18 + 104))
   {
-    v52 = v6;
+    v51 = v6;
   }
 
   else
   {
     v19 = [*(v18 + 128) profile];
     v20 = [v19 cloudSyncManager];
-    v58 = 0;
-    v21 = [v20 canPerformCloudSyncWithError:&v58];
-    v22 = v58;
+    v57 = 0;
+    v21 = [v20 canPerformCloudSyncWithError:&v57];
+    v22 = v57;
 
     if ((v21 & 1) == 0)
     {
@@ -397,7 +392,7 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
       goto LABEL_18;
     }
 
-    v52 = v6;
+    v51 = v6;
 
     v18 = *(a1 + 32);
   }
@@ -406,30 +401,30 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_invoke;
-  v66 = &unk_278617930;
-  *v67 = v18;
+  v65 = &unk_278617930;
+  *v66 = v18;
   v24 = v5;
   [v24 addTaskOnQueue:v23 task:buf];
   v25 = *(v18 + 144);
-  *&v59 = MEMORY[0x277D85DD0];
-  *(&v59 + 1) = 3221225472;
-  *&v60 = __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_invoke_3;
-  *(&v60 + 1) = &unk_278617930;
-  *&v61 = v18;
-  [v24 addTaskOnQueue:v25 task:&v59];
+  *&v58 = MEMORY[0x277D85DD0];
+  *(&v58 + 1) = 3221225472;
+  *&v59 = __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_invoke_3;
+  *(&v59 + 1) = &unk_278617930;
+  *&v60 = v18;
+  [v24 addTaskOnQueue:v25 task:&v58];
 
   v26 = *(a1 + 32);
   v27 = *(v26 + 144);
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_382;
-  v57[3] = &unk_27861F748;
-  v57[4] = v26;
-  [v24 addCheckpointTaskOnQueue:v27 task:v57];
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_382;
+  v56[3] = &unk_27861F748;
+  v56[4] = v26;
+  [v24 addCheckpointTaskOnQueue:v27 task:v56];
   v28 = *(a1 + 32);
-  v53 = v5;
-  v50 = v24;
-  v51 = a1;
+  v52 = v5;
+  v49 = v24;
+  v50 = a1;
   if (v28)
   {
     v29 = *(v28 + 144);
@@ -439,8 +434,8 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __72__HDCloudSyncPipeline__queue_waitForCloudKitOperationDelayWithTaskTree___block_invoke;
-    v66 = &unk_278617930;
-    *v67 = v28;
+    v65 = &unk_278617930;
+    *v66 = v28;
     [v30 addTaskOnQueue:v31 task:buf];
 
     v32 = *(a1 + 32);
@@ -449,41 +444,41 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
     {
       v34 = v33;
       dispatch_assert_queue_V2(*(v32 + 144));
-      v62 = 0u;
-      v60 = 0u;
       v61 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v58 = 0u;
       obj = *(v32 + 8);
-      v35 = [obj countByEnumeratingWithState:&v59 objects:buf count:16];
+      v35 = [obj countByEnumeratingWithState:&v58 objects:buf count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v60;
+        v37 = *v59;
         do
         {
           for (i = 0; i != v36; ++i)
           {
-            if (*v60 != v37)
+            if (*v59 != v37)
             {
               objc_enumerationMutation(obj);
             }
 
-            v39 = *(*(&v59 + 1) + 8 * i);
+            v39 = *(*(&v58 + 1) + 8 * i);
             v40 = *(v32 + 144);
             v41 = v34;
             dispatch_assert_queue_V2(v40);
             v42 = *(v32 + 144);
-            v63[0] = MEMORY[0x277D85DD0];
-            v63[1] = 3221225472;
-            v63[2] = __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke;
-            v63[3] = &unk_278617958;
-            v63[4] = v32;
+            v62[0] = MEMORY[0x277D85DD0];
+            v62[1] = 3221225472;
+            v62[2] = __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke;
+            v62[3] = &unk_278617958;
+            v62[4] = v32;
             v43 = v39;
-            v64 = v43;
-            [v41 addTaskOnQueue:v42 task:v63];
+            v63 = v43;
+            [v41 addTaskOnQueue:v42 task:v62];
           }
 
-          v36 = [obj countByEnumeratingWithState:&v59 objects:buf count:16];
+          v36 = [obj countByEnumeratingWithState:&v58 objects:buf count:16];
         }
 
         while (v36);
@@ -493,61 +488,57 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke(uint64_t a1, voi
 
   else
   {
-    v49 = v24;
+    v48 = v24;
   }
 
-  v44 = *(v51 + 32);
+  v44 = *(v50 + 32);
   v45 = *(v44 + 144);
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __63__HDCloudSyncPipeline__queue_reportFinalAnalyticsWithTaskTree___block_invoke;
-  v66 = &unk_27861F748;
-  *v67 = v44;
-  [v50 addCheckpointTaskOnQueue:v45 task:buf];
-  v46 = *(v51 + 32);
+  v65 = &unk_27861F748;
+  *v66 = v44;
+  [v49 addCheckpointTaskOnQueue:v45 task:buf];
+  v46 = *(v50 + 32);
   v47 = *(v46 + 144);
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384;
-  v56[3] = &unk_27861F748;
-  v56[4] = v46;
-  [v50 addCheckpointTaskOnQueue:v47 task:v56];
-  v6 = v52;
-  v52[2](v52, 0, 0);
-  v5 = v53;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384;
+  v55[3] = &unk_27861F748;
+  v55[4] = v46;
+  [v49 addCheckpointTaskOnQueue:v47 task:v55];
+  v6 = v51;
+  v51[2](v51, 0, 0);
+  v5 = v52;
 LABEL_18:
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
-NSString *__41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_2()
+NSString *__41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 uint64_t __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_382(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished computing configuration and beginning pipeline stages", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished computing configuration and beginning pipeline stages", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 32) + 176) setCompletedUnitCount:10];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 176) setCompletedUnitCount:10];
 }
 
 void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(*(a1 + 32) + 176) setCompletedUnitCount:{objc_msgSend(*(*(a1 + 32) + 176), "totalUnitCount")}];
   *(*(a1 + 32) + 80) = CFAbsoluteTimeGetCurrent();
@@ -563,9 +554,9 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1,
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 32);
-        v32 = 138543362;
-        v33 = v7;
-        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Pipeline finished.", &v32, 0xCu);
+        v31 = 138543362;
+        v32 = v7;
+        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Pipeline finished.", &v31, 0xCu);
       }
 
       if ([HDCloudSyncPipeline _shouldIncrementCountForSyncAnalyticsForContext:?]&& *(a1 + 32))
@@ -598,7 +589,7 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1,
         }
 
         v19 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-        v20 = [v15 copy];
+        v20 = objc_msgSend_copy(v15);
         [v19 setValue:v20 forKey:@"HDCloudSyncCountDictionary"];
 
         os_unfair_lock_unlock(&_syncCountLock);
@@ -617,11 +608,11 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1,
       v12 = v10;
       v13 = [v3 allErrors];
       v14 = [v13 firstObject];
-      v32 = 138543618;
-      v33 = v11;
-      v34 = 2114;
-      v35 = v14;
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Pipeline failed: %{public}@.", &v32, 0x16u);
+      v31 = 138543618;
+      v32 = v11;
+      v33 = 2114;
+      v34 = v14;
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Pipeline failed: %{public}@.", &v31, 0x16u);
     }
   }
 
@@ -655,7 +646,7 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1,
     }
 
     v27 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v28 = [v23 copy];
+    v28 = objc_msgSend_copy(v23);
     [v27 setValue:v28 forKey:@"HDCloudSyncCountDictionary"];
 
     os_unfair_lock_unlock(&_syncCountLock);
@@ -665,8 +656,6 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1,
   v29 = *(a1 + 32);
   v30 = *(v29 + 88);
   *(v29 + 88) = 0;
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)_shouldIncrementCountForSyncAnalyticsForContext:(uint64_t)context
@@ -709,15 +698,15 @@ void __41__HDCloudSyncPipeline_beginWithTaskTree___block_invoke_384(uint64_t a1,
 
 void __29__HDCloudSyncPipeline_cancel__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v11 = *(a1 + 32);
-    v12 = 138543362;
-    v13 = v11;
-    _os_log_error_impl(&dword_228986000, v2, OS_LOG_TYPE_ERROR, "%{public}@: Pipeline cancellation requested.", &v12, 0xCu);
+    v10 = *(a1 + 32);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_error_impl(&dword_228986000, v2, OS_LOG_TYPE_ERROR, "%{public}@: Pipeline cancellation requested.", &v11, 0xCu);
   }
 
   *(*(a1 + 32) + 24) = 1;
@@ -741,8 +730,6 @@ void __29__HDCloudSyncPipeline_cancel__block_invoke(uint64_t a1)
     v9 = *(v8 + 32);
     *(v8 + 32) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -760,32 +747,32 @@ void __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_i
 
 void __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a3;
   if (v4)
   {
     dispatch_assert_queue_V2(*(v4 + 144));
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v6 = *(v4 + 8);
-    v7 = [v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v29;
+      v9 = *v28;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v9)
+          if (*v28 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * i);
+          v11 = *(*(&v27 + 1) + 8 * i);
           v12 = [*(v4 + 160) expectedSendSize];
           v13 = [v11 expectedSendSize];
           if (v12 <= v13)
@@ -814,7 +801,7 @@ void __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_i
           [*(v4 + 160) setExpectedReceiveSize:v17];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v8);
@@ -823,9 +810,9 @@ void __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_i
 
   v18 = *(*(a1 + 32) + 128);
   v19 = [v18 primaryCKContainer];
-  v27 = [v18 cachedOwnerIdentifierForContainer:v19];
+  v26 = [v18 cachedOwnerIdentifierForContainer:v19];
 
-  v20 = [v27 cloudKitIdentifier];
+  v20 = [v26 cloudKitIdentifier];
   v21 = *(a1 + 32);
   v22 = *(v21 + 64);
   *(v21 + 64) = v20;
@@ -836,7 +823,6 @@ void __63__HDCloudSyncPipeline__queue_computeConfigurationWithTaskTree___block_i
   [v25 cloudSync_reportPipelineStarted:*(a1 + 32)];
 
   (*(v5 + 2))(v5, 0, 0);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDCloudSyncPipeline__queue_reportFinalAnalyticsWithTaskTree___block_invoke(uint64_t a1, void *a2)
@@ -923,7 +909,7 @@ void __63__HDCloudSyncPipeline__queue_reportFinalAnalyticsWithTaskTree___block_i
 
 void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = *(a1 + 32);
   if (*(v5 + 24) == 1)
@@ -942,45 +928,43 @@ void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke(uint64_t 
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
       *buf = 138543874;
-      v27 = v9;
-      v28 = 2048;
-      v29 = v7;
-      v30 = 2114;
-      v31 = v10;
+      v26 = v9;
+      v27 = 2048;
+      v28 = v7;
+      v29 = 2114;
+      v30 = v10;
       _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Starting...", buf, 0x20u);
     }
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_399;
-    v23[3] = &unk_27861F798;
-    v23[4] = *(a1 + 32);
-    v25 = v7;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_399;
+    v22[3] = &unk_27861F798;
+    v22[4] = *(a1 + 32);
+    v24 = v7;
     v11 = v4;
-    v24 = v11;
-    [*(a1 + 40) setOnSuccess:v23];
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_401;
-    v19 = &unk_27861F7C0;
-    v20 = *(a1 + 32);
-    v22 = v7;
-    v21 = v11;
-    [*(a1 + 40) setOnError:&v16];
-    [*(a1 + 40) setCloudState:{*(*(a1 + 32) + 48), v16, v17, v18, v19, v20}];
+    v23 = v11;
+    [*(a1 + 40) setOnSuccess:v22];
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_401;
+    v18 = &unk_27861F7C0;
+    v19 = *(a1 + 32);
+    v21 = v7;
+    v20 = v11;
+    [*(a1 + 40) setOnError:&v15];
+    [*(a1 + 40) setCloudState:{*(*(a1 + 32) + 48), v15, v16, v17, v18, v19}];
     [*(a1 + 40) start];
     v12 = *(a1 + 40);
     v13 = *(*(a1 + 32) + 176);
     v14 = [v12 progress];
     [v13 addChild:v14 withPendingUnitCount:100];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_399(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
@@ -988,13 +972,13 @@ void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_399(void 
   {
     v5 = a1[4];
     v6 = a1[6];
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2048;
-    v14 = v6;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Finished successfully.", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2048;
+    v13 = v6;
+    v14 = 2114;
+    v15 = v3;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Finished successfully.", &v10, 0x20u);
   }
 
   v7 = [v3 cloudState];
@@ -1003,12 +987,11 @@ void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_399(void 
   *(v8 + 48) = v7;
 
   (*(a1[5] + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_401(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [v6 hd_cloudKitRetryDelay];
@@ -1030,15 +1013,15 @@ void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_401(uint6
     {
       v20 = *(a1 + 32);
       v21 = *(a1 + 48);
-      v28 = 138544130;
-      v29 = v20;
-      v30 = 2048;
-      v31 = v21;
-      v32 = 2114;
-      v33 = v5;
-      v34 = 2114;
-      v35 = v6;
-      _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Finished with error: %{public}@", &v28, 0x2Au);
+      v27 = 138544130;
+      v28 = v20;
+      v29 = 2048;
+      v30 = v21;
+      v31 = 2114;
+      v32 = v5;
+      v33 = 2114;
+      v34 = v6;
+      _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Finished with error: %{public}@", &v27, 0x2Au);
     }
 
     *(*(a1 + 32) + 56) = 0;
@@ -1058,13 +1041,13 @@ void __48__HDCloudSyncPipeline__queue_runStage_taskTree___block_invoke_401(uint6
     {
       v16 = *(a1 + 32);
       v17 = *(a1 + 48);
-      v28 = 138543874;
-      v29 = v16;
-      v30 = 2048;
-      v31 = v17;
-      v32 = 2114;
-      v33 = v5;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Detected cloud sync disabled but pipeline is configured to continue anyway.", &v28, 0x20u);
+      v27 = 138543874;
+      v28 = v16;
+      v29 = 2048;
+      v30 = v17;
+      v31 = 2114;
+      v32 = v5;
+      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Detected cloud sync disabled but pipeline is configured to continue anyway.", &v27, 0x20u);
     }
 
     v18 = *(*(a1 + 40) + 16);
@@ -1077,13 +1060,13 @@ LABEL_11:
   {
     v23 = *(a1 + 32);
     v24 = *(a1 + 48);
-    v28 = 138543874;
-    v29 = v23;
-    v30 = 2048;
-    v31 = v24;
-    v32 = 2114;
-    v33 = v5;
-    _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Detected cloud sync disabled; disabling locally and failing pipeline.", &v28, 0x20u);
+    v27 = 138543874;
+    v28 = v23;
+    v29 = 2048;
+    v30 = v24;
+    v31 = 2114;
+    v32 = v5;
+    _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Stage %ld: %{public}@: Detected cloud sync disabled; disabling locally and failing pipeline.", &v27, 0x20u);
   }
 
   *(*(a1 + 32) + 56) = 0;
@@ -1092,12 +1075,11 @@ LABEL_11:
   (*(v25 + 16))(v25, 2, v26);
 
 LABEL_15:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HDCloudSyncPipeline__queue_waitForCloudKitOperationDelayWithTaskTree___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [*(*(a1 + 32) + 128) profile];
   v6 = [v5 daemon];
@@ -1122,9 +1104,9 @@ LABEL_5:
     {
       v13 = *(a1 + 32);
       *buf = 138543618;
-      v32 = v13;
-      v33 = 2048;
-      v34 = v9;
+      v31 = v13;
+      v32 = 2048;
+      v33 = v9;
       _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring %0.2lfs CloudKit operation delay because this pipeline has ignoreCloudKitOperationDelay=YES", buf, 0x16u);
     }
 
@@ -1135,9 +1117,9 @@ LABEL_5:
   {
     v14 = *(a1 + 32);
     *buf = 138543618;
-    v32 = v14;
-    v33 = 2048;
-    v34 = v9;
+    v31 = v14;
+    v32 = 2048;
+    v33 = v9;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Waiting %0.2lfs for the CloudKit operation delay before beginning pipeline.", buf, 0x16u);
   }
 
@@ -1172,34 +1154,32 @@ LABEL_5:
   handler[1] = 3221225472;
   handler[2] = __72__HDCloudSyncPipeline__queue_waitForCloudKitOperationDelayWithTaskTree___block_invoke_406;
   handler[3] = &unk_278616F38;
-  objc_copyWeak(&v30, buf);
+  objc_copyWeak(&v29, buf);
   dispatch_source_set_event_handler(v27, handler);
   dispatch_resume(*(*(a1 + 32) + 32));
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
 LABEL_11:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HDCloudSyncPipeline__queue_waitForCloudKitOperationDelayWithTaskTree___block_invoke_406(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     dispatch_assert_queue_V2(WeakRetained[18]);
-    v2 = _Block_copy(v8[5]);
-    v3 = v8[5];
-    v8[5] = 0;
+    v2 = _Block_copy(v7[5]);
+    v3 = v7[5];
+    v7[5] = 0;
 
-    v4 = v8[4];
+    v4 = v7[4];
     if (v4)
     {
       dispatch_source_cancel(v4);
-      v5 = v8[4];
-      v8[4] = 0;
+      v5 = v7[4];
+      v7[4] = 0;
     }
 
     if (v2)
@@ -1209,22 +1189,20 @@ void __72__HDCloudSyncPipeline__queue_waitForCloudKitOperationDelayWithTaskTree_
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v10 = v8;
+        v9 = v7;
         _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished waiting for CloudKit operation delay.", buf, 0xCu);
       }
 
       (*(v2 + 2))(v2, 0, 0);
     }
 
-    WeakRetained = v8;
+    WeakRetained = v7;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stages
 {
-  v2 = [(NSMutableArray *)self->_stages copy];
+  v2 = objc_msgSend_copy(self->_stages, a2);
 
   return v2;
 }
@@ -1261,7 +1239,7 @@ void __72__HDCloudSyncPipeline__queue_waitForCloudKitOperationDelayWithTaskTree_
   [standardUserDefaults2 setValue:0 forKey:@"HDCloudSyncCountDictionary"];
 
   os_unfair_lock_unlock(&_syncCountLock);
-  v8 = [v4 copy];
+  v8 = objc_msgSend_copy(v4);
 
   return v8;
 }

@@ -62,7 +62,7 @@
   collectionView = [(_TVMLCollectionViewController *)self collectionView];
   collectionViewLayout = [collectionView collectionViewLayout];
 
-  [(_TVMLCollectionViewController *)self cellMetrics];
+  objc_msgSend_cellMetrics(self);
   [collectionViewLayout setCellMetrics:&v15];
   collectionElement = [(_TVMLCollectionViewController *)self collectionElement];
   style = [collectionElement style];

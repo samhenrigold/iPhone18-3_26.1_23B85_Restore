@@ -126,12 +126,10 @@
       OUTLINED_FUNCTION_5_0();
       if (*(v5 + 10) == 1)
       {
-        v6 = *(v5 + 16);
-        if (v6)
+        if (*(v5 + 16))
         {
-          v7 = *(v6 + 16);
           OUTLINED_FUNCTION_2();
-          v8();
+          v6();
         }
       }
 
@@ -140,7 +138,7 @@
         WeakRetained = objc_loadWeakRetained((v5 + 16));
         if (WeakRetained)
         {
-          v10 = WeakRetained;
+          v8 = WeakRetained;
           [WeakRetained servicesDidChange:v3 withAddedServices:v2 removedServices:v1];
         }
       }

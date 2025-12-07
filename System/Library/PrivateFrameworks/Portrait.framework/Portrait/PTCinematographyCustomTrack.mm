@@ -177,7 +177,7 @@
     v10 = v9;
     if (v9)
     {
-      [v9 time];
+      objc_msgSend_time(v9);
     }
 
     else
@@ -263,7 +263,7 @@ LABEL_11:
   v5 = frameCopy;
   if (frameCopy)
   {
-    [frameCopy time];
+    objc_msgSend_time(frameCopy);
   }
 
   else
@@ -275,10 +275,10 @@ LABEL_11:
   v7 = v6;
   if (v6)
   {
-    [v6 time];
+    objc_msgSend_time(v6);
     if (v5)
     {
-      [v5 time];
+      objc_msgSend_time(v5);
     }
 
     else
@@ -322,7 +322,7 @@ LABEL_11:
           v11 = v10;
           if (v10)
           {
-            [v10 time];
+            objc_msgSend_time(v10);
           }
 
           else

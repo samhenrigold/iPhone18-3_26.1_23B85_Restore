@@ -11,49 +11,50 @@
 - (CEImageIcon)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v17.receiver = self;
-  v17.super_class = CEImageIcon;
-  v5 = [(CEIcon *)&v17 initWithDictionary:dictionaryCopy];
+  v18.receiver = self;
+  v18.super_class = CEImageIcon;
+  v5 = [(CEIcon *)&v18 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"iconUrls"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = [v6 objectForKeyedSubscript:@"1x"];
+      v8 = [v6 objectForKeyedSubscript:@"1x"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = [MEMORY[0x277CBEBC0] URLWithString:v7];
+        v9 = [MEMORY[0x277CBEBC0] URLWithString:v8];
         URL1x = v5->_URL1x;
-        v5->_URL1x = v8;
+        v5->_URL1x = v9;
       }
 
-      v10 = [v6 objectForKeyedSubscript:@"2x"];
+      v11 = [v6 objectForKeyedSubscript:@"2x"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v11 = [MEMORY[0x277CBEBC0] URLWithString:v10];
+        v12 = [MEMORY[0x277CBEBC0] URLWithString:v11];
         URL2x = v5->_URL2x;
-        v5->_URL2x = v11;
+        v5->_URL2x = v12;
       }
 
-      v13 = [v6 objectForKeyedSubscript:@"3x"];
+      v14 = [v6 objectForKeyedSubscript:@"3x"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = [MEMORY[0x277CBEBC0] URLWithString:v13];
+        v15 = [MEMORY[0x277CBEBC0] URLWithString:v14];
         URL3x = v5->_URL3x;
-        v5->_URL3x = v14;
+        v5->_URL3x = v15;
       }
     }
 
     else
     {
-      v7 = _CELogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = _CELogSystem(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [CEImageIcon initWithDictionary:];
+        [CEImageIcon initWithDictionary:v5];
       }
     }
   }
@@ -109,23 +110,19 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = CEImageIcon;
-  v3 = [(CEIcon *)&v7 description];
-  URL2x = self->_URL2x;
-  v5 = [v3 stringByAppendingFormat:@" url1x: %@ url2x: %@ url3x: %@", self->_URL1x, URL2x, self->_URL3x];
+  v6.receiver = self;
+  v6.super_class = CEImageIcon;
+  v3 = [(CEIcon *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" url1x: %@ url2x: %@ url3x: %@", self->_URL1x, self->_URL2x, self->_URL3x];
 
-  return v5;
+  return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse urls from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse urls from dictionary", v5, v6, v7, v8);
 }
 
 @end

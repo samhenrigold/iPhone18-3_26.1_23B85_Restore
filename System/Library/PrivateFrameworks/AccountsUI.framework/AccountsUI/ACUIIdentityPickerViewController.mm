@@ -201,71 +201,68 @@ void __47__ACUIIdentityPickerViewController_viewDidLoad__block_invoke(void *a1)
 - (id)specifiers
 {
   selfCopy = self;
-  v42[1] = a2;
+  v39[1] = a2;
   if (!*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
   {
     WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
-    v37 = v42;
-    v42[0] = [WeakRetained localizedSwitchNameForIdentityPickerController:selfCopy];
+    v34 = v39;
+    v39[0] = [WeakRetained localizedSwitchNameForIdentityPickerController:selfCopy];
     MEMORY[0x277D82BD8](WeakRetained);
-    v22 = 0x277D3F000uLL;
-    v38 = 0;
-    v2 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v42[0] target:selfCopy set:sel__setValue_forSwitchSpecifier_ get:sel__valueForSwitchSpecifier_ detail:0 cell:? edit:?];
-    v36 = &v41;
-    v41 = v2;
-    v15 = v2;
+    v19 = 0x277D3F000uLL;
+    v35 = 0;
+    v2 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v39[0] target:selfCopy set:sel__setValue_forSwitchSpecifier_ get:sel__valueForSwitchSpecifier_ detail:0 cell:? edit:?];
+    v33 = &v38;
+    v38 = v2;
+    v12 = v2;
     property = [(ACUIIdentityPickerViewController *)selfCopy property];
-    v33 = MEMORY[0x277D3FFF0];
-    v3 = *MEMORY[0x277D3FFF0];
-    [v15 setProperty:? forKey:?];
+    v30 = MEMORY[0x277D3FFF0];
+    [v12 setProperty:? forKey:?];
     MEMORY[0x277D82BD8](property);
-    v21 = MEMORY[0x277D3FFB8];
-    [v41 setProperty:@"Switch" forKey:*MEMORY[0x277D3FFB8]];
-    v31 = MEMORY[0x277D3FF38];
-    v4 = *MEMORY[0x277D3FF38];
-    v32 = @"NO";
-    [v41 setProperty:? forKey:?];
-    v18 = *(v22 + 2776);
-    v23 = 0x277CCA000uLL;
-    v17 = MEMORY[0x277CCA8D8];
-    v24 = 0x278BF9000uLL;
-    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v26 = &stru_2850054A0;
-    v27 = @"Localizable";
-    v19 = [v20 localizedStringForKey:@"CERTIFICATES" value:? table:?];
-    v5 = [v18 groupSpecifierWithName:?];
-    v35 = &v40;
-    v40 = v5;
-    MEMORY[0x277D82BD8](v19);
-    MEMORY[0x277D82BD8](v20);
-    [v40 setProperty:@"CertificatesGroup" forKey:*v21];
-    v28 = *(v22 + 2776);
-    v25 = *(v23 + 2264);
-    v6 = *(v24 + 3456);
-    v30 = [v25 bundleForClass:objc_opt_class()];
-    v29 = [v30 localizedStringForKey:@"LOADING" value:v26 table:v27];
-    v7 = [v28 preferenceSpecifierNamed:0 target:? set:? get:? detail:? cell:? edit:?];
-    v34 = &v39;
-    v39 = v7;
-    MEMORY[0x277D82BD8](v29);
-    MEMORY[0x277D82BD8](v30);
-    [v39 setProperty:v32 forKey:*v31];
-    [v39 setProperty:@"CertificatesLoading" forKey:*v33];
-    v8 = objc_alloc(MEMORY[0x277CBEA60]);
-    v9 = [v8 initWithObjects:{v41, v40, v39, 0}];
-    v10 = (selfCopy + *MEMORY[0x277D3FC48]);
-    v11 = *v10;
-    *v10 = v9;
-    MEMORY[0x277D82BD8](v11);
-    objc_storeStrong(v34, v38);
-    objc_storeStrong(v35, v38);
-    objc_storeStrong(v36, v38);
-    objc_storeStrong(v37, v38);
+    v18 = MEMORY[0x277D3FFB8];
+    [v38 setProperty:@"Switch" forKey:*MEMORY[0x277D3FFB8]];
+    v28 = MEMORY[0x277D3FF38];
+    v29 = @"NO";
+    [v38 setProperty:? forKey:?];
+    v15 = *(v19 + 2776);
+    v20 = 0x277CCA000uLL;
+    v14 = MEMORY[0x277CCA8D8];
+    v21 = 0x278BF9000uLL;
+    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v23 = &stru_2850054A0;
+    v24 = @"Localizable";
+    v16 = [v17 localizedStringForKey:@"CERTIFICATES" value:? table:?];
+    v3 = [v15 groupSpecifierWithName:?];
+    v32 = &v37;
+    v37 = v3;
+    MEMORY[0x277D82BD8](v16);
+    MEMORY[0x277D82BD8](v17);
+    [v37 setProperty:@"CertificatesGroup" forKey:*v18];
+    v25 = *(v19 + 2776);
+    v22 = *(v20 + 2264);
+    v27 = [v22 bundleForClass:objc_opt_class()];
+    v26 = [v27 localizedStringForKey:@"LOADING" value:v23 table:v24];
+    v4 = [v25 preferenceSpecifierNamed:0 target:? set:? get:? detail:? cell:? edit:?];
+    v31 = &v36;
+    v36 = v4;
+    MEMORY[0x277D82BD8](v26);
+    MEMORY[0x277D82BD8](v27);
+    [v36 setProperty:v29 forKey:*v28];
+    [v36 setProperty:@"CertificatesLoading" forKey:*v30];
+    v5 = objc_alloc(MEMORY[0x277CBEA60]);
+    v6 = [v5 initWithObjects:{v38, v37, v36, 0}];
+    v7 = (selfCopy + *MEMORY[0x277D3FC48]);
+    v8 = *v7;
+    *v7 = v6;
+    MEMORY[0x277D82BD8](v8);
+    objc_storeStrong(v31, v35);
+    objc_storeStrong(v32, v35);
+    objc_storeStrong(v33, v35);
+    objc_storeStrong(v34, v35);
   }
 
-  v12 = *(&selfCopy->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
+  v9 = *(&selfCopy->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
 
-  return v12;
+  return v9;
 }
 
 - (void)_finishedFetchingIdentities:(id)identities
@@ -432,7 +429,6 @@ void __47__ACUIIdentityPickerViewController_viewDidLoad__block_invoke(void *a1)
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -485,7 +481,6 @@ void __47__ACUIIdentityPickerViewController_viewDidLoad__block_invoke(void *a1)
   MEMORY[0x277D82BD8](obj);
   v3 = MEMORY[0x277D82BE0](v14[0]);
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -556,7 +551,6 @@ void __47__ACUIIdentityPickerViewController_viewDidLoad__block_invoke(void *a1)
   [(ACUIIdentityPickerViewController *)selfCopy reload];
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPropertyEnabled:(BOOL)enabled identity:(__SecIdentity *)identity
@@ -747,7 +741,6 @@ void __47__ACUIIdentityPickerViewController_viewDidLoad__block_invoke(void *a1)
   objc_storeStrong(&v30, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_allowIdentitySelection

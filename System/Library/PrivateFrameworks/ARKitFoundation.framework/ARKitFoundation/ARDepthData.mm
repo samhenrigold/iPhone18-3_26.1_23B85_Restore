@@ -1,9 +1,6 @@
 @interface ARDepthData
 - (ARDepthData)initWithCoder:(id)coder;
 - (ARDepthData)initWithDepthMap:(__CVBuffer *)map confidenceMap:(__CVBuffer *)confidenceMap;
-- (__n128)cameraIntrinsics;
-- (__n128)deviceTransform;
-- (__n128)extrinsicsToAppNode;
 - (__n128)setCameraIntrinsics:(__n128)intrinsics;
 - (__n128)setDeviceTransform:(__n128)transform;
 - (__n128)setExtrinsicsToAppNode:(__n128)node;
@@ -149,28 +146,11 @@
   [coderCopy encodeBool:self->_isValid forKey:@"isValid"];
 }
 
-- (__n128)cameraIntrinsics
-{
-  result = *(self + 80);
-  v2 = *(self + 96);
-  v3 = *(self + 112);
-  return result;
-}
-
 - (__n128)setCameraIntrinsics:(__n128)intrinsics
 {
   result[5] = a2;
   result[6] = intrinsics;
   result[7] = a4;
-  return result;
-}
-
-- (__n128)extrinsicsToAppNode
-{
-  result = *(self + 128);
-  v2 = *(self + 144);
-  v3 = *(self + 160);
-  v4 = *(self + 176);
   return result;
 }
 
@@ -180,15 +160,6 @@
   result[9] = node;
   result[10] = a4;
   result[11] = a5;
-  return result;
-}
-
-- (__n128)deviceTransform
-{
-  result = *(self + 192);
-  v2 = *(self + 208);
-  v3 = *(self + 224);
-  v4 = *(self + 240);
   return result;
 }
 

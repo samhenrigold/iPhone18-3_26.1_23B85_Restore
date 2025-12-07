@@ -113,7 +113,7 @@
   v7 = sub_2483811B0();
   v9 = v8;
 
-  sub_24834C170();
+  sub_24834C170(v7, v9);
   sub_24823BD70(v7, v9);
   swift_unknownObjectRelease();
 }

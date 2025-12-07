@@ -1298,9 +1298,9 @@ LABEL_30:
   }
 }
 
-uint64_t __20__CAMetalLayer_init__block_invoke(uint64_t result)
+void *__20__CAMetalLayer_init__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 32))
+  if (*(result[4] + 32))
   {
     return [CADisplayLink notifyDisplayChange:?];
   }

@@ -6,6 +6,7 @@
 - (BOOL)isEnterpriseAppTrustAllowed;
 - (BOOL)isTrustable;
 - (BOOL)isTrusted;
+- (MCUIAppSigner)initWithIdentity:(id)identity applications:(id)applications provisioningProfiles:(id)profiles hasUPP:(BOOL)p hasFreePP:(BOOL)pP;
 - (void)_updateUntrustedAppCountsForBundleIDs:(id)ds;
 - (void)main_removeMCUIReferenceForBundleID:(id)d;
 - (void)refreshApplications;
@@ -13,6 +14,37 @@
 @end
 
 @implementation MCUIAppSigner
+
+- (MCUIAppSigner)initWithIdentity:(id)identity applications:(id)applications provisioningProfiles:(id)profiles hasUPP:(BOOL)p hasFreePP:(BOOL)pP
+{
+  pPCopy = pP;
+  pCopy = p;
+  identityCopy = identity;
+  applicationsCopy = applications;
+  profilesCopy = profiles;
+  v23.receiver = self;
+  v23.super_class = MCUIAppSigner;
+  v16 = [(MCUIAppSigner *)&v23 init];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_identity, identity);
+    v18 = [applicationsCopy mutableCopy];
+    applications = v17->_applications;
+    v17->_applications = v18;
+
+    objc_storeStrong(&v17->_provisioningProfiles, profiles);
+    v17->_hasUniversalPP = pCopy;
+    v17->_hasFreePP = pPCopy;
+    v20 = [MEMORY[0x277D24690] developerFromIdentity:identityCopy hasFreePP:pPCopy hasUPP:pCopy];
+    displayName = v17->_displayName;
+    v17->_displayName = v20;
+
+    [(MCUIAppSigner *)v17 refreshApplications];
+  }
+
+  return v17;
+}
 
 - (void)setIdentity:(id)identity
 {
@@ -38,30 +70,30 @@
 
 - (void)_updateUntrustedAppCountsForBundleIDs:(id)ds
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   applications = [(MCUIAppSigner *)self applications];
-  v5 = [applications countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [applications countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(applications);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = [objc_alloc(MEMORY[0x277D03238]) initWithBundleID:v11 dataSource:0];
         v14 = [v13 misStateIncludingPending:1];
@@ -88,7 +120,7 @@
         objc_autoreleasePoolPop(v12);
       }
 
-      v6 = [applications countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [applications countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -108,8 +140,6 @@ LABEL_16:
 
   self->_untrustedAppCount = v8;
   self->_almostUntrustedAppCount = v7;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main_removeMCUIReferenceForBundleID:(id)d
@@ -151,27 +181,27 @@ void __53__MCUIAppSigner_main_removeMCUIReferenceForBundleID___block_invoke(uint
 
 - (BOOL)isTrusted
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   provisioningProfiles = [(MCUIAppSigner *)self provisioningProfiles];
-  v3 = [provisioningProfiles countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [provisioningProfiles countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(provisioningProfiles);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = MEMORY[0x277D24690];
         uuid = [v7 uuid];
         LOBYTE(v8) = [v8 isTrustedProvisioningProfileUUID:uuid];
@@ -186,7 +216,7 @@ void __53__MCUIAppSigner_main_removeMCUIReferenceForBundleID___block_invoke(uint
         }
       }
 
-      v4 = [provisioningProfiles countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [provisioningProfiles countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -199,7 +229,6 @@ void __53__MCUIAppSigner_main_removeMCUIReferenceForBundleID___block_invoke(uint
   v10 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -236,39 +265,39 @@ LABEL_11:
 
 + (id)enterpriseAppSignersWithOutDeveloperAppSigners:(id *)signers
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v77 = 0;
-  v64 = [MCUIAppSigner _uppProfilesBySignerIDWithOutFreeDevProfilesBySignerID:&v77];
-  v63 = v77;
+  v76 = 0;
+  v63 = [MCUIAppSigner _uppProfilesBySignerIDWithOutFreeDevProfilesBySignerID:&v76];
+  v62 = v76;
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   managedAppIDs = [mEMORY[0x277D262A0] managedAppIDs];
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   userApplications = [MEMORY[0x277D03238] userApplications];
-  v6 = [userApplications countByEnumeratingWithState:&v73 objects:v80 count:16];
+  v6 = [userApplications countByEnumeratingWithState:&v72 objects:v79 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v74;
-    v57 = v3;
-    v54 = *v74;
-    v55 = userApplications;
+    v8 = *v73;
+    v56 = v3;
+    v53 = *v73;
+    v54 = userApplications;
     do
     {
       v9 = 0;
-      v59 = v7;
+      v58 = v7;
       do
       {
-        if (*v74 != v8)
+        if (*v73 != v8)
         {
           objc_enumerationMutation(userApplications);
         }
 
-        v10 = *(*(&v73 + 1) + 8 * v9);
+        v10 = *(*(&v72 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         signerID = [v10 signerID];
 
@@ -290,10 +319,10 @@ LABEL_11:
             else
             {
               signerID2 = [v10 signerID];
-              bundleID2 = [v64 objectForKey:signerID2];
+              bundleID2 = [v63 objectForKey:signerID2];
 
               signerID3 = [v10 signerID];
-              v19 = [v63 objectForKey:signerID3];
+              v19 = [v62 objectForKey:signerID3];
 
               v20 = objc_opt_new();
               v21 = v20;
@@ -307,32 +336,32 @@ LABEL_11:
                 [v21 addObjectsFromArray:v19];
               }
 
-              v61 = v19;
-              v71 = 0u;
-              v72 = 0u;
-              v69 = 0u;
+              v60 = v19;
               v70 = 0u;
+              v71 = 0u;
+              v68 = 0u;
+              v69 = 0u;
               v22 = v21;
-              v23 = [v22 countByEnumeratingWithState:&v69 objects:v79 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v68 objects:v78 count:16];
               if (v23)
               {
                 v24 = v23;
-                v25 = *v70;
+                v25 = *v69;
                 while (2)
                 {
                   for (i = 0; i != v24; ++i)
                   {
-                    if (*v70 != v25)
+                    if (*v69 != v25)
                     {
                       objc_enumerationMutation(v22);
                     }
 
-                    v27 = *(*(&v69 + 1) + 8 * i);
+                    v27 = *(*(&v68 + 1) + 8 * i);
                     if (([v27 isAppleInternal] & 1) != 0 || (v28 = objc_msgSend(v10, "isBetaApp"), v28 == objc_msgSend(v27, "isBeta")) && (objc_msgSend(v10, "appIDEntitlement"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v27, "allowsAppIDEntitlement:", v29), v29, v30))
                     {
                       signerID4 = [v10 signerID];
-                      v3 = v57;
-                      v34 = [v57 objectForKey:signerID4];
+                      v3 = v56;
+                      v34 = [v56 objectForKey:signerID4];
 
                       if (v34)
                       {
@@ -347,7 +376,7 @@ LABEL_11:
                         v34 = [v36 arrayWithObject:bundleID4];
 
                         bundleID3 = [v10 signerID];
-                        [v57 setObject:v34 forKey:bundleID3];
+                        [v56 setObject:v34 forKey:bundleID3];
                       }
 
                       goto LABEL_33;
@@ -358,8 +387,8 @@ LABEL_11:
                     NSLog(&cfstr_McuiappsignerS.isa, bundleID5, appIDEntitlement);
                   }
 
-                  v24 = [v22 countByEnumeratingWithState:&v69 objects:v79 count:16];
-                  v3 = v57;
+                  v24 = [v22 countByEnumeratingWithState:&v68 objects:v78 count:16];
+                  v3 = v56;
                   if (v24)
                   {
                     continue;
@@ -371,9 +400,9 @@ LABEL_11:
 
 LABEL_33:
 
-              v8 = v54;
-              userApplications = v55;
-              v7 = v59;
+              v8 = v53;
+              userApplications = v54;
+              v7 = v58;
             }
           }
 
@@ -394,37 +423,37 @@ LABEL_33:
       }
 
       while (v9 != v7);
-      v38 = [userApplications countByEnumeratingWithState:&v73 objects:v80 count:16];
+      v38 = [userApplications countByEnumeratingWithState:&v72 objects:v79 count:16];
       v7 = v38;
     }
 
     while (v38);
   }
 
-  v60 = objc_opt_new();
+  v59 = objc_opt_new();
   v39 = objc_opt_new();
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   v40 = v3;
-  v62 = [v40 countByEnumeratingWithState:&v65 objects:v78 count:16];
-  if (v62)
+  v61 = [v40 countByEnumeratingWithState:&v64 objects:v77 count:16];
+  if (v61)
   {
-    v58 = *v66;
+    v57 = *v65;
     do
     {
-      for (j = 0; j != v62; ++j)
+      for (j = 0; j != v61; ++j)
       {
-        if (*v66 != v58)
+        if (*v65 != v57)
         {
           objc_enumerationMutation(v40);
         }
 
-        v42 = *(*(&v65 + 1) + 8 * j);
+        v42 = *(*(&v64 + 1) + 8 * j);
         v43 = [v40 objectForKey:v42];
-        v44 = [v64 objectForKey:v42];
-        v45 = [v63 objectForKey:v42];
+        v44 = [v63 objectForKey:v42];
+        v45 = [v62 objectForKey:v42];
         v46 = objc_opt_new();
         v47 = v46;
         if (v44)
@@ -440,7 +469,7 @@ LABEL_33:
         v48 = -[MCUIAppSigner initWithIdentity:applications:provisioningProfiles:hasUPP:hasFreePP:]([MCUIAppSigner alloc], "initWithIdentity:applications:provisioningProfiles:hasUPP:hasFreePP:", v42, v43, v47, [v44 count] != 0, objc_msgSend(v45, "count") != 0);
         if ([v44 count])
         {
-          v49 = v60;
+          v49 = v59;
         }
 
         else
@@ -451,10 +480,10 @@ LABEL_33:
         [v49 addObject:v48];
       }
 
-      v62 = [v40 countByEnumeratingWithState:&v65 objects:v78 count:16];
+      v61 = [v40 countByEnumeratingWithState:&v64 objects:v77 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
   if (signers)
@@ -463,9 +492,7 @@ LABEL_33:
     *signers = v39;
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
-  return v60;
+  return v59;
 }
 
 + (void)_addProfile:(id)profile toSignerIdentity:(id)identity inDictionary:(id)dictionary

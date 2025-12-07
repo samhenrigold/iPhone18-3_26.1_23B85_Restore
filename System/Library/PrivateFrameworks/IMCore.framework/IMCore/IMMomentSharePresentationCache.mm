@@ -13,9 +13,9 @@
 - (IMMomentSharePresentationCache)initWithMomentShareCache:(id)cache
 {
   cacheCopy = cache;
-  v14.receiver = self;
-  v14.super_class = IMMomentSharePresentationCache;
-  v6 = [(IMMomentSharePresentationCache *)&v14 init];
+  v11.receiver = self;
+  v11.super_class = IMMomentSharePresentationCache;
+  v6 = [(IMMomentSharePresentationCache *)&v11 init];
   if (v6)
   {
     v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -23,8 +23,8 @@
     v6->_cache = v7;
 
     objc_storeStrong(&v6->_momentShareCache, cache);
-    v11 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v9, v10);
-    objc_msgSend_addObserver_selector_name_object_(v11, v12, v6, sel__momentShareCacheDidChange_, @"IMMomentShareCacheDidChangeNotification", v6->_momentShareCache);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter addObserver:v6 selector:sel__momentShareCacheDidChange_ name:@"IMMomentShareCacheDidChangeNotification" object:v6->_momentShareCache];
   }
 
   return v6;
@@ -33,22 +33,22 @@
 - (id)statusPresentationForMomentShareURLString:(id)string
 {
   stringCopy = string;
-  objc_msgSend_registerMomentShareURLString_(self, v5, stringCopy);
-  v7 = objc_msgSend_objectForKeyedSubscript_(self->_cache, v6, stringCopy);
+  [(IMMomentSharePresentationCache *)self registerMomentShareURLString:stringCopy];
+  v5 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:stringCopy];
 
-  return v7;
+  return v5;
 }
 
 - (void)registerMomentShareItemForMessage:(id)message
 {
   messageCopy = message;
-  v6 = IMCoreMomentShareURLForMessage(messageCopy);
-  if (v6 && (objc_msgSend_isSenderUnknown(messageCopy, v4, v5) & 1) == 0)
+  v4 = IMCoreMomentShareURLForMessage(messageCopy);
+  if (v4 && ([messageCopy isSenderUnknown] & 1) == 0)
   {
-    v9 = objc_msgSend_absoluteString(v6, v7, v8);
-    if (objc_msgSend_length(v9, v10, v11))
+    absoluteString = [v4 absoluteString];
+    if ([absoluteString length])
     {
-      objc_msgSend_registerMomentShareURLString_(self, v12, v9);
+      [(IMMomentSharePresentationCache *)self registerMomentShareURLString:absoluteString];
     }
   }
 }
@@ -56,18 +56,18 @@
 - (void)registerMomentShareURLString:(id)string
 {
   stringCopy = string;
-  v6 = objc_msgSend_objectForKeyedSubscript_(self->_cache, v5, stringCopy);
+  v5 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:stringCopy];
 
-  if (!v6)
+  if (!v5)
   {
     momentShareCache = self->_momentShareCache;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1A82CACF8;
-    v9[3] = &unk_1E7811720;
-    v9[4] = self;
-    v10 = stringCopy;
-    objc_msgSend_momentShareForURLString_completionHandler_(momentShareCache, v8, v10, v9);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1A82CACF8;
+    v7[3] = &unk_1E7811720;
+    v7[4] = self;
+    v8 = stringCopy;
+    [(IMMomentShareCache *)momentShareCache momentShareForURLString:v8 completionHandler:v7];
   }
 }
 
@@ -75,39 +75,39 @@
 {
   if ((change & 0x1400C) != 0 && qword_1EB2E4C78 == context)
   {
-    v9 = objc_msgSend_delegate(self, a2, observable);
-    objc_msgSend_momentSharePresentationCacheDidChange_(v9, v8, self);
+    delegate = [(IMMomentSharePresentationCache *)self delegate];
+    [delegate momentSharePresentationCacheDidChange:self];
   }
 }
 
 - (void)_momentShareCacheDidChange:(id)change
 {
   changeCopy = change;
-  v7 = objc_msgSend_userInfo(changeCopy, v5, v6);
-  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, @"IMMomentShareCacheNotificationURLStringsUserInfoKey");
+  userInfo = [changeCopy userInfo];
+  v6 = [userInfo objectForKeyedSubscript:@"IMMomentShareCacheNotificationURLStringsUserInfoKey"];
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v12 = objc_msgSend_allKeys(self->_cache, v10, v11);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_1A82CB0C8;
-  v19[3] = &unk_1E7811748;
-  v13 = v9;
-  v20 = v13;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  allKeys = [(NSMutableDictionary *)self->_cache allKeys];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_1A82CB0C8;
+  v10[3] = &unk_1E7811748;
+  v8 = v6;
+  v11 = v8;
   selfCopy = self;
-  v22 = &v23;
-  objc_msgSend_enumerateObjectsUsingBlock_(v12, v14, v19);
+  v13 = &v14;
+  [allKeys enumerateObjectsUsingBlock:v10];
 
-  if (*(v24 + 24) == 1)
+  if (*(v15 + 24) == 1)
   {
-    v17 = objc_msgSend_delegate(self, v15, v16);
-    objc_msgSend_momentSharePresentationCacheDidChange_(v17, v18, self);
+    delegate = [(IMMomentSharePresentationCache *)self delegate];
+    [delegate momentSharePresentationCacheDidChange:self];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 - (IMMomentSharePresentationCacheDelegate)delegate

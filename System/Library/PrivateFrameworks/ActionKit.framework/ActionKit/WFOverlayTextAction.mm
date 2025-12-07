@@ -328,164 +328,161 @@ LABEL_11:
 
 - (id)outlinedTextAttributes
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   textAttributes = [(WFOverlayTextAction *)self textAttributes];
   v4 = [textAttributes mutableCopy];
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v5 = getNSStrokeColorAttributeNameSymbolLoc_ptr;
-  v25 = getNSStrokeColorAttributeNameSymbolLoc_ptr;
+  v24 = getNSStrokeColorAttributeNameSymbolLoc_ptr;
   if (!getNSStrokeColorAttributeNameSymbolLoc_ptr)
   {
     v6 = UIKitLibrary();
-    v23[3] = dlsym(v6, "NSStrokeColorAttributeName");
-    getNSStrokeColorAttributeNameSymbolLoc_ptr = v23[3];
-    v5 = v23[3];
+    v22[3] = dlsym(v6, "NSStrokeColorAttributeName");
+    getNSStrokeColorAttributeNameSymbolLoc_ptr = v22[3];
+    v5 = v22[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (!v5)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSStrokeColorAttributeName(void)"];
-    [currentHandler handleFailureInFunction:v19 file:@"WFOverlayTextAction.m" lineNumber:22 description:{@"%s", dlerror()}];
+    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSStrokeColorAttributeName(void)"];
+    [currentHandler handleFailureInFunction:v18 file:@"WFOverlayTextAction.m" lineNumber:22 description:{@"%s", dlerror()}];
 
     goto LABEL_12;
   }
 
   v7 = *v5;
-  v26 = v7;
+  v25 = v7;
   strokeColor = [(WFOverlayTextAction *)self strokeColor];
   platformColor = [strokeColor platformColor];
-  v28[0] = platformColor;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v27[0] = platformColor;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v10 = getNSStrokeWidthAttributeNameSymbolLoc_ptr;
-  v25 = getNSStrokeWidthAttributeNameSymbolLoc_ptr;
+  v24 = getNSStrokeWidthAttributeNameSymbolLoc_ptr;
   if (!getNSStrokeWidthAttributeNameSymbolLoc_ptr)
   {
     v11 = UIKitLibrary();
-    v23[3] = dlsym(v11, "NSStrokeWidthAttributeName");
-    getNSStrokeWidthAttributeNameSymbolLoc_ptr = v23[3];
-    v10 = v23[3];
+    v22[3] = dlsym(v11, "NSStrokeWidthAttributeName");
+    getNSStrokeWidthAttributeNameSymbolLoc_ptr = v22[3];
+    v10 = v22[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (!v10)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSStrokeWidthAttributeName(void)"];
-    [currentHandler2 handleFailureInFunction:v21 file:@"WFOverlayTextAction.m" lineNumber:21 description:{@"%s", dlerror()}];
+    v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSStrokeWidthAttributeName(void)"];
+    [currentHandler2 handleFailureInFunction:v20 file:@"WFOverlayTextAction.m" lineNumber:21 description:{@"%s", dlerror()}];
 
 LABEL_12:
     __break(1u);
   }
 
-  v27 = *v10;
-  v12 = v27;
+  v26 = *v10;
+  v12 = v26;
   strokeWidthPercentage = [(WFOverlayTextAction *)self strokeWidthPercentage];
-  v28[1] = strokeWidthPercentage;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v26 count:2];
+  v27[1] = strokeWidthPercentage;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v25 count:2];
   [v4 addEntriesFromDictionary:v14];
 
   v15 = [v4 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)textAttributes
 {
-  v31[3] = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v30[3] = *MEMORY[0x277D85DE8];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v3 = getNSForegroundColorAttributeNameSymbolLoc_ptr;
-  v28 = getNSForegroundColorAttributeNameSymbolLoc_ptr;
+  v27 = getNSForegroundColorAttributeNameSymbolLoc_ptr;
   if (!getNSForegroundColorAttributeNameSymbolLoc_ptr)
   {
     v4 = UIKitLibrary();
-    v26[3] = dlsym(v4, "NSForegroundColorAttributeName");
-    getNSForegroundColorAttributeNameSymbolLoc_ptr = v26[3];
-    v3 = v26[3];
+    v25[3] = dlsym(v4, "NSForegroundColorAttributeName");
+    getNSForegroundColorAttributeNameSymbolLoc_ptr = v25[3];
+    v3 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v3)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSForegroundColorAttributeName(void)"];
-    [currentHandler handleFailureInFunction:v20 file:@"WFOverlayTextAction.m" lineNumber:18 description:{@"%s", dlerror()}];
+    v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSForegroundColorAttributeName(void)"];
+    [currentHandler handleFailureInFunction:v19 file:@"WFOverlayTextAction.m" lineNumber:18 description:{@"%s", dlerror()}];
 
     goto LABEL_16;
   }
 
   v5 = *v3;
-  v29[0] = v5;
+  v28[0] = v5;
   textColor = [(WFOverlayTextAction *)self textColor];
   platformColor = [textColor platformColor];
-  v31[0] = platformColor;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v30[0] = platformColor;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v8 = getNSFontAttributeNameSymbolLoc_ptr;
-  v28 = getNSFontAttributeNameSymbolLoc_ptr;
+  v27 = getNSFontAttributeNameSymbolLoc_ptr;
   if (!getNSFontAttributeNameSymbolLoc_ptr)
   {
     v9 = UIKitLibrary();
-    v26[3] = dlsym(v9, "NSFontAttributeName");
-    getNSFontAttributeNameSymbolLoc_ptr = v26[3];
-    v8 = v26[3];
+    v25[3] = dlsym(v9, "NSFontAttributeName");
+    getNSFontAttributeNameSymbolLoc_ptr = v25[3];
+    v8 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v8)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSFontAttributeName(void)"];
-    [currentHandler2 handleFailureInFunction:v22 file:@"WFOverlayTextAction.m" lineNumber:19 description:{@"%s", dlerror()}];
+    v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSFontAttributeName(void)"];
+    [currentHandler2 handleFailureInFunction:v21 file:@"WFOverlayTextAction.m" lineNumber:19 description:{@"%s", dlerror()}];
 
     goto LABEL_16;
   }
 
   v10 = *v8;
-  v29[1] = v10;
+  v28[1] = v10;
   font = [(WFOverlayTextAction *)self font];
-  v31[1] = font;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v30[1] = font;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v12 = getNSParagraphStyleAttributeNameSymbolLoc_ptr;
-  v28 = getNSParagraphStyleAttributeNameSymbolLoc_ptr;
+  v27 = getNSParagraphStyleAttributeNameSymbolLoc_ptr;
   if (!getNSParagraphStyleAttributeNameSymbolLoc_ptr)
   {
     v13 = UIKitLibrary();
-    v26[3] = dlsym(v13, "NSParagraphStyleAttributeName");
-    getNSParagraphStyleAttributeNameSymbolLoc_ptr = v26[3];
-    v12 = v26[3];
+    v25[3] = dlsym(v13, "NSParagraphStyleAttributeName");
+    getNSParagraphStyleAttributeNameSymbolLoc_ptr = v25[3];
+    v12 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v12)
   {
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSParagraphStyleAttributeName(void)"];
-    [currentHandler3 handleFailureInFunction:v24 file:@"WFOverlayTextAction.m" lineNumber:20 description:{@"%s", dlerror()}];
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getNSParagraphStyleAttributeName(void)"];
+    [currentHandler3 handleFailureInFunction:v23 file:@"WFOverlayTextAction.m" lineNumber:20 description:{@"%s", dlerror()}];
 
 LABEL_16:
     __break(1u);
   }
 
-  v30 = *v12;
-  v14 = v30;
+  v29 = *v12;
+  v14 = v29;
   paragraphStyle = [(WFOverlayTextAction *)self paragraphStyle];
-  v31[2] = paragraphStyle;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v29 count:3];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v30[2] = paragraphStyle;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v28 count:3];
 
   return v16;
 }
@@ -587,7 +584,6 @@ void __50__WFOverlayTextAction_runAsynchronouslyWithInput___block_invoke_3(uint6
   if (v3)
   {
     WFImageSizeFromFile();
-    v6 = *(a1 + 32);
     v5 = *(a1 + 48);
     v4 = *(a1 + 40);
     WFAsyncTransformedImageFromImage();

@@ -6,7 +6,7 @@
 
 - (id)_sanitizedServerObject:()AMSUIWeb
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v4 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -20,18 +20,18 @@ LABEL_5:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = MEMORY[0x1E696AEC0];
+    v8 = MEMORY[0x1E696AEC0];
     [v4 timeIntervalSince1970];
-    v5 = [v9 stringWithFormat:@"%lld", v10];
+    v5 = [v8 stringWithFormat:@"%lld", v9];
     goto LABEL_5;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = MEMORY[0x1E696AEC0];
-    v12 = [v4 base64EncodedStringWithOptions:0];
-    v6 = [v11 stringWithFormat:@"%@", v12];
+    v10 = MEMORY[0x1E696AEC0];
+    v11 = [v4 base64EncodedStringWithOptions:0];
+    v6 = [v10 stringWithFormat:@"%@", v11];
 LABEL_34:
 
     goto LABEL_6;
@@ -41,36 +41,36 @@ LABEL_34:
   if (objc_opt_isKindOfClass())
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v12 = v4;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v13)
+    v11 = v4;
+    v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v33;
+      v13 = v12;
+      v14 = *v32;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v17 = [self _sanitizedServerObject:*(*(&v32 + 1) + 8 * i)];
-          if (v17)
+          v16 = [self _sanitizedServerObject:*(*(&v31 + 1) + 8 * i)];
+          if (v16)
           {
-            [v6 addObject:v17];
+            [v6 addObject:v16];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     goto LABEL_34;
@@ -80,36 +80,36 @@ LABEL_34:
   if (objc_opt_isKindOfClass())
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v12 = v4;
-    v18 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (v18)
+    v11 = v4;
+    v17 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    if (v17)
     {
-      v19 = v18;
-      v20 = *v29;
+      v18 = v17;
+      v19 = *v28;
       do
       {
-        for (j = 0; j != v19; ++j)
+        for (j = 0; j != v18; ++j)
         {
-          if (*v29 != v20)
+          if (*v28 != v19)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v22 = [self _sanitizedServerObject:*(*(&v28 + 1) + 8 * j)];
-          if (v22)
+          v21 = [self _sanitizedServerObject:*(*(&v27 + 1) + 8 * j)];
+          if (v21)
           {
-            [v6 addObject:v22];
+            [v6 addObject:v21];
           }
         }
 
-        v19 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v18 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
-      while (v19);
+      while (v18);
     }
 
     goto LABEL_34;
@@ -118,17 +118,17 @@ LABEL_34:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __45__NSObject_AMSUIWeb___sanitizedServerObject___block_invoke;
-    v26[3] = &unk_1E7F27218;
-    v26[4] = self;
-    v24 = v23;
-    v27 = v24;
-    [v4 enumerateKeysAndObjectsUsingBlock:v26];
-    v25 = v27;
-    v6 = v24;
+    v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __45__NSObject_AMSUIWeb___sanitizedServerObject___block_invoke;
+    v25[3] = &unk_1E7F27218;
+    v25[4] = self;
+    v23 = v22;
+    v26 = v23;
+    [v4 enumerateKeysAndObjectsUsingBlock:v25];
+    v24 = v26;
+    v6 = v23;
   }
 
   else
@@ -137,8 +137,6 @@ LABEL_34:
   }
 
 LABEL_6:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

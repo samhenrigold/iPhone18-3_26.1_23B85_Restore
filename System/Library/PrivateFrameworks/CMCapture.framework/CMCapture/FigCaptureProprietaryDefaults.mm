@@ -108,7 +108,7 @@
 
   else
   {
-    [FigCaptureProprietaryDefaults objectForKey:];
+    [(FigCaptureProprietaryDefaults *)self objectForKey:a2];
     return 0;
   }
 }
@@ -134,7 +134,7 @@
 
   else
   {
-    [FigCaptureProprietaryDefaults setObject:forKey:];
+    [(FigCaptureProprietaryDefaults *)self setObject:a2 forKey:object];
   }
 }
 
@@ -148,7 +148,7 @@
 
   else
   {
-    [FigCaptureProprietaryDefaults objectsForWildcardKey:];
+    [(FigCaptureProprietaryDefaults *)self objectsForWildcardKey:a2];
     return 0;
   }
 }
@@ -203,7 +203,7 @@ uint64_t __55__FigCaptureProprietaryDefaults_objectsForWildcardKey___block_invok
 
   else
   {
-    [FigCaptureProprietaryDefaults setObject:forWildcardKey:];
+    [(FigCaptureProprietaryDefaults *)self setObject:a2 forWildcardKey:object];
     return 0;
   }
 
@@ -252,7 +252,7 @@ uint64_t __58__FigCaptureProprietaryDefaults_setObject_forWildcardKey___block_in
 
   else
   {
-    [FigCaptureProprietaryDefaults observeChangesForKey:];
+    [(FigCaptureProprietaryDefaults *)self observeChangesForKey:a2];
   }
 }
 
@@ -281,7 +281,7 @@ uint64_t __58__FigCaptureProprietaryDefaults_setObject_forWildcardKey___block_in
 
   else
   {
-    [FigCaptureProprietaryDefaults stopObservingChangesForKey:];
+    [(FigCaptureProprietaryDefaults *)self stopObservingChangesForKey:a2];
   }
 }
 
@@ -315,22 +315,8 @@ uint64_t __58__FigCaptureProprietaryDefaults_setObject_forWildcardKey___block_in
 
   else
   {
-    [FigCaptureProprietaryDefaults sendNotificationOfNewTransientValue:forKey:];
+    [(FigCaptureProprietaryDefaults *)self sendNotificationOfNewTransientValue:a2 forKey:value];
   }
-}
-
-- (uint64_t)objectForKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setObject:forKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 - (uint64_t)objectsForWildcardKey:(void *)a3 .cold.1(char *a1, void *a2, void *a3, void *a4)
@@ -358,41 +344,6 @@ uint64_t __58__FigCaptureProprietaryDefaults_setObject_forWildcardKey___block_in
   a3[4] = a2;
   a3[5] = v10;
   return [v11 enumerateKeysAndObjectsUsingBlock:a3];
-}
-
-- (uint64_t)objectsForWildcardKey:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setObject:forWildcardKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)observeChangesForKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stopObservingChangesForKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)sendNotificationOfNewTransientValue:forKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

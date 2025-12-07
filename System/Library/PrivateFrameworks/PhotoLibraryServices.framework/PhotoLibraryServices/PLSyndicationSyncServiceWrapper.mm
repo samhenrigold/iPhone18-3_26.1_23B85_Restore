@@ -98,7 +98,7 @@ void __116__PLSyndicationSyncServiceWrapper_executeQueryForSyncManager_type_star
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134349056;
-    v8 = [v3 count];
+    v8 = objc_msgSend_count(v3);
     _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "[sync] spotlight search query found %{public}lu items, batch processing", &v7, 0xCu);
   }
 
@@ -199,7 +199,7 @@ void __115__PLSyndicationSyncServiceWrapper_executeQueryForSyncManager_type_star
     if (v6)
     {
       *buf = 134217984;
-      v20 = [v3 count];
+      v20 = objc_msgSend_count(v3);
       _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEFAULT, "[sync] spotlight search query found %lu items", buf, 0xCu);
     }
 
@@ -327,21 +327,21 @@ LABEL_18:
   _Block_object_dispose(v18, 8);
 }
 
-void __63__PLSyndicationSyncServiceWrapper__findSyndicationStartingDate__block_invoke(uint64_t a1, void *a2)
+void __63__PLSyndicationSyncServiceWrapper__findSyndicationStartingDate__block_invoke(void *a1, void *a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = a2;
-  if (v2)
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  if (v3)
   {
-    v3 = PLSyndicationGetLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = PLSyndicationGetLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_INFO, "[sync] searching for syndication start date, current pending date: %@", buf, 0xCu);
+      v7 = v3;
+      _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_INFO, "[sync] searching for syndication start date, current pending date: %@", buf, 0xCu);
     }
 
-    v4 = v2;
+    v5 = v3;
     PLSafeRunWithUnfairLock();
   }
 }
@@ -483,26 +483,27 @@ LABEL_11:
 - (BOOL)_hasPendingJobsBasedOnLastSyncDate:(id)date
 {
   dateCopy = date;
+  v7 = dateCopy;
   if (dateCopy)
   {
-    v4 = PLSpotlightReceiverLastUpdate();
-    if (v4)
+    v8 = PLSpotlightReceiverLastUpdate(dateCopy, v4, v5, v6);
+    if (v8)
     {
-      v5 = [dateCopy compare:v4] != 1;
+      v9 = [v7 compare:v8] != 1;
     }
 
     else
     {
-      v5 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v5 = 1;
+    v9 = 1;
   }
 
-  return v5;
+  return v9;
 }
 
 - (BOOL)_needsSyndicationFullIndexSync
@@ -600,7 +601,7 @@ LABEL_11:
   if (v20 <= 0.0)
   {
     v21 = v18;
-    while ([v17 count] <= 0x3E7)
+    while (objc_msgSend_count(v17) <= 0x3E7)
     {
       v19 = [v21 dateByAddingTimeInterval:v14];
       v22 = [[PLSyndicationSyncWorkItem alloc] initWithSyndicationQueryType:type startDate:v21 endDate:v19];

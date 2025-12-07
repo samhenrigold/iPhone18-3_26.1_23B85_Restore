@@ -1,4 +1,5 @@
 @interface MTRClusterTestCluster
+- (MTRClusterTestCluster)initWithDevice:(MTRDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue;
 - (void)simpleStructEchoRequestWithParams:(MTRTestClusterClusterSimpleStructEchoRequestParams *)params expectedValues:(NSArray *)expectedDataValueDictionaries expectedValueInterval:(NSNumber *)expectedValueIntervalMs completionHandler:(void *)completionHandler;
 - (void)testAddArgumentsWithParams:(MTRTestClusterClusterTestAddArgumentsParams *)params expectedValues:(NSArray *)expectedDataValueDictionaries expectedValueInterval:(NSNumber *)expectedValueIntervalMs completionHandler:(void *)completionHandler;
 - (void)testComplexNullableOptionalRequestWithParams:(MTRTestClusterClusterTestComplexNullableOptionalRequestParams *)params expectedValues:(NSArray *)expectedDataValueDictionaries expectedValueInterval:(NSNumber *)expectedValueIntervalMs completionHandler:(void *)completionHandler;
@@ -19,6 +20,17 @@
 @end
 
 @implementation MTRClusterTestCluster
+
+- (MTRClusterTestCluster)initWithDevice:(MTRDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue
+{
+  v6 = endpoint;
+  v8 = device;
+  v9 = queue;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v6];
+  v11 = [(MTRGenericCluster *)self initWithDevice:v8 endpointID:v10 queue:v9];
+
+  return v11;
+}
 
 - (void)testSpecificWithParams:(MTRTestClusterClusterTestSpecificParams *)params expectedValues:(NSArray *)expectedDataValueDictionaries expectedValueInterval:(NSNumber *)expectedValueIntervalMs completionHandler:(void *)completionHandler
 {

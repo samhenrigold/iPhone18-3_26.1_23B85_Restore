@@ -17,13 +17,13 @@
 
 - (id)resolveURLWithWorkflowID:(id)d error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = getWFFilesLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+    v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
     _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s Resolving URL", buf, 0xCu);
   }
 
@@ -40,9 +40,9 @@
   if (dCopy && fileLocation)
   {
     fileLocation2 = [(WFFileValue *)self fileLocation];
-    v49 = 0;
-    v12 = [fileLocation2 resolveLocationWithError:&v49];
-    v13 = v49;
+    v48 = 0;
+    v12 = [fileLocation2 resolveLocationWithError:&v48];
+    v13 = v48;
 
     v14 = getWFFilesLogObject();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -51,11 +51,11 @@
       v16 = objc_opt_class();
       v17 = NSStringFromClass(v16);
       *buf = 136315650;
-      v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
-      v52 = 2112;
-      v53 = v12;
-      v54 = 2112;
-      v55 = v17;
+      v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+      v51 = 2112;
+      v52 = v12;
+      v53 = 2112;
+      v54 = v17;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%s Attemping to create wrapper from url: %@ file location type: %@", buf, 0x20u);
     }
 
@@ -65,9 +65,9 @@
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
-        v52 = 2112;
-        v53 = v13;
+        v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+        v51 = 2112;
+        v52 = v13;
         _os_log_impl(&dword_1CA256000, v36, OS_LOG_TYPE_ERROR, "%s Could not resolve file location with error: %@", buf, 0x16u);
       }
 
@@ -91,9 +91,9 @@ LABEL_41:
 
     standardClient = [MEMORY[0x1E69E0938] standardClient];
     path = [v12 path];
-    v48 = v13;
-    v20 = [standardClient resolveFilePath:path workflowID:dCopy error:&v48];
-    v21 = v48;
+    v47 = v13;
+    v20 = [standardClient resolveFilePath:path workflowID:dCopy error:&v47];
+    v21 = v47;
 
     if (v20)
     {
@@ -109,11 +109,11 @@ LABEL_41:
     {
       path2 = [v12 path];
       *buf = 136315650;
-      v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
-      v52 = 2112;
-      v53 = path2;
-      v54 = 2114;
-      v55 = v21;
+      v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+      v51 = 2112;
+      v52 = path2;
+      v53 = 2114;
+      v54 = v21;
       _os_log_impl(&dword_1CA256000, v39, OS_LOG_TYPE_ERROR, "%s Failed to look up file path: %@: %{public}@", buf, 0x20u);
     }
 
@@ -131,11 +131,11 @@ LABEL_38:
   {
     standardClient2 = [MEMORY[0x1E69E0938] standardClient];
     bookmarkData2 = [(WFFileValue *)self bookmarkData];
+    v45 = 0;
     v46 = 0;
-    v47 = 0;
-    v27 = [standardClient2 resolveBookmarkData:bookmarkData2 updatedData:&v47 error:&v46];
-    v12 = v47;
-    v21 = v46;
+    v27 = [standardClient2 resolveBookmarkData:bookmarkData2 updatedData:&v46 error:&v45];
+    v12 = v46;
+    v21 = v45;
 
     if (v27)
     {
@@ -150,9 +150,9 @@ LABEL_38:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
-      v52 = 2112;
-      v53 = v21;
+      v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+      v51 = 2112;
+      v52 = v21;
       _os_log_impl(&dword_1CA256000, v38, OS_LOG_TYPE_ERROR, "%s Failed to resolve bookmark data error: %@", buf, 0x16u);
     }
 
@@ -176,14 +176,14 @@ LABEL_38:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+    v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
     _os_log_impl(&dword_1CA256000, v31, OS_LOG_TYPE_DEFAULT, "%s No workflowID given but a file location found. Falling back to non security scoped URL.", buf, 0xCu);
   }
 
   fileLocation5 = [(WFFileValue *)self fileLocation];
-  v45 = 0;
-  v33 = [fileLocation5 resolveLocationWithError:&v45];
-  v21 = v45;
+  v44 = 0;
+  v33 = [fileLocation5 resolveLocationWithError:&v44];
+  v21 = v44;
 
   if (!v33)
   {
@@ -191,9 +191,9 @@ LABEL_38:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v51 = "[WFFileValue resolveURLWithWorkflowID:error:]";
-      v52 = 2114;
-      v53 = v21;
+      v50 = "[WFFileValue resolveURLWithWorkflowID:error:]";
+      v51 = 2114;
+      v52 = v21;
       _os_log_impl(&dword_1CA256000, v34, OS_LOG_TYPE_ERROR, "%s Could not create file from file location %{public}@", buf, 0x16u);
     }
 
@@ -213,14 +213,13 @@ LABEL_25:
 LABEL_42:
 
 LABEL_43:
-  v43 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (NSString)displayName
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   displayName = self->_displayName;
   if (displayName)
   {
@@ -240,9 +239,9 @@ LABEL_43:
   if (fileLocation)
   {
     fileLocation2 = [(WFFileValue *)self fileLocation];
-    v16 = 0;
-    v5 = [fileLocation2 resolveLocationWithError:&v16];
-    v6 = v16;
+    v15 = 0;
+    v5 = [fileLocation2 resolveLocationWithError:&v15];
+    v6 = v15;
 
     if (v5)
     {
@@ -255,9 +254,9 @@ LABEL_14:
     goto LABEL_10;
   }
 
-  v15 = 0;
-  v5 = [(WFFileValue *)self resolveURLWithWorkflowID:0 error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [(WFFileValue *)self resolveURLWithWorkflowID:0 error:&v14];
+  v6 = v14;
   if (!v5)
   {
     goto LABEL_14;
@@ -276,27 +275,26 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v14 = getWFFilesLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v13 = getWFFilesLogObject();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v18 = "[WFFileValue displayName]";
-    v19 = 2112;
-    v20 = v5;
-    _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s Could not get displayName for URL: %@ falling back to last path component", buf, 0x16u);
+    v17 = "[WFFileValue displayName]";
+    v18 = 2112;
+    v19 = v5;
+    _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Could not get displayName for URL: %@ falling back to last path component", buf, 0x16u);
   }
 
   lastPathComponent = [v5 lastPathComponent];
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 
   return lastPathComponent;
 }
 
 - (NSString)filename
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   filename = self->_filename;
   if (filename)
   {
@@ -308,9 +306,9 @@ LABEL_10:
 
   if (!fileLocation)
   {
-    v13 = 0;
-    v7 = [(WFFileValue *)self resolveURLWithWorkflowID:0 error:&v13];
-    v8 = v13;
+    v12 = 0;
+    v7 = [(WFFileValue *)self resolveURLWithWorkflowID:0 error:&v12];
+    v8 = v12;
     if (v7)
     {
       goto LABEL_5;
@@ -321,9 +319,9 @@ LABEL_7:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[WFFileValue filename]";
-      v17 = 2112;
-      v18 = v8;
+      v15 = "[WFFileValue filename]";
+      v16 = 2112;
+      v17 = v8;
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Could not resolve url with error: %@", buf, 0x16u);
     }
 
@@ -331,9 +329,9 @@ LABEL_7:
   }
 
   fileLocation2 = [(WFFileValue *)self fileLocation];
-  v14 = 0;
-  v7 = [fileLocation2 resolveLocationWithError:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [fileLocation2 resolveLocationWithError:&v13];
+  v8 = v13;
 
   if (!v7)
   {
@@ -348,7 +346,6 @@ LABEL_9:
 
   v3 = self->_filename;
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -374,7 +371,7 @@ LABEL_10:
 
 - (WFFileValue)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   representationCopy = representation;
   v9 = objc_opt_class();
@@ -448,7 +445,7 @@ LABEL_33:
     }
 
     v23 = providerCopy;
-    v42 = v14;
+    v41 = v14;
     if (v23)
     {
       objc_opt_class();
@@ -470,7 +467,7 @@ LABEL_33:
 
     v25 = v24;
 
-    v41 = v25;
+    v40 = v25;
     workflow = [v25 workflow];
     workflowID = [workflow workflowID];
 
@@ -483,17 +480,17 @@ LABEL_33:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v46 = "[WFFileValue initWithSerializedRepresentation:variableProvider:parameter:]";
+      v45 = "[WFFileValue initWithSerializedRepresentation:variableProvider:parameter:]";
       _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s Attempting to convert bookmark based file value into file location based value", buf, 0xCu);
     }
 
     standardClient = [MEMORY[0x1E69E0938] standardClient];
+    v42 = 0;
     v43 = 0;
-    v44 = 0;
-    v14 = v42;
-    v30 = [standardClient resolveBookmarkData:v42 updatedData:&v44 error:&v43];
-    v39 = v44;
-    v40 = v43;
+    v14 = v41;
+    v30 = [standardClient resolveBookmarkData:v41 updatedData:&v43 error:&v42];
+    v38 = v43;
+    v39 = v42;
 
     if (!v30)
     {
@@ -501,34 +498,34 @@ LABEL_33:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v46 = "[WFFileValue initWithSerializedRepresentation:variableProvider:parameter:]";
-        v47 = 2112;
-        v48 = v40;
+        v45 = "[WFFileValue initWithSerializedRepresentation:variableProvider:parameter:]";
+        v46 = 2112;
+        v47 = v39;
         _os_log_impl(&dword_1CA256000, v33, OS_LOG_TYPE_ERROR, "%s Failed to resolve bookmark data error: %@", buf, 0x16u);
       }
 
-      self = [(WFFileValue *)self initWithBookmarkData:v42 filename:v18 displayName:v21];
+      self = [(WFFileValue *)self initWithBookmarkData:v41 filename:v18 displayName:v21];
       selfCopy3 = self;
       goto LABEL_32;
     }
 
-    v37 = [WFFileValue alloc];
-    v38 = v30;
-    v36 = [v30 url];
-    workflow2 = [v41 workflow];
+    v36 = [WFFileValue alloc];
+    v37 = v30;
+    v35 = [v30 url];
+    workflow2 = [v40 workflow];
     workflowID2 = [workflow2 workflowID];
-    selfCopy3 = [(WFFileValue *)v37 initWithURL:v36 workflowID:workflowID2];
+    selfCopy3 = [(WFFileValue *)v36 initWithURL:v35 workflowID:workflowID2];
 
     if (selfCopy3)
     {
-      v14 = v42;
+      v14 = v41;
     }
 
     else
     {
 LABEL_28:
-      v14 = v42;
-      self = [(WFFileValue *)self initWithBookmarkData:v42 filename:v18 displayName:v21];
+      v14 = v41;
+      self = [(WFFileValue *)self initWithBookmarkData:v41 filename:v18 displayName:v21];
       selfCopy3 = self;
     }
 
@@ -540,7 +537,6 @@ LABEL_32:
   selfCopy3 = 0;
 LABEL_34:
 
-  v34 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -672,7 +668,7 @@ LABEL_34:
 
 - (WFFileValue)initWithURL:(id)l
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy)
   {
@@ -680,9 +676,9 @@ LABEL_34:
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFFileValue.m" lineNumber:44 description:{@"Invalid parameter not satisfying: %@", @"URL"}];
   }
 
-  v20.receiver = self;
-  v20.super_class = WFFileValue;
-  v7 = [(WFFileValue *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = WFFileValue;
+  v7 = [(WFFileValue *)&v19 init];
   if (v7)
   {
     v8 = [objc_opt_class() createBookmarkWithFileURL:lCopy workflowID:0];
@@ -692,9 +688,9 @@ LABEL_34:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v22 = "[WFFileValue initWithURL:]";
-        v23 = 2112;
-        v24 = lCopy;
+        v21 = "[WFFileValue initWithURL:]";
+        v22 = 2112;
+        v23 = lCopy;
         _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s Could not create bookmark (%@) for data backed file value falling back to URL backing", buf, 0x16u);
       }
 
@@ -722,7 +718,6 @@ LABEL_34:
     v7 = [(WFFileValue *)v7 initWithBookmarkData:v8 filename:lastPathComponent2 displayName:v15];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -738,36 +733,36 @@ LABEL_34:
 
 + (id)createBookmarkWithFileURL:(id)l workflowID:(id)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   wf_fileIsWritable = [lCopy wf_fileIsWritable];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
   v8 = getFPSandboxingURLWrapperClass_softClass;
-  v26 = getFPSandboxingURLWrapperClass_softClass;
+  v25 = getFPSandboxingURLWrapperClass_softClass;
   if (!getFPSandboxingURLWrapperClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getFPSandboxingURLWrapperClass_block_invoke;
-    v28 = &unk_1E837FAC0;
-    v29 = &v23;
+    v27 = &unk_1E837FAC0;
+    v28 = &v22;
     __getFPSandboxingURLWrapperClass_block_invoke(buf);
-    v8 = v24[3];
+    v8 = v23[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v23, 8);
-  v22 = 0;
-  v10 = [v8 wrapperWithURL:lCopy readonly:wf_fileIsWritable ^ 1u error:&v22];
-  v11 = v22;
+  _Block_object_dispose(&v22, 8);
+  v21 = 0;
+  v10 = [v8 wrapperWithURL:lCopy readonly:wf_fileIsWritable ^ 1u error:&v21];
+  v11 = v21;
   accessSpecifierForCurrentProcess = [MEMORY[0x1E69E0910] accessSpecifierForCurrentProcess];
   bundleIdentifier = [accessSpecifierForCurrentProcess bundleIdentifier];
-  v14 = [bundleIdentifier isEqualToString:*MEMORY[0x1E69E0E60]];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  if (v14)
+  if (isEqualToString)
   {
     v15 = v11;
 LABEL_8:
@@ -779,7 +774,7 @@ LABEL_8:
       *&buf[12] = 2112;
       *&buf[14] = lCopy;
       *&buf[22] = 2112;
-      v28 = v15;
+      v27 = v15;
       _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Could not create bookmark at URL: %@ with error: %@", buf, 0x20u);
     }
 
@@ -788,9 +783,9 @@ LABEL_8:
   }
 
   standardClient = [MEMORY[0x1E69E0938] standardClient];
-  v21 = v11;
-  v17 = [standardClient createBookmarkWithURL:v10 workflowID:dCopy error:&v21];
-  v15 = v21;
+  v20 = v11;
+  v17 = [standardClient createBookmarkWithURL:v10 workflowID:dCopy error:&v20];
+  v15 = v20;
 
   if (!v17)
   {
@@ -805,13 +800,11 @@ LABEL_8:
     *&buf[12] = 2112;
     *&buf[14] = lCopy;
     *&buf[22] = 2112;
-    v28 = dCopy;
+    v27 = dCopy;
     _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_DEBUG, "%s Created bookmark at URL: %@ for workflowID: %@", buf, 0x20u);
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

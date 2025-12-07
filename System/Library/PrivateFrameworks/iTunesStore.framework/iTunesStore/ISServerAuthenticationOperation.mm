@@ -28,25 +28,25 @@
 
 - (void)run
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3052000000;
-  v31 = __Block_byref_object_copy__11;
-  v32 = __Block_byref_object_dispose__11;
-  v33 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
+  v39 = *MEMORY[0x277D85DE8];
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3052000000;
+  v30 = __Block_byref_object_copy__11;
+  v31 = __Block_byref_object_dispose__11;
+  v32 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v3 = NSClassFromString(&cfstr_Serverauthenti.isa);
   if (v3)
   {
     v4 = [[v3 alloc] initWithDialog:{-[ISServerAuthenticationOperation dialog](self, "dialog")}];
     [v4 setAuthenticationContext:{-[ISServerAuthenticationOperation authenticationContext](self, "authenticationContext")}];
     [v4 setPerformsButtonAction:{-[ISServerAuthenticationOperation performsButtonAction](self, "performsButtonAction")}];
-    v5 = [(ISOperation *)self runSubOperation:v4 returningError:v29 + 5];
-    *(v25 + 24) = v5;
+    v5 = [(ISOperation *)self runSubOperation:v4 returningError:v28 + 5];
+    *(v24 + 24) = v5;
     -[ISServerAuthenticationOperation setAuthenticatedAccountCredentialSource:](self, "setAuthenticatedAccountCredentialSource:", [v4 authenticatedAccountCredentialSource]);
     -[ISServerAuthenticationOperation setAuthenticatedAccountDSID:](self, "setAuthenticatedAccountDSID:", [v4 authenticatedAccountDSID]);
     -[ISServerAuthenticationOperation setPerformedButton:](self, "setPerformedButton:", [v4 performedButton]);
@@ -66,71 +66,74 @@
       mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog = [mEMORY[0x277D69B38] shouldLog];
+    LODWORD(v10) = [mEMORY[0x277D69B38] shouldLog];
     shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    v13 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v10) = v10 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v10 = v10;
     }
 
-    if (shouldLog)
+    else
     {
-      v13 = objc_opt_class();
+      v10 &= 2u;
+    }
+
+    if (v10)
+    {
+      v14 = objc_opt_class();
       [objc_msgSend(v8 "authenticationContext")];
-      v14 = SSHashIfNeeded();
-      v34 = 138543874;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v8;
-      v38 = 2114;
-      v39 = v14;
-      LODWORD(v22) = 32;
-      v21 = &v34;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v15 = SSHashIfNeeded();
+      v33 = 138543874;
+      v34 = v14;
+      v35 = 2112;
+      v36 = v8;
+      v37 = 2114;
+      v38 = v15;
+      v16 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_275BC3000, v13, 0, "%{public}@: Performing server driven authentication. request = %@ | request.authenticationContext.accountName = %{public}@", &v33, 32);
+      if (v16)
       {
-        v16 = v15;
-        v17 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v34, v22}];
-        free(v16);
-        v21 = v17;
+        v17 = v16;
+        v18 = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
+        free(v17);
+        v21 = v18;
         SSFileLog();
       }
     }
 
-    v18 = dispatch_semaphore_create(0);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __38__ISServerAuthenticationOperation_run__block_invoke;
-    v23[3] = &unk_27A671360;
-    v23[4] = self;
-    v23[5] = dialog;
-    v23[7] = &v28;
-    v23[8] = &v24;
-    v23[6] = v18;
-    [v8 startWithAuthenticateResponse:v23];
-    dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v18);
-    if (*(v25 + 24) == 1 && [(ISServerAuthenticationOperation *)self performsButtonAction])
+    v19 = dispatch_semaphore_create(0);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __38__ISServerAuthenticationOperation_run__block_invoke;
+    v22[3] = &unk_27A671360;
+    v22[4] = self;
+    v22[5] = dialog;
+    v22[7] = &v27;
+    v22[8] = &v23;
+    v22[6] = v19;
+    [v8 startWithAuthenticateResponse:v22];
+    dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v19);
+    if (*(v24 + 24) == 1 && [(ISServerAuthenticationOperation *)self performsButtonAction])
     {
       [(ISDialogButton *)[(ISServerAuthenticationOperation *)self performedButton] performDefaultActionForDialog:dialog];
     }
 
-    v19 = v29[5];
+    v20 = v28[5];
 
     xpc_release(copyXPCEncoding);
   }
 
-  [(ISOperation *)self setError:v29[5], v21];
-  [(ISOperation *)self setSuccess:*(v25 + 24)];
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v28, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  [(ISOperation *)self setError:v28[5], v21];
+  [(ISOperation *)self setSuccess:*(v24 + 24)];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 intptr_t __38__ISServerAuthenticationOperation_run__block_invoke(uint64_t a1, void *a2, void *a3)

@@ -84,9 +84,9 @@
     +[NSCharacterSet(SCRCCharacterSetExtras) emojiCharacterSet];
   }
 
-  v1 = emojiCharacterSet_EmojiCharacterSet;
+  v2 = emojiCharacterSet_EmojiCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)modifierKeyCharacterSet
@@ -96,9 +96,9 @@
     +[NSCharacterSet(SCRCCharacterSetExtras) modifierKeyCharacterSet];
   }
 
-  v1 = modifierKeyCharacterSet_modifierKeyCharacterSet;
+  v2 = modifierKeyCharacterSet_modifierKeyCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

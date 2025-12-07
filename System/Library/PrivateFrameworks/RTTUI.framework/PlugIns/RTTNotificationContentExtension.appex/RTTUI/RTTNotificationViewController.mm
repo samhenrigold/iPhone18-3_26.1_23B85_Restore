@@ -57,19 +57,8 @@
     if (+[UNUserNotificationCenter supportsContentExtensions])
     {
       viewController = self->_viewController;
-      if (!viewController)
+      if (!viewController || (-[RTTUIConversationViewController call](viewController, "call"), v13 = objc_claimAutoreleasedReturnValue(), [v13 callUUID], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(*&buf[8] + 40), "callUUID"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, v13, (v16 & 1) == 0))
       {
-        goto LABEL_9;
-      }
-
-      call = [(RTTUIConversationViewController *)viewController call];
-      callUUID = [call callUUID];
-      callUUID2 = [*(*&buf[8] + 40) callUUID];
-      v16 = [callUUID isEqualToString:callUUID2];
-
-      if ((v16 & 1) == 0)
-      {
-LABEL_9:
         v17 = [RTTUIConversationViewController viewControllerForCall:*(*&buf[8] + 40)];
         v18 = self->_viewController;
         self->_viewController = v17;

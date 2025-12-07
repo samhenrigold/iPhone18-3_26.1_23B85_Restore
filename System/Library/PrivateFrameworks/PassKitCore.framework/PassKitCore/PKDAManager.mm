@@ -1306,9 +1306,9 @@ void __71__PKDAManager_statusForSentSharingInvitationWithIdentifier_completion__
 
               v15 = *(*(&v20 + 1) + 8 * j);
               v16 = [v15 identifier];
-              v17 = [v16 isEqualToString:a1[5]];
+              isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-              if (v17)
+              if (isEqualToString)
               {
                 *(*(a1[6] + 8) + 24) = [v15 status];
 
@@ -1522,7 +1522,7 @@ void __75__PKDAManager_statusForReceivedSharingInvitationWithIdentifier_completi
 
         v12 = *(a1 + 32);
         v13 = [v11 identifier];
-        LODWORD(v12) = [v12 isEqualToString:v13];
+        LODWORD(v12) = objc_msgSend_isEqualToString_(v12);
 
         if (v12)
         {
@@ -1624,7 +1624,7 @@ void __75__PKDAManager_statusForReceivedSharingInvitationWithIdentifier_completi
 
         v11 = *(a1 + 32);
         v12 = [v10 invitationIdentifier];
-        LODWORD(v11) = [v11 isEqualToString:v12];
+        LODWORD(v11) = objc_msgSend_isEqualToString_(v11);
 
         if (v11)
         {
@@ -3531,7 +3531,7 @@ uint64_t __56__PKDAManager_deviceCredentialForIdentifier_completion___block_invo
   v6 = v5;
   if (v4 == v5)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -3548,16 +3548,16 @@ uint64_t __56__PKDAManager_deviceCredentialForIdentifier_completion___block_invo
 
     if (v7)
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v8 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)accountAttestionRequestForCredential:(id)credential withCompletion:(id)completion
@@ -3777,9 +3777,9 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v8 = [v6 isEqualToString:v5];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v8)
+    if (!isEqualToString)
     {
       goto LABEL_12;
     }

@@ -7,12 +7,14 @@
 - (_NCWidgetViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (double)_clientPreferredContentHeightPermittingAutolayout:(BOOL)autolayout didUseFittingSize:(BOOL *)size;
 - (int64_t)_clientLargestSupportedDisplayMode;
+- (void)__openTransactionForAppearanceCallWithState:(int)state withIdentifier:(id)identifier;
 - (void)__performUpdateWithReplyHandler:(id)handler;
 - (void)__requestEncodedLayerTreeToURL:(id)l withCodingImageFormat:(id)format withReplyHandler:(id)handler;
 - (void)__setMaximumSize:(CGSize)size forDisplayMode:(int64_t)mode;
 - (void)__updateLayoutMargins:(id)margins;
 - (void)__updateVisibleFrame:(CGRect)frame withReplyHandler:(id)handler;
 - (void)_clientLargestSupportedDisplayModeDidChange;
+- (void)_closeTransactionWithAppearState:(int)state;
 - (void)_encodeLayerTreeToURL:(id)l withCodingImageFormat:(id)format withReplyHandler:(id)handler;
 - (void)_enqueueProxyRequest:(id)request;
 - (void)_notifyContentProvidingViewControllerOfActiveDisplayModeChange;
@@ -30,7 +32,11 @@
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container;
 - (void)sizeObservingView:(id)view didChangeSize:(CGSize)size;
 - (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(id)container;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -38,7 +44,7 @@
 
 + (void)initialize
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     v3 = objc_opt_class();
@@ -47,28 +53,28 @@
     [mEMORY[0x277D75830] setKeyboardFencingEnabled:0];
 
     v5 = MEMORY[0x277D75B40];
-    v25[0] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     v7 = [v5 appearanceWhenContainedInInstancesOfClasses:v6];
     clearColor = [MEMORY[0x277D75348] clearColor];
     [v7 setBackgroundColor:clearColor];
 
     v9 = MEMORY[0x277D75B40];
-    v24 = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     v11 = [v9 appearanceWhenContainedInInstancesOfClasses:v10];
     [v11 setSeparatorInset:{*MEMORY[0x277D76F30], 0.0, *MEMORY[0x277D76F30], *MEMORY[0x277D76F30]}];
 
     v12 = MEMORY[0x277D75B48];
-    v23 = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+    v22 = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
     v14 = [v12 appearanceWhenContainedInInstancesOfClasses:v13];
     clearColor2 = [MEMORY[0x277D75348] clearColor];
     [v14 setBackgroundColor:clearColor2];
 
     v16 = MEMORY[0x277D756B8];
-    v22 = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v21 = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     v18 = [v16 appearanceWhenContainedInInstancesOfClasses:v17];
     labelColor = [MEMORY[0x277D75348] labelColor];
     [v18 setTextColor:labelColor];
@@ -78,27 +84,25 @@
 
     [self _reduceTransparencyDidChange:0];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_reduceTransparencyDidChange:(id)change
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   if (!UIAccessibilityIsReduceTransparencyEnabled())
   {
     if (dyld_program_sdk_at_least())
     {
       v13 = MEMORY[0x277D75B40];
-      v57 = objc_opt_class();
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = objc_opt_class();
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       v15 = [v13 appearanceWhenContainedInInstancesOfClasses:v14];
       whiteColor = [MEMORY[0x277D75348] whiteColor];
       [v15 setSeparatorColor:whiteColor];
 
       v17 = MEMORY[0x277D75B40];
-      v56 = objc_opt_class();
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+      v55 = objc_opt_class();
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
       v19 = [v17 appearanceWhenContainedInInstancesOfClasses:v18];
       v20 = [MEMORY[0x277D75D00] widgetEffectForVibrancyStyle:120];
       [v19 setSeparatorEffect:v20];
@@ -112,9 +116,9 @@
       [contentView setBackgroundColor:whiteColor2];
 
       v25 = MEMORY[0x277D75B48];
-      v55 = objc_opt_class();
+      v54 = objc_opt_class();
       v26 = MEMORY[0x277CBEA60];
-      v27 = &v55;
+      v27 = &v54;
     }
 
     else
@@ -124,23 +128,23 @@
       v30 = objc_opt_class();
       if (!v28)
       {
-        v51 = v30;
-        v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+        v50 = v30;
+        v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
         v46 = [v29 appearanceWhenContainedInInstancesOfClasses:v45];
         v47 = [MEMORY[0x277D75348] colorWithWhite:0.52 alpha:1.0];
         [v46 setSeparatorColor:v47];
 
         v48 = MEMORY[0x277D75B40];
-        v50 = objc_opt_class();
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+        v49 = objc_opt_class();
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
         v12 = [v48 appearanceWhenContainedInInstancesOfClasses:v11];
         notificationCenterVibrancyEffect = [MEMORY[0x277D75D00] notificationCenterVibrancyEffect];
         [v12 setSeparatorEffect:notificationCenterVibrancyEffect];
         goto LABEL_9;
       }
 
-      v54 = v30;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v53 = v30;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
       v32 = [v29 appearanceWhenContainedInInstancesOfClasses:v31];
       v33 = [MEMORY[0x277D26740] _visualStylingProviderForStyleSetNamed:@"platterClientStyle" inBundle:0];
       v34 = [v33 _visualStylingForStyle:2];
@@ -148,8 +152,8 @@
       [v32 setSeparatorColor:color];
 
       v36 = MEMORY[0x277D75B40];
-      v53 = objc_opt_class();
-      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+      v52 = objc_opt_class();
+      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
       v38 = [v36 appearanceWhenContainedInInstancesOfClasses:v37];
       widgetTertiaryVibrancyEffect = [MEMORY[0x277D75D00] widgetTertiaryVibrancyEffect];
       [v38 setSeparatorEffect:widgetTertiaryVibrancyEffect];
@@ -163,9 +167,9 @@
       [v11 setBackgroundColor:tintColor];
 
       v25 = MEMORY[0x277D75B48];
-      v52 = objc_opt_class();
+      v51 = objc_opt_class();
       v26 = MEMORY[0x277CBEA60];
-      v27 = &v52;
+      v27 = &v51;
     }
 
     v12 = [v26 arrayWithObjects:v27 count:1];
@@ -177,64 +181,63 @@ LABEL_9:
   }
 
   v3 = MEMORY[0x277D75B40];
-  v60[0] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
+  v59[0] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:1];
   v5 = [v3 appearanceWhenContainedInInstancesOfClasses:v4];
   tableSeparatorLightColor = [MEMORY[0x277D75348] tableSeparatorLightColor];
   [v5 setSeparatorColor:tableSeparatorLightColor];
 
   v7 = MEMORY[0x277D75B40];
-  v59 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+  v58 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
   v9 = [v7 appearanceWhenContainedInInstancesOfClasses:v8];
   [v9 setSeparatorEffect:0];
 
   v10 = MEMORY[0x277D75B48];
-  v58 = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+  v57 = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
   v12 = [v10 appearanceWhenContainedInInstancesOfClasses:v11];
   [v12 _forSpringBoardSetDefaultSelectedBackgroundView:0];
 LABEL_10:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (_NCWidgetViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v12.receiver = self;
-  v12.super_class = _NCWidgetViewController;
-  v4 = [(_NCWidgetViewController *)&v12 initWithNibName:name bundle:bundle];
+  v14.receiver = self;
+  v14.super_class = _NCWidgetViewController;
+  v4 = [(_NCWidgetViewController *)&v14 initWithNibName:name bundle:bundle];
+  v6 = v4;
   if (v4)
   {
-    NCRegisterWidgetsLogging();
-    v5 = dispatch_queue_create("com.apple.NotificationCenter.RVCProxyQueue", 0);
-    v6 = *(v4 + 124);
-    *(v4 + 124) = v5;
+    NCRegisterWidgetsLogging(v4, v5);
+    v7 = dispatch_queue_create("com.apple.NotificationCenter.RVCProxyQueue", 0);
+    remoteViewControllerProxyQueue = v6->_remoteViewControllerProxyQueue;
+    v6->_remoteViewControllerProxyQueue = v7;
 
-    dispatch_suspend(*(v4 + 124));
+    dispatch_suspend(v6->_remoteViewControllerProxyQueue);
     if (dyld_program_sdk_at_least())
     {
-      v7 = *MEMORY[0x277D768C8];
-      v8 = *(MEMORY[0x277D768C8] + 16);
+      v9 = *MEMORY[0x277D768C8];
+      v10 = *(MEMORY[0x277D768C8] + 16);
     }
 
     else
     {
-      v7 = xmmword_22D11FCB0;
-      v8 = xmmword_22D11FCC0;
+      v9 = xmmword_22D11FCB0;
+      v10 = xmmword_22D11FCC0;
     }
 
-    *(v4 + 1096) = v7;
-    *(v4 + 1112) = v8;
+    *&v6->_clientMarginInsets.top = v9;
+    *&v6->_clientMarginInsets.bottom = v10;
     [MEMORY[0x277D757F8] _setPanGestureRecognizersEnabled:0];
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-    v10 = *(v4 + 125);
-    *(v4 + 125) = strongToStrongObjectsMapTable;
+    wrappedAppearStatesToOpenTransactionIDs = v6->_wrappedAppearStatesToOpenTransactionIDs;
+    v6->_wrappedAppearStatesToOpenTransactionIDs = strongToStrongObjectsMapTable;
 
-    [v4 setViewRespectsSystemMinimumLayoutMargins:0];
+    [(_NCWidgetViewController *)v6 setViewRespectsSystemMinimumLayoutMargins:0];
   }
 
-  return v4;
+  return v6;
 }
 
 - (void)dealloc
@@ -287,7 +290,7 @@ LABEL_10:
 
   if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_ERROR))
   {
-    [(_NCWidgetViewController *)v6 _setContentProvidingViewController:?];
+    [_NCWidgetViewController _setContentProvidingViewController:];
   }
 
   v7 = self->_contentProvidingViewController == 0;
@@ -300,12 +303,32 @@ LABEL_7:
       [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController setViewRespectsSystemMinimumLayoutMargins:0];
       [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController willMoveToParentViewController:self];
       [(_NCWidgetViewController *)self addChildViewController:self->_contentProvidingViewController];
-      contentProvidingViewController = self->_contentProvidingViewController;
       *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xFE | objc_opt_respondsToSelector() & 1;
-      v9 = self->_contentProvidingViewController;
       if (objc_opt_respondsToSelector())
       {
-        v10 = 2;
+        v8 = 2;
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xFD | v8;
+      if (objc_opt_respondsToSelector())
+      {
+        v9 = 4;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xFB | v9;
+      if (objc_opt_respondsToSelector())
+      {
+        v10 = 8;
       }
 
       else
@@ -313,43 +336,18 @@ LABEL_7:
         v10 = 0;
       }
 
-      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xFD | v10;
-      v11 = self->_contentProvidingViewController;
+      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xF7 | v10;
       if (objc_opt_respondsToSelector())
       {
-        v12 = 4;
+        v11 = 16;
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
       }
 
-      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xFB | v12;
-      v13 = self->_contentProvidingViewController;
-      if (objc_opt_respondsToSelector())
-      {
-        v14 = 8;
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xF7 | v14;
-      v15 = self->_contentProvidingViewController;
-      if (objc_opt_respondsToSelector())
-      {
-        v16 = 16;
-      }
-
-      else
-      {
-        v16 = 0;
-      }
-
-      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xEF | v16;
+      *&self->_contentProvidingViewControllerFlags = *&self->_contentProvidingViewControllerFlags & 0xEF | v11;
     }
   }
 
@@ -442,14 +440,14 @@ LABEL_21:
 
 - (void)beginRequestWithExtensionContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22.receiver = self;
-    v22.super_class = _NCWidgetViewController;
-    [(_NCWidgetViewController *)&v22 beginRequestWithExtensionContext:contextCopy];
+    v21.receiver = self;
+    v21.super_class = _NCWidgetViewController;
+    [(_NCWidgetViewController *)&v21 beginRequestWithExtensionContext:contextCopy];
     [contextCopy _setHostViewController:self];
     childViewControllers = [(_NCWidgetViewController *)self childViewControllers];
     lastObject = [childViewControllers lastObject];
@@ -465,9 +463,9 @@ LABEL_21:
       }
     }
 
-    v21 = 0;
+    v20 = 0;
     inputItems = [contextCopy inputItems];
-    [(_NCWidgetViewController *)self _processInputItems:inputItems initialActiveDisplayMode:&v21];
+    [(_NCWidgetViewController *)self _processInputItems:inputItems initialActiveDisplayMode:&v20];
 
     v9 = NCLogWidgets;
     if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
@@ -476,11 +474,11 @@ LABEL_21:
       _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
       _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
       *buf = 138543874;
-      v24 = _widgetIdentifier;
-      v25 = 2050;
+      v23 = _widgetIdentifier;
+      v24 = 2050;
       selfCopy = self;
-      v27 = 2114;
-      v28 = _containerIdentifier;
+      v26 = 2114;
+      v27 = _containerIdentifier;
       _os_log_impl(&dword_22D116000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Beginning request", buf, 0x20u);
     }
 
@@ -488,18 +486,18 @@ LABEL_21:
     [(_NCWidgetViewController *)self _setVisibilityState:self->_visibilityState force:1];
     [(_NCWidgetViewController *)self loadViewIfNeeded];
     _clientLargestSupportedDisplayMode = [(_NCWidgetViewController *)self _clientLargestSupportedDisplayMode];
-    v14 = v21;
+    v14 = v20;
     if (_clientLargestSupportedDisplayMode == -1)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __60___NCWidgetViewController_beginRequestWithExtensionContext___block_invoke;
-      v20[3] = &__block_descriptor_40_e33_v16__0___NCWidgetViewController_8l;
-      v20[4] = v21;
-      [(_NCWidgetViewController *)self _enqueueProxyRequest:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __60___NCWidgetViewController_beginRequestWithExtensionContext___block_invoke;
+      v19[3] = &__block_descriptor_40_e33_v16__0___NCWidgetViewController_8l;
+      v19[4] = v20;
+      [(_NCWidgetViewController *)self _enqueueProxyRequest:v19];
     }
 
-    else if (v21 >= _clientLargestSupportedDisplayMode)
+    else if (v20 >= _clientLargestSupportedDisplayMode)
     {
       v14 = _clientLargestSupportedDisplayMode;
     }
@@ -516,30 +514,28 @@ LABEL_21:
       v17 = objc_opt_class();
       v18 = NSStringFromClass(v17);
       *buf = 138543362;
-      v24 = v18;
+      v23 = v18;
       _os_log_impl(&dword_22D116000, v16, OS_LOG_TYPE_DEFAULT, "Extension context of unexpected class (%{public}@)", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadView
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = NCLogWidgets;
   if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
     _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
-    v11 = 138543874;
-    v12 = _widgetIdentifier;
-    v13 = 2050;
+    v10 = 138543874;
+    v11 = _widgetIdentifier;
+    v12 = 2050;
     selfCopy = self;
-    v15 = 2114;
-    v16 = _containerIdentifier;
-    _os_log_impl(&dword_22D116000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Loading view", &v11, 0x20u);
+    v14 = 2114;
+    v15 = _containerIdentifier;
+    _os_log_impl(&dword_22D116000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Loading view", &v10, 0x20u);
   }
 
   v7 = [_NCWidgetViewControllerView alloc];
@@ -550,8 +546,6 @@ LABEL_21:
   [(_NCWidgetViewControllerView *)v9 setAutoresizingMask:18];
   [(NCSizeObservingView *)v9 setDelegate:self];
   [(_NCWidgetViewController *)self setView:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -613,6 +607,189 @@ LABEL_21:
   [view setLayoutMargins:{self->_initialLayoutMargins.top, self->_initialLayoutMargins.left, self->_initialLayoutMargins.bottom, self->_initialLayoutMargins.right}];
 }
 
+- (void)_closeTransactionWithAppearState:(int)state
+{
+  v3 = *&state;
+  v34 = *MEMORY[0x277D85DE8];
+  v5 = NCLogWidgets;
+  if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
+    _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
+    *buf = 138544386;
+    v25 = _widgetIdentifier;
+    v26 = 2050;
+    selfCopy2 = self;
+    v28 = 2114;
+    v29 = _containerIdentifier;
+    v30 = 1026;
+    v31 = v3;
+    v32 = 1026;
+    _appearState = [(_NCWidgetViewController *)self _appearState];
+    _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Attempting to close transaction with appear state '%{public}d' (current appear state '%{public}d')", buf, 0x2Cu);
+  }
+
+  wrappedAppearStatesToOpenTransactionIDs = self->_wrappedAppearStatesToOpenTransactionIDs;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v11 = [(NSMapTable *)wrappedAppearStatesToOpenTransactionIDs objectForKey:v10];
+
+  if (v11)
+  {
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __60___NCWidgetViewController__closeTransactionWithAppearState___block_invoke;
+    v21 = &unk_278750AB8;
+    v23 = v3;
+    v22 = v11;
+    [(_NCWidgetViewController *)self _enqueueProxyRequest:&v18];
+  }
+
+  else
+  {
+    v12 = NCLogWidgets;
+    if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v12;
+      _widgetIdentifier2 = [(_NCWidgetViewController *)self _widgetIdentifier];
+      _containerIdentifier2 = [(_NCWidgetViewController *)self _containerIdentifier];
+      *buf = 138544130;
+      v25 = _widgetIdentifier2;
+      v26 = 2050;
+      selfCopy2 = self;
+      v28 = 2114;
+      v29 = _containerIdentifier2;
+      v30 = 1026;
+      v31 = v3;
+      _os_log_impl(&dword_22D116000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> No open appearance transaction for state '%{public}d' to close", buf, 0x26u);
+    }
+  }
+
+  v16 = self->_wrappedAppearStatesToOpenTransactionIDs;
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{v3, v18, v19, v20, v21}];
+  [(NSMapTable *)v16 removeObjectForKey:v17];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = NCLogWidgets;
+  if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
+    _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
+    *buf = 138543874;
+    v15 = _widgetIdentifier;
+    v16 = 2050;
+    selfCopy = self;
+    v18 = 2114;
+    v19 = _containerIdentifier;
+    _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> View will appear", buf, 0x20u);
+  }
+
+  remoteViewControllerProxyQueue = self->_remoteViewControllerProxyQueue;
+  if (!dispatch_queue_get_specific(remoteViewControllerProxyQueue, "_NCWidgetHostViewControllerQueueIsEnabledTag"))
+  {
+    dispatch_queue_set_specific(remoteViewControllerProxyQueue, "_NCWidgetHostViewControllerQueueIsEnabledTag", 1, 0);
+    dispatch_resume(self->_remoteViewControllerProxyQueue);
+  }
+
+  v13.receiver = self;
+  v13.super_class = _NCWidgetViewController;
+  [(_NCWidgetViewController *)&v13 viewWillAppear:appearCopy];
+  [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController beginAppearanceTransition:1 animated:appearCopy];
+  objc_initWeak(buf, self);
+  v10 = *MEMORY[0x277D76620];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __42___NCWidgetViewController_viewWillAppear___block_invoke;
+  v11[3] = &unk_278750AE0;
+  objc_copyWeak(&v12, buf);
+  [v10 _performBlockAfterCATransactionCommits:v11];
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(buf);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = NCLogWidgets;
+  if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
+    _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
+    *buf = 138543874;
+    v11 = _widgetIdentifier;
+    v12 = 2050;
+    selfCopy = self;
+    v14 = 2114;
+    v15 = _containerIdentifier;
+    _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> View did appear", buf, 0x20u);
+  }
+
+  v9.receiver = self;
+  v9.super_class = _NCWidgetViewController;
+  [(_NCWidgetViewController *)&v9 viewDidAppear:appearCopy];
+  [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController endAppearanceTransition];
+  [(_NCWidgetViewController *)self _closeTransactionWithAppearState:2];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = NCLogWidgets;
+  if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
+    _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
+    *buf = 138543874;
+    v11 = _widgetIdentifier;
+    v12 = 2050;
+    selfCopy = self;
+    v14 = 2114;
+    v15 = _containerIdentifier;
+    _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> View will disappear", buf, 0x20u);
+  }
+
+  v9.receiver = self;
+  v9.super_class = _NCWidgetViewController;
+  [(_NCWidgetViewController *)&v9 viewWillDisappear:disappearCopy];
+  [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController beginAppearanceTransition:0 animated:disappearCopy];
+  [(_NCWidgetViewController *)self _closeTransactionWithAppearState:3];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = NCLogWidgets;
+  if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
+    _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
+    *buf = 138543874;
+    v11 = _widgetIdentifier;
+    v12 = 2050;
+    selfCopy = self;
+    v14 = 2114;
+    v15 = _containerIdentifier;
+    _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> View did disappear", buf, 0x20u);
+  }
+
+  v9.receiver = self;
+  v9.super_class = _NCWidgetViewController;
+  [(_NCWidgetViewController *)&v9 viewDidDisappear:disappearCopy];
+  [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController endAppearanceTransition];
+  [(_NCWidgetViewController *)self _closeTransactionWithAppearState:0];
+}
+
 - (void)_requestPreferredViewHeight:(double)height
 {
   [(_NCWidgetViewController *)self _effectiveHeightForRequestedHeight:height];
@@ -663,19 +840,19 @@ LABEL_21:
 - (double)_clientPreferredContentHeightPermittingAutolayout:(BOOL)autolayout didUseFittingSize:(BOOL *)size
 {
   autolayoutCopy = autolayout;
-  [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController preferredContentSize];
-  v8 = v7;
-  if (autolayoutCopy && fabs(v7) < 2.22044605e-16)
+  preferredContentSize = [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController preferredContentSize];
+  v10 = v9;
+  if (autolayoutCopy && fabs(v9) < 2.22044605e-16)
   {
     view = [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController view];
     view2 = [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController view];
     [view2 bounds];
-    v12 = v11;
     v14 = v13;
-    LODWORD(v11) = 1148846080;
-    LODWORD(v13) = 1112014848;
-    [view systemLayoutSizeFittingSize:v12 withHorizontalFittingPriority:v14 verticalFittingPriority:{v11, v13}];
-    v8 = v15;
+    v16 = v15;
+    LODWORD(v13) = 1148846080;
+    LODWORD(v15) = 1112014848;
+    [view systemLayoutSizeFittingSize:v14 withHorizontalFittingPriority:v16 verticalFittingPriority:{v13, v15}];
+    v10 = v17;
 
     if (size)
     {
@@ -683,10 +860,10 @@ LABEL_21:
     }
   }
 
-  v16.n128_u64[0] = NCMainScreenScale();
-  v17.n128_f64[0] = v8;
+  v18.n128_u64[0] = NCMainScreenScale(preferredContentSize, v8);
+  v19.n128_f64[0] = v10;
 
-  MEMORY[0x2821DE7E8](v17, v16);
+  MEMORY[0x2821DE7E8](v19, v18);
   return result;
 }
 
@@ -719,7 +896,7 @@ LABEL_21:
 {
   height = size.height;
   width = size.width;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   v8 = NCLogWidgets;
   if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
@@ -727,43 +904,41 @@ LABEL_21:
     v9 = v8;
     _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
     _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
-    v29.width = width;
-    v29.height = height;
-    v12 = NSStringFromCGSize(v29);
+    v28.width = width;
+    v28.height = height;
+    v12 = NSStringFromCGSize(v28);
     *buf = 138544130;
-    v21 = _widgetIdentifier;
-    v22 = 2050;
+    v20 = _widgetIdentifier;
+    v21 = 2050;
     selfCopy = self;
-    v24 = 2114;
-    v25 = _containerIdentifier;
-    v26 = 2114;
-    v27 = v12;
+    v23 = 2114;
+    v24 = _containerIdentifier;
+    v25 = 2114;
+    v26 = v12;
     _os_log_impl(&dword_22D116000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Transitioning to size: %{public}@", buf, 0x2Au);
   }
 
   SanitizedClientFrameFromHostSize(width, height, self->_clientMarginInsets.top, self->_clientMarginInsets.left, self->_clientMarginInsets.bottom, self->_clientMarginInsets.right);
-  v13 = v30.size.width;
-  v14 = v30.size.height;
-  v15 = CGRectGetWidth(v30);
+  v13 = v29.size.width;
+  v14 = v29.size.height;
+  v15 = CGRectGetWidth(v29);
   [(_NCWidgetViewController *)self _setMaximumWidth:0 forDisplayMode:?];
   [(_NCWidgetViewController *)self _setMaximumWidth:1 forDisplayMode:v15];
-  v19.receiver = self;
-  v19.super_class = _NCWidgetViewController;
-  [(_NCWidgetViewController *)&v19 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:v13, v14];
+  v18.receiver = self;
+  v18.super_class = _NCWidgetViewController;
+  [(_NCWidgetViewController *)&v18 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:v13, v14];
   if (self->_clientUsesAutolayout)
   {
     objc_initWeak(buf, self);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __78___NCWidgetViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke;
-    v17[3] = &unk_278750B08;
-    objc_copyWeak(&v18, buf);
-    [coordinatorCopy animateAlongsideTransition:v17 completion:0];
-    objc_destroyWeak(&v18);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __78___NCWidgetViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke;
+    v16[3] = &unk_278750B08;
+    objc_copyWeak(&v17, buf);
+    [coordinatorCopy animateAlongsideTransition:v16 completion:0];
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performUpdateWithCompletionHandler:(id)handler
@@ -802,35 +977,35 @@ LABEL_21:
 {
   height = size.height;
   width = size.width;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   v8 = NCLogWidgets;
   if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v8;
+    v13 = v8;
     _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
     _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
-    v35.width = width;
-    v35.height = height;
-    v17 = NSStringFromCGSize(v35);
+    v34.width = width;
+    v34.height = height;
+    v16 = NSStringFromCGSize(v34);
     [viewCopy bounds];
-    v36.width = v18;
-    v36.height = v19;
-    v20 = NSStringFromCGSize(v36);
+    v35.width = v17;
+    v35.height = v18;
+    v19 = NSStringFromCGSize(v35);
     contentView = self->_contentView;
-    v22 = 138544642;
-    v23 = _widgetIdentifier;
-    v24 = 2050;
+    v21 = 138544642;
+    v22 = _widgetIdentifier;
+    v23 = 2050;
     selfCopy = self;
-    v26 = 2114;
-    v27 = _containerIdentifier;
-    v28 = 2114;
-    v29 = v17;
-    v30 = 2114;
-    v31 = v20;
-    v32 = 2114;
-    v33 = contentView;
-    _os_log_debug_impl(&dword_22D116000, v14, OS_LOG_TYPE_DEBUG, "<%{public}@: %{public}p; container: %{public}@> View did change from size: %{public}@; to size: %{public}@; _contentView: %{public}@", &v22, 0x3Eu);
+    v25 = 2114;
+    v26 = _containerIdentifier;
+    v27 = 2114;
+    v28 = v16;
+    v29 = 2114;
+    v30 = v19;
+    v31 = 2114;
+    v32 = contentView;
+    _os_log_debug_impl(&dword_22D116000, v13, OS_LOG_TYPE_DEBUG, "<%{public}@: %{public}p; container: %{public}@> View did change from size: %{public}@; to size: %{public}@; _contentView: %{public}@", &v21, 0x3Eu);
   }
 
   if (![(UIView *)self->_contentView autoresizingMask])
@@ -847,13 +1022,11 @@ LABEL_21:
     [(UIView *)v10 setFrame:?];
     [(UIView *)self->_contentView setAutoresizingMask:18];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_encodeLayerTreeToURL:(id)l withCodingImageFormat:(id)format withReplyHandler:(id)handler
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   formatCopy = format;
   handlerCopy = handler;
@@ -886,19 +1059,19 @@ LABEL_21:
       v26 = v25;
       v28 = v27;
       [view bounds];
-      Width = CGRectGetWidth(v47);
-      v48.origin.x = v22;
-      v48.origin.y = v24;
-      v48.size.width = v26;
-      v48.size.height = v28;
-      v30 = Width - CGRectGetWidth(v48);
+      Width = CGRectGetWidth(v46);
+      v47.origin.x = v22;
+      v47.origin.y = v24;
+      v47.size.width = v26;
+      v47.size.height = v28;
+      v30 = Width - CGRectGetWidth(v47);
       [view bounds];
-      Height = CGRectGetHeight(v49);
-      v50.origin.x = v22;
-      v50.origin.y = v24;
-      v50.size.width = v26;
-      v50.size.height = v28;
-      [v13 setFrame:{v30, Height - CGRectGetHeight(v50), v26, v28}];
+      Height = CGRectGetHeight(v48);
+      v49.origin.x = v22;
+      v49.origin.y = v24;
+      v49.size.width = v26;
+      v49.size.height = v28;
+      [v13 setFrame:{v30, Height - CGRectGetHeight(v49), v26, v28}];
     }
 
     layer = [view layer];
@@ -909,29 +1082,27 @@ LABEL_21:
       block[1] = 3221225472;
       block[2] = __88___NCWidgetViewController__encodeLayerTreeToURL_withCodingImageFormat_withReplyHandler___block_invoke;
       block[3] = &unk_278750BA8;
-      v40 = layer;
-      v41 = lCopy;
-      v42 = formatCopy;
-      v43 = v13;
-      v44 = handlerCopy;
+      v39 = layer;
+      v40 = lCopy;
+      v41 = formatCopy;
+      v42 = v13;
+      v43 = handlerCopy;
       dispatch_async(v11, block);
 
-      lCopy = v40;
+      lCopy = v39;
     }
 
     else
     {
       v35 = MEMORY[0x277CCA9B8];
-      v45 = *MEMORY[0x277CCA450];
+      v44 = *MEMORY[0x277CCA450];
       lCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"There is no layer to encode (%@), we failed to obtain a queue (%@), or no URL was provided (%@)", layer, v11, lCopy];
-      v46[0] = lCopy;
-      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v45[0] = lCopy;
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
       v37 = [v35 errorWithDomain:@"NCWidgetErrorDomain" code:3 userInfo:v36];
       (*(handlerCopy + 2))(handlerCopy, v37);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_clientLargestSupportedDisplayMode
@@ -949,7 +1120,7 @@ LABEL_21:
 
 - (void)_notifyContentProvidingViewControllerOfActiveDisplayModeChange
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ((*&self->_contentProvidingViewControllerFlags & 4) != 0)
   {
     _widgetExtensionContext = [(_NCWidgetViewController *)self _widgetExtensionContext];
@@ -961,28 +1132,26 @@ LABEL_21:
       _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
       _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
       v9 = NCStringFromWidgetDisplayMode(_activeDisplayMode);
-      v12 = 138544130;
-      v13 = _widgetIdentifier;
-      v14 = 2050;
+      v11 = 138544130;
+      v12 = _widgetIdentifier;
+      v13 = 2050;
       selfCopy = self;
-      v16 = 2114;
-      v17 = _containerIdentifier;
-      v18 = 2114;
-      v19 = v9;
-      _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Notifying content providing view controller of active display mode change: %{public}@", &v12, 0x2Au);
+      v15 = 2114;
+      v16 = _containerIdentifier;
+      v17 = 2114;
+      v18 = v9;
+      _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Notifying content providing view controller of active display mode change: %{public}@", &v11, 0x2Au);
     }
 
     _contentProvidingViewController = [(_NCWidgetViewController *)self _contentProvidingViewController];
     [_widgetExtensionContext _maximumSizeForDisplayMode:_activeDisplayMode];
     [_contentProvidingViewController widgetActiveDisplayModeDidChange:_activeDisplayMode withMaximumSize:?];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setActiveDisplayMode:(int64_t)mode unconditionallyNotifyingContentProvidingViewController:(BOOL)controller
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = NCLogWidgets;
   if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
   {
@@ -990,15 +1159,15 @@ LABEL_21:
     _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
     _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
     v11 = NCStringFromWidgetDisplayMode(mode);
-    v15 = 138544130;
-    v16 = _widgetIdentifier;
-    v17 = 2050;
+    v14 = 138544130;
+    v15 = _widgetIdentifier;
+    v16 = 2050;
     selfCopy = self;
-    v19 = 2114;
-    v20 = _containerIdentifier;
-    v21 = 2114;
-    v22 = v11;
-    _os_log_impl(&dword_22D116000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Setting active display mode: %{public}@", &v15, 0x2Au);
+    v18 = 2114;
+    v19 = _containerIdentifier;
+    v20 = 2114;
+    v21 = v11;
+    _os_log_impl(&dword_22D116000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Setting active display mode: %{public}@", &v14, 0x2Au);
   }
 
   _widgetExtensionContext = [(_NCWidgetViewController *)self _widgetExtensionContext];
@@ -1008,8 +1177,6 @@ LABEL_21:
   {
     [(_NCWidgetViewController *)self _notifyContentProvidingViewControllerOfActiveDisplayModeChange];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setMaximumWidth:(double)width forDisplayMode:(int64_t)mode
@@ -1024,7 +1191,7 @@ LABEL_21:
 
 - (void)_setVisibilityState:(int64_t)state force:(BOOL)force
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (force || self->_visibilityState != state)
   {
     self->_visibilityState = state;
@@ -1037,27 +1204,25 @@ LABEL_21:
         _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
         _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
         v9 = NCStringFromWidgetVisibilityState(self->_visibilityState);
-        v11 = 138544130;
-        v12 = _widgetIdentifier;
-        v13 = 2050;
+        v10 = 138544130;
+        v11 = _widgetIdentifier;
+        v12 = 2050;
         selfCopy = self;
-        v15 = 2114;
-        v16 = _containerIdentifier;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Updating visibility state: %{public}@", &v11, 0x2Au);
+        v14 = 2114;
+        v15 = _containerIdentifier;
+        v16 = 2114;
+        v17 = v9;
+        _os_log_impl(&dword_22D116000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Updating visibility state: %{public}@", &v10, 0x2Au);
       }
 
       [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController widgetDidBecomeForeground:self->_visibilityState == 1];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setVisibleFrame:(CGRect)frame
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contentProvidingViewControllerFlags = self->_contentProvidingViewControllerFlags;
   if ((*&contentProvidingViewControllerFlags & 0x10) != 0)
   {
@@ -1071,26 +1236,25 @@ LABEL_21:
       v10 = v9;
       _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
       _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
-      v26.origin.x = x;
-      v26.origin.y = y;
-      v26.size.width = width;
-      v26.size.height = height;
-      v13 = NSStringFromCGRect(v26);
-      v17 = 138544130;
-      v18 = _widgetIdentifier;
-      v19 = 2050;
+      v25.origin.x = x;
+      v25.origin.y = y;
+      v25.size.width = width;
+      v25.size.height = height;
+      v13 = NSStringFromCGRect(v25);
+      v16 = 138544130;
+      v17 = _widgetIdentifier;
+      v18 = 2050;
       selfCopy = self;
-      v21 = 2114;
-      v22 = _containerIdentifier;
-      v23 = 2114;
-      v24 = v13;
-      _os_log_impl(&dword_22D116000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Updating visibility frame: %{public}@", &v17, 0x2Au);
+      v20 = 2114;
+      v21 = _containerIdentifier;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&dword_22D116000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Updating visibility frame: %{public}@", &v16, 0x2Au);
     }
 
     [(NCWidgetProvidingPrivate *)self->_contentProvidingViewController widgetVisibleFrameDidChange:x, y, width, height];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return (*&contentProvidingViewControllerFlags >> 4) & 1;
 }
 
@@ -1115,6 +1279,75 @@ LABEL_21:
   if (handler)
   {
     [(_NCWidgetViewController *)self _performUpdateWithCompletionHandler:?];
+  }
+}
+
+- (void)__openTransactionForAppearanceCallWithState:(int)state withIdentifier:(id)identifier
+{
+  v4 = *&state;
+  v35 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  if ([(NSMapTable *)self->_wrappedAppearStatesToOpenTransactionIDs count]>= 2)
+  {
+    v7 = NCLogWidgets;
+    if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_ERROR))
+    {
+      [_NCWidgetViewController __openTransactionForAppearanceCallWithState:v7 withIdentifier:?];
+    }
+  }
+
+  v8 = [(NSMapTable *)self->_wrappedAppearStatesToOpenTransactionIDs copy];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v9 = v8;
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v34 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v21;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v21 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        -[_NCWidgetViewController _closeTransactionWithAppearState:](self, "_closeTransactionWithAppearState:", [*(*(&v20 + 1) + 8 * v13++) integerValue]);
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v34 count:16];
+    }
+
+    while (v11);
+  }
+
+  wrappedAppearStatesToOpenTransactionIDs = self->_wrappedAppearStatesToOpenTransactionIDs;
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [(NSMapTable *)wrappedAppearStatesToOpenTransactionIDs setObject:identifierCopy forKey:v15];
+
+  v16 = NCLogWidgets;
+  if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v16;
+    _widgetIdentifier = [(_NCWidgetViewController *)self _widgetIdentifier];
+    _containerIdentifier = [(_NCWidgetViewController *)self _containerIdentifier];
+    *buf = 138544386;
+    v25 = _widgetIdentifier;
+    v26 = 2050;
+    selfCopy = self;
+    v28 = 2114;
+    v29 = _containerIdentifier;
+    v30 = 1026;
+    v31 = v4;
+    v32 = 2114;
+    v33 = identifierCopy;
+    _os_log_impl(&dword_22D116000, v17, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p; container: %{public}@> Opened appearance transaction with state: %{public}d; identifier: %{public}@", buf, 0x30u);
   }
 }
 
@@ -1171,46 +1404,39 @@ LABEL_21:
   return result;
 }
 
-- (void)_setContentProvidingViewController:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)_setContentProvidingViewController:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_22D116000, v3, OS_LOG_TYPE_ERROR, "Attempt to set content providing VC (%{public}@) when one already exists (%{public}@)", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22D116000, v0, OS_LOG_TYPE_ERROR, "Attempt to set content providing VC (%{public}@) when one already exists (%{public}@)", v1, 0x16u);
 }
 
 - (void)sizeObservingView:(uint64_t *)a3 didChangeSize:.cold.1(void *a1, void *a2, uint64_t *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 _widgetIdentifier];
   v7 = [a2 _containerIdentifier];
   v8 = *a3;
-  v10 = 138544130;
-  v11 = v6;
-  v12 = 2050;
-  v13 = a2;
-  v14 = 2114;
-  v15 = v7;
-  v16 = 2114;
-  v17 = v8;
-  _os_log_debug_impl(&dword_22D116000, v5, OS_LOG_TYPE_DEBUG, "<%{public}@: %{public}p; container: %{public}@> Updating content view autoresizing mask: %{public}@", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138544130;
+  v10 = v6;
+  v11 = 2050;
+  v12 = a2;
+  v13 = 2114;
+  v14 = v7;
+  v15 = 2114;
+  v16 = v8;
+  _os_log_debug_impl(&dword_22D116000, v5, OS_LOG_TYPE_DEBUG, "<%{public}@: %{public}p; container: %{public}@> Updating content view autoresizing mask: %{public}@", &v9, 0x2Au);
 }
 
 - (void)__openTransactionForAppearanceCallWithState:(void *)a1 withIdentifier:(void *)a2 .cold.1(void **a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = a2;
-  [v3 count];
-  v5 = *a1;
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = a2;
+  [v2 count];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_22D116000, v4, OS_LOG_TYPE_ERROR, "have %{public}lu open appearance transactions (expected 0 or 1): %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22D116000, v3, OS_LOG_TYPE_ERROR, "have %{public}lu open appearance transactions (expected 0 or 1): %{public}@", v4, 0x16u);
 }
 
 @end

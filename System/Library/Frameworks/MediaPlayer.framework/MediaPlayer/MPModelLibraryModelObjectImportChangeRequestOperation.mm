@@ -55,7 +55,7 @@
 
     if ([v15 hasLoadedValueForKey:@"MPModelPropertySongDuration"])
     {
-      [v15 duration];
+      objc_msgSend_duration(v15);
       [v12 setDuration:v17];
     }
 

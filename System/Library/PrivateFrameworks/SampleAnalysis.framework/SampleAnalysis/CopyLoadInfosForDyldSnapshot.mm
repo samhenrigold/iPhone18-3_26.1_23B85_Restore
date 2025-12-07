@@ -5,33 +5,17 @@
 
 void ___CopyLoadInfosForDyldSnapshot_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!*(*(*(a1 + 40) + 8) + 24))
   {
-    if (!*(a1 + 96))
+    if (!*(a1 + 96) || (v14 = 0, v15 = &v14, v16 = 0x2020000000, v17 = 0, v12[0] = MEMORY[0x1E69E9820], v12[1] = 3221225472, v12[2] = ___CopyLoadInfosForDyldSnapshot_block_invoke_2, v12[3] = &unk_1E86F7310, v13 = *(a1 + 56), v12[4] = &v14, DyldImageEnumerateSegments(a2, v12), v4 = *(v15 + 24), _Block_object_dispose(&v14, 8), (v4 & 1) == 0))
     {
-      goto LABEL_4;
-    }
-
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 0;
-    v15 = *(a1 + 56);
-    DyldImageEnumerateSegments();
-    v4 = *(v17 + 24);
-    _Block_object_dispose(&v16, 8);
-    if ((v4 & 1) == 0)
-    {
-LABEL_4:
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x2020000000;
-      v19 = 0;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
+      v17 = 0;
       if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0 && *(a1 + 72) != 0)
       {
-        v13 = *(a1 + 48);
-        v14 = *(a1 + 80);
         dyld_image_content_for_segment();
       }
 
@@ -45,12 +29,12 @@ LABEL_4:
           v8 = _sa_logt();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            v11 = *(a1 + 96);
-            v12 = DyldImagePath();
+            v10 = *(a1 + 96);
+            v11 = DyldImagePath(a2);
             *buf = 67109378;
+            v19 = v10;
+            v20 = 2080;
             v21 = v11;
-            v22 = 2080;
-            v23 = v12;
             _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "[%d] Failed to create SABinary for %s", buf, 0x12u);
           }
 
@@ -61,7 +45,7 @@ LABEL_4:
           goto LABEL_21;
         }
 
-        if (*(v17 + 24) == 1 && *(a1 + 72))
+        if (*(v15 + 24) == 1 && *(a1 + 72))
         {
           goto LABEL_17;
         }
@@ -69,13 +53,13 @@ LABEL_4:
 
       else
       {
-        if ((*(a1 + 100) & 1) == 0 && (*(v17 + 24) != 1 || !*(a1 + 72)))
+        if ((*(a1 + 100) & 1) == 0 && (*(v15 + 24) != 1 || !*(a1 + 72)))
         {
           goto LABEL_22;
         }
 
         v6 = [SABinary binaryForDyldImage:a2 options:*(a1 + 88)];
-        if (*(v17 + 24) == 1 && *(a1 + 72))
+        if (*(v15 + 24) == 1 && *(a1 + 72))
         {
 LABEL_17:
           v6 = v6;
@@ -86,11 +70,9 @@ LABEL_17:
 LABEL_21:
 
 LABEL_22:
-      _Block_object_dispose(&v16, 8);
+      _Block_object_dispose(&v14, 8);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void *___CopyLoadInfosForDyldSnapshot_block_invoke_2(void *result, uint64_t a2, unint64_t a3)

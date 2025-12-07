@@ -3,6 +3,7 @@
 - (ATXModeHeuristicClassifier)initWithConfiguredModeService:(id)service locationManager:(id)manager miloProvider:(id)provider;
 - (ATXModeHeuristicClassifier)initWithFeaturizers:(id)featurizers minUpdateInterval:(double)interval configuredModeService:(id)service;
 - (BOOL)_isUserWorkingFromHomeWithAggregateFeatures:(id)features;
+- (id)_serializedTriggersForMode:(int)mode fromAggregateFeatures:(id)features;
 - (id)_triggersForMode:(int)mode fromAggregateFeatures:(id)features;
 - (id)currentFeaturesInDictionary;
 - (int)_originForMode:(int)mode fromAggregateFeatures:(id)features;
@@ -23,51 +24,50 @@
 
 - (ATXModeHeuristicClassifier)initWithConfiguredModeService:(id)service locationManager:(id)manager miloProvider:(id)provider
 {
-  v27[12] = *MEMORY[0x277D85DE8];
+  v26[12] = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   managerCopy = manager;
   serviceCopy = service;
-  v26 = objc_opt_new();
-  v27[0] = v26;
   v25 = objc_opt_new();
-  v27[1] = v25;
+  v26[0] = v25;
   v24 = objc_opt_new();
-  v27[2] = v24;
-  v22 = objc_opt_new();
-  v27[3] = v22;
+  v26[1] = v24;
+  v23 = objc_opt_new();
+  v26[2] = v23;
   v21 = objc_opt_new();
-  v27[4] = v21;
+  v26[3] = v21;
+  v20 = objc_opt_new();
+  v26[4] = v20;
   v10 = [[ATXModeCalendarFeaturizer alloc] initWithLocationManager:managerCopy andMiloProvider:providerCopy];
 
-  v27[5] = v10;
+  v26[5] = v10;
   v11 = objc_opt_new();
-  v27[6] = v11;
+  v26[6] = v11;
   v12 = objc_opt_new();
-  v27[7] = v12;
+  v26[7] = v12;
   v13 = objc_opt_new();
-  v27[8] = v13;
+  v26[8] = v13;
   v14 = objc_opt_new();
-  v27[9] = v14;
+  v26[9] = v14;
   v15 = objc_opt_new();
-  v27[10] = v15;
+  v26[10] = v15;
   v16 = [[ATXModeMicrolocationFeaturizer alloc] initWithMiloProvider:providerCopy];
 
-  v27[11] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:12];
+  v26[11] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:12];
   v18 = [(ATXModeHeuristicClassifier *)self initWithFeaturizers:v17 minUpdateInterval:serviceCopy configuredModeService:15.0];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (ATXModeHeuristicClassifier)initWithFeaturizers:(id)featurizers minUpdateInterval:(double)interval configuredModeService:(id)service
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   featurizersCopy = featurizers;
   serviceCopy = service;
-  v47.receiver = self;
-  v47.super_class = ATXModeHeuristicClassifier;
-  v11 = [(ATXModeHeuristicClassifier *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = ATXModeHeuristicClassifier;
+  v11 = [(ATXModeHeuristicClassifier *)&v46 init];
   if (v11)
   {
     if ([MEMORY[0x277D42598] isClassCLocked])
@@ -107,56 +107,54 @@
     objc_initWeak(&location, v11);
     v28 = [ATXModeScheduler alloc];
     v29 = v11->_queue;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __90__ATXModeHeuristicClassifier_initWithFeaturizers_minUpdateInterval_configuredModeService___block_invoke;
-    v44[3] = &unk_279AB7B90;
-    objc_copyWeak(&v45, &location);
-    v30 = [(ATXModeScheduler *)v28 initWithQueue:v29 operationBlock:v44 andLeeway:5.0];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __90__ATXModeHeuristicClassifier_initWithFeaturizers_minUpdateInterval_configuredModeService___block_invoke;
+    v43[3] = &unk_279AB7B90;
+    objc_copyWeak(&v44, &location);
+    v30 = [(ATXModeScheduler *)v28 initWithQueue:v29 operationBlock:v43 andLeeway:5.0];
     scheduler = v11->_scheduler;
     v11->_scheduler = v30;
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v32 = v11->_featurizers;
-    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v33)
     {
-      v34 = *v41;
+      v34 = *v40;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v41 != v34)
+          if (*v40 != v34)
           {
             objc_enumerationMutation(v32);
           }
 
-          v36 = *(*(&v40 + 1) + 8 * i);
-          [v36 setDelegate:{v11, v40}];
+          v36 = *(*(&v39 + 1) + 8 * i);
+          [v36 setDelegate:{v11, v39}];
           [v36 beginListening];
         }
 
-        v33 = [(NSArray *)v32 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v33 = [(NSArray *)v32 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v33);
     }
 
-    [(ATXModeHeuristicClassifier *)v11 _requestFeaturesFromAllFeaturizersAndUpdate];
-    v37 = __atxlog_handle_modes();
+    v37 = __atxlog_handle_modes([(ATXModeHeuristicClassifier *)v11 _requestFeaturesFromAllFeaturizersAndUpdate]);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       [ATXModeHeuristicClassifier initWithFeaturizers:v37 minUpdateInterval:? configuredModeService:?];
     }
 
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -178,41 +176,40 @@ void __90__ATXModeHeuristicClassifier_initWithFeaturizers_minUpdateInterval_conf
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_featurizers;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) stopListening];
+        [*(*(&v9 + 1) + 8 * v7++) stopListening];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = ATXModeHeuristicClassifier;
-  [(ATXModeHeuristicClassifier *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = ATXModeHeuristicClassifier;
+  [(ATXModeHeuristicClassifier *)&v8 dealloc];
 }
 
 - (void)_requestFeaturesFromAllFeaturizersAndUpdate
@@ -228,34 +225,34 @@ void __90__ATXModeHeuristicClassifier_initWithFeaturizers_minUpdateInterval_conf
 
 void __73__ATXModeHeuristicClassifier__requestFeaturesFromAllFeaturizersAndUpdate__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   v5 = *(v3 + 1);
   *(v3 + 1) = v4;
 
   [*(v3 + 3) removeAllObjects];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = *(*(a1 + 32) + 24);
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) provideFeatures];
+        v11 = [*(*(&v13 + 1) + 8 * v10) provideFeatures];
         if (v11)
         {
           [*(v3 + 3) addObject:v11];
@@ -265,7 +262,7 @@ void __73__ATXModeHeuristicClassifier__requestFeaturesFromAllFeaturizersAndUpdat
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -274,15 +271,13 @@ void __73__ATXModeHeuristicClassifier__requestFeaturesFromAllFeaturizersAndUpdat
   [*(a1 + 32) _updateIfNeededWithGuardedData:v3];
   v12 = *(v3 + 2);
   *(v3 + 2) = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateIfNeededWithGuardedData:(id)data
 {
   v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v6 = __atxlog_handle_modes();
+  v6 = __atxlog_handle_modes(dataCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [dataCopy[3] count];
@@ -323,41 +318,57 @@ void __73__ATXModeHeuristicClassifier__requestFeaturesFromAllFeaturizersAndUpdat
 
   date = [MEMORY[0x277CBEAA8] date];
   v14 = [(ATXModeHeuristicClassifier *)self _predictModeWithFeature:dataCopy[1]];
-  v15 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = v14;
+  v16 = __atxlog_handle_modes(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = objc_opt_class();
-    v17 = v16;
-    v18 = NSStringFromSelector(a2);
-    v19 = BMUserFocusInferredModeTypeAsString();
+    v17 = objc_opt_class();
+    v18 = v17;
+    v19 = NSStringFromSelector(a2);
+    v20 = BMUserFocusInferredModeTypeAsString();
     *buf = 138412802;
-    v28 = v16;
+    v28 = v17;
     v29 = 2112;
-    v30 = v18;
+    v30 = v19;
     v31 = 2112;
-    v32 = v19;
-    _os_log_impl(&dword_260C9F000, v15, OS_LOG_TYPE_DEFAULT, "[%@][%@] Predicted mode: %@", buf, 0x20u);
+    v32 = v20;
+    _os_log_impl(&dword_260C9F000, v16, OS_LOG_TYPE_DEFAULT, "[%@][%@] Predicted mode: %@", buf, 0x20u);
   }
 
-  if (v14 != *(dataCopy + 8))
+  if (v15 != *(dataCopy + 8))
   {
-    *(dataCopy + 8) = v14;
+    *(dataCopy + 8) = v15;
     [(ATXModeHeuristicClassifier *)self _updateWithGuardedData:dataCopy];
   }
 
-  v20 = dataCopy[2];
+  v21 = dataCopy[2];
   dataCopy[2] = date;
-  v21 = date;
+  v22 = date;
 
   [dataCopy[3] removeAllObjects];
   [(ATXModeScheduler *)self->_scheduler cancelPendingOperation];
+}
 
-  v22 = *MEMORY[0x277D85DE8];
+- (id)_serializedTriggersForMode:(int)mode fromAggregateFeatures:(id)features
+{
+  v4 = [(ATXModeHeuristicClassifier *)self _triggersForMode:*&mode fromAggregateFeatures:features];
+  v5 = v4;
+  if (v4)
+  {
+    v6 = ATXSerializeTriggers(v4);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (id)_triggersForMode:(int)mode fromAggregateFeatures:(id)features
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v7 = featuresCopy;
   v8 = mode - 1;
@@ -374,17 +385,17 @@ void __73__ATXModeHeuristicClassifier__requestFeaturesFromAllFeaturizersAndUpdat
       goto LABEL_24;
     case 2:
       v10 = [[ATXLocationEnteredTrigger alloc] initWithLocationIdentifier:0 namedLOI:2];
-      v19 = v10;
+      v18 = v10;
       v11 = MEMORY[0x277CBEA60];
-      v12 = &v19;
+      v12 = &v18;
       goto LABEL_22;
     case 3:
       if ([featuresCopy BOOLValueForFeatureType:2])
       {
         v10 = [[ATXLocationEnteredTrigger alloc] initWithLocationIdentifier:0 namedLOI:1];
-        v18 = v10;
+        v17 = v10;
         v11 = MEMORY[0x277CBEA60];
-        v12 = &v18;
+        v12 = &v17;
       }
 
       else
@@ -397,24 +408,23 @@ LABEL_20:
         }
 
         v10 = objc_opt_new();
-        v17 = v10;
+        v16 = v10;
         v11 = MEMORY[0x277CBEA60];
-        v12 = &v17;
+        v12 = &v16;
       }
 
 LABEL_22:
-      v9 = [v11 arrayWithObjects:v12 count:{1, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26}];
+      v9 = [v11 arrayWithObjects:v12 count:{1, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25}];
 LABEL_23:
 
 LABEL_24:
-      v13 = *MEMORY[0x277D85DE8];
 
       return v9;
     case 4:
       v10 = objc_opt_new();
-      v24 = v10;
+      v23 = v10;
       v11 = MEMORY[0x277CBEA60];
-      v12 = &v24;
+      v12 = &v23;
       goto LABEL_22;
     case 5:
       if (![featuresCopy BOOLValueForFeatureType:4])
@@ -423,55 +433,55 @@ LABEL_24:
       }
 
       v10 = objc_opt_new();
-      v25 = v10;
+      v24 = v10;
       v11 = MEMORY[0x277CBEA60];
-      v12 = &v25;
+      v12 = &v24;
       goto LABEL_22;
     case 6:
       v10 = objc_opt_new();
-      v20 = v10;
+      v19 = v10;
       v11 = MEMORY[0x277CBEA60];
-      v12 = &v20;
+      v12 = &v19;
       goto LABEL_22;
     case 7:
       if ([featuresCopy BOOLValueForFeatureType:19])
       {
         v10 = objc_opt_new();
-        v23 = v10;
-        v11 = MEMORY[0x277CBEA60];
-        v12 = &v23;
-      }
-
-      else
-      {
-        v10 = [[ATXAppCategoryTrigger alloc] initWithiTunesCategoryId:6014];
         v22 = v10;
         v11 = MEMORY[0x277CBEA60];
         v12 = &v22;
       }
 
+      else
+      {
+        v10 = [[ATXAppCategoryTrigger alloc] initWithiTunesCategoryId:6014];
+        v21 = v10;
+        v11 = MEMORY[0x277CBEA60];
+        v12 = &v21;
+      }
+
       goto LABEL_22;
     case 8:
       v10 = [[ATXAppCategoryTrigger alloc] initWithiTunesCategoryId:6018];
-      v21 = v10;
+      v20 = v10;
       v11 = MEMORY[0x277CBEA60];
-      v12 = &v21;
+      v12 = &v20;
       goto LABEL_22;
     case 12:
     case 15:
-      v10 = objc_opt_new();
-      v16 = v10;
-      v11 = MEMORY[0x277CBEA60];
-      v12 = &v16;
-      goto LABEL_22;
-    case 14:
       v10 = objc_opt_new();
       v15 = v10;
       v11 = MEMORY[0x277CBEA60];
       v12 = &v15;
       goto LABEL_22;
+    case 14:
+      v10 = objc_opt_new();
+      v14 = v10;
+      v11 = MEMORY[0x277CBEA60];
+      v12 = &v14;
+      goto LABEL_22;
     default:
-      v10 = __atxlog_handle_modes();
+      v10 = __atxlog_handle_modes(featuresCopy);
       if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_FAULT))
       {
         [ATXModeHeuristicClassifier _triggersForMode:&v10->super fromAggregateFeatures:?];
@@ -609,10 +619,10 @@ void __141__ATXModeHeuristicClassifier_currentModeUUID_userModeName_modeType_con
 
 - (void)_currentModeUUID:(id *)d userModeName:(id *)name modeType:(int *)type confidenceScore:(double *)score origin:(int *)origin originBundleId:(id *)id serializedTrigger:(id *)trigger allowsSmartEntry:(BOOL *)self0 guardedData:(id)self1
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v18 = dataCopy[8];
-  v39 = 0;
+  v38 = 0;
   if (v18 != 2)
   {
     scoreCopy = score;
@@ -620,12 +630,12 @@ void __141__ATXModeHeuristicClassifier_currentModeUUID_userModeName_modeType_con
     idCopy = id;
     v21 = BMUserFocusInferredModeTypeToActivity(v18);
     modeService = self->_modeService;
+    v36 = 0;
     v37 = 0;
-    v38 = 0;
-    v23 = [(ATXConfiguredModeService *)modeService isActivityTypeConfigured:v21 uuid:&v38 allowsSmartEntry:&v39 userModeName:&v37];
-    v20 = v38;
-    v19 = v37;
-    v24 = __atxlog_handle_modes();
+    v23 = [(ATXConfiguredModeService *)modeService isActivityTypeConfigured:v21 uuid:&v37 allowsSmartEntry:&v38 userModeName:&v36];
+    v20 = v37;
+    v19 = v36;
+    v24 = __atxlog_handle_modes(v19);
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
     if (v23)
     {
@@ -635,9 +645,9 @@ void __141__ATXModeHeuristicClassifier_currentModeUUID_userModeName_modeType_con
       }
 
       *buf = 134218242;
-      v41 = v21;
-      v42 = 2114;
-      v43 = v20;
+      v40 = v21;
+      v41 = 2114;
+      v42 = v20;
       v26 = "Found configured activity for type: %ld uuid: %{public}@";
       v27 = v24;
       v28 = 22;
@@ -651,7 +661,7 @@ void __141__ATXModeHeuristicClassifier_currentModeUUID_userModeName_modeType_con
       }
 
       *buf = 134217984;
-      v41 = v21;
+      v40 = v21;
       v26 = "No configured activity for type: %ld, making generic suggestion";
       v27 = v24;
       v28 = 12;
@@ -715,10 +725,8 @@ LABEL_12:
 
   if (entry)
   {
-    *entry = v39;
+    *entry = v38;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_originForMode:(int)mode fromAggregateFeatures:(id)features
@@ -836,7 +844,7 @@ LABEL_8:
       v12 = 13;
       goto LABEL_27;
     default:
-      v13 = __atxlog_handle_modes();
+      v13 = __atxlog_handle_modes(featuresCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         [ATXModeHeuristicClassifier _triggersForMode:v13 fromAggregateFeatures:?];
@@ -849,14 +857,14 @@ LABEL_8:
 
 - (int)_predictModeWithFeature:(id)feature
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(featureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = featureCopy;
-    _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeHeuristicClassifier predict mode with features: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = featureCopy;
+    _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeHeuristicClassifier predict mode with features: %@", &v8, 0xCu);
   }
 
   v6 = 8;
@@ -930,7 +938,6 @@ LABEL_8:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -975,10 +982,7 @@ LABEL_8:
 
 uint64_t __57__ATXModeHeuristicClassifier_currentFeaturesInDictionary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a2 + 8) dictionaryRepresentation];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [*(a2 + 8) dictionaryRepresentation];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1066,21 +1070,20 @@ void __35__ATXModeHeuristicClassifier_reset__block_invoke(uint64_t a1, void *a2)
 
 - (void)featurizer:(id)featurizer didUpdateFeatures:(id)features
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   featurizerCopy = featurizer;
   featuresCopy = features;
-  v8 = __atxlog_handle_modes();
+  v8 = __atxlog_handle_modes(featuresCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_260C9F000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeHeuristicClassifier: %@ updated its features", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_260C9F000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeHeuristicClassifier: %@ updated its features", &v11, 0xCu);
   }
 
   [(ATXModeHeuristicClassifier *)self updateWithFeatureSet:featuresCopy];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (ATXModeClassifierClientModelDelegate)delegate
@@ -1098,11 +1101,10 @@ void __35__ATXModeHeuristicClassifier_reset__block_invoke(uint64_t a1, void *a2)
 
 - (void)_triggersForMode:(int)a1 fromAggregateFeatures:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "BMUserFocusInferredMode: %lu not handled in switch statement", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "BMUserFocusInferredMode: %lu not handled in switch statement", &v2, 0xCu);
 }
 
 @end

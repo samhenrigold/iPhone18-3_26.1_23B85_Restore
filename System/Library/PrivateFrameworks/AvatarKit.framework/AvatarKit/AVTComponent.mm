@@ -35,7 +35,7 @@
     v6 = self->_materials[index];
     if (index && !v6)
     {
-      v6 = [(AVTComponent *)self materialAtIndex:index - 1];
+      v6 = [(AVTComponent *)self materialAtIndex:?];
     }
   }
 
@@ -72,29 +72,29 @@
   v3 = objc_alloc(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   v5 = AVTComponentTypeToString(self->_type);
-  v6 = [v3 initWithFormat:@"<%@ %p | type:%@", v4, self, v5];
+  v6 = [v3 initWithFormat:v4, self, v5];
 
   if (self->_assets)
   {
-    [v6 appendFormat:@" assets: %@", self->_assets];
+    [v6 appendFormat:self->_assets];
   }
 
   if (self->_morphVariant)
   {
-    [v6 appendFormat:@" morph variant: %@", self->_morphVariant];
+    [v6 appendFormat:self->_morphVariant];
   }
 
   if (self->_imageVariant)
   {
-    [v6 appendFormat:@" image variant: %@", self->_imageVariant];
+    [v6 appendFormat:self->_imageVariant];
   }
 
   if (self->_materialVariant)
   {
-    [v6 appendFormat:@" material variant: %@", self->_materialVariant];
+    [v6 appendFormat:self->_materialVariant];
   }
 
-  [v6 appendString:@">"];
+  [v6 appendString:?];
 
   return v6;
 }

@@ -28,109 +28,108 @@ void __30___GCHapticServerManager_init__block_invoke(uint64_t a1, void *a2)
   }
 }
 
-void __30___GCHapticServerManager_init__block_invoke_2(uint64_t a1)
+void __30___GCHapticServerManager_init__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (gc_isInternalBuild())
+  v23 = *MEMORY[0x1E69E9840];
+  if (gc_isInternalBuild(a1, a2))
   {
     __30___GCHapticServerManager_init__block_invoke_2_cold_1(a1);
   }
 
-  v12 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E698D010]];
-  v2 = [v12 intValue];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
+  v16 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E698D010]];
+  v3 = [v16 intValue];
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = *(*(a1 + 40) + 88);
-  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v3)
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v4)
   {
-    v4 = *v15;
-    v5 = *MEMORY[0x1E698CFF8];
+    v5 = *v19;
+    v6 = *MEMORY[0x1E698CFF8];
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v15 != v4)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [*(*(a1 + 40) + 88) objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v6)];
-        v8 = [v7 bundleIdentifier];
-        v9 = [*(a1 + 32) objectForKeyedSubscript:v5];
-        v10 = [v8 isEqualToString:v9];
+        v8 = [*(*(a1 + 40) + 88) objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v7)];
+        v9 = [v8 bundleIdentifier];
+        v10 = [*(a1 + 32) objectForKeyedSubscript:v6];
+        v11 = [v9 isEqualToString:v10];
 
-        if (v10)
+        if (v11)
         {
-          if (v2 == 2)
+          if (v3 == 2)
           {
-            if (gc_isInternalBuild())
+            isInternalBuild = gc_isInternalBuild(v12, v13);
+            if (isInternalBuild)
             {
-              getGCHapticsLogger();
+              getGCHapticsLogger(isInternalBuild);
               objc_claimAutoreleasedReturnValue();
               __30___GCHapticServerManager_init__block_invoke_2_cold_2();
             }
 
-            [v7 setMute:1 forReason:3];
-            [v7 notifyClientOnStopWithReason:2 error:0];
+            [v8 setMute:1 forReason:3];
+            [v8 notifyClientOnStopWithReason:2 error:0];
           }
 
-          else if (v2 == 8)
+          else if (v3 == 8)
           {
-            if (gc_isInternalBuild())
+            v14 = gc_isInternalBuild(v12, v13);
+            if (v14)
             {
-              getGCHapticsLogger();
+              getGCHapticsLogger(v14);
               objc_claimAutoreleasedReturnValue();
               __30___GCHapticServerManager_init__block_invoke_2_cold_3();
             }
 
-            [v7 setMute:0 forReason:3];
+            [v8 setMute:0 forReason:3];
           }
 
-          [v7 setApplicationState:v2];
+          [v8 setApplicationState:v3];
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v3 != v6);
-      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v4 != v7);
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
-  v4 = v3;
+  v5 = v3;
   if (WeakRetained && v3)
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v3, v4);
+    if (isInternalBuild)
     {
-      v6 = getGCHapticsLogger();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = getGCHapticsLogger(isInternalBuild);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 138412546;
-        v8 = WeakRetained;
-        v9 = 2048;
-        v10 = [v4 clientID];
-        _os_log_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_DEFAULT, "%@ has lost its connection to haptic client %lu.", &v7, 0x16u);
+        v8 = 138412546;
+        v9 = WeakRetained;
+        v10 = 2048;
+        v11 = [v5 clientID];
+        _os_log_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_DEFAULT, "%@ has lost its connection to haptic client %lu.", &v8, 0x16u);
       }
     }
 
-    [WeakRetained removeHapticClient:v4];
+    [WeakRetained removeHapticClient:v5];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_13(uint64_t a1, void *a2)
@@ -159,27 +158,27 @@ void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___bl
 
 uint64_t __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0u;
+  v20 = *MEMORY[0x1E69E9840];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v2 = [*(*(a1 + 32) + 88) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
-    v4 = *v15;
+    v4 = *v16;
     do
     {
       v5 = 0;
       do
       {
-        if (*v15 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(a1 + 32) + 88) objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v5)];
+        v6 = [*(*(a1 + 32) + 88) objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v5)];
         v7 = [v6 bundleIdentifier];
         if (v7)
         {
@@ -199,20 +198,18 @@ uint64_t __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp_
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v3);
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v12, v13))
   {
     __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_2_cold_1(a1);
   }
 
-  result = [*(*(a1 + 32) + 72) updateInterestedBundleIDs:*(a1 + 40)];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 72) updateInterestedBundleIDs:*(a1 + 40)];
 }
 
 void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_15(uint64_t a1)
@@ -231,90 +228,96 @@ void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___bl
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
     [v8 setObject:v4 forKey:v9];
 
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v10, v11);
+    if (isInternalBuild)
     {
-      v10 = getGCHapticsLogger();
-      __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_15_cold_1(v10, a1, WeakRetained + 11);
+      v13 = getGCHapticsLogger(isInternalBuild);
+      __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_15_cold_1(v13);
     }
   }
 }
 
-void __45___GCHapticServerManager_removeHapticClient___block_invoke(uint64_t a1)
+void __45___GCHapticServerManager_removeHapticClient___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_1(a1);
   }
 
-  v2 = [*(a1 + 40) identifier];
-  if (gc_isInternalBuild())
+  v3 = [*(a1 + 40) identifier];
+  isInternalBuild = gc_isInternalBuild(v3, v4);
+  if (isInternalBuild)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(isInternalBuild);
     objc_claimAutoreleasedReturnValue();
     __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_2();
-    if (!v2)
+    if (!v3)
     {
       goto LABEL_12;
     }
   }
 
-  else if (!v2)
+  else if (!v3)
   {
     goto LABEL_12;
   }
 
-  v3 = [*(*(a1 + 32) + 48) objectForKey:v2];
-  [v3 unregisterHapticClient:*(a1 + 40)];
-  if (([v3 hasClients] & 1) == 0)
+  v6 = [*(*(a1 + 32) + 48) objectForKey:v3];
+  [v6 unregisterHapticClient:*(a1 + 40)];
+  v7 = [v6 hasClients];
+  if ((v7 & 1) == 0)
   {
-    if (gc_isInternalBuild())
+    v9 = gc_isInternalBuild(v7, v8);
+    if (v9)
     {
-      getGCHapticsLogger();
+      getGCHapticsLogger(v9);
       objc_claimAutoreleasedReturnValue();
       __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_3();
     }
 
-    [*(*(a1 + 32) + 48) removeObjectForKey:v2];
-    if (gc_isInternalBuild())
+    v10 = [*(*(a1 + 32) + 48) removeObjectForKey:v3];
+    v12 = gc_isInternalBuild(v10, v11);
+    if (v12)
     {
-      getGCHapticsLogger();
+      getGCHapticsLogger(v12);
       objc_claimAutoreleasedReturnValue();
       __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_4();
     }
 
-    [v3 stopAllHaptics];
+    [v6 stopAllHaptics];
   }
 
 LABEL_12:
   [*(a1 + 40) teardownAndReleaseChannels];
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "clientID")}];
-  if (v4)
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "clientID")}];
+  if (v13)
   {
-    v5 = *(*(a1 + 32) + 56);
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "clientID")}];
-    [v5 removeObjectForKey:v6];
+    v14 = *(*(a1 + 32) + 56);
+    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "clientID")}];
+    [v14 removeObjectForKey:v15];
 
-    v7 = *(*(a1 + 32) + 88);
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "clientID")}];
-    [v7 removeObjectForKey:v8];
+    v16 = *(*(a1 + 32) + 88);
+    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "clientID")}];
+    [v16 removeObjectForKey:v17];
   }
 
-  v9 = objc_opt_new();
-  v11 = *(a1 + 32);
-  v10 = (a1 + 32);
-  v12 = *(v11 + 64);
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __45___GCHapticServerManager_removeHapticClient___block_invoke_17;
-  v17 = &unk_1E841A1B8;
-  v18 = v10[1];
-  v13 = v9;
-  v19 = v13;
-  [v12 enumerateKeysAndObjectsUsingBlock:&v14];
-  [*(*v10 + 8) removeObjectsForKeys:{v13, v14, v15, v16, v17}];
-  if (gc_isInternalBuild())
+  v18 = objc_opt_new();
+  v20 = *(a1 + 32);
+  v19 = (a1 + 32);
+  v21 = *(v20 + 64);
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = __45___GCHapticServerManager_removeHapticClient___block_invoke_17;
+  v29 = &unk_1E841A1B8;
+  v30 = v19[1];
+  v22 = v18;
+  v31 = v22;
+  [v21 enumerateKeysAndObjectsUsingBlock:&v26];
+  v23 = [*(*v19 + 8) removeObjectsForKeys:{v22, v26, v27, v28, v29}];
+  v25 = gc_isInternalBuild(v23, v24);
+  if (v25)
   {
-    getGCHapticsLogger();
+    getGCHapticsLogger(v25);
     objc_claimAutoreleasedReturnValue();
     __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_5();
   }
@@ -331,30 +334,30 @@ void __45___GCHapticServerManager_removeHapticClient___block_invoke_17(uint64_t 
 
 void __55___GCHapticServerManager_logicalDeviceWasUnregistered___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v12 = [*(a1 + 32) object];
+  v20 = *MEMORY[0x1E69E9840];
+  v14 = [*(a1 + 32) object];
+  v17 = 0u;
+  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   obj = *(*(a1 + 40) + 48);
-  v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
-    v3 = *v14;
+    v3 = *v16;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v14 != v3)
+        if (*v16 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v13 + 1) + 8 * i);
+        v5 = *(*(&v15 + 1) + 8 * i);
         v6 = [*(*(a1 + 40) + 48) objectForKeyedSubscript:v5];
         v7 = [v6[1] identifier];
-        v8 = [v12 identifier];
+        v8 = [v14 identifier];
         v9 = [v7 isEqual:v8];
 
         if (v9)
@@ -365,7 +368,7 @@ void __55___GCHapticServerManager_logicalDeviceWasUnregistered___block_invoke(ui
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v2)
       {
         continue;
@@ -379,42 +382,41 @@ LABEL_11:
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v10, v11);
+    if (isInternalBuild)
     {
-      getGCHapticsLogger();
+      getGCHapticsLogger(isInternalBuild);
       objc_claimAutoreleasedReturnValue();
       __55___GCHapticServerManager_logicalDeviceWasUnregistered___block_invoke_cold_1();
     }
 
     [*(*(a1 + 40) + 48) removeObjectForKey:*(*(*(a1 + 48) + 8) + 40)];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __55___GCHapticServerManager_logicalDeviceWasUnregistered___block_invoke_23(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(*(a1 + 32) + 88) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(a1 + 32) + 88) objectForKeyedSubscript:*(*(&v9 + 1) + 8 * v5)];
+        v6 = [*(*(a1 + 32) + 88) objectForKeyedSubscript:*(*(&v8 + 1) + 8 * v5)];
         v7 = [v6 identifier];
         if ([v7 isEqual:*(*(*(a1 + 40) + 8) + 40)])
         {
@@ -426,37 +428,36 @@ void __55___GCHapticServerManager_logicalDeviceWasUnregistered___block_invoke_23
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55___GCHapticServerManager_notifyPlayerNoLongerRetained___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
-  if (([*(a1 + 32) isActiveAtTime:mach_absolute_time() * 0.0000000416666667] & 1) == 0)
+  v3 = [*(a1 + 32) isActiveAtTime:mach_absolute_time() * 0.0000000416666667];
+  if ((v3 & 1) == 0)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v3, v4))
     {
-      __55___GCHapticServerManager_notifyPlayerNoLongerRetained___block_invoke_cold_1((a1 + 32));
+      __55___GCHapticServerManager_notifyPlayerNoLongerRetained___block_invoke_cold_1(a1 + 32);
     }
 
-    v3 = [*v2 hapticLogicalDevice];
+    v5 = [*v2 hapticLogicalDevice];
 
-    if (v3)
+    if (v5)
     {
-      v4 = [*v2 hapticLogicalDevice];
-      [v4[4] removeObject:*v2];
+      v6 = [*v2 hapticLogicalDevice];
+      [v6[4] removeObject:*v2];
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 64);
-    v7 = [v5 identifier];
-    [v6 removeObjectForKey:v7];
+    v7 = *(a1 + 32);
+    v8 = *(*(a1 + 40) + 64);
+    v9 = [v7 identifier];
+    [v8 removeObjectForKey:v9];
   }
 }
 
@@ -494,32 +495,32 @@ void __38___GCHapticServerManager_enterRunloop__block_invoke_24(uint64_t a1)
 
 void __38___GCHapticServerManager_enterRunloop__block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) processActiveEventsForStartTime:*(a1 + 40) endTime:*(a1 + 48)];
   v4 = *(a1 + 40);
   v3 = *(a1 + 48);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = [*(*(a1 + 32) + 88) allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v3 - v4;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(a1 + 32) + 88) objectForKeyedSubscript:*(*(&v13 + 1) + 8 * v9)];
+        v10 = [*(*(a1 + 32) + 88) objectForKeyedSubscript:*(*(&v12 + 1) + 8 * v9)];
         v11 = v10;
         if (v10[8] == 1)
         {
@@ -531,14 +532,13 @@ void __38___GCHapticServerManager_enterRunloop__block_invoke_2(uint64_t a1)
       }
 
       while (v6 != v9);
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __38___GCHapticServerManager_enterRunloop__block_invoke_3(uint64_t a1)
@@ -551,17 +551,13 @@ void __38___GCHapticServerManager_enterRunloop__block_invoke_3(uint64_t a1)
 
 void __30___GCHapticServerManager_init__block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCHapticsLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v1 = getGCHapticsLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_12_3(v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_12_3(v2, v3, v4, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __30___GCHapticServerManager_init__block_invoke_2_cold_2()
@@ -588,136 +584,100 @@ void __30___GCHapticServerManager_init__block_invoke_2_cold_3()
 
 void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_2_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = getGCHapticsLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v1 = getGCHapticsLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v4, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_15_cold_1(NSObject *a1, uint64_t a2, uint64_t *a3)
+void __68___GCHapticServerManager_acceptNewConnection_fromHapticsEnabledApp___block_invoke_15_cold_1(NSObject *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a2 + 32);
-    v7 = *a3;
     OUTLINED_FUNCTION_0_20();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v8, v9, OS_LOG_TYPE_INFO, v10, v11, 0x16u);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0x16u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCHapticsLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v1 = getGCHapticsLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
     OUTLINED_FUNCTION_0_20();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v5, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 0x16u);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_6_4();
-  v8 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_12_3(v2, v3, v4, v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v2))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_4()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v3))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
-    v5 = *(*v1 + 48);
     OUTLINED_FUNCTION_0_20();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __45___GCHapticServerManager_removeHapticClient___block_invoke_cold_5()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v3))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
-    v5 = *(*v1 + 88);
     OUTLINED_FUNCTION_0_20();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __55___GCHapticServerManager_logicalDeviceWasUnregistered___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6_4();
-  v9 = *MEMORY[0x1E69E9840];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(*v1 + 8) + 40);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v4, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 0xCu);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __55___GCHapticServerManager_notifyPlayerNoLongerRetained___block_invoke_cold_1(uint64_t *a1)
+void __55___GCHapticServerManager_notifyPlayerNoLongerRetained___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCHapticsLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v1 = getGCHapticsLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v3 = *a1;
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_12_3(v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_12_3(v2, v3, v4, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

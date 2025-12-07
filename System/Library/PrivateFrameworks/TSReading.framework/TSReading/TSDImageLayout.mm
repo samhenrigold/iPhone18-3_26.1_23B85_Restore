@@ -169,7 +169,7 @@
   v7 = v6;
   if (currentInfoGeometry)
   {
-    [currentInfoGeometry transform];
+    objc_msgSend_transform(currentInfoGeometry);
   }
 
   else
@@ -234,7 +234,7 @@ LABEL_10:
     if ([v8 instantAlphaPath])
     {
       v20 = [objc_msgSend(v8 "instantAlphaPath")];
-      [(TSDImageLayout *)self imageDataToVisualSizeTransform];
+      objc_msgSend_imageDataToVisualSizeTransform(self);
       [v20 transformUsingAffineTransform:&v109];
       [v20 bounds];
       v22 = v21;
@@ -245,7 +245,7 @@ LABEL_10:
       if (computeLayoutGeometry)
       {
 LABEL_12:
-        [(TSDLayoutGeometry *)computeLayoutGeometry transform];
+        objc_msgSend_transform(computeLayoutGeometry);
         goto LABEL_15;
       }
     }
@@ -290,7 +290,7 @@ LABEL_15:
     {
       if (v5)
       {
-        [(TSDLayoutGeometry *)v5 transform];
+        objc_msgSend_transform(v5);
       }
 
       else
@@ -309,7 +309,7 @@ LABEL_15:
 LABEL_48:
       if (computeLayoutGeometry)
       {
-        [(TSDLayoutGeometry *)computeLayoutGeometry transform];
+        objc_msgSend_transform(computeLayoutGeometry);
       }
 
       else
@@ -365,7 +365,7 @@ LABEL_22:
     v45 = [(TSDLayoutGeometry *)[TSDMutableLayoutGeometry alloc] initWithFrame:v112.origin.x, v112.origin.y, v112.size.width, v112.size.height];
     if (computeLayoutGeometry)
     {
-      [(TSDLayoutGeometry *)computeLayoutGeometry transform];
+      objc_msgSend_transform(computeLayoutGeometry);
     }
 
     else
@@ -376,7 +376,7 @@ LABEL_22:
     [(TSDMutableLayoutGeometry *)v45 transformBy:&v109];
     if (v5)
     {
-      [(TSDLayoutGeometry *)v5 transform];
+      objc_msgSend_transform(v5);
     }
 
     else
@@ -467,7 +467,7 @@ LABEL_22:
       [v76 setSize:{v73, v75}];
       if (v76)
       {
-        [v76 transform];
+        objc_msgSend_transform(v76);
       }
 
       else
@@ -674,7 +674,7 @@ LABEL_8:
     geometry = [(TSDAbstractLayout *)self geometry];
     if (geometry)
     {
-      [(TSDLayoutGeometry *)geometry fullTransform];
+      objc_msgSend_fullTransform(geometry);
       if (!rootCopy)
       {
         goto LABEL_23;
@@ -701,7 +701,7 @@ LABEL_23:
       parent = [(TSDAbstractLayout *)self parent];
       if (parent)
       {
-        [(TSDAbstractLayout *)parent transformInRoot];
+        objc_msgSend_transformInRoot(parent);
       }
 
       else
@@ -722,15 +722,15 @@ LABEL_23:
   v5 = TSUDynamicCast();
   v6 = [TSDBezierPath bezierPathWithCGPath:self->mPathToStroke];
   memset(&v20, 0, sizeof(v20));
-  [(TSDImageLayout *)self layoutToMaskTransform];
+  objc_msgSend_layoutToMaskTransform(self);
   if (rootCopy)
   {
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self);
   }
 
   else
   {
-    [(TSDAbstractLayout *)self transform];
+    objc_msgSend_transform(self);
   }
 
   CGAffineTransformConcat(&v20, &t1, &t2);
@@ -791,9 +791,9 @@ LABEL_3:
       memset(&v17, 0, sizeof(v17));
       if (self)
       {
-        [(TSDImageLayout *)self layoutToImageTransform];
+        objc_msgSend_layoutToImageTransform(self);
 LABEL_9:
-        [(TSDAbstractLayout *)self transformInRoot];
+        objc_msgSend_transformInRoot(self);
 LABEL_11:
         CGAffineTransformConcat(&v17, &t1, &t2);
         t1 = v17;
@@ -817,7 +817,7 @@ LABEL_7:
     memset(&v17, 0, sizeof(v17));
     if (self)
     {
-      [(TSDImageLayout *)self layoutToMaskTransform];
+      objc_msgSend_layoutToMaskTransform(self);
       goto LABEL_9;
     }
 
@@ -1051,7 +1051,7 @@ LABEL_10:
   mBaseImageLayoutGeometry = self->mBaseImageLayoutGeometry;
   if (mBaseImageLayoutGeometry)
   {
-    [(TSDLayoutGeometry *)mBaseImageLayoutGeometry fullTransform];
+    objc_msgSend_fullTransform(mBaseImageLayoutGeometry, space);
   }
 
   else
@@ -1063,7 +1063,7 @@ LABEL_10:
   geometry = [(TSDInfo *)[(TSDLayout *)self info] geometry];
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
   }
 
   else
@@ -1102,14 +1102,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [tracker rotateTransform];
+  objc_msgSend_rotateTransform(tracker, a2);
   if (!self)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [(TSDImageLayout *)self layoutTransformInInfoSpace:&v5];
+  objc_msgSend_layoutTransformInInfoSpace_(self, v5, v6, v7);
 LABEL_6:
   -[TSDImageLayout resizeWithTransform:asChild:](self, "resizeWithTransform:asChild:", &v8, [objc_msgSend(tracker rep] != self);
 }
@@ -1154,7 +1154,7 @@ LABEL_6:
     v32 = v31;
     if (self)
     {
-      [(TSDImageLayout *)self layoutToMaskTransform];
+      objc_msgSend_layoutToMaskTransform(self);
 LABEL_14:
       v41 = v48;
       v40 = v49;
@@ -1186,7 +1186,7 @@ LABEL_15:
     v32 = v39;
     if (self)
     {
-      [(TSDImageLayout *)self layoutToImageTransform];
+      objc_msgSend_layoutToImageTransform(self);
       goto LABEL_14;
     }
 
@@ -1205,7 +1205,7 @@ LABEL_15:
   v16 = 0.0;
   if (self)
   {
-    [(TSDImageLayout *)self imageDataToVisualSizeTransform:0.0];
+    objc_msgSend_imageDataToVisualSizeTransform(self, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     v16 = v48;
     v13 = v49;
     v15 = v50;
@@ -1223,7 +1223,7 @@ LABEL_15:
   v23 = 0.0;
   if (self)
   {
-    [(TSDImageLayout *)self layoutToImageTransform:0.0];
+    objc_msgSend_layoutToImageTransform(self, 0.0, 0.0, 0.0, 0.0, 0.0);
     v23 = v48;
     v20 = v49;
     v22 = v50;
@@ -1260,7 +1260,7 @@ LABEL_17:
     geometry = [(TSDAbstractLayout *)self geometry];
     if (geometry)
     {
-      [(TSDLayoutGeometry *)geometry transform];
+      objc_msgSend_transform(geometry);
       v10 = v18;
       v11 = v19;
       v12 = v20;
@@ -1299,7 +1299,7 @@ LABEL_17:
     v4 = [-[TSDImageLayout maskLayout](self "maskLayout")];
     if (v4)
     {
-      [v4 transform];
+      objc_msgSend_transform(v4);
     }
 
     else
@@ -1337,7 +1337,7 @@ LABEL_8:
     v4 = [-[TSDImageLayout maskLayout](self "maskLayout")];
     if (v4)
     {
-      [v4 transform];
+      objc_msgSend_transform(v4);
     }
 
     else
@@ -1399,7 +1399,7 @@ LABEL_8:
   geometry = [(TSDInfo *)[(TSDLayout *)self info] geometry];
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
   }
 
   else
@@ -1420,7 +1420,7 @@ LABEL_8:
     v9 = [-[TSDImageLayout imageInfo](self "imageInfo")];
     if (v9)
     {
-      [v9 transform];
+      objc_msgSend_transform(v9);
     }
 
     else
@@ -1432,7 +1432,7 @@ LABEL_8:
     mDynamicInfoGeometry = self->mDynamicInfoGeometry;
     if (mDynamicInfoGeometry)
     {
-      [(TSDInfoGeometry *)mDynamicInfoGeometry transform];
+      objc_msgSend_transform(mDynamicInfoGeometry);
     }
 
     else
@@ -1677,7 +1677,7 @@ LABEL_21:
       v6 = [(TSDAbstractLayout *)parent2 geometry:v8];
       if (v6)
       {
-        [(TSDLayoutGeometry *)v6 transform];
+        objc_msgSend_transform(v6);
       }
 
       else
@@ -1703,9 +1703,9 @@ LABEL_21:
   {
     imageGeometry = [(TSDImageLayout *)self imageGeometry];
     v4 = *(MEMORY[0x277CBF2C0] + 16);
-    v14 = *MEMORY[0x277CBF2C0];
-    v15 = v4;
-    v16 = *(MEMORY[0x277CBF2C0] + 32);
+    v13 = *MEMORY[0x277CBF2C0];
+    v14 = v4;
+    v15 = *(MEMORY[0x277CBF2C0] + 32);
     parent = [(TSDAbstractLayout *)self parent];
     if (parent)
     {
@@ -1720,39 +1720,39 @@ LABEL_21:
         geometry = [(TSDAbstractLayout *)parent2 geometry];
         if (geometry)
         {
-          v10[0] = v14;
-          v10[1] = v15;
-          v10[2] = v16;
-          [(TSDLayoutGeometry *)geometry transformByConcatenatingTransformTo:v10];
+          v9[1] = v13;
+          v9[2] = v14;
+          v9[3] = v15;
+          objc_msgSend_transformByConcatenatingTransformTo_(geometry);
         }
 
         else
         {
-          v12 = 0u;
-          v13 = 0u;
-          v11 = 0u;
+          v11 = 0;
+          v12 = 0;
+          v10 = 0;
         }
 
+        v13 = v10;
         v14 = v11;
         v15 = v12;
-        v16 = v13;
         parent2 = [(TSDAbstractLayout *)parent2 parent];
       }
 
       while (parent2);
     }
 
+    v10 = v13;
     v11 = v14;
     v12 = v15;
-    v13 = v16;
-    return [imageGeometry geometryByTransformingBy:&v11];
+    return [imageGeometry geometryByTransformingBy:&v10];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = TSDImageLayout;
-    return [(TSDLayout *)&v9 inspectorGeometry];
+    v9[0].receiver = self;
+    v9[0].super_class = TSDImageLayout;
+    return [(objc_super *)v9 inspectorGeometry];
   }
 }
 
@@ -1934,7 +1934,7 @@ LABEL_21:
   {
     if (v10)
     {
-      [v10 transform];
+      objc_msgSend_transform(v10);
     }
 
     else
@@ -1949,7 +1949,7 @@ LABEL_22:
       v12 = [objc_msgSend(imageInfo "instantAlphaPath")];
       if (self)
       {
-        [(TSDImageLayout *)self imageDataToVisualSizeTransform];
+        objc_msgSend_imageDataToVisualSizeTransform(self);
       }
 
       else

@@ -65,9 +65,11 @@
   cautionaryTextKey = self->_cautionaryTextKey;
   self->_cautionaryTextKey = v23;
 
-  self->_unitChangeCautionaryTextKey = [(NSString *)self->_displayNameKey stringByAppendingString:@"_UNIT_CHANGE_CAUTIONARY_TEXT"];
+  v25 = [(NSString *)self->_displayNameKey stringByAppendingString:@"_UNIT_CHANGE_CAUTIONARY_TEXT"];
+  unitChangeCautionaryTextKey = self->_unitChangeCautionaryTextKey;
+  self->_unitChangeCautionaryTextKey = v25;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v25, unitChangeCautionaryTextKey);
 }
 
 - (HKDisplayTypeLocalization)init

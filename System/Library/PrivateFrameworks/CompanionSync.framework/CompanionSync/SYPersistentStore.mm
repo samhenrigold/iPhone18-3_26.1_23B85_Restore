@@ -48,7 +48,6 @@
 - (void)_cacheTTL;
 - (void)_convertTimestamps;
 - (void)_fixPeerInfo;
-- (void)_getSchemaVersion;
 - (void)_loadIgnoreList_LOCKED:(sqlite3 *)d;
 - (void)_saveIgnoreList_LOCKED:(sqlite3 *)d;
 - (void)_setupSharedDB;
@@ -598,7 +597,7 @@ sqlite3_stmt *__28__SYPersistentStore_dealloc__block_invoke(uint64_t a1)
 
 - (BOOL)_openDBAtPath:(id)path
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -607,13 +606,13 @@ sqlite3_stmt *__28__SYPersistentStore_dealloc__block_invoke(uint64_t a1)
   if ((v7 & 1) == 0)
   {
     v8 = *MEMORY[0x1E696A328];
-    v25[0] = *MEMORY[0x1E696A360];
-    v25[1] = v8;
-    v26[0] = @"mobile";
-    v26[1] = @"mobile";
-    v25[2] = *MEMORY[0x1E696A370];
-    v26[2] = &unk_1F5AE26B0;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v24[0] = *MEMORY[0x1E696A360];
+    v24[1] = v8;
+    v25[0] = @"mobile";
+    v25[1] = @"mobile";
+    v24[2] = *MEMORY[0x1E696A370];
+    v25[2] = &unk_1F5AE26B0;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v9 error:0];
   }
@@ -843,7 +842,6 @@ LABEL_31:
 
 LABEL_59:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -854,7 +852,7 @@ uint64_t __27__SYPersistentStore_peerID__block_invoke(uint64_t a1, uint64_t a2)
   v5 = *(v4 + 48);
   *(v4 + 48) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (void)_setupSharedDB
@@ -914,10 +912,33 @@ LABEL_5:
 
 - (void)_convertTimestamps
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Failed to update timestamp format: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = ExecuteSQL_0(self->_db, "UPDATE changes SET tstamp=strftime('%%s', tstamp)");
+  if (v3 && v3 != 101)
+  {
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
+    {
+      [SYPersistentStore _convertTimestamps];
+    }
+
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    v4 = qword_1EDE73430;
+    if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Clearing out change list to avoid problems later.", v5, 2u);
+    }
+
+    ExecuteSQL_0(self->_db, "DELETE FROM changes");
+  }
 }
 
 - (void)_withDB:(id)b
@@ -994,20 +1015,19 @@ LABEL_5:
 
 void __39__SYPersistentStore__inTransaction_do___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 64);
   v2 = *(a1 + 64);
-  v4 = *(*(a1 + 32) + 80);
+  v3 = *(*(a1 + 32) + 80);
   if (v2)
   {
-    v5 = ExecuteSQL_0(v4, "BEGIN TRANSACTION");
+    v4 = ExecuteSQL_0(v3, "BEGIN TRANSACTION");
   }
 
   else
   {
-    v5 = ExecuteSQL_0(v4, "BEGIN EXCLUSIVE TRANSACTION");
+    v4 = ExecuteSQL_0(v3, "BEGIN EXCLUSIVE TRANSACTION");
   }
 
-  if (v5)
+  if (v4)
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -1016,13 +1036,12 @@ void __39__SYPersistentStore__inTransaction_do___block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
     {
-      __39__SYPersistentStore__inTransaction_do___block_invoke_cold_2(v3);
+      __39__SYPersistentStore__inTransaction_do___block_invoke_cold_2();
     }
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 80);
     *(*(*(a1 + 56) + 8) + 24) = (*(*(a1 + 48) + 16))();
     if (*(*(*(a1 + 56) + 8) + 24) == 1 && ExecuteSQL_0(*(*(a1 + 32) + 80), "COMMIT TRANSACTION"))
     {
@@ -1033,7 +1052,7 @@ void __39__SYPersistentStore__inTransaction_do___block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
       {
-        __39__SYPersistentStore__inTransaction_do___block_invoke_cold_4(v3);
+        __39__SYPersistentStore__inTransaction_do___block_invoke_cold_4();
       }
 
       *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -1048,7 +1067,7 @@ void __39__SYPersistentStore__inTransaction_do___block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
       {
-        __39__SYPersistentStore__inTransaction_do___block_invoke_cold_6(v3);
+        __39__SYPersistentStore__inTransaction_do___block_invoke_cold_6();
       }
     }
   }
@@ -1065,7 +1084,7 @@ void __39__SYPersistentStore__inTransaction_do___block_invoke(uint64_t a1)
 
 uint64_t __33__SYPersistentStore__fixPeerInfo__block_invoke(int a1, sqlite3 *db)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   ppStmt = 0;
   if (!sqlite3_prepare_v2(db, "SELECT DISTINCT peerID FROM peer_info", -1, &ppStmt, 0))
   {
@@ -1108,26 +1127,26 @@ uint64_t __33__SYPersistentStore__fixPeerInfo__block_invoke(int a1, sqlite3 *db)
           goto LABEL_23;
         }
 
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
         v19 = 0u;
+        v20 = 0u;
+        v17 = 0u;
+        v18 = 0u;
         v8 = v4;
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v19;
+          v11 = *v18;
 LABEL_27:
           v12 = 0;
           while (1)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v18 + 1) + 8 * v12);
+            v13 = *(*(&v17 + 1) + 8 * v12);
             BindString_0(ppStmt, 1, v13);
             BindString_0(ppStmt, 2, v13);
             v14 = sqlite3_step(ppStmt);
@@ -1140,7 +1159,7 @@ LABEL_27:
 
             if (v10 == ++v12)
             {
-              v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
               if (v10)
               {
                 goto LABEL_27;
@@ -1193,7 +1212,7 @@ LABEL_24:
     v3 = 0;
 LABEL_45:
 
-    goto LABEL_46;
+    return v3;
   }
 
   if (_sync_log_facilities_pred != -1)
@@ -1206,10 +1225,7 @@ LABEL_45:
     __40__NMSWindowData__syncTransaction_block___block_invoke_cold_2();
   }
 
-  v3 = 0;
-LABEL_46:
-  v16 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 0;
 }
 
 - (id)_encodeIndexSet:(id)set
@@ -1238,31 +1254,31 @@ void __37__SYPersistentStore__encodeIndexSet___block_invoke(uint64_t a1, NSRange
 
 - (id)_decodeIndexSet:(id)set
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v4 = objc_opt_new();
   if ([setCopy length])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = [setCopy componentsSeparatedByString:{@", ", 0}];
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if ([(NSString *)v10 length])
           {
             v11 = NSRangeFromString(v10);
@@ -1270,14 +1286,12 @@ void __37__SYPersistentStore__encodeIndexSet___block_invoke(uint64_t a1, NSRange
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1477,17 +1491,17 @@ void __41__SYPersistentStore_resetSequenceNumber___block_invoke(uint64_t a1, sql
 
 - (unint64_t)nextSequenceNumber
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __39__SYPersistentStore_nextSequenceNumber__block_invoke;
-  v7[3] = &unk_1E86C9F28;
-  v7[4] = &v8;
-  [(SYPersistentStore *)self _withDB:v7];
+  v13 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 0;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __39__SYPersistentStore_nextSequenceNumber__block_invoke;
+  v6[3] = &unk_1E86C9F28;
+  v6[4] = &v7;
+  [(SYPersistentStore *)self _withDB:v6];
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -1496,15 +1510,14 @@ void __41__SYPersistentStore_resetSequenceNumber___block_invoke(uint64_t a1, sql
   v2 = qword_1EDE73430;
   if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_INFO))
   {
-    v3 = v9[3];
+    v3 = v8[3];
     *buf = 134217984;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_INFO, "Returning next sequence number: %llu", buf, 0xCu);
   }
 
-  v4 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = v8[3];
+  _Block_object_dispose(&v7, 8);
   return v4;
 }
 
@@ -1544,44 +1557,44 @@ uint64_t __39__SYPersistentStore_nextSequenceNumber__block_invoke(uint64_t a1, s
 
 - (BOOL)setLastSequenceNumber:(unint64_t)number fromPeer:(id)peer error:(id *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   v9 = peerCopy;
   if (number)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 1;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__7;
-    v24 = __Block_byref_object_dispose__7;
     v25 = 0;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __58__SYPersistentStore_setLastSequenceNumber_fromPeer_error___block_invoke;
-    v15[3] = &unk_1E86CACF8;
-    v15[4] = self;
-    v16 = peerCopy;
-    v17 = &v20;
-    v18 = &v26;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 1;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__7;
+    v23 = __Block_byref_object_dispose__7;
+    v24 = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __58__SYPersistentStore_setLastSequenceNumber_fromPeer_error___block_invoke;
+    v14[3] = &unk_1E86CACF8;
+    v14[4] = self;
+    v15 = peerCopy;
+    v16 = &v19;
+    v17 = &v25;
     numberCopy = number;
-    [(SYPersistentStore *)self _withDB:v15];
+    [(SYPersistentStore *)self _withDB:v14];
     if (error)
     {
-      v10 = v21[5];
+      v10 = v20[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    LOBYTE(error) = *(v27 + 24);
+    LOBYTE(error) = *(v26 + 24);
 
-    _Block_object_dispose(&v20, 8);
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -1599,16 +1612,15 @@ uint64_t __39__SYPersistentStore_nextSequenceNumber__block_invoke(uint64_t a1, s
     if (error)
     {
       v11 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v30 = *MEMORY[0x1E696A578];
-      v31[0] = @"Cannot store sequence number == 0; that value is invalid";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x1E696A578];
+      v30[0] = @"Cannot store sequence number == 0; that value is invalid";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
       *error = [v11 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v12];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 
@@ -1845,7 +1857,7 @@ LABEL_23:
   return v6;
 }
 
-uint64_t __49__SYPersistentStore_lastSequenceNumberForPeerID___block_invoke(uint64_t a1, uint64_t a2)
+void *__49__SYPersistentStore_lastSequenceNumberForPeerID___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _lastSequenceNumberForPeerID_LOCKED:*(a1 + 40) db:a2];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2083,7 +2095,7 @@ void __44__SYPersistentStore_setPerformingDeltaSync___block_invoke(uint64_t a1, 
   [(SYPersistentStore *)self _withDB:v6];
 }
 
-uint64_t __43__SYPersistentStore_addMessageIDsToIgnore___block_invoke(uint64_t a1, uint64_t a2)
+void *__43__SYPersistentStore_addMessageIDsToIgnore___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
   v5 = v4[8];
@@ -2128,7 +2140,7 @@ uint64_t __43__SYPersistentStore_addMessageIDsToIgnore___block_invoke(uint64_t a
   return self;
 }
 
-uint64_t __43__SYPersistentStore_shouldIgnoreMessageID___block_invoke(void *a1, uint64_t a2)
+void *__43__SYPersistentStore_shouldIgnoreMessageID___block_invoke(void *a1, uint64_t a2)
 {
   v3 = a1[4];
   v4 = v3[8];
@@ -2156,7 +2168,7 @@ uint64_t __43__SYPersistentStore_shouldIgnoreMessageID___block_invoke(void *a1, 
   [(SYPersistentStore *)self _withDB:v6];
 }
 
-uint64_t __51__SYPersistentStore_removeMessageIDFromIgnoreList___block_invoke(uint64_t a1, uint64_t a2)
+void *__51__SYPersistentStore_removeMessageIDFromIgnoreList___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
   v5 = v4[8];
@@ -2192,10 +2204,9 @@ uint64_t __51__SYPersistentStore_removeMessageIDFromIgnoreList___block_invoke(ui
 
 void __35__SYPersistentStore_setTimeToLive___block_invoke(uint64_t a1, sqlite3 *a2)
 {
-  v2 = (a1 + 40);
-  v3 = *(a1 + 40);
-  *(*(a1 + 32) + 24) = v3;
-  if (ExecuteSQL_0(a2, "UPDATE syncstate SET ttl=%d", v3))
+  v2 = *(a1 + 40);
+  *(*(a1 + 32) + 24) = v2;
+  if (ExecuteSQL_0(a2, "UPDATE syncstate SET ttl=%d", v2))
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -2204,7 +2215,7 @@ void __35__SYPersistentStore_setTimeToLive___block_invoke(uint64_t a1, sqlite3 *
 
     if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
     {
-      __35__SYPersistentStore_setTimeToLive___block_invoke_cold_2(v2);
+      __35__SYPersistentStore_setTimeToLive___block_invoke_cold_2();
     }
   }
 }
@@ -4264,33 +4275,33 @@ sqlite3_stmt *__42__SYPersistentStore_lastSeenRemoteVersion__block_invoke(uint64
 
 uint64_t __38__SYPersistentStore_logChanges_error___block_invoke(uint64_t a1, sqlite3 *db)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v6 = *(v4 + 120);
   v5 = (v4 + 120);
   if (v6 || !sqlite3_prepare_v2(db, "INSERT INTO changes (tstamp, type, syncid) VALUES (?, ?, ?)", -1, v5, 0))
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v7 = *(a1 + 40);
-    v8 = [v7 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       v11 = *MEMORY[0x1E695E468];
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           v14 = *(*(a1 + 32) + 120);
           Current = CFAbsoluteTimeGetCurrent();
           sqlite3_bind_double(v14, 1, Current + v11);
@@ -4309,10 +4320,10 @@ uint64_t __38__SYPersistentStore_logChanges_error___block_invoke(uint64_t a1, sq
             {
               v21 = MEMORY[0x1E696ABC0];
               v22 = v18;
-              v31 = *MEMORY[0x1E696A578];
+              v30 = *MEMORY[0x1E696A578];
               v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v20];
-              v32 = v23;
-              v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+              v31 = v23;
+              v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
               **(a1 + 48) = [v21 errorWithDomain:@"SYPersistentStoreErrorDomain" code:v22 userInfo:v24];
             }
 
@@ -4323,7 +4334,7 @@ uint64_t __38__SYPersistentStore_logChanges_error___block_invoke(uint64_t a1, sq
           [v13 setVersion:sqlite3_last_insert_rowid(db)];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
         if (v9)
         {
           continue;
@@ -4349,10 +4360,9 @@ LABEL_14:
       __40__NMSWindowData__syncTransaction_block___block_invoke_cold_2();
     }
 
-    v19 = 0;
+    return 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -4618,25 +4628,26 @@ void __36__SYPersistentStore_clearAllChanges__block_invoke(uint64_t a1, sqlite3 
 
 void __52__SYPersistentStore_UnitTestHelper__lastDBErrorInfo__block_invoke(uint64_t a1, sqlite3 *db)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v4 = sqlite3_errcode(db);
   v5 = sqlite3_errmsg(db);
-  if (v5 && v4)
+  if (v5)
   {
-    v6 = v5;
-    v13[0] = @"code";
-    v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
-    v13[1] = @"message";
-    v14[0] = v7;
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
-    v14[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-    v10 = *(*(a1 + 32) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    if (v4)
+    {
+      v6 = v5;
+      v12[0] = @"code";
+      v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+      v12[1] = @"message";
+      v13[0] = v7;
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
+      v13[1] = v8;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+      v10 = *(*(a1 + 32) + 8);
+      v11 = *(v10 + 40);
+      *(v10 + 40) = v9;
+    }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dbPath
@@ -4685,114 +4696,18 @@ const char *__43__SYPersistentStore_UnitTestHelper__dbPath__block_invoke(uint64_
 
 + (void)_tableEmpty:(uint64_t)a1 db:.cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Error checking for empty table %{public}@: %{companionsync:sqlite3err}d", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_getSchemaVersion
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error fetching schema version: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Error checking for empty table %{public}@: %{companionsync:sqlite3err}d", v3, DWORD2(v3));
 }
 
 - (void)_openDBAtPath:(uint64_t)a1 .cold.6(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Error opening SQLite3 DB at (%@): %{companionsync:sqlite3err}d", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __39__SYPersistentStore__inTransaction_do___block_invoke_cold_2(_BYTE *a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  *a1;
-  OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Failed to begin %s transaction: %{companionsync:sqlite3err}d");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __39__SYPersistentStore__inTransaction_do___block_invoke_cold_4(_BYTE *a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  *a1;
-  OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Failed to commit %s transaction: %{companionsync:sqlite3err}d");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __39__SYPersistentStore__inTransaction_do___block_invoke_cold_6(_BYTE *a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  *a1;
-  OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Failed to rollback %s transaction: %{companionsync:sqlite3err}d");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __39__SYPersistentStore_nextSequenceNumber__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQLite error fetching incremented sequence number: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__SYPersistentStore_setLastSequenceNumber_fromPeer_error___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQLite error updating peer message sequence number: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__SYPersistentStore_setLastSequenceNumber_fromPeer_error___block_invoke_cold_6()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQLite error creating peer_info insert statement: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__SYPersistentStore_setLastSequenceNumber_fromPeer_error___block_invoke_cold_8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQLite error inserting new Peer Sequence Number: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_lastSequenceNumberForPeerID_LOCKED:db:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQLite error fetching peer message sequence number: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __35__SYPersistentStore_setTimeToLive___block_invoke_cold_2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v2, v3, "SQLite error while storing new TTL value %f: %{companionsync:sqlite3err}d");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __31__SYPersistentStore_inFullSync__block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQLite error: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1DF835000, v1, v2, "Error opening SQLite3 DB at (%@): %{companionsync:sqlite3err}d", v3, DWORD2(v3));
 }
 
 @end

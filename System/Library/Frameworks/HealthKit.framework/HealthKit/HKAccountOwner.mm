@@ -1,6 +1,7 @@
 @interface HKAccountOwner
 + (id)_newAccountOwnerWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 name:(id)self5 birthDate:(id)self6 config:(id)self7;
 + (id)accountOwnerWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 name:(id)self4 birthDate:(id)self5;
++ (id)accountOwnerWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 name:(id)self5 birthDate:(id)self6;
 - (BOOL)isEquivalent:(id)equivalent;
 - (HKAccountOwner)init;
 - (HKAccountOwner)initWithCoder:(id)coder;
@@ -12,6 +13,13 @@
 @end
 
 @implementation HKAccountOwner
+
++ (id)accountOwnerWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 name:(id)self5 birthDate:(id)self6
+{
+  v16 = [self _newAccountOwnerWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state name:name birthDate:birthDate config:0];
+
+  return v16;
+}
 
 + (id)_newAccountOwnerWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 name:(id)self5 birthDate:(id)self6 config:(id)self7
 {
@@ -79,13 +87,12 @@ void __179__HKAccountOwner__newAccountOwnerWithType_note_enteredInError_modified
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKAccountOwner;
-  v6 = [(HKSample *)&v10 description];
-  name = self->_name;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@name = %@birthDate = %@>", v5, self, v6, name, self->_birthDate];
+  v9.receiver = self;
+  v9.super_class = HKAccountOwner;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@name = %@birthDate = %@>", v5, self, v6, self->_name, self->_birthDate];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -206,7 +213,7 @@ LABEL_16:
   name = self->_name;
   self->_name = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, name);
 }
 
 - (void)_setBirthDate:(id)date
@@ -215,7 +222,7 @@ LABEL_16:
   birthDate = self->_birthDate;
   self->_birthDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, birthDate);
 }
 
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration

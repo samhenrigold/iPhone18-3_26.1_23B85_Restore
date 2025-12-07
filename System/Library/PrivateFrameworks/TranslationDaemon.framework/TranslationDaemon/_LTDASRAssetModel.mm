@@ -23,56 +23,57 @@
 {
   identifierCopy = identifier;
   providerCopy = provider;
-  v21.receiver = self;
-  v21.super_class = _LTDASRAssetModel;
-  v9 = [(_LTDASRAssetModel *)&v21 init];
+  v23.receiver = self;
+  v23.super_class = _LTDASRAssetModel;
+  v9 = [(_LTDASRAssetModel *)&v23 init];
   if (!v9)
   {
 LABEL_10:
-    v18 = 0;
+    v20 = 0;
     goto LABEL_11;
   }
 
-  if (([identifierCopy hasPrefix:@"ASR-"] & 1) == 0)
+  v10 = [identifierCopy hasPrefix:@"ASR-"];
+  if ((v10 & 1) == 0)
   {
-    v19 = _LTOSLogAssets();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = _LTOSLogAssets(v10, v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [_LTDASRAssetModel initWithAssetIdentifier:identifierCopy provider:v19];
+      [_LTDASRAssetModel initWithAssetIdentifier:identifierCopy provider:v21];
     }
 
     goto LABEL_10;
   }
 
   objc_storeStrong(&v9->_assetName, identifier);
-  v10 = [identifierCopy substringFromIndex:{objc_msgSend(@"ASR-", "length")}];
-  lt_localeIdentifier = [v10 lt_localeIdentifier];
+  v12 = [identifierCopy substringFromIndex:{objc_msgSend(@"ASR-", "length")}];
+  lt_localeIdentifier = [v12 lt_localeIdentifier];
   ltIdentifier = v9->_ltIdentifier;
   v9->_ltIdentifier = lt_localeIdentifier;
 
   objc_storeStrong(&v9->_provider, provider);
   assetType = [providerCopy assetType];
-  v14 = 3;
+  v16 = 3;
   if (assetType == 7)
   {
-    v14 = 4;
+    v16 = 4;
   }
 
-  v9->_assetSubtype = v14;
-  v15 = [_LTDASRAssetService assetSpecifierForSFConfig:providerCopy];
-  v16 = [MEMORY[0x277CE1AC0] discreteProgressWithIdentifier:v15 totalUnitCount:157286400];
+  v9->_assetSubtype = v16;
+  v17 = [_LTDASRAssetService assetSpecifierForSFConfig:providerCopy];
+  v18 = [MEMORY[0x277CE1AC0] discreteProgressWithIdentifier:v17 totalUnitCount:157286400];
   progress = v9->_progress;
-  v9->_progress = v16;
+  v9->_progress = v18;
 
   if ([(_LTDASRAssetModel *)v9 isInstalled])
   {
     [(_LTAssetProgress *)v9->_progress setOfflineState:2];
   }
 
-  v18 = v9;
+  v20 = v9;
 
 LABEL_11:
-  return v18;
+  return v20;
 }
 
 + (id)modelFromAsset:(id)asset
@@ -195,12 +196,10 @@ LABEL_11:
 
 - (NSArray)supportedLanguages
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   assetLanguage = [(_LTDASRAssetModel *)self assetLanguage];
-  v6[0] = assetLanguage;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = assetLanguage;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -264,23 +263,21 @@ LABEL_11:
 
 - (NSArray)localeIdentifiers
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   identifier = [(_LTDASRAssetModel *)self identifier];
   v3 = [identifier componentsSeparatedByString:@"-"];
 
   if ([v3 count] == 2)
   {
     v4 = [v3 objectAtIndexedSubscript:1];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -367,11 +364,10 @@ LABEL_11:
 
 - (void)initWithAssetIdentifier:(uint64_t)a1 provider:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Cannot initialize a LTDASRAssetModel using a non-ASR identifier: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Cannot initialize a LTDASRAssetModel using a non-ASR identifier: %{public}@", &v2, 0xCu);
 }
 
 @end

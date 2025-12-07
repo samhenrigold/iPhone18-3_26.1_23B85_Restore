@@ -61,34 +61,39 @@ void __81__SUScriptNavigationController_initWithRootScriptViewController_clientI
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v7 = [v4 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      v7 = [*(a1 + 40) _className];
-      v8 = *(a1 + 32);
+      v8 = [*(a1 + 40) _className];
+      v9 = *(a1 + 32);
       v13 = 138412546;
-      v14 = v7;
+      v14 = v8;
       v15 = 2112;
-      v16 = v8;
-      LODWORD(v11) = 22;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v16 = v9;
+      v10 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, v7, 0, "%@: Could not create native view controller for: %@", &v13, 22);
+      if (v10)
       {
-        v10 = v9;
-        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v13, v11}];
-        free(v10);
+        v11 = v10;
+        [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
         SSFileLog();
       }
     }
@@ -320,7 +325,7 @@ uint64_t __51__SUScriptNavigationController_navigationBarHidden__block_invoke(ui
   return v3;
 }
 
-uint64_t __45__SUScriptNavigationController_toolbarHidden__block_invoke(uint64_t a1)
+void *__45__SUScriptNavigationController_toolbarHidden__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_navigationController")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -357,7 +362,7 @@ uint64_t __45__SUScriptNavigationController_toolbarHidden__block_invoke(uint64_t
   return v5;
 }
 
-uint64_t __49__SUScriptNavigationController_topViewController__block_invoke(uint64_t a1)
+void *__49__SUScriptNavigationController_topViewController__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "_filteredViewControllers")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -373,7 +378,7 @@ uint64_t __49__SUScriptNavigationController_topViewController__block_invoke(uint
   return v3;
 }
 
-uint64_t __47__SUScriptNavigationController_viewControllers__block_invoke(uint64_t a1)
+void *__47__SUScriptNavigationController_viewControllers__block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _filteredViewControllers];
@@ -403,7 +408,7 @@ uint64_t __47__SUScriptNavigationController_viewControllers__block_invoke(uint64
           [*(a1 + 40) addObject:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -450,15 +455,21 @@ uint64_t __47__SUScriptNavigationController_viewControllers__block_invoke(uint64
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -469,13 +480,12 @@ uint64_t __47__SUScriptNavigationController_viewControllers__block_invoke(uint64
       _className = [(SUScriptNavigationController *)self _className];
       v17 = 2112;
       controllerCopy = controller;
-      LODWORD(v13) = 22;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not create native view controller for: %@", &v15, 22);
+      if (v12)
       {
-        v12 = v11;
-        [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v15, v13}];
-        free(v12);
+        v13 = v12;
+        [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
         SSFileLog();
       }
     }

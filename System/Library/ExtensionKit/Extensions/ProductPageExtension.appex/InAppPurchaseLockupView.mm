@@ -44,7 +44,7 @@
   v5 = sub_10075E8CC();
   sub_10000A61C(v5, qword_10099CD58);
   sub_10075E8EC();
-  sub_1000CBF30(&qword_1009476F8, &type metadata accessor for InAppPurchaseLockupViewLayout);
+  sub_1000CBF30(&qword_1009476F8, &type metadata accessor for InAppPurchaseLockupViewLayout, &protocol conformance descriptor for InAppPurchaseLockupViewLayout);
   sub_10076DBDC();
   v7 = v6;
   v9 = v8;

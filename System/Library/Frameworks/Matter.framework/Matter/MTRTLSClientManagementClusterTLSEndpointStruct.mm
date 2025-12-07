@@ -61,8 +61,8 @@
   status = [(MTRTLSClientManagementClusterTLSEndpointStruct *)self status];
   [(MTRTLSClientManagementClusterTLSEndpointStruct *)v4 setStatus:status];
 
-  fabricIndex = [(MTRTLSClientManagementClusterTLSEndpointStruct *)self fabricIndex];
-  [(MTRTLSClientManagementClusterTLSEndpointStruct *)v4 setFabricIndex:fabricIndex];
+  v11 = objc_msgSend_fabricIndex(self);
+  [(MTRTLSClientManagementClusterTLSEndpointStruct *)v4 setFabricIndex:v11];
 
   return v4;
 }

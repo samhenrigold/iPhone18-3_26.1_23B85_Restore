@@ -1,4 +1,5 @@
 @interface FSFCurareInteractionAsJsonStr
++ (id)deserialize:(id)deserialize dataVersion:(unsigned int)version interactionId:(id)id;
 - (FSFCurareInteractionAsJsonStr)initWithJsonStr:(id)str interactionId:(id)id dataVersion:(unsigned int)version;
 - (id)json;
 @end
@@ -43,6 +44,19 @@
   v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:self->_content encoding:4];
 
   return v2;
+}
+
++ (id)deserialize:(id)deserialize dataVersion:(unsigned int)version interactionId:(id)id
+{
+  v5 = *&version;
+  v7 = MEMORY[0x277CCACA8];
+  idCopy = id;
+  deserializeCopy = deserialize;
+  v10 = [[v7 alloc] initWithData:deserializeCopy encoding:4];
+
+  v11 = [[FSFCurareInteractionAsJsonStr alloc] initWithJsonStr:v10 interactionId:idCopy dataVersion:v5];
+
+  return v11;
 }
 
 @end

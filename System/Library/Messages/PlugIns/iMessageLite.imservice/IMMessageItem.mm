@@ -592,11 +592,12 @@ void __76__IMMessageItem_LiteBlastDoor___rangeOfSingleMessagePartForMessageWithG
 - (id)liteAssociatedMessageSummaryInfo
 {
   selfCopy = self;
-  IMMessageItem.liteAssociatedMessageSummaryInfo()();
+  v3 = IMMessageItem.liteAssociatedMessageSummaryInfo()();
 
-  v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v3, v5;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 @end

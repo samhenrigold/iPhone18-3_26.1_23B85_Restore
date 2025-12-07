@@ -1,12 +1,12 @@
 @interface NSDate(CRDT)
 - (uint64_t)initWithICCRCoder:()CRDT;
-- (uint64_t)mergeWith:()CRDT;
 - (void)encodeWithICCRCoder:()CRDT;
+- (void)mergeWith:()CRDT;
 @end
 
 @implementation NSDate(CRDT)
 
-- (uint64_t)mergeWith:()CRDT
+- (void)mergeWith:()CRDT
 {
   result = [self isEqual:?];
   if ((result & 1) == 0)

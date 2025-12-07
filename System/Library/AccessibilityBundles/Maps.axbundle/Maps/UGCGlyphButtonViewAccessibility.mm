@@ -24,19 +24,17 @@ uint64_t __77__UGCGlyphButtonViewAccessibility__accessibilityLoadAccessibilityIn
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x29EDC7FA0];
-  v3 = [WeakRetained safeBoolForKey:@"isSelected"];
-  v4 = *MEMORY[0x29EDC7F70];
-  if (v3)
+  if ([WeakRetained safeBoolForKey:@"isSelected"])
   {
-    v5 = *MEMORY[0x29EDC7F70] | *MEMORY[0x29EDC7FC0];
+    v3 = *MEMORY[0x29EDC7F70] | *MEMORY[0x29EDC7FC0];
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5 | v2;
+  return v3 | v2;
 }
 
 @end

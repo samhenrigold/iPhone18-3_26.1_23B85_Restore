@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    binEnd = self->_binEnd;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  binStart = self->_binStart;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  count = self->_count;
 
   PBDataWriterWriteUint32Field();
 }

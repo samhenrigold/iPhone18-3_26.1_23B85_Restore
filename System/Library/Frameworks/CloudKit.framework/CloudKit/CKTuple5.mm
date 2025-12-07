@@ -109,34 +109,7 @@ LABEL_15:
       v11 = objc_msgSend_v1(v5, v9, v10);
       v12 = CKObjectsAreBothNilOrEqual(v8, v11);
 
-      if (!v12)
-      {
-        goto LABEL_10;
-      }
-
-      v15 = objc_msgSend_v2(self, v13, v14);
-      v18 = objc_msgSend_v2(v5, v16, v17);
-      v19 = CKObjectsAreBothNilOrEqual(v15, v18);
-
-      if (!v19)
-      {
-        goto LABEL_10;
-      }
-
-      v22 = objc_msgSend_v3(self, v20, v21);
-      v25 = objc_msgSend_v3(v5, v23, v24);
-      v26 = CKObjectsAreBothNilOrEqual(v22, v25);
-
-      if (!v26)
-      {
-        goto LABEL_10;
-      }
-
-      v29 = objc_msgSend_v4(self, v27, v28);
-      v32 = objc_msgSend_v4(v5, v30, v31);
-      v33 = CKObjectsAreBothNilOrEqual(v29, v32);
-
-      if (v33)
+      if (v12 && (objc_msgSend_v2(self, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_v2(v5, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v19 = CKObjectsAreBothNilOrEqual(v15, v18), v18, v15, v19) && (objc_msgSend_v3(self, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_v3(v5, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v26 = CKObjectsAreBothNilOrEqual(v22, v25), v25, v22, v26) && (objc_msgSend_v4(self, v27, v28), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_v4(v5, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), v33 = CKObjectsAreBothNilOrEqual(v29, v32), v32, v29, v33))
       {
         v36 = objc_msgSend_v5(self, v34, v35);
         v39 = objc_msgSend_v5(v5, v37, v38);
@@ -145,7 +118,6 @@ LABEL_15:
 
       else
       {
-LABEL_10:
         v40 = 0;
       }
     }

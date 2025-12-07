@@ -112,33 +112,38 @@ LABEL_11:
         v13 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v13 shouldLog];
+      LODWORD(v14) = [v13 shouldLog];
       shouldLogToDisk = [v13 shouldLogToDisk];
       oSLogObject = [v13 OSLogObject];
+      v17 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v14) = v14 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        shouldLog &= 2u;
+        v14 = v14;
       }
 
-      if (shouldLog)
+      else
       {
-        v17 = objc_opt_class();
+        v14 &= 2u;
+      }
+
+      if (v14)
+      {
+        v18 = objc_opt_class();
         v33 = 138543618;
-        v34 = v17;
+        v34 = v18;
         v35 = 2114;
         v36 = v24;
-        LODWORD(v22) = 22;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, v17, 16, "%{public}@: Failed to archive policy. Error = %{public}@", &v33, 22);
+        if (v19)
         {
-          v19 = v18;
-          [NSString stringWithCString:v18 encoding:4, &v33, v22];
-          free(v19);
+          v20 = v19;
+          [NSString stringWithCString:v19 encoding:4];
+          free(v20);
           SSFileLog();
         }
       }
@@ -245,15 +250,21 @@ LABEL_11:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -266,20 +277,18 @@ LABEL_11:
       v18 = v5;
       v19 = 2048;
       v20 = v6;
-      LODWORD(v14) = 32;
-      v13 = &v15;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding download policy %@ with size limit %lld", &v15, 32);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, &v15, v14];
-        free(v11);
-        v13 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v14 = v13;
         SSFileLog();
       }
     }
 
-    [(NSMutableDictionary *)self->_policies setObject:policy forKey:v5, v13];
+    [(NSMutableDictionary *)self->_policies setObject:policy forKey:v5, v14];
   }
 }
 
@@ -302,36 +311,40 @@ LABEL_11:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v8 = objc_opt_class();
-    v9 = [v3 count];
+    v9 = objc_opt_class();
+    v10 = [v3 count];
     v25 = 138412546;
-    v26 = v8;
+    v26 = v9;
     v27 = 2048;
-    v28 = v9;
-    LODWORD(v18) = 22;
-    v17 = &v25;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v28 = v10;
+    v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Initialized with %lu download policies", &v25, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [NSString stringWithCString:v10 encoding:4, &v25, v18];
-      free(v11);
-      v17 = v12;
+      v12 = v11;
+      v13 = [NSString stringWithCString:v11 encoding:4];
+      free(v12);
+      v18 = v13;
       SSFileLog();
     }
   }
@@ -340,16 +353,16 @@ LABEL_11:
   v22 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v13 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:{16, v17}];
-  if (v13)
+  v14 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:{16, v18}];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v20;
+    v15 = v14;
+    v16 = *v20;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v20 != v15)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v3);
         }
@@ -357,10 +370,10 @@ LABEL_11:
         [(DownloadPolicyManager *)self _addPolicy:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v14 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v15 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 }
 

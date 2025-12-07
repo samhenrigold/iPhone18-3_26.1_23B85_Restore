@@ -20,113 +20,107 @@
 
 - (void)bufferDidEndDraining:(id)draining
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   drainingCopy = draining;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_allBufferedEventProcessors;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) bufferDidEndDraining:{drainingCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) bufferDidEndDraining:{drainingCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bufferWillBeginDraining:(id)draining
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   drainingCopy = draining;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_allBufferedEventProcessors;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) bufferWillBeginDraining:{drainingCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) bufferWillBeginDraining:{drainingCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bufferingDidAddNewBuffers:(id)buffers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   buffersCopy = buffers;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_allBufferedEventProcessors;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) bufferingDidAddNewBuffers:{buffersCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) bufferingDidAddNewBuffers:{buffersCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postEvent:(__IOHIDEvent *)event withContext:(id)context toResolution:(id)resolution fromSequence:(id)sequence
@@ -197,56 +191,55 @@
 
 - (int64_t)processEvent:(__IOHIDEvent *)event sender:(id)sender dispatcher:(id)dispatcher
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   dispatcherCopy = dispatcher;
-  v10 = *event;
-  v11 = self->_subProcessors[IOHIDEventGetType()];
+  v10 = self->_subProcessors[IOHIDEventGetType()];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v12 = v11;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (!v13)
+  v11 = v10;
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (!v12)
   {
 
 LABEL_13:
     defaultProcessor = self->_defaultProcessor;
     if (defaultProcessor)
     {
-      v17 = [(BKHIDEventProcessor *)defaultProcessor processEvent:event sender:senderCopy dispatcher:dispatcherCopy];
+      v16 = [(BKHIDEventProcessor *)defaultProcessor processEvent:event sender:senderCopy dispatcher:dispatcherCopy];
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
     goto LABEL_16;
   }
 
-  v14 = v13;
-  v15 = *v22;
+  v13 = v12;
+  v14 = *v20;
   while (2)
   {
-    for (i = 0; i != v14; ++i)
+    for (i = 0; i != v13; ++i)
     {
-      if (*v22 != v15)
+      if (*v20 != v14)
       {
-        objc_enumerationMutation(v12);
+        objc_enumerationMutation(v11);
       }
 
-      v17 = [*(*(&v21 + 1) + 8 * i) processEvent:event sender:senderCopy dispatcher:{dispatcherCopy, v21}];
-      if (v17 == 1)
+      v16 = [*(*(&v19 + 1) + 8 * i) processEvent:event sender:senderCopy dispatcher:{dispatcherCopy, v19}];
+      if (v16 == 1)
       {
 
         goto LABEL_16;
       }
     }
 
-    v14 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v14)
+    v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v13)
     {
       continue;
     }
@@ -254,27 +247,26 @@ LABEL_13:
     break;
   }
 
-  if (!v17)
+  if (!v16)
   {
     goto LABEL_13;
   }
 
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 - (BKHIDPrimaryEventProcessor)initWithSubProcessors:(id)processors[44] defaultProcessor:(id)processor
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   processorCopy = processor;
-  v31.receiver = self;
-  v31.super_class = BKHIDPrimaryEventProcessor;
-  v7 = [(BKHIDPrimaryEventProcessor *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = BKHIDPrimaryEventProcessor;
+  v7 = [(BKHIDPrimaryEventProcessor *)&v30 init];
   if (v7)
   {
-    v23 = processorCopy;
+    v22 = processorCopy;
     v8 = [MEMORY[0x277CBEB58] set];
     v9 = 0;
     p_isa = &v7->super.isa;
@@ -286,26 +278,26 @@ LABEL_16:
       v11 = v10;
       objc_storeStrong(&subProcessors[v9], v10);
       array = [MEMORY[0x277CBEB18] array];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v28;
+        v16 = *v27;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v28 != v16)
+            if (*v27 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v27 + 1) + 8 * i);
+            v18 = *(*(&v26 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               [v8 addObject:v18];
@@ -313,7 +305,7 @@ LABEL_16:
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v15);
@@ -329,14 +321,13 @@ LABEL_16:
     v7 = p_isa;
     objc_storeStrong(p_isa + 90, v8);
     objc_storeStrong(p_isa + 45, processor);
-    processorCopy = v23;
+    processorCopy = v22;
     if (objc_opt_respondsToSelector())
     {
       objc_storeStrong(p_isa + 91, processor);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

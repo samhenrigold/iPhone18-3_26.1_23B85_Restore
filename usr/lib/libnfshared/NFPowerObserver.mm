@@ -49,10 +49,10 @@
 
 - (BOOL)registerForEvents
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (self->_powerNotificationConnection)
   {
-    goto LABEL_4;
+    return 1;
   }
 
   v4 = IORegisterForSystemPower(self, &self->_powerNotificationPort, j__objc_msgSend__powerNotificationMessage_argument_, &self->_powerNotificationNotifier);
@@ -60,70 +60,65 @@
   if (v4)
   {
     IONotificationPortSetDispatchQueue(self->_powerNotificationPort, self->_workQueue);
-LABEL_4:
-    result = 1;
-    goto LABEL_5;
+    return 1;
   }
 
-  v7 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+  v6 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
   if (specific >= 5)
   {
     __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
   }
 
-  v9 = *(&off_27DA9DE50 + specific);
-  if (v9)
+  v8 = off_27DA9DE50[specific];
+  if (v8)
   {
     Class = object_getClass(self);
     isMetaClass = class_isMetaClass(Class);
     ClassName = object_getClassName(self);
     Name = sel_getName(a2);
-    v13 = 45;
+    v12 = 45;
     if (isMetaClass)
     {
-      v13 = 43;
+      v12 = 43;
     }
 
-    v9(3, "%c[%{public}s %{public}s]:%i Failed to register for PM notifications", v13, ClassName, Name, 67);
-    v7 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v8(3, "%c[%{public}s %{public}s]:%i Failed to register for PM notifications", v12, ClassName, Name, 67);
+    v6 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   }
 
-  v14 = dispatch_get_specific(v7);
-  v15 = NFSharedLogGetLogger(v14);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v13 = dispatch_get_specific(v6);
+  v14 = NFSharedLogGetLogger(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v16 = object_getClass(self);
-    if (class_isMetaClass(v16))
+    v15 = object_getClass(self);
+    if (class_isMetaClass(v15))
     {
-      v17 = 43;
+      v16 = 43;
     }
 
     else
     {
-      v17 = 45;
+      v16 = 45;
     }
 
     *buf = 67109890;
-    v20 = v17;
-    v21 = 2082;
-    v22 = object_getClassName(self);
-    v23 = 2082;
-    v24 = sel_getName(a2);
-    v25 = 1024;
-    v26 = 67;
-    _os_log_impl(&dword_22EEC4000, v15, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to register for PM notifications", buf, 0x22u);
+    v19 = v16;
+    v20 = 2082;
+    v21 = object_getClassName(self);
+    v22 = 2082;
+    v23 = sel_getName(a2);
+    v24 = 1024;
+    v25 = 67;
+    _os_log_impl(&dword_22EEC4000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to register for PM notifications", buf, 0x22u);
   }
 
-  result = 0;
-LABEL_5:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)unregisterForEvents
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self->_powerNotificationConnection)
   {
     v4 = kNFLOG_DISPATCH_SPECIFIC_KEY;
@@ -133,7 +128,7 @@ LABEL_5:
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v6 = *(&off_27DA9DE50 + specific);
+    v6 = off_27DA9DE50[specific];
     if (v6)
     {
       Class = object_getClass(self);
@@ -166,13 +161,13 @@ LABEL_5:
       }
 
       *buf = 67109890;
-      v18 = v14;
-      v19 = 2082;
-      v20 = object_getClassName(self);
-      v21 = 2082;
-      v22 = sel_getName(a2);
-      v23 = 1024;
-      v24 = 82;
+      v17 = v14;
+      v18 = 2082;
+      v19 = object_getClassName(self);
+      v20 = 2082;
+      v21 = sel_getName(a2);
+      v22 = 1024;
+      v23 = 82;
       _os_log_impl(&dword_22EEC4000, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Unregistering Power notifications", buf, 0x22u);
     }
 
@@ -181,13 +176,11 @@ LABEL_5:
     IOServiceClose(self->_powerNotificationConnection);
     self->_powerNotificationConnection = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_powerNotificationMessage:(unsigned int)message argument:(void *)argument
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   HIDWORD(v7) = message + 536870288;
   LODWORD(v7) = message + 536870288;
   v6 = v7 >> 4;
@@ -197,7 +190,7 @@ LABEL_5:
     {
       if (v6 != 1)
       {
-        goto LABEL_61;
+        return;
       }
 
       if (!self->_willSleep)
@@ -212,14 +205,16 @@ LABEL_5:
         self->_sleepMessageArgument = argument;
         v29 = objc_msgSend_delegate(self, v64, v65);
         objc_msgSend_powerObserverSystemWillSleep_(v29, v66, self);
-        goto LABEL_60;
+LABEL_60:
+
+        return;
       }
 
       v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       if (specific < 5)
       {
-        v12 = *(&off_27DA9DE50 + specific);
+        v12 = off_27DA9DE50[specific];
         if (v12)
         {
           Class = object_getClass(self);
@@ -258,237 +253,232 @@ LABEL_5:
         *&state[4] = v20;
         *&state[8] = 2082;
         *&state[10] = object_getClassName(self);
-        v74 = 2082;
-        v75 = sel_getName(a2);
-        v76 = 1024;
-        v77 = 106;
+        v73 = 2082;
+        v74 = sel_getName(a2);
+        v75 = 1024;
+        v76 = 106;
         v21 = "%c[%{public}s %{public}s]:%i System already sent a will sleep message ! Ignoring will sleep.";
         goto LABEL_57;
       }
+
+LABEL_62:
+      __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    else
+    v31 = IOAllowPowerChange(self->_powerNotificationConnection, argument);
+    if (!v31)
     {
-      v31 = IOAllowPowerChange(self->_powerNotificationConnection, argument);
-      if (!v31)
+      return;
+    }
+
+    v32 = v31;
+    v33 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v34 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    if (v34 >= 5)
+    {
+      goto LABEL_62;
+    }
+
+    v35 = off_27DA9DE50[v34];
+    if (v35)
+    {
+      v36 = object_getClass(self);
+      v37 = class_isMetaClass(v36);
+      v67 = object_getClassName(self);
+      v69 = sel_getName(a2);
+      v38 = 45;
+      if (v37)
       {
-        goto LABEL_61;
+        v38 = 43;
       }
 
-      v32 = v31;
+      v35(4, "%c[%{public}s %{public}s]:%i Returned %x", v38, v67, v69, 99, v32);
       v33 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-      v34 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      if (v34 < 5)
-      {
-        v35 = *(&off_27DA9DE50 + v34);
-        if (v35)
-        {
-          v36 = object_getClass(self);
-          v37 = class_isMetaClass(v36);
-          v68 = object_getClassName(self);
-          v70 = sel_getName(a2);
-          v38 = 45;
-          if (v37)
-          {
-            v38 = 43;
-          }
+    }
 
-          v35(4, "%c[%{public}s %{public}s]:%i Returned %x", v38, v68, v70, 99, v32);
-          v33 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v39 = dispatch_get_specific(v33);
+    v40 = NFSharedLogGetLogger(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    {
+      v41 = object_getClass(self);
+      if (class_isMetaClass(v41))
+      {
+        v42 = 43;
+      }
+
+      else
+      {
+        v42 = 45;
+      }
+
+      *state = 67110146;
+      *&state[4] = v42;
+      *&state[8] = 2082;
+      *&state[10] = object_getClassName(self);
+      v73 = 2082;
+      v74 = sel_getName(a2);
+      v75 = 1024;
+      v76 = 99;
+      v77 = 1024;
+      v78 = v32;
+      _os_log_impl(&dword_22EEC4000, v40, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Returned %x", state, 0x28u);
+    }
+  }
+
+  else
+  {
+    switch(v6)
+    {
+      case 2:
+        if (self->_willSleep)
+        {
+          v8 = "system will not sleep";
+          goto LABEL_22;
         }
 
-        v39 = dispatch_get_specific(v33);
-        v40 = NFSharedLogGetLogger(v39);
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v43 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+        v44 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        if (v44 < 5)
         {
-          v41 = object_getClass(self);
-          if (class_isMetaClass(v41))
+          v45 = off_27DA9DE50[v44];
+          if (v45)
           {
-            v42 = 43;
+            v46 = object_getClass(self);
+            v47 = class_isMetaClass(v46);
+            v48 = object_getClassName(self);
+            v70 = sel_getName(a2);
+            v49 = 45;
+            if (v47)
+            {
+              v49 = 43;
+            }
+
+            v45(4, "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will not sleep message.", v49, v48, v70, 120);
+            v43 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          }
+
+          v50 = dispatch_get_specific(v43);
+          v18 = NFSharedLogGetLogger(v50);
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_58;
+          }
+
+          v51 = object_getClass(self);
+          if (class_isMetaClass(v51))
+          {
+            v52 = 43;
           }
 
           else
           {
-            v42 = 45;
+            v52 = 45;
           }
 
-          *state = 67110146;
-          *&state[4] = v42;
+          *state = 67109890;
+          *&state[4] = v52;
           *&state[8] = 2082;
           *&state[10] = object_getClassName(self);
-          v74 = 2082;
-          v75 = sel_getName(a2);
-          v76 = 1024;
-          v77 = 99;
-          v78 = 1024;
-          v79 = v32;
-          _os_log_impl(&dword_22EEC4000, v40, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Returned %x", state, 0x28u);
+          v73 = 2082;
+          v74 = sel_getName(a2);
+          v75 = 1024;
+          v76 = 120;
+          v21 = "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will not sleep message.";
+          goto LABEL_57;
         }
 
-        goto LABEL_61;
-      }
-    }
-
-LABEL_62:
-    __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
-  }
-
-  switch(v6)
-  {
-    case 2:
-      if (self->_willSleep)
-      {
-        v8 = "system will not sleep";
-LABEL_22:
-        v22 = _os_activity_create(&dword_22EEC4000, v8, MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
-        *state = 0;
-        *&state[8] = 0;
-        os_activity_scope_enter(v22, state);
-        os_activity_scope_leave(state);
-
+        goto LABEL_62;
+      case 9:
         self->_willSleep = 0;
-        v25 = objc_msgSend_delegate(self, v23, v24);
-        v26 = objc_opt_respondsToSelector();
-
-        if (v26)
+        return;
+      case 11:
+        if (self->_willSleep)
         {
+          v8 = "system will power on";
+LABEL_22:
+          v22 = _os_activity_create(&dword_22EEC4000, v8, MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
+          *state = 0;
+          *&state[8] = 0;
+          os_activity_scope_enter(v22, state);
+          os_activity_scope_leave(state);
+
+          self->_willSleep = 0;
+          v25 = objc_msgSend_delegate(self, v23, v24);
+          v26 = objc_opt_respondsToSelector();
+
+          if ((v26 & 1) == 0)
+          {
+            return;
+          }
+
           v29 = objc_msgSend_delegate(self, v27, v28);
           objc_msgSend_powerObserverSystemHasPoweredOn_(v29, v30, self);
-LABEL_60:
-
-          break;
+          goto LABEL_60;
         }
 
-        break;
-      }
-
-      v43 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-      v44 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      if (v44 < 5)
-      {
-        v45 = *(&off_27DA9DE50 + v44);
-        if (v45)
+        v53 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+        v54 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        if (v54 < 5)
         {
-          v46 = object_getClass(self);
-          v47 = class_isMetaClass(v46);
-          v48 = object_getClassName(self);
-          v71 = sel_getName(a2);
-          v49 = 45;
-          if (v47)
+          v55 = off_27DA9DE50[v54];
+          if (v55)
           {
-            v49 = 43;
+            v56 = object_getClass(self);
+            v57 = class_isMetaClass(v56);
+            v58 = object_getClassName(self);
+            v71 = sel_getName(a2);
+            v59 = 45;
+            if (v57)
+            {
+              v59 = 43;
+            }
+
+            v55(3, "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will power on message.", v59, v58, v71, 135);
+            v53 = kNFLOG_DISPATCH_SPECIFIC_KEY;
           }
 
-          v45(4, "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will not sleep message.", v49, v48, v71, 120);
-          v43 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-        }
-
-        v50 = dispatch_get_specific(v43);
-        v18 = NFSharedLogGetLogger(v50);
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_58;
-        }
-
-        v51 = object_getClass(self);
-        if (class_isMetaClass(v51))
-        {
-          v52 = 43;
-        }
-
-        else
-        {
-          v52 = 45;
-        }
-
-        *state = 67109890;
-        *&state[4] = v52;
-        *&state[8] = 2082;
-        *&state[10] = object_getClassName(self);
-        v74 = 2082;
-        v75 = sel_getName(a2);
-        v76 = 1024;
-        v77 = 120;
-        v21 = "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will not sleep message.";
-        goto LABEL_57;
-      }
-
-      goto LABEL_62;
-    case 9:
-      self->_willSleep = 0;
-      break;
-    case 11:
-      if (self->_willSleep)
-      {
-        v8 = "system will power on";
-        goto LABEL_22;
-      }
-
-      v53 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-      v54 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      if (v54 < 5)
-      {
-        v55 = *(&off_27DA9DE50 + v54);
-        if (v55)
-        {
-          v56 = object_getClass(self);
-          v57 = class_isMetaClass(v56);
-          v58 = object_getClassName(self);
-          v72 = sel_getName(a2);
-          v59 = 45;
-          if (v57)
+          v60 = dispatch_get_specific(v53);
+          v18 = NFSharedLogGetLogger(v60);
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v59 = 43;
+            goto LABEL_58;
           }
 
-          v55(3, "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will power on message.", v59, v58, v72, 135);
-          v53 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-        }
+          v61 = object_getClass(self);
+          if (class_isMetaClass(v61))
+          {
+            v62 = 43;
+          }
 
-        v60 = dispatch_get_specific(v53);
-        v18 = NFSharedLogGetLogger(v60);
-        if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_58;
-        }
+          else
+          {
+            v62 = 45;
+          }
 
-        v61 = object_getClass(self);
-        if (class_isMetaClass(v61))
-        {
-          v62 = 43;
-        }
-
-        else
-        {
-          v62 = 45;
-        }
-
-        *state = 67109890;
-        *&state[4] = v62;
-        *&state[8] = 2082;
-        *&state[10] = object_getClassName(self);
-        v74 = 2082;
-        v75 = sel_getName(a2);
-        v76 = 1024;
-        v77 = 135;
-        v21 = "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will power on message.";
+          *state = 67109890;
+          *&state[4] = v62;
+          *&state[8] = 2082;
+          *&state[10] = object_getClassName(self);
+          v73 = 2082;
+          v74 = sel_getName(a2);
+          v75 = 1024;
+          v76 = 135;
+          v21 = "%c[%{public}s %{public}s]:%i System never went to sleep ! Ignoring will power on message.";
 LABEL_57:
-        _os_log_impl(&dword_22EEC4000, v18, OS_LOG_TYPE_ERROR, v21, state, 0x22u);
+          _os_log_impl(&dword_22EEC4000, v18, OS_LOG_TYPE_ERROR, v21, state, 0x22u);
 LABEL_58:
 
-        break;
-      }
+          return;
+        }
 
-      goto LABEL_62;
+        goto LABEL_62;
+    }
   }
-
-LABEL_61:
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allowSleep
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sleepMessageArgument = self->_sleepMessageArgument;
   self->_sleepMessageArgument = 0;
   if (self->_willSleep)
@@ -504,7 +494,7 @@ LABEL_61:
         __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
       }
 
-      v9 = *(&off_27DA9DE50 + specific);
+      v9 = off_27DA9DE50[specific];
       if (v9)
       {
         Class = object_getClass(self);
@@ -537,21 +527,19 @@ LABEL_61:
         }
 
         *buf = 67110146;
-        v21 = v16;
-        v22 = 2082;
-        v23 = object_getClassName(self);
-        v24 = 2082;
-        v25 = sel_getName(a2);
-        v26 = 1024;
-        v27 = 166;
-        v28 = 1024;
-        v29 = v6;
+        v20 = v16;
+        v21 = 2082;
+        v22 = object_getClassName(self);
+        v23 = 2082;
+        v24 = sel_getName(a2);
+        v25 = 1024;
+        v26 = 166;
+        v27 = 1024;
+        v28 = v6;
         _os_log_impl(&dword_22EEC4000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Returned %x", buf, 0x28u);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

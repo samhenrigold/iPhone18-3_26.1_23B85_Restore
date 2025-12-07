@@ -201,7 +201,7 @@
 
 - (void)removeOrphanedLocationFiles
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -217,8 +217,7 @@
   v15[2] = sub_1001B1D38;
   v6 = v15[3] = &unk_1002D0988;
   v16 = v6;
-  [allValues enumerateObjectsUsingBlock:v15];
-  v7 = sub_100002880();
+  v7 = sub_100002880([allValues enumerateObjectsUsingBlock:v15]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v6 count];
@@ -245,7 +244,7 @@
   accessoryCopy = accessory;
   locatorCopy = locator;
   completionCopy = completion;
-  v13 = sub_100002880();
+  v13 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -279,63 +278,65 @@
 {
   accessoryCopy = accessory;
   v5 = [(FMDAccessoryLocationStore *)self historicalLocationForAccessory:accessoryCopy];
+  v6 = v5;
   if (v5)
   {
     supportedAccessoryRegistry = [(FMDAccessoryLocationStore *)self supportedAccessoryRegistry];
-    location = [v5 location];
+    location = [v6 location];
     speed = [location speed];
     [speed doubleValue];
     [supportedAccessoryRegistry locationThrottleTimeIntervalForAccessory:accessoryCopy speed:?];
-    v10 = v9;
+    v11 = v10;
 
-    timeStamp = [v5 timeStamp];
-    v12 = [timeStamp dateByAddingTimeInterval:v10];
+    timeStamp = [v6 timeStamp];
+    v13 = [timeStamp dateByAddingTimeInterval:v11];
 
-    if (v12)
+    if (v13)
     {
-      v13 = sub_100002880();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100002880(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        [v12 timeIntervalSinceNow];
-        v21 = 134217984;
-        v22 = v14;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore next allowed locate cycle in %f", &v21, 0xCu);
+        [v13 timeIntervalSinceNow];
+        v23 = 134217984;
+        v24 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore next allowed locate cycle in %f", &v23, 0xCu);
       }
 
       +[NSDate timeIntervalSinceReferenceDate];
-      v16 = v15;
-      [v12 timeIntervalSinceReferenceDate];
-      v18 = v16 > v17;
+      v18 = v17;
+      [v13 timeIntervalSinceReferenceDate];
+      v20 = v18 > v19;
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v18 = 1;
+    v20 = 1;
   }
 
-  v19 = sub_100002880();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100002880(v5);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = accessoryCopy;
-    v23 = 1024;
-    v24 = v18;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore : Retrieve a location for accessory %@? %i", &v21, 0x12u);
+    v23 = 138412546;
+    v24 = accessoryCopy;
+    v25 = 1024;
+    v26 = v20;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore : Retrieve a location for accessory %@? %i", &v23, 0x12u);
   }
 
-  return v18;
+  return v20;
 }
 
 - (void)saveLocation:(id)location forAccessory:(id)accessory
 {
   locationCopy = location;
   accessoryCopy = accessory;
+  v8 = accessoryCopy;
   if (locationCopy)
   {
     objc_initWeak(location, self);
@@ -344,22 +345,22 @@
     block[1] = 3221225472;
     block[2] = sub_1001B2498;
     block[3] = &unk_1002CE3B8;
-    objc_copyWeak(&v13, location);
-    v11 = accessoryCopy;
-    v12 = locationCopy;
+    objc_copyWeak(&v14, location);
+    v12 = v8;
+    v13 = locationCopy;
     dispatch_async(serialQueue, block);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(accessoryCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Trying to save nil location to location store.", location, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Trying to save nil location to location store.", location, 2u);
     }
   }
 }
@@ -417,21 +418,21 @@
 
   v24 = [v22 saveContext:dictionaryValue forContextKey:v11 dataProtectionClass:v21];
 
-  v25 = sub_100002880();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100002880(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v32 = v11;
-    v33 = 2048;
-    v34 = v9;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore Saving location to disk %@ protection %li", buf, 0x16u);
+    v33 = v11;
+    v34 = 2048;
+    v35 = v9;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore Saving location to disk %@ protection %li", buf, 0x16u);
   }
 
-  v26 = [FMDAccessoryLocationStoreRecord alloc];
-  v27 = +[NSDate date];
-  v28 = [(FMDAccessoryLocationStoreRecord *)v26 initWithRecordName:v11 contextUUID:v24 creationDate:v27 protection:protectionCopy];
+  v27 = [FMDAccessoryLocationStoreRecord alloc];
+  v28 = +[NSDate date];
+  v29 = [(FMDAccessoryLocationStoreRecord *)v27 initWithRecordName:v11 contextUUID:v24 creationDate:v28 protection:protectionCopy];
 
-  return v28;
+  return v29;
 }
 
 - (void)expungeRecordsForAccessory:(id)accessory allRecords:(BOOL)records
@@ -461,127 +462,127 @@
 
   if (isInternalBuild)
   {
-    v19 = [FMPreferencesUtil objectForKey:@"LocationStoreCleanup" inDomain:kFMDNotBackedUpPrefDomain];
-    v20 = v19;
-    if (v19)
+    v20 = [FMPreferencesUtil objectForKey:@"LocationStoreCleanup" inDomain:kFMDNotBackedUpPrefDomain];
+    v21 = v20;
+    if (v20)
     {
-      [v19 doubleValue];
-      v10 = v21;
+      [v20 doubleValue];
+      v10 = v22;
     }
   }
 
-  v22 = sub_100002880();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100002880(v19);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
     *&buf[4] = v10;
     *&buf[12] = 2048;
     *&buf[14] = v11;
     *&buf[22] = 2048;
-    v65 = unsignedIntegerValue;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Expunging accessory locations older than (short) %f (long) %f, maxlocates %li", buf, 0x20u);
+    v69 = unsignedIntegerValue;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Expunging accessory locations older than (short) %f (long) %f, maxlocates %li", buf, 0x20u);
   }
 
   recordsByAccessoryIdentifier = [(FMDAccessoryLocationStore *)self recordsByAccessoryIdentifier];
   accessoryIdentifier = [accessoryCopy accessoryIdentifier];
-  v25 = [recordsByAccessoryIdentifier objectForKeyedSubscript:accessoryIdentifier];
-  v26 = [v25 copy];
+  v26 = [recordsByAccessoryIdentifier objectForKeyedSubscript:accessoryIdentifier];
+  v27 = [v26 copy];
 
-  v27 = [NSPredicate predicateWithFormat:@"class == %@", objc_opt_class()];
-  v28 = [v26 filteredArrayUsingPredicate:v27];
+  v28 = [NSPredicate predicateWithFormat:@"class == %@", objc_opt_class()];
+  v29 = [v27 filteredArrayUsingPredicate:v28];
 
-  v29 = [v28 sortedArrayUsingComparator:&stru_1002D09D0];
+  v30 = [v29 sortedArrayUsingComparator:&stru_1002D09D0];
 
-  v30 = +[NSDate date];
-  [v30 timeIntervalSinceReferenceDate];
-  v32 = v31;
+  v31 = +[NSDate date];
+  [v31 timeIntervalSinceReferenceDate];
+  v33 = v32;
 
-  v33 = sub_100002880();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v35 = sub_100002880(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = [v29 count];
+    v36 = [v30 count];
     *buf = 134218242;
-    *&buf[4] = v34;
+    *&buf[4] = v36;
     *&buf[12] = 2112;
-    *&buf[14] = v29;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore found %lu records %@", buf, 0x16u);
+    *&buf[14] = v30;
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore found %lu records %@", buf, 0x16u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v65 = sub_10000AB24;
-  v66 = sub_100002B5C;
-  v67 = +[NSMutableDictionary dictionary];
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_10000AB24;
-  v58 = sub_100002B5C;
-  v59 = +[NSMutableArray array];
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = sub_10000AB24;
-  v52 = sub_100002B5C;
-  v53 = 0;
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_1001B304C;
-  v46[3] = &unk_1002D09F8;
+  v69 = sub_10000AB24;
+  v70 = sub_100002B5C;
+  v71 = +[NSMutableDictionary dictionary];
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = sub_10000AB24;
+  v62 = sub_100002B5C;
+  v63 = +[NSMutableArray array];
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = sub_10000AB24;
+  v56 = sub_100002B5C;
+  v57 = 0;
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_1001B304C;
+  v50[3] = &unk_1002D09F8;
   recordsCopy = records;
-  v46[8] = v10;
-  v46[9] = v32;
-  v46[10] = v11;
-  v46[4] = buf;
-  v46[5] = &v54;
-  v46[6] = &v48;
-  v46[7] = unsignedIntegerValue;
-  [v29 enumerateObjectsUsingBlock:v46];
+  v50[8] = v10;
+  v50[9] = v33;
+  v50[10] = v11;
+  v50[4] = buf;
+  v50[5] = &v58;
+  v50[6] = &v52;
+  v50[7] = unsignedIntegerValue;
+  [v30 enumerateObjectsUsingBlock:v50];
   recordsByAccessoryIdentifier2 = [(FMDAccessoryLocationStore *)self recordsByAccessoryIdentifier];
-  v36 = [recordsByAccessoryIdentifier2 mutableCopy];
+  v38 = [recordsByAccessoryIdentifier2 mutableCopy];
 
-  v37 = sub_100002880();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v40 = sub_100002880(v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = [v55[5] count];
-    v39 = v55[5];
-    *v60 = 134218242;
-    v61 = v38;
-    v62 = 2112;
-    v63 = v39;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore keeping %lu records %@", v60, 0x16u);
+    v41 = [v59[5] count];
+    v42 = v59[5];
+    *v64 = 134218242;
+    v65 = v41;
+    v66 = 2112;
+    v67 = v42;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore keeping %lu records %@", v64, 0x16u);
   }
 
-  v40 = v55[5];
+  v43 = v59[5];
   accessoryIdentifier2 = [accessoryCopy accessoryIdentifier];
-  [v36 setObject:v40 forKeyedSubscript:accessoryIdentifier2];
+  [v38 setObject:v43 forKeyedSubscript:accessoryIdentifier2];
 
-  [(FMDAccessoryLocationStore *)self setRecordsByAccessoryIdentifier:v36];
+  [(FMDAccessoryLocationStore *)self setRecordsByAccessoryIdentifier:v38];
   dataArchiver = [(FMDAccessoryLocationStore *)self dataArchiver];
   recordsByAccessoryIdentifier3 = [(FMDAccessoryLocationStore *)self recordsByAccessoryIdentifier];
-  v44 = [dataArchiver saveDictionary:recordsByAccessoryIdentifier3];
+  v47 = [dataArchiver saveDictionary:recordsByAccessoryIdentifier3];
 
-  if (v44)
+  if (v47)
   {
-    v45 = sub_100002880();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v49 = sub_100002880(v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       sub_10022A040();
     }
   }
 
-  [(FMDAccessoryLocationStore *)self scheduleJanitor:v49[5]];
+  [(FMDAccessoryLocationStore *)self scheduleJanitor:v53[5]];
 
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v58, 8);
 
   _Block_object_dispose(buf, 8);
 }
 
 - (void)clearAllRecords
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -640,33 +641,21 @@
   if (janitorCopy)
   {
     nextScheduledJanitorDate = [(FMDAccessoryLocationStore *)self nextScheduledJanitorDate];
-    if (!nextScheduledJanitorDate)
+    if (nextScheduledJanitorDate && (v6 = nextScheduledJanitorDate, -[FMDAccessoryLocationStore nextScheduledJanitorDate](self, "nextScheduledJanitorDate"), v7 = objc_claimAutoreleasedReturnValue(), [v7 timeIntervalSinceReferenceDate], v9 = v8, objc_msgSend(janitorCopy, "timeIntervalSinceReferenceDate"), v11 = v10, v7, v6, v9 <= v11))
     {
-      goto LABEL_4;
-    }
+      nextScheduledJanitorDate2 = [(FMDAccessoryLocationStore *)self nextScheduledJanitorDate];
 
-    v6 = nextScheduledJanitorDate;
-    nextScheduledJanitorDate2 = [(FMDAccessoryLocationStore *)self nextScheduledJanitorDate];
-    [nextScheduledJanitorDate2 timeIntervalSinceReferenceDate];
-    v9 = v8;
-    [janitorCopy timeIntervalSinceReferenceDate];
-    v11 = v10;
-
-    if (v9 <= v11)
-    {
-      nextScheduledJanitorDate3 = [(FMDAccessoryLocationStore *)self nextScheduledJanitorDate];
-
-      v16 = sub_100002880();
-      janitor = v16;
-      if (nextScheduledJanitorDate3)
+      v17 = sub_100002880(v16);
+      janitor = v17;
+      if (nextScheduledJanitorDate2)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           sub_10022D484(self, janitor);
         }
       }
 
-      else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10022D518(janitor);
       }
@@ -674,8 +663,7 @@
 
     else
     {
-LABEL_4:
-      v12 = sub_100002880();
+      v12 = sub_100002880(nextScheduledJanitorDate);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         sub_10022D55C();
@@ -689,7 +677,7 @@ LABEL_4:
 
   else
   {
-    v14 = sub_100002880();
+    v14 = sub_100002880(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_10022D5D0(v14);
@@ -722,7 +710,7 @@ LABEL_4:
 - (void)accessoryDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v5 = sub_100002880();
+  v5 = sub_100002880(disconnectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v10) = 0;
@@ -733,7 +721,7 @@ LABEL_4:
   {
     supportedAccessoryRegistry = [(FMDAccessoryLocationStore *)self supportedAccessoryRegistry];
     v7 = [supportedAccessoryRegistry locatorForAccessory:disconnectCopy];
-    v8 = sub_100002880();
+    v8 = sub_100002880(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       name = [disconnectCopy name];

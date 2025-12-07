@@ -37,27 +37,26 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   database = [(FCCKPrivateBatchedSaveRecordsOperation *)self database];
 
   if (!database && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"modify operation must have a database"];
-    v9 = 136315906;
-    v10 = "[FCCKPrivateBatchedSaveRecordsOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCCKPrivateBatchedSaveRecordsOperation.m";
-    v13 = 1024;
-    v14 = 50;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"modify operation must have a database"];
+    v8 = 136315906;
+    v9 = "[FCCKPrivateBatchedSaveRecordsOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCCKPrivateBatchedSaveRecordsOperation.m";
+    v12 = 1024;
+    v13 = 50;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   database2 = [(FCCKPrivateBatchedSaveRecordsOperation *)self database];
   v5 = database2 != 0;
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -95,7 +94,7 @@
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -106,10 +105,10 @@
     {
       v7 = MEMORY[0x1E696ABC0];
       v8 = *MEMORY[0x1E695B740];
-      v15 = *MEMORY[0x1E695B798];
+      v14 = *MEMORY[0x1E695B798];
       resultErrorsByRecordID2 = [(FCCKPrivateBatchedSaveRecordsOperation *)self resultErrorsByRecordID];
-      v16[0] = resultErrorsByRecordID2;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = resultErrorsByRecordID2;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       errorCopy = [v7 errorWithDomain:v8 code:2 userInfo:v10];
     }
 
@@ -127,8 +126,6 @@
     resultSavedRecords = [(FCCKPrivateBatchedSaveRecordsOperation *)self resultSavedRecords];
     (saveRecordsCompletionBlock2)[2](saveRecordsCompletionBlock2, resultSavedRecords, errorCopy);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continueModifying
@@ -207,33 +204,33 @@ void __60__FCCKPrivateBatchedSaveRecordsOperation__continueModifying__block_invo
 
 - (void)_subdivideRemainingBatches
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   remainingBatchesOfRecordsToSave = [(FCCKPrivateBatchedSaveRecordsOperation *)self remainingBatchesOfRecordsToSave];
   v4 = [remainingBatchesOfRecordsToSave copy];
 
   remainingBatchesOfRecordsToSave2 = [(FCCKPrivateBatchedSaveRecordsOperation *)self remainingBatchesOfRecordsToSave];
   [remainingBatchesOfRecordsToSave2 removeAllObjects];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v11 count] >> 1;
         v13 = [v11 subarrayWithRange:{0, v12}];
         v14 = [v11 subarrayWithRange:{v12, objc_msgSend(v11, "count") - v12}];
@@ -244,13 +241,11 @@ void __60__FCCKPrivateBatchedSaveRecordsOperation__continueModifying__block_invo
         [remainingBatchesOfRecordsToSave4 addObject:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

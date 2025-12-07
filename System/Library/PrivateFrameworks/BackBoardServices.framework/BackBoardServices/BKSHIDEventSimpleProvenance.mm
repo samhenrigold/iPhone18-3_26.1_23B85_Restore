@@ -19,7 +19,7 @@
 
 - (id)_init
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -29,50 +29,49 @@
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventSimpleProvenance cannot be subclassed"];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v6 = NSStringFromSelector(sel__init);
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
+          v5 = NSStringFromSelector(sel__init);
+          v6 = objc_opt_class();
+          v7 = NSStringFromClass(v6);
           *buf = 138544642;
-          v11 = v6;
-          v12 = 2114;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v1;
-          v16 = 2114;
-          v17 = @"BKSHIDEventSimpleProvenance.m";
-          v18 = 1024;
-          v19 = 48;
-          v20 = 2114;
-          v21 = v5;
+          v10 = v5;
+          v11 = 2114;
+          v12 = v7;
+          v13 = 2048;
+          v14 = v1;
+          v15 = 2114;
+          v16 = @"BKSHIDEventSimpleProvenance.m";
+          v17 = 1024;
+          v18 = 48;
+          v19 = 2114;
+          v20 = v4;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v5 UTF8String];
+        [v4 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x18634DFC4);
       }
     }
 
-    v9.receiver = v1;
-    v9.super_class = BKSHIDEventSimpleProvenance;
-    result = objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v1;
+    v8.super_class = BKSHIDEventSimpleProvenance;
+    return objc_msgSendSuper2(&v8, sel_init);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_signature"];
-  [v2 addField:"_versionedPID"];
-  [v2 addField:"_eventType"];
-  [v2 addField:"_timestamp"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 - (id)_initWithCopyOf:(id *)of
@@ -96,24 +95,24 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
 
 - (BOOL)_verifySignatureWithInternalKey:(id)key
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (!keyCopy)
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = [v13 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"key", v15];
+    v12 = MEMORY[0x1E696AEC0];
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = [v12 stringWithFormat:@"key", v14];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = NSStringFromSelector(a2);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v16 = NSStringFromSelector(a2);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v17;
+      *&__dst.ctx[1] = v16;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v19;
+      *(&__dst.ctx[3] + 2) = v18;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = self;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -121,11 +120,11 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 234;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v16;
+      *(&__dst.ctx[12] + 2) = v15;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v16 UTF8String];
+    [v15 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18636E564);
@@ -135,27 +134,27 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20 = MEMORY[0x1E696AEC0];
+    v19 = MEMORY[0x1E696AEC0];
     classForCoder = [v6 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v22 = NSStringFromClass(classForCoder);
-    v23 = objc_opt_class();
-    v24 = NSStringFromClass(v23);
-    v25 = [v20 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"key", v22, v24];
+    v21 = NSStringFromClass(classForCoder);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    v24 = [v19 stringWithFormat:@"key", v21, v23];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v26 = NSStringFromSelector(a2);
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v25 = NSStringFromSelector(a2);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v26;
+      *&__dst.ctx[1] = v25;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v28;
+      *(&__dst.ctx[3] + 2) = v27;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = self;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -163,11 +162,11 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 234;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v25;
+      *(&__dst.ctx[12] + 2) = v24;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v25 UTF8String];
+    [v24 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18636E6A0);
@@ -179,13 +178,12 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
   v9 = [(NSData *)self->_signature length];
   v10 = v9 == [v8 length] && timingsafe_bcmp(objc_msgSend(v8, "bytes"), -[NSData bytes](self->_signature, "bytes"), v9) == 0;
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)_calculateSignatureWithHMACContext:(uint64_t)context
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (context)
   {
     contextCopy = context;
@@ -193,10 +191,8 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
     CCHmacUpdate(ctx, (contextCopy + 24), 4uLL);
     CCHmacUpdate(ctx, (contextCopy + 16), 8uLL);
     CCHmacFinal(ctx, macOut);
-    context = [MEMORY[0x1E695DEF0] dataWithBytes:macOut length:32];
+    context = [MEMORY[0x1E695DEF0] dataWithBytes:? length:?];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return context;
 }
@@ -204,10 +200,10 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v4 = [streamCopy appendObject:self->_signature withName:@"signature"];
-  v5 = [streamCopy appendInteger:self->_versionedPID withName:@"versionedPID"];
-  v6 = [streamCopy appendInteger:self->_eventType withName:@"eventType"];
-  v7 = [streamCopy appendInt64:self->_timestamp withName:@"timestamp"];
+  v3 = [streamCopy appendObject:? withName:?];
+  v4 = [streamCopy appendInteger:? withName:?];
+  v5 = [streamCopy appendInteger:? withName:?];
+  v6 = [streamCopy appendInt64:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -224,17 +220,15 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v6 = v5[1];
-    signature = self->_signature;
-    v8 = BSEqualObjects() && v5[2] == self->_versionedPID && *(v5 + 6) == self->_eventType && v5[4] == self->_timestamp;
+    v6 = BSEqualObjects() && v5[2] == self->_versionedPID && *(v5 + 6) == self->_eventType && v5[4] == self->_timestamp;
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -248,14 +242,14 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
 
   else
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_versionedPID];
+    v4 = [MEMORY[0x1E696AD98] numberWithLongLong:?];
+    [v4 hash];
+
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
     [v5 hash];
 
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_eventType];
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
     [v6 hash];
-
-    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_timestamp];
-    [v7 hash];
 
     return BSHashPurifyNS();
   }
@@ -264,17 +258,16 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  signature = self->_signature;
-  v6 = coderCopy;
-  if (signature)
+  v5 = coderCopy;
+  if (self->_signature)
   {
-    [coderCopy encodeObject:signature forKey:@"signature"];
-    coderCopy = v6;
+    [coderCopy encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  [coderCopy encodeInteger:self->_versionedPID forKey:@"versionedPID"];
-  [v6 encodeInteger:self->_eventType forKey:@"eventType"];
-  [v6 encodeInt64:self->_timestamp forKey:@"timestamp"];
+  [coderCopy encodeInteger:? forKey:?];
+  [v5 encodeInteger:? forKey:?];
+  [v5 encodeInt64:? forKey:?];
 }
 
 - (BKSHIDEventSimpleProvenance)initWithCoder:(id)coder
@@ -283,13 +276,14 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
   v9.super_class = BKSHIDEventSimpleProvenance;
   coderCopy = coder;
   v4 = [(BKSHIDEventSimpleProvenance *)&v9 init];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:{@"signature", v9.receiver, v9.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:v9.receiver forKey:v9.super_class];
   signature = v4->_signature;
   v4->_signature = v5;
 
-  v4->_versionedPID = [coderCopy decodeIntegerForKey:@"versionedPID"];
-  v4->_eventType = [coderCopy decodeIntegerForKey:@"eventType"];
-  v7 = [coderCopy decodeInt64ForKey:@"timestamp"];
+  v4->_versionedPID = [coderCopy decodeIntegerForKey:?];
+  v4->_eventType = [coderCopy decodeIntegerForKey:?];
+  v7 = [coderCopy decodeInt64ForKey:?];
 
   v4->_timestamp = v7;
   return v4;
@@ -297,10 +291,10 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
 
 - (BKSHIDEventSimpleProvenance)init
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventSimpleProvenance"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSHIDEventSimpleProvenance init]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;
@@ -320,26 +314,26 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
 
 + (id)_withInternalKey:(id)key buildMessage:(id)message
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   messageCopy = message;
   v9 = keyCopy;
   if (!v9)
   {
-    v20 = MEMORY[0x1E696AEC0];
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
-    v23 = [v20 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"key", v22];
+    v19 = MEMORY[0x1E696AEC0];
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v22 = [v19 stringWithFormat:@"key", v21];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v24 = NSStringFromSelector(a2);
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
+      v23 = NSStringFromSelector(a2);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v24;
+      *&__dst.ctx[1] = v23;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v26;
+      *(&__dst.ctx[3] + 2) = v25;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = self;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -347,11 +341,11 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 221;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v23;
+      *(&__dst.ctx[12] + 2) = v22;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v23 UTF8String];
+    [v22 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18636EEC4);
@@ -361,27 +355,27 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v27 = MEMORY[0x1E696AEC0];
+    v26 = MEMORY[0x1E696AEC0];
     classForCoder = [v10 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v29 = NSStringFromClass(classForCoder);
-    v30 = objc_opt_class();
-    v31 = NSStringFromClass(v30);
-    v32 = [v27 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"key", v29, v31];
+    v28 = NSStringFromClass(classForCoder);
+    v29 = objc_opt_class();
+    v30 = NSStringFromClass(v29);
+    v31 = [v26 stringWithFormat:@"key", v28, v30];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v33 = NSStringFromSelector(a2);
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
+      v32 = NSStringFromSelector(a2);
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v33;
+      *&__dst.ctx[1] = v32;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v35;
+      *(&__dst.ctx[3] + 2) = v34;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = self;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -389,11 +383,11 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 221;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v32;
+      *(&__dst.ctx[12] + 2) = v31;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v32 UTF8String];
+    [v31 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18636F000);
@@ -402,12 +396,13 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
   if (!messageCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSHIDEventSimpleProvenance.m" lineNumber:222 description:{@"Invalid parameter not satisfying: %@", @"builder != nil"}];
+    [currentHandler handleFailureInMethod:@"builder != nil" object:? file:? lineNumber:? description:?];
   }
 
   _init = [(BKSHIDEventSimpleProvenance *)[BKSMutableHIDEventSimpleProvenance alloc] _init];
   messageCopy[2](messageCopy, _init);
-  [_init setTimestamp:mach_continuous_time()];
+  mach_continuous_time();
+  [_init setTimestamp:?];
   if (_init)
   {
     v12 = v10;
@@ -426,17 +421,15 @@ void __45__BKSHIDEventSimpleProvenance_protobufSchema__block_invoke(uint64_t a1,
     v13 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 + (BKSHIDEventSimpleProvenance)new
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventSimpleProvenance"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSHIDEventSimpleProvenance new]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;

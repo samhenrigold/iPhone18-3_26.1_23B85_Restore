@@ -32,7 +32,7 @@
     v9 = delegate2;
     if (delegate2)
     {
-      [delegate2 playerCurrentTimeForActionPerformer:self];
+      objc_msgSend_playerCurrentTimeForActionPerformer_(delegate2);
     }
 
     else

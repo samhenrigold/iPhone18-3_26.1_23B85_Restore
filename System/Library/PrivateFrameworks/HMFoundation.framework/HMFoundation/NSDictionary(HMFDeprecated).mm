@@ -14,7 +14,7 @@
 
 - (id)secureDescriptionWithIndent:()HMFDeprecated newLine:blacklistedKeys:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   string = [MEMORY[0x277CCAB68] string];
@@ -25,7 +25,7 @@
   }
 
   v11 = v10;
-  v33 = v11;
+  v31 = v11;
   if (v7)
   {
     [string appendFormat:@"%@%@{\n", v11, v7];
@@ -38,35 +38,34 @@
     +[HMFStringIndentation indentation];
   }
   v12 = ;
-  v34 = v7;
+  v32 = v7;
   [self allKeys];
+  v38 = 0u;
+  v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v13 = v43 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v13 = v41 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v41;
+    v16 = *v39;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v41 != v16)
+        if (*v39 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v40 + 1) + 8 * i);
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
-          v19 = v13;
+          v18 = v13;
           goto LABEL_17;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (v15)
       {
         continue;
@@ -76,76 +75,74 @@
     }
   }
 
-  v19 = [v13 sortedArrayUsingSelector:sel_compare_];
+  v18 = [v13 sortedArrayUsingSelector:sel_compare_];
 LABEL_17:
 
-  v38 = 0u;
-  v39 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v20 = v19;
-  v21 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
-  if (v21)
+  v34 = 0u;
+  v35 = 0u;
+  v19 = v18;
+  v20 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v20)
   {
-    v22 = v21;
-    v23 = *v37;
+    v21 = v20;
+    v22 = *v35;
     do
     {
-      v24 = 0;
+      v23 = 0;
       do
       {
-        if (*v37 != v23)
+        if (*v35 != v22)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v19);
         }
 
-        v25 = *(*(&v36 + 1) + 8 * v24);
-        if (([v8 containsObject:v25] & 1) == 0)
+        v24 = *(*(&v34 + 1) + 8 * v23);
+        if (([v8 containsObject:v24] & 1) == 0)
         {
-          [string appendFormat:@"%@%@ = ", v12, v25];
-          v26 = [self objectForKeyedSubscript:v25];
+          [string appendFormat:@"%@%@ = ", v12, v24];
+          v25 = [self objectForKeyedSubscript:v24];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            shortDescription = [v26 secureDescriptionWithIndent:v12 newLine:1 blacklistedKeys:v8];
+            shortDescription = [v25 secureDescriptionWithIndent:v12 newLine:1 blacklistedKeys:v8];
           }
 
-          else if ([v26 conformsToProtocol:&unk_283ED27D0] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          else if ([v25 conformsToProtocol:&unk_283ED27D0] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            shortDescription = [v26 shortDescription];
+            shortDescription = [v25 shortDescription];
           }
 
           else
           {
-            shortDescription = [v26 description];
+            shortDescription = [v25 description];
           }
 
-          v28 = shortDescription;
+          v27 = shortDescription;
           [string appendString:shortDescription];
 
           [string appendString:{@", \n"}];
         }
 
-        ++v24;
+        ++v23;
       }
 
-      while (v22 != v24);
-      v29 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
-      v22 = v29;
+      while (v21 != v23);
+      v28 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v21 = v28;
     }
 
-    while (v29);
+    while (v28);
   }
 
-  v30 = &stru_283EBDA30;
-  if (v34)
+  v29 = &stru_283EBDA30;
+  if (v32)
   {
-    v30 = v34;
+    v29 = v32;
   }
 
-  [string appendFormat:@"%@}", v30];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [string appendFormat:@"%@}", v29];
 
   return string;
 }
@@ -240,15 +237,15 @@ LABEL_17:
 
 - (id)predicateFromDataForKey:()HMFDeprecated
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v1 = [self hmf_dataForKey:?];
   if (v1)
   {
     v2 = MEMORY[0x277CCAAC8];
     v3 = MEMORY[0x277CBEB98];
-    v10[0] = objc_opt_class();
-    v10[1] = objc_opt_class();
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+    v9[0] = objc_opt_class();
+    v9[1] = objc_opt_class();
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
     v5 = [v3 setWithArray:v4];
     v6 = [v2 deserializeObjectWithData:v1 allowedClasses:v5];
 
@@ -267,8 +264,6 @@ LABEL_17:
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -1210,7 +1210,7 @@ uint64_t __83__PLPhotoTileViewController__handleFullSizeImageRequestResult_dataU
   return pl_dispatch_async();
 }
 
-uint64_t __83__PLPhotoTileViewController__handleFullSizeImageRequestResult_dataUTI_orientation___block_invoke_82(uint64_t a1)
+void *__83__PLPhotoTileViewController__handleFullSizeImageRequestResult_dataUTI_orientation___block_invoke_82(uint64_t a1)
 {
   result = [*(a1 + 40) isEqualToString:{objc_msgSend(*(*(a1 + 32) + 1016), "localIdentifier")}];
   if (result)
@@ -1249,12 +1249,12 @@ uint64_t __83__PLPhotoTileViewController__handleFullSizeImageRequestResult_dataU
   }
 }
 
-uint64_t __50__PLPhotoTileViewController__requestFullSizeImage__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __50__PLPhotoTileViewController__requestFullSizeImage__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a1 + 32);
-  v6 = PLImageOrientationFromExifOrientation();
+  v6 = *(a1 + 32);
+  v7 = PLImageOrientationFromExifOrientation();
 
-  return [v5 _handleFullSizeImageRequestResult:a2 dataUTI:a3 orientation:v6];
+  return [v6 _handleFullSizeImageRequestResult:a2 dataUTI:a3 orientation:v7];
 }
 
 - (void)ensureFullSizeImageLoaded
@@ -1622,7 +1622,7 @@ LABEL_15:
   {
     if (coordinator)
     {
-      [coordinator targetTransform];
+      objc_msgSend_targetTransform(coordinator);
     }
 
     else
@@ -1711,9 +1711,9 @@ uint64_t __80__PLPhotoTileViewController_viewWillTransitionToSize_withTransition
   return [v2 _performRotationUpdatesWithDuration:? size:?];
 }
 
-uint64_t __80__PLPhotoTileViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_3(uint64_t result)
+void *__80__PLPhotoTileViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_3(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 1361) & 2) == 0)
   {
     return [*(v1 + 1024) setAdjustZoomScaleAfterRotation:0];

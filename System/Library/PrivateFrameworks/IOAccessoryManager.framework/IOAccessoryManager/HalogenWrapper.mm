@@ -7,10 +7,10 @@
 
 - (HalogenWrapper)init
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = HalogenWrapper;
-  v2 = [(HalogenWrapper *)&v17 init];
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = HalogenWrapper;
+  v2 = [(HalogenWrapper *)&v16 init];
   v3 = v2;
   if (v2)
   {
@@ -22,7 +22,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v19 = "[HalogenWrapper init]";
+        v18 = "[HalogenWrapper init]";
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Failed to create HalogenMeasurementDispatchQueue\n", buf, 0xCu);
       }
 
@@ -34,7 +34,7 @@
     if (!v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[HalogenWrapper init]";
+      v18 = "[HalogenWrapper init]";
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Failed to create HalogenTtrDispatchQueue\n", buf, 0xCu);
     }
 
@@ -48,7 +48,7 @@
     {
       wetPollingIntervalSec = [gUserLdcmParams wetPollingIntervalSec];
       *buf = 134217984;
-      v19 = wetPollingIntervalSec;
+      v18 = wetPollingIntervalSec;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  wetPollingIntervalSec = %lld \n", buf, 0xCu);
     }
 
@@ -56,7 +56,7 @@
     {
       dryPollingIntervalSec = [gUserLdcmParams dryPollingIntervalSec];
       *buf = 134217984;
-      v19 = dryPollingIntervalSec;
+      v18 = dryPollingIntervalSec;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  dryPollingIntervalSec = %lld \n", buf, 0xCu);
     }
 
@@ -64,7 +64,7 @@
     {
       ldcmArbiterRetrySec = [gUserLdcmParams ldcmArbiterRetrySec];
       *buf = 134217984;
-      v19 = ldcmArbiterRetrySec;
+      v18 = ldcmArbiterRetrySec;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  ldcmArbiterRetrySec = %lld \n", buf, 0xCu);
     }
 
@@ -72,7 +72,7 @@
     {
       ldcmStartMeasurementsDelayMs = [gUserLdcmParams ldcmStartMeasurementsDelayMs];
       *buf = 134217984;
-      v19 = ldcmStartMeasurementsDelayMs;
+      v18 = ldcmStartMeasurementsDelayMs;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  ldcmStartMeasurementsDelayMs = %lld \n", buf, 0xCu);
     }
 
@@ -80,7 +80,7 @@
     {
       ldcmStartMeasurementsRetryMs = [gUserLdcmParams ldcmStartMeasurementsRetryMs];
       *buf = 134217984;
-      v19 = ldcmStartMeasurementsRetryMs;
+      v18 = ldcmStartMeasurementsRetryMs;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  ldcmStartMeasurementsRetryMs = %lld \n", buf, 0xCu);
     }
 
@@ -88,7 +88,7 @@
     {
       minDryReadings = [gUserLdcmParams minDryReadings];
       *buf = 134217984;
-      v19 = minDryReadings;
+      v18 = minDryReadings;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "  minDryReadings = %lld \n", buf, 0xCu);
     }
 
@@ -124,7 +124,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v19 = "[HalogenWrapper init]";
+        v18 = "[HalogenWrapper init]";
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Failed to create Halogen Timer\n", buf, 0xCu);
       }
 
@@ -138,15 +138,14 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v19 = "[HalogenWrapper init]";
+        v18 = "[HalogenWrapper init]";
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Failed to create NSCondition\n", buf, 0xCu);
       }
 
-      v3 = 0;
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

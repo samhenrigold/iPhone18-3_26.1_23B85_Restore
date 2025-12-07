@@ -1,1553 +1,14 @@
-uint64_t *std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(uint64_t *result, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a2;
-  if (*a2)
-  {
-    v4 = a2[1];
-    if (!v4)
-    {
-      v3 = a2;
-      goto LABEL_7;
-    }
-
-    do
-    {
-      v3 = v4;
-      v4 = *v4;
-    }
-
-    while (v4);
-  }
-
-  v2 = v3[1];
-  if (v2)
-  {
-LABEL_7:
-    v6 = 0;
-    v5 = v3[2];
-    *(v2 + 16) = v5;
-    goto LABEL_8;
-  }
-
-  v5 = v3[2];
-  v6 = 1;
-LABEL_8:
-  v7 = *v5;
-  if (*v5 == v3)
-  {
-    *v5 = v2;
-    if (v3 == result)
-    {
-      v7 = 0;
-      result = v2;
-    }
-
-    else
-    {
-      v7 = v5[1];
-    }
-  }
-
-  else
-  {
-    v5[1] = v2;
-  }
-
-  v8 = *(v3 + 24);
-  if (v3 != a2)
-  {
-    v9 = a2[2];
-    v3[2] = v9;
-    v9[*v9 != a2] = v3;
-    v11 = *a2;
-    v10 = a2[1];
-    *(v11 + 16) = v3;
-    *v3 = v11;
-    v3[1] = v10;
-    if (v10)
-    {
-      *(v10 + 16) = v3;
-    }
-
-    *(v3 + 24) = *(a2 + 24);
-    if (result == a2)
-    {
-      result = v3;
-    }
-  }
-
-  if (!result || !v8)
-  {
-    return result;
-  }
-
-  if (!v6)
-  {
-    *(v2 + 24) = 1;
-    return result;
-  }
-
-  while (1)
-  {
-    v12 = v7[2];
-    v13 = *v12;
-    v14 = *(v7 + 24);
-    if (*v12 == v7)
-    {
-      break;
-    }
-
-    if ((v7[3] & 1) == 0)
-    {
-      *(v7 + 24) = 1;
-      *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
-      {
-        *(v16 + 16) = v12;
-      }
-
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
-      if (result == *v7)
-      {
-        result = v7;
-      }
-
-      v7 = *(*v7 + 8);
-    }
-
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
-    {
-      v19 = v7[1];
-      if (v19 && (v19[3] & 1) == 0)
-      {
-LABEL_58:
-        v18 = v7;
-      }
-
-      else
-      {
-        *(v18 + 24) = 1;
-        *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
-        {
-          *(v27 + 16) = v7;
-        }
-
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
-      }
-
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
-      {
-        *(v31 + 16) = v29;
-      }
-
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
-      goto LABEL_71;
-    }
-
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
-    {
-      goto LABEL_58;
-    }
-
-    *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
-    {
-      goto LABEL_52;
-    }
-
-LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
-  }
-
-  if ((v7[3] & 1) == 0)
-  {
-    *(v7 + 24) = 1;
-    *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
-    {
-      *(v21 + 16) = v12;
-    }
-
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
-    v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
-    {
-      result = v7;
-    }
-
-    v7 = *v23;
-  }
-
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
-  {
-    goto LABEL_67;
-  }
-
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
-  {
-    *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
-    {
-LABEL_52:
-      *(v20 + 24) = 1;
-      return result;
-    }
-
-    goto LABEL_49;
-  }
-
-  if (v24 && (v24[3] & 1) == 0)
-  {
-LABEL_67:
-    v25 = v7;
-    goto LABEL_68;
-  }
-
-  *(v25 + 24) = 1;
-  *(v7 + 24) = 0;
-  v33 = *v25;
-  v7[1] = *v25;
-  if (v33)
-  {
-    *(v33 + 16) = v7;
-  }
-
-  v34 = v7[2];
-  v25[2] = v34;
-  v34[*v34 != v7] = v25;
-  *v25 = v7;
-  v7[2] = v25;
-  v24 = v7;
-LABEL_68:
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
-  {
-    *(v35 + 16) = v29;
-  }
-
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
-LABEL_71:
-  *(v29 + 16) = v30;
-  return result;
-}
-
-void bitmapTestCombo(void)
-{
-  v0 = 100;
-  do
-  {
-    testSet(v1);
-    testEncodeDecodeBitmap(v1);
-    testUnset(v1);
-    v3 = &v2;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v3);
-    --v0;
-  }
-
-  while (v0);
-}
-
-void sub_2558C8E44(_Unwind_Exception *a1)
-{
-  v3 = v1;
-  *(v2 - 24) = v3;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100]((v2 - 24));
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::getLogFile(degas *this)
-{
-  {
-    operator new();
-  }
-
-  return degas::getLogFile(void)::sLogFile;
-}
-
-void sub_2558C98E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  MEMORY[0x259C43EB0](v15, 0x1012C40849EBCB1);
-  _Unwind_Resume(a1);
-}
-
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
-{
-  v4 = strlen(__s);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  a1[23] = v4;
-  if (v4)
-  {
-    memmove(a1, __s, v4);
-  }
-
-  a1[v5] = 0;
-  return a1;
-}
-
-uint64_t degas::NeighborQuery::NeighborQuery(uint64_t a1, void *a2, uint64_t a3)
-{
-  v4 = a2[1];
-  *a1 = *a2;
-  *(a1 + 8) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(a1 + 24) = a3;
-  v5 = *a2 && ((*(**a2 + 48))(*a2) & 1) == 0;
-  *(a1 + 16) = v5;
-  return a1;
-}
-
-void sub_2558C9A88(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak_count *a1)
-{
-  if (!atomic_fetch_add(&a1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (a1->__on_zero_shared)(a1);
-
-    std::__shared_weak_count::__release_weak(a1);
-  }
-}
-
-uint64_t degas::NeighborQuery::choosePlan(degas::NeighborQuery *this, unint64_t a2, unint64_t a3, int a4)
-{
-  v4 = a3 / a2;
-  if (a2 >= 0x33 && v4 < 0xA || a3 <= 0xE && v4 < 3)
-  {
-    return 4;
-  }
-
-  if (a3 < 0x249F0)
-  {
-    v6 = a4;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (a3 < 0x15E)
-  {
-    v6 = 1;
-  }
-
-  if (v6)
-  {
-    return 7;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t degas::NeighborQuery::neighborsNodesFirst(uint64_t a1, uint64_t a2, void *a3, void *a4, Bitmap *a5, unsigned int a6, degas::Bitmap *a7)
-{
-  if (*a4)
-  {
-    if (a6 <= 1)
-    {
-      degas::LabelledEdgeCursor::LabelledEdgeCursor(v26);
-      v31 = 0u;
-      memset(v32, 0, 25);
-      if (*a3 && (*(**a3 + 40))(*a3, &v31))
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromLabelsSourceNodes(v26, a5, &v31, (*(a1 + 24) + 1144));
-      }
-
-      else
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromSourceNodes(v26, a5, (*(a1 + 24) + 1144));
-      }
-
-      memset(&v30, 0, 41);
-      while (1)
-      {
-        v14 = degas::Statement::next(v26[0]);
-        v15 = v14;
-        if (v14 != 1)
-        {
-          break;
-        }
-
-        degas::Statement::bitmapColumnValue(v26[0], 0, &v30);
-      }
-
-      v13 = v14;
-      v16 = v14 & 0xFFFFFFFD;
-      if ((v14 & 0xFFFFFFFD) == 0)
-      {
-        if (*a4)
-        {
-          (*(**a4 + 24))(*a4, &v30, &v30);
-        }
-
-        degas::LabelledEdgeCursor::LabelledEdgeCursor(v29);
-        degas::LabelledEdgeCursor::setForTargetNodesFromEdges(v29, &v30, (*(a1 + 24) + 1144));
-        while (1)
-        {
-          v17 = degas::Statement::next(v29[0]);
-          if (v17 != 1)
-          {
-            break;
-          }
-
-          degas::Statement::bitmapColumnValue(v29[0], 0, a7);
-        }
-
-        if (v17 == 2)
-        {
-          v13 = 0;
-        }
-
-        else
-        {
-          v13 = v17;
-        }
-
-        degas::Cursor::~Cursor(v29);
-      }
-
-      v29[0] = &v30._bitSets;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v29);
-      v30._bitCount = v32;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v30);
-      degas::Cursor::~Cursor(v26);
-      if (v16)
-      {
-        return v15;
-      }
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    if ((a6 & 0xFFFFFFFD) == 0)
-    {
-      degas::LabelledEdgeCursor::LabelledEdgeCursor(v29);
-      v31 = 0u;
-      memset(v32, 0, 25);
-      if (*a3 && (*(**a3 + 40))(*a3, &v31))
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromLabelsTargetNodes(v29, a5, &v31, (*(a1 + 24) + 1144));
-      }
-
-      else
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromTargetNodes(v29, a5, (*(a1 + 24) + 1144));
-      }
-
-      memset(&v30, 0, 41);
-      while (1)
-      {
-        v20 = degas::Statement::next(v29[0]);
-        v15 = v20;
-        if (v20 != 1)
-        {
-          break;
-        }
-
-        degas::Statement::bitmapColumnValue(v29[0], 0, &v30);
-      }
-
-      if ((v20 & 0xFFFFFFFD) != 0)
-      {
-        v21 = 0;
-        v13 = v20;
-      }
-
-      else
-      {
-        if (*a4)
-        {
-          (*(**a4 + 24))(*a4, &v30, &v30);
-        }
-
-        degas::LabelledEdgeCursor::LabelledEdgeCursor(v28);
-        degas::LabelledEdgeCursor::setForSourceNodesFromEdges(v28, &v30, (*(a1 + 24) + 1144));
-        *v26 = 0u;
-        memset(v27, 0, 25);
-        while (1)
-        {
-          v24 = degas::Statement::next(v28[0]);
-          v15 = v24;
-          if (v24 != 1)
-          {
-            break;
-          }
-
-          degas::Statement::bitmapColumnValue(v28[0], 0, v26);
-        }
-
-        if (v24 == 2)
-        {
-          v13 = 0;
-        }
-
-        else
-        {
-          v13 = v24;
-        }
-
-        v21 = v13 == 0;
-        if (!v13)
-        {
-          if (a6 < 2)
-          {
-            degas::Bitmap::unionWith<degas::Bitmap>(a7, v26);
-          }
-
-          else
-          {
-            degas::Bitmap::operator=(a7, v26);
-          }
-
-          v15 = 0;
-        }
-
-        v33 = v27;
-        std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v33);
-        degas::Cursor::~Cursor(v28);
-      }
-
-      v26[0] = &v30._bitSets;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v26);
-      v30._bitCount = v32;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v30);
-      degas::Cursor::~Cursor(v29);
-      if (!v21)
-      {
-        return v15;
-      }
-    }
-  }
-
-  else
-  {
-    if (a6 > 1)
-    {
-      goto LABEL_75;
-    }
-
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(&v30);
-    v31 = 0u;
-    memset(v32, 0, 25);
-    if (*a3 && (*(**a3 + 40))(*a3, &v31))
-    {
-      degas::LabelledEdgeCursor::setForTargetNodesFromLabelsSourceNodes(&v30, a5, &v31, (*(a1 + 24) + 1144));
-    }
-
-    else
-    {
-      degas::LabelledEdgeCursor::setForTargetNodesFromSourceNodes(&v30, a5, (*(a1 + 24) + 1144));
-    }
-
-    while (1)
-    {
-      v18 = degas::Statement::next(v30._bitCount);
-      v13 = v18;
-      if (v18 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v30._bitCount, 0, a7);
-    }
-
-    v19 = v18 & 0xFFFFFFFD;
-    v26[0] = v32;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v26);
-    degas::Cursor::~Cursor(&v30);
-    if (!v19)
-    {
-LABEL_75:
-      if ((a6 & 0xFFFFFFFD) != 0)
-      {
-        return 0;
-      }
-
-      degas::LabelledEdgeCursor::LabelledEdgeCursor(v26);
-      v31 = 0u;
-      memset(v32, 0, 25);
-      if (*a3 && (*(**a3 + 40))(*a3, &v31))
-      {
-        degas::LabelledEdgeCursor::setForSourceNodesFromLabelsTargetNodes(v26, a5, &v31, (*(a1 + 24) + 1144));
-      }
-
-      else
-      {
-        degas::LabelledEdgeCursor::setForSourceNodesFromTargetNodes(v26, a5, (*(a1 + 24) + 1144));
-      }
-
-      memset(&v30, 0, 41);
-      while (1)
-      {
-        v22 = degas::Statement::next(v26[0]);
-        v13 = v22;
-        if (v22 != 1)
-        {
-          break;
-        }
-
-        degas::Statement::bitmapColumnValue(v26[0], 0, &v30);
-      }
-
-      v23 = v22 & 0xFFFFFFFD;
-      if ((v22 & 0xFFFFFFFD) == 0)
-      {
-        if (a6 < 2)
-        {
-          degas::Bitmap::unionWith<degas::Bitmap>(a7, &v30);
-        }
-
-        else
-        {
-          degas::Bitmap::operator=(a7, &v30);
-        }
-
-        v13 = 0;
-      }
-
-      v29[0] = &v30._bitSets;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v29);
-      v30._bitCount = v32;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v30);
-      degas::Cursor::~Cursor(v26);
-      if (!v23)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return v13;
-}
-
-void sub_2558CA130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, degas::Statement *a15, uint64_t a16, degas::Statement *a17, uint64_t a18, void **a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
-{
-  *(v27 - 104) = &a11;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100]((v27 - 104));
-  degas::Cursor::~Cursor(&a15);
-  a9 = &a21;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a9);
-  a19 = &a27;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a19);
-  degas::Cursor::~Cursor(&a17);
-  _Unwind_Resume(a1);
-}
-
-void degas::Bitmap::unionWith<degas::Bitmap>(degas::Bitmap *this, uint64_t a2)
-{
-  v12 = 0;
-  v13 = 0;
-  v2 = *(a2 + 24) - *(a2 + 16);
-  v3 = (v2 >> 4);
-  if ((v2 & 0xFFFFFFFF0) != 0 && v3 != 0)
-  {
-    v7 = 0;
-    while (1)
-    {
-      v8 = *(this + 2);
-      v9 = *(a2 + 16);
-      if (v13 >= (*(this + 3) - v8) >> 4)
-      {
-        break;
-      }
-
-      degas::Bitmap::mergeBitset(this, &v13, *(v8 + 16 * v13), &v12, *(v9 + 16 * v7));
-      v7 = v12;
-      if (v12 >= v3)
-      {
-        v9 = *(a2 + 16);
-        break;
-      }
-    }
-
-    v10 = *(a2 + 24) - v9;
-    if (v7 < (v10 >> 4))
-    {
-      v11 = (v10 >> 4);
-      do
-      {
-        degas::Bitmap::appendBitset(this, *(*(a2 + 16) + 16 * v7++));
-      }
-
-      while (v11 != v7);
-    }
-  }
-}
-
-uint64_t degas::NeighborQuery::neighborsNodesEdgeFilter(uint64_t a1, degas::Bitmap *a2, uint64_t a3, void *a4, Bitmap *a5, unsigned int a6, degas::Bitmap *a7)
-{
-  if (*a4)
-  {
-    if (a6 <= 1)
-    {
-      degas::LabelledEdgeCursor::LabelledEdgeCursor(v34);
-      v16 = degas::Bitmap::count(a2);
-      v17 = *(a1 + 24);
-      if (v16)
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromSourceNodesEdgeFilter(v34, a5, a2, (v17 + 1144));
-      }
-
-      else
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromSourceNodes(v34, a5, (v17 + 1144));
-      }
-
-      memset(&v38, 0, 41);
-      while (1)
-      {
-        v18 = degas::Statement::next(v34[0]);
-        v19 = v18;
-        if (v18 != 1)
-        {
-          break;
-        }
-
-        degas::Statement::bitmapColumnValue(v34[0], 0, &v38);
-      }
-
-      v13 = v18;
-      v20 = v18 & 0xFFFFFFFD;
-      if ((v18 & 0xFFFFFFFD) == 0)
-      {
-        if (*a4)
-        {
-          (*(**a4 + 24))(*a4, &v38, &v38);
-        }
-
-        degas::LabelledEdgeCursor::LabelledEdgeCursor(v37);
-        degas::LabelledEdgeCursor::setForTargetNodesFromEdges(v37, &v38, (*(a1 + 24) + 1144));
-        while (1)
-        {
-          v21 = degas::Statement::next(v37[0]);
-          if (v21 != 1)
-          {
-            break;
-          }
-
-          degas::Statement::bitmapColumnValue(v37[0], 0, a7);
-        }
-
-        if (v21 == 2)
-        {
-          v13 = 0;
-        }
-
-        else
-        {
-          v13 = v21;
-        }
-
-        degas::Cursor::~Cursor(v37);
-      }
-
-      v37[0] = &v38._bitSets;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v37);
-      degas::Cursor::~Cursor(v34);
-      if (v20)
-      {
-        return v19;
-      }
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    if ((a6 & 0xFFFFFFFD) == 0)
-    {
-      degas::LabelledEdgeCursor::LabelledEdgeCursor(v37);
-      v22 = degas::Bitmap::count(a2);
-      v23 = *(a1 + 24);
-      if (v22)
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromTargetNodesEdgeFilter(v37, a5, a2, (v23 + 1144));
-      }
-
-      else
-      {
-        degas::LabelledEdgeCursor::setForEdgesFromTargetNodes(v37, a5, (v23 + 1144));
-      }
-
-      memset(&v38, 0, 41);
-      while (1)
-      {
-        v28 = degas::Statement::next(v37[0]);
-        v19 = v28;
-        if (v28 != 1)
-        {
-          break;
-        }
-
-        degas::Statement::bitmapColumnValue(v37[0], 0, &v38);
-      }
-
-      if ((v28 & 0xFFFFFFFD) != 0)
-      {
-        v29 = 0;
-        v13 = v28;
-      }
-
-      else
-      {
-        if (*a4)
-        {
-          (*(**a4 + 24))(*a4, &v38, &v38);
-        }
-
-        degas::LabelledEdgeCursor::LabelledEdgeCursor(v36);
-        degas::LabelledEdgeCursor::setForSourceNodesFromEdges(v36, &v38, (*(a1 + 24) + 1144));
-        *v34 = 0u;
-        memset(v35, 0, 25);
-        while (1)
-        {
-          v30 = degas::Statement::next(v36[0]);
-          v19 = v30;
-          if (v30 != 1)
-          {
-            break;
-          }
-
-          degas::Statement::bitmapColumnValue(v36[0], 0, v34);
-        }
-
-        if (v30 == 2)
-        {
-          v13 = 0;
-        }
-
-        else
-        {
-          v13 = v30;
-        }
-
-        v29 = v13 == 0;
-        if (!v13)
-        {
-          if (a6 < 2)
-          {
-            degas::Bitmap::unionWith<degas::Bitmap>(a7, v34);
-          }
-
-          else
-          {
-            degas::Bitmap::operator=(a7, v34);
-          }
-
-          v19 = 0;
-        }
-
-        v39 = v35;
-        std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v39);
-        degas::Cursor::~Cursor(v36);
-      }
-
-      v34[0] = &v38._bitSets;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v34);
-      degas::Cursor::~Cursor(v37);
-      if (!v29)
-      {
-        return v19;
-      }
-    }
-  }
-
-  else
-  {
-    if (a6 > 1)
-    {
-      goto LABEL_71;
-    }
-
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(&v38);
-    v14 = degas::Bitmap::count(a2);
-    v15 = *(a1 + 24);
-    if (v14)
-    {
-      degas::LabelledEdgeCursor::setForTargetNodesFromEdgesSourceNodesFilterEdge(&v38, a5, a2, (v15 + 1144));
-    }
-
-    else
-    {
-      degas::LabelledEdgeCursor::setForTargetNodesFromSourceNodes(&v38, a5, (v15 + 1144));
-    }
-
-    while (1)
-    {
-      v24 = degas::Statement::next(v38._bitCount);
-      v13 = v24;
-      if (v24 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v38._bitCount, 0, a7);
-    }
-
-    v25 = v24 & 0xFFFFFFFD;
-    degas::Cursor::~Cursor(&v38);
-    if (!v25)
-    {
-LABEL_71:
-      if ((a6 & 0xFFFFFFFD) != 0)
-      {
-        return 0;
-      }
-
-      degas::LabelledEdgeCursor::LabelledEdgeCursor(v34);
-      v26 = degas::Bitmap::count(a2);
-      v27 = *(a1 + 24);
-      if (v26)
-      {
-        degas::LabelledEdgeCursor::setForSourceNodesFromEdgesTargetNodesFilterEdge(v34, a5, a2, (v27 + 1144));
-      }
-
-      else
-      {
-        degas::LabelledEdgeCursor::setForSourceNodesFromTargetNodes(v34, a5, (v27 + 1144));
-      }
-
-      memset(&v38, 0, 41);
-      while (1)
-      {
-        v31 = degas::Statement::next(v34[0]);
-        v13 = v31;
-        if (v31 != 1)
-        {
-          break;
-        }
-
-        degas::Statement::bitmapColumnValue(v34[0], 0, &v38);
-      }
-
-      v32 = v31 & 0xFFFFFFFD;
-      if ((v31 & 0xFFFFFFFD) == 0)
-      {
-        if (a6 < 2)
-        {
-          degas::Bitmap::unionWith<degas::Bitmap>(a7, &v38);
-        }
-
-        else
-        {
-          degas::Bitmap::operator=(a7, &v38);
-        }
-
-        v13 = 0;
-      }
-
-      v37[0] = &v38._bitSets;
-      std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v37);
-      degas::Cursor::~Cursor(v34);
-      if (!v32)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return v13;
-}
-
-void sub_2558CA790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, degas::Statement *a15, uint64_t a16, degas::Statement *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
-{
-  *(v21 - 88) = &a11;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100]((v21 - 88));
-  degas::Cursor::~Cursor(&a15);
-  a9 = &a21;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a9);
-  degas::Cursor::~Cursor(&a17);
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::NeighborQuery::neighborsEdgesFirstJoinBoth(uint64_t a1, degas::Bitmap *this, uint64_t **a3, Bitmap *a4, unsigned int a5, degas::Bitmap *a6)
-{
-  memset(&v20, 0, 41);
-  if (*a3)
-  {
-    v11 = degas::Bitmap::count(this);
-    v12 = **a3;
-    if (v11)
-    {
-      (*(v12 + 24))();
-    }
-
-    else
-    {
-      (*(v12 + 16))();
-    }
-  }
-
-  else
-  {
-    degas::Bitmap::operator=(&v20, this);
-  }
-
-  if (a5 > 1)
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForTargetNodesFromEdgesSourceNodesJoinBoth(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v13 = degas::Statement::next(v17[0]);
-      v14 = v13;
-      if (v13 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v13 == 2)
-    {
-      degas::Bitmap::operator=(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  if ((a5 & 0xFFFFFFFD) == 0)
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForSourceNodesFromEdgesTargetNodesJoinEdge(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v15 = degas::Statement::next(v17[0]);
-      v14 = v15;
-      if (v15 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v15 == 2)
-    {
-      degas::Bitmap::unionWith<degas::Bitmap>(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  *&v18 = &v20._bitSets;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v18);
-  return v14;
-}
-
-void sub_2558CAA6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, uint64_t a10, uint64_t *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19)
-{
-  degas::Cursor::~Cursor(&a9);
-  a9 = &a13;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a9);
-  a11 = &a19;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a11);
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::NeighborQuery::neighborsEdgesFirstJoinEdge(uint64_t a1, degas::Bitmap *this, uint64_t **a3, Bitmap *a4, unsigned int a5, degas::Bitmap *a6)
-{
-  memset(&v20, 0, 41);
-  if (*a3)
-  {
-    v11 = degas::Bitmap::count(this);
-    v12 = **a3;
-    if (v11)
-    {
-      (*(v12 + 24))();
-    }
-
-    else
-    {
-      (*(v12 + 16))();
-    }
-  }
-
-  else
-  {
-    degas::Bitmap::operator=(&v20, this);
-  }
-
-  if (a5 > 1)
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForTargetNodesFromEdgesSourceNodesJoinEdge(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v13 = degas::Statement::next(v17[0]);
-      v14 = v13;
-      if (v13 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v13 == 2)
-    {
-      degas::Bitmap::operator=(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  if ((a5 & 0xFFFFFFFD) == 0)
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForSourceNodesFromEdgesTargetNodesJoinEdge(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v15 = degas::Statement::next(v17[0]);
-      v14 = v15;
-      if (v15 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v15 == 2)
-    {
-      degas::Bitmap::unionWith<degas::Bitmap>(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  *&v18 = &v20._bitSets;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v18);
-  return v14;
-}
-
-void sub_2558CACD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, uint64_t a10, uint64_t *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19)
-{
-  degas::Cursor::~Cursor(&a9);
-  a9 = &a13;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a9);
-  a11 = &a19;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a11);
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::NeighborQuery::neighborsEdgesFirstFilterEdge(uint64_t a1, degas::Bitmap *this, uint64_t **a3, Bitmap *a4, unsigned int a5, degas::Bitmap *a6)
-{
-  v20 = 0u;
-  memset(v21, 0, 25);
-  if (*a3)
-  {
-    v11 = degas::Bitmap::count(this);
-    v12 = **a3;
-    if (v11)
-    {
-      (*(v12 + 24))();
-    }
-
-    else
-    {
-      (*(v12 + 16))();
-    }
-  }
-
-  else
-  {
-    degas::Bitmap::operator=(&v20, this);
-  }
-
-  if (a5 > 1)
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForTargetNodesFromEdgesSourceNodesFilterEdge(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v13 = degas::Statement::next(v17[0]);
-      v14 = v13;
-      if (v13 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v13 == 2)
-    {
-      degas::Bitmap::operator=(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  if ((a5 & 0xFFFFFFFD) == 0)
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForSourceNodesFromEdgesTargetNodesFilterEdge(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v15 = degas::Statement::next(v17[0]);
-      v14 = v15;
-      if (v15 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v15 == 2)
-    {
-      degas::Bitmap::unionWith<degas::Bitmap>(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  *&v18 = v21;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v18);
-  return v14;
-}
-
-void sub_2558CAF44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, uint64_t a10, uint64_t *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19)
-{
-  degas::Cursor::~Cursor(&a9);
-  a9 = &a13;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a9);
-  a11 = &a19;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a11);
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::NeighborQuery::neighborsEdgesFirstFilterNode(uint64_t a1, degas::Bitmap *this, uint64_t **a3, const degas::Bitmap *a4, unsigned int a5, degas::Bitmap *a6)
-{
-  memset(&v20, 0, 41);
-  if (*a3)
-  {
-    v11 = degas::Bitmap::count(this);
-    v12 = **a3;
-    if (v11)
-    {
-      (*(v12 + 24))();
-    }
-
-    else
-    {
-      (*(v12 + 16))();
-    }
-  }
-
-  else
-  {
-    degas::Bitmap::operator=(&v20, this);
-  }
-
-  if (a5 > 1)
-  {
-    v14 = 0;
-  }
-
-  else
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForTargetNodesFromEdgesSourceNodesFilterNode(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v13 = degas::Statement::next(v17[0]);
-      v14 = v13;
-      if (v13 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v13 == 2)
-    {
-      degas::Bitmap::operator=(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  if ((a5 & 0xFFFFFFFD) == 0)
-  {
-    v18 = 0u;
-    memset(v19, 0, 25);
-    degas::LabelledEdgeCursor::LabelledEdgeCursor(v17);
-    degas::LabelledEdgeCursor::setForSourceNodesFromEdgesTargetNodesFilterNode(v17, a4, &v20, (*(a1 + 24) + 1144));
-    while (1)
-    {
-      v15 = degas::Statement::next(v17[0]);
-      v14 = v15;
-      if (v15 != 1)
-      {
-        break;
-      }
-
-      degas::Statement::bitmapColumnValue(v17[0], 0, &v18);
-    }
-
-    if (v15 == 2)
-    {
-      degas::Bitmap::unionWith<degas::Bitmap>(a6, &v18);
-      v14 = 0;
-    }
-
-    degas::Cursor::~Cursor(v17);
-    v17[0] = v19;
-    std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](v17);
-  }
-
-  *&v18 = &v20._bitSets;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v18);
-  return v14;
-}
-
-void sub_2558CB1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, uint64_t a10, uint64_t *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19)
-{
-  degas::Cursor::~Cursor(&a9);
-  a9 = &a13;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a9);
-  a11 = &a19;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&a11);
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::NeighborQuery::appendSourceNodesForEdges(degas::NeighborQuery *this, Bitmap *a2, degas::Bitmap *a3)
-{
-  degas::LabelledEdgeCursor::LabelledEdgeCursor(v11);
-  degas::LabelledEdgeCursor::setForSourceNodesFromEdges(v11, a2, (*(this + 3) + 1144));
-  v9 = 0u;
-  memset(v10, 0, 25);
-  while (1)
-  {
-    v6 = degas::Statement::next(v11[0]);
-    v7 = v6;
-    if (v6 != 1)
-    {
-      break;
-    }
-
-    degas::Statement::bitmapColumnValue(v11[0], 0, &v9);
-  }
-
-  if (v6 == 2)
-  {
-    degas::Bitmap::unionWith<degas::Bitmap>(a3, &v9);
-    v7 = 0;
-  }
-
-  v12 = v10;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v12);
-  degas::Cursor::~Cursor(v11);
-  return v7;
-}
-
-void sub_2558CB2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  *(v3 - 40) = va;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100]((v3 - 40));
-  degas::Cursor::~Cursor(va1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t degas::NeighborQuery::appendTargetNodesForEdges(degas::NeighborQuery *this, Bitmap *a2, degas::Bitmap *a3)
-{
-  degas::LabelledEdgeCursor::LabelledEdgeCursor(v11);
-  degas::LabelledEdgeCursor::setForTargetNodesFromEdges(v11, a2, (*(this + 3) + 1144));
-  v9 = 0u;
-  memset(v10, 0, 25);
-  while (1)
-  {
-    v6 = degas::Statement::next(v11[0]);
-    v7 = v6;
-    if (v6 != 1)
-    {
-      break;
-    }
-
-    degas::Statement::bitmapColumnValue(v11[0], 0, &v9);
-  }
-
-  if (v6 == 2)
-  {
-    degas::Bitmap::unionWith<degas::Bitmap>(a3, &v9);
-    v7 = 0;
-  }
-
-  v12 = v10;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v12);
-  degas::Cursor::~Cursor(v11);
-  return v7;
-}
-
-void sub_2558CB3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  *(v3 - 40) = va;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100]((v3 - 40));
-  degas::Cursor::~Cursor(va1);
-  _Unwind_Resume(a1);
-}
-
 uint64_t degas::NeighborQuery::neighborsNodeTableEdges(degas::NeighborQuery *a1, degas::Bitmap *a2, void *a3, Bitmap *a4, unsigned int a5, void *a6)
 {
-  v12 = degas::NodeCursor::NodeCursor(v22);
+  v12 = degas::NodeCursor::NodeCursor(v30);
   degas::NodeCursor::setForIdentifiers(v12, a4, (*(a1 + 3) + 192));
-  v20 = 0u;
-  memset(v21, 0, 25);
-  memset(&v19, 0, 41);
-  memset(&v18, 0, 41);
+  v28 = 0u;
+  memset(v29, 0, 25);
+  memset(&v27, 0, 41);
+  memset(&v26, 0, 41);
   while (1)
   {
-    v13 = degas::Statement::next(v22[0]);
+    v13 = degas::Statement::next(v30[0]);
     appended = v13;
     if (v13 != 1)
     {
@@ -1556,135 +17,135 @@ uint64_t degas::NeighborQuery::neighborsNodeTableEdges(degas::NeighborQuery *a1,
 
     if (a5 <= 1)
     {
-      v15 = degas::Statement::literalBitmapColumnValue(v22[0], 3);
+      v15 = degas::Statement::literalBitmapColumnValue(v30[0], 3);
       if (v15[1])
       {
-        degas::Bitmap::unionWith<degas::LiteralBitmap>(&v19, v15);
+        degas::Bitmap::unionWith<degas::LiteralBitmap>(&v27, v15);
       }
     }
 
     if ((a5 & 0xFFFFFFFD) == 0)
     {
-      v16 = degas::Statement::literalBitmapColumnValue(v22[0], 2);
+      v16 = degas::Statement::literalBitmapColumnValue(v30[0], 2);
       if (v16[1])
       {
-        degas::Bitmap::unionWith<degas::LiteralBitmap>(&v18, v16);
+        degas::Bitmap::unionWith<degas::LiteralBitmap>(&v26, v16);
       }
     }
   }
 
   if (v13 == 2)
   {
-    if (v19._bitSets.__begin_ == v19._bitSets.__end_)
+    if (v27._bitSets.__begin_ == v27._bitSets.__end_)
     {
       goto LABEL_26;
     }
 
     if (degas::Bitmap::count(a2))
     {
-      degas::Bitmap::intersectWith<degas::Bitmap>(&v19, a2);
+      degas::Bitmap::intersectWith<degas::Bitmap>(&v27, a2, v17, v18, v19, v20);
     }
 
     if (*a3)
     {
-      (*(**a3 + 24))(*a3, &v19, &v19);
+      (*(**a3 + 24))(*a3, &v27, &v27);
     }
 
-    appended = degas::NeighborQuery::appendTargetNodesForEdges(a1, &v19, &v20);
+    appended = degas::NeighborQuery::appendTargetNodesForEdges(a1, &v27, &v28);
     if (!appended)
     {
 LABEL_26:
-      if (v18._bitSets.__begin_ == v18._bitSets.__end_)
+      if (v26._bitSets.__begin_ == v26._bitSets.__end_)
       {
         goto LABEL_22;
       }
 
       if (degas::Bitmap::count(a2))
       {
-        degas::Bitmap::intersectWith<degas::Bitmap>(&v18, a2);
+        degas::Bitmap::intersectWith<degas::Bitmap>(&v26, a2, v21, v22, v23, v24);
       }
 
       if (*a3)
       {
-        (*(**a3 + 24))(*a3, &v18, &v18);
+        (*(**a3 + 24))(*a3, &v26, &v26);
       }
 
-      appended = degas::NeighborQuery::appendSourceNodesForEdges(a1, &v18, &v20);
+      appended = degas::NeighborQuery::appendSourceNodesForEdges(a1, &v26, &v28);
       if (!appended)
       {
 LABEL_22:
-        degas::Bitmap::operator=(a6, &v20);
+        degas::Bitmap::operator=(a6, &v28);
         appended = 0;
       }
     }
   }
 
-  p_bitSets = &v18._bitSets;
+  p_bitSets = &v26._bitSets;
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&p_bitSets);
-  v18._bitCount = &v19._bitSets;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v18);
-  v19._bitCount = v21;
-  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v19);
-  degas::Cursor::~Cursor(v22);
+  v26._bitCount = &v27._bitSets;
+  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v26);
+  v27._bitCount = v29;
+  std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v27);
+  degas::Cursor::~Cursor(v30);
   return appended;
 }
 
-void degas::Bitmap::intersectWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *a2)
+void degas::Bitmap::intersectWith<degas::Bitmap>(degas::BitsetPtr *this, degas::Bitmap *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
-  v12 = 0;
-  v13 = 0;
-  v3 = *(a2 + 3) - *(a2 + 2);
-  if ((v3 & 0xFFFFFFFF0) == 0)
+  v16 = 0;
+  v17 = 0;
+  v7 = *(a2 + 3) - *(a2 + 2);
+  if ((v7 & 0xFFFFFFFF0) == 0)
   {
-    v5 = *(this + 2);
-    v4 = *(this + 3);
+    v9 = *(this + 2);
+    v8 = *(this + 3);
     goto LABEL_11;
   }
 
-  v5 = *(this + 2);
-  v4 = *(this + 3);
-  if (v5 == v4)
+  v9 = *(this + 2);
+  v8 = *(this + 3);
+  if (v9 == v8)
   {
 LABEL_11:
     *this = 0;
-    for (*(this + 1) = 0; v4 != v5; v4 = (v4 - 16))
+    for (*(this + 1) = 0; v8 != v9; v8 = (v8 - 16))
     {
-      degas::BitsetPtr::releaseBitset((v4 - 16));
-      *(v4 - 1) = 0;
+      degas::BitsetPtr::releaseBitset((v8 - 16));
+      *(v8 - 1) = 0;
     }
 
-    *(this + 3) = v5;
+    *(this + 3) = v9;
     return;
   }
 
-  v6 = (v3 >> 4);
-  if ((v3 >> 4))
+  v10 = (v7 >> 4);
+  if ((v7 >> 4))
   {
     LODWORD(Offset) = 0;
     while (1)
     {
-      v9 = v13;
-      v5 = *(this + 2);
-      v4 = *(this + 3);
-      if (v13 >= (v4 - v5) >> 4)
+      v13 = v17;
+      v9 = *(this + 2);
+      v8 = *(this + 3);
+      if (v17 >= (v8 - v9) >> 4)
       {
         break;
       }
 
-      v10 = (v5 + 16 * v13);
-      v11 = degas::Bitmap::intersectBitset(this, &v13, *v10, &v12, *(*(a2 + 2) + 16 * Offset));
-      Offset = v12;
-      if (v11)
+      v14 = (v9 + 16 * v17);
+      v15 = degas::Bitmap::intersectBitset(this, &v17, *v14, &v16, *(*(a2 + 2) + 16 * Offset));
+      Offset = v16;
+      if (v15)
       {
-        Offset = degas::Bitmap::findOffset(a2, *(*v10 + 1), v12, v6);
-        v12 = Offset;
+        Offset = degas::Bitmap::findOffset(a2, *(*v14 + 1), v16, v10);
+        v16 = Offset;
       }
 
-      if (Offset >= v6)
+      if (Offset >= v10)
       {
-        v9 = v13;
-        v5 = *(this + 2);
-        v4 = *(this + 3);
+        v13 = v17;
+        v9 = *(this + 2);
+        v8 = *(this + 3);
         break;
       }
     }
@@ -1692,12 +153,12 @@ LABEL_11:
 
   else
   {
-    v9 = 0;
+    v13 = 0;
   }
 
-  if (v9 < (v4 - v5) >> 4)
+  if (v13 < (v8 - v9) >> 4)
   {
-    std::vector<degas::BitsetPtr>::erase(this + 16, (v5 + 16 * v9), v4);
+    std::vector<degas::BitsetPtr>::erase(this + 16, (v9 + 16 * v13), v8);
     *this = 0xFFFFFFFFLL;
     *(this + 40) = 1;
   }
@@ -1756,7 +217,7 @@ LABEL_30:
   }
 }
 
-unint64_t degas::NeighborQuery::neighbors(degas::Database **a1, degas::Bitmap *this, unsigned int a3, degas::Bitmap *a4)
+uint64_t degas::NeighborQuery::neighbors(degas::Database **a1, degas::Bitmap *this, unsigned int a3, degas::Bitmap *a4)
 {
   if (degas::sInstrumentTraversal != 1)
   {
@@ -2431,7 +892,7 @@ LABEL_124:
   return v11;
 }
 
-void sub_2558CC5E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, std::__shared_weak_count *a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47)
+void sub_2558CC5E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, std::__shared_weak_count *a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47)
 {
   __p = a11;
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&__p);
@@ -2470,9 +931,9 @@ uint64_t std::pair<std::shared_ptr<degas::Predicate>,std::shared_ptr<degas::Pred
   return a1;
 }
 
-uint64_t degas::NeighborQuery::reportIncorrectPlanResult(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t degas::NeighborQuery::reportIncorrectPlanResult(uint64_t a1, uint64_t **a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v36);
   v12 = *(a2 + 23);
   if (v12 >= 0)
   {
@@ -2491,121 +952,120 @@ uint64_t degas::NeighborQuery::reportIncorrectPlanResult(void *a1, uint64_t a2, 
 
   else
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v13, v14);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "\n\tedge predicate=", 17);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v13, v14);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "\n\tedge predicate=", 17);
   if (*a1)
   {
-    v15 = a1[3];
-    (*(**a1 + 64))(&v34);
-    v16 = HIBYTE(v36);
-    v18 = v34;
-    v17 = v35;
+    (*(**a1 + 64))(&v33);
+    v15 = HIBYTE(v35);
+    v17 = v33;
+    v16 = v34;
   }
 
   else
   {
-    v17 = 0;
-    v18 = 0;
     v16 = 0;
+    v17 = 0;
+    v15 = 0;
+    v33 = 0;
     v34 = 0;
     v35 = 0;
-    v36 = 0;
   }
 
-  if ((v16 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
-    v19 = &v34;
+    v18 = &v33;
   }
 
   else
   {
-    v19 = v18;
+    v18 = v17;
   }
 
-  if ((v16 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
-    v20 = v16;
+    v19 = v15;
   }
 
   else
   {
-    v20 = v17;
+    v19 = v16;
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v19, v20);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "\n\tplan=", 7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v18, v19);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "\n\tplan=", 7);
   std::string::basic_string[abi:ne200100]<0>(__p, off_2797FDBD0[a3]);
-  if ((v33 & 0x80u) == 0)
+  if ((v32 & 0x80u) == 0)
   {
-    v21 = __p;
+    v20 = __p;
   }
 
   else
   {
-    v21 = __p[0];
+    v20 = __p[0];
   }
 
-  if ((v33 & 0x80u) == 0)
+  if ((v32 & 0x80u) == 0)
   {
-    v22 = v33;
+    v21 = v32;
   }
 
   else
   {
-    v22 = __p[1];
+    v21 = __p[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v21, v22);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "\n\tstart node count=", 19);
-  v23 = MEMORY[0x259C43DF0](&v37, a4);
-  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "\n\tcorrect node count=", 21);
-  v25 = MEMORY[0x259C43DF0](v24, a5);
-  v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "\n\tthis node count=", 18);
-  v27 = MEMORY[0x259C43DF0](v26, a6);
-  std::ios_base::getloc((v27 + *(*v27 - 24)));
-  v28 = std::locale::use_facet(&v42, MEMORY[0x277D82680]);
-  (v28->__vftable[2].~facet_0)(v28, 10);
-  std::locale::~locale(&v42);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v20, v21);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "\n\tstart node count=", 19);
+  v22 = MEMORY[0x259C43DF0](&v36, a4);
+  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "\n\tcorrect node count=", 21);
+  v24 = MEMORY[0x259C43DF0](v23, a5);
+  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "\n\tthis node count=", 18);
+  v26 = MEMORY[0x259C43DF0](v25, a6);
+  std::ios_base::getloc((v26 + *(*v26 - 24)));
+  v27 = std::locale::use_facet(&v41, MEMORY[0x277D82680]);
+  (v27->__vftable[2].~facet_0)(v27, 10);
+  std::locale::~locale(&v41);
   std::ostream::put();
-  v29 = std::ostream::flush();
-  if (v33 < 0)
+  v28 = std::ostream::flush();
+  if (v32 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v36) < 0)
+  if (SHIBYTE(v35) < 0)
   {
-    operator delete(v34);
+    operator delete(v33);
   }
 
-  LogFile = degas::getLogFile(v29);
+  LogFile = degas::getLogFile(v28);
   std::stringbuf::str();
-  degas::LocalLogFile::writeText(LogFile, &v34);
-  if (SHIBYTE(v36) < 0)
+  degas::LocalLogFile::writeText(LogFile, &v33);
+  if (SHIBYTE(v35) < 0)
   {
-    operator delete(v34);
+    operator delete(v33);
   }
 
-  v37 = *MEMORY[0x277D82828];
-  *(&v37 + *(v37 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v38 = MEMORY[0x277D82878] + 16;
-  if (v40 < 0)
+  v36 = *MEMORY[0x277D82828];
+  *(&v36 + *(v36 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v37 = MEMORY[0x277D82878] + 16;
+  if (v39 < 0)
   {
-    operator delete(v39[7].__locale_);
+    operator delete(v38[7].__locale_);
   }
 
-  v38 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v39);
+  v37 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v38);
   std::ostream::~ostream();
-  return MEMORY[0x259C43E80](&v41);
+  return MEMORY[0x259C43E80](&v40);
 }
 
-uint64_t degas::NeighborQuery::reportTimingPlanFailure(void *a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, uint64_t a12, unsigned int a13, unsigned int a14)
+uint64_t degas::NeighborQuery::reportTimingPlanFailure(uint64_t a1, uint64_t **a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, uint64_t a12, unsigned int a13, unsigned int a14)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v65);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v64);
   v25 = *(a2 + 23);
   if (v25 >= 0)
   {
@@ -2624,57 +1084,57 @@ uint64_t degas::NeighborQuery::reportTimingPlanFailure(void *a1, uint64_t a2, in
 
   else
   {
-    v27 = *(a2 + 8);
+    v27 = a2[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v65, v26, v27);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v65, " plan time estimate beaten ", 27);
-  v28 = MEMORY[0x259C43DB0](&v65, a10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, v26, v27);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, " plan time estimate beaten ", 27);
+  v28 = MEMORY[0x259C43DB0](&v64, a10);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "s with plan ", 12);
-  std::string::basic_string[abi:ne200100]<0>(v63, off_2797FDBD0[a4]);
-  if ((v64 & 0x80u) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v62, off_2797FDBD0[a4]);
+  if ((v63 & 0x80u) == 0)
   {
-    v29 = v63;
+    v29 = v62;
   }
 
   else
   {
-    v29 = v63[0];
+    v29 = v62[0];
   }
 
-  if ((v64 & 0x80u) == 0)
+  if ((v63 & 0x80u) == 0)
   {
-    v30 = v64;
+    v30 = v63;
   }
 
   else
   {
-    v30 = v63[1];
+    v30 = v62[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v29, v30);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "\n\tbeat ", 7);
   v31 = MEMORY[0x259C43DB0](v28, a9);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "s with chosen plan ", 19);
-  std::string::basic_string[abi:ne200100]<0>(v61, off_2797FDBD0[a3]);
-  if ((v62 & 0x80u) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v60, off_2797FDBD0[a3]);
+  if ((v61 & 0x80u) == 0)
   {
-    v32 = v61;
+    v32 = v60;
   }
 
   else
   {
-    v32 = v61[0];
+    v32 = v60[0];
   }
 
-  if ((v62 & 0x80u) == 0)
+  if ((v61 & 0x80u) == 0)
   {
-    v33 = v62;
+    v33 = v61;
   }
 
   else
   {
-    v33 = v61[1];
+    v33 = v60[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, v32, v33);
@@ -2691,92 +1151,91 @@ uint64_t degas::NeighborQuery::reportTimingPlanFailure(void *a1, uint64_t a2, in
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "\n\tedge predicate=", 17);
   if (*a1)
   {
-    v43 = a1[3];
     (*(**a1 + 64))(&__p);
-    v44 = HIBYTE(v60);
-    v46 = __p;
-    v45 = v59;
+    v43 = HIBYTE(v59);
+    v45 = __p;
+    v44 = v58;
   }
 
   else
   {
-    v45 = 0;
-    v46 = 0;
     v44 = 0;
+    v45 = 0;
+    v43 = 0;
     __p = 0;
+    v58 = 0;
     v59 = 0;
-    v60 = 0;
   }
 
-  if ((v44 & 0x80u) == 0)
+  if ((v43 & 0x80u) == 0)
   {
     p_p = &__p;
   }
 
   else
   {
-    p_p = v46;
+    p_p = v45;
   }
 
-  if ((v44 & 0x80u) == 0)
+  if ((v43 & 0x80u) == 0)
   {
-    v48 = v44;
+    v47 = v43;
   }
 
   else
   {
-    v48 = v45;
+    v47 = v44;
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, p_p, v48);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, p_p, v47);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "\n\twins=", 7);
-  v49 = MEMORY[0x259C43DC0](v42, a13);
-  v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, ", losses=", 9);
-  v51 = MEMORY[0x259C43DC0](v50, a14);
-  v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, ", total time lost=", 18);
-  v53 = MEMORY[0x259C43DB0](v52, a11);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, "s", 1);
-  std::ios_base::getloc((v53 + *(*v53 - 24)));
-  v54 = std::locale::use_facet(&v70, MEMORY[0x277D82680]);
-  (v54->__vftable[2].~facet_0)(v54, 10);
-  std::locale::~locale(&v70);
+  v48 = MEMORY[0x259C43DC0](v42, a13);
+  v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, ", losses=", 9);
+  v50 = MEMORY[0x259C43DC0](v49, a14);
+  v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, ", total time lost=", 18);
+  v52 = MEMORY[0x259C43DB0](v51, a11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, "s", 1);
+  std::ios_base::getloc((v52 + *(*v52 - 24)));
+  v53 = std::locale::use_facet(&v69, MEMORY[0x277D82680]);
+  (v53->__vftable[2].~facet_0)(v53, 10);
+  std::locale::~locale(&v69);
   std::ostream::put();
-  v55 = std::ostream::flush();
-  if (SHIBYTE(v60) < 0)
+  v54 = std::ostream::flush();
+  if (SHIBYTE(v59) < 0)
   {
     operator delete(__p);
   }
 
-  if (v62 < 0)
+  if (v61 < 0)
   {
-    operator delete(v61[0]);
+    operator delete(v60[0]);
   }
 
-  if (v64 < 0)
+  if (v63 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v62[0]);
   }
 
-  LogFile = degas::getLogFile(v55);
+  LogFile = degas::getLogFile(v54);
   std::stringbuf::str();
-  degas::LocalLogFile::writeText(LogFile, v63);
-  if (v64 < 0)
+  degas::LocalLogFile::writeText(LogFile, v62);
+  if (v63 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v62[0]);
   }
 
-  v65 = *MEMORY[0x277D82828];
-  *(&v65 + *(v65 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v66 = MEMORY[0x277D82878] + 16;
-  if (v68 < 0)
+  v64 = *MEMORY[0x277D82828];
+  *(&v64 + *(v64 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v65 = MEMORY[0x277D82878] + 16;
+  if (v67 < 0)
   {
-    operator delete(v67[7].__locale_);
+    operator delete(v66[7].__locale_);
   }
 
-  v66 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v67);
+  v65 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v66);
   std::ostream::~ostream();
-  return MEMORY[0x259C43E80](&v69);
+  return MEMORY[0x259C43E80](&v68);
 }
 
 void sub_2558CCFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28)
@@ -2795,7 +1254,7 @@ void sub_2558CCFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t degas::NeighborQuery::reportNodeFirstPlanTimes(double a1, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t degas::NeighborQuery::reportNodeFirstPlanTimes(double a1, double a2, double a3, uint64_t a4, uint64_t **a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v35);
   v15 = *(a5 + 23);
@@ -2816,7 +1275,7 @@ uint64_t degas::NeighborQuery::reportNodeFirstPlanTimes(double a1, double a2, do
 
   else
   {
-    v17 = *(a5 + 8);
+    v17 = a5[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, v16, v17);
@@ -3023,14 +1482,14 @@ LABEL_27:
   return a1;
 }
 
-void sub_2558CD810(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_2558CD810(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259C43D90](&a10);
+  MEMORY[0x259C43D90](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -3147,7 +1606,7 @@ LABEL_25:
       else
       {
         degas::Predicate::nullPtr(v15);
-        FilterNode = degas::NeighborQuery::neighborsEdgesFirstJoinBoth(a1, &v32, &degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
+        FilterNode = degas::NeighborQuery::neighborsEdgesFirstJoinBoth(a1, &v32, degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
       }
     }
 
@@ -3156,7 +1615,7 @@ LABEL_25:
       if (a2 == 6)
       {
         degas::Predicate::nullPtr(v15);
-        FilterNode = degas::NeighborQuery::neighborsEdgesFirstFilterNode(a1, &v32, &degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
+        FilterNode = degas::NeighborQuery::neighborsEdgesFirstFilterNode(a1, &v32, degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
       }
 
       else
@@ -3175,12 +1634,12 @@ LABEL_25:
       degas::Predicate::nullPtr(v15);
       if (a2 == 4)
       {
-        FilterNode = degas::NeighborQuery::neighborsEdgesFirstJoinEdge(a1, &v32, &degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
+        FilterNode = degas::NeighborQuery::neighborsEdgesFirstJoinEdge(a1, &v32, degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
       }
 
       else
       {
-        FilterNode = degas::NeighborQuery::neighborsEdgesFirstFilterEdge(a1, &v32, &degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
+        FilterNode = degas::NeighborQuery::neighborsEdgesFirstFilterEdge(a1, &v32, degas::Predicate::nullPtr(void)::nullPtr, &v29, a7, &v25);
       }
     }
 
@@ -3227,18 +1686,18 @@ void sub_2558CDD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void degas::Bitmap::diffWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *a2)
+void degas::Bitmap::diffWith<degas::Bitmap>(uint64_t this, degas::Bitmap *a2)
 {
   v2 = *(a2 + 3) - *(a2 + 2);
-  if ((v2 >> 4) && *(this + 3) != *(this + 2))
+  if ((v2 >> 4) && *(this + 24) != *(this + 16))
   {
     v5 = 0;
     Offset = 0;
     v7 = (v2 >> 4);
     do
     {
-      v8 = *(this + 2);
-      v9 = (*(this + 3) - v8) >> 4;
+      v8 = *(this + 16);
+      v9 = (*(this + 24) - v8) >> 4;
       if (v9 <= v5)
       {
         break;
@@ -3256,7 +1715,7 @@ void degas::Bitmap::diffWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *
 
         else
         {
-          degas::Bitmap::unshadowedBitSetAtIndex(this, v5, v24);
+          degas::Bitmap::unshadowedBitSetAtIndex(v24, this, v5);
           v13 = 0;
           v14 = v24[0];
           v15 = v24[0] + 16;
@@ -3293,8 +1752,8 @@ void degas::Bitmap::diffWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *
 
           else
           {
-            v19 = *(this + 3);
-            v20 = (*(this + 2) + 16 * v5);
+            v19 = *(this + 24);
+            v20 = (*(this + 16) + 16 * v5);
             if ((v20 + 16) != v19)
             {
               do
@@ -3313,7 +1772,7 @@ void degas::Bitmap::diffWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *
               }
 
               while (v23 != v19);
-              v19 = *(this + 3);
+              v19 = *(this + 24);
               v20 = v22;
             }
 
@@ -3323,7 +1782,7 @@ void degas::Bitmap::diffWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *
               *(v19 - 1) = 0;
             }
 
-            *(this + 3) = v20;
+            *(this + 24) = v20;
           }
 
           ++Offset;
@@ -3343,7 +1802,7 @@ void degas::Bitmap::diffWith<degas::Bitmap>(degas::Bitmap *this, degas::Bitmap *
   }
 }
 
-unint64_t degas::NeighborQuery::transitiveClosureNeighbors(degas::Database **a1, degas::Bitmap *this, unsigned int a3, void *a4)
+uint64_t degas::NeighborQuery::transitiveClosureNeighbors(degas::Database **a1, degas::Bitmap *this, unsigned int a3, void *a4)
 {
   if (degas::sInstrumentTraversal != 1)
   {
@@ -3799,7 +2258,7 @@ LABEL_69:
   return v12;
 }
 
-void sub_2558CE984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40)
+void sub_2558CE984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40)
 {
   __p = &a26;
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&__p);
@@ -3899,9 +2358,9 @@ void CheckInTransaction(int a1, uint64_t a2)
   }
 }
 
-void sub_2558D2CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2558D2CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3913,16 +2372,16 @@ uint64_t __Block_byref_object_copy__714(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2558D3320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2558D3320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2558D36D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2558D36D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4092,7 +2551,7 @@ uint64_t degas::bitmapTableFilter(degas *this, sqlite3_vtab_cursor *a2, int a3, 
   {
     v7 = sqlite3_value_pointer(*a5, degas::kBitmapPointerTypeName);
     *(this + 4) = v7;
-    degas::Bitmap::begin(v7, &v9);
+    degas::Bitmap::begin(&v9, v7);
     *(this + 1) = v9;
     *(this + 1) = v10;
   }
@@ -4181,9 +2640,9 @@ uint64_t degas::bitmapTableConnect(degas *this, sqlite3 *a2, void *a3, int a4, c
   return result;
 }
 
-void sub_2558D51D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2558D51D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4195,9 +2654,9 @@ uint64_t __Block_byref_object_copy__832(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2558D6B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2558D6B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4211,7 +2670,7 @@ uint64_t __Block_byref_object_copy__888(uint64_t result, uint64_t a2)
 
 id kg_errorWithCode(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ((a1 - 5000) > 0xD)
   {
     v2 = @"not an error";
@@ -4222,12 +2681,10 @@ id kg_errorWithCode(uint64_t a1)
     v2 = off_2797FDDF0[a1 - 5000];
   }
 
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.photos.kgerror" code:a1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -4263,12 +2720,12 @@ uint64_t elementMatchesDefinition(void *a1, void *a2)
 
 id PropertiesVisualStringForKeys(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v20 = [MEMORY[0x277CCAB68] string];
-  [v20 appendString:@"{"];
-  v19 = v3;
+  v19 = [MEMORY[0x277CCAB68] string];
+  [v19 appendString:@"{"];
+  v18 = v3;
   v5 = [v3 allObjects];
   v6 = v5;
   if (!v5)
@@ -4281,26 +2738,26 @@ id PropertiesVisualStringForKeys(void *a1, void *a2)
   {
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         v14 = [v4 objectForKeyedSubscript:v13];
         if (v14)
         {
@@ -4327,101 +2784,95 @@ id PropertiesVisualStringForKeys(void *a1, void *a2)
           v16 = v15;
           if ([v15 length])
           {
-            [v20 appendFormat:@"%@:'%@'; ", v13, v16];
+            [v19 appendFormat:@"%@:'%@'; ", v13, v16];
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
-  if ([v20 length] >= 2)
+  if ([v19 length] >= 2)
   {
-    [v20 deleteCharactersInRange:{objc_msgSend(v20, "length") - 2, 2}];
+    [v19 deleteCharactersInRange:{objc_msgSend(v19, "length") - 2, 2}];
   }
 
-  [v20 appendString:@"}"];
+  [v19 appendString:@"}"];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 KGMutableElementIdentifierSet *KGElementIdentifierSetWithSet(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(KGMutableElementIdentifierSet);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        -[KGMutableElementIdentifierSet addIdentifier:](v2, "addIdentifier:", [*(*(&v10 + 1) + 8 * i) identifier]);
+        -[KGMutableElementIdentifierSet addIdentifier:](v2, "addIdentifier:", [*(*(&v9 + 1) + 8 * i) identifier]);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 KGMutableElementIdentifierSet *KGElementIdentifierSetWithArray(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(KGMutableElementIdentifierSet);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        -[KGMutableElementIdentifierSet addIdentifier:](v2, "addIdentifier:", [*(*(&v10 + 1) + 8 * i) identifier]);
+        -[KGMutableElementIdentifierSet addIdentifier:](v2, "addIdentifier:", [*(*(&v9 + 1) + 8 * i) identifier]);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -4497,48 +2948,48 @@ degas::Statement **degas::SortAttributeValueTable::readByIntAttrStatement(degas:
 
 void ___ZNK5degas23SortAttributeValueTable22readByIntAttrStatementEbb_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select elementId, intValue from ", 32);
-  v3 = *(v2 + 31);
-  if (v3 >= 0)
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "select elementId, intValue from ", 32);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
   {
-    v4 = v2 + 8;
+    v5 = v3 + 8;
   }
 
   else
   {
-    v4 = *(v2 + 8);
+    v5 = *(v3 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(v2 + 31);
+    v6 = *(v3 + 31);
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v6 = *(v3 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where attributeId = ?1 order by intValue", 41);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " where attributeId = ?1 order by intValue", 41);
   if ((*(a1 + 40) & 1) == 0)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " desc", 5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " desc", 5);
   }
 
   if (*(a1 + 41) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " limit ?2", 9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " limit ?2", 9);
   }
 
   operator new();
 }
 
-void sub_2558D8C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558D8C90(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -4550,9 +3001,9 @@ void std::shared_ptr<degas::Statement>::shared_ptr[abi:ne200100]<degas::Statemen
   operator new();
 }
 
-void sub_2558D8D68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2558D8D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<degas::Statement>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4644,48 +3095,48 @@ degas::Statement **degas::SortAttributeValueTable::readByRealAttrStatement(degas
 
 void ___ZNK5degas23SortAttributeValueTable23readByRealAttrStatementEbb_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select elementId, realValue from ", 33);
-  v3 = *(v2 + 31);
-  if (v3 >= 0)
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "select elementId, realValue from ", 33);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
   {
-    v4 = v2 + 8;
+    v5 = v3 + 8;
   }
 
   else
   {
-    v4 = *(v2 + 8);
+    v5 = *(v3 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(v2 + 31);
+    v6 = *(v3 + 31);
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v6 = *(v3 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where attributeId = ?1 order by realValue", 42);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " where attributeId = ?1 order by realValue", 42);
   if ((*(a1 + 40) & 1) == 0)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " desc", 5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " desc", 5);
   }
 
   if (*(a1 + 41) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " limit ?2", 9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " limit ?2", 9);
   }
 
   operator new();
 }
 
-void sub_2558D91A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558D91A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -4716,48 +3167,48 @@ degas::Statement **degas::SortAttributeValueTable::readByStringAttrStatement(deg
 
 void ___ZNK5degas23SortAttributeValueTable25readByStringAttrStatementEbb_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select elementId, stringValue from ", 35);
-  v3 = *(v2 + 31);
-  if (v3 >= 0)
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "select elementId, stringValue from ", 35);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
   {
-    v4 = v2 + 8;
+    v5 = v3 + 8;
   }
 
   else
   {
-    v4 = *(v2 + 8);
+    v5 = *(v3 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(v2 + 31);
+    v6 = *(v3 + 31);
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v6 = *(v3 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where attributeId = ?1 order by stringValue", 44);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " where attributeId = ?1 order by stringValue", 44);
   if ((*(a1 + 40) & 1) == 0)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " desc", 5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " desc", 5);
   }
 
   if (*(a1 + 41) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " limit ?2", 9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " limit ?2", 9);
   }
 
   operator new();
 }
 
-void sub_2558D94CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558D94CC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -4799,48 +3250,48 @@ degas::Statement **degas::SortAttributeValueTable::readByIntAttrIdentifiersState
 
 void ___ZNK5degas23SortAttributeValueTable33readByIntAttrIdentifiersStatementEbb_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select v.elementId, v.intValue from ", 36);
-  v3 = *(v2 + 31);
-  if (v3 >= 0)
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "select v.elementId, v.intValue from ", 36);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
   {
-    v4 = v2 + 8;
+    v5 = v3 + 8;
   }
 
   else
   {
-    v4 = *(v2 + 8);
+    v5 = *(v3 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(v2 + 31);
+    v6 = *(v3 + 31);
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v6 = *(v3 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.intValue", 95);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.intValue", 95);
   if ((*(a1 + 40) & 1) == 0)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " desc", 5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " desc", 5);
   }
 
   if (*(a1 + 41) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " limit ?3", 9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " limit ?3", 9);
   }
 
   operator new();
 }
 
-void sub_2558D97FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558D97FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -4882,48 +3333,48 @@ degas::Statement **degas::SortAttributeValueTable::readByRealAttrIdentifiersStat
 
 void ___ZNK5degas23SortAttributeValueTable34readByRealAttrIdentifiersStatementEbb_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select v.elementId, v.realValue from ", 37);
-  v3 = *(v2 + 31);
-  if (v3 >= 0)
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "select v.elementId, v.realValue from ", 37);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
   {
-    v4 = v2 + 8;
+    v5 = v3 + 8;
   }
 
   else
   {
-    v4 = *(v2 + 8);
+    v5 = *(v3 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(v2 + 31);
+    v6 = *(v3 + 31);
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v6 = *(v3 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.realValue", 96);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.realValue", 96);
   if ((*(a1 + 40) & 1) == 0)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " desc", 5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " desc", 5);
   }
 
   if (*(a1 + 41) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " limit ?3", 9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " limit ?3", 9);
   }
 
   operator new();
 }
 
-void sub_2558D9B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558D9B2C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -4965,48 +3416,48 @@ degas::Statement **degas::SortAttributeValueTable::readByStringAttrIdentifiersSt
 
 void ___ZNK5degas23SortAttributeValueTable36readByStringAttrIdentifiersStatementEbb_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select v.elementId, v.stringValue from ", 39);
-  v3 = *(v2 + 31);
-  if (v3 >= 0)
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "select v.elementId, v.stringValue from ", 39);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
   {
-    v4 = v2 + 8;
+    v5 = v3 + 8;
   }
 
   else
   {
-    v4 = *(v2 + 8);
+    v5 = *(v3 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(v2 + 31);
+    v6 = *(v3 + 31);
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v6 = *(v3 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.stringValue", 98);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.stringValue", 98);
   if ((*(a1 + 40) & 1) == 0)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " desc", 5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " desc", 5);
   }
 
   if (*(a1 + 41) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " limit ?3", 9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " limit ?3", 9);
   }
 
   operator new();
 }
 
-void sub_2558D9E5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558D9E5C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -5215,14 +3666,14 @@ void degas::SortAttributeValueCursor::setForStringAttrIdentifiers(degas::SortAtt
 
 uint64_t degas::TernaryOperatorDescription(int a1, uint64_t a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v17);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v18);
   if (a1 <= 3)
   {
     if (a1 <= 1)
     {
       if (!a1)
       {
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "?", 1);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "?", 1);
         goto LABEL_62;
       }
 
@@ -5231,27 +3682,27 @@ uint64_t degas::TernaryOperatorDescription(int a1, uint64_t a2)
         goto LABEL_62;
       }
 
-      v22 = 91;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &v22, 1);
-      v7 = *(a2 + 23);
-      if (v7 >= 0)
+      v23 = 91;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, &v23, 1);
+      v8 = *(a2 + 23);
+      if (v8 >= 0)
       {
-        v8 = a2;
+        v9 = a2;
       }
 
       else
       {
-        v8 = *a2;
+        v9 = *a2;
       }
 
-      if (v7 >= 0)
+      if (v8 >= 0)
       {
-        v9 = *(a2 + 23);
+        v10 = *(a2 + 23);
       }
 
       else
       {
-        v9 = *(a2 + 8);
+        v10 = *(a2 + 8);
       }
 
       goto LABEL_48;
@@ -5259,53 +3710,53 @@ uint64_t degas::TernaryOperatorDescription(int a1, uint64_t a2)
 
     if (a1 == 2)
     {
-      v22 = 40;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &v22, 1);
-      v12 = *(a2 + 23);
-      if (v12 >= 0)
+      v23 = 40;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, &v23, 1);
+      v13 = *(a2 + 23);
+      if (v13 >= 0)
       {
-        v8 = a2;
+        v9 = a2;
       }
 
       else
       {
-        v8 = *a2;
+        v9 = *a2;
       }
 
-      if (v12 >= 0)
+      if (v13 >= 0)
       {
-        v9 = *(a2 + 23);
+        v10 = *(a2 + 23);
       }
 
       else
       {
-        v9 = *(a2 + 8);
+        v10 = *(a2 + 8);
       }
 
       goto LABEL_48;
     }
 
-    v22 = 91;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &v22, 1);
-    v10 = *(a2 + 23);
-    if (v10 >= 0)
+    v23 = 91;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, &v23, 1);
+    v11 = *(a2 + 23);
+    if (v11 >= 0)
     {
-      v5 = a2;
+      v6 = a2;
     }
 
     else
     {
-      v5 = *a2;
+      v6 = *a2;
     }
 
-    if (v10 >= 0)
+    if (v11 >= 0)
     {
-      v6 = *(a2 + 23);
+      v7 = *(a2 + 23);
     }
 
     else
     {
-      v6 = *(a2 + 8);
+      v7 = *(a2 + 8);
     }
   }
 
@@ -5317,26 +3768,26 @@ uint64_t degas::TernaryOperatorDescription(int a1, uint64_t a2)
       {
         if (a1 == 7)
         {
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "![", 2);
-          v15 = *(a2 + 23);
-          if (v15 >= 0)
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "![", 2);
+          v16 = *(a2 + 23);
+          if (v16 >= 0)
           {
-            v5 = a2;
+            v6 = a2;
           }
 
           else
           {
-            v5 = *a2;
+            v6 = *a2;
           }
 
-          if (v15 >= 0)
+          if (v16 >= 0)
           {
-            v6 = *(a2 + 23);
+            v7 = *(a2 + 23);
           }
 
           else
           {
-            v6 = *(a2 + 8);
+            v7 = *(a2 + 8);
           }
         }
 
@@ -5347,130 +3798,130 @@ uint64_t degas::TernaryOperatorDescription(int a1, uint64_t a2)
             goto LABEL_62;
           }
 
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "!(", 2);
-          v4 = *(a2 + 23);
-          if (v4 >= 0)
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "!(", 2);
+          v5 = *(a2 + 23);
+          if (v5 >= 0)
           {
-            v5 = a2;
+            v6 = a2;
           }
 
           else
           {
-            v5 = *a2;
+            v6 = *a2;
           }
 
-          if (v4 >= 0)
+          if (v5 >= 0)
           {
-            v6 = *(a2 + 23);
+            v7 = *(a2 + 23);
           }
 
           else
           {
-            v6 = *(a2 + 8);
+            v7 = *(a2 + 8);
           }
         }
 
         goto LABEL_61;
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "!(", 2);
-      v13 = *(a2 + 23);
-      if (v13 >= 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "!(", 2);
+      v14 = *(a2 + 23);
+      if (v14 >= 0)
       {
-        v8 = a2;
+        v9 = a2;
       }
 
       else
       {
-        v8 = *a2;
+        v9 = *a2;
       }
 
-      if (v13 >= 0)
+      if (v14 >= 0)
       {
-        v9 = *(a2 + 23);
+        v10 = *(a2 + 23);
       }
 
       else
       {
-        v9 = *(a2 + 8);
+        v10 = *(a2 + 8);
       }
 
 LABEL_48:
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, v8, v9);
-      v22 = 93;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &v22, 1);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, v9, v10);
+      v23 = 93;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, &v23, 1);
       goto LABEL_62;
     }
 
     if (a1 != 4)
     {
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "![", 2);
-      v11 = *(a2 + 23);
-      if (v11 >= 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "![", 2);
+      v12 = *(a2 + 23);
+      if (v12 >= 0)
       {
-        v8 = a2;
+        v9 = a2;
       }
 
       else
       {
-        v8 = *a2;
+        v9 = *a2;
       }
 
-      if (v11 >= 0)
+      if (v12 >= 0)
       {
-        v9 = *(a2 + 23);
+        v10 = *(a2 + 23);
       }
 
       else
       {
-        v9 = *(a2 + 8);
+        v10 = *(a2 + 8);
       }
 
       goto LABEL_48;
     }
 
-    v22 = 40;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &v22, 1);
-    v14 = *(a2 + 23);
-    if (v14 >= 0)
+    v23 = 40;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, &v23, 1);
+    v15 = *(a2 + 23);
+    if (v15 >= 0)
     {
-      v5 = a2;
+      v6 = a2;
     }
 
     else
     {
-      v5 = *a2;
+      v6 = *a2;
     }
 
-    if (v14 >= 0)
+    if (v15 >= 0)
     {
-      v6 = *(a2 + 23);
+      v7 = *(a2 + 23);
     }
 
     else
     {
-      v6 = *(a2 + 8);
+      v7 = *(a2 + 8);
     }
   }
 
 LABEL_61:
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, v5, v6);
-  v22 = 41;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, &v22, 1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, v6, v7);
+  v23 = 41;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, &v23, 1);
 LABEL_62:
   std::stringbuf::str();
-  v17 = *MEMORY[0x277D82828];
-  *(&v17 + *(v17 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v18 = MEMORY[0x277D82878] + 16;
-  if (v20 < 0)
+  v18 = *MEMORY[0x277D82828];
+  *(&v18 + *(v18 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v19 = MEMORY[0x277D82878] + 16;
+  if (v21 < 0)
   {
-    operator delete(v19[7].__locale_);
+    operator delete(v20[7].__locale_);
   }
 
-  v18 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v19);
+  v19 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v20);
   std::ostream::~ostream();
-  return MEMORY[0x259C43E80](&v21);
+  return MEMORY[0x259C43E80](&v22);
 }
 
 void sub_2558DA8A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
@@ -5836,7 +4287,7 @@ uint64_t degas::MetadataTable::deleteEntry(degas::MetadataTable *this, sqlite3_i
 
 degas::Statement **degas::MetadataTable::deleteStatement(degas::MetadataTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x500;
+  v1 = (*(this + 48) << 16) | 0x500u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -5933,7 +4384,7 @@ void sub_2558DBE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 degas::Statement **degas::MetadataTable::upsertStatement(degas::MetadataTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x300;
+  v1 = (*(this + 48) << 16) | 0x300u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -5945,7 +4396,7 @@ degas::Statement **degas::MetadataTable::upsertStatement(degas::MetadataTable *t
 
 degas::Statement **degas::MetadataTable::readByIdentifierStatement(degas::MetadataTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x600;
+  v1 = (*(this + 48) << 16) | 0x600u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -6529,19 +4980,19 @@ void degas::LabelIndex_Immediate::nodeIdentifiersForLabelIdentifier(const degas:
   degas::Cursor::~Cursor(v4);
 }
 
-void degas::LabelIndex_Persisted::resetIndex(degas::LabelIndex_Persisted *this)
+void degas::LabelIndex_Persisted::resetIndex(os_unfair_lock_s *this)
 {
   os_unfair_lock_lock(this + 14);
-  std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::destroy(*(this + 2));
-  v2 = *(this + 5);
-  *(this + 1) = this + 16;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
+  std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::destroy(*&this[4]._os_unfair_lock_opaque);
+  v2 = *&this[10]._os_unfair_lock_opaque;
+  *&this[2]._os_unfair_lock_opaque = this + 4;
+  *&this[4]._os_unfair_lock_opaque = 0;
+  *&this[6]._os_unfair_lock_opaque = 0;
   std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::destroy(v2);
-  *(this + 5) = 0;
-  *(this + 6) = 0;
-  *(this + 4) = this + 40;
-  *(this + 60) = 0;
+  *&this[10]._os_unfair_lock_opaque = 0;
+  *&this[12]._os_unfair_lock_opaque = 0;
+  *&this[8]._os_unfair_lock_opaque = this + 10;
+  LOBYTE(this[15]._os_unfair_lock_opaque) = 0;
 
   os_unfair_lock_unlock(this + 14);
 }
@@ -6567,20 +5018,20 @@ void degas::LabelIndex_Persisted::allEdgeIdentifiers(os_unfair_lock_s *this, deg
   {
     do
     {
-      v8[0] = *(v4 + 2);
+      v8[0] = *&v4[8]._os_unfair_lock_opaque;
       memset(&v8[1], 0, 32);
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v8[1] + 8, *(v4 + 7), *(v4 + 8), (*(v4 + 8) - *(v4 + 7)) >> 4);
-      v9 = *(v4 + 80);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v8[1] + 1, *&v4[14]._os_unfair_lock_opaque, *&v4[16]._os_unfair_lock_opaque, (*&v4[16]._os_unfair_lock_opaque - *&v4[14]._os_unfair_lock_opaque) >> 4);
+      os_unfair_lock_opaque = v4[20]._os_unfair_lock_opaque;
       degas::Bitmap::unionWith<degas::Bitmap>(a2, v8 + 8);
       v10 = &v8[1] + 1;
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v10);
-      v5 = *(v4 + 1);
+      v5 = *&v4[2]._os_unfair_lock_opaque;
       if (v5)
       {
         do
         {
           v6 = v5;
-          v5 = *v5;
+          v5 = *&v5->_os_unfair_lock_opaque;
         }
 
         while (v5);
@@ -6590,8 +5041,8 @@ void degas::LabelIndex_Persisted::allEdgeIdentifiers(os_unfair_lock_s *this, deg
       {
         do
         {
-          v6 = *(v4 + 2);
-          v7 = *v6 == v4;
+          v6 = *&v4[4]._os_unfair_lock_opaque;
+          v7 = *&v6->_os_unfair_lock_opaque == v4;
           v4 = v6;
         }
 
@@ -6607,9 +5058,9 @@ void degas::LabelIndex_Persisted::allEdgeIdentifiers(os_unfair_lock_s *this, deg
   os_unfair_lock_unlock(this + 14);
 }
 
-void sub_2558DD9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2558DD9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6622,20 +5073,20 @@ void degas::LabelIndex_Persisted::allNodeIdentifiers(os_unfair_lock_s *this, deg
   {
     do
     {
-      v8[0] = *(v4 + 2);
+      v8[0] = *&v4[8]._os_unfair_lock_opaque;
       memset(&v8[1], 0, 32);
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v8[1] + 8, *(v4 + 7), *(v4 + 8), (*(v4 + 8) - *(v4 + 7)) >> 4);
-      v9 = *(v4 + 80);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v8[1] + 1, *&v4[14]._os_unfair_lock_opaque, *&v4[16]._os_unfair_lock_opaque, (*&v4[16]._os_unfair_lock_opaque - *&v4[14]._os_unfair_lock_opaque) >> 4);
+      os_unfair_lock_opaque = v4[20]._os_unfair_lock_opaque;
       degas::Bitmap::unionWith<degas::Bitmap>(a2, v8 + 8);
       v10 = &v8[1] + 1;
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v10);
-      v5 = *(v4 + 1);
+      v5 = *&v4[2]._os_unfair_lock_opaque;
       if (v5)
       {
         do
         {
           v6 = v5;
-          v5 = *v5;
+          v5 = *&v5->_os_unfair_lock_opaque;
         }
 
         while (v5);
@@ -6645,8 +5096,8 @@ void degas::LabelIndex_Persisted::allNodeIdentifiers(os_unfair_lock_s *this, deg
       {
         do
         {
-          v6 = *(v4 + 2);
-          v7 = *v6 == v4;
+          v6 = *&v4[4]._os_unfair_lock_opaque;
+          v7 = *&v6->_os_unfair_lock_opaque == v4;
           v4 = v6;
         }
 
@@ -6662,9 +5113,9 @@ void degas::LabelIndex_Persisted::allNodeIdentifiers(os_unfair_lock_s *this, deg
   os_unfair_lock_unlock(this + 14);
 }
 
-void sub_2558DDA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2558DDA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6681,7 +5132,7 @@ void degas::LabelIndex_Persisted::edgeIdentifiersForLabelIdentifier(os_unfair_lo
   v8 = this + 10;
   do
   {
-    v9 = *&v7[8]._os_unfair_lock_opaque;
+    v9 = *(v7 + 32);
     v10 = v9 >= a2;
     v11 = v9 < a2;
     if (v10)
@@ -6689,7 +5140,7 @@ void degas::LabelIndex_Persisted::edgeIdentifiersForLabelIdentifier(os_unfair_lo
       v8 = v7;
     }
 
-    v7 = *&v7[2 * v11]._os_unfair_lock_opaque;
+    v7 = *(v7 + 8 * v11);
   }
 
   while (v7);
@@ -6722,7 +5173,7 @@ void degas::LabelIndex_Persisted::nodeIdentifiersForLabelIdentifier(os_unfair_lo
   v8 = this + 4;
   do
   {
-    v9 = *&v7[8]._os_unfair_lock_opaque;
+    v9 = *(v7 + 32);
     v10 = v9 >= a2;
     v11 = v9 < a2;
     if (v10)
@@ -6730,7 +5181,7 @@ void degas::LabelIndex_Persisted::nodeIdentifiersForLabelIdentifier(os_unfair_lo
       v8 = v7;
     }
 
-    v7 = *&v7[2 * v11]._os_unfair_lock_opaque;
+    v7 = *(v7 + 8 * v11);
   }
 
   while (v7);
@@ -6772,21 +5223,21 @@ void degas::LabelIndex_Persisted::~LabelIndex_Persisted(char **this)
   std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::destroy(this[2]);
 }
 
-void degas::LabelIndex_Snapshot::beginTransaction(degas::LabelIndex_Snapshot *this)
+void degas::LabelIndex_Snapshot::beginTransaction(uint64_t this)
 {
   if ((*(this + 80) & 1) == 0)
   {
-    v2 = *(this + 1);
-    v3 = *(this + 3);
-    os_unfair_lock_lock(v2 + 14);
+    v2 = *(this + 8);
+    v3 = *(this + 24);
+    os_unfair_lock_lock((v2 + 56));
     degas::LabelIndex_Persisted::locked_populate(v2, v3);
-    os_unfair_lock_unlock(v2 + 14);
-    degas::LabelIndex_Persisted::makeSnapshot(*(this + 1), this + 4, this + 7);
+    os_unfair_lock_unlock((v2 + 56));
+    degas::LabelIndex_Persisted::makeSnapshot(*(this + 8), (this + 32), (this + 56));
     *(this + 80) = 1;
   }
 }
 
-void degas::LabelIndex_Persisted::locked_populate(degas::LabelIndex_Persisted *this, degas::LabelTable *a2)
+void degas::LabelIndex_Persisted::locked_populate(uint64_t **this, degas::LabelTable *a2)
 {
   if ((*(this + 60) & 1) == 0)
   {
@@ -6810,10 +5261,10 @@ void degas::LabelIndex_Persisted::locked_populate(degas::LabelIndex_Persisted *t
       memset(v9, 0, 25);
       degas::Statement::bitmapColumnValue(v13[0], 3, &v8);
       v14 = &v12;
-      v6 = std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 8, v12);
+      v6 = std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 1, v12, &v14);
       degas::Bitmap::operator=(v6 + 5, &v10);
       v14 = &v12;
-      v7 = std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 32, v12);
+      v7 = std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 4, v12, &v14);
       degas::Bitmap::operator=(v7 + 5, &v8);
       v15 = v9;
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v15);
@@ -6827,7 +5278,7 @@ void degas::LabelIndex_Persisted::locked_populate(degas::LabelIndex_Persisted *t
   }
 }
 
-void degas::LabelIndex_Persisted::makeSnapshot(uint64_t a1, uint64_t **a2, uint64_t **a3)
+void degas::LabelIndex_Persisted::makeSnapshot(uint64_t a1, void *a2, void *a3)
 {
   os_unfair_lock_lock((a1 + 56));
   if ((a1 + 8) != a2)
@@ -6843,16 +5294,16 @@ void degas::LabelIndex_Persisted::makeSnapshot(uint64_t a1, uint64_t **a2, uint6
   os_unfair_lock_unlock((a1 + 56));
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long long,degas::Bitmap>,std::__tree_node<std::__value_type<unsigned long long,degas::Bitmap>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long long,degas::Bitmap>,std::__tree_node<std::__value_type<unsigned long long,degas::Bitmap>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
-    v8 = result + 1;
+    v8 = (result + 1);
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6879,8 +5330,8 @@ uint64_t **std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::
           v9[4] = v10[4];
           degas::Bitmap::operator=(v9 + 5, v10 + 5);
           v11 = *v8;
-          v12 = v5 + 1;
-          v13 = v5 + 1;
+          v12 = (v5 + 1);
+          v13 = (v5 + 1);
           if (*v8)
           {
             do
@@ -6958,15 +5409,15 @@ LABEL_14:
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__construct_node<std::pair<unsigned long long const,degas::Bitmap> const&>();
+    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__construct_node<std::pair<unsigned long long const,degas::Bitmap> const&>(&v16, v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_2558DE134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2558DE134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7048,7 +5499,7 @@ void sub_2558DE274(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7081,10 +5532,10 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -7094,27 +5545,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -7133,7 +5584,7 @@ void degas::LabelIndex_Snapshot::allEdgeIdentifiers(degas::LabelIndex_Snapshot *
       {
         v12[0] = *(v4 + 2);
         memset(&v12[1], 0, 32);
-        std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v12[1] + 8, *(v4 + 7), *(v4 + 8), (*(v4 + 8) - *(v4 + 7)) >> 4);
+        std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v12[1] + 1, *(v4 + 7), *(v4 + 8), (*(v4 + 8) - *(v4 + 7)) >> 4);
         v13 = v4[80];
         degas::Bitmap::unionWith<degas::Bitmap>(a2, v12 + 8);
         v14 = &v12[1] + 1;
@@ -7173,18 +5624,18 @@ void degas::LabelIndex_Snapshot::allEdgeIdentifiers(degas::LabelIndex_Snapshot *
   {
     v9 = *(this + 1);
     v10 = *(this + 3);
-    os_unfair_lock_lock(v9 + 14);
+    os_unfair_lock_lock((v9 + 56));
     degas::LabelIndex_Persisted::locked_populate(v9, v10);
-    os_unfair_lock_unlock(v9 + 14);
+    os_unfair_lock_unlock((v9 + 56));
     v11 = *(**(this + 1) + 40);
 
     v11();
   }
 }
 
-void sub_2558DE564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2558DE564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7201,7 +5652,7 @@ void degas::LabelIndex_Snapshot::allNodeIdentifiers(degas::LabelIndex_Snapshot *
       {
         v12[0] = *(v4 + 2);
         memset(&v12[1], 0, 32);
-        std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v12[1] + 8, *(v4 + 7), *(v4 + 8), (*(v4 + 8) - *(v4 + 7)) >> 4);
+        std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v12[1] + 1, *(v4 + 7), *(v4 + 8), (*(v4 + 8) - *(v4 + 7)) >> 4);
         v13 = v4[80];
         degas::Bitmap::unionWith<degas::Bitmap>(a2, v12 + 8);
         v14 = &v12[1] + 1;
@@ -7241,18 +5692,18 @@ void degas::LabelIndex_Snapshot::allNodeIdentifiers(degas::LabelIndex_Snapshot *
   {
     v9 = *(this + 1);
     v10 = *(this + 3);
-    os_unfair_lock_lock(v9 + 14);
+    os_unfair_lock_lock((v9 + 56));
     degas::LabelIndex_Persisted::locked_populate(v9, v10);
-    os_unfair_lock_unlock(v9 + 14);
+    os_unfair_lock_unlock((v9 + 56));
     v11 = *(**(this + 1) + 32);
 
     v11();
   }
 }
 
-void sub_2558DE6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2558DE6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7301,9 +5752,9 @@ LABEL_10:
   {
     v12 = *(this + 1);
     v13 = *(this + 3);
-    os_unfair_lock_lock(v12 + 14);
+    os_unfair_lock_lock((v12 + 56));
     degas::LabelIndex_Persisted::locked_populate(v12, v13);
-    os_unfair_lock_unlock(v12 + 14);
+    os_unfair_lock_unlock((v12 + 56));
     v14 = *(**(this + 1) + 24);
 
     return v14();
@@ -7354,9 +5805,9 @@ LABEL_10:
   {
     v12 = *(this + 1);
     v13 = *(this + 3);
-    os_unfair_lock_lock(v12 + 14);
+    os_unfair_lock_lock((v12 + 56));
     degas::LabelIndex_Persisted::locked_populate(v12, v13);
-    os_unfair_lock_unlock(v12 + 14);
+    os_unfair_lock_unlock((v12 + 56));
     v14 = *(**(this + 1) + 16);
 
     return v14();
@@ -7381,15 +5832,15 @@ void degas::LabelIndex_Snapshot::~LabelIndex_Snapshot(char **this)
   }
 }
 
-void *degas::LabelIndex_Transaction::removeEdges(degas::LabelIndex_Transaction *this, const degas::Bitmap *a2, const degas::Bitmap *a3)
+uint64_t *degas::LabelIndex_Transaction::removeEdges(degas::LabelIndex_Transaction *this, degas::Bitset **a2, __int128 **a3)
 {
   if ((*(this + 32) & 1) == 0)
   {
     __assert_rtn("removeEdges", "labelIndex.cpp", 638, "_inTransaction");
   }
 
-  result = degas::Bitmap::begin(a2, &v19);
-  v7 = *(a2 + 3);
+  result = degas::Bitmap::begin(&v19, a2);
+  v7 = a2[3];
   v8 = (this + 120);
   while (1)
   {
@@ -7428,13 +5879,14 @@ void *degas::LabelIndex_Transaction::removeEdges(degas::LabelIndex_Transaction *
     else
     {
 LABEL_18:
-      v16 = v20;
-      v17 = *a3;
-      memset(v18, 0, 32);
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v18[8], *(a3 + 2), *(a3 + 3), (*(a3 + 3) - *(a3 + 2)) >> 4);
-      v18[32] = *(a3 + 40);
-      std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(this + 112, v16);
-      v22 = &v18[8];
+      v16 = *a3;
+      v17[0] = v20;
+      v17[1] = v16;
+      memset(&v17[2], 0, 32);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v17[3], a3[2], a3[3], a3[3] - a3[2]);
+      v18 = *(a3 + 40);
+      std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(this + 14, v17[0], v17);
+      v22 = &v17[3];
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v22);
     }
 
@@ -7449,10 +5901,10 @@ void sub_2558DEAE0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(uint64_t result, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(uint64_t *result, unint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -7462,42 +5914,42 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void *degas::LabelIndex_Transaction::removeNodes(degas::LabelIndex_Transaction *this, const degas::Bitmap *a2, const degas::Bitmap *a3)
+uint64_t *degas::LabelIndex_Transaction::removeNodes(degas::LabelIndex_Transaction *this, degas::Bitset **a2, __int128 **a3)
 {
   if ((*(this + 32) & 1) == 0)
   {
     __assert_rtn("removeNodes", "labelIndex.cpp", 594, "_inTransaction");
   }
 
-  result = degas::Bitmap::begin(a2, &v19);
-  v7 = *(a2 + 3);
+  result = degas::Bitmap::begin(&v19, a2);
+  v7 = a2[3];
   v8 = (this + 72);
   while (1)
   {
@@ -7536,13 +5988,14 @@ void *degas::LabelIndex_Transaction::removeNodes(degas::LabelIndex_Transaction *
     else
     {
 LABEL_18:
-      v16 = v20;
-      v17 = *a3;
-      memset(v18, 0, 32);
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v18[8], *(a3 + 2), *(a3 + 3), (*(a3 + 3) - *(a3 + 2)) >> 4);
-      v18[32] = *(a3 + 40);
-      std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(this + 64, v16);
-      v22 = &v18[8];
+      v16 = *a3;
+      v17[0] = v20;
+      v17[1] = v16;
+      memset(&v17[2], 0, 32);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v17[3], a3[2], a3[3], a3[3] - a3[2]);
+      v18 = *(a3 + 40);
+      std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(this + 8, v17[0], v17);
+      v22 = &v17[3];
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v22);
     }
 
@@ -7557,21 +6010,21 @@ void sub_2558DED44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void degas::LabelIndex_Transaction::removeEdge(degas::LabelIndex_Transaction *this, unint64_t a2, unint64_t a3)
+void degas::LabelIndex_Transaction::removeEdge(degas::LabelIndex_Transaction *this, void **a2, unint64_t a3)
 {
   if ((*(this + 32) & 1) == 0)
   {
     __assert_rtn("removeEdge", "labelIndex.cpp", 623, "_inTransaction");
   }
 
-  v5 = this + 120;
+  v5 = (this + 120);
   v4 = *(this + 15);
   if (!v4)
   {
     goto LABEL_10;
   }
 
-  v6 = this + 120;
+  v6 = (this + 120);
   do
   {
     v7 = *(v4 + 4);
@@ -7586,10 +6039,10 @@ void degas::LabelIndex_Transaction::removeEdge(degas::LabelIndex_Transaction *th
   }
 
   while (v4);
-  if (v6 != v5 && *(v6 + 4) <= a2)
+  if (v6 != v5 && v6[4] <= a2)
   {
 
-    degas::Bitmap::setBit((v6 + 40), a3);
+    degas::Bitmap::setBit((v6 + 5), a3);
   }
 
   else
@@ -7598,11 +6051,12 @@ LABEL_10:
     v12 = 0u;
     memset(v13, 0, 25);
     degas::Bitmap::setBit(&v12, a3);
+    v10[0] = a2;
     v10[1] = v12;
     memset(&v10[2], 0, 32);
-    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], (v13[1] - v13[0]) >> 4);
+    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], v13[1] - v13[0]);
     v11 = v13[3];
-    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>((v5 - 8), a2);
+    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(v5 - 1, a2, v10);
     v14 = &v10[3];
     std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v14);
     v10[0] = v13;
@@ -7619,21 +6073,21 @@ void sub_2558DEE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void degas::LabelIndex_Transaction::addEdge(degas::LabelIndex_Transaction *this, unint64_t a2, unint64_t a3)
+void degas::LabelIndex_Transaction::addEdge(degas::LabelIndex_Transaction *this, void **a2, unint64_t a3)
 {
   if ((*(this + 32) & 1) == 0)
   {
     __assert_rtn("addEdge", "labelIndex.cpp", 608, "_inTransaction");
   }
 
-  v5 = this + 96;
+  v5 = (this + 96);
   v4 = *(this + 12);
   if (!v4)
   {
     goto LABEL_10;
   }
 
-  v6 = this + 96;
+  v6 = (this + 96);
   do
   {
     v7 = *(v4 + 4);
@@ -7648,10 +6102,10 @@ void degas::LabelIndex_Transaction::addEdge(degas::LabelIndex_Transaction *this,
   }
 
   while (v4);
-  if (v6 != v5 && *(v6 + 4) <= a2)
+  if (v6 != v5 && v6[4] <= a2)
   {
 
-    degas::Bitmap::setBit((v6 + 40), a3);
+    degas::Bitmap::setBit((v6 + 5), a3);
   }
 
   else
@@ -7660,11 +6114,12 @@ LABEL_10:
     v12 = 0u;
     memset(v13, 0, 25);
     degas::Bitmap::setBit(&v12, a3);
+    v10[0] = a2;
     v10[1] = v12;
     memset(&v10[2], 0, 32);
-    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], (v13[1] - v13[0]) >> 4);
+    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], v13[1] - v13[0]);
     v11 = v13[3];
-    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>((v5 - 8), a2);
+    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(v5 - 1, a2, v10);
     v14 = &v10[3];
     std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v14);
     v10[0] = v13;
@@ -7681,21 +6136,21 @@ void sub_2558DF014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void degas::LabelIndex_Transaction::removeNode(degas::LabelIndex_Transaction *this, unint64_t a2, unint64_t a3)
+void degas::LabelIndex_Transaction::removeNode(degas::LabelIndex_Transaction *this, void **a2, unint64_t a3)
 {
   if ((*(this + 32) & 1) == 0)
   {
     __assert_rtn("removeNode", "labelIndex.cpp", 579, "_inTransaction");
   }
 
-  v5 = this + 72;
+  v5 = (this + 72);
   v4 = *(this + 9);
   if (!v4)
   {
     goto LABEL_10;
   }
 
-  v6 = this + 72;
+  v6 = (this + 72);
   do
   {
     v7 = *(v4 + 4);
@@ -7710,10 +6165,10 @@ void degas::LabelIndex_Transaction::removeNode(degas::LabelIndex_Transaction *th
   }
 
   while (v4);
-  if (v6 != v5 && *(v6 + 4) <= a2)
+  if (v6 != v5 && v6[4] <= a2)
   {
 
-    degas::Bitmap::setBit((v6 + 40), a3);
+    degas::Bitmap::setBit((v6 + 5), a3);
   }
 
   else
@@ -7722,11 +6177,12 @@ LABEL_10:
     v12 = 0u;
     memset(v13, 0, 25);
     degas::Bitmap::setBit(&v12, a3);
+    v10[0] = a2;
     v10[1] = v12;
     memset(&v10[2], 0, 32);
-    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], (v13[1] - v13[0]) >> 4);
+    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], v13[1] - v13[0]);
     v11 = v13[3];
-    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>((v5 - 8), a2);
+    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(v5 - 1, a2, v10);
     v14 = &v10[3];
     std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v14);
     v10[0] = v13;
@@ -7743,21 +6199,21 @@ void sub_2558DF18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void degas::LabelIndex_Transaction::addNode(degas::LabelIndex_Transaction *this, unint64_t a2, unint64_t a3)
+void degas::LabelIndex_Transaction::addNode(degas::LabelIndex_Transaction *this, void **a2, unint64_t a3)
 {
   if ((*(this + 32) & 1) == 0)
   {
     __assert_rtn("addNode", "labelIndex.cpp", 564, "_inTransaction");
   }
 
-  v5 = this + 48;
+  v5 = (this + 48);
   v4 = *(this + 6);
   if (!v4)
   {
     goto LABEL_10;
   }
 
-  v6 = this + 48;
+  v6 = (this + 48);
   do
   {
     v7 = *(v4 + 4);
@@ -7772,10 +6228,10 @@ void degas::LabelIndex_Transaction::addNode(degas::LabelIndex_Transaction *this,
   }
 
   while (v4);
-  if (v6 != v5 && *(v6 + 4) <= a2)
+  if (v6 != v5 && v6[4] <= a2)
   {
 
-    degas::Bitmap::setBit((v6 + 40), a3);
+    degas::Bitmap::setBit((v6 + 5), a3);
   }
 
   else
@@ -7784,11 +6240,12 @@ LABEL_10:
     v12 = 0u;
     memset(v13, 0, 25);
     degas::Bitmap::setBit(&v12, a3);
+    v10[0] = a2;
     v10[1] = v12;
     memset(&v10[2], 0, 32);
-    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], (v13[1] - v13[0]) >> 4);
+    std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v10[3], v13[0], v13[1], v13[1] - v13[0]);
     v11 = v13[3];
-    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>((v5 - 8), a2);
+    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,degas::Bitmap>>(v5 - 1, a2, v10);
     v14 = &v10[3];
     std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v14);
     v10[0] = v13;
@@ -7808,7 +6265,7 @@ void sub_2558DF304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void degas::LabelIndex_Transaction::rollbackTransaction(char **this)
 {
   v1 = this;
-  v2 = (this + 6);
+  v2 = this + 6;
   std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::destroy(this[6]);
   v1[5] = v2;
   v1[7] = 0;
@@ -7872,7 +6329,7 @@ uint64_t degas::LabelIndex_Persisted::update(os_unfair_lock_s *a1, degas::LabelT
     {
       *v77 = *(v12 + 2);
       memset(v78, 0, sizeof(v78));
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[8], v12[7], v12[8], (v12[8] - v12[7]) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[1], v12[7], v12[8], (v12[8] - v12[7]) >> 4);
       v79 = *(v12 + 80);
       v16 = v77[0];
       degas::Bitmap::setBit(&v80, v77[0]);
@@ -7905,10 +6362,10 @@ uint64_t degas::LabelIndex_Persisted::update(os_unfair_lock_s *a1, degas::LabelT
       else
       {
 LABEL_11:
-        std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,degas::Bitmap> const&>(&a1[2], v77[0]);
+        std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,degas::Bitmap> const&>(&a1[2], v77[0], v77);
       }
 
-      *&v72 = &v78[8];
+      *&v72 = &v78[1];
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v72);
       v22 = v12[1];
       if (v22)
@@ -7950,7 +6407,7 @@ LABEL_11:
     {
       *v77 = *(v25 + 2);
       memset(v78, 0, sizeof(v78));
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[8], v25[7], v25[8], (v25[8] - v25[7]) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[1], v25[7], v25[8], (v25[8] - v25[7]) >> 4);
       v79 = *(v25 + 80);
       v28 = v77[0];
       degas::Bitmap::setBit(&v80, v77[0]);
@@ -7978,7 +6435,7 @@ LABEL_11:
         }
       }
 
-      *&v72 = &v78[8];
+      *&v72 = &v78[1];
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v72);
       v33 = v25[1];
       if (v33)
@@ -8020,7 +6477,7 @@ LABEL_11:
     {
       *v77 = *(v36 + 2);
       memset(v78, 0, sizeof(v78));
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[8], v36[7], v36[8], (v36[8] - v36[7]) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[1], v36[7], v36[8], (v36[8] - v36[7]) >> 4);
       v79 = *(v36 + 80);
       v39 = v77[0];
       degas::Bitmap::setBit(&v80, v77[0]);
@@ -8053,10 +6510,10 @@ LABEL_11:
       else
       {
 LABEL_47:
-        std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,degas::Bitmap> const&>(&a1[8], v77[0]);
+        std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,degas::Bitmap> const&>(&a1[8], v77[0], v77);
       }
 
-      *&v72 = &v78[8];
+      *&v72 = &v78[1];
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v72);
       v44 = v36[1];
       if (v44)
@@ -8098,7 +6555,7 @@ LABEL_47:
     {
       *v77 = *(v47 + 2);
       memset(v78, 0, sizeof(v78));
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[8], v47[7], v47[8], (v47[8] - v47[7]) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v78[1], v47[7], v47[8], (v47[8] - v47[7]) >> 4);
       v79 = *(v47 + 80);
       v50 = v77[0];
       degas::Bitmap::setBit(&v80, v77[0]);
@@ -8126,7 +6583,7 @@ LABEL_47:
         }
       }
 
-      *&v72 = &v78[8];
+      *&v72 = &v78[1];
       std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](&v72);
       v55 = v47[1];
       if (v55)
@@ -8158,7 +6615,7 @@ LABEL_47:
     while (v56 != v46);
   }
 
-  degas::Bitmap::begin(&v80, &v74);
+  degas::Bitmap::begin(&v74, &v80);
   v57 = a1 + 4;
   v58 = a1 + 10;
   while (1)
@@ -8258,40 +6715,40 @@ void sub_2558DF9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,degas::Bitmap> const&>(uint64_t result, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,degas::Bitmap> const&>(uint64_t *result, unint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
-    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__construct_node<std::pair<unsigned long long const,degas::Bitmap> const&>();
+    std::__tree<std::__value_type<unsigned long long,degas::Bitmap>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,degas::Bitmap>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,degas::Bitmap>>>::__construct_node<std::pair<unsigned long long const,degas::Bitmap> const&>(v6, result, a3);
   }
 
   while (1)
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -8302,9 +6759,9 @@ void degas::LabelIndex_Transaction::allEdgeIdentifiers(degas::LabelIndex_Transac
 {
   v4 = *(this + 1);
   v5 = *(this + 3);
-  os_unfair_lock_lock(v4 + 14);
+  os_unfair_lock_lock((v4 + 56));
   degas::LabelIndex_Persisted::locked_populate(v4, v5);
-  os_unfair_lock_unlock(v4 + 14);
+  os_unfair_lock_unlock((v4 + 56));
   (*(**(this + 1) + 40))(*(this + 1), a2);
   v6 = *(this + 11);
   if (v6 != (this + 96))
@@ -8314,7 +6771,7 @@ void degas::LabelIndex_Transaction::allEdgeIdentifiers(degas::LabelIndex_Transac
       v13 = *(v6 + 2);
       v14 = 0u;
       v15 = 0u;
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 8, *(v6 + 7), *(v6 + 8), (*(v6 + 8) - *(v6 + 7)) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 1, *(v6 + 7), *(v6 + 8), (*(v6 + 8) - *(v6 + 7)) >> 4);
       v16 = *(v6 + 80);
       degas::Bitmap::unionWith<degas::Bitmap>(a2, &v13 + 8);
       v17 = &v14 + 1;
@@ -8357,7 +6814,7 @@ void degas::LabelIndex_Transaction::allEdgeIdentifiers(degas::LabelIndex_Transac
       v13 = *(v10 + 2);
       v14 = 0u;
       v15 = 0u;
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 8, *(v10 + 7), *(v10 + 8), (*(v10 + 8) - *(v10 + 7)) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 1, *(v10 + 7), *(v10 + 8), (*(v10 + 8) - *(v10 + 7)) >> 4);
       v16 = *(v10 + 80);
       degas::Bitmap::diffWith<degas::Bitmap>(a2, (&v13 + 8));
       v17 = &v14 + 1;
@@ -8393,9 +6850,9 @@ void degas::LabelIndex_Transaction::allEdgeIdentifiers(degas::LabelIndex_Transac
   }
 }
 
-void sub_2558DFCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2558DFCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8404,9 +6861,9 @@ void degas::LabelIndex_Transaction::allNodeIdentifiers(degas::LabelIndex_Transac
 {
   v4 = *(this + 1);
   v5 = *(this + 3);
-  os_unfair_lock_lock(v4 + 14);
+  os_unfair_lock_lock((v4 + 56));
   degas::LabelIndex_Persisted::locked_populate(v4, v5);
-  os_unfair_lock_unlock(v4 + 14);
+  os_unfair_lock_unlock((v4 + 56));
   (*(**(this + 1) + 32))(*(this + 1), a2);
   v6 = *(this + 5);
   if (v6 != (this + 48))
@@ -8416,7 +6873,7 @@ void degas::LabelIndex_Transaction::allNodeIdentifiers(degas::LabelIndex_Transac
       v13 = *(v6 + 2);
       v14 = 0u;
       v15 = 0u;
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 8, *(v6 + 7), *(v6 + 8), (*(v6 + 8) - *(v6 + 7)) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 1, *(v6 + 7), *(v6 + 8), (*(v6 + 8) - *(v6 + 7)) >> 4);
       v16 = *(v6 + 80);
       degas::Bitmap::unionWith<degas::Bitmap>(a2, &v13 + 8);
       v17 = &v14 + 1;
@@ -8459,7 +6916,7 @@ void degas::LabelIndex_Transaction::allNodeIdentifiers(degas::LabelIndex_Transac
       v13 = *(v10 + 2);
       v14 = 0u;
       v15 = 0u;
-      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 8, *(v10 + 7), *(v10 + 8), (*(v10 + 8) - *(v10 + 7)) >> 4);
+      std::vector<degas::BitsetPtr>::__init_with_size[abi:ne200100]<degas::BitsetPtr*,degas::BitsetPtr*>(&v14 + 1, *(v10 + 7), *(v10 + 8), (*(v10 + 8) - *(v10 + 7)) >> 4);
       v16 = *(v10 + 80);
       degas::Bitmap::diffWith<degas::Bitmap>(a2, (&v13 + 8));
       v17 = &v14 + 1;
@@ -8495,9 +6952,9 @@ void degas::LabelIndex_Transaction::allNodeIdentifiers(degas::LabelIndex_Transac
   }
 }
 
-void sub_2558DFEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2558DFEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<degas::BitsetPtr>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8506,9 +6963,9 @@ void degas::LabelIndex_Transaction::edgeIdentifiersForLabelIdentifier(degas::Lab
 {
   v6 = *(this + 1);
   v7 = *(this + 3);
-  os_unfair_lock_lock(v6 + 14);
+  os_unfair_lock_lock((v6 + 56));
   degas::LabelIndex_Persisted::locked_populate(v6, v7);
-  os_unfair_lock_unlock(v6 + 14);
+  os_unfair_lock_unlock((v6 + 56));
   (*(**(this + 1) + 24))(*(this + 1), a2, a3);
   v8 = *(this + 12);
   if (v8)
@@ -8566,9 +7023,9 @@ void degas::LabelIndex_Transaction::nodeIdentifiersForLabelIdentifier(degas::Lab
 {
   v6 = *(this + 1);
   v7 = *(this + 3);
-  os_unfair_lock_lock(v6 + 14);
+  os_unfair_lock_lock((v6 + 56));
   degas::LabelIndex_Persisted::locked_populate(v6, v7);
-  os_unfair_lock_unlock(v6 + 14);
+  os_unfair_lock_unlock((v6 + 56));
   (*(**(this + 1) + 16))(*(this + 1), a2, a3);
   v8 = *(this + 6);
   if (v8)
@@ -8670,12 +7127,12 @@ void degas::LabelIndexDirectory::indexForDatabasePath(os_unfair_lock_s *a1@<X0>,
 
   v7 = v6;
   os_unfair_lock_unlock(a1 + 6);
-  v8 = *(v7 + 64);
-  *a3 = *(v7 + 56);
+  v8 = v7[8];
+  *a3 = v7[7];
   a3[1] = v8;
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 }
 
@@ -9007,25 +7464,24 @@ void degas::LabelIndex_Transaction::resetForPath(degas *a1)
 
 uint64_t degas::TransactionLogTable::deleteEntry(sqlite3 **this, sqlite3_int64 a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = degas::TransactionLogTable::deleteStatement(this);
   degas::Statement::bindInteger(*v4, 1, a2);
   v5 = degas::Statement::update(*v4);
   if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = sqlite3_errmsg(this[4]);
-    v9 = 136315138;
-    v10 = v8;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "transaction log entry delete failed: %s", &v9, 0xCu);
+    v7 = sqlite3_errmsg(this[4]);
+    v8 = 136315138;
+    v9 = v7;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "transaction log entry delete failed: %s", &v8, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 degas::Statement **degas::TransactionLogTable::deleteStatement(degas::TransactionLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x500;
+  v1 = (*(this + 48) << 16) | 0x500u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9122,7 +7578,7 @@ void sub_2558E119C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 degas::Statement **degas::TransactionLogTable::insertStatement(degas::TransactionLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x300;
+  v1 = (*(this + 48) << 16) | 0x300u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9134,7 +7590,7 @@ degas::Statement **degas::TransactionLogTable::insertStatement(degas::Transactio
 
 degas::Statement **degas::TransactionLogTable::readByIdentifierStatement(degas::TransactionLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x600;
+  v1 = (*(this + 48) << 16) | 0x600u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9146,7 +7602,7 @@ degas::Statement **degas::TransactionLogTable::readByIdentifierStatement(degas::
 
 degas::Statement **degas::TransactionLogTable::readAfterIdentifierStatement(degas::TransactionLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x800;
+  v1 = (*(this + 48) << 16) | 0x800u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9158,7 +7614,7 @@ degas::Statement **degas::TransactionLogTable::readAfterIdentifierStatement(dega
 
 degas::Statement **degas::TransactionLogTable::readAllStatement(degas::TransactionLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x700;
+  v1 = (*(this + 48) << 16) | 0x700u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9170,7 +7626,7 @@ degas::Statement **degas::TransactionLogTable::readAllStatement(degas::Transacti
 
 uint64_t degas::TransactionLogTable::insert(sqlite3 **this, sqlite3_int64 *a2, const degas::Bitmap *a3, const degas::Bitmap *a4, const degas::Bitmap *a5, const degas::Bitmap *a6, const degas::Bitmap *a7, const degas::Bitmap *a8)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   inserted = degas::TransactionLogTable::insertStatement(this);
   degas::Statement::bindBitmap(*inserted, 1, a3);
   degas::Statement::bindBitmap(*inserted, 2, a4);
@@ -9184,9 +7640,9 @@ uint64_t degas::TransactionLogTable::insert(sqlite3 **this, sqlite3_int64 *a2, c
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v18 = sqlite3_errmsg(this[4]);
-      v21 = 136315138;
-      v22 = v18;
-      _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "transaction log entry insert failed: %s", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = v18;
+      _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "transaction log entry insert failed: %s", &v20, 0xCu);
     }
   }
 
@@ -9195,7 +7651,6 @@ uint64_t degas::TransactionLogTable::insert(sqlite3 **this, sqlite3_int64 *a2, c
     *a2 = sqlite3_last_insert_rowid(this[4]);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -9272,25 +7727,24 @@ degas::TransactionLogCursor *degas::TransactionLogCursor::TransactionLogCursor(d
 
 uint64_t degas::ClientLogTable::deleteEntry(sqlite3 **this, sqlite3_int64 a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = degas::ClientLogTable::deleteStatement(this);
   degas::Statement::bindInteger(*v4, 1, a2);
   v5 = degas::Statement::update(*v4);
   if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = sqlite3_errmsg(this[4]);
-    v9 = 136315138;
-    v10 = v8;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "client log entry delete failed: %s", &v9, 0xCu);
+    v7 = sqlite3_errmsg(this[4]);
+    v8 = 136315138;
+    v9 = v7;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "client log entry delete failed: %s", &v8, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 degas::Statement **degas::ClientLogTable::deleteStatement(degas::ClientLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x500;
+  v1 = (*(this + 48) << 16) | 0x500u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9387,7 +7841,7 @@ void sub_2558E1FA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 degas::Statement **degas::ClientLogTable::upsertStatement(degas::ClientLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x300;
+  v1 = (*(this + 48) << 16) | 0x300u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9399,7 +7853,7 @@ degas::Statement **degas::ClientLogTable::upsertStatement(degas::ClientLogTable 
 
 degas::Statement **degas::ClientLogTable::readByIdentifierStatement(degas::ClientLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x600;
+  v1 = (*(this + 48) << 16) | 0x600u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9411,7 +7865,7 @@ degas::Statement **degas::ClientLogTable::readByIdentifierStatement(degas::Clien
 
 degas::Statement **degas::ClientLogTable::readAllStatement(degas::ClientLogTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x700;
+  v1 = (*(this + 48) << 16) | 0x700u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9423,7 +7877,7 @@ degas::Statement **degas::ClientLogTable::readAllStatement(degas::ClientLogTable
 
 uint64_t degas::ClientLogTable::upsert(sqlite3 **this, sqlite3_int64 a2, sqlite3_int64 *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = degas::ClientLogTable::upsertStatement(this);
   v8 = *v6;
   v7 = v6[1];
@@ -9437,13 +7891,13 @@ uint64_t degas::ClientLogTable::upsert(sqlite3 **this, sqlite3_int64 a2, sqlite3
   v9 = degas::Statement::update(v8);
   if (v9 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v12 = sqlite3_errmsg(this[4]);
-    v13 = 136315138;
-    v14 = v12;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "client log entry upsert failed: %s", &v13, 0xCu);
+    v11 = sqlite3_errmsg(this[4]);
+    v12 = 136315138;
+    v13 = v11;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "client log entry upsert failed: %s", &v12, 0xCu);
     if (!v7)
     {
-      goto LABEL_7;
+      return v9;
     }
 
     goto LABEL_6;
@@ -9455,8 +7909,6 @@ LABEL_6:
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-LABEL_7:
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -9574,7 +8026,7 @@ uint64_t degas::AttributeValueTable::deleteValue(degas::AttributeValueTable *thi
 
 degas::Statement **degas::AttributeValueTable::deleteValueStatement(degas::AttributeValueTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x501;
+  v1 = (*(this + 48) << 16) | 0x501u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9586,38 +8038,38 @@ degas::Statement **degas::AttributeValueTable::deleteValueStatement(degas::Attri
 
 void ___ZNK5degas19AttributeValueTable20deleteValueStatementEv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v5, "delete from ", 12);
-  v2 = *(v1 + 31);
-  if (v2 >= 0)
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "delete from ", 12);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
   {
-    v3 = v1 + 8;
+    v4 = v2 + 8;
   }
 
   else
   {
-    v3 = *(v1 + 8);
+    v4 = *(v2 + 8);
   }
 
-  if (v2 >= 0)
+  if (v3 >= 0)
   {
-    v4 = *(v1 + 31);
+    v5 = *(v2 + 31);
   }
 
   else
   {
-    v4 = *(v1 + 16);
+    v5 = *(v2 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v5, v3, v4);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v5, " where elementId=?1 and attributeId=?2", 38);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where elementId=?1 and attributeId=?2", 38);
   operator new();
 }
 
-void sub_2558E3550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558E3550(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
@@ -9633,7 +8085,7 @@ uint64_t degas::AttributeValueTable::deleteEntry(degas::AttributeValueTable *thi
 
 degas::Statement **degas::AttributeValueTable::deleteStatement(degas::AttributeValueTable *this)
 {
-  v1 = (*(this + 48) << 16) | 0x500;
+  v1 = (*(this + 48) << 16) | 0x500u;
   v2 = *(this + 5);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 0x40000000;
@@ -9645,334 +8097,1754 @@ degas::Statement **degas::AttributeValueTable::deleteStatement(degas::AttributeV
 
 void ___ZNK5degas19AttributeValueTable15deleteStatementEv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v5, "delete from ", 12);
-  v2 = *(v1 + 31);
-  if (v2 >= 0)
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "delete from ", 12);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
   {
-    v3 = v1 + 8;
+    v4 = v2 + 8;
   }
 
   else
   {
-    v3 = *(v1 + 8);
+    v4 = *(v2 + 8);
   }
 
-  if (v2 >= 0)
+  if (v3 >= 0)
   {
-    v4 = *(v1 + 31);
+    v5 = *(v2 + 31);
   }
 
   else
   {
-    v4 = *(v1 + 16);
+    v5 = *(v2 + 16);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v5, v3, v4);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v5, " where elementId=?1", 19);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where elementId=?1", 19);
   operator new();
 }
 
-void sub_2558E3864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_2558E3864(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8);
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   std::ostringstream::~ostringstream(&a15);
   _Unwind_Resume(a1);
 }
 
 uint64_t degas::AttributeValueTable::createTable(degas::AttributeValueTable *this)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v54);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v54, "create table ", 13);
-  v2 = *(this + 1);
-  v3 = *(this + 31);
-  if (v3 >= 0)
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v53);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v53, "create table ", 13);
+  v2 = *(this + 31);
+  if (v2 >= 0)
   {
-    v4 = this + 8;
+    v3 = this + 8;
   }
 
   else
   {
-    v4 = *(this + 1);
+    v3 = *(this + 1);
   }
 
-  if (v3 >= 0)
+  if (v2 >= 0)
   {
-    v5 = *(this + 31);
+    v4 = *(this + 31);
   }
 
   else
   {
-    v5 = *(this + 2);
+    v4 = *(this + 2);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v54, v4, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v54, " (elementId integer, attributeId integer, intValue integer, realValue real, stringValue text, dataType integer, primary key (elementId, attributeId))", 149);
-  v6 = *(this + 4);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v53, v3, v4);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v53, " (elementId integer, attributeId integer, intValue integer, realValue real, stringValue text, dataType integer, primary key (elementId, attributeId))", 149);
+  v5 = *(this + 4);
   std::stringbuf::str();
-  degas::Statement::Statement(ppStmt, v6, &__p);
-  if (SHIBYTE(v50[0].__locale_) < 0)
+  degas::Statement::Statement(ppStmt, v5, &__p);
+  if (SHIBYTE(v49[0].__locale_) < 0)
   {
     operator delete(__p);
   }
 
-  v7 = degas::Statement::update(ppStmt);
-  v8 = MEMORY[0x277D82828];
-  if (v7)
+  v6 = degas::Statement::update(ppStmt);
+  v7 = MEMORY[0x277D82828];
+  if (v6)
   {
-    v9 = *MEMORY[0x277D82828];
-    v10 = *(MEMORY[0x277D82828] + 24);
+    v8 = *MEMORY[0x277D82828];
+    v9 = *(MEMORY[0x277D82828] + 24);
   }
 
   else
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "create index ", 13);
-    v11 = *(this + 31);
-    if (v11 >= 0)
+    v10 = *(this + 31);
+    if (v10 >= 0)
     {
-      v12 = this + 8;
+      v11 = this + 8;
     }
 
     else
     {
-      v12 = *(this + 1);
+      v11 = *(this + 1);
     }
 
-    if (v11 >= 0)
+    if (v10 >= 0)
     {
-      v13 = *(this + 31);
+      v12 = *(this + 31);
     }
 
     else
     {
-      v13 = *(this + 2);
+      v12 = *(this + 2);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v12, v13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v11, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "_intValue on ", 13);
-    v14 = *(this + 31);
-    if (v14 >= 0)
+    v13 = *(this + 31);
+    if (v13 >= 0)
     {
-      v15 = this + 8;
+      v14 = this + 8;
     }
 
     else
     {
-      v15 = *(this + 1);
+      v14 = *(this + 1);
     }
 
-    if (v14 >= 0)
+    if (v13 >= 0)
     {
-      v16 = *(this + 31);
+      v15 = *(this + 31);
     }
 
     else
     {
-      v16 = *(this + 2);
+      v15 = *(this + 2);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v15, v16);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, v14, v15);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, " (attributeId, intValue) where intValue not null", 48);
-    v17 = *(this + 4);
+    v16 = *(this + 4);
     std::stringbuf::str();
-    degas::Statement::Statement(v47, v17, &v42);
-    if (SHIBYTE(v44[0].__locale_) < 0)
+    degas::Statement::Statement(v46, v16, &v41);
+    if (SHIBYTE(v43[0].__locale_) < 0)
     {
-      operator delete(v42);
+      operator delete(v41);
     }
 
-    v7 = degas::Statement::update(v47);
-    if (v7)
+    v6 = degas::Statement::update(v46);
+    if (v6)
     {
-      v9 = *v8;
-      v10 = *(v8 + 24);
+      v8 = *v7;
+      v9 = *(v7 + 24);
     }
 
     else
     {
-      std::ostringstream::basic_ostringstream[abi:ne200100](&v42);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, "create index ", 13);
-      v18 = *(this + 31);
-      if (v18 >= 0)
+      std::ostringstream::basic_ostringstream[abi:ne200100](&v41);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, "create index ", 13);
+      v17 = *(this + 31);
+      if (v17 >= 0)
       {
-        v19 = this + 8;
+        v18 = this + 8;
       }
 
       else
       {
-        v19 = *(this + 1);
+        v18 = *(this + 1);
       }
 
-      if (v18 >= 0)
+      if (v17 >= 0)
       {
-        v20 = *(this + 31);
+        v19 = *(this + 31);
       }
 
       else
       {
-        v20 = *(this + 2);
+        v19 = *(this + 2);
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, v19, v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, "_realValue on ", 14);
-      v21 = *(this + 31);
-      if (v21 >= 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, v18, v19);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, "_realValue on ", 14);
+      v20 = *(this + 31);
+      if (v20 >= 0)
       {
-        v22 = this + 8;
+        v21 = this + 8;
       }
 
       else
       {
-        v22 = *(this + 1);
+        v21 = *(this + 1);
       }
 
-      if (v21 >= 0)
+      if (v20 >= 0)
       {
-        v23 = *(this + 31);
+        v22 = *(this + 31);
       }
 
       else
       {
-        v23 = *(this + 2);
+        v22 = *(this + 2);
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, v22, v23);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, " (attributeId, realValue) where realValue not null", 50);
-      v24 = *(this + 4);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, v21, v22);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, " (attributeId, realValue) where realValue not null", 50);
+      v23 = *(this + 4);
       std::stringbuf::str();
-      degas::Statement::Statement(v41, v24, &v36);
-      if (SHIBYTE(v38[0].__locale_) < 0)
+      degas::Statement::Statement(v40, v23, &v35);
+      if (SHIBYTE(v37[0].__locale_) < 0)
       {
-        operator delete(v36);
+        operator delete(v35);
       }
 
-      v7 = degas::Statement::update(v41);
-      if (v7)
+      v6 = degas::Statement::update(v40);
+      if (v6)
       {
-        v9 = *v8;
-        v10 = *(v8 + 24);
+        v8 = *v7;
+        v9 = *(v7 + 24);
       }
 
       else
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](&v36);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "create index ", 13);
-        v25 = *(this + 31);
-        if (v25 >= 0)
+        std::ostringstream::basic_ostringstream[abi:ne200100](&v35);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "create index ", 13);
+        v24 = *(this + 31);
+        if (v24 >= 0)
         {
-          v26 = this + 8;
+          v25 = this + 8;
         }
 
         else
         {
-          v26 = *(this + 1);
+          v25 = *(this + 1);
         }
 
-        if (v25 >= 0)
+        if (v24 >= 0)
         {
-          v27 = *(this + 31);
+          v26 = *(this + 31);
         }
 
         else
         {
-          v27 = *(this + 2);
+          v26 = *(this + 2);
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v26, v27);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "_stringValue on ", 16);
-        v28 = *(this + 31);
-        if (v28 >= 0)
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, v25, v26);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "_stringValue on ", 16);
+        v27 = *(this + 31);
+        if (v27 >= 0)
         {
-          v29 = this + 8;
+          v28 = this + 8;
         }
 
         else
         {
-          v29 = *(this + 1);
+          v28 = *(this + 1);
         }
 
-        if (v28 >= 0)
+        if (v27 >= 0)
         {
-          v30 = *(this + 31);
+          v29 = *(this + 31);
         }
 
         else
         {
-          v30 = *(this + 2);
+          v29 = *(this + 2);
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v29, v30);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, " (attributeId, stringValue) where stringValue not null", 54);
-        v31 = *(this + 4);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, v28, v29);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, " (attributeId, stringValue) where stringValue not null", 54);
+        v30 = *(this + 4);
         std::stringbuf::str();
-        degas::Statement::Statement(v35, v31, &v33);
-        if (v34 < 0)
+        degas::Statement::Statement(v34, v30, &v32);
+        if (v33 < 0)
         {
-          operator delete(v33);
+          operator delete(v32);
         }
 
-        v7 = degas::Statement::update(v35);
-        degas::Statement::~Statement(v35);
-        v9 = *v8;
-        v36 = *v8;
-        v10 = *(v8 + 24);
-        *(&v36 + *(v36 - 3)) = v10;
-        v37 = MEMORY[0x277D82878] + 16;
-        if (v39 < 0)
+        v6 = degas::Statement::update(v34);
+        degas::Statement::~Statement(v34);
+        v8 = *v7;
+        v35 = *v7;
+        v9 = *(v7 + 24);
+        *(&v35 + *(v35 - 3)) = v9;
+        v36 = MEMORY[0x277D82878] + 16;
+        if (v38 < 0)
         {
-          operator delete(v38[7].__locale_);
+          operator delete(v37[7].__locale_);
         }
 
-        v37 = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(v38);
+        v36 = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(v37);
         std::ostream::~ostream();
-        MEMORY[0x259C43E80](&v40);
+        MEMORY[0x259C43E80](&v39);
       }
 
-      degas::Statement::~Statement(v41);
-      v42 = v9;
-      *(&v42 + *(v9 - 3)) = v10;
-      v43 = MEMORY[0x277D82878] + 16;
-      if (v45 < 0)
+      degas::Statement::~Statement(v40);
+      v41 = v8;
+      *(&v41 + *(v8 - 3)) = v9;
+      v42 = MEMORY[0x277D82878] + 16;
+      if (v44 < 0)
       {
-        operator delete(v44[7].__locale_);
+        operator delete(v43[7].__locale_);
       }
 
-      v43 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v44);
+      v42 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v43);
       std::ostream::~ostream();
-      MEMORY[0x259C43E80](&v46);
+      MEMORY[0x259C43E80](&v45);
     }
 
-    degas::Statement::~Statement(v47);
-    __p = v9;
-    *(&__p + *(v9 - 3)) = v10;
-    v49 = MEMORY[0x277D82878] + 16;
-    if (v51 < 0)
+    degas::Statement::~Statement(v46);
+    __p = v8;
+    *(&__p + *(v8 - 3)) = v9;
+    v48 = MEMORY[0x277D82878] + 16;
+    if (v50 < 0)
     {
-      operator delete(v50[7].__locale_);
+      operator delete(v49[7].__locale_);
     }
 
-    v49 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v50);
+    v48 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v49);
     std::ostream::~ostream();
-    MEMORY[0x259C43E80](&v52);
+    MEMORY[0x259C43E80](&v51);
   }
 
   degas::Statement::~Statement(ppStmt);
-  v54 = v9;
-  *(&v54 + *(v9 - 3)) = v10;
-  v55 = MEMORY[0x277D82878] + 16;
-  if (v57 < 0)
+  v53 = v8;
+  *(&v53 + *(v8 - 3)) = v9;
+  v54 = MEMORY[0x277D82878] + 16;
+  if (v56 < 0)
   {
-    operator delete(v56[7].__locale_);
+    operator delete(v55[7].__locale_);
   }
 
-  v55 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v56);
+  v54 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v55);
   std::ostream::~ostream();
-  MEMORY[0x259C43E80](&v58);
-  return v7;
+  MEMORY[0x259C43E80](&v57);
+  return v6;
+}
+
+void sub_2558E400C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52)
+{
+  degas::Statement::~Statement(&a13);
+  std::ostringstream::~ostringstream(&a16);
+  degas::Statement::~Statement(&a49);
+  std::ostringstream::~ostringstream(&a52);
+  degas::Statement::~Statement(&STACK[0x260]);
+  std::ostringstream::~ostringstream(&STACK[0x278]);
+  degas::Statement::~Statement(&STACK[0x380]);
+  std::ostringstream::~ostringstream(&STACK[0x398]);
+  _Unwind_Resume(a1);
+}
+
+void degas::AttributeValueTable::~AttributeValueTable(degas::AttributeValueTable *this)
+{
+  *this = &unk_2867A9A50;
+  *(this + 4) = 0;
+  if (*(this + 31) < 0)
+  {
+    operator delete(*(this + 1));
+  }
+
+  JUMPOUT(0x259C43EB0);
+}
+
+{
+  *this = &unk_2867A9A50;
+  *(this + 4) = 0;
+  if (*(this + 31) < 0)
+  {
+    operator delete(*(this + 1));
+  }
+}
+
+{
+  *this = &unk_2867A9A50;
+  *(this + 4) = 0;
+  if (*(this + 31) < 0)
+  {
+    operator delete(*(this + 1));
+  }
+}
+
+void *degas::AttributeValueTable::AttributeValueTable(void *a1, uint64_t a2, __int128 *a3, char a4, uint64_t a5)
+{
+  result = degas::Table::Table(a1, a3, a2, a5);
+  *result = &unk_2867A9040;
+  *(result + 48) = a4;
+  return result;
+}
+
+{
+  result = degas::Table::Table(a1, a3, a2, a5);
+  *result = &unk_2867A9040;
+  *(result + 48) = a4;
+  return result;
+}
+
+const char *degas::AttributeValueTable::operatorText(unsigned int a1)
+{
+  if (a1 > 8)
+  {
+    return " == ";
+  }
+
+  else
+  {
+    return *(&off_2797FE388 + a1);
+  }
+}
+
+const char *degas::AttributeValueTable::listOperatorText(int a1)
+{
+  v4 = *MEMORY[0x277D85DE8];
+  switch(a1)
+  {
+    case 1:
+      return " in ";
+    case 8:
+      return " collate nocasenodiacritics in ";
+    case 2:
+      return " not in ";
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v3[0] = 67109120;
+    v3[1] = a1;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "unsupported operator for list comparison: %d", v3, 8u);
+  }
+
+  return "";
+}
+
+uint64_t degas::AttributeValueTable::rangeOperatorText(const char *a1, int a2)
+{
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
+  if (a2 > 4)
+  {
+    if (a2 > 6)
+    {
+      if (a2 == 7)
+      {
+        v20 = strlen(a1);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v20);
+        v14 = " < ?2 or ";
+        v15 = 9;
+      }
+
+      else
+      {
+        if (a2 != 8)
+        {
+          goto LABEL_23;
+        }
+
+        v13 = strlen(a1);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v13);
+        v14 = " <= ?2 or ";
+        v15 = 10;
+      }
+
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v14, v15);
+      v21 = strlen(a1);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v21);
+      v7 = " >= ?3";
+      goto LABEL_21;
+    }
+
+    if (a2 == 5)
+    {
+      v18 = strlen(a1);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v18);
+      v7 = " not between ?2 and ?3";
+      v17 = 22;
+      goto LABEL_22;
+    }
+
+    v8 = strlen(a1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, " <= ?2 or ", 10);
+    v9 = strlen(a1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v9);
+    v7 = " > ?3";
+LABEL_18:
+    v17 = 5;
+    goto LABEL_22;
+  }
+
+  if (a2 > 2)
+  {
+    v10 = strlen(a1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v10);
+    if (a2 == 3)
+    {
+      v11 = " >= ?2 and ";
+      v12 = 11;
+    }
+
+    else
+    {
+      v11 = " > ?2 and ";
+      v12 = 10;
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v11, v12);
+    v19 = strlen(a1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v19);
+    v7 = " < ?3";
+    goto LABEL_18;
+  }
+
+  if (a2 != 1)
+  {
+    if (a2 != 2)
+    {
+      goto LABEL_23;
+    }
+
+    v5 = strlen(a1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, " > ?2 and ", 10);
+    v6 = strlen(a1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v6);
+    v7 = " <= ?3";
+LABEL_21:
+    v17 = 6;
+    goto LABEL_22;
+  }
+
+  v16 = strlen(a1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, a1, v16);
+  v7 = " between ?2 and ?3";
+  v17 = 18;
+LABEL_22:
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v7, v17);
+LABEL_23:
+  std::stringbuf::str();
+  v23 = *MEMORY[0x277D82828];
+  *(&v23 + *(v23 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v24 = MEMORY[0x277D82878] + 16;
+  if (v26 < 0)
+  {
+    operator delete(v25[7].__locale_);
+  }
+
+  v24 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v25);
+  std::ostream::~ostream();
+  return MEMORY[0x259C43E80](&v27);
+}
+
+void sub_2558E4768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::ostringstream::~ostringstream(va);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::upsertStatement(degas::AttributeValueTable *this)
+{
+  v1 = (*(this + 48) << 16) | 0x300u;
+  v2 = *(this + 5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZNK5degas19AttributeValueTable15upsertStatementEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_1339;
+  v4[4] = this;
+  return degas::StatementCache::getStatement(v2, v1, v4);
+}
+
+void ___ZNK5degas19AttributeValueTable15upsertStatementEv_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "insert or replace into ", 23);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
+  {
+    v4 = v2 + 8;
+  }
+
+  else
+  {
+    v4 = *(v2 + 8);
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(v2 + 31);
+  }
+
+  else
+  {
+    v5 = *(v2 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " (elementId, attributeId, intValue, realValue, stringValue, dataType) values (?1, ?2, ?3, ?4, ?5, ?6)", 101);
+  operator new();
+}
+
+void sub_2558E49EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByIdentifierStatement(degas::AttributeValueTable *this)
+{
+  v1 = (*(this + 48) << 16) | 0x600u;
+  v2 = *(this + 5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZNK5degas19AttributeValueTable25readByIdentifierStatementEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_30;
+  v4[4] = this;
+  return degas::StatementCache::getStatement(v2, v1, v4);
+}
+
+void ___ZNK5degas19AttributeValueTable25readByIdentifierStatementEv_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
+  {
+    v4 = v2 + 8;
+  }
+
+  else
+  {
+    v4 = *(v2 + 8);
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(v2 + 31);
+  }
+
+  else
+  {
+    v5 = *(v2 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where elementId=?1", 19);
+  operator new();
+}
+
+void sub_2558E4CB4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByAttrIdIdentifierStatement(degas::AttributeValueTable *this)
+{
+  v1 = (*(this + 48) << 16) | 0x800u;
+  v2 = *(this + 5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZNK5degas19AttributeValueTable31readByAttrIdIdentifierStatementEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_31;
+  v4[4] = this;
+  return degas::StatementCache::getStatement(v2, v1, v4);
+}
+
+void ___ZNK5degas19AttributeValueTable31readByAttrIdIdentifierStatementEv_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
+  {
+    v4 = v2 + 8;
+  }
+
+  else
+  {
+    v4 = *(v2 + 8);
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(v2 + 31);
+  }
+
+  else
+  {
+    v5 = *(v2 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " where elementId=?1 and attributeId=?2", 38);
+  operator new();
+}
+
+void sub_2558E4F7C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByBitmapStatement(degas::AttributeValueTable *this)
+{
+  v1 = (*(this + 48) << 16) | 0x801u;
+  v2 = *(this + 5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZNK5degas19AttributeValueTable21readByBitmapStatementEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_34;
+  v4[4] = this;
+  return degas::StatementCache::getStatement(v2, v1, v4);
+}
+
+void ___ZNK5degas19AttributeValueTable21readByBitmapStatementEv_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select v.elementId, v.attributeId, v.intValue, v.realValue, v.stringValue, v.dataType from ", 91);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
+  {
+    v4 = v2 + 8;
+  }
+
+  else
+  {
+    v4 = *(v2 + 8);
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(v2 + 31);
+  }
+
+  else
+  {
+    v5 = *(v2 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " v, identifierBitmap(?1) b where v.elementId = b.value order by v.elementId", 75);
+  operator new();
+}
+
+void sub_2558E5244(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByIntValueStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable23readByIntValueStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_37;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, a2 | (v2 << 16) | 0x900u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable23readByIntValueStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " where attributeId=?1 and intValue", 34);
+  v7 = *(a1 + 40);
+  if (v7 > 8)
+  {
+    v8 = " == ";
+  }
+
+  else
+  {
+    v8 = *(&off_2797FE388 + v7);
+  }
+
+  v9 = strlen(v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v8, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "?2 order by elementId", 21);
+  operator new();
+}
+
+void sub_2558E556C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByBitmapAndAttrIdentifierStatement(degas::AttributeValueTable *this)
+{
+  v1 = (*(this + 48) << 16) | 0x802u;
+  v2 = *(this + 5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZNK5degas19AttributeValueTable38readByBitmapAndAttrIdentifierStatementEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_39;
+  v4[4] = this;
+  return degas::StatementCache::getStatement(v2, v1, v4);
+}
+
+void ___ZNK5degas19AttributeValueTable38readByBitmapAndAttrIdentifierStatementEv_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select v.elementId, v.attributeId, v.intValue, v.realValue, v.stringValue, v.dataType from ", 91);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
+  {
+    v4 = v2 + 8;
+  }
+
+  else
+  {
+    v4 = *(v2 + 8);
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(v2 + 31);
+  }
+
+  else
+  {
+    v5 = *(v2 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " v, identifierBitmap(?1) b where v.elementId = b.value and v.attributeId=?2 order by v.elementId", 96);
+  operator new();
+}
+
+void sub_2558E5834(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByRealValueStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable24readByRealValueStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_41;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, a2 | (v2 << 16) | 0xA00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable24readByRealValueStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " where attributeId=?1 and realValue", 35);
+  v7 = *(a1 + 40);
+  if (v7 > 8)
+  {
+    v8 = " == ";
+  }
+
+  else
+  {
+    v8 = *(&off_2797FE388 + v7);
+  }
+
+  v9 = strlen(v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v8, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "?2 order by elementId", 21);
+  operator new();
+}
+
+void sub_2558E5B5C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByStringValueStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable26readByStringValueStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_43;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, a2 | (v2 << 16) | 0xB00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable26readByStringValueStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " where attributeId=?1 and stringValue", 37);
+  v7 = *(a1 + 40);
+  if (v7 > 8)
+  {
+    v8 = " == ";
+  }
+
+  else
+  {
+    v8 = *(&off_2797FE388 + v7);
+  }
+
+  v9 = strlen(v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v8, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "?2 order by elementId", 21);
+  operator new();
+}
+
+void sub_2558E5E84(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByIntValuesStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable24readByIntValuesStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_45;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, a2 | (v2 << 16) | 0xC00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable24readByIntValuesStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " where attributeId=?1 and intValue", 34);
+  v7 = degas::AttributeValueTable::listOperatorText(*(a1 + 40));
+  v8 = strlen(v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, v7, v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "valueArray(?2, ?3, 'int64') order by elementId", 46);
+  operator new();
+}
+
+void sub_2558E618C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByRealValuesStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable25readByRealValuesStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_47;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, a2 | (v2 << 16) | 0xD00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable25readByRealValuesStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " where attributeId=?1 and realValue", 35);
+  v7 = degas::AttributeValueTable::listOperatorText(*(a1 + 40));
+  v8 = strlen(v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, v7, v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "valueArray(?2, ?3, 'double') order by elementId", 47);
+  operator new();
+}
+
+void sub_2558E6498(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByStringValuesStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable27readByStringValuesStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_49;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, a2 | (v2 << 16) | 0xE00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable27readByStringValuesStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " where attributeId=?1 and stringValue", 37);
+  v7 = degas::AttributeValueTable::listOperatorText(*(a1 + 40));
+  v8 = strlen(v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, v7, v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "valueArray(?2, ?3, 'char*') order by elementId", 46);
+  operator new();
+}
+
+void sub_2558E67A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByIntValueIdentifiersStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable34readByIntValueIdentifiersStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_52;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, (a2 + 16) | (v2 << 16) | 0x900u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable34readByIntValueIdentifiersStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " where elementId in identifierBitmap(?1) and attributeId = ?2 and +intValue", 75);
+  v7 = *(a1 + 40);
+  if (v7 > 8)
+  {
+    v8 = " == ";
+  }
+
+  else
+  {
+    v8 = *(&off_2797FE388 + v7);
+  }
+
+  v9 = strlen(v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v8, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "?3", 2);
+  operator new();
+}
+
+void sub_2558E6ACC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByRealValueIdentifiersStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable35readByRealValueIdentifiersStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_54;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, (a2 + 16) | (v2 << 16) | 0xA00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable35readByRealValueIdentifiersStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " where elementId in identifierBitmap(?1) and attributeId = ?2 and +realValue", 76);
+  v7 = *(a1 + 40);
+  if (v7 > 8)
+  {
+    v8 = " == ";
+  }
+
+  else
+  {
+    v8 = *(&off_2797FE388 + v7);
+  }
+
+  v9 = strlen(v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v8, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "?3", 2);
+  operator new();
+}
+
+void sub_2558E6DF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByStringValueIdentifiersStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable37readByStringValueIdentifiersStatementENS_14BinaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_56;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, (a2 + 16) | (v2 << 16) | 0xB00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable37readByStringValueIdentifiersStatementENS_14BinaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " where elementId in identifierBitmap(?1) and attributeId = ?2 and +stringValue", 78);
+  v7 = *(a1 + 40);
+  if (v7 > 8)
+  {
+    v8 = " == ";
+  }
+
+  else
+  {
+    v8 = *(&off_2797FE388 + v7);
+  }
+
+  v9 = strlen(v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v8, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "?3", 2);
+  operator new();
+}
+
+void sub_2558E7124(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByIntRangeStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable23readByIntRangeStatementENS_15TernaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_60;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, (a2 + 32) | (v2 << 16) | 0x900u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable23readByIntRangeStatementENS_15TernaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " where attributeId=?1 and ", 26);
+  degas::AttributeValueTable::rangeOperatorText("intValue", *(a1 + 40));
+  if ((v10 & 0x80u) == 0)
+  {
+    v7 = __p;
+  }
+
+  else
+  {
+    v7 = __p[0];
+  }
+
+  if ((v10 & 0x80u) == 0)
+  {
+    v8 = v10;
+  }
+
+  else
+  {
+    v8 = __p[1];
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v7, v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " order by elementId", 19);
+  if (v10 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  operator new();
+}
+
+void sub_2558E745C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByRealRangeStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable24readByRealRangeStatementENS_15TernaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_62;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, (a2 + 32) | (v2 << 16) | 0xA00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable24readByRealRangeStatementENS_15TernaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " where attributeId=?1 and ", 26);
+  degas::AttributeValueTable::rangeOperatorText("realValue", *(a1 + 40));
+  if ((v10 & 0x80u) == 0)
+  {
+    v7 = __p;
+  }
+
+  else
+  {
+    v7 = __p[0];
+  }
+
+  if ((v10 & 0x80u) == 0)
+  {
+    v8 = v10;
+  }
+
+  else
+  {
+    v8 = __p[1];
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v7, v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " order by elementId", 19);
+  if (v10 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  operator new();
+}
+
+void sub_2558E77B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readByStringRangeStatement(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 40);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK5degas19AttributeValueTable26readByStringRangeStatementENS_15TernaryOperatorE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_64;
+  v5[4] = a1;
+  v6 = a2;
+  return degas::StatementCache::getStatement(v3, (a2 + 32) | (v2 << 16) | 0xB00u, v5);
+}
+
+void ___ZNK5degas19AttributeValueTable26readByStringRangeStatementENS_15TernaryOperatorE_block_invoke(uint64_t a1)
+{
+  v3 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v4 = *(v3 + 31);
+  if (v4 >= 0)
+  {
+    v5 = v3 + 8;
+  }
+
+  else
+  {
+    v5 = *(v3 + 8);
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(v3 + 31);
+  }
+
+  else
+  {
+    v6 = *(v3 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v5, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " where attributeId=?1 and ", 26);
+  degas::AttributeValueTable::rangeOperatorText("stringValue", *(a1 + 40));
+  if ((v10 & 0x80u) == 0)
+  {
+    v7 = __p;
+  }
+
+  else
+  {
+    v7 = __p[0];
+  }
+
+  if ((v10 & 0x80u) == 0)
+  {
+    v8 = v10;
+  }
+
+  else
+  {
+    v8 = __p[1];
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v7, v8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " order by elementId", 19);
+  if (v10 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  operator new();
+}
+
+void sub_2558E7B04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+degas::Statement **degas::AttributeValueTable::readAllStatement(degas::AttributeValueTable *this)
+{
+  v1 = (*(this + 48) << 16) | 0x700u;
+  v2 = *(this + 5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 0x40000000;
+  v4[2] = ___ZNK5degas19AttributeValueTable16readAllStatementEv_block_invoke;
+  v4[3] = &__block_descriptor_tmp_65;
+  v4[4] = this;
+  return degas::StatementCache::getStatement(v2, v1, v4);
+}
+
+void ___ZNK5degas19AttributeValueTable16readAllStatementEv_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, "select elementId, attributeId, intValue, realValue, stringValue, dataType from ", 79);
+  v3 = *(v2 + 31);
+  if (v3 >= 0)
+  {
+    v4 = v2 + 8;
+  }
+
+  else
+  {
+    v4 = *(v2 + 8);
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(v2 + 31);
+  }
+
+  else
+  {
+    v5 = *(v2 + 16);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, " order by elementId", 19);
+  operator new();
+}
+
+void sub_2558E7DE8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x259C43EB0](v15, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  std::ostringstream::~ostringstream(&a15);
+  _Unwind_Resume(a1);
+}
+
+uint64_t degas::AttributeValueTable::insertOrUpdate(degas::AttributeValueTable *this, sqlite3_int64 a2, sqlite3_int64 a3, sqlite3_int64 a4)
+{
+  v7 = degas::AttributeValueTable::upsertStatement(this);
+  degas::Statement::bindInteger(*v7, 1, a3);
+  degas::Statement::bindInteger(*v7, 2, a2);
+  degas::Statement::bindInteger(*v7, 3, a4);
+  degas::Statement::bindNull(*v7, 4);
+  degas::Statement::bindNull(*v7, 5);
+  degas::Statement::bindInteger(*v7, 6, 1);
+  v8 = *v7;
+
+  return degas::Statement::update(v8);
+}
+
+uint64_t degas::AttributeValueTable::insertOrUpdateUnsigned(degas::AttributeValueTable *this, sqlite3_int64 a2, sqlite3_int64 a3, sqlite3_int64 a4)
+{
+  v7 = degas::AttributeValueTable::upsertStatement(this);
+  degas::Statement::bindInteger(*v7, 1, a3);
+  degas::Statement::bindInteger(*v7, 2, a2);
+  degas::Statement::bindInteger(*v7, 3, a4);
+  degas::Statement::bindNull(*v7, 4);
+  degas::Statement::bindNull(*v7, 5);
+  degas::Statement::bindInteger(*v7, 6, 4);
+  v8 = *v7;
+
+  return degas::Statement::update(v8);
+}
+
+uint64_t degas::AttributeValueTable::insertOrUpdate(degas::AttributeValueTable *this, sqlite3_int64 a2, sqlite3_int64 a3, double a4)
+{
+  v7 = degas::AttributeValueTable::upsertStatement(this);
+  degas::Statement::bindInteger(*v7, 1, a3);
+  degas::Statement::bindInteger(*v7, 2, a2);
+  degas::Statement::bindNull(*v7, 3);
+  degas::Statement::bindDouble(*v7, 4, a4);
+  degas::Statement::bindNull(*v7, 5);
+  degas::Statement::bindInteger(*v7, 6, 2);
+  v8 = *v7;
+
+  return degas::Statement::update(v8);
+}
+
+uint64_t degas::AttributeValueTable::insertOrUpdate(degas::AttributeValueTable *a1, sqlite3_int64 a2, sqlite3_int64 a3, uint64_t *a4)
+{
+  v7 = degas::AttributeValueTable::upsertStatement(a1);
+  degas::Statement::bindInteger(*v7, 1, a3);
+  degas::Statement::bindInteger(*v7, 2, a2);
+  degas::Statement::bindNull(*v7, 3);
+  degas::Statement::bindNull(*v7, 4);
+  degas::Statement::bindString(*v7, 5, a4);
+  degas::Statement::bindInteger(*v7, 6, 3);
+  v8 = *v7;
+
+  return degas::Statement::update(v8);
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByIdentifier(degas::AttributeValueTable *this, sqlite3_int64 a2)
+{
+  v3 = degas::AttributeValueTable::readByIdentifierStatement(this);
+  degas::Statement::bindInteger(*v3, 1, a2);
+  return v3;
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByAttrIdIdentifier(degas::AttributeValueTable *this, sqlite3_int64 a2, sqlite3_int64 a3)
+{
+  v5 = degas::AttributeValueTable::readByAttrIdIdentifierStatement(this);
+  degas::Statement::bindInteger(*v5, 1, a3);
+  degas::Statement::bindInteger(*v5, 2, a2);
+  return v5;
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByBitmap(degas::AttributeValueTable *this, Bitmap *a2)
+{
+  v3 = degas::AttributeValueTable::readByBitmapStatement(this);
+  degas::Statement::bindBitmapPointer(*v3, 1, a2);
+  return v3;
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByBitmapAndAttrIdIdentifier(degas::AttributeValueTable *this, Bitmap *a2, sqlite3_int64 a3)
+{
+  v5 = degas::AttributeValueTable::readByBitmapAndAttrIdentifierStatement(this);
+  degas::Statement::bindBitmapPointer(*v5, 1, a2);
+  degas::Statement::bindInteger(*v5, 2, a3);
+  return v5;
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByValue(uint64_t a1, sqlite3_int64 a2, sqlite3_int64 a3, int a4)
+{
+  v6 = degas::AttributeValueTable::readByIntValueStatement(a1, a4);
+  degas::Statement::bindInteger(*v6, 1, a2);
+  degas::Statement::bindInteger(*v6, 2, a3);
+  return v6;
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByValue(uint64_t a1, sqlite3_int64 a2, int a3, double a4)
+{
+  v6 = degas::AttributeValueTable::readByRealValueStatement(a1, a3);
+  degas::Statement::bindInteger(*v6, 1, a2);
+  degas::Statement::bindDouble(*v6, 2, a4);
+  return v6;
+}
+
+sqlite3_stmt ***degas::AttributeValueTable::prepareStatementToReadByValue(uint64_t a1, sqlite3_int64 a2, uint64_t *a3, int a4)
+{
+  v6 = degas::AttributeValueTable::readByStringValueStatement(a1, a4);
+  degas::Statement::bindInteger(*v6, 1, a2);
+  degas::Statement::bindString(*v6, 2, a3);
+  return v6;
 }

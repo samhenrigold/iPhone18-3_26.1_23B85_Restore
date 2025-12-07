@@ -109,9 +109,8 @@
   }
 
   key = self->_key;
-  v6 = *(equal + 5);
 
-  return [(NSString *)key isEqualToString:v6];
+  return objc_msgSend_isEqualToString_(key);
 }
 
 - (id)description

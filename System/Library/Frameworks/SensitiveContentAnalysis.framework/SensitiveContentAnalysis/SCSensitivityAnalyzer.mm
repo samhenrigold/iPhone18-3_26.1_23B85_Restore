@@ -714,9 +714,10 @@ LABEL_11:
 
 - (BOOL)shouldAnalyzeMediaWithType:(id)type error:(id *)error
 {
-  sub_1AEAF95BC();
+  v5 = sub_1AEAF95BC();
+  v7 = v6;
   selfCopy = self;
-  sub_1AEA90E90();
+  sub_1AEA90E90(v5, v7);
 
   return 1;
 }

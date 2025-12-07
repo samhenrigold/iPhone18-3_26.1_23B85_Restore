@@ -12,28 +12,27 @@
 {
   sub_18E1A7530();
   selfCopy = self;
-  NSUserDefaults.Global.object(forKey:)(v13);
+  NSUserDefaults.Global.object(forKey:)(v12);
 
-  v5 = v14;
-  if (v14)
+  v5 = v13;
+  if (v13)
   {
-    v6 = sub_18E158E00(v13, v14);
+    v6 = sub_18E158E00(v12, v13);
     v7 = *(v5 - 8);
-    v8 = *(v7 + 64);
     MEMORY[0x1EEE9AC00](v6, v6);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v10);
-    v11 = sub_18E1A7B80();
-    (*(v7 + 8))(v10, v5);
-    sub_18E158EC4(v13);
+    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v9);
+    v10 = sub_18E1A7B80();
+    (*(v7 + 8))(v9, v5);
+    sub_18E158EC4(v12);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setObject:(id)object forKey:(id)key
@@ -49,16 +48,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_18E1A7530();
+  v10 = sub_18E1A7530();
+  v12 = v11;
 
-  NSUserDefaults.Global.set(_:forKey:)(v10);
+  NSUserDefaults.Global.set(_:forKey:)(v13, v10, v12);
 
-  sub_18E178150(v10, &qword_1EABD0960, &qword_18E1AB550);
+  sub_18E178150(v13, &qword_1EABD0960, &qword_18E1AB550);
 }
 
 - (void)setObject:(id)object forKey:(id)key inDomain:(id)domain
@@ -121,28 +121,27 @@ LABEL_7:
   }
 
   selfCopy = self;
-  NSUserDefaults.Global.object(forKey:inDomain:)(v15);
+  NSUserDefaults.Global.object(forKey:inDomain:)(v14);
 
-  v7 = v16;
-  if (v16)
+  v7 = v15;
+  if (v15)
   {
-    v8 = sub_18E158E00(v15, v16);
+    v8 = sub_18E158E00(v14, v15);
     v9 = *(v7 - 8);
-    v10 = *(v9 + 64);
     MEMORY[0x1EEE9AC00](v8, v8);
-    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v9 + 16))(v12);
-    v13 = sub_18E1A7B80();
-    (*(v9 + 8))(v12, v7);
-    sub_18E158EC4(v15);
+    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v9 + 16))(v11);
+    v12 = sub_18E1A7B80();
+    (*(v9 + 8))(v11, v7);
+    sub_18E158EC4(v14);
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (id)dictionaryRepresentation

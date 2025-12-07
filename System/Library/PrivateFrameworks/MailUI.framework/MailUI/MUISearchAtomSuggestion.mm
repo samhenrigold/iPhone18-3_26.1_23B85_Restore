@@ -147,17 +147,17 @@ void __30__MUISearchAtomSuggestion_log__block_invoke(uint64_t a1)
       v17 = [lastObject v13];
       v27 = string;
       v18 = objc_opt_class();
-      __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(v18, &v27, v14, v17);
+      __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(v18, &v27, v14, v17, v18);
       v19 = v27;
 
       v26 = v12;
       v20 = objc_opt_class();
-      __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(v20, &v26, v15, v17);
+      __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(v20, &v26, v15, v17, v20);
       v21 = v26;
 
       v25 = 0;
       v22 = objc_opt_class();
-      __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(v22, &v25, v16, v17);
+      __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(v22, &v25, v16, v17, v22);
       v23 = v25;
 
       v12 = v21;
@@ -170,24 +170,24 @@ void __30__MUISearchAtomSuggestion_log__block_invoke(uint64_t a1)
   return v9;
 }
 
-uint64_t __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(uint64_t a1, void *a2, const char *a3, void *a4)
+uint64_t __79__MUISearchAtomSuggestion_suggestionFromSpotlightSuggestion_shouldShowAvaters___block_invoke(uint64_t a1, void *a2, const char *a3, void *a4, uint64_t a5)
 {
-  v11 = a4;
-  v6 = objc_opt_respondsToSelector();
-  v7 = v11;
-  if (v6)
+  v12 = a4;
+  v7 = objc_opt_respondsToSelector();
+  v8 = v12;
+  if (v7)
   {
-    v8 = [v11 a3];
+    v9 = [v12 a3];
     if (objc_opt_isKindOfClass())
     {
-      v9 = v8;
-      *a2 = v8;
+      v10 = v9;
+      *a2 = v9;
     }
 
-    v7 = v11;
+    v8 = v12;
   }
 
-  return MEMORY[0x2821F96F8](v6, v7);
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 - (void)predicateWithSelectedScope:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

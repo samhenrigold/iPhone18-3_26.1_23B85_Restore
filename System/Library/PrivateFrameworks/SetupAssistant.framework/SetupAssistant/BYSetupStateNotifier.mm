@@ -50,7 +50,7 @@
   return v4;
 }
 
-uint64_t __36__BYSetupStateNotifier_currentState__block_invoke(uint64_t a1)
+void *__36__BYSetupStateNotifier_currentState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -266,38 +266,40 @@ uint64_t __55__BYSetupStateNotifier_addRelaunchStateChangeObserver___block_invok
   }
 
   is_valid_token = notify_is_valid_token([(BYSetupStateNotifier *)self stateNotificationToken]);
-  v8 = _BYLoggingFacility();
-  v9 = v8;
-  if (!is_valid_token)
+  v8 = is_valid_token;
+  v9 = _BYLoggingFacility(is_valid_token);
+  v10 = v9;
+  if (!v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [BYSetupStateNotifier notifyStateChangedTo:v9];
+      [BYSetupStateNotifier notifyStateChangedTo:v10];
     }
 
     goto LABEL_15;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [(BYSetupStateNotifier *)to notifyStateChangedTo:v9];
+    [(BYSetupStateNotifier *)to notifyStateChangedTo:v10];
   }
 
-  v10 = notify_set_state([(BYSetupStateNotifier *)self stateNotificationToken], to);
-  if (v10)
+  v11 = notify_set_state([(BYSetupStateNotifier *)self stateNotificationToken], to);
+  if (v11)
   {
-    v11 = v10;
-    v12 = _BYLoggingFacility();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v12 = v11;
+    v13 = _BYLoggingFacility(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(BYSetupStateNotifier *)to notifyStateChangedTo:v11, v12];
+      [(BYSetupStateNotifier *)to notifyStateChangedTo:v12, v13];
     }
   }
 
-  if (notify_post("com.apple.purplebuddy.setupStateChanged"))
+  v14 = notify_post("com.apple.purplebuddy.setupStateChanged");
+  if (v14)
   {
-    v9 = _BYLoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _BYLoggingFacility(v14);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [BYSetupStateNotifier notifyStateChangedTo:];
     }
@@ -308,27 +310,118 @@ LABEL_15:
 
 - (void)notifySetupShouldRemainAlive
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to post remaing alive notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = _BYLoggingFacility(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [(BYSetupStateNotifier *)v3 notifySetupShouldRemainAlive];
+  }
+
+  v4 = notify_set_state([(BYSetupStateNotifier *)self shouldRemainAliveNotificationToken], 1uLL);
+  if (v4)
+  {
+    v5 = _BYLoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BYSetupStateNotifier notifySetupShouldRemainAlive];
+    }
+  }
+
+  v6 = notify_post("com.apple.purplebuddy.setupShouldRemainAlive");
+  if (v6)
+  {
+    v7 = _BYLoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [BYSetupStateNotifier notifySetupShouldRemainAlive];
+    }
+  }
 }
 
 - (void)_beginObservingState
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to register for the should remain alive notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  [(BYSetupStateNotifier *)self setShouldRelaunchSetup:BYSetupAssistantNeedsToRun()];
+  if (![(BYSetupStateNotifier *)self shouldRelaunchSetup])
+  {
+    [(BYSetupStateNotifier *)self setState:3];
+  }
+
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __44__BYSetupStateNotifier__beginObservingState__block_invoke;
+  v21[3] = &unk_1E7D03678;
+  v21[4] = self;
+  v3 = MEMORY[0x1B8CC28E0](v21);
+  notificationQueue = [(BYSetupStateNotifier *)self notificationQueue];
+  v5 = notify_register_dispatch("com.apple.purplebuddy.setupStateChanged", &self->_stateNotificationToken, notificationQueue, v3);
+
+  if (v5)
+  {
+    v7 = _BYLoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [BYSetupStateNotifier _beginObservingState];
+    }
+  }
+
+  else
+  {
+    if ([(BYSetupStateNotifier *)self state]!= 3)
+    {
+      notificationQueue2 = [(BYSetupStateNotifier *)self notificationQueue];
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __44__BYSetupStateNotifier__beginObservingState__block_invoke_10;
+      block[3] = &unk_1E7D03CA0;
+      block[4] = self;
+      v20 = v3;
+      dispatch_sync(notificationQueue2, block);
+    }
+
+    uTF8String = [(__CFString *)@"com.apple.purplebuddy.readytoexit" UTF8String];
+    notificationQueue3 = [(BYSetupStateNotifier *)self notificationQueue];
+    handler[0] = MEMORY[0x1E69E9820];
+    handler[1] = 3221225472;
+    handler[2] = __44__BYSetupStateNotifier__beginObservingState__block_invoke_2;
+    handler[3] = &unk_1E7D03678;
+    handler[4] = self;
+    LODWORD(uTF8String) = notify_register_dispatch(uTF8String, &self->_exclusiveNotificationToken, notificationQueue3, handler);
+
+    if (uTF8String)
+    {
+      v12 = _BYLoggingFacility(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        [BYSetupStateNotifier _beginObservingState];
+      }
+    }
+
+    notificationQueue4 = [(BYSetupStateNotifier *)self notificationQueue];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __44__BYSetupStateNotifier__beginObservingState__block_invoke_11;
+    v17[3] = &unk_1E7D03678;
+    v17[4] = self;
+    v14 = notify_register_dispatch("com.apple.purplebuddy.setupShouldRemainAlive", &self->_shouldRemainAliveNotificationToken, notificationQueue4, v17);
+
+    if (v14)
+    {
+      v16 = _BYLoggingFacility(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        [BYSetupStateNotifier _beginObservingState];
+      }
+    }
+  }
 }
 
 void __44__BYSetupStateNotifier__beginObservingState__block_invoke(uint64_t a1)
 {
   state64 = 0;
-  if (notify_get_state([*(a1 + 32) stateNotificationToken], &state64))
+  state = notify_get_state([*(a1 + 32) stateNotificationToken], &state64);
+  if (state)
   {
-    v2 = _BYLoggingFacility();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _BYLoggingFacility(state);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __44__BYSetupStateNotifier__beginObservingState__block_invoke_cold_1();
     }
@@ -360,7 +453,7 @@ uint64_t __44__BYSetupStateNotifier__beginObservingState__block_invoke_10(uint64
 
 - (void)_stateChangedTo:(unint64_t)to
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   notificationQueue = [(BYSetupStateNotifier *)self notificationQueue];
   dispatch_assert_queue_V2(notificationQueue);
 
@@ -368,27 +461,27 @@ uint64_t __44__BYSetupStateNotifier__beginObservingState__block_invoke_10(uint64
   {
     state = [(BYSetupStateNotifier *)self state];
     [(BYSetupStateNotifier *)self setState:to];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = [(BYSetupStateNotifier *)self generalStateNotificationBlocks];
-    v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v32;
+      v9 = *v31;
       do
       {
         v10 = 0;
         do
         {
-          if (*v32 != v9)
+          if (*v31 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v31 + 1) + 8 * v10);
+          v11 = *(*(&v30 + 1) + 8 * v10);
           v12 = dispatch_get_global_queue(0, 0);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
@@ -403,7 +496,7 @@ uint64_t __44__BYSetupStateNotifier__beginObservingState__block_invoke_10(uint64
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v8);
@@ -413,47 +506,45 @@ uint64_t __44__BYSetupStateNotifier__beginObservingState__block_invoke_10(uint64
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BYSetupStateNotifier state](self, "state")}];
     v15 = [specificStateNotificationBlocks objectForKeyedSubscript:v14];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v27;
+      v19 = *v26;
       do
       {
         v20 = 0;
         do
         {
-          if (*v27 != v19)
+          if (*v26 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v26 + 1) + 8 * v20);
+          v21 = *(*(&v25 + 1) + 8 * v20);
           v22 = dispatch_get_global_queue(0, 0);
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __40__BYSetupStateNotifier__stateChangedTo___block_invoke_2;
-          v25[3] = &unk_1E7D02D70;
-          v25[4] = v21;
-          dispatch_async(v22, v25);
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __40__BYSetupStateNotifier__stateChangedTo___block_invoke_2;
+          v24[3] = &unk_1E7D02D70;
+          v24[4] = v21;
+          dispatch_async(v22, v24);
 
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v18);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__BYSetupStateNotifier__stateChangedTo___block_invoke(uint64_t a1)
@@ -468,28 +559,28 @@ uint64_t __40__BYSetupStateNotifier__stateChangedTo___block_invoke(uint64_t a1)
 
 - (void)_noLongerExclusiveNotificationFired
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   exclusiveNotificationBlocks = [(BYSetupStateNotifier *)self exclusiveNotificationBlocks];
-  v4 = [exclusiveNotificationBlocks countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [exclusiveNotificationBlocks countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(exclusiveNotificationBlocks);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * v7);
+        v8 = *(*(&v25 + 1) + 8 * v7);
         v9 = dispatch_get_global_queue(0, 0);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
@@ -502,7 +593,7 @@ uint64_t __40__BYSetupStateNotifier__stateChangedTo___block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [exclusiveNotificationBlocks countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v5 = [exclusiveNotificationBlocks countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
@@ -510,91 +601,126 @@ uint64_t __40__BYSetupStateNotifier__stateChangedTo___block_invoke(uint64_t a1)
 
   [(BYSetupStateNotifier *)self setShouldRelaunchSetup:0];
   shouldRelaunchSetup = [(BYSetupStateNotifier *)self shouldRelaunchSetup];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   relaunchStateNotificationBlocks = [(BYSetupStateNotifier *)self relaunchStateNotificationBlocks];
-  v12 = [relaunchStateNotificationBlocks countByEnumeratingWithState:&v21 objects:v30 count:16];
+  v12 = [relaunchStateNotificationBlocks countByEnumeratingWithState:&v20 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(relaunchStateNotificationBlocks);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * v15);
+        v16 = *(*(&v20 + 1) + 8 * v15);
         v17 = dispatch_get_global_queue(0, 0);
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __59__BYSetupStateNotifier__noLongerExclusiveNotificationFired__block_invoke_2;
-        v19[3] = &unk_1E7D03D18;
-        v19[4] = v16;
-        v20 = shouldRelaunchSetup;
-        dispatch_async(v17, v19);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __59__BYSetupStateNotifier__noLongerExclusiveNotificationFired__block_invoke_2;
+        v18[3] = &unk_1E7D03D18;
+        v18[4] = v16;
+        v19 = shouldRelaunchSetup;
+        dispatch_async(v17, v18);
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [relaunchStateNotificationBlocks countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v13 = [relaunchStateNotificationBlocks countByEnumeratingWithState:&v20 objects:v29 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_shouldRemainAliveNotificationFired
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to get the state of the should remain alive notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  state64 = 0;
+  state = notify_get_state([(BYSetupStateNotifier *)self shouldRemainAliveNotificationToken], &state64);
+  if (state)
+  {
+    relaunchStateNotificationBlocks = _BYLoggingFacility(state);
+    if (os_log_type_enabled(relaunchStateNotificationBlocks, OS_LOG_TYPE_ERROR))
+    {
+      [BYSetupStateNotifier _shouldRemainAliveNotificationFired];
+    }
+
+LABEL_4:
+
+    return;
+  }
+
+  v5 = state64;
+  v6 = state64 == 1;
+  if ([(BYSetupStateNotifier *)self shouldRelaunchSetup]!= v6)
+  {
+    [(BYSetupStateNotifier *)self setShouldRelaunchSetup:v5 == 1];
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    relaunchStateNotificationBlocks = [(BYSetupStateNotifier *)self relaunchStateNotificationBlocks];
+    v7 = [relaunchStateNotificationBlocks countByEnumeratingWithState:&v15 objects:v20 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v16;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v16 != v9)
+          {
+            objc_enumerationMutation(relaunchStateNotificationBlocks);
+          }
+
+          v11 = *(*(&v15 + 1) + 8 * i);
+          v12 = dispatch_get_global_queue(0, 0);
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = __59__BYSetupStateNotifier__shouldRemainAliveNotificationFired__block_invoke;
+          v13[3] = &unk_1E7D03D18;
+          v13[4] = v11;
+          v14 = v6;
+          dispatch_async(v12, v13);
+        }
+
+        v8 = [relaunchStateNotificationBlocks countByEnumeratingWithState:&v15 objects:v20 count:16];
+      }
+
+      while (v8);
+    }
+
+    goto LABEL_4;
+  }
 }
 
 - (void)notifyStateChangedTo:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B862F000, a2, OS_LOG_TYPE_DEBUG, "Updating state notification to %ld...", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B862F000, a2, OS_LOG_TYPE_DEBUG, "Updating state notification to %ld...", &v2, 0xCu);
 }
 
 - (void)notifyStateChangedTo:(os_log_t)log .cold.3(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B862F000, log, OS_LOG_TYPE_ERROR, "Failed to update state notification to %ld: %d", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)notifyStateChangedTo:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to post state notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __44__BYSetupStateNotifier__beginObservingState__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1B862F000, v0, v1, "Failed to get the state of the state notification: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B862F000, log, OS_LOG_TYPE_ERROR, "Failed to update state notification to %ld: %d", &v3, 0x12u);
 }
 
 @end

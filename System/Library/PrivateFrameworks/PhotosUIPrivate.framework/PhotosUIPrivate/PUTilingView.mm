@@ -186,7 +186,7 @@ void __78__PUTilingView__transferTileControllersToDataSource_usingDataSourceConv
   v8 = [v6 dataSourceIdentifier];
   v9 = [v7 _dataSourceWithIdentifier:v8];
 
-  v10 = [v6 indexPath];
+  v10 = objc_msgSend_indexPath(v6);
   v11 = [v6 tileKind];
   v22 = v11;
   v23 = v10;
@@ -596,7 +596,7 @@ void __136__PUTilingView__updateTileControllersWithLayout_reactivatability_appea
   if (!v9 && (v10 = *(a1 + 48), v17[0] = MEMORY[0x1E69E9820], v17[1] = 3221225472, v17[2] = __136__PUTilingView__updateTileControllersWithLayout_reactivatability_appearanceHandler_updateHandler_disappearanceHandler_heartBeatHandler___block_invoke_4, v17[3] = &unk_1E7B7EEB8, v19 = *(a1 + 72), v18 = v5, v20 = &v21, [v10 enumerateObjectsWithTileIdentifier:v6 usingBlock:v17], v18, v19, (v9 = v22[5]) == 0) || (objc_msgSend(*(a1 + 48), "removeObject:withTileIdentifier:", v9, v6), (v11 = v22[5]) == 0))
   {
     v12 = *(a1 + 40);
-    v13 = [v6 indexPath];
+    v13 = objc_msgSend_indexPath(v6);
     v14 = [v6 tileKind];
     v15 = [v12 _createTileControllerWithIndexPath:v13 kind:v14 dataSource:*(a1 + 56) tileSource:v8];
     v16 = v22[5];
@@ -1492,7 +1492,7 @@ LABEL_3:
   return v2;
 }
 
-uint64_t __44__PUTilingView_isAnyTileControllerAnimating__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__44__PUTilingView_isAnyTileControllerAnimating__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isAnimating];
   if (result)
@@ -2122,7 +2122,7 @@ void __36__PUTilingView__applyPendingUpdates__block_invoke_2(uint64_t a1, void *
   v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = [v6 indexPath];
+  v7 = objc_msgSend_indexPath(v6);
   v8 = *(a1 + 32);
   v9 = [v6 dataSourceIdentifier];
   v10 = [v8 _dataSourceWithIdentifier:v9];
@@ -2169,7 +2169,7 @@ LABEL_3:
     }
   }
 
-  v17 = [v6 indexPath];
+  v17 = objc_msgSend_indexPath(v6);
   v18 = [v7 isEqual:v17];
 
   if ((v18 & 1) == 0)

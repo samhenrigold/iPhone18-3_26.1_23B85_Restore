@@ -36,19 +36,17 @@
 
 - (NSArray)representations
 {
-  v3 = OBJC_IVAR___STKSticker_representations;
   swift_beginAccess();
-  v4 = *(self + v3);
-  type metadata accessor for Sticker.Representation();
+  type metadata accessor for Sticker.Representation(0);
 
-  v5 = sub_1B8A240E4();
+  v2 = sub_1B8A240E4();
 
-  return v5;
+  return v2;
 }
 
 - (void)setRepresentations:(id)representations
 {
-  type metadata accessor for Sticker.Representation();
+  type metadata accessor for Sticker.Representation(0);
   v4 = sub_1B8A240F4();
   selfCopy = self;
   sub_1B89F9794(v4);
@@ -70,14 +68,11 @@
 
 - (NSString)name
 {
-  v2 = (self + OBJC_IVAR___STKSticker_name);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1B8A23EF4();
+  v2 = sub_1B8A23EF4();
 
-  return v5;
+  return v2;
 }
 
 - (void)setName:(id)name
@@ -86,7 +81,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___STKSticker_name);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -233,49 +227,47 @@
 - (NSUUID)_companionRecentUUID
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA92220, &unk_1B8A281A0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR___STKSticker__companionRecentUUID;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___STKSticker__companionRecentUUID;
   swift_beginAccess();
-  sub_1B89AF268(self + v7, v6, &unk_1EBA92220, &unk_1B8A281A0);
-  v8 = sub_1B8A23904();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1B89AF268(self + v6, v5, &unk_1EBA92220, &unk_1B8A281A0);
+  v7 = sub_1B8A23904();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1B8A238B4();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1B8A238B4();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)set_companionRecentUUID:(id)d
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA92220, &unk_1B8A281A0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (d)
   {
     sub_1B8A238D4();
-    v9 = sub_1B8A23904();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B8A23904();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B8A23904();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B8A23904();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR___STKSticker__companionRecentUUID;
+  v10 = OBJC_IVAR___STKSticker__companionRecentUUID;
   swift_beginAccess();
   selfCopy = self;
-  sub_1B89DD9E4(v8, self + v11);
+  sub_1B89DD9E4(v7, self + v10);
   swift_endAccess();
 }
 

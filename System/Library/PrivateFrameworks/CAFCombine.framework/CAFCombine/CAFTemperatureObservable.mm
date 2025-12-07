@@ -24,54 +24,52 @@
 - (void)temperatureService:(id)service didUpdateCurrentTemperature:(id)temperature
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v16 - v9;
+  v9 = &v15 - v8;
   if (temperature)
   {
     type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for NSUnitTemperature, 0x277CCAE48);
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
-    v12 = v10;
-    v13 = 0;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
+    v11 = v9;
+    v12 = 0;
   }
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
-    v12 = v10;
-    v13 = 1;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
+    v11 = v9;
+    v12 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v12, v13, 1, v11);
+  __swift_storeEnumTagSinglePayload(v11, v12, 1, v10);
   serviceCopy = service;
   selfCopy = self;
   CAFTemperatureObservable.temperatureService(_:didUpdateCurrentTemperature:)();
 
-  outlined destroy of Measurement<NSUnitTemperature>?(v10);
+  outlined destroy of Measurement<NSUnitTemperature>?(v9);
 }
 
 - (void)temperatureService:(id)service didUpdateTargetTemperature:(id)temperature
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - v9;
+  v9 = &v12 - v8;
   type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for NSUnitTemperature, 0x277CCAE48);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
-  CAFTemperatureObservable.temperatureService(_:didUpdateTargetTemperature:)(selfCopy, v10);
+  CAFTemperatureObservable.temperatureService(_:didUpdateTargetTemperature:)(selfCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)temperatureService:(id)service didUpdateOn:(BOOL)on
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTemperatureObservable.temperatureService(_:didUpdateOn:)();
+  CAFTemperatureObservable.temperatureService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

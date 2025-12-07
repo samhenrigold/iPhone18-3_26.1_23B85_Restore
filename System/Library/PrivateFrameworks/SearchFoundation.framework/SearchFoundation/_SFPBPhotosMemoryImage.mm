@@ -211,18 +211,14 @@ LABEL_13:
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMemoryIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  memoryIdentifier = self->_memoryIdentifier;
-  self->_memoryIdentifier = v4;
+  self->_memoryIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

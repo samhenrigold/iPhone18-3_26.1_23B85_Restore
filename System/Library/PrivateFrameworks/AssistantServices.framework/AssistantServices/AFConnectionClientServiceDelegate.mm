@@ -1006,19 +1006,19 @@ void __56__AFConnectionClientServiceDelegate_getBulletinContext___block_invoke(u
 
 void __68__AFConnectionClientServiceDelegate_quickStopWasHandledWithActions___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v8 = 136315650;
-    v9 = "[AFConnectionClientServiceDelegate quickStopWasHandledWithActions:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2048;
-    v13 = v4;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %@ Got quick stop handled message with actions %tu taken.", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[AFConnectionClientServiceDelegate quickStopWasHandledWithActions:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2048;
+    v12 = v4;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %@ Got quick stop handled message with actions %tu taken.", &v7, 0x20u);
   }
 
   v5 = [*(a1 + 32) _connectionDelegate];
@@ -1027,8 +1027,6 @@ void __68__AFConnectionClientServiceDelegate_quickStopWasHandledWithActions___bl
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v5 assistantConnection:WeakRetained didHandleQuickStopWithAction:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestDidAskForTimeoutExtension:(double)extension
@@ -1065,7 +1063,7 @@ void __70__AFConnectionClientServiceDelegate_requestDidAskForTimeoutExtension___
 
 void __66__AFConnectionClientServiceDelegate_requestDidUpdateResponseMode___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (+[AFFeatureFlags isStateFeedbackEnabled])
   {
     v2 = AFSiriLogContextConnection;
@@ -1073,13 +1071,13 @@ void __66__AFConnectionClientServiceDelegate_requestDidUpdateResponseMode___bloc
     {
       v3 = *(a1 + 32);
       v4 = *(a1 + 40);
-      v8 = 136315650;
-      v9 = "[AFConnectionClientServiceDelegate requestDidUpdateResponseMode:]_block_invoke";
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #modes %@ Got update to response mode : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[AFConnectionClientServiceDelegate requestDidUpdateResponseMode:]_block_invoke";
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #modes %@ Got update to response mode : %@", &v7, 0x20u);
     }
 
     v5 = [*(a1 + 32) _connectionDelegate];
@@ -1089,8 +1087,6 @@ void __66__AFConnectionClientServiceDelegate_requestDidUpdateResponseMode___bloc
       [v5 assistantConnection:WeakRetained didUpdateResponseMode:*(a1 + 40)];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestRequestedDismissAssistantWithReason:(int64_t)reason
@@ -1107,19 +1103,19 @@ void __66__AFConnectionClientServiceDelegate_requestDidUpdateResponseMode___bloc
 
 void __80__AFConnectionClientServiceDelegate_requestRequestedDismissAssistantWithReason___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v8 = 136315650;
-    v9 = "[AFConnectionClientServiceDelegate requestRequestedDismissAssistantWithReason:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2048;
-    v13 = v4;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %@ Got dismiss assistant message with reason : %ld", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[AFConnectionClientServiceDelegate requestRequestedDismissAssistantWithReason:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2048;
+    v12 = v4;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %@ Got dismiss assistant message with reason : %ld", &v7, 0x20u);
   }
 
   v5 = [*(a1 + 32) _connectionDelegate];
@@ -1140,8 +1136,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestRequestedDismissAssistant
@@ -1157,16 +1151,16 @@ LABEL_8:
 
 void __69__AFConnectionClientServiceDelegate_requestRequestedDismissAssistant__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[AFConnectionClientServiceDelegate requestRequestedDismissAssistant]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %@ Got dismiss assistant message", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AFConnectionClientServiceDelegate requestRequestedDismissAssistant]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %@ Got dismiss assistant message", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 32) _connectionDelegate];
@@ -1175,8 +1169,6 @@ void __69__AFConnectionClientServiceDelegate_requestRequestedDismissAssistant__b
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v4 assistantConnectionDismissAssistant:WeakRetained];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestRequestedOpenURL:(id)l reply:(id)reply
@@ -1198,22 +1190,20 @@ void __69__AFConnectionClientServiceDelegate_requestRequestedDismissAssistant__b
 
 void __67__AFConnectionClientServiceDelegate_requestRequestedOpenURL_reply___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v6 = [*(a1 + 40) _connectionDelegate];
+    v4 = [*(a1 + 40) _connectionDelegate];
     if (objc_opt_respondsToSelector())
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-      [v6 assistantConnection:WeakRetained openURL:*(a1 + 32) completion:*(a1 + 48)];
+      [v4 assistantConnection:WeakRetained openURL:*(a1 + 32) completion:*(a1 + 48)];
     }
 
     else
     {
       (*(*(a1 + 48) + 16))();
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -1222,12 +1212,11 @@ void __67__AFConnectionClientServiceDelegate_requestRequestedOpenURL_reply___blo
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[AFConnectionClientServiceDelegate requestRequestedOpenURL:reply:]_block_invoke";
+      v6 = "[AFConnectionClientServiceDelegate requestRequestedOpenURL:reply:]_block_invoke";
       _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Unexpected nil URL", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1253,22 +1242,20 @@ void __67__AFConnectionClientServiceDelegate_requestRequestedOpenURL_reply___blo
 
 void __91__AFConnectionClientServiceDelegate_requestRequestedOpenApplicationWithBundleID_URL_reply___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v6 = [*(a1 + 40) _connectionDelegate];
+    v4 = [*(a1 + 40) _connectionDelegate];
     if (objc_opt_respondsToSelector())
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-      [v6 assistantConnection:WeakRetained openApplicationWithBundleID:*(a1 + 32) URL:*(a1 + 48) completion:*(a1 + 56)];
+      [v4 assistantConnection:WeakRetained openApplicationWithBundleID:*(a1 + 32) URL:*(a1 + 48) completion:*(a1 + 56)];
     }
 
     else
     {
       (*(*(a1 + 56) + 16))();
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -1277,12 +1264,11 @@ void __91__AFConnectionClientServiceDelegate_requestRequestedOpenApplicationWith
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[AFConnectionClientServiceDelegate requestRequestedOpenApplicationWithBundleID:URL:reply:]_block_invoke";
+      v6 = "[AFConnectionClientServiceDelegate requestRequestedOpenApplicationWithBundleID:URL:reply:]_block_invoke";
       _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Unexpected nil bundle ID", buf, 0xCu);
     }
 
     (*(*(a1 + 56) + 16))();
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1305,7 +1291,7 @@ void __91__AFConnectionClientServiceDelegate_requestRequestedOpenApplicationWith
 
 void __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (AFIsInternalInstall_onceToken != -1)
   {
     dispatch_once(&AFIsInternalInstall_onceToken, &__block_literal_global_164_46064);
@@ -1321,13 +1307,13 @@ void __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v17 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 136315650;
-      v25 = "[AFConnectionClientServiceDelegate requestHandleCommand:reply:]_block_invoke";
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2048;
-      v29 = v3;
+      v23 = "[AFConnectionClientServiceDelegate requestHandleCommand:reply:]_block_invoke";
+      v24 = 2112;
+      v25 = v15;
+      v26 = 2048;
+      v27 = v3;
       _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s Delaying delivery of client command %@ by %f seconds...", buf, 0x20u);
     }
 
@@ -1343,27 +1329,24 @@ void __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_
     block[2] = __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_invoke_758;
     block[3] = &unk_1E7342CF0;
     block[4] = v12;
-    v20 = v9;
-    v21 = v11;
-    v23 = v6;
-    v22 = *(a1 + 48);
+    v18 = v9;
+    v19 = v11;
+    v21 = v6;
+    v20 = *(a1 + 48);
     v14 = v9;
     dispatch_after(v10, v13, block);
-
-    v15 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v18 = objc_loadWeakRetained((*(a1 + 40) + 8));
-    [v18 _handleCommand:*(a1 + 32) reply:*(a1 + 48)];
-    v16 = *MEMORY[0x1E69E9840];
+    v16 = objc_loadWeakRetained((*(a1 + 40) + 8));
+    [v16 _handleCommand:*(a1 + 32) reply:*(a1 + 48)];
   }
 }
 
 void __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_invoke_758(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v3 = [WeakRetained _activeRequestUUID];
   v4 = [v3 isEqual:*(a1 + 40)];
@@ -1374,19 +1357,19 @@ void __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_
   {
     if (v6)
     {
-      v9 = *(a1 + 48);
-      v10 = MEMORY[0x1E696AE30];
-      v11 = v5;
-      v12 = [v10 processInfo];
-      [v12 systemUptime];
-      v14 = v13 - *(a1 + 64);
-      v16 = 136315650;
-      v17 = "[AFConnectionClientServiceDelegate requestHandleCommand:reply:]_block_invoke";
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v14;
-      _os_log_debug_impl(&dword_1912FE000, v11, OS_LOG_TYPE_DEBUG, "%s Delayed delivery of client command %@ by %f seconds.", &v16, 0x20u);
+      v8 = *(a1 + 48);
+      v9 = MEMORY[0x1E696AE30];
+      v10 = v5;
+      v11 = [v9 processInfo];
+      [v11 systemUptime];
+      v13 = v12 - *(a1 + 64);
+      v15 = 136315650;
+      v16 = "[AFConnectionClientServiceDelegate requestHandleCommand:reply:]_block_invoke";
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2048;
+      v20 = v13;
+      _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s Delayed delivery of client command %@ by %f seconds.", &v15, 0x20u);
     }
 
     v7 = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -1395,15 +1378,13 @@ void __64__AFConnectionClientServiceDelegate_requestHandleCommand_reply___block_
 
   else if (v6)
   {
-    v15 = *(a1 + 48);
-    v16 = 136315394;
-    v17 = "[AFConnectionClientServiceDelegate requestHandleCommand:reply:]_block_invoke";
-    v18 = 2112;
-    v19 = v15;
-    _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s Dropping delayed client command %@ because request already ended.", &v16, 0x16u);
+    v14 = *(a1 + 48);
+    v15 = 136315394;
+    v16 = "[AFConnectionClientServiceDelegate requestHandleCommand:reply:]_block_invoke";
+    v17 = 2112;
+    v18 = v14;
+    _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s Dropping delayed client command %@ because request already ended.", &v15, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestDidReceiveCommand:(id)command reply:(id)reply
@@ -1509,7 +1490,7 @@ void __61__AFConnectionClientServiceDelegate_requestSetReplayEnabled___block_inv
 
 void __70__AFConnectionClientServiceDelegate_requestReplayRecordedViewAt_with___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _connectionDelegate];
   if (objc_opt_respondsToSelector())
   {
@@ -1520,20 +1501,18 @@ void __70__AFConnectionClientServiceDelegate_requestReplayRecordedViewAt_with___
       v5 = *(a1 + 48);
       v6 = v3;
       v7 = [v4 path];
-      v10 = 136315650;
-      v11 = "[AFConnectionClientServiceDelegate requestReplayRecordedViewAt:with:]_block_invoke";
-      v12 = 2048;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #ReplayAt. index: %lu,  recordingDataURL: %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[AFConnectionClientServiceDelegate requestReplayRecordedViewAt:with:]_block_invoke";
+      v11 = 2048;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #ReplayAt. index: %lu,  recordingDataURL: %@", &v9, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v2 assistantConnection:WeakRetained replayAt:*(a1 + 48) with:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestReplayAllRecordedViews:(unint64_t)views with:(id)with
@@ -1553,7 +1532,7 @@ void __70__AFConnectionClientServiceDelegate_requestReplayRecordedViewAt_with___
 
 void __72__AFConnectionClientServiceDelegate_requestReplayAllRecordedViews_with___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _connectionDelegate];
   if (objc_opt_respondsToSelector())
   {
@@ -1564,20 +1543,18 @@ void __72__AFConnectionClientServiceDelegate_requestReplayAllRecordedViews_with_
       v5 = *(a1 + 48);
       v6 = v3;
       v7 = [v4 path];
-      v10 = 136315650;
-      v11 = "[AFConnectionClientServiceDelegate requestReplayAllRecordedViews:with:]_block_invoke";
-      v12 = 2048;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #ReplayAll. intervalSeconds: %lu,  recordingDataURL: %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[AFConnectionClientServiceDelegate requestReplayAllRecordedViews:with:]_block_invoke";
+      v11 = 2048;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #ReplayAll. intervalSeconds: %lu,  recordingDataURL: %@", &v9, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v2 assistantConnection:WeakRetained replayAll:*(a1 + 48) with:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUIRequestWithInfo:(id)info completion:(id)completion

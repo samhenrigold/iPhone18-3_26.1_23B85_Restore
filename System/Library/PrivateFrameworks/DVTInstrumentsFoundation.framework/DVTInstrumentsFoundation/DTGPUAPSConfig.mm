@@ -9,71 +9,69 @@
 
 - (id)toDictionary
 {
-  v32[7] = *MEMORY[0x277D85DE8];
+  v31[7] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v31[0] = @"Duration";
-  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_duration];
-  v32[0] = v24;
-  v31[1] = @"BufferSizeInKB";
+  v30[0] = @"Duration";
+  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_duration];
+  v31[0] = v23;
+  v30[1] = @"BufferSizeInKB";
   nRingBuffers = self->_nRingBuffers;
   if (nRingBuffers <= 1)
   {
     nRingBuffers = 1;
   }
 
-  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:nRingBuffers * self->_ringBufferSizeInKB];
-  v32[1] = v23;
-  v31[2] = @"RingBufferSizeInKB";
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_ringBufferSizeInKB];
-  v32[2] = v22;
-  v31[3] = @"SystemTimePeriod";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_systemTimePeriod];
-  v32[3] = v21;
-  v31[4] = @"ProfileControl";
-  v29[0] = @"CliqueTraceLevel";
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_cliqueTraceLevel];
-  v30[0] = v20;
-  v29[1] = @"EmitPos";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_emitPos];
-  v30[1] = v19;
-  v29[2] = @"EmitThreadControlFlow";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_emitThreadControlFlow];
-  v30[2] = v18;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
-  v32[4] = v5;
-  v32[5] = &unk_285A36C78;
-  v31[5] = @"SyncDrainMode";
-  v31[6] = @"KickAndStateTracing";
-  v27[0] = @"PulsePeriod";
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:nRingBuffers * self->_ringBufferSizeInKB];
+  v31[1] = v22;
+  v30[2] = @"RingBufferSizeInKB";
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_ringBufferSizeInKB];
+  v31[2] = v21;
+  v30[3] = @"SystemTimePeriod";
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_systemTimePeriod];
+  v31[3] = v20;
+  v30[4] = @"ProfileControl";
+  v28[0] = @"CliqueTraceLevel";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_cliqueTraceLevel];
+  v29[0] = v19;
+  v28[1] = @"EmitPos";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_emitPos];
+  v29[1] = v18;
+  v28[2] = @"EmitThreadControlFlow";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_emitThreadControlFlow];
+  v29[2] = v17;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+  v31[4] = v5;
+  v31[5] = &unk_285A36C78;
+  v30[5] = @"SyncDrainMode";
+  v30[6] = @"KickAndStateTracing";
+  v26[0] = @"PulsePeriod";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_pulsePeriod];
-  v28[0] = v6;
-  v27[1] = @"CountPeriod";
+  v27[0] = v6;
+  v26[1] = @"CountPeriod";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_countPeriod];
-  v28[1] = v7;
-  v27[2] = @"TileTracing";
+  v27[1] = v7;
+  v26[2] = @"TileTracing";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_tileTracing];
-  v28[2] = v8;
-  v27[3] = @"ESLInstTracing";
+  v27[2] = v8;
+  v26[3] = @"ESLInstTracing";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_eslInstTracing];
-  v28[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
-  v32[6] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:7];
+  v27[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v31[6] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:7];
   v12 = [v3 dictionaryWithDictionary:v11];
 
   if (self->_subSamplingMinTraced || self->_subSamplingTargetThreshold)
   {
-    v25[0] = @"MinTraced";
+    v24[0] = @"MinTraced";
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
-    v25[1] = @"TargetThreshold";
-    v26[0] = v13;
+    v24[1] = @"TargetThreshold";
+    v25[0] = v13;
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_subSamplingTargetThreshold];
-    v26[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v25[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     [v12 setObject:v15 forKeyedSubscript:@"CliqueSubSampling"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

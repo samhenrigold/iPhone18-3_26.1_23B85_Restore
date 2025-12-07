@@ -35,7 +35,7 @@
   selfCopy = self;
   sub_1D7E34184();
 
-  sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+  sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
   v3 = sub_1D8191304();
 
   return v3;
@@ -50,7 +50,7 @@
 
 - (void)setViewControllers:(id)controllers
 {
-  sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+  sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
   sub_1D8191314();
   selfCopy = self;
   sub_1D7E36978();
@@ -136,7 +136,7 @@
 
   if (v4)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB3260);
+    sub_1D7E0A1A8(0, &qword_1EDBB3260, 0x1E69DCBA0);
     v5 = sub_1D8191304();
   }
 

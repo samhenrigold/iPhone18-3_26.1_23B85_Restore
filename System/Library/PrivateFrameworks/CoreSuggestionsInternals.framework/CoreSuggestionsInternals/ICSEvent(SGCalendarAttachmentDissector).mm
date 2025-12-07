@@ -302,31 +302,8 @@ LABEL_65:
             v80 = v76;
             v81 = v78;
             v82 = [v78 dateFromComponents:v80];
-            if (!v82)
+            if (!v82 || (v83 = v82, [v81 dateByAddingUnit:16 value:7 * objc_msgSend(duration toDate:"weeks") options:{v82, 0}], v84 = objc_claimAutoreleasedReturnValue(), v83, !v84) || (objc_msgSend(v81, "dateByAddingUnit:value:toDate:options:", 16, objc_msgSend(duration, "days"), v84, 0), v85 = objc_claimAutoreleasedReturnValue(), v84, !v85) || (objc_msgSend(v81, "dateByAddingUnit:value:toDate:options:", 32, objc_msgSend(duration, "hours"), v85, 0), v86 = objc_claimAutoreleasedReturnValue(), v85, !v86) || (objc_msgSend(v81, "dateByAddingUnit:value:toDate:options:", 64, objc_msgSend(duration, "minutes"), v86, 0), v87 = objc_claimAutoreleasedReturnValue(), v86, !v87) || (objc_msgSend(v81, "dateByAddingUnit:value:toDate:options:", 128, objc_msgSend(duration, "seconds"), v87, 0), v88 = objc_claimAutoreleasedReturnValue(), v87, !v88))
             {
-              goto LABEL_86;
-            }
-
-            v83 = v82;
-            v84 = [v81 dateByAddingUnit:16 value:7 * objc_msgSend(duration toDate:"weeks") options:{v82, 0}];
-
-            if (!v84)
-            {
-              goto LABEL_86;
-            }
-
-            v85 = [v81 dateByAddingUnit:16 value:objc_msgSend(duration toDate:"days") options:{v84, 0}];
-
-            if (!v85)
-            {
-              goto LABEL_86;
-            }
-
-            v86 = [v81 dateByAddingUnit:32 value:objc_msgSend(duration toDate:"hours") options:{v85, 0}];
-
-            if (!v86 || ([v81 dateByAddingUnit:64 value:objc_msgSend(duration toDate:"minutes") options:{v86, 0}], v87 = objc_claimAutoreleasedReturnValue(), v86, !v87) || (objc_msgSend(v81, "dateByAddingUnit:value:toDate:options:", 128, objc_msgSend(duration, "seconds"), v87, 0), v88 = objc_claimAutoreleasedReturnValue(), v87, !v88))
-            {
-LABEL_86:
 
               components = 0;
               goto LABEL_87;

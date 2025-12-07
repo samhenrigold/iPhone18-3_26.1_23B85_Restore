@@ -406,13 +406,12 @@ LABEL_11:
 
 - (void)initWithIdentifier:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[MOPlace initWithIdentifier:]";
-  v4 = 1024;
-  v5 = 23;
-  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[MOPlace initWithIdentifier:]";
+  v3 = 1024;
+  v4 = 23;
+  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", &v1, 0x12u);
 }
 
 @end

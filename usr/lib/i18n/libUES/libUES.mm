@@ -60,7 +60,7 @@ void _citrus_UES_stdenc_uninit(uint64_t a1)
   }
 }
 
-uint64_t _citrus_UES_stdenc_mbtocs(uint64_t a1, _DWORD *a2, unsigned int *a3, char **a4, uint64_t a5, int *a6, void *a7, uint64_t a8)
+uint64_t _citrus_UES_stdenc_mbtocs(uint64_t a1, _DWORD *a2, unsigned int *a3, char **a4, uint64_t a5, int *a6, char **a7, uint64_t a8)
 {
   v15 = 0;
   v12 = _citrus_UES_mbrtowc_priv(*(a1 + 8), &v15, a4, a5, a6, a7);
@@ -97,7 +97,7 @@ uint64_t _citrus_UES_stdenc_cstomb(uint64_t a1, void *a2, unint64_t a3, int a4, 
   return _citrus_UES_wcrtomb_priv(*(a1 + 8), a2, a3, a5, a6, a7);
 }
 
-uint64_t _citrus_UES_stdenc_mbtowc(uint64_t a1, unsigned int *a2, char **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
+uint64_t _citrus_UES_stdenc_mbtowc(uint64_t a1, unsigned int *a2, char **a3, uint64_t a4, int *a5, char **a6, uint64_t a7)
 {
   v9 = _citrus_UES_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -153,7 +153,7 @@ uint64_t _citrus_UES_stdenc_getops(uint64_t a1)
   return 0;
 }
 
-uint64_t _citrus_UES_mbrtowc_priv(uint64_t a1, unsigned int *a2, char **a3, uint64_t a4, int *a5, void *a6)
+uint64_t _citrus_UES_mbrtowc_priv(uint64_t a1, unsigned int *a2, char **a3, uint64_t a4, int *a5, char **a6)
 {
   v8 = *a3;
   if (!*a3)
@@ -184,12 +184,12 @@ uint64_t _citrus_UES_mbrtowc_priv(uint64_t a1, unsigned int *a2, char **a3, uint
       v17 = v18;
       v16 = v12 | 1;
       *a5 = v12 | 1;
-      v14[v12] = v18;
+      *(v14 + v12) = v18;
     }
 
     else
     {
-      v17 = v14[v12];
+      v17 = *(v14 + v12);
     }
 
     if (v17 == 92)
@@ -209,12 +209,12 @@ LABEL_40:
         v20 = *v15++;
         v19 = v20;
         *a5 = v16 + 1;
-        v14[v16] = v20;
+        *(v14 + v16) = v20;
       }
 
       else
       {
-        v19 = v14[v12 | 1];
+        v19 = *(v14 + (v12 | 1));
       }
 
       if (v19 == 85)
@@ -252,7 +252,7 @@ LABEL_40:
           --a4;
           v25 = *v15++;
           *a5 = v24 + 1;
-          v14[v24] = v25;
+          *(v14 + v24) = v25;
         }
 
         v26 = *(a5 + v23);

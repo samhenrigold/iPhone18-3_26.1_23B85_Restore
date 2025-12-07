@@ -3,6 +3,7 @@
 - (BOOL)changePassword:(id)password;
 - (BOOL)checkIn;
 - (IMAPServiceConnection)initWithMambaID:(const char *)d;
+- (id)_headersToFetchIncludingThoseRequiredForRouting:(BOOL)routing withRecipients:(BOOL)recipients;
 - (void)checkInForcefully;
 - (void)dealloc;
 - (void)setDelegate:(id)delegate;
@@ -15,6 +16,23 @@
   v2.receiver = self;
   v2.super_class = IMAPServiceConnection;
   [(IMAPServiceConnection *)&v2 dealloc];
+}
+
+- (id)_headersToFetchIncludingThoseRequiredForRouting:(BOOL)routing withRecipients:(BOOL)recipients
+{
+  [IMAPServiceConnection mf_lock:routing];
+  if (!qword_10010D768)
+  {
+    v4 = [NSArray alloc];
+    v5 = [v4 initWithObjects:{H_DATE, H_SUBJECT, MFMimeHeaderFromKey, H_CONTENT_TYPE, H_MESSAGE_ID, MFMimeHeaderReplyToKey, @"x-applevm-deletion-date", 0}];
+    v6 = qword_10010D768;
+    qword_10010D768 = v5;
+  }
+
+  +[IMAPServiceConnection mf_unlock];
+  v7 = qword_10010D768;
+
+  return v7;
 }
 
 - (IMAPServiceConnection)initWithMambaID:(const char *)d
@@ -35,61 +53,62 @@
 - (BOOL)changePassword:(id)password
 {
   passwordCopy = password;
-  v5 = sub_1000025EC();
+  v5 = sub_1000025EC(passwordCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = [(IMAPServiceConnection *)self mambaID];
     rumbaID = [(IMAPServiceConnection *)self rumbaID];
     *buf = 136316162;
-    v22 = mambaID;
-    v23 = 2080;
-    v24 = " ";
-    v25 = 2114;
-    v26 = rumbaID;
-    v27 = 2080;
-    v28 = " ";
-    v29 = 2112;
-    v30 = @"XCHANGEPASSWORD";
+    v23 = mambaID;
+    v24 = 2080;
+    v25 = " ";
+    v26 = 2114;
+    v27 = rumbaID;
+    v28 = 2080;
+    v29 = " ";
+    v30 = 2112;
+    v31 = @"XCHANGEPASSWORD";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s%{public}@%sPerforming custom command %@", buf, 0x34u);
   }
 
-  v20[0] = @"PIN";
-  v20[1] = passwordCopy;
-  v8 = [NSArray arrayWithObjects:v20 count:2];
+  v21[0] = @"PIN";
+  v21[1] = passwordCopy;
+  v8 = [NSArray arrayWithObjects:v21 count:2];
   v9 = [(IMAPServiceConnection *)self performCustomCommand:@"XCHANGEPASSWORD" withArguments:v8];
 
   if ((v9 & 1) == 0)
   {
     v10 = +[MFActivityMonitor currentTracebleMonitor];
     error = [v10 error];
+    v12 = error;
     if (error)
     {
-      v12 = sub_1000025EC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_1000025EC(error);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10009BFE0(self, error, v12);
+        sub_10009BFE0(self, v12, v13);
       }
 
-      domain = [error domain];
+      domain = [v12 domain];
       if (![domain isEqualToString:MFMessageErrorDomain])
       {
         goto LABEL_14;
       }
 
-      code = [error code];
+      code = [v12 code];
 
       if (code == 1033)
       {
-        domain = [error localizedDescription];
-        if (!domain || (pthread_once(&stru_10010CAB0, sub_100014C74), [qword_10010D770 objectForKey:domain], (v15 = objc_claimAutoreleasedReturnValue()) == 0) || (v16 = v15, v17 = objc_msgSend(v15, "intValue"), v16, v17 == -1))
+        domain = [v12 localizedDescription];
+        if (!domain || (pthread_once(&stru_10010CAB0, sub_100014C74), [qword_10010D770 objectForKey:domain], (v16 = objc_claimAutoreleasedReturnValue()) == 0) || (v17 = v16, v18 = objc_msgSend(v16, "intValue"), v17, v18 == -1))
         {
-          v17 = 1016;
+          v18 = 1016;
         }
 
-        v18 = [NSError errorWithDomain:kVVErrorDomain code:v17 localizedDescription:domain];
+        v19 = [NSError errorWithDomain:kVVErrorDomain code:v18 localizedDescription:domain];
 
-        [v10 setError:v18];
-        error = v18;
+        [v10 setError:v19];
+        v12 = v19;
 LABEL_14:
       }
     }

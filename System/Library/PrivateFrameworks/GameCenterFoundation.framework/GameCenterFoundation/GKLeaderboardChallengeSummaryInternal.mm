@@ -17,24 +17,22 @@
   return v3;
 }
 
-void __64__GKLeaderboardChallengeSummaryInternal_secureCodedPropertyKeys__block_invoke()
+void __64__GKLeaderboardChallengeSummaryInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"completedCount";
-  v4[0] = objc_opt_class();
-  v3[1] = @"winCount";
-  v4[1] = objc_opt_class();
-  v3[2] = @"invitedPlayers";
-  v4[2] = objc_opt_class();
-  v3[3] = @"activeChallenges";
-  v4[3] = objc_opt_class();
-  v3[4] = @"completedChallenges";
-  v4[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_483;
-  secureCodedPropertyKeys_sSecureCodedKeys_483 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"completedCount";
+  v5[0] = objc_opt_class();
+  v4[1] = @"winCount";
+  v5[1] = objc_opt_class();
+  v4[2] = @"invitedPlayers";
+  v5[2] = objc_opt_class();
+  v4[3] = @"activeChallenges";
+  v5[3] = objc_opt_class();
+  v4[4] = @"completedChallenges";
+  v5[4] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:5];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_483;
+  secureCodedPropertyKeys_sSecureCodedKeys_483 = v2;
 }
 
 - (GKLeaderboardChallengeSummaryInternal)initWithServerRepresentation:(id)representation

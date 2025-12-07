@@ -224,72 +224,78 @@ LABEL_9:
   }
 
   memset(&slice, 0, sizeof(slice));
-  v28.origin.x = x + 16.0;
-  v28.origin.y = y + 16.0;
-  v28.size.width = width + -32.0;
+  v36.origin.x = x + 16.0;
+  v36.origin.y = y + 16.0;
+  v36.size.width = width + -32.0;
   remainder.origin.x = x + 16.0;
   remainder.origin.y = y + 16.0;
-  v28.size.height = height + -32.0;
+  v36.size.height = height + -32.0;
   remainder.size.width = width + -32.0;
   remainder.size.height = height + -32.0;
-  CGRectDivide(v28, &slice, &remainder, 40.0, v8);
+  CGRectDivide(v36, &slice, &remainder, 40.0, v8);
   if (!self->_isTemplateLayout)
   {
-    memset(&v24, 0, sizeof(v24));
-    CGRectDivide(slice, &v24, &slice, 10.0, CGRectMinYEdge);
+    memset(&v32, 0, sizeof(v32));
+    CGRectDivide(slice, &v32, &slice, 10.0, CGRectMinYEdge);
     tierIcon = self->_tierIcon;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v10 = PKContentAlignmentMake();
+    v12.n128_u64[0] = *&v32.origin.y;
+    v11.n128_u64[0] = *&v32.origin.x;
+    v14.n128_u64[0] = *&v32.size.height;
+    v13.n128_u64[0] = *&v32.size.width;
+    v15.n128_u64[0] = 0x4044000000000000;
+    v16.n128_u64[0] = 0x4044000000000000;
+    PKSizeAlignedInRect(v10, v15, v16, v11, v12, v13, v14, v17);
     [(UIImageView *)tierIcon setFrame:?];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 16.0, v8);
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v11 = v10;
-  CGRectDivide(remainder, &slice, &remainder, v10, CGRectMinYEdge);
+  v19 = v18;
+  CGRectDivide(remainder, &slice, &remainder, v18, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(UILabel *)self->_titleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 4.0, CGRectMinYEdge);
-  v12 = v11 + 16.0 + 4.0;
+  v20 = v19 + 16.0 + 4.0;
   [(UILabel *)self->_subtitleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v14 = v13;
-  CGRectDivide(remainder, &slice, &remainder, v13, CGRectMinYEdge);
+  v22 = v21;
+  CGRectDivide(remainder, &slice, &remainder, v21, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(UILabel *)self->_subtitleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  v15 = v12 + v14;
+  v23 = v20 + v22;
   titleLabel = [(UIButton *)self->_linkButton titleLabel];
   text = [titleLabel text];
-  v18 = [text length];
+  v26 = [text length];
 
-  if (v18)
+  if (v26)
   {
     CGRectDivide(remainder, &slice, &remainder, 11.0, CGRectMinYEdge);
-    v19 = v15 + 11.0;
+    v27 = v23 + 11.0;
     [(UIButton *)self->_linkButton sizeThatFits:remainder.size.width, remainder.size.height];
-    v21 = v20;
-    CGRectDivide(remainder, &slice, &remainder, v20, CGRectMinYEdge);
+    v29 = v28;
+    CGRectDivide(remainder, &slice, &remainder, v28, CGRectMinYEdge);
     if (!self->_isTemplateLayout)
     {
       [(UIButton *)self->_linkButton setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
     }
 
-    v15 = v19 + v21;
+    v23 = v27 + v29;
   }
 
-  v29.origin.x = x;
-  v29.origin.y = y;
-  v29.size.width = width;
-  v29.size.height = height;
-  v22 = CGRectGetWidth(v29);
-  v23 = v15 + 16.0;
-  result.height = v23;
-  result.width = v22;
+  v37.origin.x = x;
+  v37.origin.y = y;
+  v37.size.width = width;
+  v37.size.height = height;
+  v30 = CGRectGetWidth(v37);
+  v31 = v23 + 16.0;
+  result.height = v31;
+  result.width = v30;
   return result;
 }
 

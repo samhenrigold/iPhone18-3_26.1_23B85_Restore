@@ -21,81 +21,79 @@
 
 - (void)registerEventSpec
 {
-  v49[24] = *MEMORY[0x277D85DE8];
-  v40 = MEMORY[0x277D6F300];
-  v48 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceHigh" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[0] = v48;
-  v47 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceMid" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[1] = v47;
-  v46 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceLow" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[2] = v46;
-  v45 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceNone" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[3] = v45;
-  v44 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"totalAlignedWords" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[4] = v44;
-  v43 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceHigh" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[5] = v43;
-  v42 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceMid" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[6] = v42;
-  v41 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceLow" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[7] = v41;
-  v39 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceNone" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[8] = v39;
-  v38 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"sessionAlignmentSuccess"];
-  v49[9] = v38;
-  v37 = [MEMORY[0x277D6F308] integerFieldSpecWithName:kFeatureStringSessionAlignmentConfidence minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
-  v49[10] = v37;
+  v48[24] = *MEMORY[0x277D85DE8];
+  v39 = MEMORY[0x277D6F300];
+  v47 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceHigh" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[0] = v47;
+  v46 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceMid" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[1] = v46;
+  v45 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceLow" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[2] = v45;
+  v44 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"countWordsAlignmentConfidenceNone" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[3] = v44;
+  v43 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"totalAlignedWords" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[4] = v43;
+  v42 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceHigh" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[5] = v42;
+  v41 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceMid" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[6] = v41;
+  v40 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceLow" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[7] = v40;
+  v38 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"fractionWordsAlignmentConfidenceNone" minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[8] = v38;
+  v37 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"sessionAlignmentSuccess"];
+  v48[9] = v37;
+  v36 = [MEMORY[0x277D6F308] integerFieldSpecWithName:kFeatureStringSessionAlignmentConfidence minValue:&unk_28400BD18 maxValue:0 significantDigits:0];
+  v48[10] = v36;
   v2 = MEMORY[0x277D6F308];
   v3 = kFeatureKeyboardUsage;
-  v36 = TIFeatureUsageAllowedValues();
-  v35 = [v2 stringFieldSpecWithName:v3 allowedValues:v36];
-  v49[11] = v35;
+  v35 = TIFeatureUsageAllowedValues();
+  v34 = [v2 stringFieldSpecWithName:v3 allowedValues:v35];
+  v48[11] = v34;
   v4 = MEMORY[0x277D6F308];
   v5 = kFeatureContinuousPathUsage;
-  v34 = TIFeatureUsageAllowedValues();
-  v33 = [v4 stringFieldSpecWithName:v5 allowedValues:v34];
-  v49[12] = v33;
+  v33 = TIFeatureUsageAllowedValues();
+  v32 = [v4 stringFieldSpecWithName:v5 allowedValues:v33];
+  v48[12] = v32;
   v6 = MEMORY[0x277D6F308];
   v7 = kFeatureAutocorrectionUsage;
-  v32 = TIFeatureUsageAllowedValues();
-  v31 = [v6 stringFieldSpecWithName:v7 allowedValues:v32];
-  v49[13] = v31;
+  v31 = TIFeatureUsageAllowedValues();
+  v30 = [v6 stringFieldSpecWithName:v7 allowedValues:v31];
+  v48[13] = v30;
   v8 = MEMORY[0x277D6F308];
   v9 = kFeatureCandidateBarUsage;
-  v30 = TIFeatureUsageAllowedValues();
-  v29 = [v8 stringFieldSpecWithName:v9 allowedValues:v30];
-  v49[14] = v29;
+  v29 = TIFeatureUsageAllowedValues();
+  v28 = [v8 stringFieldSpecWithName:v9 allowedValues:v29];
+  v48[14] = v28;
   v10 = MEMORY[0x277D6F308];
   v11 = kFeatureMultilingualUsage;
-  v28 = TIFeatureUsageAllowedValues();
-  v27 = [v10 stringFieldSpecWithName:v11 allowedValues:v28];
-  v49[15] = v27;
+  v27 = TIFeatureUsageAllowedValues();
+  v26 = [v10 stringFieldSpecWithName:v11 allowedValues:v27];
+  v48[15] = v26;
   v12 = MEMORY[0x277D6F308];
   v13 = kFeatureStringTypingSpeed;
-  v26 = TITypingSpeedAllowedValues();
-  v14 = [v12 stringFieldSpecWithName:v13 allowedValues:v26];
-  v49[16] = v14;
+  v25 = TITypingSpeedAllowedValues();
+  v14 = [v12 stringFieldSpecWithName:v13 allowedValues:v25];
+  v48[16] = v14;
   v15 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLanguage];
-  v49[17] = v15;
+  v48[17] = v15;
   v16 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardRegion];
-  v49[18] = v16;
+  v48[18] = v16;
   v17 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardVariant];
-  v49[19] = v17;
+  v48[19] = v17;
   v18 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryLanguage];
-  v49[20] = v18;
+  v48[20] = v18;
   v19 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryRegion];
-  v49[21] = v19;
+  v48[21] = v19;
   v20 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLayout];
-  v49[22] = v20;
+  v48[22] = v20;
   v21 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardType];
-  v49[23] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:24];
-  v23 = [v40 eventSpecWithName:@"alignmentConfidence" inputModeRequired:0 fieldSpecs:v22];
+  v48[23] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:24];
+  v23 = [v39 eventSpecWithName:@"alignmentConfidence" inputModeRequired:0 fieldSpecs:v22];
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
   [mEMORY[0x277D6F318] registerEventSpec:v23];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)analyzeSession:(id)session alignedSession:(id)alignedSession withConfidence:(unint64_t)confidence
@@ -150,66 +148,62 @@
 
 - (id)_generateFeatureUsageMetricsForContext:(id)context
 {
-  v16[6] = *MEMORY[0x277D85DE8];
+  v15[6] = *MEMORY[0x277D85DE8];
   session = self->_session;
   contextCopy = context;
   featureUsageMetricsCache = [(TITypingSession *)session featureUsageMetricsCache];
-  v15[0] = kFeatureKeyboardUsage;
+  v14[0] = kFeatureKeyboardUsage;
   v6 = [featureUsageMetricsCache featureUsageMetricFromName:? forContext:?];
-  v16[0] = v6;
-  v15[1] = kFeatureContinuousPathUsage;
+  v15[0] = v6;
+  v14[1] = kFeatureContinuousPathUsage;
   v7 = [featureUsageMetricsCache featureUsageMetricFromName:? forContext:?];
-  v16[1] = v7;
-  v15[2] = kFeatureCandidateBarUsage;
+  v15[1] = v7;
+  v14[2] = kFeatureCandidateBarUsage;
   v8 = [featureUsageMetricsCache featureUsageMetricFromName:? forContext:?];
-  v16[2] = v8;
-  v15[3] = kFeatureAutocorrectionUsage;
+  v15[2] = v8;
+  v14[3] = kFeatureAutocorrectionUsage;
   v9 = [featureUsageMetricsCache featureUsageMetricFromName:? forContext:?];
-  v16[3] = v9;
-  v15[4] = kFeatureMultilingualUsage;
+  v15[3] = v9;
+  v14[4] = kFeatureMultilingualUsage;
   v10 = [featureUsageMetricsCache featureUsageMetricFromName:? forContext:?];
-  v16[4] = v10;
-  v15[5] = kFeatureStringTypingSpeed;
+  v15[4] = v10;
+  v14[5] = kFeatureStringTypingSpeed;
   v11 = [featureUsageMetricsCache featureUsageMetricFromName:? forContext:?];
 
-  v16[5] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[5] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
 
   return v12;
 }
 
 - (id)_generateMetadataForTypingSessionFromContext:(id)context
 {
-  v16[7] = *MEMORY[0x277D85DE8];
-  v15[0] = kFeatureStringKeyboardLanguage;
+  v15[7] = *MEMORY[0x277D85DE8];
+  v14[0] = kFeatureStringKeyboardLanguage;
   contextCopy = context;
   inputLanguage = [contextCopy inputLanguage];
-  v16[0] = inputLanguage;
-  v15[1] = kFeatureStringKeyboardRegion;
+  v15[0] = inputLanguage;
+  v14[1] = kFeatureStringKeyboardRegion;
   inputRegion = [contextCopy inputRegion];
-  v16[1] = inputRegion;
-  v15[2] = kFeatureStringKeyboardVariant;
+  v15[1] = inputRegion;
+  v14[2] = kFeatureStringKeyboardVariant;
   inputVariant = [contextCopy inputVariant];
-  v16[2] = inputVariant;
-  v15[3] = kFeatureStringKeyboardSecondaryLanguage;
+  v15[2] = inputVariant;
+  v14[3] = kFeatureStringKeyboardSecondaryLanguage;
   secondaryLanguage = [contextCopy secondaryLanguage];
-  v16[3] = secondaryLanguage;
-  v15[4] = kFeatureStringKeyboardSecondaryRegion;
+  v15[3] = secondaryLanguage;
+  v14[4] = kFeatureStringKeyboardSecondaryRegion;
   secondaryRegion = [contextCopy secondaryRegion];
-  v16[4] = secondaryRegion;
-  v15[5] = kFeatureStringKeyboardLayout;
+  v15[4] = secondaryRegion;
+  v14[5] = kFeatureStringKeyboardLayout;
   layoutName = [contextCopy layoutName];
-  v16[5] = layoutName;
-  v15[6] = kFeatureStringKeyboardType;
+  v15[5] = layoutName;
+  v14[6] = kFeatureStringKeyboardType;
   keyboardType = [contextCopy keyboardType];
 
   v11 = [TIKBAnalyticsMetricsContext keyboardTypeEnumToString:keyboardType];
-  v16[6] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[6] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:7];
 
   return v12;
 }
@@ -261,29 +255,29 @@
 
 - (id)_generateCountsOfWordsForAlignmentConfidences
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"countWordsAlignmentConfidenceHigh", &unk_28400BD18, @"countWordsAlignmentConfidenceMid", &unk_28400BD18, @"countWordsAlignmentConfidenceLow", &unk_28400BD18, @"countWordsAlignmentConfidenceNone", &unk_28400BD18, @"totalAlignedWords", 0}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   selfCopy = self;
   alignedEntries = [(TITypingSessionAligned *)self->_alignedSession alignedEntries];
-  v5 = [alignedEntries countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [alignedEntries countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(alignedEntries);
         }
 
-        inSessionAlignmentConfidence = [*(*(&v20 + 1) + 8 * i) inSessionAlignmentConfidence];
+        inSessionAlignmentConfidence = [*(*(&v19 + 1) + 8 * i) inSessionAlignmentConfidence];
         v10 = MEMORY[0x277CCABB0];
         v11 = @"countWordsAlignmentConfidenceNone";
         if ((inSessionAlignmentConfidence - 1) <= 2)
@@ -296,7 +290,7 @@
         [v3 setObject:v13 forKeyedSubscript:v11];
       }
 
-      v6 = [alignedEntries countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [alignedEntries countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
@@ -306,8 +300,6 @@
   alignedEntries2 = [(TITypingSessionAligned *)selfCopy->_alignedSession alignedEntries];
   v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(alignedEntries2, "count")}];
   [v3 setObject:v16 forKeyedSubscript:@"totalAlignedWords"];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

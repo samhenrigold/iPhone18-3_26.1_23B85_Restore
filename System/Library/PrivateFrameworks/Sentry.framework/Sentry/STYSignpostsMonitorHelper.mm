@@ -12,10 +12,10 @@
 
 - (STYSignpostsMonitorHelper)init
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = STYSignpostsMonitorHelper;
-  v2 = [(STYSignpostsMonitorHelper *)&v9 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = STYSignpostsMonitorHelper;
+  v2 = [(STYSignpostsMonitorHelper *)&v8 init];
   v3 = v2;
   if (v2)
   {
@@ -26,13 +26,12 @@
     v3->_processingQueue = v5;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)takeTransaction
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   osTransaction = [(STYSignpostsMonitorHelper *)self osTransaction];
 
   if (!osTransaction)
@@ -42,8 +41,6 @@
     v5 = os_transaction_create();
     [(STYSignpostsMonitorHelper *)self setOsTransaction:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willStartMonitoring
@@ -90,11 +87,9 @@
 
 - (void)name
 {
-  v9 = *MEMORY[0x277D85DE8];
   object_getClassName(self);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_14(&dword_2656CE000, v1, v2, "allowList need to be overridden by %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_14(&dword_2656CE000, v1, v2, "allowList need to be overridden by %s", v3, v4, v5, v6);
 }
 
 @end

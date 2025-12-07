@@ -252,7 +252,7 @@
 + (id)predicateForFirstPartyWorkoutMatchingTypes:(id)types states:(id)states
 {
   v4 = 0;
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   if (types && states)
   {
     statesCopy = states;
@@ -269,19 +269,17 @@
     v4 = [self _predicateForKeyPath:v10 withPredicate:v15 identifier:v16];
 
     v18 = +[_CDContextQueries sessionState];
-    v24[0] = v18;
-    v25[0] = statesCopy;
+    v23[0] = v18;
+    v24[0] = statesCopy;
     v19 = +[_CDContextQueries workoutActivityType];
-    v24[1] = v19;
+    v23[1] = v19;
     allObjects = [typesCopy allObjects];
 
-    v25[1] = allObjects;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[1] = allObjects;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
     [v4 setParameters:v21];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -422,7 +420,7 @@ LABEL_21:
         contextChannel2 = [MEMORY[0x1E6997908] contextChannel];
         if (os_log_type_enabled(contextChannel2, OS_LOG_TYPE_FAULT))
         {
-          [_CDMDCSContextualPredicate initWithIdentifier:parameters:];
+          [_CDMDCSContextualPredicate initWithIdentifier:v13 parameters:?];
         }
       }
 
@@ -578,31 +576,12 @@ LABEL_25:
   return v7;
 }
 
-- (void)initWithIdentifier:parameters:.cold.1()
+- (void)initWithIdentifier:(uint64_t)a1 parameters:.cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_1A9611000, v0, v1, "Unknown predicate identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithIdentifier:parameters:.cold.3()
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1A9611000, v2, v3, "Unexpected class for workout types (%@), expected NSSet or NSArray.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithIdentifier:parameters:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_1A9611000, v0, v1, "Invalid predicate parameters: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1A9611000, v3, v4, "Unexpected class for workout types (%@), expected NSSet or NSArray.", v5, v6, v7, v8);
 }
 
 @end

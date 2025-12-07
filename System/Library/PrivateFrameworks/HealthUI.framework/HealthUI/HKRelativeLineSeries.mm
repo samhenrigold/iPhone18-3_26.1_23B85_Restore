@@ -128,7 +128,7 @@
 
   if (v44)
   {
-    [v44 blockPathStart];
+    objc_msgSend_blockPathStart(v44);
   }
 
   else

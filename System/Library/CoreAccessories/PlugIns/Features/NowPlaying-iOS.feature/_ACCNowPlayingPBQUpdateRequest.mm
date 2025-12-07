@@ -61,12 +61,4 @@
   [(_ACCNowPlayingPBQUpdateRequest *)&v4 dealloc];
 }
 
-- (void)initWithID:startIndex:upToCount:infoMask:allowNonLibrary:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_233600000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 @end

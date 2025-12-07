@@ -341,7 +341,7 @@ LABEL_9:
   donutMaskPositionAnimationSettings = [settingsCopy donutMaskPositionAnimationSettings];
   v155 = v15;
   v26 = v14;
-  v27 = SUIAScreenEdgeForNormalizedButtonRect();
+  v27 = SUIAScreenEdgeForNormalizedButtonRect(donutMaskPositionAnimationSettings);
   memset(&v163, 0, sizeof(v163));
   SUIACATransform3DFromNominalRightEdgeToEdge(v27, &v163);
   v165.origin.x = x;

@@ -11,7 +11,7 @@
 - (void)setState:(BOOL)state completionHandler:(id)handler
 {
   stateCopy = state;
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (stateCopy)
   {
@@ -24,31 +24,31 @@
   }
 
   client = [(WFPersonalHotspotSettingsClient *)self client];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v9 = get_NETRBClientSetGlobalServiceStateSymbolLoc_ptr;
-  v22 = get_NETRBClientSetGlobalServiceStateSymbolLoc_ptr;
+  v20 = get_NETRBClientSetGlobalServiceStateSymbolLoc_ptr;
   if (!get_NETRBClientSetGlobalServiceStateSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __get_NETRBClientSetGlobalServiceStateSymbolLoc_block_invoke;
-    v24 = &unk_278C222B8;
-    v25 = &v19;
+    v22 = &unk_278C222B8;
+    v23 = &v17;
     v10 = NetrbLibrary();
     v11 = dlsym(v10, "_NETRBClientSetGlobalServiceState");
-    *(v25[1] + 24) = v11;
-    get_NETRBClientSetGlobalServiceStateSymbolLoc_ptr = *(v25[1] + 24);
-    v9 = v20[3];
+    *(v23[1] + 24) = v11;
+    get_NETRBClientSetGlobalServiceStateSymbolLoc_ptr = *(v23[1] + 24);
+    v9 = v18[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
   if (!v9)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"_Bool soft_NETRBClientSetGlobalServiceState(NETRBClientRef, netrbState)"}];
-    [currentHandler handleFailureInFunction:v18 file:@"WFPersonalHotspotSettingsClient.m" lineNumber:23 description:{@"%s", dlerror()}];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"_Bool soft_NETRBClientSetGlobalServiceState(NETRBClientRef, netrbState)"}];
+    [currentHandler handleFailureInFunction:v16 file:@"WFPersonalHotspotSettingsClient.m" lineNumber:23 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
@@ -68,7 +68,6 @@
     _os_log_impl(&dword_23DE30000, v12, OS_LOG_TYPE_INFO, "%s Setting Personal Hotspot state to %d", buf, 0x12u);
   }
 
-  v13 = *MEMORY[0x277CBECE8];
   if (WiFiManagerClientCreate())
   {
     if (stateCopy)
@@ -79,20 +78,20 @@
     WiFiManagerClientSetMISDiscoveryState();
     if (((WiFiManagerClientGetMISDiscoveryState() == 0) ^ stateCopy))
     {
-      v14 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v14 = WFSettingsClientError();
-      v16 = getWFBundledIntentsLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v13 = WFSettingsClientError();
+      v14 = getWFBundledIntentsLogObject();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         *&buf[4] = "[WFPersonalHotspotSettingsClient setState:completionHandler:]";
         *&buf[12] = 2112;
-        *&buf[14] = v14;
-        _os_log_impl(&dword_23DE30000, v16, OS_LOG_TYPE_ERROR, "%s Failed to set hotspot status with error %@", buf, 0x16u);
+        *&buf[14] = v13;
+        _os_log_impl(&dword_23DE30000, v14, OS_LOG_TYPE_ERROR, "%s Failed to set hotspot status with error %@", buf, 0x16u);
       }
     }
   }
@@ -100,63 +99,60 @@
   else
   {
 LABEL_13:
-    v14 = WFSettingsClientError();
+    v13 = WFSettingsClientError();
   }
 
-  handlerCopy[2](handlerCopy, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
+  handlerCopy[2](handlerCopy, v13);
 }
 
 - (void)getStateWithCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v13 = 0;
-  v14 = 1020;
+  v12 = 0;
+  v13 = 1020;
   client = [(WFPersonalHotspotSettingsClient *)self client];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v6 = get_NETRBClientGetGlobalServiceStateSymbolLoc_ptr;
-  v18 = get_NETRBClientGetGlobalServiceStateSymbolLoc_ptr;
+  v17 = get_NETRBClientGetGlobalServiceStateSymbolLoc_ptr;
   if (!get_NETRBClientGetGlobalServiceStateSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __get_NETRBClientGetGlobalServiceStateSymbolLoc_block_invoke;
-    v20 = &unk_278C222B8;
-    v21 = &v15;
+    v19 = &unk_278C222B8;
+    v20 = &v14;
     v7 = NetrbLibrary();
     v8 = dlsym(v7, "_NETRBClientGetGlobalServiceState");
-    *(v21[1] + 24) = v8;
-    get_NETRBClientGetGlobalServiceStateSymbolLoc_ptr = *(v21[1] + 24);
-    v6 = v16[3];
+    *(v20[1] + 24) = v8;
+    get_NETRBClientGetGlobalServiceStateSymbolLoc_ptr = *(v20[1] + 24);
+    v6 = v15[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v6)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"_Bool soft_NETRBClientGetGlobalServiceState(NETRBClientRef, netrbStateRef, netrbReasonRef)"}];
-    [currentHandler handleFailureInFunction:v12 file:@"WFPersonalHotspotSettingsClient.m" lineNumber:22 description:{@"%s", dlerror()}];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"_Bool soft_NETRBClientGetGlobalServiceState(NETRBClientRef, netrbStateRef, netrbReasonRef)"}];
+    [currentHandler handleFailureInFunction:v11 file:@"WFPersonalHotspotSettingsClient.m" lineNumber:22 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 
-  v6(client, &v14, &v13);
+  v6(client, &v13, &v12);
   v9 = getWFBundledIntentsLogObject();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
     *&buf[4] = "[WFPersonalHotspotSettingsClient getStateWithCompletionHandler:]";
     *&buf[12] = 1024;
-    *&buf[14] = v14;
+    *&buf[14] = v13;
     _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_INFO, "%s Retrieved Personal Hotspot state: %d", buf, 0x12u);
   }
 
-  handlerCopy[2](handlerCopy, v14 == 1023, 0);
-  v10 = *MEMORY[0x277D85DE8];
+  handlerCopy[2](handlerCopy, v13 == 1023, 0);
 }
 
 - (void)dealloc

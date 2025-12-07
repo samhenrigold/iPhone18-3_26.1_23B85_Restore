@@ -44,7 +44,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   listenerCopy = listener;
   activeListener = [(STConcreteClientXPCServiceProvider *)self activeListener];
@@ -65,9 +65,9 @@
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           providedService2 = [(STConcreteClientXPCServiceProvider *)self providedService];
-          v37 = 138543362;
-          v38 = providedService2;
-          _os_log_impl(&dword_1B831F000, v19, OS_LOG_TYPE_DEFAULT, "Accepted connection for service: %{public}@", &v37, 0xCu);
+          v36 = 138543362;
+          v37 = providedService2;
+          _os_log_impl(&dword_1B831F000, v19, OS_LOG_TYPE_DEFAULT, "Accepted connection for service: %{public}@", &v36, 0xCu);
         }
       }
 
@@ -104,7 +104,6 @@
     v17 = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

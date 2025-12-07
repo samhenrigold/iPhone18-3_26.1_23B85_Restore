@@ -62,7 +62,7 @@
 
 + (double)cropsCornerWidth
 {
-  v2 = _SSScreenshotsRedesign2025Enabled();
+  v2 = _SSScreenshotsRedesign2025Enabled(self, a2);
   result = 4.0;
   if (v2)
   {
@@ -74,7 +74,7 @@
 
 + (double)cropsHandleOutset
 {
-  v2 = _SSScreenshotsRedesign2025Enabled();
+  v2 = _SSScreenshotsRedesign2025Enabled(self, a2);
   result = 0.0;
   if (v2)
   {
@@ -86,7 +86,7 @@
 
 + (double)roundedCropsCornerRadius
 {
-  v2 = _SSScreenshotsRedesign2025Enabled();
+  v2 = _SSScreenshotsRedesign2025Enabled(self, a2);
   result = 0.0;
   if (v2)
   {
@@ -184,7 +184,7 @@
 
 + (double)screenshotTopMarginPhone
 {
-  v2 = _SSScreenshotsRedesign2025Enabled();
+  v2 = _SSScreenshotsRedesign2025Enabled(self, a2);
   result = 30.0;
   if (v2)
   {

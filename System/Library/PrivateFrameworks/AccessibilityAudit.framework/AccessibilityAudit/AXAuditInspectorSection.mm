@@ -8,6 +8,7 @@
 - (BOOL)isEqual:(id)equal;
 - (NSArray)elementAttributes;
 - (NSString)description;
+- (id)addAttribute:(id)attribute performsAction:(BOOL)action humanReadable:(id)readable settable:(BOOL)settable valueType:(int64_t)type isInternal:(BOOL)internal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
 - (void)addAttribute:(id)attribute;
@@ -63,26 +64,26 @@
 
 - (BOOL)displaysHierarchy
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   elementAttributes = [(AXAuditInspectorSection *)self elementAttributes];
-  v3 = [elementAttributes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [elementAttributes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(elementAttributes);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         if ([v6 displayAsTree])
         {
           humanReadableName = [v6 humanReadableName];
@@ -96,7 +97,7 @@
         }
       }
 
-      v3 = [elementAttributes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [elementAttributes countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -108,32 +109,31 @@
 
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)hasActions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   elementAttributes = [(AXAuditInspectorSection *)self elementAttributes];
-  v3 = [elementAttributes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [elementAttributes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(elementAttributes);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         if ([v6 performsAction])
         {
           humanReadableName = [v6 humanReadableName];
@@ -147,7 +147,7 @@ LABEL_12:
         }
       }
 
-      v3 = [elementAttributes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [elementAttributes countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -159,8 +159,92 @@ LABEL_12:
 
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
+}
+
+- (id)addAttribute:(id)attribute performsAction:(BOOL)action humanReadable:(id)readable settable:(BOOL)settable valueType:(int64_t)type isInternal:(BOOL)internal
+{
+  settableCopy = settable;
+  internalCopy = internal;
+  actionCopy = action;
+  v33 = *MEMORY[0x277D85DE8];
+  attributeCopy = attribute;
+  readableCopy = readable;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  elementAttributes = [(AXAuditInspectorSection *)self elementAttributes];
+  v13 = [elementAttributes countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (!v13)
+  {
+LABEL_12:
+
+    goto LABEL_15;
+  }
+
+  v14 = v13;
+  v15 = *v29;
+LABEL_3:
+  v16 = 0;
+  while (1)
+  {
+    if (*v29 != v15)
+    {
+      objc_enumerationMutation(elementAttributes);
+    }
+
+    v17 = *(*(&v28 + 1) + 8 * v16);
+    attributeName = [v17 attributeName];
+    if (![attributeName isEqual:attributeCopy])
+    {
+
+      goto LABEL_10;
+    }
+
+    performsAction = [v17 performsAction];
+
+    if (performsAction == actionCopy)
+    {
+      break;
+    }
+
+LABEL_10:
+    if (v14 == ++v16)
+    {
+      v14 = [elementAttributes countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v14)
+      {
+        goto LABEL_3;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  v20 = v17;
+
+  if (v20)
+  {
+    v21 = 0;
+    v22 = readableCopy;
+    goto LABEL_16;
+  }
+
+LABEL_15:
+  v21 = objc_opt_new();
+  [v21 setAttributeName:attributeCopy];
+  [v21 setPerformsAction:actionCopy];
+  v22 = readableCopy;
+  [v21 setHumanReadableName:readableCopy];
+  [v21 setValueType:type];
+  [v21 setSettable:settableCopy];
+  [v21 setIsInternal:internalCopy];
+  [(AXAuditInspectorSection *)self addAttribute:v21];
+  v20 = 0;
+LABEL_16:
+
+  return v21;
 }
 
 + (void)registerTransportableObjectWithManager:(id)manager

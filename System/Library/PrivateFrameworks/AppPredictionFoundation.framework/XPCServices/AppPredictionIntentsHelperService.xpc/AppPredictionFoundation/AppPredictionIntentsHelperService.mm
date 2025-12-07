@@ -17,7 +17,7 @@
   intentCopy = intent;
   replyCopy = reply;
   _title = [intentCopy _title];
-  v8 = sub_100001F08();
+  v8 = sub_100001F08(_title);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000328C();
@@ -31,7 +31,7 @@
   localizationCopy = localization;
   replyCopy = reply;
   v7 = [localizationCopy _titleWithLocalizer:0 fromBundleURL:0];
-  v8 = sub_100001F08();
+  v8 = sub_100001F08(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1000032FC();
@@ -45,7 +45,7 @@
   intentCopy = intent;
   replyCopy = reply;
   _subtitle = [intentCopy _subtitle];
-  v8 = sub_100001F08();
+  v8 = sub_100001F08(_subtitle);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000336C();
@@ -58,7 +58,7 @@
 {
   intentCopy = intent;
   replyCopy = reply;
-  v7 = sub_100001F08();
+  v7 = sub_100001F08(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -67,7 +67,7 @@
   }
 
   _indexingHash = [intentCopy _indexingHash];
-  v9 = sub_100001F08();
+  v9 = sub_100001F08(_indexingHash);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134218242;
@@ -87,8 +87,8 @@
   _codableDescription = [intentCopy _codableDescription];
   isEligibleForWidgets = [_codableDescription isEligibleForWidgets];
 
-  v9 = sub_100001F08();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = sub_100001F08(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1000033DC();
   }
@@ -101,7 +101,7 @@
   intentCopy = intent;
   replyCopy = reply;
   _supportsBackgroundExecution = [intentCopy _supportsBackgroundExecution];
-  v8 = sub_100001F08();
+  v8 = sub_100001F08(_supportsBackgroundExecution);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000344C();
@@ -116,7 +116,7 @@
   dataCopy = data;
   replyCopy = reply;
   v10 = INIntentCreate();
-  v11 = sub_100001F08();
+  v11 = sub_100001F08(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = 138412802;
@@ -145,7 +145,7 @@
   v13 = [v12 createEventIntentForEvent:v11 withSuggestionsInfoUniqueKey:0];
 
   v14 = INIntentWithTypedIntent();
-  v15 = sub_100001F08();
+  v15 = sub_100001F08(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     v16 = 138412802;

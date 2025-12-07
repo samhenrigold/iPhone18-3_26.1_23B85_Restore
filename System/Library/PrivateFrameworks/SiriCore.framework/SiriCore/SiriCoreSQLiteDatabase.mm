@@ -33,12 +33,12 @@
 
 - (BOOL)checkpointWriteAheadLogWithError:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0B0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0B0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v22 = "[SiriCoreSQLiteDatabase checkpointWriteAheadLogWithError:]";
+    v21 = "[SiriCoreSQLiteDatabase checkpointWriteAheadLogWithError:]";
     _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -49,22 +49,20 @@
     v8 = sqlite3_extended_errcode(self->_handle);
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277CCA170];
-    v20[0] = self->_path;
+    v19[0] = self->_path;
     v11 = *MEMORY[0x277CCA7E8];
-    v18 = v10;
-    v19 = v11;
+    v17 = v10;
+    v18 = v11;
     v12 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v7, v8);
-    v20[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v18 count:2];
-    v14 = [v9 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:{v13, v18, v19, v20[0]}];
+    v19[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v17 count:2];
+    v14 = [v9 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:{v13, v17, v18, v19[0]}];
 
     v15 = v14;
     *error = v14;
   }
 
-  result = v7 == 0;
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 == 0;
 }
 
 - (BOOL)executeQueryString:(id)string error:(id *)error
@@ -98,7 +96,7 @@
 
 - (id)executeQuery:(id)query
 {
-  v170 = *MEMORY[0x277D85DE8];
+  v169 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v5 = mach_absolute_time();
   ppStmt = 0;
@@ -106,9 +104,9 @@
   {
     v10 = objc_alloc(MEMORY[0x277CCA9B8]);
     path = self->_path;
-    v161 = *MEMORY[0x277CCA170];
-    v162 = path;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v162 forKeys:&v161 count:1];
+    v160 = *MEMORY[0x277CCA170];
+    v161 = path;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v161 forKeys:&v160 count:1];
     v13 = [v10 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:6 userInfo:v12];
 
     v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v5 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
@@ -126,8 +124,8 @@
 LABEL_14:
     *buf = 136315394;
     *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-    v164 = 2112;
-    v165 = v14;
+    v163 = 2112;
+    v164 = v14;
     _os_log_error_impl(&dword_2669D1000, v15, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
     goto LABEL_210;
   }
@@ -136,9 +134,9 @@ LABEL_14:
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
     v17 = self->_path;
-    v159 = *MEMORY[0x277CCA170];
-    v160 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
+    v158 = *MEMORY[0x277CCA170];
+    v159 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
     v13 = [v16 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:7 userInfo:v18];
 
     v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:0 beginMachTime:v5 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
@@ -158,7 +156,7 @@ LABEL_14:
 
   statement = [queryCopy statement];
   v7 = statement;
-  v132 = v5;
+  v131 = v5;
   selfCopy = self;
   if (!statement)
   {
@@ -193,11 +191,11 @@ LABEL_16:
     {
       v25 = objc_alloc(MEMORY[0x277CCA9B8]);
       v26 = self->_path;
-      v157[0] = *MEMORY[0x277CCA170];
-      v157[1] = @"query";
-      v158[0] = v26;
-      v158[1] = queryCopy;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v158 forKeys:v157 count:2];
+      v156[0] = *MEMORY[0x277CCA170];
+      v156[1] = @"query";
+      v157[0] = v26;
+      v157[1] = queryCopy;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v157 forKeys:v156 count:2];
       v13 = [v25 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:8 userInfo:v27];
 
       v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v5 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
@@ -208,8 +206,8 @@ LABEL_16:
         {
           *buf = 136315394;
           *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-          v164 = 2112;
-          v165 = v14;
+          v163 = 2112;
+          v164 = v14;
           _os_log_error_impl(&dword_2669D1000, v28, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
         }
       }
@@ -260,7 +258,7 @@ LABEL_30:
         v84 = [SiriCoreSQLiteStatement alloc];
         v85 = [(SiriCoreSQLiteStatement *)v84 initWithImpl:ppStmt finalizeWhenDone:1];
 
-        v130 = v85;
+        v129 = v85;
         goto LABEL_33;
       }
 
@@ -275,14 +273,14 @@ LABEL_30:
 
       v43 = objc_alloc(MEMORY[0x277CCA9B8]);
       v44 = selfCopy->_path;
-      v153[0] = *MEMORY[0x277CCA170];
-      v153[1] = @"query";
-      v154[0] = v44;
-      v154[1] = queryCopy;
-      v153[2] = *MEMORY[0x277CCA7E8];
+      v152[0] = *MEMORY[0x277CCA170];
+      v152[1] = @"query";
+      v153[0] = v44;
+      v153[1] = queryCopy;
+      v152[2] = *MEMORY[0x277CCA7E8];
       v45 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v40, v42);
-      v154[2] = v45;
-      v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v154 forKeys:v153 count:3];
+      v153[2] = v45;
+      v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v153 forKeys:v152 count:3];
       v13 = [v43 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:v46];
 
       v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v5 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
@@ -299,8 +297,8 @@ LABEL_30:
       {
         *buf = 136315394;
         *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-        v164 = 2112;
-        v165 = v14;
+        v163 = 2112;
+        v164 = v14;
         _os_log_error_impl(&dword_2669D1000, v47, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
       }
     }
@@ -309,11 +307,11 @@ LABEL_30:
     {
       v66 = objc_alloc(MEMORY[0x277CCA9B8]);
       v67 = selfCopy->_path;
-      v155[0] = *MEMORY[0x277CCA170];
-      v155[1] = @"query";
-      v156[0] = v67;
-      v156[1] = queryCopy;
-      v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:2];
+      v154[0] = *MEMORY[0x277CCA170];
+      v154[1] = @"query";
+      v155[0] = v67;
+      v155[1] = queryCopy;
+      v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v155 forKeys:v154 count:2];
       v13 = [v66 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:8 userInfo:v68];
 
       v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v5 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
@@ -324,8 +322,8 @@ LABEL_30:
         {
           *buf = 136315394;
           *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-          v164 = 2112;
-          v165 = v14;
+          v163 = 2112;
+          v164 = v14;
           _os_log_error_impl(&dword_2669D1000, v69, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
         }
       }
@@ -337,7 +335,7 @@ LABEL_30:
     goto LABEL_208;
   }
 
-  v130 = 0;
+  v129 = 0;
 LABEL_33:
   parameters = [queryCopy parameters];
   v30 = [parameters count];
@@ -346,24 +344,24 @@ LABEL_33:
   {
     v32 = objc_alloc(MEMORY[0x277CCA9B8]);
     v33 = selfCopy->_path;
-    v151[0] = *MEMORY[0x277CCA170];
-    v151[1] = @"query";
-    v152[0] = v33;
-    v152[1] = queryCopy;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:v151 count:2];
+    v150[0] = *MEMORY[0x277CCA170];
+    v150[1] = @"query";
+    v151[0] = v33;
+    v151[1] = queryCopy;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v151 forKeys:v150 count:2];
     v13 = [v32 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:9 userInfo:v34];
 
     v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v5 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
     if (v13)
     {
       v35 = *MEMORY[0x277CEF0B0];
-      v36 = v130;
+      v36 = v129;
       if (os_log_type_enabled(*MEMORY[0x277CEF0B0], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-        v164 = 2112;
-        v165 = v14;
+        v163 = 2112;
+        v164 = v14;
         _os_log_error_impl(&dword_2669D1000, v35, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
       }
 
@@ -373,15 +371,15 @@ LABEL_33:
     else
     {
       v29 = 0;
-      v36 = v130;
+      v36 = v129;
     }
 
     goto LABEL_207;
   }
 
-  v129 = v20;
-  v127 = v7;
-  v128 = queryCopy;
+  v128 = v20;
+  v126 = v7;
+  v127 = queryCopy;
   if (!v30)
   {
 LABEL_65:
@@ -392,8 +390,8 @@ LABEL_65:
       v62 = v61;
       if ((options & 0x6A) != 0)
       {
-        v7 = v127;
-        v20 = v129;
+        v7 = v126;
+        v20 = v128;
         if (v61 >= 1)
         {
           v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v61];
@@ -422,30 +420,30 @@ LABEL_65:
           v105 = v65;
           v106 = objc_alloc(MEMORY[0x277CCA9B8]);
           v107 = *MEMORY[0x277CCA170];
-          v148[0] = selfCopy->_path;
-          v147[0] = v107;
-          v147[1] = @"columnCount";
+          v147[0] = selfCopy->_path;
+          v146[0] = v107;
+          v146[1] = @"columnCount";
           v108 = [MEMORY[0x277CCABB0] numberWithInt:v62];
-          v148[1] = v108;
-          v147[2] = @"columnIndex";
+          v147[1] = v108;
+          v146[2] = @"columnIndex";
           v109 = [MEMORY[0x277CCABB0] numberWithInt:0];
-          v147[3] = @"query";
-          v148[2] = v109;
-          v148[3] = queryCopy;
-          v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v148 forKeys:v147 count:4];
+          v146[3] = @"query";
+          v147[2] = v109;
+          v147[3] = queryCopy;
+          v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:4];
           v13 = [v106 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:10 userInfo:v110];
 
-          v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v132 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
+          v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v131 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
           if (v13)
           {
             v111 = *MEMORY[0x277CEF0B0];
-            v36 = v130;
+            v36 = v129;
             if (os_log_type_enabled(*MEMORY[0x277CEF0B0], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
               *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-              v164 = 2112;
-              v165 = v14;
+              v163 = 2112;
+              v164 = v14;
               _os_log_error_impl(&dword_2669D1000, v111, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
             }
 
@@ -470,8 +468,8 @@ LABEL_98:
         }
 
 LABEL_86:
-        v126 = v76;
-        v143 = v63;
+        v125 = v76;
+        v142 = v63;
         if ((options & 0x7C) == 0)
         {
           do
@@ -482,9 +480,9 @@ LABEL_86:
           }
 
           while (v81 == 100);
-          v131 = 0;
+          v130 = 0;
+          v132 = 0;
           v133 = 0;
-          v134 = 0;
           v82 = 0;
           v83 = 0;
           goto LABEL_187;
@@ -520,7 +518,7 @@ LABEL_86:
 
         if ((options & 0x10) != 0)
         {
-          v134 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v133 = objc_alloc_init(MEMORY[0x277CBEB18]);
           if ((options & 0x20) != 0)
           {
             goto LABEL_104;
@@ -529,27 +527,27 @@ LABEL_86:
 
         else
         {
-          v134 = 0;
+          v133 = 0;
           if ((options & 0x20) != 0)
           {
 LABEL_104:
-            v133 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v132 = objc_alloc_init(MEMORY[0x277CBEB18]);
 LABEL_107:
-            v142 = v77;
+            v141 = v77;
             if ((options & 0x40) != 0)
             {
-              v131 = objc_alloc_init(MEMORY[0x277CBEB18]);
+              v130 = objc_alloc_init(MEMORY[0x277CBEB18]);
             }
 
             else
             {
-              v131 = 0;
+              v130 = 0;
             }
 
             v86 = v62;
-            v138 = MEMORY[0x277CBEBF8] & (options << 59 >> 63);
-            v137 = MEMORY[0x277CBEC10] & (options << 58 >> 63);
-            v135 = v62;
+            v137 = MEMORY[0x277CBEBF8] & (options << 59 >> 63);
+            v136 = MEMORY[0x277CBEC10] & (options << 58 >> 63);
+            v134 = v62;
             while (1)
             {
               v87 = objc_autoreleasePoolPush();
@@ -562,13 +560,13 @@ LABEL_107:
                 {
                   v82 = 0;
                   v83 = 0;
-                  v7 = v127;
-                  v20 = v129;
+                  v7 = v126;
+                  v20 = v128;
                   goto LABEL_186;
                 }
 
-                v7 = v127;
-                v20 = v129;
+                v7 = v126;
+                v20 = v128;
                 if ((options & 4) == 0)
                 {
                   if ((options & 8) == 0)
@@ -586,24 +584,24 @@ LABEL_180:
                     v112 = 0;
                     do
                     {
-                      v113 = [v143 objectAtIndex:v112];
-                      v114 = [v142 objectAtIndex:v112];
+                      v113 = [v142 objectAtIndex:v112];
+                      v114 = [v141 objectAtIndex:v112];
                       [v82 setObject:v114 forKey:v113];
 
                       ++v112;
                     }
 
                     while (v86 != v112);
-                    v20 = v129;
+                    v20 = v128;
 LABEL_186:
 
-                    queryCopy = v128;
+                    queryCopy = v127;
 LABEL_187:
                     if (v81 == 101)
                     {
                       if (options)
                       {
-                        v121 = v130;
+                        v121 = v129;
                         if (v20)
                         {
                           v121 = v20;
@@ -622,60 +620,60 @@ LABEL_187:
                         v29 = 0;
                       }
 
-                      if ((options & 0x10000) != 0 && v130)
+                      if ((options & 0x10000) != 0 && v129)
                       {
                         cachedSQLiteStatementsByQueryString = selfCopy->_cachedSQLiteStatementsByQueryString;
                         string3 = [queryCopy string];
-                        [(NSCache *)cachedSQLiteStatementsByQueryString setObject:v130 forKey:string3];
+                        [(NSCache *)cachedSQLiteStatementsByQueryString setObject:v129 forKey:string3];
 
-                        queryCopy = v128;
+                        queryCopy = v127;
                       }
 
-                      v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v132 endMachTime:mach_absolute_time() statement:v29 columnNameTuple:v126 columnValueTuples:v83 columnValuesMap:v82 rowValueTuples:v134 rowValueMaps:v133 records:v131 error:0];
+                      v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v131 endMachTime:mach_absolute_time() statement:v29 columnNameTuple:v125 columnValueTuples:v83 columnValuesMap:v82 rowValueTuples:v133 rowValueMaps:v132 records:v130 error:0];
 
-                      v105 = v126;
+                      v105 = v125;
                       v13 = 0;
-                      v20 = v129;
-                      v36 = v130;
+                      v20 = v128;
+                      v36 = v129;
                       goto LABEL_206;
                     }
 
                     v115 = sqlite3_extended_errcode(selfCopy->_handle);
                     v116 = objc_alloc(MEMORY[0x277CCA9B8]);
                     v117 = selfCopy->_path;
-                    v145[0] = *MEMORY[0x277CCA170];
-                    v145[1] = @"query";
-                    v146[0] = v117;
-                    v146[1] = queryCopy;
-                    v145[2] = *MEMORY[0x277CCA7E8];
+                    v144[0] = *MEMORY[0x277CCA170];
+                    v144[1] = @"query";
+                    v145[0] = v117;
+                    v145[1] = queryCopy;
+                    v144[2] = *MEMORY[0x277CCA7E8];
                     v118 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v81, v115);
-                    v146[2] = v118;
-                    v119 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:3];
+                    v145[2] = v118;
+                    v119 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:3];
                     v13 = [v116 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:v119];
 
-                    v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v132 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
+                    v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v131 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
                     if (v13)
                     {
                       v120 = *MEMORY[0x277CEF0B0];
-                      v36 = v130;
+                      v36 = v129;
                       if (os_log_type_enabled(*MEMORY[0x277CEF0B0], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136315394;
                         *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-                        v164 = 2112;
-                        v165 = v14;
+                        v163 = 2112;
+                        v164 = v14;
                         _os_log_error_impl(&dword_2669D1000, v120, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
                       }
 
                       v29 = 0;
-                      v105 = v143;
+                      v105 = v142;
                       goto LABEL_206;
                     }
 
                     v29 = 0;
-                    v105 = v143;
+                    v105 = v142;
 LABEL_205:
-                    v36 = v130;
+                    v36 = v129;
 LABEL_206:
 
                     goto LABEL_207;
@@ -697,7 +695,7 @@ LABEL_185:
 
                 else
                 {
-                  v83 = [v142 copy];
+                  v83 = [v141 copy];
                   if ((options & 8) != 0)
                   {
                     goto LABEL_180;
@@ -713,8 +711,8 @@ LABEL_185:
                 [recordBuilder reset];
               }
 
-              v89 = v137;
-              v90 = v138;
+              v89 = v136;
+              v90 = v137;
               if (v62 >= 1)
               {
                 if ((options & 0x10) != 0)
@@ -727,7 +725,7 @@ LABEL_185:
                   v90 = 0;
                 }
 
-                v140 = v87;
+                v139 = v87;
                 if ((options & 0x20) != 0)
                 {
                   v89 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v86];
@@ -811,12 +809,12 @@ LABEL_135:
                   {
                     *buf = 136315906;
                     *&buf[4] = "SiriCoreSQLiteDatabaseGetColumnValueFromSQLiteStatement";
-                    v164 = 2112;
-                    v165 = null2;
-                    v166 = 1024;
-                    v167 = v91;
-                    v168 = 1024;
-                    LODWORD(v169) = v94;
+                    v163 = 2112;
+                    v164 = null2;
+                    v165 = 1024;
+                    v166 = v91;
+                    v167 = 1024;
+                    LODWORD(v168) = v94;
                     _os_log_error_impl(&dword_2669D1000, v101, OS_LOG_TYPE_ERROR, "%s %@ (sqlite_column_index = %d, sqlite_column_type = %d)", buf, 0x22u);
                     if (!null2)
                     {
@@ -828,7 +826,7 @@ LABEL_136:
                       }
 
 LABEL_144:
-                      v102 = [v142 objectAtIndex:v91];
+                      v102 = [v141 objectAtIndex:v91];
                       [v102 addObject:null2];
 
                       goto LABEL_145;
@@ -854,7 +852,7 @@ LABEL_145:
 
                   if ((options & 0x60) != 0)
                   {
-                    v103 = [v143 objectAtIndex:v91];
+                    v103 = [v142 objectAtIndex:v91];
                     if ((options & 0x20) != 0)
                     {
                       [v89 setObject:null2 forKey:v103];
@@ -868,8 +866,8 @@ LABEL_145:
 
                   if (v86 == ++v91)
                   {
-                    LODWORD(v62) = v135;
-                    v87 = v140;
+                    LODWORD(v62) = v134;
+                    v87 = v139;
                     break;
                   }
                 }
@@ -877,7 +875,7 @@ LABEL_145:
 
               if ((options & 0x10) != 0)
               {
-                [v134 addObject:v90];
+                [v133 addObject:v90];
                 if ((options & 0x20) == 0)
                 {
 LABEL_159:
@@ -895,7 +893,7 @@ LABEL_159:
                 goto LABEL_159;
               }
 
-              [v133 addObject:v89];
+              [v132 addObject:v89];
               if ((options & 0x40) == 0)
               {
                 goto LABEL_166;
@@ -905,7 +903,7 @@ LABEL_163:
               build = [recordBuilder build];
               if (build)
               {
-                [v131 addObject:build];
+                [v130 addObject:build];
               }
 
 LABEL_166:
@@ -914,7 +912,7 @@ LABEL_166:
           }
         }
 
-        v133 = 0;
+        v132 = 0;
         goto LABEL_107;
       }
     }
@@ -926,8 +924,8 @@ LABEL_166:
 
     v63 = 0;
     v76 = 0;
-    v7 = v127;
-    v20 = v129;
+    v7 = v126;
+    v20 = v128;
     goto LABEL_86;
   }
 
@@ -985,12 +983,12 @@ LABEL_59:
     {
       *buf = 136315906;
       *&buf[4] = "SiriCoreSQLiteDatabaseBindQueryParameterToSQLiteStatement";
-      v164 = 2112;
-      v165 = v52;
-      v166 = 1024;
-      v167 = v48;
-      v168 = 2048;
-      v169 = v54;
+      v163 = 2112;
+      v164 = v52;
+      v165 = 1024;
+      v166 = v48;
+      v167 = 2048;
+      v168 = v54;
       _os_log_error_impl(&dword_2669D1000, v60, OS_LOG_TYPE_ERROR, "%s %@ (sqlite_parameter_index = %d, valueType = %ld)", buf, 0x26u);
     }
 
@@ -1010,17 +1008,17 @@ LABEL_60:
   v70 = sqlite3_extended_errcode(selfCopy->_handle);
   v71 = objc_alloc(MEMORY[0x277CCA9B8]);
   v72 = selfCopy->_path;
-  v149[0] = *MEMORY[0x277CCA170];
-  v149[1] = @"query";
-  v150[0] = v72;
-  v150[1] = queryCopy;
-  v149[2] = *MEMORY[0x277CCA7E8];
+  v148[0] = *MEMORY[0x277CCA170];
+  v148[1] = @"query";
+  v149[0] = v72;
+  v149[1] = queryCopy;
+  v148[2] = *MEMORY[0x277CCA7E8];
   v73 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v58, v70);
-  v150[2] = v73;
-  v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:v149 count:3];
+  v149[2] = v73;
+  v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v149 forKeys:v148 count:3];
   v13 = [v71 initWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:v74];
 
-  v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v132 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
+  v14 = [[SiriCoreSQLiteQueryResult alloc] initWithQuery:queryCopy beginMachTime:v131 endMachTime:mach_absolute_time() statement:0 columnNameTuple:0 columnValueTuples:0 columnValuesMap:0 rowValueTuples:0 rowValueMaps:0 records:0 error:v13];
   if (v13)
   {
     v75 = *v49;
@@ -1028,37 +1026,36 @@ LABEL_60:
     {
       *buf = 136315394;
       *&buf[4] = "[SiriCoreSQLiteDatabase executeQuery:]";
-      v164 = 2112;
-      v165 = v14;
+      v163 = 2112;
+      v164 = v14;
       _os_log_error_impl(&dword_2669D1000, v75, OS_LOG_TYPE_ERROR, "%s result = %@", buf, 0x16u);
     }
   }
 
   v29 = 0;
-  v7 = v127;
-  v20 = v129;
-  v36 = v130;
+  v7 = v126;
+  v20 = v128;
+  v36 = v129;
 LABEL_207:
 
 LABEL_208:
 LABEL_209:
 
 LABEL_210:
-  v124 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (BOOL)closeWithError:(id *)error
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF0B0];
   v6 = *MEMORY[0x277CEF0B0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0B0], OS_LOG_TYPE_INFO))
   {
-    v24 = 136315138;
-    v25 = "[SiriCoreSQLiteDatabase closeWithError:]";
-    _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, "%s ", &v24, 0xCu);
+    v23 = 136315138;
+    v24 = "[SiriCoreSQLiteDatabase closeWithError:]";
+    _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, "%s ", &v23, 0xCu);
   }
 
   if (error)
@@ -1077,13 +1074,13 @@ LABEL_210:
       v11 = sqlite3_extended_errcode(self->_handle);
       v12 = MEMORY[0x277CCA9B8];
       v13 = *MEMORY[0x277CCA170];
-      v31[0] = self->_path;
+      v30[0] = self->_path;
       v14 = *MEMORY[0x277CCA7E8];
-      v30[0] = v13;
-      v30[1] = v14;
+      v29[0] = v13;
+      v29[1] = v14;
       v15 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v10, v11);
-      v31[1] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v30[1] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
       v17 = [v12 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:v16];
     }
 
@@ -1128,36 +1125,35 @@ LABEL_12:
   {
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v24 = 136315138;
-      v25 = "[SiriCoreSQLiteDatabase closeWithError:]";
-      _os_log_impl(&dword_2669D1000, v20, OS_LOG_TYPE_INFO, "%s done", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[SiriCoreSQLiteDatabase closeWithError:]";
+      _os_log_impl(&dword_2669D1000, v20, OS_LOG_TYPE_INFO, "%s done", &v23, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v24 = 136315650;
-    v25 = "[SiriCoreSQLiteDatabase closeWithError:]";
-    v26 = 1024;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v17;
-    _os_log_error_impl(&dword_2669D1000, v20, OS_LOG_TYPE_ERROR, "%s success = %d, error = %@", &v24, 0x1Cu);
+    v23 = 136315650;
+    v24 = "[SiriCoreSQLiteDatabase closeWithError:]";
+    v25 = 1024;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v17;
+    _os_log_error_impl(&dword_2669D1000, v20, OS_LOG_TYPE_ERROR, "%s success = %d, error = %@", &v23, 0x1Cu);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)openWithError:(id *)error
 {
-  v76[1] = *MEMORY[0x277D85DE8];
+  v74[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF0B0];
   v6 = *MEMORY[0x277CEF0B0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0B0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v62 = "[SiriCoreSQLiteDatabase openWithError:]";
+    v60 = "[SiriCoreSQLiteDatabase openWithError:]";
     _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -1185,20 +1181,20 @@ LABEL_12:
     goto LABEL_22;
   }
 
-  v60 = 0;
+  v58 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v17 = [defaultManager fileExistsAtPath:self->_path isDirectory:&v60];
+  v16 = [defaultManager fileExistsAtPath:self->_path isDirectory:&v58];
 
-  if (v17)
+  if (v16)
   {
-    if (v60 == 1)
+    if (v58 == 1)
     {
-      v18 = MEMORY[0x277CCA9B8];
+      v17 = MEMORY[0x277CCA9B8];
       path = self->_path;
-      v75 = *MEMORY[0x277CCA170];
-      v76[0] = path;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:&v75 count:1];
-      v8 = [v18 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:4 userInfo:v20];
+      v73 = *MEMORY[0x277CCA170];
+      v74[0] = path;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+      v8 = [v17 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:4 userInfo:v19];
 
 LABEL_22:
       v9 = 0;
@@ -1210,17 +1206,17 @@ LABEL_22:
 
   stringByDeletingLastPathComponent = [(NSString *)self->_path stringByDeletingLastPathComponent];
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v23 = [defaultManager2 fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v60];
+  v22 = [defaultManager2 fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v58];
 
-  if (v23)
+  if (v22)
   {
-    if (v60 != 1)
+    if (v58 != 1)
     {
-      v41 = MEMORY[0x277CCA9B8];
-      v73 = *MEMORY[0x277CCA170];
-      v74 = stringByDeletingLastPathComponent;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-      v8 = [v41 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:5 userInfo:v42];
+      v40 = MEMORY[0x277CCA9B8];
+      v71 = *MEMORY[0x277CCA170];
+      v72 = stringByDeletingLastPathComponent;
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+      v8 = [v40 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:5 userInfo:v41];
 
       goto LABEL_22;
     }
@@ -1231,126 +1227,125 @@ LABEL_26:
   }
 
   defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-  v59 = 0;
-  v25 = [defaultManager3 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v59];
-  v8 = v59;
+  v57 = 0;
+  v24 = [defaultManager3 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v57];
+  v8 = v57;
 
-  if (!v25)
+  if (!v24)
   {
     goto LABEL_22;
   }
 
 LABEL_28:
-  v26 = self->_dataProtectionClass - 1;
-  if (v26 >= 3)
+  v25 = self->_dataProtectionClass - 1;
+  if (v25 >= 3)
   {
-    v27 = 1048582;
+    v26 = 1048582;
   }
 
   else
   {
-    v27 = (v26 << 20) + 2097158;
+    v26 = (v25 << 20) + 2097158;
   }
 
-  v28 = sqlite3_open_v2([(NSString *)self->_path fileSystemRepresentation], &self->_handle, v27, 0);
-  if (v28)
+  v27 = sqlite3_open_v2([(NSString *)self->_path fileSystemRepresentation], &self->_handle, v26, 0);
+  if (v27)
   {
-    v29 = v28;
-    v30 = sqlite3_extended_errcode(self->_handle);
-    v31 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA170];
-    v72[0] = self->_path;
-    v33 = *MEMORY[0x277CCA7E8];
-    v71[0] = v32;
-    v71[1] = v33;
-    v34 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v29, v30);
-    v72[1] = v34;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
-    v36 = [v31 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:v35];
+    v28 = v27;
+    v29 = sqlite3_extended_errcode(self->_handle);
+    v30 = MEMORY[0x277CCA9B8];
+    v31 = *MEMORY[0x277CCA170];
+    v70[0] = self->_path;
+    v32 = *MEMORY[0x277CCA7E8];
+    v69[0] = v31;
+    v69[1] = v32;
+    v33 = SiriCoreSQLiteDatabaseCreateSQLiteAPIErrorFromResultCode(v28, v29);
+    v70[1] = v33;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+    v35 = [v30 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:2 userInfo:v34];
 
     v9 = 0;
     self->_handle = 0;
-    v8 = v36;
+    v8 = v35;
   }
 
   else
   {
     if ((self->_options & 2) != 0)
     {
-      v37 = sqlite3_exec(*p_handle, "PRAGMA journal_mode=WAL", 0, 0, 0);
-      if (v37)
+      v36 = sqlite3_exec(*p_handle, "PRAGMA journal_mode=WAL", 0, 0, 0);
+      if (v36)
       {
-        v38 = v37;
-        v39 = sqlite3_extended_errcode(*p_handle);
-        v40 = *v5;
+        v37 = v36;
+        v38 = sqlite3_extended_errcode(*p_handle);
+        v39 = *v5;
         if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v62 = "[SiriCoreSQLiteDatabase openWithError:]";
+          v60 = "[SiriCoreSQLiteDatabase openWithError:]";
+          v61 = 1024;
+          v62 = v37;
           v63 = 1024;
-          v64 = v38;
-          v65 = 1024;
-          LODWORD(v66) = v39;
-          _os_log_error_impl(&dword_2669D1000, v40, OS_LOG_TYPE_ERROR, "%s Failed to enable WAL journal_mode with errorCode: %d, extendedCode: %d", buf, 0x18u);
+          LODWORD(v64) = v38;
+          _os_log_error_impl(&dword_2669D1000, v39, OS_LOG_TYPE_ERROR, "%s Failed to enable WAL journal_mode with errorCode: %d, extendedCode: %d", buf, 0x18u);
         }
       }
 
       else
       {
-        v43 = *v5;
+        v42 = *v5;
         if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v62 = "[SiriCoreSQLiteDatabase openWithError:]";
-          _os_log_debug_impl(&dword_2669D1000, v43, OS_LOG_TYPE_DEBUG, "%s WAL mode enabled succesfully.", buf, 0xCu);
+          v60 = "[SiriCoreSQLiteDatabase openWithError:]";
+          _os_log_debug_impl(&dword_2669D1000, v42, OS_LOG_TYPE_DEBUG, "%s WAL mode enabled succesfully.", buf, 0xCu);
         }
       }
     }
 
-    v44 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_path];
-    v45 = [MEMORY[0x277CCABB0] numberWithInt:self->_options & 1];
-    v46 = *MEMORY[0x277CBE878];
-    v58 = v8;
-    v9 = [v44 setResourceValue:v45 forKey:v46 error:&v58];
-    v47 = v58;
+    v43 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_path];
+    v44 = [MEMORY[0x277CCABB0] numberWithInt:self->_options & 1];
+    v45 = *MEMORY[0x277CBE878];
+    v56 = v8;
+    v9 = [v43 setResourceValue:v44 forKey:v45 error:&v56];
+    v46 = v56;
 
     if ((v9 & 1) == 0)
     {
-      v48 = MEMORY[0x277CCA9B8];
-      v49 = *MEMORY[0x277CCA170];
-      if (v47)
+      v47 = MEMORY[0x277CCA9B8];
+      if (v46)
       {
-        v50 = self->_path;
-        v51 = *MEMORY[0x277CCA7E8];
-        v69[0] = *MEMORY[0x277CCA170];
-        v69[1] = v51;
-        v70[0] = v50;
-        v70[1] = v47;
-        v52 = MEMORY[0x277CBEAC0];
-        v53 = v70;
-        v54 = v69;
-        v55 = 2;
+        v48 = self->_path;
+        v49 = *MEMORY[0x277CCA7E8];
+        v67[0] = *MEMORY[0x277CCA170];
+        v67[1] = v49;
+        v68[0] = v48;
+        v68[1] = v46;
+        v50 = MEMORY[0x277CBEAC0];
+        v51 = v68;
+        v52 = v67;
+        v53 = 2;
       }
 
       else
       {
-        v67 = *MEMORY[0x277CCA170];
-        v68 = self->_path;
-        v52 = MEMORY[0x277CBEAC0];
-        v53 = &v68;
-        v54 = &v67;
-        v55 = 1;
+        v65 = *MEMORY[0x277CCA170];
+        v66 = self->_path;
+        v50 = MEMORY[0x277CBEAC0];
+        v51 = &v66;
+        v52 = &v65;
+        v53 = 1;
       }
 
-      v56 = [v52 dictionaryWithObjects:v53 forKeys:v54 count:v55];
-      v57 = [v48 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:1 userInfo:v56];
+      v54 = [v50 dictionaryWithObjects:v51 forKeys:v52 count:v53];
+      v55 = [v47 errorWithDomain:@"SiriCoreSQLiteDatabaseErrorDomain" code:1 userInfo:v54];
 
       sqlite3_close_v2(*p_handle);
       *p_handle = 0;
-      v47 = v57;
+      v46 = v55;
     }
 
-    v8 = v47;
+    v8 = v46;
   }
 
 LABEL_46:
@@ -1380,7 +1375,7 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v62 = "[SiriCoreSQLiteDatabase openWithError:]";
+      v60 = "[SiriCoreSQLiteDatabase openWithError:]";
       _os_log_impl(&dword_2669D1000, v12, OS_LOG_TYPE_INFO, "%s done", buf, 0xCu);
     }
   }
@@ -1388,15 +1383,14 @@ LABEL_8:
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v62 = "[SiriCoreSQLiteDatabase openWithError:]";
-    v63 = 1024;
-    v64 = v9;
-    v65 = 2112;
-    v66 = v8;
+    v60 = "[SiriCoreSQLiteDatabase openWithError:]";
+    v61 = 1024;
+    v62 = v9;
+    v63 = 2112;
+    v64 = v8;
     _os_log_error_impl(&dword_2669D1000, v12, OS_LOG_TYPE_ERROR, "%s success = %d, error = %@", buf, 0x1Cu);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2205,33 +2199,33 @@ void __79__SiriCoreSQLiteDatabase_Update__updateTableWithName_valueMap_criterion
 
 - (BOOL)createTable:(id)table error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   tableCopy = table;
   columns = [tableCopy columns];
-  v40 = tableCopy;
+  v39 = tableCopy;
   constraints = [tableCopy constraints];
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(constraints, "count") + objc_msgSend(columns, "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v8 = columns;
-  v9 = [v8 countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v46;
+    v11 = *v45;
     do
     {
       v12 = 0;
       do
       {
-        if (*v46 != v11)
+        if (*v45 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = SiriCoreSQLiteQueryCreateColumnDefinition(*(*(&v45 + 1) + 8 * v12));
+        v13 = SiriCoreSQLiteQueryCreateColumnDefinition(*(*(&v44 + 1) + 8 * v12));
         if (v13)
         {
           [v7 addObject:v13];
@@ -2241,35 +2235,35 @@ void __79__SiriCoreSQLiteDatabase_Update__updateTableWithName_valueMap_criterion
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v10);
   }
 
-  v37 = v8;
+  v36 = v8;
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v14 = constraints;
-  v15 = [v14 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v42;
+    v17 = *v41;
     do
     {
       v18 = 0;
       do
       {
-        if (*v42 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v41 + 1) + 8 * v18);
+        v19 = *(*(&v40 + 1) + 8 * v18);
         v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
         name = [v19 name];
         if (name)
@@ -2313,26 +2307,25 @@ LABEL_22:
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v16);
   }
 
   v30 = objc_alloc(MEMORY[0x277CCACA8]);
-  name2 = [v40 name];
+  name2 = [v39 name];
   v32 = [name2 siriCoreSQLiteValue_escapedString:0];
   v33 = [v7 componentsJoinedByString:{@", "}];
   v34 = [v30 initWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@)", v32, v33];
 
   LOBYTE(v30) = [(SiriCoreSQLiteDatabase *)self executeQueryString:v34 error:error];
-  v35 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (id)fetchTableWithName:(id)name error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (error)
   {
@@ -2370,31 +2363,31 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v36 = v10;
-  v37 = v9;
-  v38 = nameCopy;
-  v40 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v17];
+  v35 = v10;
+  v36 = v9;
+  v37 = nameCopy;
+  v39 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v17];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v35 = v11;
+  v34 = v11;
   obj = [v11 rowValueMaps];
-  v18 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v18 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v42;
+    v20 = *v41;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v42 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v41 + 1) + 8 * i);
+        v22 = *(*(&v40 + 1) + 8 * i);
         v23 = [v22 objectForKey:@"cid"];
         integerValue = [v23 integerValue];
 
@@ -2408,25 +2401,23 @@ LABEL_15:
 
         v31 = [v22 objectForKey:@"dflt_value"];
         v32 = [[_SiriCoreSQLiteColumnInfo alloc] initWithIdentifier:integerValue name:v25 type:v26 isPrimaryKey:bOOLValue isNotNull:bOOLValue2 defaultValue:v31];
-        [v40 addObject:v32];
+        [v39 addObject:v32];
       }
 
-      v19 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v19 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v19);
   }
 
-  nameCopy = v38;
-  v15 = [[_SiriCoreSQLiteTableInfo alloc] initWithName:v38 columns:v40];
+  nameCopy = v37;
+  v15 = [[_SiriCoreSQLiteTableInfo alloc] initWithName:v37 columns:v39];
 
-  v10 = v36;
-  v9 = v37;
+  v10 = v35;
+  v9 = v36;
   v13 = 0;
-  v11 = v35;
+  v11 = v34;
 LABEL_16:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

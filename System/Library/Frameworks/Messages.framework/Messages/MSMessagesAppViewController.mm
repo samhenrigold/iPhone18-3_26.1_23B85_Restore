@@ -77,7 +77,7 @@
   bottom = insets.bottom;
   left = insets.left;
   top = insets.top;
-  v8 = _MSMainBundleIdentifier();
+  v8 = _MSMainBundleIdentifier(self);
   if ([v8 isEqualToString:@"com.gamerdelights.gamepigeon.ext"])
   {
     v9 = dyld_program_sdk_at_least();
@@ -210,7 +210,7 @@
 - (void)requestPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle
 {
   v10 = *MEMORY[0x1E69E9840];
-  v5 = ms_defaultLog();
+  v5 = ms_defaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (presentationStyle > MSMessagesAppPresentationStyleTranscript)
@@ -234,26 +234,26 @@
 
 - (MSMessagesAppPresentationStyle)presentationStyle
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   appContext = [(MSMessagesAppViewController *)self appContext];
   presentationStyle = [appContext presentationStyle];
 
-  v4 = ms_defaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = ms_defaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (presentationStyle > MSMessagesAppPresentationStyleTranscript)
     {
-      v5 = @"Other";
+      v6 = @"Other";
     }
 
     else
     {
-      v5 = off_1E83A2C00[presentationStyle];
+      v6 = off_1E83A2C00[presentationStyle];
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1CADE6000, v4, OS_LOG_TYPE_DEFAULT, "Getting presentation style %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1CADE6000, v5, OS_LOG_TYPE_DEFAULT, "Getting presentation style %@", &v8, 0xCu);
   }
 
   return presentationStyle;
@@ -270,7 +270,7 @@
 - (void)requestStickerExtensionMetadataDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = ms_defaultLog();
+  v5 = ms_defaultLog(dictionaryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -286,7 +286,7 @@
   v14 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   identifierCopy = identifier;
-  v8 = ms_defaultLog();
+  v8 = ms_defaultLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134218242;
@@ -311,7 +311,7 @@
 {
   height = size.height;
   width = size.width;
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v8 = 0.0;
   v9 = height;
@@ -388,18 +388,19 @@
     v9 = height + v29;
   }
 
-  v44.origin.y = 0.0;
-  v44.origin.x = v8;
-  v44.size.width = width;
-  v44.size.height = height;
-  if (CGRectIsEmpty(v44))
+  v45.origin.y = 0.0;
+  v45.origin.x = v8;
+  v45.size.width = width;
+  v45.size.height = height;
+  IsEmpty = CGRectIsEmpty(v45);
+  if (IsEmpty)
   {
-    v30 = ms_defaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = ms_defaultLog(IsEmpty);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v37 = "[MSMessagesAppViewController generateSnapshotWithContentSize:completion:]";
-      _os_log_impl(&dword_1CADE6000, v30, OS_LOG_TYPE_DEFAULT, "%s Not taking a new snapshot because bounds were empty", buf, 0xCu);
+      v38 = "[MSMessagesAppViewController generateSnapshotWithContentSize:completion:]";
+      _os_log_impl(&dword_1CADE6000, v31, OS_LOG_TYPE_DEFAULT, "%s Not taking a new snapshot because bounds were empty", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -407,32 +408,32 @@
 
   else
   {
-    v31 = [objc_alloc(MEMORY[0x1E69DCA78]) initWithBounds:{0.0, 0.0, v10, v9}];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completion___block_invoke;
-    v35[3] = &unk_1E83A2B80;
-    v35[4] = self;
-    *&v35[5] = v8;
-    v35[6] = 0;
-    *&v35[7] = width;
-    *&v35[8] = height;
-    v32 = [v31 imageWithActions:v35];
-    v33 = ms_defaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v32 = [objc_alloc(MEMORY[0x1E69DCA78]) initWithBounds:{0.0, 0.0, v10, v9}];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completion___block_invoke;
+    v36[3] = &unk_1E83A2B80;
+    v36[4] = self;
+    *&v36[5] = v8;
+    v36[6] = 0;
+    *&v36[7] = width;
+    *&v36[8] = height;
+    v33 = [v32 imageWithActions:v36];
+    v34 = ms_defaultLog(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      [v32 size];
-      v34 = NSStringFromCGSize(v43);
+      [v33 size];
+      v35 = NSStringFromCGSize(v44);
       *buf = 136315650;
-      v37 = "[MSMessagesAppViewController generateSnapshotWithContentSize:completion:]";
-      v38 = 2112;
-      v39 = v34;
-      v40 = 2112;
-      v41 = v32;
-      _os_log_impl(&dword_1CADE6000, v33, OS_LOG_TYPE_DEFAULT, "%s Took new snapshot image with size %@. snapshotImage: %@", buf, 0x20u);
+      v38 = "[MSMessagesAppViewController generateSnapshotWithContentSize:completion:]";
+      v39 = 2112;
+      v40 = v35;
+      v41 = 2112;
+      v42 = v33;
+      _os_log_impl(&dword_1CADE6000, v34, OS_LOG_TYPE_DEFAULT, "%s Took new snapshot image with size %@. snapshotImage: %@", buf, 0x20u);
     }
 
-    (completionCopy)[2](completionCopy, v32);
+    (completionCopy)[2](completionCopy, v33);
   }
 }
 
@@ -440,25 +441,26 @@ void __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completio
 {
   v3 = a2;
   v4 = [*(a1 + 32) view];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v5 = getCKIsRunningInMacCatalystSymbolLoc_ptr;
-  v11 = getCKIsRunningInMacCatalystSymbolLoc_ptr;
+  v12 = getCKIsRunningInMacCatalystSymbolLoc_ptr;
   if (!getCKIsRunningInMacCatalystSymbolLoc_ptr)
   {
     v6 = ChatKitLibrary();
-    v9[3] = dlsym(v6, "CKIsRunningInMacCatalyst");
-    getCKIsRunningInMacCatalystSymbolLoc_ptr = v9[3];
-    v5 = v9[3];
+    v10[3] = dlsym(v6, "CKIsRunningInMacCatalyst");
+    getCKIsRunningInMacCatalystSymbolLoc_ptr = v10[3];
+    v5 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v5)
   {
-    v7 = __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completion___block_invoke_cold_1();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v7);
+    __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completion___block_invoke_cold_1();
+    v8 = v7;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v8);
   }
 
   [v4 drawViewHierarchyInRect:v5() != 0 afterScreenUpdates:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
@@ -477,7 +479,7 @@ void __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completio
 
 - (BOOL)_isAppleInternalAppAndWantsSafeAreaInsets
 {
-  v2 = _MSMainBundleIdentifier();
+  v2 = _MSMainBundleIdentifier(self);
   if ([v2 isEqualToString:*MEMORY[0x1E69A69D0]] && (objc_msgSend(MEMORY[0x1E69DC938], "currentDevice"), v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "userInterfaceIdiom"), v3, (v4 & 0xFFFFFFFFFFFFFFFBLL) == 1))
   {
     bOOLValue = 0;
@@ -543,10 +545,11 @@ LABEL_10:
 
 - (void)_updateLayoutMargins
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (BOOL)_ms_isInSheet
@@ -850,16 +853,17 @@ LABEL_10:
 - (BOOL)_shouldUseBackwardsCompatibilityOffsets
 {
   v2 = dyld_program_sdk_at_least();
+  v3 = v2;
   if ((v2 & 1) == 0)
   {
-    v3 = ms_defaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = ms_defaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(MSMessagesAppViewController *)v3 _shouldUseBackwardsCompatibilityOffsets];
+      [(MSMessagesAppViewController *)v4 _shouldUseBackwardsCompatibilityOffsets];
     }
   }
 
-  return v2 ^ 1;
+  return v3 ^ 1;
 }
 
 - (double)messageCornerRadius
@@ -1053,15 +1057,16 @@ LABEL_13:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)generateSnapshotWithContentSize:completion:.cold.2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)generateSnapshotWithContentSize:(objc_class *)a1 completion:.cold.3(objc_class *a1)
@@ -1070,15 +1075,16 @@ LABEL_13:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)generateSnapshotWithContentSize:completion:.cold.4()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)generateSnapshotWithContentSize:(objc_class *)a1 completion:.cold.5(objc_class *a1)
@@ -1087,38 +1093,41 @@ LABEL_13:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)generateSnapshotWithContentSize:completion:.cold.6()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
-uint64_t __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completion___block_invoke_cold_1()
+void __74__MSMessagesAppViewController_generateSnapshotWithContentSize_completion___block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(MSMessagesAppViewController *)v0 _updateLayoutMargins];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [(MSMessagesAppViewController *)v1 _updateLayoutMargins];
 }
 
 - (void)_balloonMaskEdgeInsets
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)messageCornerRadius
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 @end

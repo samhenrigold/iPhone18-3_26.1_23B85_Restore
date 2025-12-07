@@ -750,7 +750,7 @@ void __45__SXWebContentComponentView_createErrorState__block_invoke(uint64_t a1,
     [v22 setErrorLabel:v7];
 
     v8 = [v22 errorLabel];
-    v9 = SXBundle();
+    v9 = SXBundle(v8);
     v10 = [v9 localizedStringForKey:@"SXTapToRetry" value:&stru_1F532F6C0 table:0];
     [v8 setText:v10];
 

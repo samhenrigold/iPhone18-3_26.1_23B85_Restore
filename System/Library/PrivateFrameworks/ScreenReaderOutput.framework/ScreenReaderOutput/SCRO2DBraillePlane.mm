@@ -14,27 +14,26 @@
 - (SCRO2DBraillePlane)initWithDriver:(id)driver
 {
   driverCopy = driver;
-  v15.receiver = self;
-  v15.super_class = SCRO2DBraillePlane;
-  v6 = [(SCRO2DBraillePlane *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SCRO2DBraillePlane;
+  v6 = [(SCRO2DBraillePlane *)&v14 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_brailleDriver, driver);
-    brailleDriver = v7->_brailleDriver;
     v7->_supportsCanvas = objc_opt_respondsToSelector() & 1;
-    v9 = v7->_brailleDriver;
-    if (objc_opt_respondsToSelector() & 1) != 0 && [(SCROBrailleDriverProtocol *)v9 shouldUseMultiRow]&& (objc_opt_respondsToSelector())
+    v8 = v7->_brailleDriver;
+    if (objc_opt_respondsToSelector() & 1) != 0 && [(SCROBrailleDriverProtocol *)v8 shouldUseMultiRow]&& (objc_opt_respondsToSelector())
     {
-      v10 = objc_opt_respondsToSelector();
+      v9 = objc_opt_respondsToSelector();
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
 
-    v7->_shouldUseMultiRow = v10 & 1;
+    v7->_shouldUseMultiRow = v9 & 1;
     v7->_wordWrapEnabled = 1;
     if (v7->_supportsCanvas)
     {
@@ -43,7 +42,7 @@
       v7->_canvas = canvas;
     }
 
-    v13 = v7;
+    v12 = v7;
   }
 
   return v7;

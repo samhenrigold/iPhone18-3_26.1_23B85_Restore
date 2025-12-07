@@ -1,3 +1,581 @@
+void CLSafetyDeescalatorJointDetection::log(CLSafetyDeescalatorJointDetection *this, uint64_t a2)
+{
+  if (*(this + 160) == 1)
+  {
+    v4 = *(this + 19);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (*(this + 136) == 1)
+  {
+    v6 = *(this + 14);
+    v5 = *(this + 15);
+  }
+
+  else
+  {
+    v5 = 0;
+    v6 = 0;
+  }
+
+  v7 = 0.0;
+  if (*(this + 172) == 1)
+  {
+    v7 = *(this + 42);
+  }
+
+  if ((*(this + 80) & 1) == 0)
+  {
+    sub_100005BF0();
+  }
+
+  v8 = *(this + 84);
+  if (qword_1004567F8 != -1)
+  {
+    sub_1002F4F18();
+  }
+
+  v9 = qword_100456800;
+  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = *(this + 6);
+    v11 = *(this + 36);
+    v12 = *(this + 72);
+    v13 = *(this + 19);
+    v14 = 134351360;
+    v15 = a2;
+    v16 = 1026;
+    v17 = v10;
+    v18 = 1026;
+    v19 = v11;
+    v20 = 1026;
+    v21 = v12;
+    v22 = 2050;
+    v23 = v13;
+    v24 = 2050;
+    v25 = v4;
+    v26 = 2050;
+    v27 = v5;
+    v28 = 2050;
+    v29 = v6;
+    v30 = 1026;
+    v31 = v8;
+    v32 = 2050;
+    v33 = v7;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[de-JD] summary,A,%{public}llu,B,%{public}u,mode,%{public}u,config-1,%{public}u,config-1,%{public}f,debug-1a,%{public}llu,debug-1b,%{public}llu,debug-1c,%{public}llu,debug-1d,%{public}u,debug-1e,%{public}f", &v14, 0x56u);
+  }
+}
+
+id sub_1002F4010(uint64_t a1)
+{
+  if (qword_1004567F8 != -1)
+  {
+    sub_1002F4F18();
+  }
+
+  v2 = qword_100456800;
+
+  return v2;
+}
+
+void CLSafetyDeescalatorJointDetection::updateWithRemoteSample(CLSafetyDeescalatorJointDetection *this, const CSRemoteSample_Struct *a2)
+{
+  v4 = a2->receivedAtTimestamp - a2->createdAtTimestamp;
+  lastRealTriggerTimestamp = a2->lastRealTriggerTimestamp;
+  if (qword_1004567F8 != -1)
+  {
+    sub_1002F4F18();
+  }
+
+  v6 = v4 + lastRealTriggerTimestamp;
+  v7 = qword_100456800;
+  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = a2->lastRealTriggerTimestamp;
+    if (v9)
+    {
+      v10 = v6;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v42 = 134218240;
+    *v43 = v9;
+    *&v43[8] = 2048;
+    v44 = v10;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "[de-JD] received remote sample: [remote=%llu local=%llu]", &v42, 0x16u);
+  }
+
+  if (*(this + 84) == 2)
+  {
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F2C();
+    }
+
+    v11 = qword_100456800;
+    if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v42) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "[de-JD] already latched to sure-real", &v42, 2u);
+    }
+
+    return;
+  }
+
+  if (*(this + 36) != a2->mode)
+  {
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F2C();
+    }
+
+    v17 = qword_100456800;
+    if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      v18 = *(this + 36);
+      mode = a2->mode;
+      v42 = 67109376;
+      *v43 = v18;
+      *&v43[4] = 1024;
+      *&v43[6] = mode;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "[de-JD] got sample for other mode me=%u other=%u: UNSURE", &v42, 0xEu);
+    }
+
+    *(this + 84) = 1;
+    return;
+  }
+
+  CLKappaDeescalator::raiseUnless(1, "[de-JD] Precondition not met: different modes", v8);
+  if (*(this + 84) != 3)
+  {
+    *(this + 84) = 1;
+    CLKappaDeescalator::raiseUnless(1, "[de-JD] Precondition not met: not unsure", v12);
+    v20 = CLSafetyDeescalatorJointDetection::sameEventRegionBoundary(this);
+    if (v21)
+    {
+      v22 = v20;
+      if (a2->receivedAtTimestamp < v20)
+      {
+        if (qword_1004567F8 != -1)
+        {
+          sub_1002F4F2C();
+        }
+
+        v23 = qword_100456800;
+        if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+        {
+          LOWORD(v42) = 0;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "[de-JD] RS was inside 'same event region'", &v42, 2u);
+        }
+
+        v25 = *(this + 136);
+        v27 = *&a2->createdAtTimestamp;
+        v26 = *&a2->lastRealTriggerTimestamp;
+        *(this + 88) = *&a2->mode;
+        *(this + 104) = v27;
+        *(this + 120) = v26;
+        if ((v25 & 1) == 0)
+        {
+          *(this + 136) = 1;
+        }
+
+        v28 = this;
+        v29 = 0;
+LABEL_54:
+        CLSafetyDeescalatorJointDetection::verifySameEvent(v28, v29, v24);
+        return;
+      }
+
+      if (qword_1004567F8 != -1)
+      {
+        sub_1002F4F2C();
+      }
+
+      v31 = qword_100456800;
+      v32 = os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG);
+      if (v32)
+      {
+        LOWORD(v42) = 0;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "[de-JD] RS was outside 'same event region'", &v42, 2u);
+      }
+
+      if (!a2->lastRealTriggerTimestamp)
+      {
+        v35 = sub_1002F4010(v32);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        {
+          LOWORD(v42) = 0;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "[de-JD] RS did not have a trigger: no blind spot", &v42, 2u);
+        }
+
+        goto LABEL_51;
+      }
+
+      v33 = sub_1002F4010(v32);
+      v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
+      if (v6 < v22)
+      {
+        if (v34)
+        {
+          LOWORD(v42) = 0;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "[de-JD] RS had a trigger but no blind spot", &v42, 2u);
+        }
+
+LABEL_51:
+        v36 = *(this + 136);
+        v38 = *&a2->createdAtTimestamp;
+        v37 = *&a2->lastRealTriggerTimestamp;
+        *(this + 88) = *&a2->mode;
+        *(this + 104) = v38;
+        *(this + 120) = v37;
+        if ((v36 & 1) == 0)
+        {
+          *(this + 136) = 1;
+        }
+
+        v28 = this;
+        v29 = 1;
+        goto LABEL_54;
+      }
+
+      if (v34)
+      {
+        LOWORD(v42) = 0;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "[de-JD] RS had a trigger that could have a blind spot: UNSURE", &v42, 2u);
+      }
+    }
+
+    else
+    {
+      if (qword_1004567F8 != -1)
+      {
+        sub_1002F4F2C();
+      }
+
+      v30 = qword_100456800;
+      if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+      {
+        LOWORD(v42) = 0;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "[de-JD] 'same event region' is undefined: UNSURE", &v42, 2u);
+      }
+    }
+
+    *(this + 84) = 1;
+    v39 = *(this + 136);
+    v41 = *&a2->createdAtTimestamp;
+    v40 = *&a2->lastRealTriggerTimestamp;
+    *(this + 88) = *&a2->mode;
+    *(this + 104) = v41;
+    *(this + 120) = v40;
+    if (v39)
+    {
+      return;
+    }
+
+    goto LABEL_59;
+  }
+
+  if (qword_1004567F8 != -1)
+  {
+    sub_1002F4F2C();
+  }
+
+  v13 = qword_100456800;
+  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+  {
+    LOWORD(v42) = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "[de-JD] new remote sample does not change our SURE-NONE state", &v42, 2u);
+  }
+
+  v14 = *(this + 136);
+  v16 = *&a2->createdAtTimestamp;
+  v15 = *&a2->lastRealTriggerTimestamp;
+  *(this + 88) = *&a2->mode;
+  *(this + 104) = v16;
+  *(this + 120) = v15;
+  if ((v14 & 1) == 0)
+  {
+LABEL_59:
+    *(this + 136) = 1;
+  }
+}
+
+unint64_t CLSafetyDeescalatorJointDetection::sameEventRegionBoundary(CLSafetyDeescalatorJointDetection *this)
+{
+  if (*(this + 160) != 1)
+  {
+    v1 = 0;
+    goto LABEL_6;
+  }
+
+  v1 = *(this + 19);
+  if (!v1)
+  {
+LABEL_6:
+    v2 = 0;
+    return v2 | v1;
+  }
+
+  if ((*(this + 80) & 1) == 0)
+  {
+    sub_100005BF0();
+  }
+
+  v1 += (*(this + 19) * 1000000.0);
+  v2 = v1 & 0xFFFFFFFFFFFFFF00;
+  v1 = v1;
+  return v2 | v1;
+}
+
+void CLSafetyDeescalatorJointDetection::verifySameEvent(CLSafetyDeescalatorJointDetection *this, int a2, const char *a3)
+{
+  CLKappaDeescalator::raiseUnless(*(this + 84) == 1, "[de-JD] precondition failed: verify same event but not unsure", a3);
+  if ((*(this + 160) & 1) == 0)
+  {
+    if (!a2)
+    {
+      if (qword_1004567F8 != -1)
+      {
+        sub_1002F4F18();
+      }
+
+      v13 = qword_100456800;
+      if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+      {
+        return;
+      }
+
+      LOWORD(v23) = 0;
+      v14 = "[de-JD] verifying same event: no JD feature (hold, UNSURE)";
+      goto LABEL_60;
+    }
+
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F18();
+    }
+
+    v11 = qword_100456800;
+    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_49;
+    }
+
+    LOWORD(v23) = 0;
+    v12 = "[de-JD] verifying same event: no JD feature (SURE-NONE)";
+LABEL_47:
+    v17 = v11;
+    v18 = 2;
+    goto LABEL_48;
+  }
+
+  v5 = *(this + 19);
+  if (!v5)
+  {
+    if (!a2)
+    {
+      if (qword_1004567F8 != -1)
+      {
+        sub_1002F4F18();
+      }
+
+      v13 = qword_100456800;
+      if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+      {
+        return;
+      }
+
+      LOWORD(v23) = 0;
+      v14 = "[de-JD] verifying same event: no local real trigger (hold, UNSURE)";
+      goto LABEL_60;
+    }
+
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F18();
+    }
+
+    v11 = qword_100456800;
+    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_49;
+    }
+
+    LOWORD(v23) = 0;
+    v12 = "[de-JD] verifying same event: no local real trigger (SURE-NONE)";
+    goto LABEL_47;
+  }
+
+  if ((*(this + 136) & 1) == 0)
+  {
+    if (a2)
+    {
+      if (qword_1004567F8 != -1)
+      {
+        sub_1002F4F18();
+      }
+
+      v15 = qword_100456800;
+      if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+      {
+        LOWORD(v23) = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "[de-JD] verifying same event: no communication (UNSURE)", &v23, 2u);
+      }
+
+      v16 = 1;
+      goto LABEL_50;
+    }
+
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F18();
+    }
+
+    v13 = qword_100456800;
+    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      return;
+    }
+
+    LOWORD(v23) = 0;
+    v14 = "[de-JD] verifying same event: no communication (hold, UNSURE)";
+    goto LABEL_60;
+  }
+
+  v6 = *(this + 15);
+  if (!v6)
+  {
+    if (a2)
+    {
+      if (qword_1004567F8 != -1)
+      {
+        sub_1002F4F18();
+      }
+
+      v11 = qword_100456800;
+      if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_49;
+      }
+
+      LOWORD(v23) = 0;
+      v12 = "[de-JD] verifying same event: no remote real trigger (SURE-NONE)";
+      goto LABEL_47;
+    }
+
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F18();
+    }
+
+    v13 = qword_100456800;
+    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      return;
+    }
+
+    LOWORD(v23) = 0;
+    v14 = "[de-JD] verifying same event: no remote real trigger (hold)";
+LABEL_60:
+    v20 = v13;
+    v21 = 2;
+LABEL_61:
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, v14, &v23, v21);
+    return;
+  }
+
+  v7 = v5 + *(this + 13) - (v6 + *(this + 14));
+  if (v7 < 0)
+  {
+    v7 = -v7;
+  }
+
+  if ((*(this + 80) & 1) == 0)
+  {
+    sub_100005BF0();
+  }
+
+  v8 = v7 / 1000000.0;
+  v9 = *(this + 19);
+  *(this + 42) = v8;
+  *(this + 172) = 1;
+  if (v8 < v9)
+  {
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F18();
+    }
+
+    v10 = qword_100456800;
+    if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      v23 = 134218240;
+      v24 = v8;
+      v25 = 2048;
+      v26 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "[de-JD] verifying same event: SURE-REAL (%f < %f)", &v23, 0x16u);
+    }
+
+    *(this + 84) = 2;
+    return;
+  }
+
+  if (a2)
+  {
+    if (qword_1004567F8 != -1)
+    {
+      sub_1002F4F18();
+    }
+
+    v19 = qword_100456800;
+    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_49;
+    }
+
+    v23 = 134218240;
+    v24 = v8;
+    v25 = 2048;
+    v26 = v9;
+    v12 = "[de-JD] verifying same event: SURE-NONE (%f >= %f)";
+    v17 = v19;
+    v18 = 22;
+LABEL_48:
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, v12, &v23, v18);
+LABEL_49:
+    v16 = 3;
+LABEL_50:
+    *(this + 84) = v16;
+    return;
+  }
+
+  if (qword_1004567F8 != -1)
+  {
+    sub_1002F4F18();
+  }
+
+  v22 = qword_100456800;
+  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
+  {
+    v23 = 134218240;
+    v24 = v8;
+    v25 = 2048;
+    v26 = v9;
+    v14 = "[de-JD] verifying same event: (hold, UNSURE) (%f >= %f)";
+    v20 = v22;
+    v21 = 22;
+    goto LABEL_61;
+  }
+}
+
 void CLSafetyDeescalatorJointDetection::updateWithJointDetectionOutput(uint64_t a1, uint64_t a2)
 {
   if (qword_1004567F8 != -1)
@@ -344,16 +922,16 @@ void sub_1002F5420(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1002F5448@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002F5448@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -1027,7 +1605,7 @@ float32x2_t sub_1002F6B0C(float32x2_t *a1, unsigned __int16 *a2, uint64_t a3, ui
     v22 = a4 * a5;
     do
     {
-      sub_1002F6B0C(v21, a2, a3, v62, a5, a6 + 2, a7);
+      result = sub_1002F6B0C(v21, a2, a3, v62, a5, a6 + 2, a7);
       a3 = (a3 + v22);
       v21 = (v21 + v20);
       v19 -= v20;
@@ -1152,16 +1730,16 @@ void sub_1002F6DCC(int a1)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "ERROR,Die,Time,%.3f,Function,%s,Error in FFT,p,%d\n", &v2, 0x1Cu);
 }
 
-id sub_1002F7258()
+id sub_1002F7258(uint64_t a1, uint64_t a2)
 {
   if (qword_100456818 != -1)
   {
     sub_1003061F8();
   }
 
-  v1 = qword_100456820;
+  v3 = qword_100456820;
 
-  return v1;
+  return v3;
 }
 
 void sub_1002F7A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13)
@@ -1502,18 +2080,18 @@ LABEL_35:
   return v4;
 }
 
-id sub_1002F81EC(uint64_t a1)
+id sub_1002F81EC(uint64_t a1, uint64_t a2)
 {
   if (qword_100456818 != -1)
   {
     sub_1003061F8();
   }
 
-  v2 = qword_100456820;
+  v3 = qword_100456820;
   if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Trigger timeout expired", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Trigger timeout expired", v5, 2u);
   }
 
   return [*(*(a1 + 32) + 40) signal:2 data:0];
@@ -1529,9 +2107,9 @@ void sub_1002F8550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1002F85B4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v24 = v5;
-  v26 = a3;
-  if (v26)
+  v22 = v5;
+  v24 = a3;
+  if (v24)
   {
     if (qword_100456818 != -1)
     {
@@ -1545,7 +2123,7 @@ void sub_1002F85B4(uint64_t a1, void *a2, void *a3)
     }
 
     *buf = 138543362;
-    v33 = v26;
+    v31 = v24;
     v7 = "geoservices place lookup failed with error: %{public}@";
     v8 = v6;
     v9 = 12;
@@ -1563,7 +2141,7 @@ LABEL_7:
       sub_1003061F8();
     }
 
-    v23 = qword_100456820;
+    v21 = qword_100456820;
     if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
     {
       goto LABEL_7;
@@ -1571,7 +2149,7 @@ LABEL_7:
 
     *buf = 0;
     v7 = "geoservices place unexpectedly received a nil result but no error";
-    v8 = v23;
+    v8 = v21;
     v9 = 2;
     goto LABEL_6;
   }
@@ -1579,26 +2157,26 @@ LABEL_7:
   v10 = [*(a1 + 40) objectAtIndexedSubscript:0];
   v11 = [v5 mapItemsForSpatialLookupParameters:v10];
 
-  v30 = 0u;
-  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v12 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v12)
   {
-    v13 = *v29;
+    v13 = *v27;
     do
     {
       v14 = 0;
       do
       {
-        if (*v29 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v28 + 1) + 8 * v14);
+        v15 = *(*(&v26 + 1) + 8 * v14);
         if (qword_100456818 != -1)
         {
           sub_10030620C();
@@ -1609,18 +2187,16 @@ LABEL_7:
         {
           v17 = [v15 name];
           v18 = [v15 spatialMappedPlaceCategories];
-          v19 = *(a1 + 48);
-          v20 = *(a1 + 56);
           [v15 centerCoordinate];
           GEOCalculateDistance();
           *buf = 134218755;
-          v33 = v15;
-          v34 = 2113;
-          v35 = v17;
-          v36 = 2112;
-          v37 = v18;
-          v38 = 2048;
-          v39 = v21;
+          v31 = v15;
+          v32 = 2113;
+          v33 = v17;
+          v34 = 2112;
+          v35 = v18;
+          v36 = 2048;
+          v37 = v19;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "geoservices mapItem %p name %{private}@ category %@ distance %f", buf, 0x2Au);
         }
 
@@ -1629,7 +2205,7 @@ LABEL_7:
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v12 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
     }
 
     while (v12);
@@ -1641,15 +2217,15 @@ LABEL_7:
     sub_10030620C();
   }
 
-  v22 = qword_100456820;
+  v20 = qword_100456820;
   if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "geoservices lookup done", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "geoservices lookup done", buf, 2u);
   }
 
 LABEL_25:
-  [*(*(a1 + 32) + 40) signal:6 data:{0, v24}];
+  [*(*(a1 + 32) + 40) signal:6 data:{0, v22}];
 }
 
 void sub_1002F8EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
@@ -1667,16 +2243,16 @@ void sub_1002F8EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-char **sub_1002F8F1C@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002F8F1C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -1736,16 +2312,16 @@ void sub_1002FA8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_1002FAA5C()
+id sub_1002FAA5C(uint64_t a1)
 {
   if (qword_100456868 != -1)
   {
     sub_1003065C0();
   }
 
-  v1 = qword_100456870;
+  v2 = qword_100456870;
 
-  return v1;
+  return v2;
 }
 
 void sub_1002FAB2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
@@ -2575,6 +3151,627 @@ void sub_1003061A0(id a1)
   _objc_release_x1();
 }
 
+void sub_10030635C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:logging and detection should not both be set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "logging and detection should not both be set", "{msg%{public}.0s:logging and detection should not both be set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:logging and detection should not both be set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003064AC()
+{
+  sub_1002E66E0();
+  v2 = sub_1002FAA5C(v1);
+  if (sub_1002E66B4(v2))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v3, v4, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = sub_1002FAA5C(v9);
+  if (os_signpost_enabled(v10))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v11, v12, v13, "trigger is null", "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = sub_1002FAA5C(v16);
+  if (sub_1002E6698(v17))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v18, v19, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_10030716C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:[C] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "[C] is null", "{msg%{public}.0s:[C] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:[C] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003073BC()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:[HSC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "[HSC] is null", "{msg%{public}.0s:[HSC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:[HSC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003075F8()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:[RC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "[RC] is null", "{msg%{public}.0s:[RC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:[RC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100307834()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:[SC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "[SC] is null", "{msg%{public}.0s:[SC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:[SC] is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100307CCC()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:hsm is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "hsm is nil", "{msg%{public}.0s:hsm is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:hsm is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100307DE0()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUAccel800 is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUAccel800 is null", "{msg%{public}.0s:CSSPUAccel800 is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUAccel800 is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100307EF4()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUHgAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUHgAccel is null", "{msg%{public}.0s:CSSPUHgAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUHgAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308130()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUDM is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUDM is null", "{msg%{public}.0s:CSSPUDM is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUDM is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308244()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUGps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUGps is null", "{msg%{public}.0s:CSSPUGps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUGps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308358()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUSteps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUSteps is null", "{msg%{public}.0s:CSSPUSteps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUSteps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_10030846C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUKappaTrigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUKappaTrigger is null", "{msg%{public}.0s:CSSPUKappaTrigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUKappaTrigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003086A8()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUPressure is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUPressure is null", "{msg%{public}.0s:CSSPUPressure is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUPressure is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003087BC()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUSpl is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUSpl is null", "{msg%{public}.0s:CSSPUSpl is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUSpl is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003088D0()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUTrustedAudioResult is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUTrustedAudioResult is null", "{msg%{public}.0s:CSSPUTrustedAudioResult is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUTrustedAudioResult is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1003089E4()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPURoads is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPURoads is null", "{msg%{public}.0s:CSSPURoads is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPURoads is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308AF8()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUHertzSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUHertzSample is null", "{msg%{public}.0s:CSSPUHertzSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUHertzSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308C0C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSCompanionStatus is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSCompanionStatus is null", "{msg%{public}.0s:CSCompanionStatus is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSCompanionStatus is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308D20()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSRemoteSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSRemoteSample is null", "{msg%{public}.0s:CSRemoteSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSRemoteSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308E34()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100308F70()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:kTypeKappaSession data missing, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "kTypeKappaSession data missing", "{msg%{public}.0s:kTypeKappaSession data missing, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:kTypeKappaSession data missing, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_100309084()
+{
+  sub_1002E66E0();
+  v3 = sub_1002F7258(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:invalid message, ignoring, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002F7258(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "invalid message, ignoring", "{msg%{public}.0s:invalid message, ignoring, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002F7258(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:invalid message, ignoring, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
 void CLKappaFeaturesAlgDataIntegrityResult::CLKappaFeaturesAlgDataIntegrityResult(CLKappaFeaturesAlgDataIntegrityResult *this)
 {
   *(this + 8) = 0;
@@ -2660,16 +3857,16 @@ void sub_10030952C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_100309560@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_100309560@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -3615,7 +4812,7 @@ void *GPBCreateMessageWithAutocreator(objc_class *a1, uint64_t a2, void *a3)
   return v5;
 }
 
-id GPBBecomeVisibleToAutocreator(void *a1)
+void *GPBBecomeVisibleToAutocreator(void *a1)
 {
   result = a1[4];
   if (result)
@@ -3635,7 +4832,7 @@ id GPBBecomeVisibleToAutocreator(void *a1)
   return result;
 }
 
-id GPBAutocreatedArrayModified(void *a1, uint64_t a2)
+void *GPBAutocreatedArrayModified(void *a1, uint64_t a2)
 {
   v12 = 0u;
   v13 = 0u;
@@ -3687,7 +4884,7 @@ id GPBAutocreatedArrayModified(void *a1, uint64_t a2)
   return [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString lineNumber:"stringWithUTF8String:" description:"void GPBAutocreatedArrayModified(GPBMessage * stringWithUTF8String:?], @"GPBMessage.m", 719, @"Unknown autocreated %@ for %@."", objc_opt_class(), a1];
 }
 
-id GPBAutocreatedDictionaryModified(void *a1, uint64_t a2)
+void *GPBAutocreatedDictionaryModified(void *a1, uint64_t a2)
 {
   v12 = 0u;
   v13 = 0u;
@@ -3950,9 +5147,9 @@ void *GPBGetObjectIvarWithField(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_10030F8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10030F8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4094,7 +5291,7 @@ uint64_t sub_100311D60(void *a1, void *a2, int a3, uint64_t a4)
         Bool = GPBCodedInputStreamReadUInt32((a4 + 8));
         goto LABEL_21;
       case 12:
-        Bool = GPBCodedInputStreamReadUInt64(a4 + 8);
+        Bool = GPBCodedInputStreamReadUInt64();
 LABEL_21:
         [v7 addValue:Bool];
         break;
@@ -4174,7 +5371,7 @@ LABEL_17:
 
       goto LABEL_14;
     case 0xC:
-      GPBCodedInputStreamReadUInt64(a4 + 1);
+      GPBCodedInputStreamReadUInt64();
 LABEL_36:
       v15 = v10;
 
@@ -4251,21 +5448,21 @@ void *GPBGetMessageRepeatedField_0(void *a1, void *a2)
   return v4;
 }
 
-uint64_t sub_100313F7C(uint64_t a1)
+uint64_t sub_100313F7C(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeBoolSizeNoTag();
   *(*(*(a1 + 32) + 8) + 24) += result;
   return result;
 }
 
-uint64_t sub_100313FB8(uint64_t a1)
+uint64_t sub_100313FB8(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeFixed32SizeNoTag();
   *(*(*(a1 + 32) + 8) + 24) += result;
   return result;
 }
 
-uint64_t sub_100313FF4(uint64_t a1)
+uint64_t sub_100313FF4(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeSFixed32SizeNoTag();
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -4279,14 +5476,14 @@ uint64_t sub_100314030(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100314068(uint64_t a1)
+uint64_t sub_100314068(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeFixed64SizeNoTag();
   *(*(*(a1 + 32) + 8) + 24) += result;
   return result;
 }
 
-uint64_t sub_1003140A4(uint64_t a1)
+uint64_t sub_1003140A4(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeSFixed64SizeNoTag();
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -4300,7 +5497,7 @@ uint64_t sub_1003140E0(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100314118(uint64_t a1, unsigned int a2)
+uint64_t sub_100314118(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeInt32SizeNoTag(a2);
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -4314,7 +5511,7 @@ uint64_t sub_100314154(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100314190(uint64_t a1, int a2)
+uint64_t sub_100314190(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeSInt32SizeNoTag(a2);
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -4328,7 +5525,7 @@ uint64_t sub_1003141CC(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100314208(uint64_t a1, unsigned int a2)
+uint64_t sub_100314208(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeUInt32SizeNoTag(a2);
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -4342,38 +5539,37 @@ uint64_t sub_100314244(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100314280(uint64_t a1, unsigned int a2)
+uint64_t sub_100314280(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeEnumSizeNoTag(a2);
   *(*(*(a1 + 32) + 8) + 24) += result;
   return result;
 }
 
-void *sub_1003154D0(uint64_t a1, void *a2, int a3)
+uint64_t sub_1003154D0(uint64_t a1, void *a2, int a3)
 {
   if (a3)
   {
     v5 = objc_opt_class();
-    v6 = *(a1 + 32);
-    if (*(v6 + 48))
+    if (*(*(a1 + 32) + 48))
     {
-      v7 = *(v6 + 48);
+      v6 = *(*(a1 + 32) + 48);
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    [NSException raise:NSInvalidArgumentException format:@"%@: %@ can only be set to NO (to clear field).", v5, NSStringFromSelector(v7)];
+    [NSException raise:NSInvalidArgumentException format:@"%@: %@ can only be set to NO (to clear field).", v5, NSStringFromSelector(v6)];
   }
 
-  v8 = *(a1 + 32);
+  v7 = *(a1 + 32);
 
-  return GPBClearMessageField(a2, v8);
+  return GPBClearMessageField(a2, v7);
 }
 
-GPBAutocreatedArray *sub_1003155B8(uint64_t a1, objc_class *a2)
+GPBEnumArray *sub_1003155B8(uint64_t a1, objc_class *a2)
 {
   v2 = *(a1 + 32);
   v3 = (*(a2 + 8) + *(v2[1] + 24));
@@ -4395,7 +5591,7 @@ GPBAutocreatedArray *sub_1003155B8(uint64_t a1, objc_class *a2)
         v6 = &OBJC_IVAR___GPBAutocreatedArray__autocreator;
       }
 
-      *(&result->super.super.super.isa + *v6) = 0;
+      *(&result->super.isa + *v6) = 0;
 
       return v5;
     }
@@ -4445,53 +5641,52 @@ id sub_100315724(uint64_t a1, uint64_t a2)
 GPBAutocreatedDictionary *sub_100315898(void *a1, objc_class *a2)
 {
   v4 = [a1 mapKeyDataType];
-  v5 = a1[1];
-  v6 = *(v5 + 30);
+  v5 = *(a1[1] + 30);
   switch(v4)
   {
     case 0u:
-      switch(*(v5 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v12 = GPBBoolBoolDictionary;
+          v11 = GPBBoolBoolDictionary;
           goto LABEL_75;
         case 1:
         case 0xB:
-          v12 = GPBBoolUInt32Dictionary;
+          v11 = GPBBoolUInt32Dictionary;
           goto LABEL_75;
         case 2:
         case 7:
         case 9:
-          v12 = GPBBoolInt32Dictionary;
+          v11 = GPBBoolInt32Dictionary;
           goto LABEL_75;
         case 3:
-          v12 = GPBBoolFloatDictionary;
+          v11 = GPBBoolFloatDictionary;
           goto LABEL_75;
         case 4:
         case 0xC:
-          v12 = GPBBoolUInt64Dictionary;
+          v11 = GPBBoolUInt64Dictionary;
           goto LABEL_75;
         case 5:
         case 8:
         case 0xA:
-          v12 = GPBBoolInt64Dictionary;
+          v11 = GPBBoolInt64Dictionary;
           goto LABEL_75;
         case 6:
-          v12 = GPBBoolDoubleDictionary;
+          v11 = GPBBoolDoubleDictionary;
           goto LABEL_75;
         case 0xD:
         case 0xE:
         case 0xF:
-          v12 = GPBBoolObjectDictionary;
+          v11 = GPBBoolObjectDictionary;
           goto LABEL_75;
         case 0x10:
-          v18 = +[NSAssertionHandler currentHandler];
-          v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-          v9 = v18;
-          v10 = 307;
+          v17 = +[NSAssertionHandler currentHandler];
+          v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+          v8 = v17;
+          v9 = 307;
           goto LABEL_3;
         case 0x11:
-          v15 = GPBBoolEnumDictionary;
+          v14 = GPBBoolEnumDictionary;
           goto LABEL_83;
         default:
           goto LABEL_16;
@@ -4499,48 +5694,48 @@ GPBAutocreatedDictionary *sub_100315898(void *a1, objc_class *a2)
 
     case 1u:
     case 0xBu:
-      switch(*(v5 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v12 = GPBUInt32BoolDictionary;
+          v11 = GPBUInt32BoolDictionary;
           goto LABEL_75;
         case 1:
         case 0xB:
-          v12 = GPBUInt32UInt32Dictionary;
+          v11 = GPBUInt32UInt32Dictionary;
           goto LABEL_75;
         case 2:
         case 7:
         case 9:
-          v12 = GPBUInt32Int32Dictionary;
+          v11 = GPBUInt32Int32Dictionary;
           goto LABEL_75;
         case 3:
-          v12 = GPBUInt32FloatDictionary;
+          v11 = GPBUInt32FloatDictionary;
           goto LABEL_75;
         case 4:
         case 0xC:
-          v12 = GPBUInt32UInt64Dictionary;
+          v11 = GPBUInt32UInt64Dictionary;
           goto LABEL_75;
         case 5:
         case 8:
         case 0xA:
-          v12 = GPBUInt32Int64Dictionary;
+          v11 = GPBUInt32Int64Dictionary;
           goto LABEL_75;
         case 6:
-          v12 = GPBUInt32DoubleDictionary;
+          v11 = GPBUInt32DoubleDictionary;
           goto LABEL_75;
         case 0xD:
         case 0xE:
         case 0xF:
-          v12 = GPBUInt32ObjectDictionary;
+          v11 = GPBUInt32ObjectDictionary;
           goto LABEL_75;
         case 0x10:
-          v17 = +[NSAssertionHandler currentHandler];
-          v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-          v9 = v17;
-          v10 = 351;
+          v16 = +[NSAssertionHandler currentHandler];
+          v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+          v8 = v16;
+          v9 = 351;
           goto LABEL_3;
         case 0x11:
-          v15 = GPBUInt32EnumDictionary;
+          v14 = GPBUInt32EnumDictionary;
           goto LABEL_83;
         default:
           goto LABEL_16;
@@ -4549,48 +5744,48 @@ GPBAutocreatedDictionary *sub_100315898(void *a1, objc_class *a2)
     case 2u:
     case 7u:
     case 9u:
-      switch(*(v5 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v12 = GPBInt32BoolDictionary;
+          v11 = GPBInt32BoolDictionary;
           goto LABEL_75;
         case 1:
         case 0xB:
-          v12 = GPBInt32UInt32Dictionary;
+          v11 = GPBInt32UInt32Dictionary;
           goto LABEL_75;
         case 2:
         case 7:
         case 9:
-          v12 = GPBInt32Int32Dictionary;
+          v11 = GPBInt32Int32Dictionary;
           goto LABEL_75;
         case 3:
-          v12 = GPBInt32FloatDictionary;
+          v11 = GPBInt32FloatDictionary;
           goto LABEL_75;
         case 4:
         case 0xC:
-          v12 = GPBInt32UInt64Dictionary;
+          v11 = GPBInt32UInt64Dictionary;
           goto LABEL_75;
         case 5:
         case 8:
         case 0xA:
-          v12 = GPBInt32Int64Dictionary;
+          v11 = GPBInt32Int64Dictionary;
           goto LABEL_75;
         case 6:
-          v12 = GPBInt32DoubleDictionary;
+          v11 = GPBInt32DoubleDictionary;
           goto LABEL_75;
         case 0xD:
         case 0xE:
         case 0xF:
-          v12 = GPBInt32ObjectDictionary;
+          v11 = GPBInt32ObjectDictionary;
           goto LABEL_75;
         case 0x10:
-          v13 = +[NSAssertionHandler currentHandler];
-          v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-          v9 = v13;
-          v10 = 396;
+          v12 = +[NSAssertionHandler currentHandler];
+          v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+          v8 = v12;
+          v9 = 396;
           goto LABEL_3;
         case 0x11:
-          v15 = GPBInt32EnumDictionary;
+          v14 = GPBInt32EnumDictionary;
           goto LABEL_83;
         default:
           goto LABEL_16;
@@ -4602,58 +5797,58 @@ GPBAutocreatedDictionary *sub_100315898(void *a1, objc_class *a2)
     case 0xFu:
     case 0x10u:
     case 0x11u:
-      v7 = +[NSAssertionHandler currentHandler];
-      v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-      v9 = v7;
-      v10 = 543;
+      v6 = +[NSAssertionHandler currentHandler];
+      v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+      v8 = v6;
+      v9 = 543;
 LABEL_3:
-      [(NSAssertionHandler *)v9 handleFailureInFunction:v8 file:@"GPBMessage.m" lineNumber:v10 description:@"shouldn't happen"];
+      [(NSAssertionHandler *)v8 handleFailureInFunction:v7 file:@"GPBMessage.m" lineNumber:v9 description:@"shouldn't happen"];
       result = 0;
       break;
     case 4u:
     case 0xCu:
-      switch(*(v5 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v12 = GPBUInt64BoolDictionary;
+          v11 = GPBUInt64BoolDictionary;
           goto LABEL_75;
         case 1:
         case 0xB:
-          v12 = GPBUInt64UInt32Dictionary;
+          v11 = GPBUInt64UInt32Dictionary;
           goto LABEL_75;
         case 2:
         case 7:
         case 9:
-          v12 = GPBUInt64Int32Dictionary;
+          v11 = GPBUInt64Int32Dictionary;
           goto LABEL_75;
         case 3:
-          v12 = GPBUInt64FloatDictionary;
+          v11 = GPBUInt64FloatDictionary;
           goto LABEL_75;
         case 4:
         case 0xC:
-          v12 = GPBUInt64UInt64Dictionary;
+          v11 = GPBUInt64UInt64Dictionary;
           goto LABEL_75;
         case 5:
         case 8:
         case 0xA:
-          v12 = GPBUInt64Int64Dictionary;
+          v11 = GPBUInt64Int64Dictionary;
           goto LABEL_75;
         case 6:
-          v12 = GPBUInt64DoubleDictionary;
+          v11 = GPBUInt64DoubleDictionary;
           goto LABEL_75;
         case 0xD:
         case 0xE:
         case 0xF:
-          v12 = GPBUInt64ObjectDictionary;
+          v11 = GPBUInt64ObjectDictionary;
           goto LABEL_75;
         case 0x10:
-          v16 = +[NSAssertionHandler currentHandler];
-          v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-          v9 = v16;
-          v10 = 440;
+          v15 = +[NSAssertionHandler currentHandler];
+          v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+          v8 = v15;
+          v9 = 440;
           goto LABEL_3;
         case 0x11:
-          v15 = GPBUInt64EnumDictionary;
+          v14 = GPBUInt64EnumDictionary;
           goto LABEL_83;
         default:
           goto LABEL_16;
@@ -4662,84 +5857,84 @@ LABEL_3:
     case 5u:
     case 8u:
     case 0xAu:
-      switch(*(v5 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v12 = GPBInt64BoolDictionary;
+          v11 = GPBInt64BoolDictionary;
           goto LABEL_75;
         case 1:
         case 0xB:
-          v12 = GPBInt64UInt32Dictionary;
+          v11 = GPBInt64UInt32Dictionary;
           goto LABEL_75;
         case 2:
         case 7:
         case 9:
-          v12 = GPBInt64Int32Dictionary;
+          v11 = GPBInt64Int32Dictionary;
           goto LABEL_75;
         case 3:
-          v12 = GPBInt64FloatDictionary;
+          v11 = GPBInt64FloatDictionary;
           goto LABEL_75;
         case 4:
         case 0xC:
-          v12 = GPBInt64UInt64Dictionary;
+          v11 = GPBInt64UInt64Dictionary;
           goto LABEL_75;
         case 5:
         case 8:
         case 0xA:
-          v12 = GPBInt64Int64Dictionary;
+          v11 = GPBInt64Int64Dictionary;
           goto LABEL_75;
         case 6:
-          v12 = GPBInt64DoubleDictionary;
+          v11 = GPBInt64DoubleDictionary;
           goto LABEL_75;
         case 0xD:
         case 0xE:
         case 0xF:
-          v12 = GPBInt64ObjectDictionary;
+          v11 = GPBInt64ObjectDictionary;
           goto LABEL_75;
         case 0x10:
-          v14 = +[NSAssertionHandler currentHandler];
-          v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-          v9 = v14;
-          v10 = 485;
+          v13 = +[NSAssertionHandler currentHandler];
+          v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+          v8 = v13;
+          v9 = 485;
           goto LABEL_3;
         case 0x11:
-          v15 = GPBInt64EnumDictionary;
+          v14 = GPBInt64EnumDictionary;
           goto LABEL_83;
         default:
           goto LABEL_16;
       }
 
     case 0xEu:
-      switch(*(v5 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v12 = GPBStringBoolDictionary;
+          v11 = GPBStringBoolDictionary;
           goto LABEL_75;
         case 1:
         case 0xB:
-          v12 = GPBStringUInt32Dictionary;
+          v11 = GPBStringUInt32Dictionary;
           goto LABEL_75;
         case 2:
         case 7:
         case 9:
-          v12 = GPBStringInt32Dictionary;
+          v11 = GPBStringInt32Dictionary;
           goto LABEL_75;
         case 3:
-          v12 = GPBStringFloatDictionary;
+          v11 = GPBStringFloatDictionary;
           goto LABEL_75;
         case 4:
         case 0xC:
-          v12 = GPBStringUInt64Dictionary;
+          v11 = GPBStringUInt64Dictionary;
           goto LABEL_75;
         case 5:
         case 8:
         case 0xA:
-          v12 = GPBStringInt64Dictionary;
+          v11 = GPBStringInt64Dictionary;
           goto LABEL_75;
         case 6:
-          v12 = GPBStringDoubleDictionary;
+          v11 = GPBStringDoubleDictionary;
 LABEL_75:
-          result = objc_alloc_init(v12);
+          result = objc_alloc_init(v11);
           if (a2)
           {
             goto LABEL_76;
@@ -4758,15 +5953,15 @@ LABEL_75:
           result = objc_alloc_init(NSMutableDictionary);
           break;
         case 0x10:
-          v19 = +[NSAssertionHandler currentHandler];
-          v8 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
-          v9 = v19;
-          v10 = 532;
+          v18 = +[NSAssertionHandler currentHandler];
+          v7 = [NSString stringWithUTF8String:"id CreateMapForField(GPBFieldDescriptor *, GPBMessage *)"];
+          v8 = v18;
+          v9 = 532;
           goto LABEL_3;
         case 0x11:
-          v15 = GPBStringEnumDictionary;
+          v14 = GPBStringEnumDictionary;
 LABEL_83:
-          result = [[v15 alloc] initWithValidationFunction:{objc_msgSend(objc_msgSend(a1, "enumDescriptor"), "enumVerifier")}];
+          result = [[v14 alloc] initWithValidationFunction:{objc_msgSend(objc_msgSend(a1, "enumDescriptor"), "enumVerifier")}];
           if (a2)
           {
             goto LABEL_76;
@@ -4784,18 +5979,18 @@ LABEL_16:
       if (a2)
       {
 LABEL_76:
-        if (v4 == 14 && (v6 - 13) <= 3)
+        if (v4 == 14 && (v5 - 13) <= 3)
         {
 LABEL_78:
-          v20 = &OBJC_IVAR___GPBAutocreatedDictionary__autocreator;
+          v19 = &OBJC_IVAR___GPBAutocreatedDictionary__autocreator;
         }
 
         else
         {
-          v20 = &OBJC_IVAR___GPBInt32Int32Dictionary__autocreator;
+          v19 = &OBJC_IVAR___GPBInt32Int32Dictionary__autocreator;
         }
 
-        *(&result->super.super.super.isa + *v20) = a2;
+        *(&result->super.super.super.isa + *v19) = a2;
       }
 
       break;
@@ -4804,7 +5999,7 @@ LABEL_78:
   return result;
 }
 
-GPBAutocreatedArray *sub_100316118(void *a1, objc_class *a2)
+GPBEnumArray *sub_100316118(void *a1, objc_class *a2)
 {
   v3 = *(a1[1] + 30);
   switch(*(a1[1] + 30))
@@ -4848,7 +6043,7 @@ LABEL_14:
 LABEL_17:
         v6 = &OBJC_IVAR___GPBAutocreatedArray__autocreator;
 LABEL_19:
-        *(&result->super.super.super.isa + *v6) = a2;
+        *(&result->super.isa + *v6) = a2;
       }
 
       else
@@ -4879,7 +6074,7 @@ LABEL_15:
   }
 }
 
-id sub_1003164AC(uint64_t a1, void *a2, void *a3)
+void *sub_1003164AC(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = [a3 copy];
@@ -4887,7 +6082,7 @@ id sub_1003164AC(uint64_t a1, void *a2, void *a3)
   return GPBSetRetainedObjectIvarWithFieldPrivate(a2, v4, v5);
 }
 
-id sub_1003164F4(uint64_t a1, void *a2, void *a3)
+void *sub_1003164F4(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = [a3 copy];
@@ -4910,6 +6105,13 @@ id sub_100316638(uint64_t a1, void *a2)
   return result;
 }
 
+void sub_100316EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
+{
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_100316F28(uint64_t a1, unint64_t a2)
 {
   result = GPBComputeUInt64Size(*(a1 + 40), a2);
@@ -4917,21 +6119,21 @@ uint64_t sub_100316F28(uint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t sub_100316F64(uint64_t a1)
+uint64_t sub_100316F64(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeFixed32Size(*(a1 + 40));
   *(*(*(a1 + 32) + 8) + 24) += result;
   return result;
 }
 
-uint64_t sub_100316FA0(uint64_t a1)
+uint64_t sub_100316FA0(uint64_t a1, uint64_t a2)
 {
   result = GPBComputeFixed64Size(*(a1 + 40));
   *(*(*(a1 + 32) + 8) + 24) += result;
   return result;
 }
 
-uint64_t GPBEmptyNSData()
+uint64_t GPBEmptyNSData(uint64_t a1, uint64_t a2)
 {
   if (qword_1004588B0 != -1)
   {
@@ -5240,7 +6442,7 @@ BOOL GPBMessageHasFieldSet(uint64_t a1, uint64_t a2)
   return GPBGetHasIvar(a1, v8, v9);
 }
 
-void *GPBClearMessageField(void *a1, uint64_t a2)
+uint64_t GPBClearMessageField(void *a1, uint64_t a2)
 {
   result = GPBGetHasIvar(a1, *(*(a2 + 8) + 20), *(*(a2 + 8) + 16));
   if (result)
@@ -5263,7 +6465,7 @@ void *GPBClearMessageField(void *a1, uint64_t a2)
   return result;
 }
 
-void *GPBSetHasIvar(void *result, unsigned int a2, int a3, int a4)
+id GPBSetHasIvar(id result, unsigned int a2, int a3, int a4)
 {
   v6 = result;
   if ((a2 & 0x80000000) != 0)
@@ -5283,7 +6485,7 @@ void *GPBSetHasIvar(void *result, unsigned int a2, int a3, int a4)
       v12 = 0;
     }
 
-    *(v6[8] + 4 * -a2) = v12;
+    *(*(v6 + 64) + 4 * -a2) = v12;
   }
 
   else
@@ -5293,7 +6495,7 @@ void *GPBSetHasIvar(void *result, unsigned int a2, int a3, int a4)
       result = sub_10031B148();
     }
 
-    v7 = v6[8];
+    v7 = *(v6 + 64);
     v8 = a2 >> 5;
     v9 = 1 << a2;
     if (a4)
@@ -5312,14 +6514,14 @@ void *GPBSetHasIvar(void *result, unsigned int a2, int a3, int a4)
   return result;
 }
 
-void *GPBClearOneof(void *a1, id *a2)
+id GPBClearOneof(void *a1, id *a2)
 {
   v4 = *(*([a2[2] objectAtIndexedSubscript:0] + 1) + 20);
 
   return sub_1003183DC(a1, a2, v4, 0);
 }
 
-void *sub_1003183DC(void *a1, void *a2, uint64_t a3, int a4)
+id sub_1003183DC(void *a1, void *a2, uint64_t a3, int a4)
 {
   v5 = a3;
   result = GPBGetHasOneof(a1, a3);
@@ -5371,7 +6573,7 @@ LABEL_3:
 
   else
   {
-    sub_10031B2A0();
+    sub_10031B2A0(a1);
     if ((a2 & 0x80000000) == 0)
     {
       goto LABEL_3;
@@ -5410,18 +6612,18 @@ void GPBClearAutocreatedMessageIvarWithField(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t GPBSetObjectIvarWithFieldPrivate(uint64_t a1, uint64_t a2, void *a3)
+void *GPBSetObjectIvarWithFieldPrivate(void *a1, void *a2, void *a3)
 {
   v5 = a3;
 
   return GPBSetRetainedObjectIvarWithFieldPrivate(a1, a2, v5);
 }
 
-id GPBSetRetainedObjectIvarWithFieldPrivate(void *a1, void *a2, void *a3)
+void *GPBSetRetainedObjectIvarWithFieldPrivate(void *a1, void *a2, void *a3)
 {
   if (!a1[8])
   {
-    sub_10031B474();
+    sub_10031B474(a1);
   }
 
   v6 = a2[1];
@@ -5550,7 +6752,7 @@ id GPBGetMessageInt32Field(uint64_t a1, void *a2)
   }
 }
 
-id GPBSetEnumIvarWithFieldPrivate(void *a1, void *a2, uint64_t a3)
+void *GPBSetEnumIvarWithFieldPrivate(void *a1, void *a2, uint64_t a3)
 {
   if (([a2 isValidEnumValue:?] & 1) == 0)
   {
@@ -5560,7 +6762,7 @@ id GPBSetEnumIvarWithFieldPrivate(void *a1, void *a2, uint64_t a3)
   return GPBSetInt32IvarWithFieldPrivate(a1, a2, a3);
 }
 
-id GPBSetInt32IvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
+void *GPBSetInt32IvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -5585,7 +6787,7 @@ id GPBSetInt32IvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
   return GPBBecomeVisibleToAutocreator(a1);
 }
 
-unint64_t GPBGetMessageBoolField(uint64_t a1, void *a2)
+BOOL GPBGetMessageBoolField(uint64_t a1, void *a2)
 {
   if (!GPBGetHasIvar(a1, *(a2[1] + 20), *(a2[1] + 16)))
   {
@@ -5599,20 +6801,20 @@ unint64_t GPBGetMessageBoolField(uint64_t a1, void *a2)
   return GPBGetHasIvar(a1, v5, v6);
 }
 
-void *GPBSetMessageBoolField(void *a1, uint64_t a2, int a3)
+void *GPBSetMessageBoolField(void *result, uint64_t a2, int a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return GPBSetBoolIvarWithFieldPrivate(a1, a2, a3);
+      return GPBSetBoolIvarWithFieldPrivate(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id GPBSetBoolIvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
+void *GPBSetBoolIvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
 {
   v5 = *(a2 + 8);
   v6 = *(a2 + 16);
@@ -5654,20 +6856,20 @@ id GPBGetMessageUInt32Field(uint64_t a1, void *a2)
   }
 }
 
-void *GPBSetMessageUInt32Field(void *a1, uint64_t a2, int a3)
+void *GPBSetMessageUInt32Field(void *result, uint64_t a2, int a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return GPBSetUInt32IvarWithFieldPrivate(a1, a2, a3);
+      return GPBSetUInt32IvarWithFieldPrivate(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id GPBSetUInt32IvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
+void *GPBSetUInt32IvarWithFieldPrivate(void *a1, uint64_t a2, int a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -5702,20 +6904,20 @@ id GPBGetMessageInt64Field(uint64_t a1, void *a2)
   return [a2 defaultValue];
 }
 
-void *GPBSetMessageInt64Field(void *a1, uint64_t a2, uint64_t a3)
+void *GPBSetMessageInt64Field(void *result, uint64_t a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return GPBSetInt64IvarWithFieldPrivate(a1, a2, a3);
+      return GPBSetInt64IvarWithFieldPrivate(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id GPBSetInt64IvarWithFieldPrivate(void *a1, uint64_t a2, uint64_t a3)
+void *GPBSetInt64IvarWithFieldPrivate(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -5750,20 +6952,20 @@ id GPBGetMessageUInt64Field(uint64_t a1, void *a2)
   return [a2 defaultValue];
 }
 
-void *GPBSetMessageUInt64Field(void *a1, uint64_t a2, uint64_t a3)
+void *GPBSetMessageUInt64Field(void *result, uint64_t a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return GPBSetUInt64IvarWithFieldPrivate(a1, a2, a3);
+      return GPBSetUInt64IvarWithFieldPrivate(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id GPBSetUInt64IvarWithFieldPrivate(void *a1, uint64_t a2, uint64_t a3)
+void *GPBSetUInt64IvarWithFieldPrivate(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -5799,20 +7001,20 @@ float GPBGetMessageFloatField(uint64_t a1, void *a2)
   return result;
 }
 
-void *GPBSetMessageFloatField(void *a1, uint64_t a2, float a3)
+void *GPBSetMessageFloatField(void *result, uint64_t a2, float a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return GPBSetFloatIvarWithFieldPrivate(a1, a2, a3);
+      return GPBSetFloatIvarWithFieldPrivate(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id GPBSetFloatIvarWithFieldPrivate(void *a1, uint64_t a2, float a3)
+void *GPBSetFloatIvarWithFieldPrivate(void *a1, uint64_t a2, float a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -5841,20 +7043,20 @@ double GPBGetMessageDoubleField(uint64_t a1, void *a2)
   }
 }
 
-void *GPBSetMessageDoubleField(void *a1, uint64_t a2, double a3)
+void *GPBSetMessageDoubleField(void *result, uint64_t a2, double a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return GPBSetDoubleIvarWithFieldPrivate(a1, a2, a3);
+      return GPBSetDoubleIvarWithFieldPrivate(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id GPBSetDoubleIvarWithFieldPrivate(void *a1, uint64_t a2, double a3)
+void *GPBSetDoubleIvarWithFieldPrivate(void *a1, uint64_t a2, double a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -5936,7 +7138,7 @@ char *GPBMessageEncodingForSelector(const char *a1, BOOL a2)
   return MethodDescription.types;
 }
 
-__CFString *GPBTextFormatForMessage(void *a1, __CFString *a2)
+const __CFString *GPBTextFormatForMessage(void *a1, __CFString *a2)
 {
   v2 = &stru_100436548;
   if (a1)
@@ -6542,7 +7744,7 @@ id sub_10031A270(void *a1, void *a2)
         {
           case '""':
             v9 = a2;
-            v10 = @"\\"";
+            v10 = @"\";
             goto LABEL_19;
           case '\'':
             v9 = a2;
@@ -6550,7 +7752,7 @@ id sub_10031A270(void *a1, void *a2)
             goto LABEL_19;
           case '\\':
             v9 = a2;
-            v10 = @"\\\";
+            v10 = @"\\\"";
             goto LABEL_19;
         }
       }
@@ -6602,7 +7804,7 @@ LABEL_20:
   return [a2 appendString:@""];
 }
 
-NSString *GPBDecodeTextFormatName(char *a1, int a2, void *a3)
+NSMutableString *GPBDecodeTextFormatName(char *a1, int a2, void *a3)
 {
   v3 = 0;
   if (a1 && a3)
@@ -6726,25 +7928,7 @@ uint64_t sub_10031A608(char **a1)
     v4 = v1[1];
     *a1 = v1 + 2;
     v5 = v4 << 7;
-    if ((v4 & 0x80000000) == 0)
-    {
-      return v5 | v3;
-    }
-
-    v3 |= v5 & 0x3F80;
-    v6 = v1[2];
-    *a1 = v1 + 3;
-    v5 = v6 << 14;
-    if ((v6 & 0x80000000) == 0)
-    {
-      return v5 | v3;
-    }
-
-    v3 |= v5 & 0x1FC000;
-    v7 = v1[3];
-    *a1 = v1 + 4;
-    v5 = v7 << 21;
-    if (v7 < 0)
+    if (v4 < 0 && (v3 |= v5 & 0x3F80, v6 = v1[2], *a1 = v1 + 3, v5 = v6 << 14, v6 < 0) && (v3 |= v5 & 0x1FC000, v7 = v1[3], *a1 = v1 + 4, v5 = v7 << 21, v7 < 0))
     {
       v9 = v1[4];
       *a1 = v1 + 5;
@@ -7003,7 +8187,7 @@ id sub_10031ABCC(void *a1, void *a2)
         {
           case '""':
             v8 = a2;
-            v9 = @"\\"";
+            v9 = @"\";
             break;
           case '\'':
             v8 = a2;
@@ -7011,7 +8195,7 @@ id sub_10031ABCC(void *a1, void *a2)
             break;
           case '\\':
             v8 = a2;
-            v9 = @"\\\";
+            v9 = @"\\\"";
             break;
           default:
 LABEL_14:
@@ -7200,7 +8384,7 @@ id sub_10031B1B0()
   return [v0 handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-id sub_10031B2A0()
+id sub_10031B2A0(uint64_t a1)
 {
   +[NSAssertionHandler currentHandler];
   [NSString stringWithUTF8String:"BOOL GPBGetHasIvar(GPBMessage *, int32_t, uint32_t)"];
@@ -7226,7 +8410,7 @@ id sub_10031B384()
   return [v0 handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-id sub_10031B474()
+id sub_10031B474(uint64_t a1)
 {
   +[NSAssertionHandler currentHandler];
   [NSString stringWithUTF8String:"void GPBSetRetainedObjectIvarWithFieldPrivate(GPBMessage *, GPBFieldDescriptor *, id)"];
@@ -7500,11 +8684,11 @@ void GPBDictionaryReadEntry(void *a1, uint64_t *a2, uint64_t a3, void *a4, void 
 {
   v10 = [a4 mapKeyDataType];
   v11 = *(a4[1] + 30);
-  v24 = 0;
   v25 = 0;
+  v26 = 0;
   if (v11 == 17)
   {
-    v24 = [a4 defaultValue];
+    v25 = [a4 defaultValue];
   }
 
   v12 = GPBWireFormatForType(v10, 0);
@@ -7518,23 +8702,23 @@ void GPBDictionaryReadEntry(void *a1, uint64_t *a2, uint64_t a3, void *a4, void 
       v16 = GPBCodedInputStreamReadTag((a2 + 1));
       if (v16 == Tag)
       {
-        v17 = &v25;
-        v18 = a2;
-        v19 = v10;
+        v18 = &v26;
+        v19 = a2;
+        v20 = v10;
         goto LABEL_8;
       }
 
-      v20 = v16;
+      v21 = v16;
       if (v16 != v15)
       {
         break;
       }
 
-      v17 = &v24;
-      v18 = a2;
-      v19 = v11;
+      v18 = &v25;
+      v19 = a2;
+      v20 = v11;
 LABEL_8:
-      sub_10031CE58(v18, v17, v19, a3, a4);
+      sub_10031CE58(v19, v18, v20, a3, a4);
     }
 
     if (!v16)
@@ -7548,15 +8732,16 @@ LABEL_8:
     }
   }
 
-  v21 = v25;
-  if (v10 == 14 && !v25)
+  v22 = v26;
+  if (v10 == 14 && !v26)
   {
-    v21 = &stru_100436548;
-    v25 = v21;
+    v16 = &stru_100436548;
+    v22 = v16;
+    v26 = v16;
   }
 
-  v22 = v24;
-  if ((v11 - 13) > 3u || v24)
+  v23 = v25;
+  if ((v11 - 13) > 3u || v25)
   {
     goto LABEL_25;
   }
@@ -7564,35 +8749,35 @@ LABEL_8:
   switch(v11)
   {
     case 13:
-      v23 = GPBEmptyNSData();
+      v24 = GPBEmptyNSData(v16, v17);
       goto LABEL_23;
     case 15:
-      v23 = objc_alloc_init([a4 msgClass]);
+      v24 = objc_alloc_init([a4 msgClass]);
 LABEL_23:
-      v22 = v23;
-      v24 = v23;
+      v23 = v24;
+      v25 = v24;
       goto LABEL_25;
     case 14:
-      v23 = &stru_100436548;
+      v24 = &stru_100436548;
       goto LABEL_23;
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_25:
   if (v10 == 14 && (v11 - 13) <= 3u)
   {
-    [a1 setObject:v22 forKey:v21];
+    [a1 setObject:v23 forKey:v22];
     goto LABEL_34;
   }
 
-  if (v11 != 17 || [objc_msgSend(objc_msgSend(a5 descriptor] == 3 || objc_msgSend(a4, "isValidEnumValue:", v22))
+  if (v11 != 17 || [objc_msgSend(objc_msgSend(a5 descriptor] == 3 || objc_msgSend(a4, "isValidEnumValue:", v23))
   {
-    [a1 setGPBGenericValue:&v24 forGPBGenericValueKey:&v25];
+    [a1 setGPBGenericValue:&v25 forGPBGenericValueKey:&v26];
   }
 
   else
   {
-    [a5 addUnknownMapEntry:*(a4[1] + 16) value:{objc_msgSend(a1, "serializedDataForUnknownValue:forKey:keyDataType:", v22, &v25, v10)}];
+    [a5 addUnknownMapEntry:*(a4[1] + 16) value:{objc_msgSend(a1, "serializedDataForUnknownValue:forKey:keyDataType:", v23, &v26, v10)}];
   }
 
 LABEL_32:
@@ -7601,7 +8786,7 @@ LABEL_32:
     goto LABEL_35;
   }
 
-  v21 = v25;
+  v22 = v26;
 LABEL_34:
 
 LABEL_35:
@@ -7651,7 +8836,7 @@ void sub_10031CE58(uint64_t *a1, id *a2, int a3, uint64_t a4, void *a5)
       Fixed32 = GPBCodedInputStreamReadUInt32(a1 + 1);
       goto LABEL_17;
     case 12:
-      Fixed64 = GPBCodedInputStreamReadUInt64(a1 + 1);
+      Fixed64 = GPBCodedInputStreamReadUInt64();
       goto LABEL_23;
     case 13:
 
@@ -7685,7 +8870,7 @@ LABEL_17:
   }
 }
 
-uint64_t sub_10031D598(unsigned int a1, int a2, uint64_t a3)
+uint64_t sub_10031D598(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 == 1)
   {
@@ -7722,7 +8907,7 @@ id sub_10031D7A8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    return [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString lineNumber:"stringWithUTF8String:" description:"void WriteDictUInt32Field(GPBCodedOutputStream * stringWithUTF8String:uint32_t, GPBDataType)"], @"GPBDictionary.m", 194, @"Unexpected type %d", a4];
+    return [+[NSAssertionHandler handleFailureInFunction:a3]file:"handleFailureInFunction:file:lineNumber:description:" lineNumber:[NSString description:"stringWithUTF8String:" stringWithUTF8String:uint32_t, uint32_t, GPBDataType)"], @"GPBDictionary.m", 194, @"Unexpected type %d"", a4];
   }
 }
 
@@ -7736,7 +8921,7 @@ uint64_t sub_10031D944(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7(v4, v5, v6);
 }
 
-uint64_t sub_10031DFD8(unsigned int a1, int a2, uint64_t a3)
+uint64_t sub_10031DFD8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   switch(a3)
   {
@@ -7769,7 +8954,7 @@ id sub_10031E218(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
       return [a1 writeInt32:a3 value:a2];
     default:
-      return [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString lineNumber:"stringWithUTF8String:" description:"void WriteDictInt32Field(GPBCodedOutputStream * stringWithUTF8String:uint32_t, GPBDataType)"], @"GPBDictionary.m", 173, @"Unexpected type %d", a4];
+      return [+[NSAssertionHandler handleFailureInFunction:a3]file:"handleFailureInFunction:file:lineNumber:description:" lineNumber:[NSString description:"stringWithUTF8String:" stringWithUTF8String:int32_t, uint32_t, GPBDataType)"], @"GPBDictionary.m", 173, @"Unexpected type %d"", a4];
   }
 }
 
@@ -7783,7 +8968,7 @@ uint64_t sub_10031E3E0(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7(v4, v5, v6);
 }
 
-uint64_t sub_10031EA6C(unint64_t a1, int a2, uint64_t a3)
+uint64_t sub_10031EA6C(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 == 4)
   {
@@ -7820,7 +9005,7 @@ id sub_10031EC7C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    return [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString lineNumber:"stringWithUTF8String:" description:"void WriteDictUInt64Field(GPBCodedOutputStream * stringWithUTF8String:uint32_t, GPBDataType)"], @"GPBDictionary.m", 240, @"Unexpected type %d", a4];
+    return [+[NSAssertionHandler handleFailureInFunction:a3]file:"handleFailureInFunction:file:lineNumber:description:" lineNumber:[NSString description:"stringWithUTF8String:" stringWithUTF8String:uint64_t, uint32_t, GPBDataType)"], @"GPBDictionary.m", 240, @"Unexpected type %d"", a4];
   }
 }
 
@@ -7834,7 +9019,7 @@ uint64_t sub_10031EE18(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7(v4, v5, v6);
 }
 
-uint64_t sub_10031F4A4(unint64_t a1, int a2, uint64_t a3)
+uint64_t sub_10031F4A4(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   switch(a3)
   {
@@ -7867,7 +9052,7 @@ id sub_10031F6E4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
       return [a1 writeInt64:a3 value:a2];
     default:
-      return [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString lineNumber:"stringWithUTF8String:" description:"void WriteDictInt64Field(GPBCodedOutputStream * stringWithUTF8String:uint32_t, GPBDataType)"], @"GPBDictionary.m", 219, @"Unexpected type %d", a4];
+      return [+[NSAssertionHandler handleFailureInFunction:a3]file:"handleFailureInFunction:file:lineNumber:description:" lineNumber:[NSString description:"stringWithUTF8String:" stringWithUTF8String:int64_t, uint32_t, GPBDataType)"], @"GPBDictionary.m", 219, @"Unexpected type %d"", a4];
   }
 }
 
@@ -7881,17 +9066,18 @@ uint64_t sub_10031F8AC(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7(v4, v5, v6);
 }
 
-uint64_t sub_10031FF38(uint64_t a1, int a2, int a3)
+uint64_t sub_10031FF38(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   if (a3)
   {
     sub_10033B274();
   }
 
-  return GPBComputeBoolSize(a2);
+  return GPBComputeBoolSize(v3);
 }
 
-id sub_1003200BC(void *a1, uint64_t a2, uint64_t a3, int a4)
+id sub_1003200BC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -7930,7 +9116,7 @@ uint64_t sub_100320864(int a1)
   return GPBComputeFloatSize(2);
 }
 
-id sub_1003209DC(void *a1, int a2, double a3)
+id sub_1003209DC(void *a1, uint64_t a2, double a3)
 {
   v3 = LODWORD(a3);
   if (a2 != 3)
@@ -7963,7 +9149,7 @@ uint64_t sub_1003211A4(int a1)
   return GPBComputeDoubleSize(2);
 }
 
-id sub_10032131C(void *a1, int a2, double a3)
+id sub_10032131C(void *a1, uint64_t a2, double a3)
 {
   if (a2 != 6)
   {
@@ -7983,17 +9169,18 @@ uint64_t sub_10032144C(uint64_t a1, uint64_t a2, double a3)
   return v7(v4, v5, v6);
 }
 
-uint64_t sub_100321B38(unsigned int a1, int a2)
+uint64_t sub_100321B38(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if (a2 != 17)
   {
     sub_10033B61C();
   }
 
-  return GPBComputeEnumSize(2, a1);
+  return GPBComputeEnumSize(2, v2);
 }
 
-id sub_100321CB4(void *a1, uint64_t a2, int a3)
+id sub_100321CB4(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a3 != 17)
   {
@@ -8316,7 +9503,7 @@ uint64_t sub_100331FF4(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6(v4, v5, a3);
 }
 
-char *sub_100332660(void *a1, int a2)
+char *sub_100332660(void *a1, uint64_t a2)
 {
   if (a2 != 14)
   {
@@ -8326,7 +9513,7 @@ char *sub_100332660(void *a1, int a2)
   return GPBComputeStringSize(1, a1);
 }
 
-id sub_1003327D0(void *a1, uint64_t a2, int a3)
+id sub_1003327D0(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a3 != 14)
   {
@@ -9285,16 +10472,16 @@ uint64_t *sub_10033D2F8(uint64_t *result, unint64_t a2)
   return result;
 }
 
-uint64_t *sub_10033D458(uint64_t *result, unsigned int a2)
+uint64_t *sub_10033D458(uint64_t *a1, unsigned int a2)
 {
   if ((a2 & 0x80000000) != 0)
   {
-    return sub_10033D2F8(result, a2);
+    return sub_10033D2F8(a1, a2);
   }
 
   else
   {
-    return sub_10033D800(result, a2);
+    return sub_10033D800(a1, a2);
   }
 }
 
@@ -10948,7 +12135,6 @@ id sub_100346B04()
 void GPBExtensionMergeFromInputStream(void *a1, int a2, uint64_t *a3, uint64_t a4, void *a5)
 {
   v9 = a1[1];
-  v10 = *(v9 + 45);
   if (a2)
   {
     if ((*(v9 + 45) & 1) == 0)
@@ -10957,21 +12143,21 @@ void GPBExtensionMergeFromInputStream(void *a1, int a2, uint64_t *a3, uint64_t a
     }
 
     Int32 = GPBCodedInputStreamReadInt32(a3 + 1);
-    v12 = GPBCodedInputStreamPushLimit((a3 + 1), Int32);
+    v11 = GPBCodedInputStreamPushLimit((a3 + 1), Int32);
     while (GPBCodedInputStreamBytesUntilLimit((a3 + 1)))
     {
-      v13 = sub_100346CF8(a1, a3, a4, 0);
-      [a5 addExtension:a1 value:v13];
+      v12 = sub_100346CF8(a1, a3, a4, 0);
+      [a5 addExtension:a1 value:v12];
     }
 
-    GPBCodedInputStreamPopLimit((a3 + 1), v12);
+    GPBCodedInputStreamPopLimit((a3 + 1), v11);
   }
 
   else
   {
     if (*(v9 + 45))
     {
-      v15 = sub_100346CF8(a1, a3, a4, 0);
+      v14 = sub_100346CF8(a1, a3, a4, 0);
       [a5 addExtension:a1 value:?];
     }
 
@@ -10979,15 +12165,15 @@ void GPBExtensionMergeFromInputStream(void *a1, int a2, uint64_t *a3, uint64_t a
     {
       if (*(v9 + 44) - 15 > 1)
       {
-        v14 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v14 = [a5 getExistingExtension:a1];
+        v13 = [a5 getExistingExtension:a1];
       }
 
-      v15 = sub_100346CF8(a1, a3, a4, v14);
+      v14 = sub_100346CF8(a1, a3, a4, v13);
       [a5 setExtension:a1 value:?];
     }
   }
@@ -11055,7 +12241,7 @@ LABEL_23:
       return [v9 initWithUnsignedInt:Fixed32];
     case 0xC:
       v11 = [NSNumber alloc];
-      Fixed64 = GPBCodedInputStreamReadUInt64(a2 + 1);
+      Fixed64 = GPBCodedInputStreamReadUInt64();
 LABEL_10:
 
       return [v11 initWithUnsignedLongLong:Fixed64];
@@ -11759,16 +12945,16 @@ void sub_1003484A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_1003484F0()
+id sub_1003484F0(uint64_t a1)
 {
   if (qword_100456868 != -1)
   {
     sub_10034BBDC();
   }
 
-  v1 = qword_100456870;
+  v2 = qword_100456870;
 
-  return v1;
+  return v2;
 }
 
 void sub_100348534(uint64_t a1)
@@ -12006,26 +13192,26 @@ void sub_10034BB98(id a1)
 
 void sub_10034BC2C(NSObject **a1)
 {
-  v2 = sub_1003484F0();
+  v2 = sub_1003484F0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid client mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid client mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v3 = sub_1003484F0();
-  if (os_signpost_enabled(v3))
+  v4 = sub_1003484F0(v3);
+  if (os_signpost_enabled(v4))
   {
     sub_1000190D0();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid client mode", "{msg%{public}.0s:Invalid client mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid client mode", "{msg%{public}.0s:Invalid client mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v4 = sub_1003484F0();
-  *a1 = v4;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sub_1003484F0(v5);
+  *a1 = v6;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Invalid client mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Invalid client mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 }
 
@@ -12050,16 +13236,16 @@ void sub_10034BE38(uint64_t a1)
   qword_100458920 = v4;
 }
 
-id sub_10034BF18()
+id sub_10034BF18(uint64_t a1)
 {
   if (qword_100456838 != -1)
   {
     sub_100350BF0();
   }
 
-  v1 = qword_100456840;
+  v2 = qword_100456840;
 
-  return v1;
+  return v2;
 }
 
 void sub_10034BFA0(id a1)
@@ -12222,7 +13408,7 @@ void sub_100350BAC(id a1)
   _objc_release_x1();
 }
 
-void sub_100351790(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, id location, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+void sub_100351790(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, id location, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
 {
   if (a29 < 0)
   {
@@ -12333,18 +13519,18 @@ void sub_1003520A8(id a1)
   _objc_release_x1();
 }
 
-uint64_t *sub_1003520EC(uint64_t *result, uint64_t *a2)
+uint64_t *sub_1003520EC(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void sub_100352170(std::__shared_weak_count *a1)
@@ -12728,7 +13914,7 @@ void sub_10035341C(void *a1)
   operator delete();
 }
 
-uint64_t sub_10035348C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10035348C(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -12750,7 +13936,7 @@ void sub_1003534EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100353508(uint64_t a1, unint64_t a2)
+void sub_100353508(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -12961,16 +14147,16 @@ void sub_100354FD8(uint64_t a1, void *a2, void *a3)
   }
 }
 
-id sub_10035510C()
+id sub_10035510C(uint64_t a1)
 {
   if (qword_100456928 != -1)
   {
     sub_100356120();
   }
 
-  v1 = qword_100456930;
+  v2 = qword_100456930;
 
-  return v1;
+  return v2;
 }
 
 void sub_100355320(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int16 buf)
@@ -12983,11 +14169,11 @@ void sub_100355320(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
     if (v18)
     {
-      v19 = sub_10035510C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = sub_10035510C(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         buf = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Index out of bounds for server configuration value", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Index out of bounds for server configuration value", &buf, 2u);
       }
 
       objc_end_catch();
@@ -13121,10 +14307,10 @@ void sub_100356C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100356D34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100356D34(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CSConnection;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -13242,12 +14428,11 @@ void sub_100357418(id a1)
   _objc_release_x1();
 }
 
-void *sub_1003574D0(void *a1, uint64_t a2, uint64_t *a3)
+void *sub_1003574D0(void *a1, uint64_t a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_100436448;
-  v4 = *a3;
   CLConnectionMessage::CLConnectionMessage();
   return a1;
 }
@@ -13338,55 +14523,55 @@ void sub_100357A7C(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"_CSCompressionEngine.m" lineNumber:161 description:{@"Invalid parameter not satisfying: %@", @"_stream == nil"}];
 }
 
-uint64_t sub_100357BB8()
+void sub_100357BB8(uint64_t a1)
 {
-  v0 = sub_100006AA0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_100006AA0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Q empty, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Q empty, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v1 = sub_100006AA0();
-  if (os_signpost_enabled(v1))
+  v3 = sub_100006AA0(v2);
+  if (os_signpost_enabled(v3))
   {
     sub_100009C7C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Q empty", "{msg%{public}.0s:Q empty, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Q empty", "{msg%{public}.0s:Q empty, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v2 = sub_100006AA0();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v5 = sub_100006AA0(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Q empty, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Q empty, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v3 = abort_report_np();
-  return sub_100357D28(v3);
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CLKappaFeaturesAlgZg.mm", 585, "queryGyroAndAngAccelIdx");
+  sub_100357D28();
 }
 
 void sub_100357DF0(NSObject **a1)
 {
-  v2 = sub_10001782C();
+  v2 = sub_10001782C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:invalid kappa TTR type, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:invalid kappa TTR type, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v3 = sub_10001782C();
-  if (os_signpost_enabled(v3))
+  v4 = sub_10001782C(v3);
+  if (os_signpost_enabled(v4))
   {
     sub_1000190D0();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "invalid kappa TTR type", "{msg%{public}.0s:invalid kappa TTR type, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "invalid kappa TTR type", "{msg%{public}.0s:invalid kappa TTR type, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v4 = sub_10001782C();
-  *a1 = v4;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sub_10001782C(v5);
+  *a1 = v6;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:invalid kappa TTR type, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:invalid kappa TTR type, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 }
 
@@ -13490,26 +14675,26 @@ void sub_100358494(uint64_t a1)
 
 void sub_100358628(NSObject **a1)
 {
-  v2 = sub_1000268F4();
+  v2 = sub_1000268F4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:cannot raise none type marty TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:cannot raise none type marty TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v3 = sub_1000268F4();
-  if (os_signpost_enabled(v3))
+  v4 = sub_1000268F4(v3);
+  if (os_signpost_enabled(v4))
   {
     sub_1000190D0();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "cannot raise none type marty TTR", "{msg%{public}.0s:cannot raise none type marty TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "cannot raise none type marty TTR", "{msg%{public}.0s:cannot raise none type marty TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v4 = sub_1000268F4();
-  *a1 = v4;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sub_1000268F4(v5);
+  *a1 = v6;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:cannot raise none type marty TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:cannot raise none type marty TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 }
 

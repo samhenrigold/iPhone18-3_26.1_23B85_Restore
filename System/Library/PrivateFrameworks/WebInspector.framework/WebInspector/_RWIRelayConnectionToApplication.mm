@@ -131,44 +131,44 @@ LABEL_13:
         if (objc_opt_isKindOfClass())
         {
 
-          v12 = RWIMessageTraceLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = RWIMessageTraceLog(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             [_RWIRelayConnectionToApplication _handleEvent:?];
           }
 
           v11 = [v10 objectForKey:@"messageName"];
-          v13 = objc_opt_class();
+          v14 = objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
 
-            v13 = [v10 objectForKey:@"userInfo"];
-            v14 = objc_opt_class();
-            if (v13 && (objc_opt_isKindOfClass() & 1) == 0)
+            v14 = [v10 objectForKey:@"userInfo"];
+            v15 = objc_opt_class();
+            if (v14 && (objc_opt_isKindOfClass() & 1) == 0)
             {
-              v18 = objc_opt_class();
-              logUnexpectedType(v18, v14);
+              v19 = objc_opt_class();
+              logUnexpectedType(v19, v15);
             }
 
             else
             {
 
-              v15 = objc_loadWeakRetained(&self->_delegate);
-              [v15 xpcConnection:self receivedMessage:v11 userInfo:v13];
+              v16 = objc_loadWeakRetained(&self->_delegate);
+              [v16 xpcConnection:self receivedMessage:v11 userInfo:v14];
             }
           }
 
           else
           {
-            v17 = objc_opt_class();
-            logUnexpectedType(v17, v13);
+            v18 = objc_opt_class();
+            logUnexpectedType(v18, v14);
           }
         }
 
         else
         {
-          v16 = objc_opt_class();
-          logUnexpectedType(v16, v11);
+          v17 = objc_opt_class();
+          logUnexpectedType(v17, v11);
         }
       }
     }
@@ -184,10 +184,10 @@ LABEL_13:
     v8 = v7;
     if (infoCopy)
     {
-      [v7 setObject:infoCopy forKey:@"userInfo"];
+      v7 = [v7 setObject:infoCopy forKey:@"userInfo"];
     }
 
-    v9 = RWIMessageTraceLog();
+    v9 = RWIMessageTraceLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [_RWIRelayConnectionToApplication sendMessage:? userInfo:?];
@@ -212,22 +212,16 @@ LABEL_13:
 
 - (void)_handleEvent:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 tag];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_273C9C000, v2, v3, "IPC app[%{public}@]->relay: %{private}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_273C9C000, v2, v3, "IPC app[%{public}@]->relay: %{private}@", v4, v5, v6, v7);
 }
 
 - (void)sendMessage:(void *)a1 userInfo:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 tag];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_273C9C000, v2, v3, "IPC relay->app[%{public}@]: %{private}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_273C9C000, v2, v3, "IPC relay->app[%{public}@]: %{private}@", v4, v5, v6, v7);
 }
 
 @end

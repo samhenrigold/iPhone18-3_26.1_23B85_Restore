@@ -8,16 +8,16 @@
 
 - (MPSImageAreaMin)initWithDevice:(id)device kernelWidth:(unint64_t)width kernelHeight:(unint64_t)height
 {
-  v12.receiver = self;
-  v12.super_class = MPSImageAreaMin;
-  result = [(MPSImageAreaMax *)&v12 initWithDevice:device kernelWidth:width kernelHeight:height];
+  v9.receiver = self;
+  v9.super_class = MPSImageAreaMin;
+  result = [(MPSImageAreaMax *)&v9 initWithDevice:device kernelWidth:width kernelHeight:height];
   if (result)
   {
     result->super.info = 56;
     result->super.info_half = 84;
-    v11 = result;
-    objc_msgSend_initEncoder(result, v6, v7, v8, v9, v10);
-    return v11;
+    v8 = result;
+    objc_msgSend_initEncoder(result, v6, v7);
+    return v8;
   }
 
   return result;
@@ -25,16 +25,16 @@
 
 - (MPSImageAreaMin)initWithCoder:(id)coder device:(id)device
 {
-  v11.receiver = self;
-  v11.super_class = MPSImageAreaMin;
-  result = [(MPSImageAreaMax *)&v11 initWithCoder:coder device:device];
+  v8.receiver = self;
+  v8.super_class = MPSImageAreaMin;
+  result = [(MPSImageAreaMax *)&v8 initWithCoder:coder device:device];
   if (result)
   {
     result->super.info = 56;
     result->super.info_half = 84;
-    v10 = result;
-    objc_msgSend_initEncoder(result, v5, v6, v7, v8, v9);
-    return v10;
+    v7 = result;
+    objc_msgSend_initEncoder(result, v5, v6);
+    return v7;
   }
 
   return result;

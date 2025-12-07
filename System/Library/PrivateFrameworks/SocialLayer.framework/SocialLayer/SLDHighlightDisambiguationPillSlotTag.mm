@@ -23,9 +23,9 @@
 - (SLDHighlightDisambiguationPillSlotTag)initWithHighlightAttribution:(id)attribution maxWidth:(double)width variant:(unint64_t)variant
 {
   attributionCopy = attribution;
-  v27.receiver = self;
-  v27.super_class = SLDHighlightDisambiguationPillSlotTag;
-  v9 = [(SLDHighlightDisambiguationPillSlotTag *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = SLDHighlightDisambiguationPillSlotTag;
+  v9 = [(SLDHighlightDisambiguationPillSlotTag *)&v28 init];
   v11 = v9;
   if (v9)
   {
@@ -45,7 +45,7 @@
     v11->_isGroupConversation = isGroupConversation;
     if (!isGroupConversation)
     {
-      v21 = SLDaemonLogHandle();
+      v21 = SLDaemonLogHandle(isGroupConversation);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         [SLDHighlightDisambiguationPillSlotTag initWithHighlightAttribution:v11 maxWidth:attributionCopy variant:v21];
@@ -70,7 +70,7 @@
 
       if (v23 < 3)
       {
-        v21 = SLDaemonLogHandle();
+        v21 = SLDaemonLogHandle(v24);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [SLDHighlightDisambiguationPillSlotTag initWithHighlightAttribution:v11 maxWidth:attributionCopy variant:v21];
@@ -80,9 +80,9 @@
       }
 
       relatedPersons2 = [attributionCopy relatedPersons];
-      v25 = [relatedPersons2 count] - 2;
+      v26 = [relatedPersons2 count] - 2;
 
-      groupDisplayName2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
+      groupDisplayName2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v26];
       v20 = 48;
     }
 
@@ -356,22 +356,18 @@ LABEL_29:
 
 - (void)initWithHighlightAttribution:(uint64_t)a1 maxWidth:(void *)a2 variant:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = [a2 uniqueIdentifier];
   OUTLINED_FUNCTION_0_10();
-  _os_log_debug_impl(&dword_231772000, a3, OS_LOG_TYPE_DEBUG, "[SLDHighlightDisambiguationPillSlotTag: %p] SLAttribuition is not set as a group conversation: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231772000, a3, OS_LOG_TYPE_DEBUG, "[SLDHighlightDisambiguationPillSlotTag: %p] SLAttribuition is not set as a group conversation: %@", v5, 0x16u);
 }
 
 - (void)initWithHighlightAttribution:(uint64_t)a1 maxWidth:(void *)a2 variant:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = [a2 uniqueIdentifier];
   OUTLINED_FUNCTION_0_10();
-  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[SLDHighlightDisambiguationPillSlotTag: %p] Initialized with an attribution (%@) for a group conversation without a display name, and with less than 3 related persons!", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[SLDHighlightDisambiguationPillSlotTag: %p] Initialized with an attribution (%@) for a group conversation without a display name, and with less than 3 related persons!", v5, 0x16u);
 }
 
 @end

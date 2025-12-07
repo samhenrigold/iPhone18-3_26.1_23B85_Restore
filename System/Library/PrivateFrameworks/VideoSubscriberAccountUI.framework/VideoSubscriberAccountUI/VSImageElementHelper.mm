@@ -28,31 +28,31 @@
 
 - (id)bestMatchingKeyForSrcset:(id)srcset
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   srcsetCopy = srcset;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v18 = srcsetCopy;
+  v17 = srcsetCopy;
   allKeys = [srcsetCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v12 componentsSeparatedByString:@"-"];
         if ([v13 count] <= 1)
         {
@@ -67,7 +67,7 @@
         [v14 addObject:v12];
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -78,8 +78,6 @@
     [(VSImageElementHelper *)self deviceScale];
     v15 = [(VSImageElementHelper *)self bestMatchingKeyForScale:&stru_2880B8BB0 withSuffix:v5 inKeysSet:?];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -120,35 +118,35 @@
 
 - (id)matchingKeyForScale:(double)scale withSuffix:(id)suffix inKeysSet:(id)set
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   setCopy = set;
   [(VSImageElementHelper *)self keysForScale:suffix withSuffix:scale];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v9 = v19 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = v18 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if ([setCopy containsObject:{v13, v16}])
+        v13 = *(*(&v15 + 1) + 8 * i);
+        if ([setCopy containsObject:{v13, v15}])
         {
           v10 = v13;
           goto LABEL_11;
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -159,8 +157,6 @@
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

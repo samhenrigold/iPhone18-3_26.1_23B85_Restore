@@ -139,39 +139,39 @@
 - (void)setAddress:(const sockaddr *)address external:(const sockaddr *)external
 {
   externalCopy = external;
-  v34 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   externalCopy2 = external;
   __src = address;
   if (address && IsValidSA(address))
   {
     *&v6 = 0xAAAAAAAAAAAAAAAALL;
     *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v32 = v6;
-    v33 = v6;
-    v30 = v6;
-    v31 = v6;
-    v28 = v6;
-    v29 = v6;
+    v50 = v6;
+    v51 = v6;
+    v48 = v6;
+    v49 = v6;
+    v46 = v6;
+    v47 = v6;
     *__str = v6;
-    v27 = v6;
-    v24 = v6;
-    v25 = v6;
-    v22 = v6;
-    v23 = v6;
-    v20 = v6;
-    v21 = v6;
-    *v18 = v6;
-    v19 = v6;
+    v45 = v6;
+    v42 = v6;
+    v43 = v6;
+    v40 = v6;
+    v41 = v6;
+    v38 = v6;
+    v39 = v6;
+    *v36 = v6;
+    v37 = v6;
     SAToIPPortString(__str, 0x80uLL, &self->_address);
-    SAToIPPortString(v18, 0x80uLL, &__src);
+    SAToIPPortString(v36, 0x80uLL, &__src);
     v7 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v13 = __str;
-      v14 = 2080;
-      v15 = v18;
-      v16 = 2112;
+      v31 = __str;
+      v32 = 2080;
+      v33 = v36;
+      v34 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "update address (%s->%s) for %@.", buf, 0x20u);
     }
@@ -180,10 +180,10 @@
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"update address (%s->%s) for %@.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"update address (%s->%s) for %@.", v8, v9, v10, v11, v12, __str);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"update address (%s->%s) for %@.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"update address (%s->%s) for %@.", v13, v14, v15, v16, __str);
         }
       }
     }
@@ -194,44 +194,44 @@
 
   if (externalCopy && IsValidSA(externalCopy))
   {
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v32 = v8;
-    v33 = v8;
-    v30 = v8;
-    v31 = v8;
-    v28 = v8;
-    v29 = v8;
-    *__str = v8;
-    v27 = v8;
-    v24 = v8;
-    v25 = v8;
-    v22 = v8;
-    v23 = v8;
-    v20 = v8;
-    v21 = v8;
-    *v18 = v8;
-    v19 = v8;
+    *&v17 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v50 = v17;
+    v51 = v17;
+    v48 = v17;
+    v49 = v17;
+    v46 = v17;
+    v47 = v17;
+    *__str = v17;
+    v45 = v17;
+    v42 = v17;
+    v43 = v17;
+    v40 = v17;
+    v41 = v17;
+    v38 = v17;
+    v39 = v17;
+    *v36 = v17;
+    v37 = v17;
     SAToIPPortString(__str, 0x80uLL, &self->_external);
-    SAToIPPortString(v18, 0x80uLL, &externalCopy2);
-    v9 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    SAToIPPortString(v36, 0x80uLL, &externalCopy2);
+    v18 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v13 = __str;
-      v14 = 2080;
-      v15 = v18;
-      v16 = 2112;
+      v31 = __str;
+      v32 = 2080;
+      v33 = v36;
+      v34 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "update external address (%s->%s) for %@.", buf, 0x20u);
+      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "update external address (%s->%s) for %@.", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"update external address (%s->%s) for %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"update external address (%s->%s) for %@.", v19, v20, v21, v22, v23, __str);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"update external address (%s->%s) for %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"update external address (%s->%s) for %@.", v24, v25, v26, v27, __str);
       }
     }
 

@@ -24,13 +24,13 @@
 {
   motionCopy = motion;
   objc_storeStrong(&self->_deviceMotion, motion);
-  [motionCopy timestamp];
+  objc_msgSend_timestamp(motionCopy);
   self->_timestamp = v6;
   attitude = [motionCopy attitude];
   v8 = attitude;
   if (attitude)
   {
-    [attitude rotationMatrix];
+    objc_msgSend_rotationMatrix(attitude);
   }
 
   else
@@ -191,7 +191,7 @@
     v14 = 0u;
     if (coderCopy)
     {
-      [coderCopy ar_decodeCMRotationMatrixForKey:@"rotationMatrix"];
+      objc_msgSend_ar_decodeCMRotationMatrixForKey_(coderCopy);
     }
 
     v11[2] = v15;
@@ -408,7 +408,7 @@
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p", v5, self];
 
-  [(ARDeviceOrientationData *)self timestamp];
+  objc_msgSend_timestamp(self);
   [v6 appendFormat:@" timestamp=%f", v7];
   deviceMotion = [(ARDeviceOrientationData *)self deviceMotion];
   attitude = [deviceMotion attitude];

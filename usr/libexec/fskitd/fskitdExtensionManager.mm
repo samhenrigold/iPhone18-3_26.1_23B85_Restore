@@ -9,6 +9,7 @@
 - (void)existingExtensionForBundle:(id)bundle user:(id)user resource:(id)resource replyHandler:(id)handler;
 - (void)existingExtensionForBundle:(id)bundle user:(id)user volume:(id)volume replyHandler:(id)handler;
 - (void)extensionForBundle:(id)bundle user:(id)user instance:(id)instance replyHandler:(id)handler;
+- (void)instanceDied:(id)died instanceUUID:(id)d uid:(unsigned int)uid;
 - (void)isVolumeIDUsed:(id)used bundle:(id)bundle user:(id)user replyHandler:(id)handler;
 @end
 
@@ -515,6 +516,33 @@ LABEL_20:
   objc_sync_exit(v20);
 
   return v24;
+}
+
+- (void)instanceDied:(id)died instanceUUID:(id)d uid:(unsigned int)uid
+{
+  v5 = *&uid;
+  diedCopy = died;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_10001180C;
+  v21 = sub_10001181C;
+  v22 = 0;
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_100013C6C;
+  v14 = &unk_100061270;
+  dCopy = d;
+  v15 = dCopy;
+  v16 = &v17;
+  [(fskitdExtensionManager *)self enumerateInstancesForBundle:diedCopy uid:v5 block:&v11];
+  v10 = v18[5];
+  if (v10)
+  {
+    [v10 weDied];
+  }
+
+  _Block_object_dispose(&v17, 8);
 }
 
 - (void)cleanUpInstance:(id)instance

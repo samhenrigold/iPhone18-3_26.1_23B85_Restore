@@ -17,8 +17,7 @@
 
 - (ABPK3DLiftingLSTM)init
 {
-  [(ABPK3DLiftingLSTM *)self _startLoading3DLiftingLSTMMLModelSignpost];
-  v3 = __ABPKLogSharedInstance();
+  v3 = __ABPKLogSharedInstance([(ABPK3DLiftingLSTM *)self _startLoading3DLiftingLSTMMLModelSignpost]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -29,30 +28,13 @@
   v12.super_class = ABPK3DLiftingLSTM;
   v4 = [(ABPK3DLiftingLSTM *)&v12 init];
   v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = objc_alloc_init(ABPKMLModelConfiguration3DLiftingLSTM);
-  mlConfigLSTM = v4->_mlConfigLSTM;
-  v4->_mlConfigLSTM = v6;
-
-  std::vector<simd_float4x4>::resize(&v4->_liftingResultAsModelPoses.__begin_, 0x11uLL);
-  v4->_frameCount = 0;
-  v4->_setUpStatus = 0;
-  v8 = [[ABPKSkeletonDefinition alloc] initWithType:3];
-  abpkLiftingSkeletonDefinition = v4->_abpkLiftingSkeletonDefinition;
-  v4->_abpkLiftingSkeletonDefinition = v8;
-
-  if (![(ABPK3DLiftingLSTM *)v4 initMLNetwork])
+  if (v4 && (v6 = objc_alloc_init(ABPKMLModelConfiguration3DLiftingLSTM), mlConfigLSTM = v4->_mlConfigLSTM, v4->_mlConfigLSTM = v6, mlConfigLSTM, std::vector<simd_float4x4>::resize(&v4->_liftingResultAsModelPoses.__begin_, 0x11uLL), v4->_frameCount = 0, v4->_setUpStatus = 0, v8 = [[ABPKSkeletonDefinition alloc] initWithType:3], abpkLiftingSkeletonDefinition = v4->_abpkLiftingSkeletonDefinition, v4->_abpkLiftingSkeletonDefinition = v8, abpkLiftingSkeletonDefinition, ![(ABPK3DLiftingLSTM *)v4 initMLNetwork]))
   {
     v10 = 0;
   }
 
   else
   {
-LABEL_5:
     [(ABPK3DLiftingLSTM *)v4 _endLoading3DLiftingLSTMMLModelSignpost];
     v10 = v4;
   }
@@ -62,7 +44,7 @@ LABEL_5:
 
 - (BOOL)initMLNetwork
 {
-  v3 = __ABPKLogSharedInstance();
+  v3 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *v16 = 0;
@@ -123,64 +105,63 @@ LABEL_5:
 {
   height = resolution.height;
   width = resolution.width;
-  *&v21._anon_20[8] = *MEMORY[0x277D85DE8];
-  v21.super.isa = *&resolution.width;
-  *v21._anon_8 = resolution.height;
+  *&v22._anon_20[8] = *MEMORY[0x277D85DE8];
+  v22.super.isa = *&resolution.width;
+  *v22._anon_8 = resolution.height;
   dataCopy = data;
-  [(ABPK3DLiftingLSTM *)self _startPrepareLiftingLSTMInputSignpostWithTimestamp:timestamp];
-  v12 = __ABPKLogSharedInstance();
+  v12 = __ABPKLogSharedInstance([(ABPK3DLiftingLSTM *)self _startPrepareLiftingLSTMInputSignpostWithTimestamp:timestamp]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    *&v21._anon_8[8] = 134218240;
-    *&v21._anon_8[12] = width;
-    *&v21._anon_8[20] = 2048;
-    *&v21._anon_8[22] = height;
-    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData resolution: (w,h) = (%f,%f) ", &v21._anon_8[8], 0x16u);
+    *&v22._anon_8[8] = 134218240;
+    *&v22._anon_8[12] = width;
+    *&v22._anon_8[20] = 2048;
+    *&v22._anon_8[22] = height;
+    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData resolution: (w,h) = (%f,%f) ", &v22._anon_8[8], 0x16u);
   }
 
-  v13 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = __ABPKLogSharedInstance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     rotation = [dataCopy rotation];
-    *&v21._anon_8[8] = 134217984;
-    *&v21._anon_8[12] = rotation;
-    _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData rotation: %ld ", &v21._anon_8[8], 0xCu);
+    *&v22._anon_8[8] = 134217984;
+    *&v22._anon_8[12] = rotation;
+    _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData rotation: %ld ", &v22._anon_8[8], 0xCu);
   }
 
-  abpk::GetRawDetectionXYVisbilityWithRawDetection2D(dataCopy, &v21, v15, &v21._anon_8[8]);
-  abpk::Normalize2DCoordinatesSquareCrop(&v21._anon_8[8], &v21, orientation);
+  abpk::GetRawDetectionXYVisbilityWithRawDetection2D(dataCopy, &v22, v16, &v22._anon_8[8]);
+  abpk::Normalize2DCoordinatesSquareCrop(&v22._anon_8[8], &v22, orientation);
   if (!self->_setUpStatus)
   {
-    [(ABPK3DLiftingLSTM *)self updateInputImageResolution:*&v21.super.isa, *v21._anon_8];
+    [(ABPK3DLiftingLSTM *)self updateInputImageResolution:*&v22.super.isa, *v22._anon_8];
     self->_setUpStatus = 1;
   }
 
   [(ABPK3DLiftingLSTM *)self _endPrepareLiftingLSTMInputSignpostWithTimestamp:timestamp];
-  if ([(ABPK3DLiftingLSTM *)self runLiftingModelWithRawDetectionXYVisbility:&v21._anon_8[8] with2DReferenceResults:dataCopy atTimestamp:0 exportDebuggingData:timestamp])
+  v17 = [(ABPK3DLiftingLSTM *)self runLiftingModelWithRawDetectionXYVisbility:&v22._anon_8[8] with2DReferenceResults:dataCopy atTimestamp:0 exportDebuggingData:timestamp];
+  if (v17)
   {
-    v16 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = __ABPKLogSharedInstance(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, " \t\t Failed to run Lifting ML model ", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_DEBUG, " \t\t Failed to run Lifting ML model ", v21, 2u);
     }
 
-    v17 = -6662;
+    v19 = -6662;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  if (*&v21._anon_8[8])
+  if (*&v22._anon_8[8])
   {
-    *&v21._anon_8[16] = *&v21._anon_8[8];
-    operator delete(*&v21._anon_8[8]);
+    *&v22._anon_8[16] = *&v22._anon_8[8];
+    operator delete(*&v22._anon_8[8]);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 - (void)resetInputCellStateBuffer
@@ -210,8 +191,7 @@ LABEL_5:
 
 - (int)runLiftingModelWithRawDetectionXYVisbility:(const void *)visbility with2DReferenceResults:(id)results atTimestamp:(double)timestamp exportDebuggingData:(BOOL)data
 {
-  results;
-  v9 = __ABPKLogSharedInstance();
+  v9 = __ABPKLogSharedInstance(results);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(buf.__begin_) = 0;
@@ -476,7 +456,7 @@ LABEL_5:
 
 - (void)_adjustBoneLength:(void *)length
 {
-  v5 = __ABPKLogSharedInstance();
+  v5 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -545,7 +525,7 @@ uint64_t __39__ABPK3DLiftingLSTM__adjustBoneLength___block_invoke(uint64_t a1, u
   v5 = a2;
   v2 = *(*(a1 + 32) + 8);
   v4 = 0;
-  return std::deque<std::pair<long,long>>::emplace_back<long &,int>(v2 + 48, &v5, &v4);
+  return std::deque<std::pair<long,long>>::emplace_back<long &,int>((v2 + 48), &v5, &v4);
 }
 
 - (id).cxx_construct

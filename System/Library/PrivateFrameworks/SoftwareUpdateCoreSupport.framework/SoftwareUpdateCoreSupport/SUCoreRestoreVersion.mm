@@ -19,12 +19,9 @@
 - (void)_parseRestoreVersionString
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x1E69E9840];
   summary = [v0 summary];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1E0F71000, v2, v3, "[RestoreVersion] (%{public}@) Parse: first order split result was not as expected (expected 2 values): %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1E0F71000, v2, v3, "[RestoreVersion] (%{public}@) Parse: first order split result was not as expected (expected 2 values): %{public}@", v4, v5, v6, v7);
 }
 
 + (BOOL)_enableVerboseLogging
@@ -106,7 +103,7 @@ LABEL_12:
 
 - (id)getNextNearestRestoreVersionOf:(id)of and:(id)and
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   ofCopy = of;
   andCopy = and;
@@ -115,7 +112,7 @@ LABEL_12:
   ofCopy2 = of;
   v9 = [v6 arrayWithObjects:&selfCopy count:3];
 
-  v10 = [v9 sortedArrayUsingComparator:{&__block_literal_global_3, selfCopy, ofCopy, andCopy, v18}];
+  v10 = [v9 sortedArrayUsingComparator:{&__block_literal_global_3, selfCopy, ofCopy, andCopy, v17}];
 
   v11 = [v10 indexOfObjectIdenticalTo:self];
   if (v11 >= [v10 count] - 1)
@@ -127,8 +124,6 @@ LABEL_12:
   {
     v12 = [v10 objectAtIndex:v11 + 1];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -146,7 +141,7 @@ LABEL_12:
 
 - (BOOL)isComparable:(id)comparable
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   comparableCopy = comparable;
   if (comparableCopy && (v5 = -[SUCoreRestoreVersion buildGroup](self, "buildGroup"), v5 == [comparableCopy buildGroup]))
   {
@@ -179,28 +174,27 @@ LABEL_12:
       summary2 = [comparableCopy summary];
       v13 = summary2;
       v14 = @"NO";
-      v17 = 138543874;
-      v18 = summary;
-      v19 = 2114;
+      v16 = 138543874;
+      v17 = summary;
+      v18 = 2114;
       if (v8)
       {
         v14 = @"YES";
       }
 
-      v20 = summary2;
-      v21 = 2114;
-      v22 = v14;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[RestoreVersion] Comparable: self=%{public}@ to=%{public}@ | valid=%{public}@", &v17, 0x20u);
+      v19 = summary2;
+      v20 = 2114;
+      v21 = v14;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[RestoreVersion] Comparable: self=%{public}@ to=%{public}@ | valid=%{public}@", &v16, 0x20u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (int64_t)compare:(id)compare
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   compareCopy = compare;
   if ([(SUCoreRestoreVersion *)self isComparable:compareCopy])
   {
@@ -230,13 +224,13 @@ LABEL_12:
         summary = [(SUCoreRestoreVersion *)self summary];
         summary2 = [compareCopy summary];
         v16 = [SUCoreRestoreVersion _stringForNSComparisonResult:v10];
-        v20 = 138543874;
-        v21 = summary;
-        v22 = 2114;
-        v23 = summary2;
-        v24 = 2114;
-        v25 = v16;
-        _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[RestoreVersion] Compare: self=%{public}@ to=%{public}@ | result=%{public}@", &v20, 0x20u);
+        v19 = 138543874;
+        v20 = summary;
+        v21 = 2114;
+        v22 = summary2;
+        v23 = 2114;
+        v24 = v16;
+        _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[RestoreVersion] Compare: self=%{public}@ to=%{public}@ | result=%{public}@", &v19, 0x20u);
       }
     }
   }
@@ -249,7 +243,6 @@ LABEL_12:
     v10 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -340,12 +333,9 @@ void __45__SUCoreRestoreVersion__enableVerboseLogging__block_invoke()
 - (void)initWithRestoreVersion:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [v0 summary];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1E0F71000, v2, v3, "[RestoreVersion] (%{public}@) Init: failed to create a valid parsed restore version from string %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1E0F71000, v2, v3, "[RestoreVersion] (%{public}@) Init: failed to create a valid parsed restore version from string %{public}@", v4, v5, v6, v7);
 }
 
 @end

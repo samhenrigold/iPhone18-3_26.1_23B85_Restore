@@ -229,7 +229,7 @@
   v4 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -250,7 +250,7 @@
   v5 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -616,7 +616,7 @@ LABEL_5:
   }
 
   gravity = [(_TUIRenderModelVideo *)self->_renderModel gravity];
-  if ([gravity isEqualToString:AVLayerVideoGravityResizeAspect])
+  if (objc_msgSend_isEqualToString_(gravity))
   {
     v6 = self->_posterFrameImageView;
     v7 = 1;
@@ -624,7 +624,7 @@ LABEL_5:
 
   else
   {
-    v8 = [gravity isEqualToString:AVLayerVideoGravityResizeAspectFill];
+    v8 = objc_msgSend_isEqualToString_(gravity);
     v6 = self->_posterFrameImageView;
     if (v8)
     {
@@ -719,13 +719,13 @@ LABEL_5:
   videoId = [(_TUIRenderModelVideo *)self->_renderModel videoId];
   v6 = [videoPlayerManager stateForPlayerWithVideoId:videoId];
 
-  if (self->_isInFullScreen || [(_TUIRenderModelVideo *)self->_renderModel showPlaybackControls]|| ([(_TUIRenderModelVideo *)self->_renderModel allowFullScreen]? (v7 = v6 == &dword_4) : (v7 = 0), !v7))
+  if (self->_isInFullScreen || (v7 = [(_TUIRenderModelVideo *)self->_renderModel showPlaybackControls], (v7 & 1) != 0) || ((v7 = [(_TUIRenderModelVideo *)self->_renderModel allowFullScreen], v7) ? (v8 = v6 == &dword_4) : (v8 = 0), !v8))
   {
-    v8 = TUIVideoLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = TUIVideoLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Removing fullscreen tap gesture recognizer", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Removing fullscreen tap gesture recognizer", v13, 2u);
     }
 
     videoViewController = [(TUIVideoView *)self videoViewController];
@@ -735,11 +735,11 @@ LABEL_5:
 
   else
   {
-    v11 = TUIVideoLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = TUIVideoLog(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Adding fullscreen tap gesture recognizer", buf, 2u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Adding fullscreen tap gesture recognizer", buf, 2u);
     }
 
     videoViewController = [(TUIVideoView *)self videoViewController];
@@ -757,7 +757,7 @@ LABEL_5:
   player = [videoViewController player];
   isMuted = [player isMuted];
   isPlaying = [(TUIVideoView *)self isPlaying];
-  [(TUIVideoView *)self duration];
+  objc_msgSend_duration(self);
   v16 = [(TUIVideoEventMetadata *)v9 initWithEventCase:event mode:videoMode isMuted:isMuted isPlaying:isPlaying mediaTimePlayed:idCopy mediaDuration:played mediaId:v15];
 
   if (v16)
@@ -786,9 +786,9 @@ LABEL_5:
   player = [videoViewController player];
   isMuted = [player isMuted];
   isPlaying = [(TUIVideoView *)self isPlaying];
-  [(TUIVideoView *)self currentTime];
+  objc_msgSend_currentTime(self);
   v16 = v15;
-  [(TUIVideoView *)self duration];
+  objc_msgSend_duration(self);
   v18 = [(TUIVideoActionMetadata *)v9 initWithActionCase:action origin:origin mode:videoMode isMuted:isMuted isPlaying:isPlaying mediaTimePlayed:idCopy mediaDuration:v16 mediaId:v17];
 
   if (v18)
@@ -848,14 +848,14 @@ LABEL_5:
   changeCopy = change;
   if (context == &off_261DE8)
   {
-    if ([pathCopy isEqualToString:@"scrubbing"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       v12 = objc_opt_class();
       v13 = [changeCopy objectForKey:NSKeyValueChangeNewKey];
       v14 = TUIDynamicCast(v12, v13);
       bOOLValue = [v14 BOOLValue];
 
-      [(TUIVideoView *)self currentTime];
+      objc_msgSend_currentTime(self);
       v17 = v16;
       videoId = [(_TUIRenderModelVideo *)self->_renderModel videoId];
       if (bOOLValue)
@@ -873,13 +873,13 @@ LABEL_5:
 
     else
     {
-      if ([pathCopy isEqualToString:@"readyForDisplay"])
+      if (objc_msgSend_isEqualToString_(pathCopy))
       {
         [(TUIVideoView *)self _updateStateBasedSubviewsAnimated:1];
         goto LABEL_11;
       }
 
-      if (![pathCopy isEqualToString:@"playerController"])
+      if (!objc_msgSend_isEqualToString_(pathCopy))
       {
         goto LABEL_11;
       }

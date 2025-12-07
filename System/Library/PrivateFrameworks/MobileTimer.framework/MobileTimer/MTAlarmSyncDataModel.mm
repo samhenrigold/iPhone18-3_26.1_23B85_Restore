@@ -30,22 +30,22 @@
 
 - (MTAlarmSyncDataModel)initWithAlarmStorage:(id)storage syncMetrics:(id)metrics syncServiceManagerBlock:(id)block serializer:(id)serializer serialQueue:(id)queue
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   metricsCopy = metrics;
   blockCopy = block;
   serializerCopy = serializer;
   queueCopy = queue;
-  v22.receiver = self;
-  v22.super_class = MTAlarmSyncDataModel;
-  v17 = [(MTAlarmSyncDataModel *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = MTAlarmSyncDataModel;
+  v17 = [(MTAlarmSyncDataModel *)&v21 init];
   if (v17)
   {
     v18 = MTLogForCategory(6);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -56,7 +56,6 @@
     [(MTAlarmSyncDataModel *)v17 _setupSyncManagerWithBlock:blockCopy];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -82,7 +81,7 @@ MTSyncServiceManager *__36__MTAlarmSyncDataModel_defaultBlock__block_invoke(uint
 
 - (void)_setupSyncManagerWithBlock:(id)block
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = (*(block + 2))(block, self);
   syncServiceManager = self->_syncServiceManager;
   self->_syncServiceManager = v4;
@@ -90,22 +89,19 @@ MTSyncServiceManager *__36__MTAlarmSyncDataModel_defaultBlock__block_invoke(uint
   if (self->_syncServiceManager)
   {
     alarmStorage = self->_alarmStorage;
-    v7 = *MEMORY[0x1E69E9840];
 
     [(MTAlarmStorage *)alarmStorage registerObserver:self];
   }
 
   else
   {
-    v8 = MTLogForCategory(6);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLogForCategory(6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ has no sync manager.", &v10, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ has no sync manager.", &v8, 0xCu);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -231,7 +227,7 @@ void __59__MTAlarmSyncDataModel_source_didSnoozeAlarm_snoozeAction___block_invok
   [(NAScheduler *)serializer performBlock:v7];
 }
 
-uint64_t __36__MTAlarmSyncDataModel_applyChange___block_invoke(uint64_t a1)
+void *__36__MTAlarmSyncDataModel_applyChange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) syncType];
   if (!result)
@@ -247,16 +243,16 @@ uint64_t __36__MTAlarmSyncDataModel_applyChange___block_invoke(uint64_t a1)
 
 - (void)_performAction:(id)action
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   v5 = MTLogForCategory(6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = actionCopy;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ performing action %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = actionCopy;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ performing action %{public}@", &v6, 0x16u);
   }
 
   objc_opt_class();
@@ -273,8 +269,6 @@ uint64_t __36__MTAlarmSyncDataModel_applyChange___block_invoke(uint64_t a1)
       [(MTAlarmSyncDataModel *)self _performSnooze:actionCopy];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performDismiss:(id)dismiss
@@ -344,28 +338,26 @@ void __39__MTAlarmSyncDataModel__performSnooze___block_invoke(uint64_t a1)
 
 - (void)printDiagnostics
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----%{public}@-----", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----%{public}@-----", &v7, 0xCu);
   }
 
   v4 = MTLogForCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     syncServiceManager = [(MTAlarmSyncDataModel *)self syncServiceManager];
-    v8 = 138543362;
-    v9 = syncServiceManager;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Alarm Sync Manager: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = syncServiceManager;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Alarm Sync Manager: %{public}@", &v7, 0xCu);
   }
 
   syncServiceManager2 = [(MTAlarmSyncDataModel *)self syncServiceManager];
   [syncServiceManager2 printDiagnostics];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics

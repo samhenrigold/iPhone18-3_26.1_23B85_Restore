@@ -61,7 +61,7 @@ LABEL_6:
     v3->fNumBytesRead = 0;
     v3->fLength = 0;
     v7 = [NSString stringWithFormat:@"\r\n--%@--\r\n", v3->fMultiPartBoundary];
-    [NSInputStream ps_inputStreamWithString:v7];
+    objc_msgSend_ps_inputStreamWithString_(NSInputStream);
     v8 = v11;
     v11 = 0;
     first = v3->fEpilogueBoundary.first;
@@ -93,7 +93,7 @@ LABEL_6:
   [NSMultiPartInputStream pathMimeType:path];
   [(NSMultiPartInputStream *)self createHeaderName:partCopy filename:filenameCopy mimeType:objc_claimAutoreleasedReturnValue()];
   objc_claimAutoreleasedReturnValue();
-  [NSInputStream ps_inputStreamWithFileAtPath:path];
+  objc_msgSend_ps_inputStreamWithFileAtPath_(NSInputStream);
   memset(__p, 0, 24);
   __p[3] = __p;
   v11 = 0;
@@ -110,14 +110,14 @@ LABEL_6:
 - (void)addPart:(id)part withData:(const void *)data andFilename:(id)filename
 {
   v7 = [(NSMultiPartInputStream *)self createHeaderName:part filename:filename mimeType:@"application/octet-stream"];
-  [NSInputStream ps_inputStreamWithString:v7];
+  objc_msgSend_ps_inputStreamWithString_(NSInputStream);
   [(NSMultiPartInputStream *)self addMultiPart:data withHeader:v8];
 }
 
 - (void)addMultiPart:(const void *)part withHeader:(const void *)header
 {
   v7 = [NSString stringWithFormat:@"--%@\r\n", self->fMultiPartBoundary];
-  [NSInputStream ps_inputStreamWithString:v7];
+  objc_msgSend_ps_inputStreamWithString_(NSInputStream);
   var0 = self->fParts.var0;
   if (var0 >= self->fParts.var1)
   {

@@ -65,7 +65,6 @@
   PBDataWriterWriteStringField();
   if (*&self->_has)
   {
-    estimatedChangeCount = self->_estimatedChangeCount;
     PBDataWriterWriteUint32Field();
   }
 }

@@ -1,9 +1,9 @@
 @interface UINavigationItem(SUAdditions)
 - (uint64_t)fadeInTitleView;
-- (uint64_t)mergeValuesFromItem:()SUAdditions;
 - (uint64_t)resetAllValues;
 - (uint64_t)setTitleView:()SUAdditions animated:;
 - (void)fadeOutTitleView;
+- (void)mergeValuesFromItem:()SUAdditions;
 @end
 
 @implementation UINavigationItem(SUAdditions)
@@ -45,7 +45,7 @@
   [MEMORY[0x1E69DD250] animateWithDuration:v7 animations:v6 completion:0.35];
 }
 
-- (uint64_t)mergeValuesFromItem:()SUAdditions
+- (void)mergeValuesFromItem:()SUAdditions
 {
   if (result != a3)
   {

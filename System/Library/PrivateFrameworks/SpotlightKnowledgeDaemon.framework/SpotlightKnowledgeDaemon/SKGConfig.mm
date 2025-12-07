@@ -66,98 +66,94 @@
 
   v6 = MEMORY[0x277CBEA90];
   path2 = [(NSURL *)self->_configURL path];
-  v21 = [v6 dataWithContentsOfFile:path2];
+  v20 = [v6 dataWithContentsOfFile:path2];
 
-  v8 = *MEMORY[0x277CBECE8];
-  v9 = v21;
-  [v21 bytes];
-  [v21 length];
-  v10 = _MDPlistContainerCreateWithBytes();
-  if (v10)
+  v8 = v20;
+  [v20 bytes];
+  [v20 length];
+  v9 = _MDPlistContainerCreateWithBytes();
+  if (v9)
   {
-    v11 = v10;
-    v12 = _MDPlistContainerCopyRootObject();
-    v13 = [v12 objectForKeyedSubscript:@"ReleaseVersion"];
-    if (v13)
+    v10 = v9;
+    v11 = _MDPlistContainerCopyRootObject();
+    v12 = [v11 objectForKeyedSubscript:@"ReleaseVersion"];
+    if (v12)
     {
-      resourcePath = v13;
-      v15 = [v12 objectForKeyedSubscript:@"ResourceVersion"];
-      if (!v15)
+      resourcePath = v12;
+      v14 = [v11 objectForKeyedSubscript:@"ResourceVersion"];
+      if (!v14)
       {
 LABEL_8:
 
         goto LABEL_9;
       }
 
-      v16 = v15;
-      v17 = [v12 objectForKeyedSubscript:@"ResourcePath"];
+      v15 = v14;
+      v16 = [v11 objectForKeyedSubscript:@"ResourcePath"];
 
-      if (v17)
+      if (v16)
       {
-        v18 = [v12 objectForKey:@"ReleaseVersion"];
-        self->_currentReleaseVersion = [v18 intValue];
+        v17 = [v11 objectForKey:@"ReleaseVersion"];
+        self->_currentReleaseVersion = [v17 intValue];
 
-        v19 = [v12 objectForKey:@"ResourceVersion"];
-        self->_currentResourceVersion = [v19 intValue];
+        v18 = [v11 objectForKey:@"ResourceVersion"];
+        self->_currentResourceVersion = [v18 intValue];
 
-        v20 = [v12 objectForKey:@"ResourcePath"];
+        v19 = [v11 objectForKey:@"ResourcePath"];
         resourcePath = self->_resourcePath;
-        self->_resourcePath = v20;
+        self->_resourcePath = v19;
         goto LABEL_8;
       }
     }
 
 LABEL_9:
-    CFRelease(v11);
+    CFRelease(v10);
   }
 }
 
 - (void)updateConfig
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   if (self->_configURL)
   {
-    v17[0] = @"ReleaseVersion";
+    v15[0] = @"ReleaseVersion";
     v3 = [MEMORY[0x277CCABB0] numberWithInteger:self->_currentReleaseVersion];
-    v18[0] = v3;
-    v17[1] = @"ResourceVersion";
+    v16[0] = v3;
+    v15[1] = @"ResourceVersion";
     v4 = [MEMORY[0x277CCABB0] numberWithInteger:self->_currentResourceVersion];
-    v17[2] = @"ResourcePath";
+    v15[2] = @"ResourcePath";
     resourcePath = self->_resourcePath;
-    v18[1] = v4;
-    v18[2] = resourcePath;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v16[1] = v4;
+    v16[2] = resourcePath;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
-    v7 = *MEMORY[0x277CBECE8];
-    v8 = _MDPlistContainerCreateWithObject();
-    if (v8)
+    v7 = _MDPlistContainerCreateWithObject();
+    if (v7)
     {
-      v9 = v8;
+      v8 = v7;
       Bytes = _MDPlistContainerGetBytes();
       Length = _MDPlistContainerGetLength();
       if (Bytes)
       {
-        v12 = Length == 0;
+        v11 = Length == 0;
       }
 
       else
       {
-        v12 = 1;
+        v11 = 1;
       }
 
-      if (!v12)
+      if (!v11)
       {
-        v13 = [MEMORY[0x277CBEA90] dataWithBytes:Bytes length:Length];
+        v12 = [MEMORY[0x277CBEA90] dataWithBytes:Bytes length:Length];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
         path = [(NSURL *)self->_configURL path];
-        [defaultManager createFileAtPath:path contents:v13 attributes:0];
+        [defaultManager createFileAtPath:path contents:v12 attributes:0];
       }
 
-      CFRelease(v9);
+      CFRelease(v8);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

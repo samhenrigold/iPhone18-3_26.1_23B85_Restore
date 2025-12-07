@@ -10,7 +10,7 @@
   if (self)
   {
     v3 = objc_alloc_init(NSMutableSet);
-    v4 = sub_1003C27BC();
+    v4 = sub_1003C27BC(AppInstallsDatabaseStore);
     v45[0] = _NSConcreteStackBlock;
     v45[1] = 3221225472;
     v45[2] = sub_100348308;
@@ -105,7 +105,7 @@
             {
             }
 
-            v26 = sub_1003649C8();
+            v26 = sub_1003649C8(ProgressCache);
             sub_100364E78(v26, v22, @"System");
           }
 
@@ -120,7 +120,7 @@
       while (v27);
     }
 
-    v28 = sub_1003C27BC();
+    v28 = sub_1003C27BC(AppInstallsDatabaseStore);
     v34[0] = _NSConcreteStackBlock;
     v34[1] = 3221225472;
     v34[2] = sub_1003481D8;

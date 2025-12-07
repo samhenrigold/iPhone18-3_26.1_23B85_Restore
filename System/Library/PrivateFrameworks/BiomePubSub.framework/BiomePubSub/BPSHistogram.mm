@@ -33,47 +33,44 @@
 
 - (void)_setKeyTypeFromKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   [(BPSHistogram *)self removeAllScores];
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(keyCopy, "count")}];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v6 = keyCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
-        [v5 addObject:{objc_opt_class(), v15}];
+        [v5 addObject:{objc_opt_class(), v13}];
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = [MEMORY[0x1E695DEC8] arrayWithArray:v5];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithArray:v5];
   keyType = self->_keyType;
-  self->_keyType = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
+  self->_keyType = v11;
 }
 
 - (BOOL)_correctKeyType:(id)type
@@ -105,7 +102,7 @@
   return v7 & 1;
 }
 
-uint64_t __32__BPSHistogram__correctKeyType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__32__BPSHistogram__correctKeyType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_opt_class() isEqual:{objc_msgSend(*(*(a1 + 32) + 16), "objectAtIndexedSubscript:", a3)}];
   if ((result & 1) == 0)
@@ -177,7 +174,7 @@ LABEL_11:
       v9 = __biome_log_for_category();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        [(BPSHistogram *)v5 scoreForKey:?];
+        [BPSHistogram scoreForKey:];
       }
 
       v6 = &unk_1F4870148;
@@ -191,70 +188,69 @@ LABEL_11:
 {
   scoreCopy = score;
   keyCopy = key;
-  p_keyType = &self->_keyType;
   keyType = self->_keyType;
-  v10 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:keyCopy copyItems:1];
+  v9 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:keyCopy copyItems:1];
   if (!keyType)
   {
-    [(BPSHistogram *)self _setKeyTypeFromKey:v10];
+    [(BPSHistogram *)self _setKeyTypeFromKey:v9];
   }
 
-  if ([(BPSHistogram *)self _correctKeyType:v10])
+  if ([(BPSHistogram *)self _correctKeyType:v9])
   {
-    v11 = self->_backingDictionary;
-    if ([v10 count] == 1)
+    v10 = self->_backingDictionary;
+    if ([v9 count] == 1)
     {
-      v12 = v11;
+      v11 = v10;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        v15 = [v10 objectAtIndexedSubscript:v14];
-        v16 = [(NSMutableDictionary *)v11 objectForKeyedSubscript:v15];
+        v14 = [v9 objectAtIndexedSubscript:v13];
+        v15 = [(NSMutableDictionary *)v10 objectForKeyedSubscript:v14];
 
-        if (!v16)
+        if (!v15)
         {
           dictionary = [MEMORY[0x1E695DF90] dictionary];
-          v18 = [v10 objectAtIndexedSubscript:v14];
-          [(NSMutableDictionary *)v11 setObject:dictionary forKeyedSubscript:v18];
+          v17 = [v9 objectAtIndexedSubscript:v13];
+          [(NSMutableDictionary *)v10 setObject:dictionary forKeyedSubscript:v17];
         }
 
-        v19 = [v10 objectAtIndexedSubscript:v14];
-        v12 = [(NSMutableDictionary *)v11 objectForKeyedSubscript:v19];
+        v18 = [v9 objectAtIndexedSubscript:v13];
+        v11 = [(NSMutableDictionary *)v10 objectForKeyedSubscript:v18];
 
-        ++v14;
-        v11 = v12;
+        ++v13;
+        v10 = v11;
       }
 
-      while (v14 < [v10 count] - 1);
+      while (v13 < [v9 count] - 1);
     }
 
-    lastObject = [v10 lastObject];
-    v21 = [(NSMutableDictionary *)v12 objectForKeyedSubscript:lastObject];
-    [v21 floatValue];
-    v23 = v22;
+    lastObject = [v9 lastObject];
+    v20 = [(NSMutableDictionary *)v11 objectForKeyedSubscript:lastObject];
+    [v20 floatValue];
+    v22 = v21;
 
     [scoreCopy floatValue];
-    *&v24 = v23 + *&v24;
-    if (*&v24 < 0.0)
+    *&v23 = v22 + *&v23;
+    if (*&v23 < 0.0)
     {
-      *&v24 = 0.0;
+      *&v23 = 0.0;
     }
 
-    v25 = [MEMORY[0x1E696AD98] numberWithFloat:v24];
-    lastObject2 = [v10 lastObject];
-    [(NSMutableDictionary *)v12 setObject:v25 forKeyedSubscript:lastObject2];
+    v24 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
+    lastObject2 = [v9 lastObject];
+    [(NSMutableDictionary *)v11 setObject:v24 forKeyedSubscript:lastObject2];
   }
 
   else
   {
-    v13 = __biome_log_for_category();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v12 = __biome_log_for_category();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(BPSHistogram *)v10 scoreForKey:?];
+      [BPSHistogram scoreForKey:];
     }
   }
 }
@@ -263,76 +259,75 @@ LABEL_11:
 {
   keyCopy = key;
   v5 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:keyCopy copyItems:1];
-  p_keyType = &self->_keyType;
   if (self->_keyType)
   {
     if ([(BPSHistogram *)self _correctKeyType:v5])
     {
-      v7 = self->_backingDictionary;
-      v8 = [v5 count];
-      v9 = MEMORY[0x1E695DF70];
-      if (v8 >= 2)
+      v6 = self->_backingDictionary;
+      v7 = [v5 count];
+      v8 = MEMORY[0x1E695DF70];
+      if (v7 >= 2)
       {
-        v10 = [v5 count] - 2;
+        v9 = [v5 count] - 2;
       }
 
       else
       {
-        v10 = 0;
+        v9 = 0;
       }
 
-      v12 = [v9 arrayWithCapacity:v10];
+      v11 = [v8 arrayWithCapacity:v9];
       if ([v5 count] == 1)
       {
-        v13 = v7;
+        v12 = v6;
 LABEL_14:
         lastObject = [v5 lastObject];
-        [(NSMutableDictionary *)v13 removeObjectForKey:lastObject];
+        [(NSMutableDictionary *)v12 removeObjectForKey:lastObject];
 
-        v19 = [v12 count];
-        if (v19 - 1 >= 0)
+        v18 = [v11 count];
+        if (v18 - 1 >= 0)
         {
-          v20 = v19;
+          v19 = v18;
           do
           {
-            v21 = [v12 objectAtIndexedSubscript:--v20];
-            v22 = [v5 objectAtIndexedSubscript:v20];
-            v23 = [v21 objectForKeyedSubscript:v22];
+            v20 = [v11 objectAtIndexedSubscript:--v19];
+            v21 = [v5 objectAtIndexedSubscript:v19];
+            v22 = [v20 objectForKeyedSubscript:v21];
 
-            if (![v23 count])
+            if (![v22 count])
             {
-              v24 = [v12 objectAtIndexedSubscript:v20];
-              v25 = [v5 objectAtIndexedSubscript:v20];
-              [v24 removeObjectForKey:v25];
+              v23 = [v11 objectAtIndexedSubscript:v19];
+              v24 = [v5 objectAtIndexedSubscript:v19];
+              [v23 removeObjectForKey:v24];
             }
           }
 
-          while (v20 > 0);
+          while (v19 > 0);
         }
 
-        v7 = v13;
+        v6 = v12;
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
         while (1)
         {
-          [v12 addObject:v7];
-          v15 = [v5 objectAtIndexedSubscript:v14];
-          v16 = [(NSMutableDictionary *)v7 objectForKeyedSubscript:v15];
+          [v11 addObject:v6];
+          v14 = [v5 objectAtIndexedSubscript:v13];
+          v15 = [(NSMutableDictionary *)v6 objectForKeyedSubscript:v14];
 
-          if (!v16)
+          if (!v15)
           {
             break;
           }
 
-          v17 = [v5 objectAtIndexedSubscript:v14];
-          v13 = [(NSMutableDictionary *)v7 objectForKeyedSubscript:v17];
+          v16 = [v5 objectAtIndexedSubscript:v13];
+          v12 = [(NSMutableDictionary *)v6 objectForKeyedSubscript:v16];
 
-          ++v14;
-          v7 = v13;
-          if (v14 >= [v5 count] - 1)
+          ++v13;
+          v6 = v12;
+          if (v13 >= [v5 count] - 1)
           {
             goto LABEL_14;
           }
@@ -342,10 +337,10 @@ LABEL_14:
 
     else
     {
-      v11 = __biome_log_for_category();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v10 = __biome_log_for_category();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [(BPSHistogram *)v5 scoreForKey:?];
+        [BPSHistogram scoreForKey:];
       }
     }
   }
@@ -353,8 +348,8 @@ LABEL_14:
 
 - (id)allKeysAtLevel:(unint64_t)level
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v31 = [MEMORY[0x1E695DFA8] set];
+  v43 = *MEMORY[0x1E69E9840];
+  v30 = [MEMORY[0x1E695DFA8] set];
   keyType = self->_keyType;
   if (keyType && [(NSArray *)keyType count]> level)
   {
@@ -362,26 +357,26 @@ LABEL_14:
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
     array3 = [MEMORY[0x1E695DF70] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     allKeys = [(NSMutableDictionary *)self->_backingDictionary allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v39;
+      v11 = *v38;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v39 != v11)
+          if (*v38 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v38 + 1) + 8 * i);
+          v13 = *(*(&v37 + 1) + 8 * i);
           v14 = [(NSMutableDictionary *)self->_backingDictionary objectForKeyedSubscript:v13];
           [array addObject:v14];
 
@@ -389,7 +384,7 @@ LABEL_14:
           [array3 addObject:&unk_1F4870148];
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v10);
@@ -407,32 +402,32 @@ LABEL_14:
       [array3 removeObjectAtIndex:0];
       if ([firstObject3 unsignedIntegerValue] >= v16)
       {
-        [v31 addObject:firstObject2];
+        [v30 addObject:firstObject2];
       }
 
       else
       {
-        v32 = firstObject2;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
+        v31 = firstObject2;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         allKeys2 = [firstObject allKeys];
-        v21 = [allKeys2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v21 = [allKeys2 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v35;
+          v23 = *v34;
           do
           {
             for (j = 0; j != v22; ++j)
             {
-              if (*v35 != v23)
+              if (*v34 != v23)
               {
                 objc_enumerationMutation(allKeys2);
               }
 
-              v25 = *(*(&v34 + 1) + 8 * j);
+              v25 = *(*(&v33 + 1) + 8 * j);
               v26 = [firstObject objectForKeyedSubscript:v25];
               [array addObject:v26];
 
@@ -441,22 +436,20 @@ LABEL_14:
               [array3 addObject:v27];
             }
 
-            v22 = [allKeys2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v22 = [allKeys2 countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
           while (v22);
         }
 
         v16 = levelCopy;
-        firstObject2 = v32;
+        firstObject2 = v31;
         v15 = array;
       }
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v31;
+  return v30;
 }
 
 - (void)removeAllScores
@@ -481,26 +474,26 @@ LABEL_14:
 
 - (void)_enumerateWithBlock:(id)block node:(id)node currentKey:(id)key stop:(BOOL *)stop
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   nodeCopy = node;
   keyCopy = key;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v23 = nodeCopy;
+  v22 = nodeCopy;
   obj = [nodeCopy allKeys];
-  v13 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v25 != v15)
+      if (*v24 != v15)
       {
         objc_enumerationMutation(obj);
       }
@@ -510,11 +503,11 @@ LABEL_3:
         break;
       }
 
-      v17 = *(*(&v24 + 1) + 8 * v16);
+      v17 = *(*(&v23 + 1) + 8 * v16);
       [keyCopy addObject:v17];
       v18 = [keyCopy count];
       v19 = [(NSArray *)self->_keyType count];
-      v20 = [v23 objectForKeyedSubscript:v17];
+      v20 = [v22 objectForKeyedSubscript:v17];
       if (v18 == v19)
       {
         blockCopy[2](blockCopy, keyCopy, v20, stop);
@@ -528,7 +521,7 @@ LABEL_3:
       [keyCopy removeLastObject];
       if (v14 == ++v16)
       {
-        v14 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v14)
         {
           goto LABEL_3;
@@ -538,17 +531,6 @@ LABEL_3:
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scoreForKey:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_1C871B000, v3, v4, "Invalid key:%@, expected a key of type: %@");
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

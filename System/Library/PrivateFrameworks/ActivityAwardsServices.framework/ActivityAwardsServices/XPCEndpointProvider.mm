@@ -17,8 +17,8 @@
 
 - (void)createEndpointNamed:(NSString *)named completion:(id)completion
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECC26270, &unk_1DB127910) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECC26270, &unk_1DB127910);
+  MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();

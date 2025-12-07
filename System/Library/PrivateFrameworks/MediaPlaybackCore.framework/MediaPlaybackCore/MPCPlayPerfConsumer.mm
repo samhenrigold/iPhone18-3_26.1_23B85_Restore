@@ -11,6 +11,7 @@
 - (void)sendMetricsToSiriSelfLogger:(id)logger;
 - (void)setupErrorHandlerForEventType:(id)type errorKey:(id)key prefix:(id)prefix;
 - (void)subscribeToEventStream:(id)stream;
+- (void)unsubscribeFromEventStream:(id)stream;
 @end
 
 @implementation MPCPlayPerfConsumer
@@ -862,6 +863,13 @@ uint64_t __69__MPCPlayPerfConsumer_setupErrorHandlerForEventType_errorKey_prefix
   }
 
   return 1;
+}
+
+- (void)unsubscribeFromEventStream:(id)stream
+{
+  subscription = self->_subscription;
+  self->_subscription = 0;
+  MEMORY[0x1EEE66BB8](self, subscription);
 }
 
 - (void)subscribeToEventStream:(id)stream

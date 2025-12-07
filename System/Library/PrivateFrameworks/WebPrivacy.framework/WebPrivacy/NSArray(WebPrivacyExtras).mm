@@ -7,29 +7,29 @@
 
 - (id)_wp_arrayByRemovingTrackingInformationFromURLs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [self mutableCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -77,63 +77,61 @@ LABEL_16:
       }
 
       while (v4 != v7);
-      v10 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v10 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       v4 = v10;
     }
 
     while (v10);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (void)_wp_removeTrackingInformationFromURLs:()WebPrivacyExtras
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v18 = a3;
-  v19 = [self mutableCopy];
+  v31 = *MEMORY[0x277D85DE8];
+  v17 = a3;
+  v18 = [self mutableCopy];
   v4 = dispatch_group_create();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = 0;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v10 = *(*(&v26 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           if (v10)
           {
             dispatch_group_enter(v4);
-            v23[0] = MEMORY[0x277D85DD0];
-            v23[1] = 3321888768;
-            v23[2] = __67__NSArray_WebPrivacyExtras___wp_removeTrackingInformationFromURLs___block_invoke;
-            v23[3] = &__block_descriptor_56_ea8_32c80_ZTSKZ67__NSArray_WebPrivacyExtras___wp_removeTrackingInformationFromURLs__E3__2_e15_v16__0__NSURL_8l;
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 3321888768;
+            v22[2] = __67__NSArray_WebPrivacyExtras___wp_removeTrackingInformationFromURLs___block_invoke;
+            v22[3] = &__block_descriptor_56_ea8_32c80_ZTSKZ67__NSArray_WebPrivacyExtras___wp_removeTrackingInformationFromURLs__E3__2_e15_v16__0__NSURL_8l;
             v11 = v4;
-            v12 = v19;
-            v24 = v11;
-            v25 = v12;
-            v26 = v7;
-            [v10 _wp_removeTrackingInformation:v23];
+            v12 = v18;
+            v23 = v11;
+            v24 = v12;
+            v25 = v7;
+            [v10 _wp_removeTrackingInformation:v22];
 
-            v13 = v24;
+            v13 = v23;
 LABEL_14:
 
             goto LABEL_15;
@@ -170,7 +168,7 @@ LABEL_15:
       }
 
       while (v6 != v9);
-      v14 = [selfCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v14 = [selfCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
       v6 = v14;
     }
 
@@ -181,13 +179,11 @@ LABEL_15:
   block[1] = 3221225472;
   block[2] = __67__NSArray_WebPrivacyExtras___wp_removeTrackingInformationFromURLs___block_invoke_18;
   block[3] = &unk_279EAF330;
-  v21 = v19;
-  v22 = v18;
-  v15 = v19;
-  v16 = v18;
+  v20 = v18;
+  v21 = v17;
+  v15 = v18;
+  v16 = v17;
   dispatch_group_notify(v4, MEMORY[0x277D85CD0], block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

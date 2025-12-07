@@ -1,7 +1,7 @@
 uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4, unsigned int a5)
 {
   v7 = result;
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v8 = *a4;
   if (a2 > 44)
   {
@@ -14,7 +14,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
           *(result + 56) = v8;
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
         }
 
@@ -23,7 +23,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
           *(result + 52) = v8;
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
         }
 
@@ -35,7 +35,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
         *(result + 176) = v8;
         if (!a5)
         {
-          goto LABEL_65;
+          return result;
         }
 
         goto LABEL_59;
@@ -46,7 +46,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
         *(result + 80) = v8;
         if (!a5)
         {
-          goto LABEL_65;
+          return result;
         }
 
         goto LABEL_59;
@@ -62,7 +62,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
           *(result + 48) = v8;
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
         }
 
@@ -71,7 +71,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
           *(result + 44) = v8;
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
         }
 
@@ -84,7 +84,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
           *(result + 32) = v8;
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
 
           goto LABEL_59;
@@ -92,14 +92,14 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
           *(result + 160) = v8;
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
 
           goto LABEL_59;
         case 265:
           if (!a5)
           {
-            goto LABEL_65;
+            return result;
           }
 
           v9 = (result + 184);
@@ -129,7 +129,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
         *(result + 144) = v8;
         if (!a5)
         {
-          goto LABEL_65;
+          return result;
         }
 
         goto LABEL_59;
@@ -140,7 +140,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
         *(result + 152) = v8;
         if (!a5)
         {
-          goto LABEL_65;
+          return result;
         }
 
         goto LABEL_59;
@@ -154,7 +154,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
         *(result + 72) = v8;
         if (!a5)
         {
-          goto LABEL_65;
+          return result;
         }
 
         goto LABEL_59;
@@ -165,14 +165,20 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
         *(result + 64) = v8;
         if (!a5)
         {
-          goto LABEL_65;
+          return result;
         }
 
         goto LABEL_59;
       }
     }
 
-    goto LABEL_58;
+LABEL_58:
+    if (!a5)
+    {
+      return result;
+    }
+
+    goto LABEL_59;
   }
 
   if (a2 <= 18)
@@ -182,7 +188,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
       *(result + 104) = v8;
       if (!a5)
       {
-        goto LABEL_65;
+        return result;
       }
 
       goto LABEL_59;
@@ -197,7 +203,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
     *(result + 96) = v8;
     if (!a5)
     {
-      goto LABEL_65;
+      return result;
     }
 
     goto LABEL_59;
@@ -208,7 +214,7 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
     *(result + 112) = v8;
     if (!a5)
     {
-      goto LABEL_65;
+      return result;
     }
 
     goto LABEL_59;
@@ -216,42 +222,37 @@ uint64_t AddFieldToContext(uint64_t result, int a2, const char *a3, uint64_t *a4
 
   if (a2 != 28)
   {
-LABEL_58:
-    if (a5)
-    {
-      goto LABEL_59;
-    }
-
-LABEL_65:
-    v16 = *MEMORY[0x277D85DE8];
-    return result;
+    goto LABEL_58;
   }
 
   *(result + 168) = v8;
   if (!a5)
   {
-    goto LABEL_65;
+    return result;
   }
 
 LABEL_59:
-  if (a5 != 1)
+  if (a5 == 1)
   {
-    v14 = 0;
-    v15 = a5;
-    do
-    {
-      snprintf(__str, 0x64uLL, "%d", v14);
-      __str[100] = 0;
-      result = AddSingleValue(v7, a3, __str, a4[v14++]);
-    }
 
-    while (v15 != v14);
-    goto LABEL_65;
+    return AddSingleValue(result, "", a3, v8);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v13 = 0;
+    v14 = a5;
+    do
+    {
+      snprintf(__str, 0x64uLL, "%d", v13);
+      __str[100] = 0;
+      result = AddSingleValue(v7, a3, __str, a4[v13++]);
+    }
 
-  return AddSingleValue(result, "", a3, v8);
+    while (v14 != v13);
+  }
+
+  return result;
 }
 
 double ASPReleaseContext(uint64_t a1)
@@ -301,20 +302,20 @@ double ASPReleaseContext(uint64_t a1)
   return result;
 }
 
-uint64_t ASPFTLParseBufferToCxt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ASPFTLParseBufferToCxt(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a2;
   v10 = 0;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v11 = a3 >> 3;
   *__str = 0u;
-  v25 = 0u;
+  v24 = 0u;
   do
   {
 LABEL_2:
     if (!v11)
     {
-      goto LABEL_2994;
+      return v10;
     }
 
     v13 = *v8++;
@@ -326,7 +327,7 @@ LABEL_2:
   while (!HIDWORD(v13));
   if (v12 == 0xFFFF || v12 > 0x30000000 || v11 < v14)
   {
-    goto LABEL_2994;
+    return v10;
   }
 
   switch(v12)
@@ -8869,7 +8870,7 @@ LABEL_2:
                                                   {
                                                     if (v12 <= 1041)
                                                     {
-                                                      v23 = v12 >> 37;
+                                                      v22 = v12 >> 37;
                                                       if (v12 == 1040)
                                                       {
                                                         if (v14 != 31)
@@ -8877,7 +8878,7 @@ LABEL_2:
                                                           SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): (#31) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
                                                         }
 
-                                                        if (v23)
+                                                        if (v22)
                                                         {
                                                           v18 = 31;
                                                         }
@@ -8901,7 +8902,7 @@ LABEL_2:
                                                           SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): (#31) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
                                                         }
 
-                                                        if (v23)
+                                                        if (v22)
                                                         {
                                                           v18 = 31;
                                                         }
@@ -9089,7 +9090,7 @@ LABEL_2:
                                                 {
                                                   v17 = "ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context";
 LABEL_161:
-                                                  SetAPIErrorMessage(v17, a2, a3, a4, a5, a6, a7, a8, v22);
+                                                  SetAPIErrorMessage(v17, a2, a3, a4, a5, a6, a7, a8);
                                                 }
 
 LABEL_162:
@@ -10151,18 +10152,18 @@ LABEL_2686:
 LABEL_2987:
                                                             if (v12 >> 33)
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d_");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d_", a4, a5, a6, a7, a8);
                                                             }
 
                                                             else
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d", a4, a5, a6, a7, a8);
                                                             }
 
                                                             if ((AddMultipleFieldsToGenericContext(a1, __str, v8, 8u, v14) & 1) == 0)
                                                             {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12);
-                                                              goto LABEL_2994;
+                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12, v14);
+                                                              return v10;
                                                             }
 
                                                             v10 = (v10 + v14);
@@ -11162,9 +11163,7 @@ LABEL_110:
 
                                               v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): Cannot add 24 elements to context";
 LABEL_2993:
-                                              SetAPIErrorMessage(v19, a2, a3, a4, a5, a6, a7, a8, v22);
-LABEL_2994:
-                                              v20 = *MEMORY[0x277D85DE8];
+                                              SetAPIErrorMessage(v19, a2, a3, a4, a5, a6, a7, a8, v21);
                                               return v10;
                                           }
                                       }

@@ -23,7 +23,7 @@
   assetsCopy = assets;
   swift_unknownObjectRetain();
   v10 = _s12PhotosUICore0A32DetailsLocationSearchViewFactoryC06searchF10Controller6assets8delegate10completionSo06UIViewI0CSo13PHFetchResultCySo7PHAssetCG_So08PXPhotoscdE8Delegate_pSgySbcSgtFZ_0(assetsCopy, delegate, v7, v8);
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 
   swift_unknownObjectRelease();
 

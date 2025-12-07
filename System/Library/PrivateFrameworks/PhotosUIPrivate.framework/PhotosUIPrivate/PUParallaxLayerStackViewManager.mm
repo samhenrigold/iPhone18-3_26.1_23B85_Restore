@@ -197,7 +197,7 @@ LABEL_16:
   visibilityEffects = [modelCopy visibilityEffects];
   if (modelCopy)
   {
-    [modelCopy adaptiveLayoutTransform];
+    objc_msgSend_adaptiveLayoutTransform(modelCopy);
   }
 
   else

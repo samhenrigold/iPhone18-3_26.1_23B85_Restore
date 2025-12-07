@@ -15,7 +15,7 @@
 - (void)invalidate
 {
   selfCopy = self;
-  sub_1002E03BC();
+  sub_1002E03BC(selfCopy);
 }
 
 - (CHBackgroundTaskAssertion)init

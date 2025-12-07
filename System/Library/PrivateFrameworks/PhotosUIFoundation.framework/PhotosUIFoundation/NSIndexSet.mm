@@ -44,7 +44,7 @@ uint64_t __61__NSIndexSet_PhotosUIFoundation__px_enumerateMap_usingBlock___block
   return result;
 }
 
-uint64_t __60__NSIndexSet_PhotosUIFoundation__px_intersectsWithIndexSet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__60__NSIndexSet_PhotosUIFoundation__px_intersectsWithIndexSet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) intersectsIndexesInRange:{a2, a3}];
   if (result)

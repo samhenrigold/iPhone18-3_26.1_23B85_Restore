@@ -15,7 +15,7 @@ uint64_t __68___PFBatchFaultingArray_indexOfObjectAtIndexes_options_passingTest_
   return result;
 }
 
-uint64_t __71___PFBatchFaultingArray_indexesOfObjectsAtIndexes_options_passingTest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__71___PFBatchFaultingArray_indexesOfObjectsAtIndexes_options_passingTest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = (*(*(a1 + 32) + 16))();
   if (result)

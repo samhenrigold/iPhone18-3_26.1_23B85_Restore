@@ -236,7 +236,7 @@ LABEL_47:
   {
     do
     {
-      v89 = *sub_18368D5C4(indexes, v69, &v98, &v97, v68 + 4);
+      v89 = *sub_18368D5C4(indexes, v69, &v98, v97, v68 + 4);
       if (!v89)
       {
         operator new();

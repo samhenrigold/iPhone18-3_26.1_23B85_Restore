@@ -21,8 +21,7 @@
   sessionCopy = session;
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = OBJC_IVAR____TtC11WorkoutCore16ZonesAccumulator_disabledForSession;
   swift_beginAccess();
@@ -49,9 +48,8 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v16 - v9;
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v17 - v9;
   v11 = _Block_copy(handler);
   if (date)
   {
@@ -68,18 +66,20 @@
 
   if (v11)
   {
-    *(swift_allocObject() + 16) = v11;
-    v14 = partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ();
+    v14 = swift_allocObject();
+    *(v14 + 16) = v11;
+    v15 = partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ();
   }
 
   else
   {
+    v15 = 0;
     v14 = 0;
   }
 
   selfCopy = self;
   specialized ZonesAccumulator.accumulatorDidStart(withStart:handler:)(v10);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v14);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v15, v14);
 
   outlined destroy of Date?(v10);
 }
@@ -87,8 +87,7 @@
 - (void)accumulatorDidStop
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v10 - v5;
   v7 = type metadata accessor for Date();
   (*(*(v7 - 8) + 56))(v6, 1, 1, v7);

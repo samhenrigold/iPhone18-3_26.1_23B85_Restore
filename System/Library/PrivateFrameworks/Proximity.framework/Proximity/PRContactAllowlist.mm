@@ -39,7 +39,7 @@
 
 - (void)addTrustedContact:(id)contact withCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   handlerCopy = handler;
   v8 = [PRRemoteDevice alloc];
@@ -54,7 +54,7 @@
       v12 = logger;
       contactKey2 = [contactCopy contactKey];
       *buf = 138412290;
-      v22 = contactKey2;
+      v21 = contactKey2;
       _os_log_impl(&dword_230EB5000, v12, OS_LOG_TYPE_DEFAULT, "Attempted to add existing contact: %@", buf, 0xCu);
     }
 
@@ -83,20 +83,18 @@
         [PRContactAllowlist addTrustedContact:v15 withCompletionHandler:?];
       }
 
-      v19 = *MEMORY[0x277CCA450];
-      v20 = @"Contact allowlist full";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      v19 = @"Contact allowlist full";
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       v17 = PRErrorWithCodeAndUserInfo(400, v16);
       (handlerCopy)[2](handlerCopy, 0, v17);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTrustedContact:(id)contact withCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   handlerCopy = handler;
   v8 = [PRRemoteDevice alloc];
@@ -125,18 +123,16 @@
       v12 = logger;
       contactKey2 = [contactCopy contactKey];
       *buf = 138412290;
-      v20 = contactKey2;
+      v19 = contactKey2;
       _os_log_impl(&dword_230EB5000, v12, OS_LOG_TYPE_DEFAULT, "Attempted to remove unknown contact: %@", buf, 0xCu);
     }
 
-    v17 = *MEMORY[0x277CCA450];
-    v18 = @"Attempted to remove unknown contact";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17 = @"Attempted to remove unknown contact";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v15 = PRErrorWithCodeAndUserInfo(401, v14);
     handlerCopy[2](handlerCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear:(id)clear
@@ -319,47 +315,36 @@ void __52__PRContactAllowlist_beaconListener_didChangeState___block_invoke(uint6
 
 - (void)addTrustedContact:(void *)a1 withCompletionHandler:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_0() contactKey];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_230EB5000, v1, OS_LOG_TYPE_DEBUG, "Allowlisting contact: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_230EB5000, v1, OS_LOG_TYPE_DEBUG, "Allowlisting contact: %@", &v4, 0xCu);
 }
 
 - (void)addTrustedContact:(void *)a1 withCompletionHandler:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v9 = [OUTLINED_FUNCTION_1_0() contactKey];
+  v8 = [OUTLINED_FUNCTION_1_0() contactKey];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PRContactAllowlist_beaconListener_didChangeState___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v9 = [OUTLINED_FUNCTION_1_0() localizedDescription];
+  v8 = [OUTLINED_FUNCTION_1_0() localizedDescription];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beaconListener:(void *)a1 didFailWithError:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v9 = [OUTLINED_FUNCTION_1_0() localizedDescription];
+  v8 = [OUTLINED_FUNCTION_1_0() localizedDescription];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

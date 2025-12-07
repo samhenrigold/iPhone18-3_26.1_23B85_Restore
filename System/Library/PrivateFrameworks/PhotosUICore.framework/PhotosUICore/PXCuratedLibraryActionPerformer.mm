@@ -108,7 +108,7 @@ void __70__PXCuratedLibraryActionPerformer_performActionWithCompletionHandler___
   v3 = v2;
   if (v2)
   {
-    [v2 zoomState];
+    objc_msgSend_zoomState(v2);
     v4 = *(&v7 + 1) + 1;
   }
 
@@ -133,7 +133,7 @@ void __70__PXCuratedLibraryActionPerformer_performActionWithCompletionHandler___
   v3 = v2;
   if (v2)
   {
-    [v2 zoomState];
+    objc_msgSend_zoomState(v2);
     v4 = *(&v7 + 1) - 1;
   }
 

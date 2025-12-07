@@ -8,8 +8,8 @@
 {
   if ([(RowSeparatorView *)self vibrant])
   {
-    tintColor = [(RowSeparatorView *)self tintColor];
-    [(RowSeparatorView *)self setBackgroundColor:tintColor];
+    v3 = objc_msgSend_tintColor(self);
+    [(RowSeparatorView *)self setBackgroundColor:v3];
   }
 }
 

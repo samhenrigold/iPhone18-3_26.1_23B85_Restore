@@ -13,24 +13,22 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[12] = *MEMORY[0x277D85DE8];
+  v6[12] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"AppStoreID";
-  v7[1] = @"BundleID";
-  v7[2] = @"ManifestURL";
-  v7[3] = @"AppComposedIdentifier";
-  v7[4] = @"iOSApp";
-  v7[5] = @"InstallBehavior";
-  v7[6] = @"UpdateBehavior";
-  v7[7] = @"IncludeInBackup";
-  v7[8] = @"Attributes";
-  v7[9] = @"AppConfig";
-  v7[10] = @"ExtensionConfigs";
-  v7[11] = @"LegacyAppConfigAssetReference";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:12];
+  v6[0] = @"AppStoreID";
+  v6[1] = @"BundleID";
+  v6[2] = @"ManifestURL";
+  v6[3] = @"AppComposedIdentifier";
+  v6[4] = @"iOSApp";
+  v6[5] = @"InstallBehavior";
+  v6[6] = @"UpdateBehavior";
+  v6[7] = @"IncludeInBackup";
+  v6[8] = @"Attributes";
+  v6[9] = @"AppConfig";
+  v6[10] = @"ExtensionConfigs";
+  v6[11] = @"LegacyAppConfigAssetReference";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:12];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -49,29 +47,27 @@
 
 void __47__RMModelAppManagedDeclaration_assetReferences__block_invoke()
 {
-  v12[9] = *MEMORY[0x277D85DE8];
+  v11[9] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287466188 keyPath:@"$.payloadAppConfig.payloadDataAssetReference"];
   v1 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_2874661A0 keyPath:@"$.payloadAppConfig.payloadPasswords.*.payloadAssetReference", v0];
-  v12[1] = v1;
+  v11[1] = v1;
   v2 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_2874661B8 keyPath:@"$.payloadAppConfig.payloadIdentities.*.payloadAssetReference"];
-  v12[2] = v2;
+  v11[2] = v2;
   v3 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_2874661D0 keyPath:@"$.payloadAppConfig.payloadCertificates.*.payloadAssetReference"];
-  v12[3] = v3;
+  v11[3] = v3;
   v4 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_2874661E8 keyPath:@"$.payloadExtensionConfigs.payloadDictionary.*.payloadDataAssetReference"];
-  v12[4] = v4;
+  v11[4] = v4;
   v5 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287466200 keyPath:@"$.payloadExtensionConfigs.payloadDictionary.*.payloadPasswords.*.payloadAssetReference"];
-  v12[5] = v5;
+  v11[5] = v5;
   v6 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287466218 keyPath:@"$.payloadExtensionConfigs.payloadDictionary.*.payloadIdentities.*.payloadAssetReference"];
-  v12[6] = v6;
+  v11[6] = v6;
   v7 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287466230 keyPath:@"$.payloadExtensionConfigs.payloadDictionary.*.payloadCertificates.*.payloadAssetReference"];
-  v12[7] = v7;
+  v11[7] = v7;
   v8 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287466248 keyPath:@"$.payloadLegacyAppConfigAssetReference"];
-  v12[8] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:9];
+  v11[8] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:9];
   v10 = assetReferences_assetPaths_6;
   assetReferences_assetPaths_6 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier appStoreID:(id)d bundleID:(id)iD manifestURL:(id)l appComposedIdentifier:(id)composedIdentifier iosApp:(id)app installBehavior:(id)behavior updateBehavior:(id)self0 includeInBackup:(id)self1 attributes:(id)self2 appConfig:(id)self3 extensionConfigs:(id)self4 legacyAppConfigAssetReference:(id)self5
@@ -181,38 +177,36 @@ void __47__RMModelAppManagedDeclaration_assetReferences__block_invoke()
 
 + (id)supportedOS
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = &unk_28746ACB8;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466260];
-  v20[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466278];
-  v20[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v22[0] = v14;
-  v21[1] = &unk_28746ACD0;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = &unk_28746ACB8;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466260];
+  v19[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466278];
+  v19[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v21[0] = v13;
+  v20[1] = &unk_28746ACD0;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466290];
-  v19[0] = v2;
+  v18[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874662A8];
-  v19[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v22[1] = v4;
-  v21[2] = &unk_28746AD00;
+  v18[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v21[1] = v4;
+  v20[2] = &unk_28746AD00;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874662C0];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874662D8];
-  v18[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v22[2] = v7;
-  v21[3] = &unk_28746AD18;
+  v17[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v21[2] = v7;
+  v20[3] = &unk_28746AD18;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874662F0];
-  v17[0] = v8;
+  v16[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466308];
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v22[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v16[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v21[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v11;
 }
@@ -230,7 +224,19 @@ void __47__RMModelAppManagedDeclaration_assetReferences__block_invoke()
   v13 = [v11 copy];
   [(RMModelPayloadBase *)self setUnknownPayloadKeys:v13];
 
-  v14 = [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"AppStoreID" forKeyPath:@"payloadAppStoreID" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"BundleID" forKeyPath:@"payloadBundleID" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"ManifestURL" forKeyPath:@"payloadManifestURL" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"AppComposedIdentifier" forKeyPath:@"payloadAppComposedIdentifier" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"iOSApp" forKeyPath:@"payloadIOSApp" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& (LOWORD(v16) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"InstallBehavior" forKeyPath:@"payloadInstallBehavior" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v16 error:error]) && (LOWORD(v17) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"UpdateBehavior" forKeyPath:@"payloadUpdateBehavior" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v17 error:error]) && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"IncludeInBackup" forKeyPath:@"payloadIncludeInBackup" isRequired:0 defaultValue:MEMORY[0x277CBEC38] error:error]&& (LOWORD(v18) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"Attributes" forKeyPath:@"payloadAttributes" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v18 error:error]) && (LOWORD(v19) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"AppConfig" forKeyPath:@"payloadAppConfig" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v19 error:error]) && (LOWORD(v20) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"ExtensionConfigs" forKeyPath:@"payloadExtensionConfigs" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v20 error:error]) && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"LegacyAppConfigAssetReference" forKeyPath:@"payloadLegacyAppConfigAssetReference" isRequired:0 defaultValue:0 error:error];
+  v14 = [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"AppStoreID" forKeyPath:@"payloadAppStoreID" isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"BundleID" forKeyPath:@"payloadBundleID" isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"ManifestURL" forKeyPath:@"payloadManifestURL" isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"AppComposedIdentifier" forKeyPath:@"payloadAppComposedIdentifier" isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"iOSApp" forKeyPath:@"payloadIOSApp" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+     && (LOWORD(v16) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"InstallBehavior" forKeyPath:@"payloadInstallBehavior" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v16 error:error])
+     && (LOWORD(v17) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"UpdateBehavior" forKeyPath:@"payloadUpdateBehavior" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v17 error:error])
+     && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"IncludeInBackup" forKeyPath:@"payloadIncludeInBackup" isRequired:0 defaultValue:MEMORY[0x277CBEC38] error:error]
+     && (LOWORD(v18) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"Attributes" forKeyPath:@"payloadAttributes" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v18 error:error])
+     && (LOWORD(v19) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"AppConfig" forKeyPath:@"payloadAppConfig" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v19 error:error])
+     && (LOWORD(v20) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"ExtensionConfigs" forKeyPath:@"payloadExtensionConfigs" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v20 error:error])
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"LegacyAppConfigAssetReference" forKeyPath:@"payloadLegacyAppConfigAssetReference" isRequired:0 defaultValue:0 error:error];
+
   return v14;
 }
 

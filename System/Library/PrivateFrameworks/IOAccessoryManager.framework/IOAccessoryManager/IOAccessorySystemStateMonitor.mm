@@ -1,7 +1,10 @@
 @interface IOAccessorySystemStateMonitor
 - (IOAccessorySystemStateMonitor)init;
+- (void)addEndpointForService:(unsigned int)service;
 - (void)dealloc;
 - (void)notifyEndpointsBootComplete:(BOOL)complete;
+- (void)notifyEndpointsUserActive:(BOOL)active;
+- (void)notifyEndpointsUserPresent:(BOOL)present;
 - (void)processBootState;
 - (void)processDisplayState;
 - (void)removeEndpointForService:(unsigned int)service;
@@ -11,9 +14,9 @@
 
 - (IOAccessorySystemStateMonitor)init
 {
-  v35.receiver = self;
-  v35.super_class = IOAccessorySystemStateMonitor;
-  v2 = [(IOAccessorySystemStateMonitor *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = IOAccessorySystemStateMonitor;
+  v2 = [(IOAccessorySystemStateMonitor *)&v34 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.IOAccessoryManager.SystemStateMonitor", 0);
@@ -39,39 +42,38 @@
     block[2] = __37__IOAccessorySystemStateMonitor_init__block_invoke;
     block[3] = &unk_279793120;
     v13 = v2;
-    v34 = v13;
+    v33 = v13;
     dispatch_sync(v12, block);
-    v14 = *(v2 + 7);
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __37__IOAccessorySystemStateMonitor_init__block_invoke_2;
-    v31 = &unk_279793370;
-    v15 = v13;
-    v32 = v15;
-    *(v15 + 5) = IOPMScheduleUserActivityLevelNotificationWithTimeout();
-    v16 = *(v2 + 7);
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __37__IOAccessorySystemStateMonitor_init__block_invoke_2;
+    v30 = &unk_279793370;
+    v14 = v13;
+    v31 = v14;
+    *(v14 + 5) = IOPMScheduleUserActivityLevelNotificationWithTimeout();
+    v15 = *(v2 + 7);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __37__IOAccessorySystemStateMonitor_init__block_invoke_3;
     handler[3] = &unk_279793398;
-    v17 = v15;
-    v27 = v17;
-    notify_register_dispatch("com.apple.RealitySimulation.DisplayRevealFirstBoot", v15 + 6, v16, handler);
-    v18 = *(v2 + 7);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __37__IOAccessorySystemStateMonitor_init__block_invoke_4;
-    v24[3] = &unk_279793398;
-    v19 = v17;
-    v25 = v19;
-    notify_register_dispatch("com.apple.iokit.hid.displayStatus", v17 + 7, v18, v24);
-    v20 = *(v2 + 7);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __37__IOAccessorySystemStateMonitor_init__block_invoke_5;
-    v22[3] = &unk_279793120;
-    v23 = v19;
-    dispatch_sync(v20, v22);
+    v16 = v14;
+    v26 = v16;
+    notify_register_dispatch("com.apple.RealitySimulation.DisplayRevealFirstBoot", v14 + 6, v15, handler);
+    v17 = *(v2 + 7);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __37__IOAccessorySystemStateMonitor_init__block_invoke_4;
+    v23[3] = &unk_279793398;
+    v18 = v16;
+    v24 = v18;
+    notify_register_dispatch("com.apple.iokit.hid.displayStatus", v16 + 7, v17, v23);
+    v19 = *(v2 + 7);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __37__IOAccessorySystemStateMonitor_init__block_invoke_5;
+    v21[3] = &unk_279793120;
+    v22 = v18;
+    dispatch_sync(v19, v21);
   }
 
   return v2;
@@ -135,6 +137,84 @@ uint64_t __37__IOAccessorySystemStateMonitor_init__block_invoke_5(uint64_t a1)
   [(IOAccessorySystemStateMonitor *)&v7 dealloc];
 }
 
+- (void)addEndpointForService:(unsigned int)service
+{
+  if (service)
+  {
+    v3 = *&service;
+    if (IOObjectConformsTo(service, "IOAccessoryIDBusSystemStates"))
+    {
+      entryID = 0;
+      RegistryEntryID = IORegistryEntryGetRegistryEntryID(v3, &entryID);
+      if (RegistryEntryID)
+      {
+        v6 = RegistryEntryID;
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          [IOAccessorySystemStateMonitor addEndpointForService:v6];
+        }
+      }
+
+      else
+      {
+        endpointMap = self->_endpointMap;
+        v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:entryID];
+        v9 = [(NSMutableDictionary *)endpointMap objectForKeyedSubscript:v8];
+
+        if (v9)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            [IOAccessorySystemStateMonitor addEndpointForService:];
+          }
+        }
+
+        else
+        {
+          v10 = [[IOAccessorySystemStateEndpoint alloc] initWithService:v3];
+          v11 = v10;
+          if (v10)
+          {
+            if (self->_userActive)
+            {
+              [(IOAccessorySystemStateEndpoint *)v10 notifyUserActive:1];
+            }
+
+            if (self->_userPresent)
+            {
+              [(IOAccessorySystemStateEndpoint *)v11 notifyUserPresent:1];
+            }
+
+            if (self->_bootComplete)
+            {
+              [(IOAccessorySystemStateEndpoint *)v11 notifyBootComplete];
+            }
+
+            v12 = self->_endpointMap;
+            v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:entryID];
+            [(NSMutableDictionary *)v12 setObject:v11 forKeyedSubscript:v13];
+          }
+
+          else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            [IOAccessorySystemStateMonitor addEndpointForService:];
+          }
+        }
+      }
+    }
+
+    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [IOAccessorySystemStateMonitor addEndpointForService:];
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    [IOAccessorySystemStateMonitor addEndpointForService:];
+  }
+}
+
 - (void)processDisplayState
 {
   state64 = 0;
@@ -165,16 +245,16 @@ uint64_t __37__IOAccessorySystemStateMonitor_init__block_invoke_5(uint64_t a1)
 
 - (void)notifyEndpointsBootComplete:(BOOL)complete
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (complete)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v4 = [(NSMutableDictionary *)self->_endpointMap count];
       *buf = 136315394;
-      v16 = "[IOAccessorySystemStateMonitor notifyEndpointsBootComplete:]";
-      v17 = 2048;
-      v18 = v4;
+      v15 = "[IOAccessorySystemStateMonitor notifyEndpointsBootComplete:]";
+      v16 = 2048;
+      v17 = v4;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s boot completed notifying %lu endpoints", buf, 0x16u);
     }
 
@@ -185,18 +265,18 @@ uint64_t __37__IOAccessorySystemStateMonitor_init__block_invoke_5(uint64_t a1)
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = [(NSMutableDictionary *)self->_endpointMap objectForKeyedSubscript:*(v13 + 8 * v10)];
+          v11 = [(NSMutableDictionary *)self->_endpointMap objectForKeyedSubscript:*(v12 + 8 * v10)];
           [v11 notifyBootComplete];
 
           ++v10;
@@ -212,50 +292,114 @@ uint64_t __37__IOAccessorySystemStateMonitor_init__block_invoke_5(uint64_t a1)
 
     self->_bootComplete = 1;
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)notifyEndpointsUserActive:(BOOL)active
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (self->_userActive != active)
+  {
+    activeCopy = active;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [(NSMutableDictionary *)self->_endpointMap count];
+      *buf = 136315906;
+      OUTLINED_FUNCTION_1_5(v5, "[IOAccessorySystemStateMonitor notifyEndpointsUserActive:]");
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s user active changed %d->%d notifying %lu endpoints", buf, 0x22u);
+    }
+
+    OUTLINED_FUNCTION_4_1();
+    v6 = self->_endpointMap;
+    OUTLINED_FUNCTION_3_2();
+    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v14;
+      do
+      {
+        v11 = 0;
+        do
+        {
+          if (*v14 != v10)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v12 = [(NSMutableDictionary *)self->_endpointMap objectForKeyedSubscript:*(v13 + 8 * v11)];
+          [v12 notifyUserActive:activeCopy];
+
+          ++v11;
+        }
+
+        while (v9 != v11);
+        OUTLINED_FUNCTION_3_2();
+        v9 = [NSMutableDictionary countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      }
+
+      while (v9);
+    }
+
+    self->_userActive = activeCopy;
+  }
+}
+
+- (void)notifyEndpointsUserPresent:(BOOL)present
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (self->_userPresent != present)
+  {
+    presentCopy = present;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [(NSMutableDictionary *)self->_endpointMap count];
+      *buf = 136315906;
+      OUTLINED_FUNCTION_1_5(v5, "[IOAccessorySystemStateMonitor notifyEndpointsUserPresent:]");
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s user present changed %d->%d notifying %lu endpoints", buf, 0x22u);
+    }
+
+    OUTLINED_FUNCTION_4_1();
+    v6 = self->_endpointMap;
+    OUTLINED_FUNCTION_3_2();
+    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v14;
+      do
+      {
+        v11 = 0;
+        do
+        {
+          if (*v14 != v10)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v12 = [(NSMutableDictionary *)self->_endpointMap objectForKeyedSubscript:*(v13 + 8 * v11)];
+          [v12 notifyUserPresent:presentCopy];
+
+          ++v11;
+        }
+
+        while (v9 != v11);
+        OUTLINED_FUNCTION_3_2();
+        v9 = [NSMutableDictionary countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      }
+
+      while (v9);
+    }
+
+    self->_userPresent = presentCopy;
+  }
 }
 
 - (void)addEndpointForService:(mach_error_t)a1 .cold.1(mach_error_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   mach_error_string(a1);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addEndpointForService:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addEndpointForService:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addEndpointForService:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addEndpointForService:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

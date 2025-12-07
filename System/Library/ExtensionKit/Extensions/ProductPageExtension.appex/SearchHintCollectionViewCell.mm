@@ -54,7 +54,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1003BE748();
+  sub_1003BE748(selfCopy, v2);
 }
 
 @end

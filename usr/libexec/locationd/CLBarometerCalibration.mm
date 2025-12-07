@@ -43,9 +43,9 @@
   thresholdManager = self->_thresholdManager;
   if (thresholdManager)
   {
-    [(CLElevationThresholdManager *)thresholdManager getElevationThresholdProxyMap];
-    v3 = v14;
-    if (v14 == v15)
+    objc_msgSend_getElevationThresholdProxyMap(thresholdManager, a2);
+    v3 = v17;
+    if (v17 == v18)
     {
       goto LABEL_3;
     }
@@ -54,12 +54,13 @@
   else
   {
     v3 = 0;
-    v14 = 0;
-    v15[0] = 0;
-    v15[1] = 0;
+    v17 = 0;
+    v18[0] = 0;
+    v18[1] = 0;
   }
 
   HIDWORD(v4) = 0;
+  v16 = 134218496;
   do
   {
     if (*(v3 + 56) == 1)
@@ -77,12 +78,12 @@
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(v3 + 41);
-        *buf = 134218496;
-        v23 = v6;
-        v24 = 2048;
-        v25 = v5;
-        v26 = 1024;
-        v27 = v8;
+        *buf = v16;
+        v26 = v6;
+        v27 = 2048;
+        v28 = v5;
+        v29 = 1024;
+        v30 = v8;
         _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "threshold,%f,client,%p,above,%d", buf, 0x1Cu);
       }
 
@@ -90,17 +91,19 @@
       {
         sub_1019CBB90(buf);
         v12 = *(v3 + 41);
-        v16 = 134218496;
-        v17 = v6;
-        v18 = 2048;
-        v19 = v5;
-        v20 = 1024;
-        v21 = v12;
-        v13 = _os_log_send_and_compose_impl();
+        v19 = v16;
+        v20 = v6;
+        v21 = 2048;
+        v22 = v5;
+        v23 = 1024;
+        v24 = v12;
+        LODWORD(v15) = 28;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 0, "threshold,%f,client,%p,above,%d", COERCE_DOUBLE(&v19), v15, v16);
+        v14 = v13;
         sub_100152C7C("Generic", 1, 0, 2, "[CLBarometerCalibration alertElevationAlertClientsOnChange]", "%s\n", v13);
-        if (v13 != buf)
+        if (v14 != buf)
         {
-          free(v13);
+          free(v14);
         }
       }
     }
@@ -132,9 +135,9 @@
     v3 = v10;
   }
 
-  while (v10 != v15);
+  while (v10 != v18);
 LABEL_3:
-  sub_1003C93BC(&v14, v15[0]);
+  sub_1003C93BC(&v17, v18[0]);
 }
 
 @end

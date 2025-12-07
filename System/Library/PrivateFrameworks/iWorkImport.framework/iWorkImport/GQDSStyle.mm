@@ -1,12 +1,37 @@
 @interface GQDSStyle
 + (GQDSMap)defaultMapForStyleType:(int)type;
 + (id)createReplacementForMissingObject:(_xmlTextReader *)object processor:(id)processor;
++ (id)createReplacementForMissingStyleOfType:(int)type;
 + (int)styleTypeForNodeName:(const char *)name;
+- (BOOL)hasValueForBoolProperty:(int)property value:(BOOL *)value wasOverriddenWithNull:(BOOL *)null;
+- (BOOL)hasValueForDoubleProperty:(int)property value:(double *)value wasOverriddenWithNull:(BOOL *)null;
+- (BOOL)hasValueForFloatProperty:(int)property value:(float *)value wasOverriddenWithNull:(BOOL *)null;
+- (BOOL)hasValueForIntProperty:(int)property value:(int *)value wasOverriddenWithNull:(BOOL *)null;
+- (BOOL)hasValueForObjectProperty:(int)property value:(id *)value wasOverriddenWithNull:(BOOL *)null;
+- (BOOL)valueForBoolProperty:(int)property;
+- (double)valueForDoubleProperty:(int)property;
+- (float)valueForFloatProperty:(int)property;
+- (id)valueForObjectProperty:(int)property;
+- (int)valueForIntProperty:(int)property;
 - (void)dealloc;
 - (void)setParent:(id)parent;
 @end
 
 @implementation GQDSStyle
+
++ (id)createReplacementForMissingStyleOfType:(int)type
+{
+  v3 = [self defaultMapForStyleType:*&type];
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = sub_F8CC(v3);
+  v5 = objc_alloc_init(GQDSStyle);
+  [(GQDSStyle *)v5 setPropertyMap:v4];
+  return v5;
+}
 
 + (GQDSMap)defaultMapForStyleType:(int)type
 {
@@ -202,6 +227,146 @@
   parentCopy = parent;
 
   self->mParent = parent;
+}
+
+- (BOOL)valueForBoolProperty:(int)property
+{
+  v4 = 0;
+  [(GQDSStyle *)self hasValueForBoolProperty:*&property value:&v4];
+  return v4;
+}
+
+- (BOOL)hasValueForBoolProperty:(int)property value:(BOOL *)value wasOverriddenWithNull:(BOOL *)null
+{
+  v7 = *&property;
+  if (sub_F9A0(self->mPropertyMap, property, value, null))
+  {
+    LOBYTE(mParent) = 1;
+  }
+
+  else
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      LOBYTE(mParent) = [(GQDSStyle *)mParent hasValueForBoolProperty:v7 value:value wasOverriddenWithNull:null];
+    }
+  }
+
+  return mParent;
+}
+
+- (int)valueForIntProperty:(int)property
+{
+  v4 = 0;
+  [(GQDSStyle *)self hasValueForIntProperty:*&property value:&v4];
+  return v4;
+}
+
+- (BOOL)hasValueForIntProperty:(int)property value:(int *)value wasOverriddenWithNull:(BOOL *)null
+{
+  v7 = *&property;
+  if (sub_FA94(self->mPropertyMap, property, value, null))
+  {
+    LOBYTE(mParent) = 1;
+  }
+
+  else
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      LOBYTE(mParent) = [(GQDSStyle *)mParent hasValueForIntProperty:v7 value:value wasOverriddenWithNull:null];
+    }
+  }
+
+  return mParent;
+}
+
+- (float)valueForFloatProperty:(int)property
+{
+  v4 = 0.0;
+  [(GQDSStyle *)self hasValueForFloatProperty:*&property value:&v4];
+  return v4;
+}
+
+- (BOOL)hasValueForFloatProperty:(int)property value:(float *)value wasOverriddenWithNull:(BOOL *)null
+{
+  v7 = *&property;
+  if (sub_FB80(self->mPropertyMap, property, value, null))
+  {
+    LOBYTE(mParent) = 1;
+  }
+
+  else
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      LOBYTE(mParent) = [(GQDSStyle *)mParent hasValueForFloatProperty:v7 value:value wasOverriddenWithNull:null];
+    }
+  }
+
+  return mParent;
+}
+
+- (double)valueForDoubleProperty:(int)property
+{
+  v4 = 0.0;
+  [(GQDSStyle *)self hasValueForDoubleProperty:*&property value:&v4];
+  return v4;
+}
+
+- (BOOL)hasValueForDoubleProperty:(int)property value:(double *)value wasOverriddenWithNull:(BOOL *)null
+{
+  v7 = *&property;
+  if (sub_FC70(self->mPropertyMap, property, value, null))
+  {
+    LOBYTE(mParent) = 1;
+  }
+
+  else
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      LOBYTE(mParent) = [(GQDSStyle *)mParent hasValueForDoubleProperty:v7 value:value wasOverriddenWithNull:null];
+    }
+  }
+
+  return mParent;
+}
+
+- (id)valueForObjectProperty:(int)property
+{
+  v4 = 0;
+  [(GQDSStyle *)self hasValueForObjectProperty:*&property value:&v4];
+  return v4;
+}
+
+- (BOOL)hasValueForObjectProperty:(int)property value:(id *)value wasOverriddenWithNull:(BOOL *)null
+{
+  v7 = *&property;
+  if (sub_FD08(self->mPropertyMap, property, value, null))
+  {
+    LOBYTE(mParent) = 1;
+  }
+
+  else
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      LOBYTE(mParent) = [(GQDSStyle *)mParent hasValueForObjectProperty:v7 value:value wasOverriddenWithNull:null];
+    }
+  }
+
+  return mParent;
 }
 
 @end

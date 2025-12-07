@@ -107,13 +107,6 @@ LABEL_7:
   v7();
 }
 
-void sub_100001310(int *a1)
-{
-  v6 = *a1;
-  sub_1000012F8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-}
-
 void sub_1000013E8()
 {
   sub_100001304();

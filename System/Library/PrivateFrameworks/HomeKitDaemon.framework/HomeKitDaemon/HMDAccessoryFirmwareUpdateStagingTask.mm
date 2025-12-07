@@ -15,7 +15,7 @@
 
 - (BOOL)shouldRun
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   session = [(HMDAccessoryFirmwareUpdateTask *)self session];
   if (-[HMDAccessoryFirmwareUpdateTask shouldRunOnCurrentDevice](self, "shouldRunOnCurrentDevice") && [session isReadyForStaging] && objc_msgSend(session, "sessionState") == 1)
   {
@@ -48,24 +48,23 @@
       }
 
       v14 = v13;
-      v17 = 138544386;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v10;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v14;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Staging task shouldn't run - runOnCurrentDevice:%@ readyForStaging:%@ needsStaging:%@ (%@)", &v17, 0x34u);
+      v16 = 138544386;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Staging task shouldn't run - runOnCurrentDevice:%@ readyForStaging:%@ needsStaging:%@ (%@)", &v16, 0x34u);
     }
 
     objc_autoreleasePoolPop(v5);
     v4 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

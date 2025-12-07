@@ -82,7 +82,7 @@ void __27___OSIAutoLPMManager_start__block_invoke_3(uint64_t a1)
   dispatch_sync(v2, block);
 }
 
-uint64_t __27___OSIAutoLPMManager_start__block_invoke_4(uint64_t a1)
+void *__27___OSIAutoLPMManager_start__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) didEnableAutoLPM];
   if (result)
@@ -104,11 +104,10 @@ uint64_t __36___OSIAutoLPMManager_sharedInstance__block_invoke()
 
 void __27___OSIAutoLPMManager_start__block_invoke_2_cold_1(char a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1 & 1;
-  _os_log_debug_impl(&dword_25D171000, a2, OS_LOG_TYPE_DEBUG, "Is PluggedIn %ld ", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1 & 1;
+  _os_log_debug_impl(&dword_25D171000, a2, OS_LOG_TYPE_DEBUG, "Is PluggedIn %ld ", &v2, 0xCu);
 }
 
 @end

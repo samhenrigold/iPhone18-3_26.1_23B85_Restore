@@ -17,13 +17,13 @@
 
 void __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_INFO, "Identifier called: %@", buf, 0xCu);
   }
 
@@ -33,28 +33,26 @@ void __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke(uint64_t a1,
     sel_getName(*(a1 + 40));
     v6 = os_transaction_create();
     v7 = [WeakRetained queue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke_44;
-    v10[3] = &unk_2785922E0;
-    v10[4] = WeakRetained;
-    v11 = v6;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke_44;
+    v9[3] = &unk_2785922E0;
+    v9[4] = WeakRetained;
+    v10 = v6;
     v8 = v6;
-    dispatch_async(v7, v10);
+    dispatch_async(v7, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PMMMusicStateProcessor__initNowPlayingPause__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_INFO, "Identifier called: %@", buf, 0xCu);
   }
 
@@ -64,17 +62,15 @@ void __46__PMMMusicStateProcessor__initNowPlayingPause__block_invoke(uint64_t a1
     sel_getName(*(a1 + 40));
     v6 = os_transaction_create();
     v7 = [WeakRetained queue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __46__PMMMusicStateProcessor__initNowPlayingPause__block_invoke_40;
-    v10[3] = &unk_2785922E0;
-    v10[4] = WeakRetained;
-    v11 = v6;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __46__PMMMusicStateProcessor__initNowPlayingPause__block_invoke_40;
+    v9[3] = &unk_2785922E0;
+    v9[4] = WeakRetained;
+    v10 = v6;
     v8 = v6;
-    dispatch_async(v7, v10);
+    dispatch_async(v7, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke_44(uint64_t a1)
@@ -82,7 +78,6 @@ id __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke_44(uint64_t a1
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) _handlePlay];
   objc_autoreleasePoolPop(v2);
-  v3 = *(a1 + 40);
   return objc_opt_self();
 }
 
@@ -97,7 +92,7 @@ id __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke_44(uint64_t a1
 - (void)_persist
 {
   v14 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     lastPlayed = self->_lastPlayed;
@@ -106,26 +101,25 @@ id __45__PMMMusicStateProcessor__initNowPlayingPlay__block_invoke_44(uint64_t a1
     _os_log_impl(&dword_22639A000, v3, OS_LOG_TYPE_INFO, "Persisting playing: %@", &v12, 0xCu);
   }
 
-  v5 = __atxlog_handle_default();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = __atxlog_handle_default(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     lastPlayedInCar = self->_lastPlayedInCar;
     v12 = 138412290;
     v13 = lastPlayedInCar;
-    _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_INFO, "Persisting playing in car: %@", &v12, 0xCu);
+    _os_log_impl(&dword_22639A000, v6, OS_LOG_TYPE_INFO, "Persisting playing in car: %@", &v12, 0xCu);
   }
 
-  v7 = objc_autoreleasePoolPush();
-  v8 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DuetExpertCenter.MagicalMoments"];
-  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self->_lastPlayed requiringSecureCoding:1 error:0];
-  [v8 setObject:v9 forKey:@"lastPlayed"];
+  v8 = objc_autoreleasePoolPush();
+  v9 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DuetExpertCenter.MagicalMoments"];
+  v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self->_lastPlayed requiringSecureCoding:1 error:0];
+  [v9 setObject:v10 forKey:@"lastPlayed"];
 
-  v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self->_lastPlayedInCar requiringSecureCoding:1 error:0];
-  [v8 setObject:v10 forKey:@"lastPlayedInCar"];
+  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self->_lastPlayedInCar requiringSecureCoding:1 error:0];
+  [v9 setObject:v11 forKey:@"lastPlayedInCar"];
 
-  [v8 synchronize];
-  objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
+  [v9 synchronize];
+  objc_autoreleasePoolPop(v8);
 }
 
 id __46__PMMMusicStateProcessor__initNowPlayingPause__block_invoke_40(uint64_t a1)
@@ -133,7 +127,6 @@ id __46__PMMMusicStateProcessor__initNowPlayingPause__block_invoke_40(uint64_t a
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) _handlePause];
   objc_autoreleasePoolPop(v2);
-  v3 = *(a1 + 40);
   return objc_opt_self();
 }
 
@@ -313,13 +306,13 @@ uint64_t __32__PMMMusicStateProcessor_shared__block_invoke()
 
 void __43__PMMMusicStateProcessor__initStarkConnect__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_INFO, "Identifier called: %@", buf, 0xCu);
   }
 
@@ -329,24 +322,15 @@ void __43__PMMMusicStateProcessor__initStarkConnect__block_invoke(uint64_t a1, v
     sel_getName(*(a1 + 40));
     v6 = os_transaction_create();
     v7 = [WeakRetained queue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __43__PMMMusicStateProcessor__initStarkConnect__block_invoke_30;
-    v10[3] = &unk_2785922E0;
-    v10[4] = WeakRetained;
-    v11 = v6;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __43__PMMMusicStateProcessor__initStarkConnect__block_invoke_30;
+    v9[3] = &unk_2785922E0;
+    v9[4] = WeakRetained;
+    v10 = v6;
     v8 = v6;
-    dispatch_async(v7, v10);
+    dispatch_async(v7, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-id __43__PMMMusicStateProcessor__initStarkConnect__block_invoke_30(uint64_t a1)
-{
-  [*(a1 + 32) setInCar:1];
-  v2 = *(a1 + 40);
-  return objc_opt_self();
 }
 
 - (void)_initStarkDisconnect
@@ -371,13 +355,13 @@ id __43__PMMMusicStateProcessor__initStarkConnect__block_invoke_30(uint64_t a1)
 
 void __46__PMMMusicStateProcessor__initStarkDisconnect__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_INFO, "Identifier called: %@", buf, 0xCu);
   }
 
@@ -387,24 +371,15 @@ void __46__PMMMusicStateProcessor__initStarkDisconnect__block_invoke(uint64_t a1
     sel_getName(*(a1 + 40));
     v6 = os_transaction_create();
     v7 = [WeakRetained queue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __46__PMMMusicStateProcessor__initStarkDisconnect__block_invoke_36;
-    v10[3] = &unk_2785922E0;
-    v10[4] = WeakRetained;
-    v11 = v6;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __46__PMMMusicStateProcessor__initStarkDisconnect__block_invoke_36;
+    v9[3] = &unk_2785922E0;
+    v9[4] = WeakRetained;
+    v10 = v6;
     v8 = v6;
-    dispatch_async(v7, v10);
+    dispatch_async(v7, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-id __46__PMMMusicStateProcessor__initStarkDisconnect__block_invoke_36(uint64_t a1)
-{
-  [*(a1 + 32) setInCar:0];
-  v2 = *(a1 + 40);
-  return objc_opt_self();
 }
 
 - (void)_initNowPlayingPause

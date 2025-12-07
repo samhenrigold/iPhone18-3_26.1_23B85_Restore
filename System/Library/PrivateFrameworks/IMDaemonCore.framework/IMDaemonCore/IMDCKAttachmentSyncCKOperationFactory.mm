@@ -13,7 +13,7 @@
 
 - (id)fetchAttachmentZoneChangesCKOperationUsingToken:(id)token zoneID:(id)d resultsLimit:(unint64_t)limit desiredKeys:(int64_t)keys operationGroupName:(id)name activity:(id)activity
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   nameCopy = name;
@@ -38,15 +38,13 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       operationID = [v21 operationID];
-      v28 = 138412546;
-      v29 = operationID;
-      v30 = 2112;
-      v31 = v18;
-      _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Created fetch attachment operation  ID %@ fetch operation dictionary %@", &v28, 0x16u);
+      v27 = 138412546;
+      v28 = operationID;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Created fetch attachment operation  ID %@ fetch operation dictionary %@", &v27, 0x16u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -76,7 +74,7 @@
 
 - (id)saveAttachmentsCKOperationUsingRecordsToSave:(id)save operationGroupName:(id)name activity:(id)activity
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   nameCopy = name;
   activityCopy = activity;
@@ -98,15 +96,13 @@
       operationID = [v11 operationID];
       group = [v11 group];
       name = [group name];
-      v20 = 138412546;
-      v21 = operationID;
-      v22 = 2112;
-      v23 = name;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Created modify attachment operation ID %@ operationGroupName %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = operationID;
+      v21 = 2112;
+      v22 = name;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Created modify attachment operation ID %@ operationGroupName %@", &v19, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -151,25 +147,25 @@
 
 + (id)_desiredKeysArrayForType:(int64_t)type
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    v9[0] = @"cm";
-    v9[1] = @"m";
-    v9[2] = @"lqa";
-    v9[3] = @"avid";
+    v8[0] = @"cm";
+    v8[1] = @"m";
+    v8[2] = @"lqa";
+    v8[3] = @"avid";
     v3 = MEMORY[0x277CBEA60];
-    v4 = v9;
+    v4 = v8;
     v5 = 4;
     goto LABEL_5;
   }
 
   if (!type)
   {
-    v10[0] = @"cm";
-    v10[1] = @"m";
+    v9[0] = @"cm";
+    v9[1] = @"m";
     v3 = MEMORY[0x277CBEA60];
-    v4 = v10;
+    v4 = v9;
     v5 = 2;
 LABEL_5:
     v6 = [v3 arrayWithObjects:v4 count:v5];
@@ -178,14 +174,13 @@ LABEL_5:
 
   v6 = 0;
 LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)deleteAttachmentCKOperationUsingRecordIDstoDelete:(id)delete
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   deleteCopy = delete;
   v4 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:0 recordIDsToDelete:deleteCopy];
   [v4 setAtomic:0];
@@ -203,13 +198,11 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       operationID = [v4 operationID];
-      v11 = 138412290;
-      v12 = operationID;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Created deleted attachment operation ID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = operationID;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Created deleted attachment operation ID %@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

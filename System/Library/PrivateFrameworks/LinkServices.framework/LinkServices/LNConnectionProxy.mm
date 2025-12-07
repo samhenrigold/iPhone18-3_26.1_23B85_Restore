@@ -89,7 +89,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   v4 = NSStringFromSelector([invocationCopy selector]);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -97,7 +97,7 @@
   aBlock[2] = __39__LNConnectionProxy_forwardInvocation___block_invoke;
   aBlock[3] = &unk_1E74B27A0;
   v5 = invocationCopy;
-  v31 = v5;
+  v30 = v5;
   selfCopy = self;
   v6 = _Block_copy(aBlock);
   if (([v4 hasSuffix:@"completionHandler:"] & 1) == 0)
@@ -227,10 +227,10 @@ LABEL_28:
     v24 = objc_opt_class();
     *buf = 138543874;
     *&buf[4] = logPrefix;
-    v34 = 2114;
-    v35 = v24;
-    v36 = 2114;
-    v37 = v4;
+    v33 = 2114;
+    v34 = v24;
+    v35 = 2114;
+    v36 = v4;
     v25 = v24;
     _os_log_impl(&dword_19763D000, v21, OS_LOG_TYPE_INFO, "%{public}@ Invoked [%{public}@ %{public}@]", buf, 0x20u);
   }
@@ -243,16 +243,14 @@ LABEL_28:
       logPrefix2 = [(LNConnectionProxy *)self logPrefix];
       *buf = 138543618;
       *&buf[4] = logPrefix2;
-      v34 = 2112;
-      v35 = array;
+      v33 = 2112;
+      v34 = array;
       _os_log_impl(&dword_19763D000, v26, OS_LOG_TYPE_DEBUG, "%{public}@ Arguments: %@", buf, 0x16u);
     }
   }
 
 LABEL_38:
   v6[2](v6);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __39__LNConnectionProxy_forwardInvocation___block_invoke(uint64_t a1)

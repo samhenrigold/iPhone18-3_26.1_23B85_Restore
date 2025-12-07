@@ -215,7 +215,7 @@ uint64_t __39__PXGMetalTextureCache_recycleTexture___block_invoke(uint64_t a1)
   return v15;
 }
 
-uint64_t __52__PXGMetalTextureCache_textureWithSize_pixelFormat___block_invoke(uint64_t a1)
+void *__52__PXGMetalTextureCache_textureWithSize_pixelFormat___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 8);
   v9[0] = MEMORY[0x277D85DD0];
@@ -240,10 +240,10 @@ uint64_t __52__PXGMetalTextureCache_textureWithSize_pixelFormat___block_invoke(u
   return result;
 }
 
-BOOL __52__PXGMetalTextureCache_textureWithSize_pixelFormat___block_invoke_2(void *a1, void *a2)
+BOOL __52__PXGMetalTextureCache_textureWithSize_pixelFormat___block_invoke_2(void **a1, void *a2)
 {
   v3 = [a2 texture];
-  v4 = [v3 width] == a1[4] && objc_msgSend(v3, "height") == a1[5] && objc_msgSend(v3, "pixelFormat") == a1[6];
+  v4 = __PAIR128__([v3 height], objc_msgSend(v3, "width")) == *(a1 + 2) && objc_msgSend(v3, "pixelFormat") == a1[6];
 
   return v4;
 }
@@ -411,7 +411,7 @@ double __32__PXGMetalTextureCache_ageLimit__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __29__PXGMetalTextureCache_count__block_invoke(uint64_t a1)
+void *__29__PXGMetalTextureCache_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

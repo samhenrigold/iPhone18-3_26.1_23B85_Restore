@@ -78,76 +78,69 @@
 
 - (id)description
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v33 = 0;
-  identifier = self->_identifier;
-  capacity = self->_capacity;
-  NSAppendPrintF();
-  v3 = 0;
+  v30 = *MEMORY[0x1E69E9840];
+  v28 = 0;
+  NSAppendPrintF(&v28, "SFSessionCache %@, capacity: %d", self->_identifier, self->_capacity);
+  v3 = v28;
   v4 = v3;
   serviceIdentifier = self->_serviceIdentifier;
   if (serviceIdentifier)
   {
-    v32 = v3;
-    identifier = serviceIdentifier;
-    NSAppendPrintF();
-    v6 = v32;
+    v27 = v3;
+    NSAppendPrintF(&v27, ", %@", serviceIdentifier);
+    v6 = v27;
 
     v4 = v6;
   }
 
-  v31 = v4;
-  NSAppendPrintF();
-  v7 = v4;
+  v26 = v4;
+  NSAppendPrintF(&v26, "\n");
+  v7 = v26;
 
-  v30 = v7;
-  v22 = [(NSMutableDictionary *)self->_sessions count:identifier];
-  NSAppendPrintF();
-  v8 = v7;
+  v25 = v7;
+  NSAppendPrintF(&v25, "\tSessions: (%ld)\n", [(NSMutableDictionary *)self->_sessions count]);
+  v8 = v25;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   allKeys = [(NSMutableDictionary *)self->_sessions allKeys];
-  v10 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v10 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v22;
     do
     {
       v13 = 0;
       v14 = v8;
       do
       {
-        if (*v27 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * v13);
-        v16 = [(NSMutableDictionary *)self->_timestamps objectForKeyedSubscript:v15, v23, v25];
+        v15 = *(*(&v21 + 1) + 8 * v13);
+        v16 = [(NSMutableDictionary *)self->_timestamps objectForKeyedSubscript:v15];
         [v16 doubleValue];
         v18 = v17;
 
-        v25 = v18;
-        v23 = v15;
-        NSAppendPrintF();
-        v8 = v14;
+        v20 = v14;
+        NSAppendPrintF(&v20, "\t\tSession with %@, last used %f\n", v15, v18);
+        v8 = v20;
 
         ++v13;
         v14 = v8;
       }
 
       while (v11 != v13);
-      v11 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:{16, v23, v18}];
+      v11 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v11);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -157,39 +150,39 @@
   if (gLogCategory_SFSessionCache <= 60 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFSessionCache, "[SFSessionCache _ensureStarted]", 60, "Object has already been invalidated.");
   }
 }
 
 - (void)_ensureStopped
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_sessions allValues];
-  v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) invalidate];
+        [*(*(&v10 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -202,27 +195,25 @@
   [(NSMutableDictionary *)self->_timestamps removeAllObjects];
   timestamps = self->_timestamps;
   self->_timestamps = 0;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_popCache
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
-  v11[0] = 0;
-  v11[1] = v11;
-  v11[2] = 0x3032000000;
-  v11[3] = __Block_byref_object_copy_;
-  v11[4] = __Block_byref_object_dispose_;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = 0;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x3032000000;
+  v8[3] = __Block_byref_object_copy_;
+  v8[4] = __Block_byref_object_dispose_;
   v3 = MEMORY[0x1E696AD98];
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
-  v12 = [v3 numberWithDouble:?];
+  v9 = [v3 numberWithDouble:?];
 
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_activated)
@@ -233,20 +224,19 @@ LABEL_13:
   }
 
   timestamps = self->_timestamps;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __27__SFSessionCache__popCache__block_invoke;
-  v10[3] = &unk_1E788B2F0;
-  v10[4] = v11;
-  v10[5] = &v13;
-  [(NSMutableDictionary *)timestamps enumerateKeysAndObjectsUsingBlock:v10];
-  v6 = [(NSMutableDictionary *)self->_sessions objectForKeyedSubscript:v14[5]];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __27__SFSessionCache__popCache__block_invoke;
+  v7[3] = &unk_1E788B2F0;
+  v7[4] = v8;
+  v7[5] = &v10;
+  [(NSMutableDictionary *)timestamps enumerateKeysAndObjectsUsingBlock:v7];
+  v6 = [(NSMutableDictionary *)self->_sessions objectForKeyedSubscript:v11[5]];
   if (!v6)
   {
     if (gLogCategory_SFSessionCache <= 60 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
     {
-      v8 = v14[5];
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFSessionCache, "[SFSessionCache _popCache]", 60, "### No session found for lruID %@.\n", v11[5]);
     }
 
     goto LABEL_13;
@@ -254,18 +244,16 @@ LABEL_13:
 
   if (gLogCategory_SFSessionCache <= 10 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
   {
-    identifier = self->_identifier;
-    v9 = v14[5];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFSessionCache, "[SFSessionCache _popCache]", 10, "SessionCache %@ popping session with device ID %@.\n", self->_identifier, v11[5]);
   }
 
   [v6 invalidate];
-  [(NSMutableDictionary *)self->_sessions removeObjectForKey:v14[5]];
-  [(NSMutableDictionary *)self->_timestamps removeObjectForKey:v14[5]];
+  [(NSMutableDictionary *)self->_sessions removeObjectForKey:v11[5]];
+  [(NSMutableDictionary *)self->_timestamps removeObjectForKey:v11[5]];
 LABEL_8:
 
-  _Block_object_dispose(v11, 8);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(v8, 8);
+  _Block_object_dispose(&v10, 8);
 }
 
 void __27__SFSessionCache__popCache__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -315,7 +303,7 @@ void __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_inv
   {
     if (gLogCategory_SFSessionCache <= 30 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
     {
-      __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_5_cold_1();
+      __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_5_cold_1(v3);
     }
   }
 
@@ -382,17 +370,21 @@ void __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_inv
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __26__SFSessionCache_activate__block_invoke(uint64_t a1)
+uint64_t __26__SFSessionCache_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFSessionCache <= 50 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFSessionCache <= 50)
   {
-    __26__SFSessionCache_activate__block_invoke_cold_1();
+    if (gLogCategory_SFSessionCache != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __26__SFSessionCache_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 8) = 1;
+  v4 = *(v3 + 32);
 
-  return [v2 _ensureStarted];
+  return [v4 _ensureStarted];
 }
 
 - (void)clearCache
@@ -406,17 +398,21 @@ uint64_t __26__SFSessionCache_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __28__SFSessionCache_clearCache__block_invoke(uint64_t a1)
+uint64_t __28__SFSessionCache_clearCache__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFSessionCache <= 50 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFSessionCache <= 50)
   {
-    __28__SFSessionCache_clearCache__block_invoke_cold_1();
+    if (gLogCategory_SFSessionCache != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __28__SFSessionCache_clearCache__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  [*(a1 + 32) _ensureStopped];
-  v2 = *(a1 + 32);
+  [*(v3 + 32) _ensureStopped];
+  v4 = *(v3 + 32);
 
-  return [v2 _ensureStarted];
+  return [v4 _ensureStarted];
 }
 
 - (void)invalidate
@@ -430,15 +426,19 @@ uint64_t __28__SFSessionCache_clearCache__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __28__SFSessionCache_invalidate__block_invoke(uint64_t a1)
+void *__28__SFSessionCache_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFSessionCache <= 50 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFSessionCache <= 50)
   {
-    __28__SFSessionCache_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFSessionCache != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __28__SFSessionCache_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  result = [*(a1 + 32) _ensureStopped];
-  *(*(a1 + 32) + 9) = 1;
+  result = [*(v3 + 32) _ensureStopped];
+  *(*(v3 + 32) + 9) = 1;
   return result;
 }
 
@@ -479,12 +479,16 @@ void __71__SFSessionCache_sendRequestWithFlags_object_responseHandler_toDevice__
 void __71__SFSessionCache_sendRequestWithFlags_object_responseHandler_toDevice___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (gLogCategory_SFSessionCache <= 10 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
+  v6 = v3;
+  if (gLogCategory_SFSessionCache <= 10)
   {
-    __71__SFSessionCache_sendRequestWithFlags_object_responseHandler_toDevice___block_invoke_2_cold_1();
+    if (gLogCategory_SFSessionCache != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      __71__SFSessionCache_sendRequestWithFlags_object_responseHandler_toDevice___block_invoke_2_cold_1(v3, v4, v5);
+    }
   }
 
-  [v3 sendRequestWithFlags:*(a1 + 48) object:*(a1 + 32) responseHandler:*(a1 + 40)];
+  [v6 sendRequestWithFlags:*(a1 + 48) object:*(a1 + 32) responseHandler:*(a1 + 40)];
 }
 
 - (void)sendWithFlags:(unsigned int)flags object:(id)object toDevice:(id)device
@@ -520,12 +524,16 @@ void __48__SFSessionCache_sendWithFlags_object_toDevice___block_invoke(uint64_t 
 void __48__SFSessionCache_sendWithFlags_object_toDevice___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (gLogCategory_SFSessionCache <= 10 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
+  v6 = v3;
+  if (gLogCategory_SFSessionCache <= 10)
   {
-    __48__SFSessionCache_sendWithFlags_object_toDevice___block_invoke_2_cold_1();
+    if (gLogCategory_SFSessionCache != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      __48__SFSessionCache_sendWithFlags_object_toDevice___block_invoke_2_cold_1(v3, v4, v5);
+    }
   }
 
-  [v3 sendWithFlags:*(a1 + 40) object:*(a1 + 32)];
+  [v6 sendWithFlags:*(a1 + 40) object:*(a1 + 32)];
 }
 
 - (id)sessionWithDevice:(id)device activate:(BOOL)activate withCompletion:(id)completion
@@ -602,73 +610,71 @@ void __60__SFSessionCache_sessionWithDevice_activate_withCompletion___block_invo
 
 - (SFSessionCache)initWithCoder:(id)coder
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = SFSessionCache;
-  v5 = [(SFSessionCache *)&v27 init];
-  v6 = v5;
+  v25.receiver = self;
+  v25.super_class = SFSessionCache;
+  v5 = [(SFSessionCache *)&v25 init];
   if (v5)
   {
-    v7 = SFMainQueue(v5);
-    dispatchQueue = v6->_dispatchQueue;
-    v6->_dispatchQueue = v7;
+    v6 = SFMainQueue();
+    dispatchQueue = v5->_dispatchQueue;
+    v5->_dispatchQueue = v6;
 
     if ([coderCopy containsValueForKey:@"cp"])
     {
-      v6->_capacity = [coderCopy decodeIntegerForKey:@"cp"];
+      v5->_capacity = [coderCopy decodeIntegerForKey:@"cp"];
     }
 
     if ([coderCopy containsValueForKey:@"id"])
     {
-      v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"id"];
-      identifier = v6->_identifier;
-      v6->_identifier = v9;
+      v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"id"];
+      identifier = v5->_identifier;
+      v5->_identifier = v8;
     }
 
     if ([coderCopy containsValueForKey:@"sid"])
     {
-      v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sid"];
-      serviceIdentifier = v6->_serviceIdentifier;
-      v6->_serviceIdentifier = v11;
+      v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sid"];
+      serviceIdentifier = v5->_serviceIdentifier;
+      v5->_serviceIdentifier = v10;
     }
 
     if ([coderCopy containsValueForKey:@"sd"])
     {
-      v13 = MEMORY[0x1E695DFD8];
-      v29[0] = objc_opt_class();
-      v29[1] = objc_opt_class();
-      v29[2] = objc_opt_class();
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
-      v15 = [v13 setWithArray:v14];
+      v12 = MEMORY[0x1E695DFD8];
+      v27[0] = objc_opt_class();
+      v27[1] = objc_opt_class();
+      v27[2] = objc_opt_class();
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
+      v14 = [v12 setWithArray:v13];
 
       [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sd"];
       objc_claimAutoreleasedReturnValue();
-      v16 = [OUTLINED_FUNCTION_2_4() unarchivedObjectOfClasses:? fromData:? error:?];
-      v17 = [v16 mutableCopy];
-      sessions = v6->_sessions;
-      v6->_sessions = v17;
+      v15 = [OUTLINED_FUNCTION_2_4() unarchivedObjectOfClasses:? fromData:? error:?];
+      v16 = [v15 mutableCopy];
+      sessions = v5->_sessions;
+      v5->_sessions = v16;
     }
 
     if ([coderCopy containsValueForKey:@"tsd"])
     {
-      v19 = MEMORY[0x1E695DFD8];
-      v28[0] = objc_opt_class();
-      v28[1] = objc_opt_class();
-      v28[2] = objc_opt_class();
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
-      v21 = [v19 setWithArray:v20];
+      v18 = MEMORY[0x1E695DFD8];
+      v26[0] = objc_opt_class();
+      v26[1] = objc_opt_class();
+      v26[2] = objc_opt_class();
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+      v20 = [v18 setWithArray:v19];
 
       [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sd"];
       objc_claimAutoreleasedReturnValue();
-      v22 = [OUTLINED_FUNCTION_2_4() unarchivedObjectOfClasses:? fromData:? error:?];
-      v23 = [v22 mutableCopy];
-      timestamps = v6->_timestamps;
-      v6->_timestamps = v23;
+      v21 = [OUTLINED_FUNCTION_2_4() unarchivedObjectOfClasses:? fromData:? error:?];
+      v22 = [v21 mutableCopy];
+      timestamps = v5->_timestamps;
+      v5->_timestamps = v22;
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -690,8 +696,7 @@ void __60__SFSessionCache_sessionWithDevice_activate_withCompletion___block_invo
         v11 = v12;
         if (gLogCategory_SFSessionCache <= 30 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
         {
-          v21 = identifier;
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFSessionCache, "[SFSessionCache _sessionWithDevice:activate:withCompletion:]", 30, "Found existing session with device ID %@", identifier);
         }
 
         if (!completionCopy)
@@ -700,56 +705,55 @@ void __60__SFSessionCache_sessionWithDevice_activate_withCompletion___block_invo
         }
 
         dispatchQueue = self->_dispatchQueue;
-        block = MEMORY[0x1E69E9820];
-        v23 = 3221225472;
-        v24 = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_7;
-        v25 = &unk_1E788B318;
-        v27 = completionCopy;
+        block[0] = MEMORY[0x1E69E9820];
+        block[1] = 3221225472;
+        block[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_7;
+        block[3] = &unk_1E788B318;
+        v23 = completionCopy;
         v11 = v11;
-        v26 = v11;
-        dispatch_async(dispatchQueue, &block);
+        v22 = v11;
+        dispatch_async(dispatchQueue, block);
 
-        v14 = v27;
+        v14 = v23;
       }
 
       else
       {
         if (gLogCategory_SFSessionCache <= 30 && (gLogCategory_SFSessionCache != -1 || _LogCategory_Initialize()))
         {
-          v21 = identifier;
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFSessionCache, "[SFSessionCache _sessionWithDevice:activate:withCompletion:]", 30, "Creating session with device ID %@", identifier);
         }
 
         v15 = objc_alloc_init(SFSession);
         [(SFSession *)v15 setDispatchQueue:self->_dispatchQueue];
         [(SFSession *)v15 setPeerDevice:deviceCopy];
         [(SFSession *)v15 setServiceIdentifier:self->_serviceIdentifier];
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke;
-        v33[3] = &unk_1E788A658;
-        v33[4] = self;
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke;
+        v29[3] = &unk_1E788A658;
+        v29[4] = self;
         v16 = v15;
-        v34 = v16;
-        [(SFSession *)v16 setInterruptionHandler:v33];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_3;
-        v31[3] = &unk_1E788A658;
-        v31[4] = self;
+        v30 = v16;
+        [(SFSession *)v16 setInterruptionHandler:v29];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_3;
+        v27[3] = &unk_1E788A658;
+        v27[4] = self;
         v11 = v16;
-        v32 = v11;
-        [(SFSession *)v11 setInvalidationHandler:v31];
+        v28 = v11;
+        [(SFSession *)v11 setInvalidationHandler:v27];
         if (activateCopy)
         {
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_5;
-          v28[3] = &unk_1E788B340;
-          v30 = completionCopy;
-          v28[4] = self;
-          v29 = v11;
-          [(SFSession *)v29 activateWithCompletion:v28];
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __61__SFSessionCache__sessionWithDevice_activate_withCompletion___block_invoke_5;
+          v24[3] = &unk_1E788B340;
+          v26 = completionCopy;
+          v24[4] = self;
+          v25 = v11;
+          [(SFSession *)v25 activateWithCompletion:v24];
         }
 
         if ([(SFSessionCache *)self cacheFull])
@@ -759,7 +763,7 @@ void __60__SFSessionCache_sessionWithDevice_activate_withCompletion___block_invo
 
         [(NSMutableDictionary *)self->_sessions setObject:v11 forKeyedSubscript:identifier];
 
-        v14 = v34;
+        v14 = v30;
       }
 
 LABEL_21:

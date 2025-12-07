@@ -6,15 +6,19 @@
 + (BOOL)isRetryAfterError:(id)error retryAfterDate:(id *)date;
 + (BOOL)isTransientError:(id)error;
 + (BOOL)isUnexpectedErrorCode:(int64_t)code;
++ (id)_errorWithErrno:(int)errno code:(int64_t)code path:(id)path format:(id)format arguments:(char *)arguments;
 + (id)_formatErrors:(id)errors descriptionSelector:(SEL)selector;
 + (id)descriptionForError:(id)error paths:(BOOL)paths;
++ (id)dictionaryRepresentationForError:(id)error withMultiErrors:(BOOL)errors;
 + (id)errorForHTTPURLResponse:(id)response error:(id)error;
 + (id)errorForNSError:(id)error path:(id)path description:(id)description;
 + (id)errorWithCode:(int64_t)code format:(id)format;
++ (id)errorWithDictionaryRepresentation:(id)representation withMultiErrors:(BOOL)errors;
 + (id)errorWithDomain:(id)domain code:(int64_t)code format:(id)format;
 + (id)errorWithErrors:(id)errors;
 + (id)loggableDescriptionForError:(id)error;
 + (id)signatureForError:(id)error;
++ (int)codeForErrno:(int)errno;
 + (int)codeForNSError:(id)error;
 + (int)errnoForError:(id)error;
 @end
@@ -88,9 +92,80 @@
   return [self isError:errorCopy withCode:223];
 }
 
++ (int)codeForErrno:(int)errno
+{
+  v3 = *&errno;
+  if (errno <= 17)
+  {
+    if (errno <= 8)
+    {
+      if (errno == 1)
+      {
+        return 24;
+      }
+
+      if (errno == 2)
+      {
+        return 4;
+      }
+    }
+
+    else
+    {
+      switch(errno)
+      {
+        case 9:
+          return 1;
+        case 16:
+          return 14;
+        case 17:
+          return 3;
+      }
+    }
+  }
+
+  else if (errno > 27)
+  {
+    switch(errno)
+    {
+      case 28:
+        return 105;
+      case 62:
+        return 7;
+      case 93:
+        return 8;
+    }
+  }
+
+  else
+  {
+    switch(errno)
+    {
+      case 18:
+        return 26;
+      case 20:
+        return 5;
+      case 21:
+        return 6;
+    }
+  }
+
+  v5 = MBGetDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v7 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "No code for POSIX error: %{errno}d", buf, 8u);
+    _MBLog(@"Df", "No code for POSIX error: %{errno}d", v3);
+  }
+
+  return 100;
+}
+
 + (int)errnoForError:(id)error
 {
-  if (![objc_msgSend(error "domain")])
+  code = [objc_msgSend(error "domain")];
+  if (!code)
   {
     goto LABEL_19;
   }
@@ -142,13 +217,13 @@
     }
 
 LABEL_19:
-    v6 = MBGetDefaultLog();
+    v6 = MBGetDefaultLog(code);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       errorCopy = error;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "No POSIX code for error: %@", buf, 0xCu);
-      _MBLog(@"Df", "No POSIX code for error: %@", v7, v8, v9, v10, v11, v12, error);
+      _MBLog(@"Df", "No POSIX code for error: %@", error);
     }
 
     return 5;
@@ -290,37 +365,37 @@ LABEL_6:
     }
   }
 
-  v8 = v6;
-  v9 = [MBHTTPDateFormatter() dateFromString:v6];
-  if (v9)
+  v9 = v6;
+  v10 = [MBHTTPDateFormatter(v6 v7)];
+  if (v10)
   {
     if (!date)
     {
-      return v9 != 0;
+      return v10 != 0;
     }
   }
 
   else
   {
-    integerValue = [v8 integerValue];
+    integerValue = [v9 integerValue];
     if (integerValue < 1)
     {
       return 0;
     }
 
-    v9 = [NSDate dateWithTimeIntervalSinceNow:integerValue];
+    v10 = [NSDate dateWithTimeIntervalSinceNow:integerValue];
     if (!date)
     {
-      return v9 != 0;
+      return v10 != 0;
     }
   }
 
-  if (!v9)
+  if (!v10)
   {
-    return v9 != 0;
+    return v10 != 0;
   }
 
-  *date = v9;
+  *date = v10;
   return 1;
 }
 
@@ -389,6 +464,38 @@ LABEL_6:
     v17 = [v5 copy];
     return [NSError errorWithDomain:@"MBErrorDomain" code:2 userInfo:[NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1]];
   }
+}
+
++ (id)_errorWithErrno:(int)errno code:(int64_t)code path:(id)path format:(id)format arguments:(char *)arguments
+{
+  v9 = *&errno;
+  v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@: %s (%d)", [[NSString alloc] initWithFormat:format arguments:arguments], strerror(v9), v9);
+  v11 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v9 userInfo:0];
+  if (path)
+  {
+    v18[0] = NSLocalizedDescriptionKey;
+    v18[1] = NSFilePathErrorKey;
+    v19[0] = v10;
+    v19[1] = path;
+    v18[2] = NSUnderlyingErrorKey;
+    v19[2] = v11;
+    v12 = v19;
+    v13 = v18;
+    v14 = 3;
+  }
+
+  else
+  {
+    v16[0] = NSLocalizedDescriptionKey;
+    v16[1] = NSUnderlyingErrorKey;
+    v17[0] = v10;
+    v17[1] = v11;
+    v12 = v17;
+    v13 = v16;
+    v14 = 2;
+  }
+
+  return [NSError errorWithDomain:@"MBErrorDomain" code:code userInfo:[NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:v14]];
 }
 
 + (id)errorForNSError:(id)error path:(id)path description:(id)description
@@ -697,6 +804,319 @@ LABEL_27:
   }
 
   return v6;
+}
+
++ (id)dictionaryRepresentationForError:(id)error withMultiErrors:(BOOL)errors
+{
+  errorsCopy = errors;
+  v7 = +[NSMutableDictionary dictionary];
+  [v7 setValue:objc_msgSend(error forKey:{"domain"), @"domain"}];
+  [v7 setValue:+[NSNumber numberWithInteger:](NSNumber forKey:{"numberWithInteger:", objc_msgSend(error, "code")), @"code"}];
+  localizedDescription = [error localizedDescription];
+  if (localizedDescription)
+  {
+    [v7 setValue:localizedDescription forKey:@"localizedDescription"];
+  }
+
+  userInfo = [error userInfo];
+  v10 = [userInfo objectForKeyedSubscript:NSFilePathErrorKey];
+  if (v10)
+  {
+    [v7 setValue:v10 forKey:@"filePath"];
+  }
+
+  v11 = [userInfo objectForKeyedSubscript:NSURLErrorKey];
+  if (v11)
+  {
+    [v7 setValue:objc_msgSend(v11 forKey:{"absoluteString"), @"URL"}];
+  }
+
+  v12 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
+  if (v12)
+  {
+    [v7 setValue:objc_msgSend(self forKey:{"dictionaryRepresentationForError:withMultiErrors:", v12, errorsCopy), @"underlyingError"}];
+  }
+
+  if (errorsCopy)
+  {
+    v13 = [userInfo objectForKeyedSubscript:@"kMBUnderlyingErrorsKey"];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v13 count]);
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v16)
+      {
+        v17 = v16;
+        v18 = *v24;
+        do
+        {
+          v19 = 0;
+          do
+          {
+            if (*v24 != v18)
+            {
+              objc_enumerationMutation(v14);
+            }
+
+            -[NSMutableArray addObject:](v15, "addObject:", [self dictionaryRepresentationForError:*(*(&v23 + 1) + 8 * v19) withMultiErrors:1]);
+            v19 = v19 + 1;
+          }
+
+          while (v17 != v19);
+          v17 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        }
+
+        while (v17);
+      }
+
+      [v7 setObject:v15 forKey:@"underlyingErrors"];
+    }
+  }
+
+  v20 = [userInfo valueForKey:@"kMBErrorDateKey"];
+  if (v20)
+  {
+    [v7 setObject:v20 forKeyedSubscript:@"date"];
+  }
+
+  v21 = [userInfo valueForKey:@"BuildVersion"];
+  if (v21)
+  {
+    [v7 setObject:v21 forKeyedSubscript:@"BuildVersion"];
+  }
+
+  return v7;
+}
+
++ (id)errorWithDictionaryRepresentation:(id)representation withMultiErrors:(BOOL)errors
+{
+  if (!representation)
+  {
+    return 0;
+  }
+
+  errorsCopy = errors;
+  result = [representation objectForKeyedSubscript:@"domain"];
+  if (!result)
+  {
+    return result;
+  }
+
+  v8 = result;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    return 0;
+  }
+
+  result = [representation objectForKeyedSubscript:@"code"];
+  if (!result)
+  {
+    return result;
+  }
+
+  v9 = result;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  integerValue = [v9 integerValue];
+  v10 = [representation objectForKeyedSubscript:@"localizedDescription"];
+  if (v10)
+  {
+    v11 = v10;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = [representation objectForKeyedSubscript:@"filePath"];
+  if (v13)
+  {
+    v14 = v13;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = [representation objectForKeyedSubscript:@"URL"];
+  if (v16)
+  {
+    v17 = v16;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v18 = v17;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  v19 = +[NSMutableDictionary dictionary];
+  [v19 setValue:v12 forKey:NSLocalizedDescriptionKey];
+  [v19 setValue:v15 forKey:NSFilePathErrorKey];
+  if (v18)
+  {
+    [v19 setValue:+[NSURL URLWithString:](NSURL forKey:{"URLWithString:", v18), NSURLErrorKey}];
+  }
+
+  v20 = [representation objectForKeyedSubscript:@"underlyingError"];
+  if (v20)
+  {
+    v21 = v20;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v22 = v21;
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  [v19 setObject:+[MBError errorWithDictionaryRepresentation:withMultiErrors:](MBError forKeyedSubscript:{"errorWithDictionaryRepresentation:withMultiErrors:", v22, errorsCopy), NSUnderlyingErrorKey}];
+  v23 = [representation objectForKeyedSubscript:@"underlyingErrors"];
+  if (!v23 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v24 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v23 count]);
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v25 = [v23 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    if (v25)
+    {
+      v26 = v25;
+      v27 = *v39;
+LABEL_35:
+      v28 = 0;
+      while (1)
+      {
+        if (*v39 != v27)
+        {
+          objc_enumerationMutation(v23);
+        }
+
+        v29 = *(*(&v38 + 1) + 8 * v28);
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          break;
+        }
+
+        -[NSMutableArray addObject:](v24, "addObject:", [self errorWithDictionaryRepresentation:v29 withMultiErrors:1]);
+        if (v26 == ++v28)
+        {
+          v26 = [v23 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          if (v26)
+          {
+            goto LABEL_35;
+          }
+
+          break;
+        }
+      }
+    }
+
+    v19 = v36;
+    [v36 setObject:v24 forKeyedSubscript:@"kMBUnderlyingErrorsKey"];
+  }
+
+  v30 = [representation objectForKeyedSubscript:@"date"];
+  if (v30)
+  {
+    v31 = v30;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v32 = v31;
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  [v19 setObject:v32 forKeyedSubscript:@"kMBErrorDateKey"];
+  v33 = [representation objectForKeyedSubscript:@"BuildVersion"];
+  if (v33)
+  {
+    v34 = v33;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v35 = v34;
+    }
+
+    else
+    {
+      v35 = 0;
+    }
+  }
+
+  else
+  {
+    v35 = 0;
+  }
+
+  [v19 setObject:v35 forKeyedSubscript:@"BuildVersion"];
+  return [NSError errorWithDomain:v8 code:integerValue userInfo:v19];
 }
 
 @end

@@ -13,6 +13,7 @@
 + (unint64_t)parseCompatibilityFromConfigVersion:(id)version;
 - (BOOL)containsCategory:(id)category;
 - (BOOL)containsKey:(id)key category:(id)category;
+- (BOOL)getBoolForKey:(id)key category:(id)category default:(BOOL)default;
 - (BOOL)isCompactVersion;
 - (BOOL)isEqualAsset:(id)asset;
 - (BOOL)isHSVoiceTrigger:(id)trigger;
@@ -125,11 +126,11 @@
 
 - (CSAsset)initWithCoder:(id)coder
 {
-  v26[4] = *MEMORY[0x1E69E9840];
+  v25[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = CSAsset;
-  v5 = [(CSAsset *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = CSAsset;
+  v5 = [(CSAsset *)&v24 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"path"];
@@ -160,18 +161,17 @@
     v5->_uafAssetVersion = v16;
 
     v18 = MEMORY[0x1E695DFD8];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v26[2] = objc_opt_class();
-    v26[3] = objc_opt_class();
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v25[2] = objc_opt_class();
+    v25[3] = objc_opt_class();
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
     v20 = [v18 setWithArray:v19];
     v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"decodedInfo"];
     decodedInfo = v5->_decodedInfo;
     v5->_decodedInfo = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -194,45 +194,42 @@
 
 - (void)logAssetVersionForInsight
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if ([(CSAsset *)self assetType]&& [(CSAsset *)self assetType]!= 5 && [(CSAsset *)self assetType]!= 7 && [(CSAsset *)self assetType]!= 8)
+  v11 = *MEMORY[0x1E69E9840];
+  if (![(CSAsset *)self assetType]|| [(CSAsset *)self assetType]== 5 || [(CSAsset *)self assetType]== 7 || [(CSAsset *)self assetType]== 8)
   {
-    v7 = CSLogContextFacilityCoreSpeech;
-    if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    v3 = CSLogCategoryVT;
+    if (!os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_8;
+      return;
     }
 
-    v4 = v7;
-    v8 = 136315394;
-    v9 = "[CSAsset logAssetVersionForInsight]";
-    v10 = 2048;
-    assetType = [(CSAsset *)self assetType];
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s logAssetVersionForInsight for assetType: %lu", &v8, 0x16u);
+    v4 = v3;
+    configVersion = [(CSAsset *)self configVersion];
+    v7 = 136315394;
+    v8 = "[CSAsset logAssetVersionForInsight]";
+    v9 = 2114;
+    assetType = configVersion;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s [Asset Version Used]: VTAssetVersion: %{public}@", &v7, 0x16u);
+
     goto LABEL_7;
   }
 
-  v3 = CSLogCategoryVT;
-  if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+  v6 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v3;
-    configVersion = [(CSAsset *)self configVersion];
-    v8 = 136315394;
-    v9 = "[CSAsset logAssetVersionForInsight]";
-    v10 = 2114;
-    assetType = configVersion;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s [Asset Version Used]: VTAssetVersion: %{public}@", &v8, 0x16u);
-
+    v4 = v6;
+    v7 = 136315394;
+    v8 = "[CSAsset logAssetVersionForInsight]";
+    v9 = 2048;
+    assetType = [(CSAsset *)self assetType];
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s logAssetVersionForInsight for assetType: %lu", &v7, 0x16u);
 LABEL_7:
   }
-
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_sha1ForString:(id)string
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = [string dataUsingEncoding:4];
   CC_SHA1([v3 bytes], objc_msgSend(v3, "length"), md);
   v4 = [MEMORY[0x1E696AD60] stringWithCapacity:40];
@@ -241,14 +238,12 @@ LABEL_8:
     [v4 appendFormat:@"%02x", md[i]];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)assetHashInResourcePath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (pathCopy)
   {
@@ -259,21 +254,21 @@ LABEL_8:
 
     else
     {
-      v17 = 0;
-      v6 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"((?:[a-z]|[0-9])*)\\.asset" options:0 error:&v17];
-      v7 = v17;
+      v16 = 0;
+      v6 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"((?:[a-z]|[0-9])*)\\.asset" options:0 error:&v16];
+      v7 = v16;
       if (v7)
       {
         v8 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
-          v15 = v8;
+          v14 = v8;
           localizedDescription = [v7 localizedDescription];
           *buf = 136315394;
-          v19 = "[CSAsset assetHashInResourcePath:]";
-          v20 = 2114;
-          v21 = localizedDescription;
-          _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s Failed to create regular expression : %{public}@", buf, 0x16u);
+          v18 = "[CSAsset assetHashInResourcePath:]";
+          v19 = 2114;
+          v20 = localizedDescription;
+          _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Failed to create regular expression : %{public}@", buf, 0x16u);
         }
 
         v5 = @"nohash";
@@ -301,8 +296,6 @@ LABEL_8:
   {
     v5 = @"nohash";
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -416,48 +409,36 @@ LABEL_8:
 
 - (id)getStringForKey:(id)key
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   dictionary = [(CSAsset *)self dictionary];
-  if (!dictionary)
+  if (dictionary && (v6 = dictionary, -[CSAsset dictionary](self, "dictionary"), v7 = objc_claimAutoreleasedReturnValue(), [v7 objectForKeyedSubscript:keyCopy], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v8))
   {
-    goto LABEL_4;
-  }
-
-  v6 = dictionary;
-  dictionary2 = [(CSAsset *)self dictionary];
-  v8 = [dictionary2 objectForKeyedSubscript:keyCopy];
-
-  if (v8)
-  {
-    dictionary3 = [(CSAsset *)self dictionary];
-    v10 = [dictionary3 objectForKeyedSubscript:keyCopy];
+    dictionary2 = [(CSAsset *)self dictionary];
+    v10 = [dictionary2 objectForKeyedSubscript:keyCopy];
   }
 
   else
   {
-LABEL_4:
     v11 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 136315394;
-      v15 = "[CSAsset getStringForKey:]";
-      v16 = 2114;
-      v17 = keyCopy;
-      _os_log_debug_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[CSAsset getStringForKey:]";
+      v15 = 2114;
+      v16 = keyCopy;
+      _os_log_debug_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@", &v13, 0x16u);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)getValueForKey:(id)key category:(id)category
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   categoryCopy = category;
   dictionary = [(CSAsset *)self dictionary];
@@ -491,26 +472,24 @@ LABEL_4:
   v19 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 136315650;
-    v23 = "[CSAsset getValueForKey:category:]";
-    v24 = 2114;
-    v25 = categoryCopy;
-    v26 = 2114;
-    v27 = keyCopy;
-    _os_log_debug_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@ %{public}@", &v22, 0x20u);
+    v21 = 136315650;
+    v22 = "[CSAsset getValueForKey:category:]";
+    v23 = 2114;
+    v24 = categoryCopy;
+    v25 = 2114;
+    v26 = keyCopy;
+    _os_log_debug_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@ %{public}@", &v21, 0x20u);
   }
 
   v18 = 0;
 LABEL_9:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (id)getStringForKey:(id)key category:(id)category default:(id)default
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   categoryCopy = category;
   defaultCopy = default;
@@ -546,28 +525,39 @@ LABEL_9:
   v21 = defaultCopy;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 136315906;
-    v26 = "[CSAsset getStringForKey:category:default:]";
-    v27 = 2114;
-    v28 = categoryCopy;
-    v29 = 2114;
-    v30 = keyCopy;
-    v31 = 2114;
-    v32 = defaultCopy;
-    _os_log_debug_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@ %{public}@ using default value=%{public}@", &v25, 0x2Au);
+    v24 = 136315906;
+    v25 = "[CSAsset getStringForKey:category:default:]";
+    v26 = 2114;
+    v27 = categoryCopy;
+    v28 = 2114;
+    v29 = keyCopy;
+    v30 = 2114;
+    v31 = defaultCopy;
+    _os_log_debug_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@ %{public}@ using default value=%{public}@", &v24, 0x2Au);
     v21 = defaultCopy;
   }
 
 LABEL_8:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
+- (BOOL)getBoolForKey:(id)key category:(id)category default:(BOOL)default
+{
+  defaultCopy = default;
+  v8 = MEMORY[0x1E696AD98];
+  categoryCopy = category;
+  keyCopy = key;
+  v11 = [v8 numberWithBool:defaultCopy];
+  v12 = [(CSAsset *)self getNumberForKey:keyCopy category:categoryCopy default:v11];
+
+  LOBYTE(v11) = [v12 BOOLValue];
+  return v11;
+}
+
 - (id)getNumberForKey:(id)key category:(id)category default:(id)default
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   categoryCopy = category;
   defaultCopy = default;
@@ -603,50 +593,48 @@ LABEL_8:
   v21 = defaultCopy;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 136315906;
-    v26 = "[CSAsset getNumberForKey:category:default:]";
-    v27 = 2114;
-    v28 = categoryCopy;
-    v29 = 2114;
-    v30 = keyCopy;
-    v31 = 2114;
-    v32 = defaultCopy;
-    _os_log_debug_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@ %{public}@ using default value=%{public}@", &v25, 0x2Au);
+    v24 = 136315906;
+    v25 = "[CSAsset getNumberForKey:category:default:]";
+    v26 = 2114;
+    v27 = categoryCopy;
+    v28 = 2114;
+    v29 = keyCopy;
+    v30 = 2114;
+    v31 = defaultCopy;
+    _os_log_debug_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEBUG, "%s Cannot access to %{public}@ %{public}@ using default value=%{public}@", &v24, 0x2Au);
     v21 = defaultCopy;
   }
 
 LABEL_8:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (CSAsset)initWithResourcePath:(id)path configFile:(id)file configVersion:(id)version assetProvderType:(unint64_t)type assetType:(unint64_t)assetType assetVariant:(unint64_t)variant identity:(id)identity assistantLanguageCode:(id)self0 uafAssetVersion:(id)self1
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   fileCopy = file;
   versionCopy = version;
   identityCopy = identity;
   codeCopy = code;
   assetVersionCopy = assetVersion;
-  v35.receiver = self;
-  v35.super_class = CSAsset;
-  v18 = [(CSAsset *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = CSAsset;
+  v18 = [(CSAsset *)&v34 init];
   if (!v18)
   {
     goto LABEL_7;
   }
 
-  v31 = versionCopy;
+  v30 = versionCopy;
   v19 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v37 = "[CSAsset initWithResourcePath:configFile:configVersion:assetProvderType:assetType:assetVariant:identity:assistantLanguageCode:uafAssetVersion:]";
-    v38 = 2114;
-    v39 = pathCopy;
+    v36 = "[CSAsset initWithResourcePath:configFile:configVersion:assetProvderType:assetType:assetVariant:identity:assistantLanguageCode:uafAssetVersion:]";
+    v37 = 2114;
+    v38 = pathCopy;
     _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
   }
 
@@ -668,7 +656,7 @@ LABEL_8:
     objc_storeStrong(&v18->_uafAssetVersion, assetVersion);
 
     [(CSAsset *)v18 _updateAssetVariantIfNeeded];
-    versionCopy = v31;
+    versionCopy = v30;
 LABEL_7:
     v24 = v18;
     goto LABEL_11;
@@ -678,34 +666,33 @@ LABEL_7:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v37 = "[CSAsset initWithResourcePath:configFile:configVersion:assetProvderType:assetType:assetVariant:identity:assistantLanguageCode:uafAssetVersion:]";
-    v38 = 2114;
-    v39 = v21;
+    v36 = "[CSAsset initWithResourcePath:configFile:configVersion:assetProvderType:assetType:assetVariant:identity:assistantLanguageCode:uafAssetVersion:]";
+    v37 = 2114;
+    v38 = v21;
     _os_log_impl(&dword_1DDA4B000, v25, OS_LOG_TYPE_DEFAULT, "%s Cannot find corespeech asset from resourcePath : %{public}@", buf, 0x16u);
   }
 
   v24 = 0;
-  versionCopy = v31;
+  versionCopy = v30;
 LABEL_11:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 + (BOOL)isLeftConfigVersion:(id)version newerThanRightConfigVersion:(id)configVersion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   configVersionCopy = configVersion;
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v26 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
-    v27 = 2114;
-    v28 = versionCopy;
-    v29 = 2114;
-    v30 = configVersionCopy;
+    v25 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
+    v26 = 2114;
+    v27 = versionCopy;
+    v28 = 2114;
+    v29 = configVersionCopy;
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Comparing %{public}@ with %{public}@", buf, 0x20u);
   }
 
@@ -726,7 +713,7 @@ LABEL_11:
         {
           v18 = [v11 objectAtIndexedSubscript:2];
           v19 = [v8 objectAtIndexedSubscript:2];
-          v24 = v18;
+          v23 = v18;
           if ([v19 isEqualToString:@"Premium"])
           {
             v10 = 0;
@@ -752,9 +739,9 @@ LABEL_11:
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v26 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
-          v27 = 2114;
-          v28 = v13;
+          v25 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
+          v26 = 2114;
+          v27 = v13;
           _os_log_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_DEFAULT, "%s Not comparable with %{public}@, ignore", buf, 0x16u);
           v10 = 0;
         }
@@ -767,9 +754,9 @@ LABEL_11:
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v26 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
-        v27 = 2114;
-        v28 = versionCopy;
+        v25 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
+        v26 = 2114;
+        v27 = versionCopy;
         _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Invalid leftConfig syntax : %{public}@", buf, 0x16u);
       }
 
@@ -783,22 +770,21 @@ LABEL_11:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v26 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
-      v27 = 2114;
-      v28 = configVersionCopy;
+      v25 = "+[CSAsset isLeftConfigVersion:newerThanRightConfigVersion:]";
+      v26 = 2114;
+      v27 = configVersionCopy;
       _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s Invalid rightConfig syntax : %{public}@", buf, 0x16u);
     }
 
     v10 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (id)decodeJson:(id)json
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   jsonCopy = json;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = [defaultManager fileExistsAtPath:jsonCopy];
@@ -812,9 +798,9 @@ LABEL_11:
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v20 = "+[CSAsset decodeJson:]";
-        v21 = 2114;
-        v22 = jsonCopy;
+        v19 = "+[CSAsset decodeJson:]";
+        v20 = 2114;
+        v21 = jsonCopy;
         _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Cannot read configuration file : %{public}@", buf, 0x16u);
       }
 
@@ -822,9 +808,9 @@ LABEL_11:
       goto LABEL_18;
     }
 
-    v18 = 0;
-    v7 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:0 error:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:0 error:&v17];
+    v8 = v17;
     if (v8)
     {
       v9 = CSLogContextFacilityCoreSpeech;
@@ -833,9 +819,9 @@ LABEL_11:
         v10 = v9;
         localizedDescription = [v8 localizedDescription];
         *buf = 136315394;
-        v20 = "+[CSAsset decodeJson:]";
-        v21 = 2114;
-        v22 = localizedDescription;
+        v19 = "+[CSAsset decodeJson:]";
+        v20 = 2114;
+        v21 = localizedDescription;
         _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Cannot decode configuration json file : %{public}@", buf, 0x16u);
       }
     }
@@ -856,7 +842,7 @@ LABEL_18:
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "+[CSAsset decodeJson:]";
+        v19 = "+[CSAsset decodeJson:]";
         _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s Configuration json file is not expected format", buf, 0xCu);
       }
     }
@@ -869,16 +855,14 @@ LABEL_18:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "+[CSAsset decodeJson:]";
-    v21 = 2114;
-    v22 = jsonCopy;
+    v19 = "+[CSAsset decodeJson:]";
+    v20 = 2114;
+    v21 = jsonCopy;
     _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s Configuration file is not exists : %{public}@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_19:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -902,7 +886,7 @@ LABEL_19:
 
 + (id)overrideAssetForVoiceTrigger
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = +[CSFPreferences sharedPreferences];
   fakeVoiceTriggerAssetPath = [v2 fakeVoiceTriggerAssetPath];
 
@@ -917,7 +901,7 @@ LABEL_19:
     if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "+[CSAsset overrideAssetForVoiceTrigger]";
+      v16 = "+[CSAsset overrideAssetForVoiceTrigger]";
       _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Returning Overriding Asset", buf, 0xCu);
     }
 
@@ -928,17 +912,17 @@ LABEL_19:
       if (v9)
       {
         v10 = +[CSOnDeviceCompilationHandler sharedHandler];
-        v15 = 0;
-        [v10 compileAndUpdateDeviceCachesWithAsset:v7 assetType:0 endpointId:0 errOut:&v15];
-        v11 = v15;
+        v14 = 0;
+        [v10 compileAndUpdateDeviceCachesWithAsset:v7 assetType:0 endpointId:0 errOut:&v14];
+        v11 = v14;
 
         v12 = CSLogCategoryAsset;
         if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v17 = "+[CSAsset overrideAssetForVoiceTrigger]";
-          v18 = 2112;
-          v19 = v11;
+          v16 = "+[CSAsset overrideAssetForVoiceTrigger]";
+          v17 = 2112;
+          v18 = v11;
           _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s Compile cached asset to onDevice CacheIr with error: %@", buf, 0x16u);
         }
       }
@@ -949,8 +933,6 @@ LABEL_19:
   {
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -985,7 +967,7 @@ LABEL_19:
 
 + (id)fallBackAssetResourcePath
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (+[CSUtils isDarwinOS])
   {
     v2 = @"/System/Library/PrivateFrameworks/CoreSpeechDarwin.framework";
@@ -999,14 +981,12 @@ LABEL_19:
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[CSAsset fallBackAssetResourcePath]";
-    v8 = 2114;
-    v9 = v2;
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Fallback asset resource path : %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[CSAsset fallBackAssetResourcePath]";
+    v7 = 2114;
+    v8 = v2;
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Fallback asset resource path : %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -1502,46 +1482,45 @@ LABEL_24:
 
 - (unint64_t)_mapInputOriginFromAssetToCSAudioRecordType:(id)type
 {
-  v18[6] = *MEMORY[0x1E69E9840];
+  v17[6] = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v17[0] = &unk_1F59168E0;
-  v18[0] = @"Unspecified";
-  v18[1] = @"VoiceTrigger";
-  v17[1] = &unk_1F59168F8;
-  v17[2] = &unk_1F5916910;
-  v17[3] = &unk_1F5916928;
-  v18[2] = @"VoiceTrigger";
-  v18[3] = @"ButtonPress";
-  v17[4] = &unk_1F5916940;
-  v17[5] = &unk_1F5916958;
-  v18[4] = @"ButtonPress";
-  v18[5] = @"VoiceTrigger";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___block_invoke;
-  v11[3] = &unk_1E865AE50;
-  v5 = typeCopy;
-  v12 = v5;
-  v6 = [v4 keysOfEntriesPassingTest:v11];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v16[0] = &unk_1F59168E0;
+  v17[0] = @"Unspecified";
+  v17[1] = @"VoiceTrigger";
+  v16[1] = &unk_1F59168F8;
+  v16[2] = &unk_1F5916910;
+  v16[3] = &unk_1F5916928;
+  v17[2] = @"VoiceTrigger";
+  v17[3] = @"ButtonPress";
+  v16[4] = &unk_1F5916940;
+  v16[5] = &unk_1F5916958;
+  v17[4] = @"ButtonPress";
+  v17[5] = @"VoiceTrigger";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
-  v10[2] = __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___block_invoke_2;
-  v10[3] = &unk_1E865AE78;
-  v10[4] = &v13;
-  [v6 enumerateObjectsUsingBlock:v10];
-  v7 = v14[3];
+  v10[2] = __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___block_invoke;
+  v10[3] = &unk_1E865AE50;
+  v5 = typeCopy;
+  v11 = v5;
+  v6 = [v4 keysOfEntriesPassingTest:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___block_invoke_2;
+  v9[3] = &unk_1E865AE78;
+  v9[4] = &v12;
+  [v6 enumerateObjectsUsingBlock:v9];
+  v7 = v13[3];
 
-  _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
   return v7;
 }
 
-uint64_t __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___block_invoke_2(uint64_t a1, void *a2)
+void *__64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 unsignedIntValue];
   *(*(*(a1 + 32) + 8) + 24) |= 1 << result;
@@ -1550,7 +1529,7 @@ uint64_t __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___bl
 
 - (id)getRecognizerConfigsFrom:(id)from
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (fromCopy)
   {
@@ -1560,30 +1539,30 @@ uint64_t __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___bl
     {
       v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
       stringByDeletingLastPathComponent = [fromCopy stringByDeletingLastPathComponent];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
       v8 = v5;
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:{*(*(&v16 + 1) + 8 * i), v16}];
+            v13 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:{*(*(&v15 + 1) + 8 * i), v15}];
             [v6 addObject:v13];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v10);
@@ -1600,8 +1579,6 @@ uint64_t __64__CSAsset_Liminal___mapInputOriginFromAssetToCSAudioRecordType___bl
   {
     v6 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

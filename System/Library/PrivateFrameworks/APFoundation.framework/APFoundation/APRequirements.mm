@@ -123,22 +123,21 @@ LABEL_20:
 
 + (BOOL)_buildErrorWithCode:(int64_t)code message:(id)message returningError:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = message;
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = message;
     v8 = MEMORY[0x1E695DF20];
     messageCopy = message;
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v8, v10, v18, &v17, 1);
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v8, v10, v17, &v16, 1);
     v13 = objc_msgSend_errorWithDomain_code_userInfo_(v7, v12, @"com.apple.ap.requirementsErrorDomain", code, v11);
 
     v14 = v13;
     *error = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

@@ -333,44 +333,45 @@ LABEL_10:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ATXAppDirectoryEvent *)self initWithProto:v7];
+      [(ATXAppDirectoryEvent *)self initWithProto:v8];
     }
 
     goto LABEL_10;
   }
 
-  v5 = protoCopy;
-  if ([(ATXPBAppDirectoryEvent *)v5 hasDate]&& (v6 = [(ATXPBAppDirectoryEvent *)v5 date], [(ATXPBAppDirectoryEvent *)v5 hasEventType]))
+  v6 = protoCopy;
+  if ([(ATXPBAppDirectoryEvent *)v6 hasDate]&& (v7 = [(ATXPBAppDirectoryEvent *)v6 date], [(ATXPBAppDirectoryEvent *)v6 hasEventType]))
   {
-    eventType = [(ATXPBAppDirectoryEvent *)v5 eventType];
-    if ([(ATXPBAppDirectoryEvent *)v5 hasCategoryID])
+    eventType = [(ATXPBAppDirectoryEvent *)v6 eventType];
+    if ([(ATXPBAppDirectoryEvent *)v6 hasCategoryID])
     {
-      v26 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent categoryID](v5)];
+      v27 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent categoryID](v6)];
     }
 
     else
     {
-      v26 = 0;
+      v27 = 0;
     }
 
-    if ([(ATXPBAppDirectoryEvent *)v5 hasCategoryIndex])
+    if ([(ATXPBAppDirectoryEvent *)v6 hasCategoryIndex])
     {
-      v24 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent categoryIndex](v5)];
+      v25 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent categoryIndex](v6)];
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
-    if ([(ATXPBAppDirectoryEvent *)v5 hasBundleId])
+    if ([(ATXPBAppDirectoryEvent *)v6 hasBundleId])
     {
-      bundleId = [(ATXPBAppDirectoryEvent *)v5 bundleId];
+      bundleId = [(ATXPBAppDirectoryEvent *)v6 bundleId];
     }
 
     else
@@ -378,9 +379,19 @@ LABEL_10:
       bundleId = 0;
     }
 
-    if ([(ATXPBAppDirectoryEvent *)v5 hasBundleIndex])
+    if ([(ATXPBAppDirectoryEvent *)v6 hasBundleIndex])
     {
-      v22 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent bundleIndex](v5)];
+      v23 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent bundleIndex](v6)];
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    if ([(ATXPBAppDirectoryEvent *)v6 hasSearchQueryLength])
+    {
+      v22 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent searchQueryLength](v6)];
     }
 
     else
@@ -388,49 +399,39 @@ LABEL_10:
       v22 = 0;
     }
 
-    if ([(ATXPBAppDirectoryEvent *)v5 hasSearchQueryLength])
+    if ([(ATXPBAppDirectoryEvent *)v6 hasSearchTab])
     {
-      v21 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent searchQueryLength](v5)];
+      v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent searchTab](v6)];
     }
 
     else
     {
-      v21 = 0;
+      v10 = 0;
     }
 
-    if ([(ATXPBAppDirectoryEvent *)v5 hasSearchTab])
+    if ([(ATXPBAppDirectoryEvent *)v6 hasBlendingCacheId])
     {
-      v9 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:-[ATXPBAppDirectoryEvent searchTab](v5)];
+      v11 = objc_alloc(MEMORY[0x1E696AFB0]);
+      blendingCacheId = [(ATXPBAppDirectoryEvent *)v6 blendingCacheId];
+      v13 = [v11 initWithUUIDString:blendingCacheId];
     }
 
     else
     {
-      v9 = 0;
+      v13 = 0;
     }
 
-    if ([(ATXPBAppDirectoryEvent *)v5 hasBlendingCacheId])
-    {
-      v10 = objc_alloc(MEMORY[0x1E696AFB0]);
-      blendingCacheId = [(ATXPBAppDirectoryEvent *)v5 blendingCacheId];
-      v12 = [v10 initWithUUIDString:blendingCacheId];
-    }
+    shownSuggestionIds = [(ATXPBAppDirectoryEvent *)v6 shownSuggestionIds];
+    v21 = [shownSuggestionIds _pas_mappedArrayWithTransform:&__block_literal_global_79];
 
-    else
-    {
-      v12 = 0;
-    }
+    engagedSuggestionIds = [(ATXPBAppDirectoryEvent *)v6 engagedSuggestionIds];
+    v20 = [engagedSuggestionIds _pas_mappedArrayWithTransform:&__block_literal_global_81_0];
 
-    shownSuggestionIds = [(ATXPBAppDirectoryEvent *)v5 shownSuggestionIds];
-    v20 = [shownSuggestionIds _pas_mappedArrayWithTransform:&__block_literal_global_79];
+    v16 = [ATXAppDirectoryEventMetadata alloc];
+    metadata = [(ATXPBAppDirectoryEvent *)v6 metadata];
+    v18 = [(ATXAppDirectoryEventMetadata *)v16 initWithProto:metadata];
 
-    engagedSuggestionIds = [(ATXPBAppDirectoryEvent *)v5 engagedSuggestionIds];
-    v19 = [engagedSuggestionIds _pas_mappedArrayWithTransform:&__block_literal_global_81_0];
-
-    v15 = [ATXAppDirectoryEventMetadata alloc];
-    metadata = [(ATXPBAppDirectoryEvent *)v5 metadata];
-    v17 = [(ATXAppDirectoryEventMetadata *)v15 initWithProto:metadata];
-
-    self = [(ATXAppDirectoryEvent *)self initWithAbsoluteDate:eventType eventType:v26 categoryID:v24 categoryIndex:bundleId bundleId:v22 bundleIndex:v21 searchQueryLength:v6 searchTab:v9 blendingCacheUUID:v12 shownSuggestionIds:v20 engagedSuggestionIds:v19 metadata:v17];
+    self = [(ATXAppDirectoryEvent *)self initWithAbsoluteDate:eventType eventType:v27 categoryID:v25 categoryIndex:bundleId bundleId:v23 bundleIndex:v22 searchQueryLength:v7 searchTab:v10 blendingCacheUUID:v13 shownSuggestionIds:v21 engagedSuggestionIds:v20 metadata:v18];
     selfCopy = self;
   }
 

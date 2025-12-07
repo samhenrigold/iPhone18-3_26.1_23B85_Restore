@@ -132,7 +132,7 @@
   return v3;
 }
 
-uint64_t __33__APSConnection_largeMessageSize__block_invoke(uint64_t a1)
+void *__33__APSConnection_largeMessageSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 48);
@@ -158,7 +158,7 @@ uint64_t __33__APSConnection_largeMessageSize__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __28__APSConnection_messageSize__block_invoke(uint64_t a1)
+void *__28__APSConnection_messageSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 40);
@@ -167,25 +167,23 @@ uint64_t __28__APSConnection_messageSize__block_invoke(uint64_t a1)
 
 - (void)_connectIfNecessaryOnIvarQueue
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processQueuedTopicMovesOnIvarQueue
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = self->_enabledTopics;
-  v52 = self->_opportunisticTopics;
-  v53 = self->_ignoredTopics;
-  v54 = self->_nonWakingTopics;
-  v61 = 0;
-  v62 = 0;
-  v59 = 0;
+  v51 = self->_opportunisticTopics;
+  v52 = self->_ignoredTopics;
+  v53 = self->_nonWakingTopics;
   v60 = 0;
+  v61 = 0;
+  v58 = 0;
+  v59 = 0;
   os_unfair_lock_lock(&self->_topicMoveLock);
   v5 = self->_accumulatedTopicMoves;
   accumulatedTopicMoves = self->_accumulatedTopicMoves;
@@ -193,26 +191,26 @@ uint64_t __28__APSConnection_messageSize__block_invoke(uint64_t a1)
 
   selfCopy = self;
   os_unfair_lock_unlock(&self->_topicMoveLock);
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v7 = v5;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v54 objects:v66 count:16];
   context = v3;
   if (v8)
   {
-    v9 = *v56;
+    v9 = *v55;
     while (1)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v56 != v9)
+        if (*v55 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v55 + 1) + 8 * i);
+        v11 = *(*(&v54 + 1) + 8 * i);
         topic = [v11 topic];
         fromListID = [v11 fromListID];
         toListID = [v11 toListID];
@@ -221,8 +219,8 @@ uint64_t __28__APSConnection_messageSize__block_invoke(uint64_t a1)
         {
           if (fromListID == 2)
           {
-            v16 = &v60;
-            v17 = v53;
+            v16 = &v59;
+            v17 = v52;
           }
 
           else
@@ -232,8 +230,8 @@ uint64_t __28__APSConnection_messageSize__block_invoke(uint64_t a1)
               goto LABEL_23;
             }
 
-            v16 = &v59;
-            v17 = v54;
+            v16 = &v58;
+            v17 = v53;
           }
         }
 
@@ -244,13 +242,13 @@ uint64_t __28__APSConnection_messageSize__block_invoke(uint64_t a1)
             goto LABEL_23;
           }
 
-          v16 = &v61;
-          v17 = v52;
+          v16 = &v60;
+          v17 = v51;
         }
 
         else
         {
-          v16 = &v62;
+          v16 = &v61;
           v17 = v4;
         }
 
@@ -264,9 +262,9 @@ LABEL_23:
           {
             v25 = [(APSConnection *)selfCopy _topicListNameForLogging:toListID];
             *buf = 138412546;
-            v64 = topic;
-            v65 = 2112;
-            v66 = v25;
+            v63 = topic;
+            v64 = 2112;
+            v65 = v25;
             _os_log_error_impl(&dword_1B233B000, v24, OS_LOG_TYPE_ERROR, "Unable to move topic %@, This topic was not in the list provided! %@", buf, 0x16u);
           }
 
@@ -288,15 +286,15 @@ LABEL_23:
         {
           if (toListID == 2)
           {
-            v22 = &v60;
-            v23 = v53;
+            v22 = &v59;
+            v23 = v52;
             goto LABEL_32;
           }
 
           if (toListID == 3)
           {
-            v22 = &v59;
-            v23 = v54;
+            v22 = &v58;
+            v23 = v53;
             goto LABEL_32;
           }
         }
@@ -305,15 +303,15 @@ LABEL_23:
         {
           if (!toListID)
           {
-            v22 = &v62;
+            v22 = &v61;
             v23 = v4;
             goto LABEL_32;
           }
 
           if (toListID == 1)
           {
-            v22 = &v61;
-            v23 = v52;
+            v22 = &v60;
+            v23 = v51;
 LABEL_32:
             v24 = v23;
             if (!*v22)
@@ -342,22 +340,22 @@ LABEL_32:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v64 = topic;
-          v65 = 2048;
-          v66 = toListID;
+          v63 = topic;
+          v64 = 2048;
+          v65 = toListID;
           _os_log_fault_impl(&dword_1B233B000, v24, OS_LOG_TYPE_FAULT, "Unable to move topic %@, The to list is not valid! %lu", buf, 0x16u);
         }
 
 LABEL_38:
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v54 objects:v66 count:16];
       if (!v8)
       {
-        v30 = v61;
-        v29 = v62;
-        v31 = v59;
-        v8 = v60;
+        v30 = v60;
+        v29 = v61;
+        v31 = v58;
+        v8 = v59;
         goto LABEL_42;
       }
     }
@@ -367,7 +365,7 @@ LABEL_38:
   v30 = 0;
   v29 = 0;
 LABEL_42:
-  v51 = v29;
+  v50 = v29;
 
   allObjects = [v29 allObjects];
   v33 = allObjects;
@@ -392,7 +390,7 @@ LABEL_42:
 
   else
   {
-    v38 = v52;
+    v38 = v51;
   }
 
   v39 = v38;
@@ -406,7 +404,7 @@ LABEL_42:
 
   else
   {
-    v42 = v53;
+    v42 = v52;
   }
 
   v43 = v42;
@@ -420,14 +418,13 @@ LABEL_42:
 
   else
   {
-    v46 = v54;
+    v46 = v53;
   }
 
   v47 = v46;
 
   [(APSConnection *)selfCopy _onIvarQueue_setEnabledTopics:v35 ignoredTopics:v43 opportunisticTopics:v39 nonWakingTopics:v47 sendToDaemon:1 completion:0];
   objc_autoreleasePoolPop(context);
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 void __47__APSConnection__connectIfNecessaryOnIvarQueue__block_invoke_2(void *a1)
@@ -459,7 +456,7 @@ void __47__APSConnection__connectIfNecessaryOnIvarQueue__block_invoke_2(void *a1
 
 void __48__APSConnection__deliverDidReconnectOnIvarQueue__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -467,11 +464,11 @@ void __48__APSConnection__deliverDidReconnectOnIvarQueue__block_invoke(uint64_t 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v9 = 138412546;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ Calling %@ connectionDidReconnect", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ Calling %@ connectionDidReconnect", &v8, 0x16u);
     }
 
     [v3 connectionDidReconnect:*(a1 + 32)];
@@ -479,20 +476,18 @@ void __48__APSConnection__deliverDidReconnectOnIvarQueue__block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138412546;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_1B233B000, v6, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ connectionDidReconnect", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_1B233B000, v6, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ connectionDidReconnect", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __47__APSConnection__connectIfNecessaryOnIvarQueue__block_invoke_3(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!v3)
@@ -559,9 +554,9 @@ LABEL_7:
   {
     v8 = a1[4];
     *buf = 138412546;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v6;
+    v27 = v8;
+    v28 = 2112;
+    v29 = v6;
     _os_log_impl(&dword_1B233B000, v7, OS_LOG_TYPE_DEFAULT, "%@ Bad response from apsd: %@", buf, 0x16u);
   }
 
@@ -578,13 +573,11 @@ LABEL_11:
   }
 
   dispatch_group_leave(*(*(a1[18] + 8) + 40));
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverDidReconnectOnIvarQueue
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = +[APSLog shouldReduceLogging];
   v4 = +[APSLog connection];
   v5 = v4;
@@ -610,13 +603,12 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __48__APSConnection__deliverDidReconnectOnIvarQueue__block_invoke;
-  v9[3] = &unk_1E7B22480;
-  v9[4] = self;
-  [(APSConnection *)self _asyncOnDelegateQueueWithBlock:v9];
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __48__APSConnection__deliverDidReconnectOnIvarQueue__block_invoke;
+  v8[3] = &unk_1E7B22480;
+  v8[4] = self;
+  [(APSConnection *)self _asyncOnDelegateQueueWithBlock:v8];
 }
 
 - (NSData)publicToken
@@ -643,7 +635,7 @@ LABEL_6:
 
 void __28__APSConnection_publicToken__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   v2 = [*(*(a1 + 32) + 32) copy];
   v3 = *(*(a1 + 40) + 8);
@@ -659,14 +651,14 @@ void __28__APSConnection_publicToken__block_invoke(uint64_t a1)
     {
       v8 = *(a1 + 32);
       v9 = *(*(*(a1 + 40) + 8) + 40);
-      v15 = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
       v10 = v7;
       v11 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v10, v11, "%@ asked for publicToken, got %@", &v15, 0x16u);
+      _os_log_impl(&dword_1B233B000, v10, v11, "%@ asked for publicToken, got %@", &v14, 0x16u);
     }
   }
 
@@ -674,16 +666,14 @@ LABEL_6:
   {
     v12 = *(a1 + 32);
     v13 = *(*(*(a1 + 40) + 8) + 40);
-    v15 = 138412546;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v13;
+    v14 = 138412546;
+    v15 = v12;
+    v16 = 2112;
+    v17 = v13;
     v10 = v7;
     v11 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isValidEnvironment:(id)environment
@@ -697,7 +687,7 @@ LABEL_6:
 
 - (APSConnection)initWithEnvironmentName:(id)name namedDelegatePort:(id)port queue:(id)queue
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   portCopy = port;
   queueCopy = queue;
@@ -708,44 +698,43 @@ LABEL_6:
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 138413058;
+      v18 = 138413058;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = nameCopy;
-      v23 = 2112;
-      v24 = portCopy;
-      v25 = 2112;
-      v26 = queueCopy;
+      v20 = 2112;
+      v21 = nameCopy;
+      v22 = 2112;
+      v23 = portCopy;
+      v24 = 2112;
+      v25 = queueCopy;
       v14 = v13;
       v15 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v14, v15, "Initializing APSConnection %@: env=%@ port=%@ queue=%@", &v19, 0x2Au);
+      _os_log_impl(&dword_1B233B000, v14, v15, "Initializing APSConnection %@: env=%@ port=%@ queue=%@", &v18, 0x2Au);
     }
   }
 
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138413058;
+    v18 = 138413058;
     selfCopy2 = self;
-    v21 = 2112;
-    v22 = nameCopy;
-    v23 = 2112;
-    v24 = portCopy;
-    v25 = 2112;
-    v26 = queueCopy;
+    v20 = 2112;
+    v21 = nameCopy;
+    v22 = 2112;
+    v23 = portCopy;
+    v24 = 2112;
+    v25 = queueCopy;
     v14 = v13;
     v15 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
 
   v16 = [(APSConnection *)self _initWithEnvironmentName:nameCopy namedDelegatePort:portCopy enablePushDuringSleep:0 personaUniqueString:0 queue:queueCopy];
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (APSConnection)initWithEnvironmentName:(id)name namedDelegatePort:(id)port personaUniqueString:(id)string queue:(id)queue
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   portCopy = port;
   queueCopy = queue;
@@ -757,53 +746,52 @@ LABEL_6:
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138413058;
+      v21 = 138413058;
       selfCopy2 = self;
-      v24 = 2112;
-      v25 = nameCopy;
-      v26 = 2112;
-      v27 = portCopy;
-      v28 = 2112;
-      v29 = queueCopy;
+      v23 = 2112;
+      v24 = nameCopy;
+      v25 = 2112;
+      v26 = portCopy;
+      v27 = 2112;
+      v28 = queueCopy;
       v17 = v16;
       v18 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v17, v18, "Initializing APSConnection %@: env=%@ port=%@ queue=%@", &v22, 0x2Au);
+      _os_log_impl(&dword_1B233B000, v17, v18, "Initializing APSConnection %@: env=%@ port=%@ queue=%@", &v21, 0x2Au);
     }
   }
 
   else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138413058;
+    v21 = 138413058;
     selfCopy2 = self;
-    v24 = 2112;
-    v25 = nameCopy;
-    v26 = 2112;
-    v27 = portCopy;
-    v28 = 2112;
-    v29 = queueCopy;
+    v23 = 2112;
+    v24 = nameCopy;
+    v25 = 2112;
+    v26 = portCopy;
+    v27 = 2112;
+    v28 = queueCopy;
     v17 = v16;
     v18 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
 
   v19 = [(APSConnection *)self _initWithEnvironmentName:nameCopy namedDelegatePort:portCopy enablePushDuringSleep:0 personaUniqueString:stringCopy queue:queueCopy];
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (id)_initWithEnvironmentName:(id)name namedDelegatePort:(id)port enablePushDuringSleep:(BOOL)sleep personaUniqueString:(id)string queue:(id)queue
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   portCopy = port;
   stringCopy = string;
   queueCopy = queue;
   if ((_os_feature_enabled_impl() & 1) != 0 || ![stringCopy length])
   {
-    v68.receiver = self;
-    v68.super_class = APSConnection;
-    v20 = [(APSConnection *)&v68 init];
+    v66.receiver = self;
+    v66.super_class = APSConnection;
+    v20 = [(APSConnection *)&v66 init];
     if (!v20)
     {
 LABEL_40:
@@ -846,24 +834,23 @@ LABEL_40:
     portCopy = v35;
     if (v35 && (v34 & 1) == 0)
     {
-      v75 = 0u;
-      v76 = 0u;
       v73 = 0u;
       v74 = 0u;
       v71 = 0u;
       v72 = 0u;
-      *buf = 0u;
+      v69 = 0u;
       v70 = 0u;
+      *buf = 0u;
+      v68 = 0u;
       if (([v35 getCString:buf maxLength:128 encoding:4] & 1) == 0)
       {
         [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s unable to convert nameOfPort argument to UTF8 string less than %i characters", "-[APSConnection _initWithEnvironmentName:namedDelegatePort:enablePushDuringSleep:personaUniqueString:queue:]", 128}];
       }
 
-      v38 = *MEMORY[0x1E69E99F8];
-      v39 = bootstrap_check_in2();
-      v37 = v39 != 0;
+      v38 = bootstrap_check_in2();
+      v37 = v38 != 0;
       portCopy = v36;
-      if (v39)
+      if (v38)
       {
         NSLog(&cfstr_UnableToBootst.isa, v36);
 
@@ -872,86 +859,86 @@ LABEL_40:
       }
     }
 
-    v40 = [portCopy copy];
-    v41 = *(v20 + 7);
-    *(v20 + 7) = v40;
+    v39 = [portCopy copy];
+    v40 = *(v20 + 7);
+    *(v20 + 7) = v39;
 
     if (v34)
     {
-      v42 = +[APSLog shouldReduceLogging];
-      v43 = +[APSLog connection];
-      v44 = v43;
-      if (v42)
+      v41 = +[APSLog shouldReduceLogging];
+      v42 = +[APSLog connection];
+      v43 = v42;
+      if (v41)
       {
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          v45 = v44;
-          v46 = OS_LOG_TYPE_DEBUG;
+          v44 = v43;
+          v45 = OS_LOG_TYPE_DEBUG;
 LABEL_28:
-          _os_log_impl(&dword_1B233B000, v45, v46, "Client opted out of using a mach port", buf, 2u);
+          _os_log_impl(&dword_1B233B000, v44, v45, "Client opted out of using a mach port", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v45 = v44;
-        v46 = OS_LOG_TYPE_DEFAULT;
+        v44 = v43;
+        v45 = OS_LOG_TYPE_DEFAULT;
         goto LABEL_28;
       }
     }
 
     else
     {
-      v47 = !v37;
+      v46 = !v37;
       if (!v36)
       {
-        v47 = 0;
+        v46 = 0;
       }
 
-      if (v47)
+      if (v46)
       {
 LABEL_30:
         if ([*(v20 + 7) length])
         {
           if ((*v28 + 1) <= 1)
           {
-            v49 = mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, v20 + 16);
-            if (v49)
+            v48 = mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, v20 + 16);
+            if (v48)
             {
-              v50 = v49;
-              v51 = +[APSLog shouldReduceLogging];
-              v52 = +[APSLog connection];
-              v53 = v52;
-              if (v51)
+              v49 = v48;
+              v50 = +[APSLog shouldReduceLogging];
+              v51 = +[APSLog connection];
+              v52 = v51;
+              if (v50)
               {
-                if (!os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+                if (!os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
                 {
                   goto LABEL_45;
                 }
 
                 *buf = 0;
-                v54 = v53;
-                v55 = OS_LOG_TYPE_DEBUG;
+                v53 = v52;
+                v54 = OS_LOG_TYPE_DEBUG;
               }
 
               else
               {
-                if (!os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+                if (!os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                 {
                   goto LABEL_45;
                 }
 
                 *buf = 0;
-                v54 = v53;
-                v55 = OS_LOG_TYPE_DEFAULT;
+                v53 = v52;
+                v54 = OS_LOG_TYPE_DEFAULT;
               }
 
-              _os_log_impl(&dword_1B233B000, v54, v55, "Failed allocating and checking into port", buf, 2u);
+              _os_log_impl(&dword_1B233B000, v53, v54, "Failed allocating and checking into port", buf, 2u);
 LABEL_45:
 
-              [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"%s unable to allocate delegate port: %s", "-[APSConnection _initWithEnvironmentName:namedDelegatePort:enablePushDuringSleep:personaUniqueString:queue:]", mach_error_string(v50)}];
+              [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"%s unable to allocate delegate port: %s", "-[APSConnection _initWithEnvironmentName:namedDelegatePort:enablePushDuringSleep:personaUniqueString:queue:]", mach_error_string(v49)}];
               if (!queueCopy)
               {
                 goto LABEL_39;
@@ -961,28 +948,28 @@ LABEL_45:
             }
           }
 
-          v56 = dispatch_queue_create("APSPortQueue", 0);
-          v57 = *(v20 + 11);
-          *(v20 + 11) = v56;
+          v55 = dispatch_queue_create("APSPortQueue", 0);
+          v56 = *(v20 + 11);
+          *(v20 + 11) = v55;
 
-          v58 = dispatch_source_create(MEMORY[0x1E69E96D8], *(v20 + 16), 0, *(v20 + 11));
-          v59 = *(v20 + 12);
-          *(v20 + 12) = v58;
+          v57 = dispatch_source_create(MEMORY[0x1E69E96D8], *(v20 + 16), 0, *(v20 + 11));
+          v58 = *(v20 + 12);
+          *(v20 + 12) = v57;
 
           *buf = 0;
           *&buf[8] = buf;
-          *&v70 = 0x3032000000;
-          *(&v70 + 1) = __Block_byref_object_copy_;
-          *&v71 = __Block_byref_object_dispose_;
-          *(&v71 + 1) = *(v20 + 12);
-          v60 = *(v20 + 12);
+          *&v68 = 0x3032000000;
+          *(&v68 + 1) = __Block_byref_object_copy_;
+          *&v69 = __Block_byref_object_dispose_;
+          *(&v69 + 1) = *(v20 + 12);
+          v59 = *(v20 + 12);
           handler[0] = MEMORY[0x1E69E9820];
           handler[1] = 3221225472;
           handler[2] = __108__APSConnection__initWithEnvironmentName_namedDelegatePort_enablePushDuringSleep_personaUniqueString_queue___block_invoke;
           handler[3] = &unk_1E7B220A0;
-          v67 = buf;
-          v66 = portCopy;
-          dispatch_source_set_event_handler(v60, handler);
+          v65 = buf;
+          v64 = portCopy;
+          dispatch_source_set_event_handler(v59, handler);
           dispatch_resume(*(v20 + 12));
 
           _Block_object_dispose(buf, 8);
@@ -997,18 +984,18 @@ LABEL_39:
 
 LABEL_38:
         objc_storeStrong(v20 + 14, queue);
-        v63[0] = MEMORY[0x1E69E9820];
-        v63[1] = 3221225472;
-        v63[2] = __108__APSConnection__initWithEnvironmentName_namedDelegatePort_enablePushDuringSleep_personaUniqueString_queue___block_invoke_45;
-        v63[3] = &unk_1E7B220C8;
-        v64 = v20;
-        [v64 _dispatch_async_to_ivarQueue:v63];
+        v61[0] = MEMORY[0x1E69E9820];
+        v61[1] = 3221225472;
+        v61[2] = __108__APSConnection__initWithEnvironmentName_namedDelegatePort_enablePushDuringSleep_personaUniqueString_queue___block_invoke_45;
+        v61[3] = &unk_1E7B220C8;
+        v62 = v20;
+        [v62 _dispatch_async_to_ivarQueue:v61];
 
         goto LABEL_39;
       }
 
-      v44 = +[APSLog connection];
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v43 = +[APSLog connection];
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         [APSConnection _initWithEnvironmentName:namedDelegatePort:enablePushDuringSleep:personaUniqueString:queue:];
       }
@@ -1045,63 +1032,59 @@ LABEL_24:
   selfCopy = 0;
 LABEL_41:
 
-  v61 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 void __108__APSConnection__initWithEnvironmentName_namedDelegatePort_enablePushDuringSleep_personaUniqueString_queue___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  v3 = dispatch_mig_server();
-  if (v3)
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = dispatch_mig_server();
+  if (v2)
   {
-    v4 = v3 == 268435459;
+    v3 = v2 == 268435459;
   }
 
   else
   {
-    v4 = 1;
+    v3 = 1;
   }
 
-  if (!v4 && v3 != 268451843)
+  if (!v3 && v2 != 268451843)
   {
-    v6 = v3;
-    v7 = +[APSLog shouldReduceLogging];
-    v8 = +[APSLog connection];
-    v9 = v8;
-    if (v7)
+    v5 = v2;
+    v6 = +[APSLog shouldReduceLogging];
+    v7 = +[APSLog connection];
+    v8 = v7;
+    if (v6)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v10 = mach_error_string(v6);
-        v11 = [*(a1 + 32) UTF8String];
-        v17 = 136315394;
+        v9 = mach_error_string(v5);
+        v10 = [*(a1 + 32) UTF8String];
+        v15 = 136315394;
+        v16 = v9;
+        v17 = 2080;
         v18 = v10;
-        v19 = 2080;
-        v20 = v11;
-        v12 = v9;
-        v13 = OS_LOG_TYPE_DEBUG;
+        v11 = v8;
+        v12 = OS_LOG_TYPE_DEBUG;
 LABEL_13:
-        _os_log_impl(&dword_1B233B000, v12, v13, "dispatch_mig_server failed: %s   port: %s\n", &v17, 0x16u);
+        _os_log_impl(&dword_1B233B000, v11, v12, "dispatch_mig_server failed: %s   port: %s\n", &v15, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = mach_error_string(v6);
-      v15 = [*(a1 + 32) UTF8String];
-      v17 = 136315394;
+      v13 = mach_error_string(v5);
+      v14 = [*(a1 + 32) UTF8String];
+      v15 = 136315394;
+      v16 = v13;
+      v17 = 2080;
       v18 = v14;
-      v19 = 2080;
-      v20 = v15;
-      v12 = v9;
-      v13 = OS_LOG_TYPE_DEFAULT;
+      v11 = v8;
+      v12 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_13;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __108__APSConnection__initWithEnvironmentName_namedDelegatePort_enablePushDuringSleep_personaUniqueString_queue___block_invoke_45(uint64_t a1)
@@ -1179,7 +1162,7 @@ uint64_t __25__APSConnection_shutdown__block_invoke(uint64_t a1)
 
 - (void)_shutdownFromDealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = +[APSLog shouldReduceLogging];
   v4 = +[APSLog connection];
   v5 = v4;
@@ -1187,18 +1170,18 @@ uint64_t __25__APSConnection_shutdown__block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
+      v8 = 138412290;
       selfCopy2 = self;
       v6 = v5;
       v7 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v6, v7, "%@ _shutdownFromDealloc", &v9, 0xCu);
+      _os_log_impl(&dword_1B233B000, v6, v7, "%@ _shutdownFromDealloc", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     selfCopy2 = self;
     v6 = v5;
     v7 = OS_LOG_TYPE_DEFAULT;
@@ -1206,7 +1189,6 @@ LABEL_6:
   }
 
   [(APSConnection *)self _shutdownOnIvarQueue];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -1242,17 +1224,14 @@ LABEL_6:
 
 uint64_t __25__APSConnection_delegate__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) object];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) object];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDelegate:(id)delegate
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v5 = _os_feature_enabled_impl();
   v6 = +[APSLog shouldReduceLogging];
@@ -1268,15 +1247,15 @@ uint64_t __25__APSConnection_delegate__block_invoke(uint64_t a1)
     v9 = @"NO";
     *buf = 138412802;
     selfCopy2 = self;
-    v21 = 2112;
+    v20 = 2112;
     if (v5)
     {
       v9 = @"YES";
     }
 
-    v22 = delegateCopy;
-    v23 = 2112;
-    v24 = v9;
+    v21 = delegateCopy;
+    v22 = 2112;
+    v23 = v9;
     v10 = v8;
     v11 = OS_LOG_TYPE_DEBUG;
   }
@@ -1291,15 +1270,15 @@ uint64_t __25__APSConnection_delegate__block_invoke(uint64_t a1)
     v12 = @"NO";
     *buf = 138412802;
     selfCopy2 = self;
-    v21 = 2112;
+    v20 = 2112;
     if (v5)
     {
       v12 = @"YES";
     }
 
-    v22 = delegateCopy;
-    v23 = 2112;
-    v24 = v12;
+    v21 = delegateCopy;
+    v22 = 2112;
+    v23 = v12;
     v10 = v8;
     v11 = OS_LOG_TYPE_DEFAULT;
   }
@@ -1307,14 +1286,14 @@ uint64_t __25__APSConnection_delegate__block_invoke(uint64_t a1)
   _os_log_impl(&dword_1B233B000, v10, v11, "%@ setting delegate %@ {asyncSetDelegate: %@}", buf, 0x20u);
 LABEL_11:
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __29__APSConnection_setDelegate___block_invoke;
-  v17[3] = &unk_1E7B220F0;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __29__APSConnection_setDelegate___block_invoke;
+  v16[3] = &unk_1E7B220F0;
+  v16[4] = self;
   v13 = delegateCopy;
-  v18 = v13;
-  v14 = MEMORY[0x1B2746DE0](v17);
+  v17 = v13;
+  v14 = MEMORY[0x1B2746DE0](v16);
   ivarQueue = self->_ivarQueue;
   if (v5)
   {
@@ -1325,13 +1304,11 @@ LABEL_11:
   {
     dispatch_sync(ivarQueue, v14);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __29__APSConnection_setDelegate___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);
@@ -1358,9 +1335,9 @@ void __29__APSConnection_setDelegate___block_invoke(uint64_t a1)
       v11 = *(a1 + 32);
       v12 = [*(v11 + 128) count];
       *buf = 138412546;
-      v33 = v11;
-      v34 = 2048;
-      v35 = v12;
+      v31 = v11;
+      v32 = 2048;
+      v33 = v12;
       v13 = v10;
       v14 = OS_LOG_TYPE_DEBUG;
 LABEL_8:
@@ -1373,38 +1350,38 @@ LABEL_8:
     v15 = *(a1 + 32);
     v16 = [*(v15 + 128) count];
     *buf = 138412546;
-    v33 = v15;
-    v34 = 2048;
-    v35 = v16;
+    v31 = v15;
+    v32 = 2048;
+    v33 = v16;
     v13 = v10;
     v14 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_8;
   }
 
-  v29 = 0u;
-  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v17 = *(*(a1 + 32) + 128);
-  v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v28;
+    v20 = *v26;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v28 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = MEMORY[0x1B2746DE0](*(*(&v27 + 1) + 8 * i));
-        [*(a1 + 32) _asyncOnDelegateQueueWithBlock:{v22, v27}];
+        v22 = MEMORY[0x1B2746DE0](*(*(&v25 + 1) + 8 * i));
+        [*(a1 + 32) _asyncOnDelegateQueueWithBlock:{v22, v25}];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v19);
@@ -1414,16 +1391,14 @@ LABEL_8:
   v24 = *(v23 + 128);
   *(v23 + 128) = 0;
 
-  v25 = *(a1 + 40);
 LABEL_17:
   [*(a1 + 32) setEnableStatusNotifications:objc_opt_respondsToSelector() & 1];
   objc_autoreleasePoolPop(v2);
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_asyncOnDelegateQueueWithBlock:(id)block requiresDelegate:(BOOL)delegate
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
@@ -1442,9 +1417,9 @@ LABEL_17:
       block[1] = 3221225472;
       block[2] = __65__APSConnection__asyncOnDelegateQueueWithBlock_requiresDelegate___block_invoke;
       block[3] = &unk_1E7B22118;
-      v29 = v14;
+      v28 = v14;
       delegateCopy = delegate;
-      v30 = blockCopy;
+      v29 = blockCopy;
       v16 = v14;
       dispatch_async(delegateQueue, block);
 
@@ -1490,12 +1465,12 @@ LABEL_19:
 
           v24 = dispatch_time(0, 5000000000);
           ivarQueue = self->_ivarQueue;
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __65__APSConnection__asyncOnDelegateQueueWithBlock_requiresDelegate___block_invoke_59;
-          v27[3] = &unk_1E7B220C8;
-          v27[4] = self;
-          dispatch_after(v24, ivarQueue, v27);
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __65__APSConnection__asyncOnDelegateQueueWithBlock_requiresDelegate___block_invoke_59;
+          v26[3] = &unk_1E7B220C8;
+          v26[4] = self;
+          dispatch_after(v24, ivarQueue, v26);
           queuedDelegateBlocks = self->_queuedDelegateBlocks;
         }
 
@@ -1534,8 +1509,6 @@ LABEL_23:
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __65__APSConnection__asyncOnDelegateQueueWithBlock_requiresDelegate___block_invoke(uint64_t a1)
@@ -1552,29 +1525,27 @@ void __65__APSConnection__asyncOnDelegateQueueWithBlock_requiresDelegate___block
 
 void __65__APSConnection__asyncOnDelegateQueueWithBlock_requiresDelegate___block_invoke_59(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(v3 + 128) count];
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2048;
-    v11 = v4;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ Flushing any queuedDelegateBlocks %lu", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v3;
+    v9 = 2048;
+    v10 = v4;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ Flushing any queuedDelegateBlocks %lu", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 128);
   *(v5 + 128) = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_noteDisconnectedFromDaemonOnIvarQueue
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = +[APSLog shouldReduceLogging];
   v4 = +[APSLog connection];
   v5 = v4;
@@ -1621,8 +1592,8 @@ LABEL_7:
     v12 = [allValues count];
     *buf = 138412546;
     selfCopy4 = self;
-    v37 = 2048;
-    v38 = v12;
+    v36 = 2048;
+    v37 = v12;
     v13 = v11;
     v14 = OS_LOG_TYPE_DEBUG;
   }
@@ -1637,8 +1608,8 @@ LABEL_7:
     v15 = [allValues count];
     *buf = 138412546;
     selfCopy4 = self;
-    v37 = 2048;
-    v38 = v15;
+    v36 = 2048;
+    v37 = v15;
     v13 = v11;
     v14 = OS_LOG_TYPE_DEFAULT;
   }
@@ -1646,42 +1617,40 @@ LABEL_7:
   _os_log_impl(&dword_1B233B000, v13, v14, "%@ failing %lu pending outgoing messages.", buf, 0x16u);
 LABEL_13:
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v16 = allValues;
-  v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        messageID = [*(*(&v30 + 1) + 8 * i) messageID];
-        v28 = APSError(1, @"APSD crashed", v22, v23, v24, v25, v26, v27, v30);
+        messageID = [*(*(&v29 + 1) + 8 * i) messageID];
+        v28 = APSError(1, @"APSD crashed", v22, v23, v24, v25, v26, v27, v29);
         [(APSConnection *)self _deliverOutgoingMessageResultWithID:messageID error:v28 sendRTT:0];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleEvent:(id)event withHandler:(id)handler errorHandler:(id)errorHandler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   handlerCopy = handler;
   errorHandlerCopy = errorHandler;
@@ -1705,8 +1674,8 @@ LABEL_13:
           }
 
           string = xpc_dictionary_get_string(eventCopy, *MEMORY[0x1E69E9E28]);
-          v31 = 136315138;
-          v32 = string;
+          v30 = 136315138;
+          v31 = string;
           v18 = v16;
           v19 = OS_LOG_TYPE_DEBUG;
         }
@@ -1719,13 +1688,13 @@ LABEL_13:
           }
 
           v27 = xpc_dictionary_get_string(eventCopy, *MEMORY[0x1E69E9E28]);
-          v31 = 136315138;
-          v32 = v27;
+          v30 = 136315138;
+          v31 = v27;
           v18 = v16;
           v19 = OS_LOG_TYPE_DEFAULT;
         }
 
-        _os_log_impl(&dword_1B233B000, v18, v19, "Unexpected error for service: %s", &v31, 0xCu);
+        _os_log_impl(&dword_1B233B000, v18, v19, "Unexpected error for service: %s", &v30, 0xCu);
 LABEL_19:
 
         if (!errorHandlerCopy)
@@ -1743,7 +1712,7 @@ LABEL_19:
           goto LABEL_31;
         }
 
-        LOWORD(v31) = 0;
+        LOWORD(v30) = 0;
         v25 = v16;
         v26 = OS_LOG_TYPE_DEBUG;
       }
@@ -1755,15 +1724,15 @@ LABEL_19:
           goto LABEL_31;
         }
 
-        LOWORD(v31) = 0;
+        LOWORD(v30) = 0;
         v25 = v16;
         v26 = OS_LOG_TYPE_DEFAULT;
       }
 
-      _os_log_impl(&dword_1B233B000, v25, v26, "_handleEventWithHandler: Connection Invalid for service", &v31, 2u);
+      _os_log_impl(&dword_1B233B000, v25, v26, "_handleEventWithHandler: Connection Invalid for service", &v30, 2u);
 LABEL_31:
 
-      __APSConnectionInvalidationHandlerBlock_block_invoke(v30, self->_connection);
+      __APSConnectionInvalidationHandlerBlock_block_invoke(v29, self->_connection);
       if (!errorHandlerCopy)
       {
         goto LABEL_27;
@@ -1779,17 +1748,17 @@ LABEL_31:
     {
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v31) = 0;
+        LOWORD(v30) = 0;
         v23 = v22;
         v24 = OS_LOG_TYPE_DEBUG;
 LABEL_23:
-        _os_log_impl(&dword_1B233B000, v23, v24, "_handleEventWithHandler: Interrupted connection to service", &v31, 2u);
+        _os_log_impl(&dword_1B233B000, v23, v24, "_handleEventWithHandler: Interrupted connection to service", &v30, 2u);
       }
     }
 
     else if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
+      LOWORD(v30) = 0;
       v23 = v22;
       v24 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_23;
@@ -1819,13 +1788,11 @@ LABEL_26:
 
 LABEL_27:
   objc_autoreleasePoolPop(v11);
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reconnectIfNecessaryOnIvarQueueAfterDelay
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self->_isReconnectScheduled)
   {
     v3 = +[APSLog shouldReduceLogging];
@@ -1904,8 +1871,8 @@ LABEL_21:
       v19 = self->_reconnectDelay;
       *buf = 138412546;
       selfCopy6 = self;
-      v26 = 2048;
-      v27 = v19;
+      v25 = 2048;
+      v26 = v19;
       v6 = "%@: Will attempt reconnect in %f seconds";
       v9 = v5;
       v10 = OS_LOG_TYPE_DEBUG;
@@ -1918,11 +1885,11 @@ LABEL_21:
         goto LABEL_24;
       }
 
-      v22 = self->_reconnectDelay;
+      v21 = self->_reconnectDelay;
       *buf = 138412546;
       selfCopy6 = self;
-      v26 = 2048;
-      v27 = v22;
+      v25 = 2048;
+      v26 = v21;
       v6 = "%@: Will attempt reconnect in %f seconds";
       v9 = v5;
       v10 = OS_LOG_TYPE_DEFAULT;
@@ -1957,8 +1924,6 @@ LABEL_21:
   }
 
 LABEL_24:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 _BYTE *__59__APSConnection__reconnectIfNecessaryOnIvarQueueAfterDelay__block_invoke(uint64_t a1)
@@ -2007,7 +1972,7 @@ _BYTE *__59__APSConnection__reconnectIfNecessaryOnIvarQueueAfterDelay__block_inv
 
 - (void)_cancelConnectionOnIvarQueue
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = +[APSLog shouldReduceLogging];
   v4 = +[APSLog connection];
   v5 = v4;
@@ -2018,7 +1983,7 @@ _BYTE *__59__APSConnection__reconnectIfNecessaryOnIvarQueueAfterDelay__block_inv
       goto LABEL_7;
     }
 
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy2 = self;
     v6 = v5;
     v7 = OS_LOG_TYPE_DEBUG;
@@ -2031,13 +1996,13 @@ _BYTE *__59__APSConnection__reconnectIfNecessaryOnIvarQueueAfterDelay__block_inv
       goto LABEL_7;
     }
 
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy2 = self;
     v6 = v5;
     v7 = OS_LOG_TYPE_DEFAULT;
   }
 
-  _os_log_impl(&dword_1B233B000, v6, v7, "%@ _cancelConnection called", &v11, 0xCu);
+  _os_log_impl(&dword_1B233B000, v6, v7, "%@ _cancelConnection called", &v10, 0xCu);
 LABEL_7:
 
   connection = self->_connection;
@@ -2049,8 +2014,6 @@ LABEL_7:
 
     [(APSConnection *)self _deliverConnectionStatusChange:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelConnection
@@ -2087,7 +2050,7 @@ LABEL_7:
 
 - (void)_disconnectFromDealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = +[APSLog shouldReduceLogging];
   v4 = +[APSLog connection];
   v5 = v4;
@@ -2095,18 +2058,18 @@ LABEL_7:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
+      v8 = 138412290;
       selfCopy2 = self;
       v6 = v5;
       v7 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v6, v7, "%@ _disconnectFromDealloc", &v9, 0xCu);
+      _os_log_impl(&dword_1B233B000, v6, v7, "%@ _disconnectFromDealloc", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     selfCopy2 = self;
     v6 = v5;
     v7 = OS_LOG_TYPE_DEFAULT;
@@ -2114,7 +2077,6 @@ LABEL_6:
   }
 
   [(APSConnection *)self _disconnectOnIvarQueue];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleInRunLoop:(id)loop
@@ -2139,14 +2101,14 @@ LABEL_6:
 
 uint64_t __35__APSConnection_scheduleInRunLoop___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v19 = 138412290;
-    v20 = v3;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ scheduleInRunLoop called", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v3;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ scheduleInRunLoop called", &v18, 0xCu);
   }
 
   if (*(*(a1 + 32) + 112))
@@ -2175,9 +2137,9 @@ uint64_t __35__APSConnection_scheduleInRunLoop___block_invoke(uint64_t a1)
     if (v10)
     {
       v13 = *(a1 + 32);
-      v19 = 138412290;
-      v20 = v13;
-      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ scheduleInRunLoop called with main runloop. Scheduling on main serial queue.", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v13;
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ scheduleInRunLoop called with main runloop. Scheduling on main serial queue.", &v18, 0xCu);
     }
 
     v12 = MEMORY[0x1E69E96A0];
@@ -2189,9 +2151,9 @@ uint64_t __35__APSConnection_scheduleInRunLoop___block_invoke(uint64_t a1)
     if (v10)
     {
       v11 = *(a1 + 32);
-      v19 = 138412290;
-      v20 = v11;
-      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ scheduleInRunLoop called with non-main runloop. Scheduling on non-main serial queue.", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v11;
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ scheduleInRunLoop called with non-main runloop. Scheduling on non-main serial queue.", &v18, 0xCu);
     }
 
     v12 = dispatch_queue_create("APSConnectionQueue", 0);
@@ -2201,14 +2163,12 @@ uint64_t __35__APSConnection_scheduleInRunLoop___block_invoke(uint64_t a1)
   v16 = *(v15 + 112);
   *(v15 + 112) = v12;
 
-  result = [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
 }
 
 - (void)removeFromRunLoop
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = +[APSLog shouldReduceLogging];
   v4 = +[APSLog connection];
   v5 = v4;
@@ -2234,13 +2194,12 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __34__APSConnection_removeFromRunLoop__block_invoke;
-  v9[3] = &unk_1E7B220C8;
-  v9[4] = self;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v9];
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __34__APSConnection_removeFromRunLoop__block_invoke;
+  v8[3] = &unk_1E7B220C8;
+  v8[4] = self;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v8];
 }
 
 uint64_t __34__APSConnection_removeFromRunLoop__block_invoke(uint64_t a1)
@@ -2260,7 +2219,7 @@ uint64_t __34__APSConnection_removeFromRunLoop__block_invoke(uint64_t a1)
 - (void)_onIvarQueue_setEnabledTopics:(id)topics ignoredTopics:(id)ignoredTopics opportunisticTopics:(id)opportunisticTopics nonWakingTopics:(id)wakingTopics sendToDaemon:(BOOL)daemon completion:(id)completion
 {
   daemonCopy = daemon;
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   topicsCopy = topics;
   ignoredTopicsCopy = ignoredTopics;
   opportunisticTopicsCopy = opportunisticTopics;
@@ -2287,19 +2246,19 @@ uint64_t __34__APSConnection_removeFromRunLoop__block_invoke(uint64_t a1)
       v24 = MEMORY[0x1B2746DE0](completionCopy);
       *buf = 138413826;
       selfCopy6 = self;
-      v63 = 2112;
-      v64 = topicsCopy;
-      v65 = 2112;
-      v66 = ignoredTopicsCopy;
-      v67 = 2112;
-      v68 = opportunisticTopicsCopy;
-      v69 = 2112;
-      v70 = wakingTopicsCopy;
-      v71 = 2112;
-      v72 = v23;
+      v62 = 2112;
+      v63 = topicsCopy;
+      v64 = 2112;
+      v65 = ignoredTopicsCopy;
+      v66 = 2112;
+      v67 = opportunisticTopicsCopy;
+      v68 = 2112;
+      v69 = wakingTopicsCopy;
+      v70 = 2112;
+      v71 = v23;
       v19 = 0x1E7B21000;
-      v73 = 2112;
-      v74 = v24;
+      v72 = 2112;
+      v73 = v24;
       v25 = v22;
       v26 = OS_LOG_TYPE_DEBUG;
 LABEL_12:
@@ -2322,19 +2281,19 @@ LABEL_12:
     v24 = MEMORY[0x1B2746DE0](completionCopy);
     *buf = 138413826;
     selfCopy6 = self;
-    v63 = 2112;
-    v64 = topicsCopy;
-    v65 = 2112;
-    v66 = ignoredTopicsCopy;
-    v67 = 2112;
-    v68 = opportunisticTopicsCopy;
-    v69 = 2112;
-    v70 = wakingTopicsCopy;
-    v71 = 2112;
-    v72 = v27;
+    v62 = 2112;
+    v63 = topicsCopy;
+    v64 = 2112;
+    v65 = ignoredTopicsCopy;
+    v66 = 2112;
+    v67 = opportunisticTopicsCopy;
+    v68 = 2112;
+    v69 = wakingTopicsCopy;
+    v70 = 2112;
+    v71 = v27;
     v19 = 0x1E7B21000uLL;
-    v73 = 2112;
-    v74 = v24;
+    v72 = 2112;
+    v73 = v24;
     v25 = v22;
     v26 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_12;
@@ -2452,13 +2411,11 @@ LABEL_28:
   handler[2] = __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke;
   handler[3] = &unk_1E7B22228;
   handler[4] = self;
-  v60 = completionCopy;
+  v59 = completionCopy;
   xpc_connection_send_message_with_reply(connection, v44, ivarQueue, handler);
 
 LABEL_43:
   objc_autoreleasePoolPop(v28);
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -2480,27 +2437,25 @@ void __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunis
   v4 = *(a1 + 40);
   if (v4)
   {
-    v7 = *(a1 + 32);
-    v6 = (a1 + 32);
-    v5 = v7;
-    v8 = *(v7 + 112);
-    if (v8)
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 112);
+    if (v6)
     {
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke_3;
-      v10[3] = &unk_1E7B221D8;
-      v10[4] = v5;
-      v11 = v4;
-      dispatch_async(v8, v10);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke_3;
+      v8[3] = &unk_1E7B221D8;
+      v8[4] = v5;
+      v9 = v4;
+      dispatch_async(v6, v8);
     }
 
     else
     {
-      v9 = +[APSLog connection];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v7 = +[APSLog connection];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke_2_cold_1(v6);
+        __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke_2_cold_1();
       }
     }
   }
@@ -2508,7 +2463,7 @@ void __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunis
 
 uint64_t __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
@@ -2517,28 +2472,26 @@ uint64_t __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opport
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v5 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v5;
+      v11 = 138412290;
+      v12 = v5;
       v6 = v4;
       v7 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v6, v7, "%@ calling topics completion", &v12, 0xCu);
+      _os_log_impl(&dword_1B233B000, v6, v7, "%@ calling topics completion", &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v12 = 138412290;
-    v13 = v8;
+    v11 = 138412290;
+    v12 = v8;
     v6 = v4;
     v7 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), v9);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), v9);
 }
 
 - (void)_setEnabledTopics:(id)topics ignoredTopics:(id)ignoredTopics opportunisticTopics:(id)opportunisticTopics nonWakingTopics:(id)wakingTopics sendToDaemon:(BOOL)daemon completion:(id)completion
@@ -2740,10 +2693,7 @@ LABEL_6:
 
 uint64_t __30__APSConnection_enabledTopics__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 192) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 192) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2772,10 +2722,7 @@ uint64_t __30__APSConnection_enabledTopics__block_invoke(uint64_t a1)
 
 uint64_t __30__APSConnection_ignoredTopics__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 200) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 200) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2804,10 +2751,7 @@ uint64_t __30__APSConnection_ignoredTopics__block_invoke(uint64_t a1)
 
 uint64_t __36__APSConnection_opportunisticTopics__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 208) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 208) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2836,10 +2780,7 @@ uint64_t __36__APSConnection_opportunisticTopics__block_invoke(uint64_t a1)
 
 uint64_t __32__APSConnection_nonWakingTopics__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 216) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 216) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2859,7 +2800,7 @@ uint64_t __32__APSConnection_nonWakingTopics__block_invoke(uint64_t a1)
 
 - (void)moveTopic:(id)topic fromList:(unint64_t)list toList:(unint64_t)toList
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (topic)
   {
     topicCopy = topic;
@@ -2867,15 +2808,13 @@ uint64_t __32__APSConnection_nonWakingTopics__block_invoke(uint64_t a1)
     topicCopy2 = topic;
     v10 = [v8 arrayWithObjects:&topicCopy count:1];
 
-    [(APSConnection *)self moveTopics:v10 fromList:list toList:toList, topicCopy, v13];
+    [(APSConnection *)self moveTopics:v10 fromList:list toList:toList, topicCopy, v12];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)moveTopics:(id)topics fromList:(unint64_t)list toList:(unint64_t)toList
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   topicsCopy = topics;
   v9 = [topicsCopy count];
   if (list == toList || (toList | list) > 3 || !v9)
@@ -2894,12 +2833,12 @@ uint64_t __32__APSConnection_nonWakingTopics__block_invoke(uint64_t a1)
       v14 = [(APSConnection *)self _topicListNameForLogging:toList];
       *buf = 138413058;
       selfCopy2 = self;
-      v38 = 2112;
-      v39 = topicsCopy;
-      v40 = 2112;
-      v41 = v13;
-      v42 = 2112;
-      v43 = v14;
+      v37 = 2112;
+      v38 = topicsCopy;
+      v39 = 2112;
+      v40 = v13;
+      v41 = 2112;
+      v42 = v14;
       v15 = v12;
       v16 = OS_LOG_TYPE_DEBUG;
 LABEL_9:
@@ -2913,12 +2852,12 @@ LABEL_9:
     v14 = [(APSConnection *)self _topicListNameForLogging:toList];
     *buf = 138413058;
     selfCopy2 = self;
-    v38 = 2112;
-    v39 = topicsCopy;
-    v40 = 2112;
-    v41 = v13;
-    v42 = 2112;
-    v43 = v14;
+    v37 = 2112;
+    v38 = topicsCopy;
+    v39 = 2112;
+    v40 = v13;
+    v41 = 2112;
+    v42 = v14;
     v15 = v12;
     v16 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_9;
@@ -2933,26 +2872,26 @@ LABEL_9:
     self->_accumulatedTopicMoves = v17;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v19 = topicsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v32;
+    v22 = *v31;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v32 != v22)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v31 + 1) + 8 * i);
+        v24 = *(*(&v30 + 1) + 8 * i);
         v25 = objc_alloc_init(_APSTopicMove);
         [(_APSTopicMove *)v25 setTopic:v24];
         [(_APSTopicMove *)v25 setFromListID:list];
@@ -2960,7 +2899,7 @@ LABEL_9:
         [(NSMutableArray *)self->_accumulatedTopicMoves addObject:v25];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v21);
@@ -2980,15 +2919,13 @@ LABEL_9:
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setTrackActivityPresence:(BOOL)presence sendToDaemon:(BOOL)daemon
 {
   daemonCopy = daemon;
   presenceCopy = presence;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = +[APSLog shouldReduceLogging];
   v8 = +[APSLog connection];
   v9 = v8;
@@ -3009,15 +2946,15 @@ LABEL_21:
 
       *buf = 138412802;
       selfCopy2 = self;
-      v23 = v11;
-      v22 = 2112;
+      v22 = v11;
+      v21 = 2112;
       if (daemonCopy)
       {
         v10 = @"YES";
       }
 
-      v24 = 2112;
-      v25 = v10;
+      v23 = 2112;
+      v24 = v10;
       v12 = v9;
       v13 = OS_LOG_TYPE_DEBUG;
 LABEL_16:
@@ -3040,34 +2977,33 @@ LABEL_16:
 
     *buf = 138412802;
     selfCopy2 = self;
-    v23 = v15;
-    v22 = 2112;
+    v22 = v15;
+    v21 = 2112;
     if (daemonCopy)
     {
       v14 = @"YES";
     }
 
-    v24 = 2112;
-    v25 = v14;
+    v23 = 2112;
+    v24 = v14;
     v12 = v9;
     v13 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_16;
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __56__APSConnection__setTrackActivityPresence_sendToDaemon___block_invoke;
-  v17[3] = &unk_1E7B22368;
-  v17[4] = self;
-  v18 = presenceCopy;
-  v19 = daemonCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v17];
-  v16 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __56__APSConnection__setTrackActivityPresence_sendToDaemon___block_invoke;
+  v16[3] = &unk_1E7B22368;
+  v16[4] = self;
+  v17 = presenceCopy;
+  v18 = daemonCopy;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v16];
 }
 
 void __56__APSConnection__setTrackActivityPresence_sendToDaemon___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 71) != v2)
@@ -3100,14 +3036,12 @@ void __56__APSConnection__setTrackActivityPresence_sendToDaemon___block_invoke(u
         {
           v15 = *(a1 + 32);
           *buf = 138412290;
-          v19 = v15;
+          v18 = v15;
           _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ _connection is NULL in _setTrackActivityPresence!", buf, 0xCu);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __56__APSConnection__setTrackActivityPresence_sendToDaemon___block_invoke_2(uint64_t a1, void *a2)
@@ -3151,7 +3085,7 @@ uint64_t __56__APSConnection__setTrackActivityPresence_sendToDaemon___block_invo
   return v3;
 }
 
-uint64_t __38__APSConnection_trackActivityPresence__block_invoke(uint64_t a1)
+void *__38__APSConnection_trackActivityPresence__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 71);
@@ -3159,6 +3093,47 @@ uint64_t __38__APSConnection_trackActivityPresence__block_invoke(uint64_t a1)
 }
 
 - (void)setMessageSize:(unint64_t)size
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v5 = +[APSLog shouldReduceLogging];
+  v6 = +[APSLog connection];
+  v7 = v6;
+  if (v5)
+  {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412546;
+      selfCopy2 = self;
+      v13 = 2048;
+      sizeCopy2 = size;
+      v8 = v7;
+      v9 = OS_LOG_TYPE_DEBUG;
+LABEL_6:
+      _os_log_impl(&dword_1B233B000, v8, v9, "%@ setMessageSize: %lu", buf, 0x16u);
+    }
+  }
+
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    selfCopy2 = self;
+    v13 = 2048;
+    sizeCopy2 = size;
+    v8 = v7;
+    v9 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_6;
+  }
+
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __32__APSConnection_setMessageSize___block_invoke;
+  v10[3] = &unk_1E7B22390;
+  v10[4] = self;
+  v10[5] = size;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v10];
+}
+
+- (void)setLargeMessageSize:(unint64_t)size
 {
   v16 = *MEMORY[0x1E69E9840];
   v5 = +[APSLog shouldReduceLogging];
@@ -3175,7 +3150,7 @@ uint64_t __38__APSConnection_trackActivityPresence__block_invoke(uint64_t a1)
       v8 = v7;
       v9 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-      _os_log_impl(&dword_1B233B000, v8, v9, "%@ setMessageSize: %lu", buf, 0x16u);
+      _os_log_impl(&dword_1B233B000, v8, v9, "%@ setLargeMessageSize: %lu", buf, 0x16u);
     }
   }
 
@@ -3190,57 +3165,14 @@ LABEL_6:
     goto LABEL_6;
   }
 
+  ivarQueue = self->_ivarQueue;
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __32__APSConnection_setMessageSize___block_invoke;
+  v11[2] = __37__APSConnection_setLargeMessageSize___block_invoke;
   v11[3] = &unk_1E7B22390;
   v11[4] = self;
   v11[5] = size;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v11];
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setLargeMessageSize:(unint64_t)size
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v5 = +[APSLog shouldReduceLogging];
-  v6 = +[APSLog connection];
-  v7 = v6;
-  if (v5)
-  {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 138412546;
-      selfCopy2 = self;
-      v15 = 2048;
-      sizeCopy2 = size;
-      v8 = v7;
-      v9 = OS_LOG_TYPE_DEBUG;
-LABEL_6:
-      _os_log_impl(&dword_1B233B000, v8, v9, "%@ setLargeMessageSize: %lu", buf, 0x16u);
-    }
-  }
-
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412546;
-    selfCopy2 = self;
-    v15 = 2048;
-    sizeCopy2 = size;
-    v8 = v7;
-    v9 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_6;
-  }
-
-  ivarQueue = self->_ivarQueue;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __37__APSConnection_setLargeMessageSize___block_invoke;
-  v12[3] = &unk_1E7B22390;
-  v12[4] = self;
-  v12[5] = size;
-  dispatch_async(ivarQueue, v12);
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_async(ivarQueue, v11);
 }
 
 + (__SecIdentity)copyIdentity
@@ -3287,7 +3219,7 @@ void __29__APSConnection_copyIdentity__block_invoke(uint64_t a1)
 
 CFTypeRef __29__APSConnection_copyIdentity__block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = sIdentity;
   v3 = +[APSLog connection];
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -3301,9 +3233,7 @@ CFTypeRef __29__APSConnection_copyIdentity__block_invoke_2(uint64_t a1)
 
     *(*(*(a1 + 32) + 8) + 24) = sIdentity;
     v5 = *(*(*(a1 + 32) + 8) + 24);
-LABEL_5:
-    v5 = CFRetain(v5);
-    goto LABEL_6;
+    return CFRetain(v5);
   }
 
   if (v4)
@@ -3317,29 +3247,29 @@ LABEL_5:
   CFDictionaryAddValue(Mutable, *MEMORY[0x1E697ABD0], @"com.apple.apsd");
   CFDictionaryAddValue(Mutable, *MEMORY[0x1E697ADC8], @"APSClientIdentity");
   CFDictionaryAddValue(Mutable, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B010]);
-  v8 = *MEMORY[0x1E695E4D0];
+  v7 = *MEMORY[0x1E695E4D0];
   CFDictionaryAddValue(Mutable, *MEMORY[0x1E697B328], *MEMORY[0x1E695E4D0]);
-  v9 = +[APSMultiUserMode sharedInstance];
-  v10 = [v9 isMultiUser];
+  v8 = +[APSMultiUserMode sharedInstance];
+  v9 = [v8 isMultiUser];
 
-  if (v10)
+  if (v9)
   {
-    CFDictionaryAddValue(Mutable, *MEMORY[0x1E697B3A8], v8);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x1E697B3A8], v7);
   }
 
-  v11 = SecItemCopyMatching(Mutable, &result);
-  if (v11 != -25300 && v11)
+  v10 = SecItemCopyMatching(Mutable, &result);
+  if (v10 != -25300 && v10)
   {
-    v16 = v11;
-    NSLog(&cfstr_Secitemcopymat.isa, v11);
-    v12 = +[APSLog connection];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = v10;
+    NSLog(&cfstr_Secitemcopymat.isa, v10);
+    v11 = +[APSLog connection];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v20 = v16;
-      v13 = "SecItemCopyMatching() failed: %ld";
-      v14 = v12;
-      v15 = 12;
+      v19 = v15;
+      v12 = "SecItemCopyMatching() failed: %ld";
+      v13 = v11;
+      v14 = 12;
       goto LABEL_18;
     }
 
@@ -3351,15 +3281,15 @@ LABEL_19:
   if (!result)
   {
     NSLog(&cfstr_NoIdentityFoun.isa);
-    v12 = +[APSLog connection];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = +[APSLog connection];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v13 = "No identity found!";
-      v14 = v12;
-      v15 = 2;
+      v12 = "No identity found!";
+      v13 = v11;
+      v14 = 2;
 LABEL_18:
-      _os_log_impl(&dword_1B233B000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
       goto LABEL_19;
     }
 
@@ -3378,18 +3308,16 @@ LABEL_20:
 
     *&copyIdentity_sCacheMachAge = *&copyIdentity_sTimeScale * mach_absolute_time();
     sIdentity = result;
-    v17 = dispatch_time(0, 60000000000);
-    dispatch_after(v17, sIdentityQueue, &__block_literal_global_131);
+    v16 = dispatch_time(0, 60000000000);
+    dispatch_after(v16, sIdentityQueue, &__block_literal_global_131);
     *(*(*(a1 + 32) + 8) + 24) = sIdentity;
     v5 = *(*(*(a1 + 32) + 8) + 24);
     if (v5)
     {
-      goto LABEL_5;
+      return CFRetain(v5);
     }
   }
 
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -3718,7 +3646,7 @@ void __40__APSConnection_rollTokensAndReconnect___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __28__APSConnection_isConnected__block_invoke(uint64_t a1)
+void *__28__APSConnection_isConnected__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 70);
@@ -3729,7 +3657,7 @@ uint64_t __28__APSConnection_isConnected__block_invoke(uint64_t a1)
 {
   daemonCopy = daemon;
   reliabilityCopy = reliability;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = +[APSLog shouldReduceLogging];
   v8 = +[APSLog connection];
   v9 = v8;
@@ -3750,15 +3678,15 @@ uint64_t __28__APSConnection_isConnected__block_invoke(uint64_t a1)
 
       *buf = 138412802;
       selfCopy2 = self;
-      v23 = v11;
-      v22 = 2112;
+      v22 = v11;
+      v21 = 2112;
       if (daemonCopy)
       {
         v10 = @"YES";
       }
 
-      v24 = 2112;
-      v25 = v10;
+      v23 = 2112;
+      v24 = v10;
       v12 = v9;
       v13 = OS_LOG_TYPE_DEBUG;
 LABEL_16:
@@ -3781,34 +3709,33 @@ LABEL_16:
 
     *buf = 138412802;
     selfCopy2 = self;
-    v23 = v15;
-    v22 = 2112;
+    v22 = v15;
+    v21 = 2112;
     if (daemonCopy)
     {
       v14 = @"YES";
     }
 
-    v24 = 2112;
-    v25 = v14;
+    v23 = 2112;
+    v24 = v14;
     v12 = v9;
     v13 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_16;
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_invoke;
-  v17[3] = &unk_1E7B22368;
-  v17[4] = self;
-  v18 = reliabilityCopy;
-  v19 = daemonCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v17];
-  v16 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_invoke;
+  v16[3] = &unk_1E7B22368;
+  v16[4] = self;
+  v17 = reliabilityCopy;
+  v18 = daemonCopy;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v16];
 }
 
 void __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 68) != v2)
@@ -3841,14 +3768,12 @@ void __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_invo
         {
           v15 = *(a1 + 32);
           *buf = 138412290;
-          v19 = v15;
+          v18 = v15;
           _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ _connection is NULL in _sendEnableCriticalReliability!", buf, 0xCu);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_invoke_2(uint64_t a1, void *a2)
@@ -3877,7 +3802,7 @@ uint64_t __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_
 {
   daemonCopy = daemon;
   notificationsCopy = notifications;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = +[APSLog shouldReduceLogging];
   v8 = +[APSLog connection];
   v9 = v8;
@@ -3898,15 +3823,15 @@ uint64_t __60__APSConnection__setEnableCriticalReliability_sendToDaemon___block_
 
       *buf = 138412802;
       selfCopy2 = self;
-      v23 = v11;
-      v22 = 2112;
+      v22 = v11;
+      v21 = 2112;
       if (daemonCopy)
       {
         v10 = @"YES";
       }
 
-      v24 = 2112;
-      v25 = v10;
+      v23 = 2112;
+      v24 = v10;
       v12 = v9;
       v13 = OS_LOG_TYPE_DEBUG;
 LABEL_16:
@@ -3929,34 +3854,33 @@ LABEL_16:
 
     *buf = 138412802;
     selfCopy2 = self;
-    v23 = v15;
-    v22 = 2112;
+    v22 = v15;
+    v21 = 2112;
     if (daemonCopy)
     {
       v14 = @"YES";
     }
 
-    v24 = 2112;
-    v25 = v14;
+    v23 = 2112;
+    v24 = v14;
     v12 = v9;
     v13 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_16;
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_invoke;
-  v17[3] = &unk_1E7B22368;
-  v17[4] = self;
-  v18 = notificationsCopy;
-  v19 = daemonCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v17];
-  v16 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_invoke;
+  v16[3] = &unk_1E7B22368;
+  v16[4] = self;
+  v17 = notificationsCopy;
+  v18 = daemonCopy;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v16];
 }
 
 void __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 69) != v2)
@@ -3989,14 +3913,12 @@ void __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_invo
         {
           v15 = *(a1 + 32);
           *buf = 138412290;
-          v19 = v15;
+          v18 = v15;
           _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ _connection is NULL in _sendEnableStatusNotifications.", buf, 0xCu);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_invoke_2(uint64_t a1, void *a2)
@@ -4049,7 +3971,7 @@ uint64_t __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_
 
 - (void)_deliverMessage:(id)message
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = +[APSLog shouldReduceLogging];
   v6 = +[APSLog connection];
@@ -4065,12 +3987,12 @@ uint64_t __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_
     topic = [messageCopy topic];
     *buf = 138413058;
     selfCopy9 = self;
-    v35 = 2112;
-    v36 = messageCopy;
-    v37 = 2048;
-    v38 = identifier;
-    v39 = 2112;
-    v40 = topic;
+    v34 = 2112;
+    v35 = messageCopy;
+    v36 = 2048;
+    v37 = identifier;
+    v38 = 2112;
+    v39 = topic;
     v10 = v7;
     v11 = OS_LOG_TYPE_DEBUG;
   }
@@ -4086,12 +4008,12 @@ uint64_t __60__APSConnection__setEnableStatusNotifications_sendToDaemon___block_
     topic = [messageCopy topic];
     *buf = 138413058;
     selfCopy9 = self;
-    v35 = 2112;
-    v36 = messageCopy;
-    v37 = 2048;
-    v38 = identifier2;
-    v39 = 2112;
-    v40 = topic;
+    v34 = 2112;
+    v35 = messageCopy;
+    v36 = 2048;
+    v37 = identifier2;
+    v38 = 2112;
+    v39 = topic;
     v10 = v7;
     v11 = OS_LOG_TYPE_DEFAULT;
   }
@@ -4105,8 +4027,8 @@ LABEL_7:
     tracingUUID = [messageCopy tracingUUID];
     *buf = 138412546;
     selfCopy9 = self;
-    v35 = 2112;
-    v36 = tracingUUID;
+    v34 = 2112;
+    v35 = tracingUUID;
     _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ Delivering message from apsd. UUID: %@", buf, 0x16u);
   }
 
@@ -4162,8 +4084,8 @@ LABEL_32:
       {
         *buf = 138412546;
         selfCopy9 = self;
-        v35 = 2112;
-        v36 = messageCopy;
+        v34 = 2112;
+        v35 = messageCopy;
         v20 = "%@ Received empty topic from apsd: %@";
 LABEL_25:
         v21 = v19;
@@ -4185,8 +4107,8 @@ LABEL_33:
 
     *buf = 138412546;
     selfCopy9 = self;
-    v35 = 2112;
-    v36 = messageCopy;
+    v34 = 2112;
+    v35 = messageCopy;
     v20 = "%@ Received empty topic from apsd: %@";
 LABEL_30:
     v21 = v19;
@@ -4205,8 +4127,8 @@ LABEL_30:
       {
         *buf = 138412546;
         selfCopy9 = self;
-        v35 = 2112;
-        v36 = messageCopy;
+        v34 = 2112;
+        v35 = messageCopy;
         v20 = "%@ Received empty userInfo from apsd: %@";
         goto LABEL_25;
       }
@@ -4221,80 +4143,79 @@ LABEL_30:
 
     *buf = 138412546;
     selfCopy9 = self;
-    v35 = 2112;
-    v36 = messageCopy;
+    v34 = 2112;
+    v35 = messageCopy;
     v20 = "%@ Received empty userInfo from apsd: %@";
     goto LABEL_30;
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __33__APSConnection__deliverMessage___block_invoke;
-  v29[3] = &unk_1E7B222C8;
-  v29[4] = self;
-  v30 = topic2;
-  v31 = messageCopy;
-  v32 = userInfo;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v29];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __33__APSConnection__deliverMessage___block_invoke;
+  v28[3] = &unk_1E7B222C8;
+  v28[4] = self;
+  v29 = topic2;
+  v30 = messageCopy;
+  v31 = userInfo;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v28];
 
 LABEL_34:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __33__APSConnection__deliverMessage___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = dispatch_group_create();
   if (([*(*(a1 + 32) + 192) containsObject:*(a1 + 40)] & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 192), "containsObject:", @"*") & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 208), "containsObject:", *(a1 + 40)) & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 208), "containsObject:", @"*") & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 216), "containsObject:", *(a1 + 40)) & 1) == 0 && !objc_msgSend(*(*(a1 + 32) + 216), "containsObject:", @"*"))
   {
-    v12 = +[APSLog shouldReduceLogging];
-    v13 = +[APSLog connection];
-    v14 = v13;
-    if (v12)
+    v11 = +[APSLog shouldReduceLogging];
+    v12 = +[APSLog connection];
+    v13 = v12;
+    if (v11)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v15 = *(a1 + 32);
-        v16 = *(a1 + 48);
-        v17 = v15[24];
-        v18 = v15[26];
-        v19 = v15[27];
+        v14 = *(a1 + 32);
+        v15 = *(a1 + 48);
+        v16 = v14[24];
+        v17 = v14[26];
+        v18 = v14[27];
         *buf = 138413314;
-        v34 = v15;
-        v35 = 2112;
-        v36 = v16;
-        v37 = 2112;
-        v38 = v17;
-        v39 = 2112;
-        v40 = v18;
-        v41 = 2112;
-        v42 = v19;
-        v20 = v14;
-        v21 = OS_LOG_TYPE_DEBUG;
+        v33 = v14;
+        v34 = 2112;
+        v35 = v15;
+        v36 = 2112;
+        v37 = v16;
+        v38 = 2112;
+        v39 = v17;
+        v40 = 2112;
+        v41 = v18;
+        v19 = v13;
+        v20 = OS_LOG_TYPE_DEBUG;
 LABEL_14:
-        _os_log_impl(&dword_1B233B000, v20, v21, "%@ Received message from apsd: %@ but it didn't match the enabled topics: %@ or opportunistic topics: %@ or non-waking topics: %@", buf, 0x34u);
+        _os_log_impl(&dword_1B233B000, v19, v20, "%@ Received message from apsd: %@ but it didn't match the enabled topics: %@ or opportunistic topics: %@ or non-waking topics: %@", buf, 0x34u);
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(a1 + 32);
-      v23 = *(a1 + 48);
-      v24 = v22[24];
-      v25 = v22[26];
-      v26 = v22[27];
+      v21 = *(a1 + 32);
+      v22 = *(a1 + 48);
+      v23 = v21[24];
+      v24 = v21[26];
+      v25 = v21[27];
       *buf = 138413314;
-      v34 = v22;
-      v35 = 2112;
-      v36 = v23;
-      v37 = 2112;
-      v38 = v24;
-      v39 = 2112;
-      v40 = v25;
-      v41 = 2112;
-      v42 = v26;
-      v20 = v14;
-      v21 = OS_LOG_TYPE_DEFAULT;
+      v33 = v21;
+      v34 = 2112;
+      v35 = v22;
+      v36 = 2112;
+      v37 = v23;
+      v38 = 2112;
+      v39 = v24;
+      v40 = 2112;
+      v41 = v25;
+      v19 = v13;
+      v20 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_14;
     }
 
@@ -4302,10 +4223,10 @@ LABEL_14:
   }
 
   dispatch_group_enter(v2);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __33__APSConnection__deliverMessage___block_invoke_2;
-  v29[3] = &unk_1E7B22458;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __33__APSConnection__deliverMessage___block_invoke_2;
+  v28[3] = &unk_1E7B22458;
   v3 = *(a1 + 32);
   v4 = *(a1 + 48);
   v5 = *(a1 + 56);
@@ -4314,10 +4235,10 @@ LABEL_14:
   *(&v7 + 1) = v6;
   *&v8 = v3;
   *(&v8 + 1) = v4;
-  v30 = v8;
-  v31 = v7;
-  v32 = v2;
-  [v3 _asyncOnDelegateQueueWithBlock:v29];
+  v29 = v8;
+  v30 = v7;
+  v31 = v2;
+  [v3 _asyncOnDelegateQueueWithBlock:v28];
 
 LABEL_8:
   v9 = *(a1 + 32);
@@ -4327,15 +4248,13 @@ LABEL_8:
   block[2] = __33__APSConnection__deliverMessage___block_invoke_153;
   block[3] = &unk_1E7B220F0;
   block[4] = v9;
-  v28 = *(a1 + 48);
+  v27 = *(a1 + 48);
   dispatch_group_notify(v2, v10, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __33__APSConnection__deliverMessage___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[APSLog connection];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -4344,17 +4263,17 @@ void __33__APSConnection__deliverMessage___block_invoke_2(uint64_t a1, void *a2)
     v6 = [*(a1 + 40) identifier];
     v7 = APSLoggableDescriptionForObjectOnTopic_NoLoad(*(a1 + 48), *(a1 + 56));
     v8 = *(a1 + 56);
-    v18 = 138413314;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v3;
-    v22 = 2048;
-    v23 = v6;
-    v24 = 2112;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v8;
-    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ making delegate (%@) calls to deliver message %lu %@ for topic %@", &v18, 0x34u);
+    v17 = 138413314;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v3;
+    v21 = 2048;
+    v22 = v6;
+    v23 = 2112;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v8;
+    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ making delegate (%@) calls to deliver message %lu %@ for topic %@", &v17, 0x34u);
   }
 
   if (objc_opt_respondsToSelector())
@@ -4363,11 +4282,11 @@ void __33__APSConnection__deliverMessage___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v18 = 138412546;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ calling %@ connection:didReceiveMessageForTopic:", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ calling %@ connection:didReceiveMessageForTopic:", &v17, 0x16u);
     }
 
     [v3 connection:*(a1 + 32) didReceiveMessageForTopic:*(a1 + 56) userInfo:*(a1 + 48)];
@@ -4375,11 +4294,11 @@ void __33__APSConnection__deliverMessage___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v18 = 138412546;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ connection:didReceiveMessageForTopic:", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ connection:didReceiveMessageForTopic:", &v17, 0x16u);
     }
   }
 
@@ -4389,11 +4308,11 @@ void __33__APSConnection__deliverMessage___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 32);
-      v18 = 138412546;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ calling %@ connection:didReceiveIncomingMessage:", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ calling %@ connection:didReceiveIncomingMessage:", &v17, 0x16u);
     }
 
     [v3 connection:*(a1 + 32) didReceiveIncomingMessage:*(a1 + 40)];
@@ -4401,22 +4320,20 @@ void __33__APSConnection__deliverMessage___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(a1 + 32);
-      v18 = 138412546;
-      v19 = v16;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_1B233B000, v15, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ connection:didReceiveIncomingMessage:", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v16;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_1B233B000, v15, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ connection:didReceiveIncomingMessage:", &v17, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 64));
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __33__APSConnection__deliverMessage___block_invoke_153(uint64_t a1)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
@@ -4430,9 +4347,9 @@ void __33__APSConnection__deliverMessage___block_invoke_153(uint64_t a1)
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) guid];
     *buf = 138412546;
-    v51 = v5;
-    v52 = 2112;
-    v53 = v6;
+    v50 = v5;
+    v51 = 2112;
+    v52 = v6;
     v7 = v4;
     v8 = OS_LOG_TYPE_DEBUG;
   }
@@ -4447,9 +4364,9 @@ void __33__APSConnection__deliverMessage___block_invoke_153(uint64_t a1)
     v9 = *(a1 + 32);
     v6 = [*(a1 + 40) guid];
     *buf = 138412546;
-    v51 = v9;
-    v52 = 2112;
-    v53 = v6;
+    v50 = v9;
+    v51 = 2112;
+    v52 = v6;
     v7 = v4;
     v8 = OS_LOG_TYPE_DEFAULT;
   }
@@ -4463,9 +4380,9 @@ LABEL_7:
     v11 = *(a1 + 32);
     v12 = [*(a1 + 40) tracingUUID];
     *buf = 138412546;
-    v51 = v11;
-    v52 = 2112;
-    v53 = v12;
+    v50 = v11;
+    v51 = 2112;
+    v52 = v12;
     _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, "%@ responding with an ack. UUID: %@", buf, 0x16u);
   }
 
@@ -4504,7 +4421,7 @@ LABEL_7:
       {
         v45 = *(a1 + 32);
         *buf = 138412290;
-        v51 = v45;
+        v50 = v45;
         v46 = v14;
         v47 = OS_LOG_TYPE_DEBUG;
 LABEL_19:
@@ -4516,7 +4433,7 @@ LABEL_19:
     {
       v48 = *(a1 + 32);
       *buf = 138412290;
-      v51 = v48;
+      v50 = v48;
       v46 = v14;
       v47 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_19;
@@ -4524,13 +4441,11 @@ LABEL_19:
 
 LABEL_20:
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverPublicTokenOnIvarQueue:(id)queue withCompletionBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   blockCopy = block;
   v9 = +[APSLog shouldReduceLogging];
@@ -4542,8 +4457,8 @@ LABEL_20:
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = queueCopy;
+      v20 = 2112;
+      v21 = queueCopy;
       v12 = v11;
       v13 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
@@ -4555,8 +4470,8 @@ LABEL_6:
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v21 = 2112;
-    v22 = queueCopy;
+    v20 = 2112;
+    v21 = queueCopy;
     v12 = v11;
     v13 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
@@ -4574,32 +4489,30 @@ LABEL_6:
   else
   {
     objc_storeStrong(&self->_publicToken, queue);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __68__APSConnection__deliverPublicTokenOnIvarQueue_withCompletionBlock___block_invoke;
-    v16[3] = &unk_1E7B224A8;
-    v16[4] = self;
-    v17 = queueCopy;
-    v18 = blockCopy;
-    [(APSConnection *)self _asyncOnDelegateQueueWithBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __68__APSConnection__deliverPublicTokenOnIvarQueue_withCompletionBlock___block_invoke;
+    v15[3] = &unk_1E7B224A8;
+    v15[4] = self;
+    v16 = queueCopy;
+    v17 = blockCopy;
+    [(APSConnection *)self _asyncOnDelegateQueueWithBlock:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __68__APSConnection__deliverPublicTokenOnIvarQueue_withCompletionBlock___block_invoke(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[APSLog connection];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didReceivePublicToken:", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didReceivePublicToken:", &v9, 0x16u);
   }
 
   [v3 connection:a1[4] didReceivePublicToken:a1[5]];
@@ -4613,19 +4526,17 @@ void __68__APSConnection__deliverPublicTokenOnIvarQueue_withCompletionBlock___bl
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = a1[4];
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_1B233B000, v7, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceivePublicToken:", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_1B233B000, v7, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceivePublicToken:", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverPublicToken:(id)token withCompletionBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   blockCopy = block;
   v8 = +[APSLog shouldReduceLogging];
@@ -4637,8 +4548,8 @@ void __68__APSConnection__deliverPublicTokenOnIvarQueue_withCompletionBlock___bl
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = tokenCopy;
+      v20 = 2112;
+      v21 = tokenCopy;
       v11 = v10;
       v12 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
@@ -4650,30 +4561,28 @@ LABEL_6:
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v21 = 2112;
-    v22 = tokenCopy;
+    v20 = 2112;
+    v21 = tokenCopy;
     v11 = v10;
     v12 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __57__APSConnection__deliverPublicToken_withCompletionBlock___block_invoke;
-  v16[3] = &unk_1E7B22408;
-  v16[4] = self;
-  v17 = tokenCopy;
-  v18 = blockCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __57__APSConnection__deliverPublicToken_withCompletionBlock___block_invoke;
+  v15[3] = &unk_1E7B22408;
+  v15[4] = self;
+  v16 = tokenCopy;
+  v17 = blockCopy;
   v13 = blockCopy;
   v14 = tokenCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v15];
 }
 
 - (void)_deliverConnectionStatusChange:(BOOL)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self->_isDeallocing && !self->_isShutdown)
   {
     changeCopy = change;
@@ -4692,8 +4601,8 @@ LABEL_6:
 
         *buf = 138412546;
         selfCopy2 = self;
-        v17 = 2112;
-        v18 = v8;
+        v16 = 2112;
+        v17 = v8;
         v9 = v7;
         v10 = OS_LOG_TYPE_DEBUG;
 LABEL_12:
@@ -4711,33 +4620,31 @@ LABEL_12:
 
       *buf = 138412546;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v11;
+      v16 = 2112;
+      v17 = v11;
       v9 = v7;
       v10 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_12;
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__APSConnection__deliverConnectionStatusChange___block_invoke;
-    v13[3] = &unk_1E7B224F8;
-    v13[4] = self;
-    v14 = changeCopy;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __48__APSConnection__deliverConnectionStatusChange___block_invoke;
+    v12[3] = &unk_1E7B224F8;
+    v12[4] = self;
+    v13 = changeCopy;
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __48__APSConnection__deliverConnectionStatusChange___block_invoke(uint64_t result)
+void *__48__APSConnection__deliverConnectionStatusChange___block_invoke(void *result)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   v4 = *(result + 40);
   if (*(v3 + 70) != v4)
   {
     *(v3 + 70) = v4;
-    v5 = *(result + 32);
+    v5 = result[4];
     if (v5[69] == 1)
     {
       v8 = v1;
@@ -4757,17 +4664,17 @@ uint64_t __48__APSConnection__deliverConnectionStatusChange___block_invoke(uint6
 
 void __48__APSConnection__deliverConnectionStatusChange___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[APSLog connection];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ seeing if delegate %@ responds to status changes", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ seeing if delegate %@ responds to status changes", &v10, 0x16u);
   }
 
   if (objc_opt_respondsToSelector())
@@ -4776,11 +4683,11 @@ void __48__APSConnection__deliverConnectionStatusChange___block_invoke_2(uint64_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v11 = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_1B233B000, v6, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didChangeConnectedStatus:", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1B233B000, v6, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didChangeConnectedStatus:", &v10, 0x16u);
     }
 
     [v3 connection:*(a1 + 32) didChangeConnectedStatus:*(a1 + 40)];
@@ -4788,40 +4695,38 @@ void __48__APSConnection__deliverConnectionStatusChange___block_invoke_2(uint64_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didChangeConnectedStatus:", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didChangeConnectedStatus:", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverConnectionStatusFromDealloc:(BOOL)dealloc
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self->_isConnected == dealloc)
   {
-    goto LABEL_14;
+    return;
   }
 
   self->_isConnected = dealloc;
   if (!self->_enableStatusNotifications)
   {
-    goto LABEL_14;
+    return;
   }
 
   if (!self->_delegateQueue)
   {
-    goto LABEL_14;
+    return;
   }
 
   delegateReference = self->_delegateReference;
   if (!delegateReference)
   {
-    goto LABEL_14;
+    return;
   }
 
   object = [(CUTWeakReference *)delegateReference object];
@@ -4834,8 +4739,8 @@ void __48__APSConnection__deliverConnectionStatusChange___block_invoke_2(uint64_
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v19 = 2112;
-      v20 = object;
+      v18 = 2112;
+      v19 = object;
       v10 = v9;
       v11 = OS_LOG_TYPE_DEBUG;
 LABEL_10:
@@ -4847,8 +4752,8 @@ LABEL_10:
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v19 = 2112;
-    v20 = object;
+    v18 = 2112;
+    v19 = object;
     v10 = v9;
     v11 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_10;
@@ -4857,31 +4762,28 @@ LABEL_10:
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __53__APSConnection__deliverConnectionStatusFromDealloc___block_invoke;
-    v14[3] = &unk_1E7B224F8;
-    v15 = object;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __53__APSConnection__deliverConnectionStatusFromDealloc___block_invoke;
+    v13[3] = &unk_1E7B224F8;
+    v14 = object;
     deallocCopy = dealloc;
-    dispatch_async(delegateQueue, v14);
+    dispatch_async(delegateQueue, v13);
   }
-
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __53__APSConnection__deliverConnectionStatusFromDealloc___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = 0;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didChangeConnectedStatus:", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = 0;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didChangeConnectedStatus:", &v6, 0x16u);
   }
 
   [*(a1 + 32) connection:0 didChangeConnectedStatus:*(a1 + 40)];
@@ -4889,14 +4791,12 @@ void __53__APSConnection__deliverConnectionStatusFromDealloc___block_invoke(uint
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = 0;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didChangeConnectedStatus:", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = 0;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didChangeConnectedStatus:", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverOutgoingMessageResultWithID:(unint64_t)d error:(id)error sendRTT:(unint64_t)t ackTimestamp:(unint64_t)timestamp
@@ -4917,7 +4817,7 @@ void __53__APSConnection__deliverConnectionStatusFromDealloc___block_invoke(uint
 
 void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTimestamp___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
@@ -4932,11 +4832,11 @@ void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTi
     v5 = *(a1 + 48);
     v7 = *(a1 + 32);
     *buf = 138412802;
-    v32 = v7;
-    v33 = 2048;
-    v34 = v5;
-    v35 = 2112;
-    v36 = v6;
+    v31 = v7;
+    v32 = 2048;
+    v33 = v5;
+    v34 = 2112;
+    v35 = v6;
     v8 = v4;
     v9 = OS_LOG_TYPE_DEBUG;
   }
@@ -4952,11 +4852,11 @@ void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTi
     v10 = *(a1 + 48);
     v12 = *(a1 + 32);
     *buf = 138412802;
-    v32 = v12;
-    v33 = 2048;
-    v34 = v10;
-    v35 = 2112;
-    v36 = v11;
+    v31 = v12;
+    v32 = 2048;
+    v33 = v10;
+    v34 = 2112;
+    v35 = v11;
     v8 = v4;
     v9 = OS_LOG_TYPE_DEFAULT;
   }
@@ -4981,11 +4881,11 @@ LABEL_7:
         v19 = *(a1 + 48);
         v21 = *(a1 + 32);
         *buf = 138412802;
-        v32 = v21;
-        v33 = 2048;
-        v34 = v19;
-        v35 = 2112;
-        v36 = v20;
+        v31 = v21;
+        v32 = 2048;
+        v33 = v19;
+        v34 = 2112;
+        v35 = v20;
         v22 = v18;
         v23 = OS_LOG_TYPE_DEBUG;
 LABEL_14:
@@ -4999,11 +4899,11 @@ LABEL_14:
       v24 = *(a1 + 48);
       v26 = *(a1 + 32);
       *buf = 138412802;
-      v32 = v26;
-      v33 = 2048;
-      v34 = v24;
-      v35 = 2112;
-      v36 = v25;
+      v31 = v26;
+      v32 = 2048;
+      v33 = v24;
+      v34 = 2112;
+      v35 = v25;
       v22 = v18;
       v23 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_14;
@@ -5014,22 +4914,21 @@ LABEL_14:
 
   [*(*(a1 + 32) + 72) removeObjectForKey:v13];
   v15 = *(a1 + 32);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTimestamp___block_invoke_160;
-  v28[3] = &unk_1E7B22520;
-  v28[4] = v15;
-  v29 = v14;
-  v30 = *(a1 + 40);
-  [v15 _asyncOnDelegateQueueWithBlock:v28];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTimestamp___block_invoke_160;
+  v27[3] = &unk_1E7B22520;
+  v27[4] = v15;
+  v28 = v14;
+  v29 = *(a1 + 40);
+  [v15 _asyncOnDelegateQueueWithBlock:v27];
 
 LABEL_16:
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTimestamp___block_invoke_160(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[APSLog connection];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -5037,15 +4936,15 @@ void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTi
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v17 = 138413058;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v3;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v7;
-    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for outgoing message %@ result %@", &v17, 0x2Au);
+    v16 = 138413058;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v3;
+    v20 = 2112;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v7;
+    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for outgoing message %@ result %@", &v16, 0x2Au);
   }
 
   if ([*(a1 + 48) code])
@@ -5056,11 +4955,11 @@ void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTi
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(a1 + 32);
-        v17 = 138412546;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v3;
-        _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didFailToSendOutgoingMessage:", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v3;
+        _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didFailToSendOutgoingMessage:", &v16, 0x16u);
       }
 
       [v3 connection:*(a1 + 32) didFailToSendOutgoingMessage:*(a1 + 40) error:*(a1 + 48)];
@@ -5071,13 +4970,13 @@ void __80__APSConnection__deliverOutgoingMessageResultWithID_error_sendRTT_ackTi
       }
 
       v11 = *(a1 + 32);
-      v17 = 138412546;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v3;
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v3;
       v12 = "%@ returned from %@ didFailToSendOutgoingMessage:";
 LABEL_14:
-      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, v12, &v17, 0x16u);
+      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, v12, &v16, 0x16u);
 LABEL_15:
     }
   }
@@ -5088,11 +4987,11 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 32);
-      v17 = 138412546;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v3;
-      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didSendOutgoingMessage:", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v3;
+      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didSendOutgoingMessage:", &v16, 0x16u);
     }
 
     [v3 connection:*(a1 + 32) didSendOutgoingMessage:*(a1 + 40)];
@@ -5103,15 +5002,13 @@ LABEL_15:
     }
 
     v15 = *(a1 + 32);
-    v17 = 138412546;
-    v18 = v15;
-    v19 = 2112;
-    v20 = v3;
+    v16 = 138412546;
+    v17 = v15;
+    v18 = 2112;
+    v19 = v3;
     v12 = "%@ returned from %@ didSendOutgoingMessage:";
     goto LABEL_14;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverToken:(id)token forTopic:(id)topic identifier:(id)identifier
@@ -5135,73 +5032,81 @@ LABEL_15:
 
 void __51__APSConnection__deliverToken_forTopic_identifier___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(a1 + 32);
-      v6 = [*(a1 + 40) debugDescription];
-      v7 = *(a1 + 48);
-      v8 = *(a1 + 56);
-      *buf = 138413058;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v7;
-      v27 = 2112;
-      v28 = v8;
-      v9 = v4;
-      v10 = OS_LOG_TYPE_DEBUG;
-LABEL_6:
-      _os_log_impl(&dword_1B233B000, v9, v10, "%@ Received token %@ forTopic %@ identifier %@", buf, 0x2Au);
+      goto LABEL_7;
     }
+
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) debugDescription];
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    *buf = 138413058;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v6;
+    v24 = 2112;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v8;
+    v9 = v4;
+    v10 = OS_LOG_TYPE_DEBUG;
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else
   {
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
     v11 = *(a1 + 32);
     v6 = [*(a1 + 40) debugDescription];
     v12 = *(a1 + 48);
     v13 = *(a1 + 56);
     *buf = 138413058;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v6;
-    v25 = 2112;
-    v26 = v12;
-    v27 = 2112;
-    v28 = v13;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v6;
+    v24 = 2112;
+    v25 = v12;
+    v26 = 2112;
+    v27 = v13;
     v9 = v4;
     v10 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_6;
   }
 
+  _os_log_impl(&dword_1B233B000, v9, v10, "%@ Received token %@ forTopic %@ identifier %@", buf, 0x2Au);
+
+LABEL_7:
   v14 = *(a1 + 40);
-  if (v14 && *(a1 + 48))
+  if (v14)
   {
-    v15 = *(a1 + 32);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __51__APSConnection__deliverToken_forTopic_identifier___block_invoke_165;
-    v17[3] = &unk_1E7B22570;
-    v17[4] = v15;
-    v18 = v14;
-    v19 = *(a1 + 48);
-    v20 = *(a1 + 56);
-    [v15 _asyncOnDelegateQueueWithBlock:v17];
+    if (*(a1 + 48))
+    {
+      v15 = *(a1 + 32);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __51__APSConnection__deliverToken_forTopic_identifier___block_invoke_165;
+      v16[3] = &unk_1E7B22570;
+      v16[4] = v15;
+      v17 = v14;
+      v18 = *(a1 + 48);
+      v19 = *(a1 + 56);
+      [v15 _asyncOnDelegateQueueWithBlock:v16];
+    }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __51__APSConnection__deliverToken_forTopic_identifier___block_invoke_165(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -5212,17 +5117,17 @@ void __51__APSConnection__deliverToken_forTopic_identifier___block_invoke_165(vo
       v6 = a1[5];
       v7 = a1[6];
       v8 = a1[7];
-      v12 = 138413314;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v3;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received token %@ for topic %@ identifier %@", &v12, 0x34u);
+      v11 = 138413314;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v3;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received token %@ for topic %@ identifier %@", &v11, 0x34u);
     }
 
     [v3 connection:a1[4] didReceiveToken:a1[5] forTopic:a1[6] identifier:a1[7]];
@@ -5230,15 +5135,13 @@ void __51__APSConnection__deliverToken_forTopic_identifier___block_invoke_165(vo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = a1[4];
-      v12 = 138412546;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveToken:forTopic:identifier", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveToken:forTopic:identifier", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverToken:(id)token forInfo:(id)info
@@ -5259,46 +5162,53 @@ void __51__APSConnection__deliverToken_forTopic_identifier___block_invoke_165(vo
 
 void __39__APSConnection__deliverToken_forInfo___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(a1 + 32);
-      v6 = [*(a1 + 40) debugDescription];
-      v7 = *(a1 + 48);
-      *buf = 138412802;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v7;
-      v8 = v4;
-      v9 = OS_LOG_TYPE_DEBUG;
-LABEL_6:
-      _os_log_impl(&dword_1B233B000, v8, v9, "%@ Received extended app token %@ forInfo %@", buf, 0x20u);
+      goto LABEL_7;
     }
+
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) debugDescription];
+    v7 = *(a1 + 48);
+    *buf = 138412802;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v7;
+    v8 = v4;
+    v9 = OS_LOG_TYPE_DEBUG;
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else
   {
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
     v10 = *(a1 + 32);
     v6 = [*(a1 + 40) debugDescription];
     v11 = *(a1 + 48);
     *buf = 138412802;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v11;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v11;
     v8 = v4;
     v9 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_6;
   }
 
+  _os_log_impl(&dword_1B233B000, v8, v9, "%@ Received extended app token %@ forInfo %@", buf, 0x20u);
+
+LABEL_7:
   if (*(a1 + 40))
   {
     v12 = [*(a1 + 48) topic];
@@ -5306,23 +5216,21 @@ LABEL_6:
     if (v12)
     {
       v13 = *(a1 + 32);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __39__APSConnection__deliverToken_forInfo___block_invoke_168;
-      v15[3] = &unk_1E7B22520;
-      v15[4] = v13;
-      v16 = *(a1 + 40);
-      v17 = *(a1 + 48);
-      [v13 _asyncOnDelegateQueueWithBlock:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __39__APSConnection__deliverToken_forInfo___block_invoke_168;
+      v14[3] = &unk_1E7B22520;
+      v14[4] = v13;
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 48);
+      [v13 _asyncOnDelegateQueueWithBlock:v14];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __39__APSConnection__deliverToken_forInfo___block_invoke_168(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -5332,15 +5240,15 @@ void __39__APSConnection__deliverToken_forInfo___block_invoke_168(void *a1, void
       v5 = a1[4];
       v6 = a1[5];
       v7 = a1[6];
-      v11 = 138413058;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received extended app token %@ for info %@", &v11, 0x2Au);
+      v10 = 138413058;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v6;
+      v16 = 2112;
+      v17 = v7;
+      _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received extended app token %@ for info %@", &v10, 0x2Au);
     }
 
     [v3 connection:a1[4] didReceiveToken:a1[5] forInfo:a1[6]];
@@ -5348,15 +5256,13 @@ void __39__APSConnection__deliverToken_forInfo___block_invoke_168(void *a1, void
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = a1[4];
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveToken:forInfo", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveToken:forInfo", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverURLToken:(id)token forInfo:(id)info
@@ -5377,46 +5283,53 @@ void __39__APSConnection__deliverToken_forInfo___block_invoke_168(void *a1, void
 
 void __42__APSConnection__deliverURLToken_forInfo___block_invoke(id *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = a1[4];
-      v6 = [a1[5] debugDescription];
-      v7 = a1[6];
-      *buf = 138412802;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v6;
-      v28 = 2112;
-      v29 = v7;
-      v8 = v4;
-      v9 = OS_LOG_TYPE_DEBUG;
-LABEL_6:
-      _os_log_impl(&dword_1B233B000, v8, v9, "%@ Received web token %@ for info %@", buf, 0x20u);
+      goto LABEL_7;
     }
+
+    v5 = a1[4];
+    v6 = [a1[5] debugDescription];
+    v7 = a1[6];
+    *buf = 138412802;
+    v24 = v5;
+    v25 = 2112;
+    v26 = v6;
+    v27 = 2112;
+    v28 = v7;
+    v8 = v4;
+    v9 = OS_LOG_TYPE_DEBUG;
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else
   {
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
     v10 = a1[4];
     v6 = [a1[5] debugDescription];
     v11 = a1[6];
     *buf = 138412802;
-    v25 = v10;
-    v26 = 2112;
-    v27 = v6;
-    v28 = 2112;
-    v29 = v11;
+    v24 = v10;
+    v25 = 2112;
+    v26 = v6;
+    v27 = 2112;
+    v28 = v11;
     v8 = v4;
     v9 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_6;
   }
 
+  _os_log_impl(&dword_1B233B000, v8, v9, "%@ Received web token %@ for info %@", buf, 0x20u);
+
+LABEL_7:
   if (a1[5])
   {
     v12 = [a1[6] topic];
@@ -5424,56 +5337,53 @@ LABEL_6:
     if (v12)
     {
       v13 = [a1[4] _removeURLTokenBlocksForInfo:a1[6]];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __42__APSConnection__deliverURLToken_forInfo___block_invoke_171;
-      v19[3] = &unk_1E7B22570;
-      v20 = v13;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __42__APSConnection__deliverURLToken_forInfo___block_invoke_171;
+      v18[3] = &unk_1E7B22570;
+      v19 = v13;
       v14 = a1[4];
       v15 = a1[5];
       v16 = a1[4];
-      v21 = v15;
-      v22 = v16;
-      v23 = a1[6];
+      v20 = v15;
+      v21 = v16;
+      v22 = a1[6];
       v17 = v13;
-      [v14 _asyncOnDelegateQueueWithBlock:v19 requiresDelegate:0];
+      [v14 _asyncOnDelegateQueueWithBlock:v18 requiresDelegate:0];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __42__APSConnection__deliverURLToken_forInfo___block_invoke_171(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(a1 + 40);
-        (*(*(*(&v17 + 1) + 8 * v8) + 16))(*(*(&v17 + 1) + 8 * v8));
+        (*(*(*(&v15 + 1) + 8 * v8) + 16))(*(*(&v15 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v27 count:16];
     }
 
     while (v6);
@@ -5481,37 +5391,35 @@ void __42__APSConnection__deliverURLToken_forInfo___block_invoke_171(uint64_t a1
 
   if (objc_opt_respondsToSelector())
   {
-    v10 = +[APSLog connection];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = +[APSLog connection];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v13 = *(a1 + 56);
+      v11 = *(a1 + 40);
+      v10 = *(a1 + 48);
+      v12 = *(a1 + 56);
       *buf = 138413058;
-      v22 = v11;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v3;
       v23 = 2112;
-      v24 = v3;
+      v24 = v11;
       v25 = 2112;
       v26 = v12;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received web token %@ for info %@", buf, 0x2Au);
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received web token %@ for info %@", buf, 0x2Au);
     }
 
     [v3 connection:*(a1 + 48) didReceiveURLToken:*(a1 + 40) forInfo:*(a1 + 56)];
-    v14 = +[APSLog connection];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = +[APSLog connection];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 48);
+      v14 = *(a1 + 48);
       *buf = 138412546;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v3;
-      _os_log_impl(&dword_1B233B000, v14, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveURLToken:forInfo", buf, 0x16u);
+      v20 = v14;
+      v21 = 2112;
+      v22 = v3;
+      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveURLToken:forInfo", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverURLTokenError:(id)error forInfo:(id)info
@@ -5532,45 +5440,52 @@ void __42__APSConnection__deliverURLToken_forInfo___block_invoke_171(uint64_t a1
 
 void __47__APSConnection__deliverURLTokenError_forInfo___block_invoke(id *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog shouldReduceLogging];
   v3 = +[APSLog connection];
   v4 = v3;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = a1[4];
-      v6 = a1[5];
-      v7 = a1[6];
-      *buf = 138412802;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v6;
-      v29 = 2112;
-      v30 = v7;
-      v8 = v4;
-      v9 = OS_LOG_TYPE_DEBUG;
-LABEL_6:
-      _os_log_impl(&dword_1B233B000, v8, v9, "%@ Received web token error %@ for info %@", buf, 0x20u);
+      goto LABEL_7;
     }
+
+    v5 = a1[4];
+    v6 = a1[5];
+    v7 = a1[6];
+    *buf = 138412802;
+    v25 = v5;
+    v26 = 2112;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v7;
+    v8 = v4;
+    v9 = OS_LOG_TYPE_DEBUG;
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else
   {
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
     v10 = a1[4];
     v11 = a1[5];
     v12 = a1[6];
     *buf = 138412802;
-    v26 = v10;
-    v27 = 2112;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v12;
+    v25 = v10;
+    v26 = 2112;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v12;
     v8 = v4;
     v9 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_6;
   }
+
+  _os_log_impl(&dword_1B233B000, v8, v9, "%@ Received web token error %@ for info %@", buf, 0x20u);
+LABEL_7:
 
   if (a1[5])
   {
@@ -5579,56 +5494,53 @@ LABEL_6:
     if (v13)
     {
       v14 = [a1[4] _removeURLTokenBlocksForInfo:a1[6]];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __47__APSConnection__deliverURLTokenError_forInfo___block_invoke_174;
-      v20[3] = &unk_1E7B22570;
-      v21 = v14;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __47__APSConnection__deliverURLTokenError_forInfo___block_invoke_174;
+      v19[3] = &unk_1E7B22570;
+      v20 = v14;
       v15 = a1[4];
       v16 = a1[5];
       v17 = a1[4];
-      v22 = v16;
-      v23 = v17;
-      v24 = a1[6];
+      v21 = v16;
+      v22 = v17;
+      v23 = a1[6];
       v18 = v14;
-      [v15 _asyncOnDelegateQueueWithBlock:v20 requiresDelegate:0];
+      [v15 _asyncOnDelegateQueueWithBlock:v19 requiresDelegate:0];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __47__APSConnection__deliverURLTokenError_forInfo___block_invoke_174(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(a1 + 40);
-        (*(*(*(&v17 + 1) + 8 * v8) + 16))(*(*(&v17 + 1) + 8 * v8));
+        (*(*(*(&v15 + 1) + 8 * v8) + 16))(*(*(&v15 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v27 count:16];
     }
 
     while (v6);
@@ -5636,52 +5548,48 @@ void __47__APSConnection__deliverURLTokenError_forInfo___block_invoke_174(uint64
 
   if (objc_opt_respondsToSelector())
   {
-    v10 = +[APSLog connection];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = +[APSLog connection];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v13 = *(a1 + 56);
+      v11 = *(a1 + 40);
+      v10 = *(a1 + 48);
+      v12 = *(a1 + 56);
       *buf = 138413058;
-      v22 = v11;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v3;
       v23 = 2112;
-      v24 = v3;
+      v24 = v11;
       v25 = 2112;
       v26 = v12;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received web token error %@ for info %@", buf, 0x2Au);
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received web token error %@ for info %@", buf, 0x2Au);
     }
 
     [v3 connection:*(a1 + 48) didReceiveURLTokenError:*(a1 + 40) forInfo:*(a1 + 56)];
-    v14 = +[APSLog connection];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = +[APSLog connection];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 48);
+      v14 = *(a1 + 48);
       *buf = 138412546;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v3;
-      _os_log_impl(&dword_1B233B000, v14, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveURLTokenError:forInfo", buf, 0x16u);
+      v20 = v14;
+      v21 = 2112;
+      v22 = v3;
+      _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveURLTokenError:forInfo", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __65__APSConnection__blockingXPCCallWithArgumentBlock_resultHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[APSLog connection];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B233B000, v3, OS_LOG_TYPE_DEFAULT, "_makeXPCCallWithArgumentBlock messageHandler %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B233B000, v3, OS_LOG_TYPE_DEFAULT, "_makeXPCCallWithArgumentBlock messageHandler %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __65__APSConnection__blockingXPCCallWithArgumentBlock_resultHandler___block_invoke_180()
@@ -5734,30 +5642,29 @@ uint64_t __28__APSConnection_hasIdentity__block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __28__APSConnection_hasIdentity__block_invoke_2(uint64_t result)
+void *__28__APSConnection_hasIdentity__block_invoke_2(void *result)
 {
   v1 = result;
   if (hasIdentity_sHasFoundIdentity)
   {
-    *(*(*(result + 40) + 8) + 24) = 1;
+    *(*(result[5] + 8) + 24) = 1;
   }
 
   else
   {
-    v2 = *(result + 32);
-    v3 = objc_opt_class();
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __28__APSConnection_hasIdentity__block_invoke_3;
-    v5[3] = &unk_1E7B22160;
-    v5[4] = *(v1 + 32);
+    v2 = objc_opt_class();
     v4[0] = MEMORY[0x1E69E9820];
     v4[1] = 3221225472;
-    v4[2] = __28__APSConnection_hasIdentity__block_invoke_4;
-    v4[3] = &unk_1E7B22598;
-    v4[4] = *(v1 + 40);
-    result = [v3 _blockingXPCCallWithArgumentBlock:v5 resultHandler:v4];
-    if (*(*(*(v1 + 40) + 8) + 24) == 1)
+    v4[2] = __28__APSConnection_hasIdentity__block_invoke_3;
+    v4[3] = &unk_1E7B22160;
+    v4[4] = v1[4];
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __28__APSConnection_hasIdentity__block_invoke_4;
+    v3[3] = &unk_1E7B22598;
+    v3[4] = v1[5];
+    result = [v2 _blockingXPCCallWithArgumentBlock:v4 resultHandler:v3];
+    if (*(*(v1[5] + 8) + 24) == 1)
     {
       hasIdentity_sHasFoundIdentity = 1;
     }
@@ -5834,14 +5741,13 @@ uint64_t __40__APSConnection_serverTimeInNanoSeconds__block_invoke()
 
 uint64_t __40__APSConnection_serverTimeInNanoSeconds__block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = objc_opt_class();
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __40__APSConnection_serverTimeInNanoSeconds__block_invoke_4;
-  v5[3] = &unk_1E7B225C0;
-  v6 = *(a1 + 32);
-  return [v3 _blockingXPCCallWithArgumentBlock:&__block_literal_global_197 resultHandler:v5];
+  v2 = objc_opt_class();
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __40__APSConnection_serverTimeInNanoSeconds__block_invoke_4;
+  v4[3] = &unk_1E7B225C0;
+  v5 = *(a1 + 32);
+  return [v2 _blockingXPCCallWithArgumentBlock:&__block_literal_global_197 resultHandler:v4];
 }
 
 void __40__APSConnection_serverTimeInNanoSeconds__block_invoke_3(uint64_t a1, void *a2)
@@ -5897,14 +5803,13 @@ uint64_t __26__APSConnection_geoRegion__block_invoke()
 
 uint64_t __26__APSConnection_geoRegion__block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = objc_opt_class();
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __26__APSConnection_geoRegion__block_invoke_4;
-  v5[3] = &unk_1E7B22598;
-  v5[4] = *(a1 + 32);
-  return [v3 _blockingXPCCallWithArgumentBlock:&__block_literal_global_203 resultHandler:v5];
+  v2 = objc_opt_class();
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __26__APSConnection_geoRegion__block_invoke_4;
+  v4[3] = &unk_1E7B22598;
+  v4[4] = *(a1 + 32);
+  return [v2 _blockingXPCCallWithArgumentBlock:&__block_literal_global_203 resultHandler:v4];
 }
 
 void __26__APSConnection_geoRegion__block_invoke_3(uint64_t a1, void *a2)
@@ -6027,7 +5932,7 @@ void __41__APSConnection_invalidateDeviceIdentity__block_invoke_3()
 
 + (double)keepAliveIntervalForEnvironmentName:(id)name
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = +[APSLog shouldReduceLogging];
   v6 = +[APSLog connection];
@@ -6056,24 +5961,23 @@ LABEL_6:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v18 = 0x2020000000;
-  v19 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __53__APSConnection_keepAliveIntervalForEnvironmentName___block_invoke;
-  v15[3] = &unk_1E7B22160;
-  v10 = nameCopy;
-  v16 = v10;
+  v17 = 0x2020000000;
+  v18 = 0;
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __53__APSConnection_keepAliveIntervalForEnvironmentName___block_invoke_2;
-  v14[3] = &unk_1E7B22598;
-  v14[4] = &buf;
-  [self _blockingXPCCallWithArgumentBlock:v15 resultHandler:v14];
+  v14[2] = __53__APSConnection_keepAliveIntervalForEnvironmentName___block_invoke;
+  v14[3] = &unk_1E7B22160;
+  v10 = nameCopy;
+  v15 = v10;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __53__APSConnection_keepAliveIntervalForEnvironmentName___block_invoke_2;
+  v13[3] = &unk_1E7B22598;
+  v13[4] = &buf;
+  [self _blockingXPCCallWithArgumentBlock:v14 resultHandler:v13];
   v11 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -6120,10 +6024,7 @@ void __50__APSConnection_connectionsDebuggingStateOfStyle___block_invoke(uint64_
 
 uint64_t __50__APSConnection_connectionsDebuggingStateOfStyle___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = APSGetXPCStringFromDictionary(a2, "connectionsDebuggingState");
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = APSGetXPCStringFromDictionary(a2, "connectionsDebuggingState");
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -6140,7 +6041,7 @@ uint64_t __50__APSConnection_connectionsDebuggingStateOfStyle___block_invoke_2(u
 
 void __31__APSConnection__setTokenState__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (_setTokenState_sTokenFailures <= 9)
   {
     v2 = +[APSLog shouldReduceLogging];
@@ -6154,7 +6055,7 @@ void __31__APSConnection__setTokenState__block_invoke(uint64_t a1)
       }
 
       *buf = 67109120;
-      v19 = _setTokenState_sTokenFailures;
+      v18 = _setTokenState_sTokenFailures;
       v5 = v4;
       v6 = OS_LOG_TYPE_DEBUG;
     }
@@ -6167,7 +6068,7 @@ void __31__APSConnection__setTokenState__block_invoke(uint64_t a1)
       }
 
       *buf = 67109120;
-      v19 = _setTokenState_sTokenFailures;
+      v18 = _setTokenState_sTokenFailures;
       v5 = v4;
       v6 = OS_LOG_TYPE_DEFAULT;
     }
@@ -6193,7 +6094,7 @@ LABEL_8:
       v8 = notify_post("APSSafeToSendFilterNotification");
       if (!v8)
       {
-        goto LABEL_20;
+        return;
       }
     }
 
@@ -6207,7 +6108,7 @@ LABEL_13:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        v19 = v9;
+        v18 = v9;
         v13 = v12;
         v14 = OS_LOG_TYPE_DEBUG;
 LABEL_18:
@@ -6218,7 +6119,7 @@ LABEL_18:
     else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v19 = v9;
+      v18 = v9;
       v13 = v12;
       v14 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_18;
@@ -6235,9 +6136,6 @@ LABEL_18:
     block[4] = *(a1 + 32);
     dispatch_after(v15, MEMORY[0x1E69E96A0], block);
   }
-
-LABEL_20:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)notifySafeToSendFilter
@@ -6256,7 +6154,7 @@ LABEL_20:
 - (void)_sendOutgoingMessage:(id)message fake:(BOOL)fake
 {
   fakeCopy = fake;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dispatch_assert_queue_not_V2(self->_ivarQueue);
   v7 = _os_feature_enabled_impl();
@@ -6279,8 +6177,8 @@ LABEL_20:
     *buf = 138413826;
     v17 = @"NO";
     selfCopy2 = self;
-    v33 = 2112;
-    v35 = 2048;
+    v32 = 2112;
+    v34 = 2048;
     if (fakeCopy)
     {
       v18 = @"YES";
@@ -6291,21 +6189,21 @@ LABEL_20:
       v18 = @"NO";
     }
 
-    v34 = messageCopy;
+    v33 = messageCopy;
     if (v7)
     {
       v17 = @"YES";
     }
 
-    v36 = identifier;
-    v37 = 2112;
-    v38 = topic;
-    v39 = 2112;
-    v40 = v15;
-    v41 = 2112;
-    v42 = v18;
-    v43 = 2112;
-    v44 = v17;
+    v35 = identifier;
+    v36 = 2112;
+    v37 = topic;
+    v38 = 2112;
+    v39 = v15;
+    v40 = 2112;
+    v41 = v18;
+    v42 = 2112;
+    v43 = v17;
     v19 = v10;
     v20 = OS_LOG_TYPE_DEBUG;
   }
@@ -6326,8 +6224,8 @@ LABEL_20:
     *buf = 138413826;
     v23 = @"NO";
     selfCopy2 = self;
-    v33 = 2112;
-    v35 = 2048;
+    v32 = 2112;
+    v34 = 2048;
     if (fakeCopy)
     {
       v24 = @"YES";
@@ -6338,21 +6236,21 @@ LABEL_20:
       v24 = @"NO";
     }
 
-    v34 = messageCopy;
+    v33 = messageCopy;
     if (v7)
     {
       v23 = @"YES";
     }
 
-    v36 = identifier2;
-    v37 = 2112;
-    v38 = topic;
-    v39 = 2112;
-    v40 = v22;
-    v41 = 2112;
-    v42 = v24;
-    v43 = 2112;
-    v44 = v23;
+    v35 = identifier2;
+    v36 = 2112;
+    v37 = topic;
+    v38 = 2112;
+    v39 = v22;
+    v40 = 2112;
+    v41 = v24;
+    v42 = 2112;
+    v43 = v23;
     v19 = v10;
     v20 = OS_LOG_TYPE_DEFAULT;
   }
@@ -6360,15 +6258,15 @@ LABEL_20:
   _os_log_impl(&dword_1B233B000, v19, v20, "%@ _sendOutgoingMessage: %@ [id=%lu] %@ %@ fake: %@ syncToIvarQueue: %@", buf, 0x48u);
 
 LABEL_17:
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __43__APSConnection__sendOutgoingMessage_fake___block_invoke;
-  v28[3] = &unk_1E7B22680;
-  v28[4] = self;
-  v29 = messageCopy;
-  v30 = fakeCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __43__APSConnection__sendOutgoingMessage_fake___block_invoke;
+  v27[3] = &unk_1E7B22680;
+  v27[4] = self;
+  v28 = messageCopy;
+  v29 = fakeCopy;
   v25 = messageCopy;
-  v26 = MEMORY[0x1B2746DE0](v28);
+  v26 = MEMORY[0x1B2746DE0](v27);
   if (v7)
   {
     [(APSConnection *)self _dispatch_sync_to_ivarQueue:v26 shutdownBlock:0];
@@ -6378,13 +6276,11 @@ LABEL_17:
   {
     [(APSConnection *)self _dispatch_async_to_ivarQueue:v26];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __43__APSConnection__sendOutgoingMessage_fake___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (!*(a1 + 40))
   {
@@ -6406,7 +6302,7 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke(uint64_t a1)
 
       v29 = *(a1 + 32);
       *buf = 138412290;
-      v37 = v29;
+      v36 = v29;
       v30 = v10;
       v31 = OS_LOG_TYPE_DEBUG;
     }
@@ -6420,7 +6316,7 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke(uint64_t a1)
 
       v32 = *(a1 + 32);
       *buf = 138412290;
-      v37 = v32;
+      v36 = v32;
       v30 = v10;
       v31 = OS_LOG_TYPE_DEFAULT;
     }
@@ -6479,11 +6375,10 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke(uint64_t a1)
   handler[2] = __43__APSConnection__sendOutgoingMessage_fake___block_invoke_2;
   handler[3] = &unk_1E7B22340;
   handler[4] = v24;
-  v35 = v23;
+  v34 = v23;
   xpc_connection_send_message_with_reply(v25, v10, v26, handler);
 
 LABEL_19:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_2(uint64_t a1, void *a2)
@@ -6504,7 +6399,7 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_2(uint64_t a1,
 
 void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_3(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -6535,28 +6430,27 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_3(uint64_t a1,
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v14;
+    v22 = v14;
     _os_log_impl(&dword_1B233B000, v15, OS_LOG_TYPE_DEFAULT, "Error sending outgoing message! %@", buf, 0xCu);
   }
 
   v16 = *(a1 + 40);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239;
-  v19[3] = &unk_1E7B22520;
-  v19[4] = v16;
-  v20 = *(a1 + 48);
-  v21 = v14;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239;
+  v18[3] = &unk_1E7B22520;
+  v18[4] = v16;
+  v19 = *(a1 + 48);
+  v20 = v14;
   v17 = v14;
-  [v16 _asyncOnDelegateQueueWithBlock:v19];
+  [v16 _asyncOnDelegateQueueWithBlock:v18];
 
 LABEL_9:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[APSLog connection];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -6564,15 +6458,15 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239(void *a1, 
     v5 = a1[4];
     v6 = a1[5];
     v7 = a1[6];
-    v13 = 138413058;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ checking if %@ responds to message %@ failing to send %@", &v13, 0x2Au);
+    v12 = 138413058;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v7;
+    _os_log_impl(&dword_1B233B000, v4, OS_LOG_TYPE_DEFAULT, "%@ checking if %@ responds to message %@ failing to send %@", &v12, 0x2Au);
   }
 
   if (objc_opt_respondsToSelector())
@@ -6581,11 +6475,11 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239(void *a1, 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = a1[4];
-      v13 = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didFailToSendOutgoingMessage:", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ calling %@ didFailToSendOutgoingMessage:", &v12, 0x16u);
     }
 
     [v3 connection:a1[4] didFailToSendOutgoingMessage:a1[5] error:a1[6]];
@@ -6593,20 +6487,18 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239(void *a1, 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = a1[4];
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didFailToSendOutgoingMessage:", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didFailToSendOutgoingMessage:", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelOutgoingMessage:(id)message
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = +[APSLog shouldReduceLogging];
   v6 = +[APSLog connection];
@@ -6617,9 +6509,9 @@ void __43__APSConnection__sendOutgoingMessage_fake___block_invoke_239(void *a1, 
     {
       *buf = 138412802;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = messageCopy;
-      v18 = 2048;
+      v15 = 2112;
+      v16 = messageCopy;
+      v17 = 2048;
       identifier = [messageCopy identifier];
       v8 = v7;
       v9 = OS_LOG_TYPE_DEBUG;
@@ -6632,30 +6524,28 @@ LABEL_6:
   {
     *buf = 138412802;
     selfCopy2 = self;
-    v16 = 2112;
-    v17 = messageCopy;
-    v18 = 2048;
+    v15 = 2112;
+    v16 = messageCopy;
+    v17 = 2048;
     identifier = [messageCopy identifier];
     v8 = v7;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __39__APSConnection_cancelOutgoingMessage___block_invoke;
-  v12[3] = &unk_1E7B220F0;
-  v12[4] = self;
-  v13 = messageCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __39__APSConnection_cancelOutgoingMessage___block_invoke;
+  v11[3] = &unk_1E7B220F0;
+  v11[4] = self;
+  v12 = messageCopy;
   v10 = messageCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v11];
 }
 
 void __39__APSConnection_cancelOutgoingMessage___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -6665,25 +6555,240 @@ void __39__APSConnection_cancelOutgoingMessage___block_invoke(uint64_t a1)
     v9 = [*(a1 + 40) messageID];
     APSInsertIntsToXPCDictionary(message, "messageID", v10, v11, v12, v13, v14, v15, v9);
     xpc_connection_send_message(*(*(a1 + 32) + 104), message);
-    v16 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v17 = +[APSLog connection];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = +[APSLog connection];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1 + 32);
+      v17 = *(a1 + 32);
       *buf = 138412290;
-      v22 = v18;
-      _os_log_impl(&dword_1B233B000, v17, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in cancelOutgoingMessage!", buf, 0xCu);
+      v20 = v17;
+      _os_log_impl(&dword_1B233B000, v16, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in cancelOutgoingMessage!", buf, 0xCu);
     }
-
-    v19 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)requestTokenForTopic:(id)topic identifier:(id)identifier
+{
+  v23 = *MEMORY[0x1E69E9840];
+  topicCopy = topic;
+  identifierCopy = identifier;
+  v8 = +[APSLog shouldReduceLogging];
+  v9 = +[APSLog connection];
+  v10 = v9;
+  if (v8)
+  {
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_7;
+    }
+
+    *buf = 138412802;
+    selfCopy2 = self;
+    v19 = 2112;
+    v20 = topicCopy;
+    v21 = 2112;
+    v22 = identifierCopy;
+    v11 = v10;
+    v12 = OS_LOG_TYPE_DEBUG;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
+    *buf = 138412802;
+    selfCopy2 = self;
+    v19 = 2112;
+    v20 = topicCopy;
+    v21 = 2112;
+    v22 = identifierCopy;
+    v11 = v10;
+    v12 = OS_LOG_TYPE_DEFAULT;
+  }
+
+  _os_log_impl(&dword_1B233B000, v11, v12, "%@: Requesting per-app token for topic %@ and identifier %@", buf, 0x20u);
+LABEL_7:
+
+  if (topicCopy)
+  {
+    v13 = &stru_1F299CEB0;
+    if (identifierCopy)
+    {
+      v13 = identifierCopy;
+    }
+
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __49__APSConnection_requestTokenForTopic_identifier___block_invoke;
+    v14[3] = &unk_1E7B222F0;
+    v14[4] = self;
+    identifierCopy = v13;
+    v15 = identifierCopy;
+    v16 = topicCopy;
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v14];
+  }
+}
+
+void __49__APSConnection_requestTokenForTopic_identifier___block_invoke(uint64_t a1)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
+  if (*(*(a1 + 32) + 104))
+  {
+    message = xpc_dictionary_create(0, 0, 0);
+    v2 = [@"message-type" UTF8String];
+    APSInsertIntsToXPCDictionary(message, v2, v3, v4, v5, v6, v7, v8, 14);
+    APSInsertNSStringsToXPCDictionary(message, "identifier", v9, v10, v11, v12, v13, v14, *(a1 + 40));
+    xpc_connection_send_message(*(*(a1 + 32) + 104), message);
+  }
+
+  else
+  {
+    v15 = +[APSLog connection];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = *(a1 + 32);
+      *buf = 138412290;
+      v19 = v16;
+      _os_log_impl(&dword_1B233B000, v15, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in requestTokenForTopic!", buf, 0xCu);
+    }
+  }
+}
+
+- (void)requestTokenForInfo:(id)info
+{
+  v28 = *MEMORY[0x1E69E9840];
+  infoCopy = info;
+  v5 = +[APSLog shouldReduceLogging];
+  v6 = +[APSLog connection];
+  v7 = v6;
+  if (v5)
+  {
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_7;
+    }
+
+    *buf = 138412546;
+    selfCopy4 = self;
+    v26 = 2112;
+    v27 = infoCopy;
+    v8 = v7;
+    v9 = OS_LOG_TYPE_DEBUG;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
+    *buf = 138412546;
+    selfCopy4 = self;
+    v26 = 2112;
+    v27 = infoCopy;
+    v8 = v7;
+    v9 = OS_LOG_TYPE_DEFAULT;
+  }
+
+  _os_log_impl(&dword_1B233B000, v8, v9, "%@: Requesting extended app token for info %@", buf, 0x16u);
+LABEL_7:
+
+  topic = [infoCopy topic];
+
+  if (topic)
+  {
+    identifier = [infoCopy identifier];
+
+    if (!identifier)
+    {
+      [infoCopy setIdentifier:&stru_1F299CEB0];
+    }
+
+    expirationDate = [infoCopy expirationDate];
+    if (!expirationDate || (v13 = expirationDate, [infoCopy expirationDate], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E695DF00], "date"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "compare:", v15), v15, v14, v13, v16 != -1))
+    {
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __37__APSConnection_requestTokenForInfo___block_invoke;
+      v22[3] = &unk_1E7B220F0;
+      v22[4] = self;
+      v23 = infoCopy;
+      [(APSConnection *)self _dispatch_async_to_ivarQueue:v22];
+
+      goto LABEL_20;
+    }
+
+    v17 = +[APSLog shouldReduceLogging];
+    v18 = +[APSLog connection];
+    v19 = v18;
+    if (v17)
+    {
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412546;
+        selfCopy4 = self;
+        v26 = 2112;
+        v27 = infoCopy;
+        v20 = v19;
+        v21 = OS_LOG_TYPE_DEBUG;
+LABEL_18:
+        _os_log_impl(&dword_1B233B000, v20, v21, "%@: Token was requested for an expiration date that is in the past %@", buf, 0x16u);
+      }
+    }
+
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      selfCopy4 = self;
+      v26 = 2112;
+      v27 = infoCopy;
+      v20 = v19;
+      v21 = OS_LOG_TYPE_DEFAULT;
+      goto LABEL_18;
+    }
+  }
+
+LABEL_20:
+}
+
+void __37__APSConnection_requestTokenForInfo___block_invoke(uint64_t a1)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
+  if (*(*(a1 + 32) + 104))
+  {
+    xdict = xpc_dictionary_create(0, 0, 0);
+    v2 = [@"message-type" UTF8String];
+    APSInsertIntsToXPCDictionary(xdict, v2, v3, v4, v5, v6, v7, v8, 15);
+    v9 = [*(a1 + 40) dictionaryRepresentation];
+    v10 = APSCreateXPCObjectFromDictionary(v9);
+
+    xpc_dictionary_set_value(xdict, "info", v10);
+    xpc_connection_send_message(*(*(a1 + 32) + 104), xdict);
+  }
+
+  else
+  {
+    v11 = +[APSLog connection];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = *(a1 + 32);
+      *buf = 138412290;
+      v15 = v12;
+      _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in requestTokenForInfo!", buf, 0xCu);
+    }
+  }
+}
+
+- (void)invalidateTokenForTopic:(id)topic identifier:(id)identifier
 {
   v24 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
@@ -6725,302 +6830,55 @@ void __39__APSConnection_cancelOutgoingMessage___block_invoke(uint64_t a1)
     v12 = OS_LOG_TYPE_DEFAULT;
   }
 
-  _os_log_impl(&dword_1B233B000, v11, v12, "%@: Requesting per-app token for topic %@ and identifier %@", buf, 0x20u);
-LABEL_7:
-
-  if (topicCopy)
-  {
-    v13 = &stru_1F299CEB0;
-    if (identifierCopy)
-    {
-      v13 = identifierCopy;
-    }
-
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __49__APSConnection_requestTokenForTopic_identifier___block_invoke;
-    v15[3] = &unk_1E7B222F0;
-    v15[4] = self;
-    identifierCopy = v13;
-    v16 = identifierCopy;
-    v17 = topicCopy;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v15];
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-void __49__APSConnection_requestTokenForTopic_identifier___block_invoke(uint64_t a1)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
-  if (*(*(a1 + 32) + 104))
-  {
-    message = xpc_dictionary_create(0, 0, 0);
-    v2 = [@"message-type" UTF8String];
-    APSInsertIntsToXPCDictionary(message, v2, v3, v4, v5, v6, v7, v8, 14);
-    v19 = *(a1 + 48);
-    APSInsertNSStringsToXPCDictionary(message, "identifier", v9, v10, v11, v12, v13, v14, *(a1 + 40));
-    xpc_connection_send_message(*(*(a1 + 32) + 104), message);
-    v15 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v16 = +[APSLog connection];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = *(a1 + 32);
-      *buf = 138412290;
-      v22 = v17;
-      _os_log_impl(&dword_1B233B000, v16, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in requestTokenForTopic!", buf, 0xCu);
-    }
-
-    v18 = *MEMORY[0x1E69E9840];
-  }
-}
-
-- (void)requestTokenForInfo:(id)info
-{
-  v29 = *MEMORY[0x1E69E9840];
-  infoCopy = info;
-  v5 = +[APSLog shouldReduceLogging];
-  v6 = +[APSLog connection];
-  v7 = v6;
-  if (v5)
-  {
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      goto LABEL_7;
-    }
-
-    *buf = 138412546;
-    selfCopy4 = self;
-    v27 = 2112;
-    v28 = infoCopy;
-    v8 = v7;
-    v9 = OS_LOG_TYPE_DEBUG;
-  }
-
-  else
-  {
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_7;
-    }
-
-    *buf = 138412546;
-    selfCopy4 = self;
-    v27 = 2112;
-    v28 = infoCopy;
-    v8 = v7;
-    v9 = OS_LOG_TYPE_DEFAULT;
-  }
-
-  _os_log_impl(&dword_1B233B000, v8, v9, "%@: Requesting extended app token for info %@", buf, 0x16u);
-LABEL_7:
-
-  topic = [infoCopy topic];
-
-  if (topic)
-  {
-    identifier = [infoCopy identifier];
-
-    if (!identifier)
-    {
-      [infoCopy setIdentifier:&stru_1F299CEB0];
-    }
-
-    expirationDate = [infoCopy expirationDate];
-    if (!expirationDate)
-    {
-      goto LABEL_12;
-    }
-
-    v13 = expirationDate;
-    expirationDate2 = [infoCopy expirationDate];
-    date = [MEMORY[0x1E695DF00] date];
-    v16 = [expirationDate2 compare:date];
-
-    if (v16 != -1)
-    {
-LABEL_12:
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __37__APSConnection_requestTokenForInfo___block_invoke;
-      v23[3] = &unk_1E7B220F0;
-      v23[4] = self;
-      v24 = infoCopy;
-      [(APSConnection *)self _dispatch_async_to_ivarQueue:v23];
-
-      goto LABEL_20;
-    }
-
-    v17 = +[APSLog shouldReduceLogging];
-    v18 = +[APSLog connection];
-    v19 = v18;
-    if (v17)
-    {
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138412546;
-        selfCopy4 = self;
-        v27 = 2112;
-        v28 = infoCopy;
-        v20 = v19;
-        v21 = OS_LOG_TYPE_DEBUG;
-LABEL_18:
-        _os_log_impl(&dword_1B233B000, v20, v21, "%@: Token was requested for an expiration date that is in the past %@", buf, 0x16u);
-      }
-    }
-
-    else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412546;
-      selfCopy4 = self;
-      v27 = 2112;
-      v28 = infoCopy;
-      v20 = v19;
-      v21 = OS_LOG_TYPE_DEFAULT;
-      goto LABEL_18;
-    }
-  }
-
-LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
-}
-
-void __37__APSConnection_requestTokenForInfo___block_invoke(uint64_t a1)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
-  if (*(*(a1 + 32) + 104))
-  {
-    xdict = xpc_dictionary_create(0, 0, 0);
-    v2 = [@"message-type" UTF8String];
-    APSInsertIntsToXPCDictionary(xdict, v2, v3, v4, v5, v6, v7, v8, 15);
-    v9 = [*(a1 + 40) dictionaryRepresentation];
-    v10 = APSCreateXPCObjectFromDictionary(v9);
-
-    xpc_dictionary_set_value(xdict, "info", v10);
-    xpc_connection_send_message(*(*(a1 + 32) + 104), xdict);
-
-    v11 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v12 = +[APSLog connection];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = *(a1 + 32);
-      *buf = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_1B233B000, v12, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in requestTokenForInfo!", buf, 0xCu);
-    }
-
-    v14 = *MEMORY[0x1E69E9840];
-  }
-}
-
-- (void)invalidateTokenForTopic:(id)topic identifier:(id)identifier
-{
-  v25 = *MEMORY[0x1E69E9840];
-  topicCopy = topic;
-  identifierCopy = identifier;
-  v8 = +[APSLog shouldReduceLogging];
-  v9 = +[APSLog connection];
-  v10 = v9;
-  if (v8)
-  {
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-    {
-      goto LABEL_7;
-    }
-
-    *buf = 138412802;
-    selfCopy2 = self;
-    v21 = 2112;
-    v22 = topicCopy;
-    v23 = 2112;
-    v24 = identifierCopy;
-    v11 = v10;
-    v12 = OS_LOG_TYPE_DEBUG;
-  }
-
-  else
-  {
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_7;
-    }
-
-    *buf = 138412802;
-    selfCopy2 = self;
-    v21 = 2112;
-    v22 = topicCopy;
-    v23 = 2112;
-    v24 = identifierCopy;
-    v11 = v10;
-    v12 = OS_LOG_TYPE_DEFAULT;
-  }
-
   _os_log_impl(&dword_1B233B000, v11, v12, "%@ invalidateTokenForTopic: %@ identifier %@", buf, 0x20u);
 LABEL_7:
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __52__APSConnection_invalidateTokenForTopic_identifier___block_invoke;
-  v16[3] = &unk_1E7B222F0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __52__APSConnection_invalidateTokenForTopic_identifier___block_invoke;
+  v15[3] = &unk_1E7B222F0;
   if (!identifierCopy)
   {
     identifierCopy = &stru_1F299CEB0;
   }
 
-  v16[4] = self;
-  v17 = identifierCopy;
-  v18 = topicCopy;
+  v15[4] = self;
+  v16 = identifierCopy;
+  v17 = topicCopy;
   v13 = topicCopy;
   v14 = identifierCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v15];
 }
 
 void __52__APSConnection_invalidateTokenForTopic_identifier___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
     message = xpc_dictionary_create(0, 0, 0);
     v2 = [@"message-type" UTF8String];
     APSInsertIntsToXPCDictionary(message, v2, v3, v4, v5, v6, v7, v8, 17);
-    v19 = *(a1 + 48);
     APSInsertNSStringsToXPCDictionary(message, "identifier", v9, v10, v11, v12, v13, v14, *(a1 + 40));
     xpc_connection_send_message(*(*(a1 + 32) + 104), message);
-    v15 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v16 = +[APSLog connection];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = +[APSLog connection];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
       *buf = 138412290;
-      v22 = v17;
-      _os_log_impl(&dword_1B233B000, v16, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in invalidateTokenForTopic!", buf, 0xCu);
+      v19 = v16;
+      _os_log_impl(&dword_1B233B000, v15, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in invalidateTokenForTopic!", buf, 0xCu);
     }
-
-    v18 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)invalidateTokenForInfo:(id)info
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[APSLog shouldReduceLogging];
   v6 = +[APSLog connection];
@@ -7034,8 +6892,8 @@ void __52__APSConnection_invalidateTokenForTopic_identifier___block_invoke(uint6
 
     *buf = 138412546;
     selfCopy2 = self;
-    v17 = 2112;
-    v18 = infoCopy;
+    v16 = 2112;
+    v17 = infoCopy;
     v8 = v7;
     v9 = OS_LOG_TYPE_DEBUG;
   }
@@ -7049,8 +6907,8 @@ void __52__APSConnection_invalidateTokenForTopic_identifier___block_invoke(uint6
 
     *buf = 138412546;
     selfCopy2 = self;
-    v17 = 2112;
-    v18 = infoCopy;
+    v16 = 2112;
+    v17 = infoCopy;
     v8 = v7;
     v9 = OS_LOG_TYPE_DEFAULT;
   }
@@ -7065,21 +6923,19 @@ LABEL_7:
     [infoCopy setIdentifier:&stru_1F299CEB0];
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __40__APSConnection_invalidateTokenForInfo___block_invoke;
-  v13[3] = &unk_1E7B220F0;
-  v13[4] = self;
-  v14 = infoCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __40__APSConnection_invalidateTokenForInfo___block_invoke;
+  v12[3] = &unk_1E7B220F0;
+  v12[4] = self;
+  v13 = infoCopy;
   v11 = infoCopy;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v12];
 }
 
 void __40__APSConnection_invalidateTokenForInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -7091,22 +6947,18 @@ void __40__APSConnection_invalidateTokenForInfo___block_invoke(uint64_t a1)
 
     xpc_dictionary_set_value(xdict, "info", v10);
     xpc_connection_send_message(*(*(a1 + 32) + 104), xdict);
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = +[APSLog connection];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = +[APSLog connection];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_1B233B000, v12, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in invalidateTokenForInfo!", buf, 0xCu);
+      v15 = v12;
+      _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in invalidateTokenForInfo!", buf, 0xCu);
     }
-
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -7131,7 +6983,7 @@ void __40__APSConnection_invalidateTokenForInfo___block_invoke(uint64_t a1)
 
 void __71__APSConnection_calloutToDelegatesForURLTokenError_forInfo_completion___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[7];
   if (v4)
@@ -7147,15 +6999,15 @@ void __71__APSConnection_calloutToDelegatesForURLTokenError_forInfo_completion__
       v7 = a1[4];
       v6 = a1[5];
       v8 = a1[6];
-      v12 = 138413058;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v3;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_1B233B000, v5, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received web token error %@ for info %@", &v12, 0x2Au);
+      v11 = 138413058;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_1B233B000, v5, OS_LOG_TYPE_DEFAULT, "%@ calling %@ for received web token error %@ for info %@", &v11, 0x2Au);
     }
 
     [v3 connection:a1[5] didReceiveURLTokenError:a1[4] forInfo:a1[6]];
@@ -7163,20 +7015,18 @@ void __71__APSConnection_calloutToDelegatesForURLTokenError_forInfo_completion__
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = a1[5];
-      v12 = 138412546;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveURLTokenError:forInfo", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ returned from %@ didReceiveURLTokenError:forInfo", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestURLTokenForInfo:(id)info completion:(id)completion
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
   v8 = +[APSLog shouldReduceLogging];
@@ -7189,10 +7039,10 @@ void __71__APSConnection_calloutToDelegatesForURLTokenError_forInfo_completion__
       v11 = MEMORY[0x1B2746DE0](completionCopy);
       *buf = 138412802;
       selfCopy2 = self;
-      v42 = 2112;
-      v43 = infoCopy;
-      v44 = 2112;
-      v45 = v11;
+      v41 = 2112;
+      v42 = infoCopy;
+      v43 = 2112;
+      v44 = v11;
       v12 = v10;
       v13 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
@@ -7205,10 +7055,10 @@ LABEL_6:
     v11 = MEMORY[0x1B2746DE0](completionCopy);
     *buf = 138412802;
     selfCopy2 = self;
-    v42 = 2112;
-    v43 = infoCopy;
-    v44 = 2112;
-    v45 = v11;
+    v41 = 2112;
+    v42 = infoCopy;
+    v43 = 2112;
+    v44 = v11;
     v12 = v10;
     v13 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
@@ -7237,39 +7087,38 @@ LABEL_6:
 
     if (v21 == -1)
     {
-      v32 = +[APSLog connection];
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = +[APSLog connection];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [APSConnection requestURLTokenForInfo:completion:];
       }
 
       v29 = @"expirationDate is in the past";
 LABEL_15:
-      v30 = APSURLTokenError(100, v29, v23, v24, v25, v26, v27, v28, v33[0]);
+      v30 = APSURLTokenError(100, v29, v23, v24, v25, v26, v27, v28, v32[0]);
       [(APSConnection *)self calloutToDelegatesForURLTokenError:v30 forInfo:infoCopy completion:completionCopy];
 
       goto LABEL_16;
     }
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __51__APSConnection_requestURLTokenForInfo_completion___block_invoke;
-  v37[3] = &unk_1E7B226D0;
-  v37[4] = self;
-  v39 = completionCopy;
-  v38 = infoCopy;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255;
-  v33[3] = &unk_1E7B22408;
-  v34 = v38;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __51__APSConnection_requestURLTokenForInfo_completion___block_invoke;
+  v36[3] = &unk_1E7B226D0;
+  v36[4] = self;
+  v38 = completionCopy;
+  v37 = infoCopy;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255;
+  v32[3] = &unk_1E7B22408;
+  v33 = v37;
   selfCopy3 = self;
-  v36 = v39;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v37 shutdownBlock:v33];
+  v35 = v38;
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v36 shutdownBlock:v32];
 
 LABEL_16:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke(uint64_t a1)
@@ -7294,7 +7143,7 @@ void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke(uint64
     v12 = +[APSLog connection];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_cold_1(v2, a1);
+      __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_cold_1();
     }
 
     v19 = APSURLTokenError(101, @"No connection to apsd", v13, v14, v15, v16, v17, v18, v20);
@@ -7307,7 +7156,7 @@ void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255(ui
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255_cold_1(a1);
+    __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255_cold_1();
   }
 
   v9 = APSURLTokenError(101, @"Shutting down, unable to reach apsd", v3, v4, v5, v6, v7, v8, v10);
@@ -7382,7 +7231,7 @@ void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255(ui
 
 - (void)invalidateURLTokenForInfo:(id)info completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
   v8 = +[APSLog shouldReduceLogging];
@@ -7398,10 +7247,10 @@ void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255(ui
     v11 = MEMORY[0x1B2746DE0](completionCopy);
     *buf = 138412802;
     selfCopy2 = self;
-    v32 = 2112;
-    v33 = infoCopy;
-    v34 = 2112;
-    v35 = v11;
+    v31 = 2112;
+    v32 = infoCopy;
+    v33 = 2112;
+    v34 = v11;
     v12 = v10;
     v13 = OS_LOG_TYPE_DEBUG;
   }
@@ -7416,10 +7265,10 @@ void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255(ui
     v11 = MEMORY[0x1B2746DE0](completionCopy);
     *buf = 138412802;
     selfCopy2 = self;
-    v32 = 2112;
-    v33 = infoCopy;
-    v34 = 2112;
-    v35 = v11;
+    v31 = 2112;
+    v32 = infoCopy;
+    v33 = 2112;
+    v34 = v11;
     v12 = v10;
     v13 = OS_LOG_TYPE_DEFAULT;
   }
@@ -7431,21 +7280,21 @@ LABEL_7:
 
   if (topic)
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke;
-    v27[3] = &unk_1E7B22408;
-    v27[4] = self;
-    v28 = infoCopy;
-    v29 = completionCopy;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266;
-    v24[3] = &unk_1E7B22408;
-    v24[4] = self;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke;
+    v26[3] = &unk_1E7B22408;
+    v26[4] = self;
+    v27 = infoCopy;
+    v28 = completionCopy;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266;
+    v23[3] = &unk_1E7B22408;
+    v23[4] = self;
+    v24 = v27;
     v25 = v28;
-    v26 = v29;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v27 shutdownBlock:v24];
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v26 shutdownBlock:v23];
   }
 
   else
@@ -7456,18 +7305,16 @@ LABEL_7:
       [APSConnection requestURLTokenForInfo:completion:];
     }
 
-    v22 = APSURLTokenError(100, @"Missing topic", v16, v17, v18, v19, v20, v21, v24[0]);
+    v22 = APSURLTokenError(100, @"Missing topic", v16, v17, v18, v19, v20, v21, v23[0]);
     [(APSConnection *)self calloutToInvalidateCompletion:completionCopy withSuccess:0 error:v22];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke(id *a1)
 {
-  v2 = (a1 + 4);
+  v2 = a1 + 4;
   [a1[4] _connectIfNecessaryOnIvarQueue];
-  if (*(*v2 + 104))
+  if (*(*v2 + 13))
   {
     v3 = xpc_dictionary_create(0, 0, 0);
     v4 = [@"message-type" UTF8String];
@@ -7494,7 +7341,7 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke(id 
     v22 = +[APSLog connection];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_cold_1(v2, a1);
+      __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_cold_1();
     }
 
     v23 = a1[4];
@@ -7525,9 +7372,9 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_2(u
   [v4 _handleEvent:a2 withHandler:v9 errorHandler:v6];
 }
 
-uint64_t __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_3(uint64_t result, uint64_t a2)
+void *__54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_3(void *result, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v2 = result;
@@ -7538,36 +7385,35 @@ uint64_t __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke
     {
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v6 = *(v2 + 32);
-        v7 = *(v2 + 40);
-        v13 = 138412546;
-        v14 = v6;
-        v15 = 2112;
-        v16 = v7;
+        v6 = *(v2 + 4);
+        v7 = *(v2 + 5);
+        v12 = 138412546;
+        v13 = v6;
+        v14 = 2112;
+        v15 = v7;
         v8 = v5;
         v9 = OS_LOG_TYPE_DEBUG;
 LABEL_7:
-        _os_log_impl(&dword_1B233B000, v8, v9, "%@ invalidateURLTokenForInfo calling completion for %@", &v13, 0x16u);
+        _os_log_impl(&dword_1B233B000, v8, v9, "%@ invalidateURLTokenForInfo calling completion for %@", &v12, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(v2 + 32);
-      v11 = *(v2 + 40);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
+      v10 = *(v2 + 4);
+      v11 = *(v2 + 5);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
       v8 = v5;
       v9 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_7;
     }
 
-    result = [*(v2 + 32) calloutToInvalidateCompletion:*(v2 + 48) withSuccess:1 error:0];
+    return [*(v2 + 4) calloutToInvalidateCompletion:*(v2 + 6) withSuccess:1 error:0];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7576,7 +7422,7 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_262
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_262_cold_1(a1);
+    __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_262_cold_1();
   }
 
   v3 = *(a1 + 32);
@@ -7590,7 +7436,7 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266_cold_1(a1);
+    __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266_cold_1();
   }
 
   v3 = *(a1 + 32);
@@ -7601,7 +7447,7 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266
 
 - (void)currentTokenForInfo:(id)info
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[APSLog shouldReduceLogging];
   v6 = +[APSLog connection];
@@ -7615,8 +7461,8 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266
 
     *buf = 138412546;
     selfCopy2 = self;
-    v17 = 2112;
-    v18 = infoCopy;
+    v16 = 2112;
+    v17 = infoCopy;
     v8 = v7;
     v9 = OS_LOG_TYPE_DEBUG;
   }
@@ -7630,8 +7476,8 @@ void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266
 
     *buf = 138412546;
     selfCopy2 = self;
-    v17 = 2112;
-    v18 = infoCopy;
+    v16 = 2112;
+    v17 = infoCopy;
     v8 = v7;
     v9 = OS_LOG_TYPE_DEFAULT;
   }
@@ -7650,21 +7496,19 @@ LABEL_7:
       [infoCopy setIdentifier:&stru_1F299CEB0];
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __37__APSConnection_currentTokenForInfo___block_invoke;
-    v13[3] = &unk_1E7B220F0;
-    v13[4] = self;
-    v14 = infoCopy;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __37__APSConnection_currentTokenForInfo___block_invoke;
+    v12[3] = &unk_1E7B220F0;
+    v12[4] = self;
+    v13 = infoCopy;
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __37__APSConnection_currentTokenForInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -7676,28 +7520,24 @@ void __37__APSConnection_currentTokenForInfo___block_invoke(uint64_t a1)
 
     xpc_dictionary_set_value(xdict, "info", v10);
     xpc_connection_send_message(*(*(a1 + 32) + 104), xdict);
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = +[APSLog connection];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = +[APSLog connection];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_1B233B000, v12, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in currentTokenForInfo!", buf, 0xCu);
+      v15 = v12;
+      _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in currentTokenForInfo!", buf, 0xCu);
     }
-
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)currentURLTokenForInfo:(id)info
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[APSLog shouldReduceLogging];
   v6 = +[APSLog connection];
@@ -7711,8 +7551,8 @@ void __37__APSConnection_currentTokenForInfo___block_invoke(uint64_t a1)
 
     *buf = 138412546;
     selfCopy2 = self;
-    v16 = 2112;
-    v17 = infoCopy;
+    v15 = 2112;
+    v16 = infoCopy;
     v8 = v7;
     v9 = OS_LOG_TYPE_DEBUG;
   }
@@ -7726,8 +7566,8 @@ void __37__APSConnection_currentTokenForInfo___block_invoke(uint64_t a1)
 
     *buf = 138412546;
     selfCopy2 = self;
-    v16 = 2112;
-    v17 = infoCopy;
+    v15 = 2112;
+    v16 = infoCopy;
     v8 = v7;
     v9 = OS_LOG_TYPE_DEFAULT;
   }
@@ -7739,21 +7579,19 @@ LABEL_7:
 
   if (topic)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __40__APSConnection_currentURLTokenForInfo___block_invoke;
-    v12[3] = &unk_1E7B220F0;
-    v12[4] = self;
-    v13 = infoCopy;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __40__APSConnection_currentURLTokenForInfo___block_invoke;
+    v11[3] = &unk_1E7B220F0;
+    v11[4] = self;
+    v12 = infoCopy;
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __40__APSConnection_currentURLTokenForInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -7765,22 +7603,18 @@ void __40__APSConnection_currentURLTokenForInfo___block_invoke(uint64_t a1)
 
     xpc_dictionary_set_value(xdict, "info", v10);
     xpc_connection_send_message(*(*(a1 + 32) + 104), xdict);
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = +[APSLog connection];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = +[APSLog connection];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_1B233B000, v12, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in currentTokenForInfo!", buf, 0xCu);
+      v15 = v12;
+      _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in currentTokenForInfo!", buf, 0xCu);
     }
-
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -7796,7 +7630,7 @@ void __40__APSConnection_currentURLTokenForInfo___block_invoke(uint64_t a1)
 
 void __33__APSConnection_requestKeepAlive__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -7804,21 +7638,18 @@ void __33__APSConnection_requestKeepAlive__block_invoke(uint64_t a1)
     v2 = [@"message-type" UTF8String];
     APSInsertIntsToXPCDictionary(message, v2, v3, v4, v5, v6, v7, v8, 51);
     xpc_connection_send_message(*(*(a1 + 32) + 104), message);
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = +[APSLog connection];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = +[APSLog connection];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412290;
-      v15 = v11;
-      _os_log_impl(&dword_1B233B000, v10, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in requestKeepAlive!", buf, 0xCu);
+      v13 = v10;
+      _os_log_impl(&dword_1B233B000, v9, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in requestKeepAlive!", buf, 0xCu);
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -7849,7 +7680,7 @@ void __33__APSConnection_requestKeepAlive__block_invoke(uint64_t a1)
 
 void __42__APSConnection_confirmReceiptForMessage___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -7863,21 +7694,18 @@ void __42__APSConnection_confirmReceiptForMessage___block_invoke(uint64_t a1)
     APSInsertNSStringsToXPCDictionary(message, "topic", v17, v18, v19, v20, v21, v22, v16);
 
     xpc_connection_send_message(*(*(a1 + 32) + 104), message);
-    v23 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v24 = +[APSLog connection];
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = +[APSLog connection];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = *(a1 + 32);
+      v24 = *(a1 + 32);
       *buf = 138412290;
-      v29 = v25;
-      _os_log_impl(&dword_1B233B000, v24, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in confirmReceiptForMessage!", buf, 0xCu);
+      v27 = v24;
+      _os_log_impl(&dword_1B233B000, v23, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in confirmReceiptForMessage!", buf, 0xCu);
     }
-
-    v26 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -7891,26 +7719,25 @@ void __42__APSConnection_confirmReceiptForMessage___block_invoke(uint64_t a1)
 
 - (void)subscribeToChannel:(id)channel forTopic:(id)topic
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   channelCopy = channel;
   v6 = MEMORY[0x1E695DEC8];
   topicCopy = topic;
   channelCopy2 = channel;
   v9 = [v6 arrayWithObjects:&channelCopy count:1];
 
-  [(APSConnection *)self subscribeToChannels:v9 forTopic:topicCopy, channelCopy, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self subscribeToChannels:v9 forTopic:topicCopy, channelCopy, v11];
 }
 
 - (void)subscribeToChannels:(id)channels forTopic:(id)topic
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   channelsCopy = channels;
   topicCopy = topic;
-  v33 = [channelsCopy mutableCopy];
+  v32 = [channelsCopy mutableCopy];
   array = [MEMORY[0x1E695DF70] array];
   enabledTopics = [(APSConnection *)self enabledTopics];
-  v36 = topicCopy;
+  v35 = topicCopy;
   if ([enabledTopics containsObject:topicCopy])
   {
     goto LABEL_6;
@@ -7933,9 +7760,9 @@ LABEL_6:
   }
 
   ignoredTopics = [(APSConnection *)self ignoredTopics];
-  v32 = [ignoredTopics containsObject:topicCopy];
+  v31 = [ignoredTopics containsObject:topicCopy];
 
-  if ((v32 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
     enabledTopics = +[APSLog connection];
     if (os_log_type_enabled(enabledTopics, OS_LOG_TYPE_FAULT))
@@ -7948,34 +7775,34 @@ LABEL_6:
 
 LABEL_7:
   array2 = [MEMORY[0x1E695DF70] array];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v11 = channelsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v43;
     do
     {
       v15 = 0;
       do
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * v15);
+        v16 = *(*(&v42 + 1) + 8 * v15);
         v17 = objc_alloc(MEMORY[0x1E695DEF0]);
         channelID = [v16 channelID];
         v19 = [v17 initWithBase64EncodedString:channelID options:0];
 
         if (v19)
         {
-          [v16 setChannelTopic:v36];
+          [v16 setChannelTopic:v35];
           v20 = +[APSLog shouldReduceLogging];
           v21 = +[APSLog connection];
           v22 = v21;
@@ -7984,7 +7811,7 @@ LABEL_7:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v48 = v16;
+              v47 = v16;
               v23 = v22;
               v24 = OS_LOG_TYPE_DEBUG;
               goto LABEL_21;
@@ -7994,7 +7821,7 @@ LABEL_7:
           else if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v48 = v16;
+            v47 = v16;
             v23 = v22;
             v24 = OS_LOG_TYPE_DEFAULT;
 LABEL_21:
@@ -8008,7 +7835,7 @@ LABEL_21:
         v25 = +[APSLog connection];
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          [(APSConnection *)v49 subscribeToChannels:v16 forTopic:&v50, v25];
+          [(APSConnection *)v48 subscribeToChannels:v16 forTopic:&v49, v25];
         }
 
         v26 = objc_alloc_init(APSChannelSubscriptionFailure);
@@ -8017,14 +7844,14 @@ LABEL_21:
 
         [(APSChannelSubscriptionFailure *)v26 setFailureReason:0];
         [array addObject:v26];
-        [v33 removeObject:v16];
+        [v32 removeObject:v16];
 
 LABEL_23:
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v13);
@@ -8037,30 +7864,28 @@ LABEL_23:
 
     if (v29)
     {
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __46__APSConnection_subscribeToChannels_forTopic___block_invoke;
-      v41[3] = &unk_1E7B22748;
-      v41[4] = self;
-      v42 = array;
-      [(APSConnection *)self _asyncOnDelegateQueueWithBlock:v41];
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __46__APSConnection_subscribeToChannels_forTopic___block_invoke;
+      v40[3] = &unk_1E7B22748;
+      v40[4] = self;
+      v41 = array;
+      [(APSConnection *)self _asyncOnDelegateQueueWithBlock:v40];
     }
   }
 
-  if ([v33 count])
+  if ([v32 count])
   {
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __46__APSConnection_subscribeToChannels_forTopic___block_invoke_2;
-    v37[3] = &unk_1E7B222C8;
-    v37[4] = self;
-    v38 = v11;
-    v39 = array2;
-    v40 = v36;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __46__APSConnection_subscribeToChannels_forTopic___block_invoke_2;
+    v36[3] = &unk_1E7B222C8;
+    v36[4] = self;
+    v37 = v11;
+    v38 = array2;
+    v39 = v35;
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v36];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __46__APSConnection_subscribeToChannels_forTopic___block_invoke(uint64_t a1)
@@ -8084,34 +7909,34 @@ uint64_t __46__APSConnection_subscribeToChannels_forTopic___block_invoke_2(uint6
 
 - (void)_onIvarQueue_subscribeToChannels:(id)channels onTopic:(id)topic
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   channelsCopy = channels;
   topicCopy = topic;
   array = [MEMORY[0x1E695DF70] array];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v9 = channelsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        dictionaryRepresentation = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
         [array addObject:dictionaryRepresentation];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
     while (v11);
@@ -8137,49 +7962,46 @@ uint64_t __46__APSConnection_subscribeToChannels_forTopic___block_invoke_2(uint6
       _os_log_impl(&dword_1B233B000, v15, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in subscribeToChannel:forTopic:!", buf, 0xCu);
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromChannel:(id)channel forTopic:(id)topic
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   channelCopy = channel;
   v6 = MEMORY[0x1E695DEC8];
   topicCopy = topic;
   channelCopy2 = channel;
   v9 = [v6 arrayWithObjects:&channelCopy count:1];
 
-  [(APSConnection *)self unsubscribeFromChannels:v9 forTopic:topicCopy, channelCopy, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self unsubscribeFromChannels:v9 forTopic:topicCopy, channelCopy, v11];
 }
 
 - (void)unsubscribeFromChannels:(id)channels forTopic:(id)topic
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   channelsCopy = channels;
   topicCopy = topic;
   array = [MEMORY[0x1E695DF70] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v8 = channelsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         [v13 setChannelTopic:topicCopy];
         v14 = +[APSLog shouldReduceLogging];
         v15 = +[APSLog connection];
@@ -8192,7 +8014,7 @@ uint64_t __46__APSConnection_subscribeToChannels_forTopic___block_invoke_2(uint6
           }
 
           *buf = 138412290;
-          v34 = v13;
+          v33 = v13;
           v17 = v16;
           v18 = OS_LOG_TYPE_DEBUG;
         }
@@ -8205,7 +8027,7 @@ uint64_t __46__APSConnection_subscribeToChannels_forTopic___block_invoke_2(uint6
           }
 
           *buf = 138412290;
-          v34 = v13;
+          v33 = v13;
           v17 = v16;
           v18 = OS_LOG_TYPE_DEFAULT;
         }
@@ -8217,31 +8039,29 @@ LABEL_12:
         [array addObject:dictionaryRepresentation];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v10);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __50__APSConnection_unsubscribeFromChannels_forTopic___block_invoke;
-  v25[3] = &unk_1E7B222C8;
-  v25[4] = self;
-  v26 = v8;
-  v27 = array;
-  v28 = topicCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __50__APSConnection_unsubscribeFromChannels_forTopic___block_invoke;
+  v24[3] = &unk_1E7B222C8;
+  v24[4] = self;
+  v25 = v8;
+  v26 = array;
+  v27 = topicCopy;
   v20 = topicCopy;
   v21 = array;
   v22 = v8;
-  [(APSConnection *)self _dispatch_async_to_ivarQueue:v25];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [(APSConnection *)self _dispatch_async_to_ivarQueue:v24];
 }
 
 void __50__APSConnection_unsubscribeFromChannels_forTopic___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   v2 = [*(a1 + 32) subscribedChannels];
   [v2 removeObjectsInArray:*(a1 + 40)];
@@ -8254,54 +8074,51 @@ void __50__APSConnection_unsubscribeFromChannels_forTopic___block_invoke(uint64_
     APSInsertNSDictionariesToXPCDictionary(message, "channelDicts", v10, v11, v12, v13, v14, v15, *(a1 + 48));
     APSInsertNSStringsToXPCDictionary(message, "pushTopic", v16, v17, v18, v19, v20, v21, *(a1 + 56));
     xpc_connection_send_message(*(*(a1 + 32) + 104), message);
-    v22 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v23 = +[APSLog connection];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = +[APSLog connection];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(a1 + 32);
+      v23 = *(a1 + 32);
       *buf = 138412290;
-      v28 = v24;
-      _os_log_impl(&dword_1B233B000, v23, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in unsubscribeFromChannel:forTopic:!", buf, 0xCu);
+      v26 = v23;
+      _os_log_impl(&dword_1B233B000, v22, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in unsubscribeFromChannel:forTopic:!", buf, 0xCu);
     }
-
-    v25 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)getRegisteredChannelsForTopic:(id)topic withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   completionCopy = completion;
   v8 = completionCopy;
   if (completionCopy)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke;
-    v18[3] = &unk_1E7B22798;
-    v18[4] = self;
-    v19 = completionCopy;
-    v9 = MEMORY[0x1B2746DE0](v18);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_3;
-    v15[3] = &unk_1E7B22408;
-    v15[4] = self;
-    v16 = topicCopy;
-    v17 = v9;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_282;
-    v13[3] = &unk_1E7B221D8;
-    v13[4] = self;
-    v14 = v17;
-    v10 = v17;
-    [(APSConnection *)self _dispatch_async_to_ivarQueue:v15 shutdownBlock:v13];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke;
+    v17[3] = &unk_1E7B22798;
+    v17[4] = self;
+    v18 = completionCopy;
+    v9 = MEMORY[0x1B2746DE0](v17);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_3;
+    v14[3] = &unk_1E7B22408;
+    v14[4] = self;
+    v15 = topicCopy;
+    v16 = v9;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_282;
+    v12[3] = &unk_1E7B221D8;
+    v12[4] = self;
+    v13 = v16;
+    v10 = v16;
+    [(APSConnection *)self _dispatch_async_to_ivarQueue:v14 shutdownBlock:v12];
   }
 
   else
@@ -8314,8 +8131,6 @@ void __50__APSConnection_unsubscribeFromChannels_forTopic___block_invoke(uint64_
       _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ APS getRegisteredChannelsForTopic:withCompletion: was given a nil block -- returning", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -8338,7 +8153,7 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
 
 void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_3(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -8355,8 +8170,8 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
     handler[2] = __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_4;
     handler[3] = &unk_1E7B22720;
     handler[4] = v17;
-    v32 = v16;
-    v33 = *(a1 + 48);
+    v31 = v16;
+    v32 = *(a1 + 48);
     xpc_connection_send_message_with_reply(v18, v2, v19, handler);
   }
 
@@ -8367,16 +8182,14 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
     {
       v21 = *(a1 + 32);
       *buf = 138412290;
-      v35 = v21;
+      v34 = v21;
       _os_log_impl(&dword_1B233B000, v20, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in subscribeToChannel:forTopic:!", buf, 0xCu);
     }
 
     v22 = *(a1 + 48);
-    v2 = APSPubSubError(100, @"Failed connecting to apsd", v23, v24, v25, v26, v27, v28, v30);
+    v2 = APSPubSubError(100, @"Failed connecting to apsd", v23, v24, v25, v26, v27, v28, v29);
     (*(v22 + 16))(v22, 0, v2);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_4(uint64_t a1, void *a2)
@@ -8407,42 +8220,42 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
 
 void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_5(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = APSGetXPCArrayFromDictionary(v2, "subscribedChannels");
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v28 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v27 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         v9 = 0;
         do
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * v9);
+          v10 = *(*(&v17 + 1) + 8 * v9);
           v11 = objc_alloc(CUTWeakLinkClass());
-          v12 = [v11 initWithDictionary:{v10, v18}];
+          v12 = [v11 initWithDictionary:{v10, v17}];
           [v4 addObject:v12];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:v28 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v27 count:16];
       }
 
       while (v7);
@@ -8454,11 +8267,11 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
       v14 = *(a1 + 40);
       v15 = *(a1 + 48);
       *buf = 138412802;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v4;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v4;
       _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ push topic %@ got registered channels %@", buf, 0x20u);
     }
 
@@ -8467,65 +8280,59 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_275(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    *v14 = 138412546;
-    *&v14[4] = v3;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS received an error in getRegisteredChannelsForTopic:withCompletion: %@", v14, 0x16u);
+    *v13 = 138412546;
+    *&v13[4] = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS received an error in getRegisteredChannelsForTopic:withCompletion: %@", v13, 0x16u);
   }
 
   v5 = a1[6];
-  v12 = APSPubSubError(100, @"XPC Error received", v6, v7, v8, v9, v10, v11, *v14);
+  v12 = APSPubSubError(100, @"XPC Error received", v6, v7, v8, v9, v10, v11, *v13);
   (*(v5 + 16))(v5, 0, v12);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_invoke_282(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    *v13 = 138412290;
-    *&v13[4] = v3;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS getRegisteredChannelsForTopic:withCompletion: shutting down -- returning", v13, 0xCu);
+    *v12 = 138412290;
+    *&v12[4] = v3;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS getRegisteredChannelsForTopic:withCompletion: shutting down -- returning", v12, 0xCu);
   }
 
   v4 = *(a1 + 40);
-  v11 = APSPubSubError(100, @"Shutting down, unable to reach apsd", v5, v6, v7, v8, v9, v10, *v13);
+  v11 = APSPubSubError(100, @"Shutting down, unable to reach apsd", v5, v6, v7, v8, v9, v10, *v12);
   (*(v4 + 16))(v4, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getRegisteredChannelsForTopic:(id)topic completion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = completionCopy;
   if (completionCopy)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __58__APSConnection_getRegisteredChannelsForTopic_completion___block_invoke;
-    v10[3] = &unk_1E7B227E8;
-    v11 = completionCopy;
-    [(APSConnection *)self getRegisteredChannelsForTopic:topic withCompletion:v10];
-    v8 = v11;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __58__APSConnection_getRegisteredChannelsForTopic_completion___block_invoke;
+    v9[3] = &unk_1E7B227E8;
+    v10 = completionCopy;
+    [(APSConnection *)self getRegisteredChannelsForTopic:topic withCompletion:v9];
+    v8 = v10;
   }
 
   else
@@ -8538,8 +8345,6 @@ void __62__APSConnection_getRegisteredChannelsForTopic_withCompletion___block_in
       _os_log_impl(&dword_1B233B000, v8, OS_LOG_TYPE_DEFAULT, "%@ APS getRegisteredChannelsForTopic:completion: was given a nil block -- returning", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__APSConnection_getRegisteredChannelsForTopic_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8603,7 +8408,7 @@ uint64_t __58__APSConnection_getRegisteredChannelsForTopic_completion___block_in
 
 void __50__APSConnection_registeredChannelsForTopic_error___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _connectIfNecessaryOnIvarQueue];
   if (*(*(a1 + 32) + 104))
   {
@@ -8613,28 +8418,28 @@ void __50__APSConnection_registeredChannelsForTopic_error___block_invoke(uint64_
     APSInsertNSStringsToXPCDictionary(v2, "pushTopic", v10, v11, v12, v13, v14, v15, *(a1 + 40));
     v16 = xpc_connection_send_message_with_reply_sync(*(*(a1 + 32) + 104), v2);
     v17 = *(a1 + 32);
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __50__APSConnection_registeredChannelsForTopic_error___block_invoke_2;
-    v39[3] = &unk_1E7B22810;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __50__APSConnection_registeredChannelsForTopic_error___block_invoke_2;
+    v38[3] = &unk_1E7B22810;
     v18 = v16;
     v19 = *(a1 + 32);
     v20 = *(a1 + 40);
-    v40 = v18;
-    v41 = v19;
+    v39 = v18;
+    v40 = v19;
     v21 = v20;
     v22 = *(a1 + 48);
-    v42 = v21;
-    v43 = v22;
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __50__APSConnection_registeredChannelsForTopic_error___block_invoke_283;
-    v36[3] = &unk_1E7B22838;
-    v36[4] = *(a1 + 32);
-    v37 = v18;
-    v38 = *(a1 + 56);
+    v41 = v21;
+    v42 = v22;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __50__APSConnection_registeredChannelsForTopic_error___block_invoke_283;
+    v35[3] = &unk_1E7B22838;
+    v35[4] = *(a1 + 32);
+    v36 = v18;
+    v37 = *(a1 + 56);
     v23 = v18;
-    [v17 _handleEvent:v23 withHandler:v39 errorHandler:v36];
+    [v17 _handleEvent:v23 withHandler:v38 errorHandler:v35];
   }
 
   else
@@ -8644,57 +8449,55 @@ void __50__APSConnection_registeredChannelsForTopic_error___block_invoke(uint64_
     {
       v25 = *(a1 + 32);
       *buf = 138412290;
-      v45 = v25;
+      v44 = v25;
       _os_log_impl(&dword_1B233B000, v24, OS_LOG_TYPE_DEFAULT, "%@ APS _connection is NULL in subscribeToChannel:forTopic:!", buf, 0xCu);
     }
 
-    v32 = APSPubSubError(100, @"Failed connecting to apsd", v26, v27, v28, v29, v30, v31, v35);
+    v32 = APSPubSubError(100, @"Failed connecting to apsd", v26, v27, v28, v29, v30, v31, v34);
     v33 = *(*(a1 + 56) + 8);
     v2 = *(v33 + 40);
     *(v33 + 40) = v32;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __50__APSConnection_registeredChannelsForTopic_error___block_invoke_2(void *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (v2)
   {
     v3 = APSGetXPCArrayFromDictionary(v2, "subscribedChannels");
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v20 objects:v30 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v29 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         v9 = 0;
         do
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * v9);
+          v10 = *(*(&v19 + 1) + 8 * v9);
           v11 = objc_alloc(CUTWeakLinkClass());
-          v12 = [v11 initWithDictionary:{v10, v20}];
+          v12 = [v11 initWithDictionary:{v10, v19}];
           [v4 addObject:v12];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v20 objects:v30 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:v29 count:16];
       }
 
       while (v7);
@@ -8706,11 +8509,11 @@ void __50__APSConnection_registeredChannelsForTopic_error___block_invoke_2(void 
       v14 = a1[5];
       v15 = a1[6];
       *buf = 138412802;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 2112;
-      v29 = v4;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v15;
+      v27 = 2112;
+      v28 = v4;
       _os_log_impl(&dword_1B233B000, v13, OS_LOG_TYPE_DEFAULT, "%@ push topic %@ got registered channels %@", buf, 0x20u);
     }
 
@@ -8719,51 +8522,45 @@ void __50__APSConnection_registeredChannelsForTopic_error___block_invoke_2(void 
     v18 = *(v17 + 40);
     *(v17 + 40) = v16;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __50__APSConnection_registeredChannelsForTopic_error___block_invoke_283(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    *v15 = 138412546;
-    *&v15[4] = v3;
-    v16 = 2112;
-    v17 = v4;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS received an error in getRegisteredChannelsForTopic:withCompletion: %@", v15, 0x16u);
+    *v14 = 138412546;
+    *&v14[4] = v3;
+    v15 = 2112;
+    v16 = v4;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS received an error in getRegisteredChannelsForTopic:withCompletion: %@", v14, 0x16u);
   }
 
-  v11 = APSPubSubError(100, @"XPC Error received", v5, v6, v7, v8, v9, v10, *v15);
+  v11 = APSPubSubError(100, @"XPC Error received", v5, v6, v7, v8, v9, v10, *v14);
   v12 = *(a1[6] + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __50__APSConnection_registeredChannelsForTopic_error___block_invoke_284(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[APSLog connection];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    *v14 = 138412290;
-    *&v14[4] = v3;
-    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS getRegisteredChannelsForTopic:withCompletion: shutting down -- returning", v14, 0xCu);
+    *v13 = 138412290;
+    *&v13[4] = v3;
+    _os_log_impl(&dword_1B233B000, v2, OS_LOG_TYPE_DEFAULT, "%@ APS getRegisteredChannelsForTopic:withCompletion: shutting down -- returning", v13, 0xCu);
   }
 
-  v10 = APSPubSubError(100, @"Shutting down, unable to reach apsd", v4, v5, v6, v7, v8, v9, *v14);
+  v10 = APSPubSubError(100, @"Shutting down, unable to reach apsd", v4, v5, v6, v7, v8, v9, *v13);
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverFailedChannelSubscriptions:(id)subscriptions onTopic:(id)topic
@@ -8784,40 +8581,40 @@ void __50__APSConnection_registeredChannelsForTopic_error___block_invoke_284(uin
 
 void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invoke(uint64_t a1)
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v49 = [MEMORY[0x1E695DF70] array];
+  v73 = *MEMORY[0x1E69E9840];
+  v48 = [MEMORY[0x1E695DF70] array];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v47 = a1;
+  v46 = a1;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v61 objects:v73 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v60 objects:v72 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v62;
+    v5 = *v61;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v62 != v5)
+        if (*v61 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v61 + 1) + 8 * i);
+        v7 = *(*(&v60 + 1) + 8 * i);
         v8 = objc_alloc_init(APSChannelSubscriptionFailure);
         v9 = [v7 objectForKeyedSubscript:@"channelID"];
         [(APSChannelSubscriptionFailure *)v8 setChannelID:v9];
 
         v10 = [v7 objectForKeyedSubscript:@"reason"];
         -[APSChannelSubscriptionFailure setFailureReason:](v8, "setFailureReason:", [v10 integerValue]);
-        [(APSChannelSubscriptionFailure *)v8 setPushTopic:*(v47 + 40)];
-        [v49 addObject:v8];
+        [(APSChannelSubscriptionFailure *)v8 setPushTopic:*(v46 + 40)];
+        [v48 addObject:v8];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v61 objects:v73 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v60 objects:v72 count:16];
     }
 
     while (v4);
@@ -8833,14 +8630,14 @@ void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invo
       goto LABEL_14;
     }
 
-    v15 = *(v47 + 40);
-    v14 = *(v47 + 48);
+    v15 = *(v46 + 40);
+    v14 = *(v46 + 48);
     *buf = 138412802;
-    v68 = v14;
-    v69 = 2112;
-    v70 = v49;
-    v71 = 2112;
-    v72 = v15;
+    v67 = v14;
+    v68 = 2112;
+    v69 = v48;
+    v70 = 2112;
+    v71 = v15;
     v16 = v13;
     v17 = OS_LOG_TYPE_DEBUG;
   }
@@ -8852,14 +8649,14 @@ void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invo
       goto LABEL_14;
     }
 
-    v19 = *(v47 + 40);
-    v18 = *(v47 + 48);
+    v19 = *(v46 + 40);
+    v18 = *(v46 + 48);
     *buf = 138412802;
-    v68 = v18;
-    v69 = 2112;
-    v70 = v49;
-    v71 = 2112;
-    v72 = v19;
+    v67 = v18;
+    v68 = 2112;
+    v69 = v48;
+    v70 = 2112;
+    v71 = v19;
     v16 = v13;
     v17 = OS_LOG_TYPE_DEFAULT;
   }
@@ -8867,48 +8664,48 @@ void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invo
   _os_log_impl(&dword_1B233B000, v16, v17, "%@ Received failed subscription requests %@ for topic %@", buf, 0x20u);
 LABEL_14:
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
-  obj = v49;
-  v45 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
-  if (v45)
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  obj = v48;
+  v44 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+  if (v44)
   {
-    v44 = *v58;
+    v43 = *v57;
     do
     {
       v20 = 0;
       do
       {
-        if (*v58 != v44)
+        if (*v57 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v46 = v20;
-        v21 = *(*(&v57 + 1) + 8 * v20);
-        v48 = [MEMORY[0x1E695DF70] array];
+        v45 = v20;
+        v21 = *(*(&v56 + 1) + 8 * v20);
+        v47 = [MEMORY[0x1E695DF70] array];
+        v52 = 0u;
         v53 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
-        v50 = [*(v47 + 48) subscribedChannels];
-        v22 = [v50 countByEnumeratingWithState:&v53 objects:v65 count:16];
+        v49 = [*(v46 + 48) subscribedChannels];
+        v22 = [v49 countByEnumeratingWithState:&v52 objects:v64 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v54;
+          v24 = *v53;
           do
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v54 != v24)
+              if (*v53 != v24)
               {
-                objc_enumerationMutation(v50);
+                objc_enumerationMutation(v49);
               }
 
-              v26 = *(*(&v53 + 1) + 8 * j);
+              v26 = *(*(&v52 + 1) + 8 * j);
               v27 = [v26 channelID];
               v28 = [v21 channelID];
               if (([v27 isEqualToString:v28] & 1) == 0)
@@ -8933,9 +8730,9 @@ LABEL_14:
               {
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
                 {
-                  v35 = *(v47 + 48);
+                  v35 = *(v46 + 48);
                   *buf = 138412290;
-                  v68 = v35;
+                  v67 = v35;
                   v36 = v34;
                   v37 = OS_LOG_TYPE_DEBUG;
 LABEL_32:
@@ -8945,52 +8742,50 @@ LABEL_32:
 
               else if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
-                v38 = *(v47 + 48);
+                v38 = *(v46 + 48);
                 *buf = 138412290;
-                v68 = v38;
+                v67 = v38;
                 v36 = v34;
                 v37 = OS_LOG_TYPE_DEFAULT;
                 goto LABEL_32;
               }
 
-              [v48 addObject:v26];
+              [v47 addObject:v26];
             }
 
-            v23 = [v50 countByEnumeratingWithState:&v53 objects:v65 count:16];
+            v23 = [v49 countByEnumeratingWithState:&v52 objects:v64 count:16];
           }
 
           while (v23);
         }
 
-        v39 = [*(v47 + 48) subscribedChannels];
-        [v39 removeObjectsInArray:v48];
+        v39 = [*(v46 + 48) subscribedChannels];
+        [v39 removeObjectsInArray:v47];
 
-        v20 = v46 + 1;
+        v20 = v45 + 1;
       }
 
-      while (v46 + 1 != v45);
-      v45 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+      while (v45 + 1 != v44);
+      v44 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
-  v40 = *(v47 + 48);
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invoke_291;
-  v51[3] = &unk_1E7B22748;
-  v51[4] = v40;
-  v52 = obj;
+  v40 = *(v46 + 48);
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invoke_291;
+  v50[3] = &unk_1E7B22748;
+  v50[4] = v40;
+  v51 = obj;
   v41 = obj;
-  [v40 _asyncOnDelegateQueueWithBlock:v51];
-
-  v42 = *MEMORY[0x1E69E9840];
+  [v40 _asyncOnDelegateQueueWithBlock:v50];
 }
 
 void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invoke_291(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -9005,10 +8800,10 @@ void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invo
       }
 
       v7 = *(a1 + 32);
-      v19 = 138412546;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v3;
+      v18 = 138412546;
+      v19 = v7;
+      v20 = 2112;
+      v21 = v3;
       v8 = v6;
       v9 = OS_LOG_TYPE_DEBUG;
     }
@@ -9021,15 +8816,15 @@ void __60__APSConnection__deliverFailedChannelSubscriptions_onTopic___block_invo
       }
 
       v10 = *(a1 + 32);
-      v19 = 138412546;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v3;
+      v18 = 138412546;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v3;
       v8 = v6;
       v9 = OS_LOG_TYPE_DEFAULT;
     }
 
-    _os_log_impl(&dword_1B233B000, v8, v9, "%@ calling %@ for subscription failures", &v19, 0x16u);
+    _os_log_impl(&dword_1B233B000, v8, v9, "%@ calling %@ for subscription failures", &v18, 0x16u);
 LABEL_8:
 
     [v3 connection:*(a1 + 32) channelSubscriptionsFailedWithFailures:*(a1 + 40)];
@@ -9041,42 +8836,40 @@ LABEL_8:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         v14 = *(a1 + 32);
-        v19 = 138412546;
-        v20 = v14;
-        v21 = 2112;
-        v22 = v3;
+        v18 = 138412546;
+        v19 = v14;
+        v20 = 2112;
+        v21 = v3;
         v15 = v13;
         v16 = OS_LOG_TYPE_DEBUG;
 LABEL_13:
-        _os_log_impl(&dword_1B233B000, v15, v16, "%@ returned from %@ channelSubscriptionsFailedWithFailures:", &v19, 0x16u);
+        _os_log_impl(&dword_1B233B000, v15, v16, "%@ returned from %@ channelSubscriptionsFailedWithFailures:", &v18, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(a1 + 32);
-      v19 = 138412546;
-      v20 = v17;
-      v21 = 2112;
-      v22 = v3;
+      v18 = 138412546;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v3;
       v15 = v13;
       v16 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_13;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resendPubSubSubscriptions
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   subscribedChannels = [(APSConnection *)self subscribedChannels];
   v4 = [subscribedChannels count];
 
   if (!v4)
   {
-    goto LABEL_25;
+    return;
   }
 
   v5 = +[APSLog shouldReduceLogging];
@@ -9105,26 +8898,26 @@ LABEL_7:
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   subscribedChannels2 = [(APSConnection *)self subscribedChannels];
-  v12 = [subscribedChannels2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v12 = [subscribedChannels2 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v36;
+    v14 = *v35;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(subscribedChannels2);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * i);
+        v16 = *(*(&v34 + 1) + 8 * i);
         channelTopic = [v16 channelTopic];
         v18 = [dictionary objectForKeyedSubscript:channelTopic];
 
@@ -9140,49 +8933,46 @@ LABEL_7:
         [v22 addObject:v16];
       }
 
-      v13 = [subscribedChannels2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v13 = [subscribedChannels2 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v13);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   allKeys = [dictionary allKeys];
-  v24 = [allKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v24 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v32;
+    v26 = *v31;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v32 != v26)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v28 = *(*(&v31 + 1) + 8 * j);
+        v28 = *(*(&v30 + 1) + 8 * j);
         v29 = [dictionary objectForKeyedSubscript:v28];
         [(APSConnection *)self _onIvarQueue_subscribeToChannels:v29 onTopic:v28];
       }
 
-      v25 = [allKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v25 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v25);
   }
-
-LABEL_25:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onIvarQueue_setPushWakeTopics:(id)topics
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   topicsCopy = topics;
   v6 = +[APSLog shouldReduceLogging];
   v7 = +[APSLog connection];
@@ -9196,8 +8986,8 @@ LABEL_25:
 
     *buf = 138412546;
     selfCopy3 = self;
-    v22 = 2112;
-    v23 = topicsCopy;
+    v21 = 2112;
+    v22 = topicsCopy;
     v9 = v8;
     v10 = OS_LOG_TYPE_DEBUG;
   }
@@ -9211,8 +9001,8 @@ LABEL_25:
 
     *buf = 138412546;
     selfCopy3 = self;
-    v22 = 2112;
-    v23 = topicsCopy;
+    v21 = 2112;
+    v22 = topicsCopy;
     v9 = v8;
     v10 = OS_LOG_TYPE_DEFAULT;
   }
@@ -9245,8 +9035,6 @@ LABEL_7:
       _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ _connection is NULL in _setPushWakeTopics", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUltraConstrainedTopics:(id)topics
@@ -9264,7 +9052,7 @@ LABEL_7:
 
 - (void)_onIvarQueue_setUltraConstrainedTopics:(id)topics
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   topicsCopy = topics;
   v6 = +[APSLog shouldReduceLogging];
   v7 = +[APSLog connection];
@@ -9278,8 +9066,8 @@ LABEL_7:
 
     *buf = 138412546;
     selfCopy3 = self;
-    v22 = 2112;
-    v23 = topicsCopy;
+    v21 = 2112;
+    v22 = topicsCopy;
     v9 = v8;
     v10 = OS_LOG_TYPE_DEBUG;
   }
@@ -9293,8 +9081,8 @@ LABEL_7:
 
     *buf = 138412546;
     selfCopy3 = self;
-    v22 = 2112;
-    v23 = topicsCopy;
+    v21 = 2112;
+    v22 = topicsCopy;
     v9 = v8;
     v10 = OS_LOG_TYPE_DEFAULT;
   }
@@ -9327,104 +9115,48 @@ LABEL_7:
       _os_log_impl(&dword_1B233B000, v11, OS_LOG_TYPE_DEFAULT, "%@ _connection is NULL in _setUltraConstrainedTopics", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initWithEnvironmentName:namedDelegatePort:enablePushDuringSleep:personaUniqueString:queue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __121__APSConnection__onIvarQueue_setEnabledTopics_ignoredTopics_opportunisticTopics_nonWakingTopics_sendToDaemon_completion___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_blockingXPCCallWithArgumentBlock:resultHandler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestURLTokenForInfo:completion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestURLTokenForInfo:completion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_262_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(a2 + 40);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B233B000, v4, v5, "%@ APS _connection is NULL in requestURLTokenForInfo %@");
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__APSConnection_requestURLTokenForInfo_completion___block_invoke_255_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(a2 + 40);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B233B000, v4, v5, "%@ APS _connection is NULL in invalidateURLTokenForInfo %@");
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_262_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266_cold_1(uint64_t a1)
+void __54__APSConnection_invalidateURLTokenForInfo_completion___block_invoke_266_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)subscribeToChannels:(void *)a3 forTopic:(NSObject *)a4 .cold.2(uint8_t *a1, void *a2, void *a3, NSObject *a4)

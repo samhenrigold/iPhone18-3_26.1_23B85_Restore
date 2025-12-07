@@ -19,7 +19,7 @@
       [playerController setURL:v13];
 
       playerController2 = [(VMPlayerViewController *)self playerController];
-      [playerController2 duration];
+      objc_msgSend_duration(playerController2);
       v10 = v9;
       playerControlsView = [(VMPlayerViewController *)self playerControlsView];
       timelineSlider = [playerControlsView timelineSlider];

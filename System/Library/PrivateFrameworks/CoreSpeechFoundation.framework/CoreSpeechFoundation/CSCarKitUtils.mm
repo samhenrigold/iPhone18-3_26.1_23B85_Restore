@@ -33,29 +33,28 @@
 
 - (BOOL)isCarPlayConnected
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = +[CSAudioRouteChangeMonitor sharedInstance];
   carPlayConnected = [v2 carPlayConnected];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v7 = MEMORY[0x1E696AD98];
-    v8 = v4;
-    v9 = [v7 numberWithBool:carPlayConnected];
-    v10 = 136315394;
-    v11 = "[CSCarKitUtils isCarPlayConnected]";
-    v12 = 2112;
-    v13 = v9;
-    _os_log_debug_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEBUG, "%s CarPlay connected = %@.", &v10, 0x16u);
+    v6 = MEMORY[0x1E696AD98];
+    v7 = v4;
+    v8 = [v6 numberWithBool:carPlayConnected];
+    v9 = 136315394;
+    v10 = "[CSCarKitUtils isCarPlayConnected]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_debug_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEBUG, "%s CarPlay connected = %@.", &v9, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return carPlayConnected;
 }
 
 - (BOOL)isBargeInDisabledForConnectedVehicle
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([(CSCarKitUtils *)self isCarPlayConnected])
   {
     v3 = [(CSCarKitUtils *)self _userInfoValueForKey:@"disableBargeInRequest"];
@@ -67,11 +66,11 @@
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315394;
-      v10 = "[CSCarKitUtils isBargeInDisabledForConnectedVehicle]";
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_INFO, "%s disabled = %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CSCarKitUtils isBargeInDisabledForConnectedVehicle]";
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_INFO, "%s disabled = %@", &v8, 0x16u);
     }
 
     bOOLValue = [v3 BOOLValue];
@@ -82,15 +81,14 @@
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315138;
-      v10 = "[CSCarKitUtils isBargeInDisabledForConnectedVehicle]";
-      _os_log_debug_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEBUG, "%s disabled = 0 because car play is not connected", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSCarKitUtils isBargeInDisabledForConnectedVehicle]";
+      _os_log_debug_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEBUG, "%s disabled = 0 because car play is not connected", &v8, 0xCu);
     }
 
-    bOOLValue = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -148,8 +146,8 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke(uint64_t a1)
   _Block_object_dispose(&v14, 8);
   if (!v5)
   {
-    dlerror();
-    abort_report_np();
+    v10 = dlerror();
+    abort_report_np("%s", v10);
     __break(1u);
   }
 
@@ -166,13 +164,11 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke(uint64_t a1)
       _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s CarKit CRFetchCarPlayCapabilities timed out", &buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -180,11 +176,11 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke_2(uint64_t a1, 
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[CSCarKitUtils _fetchCarCapabilitiesDict]_block_invoke_2";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Error in CRFetchCarPlayCapabilities: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[CSCarKitUtils _fetchCarCapabilitiesDict]_block_invoke_2";
+      v13 = 2112;
+      v14 = v6;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Error in CRFetchCarPlayCapabilities: %@", &v11, 0x16u);
     }
   }
 
@@ -194,7 +190,6 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke_2(uint64_t a1, 
   v10 = v5;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_userInfoValueForKey:(id)key
@@ -230,8 +225,8 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke_2(uint64_t a1, 
     _Block_object_dispose(&v18, 8);
     if (!v7)
     {
-      dlerror();
-      abort_report_np();
+      v17 = dlerror();
+      abort_report_np("%s", v17);
       __break(1u);
     }
 
@@ -289,14 +284,12 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke_2(uint64_t a1, 
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)_updateCarPlayCapabilitiesDict
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_carCapabilitiesLock);
   v3 = self->_carPlayCapabilitiesDict;
   os_unfair_lock_unlock(&self->_carCapabilitiesLock);
@@ -305,16 +298,16 @@ void __42__CSCarKitUtils__fetchCarCapabilitiesDict__block_invoke_2(uint64_t a1, 
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315394;
-      v11 = "[CSCarKitUtils _updateCarPlayCapabilitiesDict]";
-      v12 = 2112;
-      v13 = v3;
-      _os_log_debug_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEBUG, "%s Using cached CarPlayCapabilities: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[CSCarKitUtils _updateCarPlayCapabilitiesDict]";
+      v11 = 2112;
+      v12 = v3;
+      _os_log_debug_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEBUG, "%s Using cached CarPlayCapabilities: %@", &v9, 0x16u);
     }
 
 LABEL_8:
 
-    goto LABEL_9;
+    return;
   }
 
   _fetchCarCapabilitiesDict = [(CSCarKitUtils *)self _fetchCarCapabilitiesDict];
@@ -324,11 +317,11 @@ LABEL_8:
   {
     if (v7)
     {
-      v10 = 136315394;
-      v11 = "[CSCarKitUtils _updateCarPlayCapabilitiesDict]";
-      v12 = 2112;
-      v13 = _fetchCarCapabilitiesDict;
-      _os_log_debug_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEBUG, "%s Caching CarPlayCapabilities dictionary: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[CSCarKitUtils _updateCarPlayCapabilitiesDict]";
+      v11 = 2112;
+      v12 = _fetchCarCapabilitiesDict;
+      _os_log_debug_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEBUG, "%s Caching CarPlayCapabilities dictionary: %@", &v9, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_carCapabilitiesLock);
@@ -342,13 +335,10 @@ LABEL_8:
 
   if (v7)
   {
-    v10 = 136315138;
-    v11 = "[CSCarKitUtils _updateCarPlayCapabilitiesDict]";
-    _os_log_debug_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEBUG, "%s CRFetchCarPlayCapabilities returned nil", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSCarKitUtils _updateCarPlayCapabilitiesDict]";
+    _os_log_debug_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEBUG, "%s CRFetchCarPlayCapabilities returned nil", &v9, 0xCu);
   }
-
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isValidLatencyCorrectionValue:(id)value
@@ -370,7 +360,7 @@ LABEL_9:
 
 - (id)potentiallyAddHWLatencyToOption:(id)option streamHandle:(unint64_t)handle voiceController:(id)controller
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   optionCopy = option;
   controllerCopy = controller;
   if (!+[CSUtils supportEarconRemoval])
@@ -381,11 +371,11 @@ LABEL_9:
       goto LABEL_18;
     }
 
-    *v30 = 136315138;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    *v29 = 136315138;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
     v13 = "%s Earcon removal feature flag disabled. Not adjusting latency from CS layer.";
 LABEL_17:
-    _os_log_debug_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEBUG, v13, v30, 0xCu);
+    _os_log_debug_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEBUG, v13, v29, 0xCu);
     goto LABEL_18;
   }
 
@@ -397,8 +387,8 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    *v30 = 136315138;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    *v29 = 136315138;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
     v13 = "%s Not CarPlay. Not adjusting latency from CS layer.";
     goto LABEL_17;
   }
@@ -411,8 +401,8 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    *v30 = 136315138;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    *v29 = 136315138;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
     v13 = "%s CarPlay latency correction not applicable. Not adjusting latency from CS layer.";
     goto LABEL_17;
   }
@@ -435,8 +425,8 @@ LABEL_14:
     v12 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
     {
-      *v30 = 136315138;
-      *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+      *v29 = 136315138;
+      *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
       v13 = "%s Alert behavior is either not Muted or is not Haptic with State Feedback enabled. Not adjusting latency from CS layer.";
       goto LABEL_17;
     }
@@ -454,129 +444,128 @@ LABEL_18:
 
 LABEL_22:
   _latencyCorrectionSecondsForHeadUnit = [(CSCarKitUtils *)self _latencyCorrectionSecondsForHeadUnit];
-  v18 = CSLogContextFacilityCoreSpeech;
+  v17 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    *v30 = 136315394;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-    *&v30[12] = 2112;
-    *&v30[14] = _latencyCorrectionSecondsForHeadUnit;
-    _os_log_debug_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEBUG, "%s CarCapabilities latencyCorrectionSeconds: %@", v30, 0x16u);
-    v18 = CSLogContextFacilityCoreSpeech;
+    *v29 = 136315394;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    *&v29[12] = 2112;
+    *&v29[14] = _latencyCorrectionSecondsForHeadUnit;
+    _os_log_debug_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_DEBUG, "%s CarCapabilities latencyCorrectionSeconds: %@", v29, 0x16u);
+    v17 = CSLogContextFacilityCoreSpeech;
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    *v30 = 136315394;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-    *&v30[12] = 1024;
-    *&v30[14] = _latencyCorrectionSecondsForHeadUnit != 0;
-    _os_log_debug_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEBUG, "%s trackedHeadUnit: %d", v30, 0x12u);
+    *v29 = 136315394;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    *&v29[12] = 1024;
+    *&v29[14] = _latencyCorrectionSecondsForHeadUnit != 0;
+    _os_log_debug_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_DEBUG, "%s trackedHeadUnit: %d", v29, 0x12u);
   }
 
   v14 = [optionCopy copy];
   if (_latencyCorrectionSecondsForHeadUnit && [(CSCarKitUtils *)self _isValidLatencyCorrectionValue:_latencyCorrectionSecondsForHeadUnit])
   {
-    v19 = [_latencyCorrectionSecondsForHeadUnit isEqualToNumber:&unk_1F5916778] ^ 1;
+    v18 = [_latencyCorrectionSecondsForHeadUnit isEqualToNumber:&unk_1F5916778] ^ 1;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  v20 = CSLogContextFacilityCoreSpeech;
+  v19 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    *v30 = 136315394;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-    *&v30[12] = 1024;
-    *&v30[14] = v19;
-    _os_log_debug_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_DEBUG, "%s correctableHeadUnit: %d", v30, 0x12u);
+    *v29 = 136315394;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    *&v29[12] = 1024;
+    *&v29[14] = v18;
+    _os_log_debug_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEBUG, "%s correctableHeadUnit: %d", v29, 0x12u);
   }
 
   if (_latencyCorrectionSecondsForHeadUnit)
   {
-    v21 = v19;
+    v20 = v18;
   }
 
   else
   {
-    v21 = 1;
+    v20 = 1;
   }
 
-  if (v21 != 1)
+  if (v20 != 1)
   {
-    v26 = CSLogContextFacilityCoreSpeech;
+    v25 = CSLogContextFacilityCoreSpeech;
     if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_43:
-      [v14 setStartAlertBehavior:{2, *v30}];
+      [v14 setStartAlertBehavior:{2, *v29, *&v29[8]}];
       goto LABEL_44;
     }
 
-    *v30 = 136315138;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-    v28 = "%s HeadUnit is recognized as having problematic latencies, but no correction available. Adding earcon.";
+    *v29 = 136315138;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    v27 = "%s HeadUnit is recognized as having problematic latencies, but no correction available. Adding earcon.";
 LABEL_42:
-    _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, v28, v30, 0xCu);
+    _os_log_impl(&dword_1DDA4B000, v25, OS_LOG_TYPE_DEFAULT, v27, v29, 0xCu);
     goto LABEL_43;
   }
 
   [_latencyCorrectionSecondsForHeadUnit floatValue];
-  v23 = v22;
-  v24 = +[CSHardwareLatencyHelper sharedInstance];
-  v25 = [v24 addHWLatencyToOption:optionCopy withCorrection:handle streamHandle:controllerCopy voiceController:v23];
+  v22 = v21;
+  v23 = +[CSHardwareLatencyHelper sharedInstance];
+  v24 = [v23 addHWLatencyToOption:optionCopy withCorrection:handle streamHandle:controllerCopy voiceController:v22];
 
-  if ((v25 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
-    v26 = CSLogContextFacilityCoreSpeech;
-    v27 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
-    if (!v19)
+    v25 = CSLogContextFacilityCoreSpeech;
+    v26 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
+    if (!v18)
     {
       if (_latencyCorrectionSecondsForHeadUnit)
       {
-        if (!v27)
+        if (!v26)
         {
           goto LABEL_44;
         }
 
-        *v30 = 136315138;
-        *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-        v29 = "%s HeadUnit is recognized as having problematic latencies, but didn't have a correction, and also failed to add AVF latencies";
+        *v29 = 136315138;
+        *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+        v28 = "%s HeadUnit is recognized as having problematic latencies, but didn't have a correction, and also failed to add AVF latencies";
       }
 
       else
       {
-        if (!v27)
+        if (!v26)
         {
           goto LABEL_44;
         }
 
-        *v30 = 136315138;
-        *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-        v29 = "%s HeadUnit is not recognized as having problematic latencies, but we failed to add AVF latencies";
+        *v29 = 136315138;
+        *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+        v28 = "%s HeadUnit is not recognized as having problematic latencies, but we failed to add AVF latencies";
       }
 
-      _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, v29, v30, 0xCu);
+      _os_log_impl(&dword_1DDA4B000, v25, OS_LOG_TYPE_DEFAULT, v28, v29, 0xCu);
       goto LABEL_44;
     }
 
-    if (!v27)
+    if (!v26)
     {
       goto LABEL_43;
     }
 
-    *v30 = 136315138;
-    *&v30[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
-    v28 = "%s HeadUnit is recognized as having problematic latencies, correction is available but failed to add AVF latencies. Adding earcon.";
+    *v29 = 136315138;
+    *&v29[4] = "[CSCarKitUtils potentiallyAddHWLatencyToOption:streamHandle:voiceController:]";
+    v27 = "%s HeadUnit is recognized as having problematic latencies, correction is available but failed to add AVF latencies. Adding earcon.";
     goto LABEL_42;
   }
 
 LABEL_44:
 
 LABEL_19:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -590,13 +579,13 @@ LABEL_19:
 
 - (void)_invalidateCachedCarPlayCapabilities
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "[CSCarKitUtils _invalidateCachedCarPlayCapabilities]";
-    _os_log_debug_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSCarKitUtils _invalidateCachedCarPlayCapabilities]";
+    _os_log_debug_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_carCapabilitiesLock);
@@ -604,7 +593,6 @@ LABEL_19:
   self->_carPlayCapabilitiesDict = 0;
 
   os_unfair_lock_unlock(&self->_carCapabilitiesLock);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchCarCapabilitiesInBackgroundWithCompletion:(id)completion
@@ -638,36 +626,32 @@ uint64_t __65__CSCarKitUtils__fetchCarCapabilitiesInBackgroundWithCompletion___b
 
 - (void)handleCarCapabilitiesUpdatedWithCompletion:(id)completion
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315138;
-    v8 = "[CSCarKitUtils handleCarCapabilitiesUpdatedWithCompletion:]";
-    _os_log_debug_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEBUG, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSCarKitUtils handleCarCapabilitiesUpdatedWithCompletion:]";
+    _os_log_debug_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEBUG, "%s ", &v6, 0xCu);
   }
 
   [(CSCarKitUtils *)self _recacheCarPlayCapabilitiesWithCompletion:completionCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleHeadUnitConnectedWithAsyncCompletion:(id)completion
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315138;
-    v8 = "[CSCarKitUtils handleHeadUnitConnectedWithAsyncCompletion:]";
-    _os_log_debug_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEBUG, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSCarKitUtils handleHeadUnitConnectedWithAsyncCompletion:]";
+    _os_log_debug_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEBUG, "%s ", &v6, 0xCu);
   }
 
   [(CSCarKitUtils *)self _recacheCarPlayCapabilitiesWithCompletion:completionCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingCarCapabilitiesNotfication:(const __CFString *)notfication
@@ -679,21 +663,20 @@ uint64_t __65__CSCarKitUtils__fetchCarCapabilitiesInBackgroundWithCompletion___b
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[CSCarKitUtils dealloc]";
+    v7 = "[CSCarKitUtils dealloc]";
     _os_log_debug_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveEveryObserver(DarwinNotifyCenter, self);
-  v6.receiver = self;
-  v6.super_class = CSCarKitUtils;
-  [(CSCarKitUtils *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CSCarKitUtils;
+  [(CSCarKitUtils *)&v5 dealloc];
 }
 
 - (CSCarKitUtils)init
@@ -734,7 +717,7 @@ void __21__CSCarKitUtils_init__block_invoke(uint64_t a1)
 
 void __31__CSCarKitUtils_sharedInstance__block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v1 = sharedInstance_singleton;
   sharedInstance_singleton = v0;
@@ -742,14 +725,12 @@ void __31__CSCarKitUtils_sharedInstance__block_invoke()
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315394;
-    v5 = "+[CSCarKitUtils sharedInstance]_block_invoke";
-    v6 = 2112;
-    v7 = sharedInstance_singleton;
-    _os_log_debug_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEBUG, "%s Created shared instance: %@", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "+[CSCarKitUtils sharedInstance]_block_invoke";
+    v5 = 2112;
+    v6 = sharedInstance_singleton;
+    _os_log_debug_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEBUG, "%s Created shared instance: %@", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -103,7 +103,7 @@ LABEL_4:
     sub_10045BA40();
   }
 
-  sub_100058000(&qword_100780A40);
+  sub_100058000(&qword_100780A40, &unk_10063B460);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -185,7 +185,7 @@ LABEL_4:
 
 - (id)collectionView:(id)view contextMenuConfigurationForItemsAtIndexPaths:(id)paths point:(CGPoint)point
 {
-  v6 = sub_100058000(&qword_100772140);
+  v6 = sub_100058000(&qword_100772140, &qword_10062D9F0);
   __chkstk_darwin(v6 - 8);
   v8 = &v17 - v7;
   type metadata accessor for IndexPath();
@@ -207,7 +207,7 @@ LABEL_4:
     (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
     v15 = (*(*(v13 + 8) + 856))(v8, v12);
 
-    sub_1000079B4(v8, &qword_100772140);
+    sub_1000079B4(v8, &qword_100772140, &qword_10062D9F0);
     v11 = v15;
   }
 

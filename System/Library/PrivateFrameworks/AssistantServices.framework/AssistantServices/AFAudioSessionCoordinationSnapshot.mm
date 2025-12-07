@@ -16,7 +16,7 @@
 
 - (id)buildDictionaryRepresentation
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = v3;
   currentOrUpNextDateInterval = self->_currentOrUpNextDateInterval;
@@ -31,30 +31,30 @@
   if (self->_localActiveAssertionContexts)
   {
     v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_localActiveAssertionContexts, "count")}];
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
     v8 = self->_localActiveAssertionContexts;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v92 objects:v102 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v91 objects:v101 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v93;
+      v11 = *v92;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v93 != v11)
+          if (*v92 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          buildDictionaryRepresentation = [*(*(&v92 + 1) + 8 * i) buildDictionaryRepresentation];
+          buildDictionaryRepresentation = [*(*(&v91 + 1) + 8 * i) buildDictionaryRepresentation];
           [v7 addObject:buildDictionaryRepresentation];
         }
 
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v92 objects:v102 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v91 objects:v101 count:16];
       }
 
       while (v10);
@@ -67,30 +67,30 @@
   if (self->_localPendingAssertionContexts)
   {
     v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_localPendingAssertionContexts, "count")}];
+    v87 = 0u;
     v88 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
     v16 = self->_localPendingAssertionContexts;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v88 objects:v101 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v87 objects:v100 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v89;
+      v19 = *v88;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v89 != v19)
+          if (*v88 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          buildDictionaryRepresentation2 = [*(*(&v88 + 1) + 8 * j) buildDictionaryRepresentation];
+          buildDictionaryRepresentation2 = [*(*(&v87 + 1) + 8 * j) buildDictionaryRepresentation];
           [v15 addObject:buildDictionaryRepresentation2];
         }
 
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v88 objects:v101 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v87 objects:v100 count:16];
       }
 
       while (v18);
@@ -103,30 +103,30 @@
   if (self->_remoteActiveAssertionContexts)
   {
     v23 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_remoteActiveAssertionContexts, "count")}];
+    v83 = 0u;
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
     v24 = self->_remoteActiveAssertionContexts;
-    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v84 objects:v100 count:16];
+    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v83 objects:v99 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v85;
+      v27 = *v84;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v85 != v27)
+          if (*v84 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          buildDictionaryRepresentation3 = [*(*(&v84 + 1) + 8 * k) buildDictionaryRepresentation];
+          buildDictionaryRepresentation3 = [*(*(&v83 + 1) + 8 * k) buildDictionaryRepresentation];
           [v23 addObject:buildDictionaryRepresentation3];
         }
 
-        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v84 objects:v100 count:16];
+        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v83 objects:v99 count:16];
       }
 
       while (v26);
@@ -139,30 +139,30 @@
   if (self->_remotePendingAssertionContexts)
   {
     v31 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_remotePendingAssertionContexts, "count")}];
+    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
     v32 = self->_remotePendingAssertionContexts;
-    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v80 objects:v99 count:16];
+    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v79 objects:v98 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v81;
+      v35 = *v80;
       do
       {
         for (m = 0; m != v34; ++m)
         {
-          if (*v81 != v35)
+          if (*v80 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          buildDictionaryRepresentation4 = [*(*(&v80 + 1) + 8 * m) buildDictionaryRepresentation];
+          buildDictionaryRepresentation4 = [*(*(&v79 + 1) + 8 * m) buildDictionaryRepresentation];
           [v31 addObject:buildDictionaryRepresentation4];
         }
 
-        v34 = [(NSArray *)v32 countByEnumeratingWithState:&v80 objects:v99 count:16];
+        v34 = [(NSArray *)v32 countByEnumeratingWithState:&v79 objects:v98 count:16];
       }
 
       while (v34);
@@ -182,30 +182,30 @@
   if (self->_remoteQualifiedInRangeDevices)
   {
     v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_remoteQualifiedInRangeDevices, "count")}];
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
     v42 = self->_remoteQualifiedInRangeDevices;
-    v43 = [(NSArray *)v42 countByEnumeratingWithState:&v76 objects:v98 count:16];
+    v43 = [(NSArray *)v42 countByEnumeratingWithState:&v75 objects:v97 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v77;
+      v45 = *v76;
       do
       {
         for (n = 0; n != v44; ++n)
         {
-          if (*v77 != v45)
+          if (*v76 != v45)
           {
             objc_enumerationMutation(v42);
           }
 
-          buildDictionaryRepresentation6 = [*(*(&v76 + 1) + 8 * n) buildDictionaryRepresentation];
+          buildDictionaryRepresentation6 = [*(*(&v75 + 1) + 8 * n) buildDictionaryRepresentation];
           [v41 addObject:buildDictionaryRepresentation6];
         }
 
-        v44 = [(NSArray *)v42 countByEnumeratingWithState:&v76 objects:v98 count:16];
+        v44 = [(NSArray *)v42 countByEnumeratingWithState:&v75 objects:v97 count:16];
       }
 
       while (v44);
@@ -218,30 +218,30 @@
   if (self->_remoteQualifiedOutOfRangeDevices)
   {
     v49 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_remoteQualifiedOutOfRangeDevices, "count")}];
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
     v50 = self->_remoteQualifiedOutOfRangeDevices;
-    v51 = [(NSArray *)v50 countByEnumeratingWithState:&v72 objects:v97 count:16];
+    v51 = [(NSArray *)v50 countByEnumeratingWithState:&v71 objects:v96 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v73;
+      v53 = *v72;
       do
       {
         for (ii = 0; ii != v52; ++ii)
         {
-          if (*v73 != v53)
+          if (*v72 != v53)
           {
             objc_enumerationMutation(v50);
           }
 
-          buildDictionaryRepresentation7 = [*(*(&v72 + 1) + 8 * ii) buildDictionaryRepresentation];
+          buildDictionaryRepresentation7 = [*(*(&v71 + 1) + 8 * ii) buildDictionaryRepresentation];
           [v49 addObject:buildDictionaryRepresentation7];
         }
 
-        v52 = [(NSArray *)v50 countByEnumeratingWithState:&v72 objects:v97 count:16];
+        v52 = [(NSArray *)v50 countByEnumeratingWithState:&v71 objects:v96 count:16];
       }
 
       while (v52);
@@ -254,30 +254,30 @@
   if (self->_remoteDisqualifiedDevices)
   {
     v57 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_remoteDisqualifiedDevices, "count")}];
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
     v58 = self->_remoteDisqualifiedDevices;
-    v59 = [(NSArray *)v58 countByEnumeratingWithState:&v68 objects:v96 count:16];
+    v59 = [(NSArray *)v58 countByEnumeratingWithState:&v67 objects:v95 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v69;
+      v61 = *v68;
       do
       {
         for (jj = 0; jj != v60; ++jj)
         {
-          if (*v69 != v61)
+          if (*v68 != v61)
           {
             objc_enumerationMutation(v58);
           }
 
-          buildDictionaryRepresentation8 = [*(*(&v68 + 1) + 8 * jj) buildDictionaryRepresentation];
+          buildDictionaryRepresentation8 = [*(*(&v67 + 1) + 8 * jj) buildDictionaryRepresentation];
           [v57 addObject:buildDictionaryRepresentation8];
         }
 
-        v60 = [(NSArray *)v58 countByEnumeratingWithState:&v68 objects:v96 count:16];
+        v60 = [(NSArray *)v58 countByEnumeratingWithState:&v67 objects:v95 count:16];
       }
 
       while (v60);
@@ -289,14 +289,12 @@
 
   v65 = [v4 copy];
 
-  v66 = *MEMORY[0x1E69E9840];
-
   return v65;
 }
 
 - (AFAudioSessionCoordinationSnapshot)initWithDictionaryRepresentation:(id)representation
 {
-  v131 = *MEMORY[0x1E69E9840];
+  v123 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = representationCopy;
   if (representationCopy)
@@ -305,12 +303,12 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v94 = v6;
+      v86 = v6;
     }
 
     else
     {
-      v94 = 0;
+      v86 = 0;
     }
 
     v8 = [v5 objectForKey:@"isAudioSessionActive"];
@@ -328,433 +326,115 @@
 
     bOOLValue = [v9 BOOLValue];
     v10 = [v5 objectForKey:@"localActiveAssertionContexts"];
-    v11 = 0x1E695D000uLL;
     objc_opt_class();
-    v95 = v5;
+    v87 = v5;
     if (objc_opt_isKindOfClass())
     {
-      v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
-      v120 = 0u;
-      v121 = 0u;
-      v122 = 0u;
-      v123 = 0u;
-      v13 = v10;
-      v14 = [v13 countByEnumeratingWithState:&v120 objects:v130 count:16];
-      if (v14)
-      {
-        v15 = v14;
-        v16 = *v121;
-        do
-        {
-          for (i = 0; i != v15; ++i)
-          {
-            if (*v121 != v16)
-            {
-              objc_enumerationMutation(v13);
-            }
-
-            v18 = *(*(&v120 + 1) + 8 * i);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v19 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v18];
-
-              if (v19)
-              {
-                [v12 addObject:v19];
-              }
-            }
-
-            else
-            {
-
-              v19 = 0;
-            }
-          }
-
-          v15 = [v13 countByEnumeratingWithState:&v120 objects:v130 count:16];
-        }
-
-        while (v15);
-      }
-
-      v91 = [v12 copy];
-      v5 = v95;
-      v11 = 0x1E695D000;
-    }
-
-    else
-    {
-      v91 = 0;
-    }
-
-    v20 = [v5 objectForKey:@"localPendingAssertionContexts"];
-    v21 = *(v11 + 3784);
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v20, "count")}];
-      v116 = 0u;
-      v117 = 0u;
-      v118 = 0u;
-      v119 = 0u;
-      v23 = v20;
-      v24 = [v23 countByEnumeratingWithState:&v116 objects:v129 count:16];
-      if (v24)
-      {
-        v25 = v24;
-        v26 = *v117;
-        do
-        {
-          for (j = 0; j != v25; ++j)
-          {
-            if (*v117 != v26)
-            {
-              objc_enumerationMutation(v23);
-            }
-
-            v28 = *(*(&v116 + 1) + 8 * j);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v29 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v28];
-
-              if (v29)
-              {
-                [v22 addObject:v29];
-              }
-            }
-
-            else
-            {
-
-              v29 = 0;
-            }
-          }
-
-          v25 = [v23 countByEnumeratingWithState:&v116 objects:v129 count:16];
-        }
-
-        while (v25);
-      }
-
-      v90 = [v22 copy];
-      v5 = v95;
-      v11 = 0x1E695D000;
-    }
-
-    else
-    {
-      v90 = 0;
-    }
-
-    v30 = [v5 objectForKey:@"remoteActiveAssertionContexts"];
-    v31 = *(v11 + 3784);
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v32 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v30, "count")}];
+      v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
       v112 = 0u;
       v113 = 0u;
       v114 = 0u;
       v115 = 0u;
-      v33 = v30;
-      v34 = [v33 countByEnumeratingWithState:&v112 objects:v128 count:16];
-      if (v34)
+      v12 = v10;
+      v13 = [v12 countByEnumeratingWithState:&v112 objects:v122 count:16];
+      if (v13)
       {
-        v35 = v34;
-        v36 = *v113;
+        v14 = v13;
+        v15 = *v113;
         do
         {
-          for (k = 0; k != v35; ++k)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v113 != v36)
+            if (*v113 != v15)
             {
-              objc_enumerationMutation(v33);
+              objc_enumerationMutation(v12);
             }
 
-            v38 = *(*(&v112 + 1) + 8 * k);
+            v17 = *(*(&v112 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v39 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v38];
+              v18 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v17];
 
-              if (v39)
+              if (v18)
               {
-                [v32 addObject:v39];
+                [v11 addObject:v18];
               }
             }
 
             else
             {
 
-              v39 = 0;
+              v18 = 0;
             }
           }
 
-          v35 = [v33 countByEnumeratingWithState:&v112 objects:v128 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v112 objects:v122 count:16];
         }
 
-        while (v35);
+        while (v14);
       }
 
-      v89 = [v32 copy];
-      v5 = v95;
-      v11 = 0x1E695D000;
+      v83 = [v11 copy];
+      v5 = v87;
     }
 
     else
     {
-      v89 = 0;
+      v83 = 0;
     }
 
-    v40 = [v5 objectForKey:@"remotePendingAssertionContexts"];
-    v41 = *(v11 + 3784);
+    v19 = [v5 objectForKey:@"localPendingAssertionContexts"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v40, "count")}];
+      v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v19, "count")}];
       v108 = 0u;
       v109 = 0u;
       v110 = 0u;
       v111 = 0u;
-      v43 = v40;
-      v44 = [v43 countByEnumeratingWithState:&v108 objects:v127 count:16];
-      if (v44)
+      v21 = v19;
+      v22 = [v21 countByEnumeratingWithState:&v108 objects:v121 count:16];
+      if (v22)
       {
-        v45 = v44;
-        v46 = *v109;
+        v23 = v22;
+        v24 = *v109;
         do
         {
-          for (m = 0; m != v45; ++m)
+          for (j = 0; j != v23; ++j)
           {
-            if (*v109 != v46)
+            if (*v109 != v24)
             {
-              objc_enumerationMutation(v43);
+              objc_enumerationMutation(v21);
             }
 
-            v48 = *(*(&v108 + 1) + 8 * m);
+            v26 = *(*(&v108 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v49 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v48];
+              v27 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v26];
 
-              if (v49)
+              if (v27)
               {
-                [v42 addObject:v49];
+                [v20 addObject:v27];
               }
             }
 
             else
             {
 
-              v49 = 0;
+              v27 = 0;
             }
           }
 
-          v45 = [v43 countByEnumeratingWithState:&v108 objects:v127 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v108 objects:v121 count:16];
         }
 
-        while (v45);
+        while (v23);
       }
 
-      v88 = [v42 copy];
-      v5 = v95;
-      v11 = 0x1E695D000;
-    }
-
-    else
-    {
-      v88 = 0;
-    }
-
-    v50 = [v5 objectForKey:@"localDevice"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v87 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v50];
-    }
-
-    else
-    {
-      v87 = 0;
-    }
-
-    v51 = [v5 objectForKey:@"remoteQualifiedInRangeDevices"];
-    v52 = *(v11 + 3784);
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v51, "count")}];
-      v104 = 0u;
-      v105 = 0u;
-      v106 = 0u;
-      v107 = 0u;
-      v54 = v51;
-      v55 = [v54 countByEnumeratingWithState:&v104 objects:v126 count:16];
-      if (v55)
-      {
-        v56 = v55;
-        v57 = *v105;
-        do
-        {
-          for (n = 0; n != v56; ++n)
-          {
-            if (*v105 != v57)
-            {
-              objc_enumerationMutation(v54);
-            }
-
-            v59 = *(*(&v104 + 1) + 8 * n);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v60 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v59];
-
-              if (v60)
-              {
-                [v53 addObject:v60];
-              }
-            }
-
-            else
-            {
-
-              v60 = 0;
-            }
-          }
-
-          v56 = [v54 countByEnumeratingWithState:&v104 objects:v126 count:16];
-        }
-
-        while (v56);
-      }
-
-      v61 = [v53 copy];
-      v5 = v95;
-      v11 = 0x1E695D000;
-    }
-
-    else
-    {
-      v61 = 0;
-    }
-
-    v62 = [v5 objectForKey:@"remoteQualifiedOutOfRangeDevices"];
-    v63 = *(v11 + 3784);
-    objc_opt_class();
-    v86 = v61;
-    if (objc_opt_isKindOfClass())
-    {
-      v64 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v62, "count")}];
-      v100 = 0u;
-      v101 = 0u;
-      v102 = 0u;
-      v103 = 0u;
-      v65 = v62;
-      v66 = [v65 countByEnumeratingWithState:&v100 objects:v125 count:16];
-      if (v66)
-      {
-        v67 = v66;
-        v68 = *v101;
-        do
-        {
-          for (ii = 0; ii != v67; ++ii)
-          {
-            if (*v101 != v68)
-            {
-              objc_enumerationMutation(v65);
-            }
-
-            v70 = *(*(&v100 + 1) + 8 * ii);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v71 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v70];
-
-              if (v71)
-              {
-                [v64 addObject:v71];
-              }
-            }
-
-            else
-            {
-
-              v71 = 0;
-            }
-          }
-
-          v67 = [v65 countByEnumeratingWithState:&v100 objects:v125 count:16];
-        }
-
-        while (v67);
-      }
-
-      v85 = [v64 copy];
-      v5 = v95;
-      v11 = 0x1E695D000;
-      v61 = v86;
-    }
-
-    else
-    {
-      v85 = 0;
-    }
-
-    v72 = [v5 objectForKey:@"remoteDisqualifiedDevices"];
-    v73 = *(v11 + 3784);
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v74 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v72, "count")}];
-      v96 = 0u;
-      v97 = 0u;
-      v98 = 0u;
-      v99 = 0u;
-      v75 = v72;
-      v76 = [v75 countByEnumeratingWithState:&v96 objects:v124 count:16];
-      if (v76)
-      {
-        v77 = v76;
-        v78 = *v97;
-        do
-        {
-          for (jj = 0; jj != v77; ++jj)
-          {
-            if (*v97 != v78)
-            {
-              objc_enumerationMutation(v75);
-            }
-
-            v80 = *(*(&v96 + 1) + 8 * jj);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v81 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v80];
-
-              if (v81)
-              {
-                [v74 addObject:v81];
-              }
-            }
-
-            else
-            {
-
-              v81 = 0;
-            }
-          }
-
-          v77 = [v75 countByEnumeratingWithState:&v96 objects:v124 count:16];
-        }
-
-        while (v77);
-      }
-
-      v82 = [v74 copy];
-      v5 = v95;
-      v61 = v86;
+      v82 = [v20 copy];
+      v5 = v87;
     }
 
     else
@@ -762,7 +442,312 @@
       v82 = 0;
     }
 
-    self = [(AFAudioSessionCoordinationSnapshot *)selfCopy initWithCurrentOrUpNextDateInterval:v94 isAudioSessionActive:bOOLValue localActiveAssertionContexts:v91 localPendingAssertionContexts:v90 remoteActiveAssertionContexts:v89 remotePendingAssertionContexts:v88 localDevice:v87 remoteQualifiedInRangeDevices:v61 remoteQualifiedOutOfRangeDevices:v85 remoteDisqualifiedDevices:v82];
+    v28 = [v5 objectForKey:@"remoteActiveAssertionContexts"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v29 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v28, "count")}];
+      v104 = 0u;
+      v105 = 0u;
+      v106 = 0u;
+      v107 = 0u;
+      v30 = v28;
+      v31 = [v30 countByEnumeratingWithState:&v104 objects:v120 count:16];
+      if (v31)
+      {
+        v32 = v31;
+        v33 = *v105;
+        do
+        {
+          for (k = 0; k != v32; ++k)
+          {
+            if (*v105 != v33)
+            {
+              objc_enumerationMutation(v30);
+            }
+
+            v35 = *(*(&v104 + 1) + 8 * k);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v36 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v35];
+
+              if (v36)
+              {
+                [v29 addObject:v36];
+              }
+            }
+
+            else
+            {
+
+              v36 = 0;
+            }
+          }
+
+          v32 = [v30 countByEnumeratingWithState:&v104 objects:v120 count:16];
+        }
+
+        while (v32);
+      }
+
+      v81 = [v29 copy];
+      v5 = v87;
+    }
+
+    else
+    {
+      v81 = 0;
+    }
+
+    v37 = [v5 objectForKey:@"remotePendingAssertionContexts"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v37, "count")}];
+      v100 = 0u;
+      v101 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v39 = v37;
+      v40 = [v39 countByEnumeratingWithState:&v100 objects:v119 count:16];
+      if (v40)
+      {
+        v41 = v40;
+        v42 = *v101;
+        do
+        {
+          for (m = 0; m != v41; ++m)
+          {
+            if (*v101 != v42)
+            {
+              objc_enumerationMutation(v39);
+            }
+
+            v44 = *(*(&v100 + 1) + 8 * m);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v45 = [[AFAssertionContext alloc] initWithDictionaryRepresentation:v44];
+
+              if (v45)
+              {
+                [v38 addObject:v45];
+              }
+            }
+
+            else
+            {
+
+              v45 = 0;
+            }
+          }
+
+          v41 = [v39 countByEnumeratingWithState:&v100 objects:v119 count:16];
+        }
+
+        while (v41);
+      }
+
+      v80 = [v38 copy];
+      v5 = v87;
+    }
+
+    else
+    {
+      v80 = 0;
+    }
+
+    v46 = [v5 objectForKey:@"localDevice"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v79 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v46];
+    }
+
+    else
+    {
+      v79 = 0;
+    }
+
+    v47 = [v5 objectForKey:@"remoteQualifiedInRangeDevices"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v48 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v47, "count")}];
+      v96 = 0u;
+      v97 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v49 = v47;
+      v50 = [v49 countByEnumeratingWithState:&v96 objects:v118 count:16];
+      if (v50)
+      {
+        v51 = v50;
+        v52 = *v97;
+        do
+        {
+          for (n = 0; n != v51; ++n)
+          {
+            if (*v97 != v52)
+            {
+              objc_enumerationMutation(v49);
+            }
+
+            v54 = *(*(&v96 + 1) + 8 * n);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v55 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v54];
+
+              if (v55)
+              {
+                [v48 addObject:v55];
+              }
+            }
+
+            else
+            {
+
+              v55 = 0;
+            }
+          }
+
+          v51 = [v49 countByEnumeratingWithState:&v96 objects:v118 count:16];
+        }
+
+        while (v51);
+      }
+
+      v56 = [v48 copy];
+      v5 = v87;
+    }
+
+    else
+    {
+      v56 = 0;
+    }
+
+    v57 = [v5 objectForKey:@"remoteQualifiedOutOfRangeDevices"];
+    objc_opt_class();
+    v78 = v56;
+    if (objc_opt_isKindOfClass())
+    {
+      v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v57, "count")}];
+      v92 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v95 = 0u;
+      v59 = v57;
+      v60 = [v59 countByEnumeratingWithState:&v92 objects:v117 count:16];
+      if (v60)
+      {
+        v61 = v60;
+        v62 = *v93;
+        do
+        {
+          for (ii = 0; ii != v61; ++ii)
+          {
+            if (*v93 != v62)
+            {
+              objc_enumerationMutation(v59);
+            }
+
+            v64 = *(*(&v92 + 1) + 8 * ii);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v65 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v64];
+
+              if (v65)
+              {
+                [v58 addObject:v65];
+              }
+            }
+
+            else
+            {
+
+              v65 = 0;
+            }
+          }
+
+          v61 = [v59 countByEnumeratingWithState:&v92 objects:v117 count:16];
+        }
+
+        while (v61);
+      }
+
+      v77 = [v58 copy];
+      v5 = v87;
+      v56 = v78;
+    }
+
+    else
+    {
+      v77 = 0;
+    }
+
+    v66 = [v5 objectForKey:@"remoteDisqualifiedDevices"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v67 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v66, "count")}];
+      v88 = 0u;
+      v89 = 0u;
+      v90 = 0u;
+      v91 = 0u;
+      v68 = v66;
+      v69 = [v68 countByEnumeratingWithState:&v88 objects:v116 count:16];
+      if (v69)
+      {
+        v70 = v69;
+        v71 = *v89;
+        do
+        {
+          for (jj = 0; jj != v70; ++jj)
+          {
+            if (*v89 != v71)
+            {
+              objc_enumerationMutation(v68);
+            }
+
+            v73 = *(*(&v88 + 1) + 8 * jj);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v74 = [[AFAudioSessionCoordinationDeviceInfo alloc] initWithDictionaryRepresentation:v73];
+
+              if (v74)
+              {
+                [v67 addObject:v74];
+              }
+            }
+
+            else
+            {
+
+              v74 = 0;
+            }
+          }
+
+          v70 = [v68 countByEnumeratingWithState:&v88 objects:v116 count:16];
+        }
+
+        while (v70);
+      }
+
+      v75 = [v67 copy];
+      v5 = v87;
+      v56 = v78;
+    }
+
+    else
+    {
+      v75 = 0;
+    }
+
+    self = [(AFAudioSessionCoordinationSnapshot *)selfCopy initWithCurrentOrUpNextDateInterval:v86 isAudioSessionActive:bOOLValue localActiveAssertionContexts:v83 localPendingAssertionContexts:v82 remoteActiveAssertionContexts:v81 remotePendingAssertionContexts:v80 localDevice:v79 remoteQualifiedInRangeDevices:v56 remoteQualifiedOutOfRangeDevices:v77 remoteDisqualifiedDevices:v75];
     selfCopy2 = self;
   }
 
@@ -771,7 +756,6 @@
     selfCopy2 = 0;
   }
 
-  v83 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

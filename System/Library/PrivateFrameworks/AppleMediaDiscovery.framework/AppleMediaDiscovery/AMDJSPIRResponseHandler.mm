@@ -235,7 +235,6 @@
 
   objc_storeStrong(&v64, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v67;
 
   return v10;

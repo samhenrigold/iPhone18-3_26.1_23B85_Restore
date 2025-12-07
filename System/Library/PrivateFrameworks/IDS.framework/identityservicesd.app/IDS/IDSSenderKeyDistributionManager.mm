@@ -35,7 +35,7 @@
 - (void)generateAndSendKeyIfNeededToURIs:(id)is fromURI:(id)i context:(id)context completion:(id)completion
 {
   v8 = _Block_copy(completion);
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v9 = sub_100936CE8();
   v10 = sub_100936B38();
   v12 = v11;
@@ -50,7 +50,7 @@
 - (void)sendSelfKeyCheckMessageFor:(id)for to:(id)to completion:(id)completion
 {
   v7 = _Block_copy(completion);
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v8 = sub_100936CE8();
   _Block_copy(v7);
   toCopy = to;
@@ -206,7 +206,7 @@
 {
   if (for)
   {
-    sub_100014170(0, &qword_100CBA2E0);
+    sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
     v4 = sub_100936CE8();
   }
 
@@ -248,8 +248,8 @@
 - (void)processDonatedHandlesForMessagingKeysWithUris:(id)uris fromURI:(id)i priority:(int64_t)priority isInitialDonation:(BOOL)donation completion:(id)completion
 {
   v11 = _Block_copy(completion);
-  sub_100014170(0, &qword_100CBA2E0);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v12 = sub_100936E18();
   v13 = swift_allocObject();
   *(v13 + 16) = v11;
@@ -301,7 +301,7 @@
   v8[1] = v7;
   if (*(&v7 + 1))
   {
-    sub_100014170(0, &unk_100CBA300);
+    sub_100014170(0, &unk_100CBA300, NSNumber_ptr);
     if (swift_dynamicCast())
     {
       integerValue = [v5 integerValue];
@@ -312,7 +312,7 @@
 
   else
   {
-    sub_100013814(v8, &qword_100CB4A90);
+    sub_100013814(v8, &qword_100CB4A90, &unk_1009AC8F0);
   }
 
   return 86400.0;

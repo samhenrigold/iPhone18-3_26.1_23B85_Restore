@@ -54,7 +54,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1BA2F7968();
+  sub_1BA2F7968(selfCopy);
 }
 
 - (void)observedTraitsDidChangeWithTraitEnvironment:(id)environment previousTraitCollection:(id)collection

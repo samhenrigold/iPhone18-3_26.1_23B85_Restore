@@ -1,4 +1,5 @@
 @interface SYStateProvider
++ (id)stateProviderWithName:(id)name type:(unsigned int)type typeName:(id)typeName;
 - (SYStateProvider)init;
 - (SYStateProvider)initWithName:(id)name type:(unsigned int)type typeName:(id)typeName;
 - (id)_encodedState;
@@ -8,6 +9,34 @@
 @end
 
 @implementation SYStateProvider
+
++ (id)stateProviderWithName:(id)name type:(unsigned int)type typeName:(id)typeName
+{
+  v6 = *&type;
+  nameCopy = name;
+  typeNameCopy = typeName;
+  os_unfair_lock_lock(&__provider_table_lock);
+  v9 = __provider_table;
+  if (!__provider_table)
+  {
+    v10 = objc_opt_new();
+    v11 = __provider_table;
+    __provider_table = v10;
+
+    v9 = __provider_table;
+  }
+
+  v12 = [v9 objectForKeyedSubscript:nameCopy];
+  if (!v12)
+  {
+    v12 = [[SYStateProvider alloc] initWithName:nameCopy type:v6 typeName:typeNameCopy];
+    [__provider_table setObject:v12 forKeyedSubscript:nameCopy];
+  }
+
+  os_unfair_lock_unlock(&__provider_table_lock);
+
+  return v12;
+}
 
 - (SYStateProvider)init
 {
@@ -48,7 +77,7 @@
   return v10;
 }
 
-_BYTE *__46__SYStateProvider_initWithName_type_typeName___block_invoke(uint64_t a1)
+char *__46__SYStateProvider_initWithName_type_typeName___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -90,11 +119,10 @@ _BYTE *__46__SYStateProvider_initWithName_type_typeName___block_invoke(uint64_t 
 
 - (void)dealloc
 {
-  handle = self->_handle;
   os_state_remove_handler();
-  v4.receiver = self;
-  v4.super_class = SYStateProvider;
-  [(SYStateProvider *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = SYStateProvider;
+  [(SYStateProvider *)&v3 dealloc];
 }
 
 - (void)updateState:(id)state

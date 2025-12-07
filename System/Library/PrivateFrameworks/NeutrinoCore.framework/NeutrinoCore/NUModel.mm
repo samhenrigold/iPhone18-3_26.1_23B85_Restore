@@ -328,9 +328,11 @@ LABEL_10:
 
 uint64_t __32__NUModel_reservedPropertyNames__block_invoke()
 {
-  reservedPropertyNames_names = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F3F82D30];
+  v0 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F3F82D30];
+  v1 = reservedPropertyNames_names;
+  reservedPropertyNames_names = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)validatePropertyName:(id)name error:(id *)error

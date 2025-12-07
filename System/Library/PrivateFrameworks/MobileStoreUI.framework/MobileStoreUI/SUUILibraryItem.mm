@@ -60,21 +60,21 @@
     storeFlavorIdentifier = self->_storeFlavorIdentifier;
     if (storeFlavorIdentifier == equalCopy[2])
     {
-      v6 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v6 = [(NSString *)storeFlavorIdentifier isEqualToString:?];
+      isEqualToString = objc_msgSend_isEqualToString_(storeFlavorIdentifier);
     }
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 @end

@@ -43,20 +43,20 @@
 
 - (MTSleepModeMonitor)initWithAlarmStorage:(id)storage sleepCoordinator:(id)coordinator currentDateProvider:(id)provider
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   coordinatorCopy = coordinator;
   providerCopy = provider;
-  v27.receiver = self;
-  v27.super_class = MTSleepModeMonitor;
-  v12 = [(MTSleepModeMonitor *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = MTSleepModeMonitor;
+  v12 = [(MTSleepModeMonitor *)&v26 init];
   if (v12)
   {
     v13 = MTLogForCategory(7);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v29 = v12;
+      v28 = v12;
       _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -76,21 +76,20 @@
     v12->_assertionService = v18;
 
     v20 = v12->_assertionService;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateProvider___block_invoke;
-    v25[3] = &unk_1E7B0D628;
-    objc_copyWeak(&v26, buf);
-    [(DNDModeAssertionService *)v20 addAssertionUpdateListener:v12 withCompletionHandler:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateProvider___block_invoke;
+    v24[3] = &unk_1E7B0D628;
+    objc_copyWeak(&v25, buf);
+    [(DNDModeAssertionService *)v20 addAssertionUpdateListener:v12 withCompletionHandler:v24];
     v21 = [[MTSleepModeStateMachine alloc] initWithDelegate:v12 infoProvider:v12];
     stateMachine = v12->_stateMachine;
     v12->_stateMachine = v21;
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -169,7 +168,7 @@ void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateP
 - (BOOL)stateMachine:(id)machine engageSleepModeUntilDate:(id)date userEngaged:(BOOL)engaged
 {
   engagedCopy = engaged;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v8 = MTLogForCategory(7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -180,14 +179,14 @@ void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateP
   }
 
   assertionService = [(MTSleepModeMonitor *)self assertionService];
-  v37 = 0;
-  v10 = [assertionService activeModeAssertionWithError:&v37];
-  v11 = v37;
+  v36 = 0;
+  v10 = [assertionService activeModeAssertionWithError:&v36];
+  v11 = v36;
 
   v12 = [dateCopy dateByAddingTimeInterval:[(MTSleepModeMonitor *)self sleepModeTimeoutMinutes]* 60.0];
   v13 = objc_alloc(MEMORY[0x1E696AB80]);
   distantPast = [MEMORY[0x1E695DF00] distantPast];
-  v35 = v12;
+  v34 = v12;
   v15 = [v13 initWithStartDate:distantPast endDate:v12];
 
   v16 = [MEMORY[0x1E699A1D0] lifetimeWithDateInterval:v15];
@@ -217,10 +216,10 @@ void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateP
     {
       *buf = 138543874;
       selfCopy5 = self;
-      v40 = 2114;
-      v41 = dateCopy;
-      v42 = 1024;
-      v43 = engagedCopy;
+      v39 = 2114;
+      v40 = dateCopy;
+      v41 = 1024;
+      v42 = engagedCopy;
       _os_log_impl(&dword_1B1F9F000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ updating active assertion with new end date %{public}@, isUserRequested %d", buf, 0x1Cu);
     }
   }
@@ -246,15 +245,15 @@ void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateP
   {
     *buf = 138543618;
     selfCopy5 = self;
-    v40 = 2114;
-    v41 = v20;
+    v39 = 2114;
+    v40 = v20;
     _os_log_impl(&dword_1B1F9F000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ acquiring assertion with details %{public}@", buf, 0x16u);
   }
 
   assertionService2 = [(MTSleepModeMonitor *)self assertionService];
-  v36 = v11;
-  v29 = [assertionService2 takeModeAssertionWithDetails:v20 error:&v36];
-  v23 = v36;
+  v35 = v11;
+  v29 = [assertionService2 takeModeAssertionWithDetails:v20 error:&v35];
+  v23 = v35;
 
   if (v29)
   {
@@ -285,30 +284,27 @@ void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateP
   }
 
 LABEL_29:
-  v33 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (void)stateMachineClearKeepSleepModeOff:(id)off
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(7);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ clearKeepOff:", &v7, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ clearKeepOff:", &v6, 0xCu);
   }
 
   v5 = +[MTUserDefaults sharedUserDefaults];
   [v5 removeObjectForKey:@"MTKeepDndOffUntilDate"];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)stateMachine:(id)machine disengageSleepModeUserRequested:(BOOL)requested
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = MTLogForCategory(7);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -318,16 +314,16 @@ LABEL_29:
   }
 
   assertionService = [(MTSleepModeMonitor *)self assertionService];
-  v18 = 0;
-  v7 = [assertionService activeModeAssertionWithError:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [assertionService activeModeAssertionWithError:&v17];
+  v8 = v17;
 
   if (v7)
   {
     assertionService2 = [(MTSleepModeMonitor *)self assertionService];
-    v17 = v8;
-    v10 = [assertionService2 invalidateActiveModeAssertionWithError:&v17];
-    v11 = v17;
+    v16 = v8;
+    v10 = [assertionService2 invalidateActiveModeAssertionWithError:&v16];
+    v11 = v16;
 
     v12 = MTLogForCategory(7);
     v13 = v12;
@@ -370,39 +366,36 @@ LABEL_29:
     v11 = v8;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)stateMachine:(id)machine keepSleepModeOffUntilDate:(id)date
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = dateCopy;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ keepOffUntilDate: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = dateCopy;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ keepOffUntilDate: %{public}@", &v8, 0x16u);
   }
 
   v7 = +[MTUserDefaults sharedUserDefaults];
   [v7 setObject:dateCopy forKey:@"MTKeepDndOffUntilDate"];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stateMachine:(id)machine scheduleUpdateForSecondsFromNow:(double)now
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2048;
+    v12 = 2048;
     nowCopy = now;
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduleUpdateForSecondsFromNow: %f", buf, 0x16u);
   }
@@ -415,34 +408,30 @@ LABEL_29:
   block[3] = &unk_1E7B0C9D8;
   block[4] = self;
   dispatch_after(v7, v8, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__MTSleepModeMonitor_stateMachine_scheduleUpdateForSecondsFromNow___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(7);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543618;
-    v10 = v3;
-    v11 = 2114;
-    v12 = @"sleep mode";
+    v9 = v3;
+    v10 = 2114;
+    v11 = @"sleep mode";
     _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ re-checking %{public}@", buf, 0x16u);
   }
 
   v4 = *(a1 + 32);
   v5 = *(v4 + 48);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __67__MTSleepModeMonitor_stateMachine_scheduleUpdateForSecondsFromNow___block_invoke_21;
-  v8[3] = &unk_1E7B0C9D8;
-  v8[4] = v4;
-  result = [v5 performBlock:v8];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __67__MTSleepModeMonitor_stateMachine_scheduleUpdateForSecondsFromNow___block_invoke_21;
+  v7[3] = &unk_1E7B0C9D8;
+  v7[4] = v4;
+  return [v5 performBlock:v7];
 }
 
 - (void)userDisengagedSleepMode
@@ -467,39 +456,37 @@ uint64_t __67__MTSleepModeMonitor_stateMachine_scheduleUpdateForSecondsFromNow__
 
 void __52__MTSleepModeMonitor_userDisengagedSleepModeOnDate___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(7);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138543874;
-    v8 = v3;
-    v9 = 2114;
-    v10 = @"sleep mode";
-    v11 = 2114;
-    v12 = v4;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ user manually turning off %{public}@ (%{public}@)", &v7, 0x20u);
+    v6 = 138543874;
+    v7 = v3;
+    v8 = 2114;
+    v9 = @"sleep mode";
+    v10 = 2114;
+    v11 = v4;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ user manually turning off %{public}@ (%{public}@)", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 32) stateMachine];
   [v5 sleepModeEnabled:0 userRequested:1 date:*(a1 + 40)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)modeAssertionService:(id)service didReceiveModeAssertionInvalidation:(id)invalidation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   invalidationCopy = invalidation;
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = invalidationCopy;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ didReceiveModeAssertionInvalidation %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = invalidationCopy;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ didReceiveModeAssertionInvalidation %{public}@", &v9, 0x16u);
   }
 
   reason = [invalidationCopy reason];
@@ -513,32 +500,28 @@ void __52__MTSleepModeMonitor_userDisengagedSleepModeOnDate___block_invoke(uint6
   {
     [(MTSleepModeMonitor *)self updateMonitorState];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator userWokeUp:(id)up sleepAlarm:(id)alarm
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = @"sleep mode";
+    v11 = 2114;
+    v12 = @"sleep mode";
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ user woke up, turning off %{public}@ if it's on", buf, 0x16u);
   }
 
   serializer = [(MTSleepModeMonitor *)self serializer];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __61__MTSleepModeMonitor_sleepCoordinator_userWokeUp_sleepAlarm___block_invoke;
-  v9[3] = &unk_1E7B0C9D8;
-  v9[4] = self;
-  [serializer performBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __61__MTSleepModeMonitor_sleepCoordinator_userWokeUp_sleepAlarm___block_invoke;
+  v8[3] = &unk_1E7B0C9D8;
+  v8[4] = self;
+  [serializer performBlock:v8];
 }
 
 void __61__MTSleepModeMonitor_sleepCoordinator_userWokeUp_sleepAlarm___block_invoke(uint64_t a1)
@@ -549,109 +532,103 @@ void __61__MTSleepModeMonitor_sleepCoordinator_userWokeUp_sleepAlarm___block_inv
 
 - (void)sleepCoordinator:(id)coordinator userWentToBed:(id)bed sleepAlarm:(id)alarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ user went to bed, checking %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ user went to bed, checking %{public}@", &v7, 0x16u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator bedtimeReminderDidFire:(id)fire sleepAlarm:(id)alarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ bedtime reminder fired, checking %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ bedtime reminder fired, checking %{public}@", &v7, 0x16u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator bedtimeReminderWasConfirmed:(id)confirmed sleepAlarm:(id)alarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ user went to bed, checking %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ user went to bed, checking %{public}@", &v7, 0x16u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator bedtimeWasReached:(id)reached sleepAlarm:(id)alarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ it's the user's bedtime, checking %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ it's the user's bedtime, checking %{public}@", &v7, 0x16u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator wakeUpAlarmDidFire:(id)fire sleepAlarm:(id)alarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ wake up alarm fired, checking %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ wake up alarm fired, checking %{public}@", &v7, 0x16u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator wakeUpAlarmWasSnoozed:(id)snoozed sleepAlarm:(id)alarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ wake up alarm snoozed, checking %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ wake up alarm snoozed, checking %{public}@", &v7, 0x16u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepCoordinator:(id)coordinator sleepAlarmDidChange:(id)change
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = @"modified";
   if (!change)
   {
@@ -662,44 +639,41 @@ void __61__MTSleepModeMonitor_sleepCoordinator_userWokeUp_sleepAlarm___block_inv
   v7 = MTLogForCategory(7);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543874;
+    v8 = 138543874;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v6;
-    v13 = 2114;
-    v14 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ user %{public}@ sleep alarm, checking %{public}@", &v9, 0x20u);
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ user %{public}@ sleep alarm, checking %{public}@", &v8, 0x20u);
   }
 
   [(MTSleepModeMonitor *)self updateMonitorState];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timeListener:(id)listener didDetectSignificantTimeChangeWithCompletionBlock:(id)block
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v6 = MTLogForCategory(7);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = @"sleep mode";
+    v13 = 2114;
+    v14 = @"sleep mode";
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ significant time change detected, checking %{public}@", buf, 0x16u);
   }
 
   serializer = self->_serializer;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7B0CA00;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7B0CA00;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(NAScheduler *)serializer performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(NAScheduler *)serializer performBlock:v9];
 }
 
 uint64_t __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWithCompletionBlock___block_invoke(uint64_t a1)
@@ -718,15 +692,15 @@ uint64_t __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWit
 
 - (void)printDiagnostics
 {
-  *&v10[5] = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v2 = [(MTSleepModeMonitor *)self isSleepModeEnabled:&v8];
+  *&v9[5] = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v2 = [(MTSleepModeMonitor *)self isSleepModeEnabled:&v7];
   v3 = MTLogForCategory(7);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     *buf = 138412290;
-    *v10 = v4;
+    *v9 = v4;
     v5 = v4;
     _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----%@-----", buf, 0xCu);
   }
@@ -735,20 +709,18 @@ uint64_t __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWit
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v10[0] = v2;
-    LOWORD(v10[1]) = 1024;
-    *(&v10[1] + 2) = v8;
+    v9[0] = v2;
+    LOWORD(v9[1]) = 1024;
+    *(&v9[1] + 2) = v7;
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "isEnabled: %d, isUserRequested: %d", buf, 0xEu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  if ([(MTSleepModeMonitor *)self isSleepModeEnabled:&v7])
+  v8[2] = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  if ([(MTSleepModeMonitor *)self isSleepModeEnabled:&v6])
   {
     v2 = @"YES";
   }
@@ -758,9 +730,9 @@ uint64_t __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWit
     v2 = @"NO";
   }
 
-  v8[0] = @"isEnabled";
-  v8[1] = @"isUserRequested";
-  if (v7)
+  v7[0] = @"isEnabled";
+  v7[1] = @"isUserRequested";
+  if (v6)
   {
     v3 = @"YES";
   }
@@ -770,10 +742,9 @@ uint64_t __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWit
     v3 = @"NO";
   }
 
-  v9[0] = v2;
-  v9[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-  v5 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v4;
 }
@@ -787,37 +758,19 @@ uint64_t __85__MTSleepModeMonitor_timeListener_didDetectSignificantTimeChangeWit
 
 void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateProvider___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, a2, a3, "%{public}@ Failed adding assertion update listener: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, a2, a3, "%{public}@ Failed adding assertion update listener: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void __80__MTSleepModeMonitor_initWithAlarmStorage_sleepCoordinator_currentDateProvider___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Added assertion update listener", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)stateMachine:engageSleepModeUntilDate:userEngaged:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v0, v1, "%{public}@ Failed to acquire assertion with %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)stateMachine:disengageSleepModeUserRequested:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v0, v1, "%{public}@ Failed to release assertion with %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Added assertion update listener", &v2, 0xCu);
 }
 
 @end

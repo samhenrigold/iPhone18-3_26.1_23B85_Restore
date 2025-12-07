@@ -14,7 +14,7 @@
   v3 = type metadata accessor for MessageID.Value(0);
   __chkstk_darwin(v3);
   v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = &v16 - v7;
   outlined init with copy of MessageID.Value(self + OBJC_IVAR___MPMessageID_value, v5);
@@ -110,7 +110,7 @@
 
   v6 = MessageID.isEqual(_:)(v8);
 
-  outlined destroy of (NSAttributedStringKey, Any)(v8, &_sypSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 

@@ -1,3 +1,1809 @@
+uint64_t geom_intersect_ray_line_segment_2f(float *a1, int *a2, float32x2_t a3, double a4, float32x2_t a5, float32x2_t a6, double a7, double a8)
+{
+  v8 = vsub_f32(a6, a5);
+  v9 = vmul_f32(*&a4, *&a4);
+  v10 = vaddv_f32(v9);
+  v11 = vmul_f32(v8, v8);
+  v12 = vaddv_f32(v11);
+  *&a8 = fabsf(v10);
+  v13 = fabsf(v12);
+  if (*&a8 > 0.00000011921 || v13 > 0.00000011921)
+  {
+    v15 = vsub_f32(a5, a3);
+    if (*&a8 > 0.00000011921)
+    {
+      v16 = v10;
+    }
+
+    else
+    {
+      v16 = v12;
+    }
+
+    if (*&a8 > 0.00000011921 && v13 > 0.00000011921)
+    {
+      v27 = vadd_f32(v9, vdup_lane_s32(v9, 1));
+      v28 = (-*(&a4 + 1) * v8.f32[0]) + (*&a4 * v8.f32[1]);
+      if (fabsf(v28 * v28) <= (1.0e-10 * vmul_f32(v27, vadd_f32(v11, vdup_lane_s32(v11, 1))).f32[0]))
+      {
+        v30 = vmul_f32(v15, v15);
+        if (fabsf(((v15.f32[0] * *(&a4 + 1)) - (v15.f32[1] * *&a4)) * ((v15.f32[0] * *(&a4 + 1)) - (v15.f32[1] * *&a4))) > (1.0e-10 * vmul_f32(v27, vadd_f32(v30, vdup_lane_s32(v30, 1))).f32[0]))
+        {
+          goto LABEL_21;
+        }
+
+        v31 = vmul_f32(*&a4, v15);
+        v32 = vdiv_f32(vadd_f32(v31, vdup_lane_s32(v31, 1)), v27);
+        v33 = vmul_f32(*&a4, vadd_f32(v15, v8));
+        v34 = vdiv_f32(vadd_f32(v33, vdup_lane_s32(v33, 1)), v27);
+        if (v32.f32[0] < 0.0 && v34.f32[0] < 0.0)
+        {
+          goto LABEL_21;
+        }
+
+        v35 = vcgt_f32(v32, v34).u8[0];
+        if (v35)
+        {
+          v22 = v34.f32[0];
+        }
+
+        else
+        {
+          v22 = v32.f32[0];
+        }
+
+        if (v35)
+        {
+          v21 = 0.0;
+        }
+
+        else
+        {
+          v21 = 1.0;
+        }
+
+        v24 = 2;
+        goto LABEL_28;
+      }
+
+      v22 = ((v15.f32[0] * v8.f32[1]) - (v15.f32[1] * v8.f32[0])) / v28;
+      v21 = ((v15.f32[0] * *(&a4 + 1)) - (v15.f32[1] * *&a4)) / v28;
+    }
+
+    else
+    {
+      v18 = vbsl_s8(vdup_lane_s32(vcge_f32(0x3400000034000000, *&a8), 0), v8, *&a4);
+      v19 = vbsl_s8(vdup_lane_s32(vcge_f32(0x3400000034000000, *&a8), 0), vneg_f32(v15), v15);
+      if ((((-v18.f32[1] * v19.f32[0]) + (v18.f32[0] * v19.f32[1])) * ((-v18.f32[1] * v19.f32[0]) + (v18.f32[0] * v19.f32[1]))) > (v16 * 1.0e-10))
+      {
+LABEL_21:
+        v24 = 0;
+        v25 = INFINITY;
+        v26 = 2143289344;
+        goto LABEL_29;
+      }
+
+      v20 = vaddv_f32(vmul_f32(v18, v19)) / v16;
+      v21 = 0.0;
+      if (*&a8 > 0.00000011921)
+      {
+        v22 = v20;
+      }
+
+      else
+      {
+        v22 = 0.0;
+      }
+
+      if (v13 > 0.00000011921)
+      {
+        v21 = v20;
+      }
+    }
+  }
+
+  else
+  {
+    v23 = vsub_f32(a3, a5);
+    v22 = 0.0;
+    v21 = 0.0;
+    if (sqrtf(vaddv_f32(vmul_f32(v23, v23))) > 0.00001)
+    {
+      goto LABEL_21;
+    }
+  }
+
+  v24 = 0;
+  v25 = INFINITY;
+  v26 = 2143289344;
+  if (v22 >= 0.0 && v21 >= 0.0 && v21 <= 1.0)
+  {
+    v24 = 1;
+LABEL_28:
+    v25 = fmaxf(v22, 0.0);
+    v26 = LODWORD(v21);
+  }
+
+LABEL_29:
+  if (a1)
+  {
+    *a1 = v25;
+  }
+
+  if (a2)
+  {
+    *a2 = v26;
+  }
+
+  return v24;
+}
+
+uint64_t geom_intersect_ray_line_segment_2d(double *a1, uint64_t *a2, float64x2_t a3, float64x2_t a4, float64x2_t a5, float64x2_t a6, double a7, float64x2_t a8)
+{
+  v9 = vsubq_f64(a6, a5);
+  v10 = vmulq_f64(a4, a4);
+  v11 = vaddvq_f64(v10);
+  v12 = vmulq_f64(v9, v9);
+  v13 = vaddvq_f64(v12);
+  a8.f64[0] = fabs(v11);
+  v14 = fabs(v13);
+  if (a8.f64[0] > 2.22044605e-16 || v14 > 2.22044605e-16)
+  {
+    v16 = vsubq_f64(a5, a3);
+    v8.f64[0] = 2.22044605e-16;
+    if (a8.f64[0] > 2.22044605e-16)
+    {
+      v17 = v11;
+    }
+
+    else
+    {
+      v17 = v13;
+    }
+
+    if (a8.f64[0] > 2.22044605e-16 && v14 > 2.22044605e-16)
+    {
+      v28 = vaddq_f64(v10, vdupq_laneq_s64(v10, 1));
+      v29 = -a4.f64[1] * *v9.i64 + a4.f64[0] * *&v9.i64[1];
+      if (fabs(v29 * v29) <= 1.0e-12 * vmulq_f64(v28, vaddq_f64(v12, vdupq_laneq_s64(v12, 1))).f64[0])
+      {
+        v31 = vmulq_f64(v16, v16);
+        if (fabs((*v16.i64 * a4.f64[1] - *&v16.i64[1] * a4.f64[0]) * (*v16.i64 * a4.f64[1] - *&v16.i64[1] * a4.f64[0])) > 1.0e-12 * vmulq_f64(v28, vaddq_f64(v31, vdupq_laneq_s64(v31, 1))).f64[0])
+        {
+          goto LABEL_21;
+        }
+
+        v32 = vmulq_f64(a4, v16);
+        v33 = vdivq_f64(vaddq_f64(v32, vdupq_laneq_s64(v32, 1)), v28);
+        v34 = vmulq_f64(a4, vaddq_f64(v16, v9));
+        v35 = vdivq_f64(vaddq_f64(v34, vdupq_laneq_s64(v34, 1)), v28);
+        if (v33.f64[0] < 0.0 && v35.f64[0] < 0.0)
+        {
+          goto LABEL_21;
+        }
+
+        v36 = vmovn_s64(vcgtq_f64(v33, v35)).u8[0];
+        if (v36)
+        {
+          v23 = v35.f64[0];
+        }
+
+        else
+        {
+          v23 = v33.f64[0];
+        }
+
+        if (v36)
+        {
+          v22 = 0.0;
+        }
+
+        else
+        {
+          v22 = 1.0;
+        }
+
+        v25 = 2;
+        goto LABEL_28;
+      }
+
+      v23 = (*v16.i64 * *&v9.i64[1] - *&v16.i64[1] * *v9.i64) / v29;
+      v22 = (*v16.i64 * a4.f64[1] - *&v16.i64[1] * a4.f64[0]) / v29;
+    }
+
+    else
+    {
+      v19 = vbslq_s8(vdupq_lane_s64(vcgeq_f64(v8, a8).i64[0], 0), v9, a4);
+      v9.i64[0] = 0x3CB0000000000000;
+      v20 = vbslq_s8(vdupq_lane_s64(vcgeq_f64(v9, a8).i64[0], 0), vnegq_f64(v16), v16);
+      if ((-v19.f64[1] * v20.f64[0] + v19.f64[0] * v20.f64[1]) * (-v19.f64[1] * v20.f64[0] + v19.f64[0] * v20.f64[1]) > v17 * 1.0e-12)
+      {
+LABEL_21:
+        v25 = 0;
+        v26 = INFINITY;
+        v27 = 0x7FF8000000000000;
+        goto LABEL_29;
+      }
+
+      v21 = vaddvq_f64(vmulq_f64(v19, v20)) / v17;
+      v22 = 0.0;
+      if (a8.f64[0] > 2.22044605e-16)
+      {
+        v23 = v21;
+      }
+
+      else
+      {
+        v23 = 0.0;
+      }
+
+      if (v14 > 2.22044605e-16)
+      {
+        v22 = v21;
+      }
+    }
+  }
+
+  else
+  {
+    v24 = vsubq_f64(a3, a5);
+    v23 = 0.0;
+    v22 = 0.0;
+    if (sqrt(vaddvq_f64(vmulq_f64(v24, v24))) > 0.000001)
+    {
+      goto LABEL_21;
+    }
+  }
+
+  v25 = 0;
+  v26 = INFINITY;
+  v27 = 0x7FF8000000000000;
+  if (v23 >= 0.0 && v22 >= 0.0 && v22 <= 1.0)
+  {
+    v25 = 1;
+LABEL_28:
+    v26 = fmax(v23, 0.0);
+    v27 = *&v22;
+  }
+
+LABEL_29:
+  if (a1)
+  {
+    *a1 = v26;
+  }
+
+  if (a2)
+  {
+    *a2 = v27;
+  }
+
+  return v25;
+}
+
+uint64_t geom_intersect_ray_ray_2f(float *a1, float *a2, float32x2_t a3, double a4, float32x2_t a5, double a6)
+{
+  v6 = vmul_f32(*&a4, *&a4);
+  v7 = vmul_f32(*&a6, *&a6);
+  v8 = vadd_f32(vzip1_s32(v7, v6), vzip2_s32(v7, v6));
+  v9 = vcge_f32(0x3400000034000000, vabs_f32(v8));
+  if (v9.i32[1] & v9.i32[0])
+  {
+    v10 = vsub_f32(a3, a5);
+    v11 = 0.0;
+    v27 = sqrtf(vaddv_f32(vmul_f32(v10, v10))) > 0.00001;
+    v12 = 0.0;
+    if (!v27)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_28:
+    v21 = 0;
+    v12 = INFINITY;
+    v11 = INFINITY;
+    goto LABEL_29;
+  }
+
+  v13 = vsub_f32(a5, a3);
+  if (v9.i8[4])
+  {
+    v14 = v8.f32[0];
+  }
+
+  else
+  {
+    v14 = v8.f32[1];
+  }
+
+  if (v9.i8[4])
+  {
+    v15 = -1;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if ((v9.i8[4] | v9.i8[0]))
+  {
+    v16 = vbsl_s8(vdup_n_s32(v15), *&a6, *&a4);
+    if (v9.i8[4])
+    {
+      v17 = -1;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v18 = vbsl_s8(vdup_n_s32(v17), vneg_f32(v13), v13);
+    if ((((-v16.f32[1] * v18.f32[0]) + (v16.f32[0] * v18.f32[1])) * ((-v16.f32[1] * v18.f32[0]) + (v16.f32[0] * v18.f32[1]))) > (v14 * 1.0e-10))
+    {
+      goto LABEL_28;
+    }
+
+    v12 = vaddv_f32(vmul_f32(v16, v18)) / v14;
+    if (v9.i8[4])
+    {
+      v11 = 0.0;
+    }
+
+    else
+    {
+      v11 = v12;
+    }
+
+    if (v9.i8[0])
+    {
+      v12 = 0.0;
+    }
+
+LABEL_24:
+    if (v11 >= 0.0 && v12 >= 0.0)
+    {
+      v21 = 1;
+      goto LABEL_29;
+    }
+
+    goto LABEL_28;
+  }
+
+  v19 = (-*(&a4 + 1) * *&a6) + (*&a4 * *(&a6 + 1));
+  v20 = (v8.f32[1] * v8.f32[0]) * 1.0e-10;
+  if (fabsf(v19 * v19) > v20)
+  {
+    v11 = ((v13.f32[0] * *(&a6 + 1)) - (v13.f32[1] * *&a6)) / v19;
+    v12 = ((v13.f32[0] * *(&a4 + 1)) - (v13.f32[1] * *&a4)) / v19;
+    goto LABEL_24;
+  }
+
+  if (fabsf(((v13.f32[0] * *(&a4 + 1)) - (v13.f32[1] * *&a4)) * ((v13.f32[0] * *(&a4 + 1)) - (v13.f32[1] * *&a4))) > ((v8.f32[1] * vaddv_f32(vmul_f32(v13, v13))) * 1.0e-10))
+  {
+    goto LABEL_28;
+  }
+
+  v23 = vmul_f32(*&a4, v13);
+  v24 = vmul_f32(*&a6, vneg_f32(v13));
+  v25 = vdiv_f32(vadd_f32(vzip1_s32(v24, v23), vzip2_s32(v24, v23)), v8);
+  v26 = fabsf(vmul_f32(v25, v25).f32[0]);
+  v12 = 0.0;
+  v27 = fabsf(vmuls_lane_f32(v25.f32[1], v25, 1)) > v20 || v26 > v20;
+  if (!v27)
+  {
+    v21 = 1;
+LABEL_43:
+    v11 = 0.0;
+    goto LABEL_29;
+  }
+
+  if (v25.f32[1] < 0.0 && v25.f32[0] < 0.0)
+  {
+    goto LABEL_28;
+  }
+
+  v28 = vcgez_f32(v25);
+  if (v28.i32[1] & v28.i32[0])
+  {
+    v21 = 2;
+    goto LABEL_43;
+  }
+
+  if (v25.f32[1] >= 0.0)
+  {
+    v11 = v25.f32[1];
+  }
+
+  else
+  {
+    v11 = 0.0;
+  }
+
+  if (v25.f32[0] >= 0.0)
+  {
+    v12 = v25.f32[0];
+  }
+
+  v21 = 2;
+LABEL_29:
+  if (a1)
+  {
+    *a1 = v11;
+  }
+
+  if (a2)
+  {
+    *a2 = v12;
+  }
+
+  return v21;
+}
+
+uint64_t geom_intersect_ray_ray_2d(double *a1, double *a2, float64x2_t a3, float64x2_t a4, float64x2_t a5, float64x2_t a6)
+{
+  v6 = vpaddq_f64(vmulq_f64(a6, a6), vmulq_f64(a4, a4));
+  v7 = vmovn_s64(vcgeq_f64(vdupq_n_s64(0x3CB0000000000000uLL), vabsq_f64(v6)));
+  v8 = v7.i8[4];
+  v9 = v7.i8[0];
+  if (v7.i32[1] & v7.i32[0])
+  {
+    v10 = vsubq_f64(a3, a5);
+    v11 = 0.0;
+    v25 = sqrt(vaddvq_f64(vmulq_f64(v10, v10))) > 0.000001;
+    v12 = 0.0;
+    if (!v25)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_28:
+    v21 = 0;
+    v12 = INFINITY;
+    v11 = INFINITY;
+    goto LABEL_29;
+  }
+
+  v13 = vsubq_f64(a5, a3);
+  if (v7.i8[4])
+  {
+    v14 = v6.f64[0];
+  }
+
+  else
+  {
+    v14 = v6.f64[1];
+  }
+
+  if (v8)
+  {
+    v15 = -1;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if ((v8 | v9))
+  {
+    v16 = vbslq_s8(vdupq_n_s64(v15), a6, a4);
+    if (v8)
+    {
+      v17 = -1;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v18 = vbslq_s8(vdupq_n_s64(v17), vnegq_f64(v13), v13);
+    if ((-v16.f64[1] * v18.f64[0] + v16.f64[0] * v18.f64[1]) * (-v16.f64[1] * v18.f64[0] + v16.f64[0] * v18.f64[1]) > v14 * 1.0e-12)
+    {
+      goto LABEL_28;
+    }
+
+    v12 = vaddvq_f64(vmulq_f64(v16, v18)) / v14;
+    if (v8)
+    {
+      v11 = 0.0;
+    }
+
+    else
+    {
+      v11 = v12;
+    }
+
+    if (v9)
+    {
+      v12 = 0.0;
+    }
+
+LABEL_24:
+    if (v11 >= 0.0 && v12 >= 0.0)
+    {
+      v21 = 1;
+      goto LABEL_29;
+    }
+
+    goto LABEL_28;
+  }
+
+  v19 = -a4.f64[1] * a6.f64[0] + a4.f64[0] * a6.f64[1];
+  v20 = v6.f64[1] * v6.f64[0] * 1.0e-12;
+  if (fabs(v19 * v19) > v20)
+  {
+    v11 = (*v13.i64 * a6.f64[1] - *&v13.i64[1] * a6.f64[0]) / v19;
+    v12 = (*v13.i64 * a4.f64[1] - *&v13.i64[1] * a4.f64[0]) / v19;
+    goto LABEL_24;
+  }
+
+  if (fabs((*v13.i64 * a4.f64[1] - *&v13.i64[1] * a4.f64[0]) * (*v13.i64 * a4.f64[1] - *&v13.i64[1] * a4.f64[0])) > v6.f64[1] * vaddvq_f64(vmulq_f64(v13, v13)) * 1.0e-12)
+  {
+    goto LABEL_28;
+  }
+
+  v23 = vdivq_f64(vpaddq_f64(vmulq_f64(a6, vnegq_f64(v13)), vmulq_f64(a4, v13)), v6);
+  v11 = v23.f64[1];
+  v24 = fabs(vmulq_f64(v23, v23).f64[0]);
+  v12 = 0.0;
+  v25 = fabs(vmuld_lane_f64(v23.f64[1], v23, 1)) > v20 || v24 > v20;
+  if (!v25)
+  {
+    v21 = 1;
+LABEL_43:
+    v11 = 0.0;
+    goto LABEL_29;
+  }
+
+  if (v23.f64[1] < 0.0 && v23.f64[0] < 0.0)
+  {
+    goto LABEL_28;
+  }
+
+  v26 = vmovn_s64(vcgezq_f64(v23));
+  if (v26.i32[1] & v26.i32[0])
+  {
+    v21 = 2;
+    goto LABEL_43;
+  }
+
+  if (v23.f64[1] < 0.0)
+  {
+    v11 = 0.0;
+  }
+
+  if (v23.f64[0] >= 0.0)
+  {
+    v12 = v23.f64[0];
+  }
+
+  v21 = 2;
+LABEL_29:
+  if (a1)
+  {
+    *a1 = v11;
+  }
+
+  if (a2)
+  {
+    *a2 = v12;
+  }
+
+  return v21;
+}
+
+uint64_t geom_intersect_line_line_2f(uint64_t a1, int a2, uint64_t a3, int a4, void *a5)
+{
+  v5 = vmul_f32(a1, a1);
+  v6 = vmul_f32(a3, a3);
+  v7 = vaddv_f32(v6);
+  if (vaddv_f32(v5) <= 0.00000011921 || v7 <= 0.00000011921)
+  {
+    return 0;
+  }
+
+  v10 = a2;
+  v11 = *&a1;
+  v12 = vadd_f32(v6, vdup_lane_s32(v6, 1));
+  v13 = (*&a1 * *(&a3 + 1)) - (*(&a1 + 1) * *&a3);
+  v14 = 1.0e-10 * vmul_f32(vadd_f32(v5, vdup_lane_s32(v5, 1)), v12).f32[0];
+  if ((v13 * v13) <= v14)
+  {
+    v26[0] = a1;
+    v26[1] = a3;
+    v16 = 4;
+    v17 = v26;
+    do
+    {
+      if (v11 < *(v26 + v16))
+      {
+        v11 = *(v26 + v16);
+        v17 = v26 + v16;
+      }
+
+      v16 += 4;
+    }
+
+    while (v16 != 16);
+    v18 = vceqd_s64((v17 - v26) & 0x3F8, 0);
+    v19 = vbsl_s8(v18, a1, a3);
+    v20 = vbsl_s8(v18, a3, a1);
+    if (((v17 - v26) & 0x3F8) != 0)
+    {
+      v21 = a4;
+    }
+
+    else
+    {
+      v21 = a2;
+    }
+
+    if (((v17 - v26) & 0x3F8) == 0)
+    {
+      v10 = a4;
+    }
+
+    v24 = v20;
+    v22 = *(&v24 | (4 * (((v17 - v26) >> 2) & 1))) * *&v21;
+    v25 = v19;
+    v23 = *(&v25 & 0xFFFFFFFFFFFFFFFBLL | (4 * (((v17 - v26) >> 2) & 1)));
+    return 2 * (((*&v10 - (v22 / v23)) * (*&v10 - (v22 / v23))) <= v14);
+  }
+
+  else
+  {
+    if (a5)
+    {
+      *&v15 = ((*(&a1 + 1) * *&a4) - (*(&a3 + 1) * *&a2)) / v13;
+      *(&v15 + 1) = ((*&a1 * *&a4) - (*&a3 * *&a2)) / -v13;
+      *a5 = v15;
+    }
+
+    return 1;
+  }
+}
+
+uint64_t geom_intersect_line_line_2d(uint64_t a1, uint64_t a2, _OWORD *a3)
+{
+  v3 = *(a1 + 16);
+  v23 = *a1;
+  v24 = v3;
+  v4 = *(a2 + 16);
+  v21 = *a2;
+  v22 = v4;
+  v5 = v23;
+  v6 = vmulq_f64(v5, v5);
+  v7 = vmulq_f64(v21, v21);
+  v8 = vaddvq_f64(v7);
+  if (vaddvq_f64(v6) <= 2.22044605e-16 || v8 <= 2.22044605e-16)
+  {
+    return 0;
+  }
+
+  v11 = *&v24;
+  v12 = vmuld_lane_f64(-v21.f64[0], v23, 1) + v23.f64[0] * v21.f64[1];
+  v13 = 1.0e-12 * vmulq_f64(vaddq_f64(v6, vdupq_laneq_s64(v6, 1)), vaddq_f64(v7, vdupq_laneq_s64(v7, 1))).f64[0];
+  if (v12 * v12 <= v13)
+  {
+    v25[0] = v23;
+    v25[1] = v21;
+    v15 = 8;
+    v16 = v25;
+    do
+    {
+      if (v5.f64[0] < *(v25 + v15))
+      {
+        v5.f64[0] = *(v25 + v15);
+        v16 = v25 + v15;
+      }
+
+      v15 += 8;
+    }
+
+    while (v15 != 32);
+    v17 = &v21;
+    if (((v16 - v25) & 0x7F0) != 0)
+    {
+      v18 = &v21;
+    }
+
+    else
+    {
+      v18 = &v23;
+    }
+
+    if (((v16 - v25) & 0x7F0) != 0)
+    {
+      v19 = *&v22;
+    }
+
+    else
+    {
+      v19 = *&v24;
+    }
+
+    if (((v16 - v25) & 0x7F0) != 0)
+    {
+      v17 = &v23;
+    }
+
+    else
+    {
+      v11 = *&v22;
+    }
+
+    v20 = v11 - *(v17 | v16 & 8) * v19 / *(v18 | v16 & 8);
+    return 2 * (v20 * v20 <= v13);
+  }
+
+  else
+  {
+    if (a3)
+    {
+      *&v14 = (v23.f64[1] * *&v22 - v21.f64[1] * *&v24) / v12;
+      *(&v14 + 1) = (*&v24 * -v21.f64[0] + v23.f64[0] * *&v22) / -v12;
+      *a3 = v14;
+    }
+
+    return 1;
+  }
+}
+
+uint64_t geom_intersect_line_line_segment_2f(uint64_t a1, int a2, float *a3, float32x2_t a4, float32x2_t a5, double a6, double a7, double a8, double _D5)
+{
+  if ((*&a2 * *&a2) <= (vaddv_f32(vmul_f32(a1, a1)) * 1.0e-10))
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v10 = fabsf(*(&a1 + 1)) > COERCE_FLOAT(a1 & 0x7FFFFFFF);
+    v41 = a1;
+    v11 = -*&a2 / *(&v41 | (4 * v10));
+    v42 = 0;
+    *(&v42 & 0xFFFFFFFFFFFFFFFBLL | (4 * v10)) = v11;
+    v12 = v42;
+  }
+
+  *&_D5 = -*(&a1 + 1);
+  v13 = vzip1_s32(*&_D5, a1);
+  _D1 = vsub_f32(a5, a4);
+  v15 = vmul_f32(v13, v13);
+  v16 = vaddv_f32(v15);
+  v17 = vmul_f32(_D1, _D1);
+  v18 = vaddv_f32(v17);
+  v9.f32[0] = fabsf(v16);
+  v19 = fabsf(v18);
+  if (v19 <= 0.00000011921 && v9.f32[0] <= 0.00000011921)
+  {
+    v27 = vsub_f32(v12, a4);
+    v28 = sqrtf(vaddv_f32(vmul_f32(v27, v27)));
+    v26 = 0.0;
+    if (v28 > 0.00001)
+    {
+      v29 = 0;
+      goto LABEL_28;
+    }
+
+    goto LABEL_24;
+  }
+
+  v21 = vsub_f32(a4, v12);
+  if (v9.f32[0] > 0.00000011921)
+  {
+    v22 = v16;
+  }
+
+  else
+  {
+    v22 = v18;
+  }
+
+  if (v19 <= 0.00000011921 || v9.f32[0] <= 0.00000011921)
+  {
+    v24 = vbsl_s8(vdup_lane_s32(vcge_f32(0x3400000034000000, v9), 0), _D1, v13);
+    v25 = vbsl_s8(vdup_lane_s32(vcge_f32(0x3400000034000000, v9), 0), vneg_f32(v21), v21);
+    if ((((-v24.f32[1] * v25.f32[0]) + (v24.f32[0] * v25.f32[1])) * ((-v24.f32[1] * v25.f32[0]) + (v24.f32[0] * v25.f32[1]))) <= (v22 * 1.0e-10))
+    {
+      v26 = vaddv_f32(vmul_f32(v24, v25)) / v22;
+      if (v19 <= 0.00000011921)
+      {
+        v26 = 0.0;
+      }
+
+      goto LABEL_24;
+    }
+
+LABEL_26:
+    v29 = 0;
+    v26 = 0.0;
+    goto LABEL_28;
+  }
+
+  v30 = vadd_f32(v15, vdup_lane_s32(v15, 1));
+  v31 = vadd_f32(v17, vdup_lane_s32(v17, 1));
+  __asm { FMLA            S16, S5, V1.S[1] }
+
+  if (fabsf(_S16 * _S16) > (1.0e-10 * vmul_f32(v31, v30).f32[0]))
+  {
+    v26 = (vmuls_lane_f32(*(&a1 + 1), v21, 1) + (v21.f32[0] * *&a1)) / _S16;
+LABEL_24:
+    v29 = 1;
+    goto LABEL_28;
+  }
+
+  v36 = vmul_f32(v21, v21);
+  v37 = vmuls_lane_f32(*(&a1 + 1), v21, 1);
+  if (fabsf((v37 + (v21.f32[0] * *&a1)) * (v37 + (v21.f32[0] * *&a1))) > (1.0e-10 * vmul_f32(v30, vadd_f32(v36, vdup_lane_s32(v36, 1))).f32[0]))
+  {
+    goto LABEL_26;
+  }
+
+  v38 = vmul_f32(_D1, vneg_f32(v21));
+  LODWORD(v26) = vdiv_f32(vadd_f32(v38, vdup_lane_s32(v38, 1)), v31).u32[0];
+  v29 = 2;
+LABEL_28:
+  if (v26 > 1.0 || v26 < 0.0)
+  {
+    result = 0;
+  }
+
+  else
+  {
+    result = v29;
+  }
+
+  if (a3)
+  {
+    if (!result)
+    {
+      v26 = NAN;
+    }
+
+    *a3 = v26;
+  }
+
+  return result;
+}
+
+uint64_t geom_intersect_line_line_segment_2d(float64x2_t *a1, double *a2, float64x2_t a3, float64x2_t a4, double a5, double a6, double a7, double a8, int64x2_t _Q6)
+{
+  v11 = *a1;
+  v12 = a1[1].f64[0];
+  v13 = a1->f64[1];
+  if (v12 * v12 <= vaddvq_f64(vmulq_f64(v11, v11)) * 1.0e-12)
+  {
+    v16 = 0uLL;
+  }
+
+  else
+  {
+    v14 = fabs(v11.f64[1]) > fabs(v11.f64[0]);
+    v46 = *a1;
+    v15 = -v12 / *(&v46 | (8 * v14));
+    _Q6.i64[1] = 0;
+    v47 = 0u;
+    *(&v47 & 0xFFFFFFFFFFFFFFF7 | (8 * v14)) = v15;
+    v16 = v47;
+  }
+
+  *_Q6.i64 = -v13;
+  v17 = vzip1q_s64(_Q6, v11);
+  _Q1 = vsubq_f64(a4, a3);
+  v19 = vmulq_f64(v17, v17);
+  v20 = vaddvq_f64(v19);
+  v21 = vmulq_f64(_Q1, _Q1);
+  v22 = vaddvq_f64(v21);
+  v9.f64[0] = fabs(v20);
+  v23 = fabs(v22);
+  if (v23 <= 2.22044605e-16 && v9.f64[0] <= 2.22044605e-16)
+  {
+    v32 = vsubq_f64(v16, a3);
+    v33 = sqrt(vaddvq_f64(vmulq_f64(v32, v32)));
+    v31 = 0.0;
+    if (v33 > 0.000001)
+    {
+      v34 = 0;
+      goto LABEL_28;
+    }
+
+    goto LABEL_24;
+  }
+
+  v25 = vsubq_f64(a3, v16);
+  v10.f64[0] = 2.22044605e-16;
+  if (v9.f64[0] > 2.22044605e-16)
+  {
+    v26 = v20;
+  }
+
+  else
+  {
+    v26 = v22;
+  }
+
+  if (v23 <= 2.22044605e-16 || v9.f64[0] <= 2.22044605e-16)
+  {
+    v28 = vdupq_lane_s64(vcgeq_f64(v10, v9).i64[0], 0);
+    v29 = vbslq_s8(v28, _Q1, v17);
+    v28.i64[0] = 0x3CB0000000000000;
+    v30 = vbslq_s8(vdupq_lane_s64(vcgeq_f64(v28, v9).i64[0], 0), vnegq_f64(v25), v25);
+    if ((-v29.f64[1] * v30.f64[0] + v29.f64[0] * v30.f64[1]) * (-v29.f64[1] * v30.f64[0] + v29.f64[0] * v30.f64[1]) <= v26 * 1.0e-12)
+    {
+      v31 = vaddvq_f64(vmulq_f64(v29, v30)) / v26;
+      if (v23 <= 2.22044605e-16)
+      {
+        v31 = 0.0;
+      }
+
+      goto LABEL_24;
+    }
+
+LABEL_26:
+    v34 = 0;
+    v31 = 0.0;
+    goto LABEL_28;
+  }
+
+  v35 = vaddq_f64(v19, vdupq_laneq_s64(v19, 1));
+  v36 = vaddq_f64(v21, vdupq_laneq_s64(v21, 1));
+  __asm { FMLA            D16, D6, V1.D[1] }
+
+  if (fabs(_D16 * _D16) > 1.0e-12 * vmulq_f64(v36, v35).f64[0])
+  {
+    v31 = (vmuld_lane_f64(v13, v25, 1) + *v25.i64 * v11.f64[0]) / _D16;
+LABEL_24:
+    v34 = 1;
+    goto LABEL_28;
+  }
+
+  v41 = vmulq_f64(v25, v25);
+  v42 = vmuld_lane_f64(v13, v25, 1);
+  if (fabs((v42 + *v25.i64 * v11.f64[0]) * (v42 + *v25.i64 * v11.f64[0])) > 1.0e-12 * vmulq_f64(v35, vaddq_f64(v41, vdupq_laneq_s64(v41, 1))).f64[0])
+  {
+    goto LABEL_26;
+  }
+
+  v43 = vmulq_f64(_Q1, vnegq_f64(v25));
+  *&v31 = *&vdivq_f64(vaddq_f64(v43, vdupq_laneq_s64(v43, 1)), v36);
+  v34 = 2;
+LABEL_28:
+  if (v31 > 1.0 || v31 < 0.0)
+  {
+    result = 0;
+  }
+
+  else
+  {
+    result = v34;
+  }
+
+  if (a2)
+  {
+    if (!result)
+    {
+      v31 = NAN;
+    }
+
+    *a2 = v31;
+  }
+
+  return result;
+}
+
+uint64_t geom_intersect_ray_triangle_2f(float *a1, float *a2, float32x2_t a3, float32x2_t a4, double a5, double a6, double a7)
+{
+  v12 = 0;
+  v11[0] = a3;
+  v11[1] = a4;
+  *v10 = a5;
+  *&v10[1] = a6;
+  *&v10[2] = a7;
+  if (a1)
+  {
+    v7 = a1;
+  }
+
+  else
+  {
+    v7 = &v12 + 1;
+  }
+
+  if (a2)
+  {
+    v8 = a2;
+  }
+
+  else
+  {
+    v8 = &v12;
+  }
+
+  return geom::intersect_ray_triangle<float>(v11, v10, v7, v8);
+}
+
+uint64_t geom::intersect_ray_triangle<float>(float32x2_t *a1, uint64_t a2, float *a3, float *a4)
+{
+  v72 = *MEMORY[0x277D85DE8];
+  v5 = *a2;
+  v4 = *(a2 + 8);
+  v6 = vsub_f32(vext_s8(*a2, v4, 4uLL), vext_s8(v4, *a2, 4uLL));
+  v7 = vmul_f32(v6, v6);
+  v7.i32[0] = vadd_f32(v7, vdup_lane_s32(v7, 1)).u32[0];
+  v8 = vrsqrte_f32(v7.u32[0]);
+  v9 = vmul_f32(v8, vrsqrts_f32(v7.u32[0], vmul_f32(v8, v8)));
+  v10 = vmul_n_f32(v6, vmul_f32(v9, vrsqrts_f32(v7.u32[0], vmul_f32(v9, v9))).f32[0]);
+  v11 = vaddv_f32(vmul_f32(*a2, v10));
+  v66 = v10;
+  v67 = LODWORD(v11) ^ 0x80000000;
+  v12 = *(a2 + 16);
+  v13 = vsub_f32(vext_s8(v4, v12, 4uLL), vext_s8(v12, v4, 4uLL));
+  v14 = vmul_f32(v13, v13);
+  v14.i32[0] = vadd_f32(v14, vdup_lane_s32(v14, 1)).u32[0];
+  v15 = vrsqrte_f32(v14.u32[0]);
+  v16 = vmul_f32(v15, vrsqrts_f32(v14.u32[0], vmul_f32(v15, v15)));
+  v17 = vmul_n_f32(v13, vmul_f32(v16, vrsqrts_f32(v14.u32[0], vmul_f32(v16, v16))).f32[0]);
+  v18 = vaddv_f32(vmul_f32(v4, v17));
+  v68 = v17;
+  v19 = vsub_f32(vext_s8(v12, v5, 4uLL), vext_s8(v5, v12, 4uLL));
+  v20 = vmul_f32(v19, v19);
+  v20.i32[0] = vadd_f32(v20, vdup_lane_s32(v20, 1)).u32[0];
+  v69 = LODWORD(v18) ^ 0x80000000;
+  v21 = vrsqrte_f32(v20.u32[0]);
+  v22 = vmul_f32(v21, vrsqrts_f32(v20.u32[0], vmul_f32(v21, v21)));
+  v23 = vmul_n_f32(v19, vmul_f32(v22, vrsqrts_f32(v20.u32[0], vmul_f32(v22, v22))).f32[0]);
+  v24 = vmul_f32(v12, v23);
+  v24.f32[0] = vaddv_f32(v24);
+  v70 = v23;
+  v71 = v24.i32[0] ^ 0x80000000;
+  if ((LODWORD(v11) & 0x7FFFFFFFu) < 0x7F800000)
+  {
+    if ((LODWORD(v18) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
+    {
+      if ((v24.i32[0] & 0x7FFFFFFFu) <= 0x7F7FFFFF)
+      {
+        v50 = vsub_f32(*(a2 + 8), *a2);
+        v51 = vsub_f32(v12, *a2);
+        if ((vmuls_lane_f32(-v50.f32[0], v51, 1) + (v50.f32[1] * v51.f32[0])) > 0.0)
+        {
+          v66 = vneg_f32(v10);
+          *&v67 = v11;
+          v68 = vneg_f32(v17);
+          *&v69 = v18;
+          v70 = vneg_f32(v23);
+          LODWORD(v71) = v24.i32[0];
+        }
+
+        *a3 = 0.0;
+        *a4 = INFINITY;
+        v52 = &v67;
+        v53 = INFINITY;
+        v54 = 48;
+        while (1)
+        {
+          v55 = *(v52 - 2);
+          v56 = vaddv_f32(vmul_f32(v55, a1[1]));
+          v57 = vaddv_f32(vmul_f32(v55, *a1)) + *v52;
+          if (fabsf(v56) <= 0.00000011921)
+          {
+            if (v57 < -0.00000011921)
+            {
+              goto LABEL_62;
+            }
+          }
+
+          else
+          {
+            v37 = v56 <= 0.0;
+            v58 = -v57 / v56;
+            if (v37)
+            {
+              if (v58 < v53)
+              {
+                v53 = v58;
+              }
+
+              *a4 = v53;
+              v58 = *a3;
+            }
+
+            else
+            {
+              if (*a3 >= v58)
+              {
+                v58 = *a3;
+              }
+
+              *a3 = v58;
+              v53 = *a4;
+            }
+
+            if (v53 < v58)
+            {
+LABEL_62:
+              result = 0;
+              *a4 = INFINITY;
+              *a3 = INFINITY;
+              return result;
+            }
+          }
+
+          v52 += 4;
+          v54 -= 16;
+          if (!v54)
+          {
+            return 1;
+          }
+        }
+      }
+
+      v25 = 2;
+    }
+
+    else
+    {
+      v25 = 1;
+    }
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  v26 = 2;
+  if ((LODWORD(v11) & 0x7FFFFFFFu) < 0x7F800000)
+  {
+    v26 = (v25 - 1);
+  }
+
+  v27 = *(a2 + 8 * v25);
+  v28 = *(a2 + 8 * v26);
+  v30 = *a1;
+  v29 = a1[1];
+  v31 = vsub_f32(v28, v27);
+  v32 = vmul_f32(v29, v29);
+  v33 = vaddv_f32(v32);
+  v34 = vmul_f32(v31, v31);
+  v35 = vaddv_f32(v34);
+  v24.f32[0] = fabsf(v33);
+  v36 = fabsf(v35);
+  v37 = v36 > 0.00000011921 || v24.f32[0] > 0.00000011921;
+  if (!v37)
+  {
+    v45 = vsub_f32(v30, v27);
+    v43 = 0.0;
+    v44 = 0.0;
+    if (sqrtf(vaddv_f32(vmul_f32(v45, v45))) > 0.00001)
+    {
+      goto LABEL_28;
+    }
+
+    goto LABEL_31;
+  }
+
+  v38 = vsub_f32(v27, v30);
+  if (v24.f32[0] <= 0.00000011921)
+  {
+    v33 = v35;
+  }
+
+  if (v36 <= 0.00000011921 || v24.f32[0] <= 0.00000011921)
+  {
+    v40 = vbsl_s8(vdup_lane_s32(vcge_f32(0x3400000034000000, v24), 0), v31, v29);
+    v41 = vbsl_s8(vdup_lane_s32(vcge_f32(0x3400000034000000, v24), 0), vneg_f32(v38), v38);
+    if ((((-v40.f32[1] * v41.f32[0]) + (v40.f32[0] * v41.f32[1])) * ((-v40.f32[1] * v41.f32[0]) + (v40.f32[0] * v41.f32[1]))) > (v33 * 1.0e-10))
+    {
+LABEL_28:
+      result = 0;
+      v47 = INFINITY;
+LABEL_35:
+      *a4 = v47;
+      *a3 = v47;
+      return result;
+    }
+
+    v42 = vaddv_f32(vmul_f32(v40, v41)) / v33;
+    if (v24.f32[0] > 0.00000011921)
+    {
+      v43 = v42;
+    }
+
+    else
+    {
+      v43 = 0.0;
+    }
+
+    if (v36 > 0.00000011921)
+    {
+      v44 = v42;
+    }
+
+    else
+    {
+      v44 = 0.0;
+    }
+
+LABEL_31:
+    result = 0;
+    v47 = INFINITY;
+    if (v43 >= 0.0 && v44 >= 0.0 && v44 <= 1.0)
+    {
+      v47 = fmaxf(v43, 0.0);
+      result = 1;
+    }
+
+    goto LABEL_35;
+  }
+
+  v48 = vadd_f32(v32, vdup_lane_s32(v32, 1));
+  v49 = (-v29.f32[1] * v31.f32[0]) + (v29.f32[0] * v31.f32[1]);
+  if (fabsf(v49 * v49) > (1.0e-10 * vmul_f32(vadd_f32(v34, vdup_lane_s32(v34, 1)), v48).f32[0]))
+  {
+    v43 = ((v38.f32[0] * v31.f32[1]) - (v38.f32[1] * v31.f32[0])) / v49;
+    v44 = ((v38.f32[0] * v29.f32[1]) - (v38.f32[1] * v29.f32[0])) / v49;
+    goto LABEL_31;
+  }
+
+  v59 = vmul_f32(v38, v38);
+  if (fabsf(((v38.f32[0] * v29.f32[1]) - (v38.f32[1] * v29.f32[0])) * ((v38.f32[0] * v29.f32[1]) - (v38.f32[1] * v29.f32[0]))) > (1.0e-10 * vmul_f32(v48, vadd_f32(v59, vdup_lane_s32(v59, 1))).f32[0]))
+  {
+    goto LABEL_28;
+  }
+
+  v60 = vmul_f32(v29, v38);
+  v61 = vdiv_f32(vadd_f32(v60, vdup_lane_s32(v60, 1)), v48);
+  if (v61.f32[0] < 0.0)
+  {
+    v62 = vmul_f32(v29, vadd_f32(v31, v38));
+    if (vdiv_f32(vadd_f32(v62, vdup_lane_s32(v62, 1)), v48).f32[0] < 0.0)
+    {
+      goto LABEL_28;
+    }
+  }
+
+  v63 = vmul_f32(v29, vsub_f32(v28, v30));
+  v64 = vdiv_f32(vadd_f32(v63, vdup_lane_s32(v63, 1)), v48);
+  if (vcgt_f32(v61, v64).u8[0])
+  {
+    v65 = v64.f32[0];
+  }
+
+  else
+  {
+    v65 = v61.f32[0];
+  }
+
+  *a3 = v65;
+  if ((vcgt_f32(v64, v61).u8[0] & 1) == 0)
+  {
+    v64.f32[0] = v61.f32[0];
+  }
+
+  *a4 = v64.f32[0];
+  return 1;
+}
+
+uint64_t geom_intersect_ray_triangle_2d(double *a1, double *a2, float64x2_t a3, float64x2_t a4, int8x16_t a5, int8x16_t a6, int8x16_t a7)
+{
+  v12 = 0;
+  v13 = 0;
+  v11[0] = a3;
+  v11[1] = a4;
+  v10[0] = a5;
+  v10[1] = a6;
+  v10[2] = a7;
+  if (a1)
+  {
+    v7 = a1;
+  }
+
+  else
+  {
+    v7 = &v13;
+  }
+
+  if (a2)
+  {
+    v8 = a2;
+  }
+
+  else
+  {
+    v8 = &v12;
+  }
+
+  return geom::intersect_ray_triangle<double>(v11, v10, v7, v8);
+}
+
+uint64_t geom::intersect_ray_triangle<double>(float64x2_t *a1, int8x16_t *a2, double *a3, double *a4)
+{
+  v67 = *MEMORY[0x277D85DE8];
+  v5 = *a2;
+  v6 = a2[1];
+  v7 = vsubq_f64(vextq_s8(*a2, v6, 8uLL), vextq_s8(v6, *a2, 8uLL));
+  v8 = vmulq_n_f64(v7, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v7, v7))));
+  v9 = vaddvq_f64(vmulq_f64(*a2, v8));
+  v59 = v8;
+  v60[0] = -v9;
+  v60[1] = 0.0;
+  v10 = a2[2];
+  v11 = vsubq_f64(vextq_s8(v6, v10, 8uLL), vextq_s8(v10, v6, 8uLL));
+  v12 = vmulq_n_f64(v11, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v11, v11))));
+  v13 = vaddvq_f64(vmulq_f64(v6, v12));
+  v61 = v12;
+  v62 = -v13;
+  v14 = vsubq_f64(vextq_s8(v10, v5, 8uLL), vextq_s8(v5, v10, 8uLL));
+  v15 = vmulq_n_f64(v14, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v14, v14))));
+  v16 = vaddvq_f64(vmulq_f64(v10, v15));
+  v63 = 0;
+  v64 = v15;
+  v65 = -v16;
+  v66 = 0;
+  if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+  {
+    if ((*&v13 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+    {
+      if ((*&v16 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+      {
+        v43 = vsubq_f64(v6, v5);
+        v44 = vsubq_f64(v10, v5);
+        if (vmuld_lane_f64(-v43.f64[0], v44, 1) + v43.f64[1] * v44.f64[0] > 0.0)
+        {
+          v59 = vnegq_f64(v8);
+          v60[0] = v9;
+          v61 = vnegq_f64(v12);
+          v62 = v13;
+          v64 = vnegq_f64(v15);
+          v65 = v16;
+        }
+
+        *a3 = 0.0;
+        *a4 = INFINITY;
+        v45 = v60;
+        v46 = INFINITY;
+        v47 = 96;
+        while (1)
+        {
+          v48 = *(v45 - 2);
+          v49 = vaddvq_f64(vmulq_f64(v48, a1[1]));
+          v50 = *v45 + vaddvq_f64(vmulq_f64(v48, *a1));
+          if (fabs(v49) <= 2.22044605e-16)
+          {
+            if (v50 < -2.22044605e-16)
+            {
+              goto LABEL_62;
+            }
+          }
+
+          else
+          {
+            v29 = v49 <= 0.0;
+            v51 = -v50 / v49;
+            if (v29)
+            {
+              if (v51 < v46)
+              {
+                v46 = v51;
+              }
+
+              *a4 = v46;
+              v51 = *a3;
+            }
+
+            else
+            {
+              if (*a3 >= v51)
+              {
+                v51 = *a3;
+              }
+
+              *a3 = v51;
+              v46 = *a4;
+            }
+
+            if (v46 < v51)
+            {
+LABEL_62:
+              result = 0;
+              *a4 = INFINITY;
+              *a3 = INFINITY;
+              return result;
+            }
+          }
+
+          v45 += 4;
+          v47 -= 32;
+          if (!v47)
+          {
+            return 1;
+          }
+        }
+      }
+
+      v17 = 2;
+    }
+
+    else
+    {
+      v17 = 1;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = 2;
+  v19 = a2[v17];
+  if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+  {
+    v18 = v17 - 1;
+  }
+
+  v20 = a2[v18];
+  v22 = *a1;
+  v21 = a1[1];
+  v23 = vsubq_f64(v20, v19);
+  v24 = vmulq_f64(v21, v21);
+  v25 = vaddvq_f64(v24);
+  v26 = vmulq_f64(v23, v23);
+  v27 = vaddvq_f64(v26);
+  *v10.i64 = fabs(v25);
+  v28 = fabs(v27);
+  v29 = v28 > 2.22044605e-16 || *v10.i64 > 2.22044605e-16;
+  if (!v29)
+  {
+    v38 = vsubq_f64(v22, v19);
+    v36 = 0.0;
+    v37 = 0.0;
+    if (sqrt(vaddvq_f64(vmulq_f64(v38, v38))) > 0.000001)
+    {
+      goto LABEL_28;
+    }
+
+    goto LABEL_31;
+  }
+
+  v30 = vsubq_f64(v19, v22);
+  v4.f64[0] = 2.22044605e-16;
+  if (*v10.i64 <= 2.22044605e-16)
+  {
+    v25 = v27;
+  }
+
+  if (v28 <= 2.22044605e-16 || *v10.i64 <= 2.22044605e-16)
+  {
+    v32 = vdupq_lane_s64(vcgeq_f64(v4, v10).i64[0], 0);
+    v33 = vbslq_s8(v32, v23, v21);
+    v32.i64[0] = 0x3CB0000000000000;
+    v34 = vbslq_s8(vdupq_lane_s64(vcgeq_f64(v32, v10).i64[0], 0), vnegq_f64(v30), v30);
+    if ((-v33.f64[1] * v34.f64[0] + v33.f64[0] * v34.f64[1]) * (-v33.f64[1] * v34.f64[0] + v33.f64[0] * v34.f64[1]) > v25 * 1.0e-12)
+    {
+LABEL_28:
+      result = 0;
+      v40 = INFINITY;
+LABEL_35:
+      *a4 = v40;
+      *a3 = v40;
+      return result;
+    }
+
+    v35 = vaddvq_f64(vmulq_f64(v33, v34)) / v25;
+    if (*v10.i64 > 2.22044605e-16)
+    {
+      v36 = v35;
+    }
+
+    else
+    {
+      v36 = 0.0;
+    }
+
+    if (v28 > 2.22044605e-16)
+    {
+      v37 = v35;
+    }
+
+    else
+    {
+      v37 = 0.0;
+    }
+
+LABEL_31:
+    result = 0;
+    v40 = INFINITY;
+    if (v36 >= 0.0 && v37 >= 0.0 && v37 <= 1.0)
+    {
+      v40 = fmax(v36, 0.0);
+      result = 1;
+    }
+
+    goto LABEL_35;
+  }
+
+  v41 = vaddq_f64(v24, vdupq_laneq_s64(v24, 1));
+  v42 = -*&v21.i64[1] * *v23.i64 + *v21.i64 * *&v23.i64[1];
+  if (fabs(v42 * v42) > 1.0e-12 * vmulq_f64(vaddq_f64(v26, vdupq_laneq_s64(v26, 1)), v41).f64[0])
+  {
+    v36 = (*v30.i64 * *&v23.i64[1] - *&v30.i64[1] * *v23.i64) / v42;
+    v37 = (*v30.i64 * *&v21.i64[1] - *&v30.i64[1] * *v21.i64) / v42;
+    goto LABEL_31;
+  }
+
+  v52 = vmulq_f64(v30, v30);
+  if (fabs((*v30.i64 * *&v21.i64[1] - *&v30.i64[1] * *v21.i64) * (*v30.i64 * *&v21.i64[1] - *&v30.i64[1] * *v21.i64)) > 1.0e-12 * vmulq_f64(v41, vaddq_f64(v52, vdupq_laneq_s64(v52, 1))).f64[0])
+  {
+    goto LABEL_28;
+  }
+
+  v53 = vmulq_f64(v21, v30);
+  v54 = vdivq_f64(vaddq_f64(v53, vdupq_laneq_s64(v53, 1)), v41);
+  if (v54.f64[0] < 0.0)
+  {
+    v55 = vmulq_f64(v21, vaddq_f64(v23, v30));
+    if (vdivq_f64(vaddq_f64(v55, vdupq_laneq_s64(v55, 1)), v41).f64[0] < 0.0)
+    {
+      goto LABEL_28;
+    }
+  }
+
+  v56 = vmulq_f64(v21, vsubq_f64(v20, v22));
+  v57 = vdivq_f64(vaddq_f64(v56, vdupq_laneq_s64(v56, 1)), v41);
+  if (vmovn_s64(vcgtq_f64(v54, v57)).u8[0])
+  {
+    v58 = v57.f64[0];
+  }
+
+  else
+  {
+    v58 = v54.f64[0];
+  }
+
+  *a3 = v58;
+  if ((vmovn_s64(vcgtq_f64(v57, v54)).u8[0] & 1) == 0)
+  {
+    v57.f64[0] = v54.f64[0];
+  }
+
+  *a4 = v57.f64[0];
+  return 1;
+}
+
+uint64_t geom_intersect_ray_triangle_3f(float *a1, uint64_t a2, float32x4_t a3, float32x4_t a4, int32x4_t a5, int32x4_t a6, int32x4_t a7)
+{
+  v7 = vextq_s8(vuzp1q_s32(a5, a5), a5, 0xCuLL);
+  v8 = vextq_s8(vuzp1q_s32(a6, a6), a6, 0xCuLL);
+  v9 = vextq_s8(vuzp1q_s32(a7, a7), a7, 0xCuLL);
+  v10 = vaddq_f32(vmlaq_f32(vmulq_f32(v7, vnegq_f32(a7)), a5, v9), vaddq_f32(vmlaq_f32(vmulq_f32(v8, vnegq_f32(a5)), a6, v7), vmlaq_f32(vmulq_f32(v9, vnegq_f32(a6)), a7, v8)));
+  v11 = vmulq_f32(v10, v10);
+  if (fabsf(v11.f32[1] + (v11.f32[2] + v11.f32[0])) <= 1.0e-10)
+  {
+    goto LABEL_9;
+  }
+
+  v12 = vextq_s8(vuzp1q_s32(v10, v10), v10, 0xCuLL);
+  v13 = vmulq_f32(a4, v12);
+  v13.f32[0] = v13.f32[2] + vaddv_f32(*v13.f32);
+  if (fabsf(v13.f32[0]) <= 0.00001)
+  {
+    goto LABEL_9;
+  }
+
+  v9.i64[0] = 0;
+  v14 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v13, v9), 0), vnegq_f32(v12), v12);
+  if (v13.f32[0] <= 0.0)
+  {
+    v15 = -v13.f32[0];
+  }
+
+  else
+  {
+    v15 = v13.f32[0];
+  }
+
+  v16 = vsubq_f32(a3, a5);
+  v17 = 1.0 / v15;
+  v18 = vmulq_f32(v16, v14);
+  v19 = (1.0 / v15) * (v18.f32[2] + vaddv_f32(*v18.f32));
+  if (a1)
+  {
+    *a1 = v19;
+  }
+
+  if (v19 == 0.0)
+  {
+LABEL_9:
+    if (!a1)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_10;
+  }
+
+  v21 = fabsf(v19);
+  if (v21 == INFINITY)
+  {
+    if (v19 <= 0.0)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (((v21 + 1.0) * 0.00000011921) >= v19)
+  {
+    goto LABEL_9;
+  }
+
+  v22 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(a4, a4), a4, 0xCuLL), vnegq_f32(v16)), a4, vextq_s8(vuzp1q_s32(v16, v16), v16, 0xCuLL));
+  v23 = vextq_s8(vuzp1q_s32(v22, v22), v22, 0xCuLL);
+  v28 = v13.f32[0] <= 0.0;
+  v24 = 1.0;
+  if (!v28)
+  {
+    v24 = -1.0;
+  }
+
+  v25 = vmulq_n_f32(v23, v24);
+  v26 = vmulq_f32(vsubq_f32(a7, a5), v25);
+  v27 = v26.f32[2] + vaddv_f32(*v26.f32);
+  if (a2)
+  {
+    *(a2 + 4) = v27;
+  }
+
+  v28 = v27 >= 0.0 && v27 <= v15;
+  if (!v28 || ((v29 = vmulq_f32(vsubq_f32(a5, a6), v25), v30 = v29.f32[2] + vaddv_f32(*v29.f32), v30 >= 0.0) ? (v31 = (v27 + v30) <= v15) : (v31 = 0), !v31))
+  {
+    if (!a1)
+    {
+LABEL_11:
+      result = 0;
+      if (a2)
+      {
+        *a2 = 0u;
+      }
+
+      return result;
+    }
+
+LABEL_10:
+    *a1 = INFINITY;
+    goto LABEL_11;
+  }
+
+  if (a2)
+  {
+    v32 = v17 * v27;
+    v33 = v17 * v30;
+    *&v34 = (1.0 - v32) - v33;
+    *(&v34 + 1) = v32;
+    *(a2 + 8) = v33;
+    *a2 = v34;
+  }
+
+  return 1;
+}
+
+uint64_t geom_intersect_ray_triangle_3d(float64x2_t *a1, float64x2_t *a2, double *a3, uint64_t a4)
+{
+  v6 = *a2;
+  v5 = a2[1];
+  v8 = a2[2];
+  v7 = a2[3];
+  v10 = a2[4];
+  v9 = a2[5];
+  v11.f64[0] = a2[1].f64[0];
+  v11.f64[1] = a2->f64[0];
+  v12.f64[0] = a2[3].f64[0];
+  v12.f64[1] = a2[2].f64[0];
+  v13.f64[0] = a2[5].f64[0];
+  v13.f64[1] = a2[4].f64[0];
+  v14 = vaddq_f64(vmlaq_f64(vmulq_f64(v11, vnegq_f64(v10)), *a2, v13), vaddq_f64(vmlaq_f64(vmulq_f64(v12, vnegq_f64(*a2)), v8, v11), vmlaq_f64(vmulq_f64(v13, vnegq_f64(v8)), v10, v12)));
+  v15 = vaddq_f64(vmlaq_laneq_f64(vmulq_laneq_f64(vnegq_f64(v9), *a2, 1), v5, v10, 1), vaddq_f64(vmlaq_laneq_f64(vmulq_laneq_f64(vnegq_f64(v5), v8, 1), v7, *a2, 1), vmlaq_laneq_f64(vmulq_laneq_f64(vnegq_f64(v7), v10, 1), v9, v8, 1)));
+  v16 = vmulq_f64(v14, v14);
+  if (fabs(v16.f64[1] + vmulq_f64(v15, v15).f64[0] + v16.f64[0]) <= 1.0e-12)
+  {
+    goto LABEL_30;
+  }
+
+  v18 = a1[2];
+  v17 = a1[3];
+  v15.i64[1] = *&v14.f64[0];
+  v19 = vmulq_laneq_f64(v17, v14, 1);
+  v19.f64[0] = v19.f64[0] + vaddvq_f64(vmulq_f64(v18, v15));
+  if (fabs(v19.f64[0]) <= 0.000001)
+  {
+    goto LABEL_30;
+  }
+
+  v20 = vdupq_laneq_s64(v14, 1);
+  v4.f64[0] = 0.0;
+  v21 = vcgtq_f64(v19, v4);
+  v22 = vandq_s8(vnegq_f64(v20), v21);
+  v23 = vdupq_lane_s64(v21.i64[0], 0);
+  v24 = vorrq_s8(v22, vbicq_s8(v20, v23));
+  v25 = vbslq_s8(v23, vnegq_f64(v15), v15);
+  v26 = v19.f64[0] <= 0.0 ? -v19.f64[0] : v19.f64[0];
+  v27 = vsubq_f64(*a1, v6);
+  v28 = vsubq_f64(a1[1], v5);
+  v29 = 1.0 / v26;
+  v30 = 1.0 / v26 * (vmulq_f64(v28, v24).f64[0] + vaddvq_f64(vmulq_f64(v27, v25)));
+  if (a3)
+  {
+    *a3 = v30;
+    if (v30 == 0.0 || v30 <= 2.22044605e-16)
+    {
+LABEL_31:
+      *a3 = INFINITY;
+LABEL_32:
+      result = 0;
+      if (a4)
+      {
+        *a4 = 0;
+        *(a4 + 8) = 0;
+        *(a4 + 16) = 0u;
+      }
+
+      return result;
+    }
+  }
+
+  else if (v30 == 0.0 || v30 <= 2.22044605e-16)
+  {
+    goto LABEL_32;
+  }
+
+  v33.f64[0] = v17.f64[0];
+  v33.f64[1] = v18.f64[0];
+  v34 = vnegq_f64(v28);
+  v28.f64[1] = v27.f64[0];
+  v35 = vmlaq_f64(vmulq_f64(v33, vnegq_f64(v27)), v18, v28);
+  *&v36.f64[0] = *&vmlaq_laneq_f64(vmulq_laneq_f64(v34, v18, 1), v17, v27, 1);
+  v36.f64[1] = v35.f64[0];
+  v18.f64[0] = -1.0;
+  if (v19.f64[0] <= 0.0)
+  {
+    v18.f64[0] = 1.0;
+  }
+
+  v37 = vmulq_n_f64(v36, v18.f64[0]);
+  v38 = vmulq_laneq_f64(v18, v35, 1);
+  v39 = vmulq_f64(vsubq_f64(v9, v5), v38).f64[0] + vaddvq_f64(vmulq_f64(vsubq_f64(v10, v6), v37));
+  if (a4)
+  {
+    *(a4 + 8) = v39;
+  }
+
+  v40 = v39 >= 0.0 && v39 <= v26;
+  if (!v40 || ((v41 = vmulq_f64(vsubq_f64(v5, v7), v38).f64[0] + vaddvq_f64(vmulq_f64(vsubq_f64(v6, v8), v37)), v41 >= 0.0) ? (v42 = v39 + v41 <= v26) : (v42 = 0), !v42))
+  {
+LABEL_30:
+    if (!a3)
+    {
+      goto LABEL_32;
+    }
+
+    goto LABEL_31;
+  }
+
+  if (a4)
+  {
+    v44 = v29 * v41;
+    *&v45 = 1.0 - v29 * v39 - v44;
+    *(&v45 + 1) = v29 * v39;
+    *(a4 + 16) = v44;
+    *a4 = v45;
+  }
+
+  return 1;
+}
+
 uint64_t geom_intersect_ray_circle_2f(uint64_t a1, int a2, float *a3, float *a4, float32x2_t a5, float32x2_t a6)
 {
   v6 = vaddv_f32(vmul_f32(a6, a6));
@@ -436,7 +2242,7 @@ uint64_t geom_intersect_line_segment_plane_3d(float64x2_t *a1, float64x2_t *a2, 
   }
 
   v15 = vmlaq_f64(v5, v12, v6);
-  *&v11.f64[1] = vextq_s8(v11, v11, 8uLL).u64[0];
+  v11.i64[1] = vextq_s8(v11, v11, 8uLL).u64[0];
   v16 = vmlaq_n_f64(v4, v11, v6.f64[0]);
 LABEL_14:
   v23 = vextq_s8(v16, v16, 8uLL).u64[0];
@@ -519,7 +2325,7 @@ void geom::cluster_parallel_clipper<float>::compute_clipped_clusters(void *a1)
   dispatch_apply(v2, 0, block);
 }
 
-void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, __n128 *a2, __n128 *a3, uint64_t a4)
 {
   v5 = a1[5];
   v6 = (a1[8] + ((v5[12] - v5[11]) >> 3) - 1) / a1[8] + (a1[7] + ((v5[15] - v5[14]) >> 4) - 1) / a1[7];
@@ -553,13 +2359,15 @@ void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, uint64_
     while (v14 < v8);
   }
 
-  memset(v43, 0, sizeof(v43));
-  memset(v42, 0, sizeof(v42));
+  v44 = 0uLL;
+  v45 = 0;
+  v42 = 0uLL;
+  v43 = 0;
   memset(&__c, 0, sizeof(__c));
   __p = 0uLL;
   v40 = 0;
-  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::reserve(v43, v10);
-  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::reserve(v42, v11);
+  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::reserve(&v44, v10);
+  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::reserve(&v42, v11);
   std::vector<double>::reserve(&__c, v12);
   std::vector<double>::reserve(&__p, v13);
   v16.n128_u64[0] = 0x7F0000007FLL;
@@ -589,7 +2397,7 @@ void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, uint64_
       v21 = *(v19 + 80);
       while (v20 != v21)
       {
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100](v43, v20);
+        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100](&v44, v20);
         v20 += 16;
       }
 
@@ -597,12 +2405,12 @@ void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, uint64_
       v22 = *(v19 + 104);
       while (v23 != v22)
       {
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100](v42, v23);
+        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100](&v42, v23);
         v23 += 16;
       }
 
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<unsigned long long const*,unsigned long long const*,std::back_insert_iterator<std::vector<unsigned long long>>>(v44, *(v19 + 120), *(v19 + 128), &__c.__begin_);
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<unsigned long long const*,unsigned long long const*,std::back_insert_iterator<std::vector<unsigned long long>>>(v44, *(v19 + 144), *(v19 + 152), &__p);
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<unsigned long long const*,unsigned long long const*,std::back_insert_iterator<std::vector<unsigned long long>>>(v46, *(v19 + 120), *(v19 + 128), &__c.__begin_);
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<unsigned long long const*,unsigned long long const*,std::back_insert_iterator<std::vector<unsigned long long>>>(v46, *(v19 + 144), *(v19 + 152), &__p);
       std::vector<std::shared_ptr<geom::convex_mesh<float>>>::clear[abi:nn200100]((v19 + 72));
       std::vector<std::shared_ptr<geom::convex_mesh<float>>>::clear[abi:nn200100]((v19 + 96));
       v25 = v35;
@@ -634,8 +2442,8 @@ void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, uint64_
     while (v7 < v8);
   }
 
-  geom::cluster<float>::init(a2, *(a1[5] + 72), *(a1[5] + 80), a1[6], &__c, v43, *(a1[5] + 64), v18, v16, *(a1[5] + 68));
-  geom::cluster<float>::init(a3, *(a1[5] + 72), *(a1[5] + 80), a1[6], &__p, v42, *(a1[5] + 64), v37, v38, *(a1[5] + 68));
+  geom::cluster<float>::init(a2, *(a1[5] + 72), *(a1[5] + 80), a1[6], &__c, &v44, *(a1[5] + 64), v18, v16, *(a1[5] + 68));
+  geom::cluster<float>::init(a3, *(a1[5] + 72), *(a1[5] + 80), a1[6], &__p, &v42, *(a1[5] + 64), v37, v38, *(a1[5] + 68));
   if (__p.n128_u64[0])
   {
     __p.n128_u64[1] = __p.n128_u64[0];
@@ -648,10 +2456,10 @@ void geom::cluster_parallel_clipper<float>::get_split_clusters(void *a1, uint64_
     operator delete(__c.__begin_);
   }
 
-  __c.__begin_ = v42;
+  __c.__begin_ = &v42;
   std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&__c);
-  v42[0] = v43;
-  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v42);
+  v42.n128_u64[0] = &v44;
+  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v42);
 }
 
 void geom::cluster_parallel_clipper<float>::deinit(uint64_t *a1)
@@ -1032,23 +2840,21 @@ uint64_t geom::close_triangle_mesh<float>(uint64_t *a1, uint64_t a2)
       v7 = *(*a2 + 4 * (v4 + 2));
       v14.i32[0] = *(*a2 + 4 * v4);
       v14.i32[1] = v6;
-      v16[0] = v7;
-      v16[1] = v6;
-      v15[0] = v14.i32[0];
-      v15[1] = v7;
+      v16 = __PAIR64__(v6, v7);
+      v15 = __PAIR64__(v7, v14.u32[0]);
       if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v17, &v14))
       {
-        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v17, &v14);
+        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v17, &v14, &v14);
       }
 
-      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v17, v16))
+      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v17, &v16))
       {
-        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v17, v16);
+        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v17, &v16, &v16);
       }
 
-      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v17, v15))
+      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v17, &v15))
       {
-        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v17, v15);
+        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v17, &v15, &v15);
       }
 
       v4 += 3;
@@ -1068,11 +2874,11 @@ uint64_t geom::close_triangle_mesh<float>(uint64_t *a1, uint64_t a2)
 
       v8.f32[0] = (2 * *(&v18 + 1));
       v14 = vdivq_f32(i, vdupq_lane_s32(*v8.f32, 0));
-      v16[0] = (a1[1] - v10) >> 4;
+      LODWORD(v16) = (a1[1] - v10) >> 4;
       _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v14);
       for (j = v18; j; j = *j)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](a2, v16);
+        std::vector<unsigned int>::push_back[abi:nn200100](a2, &v16);
         std::vector<unsigned int>::push_back[abi:nn200100](a2, j + 4);
         std::vector<unsigned int>::push_back[abi:nn200100](a2, j + 5);
       }
@@ -1082,9 +2888,9 @@ uint64_t geom::close_triangle_mesh<float>(uint64_t *a1, uint64_t a2)
   return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v17);
 }
 
-void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_t a1, uint64_t a2, float32x4_t *a3, void *a4, uint64_t a5, double a6, uint32x4_t a7, double a8, __n128 a9, __n128 a10)
+void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t *a4, uint64_t a5, double a6, uint32x4_t a7, double a8, __n128 a9, __n128 a10)
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     v10 = a4;
@@ -1113,21 +2919,21 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
       v28 = (sqrtf(v27.f32[2] + vaddv_f32(*v27.f32)) * 0.5) - v14;
       v29 = vmulq_f32(*a3, vmulq_f32(vaddq_f32(v21, v22), v25));
       v30 = a3[1].f32[0] + (v29.f32[2] + vaddv_f32(*v29.f32));
-      v103 = v23;
-      v104 = v24;
+      v102 = v23;
+      v103 = v24;
       if (v30 <= -v28)
       {
         std::vector<unsigned long long>::push_back[abi:nn200100]((a2 + 120), v10);
-        a10.n128_u32[3] = v103.u32[3];
-        a9.n128_u32[3] = v104.u32[3];
+        a10.n128_u32[3] = v102.u32[3];
+        a9.n128_u32[3] = v103.u32[3];
         v40 = *(a2 + 176);
         v41 = *(a2 + 192);
         v40.i32[3] = 0;
-        v42 = v103;
+        v42 = v102;
         v42.i32[3] = 0;
         v43 = vminnmq_f32(v40, v42);
         v41.i32[3] = 0;
-        v44 = v104;
+        v44 = v103;
         v44.i32[3] = 0;
         a7 = vmaxnmq_f32(v41, v44);
         *(a2 + 176) = v43;
@@ -1142,30 +2948,30 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
           v31.i32[0] = v22.i32[0];
           v32 = v22;
           v32.i32[2] = v21.i32[2];
-          v110[0] = v21;
-          v110[1] = v31;
+          v109[0] = v21;
+          v109[1] = v31;
           v33 = v21;
           v33.i32[1] = v22.i32[1];
-          v110[2] = v32;
-          v110[3] = v33;
+          v109[2] = v32;
+          v109[3] = v33;
           v34 = v21;
           v34.i32[2] = v22.i32[2];
           v35 = v22;
           v35.i32[1] = v21.i32[1];
-          v110[4] = v34;
-          v110[5] = v35;
-          v110[6] = v22;
+          v109[4] = v34;
+          v109[5] = v35;
+          v109[6] = v22;
           v22.i32[0] = v21.i32[0];
-          v110[7] = v22;
-          v109[6] = xmmword_2500D13B0;
-          v109[7] = unk_2500D13C0;
-          v109[8] = xmmword_2500D13D0;
-          v109[2] = xmmword_2500D1370;
-          v109[3] = unk_2500D1380;
-          v109[4] = xmmword_2500D1390;
-          v109[5] = unk_2500D13A0;
-          v109[0] = xmmword_2500D1350;
-          v109[1] = unk_2500D1360;
+          v109[7] = v22;
+          v108[6] = xmmword_2500D13B0;
+          v108[7] = unk_2500D13C0;
+          v108[8] = xmmword_2500D13D0;
+          v108[2] = xmmword_2500D1370;
+          v108[3] = unk_2500D1380;
+          v108[4] = xmmword_2500D1390;
+          v108[5] = unk_2500D13A0;
+          v108[0] = xmmword_2500D1350;
+          v108[1] = unk_2500D1360;
           v37 = *(a1 + 48);
           add = atomic_fetch_add(v37, 1u);
           v38 = *(v37 + 8);
@@ -1175,7 +2981,7 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
           }
 
           v39 = *(v38 + 16 * add);
-          v108 = v39;
+          v107 = v39;
           if (*(&v39 + 1))
           {
             atomic_fetch_add_explicit((*(&v39 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -1190,32 +2996,32 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
           }
 
           v53 = *(v52 + 16 * v50);
-          v107 = v53;
+          v106 = v53;
           if (*(&v53 + 1))
           {
             atomic_fetch_add_explicit((*(&v53 + 1) + 8), 1uLL, memory_order_relaxed);
           }
 
-          v105[1] = 36;
-          v106[0] = v110;
-          v106[1] = 8;
+          v104[1] = 36;
           v105[0] = v109;
-          geom::split_triangle_mesh_with_plane<float>(v106, v105, a3, (v108 + 48), (v108 + 72), (v53 + 48), (v53 + 72), (a2 + 48), a2, v16);
-          v54 = v108;
-          v55 = *(v108 + 48);
-          v56 = *(v108 + 56) - v55;
+          v105[1] = 8;
+          v104[0] = v108;
+          geom::split_triangle_mesh_with_plane<float>(v105, v104, a3, (v107 + 48), (v107 + 72), (v53 + 48), (v53 + 72), (a2 + 48), a2, v16);
+          v54 = v107;
+          v55 = *(v107 + 48);
+          v56 = *(v107 + 56) - v55;
           if (v56)
           {
-            if (*(v107 + 56) == *(v107 + 48))
+            if (*(v106 + 56) == *(v106 + 48))
             {
               v95 = *(*(*(a1 + 40) + 72) + 16);
-              *v108 = vmuls_lane_f32(vmuls_lane_f32(v95.f32[0], *v95.f32, 1), v95, 2);
+              *v107 = vmuls_lane_f32(vmuls_lane_f32(v95.f32[0], *v95.f32, 1), v95, 2);
               v96 = geom::triangle_mesh_surface_area_3<float>(v55, v56 >> 4, *(v54 + 72), (*(v54 + 80) - *(v54 + 72)) >> 2);
-              v97 = v108;
-              *(v108 + 4) = LODWORD(v96);
-              v98 = v103;
-              v97[1] = v103;
-              v97[2] = v104;
+              v97 = v107;
+              *(v107 + 4) = LODWORD(v96);
+              v98 = v102;
+              v97[1] = v102;
+              v97[2] = v103;
               v99 = *(a2 + 176);
               v100 = *(a2 + 192);
               v99.i32[3] = 0;
@@ -1226,16 +3032,16 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
               v101.i32[3] = 0;
               *(a2 + 192) = vmaxnmq_f32(v100, v101);
               v93 = (a2 + 72);
-              v94 = &v108;
+              v94 = &v107;
             }
 
             else
             {
-              geom::close_triangle_mesh<float>((v108 + 48), v108 + 72);
               geom::close_triangle_mesh<float>((v107 + 48), v107 + 72);
-              v57 = v108;
-              v58 = *(v108 + 48);
-              v59 = *(v108 + 56);
+              geom::close_triangle_mesh<float>((v106 + 48), v106 + 72);
+              v57 = v107;
+              v58 = *(v107 + 48);
+              v59 = *(v107 + 56);
               v60.i64[0] = 0x7F0000007FLL;
               v60.i64[1] = 0x7F0000007FLL;
               v61 = vnegq_f32(v60);
@@ -1259,11 +3065,11 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
                 while (v58 != v59);
               }
 
-              *(v108 + 16) = v62;
+              *(v107 + 16) = v62;
               v57[2] = v63;
-              v66 = v107;
-              v67 = *(v107 + 48);
-              v68 = *(v107 + 56);
+              v66 = v106;
+              v67 = *(v106 + 48);
+              v68 = *(v106 + 56);
               if (v68 != v67)
               {
                 v60.i64[0] = 0x7F0000007FLL;
@@ -1283,19 +3089,19 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
                 while (v67 != v68);
               }
 
-              *(v107 + 16) = v61;
+              *(v106 + 16) = v61;
               v66[2] = v60;
               v71 = geom::triangle_mesh_volume_3<float>(v57[3].i64[0], (v57[3].i64[1] - v57[3].i64[0]) >> 4, v57[4].i64[1], (v57[5].i64[0] - v57[4].i64[1]) >> 2);
-              *v108 = v71;
-              v72 = geom::triangle_mesh_volume_3<float>(*(v107 + 48), (*(v107 + 56) - *(v107 + 48)) >> 4, *(v107 + 72), (*(v107 + 80) - *(v107 + 72)) >> 2);
-              *v107 = v72;
-              v73 = geom::triangle_mesh_surface_area_3<float>(*(v108 + 48), (*(v108 + 56) - *(v108 + 48)) >> 4, *(v108 + 72), (*(v108 + 80) - *(v108 + 72)) >> 2);
-              *(v108 + 4) = LODWORD(v73);
-              v74 = geom::triangle_mesh_surface_area_3<float>(*(v107 + 48), (*(v107 + 56) - *(v107 + 48)) >> 4, *(v107 + 72), (*(v107 + 80) - *(v107 + 72)) >> 2);
-              v75 = v107;
-              *(v107 + 4) = LODWORD(v74);
-              v76 = v108;
-              v77 = *(v108 + 16);
+              *v107 = v71;
+              v72 = geom::triangle_mesh_volume_3<float>(*(v106 + 48), (*(v106 + 56) - *(v106 + 48)) >> 4, *(v106 + 72), (*(v106 + 80) - *(v106 + 72)) >> 2);
+              *v106 = v72;
+              v73 = geom::triangle_mesh_surface_area_3<float>(*(v107 + 48), (*(v107 + 56) - *(v107 + 48)) >> 4, *(v107 + 72), (*(v107 + 80) - *(v107 + 72)) >> 2);
+              *(v107 + 4) = LODWORD(v73);
+              v74 = geom::triangle_mesh_surface_area_3<float>(*(v106 + 48), (*(v106 + 56) - *(v106 + 48)) >> 4, *(v106 + 72), (*(v106 + 80) - *(v106 + 72)) >> 2);
+              v75 = v106;
+              *(v106 + 4) = LODWORD(v74);
+              v76 = v107;
+              v77 = *(v107 + 16);
               v78 = *(a2 + 176);
               v79 = *(a2 + 192);
               v78.i32[3] = 0;
@@ -1315,37 +3121,37 @@ void geom::cluster_parallel_clipper<float>::interior_component_work_item(uint64_
               v82.i32[3] = 0;
               v84.i32[3] = 0;
               *(a2 + 224) = vmaxnmq_f32(v82, v84);
-              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100]((a2 + 72), &v108);
+              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100]((a2 + 72), &v107);
 LABEL_25:
               v93 = (a2 + 96);
-              v94 = &v107;
+              v94 = &v106;
             }
 
             std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100](v93, v94);
+            if (*(&v106 + 1))
+            {
+              std::__shared_weak_count::__release_shared[abi:nn200100](*(&v106 + 1));
+            }
+
             if (*(&v107 + 1))
             {
               std::__shared_weak_count::__release_shared[abi:nn200100](*(&v107 + 1));
             }
 
-            if (*(&v108 + 1))
-            {
-              std::__shared_weak_count::__release_shared[abi:nn200100](*(&v108 + 1));
-            }
-
-            a10.n128_u32[3] = v103.u32[3];
-            a9.n128_u32[3] = v104.u32[3];
+            a10.n128_u32[3] = v102.u32[3];
+            a9.n128_u32[3] = v103.u32[3];
             goto LABEL_32;
           }
 
           v85 = *(*(*(a1 + 40) + 72) + 16);
-          v86 = v107;
-          *v107 = vmuls_lane_f32(vmuls_lane_f32(v85.f32[0], *v85.f32, 1), v85, 2);
+          v86 = v106;
+          *v106 = vmuls_lane_f32(vmuls_lane_f32(v85.f32[0], *v85.f32, 1), v85, 2);
           v87 = geom::triangle_mesh_surface_area_3<float>(v86[6], (v86[7] - v86[6]) >> 4, v86[9], (v86[10] - v86[9]) >> 2);
-          v88 = v107;
-          *(v107 + 4) = LODWORD(v87);
-          v89 = v103;
-          v88[1] = v103;
-          v88[2] = v104;
+          v88 = v106;
+          *(v106 + 4) = LODWORD(v87);
+          v89 = v102;
+          v88[1] = v102;
+          v88[2] = v103;
           v90 = *(a2 + 208);
           v91 = *(a2 + 224);
           v90.i32[3] = 0;
@@ -1359,16 +3165,16 @@ LABEL_25:
         }
 
         std::vector<unsigned long long>::push_back[abi:nn200100]((a2 + 144), v10);
-        a10.n128_u32[3] = v103.u32[3];
-        a9.n128_u32[3] = v104.u32[3];
+        a10.n128_u32[3] = v102.u32[3];
+        a9.n128_u32[3] = v103.u32[3];
         v45 = *(a2 + 208);
         v46 = *(a2 + 224);
         v45.i32[3] = 0;
-        v47 = v103;
+        v47 = v102;
         v47.i32[3] = 0;
         v48 = vminnmq_f32(v45, v47);
         v46.i32[3] = 0;
-        v49 = v104;
+        v49 = v103;
         v49.i32[3] = 0;
         a7 = vmaxnmq_f32(v46, v49);
         *(a2 + 208) = v48;
@@ -1381,11 +3187,9 @@ LABEL_32:
 
     while (v10 != v15);
   }
-
-  v102 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t *geom::cluster_parallel_clipper<double>::init(uint64_t *result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, __n128 a8, double a9, __n128 a10)
+unint64_t *geom::cluster_parallel_clipper<double>::init(unint64_t *result, void *a2, unint64_t a3, unint64_t a4, unint64_t a5, double a6, double a7, __n128 a8, double a9, __n128 a10)
 {
   result[3] = a4;
   result[4] = a5;
@@ -1416,7 +3220,7 @@ uint64_t *geom::cluster_parallel_clipper<double>::init(uint64_t *result, void *a
   return result;
 }
 
-uint64_t *std::vector<geom::cluster_parallel_clipper<double>::clipping_context,std::allocator<geom::cluster_parallel_clipper<double>::clipping_context>>::resize(uint64_t *a1, unint64_t a2, double a3, double a4, __n128 a5, double a6, __n128 a7)
+unint64_t *std::vector<geom::cluster_parallel_clipper<double>::clipping_context,std::allocator<geom::cluster_parallel_clipper<double>::clipping_context>>::resize(unint64_t *a1, unint64_t a2, double a3, double a4, __n128 a5, double a6, __n128 a7)
 {
   result = a1[1];
   v9 = 0x86BCA1AF286BCA1BLL * ((result - *a1) >> 4);
@@ -1979,23 +3783,21 @@ uint64_t geom::close_triangle_mesh<double>(uint64_t *a1, uint64_t a2)
       v7 = *(*a2 + 4 * (v4 + 2));
       LODWORD(v19.f64[0]) = *(*a2 + 4 * v4);
       HIDWORD(v19.f64[0]) = v6;
-      v22[0] = v7;
-      v22[1] = v6;
-      v21[0] = LODWORD(v19.f64[0]);
-      v21[1] = v7;
+      v22 = __PAIR64__(v6, v7);
+      v21 = __PAIR64__(v7, LODWORD(v19.f64[0]));
       if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v23, &v19))
       {
-        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v23, &v19);
+        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v23, &v19, &v19);
       }
 
-      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v23, v22))
+      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v23, &v22))
       {
-        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v23, v22);
+        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v23, &v22, &v22);
       }
 
-      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v23, v21))
+      if (!std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__erase_unique<geom::edge>(&v23, &v21))
       {
-        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v23, v21);
+        std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(&v23, &v21, &v21);
       }
 
       v4 += 3;
@@ -2022,11 +3824,11 @@ uint64_t geom::close_triangle_mesh<double>(uint64_t *a1, uint64_t a2)
       v16 = vdupq_lane_s64(COERCE__INT64((2 * *(&v24 + 1))), 0);
       v19 = vdivq_f64(v10, v16);
       v20 = vdivq_f64(i, v16);
-      v22[0] = (a1[1] - v9) >> 5;
+      LODWORD(v22) = (a1[1] - v9) >> 5;
       _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v19);
       for (j = v24; j; j = *j)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](a2, v22);
+        std::vector<unsigned int>::push_back[abi:nn200100](a2, &v22);
         std::vector<unsigned int>::push_back[abi:nn200100](a2, j + 4);
         std::vector<unsigned int>::push_back[abi:nn200100](a2, j + 5);
       }
@@ -2036,9 +3838,9 @@ uint64_t geom::close_triangle_mesh<double>(uint64_t *a1, uint64_t a2)
   return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v23);
 }
 
-void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64_t a1, uint64_t a2, float64x2_t *a3, void *a4, uint64_t a5, double a6, double a7, double a8, float64x2_t a9)
+void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64_t a1, uint64_t a2, float64x2_t *a3, uint64_t *a4, uint64_t a5, double a6, double a7, double a8, float64x2_t a9)
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     v9 = a4;
@@ -2047,9 +3849,9 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
     v15 = (a2 + 24);
     __asm { FMOV            V1.2D, #0.5 }
 
-    v95 = vdupq_n_s64(0xFFF0000000000000);
-    v96 = _Q1;
-    v94 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v94 = vdupq_n_s64(0xFFF0000000000000);
+    v95 = _Q1;
+    v93 = vdupq_n_s64(0x7FF0000000000000uLL);
     do
     {
       v21 = *(*(a1 + 40) + 128);
@@ -2069,23 +3871,23 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
       v32 = vsubq_f64(v30, v27);
       v33 = vsubq_f64(v31, v29);
       v34 = sqrt(vmulq_f64(v33, v33).f64[0] + vaddvq_f64(vmulq_f64(v32, v32))) * 0.5 - v13;
-      v35 = a3[2].f64[0] + vmulq_f64(a3[1], vmulq_f64(vaddq_f64(v29, v31), v96)).f64[0] + vaddvq_f64(vmulq_f64(*a3, vmulq_f64(vaddq_f64(v27, v30), v96)));
-      v100 = v27;
-      v101 = v29;
-      v98 = v30;
-      v99 = *&v28;
-      v97 = v31;
+      v35 = a3[2].f64[0] + vmulq_f64(a3[1], vmulq_f64(vaddq_f64(v29, v31), v95)).f64[0] + vaddvq_f64(vmulq_f64(*a3, vmulq_f64(vaddq_f64(v27, v30), v95)));
+      v99 = v27;
+      v100 = v29;
+      v97 = v30;
+      v98 = *&v28;
+      v96 = v31;
       if (v35 <= -v34)
       {
         std::vector<unsigned long long>::push_back[abi:nn200100]((a2 + 120), v9);
-        *&a9.f64[0] = v100.i64[0];
-        a9.f64[1] = v99;
-        v43 = vminnmq_f64(*(a2 + 192), *&v101.f64[0]);
+        *&a9.f64[0] = v99.i64[0];
+        a9.f64[1] = v98;
+        v43 = vminnmq_f64(*(a2 + 192), *&v100.f64[0]);
         *(a2 + 176) = vminnmq_f64(*(a2 + 176), a9);
         *(a2 + 192) = v43;
-        HIDWORD(a9.f64[0]) = HIDWORD(v98.f64[0]);
-        v44 = vmaxnmq_f64(*(a2 + 224), *&v97.f64[0]);
-        *(a2 + 208) = vmaxnmq_f64(*(a2 + 208), v98);
+        HIDWORD(a9.f64[0]) = HIDWORD(v97.f64[0]);
+        v44 = vmaxnmq_f64(*(a2 + 224), *&v96.f64[0]);
+        *(a2 + 208) = vmaxnmq_f64(*(a2 + 208), v97);
         *(a2 + 224) = v44;
       }
 
@@ -2093,37 +3895,37 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
       {
         if (v35 < v34)
         {
-          v107[0] = v27;
-          v107[1] = v29;
+          v106[0] = v27;
+          v106[1] = v29;
           *&v36 = v27.i64[0];
           *(&v36 + 1) = v28;
           *&v37 = v30.i64[0];
           *(&v37 + 1) = v28;
-          v107[2] = v37;
-          v107[3] = v29;
-          v107[4] = v30;
-          v107[5] = v29;
+          v106[2] = v37;
+          v106[3] = v29;
+          v106[4] = v30;
+          v106[5] = v29;
           *&v38 = v27.i64[0];
           *(&v38 + 1) = vextq_s8(v30, v30, 8uLL).u64[0];
-          v107[6] = v38;
-          v107[7] = v29;
-          v107[8] = v36;
-          v107[9] = v31;
-          v107[10] = v37;
-          v107[11] = v31;
-          v107[12] = v30;
-          v107[13] = v31;
-          v107[14] = v38;
-          v107[15] = v31;
-          v106[6] = xmmword_2500D13B0;
-          v106[7] = unk_2500D13C0;
-          v106[8] = xmmword_2500D13D0;
-          v106[2] = xmmword_2500D1370;
-          v106[3] = unk_2500D1380;
-          v106[4] = xmmword_2500D1390;
-          v106[5] = unk_2500D13A0;
-          v106[0] = xmmword_2500D1350;
-          v106[1] = unk_2500D1360;
+          v106[6] = v38;
+          v106[7] = v29;
+          v106[8] = v36;
+          v106[9] = v31;
+          v106[10] = v37;
+          v106[11] = v31;
+          v106[12] = v30;
+          v106[13] = v31;
+          v106[14] = v38;
+          v106[15] = v31;
+          v105[6] = xmmword_2500D13B0;
+          v105[7] = unk_2500D13C0;
+          v105[8] = xmmword_2500D13D0;
+          v105[2] = xmmword_2500D1370;
+          v105[3] = unk_2500D1380;
+          v105[4] = xmmword_2500D1390;
+          v105[5] = unk_2500D13A0;
+          v105[0] = xmmword_2500D1350;
+          v105[1] = unk_2500D1360;
           v40 = *(a1 + 48);
           add = atomic_fetch_add(v40, 1u);
           v41 = *(v40 + 8);
@@ -2133,7 +3935,7 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
           }
 
           v42 = *(v41 + 16 * add);
-          v105 = v42;
+          v104 = v42;
           if (*(&v42 + 1))
           {
             atomic_fetch_add_explicit((*(&v42 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -2148,57 +3950,57 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
           }
 
           v50 = *(v49 + 16 * v47);
-          v104 = v50;
+          v103 = v50;
           if (*(&v50 + 1))
           {
             atomic_fetch_add_explicit((*(&v50 + 1) + 8), 1uLL, memory_order_relaxed);
           }
 
-          v103[0] = v107;
-          v103[1] = 8;
           v102[0] = v106;
-          v102[1] = 36;
-          geom::split_triangle_mesh_with_plane<double>(v103, v102, a3, (v105 + 80), (v105 + 104), (v50 + 80), (v50 + 104), (a2 + 48), a2, v15);
-          v51 = v105;
-          v52 = *(v105 + 80);
-          v53 = *(v105 + 88) - v52;
+          v102[1] = 8;
+          v101[0] = v105;
+          v101[1] = 36;
+          geom::split_triangle_mesh_with_plane<double>(v102, v101, a3, (v104 + 80), (v104 + 104), (v50 + 80), (v50 + 104), (a2 + 48), a2, v15);
+          v51 = v104;
+          v52 = *(v104 + 80);
+          v53 = *(v104 + 88) - v52;
           if (v53)
           {
-            if (*(v104 + 88) == *(v104 + 80))
+            if (*(v103 + 88) == *(v103 + 80))
             {
-              *v105 = *(*(*(a1 + 40) + 128) + 32) * vmuld_lane_f64(*(*(*(a1 + 40) + 128) + 16), *(*(*(a1 + 40) + 128) + 16), 1);
+              *v104 = *(*(*(a1 + 40) + 128) + 32) * vmuld_lane_f64(*(*(*(a1 + 40) + 128) + 16), *(*(*(a1 + 40) + 128) + 16), 1);
               v69 = geom::triangle_mesh_surface_area_3<double>(v52, v53 >> 5, *(v51 + 104), (*(v51 + 112) - *(v51 + 104)) >> 2);
-              v70 = v105;
-              *(v105 + 8) = v69;
-              *&v71.f64[0] = v100.i64[0];
-              *(v70 + 16) = v100;
-              *(v70 + 32) = v101;
-              *(v70 + 48) = v98;
-              *(v70 + 64) = v97;
-              v71.f64[1] = v99;
-              v72 = vminnmq_f64(*(a2 + 192), *&v101.f64[0]);
+              v70 = v104;
+              *(v104 + 8) = v69;
+              *&v71.f64[0] = v99.i64[0];
+              *(v70 + 16) = v99;
+              *(v70 + 32) = v100;
+              *(v70 + 48) = v97;
+              *(v70 + 64) = v96;
+              v71.f64[1] = v98;
+              v72 = vminnmq_f64(*(a2 + 192), *&v100.f64[0]);
               *(a2 + 176) = vminnmq_f64(*(a2 + 176), v71);
               *(a2 + 192) = v72;
               v73 = vmaxnmq_f64(*(a2 + 224), *(v70 + 64));
               *(a2 + 208) = vmaxnmq_f64(*(a2 + 208), *(v70 + 48));
               *(a2 + 224) = v73;
               v74 = (a2 + 72);
-              v75 = &v105;
+              v75 = &v104;
             }
 
             else
             {
-              geom::close_triangle_mesh<double>((v105 + 80), v105 + 104);
               geom::close_triangle_mesh<double>((v104 + 80), v104 + 104);
-              v56 = v105;
-              v57 = *(v105 + 80);
-              v58 = *(v105 + 88);
+              geom::close_triangle_mesh<double>((v103 + 80), v103 + 104);
+              v56 = v104;
+              v57 = *(v104 + 80);
+              v58 = *(v104 + 88);
               if (v58 == v57)
               {
                 v54.f64[0] = -INFINITY;
                 v55.f64[0] = INFINITY;
-                v59 = v94;
-                v60 = v95;
+                v59 = v93;
+                v60 = v94;
               }
 
               else
@@ -2221,19 +4023,19 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
                 while (v57 != v58);
               }
 
-              *(v105 + 16) = v59;
+              *(v104 + 16) = v59;
               *(v56 + 32) = v55;
               *(v56 + 48) = v60;
               *(v56 + 64) = v54;
-              v76 = v104;
-              v77 = *(v104 + 80);
-              v78 = *(v104 + 88);
+              v76 = v103;
+              v77 = *(v103 + 80);
+              v78 = *(v103 + 88);
               if (v78 == v77)
               {
                 v54.f64[0] = -INFINITY;
                 v55.f64[0] = INFINITY;
-                v79 = v94;
-                v80 = v95;
+                v79 = v93;
+                v80 = v94;
               }
 
               else
@@ -2256,22 +4058,22 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
                 while (v77 != v78);
               }
 
-              *(v104 + 16) = v79;
+              *(v103 + 16) = v79;
               v76[2] = v55;
               v76[3] = v80;
               v76[4] = v54;
               v83 = geom::triangle_mesh_volume_3<double>(*(v56 + 80), (*(v56 + 88) - *(v56 + 80)) >> 5, *(v56 + 104), (*(v56 + 112) - *(v56 + 104)) >> 2);
-              *v105 = v83;
-              v84 = geom::triangle_mesh_volume_3<double>(*(v104 + 80), (*(v104 + 88) - *(v104 + 80)) >> 5, *(v104 + 104), (*(v104 + 112) - *(v104 + 104)) >> 2);
-              *v104 = v84;
-              v85 = geom::triangle_mesh_surface_area_3<double>(*(v105 + 80), (*(v105 + 88) - *(v105 + 80)) >> 5, *(v105 + 104), (*(v105 + 112) - *(v105 + 104)) >> 2);
-              *(v105 + 8) = v85;
-              v86 = geom::triangle_mesh_surface_area_3<double>(*(v104 + 80), (*(v104 + 88) - *(v104 + 80)) >> 5, *(v104 + 104), (*(v104 + 112) - *(v104 + 104)) >> 2);
-              v87 = v104;
-              *(v104 + 8) = v86;
-              v88 = v105;
-              v89 = vminnmq_f64(*(a2 + 192), *(v105 + 32));
-              *(a2 + 176) = vminnmq_f64(*(a2 + 176), *(v105 + 16));
+              *v104 = v83;
+              v84 = geom::triangle_mesh_volume_3<double>(*(v103 + 80), (*(v103 + 88) - *(v103 + 80)) >> 5, *(v103 + 104), (*(v103 + 112) - *(v103 + 104)) >> 2);
+              *v103 = v84;
+              v85 = geom::triangle_mesh_surface_area_3<double>(*(v104 + 80), (*(v104 + 88) - *(v104 + 80)) >> 5, *(v104 + 104), (*(v104 + 112) - *(v104 + 104)) >> 2);
+              *(v104 + 8) = v85;
+              v86 = geom::triangle_mesh_surface_area_3<double>(*(v103 + 80), (*(v103 + 88) - *(v103 + 80)) >> 5, *(v103 + 104), (*(v103 + 112) - *(v103 + 104)) >> 2);
+              v87 = v103;
+              *(v103 + 8) = v86;
+              v88 = v104;
+              v89 = vminnmq_f64(*(a2 + 192), *(v104 + 32));
+              *(a2 + 176) = vminnmq_f64(*(a2 + 176), *(v104 + 16));
               *(a2 + 192) = v89;
               v90 = vmaxnmq_f64(*(a2 + 224), *(v88 + 64));
               *(a2 + 208) = vmaxnmq_f64(*(a2 + 208), *(v88 + 48));
@@ -2282,38 +4084,38 @@ void geom::cluster_parallel_clipper<double>::interior_component_work_item(uint64
               v92 = vmaxnmq_f64(*(a2 + 288), *(v87 + 64));
               *(a2 + 272) = vmaxnmq_f64(*(a2 + 272), *(v87 + 48));
               *(a2 + 288) = v92;
-              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100]((a2 + 72), &v105);
+              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100]((a2 + 72), &v104);
 LABEL_30:
               v74 = (a2 + 96);
-              v75 = &v104;
+              v75 = &v103;
             }
 
             std::vector<std::shared_ptr<geom::convex_mesh<float>>>::push_back[abi:nn200100](v74, v75);
+            if (*(&v103 + 1))
+            {
+              std::__shared_weak_count::__release_shared[abi:nn200100](*(&v103 + 1));
+            }
+
             if (*(&v104 + 1))
             {
               std::__shared_weak_count::__release_shared[abi:nn200100](*(&v104 + 1));
             }
 
-            if (*(&v105 + 1))
-            {
-              std::__shared_weak_count::__release_shared[abi:nn200100](*(&v105 + 1));
-            }
-
             goto LABEL_35;
           }
 
-          v63 = v104;
-          *v104 = *(*(*(a1 + 40) + 128) + 32) * vmuld_lane_f64(*(*(*(a1 + 40) + 128) + 16), *(*(*(a1 + 40) + 128) + 16), 1);
+          v63 = v103;
+          *v103 = *(*(*(a1 + 40) + 128) + 32) * vmuld_lane_f64(*(*(*(a1 + 40) + 128) + 16), *(*(*(a1 + 40) + 128) + 16), 1);
           v64 = geom::triangle_mesh_surface_area_3<double>(v63[10], (v63[11] - v63[10]) >> 5, v63[13], (v63[14] - v63[13]) >> 2);
-          v65 = v104;
-          *(v104 + 8) = v64;
-          *&v66.f64[0] = v100.i64[0];
-          *(v65 + 16) = v100;
-          *(v65 + 32) = v101;
-          *(v65 + 48) = v98;
-          *(v65 + 64) = v97;
-          v66.f64[1] = v99;
-          v67 = vminnmq_f64(*(a2 + 256), *&v101.f64[0]);
+          v65 = v103;
+          *(v103 + 8) = v64;
+          *&v66.f64[0] = v99.i64[0];
+          *(v65 + 16) = v99;
+          *(v65 + 32) = v100;
+          *(v65 + 48) = v97;
+          *(v65 + 64) = v96;
+          v66.f64[1] = v98;
+          v67 = vminnmq_f64(*(a2 + 256), *&v100.f64[0]);
           *(a2 + 240) = vminnmq_f64(*(a2 + 240), v66);
           *(a2 + 256) = v67;
           v68 = vmaxnmq_f64(*(a2 + 288), *(v65 + 64));
@@ -2323,14 +4125,14 @@ LABEL_30:
         }
 
         std::vector<unsigned long long>::push_back[abi:nn200100]((a2 + 144), v9);
-        *&a9.f64[0] = v100.i64[0];
-        a9.f64[1] = v99;
-        v45 = vminnmq_f64(*(a2 + 256), *&v101.f64[0]);
+        *&a9.f64[0] = v99.i64[0];
+        a9.f64[1] = v98;
+        v45 = vminnmq_f64(*(a2 + 256), *&v100.f64[0]);
         *(a2 + 240) = vminnmq_f64(*(a2 + 240), a9);
         *(a2 + 256) = v45;
-        HIDWORD(a9.f64[0]) = HIDWORD(v98.f64[0]);
-        v46 = vmaxnmq_f64(*(a2 + 288), *&v97.f64[0]);
-        *(a2 + 272) = vmaxnmq_f64(*(a2 + 272), v98);
+        HIDWORD(a9.f64[0]) = HIDWORD(v97.f64[0]);
+        v46 = vmaxnmq_f64(*(a2 + 288), *&v96.f64[0]);
+        *(a2 + 272) = vmaxnmq_f64(*(a2 + 272), v97);
         *(a2 + 288) = v46;
       }
 
@@ -2340,8 +4142,6 @@ LABEL_35:
 
     while (v9 != v14);
   }
-
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 void geom::cluster_parallel_merger<float>::init(uint64_t a1, uint64_t a2, uint64_t a3, int a4, float a5)
@@ -2436,12 +4236,12 @@ void geom::cluster_parallel_merger<float>::init(uint64_t a1, uint64_t a2, uint64
       v23 = 1;
       do
       {
-        v24 = v28[0] + 16 * v22;
+        v24 = &v28[0][16 * v22];
         block[0] = &v21[8 * v22];
-        v25 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((a1 + 24), block[0]);
+        v25 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((a1 + 24), block[0], &std::piecewise_construct, block);
         v26 = *v24;
         *v24 = 0;
-        *(v24 + 8) = 0;
+        *(v24 + 1) = 0;
         v27 = v25[4];
         *(v25 + 3) = v26;
         if (v27)
@@ -2467,18 +4267,18 @@ void geom::cluster_parallel_merger<float>::init(uint64_t a1, uint64_t a2, uint64
   }
 }
 
-void std::vector<std::shared_ptr<geom::convex_mesh<float>>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<geom::convex_mesh<float>>>::resize(char **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = (v3 - *a1) >> 4;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      v6 = *a1 + 16 * a2;
+      v6 = &(*a1)[16 * a2];
       while (v3 != v6)
       {
-        v7 = *(v3 - 8);
+        v7 = *(v3 - 1);
         if (v7)
         {
           std::__shared_weak_count::__release_shared[abi:nn200100](v7);
@@ -2487,7 +4287,7 @@ void std::vector<std::shared_ptr<geom::convex_mesh<float>>>::resize(uint64_t a1,
         v3 -= 16;
       }
 
-      *(a1 + 8) = v6;
+      a1[1] = v6;
     }
   }
 
@@ -2754,7 +4554,7 @@ LABEL_44:
   }
 }
 
-void geom::cluster_parallel_merger<float>::compute_merged_mesh(uint64_t a1@<X0>, unsigned int *a2@<X1>, _OWORD *a3@<X8>)
+void geom::cluster_parallel_merger<float>::compute_merged_mesh(uint64_t a1@<X0>, unsigned int *a2@<X1>, uint64_t *a3@<X8>)
 {
   v7 = *a1;
   add = atomic_fetch_add(*a1, 1u);
@@ -2815,7 +4615,7 @@ void geom::cluster_parallel_merger<float>::compute_merged_mesh(uint64_t a1@<X0>,
     v21 += 16;
   }
 
-  geom::convex_hull_triangulated_3<float>((*(v10 + 56) - *(v10 + 48)) >> 4, *(v10 + 48), (v10 + 72));
+  geom::convex_hull_triangulated_3<float>((*(v10 + 56) - *(v10 + 48)) >> 4, *(v10 + 48), (v10 + 72), 0xFFFFFFFFLL, 0.0);
   __p = 0;
   v36 = 0uLL;
   memset(&v34, 0, sizeof(v34));
@@ -2958,12 +4758,12 @@ void geom::cluster_parallel_merger<double>::init(uint64_t a1, uint64_t a2, uint6
       v23 = 1;
       do
       {
-        v24 = v28[0] + 16 * v22;
+        v24 = &v28[0][16 * v22];
         block[0] = &v21[8 * v22];
-        v25 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((a1 + 32), block[0]);
+        v25 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((a1 + 32), block[0], &std::piecewise_construct, block);
         v26 = *v24;
         *v24 = 0;
-        *(v24 + 8) = 0;
+        *(v24 + 1) = 0;
         v27 = v25[4];
         *(v25 + 3) = v26;
         if (v27)
@@ -3248,7 +5048,7 @@ LABEL_44:
   }
 }
 
-void geom::cluster_parallel_merger<double>::compute_merged_mesh(uint64_t a1@<X0>, unsigned int *a2@<X1>, _OWORD *a3@<X8>)
+void geom::cluster_parallel_merger<double>::compute_merged_mesh(uint64_t a1@<X0>, unsigned int *a2@<X1>, uint64_t *a3@<X8>)
 {
   v7 = *a1;
   add = atomic_fetch_add(*a1, 1u);
@@ -3311,7 +5111,7 @@ void geom::cluster_parallel_merger<double>::compute_merged_mesh(uint64_t a1@<X0>
     v21 += 16;
   }
 
-  geom::convex_hull_triangulated_3<double>((*(v10 + 88) - *(v10 + 80)) >> 5, *(v10 + 80), (v10 + 104));
+  geom::convex_hull_triangulated_3<double>((*(v10 + 88) - *(v10 + 80)) >> 5, *(v10 + 80), (v10 + 104), 0xFFFFFFFFLL, 0.0);
   __p = 0;
   v36 = 0uLL;
   memset(&v34, 0, sizeof(v34));
@@ -3656,135 +5456,135 @@ uint64_t std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,
   return v2;
 }
 
-uint64_t *std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<geom::edge,geom::edge_hash,std::equal_to<geom::edge>,std::allocator<geom::edge>>::__emplace_unique_key_args<geom::edge,geom::edge const&>(void *a1, unsigned int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3 >= v2)
-  {
-    v4 = *a2;
-  }
-
-  else
-  {
-    v4 = a2[1];
-  }
-
-  if (v2 <= v3)
-  {
-    v5 = a2[1];
-  }
-
-  else
+  v3 = *a2;
+  v4 = a2[1];
+  if (v4 >= v3)
   {
     v5 = *a2;
   }
 
-  v6 = (v5 + (v4 << 6) + (v4 >> 2) - 0x61C8864680B583E9) ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  else
+  {
+    v5 = a2[1];
+  }
+
+  if (v3 <= v4)
+  {
+    v6 = a2[1];
+  }
+
+  else
+  {
+    v6 = *a2;
+  }
+
+  v7 = (v6 + (v5 << 6) + (v5 >> 2) - 0x61C8864680B583E9) ^ v5;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_38;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  if (v8.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = (v5 + (v4 << 6) + (v4 >> 2) - 0x61C8864680B583E9) ^ v4;
-    if (v6 >= *&v7)
+    v10 = (v6 + (v5 << 6) + (v5 >> 2) - 0x61C8864680B583E9) ^ v5;
+    if (v7 >= *&v8)
     {
-      v9 = v6 % *&v7;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v9 = v6 & (*&v7 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_38:
     operator new();
   }
 
-  if (v3 >= v2)
+  if (v4 >= v3)
   {
-    v12 = *a2;
+    v13 = *a2;
   }
 
   else
   {
-    v12 = a2[1];
+    v13 = a2[1];
   }
 
-  if (v2 <= v3)
+  if (v3 <= v4)
   {
-    LODWORD(v2) = a2[1];
+    LODWORD(v3) = a2[1];
   }
 
   while (1)
   {
-    v13 = v11[1];
-    if (v13 == v6)
+    v14 = v12[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8.u32[0] > 1uLL)
+    if (v9.u32[0] > 1uLL)
     {
-      if (v13 >= *&v7)
+      if (v14 >= *&v8)
       {
-        v13 %= *&v7;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v13 != v9)
+    if (v14 != v10)
     {
       goto LABEL_38;
     }
 
 LABEL_37:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_38;
     }
   }
 
-  v15 = *(v11 + 4);
-  v14 = *(v11 + 5);
-  if (v14 >= v15)
+  v16 = *(v12 + 4);
+  v15 = *(v12 + 5);
+  if (v15 >= v16)
   {
-    v16 = *(v11 + 4);
+    v17 = *(v12 + 4);
   }
 
   else
   {
-    v16 = *(v11 + 5);
+    v17 = *(v12 + 5);
   }
 
-  if (v15 > v14)
+  if (v16 > v15)
   {
-    v14 = *(v11 + 4);
+    v15 = *(v12 + 4);
   }
 
-  if (v16 != v12 || v14 != v2)
+  if (v17 != v13 || v15 != v3)
   {
     goto LABEL_37;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t *std::vector<geom::cluster_parallel_clipper<double>::clipping_context,std::allocator<geom::cluster_parallel_clipper<double>::clipping_context>>::__append(uint64_t *result, unint64_t a2, double a3, double a4, __n128 a5, double a6, __n128 a7)
+unint64_t *std::vector<geom::cluster_parallel_clipper<double>::clipping_context,std::allocator<geom::cluster_parallel_clipper<double>::clipping_context>>::__append(unint64_t *result, unint64_t a2, double a3, double a4, __n128 a5, double a6, __n128 a7)
 {
   v8 = result;
   v9 = result[1];
@@ -4069,7 +5869,7 @@ void ___ZN4geom14dispatch_applyIZNS_24cluster_parallel_clipperIdE24compute_clipp
   }
 }
 
-void std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__append(const void **a1, unint64_t a2)
+void std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__append(char **a1, unint64_t a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4153,132 +5953,132 @@ void ___ZN4geom14dispatch_applyIZNS_23cluster_parallel_mergerIfE4initEPNSt3__113
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  if (v3 >= v2)
+  v4 = *a2;
+  v5 = a2[1];
+  if (v5 >= v4)
   {
-    v4 = *a2;
+    v6 = *a2;
   }
 
   else
   {
-    v4 = a2[1];
+    v6 = a2[1];
   }
 
-  if (v2 <= v3)
+  if (v4 <= v5)
   {
-    v5 = a2[1];
+    v7 = a2[1];
   }
 
   else
   {
-    v5 = *a2;
+    v7 = *a2;
   }
 
-  v6 = (v5 + (v4 << 6) + (v4 >> 2) - 0x61C8864680B583E9) ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = (v7 + (v6 << 6) + (v6 >> 2) - 0x61C8864680B583E9) ^ v6;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_38;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = (v5 + (v4 << 6) + (v4 >> 2) - 0x61C8864680B583E9) ^ v4;
-    if (v6 >= *&v7)
+    v11 = (v7 + (v6 << 6) + (v6 >> 2) - 0x61C8864680B583E9) ^ v6;
+    if (v8 >= *&v9)
     {
-      v9 = v6 % *&v7;
+      v11 = v8 % *&v9;
     }
   }
 
   else
   {
-    v9 = v6 & (*&v7 - 1);
+    v11 = v8 & (*&v9 - 1);
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_38:
     operator new();
   }
 
-  if (v3 >= v2)
+  if (v5 >= v4)
   {
-    v12 = *a2;
+    v14 = *a2;
   }
 
   else
   {
-    v12 = a2[1];
+    v14 = a2[1];
   }
 
-  if (v2 <= v3)
+  if (v4 <= v5)
   {
-    LODWORD(v2) = a2[1];
+    LODWORD(v4) = a2[1];
   }
 
   while (1)
   {
-    v13 = v11[1];
-    if (v13 == v6)
+    v15 = v13[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8.u32[0] > 1uLL)
+    if (v10.u32[0] > 1uLL)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v9)
+    if (v15 != v11)
     {
       goto LABEL_38;
     }
 
 LABEL_37:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_38;
     }
   }
 
-  v15 = *(v11 + 4);
-  v14 = *(v11 + 5);
-  if (v14 >= v15)
+  v17 = *(v13 + 4);
+  v16 = *(v13 + 5);
+  if (v16 >= v17)
   {
-    v16 = *(v11 + 4);
+    v18 = *(v13 + 4);
   }
 
   else
   {
-    v16 = *(v11 + 5);
+    v18 = *(v13 + 5);
   }
 
-  if (v15 > v14)
+  if (v17 > v16)
   {
-    v14 = *(v11 + 4);
+    v16 = *(v13 + 4);
   }
 
-  if (v16 != v12 || v14 != v2)
+  if (v18 != v14 || v16 != v4)
   {
     goto LABEL_37;
   }
 
-  return v11;
+  return v13;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,void *>>>::operator()[abi:nn200100](uint64_t a1, void *__p)
@@ -4388,7 +6188,7 @@ void ___ZN4geom14dispatch_applyIZNS_23cluster_parallel_mergerIfE13perform_mergeE
   v3 = (**(a1 + 40) + 8 * a2);
   geom::cluster_parallel_merger<float>::compute_merged_mesh(v2, v3, &v7);
   v8 = v3;
-  v4 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((v2 + 24), v3);
+  v4 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((v2 + 24), v3, &std::piecewise_construct, &v8);
   v5 = v7;
   v7 = 0uLL;
   v6 = v4[4];
@@ -4477,7 +6277,7 @@ void ___ZN4geom14dispatch_applyIZNS_23cluster_parallel_mergerIdE13perform_mergeE
   v3 = (**(a1 + 40) + 8 * a2);
   geom::cluster_parallel_merger<double>::compute_merged_mesh(v2, v3, &v7);
   v8 = v3;
-  v4 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((v2 + 32), v3);
+  v4 = std::__hash_table<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::__unordered_map_hasher<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,geom::edge_hash,std::equal_to<geom::edge>,true>,std::__unordered_map_equal<geom::edge,std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>,std::equal_to<geom::edge>,geom::edge_hash,true>,std::allocator<std::__hash_value_type<geom::edge,std::shared_ptr<geom::convex_mesh<float>>>>>::__emplace_unique_key_args<geom::edge,std::piecewise_construct_t const&,std::tuple<geom::edge const&>,std::tuple<>>((v2 + 32), v3, &std::piecewise_construct, &v8);
   v5 = v7;
   v7 = 0uLL;
   v6 = v4[4];
@@ -4689,8 +6489,7 @@ uint64_t geom::spoke<double>::halt(uint64_t result, double a2)
 
 __n128 *geom::spoke<double>::spoke(__n128 *a1, __n128 a2, float64x2_t a3, float64x2_t a4, double a5)
 {
-  a1[1].n128_u64[0] = 0;
-  a1[1].n128_u64[1] = 0;
+  a1[1] = 0uLL;
   *a1 = a2;
   a1[3].n128_f64[0] = a5;
   a1[2].n128_u8[9] = 0;
@@ -4789,8 +6588,7 @@ LABEL_10:
     return a1;
   }
 
-  a1[1].n128_u64[0] = 0;
-  a1[1].n128_u64[1] = 0;
+  a1[1] = 0uLL;
   a1[2].n128_u8[8] = 0;
   a1[2].n128_u64[0] = 0;
   return a1;
@@ -4801,8 +6599,7 @@ __n128 *geom::spoke<double>::spoke(__n128 *result, __n128 a2, double a3)
   result[3].n128_f64[0] = a3;
   result[2].n128_u16[4] = 256;
   *result = a2;
-  result[1].n128_u64[1] = 0;
-  result[2].n128_u64[0] = 0;
+  *(&result[1] + 8) = 0uLL;
   result[1].n128_u64[0] = 0;
   return result;
 }
@@ -5056,20 +6853,20 @@ uint64_t geom::straight_skeleton_evaluator<float>::straight_skeleton_evaluator(u
   return a1;
 }
 
-void std::vector<std::optional<unsigned int>>::resize(void *a1, unint64_t a2)
+void std::vector<std::optional<unsigned int>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<std::optional<unsigned int>>::__append(a1, a2 - v2);
+    std::vector<std::optional<unsigned int>>::__append(result, a2 - v2);
   }
 }
 
@@ -5108,7 +6905,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::vertex_state::vertex_state(ui
   return a1;
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::edge_event_for_edge@<X0>(uint64_t result@<X0>, unsigned __int32 a2@<W1>, float32x2_t *a3@<X8>)
+void geom::straight_skeleton_evaluator<float>::edge_event_for_edge(uint64_t result@<X0>, __int32 a2@<W1>, float32x2_t *a3@<X8>)
 {
   v4 = *(result + 120);
   v5 = (v4 + 104 * a2);
@@ -5123,50 +6920,50 @@ uint64_t geom::straight_skeleton_evaluator<float>::edge_event_for_edge@<X0>(uint
     v8 = (v4 + 104 * v7);
     if (!v8[12].i32[0])
     {
-      result = geom::intersect_adjacent_spokes<float>(v5, v8);
-      if ((result & 0x100000000) != 0)
+      v9 = geom::intersect_adjacent_spokes<float>(v5, v8);
+      if ((v9 & 0x100000000) != 0)
       {
-        v10 = v5[2].f32[0];
-        if (fabsf(v10) <= 0.000005)
+        v11 = v5[2].f32[0];
+        if (fabsf(v11) <= 0.000005)
         {
-          v11 = *v5;
+          v12 = *v5;
         }
 
         else
         {
-          v11 = vmla_n_f32(*v5, v5[1], v10 * (*&result - v5[3].f32[0]));
+          v12 = vmla_n_f32(*v5, v5[1], v11 * (*&v9 - v5[3].f32[0]));
         }
 
-        v12 = v8[2].f32[0];
-        if (fabsf(v12) <= 0.000005)
+        v13 = v8[2].f32[0];
+        if (fabsf(v13) <= 0.000005)
         {
-          v13 = *v8;
+          v14 = *v8;
         }
 
         else
         {
-          v13 = vmla_n_f32(*v8, v8[1], v12 * (*&result - v8[3].f32[0]));
+          v14 = vmla_n_f32(*v8, v8[1], v13 * (*&v9 - v8[3].f32[0]));
         }
 
-        a3->i32[0] = result;
+        a3->i32[0] = v9;
         a3->i32[1] = a2;
         a3[1].i32[0] = v7;
-        a3[2] = vmul_f32(vadd_f32(v11, v13), 0x3F0000003F000000);
-        v9 = 1;
+        a3[2] = vmul_f32(vadd_f32(v12, v14), 0x3F0000003F000000);
+        v10 = 1;
         goto LABEL_13;
       }
 
 LABEL_5:
-      v9 = 0;
+      v10 = 0;
       a3->i8[0] = 0;
 LABEL_13:
-      a3[3].i8[0] = v9;
-      return result;
+      a3[3].i8[0] = v10;
+      return;
     }
   }
 
-  v14 = std::__throw_bad_variant_access[abi:nn200100]();
-  return std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100](v14);
+  v15 = std::__throw_bad_variant_access[abi:nn200100]();
+  std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100](v15, v16);
 }
 
 void std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
@@ -5232,39 +7029,37 @@ void std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_eve
   *(a1 + 8) = v7;
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, _BYTE *a3@<X8>, double a4@<D0>, double a5@<D1>)
+void geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(uint64_t result@<X0>, unsigned int a2@<W1>, _BYTE *a4@<X8>, float32x2_t d0_0@<D0>, double a5@<D1>)
 {
-  v9 = a2;
-  v5 = *(result + 120) + 104 * a2;
-  if (*(v5 + 96))
+  v14 = a2;
+  v6 = *(result + 120) + 104 * a2;
+  if (*(v6 + 96))
   {
-    v7 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<float>::straight_skeleton_evaluator(v7);
+    v8 = std::__throw_bad_variant_access[abi:nn200100]();
+    geom::straight_skeleton_evaluator<float>::straight_skeleton_evaluator(v8, v9, v10, v11, v12);
   }
 
   else
   {
-    v6 = *(v5 + 20);
-    *a3 = 0;
-    a3[24] = 0;
-    if (v6 == 1)
+    v7 = *(v6 + 20);
+    *a4 = 0;
+    a4[24] = 0;
+    if (v7 == 1)
     {
-      v8[0] = result;
-      v8[1] = &v9;
-      v8[2] = a3;
-      return geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}>(result, v8, a4, a5);
+      v13[0] = result;
+      v13[1] = &v14;
+      v13[2] = a4;
+      geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}>(result, v13, d0_0, a5);
     }
   }
-
-  return result;
 }
 
-void geom::straight_skeleton_evaluator<float>::advance_to_inset_distance(uint64_t a1, float a2)
+void geom::straight_skeleton_evaluator<float>::advance_to_inset_distance(uint64_t a1, __n128 a2)
 {
   v3 = *(a1 + 208);
   v4 = *(a1 + 168);
   v5 = *(a1 + 176);
-  v6 = a2 / v3;
+  v6 = a2.n128_f32[0] / v3;
   if (v4 == v5)
   {
     v8 = *(a1 + 120);
@@ -5398,7 +7193,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::process_next_event(void *a1)
 
       while (++v4 <= v5)
       {
-        v8 = geom::straight_skeleton_evaluator<float>::apply_edge_event(a1, *(*(&v22[0] + 1) + 8 * (v23.i64[0] / 0xAAuLL)) + 24 * (v23.i64[0] % 0xAAuLL));
+        geom::straight_skeleton_evaluator<float>::apply_edge_event(a1, *(*(&v22[0] + 1) + 8 * (v23.i64[0] / 0xAAuLL)) + 24 * (v23.i64[0] % 0xAAuLL));
         if ((v8 & 0x100000000) != 0)
         {
           LODWORD(v15) = v8;
@@ -5497,47 +7292,47 @@ LABEL_31:
 
 void geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(uint64_t a1, float a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v21 = a2;
-  v24 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v23 = 0;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(&v22, 1uLL);
-  v18 = a1;
+  geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(&v21, 1uLL);
+  v17 = a1;
+  v18 = &v20;
   v19 = &v21;
-  v20 = &v22;
-  geom::straight_skeleton_evaluator<float>::for_each_wavefront_vertex<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda#1},geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(void)#1}>(a1, &v18);
+  geom::straight_skeleton_evaluator<float>::for_each_wavefront_vertex<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda#1},geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(void)#1}>(a1, &v17);
   v3 = *(a1 + 8) - *a1;
   v4 = *(a1 + 80);
   if (*(v4 - 4) < (v3 >> 3))
   {
     v5 = *(*(a1 + 104) - 4);
-    if (v21 == v5 || (v5 + 0.000005) > v21)
+    if (v20 == v5 || (v5 + 0.000005) > v20)
     {
       *(v4 - 4) = v3 >> 3;
     }
 
     else
     {
-      std::vector<float>::push_back[abi:nn200100]((a1 + 96), &v21);
-      LODWORD(v18) = (*(a1 + 8) - *a1) >> 3;
-      std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 72), &v18);
+      std::vector<float>::push_back[abi:nn200100]((a1 + 96), &v20);
+      LODWORD(v17) = (*(a1 + 8) - *a1) >> 3;
+      std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 72), &v17);
     }
   }
 
-  v18 = a1;
-  v19 = &v22;
-  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}>(a1, &v18);
-  v18 = &v22;
-  if (v23 >= 0x10)
+  v17 = a1;
+  v18 = &v21;
+  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}>(a1, &v17);
+  v17 = &v21;
+  if (v22 >= 0x10)
   {
     v7 = 0;
-    v8 = v22;
-    v9 = v23 >> 4;
+    v8 = v21;
+    v9 = v22 >> 4;
     while (1)
     {
       v10 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v8), xmmword_2500C4D40)))), 0x3830282018100800).u16[0];
-      v19 = (v10 ^ 0xFFFFLL);
+      v18 = (v10 ^ 0xFFFFLL);
       if (v10 != 0xFFFFLL)
       {
         break;
@@ -5553,12 +7348,12 @@ void geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(uint64_t
 
     v11 = __clz(__rbit64(v10 ^ 0xFFFFLL));
     v12 = (v11 - v7);
-    v20 = (v11 - v7);
+    v19 = (v11 - v7);
     if (v11 + 1 != v7)
     {
       do
       {
-        v13 = (*(v18 + 1) + 8 * v12);
+        v13 = (*(v17 + 1) + 8 * v12);
         v14 = *v13;
         __src = v13[1];
         v15 = *(a1 + 120) + 104 * v14;
@@ -5567,24 +7362,23 @@ void geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(uint64_t
           std::__throw_bad_variant_access[abi:nn200100]();
         }
 
-        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v15 + 64), &__src, &v18, 1uLL);
-        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v18);
-        v12 = v20;
+        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v15 + 64), &__src, &v17, 1uLL);
+        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v17);
+        v12 = v19;
       }
 
-      while (v20 != -1);
+      while (v19 != -1);
     }
   }
 
 LABEL_16:
-  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(&v22);
-  v16 = *MEMORY[0x277D85DE8];
+  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(&v21);
 }
 
-void geom::straight_skeleton_evaluator<float>::pop_coincident_events(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+void geom::straight_skeleton_evaluator<float>::pop_coincident_events(uint64_t result, unint64_t *a2, unint64_t *a3, float a4)
 {
-  v4 = *(a1 + 168);
-  if (v4 != *(a1 + 176))
+  v4 = *(result + 168);
+  if (v4 != *(result + 176))
   {
     v9 = a4 + 0.000005;
     do
@@ -5595,7 +7389,7 @@ void geom::straight_skeleton_evaluator<float>::pop_coincident_events(uint64_t a1
         break;
       }
 
-      v12 = *(a1 + 168);
+      v12 = *(result + 168);
       v13 = v12[1].n128_u32[2];
       if (v13 == 1)
       {
@@ -5607,27 +7401,27 @@ void geom::straight_skeleton_evaluator<float>::pop_coincident_events(uint64_t a1
         if (v13)
         {
           v22 = std::__throw_bad_variant_access[abi:nn200100]();
-          geom::straight_skeleton_evaluator<float>::apply_edge_event(v22);
+          geom::straight_skeleton_evaluator<float>::apply_edge_event(v22, v23);
           return;
         }
 
         std::deque<geom::straight_skeleton_evaluator<float>::edge_event,std::allocator<geom::straight_skeleton_evaluator<float>::edge_event>>::push_back(a2, v12);
       }
 
-      v4 = *(a1 + 168);
-      v14 = *(a1 + 176);
+      v4 = *(result + 168);
+      v14 = *(result + 176);
       v15 = (v14 - v4) >> 5;
       if (v15 >= 2)
       {
         v16 = *(v4 + 1);
-        v24 = *v4;
-        v25 = v16;
-        v17 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(v4, &v23, v15);
+        v25 = *v4;
+        v26 = v16;
+        v17 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(v4, &v24, v15);
         v18 = (v14 - 32);
         if ((v14 - 32) == v17)
         {
-          v21 = v25;
-          *v17 = v24;
+          v21 = v26;
+          *v17 = v25;
           v17[1] = v21;
         }
 
@@ -5636,254 +7430,247 @@ void geom::straight_skeleton_evaluator<float>::pop_coincident_events(uint64_t a1
           v19 = *(v14 - 16);
           *v17 = *v18;
           v17[1] = v19;
-          v20 = v25;
-          *v18 = v24;
+          v20 = v26;
+          *v18 = v25;
           *(v14 - 16) = v20;
-          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(v4, (v17 + 2), &v23, ((v17 + 2) - v4) >> 5);
+          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(v4, (v17 + 2), &v24, ((v17 + 2) - v4) >> 5);
         }
 
-        v4 = *(a1 + 168);
-        v14 = *(a1 + 176);
+        v4 = *(result + 168);
+        v14 = *(result + 176);
       }
 
-      *(a1 + 176) = v14 - 32;
+      *(result + 176) = v14 - 32;
     }
 
     while (v4 != (v14 - 32));
   }
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::apply_edge_event(void *a1, uint64_t a2)
+void geom::straight_skeleton_evaluator<float>::apply_edge_event(void *a1, uint64_t a2)
 {
   v3 = a1 + 15;
   v2 = a1[15];
   v4 = (v2 + 104 * *(a2 + 4));
   if (*(v4 + 24) || *(v2 + 104 * *(a2 + 8) + 96))
   {
-    v6 = 0;
-    v7 = 0;
-    v8 = 0;
-    return v8 | v7 | v6;
+    return;
   }
 
-  v11 = *v4;
-  v12 = v4[1];
-  v13 = v4[2];
-  *(v73 + 9) = *(v4 + 41);
-  v72[1] = v12;
-  v73[0] = v13;
-  v72[0] = v11;
-  std::vector<float>::vector[abi:nn200100](&v74, v4 + 8);
-  v76 = *(v4 + 11);
-  v14 = *v3 + 104 * *(a2 + 8);
-  if (!*(v14 + 96))
+  v7 = *v4;
+  v8 = v4[1];
+  v9 = v4[2];
+  *(v70 + 9) = *(v4 + 41);
+  v69[1] = v8;
+  v70[0] = v9;
+  v69[0] = v7;
+  std::vector<float>::vector[abi:nn200100](&v71, v4 + 8);
+  v73 = *(v4 + 11);
+  v10 = *v3 + 104 * *(a2 + 8);
+  if (*(v10 + 96))
   {
-    v15 = *v14;
-    v16 = *(v14 + 16);
-    v17 = *(v14 + 32);
-    *(v68 + 9) = *(v14 + 41);
-    v67[1] = v16;
-    v68[0] = v17;
-    v67[0] = v15;
-    std::vector<float>::vector[abi:nn200100](&__p, (v14 + 64));
-    v71 = *(v14 + 88);
-    v18 = DWORD1(v73[0]);
-    v19 = DWORD1(v68[0]);
-    v20 = *(a2 + 4);
-    v21 = *(a2 + 8);
-    if (DWORD1(v73[0]) != v21 && DWORD1(v68[0]) != v20)
+    goto LABEL_45;
+  }
+
+  v11 = *v10;
+  v12 = *(v10 + 16);
+  v13 = *(v10 + 32);
+  *(v65 + 9) = *(v10 + 41);
+  v64[1] = v12;
+  v65[0] = v13;
+  v64[0] = v11;
+  std::vector<float>::vector[abi:nn200100](&__p, (v10 + 64));
+  v68 = *(v10 + 88);
+  v14 = DWORD1(v70[0]);
+  v15 = DWORD1(v65[0]);
+  v16 = *(a2 + 4);
+  v17 = *(a2 + 8);
+  if (DWORD1(v70[0]) == v17 || DWORD1(v65[0]) == v16)
+  {
+    v18 = v70;
+    if (DWORD1(v70[0]) != v17)
     {
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-LABEL_44:
-      if (__p)
-      {
-        v70 = __p;
-        operator delete(__p);
-      }
-
-      if (v74)
-      {
-        v75 = v74;
-        operator delete(v74);
-      }
-
-      return v8 | v7 | v6;
+      v18 = v65;
     }
 
-    v22 = v73;
-    if (DWORD1(v73[0]) != v21)
+    v19 = *v18;
+    if (DWORD1(v70[0]) == v17)
     {
-      v22 = v68;
-    }
-
-    v23 = *v22;
-    if (DWORD1(v73[0]) == v21)
-    {
-      v24 = DWORD1(v68[0]);
+      v20 = DWORD1(v65[0]);
     }
 
     else
     {
-      v24 = DWORD1(v73[0]);
+      v20 = DWORD1(v70[0]);
     }
 
-    v46 = v24;
-    v47 = v23;
-    geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(a1[15] + 104 * v20);
+    v43 = v20;
+    v44 = v19;
+    geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(a1[15] + 104 * v16);
     geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(a1[15] + 104 * *(a2 + 8));
-    v25 = (a1[16] - a1[15]) >> 3;
-    geom::straight_skeleton_evaluator<float>::remove_vertex_from_face_neighbors(a1, *(a2 + 4), v72);
-    geom::straight_skeleton_evaluator<float>::remove_vertex_from_face_neighbors(a1, *(a2 + 8), v67);
+    v21 = (a1[16] - a1[15]) >> 3;
+    geom::straight_skeleton_evaluator<float>::remove_vertex_from_face_neighbors(a1, *(a2 + 4), v69);
+    geom::straight_skeleton_evaluator<float>::remove_vertex_from_face_neighbors(a1, *(a2 + 8), v64);
     __dst[0] = 0;
     __dst[1] = 0;
-    v66 = 0;
-    if (v75 != v74)
+    v63 = 0;
+    if (v72 != v71)
     {
-      std::vector<float>::__vallocate[abi:nn200100](__dst, (v75 - v74) >> 2);
+      std::vector<float>::__vallocate[abi:nn200100](__dst, (v72 - v71) >> 2);
     }
 
-    v26 = -991146299 * v25;
-    v27 = __p;
-    v28 = v70;
-    while (v27 != v28)
+    v22 = -991146299 * v21;
+    v23 = __p;
+    v24 = v67;
+    while (v23 != v24)
     {
-      std::vector<unsigned int>::push_back[abi:nn200100](__dst, v27++);
+      std::vector<unsigned int>::push_back[abi:nn200100](__dst, v23++);
     }
 
-    v29 = v67;
-    if (BYTE4(v76))
+    v25 = v64;
+    if (BYTE4(v73))
     {
-      v29 = v72;
+      v25 = v69;
     }
 
-    v30 = *(v29 + 22) | (*(v29 + 92) << 32);
-    if (v18 == v21 && v19 == v20)
+    v26 = *(v25 + 22) | (*(v25 + 92) << 32);
+    if (v14 == v17 && v15 == v16)
     {
-      v31 = *(a2 + 16);
-      v32 = *a2;
-      v33 = v66;
-      v34 = *__dst;
+      v27 = *(a2 + 16);
+      v28 = *a2;
+      v29 = v63;
+      v30 = *__dst;
       __dst[1] = 0;
-      v66 = 0;
+      v63 = 0;
       __dst[0] = 0;
-      v51 = v31;
-      LODWORD(v52) = 0;
-      WORD2(v52) = 256;
-      v53 = v32;
-      v54 = v26;
-      v55 = v26;
-      v56 = -1;
+      v48 = v27;
+      LODWORD(v49) = 0;
+      WORD2(v49) = 256;
+      v50 = v28;
+      v51 = v22;
+      v52 = v22;
+      v53 = -1;
+      v54 = 0;
+      v55 = 0;
+      v56 = 0;
       v57 = 0;
-      v58 = 0;
-      v59 = 0;
-      v60 = 0;
-      v61 = v34;
-      v62 = v33;
-      v63 = v30 & 0xFFFFFFFFFFLL;
-      v64 = 0;
-      std::vector<geom::straight_skeleton_evaluator<float>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<float>::vertex_state>>::push_back[abi:nn200100](v3, &v51);
-      if (v64 != -1)
+      v58 = v30;
+      v59 = v29;
+      v60 = v26 & 0xFFFFFFFFFFLL;
+      v61 = 0;
+      std::vector<geom::straight_skeleton_evaluator<float>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<float>::vertex_state>>::push_back[abi:nn200100](v3, &v48);
+      if (v61 != -1)
       {
-        (*(&off_286292F88 + v64))(&v48, &v51);
+        (*(&off_286292F88 + v61))(&v45, &v48);
       }
 
-LABEL_41:
-      v8 = v26 & 0xFFFFFF00;
+LABEL_39:
       if (__dst[0])
       {
         __dst[1] = __dst[0];
         operator delete(__dst[0]);
       }
 
-      v7 = v26;
-      v6 = 0x100000000;
-      goto LABEL_44;
-    }
-
-    geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(a1, v47, v46, *(&v68[1] + 4), *(v68 + 12), __dst, v30 & 0xFFFFFFFFFFLL, DWORD2(v68[0]), *a2, *(a2 + 16));
-    if (v47 != v46)
-    {
-LABEL_35:
-      geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v26, &v51);
-      if (LOBYTE(v53) == 1)
-      {
-        v48 = v51;
-        v49 = v52;
-        v50 = 0;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v48);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v77, (a1[22] - a1[21]) >> 5);
-      }
-
-      geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v47, &v51);
-      if (LOBYTE(v53) == 1)
-      {
-        v48 = v51;
-        v49 = v52;
-        v50 = 0;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v48);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v77, (a1[22] - a1[21]) >> 5);
-      }
-
-      geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(a1, v26, &v51, v43, v44);
-      if (LOBYTE(v53) == 1)
-      {
-        v48 = v51;
-        v49 = v52;
-        v50 = 1;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v48);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v77, (a1[22] - a1[21]) >> 5);
-      }
-
       goto LABEL_41;
     }
 
-    v35 = (*v3 + 104 * v47);
-    if (!v35[12].i32[0])
+    geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(a1, v44, v43, *(&v65[1] + 4), *(v65 + 12), __dst, v26 & 0xFFFFFFFFFFLL, DWORD2(v65[0]), *a2, *(a2 + 16));
+    if (v44 != v43)
     {
-      v36 = *a2;
-      v37 = v35[2].f32[0];
-      if (fabsf(v37) <= 0.000005)
+LABEL_33:
+      geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v22, &v48);
+      if (LOBYTE(v50) == 1)
       {
-        v38 = *v35;
+        v45 = v48;
+        v46 = v49;
+        v47 = 0;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v45);
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v74, (a1[22] - a1[21]) >> 5);
+      }
+
+      geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v44, &v48);
+      if (LOBYTE(v50) == 1)
+      {
+        v45 = v48;
+        v46 = v49;
+        v47 = 0;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v45);
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v74, (a1[22] - a1[21]) >> 5);
+      }
+
+      geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(a1, v22, &v48, v39, v40);
+      if (LOBYTE(v50) == 1)
+      {
+        v45 = v48;
+        v46 = v49;
+        v47 = 1;
+        std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v45);
+        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v74, (a1[22] - a1[21]) >> 5);
+      }
+
+      goto LABEL_39;
+    }
+
+    v31 = (*v3 + 104 * v44);
+    if (!v31[12].i32[0])
+    {
+      v32 = *a2;
+      v33 = v31[2].f32[0];
+      if (fabsf(v33) <= 0.000005)
+      {
+        v34 = *v31;
       }
 
       else
       {
-        v38 = vmla_n_f32(*v35, v35[1], v37 * (v36 - v35[3].f32[0]));
+        v34 = vmla_n_f32(*v31, v31[1], v33 * (v32 - v31[3].f32[0]));
       }
 
-      *v35 = v38;
-      v35[3].f32[0] = v36;
-      v35[2].i32[0] = 0;
-      v35[2].i16[2] = 256;
-      v39 = (*v3 + 104 * v26);
-      if (!v39[12].i32[0])
+      *v31 = v34;
+      v31[3].f32[0] = v32;
+      v31[2].i32[0] = 0;
+      v31[2].i16[2] = 256;
+      v35 = (*v3 + 104 * v22);
+      if (!v35[12].i32[0])
       {
-        v40 = *a2;
-        v41 = v39[2].f32[0];
-        if (fabsf(v41) <= 0.000005)
+        v36 = *a2;
+        v37 = v35[2].f32[0];
+        if (fabsf(v37) <= 0.000005)
         {
-          v42 = *v39;
+          v38 = *v35;
         }
 
         else
         {
-          v42 = vmla_n_f32(*v39, v39[1], v41 * (v40 - v39[3].f32[0]));
+          v38 = vmla_n_f32(*v35, v35[1], v37 * (v36 - v35[3].f32[0]));
         }
 
-        *v39 = v42;
-        v39[3].f32[0] = v40;
-        v39[2].i32[0] = 0;
-        v39[2].i16[2] = 256;
-        goto LABEL_35;
+        *v35 = v38;
+        v35[3].f32[0] = v36;
+        v35[2].i32[0] = 0;
+        v35[2].i16[2] = 256;
+        goto LABEL_33;
       }
     }
+
+LABEL_45:
+    v41 = std::__throw_bad_variant_access[abi:nn200100]();
+    std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](v41, v42);
+    return;
   }
 
-  v45 = std::__throw_bad_variant_access[abi:nn200100]();
-  return std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](v45);
+LABEL_41:
+  if (__p)
+  {
+    v67 = __p;
+    operator delete(__p);
+  }
+
+  if (v71)
+  {
+    v72 = v71;
+    operator delete(v71);
+  }
 }
 
 void std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
@@ -5949,7 +7736,7 @@ void std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_eve
   *(a1 + 8) = v7;
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::apply_split_event(void *a1, uint64_t a2)
+unint64_t geom::straight_skeleton_evaluator<float>::apply_split_event(void *a1, uint64_t a2)
 {
   v2 = a1[15] + 104 * *(a2 + 8);
   if (*(v2 + 96))
@@ -5960,44 +7747,44 @@ uint64_t geom::straight_skeleton_evaluator<float>::apply_split_event(void *a1, u
   v6 = *v2;
   v7 = *(v2 + 16);
   v8 = *(v2 + 32);
-  *&v59[9] = *(v2 + 41);
-  v58[1] = v7;
-  *v59 = v8;
-  v58[0] = v6;
+  *&v62[9] = *(v2 + 41);
+  v61[1] = v7;
+  *v62 = v8;
+  v61[0] = v6;
   std::vector<float>::vector[abi:nn200100](__p, (v2 + 64));
   __p[3] = *(v2 + 88);
-  LOBYTE(v55) = 0;
-  v57 = 0;
-  v52[0] = a1;
-  v52[1] = v58;
-  v53 = &v55;
-  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<float>::apply_split_event(geom::straight_skeleton_evaluator<float>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(a1, v52, *(a2 + 4), v9, v10);
-  if (v57 != 1)
+  LOBYTE(v58) = 0;
+  v60 = 0;
+  v55[0] = a1;
+  v55[1] = v61;
+  v56 = &v58;
+  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<float>::apply_split_event(geom::straight_skeleton_evaluator<float>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(a1, v55, *(a2 + 4), v9, v10);
+  if (v60 != 1)
   {
     goto LABEL_8;
   }
 
-  v11 = v55;
+  v11 = v58;
   v12 = a1[15];
-  v13 = v12 + 104 * v55;
+  v13 = v12 + 104 * v58;
   if (*(v13 + 96))
   {
     goto LABEL_47;
   }
 
-  v14 = v56;
-  v15 = v12 + 104 * v56;
+  v14 = v59;
+  v15 = v12 + 104 * v59;
   if (*(v15 + 96))
   {
     goto LABEL_47;
   }
 
-  v16 = *v59;
+  v16 = *v62;
   v17 = *(a2 + 8);
-  if (*v59 != v17)
+  if (*v62 != v17)
   {
-    v18 = *&v59[4];
-    if (*&v59[4] != v17)
+    v18 = *&v62[4];
+    if (*&v62[4] != v17)
     {
       geom::straight_skeleton_evaluator<float>::add_triangle_fan_for_active_vertex(a1, v17, *a2);
       v22 = v21;
@@ -6007,27 +7794,27 @@ uint64_t geom::straight_skeleton_evaluator<float>::apply_split_event(void *a1, u
       if (!*(v24 + 96))
       {
         v25 = *(v24 + 40);
-        v48 = *&v59[8];
+        v51 = *&v62[8];
         v26 = *(v24 + 44);
-        v47 = *&v59[20];
-        v27 = *&v59[12];
+        v50 = *&v62[20];
+        v27 = *&v62[12];
         geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(v23 + 104 * *(a2 + 8));
-        LODWORD(v49) = v22;
-        std::vector<unsigned int>::vector[abi:nn200100](v52, &v49, 1uLL);
-        vertex_and_update_neighbors = geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(a1, v16, v14, v11 | 0x100000000, v26, v52, 0, v25, *a2, *(a2 + 16));
-        if (v52[0])
+        LODWORD(v52) = v22;
+        std::vector<unsigned int>::vector[abi:nn200100](v55, &v52, 1uLL);
+        vertex_and_update_neighbors = geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(a1, v16, v14, v11 | 0x100000000, v26, v55, 0, v25, *a2, *(a2 + 16));
+        if (v55[0])
         {
-          v52[1] = v52[0];
-          operator delete(v52[0]);
+          v55[1] = v55[0];
+          operator delete(v55[0]);
         }
 
-        LODWORD(v49) = v22;
-        std::vector<unsigned int>::vector[abi:nn200100](v52, &v49, 1uLL);
-        v29 = geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(a1, v11, v18, v47, v27, v52, 0, v48, *a2, *(a2 + 16));
-        if (v52[0])
+        LODWORD(v52) = v22;
+        std::vector<unsigned int>::vector[abi:nn200100](v55, &v52, 1uLL);
+        v29 = geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(a1, v11, v18, v50, v27, v55, 0, v51, *a2, *(a2 + 16));
+        if (v55[0])
         {
-          v52[1] = v52[0];
-          operator delete(v52[0]);
+          v55[1] = v55[0];
+          operator delete(v55[0]);
         }
 
         if (v16 == v14)
@@ -6081,44 +7868,44 @@ uint64_t geom::straight_skeleton_evaluator<float>::apply_split_event(void *a1, u
         if (v11 != v18)
         {
 LABEL_38:
-          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, vertex_and_update_neighbors, v52);
-          if (v54 == 1)
+          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, vertex_and_update_neighbors, v55);
+          if (v57 == 1)
           {
-            v49 = *v52;
-            v50 = v53;
-            v51 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v49);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v61, (a1[22] - a1[21]) >> 5);
+            v52 = *v55;
+            v53 = v56;
+            v54 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v52);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v64, (a1[22] - a1[21]) >> 5);
           }
 
-          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v16, v52);
-          if (v54 == 1)
+          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v16, v55);
+          if (v57 == 1)
           {
-            v49 = *v52;
-            v50 = v53;
-            v51 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v49);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v61, (a1[22] - a1[21]) >> 5);
+            v52 = *v55;
+            v53 = v56;
+            v54 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v52);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v64, (a1[22] - a1[21]) >> 5);
           }
 
-          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v29, v52);
-          if (v54 == 1)
+          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v29, v55);
+          if (v57 == 1)
           {
-            v49 = *v52;
-            v50 = v53;
-            v51 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v49);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v61, (a1[22] - a1[21]) >> 5);
+            v52 = *v55;
+            v53 = v56;
+            v54 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v52);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v64, (a1[22] - a1[21]) >> 5);
           }
 
-          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v11, v52);
-          if (v54 == 1)
+          geom::straight_skeleton_evaluator<float>::edge_event_for_edge(a1, v11, v55);
+          if (v57 == 1)
           {
-            v49 = *v52;
-            v50 = v53;
-            v51 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v49);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v61, (a1[22] - a1[21]) >> 5);
+            v52 = *v55;
+            v53 = v56;
+            v54 = 0;
+            std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v52);
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<float>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<float>::edge_event,geom::straight_skeleton_evaluator<float>::split_event> *>>(a1[21], a1[22], v64, (a1[22] - a1[21]) >> 5);
           }
 
           v20 = vertex_and_update_neighbors & 0xFFFFFF00 | (v29 << 32);
@@ -6171,7 +7958,7 @@ LABEL_38:
 
 LABEL_47:
       v46 = std::__throw_bad_variant_access[abi:nn200100]();
-      return geom::straight_skeleton_evaluator<float>::add_joiner_mesh_faces_for_events(v46);
+      return geom::straight_skeleton_evaluator<float>::add_joiner_mesh_faces_for_events(v46, v47, v48, v49);
     }
   }
 
@@ -6190,9 +7977,9 @@ LABEL_9:
 
 uint64_t geom::straight_skeleton_evaluator<float>::add_joiner_mesh_faces_for_events(uint64_t a1, uint64_t *a2, uint64_t a3, float a4)
 {
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 1065353216;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 1065353216;
   if (a3)
   {
     v6 = a2;
@@ -6210,28 +7997,29 @@ uint64_t geom::straight_skeleton_evaluator<float>::add_joiner_mesh_faces_for_eve
       if (!*(*(a1 + 120) + 104 * v8 + 96))
       {
         p_src = &__src;
+        v13 = &__src;
 LABEL_12:
-        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v19, p_src);
+        std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v22, p_src, v13);
       }
 
 LABEL_13:
       v6 = (v6 + 12);
       if (v6 == v7)
       {
-        v13 = v20;
-        if (v20)
+        v14 = v23;
+        if (v23)
         {
           do
           {
-            geom::straight_skeleton_evaluator<float>::add_triangle_fan_for_active_vertex(a1, *(v13 + 4), a4);
-            v13 = *v13;
+            geom::straight_skeleton_evaluator<float>::add_triangle_fan_for_active_vertex(a1, *(v14 + 4), a4);
+            v14 = *v14;
           }
 
-          while (v13);
+          while (v14);
           goto LABEL_16;
         }
 
-        return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v19);
+        return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v22);
       }
     }
 
@@ -6249,7 +8037,7 @@ LABEL_13:
 
     else
     {
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v19, &__src);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v22, &__src, &__src);
       LODWORD(v11) = HIDWORD(__src);
       v10 = *(a1 + 120);
     }
@@ -6260,41 +8048,42 @@ LABEL_13:
     }
 
     p_src = &__src + 1;
+    v13 = (&__src + 4);
     goto LABEL_12;
   }
 
 LABEL_16:
-  v14 = v20;
-  if (!v20)
+  v15 = v23;
+  if (!v23)
   {
-    return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v19);
+    return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v22);
   }
 
   while (1)
   {
-    v15 = *(a1 + 120) + 104 * *(v14 + 4);
-    if (*(v15 + 96))
+    v16 = *(a1 + 120) + 104 * *(v15 + 4);
+    if (*(v16 + 96))
     {
       break;
     }
 
-    LODWORD(__src) = *(v15 + 88);
-    std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v15 + 64), &__src, &__src + 4, 1uLL);
-    if (*(v15 + 92) == 1)
+    LODWORD(__src) = *(v16 + 88);
+    std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v16 + 64), &__src, &__src + 4, 1uLL);
+    if (*(v16 + 92) == 1)
     {
-      *(v15 + 92) = 0;
+      *(v16 + 92) = 0;
     }
 
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
-      return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v19);
+      return std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v22);
     }
   }
 
 LABEL_22:
-  v17 = std::__throw_bad_variant_access[abi:nn200100]();
-  return geom::straight_skeleton_evaluator<float>::extract_offset_curve(v17);
+  v18 = std::__throw_bad_variant_access[abi:nn200100]();
+  return geom::straight_skeleton_evaluator<float>::extract_offset_curve(v18, v19, v20);
 }
 
 void geom::straight_skeleton_evaluator<float>::extract_offset_curve(float32x2_t *a1, float32x2_t *a2, void *a3)
@@ -6352,8 +8141,8 @@ LABEL_6:
       if ((v13 & i) != 0)
       {
         v22 = *a3;
-        v25.i32[0] = (*(*(a3 + 8) + 8) - **(a3 + 8)) >> 3;
-        std::vector<unsigned int>::push_back[abi:nn200100](v22, &v25);
+        v30.i32[0] = (*(*(a3 + 8) + 8) - **(a3 + 8)) >> 3;
+        std::vector<unsigned int>::push_back[abi:nn200100](v22, &v30);
         v7 = *(a1 + 120);
         v6 = *(a1 + 128);
         goto LABEL_6;
@@ -6378,8 +8167,8 @@ LABEL_6:
       }
 
       v19 = a2[1];
-      v25 = vmla_n_f32(v15[25], v18, v15[26].f32[0]);
-      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v19, &v25);
+      v30 = vmla_n_f32(v15[25], v18, v15[26].f32[0]);
+      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v19, &v30);
       v20 = __p[0];
       *(__p[0] + v12) |= v13;
       v21 = *(a1 + 120) + 104 * v11;
@@ -6394,7 +8183,7 @@ LABEL_6:
     }
 
     v23 = std::__throw_bad_variant_access[abi:nn200100]();
-    geom::straight_skeleton_evaluator<float>::extract_joiner_mesh(v23);
+    geom::straight_skeleton_evaluator<float>::extract_joiner_mesh(v23, v24, v25, v26, v27, v28);
   }
 }
 
@@ -6473,8 +8262,7 @@ __n128 geom::straight_skeleton_evaluator<float>::vertex_state::vertex_state(uint
   result = a2[4];
   *(a1 + 64) = result;
   *(a1 + 80) = *(a2 + 10);
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
+  *(a2 + 72) = 0uLL;
   *(a2 + 8) = 0;
   *(a1 + 88) = *(a2 + 11);
   *(a1 + 96) = 0;
@@ -6523,15 +8311,50 @@ uint64_t geom::straight_skeleton_evaluator<float>::vertex_state::get_inactive(ui
   return result;
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::vertex_state::spoke(uint64_t result)
+void geom::straight_skeleton_evaluator<float>::vertex_state::spoke(uint64_t result)
 {
   if (*(result + 96) >= 2u)
   {
     v1 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(v1);
+    geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(v1);
   }
+}
 
-  return result;
+void geom::straight_skeleton_evaluator<float>::vertex_state::make_inactive(uint64_t a1)
+{
+  if (!*(a1 + 96))
+  {
+    *&v8[17] = v1;
+    v9 = v2;
+    *v6 = *a1;
+    *&v6[16] = *(a1 + 16);
+    std::vector<float>::vector[abi:nn200100](__p, (a1 + 64));
+    __p[3] = *(a1 + 88);
+    *v5 = *v6;
+    *&v5[12] = *&v6[12];
+    v4 = *(a1 + 96);
+    if (v4 != -1)
+    {
+      if (v4 == 1)
+      {
+        *a1 = *v5;
+        *(a1 + 16) = *&v5[16];
+        goto LABEL_7;
+      }
+
+      (*(&off_286292F88 + v4))(v8, a1);
+    }
+
+    *a1 = *v5;
+    *(a1 + 16) = *&v5[16];
+    *(a1 + 96) = 1;
+LABEL_7:
+    if (__p[0])
+    {
+      __p[1] = __p[0];
+      operator delete(__p[0]);
+    }
+  }
 }
 
 uint64_t geom::straight_skeleton_evaluator<float>::remove_vertex_from_face_neighbors(uint64_t result, uint64_t a2, uint64_t a3)
@@ -6571,7 +8394,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::remove_vertex_from_face_neigh
   {
 LABEL_10:
     v10 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(v10);
+    return geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neighbors(v10, v11, v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
   v9 = *(a3 + 52);
@@ -6584,7 +8407,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neig
 {
   v20 = a1 + 15;
   v19 = a1[15];
-  v41 = a1[16];
+  v43 = a1[16];
   geom::straight_skeleton_evaluator<float>::find_distinct_neighbor(a1, a2, a3, 0, *&a10, a9);
   if ((v21 & 0x100000000) != 0)
   {
@@ -6641,42 +8464,42 @@ uint64_t geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neig
     v30 = vmla_n_f32(*v28, v28[1], v29 * (a9 - v28[3].f32[0]));
   }
 
-  geom::spoke<float>::spoke(v43, a10, v27, v30, a9);
-  *v44 = a2;
-  *&v44[4] = a3;
-  *&v44[8] = a8;
-  *&v44[12] = a5;
-  v44[16] = BYTE4(a5);
-  *&v44[20] = a4;
-  v44[24] = BYTE4(a4);
+  geom::spoke<float>::spoke(v45, a10, v27, v30, a9);
+  *v46 = a2;
+  *&v46[4] = a3;
+  *&v46[8] = a8;
+  *&v46[12] = a5;
+  v46[16] = BYTE4(a5);
+  *&v46[20] = a4;
+  v46[24] = BYTE4(a4);
   v31 = *(a6 + 2);
   v32 = *a6;
   *(a6 + 1) = 0;
   *(a6 + 2) = 0;
   *a6 = 0;
-  BYTE4(v48) = BYTE4(a7);
-  LODWORD(v48) = a7;
-  v49[0] = v43[0];
-  v49[1] = v43[1];
-  v50[0] = *v44;
-  *(v50 + 9) = *&v44[9];
-  v50[2] = v32;
+  BYTE4(v50) = BYTE4(a7);
+  LODWORD(v50) = a7;
+  v51[0] = v45[0];
+  v51[1] = v45[1];
+  v52[0] = *v46;
+  *(v52 + 9) = *&v46[9];
+  v52[2] = v32;
   __p = 0;
-  v46 = 0;
-  v47 = 0;
-  v51 = v31;
-  v52 = v48;
-  v53 = 0;
-  std::vector<geom::straight_skeleton_evaluator<float>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<float>::vertex_state>>::push_back[abi:nn200100](v20, v49);
-  if (v53 != -1)
+  v48 = 0;
+  v49 = 0;
+  v53 = v31;
+  v54 = v50;
+  v55 = 0;
+  std::vector<geom::straight_skeleton_evaluator<float>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<float>::vertex_state>>::push_back[abi:nn200100](v20, v51);
+  if (v55 != -1)
   {
-    (*(&off_286292F88 + v53))(v54, v49);
+    (*(&off_286292F88 + v55))(v56, v51);
   }
 
-  v53 = -1;
+  v55 = -1;
   if (__p)
   {
-    v46 = __p;
+    v48 = __p;
     operator delete(__p);
   }
 
@@ -6687,7 +8510,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neig
     goto LABEL_31;
   }
 
-  result = -991146299 * ((v41 - v19) >> 3);
+  result = -991146299 * ((v43 - v19) >> 3);
   *(v34 + 36) = result;
   v36 = v33 + 104 * a3;
   if (*(v36 + 96))
@@ -6718,7 +8541,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::create_vertex_and_update_neig
   {
 LABEL_31:
     v40 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<float>::apply_split_event(geom::straight_skeleton_evaluator<float>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(v40);
+    return geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<float>::apply_split_event(geom::straight_skeleton_evaluator<float>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(v40, v41, v42);
   }
 
   *(v38 + 52) = result;
@@ -6734,7 +8557,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<float>::apply_split_event(geom::straight_skeleton_evaluator<float>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, uint64_t a2, unsigned int a3, double a4, double a5)
+uint64_t geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<float>::apply_split_event(geom::straight_skeleton_evaluator<float>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, void *a2, unsigned int a3, double a4, double a5)
 {
   v5 = *(*(result + 144) + 8 * a3);
   if ((v5 & 0x100000000) != 0)
@@ -6763,10 +8586,10 @@ uint64_t geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_fa
         break;
       }
 
-      result = geom::intersect_wavefront_edge_spoke<float>(v11, v13, *(a2 + 8), a4, a5);
+      result = geom::intersect_wavefront_edge_spoke<float>(v11, v13, a2[1], a4, a5);
       if ((result & 0x100000000) != 0)
       {
-        v14 = *(a2 + 16);
+        v14 = a2[2];
         if (*(v14 + 8) == 1)
         {
           *v14 = v8;
@@ -6788,7 +8611,7 @@ uint64_t geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge_on_fa
     }
 
     v15 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<float>::add_triangle_fan_for_active_vertex(v15);
+    return geom::straight_skeleton_evaluator<float>::add_triangle_fan_for_active_vertex(v15, v16, v17);
   }
 
   return result;
@@ -6939,7 +8762,7 @@ void geom::straight_skeleton_evaluator<float>::add_joiner_mesh_triangle(uint64_t
   std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 48), &v5);
 }
 
-float32x2_t geom::straight_skeleton_evaluator<float>::find_distinct_neighbor(uint64_t a1, unsigned int a2, unsigned int a3, int a4, float32x2_t result, float a6)
+float32x2_t geom::straight_skeleton_evaluator<float>::find_distinct_neighbor(uint64_t a1, unsigned int a2, unsigned int a3, int a4, float32x2_t a5, float a6)
 {
   v6 = a2;
   if (a2 != a3)
@@ -6969,7 +8792,7 @@ float32x2_t geom::straight_skeleton_evaluator<float>::find_distinct_neighbor(uin
         v10 = vmla_n_f32(*v8, v8[1], v9 * (a6 - v8[3].f32[0]));
       }
 
-      v11 = vsub_f32(v10, result);
+      v11 = vsub_f32(v10, a5);
       if (sqrtf(vaddv_f32(vmul_f32(v11, v11))) <= 0.000005)
       {
         v6 = v8->u32[v7];
@@ -6979,14 +8802,14 @@ float32x2_t geom::straight_skeleton_evaluator<float>::find_distinct_neighbor(uin
         }
       }
 
-      return result;
+      return a5;
     }
 
     v12 = std::__throw_bad_variant_access[abi:nn200100]();
     return geom::straight_skeleton_evaluator<float>::internal_to_user_position(v12, v13);
   }
 
-  return result;
+  return a5;
 }
 
 void geom::straight_skeleton_evaluator<float>::check_topological_invariants(void *a1@<X0>, _BYTE *a2@<X8>)
@@ -7948,8 +9771,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -7959,20 +9781,20 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
 
 void geom::straight_skeleton_evaluator<float>::check_geometric_invariants(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
+  v51 = 0;
+  v52 = 0;
   v53 = 0;
-  v54 = 0;
-  v55 = 0;
-  v46[0] = a1;
-  v46[1] = &v53;
-  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)::{lambda(unsigned int,unsigned int)#1}>(a1, v46);
+  v44[0] = a1;
+  v44[1] = &v51;
+  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)::{lambda(unsigned int,unsigned int)#1}>(a1, v44);
   v3 = *(a1 + 120);
   if (*(a1 + 128) != v3)
   {
     v4 = 0;
     v5 = 0;
-    v43 = *MEMORY[0x277D82818];
-    v41 = *(MEMORY[0x277D82818] + 72);
-    v42 = *(MEMORY[0x277D82818] + 64);
+    v41 = *MEMORY[0x277D82818];
+    v39 = *(MEMORY[0x277D82818] + 72);
+    v40 = *(MEMORY[0x277D82818] + 64);
     do
     {
       if (v3)
@@ -7984,8 +9806,8 @@ void geom::straight_skeleton_evaluator<float>::check_geometric_invariants(uint64
           v8 = fabsf(v6[2].f32[0]);
           if ((v5 == v7) != v8 <= 0.000005)
           {
-            std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v46);
-            v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v47, "vertex ", 7);
+            std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v44);
+            v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v45, "vertex ", 7);
             v10 = MEMORY[0x25305E2F0](v9, v5);
             v11 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, ": is self loop = ", 17);
             if (v5 == v7)
@@ -8032,25 +9854,25 @@ void geom::straight_skeleton_evaluator<float>::check_geometric_invariants(uint64
 
             std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, v16, v17);
             std::stringbuf::str();
-            std::vector<std::string>::push_back[abi:nn200100](&v53, __p);
-            if (v45 < 0)
+            std::vector<std::string>::push_back[abi:nn200100](&v51, __p);
+            if (v43 < 0)
             {
               operator delete(__p[0]);
             }
 
-            v46[0] = v43;
-            *(v46 + *(v43 - 3)) = v42;
-            v47 = v41;
-            v48 = MEMORY[0x277D82878] + 16;
-            if (v51 < 0)
+            v44[0] = v41;
+            *(v44 + *(v41 - 3)) = v40;
+            v45 = v39;
+            v46 = MEMORY[0x277D82878] + 16;
+            if (v49 < 0)
             {
-              operator delete(v50);
+              operator delete(v48);
             }
 
-            v48 = MEMORY[0x277D82868] + 16;
-            std::locale::~locale(v49);
+            v46 = MEMORY[0x277D82868] + 16;
+            std::locale::~locale(v47);
             std::iostream::~basic_iostream();
-            MEMORY[0x25305E3C0](v52);
+            MEMORY[0x25305E3C0](v50);
           }
 
           if (v8 > 0.000005)
@@ -8058,67 +9880,65 @@ void geom::straight_skeleton_evaluator<float>::check_geometric_invariants(uint64
             v18 = sqrtf(vaddv_f32(vmul_f32(v6[1], v6[1])));
             if (v18 != 1.0 && fabsf(v18 + -1.0) > 0.000005)
             {
-              std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v46);
-              v19 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v47, "vertex ", 7);
+              std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v44);
+              v19 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v45, "vertex ", 7);
               v20 = MEMORY[0x25305E2F0](v19, v5);
               std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ": has non-zero speed but direction is non-unit  ([", 50);
-              v21 = v6[1];
+              v21 = std::ostream::operator<<();
+              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ", ", 2);
               v22 = std::ostream::operator<<();
-              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, ", ", 2);
-              v23 = v6[1].i32[1];
-              v24 = std::ostream::operator<<();
-              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v24, "] has length ", 13);
-              v25 = std::ostream::operator<<();
-              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, ")", 1);
+              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, "] has length ", 13);
+              v23 = std::ostream::operator<<();
+              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v23, ")", 1);
               std::stringbuf::str();
-              std::vector<std::string>::push_back[abi:nn200100](&v53, __p);
-              if (v45 < 0)
+              std::vector<std::string>::push_back[abi:nn200100](&v51, __p);
+              if (v43 < 0)
               {
                 operator delete(__p[0]);
               }
 
-              v46[0] = v43;
-              *(v46 + *(v43 - 3)) = v42;
-              v47 = v41;
-              v48 = MEMORY[0x277D82878] + 16;
-              if (v51 < 0)
+              v44[0] = v41;
+              *(v44 + *(v41 - 3)) = v40;
+              v45 = v39;
+              v46 = MEMORY[0x277D82878] + 16;
+              if (v49 < 0)
               {
-                operator delete(v50);
+                operator delete(v48);
               }
 
-              v48 = MEMORY[0x277D82868] + 16;
-              std::locale::~locale(v49);
+              v46 = MEMORY[0x277D82868] + 16;
+              std::locale::~locale(v47);
               std::iostream::~basic_iostream();
-              MEMORY[0x25305E3C0](v52);
+              MEMORY[0x25305E3C0](v50);
             }
           }
 
           if (v5 != v7 && *&v6[8] == *&v6[9])
           {
-            std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v46);
-            v26 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v47, "vertex ", 7);
-            v27 = MEMORY[0x25305E2F0](v26, v5);
-            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, ": active vertex was not meshed (ancestors_in_joiner is empty)", 61);
+            std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v44);
+            v24 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v45, "vertex ", 7);
+            v25 = MEMORY[0x25305E2F0](v24, v5);
+            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, ": active vertex was not meshed (ancestors_in_joiner is empty)", 61);
             std::stringbuf::str();
-            std::vector<std::string>::push_back[abi:nn200100](&v53, __p);
-            if (v45 < 0)
+            std::vector<std::string>::push_back[abi:nn200100](&v51, __p);
+            if (v43 < 0)
             {
               operator delete(__p[0]);
             }
 
-            v46[0] = v43;
-            *(v46 + *(v43 - 3)) = v42;
-            v47 = v41;
-            v48 = MEMORY[0x277D82878] + 16;
-            if (v51 < 0)
+            v44[0] = v41;
+            *(v44 + *(v41 - 3)) = v40;
+            v45 = v39;
+            v46 = MEMORY[0x277D82878] + 16;
+            if (v49 < 0)
             {
-              operator delete(v50);
+              operator delete(v48);
             }
 
-            v48 = MEMORY[0x277D82868] + 16;
-            std::locale::~locale(v49);
+            v46 = MEMORY[0x277D82868] + 16;
+            std::locale::~locale(v47);
             std::iostream::~basic_iostream();
-            MEMORY[0x25305E3C0](v52);
+            MEMORY[0x25305E3C0](v50);
           }
         }
       }
@@ -8131,7 +9951,7 @@ void geom::straight_skeleton_evaluator<float>::check_geometric_invariants(uint64
     while (0x4EC4EC4EC4EC4EC5 * ((*(a1 + 128) - v3) >> 3) > v4);
   }
 
-  if (v53 == v54)
+  if (v51 == v52)
   {
     *a2 = 0;
     a2[24] = 0;
@@ -8139,1759 +9959,70 @@ void geom::straight_skeleton_evaluator<float>::check_geometric_invariants(uint64
 
   else
   {
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v46);
-    v28 = v53;
-    v29 = v54;
-    if (v53 != v54)
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v44);
+    v26 = v51;
+    v27 = v52;
+    if (v51 != v52)
     {
-      v30 = 1;
-      v31 = MEMORY[0x277D82680];
+      v28 = 1;
+      v29 = MEMORY[0x277D82680];
       do
       {
-        v32 = MEMORY[0x25305E2E0](&v47, v30);
-        v33 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v32, ". ", 2);
-        v34 = *(v28 + 23);
-        if (v34 >= 0)
+        v30 = MEMORY[0x25305E2E0](&v45, v28);
+        v31 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v30, ". ", 2);
+        v32 = *(v26 + 23);
+        if (v32 >= 0)
         {
-          v35 = v28;
+          v33 = v26;
         }
 
         else
         {
-          v35 = *v28;
+          v33 = *v26;
         }
 
-        if (v34 >= 0)
+        if (v32 >= 0)
         {
-          v36 = *(v28 + 23);
+          v34 = *(v26 + 23);
         }
 
         else
         {
-          v36 = *(v28 + 8);
+          v34 = *(v26 + 8);
         }
 
-        v37 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v33, v35, v36);
-        std::ios_base::getloc((v37 + *(*v37 - 24)));
-        v38 = std::locale::use_facet(__p, v31);
-        (v38->__vftable[2].~facet_0)(v38, 10);
+        v35 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, v33, v34);
+        std::ios_base::getloc((v35 + *(*v35 - 24)));
+        v36 = std::locale::use_facet(__p, v29);
+        (v36->__vftable[2].~facet_0)(v36, 10);
         std::locale::~locale(__p);
         std::ostream::put();
         std::ostream::flush();
-        v30 = (v30 + 1);
-        v28 += 24;
+        v28 = (v28 + 1);
+        v26 += 24;
       }
 
-      while (v28 != v29);
+      while (v26 != v27);
     }
 
     std::stringbuf::str();
     a2[24] = 1;
-    v46[0] = *MEMORY[0x277D82818];
-    v39 = *(MEMORY[0x277D82818] + 72);
-    *(v46 + *(v46[0] - 3)) = *(MEMORY[0x277D82818] + 64);
-    v47 = v39;
-    v48 = MEMORY[0x277D82878] + 16;
-    if (v51 < 0)
+    v44[0] = *MEMORY[0x277D82818];
+    v37 = *(MEMORY[0x277D82818] + 72);
+    *(v44 + *(v44[0] - 3)) = *(MEMORY[0x277D82818] + 64);
+    v45 = v37;
+    v46 = MEMORY[0x277D82878] + 16;
+    if (v49 < 0)
     {
-      operator delete(v50);
+      operator delete(v48);
     }
 
-    v48 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v49);
+    v46 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v47);
     std::iostream::~basic_iostream();
-    MEMORY[0x25305E3C0](v52);
+    MEMORY[0x25305E3C0](v50);
   }
 
-  v46[0] = &v53;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v46);
-}
-
-uint64_t geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, uint64_t a2)
-{
-  v3 = *(result + 120);
-  v2 = *(result + 128);
-  if (v2 != v3)
-  {
-    v5 = result;
-    v6 = 0;
-    v7 = 0;
-    do
-    {
-      if (v3)
-      {
-        v8 = v3 + 104 * v6;
-        if (!*(v8 + 96))
-        {
-          v9 = *(v8 + 36);
-          if (v7 != v9)
-          {
-            result = geom::straight_skeleton_evaluator<float>::check_geometric_invariants(void)const::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
-            v3 = *(v5 + 120);
-            v2 = *(v5 + 128);
-          }
-        }
-      }
-
-      v6 = (v7 + 1);
-      v7 = v6;
-    }
-
-    while (0x4EC4EC4EC4EC4EC5 * ((v2 - v3) >> 3) > v6);
-  }
-
-  return result;
-}
-
-uint64_t geom::intersect_adjacent_spokes<float>(float32x2_t *a1, float32x2_t *a2)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = a1[2].f32[0];
-  v6 = vmul_n_f32(v4, v5);
-  v7 = *a2;
-  v8 = a2[1];
-  v9 = a2[2].f32[0];
-  v10 = vmul_n_f32(v8, v9);
-  v11 = vmul_f32(v6, v6);
-  v12 = vmul_f32(v10, v10);
-  v13 = vadd_f32(vzip1_s32(v12, v11), vzip2_s32(v12, v11));
-  v14 = vabs_f32(v13);
-  v15 = vcge_f32(0x3400000034000000, v14);
-  v16 = v15.i8[4];
-  v17 = v15.i8[0];
-  if (v15.i32[1] & v15.i32[0])
-  {
-    v18 = vsub_f32(v3, v7);
-    v19 = sqrtf(vaddv_f32(vmul_f32(v18, v18)));
-    v20 = 0;
-    if (v19 <= 0.00001)
-    {
-      goto LABEL_41;
-    }
-
-    goto LABEL_19;
-  }
-
-  v21 = vsub_f32(v7, v3);
-  v22 = v16 | v17;
-  if (v16)
-  {
-    v23 = v13.f32[0];
-  }
-
-  else
-  {
-    v23 = v13.f32[1];
-  }
-
-  if (v16)
-  {
-    v24 = -1;
-  }
-
-  else
-  {
-    v24 = 0;
-  }
-
-  if (v22)
-  {
-    v25 = vbsl_s8(vdup_n_s32(v24), v10, v6);
-    if (v16)
-    {
-      v26 = -1;
-    }
-
-    else
-    {
-      v26 = 0;
-    }
-
-    v13 = vneg_f32(v21);
-    v27 = vbsl_s8(vdup_n_s32(v26), v13, v21);
-    if ((((-v25.f32[1] * v27.f32[0]) + (v25.f32[0] * v27.f32[1])) * ((-v25.f32[1] * v27.f32[0]) + (v25.f32[0] * v27.f32[1]))) <= (v23 * 1.0e-10))
-    {
-      v28 = 0;
-      v21 = vcge_f32(0x3400000034000000, v14);
-      v29 = vmul_f32(v25, v27);
-      v29.f32[0] = vaddv_f32(v29) / v23;
-      v30 = vbic_s8(vdup_lane_s32(v29, 0), v21);
-      goto LABEL_21;
-    }
-
-LABEL_19:
-    v31 = 0;
-    v32 = 0.0;
-    return v31 | LODWORD(v32);
-  }
-
-  *v2.i32 = (-v6.f32[1] * v10.f32[0]) + (v6.f32[0] * v10.f32[1]);
-  if (fabsf(*v2.i32 * *v2.i32) <= ((v13.f32[1] * v13.f32[0]) * 1.0e-10))
-  {
-    if (fabsf(((v21.f32[0] * v6.f32[1]) - (v21.f32[1] * v6.f32[0])) * ((v21.f32[0] * v6.f32[1]) - (v21.f32[1] * v6.f32[0]))) > ((vaddv_f32(vmul_f32(v21, v21)) * v13.f32[1]) * 1.0e-10))
-    {
-      goto LABEL_19;
-    }
-
-    v33 = vmul_f32(v21, v6);
-    v34 = vmul_f32(v10, vneg_f32(v21));
-    v21 = vzip1_s32(v34, v33);
-    v30 = vdiv_f32(vadd_f32(v21, vzip2_s32(v34, v33)), v13);
-    v28 = 1;
-  }
-
-  else
-  {
-    v28 = 0;
-    v13 = vmla_n_f32(vmul_n_f32(vzip1_s32(v6, v10), -v21.f32[1]), vzip2_s32(v6, v10), v21.f32[0]);
-    v30 = vdiv_f32(v13, vdup_lane_s32(v2, 0));
-  }
-
-LABEL_21:
-  v31 = 0;
-  v32 = 0.0;
-  v36 = v30.f32[1] <= -0.000005 && v30.f32[1] != 0.0;
-  v38 = v30.f32[0] <= -0.000005 && v30.f32[0] != 0.0;
-  if (!v36 && !v38)
-  {
-    if (v28)
-    {
-      v39 = a1[3].f32[0];
-      v40 = a2[3].f32[0];
-      v21.f32[0] = fabsf(v5);
-      v13.i32[0] = 916964780;
-      v41 = vdup_lane_s32(vmvn_s8(vcge_f32(v13, v21)), 0);
-      if (v39 >= v40)
-      {
-        v42 = a1[3].f32[0];
-      }
-
-      else
-      {
-        v42 = a2[3].f32[0];
-      }
-
-      v43 = vbsl_s8(v41, vmla_n_f32(v3, v4, v5 * (v42 - v39)), v3);
-      v4.f32[0] = fabsf(v9);
-      v44 = vsub_f32(v43, vbsl_s8(vdup_lane_s32(vmvn_s8(vcge_f32(v13, v4)), 0), vmla_n_f32(v7, v8, v9 * (v42 - v40)), v7));
-      v32 = v42 + (sqrtf(vaddv_f32(vmul_f32(v44, v44))) / (v5 + v9));
-      goto LABEL_48;
-    }
-
-    v20 = vbic_s8(v30, vcltz_f32(v30));
-LABEL_41:
-    if (fabsf(*&v20.i32[1]) <= 0.000005)
-    {
-      v32 = a1[3].f32[0];
-    }
-
-    else if (fabsf(*v20.i32) <= 0.000005)
-    {
-      v32 = a2[3].f32[0];
-    }
-
-    else
-    {
-      *v20.i32 = *v20.i32 + a2[3].f32[0];
-      if ((*&v20.i32[1] + a1[3].f32[0]) >= *v20.i32)
-      {
-        v32 = *&v20.i32[1] + a1[3].f32[0];
-      }
-
-      else
-      {
-        v32 = *v20.i32;
-      }
-    }
-
-LABEL_48:
-    v31 = 0x100000000;
-  }
-
-  return v31 | LODWORD(v32);
-}
-
-uint64_t geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex(unsigned int)::{lambda(unsigned int,unsigned int)#1}>(uint64_t result, uint64_t a2, double a3, double a4)
-{
-  v5 = *(result + 120);
-  v4 = *(result + 128);
-  if (v4 != v5)
-  {
-    v7 = result;
-    v8 = 0;
-    v9 = 0;
-    do
-    {
-      if (v5)
-      {
-        v10 = v5 + 104 * v8;
-        if (!*(v10 + 96))
-        {
-          v11 = *(v10 + 36);
-          if (v9 != v11)
-          {
-            result = geom::straight_skeleton_evaluator<float>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v9, v11, a3, a4);
-            v5 = *(v7 + 120);
-            v4 = *(v7 + 128);
-          }
-        }
-      }
-
-      v8 = ++v9;
-    }
-
-    while (0x4EC4EC4EC4EC4EC5 * ((v4 - v5) >> 3) > v9);
-  }
-
-  return result;
-}
-
-float geom::straight_skeleton_evaluator<float>::time_of_joiner_vertex(void *a1, unsigned int a2)
-{
-  v2 = a1[9];
-  v3 = a1[10];
-  if (v3 != v2)
-  {
-    v4 = (v3 - v2) >> 2;
-    v3 = a1[9];
-    do
-    {
-      v5 = v4 >> 1;
-      v6 = &v3[4 * (v4 >> 1)];
-      v8 = *v6;
-      v7 = (v6 + 1);
-      v4 += ~(v4 >> 1);
-      if (v8 > a2)
-      {
-        v4 = v5;
-      }
-
-      else
-      {
-        v3 = v7;
-      }
-    }
-
-    while (v4);
-  }
-
-  return *(a1[12] + ((v3 - v2) & 0x3FFFFFFFCLL));
-}
-
-void geom::straight_skeleton_evaluator<float>::for_each_wavefront_vertex<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int)#1},geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(void)#1}>(uint64_t a1, void **a2)
-{
-  memset(__p, 0, sizeof(__p));
-  std::vector<BOOL>::resize(__p, 0x4EC4EC4EC4EC4EC5 * ((*(a1 + 128) - *(a1 + 120)) >> 3), 0);
-  v5 = *(a1 + 120);
-  v6 = *(a1 + 128);
-  v7 = __p[0];
-  if (v6 == v5)
-  {
-LABEL_13:
-    if (v7)
-    {
-      operator delete(v7);
-    }
-
-    return;
-  }
-
-  v8 = 0;
-  v9 = 0;
-  while (1)
-  {
-    v10 = *(v7 + (v8 >> 6));
-    if ((v10 & (1 << v8)) == 0 && !*(v5 + 104 * v8 + 96))
-    {
-      break;
-    }
-
-    *(v7 + (v8 >> 6)) = v10 | (1 << v8);
-LABEL_6:
-    v8 = ++v9;
-    if (0x4EC4EC4EC4EC4EC5 * ((v6 - v5) >> 3) <= v9)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v11 = v9;
-  v12 = v9 >> 6;
-  v13 = 1 << v9;
-  if (((1 << v9) & *(v7 + v12)) != 0)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = v9;
-  while (1)
-  {
-    v4 = geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda#1}::operator()(a2, v14, v4);
-    v7 = __p[0];
-    *(__p[0] + v12) |= v13;
-    v5 = *(a1 + 120);
-    v15 = v5 + 104 * v11;
-    if (*(v15 + 96))
-    {
-      break;
-    }
-
-    v11 = *(v15 + 36);
-    v12 = v11 >> 6;
-    v13 = 1 << v11;
-    v14 = *(v15 + 36);
-    if (((1 << v11) & *(v7 + (v11 >> 6))) != 0)
-    {
-      v6 = *(a1 + 128);
-      goto LABEL_6;
-    }
-  }
-
-  v16 = std::__throw_bad_variant_access[abi:nn200100]();
-  geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}>(v16);
-}
-
-void geom::straight_skeleton_evaluator<float>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}>(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 120);
-  v2 = *(a1 + 128);
-  if (v2 != v3)
-  {
-    v6 = 0;
-    v7 = 0;
-    do
-    {
-      if (v3)
-      {
-        v8 = v3 + 104 * v6;
-        if (!*(v8 + 96))
-        {
-          v9 = *(v8 + 36);
-          if (v7 != v9)
-          {
-            geom::straight_skeleton_evaluator<float>::add_joiner_patch_to_time(float)::{lambda(unsigned int,unsigned int)#1}::operator()(a2, v7, v9);
-            v3 = *(a1 + 120);
-            v2 = *(a1 + 128);
-          }
-        }
-      }
-
-      v6 = ++v7;
-    }
-
-    while (0x4EC4EC4EC4EC4EC5 * ((v2 - v3) >> 3) > v7);
-  }
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::straight_skeleton_evaluator(uint64_t a1, float64x2_t *a2, unint64_t a3, unsigned int *a4, uint64_t a5)
-{
-  v78 = *MEMORY[0x277D85DE8];
-  *(a1 + 96) = 0u;
-  v55 = (a1 + 96);
-  *(a1 + 160) = 0u;
-  *(a1 + 176) = 0u;
-  *(a1 + 112) = 0u;
-  *(a1 + 128) = 0u;
-  *(a1 + 64) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 144) = 0u;
-  std::vector<std::optional<unsigned int>>::resize((a1 + 144), a3);
-  v56 = a2;
-  if (a3)
-  {
-    v10 = vdupq_n_s64(0x7FF0000000000000uLL);
-    v11 = vdupq_n_s64(0xFFF0000000000000);
-    v12 = 16 * a3;
-    do
-    {
-      v13 = *a2++;
-      v10 = vminnmq_f64(v13, v10);
-      v11 = vmaxnmq_f64(v13, v11);
-      v12 -= 16;
-    }
-
-    while (v12);
-  }
-
-  else
-  {
-    v11 = vdupq_n_s64(0xFFF0000000000000);
-    v10 = vdupq_n_s64(0x7FF0000000000000uLL);
-  }
-
-  __asm { FMOV            V3.2D, #0.5 }
-
-  *(a1 + 208) = vmulq_f64(vaddq_f64(v10, v11), _Q3);
-  v61 = vsubq_f64(v11, v10);
-  v19 = *(&v61 & 0xFFFFFFFFFFFFFFF7 | (8 * (*&vmovn_s64(vcgtq_f64(vdupq_laneq_s64(v61, 1), v61)) & 1)));
-  if (fabs(v19) <= 1.0e-10)
-  {
-    v19 = 1.0;
-  }
-
-  *(a1 + 224) = v19;
-  if (a5)
-  {
-    v20 = 0;
-    v57 = &a4[a5];
-    do
-    {
-      v58 = a4;
-      v59 = *a4;
-      if (v59 != v20)
-      {
-        v21 = 0;
-        v22 = &v56[v20];
-        v23 = v59 - v20;
-        v24 = 1;
-        do
-        {
-          v25 = v22[v21];
-          v26 = (v23 - 1 + v21) % v23;
-          v21 = v24;
-          v27 = v24 % v23;
-          v28 = (a1 + 224);
-          v29 = vld1q_dup_f64(v28);
-          geom::spoke<double>::spoke(&v70, vdivq_f64(vsubq_f64(v25, *(a1 + 208)), v29), vdivq_f64(vsubq_f64(v22[v26], *(a1 + 208)), v29), vdivq_f64(vsubq_f64(v22[v27], *(a1 + 208)), v29), 0.0);
-          *v74 = v20 + v26;
-          *&v74[4] = v20 + v27;
-          v30 = v20 + v24 - 1;
-          *&v74[8] = v30;
-          v74[12] = 0;
-          v74[16] = 0;
-          v74[20] = 0;
-          v74[24] = 0;
-          v63.n128_u32[0] = v30;
-          std::vector<unsigned int>::vector[abi:nn200100](&v75, &v63, 1uLL);
-          LOBYTE(v77) = 0;
-          BYTE4(v77) = 0;
-          v31 = *(a1 + 144) + 8 * v30;
-          *v31 = v30;
-          *(v31 + 4) = 1;
-          v33 = *(a1 + 8);
-          v32 = *(a1 + 16);
-          if (v33 >= v32)
-          {
-            v35 = (v33 - *a1) >> 4;
-            if ((v35 + 1) >> 60)
-            {
-              std::__throw_bad_array_new_length[abi:nn200100]();
-            }
-
-            v36 = v32 - *a1;
-            v37 = v36 >> 3;
-            if (v36 >> 3 <= (v35 + 1))
-            {
-              v37 = v35 + 1;
-            }
-
-            if (v36 >= 0x7FFFFFFFFFFFFFF0)
-            {
-              v38 = 0xFFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v38 = v37;
-            }
-
-            if (v38)
-            {
-              _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, v38);
-            }
-
-            *(16 * v35) = v70;
-            v34 = 16 * v35 + 16;
-            v39 = *(a1 + 8) - *a1;
-            v40 = (16 * v35 - v39);
-            memcpy(v40, *a1, v39);
-            v41 = *a1;
-            *a1 = v40;
-            *(a1 + 8) = v34;
-            *(a1 + 16) = 0;
-            if (v41)
-            {
-              operator delete(v41);
-            }
-          }
-
-          else
-          {
-            *v33 = v70;
-            v34 = &v33[1];
-          }
-
-          *(a1 + 8) = v34;
-          v65 = v72;
-          v66 = v73;
-          v67[0] = *v74;
-          *(v67 + 9) = *&v74[9];
-          v63 = v70;
-          v64 = v71;
-          memset(v68, 0, 24);
-          if (v76 != v75)
-          {
-            std::vector<float>::__vallocate[abi:nn200100](v68, (v76 - v75) >> 2);
-          }
-
-          v68[3] = v77;
-          v69 = 0;
-          std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](a1 + 120, &v63);
-          if (v69 != -1)
-          {
-            (*(&off_286292FA8 + v69))(__p, &v63);
-          }
-
-          if (v75)
-          {
-            v76 = v75;
-            operator delete(v75);
-          }
-
-          v24 = v21 + 1;
-        }
-
-        while (v23 > v21);
-      }
-
-      a4 = v58 + 1;
-      v20 = v59;
-    }
-
-    while (v58 + 1 != v57);
-  }
-
-  v63.n128_u32[0] = (*(a1 + 8) - *a1) >> 4;
-  std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 72), &v63);
-  v63.n128_u64[0] = 0;
-  std::vector<double>::push_back[abi:nn200100](v55, &v63);
-  v42 = 0uLL;
-  memset(__p, 0, sizeof(__p));
-  if (*(a1 + 128) == *(a1 + 120))
-  {
-    v47 = 0;
-  }
-
-  else
-  {
-    LODWORD(v43) = 0;
-    do
-    {
-      geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v43, &v63);
-      if (v65 == 1)
-      {
-        v70 = v63;
-        v71 = v64;
-        LODWORD(v72) = 0;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](__p, &v70);
-      }
-
-      geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(a1, v43, &v63, v44, v45, v46);
-      if (v65 == 1)
-      {
-        v70 = v63;
-        v71 = v64;
-        LODWORD(v72) = 1;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](__p, &v70);
-      }
-
-      v43 = (v43 + 1);
-    }
-
-    while (0x8E38E38E38E38E39 * ((*(a1 + 128) - *(a1 + 120)) >> 4) > v43);
-    v47 = __p[0];
-    v42 = *&__p[1];
-  }
-
-  memset(__p, 0, sizeof(__p));
-  v60 = v42;
-  if ((v42 - v47) >= 49)
-  {
-    v48 = 0xAAAAAAAAAAAAAAABLL * ((v42 - v47) >> 4);
-    v49 = (v48 - 2) >> 1;
-    v50 = v49 + 1;
-    v51 = &v47[48 * v49];
-    do
-    {
-      std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(v47, &v63, v48, v51);
-      v51 -= 48;
-      --v50;
-    }
-
-    while (v50);
-  }
-
-  v52 = *(a1 + 168);
-  if (v52)
-  {
-    *(a1 + 176) = v52;
-    operator delete(v52);
-  }
-
-  *(a1 + 168) = v47;
-  *(a1 + 176) = v60;
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-
-  v53 = *MEMORY[0x277D85DE8];
-  return a1;
-}
-
-uint64_t std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::__emplace_back_slow_path<geom::straight_skeleton_evaluator<double>::vertex_state>(a1, a2);
-  }
-
-  else
-  {
-    *v3 = 0;
-    *(v3 + 128) = -1;
-    std::__variant_detail::__ctor<std::__variant_detail::__traits<geom::straight_skeleton_evaluator<double>::active_vertex,geom::straight_skeleton_evaluator<double>::inactive_vertex>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<geom::straight_skeleton_evaluator<double>::active_vertex,geom::straight_skeleton_evaluator<double>::inactive_vertex>,(std::__variant_detail::_Trait)1>>(v3, a2);
-    result = v3 + 144;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::vertex_state::vertex_state(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v4;
-  v5 = *(a2 + 32);
-  v6 = *(a2 + 48);
-  v7 = *(a2 + 64);
-  *(a1 + 73) = *(a2 + 73);
-  *(a1 + 48) = v6;
-  *(a1 + 64) = v7;
-  *(a1 + 32) = v5;
-  std::vector<float>::vector[abi:nn200100]((a1 + 96), (a2 + 96));
-  *(a1 + 120) = *(a2 + 120);
-  *(a1 + 128) = 0;
-  return a1;
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::edge_event_for_edge@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
-{
-  v4 = *(result + 120);
-  v5 = v4 + 144 * a2;
-  if (!*(v5 + 128))
-  {
-    v7 = *(v5 + 68);
-    if (v7 == a2)
-    {
-      goto LABEL_7;
-    }
-
-    v8 = v4 + 144 * v7;
-    if (!*(v8 + 128))
-    {
-      *&result = COERCE_DOUBLE(geom::intersect_adjacent_spokes<double>(v5, v8));
-      if (v9)
-      {
-        v10 = *(v5 + 32);
-        if (fabs(v10) <= 1.0e-10)
-        {
-          v11 = *v5;
-        }
-
-        else
-        {
-          v11 = vmlaq_n_f64(*v5, *(v5 + 16), v10 * (*&result - *(v5 + 48)));
-        }
-
-        v13 = *(v8 + 32);
-        if (fabs(v13) <= 1.0e-10)
-        {
-          v14 = *v8;
-        }
-
-        else
-        {
-          v14 = vmlaq_n_f64(*v8, *(v8 + 16), v13 * (*&result - *(v8 + 48)));
-        }
-
-        v15 = vaddq_f64(v11, v14);
-        __asm { FMOV            V1.2D, #0.5 }
-
-        *a3 = *&result;
-        *(a3 + 8) = a2;
-        *(a3 + 12) = v7;
-        *(a3 + 16) = vmulq_f64(v15, _Q1);
-        v12 = 1;
-        goto LABEL_13;
-      }
-
-LABEL_7:
-      v12 = 0;
-      *a3 = 0;
-LABEL_13:
-      *(a3 + 32) = v12;
-      return result;
-    }
-  }
-
-  v21 = std::__throw_bad_variant_access[abi:nn200100]();
-  *&result = COERCE_DOUBLE(std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](v21));
-  return result;
-}
-
-void std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
-{
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  if (v4 >= v5)
-  {
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
-    v10 = v9 + 1;
-    if (v9 + 1 > 0x555555555555555)
-    {
-      std::__throw_bad_array_new_length[abi:nn200100]();
-    }
-
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 4);
-    if (2 * v11 > v10)
-    {
-      v10 = 2 * v11;
-    }
-
-    if (v11 >= 0x2AAAAAAAAAAAAAALL)
-    {
-      v12 = 0x555555555555555;
-    }
-
-    else
-    {
-      v12 = v10;
-    }
-
-    if (v12)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>>(a1, v12);
-    }
-
-    v13 = 48 * v9;
-    v14 = *a2;
-    v15 = a2[2];
-    *(v13 + 16) = a2[1];
-    *(v13 + 32) = v15;
-    *v13 = v14;
-    v8 = 48 * v9 + 48;
-    v16 = *(a1 + 8) - *a1;
-    v17 = v13 - v16;
-    memcpy((v13 - v16), *a1, v16);
-    v18 = *a1;
-    *a1 = v17;
-    *(a1 + 8) = v8;
-    *(a1 + 16) = 0;
-    if (v18)
-    {
-      operator delete(v18);
-    }
-  }
-
-  else
-  {
-    v6 = *a2;
-    v7 = a2[2];
-    v4[1] = a2[1];
-    v4[2] = v7;
-    *v4 = v6;
-    v8 = (v4 + 3);
-  }
-
-  *(a1 + 8) = v8;
-}
-
-_DWORD **geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex@<X0>(_DWORD **result@<X0>, int a2@<W1>, uint64_t a3@<X8>, double a4@<D0>, double a5@<D1>, float64x2_t a6@<Q2>)
-{
-  v10 = a2;
-  v6 = &result[15][36 * a2];
-  if (*(v6 + 128))
-  {
-    v8 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<double>::straight_skeleton_evaluator(v8);
-  }
-
-  else
-  {
-    v7 = *(v6 + 40);
-    *a3 = 0;
-    *(a3 + 32) = 0;
-    if (v7 == 1)
-    {
-      v9[0] = result;
-      v9[1] = &v10;
-      v9[2] = a3;
-      return geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex::{lambda(unsigned int,unsigned int)#1}>(result, v9, a4, a5, a6);
-    }
-  }
-
-  return result;
-}
-
-void geom::straight_skeleton_evaluator<double>::advance_to_inset_distance(uint64_t a1, double a2)
-{
-  v3 = *(a1 + 224);
-  v4 = *(a1 + 168);
-  v5 = *(a1 + 176);
-  v6 = a2 / v3;
-  if (v4 == v5)
-  {
-    v8 = *(a1 + 120);
-    v7 = *(a1 + 128);
-    if (v7 == v8)
-    {
-      goto LABEL_18;
-    }
-
-    v9 = 0;
-    v10 = 0;
-    do
-    {
-      v11 = v8 + 144 * v9;
-      if (!*(v11 + 128) && *(v11 + 41) == 1)
-      {
-        geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, v10, v11);
-        geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((*(a1 + 120) + 144 * v9));
-        v8 = *(a1 + 120);
-        v7 = *(a1 + 128);
-      }
-
-      v9 = (v10 + 1);
-      v10 = v9;
-    }
-
-    while (0x8E38E38E38E38E39 * ((v7 - v8) >> 4) > v9);
-    v4 = *(a1 + 168);
-    v5 = *(a1 + 176);
-  }
-
-  if (v4 != v5)
-  {
-    do
-    {
-      geom::straight_skeleton_evaluator<double>::event_time(v4);
-      if (v12 > v6)
-      {
-        break;
-      }
-
-      v14 = *(a1 + 120);
-      v13 = *(a1 + 128);
-      if (v13 != v14)
-      {
-        v15 = 0;
-        v16 = 0;
-        do
-        {
-          v17 = v14 + 144 * v15;
-          if (!*(v17 + 128) && *(v17 + 41) == 1)
-          {
-            geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, v16, v17);
-            geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((*(a1 + 120) + 144 * v15));
-            v14 = *(a1 + 120);
-            v13 = *(a1 + 128);
-          }
-
-          v15 = (v16 + 1);
-          v16 = v15;
-        }
-
-        while (0x8E38E38E38E38E39 * ((v13 - v14) >> 4) > v15);
-      }
-
-      geom::straight_skeleton_evaluator<double>::process_next_event(a1);
-      v4 = *(a1 + 168);
-    }
-
-    while (v4 != *(a1 + 176));
-  }
-
-LABEL_18:
-
-  geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(a1, v6);
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::event_time(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (v1 == -1)
-  {
-    v3 = std::__throw_bad_variant_access[abi:nn200100]();
-    return geom::straight_skeleton_evaluator<double>::process_next_event(v3);
-  }
-
-  else
-  {
-    v5 = &v4;
-    return (*(&off_286292FB8 + v1))(&v5, a1);
-  }
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::process_next_event(void *a1)
-{
-  geom::straight_skeleton_evaluator<double>::event_time(a1[21]);
-  v3 = v2;
-  v23 = 0u;
-  v21 = 0u;
-  memset(v22, 0, sizeof(v22));
-  memset(v20, 0, sizeof(v20));
-  geom::straight_skeleton_evaluator<double>::pop_coincident_events(a1, v22, v20, v2);
-  v4 = 0;
-  if ((v21.i64[1] + v23.i64[1]) << 6 <= 0x100uLL)
-  {
-    v5 = 256;
-  }
-
-  else
-  {
-    v5 = (v21.i64[1] + v23.i64[1]) << 6;
-  }
-
-  __p = 0;
-  v18 = 0;
-  v19 = 0;
-  v6 = v5 | 1;
-  while (v23.i64[1] | v21.i64[1])
-  {
-    if (v23.i64[1])
-    {
-      if (v4 + 1 > v6)
-      {
-        v7 = v4 + 1;
-      }
-
-      else
-      {
-        v7 = v5 | 1;
-      }
-
-      while (++v4 <= v5)
-      {
-        v8 = geom::straight_skeleton_evaluator<double>::apply_edge_event(a1, *(*(&v22[0] + 1) + ((v23.i64[0] >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v23.i8[0] & 0x7F));
-        if ((v8 & 0x100000000) != 0)
-        {
-          LODWORD(v15) = v8;
-          v16 = 0;
-          std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](&__p, &v15);
-        }
-
-        v9 = vaddq_s64(v23, xmmword_2500D1400);
-        v23 = v9;
-        if (v9.i64[0] >= 0x100uLL)
-        {
-          operator delete(**(&v22[0] + 1));
-          *(&v22[0] + 1) += 8;
-          v23.i64[0] -= 128;
-          v10 = v23.i64[1];
-        }
-
-        else
-        {
-          v10 = v9.i64[1];
-        }
-
-        if (!v10)
-        {
-          goto LABEL_31;
-        }
-      }
-
-LABEL_30:
-      v4 = v7;
-      goto LABEL_31;
-    }
-
-    if (v21.i64[1])
-    {
-      if (v4 + 1 > v6)
-      {
-        v7 = v4 + 1;
-      }
-
-      else
-      {
-        v7 = v5 | 1;
-      }
-
-      while (++v4 <= v5)
-      {
-        v11 = geom::straight_skeleton_evaluator<double>::apply_split_event(a1, *(*(&v20[0] + 1) + ((v21.i64[0] >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v21.i8[0] & 0x7F));
-        if (v12)
-        {
-          v15 = v11;
-          v16 = 1;
-          std::vector<std::variant<geom::straight_skeleton_evaluator<float>::edge_event_result,geom::straight_skeleton_evaluator<float>::split_event_result>>::push_back[abi:nn200100](&__p, &v15);
-        }
-
-        v13 = vaddq_s64(v21, xmmword_2500D1400);
-        v21 = v13;
-        if (v13.i64[0] >= 0x100uLL)
-        {
-          operator delete(**(&v20[0] + 1));
-          *(&v20[0] + 1) += 8;
-          v21.i64[0] -= 128;
-          if (!v21.i64[1])
-          {
-            goto LABEL_31;
-          }
-        }
-
-        else if (!v13.i64[1])
-        {
-          goto LABEL_31;
-        }
-      }
-
-      goto LABEL_30;
-    }
-
-LABEL_31:
-    geom::straight_skeleton_evaluator<double>::pop_coincident_events(a1, v22, v20, v3);
-    if (v4 > v5)
-    {
-      break;
-    }
-  }
-
-  geom::straight_skeleton_evaluator<double>::add_joiner_mesh_faces_for_events(a1, __p, 0xAAAAAAAAAAAAAAABLL * ((v18 - __p) >> 2), v3);
-  if (__p)
-  {
-    v18 = __p;
-    operator delete(__p);
-  }
-
-  std::deque<geom::straight_skeleton_evaluator<double>::split_event,std::allocator<geom::straight_skeleton_evaluator<double>::split_event>>::~deque[abi:nn200100](v20);
-  return std::deque<geom::straight_skeleton_evaluator<double>::split_event,std::allocator<geom::straight_skeleton_evaluator<double>::split_event>>::~deque[abi:nn200100](v22);
-}
-
-void geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(uint64_t a1, double a2)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  v21 = a2;
-  v24 = 0;
-  v22 = 0u;
-  v23 = 0u;
-  geom::hash_brown<unsigned int,unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>>::init(&v22, 1uLL);
-  v18 = a1;
-  v19 = &v21;
-  v20 = &v22;
-  geom::straight_skeleton_evaluator<double>::for_each_wavefront_vertex<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda#1},geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(void)#1}>(a1, &v18);
-  v3 = *(a1 + 8) - *a1;
-  v4 = *(a1 + 80);
-  if (*(v4 - 4) < (v3 >> 4))
-  {
-    v5 = *(*(a1 + 104) - 8);
-    if (v21 == v5 || v5 + 1.0e-10 > v21)
-    {
-      *(v4 - 4) = v3 >> 4;
-    }
-
-    else
-    {
-      std::vector<double>::push_back[abi:nn200100]((a1 + 96), &v21);
-      LODWORD(v18) = (*(a1 + 8) - *a1) >> 4;
-      std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 72), &v18);
-    }
-  }
-
-  v18 = a1;
-  v19 = &v22;
-  geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge<geom::straight_skeleton_evaluator<double>::add_joiner_patch_to_time(double)::{lambda(unsigned int,unsigned int)#1}>(a1, &v18);
-  v18 = &v22;
-  if (v23 >= 0x10)
-  {
-    v7 = 0;
-    v8 = v22;
-    v9 = v23 >> 4;
-    while (1)
-    {
-      v10 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v8), xmmword_2500C4D40)))), 0x3830282018100800).u16[0];
-      v19 = (v10 ^ 0xFFFFLL);
-      if (v10 != 0xFFFFLL)
-      {
-        break;
-      }
-
-      v7 -= 16;
-      ++v8;
-      if (!--v9)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v11 = __clz(__rbit64(v10 ^ 0xFFFFLL));
-    v12 = (v11 - v7);
-    v20 = (v11 - v7);
-    if (v11 + 1 != v7)
-    {
-      do
-      {
-        v13 = (*(v18 + 1) + 8 * v12);
-        v14 = *v13;
-        __src = v13[1];
-        v15 = *(a1 + 120) + 144 * v14;
-        if (*(v15 + 128))
-        {
-          std::__throw_bad_variant_access[abi:nn200100]();
-        }
-
-        std::vector<unsigned int>::__assign_with_size[abi:nn200100]<unsigned int const*,unsigned int const*>((v15 + 96), &__src, &v18, 1uLL);
-        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v18);
-        v12 = v20;
-      }
-
-      while (v20 != -1);
-    }
-  }
-
-LABEL_16:
-  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(&v22);
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-void geom::straight_skeleton_evaluator<double>::pop_coincident_events(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 168);
-  if (v4 != *(a1 + 176))
-  {
-    v9 = a4 + 1.0e-10;
-    do
-    {
-      geom::straight_skeleton_evaluator<double>::event_time(v4);
-      if (v10 != a4 && v9 < v10)
-      {
-        break;
-      }
-
-      v12 = *(a1 + 168);
-      v13 = *(v12 + 32);
-      if (v13 == 1)
-      {
-        std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(a3, v12);
-      }
-
-      else
-      {
-        if (v13)
-        {
-          std::__throw_bad_variant_access[abi:nn200100]();
-        }
-
-        std::deque<geom::straight_skeleton_evaluator<double>::edge_event,std::allocator<geom::straight_skeleton_evaluator<double>::edge_event>>::push_back(a2, v12);
-      }
-
-      v4 = *(a1 + 168);
-      v14 = *(a1 + 176);
-      if (v14 - v4 >= 49)
-      {
-        v15 = v4[1];
-        v24 = *v4;
-        v25 = v15;
-        v26 = v4[2];
-        v16 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(v4, &v23, 0xAAAAAAAAAAAAAAABLL * ((v14 - v4) >> 4));
-        v17 = (v14 - 48);
-        if ((v14 - 48) == v16)
-        {
-          v21 = v25;
-          *v16 = v24;
-          v16[1] = v21;
-          v16[2] = v26;
-        }
-
-        else
-        {
-          v18 = *v17;
-          v19 = *(v14 - 16);
-          v16[1] = *(v14 - 32);
-          v16[2] = v19;
-          *v16 = v18;
-          v20 = v25;
-          *v17 = v24;
-          *(v14 - 32) = v20;
-          *(v14 - 16) = v26;
-          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(v4, (v16 + 3), &v23, 0xAAAAAAAAAAAAAAABLL * (v16 + 3 - v4));
-        }
-
-        v4 = *(a1 + 168);
-        v14 = *(a1 + 176);
-      }
-
-      *(a1 + 176) = v14 - 48;
-    }
-
-    while (v4 != (v14 - 48));
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::apply_edge_event(uint64_t a1, uint64_t a2)
-{
-  v84 = *MEMORY[0x277D85DE8];
-  v3 = (a1 + 120);
-  v2 = *(a1 + 120);
-  v4 = v2 + 144 * *(a2 + 8);
-  if (*(v4 + 128) || *(v2 + 144 * *(a2 + 12) + 128))
-  {
-    v6 = 0;
-    v7 = 0;
-    v8 = 0;
-LABEL_4:
-    v9 = *MEMORY[0x277D85DE8];
-    return v8 | v7 | v6;
-  }
-
-  v12 = *(v4 + 16);
-  v79[0] = *v4;
-  v79[1] = v12;
-  v13 = *(v4 + 32);
-  v14 = *(v4 + 48);
-  v15 = *(v4 + 64);
-  *(v80 + 9) = *(v4 + 73);
-  v79[3] = v14;
-  v80[0] = v15;
-  v79[2] = v13;
-  std::vector<float>::vector[abi:nn200100](&v81, (v4 + 96));
-  v83 = *(v4 + 120);
-  v16 = *v3 + 144 * *(a2 + 12);
-  if (!*(v16 + 128))
-  {
-    v17 = *(v16 + 16);
-    v74[0] = *v16;
-    v74[1] = v17;
-    v18 = *(v16 + 32);
-    v19 = *(v16 + 48);
-    v20 = *(v16 + 64);
-    *(v75 + 9) = *(v16 + 73);
-    v74[3] = v19;
-    v75[0] = v20;
-    v74[2] = v18;
-    std::vector<float>::vector[abi:nn200100](&__p, (v16 + 96));
-    v78 = *(v16 + 120);
-    v21 = DWORD1(v80[0]);
-    v22 = DWORD1(v75[0]);
-    v23 = *(a2 + 8);
-    v24 = *(a2 + 12);
-    if (DWORD1(v80[0]) != v24 && DWORD1(v75[0]) != v23)
-    {
-      v6 = 0;
-      v7 = 0;
-      v8 = 0;
-LABEL_44:
-      if (__p)
-      {
-        v77 = __p;
-        operator delete(__p);
-      }
-
-      if (v81)
-      {
-        v82 = v81;
-        operator delete(v81);
-      }
-
-      goto LABEL_4;
-    }
-
-    v25 = v80;
-    if (DWORD1(v80[0]) != v24)
-    {
-      v25 = v75;
-    }
-
-    v26 = *v25;
-    if (DWORD1(v80[0]) == v24)
-    {
-      v27 = DWORD1(v75[0]);
-    }
-
-    else
-    {
-      v27 = DWORD1(v80[0]);
-    }
-
-    v50 = v27;
-    v51 = v26;
-    geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((*(a1 + 120) + 144 * v23));
-    geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((*(a1 + 120) + 144 * *(a2 + 12)));
-    v28 = (*(a1 + 128) - *(a1 + 120)) >> 4;
-    geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, *(a2 + 8), v79);
-    geom::straight_skeleton_evaluator<double>::remove_vertex_from_face_neighbors(a1, *(a2 + 12), v74);
-    __dst[0] = 0;
-    __dst[1] = 0;
-    v53 = 0;
-    if (v82 != v81)
-    {
-      std::vector<float>::__vallocate[abi:nn200100](__dst, (v82 - v81) >> 2);
-    }
-
-    v29 = 954437177 * v28;
-    v30 = __p;
-    v31 = v77;
-    while (v30 != v31)
-    {
-      std::vector<unsigned int>::push_back[abi:nn200100](__dst, v30++);
-    }
-
-    v32 = v74;
-    if (BYTE4(v83))
-    {
-      v32 = v79;
-    }
-
-    v33 = *(v32 + 30) | (*(v32 + 124) << 32);
-    if (v21 == v24 && v22 == v23)
-    {
-      v34 = *(a2 + 16);
-      v35 = *a2;
-      v59 = 0uLL;
-      v60 = 0;
-      v36 = v53;
-      v37 = *__dst;
-      __dst[1] = 0;
-      v53 = 0;
-      __dst[0] = 0;
-      v58 = v34;
-      v61 = 256;
-      v62 = v35;
-      v63 = v29;
-      v64 = v29;
-      v65 = -1;
-      v66 = 0;
-      v67 = 0;
-      v68 = 0;
-      v69 = 0;
-      v70 = v37;
-      v71 = v36;
-      v72 = v33 & 0xFFFFFFFFFFLL;
-      v73 = 0;
-      std::vector<geom::straight_skeleton_evaluator<double>::vertex_state,std::allocator<geom::straight_skeleton_evaluator<double>::vertex_state>>::push_back[abi:nn200100](v3, &v58);
-      if (v73 != -1)
-      {
-        (*(&off_286292FA8 + v73))(&v55, &v58);
-      }
-
-LABEL_41:
-      v8 = v29 & 0xFFFFFF00;
-      if (__dst[0])
-      {
-        __dst[1] = __dst[0];
-        operator delete(__dst[0]);
-      }
-
-      v7 = v29;
-      v6 = 0x100000000;
-      goto LABEL_44;
-    }
-
-    geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(a1, v51, v50, *(&v75[1] + 4), *(v75 + 12), __dst, v33 & 0xFFFFFFFFFFLL, DWORD2(v75[0]), *a2, *(a2 + 16));
-    if (v51 != v50)
-    {
-LABEL_35:
-      geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v29, &v58);
-      if (v60 == 1)
-      {
-        v55 = v58;
-        v56 = v59;
-        v57 = 0;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](a1 + 168, &v55);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(*(a1 + 168), *(a1 + 176), &v54, 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 176) - *(a1 + 168)) >> 4));
-      }
-
-      geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v51, &v58);
-      if (v60 == 1)
-      {
-        v55 = v58;
-        v56 = v59;
-        v57 = 0;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](a1 + 168, &v55);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(*(a1 + 168), *(a1 + 176), &v54, 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 176) - *(a1 + 168)) >> 4));
-      }
-
-      geom::straight_skeleton_evaluator<double>::best_split_event_for_vertex(a1, v29, &v58, v46, v47, v48);
-      if (v60 == 1)
-      {
-        v55 = v58;
-        v56 = v59;
-        v57 = v60;
-        std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100](a1 + 168, &v55);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(*(a1 + 168), *(a1 + 176), &v54, 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 176) - *(a1 + 168)) >> 4));
-      }
-
-      goto LABEL_41;
-    }
-
-    v38 = *v3 + 144 * v51;
-    if (!*(v38 + 128))
-    {
-      v39 = *a2;
-      v40 = *(v38 + 32);
-      v41 = fabs(v40) <= 1.0e-10 ? *v38 : vmlaq_n_f64(*v38, *(v38 + 16), v40 * (v39 - *(v38 + 48)));
-      *v38 = v41;
-      *(v38 + 48) = v39;
-      *(v38 + 32) = 0;
-      *(v38 + 40) = 256;
-      v42 = *v3 + 144 * v29;
-      if (!*(v42 + 128))
-      {
-        v43 = *a2;
-        v44 = *(v42 + 32);
-        if (fabs(v44) <= 1.0e-10)
-        {
-          v45 = *v42;
-        }
-
-        else
-        {
-          v45 = vmlaq_n_f64(*v42, *(v42 + 16), v44 * (v43 - *(v42 + 48)));
-        }
-
-        *v42 = v45;
-        *(v42 + 48) = v43;
-        *(v42 + 32) = 0;
-        *(v42 + 40) = 256;
-        goto LABEL_35;
-      }
-    }
-  }
-
-  v49 = std::__throw_bad_variant_access[abi:nn200100]();
-  return geom::straight_skeleton_evaluator<double>::apply_split_event(v49);
-}
-
-uint64_t geom::straight_skeleton_evaluator<double>::apply_split_event(void *a1, uint64_t a2)
-{
-  __p[5] = *MEMORY[0x277D85DE8];
-  v2 = a1[15] + 144 * *(a2 + 12);
-  if (*(v2 + 128))
-  {
-    result = 0;
-LABEL_12:
-    v23 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v6 = *(v2 + 16);
-  v62[0] = *v2;
-  v62[1] = v6;
-  v7 = *(v2 + 32);
-  v8 = *(v2 + 48);
-  v9 = *(v2 + 64);
-  *(v63 + 9) = *(v2 + 73);
-  v62[3] = v8;
-  v63[0] = v9;
-  v62[2] = v7;
-  std::vector<float>::vector[abi:nn200100](__p, (v2 + 96));
-  __p[3] = *(v2 + 120);
-  LOBYTE(v52) = 0;
-  v54 = 0;
-  v59[0] = a1;
-  v59[1] = v62;
-  *&v60 = &v52;
-  geom::straight_skeleton_evaluator<double>::for_each_wavefront_edge_on_face<geom::straight_skeleton_evaluator<double>::apply_split_event(geom::straight_skeleton_evaluator<double>::split_event const&)::{lambda(unsigned int,unsigned int)#1}>(a1, v59, *(a2 + 8), v10, v11, v12);
-  if (v54 != 1)
-  {
-    goto LABEL_8;
-  }
-
-  v13 = v52;
-  v14 = a1[15];
-  v15 = v14 + 144 * v52;
-  if (!*(v15 + 128))
-  {
-    v16 = v53;
-    v17 = v14 + 144 * v53;
-    if (!*(v17 + 128))
-    {
-      v18 = v63[0];
-      v19 = *(a2 + 12);
-      if (LODWORD(v63[0]) == v19 || (v20 = DWORD1(v63[0]), DWORD1(v63[0]) == v19))
-      {
-LABEL_8:
-        v21 = 0;
-        v22 = 0;
-LABEL_9:
-        if (__p[0])
-        {
-          __p[1] = __p[0];
-          operator delete(__p[0]);
-        }
-
-        result = v22 | v21;
-        goto LABEL_12;
-      }
-
-      geom::straight_skeleton_evaluator<double>::add_triangle_fan_for_active_vertex(a1, v19, *a2);
-      v25 = v24;
-      geom::straight_skeleton_evaluator<float>::add_joiner_mesh_triangle(a1, *(*(v15 + 104) - 4), **(v17 + 96), v24);
-      v26 = a1[15];
-      v27 = v26 + 144 * v13;
-      if (!*(v27 + 128))
-      {
-        v28 = *(v27 + 72);
-        v51 = DWORD2(v63[0]);
-        v29 = *(v27 + 76);
-        v50 = *(&v63[1] + 4);
-        v30 = *(v63 + 12);
-        geom::straight_skeleton_evaluator<double>::vertex_state::make_inactive((v26 + 144 * *(a2 + 12)));
-        LODWORD(v56) = v25;
-        std::vector<unsigned int>::vector[abi:nn200100](v59, &v56, 1uLL);
-        vertex_and_update_neighbors = geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(a1, v18, v16, v13 | 0x100000000, v29, v59, 0, v28, *a2, *(a2 + 16));
-        if (v59[0])
-        {
-          v59[1] = v59[0];
-          operator delete(v59[0]);
-        }
-
-        LODWORD(v56) = v25;
-        std::vector<unsigned int>::vector[abi:nn200100](v59, &v56, 1uLL);
-        v32 = geom::straight_skeleton_evaluator<double>::create_vertex_and_update_neighbors(a1, v13, v20, v50, v30, v59, 0, v51, *a2, *(a2 + 16));
-        if (v59[0])
-        {
-          v59[1] = v59[0];
-          operator delete(v59[0]);
-        }
-
-        if (v18 == v16)
-        {
-          v33 = a1[15] + 144 * v16;
-          if (*(v33 + 128))
-          {
-            goto LABEL_47;
-          }
-
-          v34 = *a2;
-          v35 = *(v33 + 32);
-          v36 = fabs(v35) <= 1.0e-10 ? *v33 : vmlaq_n_f64(*v33, *(v33 + 16), v35 * (v34 - *(v33 + 48)));
-          *v33 = v36;
-          *(v33 + 48) = v34;
-          *(v33 + 32) = 0;
-          *(v33 + 40) = 256;
-          v37 = a1[15] + 144 * vertex_and_update_neighbors;
-          if (*(v37 + 128))
-          {
-            goto LABEL_47;
-          }
-
-          v38 = *a2;
-          v39 = *(v37 + 32);
-          if (fabs(v39) <= 1.0e-10)
-          {
-            v40 = *v37;
-          }
-
-          else
-          {
-            v40 = vmlaq_n_f64(*v37, *(v37 + 16), v39 * (v38 - *(v37 + 48)));
-          }
-
-          *v37 = v40;
-          *(v37 + 48) = v38;
-          *(v37 + 32) = 0;
-          *(v37 + 40) = 256;
-        }
-
-        if (v13 != v20)
-        {
-LABEL_38:
-          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, vertex_and_update_neighbors, v59);
-          if (v61 == 1)
-          {
-            v56 = *v59;
-            v57 = v60;
-            v58 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v56);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v55, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
-          }
-
-          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v18, v59);
-          if (v61 == 1)
-          {
-            v56 = *v59;
-            v57 = v60;
-            v58 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v56);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v55, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
-          }
-
-          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v32, v59);
-          if (v61 == 1)
-          {
-            v56 = *v59;
-            v57 = v60;
-            v58 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v56);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v55, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
-          }
-
-          geom::straight_skeleton_evaluator<double>::edge_event_for_edge(a1, v13, v59);
-          if (v61 == 1)
-          {
-            v56 = *v59;
-            v57 = v60;
-            v58 = 0;
-            std::vector<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event>>::push_back[abi:nn200100]((a1 + 21), &v56);
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::straight_skeleton_evaluator<double>::event_time_comparator &,std::__wrap_iter<std::variant<geom::straight_skeleton_evaluator<double>::edge_event,geom::straight_skeleton_evaluator<double>::split_event> *>>(a1[21], a1[22], &v55, 0xAAAAAAAAAAAAAAABLL * ((a1[22] - a1[21]) >> 4));
-          }
-
-          v22 = vertex_and_update_neighbors & 0xFFFFFF00 | (v32 << 32);
-          v21 = vertex_and_update_neighbors;
-          goto LABEL_9;
-        }
-
-        v41 = a1[15] + 144 * v13;
-        if (!*(v41 + 128))
-        {
-          v42 = *a2;
-          v43 = *(v41 + 32);
-          v44 = fabs(v43) <= 1.0e-10 ? *v41 : vmlaq_n_f64(*v41, *(v41 + 16), v43 * (v42 - *(v41 + 48)));
-          *v41 = v44;
-          *(v41 + 48) = v42;
-          *(v41 + 32) = 0;
-          *(v41 + 40) = 256;
-          v45 = a1[15] + 144 * v32;
-          if (!*(v45 + 128))
-          {
-            v46 = *a2;
-            v47 = *(v45 + 32);
-            if (fabs(v47) <= 1.0e-10)
-            {
-              v48 = *v45;
-            }
-
-            else
-            {
-              v48 = vmlaq_n_f64(*v45, *(v45 + 16), v47 * (v46 - *(v45 + 48)));
-            }
-
-            *v45 = v48;
-            *(v45 + 48) = v46;
-            *(v45 + 32) = 0;
-            *(v45 + 40) = 256;
-            goto LABEL_38;
-          }
-        }
-      }
-    }
-  }
-
-LABEL_47:
-  v49 = std::__throw_bad_variant_access[abi:nn200100]();
-  return geom::straight_skeleton_evaluator<double>::add_joiner_mesh_faces_for_events(v49);
+  v44[0] = &v51;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v44);
 }

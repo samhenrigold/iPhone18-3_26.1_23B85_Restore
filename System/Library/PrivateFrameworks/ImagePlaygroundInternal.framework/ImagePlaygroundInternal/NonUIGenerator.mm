@@ -8,7 +8,7 @@
 
 - (void)stopGeneration:(id)generation
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60, &qword_1D28811F0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = sub_1D28785F8();
@@ -29,7 +29,7 @@
 
 - (void)fetchAvailableStylesWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60, &qword_1D28811F0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);
@@ -53,11 +53,11 @@
 
 - (void)startGenerationWithStyle:(id)style promptElements:(id)elements personalizationPolicyValue:(id)value replyHandler:(id)handler batchID:(id)d
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60, &qword_1D28811F0);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v28 - v13;
   v15 = _Block_copy(handler);
-  sub_1D22BCFD0(0, &qword_1EC6D9418);
+  sub_1D22BCFD0(0, &qword_1EC6D9418, 0x1E696E500);
   v16 = sub_1D28783E8();
   v17 = swift_allocObject();
   *(v17 + 16) = v15;

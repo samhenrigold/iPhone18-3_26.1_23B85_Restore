@@ -12,12 +12,13 @@
 - (id)batchOfRecordsToWriteWithFilter:(unint64_t)filter limit:(int64_t)limit error:(id *)error
 {
   selfCopy = self;
-  RecoverableMessageStore.batchOfRecordsToWrite(filter:limit:)(filter, limit);
+  v8 = RecoverableMessageStore.batchOfRecordsToWrite(filter:limit:)(filter, limit);
 
   sub_22B4D01A0(0, &qword_28141EFE8, 0x277CBC5A0);
-  v8 = sub_22B7DB568();
+  v9 = sub_22B7DB568();
+  v8, v10, v11, v12, v13, v14, v15, v16, v18, v19;
 
-  return v8;
+  return v9;
 }
 
 - (void)recordUpdateSucceededWithRecord:(id)record
@@ -39,12 +40,14 @@
 {
   selfCopy = self;
   RecoverableMessageStore.batchOfRecordIDsToDelete(limit:)(limit);
+  v7 = v6;
 
   sub_22B4D01A0(0, &qword_28141F2A8, 0x277CBC5D0);
   sub_22B71EF0C();
-  v6 = sub_22B7DB568();
+  v8 = sub_22B7DB568();
+  v7, v9, v10, v11, v12, v13, v14, v15, v17, v18;
 
-  return v6;
+  return v8;
 }
 
 - (void)clearTombstonesForRecordIDs:(id)ds
@@ -53,6 +56,8 @@
   v4 = sub_22B7DB918();
   selfCopy = self;
   _s12IMDaemonCore23RecoverableMessageStoreC15clearTombstones12forRecordIDsySaySo10CKRecordIDCG_tF_0(v4);
+
+  v4, v6, v7, v8, v9, v10, v11, v12, v14, v15;
 }
 
 - (IMDRecoverableMessageStore)init

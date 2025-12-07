@@ -42,7 +42,7 @@
 
 - (void)performIMAPFilePathMigration
 {
-  v3 = sub_10008546C();
+  v3 = sub_10008546C(self);
   v4 = [v3 URLByAppendingPathComponent:@"com.apple.voicemail.imap.parameters.plist"];
   path = [v4 path];
 
@@ -84,74 +84,74 @@ LABEL_16:
     }
 
     v10 = [[NSDictionary alloc] initWithContentsOfFile:path];
-    v52 = [v10 objectForKeyedSubscript:@"AccountSettings"];
-    v15 = [v52 objectForKeyedSubscript:@"name"];
-    v16 = *(&INIT_DECOMPOSED_PHONE_NUMBER + 1);
-    *buf = *&INIT_DECOMPOSED_PHONE_NUMBER;
-    v63 = v16;
-    v17 = *(&INIT_DECOMPOSED_PHONE_NUMBER + 3);
-    *numBytes = *(&INIT_DECOMPOSED_PHONE_NUMBER + 2);
-    *v65 = v17;
+    v53 = [v10 objectForKeyedSubscript:@"AccountSettings"];
+    v15 = [v53 objectForKeyedSubscript:@"name"];
+    v16 = INIT_DECOMPOSED_PHONE_NUMBER[1];
+    *buf = INIT_DECOMPOSED_PHONE_NUMBER[0];
+    v64 = v16;
+    v17 = INIT_DECOMPOSED_PHONE_NUMBER[3];
+    *numBytes = INIT_DECOMPOSED_PHONE_NUMBER[2];
+    *v66 = v17;
     normalizedPhoneNumber = [(VVDataMigrator *)self normalizedPhoneNumber];
     [normalizedPhoneNumber cStringUsingEncoding:1];
     isoCountryCode = [(VVDataMigrator *)self isoCountryCode];
     PNDecomposeForCountry();
 
     v20 = CFStringCreateWithBytes(kCFAllocatorDefault, numBytes[0], LODWORD(numBytes[1]), 0x8000100u, 0);
-    v21 = CFStringCreateWithBytes(kCFAllocatorDefault, v65[0], LODWORD(v65[1]), 0x8000100u, 0);
+    v21 = CFStringCreateWithBytes(kCFAllocatorDefault, v66[0], LODWORD(v66[1]), 0x8000100u, 0);
     v22 = [NSString stringWithFormat:@"%@%@", v20, v21];
     v23 = vm_vmd_log();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v56 = 138412546;
-      v57 = v15;
-      v58 = 2112;
-      v59 = v22;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Determined userName:%@ strippedPhoneNumberString:%@", v56, 0x16u);
+      *v57 = 138412546;
+      v58 = v15;
+      v59 = 2112;
+      v60 = v22;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Determined userName:%@ strippedPhoneNumberString:%@", v57, 0x16u);
     }
 
-    v53 = v15;
+    v54 = v15;
     if (![v15 containsString:v22])
     {
       v27 = vm_vmd_log();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         normalizedPhoneNumber2 = [(VVDataMigrator *)self normalizedPhoneNumber];
-        *v56 = 138412802;
-        v57 = path;
-        v58 = 2112;
-        v59 = normalizedPhoneNumber2;
-        v60 = 2112;
-        v61 = v53;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Determined that this is not the account we want to migrate: %@, searchHint:%@, userName: %@", v56, 0x20u);
+        *v57 = 138412802;
+        v58 = path;
+        v59 = 2112;
+        v60 = normalizedPhoneNumber2;
+        v61 = 2112;
+        v62 = v54;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Determined that this is not the account we want to migrate: %@, searchHint:%@, userName: %@", v57, 0x20u);
       }
 
       goto LABEL_32;
     }
 
-    v47 = v22;
+    v48 = v22;
     v24 = [[NSURL alloc] initFileURLWithPath:path];
     v25 = [[NSURL alloc] initFileURLWithPath:path2];
     v26 = +[NSFileManager defaultManager];
-    v55 = 0;
-    v50 = v25;
-    v51 = v24;
-    LODWORD(v25) = [v26 copyItemAtURL:v24 toURL:v25 error:&v55];
-    v27 = v55;
+    v56 = 0;
+    v51 = v25;
+    v52 = v24;
+    LODWORD(v25) = [v26 copyItemAtURL:v24 toURL:v25 error:&v56];
+    v27 = v56;
 
     v28 = vm_vmd_log();
     v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-    v46 = v25;
-    v48 = v21;
-    v49 = v20;
+    v47 = v25;
+    v49 = v21;
+    v50 = v20;
     if ((v25 & 1) != 0 || !v27)
     {
       if (v29)
       {
-        *v56 = 138412546;
-        v57 = v51;
-        v58 = 2112;
-        v59 = v50;
+        *v57 = 138412546;
+        v58 = v52;
+        v59 = 2112;
+        v60 = v51;
         v30 = "Performed migration fromURL:%@ toURL:%@";
         v31 = v28;
         v32 = 22;
@@ -161,71 +161,71 @@ LABEL_16:
 
     else if (v29)
     {
-      *v56 = 138412802;
-      v57 = v51;
-      v58 = 2112;
-      v59 = v50;
-      v60 = 2112;
-      v61 = v27;
+      *v57 = 138412802;
+      v58 = v52;
+      v59 = 2112;
+      v60 = v51;
+      v61 = 2112;
+      v62 = v27;
       v30 = "Error while performing migration fromURL:%@ toURL:%@ error:%@";
       v31 = v28;
       v32 = 32;
 LABEL_21:
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v30, v56, v32);
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v30, v57, v32);
     }
 
-    v34 = sub_10008546C();
-    v35 = [v34 URLByAppendingPathComponent:@"Checkpoint.plist"];
+    v35 = sub_10008546C(v34);
+    v36 = [v35 URLByAppendingPathComponent:@"Checkpoint.plist"];
 
     accountDir2 = [(VVDataMigrator *)self accountDir];
-    v37 = [accountDir2 URLByAppendingPathComponent:@"Checkpoint.plist"];
+    v38 = [accountDir2 URLByAppendingPathComponent:@"Checkpoint.plist"];
 
-    v38 = +[NSFileManager defaultManager];
-    v54 = 0;
-    v39 = [v38 copyItemAtURL:v35 toURL:v37 error:&v54];
-    v40 = v54;
+    v39 = +[NSFileManager defaultManager];
+    v55 = 0;
+    v40 = [v39 copyItemAtURL:v36 toURL:v38 error:&v55];
+    v41 = v55;
 
-    v41 = vm_vmd_log();
-    v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
-    v22 = v47;
-    if ((v39 & 1) != 0 || !v40)
+    v42 = vm_vmd_log();
+    v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
+    v22 = v48;
+    if ((v40 & 1) != 0 || !v41)
     {
-      if (v42)
+      if (v43)
       {
-        *v56 = 138412546;
-        v57 = v35;
-        v58 = 2112;
-        v59 = v37;
-        v43 = "Performed migration fromCheckpointURL:%@ toCheckpointURL:%@";
-        v44 = v41;
-        v45 = 22;
+        *v57 = 138412546;
+        v58 = v36;
+        v59 = 2112;
+        v60 = v38;
+        v44 = "Performed migration fromCheckpointURL:%@ toCheckpointURL:%@";
+        v45 = v42;
+        v46 = 22;
         goto LABEL_28;
       }
     }
 
-    else if (v42)
+    else if (v43)
     {
-      *v56 = 138412802;
-      v57 = v35;
-      v58 = 2112;
-      v59 = v37;
-      v60 = 2112;
-      v61 = v40;
-      v43 = "Error while performing migration fromCheckpointURL:%@ toCheckpointURL:%@ error:%@";
-      v44 = v41;
-      v45 = 32;
+      *v57 = 138412802;
+      v58 = v36;
+      v59 = 2112;
+      v60 = v38;
+      v61 = 2112;
+      v62 = v41;
+      v44 = "Error while performing migration fromCheckpointURL:%@ toCheckpointURL:%@ error:%@";
+      v45 = v42;
+      v46 = 32;
 LABEL_28:
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, v43, v56, v45);
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, v44, v57, v46);
     }
 
-    if ((v46 & v39) == 1)
+    if ((v47 & v40) == 1)
     {
       CFPreferencesSetAppValue(@"DataMigrationStatus", @"NO", @"com.apple.voicemail.datamigration");
       CFPreferencesAppSynchronize(@"com.apple.voicemail.datamigration");
     }
 
-    v21 = v48;
-    v20 = v49;
+    v21 = v49;
+    v20 = v50;
 LABEL_32:
 
     goto LABEL_33;

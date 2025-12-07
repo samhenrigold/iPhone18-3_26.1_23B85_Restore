@@ -1,4 +1,4 @@
-void std::vector<std::vector<float>>::resize(size_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<std::vector<float>>::resize(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
   v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
@@ -47,7 +47,7 @@ void sizeRevision(uint64_t *a1)
     {
       if ([*(v1 + 128) isEqualToString:@"Stove"])
       {
-        box3dToCentroidSizeAngle(v1, v10);
+        box3dToCentroidSizeAngle(v10, v1);
         v10[0][2].i32[1] = 1036831949;
         centroidSizeAngleToBox3d(v10, 1, v9);
         goto LABEL_8;
@@ -60,7 +60,7 @@ void sizeRevision(uint64_t *a1)
 
       if ([*(v1 + 128) isEqualToString:@"Screen"])
       {
-        box3dToCentroidSizeAngle(v1, v10);
+        box3dToCentroidSizeAngle(v10, v1);
         v10[0][2].i32[0] = 1036831949;
         centroidSizeAngleToBox3d(v10, 1, v9);
 LABEL_8:
@@ -92,7 +92,7 @@ LABEL_8:
       }
     }
 
-    box3dToCentroidSizeAngle(v1, v10);
+    box3dToCentroidSizeAngle(v10, v1);
     v10[0][2].i32[1] = 1050253722;
     centroidSizeAngleToBox3d(v10, 1, v9);
     goto LABEL_8;
@@ -111,51 +111,51 @@ void sub_25D24C690(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::swap[abi:ne200100]<OUBox3d>(uint64_t a1, __n128 *a2)
+void std::swap[abi:ne200100]<OUBox3d>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = *(a1 + 80);
-  v11[4] = *(a1 + 64);
-  v11[5] = v3;
-  v4 = *(a1 + 112);
-  v11[6] = *(a1 + 96);
-  v11[7] = v4;
-  v5 = *(a1 + 16);
-  v11[0] = *a1;
-  v11[1] = v5;
-  v6 = *(a1 + 48);
-  v11[2] = *(a1 + 32);
-  v11[3] = v6;
-  v7 = *(a1 + 128);
-  *(a1 + 128) = 0;
-  v12 = v7;
-  v13 = *(a1 + 136);
-  v8 = *(a1 + 160);
-  v14 = *(a1 + 144);
-  *v15 = v8;
-  *(a1 + 144) = 0u;
-  *(a1 + 160) = 0u;
-  v9 = *(a1 + 184);
-  v16 = *(a1 + 176);
-  __p = v9;
-  v18 = *(a1 + 192);
-  *(a1 + 176) = 0u;
-  *(a1 + 192) = 0u;
-  v10 = *(a1 + 208);
-  *(a1 + 208) = 0;
-  v19 = v10;
-  v20 = *(a1 + 216);
+  v9 = a1[5];
+  v17[4] = a1[4];
+  v17[5] = v9;
+  v10 = a1[7];
+  v17[6] = a1[6];
+  v17[7] = v10;
+  v11 = a1[1];
+  v17[0] = *a1;
+  v17[1] = v11;
+  v12 = a1[3];
+  v17[2] = a1[2];
+  v17[3] = v12;
+  v13 = a1[8].n128_u64[0];
+  a1[8].n128_u64[0] = 0;
+  v18 = v13;
+  v19 = a1[8].n128_u32[2];
+  v14 = a1[10];
+  v20 = a1[9];
+  *v21 = v14;
+  a1[9] = 0u;
+  a1[10] = 0u;
+  v15 = a1[11].n128_u64[1];
+  v22 = a1[11].n128_u64[0];
+  __p = v15;
+  v24 = a1[12];
+  a1[11] = 0u;
+  a1[12] = 0u;
+  v16 = a1[13].n128_u64[0];
+  a1[13].n128_u64[0] = 0;
+  v25 = v16;
+  v26 = a1[13].n128_u16[4];
   OUBox3d::operator=(a1, a2);
-  OUBox3d::operator=(a2, v11);
+  OUBox3d::operator=(a2, v17);
 
   if (__p)
   {
     operator delete(__p);
   }
 
-  if (v15[0])
+  if (v21[0])
   {
-    v15[1] = v15[0];
-    operator delete(v15[0]);
+    v21[1] = v21[0];
+    operator delete(v21[0]);
   }
 }
 
@@ -170,7 +170,7 @@ __n128 *std::vector<OUBox3d>::erase(uint64_t a1, __n128 *a2, __int128 *a3)
   return a2;
 }
 
-void sub_25D24CFC0(_Unwind_Exception *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, void *__p, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char *__pa, char *a16, OUBox3d *a17, char a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_25D24CFC0(_Unwind_Exception *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, void *__p, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char *__pa, char *a16, OUBox3d *a17, char a18, uint64_t a19, uint64_t a20, uint64_t *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   a21 = &a25;
   std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&a21);
@@ -206,9 +206,10 @@ void sub_25D24DD48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25D24E154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_25D24E154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&a41);
+  va_start(va, a40);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
 }
@@ -223,7 +224,7 @@ void sub_25D24E54C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25D250424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *__p, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_25D250424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char *__p, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&a35);
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&__p);
@@ -231,15 +232,15 @@ void sub_25D250424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&__p);
   __p = &a29;
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&__p);
-  __p = &a68;
+  __p = &a65;
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&__p);
-  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(&a71, a72);
+  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(&a66, a67);
   std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(&STACK[0x208], STACK[0x210]);
   std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(&STACK[0x220], STACK[0x228]);
-  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v72 - 248, *(v72 - 240));
-  __p = (v72 - 224);
+  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v67 - 248, *(v67 - 240));
+  __p = (v67 - 224);
   std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&__p);
-  __p = (v72 - 200);
+  __p = (v67 - 200);
   std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&__p);
 
   _Unwind_Resume(a1);
@@ -327,7 +328,7 @@ uint64_t OUBox3d::OUBox3d(uint64_t a1, __int128 *a2, id *a3, void *a4, float a5)
   return a1;
 }
 
-uint64_t std::vector<OUBox3d>::__init_with_size[abi:ne200100]<OUBox3d const*,OUBox3d const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<OUBox3d>::__init_with_size[abi:ne200100]<OUBox3d const*,OUBox3d const*>(uint64_t *result, OUBox3d *a2, OUBox3d *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -344,7 +345,7 @@ void sub_25D250CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<OUBox3d>::__assign_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(uint64_t *a1, __int128 *a2, OUBox3d *a3, unint64_t a4)
+void std::vector<OUBox3d>::__assign_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(uint64_t *a1, OUBox3d *a2, OUBox3d *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -381,8 +382,8 @@ void std::vector<OUBox3d>::__assign_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(u
   {
     while (v6 != a3)
     {
-      OUBox3d::operator=(v8, v6);
-      v6 += 14;
+      OUBox3d::operator=(v8, &v6->var1);
+      v6 = (v6 + 224);
       v8 += 224;
     }
 
@@ -397,8 +398,8 @@ void std::vector<OUBox3d>::__assign_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(u
       v14 = a2;
       do
       {
-        OUBox3d::operator=(v8, v14);
-        v14 += 14;
+        OUBox3d::operator=(v8, &v14->var1);
+        v14 = (v14 + 224);
         v8 += 224;
         v13 -= 224;
       }
@@ -411,7 +412,7 @@ void std::vector<OUBox3d>::__assign_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(u
   }
 }
 
-char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -420,8 +421,8 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -459,23 +460,24 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -490,14 +492,14 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -512,11 +514,11 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -536,7 +538,7 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -1222,7 +1224,7 @@ LABEL_81:
 
       if (v57 <= (*(v14 + 4 * *(a2 - 1)) * *(v16 + 4 * *(a2 - 1))))
       {
-        v72 = v10 + 1;
+        v72 = (v10 + 1);
         do
         {
           v10 = v72;
@@ -1231,7 +1233,7 @@ LABEL_81:
             break;
           }
 
-          ++v72;
+          v72 += 8;
         }
 
         while (v57 <= (*(v14 + 4 * *v10) * *(v16 + 4 * *v10)));
@@ -1649,7 +1651,7 @@ LABEL_37:
   return v41 + 1 == a2;
 }
 
-size_t *std::vector<std::vector<float>>::__append(size_t *result, unint64_t a2, uint64_t *a3)
+uint64_t *std::vector<std::vector<float>>::__append(uint64_t *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
   v7 = result[1];
@@ -1665,7 +1667,7 @@ size_t *std::vector<std::vector<float>>::__append(size_t *result, unint64_t a2, 
         *v7 = 0;
         v7[1] = 0;
         v7[2] = 0;
-        result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7, *a3, a3[1], (a3[1] - *a3) >> 2);
+        result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
         v7 += 3;
         v13 -= 24;
       }
@@ -1729,17 +1731,17 @@ size_t *std::vector<std::vector<float>>::__append(size_t *result, unint64_t a2, 
   return result;
 }
 
-void sub_25D252610(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D252610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t result, uint64_t a2, uint64_t *a3)
+uint64_t *std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a2)
   {
     v6 = &v4[3 * a2];
@@ -1749,7 +1751,7 @@ uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t re
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a3, a3[1], (a3[1] - *a3) >> 2);
+      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
       v4 += 3;
       v7 -= 24;
     }
@@ -1758,7 +1760,7 @@ uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t re
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
@@ -1778,25 +1780,25 @@ __n128 *OUBox3d::operator=(__n128 *a1, __n128 *a2)
   a1[7] = v9;
   a1[4] = v7;
   a1[5] = v8;
-  v10 = a2[8].n128_i64[0];
+  v10 = a2[8].n128_u64[0];
   a2[8].n128_u64[0] = 0;
   v11 = a1[8].n128_u64[0];
   a1[8].n128_u64[0] = v10;
 
   a1[8].n128_u32[2] = a2[8].n128_u32[2];
-  v12 = a2[9].n128_i64[0];
+  v12 = a2[9].n128_u64[0];
   a2[9].n128_u64[0] = 0;
   v13 = a1[9].n128_u64[0];
   a1[9].n128_u64[0] = v12;
 
-  v14 = a2[9].n128_i64[1];
+  v14 = a2[9].n128_u64[1];
   a2[9].n128_u64[1] = 0;
   v15 = a1[9].n128_u64[1];
   a1[9].n128_u64[1] = v14;
 
   std::vector<float>::__move_assign(&a1[10], a2 + 10);
   std::vector<BOOL>::__move_assign(&a1[11].n128_i64[1], &a2[11].n128_i64[1]);
-  v16 = a2[13].n128_i64[0];
+  v16 = a2[13].n128_u64[0];
   a2[13].n128_u64[0] = 0;
   v17 = a1[13].n128_u64[0];
   a1[13].n128_u64[0] = v16;
@@ -1830,30 +1832,30 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<OUB
     a4[7] = v12;
     a4[4] = v10;
     a4[5] = v11;
-    v13 = v5[8].n128_i64[0];
-    v5[8].n128_u64[0] = 0;
+    v13 = *(v5 + 16);
+    *(v5 + 16) = 0;
     v14 = a4[8].n128_u64[0];
     a4[8].n128_u64[0] = v13;
 
-    a4[8].n128_u32[2] = v5[8].n128_u32[2];
-    v15 = v5[9].n128_i64[0];
-    v5[9].n128_u64[0] = 0;
+    a4[8].n128_u32[2] = *(v5 + 34);
+    v15 = *(v5 + 18);
+    *(v5 + 18) = 0;
     v16 = a4[9].n128_u64[0];
     a4[9].n128_u64[0] = v15;
 
-    v17 = v5[9].n128_i64[1];
-    v5[9].n128_u64[1] = 0;
+    v17 = *(v5 + 19);
+    *(v5 + 19) = 0;
     v18 = a4[9].n128_u64[1];
     a4[9].n128_u64[1] = v17;
 
     std::vector<float>::__move_assign(&a4[10], v5 + 10);
-    std::vector<BOOL>::__move_assign(&a4[11].n128_i64[1], &v5[11].n128_i64[1]);
-    v19 = v5[13].n128_i64[0];
-    v5[13].n128_u64[0] = 0;
+    std::vector<BOOL>::__move_assign(&a4[11].n128_i64[1], v5 + 184);
+    v19 = *(v5 + 26);
+    *(v5 + 26) = 0;
     v20 = a4[13].n128_u64[0];
     a4[13].n128_u64[0] = v19;
 
-    a4[13].n128_u16[4] = v5[13].n128_u16[4];
+    a4[13].n128_u16[4] = *(v5 + 108);
     a4 += 14;
     v5 += 14;
   }
@@ -1862,7 +1864,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<OUB
   return v6;
 }
 
-uint64_t std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter<OUBox3d*>,std::__wrap_iter<OUBox3d*>>(uint64_t *a1, uint64_t a2, __int128 *a3, OUBox3d *a4, uint64_t a5)
+__int128 *std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter<OUBox3d*>,std::__wrap_iter<OUBox3d*>>(void *a1, __int128 *a2, OUBox3d *a3, OUBox3d *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -1875,14 +1877,14 @@ uint64_t std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter
       v16 = v10 - a2;
       if (0x6DB6DB6DB6DB6DB7 * ((v10 - a2) >> 5) >= a5)
       {
-        v19 = 14 * a5;
-        std::vector<OUBox3d>::__move_range(a1, a2, a1[1], a2 + 224 * a5);
-        v20 = &v7[v19];
+        v19 = 224 * a5;
+        std::vector<OUBox3d>::__move_range(a1, a2, a1[1], &a2[14 * a5]);
+        v20 = (v7 + v19);
         v21 = v5;
         do
         {
-          OUBox3d::operator=(v21, v7);
-          v7 += 14;
+          OUBox3d::operator=(v21, &v7->var1);
+          v7 = (v7 + 224);
           v21 += 224;
         }
 
@@ -1895,12 +1897,12 @@ uint64_t std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter
         a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<OUBox3d>,OUBox3d*,OUBox3d*,OUBox3d*>(a1, (a3 + v16), a4, a1[1]);
         if (v16 >= 1)
         {
-          std::vector<OUBox3d>::__move_range(a1, v5, v10, v5 + 224 * a5);
+          std::vector<OUBox3d>::__move_range(a1, v5, v10, &v5[14 * a5]);
           v18 = v5;
           do
           {
-            OUBox3d::operator=(v18, v7);
-            v7 += 14;
+            OUBox3d::operator=(v18, &v7->var1);
+            v7 = (v7 + 224);
             v18 += 224;
           }
 
@@ -1952,7 +1954,7 @@ uint64_t std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter
       {
         OUBox3d::OUBox3d(v22, v7);
         v22 = (v22 + 224);
-        v7 += 14;
+        v7 = (v7 + 224);
         v23 -= 224;
       }
 
@@ -2358,7 +2360,7 @@ LABEL_34:
   return v41 + 1 == a2;
 }
 
-uint64_t std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2375,7 +2377,7 @@ void sub_25D253E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -2392,8 +2394,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -2736,18 +2738,18 @@ void std::vector<OU3DKitchenObject>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v2;
 }
 
-void *_ZNSt3__13mapIU8__strongP8NSStringDv3_f15CompareNSStringNS_9allocatorINS_4pairIU8__strongKS2_S4_EEEEEC2B8ne200100ESt16initializer_listIS9_ERKS5_(void *a1, void **a2, uint64_t a3)
+uint64_t **_ZNSt3__13mapIU8__strongP8NSStringDv3_f15CompareNSStringNS_9allocatorINS_4pairIU8__strongKS2_S4_EEEEEC2B8ne200100ESt16initializer_listIS9_ERKS5_(uint64_t **a1, void **a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      _ZNSt3__16__treeINS_12__value_typeIU8__strongP8NSStringDv3_fEENS_19__map_value_compareIS4_S6_15CompareNSStringLb1EEENS_9allocatorIS6_EEE30__emplace_hint_unique_key_argsIS4_JRKNS_4pairIU8__strongKS3_S5_EEEEENSE_INS_15__tree_iteratorIS6_PNS_11__tree_nodeIS6_PvEElEEbEENS_21__tree_const_iteratorIS6_SN_lEERKT_DpOT0_(a1, v4, a2);
+      _ZNSt3__16__treeINS_12__value_typeIU8__strongP8NSStringDv3_fEENS_19__map_value_compareIS4_S6_15CompareNSStringLb1EEENS_9allocatorIS6_EEE30__emplace_hint_unique_key_argsIS4_JRKNS_4pairIU8__strongKS3_S5_EEEEENSE_INS_15__tree_iteratorIS6_PNS_11__tree_nodeIS6_PvEElEEbEENS_21__tree_const_iteratorIS6_SN_lEERKT_DpOT0_(a1, v4, a2, a2);
       a2 += 4;
       v6 -= 32;
     }
@@ -2758,33 +2760,33 @@ void *_ZNSt3__13mapIU8__strongP8NSStringDv3_f15CompareNSStringNS_9allocatorINS_4
   return a1;
 }
 
-uint64_t _ZNSt3__16__treeINS_12__value_typeIU8__strongP8NSStringDv3_fEENS_19__map_value_compareIS4_S6_15CompareNSStringLb1EEENS_9allocatorIS6_EEE30__emplace_hint_unique_key_argsIS4_JRKNS_4pairIU8__strongKS3_S5_EEEEENSE_INS_15__tree_iteratorIS6_PNS_11__tree_nodeIS6_PvEElEEbEENS_21__tree_const_iteratorIS6_SN_lEERKT_DpOT0_(void *a1, uint64_t a2, void **a3)
+uint64_t _ZNSt3__16__treeINS_12__value_typeIU8__strongP8NSStringDv3_fEENS_19__map_value_compareIS4_S6_15CompareNSStringLb1EEENS_9allocatorIS6_EEE30__emplace_hint_unique_key_argsIS4_JRKNS_4pairIU8__strongKS3_S5_EEEEENSE_INS_15__tree_iteratorIS6_PNS_11__tree_nodeIS6_PvEElEEbEENS_21__tree_const_iteratorIS6_SN_lEERKT_DpOT0_(uint64_t **a1, void *a2, void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::__find_equal<NSString * {__strong}>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::__find_equal<NSString * {__strong}>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-void *std::multimap<NSString * {__strong},SemanticLabelv5,CompareNSString,std::allocator<std::pair<NSString * const {__strong},SemanticLabelv5>>>::multimap[abi:ne200100](void *result, uint64_t a2, uint64_t a3)
+uint64_t **std::multimap<NSString * {__strong},SemanticLabelv5,CompareNSString,std::allocator<std::pair<NSString * const {__strong},SemanticLabelv5>>>::multimap[abi:ne200100](uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
-    std::__tree<std::__value_type<NSString * {__strong},SemanticLabelv5>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},SemanticLabelv5>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},SemanticLabelv5>>>::__emplace_hint_multi<std::pair<NSString * const {__strong},SemanticLabelv5> const&>();
+    std::__tree<std::__value_type<NSString * {__strong},SemanticLabelv5>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},SemanticLabelv5>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},SemanticLabelv5>>>::__emplace_hint_multi<std::pair<NSString * const {__strong},SemanticLabelv5> const&>(a1, (a1 + 1), a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_25D2554A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D2554A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<NSString * {__strong},float>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<NSString * {__strong},float>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3044,403 +3046,403 @@ void std::__destroy_at[abi:ne200100]<std::pair<NSString * const {__strong},std::
   v3 = *a1;
 }
 
-uint64_t std::__tree<std::__value_type<NSString * {__strong},short>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},short>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},short>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<NSString * {__strong},short>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},short>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},short>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(uint64_t **a1, void **a2, uint64_t a3, id **a4)
 {
-  v2 = *std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::__find_equal<NSString * {__strong}>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::__find_equal<NSString * {__strong}>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void _GLOBAL__sub_I_OU3DObjectDetector_mm()
 {
-  v229 = *MEMORY[0x277D85DE8];
+  v228 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  LODWORD(v153) = 0;
-  *(&v153 + 1) = @"Unknown";
-  LODWORD(v154) = 1;
+  LODWORD(v152) = 0;
+  *(&v152 + 1) = @"Unknown";
+  LODWORD(v153) = 1;
+  *(&v153 + 1) = *(&v152 + 1);
+  LODWORD(v154) = 2;
   *(&v154 + 1) = *(&v153 + 1);
-  LODWORD(v155) = 2;
+  LODWORD(v155) = 3;
   *(&v155 + 1) = *(&v154 + 1);
-  LODWORD(v156) = 3;
+  LODWORD(v156) = 4;
   *(&v156 + 1) = *(&v155 + 1);
-  LODWORD(v157) = 4;
+  LODWORD(v157) = 5;
   *(&v157 + 1) = *(&v156 + 1);
-  LODWORD(v158) = 5;
-  *(&v158 + 1) = *(&v157 + 1);
-  LODWORD(v159) = 6;
-  v115 = @"Door";
-  *(&v159 + 1) = v115;
-  LODWORD(v160) = 7;
-  v111 = @"Window";
-  *(&v160 + 1) = v111;
-  LODWORD(v161) = 8;
-  *(&v161 + 1) = *(&v158 + 1);
-  LODWORD(v162) = 9;
-  v142 = @"Fireplace";
-  *(&v162 + 1) = v142;
-  LODWORD(v163) = 10;
-  *(&v163 + 1) = *(&v161 + 1);
-  LODWORD(v164) = 11;
-  *(&v164 + 1) = *(&v163 + 1);
-  LODWORD(v165) = 12;
-  v149 = @"Stairs";
-  *(&v165 + 1) = v149;
-  LODWORD(v166) = 13;
-  v120 = @"Bed";
-  *(&v166 + 1) = v120;
-  LODWORD(v167) = 14;
-  v168 = @"Cabinet";
-  LODWORD(v169) = 15;
-  v136 = @"Chair";
-  *(&v169 + 1) = v136;
-  LODWORD(v170) = 16;
-  v171 = v168;
-  LODWORD(v172) = 17;
-  *(&v172 + 1) = v171;
-  LODWORD(v173) = 18;
-  v131 = @"Sofa";
-  v174 = v131;
-  LODWORD(v175) = 19;
-  v126 = @"Table";
-  *(&v175 + 1) = v126;
-  LODWORD(v176) = 20;
-  v106 = @"Toilet";
-  v177 = v106;
-  LODWORD(v178) = 21;
+  LODWORD(v158) = 6;
+  v114 = @"Door";
+  *(&v158 + 1) = v114;
+  LODWORD(v159) = 7;
+  v110 = @"Window";
+  *(&v159 + 1) = v110;
+  LODWORD(v160) = 8;
+  *(&v160 + 1) = *(&v157 + 1);
+  LODWORD(v161) = 9;
+  v141 = @"Fireplace";
+  *(&v161 + 1) = v141;
+  LODWORD(v162) = 10;
+  *(&v162 + 1) = *(&v160 + 1);
+  LODWORD(v163) = 11;
+  *(&v163 + 1) = *(&v162 + 1);
+  LODWORD(v164) = 12;
+  v148 = @"Stairs";
+  *(&v164 + 1) = v148;
+  LODWORD(v165) = 13;
+  v119 = @"Bed";
+  *(&v165 + 1) = v119;
+  LODWORD(v166) = 14;
+  v167 = @"Cabinet";
+  LODWORD(v168) = 15;
+  v135 = @"Chair";
+  *(&v168 + 1) = v135;
+  LODWORD(v169) = 16;
+  v170 = v167;
+  LODWORD(v171) = 17;
+  *(&v171 + 1) = v170;
+  LODWORD(v172) = 18;
+  v130 = @"Sofa";
+  v173 = v130;
+  LODWORD(v174) = 19;
+  v125 = @"Table";
+  *(&v174 + 1) = v125;
+  LODWORD(v175) = 20;
+  v105 = @"Toilet";
+  v176 = v105;
+  LODWORD(v177) = 21;
   v0 = @"Sink";
-  *(&v178 + 1) = v0;
-  LODWORD(v179) = 22;
-  v101 = @"Bathtub";
-  v180 = v101;
-  LODWORD(v181) = 23;
-  *(&v181 + 1) = *(&v164 + 1);
-  LODWORD(v182) = 24;
+  *(&v177 + 1) = v0;
+  LODWORD(v178) = 22;
+  v100 = @"Bathtub";
+  v179 = v100;
+  LODWORD(v180) = 23;
+  *(&v180 + 1) = *(&v163 + 1);
+  LODWORD(v181) = 24;
   v1 = @"Refrigerator";
-  v183 = v1;
-  LODWORD(v184) = 25;
+  v182 = v1;
+  LODWORD(v183) = 25;
   v2 = @"Stove";
-  *(&v184 + 1) = v2;
-  LODWORD(v185) = 26;
+  *(&v183 + 1) = v2;
+  LODWORD(v184) = 26;
   v3 = @"Washer";
-  v186 = v3;
-  LODWORD(v187) = 27;
+  v185 = v3;
+  LODWORD(v186) = 27;
   v4 = @"Oven";
-  *(&v187 + 1) = v4;
-  LODWORD(v188) = 28;
+  *(&v186 + 1) = v4;
+  LODWORD(v187) = 28;
   v5 = @"Dishwasher";
-  v189 = v5;
-  LODWORD(v190) = 29;
-  *(&v190 + 1) = *(&v181 + 1);
-  LODWORD(v191) = 30;
-  v6 = *(&v172 + 1);
-  v192 = v6;
-  LODWORD(v193) = 31;
-  *(&v193 + 1) = *(&v190 + 1);
-  LODWORD(v194) = 32;
-  v95 = @"Screen";
-  v195 = v95;
-  std::unordered_map<int,NSString * {__strong}>::unordered_map(&kSemanticsODLabelMap, &v153, 33);
+  v188 = v5;
+  LODWORD(v189) = 29;
+  *(&v189 + 1) = *(&v180 + 1);
+  LODWORD(v190) = 30;
+  v6 = *(&v171 + 1);
+  v191 = v6;
+  LODWORD(v192) = 31;
+  *(&v192 + 1) = *(&v189 + 1);
+  LODWORD(v193) = 32;
+  v94 = @"Screen";
+  v194 = v94;
+  std::unordered_map<int,NSString * {__strong}>::unordered_map(&kSemanticsODLabelMap, &v152, 33);
   for (i = 520; i != -8; i -= 16)
   {
   }
 
   __cxa_atexit(std::unordered_map<int,NSString * {__strong}>::~unordered_map[abi:ne200100], &kSemanticsODLabelMap, &dword_25D1DB000);
-  v163 = xmmword_25D279630;
-  v164 = unk_25D279640;
-  v165 = xmmword_25D279650;
-  v166 = unk_25D279660;
-  v159 = xmmword_25D2795F0;
-  v160 = unk_25D279600;
-  v161 = xmmword_25D279610;
-  v162 = unk_25D279620;
-  v155 = xmmword_25D2795B0;
-  v156 = unk_25D2795C0;
-  v157 = xmmword_25D2795D0;
-  v158 = unk_25D2795E0;
-  v153 = xmmword_25D279590;
-  v154 = unk_25D2795A0;
-  v167 = 28;
-  std::unordered_map<int,SemanticLabelv5>::unordered_map(&kSparseSSDSemanticLabels, &v153, 29);
+  v162 = xmmword_25D279630;
+  v163 = unk_25D279640;
+  v164 = xmmword_25D279650;
+  v165 = unk_25D279660;
+  v158 = xmmword_25D2795F0;
+  v159 = unk_25D279600;
+  v160 = xmmword_25D279610;
+  v161 = unk_25D279620;
+  v154 = xmmword_25D2795B0;
+  v155 = unk_25D2795C0;
+  v156 = xmmword_25D2795D0;
+  v157 = unk_25D2795E0;
+  v152 = xmmword_25D279590;
+  v153 = unk_25D2795A0;
+  v166 = 28;
+  std::unordered_map<int,SemanticLabelv5>::unordered_map(&kSparseSSDSemanticLabels, &v152, 29);
   __cxa_atexit(std::unordered_map<int,SemanticLabelv5>::~unordered_map[abi:ne200100], &kSparseSSDSemanticLabels, &dword_25D1DB000);
-  LODWORD(v153) = 0;
-  v90 = v6;
-  *(&v153 + 1) = v90;
-  LODWORD(v154) = 1;
-  v86 = v1;
-  *(&v154 + 1) = v86;
-  LODWORD(v155) = 2;
-  v82 = @"Shelf";
-  *(&v155 + 1) = v82;
-  LODWORD(v156) = 3;
-  v80 = v2;
-  *(&v156 + 1) = v80;
-  LODWORD(v157) = 4;
-  v121 = v120;
-  *(&v157 + 1) = v121;
-  LODWORD(v158) = 5;
-  v78 = v0;
-  *(&v158 + 1) = v78;
-  LODWORD(v159) = 6;
-  v76 = v3;
-  *(&v159 + 1) = v76;
-  LODWORD(v160) = 7;
-  v107 = v106;
-  *(&v160 + 1) = v107;
-  LODWORD(v161) = 8;
-  v102 = v101;
-  *(&v161 + 1) = v102;
-  LODWORD(v162) = 9;
-  v75 = v4;
-  *(&v162 + 1) = v75;
-  LODWORD(v163) = 10;
-  v74 = v5;
-  *(&v163 + 1) = v74;
-  LODWORD(v164) = 11;
-  v143 = v142;
-  *(&v164 + 1) = v143;
-  LODWORD(v165) = 12;
-  v73 = @"Stool";
-  *(&v165 + 1) = v73;
-  LODWORD(v166) = 13;
-  v137 = v136;
-  *(&v166 + 1) = v137;
-  LODWORD(v167) = 14;
-  v8 = v126;
-  v168 = v8;
-  LODWORD(v169) = 15;
-  v9 = v95;
-  *(&v169 + 1) = v9;
-  LODWORD(v170) = 16;
-  v10 = v131;
-  v171 = v10;
-  LODWORD(v172) = 17;
-  v11 = v149;
-  *(&v172 + 1) = v11;
-  LODWORD(v173) = 18;
-  v12 = v111;
-  v174 = v12;
-  LODWORD(v175) = 19;
-  v13 = v115;
-  *(&v175 + 1) = v13;
-  LODWORD(v176) = 20;
+  LODWORD(v152) = 0;
+  v89 = v6;
+  *(&v152 + 1) = v89;
+  LODWORD(v153) = 1;
+  v85 = v1;
+  *(&v153 + 1) = v85;
+  LODWORD(v154) = 2;
+  v81 = @"Shelf";
+  *(&v154 + 1) = v81;
+  LODWORD(v155) = 3;
+  v79 = v2;
+  *(&v155 + 1) = v79;
+  LODWORD(v156) = 4;
+  v120 = v119;
+  *(&v156 + 1) = v120;
+  LODWORD(v157) = 5;
+  v77 = v0;
+  *(&v157 + 1) = v77;
+  LODWORD(v158) = 6;
+  v75 = v3;
+  *(&v158 + 1) = v75;
+  LODWORD(v159) = 7;
+  v106 = v105;
+  *(&v159 + 1) = v106;
+  LODWORD(v160) = 8;
+  v101 = v100;
+  *(&v160 + 1) = v101;
+  LODWORD(v161) = 9;
+  v74 = v4;
+  *(&v161 + 1) = v74;
+  LODWORD(v162) = 10;
+  v73 = v5;
+  *(&v162 + 1) = v73;
+  LODWORD(v163) = 11;
+  v142 = v141;
+  *(&v163 + 1) = v142;
+  LODWORD(v164) = 12;
+  v72 = @"Stool";
+  *(&v164 + 1) = v72;
+  LODWORD(v165) = 13;
+  v136 = v135;
+  *(&v165 + 1) = v136;
+  LODWORD(v166) = 14;
+  v8 = v125;
+  v167 = v8;
+  LODWORD(v168) = 15;
+  v9 = v94;
+  *(&v168 + 1) = v9;
+  LODWORD(v169) = 16;
+  v10 = v130;
+  v170 = v10;
+  LODWORD(v171) = 17;
+  v11 = v148;
+  *(&v171 + 1) = v11;
+  LODWORD(v172) = 18;
+  v12 = v110;
+  v173 = v12;
+  LODWORD(v174) = 19;
+  v13 = v114;
+  *(&v174 + 1) = v13;
+  LODWORD(v175) = 20;
   v14 = @"BuildInCabinet";
-  v177 = v14;
-  std::unordered_map<int,NSString * {__strong}>::unordered_map(&kSparseSSDObjectLabels, &v153, 21);
+  v176 = v14;
+  std::unordered_map<int,NSString * {__strong}>::unordered_map(&kSparseSSDObjectLabels, &v152, 21);
   for (j = 328; j != -8; j -= 16)
   {
   }
 
   __cxa_atexit(std::unordered_map<int,NSString * {__strong}>::~unordered_map[abi:ne200100], &kSparseSSDObjectLabels, &dword_25D1DB000);
-  v16 = v90;
-  *&v153 = v16;
-  v72 = v86;
-  *(&v153 + 1) = v72;
-  v83 = v82;
-  *&v154 = v83;
-  v87 = v80;
-  *(&v154 + 1) = v87;
-  v150 = v121;
-  *&v155 = v150;
-  v91 = v78;
-  *(&v155 + 1) = v91;
-  v96 = v76;
-  *&v156 = v96;
-  v112 = v107;
-  *(&v156 + 1) = v112;
-  v17 = v102;
-  *&v157 = v17;
-  v116 = v75;
-  *(&v157 + 1) = v116;
-  v122 = v74;
-  *&v158 = v122;
-  v127 = v143;
-  *(&v158 + 1) = v127;
-  v132 = v73;
-  *&v159 = v132;
-  v144 = v137;
-  *(&v159 + 1) = v144;
+  v16 = v89;
+  *&v152 = v16;
+  v71 = v85;
+  *(&v152 + 1) = v71;
+  v82 = v81;
+  *&v153 = v82;
+  v86 = v79;
+  *(&v153 + 1) = v86;
+  v149 = v120;
+  *&v154 = v149;
+  v90 = v77;
+  *(&v154 + 1) = v90;
+  v95 = v75;
+  *&v155 = v95;
+  v111 = v106;
+  *(&v155 + 1) = v111;
+  v17 = v101;
+  *&v156 = v17;
+  v115 = v74;
+  *(&v156 + 1) = v115;
+  v121 = v73;
+  *&v157 = v121;
+  v126 = v142;
+  *(&v157 + 1) = v126;
+  v131 = v72;
+  *&v158 = v131;
+  v143 = v136;
+  *(&v158 + 1) = v143;
   v18 = v8;
-  *&v160 = v18;
-  v138 = v9;
-  *(&v160 + 1) = v138;
+  *&v159 = v18;
+  v137 = v9;
+  *(&v159 + 1) = v137;
   v19 = v10;
-  *&v161 = v19;
-  *(&v161 + 1) = v11;
-  *&v162 = v12;
-  *(&v162 + 1) = v13;
-  *&v163 = v14;
+  *&v160 = v19;
+  *(&v160 + 1) = v11;
+  *&v161 = v12;
+  *(&v161 + 1) = v13;
+  *&v162 = v14;
   qword_28155A990 = 0;
   unk_28155A998 = 0;
   ou3dod::kObjectTypesLUT = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(&ou3dod::kObjectTypesLUT, &v153, &v163 + 8, 0x15uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(&ou3dod::kObjectTypesLUT, &v152, &v162 + 1, 0x15uLL);
   for (k = 160; k != -8; k -= 8)
   {
   }
 
   __cxa_atexit(std::vector<NSString * {__strong}>::~vector[abi:ne200100], &ou3dod::kObjectTypesLUT, &dword_25D1DB000);
   v21 = v16;
-  *&v153 = v21;
+  *&v152 = v21;
   qword_28155A7D8 = 0;
   unk_28155A7E0 = 0;
   ou3dod::kAFClassIdToObjectTypeOffline = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(&ou3dod::kAFClassIdToObjectTypeOffline, &v153, &v153 + 8, 1uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(&ou3dod::kAFClassIdToObjectTypeOffline, &v152, &v152 + 1, 1uLL);
 
   __cxa_atexit(std::vector<NSString * {__strong}>::~vector[abi:ne200100], &ou3dod::kAFClassIdToObjectTypeOffline, &dword_25D1DB000);
   v22 = v21;
-  *&v153 = v22;
-  v23 = v150;
-  *(&v153 + 1) = v23;
+  *&v152 = v22;
+  v23 = v149;
+  *(&v152 + 1) = v23;
   v24 = v17;
-  *&v154 = v24;
+  *&v153 = v24;
   v25 = v18;
-  *(&v154 + 1) = v25;
+  *(&v153 + 1) = v25;
   v26 = v19;
-  *&v155 = v26;
+  *&v154 = v26;
   qword_28155A900 = 0;
   unk_28155A908 = 0;
   ou3dod::kOfflineSsdTypesLUT = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(&ou3dod::kOfflineSsdTypesLUT, &v153, &v155 + 8, 5uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(&ou3dod::kOfflineSsdTypesLUT, &v152, &v154 + 1, 5uLL);
   for (m = 32; m != -8; m -= 8)
   {
   }
 
   __cxa_atexit(std::vector<NSString * {__strong}>::~vector[abi:ne200100], &ou3dod::kOfflineSsdTypesLUT, &dword_25D1DB000);
-  v155 = xmmword_25D2796A0;
-  v156 = unk_25D2796B0;
-  v157 = xmmword_25D2796C0;
-  v153 = xmmword_25D279680;
-  v154 = unk_25D279690;
+  v154 = xmmword_25D2796A0;
+  v155 = unk_25D2796B0;
+  v156 = xmmword_25D2796C0;
+  v152 = xmmword_25D279680;
+  v153 = unk_25D279690;
   qword_28155A868 = 0;
   unk_28155A870 = 0;
   ou3dod::kOfflineSSDAnchorSizeList = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&ou3dod::kOfflineSSDAnchorSizeList, &v153, &v158, 5uLL);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&ou3dod::kOfflineSSDAnchorSizeList, &v152, &v157, 5uLL);
   __cxa_atexit(_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEED1B8ne200100Ev, &ou3dod::kOfflineSSDAnchorSizeList, &dword_25D1DB000);
   v28 = v22;
-  *&v153 = v28;
-  DWORD2(v153) = 1055286886;
+  *&v152 = v28;
+  DWORD2(v152) = 1055286886;
   v29 = v23;
-  *&v154 = v29;
-  DWORD2(v154) = 1039516303;
+  *&v153 = v29;
+  DWORD2(v153) = 1039516303;
   v30 = v24;
-  *&v155 = v30;
-  DWORD2(v155) = 1045220557;
+  *&v154 = v30;
+  DWORD2(v154) = 1045220557;
   v31 = v25;
-  *&v156 = v31;
-  DWORD2(v156) = 1050253722;
+  *&v155 = v31;
+  DWORD2(v155) = 1050253722;
   v32 = v26;
-  *&v157 = v32;
-  DWORD2(v157) = 1047904911;
-  std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::map[abi:ne200100](&ou3dod::kOfflineSSD3dConfThresholdMap, &v153, 5);
+  *&v156 = v32;
+  DWORD2(v156) = 1047904911;
+  std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::map[abi:ne200100](&ou3dod::kOfflineSSD3dConfThresholdMap, &v152, 5);
   for (n = 64; n != -16; n -= 16)
   {
   }
 
   __cxa_atexit(std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::~map[abi:ne200100], &ou3dod::kOfflineSSD3dConfThresholdMap, &dword_25D1DB000);
-  *(&v153 + 1) = @"Chair-chair_type-dining";
-  LODWORD(v154) = 2;
-  *(&v154 + 1) = @"Chair-chair_type-swivel";
-  LODWORD(v155) = 3;
-  *(&v155 + 1) = @"Chair-chair_type-other";
-  LODWORD(v156) = 4;
-  *(&v156 + 1) = @"Chair-chair_leg_type-four";
-  LODWORD(v157) = 5;
-  *(&v157 + 1) = @"Chair-chair_leg_type-star";
-  LODWORD(v158) = 6;
-  *(&v158 + 1) = @"Chair-chair_leg_type-other";
-  LODWORD(v159) = 7;
-  *(&v159 + 1) = @"Chair-chair_arm_type-missing";
-  LODWORD(v160) = 8;
-  *(&v160 + 1) = @"Chair-chair_arm_type-existing";
-  LODWORD(v161) = 9;
-  *(&v161 + 1) = @"Chair-chair_back_type-missing";
-  LODWORD(v162) = 10;
-  *(&v162 + 1) = @"Chair-chair_back_type-existing";
-  LODWORD(v163) = 11;
-  *(&v163 + 1) = @"Chair-chair_seat_height-tall_seat";
-  LODWORD(v164) = 12;
-  *(&v164 + 1) = @"Chair-chair_seat_height-normal/low_seat";
-  LODWORD(v165) = 13;
-  *(&v165 + 1) = @"Chair-chair_seat_shape-rectangular";
-  LODWORD(v166) = 14;
-  *(&v166 + 1) = @"Chair-chair_seat_shape-round";
-  LODWORD(v167) = 15;
-  v168 = @"Chair-chair_seat_shape-none";
-  LODWORD(v169) = 16;
-  *(&v169 + 1) = @"Sofa-sofa_type-rectangular";
-  LODWORD(v170) = 17;
-  v171 = @"Sofa-sofa_type-lShaped";
-  LODWORD(v172) = 18;
-  *(&v172 + 1) = @"Sofa-sofa_type-singleSeat";
-  LODWORD(v173) = 19;
-  v174 = @"Sofa-sofa_type-lShapedMain";
-  LODWORD(v175) = 20;
-  *(&v175 + 1) = @"Sofa-sofa_type-lShapedExtension";
-  LODWORD(v176) = 21;
-  v177 = @"Sofa-sofa_type-lShapedMiddle";
-  LODWORD(v178) = 22;
-  *(&v178 + 1) = @"Sofa-sofa_type-other";
-  LODWORD(v179) = 23;
-  v180 = @"Sofa-sofa_arm_type-missing";
-  LODWORD(v181) = 24;
-  *(&v181 + 1) = @"Sofa-sofa_arm_type-two_arms";
-  LODWORD(v182) = 25;
-  v183 = @"Sofa-sofa_arm_type-none";
-  LODWORD(v184) = 26;
-  *(&v184 + 1) = @"Sofa-sofa_back_type-missing";
-  LODWORD(v185) = 27;
-  v186 = @"Sofa-sofa_back_type-existing";
-  LODWORD(v187) = 28;
-  *(&v187 + 1) = @"Table-table_type-desk";
-  LODWORD(v188) = 29;
-  v189 = @"Table-table_type-coffee";
-  LODWORD(v190) = 30;
-  *(&v190 + 1) = @"Table-table_type-dining";
-  LODWORD(v191) = 31;
-  v192 = @"Table-table_type-other";
-  LODWORD(v193) = 32;
-  *(&v193 + 1) = @"Table-table_shape-rectangular";
-  LODWORD(v194) = 33;
-  v195 = @"Table-table_shape-lShaped";
-  LODWORD(v196) = 34;
-  *(&v196 + 1) = @"Table-table_shape-circularElliptic";
-  v197 = 35;
-  v198 = @"Table-table_shape-other";
-  v199 = 36;
-  v200 = @"Table-table_leg_type-two_leg";
-  v201 = 37;
-  v202 = @"Table-table_leg_type-four_leg";
-  v203 = 38;
-  v204 = @"Table-table_leg_type-none";
-  v205 = 39;
-  v206 = @"Table-table_attribute-with_storage";
-  v207 = 40;
-  v208 = @"Table-table_attribute-without_storage";
-  v209 = 41;
-  v210 = @"Cabinet-cabinet_type-standalone_cabinet";
-  v211 = 42;
-  v212 = @"Cabinet-cabinet_type-kitchen_cabinet";
-  v213 = 43;
-  v214 = @"Cabinet-cabinet_type-nightstand";
-  v215 = 44;
-  v216 = @"Cabinet-cabinet_type-none";
-  v217 = 45;
-  v218 = @"Cabinet-cabinet_attribute-no_countertop";
-  v219 = 46;
-  v220 = @"Cabinet-cabinet_attribute-with_countertop";
-  v221 = 100;
-  v222 = @"Sofa-sofa_arm_type-existing";
-  v223 = 101;
-  LODWORD(v153) = 0;
-  v224 = @"Storage-storage_type-cabinet";
-  v225 = 102;
-  v226 = @"Storage-storage_type-shelf";
-  v227 = 103;
-  v228 = @"Chair-chair_type-stool";
-  std::unordered_map<ou3dor::PartAttributeID,NSString * {__strong}>::unordered_map(ou3dor::k3DORSupportedAttributeTypeMap, &v153, 50);
+  *(&v152 + 1) = @"Chair-chair_type-dining";
+  LODWORD(v153) = 2;
+  *(&v153 + 1) = @"Chair-chair_type-swivel";
+  LODWORD(v154) = 3;
+  *(&v154 + 1) = @"Chair-chair_type-other";
+  LODWORD(v155) = 4;
+  *(&v155 + 1) = @"Chair-chair_leg_type-four";
+  LODWORD(v156) = 5;
+  *(&v156 + 1) = @"Chair-chair_leg_type-star";
+  LODWORD(v157) = 6;
+  *(&v157 + 1) = @"Chair-chair_leg_type-other";
+  LODWORD(v158) = 7;
+  *(&v158 + 1) = @"Chair-chair_arm_type-missing";
+  LODWORD(v159) = 8;
+  *(&v159 + 1) = @"Chair-chair_arm_type-existing";
+  LODWORD(v160) = 9;
+  *(&v160 + 1) = @"Chair-chair_back_type-missing";
+  LODWORD(v161) = 10;
+  *(&v161 + 1) = @"Chair-chair_back_type-existing";
+  LODWORD(v162) = 11;
+  *(&v162 + 1) = @"Chair-chair_seat_height-tall_seat";
+  LODWORD(v163) = 12;
+  *(&v163 + 1) = @"Chair-chair_seat_height-normal/low_seat";
+  LODWORD(v164) = 13;
+  *(&v164 + 1) = @"Chair-chair_seat_shape-rectangular";
+  LODWORD(v165) = 14;
+  *(&v165 + 1) = @"Chair-chair_seat_shape-round";
+  LODWORD(v166) = 15;
+  v167 = @"Chair-chair_seat_shape-none";
+  LODWORD(v168) = 16;
+  *(&v168 + 1) = @"Sofa-sofa_type-rectangular";
+  LODWORD(v169) = 17;
+  v170 = @"Sofa-sofa_type-lShaped";
+  LODWORD(v171) = 18;
+  *(&v171 + 1) = @"Sofa-sofa_type-singleSeat";
+  LODWORD(v172) = 19;
+  v173 = @"Sofa-sofa_type-lShapedMain";
+  LODWORD(v174) = 20;
+  *(&v174 + 1) = @"Sofa-sofa_type-lShapedExtension";
+  LODWORD(v175) = 21;
+  v176 = @"Sofa-sofa_type-lShapedMiddle";
+  LODWORD(v177) = 22;
+  *(&v177 + 1) = @"Sofa-sofa_type-other";
+  LODWORD(v178) = 23;
+  v179 = @"Sofa-sofa_arm_type-missing";
+  LODWORD(v180) = 24;
+  *(&v180 + 1) = @"Sofa-sofa_arm_type-two_arms";
+  LODWORD(v181) = 25;
+  v182 = @"Sofa-sofa_arm_type-none";
+  LODWORD(v183) = 26;
+  *(&v183 + 1) = @"Sofa-sofa_back_type-missing";
+  LODWORD(v184) = 27;
+  v185 = @"Sofa-sofa_back_type-existing";
+  LODWORD(v186) = 28;
+  *(&v186 + 1) = @"Table-table_type-desk";
+  LODWORD(v187) = 29;
+  v188 = @"Table-table_type-coffee";
+  LODWORD(v189) = 30;
+  *(&v189 + 1) = @"Table-table_type-dining";
+  LODWORD(v190) = 31;
+  v191 = @"Table-table_type-other";
+  LODWORD(v192) = 32;
+  *(&v192 + 1) = @"Table-table_shape-rectangular";
+  LODWORD(v193) = 33;
+  v194 = @"Table-table_shape-lShaped";
+  LODWORD(v195) = 34;
+  *(&v195 + 1) = @"Table-table_shape-circularElliptic";
+  v196 = 35;
+  v197 = @"Table-table_shape-other";
+  v198 = 36;
+  v199 = @"Table-table_leg_type-two_leg";
+  v200 = 37;
+  v201 = @"Table-table_leg_type-four_leg";
+  v202 = 38;
+  v203 = @"Table-table_leg_type-none";
+  v204 = 39;
+  v205 = @"Table-table_attribute-with_storage";
+  v206 = 40;
+  v207 = @"Table-table_attribute-without_storage";
+  v208 = 41;
+  v209 = @"Cabinet-cabinet_type-standalone_cabinet";
+  v210 = 42;
+  v211 = @"Cabinet-cabinet_type-kitchen_cabinet";
+  v212 = 43;
+  v213 = @"Cabinet-cabinet_type-nightstand";
+  v214 = 44;
+  v215 = @"Cabinet-cabinet_type-none";
+  v216 = 45;
+  v217 = @"Cabinet-cabinet_attribute-no_countertop";
+  v218 = 46;
+  v219 = @"Cabinet-cabinet_attribute-with_countertop";
+  v220 = 100;
+  v221 = @"Sofa-sofa_arm_type-existing";
+  v222 = 101;
+  LODWORD(v152) = 0;
+  v223 = @"Storage-storage_type-cabinet";
+  v224 = 102;
+  v225 = @"Storage-storage_type-shelf";
+  v226 = 103;
+  v227 = @"Chair-chair_type-stool";
+  std::unordered_map<ou3dor::PartAttributeID,NSString * {__strong}>::unordered_map(ou3dor::k3DORSupportedAttributeTypeMap, &v152, 50);
   for (ii = 792; ii != -8; ii -= 16)
   {
   }
@@ -3462,61 +3464,61 @@ void _GLOBAL__sub_I_OU3DObjectDetector_mm()
   unk_28155B130 = xmmword_25D277B90;
   ObjectUnderstandingTest::Bundle = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ObjectUnderstandingTests"];
   v35 = v28;
-  *&v153 = v35;
-  DWORD2(v153) = 1065185444;
-  v36 = v72;
-  *&v154 = v36;
-  DWORD2(v154) = 1064766013;
-  v151 = v83;
-  *&v155 = v151;
-  DWORD2(v155) = 1064011039;
-  v108 = v87;
-  *&v156 = v108;
-  DWORD2(v156) = 1065017672;
-  v103 = v29;
-  *&v157 = v103;
-  DWORD2(v157) = 1065185444;
-  v92 = v91;
-  *&v158 = v92;
+  *&v152 = v35;
+  DWORD2(v152) = 1065185444;
+  v36 = v71;
+  *&v153 = v36;
+  DWORD2(v153) = 1064766013;
+  v150 = v82;
+  *&v154 = v150;
+  DWORD2(v154) = 1064011039;
+  v107 = v86;
+  *&v155 = v107;
+  DWORD2(v155) = 1065017672;
+  v102 = v29;
+  *&v156 = v102;
+  DWORD2(v156) = 1065185444;
+  v91 = v90;
+  *&v157 = v91;
   v37 = v31;
-  DWORD2(v158) = 1065101558;
-  v97 = v96;
-  *&v159 = v97;
+  DWORD2(v157) = 1065101558;
+  v96 = v95;
+  *&v158 = v96;
+  DWORD2(v158) = 1065185444;
+  v38 = v111;
+  *&v159 = v38;
   DWORD2(v159) = 1065185444;
-  v38 = v112;
-  *&v160 = v38;
-  DWORD2(v160) = 1065185444;
   v39 = v30;
-  *&v161 = v39;
-  DWORD2(v161) = 1065017672;
-  v117 = v116;
-  *&v162 = v117;
-  DWORD2(v162) = 1064178811;
-  v123 = v122;
-  *&v163 = v123;
-  DWORD2(v163) = 1065101558;
-  v40 = v127;
-  *&v164 = v40;
-  DWORD2(v164) = 1064178811;
-  v133 = v132;
-  *&v165 = v133;
-  DWORD2(v165) = 1063675494;
-  v145 = v144;
-  *&v166 = v145;
-  DWORD2(v166) = 1065185444;
+  *&v160 = v39;
+  DWORD2(v160) = 1065017672;
+  v116 = v115;
+  *&v161 = v116;
+  DWORD2(v161) = 1064178811;
+  v122 = v121;
+  *&v162 = v122;
+  DWORD2(v162) = 1065101558;
+  v40 = v126;
+  *&v163 = v40;
+  DWORD2(v163) = 1064178811;
+  v132 = v131;
+  *&v164 = v132;
+  DWORD2(v164) = 1063675494;
+  v144 = v143;
+  *&v165 = v144;
+  DWORD2(v165) = 1065185444;
   v41 = v37;
-  v167 = v41;
-  LODWORD(v168) = 1064430469;
-  v139 = v138;
-  *&v169 = v139;
-  DWORD2(v169) = 1065185444;
+  v166 = v41;
+  LODWORD(v167) = 1064430469;
+  v138 = v137;
+  *&v168 = v138;
+  DWORD2(v168) = 1065185444;
   v42 = v32;
-  v170 = v42;
-  LODWORD(v171) = 1064514355;
-  std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::map[abi:ne200100](&kFloorplanConfThresholdMap, &v153, 17);
-  v84 = v42;
-  v88 = v41;
-  v128 = v39;
+  v169 = v42;
+  LODWORD(v170) = 1064514355;
+  std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::map[abi:ne200100](&kFloorplanConfThresholdMap, &v152, 17);
+  v83 = v42;
+  v87 = v41;
+  v127 = v39;
   for (jj = 256; jj != -16; jj -= 16)
   {
   }
@@ -3526,208 +3528,207 @@ void _GLOBAL__sub_I_OU3DObjectDetector_mm()
   kFloorplanOU3DObjectTypeLUT = v44;
   v45 = v36;
   qword_28155AD88 = v45;
-  v46 = v151;
+  v46 = v150;
   qword_28155AD90 = v46;
-  v47 = v108;
+  v47 = v107;
   qword_28155AD98 = v47;
-  v48 = v103;
+  v48 = v102;
   qword_28155ADA0 = v48;
-  v49 = v92;
+  v49 = v91;
   qword_28155ADA8 = v49;
-  v50 = v97;
+  v50 = v96;
   qword_28155ADB0 = v50;
   v51 = v38;
   qword_28155ADB8 = v51;
-  v98 = v128;
-  qword_28155ADC0 = v98;
-  v104 = v117;
-  qword_28155ADC8 = v104;
-  v109 = v123;
-  qword_28155ADD0 = v109;
-  v118 = v40;
-  qword_28155ADD8 = v118;
-  v124 = v133;
-  qword_28155ADE0 = v124;
-  v129 = v145;
-  qword_28155ADE8 = v129;
-  v134 = v88;
-  qword_28155ADF0 = v134;
-  v140 = v139;
-  qword_28155ADF8 = v140;
-  v146 = v84;
-  qword_28155AE00 = v146;
-  v77 = v44;
-  *&v153 = v77;
-  v154 = xmmword_25D2794F0;
-  v113 = v45;
-  *&v155 = v113;
-  v156 = xmmword_25D279500;
-  v89 = v46;
-  *&v157 = v89;
-  v158 = xmmword_25D279500;
-  v93 = v47;
-  *&v159 = v93;
-  v160 = xmmword_25D279510;
-  v85 = v48;
-  *&v161 = v85;
-  v162 = xmmword_25D279520;
+  v97 = v127;
+  qword_28155ADC0 = v97;
+  v103 = v116;
+  qword_28155ADC8 = v103;
+  v108 = v122;
+  qword_28155ADD0 = v108;
+  v117 = v40;
+  qword_28155ADD8 = v117;
+  v123 = v132;
+  qword_28155ADE0 = v123;
+  v128 = v144;
+  qword_28155ADE8 = v128;
+  v133 = v87;
+  qword_28155ADF0 = v133;
+  v139 = v138;
+  qword_28155ADF8 = v139;
+  v145 = v83;
+  qword_28155AE00 = v145;
+  v76 = v44;
+  *&v152 = v76;
+  v153 = xmmword_25D2794F0;
+  v112 = v45;
+  *&v154 = v112;
+  v155 = xmmword_25D279500;
+  v88 = v46;
+  *&v156 = v88;
+  v157 = xmmword_25D279500;
+  v92 = v47;
+  *&v158 = v92;
+  v159 = xmmword_25D279510;
+  v84 = v48;
+  *&v160 = v84;
+  v161 = xmmword_25D279520;
   v52 = v49;
-  *&v163 = v52;
-  v164 = xmmword_25D279530;
-  v79 = v50;
-  *&v165 = v79;
-  v166 = xmmword_25D279500;
-  v81 = v51;
-  v167 = v81;
-  v169 = 0u;
-  v99 = v98;
-  v170 = v99;
-  v172 = 0u;
-  v53 = v104;
-  v173 = v53;
-  v175 = xmmword_25D279500;
-  v54 = v109;
-  v176 = v54;
-  v178 = xmmword_25D279500;
-  v55 = v118;
-  v179 = v55;
-  v181 = xmmword_25D279540;
-  v125 = v124;
-  v182 = v125;
-  v184 = 0u;
-  v56 = v129;
-  v185 = v56;
-  v187 = xmmword_25D279550;
-  v57 = v134;
-  v188 = v57;
-  v190 = xmmword_25D279560;
-  v58 = v140;
-  v191 = v58;
-  v193 = xmmword_25D279540;
-  v59 = v146;
-  v194 = v59;
-  v196 = 0u;
-  _ZNSt3__13mapIU8__strongP8NSStringDv3_f15CompareNSStringNS_9allocatorINS_4pairIU8__strongKS2_S4_EEEEEC2B8ne200100ESt16initializer_listIS9_ERKS5_(&kFloorplanBoxPaddingMap, &v153, 17);
-  v141 = v53;
-  v147 = v58;
-  v152 = v59;
+  *&v162 = v52;
+  v163 = xmmword_25D279530;
+  v78 = v50;
+  *&v164 = v78;
+  v165 = xmmword_25D279500;
+  v80 = v51;
+  v166 = v80;
+  v168 = 0u;
+  v98 = v97;
+  v169 = v98;
+  v171 = 0u;
+  v53 = v103;
+  v172 = v53;
+  v174 = xmmword_25D279500;
+  v54 = v108;
+  v175 = v54;
+  v177 = xmmword_25D279500;
+  v55 = v117;
+  v178 = v55;
+  v180 = xmmword_25D279540;
+  v124 = v123;
+  v181 = v124;
+  v183 = 0u;
+  v56 = v128;
+  v184 = v56;
+  v186 = xmmword_25D279550;
+  v57 = v133;
+  v187 = v57;
+  v189 = xmmword_25D279560;
+  v58 = v139;
+  v190 = v58;
+  v192 = xmmword_25D279540;
+  v59 = v145;
+  v193 = v59;
+  v195 = 0u;
+  _ZNSt3__13mapIU8__strongP8NSStringDv3_f15CompareNSStringNS_9allocatorINS_4pairIU8__strongKS2_S4_EEEEEC2B8ne200100ESt16initializer_listIS9_ERKS5_(&kFloorplanBoxPaddingMap, &v152, 17);
+  v140 = v53;
+  v146 = v58;
+  v151 = v59;
   for (kk = 512; kk != -32; kk -= 32)
   {
   }
 
   __cxa_atexit(_ZNSt3__13mapIU8__strongP8NSStringDv3_f15CompareNSStringNS_9allocatorINS_4pairIU8__strongKS2_S4_EEEEED1B8ne200100Ev, &kFloorplanBoxPaddingMap, &dword_25D1DB000);
-  *&v153 = v77;
-  BYTE8(v153) = 14;
+  *&v152 = v76;
+  BYTE8(v152) = 14;
+  *&v153 = v152;
+  BYTE8(v153) = 16;
   *&v154 = v153;
-  BYTE8(v154) = 16;
+  BYTE8(v154) = 30;
   *&v155 = v154;
-  BYTE8(v155) = 30;
+  BYTE8(v155) = 21;
   *&v156 = v155;
-  BYTE8(v156) = 21;
-  *&v157 = v156;
-  BYTE8(v157) = 25;
-  v135 = v157;
-  *&v158 = v135;
-  BYTE8(v158) = 19;
-  v130 = v113;
-  *&v159 = v130;
-  BYTE8(v159) = 24;
-  v61 = v89;
-  *&v160 = v61;
-  BYTE8(v160) = 17;
-  v114 = v93;
-  *&v161 = v114;
-  BYTE8(v161) = 25;
-  v110 = v85;
-  *&v162 = v110;
-  BYTE8(v162) = 13;
-  v105 = v52;
-  *&v163 = v105;
-  BYTE8(v163) = 21;
-  v119 = v79;
-  *&v164 = v119;
-  BYTE8(v164) = 26;
-  v94 = v81;
-  *&v165 = v94;
-  BYTE8(v165) = 20;
-  v100 = v99;
-  *&v166 = v100;
-  BYTE8(v166) = 22;
-  v167 = v141;
-  LOBYTE(v168) = 27;
-  *&v169 = v167;
-  BYTE8(v169) = 25;
-  v62 = v169;
-  v170 = v62;
-  LOBYTE(v171) = 28;
+  BYTE8(v156) = 25;
+  v134 = v156;
+  *&v157 = v134;
+  BYTE8(v157) = 19;
+  v129 = v112;
+  *&v158 = v129;
+  BYTE8(v158) = 24;
+  v61 = v88;
+  *&v159 = v61;
+  BYTE8(v159) = 17;
+  v113 = v92;
+  *&v160 = v113;
+  BYTE8(v160) = 25;
+  v109 = v84;
+  *&v161 = v109;
+  BYTE8(v161) = 13;
+  v104 = v52;
+  *&v162 = v104;
+  BYTE8(v162) = 21;
+  v118 = v78;
+  *&v163 = v118;
+  BYTE8(v163) = 26;
+  v93 = v80;
+  *&v164 = v93;
+  BYTE8(v164) = 20;
+  v99 = v98;
+  *&v165 = v99;
+  BYTE8(v165) = 22;
+  v166 = v140;
+  LOBYTE(v167) = 27;
+  *&v168 = v166;
+  BYTE8(v168) = 25;
+  v62 = v168;
+  v169 = v62;
+  LOBYTE(v170) = 28;
   v63 = v54;
-  *&v172 = v63;
-  BYTE8(v172) = 28;
+  *&v171 = v63;
+  BYTE8(v171) = 28;
   v64 = v55;
-  v173 = v64;
-  LOBYTE(v174) = 9;
+  v172 = v64;
+  LOBYTE(v173) = 9;
   v65 = v56;
-  *&v175 = v65;
-  BYTE8(v175) = 15;
+  *&v174 = v65;
+  BYTE8(v174) = 15;
   v66 = v57;
-  v176 = v66;
-  LOBYTE(v177) = 19;
-  v148 = v147;
-  *&v178 = v148;
-  BYTE8(v178) = 32;
-  v179 = v152;
-  LOBYTE(v180) = 18;
-  v67 = v179;
-  *&v181 = v67;
-  BYTE8(v181) = 15;
-  std::multimap<NSString * {__strong},SemanticLabelv5,CompareNSString,std::allocator<std::pair<NSString * const {__strong},SemanticLabelv5>>>::multimap[abi:ne200100](&kFloorplanClassToSemMap, &v153, 24);
+  v175 = v66;
+  LOBYTE(v176) = 19;
+  v147 = v146;
+  *&v177 = v147;
+  BYTE8(v177) = 32;
+  v178 = v151;
+  LOBYTE(v179) = 18;
+  v67 = v178;
+  *&v180 = v67;
+  BYTE8(v180) = 15;
+  std::multimap<NSString * {__strong},SemanticLabelv5,CompareNSString,std::allocator<std::pair<NSString * const {__strong},SemanticLabelv5>>>::multimap[abi:ne200100](&kFloorplanClassToSemMap, &v152, 24);
   for (mm = 368; mm != -16; mm -= 16)
   {
   }
 
   __cxa_atexit(std::multimap<NSString * {__strong},SemanticLabelv5,CompareNSString,std::allocator<std::pair<NSString * const {__strong},SemanticLabelv5>>>::~multimap[abi:ne200100], &kFloorplanClassToSemMap, &dword_25D1DB000);
-  *&v153 = v135;
+  *&v152 = v134;
+  DWORD2(v152) = 1051931443;
+  *&v153 = v129;
   DWORD2(v153) = 1051931443;
-  *&v154 = v130;
-  DWORD2(v154) = 1051931443;
-  *&v155 = v61;
+  *&v154 = v61;
+  DWORD2(v154) = 1036831949;
+  *&v155 = v113;
   DWORD2(v155) = 1036831949;
-  *&v156 = v114;
-  DWORD2(v156) = 1036831949;
-  *&v157 = v110;
-  DWORD2(v157) = 1041865114;
-  *&v158 = v105;
-  DWORD2(v158) = 1045220557;
-  *&v159 = v119;
-  DWORD2(v159) = 1041865114;
-  *&v160 = v94;
-  DWORD2(v160) = 1048576000;
-  *&v161 = v100;
-  DWORD2(v161) = 1036831949;
-  *&v162 = v62;
-  DWORD2(v162) = 1041865114;
-  *&v163 = v63;
-  DWORD2(v163) = 981668463;
-  *&v164 = v64;
-  DWORD2(v164) = 1048576000;
-  *&v165 = v125;
-  DWORD2(v165) = 1036831949;
-  *&v166 = v65;
-  DWORD2(v166) = 1041865114;
-  v167 = v66;
-  LODWORD(v168) = 1025758986;
-  *&v169 = v148;
-  DWORD2(v169) = 1048576000;
-  v170 = v67;
-  LODWORD(v171) = 1041865114;
-  std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::map[abi:ne200100](&kFloorplanBoxSemThresholdMap, &v153, 17);
+  *&v156 = v109;
+  DWORD2(v156) = 1041865114;
+  *&v157 = v104;
+  DWORD2(v157) = 1045220557;
+  *&v158 = v118;
+  DWORD2(v158) = 1041865114;
+  *&v159 = v93;
+  DWORD2(v159) = 1048576000;
+  *&v160 = v99;
+  DWORD2(v160) = 1036831949;
+  *&v161 = v62;
+  DWORD2(v161) = 1041865114;
+  *&v162 = v63;
+  DWORD2(v162) = 981668463;
+  *&v163 = v64;
+  DWORD2(v163) = 1048576000;
+  *&v164 = v124;
+  DWORD2(v164) = 1036831949;
+  *&v165 = v65;
+  DWORD2(v165) = 1041865114;
+  v166 = v66;
+  LODWORD(v167) = 1025758986;
+  *&v168 = v147;
+  DWORD2(v168) = 1048576000;
+  v169 = v67;
+  LODWORD(v170) = 1041865114;
+  std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::map[abi:ne200100](&kFloorplanBoxSemThresholdMap, &v152, 17);
   for (nn = 256; nn != -16; nn -= 16)
   {
   }
 
   __cxa_atexit(std::map<NSString * {__strong},float,CompareNSString,std::allocator<std::pair<NSString * const {__strong},float>>>::~map[abi:ne200100], &kFloorplanBoxSemThresholdMap, &dword_25D1DB000);
   objc_autoreleasePoolPop(context);
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25D25728C(_Unwind_Exception *a1)
@@ -4017,7 +4018,7 @@ void sub_25D25790C(_Unwind_Exception *a1)
 
 void OUVizTool::MaybeReset(OUVizTool *this)
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   if (*this)
   {
     if (*this == 1)
@@ -4047,8 +4048,8 @@ void OUVizTool::MaybeReset(OUVizTool *this)
 
       v5 = std::string::append(&__p, v3, v4);
       v6 = v5->__r_.__value_.__r.__words[0];
-      v27.__r_.__value_.__r.__words[0] = v5->__r_.__value_.__l.__size_;
-      *(v27.__r_.__value_.__r.__words + 7) = *(&v5->__r_.__value_.__r.__words[1] + 7);
+      v26.__r_.__value_.__r.__words[0] = v5->__r_.__value_.__l.__size_;
+      *(v26.__r_.__value_.__r.__words + 7) = *(&v5->__r_.__value_.__r.__words[1] + 7);
       v7 = HIBYTE(v5->__r_.__value_.__r.__words[2]);
       v5->__r_.__value_.__l.__size_ = 0;
       v5->__r_.__value_.__r.__words[2] = 0;
@@ -4058,10 +4059,10 @@ void OUVizTool::MaybeReset(OUVizTool *this)
         operator delete(*(this + 7));
       }
 
-      v8 = v27.__r_.__value_.__r.__words[0];
+      v8 = v26.__r_.__value_.__r.__words[0];
       *(this + 7) = v6;
       *(this + 8) = v8;
-      *(this + 71) = *(v27.__r_.__value_.__r.__words + 7);
+      *(this + 71) = *(v26.__r_.__value_.__r.__words + 7);
       *(this + 79) = v7;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -4112,8 +4113,8 @@ void OUVizTool::MaybeReset(OUVizTool *this)
 LABEL_30:
         std::string::operator=((this + 8), &__p);
         *(this + 1) = 0;
-        *(&v27.__r_.__value_.__s + 23) = 14;
-        strcpy(&v27, "/tmp/viz_tool/");
+        *(&v26.__r_.__value_.__s + 23) = 14;
+        strcpy(&v26, "/tmp/viz_tool/");
         v18 = *(this + 31);
         if (v18 >= 0)
         {
@@ -4135,10 +4136,10 @@ LABEL_30:
           v20 = *(this + 2);
         }
 
-        v21 = std::string::append(&v27, v19, v20);
+        v21 = std::string::append(&v26, v19, v20);
         v22 = v21->__r_.__value_.__r.__words[0];
-        v28[0] = v21->__r_.__value_.__l.__size_;
-        *(v28 + 7) = *(&v21->__r_.__value_.__r.__words[1] + 7);
+        v27[0] = v21->__r_.__value_.__l.__size_;
+        *(v27 + 7) = *(&v21->__r_.__value_.__r.__words[1] + 7);
         v23 = HIBYTE(v21->__r_.__value_.__r.__words[2]);
         v21->__r_.__value_.__l.__size_ = 0;
         v21->__r_.__value_.__r.__words[2] = 0;
@@ -4148,14 +4149,14 @@ LABEL_30:
           operator delete(*(this + 7));
         }
 
-        v24 = v28[0];
+        v24 = v27[0];
         *(this + 7) = v22;
         *(this + 8) = v24;
-        *(this + 71) = *(v28 + 7);
+        *(this + 71) = *(v27 + 7);
         *(this + 79) = v23;
-        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v27.__r_.__value_.__l.__data_);
+          operator delete(v26.__r_.__value_.__l.__data_);
         }
 
         OUVizTool::SetOriginalAndOnlineFolder(this);
@@ -4168,8 +4169,6 @@ LABEL_30:
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25D257C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -4274,7 +4273,7 @@ void OUVizTool::SetOriginalAndOnlineFolder(OUVizTool *this)
   OUVizTool::CreateDirectory(v10, this + 13);
 }
 
-void OUVizTool::CreateDirectory(uint64_t a1, uint64_t *a2)
+void OUVizTool::CreateDirectory(uint64_t a1, uint64_t **a2)
 {
   v9 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = MEMORY[0x277CCACA8];
@@ -4297,12 +4296,12 @@ void OUVizTool::CreateDirectory(uint64_t a1, uint64_t *a2)
 
 void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v72[3] = *MEMORY[0x277D85DE8];
-  v55 = a3;
+  v71[3] = *MEMORY[0x277D85DE8];
+  v54 = a3;
   v7 = a4;
   if (*a1 == 1)
   {
-    v54 = v7;
+    v53 = v7;
     OUVizTool::MaybeReset(a1);
     if (*(a1 + 79) >= 0)
     {
@@ -4314,15 +4313,15 @@ void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
       v8 = *(a1 + 64);
     }
 
-    std::string::basic_string[abi:ne200100](&v57, v8 + 1);
-    if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100](&v56, v8 + 1);
+    if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v9 = &v57;
+      v9 = &v56;
     }
 
     else
     {
-      v9 = v57.__r_.__value_.__r.__words[0];
+      v9 = v56.__r_.__value_.__r.__words[0];
     }
 
     if (v8)
@@ -4341,38 +4340,38 @@ void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
     }
 
     *(&v9->__r_.__value_.__l.__data_ + v8) = 47;
-    std::to_string(&v56, *(a1 + 4));
-    if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v55, *(a1 + 4));
+    if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v11 = &v56;
+      v11 = &v55;
     }
 
     else
     {
-      v11 = v56.__r_.__value_.__r.__words[0];
+      v11 = v55.__r_.__value_.__r.__words[0];
     }
 
-    if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v56.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v55.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v56.__r_.__value_.__l.__size_;
+      size = v55.__r_.__value_.__l.__size_;
     }
 
-    v13 = std::string::append(&v57, v11, size);
+    v13 = std::string::append(&v56, v11, size);
     v14 = *&v13->__r_.__value_.__l.__data_;
-    v58.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-    *&v58.__r_.__value_.__l.__data_ = v14;
+    v57.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+    *&v57.__r_.__value_.__l.__data_ = v14;
     v13->__r_.__value_.__l.__size_ = 0;
     v13->__r_.__value_.__r.__words[2] = 0;
     v13->__r_.__value_.__r.__words[0] = 0;
-    v15 = std::string::append(&v58, "/", 1uLL);
+    v15 = std::string::append(&v57, "/", 1uLL);
     v16 = *&v15->__r_.__value_.__l.__data_;
-    v59.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v59.__r_.__value_.__l.__data_ = v16;
+    v58.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+    *&v58.__r_.__value_.__l.__data_ = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;
     v15->__r_.__value_.__r.__words[0] = 0;
@@ -4397,25 +4396,20 @@ void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
       v19 = *(a2 + 8);
     }
 
-    v20 = std::string::append(&v59, v18, v19);
+    v20 = std::string::append(&v58, v18, v19);
     v21 = *&v20->__r_.__value_.__l.__data_;
-    v60.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-    *&v60.__r_.__value_.__l.__data_ = v21;
+    v59.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+    *&v59.__r_.__value_.__l.__data_ = v21;
     v20->__r_.__value_.__l.__size_ = 0;
     v20->__r_.__value_.__r.__words[2] = 0;
     v20->__r_.__value_.__r.__words[0] = 0;
-    v22 = std::string::append(&v60, ".json", 5uLL);
+    v22 = std::string::append(&v59, ".json", 5uLL);
     v23 = *&v22->__r_.__value_.__l.__data_;
-    v62 = v22->__r_.__value_.__r.__words[2];
+    v61 = v22->__r_.__value_.__r.__words[2];
     *__p = v23;
     v22->__r_.__value_.__l.__size_ = 0;
     v22->__r_.__value_.__r.__words[2] = 0;
     v22->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v60.__r_.__value_.__l.__data_);
-    }
-
     if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v59.__r_.__value_.__l.__data_);
@@ -4426,18 +4420,23 @@ void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
       operator delete(v58.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v56.__r_.__value_.__l.__data_);
-    }
-
     if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v57.__r_.__value_.__l.__data_);
     }
 
+    if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v55.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v56.__r_.__value_.__l.__data_);
+    }
+
     v24 = MEMORY[0x277CCACA8];
-    v25 = SHIBYTE(v62);
+    v25 = SHIBYTE(v61);
     v26 = __p[0];
     v27 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
     if (v25 >= 0)
@@ -4450,50 +4449,50 @@ void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
       v28 = v26;
     }
 
-    v52 = [v24 stringWithCString:v28 encoding:v27];
-    v29 = [v55 count];
-    v53 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v55, "count")}];
+    v51 = [v24 stringWithCString:v28 encoding:v27];
+    v29 = [v54 count];
+    v52 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v54, "count")}];
     if (v29 >= 1)
     {
       v30 = 0;
       v31 = v29 & 0x7FFFFFFF;
       do
       {
-        v32 = [v55 objectAtIndexedSubscript:v30];
-        if ([v32 hasBoxesDict:v54])
+        v32 = [v54 objectAtIndexedSubscript:v30];
+        if ([v32 hasBoxesDict:v53])
         {
           v33 = [v32 boxesDict];
-          v34 = [v33 objectForKeyedSubscript:v54];
+          v34 = [v33 objectForKeyedSubscript:v53];
 
           v35 = MEMORY[0x277CCACA8];
           [v32 confidence];
           v37 = [v35 stringWithFormat:@"%.03f", v36];
-          v71[0] = @"uuid";
+          v70[0] = @"uuid";
           v38 = [v32 identifier];
           v39 = [v38 UUIDString];
-          v72[0] = v39;
-          v72[1] = v37;
-          v71[1] = @"confidence";
-          v71[2] = @"parts";
+          v71[0] = v39;
+          v71[1] = v37;
+          v70[1] = @"confidence";
+          v70[2] = @"parts";
           v40 = [v32 parts];
           v41 = [v40 allKeys];
-          v72[2] = v41;
-          v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:3];
+          v71[2] = v41;
+          v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:3];
 
-          v69[0] = @"id";
+          v68[0] = @"id";
           v43 = [MEMORY[0x277CCABB0] numberWithInt:v30];
-          v70[0] = v43;
-          v70[1] = v34;
-          v69[1] = @"bbox";
-          v69[2] = @"type";
-          v44 = [v55 objectAtIndexedSubscript:v30];
+          v69[0] = v43;
+          v69[1] = v34;
+          v68[1] = @"bbox";
+          v68[2] = @"type";
+          v44 = [v54 objectAtIndexedSubscript:v30];
           v45 = [v44 type];
-          v69[3] = @"attributes";
-          v70[2] = v45;
-          v70[3] = v42;
-          v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:4];
+          v68[3] = @"attributes";
+          v69[2] = v45;
+          v69[3] = v42;
+          v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:4];
 
-          [v53 addObject:v46];
+          [v52 addObject:v46];
         }
 
         ++v30;
@@ -4502,27 +4501,25 @@ void OUVizTool::SaveObjects(uint64_t a1, uint64_t a2, void *a3, void *a4)
       while (v31 != v30);
     }
 
-    v67 = @"bbox";
-    v68 = v53;
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-    v65 = @"data";
-    v66 = v47;
-    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-    v63 = @"data";
-    v64 = v48;
-    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v66 = @"bbox";
+    v67 = v52;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+    v64 = @"data";
+    v65 = v47;
+    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+    v62 = @"data";
+    v63 = v48;
+    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
     v50 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v49 options:1 error:0];
-    [v50 writeToFile:v52 atomically:1];
+    [v50 writeToFile:v51 atomically:1];
 
-    if (SHIBYTE(v62) < 0)
+    if (SHIBYTE(v61) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v7 = v54;
+    v7 = v53;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25D25848C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53)
@@ -4537,7 +4534,7 @@ void sub_25D25848C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void OUVizTool::SaveBoxes(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v5 = rawBoxesToObjects(a3, 1u);
+  v5 = rawBoxesToObjects(a3, 1);
   OUVizTool::SaveObjects(a1, a2, v5, @"rawdetection");
 }
 
@@ -4609,14 +4606,14 @@ void sub_25D2587A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void OUVizTool::SaveCVPixelBufferInternal(OUVizTool *a1, uint64_t *a2, uint64_t a3)
+void OUVizTool::SaveCVPixelBufferInternal(OUVizTool *result, uint64_t *a2, uint64_t a3)
 {
-  if (*a1)
+  if (*result)
   {
-    OUVizTool::MaybeReset(a1);
+    OUVizTool::MaybeReset(result);
     v6 = *MEMORY[0x277CBF970];
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v8 = *(a1 + 16);
+    v8 = *(result + 16);
 
     utils::WriteToTiff(a3, a2, v6, DeviceRGB, v8);
   }
@@ -4842,7 +4839,7 @@ void sub_25D258B70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUVizTool::SavePointCloudInternal(uint64_t a1, uint64_t a2, uint64_t *a3)
+void OUVizTool::SavePointCloudInternal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -4859,7 +4856,7 @@ void OUVizTool::SavePointCloudInternal(uint64_t a1, uint64_t a2, uint64_t *a3)
   {
     v6 = v5;
     v7 = *a3;
-    v8 = a3[1];
+    v8 = *(a3 + 8);
     v9 = (v8 - *a3) >> 4;
     v65 = 0;
     v66 = 0;
@@ -4882,7 +4879,7 @@ void OUVizTool::SavePointCloudInternal(uint64_t a1, uint64_t a2, uint64_t *a3)
 
     else
     {
-      utils::Resample(v9, 0xC350uLL, &v59);
+      utils::Resample(&v59, v9, 0xC350uLL);
       v58 = 0;
       v57 = 0uLL;
       _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&v57, (v60 - v59) >> 3);
@@ -5255,7 +5252,7 @@ void sub_25D2592E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUVizTool::SaveObjectPointCloud(OUVizTool *a1, void *a2, uint64_t *a3)
+void OUVizTool::SaveObjectPointCloud(const std::string::value_type **a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   if (!*a1)
@@ -5269,8 +5266,8 @@ void OUVizTool::SaveObjectPointCloud(OUVizTool *a1, void *a2, uint64_t *a3)
   std::string::basic_string[abi:ne200100]<0>(&__str, [v7 UTF8String]);
 
   std::string::basic_string(&v32, &__str, 0, 8uLL, __p);
-  v10 = *(a1 + 13);
-  v9 = a1 + 104;
+  v10 = a1[13];
+  v9 = (a1 + 13);
   v8 = v10;
   v11 = v9[23];
   if (v11 >= 0)
@@ -5285,7 +5282,7 @@ void OUVizTool::SaveObjectPointCloud(OUVizTool *a1, void *a2, uint64_t *a3)
 
   if (v11 >= 0)
   {
-    v13 = *(v9 + 23);
+    v13 = v9[23];
   }
 
   else
@@ -5568,20 +5565,20 @@ void sub_25D25A054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv4_hNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
@@ -5608,7 +5605,7 @@ id OUPointCloudToDictionary(void *a1)
   v45 = 0;
   v46 = 0;
   v47 = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v45, v4, v5 + 16 * v6, (v5 + 16 * v6 - v4) >> 4);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v45, v4, (v5 + 16 * v6), (v5 + 16 * v6 - v4) >> 4);
   std::vector<float>::vector[abi:ne200100](&v43, ((v46 - v45) >> 3) + ((v46 - v45) >> 4));
   v7 = v45;
   if (v46 != v45)
@@ -5858,46 +5855,46 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>@<X0>(uint64_t r
     v3 = *(*(result + 160) + 40);
     Width = CVPixelBufferGetWidth(v3);
     Height = CVPixelBufferGetHeight(v3);
-    v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding(Height, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
     }
 
-    v7 = Height * Width;
+    v8 = Height * Width;
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
     }
 
     CVPixelBufferLockBaseAddress(v3, 1uLL);
     BaseAddress = CVPixelBufferGetBaseAddress(v3);
-    std::vector<float>::vector[abi:ne200100](&v17, v7);
-    if (v7)
+    std::vector<float>::vector[abi:ne200100](&v18, v8);
+    if (v8)
     {
-      v9 = v17;
+      v10 = v18;
       do
       {
-        v10 = *BaseAddress++;
-        _H0 = v10;
+        v11 = *BaseAddress++;
+        _H0 = v11;
         __asm { FCVT            S0, H0 }
 
-        *v9++ = _S0;
-        --v7;
+        *v10++ = _S0;
+        --v8;
       }
 
-      while (v7);
+      while (v8);
     }
 
     result = CVPixelBufferUnlockBaseAddress(v3, 1uLL);
-    *a2 = v17;
-    *(a2 + 16) = v18;
+    *a2 = v18;
+    *(a2 + 16) = v19;
     *(a2 + 24) = 1;
   }
 
@@ -5927,43 +5924,43 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<float>@<X0>(uint64_t 
     v3 = *(*(result + 160) + 40);
     Width = CVPixelBufferGetWidth(v3);
     Height = CVPixelBufferGetHeight(v3);
-    v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding(Height, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
     }
 
-    v7 = Height * Width;
+    v8 = Height * Width;
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
     }
 
     CVPixelBufferLockBaseAddress(v3, 1uLL);
     BaseAddress = CVPixelBufferGetBaseAddress(v3);
-    std::vector<float>::vector[abi:ne200100](&v11, v7);
-    if (v7)
+    std::vector<float>::vector[abi:ne200100](&v12, v8);
+    if (v8)
     {
-      v9 = v11;
+      v10 = v12;
       do
       {
-        v10 = *BaseAddress++;
-        *v9++ = v10;
-        --v7;
+        v11 = *BaseAddress++;
+        *v10++ = v11;
+        --v8;
       }
 
-      while (v7);
+      while (v8);
     }
 
     result = CVPixelBufferUnlockBaseAddress(v3, 1uLL);
-    *a2 = v11;
-    *(a2 + 16) = v12;
+    *a2 = v12;
+    *(a2 + 16) = v13;
     *(a2 + 24) = 1;
   }
 
@@ -5991,8 +5988,8 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>(uint64_t a1, CVP
   v29 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 233) & 1) == 0)
   {
-    v24 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = _OULoggingGetOSLogForCategoryObjectUnderstanding(a1, pixelBuffer);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6002,24 +5999,24 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>(uint64_t a1, CVP
 
   Width = CVPixelBufferGetWidth(pixelBuffer);
   Height = CVPixelBufferGetHeight(pixelBuffer);
-  v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding(Height, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v27 = 134217984;
     v28 = Width;
-    _os_log_impl(&dword_25D1DB000, v6, OS_LOG_TYPE_INFO, "[3DOR] input image shape w %lu", &v27, 0xCu);
+    _os_log_impl(&dword_25D1DB000, v7, OS_LOG_TYPE_INFO, "[3DOR] input image shape w %lu", &v27, 0xCu);
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v27 = 134217984;
     v28 = Height;
-    _os_log_impl(&dword_25D1DB000, v6, OS_LOG_TYPE_INFO, "[3DOR] input image tensor shape h %lu", &v27, 0xCu);
+    _os_log_impl(&dword_25D1DB000, v7, OS_LOG_TYPE_INFO, "[3DOR] input image tensor shape h %lu", &v27, 0xCu);
   }
 
   if (CVPixelBufferGetPixelFormatType(pixelBuffer) != 1111970369)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6029,7 +6026,7 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>(uint64_t a1, CVP
 
   if (Width != 224 || Height != 224)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6038,11 +6035,11 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>(uint64_t a1, CVP
   }
 
   kdebug_trace();
-  v7 = *(*(a1 + 120) + 40);
-  v8 = CVPixelBufferGetHeight(v7);
-  if (CVPixelBufferGetWidth(v7) * v8 - 150528 >= 3)
+  v8 = *(*(a1 + 120) + 40);
+  v9 = CVPixelBufferGetHeight(v8);
+  if (CVPixelBufferGetWidth(v8) * v9 - 150528 >= 3)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6050,55 +6047,53 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>(uint64_t a1, CVP
 LABEL_24:
 
 LABEL_25:
-    v23 = 0;
-    goto LABEL_26;
+    v24 = 0;
+    return v24 & 1;
   }
 
   CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
-  CVPixelBufferLockBaseAddress(v7, 0);
+  CVPixelBufferLockBaseAddress(v8, 0);
   BaseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
-  v10 = CVPixelBufferGetBaseAddress(v7);
-  v14 = 0;
-  v15 = v10 + 100352;
-  v16 = v10 + 50176;
+  v11 = CVPixelBufferGetBaseAddress(v8);
+  v15 = 0;
+  v16 = v11 + 100352;
+  v17 = v11 + 50176;
   do
   {
-    v17 = 224;
+    v18 = 224;
     do
     {
       LOBYTE(_S7) = BaseAddress[2];
       _S7 = ((LODWORD(_S7) * 0.0039216) + -0.485) * 4.3668;
       LOBYTE(_S16) = BaseAddress[1];
       _S16 = ((LODWORD(_S16) * 0.0039216) + -0.456) * 4.4643;
-      LOBYTE(v13) = *BaseAddress;
-      v13 = (LODWORD(v13) * 0.0039216) + -0.406;
+      LOBYTE(v14) = *BaseAddress;
+      v14 = (LODWORD(v14) * 0.0039216) + -0.406;
       __asm { FCVT            H7, S7 }
 
-      *v10++ = LOWORD(_S7);
+      *v11++ = LOWORD(_S7);
       __asm { FCVT            H7, S16 }
 
-      *v16++ = LOWORD(_S7);
-      _S7 = v13 * 4.4444;
+      *v17++ = LOWORD(_S7);
+      _S7 = v14 * 4.4444;
       __asm { FCVT            H7, S7 }
 
-      *v15++ = LOWORD(_S7);
+      *v16++ = LOWORD(_S7);
       BaseAddress += 4;
-      --v17;
+      --v18;
     }
 
-    while (v17);
-    ++v14;
+    while (v18);
+    ++v15;
   }
 
-  while (v14 != 224);
+  while (v15 != 224);
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
-  CVPixelBufferUnlockBaseAddress(v7, 0);
+  CVPixelBufferUnlockBaseAddress(v8, 0);
   *(a1 + 232) = 1;
   kdebug_trace();
-  v23 = *(a1 + 232);
-LABEL_26:
-  v25 = *MEMORY[0x277D85DE8];
-  return v23 & 1;
+  v24 = *(a1 + 232);
+  return v24 & 1;
 }
 
 uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>(uint64_t a1, CVPixelBufferRef pixelBuffer)
@@ -6106,8 +6101,8 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>(uint64_t a1, CV
   v24 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 233) & 1) == 0)
   {
-    v19 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _OULoggingGetOSLogForCategoryObjectUnderstanding(a1, pixelBuffer);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6117,24 +6112,24 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>(uint64_t a1, CV
 
   Width = CVPixelBufferGetWidth(pixelBuffer);
   Height = CVPixelBufferGetHeight(pixelBuffer);
-  v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding(Height, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v22 = 134217984;
     v23 = Width;
-    _os_log_impl(&dword_25D1DB000, v6, OS_LOG_TYPE_INFO, "[3DOR] input image shape w %lu", &v22, 0xCu);
+    _os_log_impl(&dword_25D1DB000, v7, OS_LOG_TYPE_INFO, "[3DOR] input image shape w %lu", &v22, 0xCu);
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v22 = 134217984;
     v23 = Height;
-    _os_log_impl(&dword_25D1DB000, v6, OS_LOG_TYPE_INFO, "[3DOR] input image tensor shape h %lu", &v22, 0xCu);
+    _os_log_impl(&dword_25D1DB000, v7, OS_LOG_TYPE_INFO, "[3DOR] input image tensor shape h %lu", &v22, 0xCu);
   }
 
   if (CVPixelBufferGetPixelFormatType(pixelBuffer) != 1111970369)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6144,7 +6139,7 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>(uint64_t a1, CV
 
   if (Width != 224 || Height != 224)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6153,11 +6148,11 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>(uint64_t a1, CV
   }
 
   kdebug_trace();
-  v7 = *(*(a1 + 120) + 40);
-  v8 = CVPixelBufferGetHeight(v7);
-  if (CVPixelBufferGetWidth(v7) * v8 - 150528 >= 3)
+  v8 = *(*(a1 + 120) + 40);
+  v9 = CVPixelBufferGetHeight(v8);
+  if (CVPixelBufferGetWidth(v8) * v9 - 150528 >= 3)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<half>();
     }
@@ -6165,54 +6160,52 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>(uint64_t a1, CV
 LABEL_24:
 
 LABEL_25:
-    v18 = 0;
-    goto LABEL_26;
+    v19 = 0;
+    return v19 & 1;
   }
 
   CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
-  CVPixelBufferLockBaseAddress(v7, 0);
+  CVPixelBufferLockBaseAddress(v8, 0);
   BaseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
-  v10 = CVPixelBufferGetBaseAddress(v7);
-  v14 = 0;
-  v15 = v10 + 401408;
-  v16 = v10 + 200704;
+  v11 = CVPixelBufferGetBaseAddress(v8);
+  v15 = 0;
+  v16 = v11 + 401408;
+  v17 = v11 + 200704;
   do
   {
-    v17 = 0;
+    v18 = 0;
     do
     {
-      LOBYTE(v11) = BaseAddress[v17 + 2];
-      v11 = ((LODWORD(v11) * 0.0039216) + -0.485) * 4.3668;
-      LOBYTE(v12) = BaseAddress[v17 + 1];
-      v12 = ((LODWORD(v12) * 0.0039216) + -0.456) * 4.4643;
-      LOBYTE(v13) = BaseAddress[v17];
-      v13 = ((LODWORD(v13) * 0.0039216) + -0.406) * 4.4444;
-      *&v10[v17] = v11;
-      *&v16[v17] = v12;
-      *&v15[v17] = v13;
-      v17 += 4;
+      LOBYTE(v12) = BaseAddress[v18 + 2];
+      v12 = ((LODWORD(v12) * 0.0039216) + -0.485) * 4.3668;
+      LOBYTE(v13) = BaseAddress[v18 + 1];
+      v13 = ((LODWORD(v13) * 0.0039216) + -0.456) * 4.4643;
+      LOBYTE(v14) = BaseAddress[v18];
+      v14 = ((LODWORD(v14) * 0.0039216) + -0.406) * 4.4444;
+      *&v11[v18] = v12;
+      *&v17[v18] = v13;
+      *&v16[v18] = v14;
+      v18 += 4;
     }
 
-    while (v17 != 896);
-    ++v14;
-    v10 += v17;
-    BaseAddress += v17;
-    v15 += v17;
-    v16 += v17;
+    while (v18 != 896);
+    ++v15;
+    v11 += v18;
+    BaseAddress += v18;
+    v16 += v18;
+    v17 += v18;
   }
 
-  while (v14 != 224);
+  while (v15 != 224);
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
-  CVPixelBufferUnlockBaseAddress(v7, 0);
+  CVPixelBufferUnlockBaseAddress(v8, 0);
   *(a1 + 232) = 1;
   kdebug_trace();
-  v18 = *(a1 + 232);
-LABEL_26:
-  v20 = *MEMORY[0x277D85DE8];
-  return v18 & 1;
+  v19 = *(a1 + 232);
+  return v19 & 1;
 }
 
-void ou3dor::OU3DOROnlineEspressoV2::~OU3DOROnlineEspressoV2(ou3dor::OU3DOROnlineEspressoV2 *this)
+void ou3dor::OU3DOROnlineEspressoV2::~OU3DOROnlineEspressoV2(void **this)
 {
   ou3dor::OU3DOREspressoV2Interface::~OU3DOREspressoV2Interface(this);
 
@@ -6243,11 +6236,11 @@ void ou3dor::OU3DOROnlineEspressoV2::SetInput(ou3dor::OU3DOROnlineEspressoV2 *th
   ou3dor::OU3DOROnlineEspressoV2::SetInputInternal<float>();
 }
 
-uint64_t ou3dor::OU3DOROnlineEspressoV2::GetOutput@<X0>(uint64_t this@<X0>, _BYTE *a2@<X8>)
+uint64_t *ou3dor::OU3DOROnlineEspressoV2::GetOutput@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  if (*(this + 232))
+  if (this[29])
   {
-    if (CVPixelBufferGetPixelFormatType(*(*(this + 160) + 40)) == 1278226536)
+    if (CVPixelBufferGetPixelFormatType(*(this[20] + 40)) == 1278226536)
     {
 
       ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<half>();
@@ -6256,18 +6249,19 @@ uint64_t ou3dor::OU3DOROnlineEspressoV2::GetOutput@<X0>(uint64_t this@<X0>, _BYT
     ou3dor::OU3DOROnlineEspressoV2::GetOutputInternal<float>();
   }
 
-  *a2 = 0;
-  a2[24] = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
   return this;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-uint64_t _OULoggingGetOSLogForCategoryObjectUnderstanding()
+uint64_t _OULoggingGetOSLogForCategoryObjectUnderstanding(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryObjectUnderstanding_onceToken != -1)
   {
@@ -6277,7 +6271,7 @@ uint64_t _OULoggingGetOSLogForCategoryObjectUnderstanding()
   return _OULoggingGetOSLogForCategoryObjectUnderstanding_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryKeyframeAccumulation()
+uint64_t _OULoggingGetOSLogForCategoryKeyframeAccumulation(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryKeyframeAccumulation_onceToken != -1)
   {
@@ -6287,7 +6281,7 @@ uint64_t _OULoggingGetOSLogForCategoryKeyframeAccumulation()
   return _OULoggingGetOSLogForCategoryKeyframeAccumulation_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryPointCloud()
+uint64_t _OULoggingGetOSLogForCategoryPointCloud(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryPointCloud_onceToken != -1)
   {
@@ -6297,7 +6291,7 @@ uint64_t _OULoggingGetOSLogForCategoryPointCloud()
   return _OULoggingGetOSLogForCategoryPointCloud_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryPostProcess()
+uint64_t _OULoggingGetOSLogForCategoryPostProcess(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryPostProcess_onceToken != -1)
   {
@@ -6307,7 +6301,7 @@ uint64_t _OULoggingGetOSLogForCategoryPostProcess()
   return _OULoggingGetOSLogForCategoryPostProcess_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryOnlineOD()
+uint64_t _OULoggingGetOSLogForCategoryOnlineOD(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryOnlineOD_onceToken != -1)
   {
@@ -6317,7 +6311,7 @@ uint64_t _OULoggingGetOSLogForCategoryOnlineOD()
   return _OULoggingGetOSLogForCategoryOnlineOD_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryOfflineOD()
+uint64_t _OULoggingGetOSLogForCategoryOfflineOD(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryOfflineOD_onceToken != -1)
   {
@@ -6327,7 +6321,7 @@ uint64_t _OULoggingGetOSLogForCategoryOfflineOD()
   return _OULoggingGetOSLogForCategoryOfflineOD_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryOUSession()
+uint64_t _OULoggingGetOSLogForCategoryOUSession(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryOUSession_onceToken != -1)
   {
@@ -6337,7 +6331,7 @@ uint64_t _OULoggingGetOSLogForCategoryOUSession()
   return _OULoggingGetOSLogForCategoryOUSession_oslog;
 }
 
-uint64_t _OULoggingGetOSLogForCategoryRGBRefinement()
+uint64_t _OULoggingGetOSLogForCategoryRGBRefinement(uint64_t a1, uint64_t a2)
 {
   if (_OULoggingGetOSLogForCategoryRGBRefinement_onceToken != -1)
   {
@@ -6349,7 +6343,6 @@ uint64_t _OULoggingGetOSLogForCategoryRGBRefinement()
 
 void OU3DObjectRGBSizeRefiner::OU3DObjectRGBSizeRefiner(OU3DObjectRGBSizeRefiner *this, const OU3DObjectRGBSizeRefinerParams *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   *(this + 4) = 0;
   *this = 0u;
   *(this + 1) = 0u;
@@ -6437,7 +6430,7 @@ float OU3DObjectRGBSizeRefiner::ComputeSemanticRatio(OU3DObjectRGBSizeRefiner *t
   v31.columns[1] = v7;
   v31.columns[2] = v8;
   v31.columns[3] = v9;
-  OU3DObjectRGBSizeRefiner::ProjectToImage(this, &v31, a2, v28);
+  OU3DObjectRGBSizeRefiner::ProjectToImage(v28, this, &v31, a2);
   OU::ConvexHull(v28, 0, &v21);
   if ((v24 & 1) == 0)
   {
@@ -6448,7 +6441,7 @@ float OU3DObjectRGBSizeRefiner::ComputeSemanticRatio(OU3DObjectRGBSizeRefiner *t
   v26 = v22;
   v27 = v23;
   *&v21 = a2 + 128;
-  v10 = *(std::__tree<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(this + 168, a2 + 16)[5] + 144);
+  v10 = *(std::__tree<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(this + 168, a2 + 16, &std::piecewise_construct, &v21)[5] + 144);
   CVPixelBufferLockBaseAddress(v10, 0);
   BaseAddress = CVPixelBufferGetBaseAddress(v10);
   v13 = OU::area(__p, v12);
@@ -6510,14 +6503,15 @@ float OU3DObjectRGBSizeRefiner::ComputeSemanticRatio(OU3DObjectRGBSizeRefiner *t
   return v14;
 }
 
-void sub_25D25CAB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_25D25CAB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
+  va_start(va, a22);
   if (__p)
   {
     operator delete(__p);
   }
 
-  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(&a23);
+  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(va);
   _Unwind_Resume(a1);
 }
 
@@ -6530,22 +6524,20 @@ double OU3DObjectRGBSizeRefiner::GenerateProjectionMatrix(OU3DObjectRGBSizeRefin
   v5.i32[3] = 0;
   v6 = a2->columns[2];
   v6.i32[3] = 0;
-  v7 = a3->columns[0];
-  v8 = a3->columns[1];
-  v9 = a3->columns[3];
-  v11[2] = a3->columns[2];
-  v11[3] = v9;
+  v7 = a3->columns[3];
+  v9[2] = a3->columns[2];
+  v9[3] = v7;
   do
   {
-    *(&v12 + v3 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v4, COERCE_FLOAT(v11[v3])), v5, *&v11[v3], 1), v6, v11[v3], 2), xmmword_25D277B90, v11[v3], 3);
+    *(&v10 + v3 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v4, COERCE_FLOAT(v9[v3])), v5, *&v9[v3], 1), v6, v9[v3], 2), xmmword_25D277B90, v9[v3], 3);
     ++v3;
   }
 
   while (v3 != 4);
-  return *&v12;
+  return *&v10;
 }
 
-void OU3DObjectRGBSizeRefiner::ProjectToImage(OU3DObjectRGBSizeRefiner *this@<X0>, const simd_float4x4 *a2@<X1>, const box3d *a3@<X2>, uint64_t a4@<X8>)
+void OU3DObjectRGBSizeRefiner::ProjectToImage(uint64_t *__return_ptr a1@<X8>, OU3DObjectRGBSizeRefiner *this@<X0>, const simd_float4x4 *a3@<X1>, const box3d *a4@<X2>)
 {
   __p = 0;
   v29 = 0;
@@ -6553,15 +6545,15 @@ void OU3DObjectRGBSizeRefiner::ProjectToImage(OU3DObjectRGBSizeRefiner *this@<X0
   v26 = 0;
   v27 = 0uLL;
   v24 = 0;
-  std::vector<BOOL>::vector(v25, 8);
-  v22 = a4;
+  std::vector<BOOL>::vector(v25, 8, &v24);
+  v22 = a1;
   std::vector<unsigned long>::reserve(&__p, 8uLL);
   std::vector<BOOL>::reserve(&v26, 8uLL);
   v8 = 0;
   v9 = 0;
   do
   {
-    v23 = vaddq_f32(a2->columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2->columns[0], COERCE_FLOAT(*(a3 + v8))), a2->columns[1], *(a3 + 16 * v8), 1), a2->columns[2], *(a3 + v8), 2));
+    v23 = vaddq_f32(a3->columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a3->columns[0], COERCE_FLOAT(*(a4 + v8))), a3->columns[1], *(a4 + 16 * v8), 1), a3->columns[2], *(a4 + v8), 2));
     v24 = *&v23.i32[2] <= 0.0;
     std::vector<BOOL>::push_back(&v26, &v24);
     *v10.f32 = vdiv_f32(vdiv_f32(*v23.i8, *&vdupq_laneq_s32(v23, 2)), *(this + 344));
@@ -6632,18 +6624,18 @@ void OU3DObjectRGBSizeRefiner::ProjectToImage(OU3DObjectRGBSizeRefiner *this@<X0
   while (v8 != 8);
   v20 = v30;
   *v22 = __p;
-  *(v22 + 8) = v13;
+  v22[1] = v13;
   v29 = 0;
   v30 = 0;
   v21 = v26;
-  *(v22 + 16) = v20;
-  *(v22 + 24) = v21;
-  *(v22 + 32) = v27;
+  v22[2] = v20;
+  v22[3] = v21;
+  *(v22 + 2) = v27;
   v26 = 0;
   v27 = 0uLL;
   __p = 0;
   *(v22 + 48) = v9 & 1;
-  std::vector<BOOL>::vector((v22 + 56), v25);
+  std::vector<BOOL>::vector(v22 + 7, v25);
   if (v25[0])
   {
     operator delete(v25[0]);
@@ -6737,43 +6729,43 @@ OU3DObjectRGBSizeRefiner *OU3DObjectRGBSizeRefiner::ComputeWeightedRGBBuffer(OU3
 
 void OU3DObjectRGBSizeRefiner::InsideFovSides(OU3DObjectRGBSizeRefiner *this@<X0>, const OU3DObjectRGBSizeRefiner::ProjectionResult *a2@<X1>, uint64_t a3@<X8>)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v32[0] = xmmword_25D279A80;
-  v32[1] = unk_25D279A90;
-  v35 = 0;
-  v36 = 0;
-  v34 = 0;
-  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v34, v32, &v33, 4uLL);
-  v31[0] = xmmword_25D279AA0;
-  v31[1] = unk_25D279AB0;
+  v40 = *MEMORY[0x277D85DE8];
+  v29[0] = xmmword_25D279A80;
+  v29[1] = unk_25D279A90;
+  v32 = 0;
+  v33 = 0;
+  v31 = 0;
+  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v31, v29, &v30, 4uLL);
+  v28[0] = xmmword_25D279AA0;
+  v28[1] = unk_25D279AB0;
+  memset(v34, 0, sizeof(v34));
+  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v34, v28, v29, 4uLL);
+  v27[0] = xmmword_25D279AC0;
+  v27[1] = unk_25D279AD0;
+  memset(v35, 0, sizeof(v35));
+  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v35, v27, v28, 4uLL);
+  v26[0] = xmmword_25D279AE0;
+  v26[1] = unk_25D279AF0;
+  memset(v36, 0, sizeof(v36));
+  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v36, v26, v27, 4uLL);
+  v25[0] = xmmword_25D279B00;
+  v25[1] = unk_25D279B10;
   memset(v37, 0, sizeof(v37));
-  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v37, v31, v32, 4uLL);
-  v30[0] = xmmword_25D279AC0;
-  v30[1] = unk_25D279AD0;
-  memset(v38, 0, sizeof(v38));
-  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v38, v30, v31, 4uLL);
-  v29[0] = xmmword_25D279AE0;
-  v29[1] = unk_25D279AF0;
-  memset(v39, 0, sizeof(v39));
-  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v39, v29, v30, 4uLL);
-  v28[0] = xmmword_25D279B00;
-  v28[1] = unk_25D279B10;
-  memset(v40, 0, sizeof(v40));
-  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v40, v28, v29, 4uLL);
-  v27[0] = xmmword_25D279B20;
-  v27[1] = unk_25D279B30;
-  v42[0] = 0;
-  v42[1] = 0;
-  v41 = 0;
-  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v41, v27, v28, 4uLL);
-  memset(v26, 0, sizeof(v26));
-  _ZNSt3__16vectorINS0_IDv2_iNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_with_sizeB8ne200100IPKS4_S9_EEvT_T0_m(v26, &v34, &v43, 6uLL);
+  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(v37, v25, v26, 4uLL);
+  v24[0] = xmmword_25D279B20;
+  v24[1] = unk_25D279B30;
+  v39[0] = 0;
+  v39[1] = 0;
+  v38 = 0;
+  _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v38, v24, v25, 4uLL);
+  memset(v23, 0, sizeof(v23));
+  _ZNSt3__16vectorINS0_IDv2_iNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_with_sizeB8ne200100IPKS4_S9_EEvT_T0_m(v23, &v31, &v40, 6uLL);
   for (i = 0; i != -18; i -= 3)
   {
-    v6 = v42[i - 1];
+    v6 = v39[i - 1];
     if (v6)
     {
-      v42[i] = v6;
+      v39[i] = v6;
       operator delete(v6);
     }
   }
@@ -6782,10 +6774,10 @@ void OU3DObjectRGBSizeRefiner::InsideFovSides(OU3DObjectRGBSizeRefiner *this@<X0
   *a3 = 0u;
   *(a3 + 16) = 0u;
   *(a3 + 32) = 1065353216;
-  LODWORD(v30[0]) = 0;
+  LODWORD(v27[0]) = 0;
   do
   {
-    v8 = v26[0] + 24 * v7;
+    v8 = v23[0] + 24 * v7;
     v9 = *v8;
     v10 = *(v8 + 8);
     if (*v8 != v10)
@@ -6800,28 +6792,46 @@ void OU3DObjectRGBSizeRefiner::InsideFovSides(OU3DObjectRGBSizeRefiner *this@<X0
         if ((v15 & *(v14 + 8 * (v13 >> 6))) == 0 || ((*(v14 + ((SHIDWORD(v12) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> SBYTE4(v12)) & 1) == 0)
         {
           v16 = *(a2 + 7);
-          if ((*(v16 + 8 * (v13 >> 6)) & v15) != 0)
+          if (*(v16 + 8 * (v13 >> 6)) & v15) != 0 || ((*(v16 + ((SHIDWORD(v12) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> SBYTE4(v12)))
           {
             goto LABEL_34;
           }
 
-          v17 = SHIDWORD(v12);
-          if ((*(v16 + ((SHIDWORD(v12) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> SBYTE4(v12)))
+          v17 = *a2;
+          v31 = 0;
+          v32 = 0;
+          v31 = *(v17 + 8 * v13);
+          v32 = *(v17 + 8 * SHIDWORD(v12));
+          *&v28[0] = 0;
+          *&v29[0] = 0;
+          *(&v29[0] + 1) = 1132462080;
+          v18 = OU::intersect(&v31, v29, v28);
+          if (*v28 >= 0.0)
           {
-            goto LABEL_34;
+            v19 = v18;
           }
 
-          v18 = *a2;
-          v34 = 0;
-          v35 = 0;
-          v34 = *(v18 + 8 * v13);
-          v19 = *(v18 + 8 * SHIDWORD(v12));
-          v35 = *(v18 + 8 * v17);
-          *&v31[0] = 0;
-          *&v32[0] = 0;
-          *(&v32[0] + 1) = 1132462080;
-          v20 = OU::intersect(&v34, v32, v31);
-          if (*v31 >= 0.0)
+          else
+          {
+            v19 = 0;
+          }
+
+          if (v19 == 1 && *v28 <= 256.0)
+          {
+            v11 = 1;
+          }
+
+          *&v29[0] = 0;
+          *(&v29[0] + 1) = 0x4340000000000000;
+          if (OU::intersect(&v31, v29, v28) && *(v28 + 1) >= 0.0 && *(v28 + 1) <= 192.0)
+          {
+            v11 = 1;
+          }
+
+          *&v29[0] = 0x4340000000000000;
+          *(&v29[0] + 1) = 0x4340000043800000;
+          v20 = OU::intersect(&v31, v29, v28);
+          if (*v28 >= 0.0)
           {
             v21 = v20;
           }
@@ -6831,39 +6841,14 @@ void OU3DObjectRGBSizeRefiner::InsideFovSides(OU3DObjectRGBSizeRefiner *this@<X0
             v21 = 0;
           }
 
-          if (v21 == 1 && *v31 <= 256.0)
+          if (v21 == 1 && *v28 <= 256.0)
           {
             v11 = 1;
           }
 
-          *&v32[0] = 0;
-          *(&v32[0] + 1) = 0x4340000000000000;
-          if (OU::intersect(&v34, v32, v31) && *(v31 + 1) >= 0.0 && *(v31 + 1) <= 192.0)
-          {
-            v11 = 1;
-          }
-
-          *&v32[0] = 0x4340000000000000;
-          *(&v32[0] + 1) = 0x4340000043800000;
-          v22 = OU::intersect(&v34, v32, v31);
-          if (*v31 >= 0.0)
-          {
-            v23 = v22;
-          }
-
-          else
-          {
-            v23 = 0;
-          }
-
-          if (v23 == 1 && *v31 <= 256.0)
-          {
-            v11 = 1;
-          }
-
-          *&v32[0] = 1132462080;
-          *(&v32[0] + 1) = 0x4340000043800000;
-          if (OU::intersect(&v34, v32, v31) && *(v31 + 1) >= 0.0 && *(v31 + 1) <= 192.0)
+          *&v29[0] = 1132462080;
+          *(&v29[0] + 1) = 0x4340000043800000;
+          if (OU::intersect(&v31, v29, v28) && *(v28 + 1) >= 0.0 && *(v28 + 1) <= 192.0)
           {
             v11 = 1;
           }
@@ -6879,18 +6864,17 @@ void OU3DObjectRGBSizeRefiner::InsideFovSides(OU3DObjectRGBSizeRefiner *this@<X0
       }
 
 LABEL_34:
-      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a3, v30);
+      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a3, v27, v27);
     }
 
 LABEL_35:
-    v24 = v30[0];
-    v7 = ++LODWORD(v30[0]);
+    v22 = v27[0];
+    v7 = ++LODWORD(v27[0]);
   }
 
-  while (v24 < 5);
-  v34 = v26;
-  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v34);
-  v25 = *MEMORY[0x277D85DE8];
+  while (v22 < 5);
+  v31 = v23;
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v31);
 }
 
 void sub_25D25D320(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
@@ -6917,56 +6901,56 @@ void sub_25D25D320(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner *this@<X0>, const box3d *a2@<X1>, void **a3@<X8>)
 {
-  v78[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   v5 = *(this + 88);
   v6 = *(a2 + 2);
-  OU3DObjectRGBSizeRefiner::ProjectToImage(this, (this + 480), a2, v54);
-  OU3DObjectRGBSizeRefiner::InsideFovSides(v7, v54, v53);
+  OU3DObjectRGBSizeRefiner::ProjectToImage(v53, this, (this + 480), a2);
+  OU3DObjectRGBSizeRefiner::InsideFovSides(v7, v53, v52);
   *__p = xmmword_25D2798B0;
-  *v71 = xmmword_25D2798C0;
-  *&v71[16] = xmmword_25D2798D0;
-  v72 = xmmword_25D2798E0;
-  v73 = xmmword_25D2798F0;
-  v74 = xmmword_25D279900;
-  v75 = xmmword_25D279910;
-  v76 = xmmword_25D279920;
-  v77[0] = xmmword_25D279930;
-  v77[1] = xmmword_25D279940;
-  v77[2] = xmmword_25D279950;
-  v77[3] = xmmword_25D279960;
+  *v70 = xmmword_25D2798C0;
+  *&v70[16] = xmmword_25D2798D0;
+  v71 = xmmword_25D2798E0;
+  v72 = xmmword_25D2798F0;
+  v73 = xmmword_25D279900;
+  v74 = xmmword_25D279910;
+  v75 = xmmword_25D279920;
+  v76[0] = xmmword_25D279930;
+  v76[1] = xmmword_25D279940;
+  v76[2] = xmmword_25D279950;
+  v76[3] = xmmword_25D279960;
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(a3, __p, v78, 0x18uLL);
+  std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(a3, __p, v77, 0x18uLL);
   a3[3] = 0;
   v8 = a3 + 3;
-  *v63 = 0x500000004;
-  *v62 = xmmword_25D279B40;
+  *v62 = 0x500000004;
+  *v61 = xmmword_25D279B40;
   a3[4] = 0;
   a3[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>((a3 + 3), v62, &v63[8], 6uLL);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(a3 + 3, v61, &v62[8], 6uLL);
   v9 = *(a2 + 16);
-  v69 = @"Table";
+  v68 = @"Table";
   __p[0] = 0;
   __p[1] = 0;
-  *v71 = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, &v69, __p, 1uLL);
+  *v70 = 0;
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, &v68, __p, 1uLL);
   LODWORD(v9) = IsObjectBelongType(v9, __p);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
 
   if (v9)
   {
-    *v62 = xmmword_25D2798D0;
-    *v63 = xmmword_25D2798E0;
+    *v61 = xmmword_25D2798D0;
+    *v62 = xmmword_25D2798E0;
     __p[1] = 0;
-    *v71 = 0;
+    *v70 = 0;
     __p[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(__p, v62, &v63[16], 4uLL);
-    v67 = 5;
-    v66 = xmmword_25D279B6C;
-    memset(&v71[8], 0, 24);
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v71[8], &v66, v68, 5uLL);
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(__p, v61, &v62[16], 4uLL);
+    v66 = 5;
+    v65 = xmmword_25D279B6C;
+    memset(&v70[8], 0, 24);
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v70[8], &v65, &v67, 5uLL);
     v10 = *a3;
     if (*a3)
     {
@@ -6975,9 +6959,9 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
     }
 
     *a3 = *__p;
-    a3[2] = *v71;
+    a3[2] = *v70;
     __p[1] = 0;
-    *v71 = 0;
+    *v70 = 0;
     __p[0] = 0;
     v11 = a3[3];
     if (v11)
@@ -6987,9 +6971,9 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       v11 = __p[0];
     }
 
-    *(a3 + 3) = *&v71[8];
-    a3[5] = *&v71[24];
-    memset(&v71[8], 0, 24);
+    *(a3 + 3) = *&v70[8];
+    a3[5] = *&v70[24];
+    memset(&v70[8], 0, 24);
     if (v11)
     {
       __p[1] = v11;
@@ -6998,19 +6982,19 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
   }
 
   v12 = *(a2 + 16);
-  v65[0] = @"Cabinet";
-  v65[1] = @"Refrigerator";
-  v65[2] = @"Oven";
-  v65[3] = @"Dishwasher";
-  v65[4] = @"Washer";
+  v64[0] = @"Cabinet";
+  v64[1] = @"Refrigerator";
+  v64[2] = @"Oven";
+  v64[3] = @"Dishwasher";
+  v64[4] = @"Washer";
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   __p[0] = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v65, &v66, 5uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v64, &v65, 5uLL);
   v13 = IsObjectBelongType(v12, __p);
   v14 = vabds_f32(v6, v5);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
   for (i = 4; i != -1; --i)
   {
   }
@@ -7018,23 +7002,23 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
   if (v13)
   {
     *__p = xmmword_25D2798D0;
-    *v71 = xmmword_25D279970;
-    *&v71[16] = xmmword_25D279980;
-    v72 = xmmword_25D279990;
-    v73 = xmmword_25D2799A0;
-    v74 = xmmword_25D2799B0;
-    v75 = xmmword_25D2799C0;
-    *&v76 = 0x200000006;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v62, __p, &v76 + 8, 0xFuLL);
-    v67 = 4;
-    v66 = xmmword_25D279B58;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v63[8], &v66, v68, 5uLL);
+    *v70 = xmmword_25D279970;
+    *&v70[16] = xmmword_25D279980;
+    v71 = xmmword_25D279990;
+    v72 = xmmword_25D2799A0;
+    v73 = xmmword_25D2799B0;
+    v74 = xmmword_25D2799C0;
+    *&v75 = 0x200000006;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v61, __p, &v75 + 1, 0xFuLL);
+    v66 = 4;
+    v65 = xmmword_25D279B58;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v62[8], &v65, &v67, 5uLL);
     v16 = *a3;
     if (*a3)
     {
@@ -7042,42 +7026,42 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       operator delete(v16);
     }
 
-    *a3 = *v62;
-    a3[2] = *v63;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
+    *a3 = *v61;
+    a3[2] = *v62;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
     v17 = a3[3];
     if (v17)
     {
       a3[4] = v17;
       operator delete(v17);
-      v17 = v62[0];
+      v17 = v61[0];
     }
 
-    *(a3 + 3) = *&v63[8];
-    a3[5] = v64;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
+    *(a3 + 3) = *&v62[8];
+    a3[5] = v63;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
     if (v17)
     {
-      v62[1] = v17;
+      v61[1] = v17;
       operator delete(v17);
     }
   }
 
   v18 = *(a2 + 16);
-  v61[0] = @"Shelf";
-  v61[1] = @"Stove";
-  v61[2] = @"Sink";
+  v60[0] = @"Shelf";
+  v60[1] = @"Stove";
+  v60[2] = @"Sink";
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   __p[0] = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v61, v62, 3uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v60, v61, 3uLL);
   v19 = IsObjectBelongType(v18, __p);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
   for (j = 2; j != -1; --j)
   {
   }
@@ -7085,23 +7069,23 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
   if (v19)
   {
     *__p = xmmword_25D2798D0;
-    *v71 = xmmword_25D2798E0;
-    *&v71[16] = xmmword_25D2798F0;
-    v72 = xmmword_25D279900;
-    v73 = xmmword_25D279910;
-    v74 = xmmword_25D279920;
-    v75 = xmmword_25D279930;
-    v76 = xmmword_25D279940;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v62, __p, v77, 0x10uLL);
-    v67 = 4;
-    v66 = xmmword_25D279B58;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v63[8], &v66, v68, 5uLL);
+    *v70 = xmmword_25D2798E0;
+    *&v70[16] = xmmword_25D2798F0;
+    v71 = xmmword_25D279900;
+    v72 = xmmword_25D279910;
+    v73 = xmmword_25D279920;
+    v74 = xmmword_25D279930;
+    v75 = xmmword_25D279940;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v61, __p, v76, 0x10uLL);
+    v66 = 4;
+    v65 = xmmword_25D279B58;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v62[8], &v65, &v67, 5uLL);
     v21 = *a3;
     if (*a3)
     {
@@ -7109,57 +7093,57 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       operator delete(v21);
     }
 
-    *a3 = *v62;
-    a3[2] = *v63;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
+    *a3 = *v61;
+    a3[2] = *v62;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
     v22 = a3[3];
     if (v22)
     {
       a3[4] = v22;
       operator delete(v22);
-      v22 = v62[0];
+      v22 = v61[0];
     }
 
-    *(a3 + 3) = *&v63[8];
-    a3[5] = v64;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
+    *(a3 + 3) = *&v62[8];
+    a3[5] = v63;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
     if (v22)
     {
-      v62[1] = v22;
+      v61[1] = v22;
       operator delete(v22);
     }
   }
 
   v23 = *(a2 + 16);
-  v60[0] = @"Screen";
-  v60[1] = @"Fireplace";
+  v59[0] = @"Screen";
+  v59[1] = @"Fireplace";
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   __p[0] = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v60, v61, 2uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v59, v60, 2uLL);
   v24 = IsObjectBelongType(v23, __p);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
   for (k = 1; k != -1; --k)
   {
   }
 
   if (v24)
   {
-    *v62 = xmmword_25D279910;
-    *v63 = xmmword_25D279920;
+    *v61 = xmmword_25D279910;
+    *v62 = xmmword_25D279920;
     __p[1] = 0;
-    *v71 = 0;
+    *v70 = 0;
     __p[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(__p, v62, &v63[16], 4uLL);
-    v67 = 4;
-    v66 = xmmword_25D279B58;
-    memset(&v71[8], 0, 24);
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v71[8], &v66, v68, 5uLL);
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(__p, v61, &v62[16], 4uLL);
+    v66 = 4;
+    v65 = xmmword_25D279B58;
+    memset(&v70[8], 0, 24);
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v70[8], &v65, &v67, 5uLL);
     v26 = *a3;
     if (*a3)
     {
@@ -7168,9 +7152,9 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
     }
 
     *a3 = *__p;
-    a3[2] = *v71;
+    a3[2] = *v70;
     __p[1] = 0;
-    *v71 = 0;
+    *v70 = 0;
     __p[0] = 0;
     v27 = a3[3];
     if (v27)
@@ -7180,9 +7164,9 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       v27 = __p[0];
     }
 
-    *(a3 + 3) = *&v71[8];
-    a3[5] = *&v71[24];
-    memset(&v71[8], 0, 24);
+    *(a3 + 3) = *&v70[8];
+    a3[5] = *&v70[24];
+    memset(&v70[8], 0, 24);
     if (v27)
     {
       __p[1] = v27;
@@ -7191,31 +7175,31 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
   }
 
   v28 = *(a2 + 16);
-  v59 = @"Sofa";
+  v58 = @"Sofa";
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   __p[0] = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, &v59, v60, 1uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, &v58, v59, 1uLL);
   LODWORD(v28) = IsObjectBelongType(v28, __p);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
 
   if (v28)
   {
     *__p = xmmword_25D2798B0;
-    *v71 = xmmword_25D2798C0;
-    *&v71[16] = xmmword_25D2798F0;
-    v72 = xmmword_25D2799D0;
-    v73 = xmmword_25D2799E0;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v62, __p, &v74, 0xAuLL);
-    v66 = xmmword_25D2799F0;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v63[8], &v66, &v67, 4uLL);
+    *v70 = xmmword_25D2798C0;
+    *&v70[16] = xmmword_25D2798F0;
+    v71 = xmmword_25D2799D0;
+    v72 = xmmword_25D2799E0;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v61, __p, &v73, 0xAuLL);
+    v65 = xmmword_25D2799F0;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v62[8], &v65, &v66, 4uLL);
     v29 = *a3;
     if (*a3)
     {
@@ -7223,59 +7207,59 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       operator delete(v29);
     }
 
-    *a3 = *v62;
-    a3[2] = *v63;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
+    *a3 = *v61;
+    a3[2] = *v62;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
     v30 = a3[3];
     if (v30)
     {
       a3[4] = v30;
       operator delete(v30);
-      v30 = v62[0];
+      v30 = v61[0];
     }
 
-    *(a3 + 3) = *&v63[8];
-    a3[5] = v64;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
+    *(a3 + 3) = *&v62[8];
+    a3[5] = v63;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
     if (v30)
     {
-      v62[1] = v30;
+      v61[1] = v30;
       operator delete(v30);
     }
   }
 
   v31 = *(a2 + 16);
-  v58 = @"Bed";
+  v57 = @"Bed";
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   __p[0] = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, &v58, &v59, 1uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, &v57, &v58, 1uLL);
   LODWORD(v31) = IsObjectBelongType(v31, __p);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
 
   if (v31)
   {
     *__p = xmmword_25D2798B0;
-    *v71 = xmmword_25D2798C0;
-    *&v71[16] = xmmword_25D279A00;
-    v72 = xmmword_25D279A10;
-    v73 = xmmword_25D279930;
-    *&v74 = 0x200000006;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v62, __p, &v74 + 8, 0xBuLL);
-    v67 = 5;
-    v66 = xmmword_25D279B6C;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v63[8], &v66, v68, 5uLL);
+    *v70 = xmmword_25D2798C0;
+    *&v70[16] = xmmword_25D279A00;
+    v71 = xmmword_25D279A10;
+    v72 = xmmword_25D279930;
+    *&v73 = 0x200000006;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v61, __p, &v73 + 1, 0xBuLL);
+    v66 = 5;
+    v65 = xmmword_25D279B6C;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v62[8], &v65, &v67, 5uLL);
     v32 = *a3;
     if (*a3)
     {
@@ -7283,43 +7267,43 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       operator delete(v32);
     }
 
-    *a3 = *v62;
-    a3[2] = *v63;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
+    *a3 = *v61;
+    a3[2] = *v62;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
     v33 = a3[3];
     if (v33)
     {
       a3[4] = v33;
       operator delete(v33);
-      v33 = v62[0];
+      v33 = v61[0];
     }
 
-    *(a3 + 3) = *&v63[8];
-    a3[5] = v64;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
+    *(a3 + 3) = *&v62[8];
+    a3[5] = v63;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
     if (v33)
     {
-      v62[1] = v33;
+      v61[1] = v33;
       operator delete(v33);
     }
   }
 
   v34 = *(a2 + 16);
-  v57[0] = @"Toilet";
-  v57[1] = @"Bathtub";
-  v57[2] = @"Stool";
-  v57[3] = @"Chair";
+  v56[0] = @"Toilet";
+  v56[1] = @"Bathtub";
+  v56[2] = @"Stool";
+  v56[3] = @"Chair";
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   __p[0] = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v57, &v58, 4uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(__p, v56, &v57, 4uLL);
   v35 = IsObjectBelongType(v34, __p);
-  v62[0] = __p;
-  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v62);
+  v61[0] = __p;
+  std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne200100](v61);
   for (m = 3; m != -1; --m)
   {
   }
@@ -7327,19 +7311,19 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
   if (v35)
   {
     *__p = xmmword_25D279A00;
-    *v71 = xmmword_25D279A10;
-    *&v71[16] = xmmword_25D279930;
-    *&v72 = 0x200000006;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
-    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v62, __p, &v72 + 8, 7uLL);
-    v67 = 5;
-    v66 = xmmword_25D279B6C;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v63[8], &v66, v68, 5uLL);
+    *v70 = xmmword_25D279A10;
+    *&v70[16] = xmmword_25D279930;
+    *&v71 = 0x200000006;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
+    std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(v61, __p, &v71 + 1, 7uLL);
+    v66 = 5;
+    v65 = xmmword_25D279B6C;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v62[8], &v65, &v67, 5uLL);
     v37 = *a3;
     if (*a3)
     {
@@ -7347,42 +7331,42 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
       operator delete(v37);
     }
 
-    *a3 = *v62;
-    a3[2] = *v63;
-    v62[1] = 0;
-    *v63 = 0;
-    v62[0] = 0;
+    *a3 = *v61;
+    a3[2] = *v62;
+    v61[1] = 0;
+    *v62 = 0;
+    v61[0] = 0;
     v38 = a3[3];
     if (v38)
     {
       a3[4] = v38;
       operator delete(v38);
-      v38 = v62[0];
+      v38 = v61[0];
     }
 
-    *(a3 + 3) = *&v63[8];
-    a3[5] = v64;
-    *&v63[16] = 0;
-    v64 = 0;
-    *&v63[8] = 0;
+    *(a3 + 3) = *&v62[8];
+    a3[5] = v63;
+    *&v62[16] = 0;
+    v63 = 0;
+    *&v62[8] = 0;
     if (v38)
     {
-      v62[1] = v38;
+      v61[1] = v38;
       operator delete(v38);
     }
   }
 
   __p[0] = 0;
   __p[1] = 0;
-  *v71 = 0;
+  *v70 = 0;
   v39 = a3[3];
   for (n = a3[4]; v39 != n; ++v39)
   {
-    LODWORD(v62[0]) = *v39;
-    if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v53, v62))
+    LODWORD(v61[0]) = *v39;
+    if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v52, v61))
     {
       v41 = __p[1];
-      if (__p[1] >= *v71)
+      if (__p[1] >= *v70)
       {
         v43 = __p[0];
         v44 = __p[1] - __p[0];
@@ -7393,8 +7377,8 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
           std::vector<float>::__throw_length_error[abi:ne200100]();
         }
 
-        v47 = *v71 - __p[0];
-        if ((*v71 - __p[0]) >> 1 > v46)
+        v47 = *v70 - __p[0];
+        if ((*v70 - __p[0]) >> 1 > v46)
         {
           v46 = v47 >> 1;
         }
@@ -7414,13 +7398,13 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
           std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(__p, v48);
         }
 
-        *(4 * v45) = v62[0];
+        *(4 * v45) = v61[0];
         v42 = (4 * v45 + 4);
         memcpy(0, v43, v44);
         v49 = __p[0];
         __p[0] = 0;
         __p[1] = v42;
-        *v71 = 0;
+        *v70 = 0;
         if (v49)
         {
           operator delete(v49);
@@ -7429,7 +7413,7 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
 
       else
       {
-        *__p[1] = v62[0];
+        *__p[1] = v61[0];
         v42 = v41 + 4;
       }
 
@@ -7457,27 +7441,25 @@ void OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(OU3DObjectRGBSizeRefiner 
     operator delete(__p[0]);
   }
 
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v53);
-  if (v56)
-  {
-    operator delete(v56);
-  }
-
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v52);
   if (v55)
   {
     operator delete(v55);
   }
 
-  if (v54[0])
+  if (v54)
   {
-    v54[1] = v54[0];
-    operator delete(v54[0]);
+    operator delete(v54);
   }
 
-  v52 = *MEMORY[0x277D85DE8];
+  if (v53[0])
+  {
+    v53[1] = v53[0];
+    operator delete(v53[0]);
+  }
 }
 
-void sub_25D25E100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56)
+void sub_25D25E100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56)
 {
   if (__p)
   {
@@ -7493,9 +7475,9 @@ void sub_25D25E100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void OU3DObjectRGBSizeRefiner::GenerateRgbFilterdBuffer(OU3DObjectRGBSizeRefiner *this, NSString *a2)
 {
-  v13[0] = a2;
-  v13[2] = v13;
-  v3 = *(std::__tree<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(this + 168, v13)[5] + 144);
+  v13 = a2;
+  v14 = &v13;
+  v3 = *(std::__tree<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(this + 168, &v13, &std::piecewise_construct, &v14)[5] + 144);
   CVPixelBufferLockBaseAddress(v3, 0);
   Height = CVPixelBufferGetHeight(v3);
   BytesPerRow = CVPixelBufferGetBytesPerRow(v3);
@@ -7530,7 +7512,7 @@ void OU3DObjectRGBSizeRefiner::ShouldRefineObjects(uint64_t a1@<X0>, void *a2@<X
   boxesFromObjects(v11, @"rawdetection", &v69, v68);
   v13 = -1227133513 * ((v68[1] - v68[0]) >> 5);
   LOBYTE(v72) = 0;
-  std::vector<BOOL>::vector(&v66, v13);
+  std::vector<BOOL>::vector(&v66, v13, &v72);
   v64 = 0;
   v65 = 0;
   v63 = &v64;
@@ -7717,7 +7699,7 @@ void OU3DObjectRGBSizeRefiner::ShouldRefineObjects(uint64_t a1@<X0>, void *a2@<X
       v51 = *(__p + 3);
       *(v66 + ((v51 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v51;
       v60 = ObjectTypeConversion(*(v68[0] + 224 * v51 + 128));
-      std::__tree<NSString * {__strong}>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}>(&v63, &v60);
+      std::__tree<NSString * {__strong}>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}>(&v63, &v60, &v60);
     }
   }
 
@@ -7767,7 +7749,7 @@ void OU3DObjectRGBSizeRefiner::ShouldRefineObjects(uint64_t a1@<X0>, void *a2@<X
   }
 }
 
-void sub_25D25E864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *__p, uint64_t a17, uint64_t a18, char a19, void *a20, uint64_t a21, char *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29)
+void sub_25D25E864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, char *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29)
 {
   if (__p)
   {
@@ -7793,40 +7775,40 @@ void sub_25D25E864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t OU3DObjectRGBSizeRefiner::ShouldRefineObject(uint64_t a1, uint64_t a2, const simd_float3x3 *a3, uint64_t a4, void *a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a5;
   v10 = ObjectTypeConversion(*(a2 + 128));
-  v11 = v10;
-  v12 = *(a1 + 176);
-  if (!v12)
+  v12 = v10;
+  v13 = *(a1 + 176);
+  if (!v13)
   {
     goto LABEL_9;
   }
 
-  v13 = a1 + 176;
+  v14 = a1 + 176;
   do
   {
-    v14 = *(v12 + 32);
-    v15 = v14 >= v10;
-    v16 = v14 < v10;
-    if (v15)
+    v15 = *(v13 + 32);
+    v16 = v15 >= v10;
+    v17 = v15 < v10;
+    if (v16)
     {
-      v13 = v12;
+      v14 = v13;
     }
 
-    v12 = *(v12 + 8 * v16);
+    v13 = *(v13 + 8 * v17);
   }
 
-  while (v12);
-  if (v13 == a1 + 176 || v10 < *(v13 + 32))
+  while (v13);
+  if (v14 == a1 + 176 || v10 < *(v14 + 32))
   {
 LABEL_9:
-    v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v10, v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [*(a2 + 144) UUIDString];
       objc_claimAutoreleasedReturnValue();
-      [v11 UTF8String];
+      [v12 UTF8String];
       OU3DObjectRGBSizeRefiner::ShouldRefineObject();
     }
 
@@ -7835,18 +7817,22 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (v9 && ([v9 containsObject:*(a2 + 144)] & 1) == 0)
+  if (v9)
   {
-    v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v10 = [v9 containsObject:*(a2 + 144)];
+    if ((v10 & 1) == 0)
     {
-      [*(a2 + 144) UUIDString];
-      objc_claimAutoreleasedReturnValue();
-      [v11 UTF8String];
-      OU3DObjectRGBSizeRefiner::ShouldRefineObject();
-    }
+      v18 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v10, v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      {
+        [*(a2 + 144) UUIDString];
+        objc_claimAutoreleasedReturnValue();
+        [v12 UTF8String];
+        OU3DObjectRGBSizeRefiner::ShouldRefineObject();
+      }
 
-    goto LABEL_11;
+      goto LABEL_11;
+    }
   }
 
   v23 = 0;
@@ -7867,25 +7853,26 @@ LABEL_11:
   while (v23 != 128);
   if (v24 > 5.0)
   {
-    v28 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
+    v28 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v10, v11);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       v29 = [*(a2 + 144) UUIDString];
-      OU3DObjectRGBSizeRefiner::ShouldRefineObject(v29, v31, v28, v24);
+      OU3DObjectRGBSizeRefiner::ShouldRefineObject(v29, v33, v28, v24);
     }
 
     goto LABEL_12;
   }
 
   IsBoxInFOVLine = OU3DObjectRGBSizeRefiner::IsBoxInFOVLine(a1, a3, a4, a2);
+  v32 = IsBoxInFOVLine;
   if ((IsBoxInFOVLine & 0x100000000) == 0)
   {
-    v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = _OULoggingGetOSLogForCategoryObjectUnderstanding(IsBoxInFOVLine, v31);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [*(a2 + 144) UUIDString];
       objc_claimAutoreleasedReturnValue();
-      [v11 UTF8String];
+      [v12 UTF8String];
       OU3DObjectRGBSizeRefiner::ShouldRefineObject();
     }
 
@@ -7894,95 +7881,94 @@ LABEL_11:
 
   if (![*(a2 + 128) isEqualToString:@"Screen"] || (OU3DObjectRGBSizeRefiner::IsBoxInFOVCorner(a1, a3, a4, a2) & 0x100000000) != 0)
   {
-    v19 = IsBoxInFOVLine & 0xFF00000000;
-    v20 = IsBoxInFOVLine & 0xFFFFFF00;
-    v18 = IsBoxInFOVLine;
+    v20 = v32 & 0xFF00000000;
+    v21 = v32 & 0xFFFFFF00;
+    v19 = v32;
     goto LABEL_13;
   }
 
 LABEL_12:
-  v18 = 0;
   v19 = 0;
   v20 = 0;
+  v21 = 0;
 LABEL_13:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v19 | v18 | v20;
+  return v20 | v19 | v21;
 }
 
 uint64_t OU3DObjectRGBSizeRefiner::IsBoxInFOVCorner(OU3DObjectRGBSizeRefiner *this, const simd_float3x3 *a2, const simd_float4x4 *a3, const box3d *a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v36.columns[2] = a3->columns[2];
-  v33 = a3->columns[3];
-  v36.columns[3] = v33;
-  v36.columns[0] = a3->columns[0];
-  v36.columns[1] = a3->columns[1];
-  v31 = __invert_f4(v36);
-  *v8.i64 = OU3DObjectRGBSizeRefiner::GenerateProjectionMatrix(v7, a2, &v31);
-  v32.columns[0] = v8;
-  v32.columns[1] = v9;
-  v32.columns[2] = v10;
-  v32.columns[3] = v11;
-  OU3DObjectRGBSizeRefiner::ProjectToImage(this, &v32, a4, &v31);
-  OU3DObjectRGBSizeRefiner::GetCornerVisibility(a4, &v33, v29);
-  std::vector<BOOL>::vector(&v28, v29);
-  std::vector<BOOL>::vector(&v27, &v30);
+  v36 = *MEMORY[0x277D85DE8];
+  v37.columns[2] = a3->columns[2];
+  v34 = a3->columns[3];
+  v37.columns[3] = v34;
+  v37.columns[0] = a3->columns[0];
+  v37.columns[1] = a3->columns[1];
+  v32 = __invert_f4(v37);
+  *v8.i64 = OU3DObjectRGBSizeRefiner::GenerateProjectionMatrix(v7, a2, &v32);
+  v33.columns[0] = v8;
+  v33.columns[1] = v9;
+  v33.columns[2] = v10;
+  v33.columns[3] = v11;
+  OU3DObjectRGBSizeRefiner::ProjectToImage(&v32, this, &v33, a4);
+  OU3DObjectRGBSizeRefiner::GetCornerVisibility(a4, &v34, v30);
+  std::vector<BOOL>::vector(&v29, v30);
+  std::vector<BOOL>::vector(&v28, &v31);
   buf[0] = 0;
-  std::vector<BOOL>::vector(&__p, 8);
-  v12 = 0;
-  v13 = 0;
-  v14 = v31.columns[1].i64[1];
-  v15 = v31.columns[3].i64[1];
-  v16 = __p;
-  v17 = v28;
+  v12 = std::vector<BOOL>::vector(&__p, 8, buf);
+  v14 = 0;
+  v15 = 0;
+  v16 = v32.columns[1].i64[1];
+  v17 = v32.columns[3].i64[1];
+  v18 = __p;
+  v19 = v29;
   do
   {
-    v18 = 1 << v12;
-    if ((*v14 & (1 << v12)) != 0)
+    v20 = 1 << v14;
+    if ((*v16 & (1 << v14)) != 0)
     {
-      v19 = *v16;
+      v21 = *v18;
 LABEL_4:
-      v20 = v19 | v18;
+      v22 = v21 | v20;
       goto LABEL_7;
     }
 
-    v19 = *v16;
-    if ((*v17 & v18) == 0)
+    v21 = *v18;
+    if ((*v19 & v20) == 0)
     {
       goto LABEL_4;
     }
 
-    v20 = v19 & ~v18;
+    v22 = v21 & ~v20;
 LABEL_7:
-    *v16 = v20;
-    if ((*v15 & v18) != 0)
+    *v18 = v22;
+    if ((*v17 & v20) != 0)
     {
-      ++v13;
+      ++v15;
     }
 
-    ++v12;
+    ++v14;
   }
 
-  while (v12 != 8);
-  if (v13 >= 5)
+  while (v14 != 8);
+  if (v15 >= 5)
   {
-    v23 = v13 & 0x7FFFFF00;
-    v13 = v13;
-    v22 = 0x100000000;
+    v25 = v15 & 0x7FFFFF00;
+    v15 = v15;
+    v24 = 0x100000000;
   }
 
   else
   {
-    v21 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v23 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v12, v13);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      OU3DObjectRGBSizeRefiner::IsBoxInFOVCorner([*(a4 + 16) UTF8String], buf, v13, v21);
+      OU3DObjectRGBSizeRefiner::IsBoxInFOVCorner([*(a4 + 16) UTF8String], buf, v15, v23);
     }
 
-    v22 = 0;
-    v13 = 0;
-    v23 = 0;
+    v24 = 0;
+    v15 = 0;
+    v25 = 0;
   }
 
   if (__p)
@@ -7990,48 +7976,49 @@ LABEL_7:
     operator delete(__p);
   }
 
-  if (v27)
-  {
-    operator delete(v27);
-  }
-
   if (v28)
   {
     operator delete(v28);
   }
 
-  if (v30)
+  if (v29)
   {
-    operator delete(v30);
+    operator delete(v29);
   }
 
-  if (v29[0])
+  if (v31)
   {
-    operator delete(v29[0]);
+    operator delete(v31);
   }
 
-  if (v31.columns[3].i64[1])
+  if (v30[0])
   {
-    operator delete(v31.columns[3].i64[1]);
+    operator delete(v30[0]);
   }
 
-  if (v31.columns[1].i64[1])
+  if (v32.columns[3].i64[1])
   {
-    operator delete(v31.columns[1].i64[1]);
+    operator delete(v32.columns[3].i64[1]);
   }
 
-  if (v31.columns[0].i64[0])
+  if (v32.columns[1].i64[1])
   {
-    v31.columns[0].i64[1] = v31.columns[0].i64[0];
-    operator delete(v31.columns[0].i64[0]);
+    operator delete(v32.columns[1].i64[1]);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v22 | v23 | v13;
+  if (v32.columns[0].i64[0])
+  {
+    v32.columns[0].i64[1] = v32.columns[0].i64[0];
+    operator delete(v32.columns[0].i64[0]);
+  }
+
+  return v24 | v25 | v15;
 }
 
-void sub_25D25EE68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_25D25EE68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
+
   if (__p)
   {
     operator delete(__p);
@@ -8048,56 +8035,56 @@ void sub_25D25EE68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   OU3DObjectRGBSizeRefiner::CornerVisibilityInfo::~CornerVisibilityInfo(&a19);
-  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(&a25);
+  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(va);
   _Unwind_Resume(a1);
 }
 
-void OU3DObjectRGBSizeRefiner::GetCornerVisibility(uint64_t a1@<X1>, float32x4_t *a2@<X2>, void *a3@<X8>)
+void OU3DObjectRGBSizeRefiner::GetCornerVisibility(uint64_t a1@<X1>, float32x4_t *a2@<X2>, uint64_t *a3@<X8>)
 {
-  v56 = *MEMORY[0x277D85DE8];
-  LOBYTE(v49[0]) = 0;
-  std::vector<BOOL>::vector(v41, 8);
-  LOBYTE(v49[0]) = 0;
-  std::vector<BOOL>::vector(__p, 8);
-  v47 = xmmword_25D278090;
+  v55 = *MEMORY[0x277D85DE8];
+  LOBYTE(v48[0]) = 0;
+  std::vector<BOOL>::vector(v40, 8, v48);
+  LOBYTE(v48[0]) = 0;
+  std::vector<BOOL>::vector(__p, 8, v48);
+  v46 = xmmword_25D278090;
+  memset(v48, 0, sizeof(v48));
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v48, &v46, &v47, 4uLL);
+  v45 = xmmword_25D2780A0;
   memset(v49, 0, sizeof(v49));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v49, &v47, &v48, 4uLL);
-  v46 = xmmword_25D2780A0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v49, &v45, &v46, 4uLL);
+  v44 = xmmword_25D2780B0;
   memset(v50, 0, sizeof(v50));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v50, &v46, &v47, 4uLL);
-  v45 = xmmword_25D2780B0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v50, &v44, &v45, 4uLL);
+  v43 = xmmword_25D2780C0;
   memset(v51, 0, sizeof(v51));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v51, &v45, &v46, 4uLL);
-  v44 = xmmword_25D2780C0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v51, &v43, &v44, 4uLL);
+  v42 = xmmword_25D2780D0;
   memset(v52, 0, sizeof(v52));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v52, &v44, &v45, 4uLL);
-  v43 = xmmword_25D2780D0;
-  memset(v53, 0, sizeof(v53));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v53, &v43, &v44, 4uLL);
-  v42 = xmmword_25D278080;
-  v55[0] = 0;
-  v55[1] = 0;
-  v54 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v54, &v42, &v43, 4uLL);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v52, &v42, &v43, 4uLL);
+  v41 = xmmword_25D278080;
+  v54[0] = 0;
+  v54[1] = 0;
+  v53 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v53, &v41, &v42, 4uLL);
+  v36 = 0;
   v37 = 0;
   v38 = 0;
-  v39 = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(&v37, v49, &v56, 6uLL);
+  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(&v36, v48, &v55, 6uLL);
   for (i = 0; i != -18; i -= 3)
   {
-    v7 = v55[i - 1];
+    v7 = v54[i - 1];
     if (v7)
     {
-      v55[i] = v7;
+      v54[i] = v7;
       operator delete(v7);
     }
   }
 
-  v8 = v37;
-  v9 = v38;
-  if (v37 != v38)
+  v8 = v36;
+  v9 = v37;
+  if (v36 != v37)
   {
-    v10 = v41[0];
+    v10 = v40[0];
     __asm { FMOV            V0.4S, #-0.25 }
 
     do
@@ -8154,21 +8141,19 @@ void OU3DObjectRGBSizeRefiner::GetCornerVisibility(uint64_t a1@<X1>, float32x4_t
     while (v8 != v9);
   }
 
-  std::vector<BOOL>::vector(a3, v41);
+  std::vector<BOOL>::vector(a3, v40);
   std::vector<BOOL>::vector(a3 + 3, __p);
-  v49[0] = &v37;
-  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v49);
+  v48[0] = &v36;
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v48);
   if (__p[0])
   {
     operator delete(__p[0]);
   }
 
-  if (v41[0])
+  if (v40[0])
   {
-    operator delete(v41[0]);
+    operator delete(v40[0]);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25D25F274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char *a32)
@@ -8215,7 +8200,7 @@ uint64_t OU3DObjectRGBSizeRefiner::IsBoxInFOVLine(OU3DObjectRGBSizeRefiner *this
   v39.columns[1] = v9;
   v39.columns[2] = v10;
   v39.columns[3] = v11;
-  OU3DObjectRGBSizeRefiner::ProjectToImage(this, &v39, a4, &v38);
+  OU3DObjectRGBSizeRefiner::ProjectToImage(&v38, this, &v39, a4);
   v35 = 0;
   v36 = 0;
   v37 = 0;
@@ -8297,14 +8282,15 @@ LABEL_9:
   return v31 | v29 | v30;
 }
 
-void sub_25D25F57C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19)
+void sub_25D25F57C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
   if (__p)
   {
     operator delete(__p);
   }
 
-  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(&a19);
+  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(va);
   _Unwind_Resume(a1);
 }
 
@@ -8332,221 +8318,596 @@ float OU3DObjectRGBSizeRefiner::ComputeSearchGranularity(OU3DObjectRGBSizeRefine
 
 id OU3DObjectRGBSizeRefiner::RefineObjects(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8)
 {
-  v245[0] = *MEMORY[0x277D85DE8];
-  v153 = a2;
+  v246[0] = *MEMORY[0x277D85DE8];
+  v154 = a2;
   v13 = a3;
-  v150 = a6;
-  v151 = a7;
-  v152 = a8;
-  v154 = v13;
+  v151 = a6;
+  v152 = a7;
+  v153 = a8;
+  v155 = v13;
   if (OU3DObjectRGBSizeRefiner::IsOUFrameValid(v13, v14))
   {
-    kdebug_trace();
-    v15 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v15 = kdebug_trace();
+    v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.var1) = 0;
-      _os_log_impl(&dword_25D1DB000, v15, OS_LOG_TYPE_INFO, "[3DOD RGB Refine] Edge Alignment Start", &buf, 2u);
+      _os_log_impl(&dword_25D1DB000, v17, OS_LOG_TYPE_INFO, "[3DOD RGB Refine] Edge Alignment Start", &buf, 2u);
     }
 
     ++*(a1 + 196);
-    rawBoxesFromObjects(v153, v208);
-    v16 = -1227133513 * ((v208[1] - v208[0]) >> 5);
-    memset(v207, 0, sizeof(v207));
-    std::vector<OUBox3d>::reserve(v207, v16);
-    v17 = [(OU3DObjectRGBSizeRefiner *)v13 camera];
-    [v17 intrinsics];
-    buf.var2 = v18;
-    LODWORD(buf.var4) = v19;
-    buf.var1 = v20;
-    buf.var3 = v21;
-    LODWORD(buf.var5.var1) = v22;
-    buf.var5.var0 = v23;
-    OU3DObjectRGBSizeRefiner::ShouldRefineObjects(a1, v153, &buf, a4, v151, &v203);
+    rawBoxesFromObjects(v154, v209);
+    v18 = -1227133513 * ((v209[1] - v209[0]) >> 5);
+    memset(v208, 0, sizeof(v208));
+    std::vector<OUBox3d>::reserve(v208, v18);
+    v19 = [(OU3DObjectRGBSizeRefiner *)v13 camera];
+    [v19 intrinsics];
+    buf.var2 = v20;
+    LODWORD(buf.var4) = v21;
+    buf.var1 = v22;
+    buf.var3 = v23;
+    LODWORD(buf.var5.var1) = v24;
+    buf.var5.var0 = v25;
+    OU3DObjectRGBSizeRefiner::ShouldRefineObjects(a1, v154, &buf, a4, v152, &v204);
 
     kdebug_trace();
-    if (v206)
+    if (v207)
     {
       kdebug_trace();
       -[OU3DObjectRGBSizeRefiner setSemanticLabelBufferOnWideCamera:](v13, "setSemanticLabelBufferOnWideCamera:", CVPixelBufferRetain([*a1 generateSemanticOnWideCameraWithFrame:v13]));
       kdebug_trace();
-      v24 = OUCannyEdgeDetectorInterface::DetectEdges(*(a1 + 160), v13);
-      v25 = v204;
-      if (v204 != &v205)
+      v26 = OUCannyEdgeDetectorInterface::DetectEdges(*(a1 + 160), v13);
+      v27 = v205;
+      if (v205 != &v206)
       {
         do
         {
-          v192.i64[0] = (v25 + 4);
-          v26 = std::__tree<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(a1 + 168, v25 + 4);
-          v27 = OUCannyEdgeDetectorInterface::DetectEdges(v26[5], v13);
-          v192.i64[0] = (v25 + 4);
-          v28 = std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong},std::less<NSString * {__strong}>,true>,std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::piecewise_construct_t const&<>>(a1 + 200, v25 + 4);
-          v29 = v28[5];
-          v28[5] = v27;
+          v193.i64[0] = (v27 + 4);
+          v28 = std::__tree<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},std::unique_ptr<OUCannyEdgeDetectorSemantic>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(a1 + 168, v27 + 4, &std::piecewise_construct, &v193);
+          v29 = OUCannyEdgeDetectorInterface::DetectEdges(v28[5], v13);
+          v193.i64[0] = (v27 + 4);
+          v30 = std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong},std::less<NSString * {__strong}>,true>,std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::piecewise_construct_t const&<>>(a1 + 200, v27 + 4, &std::piecewise_construct, &v193);
+          v31 = v30[5];
+          v30[5] = v29;
 
-          v30 = v25[1];
-          if (v30)
+          v32 = v27[1];
+          if (v32)
           {
             do
             {
-              v31 = v30;
-              v30 = *v30;
+              v33 = v32;
+              v32 = *v32;
             }
 
-            while (v30);
+            while (v32);
           }
 
           else
           {
             do
             {
-              v31 = v25[2];
-              v113 = *v31 == v25;
-              v25 = v31;
+              v33 = v27[2];
+              v115 = *v33 == v27;
+              v27 = v33;
             }
 
-            while (!v113);
+            while (!v115);
           }
 
-          v25 = v31;
+          v27 = v33;
         }
 
-        while (v31 != &v205);
+        while (v33 != &v206);
       }
 
-      DownloadMTLTexture(v24, (a1 + 224));
-      v33 = OUVizTool::Get(v32);
+      DownloadMTLTexture(v26, (a1 + 224));
+      v35 = OUVizTool::Get(v34);
       std::string::basic_string[abi:ne200100]<0>(&buf, "pre_rgb_refine");
-      OUVizTool::SaveBoxes(v33, &buf, v208);
+      OUVizTool::SaveBoxes(v35, &buf, v209);
       if (SHIBYTE(buf.var3) < 0)
       {
         operator delete(buf.var1);
       }
 
-      v35 = OUVizTool::Get(v34);
-      OUVizTool::SaveARFrameImage(v35, [(OU3DObjectRGBSizeRefiner *)v13 sceneColorBuffer]);
+      v37 = OUVizTool::Get(v36);
+      OUVizTool::SaveARFrameImage(v37, [(OU3DObjectRGBSizeRefiner *)v13 sceneColorBuffer]);
 
       kdebug_trace();
       kdebug_trace();
-      rawBoxesFromObjects(v150, &v201);
-      if (v16 < 1)
+      rawBoxesFromObjects(v151, &v202);
+      if (v18 < 1)
       {
         goto LABEL_130;
       }
 
-      v37 = 0;
-      v158 = v16 & 0x7FFFFFFF;
-      v38 = 7.0;
-      *&v36 = 138412546;
-      v144 = v36;
-      v39 = 10.0;
-      v40 = 15.0;
-      v145 = v15;
+      v39 = 0;
+      v159 = v18 & 0x7FFFFFFF;
+      v40 = 7.0;
+      *&v38 = 138412546;
+      v145 = v38;
+      v41 = 10.0;
+      v42 = 15.0;
+      v146 = v17;
       while (1)
       {
-        v41 = v208[0] + 224 * v37;
-        v200 = ObjectTypeConversion(*(v41 + 128));
-        if ((*(v203 + ((v37 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v37))
+        v43 = v209[0] + 224 * v39;
+        v201 = ObjectTypeConversion(*(v43 + 128));
+        if ((*(v204 + ((v39 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v39))
         {
-          v42 = [(OU3DObjectRGBSizeRefiner *)v13 camera];
-          [v42 intrinsics];
-          *(a1 + 376) = v43;
-          *(a1 + 392) = v44;
-          *(a1 + 368) = v45;
-          *(a1 + 384) = v46;
-          *(a1 + 408) = v47;
-          *(a1 + 400) = v48;
+          v44 = [(OU3DObjectRGBSizeRefiner *)v13 camera];
+          [v44 intrinsics];
+          *(a1 + 376) = v45;
+          *(a1 + 392) = v46;
+          *(a1 + 368) = v47;
+          *(a1 + 384) = v48;
+          *(a1 + 408) = v49;
+          *(a1 + 400) = v50;
 
           *(a1 + 416) = __invert_f4(*a4);
-          *&v50 = OU3DObjectRGBSizeRefiner::GenerateProjectionMatrix(v49, (a1 + 368), (a1 + 416));
-          *(a1 + 480) = v50;
-          *(a1 + 496) = v51;
-          *(a1 + 512) = v52;
-          *(a1 + 528) = v53;
-          v54 = *v41;
-          v55 = *(v41 + 16);
-          v56 = *(v41 + 48);
-          v194 = *(v41 + 32);
-          v195 = v56;
-          v192 = v54;
-          v193 = v55;
-          v57 = *(v41 + 64);
-          v58 = *(v41 + 80);
-          v59 = *(v41 + 112);
-          v198 = *(v41 + 96);
-          v199 = v59;
-          v196 = v57;
-          v197 = v58;
-          OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(a1, v41, v189);
-          v215.var1 = &v200;
-          v60 = std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong},std::less<NSString * {__strong}>,true>,std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::piecewise_construct_t const&<>>(a1 + 200, &v200);
-          DownloadMTLTexture(v60[5], (a1 + 248));
-          OU3DObjectRGBSizeRefiner::GenerateRgbFilterdBuffer(a1, v200);
-          v63 = 0;
-          v64 = *(a1 + 224);
-          v65 = *(a1 + 272);
-          v66 = *(a1 + 296);
+          *&v52 = OU3DObjectRGBSizeRefiner::GenerateProjectionMatrix(v51, (a1 + 368), (a1 + 416));
+          *(a1 + 480) = v52;
+          *(a1 + 496) = v53;
+          *(a1 + 512) = v54;
+          *(a1 + 528) = v55;
+          v56 = *v43;
+          v57 = *(v43 + 16);
+          v58 = *(v43 + 48);
+          v195 = *(v43 + 32);
+          v196 = v58;
+          v193 = v56;
+          v194 = v57;
+          v59 = *(v43 + 64);
+          v60 = *(v43 + 80);
+          v61 = *(v43 + 112);
+          v199 = *(v43 + 96);
+          v200 = v61;
+          v197 = v59;
+          v198 = v60;
+          OU3DObjectRGBSizeRefiner::GetSidesEdgesOfInterest(a1, v43, v190);
+          v216.var1 = &v201;
+          v62 = std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto10MTLTexture}* {__strong},std::less<NSString * {__strong}>,true>,std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::piecewise_construct_t const&<>>(a1 + 200, &v201, &std::piecewise_construct, &v216);
+          DownloadMTLTexture(v62[5], (a1 + 248));
+          OU3DObjectRGBSizeRefiner::GenerateRgbFilterdBuffer(a1, v201);
+          v65 = 0;
+          v66 = *(a1 + 224);
+          v67 = *(a1 + 272);
+          v68 = *(a1 + 296);
           do
           {
-            LOBYTE(v61) = *(v64 + v63);
-            LOBYTE(v62) = *(v65 + v63);
-            v62 = LODWORD(v62) * v38;
-            v61 = v62 + (LODWORD(v61) * 0.35);
-            *(v66 + 4 * v63++) = v61;
+            LOBYTE(v63) = *(v66 + v65);
+            LOBYTE(v64) = *(v67 + v65);
+            v64 = LODWORD(v64) * v40;
+            v63 = v64 + (LODWORD(v63) * 0.35);
+            *(v68 + 4 * v65++) = v63;
           }
 
-          while (v63 != 49152);
-          if (OU3DObjectRGBSizeRefiner::ComputeSemanticRatio(a1, v41, (a1 + 368), (a1 + 416)) < 0.15)
+          while (v65 != 49152);
+          if (OU3DObjectRGBSizeRefiner::ComputeSemanticRatio(a1, v43, (a1 + 368), (a1 + 416)) < 0.15)
           {
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              v122 = [*(v41 + 144) UUIDString];
-              v123 = [v200 UTF8String];
-              LODWORD(buf.var1) = v144;
-              *(&buf.var1 + 4) = v122;
+              v124 = [*(v43 + 144) UUIDString];
+              v125 = [v201 UTF8String];
+              LODWORD(buf.var1) = v145;
+              *(&buf.var1 + 4) = v124;
               *(&buf.var2 + 2) = 2080;
-              *(&buf.var2 + 6) = v123;
-              _os_log_debug_impl(&dword_25D1DB000, v15, OS_LOG_TYPE_DEBUG, "[3DOD RGB Refine Debug] Object uuid: %@ box type: %s does not meet semantic ratio ", &buf, 0x16u);
+              *(&buf.var2 + 6) = v125;
+              _os_log_debug_impl(&dword_25D1DB000, v17, OS_LOG_TYPE_DEBUG, "[3DOD RGB Refine Debug] Object uuid: %@ box type: %s does not meet semantic ratio ", &buf, 0x16u);
             }
 
-            v67 = [v153 objectAtIndexedSubscript:v37];
-            v68 = [v67 refined_box_history];
-            v69 = [v68 count] == 0;
+            v69 = [v154 objectAtIndexedSubscript:v39];
+            v70 = [v69 refined_box_history];
+            v71 = [v70 count] == 0;
 
-            if (!v69)
+            if (!v71)
             {
-              OUBox3d::OUBox3d(&buf, v41);
-              v70 = v201;
-              v71 = v202;
-              while (v70 != v71)
+              OUBox3d::OUBox3d(&buf, v43);
+              v72 = v202;
+              v73 = v203;
+              while (v72 != v73)
               {
-                if ([*(v70 + 144) isEqual:*(v41 + 144)])
+                if ([v72[18] isEqual:*(v43 + 144)])
                 {
-                  OUBox3d::operator=(&buf, v70);
+                  OUBox3d::operator=(&buf, v72);
                   break;
                 }
 
-                v70 += 224;
+                v72 += 28;
               }
 
-              std::vector<OUBox3d>::push_back[abi:ne200100](v207, &buf);
+              std::vector<OUBox3d>::push_back[abi:ne200100](v208, &buf);
 
               if (__p)
               {
                 operator delete(__p);
               }
 
-              if (v224)
+              if (v225)
               {
-                v225 = v224;
-                operator delete(v224);
+                v226 = v225;
+                operator delete(v225);
               }
 
 LABEL_118:
-              if (v190)
+              if (v191)
               {
-                v191 = v190;
-                operator delete(v190);
+                v192 = v191;
+                operator delete(v191);
+              }
+
+              if (v190[0])
+              {
+                v190[1] = v190[0];
+                operator delete(v190[0]);
+              }
+
+              goto LABEL_122;
+            }
+
+LABEL_39:
+            std::vector<OUBox3d>::push_back[abi:ne200100](v208, v43);
+            goto LABEL_118;
+          }
+
+          OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v193, v190, (a1 + 368), (a1 + 416), 0);
+          v79 = OU3DObjectRGBSizeRefiner::ComputeOverlapScore<float>(a1, (a1 + 296), (a1 + 320), &v193);
+          OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v193, v190, (a1 + 368), (a1 + 416), 1);
+          v80 = v79 + (OU3DObjectRGBSizeRefiner::ComputeOverlapScore<unsigned char>(a1, (a1 + 248), (a1 + 320), &v193) * 8.0);
+          if (v80 == 0.0)
+          {
+            goto LABEL_39;
+          }
+
+          v161 = v80;
+          v81 = 0;
+          v82 = 3.4028e38;
+          do
+          {
+            v83 = vsubq_f32(*(a4 + 48), *(&v193 + v81));
+            v84 = vmulq_f32(v83, v83);
+            v85 = sqrtf(v84.f32[2] + vaddv_f32(*v84.f32));
+            if (v85 < v82)
+            {
+              v82 = v85;
+            }
+
+            v81 += 16;
+          }
+
+          while (v81 != 128);
+          box3dToCentroidSizeAngle(v189, &v193);
+          *&v216.var6.var1 = v197;
+          *&v216.var7 = v198;
+          v217 = v199;
+          v218 = v200;
+          *&v216.var1 = v193;
+          *&v216.var3 = v194;
+          *&v216.var5.var0 = v195;
+          *&v216.var5.var2 = v196;
+          buf.var1 = *(v189[0] + 12);
+          buf.var2 = *(v189[0] + 5);
+          v188 = 0;
+          v186 = 0;
+          v187 = 0;
+          std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v186, &buf, &buf.var2 + 1, 3uLL);
+          v86 = round(v82 + -1.0);
+          v87 = fminf(fmaxf(v86, 2.0), 4.0);
+          v88 = v186;
+          v89 = v187;
+          if (v186 != v187)
+          {
+            do
+            {
+              if (@"Screen" == v201)
+              {
+                v90 = v42;
+              }
+
+              else
+              {
+                v90 = v41;
+              }
+
+              *v88 = (*v88 * v90) / v87;
+              ++v88;
+            }
+
+            while (v88 != v89);
+          }
+
+          v184 = 0;
+          v183 = 0;
+          v185 = 0;
+          std::vector<std::vector<int>>::reserve(&v183, 6uLL);
+          memset(&v213, 0, 24);
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v213, v191, v192, (v192 - v191) >> 2);
+          v91 = v161;
+          v92 = v192;
+          v93 = v191;
+          v244 = xmmword_25D279B80;
+          v245 = 0x500000003;
+          memset(&buf, 0, 24);
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf, &v244, v246, 6uLL);
+          v242 = 0x400000002;
+          v241 = xmmword_25D279B98;
+          memset(&buf.var4, 0, 24);
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf.var4, &v241, &v243, 6uLL);
+          v239 = 0x500000003;
+          v238 = xmmword_25D279BB0;
+          memset(&buf.var5.var2, 0, 24);
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf.var5.var2, &v238, &v240, 6uLL);
+          v236 = 0x100000000;
+          v235 = xmmword_25D279BC8;
+          memset(&buf.var6.var2, 0, 24);
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf.var6.var2, &v235, &v237, 6uLL);
+          v233 = 0x400000002;
+          v232 = xmmword_25D279BE0;
+          *&v221 = 0;
+          v220 = 0uLL;
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v220, &v232, &v234, 6uLL);
+          v230 = 0x100000000;
+          v229 = xmmword_25D279BF8;
+          v222[0] = 0;
+          v222[1] = 0;
+          *(&v221 + 1) = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v221 + 1, &v229, &v231, 6uLL);
+          v175 = 0uLL;
+          *&v176 = 0;
+          std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(&v175, &buf, &v223, 6uLL);
+          v94 = 0;
+          v95 = v92 - v93;
+          do
+          {
+            v96 = v222[v94 - 1];
+            if (v96)
+            {
+              v222[v94] = v96;
+              operator delete(v96);
+            }
+
+            v94 -= 3;
+          }
+
+          while (v94 != -18);
+          v241 = xmmword_25D2799F0;
+          std::unordered_set<int>::unordered_set(&buf, &v241, 4);
+          v238 = xmmword_25D279A20;
+          std::unordered_set<int>::unordered_set(&buf.var5.var1, &v238, 4);
+          v235 = xmmword_25D279A30;
+          std::unordered_set<int>::unordered_set(&buf.var7, &v235, 4);
+          v244 = 0uLL;
+          v245 = 0;
+          std::vector<std::unordered_set<int>>::__init_with_size[abi:ne200100]<std::unordered_set<int> const*,std::unordered_set<int> const*>(&v244, &buf, &v221 + 8, 3uLL);
+          for (i = 80; i != -40; i -= 40)
+          {
+            std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&buf + i);
+          }
+
+          LOBYTE(v241) = 0;
+          std::vector<BOOL>::vector(&buf, 3, &v241);
+          if ((v95 >> 2) >= 1)
+          {
+            var1 = v213.var1;
+            v99 = buf.var1;
+            for (j = (v95 >> 2) & 0x7FFFFFFF; j; --j)
+            {
+              v102 = *var1++;
+              v101 = v102;
+              if (v102 <= 5)
+              {
+                if (((1 << v101) & 3) != 0)
+                {
+                  v103 = 1;
+                }
+
+                else
+                {
+                  if (((1 << v101) & 0x14) != 0)
+                  {
+                    *v99 |= 2uLL;
+                    if (v101 != 3)
+                    {
+                      continue;
+                    }
+                  }
+
+                  v103 = 4;
+                }
+
+                *v99 |= v103;
+              }
+            }
+          }
+
+          v104 = 0;
+          LODWORD(v238) = 0;
+          while (1)
+          {
+            if (((*buf.var1 >> v104) & 1) != 0 || !std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v244 + 40 * v104), &v238))
+            {
+              if (++v104 != 3)
+              {
+                continue;
+              }
+
+              v105 = 126 - 2 * __clz((*&v213.var2 - v213.var1) >> 2);
+              *&v241 = &v175;
+              *(&v241 + 1) = &v238;
+              if (*&v213.var2 == v213.var1)
+              {
+                v106 = 0;
+              }
+
+              else
+              {
+                v106 = v105;
+              }
+
+              std::vector<std::vector<int>>::push_back[abi:ne200100](&v183, &v213);
+            }
+
+            v104 = 0;
+            v107 = v238;
+            LODWORD(v238) = v238 + 1;
+            if (v107 >= 5)
+            {
+              if (v183 == v184 && v191 != v192)
+              {
+                std::vector<std::vector<int>>::push_back[abi:ne200100](&v183, &v191);
+              }
+
+              if (buf.var1)
+              {
+                operator delete(buf.var1);
+              }
+
+              buf.var1 = &v244;
+              std::vector<std::unordered_set<int>>::__destroy_vector::operator()[abi:ne200100](&buf);
+              buf.var1 = &v175;
+              std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&buf);
+              if (v213.var1)
+              {
+                *&v213.var2 = v213.var1;
+                operator delete(v213.var1);
+              }
+
+              v108 = v183;
+              v109 = v184;
+              if (v183 != v184)
+              {
+                v110 = v87;
+                v111 = v161;
+                do
+                {
+                  *&buf.var6.var1 = v197;
+                  *&buf.var7 = v198;
+                  v220 = v199;
+                  v221 = v200;
+                  *&buf.var1 = v193;
+                  *&buf.var3 = v194;
+                  *&buf.var5.var0 = v195;
+                  *&buf.var5.var2 = v196;
+                  *&v213.var6.var1 = v197;
+                  *&v213.var7 = v198;
+                  v214 = v199;
+                  v215 = v200;
+                  *&v213.var1 = v193;
+                  *&v213.var3 = v194;
+                  *&v213.var5.var0 = v195;
+                  *&v213.var5.var2 = v196;
+                  v112 = *v108;
+                  v113 = v108[1];
+                  while (v112 != v113)
+                  {
+                    v114 = *v112;
+                    if (*v112 < 2)
+                    {
+                      v116 = (v186 + 8);
+                    }
+
+                    else
+                    {
+                      v115 = v114 == 2 || v114 == 4;
+                      if (v115)
+                      {
+                        v116 = v186;
+                      }
+
+                      else
+                      {
+                        v116 = (v186 + 4);
+                      }
+                    }
+
+                    v117 = *v116;
+                    if (*v116 > 0.0)
+                    {
+                      v118 = -v117;
+                      do
+                      {
+                        v181 = 0u;
+                        v182 = 0u;
+                        v179 = 0u;
+                        v180 = 0u;
+                        v177 = 0u;
+                        v178 = 0u;
+                        v175 = 0u;
+                        v176 = 0u;
+                        v119 = v118 / 100.0 * v110;
+                        *&v119 = v119;
+                        Box3dEnlarge(*&v119, &buf, *v112, &v175);
+                        OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v175, v190, (a1 + 368), (a1 + 416), 0);
+                        v120 = OU3DObjectRGBSizeRefiner::ComputeOverlapScore<float>(a1, (a1 + 296), (a1 + 320), &v175);
+                        OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v175, v190, (a1 + 368), (a1 + 416), 1);
+                        v121 = v120 + (OU3DObjectRGBSizeRefiner::ComputeOverlapScore<unsigned char>(a1, (a1 + 248), (a1 + 320), &v175) * 8.0);
+                        if (v121 > v91)
+                        {
+                          *&v213.var6.var1 = v179;
+                          *&v213.var7 = v180;
+                          v214 = v181;
+                          v215 = v182;
+                          *&v213.var1 = v175;
+                          *&v213.var3 = v176;
+                          v91 = v121;
+                          *&v213.var5.var0 = v177;
+                          *&v213.var5.var2 = v178;
+                        }
+
+                        v118 = v118 + 1.0;
+                      }
+
+                      while (v118 < v117);
+                    }
+
+                    buf = v213;
+                    v220 = v214;
+                    v221 = v215;
+                    ++v112;
+                  }
+
+                  if (v91 > v111)
+                  {
+                    v216 = v213;
+                    v217 = v214;
+                    v218 = v215;
+                    v111 = v91;
+                  }
+
+                  v108 += 3;
+                  v91 = v161;
+                }
+
+                while (v108 != v109);
+              }
+
+              OUBox3d::OUBox3d(&buf, v43);
+              buf = v216;
+              v220 = v217;
+              v221 = v218;
+              [v153 addObject:*(v43 + 144)];
+              v17 = v146;
+              v40 = 7.0;
+              v41 = 10.0;
+              v42 = 15.0;
+              std::vector<OUBox3d>::push_back[abi:ne200100](v208, &buf);
+
+              if (__p)
+              {
+                operator delete(__p);
+              }
+
+              if (v225)
+              {
+                v226 = v225;
+                operator delete(v225);
+              }
+
+              buf.var1 = &v183;
+              std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&buf);
+              if (v186)
+              {
+                v187 = v186;
+                operator delete(v186);
               }
 
               if (v189[0])
@@ -8555,616 +8916,239 @@ LABEL_118:
                 operator delete(v189[0]);
               }
 
-              goto LABEL_122;
-            }
-
-LABEL_39:
-            std::vector<OUBox3d>::push_back[abi:ne200100](v207, v41);
-            goto LABEL_118;
-          }
-
-          OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v192, v189, (a1 + 368), (a1 + 416), 0);
-          v77 = OU3DObjectRGBSizeRefiner::ComputeOverlapScore<float>(a1, (a1 + 296), (a1 + 320), &v192);
-          OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v192, v189, (a1 + 368), (a1 + 416), 1);
-          v78 = v77 + (OU3DObjectRGBSizeRefiner::ComputeOverlapScore<unsigned char>(a1, (a1 + 248), (a1 + 320), &v192) * 8.0);
-          if (v78 == 0.0)
-          {
-            goto LABEL_39;
-          }
-
-          v160 = v78;
-          v79 = 0;
-          v80 = 3.4028e38;
-          do
-          {
-            v81 = vsubq_f32(*(a4 + 48), *(&v192 + v79));
-            v82 = vmulq_f32(v81, v81);
-            v83 = sqrtf(v82.f32[2] + vaddv_f32(*v82.f32));
-            if (v83 < v80)
-            {
-              v80 = v83;
-            }
-
-            v79 += 16;
-          }
-
-          while (v79 != 128);
-          box3dToCentroidSizeAngle(&v192, v188);
-          *&v215.var6.var1 = v196;
-          *&v215.var7 = v197;
-          v216 = v198;
-          v217 = v199;
-          *&v215.var1 = v192;
-          *&v215.var3 = v193;
-          *&v215.var5.var0 = v194;
-          *&v215.var5.var2 = v195;
-          buf.var1 = *(v188[0] + 12);
-          buf.var2 = *(v188[0] + 5);
-          v187 = 0;
-          v185 = 0;
-          v186 = 0;
-          std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v185, &buf, (&buf.var2 + 1), 3uLL);
-          v84 = round(v80 + -1.0);
-          v85 = fminf(fmaxf(v84, 2.0), 4.0);
-          v86 = v185;
-          v87 = v186;
-          if (v185 != v186)
-          {
-            do
-            {
-              if (@"Screen" == v200)
-              {
-                v88 = v40;
-              }
-
-              else
-              {
-                v88 = v39;
-              }
-
-              *v86 = (*v86 * v88) / v85;
-              ++v86;
-            }
-
-            while (v86 != v87);
-          }
-
-          v183 = 0;
-          v182 = 0;
-          v184 = 0;
-          std::vector<std::vector<int>>::reserve(&v182, 6uLL);
-          memset(&v212, 0, 24);
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v212, v190, v191, (v191 - v190) >> 2);
-          v89 = v160;
-          v90 = v191;
-          v91 = v190;
-          v243 = xmmword_25D279B80;
-          v244 = 0x500000003;
-          memset(&buf, 0, 24);
-          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf, &v243, v245, 6uLL);
-          v241 = 0x400000002;
-          v240 = xmmword_25D279B98;
-          memset(&buf.var4, 0, 24);
-          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf.var4, &v240, &v242, 6uLL);
-          v238 = 0x500000003;
-          v237 = xmmword_25D279BB0;
-          memset(&buf.var5.var2, 0, 24);
-          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf.var5.var2, &v237, &v239, 6uLL);
-          v235 = 0x100000000;
-          v234 = xmmword_25D279BC8;
-          memset(&buf.var6.var2, 0, 24);
-          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&buf.var6.var2, &v234, &v236, 6uLL);
-          v232 = 0x400000002;
-          v231 = xmmword_25D279BE0;
-          *&v220 = 0;
-          v219 = 0uLL;
-          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v219, &v231, &v233, 6uLL);
-          v229 = 0x100000000;
-          v228 = xmmword_25D279BF8;
-          v221[0] = 0;
-          v221[1] = 0;
-          *(&v220 + 1) = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v220 + 8, &v228, &v230, 6uLL);
-          v174 = 0uLL;
-          *&v175 = 0;
-          std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(&v174, &buf, &v222, 6uLL);
-          v92 = 0;
-          v93 = v90 - v91;
-          do
-          {
-            v94 = v221[v92 - 1];
-            if (v94)
-            {
-              v221[v92] = v94;
-              operator delete(v94);
-            }
-
-            v92 -= 3;
-          }
-
-          while (v92 != -18);
-          v240 = xmmword_25D2799F0;
-          std::unordered_set<int>::unordered_set(&buf, &v240, 4);
-          v237 = xmmword_25D279A20;
-          std::unordered_set<int>::unordered_set(&buf.var5.var1, &v237, 4);
-          v234 = xmmword_25D279A30;
-          std::unordered_set<int>::unordered_set(&buf.var7, &v234, 4);
-          v243 = 0uLL;
-          v244 = 0;
-          std::vector<std::unordered_set<int>>::__init_with_size[abi:ne200100]<std::unordered_set<int> const*,std::unordered_set<int> const*>(&v243, &buf, &v220 + 8, 3uLL);
-          for (i = 80; i != -40; i -= 40)
-          {
-            std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&buf + i);
-          }
-
-          LOBYTE(v240) = 0;
-          std::vector<BOOL>::vector(&buf, 3);
-          if ((v93 >> 2) >= 1)
-          {
-            var1 = v212.var1;
-            v97 = buf.var1;
-            for (j = (v93 >> 2) & 0x7FFFFFFF; j; --j)
-            {
-              v100 = *var1++;
-              v99 = v100;
-              if (v100 <= 5)
-              {
-                if (((1 << v99) & 3) != 0)
-                {
-                  v101 = 1;
-                }
-
-                else
-                {
-                  if (((1 << v99) & 0x14) != 0)
-                  {
-                    *v97 |= 2uLL;
-                    if (v99 != 3)
-                    {
-                      continue;
-                    }
-                  }
-
-                  v101 = 4;
-                }
-
-                *v97 |= v101;
-              }
-            }
-          }
-
-          v102 = 0;
-          LODWORD(v237) = 0;
-          while (1)
-          {
-            if (((*buf.var1 >> v102) & 1) != 0 || !std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v243 + 40 * v102), &v237))
-            {
-              if (++v102 != 3)
-              {
-                continue;
-              }
-
-              v103 = 126 - 2 * __clz((*&v212.var2 - v212.var1) >> 2);
-              *&v240 = &v174;
-              *(&v240 + 1) = &v237;
-              if (*&v212.var2 == v212.var1)
-              {
-                v104 = 0;
-              }
-
-              else
-              {
-                v104 = v103;
-              }
-
-              std::vector<std::vector<int>>::push_back[abi:ne200100](&v182, &v212);
-            }
-
-            v102 = 0;
-            v105 = v237;
-            LODWORD(v237) = v237 + 1;
-            if (v105 >= 5)
-            {
-              if (v182 == v183 && v190 != v191)
-              {
-                std::vector<std::vector<int>>::push_back[abi:ne200100](&v182, &v190);
-              }
-
-              if (buf.var1)
-              {
-                operator delete(buf.var1);
-              }
-
-              buf.var1 = &v243;
-              std::vector<std::unordered_set<int>>::__destroy_vector::operator()[abi:ne200100](&buf);
-              buf.var1 = &v174;
-              std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&buf);
-              if (v212.var1)
-              {
-                *&v212.var2 = v212.var1;
-                operator delete(v212.var1);
-              }
-
-              v106 = v182;
-              v107 = v183;
-              if (v182 != v183)
-              {
-                v108 = v85;
-                v109 = v160;
-                do
-                {
-                  *&buf.var6.var1 = v196;
-                  *&buf.var7 = v197;
-                  v219 = v198;
-                  v220 = v199;
-                  *&buf.var1 = v192;
-                  *&buf.var3 = v193;
-                  *&buf.var5.var0 = v194;
-                  *&buf.var5.var2 = v195;
-                  *&v212.var6.var1 = v196;
-                  *&v212.var7 = v197;
-                  v213 = v198;
-                  v214 = v199;
-                  *&v212.var1 = v192;
-                  *&v212.var3 = v193;
-                  *&v212.var5.var0 = v194;
-                  *&v212.var5.var2 = v195;
-                  v110 = *v106;
-                  v111 = v106[1];
-                  while (v110 != v111)
-                  {
-                    v112 = *v110;
-                    if (*v110 < 2)
-                    {
-                      v114 = (v185 + 8);
-                    }
-
-                    else
-                    {
-                      v113 = v112 == 2 || v112 == 4;
-                      if (v113)
-                      {
-                        v114 = v185;
-                      }
-
-                      else
-                      {
-                        v114 = (v185 + 4);
-                      }
-                    }
-
-                    v115 = *v114;
-                    if (*v114 > 0.0)
-                    {
-                      v116 = -v115;
-                      do
-                      {
-                        v180 = 0u;
-                        v181 = 0u;
-                        v178 = 0u;
-                        v179 = 0u;
-                        v176 = 0u;
-                        v177 = 0u;
-                        v174 = 0u;
-                        v175 = 0u;
-                        v117 = v116 / 100.0 * v108;
-                        *&v117 = v117;
-                        Box3dEnlarge(*&v117, &buf, *v110, &v174);
-                        OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v174, v189, (a1 + 368), (a1 + 416), 0);
-                        v118 = OU3DObjectRGBSizeRefiner::ComputeOverlapScore<float>(a1, (a1 + 296), (a1 + 320), &v174);
-                        OU3DObjectRGBSizeRefiner::DrawBoxImage(a1, &v174, v189, (a1 + 368), (a1 + 416), 1);
-                        v119 = v118 + (OU3DObjectRGBSizeRefiner::ComputeOverlapScore<unsigned char>(a1, (a1 + 248), (a1 + 320), &v174) * 8.0);
-                        if (v119 > v89)
-                        {
-                          *&v212.var6.var1 = v178;
-                          *&v212.var7 = v179;
-                          v213 = v180;
-                          v214 = v181;
-                          *&v212.var1 = v174;
-                          *&v212.var3 = v175;
-                          v89 = v119;
-                          *&v212.var5.var0 = v176;
-                          *&v212.var5.var2 = v177;
-                        }
-
-                        v116 = v116 + 1.0;
-                      }
-
-                      while (v116 < v115);
-                    }
-
-                    buf = v212;
-                    v219 = v213;
-                    v220 = v214;
-                    ++v110;
-                  }
-
-                  if (v89 > v109)
-                  {
-                    v215 = v212;
-                    v216 = v213;
-                    v217 = v214;
-                    v109 = v89;
-                  }
-
-                  v106 += 3;
-                  v89 = v160;
-                }
-
-                while (v106 != v107);
-              }
-
-              OUBox3d::OUBox3d(&buf, v41);
-              buf = v215;
-              v219 = v216;
-              v220 = v217;
-              [v152 addObject:*(v41 + 144)];
-              v15 = v145;
-              v38 = 7.0;
-              v39 = 10.0;
-              v40 = 15.0;
-              std::vector<OUBox3d>::push_back[abi:ne200100](v207, &buf);
-
-              if (__p)
-              {
-                operator delete(__p);
-              }
-
-              if (v224)
-              {
-                v225 = v224;
-                operator delete(v224);
-              }
-
-              buf.var1 = &v182;
-              std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&buf);
-              if (v185)
-              {
-                v186 = v185;
-                operator delete(v185);
-              }
-
-              if (v188[0])
-              {
-                v188[1] = v188[0];
-                operator delete(v188[0]);
-              }
-
               goto LABEL_118;
             }
           }
         }
 
-        v72 = [v153 objectAtIndexedSubscript:v37];
-        v73 = [v72 refined_box_history];
-        v74 = [v73 count] == 0;
+        v74 = [v154 objectAtIndexedSubscript:v39];
+        v75 = [v74 refined_box_history];
+        v76 = [v75 count] == 0;
 
-        if (v74)
+        if (v76)
         {
-          std::vector<OUBox3d>::push_back[abi:ne200100](v207, v41);
+          std::vector<OUBox3d>::push_back[abi:ne200100](v208, v43);
           goto LABEL_122;
         }
 
-        OUBox3d::OUBox3d(&buf, v41);
-        v75 = *(a1 + 176);
-        if (!v75)
+        OUBox3d::OUBox3d(&buf, v43);
+        v77 = *(a1 + 176);
+        if (!v77)
         {
           goto LABEL_33;
         }
 
         while (1)
         {
-          v76 = v75[4];
-          if (v200 >= v76)
+          v78 = v77[4];
+          if (v201 >= v78)
           {
             break;
           }
 
 LABEL_32:
-          v75 = *v75;
-          if (!v75)
+          v77 = *v77;
+          if (!v77)
           {
             goto LABEL_33;
           }
         }
 
-        if (v76 < v200)
+        if (v78 < v201)
         {
           break;
         }
 
-        v120 = v201;
-        v121 = v202;
-        while (v120 != v121)
+        v122 = v202;
+        v123 = v203;
+        while (v122 != v123)
         {
-          if ([*(v120 + 144) isEqual:*(v41 + 144)])
+          if ([v122[18] isEqual:*(v43 + 144)])
           {
-            OUBox3d::operator=(&buf, v120);
+            OUBox3d::operator=(&buf, v122);
             break;
           }
 
-          v120 += 224;
+          v122 += 28;
         }
 
 LABEL_33:
-        std::vector<OUBox3d>::push_back[abi:ne200100](v207, &buf);
+        std::vector<OUBox3d>::push_back[abi:ne200100](v208, &buf);
 
         if (__p)
         {
           operator delete(__p);
         }
 
-        if (v224)
+        if (v225)
         {
-          v225 = v224;
-          operator delete(v224);
+          v226 = v225;
+          operator delete(v225);
         }
 
 LABEL_122:
-        if (++v37 == v158)
+        if (++v39 == v159)
         {
 LABEL_130:
           *(a1 + 192) = 0;
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             LOWORD(buf.var1) = 0;
-            _os_log_impl(&dword_25D1DB000, v15, OS_LOG_TYPE_INFO, "Refine Ends", &buf, 2u);
+            _os_log_impl(&dword_25D1DB000, v17, OS_LOG_TYPE_INFO, "Refine Ends", &buf, 2u);
           }
 
           kdebug_trace();
-          v125 = kdebug_trace();
-          if (v206)
+          v127 = kdebug_trace();
+          if (v207)
           {
-            v126 = OUVizTool::Get(v125);
+            v128 = OUVizTool::Get(v127);
             std::string::basic_string[abi:ne200100]<0>(&buf, "rgb_refine");
-            OUVizTool::SaveBoxes(v126, &buf, v207);
+            OUVizTool::SaveBoxes(v128, &buf, v208);
             if (SHIBYTE(buf.var3) < 0)
             {
               operator delete(buf.var1);
             }
           }
 
-          boxesToObjects(v207, @"rawdetection", 1u);
-          v172 = 0u;
+          boxesToObjects(v208, @"rawdetection", 1u);
           v173 = 0u;
-          v170 = 0u;
-          obj = v171 = 0u;
-          v146 = [obj countByEnumeratingWithState:&v170 objects:v211 count:16];
-          if (v146)
+          v174 = 0u;
+          v171 = 0u;
+          obj = v172 = 0u;
+          v147 = [obj countByEnumeratingWithState:&v171 objects:v212 count:16];
+          if (v147)
           {
-            v147 = *v171;
+            v148 = *v172;
             do
             {
-              for (k = 0; k != v146; ++k)
+              for (k = 0; k != v147; ++k)
               {
-                if (*v171 != v147)
+                if (*v172 != v148)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v127 = *(*(&v170 + 1) + 8 * k);
-                v166 = 0u;
+                v129 = *(*(&v171 + 1) + 8 * k);
                 v167 = 0u;
                 v168 = 0u;
                 v169 = 0u;
-                v155 = v153;
-                v159 = [v155 countByEnumeratingWithState:&v166 objects:v210 count:16];
-                if (v159)
+                v170 = 0u;
+                v156 = v154;
+                v160 = [v156 countByEnumeratingWithState:&v167 objects:v211 count:16];
+                if (v160)
                 {
-                  v157 = *v167;
+                  v158 = *v168;
                   do
                   {
-                    for (m = 0; m != v159; ++m)
+                    for (m = 0; m != v160; ++m)
                     {
-                      if (*v167 != v157)
+                      if (*v168 != v158)
                       {
-                        objc_enumerationMutation(v155);
+                        objc_enumerationMutation(v156);
                       }
 
-                      v128 = *(*(&v166 + 1) + 8 * m);
-                      v129 = [v127 identifier];
-                      v130 = [v128 identifier];
-                      v131 = [v129 isEqual:v130];
+                      v130 = *(*(&v167 + 1) + 8 * m);
+                      v131 = [v129 identifier];
+                      v132 = [v130 identifier];
+                      v133 = [v131 isEqual:v132];
 
-                      if (v131)
+                      if (v133)
                       {
-                        v164 = 0u;
                         v165 = 0u;
-                        v162 = 0u;
+                        v166 = 0u;
                         v163 = 0u;
-                        v132 = [v128 boxesDict];
-                        v133 = [v132 allKeys];
+                        v164 = 0u;
+                        v134 = [v130 boxesDict];
+                        v135 = [v134 allKeys];
 
-                        v134 = [v133 countByEnumeratingWithState:&v162 objects:v209 count:16];
-                        if (v134)
+                        v136 = [v135 countByEnumeratingWithState:&v163 objects:v210 count:16];
+                        if (v136)
                         {
-                          v135 = *v163;
+                          v137 = *v164;
                           do
                           {
-                            for (n = 0; n != v134; ++n)
+                            for (n = 0; n != v136; ++n)
                             {
-                              if (*v163 != v135)
+                              if (*v164 != v137)
                               {
-                                objc_enumerationMutation(v133);
+                                objc_enumerationMutation(v135);
                               }
 
-                              v137 = *(*(&v162 + 1) + 8 * n);
-                              if (([v137 isEqualToString:@"rawdetection"] & 1) == 0)
+                              v139 = *(*(&v163 + 1) + 8 * n);
+                              if (([v139 isEqualToString:@"rawdetection"] & 1) == 0)
                               {
+                                v221 = 0u;
                                 v220 = 0u;
-                                v219 = 0u;
                                 memset(&buf, 0, sizeof(buf));
-                                v138 = [v128 boxesDict];
-                                v139 = [v138 objectForKey:v137];
-                                box3dFromNSArray(v139, &buf);
+                                v140 = [v130 boxesDict];
+                                v141 = [v140 objectForKey:v139];
+                                box3dFromNSArray(v141, &buf);
 
-                                [v127 addBoxesDict:&buf forDictKey:v137];
+                                [v129 addBoxesDict:&buf forDictKey:v139];
                               }
                             }
 
-                            v134 = [v133 countByEnumeratingWithState:&v162 objects:v209 count:16];
+                            v136 = [v135 countByEnumeratingWithState:&v163 objects:v210 count:16];
                           }
 
-                          while (v134);
+                          while (v136);
                         }
 
-                        v140 = [v128 refined_box_history];
-                        v141 = [v140 copy];
-                        [v127 setRefined_box_history:v141];
+                        v142 = [v130 refined_box_history];
+                        v143 = [v142 copy];
+                        [v129 setRefined_box_history:v143];
                       }
                     }
 
-                    v159 = [v155 countByEnumeratingWithState:&v166 objects:v210 count:16];
+                    v160 = [v156 countByEnumeratingWithState:&v167 objects:v211 count:16];
                   }
 
-                  while (v159);
+                  while (v160);
                 }
               }
 
-              v146 = [obj countByEnumeratingWithState:&v170 objects:v211 count:16];
+              v147 = [obj countByEnumeratingWithState:&v171 objects:v212 count:16];
             }
 
-            while (v146);
+            while (v147);
           }
 
-          v124 = obj;
-          buf.var1 = &v201;
+          v126 = obj;
+          buf.var1 = &v202;
           std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&buf);
           goto LABEL_164;
         }
       }
 
-      ++v75;
+      ++v77;
       goto LABEL_32;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      OU3DObjectRGBSizeRefiner::RefineObjects(v15);
+      OU3DObjectRGBSizeRefiner::RefineObjects(v17);
     }
 
-    v124 = v153;
+    v126 = v154;
 LABEL_164:
-    std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(&v204, v205);
-    if (v203)
+    std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(&v205, v206);
+    if (v204)
     {
-      operator delete(v203);
+      operator delete(v204);
     }
 
-    buf.var1 = v207;
-    std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&buf);
     buf.var1 = v208;
+    std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&buf);
+    buf.var1 = v209;
     std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&buf);
   }
 
   else
   {
-    v124 = v153;
+    v126 = v154;
   }
 
-  v142 = *MEMORY[0x277D85DE8];
-
-  return v124;
+  return v126;
 }
 
 void sub_25D260BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, void *a26, void *a27, void *a28, void *a29, void *a30)
@@ -9243,30 +9227,30 @@ BOOL OU3DObjectRGBSizeRefiner::ShouldDrawEdge(uint64_t a1, int a2, int *a3, void
 
 void OU3DObjectRGBSizeRefiner::DrawBoxImage(uint64_t a1, const box3d *a2, uint64_t a3, const simd_float3x3 *a4, simd_float4x4 *a5, int a6)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   bzero(*(a1 + 320), 0xC000uLL);
   *v13.i64 = OU3DObjectRGBSizeRefiner::GenerateProjectionMatrix(v12, a4, a5);
-  v43.columns[0] = v13;
-  v43.columns[1] = v14;
-  v43.columns[2] = v15;
-  v43.columns[3] = v16;
-  OU3DObjectRGBSizeRefiner::ProjectToImage(a1, &v43, a2, v39);
-  if (v41 != 1)
+  v42.columns[0] = v13;
+  v42.columns[1] = v14;
+  v42.columns[2] = v15;
+  v42.columns[3] = v16;
+  OU3DObjectRGBSizeRefiner::ProjectToImage(v38, a1, &v42, a2);
+  if (v40 != 1)
   {
     goto LABEL_28;
   }
 
-  v46 = __invert_f4(*a5);
-  v38 = v46.columns[3];
-  OU3DObjectRGBSizeRefiner::GetCornerVisibility(a2, &v38, v36);
-  std::vector<BOOL>::vector(&v35, v36);
-  std::vector<BOOL>::vector(v34, &v37);
-  LOBYTE(v44[0]) = 0;
-  std::vector<BOOL>::vector(&__p, 8);
+  v45 = __invert_f4(*a5);
+  v37 = v45.columns[3];
+  OU3DObjectRGBSizeRefiner::GetCornerVisibility(a2, &v37, v35);
+  std::vector<BOOL>::vector(&v34, v35);
+  std::vector<BOOL>::vector(v33, &v36);
+  LOBYTE(v43[0]) = 0;
+  std::vector<BOOL>::vector(&__p, 8, v43);
   v17 = 0;
-  v18 = v40;
+  v18 = v39;
   v19 = __p;
-  v20 = v35;
+  v20 = v34;
   do
   {
     v21 = 1 << v17;
@@ -9291,19 +9275,19 @@ LABEL_8:
   }
 
   while (v17 != 8);
-  v44[0] = xmmword_25D279A40;
-  v44[1] = xmmword_25D279A50;
-  v44[2] = xmmword_25D279A60;
-  v44[3] = xmmword_25D279A70;
-  v44[4] = xmmword_25D2798D0;
-  v44[5] = xmmword_25D2798E0;
-  v31 = 0;
-  v32 = 0;
+  v43[0] = xmmword_25D279A40;
+  v43[1] = xmmword_25D279A50;
+  v43[2] = xmmword_25D279A60;
+  v43[3] = xmmword_25D279A70;
+  v43[4] = xmmword_25D2798D0;
+  v43[5] = xmmword_25D2798E0;
   v30 = 0;
-  ShouldDrawEdge = std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(&v30, v44, v45, 0xCuLL);
-  v25 = v30;
-  v26 = v31;
-  if (v30 != v31)
+  v31 = 0;
+  v29 = 0;
+  ShouldDrawEdge = std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(&v29, v43, v44, 0xCuLL);
+  v25 = v29;
+  v26 = v30;
+  if (v29 != v30)
   {
     do
     {
@@ -9313,10 +9297,10 @@ LABEL_8:
         v28 = v25[1];
         if (((*(__p + ((v28 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v28) & 1) == 0)
         {
-          ShouldDrawEdge = OU3DObjectRGBSizeRefiner::ShouldDrawEdge(ShouldDrawEdge, a6, v25, v34, a3);
+          ShouldDrawEdge = OU3DObjectRGBSizeRefiner::ShouldDrawEdge(ShouldDrawEdge, a6, v25, v33, a3);
           if (ShouldDrawEdge)
           {
-            OU3DObjectRGBSizeRefiner::DrawEdge(*(v39[0] + 8 * v27), *(v39[0] + 8 * v28), ShouldDrawEdge, (a1 + 320));
+            OU3DObjectRGBSizeRefiner::DrawEdge(*(v38[0] + 8 * v27), *(v38[0] + 8 * v28), ShouldDrawEdge, (a1 + 320));
           }
         }
       }
@@ -9325,12 +9309,12 @@ LABEL_8:
     }
 
     while (v25 != v26);
-    v25 = v30;
+    v25 = v29;
   }
 
   if (v25)
   {
-    v31 = v25;
+    v30 = v25;
     operator delete(v25);
   }
 
@@ -9339,48 +9323,47 @@ LABEL_8:
     operator delete(__p);
   }
 
-  if (v34[0])
+  if (v33[0])
   {
-    operator delete(v34[0]);
+    operator delete(v33[0]);
   }
 
-  if (v35)
+  if (v34)
   {
-    operator delete(v35);
+    operator delete(v34);
   }
 
-  if (v37)
+  if (v36)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
-  if (v36[0])
+  if (v35[0])
   {
-    operator delete(v36[0]);
+    operator delete(v35[0]);
   }
 
 LABEL_28:
-  if (v42)
+  if (v41)
   {
-    operator delete(v42);
+    operator delete(v41);
   }
 
-  if (v40)
+  if (v39)
   {
-    operator delete(v40);
+    operator delete(v39);
   }
 
-  if (v39[0])
+  if (v38[0])
   {
-    v39[1] = v39[0];
-    operator delete(v39[0]);
+    v38[1] = v38[0];
+    operator delete(v38[0]);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25D261450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_25D261450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   if (__p)
   {
     operator delete(__p);
@@ -9397,7 +9380,7 @@ void sub_25D261450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   OU3DObjectRGBSizeRefiner::CornerVisibilityInfo::~CornerVisibilityInfo(&a21);
-  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(&a29);
+  OU3DObjectRGBSizeRefiner::ProjectionResult::~ProjectionResult(va);
   _Unwind_Resume(a1);
 }
 
@@ -9441,30 +9424,28 @@ void OU3DObjectRGBSizeRefiner::DrawEdge(float32x2_t a1, float32x2_t a2, uint64_t
 
 id OU3DObjectRGBSizeRefiner::GenerateEmptyMTLTexture(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277CD2B88];
+  v16[5] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277CD2B88];
   v6 = [MEMORY[0x277CCABB0] numberWithInt:*a2];
-  v17[0] = v6;
-  v16[1] = *MEMORY[0x277CD2A28];
+  v16[0] = v6;
+  v15[1] = *MEMORY[0x277CD2A28];
   v7 = [MEMORY[0x277CCABB0] numberWithInt:a2[1]];
   v8 = *MEMORY[0x277CD2960];
-  v17[1] = v7;
-  v17[2] = &unk_286EC2218;
+  v16[1] = v7;
+  v16[2] = &unk_286EC2218;
   v9 = *MEMORY[0x277CD2A70];
-  v16[2] = v8;
-  v16[3] = v9;
-  v16[4] = *MEMORY[0x277CD2A60];
-  v17[3] = &unk_286EC2230;
-  v17[4] = &unk_286EC2248;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v15[2] = v8;
+  v15[3] = v9;
+  v15[4] = *MEMORY[0x277CD2A60];
+  v16[3] = &unk_286EC2230;
+  v16[4] = &unk_286EC2248;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
 
   v11 = IOSurfaceCreate(v10);
   v12 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:a3 width:*a2 height:a2[1] mipmapped:0];
   [v12 setUsage:3];
   v13 = [*(a1 + 32) newTextureWithDescriptor:v12 iosurface:v11 plane:0];
   CFRelease(v11);
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -9537,7 +9518,7 @@ void std::vector<unsigned char>::__append(char **a1, size_t a2)
   }
 }
 
-uint64_t _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9559,7 +9540,7 @@ void sub_25D261920(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__16vectorINS0_IDv2_iNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_with_sizeB8ne200100IPKS4_S9_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorINS0_IDv2_iNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_with_sizeB8ne200100IPKS4_S9_EEvT_T0_m(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9576,7 +9557,7 @@ void sub_25D2619A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_6vectorIDv2_iNS1_IS3_EEEEEEPKS5_S8_PS5_EET2_RT_T0_T1_SA_(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_6vectorIDv2_iNS1_IS3_EEEEEEPKS5_S8_PS5_EET2_RT_T0_T1_SA_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -9593,8 +9574,8 @@ void *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -9607,7 +9588,7 @@ void *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_
   return v4;
 }
 
-uint64_t _ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9639,7 +9620,7 @@ uint64_t _ZNSt3__128__exception_guard_exceptionsINS_29_AllocatorDestroyRangeReve
   return a1;
 }
 
-uint64_t std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<int,int>>::__init_with_size[abi:ne200100]<std::pair<int,int> const*,std::pair<int,int> const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9661,10 +9642,10 @@ void sub_25D261B84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<anonymous namespace::RefinePriority>::__split_buffer(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__split_buffer<anonymous namespace::RefinePriority>::__split_buffer(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
     if (!(a2 >> 60))
@@ -9675,21 +9656,21 @@ void *std::__split_buffer<anonymous namespace::RefinePriority>::__split_buffer(v
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  *result = 0;
-  result[1] = 16 * a3;
-  result[2] = 16 * a3;
-  result[3] = 0;
-  return result;
+  *a1 = 0;
+  a1[1] = 16 * a3;
+  a1[2] = 16 * a3;
+  a1[3] = 0;
+  return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::RefinePriority *,false>(int *a1, int *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::RefinePriority *,false>(int *result, char *a2, uint64_t a3, char a4)
 {
 LABEL_1:
-  v8 = a2 - 4;
-  i = a1;
+  v8 = a2 - 16;
+  i = result;
   while (1)
   {
-    a1 = i;
+    result = i;
     v10 = (a2 - i) >> 4;
     if (v10 > 2)
     {
@@ -9699,7 +9680,7 @@ LABEL_1:
 
           return;
         case 4:
-          v60 = a2 - 4;
+          v60 = a2 - 16;
           v61 = *(a2 - 4);
           v62 = i[8];
           v63 = v61 <= v62;
@@ -9776,7 +9757,7 @@ LABEL_1:
 
       if (v10 == 2)
       {
-        v55 = a2 - 4;
+        v55 = a2 - 16;
         v56 = *(a2 - 4);
         v57 = v56 <= *i;
         if (v56 == *i)
@@ -9976,7 +9957,7 @@ LABEL_197:
             }
 
             while (v118 <= ((v10 - 2) >> 1));
-            a2 -= 4;
+            a2 -= 16;
             if (v119 == a2)
             {
               *v119 = v157;
@@ -10076,23 +10057,23 @@ LABEL_226:
 
     else
     {
-      v152 = *a1;
-      *a1 = *v12;
+      v152 = *result;
+      *result = *v12;
       *v12 = v152;
     }
 
     --a3;
-    v13 = *a1;
+    v13 = *result;
     if (a4)
     {
       goto LABEL_22;
     }
 
-    v14 = *(a1 - 4);
+    v14 = *(result - 4);
     if (v14 == v13)
     {
-      v15 = *(a1 - 3);
-      v16 = a1[1];
+      v15 = *(result - 3);
+      v16 = result[1];
       if (v15 != v16)
       {
         if (v15 <= v16)
@@ -10103,14 +10084,14 @@ LABEL_226:
         goto LABEL_22;
       }
 
-      if (*(a1 - 2) > a1[2])
+      if (*(result - 2) > result[2])
       {
         goto LABEL_22;
       }
 
-      v16 = *(a1 - 3);
+      v16 = *(result - 3);
 LABEL_70:
-      v37 = *(a1 + 1);
+      v37 = *(result + 1);
       v38 = *v8;
       v39 = v13 <= *v8;
       if (v13 == *v8)
@@ -10125,7 +10106,7 @@ LABEL_70:
 
       if (v39)
       {
-        for (i = a1 + 4; i < a2; i += 4)
+        for (i = result + 4; i < a2; i += 4)
         {
           v43 = v13 <= *i;
           if (v13 == *i)
@@ -10147,7 +10128,7 @@ LABEL_70:
 
       else
       {
-        for (i = a1 + 4; ; i += 4)
+        for (i = result + 4; ; i += 4)
         {
           v41 = v13 <= *i;
           if (v13 == *i)
@@ -10170,16 +10151,16 @@ LABEL_70:
       j = a2;
       if (i < a2)
       {
-        for (j = a2 - 4; ; j -= 4)
+        for (j = a2 - 16; ; j -= 16)
         {
           v46 = v13 <= v38;
           if (v13 == v38)
           {
-            v47 = j[1];
+            v47 = *(j + 1);
             v46 = v16 <= v47;
             if (v16 == v47)
             {
-              v46 = v37 <= j[2];
+              v46 = v37 <= *(j + 2);
             }
           }
 
@@ -10218,15 +10199,15 @@ LABEL_70:
         do
         {
           v52 = *(j - 4);
-          j -= 4;
+          j -= 16;
           v53 = v13 <= v52;
           if (v13 == v52)
           {
-            v54 = j[1];
+            v54 = *(j + 1);
             v53 = v16 <= v54;
             if (v16 == v54)
             {
-              v53 = v37 <= j[2];
+              v53 = v37 <= *(j + 2);
             }
           }
         }
@@ -10234,9 +10215,9 @@ LABEL_70:
         while (!v53);
       }
 
-      if (i - 4 != a1)
+      if (i - 4 != result)
       {
-        *a1 = *(i - 1);
+        *result = *(i - 1);
       }
 
       a4 = 0;
@@ -10249,25 +10230,25 @@ LABEL_70:
     {
       if (v14 <= v13)
       {
-        v16 = a1[1];
+        v16 = result[1];
         goto LABEL_70;
       }
 
 LABEL_22:
       v17 = 0;
-      v18 = a1[1];
-      v19 = *(a1 + 1);
+      v18 = result[1];
+      v19 = *(result + 1);
       while (1)
       {
-        v20 = a1[v17 + 4];
+        v20 = result[v17 + 4];
         v21 = v20 <= v13;
         if (v20 == v13)
         {
-          v22 = a1[v17 + 5];
+          v22 = result[v17 + 5];
           v21 = v22 <= v18;
           if (v22 == v18)
           {
-            v21 = a1[v17 + 6] <= v19;
+            v21 = result[v17 + 6] <= v19;
           }
         }
 
@@ -10279,8 +10260,8 @@ LABEL_22:
         v17 += 4;
       }
 
-      v23 = &a1[v17 + 4];
-      k = a2 - 4;
+      v23 = &result[v17 + 4];
+      k = a2 - 16;
       if (v17 * 4)
       {
         while (1)
@@ -10288,11 +10269,11 @@ LABEL_22:
           v25 = *k <= v13;
           if (*k == v13)
           {
-            v26 = k[1];
+            v26 = *(k + 1);
             v25 = v26 <= v18;
             if (v26 == v18)
             {
-              v25 = k[2] <= v19;
+              v25 = *(k + 2) <= v19;
             }
           }
 
@@ -10301,7 +10282,7 @@ LABEL_22:
             break;
           }
 
-          k -= 4;
+          k -= 16;
         }
       }
 
@@ -10310,14 +10291,14 @@ LABEL_22:
         k = a2;
         if (v23 < a2)
         {
-          for (k = a2 - 4; ; k -= 4)
+          for (k = a2 - 16; ; k -= 16)
           {
             if (*k == v13)
             {
-              v27 = k[1];
+              v27 = *(k + 1);
               if (v27 == v18)
               {
-                if (v23 >= k || k[2] > v19)
+                if (v23 >= k || *(k + 2) > v19)
                 {
                   break;
                 }
@@ -10366,15 +10347,15 @@ LABEL_22:
           do
           {
             v33 = *(v29 - 4);
-            v29 -= 4;
+            v29 -= 16;
             v34 = v33 <= v13;
             if (v33 == v13)
             {
-              v35 = v29[1];
+              v35 = *(v29 + 1);
               v34 = v35 <= v18;
               if (v35 == v18)
               {
-                v34 = v29[2] <= v19;
+                v34 = *(v29 + 2) <= v19;
               }
             }
           }
@@ -10385,9 +10366,9 @@ LABEL_22:
         while (i < v29);
       }
 
-      if (i - 4 != a1)
+      if (i - 4 != result)
       {
-        *a1 = *(i - 1);
+        *result = *(i - 1);
       }
 
       *(i - 4) = v13;
@@ -10402,7 +10383,7 @@ LABEL_69:
       else
       {
         {
-          a2 = i - 4;
+          a2 = (i - 4);
           if (v36)
           {
             return;
@@ -10430,8 +10411,8 @@ LABEL_69:
 
     while (1)
     {
-      v142 = a1;
-      a1 = v77;
+      v142 = result;
+      result = v77;
       v143 = v142[4];
       if (v143 == *v142)
       {
@@ -10468,8 +10449,8 @@ LABEL_239:
       }
 
 LABEL_246:
-      v77 = a1 + 4;
-      if (a1 + 4 == a2)
+      v77 = result + 4;
+      if (result + 4 == a2)
       {
         return;
       }

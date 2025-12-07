@@ -160,63 +160,63 @@ LABEL_14:
 
 - (void)clear
 {
-  v3 = sub_1000A98C0();
+  v3 = sub_1000A98C0(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000A98C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000A98C0(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Clearing all devices", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Clearing all devices", buf, 2u);
     }
   }
 
-  v6 = self->_proximateDevices;
-  v7 = self->_displayableDevices;
-  v8 = self->_devicesDictionary;
-  v9 = +[NSMutableSet set];
+  v7 = self->_proximateDevices;
+  v8 = self->_displayableDevices;
+  v9 = self->_devicesDictionary;
+  v10 = +[NSMutableSet set];
   proximateDevices = self->_proximateDevices;
-  self->_proximateDevices = v9;
+  self->_proximateDevices = v10;
 
-  v11 = +[NSMutableSet set];
+  v12 = +[NSMutableSet set];
   displayableDevices = self->_displayableDevices;
-  self->_displayableDevices = v11;
+  self->_displayableDevices = v12;
 
-  v13 = +[NSMutableDictionary dictionary];
+  v14 = +[NSMutableDictionary dictionary];
   devicesDictionary = self->_devicesDictionary;
-  self->_devicesDictionary = v13;
+  self->_devicesDictionary = v14;
 
-  v15 = +[EPFactory queue];
+  v16 = +[EPFactory queue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10008EDA0;
   block[3] = &unk_100175598;
-  v28 = v6;
+  v29 = v7;
   selfCopy = self;
-  v16 = v6;
-  dispatch_async(v15, block);
+  v17 = v7;
+  dispatch_async(v16, block);
 
-  v17 = +[EPFactory queue];
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_10008EFAC;
-  v24[3] = &unk_100175598;
-  v25 = v7;
+  v18 = +[EPFactory queue];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10008EFAC;
+  v25[3] = &unk_100175598;
+  v26 = v8;
   selfCopy2 = self;
-  v18 = v7;
-  dispatch_async(v17, v24);
+  v19 = v8;
+  dispatch_async(v18, v25);
 
-  v19 = +[EPFactory queue];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10008F1B8;
-  v21[3] = &unk_100175598;
-  v22 = v8;
+  v20 = +[EPFactory queue];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10008F1B8;
+  v22[3] = &unk_100175598;
+  v23 = v9;
   selfCopy3 = self;
-  v20 = v8;
-  dispatch_async(v19, v21);
+  v21 = v9;
+  dispatch_async(v20, v22);
 }
 
 - (void)update
@@ -227,71 +227,71 @@ LABEL_14:
     selfCopy->_maxDevicesSeen = [(NSMutableDictionary *)selfCopy->_devicesDictionary count];
   }
 
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   allKeys = [(NSMutableDictionary *)selfCopy->_devicesDictionary allKeys];
   v4 = [allKeys copy];
 
   obj = v4;
-  v5 = [v4 countByEnumeratingWithState:&v84 objects:v98 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v94 objects:v108 count:16];
   if (v5)
   {
     v7 = v5;
-    v67 = 0;
-    v8 = *v85;
+    v77 = 0;
+    v8 = *v95;
     p_cache = (EPSagaTransactionTellIDSLocalPairingSetupComplete + 16);
     *&v6 = 138412802;
-    v66 = v6;
+    v76 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v85 != v8)
+        if (*v95 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v69 = *(*(&v84 + 1) + 8 * v10);
-        v70 = v10;
-        v11 = [(NSMutableDictionary *)selfCopy->_devicesDictionary objectForKeyedSubscript:v66];
+        v79 = *(*(&v94 + 1) + 8 * v10);
+        v80 = v10;
+        v11 = [(NSMutableDictionary *)selfCopy->_devicesDictionary objectForKeyedSubscript:v76];
         isExpired = [v11 isExpired];
         isDisplayabilityExpired = [v11 isDisplayabilityExpired];
         isProximateExpired = [v11 isProximateExpired];
         v13 = nr_daemon_log();
         v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-        v73 = isProximateExpired;
+        v83 = isProximateExpired;
         if (v14)
         {
           v15 = nr_daemon_log();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            uUIDString = [v69 UUIDString];
+            uUIDString = [v79 UUIDString];
             name = [v11 name];
             v18 = [NSNumber numberWithBool:isExpired];
             v19 = [NSNumber numberWithBool:isDisplayabilityExpired];
-            [NSNumber numberWithBool:v73];
+            [NSNumber numberWithBool:v83];
             v20 = v8;
             v22 = v21 = selfCopy;
             *buf = 138413314;
-            v89 = uUIDString;
-            v90 = 2112;
-            v91 = name;
-            v92 = 2112;
-            v93 = v18;
-            v94 = 2112;
-            v95 = v19;
-            v96 = 2112;
-            v97 = v22;
+            v99 = uUIDString;
+            v100 = 2112;
+            v101 = name;
+            v102 = 2112;
+            v103 = v18;
+            v104 = 2112;
+            v105 = v19;
+            v106 = 2112;
+            v107 = v22;
             _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ isExpired (%@); isDisplayabilityExpired (%@); isProximateExpired (%@)", buf, 0x34u);
 
             selfCopy = v21;
             v8 = v20;
 
-            isProximateExpired = v73;
+            isProximateExpired = v83;
           }
 
           p_cache = EPSagaTransactionTellIDSLocalPairingSetupComplete.cache;
@@ -300,22 +300,21 @@ LABEL_14:
         LODWORD(name2) = isDisplayabilityExpired;
         if (isProximateExpired && [(NSMutableSet *)selfCopy->_proximateDevices containsObject:v11])
         {
-          [(NSMutableSet *)selfCopy->_proximateDevices removeObject:v11];
-          v24 = sub_1000A98C0();
+          v24 = sub_1000A98C0([(NSMutableSet *)selfCopy->_proximateDevices removeObject:v11]);
           v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
 
           if (v25)
           {
-            v26 = sub_1000A98C0();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v27 = sub_1000A98C0(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              uUIDString2 = [v69 UUIDString];
+              uUIDString2 = [v79 UUIDString];
               name2 = [v11 name];
               *buf = 138412546;
-              v89 = uUIDString2;
-              v90 = 2112;
-              v91 = name2;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become unproximate", buf, 0x16u);
+              v99 = uUIDString2;
+              v100 = 2112;
+              v101 = name2;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become unproximate", buf, 0x16u);
 
               LODWORD(name2) = isDisplayabilityExpired;
             }
@@ -327,41 +326,40 @@ LABEL_14:
           block[2] = sub_10008FEE8;
           block[3] = &unk_100175598;
           block[4] = selfCopy;
-          v83 = v11;
+          v93 = v11;
           dispatch_async(queue, block);
         }
 
         if (name2 && [(NSMutableSet *)selfCopy->_displayableDevices containsObject:v11])
         {
-          [(NSMutableSet *)selfCopy->_displayableDevices removeObject:v11];
-          v29 = sub_1000A98C0();
-          v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+          v30 = sub_1000A98C0([(NSMutableSet *)selfCopy->_displayableDevices removeObject:v11]);
+          v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-          if (v30)
+          if (v31)
           {
-            v31 = sub_1000A98C0();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v33 = sub_1000A98C0(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
-              uUIDString3 = [v69 UUIDString];
+              uUIDString3 = [v79 UUIDString];
               name2 = [v11 name];
               *buf = 138412546;
-              v89 = uUIDString3;
-              v90 = 2112;
-              v91 = name2;
-              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become undisplayable.", buf, 0x16u);
+              v99 = uUIDString3;
+              v100 = 2112;
+              v101 = name2;
+              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become undisplayable.", buf, 0x16u);
 
               LOBYTE(name2) = isDisplayabilityExpired;
             }
           }
 
           queue2 = [p_cache + 183 queue];
-          v80[0] = _NSConcreteStackBlock;
-          v80[1] = 3221225472;
-          v80[2] = sub_10008FF44;
-          v80[3] = &unk_100175598;
-          v80[4] = selfCopy;
-          v81 = v11;
-          dispatch_async(queue2, v80);
+          v90[0] = _NSConcreteStackBlock;
+          v90[1] = 3221225472;
+          v90[2] = sub_10008FF44;
+          v90[3] = &unk_100175598;
+          v90[4] = selfCopy;
+          v91 = v11;
+          dispatch_async(queue2, v90);
         }
 
         if (isExpired)
@@ -370,60 +368,61 @@ LABEL_14:
           uuid = [v11 uuid];
           [(NSMutableDictionary *)devicesDictionary removeObjectForKey:uuid];
 
-          v36 = sub_1000A98C0();
-          LODWORD(uuid) = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+          v39 = sub_1000A98C0(v38);
+          LODWORD(uuid) = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
 
           if (uuid)
           {
-            v37 = sub_1000A98C0();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+            v41 = sub_1000A98C0(v40);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
-              uUIDString4 = [v69 UUIDString];
+              uUIDString4 = [v79 UUIDString];
               name2 = [v11 name];
               *buf = 138412546;
-              v89 = uUIDString4;
-              v90 = 2112;
-              v91 = name2;
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has expired.", buf, 0x16u);
+              v99 = uUIDString4;
+              v100 = 2112;
+              v101 = name2;
+              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has expired.", buf, 0x16u);
 
               LOBYTE(name2) = isDisplayabilityExpired;
             }
           }
 
           queue3 = [p_cache + 183 queue];
-          v78[0] = _NSConcreteStackBlock;
-          v78[1] = 3221225472;
-          v78[2] = sub_10008FFA0;
-          v78[3] = &unk_100175598;
-          v78[4] = selfCopy;
-          v79 = v11;
-          dispatch_async(queue3, v78);
+          v88[0] = _NSConcreteStackBlock;
+          v88[1] = 3221225472;
+          v88[2] = sub_10008FFA0;
+          v88[3] = &unk_100175598;
+          v88[4] = selfCopy;
+          v89 = v11;
+          dispatch_async(queue3, v88);
 
-          v67 = 1;
+          v77 = 1;
         }
 
         if ((name2 & 1) == 0)
         {
-          if (([(NSMutableSet *)selfCopy->_displayableDevices containsObject:v11]& 1) != 0)
+          v44 = [(NSMutableSet *)selfCopy->_displayableDevices containsObject:v11];
+          if (v44)
           {
-            v40 = sub_1000A98C0();
-            v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+            v45 = sub_1000A98C0(v44);
+            v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
 
-            if (v41)
+            if (v46)
             {
-              v42 = sub_1000A98C0();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v48 = sub_1000A98C0(v47);
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
-                uUIDString5 = [v69 UUIDString];
+                uUIDString5 = [v79 UUIDString];
                 name3 = [v11 name];
                 rSSI = [v11 RSSI];
-                *buf = v66;
-                v89 = uUIDString5;
-                v90 = 2112;
-                v91 = name3;
-                v92 = 2112;
-                v93 = rSSI;
-                _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ is already displayable with RSSI %@.", buf, 0x20u);
+                *buf = v76;
+                v99 = uUIDString5;
+                v100 = 2112;
+                v101 = name3;
+                v102 = 2112;
+                v103 = rSSI;
+                _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ is already displayable with RSSI %@.", buf, 0x20u);
 
                 p_cache = (EPSagaTransactionTellIDSLocalPairingSetupComplete + 16);
               }
@@ -432,63 +431,63 @@ LABEL_14:
 
           else
           {
-            [(NSMutableSet *)selfCopy->_displayableDevices addObject:v11];
-            v46 = sub_1000A98C0();
-            v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);
+            v52 = sub_1000A98C0([(NSMutableSet *)selfCopy->_displayableDevices addObject:v11]);
+            v53 = os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT);
 
-            if (v47)
+            if (v53)
             {
-              v48 = sub_1000A98C0();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+              v55 = sub_1000A98C0(v54);
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
               {
-                uUIDString6 = [v69 UUIDString];
+                uUIDString6 = [v79 UUIDString];
                 name4 = [v11 name];
                 rSSI2 = [v11 RSSI];
-                *buf = v66;
-                v89 = uUIDString6;
-                v90 = 2112;
-                v91 = name4;
-                v92 = 2112;
-                v93 = rSSI2;
-                _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become displayable with RSSI %@.", buf, 0x20u);
+                *buf = v76;
+                v99 = uUIDString6;
+                v100 = 2112;
+                v101 = name4;
+                v102 = 2112;
+                v103 = rSSI2;
+                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become displayable with RSSI %@.", buf, 0x20u);
 
                 p_cache = EPSagaTransactionTellIDSLocalPairingSetupComplete.cache;
               }
             }
 
             queue4 = [p_cache + 183 queue];
-            v76[0] = _NSConcreteStackBlock;
-            v76[1] = 3221225472;
-            v76[2] = sub_10008FFFC;
-            v76[3] = &unk_100175598;
-            v76[4] = selfCopy;
-            v77 = v11;
-            dispatch_async(queue4, v76);
+            v86[0] = _NSConcreteStackBlock;
+            v86[1] = 3221225472;
+            v86[2] = sub_10008FFFC;
+            v86[3] = &unk_100175598;
+            v86[4] = selfCopy;
+            v87 = v11;
+            dispatch_async(queue4, v86);
           }
         }
 
-        if ((v73 & 1) == 0)
+        if ((v83 & 1) == 0)
         {
-          if (([(NSMutableSet *)selfCopy->_proximateDevices containsObject:v11]& 1) != 0)
+          v60 = [(NSMutableSet *)selfCopy->_proximateDevices containsObject:v11];
+          if (v60)
           {
-            v53 = sub_1000A98C0();
-            v54 = os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT);
+            v61 = sub_1000A98C0(v60);
+            v62 = os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT);
 
-            if (v54)
+            if (v62)
             {
-              v55 = sub_1000A98C0();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+              v64 = sub_1000A98C0(v63);
+              if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
               {
-                uUIDString7 = [v69 UUIDString];
+                uUIDString7 = [v79 UUIDString];
                 name5 = [v11 name];
                 rSSI3 = [v11 RSSI];
-                *buf = v66;
-                v89 = uUIDString7;
-                v90 = 2112;
-                v91 = name5;
-                v92 = 2112;
-                v93 = rSSI3;
-                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ is already proximate with RSSI %@.", buf, 0x20u);
+                *buf = v76;
+                v99 = uUIDString7;
+                v100 = 2112;
+                v101 = name5;
+                v102 = 2112;
+                v103 = rSSI3;
+                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ is already proximate with RSSI %@.", buf, 0x20u);
 
                 p_cache = (EPSagaTransactionTellIDSLocalPairingSetupComplete + 16);
               }
@@ -497,51 +496,50 @@ LABEL_14:
 
           else
           {
-            [(NSMutableSet *)selfCopy->_proximateDevices addObject:v11];
-            v59 = sub_1000A98C0();
-            v60 = os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT);
+            v68 = sub_1000A98C0([(NSMutableSet *)selfCopy->_proximateDevices addObject:v11]);
+            v69 = os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT);
 
-            if (v60)
+            if (v69)
             {
-              v61 = sub_1000A98C0();
-              if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+              v71 = sub_1000A98C0(v70);
+              if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
               {
-                uUIDString8 = [v69 UUIDString];
+                uUIDString8 = [v79 UUIDString];
                 name6 = [v11 name];
                 rSSI4 = [v11 RSSI];
-                *buf = v66;
-                v89 = uUIDString8;
-                v90 = 2112;
-                v91 = name6;
-                v92 = 2112;
-                v93 = rSSI4;
-                _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become proximate with RSSI %@.", buf, 0x20u);
+                *buf = v76;
+                v99 = uUIDString8;
+                v100 = 2112;
+                v101 = name6;
+                v102 = 2112;
+                v103 = rSSI4;
+                _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "EPDeviceCollection: Device %@ %@ has become proximate with RSSI %@.", buf, 0x20u);
 
                 p_cache = EPSagaTransactionTellIDSLocalPairingSetupComplete.cache;
               }
             }
 
             queue5 = [p_cache + 183 queue];
-            v74[0] = _NSConcreteStackBlock;
-            v74[1] = 3221225472;
-            v74[2] = sub_100090058;
-            v74[3] = &unk_100175598;
-            v74[4] = selfCopy;
-            v75 = v11;
-            dispatch_async(queue5, v74);
+            v84[0] = _NSConcreteStackBlock;
+            v84[1] = 3221225472;
+            v84[2] = sub_100090058;
+            v84[3] = &unk_100175598;
+            v84[4] = selfCopy;
+            v85 = v11;
+            dispatch_async(queue5, v84);
           }
         }
 
-        v10 = v70 + 1;
+        v10 = v80 + 1;
       }
 
-      while (v7 != (v70 + 1));
-      v7 = [obj countByEnumeratingWithState:&v84 objects:v98 count:16];
+      while (v7 != (v80 + 1));
+      v7 = [obj countByEnumeratingWithState:&v94 objects:v108 count:16];
     }
 
     while (v7);
 
-    if (v67)
+    if (v77)
     {
       [(EPDeviceCollection *)selfCopy _updateTimer];
     }
@@ -640,7 +638,6 @@ LABEL_14:
   deallocateCopy = deallocate;
   uuid = [deallocateCopy uuid];
   [(NSMutableDictionary *)self->_deviceInfos removeObjectForKey:uuid];
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(EPDeviceCollectionDelegate *)self->_delegate collection:self deviceInfoDidDealloc:deallocateCopy];
@@ -649,23 +646,21 @@ LABEL_14:
 
 - (void)deviceInfoPairingFailure:(id)failure
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(EPDeviceCollectionDelegate *)v5 collectionPairingFailure:self];
+    [(EPDeviceCollectionDelegate *)delegate collectionPairingFailure:self];
   }
 }
 
 - (void)deviceInfoPairingSuccess:(id)success
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(EPDeviceCollectionDelegate *)v5 collectionPairingSuccess:self];
+    [(EPDeviceCollectionDelegate *)delegate collectionPairingSuccess:self];
   }
 }
 

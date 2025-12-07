@@ -100,7 +100,7 @@ void __108__CLKComplicationTemplateGraphicExtraLargeCircularStackImage__enumerat
   qword_27DE91E38 = (v7)[2](v7, v5);
   unk_27DE91E40 = v8;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
-  _enumerateFullColorImageProviderKeysWithBlock___maxImageSize = (v7)[2](v7, v5);
+  _enumerateFullColorImageProviderKeysWithBlock___maxImageSize[0] = (v7)[2](v7, v5);
   unk_27DE91E30 = v9;
 }
 

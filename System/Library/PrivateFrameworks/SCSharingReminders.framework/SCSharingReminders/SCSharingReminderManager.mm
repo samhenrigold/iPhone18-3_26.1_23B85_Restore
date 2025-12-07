@@ -97,17 +97,17 @@
 
 void __43__SCSharingReminderManager_loadOrMakeCache__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (!a2 || v5)
   {
-    v7 = SCLogger();
+    v7 = SCLogger(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_262556000, v7, OS_LOG_TYPE_DEFAULT, "Error [%@] retrieving cache. Creating new cache and saving it-- this shouldn't happen again!", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_262556000, v7, OS_LOG_TYPE_DEFAULT, "Error [%@] retrieving cache. Creating new cache and saving it-- this shouldn't happen again!", &v11, 0xCu);
     }
 
     v8 = objc_opt_new();
@@ -122,8 +122,6 @@ void __43__SCSharingReminderManager_loadOrMakeCache__block_invoke(uint64_t a1, u
   {
     [*(a1 + 32) setSharingReminderCache:a2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNeededNotificationsWithCompletion:(id)completion
@@ -179,13 +177,13 @@ void __65__SCSharingReminderManager_getNeededNotificationsWithCompletion___block
   if (v6)
   {
     objc_initWeak(&location, self);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __60__SCSharingReminderManager_handleNotificationEventWithName___block_invoke;
-    v11[3] = &unk_279B39560;
-    objc_copyWeak(&v12, &location);
-    [(SCSharingReminderManager *)self checkNotificationAvailabilityWithCompletion:v11];
-    objc_destroyWeak(&v12);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __60__SCSharingReminderManager_handleNotificationEventWithName___block_invoke;
+    v12[3] = &unk_279B39560;
+    objc_copyWeak(&v13, &location);
+    [(SCSharingReminderManager *)self checkNotificationAvailabilityWithCompletion:v12];
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
 
@@ -202,8 +200,8 @@ void __65__SCSharingReminderManager_getNeededNotificationsWithCompletion___block
 
     else
     {
-      v10 = SCLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = SCLogger(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [SCSharingReminderManager handleNotificationEventWithName:];
       }
@@ -213,7 +211,7 @@ void __65__SCSharingReminderManager_getNeededNotificationsWithCompletion___block
 
 void __60__SCSharingReminderManager_handleNotificationEventWithName___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained;
@@ -221,7 +219,7 @@ void __60__SCSharingReminderManager_handleNotificationEventWithName___block_invo
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v8 = SCLogger();
+      v8 = SCLogger(WeakRetained);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = @"N";
@@ -230,11 +228,11 @@ void __60__SCSharingReminderManager_handleNotificationEventWithName___block_invo
           v9 = @"Y";
         }
 
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 2112;
-        v14 = v5;
-        _os_log_impl(&dword_262556000, v8, OS_LOG_TYPE_INFO, "Skipping posting because of notification availability %@ and/or error %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v9;
+        v12 = 2112;
+        v13 = v5;
+        _os_log_impl(&dword_262556000, v8, OS_LOG_TYPE_INFO, "Skipping posting because of notification availability %@ and/or error %@", &v10, 0x16u);
       }
     }
 
@@ -243,8 +241,6 @@ void __60__SCSharingReminderManager_handleNotificationEventWithName___block_invo
       [WeakRetained postDueSharingReminders];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWifiSyncNotificationEventWithName:(id)name
@@ -270,19 +266,19 @@ void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___bl
 
     if (v5 && ([v3 lockdownFrameworkKey], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "containsObject:", v6), v6, v7))
     {
-      v8 = SCLogger();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = SCLogger(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         v15 = v3;
-        _os_log_impl(&dword_262556000, v8, OS_LOG_TYPE_INFO, "Ignoring WiFi Sync activity with host %@", buf, 0xCu);
+        _os_log_impl(&dword_262556000, v9, OS_LOG_TYPE_INFO, "Ignoring WiFi Sync activity with host %@", buf, 0xCu);
       }
     }
 
     else
     {
       objc_initWeak(buf, *(a1 + 32));
-      v9 = [*(a1 + 32) archiverService];
+      v10 = [*(a1 + 32) archiverService];
       v11[0] = MEMORY[0x277D85DD0];
       v11[1] = 3221225472;
       v11[2] = __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_14;
@@ -290,27 +286,26 @@ void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___bl
       objc_copyWeak(&v13, buf);
       v11[4] = *(a1 + 32);
       v12 = v3;
-      [v9 getIntAtKey:3 completion:v11];
+      [v10 getIntAtKey:3 completion:v11];
 
       objc_destroyWeak(&v13);
       objc_destroyWeak(buf);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_14(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_14_cold_1();
       }
@@ -318,69 +313,67 @@ void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___bl
 
     else
     {
-      v8 = [SCSharingReminderKVStoreValue defaultForKey:3];
-      v9 = [v8 integerValue];
+      v9 = [SCSharingReminderKVStoreValue defaultForKey:3];
+      v10 = [v9 integerValue];
 
-      if (v9 == a2)
+      if (v10 == a2)
       {
         do
         {
           a2 += arc4random_uniform(0x4D59u) + 1800;
-          v10 = *(a1 + 32);
-          v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:a2];
-          LOBYTE(v10) = [v10 isWithinDeliveryWindow:v11];
+          v12 = *(a1 + 32);
+          v13 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:a2];
+          LOBYTE(v12) = [v12 isWithinDeliveryWindow:v13];
         }
 
-        while ((v10 & 1) == 0);
+        while ((v12 & 1) == 0);
       }
 
       else
       {
-        v12 = SCLogger();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v14 = SCLogger(v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v24 = a2;
-          _os_log_impl(&dword_262556000, v12, OS_LOG_TYPE_INFO, "Skipping time randomization for FeatureControlling value %ld", buf, 0xCu);
+          v25 = a2;
+          _os_log_impl(&dword_262556000, v14, OS_LOG_TYPE_INFO, "Skipping time randomization for FeatureControlling value %ld", buf, 0xCu);
         }
       }
 
-      v13 = a2;
-      v7 = [WeakRetained reminderForPairedComputer:*(a1 + 40) delay:a2];
-      v14 = [WeakRetained sharingReminderCache];
-      v22 = v7;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-      [v14 addSharingReminders:v15];
+      v15 = a2;
+      v8 = [v7 reminderForPairedComputer:*(a1 + 40) delay:a2];
+      v16 = [v7 sharingReminderCache];
+      v23 = v8;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+      [v16 addSharingReminders:v17];
 
-      v16 = [WeakRetained sharingReminderCache];
-      [WeakRetained archiveCache:v16 completion:0];
+      v18 = [v7 sharingReminderCache];
+      [v7 archiveCache:v18 completion:0];
 
-      v17 = [SCSharingReminderDeliveryTask taskRequestScheduledAfter:v13];
-      v18 = SCLogger();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = [SCSharingReminderDeliveryTask taskRequestScheduledAfter:v15];
+      v20 = SCLogger(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v24 = v17;
-        _os_log_impl(&dword_262556000, v18, OS_LOG_TYPE_INFO, "Submitting task request %@ for reminder delivery", buf, 0xCu);
+        v25 = v19;
+        _os_log_impl(&dword_262556000, v20, OS_LOG_TYPE_INFO, "Submitting task request %@ for reminder delivery", buf, 0xCu);
       }
 
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_20;
-      v20[3] = &unk_279B39588;
-      v21 = 0;
-      [SCUtils submitTaskRequest:v17 completion:v20];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_20;
+      v21[3] = &unk_279B39588;
+      v22 = 0;
+      [SCUtils submitTaskRequest:v19 completion:v21];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_20(uint64_t a1, int a2)
+void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_20(uint64_t a1, uint64_t a2)
 {
   if (!a2 || *(a1 + 32))
   {
-    v3 = SCLogger();
+    v3 = SCLogger(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_20_cold_1(a1, v3, v4, v5, v6, v7, v8, v9);
@@ -424,10 +417,59 @@ void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___bl
 
 - (void)postDueSharingReminders
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_262556000, v0, v1, "SharingReminderManager could not form a request: %@ from the given sharing reminders: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEAA8] now];
+  v4 = [(SCSharingReminderManager *)self validRemindersDueBy:v3];
+
+  if ([v4 count])
+  {
+    userNotificationService = [(SCSharingReminderManager *)self userNotificationService];
+    v6 = [userNotificationService toUNNotificationRequest:v4];
+
+    if (v4)
+    {
+      v8 = v6 == 0;
+    }
+
+    else
+    {
+      v8 = 1;
+    }
+
+    if (v8)
+    {
+      v9 = SCLogger(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [SCSharingReminderManager postDueSharingReminders];
+      }
+    }
+
+    else
+    {
+      objc_initWeak(buf, self);
+      userNotificationService2 = [(SCSharingReminderManager *)self userNotificationService];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __51__SCSharingReminderManager_postDueSharingReminders__block_invoke;
+      v11[3] = &unk_279B39600;
+      objc_copyWeak(&v13, buf);
+      v12 = v4;
+      [userNotificationService2 addNotificationRequest:v6 withCompletionHandler:v11];
+
+      objc_destroyWeak(&v13);
+      objc_destroyWeak(buf);
+    }
+  }
+
+  else
+  {
+    v6 = SCLogger(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(buf[0]) = 0;
+      _os_log_impl(&dword_262556000, v6, OS_LOG_TYPE_INFO, "No reminders to post", buf, 2u);
+    }
+  }
 }
 
 void __51__SCSharingReminderManager_postDueSharingReminders__block_invoke(uint64_t a1, void *a2)
@@ -439,7 +481,7 @@ void __51__SCSharingReminderManager_postDueSharingReminders__block_invoke(uint64
   {
     if (v3)
     {
-      v6 = SCLogger();
+      v6 = SCLogger(WeakRetained);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __51__SCSharingReminderManager_postDueSharingReminders__block_invoke_cold_1();
@@ -484,19 +526,17 @@ void __51__SCSharingReminderManager_postDueSharingReminders__block_invoke(uint64
     v13 = completionCopy;
     [userNotificationService2 addNotificationRequest:v8 withCompletionHandler:v12];
 
-    v10 = v13;
+    v11 = v13;
   }
 
   else
   {
-    v10 = SCLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SCLogger(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SCSharingReminderManager *)v5 postWifiSyncNotificationWithCompletion:v10];
+      [(SCSharingReminderManager *)v5 postWifiSyncNotificationWithCompletion:v11];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkNotificationAvailabilityWithCompletion:(id)completion
@@ -534,7 +574,7 @@ void __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion_
   {
     if (v4)
     {
-      v7 = SCLogger();
+      v7 = SCLogger(WeakRetained);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion___block_invoke_cold_1();
@@ -579,10 +619,11 @@ LABEL_9:
 void __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion___block_invoke_37(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = SCLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SCLogger(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion___block_invoke_37_cold_1();
     }
@@ -592,17 +633,17 @@ void __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion_
 
   else
   {
-    v7 = a2;
-    v8 = [*(a1 + 32) sharingReminderCache];
-    v9 = exp2([v8 consecutiveNotificationCount]) * v7;
+    v8 = a2;
+    v9 = [*(a1 + 32) sharingReminderCache];
+    v10 = exp2([v9 consecutiveNotificationCount]) * v8;
 
-    v10 = [*(a1 + 40) sharingReminderCache];
-    v11 = [v10 lastFiredDate];
-    v12 = [v11 dateByAddingTimeInterval:v9];
+    v11 = [*(a1 + 40) sharingReminderCache];
+    v12 = [v11 lastFiredDate];
+    v13 = [v12 dateByAddingTimeInterval:v10];
 
-    v13 = [MEMORY[0x277CBEAA8] now];
-    v14 = [v12 earlierDate:v13];
-    [v14 isEqualToDate:v12];
+    v14 = [MEMORY[0x277CBEAA8] now];
+    v15 = [v13 earlierDate:v14];
+    [v15 isEqualToDate:v13];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -629,24 +670,23 @@ void __48__SCSharingReminderManager_validRemindersDueBy___block_invoke_2(uint64_
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v5 = v4;
   if (v4 || (a2 & 1) == 0)
   {
-    v5 = SCLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SCLogger(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = @"Unknown";
-      if (v4)
+      if (v5)
       {
-        v7 = v4;
+        v7 = v5;
       }
 
       v8 = 138412290;
       v9 = v7;
-      _os_log_error_impl(&dword_262556000, v5, OS_LOG_TYPE_ERROR, "Error validating cache, error: %@", &v8, 0xCu);
+      _os_log_error_impl(&dword_262556000, v6, OS_LOG_TYPE_ERROR, "Error validating cache, error: %@", &v8, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateCacheWithCompletion:(id)completion
@@ -668,43 +708,43 @@ void __48__SCSharingReminderManager_validRemindersDueBy___block_invoke_2(uint64_
 
 void __56__SCSharingReminderManager_validateCacheWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
   v4 = [*(a1 + 32) sharingReminderCache];
   v5 = [v4 scheduledReminders];
 
-  v6 = [v5 countByEnumeratingWithState:&v33 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v35;
     v9 = @"com.apple.safetycheckd.wifi";
-    v30 = @"com.apple.safetycheckd.wifi";
-    v31 = v5;
-    v29 = *v34;
+    v31 = @"com.apple.safetycheckd.wifi";
+    v32 = v5;
+    v30 = *v35;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         v12 = [v11 type];
         v13 = [v12 isEqualToString:v9];
 
         if (!v13)
         {
-          v14 = SCLogger();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = SCLogger(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            __56__SCSharingReminderManager_validateCacheWithCompletion___block_invoke_cold_1(v39, v11);
+            __56__SCSharingReminderManager_validateCacheWithCompletion___block_invoke_cold_1(v40, v11);
           }
 
 LABEL_13:
@@ -719,67 +759,66 @@ LABEL_14:
           goto LABEL_14;
         }
 
-        v14 = [v11 identifier];
-        if (![v3 containsObject:v14])
+        v15 = [v11 identifier];
+        if (![v3 containsObject:v15])
         {
           goto LABEL_13;
         }
 
-        v15 = [*(a1 + 32) sharingReminderCache];
-        v16 = [v11 type];
-        [v15 ignoredIdentifiersForType:v16];
-        v18 = v17 = v3;
+        v16 = [*(a1 + 32) sharingReminderCache];
+        v17 = [v11 type];
+        [v16 ignoredIdentifiersForType:v17];
+        v19 = v18 = v3;
         [v11 identifier];
-        v19 = v7;
-        v21 = v20 = a1;
-        v32 = [v18 containsObject:v21];
+        v20 = v7;
+        v22 = v21 = a1;
+        v33 = [v19 containsObject:v22];
 
-        a1 = v20;
-        v7 = v19;
+        a1 = v21;
+        v7 = v20;
 
-        v3 = v17;
-        v8 = v29;
-        v9 = v30;
+        v3 = v18;
+        v8 = v30;
+        v9 = v31;
 
-        v5 = v31;
-        if (v32)
+        v5 = v32;
+        if (v33)
         {
           goto LABEL_14;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v33 objects:v40 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
     while (v7);
   }
 
-  if ([*(a1 + 40) count])
+  v23 = [*(a1 + 40) count];
+  if (v23)
   {
-    v22 = SCLogger();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v24 = SCLogger(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v23 = *(a1 + 40);
+      v25 = *(a1 + 40);
       *buf = 138412290;
-      v38 = v23;
-      _os_log_impl(&dword_262556000, v22, OS_LOG_TYPE_INFO, "Removing reminders after validation check: %@", buf, 0xCu);
+      v39 = v25;
+      _os_log_impl(&dword_262556000, v24, OS_LOG_TYPE_INFO, "Removing reminders after validation check: %@", buf, 0xCu);
     }
 
-    v24 = [*(a1 + 32) sharingReminderCache];
-    v25 = [*(a1 + 40) allObjects];
-    [v24 removeSharingReminders:v25 wereDelivered:0];
+    v26 = [*(a1 + 32) sharingReminderCache];
+    v27 = [*(a1 + 40) allObjects];
+    [v26 removeSharingReminders:v27 wereDelivered:0];
 
-    v26 = *(a1 + 32);
-    v27 = [v26 sharingReminderCache];
-    [v26 archiveCache:v27 completion:*(a1 + 48)];
+    v28 = *(a1 + 32);
+    v29 = [v28 sharingReminderCache];
+    [v28 archiveCache:v29 completion:*(a1 + 48)];
   }
 
   else
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)archiveCache:(id)cache completion:(id)completion
@@ -801,19 +840,20 @@ LABEL_14:
 void __52__SCSharingReminderManager_archiveCache_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5 || (a2 & 1) == 0)
   {
-    v6 = SCLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SCLogger(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __52__SCSharingReminderManager_archiveCache_completion___block_invoke_cold_1(v5, a1);
+      __52__SCSharingReminderManager_archiveCache_completion___block_invoke_cold_1();
     }
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, a2, v5);
+    (*(v8 + 16))(v8, a2, v6);
   }
 }
 
@@ -847,7 +887,8 @@ void __52__SCSharingReminderManager_archiveCache_completion___block_invoke(uint6
   content = [request content];
   categoryIdentifier = [content categoryIdentifier];
 
-  if ([categoryIdentifier hasPrefix:@"scsharingreminders"])
+  v13 = [categoryIdentifier hasPrefix:@"scsharingreminders"];
+  if (v13)
   {
     actionIdentifier = [responseCopy actionIdentifier];
     [(SCSharingReminderManager *)self handleNotificationAction:actionIdentifier];
@@ -860,8 +901,8 @@ void __52__SCSharingReminderManager_archiveCache_completion___block_invoke(uint6
     goto LABEL_7;
   }
 
-  v14 = SCLogger();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = SCLogger(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [SCSharingReminderManager userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:];
   }
@@ -890,15 +931,16 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  if ([actionCopy isEqualToString:*MEMORY[0x277CE20E8]])
+  v6 = [actionCopy isEqualToString:*MEMORY[0x277CE20E8]];
+  if (v6)
   {
     sharingReminderCache = [(SCSharingReminderManager *)self sharingReminderCache];
     [sharingReminderCache resetNotificationCount];
     goto LABEL_5;
   }
 
-  v7 = SCLogger();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = SCLogger(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [SCSharingReminderManager handleNotificationAction:];
   }
@@ -934,7 +976,7 @@ void __64__SCSharingReminderManager_userOpenedSafetyCheckWithCompletion___block_
   v7 = WeakRetained;
   if (v5)
   {
-    v8 = SCLogger();
+    v8 = SCLogger(WeakRetained);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __64__SCSharingReminderManager_userOpenedSafetyCheckWithCompletion___block_invoke_cold_1();
@@ -981,28 +1023,28 @@ void __64__SCSharingReminderManager_userOpenedSafetyCheckWithCompletion___block_
         signalType = [v11 signalType];
         v13 = [signalType isEqualToString:@"userAcknowledgedShare"];
 
-        v14 = SCLogger();
-        v15 = v14;
+        v15 = SCLogger(v14);
+        v16 = v15;
         if (v13)
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
             v36 = v11;
-            _os_log_impl(&dword_262556000, v15, OS_LOG_TYPE_INFO, "Ignoring future reminders for %@ and removing any existing ones", buf, 0xCu);
+            _os_log_impl(&dword_262556000, v16, OS_LOG_TYPE_INFO, "Ignoring future reminders for %@ and removing any existing ones", buf, 0xCu);
           }
 
           sharingReminderCache = [(SCSharingReminderManager *)self sharingReminderCache];
           sharingIdentifier = [v11 sharingIdentifier];
           v34 = sharingIdentifier;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
           sharingType = [v11 sharingType];
-          [sharingReminderCache addIgnoredIdentifiers:v18 withType:sharingType];
+          [sharingReminderCache addIgnoredIdentifiers:v19 withType:sharingType];
         }
 
         else
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [SCSharingReminderManager handleSignals:v33 completion:v11];
           }
@@ -1024,27 +1066,26 @@ void __64__SCSharingReminderManager_userOpenedSafetyCheckWithCompletion___block_
   v25[2] = __53__SCSharingReminderManager_handleSignals_completion___block_invoke;
   v25[3] = &unk_279B39760;
   objc_copyWeak(&v28, buf);
-  v20 = array;
-  v26 = v20;
-  v21 = completionCopy;
-  v27 = v21;
+  v21 = array;
+  v26 = v21;
+  v22 = completionCopy;
+  v27 = v22;
   [(SCSharingReminderManager *)self validateCacheWithCompletion:v25];
 
   objc_destroyWeak(&v28);
   objc_destroyWeak(buf);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SCSharingReminderManager_handleSignals_completion___block_invoke(id *a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5 || !a2)
   {
-    v8 = SCLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SCLogger(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __53__SCSharingReminderManager_handleSignals_completion___block_invoke_cold_1(v8);
+      __53__SCSharingReminderManager_handleSignals_completion___block_invoke_cold_1(v9);
     }
 
     (*(a1[5] + 2))();
@@ -1053,14 +1094,14 @@ void __53__SCSharingReminderManager_handleSignals_completion___block_invoke(id *
   else
   {
     WeakRetained = objc_loadWeakRetained(a1 + 6);
-    v7 = [WeakRetained sharingReminderCache];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __53__SCSharingReminderManager_handleSignals_completion___block_invoke_2;
-    v9[3] = &unk_279B39710;
-    v10 = a1[4];
-    v11 = a1[5];
-    [WeakRetained archiveCache:v7 completion:v9];
+    v8 = [WeakRetained sharingReminderCache];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __53__SCSharingReminderManager_handleSignals_completion___block_invoke_2;
+    v10[3] = &unk_279B39710;
+    v11 = a1[4];
+    v12 = a1[5];
+    [WeakRetained archiveCache:v8 completion:v10];
   }
 }
 
@@ -1176,7 +1217,7 @@ void __54__SCSharingReminderManager_fetchStatusWithCompletion___block_invoke_4(u
     v9 = v8;
     if (v8)
     {
-      [v8 toCacheState];
+      objc_msgSend_toCacheState(v8);
     }
 
     else
@@ -1222,7 +1263,7 @@ void __54__SCSharingReminderManager_fetchStatusWithCompletion___block_invoke_4(u
   v6 = v5;
   if (v5)
   {
-    [v5 toCacheState];
+    objc_msgSend_toCacheState(v5);
   }
 
   else
@@ -1341,21 +1382,22 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke(uint64_t
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __49__SCSharingReminderManager_setStatus_completion___block_invoke_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     else
@@ -1363,8 +1405,6 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke(uint64_t
       dispatch_group_leave(*(a1 + 32));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SCSharingReminderManager_setStatus_completion___block_invoke_55(uint64_t a1, uint64_t a2, void *a3)
@@ -1372,21 +1412,22 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke_55(uint6
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __49__SCSharingReminderManager_setStatus_completion___block_invoke_55_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     else
@@ -1394,8 +1435,6 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke_55(uint6
       dispatch_group_leave(*(a1 + 32));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SCSharingReminderManager_setStatus_completion___block_invoke_56(uint64_t a1, uint64_t a2, void *a3)
@@ -1403,21 +1442,22 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke_56(uint6
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __49__SCSharingReminderManager_setStatus_completion___block_invoke_56_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     else
@@ -1425,8 +1465,6 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke_56(uint6
       dispatch_group_leave(*(a1 + 32));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SCSharingReminderManager_setStatus_completion___block_invoke_57(uint64_t a1, uint64_t a2, void *a3)
@@ -1434,21 +1472,22 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke_57(uint6
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __49__SCSharingReminderManager_setStatus_completion___block_invoke_57_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     else
@@ -1456,8 +1495,6 @@ void __49__SCSharingReminderManager_setStatus_completion___block_invoke_57(uint6
       dispatch_group_leave(*(a1 + 32));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SCSharingReminderManager_setStatus_completion___block_invoke_58(uint64_t a1)
@@ -1554,27 +1591,26 @@ void __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke(
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     dispatch_group_leave(*(a1 + 32));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke_59(uint64_t a1, uint64_t a2, void *a3)
@@ -1582,27 +1618,26 @@ void __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke_
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __49__SCSharingReminderManager_setStatus_completion___block_invoke_56_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     dispatch_group_leave(*(a1 + 32));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke_60(uint64_t a1, uint64_t a2, void *a3)
@@ -1610,86 +1645,49 @@ void __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke_
   v12[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v7 = SCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __49__SCSharingReminderManager_setStatus_completion___block_invoke_57_cold_1();
       }
 
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v12[0] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v10 = [SCDaemonError errorWithCode:2 underlyingErrors:v9];
-      (*(v8 + 16))(v8, a2, v10);
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11 = [SCDaemonError errorWithCode:2 underlyingErrors:v10];
+      (*(v9 + 16))(v9, a2, v11);
     }
 
     dispatch_group_leave(*(a1 + 32));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleNotificationEventWithName:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Received unrecognized notification event: %@, doing nothing", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_14_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Could not fetch delay, so could not schedule reminder. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SCSharingReminderManager_handleWifiSyncNotificationEventWithName___block_invoke_20_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  *(a1 + 32);
-  OUTLINED_FUNCTION_3(&dword_262556000, a2, a3, "Error submitting task request: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
+  v8 = *(a1 + 32);
+  if (!v8)
+  {
+    v8 = @"Unknown";
+  }
 
-void __51__SCSharingReminderManager_postDueSharingReminders__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Error posting notification: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v8;
+  OUTLINED_FUNCTION_3(&dword_262556000, a2, a3, "Error submitting task request: %@", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 - (void)postWifiSyncNotificationWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = 0;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "SharingReminderManager could not form a request: %@ for a reminder with type: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Couldn't check notif status. Max count error: %@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-void __72__SCSharingReminderManager_checkNotificationAvailabilityWithCompletion___block_invoke_37_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Couldn't fetch backstop interval length. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = 0;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "SharingReminderManager could not form a request: %@ for a reminder with type: %@", &v2, 0x16u);
 }
 
 void __56__SCSharingReminderManager_validateCacheWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
@@ -1700,85 +1698,12 @@ void __56__SCSharingReminderManager_validateCacheWithCompletion___block_invoke_c
   OUTLINED_FUNCTION_5(&dword_262556000, v5, v6, "Cannot validate cache against unrecognized type: %@");
 }
 
-void __52__SCSharingReminderManager_archiveCache_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_262556000, v3, v4, "Archiving error: %@. Failed to archive cache: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Unknown notification category identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleNotificationAction:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Unknown notification action identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__SCSharingReminderManager_userOpenedSafetyCheckWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_262556000, v0, v1, "Error retrieving general time interval after SC use: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)handleSignals:(uint64_t)a1 completion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [OUTLINED_FUNCTION_4(a1 a2)];
   *v3 = 138412290;
   *v2 = v4;
   OUTLINED_FUNCTION_5(&dword_262556000, v5, v6, "Received unrecognized sharing reminder signal type: %@");
-}
-
-void __49__SCSharingReminderManager_setStatus_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_262556000, v0, v1, "Error setting maximum notification count: %@ %s");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __49__SCSharingReminderManager_setStatus_completion___block_invoke_55_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_262556000, v0, v1, "Error setting backstop length: %@ %s");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __49__SCSharingReminderManager_setStatus_completion___block_invoke_56_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_262556000, v0, v1, "Error setting general time interval: %@ %s");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __49__SCSharingReminderManager_setStatus_completion___block_invoke_57_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_262556000, v0, v1, "Error setting short time interval: %@ %s");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __57__SCSharingReminderManager_setReminderDelays_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_262556000, v0, v1, "Error setting backstop delay: %@ %s");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

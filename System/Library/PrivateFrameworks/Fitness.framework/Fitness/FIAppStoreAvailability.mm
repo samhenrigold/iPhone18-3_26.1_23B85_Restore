@@ -127,7 +127,7 @@ uint64_t __41__FIAppStoreAvailability__isDeviceTablet__block_invoke()
 
 void __80__FIAppStoreAvailability_isFitnessPlusStorefrontContentAvailableWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (a2)
   {
@@ -136,9 +136,9 @@ void __80__FIAppStoreAvailability_isFitnessPlusStorefrontContentAvailableWithCom
     v8 = *MEMORY[0x277CCC270];
     if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109120;
-      v11[1] = v7;
-      _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "FIAppStoreAvailability fetched fitness plus enabled value: %d", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = v7;
+      _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "FIAppStoreAvailability fetched fitness plus enabled value: %d", v10, 8u);
     }
   }
 
@@ -153,43 +153,39 @@ void __80__FIAppStoreAvailability_isFitnessPlusStorefrontContentAvailableWithCom
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_isSupportedDeviceAvailableWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CF0130];
   completionCopy = completion;
   sharedInstance = [v3 sharedInstance];
   v6 = objc_alloc_init(MEMORY[0x277CF0178]);
   allAuthKitAccounts = [sharedInstance allAuthKitAccounts];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke;
-  v12[3] = &unk_279004908;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke;
+  v11[3] = &unk_279004908;
   v8 = v6;
-  v13 = v8;
-  v9 = [allAuthKitAccounts hk_firstObjectPassingTest:v12];
+  v12 = v8;
+  v9 = [allAuthKitAccounts hk_firstObjectPassingTest:v11];
 
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v15 = v9 != 0;
+    v14 = v9 != 0;
     _os_log_impl(&dword_24B35E000, v10, OS_LOG_TYPE_DEFAULT, "FIAppStoreAvailability - isSupportedDeviceAvailable: %d", buf, 8u);
   }
 
   completionCopy[2](completionCopy, v9 != 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 ams_altDSID];
 
@@ -199,27 +195,27 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
     v6 = [v3 ams_altDSID];
     [v5 setAltDSID:v6];
 
-    v26[0] = @"iOS";
-    v26[1] = @"watchOS";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = @"iOS";
+    v25[1] = @"watchOS";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     [v5 setOperatingSystems:v7];
 
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__0;
-    v24 = __Block_byref_object_dispose__0;
-    v25 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__0;
+    v23 = __Block_byref_object_dispose__0;
+    v24 = 0;
     v8 = dispatch_semaphore_create(0);
     v9 = *(a1 + 32);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke_338;
-    v17[3] = &unk_2790048C0;
-    v19 = &v20;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke_338;
+    v16[3] = &unk_2790048C0;
+    v18 = &v19;
     v10 = v8;
-    v18 = v10;
-    [v9 fetchDeviceListWithContext:v5 completion:v17];
+    v17 = v10;
+    [v9 fetchDeviceListWithContext:v5 completion:v16];
     v11 = dispatch_time(0, 10000000000);
     if (dispatch_semaphore_wait(v10, v11))
     {
@@ -235,11 +231,11 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
 
     else
     {
-      v14 = [v21[5] hk_firstObjectPassingTest:&__block_literal_global_343];
+      v14 = [v20[5] hk_firstObjectPassingTest:&__block_literal_global_343];
       v13 = v14 != 0;
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
@@ -247,7 +243,6 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -279,7 +274,7 @@ void __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
 
 BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke_340(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a2;
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC270];
@@ -287,12 +282,12 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
   {
     v4 = v3;
     v5 = [v2 model];
-    v6 = [v2 operatingSystemVersion];
-    v18 = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_24B35E000, v4, OS_LOG_TYPE_DEFAULT, "FIAppStoreAvailability remoteDevice model:%@ version:%@", &v18, 0x16u);
+    v6 = objc_msgSend_operatingSystemVersion(v2);
+    v17 = 138412546;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_24B35E000, v4, OS_LOG_TYPE_DEFAULT, "FIAppStoreAvailability remoteDevice model:%@ version:%@", &v17, 0x16u);
   }
 
   v7 = [v2 model];
@@ -301,7 +296,7 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
     v8 = [v2 operatingSystemName];
     if ([v8 isEqualToString:@"iOS"])
     {
-      v9 = [v2 operatingSystemVersion];
+      v9 = objc_msgSend_operatingSystemVersion(v2);
       [v9 doubleValue];
       v11 = v10 >= 16.1;
     }
@@ -320,7 +315,7 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
   v12 = [v2 operatingSystemName];
   if ([v12 isEqualToString:@"watchOS"])
   {
-    v13 = [v2 operatingSystemVersion];
+    v13 = objc_msgSend_operatingSystemVersion(v2);
     [v13 doubleValue];
     v15 = v14 >= 7.0;
   }
@@ -330,28 +325,25 @@ BOOL __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___bl
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11 || v15;
 }
 
 void __80__FIAppStoreAvailability_isFitnessPlusStorefrontContentAvailableWithCompletion___block_invoke_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_0(&dword_24B35E000, v5, v6, "FIAppStoreAvailability failed to fetch fitness plus enabled value: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_24B35E000, v5, v6, "FIAppStoreAvailability failed to fetch fitness plus enabled value: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __68__FIAppStoreAvailability__isSupportedDeviceAvailableWithCompletion___block_invoke_338_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_0(&dword_24B35E000, v5, v6, "FIAppStoreAvailability failed to fetch device list: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_24B35E000, v5, v6, "FIAppStoreAvailability failed to fetch device list: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

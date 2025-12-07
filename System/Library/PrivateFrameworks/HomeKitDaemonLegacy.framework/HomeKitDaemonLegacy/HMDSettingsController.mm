@@ -50,7 +50,7 @@
 
 - (void)_handleAddedConstraintModel:(void *)model shouldNotify:(void *)notify
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   notifyCopy = notify;
   v4 = notifyCopy;
   if (model)
@@ -77,13 +77,13 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           v17 = HMFGetLogIdentifier();
-          v39 = 138543874;
-          v40 = v17;
-          v41 = 2112;
-          v42 = v13;
-          v43 = 2112;
-          v44 = v6;
-          _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Added settings constraint %@ to %@", &v39, 0x20u);
+          v38 = 138543874;
+          v39 = v17;
+          v40 = 2112;
+          v41 = v13;
+          v42 = 2112;
+          v43 = v6;
+          _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Added settings constraint %@ to %@", &v38, 0x20u);
         }
 
         objc_autoreleasePoolPop(v14);
@@ -95,13 +95,13 @@
           v21 = HMFGetLogIdentifier();
           identifier = [(HMDSettingConstraint *)v13 identifier];
           name = [v6 name];
-          v39 = 138543874;
-          v40 = v21;
-          v41 = 2112;
-          v42 = identifier;
-          v43 = 2112;
-          v44 = name;
-          _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Added settings constraint %@ to %@", &v39, 0x20u);
+          v38 = 138543874;
+          v39 = v21;
+          v40 = 2112;
+          v41 = identifier;
+          v42 = 2112;
+          v43 = name;
+          _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Added settings constraint %@ to %@", &v38, 0x20u);
         }
 
         objc_autoreleasePoolPop(v18);
@@ -116,11 +116,11 @@
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           v37 = HMFGetLogIdentifier();
-          v39 = 138543618;
-          v40 = v37;
-          v41 = 2112;
-          v42 = v4;
-          _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode value for received constraint model %@", &v39, 0x16u);
+          v38 = 138543618;
+          v39 = v37;
+          v40 = 2112;
+          v41 = v4;
+          _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode value for received constraint model %@", &v38, 0x16u);
         }
 
         objc_autoreleasePoolPop(v34);
@@ -136,13 +136,13 @@
       {
         v28 = HMFGetLogIdentifier();
         hmbParentModelID3 = [(HMDSettingConstraint *)v4 hmbParentModelID];
-        v39 = 138543874;
-        v40 = v28;
-        v41 = 2112;
-        v42 = v4;
-        v43 = 2112;
-        v44 = hmbParentModelID3;
-        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Couldn't find setting for received constraint model %@, parent %@", &v39, 0x20u);
+        v38 = 138543874;
+        v39 = v28;
+        v40 = 2112;
+        v41 = v4;
+        v42 = 2112;
+        v43 = hmbParentModelID3;
+        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Couldn't find setting for received constraint model %@, parent %@", &v38, 0x20u);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -152,16 +152,14 @@
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         v33 = HMFGetLogIdentifier();
-        v39 = 138543362;
-        v40 = v33;
-        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find setting for received constraint model", &v39, 0xCu);
+        v38 = 138543362;
+        v39 = v33;
+        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find setting for received constraint model", &v38, 0xCu);
       }
 
       objc_autoreleasePoolPop(v30);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)settingForIdentifier:(id)identifier
@@ -181,20 +179,22 @@
   if (self)
   {
     v3 = objc_getProperty(self, a2, 48, 1);
-    v5 = [objc_getProperty(self v4];
-    v7 = [objc_getProperty(self v6];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __51__HMDSettingsController_settingsHierarchyDidChange__block_invoke;
-    v8[3] = &unk_279729170;
-    v8[4] = self;
-    [HMDSettingAlgorithm findChangedSettingsWithRootGroup:v3 currentGroups:v5 currentSettings:v7 completion:v8];
+    Property = objc_getProperty(self, v4, 56, 1);
+    v6 = objc_msgSend_copy(Property);
+    v8 = objc_getProperty(self, v7, 64, 1);
+    v9 = objc_msgSend_copy(v8);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __51__HMDSettingsController_settingsHierarchyDidChange__block_invoke;
+    v10[3] = &unk_279729170;
+    v10[4] = self;
+    [HMDSettingAlgorithm findChangedSettingsWithRootGroup:v3 currentGroups:v6 currentSettings:v9 completion:v10];
   }
 }
 
 void __51__HMDSettingsController_settingsHierarchyDidChange__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v13 = a2;
   v14 = a3;
   v15 = a4;
@@ -208,41 +208,41 @@ void __51__HMDSettingsController_settingsHierarchyDidChange__block_invoke(uint64
     v22 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v33 = HMFGetLogIdentifier();
-      v37 = v18;
-      v38 = v13;
-      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v15, "count")}];
+      v32 = HMFGetLogIdentifier();
+      v36 = v18;
+      v37 = v13;
+      v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v15, "count")}];
       [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "count")}];
-      v23 = v36 = v16;
+      v23 = v35 = v16;
       [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v17, "count")}];
-      v24 = v34 = v20;
+      v24 = v33 = v20;
       v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v18, "count")}];
-      v35 = v17;
+      v34 = v17;
       v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "count")}];
       v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
       *buf = 138544898;
-      v40 = v33;
-      v41 = 2112;
-      v42 = v32;
-      v43 = 2112;
-      v44 = v23;
-      v45 = 2112;
-      v46 = v24;
-      v47 = 2112;
-      v48 = v25;
-      v49 = 2112;
-      v50 = v26;
-      v51 = 2112;
-      v52 = v27;
+      v39 = v32;
+      v40 = 2112;
+      v41 = v31;
+      v42 = 2112;
+      v43 = v23;
+      v44 = 2112;
+      v45 = v24;
+      v46 = 2112;
+      v47 = v25;
+      v48 = 2112;
+      v49 = v26;
+      v50 = 2112;
+      v51 = v27;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Added %@ groups and %@ settings. Removed %@ groups and %@ settings. Currently have %@ groups and %@ settings", buf, 0x48u);
 
-      v13 = v38;
-      v17 = v35;
+      v13 = v37;
+      v17 = v34;
 
-      v18 = v37;
-      v20 = v34;
+      v18 = v36;
+      v20 = v33;
 
-      v16 = v36;
+      v16 = v35;
     }
 
     objc_autoreleasePoolPop(v20);
@@ -258,13 +258,11 @@ void __51__HMDSettingsController_settingsHierarchyDidChange__block_invoke(uint64
       objc_setProperty_atomic(v30, v29, v13, 56);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionSettingModelUpdated:(id)updated previousModel:(id)model
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   modelCopy = model;
   hmbModelID = [updatedCopy hmbModelID];
@@ -324,9 +322,9 @@ LABEL_26:
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = ____transactionSettingUpdated_block_invoke;
-            v43 = &unk_2797359D8;
-            v44 = selfCopy;
-            [delegate settingsController:v44 didUpdateWithCompletion:buf];
+            v42 = &unk_2797359D8;
+            v43 = selfCopy;
+            [delegate settingsController:v43 didUpdateWithCompletion:buf];
           }
 
           goto LABEL_30;
@@ -399,8 +397,6 @@ LABEL_21:
   }
 
 LABEL_30:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)delegate
@@ -416,7 +412,7 @@ LABEL_30:
 
 - (void)_handleAddedSettingModel:(int)model shouldNotify:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -435,9 +431,9 @@ LABEL_30:
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v24 = v13;
-          v25 = 2112;
-          v26 = v6;
+          v23 = v13;
+          v24 = 2112;
+          v25 = v6;
           _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Added setting %@", buf, 0x16u);
         }
 
@@ -447,12 +443,12 @@ LABEL_30:
         if (model)
         {
           WeakRetained = objc_loadWeakRetained(selfCopy + 5);
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_invoke;
-          v22[3] = &unk_2797359D8;
-          v22[4] = selfCopy;
-          [WeakRetained settingsController:selfCopy didUpdateWithCompletion:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_invoke;
+          v21[3] = &unk_2797359D8;
+          v21[4] = selfCopy;
+          [WeakRetained settingsController:selfCopy didUpdateWithCompletion:v21];
         }
       }
 
@@ -462,9 +458,9 @@ LABEL_30:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v24 = v20;
-          v25 = 2112;
-          v26 = hmbParentModelID;
+          v23 = v20;
+          v24 = 2112;
+          v25 = hmbParentModelID;
           _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Parent group not found to add setting in transaction for identifier %@", buf, 0x16u);
         }
 
@@ -481,15 +477,13 @@ LABEL_30:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v19;
+        v23 = v19;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Unable to decode setting in transaction payload", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)settingGroupForIdentifier:(id)identifier
@@ -506,7 +500,7 @@ LABEL_30:
 
 void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -514,15 +508,14 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sent setting added notification. Error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sent setting added notification. Error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionSettingGroupModelUpdated:(id)updated previousModel:(id)model
@@ -546,7 +539,7 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
 
 - (void)_handleAddedGroupModel:(int)model shouldNotify:
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -567,9 +560,9 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
         {
           v15 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v15;
-          v49 = 2112;
-          v50 = v5;
+          v47 = v15;
+          v48 = 2112;
+          v49 = v5;
           _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Root group added to owner %@", buf, 0x16u);
         }
 
@@ -590,7 +583,7 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
             {
               v25 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v48 = v25;
+              v47 = v25;
               _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@We have a colliding root group", buf, 0xCu);
             }
 
@@ -608,11 +601,11 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
             v41 = HMFGetLogIdentifier();
             v43 = [objc_getProperty(v39 v42];
             *buf = 138543874;
-            v48 = v41;
-            v49 = 2112;
-            v50 = hmbParentModelID;
-            v51 = 2112;
-            v52 = v43;
+            v47 = v41;
+            v48 = 2112;
+            v49 = hmbParentModelID;
+            v50 = 2112;
+            v51 = v43;
             _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Adding root group %@ for user %@", buf, 0x20u);
           }
 
@@ -635,9 +628,9 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
           {
             v35 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v48 = v35;
-            v49 = 2112;
-            v50 = v7;
+            v47 = v35;
+            v48 = 2112;
+            v49 = v7;
             _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Added group %@", buf, 0x16u);
           }
 
@@ -647,12 +640,12 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
           if (model)
           {
             WeakRetained = objc_loadWeakRetained(selfCopy2 + 5);
-            v46[0] = MEMORY[0x277D85DD0];
-            v46[1] = 3221225472;
-            v46[2] = __61__HMDSettingsController__handleAddedGroupModel_shouldNotify___block_invoke;
-            v46[3] = &unk_2797359D8;
-            v46[4] = selfCopy2;
-            [WeakRetained settingsController:selfCopy2 didUpdateWithCompletion:v46];
+            v45[0] = MEMORY[0x277D85DD0];
+            v45[1] = 3221225472;
+            v45[2] = __61__HMDSettingsController__handleAddedGroupModel_shouldNotify___block_invoke;
+            v45[3] = &unk_2797359D8;
+            v45[4] = selfCopy2;
+            [WeakRetained settingsController:selfCopy2 didUpdateWithCompletion:v45];
           }
         }
 
@@ -662,9 +655,9 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
           {
             v44 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v48 = v44;
-            v49 = 2112;
-            v50 = hmbParentModelID;
+            v47 = v44;
+            v48 = 2112;
+            v49 = hmbParentModelID;
             _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Parent group not found to add group in transaction for identifier %@", buf, 0x16u);
           }
 
@@ -682,22 +675,20 @@ void __63__HMDSettingsController__handleAddedSettingModel_shouldNotify___block_i
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v29;
-        v49 = 2112;
-        v50 = v5;
+        v47 = v29;
+        v48 = 2112;
+        v49 = v5;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode setting group in transaction payload %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v26);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDSettingsController__handleAddedGroupModel_shouldNotify___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -705,40 +696,39 @@ void __61__HMDSettingsController__handleAddedGroupModel_shouldNotify___block_inv
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sent group added notification. Error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sent group added notification. Error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadWithModels:(id)models
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = models;
-  v3 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v3 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v26;
+    v5 = *v25;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * i);
+        v7 = *(*(&v24 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         v9 = v7;
         objc_opt_class();
@@ -804,11 +794,11 @@ void __61__HMDSettingsController__handleAddedGroupModel_shouldNotify___block_inv
           v19 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = HMFGetLogIdentifier();
+            v20 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v30 = v21;
-            v31 = 2112;
-            v32 = v15;
+            v29 = v20;
+            v30 = 2112;
+            v31 = v15;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Unrecognized model type %@", buf, 0x16u);
           }
 
@@ -818,13 +808,11 @@ void __61__HMDSettingsController__handleAddedGroupModel_shouldNotify___block_inv
         objc_autoreleasePoolPop(v8);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v4);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -891,8 +879,8 @@ LABEL_4:
     identifier = [v4 identifier];
     parentIdentifier = [v4 parentIdentifier];
     name = [v4 name];
-    v22 = [v15 copy];
-    v23 = [v17 copy];
+    v22 = objc_msgSend_copy(v15);
+    v23 = objc_msgSend_copy(v17);
     v11 = [(HMDSettingGroup *)v18 initWithIdentifier:identifier parentIdentifier:parentIdentifier name:name groups:v22 settings:v23];
   }
 
@@ -906,18 +894,18 @@ LABEL_7:
   return v11;
 }
 
-uint64_t __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke(uint64_t a1)
+uint64_t __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = [HMDSettingsController _cloneGroupFilteringKeyPath:?];
-  v3 = v2;
-  if (v2)
+  v3 = [(HMDSettingsController *)*(a1 + 32) _cloneGroupFilteringKeyPath:a2];
+  v4 = v3;
+  if (v3)
   {
-    v5 = v2;
-    v2 = [*(a1 + 40) addObject:v2];
-    v3 = v5;
+    v6 = v3;
+    v3 = [*(a1 + 40) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(uint64_t a1, void *a2)
@@ -945,7 +933,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
 
 - (id)migrateSettingsTransactionWithTransaction:(id)transaction error:(id *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (self)
   {
@@ -967,7 +955,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v53 = v13;
+      v52 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Getting Migrating Setting models", buf, 0xCu);
     }
 
@@ -1008,9 +996,9 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
         v25 = HMFGetLogIdentifier();
         v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelsToMigrateSettings, "count")}];
         *buf = 138543618;
-        v53 = v25;
-        v54 = 2112;
-        v55 = v26;
+        v52 = v25;
+        v53 = 2112;
+        v54 = v26;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Migrating settings with %@ models", buf, 0x16u);
       }
 
@@ -1029,29 +1017,29 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
       migrationProvider = [v29 migrationProvider];
       [migrationProvider applyConditionalValueUpdateToModels:modelsToMigrateSettings];
 
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v31 = modelsToMigrateSettings;
-      v32 = [v31 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v48;
+        v34 = *v47;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v48 != v34)
+            if (*v47 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            [transactionCopy addSettingModel:*(*(&v47 + 1) + 8 * i)];
+            [transactionCopy addSettingModel:*(*(&v46 + 1) + 8 * i)];
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v47 objects:v51 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
         }
 
         while (v33);
@@ -1068,7 +1056,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
       {
         v42 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v53 = v42;
+        v52 = v42;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@No new models for settings to migrate", buf, 0xCu);
       }
 
@@ -1089,7 +1077,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v53 = v38;
+      v52 = v38;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@No root group to migrate settings", buf, 0xCu);
     }
 
@@ -1105,15 +1093,13 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
     v41 = transactionCopy;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
   return transactionCopy;
 }
 
 - (id)modelsToMigrateSettings
 {
   selfCopy = self;
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = objc_getProperty(self, a2, 32, 1);
@@ -1157,41 +1143,41 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v117 = v13;
+          v116 = v13;
           _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Getting new models in metadata for migration", buf, 0xCu);
         }
 
-        v99 = loadMetadata;
+        v98 = loadMetadata;
 
         objc_autoreleasePoolPop(v10);
-        v98 = v7;
+        v97 = v7;
         v14 = v7;
         v15 = v14;
-        v97 = selfCopy;
+        v96 = selfCopy;
         if (selfCopy)
         {
           v16 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v14, "count")}];
           v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v15, "count")}];
+          v110 = 0u;
           v111 = 0u;
           v112 = 0u;
           v113 = 0u;
-          v114 = 0u;
           v18 = v15;
-          v19 = [v18 countByEnumeratingWithState:&v111 objects:buf count:16];
+          v19 = [v18 countByEnumeratingWithState:&v110 objects:buf count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v112;
+            v21 = *v111;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v112 != v21)
+                if (*v111 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                v23 = *(*(&v111 + 1) + 8 * i);
+                v23 = *(*(&v110 + 1) + 8 * i);
                 hmbModelID = [v23 hmbModelID];
                 [v16 setObject:v23 forKey:hmbModelID];
 
@@ -1209,7 +1195,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
                 [v26 addObject:hmbModelID2];
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v111 objects:buf count:16];
+              v20 = [v18 countByEnumeratingWithState:&v110 objects:buf count:16];
             }
 
             while (v20);
@@ -1221,46 +1207,46 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
           allObjects = [v32 allObjects];
           v34 = [allObjects objectAtIndexedSubscript:0];
 
-          v105 = [HMDSettingsController _keyPathsToModelInModelIDToModelLookup:v16 parentIDToModelIDsLookup:v17 currentID:v34 currentPath:&stru_286509E58];
+          v104 = [HMDSettingsController _keyPathsToModelInModelIDToModelLookup:v16 parentIDToModelIDsLookup:v17 currentID:v34 currentPath:&stru_286509E58];
 
           v36 = objc_getProperty(selfa, v35, 48, 1);
-          v96 = [HMDSettingsController _keyPathsFromGroup:v36 currentPath:&stru_286509E58];
+          v95 = [HMDSettingsController _keyPathsFromGroup:v36 currentPath:&stru_286509E58];
         }
 
         else
         {
 
-          v105 = 0;
-          v96 = 0;
+          v104 = 0;
+          v95 = 0;
           p_isa = &selfa->super.super.isa;
         }
 
         delegate = [(HMDSettingsController *)p_isa delegate];
         v38 = [delegate settingsControllerFollowerKeyPaths:p_isa];
 
-        v109 = 0u;
-        v110 = 0u;
-        v107 = 0u;
         v108 = 0u;
+        v109 = 0u;
+        v106 = 0u;
+        v107 = 0u;
         v39 = v38;
-        v40 = [v39 countByEnumeratingWithState:&v107 objects:v115 count:16];
-        v102 = v39;
+        v40 = [v39 countByEnumeratingWithState:&v106 objects:v114 count:16];
+        v101 = v39;
         if (v40)
         {
           v41 = v40;
-          obj = *v108;
+          obj = *v107;
           do
           {
             for (j = 0; j != v41; ++j)
             {
-              if (*v108 != obj)
+              if (*v107 != obj)
               {
                 objc_enumerationMutation(v39);
               }
 
-              v43 = *(*(&v107 + 1) + 8 * j);
-              v44 = [@"." stringByAppendingString:{v43, v96}];
-              v45 = [v105 objectForKeyedSubscript:v44];
+              v43 = *(*(&v106 + 1) + 8 * j);
+              v44 = [@"." stringByAppendingString:{v43, v95}];
+              v45 = [v104 objectForKeyedSubscript:v44];
 
               v46 = v45;
               if ([v46 conformsToProtocol:&unk_28668A8B0])
@@ -1295,7 +1281,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
                 type2 = [v48 type];
                 integerValue = [type2 integerValue];
 
-                v39 = v102;
+                v39 = v101;
                 if (type == integerValue)
                 {
                   type3 = [v48 type];
@@ -1309,21 +1295,21 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
                     if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
                     {
                       HMFGetLogIdentifier();
-                      v61 = v101 = v58;
+                      v61 = v100 = v58;
                       name = [v48 name];
                       internalValue2 = [v50 internalValue];
                       *buf = 138543874;
-                      v117 = v61;
-                      v118 = 2112;
-                      v119 = name;
-                      v120 = 2112;
-                      v121 = internalValue2;
+                      v116 = v61;
+                      v117 = 2112;
+                      v118 = name;
+                      v119 = 2112;
+                      v120 = internalValue2;
                       _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_DEFAULT, "%{public}@Will migrate value of %@ as %@", buf, 0x20u);
 
                       p_isa = &selfa->super.super.isa;
-                      v39 = v102;
+                      v39 = v101;
 
-                      v58 = v101;
+                      v58 = v100;
                     }
 
                     objc_autoreleasePoolPop(v58);
@@ -1335,43 +1321,43 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
               }
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v107 objects:v115 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v106 objects:v114 count:16];
           }
 
           while (v41);
         }
 
-        allKeys = [v96 allKeys];
-        [v105 removeObjectsForKeys:allKeys];
+        allKeys = [v95 allKeys];
+        [v104 removeObjectsForKeys:allKeys];
 
-        v67 = v105;
-        v106 = v96;
-        if (v97)
+        v67 = v104;
+        v105 = v95;
+        if (v96)
         {
           allKeys2 = [v67 allKeys];
+          v110 = 0u;
           v111 = 0u;
           v112 = 0u;
           v113 = 0u;
-          v114 = 0u;
           obja = allKeys2;
-          v69 = [allKeys2 countByEnumeratingWithState:&v111 objects:buf count:16];
+          v69 = [allKeys2 countByEnumeratingWithState:&v110 objects:buf count:16];
           if (v69)
           {
             v70 = v69;
-            v71 = *v112;
+            v71 = *v111;
             do
             {
               for (k = 0; k != v70; ++k)
               {
-                if (*v112 != v71)
+                if (*v111 != v71)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v73 = *(*(&v111 + 1) + 8 * k);
-                v74 = [v67 valueForKey:{v73, v96}];
+                v73 = *(*(&v110 + 1) + 8 * k);
+                v74 = [v67 valueForKey:{v73, v95}];
                 v75 = [v73 substringToIndex:{objc_msgSend(v73, "rangeOfString:options:", @".", 4)}];
-                v76 = [v106 valueForKey:v75];
+                v76 = [v105 valueForKey:v75];
                 v77 = v76;
                 if (v76)
                 {
@@ -1383,7 +1369,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
                 }
               }
 
-              v70 = [obja countByEnumeratingWithState:&v111 objects:buf count:16];
+              v70 = [obja countByEnumeratingWithState:&v110 objects:buf count:16];
             }
 
             while (v70);
@@ -1398,17 +1384,17 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
           v83 = HMFGetLogIdentifier();
           v84 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v67, "count")}];
           *buf = 138543618;
-          v117 = v83;
-          v118 = 2112;
-          v119 = v84;
+          v116 = v83;
+          v117 = 2112;
+          v118 = v84;
           _os_log_impl(&dword_2531F8000, v82, OS_LOG_TYPE_INFO, "%{public}@Found %@ new models in metadata for migration", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v80);
         allValues = [v67 allValues];
 
-        v7 = v98;
-        loadMetadata = v99;
+        v7 = v97;
+        loadMetadata = v98;
         goto LABEL_66;
       }
 
@@ -1416,7 +1402,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
       {
         v93 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v117 = v93;
+        v116 = v93;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Settings controller does not have a rootGroup for migration", buf, 0xCu);
       }
     }
@@ -1430,7 +1416,7 @@ void __53__HMDSettingsController__cloneGroupFilteringKeyPath___block_invoke_2(ui
       {
         v92 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v117 = v92;
+        v116 = v92;
         _os_log_impl(&dword_2531F8000, v91, OS_LOG_TYPE_ERROR, "%{public}@Unable to retrieve setting models from parser", buf, 0xCu);
       }
     }
@@ -1449,7 +1435,7 @@ LABEL_66:
   {
     v89 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v117 = v89;
+    v116 = v89;
     _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_ERROR, "%{public}@Unable to load settings metadata from dependency", buf, 0xCu);
   }
 
@@ -1457,14 +1443,12 @@ LABEL_66:
   allValues = 0;
 LABEL_67:
 
-  v94 = *MEMORY[0x277D85DE8];
-
   return allValues;
 }
 
 - (id)_keyPathsFromGroup:(void *)group currentPath:(void *)path
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   pathCopy = path;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1473,27 +1457,27 @@ LABEL_67:
   v8 = [v6 stringWithFormat:@"%@.%@", pathCopy, name];
 
   [v5 setValue:groupCopy forKey:v8];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v29 = groupCopy;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v28 = groupCopy;
   settings = [groupCopy settings];
-  v10 = [settings countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v10 = [settings countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(settings);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
+        v14 = *(*(&v33 + 1) + 8 * i);
         v15 = MEMORY[0x277CCACA8];
         name2 = [v14 name];
         v17 = [v15 stringWithFormat:@"%@.%@", v8, name2];
@@ -1503,51 +1487,49 @@ LABEL_67:
         [v5 addEntriesFromDictionary:v18];
       }
 
-      v11 = [settings countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v11 = [settings countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v11);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  groups = [v29 groups];
-  v20 = [groups countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  groups = [v28 groups];
+  v20 = [groups countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v31;
+    v22 = *v30;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v31 != v22)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(groups);
         }
 
-        v24 = *(*(&v30 + 1) + 8 * j);
-        v25 = [v8 copy];
+        v24 = *(*(&v29 + 1) + 8 * j);
+        v25 = objc_msgSend_copy(v8);
         v26 = [HMDSettingsController _keyPathsFromGroup:v24 currentPath:v25];
         [v5 addEntriesFromDictionary:v26];
       }
 
-      v21 = [groups countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v21 = [groups countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v21);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_keyPathsToModelInModelIDToModelLookup:(void *)lookup parentIDToModelIDsLookup:(void *)dsLookup currentID:(void *)d currentPath:(void *)path
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   lookupCopy = lookup;
   dsLookupCopy = dsLookup;
   dCopy = d;
@@ -1558,41 +1540,39 @@ LABEL_67:
   nameForKeyPath = [v12 nameForKeyPath];
   v15 = [v13 stringWithFormat:@"%@.%@", pathCopy, nameForKeyPath];
 
-  v26 = v12;
+  v25 = v12;
   [v11 setObject:v12 forKey:v15];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v27 = dCopy;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v26 = dCopy;
   v16 = [dsLookupCopy objectForKey:dCopy];
-  v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v29;
+    v19 = *v28;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v28 + 1) + 8 * i);
-        v22 = [v15 copy];
+        v21 = *(*(&v27 + 1) + 8 * i);
+        v22 = objc_msgSend_copy(v15);
         v23 = [HMDSettingsController _keyPathsToModelInModelIDToModelLookup:lookupCopy parentIDToModelIDsLookup:dsLookupCopy currentID:v21 currentPath:v22];
         [v11 addEntriesFromDictionary:v23];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v18);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1600,7 +1580,7 @@ LABEL_67:
 - (id)modelsToMakeSettings
 {
   selfCopy = self;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = objc_getProperty(self, a2, 32, 1);
@@ -1616,9 +1596,9 @@ LABEL_67:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating settings models using metadata", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating settings models using metadata", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1641,16 +1621,14 @@ LABEL_67:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Could not load any metadata to make settings", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Could not load any metadata to make settings", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     v12 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1688,7 +1666,7 @@ LABEL_67:
 
 - (id)_flattenedSettingControllerRoot:(void *)root withCurrentPath:(void *)path andReturnDictionary:
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   rootCopy = root;
   pathCopy = path;
@@ -1707,21 +1685,21 @@ LABEL_67:
       name = [v7 name];
       rootCopy = [rootCopy stringByAppendingString:name];
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       groups = [v7 groups];
-      v14 = [groups countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v14 = [groups countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v38;
+        v16 = *v37;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v38 != v16)
+            if (*v37 != v16)
             {
               objc_enumerationMutation(groups);
             }
@@ -1729,33 +1707,33 @@ LABEL_67:
             v18 = [(HMDSettingsController *)self _flattenedSettingControllerRoot:rootCopy withCurrentPath:pathCopy andReturnDictionary:?];
           }
 
-          v15 = [groups countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v15 = [groups countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v15);
       }
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
-      v32 = v7;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v31 = v7;
       settings = [v7 settings];
-      v20 = [settings countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v20 = [settings countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v34;
+        v22 = *v33;
         do
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v34 != v22)
+            if (*v33 != v22)
             {
               objc_enumerationMutation(settings);
             }
 
-            v24 = *(*(&v33 + 1) + 8 * j);
+            v24 = *(*(&v32 + 1) + 8 * j);
             name2 = [v24 name];
 
             if (name2)
@@ -1769,32 +1747,30 @@ LABEL_67:
             }
           }
 
-          v21 = [settings countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v21 = [settings countByEnumeratingWithState:&v32 objects:v40 count:16];
         }
 
         while (v21);
       }
 
-      v7 = v32;
+      v7 = v31;
     }
 
     self = pathCopy;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return self;
 }
 
 - (void)updateWithValue:(id)value onSetting:(id)setting completion:(id)completion
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   settingCopy = setting;
   completionCopy = completion;
-  v110 = 0;
-  LODWORD(completion) = [settingCopy isValidValue:valueCopy error:&v110];
-  v94 = v110;
+  v109 = 0;
+  LODWORD(completion) = [settingCopy isValidValue:valueCopy error:&v109];
+  v93 = v109;
   if (!completion)
   {
     v77 = objc_autoreleasePoolPush();
@@ -1804,17 +1780,17 @@ LABEL_67:
     {
       v80 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v114 = v80;
-      v115 = 2112;
-      v116 = valueCopy;
-      v117 = 2112;
-      v118 = settingCopy;
+      v113 = v80;
+      v114 = 2112;
+      v115 = valueCopy;
+      v116 = 2112;
+      v117 = settingCopy;
       _os_log_impl(&dword_2531F8000, v79, OS_LOG_TYPE_ERROR, "%{public}@Received value %@ is not valid for setting %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v77);
-    v81 = v94;
-    if (!v94)
+    v81 = v93;
+    if (!v93)
     {
       v83 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
       completionCopy[2](completionCopy, v83);
@@ -1822,13 +1798,13 @@ LABEL_67:
       goto LABEL_63;
     }
 
-    completionCopy[2](completionCopy, v94);
+    completionCopy[2](completionCopy, v93);
     goto LABEL_64;
   }
 
   v11 = [settingCopy wouldValueUpdate:valueCopy];
   v12 = objc_autoreleasePoolPush();
-  v98 = settingCopy;
+  v97 = settingCopy;
   v13 = HMFGetOSLogHandle();
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
   if (!v11)
@@ -1837,11 +1813,11 @@ LABEL_67:
     {
       v82 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v114 = v82;
-      v115 = 2112;
-      v116 = v98;
-      v117 = 2112;
-      v118 = valueCopy;
+      v113 = v82;
+      v114 = 2112;
+      v115 = v97;
+      v116 = 2112;
+      v117 = valueCopy;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Skipping update due to setting: %@ matching update setting value: %@", buf, 0x20u);
     }
 
@@ -1853,13 +1829,13 @@ LABEL_67:
   if (v14)
   {
     v15 = HMFGetLogIdentifier();
-    value = [v98 value];
+    value = [v97 value];
     *buf = 138543874;
-    v114 = v15;
-    v115 = 2112;
-    v116 = value;
-    v117 = 2112;
-    v118 = valueCopy;
+    v113 = v15;
+    v114 = 2112;
+    v115 = value;
+    v116 = 2112;
+    v117 = valueCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating value on message from %@ to %@", buf, 0x20u);
   }
 
@@ -1875,11 +1851,11 @@ LABEL_67:
   }
 
   v19 = Property;
-  identifier = [v98 identifier];
-  parentIdentifier = [v98 parentIdentifier];
+  identifier = [v97 identifier];
+  parentIdentifier = [v97 parentIdentifier];
   v22 = [v19 settingModelForUpdateWithIdentifier:identifier parentIdentifier:parentIdentifier value:valueCopy];
 
-  v92 = v22;
+  v91 = v22;
   if (!v22)
   {
     v84 = objc_autoreleasePoolPush();
@@ -1889,11 +1865,11 @@ LABEL_67:
     {
       v87 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v114 = v87;
-      v115 = 2112;
-      v116 = valueCopy;
-      v117 = 2112;
-      v118 = v98;
+      v113 = v87;
+      v114 = 2112;
+      v115 = valueCopy;
+      v116 = 2112;
+      v117 = v97;
       _os_log_impl(&dword_2531F8000, v86, OS_LOG_TYPE_ERROR, "%{public}@Failed to create model to update value %@ on setting %@", buf, 0x20u);
     }
 
@@ -1904,8 +1880,8 @@ LABEL_67:
   }
 
   delegate = [(HMDSettingsController *)&self->super.super.isa delegate];
-  keyPath = [v98 keyPath];
-  v93 = [delegate settingsController:self willUpdateSettingAtKeyPath:keyPath withValue:valueCopy];
+  keyPath = [v97 keyPath];
+  v92 = [delegate settingsController:self willUpdateSettingAtKeyPath:keyPath withValue:valueCopy];
 
   if (self)
   {
@@ -1920,22 +1896,22 @@ LABEL_67:
   backingStoreController = [v26 backingStoreController];
   v28 = [backingStoreController settingTransactionWithName:@"Update Setting Value"];
 
-  v97 = v28;
+  v96 = v28;
   [v28 addSettingModel:v22];
-  if (!v93)
+  if (!v92)
   {
     goto LABEL_48;
   }
 
-  v90 = settingCopy;
-  v91 = valueCopy;
-  v89 = completionCopy;
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
+  v89 = settingCopy;
+  v90 = valueCopy;
+  v88 = completionCopy;
   v107 = 0u;
-  settingsToUpdate = [v93 settingsToUpdate];
-  v31 = [settingsToUpdate countByEnumeratingWithState:&v106 objects:v112 count:16];
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
+  settingsToUpdate = [v92 settingsToUpdate];
+  v31 = [settingsToUpdate countByEnumeratingWithState:&v105 objects:v111 count:16];
   selfCopy3 = self;
   if (!v31)
   {
@@ -1943,18 +1919,18 @@ LABEL_67:
   }
 
   v32 = v31;
-  v96 = *v107;
+  v95 = *v106;
   do
   {
     v33 = 0;
     do
     {
-      if (*v107 != v96)
+      if (*v106 != v95)
       {
         objc_enumerationMutation(settingsToUpdate);
       }
 
-      v34 = *(*(&v106 + 1) + 8 * v33);
+      v34 = *(*(&v105 + 1) + 8 * v33);
       keyPath2 = [v34 keyPath];
       v36 = [(HMDSettingsController *)self settingForKeyPath:keyPath2];
 
@@ -1968,11 +1944,11 @@ LABEL_67:
           v54 = HMFGetLogIdentifier();
           keyPath3 = [v34 keyPath];
           *buf = 138543874;
-          v114 = v54;
-          v115 = 2112;
-          v116 = keyPath3;
-          v117 = 2112;
-          v118 = v98;
+          v113 = v54;
+          v114 = 2112;
+          v115 = keyPath3;
+          v116 = 2112;
+          v117 = v97;
           v56 = v53;
           v57 = "%{public}@Failed to find related constrained setting at keyPath %@ on setting update for %@";
           goto LABEL_28;
@@ -1997,11 +1973,11 @@ LABEL_29:
           v54 = HMFGetLogIdentifier();
           keyPath3 = [v34 settingValue];
           *buf = 138543874;
-          v114 = v54;
-          v115 = 2112;
-          v116 = keyPath3;
-          v117 = 2112;
-          v118 = v36;
+          v113 = v54;
+          v114 = 2112;
+          v115 = keyPath3;
+          v116 = 2112;
+          v117 = v36;
           v56 = v53;
           v57 = "%{public}@Provided setting value %@ is not valid for constrained setting %@";
 LABEL_28:
@@ -2030,23 +2006,23 @@ LABEL_28:
       v46 = objc_autoreleasePoolPush();
       if (v45)
       {
-        v47 = v98;
+        v47 = v97;
         v48 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
         {
           v49 = HMFGetLogIdentifier();
           settingValue3 = [v34 settingValue];
           *buf = 138543874;
-          v114 = v49;
-          v115 = 2112;
-          v116 = v45;
-          v117 = 2112;
-          v118 = settingValue3;
+          v113 = v49;
+          v114 = 2112;
+          v115 = v45;
+          v116 = 2112;
+          v117 = settingValue3;
           _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@Added additional setting model %@ update with value %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v46);
-        [v97 addSettingModel:v45];
+        [v96 addSettingModel:v45];
       }
 
       else
@@ -2058,11 +2034,11 @@ LABEL_28:
           v60 = HMFGetLogIdentifier();
           settingValue4 = [v34 settingValue];
           *buf = 138543874;
-          v114 = v60;
-          v115 = 2112;
-          v116 = settingValue4;
-          v117 = 2112;
-          v118 = 0;
+          v113 = v60;
+          v114 = 2112;
+          v115 = settingValue4;
+          v116 = 2112;
+          v117 = 0;
           _os_log_impl(&dword_2531F8000, v59, OS_LOG_TYPE_ERROR, "%{public}@Failed to create model to update value %@ on constrained setting %@", buf, 0x20u);
         }
 
@@ -2076,61 +2052,61 @@ LABEL_34:
     }
 
     while (v32 != v33);
-    v62 = [settingsToUpdate countByEnumeratingWithState:&v106 objects:v112 count:16];
+    v62 = [settingsToUpdate countByEnumeratingWithState:&v105 objects:v111 count:16];
     v32 = v62;
   }
 
   while (v62);
 LABEL_38:
 
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
   v103 = 0u;
-  modelsToUpdate = [v93 modelsToUpdate];
-  v64 = [modelsToUpdate countByEnumeratingWithState:&v102 objects:v111 count:16];
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  modelsToUpdate = [v92 modelsToUpdate];
+  v64 = [modelsToUpdate countByEnumeratingWithState:&v101 objects:v110 count:16];
   if (v64)
   {
     v65 = v64;
-    v66 = *v103;
+    v66 = *v102;
     do
     {
       for (i = 0; i != v65; ++i)
       {
-        if (*v103 != v66)
+        if (*v102 != v66)
         {
           objc_enumerationMutation(modelsToUpdate);
         }
 
-        v68 = *(*(&v102 + 1) + 8 * i);
+        v68 = *(*(&v101 + 1) + 8 * i);
         v69 = objc_autoreleasePoolPush();
-        v70 = v98;
+        v70 = v97;
         v71 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
         {
           v72 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v114 = v72;
-          v115 = 2112;
-          v116 = v68;
-          v117 = 2112;
-          v118 = v98;
+          v113 = v72;
+          v114 = 2112;
+          v115 = v68;
+          v116 = 2112;
+          v117 = v97;
           _os_log_impl(&dword_2531F8000, v71, OS_LOG_TYPE_INFO, "%{public}@Added additional model %@ to update when updating setting %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v69);
-        [v97 addModel:v68];
+        [v96 addModel:v68];
       }
 
-      v65 = [modelsToUpdate countByEnumeratingWithState:&v102 objects:v111 count:16];
+      v65 = [modelsToUpdate countByEnumeratingWithState:&v101 objects:v110 count:16];
     }
 
     while (v65);
   }
 
-  settingCopy = v90;
-  valueCopy = v91;
-  completionCopy = v89;
+  settingCopy = v89;
+  valueCopy = v90;
+  completionCopy = v88;
   self = selfCopy3;
 LABEL_48:
   if (self)
@@ -2144,22 +2120,20 @@ LABEL_48:
   }
 
   backingStoreController2 = [v73 backingStoreController];
-  v99[0] = MEMORY[0x277D85DD0];
-  v99[1] = 3221225472;
-  v99[2] = __62__HMDSettingsController_updateWithValue_onSetting_completion___block_invoke;
-  v99[3] = &unk_279733F30;
-  v100 = v93;
-  v101 = completionCopy;
-  v75 = v93;
-  v76 = v97;
-  [backingStoreController2 runSettingTransaction:v97 completion:v99];
+  v98[0] = MEMORY[0x277D85DD0];
+  v98[1] = 3221225472;
+  v98[2] = __62__HMDSettingsController_updateWithValue_onSetting_completion___block_invoke;
+  v98[3] = &unk_279733F30;
+  v99 = v92;
+  v100 = completionCopy;
+  v75 = v92;
+  v76 = v96;
+  [backingStoreController2 runSettingTransaction:v96 completion:v98];
 
 LABEL_62:
 LABEL_63:
-  v81 = v94;
+  v81 = v93;
 LABEL_64:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDSettingsController_updateWithValue_onSetting_completion___block_invoke(uint64_t a1, void *a2)
@@ -2181,7 +2155,7 @@ void __62__HMDSettingsController_updateWithValue_onSetting_completion___block_in
 
 - (void)updateWithEncodedValue:(id)value onSettingKeyPath:(id)path completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   pathCopy = path;
   completionCopy = completion;
@@ -2196,9 +2170,9 @@ void __62__HMDSettingsController_updateWithValue_onSetting_completion___block_in
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v22;
-      v34 = 2112;
-      v35 = pathCopy;
+      v32 = v22;
+      v33 = 2112;
+      v34 = pathCopy;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Setting not found for key path %@", buf, 0x16u);
     }
 
@@ -2217,9 +2191,9 @@ void __62__HMDSettingsController_updateWithValue_onSetting_completion___block_in
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v16;
-      v34 = 2112;
-      v35 = v12;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v12;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Setting is read only as we do not understand it %@", buf, 0x16u);
     }
 
@@ -2232,9 +2206,9 @@ LABEL_9:
     goto LABEL_16;
   }
 
-  v31 = 0;
-  v24 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:valueCopy error:&v31];
-  v23 = v31;
+  v30 = 0;
+  v24 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:valueCopy error:&v30];
+  v23 = v30;
   if (v24)
   {
     [(HMDSettingsController *)self updateWithValue:v24 onSetting:v12 completion:completionCopy];
@@ -2249,9 +2223,9 @@ LABEL_9:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v28;
-      v34 = 2112;
-      v35 = v23;
+      v32 = v28;
+      v33 = 2112;
+      v34 = v23;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive setting value from encoded value: %@", buf, 0x16u);
     }
 
@@ -2261,7 +2235,6 @@ LABEL_9:
   }
 
 LABEL_16:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)settingForKeyPath:(id)path
@@ -2296,32 +2269,32 @@ LABEL_16:
 
 - (id)_settingForKeyPathWithGroups:(void *)groups settings:(void *)settings keyPath:
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v28 = a2;
+  v38 = *MEMORY[0x277D85DE8];
+  v27 = a2;
   groupsCopy = groups;
   settingsCopy = settings;
   if (self)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v9 = groupsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v34;
+      v12 = *v33;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v34 != v12)
+          if (*v33 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v33 + 1) + 8 * i);
+          v14 = *(*(&v32 + 1) + 8 * i);
           keyPath = [v14 keyPath];
           v16 = [keyPath isEqualToString:settingsCopy];
 
@@ -2332,7 +2305,7 @@ LABEL_16:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v11)
         {
           continue;
@@ -2342,26 +2315,26 @@ LABEL_16:
       }
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v9 = v28;
-    v17 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v9 = v27;
+    v17 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v30;
+      v19 = *v29;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v30 != v19)
+          if (*v29 != v19)
           {
             objc_enumerationMutation(v9);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * j);
+          v21 = *(*(&v28 + 1) + 8 * j);
           keyPath2 = [v21 keyPath];
           v23 = [settingsCopy containsString:keyPath2];
 
@@ -2375,7 +2348,7 @@ LABEL_16:
           }
         }
 
-        v18 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v18 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v18)
         {
           continue;
@@ -2388,8 +2361,6 @@ LABEL_16:
     self = 0;
 LABEL_21:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -2419,7 +2390,7 @@ LABEL_21:
   allObjects3 = [keyEnumerator2 allObjects];
   [v4 addObjectsFromArray:allObjects3];
 
-  v11 = [v4 copy];
+  v11 = objc_msgSend_copy(v4);
 
   return v11;
 }
@@ -2449,7 +2420,7 @@ LABEL_21:
 
 void __34__HMDSettingsController_configure__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2457,13 +2428,12 @@ void __34__HMDSettingsController_configure__block_invoke(uint64_t a1, void *a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Updated settings on configure.", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Updated settings on configure.", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -2525,12 +2495,11 @@ void __34__HMDSettingsController_configure__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __36__HMDSettingsController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_81163;
-  logCategory__hmf_once_v1_81163 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_81163;
+  logCategory__hmf_once_v1_81163 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

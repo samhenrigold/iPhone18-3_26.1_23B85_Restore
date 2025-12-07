@@ -7,7 +7,7 @@
 
 + (void)donateSearchEvent
 {
-  sub_1A3DB4F20();
+  sub_1A3DB4F20(0);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1A524CC94();

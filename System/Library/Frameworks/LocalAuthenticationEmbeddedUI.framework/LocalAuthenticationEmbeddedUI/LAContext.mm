@@ -37,7 +37,7 @@ void __83__LAContext_UI__evaluateAccessControl_operation_options_presentationCon
 
 void __83__LAContext_UI__evaluateAccessControl_operation_options_presentationContext_reply___block_invoke_2(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (WeakRetained)
   {
@@ -46,21 +46,20 @@ void __83__LAContext_UI__evaluateAccessControl_operation_options_presentationCon
     {
       v4 = objc_alloc_init(LAContextUIHelper);
       [WeakRetained setUiHelper:v4];
-      [WeakRetained addContextObserver:v4];
-      v5 = LA_LOG();
+      v5 = LA_LOG([WeakRetained addContextObserver:v4]);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = *(a1 + 80);
         v7 = *(a1 + 88);
         v8 = *(a1 + 40);
         *buf = 138544130;
-        v30 = v6;
-        v31 = 1024;
-        v32 = v7;
-        v33 = 2114;
-        v34 = v8;
-        v35 = 2112;
-        v36 = WeakRetained;
+        v29 = v6;
+        v30 = 1024;
+        v31 = v7;
+        v32 = 2114;
+        v33 = v8;
+        v34 = 2112;
+        v35 = WeakRetained;
         _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "evaluateAccessControl:%{public}@ operation:%d options:%{public}@ on %@", buf, 0x26u);
       }
 
@@ -79,25 +78,25 @@ void __83__LAContext_UI__evaluateAccessControl_operation_options_presentationCon
 
       v16 = v15;
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __83__LAContext_UI__evaluateAccessControl_operation_options_presentationContext_reply___block_invoke_3;
-      v22[3] = &unk_278A65548;
-      objc_copyWeak(v28, (a1 + 72));
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __83__LAContext_UI__evaluateAccessControl_operation_options_presentationContext_reply___block_invoke_3;
+      v21[3] = &unk_278A65548;
+      objc_copyWeak(v27, (a1 + 72));
       v17 = *(a1 + 40);
       v18 = *(a1 + 80);
-      v23 = v17;
-      v28[1] = v18;
-      v24 = v3;
+      v22 = v17;
+      v27[1] = v18;
+      v23 = v3;
       v19 = v11;
       v20 = *(a1 + 88);
-      v25 = v19;
-      v28[2] = v20;
-      v26 = *(a1 + 56);
-      v27 = *(a1 + 64);
-      [WeakRetained _validateAvailableMechanims:v16 completion:v22];
+      v24 = v19;
+      v27[2] = v20;
+      v25 = *(a1 + 56);
+      v26 = *(a1 + 64);
+      [WeakRetained _validateAvailableMechanims:v16 completion:v21];
 
-      objc_destroyWeak(v28);
+      objc_destroyWeak(v27);
     }
 
     else
@@ -105,28 +104,25 @@ void __83__LAContext_UI__evaluateAccessControl_operation_options_presentationCon
       [WeakRetained evaluateAccessControl:*(a1 + 80) operation:*(a1 + 88) options:*(a1 + 40) reply:*(a1 + 64)];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __83__LAContext_UI__evaluateAccessControl_operation_options_presentationContext_reply___block_invoke_3(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v4 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = *(a1 + 56);
-    [WeakRetained _authenticateWithOptions:*(a1 + 32) acl:*(a1 + 80) availableMechanisms:v6 hostVC:*(a1 + 40) context:*(a1 + 48) operation:*(a1 + 88) updatedOptions:v5 reply:*(a1 + 64)];
+    [WeakRetained _authenticateWithOptions:*(a1 + 32) acl:*(a1 + 80) availableMechanisms:v5 hostVC:*(a1 + 40) context:*(a1 + 48) operation:*(a1 + 88) updatedOptions:*(a1 + 56) reply:*(a1 + 64)];
   }
 }
 
 void __112__LAContext_UI___authenticateWithOptions_acl_availableMechanisms_hostVC_context_operation_updatedOptions_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LA_LOG();
+  v7 = LA_LOG(v6);
   if (v6)
   {
     v8 = LALogTypeForInternalError();
@@ -147,11 +143,11 @@ void __112__LAContext_UI___authenticateWithOptions_acl_availableMechanisms_hostV
       v11 = v6;
     }
 
-    v15 = 138412546;
-    v16 = WeakRetained;
-    v17 = 2114;
-    v18 = v11;
-    _os_log_impl(&dword_238BCD000, v7, v8, "evaluateAccessControl on %@ finished %{public}@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = WeakRetained;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_238BCD000, v7, v8, "evaluateAccessControl on %@ finished %{public}@", &v14, 0x16u);
   }
 
   v12 = objc_loadWeakRetained((a1 + 48));
@@ -168,8 +164,6 @@ void __112__LAContext_UI___authenticateWithOptions_acl_availableMechanisms_hostV
       [v12 evaluateAccessControl:*(a1 + 56) operation:*(a1 + 64) options:*(a1 + 32) reply:*(a1 + 40)];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56__LAContext_UI___validateAvailableMechanims_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -188,17 +182,15 @@ void __56__LAContext_UI___validateAvailableMechanims_completion___block_invoke_2
 {
   if (*(a1 + 48) == 1)
   {
-    v3 = *(a1 + 32);
-    v2 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    v4();
+    v2();
   }
 
   else
   {
-    v5 = [*(a1 + 32) mutableCopy];
-    [v5 removeObject:&unk_284B87660];
+    v3 = [*(a1 + 32) mutableCopy];
+    [v3 removeObject:&unk_284B87660];
     (*(*(a1 + 40) + 16))();
   }
 }

@@ -9,56 +9,54 @@
 
 - (id)activeAccounts
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_simulatedAccountsPerService;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v15, v19, 16);
-  if (v6)
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v8 = v6;
-    v9 = *v16;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v9)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = objc_msgSend_objectForKey_(self->_simulatedAccountsPerService, v7, *(*(&v15 + 1) + 8 * i), v15);
-        objc_msgSend_addObjectsFromArray_(v3, v12, v11);
+        v9 = [(NSMutableDictionary *)self->_simulatedAccountsPerService objectForKey:*(*(&v11 + 1) + 8 * i), v11];
+        [v3 addObjectsFromArray:v9];
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v15, v19, 16);
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)activeIMessageAccount
 {
-  v2 = objc_msgSend_objectForKey_(self->_simulatedAccountsPerService, a2, *MEMORY[0x1E69A7AF0]);
-  v5 = objc_msgSend_firstObject(v2, v3, v4);
+  v2 = [(NSMutableDictionary *)self->_simulatedAccountsPerService objectForKey:*MEMORY[0x1E69A7AF0]];
+  firstObject = [v2 firstObject];
 
-  return v5;
+  return firstObject;
 }
 
 - (id)activeSMSAccount
 {
-  v2 = objc_msgSend_objectForKey_(self->_simulatedAccountsPerService, a2, *MEMORY[0x1E69A7AE0]);
-  v5 = objc_msgSend_firstObject(v2, v3, v4);
+  v2 = [(NSMutableDictionary *)self->_simulatedAccountsPerService objectForKey:*MEMORY[0x1E69A7AE0]];
+  firstObject = [v2 firstObject];
 
-  return v5;
+  return firstObject;
 }
 
 - (IMSimulatedAccountController)init

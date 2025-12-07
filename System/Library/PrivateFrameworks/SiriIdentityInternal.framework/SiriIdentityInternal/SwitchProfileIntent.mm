@@ -25,14 +25,15 @@
 
 - (SwitchProfileIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_266E9D024();
+  v6 = sub_266E9D024();
+  v8 = v7;
   sub_266E9D024();
   if (name)
   {
     sub_266E9CFC4();
   }
 
-  return SwitchProfileIntent.init(domain:verb:parametersByName:)();
+  return SwitchProfileIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

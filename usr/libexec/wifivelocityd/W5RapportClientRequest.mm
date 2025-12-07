@@ -13,30 +13,32 @@
   v12 = sub_100098A04();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 136316418;
-    v22 = "[W5RapportClientRequest initWithPayload:options:handler:]";
-    v23 = 2080;
-    v24 = "W5RapportClientRequest.m";
-    v25 = 1024;
-    v26 = 18;
-    v27 = 2114;
-    v28 = optionsCopy;
-    v29 = 2114;
-    v30 = payloadCopy;
-    v31 = 2114;
-    v32 = objc_retainBlock(handlerCopy);
-    _os_log_send_and_compose_impl();
+    v13 = objc_retainBlock(handlerCopy);
+    v24 = 136316418;
+    v25 = "[W5RapportClientRequest initWithPayload:options:handler:]";
+    v26 = 2080;
+    v27 = "W5RapportClientRequest.m";
+    v28 = 1024;
+    v29 = 18;
+    v30 = 2114;
+    v31 = optionsCopy;
+    v32 = 2114;
+    v33 = payloadCopy;
+    v34 = 2114;
+    v35 = v13;
+    v22 = 58;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) options=%{public}@, response=%{public}@, handler=%{public}@", &v24, v22);
   }
 
-  v20.receiver = self;
-  v20.super_class = W5RapportClientRequest;
-  v13 = [(W5RapportClientRequest *)&v20 init];
-  v14 = v13;
-  if (v13 && (objc_storeStrong(&v13->_payload, payload), v15 = objc_retainBlock(handlerCopy), handler = v14->_handler, v14->_handler = v15, handler, v14->_handler))
+  v23.receiver = self;
+  v23.super_class = W5RapportClientRequest;
+  v14 = [(W5RapportClientRequest *)&v23 init];
+  v15 = v14;
+  if (v14 && (objc_storeStrong(&v14->_payload, payload), v16 = objc_retainBlock(handlerCopy), handler = v15->_handler, v15->_handler = v16, handler, v15->_handler))
   {
-    v17 = optionsCopy;
-    p_super = &v14->_options->super;
-    v14->_options = v17;
+    v18 = optionsCopy;
+    p_super = &v15->_options->super;
+    v15->_options = v18;
   }
 
   else
@@ -45,19 +47,20 @@
     p_super = sub_100098A04();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315650;
-      v22 = "[W5RapportClientRequest initWithPayload:options:handler:]";
-      v23 = 2080;
-      v24 = "W5RapportClientRequest.m";
-      v25 = 1024;
-      v26 = 34;
-      _os_log_send_and_compose_impl();
+      v24 = 136315650;
+      v25 = "[W5RapportClientRequest initWithPayload:options:handler:]";
+      v26 = 2080;
+      v27 = "W5RapportClientRequest.m";
+      v28 = 1024;
+      v29 = 34;
+      LODWORD(v21) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, p_super, 0, "[wifivelocity] %s (%s:%u) init error!", &v24, v21, LODWORD(v23.receiver));
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (NSString)description

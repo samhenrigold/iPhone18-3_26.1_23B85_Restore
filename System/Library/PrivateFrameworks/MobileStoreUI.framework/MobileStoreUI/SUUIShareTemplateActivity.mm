@@ -28,7 +28,7 @@
 - (id)activityImage
 {
   activityType = [(SUUIShareSheetActivityViewElement *)self->_viewElement activityType];
-  if ([activityType isEqualToString:@"gift"])
+  if (objc_msgSend_isEqualToString_(activityType))
   {
     v3 = @"ShareSheetGift";
 LABEL_5:
@@ -38,7 +38,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([activityType isEqualToString:@"wishlist"])
+  if (objc_msgSend_isEqualToString_(activityType))
   {
     v3 = @"ShareSheetWishList";
     goto LABEL_5;
@@ -53,9 +53,9 @@ LABEL_7:
 - (id)activityTitle
 {
   activityType = [(SUUIShareSheetActivityViewElement *)self->_viewElement activityType];
-  if (![activityType isEqualToString:@"gift"])
+  if (!objc_msgSend_isEqualToString_(activityType))
   {
-    if (![activityType isEqualToString:@"wishlist"])
+    if (!objc_msgSend_isEqualToString_(activityType))
     {
       v7 = 0;
       goto LABEL_13;
@@ -94,12 +94,12 @@ LABEL_13:
 - (id)activityType
 {
   activityType = [(SUUIShareSheetActivityViewElement *)self->_viewElement activityType];
-  if ([activityType isEqualToString:@"gift"])
+  if (objc_msgSend_isEqualToString_(activityType))
   {
     v3 = @"SUUIActivityTypeGift";
   }
 
-  else if ([activityType isEqualToString:@"wishlist"])
+  else if (objc_msgSend_isEqualToString_(activityType))
   {
     v3 = @"SUUIActivityTypeWishlist";
   }

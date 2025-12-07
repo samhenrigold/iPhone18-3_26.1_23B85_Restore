@@ -242,27 +242,24 @@
 
 - (void)writeTo:(id)to
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   toCopy = to;
-  tileLatitudeE7 = self->_tileLatitudeE7;
   PBDataWriterWriteSfixed32Field();
-  tileLongitudeE7 = self->_tileLongitudeE7;
   PBDataWriterWriteSfixed32Field();
   if (self->_deltaLatitudes.count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (self->_deltaLatitudes.count)
     {
-      v7 = 0;
+      v5 = 0;
       do
       {
-        v8 = self->_deltaLatitudes.list[v7];
         PBDataWriterWriteInt32Field();
-        ++v7;
+        ++v5;
       }
 
-      while (v7 < self->_deltaLatitudes.count);
+      while (v5 < self->_deltaLatitudes.count);
     }
 
     PBDataWriterRecallMark();
@@ -270,19 +267,18 @@
 
   if (self->_deltaLongitudes.count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (self->_deltaLongitudes.count)
     {
-      v9 = 0;
+      v6 = 0;
       do
       {
-        v10 = self->_deltaLongitudes.list[v9];
         PBDataWriterWriteInt32Field();
-        ++v9;
+        ++v6;
       }
 
-      while (v9 < self->_deltaLongitudes.count);
+      while (v6 < self->_deltaLongitudes.count);
     }
 
     PBDataWriterRecallMark();
@@ -290,19 +286,18 @@
 
   if (self->_adamIds.count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (self->_adamIds.count)
     {
-      v11 = 0;
+      v7 = 0;
       do
       {
-        v12 = self->_adamIds.list[v11];
         PBDataWriterWriteUint32Field();
-        ++v11;
+        ++v7;
       }
 
-      while (v11 < self->_adamIds.count);
+      while (v7 < self->_adamIds.count);
     }
 
     PBDataWriterRecallMark();
@@ -310,19 +305,18 @@
 
   if (self->_isTouristApps.count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (self->_isTouristApps.count)
     {
-      v13 = 0;
+      v8 = 0;
       do
       {
-        v14 = self->_isTouristApps.list[v13];
         PBDataWriterWriteBOOLField();
-        ++v13;
+        ++v8;
       }
 
-      while (v13 < self->_isTouristApps.count);
+      while (v8 < self->_isTouristApps.count);
     }
 
     PBDataWriterRecallMark();
@@ -330,19 +324,18 @@
 
   if (self->_ranks.count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (self->_ranks.count)
     {
-      v15 = 0;
+      v9 = 0;
       do
       {
-        v16 = self->_ranks.list[v15];
         PBDataWriterWriteUint32Field();
-        ++v15;
+        ++v9;
       }
 
-      while (v15 < self->_ranks.count);
+      while (v9 < self->_ranks.count);
     }
 
     PBDataWriterRecallMark();
@@ -350,104 +343,104 @@
 
   if (self->_radius.count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (self->_radius.count)
     {
-      v17 = 0;
+      v10 = 0;
       do
       {
-        v18 = self->_radius.list[v17];
         PBDataWriterWriteUint32Field();
-        ++v17;
+        ++v10;
       }
 
-      while (v17 < self->_radius.count);
+      while (v10 < self->_radius.count);
     }
 
     PBDataWriterRecallMark();
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v19 = self->_urlHashs;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v39 objects:v45 count:16];
-  if (v20)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v11 = self->_urlHashs;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  if (v12)
   {
-    v21 = v20;
-    v22 = *v40;
+    v13 = v12;
+    v14 = *v28;
     do
     {
-      for (i = 0; i != v21; ++i)
+      v15 = 0;
+      do
       {
-        if (*v40 != v22)
+        if (*v28 != v14)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v11);
         }
 
-        v24 = *(*(&v39 + 1) + 8 * i);
         PBDataWriterWriteDataField();
+        ++v15;
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v13);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v25 = self->_poiCategorys;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v35 objects:v44 count:16];
-  if (v26)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v16 = self->_poiCategorys;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v32 count:16];
+  if (v17)
   {
-    v27 = v26;
-    v28 = *v36;
+    v18 = v17;
+    v19 = *v24;
     do
     {
-      for (j = 0; j != v27; ++j)
+      v20 = 0;
+      do
       {
-        if (*v36 != v28)
+        if (*v24 != v19)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v16);
         }
 
-        v30 = *(*(&v35 + 1) + 8 * j);
         PBDataWriterWriteStringField();
+        ++v20;
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      while (v18 != v20);
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v32 count:16];
     }
 
-    while (v27);
+    while (v18);
   }
 
   p_muids = &self->_muids;
   if (p_muids->count)
   {
-    v43 = 0;
+    v31 = 0;
     PBDataWriterPlaceMark();
     if (p_muids->count)
     {
-      v32 = 0;
+      v22 = 0;
       do
       {
-        v33 = p_muids->list[v32];
         PBDataWriterWriteUint64Field();
-        ++v32;
+        ++v22;
       }
 
-      while (v32 < p_muids->count);
+      while (v22 < p_muids->count);
     }
 
     PBDataWriterRecallMark();
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -587,7 +580,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v5[46] = self->_tileLatitudeE7;
   v5[47] = self->_tileLongitudeE7;
@@ -597,74 +590,73 @@
   PBRepeatedBOOLCopy();
   PBRepeatedUInt32Copy();
   PBRepeatedUInt32Copy();
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v6 = self->_urlHashs;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       v10 = 0;
       do
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v24 + 1) + 8 * v10) copyWithZone:zone];
+        v11 = [*(*(&v23 + 1) + 8 * v10) copyWithZone:zone];
         [v5 addUrlHash:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = self->_poiCategorys;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       v16 = 0;
       do
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * v16) copyWithZone:{zone, v20}];
+        v17 = [*(*(&v19 + 1) + 8 * v16) copyWithZone:{zone, v19}];
         [v5 addPoiCategory:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v14);
   }
 
   PBRepeatedUInt64Copy();
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -700,7 +692,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   self->_tileLatitudeE7 = *(fromCopy + 46);
   self->_tileLongitudeE7 = *(fromCopy + 47);
@@ -764,61 +756,61 @@
     }
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v23 = *(fromCopy + 24);
-  v24 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v42;
+    v26 = *v41;
     do
     {
       v27 = 0;
       do
       {
-        if (*v42 != v26)
+        if (*v41 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        [(ATXHeroEntriesPb *)self addUrlHash:*(*(&v41 + 1) + 8 * v27++)];
+        [(ATXHeroEntriesPb *)self addUrlHash:*(*(&v40 + 1) + 8 * v27++)];
       }
 
       while (v25 != v27);
-      v25 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v25);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v28 = *(fromCopy + 22);
-  v29 = [v28 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v38;
+    v31 = *v37;
     do
     {
       v32 = 0;
       do
       {
-        if (*v38 != v31)
+        if (*v37 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        [(ATXHeroEntriesPb *)self addPoiCategory:*(*(&v37 + 1) + 8 * v32++), v37];
+        [(ATXHeroEntriesPb *)self addPoiCategory:*(*(&v36 + 1) + 8 * v32++), v36];
       }
 
       while (v30 != v32);
-      v30 = [v28 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v30);
@@ -830,11 +822,9 @@
     v34 = muidsCount;
     for (jj = 0; jj != v34; ++jj)
     {
-      -[ATXHeroEntriesPb addMuid:](self, "addMuid:", [fromCopy muidAtIndex:{jj, v37}]);
+      -[ATXHeroEntriesPb addMuid:](self, "addMuid:", [fromCopy muidAtIndex:{jj, v36}]);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 @end

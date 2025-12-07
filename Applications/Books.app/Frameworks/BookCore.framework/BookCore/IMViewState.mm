@@ -59,7 +59,7 @@ LABEL_4:
   view = v9->_view;
   if (view)
   {
-    [(UIView *)view transform];
+    objc_msgSend_transform(view);
     flags = v9->_flags;
   }
 

@@ -7,32 +7,30 @@
 
 + (id)makeVoiceManagementViewControllerWithVoiceID:(id)d voiceName:(id)name dismissCallback:(id)callback
 {
-  v7 = type metadata accessor for VoiceManagementView();
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8, v9);
-  v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_26EF37EDC();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v16 = MEMORY[0x28223BE20](v12, v15);
-  v18 = &v28 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16, v19);
-  v21 = &v28 - v20;
-  v22 = _Block_copy(callback);
+  v7 = type metadata accessor for VoiceManagementView(0);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_26EF37EDC();
+  v11 = *(v10 - 8);
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = &v23 - v15;
+  v17 = _Block_copy(callback);
   sub_26EF37EBC();
-  v23 = swift_allocObject();
-  *(v23 + 16) = v22;
-  (*(v13 + 16))(v18, v21, v12);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
+  (*(v11 + 16))(v14, v16, v10);
   nameCopy = name;
 
-  VoiceManagementView.init(voiceID:dismissCallback:)(v18, sub_26EEB15E8, v23, v11);
-  v25 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2806C8B98, &unk_26EF417E0));
-  v26 = sub_26EF39F8C();
-  [v26 setTitle_];
+  VoiceManagementView.init(voiceID:dismissCallback:)(v14, sub_26EEB15E8, v18, v9);
+  v20 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2806C8B98, &unk_26EF417E0));
+  v21 = sub_26EF39F8C();
+  [v21 setTitle_];
 
-  (*(v13 + 8))(v21, v12);
+  (*(v11 + 8))(v16, v10);
 
-  return v26;
+  return v21;
 }
 
 - (VoiceManagementViewBridge)init

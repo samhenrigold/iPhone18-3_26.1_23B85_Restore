@@ -180,54 +180,52 @@ void __49__TPSTelephonyController_setActiveSubscriptions___block_invoke(uint64_t
 
 void __49__TPSTelephonyController_setActiveSubscriptions___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
           v9 = [v8 objectForKey:v7];
 
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __49__TPSTelephonyController_setActiveSubscriptions___block_invoke_3;
-          v12[3] = &unk_2782E39D0;
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __49__TPSTelephonyController_setActiveSubscriptions___block_invoke_3;
+          v11[3] = &unk_2782E39D0;
           v10 = *(a1 + 32);
-          v12[4] = v7;
-          v12[5] = v10;
-          dispatch_async(v9, v12);
+          v11[4] = v7;
+          v11[5] = v10;
+          dispatch_async(v9, v11);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSOrderedSet)subscriptions
@@ -310,54 +308,52 @@ void __43__TPSTelephonyController_setSubscriptions___block_invoke(uint64_t a1)
 
 void __43__TPSTelephonyController_setSubscriptions___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
           v9 = [v8 objectForKey:v7];
 
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __43__TPSTelephonyController_setSubscriptions___block_invoke_3;
-          v12[3] = &unk_2782E39D0;
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __43__TPSTelephonyController_setSubscriptions___block_invoke_3;
+          v11[3] = &unk_2782E39D0;
           v10 = *(a1 + 32);
-          v12[4] = v7;
-          v12[5] = v10;
-          dispatch_async(v9, v12);
+          v11[4] = v7;
+          v11[5] = v10;
+          dispatch_async(v9, v11);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)systemCapabilities
@@ -425,7 +421,7 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
     v6 = *(v5 + 48);
     *(v5 + 48) = v4;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v4, v6);
   }
 
   return result;
@@ -447,9 +443,9 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
 {
   contextCopy = context;
   telephonyClient = [(TPSTelephonyController *)self telephonyClient];
-  v12 = 0;
-  v6 = [telephonyClient isNetworkSelectionMenuAvailable:contextCopy error:&v12];
-  v7 = v12;
+  v14 = 0;
+  v6 = [telephonyClient isNetworkSelectionMenuAvailable:contextCopy error:&v14];
+  v7 = v14;
 
   if (!v6)
   {
@@ -457,8 +453,8 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
 
     if (domain)
     {
-      v9 = TPSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = TPSLog(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [TPSTelephonyController supportsCellularNetworkSelectionForSubscriptionContext:];
       }
@@ -472,8 +468,8 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
 
 - (id)fetchNonHiddenSubscriptions
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v2 = TPSLog();
+  v34 = *MEMORY[0x277D85DE8];
+  v2 = TPSLog(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -483,56 +479,57 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
   }
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2050000000;
+  v22 = 0u;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
   v5 = getPSSimStatusCacheClass_softClass_0;
-  v27 = getPSSimStatusCacheClass_softClass_0;
+  v28 = getPSSimStatusCacheClass_softClass_0;
   if (!getPSSimStatusCacheClass_softClass_0)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v30 = __getPSSimStatusCacheClass_block_invoke_0;
-    v31 = &unk_2782E3900;
-    v32 = &v24;
+    v31 = __getPSSimStatusCacheClass_block_invoke_0;
+    v32 = &unk_2782E3900;
+    v33 = &v25;
     __getPSSimStatusCacheClass_block_invoke_0(&buf);
-    v5 = v25[3];
+    v5 = v26[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
   sharedInstance = [v5 sharedInstance];
   subscriptionsInUse = [sharedInstance subscriptionsInUse];
 
-  v9 = [subscriptionsInUse countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v9 = [subscriptionsInUse countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v9)
   {
-    v11 = *v21;
+    v11 = *v22;
     *&v10 = 138412290;
-    v19 = v10;
+    v20 = v10;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(subscriptionsInUse);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        if ([v13 isSimHidden])
+        v13 = *(*(&v21 + 1) + 8 * i);
+        isSimHidden = [v13 isSimHidden];
+        if (isSimHidden)
         {
-          v14 = TPSLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v16 = TPSLog(isSimHidden, v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             uuid = [v13 uuid];
-            LODWORD(buf) = v19;
+            LODWORD(buf) = v20;
             *(&buf + 4) = uuid;
-            _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Subscription: %@ is hidden", &buf, 0xCu);
+            _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "Subscription: %@ is hidden", &buf, 0xCu);
           }
         }
 
@@ -542,16 +539,15 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
         }
       }
 
-      v9 = [subscriptionsInUse countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v9 = [subscriptionsInUse countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v9);
   }
 
-  v16 = [v4 copy];
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = [v4 copy];
 
-  return v16;
+  return v18;
 }
 
 - (id)fetchSubscriptions
@@ -588,30 +584,30 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
 
 - (id)fetchSystemCapabilitiesForSubscriptions:(id)subscriptions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   subscriptionsCopy = subscriptions;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = subscriptionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [(TPSTelephonyController *)self systemCapabilitiesForSubscriptionContext:v11, v17];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [(TPSTelephonyController *)self systemCapabilitiesForSubscriptionContext:v11, v16];
         if (v12)
         {
           uuid = [v11 uuid];
@@ -619,14 +615,13 @@ void *__48__TPSTelephonyController_setSystemCapabilities___block_invoke(uint64_t
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -670,9 +665,9 @@ LABEL_8:
 - (id)systemCapabilitiesForSubscriptionContext:(id)context
 {
   contextCopy = context;
-  v11 = 0;
-  v5 = [(TPSTelephonyController *)self systemCapabilitiesForSubscriptionContext:contextCopy error:&v11];
-  v6 = v11;
+  v13 = 0;
+  v5 = [(TPSTelephonyController *)self systemCapabilitiesForSubscriptionContext:contextCopy error:&v13];
+  v6 = v13;
   v7 = v6;
   if (!v5)
   {
@@ -680,8 +675,8 @@ LABEL_8:
 
     if (domain)
     {
-      v9 = TPSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = TPSLog(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [TPSTelephonyController systemCapabilitiesForSubscriptionContext:];
       }
@@ -702,7 +697,7 @@ LABEL_8:
 
 - (void)context:(id)context capabilitiesChanged:(id)changed
 {
-  v5 = TPSLog();
+  v5 = TPSLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -712,22 +707,6 @@ LABEL_8:
   subscriptions = [(TPSTelephonyController *)self subscriptions];
   v7 = [(TPSTelephonyController *)self fetchSystemCapabilitiesForSubscriptions:subscriptions];
   [(TPSTelephonyController *)self setSystemCapabilities:v7];
-}
-
-- (void)supportsCellularNetworkSelectionForSubscriptionContext:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21B8E9000, v0, v1, "Retrieving cellular network selection information failed with error %@ for %@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)systemCapabilitiesForSubscriptionContext:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21B8E9000, v0, v1, "Retrieving system capability information failed with error %@ for %@.");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

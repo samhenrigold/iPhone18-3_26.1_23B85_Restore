@@ -118,9 +118,9 @@ void __40__WBSGeneratedPasswordStore_sharedStore__block_invoke()
 {
   if (!self->_cachedGeneratedPasswords)
   {
-    v21 = v2;
-    v22 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXPasswords();
+    v23 = v2;
+    v24 = v3;
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswords(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -145,20 +145,20 @@ void __40__WBSGeneratedPasswordStore_sharedStore__block_invoke()
     if (v15)
     {
       queue = self->_queue;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __42__WBSGeneratedPasswordStore__loadIfNeeded__block_invoke_2;
-      v18[3] = &unk_1E7CF1708;
-      v18[4] = self;
-      v19 = v10;
-      dispatch_async(queue, v18);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __42__WBSGeneratedPasswordStore__loadIfNeeded__block_invoke_2;
+      v20[3] = &unk_1E7CF1708;
+      v20[4] = self;
+      v21 = v10;
+      dispatch_async(queue, v20);
     }
 
-    v17 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = WBS_LOG_CHANNEL_PREFIXPasswords(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v17, OS_LOG_TYPE_DEFAULT, "Finished reloading generated passwords store", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v19, OS_LOG_TYPE_DEFAULT, "Finished reloading generated passwords store", buf, 2u);
     }
   }
 }
@@ -210,35 +210,37 @@ void __33__WBSGeneratedPasswordStore_init__block_invoke(uint64_t a1)
 void __33__WBSGeneratedPasswordStore_init__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswords(WeakRetained, v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEFAULT, "Generated passwords store received Keychain update notification", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEFAULT, "Generated passwords store received Keychain update notification", buf, 2u);
     }
 
-    if (WeakRetained[32] == 1)
+    if (v4[32] == 1)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v8 = WBS_LOG_CHANNEL_PREFIXPasswords(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B8447000, v4, OS_LOG_TYPE_DEFAULT, "Generated passwords store is ignoring Keychain update notifications", buf, 2u);
+        _os_log_impl(&dword_1B8447000, v8, OS_LOG_TYPE_DEFAULT, "Generated passwords store is ignoring Keychain update notifications", buf, 2u);
       }
     }
 
     else
     {
-      [WeakRetained _reset];
+      [v4 _reset];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __33__WBSGeneratedPasswordStore_init__block_invoke_10;
       block[3] = &unk_1E7CF15E8;
-      objc_copyWeak(&v6, (a1 + 32));
+      objc_copyWeak(&v10, (a1 + 32));
       dispatch_async(MEMORY[0x1E69E96A0], block);
-      objc_destroyWeak(&v6);
+      objc_destroyWeak(&v10);
     }
   }
 }
@@ -279,94 +281,97 @@ void __42__WBSGeneratedPasswordStore__loadIfNeeded__block_invoke_2(uint64_t a1)
 
 - (void)_purgeExpiredPasswordsOnInternalQueue:(id)queue
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
-  if ([queueCopy count])
+  v5 = [queueCopy count];
+  if (v5)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXPasswords(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEFAULT, "Purging expired generated passwords", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_DEFAULT, "Purging expired generated passwords", buf, 2u);
     }
 
     safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-    v7 = [safari_browserDefaults valueForKey:@"DebugGeneratedPasswordsExpirationTimeInMinutes"];
+    v9 = [safari_browserDefaults valueForKey:@"DebugGeneratedPasswordsExpirationTimeInMinutes"];
 
-    if (v7)
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v12 = WBS_LOG_CHANNEL_PREFIXPasswords(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v7;
-        _os_log_impl(&dword_1B8447000, v8, OS_LOG_TYPE_DEFAULT, "Removing debug generated passwords limit of %@ minutes", buf, 0xCu);
+        v38 = v9;
+        _os_log_impl(&dword_1B8447000, v12, OS_LOG_TYPE_DEFAULT, "Removing debug generated passwords limit of %@ minutes", buf, 0xCu);
       }
 
       safari_browserDefaults2 = [MEMORY[0x1E695E000] safari_browserDefaults];
       [safari_browserDefaults2 removeObjectForKey:@"DebugGeneratedPasswordsExpirationTimeInMinutes"];
     }
 
-    v24 = v7;
+    v30 = v9;
     selfCopy = self;
     self->_shouldIgnoreKeychainUpdates = 1;
     mEMORY[0x1E695AC50] = [MEMORY[0x1E695AC50] sharedCredentialStorage];
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v26 = queueCopy;
-    v11 = queueCopy;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
-    if (v12)
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v32 = queueCopy;
+    v15 = queueCopy;
+    v16 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    if (v16)
     {
-      v13 = v12;
-      v14 = *v28;
+      v18 = v16;
+      v19 = *v34;
       do
       {
-        for (i = 0; i != v13; ++i)
+        v20 = 0;
+        do
         {
-          if (*v28 != v14)
+          if (*v34 != v19)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v15);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
-          v17 = WBS_LOG_CHANNEL_PREFIXPasswords();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v21 = *(*(&v33 + 1) + 8 * v20);
+          v22 = WBS_LOG_CHANNEL_PREFIXPasswords(v16, v17);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = v17;
-            generationDate = [v16 generationDate];
-            protectionSpace = [v16 protectionSpace];
+            v23 = v22;
+            generationDate = [v21 generationDate];
+            protectionSpace = [v21 protectionSpace];
             host = [protectionSpace host];
             *buf = 138412546;
-            v32 = generationDate;
-            v33 = 2112;
-            v34 = host;
-            _os_log_impl(&dword_1B8447000, v18, OS_LOG_TYPE_DEFAULT, "Removing password generated on %@ for host %@", buf, 0x16u);
+            v38 = generationDate;
+            v39 = 2112;
+            v40 = host;
+            _os_log_impl(&dword_1B8447000, v23, OS_LOG_TYPE_DEFAULT, "Removing password generated on %@ for host %@", buf, 0x16u);
           }
 
-          [mEMORY[0x1E695AC50] safari_deleteGeneratedPassword:v16];
+          v16 = [mEMORY[0x1E695AC50] safari_deleteGeneratedPassword:v21];
+          ++v20;
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        while (v18 != v20);
+        v16 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v18 = v16;
       }
 
-      while (v13);
+      while (v16);
     }
 
     selfCopy->_shouldIgnoreKeychainUpdates = 0;
-    v22 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v29 = WBS_LOG_CHANNEL_PREFIXPasswords(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v22, OS_LOG_TYPE_DEFAULT, "Finished purging expired generated passwords", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v29, OS_LOG_TYPE_DEFAULT, "Finished purging expired generated passwords", buf, 2u);
     }
 
-    queueCopy = v26;
+    queueCopy = v32;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_generatedPasswordsFilteringExpiredPasswords:(id)passwords olderThanDate:(id)date
@@ -415,41 +420,42 @@ uint64_t __88__WBSGeneratedPasswordStore__generatedPasswordsFilteringExpiredPass
   passwordCopy = password;
   spaceCopy = space;
   handlerCopy = handler;
+  v14 = handlerCopy;
   if (!passwordCopy || !spaceCopy)
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXPasswords(handlerCopy, v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [WBSGeneratedPasswordStore addGeneratedPassword:forProtectionSpace:inPrivateBrowsingSession:completionHandler:];
-      if (!handlerCopy)
+      if (!v14)
       {
         goto LABEL_7;
       }
     }
 
-    else if (!handlerCopy)
+    else if (!v14)
     {
       goto LABEL_7;
     }
 
-    handlerCopy[2](handlerCopy, 0);
+    v14[2](v14, 0);
     goto LABEL_7;
   }
 
   objc_initWeak(&location, self);
   queue = self->_queue;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __112__WBSGeneratedPasswordStore_addGeneratedPassword_forProtectionSpace_inPrivateBrowsingSession_completionHandler___block_invoke;
-  v15[3] = &unk_1E7CF2010;
-  objc_copyWeak(&v19, &location);
-  v18 = handlerCopy;
-  v16 = passwordCopy;
-  v17 = spaceCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __112__WBSGeneratedPasswordStore_addGeneratedPassword_forProtectionSpace_inPrivateBrowsingSession_completionHandler___block_invoke;
+  v17[3] = &unk_1E7CF2010;
+  objc_copyWeak(&v21, &location);
+  v20 = v14;
+  v18 = passwordCopy;
+  v19 = spaceCopy;
   sessionCopy = session;
-  dispatch_async(queue, v15);
+  dispatch_async(queue, v17);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
 LABEL_7:
 }
@@ -486,24 +492,25 @@ void __112__WBSGeneratedPasswordStore_addGeneratedPassword_forProtectionSpace_in
   passwordCopy = password;
   withPasswordCopy = withPassword;
   handlerCopy = handler;
+  v12 = handlerCopy;
   if (!passwordCopy || !withPasswordCopy)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXPasswords(handlerCopy, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [WBSGeneratedPasswordStore updateGeneratedPassword:withPassword:completionHandler:];
-      if (!handlerCopy)
+      if (!v12)
       {
         goto LABEL_7;
       }
     }
 
-    else if (!handlerCopy)
+    else if (!v12)
     {
       goto LABEL_7;
     }
 
-    handlerCopy[2](handlerCopy, 0);
+    v12[2](v12, 0);
     goto LABEL_7;
   }
 
@@ -513,13 +520,13 @@ void __112__WBSGeneratedPasswordStore_addGeneratedPassword_forProtectionSpace_in
   block[1] = 3221225472;
   block[2] = __84__WBSGeneratedPasswordStore_updateGeneratedPassword_withPassword_completionHandler___block_invoke;
   block[3] = &unk_1E7CF2038;
-  objc_copyWeak(&v17, &location);
-  v16 = handlerCopy;
-  v14 = passwordCopy;
-  v15 = withPasswordCopy;
+  objc_copyWeak(&v19, &location);
+  v18 = v12;
+  v16 = passwordCopy;
+  v17 = withPasswordCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 LABEL_7:
 }
@@ -555,39 +562,40 @@ void __84__WBSGeneratedPasswordStore_updateGeneratedPassword_withPassword_comple
 {
   passwordCopy = password;
   handlerCopy = handler;
+  v9 = handlerCopy;
   if (!passwordCopy)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswords(handlerCopy, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [WBSGeneratedPasswordStore removeGeneratedPassword:v9 completionHandler:?];
-      if (!handlerCopy)
+      [WBSGeneratedPasswordStore removeGeneratedPassword:v11 completionHandler:?];
+      if (!v9)
       {
         goto LABEL_6;
       }
     }
 
-    else if (!handlerCopy)
+    else if (!v9)
     {
       goto LABEL_6;
     }
 
-    handlerCopy[2](handlerCopy);
+    v9[2](v9);
     goto LABEL_6;
   }
 
   objc_initWeak(&location, self);
   queue = self->_queue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __71__WBSGeneratedPasswordStore_removeGeneratedPassword_completionHandler___block_invoke;
-  v10[3] = &unk_1E7CF2060;
-  objc_copyWeak(&v13, &location);
-  v12 = handlerCopy;
-  v11 = passwordCopy;
-  dispatch_async(queue, v10);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__WBSGeneratedPasswordStore_removeGeneratedPassword_completionHandler___block_invoke;
+  v12[3] = &unk_1E7CF2060;
+  objc_copyWeak(&v15, &location);
+  v14 = v9;
+  v13 = passwordCopy;
+  dispatch_async(queue, v12);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 LABEL_6:
 }
@@ -635,82 +643,79 @@ void __71__WBSGeneratedPasswordStore_removeGeneratedPassword_completionHandler__
 
 void __80__WBSGeneratedPasswordStore_synchronouslyRemoveGeneratedPasswordsNewerThanDate___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x1E695DF00] distantPast];
   LODWORD(v2) = [v2 isEqualToDate:v3];
 
   if (v2)
   {
-    v4 = *(a1 + 40);
-    v5 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 40);
 
-    [v4 _removeAllGeneratedPasswordsOnInternalQueue];
+    [v6 _removeAllGeneratedPasswordsOnInternalQueue];
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXPasswords(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412290;
-      v28 = v7;
-      _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_DEFAULT, "Removing generated passwords newer than %@", buf, 0xCu);
+      v30 = v8;
+      _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_DEFAULT, "Removing generated passwords newer than %@", buf, 0xCu);
     }
 
     *(*(a1 + 40) + 32) = 1;
-    v8 = [MEMORY[0x1E695AC50] sharedCredentialStorage];
-    v9 = [v8 safari_allGeneratedPasswordItems];
-    v10 = [v9 safari_mapObjectsUsingBlock:&__block_literal_global_25_0];
+    v9 = [MEMORY[0x1E695AC50] sharedCredentialStorage];
+    v10 = [v9 safari_allGeneratedPasswordItems];
+    v11 = [v10 safari_mapObjectsUsingBlock:&__block_literal_global_25_0];
 
+    v26 = 0u;
+    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v12)
+    v12 = v11;
+    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v23;
+      v14 = v13;
+      v15 = *v25;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v14)
+          if (*v25 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * i);
-          v17 = [v16 generationDate];
-          v18 = [v17 laterDate:*(a1 + 32)];
-          v19 = *(a1 + 32);
+          v17 = *(*(&v24 + 1) + 8 * i);
+          v18 = [v17 generationDate];
+          v19 = [v18 laterDate:*(a1 + 32)];
+          v20 = *(a1 + 32);
 
-          if (v18 != v19)
+          if (v19 != v20)
           {
-            [v8 safari_deleteGeneratedPassword:v16];
+            [v9 safari_deleteGeneratedPassword:v17];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     *(*(a1 + 40) + 32) = 0;
-    v20 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v23 = WBS_LOG_CHANNEL_PREFIXPasswords(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v20, OS_LOG_TYPE_DEFAULT, "Finished removing generated passwords", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v23, OS_LOG_TYPE_DEFAULT, "Finished removing generated passwords", buf, 2u);
     }
 
     [*(a1 + 40) _reset];
-
-    v21 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -792,39 +797,39 @@ BOOL __74__WBSGeneratedPasswordStore_generatedPasswordsForProtectionSpace_option
 
 - (void)removeGeneratedPasswordMatchingSavedAccount:(id)account
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   [accountCopy protectionSpacesIncludingAdditionalSites];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = v20 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   v7 = v5;
   if (v6)
   {
     v8 = v6;
     selfCopy = self;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = +[WBSGeneratedPasswordStore sharedStore];
         v13 = [v12 generatedPasswordsForProtectionSpace:v11 options:1];
 
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __73__WBSGeneratedPasswordStore_removeGeneratedPasswordMatchingSavedAccount___block_invoke;
-        v16[3] = &unk_1E7CF20D8;
-        v17 = accountCopy;
-        v7 = [v13 safari_firstObjectPassingTest:v16];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __73__WBSGeneratedPasswordStore_removeGeneratedPasswordMatchingSavedAccount___block_invoke;
+        v15[3] = &unk_1E7CF20D8;
+        v16 = accountCopy;
+        v7 = [v13 safari_firstObjectPassingTest:v15];
 
         if (v7)
         {
@@ -834,7 +839,7 @@ BOOL __74__WBSGeneratedPasswordStore_generatedPasswordsForProtectionSpace_option
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -847,8 +852,6 @@ BOOL __74__WBSGeneratedPasswordStore_generatedPasswordsForProtectionSpace_option
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__WBSGeneratedPasswordStore_removeGeneratedPasswordMatchingSavedAccount___block_invoke(uint64_t a1, void *a2)
@@ -879,69 +882,67 @@ uint64_t __73__WBSGeneratedPasswordStore_removeGeneratedPasswordMatchingSavedAcc
 
 uint64_t __91__WBSGeneratedPasswordStore_clearGeneratedPasswordsMatchingSavedAccount_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) removeGeneratedPassword:*(*(&v9 + 1) + 8 * v6++) completionHandler:{0, v9}];
+        [*(a1 + 40) removeGeneratedPassword:*(*(&v8 + 1) + 8 * v6++) completionHandler:{0, v8}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (id)generatedPasswordsMatchingSavedAccount:(id)account
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   array = [MEMORY[0x1E695DF70] array];
   v5 = [MEMORY[0x1E695DFA8] set];
-  v18 = accountCopy;
+  v17 = accountCopy;
   protectionSpacesIncludingAdditionalSites = [accountCopy protectionSpacesIncludingAdditionalSites];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v7 = [protectionSpacesIncludingAdditionalSites countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [protectionSpacesIncludingAdditionalSites countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(protectionSpacesIncludingAdditionalSites);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         host = [v11 host];
         safari_highLevelDomainFromHost = [host safari_highLevelDomainFromHost];
 
@@ -955,13 +956,11 @@ uint64_t __91__WBSGeneratedPasswordStore_clearGeneratedPasswordsMatchingSavedAcc
         }
       }
 
-      v8 = [protectionSpacesIncludingAdditionalSites countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [protectionSpacesIncludingAdditionalSites countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -970,22 +969,6 @@ uint64_t __91__WBSGeneratedPasswordStore_clearGeneratedPasswordsMatchingSavedAcc
 {
   distantPast = [MEMORY[0x1E695DF00] distantPast];
   [(WBSGeneratedPasswordStore *)self synchronouslyRemoveGeneratedPasswordsNewerThanDate:distantPast];
-}
-
-- (void)addGeneratedPassword:forProtectionSpace:inPrivateBrowsingSession:completionHandler:.cold.1()
-{
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1B8447000, v0, v1, "Attempted to add a generated password record with a nil password or protectionSpace: password=%p protectionSpace=%p", v3, v4);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateGeneratedPassword:withPassword:completionHandler:.cold.1()
-{
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1B8447000, v0, v1, "Attempted to update a generated password record with a nil generated password or new password: generatedPassword=%p password=%p", v3, v4);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

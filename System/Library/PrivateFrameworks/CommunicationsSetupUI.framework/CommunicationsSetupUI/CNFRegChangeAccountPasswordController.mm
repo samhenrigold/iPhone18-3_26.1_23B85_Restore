@@ -107,7 +107,7 @@ LABEL_11:
 
 - (id)overrideURLForURL:(id)l
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   lCopy = l;
   appleID = [(CNFRegChangeAccountPasswordController *)self appleID];
   v6 = appleID;
@@ -123,23 +123,21 @@ LABEL_11:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v14 = v6;
+          v13 = v6;
           _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Appending login {%@} to password change URL", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
         {
-          v12 = v6;
+          v11 = v6;
           IMLogString();
         }
       }
 
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v6 forKey:{@"appleId", v12}];
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v6 forKey:{@"appleId", v11}];
       v7 = [lCopy URLByAppendingCNFQueryDictionary:v9];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -153,8 +153,8 @@ void __99__PLManagedObjectValidator_validateAllObjectsWithEntityClass_inManagedO
   [(PLManagedObjectValidationResult *)v4 setStatus:1];
   v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  entity = [objectCopy entity];
-  attributesByName = [entity attributesByName];
+  v5 = objc_msgSend_entity(objectCopy);
+  attributesByName = [v5 attributesByName];
   allKeys = [attributesByName allKeys];
 
   attributeValidationRules = [objc_opt_class() attributeValidationRules];

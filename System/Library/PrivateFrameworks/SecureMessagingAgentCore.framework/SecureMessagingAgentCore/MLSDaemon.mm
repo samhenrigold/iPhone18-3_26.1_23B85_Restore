@@ -23,12 +23,13 @@
   v16 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v18 = v17;
 
-  *(swift_allocObject() + 16) = v10;
-  MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(client, v13, v15, v16, v18);
+  v19 = swift_allocObject();
+  *(v19 + 16) = v10;
+  MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(client, v13, v15, v16, v18, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v19);
 
   outlined consume of Data._Representation(v16, v18);
   outlined consume of Data._Representation(v13, v15);
-  swift_unknownObjectRelease();
+  swift_unknownObjectRelease(client, v20, v21, v22, v23, v24, v25, v26);
 }
 
 - (void)selfKeyPackageWithUniqueClientIdentifier:(id)identifier completion:(id)completion
@@ -39,8 +40,9 @@
   v8 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = v9;
 
-  *(swift_allocObject() + 16) = v6;
-  MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(v8, v10);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v6;
+  MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(v8, v10, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v11);
 
   outlined consume of Data._Representation(v8, v10);
 }
@@ -65,8 +67,9 @@
   v26 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v28 = v27;
 
-  *(swift_allocObject() + 16) = v12;
-  MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)(v17, v19, v20, v22, v23, v25, v26, v28);
+  v29 = swift_allocObject();
+  *(v29 + 16) = v12;
+  MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)(v17, v19, v20, v22, v23, v25, v26, v28, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v29);
 
   outlined consume of Data._Representation(v26, v28);
   outlined consume of Data._Representation(v23, v25);
@@ -76,7 +79,7 @@
 
 - (void)joinGroupWithUniqueClientIdentifier:(id)identifier identifier:(id)a4 otherMembers:(id)members welcome:(id)welcome groupCreationContext:(id)context completion:(id)completion
 {
-  v36 = _Block_copy(completion);
+  v37 = _Block_copy(completion);
   identifierCopy = identifier;
   v15 = a4;
   membersCopy = members;
@@ -87,8 +90,8 @@
   v21 = v20;
 
   v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v34 = v23;
-  v35 = v22;
+  v35 = v23;
+  v36 = v22;
 
   v24 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v26 = v25;
@@ -98,12 +101,13 @@
 
   v30 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v32 = v31;
-  v33 = v31;
+  v34 = v31;
 
-  *(swift_allocObject() + 16) = v36;
-  MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)(v19, v21, v35, v34, v24, v26, v27, v29, v30, v32);
+  v33 = swift_allocObject();
+  *(v33 + 16) = v37;
+  MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)(v19, v21, v36, v35, v24, v26, v27, v29, v30, v32, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v33);
 
-  outlined consume of Data._Representation(v30, v33);
+  outlined consume of Data._Representation(v30, v34);
   outlined consume of Data._Representation(v27, v29);
   outlined consume of Data._Representation(v24, v26);
 
@@ -126,8 +130,9 @@
   v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v22 = v21;
 
-  *(swift_allocObject() + 16) = v10;
-  MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(v14, v16, v17, v19, v20, v22);
+  v23 = swift_allocObject();
+  *(v23 + 16) = v10;
+  MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(v14, v16, v17, v19, v20, v22, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v23);
 
   outlined consume of Data._Representation(v17, v19);
   outlined consume of Data._Representation(v14, v16);
@@ -153,8 +158,9 @@
   v26 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v28 = v27;
 
-  *(swift_allocObject() + 16) = v12;
-  MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)(v17, v19, v20, v22, v23, v25, v26, v28);
+  v29 = swift_allocObject();
+  *(v29 + 16) = v12;
+  MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)(v17, v19, v20, v22, v23, v25, v26, v28, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v29);
 
   outlined consume of Data._Representation(v26, v28);
 
@@ -177,8 +183,9 @@
   v20 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v22 = v21;
 
-  *(swift_allocObject() + 16) = v10;
-  MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(v14, v16, v17, v19, v20, v22);
+  v23 = swift_allocObject();
+  *(v23 + 16) = v10;
+  MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(v14, v16, v17, v19, v20, v22, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()partial apply, v23);
 
   outlined consume of Data._Representation(v20, v22);
   outlined consume of Data._Representation(v17, v19);

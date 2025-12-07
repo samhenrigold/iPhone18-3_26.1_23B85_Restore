@@ -3,6 +3,7 @@
 - (HDCloudSyncModifyRecordZonesOperation)initWithConfiguration:(id)configuration container:(id)container scope:(int64_t)scope recordZonesToSave:(id)save recordZoneIDsToDelete:(id)delete;
 - (void)_limitExceededForSavingRecordZones:(id)zones deletingRecordZoneIDs:(id)ds error:(id)error;
 - (void)_saveRecordZones:(id)zones deleteRecordZoneIDs:(id)ds;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncModifyRecordZonesOperation
@@ -51,7 +52,7 @@
 
 - (void)_saveRecordZones:(id)zones deleteRecordZoneIDs:(id)ds
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   dsCopy = ds;
   [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
@@ -88,9 +89,9 @@ LABEL_10:
 
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277CBBF50];
-    v33 = *MEMORY[0x277CCA450];
-    v34[0] = @"Synthesized error for preemptive split.";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x277CCA450];
+    v33[0] = @"Synthesized error for preemptive split.";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v15 = [v12 errorWithDomain:v13 code:27 userInfo:v14];
     [(HDCloudSyncModifyRecordZonesOperation *)self _limitExceededForSavingRecordZones:v10 deletingRecordZoneIDs:v11 error:v15];
 
@@ -104,22 +105,22 @@ LABEL_10:
     v17 = v16;
     *buf = 138543874;
     selfCopy = self;
-    v29 = 2048;
-    v30 = [zonesCopy count];
-    v31 = 2048;
-    v32 = [dsCopy count];
+    v28 = 2048;
+    v29 = [zonesCopy count];
+    v30 = 2048;
+    v31 = [dsCopy count];
     _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Saving %ld zones, deleting %ld zones", buf, 0x20u);
   }
 
   v18 = [objc_alloc(MEMORY[0x277CBC490]) initWithRecordZonesToSave:zonesCopy recordZoneIDsToDelete:dsCopy];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __78__HDCloudSyncModifyRecordZonesOperation__saveRecordZones_deleteRecordZoneIDs___block_invoke;
-  v24[3] = &unk_278616968;
-  v24[4] = self;
-  v25 = zonesCopy;
-  v26 = dsCopy;
-  [v18 setModifyRecordZonesCompletionBlock:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __78__HDCloudSyncModifyRecordZonesOperation__saveRecordZones_deleteRecordZoneIDs___block_invoke;
+  v23[3] = &unk_278616968;
+  v23[4] = self;
+  v24 = zonesCopy;
+  v25 = dsCopy;
+  [v18 setModifyRecordZonesCompletionBlock:v23];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   [cachedCloudState setOperationCountForAnalytics:{objc_msgSend(cachedCloudState, "operationCountForAnalytics") + 1}];
@@ -130,13 +131,11 @@ LABEL_10:
 
   [(CKDatabase *)self->_database hd_addOperation:v18];
 LABEL_14:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDCloudSyncModifyRecordZonesOperation__saveRecordZones_deleteRecordZoneIDs___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -146,21 +145,21 @@ void __78__HDCloudSyncModifyRecordZonesOperation__saveRecordZones_deleteRecordZo
     v10 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v40 = *(a1 + 32);
-      v41 = *(v40 + 104);
-      v42 = v10;
-      v43 = [v41 containerIdentifier];
+      v39 = *(a1 + 32);
+      v40 = *(v39 + 104);
+      v41 = v10;
+      v42 = [v40 containerIdentifier];
       [*(*(a1 + 32) + 112) databaseScope];
-      v44 = CKDatabaseScopeString();
+      v43 = CKDatabaseScopeString();
       *buf = 138544130;
-      v66 = v40;
-      v67 = 2114;
-      v68 = v43;
-      v69 = 2114;
-      v70 = v44;
-      v71 = 2114;
-      v72 = v9;
-      _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify record zones in container %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
+      v65 = v39;
+      v66 = 2114;
+      v67 = v42;
+      v68 = 2114;
+      v69 = v43;
+      v70 = 2114;
+      v71 = v9;
+      _os_log_error_impl(&dword_228986000, v41, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify record zones in container %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
     }
 
     if ([v9 hk_isErrorInDomain:*MEMORY[0x277CBBF50] code:27])
@@ -180,32 +179,32 @@ void __78__HDCloudSyncModifyRecordZonesOperation__saveRecordZones_deleteRecordZo
     }
   }
 
-  v45 = v9;
-  v46 = v7;
-  v47 = v8;
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  v44 = v9;
+  v45 = v7;
+  v46 = v8;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = v7;
-  v13 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v13 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v51 = *v60;
+    v50 = *v59;
     while (2)
     {
       v16 = 0;
       v17 = v15;
       do
       {
-        if (*v60 != v51)
+        if (*v59 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v59 + 1) + 8 * v16);
+        v18 = *(*(&v58 + 1) + 8 * v16);
         v19 = [HDCloudSyncZoneIdentifier alloc];
         v20 = [v18 zoneID];
         v21 = [*(*(a1 + 32) + 104) containerIdentifier];
@@ -213,9 +212,9 @@ void __78__HDCloudSyncModifyRecordZonesOperation__saveRecordZones_deleteRecordZo
 
         v23 = [*(a1 + 32) configuration];
         v24 = [v23 cachedCloudState];
-        v58 = v17;
-        v25 = [v24 addZoneWithIdentifier:v22 error:&v58];
-        v15 = v58;
+        v57 = v17;
+        v25 = [v24 addZoneWithIdentifier:v22 error:&v57];
+        v15 = v57;
 
         if (!v25)
         {
@@ -232,7 +231,7 @@ LABEL_29:
       }
 
       while (v14 != v16);
-      v14 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v14 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
       if (v14)
       {
         continue;
@@ -247,27 +246,27 @@ LABEL_29:
     v15 = 0;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v48 = v47;
-  v52 = [v48 countByEnumeratingWithState:&v54 objects:v63 count:16];
-  if (v52)
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v47 = v46;
+  v51 = [v47 countByEnumeratingWithState:&v53 objects:v62 count:16];
+  if (v51)
   {
-    obja = *v55;
+    obja = *v54;
     while (2)
     {
       v27 = 0;
       v28 = v15;
       do
       {
-        if (*v55 != obja)
+        if (*v54 != obja)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v47);
         }
 
-        v29 = *(*(&v54 + 1) + 8 * v27);
+        v29 = *(*(&v53 + 1) + 8 * v27);
         v30 = [HDCloudSyncZoneIdentifier alloc];
         v31 = [*(*(a1 + 32) + 104) containerIdentifier];
         v32 = -[HDCloudSyncZoneIdentifier initForZone:container:scope:](v30, "initForZone:container:scope:", v29, v31, [*(*(a1 + 32) + 112) databaseScope]);
@@ -279,15 +278,15 @@ LABEL_29:
         v37 = [v36 accessibilityAssertion];
         v38 = [(HDCloudSyncCachedZone *)v33 initForZoneIdentifier:v32 repository:v35 accessibilityAssertion:v37];
 
-        v53 = v28;
-        LODWORD(v36) = [v38 deleteZoneWithError:&v53];
-        v15 = v53;
+        v52 = v28;
+        LODWORD(v36) = [v38 deleteZoneWithError:&v52];
+        v15 = v52;
 
         if (!v36)
         {
           [*(*(a1 + 32) + 120) failTaskWithError:v15];
 
-          v26 = v48;
+          v26 = v47;
           goto LABEL_29;
         }
 
@@ -295,9 +294,9 @@ LABEL_29:
         v28 = v15;
       }
 
-      while (v52 != v27);
-      v52 = [v48 countByEnumeratingWithState:&v54 objects:v63 count:16];
-      if (v52)
+      while (v51 != v27);
+      v51 = [v47 countByEnumeratingWithState:&v53 objects:v62 count:16];
+      if (v51)
       {
         continue;
       }
@@ -309,17 +308,15 @@ LABEL_29:
   [*(*(a1 + 32) + 120) finishTask];
 LABEL_30:
 
-  v7 = v46;
-  v8 = v47;
-  v9 = v45;
+  v7 = v45;
+  v8 = v46;
+  v9 = v44;
 LABEL_31:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_limitExceededForSavingRecordZones:(id)zones deletingRecordZoneIDs:(id)ds error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   dsCopy = ds;
   errorCopy = error;
@@ -339,13 +336,13 @@ LABEL_31:
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         v14 = v13;
-        v22 = 138543874;
+        v21 = 138543874;
         selfCopy2 = self;
-        v24 = 2048;
-        v25 = [zonesCopy count];
-        v26 = 2048;
-        v27 = [dsCopy count];
-        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Received limit exceeded error; retrying by splitting record zone request in half and re-fetching (%ld zone saves, %ld zone deletions).", &v22, 0x20u);
+        v23 = 2048;
+        v24 = [zonesCopy count];
+        v25 = 2048;
+        v26 = [dsCopy count];
+        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Received limit exceeded error; retrying by splitting record zone request in half and re-fetching (%ld zone saves, %ld zone deletions).", &v21, 0x20u);
       }
 
       v15 = [zonesCopy hk_splitWithBucketCount:2];
@@ -366,16 +363,21 @@ LABEL_31:
     v12 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v22 = 138543362;
+      v21 = 138543362;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Received limit exceeded error for a single record zone modification. This is unexpected.", &v22, 0xCu);
+      _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Received limit exceeded error for a single record zone modification. This is unexpected.", &v21, 0xCu);
     }
 
     [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
     [(HDSynchronousTaskGroup *)self->_taskGroup failTaskWithError:errorCopy];
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

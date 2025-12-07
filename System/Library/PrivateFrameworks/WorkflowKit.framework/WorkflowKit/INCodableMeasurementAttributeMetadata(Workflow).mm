@@ -204,43 +204,43 @@ LABEL_30:
 
 - (void)wf_updatedParameterDefinition:()Workflow forCodableAttribute:localizer:
 {
-  v32[2] = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = &off_1F4B0ED28;
-  v2 = objc_msgSendSuper2(&v25, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
+  v31[2] = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = &off_1F4B0ED28;
+  v2 = objc_msgSendSuper2(&v24, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
   name = [self name];
   v4 = WFUnitTypeFromAttributeName(name);
 
   if (v4)
   {
-    v31[0] = @"WFUnitType";
-    v31[1] = @"AllowsNegativeNumbers";
-    v32[0] = v4;
+    v30[0] = @"WFUnitType";
+    v30[1] = @"AllowsNegativeNumbers";
+    v31[0] = v4;
     v5 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(self, "supportsNegativeNumbers")}];
-    v32[1] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v31[1] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
     v7 = [v2 definitionByAddingEntriesInDictionary:v6];
 
     unit = [self unit];
 
     if (unit)
     {
-      v29[0] = @"DefaultUnit";
+      v28[0] = @"DefaultUnit";
       unit2 = [self unit];
       symbol = [unit2 symbol];
-      v30[0] = symbol;
-      v29[1] = @"PossibleUnits";
+      v29[0] = symbol;
+      v28[1] = @"PossibleUnits";
       unit3 = [self unit];
       symbol2 = [unit3 symbol];
-      v28 = symbol2;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-      v30[1] = v13;
-      v29[2] = @"DefaultValue";
+      v27 = symbol2;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+      v29[1] = v13;
+      v28[2] = @"DefaultValue";
       v14 = MEMORY[0x1E696AD98];
       [self defaultValue];
       v15 = [v14 numberWithDouble:?];
-      v30[2] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
+      v29[2] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
       v2 = [v7 definitionByAddingEntriesInDictionary:v16];
 
       v7 = v13;
@@ -257,7 +257,7 @@ LABEL_10:
       v19 = [currentLocale objectForKey:*MEMORY[0x1E695DA08]];
       bOOLValue = [v19 BOOLValue];
 
-      v26 = @"DefaultUnit";
+      v25 = @"DefaultUnit";
       defaultUnits2 = [self defaultUnits];
       unit2 = defaultUnits2;
       if (bOOLValue)
@@ -271,8 +271,8 @@ LABEL_10:
       }
       symbol = ;
       unit3 = [symbol symbol];
-      v27 = unit3;
-      symbol2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v26 = unit3;
+      symbol2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       v2 = [v7 definitionByAddingEntriesInDictionary:symbol2];
       goto LABEL_10;
     }
@@ -283,7 +283,6 @@ LABEL_10:
 LABEL_11:
   v22 = v2;
 
-  v23 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

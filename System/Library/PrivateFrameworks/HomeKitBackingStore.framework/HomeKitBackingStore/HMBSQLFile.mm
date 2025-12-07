@@ -10,7 +10,7 @@
 
 + (void)_close:(id)_close
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   _closeCopy = _close;
   os_unfair_lock_assert_owner(&contextLock);
   if ([_closeCopy connection])
@@ -22,9 +22,9 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v8;
-      v37 = 2112;
-      v38 = v6;
+      v35 = v8;
+      v36 = 2112;
+      v37 = v6;
       _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Closing SQL context: %@", buf, 0x16u);
     }
 
@@ -34,25 +34,25 @@
 
     os_unfair_lock_lock_with_options();
     [(os_unfair_lock_s *)v6 finalize];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     contexts2 = [self contexts];
-    v11 = [contexts2 countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v11 = [contexts2 countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (v11)
     {
-      v12 = *v32;
+      v12 = *v31;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(contexts2);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * i);
+          v14 = *(*(&v30 + 1) + 8 * i);
           connection = [v14 connection];
           if (connection == [(os_unfair_lock_s *)v6 connection])
           {
@@ -63,9 +63,9 @@
             {
               v29 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v36 = v29;
-              v37 = 2112;
-              v38 = v14;
+              v35 = v29;
+              v36 = 2112;
+              v37 = v14;
               _os_log_impl(&dword_22AD27000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Found other context still using database: %@", buf, 0x16u);
             }
 
@@ -74,7 +74,7 @@
           }
         }
 
-        v11 = [contexts2 countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v11 = [contexts2 countByEnumeratingWithState:&v30 objects:v40 count:16];
         if (v11)
         {
           continue;
@@ -91,7 +91,7 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v19;
+      v35 = v19;
       _os_log_impl(&dword_22AD27000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Closing database for SQL context", buf, 0xCu);
     }
 
@@ -107,11 +107,11 @@
         v24 = HMFGetLogIdentifier();
         v25 = sqlite3_errstr(v20);
         *buf = 138543874;
-        v36 = v24;
-        v37 = 2080;
-        v38 = v25;
-        v39 = 1024;
-        v40 = v20;
+        v35 = v24;
+        v36 = 2080;
+        v37 = v25;
+        v38 = 1024;
+        v39 = v20;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to close database: %s (%d)", buf, 0x1Cu);
       }
 
@@ -127,8 +127,6 @@ LABEL_21:
   {
     [_closeCopy setFinalized:1];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 + (void)close:(id)close
@@ -141,7 +139,7 @@ LABEL_21:
 
 + (id)_openContextWithURL:(id)l usingSubclass:(Class)subclass error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   lCopy = l;
   os_unfair_lock_assert_owner(&contextLock);
   if (_openContextWithURL_usingSubclass_error__dispatchOnce != -1)
@@ -149,25 +147,25 @@ LABEL_21:
     dispatch_once(&_openContextWithURL_usingSubclass_error__dispatchOnce, &__block_literal_global_9);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   contexts = [self contexts];
-  v9 = [(os_unfair_lock_s *)contexts countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v9 = [(os_unfair_lock_s *)contexts countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v9)
   {
-    v10 = *v41;
+    v10 = *v40;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(contexts);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
         v13 = [v12 url];
         v14 = [v13 isEqual:lCopy];
 
@@ -187,9 +185,9 @@ LABEL_21:
           {
             v32 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v45 = v32;
-            v46 = 2112;
-            v47 = v30;
+            v44 = v32;
+            v45 = 2112;
+            v46 = v30;
             _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Found existing SQL context: %@", buf, 0x16u);
           }
 
@@ -199,7 +197,7 @@ LABEL_21:
         }
       }
 
-      v9 = [(os_unfair_lock_s *)contexts countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v9 = [(os_unfair_lock_s *)contexts countByEnumeratingWithState:&v39 objects:v49 count:16];
       if (v9)
       {
         continue;
@@ -220,15 +218,15 @@ LABEL_21:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v45 = v21;
+    v44 = v21;
     _os_log_impl(&dword_22AD27000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Opening SQL context", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
   os_unfair_lock_lock_with_options();
-  v39 = 0;
-  v22 = __open(v19, &v39);
-  v23 = v39;
+  v38 = 0;
+  v22 = __open(v19, &v38);
+  v23 = v38;
   v24 = objc_autoreleasePoolPush();
   contexts = v19;
   if (v22)
@@ -238,9 +236,9 @@ LABEL_21:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v26;
-      v46 = 2112;
-      v47 = contexts;
+      v44 = v26;
+      v45 = 2112;
+      v46 = contexts;
       _os_log_impl(&dword_22AD27000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Opened SQL context with new sqlite database handle: %@", buf, 0x16u);
     }
 
@@ -259,11 +257,11 @@ LABEL_21:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v45 = v34;
-      v46 = 2112;
-      v47 = contexts;
-      v48 = 2112;
-      v49 = v23;
+      v44 = v34;
+      v45 = 2112;
+      v46 = contexts;
+      v47 = 2112;
+      v48 = v23;
       _os_log_impl(&dword_22AD27000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to open context %@: %@", buf, 0x20u);
     }
 
@@ -284,7 +282,6 @@ LABEL_21:
   }
 
 LABEL_27:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

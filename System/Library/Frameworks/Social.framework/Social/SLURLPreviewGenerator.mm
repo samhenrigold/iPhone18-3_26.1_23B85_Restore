@@ -17,59 +17,58 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  _SLLog(v3, 7, @"SLURLPreviewGenerator %@ initWithFrame: %g %g %g %g");
-  v17.receiver = self;
-  v17.super_class = SLURLPreviewGenerator;
-  v9 = [(SLURLPreviewGenerator *)&v17 init:self];
-  if (v9)
+  _SLLog(v8, 7, @"SLURLPreviewGenerator %@ initWithFrame: %g %g %g %g", v3, v4, v5, v6, v7, self);
+  v20.receiver = self;
+  v20.super_class = SLURLPreviewGenerator;
+  v14 = [(SLURLPreviewGenerator *)&v20 init];
+  if (v14)
   {
-    v10 = [objc_alloc(MEMORY[0x1E69DD2E0]) initWithFrame:{x, y, width, height}];
-    webView = v9->_webView;
-    v9->_webView = v10;
+    v15 = [objc_alloc(MEMORY[0x1E69DD2E0]) initWithFrame:{x, y, width, height}];
+    webView = v14->_webView;
+    v14->_webView = v15;
 
-    [(UIWebView *)v9->_webView setAllowsInlineMediaPlayback:0];
-    [(UIWebView *)v9->_webView setMediaPlaybackRequiresUserAction:1];
-    [(UIWebView *)v9->_webView setMediaPlaybackAllowsAirPlay:0];
-    [(UIWebView *)v9->_webView setSuppressesIncrementalRendering:1];
-    [(UIWebView *)v9->_webView setScalesPageToFit:1];
-    [(UIWebView *)v9->_webView setDelegate:v9];
-    _browserView = [(UIWebView *)v9->_webView _browserView];
+    [(UIWebView *)v14->_webView setAllowsInlineMediaPlayback:0];
+    [(UIWebView *)v14->_webView setMediaPlaybackRequiresUserAction:1];
+    [(UIWebView *)v14->_webView setMediaPlaybackAllowsAirPlay:0];
+    [(UIWebView *)v14->_webView setSuppressesIncrementalRendering:1];
+    [(UIWebView *)v14->_webView setScalesPageToFit:1];
+    [(UIWebView *)v14->_webView setDelegate:v14];
+    _browserView = [(UIWebView *)v14->_webView _browserView];
     webView = [_browserView webView];
 
-    [webView setUIDelegate:v9];
+    [webView setUIDelegate:v14];
   }
 
-  return v9;
+  return v14;
 }
 
 - (void)dealloc
 {
-  selfCopy = self;
-  _SLLog(v2, 7, @"SLURLPreviewGenerator %@ dealloc");
+  _SLLog(v7, 7, @"SLURLPreviewGenerator %@ dealloc", v2, v3, v4, v5, v6, self);
   if (self->_completion)
   {
-    [(SLURLPreviewGenerator *)self _callCompletionWithPreview:0, selfCopy];
+    [(SLURLPreviewGenerator *)self _callCompletionWithPreview:0];
   }
 
-  [(UIWebView *)self->_webView setDelegate:0, selfCopy];
+  [(UIWebView *)self->_webView setDelegate:0];
   [(UIWebView *)self->_webView stopLoading];
-  v5.receiver = self;
-  v5.super_class = SLURLPreviewGenerator;
-  [(SLURLPreviewGenerator *)&v5 dealloc];
+  v9.receiver = self;
+  v9.super_class = SLURLPreviewGenerator;
+  [(SLURLPreviewGenerator *)&v9 dealloc];
 }
 
 - (void)_callCompletionWithPreview:(id)preview
 {
   previewCopy = preview;
-  _SLLog(v3, 7, @"SLURLPreviewGenerator %@ _callCompletionWithPreview: %@");
-  v7 = MEMORY[0x1C6917BF0](self->_completion);
-  _SLLog(v3, 7, @"_completion %@");
+  _SLLog(v3, 7, @"SLURLPreviewGenerator %@ _callCompletionWithPreview: %@", v5, v6, v7, v8, v9, self);
+  v10 = MEMORY[0x1C6917BF0](self->_completion);
+  _SLLog(v3, 7, @"_completion %@", v11, v12, v13, v14, v15, v10);
 
   completion = self->_completion;
   if (completion)
   {
     completion[2](completion, previewCopy);
-    v6 = self->_completion;
+    v17 = self->_completion;
     self->_completion = 0;
   }
 }
@@ -78,10 +77,10 @@
 {
   lCopy = l;
   completionCopy = completion;
-  _SLLog(v4, 7, @"SLURLPreviewGenerator %@ loadURL:completion: with %@");
+  _SLLog(v4, 7, @"SLURLPreviewGenerator %@ loadURL:completion: with %@", v8, v9, v10, v11, v12, self);
   if ([lCopy loadingInUIWebViewWillLaunchAnotherApp])
   {
-    _SLLog(v4, 7, @"SLURLPreviewGenerator not loading a preview that would launch another app.");
+    _SLLog(v4, 7, @"SLURLPreviewGenerator not loading a preview that would launch another app.", v13, v14, v15, v16, v17, v30);
 LABEL_3:
     completionCopy[2](completionCopy, 0);
     goto LABEL_8;
@@ -95,24 +94,24 @@ LABEL_3:
   else
   {
     scheme2 = [lCopy scheme];
-    v10 = [scheme2 isEqualToString:@"https"];
+    v20 = [scheme2 isEqualToString:@"https"];
 
-    if (!v10)
+    if (!v20)
     {
       scheme3 = [lCopy scheme];
-      _SLLog(v4, 7, @"SLURLPreviewGenerator not loading a preview for url with unsupported scheme '%@'.");
+      _SLLog(v4, 7, @"SLURLPreviewGenerator not loading a preview for url with unsupported scheme '%@'.", v25, v26, v27, v28, v29, scheme3);
 
       goto LABEL_3;
     }
   }
 
-  v11 = [completionCopy copy];
+  v21 = [completionCopy copy];
   completion = self->_completion;
-  self->_completion = v11;
+  self->_completion = v21;
 
-  v13 = [objc_alloc(MEMORY[0x1E696AD68]) initWithURL:lCopy];
-  [v13 setHTTPShouldHandleCookies:0];
-  [(UIWebView *)self->_webView loadRequest:v13];
+  v23 = [objc_alloc(MEMORY[0x1E696AD68]) initWithURL:lCopy];
+  [v23 setHTTPShouldHandleCookies:0];
+  [(UIWebView *)self->_webView loadRequest:v23];
 
 LABEL_8:
 }
@@ -120,13 +119,13 @@ LABEL_8:
 - (BOOL)webView:(id)view shouldStartLoadWithRequest:(id)request navigationType:(int64_t)type
 {
   requestCopy = request;
-  _SLLog(v5, 7, @"SLURLPreviewGenerator %@ shouldStartLoadWithRequest: %@ navigationType: %d");
-  v9 = [requestCopy URL];
+  _SLLog(v5, 7, @"SLURLPreviewGenerator %@ shouldStartLoadWithRequest: %@ navigationType: %d", v7, v8, v9, v10, v11, self);
+  v12 = [requestCopy URL];
 
-  loadingInUIWebViewWillLaunchAnotherApp = [v9 loadingInUIWebViewWillLaunchAnotherApp];
+  loadingInUIWebViewWillLaunchAnotherApp = [v12 loadingInUIWebViewWillLaunchAnotherApp];
   if (loadingInUIWebViewWillLaunchAnotherApp)
   {
-    _SLLog(v5, 7, @"SLURLPreviewGenerator not loading a preview that would launch another app.");
+    _SLLog(v5, 7, @"SLURLPreviewGenerator not loading a preview that would launch another app.", v14, v15, v16, v17, v18, v20);
     [(SLURLPreviewGenerator *)self _callCompletionWithPreview:0];
   }
 
@@ -135,18 +134,18 @@ LABEL_8:
 
 - (void)webViewDidFinishLoad:(id)load
 {
-  isLoading = [(UIWebView *)self->_webView isLoading];
-  _SLLog(v3, 7, @"SLURLPreviewGenerator %@ webViewDidFinishLoad: still loading %d");
-  if (![(UIWebView *)self->_webView isLoading:self]&& self->_completion)
+  [(UIWebView *)self->_webView isLoading];
+  _SLLog(v3, 7, @"SLURLPreviewGenerator %@ webViewDidFinishLoad: still loading %d", v5, v6, v7, v8, v9, self);
+  if (![(UIWebView *)self->_webView isLoading]&& self->_completion)
   {
     webView = self->_webView;
     [(UIWebView *)webView frame];
-    v6 = [(UIWebView *)webView newSnapshotWithRect:?];
-    _SLLog(v3, 7, @"SLURLPreviewGenerator %@ generated cgImage %p");
-    v7 = [MEMORY[0x1E69DCAB8] imageWithCGImage:{v6, self, v6}];
-    [(SLURLPreviewGenerator *)self _callCompletionWithPreview:v7];
+    v17 = [(UIWebView *)webView newSnapshotWithRect:?];
+    _SLLog(v3, 7, @"SLURLPreviewGenerator %@ generated cgImage %p", v11, v12, v13, v14, v15, self);
+    v16 = [MEMORY[0x1E69DCAB8] imageWithCGImage:v17];
+    [(SLURLPreviewGenerator *)self _callCompletionWithPreview:v16];
 
-    CGImageRelease(v6);
+    CGImageRelease(v17);
   }
 }
 
@@ -154,10 +153,10 @@ LABEL_8:
 {
   webView = self->_webView;
   errorCopy = error;
-  isLoading = [(UIWebView *)webView isLoading];
-  _SLLog(v4, 7, @"SLURLPreviewGenerator %@ webView:didFailLoadWithError: %@ still loading %d");
+  [(UIWebView *)webView isLoading];
+  _SLLog(v4, 7, @"SLURLPreviewGenerator %@ webView:didFailLoadWithError: %@ still loading %d", v7, v8, v9, v10, v11, self);
 
-  if (![(UIWebView *)self->_webView isLoading:self])
+  if (![(UIWebView *)self->_webView isLoading])
   {
 
     [(SLURLPreviewGenerator *)self _callCompletionWithPreview:0];

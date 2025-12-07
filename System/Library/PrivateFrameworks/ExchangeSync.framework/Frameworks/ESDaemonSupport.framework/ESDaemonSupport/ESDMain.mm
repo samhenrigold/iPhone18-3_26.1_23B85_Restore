@@ -55,50 +55,49 @@ void __26__ESDMain__shutdownDaemon__block_invoke()
 
 void __26__ESDMain__shutdownDaemon__block_invoke_5(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = *(*(*(a1 + 32) + 8) + 40);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v12 = v1;
+  v11 = v1;
   v2 = [v1 userSwitchTasks];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = *(MEMORY[0x277D03988] + 6);
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = DALoggingwithCategory();
         if (os_log_type_enabled(v9, v6))
         {
           v10 = [v8 bundleID];
           *buf = 138412290;
-          v18 = v10;
+          v17 = v10;
           _os_log_impl(&dword_24A184000, v9, v6, "UserManagementFramework: Ending Switch Task For %@", buf, 0xCu);
         }
 
         [v8 end];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v4);
   }
 
-  [v12 _setRunLoopStopped:1];
-  v11 = *MEMORY[0x277D85DE8];
+  [v11 _setRunLoopStopped:1];
 }
 
 - (void)_forceShutdownTimerFired:(id)fired
@@ -111,7 +110,7 @@ void __26__ESDMain__shutdownDaemon__block_invoke_5(uint64_t a1)
 
 - (void)_forceShutdownDaemonOnLogoutInTimeInterval:(int)interval
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   forceShutdownTimer = self->_forceShutdownTimer;
   if (forceShutdownTimer)
   {
@@ -132,12 +131,10 @@ void __26__ESDMain__shutdownDaemon__block_invoke_5(uint64_t a1)
   v13 = *(MEMORY[0x277D03988] + 4);
   if (os_log_type_enabled(v12, v13))
   {
-    v15[0] = 67109120;
-    v15[1] = interval;
-    _os_log_impl(&dword_24A184000, v12, v13, "Add Force Logout Timer in %d seconds", v15, 8u);
+    v14[0] = 67109120;
+    v14[1] = interval;
+    _os_log_impl(&dword_24A184000, v12, v13, "Add Force Logout Timer in %d seconds", v14, 8u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addToOperationsQueueDisabledCheckAndGoBlock:(id)block wrappedBlock:(id)wrappedBlock
@@ -183,7 +180,7 @@ uint64_t __68__ESDMain_addToOperationsQueueDisabledCheckAndGoBlock_wrappedBlock_
 
 - (void)willSwitchUser
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = +[ESDAgentManager sharedManager];
   activeAgents = [v3 activeAgents];
   v5 = [activeAgents count];
@@ -242,8 +239,8 @@ LABEL_16:
 
           v8 = [MEMORY[0x277D77C20] taskWithName:@"DA-Blocking Task" reason:@"LogoutReceived" forBundleID:@"com.apple.dataaccessd"];
           [v8 begin];
-          v21 = v8;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+          v20 = v8;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
           [(ESDMain *)self setUserSwitchTasks:v18];
 
           mEMORY[0x277D037F8]3 = [MEMORY[0x277D037F8] sharedTransactionMonitor];
@@ -278,8 +275,6 @@ LABEL_16:
       goto LABEL_16;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishAllXPCTransactions
@@ -449,42 +444,42 @@ void __21__ESDMain_sharedMain__block_invoke()
 
 void __32__ESDMain__configureAggdLogging__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   v3 = *MEMORY[0x277D85F48];
   if (v3)
   {
     v4 = Current;
     v5 = [objc_alloc(MEMORY[0x277D6AFA8]) initWithTask:v3 options:0];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v6 = [v5 regions];
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v33 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
       v10 = 0;
-      v11 = *v25;
+      v11 = *v24;
       v12 = MEMORY[0x277D6AFB0];
       v13 = MEMORY[0x277D6AFB8];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           v10 += *(v15 + *v12);
           v9 += *(v15 + *v13);
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v33 count:16];
       }
 
       while (v8);
@@ -509,11 +504,11 @@ void __32__ESDMain__configureAggdLogging__block_invoke(uint64_t a1)
       v21 = signalSources_block_invoke_pageSize * v9;
       v22 = CFAbsoluteTimeGetCurrent();
       *buf = 134218496;
-      v29 = v20;
-      v30 = 2048;
-      v31 = v21;
-      v32 = 2048;
-      v33 = v22 - v4;
+      v28 = v20;
+      v29 = 2048;
+      v30 = v21;
+      v31 = 2048;
+      v32 = v22 - v4;
       _os_log_impl(&dword_24A184000, v18, v19, "Current dirty memory use is %luB. Resident memory is %luB. (That took %0.04f seconds to find out)", buf, 0x20u);
     }
 
@@ -533,8 +528,6 @@ void __32__ESDMain__configureAggdLogging__block_invoke(uint64_t a1)
 
     dispatch_source_cancel(*(*(a1 + 32) + 48));
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32__ESDMain__configureAggdLogging__block_invoke_45()
@@ -546,10 +539,10 @@ uint64_t __32__ESDMain__configureAggdLogging__block_invoke_45()
 
 - (ESDMain)init
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = ESDMain;
-  v2 = [(ESDMain *)&v15 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = ESDMain;
+  v2 = [(ESDMain *)&v14 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.exchangesyncd.esdOperation", 0);
@@ -574,7 +567,7 @@ uint64_t __32__ESDMain__configureAggdLogging__block_invoke_45()
       }
 
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&dword_24A184000, v8, v9, "Device is a %@AppleInternal install", buf, 0xCu);
     }
 
@@ -591,7 +584,6 @@ uint64_t __32__ESDMain__configureAggdLogging__block_invoke_45()
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

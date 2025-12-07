@@ -387,7 +387,7 @@
   report = self->_report;
   self->_report = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, report);
 }
 
 - (void)writeReportWithMessage:(void *)a1 .cold.1(void *a1, NSObject *a2)

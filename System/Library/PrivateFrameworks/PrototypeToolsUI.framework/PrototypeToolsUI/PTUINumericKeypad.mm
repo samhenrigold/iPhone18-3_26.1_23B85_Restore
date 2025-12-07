@@ -50,9 +50,9 @@ uint64_t __33__PTUINumericKeypad_sharedKeypad__block_invoke(uint64_t a1)
 
 - (PTUINumericKeypad)init
 {
-  v43.receiver = self;
-  v43.super_class = PTUINumericKeypad;
-  v2 = [(PTUINumericKeypad *)&v43 init];
+  v44.receiver = self;
+  v44.super_class = PTUINumericKeypad;
+  v2 = [(PTUINumericKeypad *)&v44 init];
   if (v2)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -78,7 +78,7 @@ uint64_t __33__PTUINumericKeypad_sharedKeypad__block_invoke(uint64_t a1)
     [layer2 setBorderWidth:2.0];
 
     layer3 = [(UIView *)v2->_backgroundView layer];
-    v14 = _KeypadForegroundColor();
+    v14 = _KeypadForegroundColor(layer3);
     [layer3 setBorderColor:{objc_msgSend(v14, "CGColor")}];
 
     [(PTUINumericKeypad *)v2 addSubview:v2->_backgroundView];
@@ -91,59 +91,59 @@ uint64_t __33__PTUINumericKeypad_sharedKeypad__block_invoke(uint64_t a1)
     [(UILabel *)v17 setBackgroundColor:clearColor];
 
     v19 = v2->_valueLabel;
-    v20 = _KeypadForegroundColor();
-    [(UILabel *)v19 setTextColor:v20];
+    v21 = _KeypadForegroundColor(v20);
+    [(UILabel *)v19 setTextColor:v21];
 
-    v21 = v2->_valueLabel;
-    v22 = [MEMORY[0x277D74300] systemFontOfSize:23.0];
-    [(UILabel *)v21 setFont:v22];
+    v22 = v2->_valueLabel;
+    v23 = [MEMORY[0x277D74300] systemFontOfSize:23.0];
+    [(UILabel *)v22 setFont:v23];
 
     [(UILabel *)v2->_valueLabel setTextAlignment:2];
     [(PTUINumericKeypad *)v2 addSubview:v2->_valueLabel];
-    v23 = objc_alloc_init(_KeypadDismissButton);
+    v24 = objc_alloc_init(_KeypadDismissButton);
     dismissButton = v2->_dismissButton;
-    v2->_dismissButton = v23;
+    v2->_dismissButton = v24;
 
     [(_KeypadDismissButton *)v2->_dismissButton addTarget:v2 action:sel__dismissButtonPress forControlEvents:64];
     [(PTUINumericKeypad *)v2 addSubview:v2->_dismissButton];
     array3 = [MEMORY[0x277CBEB18] array];
     for (i = 0; i != 10; ++i)
     {
-      v27 = [[_KeypadButton alloc] initWithDigit:i target:v2];
-      [array3 addObject:v27];
-      [(PTUINumericKeypad *)v2 addSubview:v27];
+      v28 = [[_KeypadButton alloc] initWithDigit:i target:v2];
+      [array3 addObject:v28];
+      [(PTUINumericKeypad *)v2 addSubview:v28];
     }
 
-    v28 = [array3 copy];
+    v29 = [array3 copy];
     digitButtons = v2->_digitButtons;
-    v2->_digitButtons = v28;
+    v2->_digitButtons = v29;
 
-    v30 = [[_KeypadButton alloc] initWithKeyType:1 target:v2];
+    v31 = [[_KeypadButton alloc] initWithKeyType:1 target:v2];
     dotButton = v2->_dotButton;
-    v2->_dotButton = v30;
+    v2->_dotButton = v31;
 
     [(PTUINumericKeypad *)v2 addSubview:v2->_dotButton];
-    v32 = [[_KeypadButton alloc] initWithKeyType:2 target:v2];
+    v33 = [[_KeypadButton alloc] initWithKeyType:2 target:v2];
     signButton = v2->_signButton;
-    v2->_signButton = v32;
+    v2->_signButton = v33;
 
     [(PTUINumericKeypad *)v2 addSubview:v2->_signButton];
-    v34 = [[_KeypadButton alloc] initWithKeyType:3 target:v2];
+    v35 = [[_KeypadButton alloc] initWithKeyType:3 target:v2];
     clearButton = v2->_clearButton;
-    v2->_clearButton = v34;
+    v2->_clearButton = v35;
 
     [(PTUINumericKeypad *)v2 addSubview:v2->_clearButton];
-    v36 = [[_KeypadButton alloc] initWithKeyType:4 target:v2];
+    v37 = [[_KeypadButton alloc] initWithKeyType:4 target:v2];
     backspaceButton = v2->_backspaceButton;
-    v2->_backspaceButton = v36;
+    v2->_backspaceButton = v37;
 
     [(PTUINumericKeypad *)v2 addSubview:v2->_backspaceButton];
     layer4 = [(PTUINumericKeypad *)v2 layer];
     [layer4 setShadowOffset:{*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
 
     layer5 = [(PTUINumericKeypad *)v2 layer];
-    LODWORD(v40) = 1053609165;
-    [layer5 setShadowOpacity:v40];
+    LODWORD(v41) = 1053609165;
+    [layer5 setShadowOpacity:v41];
 
     layer6 = [(PTUINumericKeypad *)v2 layer];
     [layer6 setShadowRadius:8.0];
@@ -535,70 +535,68 @@ LABEL_19:
 
 - (void)layoutSubviews
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   [(PTUINumericKeypad *)self bounds];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   [(UIView *)self->_backgroundView setFrame:?];
-  v44.origin.x = v4;
-  v44.origin.y = v6;
-  v44.size.width = v8;
-  v44.size.height = v10;
-  v45 = CGRectInset(v44, 16.0, 16.0);
-  y = v45.origin.y;
-  [(UILabel *)self->_valueLabel setFrame:v45.origin.x];
+  v43.origin.x = v4;
+  v43.origin.y = v6;
+  v43.size.width = v8;
+  v43.size.height = v10;
+  v44 = CGRectInset(v43, 16.0, 16.0);
+  y = v44.origin.y;
+  [(UILabel *)self->_valueLabel setFrame:v44.origin.x];
   backspaceButton = self->_backspaceButton;
-  v43[0] = self->_clearButton;
-  v43[1] = backspaceButton;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+  v42[0] = self->_clearButton;
+  v42[1] = backspaceButton;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
   [(PTUINumericKeypad *)self _layoutButtonRow:v13 atY:y + 46.0];
   v15 = v14;
 
   v16 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:7];
-  v42[0] = v16;
+  v41[0] = v16;
   v17 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:8];
-  v42[1] = v17;
+  v41[1] = v17;
   v18 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:9];
-  v42[2] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
+  v41[2] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
   [(PTUINumericKeypad *)self _layoutButtonRow:v19 atY:v15];
   v21 = v20;
 
   v22 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:4];
-  v41[0] = v22;
+  v40[0] = v22;
   v23 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:5];
-  v41[1] = v23;
+  v40[1] = v23;
   v24 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:6];
-  v41[2] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+  v40[2] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
   [(PTUINumericKeypad *)self _layoutButtonRow:v25 atY:v21];
   v27 = v26;
 
   v28 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:1];
-  v40[0] = v28;
+  v39[0] = v28;
   v29 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:2];
-  v40[1] = v29;
+  v39[1] = v29;
   v30 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:3];
-  v40[2] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
+  v39[2] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
   [(PTUINumericKeypad *)self _layoutButtonRow:v31 atY:v27];
   v33 = v32;
 
-  v39[0] = self->_signButton;
+  v38[0] = self->_signButton;
   v34 = [(NSArray *)self->_digitButtons objectAtIndexedSubscript:0];
   dotButton = self->_dotButton;
-  v39[1] = v34;
-  v39[2] = dotButton;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
+  v38[1] = v34;
+  v38[2] = dotButton;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
   [(PTUINumericKeypad *)self _layoutButtonRow:v36 atY:v33];
 
   [(_KeypadDismissButton *)self->_dismissButton setFrame:-20.0, -20.0, 40.0, 40.0];
   layer = [(_KeypadDismissButton *)self->_dismissButton layer];
   [layer setCornerRadius:20.0];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event

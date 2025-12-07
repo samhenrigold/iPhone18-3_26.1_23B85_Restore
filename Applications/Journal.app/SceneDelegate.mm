@@ -109,7 +109,7 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_1000065A8(0, &qword_100AE9080);
+  sub_1000065A8(0, &qword_100AE9080, UIOpenURLContext_ptr);
   sub_10054CD00();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
@@ -127,7 +127,7 @@
 
 - (void)windowScene:(UIWindowScene *)scene performActionForShortcutItem:(UIApplicationShortcutItem *)item completionHandler:(id)handler
 {
-  v9 = sub_1000F24EC(&qword_100AD5170);
+  v9 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

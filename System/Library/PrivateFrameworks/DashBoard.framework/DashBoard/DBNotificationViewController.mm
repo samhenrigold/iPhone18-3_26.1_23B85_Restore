@@ -1246,7 +1246,7 @@ void __63__DBNotificationViewController_liveActivityRequestsPresenting___block_i
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "LA: Error posting %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "LA: Error posting %@", v4, v5, v6, v7);
 }
 
 @end

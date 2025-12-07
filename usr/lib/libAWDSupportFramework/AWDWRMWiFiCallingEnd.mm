@@ -880,7 +880,6 @@ LABEL_45:
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -900,7 +899,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  wiFiRSSI = self->_wiFiRSSI;
   PBDataWriterWriteSint64Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -915,7 +913,6 @@ LABEL_4:
   }
 
 LABEL_48:
-  wiFiTxPER = self->_wiFiTxPER;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -930,7 +927,6 @@ LABEL_5:
   }
 
 LABEL_49:
-  wiFiSINR = self->_wiFiSINR;
   PBDataWriterWriteSint64Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -945,7 +941,6 @@ LABEL_6:
   }
 
 LABEL_50:
-  wiFiBSSIDChange = self->_wiFiBSSIDChange;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -960,7 +955,6 @@ LABEL_7:
   }
 
 LABEL_51:
-  beaconRate = self->_beaconRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -975,7 +969,6 @@ LABEL_8:
   }
 
 LABEL_52:
-  captiveNetwork = self->_captiveNetwork;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -990,7 +983,6 @@ LABEL_9:
   }
 
 LABEL_53:
-  wOWEnabled = self->_wOWEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1005,7 +997,6 @@ LABEL_10:
   }
 
 LABEL_54:
-  wiFiRxRetry = self->_wiFiRxRetry;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1020,7 +1011,6 @@ LABEL_11:
   }
 
 LABEL_55:
-  lTEDataLQM = self->_lTEDataLQM;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1035,7 +1025,6 @@ LABEL_12:
   }
 
 LABEL_56:
-  lTETxPower = self->_lTETxPower;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1050,7 +1039,6 @@ LABEL_13:
   }
 
 LABEL_57:
-  lTEQoSAvailable = self->_lTEQoSAvailable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1065,7 +1053,6 @@ LABEL_14:
   }
 
 LABEL_58:
-  bSSLoad = self->_bSSLoad;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1080,7 +1067,6 @@ LABEL_15:
   }
 
 LABEL_59:
-  lTEVoiceLQM = self->_lTEVoiceLQM;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1095,7 +1081,6 @@ LABEL_16:
   }
 
 LABEL_60:
-  lTESINR = self->_lTESINR;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1110,7 +1095,6 @@ LABEL_17:
   }
 
 LABEL_61:
-  lTERSRP = self->_lTERSRP;
   PBDataWriterWriteSint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1125,7 +1109,6 @@ LABEL_18:
   }
 
 LABEL_62:
-  lTECTRSRP = self->_lTECTRSRP;
   PBDataWriterWriteSint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1140,7 +1123,6 @@ LABEL_19:
   }
 
 LABEL_63:
-  signalBar = self->_signalBar;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1155,7 +1137,6 @@ LABEL_20:
   }
 
 LABEL_64:
-  latteNominalJitterBufferSize = self->_latteNominalJitterBufferSize;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1170,7 +1151,6 @@ LABEL_21:
   }
 
 LABEL_65:
-  latteDejitterBufferUnderflow = self->_latteDejitterBufferUnderflow;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1185,7 +1165,6 @@ LABEL_22:
   }
 
 LABEL_66:
-  latteRTPPacketLoss = self->_latteRTPPacketLoss;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1200,7 +1179,6 @@ LABEL_23:
   }
 
 LABEL_67:
-  latteErasures = self->_latteErasures;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1215,12 +1193,10 @@ LABEL_24:
   }
 
 LABEL_68:
-  hOCapability = self->_hOCapability;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_25:
-    hOBool = self->_hOBool;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1232,7 +1208,6 @@ LABEL_26:
 
   if ((*(&self->_has + 3) & 0x20) != 0)
   {
-    iWLANStatus = self->_iWLANStatus;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1241,17 +1216,15 @@ LABEL_26:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x200000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200000) != 0)
   {
-    sessionId = self->_sessionId;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((*&v7 & 0x10000000) != 0)
+  if ((*&v5 & 0x10000000) != 0)
   {
-    iPSecTunnelStatus = self->_iPSecTunnelStatus;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1260,16 +1233,15 @@ LABEL_26:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((*&v10 & 0x2000000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000000) != 0)
   {
-    aTMRegistrationState = self->_aTMRegistrationState;
     PBDataWriterWriteBOOLField();
-    v10 = self->_has;
-    if ((*&v10 & 0x80) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x80) == 0)
     {
 LABEL_40:
-      if ((*&v10 & 0x40) == 0)
+      if ((*&v6 & 0x40) == 0)
       {
         goto LABEL_41;
       }
@@ -1278,18 +1250,17 @@ LABEL_40:
     }
   }
 
-  else if ((*&v10 & 0x80) == 0)
+  else if ((*&v6 & 0x80) == 0)
   {
     goto LABEL_40;
   }
 
-  bBAudioPacketLoss = self->_bBAudioPacketLoss;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x40) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_41:
-    if ((*&v10 & 0x200000000) == 0)
+    if ((*&v6 & 0x200000000) == 0)
     {
       goto LABEL_42;
     }
@@ -1298,13 +1269,12 @@ LABEL_41:
   }
 
 LABEL_72:
-  bBAudioErasures = self->_bBAudioErasures;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x200000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200000000) == 0)
   {
 LABEL_42:
-    if ((*&v10 & 0x80000) == 0)
+    if ((*&v6 & 0x80000) == 0)
     {
       goto LABEL_43;
     }
@@ -1313,19 +1283,17 @@ LABEL_42:
   }
 
 LABEL_73:
-  wiFiPreferred = self->_wiFiPreferred;
   PBDataWriterWriteBOOLField();
-  v10 = self->_has;
-  if ((*&v10 & 0x80000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80000) == 0)
   {
 LABEL_43:
-    if ((*&v10 & 0x100000) == 0)
+    if ((*&v6 & 0x100000) == 0)
     {
       goto LABEL_44;
     }
 
 LABEL_75:
-    servingCellSINR = self->_servingCellSINR;
     PBDataWriterWriteSint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -1336,22 +1304,20 @@ LABEL_75:
   }
 
 LABEL_74:
-  servingCellRAT = self->_servingCellRAT;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x100000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100000) != 0)
   {
     goto LABEL_75;
   }
 
 LABEL_44:
-  if ((*&v10 & 4) == 0)
+  if ((*&v6 & 4) == 0)
   {
     return;
   }
 
 LABEL_76:
-  servingCellRSRP = self->_servingCellRSRP;
 
   PBDataWriterWriteSint64Field();
 }
@@ -2376,7 +2342,6 @@ LABEL_39:
       goto LABEL_207;
     }
 
-    v8 = *(equal + 167);
     if (self->_wiFiBSSIDChange)
     {
       if ((*(equal + 167) & 1) == 0)
@@ -2416,7 +2381,6 @@ LABEL_39:
       goto LABEL_207;
     }
 
-    v9 = *(equal + 161);
     if (self->_captiveNetwork)
     {
       if ((*(equal + 161) & 1) == 0)
@@ -2443,7 +2407,6 @@ LABEL_39:
       goto LABEL_207;
     }
 
-    v10 = *(equal + 166);
     if (self->_wOWEnabled)
     {
       if ((*(equal + 166) & 1) == 0)
@@ -2509,7 +2472,6 @@ LABEL_39:
       goto LABEL_207;
     }
 
-    v11 = *(equal + 165);
     if (self->_lTEQoSAvailable)
     {
       if ((*(equal + 165) & 1) == 0)
@@ -2666,7 +2628,6 @@ LABEL_39:
       goto LABEL_207;
     }
 
-    v12 = *(equal + 162);
     if (self->_hOCapability)
     {
       if ((*(equal + 162) & 1) == 0)
@@ -2711,15 +2672,14 @@ LABEL_39:
     has = self->_has;
   }
 
-  v14 = *(equal + 172);
+  v9 = *(equal + 172);
   if ((*&has & 0x20000000) != 0)
   {
-    if ((v14 & 0x20000000) == 0)
+    if ((v9 & 0x20000000) == 0)
     {
       goto LABEL_207;
     }
 
-    v15 = *(equal + 164);
     if (self->_iWLANStatus)
     {
       if ((*(equal + 164) & 1) == 0)
@@ -2734,7 +2694,7 @@ LABEL_39:
     }
   }
 
-  else if ((v14 & 0x20000000) != 0)
+  else if ((v9 & 0x20000000) != 0)
   {
     goto LABEL_207;
   }
@@ -2751,28 +2711,27 @@ LABEL_39:
     has = self->_has;
   }
 
-  v17 = *(equal + 172);
+  v11 = *(equal + 172);
   if ((*&has & 0x200000) != 0)
   {
-    if ((v17 & 0x200000) == 0 || self->_sessionId != *(equal + 33))
+    if ((v11 & 0x200000) == 0 || self->_sessionId != *(equal + 33))
     {
       goto LABEL_207;
     }
   }
 
-  else if ((v17 & 0x200000) != 0)
+  else if ((v11 & 0x200000) != 0)
   {
     goto LABEL_207;
   }
 
   if ((*&has & 0x10000000) != 0)
   {
-    if ((v17 & 0x10000000) == 0)
+    if ((v11 & 0x10000000) == 0)
     {
       goto LABEL_207;
     }
 
-    v18 = *(equal + 163);
     if (self->_iPSecTunnelStatus)
     {
       if ((*(equal + 163) & 1) == 0)
@@ -2787,7 +2746,7 @@ LABEL_39:
     }
   }
 
-  else if ((v17 & 0x10000000) != 0)
+  else if ((v11 & 0x10000000) != 0)
   {
     goto LABEL_207;
   }
@@ -2804,15 +2763,14 @@ LABEL_39:
     has = self->_has;
   }
 
-  v20 = *(equal + 172);
+  v13 = *(equal + 172);
   if ((*&has & 0x2000000) != 0)
   {
-    if ((v20 & 0x2000000) == 0)
+    if ((v13 & 0x2000000) == 0)
     {
       goto LABEL_207;
     }
 
-    v21 = *(equal + 160);
     if (self->_aTMRegistrationState)
     {
       if ((*(equal + 160) & 1) == 0)
@@ -2827,40 +2785,40 @@ LABEL_39:
     }
   }
 
-  else if ((v20 & 0x2000000) != 0)
+  else if ((v13 & 0x2000000) != 0)
   {
     goto LABEL_207;
   }
 
   if ((*&has & 0x80) != 0)
   {
-    if ((v20 & 0x80) == 0 || self->_bBAudioPacketLoss != *(equal + 15))
+    if ((v13 & 0x80) == 0 || self->_bBAudioPacketLoss != *(equal + 15))
     {
       goto LABEL_207;
     }
   }
 
-  else if ((v20 & 0x80) != 0)
+  else if ((v13 & 0x80) != 0)
   {
     goto LABEL_207;
   }
 
   if ((*&has & 0x40) != 0)
   {
-    if ((v20 & 0x40) == 0 || self->_bBAudioErasures != *(equal + 14))
+    if ((v13 & 0x40) == 0 || self->_bBAudioErasures != *(equal + 14))
     {
       goto LABEL_207;
     }
   }
 
-  else if ((v20 & 0x40) != 0)
+  else if ((v13 & 0x40) != 0)
   {
     goto LABEL_207;
   }
 
   if ((*&has & 0x200000000) == 0)
   {
-    if ((v20 & 0x200000000) != 0)
+    if ((v13 & 0x200000000) != 0)
     {
       goto LABEL_207;
     }
@@ -2868,12 +2826,11 @@ LABEL_39:
     goto LABEL_193;
   }
 
-  if ((v20 & 0x200000000) == 0)
+  if ((v13 & 0x200000000) == 0)
   {
     goto LABEL_207;
   }
 
-  v22 = *(equal + 168);
   if (self->_wiFiPreferred)
   {
     if ((*(equal + 168) & 1) == 0)
@@ -2894,26 +2851,26 @@ LABEL_207:
 LABEL_193:
   if ((*&has & 0x80000) != 0)
   {
-    if ((v20 & 0x80000) == 0 || self->_servingCellRAT != *(equal + 31))
+    if ((v13 & 0x80000) == 0 || self->_servingCellRAT != *(equal + 31))
     {
       goto LABEL_207;
     }
   }
 
-  else if ((v20 & 0x80000) != 0)
+  else if ((v13 & 0x80000) != 0)
   {
     goto LABEL_207;
   }
 
   if ((*&has & 0x100000) != 0)
   {
-    if ((v20 & 0x100000) == 0 || self->_servingCellSINR != *(equal + 32))
+    if ((v13 & 0x100000) == 0 || self->_servingCellSINR != *(equal + 32))
     {
       goto LABEL_207;
     }
   }
 
-  else if ((v20 & 0x100000) != 0)
+  else if ((v13 & 0x100000) != 0)
   {
     goto LABEL_207;
   }
@@ -2921,7 +2878,7 @@ LABEL_193:
   LOBYTE(v5) = (*(equal + 172) & 4) == 0;
   if ((*&has & 4) != 0)
   {
-    if ((v20 & 4) == 0 || self->_servingCellRSRP != *(equal + 3))
+    if ((v13 & 4) == 0 || self->_servingCellRSRP != *(equal + 3))
     {
       goto LABEL_207;
     }

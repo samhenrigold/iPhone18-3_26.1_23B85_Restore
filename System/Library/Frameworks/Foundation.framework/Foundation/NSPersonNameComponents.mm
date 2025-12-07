@@ -138,12 +138,12 @@
   return v4;
 }
 
-uint64_t __30__NSPersonNameComponents_hash__block_invoke(uint64_t a1, uint64_t a2)
+char *__30__NSPersonNameComponents_hash__block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) valueForKey:a2];
   v4 = *(*(*(a1 + 40) + 8) + 24);
   result = [v3 hash];
-  *(*(*(a1 + 40) + 8) + 24) = result - v4 + 32 * v4;
+  *(*(*(a1 + 40) + 8) + 24) = &result[32 * v4 - v4];
   return result;
 }
 
@@ -217,7 +217,7 @@ uint64_t __30__NSPersonNameComponents_hash__block_invoke(uint64_t a1, uint64_t a
   return componentsCopy & 1;
 }
 
-uint64_t __46__NSPersonNameComponents_isEqualToComponents___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__46__NSPersonNameComponents_isEqualToComponents___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v6 = [*(a1 + 32) valueForKey:a2];
   result = [*(a1 + 40) valueForKey:a2];

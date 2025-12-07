@@ -56,7 +56,7 @@
     goto LABEL_7;
   }
 
-  if (![v20 count])
+  if (!objc_msgSend_count(v20))
   {
 LABEL_7:
     v24 = 0;

@@ -69,7 +69,7 @@
   v3 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
+    ASVInitLogging(self, a2);
     v3 = _asvLogHandle;
   }
 
@@ -94,23 +94,23 @@
 
   if (sharedInlineService)
   {
-    v4 = +[ASVInlinePreviewFactory shared];
-    sharedInlineService2 = [v4 sharedInlineService];
+    v6 = +[ASVInlinePreviewFactory shared];
+    sharedInlineService2 = [v6 sharedInlineService];
   }
 
   else
   {
-    v6 = _asvLogHandle;
+    v8 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v6 = _asvLogHandle;
+      ASVInitLogging(v4, v5);
+      v8 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_INFO, "#Inline: Extension not launched", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_241215000, v8, OS_LOG_TYPE_INFO, "#Inline: Extension not launched", v10, 2u);
     }
 
     sharedInlineService2 = 0;
@@ -121,120 +121,77 @@
 
 - (void)sendTeardownEvent
 {
-  v3 = +[ASVInlinePreview getService];
-  if (v3)
+  v4 = +[ASVInlinePreview getService];
+  if (v4)
   {
     uuid = [(ASVInlinePreview *)self uuid];
-    [v3 teardownInlinePreviewWithUUID:uuid completion:&__block_literal_global_2];
+    [v4 teardownInlinePreviewWithUUID:uuid completion:&__block_literal_global_2];
   }
 
   else
   {
-    v5 = _asvLogHandle;
+    v6 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v5 = _asvLogHandle;
+      ASVInitLogging(0, v3);
+      v6 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_INFO, "#Inline: Couldn't get service", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_INFO, "#Inline: Couldn't get service", v7, 2u);
     }
   }
 }
 
 void __46__ASVInlinePreview_Private__sendTeardownEvent__block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _asvLogHandle;
+  v4 = v2;
+  v5 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v3 = _asvLogHandle;
+    ASVInitLogging(v2, v3);
+    v5 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_241215000, v3, OS_LOG_TYPE_INFO, "#Inline: Successfully teardown %@", &v4, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_INFO, "#Inline: Successfully teardown %@", &v6, 0xCu);
   }
 }
 
 + (void)remoteInstanceCount:(id)count
 {
   countCopy = count;
-  v4 = _asvLogHandle;
+  v5 = countCopy;
+  v6 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v4 = _asvLogHandle;
+    ASVInitLogging(countCopy, v4);
+    v6 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_241215000, v4, OS_LOG_TYPE_INFO, "#Inline: Get remoteInstanceCount", buf, 2u);
+    _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_INFO, "#Inline: Get remoteInstanceCount", buf, 2u);
   }
 
-  v5 = +[ASVInlinePreview getService];
-  if (v5)
-  {
-    v6 = objc_opt_new();
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __49__ASVInlinePreview_Private__remoteInstanceCount___block_invoke;
-    v8[3] = &unk_278CCAD98;
-    v9 = countCopy;
-    [v5 sendARQLEvent:&unk_285313458 forUUID:v6 completion:v8];
-  }
-
-  else
-  {
-    v7 = _asvLogHandle;
-    if (!_asvLogHandle)
-    {
-      ASVInitLogging();
-      v7 = _asvLogHandle;
-    }
-
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: Couldn't get service", buf, 2u);
-    }
-
-    (*(countCopy + 2))(countCopy, 0);
-  }
-}
-
-void __49__ASVInlinePreview_Private__remoteInstanceCount___block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v6 = a3;
-  v7 = _asvLogHandle;
-  if (!_asvLogHandle)
-  {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
-  }
-
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-  {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: replyPayload: %@", &v11, 0xCu);
-  }
-
-  v8 = [v5 objectForKey:@"instanceCount"];
-  v9 = v8;
+  v8 = +[ASVInlinePreview getService];
   if (v8)
   {
-    (*(*(a1 + 32) + 16))(*(a1 + 32), [v8 intValue]);
+    v9 = objc_opt_new();
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __49__ASVInlinePreview_Private__remoteInstanceCount___block_invoke;
+    v11[3] = &unk_278CCAD98;
+    v12 = v5;
+    [v8 sendARQLEvent:&unk_285313458 forUUID:v9 completion:v11];
   }
 
   else
@@ -242,14 +199,60 @@ void __49__ASVInlinePreview_Private__remoteInstanceCount___block_invoke(uint64_t
     v10 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
+      ASVInitLogging(0, v7);
       v10 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_ERROR, "#Inline: Couldn't get remoteInstanceCount", &v11, 2u);
+      *buf = 0;
+      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_INFO, "#Inline: Couldn't get service", buf, 2u);
+    }
+
+    v5[2](v5, 0);
+  }
+}
+
+void __49__ASVInlinePreview_Private__remoteInstanceCount___block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = a3;
+  v8 = v6;
+  v9 = _asvLogHandle;
+  if (!_asvLogHandle)
+  {
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v14 = 138412290;
+    v15 = v5;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: replyPayload: %@", &v14, 0xCu);
+  }
+
+  v10 = [v5 objectForKey:@"instanceCount"];
+  v12 = v10;
+  if (v10)
+  {
+    (*(*(a1 + 32) + 16))(*(a1 + 32), [v10 intValue]);
+  }
+
+  else
+  {
+    v13 = _asvLogHandle;
+    if (!_asvLogHandle)
+    {
+      ASVInitLogging(0, v11);
+      v13 = _asvLogHandle;
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_241215000, v13, OS_LOG_TYPE_ERROR, "#Inline: Couldn't get remoteInstanceCount", &v14, 2u);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0xFFFFFFFFLL);
@@ -259,31 +262,31 @@ void __49__ASVInlinePreview_Private__remoteInstanceCount___block_invoke(uint64_t
 + (void)debugGetMemoryUsage:(id)usage
 {
   usageCopy = usage;
-  v4 = +[ASVInlinePreview getService];
-  if (v4)
+  v5 = +[ASVInlinePreview getService];
+  if (v5)
   {
-    v5 = objc_opt_new();
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __49__ASVInlinePreview_Private__debugGetMemoryUsage___block_invoke;
-    v7[3] = &unk_278CCAD98;
-    v8 = usageCopy;
-    [v4 sendARQLEvent:&unk_285313480 forUUID:v5 completion:v7];
+    v6 = objc_opt_new();
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __49__ASVInlinePreview_Private__debugGetMemoryUsage___block_invoke;
+    v8[3] = &unk_278CCAD98;
+    v9 = usageCopy;
+    [v5 sendARQLEvent:&unk_285313480 forUUID:v6 completion:v8];
   }
 
   else
   {
-    v6 = _asvLogHandle;
+    v7 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v6 = _asvLogHandle;
+      ASVInitLogging(0, v4);
+      v7 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_INFO, "#Inline: Couldn't get service", buf, 2u);
+      _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: Couldn't get service", buf, 2u);
     }
 
     (*(usageCopy + 2))(usageCopy, 0, 0);
@@ -334,7 +337,7 @@ void __49__ASVInlinePreview_Private__debugGetMemoryUsage___block_invoke(uint64_t
   v3 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
+    ASVInitLogging(self, a2);
     v3 = _asvLogHandle;
   }
 
@@ -404,26 +407,27 @@ uint64_t __43__ASVInlinePreview_Private__showErrorLayer__block_invoke(uint64_t a
 
 void __46__ASVInlinePreview_Private__setEnableShadows___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _asvLogHandle;
+  v8 = v6;
+  v9 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = *(a1 + 32);
-    v10[0] = 67109120;
-    v10[1] = v8;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: setEnableShadows: %d", v10, 8u);
+    v10 = *(a1 + 32);
+    v12[0] = 67109120;
+    v12[1] = v10;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: setEnableShadows: %d", v12, 8u);
   }
 
-  v9 = [v6 uuid];
-  [v5 inlinePreview:v9 setEnableShadows:*(a1 + 32)];
+  v11 = [v8 uuid];
+  [v5 inlinePreview:v11 setEnableShadows:*(a1 + 32)];
 }
 
 - (void)setIsPlaying:(BOOL)playing reply:(id)reply
@@ -442,65 +446,67 @@ void __46__ASVInlinePreview_Private__setEnableShadows___block_invoke(uint64_t a1
 
 void __48__ASVInlinePreview_Private__setIsPlaying_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _asvLogHandle;
+  v8 = v6;
+  v9 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = *(a1 + 48);
+    v10 = *(a1 + 48);
     *buf = 67109120;
-    v20 = v8;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: setIsPlaying: %d", buf, 8u);
+    v22 = v10;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: setIsPlaying: %d", buf, 8u);
   }
 
-  v17[1] = @"isPlaying";
-  v18[0] = @"isPlaying";
-  v17[0] = @"request";
-  v9 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48)];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v19[1] = @"isPlaying";
+  v20[0] = @"isPlaying";
+  v19[0] = @"request";
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48)];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
-  v11 = [*(a1 + 32) uuid];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __48__ASVInlinePreview_Private__setIsPlaying_reply___block_invoke_77;
-  v14[3] = &unk_278CCAE08;
-  v12 = *(a1 + 40);
-  v15 = v10;
-  v16 = v12;
-  v14[4] = *(a1 + 32);
-  v13 = v10;
-  [v5 sendARQLEvent:v13 forUUID:v11 completion:v14];
+  v13 = [*(a1 + 32) uuid];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __48__ASVInlinePreview_Private__setIsPlaying_reply___block_invoke_77;
+  v16[3] = &unk_278CCAE08;
+  v14 = *(a1 + 40);
+  v17 = v12;
+  v18 = v14;
+  v16[4] = *(a1 + 32);
+  v15 = v12;
+  [v5 sendARQLEvent:v15 forUUID:v13 completion:v16];
 }
 
 void __48__ASVInlinePreview_Private__setIsPlaying_reply___block_invoke_77(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"error"];
+  v5 = v3;
   if (v3)
   {
-    v4 = _asvLogHandle;
+    v6 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v4 = _asvLogHandle;
+      ASVInitLogging(v3, v4);
+      v6 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_241215000, v4, OS_LOG_TYPE_ERROR, "#Inline: Unable to setIsPlaying. Error: %@", &v5, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_ERROR, "#Inline: Unable to setIsPlaying. Error: %@", &v7, 0xCu);
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), [*(a1 + 32) isPlaying], v3);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), [*(a1 + 32) isPlaying], v5);
   }
 
   else
@@ -512,50 +518,52 @@ void __48__ASVInlinePreview_Private__setIsPlaying_reply___block_invoke_77(uint64
 
 void __42__ASVInlinePreview_Private__setIsLooping___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _asvLogHandle;
+  v8 = v6;
+  v9 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = *(a1 + 32);
-    v10[0] = 67109120;
-    v10[1] = v8;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: setIsLooping: %d", v10, 8u);
+    v10 = *(a1 + 32);
+    v12[0] = 67109120;
+    v12[1] = v10;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: setIsLooping: %d", v12, 8u);
   }
 
-  v9 = [v6 uuid];
-  [v5 inlinePreview:v9 setIsLooping:*(a1 + 32)];
+  v11 = [v8 uuid];
+  [v5 inlinePreview:v11 setIsLooping:*(a1 + 32)];
 }
 
 void __40__ASVInlinePreview_Private__setIsMuted___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _asvLogHandle;
+  v8 = v6;
+  v9 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = *(a1 + 32);
-    v10[0] = 67109120;
-    v10[1] = v8;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: setIsMuted: %d", v10, 8u);
+    v10 = *(a1 + 32);
+    v12[0] = 67109120;
+    v12[1] = v10;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: setIsMuted: %d", v12, 8u);
   }
 
-  v9 = [v6 uuid];
-  [v5 inlinePreview:v9 setIsMuted:*(a1 + 32)];
+  v11 = [v8 uuid];
+  [v5 inlinePreview:v11 setIsMuted:*(a1 + 32)];
 }
 
 void __55__ASVInlinePreview_Private__setAnimationObserverBlock___block_invoke(uint64_t a1, void *a2)
@@ -630,35 +638,36 @@ void __44__ASVInlinePreview_Private__setCurrentTime___block_invoke(uint64_t a1, 
 - (void)_getCameraTransform:(id)transform
 {
   transformCopy = transform;
-  v5 = _asvLogHandle;
+  v6 = transformCopy;
+  v7 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v5 = _asvLogHandle;
+    ASVInitLogging(transformCopy, v5);
+    v7 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_INFO, "#Inline: _getCameraTransform() called", buf, 2u);
+    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: _getCameraTransform() called", buf, 2u);
   }
 
-  v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:5 userInfo:0];
+  v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:5 userInfo:0];
   cameraTransformReply = [(ASVInlinePreview *)self cameraTransformReply];
 
   if (cameraTransformReply)
   {
     cameraTransformReply2 = [(ASVInlinePreview *)self cameraTransformReply];
-    (cameraTransformReply2)[2](cameraTransformReply2, v6, 0);
+    (cameraTransformReply2)[2](cameraTransformReply2, v8, 0);
   }
 
-  [(ASVInlinePreview *)self setCameraTransformReply:transformCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__ASVInlinePreview_Private___getCameraTransform___block_invoke;
-  v9[3] = &unk_278CCAF40;
-  v9[4] = self;
-  [(ASVInlinePreview *)self getSharedInlineServiceFailable:v9];
+  [(ASVInlinePreview *)self setCameraTransformReply:v6];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__ASVInlinePreview_Private___getCameraTransform___block_invoke;
+  v11[3] = &unk_278CCAF40;
+  v11[4] = self;
+  [(ASVInlinePreview *)self getSharedInlineServiceFailable:v11];
 }
 
 void __49__ASVInlinePreview_Private___getCameraTransform___block_invoke(uint64_t a1, void *a2)
@@ -678,17 +687,18 @@ void __49__ASVInlinePreview_Private___getCameraTransform___block_invoke_2(uint64
 {
   v5 = a2;
   v6 = a3;
-  v7 = _asvLogHandle;
+  v8 = v6;
+  v9 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: _getCameraTransform() received reply", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: _getCameraTransform() received reply", v10, 2u);
   }
 
   [*(a1 + 32) updateRuntimeStateFrom:v5];
@@ -706,34 +716,35 @@ void __49__ASVInlinePreview_Private___getCameraTransform___block_invoke_2(uint64
 
 void __48__ASVInlinePreview_Private__setCameraTransform___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _asvLogHandle;
+  v8 = v6;
+  v9 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v7 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v9 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = COERCE_FLOAT(HIDWORD(*(a1 + 32)));
-    v9 = COERCE_FLOAT(*(a1 + 32));
-    v10 = COERCE_FLOAT(*(a1 + 40));
-    v14 = 134218496;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
+    v10 = COERCE_FLOAT(HIDWORD(*(a1 + 32)));
+    v11 = COERCE_FLOAT(*(a1 + 32));
+    v12 = COERCE_FLOAT(*(a1 + 40));
+    v16 = 134218496;
+    v17 = v10;
     v18 = 2048;
-    v19 = v10;
-    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: setCameraYaw: %g, %g, %g", &v14, 0x20u);
+    v19 = v11;
+    v20 = 2048;
+    v21 = v12;
+    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: setCameraYaw: %g, %g, %g", &v16, 0x20u);
   }
 
-  v11 = [v6 uuid];
-  LODWORD(v12) = HIDWORD(*(a1 + 32));
-  LODWORD(v13) = *(a1 + 40);
-  [v5 inlinePreview:v11 setCameraYaw:&unk_2853134F8 pitch:v12 scale:*(a1 + 32) options:v13];
+  v13 = [v8 uuid];
+  LODWORD(v14) = HIDWORD(*(a1 + 32));
+  LODWORD(v15) = *(a1 + 40);
+  [v5 inlinePreview:v13 setCameraYaw:&unk_2853134F8 pitch:v14 scale:*(a1 + 32) options:v15];
 }
 
 - (void)updateRuntimeStateFrom:(id)from
@@ -851,33 +862,34 @@ void __48__ASVInlinePreview_Private__setCameraTransform___block_invoke(uint64_t 
 
 void __51__ASVInlinePreview_getSharedInlineServiceFailable___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = _asvLogHandle;
+      v7 = _asvLogHandle;
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v5 = _asvLogHandle;
+        ASVInitLogging(WeakRetained, v5);
+        v7 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_ERROR, "#Inline: getSharedInlineServiceFailable: Unable to get shared service, error: %@", &v8, 0xCu);
+        v10 = 138412290;
+        v11 = v3;
+        _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_ERROR, "#Inline: getSharedInlineServiceFailable: Unable to get shared service, error: %@", &v10, 0xCu);
       }
     }
 
     else
     {
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 32) sharedInlineService];
-      (*(v6 + 16))(v6, v7, WeakRetained);
+      v8 = *(a1 + 40);
+      v9 = [*(a1 + 32) sharedInlineService];
+      (*(v8 + 16))(v8, v9, v6);
     }
   }
 }
@@ -913,143 +925,145 @@ void __51__ASVInlinePreview_getSharedInlineServiceFailable___block_invoke(uint64
 
 void __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = _asvLogHandle;
+  v6 = WeakRetained;
+  v7 = _asvLogHandle;
   if (v3)
   {
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v5 = _asvLogHandle;
+      ASVInitLogging(WeakRetained, v5);
+      v7 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v3;
-      _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_ERROR, "#Inline: Unable to getSharedInlineServiceWithCompletionHandler, error: %@", buf, 0xCu);
+      v23 = v3;
+      _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_ERROR, "#Inline: Unable to getSharedInlineServiceWithCompletionHandler, error: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
-    [WeakRetained showErrorLayer];
+    [v6 showErrorLayer];
   }
 
   else
   {
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v5 = _asvLogHandle;
+      ASVInitLogging(WeakRetained, v5);
+      v7 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 56);
-      v7 = *(a1 + 64);
-      v8 = *(a1 + 72);
-      v9 = *(a1 + 80);
-      v10 = v5;
-      v23.origin.x = v6;
-      v23.origin.y = v7;
-      v23.size.width = v8;
-      v23.size.height = v9;
-      v11 = NSStringFromCGRect(v23);
+      v8 = *(a1 + 56);
+      v9 = *(a1 + 64);
+      v10 = *(a1 + 72);
+      v11 = *(a1 + 80);
+      v12 = v7;
+      v25.origin.x = v8;
+      v25.origin.y = v9;
+      v25.size.width = v10;
+      v25.size.height = v11;
+      v13 = NSStringFromCGRect(v25);
       *buf = 138412290;
-      v21 = v11;
-      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_INFO, "#Inline: setupRemoteConnectionWithCompletionHandler, frame: %@", buf, 0xCu);
+      v23 = v13;
+      _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_INFO, "#Inline: setupRemoteConnectionWithCompletionHandler, frame: %@", buf, 0xCu);
     }
 
-    v12 = [*(a1 + 32) sharedInlineService];
-    v13 = WeakRetained[1];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke_2;
-    v15[3] = &unk_278CCB5C0;
-    objc_copyWeak(&v17, (a1 + 48));
-    v16 = *(a1 + 40);
-    v14 = *(a1 + 72);
-    v18 = *(a1 + 56);
-    v19 = v14;
-    [v12 createInlinePreviewWithUUID:v13 initialBounds:v15 contextIdReply:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
+    v14 = [*(a1 + 32) sharedInlineService];
+    v15 = v6[1];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke_2;
+    v17[3] = &unk_278CCB5C0;
+    objc_copyWeak(&v19, (a1 + 48));
+    v18 = *(a1 + 40);
+    v16 = *(a1 + 72);
+    v20 = *(a1 + 56);
+    v21 = v16;
+    [v14 createInlinePreviewWithUUID:v15 initialBounds:v17 contextIdReply:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
   }
 }
 
 void __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v11 = WeakRetained;
   if (v8)
   {
-    v10 = _asvLogHandle;
+    v12 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v10 = _asvLogHandle;
+      ASVInitLogging(WeakRetained, v10);
+      v12 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v8;
-      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_ERROR, "#Inline: Unable to create remote context, error: %@", buf, 0xCu);
+      v21 = v8;
+      _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_ERROR, "#Inline: Unable to create remote context, error: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
-    [WeakRetained showErrorLayer];
+    [v11 showErrorLayer];
   }
 
   else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke_3;
-    v12[3] = &unk_278CCB598;
-    objc_copyWeak(&v14, (a1 + 40));
-    v17 = a3;
-    v11 = *(a1 + 64);
-    v15 = *(a1 + 48);
-    v16 = v11;
-    v13 = *(a1 + 32);
-    ASVRunInMainThread(v12);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke_3;
+    v14[3] = &unk_278CCB598;
+    objc_copyWeak(&v16, (a1 + 40));
+    v19 = a3;
+    v13 = *(a1 + 64);
+    v17 = *(a1 + 48);
+    v18 = v13;
+    v15 = *(a1 + 32);
+    ASVRunInMainThread(v14);
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
   }
 }
 
 void __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [MEMORY[0x277CD9EE0] layer];
   [v3 setContextId:*(a1 + 80)];
-  [v3 setFrame:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
-  v4 = _asvLogHandle;
+  v4 = [v3 setFrame:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
+  v6 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v4 = _asvLogHandle;
+    ASVInitLogging(v4, v5);
+    v6 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v5 = v4;
+    v7 = v6;
     [v3 frame];
-    v6 = NSStringFromCGRect(v12);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_INFO, "#Inline: layerHost.frame: %@", &v9, 0xCu);
+    v8 = NSStringFromCGRect(v14);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: layerHost.frame: %@", &v11, 0xCu);
   }
 
   [v3 setAllowsHitTesting:0];
-  v7 = WeakRetained[2];
+  v9 = WeakRetained[2];
   WeakRetained[2] = v3;
-  v8 = v3;
+  v10 = v3;
 
   (*(*(a1 + 32) + 16))();
 }
@@ -1081,80 +1095,82 @@ void __63__ASVInlinePreview_setupRemoteConnectionWithCompletionHandler___block_i
 
 void __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
+  v6 = WeakRetained;
   if (v3)
   {
-    v5 = _asvLogHandle;
+    v7 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v5 = _asvLogHandle;
+      ASVInitLogging(WeakRetained, v5);
+      v7 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v3;
-      _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_ERROR, "#Inline: Unable to getSharedInlineServiceWithCompletionHandler, error: %@", buf, 0xCu);
+      v21 = v3;
+      _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_ERROR, "#Inline: Unable to getSharedInlineServiceWithCompletionHandler, error: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 56) + 16))();
-    [WeakRetained showErrorLayer];
+    [v6 showErrorLayer];
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v15 = 0;
-    v7 = [MEMORY[0x277CDAA38] wrapperWithURL:v6 readonly:1 error:&v15];
-    v8 = v15;
-    v9 = _asvLogHandle;
-    if (v8)
+    v8 = *(a1 + 32);
+    v19 = 0;
+    v9 = [MEMORY[0x277CDAA38] wrapperWithURL:v8 readonly:1 error:&v19];
+    v10 = v19;
+    v12 = v10;
+    v13 = _asvLogHandle;
+    if (v10)
     {
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v9 = _asvLogHandle;
+        ASVInitLogging(v10, v11);
+        v13 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v17 = v8;
-        _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_ERROR, "#Inline: Unable to extend file sandbox to extension, error: %@", buf, 0xCu);
+        v21 = v12;
+        _os_log_impl(&dword_241215000, v13, OS_LOG_TYPE_ERROR, "#Inline: Unable to extend file sandbox to extension, error: %@", buf, 0xCu);
       }
 
       (*(*(a1 + 56) + 16))();
-      [WeakRetained showErrorLayer];
+      [v6 showErrorLayer];
     }
 
     else
     {
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v9 = _asvLogHandle;
+        ASVInitLogging(0, v11);
+        v13 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: calling prepareInlinePreviewWithScopedURLWrapperAttributes", buf, 2u);
+        _os_log_impl(&dword_241215000, v13, OS_LOG_TYPE_INFO, "#Inline: calling prepareInlinePreviewWithScopedURLWrapperAttributes", buf, 2u);
       }
 
-      v10 = [*(a1 + 40) sharedInlineService];
-      v11 = *(*(a1 + 48) + 8);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_invoke_8;
-      v12[3] = &unk_278CCB688;
-      objc_copyWeak(&v14, (a1 + 64));
-      v13 = *(a1 + 56);
-      [v10 prepareInlinePreviewWithScopedURLWrapperAttributes:v7 forUUID:v11 completion:v12];
+      v14 = [*(a1 + 40) sharedInlineService];
+      v15 = *(*(a1 + 48) + 8);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_invoke_8;
+      v16[3] = &unk_278CCB688;
+      objc_copyWeak(&v18, (a1 + 64));
+      v17 = *(a1 + 56);
+      [v14 prepareInlinePreviewWithScopedURLWrapperAttributes:v9 forUUID:v15 completion:v16];
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v18);
     }
   }
 }
@@ -1181,70 +1197,70 @@ void __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_
 
 void __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (*(a1 + 32))
   {
-    v4 = _asvLogHandle;
+    v5 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v4 = _asvLogHandle;
+      ASVInitLogging(WeakRetained, v3);
+      v5 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       *buf = 138412290;
-      v26 = v5;
-      _os_log_impl(&dword_241215000, v4, OS_LOG_TYPE_ERROR, "#Inline: Unable to load file for inline preview, error: %@", buf, 0xCu);
+      v29 = v6;
+      _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_ERROR, "#Inline: Unable to load file for inline preview, error: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
-    [v3 showErrorLayer];
+    [v4 showErrorLayer];
   }
 
   else
   {
-    v6 = [WeakRetained spinnerLayer];
-    [v6 stopAnimating];
+    v7 = [WeakRetained spinnerLayer];
+    [v7 stopAnimating];
 
-    [v3[5] addSublayer:v3[2]];
-    [v3 updateLayout];
-    [v3 updateRuntimeStateFrom:*(a1 + 40)];
-    *(v3 + 32) = 0;
-    [v3[5] bounds];
-    v8 = v7;
-    v10 = v9;
-    [v3[2] bounds];
-    if (v8 != v12 || v10 != v11)
+    [v4[5] addSublayer:v4[2]];
+    [v4 updateLayout];
+    [v4 updateRuntimeStateFrom:*(a1 + 40)];
+    *(v4 + 32) = 0;
+    [v4[5] bounds];
+    v9 = v8;
+    v11 = v10;
+    v12 = [v4[2] bounds];
+    if (v9 != v15 || v11 != v14)
     {
-      v14 = _asvLogHandle;
+      v17 = _asvLogHandle;
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v14 = _asvLogHandle;
+        ASVInitLogging(v12, v13);
+        v17 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_241215000, v14, OS_LOG_TYPE_INFO, "#Inline: Frame was changed during loading - resizing...", buf, 2u);
+        _os_log_impl(&dword_241215000, v17, OS_LOG_TYPE_INFO, "#Inline: Frame was changed during loading - resizing...", buf, 2u);
       }
 
-      [v3[5] bounds];
-      v16 = v15;
-      v18 = v17;
-      v20 = v19;
-      v22 = v21;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_invoke_9;
-      v23[3] = &unk_278CCB638;
-      objc_copyWeak(&v24, (a1 + 56));
-      [v3 updateFrame:v23 completionHandler:{v16, v18, v20, v22}];
-      objc_destroyWeak(&v24);
+      [v4[5] bounds];
+      v19 = v18;
+      v21 = v20;
+      v23 = v22;
+      v25 = v24;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __64__ASVInlinePreview_preparePreviewOfFileAtURL_completionHandler___block_invoke_9;
+      v26[3] = &unk_278CCB638;
+      objc_copyWeak(&v27, (a1 + 56));
+      [v4 updateFrame:v26 completionHandler:{v19, v21, v23, v25}];
+      objc_destroyWeak(&v27);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1332,40 +1348,41 @@ void __94__ASVInlinePreview_createFullscreenInstanceWithInitialFrame_previewOpti
 
 void __94__ASVInlinePreview_createFullscreenInstanceWithInitialFrame_previewOptions_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
-  v3 = WeakRetained;
-  if (!*(a1 + 32) && *(a1 + 40) && (v6 = *(a1 + 48)) != 0)
+  v4 = WeakRetained;
+  if (!*(a1 + 32) && *(a1 + 40) && (v3 = *(a1 + 48)) != 0)
   {
     if (WeakRetained[3])
     {
       __94__ASVInlinePreview_createFullscreenInstanceWithInitialFrame_previewOptions_completionHandler___block_invoke_2_cold_1();
-      v6 = *v11;
+      v3 = *v13;
     }
 
-    objc_storeStrong(v3 + 3, v6);
+    objc_storeStrong(v4 + 3, v3);
     v7 = [MEMORY[0x277CD9E90] handleFromXPCRepresentation:*(a1 + 56)];
     if (v7)
     {
-      v8 = [[ASVInlineHostViewController alloc] initWithUUID:v3[1] child:*(a1 + 40) fullscreenInlineService:*(a1 + 48) canonicalWebPageURL:v3[6]];
+      v8 = [[ASVInlineHostViewController alloc] initWithUUID:v4[1] child:*(a1 + 40) fullscreenInlineService:*(a1 + 48) canonicalWebPageURL:v4[6]];
       v9 = *(*(a1 + 64) + 16);
     }
 
     else
     {
-      v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:3 userInfo:0];
-      v10 = _asvLogHandle;
+      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:3 userInfo:0];
+      v8 = v10;
+      v12 = _asvLogHandle;
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v10 = _asvLogHandle;
+        ASVInitLogging(v10, v11);
+        v12 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v11 = 138412290;
-        *&v11[4] = v8;
-        _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_ERROR, "#Inline: Didn't receive fence handler when creating fullscreen instance, error: %@", v11, 0xCu);
+        *v13 = 138412290;
+        *&v13[4] = v8;
+        _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_ERROR, "#Inline: Didn't receive fence handler when creating fullscreen instance, error: %@", v13, 0xCu);
       }
 
       v9 = *(*(a1 + 64) + 16);
@@ -1376,19 +1393,19 @@ void __94__ASVInlinePreview_createFullscreenInstanceWithInitialFrame_previewOpti
 
   else
   {
-    v4 = _asvLogHandle;
+    v5 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v4 = _asvLogHandle;
+      ASVInitLogging(WeakRetained, v3);
+      v5 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      *v11 = 138412290;
-      *&v11[4] = v5;
-      _os_log_impl(&dword_241215000, v4, OS_LOG_TYPE_ERROR, "#Inline: Unable to create fullscreen instance, error: %@", v11, 0xCu);
+      v6 = *(a1 + 32);
+      *v13 = 138412290;
+      *&v13[4] = v6;
+      _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_ERROR, "#Inline: Unable to create fullscreen instance, error: %@", v13, 0xCu);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -1422,33 +1439,33 @@ void __94__ASVInlinePreview_createFullscreenInstanceWithInitialFrame_previewOpti
 
 void __66__ASVInlinePreview_observeDismissFullscreenWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (v6)
   {
     v9 = [MEMORY[0x277CD9E90] handleFromXPCRepresentation:v6];
-    (*(*(a1 + 32) + 16))();
-    v10 = _asvLogHandle;
+    v10 = (*(*(a1 + 32) + 16))();
+    v12 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v10 = _asvLogHandle;
+      ASVInitLogging(v10, v11);
+      v12 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      *v13 = 138412290;
-      *&v13[4] = v7;
-      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_INFO, "#Inline: return to inline payload: %@", v13, 0xCu);
+      *v17 = 138412290;
+      *&v17[4] = v7;
+      _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_INFO, "#Inline: return to inline payload: %@", v17, 0xCu);
     }
 
-    v11 = WeakRetained[3];
-    if (!v11)
+    v13 = WeakRetained[3];
+    if (!v13)
     {
       __66__ASVInlinePreview_observeDismissFullscreenWithCompletionHandler___block_invoke_cold_1();
-      v11 = *v13;
+      v13 = *v17;
     }
 
     WeakRetained[3] = 0;
@@ -1456,19 +1473,20 @@ void __66__ASVInlinePreview_observeDismissFullscreenWithCompletionHandler___bloc
 
   else
   {
-    v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:3 userInfo:0];
-    v12 = _asvLogHandle;
+    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:3 userInfo:0];
+    v9 = v14;
+    v16 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v12 = _asvLogHandle;
+      ASVInitLogging(v14, v15);
+      v16 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      *v13 = 138412290;
-      *&v13[4] = v9;
-      _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_ERROR, "#Inline: No CAFenceHandle when returning to inline, error: %@", v13, 0xCu);
+      *v17 = 138412290;
+      *&v17[4] = v9;
+      _os_log_impl(&dword_241215000, v16, OS_LOG_TYPE_ERROR, "#Inline: No CAFenceHandle when returning to inline, error: %@", v17, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -1481,115 +1499,119 @@ void __66__ASVInlinePreview_observeDismissFullscreenWithCompletionHandler___bloc
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v34 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v10 = _asvLogHandle;
+  v11 = handlerCopy;
+  v12 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v10 = _asvLogHandle;
+    ASVInitLogging(handlerCopy, v10);
+    v12 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  bounds = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  if (bounds)
   {
-    v11 = v10;
-    v35.origin.x = x;
-    v35.origin.y = y;
-    v35.size.width = width;
-    v35.size.height = height;
-    v12 = NSStringFromCGRect(v35);
+    v15 = v12;
+    v39.origin.x = x;
+    v39.origin.y = y;
+    v39.size.width = width;
+    v39.size.height = height;
+    v16 = NSStringFromCGRect(v39);
     [(CALayer *)self->_layer bounds];
-    v13 = NSStringFromCGRect(v36);
+    v17 = NSStringFromCGRect(v40);
     *buf = 138412546;
-    v31 = v12;
-    v32 = 2112;
-    v33 = v13;
-    _os_log_impl(&dword_241215000, v11, OS_LOG_TYPE_INFO, "#Inline: updateFrame called - newFrame: %@, oldFrame: %@", buf, 0x16u);
+    v35 = v16;
+    v36 = 2112;
+    v37 = v17;
+    _os_log_impl(&dword_241215000, v15, OS_LOG_TYPE_INFO, "#Inline: updateFrame called - newFrame: %@, oldFrame: %@", buf, 0x16u);
   }
 
   fullscreenService = self->_fullscreenService;
   if (!fullscreenService)
   {
-    [(CALayerHost *)self->_layerHost bounds];
-    if (width == v16 && height == v15)
+    bounds = [(CALayerHost *)self->_layerHost bounds];
+    if (width == v20 && height == v19)
     {
-      v18 = _asvLogHandle;
+      v22 = _asvLogHandle;
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v18 = _asvLogHandle;
+        ASVInitLogging(bounds, v14);
+        v22 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      bounds = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+      if (bounds)
       {
-        v19 = v18;
-        v37.origin.x = x;
-        v37.origin.y = y;
-        v37.size.width = width;
-        v37.size.height = height;
-        v20 = NSStringFromCGRect(v37);
+        v23 = v22;
+        v41.origin.x = x;
+        v41.origin.y = y;
+        v41.size.width = width;
+        v41.size.height = height;
+        v24 = NSStringFromCGRect(v41);
         [(CALayer *)self->_layer bounds];
-        v21 = NSStringFromCGRect(v38);
+        v25 = NSStringFromCGRect(v42);
         *buf = 138412546;
-        v31 = v20;
-        v32 = 2112;
-        v33 = v21;
-        _os_log_impl(&dword_241215000, v19, OS_LOG_TYPE_INFO, "#Inline: Trying to updateFrame while in inline, but new bounds size is the same as current. newFrame: %@, oldFrame: %@", buf, 0x16u);
+        v35 = v24;
+        v36 = 2112;
+        v37 = v25;
+        _os_log_impl(&dword_241215000, v23, OS_LOG_TYPE_INFO, "#Inline: Trying to updateFrame while in inline, but new bounds size is the same as current. newFrame: %@, oldFrame: %@", buf, 0x16u);
       }
     }
   }
 
   if (self->_resizeLayerImmediately)
   {
-    v22 = _asvLogHandle;
+    v26 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v22 = _asvLogHandle;
+      ASVInitLogging(bounds, v14);
+      v26 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241215000, v22, OS_LOG_TYPE_INFO, "#Inline: Updating bounds immediately since showing error or spinner", buf, 2u);
+      _os_log_impl(&dword_241215000, v26, OS_LOG_TYPE_INFO, "#Inline: Updating bounds immediately since showing error or spinner", buf, 2u);
     }
 
     [(ASVInlinePreview *)self setFrameWithinFencedTransaction:x, y, width, height];
   }
 
-  v23 = +[ASVInlinePreviewFactory shared];
-  sharedInlineService = [v23 sharedInlineService];
+  v27 = +[ASVInlinePreviewFactory shared];
+  sharedInlineService = [v27 sharedInlineService];
   uuid = self->_uuid;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __50__ASVInlinePreview_updateFrame_completionHandler___block_invoke;
-  v27[3] = &unk_278CCB750;
-  v28 = handlerCopy;
-  v29 = fullscreenService == 0;
-  v26 = handlerCopy;
-  [sharedInlineService updateBounds:uuid forUUID:v27 fenceHandleCompletion:{x, y, width, height}];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __50__ASVInlinePreview_updateFrame_completionHandler___block_invoke;
+  v31[3] = &unk_278CCB750;
+  v32 = v11;
+  v33 = fullscreenService == 0;
+  v30 = v11;
+  [sharedInlineService updateBounds:uuid forUUID:v31 fenceHandleCompletion:{x, y, width, height}];
 }
 
 void __50__ASVInlinePreview_updateFrame_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v11 = v9;
   if (v9)
   {
-    v10 = _asvLogHandle;
+    v12 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v10 = _asvLogHandle;
+      ASVInitLogging(v9, v10);
+      v12 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_ERROR, "#Inline: Error while updating frame, error: %@", &v14, 0xCu);
+      v18 = 138412290;
+      v19 = v11;
+      _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_ERROR, "#Inline: Error while updating frame, error: %@", &v18, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -1597,7 +1619,7 @@ void __50__ASVInlinePreview_updateFrame_completionHandler___block_invoke(uint64_
 
   else
   {
-    v11 = [MEMORY[0x277CD9E90] handleFromXPCRepresentation:v8];
+    v13 = [MEMORY[0x277CD9E90] handleFromXPCRepresentation:v8];
     if (v8 || (*(a1 + 40) & 1) == 0)
     {
       (*(*(a1 + 32) + 16))();
@@ -1605,19 +1627,20 @@ void __50__ASVInlinePreview_updateFrame_completionHandler___block_invoke(uint64_
 
     else
     {
-      v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:3 userInfo:0];
-      v13 = _asvLogHandle;
+      v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:3 userInfo:0];
+      v16 = v14;
+      v17 = _asvLogHandle;
       if (!_asvLogHandle)
       {
-        ASVInitLogging();
-        v13 = _asvLogHandle;
+        ASVInitLogging(v14, v15);
+        v17 = _asvLogHandle;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412290;
-        v15 = v12;
-        _os_log_impl(&dword_241215000, v13, OS_LOG_TYPE_ERROR, "#Inline: No CAFenceHandle when updating frame, error: %@", &v14, 0xCu);
+        v18 = 138412290;
+        v19 = v16;
+        _os_log_impl(&dword_241215000, v17, OS_LOG_TYPE_ERROR, "#Inline: No CAFenceHandle when updating frame, error: %@", &v18, 0xCu);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -1631,26 +1654,26 @@ void __50__ASVInlinePreview_updateFrame_completionHandler___block_invoke(uint64_
   width = transaction.size.width;
   y = transaction.origin.y;
   x = transaction.origin.x;
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v8 = _asvLogHandle;
+  v10 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v8 = _asvLogHandle;
+    ASVInitLogging(v8, v9);
+    v10 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v9 = v8;
-    v14.origin.x = x;
-    v14.origin.y = y;
-    v14.size.width = width;
-    v14.size.height = height;
-    v10 = NSStringFromCGRect(v14);
-    v11 = 138412290;
-    v12 = v10;
-    _os_log_impl(&dword_241215000, v9, OS_LOG_TYPE_INFO, "#Inline: Setting frame %@ to root and child layers", &v11, 0xCu);
+    v11 = v10;
+    v16.origin.x = x;
+    v16.origin.y = y;
+    v16.size.width = width;
+    v16.size.height = height;
+    v12 = NSStringFromCGRect(v16);
+    v13 = 138412290;
+    v14 = v12;
+    _os_log_impl(&dword_241215000, v11, OS_LOG_TYPE_INFO, "#Inline: Setting frame %@ to root and child layers", &v13, 0xCu);
   }
 
   [(CALayer *)self->_layer setFrame:x, y, width, height];
@@ -1860,20 +1883,21 @@ void __47__ASVInlinePreview_touchesCancelled_withEvent___block_invoke(uint64_t a
 - (void)getCameraTransform:(id)transform
 {
   transformCopy = transform;
-  v5 = _asvLogHandle;
+  v6 = transformCopy;
+  v7 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v5 = _asvLogHandle;
+    ASVInitLogging(transformCopy, v5);
+    v7 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_INFO, "#Inline: getCameraTransform() called", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: getCameraTransform() called", v8, 2u);
   }
 
-  [(ASVInlinePreview *)self _getCameraTransform:transformCopy];
+  [(ASVInlinePreview *)self _getCameraTransform:v6];
 }
 
 + (void)_kill:(int)_kill
@@ -1883,7 +1907,7 @@ void __47__ASVInlinePreview_touchesCancelled_withEvent___block_invoke(uint64_t a
   v4 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
+    ASVInitLogging(self, a2);
     v4 = _asvLogHandle;
   }
 

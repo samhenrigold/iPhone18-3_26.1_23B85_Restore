@@ -1,6 +1,8 @@
 @interface _CPSkipSearchFeedback
 - (BOOL)isEqual:(id)equal;
 - (_CPSkipSearchFeedback)init;
+- (_CPSkipSearchFeedback)initWithTriggerEvent:(int)event input:(id)input;
+- (_CPSkipSearchFeedback)initWithTriggerEvent:(int)event input:(id)input experimentId:(id)id treatmentId:(id)treatmentId;
 - (unint64_t)hash;
 - (void)writeTo:(id)to;
 @end
@@ -152,7 +154,6 @@ LABEL_25:
   toCopy = to;
   if ([(_CPSkipSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -160,13 +161,11 @@ LABEL_25:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSkipSearchFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
@@ -174,7 +173,6 @@ LABEL_25:
 
   if (experimentId)
   {
-    experimentId = self->_experimentId;
     PBDataWriterWriteStringField();
   }
 
@@ -182,18 +180,16 @@ LABEL_25:
 
   if (treatmentId)
   {
-    treatmentId = self->_treatmentId;
     PBDataWriterWriteStringField();
   }
 
   experimentNamespaceId = [(_CPSkipSearchFeedback *)self experimentNamespaceId];
 
-  v13 = toCopy;
+  v8 = toCopy;
   if (experimentNamespaceId)
   {
-    experimentNamespaceId = self->_experimentNamespaceId;
     PBDataWriterWriteStringField();
-    v13 = toCopy;
+    v8 = toCopy;
   }
 }
 
@@ -209,6 +205,39 @@ LABEL_25:
   }
 
   return v2;
+}
+
+- (_CPSkipSearchFeedback)initWithTriggerEvent:(int)event input:(id)input experimentId:(id)id treatmentId:(id)treatmentId
+{
+  v8 = *&event;
+  idCopy = id;
+  treatmentIdCopy = treatmentId;
+  v12 = [(_CPSkipSearchFeedback *)self initWithTriggerEvent:v8 input:input];
+  v13 = v12;
+  if (v12)
+  {
+    [(_CPSkipSearchFeedback *)v12 setExperimentId:idCopy];
+    [(_CPSkipSearchFeedback *)v13 setTreatmentId:treatmentIdCopy];
+    v14 = v13;
+  }
+
+  return v13;
+}
+
+- (_CPSkipSearchFeedback)initWithTriggerEvent:(int)event input:(id)input
+{
+  v4 = *&event;
+  inputCopy = input;
+  v7 = [(_CPSkipSearchFeedback *)self init];
+  v8 = v7;
+  if (v7)
+  {
+    [(_CPSkipSearchFeedback *)v7 setTriggerEvent:v4];
+    [(_CPSkipSearchFeedback *)v8 setInput:inputCopy];
+    v9 = v8;
+  }
+
+  return v8;
 }
 
 @end

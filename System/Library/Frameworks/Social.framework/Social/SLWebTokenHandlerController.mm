@@ -153,17 +153,17 @@ void __100__SLWebTokenHandlerController__exchangeAuthCode_usingRedirect_codeVeri
   {
   }
 
-  _SLLog(v1, 7, @"Sending SLWebOAuth2TokenRequest");
-  v11 = [MEMORY[0x1E696AF80] ephemeralSessionConfiguration];
-  v12 = [MEMORY[0x1E696AF78] sessionWithConfiguration:v11];
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __100__SLWebTokenHandlerController__exchangeAuthCode_usingRedirect_codeVerifier_forTokensWithCompletion___block_invoke_2;
-  v17 = &unk_1E8175888;
-  v18 = *(a1 + 32);
-  v19 = *(a1 + 64);
-  v13 = [v12 dataTaskWithRequest:v10 completionHandler:&v14];
-  [v13 resume];
+  _SLLog(v1, 7, @"Sending SLWebOAuth2TokenRequest", v11, v12, v13, v14, v15, v19);
+  v16 = [MEMORY[0x1E696AF80] ephemeralSessionConfiguration];
+  v17 = [MEMORY[0x1E696AF78] sessionWithConfiguration:v16];
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __100__SLWebTokenHandlerController__exchangeAuthCode_usingRedirect_codeVerifier_forTokensWithCompletion___block_invoke_2;
+  v22 = &unk_1E8175888;
+  v23 = *(a1 + 32);
+  v24 = *(a1 + 64);
+  v18 = [v17 dataTaskWithRequest:v10 completionHandler:&v19];
+  [v18 resume];
 }
 
 void __100__SLWebTokenHandlerController__exchangeAuthCode_usingRedirect_codeVerifier_forTokensWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -221,46 +221,46 @@ LABEL_9:
       v7 = [v6 objectAtIndexedSubscript:1];
       v8 = [v7 stringByPaddingToLength:(objc_msgSend(v7 withString:"length") & 3) + objc_msgSend(v7 startingAtIndex:{"length"), @"=", 0}];
 
-      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v8 options:0];
-      if (v9)
+      v14 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v8 options:0];
+      if (v14)
       {
-        v15 = 0;
-        v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:&v15];
-        v11 = v15;
-        v12 = v11;
-        if (!v10 || v11)
+        v31 = 0;
+        v15 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v14 options:0 error:&v31];
+        v16 = v31;
+        v22 = v16;
+        if (!v15 || v16)
         {
-          _SLLog(v3, 3, @"error decoding id token: %@");
-          v13 = 0;
+          _SLLog(v3, 3, @"error decoding id token: %@", v17, v18, v19, v20, v21, v16);
+          v23 = 0;
         }
 
         else
         {
-          v13 = [v10 objectForKeyedSubscript:@"email"];
+          v23 = [v15 objectForKeyedSubscript:@"email"];
         }
       }
 
       else
       {
-        _SLLog(v3, 3, @"error decoding base64 data ,got back nil: %{private}@");
-        v13 = 0;
+        _SLLog(v3, 3, @"error decoding base64 data ,got back nil: %{private}@", v9, v10, v11, v12, v13, v8);
+        v23 = 0;
       }
     }
 
     else
     {
-      [v6 count];
-      _SLLog(v3, 3, @"id token has unexpected number of components: %d");
-      v13 = 0;
+      v24 = [v6 count];
+      _SLLog(v3, 3, @"id token has unexpected number of components: %d", v25, v26, v27, v28, v29, v24);
+      v23 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v23 = 0;
   }
 
-  return v13;
+  return v23;
 }
 
 - (void)_fetchNamesForAuthResponse:(id)response completion:(id)completion
@@ -287,26 +287,26 @@ void __69__SLWebTokenHandlerController__fetchNamesForAuthResponse_completion___b
   v5 = [*(*(a1 + 40) + 16) userInfoURL];
   v6 = [v3 sl_urlRequestWithToken:v4 forURLString:v5];
 
-  v11 = [*(*(a1 + 40) + 16) userInfoURL];
-  _SLLog(v1, 7, @"Sending SLWebUserInfoRequest to %@");
+  v7 = [*(*(a1 + 40) + 16) userInfoURL];
+  _SLLog(v1, 7, @"Sending SLWebUserInfoRequest to %@", v8, v9, v10, v11, v12, v7);
 
-  v7 = [MEMORY[0x1E696AF80] ephemeralSessionConfiguration];
-  v8 = [MEMORY[0x1E696AF78] sessionWithConfiguration:v7];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __69__SLWebTokenHandlerController__fetchNamesForAuthResponse_completion___block_invoke_2;
-  v12[3] = &unk_1E81758D8;
-  v9 = *(a1 + 48);
-  v12[4] = *(a1 + 40);
-  v14 = v9;
-  v13 = *(a1 + 32);
-  v10 = [v8 dataTaskWithRequest:v6 completionHandler:v12];
-  [v10 resume];
+  v13 = [MEMORY[0x1E696AF80] ephemeralSessionConfiguration];
+  v14 = [MEMORY[0x1E696AF78] sessionWithConfiguration:v13];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __69__SLWebTokenHandlerController__fetchNamesForAuthResponse_completion___block_invoke_2;
+  v17[3] = &unk_1E81758D8;
+  v15 = *(a1 + 48);
+  v17[4] = *(a1 + 40);
+  v19 = v15;
+  v18 = *(a1 + 32);
+  v16 = [v14 dataTaskWithRequest:v6 completionHandler:v17];
+  [v16 resume];
 }
 
 void __69__SLWebTokenHandlerController__fetchNamesForAuthResponse_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   v8 = *(*(a1 + 32) + 16);
   v9 = a4;
   v10 = a3;
@@ -317,55 +317,55 @@ void __69__SLWebTokenHandlerController__fetchNamesForAuthResponse_completion___b
 
   if (!v13)
   {
-    if ([v12 statusCode] == 200 && (objc_msgSend(v12, "emailAddresses"), (v16 = objc_claimAutoreleasedReturnValue()) != 0) && (v17 = v16, objc_msgSend(v12, "emailAddresses"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "count"), v18, v17, v19))
+    if ([v12 statusCode] == 200 && (objc_msgSend(v12, "emailAddresses"), (v21 = objc_claimAutoreleasedReturnValue()) != 0) && (v22 = v21, objc_msgSend(v12, "emailAddresses"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "count"), v23, v22, v24))
     {
-      v20 = *(a1 + 48);
+      v25 = *(a1 + 48);
       v15 = [v12 emailAddresses];
-      v21 = [v12 displayName];
-      (*(v20 + 16))(v20, v15, v21, 0);
+      v26 = [v12 displayName];
+      (*(v25 + 16))(v25, v15, v26, 0);
     }
 
     else
     {
-      _SLLog(v4, 3, @"Problem occurred with user info request. Extracting email address from id token.");
-      v22 = [*(a1 + 40) idToken];
-      v15 = [SLWebTokenHandlerController emailAddressFromIdToken:v22];
+      _SLLog(v4, 3, @"Problem occurred with user info request. Extracting email address from id token.", v16, v17, v18, v19, v20, v49);
+      v27 = [*(a1 + 40) idToken];
+      v15 = [SLWebTokenHandlerController emailAddressFromIdToken:v27];
 
       if (v15)
       {
-        v23 = *(a1 + 48);
-        v36[0] = v15;
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
-        v24 = [v12 displayName];
-        (*(v23 + 16))(v23, v21, v24, 0);
+        v33 = *(a1 + 48);
+        v54[0] = v15;
+        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
+        v34 = [v12 displayName];
+        (*(v33 + 16))(v33, v26, v34, 0);
       }
 
       else
       {
-        _SLLog(v4, 3, @"Could not extract email address from id token.");
-        v21 = [*(*(a1 + 32) + 16) fallbackUserInfoURL];
-        if (v21)
+        _SLLog(v4, 3, @"Could not extract email address from id token.", v28, v29, v30, v31, v32, v50);
+        v26 = [*(*(a1 + 32) + 16) fallbackUserInfoURL];
+        if (v26)
         {
-          _SLLog(v4, 3, @"Trying fallbackUserInfoURL.");
-          v25 = *(a1 + 32);
-          v26 = [*(a1 + 40) token];
-          [v25 _fetchNamesForToken:v26 usingFallbackURL:v21 completion:*(a1 + 48)];
+          _SLLog(v4, 3, @"Trying fallbackUserInfoURL.", v35, v36, v37, v38, v39, v51);
+          v40 = *(a1 + 32);
+          v41 = [*(a1 + 40) token];
+          [v40 _fetchNamesForToken:v41 usingFallbackURL:v26 completion:*(a1 + 48)];
 
           goto LABEL_12;
         }
 
-        _SLLog(v4, 3, @"No fallbackUserInfoURL. Fetch names failed.");
-        v27 = MEMORY[0x1E696AEC0];
-        v28 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "statusCode")}];
-        v29 = [v12 errorMessage];
-        v24 = [v27 stringWithFormat:@"Server failed to return user info emailAddresses, with status code %@ and error message %@", v28, v29];
+        _SLLog(v4, 3, @"No fallbackUserInfoURL. Fetch names failed.", v35, v36, v37, v38, v39, v51);
+        v42 = MEMORY[0x1E696AEC0];
+        v43 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "statusCode")}];
+        v44 = [v12 errorMessage];
+        v34 = [v42 stringWithFormat:@"Server failed to return user info emailAddresses, with status code %@ and error message %@", v43, v44];
 
-        v30 = MEMORY[0x1E696ABC0];
-        v31 = *MEMORY[0x1E6959978];
-        v34 = *MEMORY[0x1E696A578];
-        v35 = v24;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-        v33 = [v30 errorWithDomain:v31 code:1 userInfo:v32];
+        v45 = MEMORY[0x1E696ABC0];
+        v46 = *MEMORY[0x1E6959978];
+        v52 = *MEMORY[0x1E696A578];
+        v53 = v34;
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+        v48 = [v45 errorWithDomain:v46 code:1 userInfo:v47];
 
         (*(*(a1 + 48) + 16))();
       }
@@ -405,23 +405,23 @@ LABEL_13:
 void __79__SLWebTokenHandlerController__fetchNamesForToken_usingFallbackURL_completion___block_invoke(void *a1)
 {
   v3 = [MEMORY[0x1E696AF68] sl_urlRequestWithToken:a1[4] forURLString:a1[5]];
-  _SLLog(v1, 7, @"Fallback: Sending SLWebUserInfoRequest");
-  v4 = [MEMORY[0x1E696AF80] ephemeralSessionConfiguration];
-  v5 = [MEMORY[0x1E696AF78] sessionWithConfiguration:v4];
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __79__SLWebTokenHandlerController__fetchNamesForToken_usingFallbackURL_completion___block_invoke_2;
-  v11 = &unk_1E8175888;
-  v6 = a1[7];
-  v12 = a1[6];
-  v13 = v6;
-  v7 = [v5 dataTaskWithRequest:v3 completionHandler:&v8];
-  [v7 resume];
+  _SLLog(v1, 7, @"Fallback: Sending SLWebUserInfoRequest", v4, v5, v6, v7, v8, v13);
+  v9 = [MEMORY[0x1E696AF80] ephemeralSessionConfiguration];
+  v10 = [MEMORY[0x1E696AF78] sessionWithConfiguration:v9];
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __79__SLWebTokenHandlerController__fetchNamesForToken_usingFallbackURL_completion___block_invoke_2;
+  v16 = &unk_1E8175888;
+  v11 = a1[7];
+  v17 = a1[6];
+  v18 = v11;
+  v12 = [v10 dataTaskWithRequest:v3 completionHandler:&v13];
+  [v12 resume];
 }
 
 void __79__SLWebTokenHandlerController__fetchNamesForToken_usingFallbackURL_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v8 = *(*(a1 + 32) + 16);
   v9 = a4;
   v10 = a3;
@@ -439,30 +439,30 @@ void __79__SLWebTokenHandlerController__fetchNamesForToken_usingFallbackURL_comp
 
   else
   {
-    if ([v12 statusCode] == 200 && (objc_msgSend(v12, "emailAddresses"), (v16 = objc_claimAutoreleasedReturnValue()) != 0) && (v17 = v16, objc_msgSend(v12, "emailAddresses"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "count"), v18, v17, v19))
+    if ([v12 statusCode] == 200 && (objc_msgSend(v12, "emailAddresses"), (v21 = objc_claimAutoreleasedReturnValue()) != 0) && (v22 = v21, objc_msgSend(v12, "emailAddresses"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "count"), v23, v22, v24))
     {
-      v20 = *(a1 + 40);
+      v25 = *(a1 + 40);
       v15 = [v12 emailAddresses];
-      v21 = [v12 displayName];
-      (*(v20 + 16))(v20, v15, v21, 0);
+      v26 = [v12 displayName];
+      (*(v25 + 16))(v25, v15, v26, 0);
     }
 
     else
     {
-      _SLLog(v4, 3, @"Fallback: Problem occurred with user info request. Fetch names failed.");
-      v22 = MEMORY[0x1E696AEC0];
-      v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "statusCode")}];
-      v24 = [v12 errorMessage];
-      v15 = [v22 stringWithFormat:@"Server failed to return user info emailAddresses, with status code %@ and error message %@", v23, v24];
+      _SLLog(v4, 3, @"Fallback: Problem occurred with user info request. Fetch names failed.", v16, v17, v18, v19, v20, v33);
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "statusCode")}];
+      v29 = [v12 errorMessage];
+      v15 = [v27 stringWithFormat:@"Server failed to return user info emailAddresses, with status code %@ and error message %@", v28, v29];
 
-      v25 = MEMORY[0x1E696ABC0];
-      v26 = *MEMORY[0x1E6959978];
-      v28 = *MEMORY[0x1E696A578];
-      v29[0] = v15;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-      v21 = [v25 errorWithDomain:v26 code:1 userInfo:v27];
+      v30 = MEMORY[0x1E696ABC0];
+      v31 = *MEMORY[0x1E6959978];
+      v34 = *MEMORY[0x1E696A578];
+      v35[0] = v15;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v26 = [v30 errorWithDomain:v31 code:1 userInfo:v32];
 
-      (*(*(a1 + 40) + 16))(*(a1 + 40), 0, 0, v21);
+      (*(*(a1 + 40) + 16))(*(a1 + 40), 0, 0, v26);
     }
   }
 }

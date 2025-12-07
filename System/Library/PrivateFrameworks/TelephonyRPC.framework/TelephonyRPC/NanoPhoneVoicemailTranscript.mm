@@ -18,16 +18,16 @@
   {
     v7 = MEMORY[0x277CCAAC8];
     v8 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    v19 = 0;
-    v9 = [v7 unarchivedObjectOfClasses:v8 fromData:transcriptionData error:&v19];
-    v10 = v19;
+    v20 = 0;
+    v9 = [v7 unarchivedObjectOfClasses:v8 fromData:transcriptionData error:&v20];
+    v10 = v20;
 
     if (v10 || !v9)
     {
-      v15 = nph_general_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = nph_general_log(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [NanoPhoneVoicemailTranscript(NanoPhone) initWithTranscriptMessage:v10 voicemailNumber:v15];
+        [NanoPhoneVoicemailTranscript(NanoPhone) initWithTranscriptMessage:v10 voicemailNumber:v16];
       }
 
       selfCopy = 0;
@@ -35,23 +35,23 @@
 
     else
     {
-      v18.receiver = self;
-      v18.super_class = NanoPhoneVoicemailTranscript;
-      v11 = [(NanoPhoneVoicemailTranscript *)&v18 init];
-      v12 = v11;
-      if (v11)
+      v19.receiver = self;
+      v19.super_class = NanoPhoneVoicemailTranscript;
+      v12 = [(NanoPhoneVoicemailTranscript *)&v19 init];
+      v13 = v12;
+      if (v12)
       {
-        [(NanoPhoneVoicemailTranscript *)v11 setVoicemailNumber:number];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __85__NanoPhoneVoicemailTranscript_NanoPhone__initWithTranscriptMessage_voicemailNumber___block_invoke;
-        v17[3] = &unk_279D96028;
-        v17[4] = v9;
-        v13 = __85__NanoPhoneVoicemailTranscript_NanoPhone__initWithTranscriptMessage_voicemailNumber___block_invoke(v17);
-        [(NanoPhoneVoicemailTranscript *)v12 setTranscriptionString:v13];
+        [(NanoPhoneVoicemailTranscript *)v12 setVoicemailNumber:number];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __85__NanoPhoneVoicemailTranscript_NanoPhone__initWithTranscriptMessage_voicemailNumber___block_invoke;
+        v18[3] = &unk_279D96028;
+        v18[4] = v9;
+        v14 = __85__NanoPhoneVoicemailTranscript_NanoPhone__initWithTranscriptMessage_voicemailNumber___block_invoke(v18);
+        [(NanoPhoneVoicemailTranscript *)v13 setTranscriptionString:v14];
       }
 
-      self = v12;
+      self = v13;
       selfCopy = self;
     }
   }
@@ -110,8 +110,6 @@ id __85__NanoPhoneVoicemailTranscript_NanoPhone__initWithTranscriptMessage_voice
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  voicemailNumber = self->_voicemailNumber;
-  v6 = toCopy;
   PBDataWriterWriteInt64Field();
   if (self->_transcriptionString)
   {

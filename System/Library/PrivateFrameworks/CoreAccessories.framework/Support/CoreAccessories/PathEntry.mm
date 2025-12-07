@@ -1,6 +1,7 @@
 @interface PathEntry
 + (id)bundlePathsWithinEntries:(id)entries withExtension:(id)extension andNames:(id)names;
 + (id)entryWithPath:(id)path;
++ (id)entryWithPath:(id)path recursive:(BOOL)recursive;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToPathEntry:(id)entry;
 - (PathEntry)initWithPath:(id)path recursive:(BOOL)recursive;
@@ -103,6 +104,15 @@ LABEL_7:
   v4 = [[PathEntry alloc] initWithPath:pathCopy];
 
   return v4;
+}
+
++ (id)entryWithPath:(id)path recursive:(BOOL)recursive
+{
+  recursiveCopy = recursive;
+  pathCopy = path;
+  v6 = [[PathEntry alloc] initWithPath:pathCopy recursive:recursiveCopy];
+
+  return v6;
 }
 
 + (id)bundlePathsWithinEntries:(id)entries withExtension:(id)extension andNames:(id)names

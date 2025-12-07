@@ -54,18 +54,18 @@
 
 + (id)getCarPlayNotificationTitleForNotificationType:(unint64_t)type sessionType:(unint64_t)sessionType contactName:(id)name error:(id *)error
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (nameCopy)
   {
-    v30 = *MEMORY[0x277CCA450];
+    v29 = *MEMORY[0x277CCA450];
     v11 = MEMORY[0x277CCACA8];
     v12 = NSStringFromSelector(a2);
     v13 = [objc_opt_class() carPlayNotificationTypeToString:type];
     v14 = [SMSessionConfiguration sessionTypeToString:sessionType];
     nameCopy = [v11 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, contactName, %@, ", v12, v13, v14, nameCopy];
-    v31[0] = nameCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v30[0] = nameCopy;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
 
     if (type - 1 > 3)
     {
@@ -146,26 +146,24 @@ LABEL_18:
 
 LABEL_20:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)getCarPlayNotificationMessageForNotificationType:(unint64_t)type sessionType:(unint64_t)sessionType contactName:(id)name cacheReleaseDate:(id)date error:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dateCopy = date;
   if (nameCopy)
   {
-    v33 = *MEMORY[0x277CCA450];
+    v32 = *MEMORY[0x277CCA450];
     v14 = MEMORY[0x277CCACA8];
     v15 = NSStringFromSelector(a2);
     v16 = [objc_opt_class() carPlayNotificationTypeToString:type];
     v17 = [SMSessionConfiguration sessionTypeToString:sessionType];
     nameCopy = [v14 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, contactName, %@, ", v15, v16, v17, nameCopy];
-    v34[0] = nameCopy;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = nameCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
 
     if (type - 1 > 3)
     {
@@ -234,22 +232,20 @@ LABEL_14:
 
 LABEL_16:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 + (id)getCarPlayNotificationCategoryForNotificationType:(unint64_t)type sessionType:(unint64_t)sessionType error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v21 = *MEMORY[0x277CCA450];
+  v21[1] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277CCA450];
   v8 = MEMORY[0x277CCACA8];
   v9 = NSStringFromSelector(a2);
   v10 = [objc_opt_class() carPlayNotificationTypeToString:type];
   v11 = [SMSessionConfiguration sessionTypeToString:sessionType];
-  v12 = [v8 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, ", v9, v10, v11, v21];
-  v22[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v12 = [v8 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, ", v9, v10, v11, v20];
+  v21[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
   if (type - 1 > 3)
   {
@@ -297,22 +293,21 @@ LABEL_14:
   v15 = v17;
 
 LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)getCarPlayButtonActionIdentifierForNotificationType:(unint64_t)type sessionType:(unint64_t)sessionType error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v21 = *MEMORY[0x277CCA450];
+  v21[1] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277CCA450];
   v8 = MEMORY[0x277CCACA8];
   v9 = NSStringFromSelector(a2);
   v10 = [objc_opt_class() carPlayNotificationTypeToString:type];
   v11 = [SMSessionConfiguration sessionTypeToString:sessionType];
-  v12 = [v8 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, ", v9, v10, v11, v21];
-  v22[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v12 = [v8 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, ", v9, v10, v11, v20];
+  v21[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
   if (type - 1 > 2)
   {
@@ -362,21 +357,20 @@ LABEL_10:
 LABEL_11:
   v18 = v16;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 + (id)getCarPlayButtonTitleForNotificationType:(unint64_t)type sessionType:(unint64_t)sessionType error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v24 = *MEMORY[0x277CCA450];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277CCA450];
   v8 = MEMORY[0x277CCACA8];
   v9 = NSStringFromSelector(a2);
   v10 = [objc_opt_class() carPlayNotificationTypeToString:type];
   v11 = [SMSessionConfiguration sessionTypeToString:sessionType];
-  v12 = [v8 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, ", v9, v10, v11, v24];
-  v25[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v12 = [v8 stringWithFormat:@"%@ invalid options passed, carPlayNotificationType, %@, sessionType, %@, ", v9, v10, v11, v23];
+  v24[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
   if (type - 1 > 2)
   {
@@ -436,7 +430,6 @@ LABEL_10:
 LABEL_11:
   v21 = v19;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

@@ -3,43 +3,43 @@
 
 @implementation PNPPencilMovieView
 
-void __61___PNPPencilMovieView_completeRevolutionWithCompletionBlock___block_invoke(uint64_t a1)
+void __61___PNPPencilMovieView_completeRevolutionWithCompletionBlock___block_invoke(uint64_t a1, const char *a2)
 {
-  memset(&v12, 0, sizeof(v12));
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  if (v2)
+  memset(&v13, 0, sizeof(v13));
+  v3 = *(*(*(a1 + 40) + 8) + 40);
+  if (v3)
   {
-    [v2 duration];
+    objc_msgSend_duration(v3, a2);
   }
 
-  time = v12;
+  time = v13;
   Seconds = CMTimeGetSeconds(&time);
   memset(&time, 0, sizeof(time));
-  v4 = *(*(*(a1 + 40) + 8) + 40);
-  if (v4)
+  v5 = *(*(*(a1 + 40) + 8) + 40);
+  if (v5)
   {
-    [v4 currentTime];
+    objc_msgSend_currentTime(v5);
   }
 
-  v10 = time;
-  v5 = CMTimeGetSeconds(&v10);
-  if (v5 >= Seconds * 0.25)
+  v11 = time;
+  v6 = CMTimeGetSeconds(&v11);
+  if (v6 >= Seconds * 0.25)
   {
-    v6 = Seconds - v5;
+    v7 = Seconds - v6;
   }
 
   else
   {
-    v6 = -v5;
+    v7 = -v6;
   }
 
-  v7 = dispatch_time(0, (fmin((Seconds * 0.25 + v6) * (1.0 / *(a1 + 48)), 2.4) * 1000000000.0));
+  v8 = dispatch_time(0, (fmin((Seconds * 0.25 + v7) * (1.0 / *(a1 + 48)), 2.4) * 1000000000.0));
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __61___PNPPencilMovieView_completeRevolutionWithCompletionBlock___block_invoke_2;
   block[3] = &unk_279A0A128;
-  v9 = *(a1 + 32);
-  dispatch_after(v7, MEMORY[0x277D85CD0], block);
+  v10 = *(a1 + 32);
+  dispatch_after(v8, MEMORY[0x277D85CD0], block);
 }
 
 @end

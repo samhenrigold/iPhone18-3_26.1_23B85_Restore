@@ -54,7 +54,7 @@
 
   MEMORY[0x20F2E6D80](2108704, 0xE300000000000000);
   type metadata accessor for Date();
-  _s10Foundation4DateVACSeAAWlTm_0(&lazy protocol witness table cache variable for type Date and conformance Date);
+  _s10Foundation4DateVACSeAAWlTm_0(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC95B8]);
   v8 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x20F2E6D80](v8);
 

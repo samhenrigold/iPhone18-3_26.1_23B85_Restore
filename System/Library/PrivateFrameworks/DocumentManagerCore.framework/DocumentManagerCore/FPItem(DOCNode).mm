@@ -19,7 +19,6 @@
 - (uint64_t)doc_folderIconType;
 - (uint64_t)doc_isSMBSharepoint;
 - (uint64_t)isAnyParentTrashed;
-- (uint64_t)isBrowsable;
 - (uint64_t)isCopying;
 - (uint64_t)isFullyFormed;
 - (uint64_t)isInTrash;
@@ -30,6 +29,7 @@
 - (void)fetchParents:()DOCNode;
 - (void)fetchURL:()DOCNode;
 - (void)iconConfigurationForFolder;
+- (void)isBrowsable;
 @end
 
 @implementation FPItem(DOCNode)
@@ -113,37 +113,37 @@
 
 - (id)tagThumbnailKey
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   tags = [self tags];
   v3 = [tags count];
 
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     tags2 = [self tags];
-    v6 = [tags2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [tags2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(tags2);
           }
 
-          label = [*(*(&v13 + 1) + 8 * i) label];
+          label = [*(*(&v12 + 1) + 8 * i) label];
           [v4 appendFormat:@"%@\n", label];
         }
 
-        v7 = [tags2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [tags2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -154,8 +154,6 @@
   {
     v4 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -388,14 +386,12 @@ LABEL_7:
   {
     iconConfigurationForFolder = v12;
     v14 = objc_alloc_init(MEMORY[0x277D1B190]);
-    v15 = *MEMORY[0x277CBECA0];
     _DS_CFURLGetPropertyForKey();
     symbolName = [v14 symbolName];
 
     if (!symbolName)
     {
-      v24 = 0;
-      v21 = *MEMORY[0x277CBEC98];
+      v22 = 0;
       _DS_CFURLGetPropertyForKey();
     }
 
@@ -414,9 +410,9 @@ LABEL_7:
       [v14 setFolderEmpty:0];
     }
 
-    v22 = objc_alloc(MEMORY[0x277D1B1A8]);
+    v20 = objc_alloc(MEMORY[0x277D1B1A8]);
     identifier2 = [*MEMORY[0x277CE1D80] identifier];
-    v8 = [v22 initWithType:identifier2 iconConfiguration:v14];
+    v8 = [v20 initWithType:identifier2 iconConfiguration:v14];
   }
 
   else
@@ -509,14 +505,14 @@ LABEL_17:
 
   switch(a3)
   {
-    case 4:
+    case 4uLL:
       identifier = @"com.apple.downloads-folder";
 
       break;
-    case 5:
+    case 5uLL:
       identifier = @"com.apple.groups-folder";
       break;
-    case 6:
+    case 6uLL:
 LABEL_11:
       identifier = [*MEMORY[0x277CE1D80] identifier];
 
@@ -554,7 +550,7 @@ LABEL_11:
   return icons;
 }
 
-- (uint64_t)isBrowsable
+- (void)isBrowsable
 {
   result = [self isFolder];
   if (result)
@@ -634,26 +630,26 @@ LABEL_11:
 
 - (uint64_t)canPerformActions:()DOCNode
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count])
   {
     defaultManager = [MEMORY[0x277CC6408] defaultManager];
-    v24[0] = self;
+    v23[0] = self;
     v6 = 1;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     v8 = [defaultManager eligibleActionsForItems:v7];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = v4;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       v13 = *MEMORY[0x277CC6050];
       v14 = *MEMORY[0x277CC6340];
       LODWORD(v6) = 1;
@@ -662,12 +658,12 @@ LABEL_11:
         v15 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          if (*(*(&v19 + 1) + 8 * v15) == v13)
+          if (*(*(&v18 + 1) + 8 * v15) == v13)
           {
             v16 = (v14 & ~[self capabilities]) == 0;
           }
@@ -682,7 +678,7 @@ LABEL_11:
         }
 
         while (v11 != v15);
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -694,7 +690,6 @@ LABEL_11:
     v6 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -708,13 +703,11 @@ LABEL_11:
 
 - (id)doc_eligibleActions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CC6408] defaultManager];
-  v7[0] = self;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = self;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [defaultManager eligibleActionsForItems:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -730,16 +723,14 @@ LABEL_11:
 
 - (void)cachedDomain:()DOCNode .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 localizedDescription];
-  v8 = 138543618;
-  v9 = a1;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_249340000, v5, OS_LOG_TYPE_ERROR, "Error getting domain from FPItem: %{public}@ error: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = a1;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_249340000, v5, OS_LOG_TYPE_ERROR, "Error getting domain from FPItem: %{public}@ error: %{public}@", &v7, 0x16u);
 }
 
 - (void)iconConfigurationForFolder

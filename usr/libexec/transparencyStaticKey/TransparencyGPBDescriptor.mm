@@ -1,4 +1,6 @@
 @interface TransparencyGPBDescriptor
++ (id)allocDescriptorForClass:(Class)class file:(id)file fields:(void *)fields fieldCount:(unsigned int)count storageSize:(unsigned int)size flags:(unsigned int)flags;
++ (id)allocDescriptorForClass:(Class)class messageName:(id)name fileDescription:(TransparencyGPBFileDescription *)description fields:(void *)fields fieldCount:(unsigned int)count storageSize:(unsigned int)size flags:(unsigned int)flags;
 - (NSString)fullName;
 - (TransparencyGPBDescriptor)containingType;
 - (TransparencyGPBDescriptor)initWithClass:(Class)class messageName:(id)name fileDescription:(TransparencyGPBFileDescription *)description fields:(id)fields storageSize:(unsigned int)size wireFormat:(BOOL)format;
@@ -14,6 +16,130 @@
 @end
 
 @implementation TransparencyGPBDescriptor
+
++ (id)allocDescriptorForClass:(Class)class messageName:(id)name fileDescription:(TransparencyGPBFileDescription *)description fields:(void *)fields fieldCount:(unsigned int)count storageSize:(unsigned int)size flags:(unsigned int)flags
+{
+  v9 = *&size;
+  if (flags >= 0x20)
+  {
+    sub_100012358();
+  }
+
+  if (count)
+  {
+    nameCopy = name;
+    v26 = v9;
+    countCopy = count;
+    v17 = [[NSMutableArray alloc] initWithCapacity:count];
+    v18 = 0;
+    fieldsCopy = fields;
+    do
+    {
+      v20 = fieldsCopy + 18;
+      if (flags)
+      {
+        fieldsCopy2 = fieldsCopy;
+      }
+
+      else
+      {
+        v20 = (fields + 28);
+        fieldsCopy2 = fields;
+      }
+
+      v18 |= *v20;
+      v22 = [[TransparencyGPBFieldDescriptor alloc] initWithFieldDescription:fieldsCopy2 descriptorFlags:flags];
+      [v17 addObject:v22];
+
+      fieldsCopy += 20;
+      fields = fields + 32;
+      --countCopy;
+    }
+
+    while (countCopy);
+    name = nameCopy;
+    if (v18 >= 0x2000)
+    {
+      sub_100012358();
+    }
+
+    v9 = v26;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v23 = [[self alloc] initWithClass:class messageName:name fileDescription:description fields:v17 storageSize:v9 wireFormat:(flags >> 1) & 1];
+
+  return v23;
+}
+
++ (id)allocDescriptorForClass:(Class)class file:(id)file fields:(void *)fields fieldCount:(unsigned int)count storageSize:(unsigned int)size flags:(unsigned int)flags
+{
+  sizeCopy = *&size;
+  v10 = *&count;
+  fileCopy2 = file;
+  if ((~flags & 0x1C) != 0)
+  {
+    selfCopy = self;
+    classCopy = class;
+    syntax = [file syntax];
+    if (v10)
+    {
+      v14 = syntax;
+      v16 = (flags & 8) == 0 && syntax == 3;
+      v17 = v10;
+      v18 = fields + 8;
+      fieldsCopy = fields;
+      do
+      {
+        if (flags)
+        {
+          v20 = v18;
+        }
+
+        else
+        {
+          v20 = fieldsCopy;
+        }
+
+        if ((flags & 4) == 0 && v20[30] - 15 <= 1)
+        {
+          *(v20 + 1) = objc_getClass(*(v20 + 1));
+        }
+
+        if (v16 && (*(v20 + 14) & 0xF02) == 0 && (*(v20 + 5) & 0x80000000) == 0 && v20[30] - 17 <= 0xFFFFFFFD)
+        {
+          *(v20 + 14) |= 0x20u;
+        }
+
+        if ((flags & 0x10) == 0 && v20[30] == 17 && v14 != 3)
+        {
+          *(v20 + 14) |= 0x1000u;
+        }
+
+        v18 += 40;
+        fieldsCopy += 32;
+        --v17;
+      }
+
+      while (v17);
+    }
+
+    flags |= 0x1Cu;
+    fileCopy2 = file;
+    sizeCopy = size;
+    self = selfCopy;
+    class = classCopy;
+  }
+
+  LODWORD(v24) = flags;
+  v22 = [self allocDescriptorForClass:class messageName:0 fileDescription:0 fields:fields fieldCount:v10 storageSize:sizeCopy flags:v24];
+  objc_setAssociatedObject(v22, &unk_10008C0B8, fileCopy2, 1);
+  return v22;
+}
 
 - (TransparencyGPBDescriptor)initWithClass:(Class)class messageName:(id)name fileDescription:(TransparencyGPBFileDescription *)description fields:(id)fields storageSize:(unsigned int)size wireFormat:(BOOL)format
 {

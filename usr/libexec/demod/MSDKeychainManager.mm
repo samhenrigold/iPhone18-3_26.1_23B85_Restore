@@ -57,36 +57,38 @@
   v9 = [(MSDKeychainManager *)selfCopy createSearchDictionaryForKey:keyCopy];
   if (![v9 count])
   {
-    v14 = sub_100063A54();
-    sub_1000D73B8(v14);
+    v15 = sub_100063A54(0);
+    sub_1000D73B8(v15);
 LABEL_9:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_6;
   }
 
   [v9 setObject:itemCopy forKey:kSecValueData];
   v10 = SecItemAdd(v9, 0);
+  v11 = v10;
   if (v10 == -25299)
   {
     [v9 removeObjectForKey:kSecValueData];
     v10 = [(MSDKeychainManager *)selfCopy updateItemForAttributes:v9 withData:itemCopy];
+    v11 = v10;
   }
 
-  if (v10)
+  if (v11)
   {
-    v15 = sub_100063A54();
-    sub_1000D731C(v15);
+    v16 = sub_100063A54(v10);
+    sub_1000D731C(v16);
     goto LABEL_9;
   }
 
   cache = [(MSDKeychainManager *)selfCopy cache];
   [cache setValue:itemCopy forKey:keyCopy];
 
-  v12 = 1;
+  v13 = 1;
 LABEL_6:
 
   objc_sync_exit(selfCopy);
-  return v12;
+  return v13;
 }
 
 - (id)getItemForKey:(id)key
@@ -108,7 +110,7 @@ LABEL_6:
   cache2 = [(MSDKeychainManager *)selfCopy createSearchDictionaryForKey:keyCopy];
   if (![cache2 count])
   {
-    cache3 = sub_100063A54();
+    cache3 = sub_100063A54(0);
     if (os_log_type_enabled(cache3, OS_LOG_TYPE_ERROR))
     {
       sub_1000D74C8();
@@ -118,9 +120,10 @@ LABEL_6:
   }
 
   [cache2 setObject:kCFBooleanTrue forKey:kSecReturnData];
-  if (SecItemCopyMatching(cache2, &result))
+  v10 = SecItemCopyMatching(cache2, &result);
+  if (v10)
   {
-    cache3 = sub_100063A54();
+    cache3 = sub_100063A54(v10);
     if (os_log_type_enabled(cache3, OS_LOG_TYPE_ERROR))
     {
       sub_1000D7454();
@@ -150,22 +153,23 @@ LABEL_7:
   v6 = [(MSDKeychainManager *)selfCopy createSearchDictionaryForKey:keyCopy];
   if (![v6 count])
   {
-    v10 = sub_100063A54();
-    sub_1000D757C(v10, &v12);
-    v11 = v12;
+    v11 = sub_100063A54(0);
+    sub_1000D757C(v11, &v13);
+    v12 = v13;
 LABEL_8:
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_4;
   }
 
   cache = [(MSDKeychainManager *)selfCopy cache];
   [cache removeObjectForKey:keyCopy];
 
-  if (SecItemDelete(v6))
+  v8 = SecItemDelete(v6);
+  if (v8)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000D7508();
     }
@@ -173,11 +177,11 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_4:
 
   objc_sync_exit(selfCopy);
-  return v8;
+  return v9;
 }
 
 - (BOOL)saveItem:(id)item forKey:(id)key withAttributes:(id)attributes
@@ -187,12 +191,12 @@ LABEL_4:
   attributesCopy = attributes;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v23 = keyCopy;
+  v24 = keyCopy;
   v12 = [(MSDKeychainManager *)selfCopy createSearchDictionaryForKey:keyCopy];
   if (![v12 count])
   {
-    v22 = sub_100063A54();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = sub_100063A54(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_1000D7658();
     }
@@ -200,30 +204,30 @@ LABEL_4:
     goto LABEL_18;
   }
 
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v13 = attributesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
-    v15 = *v25;
+    v15 = *v26;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v25 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v25 + 1) + 8 * i);
         v18 = [v13 objectForKey:v17];
         [v12 setObject:v18 forKey:v17];
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
@@ -231,31 +235,33 @@ LABEL_4:
 
   [v12 setObject:itemCopy forKey:kSecValueData];
   v19 = SecItemAdd(v12, 0);
+  v20 = v19;
   if (v19 == -25299)
   {
     [v12 removeObjectForKey:kSecValueData];
     v19 = [(MSDKeychainManager *)selfCopy updateItemForAttributes:v12 withData:itemCopy];
+    v20 = v19;
   }
 
-  if (v19)
+  if (v20)
   {
-    v22 = sub_100063A54();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = sub_100063A54(v19);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_1000D75E4();
     }
 
 LABEL_18:
 
-    v20 = 0;
+    v21 = 0;
     goto LABEL_13;
   }
 
-  v20 = 1;
+  v21 = 1;
 LABEL_13:
 
   objc_sync_exit(selfCopy);
-  return v20;
+  return v21;
 }
 
 - (id)getAllItemsForKey:(id)key withAttributes:(BOOL)attributes
@@ -275,28 +281,29 @@ LABEL_13:
 
     [v8 setObject:kSecMatchLimitAll forKey:kSecMatchLimit];
     [v8 setObject:kCFBooleanTrue forKey:kSecReturnData];
-    if (!SecItemCopyMatching(v8, &result))
+    v9 = SecItemCopyMatching(v8, &result);
+    if (!v9)
     {
-      v9 = result;
+      v10 = result;
       goto LABEL_6;
     }
 
-    v12 = sub_100063A54();
-    sub_1000D76CC(v12);
+    v13 = sub_100063A54(v9);
+    sub_1000D76CC(v13);
   }
 
   else
   {
-    v11 = sub_100063A54();
-    sub_1000D7768(v11);
+    v12 = sub_100063A54(0);
+    sub_1000D7768(v12);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_6:
 
   objc_sync_exit(selfCopy);
 
-  return v9;
+  return v10;
 }
 
 - (int)updateItemForAttributes:(id)attributes withData:(id)data
@@ -375,15 +382,16 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  if ([(__CFString *)keyCopy isEqualToString:@"com.apple.continuity.encryption"])
+  v13 = [(__CFString *)keyCopy isEqualToString:@"com.apple.continuity.encryption"];
+  if (v13)
   {
     v10 = kSecAttrAccessGroup;
     v11 = @"com.apple.continuity.encryption";
     goto LABEL_16;
   }
 
-  v13 = sub_100063A54();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = sub_100063A54(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     sub_1000D77C4();
   }

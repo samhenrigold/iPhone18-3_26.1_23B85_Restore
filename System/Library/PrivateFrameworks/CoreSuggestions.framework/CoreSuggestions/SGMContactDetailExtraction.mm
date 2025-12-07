@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar source:(SGMDocumentType_)source signature:(SGMTypeSafeBool_)signature detail:(SGMContactDetailType_)detail outcome:(SGMContactDetailExtractionOutcome_)outcome foundInSenderCNContact:(SGMContactDetailOwner_)contact extractionModelVersion:(unint64_t)version isUnlikelyPhone:(SGMTypeSafeBool_)self0 signatureExtractionSource:(SGMContactDetailExtractionSignatureSource_)self1
 {
-  v43[8] = *MEMORY[0x1E69E9840];
+  v42[8] = *MEMORY[0x1E69E9840];
   if (source.var0)
   {
     if (source.var0 == 1)
@@ -138,30 +138,28 @@ LABEL_11:
   }
 
   tracker = self->_tracker;
-  v43[0] = v16;
-  v43[1] = v17;
-  v43[2] = v22;
-  v43[3] = v25;
-  v43[4] = v28;
+  v42[0] = v16;
+  v42[1] = v17;
+  v42[2] = v22;
+  v42[3] = v25;
+  v42[4] = v28;
   v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v43[5] = v38;
-  v43[6] = v31;
-  v43[7] = v34;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:8];
+  v42[5] = v38;
+  v42[6] = v31;
+  v42[7] = v34;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:8];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v39 value:scalar];
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMContactDetailExtraction)init
 {
-  v18[8] = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = SGMContactDetailExtraction;
-  v2 = [(SGMContactDetailExtraction *)&v17 init];
+  v17[8] = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = SGMContactDetailExtraction;
+  v2 = [(SGMContactDetailExtraction *)&v16 init];
   if (v2)
   {
-    v16 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Source"];
+    v15 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Source"];
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Signature"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Detail"];
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Outcome"];
@@ -170,21 +168,20 @@ LABEL_11:
     v8 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"IsUnlikelyPhone"];
     v9 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"SignatureExtractionSource"];
     v10 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v18[0] = v16;
-    v18[1] = v3;
-    v18[2] = v4;
-    v18[3] = v5;
-    v18[4] = v6;
-    v18[5] = v7;
-    v18[6] = v8;
-    v18[7] = v9;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:8];
+    v17[0] = v15;
+    v17[1] = v3;
+    v17[2] = v4;
+    v17[3] = v5;
+    v17[4] = v6;
+    v17[5] = v7;
+    v17[6] = v8;
+    v17[7] = v9;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:8];
     v12 = [v10 initWithFeatureId:@"Found" event:@"ContactDetailExtraction" registerProperties:v11 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -128,7 +128,7 @@
 
 void __39__AAFPromise__completeWithValue_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 16) & 1) == 0)
   {
@@ -140,41 +140,37 @@ void __39__AAFPromise__completeWithValue_error___block_invoke(uint64_t a1)
     v5 = *(v4 + 40);
     *(v4 + 40) = 0;
 
-    v16 = 0u;
-    v17 = 0u;
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(a1 + 40);
-          v12 = *(a1 + 48);
-          (*(*(*(&v14 + 1) + 8 * v10) + 16))(*(*(&v14 + 1) + 8 * v10));
+          (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_chain:(id)_chain
@@ -305,29 +301,26 @@ void __34__AAFPromise__placeBlock_onQueue___block_invoke_2(void *a1)
 void __25__AAFPromise_onComplete___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 16) == 1)
+  if (v2[16] == 1)
   {
-    v3 = *(a1 + 40);
-    v4 = *(v2 + 24);
-    v5 = *(v2 + 32);
-    v6 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v6();
+    v3();
   }
 
   else
   {
-    v7 = v2;
-    v8 = *(*(a1 + 32) + 40);
-    v11 = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __25__AAFPromise_onComplete___block_invoke_2;
-    v14 = &unk_1E831BFA0;
-    v15 = v7;
-    v16 = *(a1 + 40);
-    v9 = v7;
-    v10 = MEMORY[0x1CCA79A70](&v11);
-    [v8 addObject:{v10, v11, v12, v13, v14}];
+    v4 = v2;
+    v5 = *(*(a1 + 32) + 40);
+    v8 = MEMORY[0x1E69E9820];
+    v9 = 3221225472;
+    v10 = __25__AAFPromise_onComplete___block_invoke_2;
+    v11 = &unk_1E831BFA0;
+    v12 = v4;
+    v13 = *(a1 + 40);
+    v6 = v4;
+    v7 = MEMORY[0x1CCA79A70](&v8);
+    [v5 addObject:{v7, v8, v9, v10, v11}];
   }
 }
 

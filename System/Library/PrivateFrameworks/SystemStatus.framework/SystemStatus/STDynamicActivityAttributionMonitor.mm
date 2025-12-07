@@ -43,79 +43,77 @@
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!self->_lock_invalidated)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalidate must be called before this object is released"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalidate must be called before this object is released"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"STDynamicActivityAttributionMonitor.m";
-      v18 = 1024;
-      v19 = 47;
-      v20 = 2114;
-      v21 = v5;
+      v15 = 2114;
+      v16 = @"STDynamicActivityAttributionMonitor.m";
+      v17 = 1024;
+      v18 = 47;
+      v19 = 2114;
+      v20 = v4;
       _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1DA9FFD7CLL);
   }
 
-  v9.receiver = self;
-  v9.super_class = STDynamicActivityAttributionMonitor;
-  [(STDynamicActivityAttributionMonitor *)&v9 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = STDynamicActivityAttributionMonitor;
+  [(STDynamicActivityAttributionMonitor *)&v8 dealloc];
 }
 
 - (void)activate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_invalidated)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"can't re-activate an invalidated monitor"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"can't re-activate an invalidated monitor"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"STDynamicActivityAttributionMonitor.m";
-      v18 = 1024;
-      v19 = 52;
-      v20 = 2114;
-      v21 = v5;
+      v15 = 2114;
+      v16 = @"STDynamicActivityAttributionMonitor.m";
+      v17 = 1024;
+      v18 = 52;
+      v19 = 2114;
+      v20 = v4;
       _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1DA9FFF10);
   }
 
-  v9 = self->_lock_server;
+  v8 = self->_lock_server;
   os_unfair_lock_unlock(&self->_lock);
-  [(STDynamicActivityAttributionServerHandle *)v9 subscribeToUpdates:self];
-  v4 = *MEMORY[0x1E69E9840];
+  [(STDynamicActivityAttributionServerHandle *)v8 subscribeToUpdates:self];
 }
 
 - (void)invalidate
@@ -189,20 +187,20 @@
 
 - (id)attributionForAttribution:(id)attribution
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   attributionCopy = attribution;
   v5 = attributionCopy;
   if (attributionCopy)
   {
-    [attributionCopy auditToken];
+    objc_msgSend_auditToken(attributionCopy);
   }
 
   else
   {
-    memset(v21, 0, sizeof(v21));
+    memset(v20, 0, sizeof(v20));
   }
 
-  v6 = [(STDynamicActivityAttributionMonitor *)self attributionForClient:v21];
+  v6 = [(STDynamicActivityAttributionMonitor *)self attributionForClient:v20];
   if (!v6)
   {
     v7 = [v5 pid];
@@ -215,26 +213,26 @@
     {
       v8 = v7;
       os_unfair_lock_lock(&self->_lock);
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       allKeys = [(NSMutableDictionary *)self->_lock_attributions allKeys];
-      v10 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v18;
+        v12 = *v17;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v14 = *(*(&v17 + 1) + 8 * i);
+            v14 = *(*(&v16 + 1) + 8 * i);
             if (v8 == [v14 unsignedLongLongValue])
             {
               v6 = [(NSMutableDictionary *)self->_lock_attributions objectForKey:v14];
@@ -242,7 +240,7 @@
             }
           }
 
-          v11 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v11 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
           if (v11)
           {
             continue;
@@ -259,14 +257,12 @@ LABEL_16:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)currentAttributionsDidChange:(id)change
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
   {
@@ -288,31 +284,31 @@ LABEL_16:
 
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableDictionary *)self->_lock_attributions removeAllObjects];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = changeCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         lock_attributions = self->_lock_attributions;
         v13 = MEMORY[0x1E696AD98];
         if (v11)
         {
-          [*(*(&v18 + 1) + 8 * i) clientAuditToken];
+          objc_msgSend_clientAuditToken(*(*(&v17 + 1) + 8 * i), v17);
         }
 
         else
@@ -324,7 +320,7 @@ LABEL_16:
         [(NSMutableDictionary *)lock_attributions setObject:v11 forKey:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v8);
@@ -337,8 +333,6 @@ LABEL_16:
   {
     (v15)[2](v15, allValues);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

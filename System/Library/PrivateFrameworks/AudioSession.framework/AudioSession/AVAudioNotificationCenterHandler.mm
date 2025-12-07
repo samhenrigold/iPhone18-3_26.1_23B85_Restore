@@ -53,37 +53,37 @@
 
 - (int)handleInterruptionNotifications:(id)notifications
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   interruptionHandler = [(AVAudioNotificationCenterHandler *)self interruptionHandler];
   if (interruptionHandler)
   {
     v6 = objc_opt_new();
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = notificationsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           v12 = [AVAudioInterruptionNotification alloc];
-          v13 = [(AVAudioInterruptionNotification *)v12 initWithInternal:v11, v17];
+          v13 = [(AVAudioInterruptionNotification *)v12 initWithInternal:v11, v16];
           [v6 addObject:v13];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -97,47 +97,46 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)handlePropertyNotifications:(id)notifications
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   propertyNotificationHandler = [(AVAudioNotificationCenterHandler *)self propertyNotificationHandler];
   if (propertyNotificationHandler)
   {
     v6 = objc_opt_new();
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = notificationsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * v10);
+          v11 = *(*(&v14 + 1) + 8 * v10);
           v12 = [AVAudioPropertyNotification alloc];
-          v13 = [(AVAudioPropertyNotification *)v12 initWithInternal:v11, v15];
+          v13 = [(AVAudioPropertyNotification *)v12 initWithInternal:v11, v14];
           [v6 addObject:v13];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -145,8 +144,6 @@
 
     (propertyNotificationHandler)[2](propertyNotificationHandler, v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

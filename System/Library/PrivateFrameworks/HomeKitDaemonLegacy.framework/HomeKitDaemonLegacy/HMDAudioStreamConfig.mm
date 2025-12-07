@@ -54,7 +54,7 @@
   audio9 = [(AVCMediaStreamConfig *)self audio];
   [string appendFormat:@"audio.ptime           = %tu ms\n", objc_msgSend(audio9, "ptime")];
 
-  v19 = [string copy];
+  v19 = objc_msgSend_copy(string);
 
   return v19;
 }

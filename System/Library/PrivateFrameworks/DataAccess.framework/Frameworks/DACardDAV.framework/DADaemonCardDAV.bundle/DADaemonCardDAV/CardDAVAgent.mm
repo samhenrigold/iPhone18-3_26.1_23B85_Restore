@@ -23,6 +23,7 @@
 - (id)username;
 - (void)_addressBookSyncTask:(id)task failedWithErrorCode:(int64_t)code;
 - (void)_appendSyncRequest:(id)request;
+- (void)_appendSyncRequestsForFolders:(id)folders remoteChanges:(BOOL)changes;
 - (void)_contactsDidChange;
 - (void)_finishInitialSyncForFolderWithURL:(id)l context:(id)context;
 - (void)_fireWaitingFolderItemSyncRequests;
@@ -32,6 +33,7 @@
 - (void)_reallySyncRequest:(id)request;
 - (void)_setUpABNotifications;
 - (void)_successfullyFinishedInitialSyncForFolderWithID:(id)d context:(id)context;
+- (void)_syncAllContactFoldersWithRemoteChanges:(BOOL)changes;
 - (void)_syncRequest:(id)request;
 - (void)_tearDownABNotifications;
 - (void)_validateAndSync:(BOOL)sync;
@@ -42,6 +44,7 @@
 - (void)failedToRetrieveAddressBookURLsWithError:(id)error;
 - (void)failedToUpdateServerMeCardWithError:(id)error;
 - (void)refreshCollections:(id)collections withReason:(int)reason;
+- (void)refreshFolderListRequireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested;
 - (void)refreshPropertiesOfAllContactFoldersWithCompletion:(id)completion;
 - (void)requestAgentStopMonitoringWithCompletionBlock:(id)block;
 - (void)startMonitoring;
@@ -521,6 +524,53 @@ LABEL_14:
   [v13 unregisterDelegate:self];
 
   blockCopy[2](blockCopy, self);
+}
+
+- (void)refreshFolderListRequireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested
+{
+  if (requested)
+  {
+    account = [(CardDAVAgent *)self account];
+    [account setShouldUseOpportunisticSockets:0];
+
+    account2 = [(CardDAVAgent *)self account];
+    [account2 setWasUserInitiated:1];
+  }
+
+  account3 = [(CardDAVAgent *)self account];
+  shouldAutodiscoverAccountProperties = [account3 shouldAutodiscoverAccountProperties];
+
+  if (shouldAutodiscoverAccountProperties)
+  {
+    v9 = DALoggingwithCategory();
+    v10 = _CPLog_to_os_log_type[7];
+    if (os_log_type_enabled(v9, v10))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v9, v10, "Account doesn't have a principal URL. Running autodiscovery.", buf, 2u);
+    }
+
+    account4 = [(CardDAVAgent *)self account];
+    [account4 discoverInitialPropertiesWithConsumer:self];
+  }
+
+  else if (self->_isSyncingHierarchy)
+  {
+    v12 = DALoggingwithCategory();
+    v13 = _CPLog_to_os_log_type[7];
+    if (os_log_type_enabled(v12, v13))
+    {
+      *v15 = 0;
+      _os_log_impl(&dword_0, v12, v13, "Not syncing ab hierarchy, as I'm in the middle of doing that", v15, 2u);
+    }
+  }
+
+  else
+  {
+    self->_isSyncingHierarchy = 1;
+    account5 = [(CardDAVAgent *)self account];
+    [account5 syncAddressBookURLsWithConsumer:self];
+  }
 }
 
 - (void)syncFolderIDs:(id)ds forDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested
@@ -2460,6 +2510,70 @@ LABEL_73:
 LABEL_16:
   [(NSLock *)self->_folderItemSyncRequestLock unlock];
   [(CardDAVAgent *)self _fireWaitingFolderItemSyncRequests];
+}
+
+- (void)_appendSyncRequestsForFolders:(id)folders remoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  foldersCopy = folders;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v7 = [foldersCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v18;
+    v10 = _CPLog_to_os_log_type[7];
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v18 != v9)
+        {
+          objc_enumerationMutation(foldersCopy);
+        }
+
+        v12 = *(*(&v17 + 1) + 8 * i);
+        folderID = [v12 folderID];
+
+        if (!folderID)
+        {
+          sub_256B8(a2, self, v12);
+        }
+
+        v14 = DALoggingwithCategory();
+        if (os_log_type_enabled(v14, v10))
+        {
+          *buf = 138412290;
+          v22 = v12;
+          _os_log_impl(&dword_0, v14, v10, "Appending a sync request for folder %@", buf, 0xCu);
+        }
+
+        v15 = [[DAFolderSyncRequest alloc] initWithFolder:v12 hasRemoteChanges:changesCopy isInitialUberSync:0];
+        [(CardDAVAgent *)self _appendSyncRequest:v15];
+      }
+
+      v8 = [foldersCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_syncAllContactFoldersWithRemoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  account = [(CardDAVAgent *)self account];
+  v6 = [account enabledForDADataclass:2];
+
+  if (v6)
+  {
+    account2 = [(CardDAVAgent *)self account];
+    addressBooks = [account2 addressBooks];
+    [(CardDAVAgent *)self _appendSyncRequestsForFolders:addressBooks remoteChanges:changesCopy];
+  }
 }
 
 - (BOOL)APSTopicHasValidPrefix:(id)prefix

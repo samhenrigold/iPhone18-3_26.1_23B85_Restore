@@ -3,7 +3,6 @@
 - ($115C4C562B26FF47E01F9F4EA65B5887)clientAuditToken;
 - (FigCaptureSessionProxy)initWithFigCaptureSession:(OpaqueFigCaptureSession *)session identifier:(int64_t)identifier clientAuditToken:(id *)token containsVideoSource:(BOOL)source containsStillImageSink:(BOOL)sink containsMovieFileSink:(BOOL)fileSink;
 - (int)openPreviewTapWithDelegate:(id)delegate;
-- (uint64_t)closePreviewTap;
 - (void)closePreviewTap;
 - (void)dealloc;
 @end
@@ -33,7 +32,7 @@
 {
   if (!session)
   {
-    [FigCaptureSessionProxy initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:];
+    [(FigCaptureSessionProxy *)self initWithFigCaptureSession:a2 identifier:0 clientAuditToken:identifier containsVideoSource:token containsStillImageSink:source containsMovieFileSink:sink, fileSink];
 LABEL_10:
 
     return 0;
@@ -41,35 +40,36 @@ LABEL_10:
 
   if (identifier <= 0)
   {
-    [FigCaptureSessionProxy initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:];
+    [(FigCaptureSessionProxy *)self initWithFigCaptureSession:a2 identifier:session clientAuditToken:identifier containsVideoSource:token containsStillImageSink:source containsMovieFileSink:sink, fileSink];
     goto LABEL_10;
   }
 
   v15 = *&token->var0[4];
-  v20[0] = *token->var0;
-  v20[1] = v15;
-  if (!FigCaptureAuditTokenIsValid(v20))
+  v28[0] = *token->var0;
+  v28[1] = v15;
+  IsValid = FigCaptureAuditTokenIsValid(v28);
+  if (!IsValid)
   {
-    [FigCaptureSessionProxy initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:];
+    [(FigCaptureSessionProxy *)IsValid initWithFigCaptureSession:v17 identifier:v18 clientAuditToken:v19 containsVideoSource:v20 containsStillImageSink:v21 containsMovieFileSink:v22, v23];
     goto LABEL_10;
   }
 
-  v19.receiver = self;
-  v19.super_class = FigCaptureSessionProxy;
-  v16 = [(FigCaptureSessionProxy *)&v19 init];
-  if (v16)
+  v27.receiver = self;
+  v27.super_class = FigCaptureSessionProxy;
+  v24 = [(FigCaptureSessionProxy *)&v27 init];
+  if (v24)
   {
-    *(v16 + 1) = CFRetain(session);
-    *(v16 + 2) = identifier;
-    v17 = *&token->var0[4];
-    *(v16 + 24) = *token->var0;
-    *(v16 + 40) = v17;
-    v16[56] = source;
-    v16[57] = sink;
-    v16[58] = fileSink;
+    *(v24 + 1) = CFRetain(session);
+    *(v24 + 2) = identifier;
+    v25 = *&token->var0[4];
+    *(v24 + 24) = *token->var0;
+    *(v24 + 40) = v25;
+    v24[56] = source;
+    v24[57] = sink;
+    v24[58] = fileSink;
   }
 
-  return v16;
+  return v24;
 }
 
 - (void)dealloc
@@ -94,22 +94,23 @@ LABEL_10:
       return 0;
     }
 
-    v4 = v6;
+    v9 = v12;
 LABEL_9:
     self->_previewTapDelegate = 0;
-    return v4;
+    return v9;
   }
 
   self->_previewTapDelegate = delegate;
-  v4 = FigCaptureSessionSetVideoPreviewTapCallback(self->_session, csp_previewTapCallback, self);
-  if (v4)
+  v8 = FigCaptureSessionSetVideoPreviewTapCallback(self->_session, csp_previewTapCallback, self, 0, v3, v4, v5, v6, v11);
+  v9 = v8;
+  if (v8)
   {
-    [FigCaptureSessionProxy openPreviewTapWithDelegate:];
+    [FigCaptureSessionProxy openPreviewTapWithDelegate:v8];
     goto LABEL_9;
   }
 
   self->_previewTapOpened = 1;
-  return v4;
+  return v9;
 }
 
 - (void)closePreviewTap
@@ -117,48 +118,51 @@ LABEL_9:
   p_previewTapOpened = &self->_previewTapOpened;
   if (self->_previewTapOpened)
   {
-    v4 = FigCaptureSessionSetVideoPreviewTapCallback(self->_session, 0, 0);
-    if (v4)
+    v8 = FigCaptureSessionSetVideoPreviewTapCallback(self->_session, 0, 0, 0, v2, v3, v4, v5, v9);
+    if (v8)
     {
-      [(FigCaptureSessionProxy *)v4 closePreviewTap];
+      [(FigCaptureSessionProxy *)v8 closePreviewTap];
     }
   }
 }
 
-- (uint64_t)initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:.cold.1()
+- (uint64_t)initWithFigCaptureSession:(uint64_t)a3 identifier:(uint64_t)a4 clientAuditToken:(uint64_t)a5 containsVideoSource:(uint64_t)a6 containsStillImageSink:(uint64_t)a7 containsMovieFileSink:(uint64_t)a8 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_2_68();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_2_68(a1, a2, a3, a4, a5, a6, a7, a8, v21, v23, v25, v27, SWORD2(v27), SBYTE6(v27), SHIBYTE(v27));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v22, v24, v26, v28, v29, v30, v31);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
+    v33 = 136315138;
     OUTLINED_FUNCTION_2_11("[FigCaptureSessionProxy initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:]");
-    OUTLINED_FUNCTION_21();
+    OUTLINED_FUNCTION_21(v17, v18, v32, v19, &dword_1AC90E000);
   }
 
   return OUTLINED_FUNCTION_1_77();
 }
 
-- (uint64_t)initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:.cold.2()
+- (uint64_t)initWithFigCaptureSession:(uint64_t)a3 identifier:(uint64_t)a4 clientAuditToken:(uint64_t)a5 containsVideoSource:(uint64_t)a6 containsStillImageSink:(uint64_t)a7 containsMovieFileSink:(uint64_t)a8 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_2_68();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_2_68(a1, a2, a3, a4, a5, a6, a7, a8, v21, v23, v25, v27, SWORD2(v27), SBYTE6(v27), SHIBYTE(v27));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v22, v24, v26, v28, v29, v30, v31);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
+    v33 = 136315138;
     OUTLINED_FUNCTION_2_11("[FigCaptureSessionProxy initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:]");
-    OUTLINED_FUNCTION_21();
+    OUTLINED_FUNCTION_21(v17, v18, v32, v19, &dword_1AC90E000);
   }
 
   return OUTLINED_FUNCTION_1_77();
 }
 
-- (uint64_t)initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:.cold.3()
+- (uint64_t)initWithFigCaptureSession:(uint64_t)a3 identifier:(uint64_t)a4 clientAuditToken:(uint64_t)a5 containsVideoSource:(uint64_t)a6 containsStillImageSink:(uint64_t)a7 containsMovieFileSink:(uint64_t)a8 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_2_68();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_2_68(a1, a2, a3, a4, a5, a6, a7, a8, v21, v23, v25, v27, SWORD2(v27), SBYTE6(v27), SHIBYTE(v27));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v22, v24, v26, v28, v29, v30, v31);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
+    v33 = 136315138;
     OUTLINED_FUNCTION_2_11("[FigCaptureSessionProxy initWithFigCaptureSession:identifier:clientAuditToken:containsVideoSource:containsStillImageSink:containsMovieFileSink:]");
-    OUTLINED_FUNCTION_21();
+    OUTLINED_FUNCTION_21(v17, v18, v32, v19, &dword_1AC90E000);
   }
 
   return OUTLINED_FUNCTION_1_77();
@@ -166,21 +170,11 @@ LABEL_9:
 
 - (BOOL)openPreviewTapWithDelegate:(_DWORD *)a1 .cold.2(_DWORD *a1)
 {
-  FigDebugAssert3();
-  v2 = FigSignalErrorAtGM();
-  *a1 = v2;
-  return v2 == 0;
-}
-
-- (uint64_t)closePreviewTap
-{
-  OUTLINED_FUNCTION_1_8();
-  LODWORD(v7) = v5;
-  FigDebugAssert3();
-  result = [*(a2 + 64) captureSessionPreviewTapDidClose:{a2, v7}];
-  *(a2 + 64) = 0;
-  *a3 = 0;
-  return result;
+  v7 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v1, v9, v10, v11, v12, vars0, vars8);
+  v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844068, 0xFFFFCE14, "<<<< FigCaptureSessionObserver >>>>", 0x32D, v1, v3, v4, v8);
+  *a1 = v5;
+  return v5 == 0;
 }
 
 @end

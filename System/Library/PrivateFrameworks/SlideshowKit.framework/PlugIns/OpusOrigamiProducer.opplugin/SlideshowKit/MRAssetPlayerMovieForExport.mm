@@ -134,7 +134,7 @@
   v23 = 0u;
   if (track)
   {
-    [track preferredTransform];
+    objc_msgSend_preferredTransform(track, a2);
   }
 
   if (self->_startTime <= 0.0)

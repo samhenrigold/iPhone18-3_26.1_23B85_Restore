@@ -20,10 +20,10 @@
 
 - (ANAnnounceReachability)init
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = ANAnnounceReachability;
-  v2 = [(ANAnnounceReachability *)&v22 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = ANAnnounceReachability;
+  v2 = [(ANAnnounceReachability *)&v21 init];
   if (v2)
   {
     v3 = ANLogWithCategory("ReachabilityClient");
@@ -34,7 +34,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = @"com.apple.announced.reachability";
+      v23 = @"com.apple.announced.reachability";
       _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "Creating Connection to %@", buf, 0xCu);
     }
 
@@ -51,26 +51,25 @@
     [(NSXPCConnection *)v2->_connection setExportedObject:v10];
     objc_initWeak(buf, v2);
     v11 = v2->_connection;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __30__ANAnnounceReachability_init__block_invoke;
-    v20[3] = &unk_2784E2060;
-    objc_copyWeak(&v21, buf);
-    [(NSXPCConnection *)v11 setInterruptionHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __30__ANAnnounceReachability_init__block_invoke;
+    v19[3] = &unk_2784E2060;
+    objc_copyWeak(&v20, buf);
+    [(NSXPCConnection *)v11 setInterruptionHandler:v19];
     v12 = v2->_connection;
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __30__ANAnnounceReachability_init__block_invoke_81;
-    v18 = &unk_2784E2060;
-    objc_copyWeak(&v19, buf);
-    [(NSXPCConnection *)v12 setInvalidationHandler:&v15];
-    [(NSXPCConnection *)v2->_connection resume:v15];
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __30__ANAnnounceReachability_init__block_invoke_81;
+    v17 = &unk_2784E2060;
+    objc_copyWeak(&v18, buf);
+    [(NSXPCConnection *)v12 setInvalidationHandler:&v14];
+    [(NSXPCConnection *)v2->_connection resume:v14];
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -382,17 +381,17 @@ void __32__ANAnnounceReachability__start__block_invoke_105(uint64_t a1)
 
 - (void)reachabilityLevel:(unint64_t)level didChangeForHomeName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = [(ANAnnounceReachability *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [ANAnnounceReachability stringForAnnounceReachabilityLevel:level];
-    v13 = 138412546;
-    v14 = nameCopy;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = nameCopy;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@: %@", &v12, 0x16u);
   }
 
   delegate = [(ANAnnounceReachability *)self delegate];
@@ -403,26 +402,24 @@ void __32__ANAnnounceReachability__start__block_invoke_105(uint64_t a1)
     delegate2 = [(ANAnnounceReachability *)self delegate];
     [delegate2 announceReachability:self didUpdateReachabilityLevel:level forHomeName:nameCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reachabilityLevel:(unint64_t)level didChangeForRoomName:(id)name inHomeName:(id)homeName
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   homeNameCopy = homeName;
   v10 = [(ANAnnounceReachability *)self log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [ANAnnounceReachability stringForAnnounceReachabilityLevel:level];
-    v16 = 138412802;
-    v17 = homeNameCopy;
-    v18 = 2112;
-    v19 = nameCopy;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_2237C8000, v10, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@, Room = %@: %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = homeNameCopy;
+    v17 = 2112;
+    v18 = nameCopy;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_2237C8000, v10, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@, Room = %@: %@", &v15, 0x20u);
   }
 
   delegate = [(ANAnnounceReachability *)self delegate];
@@ -433,23 +430,21 @@ void __32__ANAnnounceReachability__start__block_invoke_105(uint64_t a1)
     delegate2 = [(ANAnnounceReachability *)self delegate];
     [delegate2 announceReachability:self didUpdateReachabilityLevel:level forRoomName:nameCopy inHomeName:homeNameCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reachabilityLevel:(unint64_t)level didChangeForHomeUUID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = [(ANAnnounceReachability *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [ANAnnounceReachability stringForAnnounceReachabilityLevel:level];
-    v13 = 138412546;
-    v14 = dCopy;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = dCopy;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_2237C8000, v7, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@: %@", &v12, 0x16u);
   }
 
   delegate = [(ANAnnounceReachability *)self delegate];
@@ -460,26 +455,24 @@ void __32__ANAnnounceReachability__start__block_invoke_105(uint64_t a1)
     delegate2 = [(ANAnnounceReachability *)self delegate];
     [delegate2 announceReachability:self didUpdateReachabilityLevel:level forHomeUUID:dCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reachabilityLevel:(unint64_t)level didChangeForRoomUUID:(id)d inHomeUUID:(id)iD
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v10 = [(ANAnnounceReachability *)self log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [ANAnnounceReachability stringForAnnounceReachabilityLevel:level];
-    v16 = 138412802;
-    v17 = iDCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_2237C8000, v10, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@, Room = %@: %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = iDCopy;
+    v17 = 2112;
+    v18 = dCopy;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_2237C8000, v10, OS_LOG_TYPE_DEFAULT, "Reachability updated for Home = %@, Room = %@: %@", &v15, 0x20u);
   }
 
   delegate = [(ANAnnounceReachability *)self delegate];
@@ -490,48 +483,41 @@ void __32__ANAnnounceReachability__start__block_invoke_105(uint64_t a1)
     delegate2 = [(ANAnnounceReachability *)self delegate];
     [delegate2 announceReachability:self didUpdateReachabilityLevel:level forRoomUUID:dCopy inHomeUUID:iDCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ANAnnounceReachability_announceReachabilityForHomeName___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 void __69__ANAnnounceReachability_announceReachabilityForRoomName_inHomeName___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 void __58__ANAnnounceReachability_announceReachabilityForHomeUUID___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 void __69__ANAnnounceReachability_announceReachabilityForRoomUUID_inHomeUUID___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 void __32__ANAnnounceReachability__start__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2237C8000, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 @end

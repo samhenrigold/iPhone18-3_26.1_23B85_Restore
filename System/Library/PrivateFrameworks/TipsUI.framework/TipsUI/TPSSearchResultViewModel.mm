@@ -42,9 +42,9 @@
   selfCopy = self;
   sub_220BCC4C0();
 
-  v5 = sub_220BA9DC8(v4);
+  v4 = sub_220BA9DC8();
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (id)tipActionHandler
@@ -58,7 +58,7 @@
   swift_beginAccess();
   v5 = *v4;
   v6 = *(v4 + 8);
-  sub_220B3A13C(v5);
+  sub_220B3A13C(v5, v6);
 
   if (v5)
   {
@@ -94,12 +94,13 @@
   selfCopy = self;
   sub_220BCC4C0();
 
-  v7 = (v9 + OBJC_IVAR____TtC6TipsUI18SearchResultsModel_tipActionHandler);
+  v7 = (v10 + OBJC_IVAR____TtC6TipsUI18SearchResultsModel_tipActionHandler);
   swift_beginAccess();
   v8 = *v7;
+  v9 = v7[1];
   *v7 = v4;
   v7[1] = v5;
-  sub_220B3A128(v8);
+  sub_220B3A128(v8, v9);
 }
 
 - (void)reset

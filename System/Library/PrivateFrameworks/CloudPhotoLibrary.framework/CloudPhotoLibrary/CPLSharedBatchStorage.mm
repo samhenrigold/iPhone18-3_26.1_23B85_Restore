@@ -94,7 +94,7 @@
 
 - (void)cleanupAfterExtractingBatch
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLStorageOSLogDomain();
@@ -103,9 +103,9 @@
       scope = [(CPLEngineTransientRepositoryBatchStorage *)self scope];
       sharedScope = self->_sharedScope;
       *buf = 138412546;
-      v10 = scope;
-      v11 = 2112;
-      v12 = sharedScope;
+      v9 = scope;
+      v10 = 2112;
+      v11 = sharedScope;
       _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "Finished extracting batch for %@/%@", buf, 0x16u);
     }
   }
@@ -113,18 +113,17 @@
   alreadyProcessedChanges = self->_alreadyProcessedChanges;
   self->_alreadyProcessedChanges = 0;
 
-  v8.receiver = self;
-  v8.super_class = CPLSharedBatchStorage;
-  [(CPLEngineTransientRepositoryBatchStorage *)&v8 cleanupAfterExtractingBatch];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = CPLSharedBatchStorage;
+  [(CPLEngineTransientRepositoryBatchStorage *)&v7 cleanupAfterExtractingBatch];
 }
 
 - (void)beginExtractingBatch
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = CPLSharedBatchStorage;
-  [(CPLEngineTransientRepositoryBatchStorage *)&v9 beginExtractingBatch];
+  v13 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = CPLSharedBatchStorage;
+  [(CPLEngineTransientRepositoryBatchStorage *)&v8 beginExtractingBatch];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   alreadyProcessedChanges = self->_alreadyProcessedChanges;
   self->_alreadyProcessedChanges = v3;
@@ -137,23 +136,21 @@
       scope = [(CPLEngineTransientRepositoryBatchStorage *)self scope];
       sharedScope = self->_sharedScope;
       *buf = 138412546;
-      v11 = scope;
-      v12 = 2112;
-      v13 = sharedScope;
+      v10 = scope;
+      v11 = 2112;
+      v12 = sharedScope;
       _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Begin extracting batch for %@/%@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)removeChange:(id)change error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v35.receiver = self;
-  v35.super_class = CPLSharedBatchStorage;
-  if ([(CPLEngineTransientRepositoryBatchStorage *)&v35 removeChange:changeCopy error:error])
+  v34.receiver = self;
+  v34.super_class = CPLSharedBatchStorage;
+  if ([(CPLEngineTransientRepositoryBatchStorage *)&v34 removeChange:changeCopy error:error])
   {
     scopedIdentifier = [changeCopy scopedIdentifier];
     v9 = [(CPLSharedBatchStorage *)self _targetForPrivateScopedIdentifier:scopedIdentifier];
@@ -182,22 +179,22 @@ LABEL_23:
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v25 = __CPLStorageOSLogDomain();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v24 = __CPLStorageOSLogDomain();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               scopedIdentifier4 = [v9 scopedIdentifier];
               *buf = 138412546;
-              v37 = _ignoredRecord;
-              v38 = 2112;
-              v39 = scopedIdentifier4;
-              _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_ERROR, "%@ is incorrectly ignored for %@", buf, 0x16u);
+              v36 = _ignoredRecord;
+              v37 = 2112;
+              v38 = scopedIdentifier4;
+              _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "%@ is incorrectly ignored for %@", buf, 0x16u);
             }
           }
 
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
+          v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
           scopedIdentifier5 = [v9 scopedIdentifier];
-          [currentHandler handleFailureInMethod:a2 object:self file:v28 lineNumber:918 description:{@"%@ is incorrectly ignored for %@", _ignoredRecord, scopedIdentifier5}];
+          [currentHandler handleFailureInMethod:a2 object:self file:v27 lineNumber:918 description:{@"%@ is incorrectly ignored for %@", _ignoredRecord, scopedIdentifier5}];
 
           abort();
         }
@@ -224,24 +221,24 @@ LABEL_23:
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v30 = __CPLStorageOSLogDomain();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v29 = __CPLStorageOSLogDomain();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               scopedIdentifier6 = [v9 scopedIdentifier];
               *buf = 138412802;
-              v37 = _ignoredRecord;
-              v38 = 2112;
-              v39 = scopedIdentifier6;
-              v40 = 2112;
-              v41 = otherScopedIdentifier;
-              _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "%@ is incorrectly ignored for %@ - it should be %@", buf, 0x20u);
+              v36 = _ignoredRecord;
+              v37 = 2112;
+              v38 = scopedIdentifier6;
+              v39 = 2112;
+              v40 = otherScopedIdentifier;
+              _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_ERROR, "%@ is incorrectly ignored for %@ - it should be %@", buf, 0x20u);
             }
           }
 
           currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-          v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
+          v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
           scopedIdentifier7 = [v9 scopedIdentifier];
-          [currentHandler2 handleFailureInMethod:a2 object:self file:v33 lineNumber:926 description:{@"%@ is incorrectly ignored for %@ - it should be %@", _ignoredRecord, scopedIdentifier7, otherScopedIdentifier}];
+          [currentHandler2 handleFailureInMethod:a2 object:self file:v32 lineNumber:926 description:{@"%@ is incorrectly ignored for %@ - it should be %@", _ignoredRecord, scopedIdentifier7, otherScopedIdentifier}];
 
           abort();
         }
@@ -272,7 +269,7 @@ LABEL_22:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v37 = otherScopedIdentifier;
+        v36 = otherScopedIdentifier;
         _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEBUG, "Automatically mingling %@", buf, 0xCu);
       }
     }
@@ -286,13 +283,12 @@ LABEL_22:
   v17 = 0;
 LABEL_24:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)_keepIgnoredRecord:(id)record shadowingRecord:(id)shadowingRecord inScope:(id)scope error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   scopeCopy = scope;
   v12 = CPLIgnoredDateForRecord(recordCopy, shadowingRecord, self->_now);
@@ -303,23 +299,22 @@ LABEL_24:
     {
       scopedIdentifier = [recordCopy scopedIdentifier];
       v15 = [CPLDateFormatter stringFromDateAgo:v12 now:self->_now];
-      v19 = 138543618;
-      v20 = scopedIdentifier;
-      v21 = 2114;
-      v22 = v15;
-      _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Keeping ignored record %{public}@ with ignored date %{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = scopedIdentifier;
+      v20 = 2114;
+      v21 = v15;
+      _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Keeping ignored record %{public}@ with ignored date %{public}@", &v18, 0x16u);
     }
   }
 
   v16 = -[CPLEngineIgnoredRecords addIgnoredRecord:ignoredDate:otherScopeIndex:error:](self->_ignoredRecords, "addIgnoredRecord:ignoredDate:otherScopeIndex:error:", recordCopy, v12, [scopeCopy cloudIndex], error);
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)_transferIgnoredRecordToTransientPullRepository:(id)repository error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   repositoryCopy = repository;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -327,9 +322,9 @@ LABEL_24:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       scopedIdentifier = [repositoryCopy scopedIdentifier];
-      v14 = 138412290;
-      v15 = scopedIdentifier;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Automatically mingling previously ignored record %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = scopedIdentifier;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Automatically mingling previously ignored record %@", &v13, 0xCu);
     }
   }
 
@@ -338,7 +333,6 @@ LABEL_24:
   transientRepository = [(CPLEngineTransientRepositoryBatchStorage *)self transientRepository];
   v11 = [transientRepository appendBatch:v9 alreadyMingled:1 countOfAssetChanges:0 error:error];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -387,7 +381,7 @@ LABEL_24:
 
 - (id)changeWithScopedIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -395,11 +389,11 @@ LABEL_24:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = NSStringFromSelector(a2);
-      v17 = 138412546;
-      v18 = v7;
-      v19 = 2112;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "%@ %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v7;
+      v18 = 2112;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "%@ %@", &v16, 0x16u);
     }
   }
 
@@ -427,14 +421,12 @@ LABEL_24:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)allNonDeletedChangesWithClass:(Class)class scopeIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -443,11 +435,11 @@ LABEL_24:
     {
       v9 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v23 = v9;
-      v24 = 2112;
+      v22 = v9;
+      v23 = 2112;
       classCopy = class;
-      v26 = 2112;
-      v27 = identifierCopy;
+      v25 = 2112;
+      v26 = identifierCopy;
       _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "%@ %@ %@", buf, 0x20u);
     }
   }
@@ -458,31 +450,29 @@ LABEL_24:
 
   if (v12)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___block_invoke;
-    v19[3] = &unk_1E861B6B0;
-    v19[4] = self;
-    classCopy2 = class;
-    v20 = identifierCopy;
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___block_invoke_2;
-    v18[3] = &unk_1E861B700;
+    v18[2] = __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___block_invoke;
+    v18[3] = &unk_1E861B6B0;
     v18[4] = self;
-    v18[5] = class;
-    v13 = [(CPLSharedBatchStorage *)self _unionEnumerationWithPrivateRecordEnumeratorGenerator:v19 sharedRecordGenerator:v18];
+    classCopy2 = class;
+    v19 = identifierCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___block_invoke_2;
+    v17[3] = &unk_1E861B700;
+    v17[4] = self;
+    v17[5] = class;
+    v13 = [(CPLSharedBatchStorage *)self _unionEnumerationWithPrivateRecordEnumeratorGenerator:v18 sharedRecordGenerator:v17];
     v14 = [(CPLSharedBatchStorage *)self _allChangesMatchingChangeType:0 enumerator:v13];
   }
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = CPLSharedBatchStorage;
-    v14 = [(CPLEngineTransientRepositoryBatchStorage *)&v17 allNonDeletedChangesWithClass:class scopeIdentifier:identifierCopy];
+    v16.receiver = self;
+    v16.super_class = CPLSharedBatchStorage;
+    v14 = [(CPLEngineTransientRepositoryBatchStorage *)&v16 allNonDeletedChangesWithClass:class scopeIdentifier:identifierCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -507,7 +497,7 @@ id __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___b
 
 - (id)allChangesWithScopeIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -516,9 +506,9 @@ id __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___b
     {
       v7 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v19 = v7;
-      v20 = 2112;
-      v21 = identifierCopy;
+      v18 = v7;
+      v19 = 2112;
+      v20 = identifierCopy;
       _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "%@ %@", buf, 0x16u);
     }
   }
@@ -529,28 +519,26 @@ id __71__CPLSharedBatchStorage_allNonDeletedChangesWithClass_scopeIdentifier___b
 
   if (v10)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke;
-    v16[3] = &unk_1E861B728;
-    v16[4] = self;
-    v17 = identifierCopy;
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
-    v15[2] = __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke_2;
-    v15[3] = &unk_1E861C0F8;
+    v15[2] = __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke;
+    v15[3] = &unk_1E861B728;
     v15[4] = self;
-    v11 = [(CPLSharedBatchStorage *)self _unionEnumerationWithPrivateRecordEnumeratorGenerator:v16 sharedRecordGenerator:v15];
+    v16 = identifierCopy;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke_2;
+    v14[3] = &unk_1E861C0F8;
+    v14[4] = self;
+    v11 = [(CPLSharedBatchStorage *)self _unionEnumerationWithPrivateRecordEnumeratorGenerator:v15 sharedRecordGenerator:v14];
   }
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = CPLSharedBatchStorage;
-    v11 = [(CPLEngineTransientRepositoryBatchStorage *)&v14 allChangesWithScopeIdentifier:identifierCopy];
+    v13.receiver = self;
+    v13.super_class = CPLSharedBatchStorage;
+    v11 = [(CPLEngineTransientRepositoryBatchStorage *)&v13 allChangesWithScopeIdentifier:identifierCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -596,7 +584,7 @@ id __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke_2(ui
 
 - (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier changeType:(unint64_t)type
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -606,13 +594,13 @@ id __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke_2(ui
       v11 = NSStringFromSelector(a2);
       v12 = [CPLRecordChange descriptionForChangeType:type];
       *buf = 138413058;
-      v26 = v11;
-      v27 = 2112;
+      v25 = v11;
+      v26 = 2112;
       classCopy = class;
-      v29 = 2112;
-      v30 = identifierCopy;
-      v31 = 2112;
-      v32 = v12;
+      v28 = 2112;
+      v29 = identifierCopy;
+      v30 = 2112;
+      v31 = v12;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "%@ %@ %@ %@", buf, 0x2Au);
     }
   }
@@ -623,31 +611,29 @@ id __55__CPLSharedBatchStorage_allChangesWithScopeIdentifier___block_invoke_2(ui
 
   if (v15)
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___block_invoke;
-    v22[3] = &unk_1E861B6B0;
-    v22[4] = self;
-    classCopy2 = class;
-    v23 = identifierCopy;
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
-    v21[2] = __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___block_invoke_2;
-    v21[3] = &unk_1E861B700;
+    v21[2] = __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___block_invoke;
+    v21[3] = &unk_1E861B6B0;
     v21[4] = self;
-    v21[5] = class;
-    v16 = [(CPLSharedBatchStorage *)self _unionEnumerationWithPrivateRecordEnumeratorGenerator:v22 sharedRecordGenerator:v21];
+    classCopy2 = class;
+    v22 = identifierCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___block_invoke_2;
+    v20[3] = &unk_1E861B700;
+    v20[4] = self;
+    v20[5] = class;
+    v16 = [(CPLSharedBatchStorage *)self _unionEnumerationWithPrivateRecordEnumeratorGenerator:v21 sharedRecordGenerator:v20];
     v17 = [(CPLSharedBatchStorage *)self _allChangesMatchingChangeType:type enumerator:v16];
   }
 
   else
   {
-    v20.receiver = self;
-    v20.super_class = CPLSharedBatchStorage;
-    v17 = [(CPLEngineTransientRepositoryBatchStorage *)&v20 allChangesWithClass:class scopeIdentifier:identifierCopy changeType:type];
+    v19.receiver = self;
+    v19.super_class = CPLSharedBatchStorage;
+    v17 = [(CPLEngineTransientRepositoryBatchStorage *)&v19 allChangesWithClass:class scopeIdentifier:identifierCopy changeType:type];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -672,7 +658,7 @@ id __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___
 
 - (id)allChangesWithClass:(Class)class relatedScopedIdentifier:(id)identifier
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -681,11 +667,11 @@ id __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___
     {
       v9 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v45 = v9;
-      v46 = 2112;
+      v44 = v9;
+      v45 = 2112;
       classCopy = class;
-      v48 = 2112;
-      v49 = identifierCopy;
+      v47 = 2112;
+      v48 = identifierCopy;
       _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "%@ %@ %@", buf, 0x20u);
     }
   }
@@ -698,58 +684,56 @@ id __72__CPLSharedBatchStorage_allChangesWithClass_scopeIdentifier_changeType___
   if (v13)
   {
     v14 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke;
-    v40[3] = &unk_1E861B6B0;
-    v40[4] = self;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke;
+    v39[3] = &unk_1E861B6B0;
+    v39[4] = self;
     classCopy2 = class;
     v15 = identifierCopy;
-    v41 = v15;
-    v16 = MEMORY[0x1E128EBA0](v40);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke_2;
-    v37[3] = &unk_1E861B6D8;
-    v37[4] = self;
-    v38 = v15;
+    v40 = v15;
+    v16 = MEMORY[0x1E128EBA0](v39);
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke_2;
+    v36[3] = &unk_1E861B6D8;
+    v36[4] = self;
+    v37 = v15;
     classCopy3 = class;
-    v17 = MEMORY[0x1E128EBA0](v37);
+    v17 = MEMORY[0x1E128EBA0](v36);
     v18 = [CPLUnionEnumerator alloc];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke_3;
-    v34[3] = &unk_1E861B668;
-    v36 = v16;
-    v34[4] = self;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke_3;
+    v33[3] = &unk_1E861B668;
+    v35 = v16;
+    v33[4] = self;
     v19 = v14;
-    v35 = v19;
+    v34 = v19;
     v20 = v16;
-    v21 = MEMORY[0x1E128EBA0](v34);
-    v43[0] = v21;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke_5;
-    v30[3] = &unk_1E861B668;
+    v21 = MEMORY[0x1E128EBA0](v33);
+    v42[0] = v21;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___block_invoke_5;
+    v29[3] = &unk_1E861B668;
     selfCopy = self;
-    v33 = v17;
-    v31 = v19;
+    v32 = v17;
+    v30 = v19;
     v22 = v19;
     v23 = v17;
-    v24 = MEMORY[0x1E128EBA0](v30);
-    v43[1] = v24;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v24 = MEMORY[0x1E128EBA0](v29);
+    v42[1] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
     v26 = [(CPLUnionEnumerator *)v18 initWithEnumeratorGenerators:v25];
   }
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = CPLSharedBatchStorage;
-    v26 = [(CPLEngineTransientRepositoryBatchStorage *)&v29 allChangesWithClass:class relatedScopedIdentifier:identifierCopy];
+    v28.receiver = self;
+    v28.super_class = CPLSharedBatchStorage;
+    v26 = [(CPLEngineTransientRepositoryBatchStorage *)&v28 allChangesWithClass:class relatedScopedIdentifier:identifierCopy];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -825,16 +809,7 @@ id __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___blo
   else
   {
     v6 = [*(a1 + 40) _targetForSharedScopedIdentifier:v4];
-    if (![v3 supportsSharingScopedIdentifier])
-    {
-      goto LABEL_6;
-    }
-
-    v7 = [*(a1 + 40) transientRepository];
-    v8 = [v6 scopedIdentifier];
-    v9 = [v7 unmingledChangeWithScopedIdentifier:v8];
-
-    if (v9)
+    if ([v3 supportsSharingScopedIdentifier] && (objc_msgSend(*(a1 + 40), "transientRepository"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "scopedIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "unmingledChangeWithScopedIdentifier:", v8), v9 = objc_claimAutoreleasedReturnValue(), v8, v7, v9))
     {
       v10 = *(a1 + 40);
       v13 = v4;
@@ -846,7 +821,6 @@ id __69__CPLSharedBatchStorage_allChangesWithClass_relatedScopedIdentifier___blo
 
     else
     {
-LABEL_6:
       v5 = [*(a1 + 40) _mergedRecordWithSharedChange:v3 target:v6];
     }
   }
@@ -930,37 +904,35 @@ id __66__CPLSharedBatchStorage__allChangesMatchingChangeType_enumerator___block_
 
 - (id)_unionEnumerationWithPrivateRecordEnumeratorGenerator:(id)generator sharedRecordGenerator:(id)recordGenerator
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   generatorCopy = generator;
   recordGeneratorCopy = recordGenerator;
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v9 = [CPLUnionEnumerator alloc];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __101__CPLSharedBatchStorage__unionEnumerationWithPrivateRecordEnumeratorGenerator_sharedRecordGenerator___block_invoke;
-  v24[3] = &unk_1E861B668;
-  v26 = generatorCopy;
-  v24[4] = self;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __101__CPLSharedBatchStorage__unionEnumerationWithPrivateRecordEnumeratorGenerator_sharedRecordGenerator___block_invoke;
+  v23[3] = &unk_1E861B668;
+  v25 = generatorCopy;
+  v23[4] = self;
   v10 = v8;
-  v25 = v10;
+  v24 = v10;
   v11 = generatorCopy;
-  v12 = MEMORY[0x1E128EBA0](v24);
-  v27[0] = v12;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __101__CPLSharedBatchStorage__unionEnumerationWithPrivateRecordEnumeratorGenerator_sharedRecordGenerator___block_invoke_3;
-  v20[3] = &unk_1E861B668;
+  v12 = MEMORY[0x1E128EBA0](v23);
+  v26[0] = v12;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __101__CPLSharedBatchStorage__unionEnumerationWithPrivateRecordEnumeratorGenerator_sharedRecordGenerator___block_invoke_3;
+  v19[3] = &unk_1E861B668;
   selfCopy = self;
-  v23 = recordGeneratorCopy;
-  v21 = v10;
+  v22 = recordGeneratorCopy;
+  v20 = v10;
   v13 = v10;
   v14 = recordGeneratorCopy;
-  v15 = MEMORY[0x1E128EBA0](v20);
-  v27[1] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v15 = MEMORY[0x1E128EBA0](v19);
+  v26[1] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v17 = [(CPLUnionEnumerator *)v9 initWithEnumeratorGenerators:v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1032,7 +1004,7 @@ id __101__CPLSharedBatchStorage__unionEnumerationWithPrivateRecordEnumeratorGene
 
 - (id)_mergedRecordWithSharedChange:(id)change target:(id)target
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   targetCopy = target;
   scopedIdentifier = [changeCopy scopedIdentifier];
@@ -1089,19 +1061,19 @@ LABEL_46:
         }
 
 LABEL_83:
-        v75 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier2 isFinal:0];
-        if (!v75)
+        v74 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier2 isFinal:0];
+        if (!v74)
         {
           v18 = [(CPLSharedBatchStorage *)self _sharedRecordAsPrivateRecord:changeCopy target:targetCopy];
           goto LABEL_46;
         }
 
-        v18 = v75;
-        [(CPLRecordTarget *)v75 setSharingRecordChangeData:0];
+        v18 = v74;
+        [(CPLRecordTarget *)v74 setSharingRecordChangeData:0];
         v15 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier2 otherScopedIdentifier:scopedIdentifier targetState:1];
         [(CPLEngineTransientRepositoryBatchStorage *)self targetMapping];
-        v76 = v90 = 56;
-        [v76 setTarget:v15 forRecordWithScopedIdentifier:scopedIdentifier2];
+        v75 = v89 = 56;
+        [v75 setTarget:v15 forRecordWithScopedIdentifier:scopedIdentifier2];
 
         goto LABEL_45;
       }
@@ -1114,7 +1086,7 @@ LABEL_83:
       goto LABEL_7;
     }
 
-    v90 = 56;
+    v89 = 56;
     if (!v14)
     {
       if ([(CPLRecordTarget *)targetCopy targetState]!= 1 || ([(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier2 isFinal:1], (v45 = objc_claimAutoreleasedReturnValue()) == 0))
@@ -1169,19 +1141,19 @@ LABEL_56:
             goto LABEL_57;
           }
 
-          v78 = [CPLRecordTarget alloc];
+          v77 = [CPLRecordTarget alloc];
           scopedIdentifier4 = [(CPLRecordTarget *)targetCopy scopedIdentifier];
-          v80 = [(CPLRecordTarget *)v78 initWithScopedIdentifier:scopedIdentifier4 otherScopedIdentifier:scopedIdentifier targetState:0];
+          v79 = [(CPLRecordTarget *)v77 initWithScopedIdentifier:scopedIdentifier4 otherScopedIdentifier:scopedIdentifier targetState:0];
 
           targetMapping4 = [(CPLEngineTransientRepositoryBatchStorage *)self targetMapping];
           scopedIdentifier5 = [(CPLRecordTarget *)targetCopy scopedIdentifier];
-          [targetMapping4 setTarget:v80 forRecordWithScopedIdentifier:scopedIdentifier5];
+          [targetMapping4 setTarget:v79 forRecordWithScopedIdentifier:scopedIdentifier5];
 
           selfCopy3 = self;
-          v84 = changeCopy;
-          v85 = targetCopy;
+          v83 = changeCopy;
+          v84 = targetCopy;
 LABEL_88:
-          v18 = [(CPLSharedBatchStorage *)selfCopy3 _sharedRecordAsPrivateRecord:v84 target:v85];
+          v18 = [(CPLSharedBatchStorage *)selfCopy3 _sharedRecordAsPrivateRecord:v83 target:v84];
 
           goto LABEL_56;
         }
@@ -1204,7 +1176,7 @@ LABEL_57:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v93 = changeCopy;
+          v92 = changeCopy;
           v37 = "%@ has been unshared";
           goto LABEL_51;
         }
@@ -1235,7 +1207,7 @@ LABEL_53:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v93 = changeCopy;
+          v92 = changeCopy;
           v37 = "%@ has been unshared (will need to clean-up sparse record) ";
 LABEL_51:
           _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_DEFAULT, v37, buf, 0xCu);
@@ -1270,23 +1242,23 @@ LABEL_40:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v70 = __CPLStorageOSLogDomain();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        v69 = __CPLStorageOSLogDomain();
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
         {
           scopedIdentifier10 = [(CPLRecordTarget *)v26 scopedIdentifier];
           *buf = 138412802;
-          v93 = changeCopy;
-          v94 = 2112;
-          v95 = scopedIdentifier10;
-          v96 = 2112;
-          v97 = v14;
-          _os_log_impl(&dword_1DC05A000, v70, OS_LOG_TYPE_DEFAULT, "%@'s private counterpart %@ is remapped to %@ - ignoring shared record for now", buf, 0x20u);
+          v92 = changeCopy;
+          v93 = 2112;
+          v94 = scopedIdentifier10;
+          v95 = 2112;
+          v96 = v14;
+          _os_log_impl(&dword_1DC05A000, v69, OS_LOG_TYPE_DEFAULT, "%@'s private counterpart %@ is remapped to %@ - ignoring shared record for now", buf, 0x20u);
         }
       }
 
-      v72 = objc_opt_class();
+      v71 = objc_opt_class();
       scopedIdentifier11 = [(CPLRecordTarget *)v26 scopedIdentifier];
-      v11 = [v72 newRecordWithScopedIdentifier:scopedIdentifier11];
+      v11 = [v71 newRecordWithScopedIdentifier:scopedIdentifier11];
 
       identifier3 = [(CPLRecordTarget *)v14 identifier];
       [(CPLRecordTarget *)v11 setRealIdentifier:identifier3];
@@ -1318,17 +1290,17 @@ LABEL_40:
 
       if (!v23)
       {
-        v86 = [CPLRecordTarget alloc];
+        v85 = [CPLRecordTarget alloc];
         scopedIdentifier13 = [(CPLRecordTarget *)targetCopy scopedIdentifier];
-        v80 = [(CPLRecordTarget *)v86 initWithScopedIdentifier:scopedIdentifier13 otherScopedIdentifier:scopedIdentifier targetState:2];
+        v79 = [(CPLRecordTarget *)v85 initWithScopedIdentifier:scopedIdentifier13 otherScopedIdentifier:scopedIdentifier targetState:2];
 
         targetMapping6 = [(CPLEngineTransientRepositoryBatchStorage *)self targetMapping];
         scopedIdentifier14 = [(CPLRecordTarget *)targetCopy scopedIdentifier];
-        [targetMapping6 setTarget:v80 forRecordWithScopedIdentifier:scopedIdentifier14];
+        [targetMapping6 setTarget:v79 forRecordWithScopedIdentifier:scopedIdentifier14];
 
         selfCopy3 = self;
-        v84 = changeCopy;
-        v85 = v80;
+        v83 = changeCopy;
+        v84 = v79;
         goto LABEL_88;
       }
 
@@ -1383,9 +1355,9 @@ LABEL_54:
 
   v14 = changeCopy;
 LABEL_58:
-  v91 = 0;
-  v59 = [(CPLRecordTarget *)v18 validateChangeWithError:&v91, v90];
-  v60 = v91;
+  v90 = 0;
+  v59 = [(CPLRecordTarget *)v18 validateChangeWithError:&v90, v89];
+  v60 = v90;
   if ((v59 & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1394,13 +1366,13 @@ LABEL_58:
       if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413058;
-        v93 = changeCopy;
-        v94 = 2112;
-        v95 = v18;
-        v96 = 2112;
-        v97 = targetCopy;
-        v98 = 2112;
-        v99 = v60;
+        v92 = changeCopy;
+        v93 = 2112;
+        v94 = v18;
+        v95 = 2112;
+        v96 = targetCopy;
+        v97 = 2112;
+        v98 = v60;
         _os_log_impl(&dword_1DC05A000, v61, OS_LOG_TYPE_ERROR, "Failed to merge incoming shared %@: %@ (%@): %@", buf, 0x2Au);
       }
     }
@@ -1424,11 +1396,11 @@ LABEL_58:
     if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v93 = changeCopy;
-      v94 = 2112;
-      v95 = targetCopy;
-      v96 = 2112;
-      v97 = v18;
+      v92 = changeCopy;
+      v93 = 2112;
+      v94 = targetCopy;
+      v95 = 2112;
+      v96 = v18;
       _os_log_impl(&dword_1DC05A000, v67, OS_LOG_TYPE_DEFAULT, "Merging record with shared change %@ - %@ -> %@", buf, 0x20u);
     }
   }
@@ -1445,14 +1417,13 @@ LABEL_58:
 LABEL_72:
 
 LABEL_73:
-  v68 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_updatePrivateScopedIdentifierForUnknownTarget:(id)target
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   targetCopy = target;
   otherScopedIdentifier = [(CPLRecordTarget *)targetCopy otherScopedIdentifier];
   scopedIdentifier = [(CPLRecordTarget *)targetCopy scopedIdentifier];
@@ -1466,11 +1437,11 @@ LABEL_73:
         v8 = __CPLStorageOSLogDomain();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412546;
-          v13 = otherScopedIdentifier;
-          v14 = 2112;
-          v15 = v7;
-          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Automatically found private scoped identifier of %@ to be %@", &v12, 0x16u);
+          v11 = 138412546;
+          v12 = otherScopedIdentifier;
+          v13 = 2112;
+          v14 = v7;
+          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Automatically found private scoped identifier of %@ to be %@", &v11, 0x16u);
         }
       }
 
@@ -1480,14 +1451,12 @@ LABEL_73:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return targetCopy;
 }
 
 - (id)_mergedRecordWithPrivateChange:(id)change sharedScopedIdentifier:(id *)identifier
 {
-  v140 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   scopedIdentifier = [changeCopy scopedIdentifier];
   v9 = [(NSMutableDictionary *)self->_alreadyProcessedChanges objectForKeyedSubscript:scopedIdentifier];
@@ -1500,7 +1469,7 @@ LABEL_73:
   targetMapping = [(CPLEngineTransientRepositoryBatchStorage *)self targetMapping];
   v12 = [targetMapping targetForRecordWithScopedIdentifier:scopedIdentifier];
 
-  v127 = a2;
+  v126 = a2;
   if (![changeCopy isMasterChange])
   {
     if (![changeCopy supportsSharingScopedIdentifier])
@@ -1509,7 +1478,7 @@ LABEL_73:
 
       v23 = changeCopy;
       v28 = 0;
-      v128 = 0;
+      v127 = 0;
       goto LABEL_14;
     }
 
@@ -1526,7 +1495,7 @@ LABEL_73:
       transientRepository = [(CPLEngineTransientRepositoryBatchStorage *)self transientRepository];
       v27 = [transientRepository unmingledChangeWithScopedIdentifier:otherScopedIdentifier];
 
-      v128 = otherScopedIdentifier;
+      v127 = otherScopedIdentifier;
       if (v27)
       {
         v28 = 0;
@@ -1576,14 +1545,14 @@ LABEL_116:
             goto LABEL_118;
           }
 
-          v96 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier isFinal:0];
-          if (v96)
+          v95 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier isFinal:0];
+          if (v95)
           {
-            v23 = v96;
-            [v96 setRecordChangeData:0];
-            v69 = [CPLRecordTarget alloc];
-            v70 = scopedIdentifier;
-            v71 = otherScopedIdentifier;
+            v23 = v95;
+            [v95 setRecordChangeData:0];
+            v68 = [CPLRecordTarget alloc];
+            v69 = scopedIdentifier;
+            v70 = otherScopedIdentifier;
             goto LABEL_82;
           }
 
@@ -1594,23 +1563,23 @@ LABEL_115:
       }
 
       isDelete = [v27 isDelete];
-      v63 = [CPLRecordTarget alloc];
+      v62 = [CPLRecordTarget alloc];
       if (isDelete)
       {
-        v64 = [(CPLRecordTarget *)v63 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:otherScopedIdentifier targetState:0];
+        v63 = [(CPLRecordTarget *)v62 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:otherScopedIdentifier targetState:0];
 
         v23 = changeCopy;
       }
 
       else
       {
-        v64 = [(CPLRecordTarget *)v63 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:otherScopedIdentifier targetState:2];
+        v63 = [(CPLRecordTarget *)v62 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:otherScopedIdentifier targetState:2];
 
-        v23 = [(CPLSharedBatchStorage *)self _sharedRecordAsPrivateRecord:v27 target:v64];
+        v23 = [(CPLSharedBatchStorage *)self _sharedRecordAsPrivateRecord:v27 target:v63];
         [v23 setRecordChangeData:0];
       }
 
-      v12 = v64;
+      v12 = v63;
 LABEL_151:
       if (!v12)
       {
@@ -1626,37 +1595,37 @@ LABEL_151:
     if (!v39)
     {
       otherScopedIdentifier2 = [v12 otherScopedIdentifier];
-      v60 = otherScopedIdentifier2;
+      v59 = otherScopedIdentifier2;
       if (otherScopedIdentifier2)
       {
-        v61 = otherScopedIdentifier2;
+        v60 = otherScopedIdentifier2;
       }
 
       else
       {
-        v83 = [CPLScopedIdentifier alloc];
+        v82 = [CPLScopedIdentifier alloc];
         scopeIdentifier2 = [(CPLEngineScope *)self->_sharedScope scopeIdentifier];
         identifier = [scopedIdentifier identifier];
-        v61 = [(CPLScopedIdentifier *)v83 initWithScopeIdentifier:scopeIdentifier2 identifier:identifier];
+        v60 = [(CPLScopedIdentifier *)v82 initWithScopeIdentifier:scopeIdentifier2 identifier:identifier];
       }
 
-      v86 = [(CPLEngineRemappedRecords *)self->_remappedRecords realScopedIdentifierForRemappedScopedIdentifier:v61];
-      v87 = v86;
-      if (v86)
+      v85 = [(CPLEngineRemappedRecords *)self->_remappedRecords realScopedIdentifierForRemappedScopedIdentifier:v60];
+      v86 = v85;
+      if (v85)
       {
-        v88 = v86;
+        v87 = v85;
       }
 
       else
       {
-        v88 = v61;
+        v87 = v60;
       }
 
-      v89 = v88;
+      v88 = v87;
 
       transientRepository2 = [(CPLEngineTransientRepositoryBatchStorage *)self transientRepository];
-      v128 = v89;
-      v28 = [transientRepository2 unmingledChangeWithScopedIdentifier:v89];
+      v127 = v88;
+      v28 = [transientRepository2 unmingledChangeWithScopedIdentifier:v88];
 
       if ([v28 isDelete])
       {
@@ -1664,7 +1633,7 @@ LABEL_151:
         v28 = 0;
       }
 
-      v29 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v89 targetState:1];
+      v29 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v88 targetState:1];
 
       v23 = changeCopy;
 LABEL_14:
@@ -1686,13 +1655,13 @@ LABEL_14:
       if (_CPLSilentLogging)
       {
 LABEL_137:
-        v112 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier];
+        v111 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier];
 
         v23 = [objc_opt_class() newDeleteChangeWithScopedIdentifier:scopedIdentifier];
 LABEL_138:
         v28 = 0;
-        v128 = 0;
-        v12 = v112;
+        v127 = 0;
+        v12 = v111;
 LABEL_150:
 
         goto LABEL_151;
@@ -1702,7 +1671,7 @@ LABEL_150:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v131 = scopedIdentifier;
+        v130 = scopedIdentifier;
         _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_DEFAULT, "Sparse private %@ is pointing to an invalid shared record - deleting", buf, 0xCu);
       }
 
@@ -1715,32 +1684,32 @@ LABEL_136:
     {
       identifier3 = [sharingRecordScopedIdentifier identifier];
       identifier4 = [scopedIdentifier identifier];
-      v74 = [identifier3 isEqualToString:identifier4];
+      v73 = [identifier3 isEqualToString:identifier4];
 
-      if ((v74 & 1) == 0)
+      if ((v73 & 1) == 0)
       {
-        v75 = [CPLScopedIdentifier alloc];
+        v74 = [CPLScopedIdentifier alloc];
         scopeIdentifier3 = [(CPLEngineScope *)self->_sharedScope scopeIdentifier];
         identifier5 = [scopedIdentifier identifier];
-        v78 = [(CPLScopedIdentifier *)v75 initWithScopeIdentifier:scopeIdentifier3 identifier:identifier5];
+        v77 = [(CPLScopedIdentifier *)v74 initWithScopeIdentifier:scopeIdentifier3 identifier:identifier5];
 
-        v43 = [(CPLEngineRemappedRecords *)self->_remappedRecords realScopedIdentifierForRemappedScopedIdentifier:v78];
+        v43 = [(CPLEngineRemappedRecords *)self->_remappedRecords realScopedIdentifierForRemappedScopedIdentifier:v77];
 
-        if (!v43 || (-[NSObject identifier](v43, "identifier"), v79 = objc_claimAutoreleasedReturnValue(), [sharingRecordScopedIdentifier identifier], v80 = objc_claimAutoreleasedReturnValue(), v81 = objc_msgSend(v79, "isEqualToString:", v80), v80, v79, (v81 & 1) == 0))
+        if (!v43 || (-[NSObject identifier](v43, "identifier"), v78 = objc_claimAutoreleasedReturnValue(), [sharingRecordScopedIdentifier identifier], v79 = objc_claimAutoreleasedReturnValue(), v80 = objc_msgSend(v78, "isEqualToString:", v79), v79, v78, (v80 & 1) == 0))
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v113 = __CPLStorageOSLogDomain();
-            if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+            v112 = __CPLStorageOSLogDomain();
+            if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
             {
               identifier6 = [v43 identifier];
               *buf = 138412802;
-              v131 = scopedIdentifier;
-              v132 = 2112;
-              v133 = sharingRecordScopedIdentifier;
-              v134 = 2114;
-              v135 = identifier6;
-              _os_log_impl(&dword_1DC05A000, v113, OS_LOG_TYPE_DEFAULT, "Sparse private %@ is pointing to %@ but the private sparse should be %{public}@ - deleting", buf, 0x20u);
+              v130 = scopedIdentifier;
+              v131 = 2112;
+              v132 = sharingRecordScopedIdentifier;
+              v133 = 2114;
+              v134 = identifier6;
+              _os_log_impl(&dword_1DC05A000, v112, OS_LOG_TYPE_DEFAULT, "Sparse private %@ is pointing to %@ but the private sparse should be %{public}@ - deleting", buf, 0x20u);
             }
           }
 
@@ -1751,131 +1720,131 @@ LABEL_136:
 
     else if (!sharingRecordScopedIdentifier)
     {
-      v97 = [CPLScopedIdentifier alloc];
+      v96 = [CPLScopedIdentifier alloc];
       scopeIdentifier4 = [(CPLEngineScope *)self->_sharedScope scopeIdentifier];
       identifier7 = [scopedIdentifier identifier];
-      v92 = [(CPLScopedIdentifier *)v97 initWithScopeIdentifier:scopeIdentifier4 identifier:identifier7];
+      v91 = [(CPLScopedIdentifier *)v96 initWithScopeIdentifier:scopeIdentifier4 identifier:identifier7];
 
 LABEL_121:
-      v100 = [(CPLEngineRemappedRecords *)self->_remappedRecords realScopedIdentifierForRemappedScopedIdentifier:v92];
-      v101 = v100;
-      if (v100)
+      v99 = [(CPLEngineRemappedRecords *)self->_remappedRecords realScopedIdentifierForRemappedScopedIdentifier:v91];
+      v100 = v99;
+      if (v99)
       {
-        v102 = v100;
+        v101 = v99;
       }
 
       else
       {
-        v102 = v92;
+        v101 = v91;
       }
 
-      v103 = v102;
+      v102 = v101;
 
-      v104 = v103;
-      v105 = [(CPLSharedBatchStorage *)self _correctPrivateScopedIdentifierForSharedScopedIdentifier:v103 currentPrivateScopedIdentifier:scopedIdentifier];
-      if (([v105 isEqual:scopedIdentifier] & 1) == 0)
+      v103 = v102;
+      v104 = [(CPLSharedBatchStorage *)self _correctPrivateScopedIdentifierForSharedScopedIdentifier:v102 currentPrivateScopedIdentifier:scopedIdentifier];
+      if (([v104 isEqual:scopedIdentifier] & 1) == 0)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v111 = __CPLStorageOSLogDomain();
-          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+          v110 = __CPLStorageOSLogDomain();
+          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v131 = scopedIdentifier;
-            v132 = 2112;
-            v133 = v104;
-            v134 = 2112;
-            v135 = v105;
-            _os_log_impl(&dword_1DC05A000, v111, OS_LOG_TYPE_DEFAULT, "Sparse private %@ is pointing to %@ but the private sparse should be %@ - ignoring", buf, 0x20u);
+            v130 = scopedIdentifier;
+            v131 = 2112;
+            v132 = v103;
+            v133 = 2112;
+            v134 = v104;
+            _os_log_impl(&dword_1DC05A000, v110, OS_LOG_TYPE_DEFAULT, "Sparse private %@ is pointing to %@ but the private sparse should be %@ - ignoring", buf, 0x20u);
           }
         }
 
-        v112 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier];
+        v111 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier];
         v23 = [objc_opt_class() newDeleteChangeWithScopedIdentifier:scopedIdentifier];
 
         goto LABEL_138;
       }
 
-      v106 = v105;
+      v105 = v104;
       [(CPLEngineTransientRepositoryBatchStorage *)self transientRepository];
-      v108 = v107 = v104;
-      v109 = [v108 unmingledChangeWithScopedIdentifier:v107];
+      v107 = v106 = v103;
+      v108 = [v107 unmingledChangeWithScopedIdentifier:v106];
 
-      v128 = v107;
-      if (v109)
+      v127 = v106;
+      if (v108)
       {
-        v110 = v109;
+        v109 = v108;
         v28 = 0;
       }
 
       else
       {
-        v28 = [(CPLEngineIgnoredRecords *)self->_ignoredRecords recordWithScopedIdentifier:v107];
-        v110 = v28;
+        v28 = [(CPLEngineIgnoredRecords *)self->_ignoredRecords recordWithScopedIdentifier:v106];
+        v109 = v28;
         if (!v28)
         {
-          v122 = v106;
+          v121 = v105;
           if (!v12)
           {
             v12 = [(CPLSharedBatchStorage *)self _targetForPrivateScopedIdentifier:scopedIdentifier];
           }
 
-          if (([v12 targetState] & 0xFFFFFFFFFFFFFFFELL) != 2 || (-[CPLEngineCloudCache recordWithScopedIdentifier:isFinal:](self->_cloudCache, "recordWithScopedIdentifier:isFinal:", scopedIdentifier, 0), (v123 = objc_claimAutoreleasedReturnValue()) == 0))
+          if (([v12 targetState] & 0xFFFFFFFFFFFFFFFELL) != 2 || (-[CPLEngineCloudCache recordWithScopedIdentifier:isFinal:](self->_cloudCache, "recordWithScopedIdentifier:isFinal:", scopedIdentifier, 0), (v122 = objc_claimAutoreleasedReturnValue()) == 0))
           {
-            v115 = 0;
+            v114 = 0;
             v28 = 0;
             goto LABEL_148;
           }
 
-          v124 = v123;
-          v126 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v107 targetState:3];
+          v123 = v122;
+          v125 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v106 targetState:3];
 
-          v115 = 0;
+          v114 = 0;
           v28 = 0;
-          v121 = 0;
-          v120 = v124;
+          v120 = 0;
+          v119 = v123;
           goto LABEL_146;
         }
       }
 
-      v115 = v110;
-      isDelete2 = [v110 isDelete];
-      v117 = [CPLRecordTarget alloc];
+      v114 = v109;
+      isDelete2 = [v109 isDelete];
+      v116 = [CPLRecordTarget alloc];
       if (isDelete2)
       {
-        v118 = [(CPLRecordTarget *)v117 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v128 targetState:0];
+        v117 = [(CPLRecordTarget *)v116 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v127 targetState:0];
 
 LABEL_147:
-        v12 = v118;
-        v122 = v106;
+        v12 = v117;
+        v121 = v105;
 LABEL_148:
         v23 = [objc_opt_class() newDeleteChangeWithScopedIdentifier:scopedIdentifier];
         goto LABEL_149;
       }
 
-      v118 = [(CPLRecordTarget *)v117 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v128 targetState:3];
+      v117 = [(CPLRecordTarget *)v116 initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v127 targetState:3];
 
-      v119 = [(CPLSharedBatchStorage *)self _remapSharedRecord:v115 target:v118];
-      if (!v119)
+      v118 = [(CPLSharedBatchStorage *)self _remapSharedRecord:v114 target:v117];
+      if (!v118)
       {
         goto LABEL_147;
       }
 
-      v120 = v119;
-      v126 = v118;
-      v121 = 1;
-      v122 = v106;
+      v119 = v118;
+      v125 = v117;
+      v120 = 1;
+      v121 = v105;
 LABEL_146:
-      [(CPLSharedRecordMerger *)self->_merger mergeRecord:v120 isSharedRecord:v121 inPrivateRecord:changeCopy];
+      [(CPLSharedRecordMerger *)self->_merger mergeRecord:v119 isSharedRecord:v120 inPrivateRecord:changeCopy];
       v23 = changeCopy;
 
-      v12 = v126;
+      v12 = v125;
 LABEL_149:
 
       goto LABEL_150;
     }
 
-    v92 = sharingRecordScopedIdentifier;
+    v91 = sharingRecordScopedIdentifier;
     goto LABEL_121;
   }
 
@@ -1887,7 +1856,7 @@ LABEL_149:
   transientRepository3 = [(CPLEngineTransientRepositoryBatchStorage *)self transientRepository];
   v18 = [transientRepository3 unmingledChangeWithScopedIdentifier:v16];
 
-  v128 = v16;
+  v127 = v16;
   if (v18)
   {
     goto LABEL_5;
@@ -1907,9 +1876,9 @@ LABEL_149:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v131 = v34;
-          v132 = 2112;
-          v133 = v16;
+          v130 = v34;
+          v131 = 2112;
+          v132 = v16;
           _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_DEFAULT, "Upgrading %@ in cloud cache to shared master %@", buf, 0x16u);
         }
       }
@@ -1968,14 +1937,14 @@ LABEL_37:
     }
   }
 
-  v65 = v12;
+  v64 = v12;
   if (!v12)
   {
-    v65 = [(CPLSharedBatchStorage *)self _targetForPrivateScopedIdentifier:scopedIdentifier];
+    v64 = [(CPLSharedBatchStorage *)self _targetForPrivateScopedIdentifier:scopedIdentifier];
   }
 
-  v12 = v65;
-  targetState2 = [v65 targetState];
+  v12 = v64;
+  targetState2 = [v64 targetState];
   v28 = 0;
   if (targetState2 <= 1)
   {
@@ -1985,9 +1954,9 @@ LABEL_37:
       {
         if ([changeCopy isDelete])
         {
-          v67 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v16 targetState:0];
+          v66 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v16 targetState:0];
 
-          v12 = v67;
+          v12 = v66;
         }
 
         goto LABEL_115;
@@ -2003,11 +1972,11 @@ LABEL_118:
       goto LABEL_39;
     }
 
-    v82 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v16 targetState:1];
+    v81 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v16 targetState:1];
 
     v23 = changeCopy;
     v28 = 0;
-    v12 = v82;
+    v12 = v81;
 LABEL_38:
     if (v12)
     {
@@ -2021,14 +1990,14 @@ LABEL_15:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v131 = changeCopy;
+        v130 = changeCopy;
         _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "Target for %@ should have been determined by now", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
-    [currentHandler handleFailureInMethod:v127 object:self file:v32 lineNumber:450 description:{@"Target for %@ should have been determined by now", changeCopy}];
+    [currentHandler handleFailureInMethod:v126 object:self file:v32 lineNumber:450 description:{@"Target for %@ should have been determined by now", changeCopy}];
 LABEL_168:
 
     abort();
@@ -2051,12 +2020,12 @@ LABEL_168:
     else
     {
       v28 = [changeCopy copy];
-      v93 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v16 targetState:3];
+      v92 = [[CPLRecordTarget alloc] initWithScopedIdentifier:scopedIdentifier otherScopedIdentifier:v16 targetState:3];
 
-      v94 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier isFinal:0];
-      if (v94)
+      v93 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier isFinal:0];
+      if (v93)
       {
-        v23 = v94;
+        v23 = v93;
         recordChangeData2 = [changeCopy recordChangeData];
         [v23 setRecordChangeData:recordChangeData2];
       }
@@ -2066,7 +2035,7 @@ LABEL_168:
         v23 = changeCopy;
       }
 
-      v12 = v93;
+      v12 = v92;
     }
 
     goto LABEL_38;
@@ -2080,16 +2049,16 @@ LABEL_168:
 
   if ([changeCopy isDelete])
   {
-    v68 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier isFinal:0];
-    if (v68)
+    v67 = [(CPLEngineCloudCache *)self->_cloudCache recordWithScopedIdentifier:scopedIdentifier isFinal:0];
+    if (v67)
     {
-      v23 = v68;
-      [v68 setRecordChangeData:0];
-      v69 = [CPLRecordTarget alloc];
-      v70 = scopedIdentifier;
-      v71 = v16;
+      v23 = v67;
+      [v67 setRecordChangeData:0];
+      v68 = [CPLRecordTarget alloc];
+      v69 = scopedIdentifier;
+      v70 = v16;
 LABEL_82:
-      v29 = [(CPLRecordTarget *)v69 initWithScopedIdentifier:v70 otherScopedIdentifier:v71 targetState:2];
+      v29 = [(CPLRecordTarget *)v68 initWithScopedIdentifier:v69 otherScopedIdentifier:v70 targetState:2];
 
 LABEL_153:
       v28 = 0;
@@ -2114,37 +2083,37 @@ LABEL_39:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v125 = __CPLStorageOSLogDomain();
-      if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+      v124 = __CPLStorageOSLogDomain();
+      if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v131 = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v125, OS_LOG_TYPE_ERROR, "failed to create merged private record from %@", buf, 0xCu);
+        v130 = changeCopy;
+        _os_log_impl(&dword_1DC05A000, v124, OS_LOG_TYPE_ERROR, "failed to create merged private record from %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
-    [currentHandler handleFailureInMethod:v127 object:self file:v32 lineNumber:453 description:{@"failed to create merged private record from %@", changeCopy}];
+    [currentHandler handleFailureInMethod:v126 object:self file:v32 lineNumber:453 description:{@"failed to create merged private record from %@", changeCopy}];
     goto LABEL_168;
   }
 
   v46 = v12;
-  v47 = v128;
+  v47 = v127;
   if (identifier)
   {
-    v48 = v128;
-    *identifier = v128;
-    if (v128)
+    v48 = v127;
+    *identifier = v127;
+    if (v127)
     {
-      [(NSMutableDictionary *)self->_alreadyProcessedChanges setObject:v23 forKeyedSubscript:v128];
+      [(NSMutableDictionary *)self->_alreadyProcessedChanges setObject:v23 forKeyedSubscript:v127];
     }
   }
 
   [v23 setSharingRecordIdentifier:0];
-  v129 = 0;
-  v49 = [v23 validateChangeWithError:&v129];
-  v50 = v129;
+  v128 = 0;
+  v49 = [v23 validateChangeWithError:&v128];
+  v50 = v128;
   if ((v49 & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2154,19 +2123,19 @@ LABEL_39:
       {
         v52 = objc_opt_class();
         *buf = 138413314;
-        v131 = v52;
-        v132 = 2112;
-        v133 = scopedIdentifier;
-        v134 = 2112;
-        v135 = v23;
-        v136 = 2112;
-        v137 = v46;
-        v138 = 2112;
-        v139 = v50;
+        v130 = v52;
+        v131 = 2112;
+        v132 = scopedIdentifier;
+        v133 = 2112;
+        v134 = v23;
+        v135 = 2112;
+        v136 = v46;
+        v137 = 2112;
+        v138 = v50;
         v53 = v52;
         _os_log_impl(&dword_1DC05A000, v51, OS_LOG_TYPE_ERROR, "Failed to merge incoming private <%@ %@>: %@ (%@): %@", buf, 0x34u);
 
-        v47 = v128;
+        v47 = v127;
       }
     }
 
@@ -2192,11 +2161,11 @@ LABEL_39:
         v56 = v47;
       }
 
-      v131 = scopedIdentifier;
-      v132 = 2112;
-      v133 = v56;
-      v134 = 2112;
-      v135 = v23;
+      v130 = scopedIdentifier;
+      v131 = 2112;
+      v132 = v56;
+      v133 = 2112;
+      v134 = v23;
       _os_log_impl(&dword_1DC05A000, v55, OS_LOG_TYPE_DEBUG, "Merging private record %@/%@ to %@", buf, 0x20u);
     }
   }
@@ -2209,37 +2178,36 @@ LABEL_39:
   v10 = v23;
 
 LABEL_59:
-  v57 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)_correctPrivateScopedIdentifierForSharedScopedIdentifier:(id)identifier currentPrivateScopedIdentifier:(id)scopedIdentifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   scopedIdentifierCopy = scopedIdentifier;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = [(CPLEngineRemappedRecords *)self->_remappedRecords scopedIdentifiersRemappedToScopedIdentifier:identifier, 0];
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v22;
+    v11 = *v21;
 LABEL_3:
     v12 = 0;
     v13 = v10;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = *(*(&v21 + 1) + 8 * v12);
+      v14 = *(*(&v20 + 1) + 8 * v12);
       v15 = [CPLScopedIdentifier alloc];
       identifier = [v14 identifier];
       v10 = [(CPLScopedIdentifier *)v15 initRelativeToScopedIdentifier:scopedIdentifierCopy identifier:identifier];
@@ -2253,7 +2221,7 @@ LABEL_3:
       v13 = v10;
       if (v9 == v12)
       {
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -2292,7 +2260,6 @@ LABEL_15:
 
   v18 = v17;
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -2314,51 +2281,51 @@ LABEL_15:
 
 - (id)_remapSharedRecord:(id)record target:(id)target
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   targetCopy = target;
   if (!targetCopy)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLStorageOSLogDomain();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = __CPLStorageOSLogDomain();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = recordCopy;
-        _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "%@ should have a target here", buf, 0xCu);
+        v25 = recordCopy;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "%@ should have a target here", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v20 lineNumber:115 description:{@"%@ should have a target here", recordCopy}];
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v19 lineNumber:115 description:{@"%@ should have a target here", recordCopy}];
 
     abort();
   }
 
   v9 = targetCopy;
-  v24 = 0;
-  v10 = [recordCopy translateToClientChangeUsingIDMapping:self error:&v24];
-  v11 = v24;
+  v23 = 0;
+  v10 = [recordCopy translateToClientChangeUsingIDMapping:self error:&v23];
+  v11 = v23;
   if (!v10)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = __CPLStorageOSLogDomain();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = __CPLStorageOSLogDomain();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v26 = recordCopy;
-        v27 = 2112;
-        v28 = v11;
-        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Failed to remap shared record %@: %@", buf, 0x16u);
+        v25 = recordCopy;
+        v26 = 2112;
+        v27 = v11;
+        _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Failed to remap shared record %@: %@", buf, 0x16u);
       }
     }
 
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:v23 lineNumber:118 description:{@"Failed to remap shared record %@: %@", recordCopy, v11}];
+    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLSharedBatchStorage.m"];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:v22 lineNumber:118 description:{@"Failed to remap shared record %@: %@", recordCopy, v11}];
 
     abort();
   }
@@ -2374,8 +2341,6 @@ LABEL_15:
 
     [v10 awakeFromStorage];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

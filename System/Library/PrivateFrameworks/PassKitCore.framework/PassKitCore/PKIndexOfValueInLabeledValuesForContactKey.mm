@@ -11,7 +11,7 @@ uint64_t ___PKIndexOfValueInLabeledValuesForContactKey_block_invoke(uint64_t a1,
     v7 = 1;
   }
 
-  else if ([*(a1 + 40) isEqualToString:*MEMORY[0x1E695C360]])
+  else if (objc_msgSend_isEqualToString_(*(a1 + 40)))
   {
     v8 = [v6 value];
     v9 = [v8 mutableCopy];

@@ -37,161 +37,161 @@
 
 - (id)cps_averageColorImage
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v51[2] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2050000000;
-    v2 = getCIImageClass_softClass;
-    v45 = getCIImageClass_softClass;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2050000000;
+    v5 = getCIImageClass_softClass;
+    v48 = getCIImageClass_softClass;
     if (!getCIImageClass_softClass)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getCIImageClass_block_invoke;
-      v40 = &unk_278DD24C0;
-      v41 = &v42;
-      __getCIImageClass_block_invoke(&v37);
-      v2 = v43[3];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __getCIImageClass_block_invoke;
+      v43 = &unk_278DD24C0;
+      v44 = &v45;
+      __getCIImageClass_block_invoke(&v40, a2, a3, a4);
+      v5 = v46[3];
     }
 
-    v3 = v2;
-    _Block_object_dispose(&v42, 8);
+    v6 = v5;
+    _Block_object_dispose(&v45, 8);
     selfCopy = self;
-    v5 = [v2 imageWithCGImage:{objc_msgSend(self, "CGImage")}];
-    [v5 extent];
-    v7 = v6;
-    v9 = v8;
-    v11 = v10;
-    v13 = v12;
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2050000000;
-    v14 = getCIVectorClass_softClass;
-    v45 = getCIVectorClass_softClass;
+    v8 = [v5 imageWithCGImage:{objc_msgSend(self, "CGImage")}];
+    [v8 extent];
+    v10 = v9;
+    v12 = v11;
+    v14 = v13;
+    v16 = v15;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2050000000;
+    v17 = getCIVectorClass_softClass;
+    v48 = getCIVectorClass_softClass;
     if (!getCIVectorClass_softClass)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getCIVectorClass_block_invoke;
-      v40 = &unk_278DD24C0;
-      v41 = &v42;
-      __getCIVectorClass_block_invoke(&v37);
-      v14 = v43[3];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __getCIVectorClass_block_invoke;
+      v43 = &unk_278DD24C0;
+      v44 = &v45;
+      __getCIVectorClass_block_invoke(&v40);
+      v17 = v46[3];
     }
 
-    v15 = v14;
-    _Block_object_dispose(&v42, 8);
-    v50.origin.x = v7;
-    v50.origin.y = v9;
-    v50.size.width = v11;
-    v50.size.height = v13;
-    MinX = CGRectGetMinX(v50);
-    v51.origin.x = v7;
-    v51.origin.y = v9;
-    v51.size.width = v11;
-    v51.size.height = v13;
-    MinY = CGRectGetMinY(v51);
-    v52.origin.x = v7;
-    v52.origin.y = v9;
-    v52.size.width = v11;
-    v52.size.height = v13;
-    Width = CGRectGetWidth(v52);
-    v53.origin.x = v7;
-    v53.origin.y = v9;
-    v53.size.width = v11;
-    v53.size.height = v13;
-    v19 = [v14 vectorWithX:MinX Y:MinY Z:Width W:CGRectGetHeight(v53)];
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2050000000;
-    v20 = getCIFilterClass_softClass;
-    v45 = getCIFilterClass_softClass;
+    v18 = v17;
+    _Block_object_dispose(&v45, 8);
+    v53.origin.x = v10;
+    v53.origin.y = v12;
+    v53.size.width = v14;
+    v53.size.height = v16;
+    MinX = CGRectGetMinX(v53);
+    v54.origin.x = v10;
+    v54.origin.y = v12;
+    v54.size.width = v14;
+    v54.size.height = v16;
+    MinY = CGRectGetMinY(v54);
+    v55.origin.x = v10;
+    v55.origin.y = v12;
+    v55.size.width = v14;
+    v55.size.height = v16;
+    Width = CGRectGetWidth(v55);
+    v56.origin.x = v10;
+    v56.origin.y = v12;
+    v56.size.width = v14;
+    v56.size.height = v16;
+    v22 = [v17 vectorWithX:MinX Y:MinY Z:Width W:CGRectGetHeight(v56)];
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2050000000;
+    v23 = getCIFilterClass_softClass;
+    v48 = getCIFilterClass_softClass;
     if (!getCIFilterClass_softClass)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getCIFilterClass_block_invoke;
-      v40 = &unk_278DD24C0;
-      v41 = &v42;
-      __getCIFilterClass_block_invoke(&v37);
-      v20 = v43[3];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __getCIFilterClass_block_invoke;
+      v43 = &unk_278DD24C0;
+      v44 = &v45;
+      __getCIFilterClass_block_invoke(&v40);
+      v23 = v46[3];
     }
 
-    v21 = v20;
-    _Block_object_dispose(&v42, 8);
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v22 = getkCIInputImageKeySymbolLoc_ptr;
-    v45 = getkCIInputImageKeySymbolLoc_ptr;
+    v24 = v23;
+    _Block_object_dispose(&v45, 8);
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2020000000;
+    v25 = getkCIInputImageKeySymbolLoc_ptr;
+    v48 = getkCIInputImageKeySymbolLoc_ptr;
     if (!getkCIInputImageKeySymbolLoc_ptr)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getkCIInputImageKeySymbolLoc_block_invoke;
-      v40 = &unk_278DD24C0;
-      v41 = &v42;
-      v23 = CoreImageLibrary();
-      v24 = dlsym(v23, "kCIInputImageKey");
-      *(v41[1] + 24) = v24;
-      getkCIInputImageKeySymbolLoc_ptr = *(v41[1] + 24);
-      v22 = v43[3];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __getkCIInputImageKeySymbolLoc_block_invoke;
+      v43 = &unk_278DD24C0;
+      v44 = &v45;
+      v26 = CoreImageLibrary();
+      v27 = dlsym(v26, "kCIInputImageKey");
+      *(v44[1] + 24) = v27;
+      getkCIInputImageKeySymbolLoc_ptr = *(v44[1] + 24);
+      v25 = v46[3];
     }
 
-    _Block_object_dispose(&v42, 8);
-    if (!v22)
+    _Block_object_dispose(&v45, 8);
+    if (!v25)
     {
       [UIImage(ClipUIServicesExtras) cps_averageColorImage];
     }
 
-    v25 = *v22;
-    v48[0] = v5;
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v26 = getkCIInputExtentKeySymbolLoc_ptr;
-    v45 = getkCIInputExtentKeySymbolLoc_ptr;
-    v46 = v25;
+    v28 = *v25;
+    v51[0] = v8;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2020000000;
+    v29 = getkCIInputExtentKeySymbolLoc_ptr;
+    v48 = getkCIInputExtentKeySymbolLoc_ptr;
+    v49 = v28;
     if (!getkCIInputExtentKeySymbolLoc_ptr)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getkCIInputExtentKeySymbolLoc_block_invoke;
-      v40 = &unk_278DD24C0;
-      v41 = &v42;
-      v27 = CoreImageLibrary();
-      v28 = dlsym(v27, "kCIInputExtentKey");
-      *(v41[1] + 24) = v28;
-      getkCIInputExtentKeySymbolLoc_ptr = *(v41[1] + 24);
-      v26 = v43[3];
+      v40 = MEMORY[0x277D85DD0];
+      v41 = 3221225472;
+      v42 = __getkCIInputExtentKeySymbolLoc_block_invoke;
+      v43 = &unk_278DD24C0;
+      v44 = &v45;
+      v30 = CoreImageLibrary();
+      v31 = dlsym(v30, "kCIInputExtentKey");
+      *(v44[1] + 24) = v31;
+      getkCIInputExtentKeySymbolLoc_ptr = *(v44[1] + 24);
+      v29 = v46[3];
     }
 
-    _Block_object_dispose(&v42, 8);
-    if (!v26)
+    _Block_object_dispose(&v45, 8);
+    if (!v29)
     {
       [UIImage(ClipUIServicesExtras) cps_averageColorImage];
     }
 
-    v47 = *v26;
-    v48[1] = v19;
-    v29 = MEMORY[0x277CBEAC0];
-    v30 = v47;
-    v31 = [v29 dictionaryWithObjects:v48 forKeys:&v46 count:2];
-    v32 = [v20 filterWithName:@"CIAreaAverage" withInputParameters:v31];
+    v50 = *v29;
+    v51[1] = v22;
+    v32 = MEMORY[0x277CBEAC0];
+    v33 = v50;
+    v34 = [v32 dictionaryWithObjects:v51 forKeys:&v49 count:2];
+    v35 = [v23 filterWithName:@"CIAreaAverage" withInputParameters:v34];
 
-    v33 = MEMORY[0x277D755B8];
-    outputImage = [v32 outputImage];
-    v35 = [v33 imageWithCIImage:outputImage];
+    v36 = MEMORY[0x277D755B8];
+    outputImage = [v35 outputImage];
+    v38 = [v36 imageWithCIImage:outputImage];
   }
 
   else
   {
-    v35 = 0;
+    v38 = 0;
   }
 
-  return v35;
+  return v38;
 }
 
 - (id)cps_imageWithNormalizedOrientation

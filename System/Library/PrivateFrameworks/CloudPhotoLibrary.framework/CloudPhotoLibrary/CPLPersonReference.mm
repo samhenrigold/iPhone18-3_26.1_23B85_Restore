@@ -70,82 +70,80 @@ LABEL_17:
 
 - (id)serializedString
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@%@%@", @"id", @"=", self->_personIdentifier];
   if ([(NSDictionary *)self->_extraProperties count])
   {
     allKeys = [(NSDictionary *)self->_extraProperties allKeys];
     v5 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           v12 = [(NSDictionary *)self->_extraProperties objectForKeyedSubscript:v11];
-          [v3 appendFormat:@"%@%@%@%@", @";", v11, @"=", v12, v15];
+          [v3 appendFormat:@"%@%@%@%@", @";", v11, @"=", v12, v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (CPLPersonReference)initWithSerializedString:(id)string
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v26.receiver = self;
-  v26.super_class = CPLPersonReference;
-  v21 = [(CPLPersonReference *)&v26 init];
-  if (v21)
+  v25.receiver = self;
+  v25.super_class = CPLPersonReference;
+  v20 = [(CPLPersonReference *)&v25 init];
+  if (v20)
   {
-    v19 = stringCopy;
+    v18 = stringCopy;
     v5 = [stringCopy componentsSeparatedByString:@""];;
     whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v22 + 1) + 8 * i) componentsSeparatedByString:@"="];
+          v12 = [*(*(&v21 + 1) + 8 * i) componentsSeparatedByString:@"="];
           if ([v12 count] == 2)
           {
             v13 = [v12 objectAtIndex:0];
@@ -156,32 +154,31 @@ LABEL_17:
 
             if ([v14 isEqualToString:@"id"])
             {
-              objc_storeStrong(&v21->_personIdentifier, v16);
+              objc_storeStrong(&v20->_personIdentifier, v16);
             }
 
             else
             {
-              [v20 setValue:v16 forKey:v14];
+              [v19 setValue:v16 forKey:v14];
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v9);
     }
 
-    if ([v20 count])
+    if ([v19 count])
     {
-      objc_storeStrong(&v21->_extraProperties, v20);
+      objc_storeStrong(&v20->_extraProperties, v19);
     }
 
-    stringCopy = v19;
+    stringCopy = v18;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v20;
 }
 
 - (CPLPersonReference)init
@@ -250,53 +247,48 @@ LABEL_17:
 
 - (CPLPersonReference)initWithCPLArchiver:(id)archiver
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   archiverCopy = archiver;
-  v5 = archiverCopy[2];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v11 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         archiverContext = [archiverCopy archiverContext];
-        v15 = archiverCopy[2];
-        v16 = objc_opt_class();
-        v17 = archiverCopy[2];
+        v13 = objc_opt_class();
+        v14 = archiverCopy[2];
         *buf = 138412802;
-        v30 = archiverContext;
-        v31 = 2112;
-        v32 = v16;
-        v33 = 2112;
-        v34 = v17;
-        v18 = v16;
-        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "%@: Incorrect string for CPLPersonReference. Found %@: '%@'", buf, 0x20u);
+        v25 = archiverContext;
+        v26 = 2112;
+        v27 = v13;
+        v28 = 2112;
+        v29 = v14;
+        v15 = v13;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@: Incorrect string for CPLPersonReference. Found %@: '%@'", buf, 0x20u);
       }
     }
 
-    v19 = archiverCopy[2];
-    v20 = objc_opt_class();
-    v27 = archiverCopy[2];
-    _CPLArchiverFailure(archiverCopy, @"Incorrect string for CPLPersonReference. Found %@: '%@'", v21, v22, v23, v24, v25, v26, v20);
+    v16 = objc_opt_class();
+    _CPLArchiverFailure(archiverCopy, @"Incorrect string for CPLPersonReference. Found %@: '%@'", v17, v18, v19, v20, v21, v22, v16);
   }
 
-  v28.receiver = self;
-  v28.super_class = CPLPersonReference;
-  v6 = [(CPLPersonReference *)&v28 init];
-  if (v6)
+  v23.receiver = self;
+  v23.super_class = CPLPersonReference;
+  v5 = [(CPLPersonReference *)&v23 init];
+  if (v5)
   {
-    v7 = objc_opt_class();
-    v8 = [(CPLArchiver *)archiverCopy _decodeKey:v7 class:archiverCopy[2] inDictionary:?];
-    v9 = objc_opt_class();
-    v10 = [(CPLArchiver *)archiverCopy _decodeKey:v9 class:archiverCopy[2] inDictionary:?];
-    [(CPLPersonReference *)v6 setPersonIdentifier:v8];
-    [(CPLPersonReference *)v6 setExtraProperties:v10];
+    v6 = objc_opt_class();
+    v7 = [(CPLArchiver *)archiverCopy _decodeKey:v6 class:archiverCopy[2] inDictionary:?];
+    v8 = objc_opt_class();
+    v9 = [(CPLArchiver *)archiverCopy _decodeKey:v8 class:archiverCopy[2] inDictionary:?];
+    [(CPLPersonReference *)v5 setPersonIdentifier:v7];
+    [(CPLPersonReference *)v5 setExtraProperties:v9];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v5;
 }
 
 - (id)plistArchiveWithCPLArchiver:(id)archiver

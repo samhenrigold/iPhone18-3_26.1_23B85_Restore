@@ -58,7 +58,7 @@
 
 - (void)stopWithCategory:(unint64_t)category accessory:(id)accessory
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   inProgress = [(HMDAccessoryFirmwareUpdateConcurrencyLogEventManager *)self inProgress];
   uuid = [(__CFString *)accessoryCopy uuid];
@@ -97,13 +97,13 @@
         }
 
         v25 = v24;
-        v40 = 138543874;
-        v41 = v14;
-        v42 = 2112;
-        v43 = v23;
-        v44 = 2112;
-        v45 = v25;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping with mismatched categories current: %@, at start: %@", &v40, 0x20u);
+        v39 = 138543874;
+        v40 = v14;
+        v41 = 2112;
+        v42 = v23;
+        v43 = 2112;
+        v44 = v25;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping with mismatched categories current: %@, at start: %@", &v39, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -140,13 +140,13 @@
         }
 
         v36 = v35;
-        v40 = 138543874;
-        v41 = v34;
-        v42 = 2112;
-        v43 = v36;
-        v44 = 2112;
-        v45 = accessoryCopy;
-        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Stopping category %@ when current activity is 0 for accessory %@", &v40, 0x20u);
+        v39 = 138543874;
+        v40 = v34;
+        v41 = 2112;
+        v42 = v36;
+        v43 = 2112;
+        v44 = accessoryCopy;
+        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Stopping category %@ when current activity is 0 for accessory %@", &v39, 0x20u);
       }
 
       objc_autoreleasePoolPop(v31);
@@ -179,24 +179,22 @@
       }
 
       v22 = v21;
-      v40 = 138543874;
-      v41 = v19;
-      v42 = 2112;
-      v43 = v22;
-      v44 = 2112;
-      v45 = accessoryCopy;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping %@ when nothing is in progress for accessory %@", &v40, 0x20u);
+      v39 = 138543874;
+      v40 = v19;
+      v41 = 2112;
+      v42 = v22;
+      v43 = 2112;
+      v44 = accessoryCopy;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping %@ when nothing is in progress for accessory %@", &v39, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithCategory:(unint64_t)category accessory:(id)accessory
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   inProgress = [(HMDAccessoryFirmwareUpdateConcurrencyLogEventManager *)self inProgress];
   uuid = [accessoryCopy uuid];
@@ -233,15 +231,15 @@
       }
 
       v18 = v17;
-      v34 = 138544130;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v15;
-      v38 = 2112;
-      v39 = v18;
-      v40 = 2112;
-      v41 = accessoryCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Starting %@ while %@ is in progress for accessory %@", &v34, 0x2Au);
+      v33 = 138544130;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v15;
+      v37 = 2112;
+      v38 = v18;
+      v39 = 2112;
+      v40 = accessoryCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Starting %@ while %@ is in progress for accessory %@", &v33, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -282,8 +280,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   [(HMDAccessoryFirmwareUpdateConcurrencyLogEventManager *)self submitLogEvent];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopApplyWithAccessory:(id)accessory

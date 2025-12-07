@@ -1,418 +1,8 @@
-uint64_t std::__num_put<char>::__widen_and_group_int(unsigned __int8 *a1, char *a2, char *a3, uint64_t a4, void *a5, uint64_t *a6, std::locale *this)
-{
-  v14 = std::locale::use_facet(this, &std::ctype<char>::id);
-  v15 = std::locale::use_facet(this, &std::numpunct<char>::id);
-  (v15->__vftable[1].__on_zero_shared)(&v50);
-  v16 = HIBYTE(v52);
-  if (v52 < 0)
-  {
-    v16 = v51;
-  }
-
-  if (v16)
-  {
-    *a6 = a4;
-    v17 = *a1;
-    if (v17 == 45 || (v18 = a1, v17 == 43))
-    {
-      v19 = (v14->__vftable[2].~facet_0)(v14, v17);
-      v18 = (a1 + 1);
-      v20 = (*a6)++;
-      *v20 = v19;
-    }
-
-    if (a3 - v18 >= 2 && *v18 == 48 && (v18[1] | 0x20) == 0x78)
-    {
-      v21 = (v14->__vftable[2].~facet_0)(v14, 48);
-      v22 = (*a6)++;
-      *v22 = v21;
-      v23 = (v14->__vftable[2].~facet_0)(v14, v18[1]);
-      v18 += 2;
-      v24 = (*a6)++;
-      *v24 = v23;
-    }
-
-    v48 = a5;
-    v49 = v18;
-    v47 = a2;
-    if (v18 != a3)
-    {
-      v25 = a3 - 1;
-      if (a3 - 1 > v18)
-      {
-        v26 = v18 + 1;
-        do
-        {
-          v27 = *(v26 - 1);
-          *(v26 - 1) = *v25;
-          *v25-- = v27;
-          v28 = v26++ >= v25;
-        }
-
-        while (!v28);
-      }
-    }
-
-    result = (v15->__vftable[1].~facet_0)(v15);
-    if (v18 < a3)
-    {
-      v30 = result;
-      v31 = 0;
-      v32 = 0;
-      v33 = a3 - v18;
-      do
-      {
-        if (v52 >= 0)
-        {
-          v34 = &v50;
-        }
-
-        else
-        {
-          v34 = v50;
-        }
-
-        v35 = *(v34 + v31);
-        if (v35)
-        {
-          v36 = v32 == v35;
-        }
-
-        else
-        {
-          v36 = 0;
-        }
-
-        if (v36)
-        {
-          v32 = 0;
-          v37 = (*a6)++;
-          *v37 = v30;
-          v38 = HIBYTE(v52);
-          if (v52 < 0)
-          {
-            v38 = v51;
-          }
-
-          if (v38 - 1 > v31)
-          {
-            ++v31;
-          }
-        }
-
-        result = (v14->__vftable[2].~facet_0)(v14, *v18);
-        v39 = (*a6)++;
-        *v39 = result;
-        ++v32;
-        ++v18;
-        --v33;
-      }
-
-      while (v33);
-    }
-
-    a5 = v48;
-    a2 = v47;
-    v40 = a4 + v49 - a1;
-    v41 = *a6;
-    v42 = (*a6 - 1);
-    if (v40 != *a6 && v42 > v40)
-    {
-      v44 = v49 - a1 + a4 + 1;
-      do
-      {
-        v45 = *(v44 - 1);
-        *(v44 - 1) = *v42;
-        *v42-- = v45;
-        v28 = v44++ >= v42;
-      }
-
-      while (!v28);
-      v41 = *a6;
-    }
-  }
-
-  else
-  {
-    result = (v14->__vftable[2].__on_zero_shared)(v14, a1, a3, a4);
-    v41 = a4 + a3 - a1;
-    *a6 = v41;
-  }
-
-  v46 = a4 + a2 - a1;
-  if (a2 == a3)
-  {
-    v46 = v41;
-  }
-
-  *a5 = v46;
-  if (SHIBYTE(v52) < 0)
-  {
-    return MEMORY[0x193B0CA40](v50, v52 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  return result;
-}
-
-void sub_1922D4F0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
-{
-  if (SHIBYTE(a16) < 0)
-  {
-    MEMORY[0x193B0CA40](a14, a16 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__num_put<char>::__widen_and_group_float(unsigned __int8 *a1, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t *a5, unint64_t *a6, std::locale *this)
-{
-  v14 = std::locale::use_facet(this, &std::ctype<char>::id);
-  v63 = std::locale::use_facet(this, &std::numpunct<char>::id);
-  (v63->__vftable[1].__on_zero_shared)(&v66);
-  *a6 = a4;
-  v15 = *a1;
-  if (v15 == 45 || (v16 = a1, v15 == 43))
-  {
-    v17 = (v14->__vftable[2].~facet_0)(v14, v15);
-    v16 = a1 + 1;
-    v18 = (*a6)++;
-    *v18 = v17;
-  }
-
-  v19 = a3 - v16;
-  v20 = a3 - v16 - 2;
-  v64 = a2;
-  v65 = a1;
-  if ((a3 - v16) >= 2 && *v16 == 48 && (v16[1] | 0x20) == 0x78)
-  {
-    v21 = (v14->__vftable[2].~facet_0)(v14, 48);
-    v22 = (*a6)++;
-    *v22 = v21;
-    v23 = (v14->__vftable[2].~facet_0)(v14, v16[1]);
-    v24 = (v16 + 2);
-    v25 = (*a6)++;
-    *v25 = v23;
-    if ((v16 + 2) >= a3)
-    {
-      v27 = v16 + 2;
-    }
-
-    else
-    {
-      v26 = MEMORY[0x1E69E9830];
-      v27 = v16 + 2;
-      do
-      {
-        v28 = *v27;
-        if ((v28 & 0x80000000) != 0)
-        {
-          if (!__maskrune_l(v28, 0x10000uLL, 0))
-          {
-            goto LABEL_25;
-          }
-        }
-
-        else if ((*(v26 + 4 * v28 + 60) & 0x10000) == 0)
-        {
-          goto LABEL_25;
-        }
-
-        ++v27;
-        --v20;
-      }
-
-      while (v20);
-      v27 = a3;
-    }
-  }
-
-  else
-  {
-    if (v16 >= a3)
-    {
-      v27 = v16;
-    }
-
-    else
-    {
-      v29 = MEMORY[0x1E69E9830];
-      v27 = v16;
-      do
-      {
-        v30 = *v27;
-        if ((v30 & 0x80000000) != 0)
-        {
-          if (!__maskrune_l(v30, 0x400uLL, 0))
-          {
-            goto LABEL_24;
-          }
-        }
-
-        else if ((*(v29 + 4 * v30 + 60) & 0x400) == 0)
-        {
-          goto LABEL_24;
-        }
-
-        ++v27;
-        --v19;
-      }
-
-      while (v19);
-      v27 = a3;
-    }
-
-LABEL_24:
-    v24 = v16;
-  }
-
-LABEL_25:
-  v31 = HIBYTE(v68);
-  if (v68 < 0)
-  {
-    v31 = v67;
-  }
-
-  if (v31)
-  {
-    v61 = a4;
-    if (v24 != v27)
-    {
-      v32 = v27 - 1;
-      if ((v27 - 1) > v24)
-      {
-        v33 = v24 + 1;
-        do
-        {
-          v34 = *(v33 - 1);
-          *(v33 - 1) = *v32;
-          *v32-- = v34;
-          v35 = v33++ >= v32;
-        }
-
-        while (!v35);
-      }
-    }
-
-    v62 = a5;
-    v36 = (v63->__vftable[1].~facet_0)(v63);
-    if (v24 < v27)
-    {
-      v37 = v36;
-      v38 = 0;
-      v39 = 0;
-      v40 = &v27[-v24];
-      v41 = v24;
-      do
-      {
-        if (v68 >= 0)
-        {
-          v42 = &v66;
-        }
-
-        else
-        {
-          v42 = v66;
-        }
-
-        v43 = *(v42 + v38);
-        if (v43 >= 1 && v39 == v43)
-        {
-          v39 = 0;
-          v45 = (*a6)++;
-          *v45 = v37;
-          v46 = HIBYTE(v68);
-          if (v68 < 0)
-          {
-            v46 = v67;
-          }
-
-          if (v46 - 1 > v38)
-          {
-            ++v38;
-          }
-        }
-
-        v47 = (v14->__vftable[2].~facet_0)(v14, *v41);
-        v48 = (*a6)++;
-        *v48 = v47;
-        ++v39;
-        ++v41;
-        --v40;
-      }
-
-      while (v40);
-    }
-
-    a4 = v61;
-    v49 = v61 + v24 - v65;
-    v50 = (*a6 - 1);
-    v51 = v49 != *a6 && v50 > v49;
-    a5 = v62;
-    if (v51)
-    {
-      v52 = v24 - v65 + v61 + 1;
-      do
-      {
-        v53 = *(v52 - 1);
-        *(v52 - 1) = *v50;
-        *v50-- = v53;
-        v35 = v52++ >= v50;
-      }
-
-      while (!v35);
-    }
-  }
-
-  else
-  {
-    (v14->__vftable[2].__on_zero_shared)(v14, v24, v27, *a6);
-    *a6 += &v27[-v24];
-  }
-
-  if (v27 < a3)
-  {
-    v54 = a3 - v27;
-    while (*v27 != 46)
-    {
-      v55 = (v14->__vftable[2].~facet_0)(v14);
-      v56 = (*a6)++;
-      *v56 = v55;
-      ++v27;
-      if (!--v54)
-      {
-        goto LABEL_64;
-      }
-    }
-
-    v57 = (v63->__vftable[1].~facet)(v63);
-    v58 = (*a6)++;
-    *v58 = v57;
-    ++v27;
-  }
-
-LABEL_64:
-  result = (v14->__vftable[2].__on_zero_shared)(v14, v27, a3, *a6);
-  v60 = *a6 + a3 - v27;
-  *a6 = v60;
-  if (v64 != a3)
-  {
-    v60 = a4 + v64 - v65;
-  }
-
-  *a5 = v60;
-  if (SHIBYTE(v68) < 0)
-  {
-    return MEMORY[0x193B0CA40](v66, v68 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  return result;
-}
-
-void sub_1922D54A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_1922D54A4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (SHIBYTE(a18) < 0)
   {
-    MEMORY[0x193B0CA40](a16, a18 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a16, a18 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -493,7 +83,7 @@ uint64_t std::__num_put<wchar_t>::__widen_and_group_int(char *a1, char *a2, char
       v32 = 0;
       v33 = 0;
       v49 = v24;
-      v34 = a3 - v24;
+      v34 = (a3 - v24);
       do
       {
         if (v54 >= 0)
@@ -591,17 +181,17 @@ uint64_t std::__num_put<wchar_t>::__widen_and_group_int(char *a1, char *a2, char
   return result;
 }
 
-void sub_1922D589C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_1922D589C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (SHIBYTE(a16) < 0)
   {
-    MEMORY[0x193B0CA40](a14, a16 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a14, a16 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__num_put<wchar_t>::__widen_and_group_float(unsigned __int8 *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, std::locale *this)
+uint64_t std::__num_put<wchar_t>::__widen_and_group_float(unsigned __int8 *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t *a5, uint64_t *a6, std::locale *this)
 {
   v14 = std::locale::use_facet(this, &std::ctype<wchar_t>::id);
   v66 = std::locale::use_facet(this, &std::numpunct<wchar_t>::id);
@@ -621,7 +211,7 @@ uint64_t std::__num_put<wchar_t>::__widen_and_group_float(unsigned __int8 *a1, u
   v20 = a3 - v16 - 2;
   v67 = a2;
   v68 = a1;
-  if ((a3 - v16) >= 2 && *v16 == 48 && (v16[1] | 0x20) == 0x78)
+  if (a3 - v16 >= 2 && *v16 == 48 && (v16[1] | 0x20) == 0x78)
   {
     v21 = (v14->__vftable[3].__on_zero_shared)(v14, 48);
     v22 = *a6;
@@ -632,7 +222,7 @@ uint64_t std::__num_put<wchar_t>::__widen_and_group_float(unsigned __int8 *a1, u
     v25 = *a6;
     *v25 = v23;
     *a6 = (v25 + 1);
-    if ((v16 + 2) >= a3)
+    if (v16 + 2 >= a3)
     {
       v27 = v16 + 2;
     }
@@ -863,11 +453,11 @@ LABEL_65:
   return result;
 }
 
-void sub_1922D5E2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_1922D5E2C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (SHIBYTE(a18) < 0)
   {
-    MEMORY[0x193B0CA40](a16, a18 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a16, a18 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1215,7 +805,7 @@ LABEL_82:
   return a2;
 }
 
-void sub_1922D6480(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_1922D6480(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
 {
   if (a10 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -1227,11 +817,9 @@ void sub_1922D6480(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_time(uint64_t a1, void *a2, void *a3, std::ios_base *a4, _DWORD *a5, uint64_t a6)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = 0x53253A4D253A4825;
-  result = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, a2, a3, a4, a5, a6, &v8, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = 0x53253A4D253A4825;
+  return std::time_get<char,std::istreambuf_iterator<char>>::get(a1, a2, a3, a4, a5, a6, &v7, &v8);
 }
 
 void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_date(uint64_t a1, void *a2, void *a3, std::ios_base *a4, _DWORD *a5, uint64_t a6)
@@ -1271,7 +859,7 @@ void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_weekday(uint64_
   return v14;
 }
 
-void sub_1922D6694(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D6694(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -1308,7 +896,7 @@ void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_monthname(uint6
   return v14;
 }
 
-void sub_1922D6858(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D6858(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -1330,7 +918,7 @@ uint64_t *std::time_get<char,std::istreambuf_iterator<char>>::__get_monthname(ui
   return result;
 }
 
-void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_year(uint64_t a1, void *a2, void *a3, std::ios_base *this, _DWORD *a5, uint64_t a6)
+void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_year(uint64_t a1, void *a2, void *a3, std::ios_base *this, _BYTE *a5, uint64_t a6)
 {
   v14 = a2;
   std::ios_base::getloc(this);
@@ -1345,7 +933,7 @@ void *std::time_get<char,std::istreambuf_iterator<char>>::do_get_year(uint64_t a
   return v14;
 }
 
-void sub_1922D6A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D6A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -1355,7 +943,7 @@ void sub_1922D6A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::time_get<char,std::istreambuf_iterator<char>>::__get_year(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, void *a6)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::__get_year(uint64_t a1, _DWORD *a2, void **a3, void *a4, _BYTE *a5, void *a6)
 {
   result = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(a3, a4, a5, a6, 4);
   if ((*a5 & 4) == 0)
@@ -1378,15 +966,15 @@ uint64_t std::time_get<char,std::istreambuf_iterator<char>>::__get_year(uint64_t
   return result;
 }
 
-uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get(void *a1, uint64_t a2, void *a3, std::ios_base *this, int *a5, int *a6, int a7)
+void *std::time_get<char,std::istreambuf_iterator<char>>::do_get(void *a1, uint64_t a2, void *a3, std::ios_base *this, int *a5, int *a6, int a7)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  *v32 = a2;
+  v34 = *MEMORY[0x1E69E9840];
+  *v31 = a2;
   *a5 = 0;
   std::ios_base::getloc(this);
-  v13 = std::locale::use_facet(v33, &std::ctype<char>::id);
-  v14 = *v33;
-  if (*v33 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((*v33 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v13 = std::locale::use_facet(v32, &std::ctype<char>::id);
+  v14 = *v32;
+  if (*v32 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((*v32 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*v14 + 16))(v14);
   }
@@ -1395,13 +983,13 @@ uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get(void *a1, ui
   {
     case 'A':
     case 'a':
-      std::time_get<char,std::istreambuf_iterator<char>>::__get_weekdayname(a1, a6 + 6, v32, a3, a5, v13);
-      break;
+      std::time_get<char,std::istreambuf_iterator<char>>::__get_weekdayname(a1, a6 + 6, v31, a3, a5, v13);
+      return *v31;
     case 'B':
     case 'b':
     case 'h':
-      std::time_get<char,std::istreambuf_iterator<char>>::__get_monthname(a1, a6 + 4, v32, a3, a5, v13);
-      break;
+      std::time_get<char,std::istreambuf_iterator<char>>::__get_monthname(a1, a6 + 4, v31, a3, a5, v13);
+      return *v31;
     case 'C':
     case 'E':
     case 'G':
@@ -1433,15 +1021,15 @@ uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get(void *a1, ui
     case 'v':
       goto LABEL_13;
     case 'D':
-      *v33 = 0x79252F64252F6D25;
-      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v32, a3, this, a5, a6, v33, &v33[8]);
+      *v32 = 0x79252F64252F6D25;
+      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v31, a3, this, a5, a6, v32, &v32[8]);
       goto LABEL_51;
     case 'F':
-      *v33 = 0x64252D6D252D5925;
-      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v32, a3, this, a5, a6, v33, &v33[8]);
+      *v32 = 0x64252D6D252D5925;
+      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v31, a3, this, a5, a6, v32, &v32[8]);
       goto LABEL_51;
     case 'H':
-      v19 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 2);
+      v19 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 2);
       v16 = *a5;
       if ((*a5 & 4) != 0 || v19 > 23)
       {
@@ -1450,7 +1038,7 @@ uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get(void *a1, ui
 
       goto LABEL_29;
     case 'I':
-      v19 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 2);
+      v19 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 2);
       v16 = *a5;
       if ((*a5 & 4) != 0 || (v19 - 1) > 0xB)
       {
@@ -1459,9 +1047,9 @@ uint64_t std::time_get<char,std::istreambuf_iterator<char>>::do_get(void *a1, ui
 
 LABEL_29:
       a6[2] = v19;
-      break;
+      return *v31;
     case 'M':
-      v23 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 2);
+      v23 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 2);
       v16 = *a5;
       if ((*a5 & 4) != 0 || v23 > 59)
       {
@@ -1469,28 +1057,28 @@ LABEL_29:
       }
 
       a6[1] = v23;
-      break;
+      return *v31;
     case 'R':
-      qmemcpy(v33, "%H:%M", 5);
-      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v32, a3, this, a5, a6, v33, &v33[5]);
+      qmemcpy(v32, "%H:%M", 5);
+      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v31, a3, this, a5, a6, v32, &v32[5]);
       goto LABEL_51;
     case 'S':
-      v30 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 2);
+      v29 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 2);
       v16 = *a5;
-      if ((*a5 & 4) != 0 || v30 > 60)
+      if ((*a5 & 4) != 0 || v29 > 60)
       {
         goto LABEL_14;
       }
 
-      *a6 = v30;
-      break;
+      *a6 = v29;
+      return *v31;
     case 'T':
-      *v33 = 0x53253A4D253A4825;
-      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v32, a3, this, a5, a6, v33, &v33[8]);
+      *v32 = 0x53253A4D253A4825;
+      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v31, a3, this, a5, a6, v32, &v32[8]);
       goto LABEL_51;
     case 'X':
       v28 = (*(a1[2] + 48))();
-      v25 = *v32;
+      v25 = *v31;
       v26 = *(v28 + 23);
       if ((v26 & 0x80u) == 0)
       {
@@ -1509,16 +1097,16 @@ LABEL_29:
 
       goto LABEL_50;
     case 'Y':
-      v21 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 4);
+      v21 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 4);
       if ((*a5 & 4) == 0)
       {
         a6[5] = v21 - 1900;
       }
 
-      break;
+      return *v31;
     case 'c':
       v24 = (*(a1[2] + 24))();
-      v25 = *v32;
+      v25 = *v31;
       v26 = *(v24 + 23);
       if ((v26 & 0x80u) == 0)
       {
@@ -1540,7 +1128,7 @@ LABEL_50:
       goto LABEL_51;
     case 'd':
     case 'e':
-      v15 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 2);
+      v15 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 2);
       v16 = *a5;
       if ((*a5 & 4) != 0 || (v15 - 1) > 0x1E)
       {
@@ -1548,9 +1136,9 @@ LABEL_50:
       }
 
       a6[3] = v15;
-      break;
+      return *v31;
     case 'j':
-      v18 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 3);
+      v18 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 3);
       v16 = *a5;
       if ((*a5 & 4) != 0 || v18 > 365)
       {
@@ -1558,9 +1146,9 @@ LABEL_50:
       }
 
       a6[7] = v18;
-      break;
+      return *v31;
     case 'm':
-      v22 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 2);
+      v22 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 2);
       v16 = *a5;
       if ((*a5 & 4) != 0 || (v22 - 1) > 0xB)
       {
@@ -1568,40 +1156,39 @@ LABEL_50:
       }
 
       a6[4] = v22 - 1;
-      break;
+      return *v31;
     case 'n':
     case 't':
-      std::time_get<char,std::istreambuf_iterator<char>>::__get_white_space(a1, v32, a3, a5, v13);
-      break;
+      std::time_get<char,std::istreambuf_iterator<char>>::__get_white_space(a1, v31, a3, a5, v13);
+      return *v31;
     case 'p':
-      std::time_get<char,std::istreambuf_iterator<char>>::__get_am_pm(a1, a6 + 2, v32, a3, a5, v13);
-      break;
+      std::time_get<char,std::istreambuf_iterator<char>>::__get_am_pm(a1, a6 + 2, v31, a3, a5, v13);
+      return *v31;
     case 'r':
-      qmemcpy(v33, "%I:%M:%S %p", sizeof(v33));
-      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v32, a3, this, a5, a6, v33, v34);
+      qmemcpy(v32, "%I:%M:%S %p", sizeof(v32));
+      v20 = std::time_get<char,std::istreambuf_iterator<char>>::get(a1, *v31, a3, this, a5, a6, v32, v33);
 LABEL_51:
-      *v32 = v20;
-      break;
+      *v31 = v20;
+      return *v31;
     case 'w':
-      v31 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v32, a3, a5, v13, 1);
+      v30 = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(v31, a3, a5, v13, 1);
       v16 = *a5;
-      if ((*a5 & 4) != 0 || v31 > 6)
+      if ((*a5 & 4) != 0 || v30 > 6)
       {
         goto LABEL_14;
       }
 
-      a6[6] = v31;
+      a6[6] = v30;
       break;
     case 'x':
-      result = (*(*a1 + 40))(a1, *v32, a3, this, a5, a6);
-      goto LABEL_53;
+      return (*(*a1 + 40))(a1, *v31, a3, this, a5, a6);
     case 'y':
-      std::time_get<char,std::istreambuf_iterator<char>>::__get_year(a1, a6 + 5, v32, a3, a5, v13);
-      break;
+      std::time_get<char,std::istreambuf_iterator<char>>::__get_year(a1, a6 + 5, v31, a3, a5, v13);
+      return *v31;
     default:
       if (a7 == 37)
       {
-        std::time_get<char,std::istreambuf_iterator<char>>::__get_percent(a1, v32, a3, a5, v13);
+        std::time_get<char,std::istreambuf_iterator<char>>::__get_percent(a1, v31, a3, a5, v13);
       }
 
       else
@@ -1615,13 +1202,10 @@ LABEL_14:
       break;
   }
 
-  result = *v32;
-LABEL_53:
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
+  return *v31;
 }
 
-void sub_1922D708C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_1922D708C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
 {
   if (a10 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -1911,7 +1495,7 @@ uint64_t std::time_get<char,std::istreambuf_iterator<char>>::__get_weekday(uint6
   return result;
 }
 
-uint64_t std::time_get<char,std::istreambuf_iterator<char>>::__get_year4(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, void *a6)
+uint64_t std::time_get<char,std::istreambuf_iterator<char>>::__get_year4(uint64_t a1, _DWORD *a2, void **a3, void *a4, _BYTE *a5, void *a6)
 {
   result = std::__get_up_to_n_digits[abi:ne200100]<char,std::istreambuf_iterator<char>>(a3, a4, a5, a6, 4);
   if ((*a5 & 4) == 0)
@@ -2357,7 +1941,7 @@ LABEL_41:
   return v35;
 }
 
-void sub_1922D8158(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_1922D8158(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
 {
   if (a10 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -2369,12 +1953,10 @@ void sub_1922D8158(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_time(uint64_t a1, void *a2, void *a3, std::ios_base *a4, _DWORD *a5, uint64_t a6)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8[0] = xmmword_19231C404;
-  v8[1] = unk_19231C414;
-  result = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, a2, a3, a4, a5, a6, v8, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v9 = *MEMORY[0x1E69E9840];
+  v7[0] = xmmword_19231C404;
+  v7[1] = unk_19231C414;
+  return std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, a2, a3, a4, a5, a6, v7, &v8);
 }
 
 void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_date(uint64_t a1, void *a2, void *a3, std::ios_base *a4, _DWORD *a5, uint64_t a6)
@@ -2414,7 +1996,7 @@ void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_weekday(u
   return v14;
 }
 
-void sub_1922D8368(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D8368(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -2451,7 +2033,7 @@ void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_monthname
   return v14;
 }
 
-void sub_1922D852C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D852C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -2473,7 +2055,7 @@ uint64_t *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_monthn
   return result;
 }
 
-void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_year(uint64_t a1, void *a2, void *a3, std::ios_base *this, _DWORD *a5, uint64_t a6)
+void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_year(uint64_t a1, void *a2, void *a3, std::ios_base *this, _BYTE *a5, uint64_t a6)
 {
   v14 = a2;
   std::ios_base::getloc(this);
@@ -2488,7 +2070,7 @@ void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get_year(uint
   return v14;
 }
 
-void sub_1922D86E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D86E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -2498,9 +2080,9 @@ void sub_1922D86E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
+uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year(uint64_t a1, _DWORD *a2, void **a3, void *a4, _BYTE *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 4);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 4u);
   if ((*a5 & 4) == 0)
   {
     v9 = result + 2000;
@@ -2521,15 +2103,15 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year(ui
   return result;
 }
 
-uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(void *a1, uint64_t a2, void *a3, std::ios_base *this, int *a5, int *a6, int a7)
+void *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(void *a1, uint64_t a2, void *a3, std::ios_base *this, int *a5, int *a6, int a7)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  *v32 = a2;
+  v35 = *MEMORY[0x1E69E9840];
+  *v31 = a2;
   *a5 = 0;
   std::ios_base::getloc(this);
-  v13 = std::locale::use_facet(v33, &std::ctype<wchar_t>::id);
-  locale = v33[0].__locale_;
-  if (v33[0].__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v33[0].__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  v13 = std::locale::use_facet(v32, &std::ctype<wchar_t>::id);
+  locale = v32[0].__locale_;
+  if (v32[0].__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v32[0].__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
@@ -2538,13 +2120,13 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(void *
   {
     case 'A':
     case 'a':
-      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_weekdayname(a1, a6 + 6, v32, a3, a5, v13);
-      break;
+      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_weekdayname(a1, a6 + 6, v31, a3, a5, v13);
+      return *v31;
     case 'B':
     case 'b':
     case 'h':
-      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_monthname(a1, a6 + 4, v32, a3, a5, v13);
-      break;
+      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_monthname(a1, a6 + 4, v31, a3, a5, v13);
+      return *v31;
     case 'C':
     case 'E':
     case 'G':
@@ -2576,17 +2158,17 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(void *
     case 'v':
       goto LABEL_13;
     case 'D':
-      *&v33[0].__locale_ = *"%";
-      *v34 = *"d";
-      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v32, a3, this, a5, a6, v33, &v34[16]);
+      *&v32[0].__locale_ = *"%";
+      *v33 = *"d";
+      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v31, a3, this, a5, a6, v32, &v33[16]);
       goto LABEL_51;
     case 'F':
-      *&v33[0].__locale_ = xmmword_19231C3A4;
-      *v34 = unk_19231C3B4;
-      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v32, a3, this, a5, a6, v33, &v34[16]);
+      *&v32[0].__locale_ = xmmword_19231C3A4;
+      *v33 = unk_19231C3B4;
+      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v31, a3, this, a5, a6, v32, &v33[16]);
       goto LABEL_51;
     case 'H':
-      v19 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 2);
+      v19 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 2u);
       v16 = *a5;
       if ((*a5 & 4) != 0 || v19 > 23)
       {
@@ -2595,7 +2177,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(void *
 
       goto LABEL_29;
     case 'I':
-      v19 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 2);
+      v19 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 2u);
       v16 = *a5;
       if ((*a5 & 4) != 0 || (v19 - 1) > 0xB)
       {
@@ -2604,9 +2186,9 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(void *
 
 LABEL_29:
       a6[2] = v19;
-      break;
+      return *v31;
     case 'M':
-      v23 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 2);
+      v23 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 2u);
       v16 = *a5;
       if ((*a5 & 4) != 0 || v23 > 59)
       {
@@ -2614,30 +2196,30 @@ LABEL_29:
       }
 
       a6[1] = v23;
-      break;
+      return *v31;
     case 'R':
-      *v34 = 77;
-      *&v33[0].__locale_ = xmmword_19231C3F0;
-      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v32, a3, this, a5, a6, v33, &v34[4]);
+      *v33 = 77;
+      *&v32[0].__locale_ = xmmword_19231C3F0;
+      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v31, a3, this, a5, a6, v32, &v33[4]);
       goto LABEL_51;
     case 'S':
-      v30 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 2);
+      v29 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 2u);
       v16 = *a5;
-      if ((*a5 & 4) != 0 || v30 > 60)
+      if ((*a5 & 4) != 0 || v29 > 60)
       {
         goto LABEL_14;
       }
 
-      *a6 = v30;
-      break;
+      *a6 = v29;
+      return *v31;
     case 'T':
-      *&v33[0].__locale_ = xmmword_19231C404;
-      *v34 = unk_19231C414;
-      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v32, a3, this, a5, a6, v33, &v34[16]);
+      *&v32[0].__locale_ = xmmword_19231C404;
+      *v33 = unk_19231C414;
+      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v31, a3, this, a5, a6, v32, &v33[16]);
       goto LABEL_51;
     case 'X':
       v28 = (*(a1[2] + 48))();
-      v25 = *v32;
+      v25 = *v31;
       v26 = *(v28 + 23);
       if ((v26 & 0x80u) == 0)
       {
@@ -2656,16 +2238,16 @@ LABEL_29:
 
       goto LABEL_50;
     case 'Y':
-      v21 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 4);
+      v21 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 4u);
       if ((*a5 & 4) == 0)
       {
         a6[5] = v21 - 1900;
       }
 
-      break;
+      return *v31;
     case 'c':
       v24 = (*(a1[2] + 24))();
-      v25 = *v32;
+      v25 = *v31;
       v26 = *(v24 + 23);
       if ((v26 & 0x80u) == 0)
       {
@@ -2687,7 +2269,7 @@ LABEL_50:
       goto LABEL_51;
     case 'd':
     case 'e':
-      v15 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 2);
+      v15 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 2u);
       v16 = *a5;
       if ((*a5 & 4) != 0 || (v15 - 1) > 0x1E)
       {
@@ -2695,9 +2277,9 @@ LABEL_50:
       }
 
       a6[3] = v15;
-      break;
+      return *v31;
     case 'j':
-      v18 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 3);
+      v18 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 3u);
       v16 = *a5;
       if ((*a5 & 4) != 0 || v18 > 365)
       {
@@ -2705,9 +2287,9 @@ LABEL_50:
       }
 
       a6[7] = v18;
-      break;
+      return *v31;
     case 'm':
-      v22 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 2);
+      v22 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 2u);
       v16 = *a5;
       if ((*a5 & 4) != 0 || (v22 - 1) > 0xB)
       {
@@ -2715,42 +2297,41 @@ LABEL_50:
       }
 
       a6[4] = v22 - 1;
-      break;
+      return *v31;
     case 'n':
     case 't':
-      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_white_space(a1, v32, a3, a5, v13);
-      break;
+      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_white_space(a1, v31, a3, a5, v13);
+      return *v31;
     case 'p':
-      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_am_pm(a1, a6 + 2, v32, a3, a5, v13);
-      break;
+      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_am_pm(a1, a6 + 2, v31, a3, a5, v13);
+      return *v31;
     case 'r':
-      *&v33[0].__locale_ = xmmword_19231C3C4;
-      *v34 = unk_19231C3D4;
-      *&v34[12] = unk_19231C3E0;
-      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v32, a3, this, a5, a6, v33, v35);
+      *&v32[0].__locale_ = xmmword_19231C3C4;
+      *v33 = unk_19231C3D4;
+      *&v33[12] = unk_19231C3E0;
+      v20 = std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::get(a1, *v31, a3, this, a5, a6, v32, v34);
 LABEL_51:
-      *v32 = v20;
-      break;
+      *v31 = v20;
+      return *v31;
     case 'w':
-      v31 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v32, a3, a5, v13, 1);
+      v30 = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(v31, a3, a5, v13, 1u);
       v16 = *a5;
-      if ((*a5 & 4) != 0 || v31 > 6)
+      if ((*a5 & 4) != 0 || v30 > 6)
       {
         goto LABEL_14;
       }
 
-      a6[6] = v31;
+      a6[6] = v30;
       break;
     case 'x':
-      result = (*(*a1 + 40))(a1, *v32, a3, this, a5, a6);
-      goto LABEL_53;
+      return (*(*a1 + 40))(a1, *v31, a3, this, a5, a6);
     case 'y':
-      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year(a1, a6 + 5, v32, a3, a5, v13);
-      break;
+      std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year(a1, a6 + 5, v31, a3, a5, v13);
+      return *v31;
     default:
       if (a7 == 37)
       {
-        std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_percent(a1, v32, a3, a5, v13);
+        std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_percent(a1, v31, a3, a5, v13);
       }
 
       else
@@ -2764,13 +2345,10 @@ LABEL_14:
       break;
   }
 
-  result = *v32;
-LABEL_53:
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
+  return *v31;
 }
 
-void sub_1922D8D54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t *a11)
+void sub_1922D8D54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11)
 {
   if (a11 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -2782,7 +2360,7 @@ void sub_1922D8D54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_day(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2u);
   if ((*a5 & 4) != 0 || (result - 1) > 0x1E)
   {
     *a5 |= 4u;
@@ -2798,7 +2376,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_day(uin
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_hour(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2u);
   if ((*a5 & 4) != 0 || result > 23)
   {
     *a5 |= 4u;
@@ -2814,7 +2392,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_hour(ui
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_12_hour(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2u);
   if ((*a5 & 4) != 0 || (result - 1) > 0xB)
   {
     *a5 |= 4u;
@@ -2830,7 +2408,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_12_hour
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_day_year_num(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 3);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 3u);
   if ((*a5 & 4) != 0 || result > 365)
   {
     *a5 |= 4u;
@@ -2846,7 +2424,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_day_yea
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_month(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2u);
   if ((*a5 & 4) != 0 || (result - 1) > 0xB)
   {
     *a5 |= 4u;
@@ -2862,7 +2440,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_month(u
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_minute(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2u);
   if ((*a5 & 4) != 0 || result > 59)
   {
     *a5 |= 4u;
@@ -2958,7 +2536,7 @@ uint64_t *std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_am_pm(
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_second(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 2u);
   if ((*a5 & 4) != 0 || result > 60)
   {
     *a5 |= 4u;
@@ -2974,7 +2552,7 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_second(
 
 uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_weekday(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 1);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 1u);
   if ((*a5 & 4) != 0 || result > 6)
   {
     *a5 |= 4u;
@@ -2988,9 +2566,9 @@ uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_weekday
   return result;
 }
 
-uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year4(uint64_t a1, _DWORD *a2, void **a3, void *a4, _DWORD *a5, uint64_t a6)
+uint64_t std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__get_year4(uint64_t a1, _DWORD *a2, void **a3, void *a4, _BYTE *a5, uint64_t a6)
 {
-  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 4);
+  result = std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(a3, a4, a5, a6, 4u);
   if ((*a5 & 4) == 0)
   {
     *a2 = result - 1900;
@@ -3053,7 +2631,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(void **a1, void *a2, _DWORD *a3, uint64_t a4, int a5)
+uint64_t std::__get_up_to_n_digits[abi:ne200100]<wchar_t,std::istreambuf_iterator<wchar_t>>(void **a1, void *a2, _DWORD *a3, uint64_t a4, unsigned int a5)
 {
   v27 = a2;
   v9 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
@@ -3204,7 +2782,7 @@ LABEL_18:
   return v21;
 }
 
-void sub_1922D9A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D9A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -3216,24 +2794,23 @@ void sub_1922D9A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *std::time_put<char,std::ostreambuf_iterator<char>>::do_put(const std::__time_put *a1, void *a2, int a3, int a4, tm *__tm, char __fmt, char __mod)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v12 = &v15;
-  std::__time_put::__do_put(a1 + 2, __nb, &v12, __tm, __fmt, __mod);
-  v8 = v12;
-  v13 = a2;
-  if (__nb != v12)
+  v14 = *MEMORY[0x1E69E9840];
+  v11 = &v14;
+  std::__time_put::__do_put(a1 + 2, __nb, &v11, __tm, __fmt, __mod);
+  v8 = v11;
+  v12 = a2;
+  if (__nb != v11)
   {
     v9 = __nb;
     do
     {
-      std::ostreambuf_iterator<char>::operator=[abi:ne200100](&v13, *v9++);
+      std::ostreambuf_iterator<char>::operator=[abi:ne200100](&v12, *v9++);
     }
 
     while (v9 != v8);
-    a2 = v13;
+    return v12;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -3252,7 +2829,7 @@ void std::__time_put::__do_put(const std::__time_put *this, char *__nb, char **_
   *__ne = &__nb[strftime_l(__nb, *__ne - __nb, &v6, __tm, this->__loc_)];
 }
 
-void *std::time_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::put(uint64_t a1, void *a2, std::ios_base *this, uint64_t a4, uint64_t a5, int *a6, unsigned int *a7)
+void *std::time_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::put(uint64_t a1, void *a2, std::ios_base *this, uint64_t a4, uint64_t a5, unsigned int *a6, unsigned int *a7)
 {
   v21 = a2;
   std::ios_base::getloc(this);
@@ -3267,7 +2844,7 @@ void *std::time_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::put(uint64_t a1,
   {
     if ((v13->__vftable[4].~facet_0)(v13, *a6, 0) == 37)
     {
-      v15 = a6 + 1;
+      v15 = (a6 + 1);
       if (a6 + 1 == a7)
       {
         v15 = a6;
@@ -3287,7 +2864,7 @@ LABEL_18:
         }
 
         v18 = (v13->__vftable[4].~facet_0)(v13, a6[2], 0);
-        v15 = a6 + 2;
+        v15 = (a6 + 2);
       }
 
       else
@@ -3311,7 +2888,7 @@ LABEL_18:
   return v21;
 }
 
-void sub_1922D9D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9)
+void sub_1922D9D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9)
 {
   if (a9 != &std::locale::__imp::classic_locale_imp_)
   {
@@ -3323,42 +2900,40 @@ void sub_1922D9D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *std::time_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(const std::__time_put *a1, void *a2, int a3, int a4, tm *__tm, char __fmt, char __mod)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  __we = &v15;
+  v14 = *MEMORY[0x1E69E9840];
+  __we = &v14;
   std::__time_put::__do_put(a1 + 2, __wb, &__we, __tm, __fmt, __mod);
   v8 = __we;
-  v13 = a2;
+  v12 = a2;
   if (__wb != __we)
   {
     v9 = __wb;
     do
     {
-      std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](&v13, *v9++);
+      std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](&v12, *v9++);
     }
 
     while (v9 != v8);
-    a2 = v13;
+    return v12;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
 void std::__time_put::__do_put(const std::__time_put *this, __int32 *__wb, __int32 **__we, const tm *__tm, char __fmt, char __mod)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  __ne = &v15;
+  v14 = *MEMORY[0x1E69E9840];
+  __ne = &v14;
   std::__time_put::__do_put(this, __nb, &__ne, __tm, __fmt, __mod);
-  memset(&v13, 0, sizeof(v13));
-  v11 = __nb;
-  v9 = mbsrtowcs_l(__wb, &v11, *__we - __wb, &v13, this->__loc_);
+  memset(&v12, 0, sizeof(v12));
+  v10 = __nb;
+  v9 = mbsrtowcs_l(__wb, &v10, *__we - __wb, &v12, this->__loc_);
   if (v9 == -1)
   {
     std::__throw_runtime_error("locale not supported");
   }
 
   *__we = &__wb[v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void std::moneypunct<char,false>::do_grouping(void *a1@<X8>)
@@ -3382,7 +2957,7 @@ void std::moneypunct<char,false>::do_positive_sign(void *a1@<X8>)
   a1[2] = 0;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3394,13 +2969,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
@@ -3454,7 +3029,7 @@ double std::moneypunct<wchar_t,false>::do_negative_sign@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2, int a3)
+void *std::wstring::basic_string[abi:ne200100](void *a1, unint64_t a2, int a3)
 {
   if (a2 >= 0x3FFFFFFFFFFFFFF8)
   {
@@ -3473,15 +3048,15 @@ uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2,
       v3 = (a2 | 1) + 1;
     }
 
-    std::allocator<wchar_t>::allocate_at_least[abi:ne200100](result, v3);
+    std::allocator<wchar_t>::allocate_at_least[abi:ne200100](a1, v3);
   }
 
-  *(result + 23) = a2;
+  *(a1 + 23) = a2;
   if (a2)
   {
     v4 = 0;
     v5 = vdupq_n_s64(a2 - 1);
-    v6 = (result + 8);
+    v6 = a1 + 1;
     do
     {
       v7 = vdupq_n_s64(v4);
@@ -3509,8 +3084,8 @@ uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2,
     while (((a2 + 3) & 0x7FFFFFFFFFFFFFFCLL) != v4);
   }
 
-  *(result + 4 * a2) = 0;
-  return result;
+  *(a1 + a2) = 0;
+  return a1;
 }
 
 void std::moneypunct<wchar_t,true>::do_grouping(void *a1@<X8>)
@@ -3551,8 +3126,7 @@ void std::moneypunct_byname<char,false>::do_grouping(uint64_t a1@<X0>, std::stri
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 24);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 40);
+    *a2 = *(a1 + 24);
   }
 }
 
@@ -3565,8 +3139,7 @@ void std::moneypunct_byname<char,false>::do_curr_symbol(uint64_t a1@<X0>, std::s
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 48);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 64);
+    *a2 = *(a1 + 48);
   }
 }
 
@@ -3579,8 +3152,7 @@ void std::moneypunct_byname<char,false>::do_positive_sign(uint64_t a1@<X0>, std:
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 72);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 88);
+    *a2 = *(a1 + 72);
   }
 }
 
@@ -3593,8 +3165,7 @@ void std::moneypunct_byname<char,false>::do_negative_sign(uint64_t a1@<X0>, std:
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 96);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 112);
+    *a2 = *(a1 + 96);
   }
 }
 
@@ -3607,8 +3178,7 @@ void std::moneypunct_byname<char,true>::do_grouping(uint64_t a1@<X0>, std::strin
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 24);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 40);
+    *a2 = *(a1 + 24);
   }
 }
 
@@ -3621,8 +3191,7 @@ void std::moneypunct_byname<char,true>::do_curr_symbol(uint64_t a1@<X0>, std::st
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 48);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 64);
+    *a2 = *(a1 + 48);
   }
 }
 
@@ -3635,8 +3204,7 @@ void std::moneypunct_byname<char,true>::do_positive_sign(uint64_t a1@<X0>, std::
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 72);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 88);
+    *a2 = *(a1 + 72);
   }
 }
 
@@ -3649,8 +3217,7 @@ void std::moneypunct_byname<char,true>::do_negative_sign(uint64_t a1@<X0>, std::
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 96);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 112);
+    *a2 = *(a1 + 96);
   }
 }
 
@@ -3663,8 +3230,7 @@ void std::moneypunct_byname<wchar_t,false>::do_grouping(uint64_t a1@<X0>, std::s
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 24);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 40);
+    *a2 = *(a1 + 24);
   }
 }
 
@@ -3677,8 +3243,7 @@ void std::moneypunct_byname<wchar_t,false>::do_curr_symbol(uint64_t a1@<X0>, std
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 48);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 64);
+    *a2 = *(a1 + 48);
   }
 }
 
@@ -3691,8 +3256,7 @@ void std::moneypunct_byname<wchar_t,false>::do_positive_sign(uint64_t a1@<X0>, s
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 72);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 88);
+    *a2 = *(a1 + 72);
   }
 }
 
@@ -3705,8 +3269,7 @@ void std::moneypunct_byname<wchar_t,false>::do_negative_sign(uint64_t a1@<X0>, s
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 96);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 112);
+    *a2 = *(a1 + 96);
   }
 }
 
@@ -3719,8 +3282,7 @@ void std::moneypunct_byname<wchar_t,true>::do_grouping(uint64_t a1@<X0>, std::st
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 24);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 40);
+    *a2 = *(a1 + 24);
   }
 }
 
@@ -3733,8 +3295,7 @@ void std::moneypunct_byname<wchar_t,true>::do_curr_symbol(uint64_t a1@<X0>, std:
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 48);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 64);
+    *a2 = *(a1 + 48);
   }
 }
 
@@ -3747,8 +3308,7 @@ void std::moneypunct_byname<wchar_t,true>::do_positive_sign(uint64_t a1@<X0>, st
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 72);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 88);
+    *a2 = *(a1 + 72);
   }
 }
 
@@ -3761,33 +3321,33 @@ void std::moneypunct_byname<wchar_t,true>::do_negative_sign(uint64_t a1@<X0>, st
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 + 96);
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 112);
+    *a2 = *(a1 + 96);
   }
 }
 
-void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *a2, void *a3, int a4, std::ios_base *this, _DWORD *a6, uint64_t a7)
+void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *a2, void *a3, uint64_t a4, std::ios_base *this, _DWORD *a6, uint64_t a7)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v28 = &v33[12];
-  v29 = std::__do_nothing;
-  v30 = a2;
+  v10 = a4;
+  v33 = *MEMORY[0x1E69E9840];
+  v27 = &v32[12];
+  v28 = std::__do_nothing;
+  v29 = a2;
   std::ios_base::getloc(this);
-  v12 = std::locale::use_facet(&v26, &std::ctype<char>::id);
-  v25 = 0;
-  if (std::money_get<char,std::istreambuf_iterator<char>>::__do_get(&v30, a3, a4, &v26, this->__fmtflags_, a6, &v25, v12, &v28, &v27, &v34))
+  v12 = std::locale::use_facet(&v25, &std::ctype<char>::id);
+  v24 = 0;
+  if (std::money_get<char,std::istreambuf_iterator<char>>::__do_get(&v29, a3, v10, &v25, this->__fmtflags_, a6, &v24, v12, &v27, &v26, &v33))
   {
-    strcpy(v33, "0123456789");
-    (v12->__vftable[2].__on_zero_shared)(v12, v33, &v33[10], __s);
-    if ((v27 - v28) < 99)
+    strcpy(v32, "0123456789");
+    (v12->__vftable[2].__on_zero_shared)(v12, v32, &v32[10], __s);
+    if ((v26 - v27) < 99)
     {
       v13 = 0;
-      v14 = v31;
+      v14 = v30;
     }
 
     else
     {
-      v13 = malloc_type_malloc(v27 - v28 + 2, 0x100004077774924uLL);
+      v13 = malloc_type_malloc(v26 - v27 + 2, 0x100004077774924uLL);
       v14 = v13;
       if (!v13)
       {
@@ -3795,12 +3355,12 @@ void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *
       }
     }
 
-    if (v25)
+    if (v24)
     {
       *v14++ = 45;
     }
 
-    for (i = v28; i < v27; ++v14)
+    for (i = v27; i < v26; ++v14)
     {
       v16 = *i++;
       v17 = memchr(__s, v16, 0xAuLL);
@@ -3811,14 +3371,14 @@ void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *
 
       else
       {
-        v18 = v33;
+        v18 = v32;
       }
 
-      *v14 = v33[v18 - __s];
+      *v14 = v32[v18 - __s];
     }
 
     *v14 = 0;
-    if (sscanf(v31, "%Lf", a7) != 1)
+    if (sscanf(v30, "%Lf", a7) != 1)
     {
       std::__throw_runtime_error("money_get error");
     }
@@ -3829,9 +3389,9 @@ void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *
     }
   }
 
-  if (v30)
+  if (v29)
   {
-    if (v30[3] != v30[4])
+    if (v29[3] != v29[4])
     {
       if (a3)
       {
@@ -3847,9 +3407,9 @@ void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *
       goto LABEL_30;
     }
 
-    if ((*(*v30 + 72))() != -1)
+    if ((*(*v29 + 72))() != -1)
     {
-      v19 = v30 == 0;
+      v19 = v29 == 0;
       if (!a3)
       {
         goto LABEL_23;
@@ -3858,7 +3418,7 @@ void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *
       goto LABEL_27;
     }
 
-    v30 = 0;
+    v29 = 0;
   }
 
   v19 = 1;
@@ -3892,114 +3452,24 @@ LABEL_29:
   }
 
 LABEL_30:
-  v20 = v30;
-  locale = v26.__locale_;
-  if (v26.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v26.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  v20 = v29;
+  locale = v25.__locale_;
+  if (v25.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v25.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
 
-  v22 = v28;
-  v28 = 0;
+  v22 = v27;
+  v27 = 0;
   if (v22)
   {
-    v29();
+    v28();
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
-{
-  v30 = *MEMORY[0x1E69E9840];
-  v27 = a3;
-  v28 = a2;
-  v25 = &v29;
-  v26 = std::__do_nothing;
-  std::ios_base::getloc(this);
-  v12 = std::locale::use_facet(&v23, &std::ctype<char>::id);
-  v22 = 0;
-  if (std::money_get<char,std::istreambuf_iterator<char>>::__do_get(&v28, a3, a4, &v23, this->__fmtflags_, a6, &v22, v12, &v25, &v24, &v30))
-  {
-    if (*(a7 + 23) < 0)
-    {
-      **a7 = 0;
-      *(a7 + 8) = 0;
-    }
-
-    else
-    {
-      *a7 = 0;
-      *(a7 + 23) = 0;
-    }
-
-    if (v22)
-    {
-      v13 = (v12->__vftable[2].~facet_0)(v12, 45);
-      std::string::push_back(a7, v13);
-    }
-
-    v14 = (v12->__vftable[2].~facet_0)(v12, 48);
-    v15 = v25;
-    if (v25 < (&v24[-1].__r_.__value_.__r.__words[2] + 7))
-    {
-      while (v15->__r_.__value_.__s.__data_[0] == v14)
-      {
-        v15 = (v15 + 1);
-        if (v15 == (&v24[-1].__r_.__value_.__r.__words[2] + 7))
-        {
-          v15 = (v24 - 1);
-          break;
-        }
-      }
-    }
-
-    std::string::append[abi:ne200100]<char *,0>(a7, v15, v24);
-  }
-
-  if (v28)
-  {
-    if (v28[3] != v28[4])
-    {
-      v16 = 0;
-      goto LABEL_19;
-    }
-
-    if ((*(*v28 + 72))() != -1)
-    {
-      v16 = v28 == 0;
-      goto LABEL_19;
-    }
-
-    v28 = 0;
-  }
-
-  v16 = 1;
-LABEL_19:
-  if (v16 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v27))
-  {
-    *a6 |= 2u;
-  }
-
-  v17 = v28;
-  locale = v23.__locale_;
-  if (v23.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v23.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (*(*locale + 16))(locale);
-  }
-
-  v19 = v25;
-  v25 = 0;
-  if (v19)
-  {
-    v26();
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return v17;
-}
-
-void sub_1922DA93C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void (*a16)(void))
+void sub_1922DA93C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void (*a16)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (v16)
   {
@@ -4008,12 +3478,12 @@ void sub_1922DA93C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a13 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a13 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a13 + 16))(a13);
+    (*(*a13 + 16))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a15)
   {
-    a16();
+    a16(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4021,8 +3491,8 @@ void sub_1922DA93C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t std::money_get<char,std::istreambuf_iterator<char>>::__do_get(void **a1, void *a2, int a3, std::locale *a4, __int16 a5, _DWORD *a6, BOOL *a7, uint64_t a8, void **a9, uint64_t *a10, uint64_t a11)
 {
-  v144 = *MEMORY[0x1E69E9840];
-  v142 = a2;
+  v143 = *MEMORY[0x1E69E9840];
+  v141 = a2;
   v17 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
   if (a2)
   {
@@ -4036,10 +3506,10 @@ uint64_t std::money_get<char,std::istreambuf_iterator<char>>::__do_get(void **a1
 LABEL_238:
       v115 = 0;
       *a6 |= 4u;
-      goto LABEL_239;
+      return v115;
     }
 
-    v142 = 0;
+    v141 = 0;
   }
 
   if (v17)
@@ -4048,34 +3518,34 @@ LABEL_238:
   }
 
 LABEL_5:
-  v140 = v143;
-  v141 = std::__do_nothing;
-  v139 = v143;
-  v138 = &v144;
+  v139 = v142;
+  v140 = std::__do_nothing;
+  v138 = v142;
+  v137 = &v143;
   memset(&__grouping, 0, sizeof(__grouping));
+  v130 = 0;
   v131 = 0;
   v132 = 0;
-  v133 = 0;
+  v127 = 0;
   v128 = 0;
   v129 = 0;
-  v130 = 0;
+  v124 = 0;
   v125 = 0;
   v126 = 0;
-  v127 = 0;
-  memset(&v124, 0, sizeof(v124));
-  std::__money_get<char>::__gather_info(a3, a4, &v137, &v136, &v135, &__grouping, &v131, &v128, &v125, &v123);
+  memset(&v123, 0, sizeof(v123));
+  std::__money_get<char>::__gather_info(a3, a4, &v136, &v135, &v134, &__grouping, &v130, &v127, &v124, &v122);
   v18 = 0;
   v19 = 0;
   *a10 = *a9;
   while (1)
   {
     v20 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-    if (v20 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+    if (v20 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
     {
       goto LABEL_204;
     }
 
-    v21 = *(&v137 + v18);
+    v21 = *(&v136 + v18);
     if (v21 <= 1)
     {
       break;
@@ -4085,17 +3555,17 @@ LABEL_5:
     {
       if (v18 < 2 || v19)
       {
-        v119 = a6;
-        v47 = HIBYTE(v133);
-        v48 = v133 < 0;
-        if (v133 >= 0)
+        v118 = a6;
+        v47 = HIBYTE(v132);
+        v48 = v132 < 0;
+        if (v132 >= 0)
         {
-          v49 = &v131;
+          v49 = &v130;
         }
 
         else
         {
-          v49 = v131;
+          v49 = v130;
         }
 
         if (v18)
@@ -4103,11 +3573,11 @@ LABEL_5:
           goto LABEL_96;
         }
 
-        v50 = v132;
+        v50 = v131;
         goto LABEL_172;
       }
 
-      if (HIBYTE(v137))
+      if (HIBYTE(v136))
       {
         v36 = v18 == 2;
       }
@@ -4124,29 +3594,29 @@ LABEL_5:
         goto LABEL_203;
       }
 
-      v119 = a6;
-      v47 = HIBYTE(v133);
-      v48 = v133 < 0;
-      if (v133 >= 0)
+      v118 = a6;
+      v47 = HIBYTE(v132);
+      v48 = v132 < 0;
+      if (v132 >= 0)
       {
-        v49 = &v131;
+        v49 = &v130;
       }
 
       else
       {
-        v49 = v131;
+        v49 = v130;
       }
 
 LABEL_96:
-      v50 = v132;
-      if (*(&v137 + v18 - 1) > 1u)
+      v50 = v131;
+      if (*(&v136 + v18 - 1) > 1u)
       {
         goto LABEL_172;
       }
 
       if (v48)
       {
-        v60 = v132;
+        v60 = v131;
       }
 
       else
@@ -4181,25 +3651,25 @@ LABEL_96:
 
 LABEL_166:
       v92 = v62 - v49;
-      size = SHIBYTE(v124.__r_.__value_.__r.__words[2]);
-      if ((SHIBYTE(v124.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
+      size = SHIBYTE(v123.__r_.__value_.__r.__words[2]);
+      if ((SHIBYTE(v123.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
       {
-        if (v92 <= SHIBYTE(v124.__r_.__value_.__r.__words[2]))
+        if (v92 <= SHIBYTE(v123.__r_.__value_.__r.__words[2]))
         {
-          v94 = &v124;
+          v94 = &v123;
           goto LABEL_171;
         }
 
         goto LABEL_172;
       }
 
-      size = v124.__r_.__value_.__l.__size_;
-      if (v92 > v124.__r_.__value_.__l.__size_)
+      size = v123.__r_.__value_.__l.__size_;
+      if (v92 > v123.__r_.__value_.__l.__size_)
       {
         goto LABEL_172;
       }
 
-      v94 = v124.__r_.__value_.__r.__words[0];
+      v94 = v123.__r_.__value_.__r.__words[0];
 LABEL_171:
       if (memcmp(v94 + size - v92, v49, v92))
       {
@@ -4219,16 +3689,16 @@ LABEL_172:
 
       if (v62 == &v49[v95])
       {
-        a6 = v119;
+        a6 = v118;
       }
 
       else
       {
-        a6 = v119;
+        a6 = v118;
         do
         {
           v96 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-          if (v96 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+          if (v96 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
           {
             break;
           }
@@ -4253,12 +3723,12 @@ LABEL_172:
           }
 
           ++v62;
-          v101 = HIBYTE(v133);
-          v102 = &v131;
-          if (v133 < 0)
+          v101 = HIBYTE(v132);
+          v102 = &v130;
+          if (v132 < 0)
           {
-            v102 = v131;
-            v101 = v132;
+            v102 = v130;
+            v101 = v131;
           }
         }
 
@@ -4267,12 +3737,12 @@ LABEL_172:
 
       if ((a5 & 0x200) != 0)
       {
-        v103 = HIBYTE(v133);
-        v104 = &v131;
-        if (v133 < 0)
+        v103 = HIBYTE(v132);
+        v104 = &v130;
+        if (v132 < 0)
         {
-          v104 = v131;
-          v103 = v132;
+          v104 = v130;
+          v103 = v131;
         }
 
         if (v62 != (v104 + v103))
@@ -4295,33 +3765,33 @@ LABEL_172:
       while (2)
       {
         v23 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-        if (v23 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+        if (v23 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
         {
 LABEL_62:
-          v42 = v139;
-          if (v140 != v139 && v22 != 0)
+          v42 = v138;
+          if (v139 != v138 && v22 != 0)
           {
-            if (v139 == v138)
+            if (v138 == v137)
             {
-              std::__double_or_nothing[abi:ne200100]<unsigned int>(&v140, &v139, &v138);
-              v42 = v139;
+              std::__double_or_nothing[abi:ne200100]<unsigned int>(&v139, &v138, &v137);
+              v42 = v138;
             }
 
             *v42 = v22;
-            v139 = v42 + 1;
+            v138 = v42 + 1;
           }
 
-          if (v123 >= 1)
+          if (v122 >= 1)
           {
             v44 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-            if (v44 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+            if (v44 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
             {
               goto LABEL_222;
             }
 
             v45 = (*a1)[3];
             v46 = v45 == (*a1)[4] ? (*(**a1 + 72))(*a1) : *v45;
-            if (v46 != v136)
+            if (v46 != v135)
             {
               goto LABEL_222;
             }
@@ -4338,12 +3808,12 @@ LABEL_62:
               v72[3] = v73 + 1;
             }
 
-            if (v123 >= 1)
+            if (v122 >= 1)
             {
               while (1)
               {
                 v74 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-                if (v74 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+                if (v74 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
                 {
                   break;
                 }
@@ -4391,13 +3861,13 @@ LABEL_62:
 
                 v80 = (*a10)++;
                 *v80 = v79;
-                v81 = --v123;
+                v81 = --v122;
                 v82 = *a1;
                 v83 = (*a1)[3];
                 if (v83 == (*a1)[4])
                 {
                   (*(*v82 + 80))(v82);
-                  v81 = v123;
+                  v81 = v122;
                 }
 
                 else
@@ -4460,21 +3930,21 @@ LABEL_18:
               v28 = 1;
             }
 
-            if (v28 || v25 != v135)
+            if (v28 || v25 != v134)
             {
               goto LABEL_62;
             }
 
-            v30 = v139;
-            if (v139 == v138)
+            v30 = v138;
+            if (v138 == v137)
             {
-              std::__double_or_nothing[abi:ne200100]<unsigned int>(&v140, &v139, &v138);
-              v30 = v139;
+              std::__double_or_nothing[abi:ne200100]<unsigned int>(&v139, &v138, &v137);
+              v30 = v138;
             }
 
             *v30 = v22;
             v22 = 0;
-            v139 = v30 + 1;
+            v138 = v30 + 1;
             goto LABEL_34;
           }
         }
@@ -4511,15 +3981,15 @@ LABEL_34:
       }
     }
 
-    v38 = HIBYTE(v130);
-    if (v130 >= 0)
+    v38 = HIBYTE(v129);
+    if (v129 >= 0)
     {
-      v39 = HIBYTE(v130);
+      v39 = HIBYTE(v129);
     }
 
     else
     {
-      v39 = v129;
+      v39 = v128;
     }
 
     if (v39)
@@ -4528,7 +3998,7 @@ LABEL_34:
       if (v40 == (*a1)[4])
       {
         v41 = (*(**a1 + 72))(*a1);
-        v38 = HIBYTE(v130);
+        v38 = HIBYTE(v129);
       }
 
       else
@@ -4536,10 +4006,10 @@ LABEL_34:
         v41 = *v40;
       }
 
-      v64 = &v128;
+      v64 = &v127;
       if ((v38 & 0x80u) != 0)
       {
-        v64 = v128;
+        v64 = v127;
       }
 
       if (v41 == *v64)
@@ -4549,7 +4019,7 @@ LABEL_34:
         if (v66 == (*a1)[4])
         {
           (*(*v65 + 80))(v65);
-          v38 = HIBYTE(v130);
+          v38 = HIBYTE(v129);
         }
 
         else
@@ -4560,25 +4030,25 @@ LABEL_34:
         *a7 = 0;
         if ((v38 & 0x80u) != 0)
         {
-          v38 = v129;
+          v38 = v128;
         }
 
         v90 = v38 > 1;
-        v91 = &v128;
+        v91 = &v127;
         goto LABEL_201;
       }
     }
 
-    v67 = HIBYTE(v127);
-    v68 = v126;
-    if (v127 >= 0)
+    v67 = HIBYTE(v126);
+    v68 = v125;
+    if (v126 >= 0)
     {
-      v69 = HIBYTE(v127);
+      v69 = HIBYTE(v126);
     }
 
     else
     {
-      v69 = v126;
+      v69 = v125;
     }
 
     if (v69)
@@ -4587,7 +4057,7 @@ LABEL_34:
       if (v70 == (*a1)[4])
       {
         v71 = (*(**a1 + 72))(*a1);
-        v67 = HIBYTE(v127);
+        v67 = HIBYTE(v126);
       }
 
       else
@@ -4595,10 +4065,10 @@ LABEL_34:
         v71 = *v70;
       }
 
-      v84 = &v125;
+      v84 = &v124;
       if ((v67 & 0x80u) != 0)
       {
-        v84 = v125;
+        v84 = v124;
       }
 
       if (v71 == *v84)
@@ -4608,7 +4078,7 @@ LABEL_34:
         if (v86 == (*a1)[4])
         {
           (*(*v85 + 80))(v85);
-          v67 = HIBYTE(v127);
+          v67 = HIBYTE(v126);
         }
 
         else
@@ -4624,11 +4094,11 @@ LABEL_34:
 
         else
         {
-          v105 = v126;
+          v105 = v125;
         }
 
         v90 = v105 > 1;
-        v91 = &v125;
+        v91 = &v124;
 LABEL_201:
         if (v90)
         {
@@ -4638,11 +4108,11 @@ LABEL_201:
         goto LABEL_203;
       }
 
-      v38 = HIBYTE(v130);
-      v68 = v126;
+      v38 = HIBYTE(v129);
+      v68 = v125;
     }
 
-    v87 = v129;
+    v87 = v128;
     if ((v38 & 0x80u) == 0)
     {
       v87 = v38;
@@ -4689,7 +4159,7 @@ LABEL_203:
     }
   }
 
-  if (*(&v137 + v18))
+  if (*(&v136 + v18))
   {
     if (v21 != 1)
     {
@@ -4735,10 +4205,10 @@ LABEL_203:
       {
         while (1)
         {
-          std::string::push_back(&v124, i);
+          std::string::push_back(&v123, i);
 LABEL_84:
           v55 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-          if (v55 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+          if (v55 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
           {
             goto LABEL_203;
           }
@@ -4808,7 +4278,7 @@ LABEL_204:
       }
 
       v109 = std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](a1);
-      if (v109 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v142))
+      if (v109 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v141))
       {
         goto LABEL_222;
       }
@@ -4849,10 +4319,10 @@ LABEL_204:
     }
   }
 
-  if (v140 != v139)
+  if (v139 != v138)
   {
     __err = 0;
-    std::__check_grouping(&__grouping, v140, v139, &__err);
+    std::__check_grouping(&__grouping, v139, v138, &__err);
     if (__err)
     {
       goto LABEL_222;
@@ -4861,24 +4331,24 @@ LABEL_204:
 
   v115 = 1;
 LABEL_223:
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
   {
-    MEMORY[0x193B0CA40](v124.__r_.__value_.__r.__words[0], v124.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v123.__r_.__value_.__r.__words[0], v123.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v127) < 0)
+  if (SHIBYTE(v126) < 0)
   {
-    MEMORY[0x193B0CA40](v125, v127 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v124, v126 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v130) < 0)
+  if (SHIBYTE(v129) < 0)
   {
-    MEMORY[0x193B0CA40](v128, v130 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v127, v129 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v133) < 0)
+  if (SHIBYTE(v132) < 0)
   {
-    MEMORY[0x193B0CA40](v131, v133 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v130, v132 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
   if (SHIBYTE(__grouping.__r_.__value_.__r.__words[2]) < 0)
@@ -4886,15 +4356,13 @@ LABEL_223:
     MEMORY[0x193B0CA40](__grouping.__r_.__value_.__r.__words[0], __grouping.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  v116 = v140;
-  v140 = 0;
+  v116 = v139;
+  v139 = 0;
   if (v116)
   {
-    v141();
+    v140();
   }
 
-LABEL_239:
-  v117 = *MEMORY[0x1E69E9840];
   return v115;
 }
 
@@ -4908,16 +4376,105 @@ void sub_1922DB6E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void sub_1922DBA58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void (*a16)(void))
+void *std::money_get<char,std::istreambuf_iterator<char>>::do_get(int a1, void *a2, void *a3, int a4, std::ios_base *this, _DWORD *a6, uint64_t a7)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v26 = a3;
+  v27 = a2;
+  v24 = &v28;
+  v25 = std::__do_nothing;
+  std::ios_base::getloc(this);
+  v12 = std::locale::use_facet(&v22, &std::ctype<char>::id);
+  v21 = 0;
+  if (std::money_get<char,std::istreambuf_iterator<char>>::__do_get(&v27, a3, a4, &v22, this->__fmtflags_, a6, &v21, v12, &v24, &v23, &v29))
+  {
+    if (*(a7 + 23) < 0)
+    {
+      **a7 = 0;
+      *(a7 + 8) = 0;
+    }
+
+    else
+    {
+      *a7 = 0;
+      *(a7 + 23) = 0;
+    }
+
+    if (v21)
+    {
+      v13 = (v12->__vftable[2].~facet_0)(v12, 45);
+      std::string::push_back(a7, v13);
+    }
+
+    v14 = (v12->__vftable[2].~facet_0)(v12, 48);
+    v15 = v24;
+    if (v24 < (&v23[-1].__r_.__value_.__r.__words[2] + 7))
+    {
+      while (v15->__r_.__value_.__s.__data_[0] == v14)
+      {
+        v15 = (v15 + 1);
+        if (v15 == (&v23[-1].__r_.__value_.__r.__words[2] + 7))
+        {
+          v15 = (v23 - 1);
+          break;
+        }
+      }
+    }
+
+    std::string::append[abi:ne200100]<char *,0>(a7, v15, v23);
+  }
+
+  if (v27)
+  {
+    if (v27[3] != v27[4])
+    {
+      v16 = 0;
+      goto LABEL_19;
+    }
+
+    if ((*(*v27 + 72))() != -1)
+    {
+      v16 = v27 == 0;
+      goto LABEL_19;
+    }
+
+    v27 = 0;
+  }
+
+  v16 = 1;
+LABEL_19:
+  if (v16 == std::istreambuf_iterator<char>::__test_for_eof[abi:ne200100](&v26))
+  {
+    *a6 |= 2u;
+  }
+
+  v17 = v27;
+  locale = v22.__locale_;
+  if (v22.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v22.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (*(*locale + 16))(locale);
+  }
+
+  v19 = v24;
+  v24 = 0;
+  if (v19)
+  {
+    v25();
+  }
+
+  return v17;
+}
+
+void sub_1922DBA58(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void (*a16)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (a13 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a13 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a13 + 16))(a13);
+    (*(*a13 + 16))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a15)
   {
-    a16();
+    a16(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5020,11 +4577,11 @@ std::string *std::string::append[abi:ne200100]<char *,0>(std::string *this, std:
   return this;
 }
 
-void sub_1922DBC50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1922DBC50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::stoi(&a10);
+    std::stoi();
   }
 
   _Unwind_Resume(exception_object);
@@ -5293,29 +4850,30 @@ LABEL_24:
   }
 }
 
-void *std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(int a1, void *a2, void *a3, int a4, std::ios_base *this, _DWORD *a6, uint64_t a7)
+void *std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(int a1, void *a2, void *a3, uint64_t a4, std::ios_base *this, _DWORD *a6, uint64_t a7)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v29 = a3;
-  v30 = a2;
-  v27 = &v34;
-  v28 = std::__do_nothing;
+  v10 = a4;
+  v34 = *MEMORY[0x1E69E9840];
+  v28 = a3;
+  v29 = a2;
+  v26 = &v33;
+  v27 = std::__do_nothing;
   std::ios_base::getloc(this);
-  v12 = std::locale::use_facet(&v25, &std::ctype<wchar_t>::id);
-  v24 = 0;
-  if (std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(&v30, a3, a4, &v25, this->__fmtflags_, a6, &v24, v12, &v27, &v26, &v35))
+  v12 = std::locale::use_facet(&v24, &std::ctype<wchar_t>::id);
+  v23 = 0;
+  if (std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(&v29, a3, v10, &v24, this->__fmtflags_, a6, &v23, v12, &v26, &v25, &v34))
   {
-    strcpy(v33, "0123456789");
-    (v12->__vftable[4].~facet)(v12, v33, &v33[10], v32);
-    if ((v26 - v27) < 393)
+    strcpy(v32, "0123456789");
+    (v12->__vftable[4].~facet)(v12, v32, &v32[10], v31);
+    if ((v25 - v26) < 393)
     {
       v13 = 0;
-      v14 = v31;
+      v14 = v30;
     }
 
     else
     {
-      v13 = malloc_type_malloc(((v26 - v27) >> 2) + 2, 0x100004077774924uLL);
+      v13 = malloc_type_malloc(((v25 - v26) >> 2) + 2, 0x100004077774924uLL);
       v14 = v13;
       if (!v13)
       {
@@ -5323,14 +4881,14 @@ void *std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(int a1, 
       }
     }
 
-    if (v24)
+    if (v23)
     {
       *v14++ = 45;
     }
 
-    for (i = v27; i < v26; i += 4)
+    for (i = v26; i < v25; i += 4)
     {
-      v16 = v32;
+      v16 = v31;
       v17 = 40;
       while (*v16 != *i)
       {
@@ -5338,16 +4896,16 @@ void *std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(int a1, 
         v17 -= 4;
         if (!v17)
         {
-          v16 = v33;
+          v16 = v32;
           break;
         }
       }
 
-      *v14++ = v33[(v16 - v32) >> 2];
+      *v14++ = v32[(v16 - v31) >> 2];
     }
 
     *v14 = 0;
-    if (sscanf(v31, "%Lf", a7) != 1)
+    if (sscanf(v30, "%Lf", a7) != 1)
     {
       std::__throw_runtime_error("money_get error");
     }
@@ -5358,91 +4916,30 @@ void *std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(int a1, 
     }
   }
 
-  v18 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v30);
-  if (v18 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v29))
+  v18 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v29);
+  if (v18 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v28))
   {
     *a6 |= 2u;
   }
 
-  v19 = v30;
-  locale = v25.__locale_;
-  if (v25.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v25.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  v19 = v29;
+  locale = v24.__locale_;
+  if (v24.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v24.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
 
-  v21 = v27;
-  v27 = 0;
+  v21 = v26;
+  v26 = 0;
   if (v21)
   {
-    v28();
+    v27();
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
-{
-  v30 = *MEMORY[0x1E69E9840];
-  v27 = a3;
-  v28 = a2;
-  v25 = &v29;
-  v26 = std::__do_nothing;
-  std::ios_base::getloc(this);
-  v12 = std::locale::use_facet(&v23, &std::ctype<wchar_t>::id);
-  v22 = 0;
-  if (std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(&v28, a3, a4, &v23, this->__fmtflags_, a6, &v22, v12, &v25, &v24, &v30))
-  {
-    if (*(a7 + 23) < 0)
-    {
-      **a7 = 0;
-      *(a7 + 8) = 0;
-    }
-
-    else
-    {
-      *a7 = 0;
-      *(a7 + 23) = 0;
-    }
-
-    if (v22)
-    {
-      v13 = (v12->__vftable[3].__on_zero_shared)(v12, 45);
-      std::wstring::push_back(a7, v13);
-    }
-
-    v14 = (v12->__vftable[3].__on_zero_shared)(v12, 48);
-      ;
-    }
-
-    std::wstring::append[abi:ne200100]<wchar_t *,0>(a7, i, v24);
-  }
-
-  v16 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v28);
-  if (v16 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v27))
-  {
-    *a6 |= 2u;
-  }
-
-  v17 = v28;
-  locale = v23.__locale_;
-  if (v23.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v23.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (*(*locale + 16))(locale);
-  }
-
-  v19 = v25;
-  v25 = 0;
-  if (v19)
-  {
-    v26();
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return v17;
-}
-
-void sub_1922DC6A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void (*a17)(void))
+void sub_1922DC6A8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void (*a17)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (v17)
   {
@@ -5451,58 +4948,58 @@ void sub_1922DC6A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a14 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a14 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a14 + 16))(a14);
+    (*(*a14 + 16))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    a17();
+    a17(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(void **a1, void *a2, int a3, std::locale *a4, __int16 a5, _DWORD *a6, BOOL *a7, uint64_t a8, void **a9, uint64_t *a10, char *a11)
+uint64_t std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(void **a1, void *a2, int a3, std::locale *a4, __int16 a5, _DWORD *a6, BOOL *a7, uint64_t a8, void **a9, uint64_t *a10, uint64_t a11)
 {
-  v139 = *MEMORY[0x1E69E9840];
-  v137 = a2;
+  v138 = *MEMORY[0x1E69E9840];
+  v136 = a2;
   v16 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-  if (v16 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+  if (v16 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
   {
     v110 = 0;
     *a6 |= 4u;
-    goto LABEL_235;
+    return v110;
   }
 
-  v114 = a6;
-  v135 = v138;
-  v136 = std::__do_nothing;
-  v134 = v138;
-  v133 = &v139;
+  v113 = a6;
+  v134 = v137;
+  v135 = std::__do_nothing;
+  v133 = v137;
+  v132 = &v138;
   memset(&__grouping, 0, sizeof(__grouping));
+  v125 = 0;
   v126 = 0;
   v127 = 0;
-  v128 = 0;
+  v122 = 0;
   v123 = 0;
   v124 = 0;
-  v125 = 0;
+  v119 = 0;
   v120 = 0;
   v121 = 0;
-  v122 = 0;
-  memset(&v119, 0, sizeof(v119));
-  std::__money_get<wchar_t>::__gather_info(a3, a4, &v132, &v131, &v130, &__grouping, &v126, &v123, &v120, &v118);
+  memset(&v118, 0, sizeof(v118));
+  std::__money_get<wchar_t>::__gather_info(a3, a4, &v131, &v130, &v129, &__grouping, &v125, &v122, &v119, &v117);
   v17 = 0;
   v18 = 0;
   *a10 = *a9;
   while (1)
   {
     v19 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-    if (v19 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+    if (v19 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
     {
       goto LABEL_201;
     }
 
-    v20 = *(&v132 + v17);
+    v20 = *(&v131 + v17);
     if (v20 <= 1)
     {
       break;
@@ -5512,17 +5009,17 @@ uint64_t std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(voi
     {
       if (v17 < 2 || v18)
       {
-        v43 = HIBYTE(v128);
-        v44 = v128 < 0;
-        v45 = v126;
-        if (v128 >= 0)
+        v43 = HIBYTE(v127);
+        v44 = v127 < 0;
+        v45 = v125;
+        if (v127 >= 0)
         {
-          v46 = &v126;
+          v46 = &v125;
         }
 
         else
         {
-          v46 = v126;
+          v46 = v125;
         }
 
         if (v17)
@@ -5533,7 +5030,7 @@ uint64_t std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(voi
 
       else
       {
-        if (HIBYTE(v132))
+        if (HIBYTE(v131))
         {
           v32 = v17 == 2;
         }
@@ -5550,25 +5047,25 @@ uint64_t std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(voi
           goto LABEL_200;
         }
 
-        v43 = HIBYTE(v128);
-        v44 = v128 < 0;
-        v45 = v126;
-        if (v128 >= 0)
+        v43 = HIBYTE(v127);
+        v44 = v127 < 0;
+        v45 = v125;
+        if (v127 >= 0)
         {
-          v46 = &v126;
+          v46 = &v125;
         }
 
         else
         {
-          v46 = v126;
+          v46 = v125;
         }
 
 LABEL_85:
-        if (*(&v132 + v17 - 1) <= 1u)
+        if (*(&v131 + v17 - 1) <= 1u)
         {
           if (v44)
           {
-            v54 = v127;
+            v54 = v126;
           }
 
           else
@@ -5581,28 +5078,28 @@ LABEL_85:
             do
             {
               v55 = (*(*a8 + 24))(a8, 0x4000, *v46);
-              v43 = HIBYTE(v128);
-              v45 = v126;
+              v43 = HIBYTE(v127);
+              v45 = v125;
               if (!v55)
               {
                 break;
               }
 
               v46 += 4;
-              v56 = v127;
-              if (v128 >= 0)
+              v56 = v126;
+              if (v127 >= 0)
               {
-                v57 = &v126;
+                v57 = &v125;
               }
 
               else
               {
-                v57 = v126;
+                v57 = v125;
               }
 
-              if (v128 >= 0)
+              if (v127 >= 0)
               {
-                v56 = HIBYTE(v128);
+                v56 = HIBYTE(v127);
               }
             }
 
@@ -5611,7 +5108,7 @@ LABEL_85:
 
           if ((v43 & 0x80u) == 0)
           {
-            v58 = &v126;
+            v58 = &v125;
           }
 
           else
@@ -5620,25 +5117,25 @@ LABEL_85:
           }
 
           v59 = (v46 - v58) >> 2;
-          size = SHIBYTE(v119.__r_.__value_.__r.__words[2]);
-          if ((SHIBYTE(v119.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
+          size = SHIBYTE(v118.__r_.__value_.__r.__words[2]);
+          if ((SHIBYTE(v118.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
           {
-            if (v59 <= SHIBYTE(v119.__r_.__value_.__r.__words[2]))
+            if (v59 <= SHIBYTE(v118.__r_.__value_.__r.__words[2]))
             {
-              v61 = &v119;
+              v61 = &v118;
               goto LABEL_164;
             }
 
             goto LABEL_165;
           }
 
-          size = v119.__r_.__value_.__l.__size_;
-          if (v59 > v119.__r_.__value_.__l.__size_)
+          size = v118.__r_.__value_.__l.__size_;
+          if (v59 > v118.__r_.__value_.__l.__size_)
           {
             goto LABEL_165;
           }
 
-          v61 = v119.__r_.__value_.__r.__words[0];
+          v61 = v118.__r_.__value_.__r.__words[0];
 LABEL_164:
           if (memcmp(v61 + 4 * size - (v46 - v58), v58, 4 * size - (4 * size - (v46 - v58))))
           {
@@ -5654,13 +5151,13 @@ LABEL_166:
 
           else
           {
-            v89 = v127;
+            v89 = v126;
           }
 
           for (i = &v58[4 * v89]; v46 != i; i = v97 + 4 * v96)
           {
             v91 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-            if (v91 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+            if (v91 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
             {
               break;
             }
@@ -5685,39 +5182,39 @@ LABEL_166:
             }
 
             v46 += 4;
-            v96 = HIBYTE(v128);
-            if (v128 >= 0)
+            v96 = HIBYTE(v127);
+            if (v127 >= 0)
             {
-              v97 = &v126;
+              v97 = &v125;
             }
 
             else
             {
-              v97 = v126;
+              v97 = v125;
             }
 
-            if (v128 < 0)
+            if (v127 < 0)
             {
-              v96 = v127;
+              v96 = v126;
             }
           }
 
           if ((a5 & 0x200) != 0)
           {
-            v98 = HIBYTE(v128);
-            if (v128 >= 0)
+            v98 = HIBYTE(v127);
+            if (v127 >= 0)
             {
-              v99 = &v126;
+              v99 = &v125;
             }
 
             else
             {
-              v99 = v126;
+              v99 = v125;
             }
 
-            if (v128 < 0)
+            if (v127 < 0)
             {
-              v98 = v127;
+              v98 = v126;
             }
 
             if (v46 != v99 + 4 * v98)
@@ -5742,7 +5239,7 @@ LABEL_166:
         while (1)
         {
           v22 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-          if (v22 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+          if (v22 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
           {
             break;
           }
@@ -5780,21 +5277,21 @@ LABEL_166:
               v26 = __grouping.__r_.__value_.__l.__size_;
             }
 
-            if (!v26 || !v21 || v24 != v130)
+            if (!v26 || !v21 || v24 != v129)
             {
               break;
             }
 
-            v27 = v134;
-            if (v134 == v133)
+            v27 = v133;
+            if (v133 == v132)
             {
-              std::__double_or_nothing[abi:ne200100]<unsigned int>(&v135, &v134, &v133);
-              v27 = v134;
+              std::__double_or_nothing[abi:ne200100]<unsigned int>(&v134, &v133, &v132);
+              v27 = v133;
             }
 
             *v27 = v21;
             v21 = 0;
-            v134 = v27 + 1;
+            v133 = v27 + 1;
           }
 
           v28 = *a1;
@@ -5810,30 +5307,30 @@ LABEL_166:
           }
         }
 
-        v38 = v134;
-        if (v135 != v134 && v21 != 0)
+        v38 = v133;
+        if (v134 != v133 && v21 != 0)
         {
-          if (v134 == v133)
+          if (v133 == v132)
           {
-            std::__double_or_nothing[abi:ne200100]<unsigned int>(&v135, &v134, &v133);
-            v38 = v134;
+            std::__double_or_nothing[abi:ne200100]<unsigned int>(&v134, &v133, &v132);
+            v38 = v133;
           }
 
           *v38 = v21;
-          v134 = v38 + 1;
+          v133 = v38 + 1;
         }
 
-        if (v118 >= 1)
+        if (v117 >= 1)
         {
           v40 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-          if (v40 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+          if (v40 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
           {
             goto LABEL_218;
           }
 
           v41 = (*a1)[3];
           v42 = v41 == (*a1)[4] ? (*(**a1 + 72))(*a1) : *v41;
-          if (v42 != v131)
+          if (v42 != v130)
           {
             goto LABEL_218;
           }
@@ -5850,12 +5347,12 @@ LABEL_166:
             v70[3] = v71 + 4;
           }
 
-          if (v118 >= 1)
+          if (v117 >= 1)
           {
             while (1)
             {
               v72 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-              if (v72 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+              if (v72 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
               {
                 break;
               }
@@ -5886,13 +5383,13 @@ LABEL_166:
               v77 = *a10;
               *v77 = v76;
               *a10 = (v77 + 1);
-              v78 = --v118;
+              v78 = --v117;
               v79 = *a1;
               v80 = (*a1)[3];
               if (v80 == (*a1)[4])
               {
                 (*(*v79 + 80))(v79);
-                v78 = v118;
+                v78 = v117;
               }
 
               else
@@ -5908,7 +5405,7 @@ LABEL_166:
 
 LABEL_218:
             v110 = 0;
-            *v114 |= 4u;
+            *v113 |= 4u;
             goto LABEL_223;
           }
         }
@@ -5923,15 +5420,15 @@ LABEL_136:
       goto LABEL_200;
     }
 
-    v34 = HIBYTE(v125);
-    if (v125 >= 0)
+    v34 = HIBYTE(v124);
+    if (v124 >= 0)
     {
-      v35 = HIBYTE(v125);
+      v35 = HIBYTE(v124);
     }
 
     else
     {
-      v35 = v124;
+      v35 = v123;
     }
 
     if (v35)
@@ -5940,7 +5437,7 @@ LABEL_136:
       if (v36 == (*a1)[4])
       {
         v37 = (*(**a1 + 72))(*a1);
-        v34 = HIBYTE(v125);
+        v34 = HIBYTE(v124);
       }
 
       else
@@ -5948,10 +5445,10 @@ LABEL_136:
         v37 = *v36;
       }
 
-      v62 = &v123;
+      v62 = &v122;
       if ((v34 & 0x80u) != 0)
       {
-        v62 = v123;
+        v62 = v122;
       }
 
       if (v37 == *v62)
@@ -5961,7 +5458,7 @@ LABEL_136:
         if (v64 == (*a1)[4])
         {
           (*(*v63 + 80))(v63);
-          v34 = HIBYTE(v125);
+          v34 = HIBYTE(v124);
         }
 
         else
@@ -5972,25 +5469,25 @@ LABEL_136:
         *a7 = 0;
         if ((v34 & 0x80u) != 0)
         {
-          v34 = v124;
+          v34 = v123;
         }
 
         v87 = v34 > 1;
-        v88 = &v123;
+        v88 = &v122;
         goto LABEL_198;
       }
     }
 
-    v65 = HIBYTE(v122);
-    v66 = v121;
-    if (v122 >= 0)
+    v65 = HIBYTE(v121);
+    v66 = v120;
+    if (v121 >= 0)
     {
-      v67 = HIBYTE(v122);
+      v67 = HIBYTE(v121);
     }
 
     else
     {
-      v67 = v121;
+      v67 = v120;
     }
 
     if (v67)
@@ -5999,7 +5496,7 @@ LABEL_136:
       if (v68 == (*a1)[4])
       {
         v69 = (*(**a1 + 72))(*a1);
-        v65 = HIBYTE(v122);
+        v65 = HIBYTE(v121);
       }
 
       else
@@ -6007,10 +5504,10 @@ LABEL_136:
         v69 = *v68;
       }
 
-      v81 = &v120;
+      v81 = &v119;
       if ((v65 & 0x80u) != 0)
       {
-        v81 = v120;
+        v81 = v119;
       }
 
       if (v69 == *v81)
@@ -6020,7 +5517,7 @@ LABEL_136:
         if (v83 == (*a1)[4])
         {
           (*(*v82 + 80))(v82);
-          v65 = HIBYTE(v122);
+          v65 = HIBYTE(v121);
         }
 
         else
@@ -6036,11 +5533,11 @@ LABEL_136:
 
         else
         {
-          v100 = v121;
+          v100 = v120;
         }
 
         v87 = v100 > 1;
-        v88 = &v120;
+        v88 = &v119;
 LABEL_198:
         if (v87)
         {
@@ -6050,11 +5547,11 @@ LABEL_198:
         goto LABEL_200;
       }
 
-      v34 = HIBYTE(v125);
-      v66 = v121;
+      v34 = HIBYTE(v124);
+      v66 = v120;
     }
 
-    v84 = v124;
+    v84 = v123;
     if ((v34 & 0x80u) == 0)
     {
       v84 = v34;
@@ -6104,7 +5601,7 @@ LABEL_200:
     }
   }
 
-  if (!*(&v132 + v17))
+  if (!*(&v131 + v17))
   {
     if (v17 == 3)
     {
@@ -6114,7 +5611,7 @@ LABEL_200:
     while (1)
     {
       v50 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-      if (v50 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+      if (v50 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
       {
         goto LABEL_200;
       }
@@ -6136,7 +5633,7 @@ LABEL_200:
       v49 = *v53;
       v47[3] = v53 + 1;
 LABEL_73:
-      std::wstring::push_back(&v119, v49);
+      std::wstring::push_back(&v118, v49);
     }
   }
 
@@ -6195,7 +5692,7 @@ LABEL_201:
       }
 
       v104 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](a1);
-      if (v104 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v137))
+      if (v104 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v136))
       {
         goto LABEL_221;
       }
@@ -6236,7 +5733,7 @@ LABEL_201:
     }
   }
 
-  if (v135 == v134 || (__err = 0, std::__check_grouping(&__grouping, v135, v134, &__err), !__err))
+  if (v134 == v133 || (__err = 0, std::__check_grouping(&__grouping, v134, v133, &__err), !__err))
   {
     v110 = 1;
   }
@@ -6245,28 +5742,28 @@ LABEL_201:
   {
 LABEL_221:
     v110 = 0;
-    *v114 |= 4u;
+    *v113 |= 4u;
   }
 
 LABEL_223:
-  if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
   {
-    MEMORY[0x193B0CA40](v119.__r_.__value_.__r.__words[0], 4 * v119.__r_.__value_.__r.__words[2]);
+    MEMORY[0x193B0CA40](v118.__r_.__value_.__r.__words[0], 4 * v118.__r_.__value_.__r.__words[2]);
   }
 
-  if (SHIBYTE(v122) < 0)
+  if (SHIBYTE(v121) < 0)
   {
-    MEMORY[0x193B0CA40](v120, 4 * v122);
+    MEMORY[0x193B0CA40](v119, 4 * v121);
   }
 
-  if (SHIBYTE(v125) < 0)
+  if (SHIBYTE(v124) < 0)
   {
-    MEMORY[0x193B0CA40](v123, 4 * v125);
+    MEMORY[0x193B0CA40](v122, 4 * v124);
   }
 
-  if (SHIBYTE(v128) < 0)
+  if (SHIBYTE(v127) < 0)
   {
-    MEMORY[0x193B0CA40](v126, 4 * v128);
+    MEMORY[0x193B0CA40](v125, 4 * v127);
   }
 
   if (SHIBYTE(__grouping.__r_.__value_.__r.__words[2]) < 0)
@@ -6274,15 +5771,13 @@ LABEL_223:
     MEMORY[0x193B0CA40](__grouping.__r_.__value_.__r.__words[0], __grouping.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  v111 = v135;
-  v135 = 0;
+  v111 = v134;
+  v134 = 0;
   if (v111)
   {
-    v136();
+    v135();
   }
 
-LABEL_235:
-  v112 = *MEMORY[0x1E69E9840];
   return v110;
 }
 
@@ -6296,16 +5791,76 @@ void sub_1922DD4A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void sub_1922DD7C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void (*a17)(void))
+void *std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(int a1, void *a2, void *a3, int a4, std::ios_base *this, _DWORD *a6, uint64_t a7)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v26 = a3;
+  v27 = a2;
+  v24 = &v28;
+  v25 = std::__do_nothing;
+  std::ios_base::getloc(this);
+  v12 = std::locale::use_facet(&v22, &std::ctype<wchar_t>::id);
+  v21 = 0;
+  if (std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::__do_get(&v27, a3, a4, &v22, this->__fmtflags_, a6, &v21, v12, &v24, &v23, &v29))
+  {
+    if (*(a7 + 23) < 0)
+    {
+      **a7 = 0;
+      *(a7 + 8) = 0;
+    }
+
+    else
+    {
+      *a7 = 0;
+      *(a7 + 23) = 0;
+    }
+
+    if (v21)
+    {
+      v13 = (v12->__vftable[3].__on_zero_shared)(v12, 45);
+      std::wstring::push_back(a7, v13);
+    }
+
+    v14 = (v12->__vftable[3].__on_zero_shared)(v12, 48);
+      ;
+    }
+
+    std::wstring::append[abi:ne200100]<wchar_t *,0>(a7, i, v23);
+  }
+
+  v16 = std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v27);
+  if (v16 == std::istreambuf_iterator<wchar_t>::__test_for_eof[abi:ne200100](&v26))
+  {
+    *a6 |= 2u;
+  }
+
+  v17 = v27;
+  locale = v22.__locale_;
+  if (v22.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v22.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (*(*locale + 16))(locale);
+  }
+
+  v19 = v24;
+  v24 = 0;
+  if (v19)
+  {
+    v25();
+  }
+
+  return v17;
+}
+
+void sub_1922DD7C0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void (*a17)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (a14 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a14 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a14 + 16))(a14);
+    (*(*a14 + 16))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    a17();
+    a17(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6409,11 +5964,11 @@ std::wstring *std::wstring::append[abi:ne200100]<wchar_t *,0>(std::wstring *this
   return this;
 }
 
-void sub_1922DD9C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1922DD9C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(&a10);
+    std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get();
   }
 
   _Unwind_Resume(exception_object);
@@ -6559,27 +6114,27 @@ LABEL_12:
 
 uint64_t std::money_put<char,std::ostreambuf_iterator<char>>::do_put(double a1, uint64_t a2, uint64_t a3, int a4, const std::ios_base *a5, int a6)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v50 = __str;
+  v53 = *MEMORY[0x1E69E9840];
+  v49 = __str;
   v11 = snprintf(__str, 0x64uLL, "%.0Lf", a1);
   if (v11 < 0x64)
   {
     v13 = v11;
     v16 = 0;
     v14 = 0;
-    v17 = &v52;
+    v17 = &v51;
   }
 
   else
   {
-    v12 = asprintf_l(&v50, 0, "%.0Lf", a1);
+    v12 = asprintf_l(&v49, 0, "%.0Lf", a1);
     v13 = v12;
     if (v12 == -1)
     {
       std::__throw_bad_alloc();
     }
 
-    v14 = v50;
+    v14 = v49;
     v15 = malloc_type_malloc(v12, 0x100004077774924uLL);
     v16 = v15;
     if (!v15)
@@ -6590,61 +6145,61 @@ uint64_t std::money_put<char,std::ostreambuf_iterator<char>>::do_put(double a1, 
     v17 = v15;
   }
 
-  v34 = v14;
+  v33 = v14;
   std::ios_base::getloc(a5);
-  v18 = std::locale::use_facet(&v49, &std::ctype<char>::id);
-  (v18->__vftable[2].__on_zero_shared)(v18, v50, &v50[v13], v17);
-  v19 = v13 >= 1 && *v50 == 45;
-  v44[0] = 0;
-  v44[1] = 0;
-  v45 = 0;
+  v18 = std::locale::use_facet(&v48, &std::ctype<char>::id);
+  (v18->__vftable[2].__on_zero_shared)(v18, v49, &v49[v13], v17);
+  v19 = v13 >= 1 && *v49 == 45;
+  v43[0] = 0;
+  v43[1] = 0;
+  v44 = 0;
+  v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
+  v37 = 0;
   v38 = 0;
   v39 = 0;
-  v40 = 0;
-  std::__money_put<char>::__gather_info(a4, v19, &v49, &v48, &v47, &v46, v44, &v41, &v38, &v37);
+  std::__money_put<char>::__gather_info(a4, v19, &v48, &v47, &v46, &v45, v43, &v40, &v37, &v36);
   v20 = v13;
-  v21 = v37;
-  if (v13 <= v37)
+  v21 = v36;
+  if (v13 <= v36)
   {
-    v25 = HIBYTE(v40);
-    if (v40 < 0)
+    v25 = HIBYTE(v39);
+    if (v39 < 0)
     {
-      v25 = v39;
+      v25 = v38;
     }
 
-    v26 = HIBYTE(v43);
-    if (v43 < 0)
+    v26 = HIBYTE(v42);
+    if (v42 < 0)
     {
-      v26 = v42;
+      v26 = v41;
     }
 
-    v24 = v37 + v25 + v26 + 2;
+    v24 = v36 + v25 + v26 + 2;
   }
 
   else
   {
-    v22 = HIBYTE(v40);
-    if (v40 < 0)
+    v22 = HIBYTE(v39);
+    if (v39 < 0)
     {
-      v22 = v39;
+      v22 = v38;
     }
 
-    v23 = HIBYTE(v43);
-    if (v43 < 0)
+    v23 = HIBYTE(v42);
+    if (v42 < 0)
     {
-      v23 = v42;
+      v23 = v41;
     }
 
-    v24 = v37 + 2 * (v13 - v37) + v22 + v23 + 1;
+    v24 = v36 + 2 * (v13 - v36) + v22 + v23 + 1;
   }
 
   if (v24 < 0x65)
   {
     v28 = 0;
-    v29 = &v51;
+    v29 = &v50;
   }
 
   else
@@ -6656,34 +6211,34 @@ uint64_t std::money_put<char,std::ostreambuf_iterator<char>>::do_put(double a1, 
       std::__throw_bad_alloc();
     }
 
-    v21 = v37;
+    v21 = v36;
     v29 = v27;
   }
 
-  std::__money_put<char>::__format(v29, &v36, &v35, a5->__fmtflags_, v17, &v17[v20], v18, v19, &v48, v47, v46, v44, &v41, &v38, v21);
-  v30 = std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(a3, v29, v36, v35, a5, a6);
+  std::__money_put<char>::__format(v29, &v35, &v34, a5->__fmtflags_, v17, &v17[v20], v18, v19, &v47, v46, v45, v43, &v40, &v37, v21);
+  v30 = std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(a3, v29, v35, v34, a5, a6);
   if (v28)
   {
     free(v28);
   }
 
-  if (SHIBYTE(v40) < 0)
+  if (SHIBYTE(v39) < 0)
   {
-    MEMORY[0x193B0CA40](v38, v40 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v37, v39 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
-    MEMORY[0x193B0CA40](v41, v43 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v40, v42 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v45) < 0)
+  if (SHIBYTE(v44) < 0)
   {
-    MEMORY[0x193B0CA40](v44[0], v45 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v43[0], v44 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  locale = v49.__locale_;
-  if (v49.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v49.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  locale = v48.__locale_;
+  if (v48.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v48.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
@@ -6693,35 +6248,34 @@ uint64_t std::money_put<char,std::ostreambuf_iterator<char>>::do_put(double a1, 
     free(v16);
   }
 
-  if (v34)
+  if (v33)
   {
-    free(v34);
+    free(v33);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
-void sub_1922DE344(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
+void sub_1922DE344(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
 {
   if (SHIBYTE(a21) < 0)
   {
-    MEMORY[0x193B0CA40](a19, a21 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a19, a21 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   if (SHIBYTE(a24) < 0)
   {
-    MEMORY[0x193B0CA40](a22, a24 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a22, a24 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   if (SHIBYTE(a27) < 0)
   {
-    MEMORY[0x193B0CA40](a25, a27 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a25, a27 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   if (a29 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a29 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a29 + 16))(a29);
+    (*(*a29 + 16))(a29, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v29)
@@ -6892,9 +6446,9 @@ LABEL_34:
 
           break;
         case 3u:
-          if (v21[23] < 0)
+          if (*(v21 + 23) < 0)
           {
-            if (!*(v21 + 1))
+            if (!*(v21 + 8))
             {
               break;
             }
@@ -6909,7 +6463,7 @@ LABEL_37:
           }
 
           v33 = v21;
-          if (v21[23])
+          if (*(v21 + 23))
           {
             goto LABEL_37;
           }
@@ -7108,16 +6662,16 @@ LABEL_40:
   }
 
   while (v19 != 4);
-  v56 = v21[23];
+  v56 = *(v21 + 23);
   if ((v56 & 0x8000000000000000) != 0)
   {
-    v56 = *(v21 + 1);
+    v56 = *(v21 + 8);
     if (v56 > 1)
     {
       v21 = *v21;
-      v57 = v21 + 1;
+      v57 = (v21 + 1);
 LABEL_79:
-      v58 = &v21[v56];
+      v58 = (v21 + v56);
       v59 = *a3;
       v60 = v58 - v57;
       if (v58 != v57)
@@ -7152,9 +6706,9 @@ LABEL_79:
 
 uint64_t std::money_put<char,std::ostreambuf_iterator<char>>::do_put(int a1, uint64_t a2, int a3, std::ios_base *this, int a5, unsigned __int8 *a6)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   std::ios_base::getloc(this);
-  v11 = std::locale::use_facet(&v47, &std::ctype<char>::id);
+  v11 = std::locale::use_facet(&v46, &std::ctype<char>::id);
   v12 = &v11->__vftable;
   if ((a6[23] & 0x80000000) == 0)
   {
@@ -7179,22 +6733,22 @@ LABEL_6:
 LABEL_7:
   v15 = 0;
 LABEL_8:
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v41[0] = 0;
+  v41[1] = 0;
+  v42 = 0;
+  v38 = 0;
   v39 = 0;
   v40 = 0;
-  v41 = 0;
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  std::__money_put<char>::__gather_info(a3, v15, &v47, &v46, &v45, &v44, v42, &v39, &v36, &v35);
+  std::__money_put<char>::__gather_info(a3, v15, &v46, &v45, &v44, &v43, v41, &v38, &v35, &v34);
   LODWORD(v16) = a6[23];
   if ((v16 & 0x80000000) != 0)
   {
     v18 = *(a6 + 1);
-    v17 = v35;
-    if (v35 < v18)
+    v17 = v34;
+    if (v34 < v18)
     {
       goto LABEL_12;
     }
@@ -7202,22 +6756,22 @@ LABEL_8:
 
   else
   {
-    v17 = v35;
-    if (v35 < v16)
+    v17 = v34;
+    if (v34 < v16)
     {
       v18 = a6[23];
 LABEL_12:
       v19 = 2 * (v18 - v17);
-      v20 = HIBYTE(v38);
-      if (v38 < 0)
+      v20 = HIBYTE(v37);
+      if (v37 < 0)
       {
-        v20 = v37;
+        v20 = v36;
       }
 
-      v21 = HIBYTE(v41);
-      if (v41 < 0)
+      v21 = HIBYTE(v40);
+      if (v40 < 0)
       {
-        v21 = v40;
+        v21 = v39;
       }
 
       v22 = v19 + v17 + v20 + v21 + 1;
@@ -7225,16 +6779,16 @@ LABEL_12:
     }
   }
 
-  v23 = HIBYTE(v38);
-  if (v38 < 0)
+  v23 = HIBYTE(v37);
+  if (v37 < 0)
   {
-    v23 = v37;
+    v23 = v36;
   }
 
-  v24 = HIBYTE(v41);
-  if (v41 < 0)
+  v24 = HIBYTE(v40);
+  if (v40 < 0)
   {
-    v24 = v40;
+    v24 = v39;
   }
 
   v22 = v23 + v17 + v24 + 2;
@@ -7242,7 +6796,7 @@ LABEL_22:
   if (v22 < 0x65)
   {
     v26 = 0;
-    v27 = &v48;
+    v27 = &v47;
   }
 
   else
@@ -7255,7 +6809,7 @@ LABEL_22:
     }
 
     LOBYTE(v16) = a6[23];
-    v17 = v35;
+    v17 = v34;
     v27 = v25;
   }
 
@@ -7275,71 +6829,70 @@ LABEL_22:
     v16 = *(a6 + 1);
   }
 
-  std::__money_put<char>::__format(v27, &v34, &v33, this->__fmtflags_, v28, &v28[v16], v12, v15, &v46, v45, v44, v42, &v39, &v36, v17);
-  v29 = std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(a2, v27, v34, v33, this, a5);
+  std::__money_put<char>::__format(v27, &v33, &v32, this->__fmtflags_, v28, &v28[v16], v12, v15, &v45, v44, v43, v41, &v38, &v35, v17);
+  v29 = std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(a2, v27, v33, v32, this, a5);
   if (v26)
   {
     free(v26);
   }
 
-  if (SHIBYTE(v38) < 0)
+  if (SHIBYTE(v37) < 0)
   {
-    MEMORY[0x193B0CA40](v36, v38 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v35, v37 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v41) < 0)
+  if (SHIBYTE(v40) < 0)
   {
-    MEMORY[0x193B0CA40](v39, v41 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v38, v40 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
-    MEMORY[0x193B0CA40](v42[0], v43 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v41[0], v42 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  locale = v47.__locale_;
-  if (v47.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v47.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  locale = v46.__locale_;
+  if (v46.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v46.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
-void sub_1922DF0B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37)
+void sub_1922DF0B8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37)
 {
   if (a37 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a37 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a37 + 16))(a37);
+    (*(*a37 + 16))(a37, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(double a1, uint64_t a2, uint64_t a3, int a4, const std::ios_base *a5, int a6)
+uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(double a1, uint64_t a2, uint64_t a3, int a4, const std::ios_base *a5, uint64_t a6)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v50 = __str;
+  v53 = *MEMORY[0x1E69E9840];
+  v49 = __str;
   v11 = snprintf(__str, 0x64uLL, "%.0Lf", a1);
   if (v11 < 0x64)
   {
     v13 = v11;
     v16 = 0;
     v14 = 0;
-    v17 = &v52;
+    v17 = &v51;
   }
 
   else
   {
-    v12 = asprintf_l(&v50, 0, "%.0Lf", a1);
+    v12 = asprintf_l(&v49, 0, "%.0Lf", a1);
     v13 = v12;
     if (v12 == -1)
     {
       std::__throw_bad_alloc();
     }
 
-    v14 = v50;
+    v14 = v49;
     v15 = malloc_type_malloc(4 * v12, 0x100004052888210uLL);
     v16 = v15;
     if (!v15)
@@ -7350,61 +6903,61 @@ uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(doubl
     v17 = v15;
   }
 
-  v34 = v14;
+  v33 = v14;
   std::ios_base::getloc(a5);
-  v18 = std::locale::use_facet(&v49, &std::ctype<wchar_t>::id);
-  (v18->__vftable[4].~facet)(v18, v50, &v50[v13], v17);
-  v19 = v13 >= 1 && *v50 == 45;
-  v44[0] = 0;
-  v44[1] = 0;
-  v45 = 0;
+  v18 = std::locale::use_facet(&v48, &std::ctype<wchar_t>::id);
+  (v18->__vftable[4].~facet)(v18, v49, &v49[v13], v17);
+  v19 = v13 >= 1 && *v49 == 45;
+  v43[0] = 0;
+  v43[1] = 0;
+  v44 = 0;
+  v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
+  v37 = 0;
   v38 = 0;
   v39 = 0;
-  v40 = 0;
-  std::__money_put<wchar_t>::__gather_info(a4, v19, &v49, &v48, &v47, &v46, v44, &v41, &v38, &v37);
+  std::__money_put<wchar_t>::__gather_info(a4, v19, &v48, &v47, &v46, &v45, v43, &v40, &v37, &v36);
   v20 = v13;
-  v21 = v37;
-  if (v13 <= v37)
+  v21 = v36;
+  if (v13 <= v36)
   {
-    v25 = HIBYTE(v40);
-    if (v40 < 0)
+    v25 = HIBYTE(v39);
+    if (v39 < 0)
     {
-      v25 = v39;
+      v25 = v38;
     }
 
-    v26 = HIBYTE(v43);
-    if (v43 < 0)
+    v26 = HIBYTE(v42);
+    if (v42 < 0)
     {
-      v26 = v42;
+      v26 = v41;
     }
 
-    v24 = v37 + v25 + v26 + 2;
+    v24 = v36 + v25 + v26 + 2;
   }
 
   else
   {
-    v22 = HIBYTE(v40);
-    if (v40 < 0)
+    v22 = HIBYTE(v39);
+    if (v39 < 0)
     {
-      v22 = v39;
+      v22 = v38;
     }
 
-    v23 = HIBYTE(v43);
-    if (v43 < 0)
+    v23 = HIBYTE(v42);
+    if (v42 < 0)
     {
-      v23 = v42;
+      v23 = v41;
     }
 
-    v24 = v37 + 2 * (v13 - v37) + v22 + v23 + 1;
+    v24 = v36 + 2 * (v13 - v36) + v22 + v23 + 1;
   }
 
   if (v24 < 0x65)
   {
     v28 = 0;
-    v29 = &v51;
+    v29 = &v50;
   }
 
   else
@@ -7416,34 +6969,34 @@ uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(doubl
       std::__throw_bad_alloc();
     }
 
-    v21 = v37;
+    v21 = v36;
     v29 = v27;
   }
 
-  std::__money_put<wchar_t>::__format(v29, &v36, &v35, a5->__fmtflags_, v17, &v17[v20], v18, v19, &v48, v47, v46, v44, &v41, &v38, v21);
-  v30 = std::__pad_and_output[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a3, v29, v36, v35, a5, a6);
+  std::__money_put<wchar_t>::__format(v29, &v35, &v34, a5->__fmtflags_, v17, &v17[v20], v18, v19, &v47, v46, v45, v43, &v40, &v37, v21);
+  v30 = std::__pad_and_output[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a3, v29, v35, v34, a5, a6);
   if (v28)
   {
     free(v28);
   }
 
-  if (SHIBYTE(v40) < 0)
+  if (SHIBYTE(v39) < 0)
   {
-    MEMORY[0x193B0CA40](v38, 4 * v40);
+    MEMORY[0x193B0CA40](v37, 4 * v39);
   }
 
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
-    MEMORY[0x193B0CA40](v41, 4 * v43);
+    MEMORY[0x193B0CA40](v40, 4 * v42);
   }
 
-  if (SHIBYTE(v45) < 0)
+  if (SHIBYTE(v44) < 0)
   {
-    MEMORY[0x193B0CA40](v44[0], v45 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v43[0], v44 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  locale = v49.__locale_;
-  if (v49.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v49.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  locale = v48.__locale_;
+  if (v48.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v48.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
@@ -7453,35 +7006,34 @@ uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(doubl
     free(v16);
   }
 
-  if (v34)
+  if (v33)
   {
-    free(v34);
+    free(v33);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
-void sub_1922DF55C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+void sub_1922DF55C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   if (SHIBYTE(a21) < 0)
   {
-    MEMORY[0x193B0CA40](a19, 4 * a21);
+    MEMORY[0x193B0CA40](a19, 4 * a21, a3, a4, a5, a6, a7, a8);
   }
 
   if (SHIBYTE(a24) < 0)
   {
-    MEMORY[0x193B0CA40](a22, 4 * a24);
+    MEMORY[0x193B0CA40](a22, 4 * a24, a3, a4, a5, a6, a7, a8);
   }
 
   if (SHIBYTE(a27) < 0)
   {
-    MEMORY[0x193B0CA40](a25, a27 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a25, a27 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   if (a30 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a30 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a30 + 16))(a30);
+    (*(*a30 + 16))(a30, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v30)
@@ -7767,7 +7319,7 @@ LABEL_53:
                     v43 = a12;
                   }
 
-                  v38 = *(v43 + v39);
+                  v38 = v43[v39];
                   if (v38 == 127)
                   {
                     LOBYTE(v38) = -1;
@@ -7922,11 +7474,11 @@ LABEL_81:
   return __dst;
 }
 
-uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(int a1, uint64_t a2, int a3, std::ios_base *this, int a5, uint64_t a6)
+uint64_t std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::do_put(int a1, uint64_t a2, int a3, std::ios_base *this, uint64_t a5, uint64_t a6)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   std::ios_base::getloc(this);
-  v11 = std::locale::use_facet(&v47, &std::ctype<wchar_t>::id);
+  v11 = std::locale::use_facet(&v46, &std::ctype<wchar_t>::id);
   v12 = v11;
   if ((*(a6 + 23) & 0x80000000) == 0)
   {
@@ -7951,22 +7503,22 @@ LABEL_6:
 LABEL_7:
   v15 = 0;
 LABEL_8:
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v41[0] = 0;
+  v41[1] = 0;
+  v42 = 0;
+  v38 = 0;
   v39 = 0;
   v40 = 0;
-  v41 = 0;
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  std::__money_put<wchar_t>::__gather_info(a3, v15, &v47, &v46, &v45, &v44, v42, &v39, &v36, &v35);
+  std::__money_put<wchar_t>::__gather_info(a3, v15, &v46, &v45, &v44, &v43, v41, &v38, &v35, &v34);
   LODWORD(v16) = *(a6 + 23);
   if ((v16 & 0x80000000) != 0)
   {
     v18 = *(a6 + 8);
-    v17 = v35;
-    if (v35 < v18)
+    v17 = v34;
+    if (v34 < v18)
     {
       goto LABEL_12;
     }
@@ -7974,22 +7526,22 @@ LABEL_8:
 
   else
   {
-    v17 = v35;
-    if (v35 < v16)
+    v17 = v34;
+    if (v34 < v16)
     {
       v18 = *(a6 + 23);
 LABEL_12:
       v19 = 2 * (v18 - v17);
-      v20 = HIBYTE(v38);
-      if (v38 < 0)
+      v20 = HIBYTE(v37);
+      if (v37 < 0)
       {
-        v20 = v37;
+        v20 = v36;
       }
 
-      v21 = HIBYTE(v41);
-      if (v41 < 0)
+      v21 = HIBYTE(v40);
+      if (v40 < 0)
       {
-        v21 = v40;
+        v21 = v39;
       }
 
       v22 = v19 + v17 + v20 + v21 + 1;
@@ -7997,16 +7549,16 @@ LABEL_12:
     }
   }
 
-  v23 = HIBYTE(v38);
-  if (v38 < 0)
+  v23 = HIBYTE(v37);
+  if (v37 < 0)
   {
-    v23 = v37;
+    v23 = v36;
   }
 
-  v24 = HIBYTE(v41);
-  if (v41 < 0)
+  v24 = HIBYTE(v40);
+  if (v40 < 0)
   {
-    v24 = v40;
+    v24 = v39;
   }
 
   v22 = v23 + v17 + v24 + 2;
@@ -8014,7 +7566,7 @@ LABEL_22:
   if (v22 < 0x65)
   {
     v26 = 0;
-    v27 = &v48;
+    v27 = &v47;
   }
 
   else
@@ -8027,7 +7579,7 @@ LABEL_22:
     }
 
     LOBYTE(v16) = *(a6 + 23);
-    v17 = v35;
+    v17 = v34;
     v27 = v25;
   }
 
@@ -8047,43 +7599,42 @@ LABEL_22:
     v16 = *(a6 + 8);
   }
 
-  std::__money_put<wchar_t>::__format(v27, &v34, &v33, this->__fmtflags_, v28, &v28[v16], v12, v15, &v46, v45, v44, v42, &v39, &v36, v17);
-  v29 = std::__pad_and_output[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, v27, v34, v33, this, a5);
+  std::__money_put<wchar_t>::__format(v27, &v33, &v32, this->__fmtflags_, v28, &v28[v16], v12, v15, &v45, v44, v43, v41, &v38, &v35, v17);
+  v29 = std::__pad_and_output[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, v27, v33, v32, this, a5);
   if (v26)
   {
     free(v26);
   }
 
-  if (SHIBYTE(v38) < 0)
+  if (SHIBYTE(v37) < 0)
   {
-    MEMORY[0x193B0CA40](v36, 4 * v38);
+    MEMORY[0x193B0CA40](v35, 4 * v37);
   }
 
-  if (SHIBYTE(v41) < 0)
+  if (SHIBYTE(v40) < 0)
   {
-    MEMORY[0x193B0CA40](v39, 4 * v41);
+    MEMORY[0x193B0CA40](v38, 4 * v40);
   }
 
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
-    MEMORY[0x193B0CA40](v42[0], v43 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](v41[0], v42 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  locale = v47.__locale_;
-  if (v47.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v47.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  locale = v46.__locale_;
+  if (v46.__locale_ != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add(v46.__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*locale + 16))(locale);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
-void sub_1922E02B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38)
+void sub_1922E02B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   if (a38 != &std::locale::__imp::classic_locale_imp_ && !atomic_fetch_add((a38 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*a38 + 16))(a38);
+    (*(*a38 + 16))(a38, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8176,11 +7727,11 @@ void std::messages<char>::do_get(__nl_cat_d *a1@<X1>, int a2@<W2>, int a3@<W3>, 
   }
 }
 
-void sub_1922E048C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922E048C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8201,7 +7752,7 @@ nl_catd std::messages<wchar_t>::do_open(uint64_t a1, uint64_t a2)
   return catopen(v2, 1);
 }
 
-void std::messages<wchar_t>::do_get(__nl_cat_d *a1@<X1>, int a2@<W2>, int a3@<W3>, unint64_t a4@<X4>, std::wstring *a5@<X8>)
+void std::messages<wchar_t>::do_get(__nl_cat_d *a1@<X1>, int a2@<W2>, int a3@<W3>, uint64_t **a4@<X4>, std::wstring *a5@<X8>)
 {
   memset(&v15, 0, sizeof(v15));
   v14.__shared_owners_ = 0;
@@ -8218,7 +7769,7 @@ void std::messages<wchar_t>::do_get(__nl_cat_d *a1@<X1>, int a2@<W2>, int a3@<W3
 
   if ((v9 & 0x80u) != 0)
   {
-    v9 = *(a4 + 8);
+    v9 = a4[1];
   }
 
   std::__narrow_to_utf8<32ul>::operator()[abi:ne200100]<std::back_insert_iterator<std::string>,wchar_t>(&v14, &v15, v10, v10 + 4 * v9);
@@ -8252,7 +7803,7 @@ void sub_1922E0614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   std::__shared_count::~__shared_count(&a10);
   if (*(v13 + 23) < 0)
   {
-    std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get(v13);
+    std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get();
   }
 
   if (SHIBYTE(a13) < 0)
@@ -8265,6 +7816,41 @@ void sub_1922E0614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 std::string *std::__narrow_to_utf8<32ul>::operator()[abi:ne200100]<std::back_insert_iterator<std::string>,wchar_t>(uint64_t a1, std::string *a2, unint64_t a3, unint64_t a4)
 {
+  v16 = *MEMORY[0x1E69E9840];
+  if (a3 < a4)
+  {
+    v6 = a3;
+    do
+    {
+      v12 = v6;
+      if ((*(*a1 + 24))(a1, v15, v6, a4, &v12, v14, v15, &v13) == 2 || v12 == v6)
+      {
+        std::__throw_runtime_error("locale not supported");
+      }
+
+      v6 = v12;
+      if (v14 < v13)
+      {
+        v9 = v14;
+        do
+        {
+          v10 = *v9++;
+          std::string::push_back(a2, v10);
+        }
+
+        while (v9 < v13);
+        v6 = v12;
+      }
+    }
+
+    while (v6 < a4);
+  }
+
+  return a2;
+}
+
+std::wstring *std::__widen_from_utf8<32ul>::operator()[abi:ne200100]<std::back_insert_iterator<std::wstring>>(uint64_t a1, std::wstring *a2, unint64_t a3, unint64_t a4)
+{
   v17 = *MEMORY[0x1E69E9840];
   if (a3 < a4)
   {
@@ -8272,42 +7858,6 @@ std::string *std::__narrow_to_utf8<32ul>::operator()[abi:ne200100]<std::back_ins
     do
     {
       v13 = v6;
-      if ((*(*a1 + 24))(a1, v16, v6, a4, &v13, v15, v16, &v14) == 2 || v13 == v6)
-      {
-        std::__throw_runtime_error("locale not supported");
-      }
-
-      v6 = v13;
-      if (v15 < v14)
-      {
-        v9 = v15;
-        do
-        {
-          v10 = *v9++;
-          std::string::push_back(a2, v10);
-        }
-
-        while (v9 < v14);
-        v6 = v13;
-      }
-    }
-
-    while (v6 < a4);
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return a2;
-}
-
-std::wstring *std::__widen_from_utf8<32ul>::operator()[abi:ne200100]<std::back_insert_iterator<std::wstring>>(uint64_t a1, std::wstring *a2, unint64_t a3, unint64_t a4)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (a3 < a4)
-  {
-    v6 = a3;
-    do
-    {
-      v14 = v6;
       if ((a4 - v6) <= 32)
       {
         v8 = a4;
@@ -8318,30 +7868,29 @@ std::wstring *std::__widen_from_utf8<32ul>::operator()[abi:ne200100]<std::back_i
         v8 = v6 + 32;
       }
 
-      if ((*(*a1 + 32))(a1, v17, v6, v8, &v14, v16, v17, &v15) == 2 || v14 == v6)
+      if ((*(*a1 + 32))(a1, v16, v6, v8, &v13, v15, v16, &v14) == 2 || v13 == v6)
       {
         std::__throw_runtime_error("locale not supported");
       }
 
-      v6 = v14;
-      if (v16 < v15)
+      v6 = v13;
+      if (v15 < v14)
       {
-        v10 = v16;
+        v10 = v15;
         do
         {
           v11 = *v10++;
           std::wstring::push_back(a2, v11);
         }
 
-        while (v10 < v15);
-        v6 = v14;
+        while (v10 < v14);
+        v6 = v13;
       }
     }
 
     while (v6 < a4);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -8409,7 +7958,7 @@ std::locale::__imp *std::locale::__imp::__imp(std::locale::__imp *this, uint64_t
   *this = &unk_1F06C1528;
   *(this + 1) = a2 - 1;
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::vector[abi:ne200100](this + 2, 0x1EuLL);
-  std::string::basic_string[abi:ne200100]<0>(this + 288, "C");
+  std::string::basic_string[abi:ne200100]<0>(this + 36, "C");
   *(this + 3) = *(this + 2);
   *algn_1ED4085A8 = 0;
   v3 = std::locale::id::__get(&std::collate<char>::id);
@@ -8466,11 +8015,11 @@ std::locale::__imp *std::locale::__imp::__imp(std::locale::__imp *this, uint64_t
   return this;
 }
 
-void sub_1922E1360(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1922E1360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__shared_count::~__shared_count(v2);
+  std::__shared_count::~__shared_count(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8523,11 +8072,11 @@ void std::locale::__imp::__imp(std::string *a1, __int128 *a2, uint64_t a3)
   operator new();
 }
 
-void sub_1922E1B68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1922E1B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__shared_count::~__shared_count(v2);
+  std::__shared_count::~__shared_count(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8598,23 +8147,24 @@ std::string *std::locale::__imp::__imp(std::string *this, std::string *a2)
   return this;
 }
 
-void sub_1922E1E50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1922E1E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__shared_count::~__shared_count(v2);
+  std::__shared_count::~__shared_count(v3);
   _Unwind_Resume(a1);
 }
 
-std::string *std::locale::__imp::__imp(std::string *a1, uint64_t a2, _BYTE *a3, int a4)
+std::string *std::locale::__imp::__imp(std::string *a1, std::string::value_type *a2, _BYTE *a3, uint64_t a4)
 {
+  v4 = a4;
   a1->__r_.__value_.__r.__words[0] = &unk_1F06C1528;
   a1->__r_.__value_.__l.__size_ = -1;
   v8 = &a1->__r_.__value_.__r.__words[2];
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::vector[abi:ne200100](&a1->__r_.__value_.__r.__words[2], 0x1EuLL);
   if (a1 != a2)
   {
-    std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__assign_with_size[abi:ne200100]<std::locale::facet **,std::locale::facet **>(v8, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 3);
+    std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__assign_with_size[abi:ne200100]<std::locale::facet **,std::locale::facet **>(v8, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 3);
   }
 
   v10 = a1->__r_.__value_.__r.__words[2];
@@ -8639,32 +8189,32 @@ std::string *std::locale::__imp::__imp(std::string *a1, uint64_t a2, _BYTE *a3, 
     while (v11 < (data - v10) >> 3);
   }
 
-  if (a4)
+  if (v4)
   {
     operator new();
   }
 
-  if ((a4 & 2) != 0)
+  if ((v4 & 2) != 0)
   {
     operator new();
   }
 
-  if ((a4 & 8) != 0)
+  if ((v4 & 8) != 0)
   {
     operator new();
   }
 
-  if ((a4 & 0x10) != 0)
+  if ((v4 & 0x10) != 0)
   {
     operator new();
   }
 
-  if ((a4 & 0x20) != 0)
+  if ((v4 & 0x20) != 0)
   {
     operator new();
   }
 
-  if ((a4 & 4) != 0)
+  if ((v4 & 4) != 0)
   {
     operator new();
   }
@@ -8802,7 +8352,7 @@ LABEL_13:
   if ((v6 & 0x80000000) != 0)
   {
     v12 = *v4;
-    v13 = v4[1];
+    v13 = *(v4 + 1);
 
     std::string::__init_copy_ctor_external(a4, v12, v13);
   }
@@ -8810,7 +8360,7 @@ LABEL_13:
   else
   {
     *&a4->__r_.__value_.__l.__data_ = *v4;
-    a4->__r_.__value_.__r.__words[2] = v4[2];
+    a4->__r_.__value_.__r.__words[2] = *(v4 + 2);
   }
 }
 
@@ -8833,7 +8383,7 @@ std::string *std::locale::__imp::__imp(std::string *this, std::string *a2, const
     v12 = 1;
     do
     {
-      v13 = *(v10 + 8 * v11);
+      v13 = *&v10[8 * v11];
       if (v13)
       {
         atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
@@ -8844,7 +8394,7 @@ std::string *std::locale::__imp::__imp(std::string *this, std::string *a2, const
       v11 = v12++;
     }
 
-    while (v11 < &data[-v10] >> 3);
+    while (v11 < (data - v10) >> 3);
   }
 
   if (a4)
@@ -9307,7 +8857,7 @@ std::locale::__imp *std::locale::__imp::__imp(std::locale::__imp *this, const st
   }
 
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::vector[abi:ne200100](this + 2, v10);
-  std::string::basic_string[abi:ne200100]<0>(this + 288, "*");
+  std::string::basic_string[abi:ne200100]<0>(this + 36, "*");
   atomic_fetch_add_explicit(&a3->__shared_owners_, 1uLL, memory_order_relaxed);
   if (this != a2)
   {
@@ -9322,7 +8872,7 @@ std::locale::__imp *std::locale::__imp::__imp(std::locale::__imp *this, const st
     v14 = 1;
     do
     {
-      v15 = *(*v8 + 8 * v13);
+      v15 = *(*v8 + v13);
       if (v15)
       {
         atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
@@ -9345,11 +8895,11 @@ std::locale::__imp *std::locale::__imp::__imp(std::locale::__imp *this, const st
   return this;
 }
 
-void sub_1922E3180(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1922E3180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__shared_count::~__shared_count(v2);
+  std::__shared_count::~__shared_count(v3);
   _Unwind_Resume(a1);
 }
 
@@ -9425,20 +8975,20 @@ void std::locale::__imp::~__imp(std::__shared_count *this)
   JUMPOUT(0x193B0CA40);
 }
 
-void std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::resize(void *a1, unint64_t a2)
+void std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__append(a1, a2 - v2);
+    std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__append(result, a2 - v2);
   }
 }
 
@@ -9551,14 +9101,14 @@ std::locale *__cdecl std::locale::locale(std::locale *this, const char *a2)
   return result;
 }
 
-void sub_1922E3754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1922E3754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::stoi(&a10);
+    std::stoi();
   }
 
-  MEMORY[0x193B0CA40](v15, 312);
+  MEMORY[0x193B0CA40](v15, 312, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -9573,14 +9123,14 @@ std::locale *__cdecl std::locale::locale(std::locale *this, const std::locale *a
   return result;
 }
 
-void sub_1922E38CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1922E38CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::stoi(&a10);
+    std::stoi();
   }
 
-  MEMORY[0x193B0CA40](v15, 312);
+  MEMORY[0x193B0CA40](v15, 312, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -9694,11 +9244,11 @@ std::locale std::locale::global(const std::locale *a1)
   return v7;
 }
 
-void sub_1922E3C58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1922E3C58(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (v14 != v15 && !atomic_fetch_add(v14 + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v14 + 16))(v14);
+    (*(*v14 + 16))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9827,4 +9377,466 @@ void std::locale::facet::~facet(std::locale::facet *this)
   std::__shared_count::~__shared_count(this);
 
   JUMPOUT(0x193B0CA40);
+}
+
+void std::locale::facet::__on_zero_shared(std::locale::facet *this)
+{
+  if (this)
+  {
+    (this->~facet_0)();
+  }
+}
+
+std::collate_byname<char> *__cdecl std::collate_byname<char>::collate_byname(std::collate_byname<char> *this, const char *__n, size_t __refs)
+{
+  this[1].__l_ = (__refs - 1);
+  v5 = newlocale(63, __n, 0);
+  this[2].__l_ = v5;
+  if (!v5)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v8, __n);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("collate_byname<char>::collate_byname failed to construct for ", &v8, &v9);
+    if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v7 = &v9;
+    }
+
+    else
+    {
+      v7 = v9.__r_.__value_.__r.__words[0];
+    }
+
+    std::__throw_runtime_error(v7);
+  }
+
+  return this;
+}
+
+void sub_1922E3F78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    std::stoi();
+  }
+
+  if (SHIBYTE(a11) < 0)
+  {
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
+  }
+
+  std::__shared_count::~__shared_count(v17);
+  _Unwind_Resume(a1);
+}
+
+__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(const char *a1@<X0>, std::string *a2@<X1>, std::string *a3@<X8>)
+{
+  v6 = strlen(a1);
+  v7 = std::string::insert(a2, 0, a1, v6);
+  result = *v7;
+  *a3 = *v7->n128_u8;
+  v7->n128_u64[0] = 0;
+  v7->n128_u64[1] = 0;
+  v7[1].n128_u64[0] = 0;
+  return result;
+}
+
+std::collate_byname<char> *__cdecl std::collate_byname<char>::collate_byname(std::collate_byname<char> *this, const std::string *__n, size_t __refs)
+{
+  v3 = __n;
+  this[1].__l_ = (__refs - 1);
+  if ((__n->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    __n = __n->__r_.__value_.__r.__words[0];
+  }
+
+  v5 = newlocale(63, __n, 0);
+  this[2].__l_ = v5;
+  if (!v5)
+  {
+    std::operator+<char>("collate_byname<char>::collate_byname failed to construct for ", v3, v8);
+    if (v9 >= 0)
+    {
+      v7 = v8;
+    }
+
+    else
+    {
+      v7 = v8[0];
+    }
+
+    std::__throw_runtime_error(v7);
+  }
+
+  return this;
+}
+
+void sub_1922E40D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    std::stoi();
+  }
+
+  std::__shared_count::~__shared_count(v15);
+  _Unwind_Resume(a1);
+}
+
+void std::collate_byname<char>::~collate_byname(std::collate_byname<char> *this)
+{
+  freelocale(this[2].__l_);
+
+  std::__shared_count::~__shared_count(this);
+}
+
+{
+  std::collate_byname<char>::~collate_byname(this);
+
+  JUMPOUT(0x193B0CA40);
+}
+
+int std::collate_byname<char>::do_compare(const std::collate_byname<char> *this, const std::collate_byname<char>::char_type *__lo1, const std::collate_byname<char>::char_type *__hi1, const std::collate_byname<char>::char_type *__lo2, const std::collate_byname<char>::char_type *__hi2)
+{
+  std::string::__init_with_size[abi:ne200100]<char const*,char const*>(__dst, __lo1, __hi1, __hi1 - __lo1);
+  std::string::__init_with_size[abi:ne200100]<char const*,char const*>(v12, __lo2, __hi2, __hi2 - __lo2);
+  if (v15 >= 0)
+  {
+    v8 = __dst;
+  }
+
+  else
+  {
+    v8 = __dst[0];
+  }
+
+  if (v13 >= 0)
+  {
+    v9 = v12;
+  }
+
+  else
+  {
+    v9 = v12[0];
+  }
+
+  v10 = strcoll_l(v8, v9, this[2].__l_);
+  if (SHIBYTE(v13) < 0)
+  {
+    MEMORY[0x193B0CA40](v12[0], v13 & 0x7FFFFFFFFFFFFFFFLL);
+  }
+
+  if (SHIBYTE(v15) < 0)
+  {
+    MEMORY[0x193B0CA40](__dst[0], v15 & 0x7FFFFFFFFFFFFFFFLL);
+  }
+
+  if (v10 < 0)
+  {
+    return -1;
+  }
+
+  else
+  {
+    return v10 != 0;
+  }
+}
+
+void sub_1922E4264(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17)
+{
+  if (a14 < 0)
+  {
+    std::stoi();
+  }
+
+  if (SHIBYTE(a17) < 0)
+  {
+    MEMORY[0x193B0CA40](a15, a17 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+std::collate_byname<char>::string_type *__cdecl std::collate_byname<char>::do_transform(std::collate_byname<char>::string_type *__return_ptr retstr, const std::collate_byname<char> *this, const std::collate_byname<char>::char_type *__lo, const std::collate_byname<char>::char_type *__hi)
+{
+  std::string::__init_with_size[abi:ne200100]<char const*,char const*>(__dst, __lo, __hi, __hi - __lo);
+  if (v13 >= 0)
+  {
+    v6 = __dst;
+  }
+
+  else
+  {
+    v6 = __dst[0];
+  }
+
+  v7 = strxfrm_l(0, v6, 0, this[2].__l_);
+  std::string::basic_string[abi:ne200100](retstr, v7, 0);
+  size = SHIBYTE(retstr->__r_.__value_.__r.__words[2]);
+  if (size >= 0)
+  {
+    v9 = retstr;
+  }
+
+  else
+  {
+    v9 = retstr->__r_.__value_.__r.__words[0];
+  }
+
+  if (v13 >= 0)
+  {
+    v10 = __dst;
+  }
+
+  else
+  {
+    v10 = __dst[0];
+  }
+
+  if (size < 0)
+  {
+    size = retstr->__r_.__value_.__l.__size_;
+  }
+
+  result = strxfrm_l(v9, v10, size + 1, this[2].__l_);
+  if (SHIBYTE(v13) < 0)
+  {
+    return MEMORY[0x193B0CA40](__dst[0], v13 & 0x7FFFFFFFFFFFFFFFLL);
+  }
+
+  return result;
+}
+
+void sub_1922E4364(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  if (*(v12 + 23) < 0)
+  {
+    std::stoi();
+  }
+
+  if (SHIBYTE(a12) < 0)
+  {
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+std::collate_byname<wchar_t> *__cdecl std::collate_byname<wchar_t>::collate_byname(std::collate_byname<wchar_t> *this, const char *__n, size_t __refs)
+{
+  this[1].__l_ = (__refs - 1);
+  v5 = newlocale(63, __n, 0);
+  this[2].__l_ = v5;
+  if (!v5)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v8, __n);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("collate_byname<wchar_t>::collate_byname(size_t refs) failed to construct for ", &v8, &v9);
+    if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v7 = &v9;
+    }
+
+    else
+    {
+      v7 = v9.__r_.__value_.__r.__words[0];
+    }
+
+    std::__throw_runtime_error(v7);
+  }
+
+  return this;
+}
+
+void sub_1922E4440(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    std::stoi();
+  }
+
+  if (SHIBYTE(a11) < 0)
+  {
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
+  }
+
+  std::__shared_count::~__shared_count(v17);
+  _Unwind_Resume(a1);
+}
+
+std::collate_byname<wchar_t> *__cdecl std::collate_byname<wchar_t>::collate_byname(std::collate_byname<wchar_t> *this, const std::string *__n, size_t __refs)
+{
+  v3 = __n;
+  this[1].__l_ = (__refs - 1);
+  if ((__n->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    __n = __n->__r_.__value_.__r.__words[0];
+  }
+
+  v5 = newlocale(63, __n, 0);
+  this[2].__l_ = v5;
+  if (!v5)
+  {
+    std::operator+<char>("collate_byname<wchar_t>::collate_byname(size_t refs) failed to construct for ", v3, v8);
+    if (v9 >= 0)
+    {
+      v7 = v8;
+    }
+
+    else
+    {
+      v7 = v8[0];
+    }
+
+    std::__throw_runtime_error(v7);
+  }
+
+  return this;
+}
+
+void sub_1922E4540(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    std::stoi();
+  }
+
+  std::__shared_count::~__shared_count(v15);
+  _Unwind_Resume(a1);
+}
+
+void std::collate_byname<wchar_t>::~collate_byname(std::collate_byname<wchar_t> *this)
+{
+  freelocale(this[2].__l_);
+
+  std::__shared_count::~__shared_count(this);
+}
+
+{
+  std::collate_byname<wchar_t>::~collate_byname(this);
+
+  JUMPOUT(0x193B0CA40);
+}
+
+int std::collate_byname<wchar_t>::do_compare(const std::collate_byname<wchar_t> *this, const std::collate_byname<wchar_t>::char_type *__lo1, const std::collate_byname<wchar_t>::char_type *__hi1, const std::collate_byname<wchar_t>::char_type *__lo2, const std::collate_byname<wchar_t>::char_type *__hi2)
+{
+  std::wstring::__init_with_size[abi:ne200100]<wchar_t const*,wchar_t const*>(__dst, __lo1, __hi1, __hi1 - __lo1);
+  std::wstring::__init_with_size[abi:ne200100]<wchar_t const*,wchar_t const*>(v12, __lo2, __hi2, __hi2 - __lo2);
+  if (v15 >= 0)
+  {
+    v8 = __dst;
+  }
+
+  else
+  {
+    v8 = __dst[0];
+  }
+
+  if (v13 >= 0)
+  {
+    v9 = v12;
+  }
+
+  else
+  {
+    v9 = v12[0];
+  }
+
+  v10 = wcscoll_l(v8, v9, this[2].__l_);
+  if (SHIBYTE(v13) < 0)
+  {
+    MEMORY[0x193B0CA40](v12[0], 4 * v13);
+  }
+
+  if (SHIBYTE(v15) < 0)
+  {
+    MEMORY[0x193B0CA40](__dst[0], 4 * v15);
+  }
+
+  if (v10 < 0)
+  {
+    return -1;
+  }
+
+  else
+  {
+    return v10 != 0;
+  }
+}
+
+void sub_1922E46D4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17)
+{
+  if (a14 < 0)
+  {
+    std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get();
+  }
+
+  if (SHIBYTE(a17) < 0)
+  {
+    MEMORY[0x193B0CA40](a15, 4 * a17, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+std::collate_byname<wchar_t>::string_type *__cdecl std::collate_byname<wchar_t>::do_transform(std::collate_byname<wchar_t>::string_type *__return_ptr retstr, const std::collate_byname<wchar_t> *this, const std::collate_byname<wchar_t>::char_type *__lo, const std::collate_byname<wchar_t>::char_type *__hi)
+{
+  std::wstring::__init_with_size[abi:ne200100]<wchar_t const*,wchar_t const*>(__dst, __lo, __hi, __hi - __lo);
+  if (v13 >= 0)
+  {
+    v6 = __dst;
+  }
+
+  else
+  {
+    v6 = __dst[0];
+  }
+
+  v7 = wcsxfrm_l(0, v6, 0, this[2].__l_);
+  std::wstring::basic_string[abi:ne200100](retstr, v7, 0);
+  size = SHIBYTE(retstr->__r_.__value_.__r.__words[2]);
+  if (size >= 0)
+  {
+    v9 = retstr;
+  }
+
+  else
+  {
+    v9 = retstr->__r_.__value_.__r.__words[0];
+  }
+
+  if (v13 >= 0)
+  {
+    v10 = __dst;
+  }
+
+  else
+  {
+    v10 = __dst[0];
+  }
+
+  if (size < 0)
+  {
+    size = retstr->__r_.__value_.__l.__size_;
+  }
+
+  result = wcsxfrm_l(v9, v10, size + 1, this[2].__l_);
+  if (SHIBYTE(v13) < 0)
+  {
+    return MEMORY[0x193B0CA40](__dst[0], 4 * v13);
+  }
+
+  return result;
+}
+
+void sub_1922E47D8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  if (*(v12 + 23) < 0)
+  {
+    std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::do_get();
+  }
+
+  if (SHIBYTE(a12) < 0)
+  {
+    MEMORY[0x193B0CA40](a10, 4 * a12, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
 }

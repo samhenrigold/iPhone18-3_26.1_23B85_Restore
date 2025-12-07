@@ -29,10 +29,7 @@
 
 uint64_t __29__AXUIMessageSender_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 16));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -187,54 +184,53 @@ void __96__AXUIMessageSender__sendLaunchAngelMessage_context_remainingAttempts_p
   count = xpc_dictionary_get_count(v5);
   if (!count)
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_21;
   }
 
   v10 = count;
-  v11 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v23 = 0;
-    v12 = [*(a1 + 32) messageSender:*(a1 + 40) extractCustomDataFromXPCReply:v5 numberOfKeyValuePairsForCustomData:&v23];
-    v10 -= v23;
+    v22 = 0;
+    v11 = [*(a1 + 32) messageSender:*(a1 + 40) extractCustomDataFromXPCReply:v5 numberOfKeyValuePairsForCustomData:&v22];
+    v10 -= v22;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   if (v10 != 2)
   {
     if (v10 == 1 && xpc_dictionary_get_BOOL(v5, _AXUIMessageReplyKeyDidSucceed[0]))
     {
-      v13 = *(a1 + 56);
-      if (v13)
+      v12 = *(a1 + 56);
+      if (v12)
       {
-        (*(v13 + 16))(v13, v12, 0, 0);
+        (*(v12 + 16))(v12, v11, 0, 0);
       }
 
       goto LABEL_6;
     }
 
 LABEL_21:
-    v22 = 0;
-    v8 = [MEMORY[0x277CE69B8] dictionaryFromXPCMessage:v5 error:&v22];
-    v20 = v22;
-    v7 = v20;
+    v21 = 0;
+    v8 = [MEMORY[0x277CE69B8] dictionaryFromXPCMessage:v5 error:&v21];
+    v19 = v21;
+    v7 = v19;
     if (v8)
     {
-      v21 = *(a1 + 56);
-      if (v21)
+      v20 = *(a1 + 56);
+      if (v20)
       {
-        (*(v21 + 16))(v21, v12, v8, 0);
+        (*(v20 + 16))(v20, v11, v8, 0);
       }
 
       goto LABEL_5;
     }
 
-    if (v20)
+    if (v19)
     {
 LABEL_4:
       (*(*(a1 + 64) + 16))();
@@ -250,23 +246,23 @@ LABEL_3:
   }
 
   string = xpc_dictionary_get_string(v5, _AXUIMessageReplyKeyErrorDomain[0]);
-  v15 = xpc_dictionary_get_string(v5, _AXUIMessageReplyKeyErrorDescription[0]);
+  v14 = xpc_dictionary_get_string(v5, _AXUIMessageReplyKeyErrorDescription[0]);
   if (!string)
   {
     goto LABEL_21;
   }
 
-  v16 = v15;
-  if (!v15)
+  v15 = v14;
+  if (!v14)
   {
     goto LABEL_21;
   }
 
   if (*(a1 + 56))
   {
-    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
-    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v16];
-    v19 = [MEMORY[0x277CCA9B8] ax_errorWithDomain:v17 description:{@"%@", v18}];
+    v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
+    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v15];
+    v18 = [MEMORY[0x277CCA9B8] ax_errorWithDomain:v16 description:{@"%@", v17}];
     (*(*(a1 + 56) + 16))();
   }
 
@@ -491,25 +487,23 @@ void __118__AXUIMessageSender__sendXPCMessage_context_completionBlock_completion
 
 void __118__AXUIMessageSender__sendXPCMessage_context_completionBlock_completionRequiresWritingBlock_targetAccessQueue_timeout___block_invoke_35(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = AXLogIPC();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_23DC04000, v2, OS_LOG_TYPE_DEFAULT, "Error: Sending message timeout, timer fired", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_23DC04000, v2, OS_LOG_TYPE_DEFAULT, "Error: Sending message timeout, timer fired", v6, 2u);
   }
 
   [*(a1 + 32) setSendingTimer:0];
   v3 = MEMORY[0x277CCA9B8];
-  v8 = *MEMORY[0x277CCA450];
-  v9[0] = @"Sending message timeout";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CCA450];
+  v8[0] = @"Sending message timeout";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v3 errorWithDomain:@"AXUIMessageSenderXPC" code:0 userInfo:v4];
 
   [*(a1 + 40) stopSendingXPCMessage];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performBlock:(id)block inAccessQueue:(id)queue treatAsWritingBlock:(BOOL)writingBlock
@@ -718,36 +712,31 @@ void __73__AXUIMessageSender_sendSynchronousMessage_withIdentifier_context_error
 
 - (void)_sendXPCMessage:(NSObject *)a1 context:completionBlock:completionRequiresWritingBlock:targetAccessQueue:timeout:.cold.1(NSObject *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACC8] currentThread];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_23DC04000, a1, OS_LOG_TYPE_DEBUG, "AXUIMessageSender created timeout timer in thread: %@", v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23DC04000, a1, OS_LOG_TYPE_DEBUG, "AXUIMessageSender created timeout timer in thread: %@", v3, 0xCu);
 }
 
 void __118__AXUIMessageSender__sendXPCMessage_context_completionBlock_completionRequiresWritingBlock_targetAccessQueue_timeout___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_23DC04000, v0, OS_LOG_TYPE_ERROR, "Error sending XPC message: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23DC04000, v0, OS_LOG_TYPE_ERROR, "Error sending XPC message: %@", v1, 0xCu);
 }
 
 void __118__AXUIMessageSender__sendXPCMessage_context_completionBlock_completionRequiresWritingBlock_targetAccessQueue_timeout___block_invoke_34_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_23DC04000, v0, OS_LOG_TYPE_DEBUG, "Completed: Sending message, error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23DC04000, v0, OS_LOG_TYPE_DEBUG, "Completed: Sending message, error: %@", v1, 0xCu);
 }
 
 - (void)sendAsynchronousMessage:withIdentifier:context:targetAccessQueue:completionRequiresWritingBlock:completion:timeout:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_23DC04000, v0, OS_LOG_TYPE_FAULT, "Problem making xpcMessage to send: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_23DC04000, v0, OS_LOG_TYPE_FAULT, "Problem making xpcMessage to send: %@", v1, 0xCu);
 }
 
 @end

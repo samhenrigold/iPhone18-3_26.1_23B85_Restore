@@ -56,22 +56,22 @@
 
 - (BLSXPCAssertionService)initWithEndpoint:(id)endpoint
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   NSClassFromString(&cfstr_Bsserviceconne.isa);
   if (!endpointCopy)
   {
-    [BLSXPCAssertionService initWithEndpoint:a2];
+    [(BLSXPCAssertionService *)a2 initWithEndpoint:?];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [BLSXPCAssertionService initWithEndpoint:a2];
+    [(BLSXPCAssertionService *)a2 initWithEndpoint:?];
   }
 
-  v32.receiver = self;
-  v32.super_class = BLSXPCAssertionService;
-  v6 = [(BLSXPCAssertionService *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = BLSXPCAssertionService;
+  v6 = [(BLSXPCAssertionService *)&v31 init];
   v7 = v6;
   if (v6)
   {
@@ -96,37 +96,35 @@
     objc_storeStrong(&v7->_requestQueue, v17);
     objc_initWeak(&location, v7);
     v18 = v7->_connection;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __43__BLSXPCAssertionService_initWithEndpoint___block_invoke;
-    v26[3] = &unk_278428950;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __43__BLSXPCAssertionService_initWithEndpoint___block_invoke;
+    v25[3] = &unk_278428950;
     v19 = v14;
-    v27 = v19;
+    v26 = v19;
     v20 = v17;
-    v28 = v20;
+    v27 = v20;
     v21 = v7;
-    v29 = v21;
-    objc_copyWeak(&v30, &location);
-    [(BSServiceConnection *)v18 configureConnection:v26];
-    [(BSServiceConnection *)v7->_connection activate];
-    v22 = bls_assertions_log();
+    v28 = v21;
+    objc_copyWeak(&v29, &location);
+    [(BSServiceConnection *)v18 configureConnection:v25];
+    v22 = bls_assertions_log([(BSServiceConnection *)v7->_connection activate]);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v25 = v7->_connection;
+      v24 = v7->_connection;
       *buf = 134218498;
-      v34 = v21;
-      v35 = 2114;
-      v36 = v25;
-      v37 = 2114;
-      v38 = endpointCopy;
+      v33 = v21;
+      v34 = 2114;
+      v35 = v24;
+      v36 = 2114;
+      v37 = endpointCopy;
       _os_log_debug_impl(&dword_21FE25000, v22, OS_LOG_TYPE_DEBUG, "%p did activate connection:%{public}@ for endpoint:%{public}@", buf, 0x20u);
     }
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -157,113 +155,113 @@ void __43__BLSXPCAssertionService_initWithEndpoint___block_invoke_2(uint64_t a1)
 
 - (void)_queue_reconnectAssertions
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 8));
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v22 = _os_activity_create(&dword_21FE25000, "BLSXPCAssertionService Reconnect", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v22, &state);
-    v2 = bls_assertions_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v23 = _os_activity_create(&dword_21FE25000, "BLSXPCAssertionService Reconnect", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v23, &state);
+    v3 = bls_assertions_log(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy4 = self;
-      _os_log_impl(&dword_21FE25000, v2, OS_LOG_TYPE_DEFAULT, "%p Reconnect assertions", buf, 0xCu);
+      _os_log_impl(&dword_21FE25000, v3, OS_LOG_TYPE_DEFAULT, "%p Reconnect assertions", buf, 0xCu);
     }
 
     [*(self + 16) activate];
-    v3 = *(self + 32);
+    v4 = *(self + 32);
     objectEnumerator = [*(self + 24) objectEnumerator];
     allObjects = [objectEnumerator allObjects];
-    [v3 addObjectsFromArray:allObjects];
+    [v4 addObjectsFromArray:allObjects];
 
     allObjects2 = [*(self + 32) allObjects];
     [*(self + 24) removeAllObjects];
     remoteTarget = [*(self + 16) remoteTarget];
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v7 = allObjects2;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v35 count:16];
-    if (v8)
+    v26 = 0u;
+    v8 = allObjects2;
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v36 count:16];
+    if (v9)
     {
-      v9 = *v25;
+      v10 = *v26;
       while (2)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v9)
+          if (*v26 != v10)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
-          identifier = [v11 identifier];
-          [v11 setIdentifier:0];
-          acquisitionState = [v11 acquisitionState];
-          v14 = acquisitionState;
+          v12 = *(*(&v25 + 1) + 8 * i);
+          identifier = [v12 identifier];
+          [v12 setIdentifier:0];
+          acquisitionState = [v12 acquisitionState];
+          v15 = acquisitionState;
           if ((acquisitionState - 1) >= 2)
           {
             if (!acquisitionState)
             {
-              v19 = bls_assertions_log();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+              v21 = bls_assertions_log(0);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
                 *buf = 134218498;
                 selfCopy4 = self;
-                v31 = 2114;
-                v32 = v11;
-                v33 = 2114;
-                v34 = identifier;
-                _os_log_impl(&dword_21FE25000, v19, OS_LOG_TYPE_INFO, "%p %{public}@ oldIdentifier=%{public}@ is no longer acquired when handling the reconnection event, ignoring", buf, 0x20u);
+                v32 = 2114;
+                v33 = v12;
+                v34 = 2114;
+                v35 = identifier;
+                _os_log_impl(&dword_21FE25000, v21, OS_LOG_TYPE_INFO, "%p %{public}@ oldIdentifier=%{public}@ is no longer acquired when handling the reconnection event, ignoring", buf, 0x20u);
               }
             }
           }
 
           else
           {
-            identifier2 = [v11 identifier];
-            v16 = identifier2 == 0;
+            identifier2 = [v12 identifier];
+            v17 = identifier2 == 0;
 
-            if (!v16)
+            if (!v17)
             {
-              v20 = bls_assertions_log();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+              v22 = bls_assertions_log(v18);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
               {
                 *buf = 134218498;
                 selfCopy4 = self;
-                v31 = 2114;
-                v32 = v11;
-                v33 = 2114;
-                v34 = identifier;
-                _os_log_impl(&dword_21FE25000, v20, OS_LOG_TYPE_INFO, "%p %{public}@ oldIdentifier=%{public}@ has a new identifier, ignoring", buf, 0x20u);
+                v32 = 2114;
+                v33 = v12;
+                v34 = 2114;
+                v35 = identifier;
+                _os_log_impl(&dword_21FE25000, v22, OS_LOG_TYPE_INFO, "%p %{public}@ oldIdentifier=%{public}@ has a new identifier, ignoring", buf, 0x20u);
               }
 
               goto LABEL_24;
             }
 
-            v17 = bls_assertions_log();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+            v19 = bls_assertions_log(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
-              v18 = NSStringFromBLSAssertionAcquisitionState(v14);
+              v20 = NSStringFromBLSAssertionAcquisitionState(v15);
               *buf = 134218498;
               selfCopy4 = self;
-              v31 = 2048;
-              v32 = v11;
-              v33 = 2114;
-              v34 = v18;
-              _os_log_impl(&dword_21FE25000, v17, OS_LOG_TYPE_INFO, "%p Reacquiring assertion %p for state %{public}@", buf, 0x20u);
+              v32 = 2048;
+              v33 = v12;
+              v34 = 2114;
+              v35 = v20;
+              _os_log_impl(&dword_21FE25000, v19, OS_LOG_TYPE_INFO, "%p Reacquiring assertion %p for state %{public}@", buf, 0x20u);
             }
 
-            [(BLSXPCAssertionService *)self _queue_acquireAssertion:v11 withRemoteTarget:remoteTarget];
+            [(BLSXPCAssertionService *)self _queue_acquireAssertion:v12 withRemoteTarget:remoteTarget];
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v24 objects:v35 count:16];
-        if (v8)
+        v9 = [v8 countByEnumeratingWithState:&v25 objects:v36 count:16];
+        if (v9)
         {
           continue;
         }
@@ -276,8 +274,6 @@ LABEL_24:
 
     os_activity_scope_leave(&state);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -291,17 +287,17 @@ LABEL_24:
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_lock_invalidated", v11, v12);
+    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -315,12 +311,13 @@ void __47__BLSXPCAssertionService_enqueueRemoteRequest___block_invoke(uint64_t a
 void __43__BLSXPCAssertionService_acquireAssertion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) isAcquired])
+  v4 = [*(a1 + 32) isAcquired];
+  if (v4)
   {
-    v4 = bls_assertions_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = bls_assertions_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __43__BLSXPCAssertionService_acquireAssertion___block_invoke_cold_1(a1, (a1 + 32));
+      __43__BLSXPCAssertionService_acquireAssertion___block_invoke_cold_1();
     }
   }
 
@@ -333,10 +330,10 @@ void __43__BLSXPCAssertionService_acquireAssertion___block_invoke(uint64_t a1, v
 void __52__BLSXPCAssertionService_cancelAssertion_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = bls_assertions_log();
+  v4 = bls_assertions_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __52__BLSXPCAssertionService_cancelAssertion_withError___block_invoke_cold_1(a1);
+    __52__BLSXPCAssertionService_cancelAssertion_withError___block_invoke_cold_1();
   }
 
   [*(*(a1 + 32) + 32) removeObject:*(a1 + 40)];
@@ -347,10 +344,10 @@ void __52__BLSXPCAssertionService_cancelAssertion_withError___block_invoke(uint6
 void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = bls_assertions_log();
+  v4 = bls_assertions_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke_cold_1(a1);
+    __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke_cold_1();
   }
 
   v5 = [*(a1 + 40) identifier];
@@ -359,7 +356,7 @@ void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke(ui
 
 - (id)_queue_assertionForIdentifier:(uint64_t)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (identifier)
   {
@@ -367,17 +364,17 @@ void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke(ui
     v4 = [*(identifier + 24) objectForKey:v3];
     if (!v4)
     {
-      v5 = bls_assertions_log();
+      v5 = bls_assertions_log(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(identifier + 24);
-        v9 = 134218498;
+        v7 = *(identifier + 24);
+        v8 = 134218498;
         identifierCopy = identifier;
-        v11 = 2112;
-        v12 = v3;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_error_impl(&dword_21FE25000, v5, OS_LOG_TYPE_ERROR, "%p could not find assertion:%@; %@", &v9, 0x20u);
+        v10 = 2112;
+        v11 = v3;
+        v12 = 2112;
+        v13 = v7;
+        _os_log_error_impl(&dword_21FE25000, v5, OS_LOG_TYPE_ERROR, "%p could not find assertion:%@; %@", &v8, 0x20u);
       }
 
       [*(identifier + 24) removeObjectForKey:v3];
@@ -389,55 +386,51 @@ void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke(ui
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_queue_setAssertion:(void *)assertion forIdentifier:
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   assertionCopy = assertion;
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 8));
-    [*(self + 24) setObject:v5 forKey:assertionCopy];
-    v7 = bls_assertions_log();
+    v7 = bls_assertions_log([*(self + 24) setObject:v5 forKey:assertionCopy]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 134218498;
+      v9 = 134218498;
       selfCopy = self;
       OUTLINED_FUNCTION_5();
-      v12 = v5;
-      v13 = v9;
-      v14 = assertionCopy;
-      _os_log_debug_impl(&dword_21FE25000, v7, OS_LOG_TYPE_DEBUG, "%p set assertion:%{public}@ for identifier:%{public}@", &v10, 0x20u);
+      v11 = v5;
+      v12 = v8;
+      v13 = assertionCopy;
+      _os_log_debug_impl(&dword_21FE25000, v7, OS_LOG_TYPE_DEBUG, "%p set assertion:%{public}@ for identifier:%{public}@", &v9, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_removeAssertionForIdentifier:(uint64_t)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (identifier)
   {
     dispatch_assert_queue_V2(*(identifier + 8));
-    v5 = bls_assertions_log();
-    if (OUTLINED_FUNCTION_10(v5))
+    v6 = bls_assertions_log(v5);
+    if (OUTLINED_FUNCTION_10(v6))
     {
       v7 = [*(identifier + 24) objectForKey:v4];
+      *v16 = 134218498;
+      *&v16[4] = identifier;
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_3(&dword_21FE25000, v8, v9, "%p remove assertion:%{public}@ for identifier:%{public}@", v10, v11, v12, v13, 2u);
+      *&v16[14] = v8;
+      *&v16[22] = v9;
+      OUTLINED_FUNCTION_3(&dword_21FE25000, v10, v11, "%p remove assertion:%{public}@ for identifier:%{public}@", v12, v13, v14, v15, *v16, *&v16[8], *&v16[16], v4);
     }
 
     [*(identifier + 24) removeObjectForKey:v4];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueRemoteRequest:(uint64_t)request
@@ -465,7 +458,7 @@ void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke(ui
   {
     dispatch_assert_queue_V2(*(self + 8));
     identifier = [v5 identifier];
-    v8 = bls_assertions_log();
+    v8 = bls_assertions_log(identifier);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
     if (identifier)
     {
@@ -505,17 +498,18 @@ void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke(ui
       {
 LABEL_7:
         isBSServiceConnectionError = [v12 isBSServiceConnectionError];
-        v14 = bls_assertions_log();
-        v15 = v14;
-        if (isBSServiceConnectionError)
+        v14 = isBSServiceConnectionError;
+        v15 = bls_assertions_log(isBSServiceConnectionError);
+        v16 = v15;
+        if (v14)
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             bls_loggingString = [v12 bls_loggingString];
             OUTLINED_FUNCTION_2_0();
             v43 = v39;
             v44 = v40;
-            _os_log_error_impl(&dword_21FE25000, v15, OS_LOG_TYPE_ERROR, "%p assertion:%{public}@ failed to acquire with connection error:%{public}@", buf, 0x20u);
+            _os_log_error_impl(&dword_21FE25000, v16, OS_LOG_TYPE_ERROR, "%p assertion:%{public}@ failed to acquire with connection error:%{public}@", buf, 0x20u);
           }
 
           identifier2 = [v5 identifier];
@@ -528,13 +522,13 @@ LABEL_7:
 
         else
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             bls_loggingString2 = [v12 bls_loggingString];
             OUTLINED_FUNCTION_2_0();
             v43 = v34;
             v44 = v35;
-            _os_log_impl(&dword_21FE25000, v15, OS_LOG_TYPE_INFO, "%p assertion:%{public}@ failed to acquire with error:%{public}@", buf, 0x20u);
+            _os_log_impl(&dword_21FE25000, v16, OS_LOG_TYPE_INFO, "%p assertion:%{public}@ failed to acquire with error:%{public}@", buf, 0x20u);
           }
 
           v36 = OUTLINED_FUNCTION_7();
@@ -550,8 +544,6 @@ LABEL_7:
 
 LABEL_13:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_assertionResponder:(void *)responder didFailToAcquireWithBLSError:
@@ -617,72 +609,64 @@ LABEL_13:
 
 - (void)assertion:(id)assertion failedToAcquireWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_requestQueue);
   v8 = [(BLSXPCAssertionService *)self _queue_assertionForIdentifier:assertionCopy];
-  v9 = bls_assertions_log();
+  v9 = bls_assertions_log(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_11();
-    _os_log_debug_impl(v11, v12, v13, v14, v15, 0x2Au);
+    _os_log_debug_impl(v10, v11, v12, v13, v14, 0x2Au);
   }
 
   if (v8)
   {
     [(BLSXPCAssertionService *)self queue_assertionResponder:v8 didFailToAcquireWithBLSError:errorCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionAcquired:(id)acquired
 {
-  v18 = *MEMORY[0x277D85DE8];
   acquiredCopy = acquired;
   OUTLINED_FUNCTION_12();
   v6 = OUTLINED_FUNCTION_7();
   v8 = [(BLSXPCAssertionService *)v6 _queue_assertionForIdentifier:v7];
-  v9 = bls_assertions_log();
+  v9 = bls_assertions_log(v8);
   if (OUTLINED_FUNCTION_10(v9))
   {
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21FE25000, v11, v12, "%p acquired assertion:%{public}@ with identifier:%{public}@", v13, v14, v15, v16, v17);
+    OUTLINED_FUNCTION_3(&dword_21FE25000, v10, v11, "%p acquired assertion:%{public}@ with identifier:%{public}@", v12, v13, v14, v15);
   }
 
   [v8 serviceDidAcquire];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionWillCancel:(id)cancel
 {
-  v18 = *MEMORY[0x277D85DE8];
   cancelCopy = cancel;
   OUTLINED_FUNCTION_12();
   v6 = OUTLINED_FUNCTION_7();
   v8 = [(BLSXPCAssertionService *)v6 _queue_assertionForIdentifier:v7];
-  v9 = bls_assertions_log();
+  v9 = bls_assertions_log(v8);
   if (OUTLINED_FUNCTION_10(v9))
   {
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21FE25000, v11, v12, "%p will cancel assertion:%{public}@ with identifier:%{public}@", v13, v14, v15, v16, v17);
+    OUTLINED_FUNCTION_3(&dword_21FE25000, v10, v11, "%p will cancel assertion:%{public}@ with identifier:%{public}@", v12, v13, v14, v15);
   }
 
   [v8 serviceWillCancel];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionDidCancel:(id)cancel withError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
   cancelCopy = cancel;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_requestQueue);
   v8 = [(BLSXPCAssertionService *)self _queue_assertionForIdentifier:cancelCopy];
-  v9 = bls_assertions_log();
+  v9 = bls_assertions_log(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_5();
@@ -693,112 +677,95 @@ LABEL_13:
 
   [v8 serviceDidCancelWithError:errorCopy];
   [(BLSXPCAssertionService *)self _queue_removeAssertionForIdentifier:cancelCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionPaused:(id)paused
 {
-  v18 = *MEMORY[0x277D85DE8];
   pausedCopy = paused;
   OUTLINED_FUNCTION_12();
   v6 = OUTLINED_FUNCTION_7();
   v8 = [(BLSXPCAssertionService *)v6 _queue_assertionForIdentifier:v7];
-  v9 = bls_assertions_log();
+  v9 = bls_assertions_log(v8);
   if (OUTLINED_FUNCTION_10(v9))
   {
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21FE25000, v11, v12, "%p paused assertion:%{public}@ with identifier:%{public}@", v13, v14, v15, v16, v17);
+    OUTLINED_FUNCTION_3(&dword_21FE25000, v10, v11, "%p paused assertion:%{public}@ with identifier:%{public}@", v12, v13, v14, v15);
   }
 
   [v8 serviceDidPause];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionResumed:(id)resumed
 {
-  v18 = *MEMORY[0x277D85DE8];
   resumedCopy = resumed;
   OUTLINED_FUNCTION_12();
   v6 = OUTLINED_FUNCTION_7();
   v8 = [(BLSXPCAssertionService *)v6 _queue_assertionForIdentifier:v7];
-  v9 = bls_assertions_log();
+  v9 = bls_assertions_log(v8);
   if (OUTLINED_FUNCTION_10(v9))
   {
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21FE25000, v11, v12, "%p resumed assertion:%{public}@ with identifier:%{public}@", v13, v14, v15, v16, v17);
+    OUTLINED_FUNCTION_3(&dword_21FE25000, v10, v11, "%p resumed assertion:%{public}@ with identifier:%{public}@", v12, v13, v14, v15);
   }
 
   [v8 serviceDidResume];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithEndpoint:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithEndpoint:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]", v12, v13);
+    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithEndpoint:(const char *)a1 .cold.2(const char *a1)
+- (void)initWithEndpoint:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_bs_assert_object != nil", v12, v13);
+    OUTLINED_FUNCTION_9(&dword_21FE25000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-void __43__BLSXPCAssertionService_acquireAssertion___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __43__BLSXPCAssertionService_acquireAssertion___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = *a2;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_21FE25000, v4, OS_LOG_TYPE_ERROR, "%p already aquired:%{public}@, ignoring", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FE25000, v0, OS_LOG_TYPE_ERROR, "%p already aquired:%{public}@, ignoring", v1, 0x16u);
 }
 
-void __52__BLSXPCAssertionService_cancelAssertion_withError___block_invoke_cold_1(uint64_t a1)
+void __52__BLSXPCAssertionService_cancelAssertion_withError___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_21FE25000, v3, OS_LOG_TYPE_DEBUG, "%p tell remote to cancel assertion:%{public}@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21FE25000, v0, OS_LOG_TYPE_DEBUG, "%p tell remote to cancel assertion:%{public}@", v1, 0x16u);
 }
 
-void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke_cold_1(uint64_t a1)
+void __55__BLSXPCAssertionService_restartAssertionTimeoutTimer___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_21FE25000, v3, OS_LOG_TYPE_DEBUG, "%p tell remote to restart timeout timer for assertion:%{public}@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21FE25000, v0, OS_LOG_TYPE_DEBUG, "%p tell remote to restart timeout timer for assertion:%{public}@", v1, 0x16u);
 }
 
 @end

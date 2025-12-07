@@ -5,6 +5,7 @@
 - (id)pickerView:(id)view titleForRow:(int64_t)row forComponent:(int64_t)component;
 - (id)selectedSiriRecognitionLanguage;
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCSelectSiriRecognitionLanguageViewController
@@ -19,6 +20,16 @@
   v2 = [NAFuture futureWithBlock:v4];
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = HSPCSelectSiriRecognitionLanguageViewController;
+  [(HSPCSelectSiriRecognitionLanguageViewController *)&v6 viewWillAppear:appear];
+  contentView = [(HSPCSelectSiriRecognitionLanguageViewController *)self contentView];
+  pickerView = [contentView pickerView];
+  [pickerView selectRow:0 inComponent:0 animated:0];
 }
 
 - (id)selectedSiriRecognitionLanguage

@@ -73,7 +73,7 @@
       v8 = _pastisKeyServerURL != 0;
       if (_pastisKeyServerURL)
       {
-        v32 = _pastisCertificateURL;
+        v31 = _pastisCertificateURL;
         SSVAVFoundationFramework();
         v9 = SSVWeakLinkedStringConstantForString();
         SSVAVFoundationFramework();
@@ -97,20 +97,20 @@
         block[1] = 3221225472;
         block[2] = sub_100116120;
         block[3] = &unk_100328F70;
-        objc_copyWeak(&v40, location);
-        v41 = v14;
-        v34 = resourceCopy;
-        _pastisCertificateURL = v32;
-        v35 = v32;
-        v36 = _pastisKeyServerURL;
+        objc_copyWeak(&v39, location);
+        v40 = v14;
+        v33 = resourceCopy;
+        _pastisCertificateURL = v31;
+        v34 = v31;
+        v35 = _pastisKeyServerURL;
         selfCopy = self;
-        v38 = v9;
-        v39 = v10;
+        v37 = v9;
+        v38 = v10;
         v28 = v10;
         v29 = v9;
         dispatch_async(v27, block);
 
-        objc_destroyWeak(&v40);
+        objc_destroyWeak(&v39);
         objc_destroyWeak(location);
         goto LABEL_34;
       }
@@ -148,8 +148,7 @@
         LODWORD(location[0]) = 138412290;
         *(location + 4) = objc_opt_class();
         v25 = *(location + 4);
-        LODWORD(v31) = 12;
-        v26 = _os_log_send_and_compose_impl();
+        v26 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%@: Failed to handle resource loading request. Key server URL is nil", location, 12);
 
         if (!v26)
         {
@@ -158,7 +157,7 @@ LABEL_34:
           goto LABEL_35;
         }
 
-        oSLogObject = [NSString stringWithCString:v26 encoding:4, location, v31];
+        oSLogObject = [NSString stringWithCString:v26 encoding:4];
         free(v26);
         SSFileLog();
       }
@@ -199,8 +198,7 @@ LABEL_34:
       LODWORD(location[0]) = 138412290;
       *(location + 4) = objc_opt_class();
       v19 = *(location + 4);
-      LODWORD(v31) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%@: Failed to handle resource loading request. Certificate URL is nil", location, 12);
 
       if (!v20)
       {
@@ -211,7 +209,7 @@ LABEL_35:
         goto LABEL_36;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v20 encoding:4, location, v31];
+      oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
@@ -310,16 +308,21 @@ LABEL_36:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -328,33 +331,33 @@ LABEL_36:
     {
       v11 = objc_opt_class();
       v12 = v11;
-      [libraryItem itemMediaPath];
+      itemMediaPath = [libraryItem itemMediaPath];
       v21 = 138412546;
       v22 = v11;
-      v24 = v23 = 2112;
-      LODWORD(v19) = 22;
-      v13 = _os_log_send_and_compose_impl();
+      v23 = 2112;
+      v24 = itemMediaPath;
+      v14 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding media item to iPod library: %@", &v21, 22);
 
-      if (!v13)
+      if (!v14)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v21, v19];
-      free(v13);
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
+      free(v14);
       SSFileLog();
     }
 
-LABEL_13:
-    v14 = +[IPodLibrary deviceIPodLibrary];
+LABEL_14:
+    v15 = +[IPodLibrary deviceIPodLibrary];
     v20 = 0;
-    v15 = [v14 addLibraryItem:libraryItem error:&v20];
+    v16 = [v15 addLibraryItem:libraryItem error:&v20];
 
-    if (v15)
+    if (v16)
     {
-      v16 = [ML3Track alloc];
-      v17 = +[ML3MusicLibrary sharedLibrary];
-      v5 = [v16 initWithPersistentID:v15 inLibrary:v17];
+      v17 = [ML3Track alloc];
+      v18 = +[ML3MusicLibrary sharedLibrary];
+      v5 = [v17 initWithPersistentID:v16 inLibrary:v18];
     }
 
     else

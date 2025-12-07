@@ -28,36 +28,35 @@
 
 - (id)nextObject
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v3 = self->_enumerator;
-  v4 = [(NSEnumerator *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSEnumerator *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = (*(self->_transform + 2))(self->_transform);
-        if (v9)
+        v8 = (*(self->_transform + 2))(self->_transform);
+        if (v8)
         {
-          v10 = v9;
+          v9 = v8;
           goto LABEL_11;
         }
       }
 
-      v5 = [(NSEnumerator *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSEnumerator *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -67,12 +66,10 @@
     }
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v9;
 }
 
 @end

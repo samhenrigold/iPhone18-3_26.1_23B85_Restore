@@ -203,12 +203,12 @@
     [(NSLayoutConstraint *)titleLabelHeightAnchor constant];
     v7 = v6;
     activityTitle = [proxyCopy activityTitle];
-    [activityTitle slotTextHeight];
-    v10 = v9 / _ShareSheetDeviceScreenScale();
+    slotTextHeight = [activityTitle slotTextHeight];
+    v12 = v11 / _ShareSheetDeviceScreenScale(slotTextHeight, v10);
 
-    [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setConstant:v10];
+    [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setConstant:v12];
     [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setActive:1];
-    if (vabdd_f64(v7, v10) < 0.00000011920929)
+    if (vabdd_f64(v7, v12) < 0.00000011920929)
     {
       goto LABEL_4;
     }

@@ -284,7 +284,7 @@ LABEL_11:
   return v3;
 }
 
-uint64_t __69__FITypicalDayActivityModel_valueOfTypicalDayBriskMinutesEarnedByNow__block_invoke(uint64_t a1)
+void *__69__FITypicalDayActivityModel_valueOfTypicalDayBriskMinutesEarnedByNow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_currentValueForHistogram:*(*(a1 + 32) + 32)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -310,7 +310,7 @@ uint64_t __69__FITypicalDayActivityModel_valueOfTypicalDayBriskMinutesEarnedByNo
   return v3;
 }
 
-uint64_t __61__FITypicalDayActivityModel_valueOfTypicalDayMoveEarnedByNow__block_invoke(uint64_t a1)
+void *__61__FITypicalDayActivityModel_valueOfTypicalDayMoveEarnedByNow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_currentValueForHistogram:*(*(a1 + 32) + 24)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -579,7 +579,7 @@ void __84__FITypicalDayActivityModel_willCompleteStandGoalOrItIsTooLateWithBuffe
   return v4;
 }
 
-uint64_t __58__FITypicalDayActivityModel_currentExerciseGoalPercentage__block_invoke(uint64_t a1)
+void *__58__FITypicalDayActivityModel_currentExerciseGoalPercentage__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) _exerciseTimeCompletionPercentage];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -606,7 +606,7 @@ uint64_t __58__FITypicalDayActivityModel_currentExerciseGoalPercentage__block_in
   return v4;
 }
 
-uint64_t __55__FITypicalDayActivityModel_currentStandGoalPercentage__block_invoke(uint64_t a1)
+void *__55__FITypicalDayActivityModel_currentStandGoalPercentage__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) _standHoursCompletionPercentage];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -657,7 +657,7 @@ uint64_t __55__FITypicalDayActivityModel_currentStandGoalPercentage__block_invok
 
 - (BOOL)projectedToBeatMoveRecordByEndOfDay
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   delegate = [(FITypicalDayActivityModel *)self delegate];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -669,7 +669,7 @@ LABEL_7:
       [FITypicalDayActivityModel projectedToBeatMoveRecordByEndOfDay];
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
   delegate2 = [(FITypicalDayActivityModel *)self delegate];
@@ -693,58 +693,54 @@ LABEL_7:
       _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "Not projected to beat move record by EOD because too few days of Activity history to earn achievement", buf, 2u);
     }
 
-LABEL_9:
-    v9 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   delegate4 = [(FITypicalDayActivityModel *)self delegate];
   [delegate4 bestMoveValue];
-  v14 = v13;
+  v13 = v12;
 
   *buf = 0;
-  v31 = buf;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v30 = buf;
+  v31 = 0x2020000000;
+  v32 = 0;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   queue = self->_queue;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __64__FITypicalDayActivityModel_projectedToBeatMoveRecordByEndOfDay__block_invoke;
-  v21[3] = &unk_2790054A8;
-  v21[4] = self;
-  v21[5] = buf;
-  v21[6] = &v26;
-  v21[7] = &v22;
-  dispatch_sync(queue, v21);
-  v16 = v27[3];
-  v17 = v23[3];
-  v18 = *(v31 + 3);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __64__FITypicalDayActivityModel_projectedToBeatMoveRecordByEndOfDay__block_invoke;
+  v20[3] = &unk_2790054A8;
+  v20[4] = self;
+  v20[5] = buf;
+  v20[6] = &v25;
+  v20[7] = &v21;
+  dispatch_sync(queue, v20);
+  v15 = v26[3];
+  v16 = v22[3];
+  v17 = *(v30 + 3);
   _HKInitializeLogging();
-  v19 = v16 - v17 + v18;
-  v20 = *MEMORY[0x277CCC290];
+  v18 = v15 - v16 + v17;
+  v19 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 134218240;
-    v35 = v19;
-    v36 = 2048;
-    v37 = v14;
-    _os_log_impl(&dword_24B35E000, v20, OS_LOG_TYPE_DEFAULT, "Projected to earn %f move credit by EOD; current record is %f", v34, 0x16u);
+    *v33 = 134218240;
+    v34 = v18;
+    v35 = 2048;
+    v36 = v13;
+    _os_log_impl(&dword_24B35E000, v19, OS_LOG_TYPE_DEFAULT, "Projected to earn %f move credit by EOD; current record is %f", v33, 0x16u);
   }
 
-  v9 = v19 > v14;
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
+  v9 = v18 > v13;
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
   _Block_object_dispose(buf, 8);
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -783,28 +779,28 @@ uint64_t __49__FITypicalDayActivityModel_rebuildWithInterval___block_invoke(uint
 
 - (NSString)debugDescription
 {
-  v33[9] = *MEMORY[0x277D85DE8];
-  v32[0] = @"startOfToday";
+  v32[9] = *MEMORY[0x277D85DE8];
+  v31[0] = @"startOfToday";
   startOfToday = [(FITypicalDayActivityModel *)self startOfToday];
-  v30 = [startOfToday description];
-  v33[0] = v30;
-  v32[1] = @"endOfToday";
+  v29 = [startOfToday description];
+  v32[0] = v29;
+  v31[1] = @"endOfToday";
   endOfToday = [(FITypicalDayActivityModel *)self endOfToday];
-  v28 = [endOfToday description];
-  v33[1] = v28;
-  v32[2] = @"percentageOfTypicalDayMoveComparedToNow";
+  v27 = [endOfToday description];
+  v32[1] = v27;
+  v31[2] = @"percentageOfTypicalDayMoveComparedToNow";
   v3 = MEMORY[0x277CCABB0];
   [(FITypicalDayActivityModel *)self percentageOfTypicalDayMoveComparedToNow];
-  v27 = [v3 numberWithDouble:?];
-  v26 = [v27 description];
-  v33[2] = v26;
-  v32[3] = @"percentageOfTypicalDayBriskMinutesEarnedComparedToNow";
+  v26 = [v3 numberWithDouble:?];
+  v25 = [v26 description];
+  v32[2] = v25;
+  v31[3] = @"percentageOfTypicalDayBriskMinutesEarnedComparedToNow";
   v4 = MEMORY[0x277CCABB0];
   [(FITypicalDayActivityModel *)self percentageOfTypicalDayBriskMinutesEarnedComparedToNow];
   v5 = [v4 numberWithDouble:?];
   v6 = [v5 description];
-  v33[3] = v6;
-  v32[4] = @"userEndOfDay";
+  v32[3] = v6;
+  v31[4] = @"userEndOfDay";
   userEndOfDay = [(FITypicalDayActivityModel *)self userEndOfDay];
   v8 = [userEndOfDay description];
   v9 = v8;
@@ -818,8 +814,8 @@ uint64_t __49__FITypicalDayActivityModel_rebuildWithInterval___block_invoke(uint
     v10 = &stru_285E60370;
   }
 
-  v33[4] = v10;
-  v32[5] = @"userStartOfDay";
+  v32[4] = v10;
+  v31[5] = @"userStartOfDay";
   userStartOfDay = [(FITypicalDayActivityModel *)self userStartOfDay];
   v12 = [userStartOfDay description];
   v13 = v12;
@@ -833,8 +829,8 @@ uint64_t __49__FITypicalDayActivityModel_rebuildWithInterval___block_invoke(uint
     v14 = &stru_285E60370;
   }
 
-  v33[5] = v14;
-  v32[6] = @"moveHistogram";
+  v32[5] = v14;
+  v31[6] = @"moveHistogram";
   descriptionArray = [(FISimpleHistogram *)self->_queue_moveHistogram descriptionArray];
   v16 = descriptionArray;
   if (descriptionArray)
@@ -847,8 +843,8 @@ uint64_t __49__FITypicalDayActivityModel_rebuildWithInterval___block_invoke(uint
     v17 = &stru_285E60370;
   }
 
-  v33[6] = v17;
-  v32[7] = @"exerciseHistogram";
+  v32[6] = v17;
+  v31[7] = @"exerciseHistogram";
   descriptionArray2 = [(FISimpleHistogram *)self->_queue_exerciseHistogram descriptionArray];
   v19 = descriptionArray2;
   if (descriptionArray2)
@@ -861,15 +857,13 @@ uint64_t __49__FITypicalDayActivityModel_rebuildWithInterval___block_invoke(uint
     v20 = &stru_285E60370;
   }
 
-  v33[7] = v20;
-  v32[8] = @"totalActiveDays";
+  v32[7] = v20;
+  v31[8] = @"totalActiveDays";
   v21 = [MEMORY[0x277CCABB0] numberWithInteger:{-[FITypicalDayActivityModel totalActiveDays](self, "totalActiveDays")}];
-  v33[8] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:9];
+  v32[8] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:9];
 
   v23 = [v22 description];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -947,7 +941,7 @@ LABEL_12:
   return v21;
 }
 
-uint64_t __77__FITypicalDayActivityModel_shouldSuggestWalkWithActivitySettingsController___block_invoke(uint64_t a1)
+void *__77__FITypicalDayActivityModel_shouldSuggestWalkWithActivitySettingsController___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) activityMoveMode];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1169,7 +1163,7 @@ LABEL_22:
 
 - (id)userEndOfDay
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   delegate = [(FITypicalDayActivityModel *)self delegate];
   currentDate = [delegate currentDate];
 
@@ -1218,15 +1212,13 @@ LABEL_22:
         v18 = *MEMORY[0x277CCC290];
         if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 138412290;
-          v22 = endOfDay;
-          _os_log_impl(&dword_24B35E000, v18, OS_LOG_TYPE_DEFAULT, "Projected off wrist date is nil, using earliest of default day length or midnight: %@", &v21, 0xCu);
+          v20 = 138412290;
+          v21 = endOfDay;
+          _os_log_impl(&dword_24B35E000, v18, OS_LOG_TYPE_DEFAULT, "Projected off wrist date is nil, using earliest of default day length or midnight: %@", &v20, 0xCu);
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return endOfDay;
 }
@@ -1344,7 +1336,7 @@ LABEL_22:
 
 void __65__FITypicalDayActivityModel_handleUpdatedCurrentActivitySummary___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2 && ([v2 _isDataLoading] & 1) == 0)
   {
@@ -1373,12 +1365,10 @@ void __65__FITypicalDayActivityModel_handleUpdatedCurrentActivitySummary___block
     {
       v4 = *(a1 + 32);
       *buf = 138412290;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_24B35E000, v3, OS_LOG_TYPE_DEFAULT, "Activity Summary (%@) is still loading.", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__FITypicalDayActivityModel_handleUpdatedCurrentActivitySummary___block_invoke_2(uint64_t a1)
@@ -1457,7 +1447,7 @@ void __65__FITypicalDayActivityModel_handleUpdatedCurrentActivitySummary___block
 
 - (void)_queue_updateHistogram:(id)histogram goalType:(int64_t)type activitySummary:(id)summary
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   histogramCopy = histogram;
   summaryCopy = summary;
   dispatch_assert_queue_V2(self->_queue);
@@ -1494,14 +1484,14 @@ void __65__FITypicalDayActivityModel_handleUpdatedCurrentActivitySummary___block
     _dailyBriskMinutesStatistics = MoveStatisticsForActivitySummary(summaryCopy);
     minuteUnit = UnitForMoveGoal([summaryCopy activityMoveMode]);
 LABEL_11:
-    v48 = minuteUnit;
+    v47 = minuteUnit;
     goto LABEL_13;
   }
 
-  v48 = 0;
+  v47 = 0;
   _dailyBriskMinutesStatistics = 0;
 LABEL_13:
-  if ([_dailyBriskMinutesStatistics count] && v48)
+  if ([_dailyBriskMinutesStatistics count] && v47)
   {
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
     _startDate = [summaryCopy _startDate];
@@ -1520,29 +1510,29 @@ LABEL_13:
     }
 
     typeCopy2 = type;
-    v44 = histogramCopy;
-    v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v43 = histogramCopy;
+    v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v43 = _dailyBriskMinutesStatistics;
+    v42 = _dailyBriskMinutesStatistics;
     obj = _dailyBriskMinutesStatistics;
-    v18 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v18 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v18)
     {
       v19 = v18;
-      v46 = *v50;
+      v45 = *v49;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v50 != v46)
+          if (*v49 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v49 + 1) + 8 * i);
+          v21 = *(*(&v48 + 1) + 8 * i);
           v22 = objc_autoreleasePoolPush();
           startDate = [v21 startDate];
           v24 = [(FITypicalDayActivityModel *)self _bucketIndexForDate:startDate startOfDay:_startDate bucketDates:v14];
@@ -1552,7 +1542,7 @@ LABEL_13:
           v28 = v24;
 
           quantityValue = [v21 quantityValue];
-          [quantityValue doubleValueForUnit:v48];
+          [quantityValue doubleValueForUnit:v47];
           v31 = v30;
 
           v32 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
@@ -1561,40 +1551,40 @@ LABEL_13:
           v14 = v26;
           _startDate = v25;
           v34 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
-          [v47 setObject:v32 forKey:v34];
+          [v46 setObject:v32 forKey:v34];
 
           objc_autoreleasePoolPop(v22);
         }
 
-        v19 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v19 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v19);
     }
 
-    v35 = [v47 objectForKeyedSubscript:&unk_285E6A710];
+    v35 = [v46 objectForKeyedSubscript:&unk_285E6A710];
 
     if (v35)
     {
       _HKInitializeLogging();
       v36 = *MEMORY[0x277CCC290];
-      histogramCopy = v44;
+      histogramCopy = v43;
       if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_ERROR))
       {
-        [FITypicalDayActivityModel _queue_updateHistogram:v36 goalType:summaryCopy activitySummary:?];
+        [FITypicalDayActivityModel _queue_updateHistogram:v36 goalType:summaryCopy activitySummary:typeCopy2];
       }
     }
 
     else
     {
-      histogramCopy = v44;
-      if ([v44 bucketCount] >= 1)
+      histogramCopy = v43;
+      if ([v43 bucketCount] >= 1)
       {
         v37 = 0;
         do
         {
           v38 = [MEMORY[0x277CCABB0] numberWithInteger:{v37, typeCopy2}];
-          v39 = [v47 objectForKey:v38];
+          v39 = [v46 objectForKey:v38];
 
           if (v39)
           {
@@ -1607,37 +1597,36 @@ LABEL_13:
           }
 
           [v40 doubleValue];
-          [v44 addValue:v37 toBucketAtIndex:?];
+          [v43 addValue:v37 toBucketAtIndex:?];
 
           ++v37;
         }
 
-        while (v37 < [v44 bucketCount]);
+        while (v37 < [v43 bucketCount]);
       }
     }
 
-    _dailyBriskMinutesStatistics = v43;
+    _dailyBriskMinutesStatistics = v42;
   }
 
 LABEL_36:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateProjectedOffWristDateHistogram:(id)histogram activitySummary:(id)summary activeDays:(int64_t *)days
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   histogramCopy = histogram;
   summaryCopy = summary;
   dispatch_assert_queue_V2(self->_queue);
   v10 = MoveStatisticsForActivitySummary(summaryCopy);
   v11 = MEMORY[0x277CCAC30];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __100__FITypicalDayActivityModel__queue_updateProjectedOffWristDateHistogram_activitySummary_activeDays___block_invoke;
-  v30[3] = &unk_2790054F8;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __100__FITypicalDayActivityModel__queue_updateProjectedOffWristDateHistogram_activitySummary_activeDays___block_invoke;
+  v29[3] = &unk_2790054F8;
   v12 = summaryCopy;
-  v31 = v12;
-  v13 = [v11 predicateWithBlock:v30];
+  v30 = v12;
+  v13 = [v11 predicateWithBlock:v29];
   v14 = [v10 filteredArrayUsingPredicate:v13];
 
   if ([v14 count])
@@ -1683,11 +1672,11 @@ LABEL_36:
         _startDate2 = [v12 _startDate];
         startDate2 = [lastObject startDate];
         *buf = 134218498;
-        v33 = v21;
-        v34 = 2114;
-        v35 = _startDate2;
-        v36 = 2114;
-        v37 = startDate2;
+        v32 = v21;
+        v33 = 2114;
+        v34 = _startDate2;
+        v35 = 2114;
+        v36 = startDate2;
         _os_log_impl(&dword_24B35E000, log, OS_LOG_TYPE_DEFAULT, "Last active index: %ld, for start date: %{public}@, object date: %{public}@", buf, 0x20u);
       }
 
@@ -1704,8 +1693,6 @@ LABEL_36:
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __100__FITypicalDayActivityModel__queue_updateProjectedOffWristDateHistogram_activitySummary_activeDays___block_invoke(uint64_t a1, void *a2)
@@ -1787,11 +1774,10 @@ LABEL_9:
 
 - (void)_queue_populateHistogramsAndOffWristDateForToday
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Error enumerating activity summaries %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Error enumerating activity summaries %{public}@", &v2, 0xCu);
 }
 
 void __77__FITypicalDayActivityModel__queue_populateHistogramsAndOffWristDateForToday__block_invoke(uint64_t a1, void *a2)
@@ -1826,7 +1812,7 @@ void __77__FITypicalDayActivityModel__queue_populateHistogramsAndOffWristDateFor
 
 - (int64_t)_bucketIndexForDate:(id)date startOfDay:(id)day bucketDates:(id)dates
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dayCopy = day;
   datesCopy = dates;
@@ -1834,10 +1820,10 @@ void __77__FITypicalDayActivityModel__queue_populateHistogramsAndOffWristDateFor
   {
     v12 = 0;
     *&v11 = 138544130;
-    v22 = v11;
+    v21 = v11;
     do
     {
-      v13 = [datesCopy objectAtIndexedSubscript:{v12, v22}];
+      v13 = [datesCopy objectAtIndexedSubscript:{v12, v21}];
       v14 = v12 + 1;
       if (v12 >= [datesCopy count] - 1)
       {
@@ -1858,14 +1844,14 @@ void __77__FITypicalDayActivityModel__queue_populateHistogramsAndOffWristDateFor
           v17 = *MEMORY[0x277CCC290];
           if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v22;
-            v24 = v13;
-            v25 = 2114;
-            v26 = v16;
-            v27 = 2114;
-            v28 = datesCopy;
-            v29 = 2048;
-            v30 = v12;
+            *buf = v21;
+            v23 = v13;
+            v24 = 2114;
+            v25 = v16;
+            v26 = 2114;
+            v27 = datesCopy;
+            v28 = 2048;
+            v29 = v12;
             _os_log_impl(&dword_24B35E000, v17, OS_LOG_TYPE_DEFAULT, "TypicalDayModel: binDate later than nextDate! %{public}@, %{public}@, %{public}@, %ld", buf, 0x2Au);
           }
         }
@@ -1892,7 +1878,6 @@ void __77__FITypicalDayActivityModel__queue_populateHistogramsAndOffWristDateFor
   v12 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1913,63 +1898,39 @@ LABEL_14:
   return WeakRetained;
 }
 
-- (void)_queue_briskWalkTimeToCompleteMoveGoalWithDateOfBirth:biologicalSex:height:weight:wheelchairUse:experienceType:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_briskWalkTimeToCompleteMoveGoalWithDateOfBirth:biologicalSex:height:weight:wheelchairUse:experienceType:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_briskWalkTimeToCompleteMoveGoalWithDateOfBirth:biologicalSex:height:weight:wheelchairUse:experienceType:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_queue_updateHistogram:(void *)a1 goalType:(void *)a2 activitySummary:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 _startDate];
-  v8 = 134218242;
-  v9 = a3;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_debug_impl(&dword_24B35E000, v5, OS_LOG_TYPE_DEBUG, "Building typical-day histogram (goaltype=%lu) with activity summary for date: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = a3;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_debug_impl(&dword_24B35E000, v5, OS_LOG_TYPE_DEBUG, "Building typical-day histogram (goaltype=%lu) with activity summary for date: %{public}@", &v7, 0x16u);
 }
 
-- (void)_queue_updateHistogram:(void *)a1 goalType:(void *)a2 activitySummary:.cold.2(void *a1, void *a2)
+- (void)_queue_updateHistogram:(void *)a1 goalType:(void *)a2 activitySummary:(uint64_t)a3 .cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = [a2 _startDate];
-  OUTLINED_FUNCTION_2_1(&dword_24B35E000, v5, v6, "Skipping summary with start date %{public}@ for ring type %lu because it has more data then we have buckets (over 24 hour day)", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = [a2 _startDate];
+  *v13 = 138543618;
+  *&v13[4] = v6;
+  *&v13[12] = 2048;
+  *&v13[14] = a3;
+  OUTLINED_FUNCTION_2_1(&dword_24B35E000, v7, v8, "Skipping summary with start date %{public}@ for ring type %lu because it has more data then we have buckets (over 24 hour day)", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 - (void)_queue_updateProjectedOffWristDateHistogram:(void *)a1 activitySummary:(void *)a2 activeDays:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 _startDate];
-  v14 = [a3 startDate];
-  OUTLINED_FUNCTION_2_1(&dword_24B35E000, v7, v8, "Last active index is NOT FOUND, for start date: %{public}@, object date: %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = [a3 startDate];
+  *v14 = 138543618;
+  *&v14[4] = v6;
+  *&v14[12] = 2114;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_2_1(&dword_24B35E000, v8, v9, "Last active index is NOT FOUND, for start date: %{public}@, object date: %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 @end

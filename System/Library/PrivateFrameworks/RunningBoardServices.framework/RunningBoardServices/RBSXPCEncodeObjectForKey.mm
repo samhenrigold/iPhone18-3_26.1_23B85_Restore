@@ -5,29 +5,29 @@
 
 void ___RBSXPCEncodeObjectForKey_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = *MEMORY[0x1E695D940];
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -37,20 +37,18 @@ void ___RBSXPCEncodeObjectForKey_block_invoke(uint64_t a1)
 
         else
         {
-          [MEMORY[0x1E695DF30] raise:v6 format:{@"Dictionary keys must be of type NSString", v11}];
+          [MEMORY[0x1E695DF30] raise:v6 format:{@"Dictionary keys must be of type NSString", v10}];
         }
 
         ++v7;
       }
 
       while (v4 != v7);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void ___RBSXPCEncodeObjectForKey_block_invoke_2(uint64_t a1, void *a2)

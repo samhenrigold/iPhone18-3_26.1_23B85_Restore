@@ -797,8 +797,6 @@
 
     MEMORY[0x277D82BD8](obj);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addPrimaryButton
@@ -992,8 +990,6 @@
 
     objc_storeStrong(location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addChildSetupImageView
@@ -1053,7 +1049,6 @@
   MEMORY[0x277D82BD8](leftAnchor);
   MEMORY[0x277D82BD8](contentView3);
   objc_storeStrong(v26, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addContentView
@@ -1180,7 +1175,6 @@ double __48__AKProximityAuthViewController__addContentView__block_invoke_2(uint6
   MEMORY[0x277D82BD8](widthAnchor);
   MEMORY[0x277D82BD8](v22);
   MEMORY[0x277D82BD8](heightAnchor);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_showVisualPairingContent
@@ -1321,7 +1315,6 @@ double __48__AKProximityAuthViewController__addContentView__block_invoke_2(uint6
   objc_storeStrong(&v62, 0);
   objc_storeStrong(&v63, 0);
   objc_storeStrong(v64, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_showPinCode
@@ -1411,7 +1404,6 @@ double __48__AKProximityAuthViewController__addContentView__block_invoke_2(uint6
   MEMORY[0x277D82BD8](v41);
   MEMORY[0x277D82BD8](heightAnchor);
   MEMORY[0x277D82BD8](pinCodeLabel10);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSecondaryView
@@ -1553,8 +1545,6 @@ double __48__AKProximityAuthViewController__addContentView__block_invoke_2(uint6
     MEMORY[0x277D82BD8](leadingAnchor3);
     objc_storeStrong(v58, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addPrivacyLinkController
@@ -1579,8 +1569,6 @@ double __48__AKProximityAuthViewController__addContentView__block_invoke_2(uint6
     MEMORY[0x277D82BD8](v4);
     MEMORY[0x277D82BD8](buttonTray2);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (AKProximityViewDelegate)delegate

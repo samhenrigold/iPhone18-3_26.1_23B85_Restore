@@ -31,7 +31,7 @@ uint64_t __38__SLDSyndicationService_sharedService__block_invoke()
   v17 = *MEMORY[0x277D85DE8];
   syndicationCopy = syndication;
   replyCopy = reply;
-  v7 = SLDaemonLogHandle();
+  v7 = SLDaemonLogHandle(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315394;
@@ -43,71 +43,69 @@ uint64_t __38__SLDSyndicationService_sharedService__block_invoke()
 
   if (![syndicationCopy length])
   {
-    v9 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [SLDSyndicationService removeMessageGUIDFromSyndication:syndicationCopy reply:v9];
+      [SLDSyndicationService removeMessageGUIDFromSyndication:syndicationCopy reply:v10];
     }
 
     goto LABEL_14;
   }
 
-  if (!IMCoreLibraryCore_0() || !getIMSPIRemoveMessageGUIDFromSyndicationSymbolLoc())
+  IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc = IMCoreLibraryCore_0(0);
+  if (!IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc || (IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc = getIMSPIRemoveMessageGUIDFromSyndicationSymbolLoc()) == 0)
   {
-    v9 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SLDaemonLogHandle(IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [SLDSyndicationService removeMessageGUIDFromSyndication:v9 reply:?];
+      [SLDSyndicationService removeMessageGUIDFromSyndication:v10 reply:?];
     }
 
 LABEL_14:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_15;
   }
 
-  v8 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = SLDaemonLogHandle(IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v13 = 136315394;
     v14 = "[SLDSyndicationService removeMessageGUIDFromSyndication:reply:]";
     v15 = 2112;
     v16 = syndicationCopy;
-    _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_INFO, "%s: Calling remove message guid: %@", &v13, 0x16u);
+    _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_INFO, "%s: Calling remove message guid: %@", &v13, 0x16u);
   }
 
-  v9 = syndicationCopy;
-  IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc = getIMSPIRemoveMessageGUIDFromSyndicationSymbolLoc();
-  if (!IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc)
+  v10 = syndicationCopy;
+  v11 = getIMSPIRemoveMessageGUIDFromSyndicationSymbolLoc();
+  if (!v11)
   {
     SLDCreateGroupPhotoImageWithGroupID_cold_2();
   }
 
-  IMSPIRemoveMessageGUIDFromSyndicationSymbolLoc(v9);
-  v11 = 1;
+  v11(v10);
+  v12 = 1;
 LABEL_15:
 
-  replyCopy[2](replyCopy, v11);
-  v12 = *MEMORY[0x277D85DE8];
+  replyCopy[2](replyCopy, v12);
 }
 
 - (void)removeMessageGUIDFromSyndication:(os_log_t)log reply:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SLDSyndicationService removeMessageGUIDFromSyndication:reply:]";
-  _os_log_error_impl(&dword_231772000, log, OS_LOG_TYPE_ERROR, "%s: IMSPIRemoveMessageGUIDFromSyndication is unavailable.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SLDSyndicationService removeMessageGUIDFromSyndication:reply:]";
+  _os_log_error_impl(&dword_231772000, log, OS_LOG_TYPE_ERROR, "%s: IMSPIRemoveMessageGUIDFromSyndication is unavailable.", &v1, 0xCu);
 }
 
 - (void)removeMessageGUIDFromSyndication:(uint64_t)a1 reply:(NSObject *)a2 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SLDSyndicationService removeMessageGUIDFromSyndication:reply:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "%s: invalid messageGUID passed in: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SLDSyndicationService removeMessageGUIDFromSyndication:reply:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "%s: invalid messageGUID passed in: %@", &v2, 0x16u);
 }
 
 @end

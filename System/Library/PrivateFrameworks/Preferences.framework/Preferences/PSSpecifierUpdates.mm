@@ -1709,7 +1709,7 @@ void __77__PSSpecifierUpdates_updatesByDiffingSpecifiers_withSpecifiers_changedB
   [v2 addObject:v3];
 }
 
-void __77__PSSpecifierUpdates_updatesByDiffingSpecifiers_withSpecifiers_changedBlock___block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
+void __77__PSSpecifierUpdates_updatesByDiffingSpecifiers_withSpecifiers_changedBlock___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = *(a1 + 32);

@@ -247,16 +247,16 @@
   }
 }
 
-uint64_t __55__TSTHiddenRowsColumnsCache_validateChangeDescriptors___block_invoke(uint64_t result, unint64_t a2)
+void *__55__TSTHiddenRowsColumnsCache_validateChangeDescriptors___block_invoke(void *result, unint64_t a2)
 {
-  v3 = *(result + 48);
+  v3 = *(result + 12);
   if (v3 > 20)
   {
     if (v3 <= 24)
     {
       if (v3 == 21)
       {
-        v18 = *(*(result + 32) + 8);
+        v18 = *(*(result + 4) + 8);
         v19 = HIWORD(a2);
         v20 = a2;
 LABEL_29:
@@ -266,7 +266,7 @@ LABEL_29:
 
       if (v3 == 22)
       {
-        v15 = *(*(result + 32) + 8);
+        v15 = *(*(result + 4) + 8);
         v16 = HIWORD(a2);
         v17 = a2;
 LABEL_24:
@@ -280,8 +280,8 @@ LABEL_24:
       }
 
 LABEL_15:
-      v4 = *(*(result + 32) + 8);
-      v5 = [*(result + 40) cellID];
+      v4 = *(*(result + 4) + 8);
+      v5 = [*(result + 5) cellID];
       v6 = a2;
       v7 = v4;
       v8 = HIWORD(a2);
@@ -295,7 +295,7 @@ LABEL_19:
       return result;
     }
 
-    v9 = *(*(result + 32) + 8);
+    v9 = *(*(result + 4) + 8);
     v10 = HIWORD(a2);
     v11 = a2;
   }
@@ -316,13 +316,13 @@ LABEL_19:
           goto LABEL_18;
         }
 
-        v15 = *(*(result + 32) + 16);
+        v15 = *(*(result + 4) + 16);
         v17 = BYTE2(a2);
         v16 = WORD2(a2);
         goto LABEL_24;
       }
 
-      v18 = *(*(result + 32) + 16);
+      v18 = *(*(result + 4) + 16);
       v20 = BYTE2(a2);
       v19 = WORD2(a2);
       goto LABEL_29;
@@ -333,10 +333,10 @@ LABEL_19:
       if (v3 == 6)
       {
 LABEL_18:
-        v12 = *(*(result + 32) + 16);
+        v12 = *(*(result + 4) + 16);
         v13 = BYTE2(a2);
         v14 = WORD2(a2);
-        v5 = ([*(result + 40) cellID] >> 16);
+        v5 = ([*(result + 5) cellID] >> 16);
         v7 = v12;
         v6 = v13;
         v8 = v14;
@@ -351,7 +351,7 @@ LABEL_18:
       goto LABEL_15;
     }
 
-    v9 = *(*(result + 32) + 16);
+    v9 = *(*(result + 4) + 16);
     v11 = BYTE2(a2);
     v10 = WORD2(a2);
   }

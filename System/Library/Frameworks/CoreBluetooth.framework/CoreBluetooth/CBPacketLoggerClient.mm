@@ -45,75 +45,71 @@
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__2;
-  v20 = __Block_byref_object_dispose__2;
-  v21 = 0;
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __48__CBPacketLoggerClient__activateWithCompletion___block_invoke;
-  v13 = &unk_1E811D288;
-  v15 = &v16;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__2;
+  v19 = __Block_byref_object_dispose__2;
+  v20 = 0;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __48__CBPacketLoggerClient__activateWithCompletion___block_invoke;
+  v12 = &unk_1E811D288;
+  v14 = &v15;
   v5 = completionCopy;
-  v14 = v5;
-  v6 = MEMORY[0x1C68DF720](&v10);
-  if (self->_activateCalled || self->_invalidateCalled)
+  v13 = v5;
+  v6 = MEMORY[0x1C68DF720](&v9);
+  if (self->_activateCalled)
   {
-    v7 = *MEMORY[0x1E696A768];
-    v8 = NSErrorF_safe();
-    v9 = v17[5];
-    v17[5] = v8;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960575, "Activate already called", v9, v10, v11, v12);
+    v7 = LABEL_7:;
+    v8 = v16[5];
+    v16[5] = v7;
+
+    goto LABEL_4;
   }
 
-  else
+  if (self->_invalidateCalled)
   {
-    self->_activateCalled = 1;
-    [(CBPacketLoggerClient *)self _activateXPC:0 completion:v5, v10, v11, v12, v13];
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Activate after invalidate", v9, v10, v11, v12);
+    goto LABEL_7;
   }
 
+  self->_activateCalled = 1;
+  [(CBPacketLoggerClient *)self _activateXPC:0 completion:v5, v9, v10, v11, v12];
+LABEL_4:
   v6[2](v6);
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __48__CBPacketLoggerClient__activateWithCompletion___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBPacketLoggerClient <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBPacketLoggerClient == -1)
+    if (gLogCategory_CBPacketLoggerClient <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBPacketLoggerClient != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)_activateXPC:(BOOL)c completion:(id)completion
@@ -195,9 +191,9 @@ LABEL_11:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __34__CBPacketLoggerClient_invalidate__block_invoke(uint64_t result)
+void *__34__CBPacketLoggerClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 9))
   {
     return result;
@@ -208,7 +204,7 @@ uint64_t __34__CBPacketLoggerClient_invalidate__block_invoke(uint64_t result)
   if (gLogCategory_CBPacketLoggerClient <= 30 && (gLogCategory_CBPacketLoggerClient != -1 || _LogCategory_Initialize()))
   {
     __34__CBPacketLoggerClient_invalidate__block_invoke_cold_1();
-    v4 = *(*(v3 + 32) + 16);
+    v4 = *(v3[4] + 16);
     if (!v4)
     {
       goto LABEL_7;
@@ -217,7 +213,7 @@ uint64_t __34__CBPacketLoggerClient_invalidate__block_invoke(uint64_t result)
     goto LABEL_6;
   }
 
-  v4 = *(*(v3 + 32) + 16);
+  v4 = *(v3[4] + 16);
   if (v4)
   {
 LABEL_6:
@@ -225,7 +221,7 @@ LABEL_6:
   }
 
 LABEL_7:
-  v5 = *(v3 + 32);
+  v5 = v3[4];
 
   return [v5 _invalidated];
 }
@@ -357,7 +353,7 @@ void *__41__CBPacketLoggerClient__ensureXPCStarted__block_invoke(uint64_t a1, ui
     {
       if (gLogCategory_CBPacketLoggerClient <= 90 && (gLogCategory_CBPacketLoggerClient != -1 || _LogCategory_Initialize()))
       {
-        [CBPacketLoggerClient _xpcReceivedEvent:];
+        [CBPacketLoggerClient _xpcReceivedEvent:eventCopy];
         v10 = MEMORY[0x1C68DF720](self->_errorHandler);
         if (!v10)
         {
@@ -430,9 +426,9 @@ LABEL_11:
   }
 }
 
-- (void)_xpcReceivedEvent:.cold.1()
+- (void)_xpcReceivedEvent:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = CUPrintXPC();
+  v1 = CUPrintXPC();
   LogPrintF_safe();
 }
 
@@ -440,7 +436,7 @@ LABEL_11:
 {
   if (gLogCategory_CBPacketLoggerClient <= 90 && (gLogCategory_CBPacketLoggerClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_6();
+    OUTLINED_FUNCTION_1_6(&gLogCategory_CBPacketLoggerClient, "[CBPacketLoggerClient _xpcReceivedPacket:]");
   }
 }
 
@@ -448,7 +444,7 @@ LABEL_11:
 {
   if (gLogCategory_CBPacketLoggerClient <= 90 && (gLogCategory_CBPacketLoggerClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_6();
+    OUTLINED_FUNCTION_1_6(&gLogCategory_CBPacketLoggerClient, "[CBPacketLoggerClient _xpcReceivedPacket:]");
   }
 }
 

@@ -42,7 +42,7 @@ flatbuffers::DetachedBuffer *__52__QSSTextToSpeechSpeechFeatureResponse_flatbuff
 
 - (Offset<siri::speech::schema_fb::TextToSpeechSpeechFeatureResponse>)addObjectToBuffer:(void *)buffer
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSTextToSpeechSpeechFeatureResponse *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -63,7 +63,7 @@ flatbuffers::DetachedBuffer *__52__QSSTextToSpeechSpeechFeatureResponse_flatbuff
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v12 = strlen(uTF8String2);
-  v29 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v27 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   error_code = [(QSSTextToSpeechSpeechFeatureResponse *)self error_code];
   error_str = [(QSSTextToSpeechSpeechFeatureResponse *)self error_str];
@@ -75,7 +75,7 @@ flatbuffers::DetachedBuffer *__52__QSSTextToSpeechSpeechFeatureResponse_flatbuff
 
   uTF8String3 = [(__CFString *)error_str UTF8String];
   v16 = strlen(uTF8String3);
-  v27 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
+  v25 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
 
   features = [(QSSTextToSpeechSpeechFeatureResponse *)self features];
   v18 = [features count];
@@ -89,16 +89,11 @@ flatbuffers::DetachedBuffer *__52__QSSTextToSpeechSpeechFeatureResponse_flatbuff
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  memset(v30, 0, sizeof(v30));
   obj = [(QSSTextToSpeechSpeechFeatureResponse *)self features];
-  if ([obj countByEnumeratingWithState:&v32 objects:v36 count:16])
+  if ([obj countByEnumeratingWithState:v30 objects:v31 count:16])
   {
-    *v33;
-    *v33;
-    [**(&v32 + 1) addObjectToBuffer:buffer];
+    [**(&v30[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -110,18 +105,16 @@ flatbuffers::DetachedBuffer *__52__QSSTextToSpeechSpeechFeatureResponse_flatbuff
   v21 = *(buffer + 12);
   v22 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v29);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v27);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, error_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v27);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v25);
   if (v19)
   {
     v23 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v19);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 12, v23);
   }
 
-  v24.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v20 - v21 + v22);
-  v25 = *MEMORY[0x277D85DE8];
-  return v24;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v20 - v21 + v22);
 }
 
 - (NSArray)features

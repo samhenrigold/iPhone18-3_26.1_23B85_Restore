@@ -48,7 +48,7 @@
   v3 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(CMTimeRangeAsValue *)self CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(self, a2);
   }
 
   else
@@ -77,7 +77,7 @@
   p_timeRange = &self->_timeRange;
   if (value)
   {
-    [value CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(value);
   }
 
   else
@@ -135,7 +135,7 @@
   {
     if (coder)
     {
-      [coder decodeCMTimeRangeForKey:@"CMTimeRange"];
+      objc_msgSend_decodeCMTimeRangeForKey_(coder);
     }
 
     else

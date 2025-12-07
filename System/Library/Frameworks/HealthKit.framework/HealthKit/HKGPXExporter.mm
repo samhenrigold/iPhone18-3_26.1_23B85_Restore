@@ -34,7 +34,7 @@
 
 - (BOOL)appendLocations:(id)locations error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   if (self->_isFinished)
   {
@@ -48,14 +48,14 @@ LABEL_3:
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [(NSURL *)self->_URL path];
-    v27 = *MEMORY[0x1E696A3A0];
-    v28[0] = *MEMORY[0x1E696A380];
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    [defaultManager createFileAtPath:path contents:0 attributes:v18];
+    v26 = *MEMORY[0x1E696A3A0];
+    v27[0] = *MEMORY[0x1E696A380];
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    [defaultManager createFileAtPath:path contents:0 attributes:v17];
 
-    v19 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:self->_URL error:error];
+    v18 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:self->_URL error:error];
     fileHandle = self->_fileHandle;
-    self->_fileHandle = v19;
+    self->_fileHandle = v18;
 
     if (!self->_fileHandle || ![(HKGPXExporter *)self _appendGPXHeaderWithError:error])
     {
@@ -63,40 +63,40 @@ LABEL_3:
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = locationsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __39__HKGPXExporter_appendLocations_error___block_invoke;
-        v21[3] = &unk_1E73839D0;
-        v21[4] = self;
-        v21[5] = v13;
-        if (!HKWithAutoreleasePool(error, v21))
+        v13 = *(*(&v21 + 1) + 8 * i);
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __39__HKGPXExporter_appendLocations_error___block_invoke;
+        v20[3] = &unk_1E73839D0;
+        v20[4] = self;
+        v20[5] = v13;
+        if (!HKWithAutoreleasePool(error, v20))
         {
           v7 = 0;
           goto LABEL_15;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v10)
       {
         continue;
@@ -110,7 +110,6 @@ LABEL_3:
 LABEL_15:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

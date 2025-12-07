@@ -11,12 +11,13 @@
 
 - (void)_geometryChanged:(id *)changed forAncestor:(id)ancestor
 {
-  if (*&self->scrollView[OBJC_IVAR____TtC5UIKitP33_EC84B326E0A5500F8664F11F62EDB99314Implementation_targetedReceivers])
+  v4 = *&self->scrollView[OBJC_IVAR____TtC5UIKitP33_EC84B326E0A5500F8664F11F62EDB99314Implementation_targetedReceivers];
+  if (v4)
   {
-    v4 = *(&self->super.isa + OBJC_IVAR____TtC5UIKitP33_EC84B326E0A5500F8664F11F62EDB99314Implementation_targetedReceivers);
+    v5 = *(&self->super.isa + OBJC_IVAR____TtC5UIKitP33_EC84B326E0A5500F8664F11F62EDB99314Implementation_targetedReceivers);
     selfCopy = self;
 
-    sub_1890A4410(selfCopy, v4);
+    sub_1890A4410(selfCopy, v5, v4);
   }
 }
 

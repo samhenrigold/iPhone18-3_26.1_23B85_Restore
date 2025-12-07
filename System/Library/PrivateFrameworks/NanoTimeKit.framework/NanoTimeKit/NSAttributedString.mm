@@ -3,15 +3,15 @@
 
 @implementation NSAttributedString
 
-uint64_t __94__NSAttributedString_NTKUtilities__NTKReplaceTimeDesignatorAttributesFrom_withDesignatorFont___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__94__NSAttributedString_NTKUtilities__NTKReplaceTimeDesignatorAttributesFrom_withDesignatorFont___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
     v6 = result;
-    [*(result + 32) removeAttribute:*MEMORY[0x277CBB6D0] range:{a3, a4}];
+    [result[4] removeAttribute:*MEMORY[0x277CBB6D0] range:{a3, a4}];
     v7 = *MEMORY[0x277D740A8];
-    v8 = *(v6 + 32);
-    v9 = *(v6 + 40);
+    v8 = v6[4];
+    v9 = v6[5];
 
     return [v8 addAttribute:v7 value:v9 range:{a3, a4}];
   }

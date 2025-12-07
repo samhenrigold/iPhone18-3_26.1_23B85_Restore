@@ -11,19 +11,17 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   residentDeviceIdentifier = [(HMDResidentReachabilityState *)self residentDeviceIdentifier];
   v5 = [v3 initWithName:@"Resident device identifier" value:residentDeviceIdentifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDResidentReachabilityState *)self isReachable];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"IsReachable" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -113,7 +111,7 @@
   v7 = [(HMDResidentReachabilityState *)&v11 init];
   if (v7)
   {
-    v8 = [identifierCopy copy];
+    v8 = objc_msgSend_copy(identifierCopy);
     residentDeviceIdentifier = v7->_residentDeviceIdentifier;
     v7->_residentDeviceIdentifier = v8;
 

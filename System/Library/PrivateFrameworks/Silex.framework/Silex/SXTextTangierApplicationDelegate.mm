@@ -17,26 +17,26 @@
   }
 }
 
-void __41__SXTextTangierApplicationDelegate_setup__block_invoke()
+void __41__SXTextTangierApplicationDelegate_setup__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = __applicationDelegate;
-  __applicationDelegate = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = __applicationDelegate;
+  __applicationDelegate = v1;
 
   [MEMORY[0x1E69D5698] setSurrogateDelegate:__applicationDelegate];
-  v2 = [MEMORY[0x1E696AF00] currentThread];
-  v3 = [v2 threadDictionary];
-  v4 = *MEMORY[0x1E696A238];
-  v5 = [v3 valueForKey:*MEMORY[0x1E696A238]];
+  v3 = [MEMORY[0x1E696AF00] currentThread];
+  v4 = [v3 threadDictionary];
+  v5 = *MEMORY[0x1E696A238];
+  v6 = [v4 valueForKey:*MEMORY[0x1E696A238]];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v9 = objc_alloc_init(MEMORY[0x1E696AAA8]);
-    v7 = [MEMORY[0x1E696AF00] currentThread];
-    v8 = [v7 threadDictionary];
-    [v8 setValue:v9 forKey:v4];
+    v10 = objc_alloc_init(MEMORY[0x1E696AAA8]);
+    v8 = [MEMORY[0x1E696AF00] currentThread];
+    v9 = [v8 threadDictionary];
+    [v9 setValue:v10 forKey:v5];
   }
 }
 

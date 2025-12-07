@@ -388,7 +388,7 @@ void __52__SBIconListPageControlAccessibility__axSetNewPage___block_invoke(uint6
 
 - (BOOL)_axHasOpenFolder
 {
-  v2 = AXSBHIconManagerFromSharedIconController();
+  v2 = AXSBHIconManagerFromSharedIconController(self, a2);
   v3 = [v2 safeBoolForKey:@"hasOpenFolder"];
 
   return v3;

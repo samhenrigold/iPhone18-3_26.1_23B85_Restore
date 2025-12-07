@@ -31,25 +31,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDMessageHandlerQueuedMessage *)self identifier];
   v5 = [v3 initWithName:@"identifier" value:identifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMDMessageHandlerQueuedMessage *)self name];
   v8 = [v6 initWithName:@"name" value:name];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   delegate = [(HMDMessageHandlerQueuedMessage *)self delegate];
   v6 = objc_autoreleasePoolPush();
@@ -58,17 +56,15 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v9;
-    v13 = 2112;
-    v14 = delegate;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did trigger message handler queued message with delegate: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2112;
+    v13 = delegate;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did trigger message handler queued message with delegate: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   [delegate didTriggerMessageHandlerQueuedMessage:selfCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)name
@@ -131,10 +127,9 @@
 
 void __45__HMDMessageHandlerQueuedMessage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_140152;
-  logCategory__hmf_once_v2_140152 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_140152;
+  logCategory__hmf_once_v2_140152 = v0;
 }
 
 @end

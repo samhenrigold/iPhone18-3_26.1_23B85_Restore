@@ -36,21 +36,19 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDAction *)self uuid];
   v5 = [v3 initWithName:@"UUID" value:uuid];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   characteristic = [(HMDCharacteristicWriteAction *)self characteristic];
   v8 = [v6 initWithName:@"characteristic" value:characteristic];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   targetValue = [(HMDCharacteristicWriteAction *)self targetValue];
   v11 = [v9 initWithName:@"target value" value:targetValue];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -84,7 +82,7 @@
 
 - (void)_processWriteActionModelUpdated:(id)updated message:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   messageCopy = message;
   transactionResult = [messageCopy transactionResult];
@@ -105,22 +103,22 @@
     targetValue = [updatedCopy targetValue];
     [(HMDCharacteristicWriteAction *)self setTargetValue:targetValue];
 
-    v33[0] = *MEMORY[0x277CD2060];
+    v32[0] = *MEMORY[0x277CD2060];
     uuid = [(HMDAction *)self uuid];
     uUIDString = [uuid UUIDString];
-    v34[0] = uUIDString;
-    v33[1] = *MEMORY[0x277CD2028];
+    v33[0] = uUIDString;
+    v32[1] = *MEMORY[0x277CD2028];
     [(HMDCharacteristicWriteAction *)self dictionaryRepresentation];
-    v17 = v32 = transactionResult;
-    v34[1] = v17;
-    v33[2] = *MEMORY[0x277CD0640];
+    v17 = v31 = transactionResult;
+    v33[1] = v17;
+    v32[2] = *MEMORY[0x277CD0640];
     [v13 uuid];
-    v18 = v31 = v13;
+    v18 = v30 = v13;
     uUIDString2 = [v18 UUIDString];
-    v34[2] = uUIDString2;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+    v33[2] = uUIDString2;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
 
-    transactionResult = v32;
+    transactionResult = v31;
 LABEL_6:
     [messageCopy respondWithPayload:v20];
     v21 = objc_autoreleasePoolPush();
@@ -130,9 +128,9 @@ LABEL_6:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v24;
-      v37 = 2112;
-      v38 = v20;
+      v35 = v24;
+      v36 = 2112;
+      v37 = v20;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Responding to client after updating action with response %@", buf, 0x16u);
     }
 
@@ -153,13 +151,13 @@ LABEL_6:
   {
     v28 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v36 = v28;
-    v37 = 2112;
-    v38 = updatedCopy;
-    v39 = 2112;
-    v40 = actionSet;
-    v41 = 2112;
-    v42 = v13;
+    v35 = v28;
+    v36 = 2112;
+    v37 = updatedCopy;
+    v38 = 2112;
+    v39 = actionSet;
+    v40 = 2112;
+    v41 = v13;
     _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Write action Model object (%@) missing actionset %@ or home %@ ", buf, 0x2Au);
   }
 
@@ -169,13 +167,11 @@ LABEL_6:
 
   v20 = 0;
 LABEL_13:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -206,22 +202,20 @@ LABEL_13:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = objc_opt_class();
-      v18 = v26;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v18 = v25;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -239,7 +233,7 @@ LABEL_13:
 
 - (HMDCharacteristicWriteAction)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDAction alloc] initWithCoder:coderCopy];
   if (v5)
@@ -263,13 +257,13 @@ LABEL_13:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v19.receiver = selfCopy;
-      v19.super_class = HMDCharacteristicWriteAction;
-      v16 = [(HMDCharacteristicWriteAction *)&v19 class];
+      v18.receiver = selfCopy;
+      v18.super_class = HMDCharacteristicWriteAction;
+      v16 = [(HMDCharacteristicWriteAction *)&v18 class];
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v16;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode base class: %@", buf, 0x16u);
     }
 
@@ -277,7 +271,6 @@ LABEL_13:
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -296,21 +289,19 @@ LABEL_13:
 
 - (id)associatedAccessories
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDCharacteristicWriteAction *)self accessory];
   v3 = accessory;
   if (accessory)
   {
-    v7[0] = accessory;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = accessory;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x277CBEBF8];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -496,7 +487,7 @@ LABEL_13:
   targetValue = [(HMDCharacteristicWriteAction *)self targetValue];
   [v5 setObject:targetValue forKeyedSubscript:*MEMORY[0x277CD21B8]];
 
-  v14 = [v5 copy];
+  v14 = objc_msgSend_copy(v5);
 
   return v14;
 }
@@ -615,15 +606,14 @@ LABEL_13:
 
 void __43__HMDCharacteristicWriteAction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_184262;
-  logCategory__hmf_once_v14_184262 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_184262;
+  logCategory__hmf_once_v14_184262 = v0;
 }
 
 + (id)actionWithDictionaryRepresentation:(id)representation home:(id)home
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   homeCopy = home;
   v8 = [representationCopy hmf_numberForKey:*MEMORY[0x277CD2058]];
@@ -643,7 +633,7 @@ void __43__HMDCharacteristicWriteAction_logCategory__block_invoke()
         v22 = [representationCopy hmf_numberForKey:*MEMORY[0x277CD2140]];
         v23 = HAPInstanceIDFromValue();
 
-        v45 = v20;
+        v44 = v20;
         if (v20 && v23)
         {
           v24 = [v18 findCharacteristic:v23 forService:v20];
@@ -669,19 +659,19 @@ LABEL_28:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           HMFGetLogIdentifier();
-          v40 = v44 = v37;
+          v40 = v43 = v37;
           v41 = [representationCopy hmf_numberForKey:v21];
           *buf = 138544130;
-          v47 = v40;
-          v48 = 2112;
-          v49 = v23;
-          v50 = 2112;
-          v51 = v41;
-          v52 = 2112;
-          v53 = v45;
+          v46 = v40;
+          v47 = 2112;
+          v48 = v23;
+          v49 = 2112;
+          v50 = v41;
+          v51 = 2112;
+          v52 = v44;
           _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to find characteristic: %@ (%@)-%@", buf, 0x2Au);
 
-          v37 = v44;
+          v37 = v43;
         }
 
         objc_autoreleasePoolPop(v37);
@@ -696,9 +686,9 @@ LABEL_28:
         {
           v32 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v47 = v32;
-          v48 = 2112;
-          v49 = v15;
+          v46 = v32;
+          v47 = 2112;
+          v48 = v15;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to find accessory with identifier: %@", buf, 0x16u);
         }
 
@@ -715,9 +705,9 @@ LABEL_28:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v47 = v36;
-        v48 = 2112;
-        v49 = representationCopy;
+        v46 = v36;
+        v47 = 2112;
+        v48 = representationCopy;
         _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Missing target value: %@", buf, 0x16u);
       }
 
@@ -735,17 +725,15 @@ LABEL_28:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v47 = v12;
-    v48 = 2112;
-    v49 = v8;
+    v46 = v12;
+    v47 = 2112;
+    v48 = v8;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid action type: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = 0;
 LABEL_29:
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -15,11 +15,12 @@
 
 - (void)editorController:(id)controller editedAnnotation:(id)annotation toText:(id)text
 {
-  sub_1007A2254();
+  v7 = sub_1007A2254();
+  v9 = v8;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100697C90();
+  sub_100697C90(annotation, v7, v9);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 }

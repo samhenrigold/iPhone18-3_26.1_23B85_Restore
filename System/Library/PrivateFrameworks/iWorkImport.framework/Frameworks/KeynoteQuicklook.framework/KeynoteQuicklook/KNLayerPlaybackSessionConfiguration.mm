@@ -12,55 +12,54 @@
   renderingEnabledCopy = renderingEnabled;
   enabledCopy = enabled;
   hostCopy = host;
-  v51.receiver = self;
-  v51.super_class = KNLayerPlaybackSessionConfiguration;
-  initSuperclass = [(KNPlaybackSessionConfiguration *)&v51 initSuperclass];
+  v28.receiver = self;
+  v28.super_class = KNLayerPlaybackSessionConfiguration;
+  initSuperclass = [(KNPlaybackSessionConfiguration *)&v28 initSuperclass];
   v13 = initSuperclass;
   if (initSuperclass)
   {
     objc_storeStrong(initSuperclass + 4, host);
-    v16 = objc_msgSend_screenEnvironment(hostCopy, v14, v15);
-    v19 = objc_msgSend_copy(v16, v17, v18);
-    v20 = v13[2];
-    v13[2] = v19;
+    screenEnvironment = [hostCopy screenEnvironment];
+    v15 = [screenEnvironment copy];
+    v16 = v13[2];
+    v13[2] = v15;
 
     if (rEnabled)
     {
-      v23 = objc_msgSend_currentCapabilities(MEMORY[0x277D801F0], v21, v22);
-      isHDRCapable = objc_msgSend_isHDRCapable(v23, v24, v25);
-      objc_msgSend_setSupportsHDR_(v13, v27, isHDRCapable);
+      currentCapabilities = [MEMORY[0x277D801F0] currentCapabilities];
+      [v13 setSupportsHDR:{objc_msgSend(currentCapabilities, "isHDRCapable")}];
     }
 
     else
     {
-      objc_msgSend_setSupportsHDR_(v13, v21, 0);
+      [v13 setSupportsHDR:0];
     }
 
     *(v13 + 24) = enabledCopy;
     *(v13 + 25) = renderingEnabledCopy;
-    v30 = objc_msgSend_rootLayer(v13[4], v28, v29);
-    objc_msgSend_bounds(v30, v31, v32);
-    v13[5] = v33;
-    v13[6] = v34;
+    rootLayer = [v13[4] rootLayer];
+    [rootLayer bounds];
+    v13[5] = v19;
+    v13[6] = v20;
 
     if (enabledCopy)
     {
-      v36 = MEMORY[0x277D81150];
-      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[KNLayerPlaybackSessionConfiguration initWithLayerHost:isMetalEnabled:isSceneRenderingEnabled:isHDREnabled:]");
-      v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v40, v37, v39, 319, 0, "Metal should not be enabled on a platform that does not support it.");
+      v21 = MEMORY[0x277D81150];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLayerPlaybackSessionConfiguration initWithLayerHost:isMetalEnabled:isSceneRenderingEnabled:isHDREnabled:]"];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+      [v21 handleFailureInFunction:v22 file:v23 lineNumber:319 isFatal:0 description:"Metal should not be enabled on a platform that does not support it."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
     if (renderingEnabledCopy)
     {
-      v43 = MEMORY[0x277D81150];
-      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[KNLayerPlaybackSessionConfiguration initWithLayerHost:isMetalEnabled:isSceneRenderingEnabled:isHDREnabled:]");
-      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v47, v44, v46, 320, 0, "Scene rendering should not be enabled on a platform that does not support it.");
+      v24 = MEMORY[0x277D81150];
+      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLayerPlaybackSessionConfiguration initWithLayerHost:isMetalEnabled:isSceneRenderingEnabled:isHDREnabled:]"];
+      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+      [v24 handleFailureInFunction:v25 file:v26 lineNumber:320 isFatal:0 description:"Scene rendering should not be enabled on a platform that does not support it."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
@@ -69,41 +68,40 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277D811A8]);
-  v5 = objc_msgSend_initWithObject_(v3, v4, self);
-  objc_msgSend_addField_format_(v5, v6, @"layerHost", @"%@", self->_layerHost);
-  objc_msgSend_addField_format_(v5, v7, @"screenEnvironment", @"%@", self->_screenEnvironment);
-  objc_msgSend_addField_format_(v5, v8, @"isMetalEnabled", @"%d", self->_isMetalEnabled);
-  objc_msgSend_addField_format_(v5, v9, @"isSceneRenderingEnabled", @"%d", self->_isSceneRenderingEnabled);
-  v12 = objc_msgSend_descriptionString(v5, v10, v11);
+  v3 = [objc_alloc(MEMORY[0x277D811A8]) initWithObject:self];
+  [v3 addField:@"layerHost" format:{@"%@", self->_layerHost}];
+  [v3 addField:@"screenEnvironment" format:{@"%@", self->_screenEnvironment}];
+  [v3 addField:@"isMetalEnabled" format:{@"%d", self->_isMetalEnabled}];
+  [v3 addField:@"isSceneRenderingEnabled" format:{@"%d", self->_isSceneRenderingEnabled}];
+  descriptionString = [v3 descriptionString];
 
-  return v12;
+  return descriptionString;
 }
 
 - (KNLayerPlaybackSessionConfiguration)configurationWithUpdatedLayerScreenEnvironment
 {
-  if ((objc_msgSend_isMainThread(MEMORY[0x277CCACC8], a2, v2) & 1) == 0)
+  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNLayerPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 376, 0, "updating configuration should be done on the main thread");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLayerPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:376 isFatal:0 description:"updating configuration should be done on the main thread"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   screenEnvironment = self->_screenEnvironment;
-  v14 = objc_msgSend_screenEnvironment(self->_layerHost, v4, v5);
-  if (objc_msgSend_isEqual_(screenEnvironment, v15, v14))
+  screenEnvironment = [(KNPlaybackLayerHost *)self->_layerHost screenEnvironment];
+  if ([(KNAnimationScreenEnvironment *)screenEnvironment isEqual:screenEnvironment])
   {
-    v18 = objc_msgSend_rootLayer(self->_layerHost, v16, v17);
-    objc_msgSend_bounds(v18, v19, v20);
-    v22 = v21;
-    v24 = v23;
+    rootLayer = [(KNPlaybackLayerHost *)self->_layerHost rootLayer];
+    [rootLayer bounds];
+    v10 = v9;
+    v12 = v11;
     width = self->_boundsSize.width;
     height = self->_boundsSize.height;
 
-    if (v22 == width && v24 == height)
+    if (v10 == width && v12 == height)
     {
       goto LABEL_13;
     }
@@ -113,24 +111,23 @@
   {
   }
 
-  v28 = [KNLayerPlaybackSessionConfiguration alloc];
-  isHDREnabled = objc_msgSend_initWithLayerHost_isMetalEnabled_isSceneRenderingEnabled_isHDREnabled_(v28, v29, self->_layerHost, self->_isMetalEnabled, self->_isSceneRenderingEnabled, 0);
-  if (isHDREnabled)
+  selfCopy = [[KNLayerPlaybackSessionConfiguration alloc] initWithLayerHost:self->_layerHost isMetalEnabled:self->_isMetalEnabled isSceneRenderingEnabled:self->_isSceneRenderingEnabled isHDREnabled:0];
+  if (selfCopy)
   {
     goto LABEL_14;
   }
 
-  v32 = MEMORY[0x277D81150];
-  v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[KNLayerPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]");
-  v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v36, v33, v35, 393, 0, "Unable to create a new configuration from an existing configuration with a new screen environment. Continuing to use the existing configuration.");
+  v17 = MEMORY[0x277D81150];
+  v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLayerPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]"];
+  v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  [v17 handleFailureInFunction:v18 file:v19 lineNumber:393 isFatal:0 description:"Unable to create a new configuration from an existing configuration with a new screen environment. Continuing to use the existing configuration."];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
+  [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_13:
-  isHDREnabled = self;
+  selfCopy = self;
 LABEL_14:
 
-  return isHDREnabled;
+  return selfCopy;
 }
 
 - (CGSize)boundsSize

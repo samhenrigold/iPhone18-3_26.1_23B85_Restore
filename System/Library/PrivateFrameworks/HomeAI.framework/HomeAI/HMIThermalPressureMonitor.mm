@@ -22,9 +22,11 @@
 
 uint64_t __43__HMIThermalPressureMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_168 = objc_alloc_init(HMIThermalPressureMonitor);
+  v0 = objc_alloc_init(HMIThermalPressureMonitor);
+  v1 = sharedInstance_sharedInstance_168;
+  sharedInstance_sharedInstance_168 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMIThermalPressureMonitor)init
@@ -103,7 +105,7 @@ void __33__HMIThermalPressureMonitor_init__block_invoke(uint64_t a1)
 
   objc_autoreleasePoolPop(v3);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter postNotificationName:@"HMIThermalPressureLevelDidChangeNotification" object:selfCopy];
+  [defaultCenter postNotificationName:? object:?];
 }
 
 - (void)dealloc

@@ -186,7 +186,7 @@ LABEL_7:
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v25 = v5;
+    *v21 = v5;
     _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "Client requested #diagnosticManager file copy to dest: %@", buf, 0xCu);
   }
 
@@ -195,31 +195,27 @@ LABEL_7:
     sub_10194C458();
   }
 
-  v23 = 0;
+  v19 = 0;
   [(NSFileManager *)[(CLDiagnosticManager *)self fileManager] createDirectoryAtURL:v5 withIntermediateDirectories:0 attributes:0 error:0];
   v17 = objc_opt_new();
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   obj = [(CLDiagnosticManager *)self registeredFiles];
-  v7 = [(NSMutableSet *)obj countByEnumeratingWithState:&v19 objects:v34 count:16];
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
   if (v7)
   {
     v8 = v7;
     handlerCopy = handler;
-    v9 = *v20;
+    v9 = MEMORY[0];
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(8 * v10);
         v12 = [v5 URLByAppendingPathComponent:{objc_msgSend(v11, "lastPathComponent")}];
         if (qword_1025D47A0 != -1)
         {
@@ -230,17 +226,17 @@ LABEL_7:
         if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v25 = v11;
+          *v21 = v11;
           _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_INFO, "diagnosticManager trying to copy file: %@", buf, 0xCu);
         }
 
         if (sub_10000A100(121, 2))
         {
-          sub_10194C540(&v32, v11, &v33);
+          sub_10194C540(&v28, v11, &v29);
         }
 
-        [(NSFileManager *)[(CLDiagnosticManager *)self fileManager] copyItemAtURL:v11 toURL:v12 error:&v23];
-        if (v23)
+        [(NSFileManager *)[(CLDiagnosticManager *)self fileManager] copyItemAtURL:v11 toURL:v12 error:&v19];
+        if (v19)
         {
           if (qword_1025D47A0 != -1)
           {
@@ -251,15 +247,15 @@ LABEL_7:
           if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289794;
-            *v25 = 0;
-            *&v25[4] = 2082;
-            *&v25[6] = "";
+            *v21 = 0;
+            *&v21[4] = 2082;
+            *&v21[6] = "";
+            v22 = 2114;
+            v23 = v11;
+            v24 = 2114;
+            v25 = v12;
             v26 = 2114;
-            v27 = v11;
-            v28 = 2114;
-            v29 = v12;
-            v30 = 2114;
-            v31 = v23;
+            v27 = v19;
             _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Failed to copy diagnostic file, srcURL:%{public, location:escape_only}@, dstURL:%{public, location:escape_only}@, error:%{public, location:escape_only}@}", buf, 0x30u);
           }
         }
@@ -273,11 +269,11 @@ LABEL_7:
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v19 objects:v34 count:16];
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
     }
 
     while (v8);
-    v15 = v23;
+    v15 = v19;
     handler = handlerCopy;
   }
 
@@ -449,10 +445,10 @@ LABEL_24:
 
   if (sub_10000A100(121, 2))
   {
-    sub_10194CAE0(l);
+    sub_10194CAE0(l, rL);
   }
 
-  sub_100565518(0, &__p);
+  sub_100565518(0, &__p, v8);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -463,26 +459,26 @@ LABEL_24:
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v9 = [NSURL URLWithString:[NSString stringWithUTF8String:p_p]];
+  v10 = [NSURL URLWithString:[NSString stringWithUTF8String:p_p]];
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v10 = [objc_msgSend(l "absoluteString")];
-  if ((v10 & 1) == 0)
+  v11 = [objc_msgSend(l "absoluteString")];
+  if ((v11 & 1) == 0)
   {
     if (qword_1025D47A0 != -1)
     {
       sub_10194C180();
     }
 
-    v11 = off_1025D47A8;
+    v12 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
       LODWORD(__p.__r_.__value_.__l.__data_) = 138412290;
       *(__p.__r_.__value_.__r.__words + 4) = l;
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "Trying to move a file that is not in our cache directory: %@", &__p, 0xCu);
+      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "Trying to move a file that is not in our cache directory: %@", &__p, 0xCu);
     }
 
     if (sub_10000A100(121, 0))
@@ -491,7 +487,7 @@ LABEL_24:
     }
   }
 
-  return v10;
+  return v11;
 }
 
 - (NSURL)mobileCrashReporterPath

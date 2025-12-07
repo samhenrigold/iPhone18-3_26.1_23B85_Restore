@@ -1,7 +1,7 @@
 @interface _PBFSQLiteFrozenResultRow
 - (double)doubleAtIndex:(unint64_t)index;
+- (id)_indexForKey:(id *)result;
 - (int64_t)integerAtIndex:(unint64_t)index;
-- (uint64_t)_indexForKey:(uint64_t)result;
 - (void)_initWithResultRow:(void *)row;
 @end
 
@@ -92,11 +92,11 @@
   return row;
 }
 
-- (uint64_t)_indexForKey:(uint64_t)result
+- (id)_indexForKey:(id *)result
 {
   if (result)
   {
-    return [*(result + 32) indexOfObject:a2];
+    return [result[4] indexOfObject:a2];
   }
 
   return result;

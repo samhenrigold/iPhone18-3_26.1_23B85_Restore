@@ -1,4 +1,5 @@
 @interface ViewHierarchyService
++ (id)forLocalPid:(int)pid;
 - (ViewHierarchyService)initWithDataSourceConnection:(id)connection runnablePid:(int)pid;
 - (id)_metadata;
 - (void)_enqueueAdditionalRequests;
@@ -11,6 +12,15 @@
 @end
 
 @implementation ViewHierarchyService
+
++ (id)forLocalPid:(int)pid
+{
+  v3 = *&pid;
+  v5 = [[DBGLocalDataSourceConnection alloc] initWithPid:*&pid];
+  v6 = [[self alloc] initWithDataSourceConnection:v5 runnablePid:v3];
+
+  return v6;
+}
 
 - (ViewHierarchyService)initWithDataSourceConnection:(id)connection runnablePid:(int)pid
 {

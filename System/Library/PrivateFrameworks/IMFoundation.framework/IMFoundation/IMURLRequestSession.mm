@@ -1,6 +1,7 @@
 @interface IMURLRequestSession
 + (IMURLRequestSession)sharedSession;
 + (IMURLRequestSession)sharedSessionRequiringIDSHost;
++ (id)sessionWithConfiguration:(id)configuration queue:(id)queue requiresIDSHost:(BOOL)host;
 - (IMURLRequestSession)initWithConfiguration:(id)configuration queue:(id)queue requiresIDSHost:(BOOL)host;
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error;
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler;
@@ -32,6 +33,17 @@
   v3 = qword_1EAED9310;
 
   return v3;
+}
+
++ (id)sessionWithConfiguration:(id)configuration queue:(id)queue requiresIDSHost:(BOOL)host
+{
+  hostCopy = host;
+  queueCopy = queue;
+  configurationCopy = configuration;
+  v10 = [self alloc];
+  v12 = objc_msgSend_initWithConfiguration_queue_requiresIDSHost_(v10, v11, configurationCopy, queueCopy, hostCopy);
+
+  return v12;
 }
 
 - (IMURLRequestSession)initWithConfiguration:(id)configuration queue:(id)queue requiresIDSHost:(BOOL)host
@@ -96,37 +108,35 @@
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (errorCopy)
   {
     v8 = objc_msgSend_URLLoading(IMIDSLog, v5, v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
+      v9 = 138412546;
       selfCopy = self;
-      v12 = 2112;
-      v13 = errorCopy;
-      _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "URLSession:didBecomeInvalidWithError: called with error {self: %@, error: %@}", &v10, 0x16u);
+      v11 = 2112;
+      v12 = errorCopy;
+      _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "URLSession:didBecomeInvalidWithError: called with error {self: %@, error: %@}", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   challengeCopy = challenge;
   handlerCopy = handler;
   v11 = objc_msgSend_URLLoading(IMIDSLog, v9, v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v106 = objc_msgSend_protectionSpace(challengeCopy, v12, v13);
+    v105 = objc_msgSend_protectionSpace(challengeCopy, v12, v13);
     selfCopy = self;
-    v16 = objc_msgSend_realm(v106, v14, v15);
+    v16 = objc_msgSend_realm(v105, v14, v15);
     objc_msgSend_protectionSpace(challengeCopy, v17, v18);
-    v19 = v108 = handlerCopy;
+    v19 = v107 = handlerCopy;
     v22 = objc_msgSend_host(v19, v20, v21);
     v25 = objc_msgSend_protectionSpace(challengeCopy, v23, v24);
     v28 = objc_msgSend_protocol(v25, v26, v27);
@@ -134,18 +144,18 @@
     v34 = objc_msgSend_authenticationMethod(v31, v32, v33);
     v37 = objc_msgSend_proposedCredential(challengeCopy, v35, v36);
     *buf = 138413314;
-    *v115 = v16;
-    *&v115[8] = 2112;
-    *&v115[10] = v22;
-    v116 = 2112;
-    v117 = v28;
-    v118 = 2112;
-    v119 = v34;
-    v120 = 2112;
-    v121 = v37;
+    *v114 = v16;
+    *&v114[8] = 2112;
+    *&v114[10] = v22;
+    v115 = 2112;
+    v116 = v28;
+    v117 = 2112;
+    v118 = v34;
+    v119 = 2112;
+    v120 = v37;
     _os_log_impl(&dword_195988000, v11, OS_LOG_TYPE_DEFAULT, "Received authentication challenge:\n  ---->Protection Space: <Realm: %@, Host: %@, Protocol: %@, Method: %@>\n  ---->Proposed Credential: %@\n  Performing default handling.", buf, 0x34u);
 
-    handlerCopy = v108;
+    handlerCopy = v107;
     self = selfCopy;
   }
 
@@ -194,9 +204,9 @@ LABEL_24:
     if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v115 = v52;
-      *&v115[8] = 2048;
-      *&v115[10] = __buf;
+      *v114 = v52;
+      *&v114[8] = 2048;
+      *&v114[10] = __buf;
       _os_log_impl(&dword_195988000, v57, OS_LOG_TYPE_DEFAULT, "Validating server trust using designated hostname: %@ {identifier: %llu}", buf, 0x16u);
     }
 
@@ -222,10 +232,10 @@ LABEL_24:
         result[1] = 3221225472;
         result[2] = sub_1959C297C;
         result[3] = &unk_1E7439930;
-        v112 = __buf;
+        v111 = __buf;
         v100 = handlerCopy;
-        v111 = v100;
-        v110 = challengeCopy;
+        v110 = v100;
+        v109 = challengeCopy;
         v101 = SecTrustEvaluateAsyncWithError(v98, sessionQueue, result);
 
         CFRelease(AppleIDSServiceContext);
@@ -235,9 +245,9 @@ LABEL_24:
           if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109376;
-            *v115 = v101;
-            *&v115[4] = 2048;
-            *&v115[6] = __buf;
+            *v114 = v101;
+            *&v114[4] = 2048;
+            *&v114[6] = __buf;
             _os_log_impl(&dword_195988000, v104, OS_LOG_TYPE_DEFAULT, "SecTrustEvaluateAsyncWithError() failed to start status=%d {identifier: %llu}", buf, 0x12u);
           }
 
@@ -251,9 +261,9 @@ LABEL_24:
       if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v115 = v75;
-        *&v115[4] = 2048;
-        *&v115[6] = __buf;
+        *v114 = v75;
+        *&v114[4] = 2048;
+        *&v114[6] = __buf;
         v79 = "Unable to set policies %d {identifier: %llu}";
         v80 = v78;
         v81 = 18;
@@ -268,7 +278,7 @@ LABEL_30:
       if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v115 = __buf;
+        *v114 = __buf;
         v79 = "Unable to create SecPolicyRef {identifier: %llu}";
         v80 = v78;
         v81 = 12;
@@ -310,7 +320,6 @@ LABEL_19:
   (handlerCopy)[2](handlerCopy, 0, v93);
 
 LABEL_39:
-  v105 = *MEMORY[0x1E69E9840];
 }
 
 @end

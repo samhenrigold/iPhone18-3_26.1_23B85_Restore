@@ -3,6 +3,7 @@
 - (BOOL)_isMediaPath:(id)path selector:(SEL)selector resolvedPath:(id *)resolvedPath;
 - (BOOL)_shouldAcceptConnectionForMediaLibraryService:(id)service;
 - (BOOL)_validateTransactionIdentifier:(id)identifier forClient:(id)client;
+- (BOOL)endTransaction:(id)transaction shouldCommit:(BOOL)commit error:(id *)error;
 - (BOOL)isDatabaseLocked;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (MLDMediaLibraryService)init;
@@ -46,12 +47,15 @@
 - (void)_updateSiriIndexForNotification:(id)notification;
 - (void)_updateSiriIndexMetadataForLibraryAtPath:(id)path completion:(id)completion;
 - (void)_updateSpotlightIndexForNotification:(id)notification;
+- (void)_validateDatabaseAtPath:(id)path forConnection:(id)connection byTruncatingFirst:(BOOL)first withCompletion:(id)completion;
 - (void)_writeDiagnosticToDisk:(id)disk;
 - (void)attemptDatabaseFileRecoveryAtPath:(id)path withCompletionHandler:(id)handler;
 - (void)beginTransactionForDatabaseWithContext:(id)context completionHandler:(id)handler;
 - (void)cancelImportOperation:(unint64_t)operation completionHandler:(id)handler;
+- (void)checkIntegrityOfDatabaseAtPath:(id)path repairFaults:(BOOL)faults withCompletionHandler:(id)handler;
 - (void)collectDiagnostic:(id)diagnostic;
 - (void)dealloc;
+- (void)endTransaction:(id)transaction shouldCommit:(BOOL)commit withCompletionHandler:(id)handler;
 - (void)executeQuery:(id)query withParameters:(id)parameters options:(id)options onTransaction:(id)transaction withCompletionHandler:(id)handler;
 - (void)executeUpdate:(id)update withParameters:(id)parameters onTransaction:(id)transaction withCompletionHandler:(id)handler;
 - (void)faultForQuery:(id)query fromClientBundleID:(id)d onTrustError:(id)error;
@@ -304,6 +308,45 @@
   }
 }
 
+- (void)_validateDatabaseAtPath:(id)path forConnection:(id)connection byTruncatingFirst:(BOOL)first withCompletion:(id)completion
+{
+  firstCopy = first;
+  connectionCopy = connection;
+  completionCopy = completion;
+  pathCopy = path;
+  if (connectionCopy)
+  {
+    processIdentifier = [connectionCopy processIdentifier];
+    objc_msgSend_auditToken(connectionCopy);
+    bundleIdentifier = MSVBundleIDForAuditToken();
+  }
+
+  else
+  {
+    processIdentifier = getpid();
+    v15 = +[NSBundle mainBundle];
+    bundleIdentifier = [v15 bundleIdentifier];
+  }
+
+  v16 = [MSVXPCTransaction alloc];
+  pathCopy = [NSString stringWithFormat:@"Validation request from %@ (%ld) for library at path: %@", bundleIdentifier, processIdentifier, pathCopy];
+  v18 = [v16 initWithName:pathCopy];
+
+  [v18 beginTransaction];
+  v19 = [(MLDMediaLibraryService *)self _mediaLibraryForPath:pathCopy];
+
+  validationController = self->_validationController;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10000D5CC;
+  v23[3] = &unk_100031A58;
+  v24 = v18;
+  v25 = completionCopy;
+  v21 = v18;
+  v22 = completionCopy;
+  [(MLDDatabaseValidationController *)validationController validateMusicLibrary:v19 shouldTruncateDatabase:firstCopy completion:v23];
+}
+
 - (BOOL)_validateTransactionIdentifier:(id)identifier forClient:(id)client
 {
   identifierCopy = identifier;
@@ -312,30 +355,13 @@
   v17 = &v16;
   v18 = 0x2020000000;
   v19 = 0;
-  if (!identifierCopy)
-  {
-    goto LABEL_4;
-  }
-
-  serialQueue = self->_serialQueue;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_10000D7D0;
-  v12[3] = &unk_100031A30;
-  v12[4] = self;
-  v13 = identifierCopy;
-  v14 = clientCopy;
-  v15 = &v16;
-  dispatch_sync(serialQueue, v12);
-
-  if (v17[3])
+  if (identifierCopy && (serialQueue = self->_serialQueue, v12[0] = _NSConcreteStackBlock, v12[1] = 3221225472, v12[2] = sub_10000D7D0, v12[3] = &unk_100031A30, v12[4] = self, v13 = identifierCopy, v14 = clientCopy, v15 = &v16, dispatch_sync(serialQueue, v12), v14, v13, (v17[3] & 1) != 0))
   {
     v9 = 1;
   }
 
   else
   {
-LABEL_4:
     v10 = os_log_create("com.apple.amp.medialibraryd", "Service");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
@@ -1286,7 +1312,7 @@ LABEL_8:
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   memset(buf, 0, 32);
@@ -1495,7 +1521,7 @@ LABEL_8:
     v6 = connection2;
     if (connection2)
     {
-      [connection2 auditToken];
+      objc_msgSend_auditToken(connection2);
     }
 
     else
@@ -1624,7 +1650,7 @@ LABEL_8:
           v22 = connection2;
           if (connection2)
           {
-            [connection2 auditToken];
+            objc_msgSend_auditToken(connection2);
           }
 
           else
@@ -1705,7 +1731,7 @@ LABEL_32:
     v6 = v5;
     if (v5)
     {
-      [v5 auditToken];
+      objc_msgSend_auditToken(v5);
       bundleIdentifier = MSVBundleIDForAuditToken();
     }
 
@@ -1978,6 +2004,60 @@ LABEL_8:
     v35 = [NSError errorWithDomain:@"MLDMediaLibraryServiceErrorDomain" code:195935908 userInfo:0];
     (*(v34 + 2))(v34, 0, v35, 0);
   }
+}
+
+- (BOOL)endTransaction:(id)transaction shouldCommit:(BOOL)commit error:(id *)error
+{
+  commitCopy = commit;
+  transactionCopy = transaction;
+  v9 = os_log_create("com.apple.amp.medialibraryd", "Service");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543618;
+    v17 = transactionCopy;
+    v18 = 1024;
+    v19 = commitCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Ending transaction %{public}@. shouldCommit=%{BOOL}u", buf, 0x12u);
+  }
+
+  writer = self->_writer;
+  v15 = 0;
+  v11 = [(ML3MediaLibraryWriter *)writer endTransaction:transactionCopy shouldCommit:commitCopy error:&v15];
+  v12 = v15;
+  [(MLDMediaLibraryService *)self _unregisterTransactionInfoForIdentifier:transactionCopy];
+  if (error)
+  {
+    v13 = v12;
+    *error = v12;
+  }
+
+  return v11;
+}
+
+- (void)endTransaction:(id)transaction shouldCommit:(BOOL)commit withCompletionHandler:(id)handler
+{
+  commitCopy = commit;
+  transactionCopy = transaction;
+  handlerCopy = handler;
+  v10 = os_log_create("com.apple.amp.medialibraryd", "Service");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = +[NSXPCConnection currentConnection];
+    *buf = 138543362;
+    v17 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Received end transaction request on client connection: %{public}@", buf, 0xCu);
+  }
+
+  writer = self->_writer;
+  v15 = 0;
+  v13 = [(ML3MediaLibraryWriter *)writer endTransaction:transactionCopy shouldCommit:commitCopy error:&v15];
+  v14 = v15;
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v13, v14);
+  }
+
+  [(MLDMediaLibraryService *)self _unregisterTransactionInfoForIdentifier:transactionCopy];
 }
 
 - (void)executeQuery:(id)query withParameters:(id)parameters options:(id)options onTransaction:(id)transaction withCompletionHandler:(id)handler
@@ -2342,6 +2422,63 @@ LABEL_32:
   }
 }
 
+- (void)checkIntegrityOfDatabaseAtPath:(id)path repairFaults:(BOOL)faults withCompletionHandler:(id)handler
+{
+  faultsCopy = faults;
+  pathCopy = path;
+  handlerCopy = handler;
+  v11 = os_log_create("com.apple.amp.medialibraryd", "Service");
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = +[NSXPCConnection currentConnection];
+    *buf = 138543618;
+    v26 = v12;
+    v27 = 2114;
+    v28 = pathCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received request to perform database integrity check from client connection: %{public}@. path=%{public}@", buf, 0x16u);
+  }
+
+  v24 = 0;
+  v13 = [(MLDMediaLibraryService *)self _isMediaPath:pathCopy selector:a2 resolvedPath:&v24];
+  v14 = v24;
+  if (v13)
+  {
+    v15 = [MSVXPCTransaction alloc];
+    v16 = [NSString stringWithFormat:@"Database recovery at path: %@", v14];
+    v17 = [v15 initWithName:v16];
+
+    [v17 beginTransaction];
+    v18 = [[MLDDatabaseIntegrityCheckOperation alloc] initWithDatabasePath:v14 repairFaults:faultsCopy];
+    objc_initWeak(buf, v18);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100016D94;
+    v20[3] = &unk_100031468;
+    objc_copyWeak(&v23, buf);
+    v22 = handlerCopy;
+    v19 = v17;
+    v21 = v19;
+    [(MLDDatabaseIntegrityCheckOperation *)v18 setCompletionBlock:v20];
+    [(NSOperationQueue *)self->_databaseRecoveryOperationQueue addOperation:v18];
+
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(buf);
+LABEL_7:
+
+    goto LABEL_8;
+  }
+
+  if (handlerCopy)
+  {
+    v19 = objc_retainBlock(handlerCopy);
+    v18 = [NSError errorWithDomain:@"MLDMediaLibraryServiceErrorDomain" code:195935908 userInfo:0];
+    (*(v19 + 2))(v19, 0, v18, 0);
+    goto LABEL_7;
+  }
+
+LABEL_8:
+}
+
 - (void)attemptDatabaseFileRecoveryAtPath:(id)path withCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -2438,11 +2575,10 @@ LABEL_8:
   block[3] = &unk_1000313F0;
   block[4] = self;
   dispatch_sync(serialQueue, block);
-  stateHandle = self->_stateHandle;
   MSVLogRemoveStateHandler();
-  v5.receiver = self;
-  v5.super_class = MLDMediaLibraryService;
-  [(MLDMediaLibraryService *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = MLDMediaLibraryService;
+  [(MLDMediaLibraryService *)&v4 dealloc];
 }
 
 - (id)_stateDump

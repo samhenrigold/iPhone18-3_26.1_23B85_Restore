@@ -1,6 +1,5 @@
 uint64_t sub_2655DEE28()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8D8](v0, 24, 7);
 }
@@ -9,19 +8,16 @@ uint64_t sub_2655DEE60@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = sub_2655DF8D4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = swift_allocObject();
-  (*(v5 + 16))(v8, a1, v4);
-  v10 = sub_2655DF8F4();
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = swift_allocObject();
+  (*(v5 + 16))(v7, a1, v4);
+  sub_2655DF8F4();
   swift_allocObject();
-  v13 = sub_2655DF8E4();
+  v9 = sub_2655DF8E4();
   result = (*(v5 + 8))(a1, v4);
-  *(v9 + 16) = v13;
-  *a2 = v9;
+  *(v8 + 16) = v9;
+  *a2 = v8;
   return result;
 }
 
@@ -30,8 +26,8 @@ uint64_t sub_2655DEF90@<X0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   v44 = a1;
   v3 = v2;
   v43 = a2;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280017D48, &qword_2655DFB08) - 8) + 64);
-  v5 = (MEMORY[0x28223BE20])();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280017D48, &qword_2655DFB08);
+  v5 = MEMORY[0x28223BE20](v4 - 8);
   v7 = &v39[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = MEMORY[0x28223BE20](v5);
   v41 = &v39[-v9];
@@ -150,7 +146,6 @@ LABEL_11:
 
 uint64_t sub_2655DF3E4()
 {
-  v1 = *(v0 + 16);
 
   __swift_destroy_boxed_opaque_existential_1((v0 + 24));
 
@@ -159,11 +154,10 @@ uint64_t sub_2655DF3E4()
 
 uint64_t sub_2655DF424@<X0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v5 = *v2;
-  result = sub_2655DEF90(&v7, a2);
-  if (v3)
+  result = sub_2655DEF90(&v5, a2);
+  if (v2)
   {
-    *a1 = v7;
+    *a1 = v5;
   }
 
   return result;
@@ -187,7 +181,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -242,13 +235,15 @@ uint64_t sub_2655DF798(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }

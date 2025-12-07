@@ -437,68 +437,65 @@ LABEL_30:
     PBDataWriterWriteStringField();
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_zoneSubscriptions;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v44;
+    v8 = *v31;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v44 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v7);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v11 = self->_serviceBags;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v39 objects:v48 count:16];
-  if (v12)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v10 = self->_serviceBags;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v40;
+    v12 = v11;
+    v13 = *v27;
     do
     {
-      for (j = 0; j != v13; j = j + 1)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v40 != v14)
+        if (*v27 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v39 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    isRosterSearchAllowed = self->_isRosterSearchAllowed;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -518,55 +515,51 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  minimumSearchKeyLength = self->_minimumSearchKeyLength;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_22:
-    useServerForRosterSearch = self->_useServerForRosterSearch;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_23:
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v19 = self->_defaultSyncZoneNames;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v47 count:16];
-  if (v20)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v16 = self->_defaultSyncZoneNames;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  if (v17)
   {
-    v21 = v20;
-    v22 = *v36;
+    v18 = v17;
+    v19 = *v23;
     do
     {
-      for (k = 0; k != v21; k = k + 1)
+      for (k = 0; k != v18; ++k)
       {
-        if (*v36 != v22)
+        if (*v23 != v19)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v16);
         }
 
-        v24 = *(*(&v35 + 1) + 8 * k);
         PBDataWriterWriteStringField();
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v22 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v18);
   }
 
-  v25 = self->_has;
-  if ((v25 & 8) != 0)
+  v21 = self->_has;
+  if ((v21 & 8) != 0)
   {
-    syncFetchInterval = self->_syncFetchInterval;
     PBDataWriterWriteInt32Field();
-    v25 = self->_has;
-    if ((v25 & 2) == 0)
+    v21 = self->_has;
+    if ((v21 & 2) == 0)
     {
 LABEL_32:
-      if ((v25 & 0x20) == 0)
+      if ((v21 & 0x20) == 0)
       {
         goto LABEL_33;
       }
@@ -575,18 +568,17 @@ LABEL_32:
     }
   }
 
-  else if ((v25 & 2) == 0)
+  else if ((v21 & 2) == 0)
   {
     goto LABEL_32;
   }
 
-  searchCacheTtl = self->_searchCacheTtl;
   PBDataWriterWriteInt32Field();
-  v25 = self->_has;
-  if ((v25 & 0x20) == 0)
+  v21 = self->_has;
+  if ((v21 & 0x20) == 0)
   {
 LABEL_33:
-    if ((v25 & 0x10) == 0)
+    if ((v21 & 0x10) == 0)
     {
       goto LABEL_34;
     }
@@ -595,13 +587,12 @@ LABEL_33:
   }
 
 LABEL_44:
-  analyticsOptedIn = self->_analyticsOptedIn;
   PBDataWriterWriteBOOLField();
-  v25 = self->_has;
-  if ((v25 & 0x10) == 0)
+  v21 = self->_has;
+  if ((v21 & 0x10) == 0)
   {
 LABEL_34:
-    if ((v25 & 0x40) == 0)
+    if ((v21 & 0x40) == 0)
     {
       goto LABEL_35;
     }
@@ -610,19 +601,17 @@ LABEL_34:
   }
 
 LABEL_45:
-  allowSharingOutsideOrg = self->_allowSharingOutsideOrg;
   PBDataWriterWriteBOOLField();
-  v25 = self->_has;
-  if ((v25 & 0x40) == 0)
+  v21 = self->_has;
+  if ((v21 & 0x40) == 0)
   {
 LABEL_35:
-    if ((v25 & 4) == 0)
+    if ((v21 & 4) == 0)
     {
       goto LABEL_36;
     }
 
 LABEL_47:
-    searchLimitForGroupMemberSearch = self->_searchLimitForGroupMemberSearch;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x80) == 0)
     {
@@ -633,19 +622,17 @@ LABEL_47:
   }
 
 LABEL_46:
-  classroomClassicAdHocModeEnabled = self->_classroomClassicAdHocModeEnabled;
   PBDataWriterWriteBOOLField();
-  v25 = self->_has;
-  if ((v25 & 4) != 0)
+  v21 = self->_has;
+  if ((v21 & 4) != 0)
   {
     goto LABEL_47;
   }
 
 LABEL_36:
-  if ((v25 & 0x80) != 0)
+  if ((v21 & 0x80) != 0)
   {
 LABEL_37:
-    disableRosterSync = self->_disableRosterSync;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1120,7 +1107,6 @@ LABEL_33:
       goto LABEL_76;
     }
 
-    v11 = *(equalCopy + 76);
     if (self->_isRosterSearchAllowed)
     {
       if ((*(equalCopy + 76) & 1) == 0)
@@ -1160,7 +1146,6 @@ LABEL_33:
       goto LABEL_76;
     }
 
-    v13 = *(equalCopy + 77);
     if (self->_useServerForRosterSearch)
     {
       if ((*(equalCopy + 77) & 1) == 0)
@@ -1225,7 +1210,6 @@ LABEL_33:
       goto LABEL_76;
     }
 
-    v14 = *(equalCopy + 73);
     if (self->_analyticsOptedIn)
     {
       if ((*(equalCopy + 73) & 1) == 0)
@@ -1252,7 +1236,6 @@ LABEL_33:
       goto LABEL_76;
     }
 
-    v15 = *(equalCopy + 72);
     if (self->_allowSharingOutsideOrg)
     {
       if ((*(equalCopy + 72) & 1) == 0)
@@ -1279,7 +1262,6 @@ LABEL_33:
       goto LABEL_76;
     }
 
-    v16 = *(equalCopy + 74);
     if (self->_classroomClassicAdHocModeEnabled)
     {
       if ((*(equalCopy + 74) & 1) == 0)
@@ -1329,19 +1311,19 @@ LABEL_33:
         goto LABEL_76;
       }
 
-      v17 = 1;
+      v12 = 1;
       goto LABEL_77;
     }
 
 LABEL_76:
-    v17 = 0;
+    v12 = 0;
     goto LABEL_77;
   }
 
-  v17 = (v10 & 0x80) == 0;
+  v12 = (v10 & 0x80) == 0;
 LABEL_77:
 
-  return v17;
+  return v12;
 }
 
 - (unint64_t)hash

@@ -1,67 +1,67 @@
-uint64_t NameListToString(uint64_t a1)
+uint64_t NameListToString(uint64_t a1, double a2)
 {
-  memset(v5, 0, sizeof(v5));
-  initStringInfo(v5);
+  memset(v6, 0, sizeof(v6));
+  initStringInfo(v6, a2);
   if (a1 && *(a1 + 4) >= 1)
   {
-    v2 = **(a1 + 16);
-    if (*v2 != 223)
+    v3 = **(a1 + 16);
+    if (*v3 != 223)
     {
-      if (*v2 != 351)
+      if (*v3 != 351)
       {
         goto LABEL_14;
       }
 
-      appendStringInfoChar(v5, 42);
+      appendStringInfoChar(v6, 42);
       if (*(a1 + 4) < 2)
       {
-        return v5[0];
+        return v6[0];
       }
 
 LABEL_8:
-      v3 = 1;
+      v4 = 1;
       while (1)
       {
         while (1)
         {
-          v2 = *(*(a1 + 16) + 8 * v3);
-          appendStringInfoChar(v5, 46);
-          if (*v2 != 351)
+          v3 = *(*(a1 + 16) + 8 * v4);
+          appendStringInfoChar(v6, 46);
+          if (*v3 != 351)
           {
             break;
           }
 
-          appendStringInfoChar(v5, 42);
-          if (++v3 >= *(a1 + 4))
+          appendStringInfoChar(v6, 42);
+          if (++v4 >= *(a1 + 4))
           {
-            return v5[0];
+            return v6[0];
           }
         }
 
-        if (*v2 != 223)
+        if (*v3 != 223)
         {
           break;
         }
 
-        appendStringInfoString(v5, *(v2 + 8));
-        if (++v3 >= *(a1 + 4))
+        appendStringInfoString(v6, *(v3 + 8));
+        if (++v4 >= *(a1 + 4))
         {
-          return v5[0];
+          return v6[0];
         }
       }
 
 LABEL_14:
-      NameListToString_cold_1(v2);
+      NameListToString_cold_1(v3);
     }
 
-    appendStringInfoString(v5, *(v2 + 8));
+    appendStringInfoString(v6, *(v3 + 8));
     if (*(a1 + 4) >= 2)
     {
       goto LABEL_8;
     }
   }
 
-  return v5[0];
+  return v6[0];
 }
 
 void NameListToString_cold_1(_DWORD *a1)
@@ -92,7 +92,7 @@ void defGetInt32_cold_1(uint64_t a1)
 {
   errstart(20, 0);
   errcode();
-  errmsg("%s requires an integer value", v2, v3, v4, v5, v6, v7, v8, *(a1 + 16));
+  errmsg("%s requires an integer value", *(a1 + 16));
   errfinish("src/postgres/src_backend_commands_define.c", 85, "defGetInt32");
   __break(1u);
 }
@@ -101,20 +101,20 @@ void defGetInt32_cold_2(uint64_t a1)
 {
   errstart(20, 0);
   errcode();
-  errmsg("%s requires an integer value", v2, v3, v4, v5, v6, v7, v8, *(a1 + 16));
+  errmsg("%s requires an integer value", *(a1 + 16));
   errfinish("src/postgres/src_backend_commands_define.c", 76, "defGetInt32");
   __break(1u);
 }
 
-int *bms_copy(int *result)
+int *bms_copy(int *result, double a2)
 {
   if (result)
   {
-    v1 = 8 * *result;
-    v2 = result;
-    v3 = palloc(v1 + 8);
+    v2 = 8 * *result;
+    v3 = result;
+    v4 = palloc(v2 + 8, a2);
 
-    return memcpy(v3, v2, v1 + 8);
+    return memcpy(v4, v3, v2 + 8);
   }
 
   return result;
@@ -203,7 +203,8 @@ LABEL_39:
         v29 = &v6[2 * v4 + 2];
         do
         {
-          v31 = *v29++;
+          v31 = *v29;
+          v29 += 2;
           v30 = v31;
           result = v31 == 0;
           v21 = v28-- != 0;
@@ -222,11 +223,12 @@ LABEL_39:
       return 1;
     }
 
-    v23 = (a1 + 2);
+    v23 = a1 + 2;
     v24 = v2 - 1;
     do
     {
-      v26 = *v23++;
+      v26 = *v23;
+      v23 += 2;
       v25 = v26;
       result = v26 == 0;
       v21 = v24-- != 0;
@@ -267,7 +269,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t bms_is_empty(_DWORD *a1)
+BOOL bms_is_empty(_DWORD *a1)
 {
   if (!a1)
   {
@@ -295,14 +297,14 @@ uint64_t bms_is_empty(_DWORD *a1)
   return v7;
 }
 
-uint64_t bms_free(uint64_t a1)
+uint64_t bms_free(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    return pfree(a1);
+    return pfree(result);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t bms_num_members(unsigned int *a1)
@@ -316,10 +318,11 @@ uint64_t bms_num_members(unsigned int *a1)
   if (v1 >= 1)
   {
     v2 = 0;
-    v3 = (a1 + 2);
+    v3 = a1 + 2;
     do
     {
-      v5 = *v3++;
+      v5 = *v3;
+      v3 += 2;
       v4 = v5;
       if (v5)
       {
@@ -417,208 +420,208 @@ uint64_t bms_next_member(int *a1, int a2)
   return 4294967294;
 }
 
-void copyObjectImpl(int *a1)
+void copyObjectImpl(int *result)
 {
-  if (a1)
+  if (result)
   {
     check_stack_depth();
-    switch(*a1)
+    switch(*result)
     {
       case 9:
 
-        _copyPlan(a1, v2);
+        _copyPlan(result, v2);
         return;
       case 10:
 
-        _copyResult(a1, v2);
+        _copyResult(result, v2);
         return;
       case 11:
 
-        _copyProjectSet(a1, v2);
+        _copyProjectSet(result, v2);
         return;
       case 12:
 
-        _copyModifyTable(a1, v2);
+        _copyModifyTable(result, v2);
         return;
       case 13:
 
-        _copyAppend(a1, v2);
+        _copyAppend(result, v2);
         return;
       case 14:
 
-        _copyMergeAppend(a1, v2);
+        _copyMergeAppend(result, v2);
         return;
       case 15:
 
-        _copyRecursiveUnion(a1, v2);
+        _copyRecursiveUnion(result, v2);
         return;
       case 16:
 
-        _copyBitmapAnd(a1, v2);
+        _copyBitmapAnd(result, v2);
         return;
       case 17:
 
-        _copyBitmapOr(a1, v2);
+        _copyBitmapOr(result, v2);
         return;
       case 18:
 
-        _copyScan(a1, v2);
+        _copyScan(result, v2);
         return;
       case 19:
 
-        _copySeqScan(a1, v2);
+        _copySeqScan(result, v2);
         return;
       case 20:
 
-        _copySampleScan(a1, v2);
+        _copySampleScan(result, v2);
         return;
       case 21:
 
-        _copyIndexScan(a1, v2);
+        _copyIndexScan(result, v2);
         return;
       case 22:
 
-        _copyIndexOnlyScan(a1, v2);
+        _copyIndexOnlyScan(result, v2);
         return;
       case 23:
 
-        _copyBitmapIndexScan(a1, v2);
+        _copyBitmapIndexScan(result, v2);
         return;
       case 24:
 
-        _copyBitmapHeapScan(a1, v2);
+        _copyBitmapHeapScan(result, v2);
         return;
       case 25:
 
-        _copyTidScan(a1, v2);
+        _copyTidScan(result, v2);
         return;
       case 26:
 
-        _copySubqueryScan(a1, v2);
+        _copySubqueryScan(result, v2);
         return;
       case 27:
 
-        _copyFunctionScan(a1, v2);
+        _copyFunctionScan(result, v2);
         return;
       case 28:
 
-        _copyValuesScan(a1, v2);
+        _copyValuesScan(result, v2);
         return;
       case 29:
 
-        _copyTableFuncScan(a1, v2);
+        _copyTableFuncScan(result, v2);
         return;
       case 30:
 
-        _copyCteScan(a1, v2);
+        _copyCteScan(result, v2);
         return;
       case 31:
 
-        _copyNamedTuplestoreScan(a1, v2);
+        _copyNamedTuplestoreScan(result, v2);
         return;
       case 32:
 
-        _copyWorkTableScan(a1, v2);
+        _copyWorkTableScan(result, v2);
         return;
       case 33:
 
-        _copyForeignScan(a1, v2);
+        _copyForeignScan(result, v2);
         return;
       case 34:
 
-        _copyCustomScan(a1, v2);
+        _copyCustomScan(result, v2);
         return;
       case 35:
 
-        _copyJoin(a1, v2);
+        _copyJoin(result, v2);
         return;
       case 36:
 
-        _copyNestLoop(a1, v2);
+        _copyNestLoop(result, v2);
         return;
       case 37:
 
-        _copyMergeJoin(a1, v2);
+        _copyMergeJoin(result, v2);
         return;
       case 38:
 
-        _copyHashJoin(a1, v2);
+        _copyHashJoin(result, v2);
         return;
       case 39:
 
-        _copyMaterial(a1, v2);
+        _copyMaterial(result, v2);
         return;
       case 40:
 
-        _copySort(a1, v2);
+        _copySort(result, v2);
         return;
       case 41:
 
-        _copyIncrementalSort(a1, v2);
+        _copyIncrementalSort(result, v2);
         return;
       case 42:
 
-        _copyGroup(a1, v2);
+        _copyGroup(result, v2);
         return;
       case 43:
 
-        _copyAgg(a1, v2);
+        _copyAgg(result, v2);
         return;
       case 44:
 
-        _copyWindowAgg(a1, v2);
+        _copyWindowAgg(result, v2);
         return;
       case 45:
 
-        _copyUnique(a1, v2);
+        _copyUnique(result, v2);
         return;
       case 46:
 
-        _copyGather(a1, v2);
+        _copyGather(result, v2);
         return;
       case 47:
 
-        _copyGatherMerge(a1, v2);
+        _copyGatherMerge(result, v2);
         return;
       case 48:
 
-        _copyHash(a1, v2);
+        _copyHash(result, v2);
         return;
       case 49:
 
-        _copySetOp(a1, v2);
+        _copySetOp(result, v2);
         return;
       case 50:
 
-        _copyLockRows(a1, v2);
+        _copyLockRows(result, v2);
         return;
       case 51:
 
-        _copyLimit(a1, v2);
+        _copyLimit(result, v2);
         return;
       case 52:
 
-        _copyNestLoopParam(a1, v2);
+        _copyNestLoopParam(result, v2);
         return;
       case 53:
 
-        _copyPlanRowMark(a1, v2);
+        _copyPlanRowMark(result, v2);
         return;
       case 54:
 
-        _copyPartitionPruneInfo(a1, v2);
+        _copyPartitionPruneInfo(result, v2);
         return;
       case 55:
 
-        _copyPartitionedRelPruneInfo(a1, v2);
+        _copyPartitionedRelPruneInfo(result, v2);
         return;
       case 56:
 
-        _copyPartitionPruneStepOp(a1, v2);
+        _copyPartitionPruneStepOp(result, v2);
         return;
       case 57:
 
-        _copyPartitionPruneStepCombine(a1, v2);
+        _copyPartitionPruneStepCombine(result, v2);
         return;
       case 58:
         v13 = CurrentMemoryContext(v2);
@@ -627,175 +630,175 @@ void copyObjectImpl(int *a1)
         goto LABEL_239;
       case 102:
 
-        _copyAlias(a1, v2);
+        _copyAlias(result, v2);
         return;
       case 103:
 
-        _copyRangeVar(a1, v2);
+        _copyRangeVar(result, v2);
         return;
       case 104:
 
-        _copyTableFunc(a1, v2);
+        _copyTableFunc(result, v2);
         return;
       case 106:
 
-        _copyVar(a1, v2);
+        _copyVar(result, v2);
         return;
       case 107:
 
-        _copyConst(a1, v2);
+        _copyConst(result, v2);
         return;
       case 108:
 
-        _copyParam(a1, v2);
+        _copyParam(result, v2);
         return;
       case 109:
 
-        _copyAggref(a1, v2);
+        _copyAggref(result, v2);
         return;
       case 110:
 
-        _copyGroupingFunc(a1, v2);
+        _copyGroupingFunc(result, v2);
         return;
       case 111:
 
-        _copyWindowFunc(a1, v2);
+        _copyWindowFunc(result, v2);
         return;
       case 112:
 
-        _copySubscriptingRef(a1, v2);
+        _copySubscriptingRef(result, v2);
         return;
       case 113:
 
-        _copyFuncExpr(a1, v2);
+        _copyFuncExpr(result, v2);
         return;
       case 114:
 
-        _copyNamedArgExpr(a1, v2);
+        _copyNamedArgExpr(result, v2);
         return;
       case 115:
 
-        _copyOpExpr(a1, v2);
+        _copyOpExpr(result, v2);
         return;
       case 116:
 
-        _copyDistinctExpr(a1, v2);
+        _copyDistinctExpr(result, v2);
         return;
       case 117:
 
-        _copyNullIfExpr(a1, v2);
+        _copyNullIfExpr(result, v2);
         return;
       case 118:
 
-        _copyScalarArrayOpExpr(a1, v2);
+        _copyScalarArrayOpExpr(result, v2);
         return;
       case 119:
 
-        _copyBoolExpr(a1, v2);
+        _copyBoolExpr(result, v2);
         return;
       case 120:
 
-        _copySubLink(a1, v2);
+        _copySubLink(result, v2);
         return;
       case 121:
 
-        _copySubPlan(a1, v2);
+        _copySubPlan(result, v2);
         return;
       case 122:
 
-        _copyAlternativeSubPlan(a1, v2);
+        _copyAlternativeSubPlan(result, v2);
         return;
       case 123:
 
-        _copyFieldSelect(a1, v2);
+        _copyFieldSelect(result, v2);
         return;
       case 124:
 
-        _copyFieldStore(a1, v2);
+        _copyFieldStore(result, v2);
         return;
       case 125:
 
-        _copyRelabelType(a1, v2);
+        _copyRelabelType(result, v2);
         return;
       case 126:
 
-        _copyCoerceViaIO(a1, v2);
+        _copyCoerceViaIO(result, v2);
         return;
       case 127:
 
-        _copyArrayCoerceExpr(a1, v2);
+        _copyArrayCoerceExpr(result, v2);
         return;
       case 128:
 
-        _copyConvertRowtypeExpr(a1, v2);
+        _copyConvertRowtypeExpr(result, v2);
         return;
       case 129:
 
-        _copyCollateExpr(a1, v2);
+        _copyCollateExpr(result, v2);
         return;
       case 130:
 
-        _copyCaseExpr(a1, v2);
+        _copyCaseExpr(result, v2);
         return;
       case 131:
 
-        _copyCaseWhen(a1, v2);
+        _copyCaseWhen(result, v2);
         return;
       case 132:
 
-        _copyCaseTestExpr(a1, v2);
+        _copyCaseTestExpr(result, v2);
         return;
       case 133:
 
-        _copyArrayExpr(a1, v2);
+        _copyArrayExpr(result, v2);
         return;
       case 134:
 
-        _copyRowExpr(a1, v2);
+        _copyRowExpr(result, v2);
         return;
       case 135:
 
-        _copyRowCompareExpr(a1, v2);
+        _copyRowCompareExpr(result, v2);
         return;
       case 136:
 
-        _copyCoalesceExpr(a1, v2);
+        _copyCoalesceExpr(result, v2);
         return;
       case 137:
 
-        _copyMinMaxExpr(a1, v2);
+        _copyMinMaxExpr(result, v2);
         return;
       case 138:
 
-        _copySQLValueFunction(a1, v2);
+        _copySQLValueFunction(result, v2);
         return;
       case 139:
 
-        _copyXmlExpr(a1, v2);
+        _copyXmlExpr(result, v2);
         return;
       case 140:
 
-        _copyNullTest(a1, v2);
+        _copyNullTest(result, v2);
         return;
       case 141:
 
-        _copyBooleanTest(a1, v2);
+        _copyBooleanTest(result, v2);
         return;
       case 142:
 
-        _copyCoerceToDomain(a1, v2);
+        _copyCoerceToDomain(result, v2);
         return;
       case 143:
 
-        _copyCoerceToDomainValue(a1, v2);
+        _copyCoerceToDomainValue(result, v2);
         return;
       case 144:
 
-        _copySetToDefault(a1, v2);
+        _copySetToDefault(result, v2);
         return;
       case 145:
 
-        _copyCurrentOfExpr(a1, v2);
+        _copyCurrentOfExpr(result, v2);
         return;
       case 146:
         v3 = CurrentMemoryContext(v2);
@@ -804,11 +807,11 @@ void copyObjectImpl(int *a1)
         goto LABEL_239;
       case 147:
 
-        _copyInferenceElem(a1, v2);
+        _copyInferenceElem(result, v2);
         return;
       case 148:
 
-        _copyTargetEntry(a1, v2);
+        _copyTargetEntry(result, v2);
         return;
       case 149:
         v15 = CurrentMemoryContext(v2);
@@ -817,43 +820,43 @@ void copyObjectImpl(int *a1)
         goto LABEL_705;
       case 150:
 
-        _copyJoinExpr(a1, v2);
+        _copyJoinExpr(result, v2);
         return;
       case 151:
 
-        _copyFromExpr(a1, v2);
+        _copyFromExpr(result, v2);
         return;
       case 152:
 
-        _copyOnConflictExpr(a1, v2);
+        _copyOnConflictExpr(result, v2);
         return;
       case 153:
 
-        _copyIntoClause(a1, v2);
+        _copyIntoClause(result, v2);
         return;
       case 203:
 
-        _copyPathKey(a1, v2);
+        _copyPathKey(result, v2);
         return;
       case 205:
 
-        _copyRestrictInfo(a1, v2);
+        _copyRestrictInfo(result, v2);
         return;
       case 207:
 
-        _copyPlaceHolderVar(a1, v2);
+        _copyPlaceHolderVar(result, v2);
         return;
       case 208:
 
-        _copySpecialJoinInfo(a1, v2);
+        _copySpecialJoinInfo(result, v2);
         return;
       case 209:
 
-        _copyAppendRelInfo(a1, v2);
+        _copyAppendRelInfo(result, v2);
         return;
       case 210:
 
-        _copyPlaceHolderInfo(a1, v2);
+        _copyPlaceHolderInfo(result, v2);
         return;
       case 221:
       case 222:
@@ -861,200 +864,200 @@ void copyObjectImpl(int *a1)
       case 224:
       case 225:
 
-        _copyValue(a1, v2);
+        _copyValue(result, v2);
         return;
       case 226:
 
-        list_copy_deep(a1);
+        list_copy_deep(result, v2);
         return;
       case 227:
       case 228:
 
-        list_copy(a1);
+        list_copy(result, v2);
         return;
       case 229:
 
-        _copyExtensibleNode(a1);
+        _copyExtensibleNode(result);
         return;
       case 230:
 
-        _copyRawStmt(a1, v2);
+        _copyRawStmt(result, v2);
         return;
       case 231:
 
-        _copyQuery(a1, v2);
+        _copyQuery(result, v2);
         return;
       case 232:
 
-        _copyPlannedStmt(a1, v2);
+        _copyPlannedStmt(result, v2);
         return;
       case 233:
 
-        _copyInsertStmt(a1, v2);
+        _copyInsertStmt(result, v2);
         return;
       case 234:
 
-        _copyDeleteStmt(a1, v2);
+        _copyDeleteStmt(result, v2);
         return;
       case 235:
 
-        _copyUpdateStmt(a1, v2);
+        _copyUpdateStmt(result, v2);
         return;
       case 236:
 
-        _copySelectStmt(a1, v2);
+        _copySelectStmt(result, v2);
         return;
       case 237:
 
-        _copyAlterTableStmt(a1, v2);
+        _copyAlterTableStmt(result, v2);
         return;
       case 238:
 
-        _copyAlterTableCmd(a1, v2);
+        _copyAlterTableCmd(result, v2);
         return;
       case 239:
 
-        _copyAlterDomainStmt(a1, v2);
+        _copyAlterDomainStmt(result, v2);
         return;
       case 240:
 
-        _copySetOperationStmt(a1, v2);
+        _copySetOperationStmt(result, v2);
         return;
       case 241:
 
-        _copyGrantStmt(a1, v2);
+        _copyGrantStmt(result, v2);
         return;
       case 242:
 
-        _copyGrantRoleStmt(a1, v2);
+        _copyGrantRoleStmt(result, v2);
         return;
       case 243:
 
-        _copyAlterDefaultPrivilegesStmt(a1, v2);
+        _copyAlterDefaultPrivilegesStmt(result, v2);
         return;
       case 244:
 
-        _copyClosePortalStmt(a1, v2);
+        _copyClosePortalStmt(result, v2);
         return;
       case 245:
 
-        _copyClusterStmt(a1, v2);
+        _copyClusterStmt(result, v2);
         return;
       case 246:
 
-        _copyCopyStmt(a1, v2);
+        _copyCopyStmt(result, v2);
         return;
       case 247:
 
-        _copyCreateStmt(a1, v2);
+        _copyCreateStmt(result, v2);
         return;
       case 248:
 
-        _copyDefineStmt(a1, v2);
+        _copyDefineStmt(result, v2);
         return;
       case 249:
 
-        _copyDropStmt(a1, v2);
+        _copyDropStmt(result, v2);
         return;
       case 250:
 
-        _copyTruncateStmt(a1, v2);
+        _copyTruncateStmt(result, v2);
         return;
       case 251:
 
-        _copyCommentStmt(a1, v2);
+        _copyCommentStmt(result, v2);
         return;
       case 252:
 
-        _copyFetchStmt(a1, v2);
+        _copyFetchStmt(result, v2);
         return;
       case 253:
 
-        _copyIndexStmt(a1, v2);
+        _copyIndexStmt(result, v2);
         return;
       case 254:
 
-        _copyCreateFunctionStmt(a1, v2);
+        _copyCreateFunctionStmt(result, v2);
         return;
       case 255:
 
-        _copyAlterFunctionStmt(a1, v2);
+        _copyAlterFunctionStmt(result, v2);
         return;
       case 256:
 
-        _copyDoStmt(a1, v2);
+        _copyDoStmt(result, v2);
         return;
       case 257:
 
-        _copyRenameStmt(a1, v2);
+        _copyRenameStmt(result, v2);
         return;
       case 258:
 
-        _copyRuleStmt(a1, v2);
+        _copyRuleStmt(result, v2);
         return;
       case 259:
 
-        _copyNotifyStmt(a1, v2);
+        _copyNotifyStmt(result, v2);
         return;
       case 260:
 
-        _copyListenStmt(a1, v2);
+        _copyListenStmt(result, v2);
         return;
       case 261:
 
-        _copyUnlistenStmt(a1, v2);
+        _copyUnlistenStmt(result, v2);
         return;
       case 262:
 
-        _copyTransactionStmt(a1, v2);
+        _copyTransactionStmt(result, v2);
         return;
       case 263:
 
-        _copyViewStmt(a1, v2);
+        _copyViewStmt(result, v2);
         return;
       case 264:
 
-        _copyLoadStmt(a1, v2);
+        _copyLoadStmt(result, v2);
         return;
       case 265:
 
-        _copyCreateDomainStmt(a1, v2);
+        _copyCreateDomainStmt(result, v2);
         return;
       case 266:
 
-        _copyCreatedbStmt(a1, v2);
+        _copyCreatedbStmt(result, v2);
         return;
       case 267:
 
-        _copyDropdbStmt(a1, v2);
+        _copyDropdbStmt(result, v2);
         return;
       case 268:
 
-        _copyVacuumStmt(a1, v2);
+        _copyVacuumStmt(result, v2);
         return;
       case 269:
 
-        _copyExplainStmt(a1, v2);
+        _copyExplainStmt(result, v2);
         return;
       case 270:
 
-        _copyCreateTableAsStmt(a1, v2);
+        _copyCreateTableAsStmt(result, v2);
         return;
       case 271:
 
-        _copyCreateSeqStmt(a1, v2);
+        _copyCreateSeqStmt(result, v2);
         return;
       case 272:
 
-        _copyAlterSeqStmt(a1, v2);
+        _copyAlterSeqStmt(result, v2);
         return;
       case 273:
 
-        _copyVariableSetStmt(a1, v2);
+        _copyVariableSetStmt(result, v2);
         return;
       case 274:
 
-        _copyVariableShowStmt(a1, v2);
+        _copyVariableShowStmt(result, v2);
         return;
       case 275:
         v6 = CurrentMemoryContext(v2);
@@ -1062,39 +1065,39 @@ void copyObjectImpl(int *a1)
         v8 = 275;
 LABEL_705:
         *v7 = v8;
-        v7[1] = a1[1];
+        v7[1] = result[1];
         return;
       case 276:
 
-        _copyCreateTrigStmt(a1, v2);
+        _copyCreateTrigStmt(result, v2);
         return;
       case 277:
 
-        _copyCreatePLangStmt(a1, v2);
+        _copyCreatePLangStmt(result, v2);
         return;
       case 278:
 
-        _copyCreateRoleStmt(a1, v2);
+        _copyCreateRoleStmt(result, v2);
         return;
       case 279:
 
-        _copyAlterRoleStmt(a1, v2);
+        _copyAlterRoleStmt(result, v2);
         return;
       case 280:
 
-        _copyDropRoleStmt(a1, v2);
+        _copyDropRoleStmt(result, v2);
         return;
       case 281:
 
-        _copyLockStmt(a1, v2);
+        _copyLockStmt(result, v2);
         return;
       case 282:
 
-        _copyConstraintsSetStmt(a1, v2);
+        _copyConstraintsSetStmt(result, v2);
         return;
       case 283:
 
-        _copyReindexStmt(a1, v2);
+        _copyReindexStmt(result, v2);
         return;
       case 284:
         v10 = CurrentMemoryContext(v2);
@@ -1103,255 +1106,255 @@ LABEL_705:
         goto LABEL_265;
       case 285:
 
-        _copyCreateSchemaStmt(a1, v2);
+        _copyCreateSchemaStmt(result, v2);
         return;
       case 286:
 
-        _copyAlterDatabaseStmt(a1, v2);
+        _copyAlterDatabaseStmt(result, v2);
         return;
       case 287:
 
-        _copyAlterDatabaseSetStmt(a1, v2);
+        _copyAlterDatabaseSetStmt(result, v2);
         return;
       case 288:
 
-        _copyAlterRoleSetStmt(a1, v2);
+        _copyAlterRoleSetStmt(result, v2);
         return;
       case 289:
 
-        _copyCreateConversionStmt(a1, v2);
+        _copyCreateConversionStmt(result, v2);
         return;
       case 290:
 
-        _copyCreateCastStmt(a1, v2);
+        _copyCreateCastStmt(result, v2);
         return;
       case 291:
 
-        _copyCreateOpClassStmt(a1, v2);
+        _copyCreateOpClassStmt(result, v2);
         return;
       case 292:
 
-        _copyCreateOpFamilyStmt(a1, v2);
+        _copyCreateOpFamilyStmt(result, v2);
         return;
       case 293:
 
-        _copyAlterOpFamilyStmt(a1, v2);
+        _copyAlterOpFamilyStmt(result, v2);
         return;
       case 294:
 
-        _copyPrepareStmt(a1, v2);
+        _copyPrepareStmt(result, v2);
         return;
       case 295:
 
-        _copyExecuteStmt(a1, v2);
+        _copyExecuteStmt(result, v2);
         return;
       case 296:
 
-        _copyDeallocateStmt(a1, v2);
+        _copyDeallocateStmt(result, v2);
         return;
       case 297:
 
-        _copyDeclareCursorStmt(a1, v2);
+        _copyDeclareCursorStmt(result, v2);
         return;
       case 298:
 
-        _copyCreateTableSpaceStmt(a1, v2);
+        _copyCreateTableSpaceStmt(result, v2);
         return;
       case 299:
 
-        _copyDropTableSpaceStmt(a1, v2);
+        _copyDropTableSpaceStmt(result, v2);
         return;
       case 300:
 
-        _copyAlterObjectDependsStmt(a1, v2);
+        _copyAlterObjectDependsStmt(result, v2);
         return;
       case 301:
 
-        _copyAlterObjectSchemaStmt(a1, v2);
+        _copyAlterObjectSchemaStmt(result, v2);
         return;
       case 302:
 
-        _copyAlterOwnerStmt(a1, v2);
+        _copyAlterOwnerStmt(result, v2);
         return;
       case 303:
 
-        _copyAlterOperatorStmt(a1, v2);
+        _copyAlterOperatorStmt(result, v2);
         return;
       case 304:
 
-        _copyAlterTypeStmt(a1, v2);
+        _copyAlterTypeStmt(result, v2);
         return;
       case 305:
 
-        _copyDropOwnedStmt(a1, v2);
+        _copyDropOwnedStmt(result, v2);
         return;
       case 306:
 
-        _copyReassignOwnedStmt(a1, v2);
+        _copyReassignOwnedStmt(result, v2);
         return;
       case 307:
 
-        _copyCompositeTypeStmt(a1, v2);
+        _copyCompositeTypeStmt(result, v2);
         return;
       case 308:
 
-        _copyCreateEnumStmt(a1, v2);
+        _copyCreateEnumStmt(result, v2);
         return;
       case 309:
 
-        _copyCreateRangeStmt(a1, v2);
+        _copyCreateRangeStmt(result, v2);
         return;
       case 310:
 
-        _copyAlterEnumStmt(a1, v2);
+        _copyAlterEnumStmt(result, v2);
         return;
       case 311:
 
-        _copyAlterTSDictionaryStmt(a1, v2);
+        _copyAlterTSDictionaryStmt(result, v2);
         return;
       case 312:
 
-        _copyAlterTSConfigurationStmt(a1, v2);
+        _copyAlterTSConfigurationStmt(result, v2);
         return;
       case 313:
 
-        _copyCreateFdwStmt(a1, v2);
+        _copyCreateFdwStmt(result, v2);
         return;
       case 314:
 
-        _copyAlterFdwStmt(a1, v2);
+        _copyAlterFdwStmt(result, v2);
         return;
       case 315:
 
-        _copyCreateForeignServerStmt(a1, v2);
+        _copyCreateForeignServerStmt(result, v2);
         return;
       case 316:
 
-        _copyAlterForeignServerStmt(a1, v2);
+        _copyAlterForeignServerStmt(result, v2);
         return;
       case 317:
 
-        _copyCreateUserMappingStmt(a1, v2);
+        _copyCreateUserMappingStmt(result, v2);
         return;
       case 318:
 
-        _copyAlterUserMappingStmt(a1, v2);
+        _copyAlterUserMappingStmt(result, v2);
         return;
       case 319:
 
-        _copyDropUserMappingStmt(a1, v2);
+        _copyDropUserMappingStmt(result, v2);
         return;
       case 320:
 
-        _copyAlterTableSpaceOptionsStmt(a1, v2);
+        _copyAlterTableSpaceOptionsStmt(result, v2);
         return;
       case 321:
 
-        _copyAlterTableMoveAllStmt(a1, v2);
+        _copyAlterTableMoveAllStmt(result, v2);
         return;
       case 322:
 
-        _copySecLabelStmt(a1, v2);
+        _copySecLabelStmt(result, v2);
         return;
       case 323:
 
-        _copyCreateForeignTableStmt(a1, v2);
+        _copyCreateForeignTableStmt(result, v2);
         return;
       case 324:
 
-        _copyImportForeignSchemaStmt(a1, v2);
+        _copyImportForeignSchemaStmt(result, v2);
         return;
       case 325:
 
-        _copyCreateExtensionStmt(a1, v2);
+        _copyCreateExtensionStmt(result, v2);
         return;
       case 326:
 
-        _copyAlterExtensionStmt(a1, v2);
+        _copyAlterExtensionStmt(result, v2);
         return;
       case 327:
 
-        _copyAlterExtensionContentsStmt(a1, v2);
+        _copyAlterExtensionContentsStmt(result, v2);
         return;
       case 328:
 
-        _copyCreateEventTrigStmt(a1, v2);
+        _copyCreateEventTrigStmt(result, v2);
         return;
       case 329:
 
-        _copyAlterEventTrigStmt(a1, v2);
+        _copyAlterEventTrigStmt(result, v2);
         return;
       case 330:
 
-        _copyRefreshMatViewStmt(a1, v2);
+        _copyRefreshMatViewStmt(result, v2);
         return;
       case 331:
 
-        _copyReplicaIdentityStmt(a1, v2);
+        _copyReplicaIdentityStmt(result, v2);
         return;
       case 332:
 
-        _copyAlterSystemStmt(a1, v2);
+        _copyAlterSystemStmt(result, v2);
         return;
       case 333:
 
-        _copyCreatePolicyStmt(a1, v2);
+        _copyCreatePolicyStmt(result, v2);
         return;
       case 334:
 
-        _copyAlterPolicyStmt(a1, v2);
+        _copyAlterPolicyStmt(result, v2);
         return;
       case 335:
 
-        _copyCreateTransformStmt(a1, v2);
+        _copyCreateTransformStmt(result, v2);
         return;
       case 336:
 
-        _copyCreateAmStmt(a1, v2);
+        _copyCreateAmStmt(result, v2);
         return;
       case 337:
 
-        _copyCreatePublicationStmt(a1, v2);
+        _copyCreatePublicationStmt(result, v2);
         return;
       case 338:
 
-        _copyAlterPublicationStmt(a1, v2);
+        _copyAlterPublicationStmt(result, v2);
         return;
       case 339:
 
-        _copyCreateSubscriptionStmt(a1, v2);
+        _copyCreateSubscriptionStmt(result, v2);
         return;
       case 340:
 
-        _copyAlterSubscriptionStmt(a1, v2);
+        _copyAlterSubscriptionStmt(result, v2);
         return;
       case 341:
 
-        _copyDropSubscriptionStmt(a1, v2);
+        _copyDropSubscriptionStmt(result, v2);
         return;
       case 342:
 
-        _copyCreateStatsStmt(a1, v2);
+        _copyCreateStatsStmt(result, v2);
         return;
       case 343:
 
-        _copyAlterCollationStmt(a1, v2);
+        _copyAlterCollationStmt(result, v2);
         return;
       case 344:
 
-        _copyCallStmt(a1, v2);
+        _copyCallStmt(result, v2);
         return;
       case 345:
 
-        _copyAlterStatsStmt(a1, v2);
+        _copyAlterStatsStmt(result, v2);
         return;
       case 346:
 
-        _copyAExpr(a1, v2);
+        _copyAExpr(result, v2);
         return;
       case 347:
 
-        _copyColumnRef(a1, v2);
+        _copyColumnRef(result, v2);
         return;
       case 348:
         v9 = CurrentMemoryContext(v2);
@@ -1359,16 +1362,16 @@ LABEL_705:
         v5 = 348;
 LABEL_239:
         *v4 = v5;
-        v4[1] = a1[1];
-        v4[2] = a1[2];
+        v4[1] = result[1];
+        v4[2] = result[2];
         return;
       case 349:
 
-        _copyAConst(a1, v2);
+        _copyAConst(result, v2);
         return;
       case 350:
 
-        _copyFuncCall(a1, v2);
+        _copyFuncCall(result, v2);
         return;
       case 351:
         v14 = CurrentMemoryContext(v2);
@@ -1379,191 +1382,191 @@ LABEL_265:
         break;
       case 352:
 
-        _copyAIndices(a1, v2);
+        _copyAIndices(result, v2);
         break;
       case 353:
 
-        _copyA_Indirection(a1, v2);
+        _copyA_Indirection(result, v2);
         break;
       case 354:
 
-        _copyA_ArrayExpr(a1, v2);
+        _copyA_ArrayExpr(result, v2);
         break;
       case 355:
 
-        _copyResTarget(a1, v2);
+        _copyResTarget(result, v2);
         break;
       case 356:
 
-        _copyMultiAssignRef(a1, v2);
+        _copyMultiAssignRef(result, v2);
         break;
       case 357:
 
-        _copyTypeCast(a1, v2);
+        _copyTypeCast(result, v2);
         break;
       case 358:
 
-        _copyCollateClause(a1, v2);
+        _copyCollateClause(result, v2);
         break;
       case 359:
 
-        _copySortBy(a1, v2);
+        _copySortBy(result, v2);
         break;
       case 360:
 
-        _copyWindowDef(a1, v2);
+        _copyWindowDef(result, v2);
         break;
       case 361:
 
-        _copyRangeSubselect(a1, v2);
+        _copyRangeSubselect(result, v2);
         break;
       case 362:
 
-        _copyRangeFunction(a1, v2);
+        _copyRangeFunction(result, v2);
         break;
       case 363:
 
-        _copyRangeTableSample(a1, v2);
+        _copyRangeTableSample(result, v2);
         break;
       case 364:
 
-        _copyRangeTableFunc(a1, v2);
+        _copyRangeTableFunc(result, v2);
         break;
       case 365:
 
-        _copyRangeTableFuncCol(a1, v2);
+        _copyRangeTableFuncCol(result, v2);
         break;
       case 366:
 
-        _copyTypeName(a1, v2);
+        _copyTypeName(result, v2);
         break;
       case 367:
 
-        _copyColumnDef(a1, v2);
+        _copyColumnDef(result, v2);
         break;
       case 368:
 
-        _copyIndexElem(a1, v2);
+        _copyIndexElem(result, v2);
         break;
       case 369:
 
-        _copyConstraint(a1, v2);
+        _copyConstraint(result, v2);
         break;
       case 370:
 
-        _copyDefElem(a1, v2);
+        _copyDefElem(result, v2);
         break;
       case 371:
 
-        _copyRangeTblEntry(a1, v2);
+        _copyRangeTblEntry(result, v2);
         break;
       case 372:
 
-        _copyRangeTblFunction(a1, v2);
+        _copyRangeTblFunction(result, v2);
         break;
       case 373:
 
-        _copyTableSampleClause(a1, v2);
+        _copyTableSampleClause(result, v2);
         break;
       case 374:
 
-        _copyWithCheckOption(a1, v2);
+        _copyWithCheckOption(result, v2);
         break;
       case 375:
 
-        _copySortGroupClause(a1, v2);
+        _copySortGroupClause(result, v2);
         break;
       case 376:
 
-        _copyGroupingSet(a1, v2);
+        _copyGroupingSet(result, v2);
         break;
       case 377:
 
-        _copyWindowClause(a1, v2);
+        _copyWindowClause(result, v2);
         break;
       case 378:
 
-        _copyObjectWithArgs(a1, v2);
+        _copyObjectWithArgs(result, v2);
         break;
       case 379:
 
-        _copyAccessPriv(a1, v2);
+        _copyAccessPriv(result, v2);
         break;
       case 380:
 
-        _copyCreateOpClassItem(a1, v2);
+        _copyCreateOpClassItem(result, v2);
         break;
       case 381:
 
-        _copyTableLikeClause(a1, v2);
+        _copyTableLikeClause(result, v2);
         break;
       case 382:
 
-        _copyFunctionParameter(a1, v2);
+        _copyFunctionParameter(result, v2);
         break;
       case 383:
 
-        _copyLockingClause(a1, v2);
+        _copyLockingClause(result, v2);
         break;
       case 384:
 
-        _copyRowMarkClause(a1, v2);
+        _copyRowMarkClause(result, v2);
         break;
       case 385:
 
-        _copyXmlSerialize(a1, v2);
+        _copyXmlSerialize(result, v2);
         break;
       case 386:
 
-        _copyWithClause(a1, v2);
+        _copyWithClause(result, v2);
         break;
       case 387:
 
-        _copyInferClause(a1, v2);
+        _copyInferClause(result, v2);
         break;
       case 388:
 
-        _copyOnConflictClause(a1, v2);
+        _copyOnConflictClause(result, v2);
         break;
       case 389:
 
-        _copyCommonTableExpr(a1, v2);
+        _copyCommonTableExpr(result, v2);
         break;
       case 390:
 
-        _copyRoleSpec(a1, v2);
+        _copyRoleSpec(result, v2);
         break;
       case 391:
 
-        _copyTriggerTransition(a1, v2);
+        _copyTriggerTransition(result, v2);
         break;
       case 392:
 
-        _copyPartitionElem(a1, v2);
+        _copyPartitionElem(result, v2);
         break;
       case 393:
 
-        _copyPartitionSpec(a1, v2);
+        _copyPartitionSpec(result, v2);
         break;
       case 394:
 
-        _copyPartitionBoundSpec(a1, v2);
+        _copyPartitionBoundSpec(result, v2);
         break;
       case 395:
 
-        _copyPartitionRangeDatum(a1, v2);
+        _copyPartitionRangeDatum(result, v2);
         break;
       case 396:
 
-        _copyPartitionCmd(a1, v2);
+        _copyPartitionCmd(result, v2);
         break;
       case 397:
 
-        _copyVacuumRelation(a1, v2);
+        _copyVacuumRelation(result, v2);
         break;
       case 415:
 
-        _copyForeignKeyCacheInfo(a1, v2);
+        _copyForeignKeyCacheInfo(result, v2);
         break;
       default:
         copyObjectImpl_cold_1();
@@ -1591,7 +1594,7 @@ unint64_t _copyPlannedStmt(uint64_t a1, double a2)
   *(v4 + 56) = copyObjectImpl(*(a1 + 56));
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
-  *(v4 + 80) = bms_copy(*(a1 + 80));
+  *(v4 + 80) = bms_copy(*(a1 + 80), v5);
   *(v4 + 88) = copyObjectImpl(*(a1 + 88));
   *(v4 + 96) = copyObjectImpl(*(a1 + 96));
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
@@ -1619,8 +1622,8 @@ unint64_t _copyPlan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   return v4;
 }
 
@@ -1641,8 +1644,8 @@ unint64_t _copyResult(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
   return v4;
 }
@@ -1664,8 +1667,8 @@ unint64_t _copyProjectSet(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   return v4;
 }
 
@@ -1686,8 +1689,8 @@ unint64_t _copyModifyTable(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
   *(v4 + 112) = *(a1 + 112);
@@ -1700,7 +1703,7 @@ unint64_t _copyModifyTable(uint64_t a1, double a2)
   *(v4 + 152) = copyObjectImpl(*(a1 + 152));
   *(v4 + 160) = copyObjectImpl(*(a1 + 160));
   *(v4 + 168) = copyObjectImpl(*(a1 + 168));
-  *(v4 + 176) = bms_copy(*(a1 + 176));
+  *(v4 + 176) = bms_copy(*(a1 + 176), v7);
   *(v4 + 184) = copyObjectImpl(*(a1 + 184));
   *(v4 + 192) = *(a1 + 192);
   *(v4 + 196) = *(a1 + 196);
@@ -1729,9 +1732,9 @@ unint64_t _copyAppend(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
-  *(v4 + 104) = bms_copy(*(a1 + 104));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
+  *(v4 + 104) = bms_copy(*(a1 + 104), v7);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   *(v4 + 120) = *(a1 + 120);
   *(v4 + 128) = copyObjectImpl(*(a1 + 128));
@@ -1755,28 +1758,28 @@ unint64_t _copyMergeAppend(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
-  *(v4 + 104) = bms_copy(*(a1 + 104));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
+  *(v4 + 104) = bms_copy(*(a1 + 104), v7);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
-  v5 = *(a1 + 120);
-  *(v4 + 120) = v5;
-  v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 128) = v7;
-  memcpy(v7, *(a1 + 128), v6);
-  v8 = 4 * *(a1 + 120);
-  v9 = palloc(v8);
-  *(v4 + 136) = v9;
-  memcpy(v9, *(a1 + 136), v8);
-  v10 = 4 * *(a1 + 120);
-  v11 = palloc(v10);
-  *(v4 + 144) = v11;
-  memcpy(v11, *(a1 + 144), v10);
-  v12 = *(a1 + 120);
-  v13 = palloc(v12);
-  *(v4 + 152) = v13;
-  memcpy(v13, *(a1 + 152), v12);
+  v8 = *(a1 + 120);
+  *(v4 + 120) = v8;
+  v9 = 2 * v8;
+  v11 = palloc(2 * v8, v10);
+  *(v4 + 128) = v11;
+  memcpy(v11, *(a1 + 128), v9);
+  v12 = 4 * *(a1 + 120);
+  v14 = palloc(v12, v13);
+  *(v4 + 136) = v14;
+  memcpy(v14, *(a1 + 136), v12);
+  v15 = 4 * *(a1 + 120);
+  v17 = palloc(v15, v16);
+  *(v4 + 144) = v17;
+  memcpy(v17, *(a1 + 144), v15);
+  v18 = *(a1 + 120);
+  v20 = palloc(v18, v19);
+  *(v4 + 152) = v20;
+  memcpy(v20, *(a1 + 152), v18);
   *(v4 + 160) = copyObjectImpl(*(a1 + 160));
   return v4;
 }
@@ -1798,25 +1801,25 @@ unint64_t _copyRecursiveUnion(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
-  v5 = *(a1 + 108);
-  *(v4 + 108) = v5;
-  if (v5 >= 1)
+  v8 = *(a1 + 108);
+  *(v4 + 108) = v8;
+  if (v8 >= 1)
   {
-    v6 = 2 * v5;
-    v7 = palloc(2 * v5);
-    *(v4 + 112) = v7;
-    memcpy(v7, *(a1 + 112), v6);
-    v8 = 4 * *(a1 + 108);
-    v9 = palloc(v8);
-    *(v4 + 120) = v9;
-    memcpy(v9, *(a1 + 120), v8);
-    v10 = 4 * *(a1 + 108);
-    v11 = palloc(v10);
-    *(v4 + 128) = v11;
-    memcpy(v11, *(a1 + 128), v10);
+    v9 = 2 * v8;
+    v10 = palloc(2 * v8, v7);
+    *(v4 + 112) = v10;
+    memcpy(v10, *(a1 + 112), v9);
+    v11 = 4 * *(a1 + 108);
+    v13 = palloc(v11, v12);
+    *(v4 + 120) = v13;
+    memcpy(v13, *(a1 + 120), v11);
+    v14 = 4 * *(a1 + 108);
+    v16 = palloc(v14, v15);
+    *(v4 + 128) = v16;
+    memcpy(v16, *(a1 + 128), v14);
   }
 
   *(v4 + 136) = *(a1 + 136);
@@ -1840,8 +1843,8 @@ unint64_t _copyBitmapAnd(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
   return v4;
 }
@@ -1863,8 +1866,8 @@ unint64_t _copyBitmapOr(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -1887,8 +1890,8 @@ unint64_t _copyScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   return v4;
 }
@@ -1910,13 +1913,13 @@ unint64_t _copyGather(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 113) = *(a1 + 113);
-  *(v4 + 120) = bms_copy(*(a1 + 120));
+  *(v4 + 120) = bms_copy(*(a1 + 120), v7);
   return v4;
 }
 
@@ -1937,29 +1940,29 @@ unint64_t _copyGatherMerge(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
-  v5 = *(a1 + 112);
-  *(v4 + 112) = v5;
-  v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 120) = v7;
-  memcpy(v7, *(a1 + 120), v6);
-  v8 = 4 * *(a1 + 112);
-  v9 = palloc(v8);
-  *(v4 + 128) = v9;
-  memcpy(v9, *(a1 + 128), v8);
-  v10 = 4 * *(a1 + 112);
-  v11 = palloc(v10);
-  *(v4 + 136) = v11;
-  memcpy(v11, *(a1 + 136), v10);
-  v12 = *(a1 + 112);
-  v13 = palloc(v12);
-  *(v4 + 144) = v13;
-  memcpy(v13, *(a1 + 144), v12);
-  *(v4 + 152) = bms_copy(*(a1 + 152));
+  v7 = *(a1 + 112);
+  *(v4 + 112) = v7;
+  v8 = 2 * v7;
+  v10 = palloc(2 * v7, v9);
+  *(v4 + 120) = v10;
+  memcpy(v10, *(a1 + 120), v8);
+  v11 = 4 * *(a1 + 112);
+  v13 = palloc(v11, v12);
+  *(v4 + 128) = v13;
+  memcpy(v13, *(a1 + 128), v11);
+  v14 = 4 * *(a1 + 112);
+  v16 = palloc(v14, v15);
+  *(v4 + 136) = v16;
+  memcpy(v16, *(a1 + 136), v14);
+  v17 = *(a1 + 112);
+  v19 = palloc(v17, v18);
+  *(v4 + 144) = v19;
+  memcpy(v19, *(a1 + 144), v17);
+  *(v4 + 152) = bms_copy(*(a1 + 152), v20);
   return v4;
 }
 
@@ -1980,8 +1983,8 @@ unint64_t _copySeqScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   return v4;
 }
@@ -2003,8 +2006,8 @@ unint64_t _copySampleScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -2027,8 +2030,8 @@ unint64_t _copyIndexScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 120) = copyObjectImpl(*(a1 + 120));
@@ -2057,8 +2060,8 @@ unint64_t _copyIndexOnlyScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 120) = copyObjectImpl(*(a1 + 120));
@@ -2085,8 +2088,8 @@ unint64_t _copyBitmapIndexScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 116) = *(a1 + 116);
@@ -2112,8 +2115,8 @@ unint64_t _copyBitmapHeapScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -2136,8 +2139,8 @@ unint64_t _copyTidScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -2160,8 +2163,8 @@ unint64_t _copySubqueryScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -2184,8 +2187,8 @@ unint64_t _copyFunctionScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   *(v4 + 120) = *(a1 + 120);
@@ -2209,8 +2212,8 @@ unint64_t _copyTableFuncScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -2233,8 +2236,8 @@ unint64_t _copyValuesScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
@@ -2257,8 +2260,8 @@ unint64_t _copyCteScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 116) = *(a1 + 116);
@@ -2282,16 +2285,16 @@ unint64_t _copyNamedTuplestoreScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
-  v5 = *(a1 + 112);
-  if (v5)
+  v8 = *(a1 + 112);
+  if (v8)
   {
-    v5 = pstrdup(v5);
+    v8 = pstrdup(v8, v7);
   }
 
-  *(v4 + 112) = v5;
+  *(v4 + 112) = v8;
   return v4;
 }
 
@@ -2312,8 +2315,8 @@ unint64_t _copyWorkTableScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   return v4;
@@ -2336,8 +2339,8 @@ unint64_t _copyForeignScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 116) = *(a1 + 116);
@@ -2345,7 +2348,7 @@ unint64_t _copyForeignScan(uint64_t a1, double a2)
   *(v4 + 128) = copyObjectImpl(*(a1 + 128));
   *(v4 + 136) = copyObjectImpl(*(a1 + 136));
   *(v4 + 144) = copyObjectImpl(*(a1 + 144));
-  *(v4 + 152) = bms_copy(*(a1 + 152));
+  *(v4 + 152) = bms_copy(*(a1 + 152), v7);
   *(v4 + 160) = *(a1 + 160);
   return v4;
 }
@@ -2367,15 +2370,15 @@ unint64_t _copyCustomScan(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 120) = copyObjectImpl(*(a1 + 120));
   *(v4 + 128) = copyObjectImpl(*(a1 + 128));
   *(v4 + 136) = copyObjectImpl(*(a1 + 136));
   *(v4 + 144) = copyObjectImpl(*(a1 + 144));
-  *(v4 + 152) = bms_copy(*(a1 + 152));
+  *(v4 + 152) = bms_copy(*(a1 + 152), v7);
   *(v4 + 160) = *(a1 + 160);
   return v4;
 }
@@ -2397,8 +2400,8 @@ unint64_t _copyJoin(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
@@ -2422,8 +2425,8 @@ unint64_t _copyNestLoop(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
@@ -2448,31 +2451,31 @@ unint64_t _copyMergeJoin(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   *(v4 + 120) = *(a1 + 120);
   *(v4 + 128) = copyObjectImpl(*(a1 + 128));
-  v5 = *(a1 + 128);
-  if (v5)
+  v8 = *(a1 + 128);
+  if (v8)
   {
-    v6 = *(v5 + 4);
-    if (v6 >= 1)
+    v9 = *(v8 + 4);
+    if (v9 >= 1)
     {
-      v7 = palloc(4 * v6);
-      *(v4 + 136) = v7;
-      memcpy(v7, *(a1 + 136), 4 * v6);
-      v8 = palloc(4 * v6);
-      *(v4 + 144) = v8;
-      memcpy(v8, *(a1 + 144), 4 * v6);
-      v9 = palloc(4 * v6);
-      *(v4 + 152) = v9;
-      memcpy(v9, *(a1 + 152), 4 * v6);
-      v10 = palloc(v6);
-      *(v4 + 160) = v10;
-      memcpy(v10, *(a1 + 160), v6);
+      v10 = palloc(4 * v9, v7);
+      *(v4 + 136) = v10;
+      memcpy(v10, *(a1 + 136), 4 * v9);
+      v12 = palloc(4 * v9, v11);
+      *(v4 + 144) = v12;
+      memcpy(v12, *(a1 + 144), 4 * v9);
+      v14 = palloc(4 * v9, v13);
+      *(v4 + 152) = v14;
+      memcpy(v14, *(a1 + 152), 4 * v9);
+      v16 = palloc(v9, v15);
+      *(v4 + 160) = v16;
+      memcpy(v16, *(a1 + 160), v9);
     }
   }
 
@@ -2496,8 +2499,8 @@ unint64_t _copyHashJoin(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
@@ -2525,8 +2528,8 @@ unint64_t _copyMaterial(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   return v4;
 }
 
@@ -2566,22 +2569,22 @@ unint64_t _copyGroup(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
-  v5 = *(a1 + 104);
-  *(v4 + 104) = v5;
-  v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 112) = v7;
-  memcpy(v7, *(a1 + 112), v6);
-  v8 = 4 * *(a1 + 104);
-  v9 = palloc(v8);
-  *(v4 + 120) = v9;
-  memcpy(v9, *(a1 + 120), v8);
-  v10 = 4 * *(a1 + 104);
-  v11 = palloc(v10);
-  *(v4 + 128) = v11;
-  memcpy(v11, *(a1 + 128), v10);
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
+  v7 = *(a1 + 104);
+  *(v4 + 104) = v7;
+  v8 = 2 * v7;
+  v10 = palloc(2 * v7, v9);
+  *(v4 + 112) = v10;
+  memcpy(v10, *(a1 + 112), v8);
+  v11 = 4 * *(a1 + 104);
+  v13 = palloc(v11, v12);
+  *(v4 + 120) = v13;
+  memcpy(v13, *(a1 + 120), v11);
+  v14 = 4 * *(a1 + 104);
+  v16 = palloc(v14, v15);
+  *(v4 + 128) = v16;
+  memcpy(v16, *(a1 + 128), v14);
   return v4;
 }
 
@@ -2602,31 +2605,31 @@ unint64_t _copyAgg(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
-  v5 = *(a1 + 112);
-  *(v4 + 112) = v5;
-  if (v5 >= 1)
+  v8 = *(a1 + 112);
+  *(v4 + 112) = v8;
+  if (v8 >= 1)
   {
-    v6 = 2 * v5;
-    v7 = palloc(2 * v5);
-    *(v4 + 120) = v7;
-    memcpy(v7, *(a1 + 120), v6);
-    v8 = 4 * *(a1 + 112);
-    v9 = palloc(v8);
-    *(v4 + 128) = v9;
-    memcpy(v9, *(a1 + 128), v8);
-    v10 = 4 * *(a1 + 112);
-    v11 = palloc(v10);
-    *(v4 + 136) = v11;
-    memcpy(v11, *(a1 + 136), v10);
+    v9 = 2 * v8;
+    v10 = palloc(2 * v8, v7);
+    *(v4 + 120) = v10;
+    memcpy(v10, *(a1 + 120), v9);
+    v11 = 4 * *(a1 + 112);
+    v13 = palloc(v11, v12);
+    *(v4 + 128) = v13;
+    memcpy(v13, *(a1 + 128), v11);
+    v14 = 4 * *(a1 + 112);
+    v16 = palloc(v14, v15);
+    *(v4 + 136) = v16;
+    memcpy(v16, *(a1 + 136), v14);
   }
 
   *(v4 + 144) = *(a1 + 144);
   *(v4 + 152) = *(a1 + 152);
-  *(v4 + 160) = bms_copy(*(a1 + 160));
+  *(v4 + 160) = bms_copy(*(a1 + 160), v7);
   *(v4 + 168) = copyObjectImpl(*(a1 + 168));
   *(v4 + 176) = copyObjectImpl(*(a1 + 176));
   return v4;
@@ -2649,43 +2652,43 @@ unint64_t _copyWindowAgg(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
-  v5 = *(a1 + 108);
-  *(v4 + 108) = v5;
-  if (v5 >= 1)
+  v8 = *(a1 + 108);
+  *(v4 + 108) = v8;
+  if (v8 >= 1)
   {
-    v6 = 2 * v5;
-    v7 = palloc(2 * v5);
-    *(v4 + 112) = v7;
-    memcpy(v7, *(a1 + 112), v6);
-    v8 = 4 * *(a1 + 108);
-    v9 = palloc(v8);
-    *(v4 + 120) = v9;
-    memcpy(v9, *(a1 + 120), v8);
-    v10 = 4 * *(a1 + 108);
-    v11 = palloc(v10);
-    *(v4 + 128) = v11;
-    memcpy(v11, *(a1 + 128), v10);
+    v9 = 2 * v8;
+    v10 = palloc(2 * v8, v7);
+    *(v4 + 112) = v10;
+    memcpy(v10, *(a1 + 112), v9);
+    v11 = 4 * *(a1 + 108);
+    v13 = palloc(v11, v12);
+    *(v4 + 120) = v13;
+    memcpy(v13, *(a1 + 120), v11);
+    v14 = 4 * *(a1 + 108);
+    v16 = palloc(v14, v15);
+    *(v4 + 128) = v16;
+    memcpy(v16, *(a1 + 128), v14);
   }
 
-  v12 = *(a1 + 136);
-  *(v4 + 136) = v12;
-  if (v12 >= 1)
+  v17 = *(a1 + 136);
+  *(v4 + 136) = v17;
+  if (v17 >= 1)
   {
-    v13 = 2 * v12;
-    v14 = palloc(2 * v12);
-    *(v4 + 144) = v14;
-    memcpy(v14, *(a1 + 144), v13);
-    v15 = 4 * *(a1 + 136);
-    v16 = palloc(v15);
-    *(v4 + 152) = v16;
-    memcpy(v16, *(a1 + 152), v15);
-    v17 = 4 * *(a1 + 136);
-    v18 = palloc(v17);
-    *(v4 + 160) = v18;
-    memcpy(v18, *(a1 + 160), v17);
+    v18 = 2 * v17;
+    v19 = palloc(2 * v17, v7);
+    *(v4 + 144) = v19;
+    memcpy(v19, *(a1 + 144), v18);
+    v20 = 4 * *(a1 + 136);
+    v22 = palloc(v20, v21);
+    *(v4 + 152) = v22;
+    memcpy(v22, *(a1 + 152), v20);
+    v23 = 4 * *(a1 + 136);
+    v25 = palloc(v23, v24);
+    *(v4 + 160) = v25;
+    memcpy(v25, *(a1 + 160), v23);
   }
 
   *(v4 + 168) = *(a1 + 168);
@@ -2716,22 +2719,22 @@ unint64_t _copyUnique(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
-  v5 = *(a1 + 104);
-  *(v4 + 104) = v5;
-  v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 112) = v7;
-  memcpy(v7, *(a1 + 112), v6);
-  v8 = 4 * *(a1 + 104);
-  v9 = palloc(v8);
-  *(v4 + 120) = v9;
-  memcpy(v9, *(a1 + 120), v8);
-  v10 = 4 * *(a1 + 104);
-  v11 = palloc(v10);
-  *(v4 + 128) = v11;
-  memcpy(v11, *(a1 + 128), v10);
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
+  v7 = *(a1 + 104);
+  *(v4 + 104) = v7;
+  v8 = 2 * v7;
+  v10 = palloc(2 * v7, v9);
+  *(v4 + 112) = v10;
+  memcpy(v10, *(a1 + 112), v8);
+  v11 = 4 * *(a1 + 104);
+  v13 = palloc(v11, v12);
+  *(v4 + 120) = v13;
+  memcpy(v13, *(a1 + 120), v11);
+  v14 = 4 * *(a1 + 104);
+  v16 = palloc(v14, v15);
+  *(v4 + 128) = v16;
+  memcpy(v16, *(a1 + 128), v14);
   return v4;
 }
 
@@ -2752,8 +2755,8 @@ unint64_t _copyHash(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
   *(v4 + 112) = *(a1 + 112);
   *(v4 + 116) = *(a1 + 116);
@@ -2779,24 +2782,24 @@ unint64_t _copySetOp(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = *(a1 + 104);
   *(v4 + 108) = *(a1 + 108);
-  v5 = *(a1 + 112);
-  *(v4 + 112) = v5;
-  v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 120) = v7;
-  memcpy(v7, *(a1 + 120), v6);
-  v8 = 4 * *(a1 + 112);
-  v9 = palloc(v8);
-  *(v4 + 128) = v9;
-  memcpy(v9, *(a1 + 128), v8);
-  v10 = 4 * *(a1 + 112);
-  v11 = palloc(v10);
-  *(v4 + 136) = v11;
-  memcpy(v11, *(a1 + 136), v10);
+  v7 = *(a1 + 112);
+  *(v4 + 112) = v7;
+  v8 = 2 * v7;
+  v10 = palloc(2 * v7, v9);
+  *(v4 + 120) = v10;
+  memcpy(v10, *(a1 + 120), v8);
+  v11 = 4 * *(a1 + 112);
+  v13 = palloc(v11, v12);
+  *(v4 + 128) = v13;
+  memcpy(v13, *(a1 + 128), v11);
+  v14 = 4 * *(a1 + 112);
+  v16 = palloc(v14, v15);
+  *(v4 + 136) = v16;
+  memcpy(v16, *(a1 + 136), v14);
   *(v4 + 144) = *(a1 + 144);
   *(v4 + 148) = *(a1 + 148);
   *(v4 + 152) = *(a1 + 152);
@@ -2820,8 +2823,8 @@ unint64_t _copyLockRows(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
   *(v4 + 112) = *(a1 + 112);
   return v4;
@@ -2844,25 +2847,25 @@ unint64_t _copyLimit(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
-  *(v4 + 96) = bms_copy(*(a1 + 96));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
+  *(v4 + 96) = bms_copy(*(a1 + 96), v6);
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   *(v4 + 120) = *(a1 + 120);
-  v5 = *(a1 + 124);
-  *(v4 + 124) = v5;
-  v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 128) = v7;
-  memcpy(v7, *(a1 + 128), v6);
-  v8 = 4 * *(a1 + 124);
-  v9 = palloc(v8);
-  *(v4 + 136) = v9;
-  memcpy(v9, *(a1 + 136), v8);
-  v10 = 4 * *(a1 + 124);
-  v11 = palloc(v10);
-  *(v4 + 144) = v11;
-  memcpy(v11, *(a1 + 144), v10);
+  v7 = *(a1 + 124);
+  *(v4 + 124) = v7;
+  v8 = 2 * v7;
+  v10 = palloc(2 * v7, v9);
+  *(v4 + 128) = v10;
+  memcpy(v10, *(a1 + 128), v8);
+  v11 = 4 * *(a1 + 124);
+  v13 = palloc(v11, v12);
+  *(v4 + 136) = v13;
+  memcpy(v13, *(a1 + 136), v11);
+  v14 = 4 * *(a1 + 124);
+  v16 = palloc(v14, v15);
+  *(v4 + 144) = v16;
+  memcpy(v16, *(a1 + 144), v14);
   return v4;
 }
 
@@ -2898,7 +2901,7 @@ unint64_t _copyPartitionPruneInfo(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 54;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  *(v4 + 16) = bms_copy(*(a1 + 16));
+  *(v4 + 16) = bms_copy(*(a1 + 16), v5);
   return v4;
 }
 
@@ -2908,24 +2911,24 @@ unint64_t _copyPartitionedRelPruneInfo(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x48uLL);
   *v4 = 55;
   *(v4 + 4) = *(a1 + 4);
-  *(v4 + 8) = bms_copy(*(a1 + 8));
-  v5 = *(a1 + 16);
-  *(v4 + 16) = v5;
-  v6 = 4 * v5;
-  v7 = palloc(4 * v5);
-  *(v4 + 24) = v7;
-  memcpy(v7, *(a1 + 24), v6);
-  v8 = 4 * *(a1 + 16);
-  v9 = palloc(v8);
-  *(v4 + 32) = v9;
-  memcpy(v9, *(a1 + 32), v8);
+  *(v4 + 8) = bms_copy(*(a1 + 8), v5);
+  v6 = *(a1 + 16);
+  *(v4 + 16) = v6;
+  v7 = 4 * v6;
+  v9 = palloc(4 * v6, v8);
+  *(v4 + 24) = v9;
+  memcpy(v9, *(a1 + 24), v7);
   v10 = 4 * *(a1 + 16);
-  v11 = palloc(v10);
-  *(v4 + 40) = v11;
-  memcpy(v11, *(a1 + 40), v10);
+  v12 = palloc(v10, v11);
+  *(v4 + 32) = v12;
+  memcpy(v12, *(a1 + 32), v10);
+  v13 = 4 * *(a1 + 16);
+  v15 = palloc(v13, v14);
+  *(v4 + 40) = v15;
+  memcpy(v15, *(a1 + 40), v13);
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
   *(v4 + 56) = copyObjectImpl(*(a1 + 56));
-  *(v4 + 64) = bms_copy(*(a1 + 64));
+  *(v4 + 64) = bms_copy(*(a1 + 64), v16);
   return v4;
 }
 
@@ -2938,7 +2941,7 @@ unint64_t _copyPartitionPruneStepOp(uint64_t a1, double a2)
   *(v4 + 8) = *(a1 + 8);
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
-  *(v4 + 32) = bms_copy(*(a1 + 32));
+  *(v4 + 32) = bms_copy(*(a1 + 32), v5);
   return v4;
 }
 
@@ -2958,13 +2961,13 @@ unint64_t _copyAlias(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 102;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -2974,27 +2977,27 @@ unint64_t _copyRangeVar(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
   *v4 = 103;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
-  v7 = *(a1 + 24);
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
   if (v7)
   {
-    v7 = pstrdup(v7);
+    v7 = pstrdup(v7, v5);
   }
 
-  *(v4 + 24) = v7;
+  *(v4 + 16) = v7;
+  v8 = *(a1 + 24);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v5);
+  }
+
+  *(v4 + 24) = v8;
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 33) = *(a1 + 33);
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
@@ -3017,7 +3020,7 @@ unint64_t _copyTableFunc(uint64_t a1, double a2)
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  *(v4 + 88) = bms_copy(*(a1 + 88));
+  *(v4 + 88) = bms_copy(*(a1 + 88), v5);
   *(v4 + 96) = *(a1 + 96);
   *(v4 + 100) = *(a1 + 100);
   return v4;
@@ -3030,22 +3033,22 @@ unint64_t _copyIntoClause(uint64_t a1, double a2)
   *v4 = 153;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v5 = *(a1 + 24);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 24) = v5;
-  *(v4 + 32) = copyObjectImpl(*(a1 + 32));
-  *(v4 + 40) = *(a1 + 40);
-  v6 = *(a1 + 48);
+  v6 = *(a1 + 24);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 48) = v6;
+  *(v4 + 24) = v6;
+  *(v4 + 32) = copyObjectImpl(*(a1 + 32));
+  *(v4 + 40) = *(a1 + 40);
+  v8 = *(a1 + 48);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v7);
+  }
+
+  *(v4 + 48) = v8;
   *(v4 + 56) = copyObjectImpl(*(a1 + 56));
   *(v4 + 64) = *(a1 + 64);
   return v4;
@@ -3076,21 +3079,21 @@ unint64_t _copyConst(uint64_t a1, double a2)
   *(result + 4) = *(a1 + 4);
   *(result + 8) = *(a1 + 8);
   *(result + 12) = *(a1 + 12);
-  v5 = *(a1 + 16);
-  *(result + 16) = v5;
+  v6 = *(a1 + 16);
+  *(result + 16) = v6;
   if ((*(a1 + 33) & 1) != 0 || *(a1 + 32) == 1)
   {
-    v6 = *(a1 + 24);
+    v7 = *(a1 + 24);
   }
 
   else
   {
-    v7 = result;
-    v6 = datumCopy(*(a1 + 24), 0, v5);
-    result = v7;
+    v8 = result;
+    v7 = datumCopy(*(a1 + 24), 0, v6, v5);
+    result = v8;
   }
 
-  *(result + 24) = v6;
+  *(result + 24) = v7;
   *(result + 32) = *(a1 + 32);
   *(result + 33) = *(a1 + 33);
   *(result + 36) = *(a1 + 36);
@@ -3206,13 +3209,13 @@ unint64_t _copyNamedArgExpr(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 114;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 28) = *(a1 + 28);
   return v4;
@@ -3314,13 +3317,13 @@ unint64_t _copySubPlan(uint64_t a1, double a2)
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 32) = v5;
+  *(v4 + 32) = v6;
   *(v4 + 40) = *(a1 + 40);
   *(v4 + 44) = *(a1 + 44);
   *(v4 + 48) = *(a1 + 48);
@@ -3555,13 +3558,13 @@ unint64_t _copyXmlExpr(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
   *v4 = 139;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -3639,15 +3642,15 @@ unint64_t _copyCurrentOfExpr(uint64_t a1, double a2)
   result = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *result = 145;
   *(result + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 8));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 8), v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   *(result + 16) = *(a1 + 16);
   return result;
 }
@@ -3670,13 +3673,13 @@ unint64_t _copyTargetEntry(uint64_t a1, double a2)
   *v4 = 148;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
   *(v4 + 16) = *(a1 + 16);
-  v5 = *(a1 + 24);
-  if (v5)
+  v6 = *(a1 + 24);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v5;
+  *(v4 + 24) = v6;
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 36) = *(a1 + 36);
   *(v4 + 40) = *(a1 + 40);
@@ -3750,12 +3753,12 @@ unint64_t _copyRestrictInfo(uint64_t a1, double a2)
   *(v4 + 19) = *(a1 + 19);
   *(v4 + 20) = *(a1 + 20);
   *(v4 + 24) = *(a1 + 24);
-  *(v4 + 32) = bms_copy(*(a1 + 32));
-  *(v4 + 40) = bms_copy(*(a1 + 40));
-  *(v4 + 48) = bms_copy(*(a1 + 48));
-  *(v4 + 56) = bms_copy(*(a1 + 56));
-  *(v4 + 64) = bms_copy(*(a1 + 64));
-  *(v4 + 72) = bms_copy(*(a1 + 72));
+  *(v4 + 32) = bms_copy(*(a1 + 32), v5);
+  *(v4 + 40) = bms_copy(*(a1 + 40), v6);
+  *(v4 + 48) = bms_copy(*(a1 + 48), v7);
+  *(v4 + 56) = bms_copy(*(a1 + 56), v8);
+  *(v4 + 64) = bms_copy(*(a1 + 64), v9);
+  *(v4 + 72) = bms_copy(*(a1 + 72), v10);
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
   *(v4 + 88) = *(a1 + 88);
   *(v4 + 96) = *(a1 + 96);
@@ -3782,7 +3785,7 @@ unint64_t _copyPlaceHolderVar(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 207;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  *(v4 + 16) = bms_copy(*(a1 + 16));
+  *(v4 + 16) = bms_copy(*(a1 + 16), v5);
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 28) = *(a1 + 28);
   return v4;
@@ -3793,10 +3796,10 @@ unint64_t _copySpecialJoinInfo(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x40uLL);
   *v4 = 208;
-  *(v4 + 8) = bms_copy(*(a1 + 8));
-  *(v4 + 16) = bms_copy(*(a1 + 16));
-  *(v4 + 24) = bms_copy(*(a1 + 24));
-  *(v4 + 32) = bms_copy(*(a1 + 32));
+  *(v4 + 8) = bms_copy(*(a1 + 8), v5);
+  *(v4 + 16) = bms_copy(*(a1 + 16), v6);
+  *(v4 + 24) = bms_copy(*(a1 + 24), v7);
+  *(v4 + 32) = bms_copy(*(a1 + 32), v8);
   *(v4 + 40) = *(a1 + 40);
   *(v4 + 44) = *(a1 + 44);
   *(v4 + 45) = *(a1 + 45);
@@ -3820,9 +3823,9 @@ unint64_t _copyAppendRelInfo(uint64_t a1, double a2)
   v5 = *(a1 + 32);
   *(v4 + 32) = v5;
   v6 = 2 * v5;
-  v7 = palloc(2 * v5);
-  *(v4 + 40) = v7;
-  memcpy(v7, *(a1 + 40), v6);
+  v8 = palloc(2 * v5, v7);
+  *(v4 + 40) = v8;
+  memcpy(v8, *(a1 + 40), v6);
   *(v4 + 48) = *(a1 + 48);
   return v4;
 }
@@ -3834,9 +3837,9 @@ unint64_t _copyPlaceHolderInfo(uint64_t a1, double a2)
   *v4 = 210;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  *(v4 + 16) = bms_copy(*(a1 + 16));
-  *(v4 + 24) = bms_copy(*(a1 + 24));
-  *(v4 + 32) = bms_copy(*(a1 + 32));
+  *(v4 + 16) = bms_copy(*(a1 + 16), v5);
+  *(v4 + 24) = bms_copy(*(a1 + 24), v6);
+  *(v4 + 32) = bms_copy(*(a1 + 32), v7);
   *(v4 + 40) = *(a1 + 40);
   return v4;
 }
@@ -3846,13 +3849,13 @@ _DWORD *_copyValue(_DWORD *a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 220;
-  v5 = *a1;
+  v6 = *a1;
   *result = *a1;
-  if ((v5 - 222) >= 3)
+  if ((v6 - 222) >= 3)
   {
-    if (v5 != 225)
+    if (v6 != 225)
     {
-      if (v5 != 221)
+      if (v6 != 221)
       {
         _copyValue_cold_1();
       }
@@ -3863,15 +3866,15 @@ _DWORD *_copyValue(_DWORD *a1, double a2)
 
   else
   {
-    v6 = *(a1 + 1);
-    if (v6)
+    v7 = *(a1 + 1);
+    if (v7)
     {
-      v7 = result;
-      v6 = pstrdup(v6);
-      result = v7;
+      v8 = result;
+      v7 = pstrdup(v7, v5);
+      result = v8;
     }
 
-    *(result + 1) = v6;
+    *(result + 1) = v7;
   }
 
   return result;
@@ -3880,12 +3883,11 @@ _DWORD *_copyValue(_DWORD *a1, double a2)
 unint64_t _copyExtensibleNode(uint64_t a1)
 {
   ExtensibleNodeMethods = GetExtensibleNodeMethods(*(a1 + 8), 0);
-  v3 = *(ExtensibleNodeMethods + 8);
-  v5 = *CurrentMemoryContext(v4);
-  if (v6 > 0x400 || v7 != 0)
+  v4 = *CurrentMemoryContext(v3);
+  if (v5 > 0x400 || v6 != 0)
   {
-    v9 = MemoryContextAllocZero(v5, v6);
-    *v9 = 229;
+    v8 = MemoryContextAllocZero(v4, v5);
+    *v8 = 229;
     v10 = *(a1 + 8);
     if (!v10)
     {
@@ -3895,19 +3897,19 @@ unint64_t _copyExtensibleNode(uint64_t a1)
     goto LABEL_8;
   }
 
-  v9 = MemoryContextAllocZeroAligned(v5, v6);
-  *v9 = 229;
+  v8 = MemoryContextAllocZeroAligned(v4, v5);
+  *v8 = 229;
   v10 = *(a1 + 8);
   if (v10)
   {
 LABEL_8:
-    v10 = pstrdup(v10);
+    v10 = pstrdup(v10, v9);
   }
 
 LABEL_9:
-  *(v9 + 8) = v10;
-  (*(ExtensibleNodeMethods + 16))(v9, a1);
-  return v9;
+  *(v8 + 8) = v10;
+  (*(ExtensibleNodeMethods + 16))(v8, a1);
+  return v8;
 }
 
 unint64_t _copyQuery(uint64_t a1, double a2)
@@ -3981,7 +3983,7 @@ unint64_t _copyInsertStmt(uint64_t a1, double a2)
   return v4;
 }
 
-unint64_t _copyDeleteStmt(void *a1, double a2)
+unint64_t _copyDeleteStmt(int **a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
@@ -3994,7 +3996,7 @@ unint64_t _copyDeleteStmt(void *a1, double a2)
   return v4;
 }
 
-unint64_t _copyUpdateStmt(void *a1, double a2)
+unint64_t _copyUpdateStmt(int **a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
@@ -4069,13 +4071,13 @@ unint64_t _copyAlterTableCmd(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 238;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -4100,13 +4102,13 @@ unint64_t _copyAlterDomainStmt(uint64_t a1, double a2)
   *v4 = 239;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 36) = *(a1 + 36);
@@ -4158,13 +4160,13 @@ unint64_t _copyDeclareCursorStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 297;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
@@ -4175,15 +4177,15 @@ unint64_t _copyClosePortalStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 244;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
@@ -4203,13 +4205,13 @@ unint64_t _copyClusterStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 245;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = *(a1 + 24);
   return v4;
 }
@@ -4224,13 +4226,13 @@ unint64_t _copyCopyStmt(uint64_t a1, double a2)
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 33) = *(a1 + 33);
-  v5 = *(a1 + 40);
-  if (v5)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 40) = v5;
+  *(v4 + 40) = v6;
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
   *(v4 + 56) = copyObjectImpl(*(a1 + 56));
   return v4;
@@ -4302,13 +4304,13 @@ unint64_t _copyCommentStmt(uint64_t a1, double a2)
   *v4 = 251;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   return v4;
 }
 
@@ -4319,20 +4321,20 @@ unint64_t _copySecLabelStmt(uint64_t a1, double a2)
   *v4 = 322;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 16) = v5;
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 16);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
+  *(v4 + 16) = v6;
+  v7 = *(a1 + 24);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 24) = v7;
   return v4;
 }
 
@@ -4343,15 +4345,15 @@ unint64_t _copyFetchStmt(uint64_t a1, double a2)
   *result = 252;
   *(result + 4) = *(a1 + 4);
   *(result + 8) = *(a1 + 8);
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 16));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 16), v5);
+    result = v7;
   }
 
-  *(result + 16) = v5;
+  *(result + 16) = v6;
   *(result + 24) = *(a1 + 24);
   return result;
 }
@@ -4361,40 +4363,40 @@ unint64_t _copyIndexStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x78uLL);
   *v4 = 253;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
-  v7 = *(a1 + 32);
-  if (v7)
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  v8 = *(a1 + 24);
+  if (v8)
   {
-    v7 = pstrdup(v7);
+    v8 = pstrdup(v8, v7);
   }
 
-  *(v4 + 32) = v7;
+  *(v4 + 24) = v8;
+  v9 = *(a1 + 32);
+  if (v9)
+  {
+    v9 = pstrdup(v9, v7);
+  }
+
+  *(v4 + 32) = v9;
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
   *(v4 + 56) = copyObjectImpl(*(a1 + 56));
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
-  v8 = *(a1 + 80);
-  if (v8)
+  v11 = *(a1 + 80);
+  if (v11)
   {
-    v8 = pstrdup(v8);
+    v11 = pstrdup(v11, v10);
   }
 
-  *(v4 + 80) = v8;
+  *(v4 + 80) = v11;
   *(v4 + 88) = *(a1 + 88);
   *(v4 + 92) = *(a1 + 92);
   *(v4 + 96) = *(a1 + 96);
@@ -4420,13 +4422,13 @@ unint64_t _copyCreateStatsStmt(uint64_t a1, double a2)
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
-  v5 = *(a1 + 40);
-  if (v5)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 40) = v5;
+  *(v4 + 40) = v6;
   *(v4 + 48) = *(a1 + 48);
   return v4;
 }
@@ -4461,13 +4463,13 @@ unint64_t _copyFunctionParameter(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 382;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -4503,20 +4505,20 @@ unint64_t _copyRenameStmt(uint64_t a1, double a2)
   *(v4 + 8) = *(a1 + 8);
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
-  v5 = *(a1 + 32);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 32) = v5;
-  v6 = *(a1 + 40);
+  v6 = *(a1 + 32);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 40) = v6;
+  *(v4 + 32) = v6;
+  v7 = *(a1 + 40);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 40) = v7;
   *(v4 + 48) = *(a1 + 48);
   *(v4 + 52) = *(a1 + 52);
   return v4;
@@ -4543,13 +4545,13 @@ unint64_t _copyAlterObjectSchemaStmt(uint64_t a1, double a2)
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v5 = *(a1 + 24);
-  if (v5)
+  v6 = *(a1 + 24);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v5;
+  *(v4 + 24) = v6;
   *(v4 + 32) = *(a1 + 32);
   return v4;
 }
@@ -4592,13 +4594,13 @@ unint64_t _copyRuleStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
   *v4 = 258;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 36) = *(a1 + 36);
@@ -4612,20 +4614,20 @@ unint64_t _copyNotifyStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 259;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   return v4;
 }
 
@@ -4634,15 +4636,15 @@ unint64_t _copyListenStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 260;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
@@ -4651,15 +4653,15 @@ unint64_t _copyUnlistenStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 261;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
@@ -4670,20 +4672,20 @@ unint64_t _copyTransactionStmt(uint64_t a1, double a2)
   *v4 = 262;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 16) = v5;
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 16);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
+  *(v4 + 16) = v6;
+  v7 = *(a1 + 24);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 24) = v7;
   *(v4 + 32) = *(a1 + 32);
   return v4;
 }
@@ -4724,27 +4726,27 @@ unint64_t _copyAlterEnumStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 310;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 16) = v5;
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 16);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
-  v7 = *(a1 + 32);
+  *(v4 + 16) = v6;
+  v7 = *(a1 + 24);
   if (v7)
   {
-    v7 = pstrdup(v7);
+    v7 = pstrdup(v7, v5);
   }
 
-  *(v4 + 32) = v7;
+  *(v4 + 24) = v7;
+  v8 = *(a1 + 32);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v5);
+  }
+
+  *(v4 + 32) = v8;
   *(v4 + 40) = *(a1 + 40);
   *(v4 + 41) = *(a1 + 41);
   return v4;
@@ -4769,19 +4771,19 @@ unint64_t _copyLoadStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 264;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
-unint64_t _copyCreateDomainStmt(void *a1, double a2)
+unint64_t _copyCreateDomainStmt(int **a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
@@ -4800,13 +4802,13 @@ unint64_t _copyCreateOpClassStmt(uint64_t a1, double a2)
   *v4 = 291;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v5 = *(a1 + 24);
-  if (v5)
+  v6 = *(a1 + 24);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v5;
+  *(v4 + 24) = v6;
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   *(v4 + 48) = *(a1 + 48);
@@ -4833,13 +4835,13 @@ unint64_t _copyCreateOpFamilyStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 292;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   return v4;
 }
 
@@ -4849,13 +4851,13 @@ unint64_t _copyAlterOpFamilyStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 293;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
@@ -4866,13 +4868,13 @@ unint64_t _copyCreatedbStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 266;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -4882,13 +4884,13 @@ unint64_t _copyAlterDatabaseStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 286;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -4898,13 +4900,13 @@ unint64_t _copyAlterDatabaseSetStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 287;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -4914,13 +4916,13 @@ unint64_t _copyDropdbStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 267;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
@@ -4988,15 +4990,15 @@ unint64_t _copyReplicaIdentityStmt(uint64_t a1, double a2)
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 331;
   *(result + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
@@ -5040,13 +5042,13 @@ unint64_t _copyVariableSetStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 273;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   return v4;
@@ -5057,39 +5059,39 @@ unint64_t _copyVariableShowStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 274;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
-unint64_t _copyCreateTableSpaceStmt(void *a1, double a2)
+unint64_t _copyCreateTableSpaceStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 298;
-  v5 = a1[1];
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(a1[2]);
-  v6 = a1[3];
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
-  *(v4 + 32) = copyObjectImpl(a1[4]);
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  v8 = *(a1 + 24);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v7);
+  }
+
+  *(v4 + 24) = v8;
+  *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
 }
 
@@ -5098,15 +5100,15 @@ unint64_t _copyDropTableSpaceStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *result = 299;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 8));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 8), v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   *(result + 16) = *(a1 + 16);
   return result;
 }
@@ -5116,13 +5118,13 @@ unint64_t _copyAlterTableSpaceOptionsStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 320;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   return v4;
@@ -5133,22 +5135,22 @@ unint64_t _copyAlterTableMoveAllStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 321;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  *(v4 + 16) = *(a1 + 16);
-  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
-  v6 = *(a1 + 32);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 32) = v6;
+  *(v4 + 8) = v6;
+  *(v4 + 16) = *(a1 + 16);
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
+  v8 = *(a1 + 32);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v7);
+  }
+
+  *(v4 + 32) = v8;
   *(v4 + 40) = *(a1 + 40);
   return v4;
 }
@@ -5158,13 +5160,13 @@ unint64_t _copyCreateExtensionStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 325;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
@@ -5175,13 +5177,13 @@ unint64_t _copyAlterExtensionStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 326;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -5191,50 +5193,50 @@ unint64_t _copyAlterExtensionContentsStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 327;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 20) = *(a1 + 20);
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
 }
 
-unint64_t _copyCreateFdwStmt(void *a1, double a2)
+unint64_t _copyCreateFdwStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 313;
-  v5 = a1[1];
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(a1[2]);
-  *(v4 + 24) = copyObjectImpl(a1[3]);
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
 }
 
-unint64_t _copyAlterFdwStmt(void *a1, double a2)
+unint64_t _copyAlterFdwStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 314;
-  v5 = a1[1];
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(a1[2]);
-  *(v4 + 24) = copyObjectImpl(a1[3]);
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
 }
 
@@ -5243,34 +5245,34 @@ unint64_t _copyCreateForeignServerStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
   *v4 = 315;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
-  v7 = *(a1 + 24);
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
   if (v7)
   {
-    v7 = pstrdup(v7);
+    v7 = pstrdup(v7, v5);
   }
 
-  *(v4 + 24) = v7;
-  v8 = *(a1 + 32);
+  *(v4 + 16) = v7;
+  v8 = *(a1 + 24);
   if (v8)
   {
-    v8 = pstrdup(v8);
+    v8 = pstrdup(v8, v5);
   }
 
-  *(v4 + 32) = v8;
+  *(v4 + 24) = v8;
+  v9 = *(a1 + 32);
+  if (v9)
+  {
+    v9 = pstrdup(v9, v5);
+  }
+
+  *(v4 + 32) = v9;
   *(v4 + 40) = *(a1 + 40);
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
   return v4;
@@ -5281,20 +5283,20 @@ unint64_t _copyAlterForeignServerStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 316;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
   return v4;
@@ -5306,32 +5308,32 @@ unint64_t _copyCreateUserMappingStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 317;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
 }
 
-unint64_t _copyAlterUserMappingStmt(void *a1, double a2)
+unint64_t _copyAlterUserMappingStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 318;
-  *(v4 + 8) = copyObjectImpl(a1[1]);
-  v5 = a1[2];
-  if (v5)
+  *(v4 + 8) = copyObjectImpl(*(a1 + 8));
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
-  *(v4 + 24) = copyObjectImpl(a1[3]);
+  *(v4 + 16) = v6;
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
 }
 
@@ -5341,13 +5343,13 @@ unint64_t _copyDropUserMappingStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 319;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = *(a1 + 24);
   return v4;
 }
@@ -5358,13 +5360,13 @@ unint64_t _copyCreateForeignTableStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x78uLL);
   *v4 = 323;
   CopyCreateStmtFields(a1, v4);
-  v5 = *(a1 + 104);
-  if (v5)
+  v6 = *(a1 + 104);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 104) = v5;
+  *(v4 + 104) = v6;
   *(v4 + 112) = copyObjectImpl(*(a1 + 112));
   return v4;
 }
@@ -5374,27 +5376,27 @@ unint64_t _copyImportForeignSchemaStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
   *v4 = 324;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
-  v7 = *(a1 + 24);
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
   if (v7)
   {
-    v7 = pstrdup(v7);
+    v7 = pstrdup(v7, v5);
   }
 
-  *(v4 + 24) = v7;
+  *(v4 + 16) = v7;
+  v8 = *(a1 + 24);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v5);
+  }
+
+  *(v4 + 24) = v8;
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
@@ -5408,13 +5410,13 @@ unint64_t _copyCreateTransformStmt(uint64_t a1, double a2)
   *v4 = 335;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
@@ -5425,13 +5427,13 @@ unint64_t _copyCreateAmStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 336;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   return v4;
@@ -5442,13 +5444,13 @@ unint64_t _copyCreateTrigStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x60uLL);
   *v4 = 276;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -5465,27 +5467,27 @@ unint64_t _copyCreateTrigStmt(uint64_t a1, double a2)
   return v4;
 }
 
-unint64_t _copyCreateEventTrigStmt(void *a1, double a2)
+unint64_t _copyCreateEventTrigStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 328;
-  v5 = a1[1];
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = a1[2];
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
-  *(v4 + 24) = copyObjectImpl(a1[3]);
-  *(v4 + 32) = copyObjectImpl(a1[4]);
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
+  *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
 }
 
@@ -5494,15 +5496,15 @@ unint64_t _copyAlterEventTrigStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *result = 329;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 8));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 8), v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   *(result + 16) = *(a1 + 16);
   return result;
 }
@@ -5513,13 +5515,13 @@ unint64_t _copyCreatePLangStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 277;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -5533,13 +5535,13 @@ unint64_t _copyCreateRoleStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 278;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -5555,20 +5557,20 @@ unint64_t _copyAlterRoleStmt(uint64_t a1, double a2)
   return v4;
 }
 
-unint64_t _copyAlterRoleSetStmt(void *a1, double a2)
+unint64_t _copyAlterRoleSetStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 288;
-  *(v4 + 8) = copyObjectImpl(a1[1]);
-  v5 = a1[2];
-  if (v5)
+  *(v4 + 8) = copyObjectImpl(*(a1 + 8));
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
-  *(v4 + 24) = copyObjectImpl(a1[3]);
+  *(v4 + 16) = v6;
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
 }
 
@@ -5610,13 +5612,13 @@ unint64_t _copyReindexStmt(uint64_t a1, double a2)
   *v4 = 283;
   *(v4 + 4) = *(a1 + 4);
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v5;
+  *(v4 + 16) = v6;
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 28) = *(a1 + 28);
   return v4;
@@ -5627,13 +5629,13 @@ unint64_t _copyCreateSchemaStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 285;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
@@ -5646,20 +5648,20 @@ unint64_t _copyCreateConversionStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 289;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
-  v5 = *(a1 + 16);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 16) = v5;
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 16);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
+  *(v4 + 16) = v6;
+  v7 = *(a1 + 24);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 24) = v7;
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   *(v4 + 40) = *(a1 + 40);
   return v4;
@@ -5678,20 +5680,20 @@ unint64_t _copyCreateCastStmt(uint64_t a1, double a2)
   return v4;
 }
 
-unint64_t _copyPrepareStmt(void *a1, double a2)
+unint64_t _copyPrepareStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 294;
-  v5 = a1[1];
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(a1[2]);
-  *(v4 + 24) = copyObjectImpl(a1[3]);
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   return v4;
 }
 
@@ -5700,13 +5702,13 @@ unint64_t _copyExecuteStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 295;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -5716,15 +5718,15 @@ unint64_t _copyDeallocateStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 296;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(v5);
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(v6, v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   return result;
 }
 
@@ -5778,21 +5780,21 @@ unint64_t _copyCreatePolicyStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x40uLL);
   *v4 = 333;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  v8 = *(a1 + 24);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v7);
+  }
+
+  *(v4 + 24) = v8;
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
@@ -5800,22 +5802,22 @@ unint64_t _copyCreatePolicyStmt(uint64_t a1, double a2)
   return v4;
 }
 
-unint64_t _copyAlterPolicyStmt(void *a1, double a2)
+unint64_t _copyAlterPolicyStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 334;
-  v5 = a1[1];
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(a1[2]);
-  *(v4 + 24) = copyObjectImpl(a1[3]);
-  *(v4 + 32) = copyObjectImpl(a1[4]);
-  *(v4 + 40) = copyObjectImpl(a1[5]);
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
+  *(v4 + 32) = copyObjectImpl(*(a1 + 32));
+  *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   return v4;
 }
 
@@ -5824,13 +5826,13 @@ unint64_t _copyCreatePublicationStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 337;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
@@ -5842,13 +5844,13 @@ unint64_t _copyAlterPublicationStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 338;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
@@ -5856,27 +5858,27 @@ unint64_t _copyAlterPublicationStmt(uint64_t a1, double a2)
   return v4;
 }
 
-unint64_t _copyCreateSubscriptionStmt(void *a1, double a2)
+unint64_t _copyCreateSubscriptionStmt(uint64_t a1, double a2)
 {
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 339;
-  v5 = a1[1];
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = a1[2];
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
-  *(v4 + 24) = copyObjectImpl(a1[3]);
-  *(v4 + 32) = copyObjectImpl(a1[4]);
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
+  *(v4 + 24) = copyObjectImpl(*(a1 + 24));
+  *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
 }
 
@@ -5886,20 +5888,20 @@ unint64_t _copyAlterSubscriptionStmt(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 340;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   return v4;
@@ -5910,15 +5912,15 @@ unint64_t _copyDropSubscriptionStmt(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *result = 341;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 8));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 8), v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   *(result + 16) = *(a1 + 16);
   *(result + 20) = *(a1 + 20);
   return result;
@@ -5952,30 +5954,30 @@ unint64_t _copyAConst(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *result = 349;
-  v5 = *(a1 + 8);
-  *(result + 8) = v5;
-  if ((v5 - 222) < 3)
+  v6 = *(a1 + 8);
+  *(result + 8) = v6;
+  if ((v6 - 222) < 3)
   {
-    v6 = *(a1 + 16);
-    if (v6)
+    v7 = *(a1 + 16);
+    if (v7)
     {
-      v7 = result;
-      v6 = pstrdup(*(a1 + 16));
-      result = v7;
+      v8 = result;
+      v7 = pstrdup(*(a1 + 16), v5);
+      result = v8;
     }
 
-    *(result + 16) = v6;
+    *(result + 16) = v7;
     goto LABEL_5;
   }
 
-  if (v5 == 225)
+  if (v6 == 225)
   {
 LABEL_5:
     *(result + 24) = *(a1 + 24);
     return result;
   }
 
-  if (v5 != 221)
+  if (v6 != 221)
   {
     _copyAConst_cold_1();
   }
@@ -6039,13 +6041,13 @@ unint64_t _copyResTarget(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 355;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
@@ -6103,20 +6105,20 @@ unint64_t _copyWindowDef(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x48uLL);
   *v4 = 360;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   *(v4 + 40) = *(a1 + 40);
@@ -6184,13 +6186,13 @@ unint64_t _copyRangeTableFuncCol(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x38uLL);
   *v4 = 365;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 25) = *(a1 + 25);
@@ -6221,21 +6223,21 @@ unint64_t _copyIndexElem(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x40uLL);
   *v4 = 368;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v6;
+  *(v4 + 8) = v6;
+  *(v4 + 16) = copyObjectImpl(*(a1 + 16));
+  v8 = *(a1 + 24);
+  if (v8)
+  {
+    v8 = pstrdup(v8, v7);
+  }
+
+  *(v4 + 24) = v8;
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
@@ -6249,13 +6251,13 @@ unint64_t _copyColumnDef(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x70uLL);
   *v4 = 367;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 28) = *(a1 + 28);
@@ -6281,52 +6283,52 @@ unint64_t _copyConstraint(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0xB0uLL);
   *v4 = 369;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 17) = *(a1 + 17);
   *(v4 + 20) = *(a1 + 20);
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
-  v6 = *(a1 + 40);
-  if (v6)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    v6 = pstrdup(v6);
+    v8 = pstrdup(v8, v7);
   }
 
-  *(v4 + 40) = v6;
+  *(v4 + 40) = v8;
   *(v4 + 48) = *(a1 + 48);
   *(v4 + 56) = copyObjectImpl(*(a1 + 56));
   *(v4 + 64) = copyObjectImpl(*(a1 + 64));
   *(v4 + 72) = copyObjectImpl(*(a1 + 72));
   *(v4 + 80) = copyObjectImpl(*(a1 + 80));
-  v7 = *(a1 + 88);
-  if (v7)
+  v10 = *(a1 + 88);
+  if (v10)
   {
-    v7 = pstrdup(v7);
+    v10 = pstrdup(v10, v9);
   }
 
-  *(v4 + 88) = v7;
-  v8 = *(a1 + 96);
-  if (v8)
+  *(v4 + 88) = v10;
+  v11 = *(a1 + 96);
+  if (v11)
   {
-    v8 = pstrdup(v8);
+    v11 = pstrdup(v11, v9);
   }
 
-  *(v4 + 96) = v8;
+  *(v4 + 96) = v11;
   *(v4 + 104) = *(a1 + 104);
-  v9 = *(a1 + 112);
-  if (v9)
+  v12 = *(a1 + 112);
+  if (v12)
   {
-    v9 = pstrdup(v9);
+    v12 = pstrdup(v12, v9);
   }
 
-  *(v4 + 112) = v9;
+  *(v4 + 112) = v12;
   *(v4 + 120) = copyObjectImpl(*(a1 + 120));
   *(v4 + 128) = copyObjectImpl(*(a1 + 128));
   *(v4 + 136) = copyObjectImpl(*(a1 + 136));
@@ -6346,20 +6348,20 @@ unint64_t _copyDefElem(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 370;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 36) = *(a1 + 36);
@@ -6398,25 +6400,25 @@ unint64_t _copyRangeTblEntry(uint64_t a1, double a2)
   *(v4 + 88) = *(a1 + 88);
   *(v4 + 96) = copyObjectImpl(*(a1 + 96));
   *(v4 + 104) = copyObjectImpl(*(a1 + 104));
-  v5 = *(a1 + 112);
-  if (v5)
+  v6 = *(a1 + 112);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 112) = v5;
+  *(v4 + 112) = v6;
   *(v4 + 120) = *(a1 + 120);
   *(v4 + 124) = *(a1 + 124);
   *(v4 + 128) = copyObjectImpl(*(a1 + 128));
   *(v4 + 136) = copyObjectImpl(*(a1 + 136));
   *(v4 + 144) = copyObjectImpl(*(a1 + 144));
-  v6 = *(a1 + 152);
-  if (v6)
+  v8 = *(a1 + 152);
+  if (v8)
   {
-    v6 = pstrdup(v6);
+    v8 = pstrdup(v8, v7);
   }
 
-  *(v4 + 152) = v6;
+  *(v4 + 152) = v8;
   *(v4 + 160) = *(a1 + 160);
   *(v4 + 168) = copyObjectImpl(*(a1 + 168));
   *(v4 + 176) = copyObjectImpl(*(a1 + 176));
@@ -6425,10 +6427,10 @@ unint64_t _copyRangeTblEntry(uint64_t a1, double a2)
   *(v4 + 186) = *(a1 + 186);
   *(v4 + 188) = *(a1 + 188);
   *(v4 + 192) = *(a1 + 192);
-  *(v4 + 200) = bms_copy(*(a1 + 200));
-  *(v4 + 208) = bms_copy(*(a1 + 208));
-  *(v4 + 216) = bms_copy(*(a1 + 216));
-  *(v4 + 224) = bms_copy(*(a1 + 224));
+  *(v4 + 200) = bms_copy(*(a1 + 200), v9);
+  *(v4 + 208) = bms_copy(*(a1 + 208), v10);
+  *(v4 + 216) = bms_copy(*(a1 + 216), v11);
+  *(v4 + 224) = bms_copy(*(a1 + 224), v12);
   *(v4 + 232) = copyObjectImpl(*(a1 + 232));
   return v4;
 }
@@ -6444,7 +6446,7 @@ unint64_t _copyRangeTblFunction(uint64_t a1, double a2)
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   *(v4 + 40) = copyObjectImpl(*(a1 + 40));
   *(v4 + 48) = copyObjectImpl(*(a1 + 48));
-  *(v4 + 56) = bms_copy(*(a1 + 56));
+  *(v4 + 56) = bms_copy(*(a1 + 56), v5);
   return v4;
 }
 
@@ -6465,20 +6467,20 @@ unint64_t _copyWithCheckOption(uint64_t a1, double a2)
   v4 = MemoryContextAllocZeroAligned(*v3, 0x28uLL);
   *v4 = 374;
   *(v4 + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = *(a1 + 32);
   return v4;
@@ -6513,20 +6515,20 @@ unint64_t _copyWindowClause(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x58uLL);
   *v4 = 377;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v5 = pstrdup(v5);
-  }
-
-  *(v4 + 8) = v5;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 8);
   if (v6)
   {
-    v6 = pstrdup(v6);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 16) = v6;
+  *(v4 + 8) = v6;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v7 = pstrdup(v7, v5);
+  }
+
+  *(v4 + 16) = v7;
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
   *(v4 + 40) = *(a1 + 40);
@@ -6572,13 +6574,13 @@ unint64_t _copyInferClause(uint64_t a1, double a2)
   *v4 = 387;
   *(v4 + 8) = copyObjectImpl(*(a1 + 8));
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
-  v5 = *(a1 + 24);
-  if (v5)
+  v6 = *(a1 + 24);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 24) = v5;
+  *(v4 + 24) = v6;
   *(v4 + 32) = *(a1 + 32);
   return v4;
 }
@@ -6601,13 +6603,13 @@ unint64_t _copyCommonTableExpr(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x58uLL);
   *v4 = 389;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -6637,13 +6639,13 @@ unint64_t _copyAccessPriv(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *v4 = 379;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   return v4;
 }
@@ -6666,15 +6668,15 @@ unint64_t _copyRoleSpec(uint64_t a1, double a2)
   result = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *result = 390;
   *(result + 4) = *(a1 + 4);
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 8));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 8), v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   *(result + 16) = *(a1 + 16);
   return result;
 }
@@ -6684,15 +6686,15 @@ unint64_t _copyTriggerTransition(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   result = MemoryContextAllocZeroAligned(*v3, 0x18uLL);
   *result = 391;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v6 = result;
-    v5 = pstrdup(*(a1 + 8));
-    result = v6;
+    v7 = result;
+    v6 = pstrdup(*(a1 + 8), v5);
+    result = v7;
   }
 
-  *(result + 8) = v5;
+  *(result + 8) = v6;
   *(result + 16) = *(a1 + 16);
   *(result + 17) = *(a1 + 17);
   return result;
@@ -6703,13 +6705,13 @@ unint64_t _copyPartitionElem(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x30uLL);
   *v4 = 392;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = copyObjectImpl(*(a1 + 24));
   *(v4 + 32) = copyObjectImpl(*(a1 + 32));
@@ -6722,13 +6724,13 @@ unint64_t _copyPartitionSpec(uint64_t a1, double a2)
   v3 = CurrentMemoryContext(a2);
   v4 = MemoryContextAllocZeroAligned(*v3, 0x20uLL);
   *v4 = 393;
-  v5 = *(a1 + 8);
-  if (v5)
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v5 = pstrdup(v5);
+    v6 = pstrdup(v6, v5);
   }
 
-  *(v4 + 8) = v5;
+  *(v4 + 8) = v6;
   *(v4 + 16) = copyObjectImpl(*(a1 + 16));
   *(v4 + 24) = *(a1 + 24);
   return v4;
@@ -6825,28 +6827,28 @@ void *CopySortFields(uint64_t a1, uint64_t a2)
   *(a2 + 64) = copyObjectImpl(*(a1 + 64));
   *(a2 + 72) = copyObjectImpl(*(a1 + 72));
   *(a2 + 80) = copyObjectImpl(*(a1 + 80));
-  *(a2 + 88) = bms_copy(*(a1 + 88));
-  *(a2 + 96) = bms_copy(*(a1 + 96));
-  v4 = *(a1 + 104);
-  *(a2 + 104) = v4;
-  v5 = 2 * v4;
-  v6 = palloc(2 * v4);
-  *(a2 + 112) = v6;
-  memcpy(v6, *(a1 + 112), v5);
-  v7 = 4 * *(a1 + 104);
-  v8 = palloc(v7);
-  *(a2 + 120) = v8;
-  memcpy(v8, *(a1 + 120), v7);
-  v9 = 4 * *(a1 + 104);
-  v10 = palloc(v9);
-  *(a2 + 128) = v10;
-  memcpy(v10, *(a1 + 128), v9);
-  v11 = *(a1 + 104);
-  v12 = palloc(v11);
-  *(a2 + 136) = v12;
-  v13 = *(a1 + 136);
+  *(a2 + 88) = bms_copy(*(a1 + 88), v4);
+  *(a2 + 96) = bms_copy(*(a1 + 96), v5);
+  v6 = *(a1 + 104);
+  *(a2 + 104) = v6;
+  v7 = 2 * v6;
+  v9 = palloc(2 * v6, v8);
+  *(a2 + 112) = v9;
+  memcpy(v9, *(a1 + 112), v7);
+  v10 = 4 * *(a1 + 104);
+  v12 = palloc(v10, v11);
+  *(a2 + 120) = v12;
+  memcpy(v12, *(a1 + 120), v10);
+  v13 = 4 * *(a1 + 104);
+  v15 = palloc(v13, v14);
+  *(a2 + 128) = v15;
+  memcpy(v15, *(a1 + 128), v13);
+  v16 = *(a1 + 104);
+  v18 = palloc(v16, v17);
+  *(a2 + 136) = v18;
+  v19 = *(a1 + 136);
 
-  return memcpy(v12, v13, v11);
+  return memcpy(v18, v19, v16);
 }
 
 const char *CopyCreateStmtFields(uint64_t a1, uint64_t a2)
@@ -6860,17 +6862,17 @@ const char *CopyCreateStmtFields(uint64_t a1, uint64_t a2)
   *(a2 + 56) = copyObjectImpl(*(a1 + 56));
   *(a2 + 64) = copyObjectImpl(*(a1 + 64));
   *(a2 + 72) = *(a1 + 72);
-  v4 = *(a1 + 80);
-  if (v4)
+  v5 = *(a1 + 80);
+  if (v5)
   {
-    v4 = pstrdup(v4);
+    v5 = pstrdup(v5, v4);
   }
 
-  *(a2 + 80) = v4;
+  *(a2 + 80) = v5;
   result = *(a1 + 88);
   if (result)
   {
-    result = pstrdup(result);
+    result = pstrdup(result, v4);
   }
 
   *(a2 + 88) = result;
@@ -8842,7 +8844,7 @@ uint64_t _equalList(int *a1, uint64_t a2)
   return result;
 }
 
-uint64_t _equalValue(_DWORD *a1, _DWORD *a2)
+BOOL _equalValue(_DWORD *a1, _DWORD *a2)
 {
   v2 = *a1;
   if (*a1 != *a2)
@@ -9067,7 +9069,7 @@ uint64_t _equalInsertStmt(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t _equalDeleteStmt(void *a1, void *a2)
+uint64_t _equalDeleteStmt(uint64_t *a1, uint64_t *a2)
 {
   if (!equal(a1[1], a2[1]) || !equal(a1[2], a2[2]) || !equal(a1[3], a2[3]) || !equal(a1[4], a2[4]))
   {
@@ -9080,7 +9082,7 @@ uint64_t _equalDeleteStmt(void *a1, void *a2)
   return equal(v4, v5);
 }
 
-uint64_t _equalUpdateStmt(void *a1, void *a2)
+uint64_t _equalUpdateStmt(uint64_t *a1, uint64_t *a2)
 {
   if (!equal(a1[1], a2[1]) || !equal(a1[2], a2[2]) || !equal(a1[3], a2[3]) || !equal(a1[4], a2[4]) || !equal(a1[5], a2[5]))
   {
@@ -10181,7 +10183,7 @@ uint64_t _equalViewStmt(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t _equalCreateDomainStmt(void *a1, void *a2)
+uint64_t _equalCreateDomainStmt(uint64_t *a1, uint64_t *a2)
 {
   if (!equal(a1[1], a2[1]) || !equal(a1[2], a2[2]) || !equal(a1[3], a2[3]))
   {
@@ -10807,7 +10809,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t _equalAlterUserMappingStmt(void *a1, void *a2)
+uint64_t _equalAlterUserMappingStmt(uint64_t *a1, uint64_t *a2)
 {
   if (!equal(a1[1], a2[1]))
   {
@@ -12266,7 +12268,7 @@ uint64_t _equalWindowClause(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t _equalInferClause(void *a1, void *a2)
+uint64_t _equalInferClause(uint64_t *a1, uint64_t *a2)
 {
   result = equal(a1[1], a2[1]);
   if (result)
@@ -12439,7 +12441,7 @@ void _equalValue_cold_1()
   __break(1u);
 }
 
-uint64_t GetExtensibleNodeMethods(int a1, char a2)
+uint64_t GetExtensibleNodeMethods(const char *a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -12449,137 +12451,71 @@ uint64_t GetExtensibleNodeMethods(int a1, char a2)
   return 0;
 }
 
-void GetExtensibleNodeMethods_cold_1(int a1)
+void GetExtensibleNodeMethods_cold_1(const char *a1)
 {
   errstart(20, 0);
   errcode();
-  errmsg("ExtensibleNodeMethods %s was not registered", v2, v3, v4, v5, v6, v7, v8, a1);
+  errmsg("ExtensibleNodeMethods %s was not registered", a1);
   errfinish("src/postgres/src_backend_nodes_extensible.c", 78, "GetExtensibleNodeEntry");
   __break(1u);
 }
 
-double list_make1_impl(int a1, uint64_t a2)
+double list_make1_impl(int a1, uint64_t a2, double a3)
 {
-  v4 = palloc(0x40uLL);
-  *v4 = a1;
+  v5 = palloc(0x40uLL, a3);
+  *v5 = a1;
   *&result = 0x500000001;
-  *(v4 + 4) = 0x500000001;
-  *(v4 + 24) = a2;
-  *(v4 + 16) = v4 + 24;
+  *(v5 + 4) = 0x500000001;
+  *(v5 + 24) = a2;
+  *(v5 + 16) = v5 + 24;
   return result;
 }
 
-double list_make2_impl(int a1, uint64_t a2, uint64_t a3)
+double list_make2_impl(int a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v6 = palloc(0x40uLL);
-  *v6 = a1;
+  v7 = palloc(0x40uLL, a4);
+  *v7 = a1;
   *&result = 0x500000002;
-  *(v6 + 4) = 0x500000002;
-  *(v6 + 24) = a2;
-  *(v6 + 16) = v6 + 24;
-  *(v6 + 32) = a3;
+  *(v7 + 4) = 0x500000002;
+  *(v7 + 24) = a2;
+  *(v7 + 16) = v7 + 24;
+  *(v7 + 32) = a3;
   return result;
 }
 
-double list_make3_impl(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double list_make3_impl(int a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v8 = palloc(0x40uLL);
-  *v8 = a1;
+  v9 = palloc(0x40uLL, a5);
+  *v9 = a1;
   *&result = 0x500000003;
-  *(v8 + 4) = 0x500000003;
-  *(v8 + 24) = a2;
-  *(v8 + 16) = v8 + 24;
-  *(v8 + 32) = a3;
-  *(v8 + 40) = a4;
+  *(v9 + 4) = 0x500000003;
+  *(v9 + 24) = a2;
+  *(v9 + 16) = v9 + 24;
+  *(v9 + 32) = a3;
+  *(v9 + 40) = a4;
   return result;
 }
 
-double list_make4_impl(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double list_make4_impl(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6)
 {
-  v10 = palloc(0x40uLL);
-  *v10 = a1;
+  v11 = palloc(0x40uLL, a6);
+  *v11 = a1;
   *&result = 0x500000004;
-  *(v10 + 24) = a2;
-  *(v10 + 4) = 0x500000004;
-  *(v10 + 16) = v10 + 24;
-  *(v10 + 32) = a3;
-  *(v10 + 40) = a4;
-  *(v10 + 48) = a5;
+  *(v11 + 24) = a2;
+  *(v11 + 4) = 0x500000004;
+  *(v11 + 16) = v11 + 24;
+  *(v11 + 32) = a3;
+  *(v11 + 40) = a4;
+  *(v11 + 48) = a5;
   return result;
 }
 
-uint64_t lappend(uint64_t result, uint64_t a2)
+uint64_t lappend(uint64_t result, uint64_t a2, double a3)
 {
   if (result)
   {
-    v3 = *(result + 4);
-    if (v3 >= *(result + 8))
-    {
-      if (v3 + 1 > 16)
-      {
-        v4 = v3 + 1;
-      }
-
-      else
-      {
-        v4 = 16;
-      }
-
-      v5 = 1 << -__clz(v4);
-      if ((v4 & (v4 - 1)) != 0)
-      {
-        v6 = v5;
-      }
-
-      else
-      {
-        v6 = v4;
-      }
-
-      v7 = (result + 24);
-      if (*(result + 16) == result + 24)
-      {
-        v10 = result;
-        v11 = MemoryContextAlloc(*(result - 8), 8 * v6);
-        *(v10 + 16) = v11;
-        memcpy(v11, v7, 8 * *(v10 + 4));
-        result = v10;
-      }
-
-      else
-      {
-        v8 = result;
-        v9 = repalloc(*(result + 16), 8 * v6);
-        result = v8;
-        *(v8 + 16) = v9;
-      }
-
-      *(result + 8) = v6;
-      v3 = *(result + 4);
-    }
-
-    *(result + 4) = v3 + 1;
-    *(*(result + 16) + 8 * v3) = a2;
-  }
-
-  else
-  {
-    result = palloc(0x40uLL);
-    *result = 0x1000000E2;
-    *(result + 8) = 5;
-    *(result + 16) = result + 24;
-    *(result + 24) = a2;
-  }
-
-  return result;
-}
-
-uint64_t lcons(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v4 = *(a2 + 4);
-    if (v4 >= *(a2 + 8))
+    v4 = *(result + 4);
+    if (v4 >= *(result + 8))
     {
       if (v4 + 1 > 16)
       {
@@ -12602,24 +12538,90 @@ uint64_t lcons(uint64_t a1, uint64_t a2)
         v7 = v5;
       }
 
-      v8 = *(a2 + 16);
-      if (v8 == a2 + 24)
+      v8 = (result + 24);
+      if (*(result + 16) == result + 24)
       {
-        v10 = MemoryContextAlloc(*(a2 - 8), 8 * v7);
-        *(a2 + 16) = v10;
-        memcpy(v10, (a2 + 24), 8 * *(a2 + 4));
+        v11 = result;
+        v12 = MemoryContextAlloc(*(result - 8), 8 * v7);
+        *(v11 + 16) = v12;
+        memcpy(v12, v8, 8 * *(v11 + 4));
+        result = v11;
       }
 
       else
       {
-        *(a2 + 16) = repalloc(v8, 8 * v7);
+        v9 = result;
+        v10 = repalloc(*(result + 16), 8 * v7);
+        result = v9;
+        *(v9 + 16) = v10;
       }
 
-      *(a2 + 8) = v7;
-      v4 = *(a2 + 4);
+      *(result + 8) = v7;
+      v4 = *(result + 4);
     }
 
-    memmove((*(a2 + 16) + 8), *(a2 + 16), 8 * v4);
+    *(result + 4) = v4 + 1;
+    *(*(result + 16) + 8 * v4) = a2;
+  }
+
+  else
+  {
+    result = palloc(0x40uLL, a3);
+    *result = 0x1000000E2;
+    *(result + 8) = 5;
+    *(result + 16) = result + 24;
+    *(result + 24) = a2;
+  }
+
+  return result;
+}
+
+uint64_t lcons(uint64_t a1, uint64_t a2, double a3)
+{
+  if (a2)
+  {
+    v5 = *(a2 + 4);
+    if (v5 >= *(a2 + 8))
+    {
+      if (v5 + 1 > 16)
+      {
+        v6 = v5 + 1;
+      }
+
+      else
+      {
+        v6 = 16;
+      }
+
+      v7 = 1 << -__clz(v6);
+      if ((v6 & (v6 - 1)) != 0)
+      {
+        v8 = v7;
+      }
+
+      else
+      {
+        v8 = v6;
+      }
+
+      v9 = *(a2 + 16);
+      if (v9 == a2 + 24)
+      {
+        v11 = MemoryContextAlloc(*(a2 - 8), 8 * v8);
+        *(a2 + 16) = v11;
+        memcpy(v11, (a2 + 24), 8 * *(a2 + 4));
+      }
+
+      else
+      {
+        *(a2 + 16) = repalloc(v9, 8 * v8);
+      }
+
+      *(a2 + 8) = v8;
+      v5 = *(a2 + 4);
+    }
+
+    memmove((*(a2 + 16) + 8), *(a2 + 16), 8 * v5);
     ++*(a2 + 4);
     **(a2 + 16) = a1;
     return a2;
@@ -12627,7 +12629,7 @@ uint64_t lcons(uint64_t a1, uint64_t a2)
 
   else
   {
-    result = palloc(0x40uLL);
+    result = palloc(0x40uLL, a3);
     *result = 0x1000000E2;
     *(result + 8) = 5;
     *(result + 16) = result + 24;
@@ -12637,7 +12639,7 @@ uint64_t lcons(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t list_concat(uint64_t a1, const void **a2)
+uint64_t list_concat(uint64_t a1, const void **a2, double a3)
 {
   if (!a1)
   {
@@ -12646,117 +12648,117 @@ uint64_t list_concat(uint64_t a1, const void **a2)
       return 0;
     }
 
-    v11 = *a2;
-    v12 = *(a2 + 1);
-    v13 = v12 + 3;
-    if (v12 + 3 <= 8)
+    v12 = *a2;
+    v13 = *(a2 + 1);
+    v14 = v13 + 3;
+    if (v13 + 3 <= 8)
     {
-      v13 = 8;
+      v14 = 8;
     }
 
-    v14 = 1 << -__clz(v13);
-    if ((v13 & (v13 - 1)) != 0)
+    v15 = 1 << -__clz(v14);
+    if ((v14 & (v14 - 1)) != 0)
     {
-      v13 = v14;
+      v14 = v15;
     }
 
-    v15 = v13 - 3;
-    v16 = a2;
-    v2 = palloc(8 * (v13 - 3) + 24);
-    *v2 = v11;
-    *(v2 + 4) = v12;
-    *(v2 + 8) = v15;
-    *(v2 + 16) = v2 + 24;
-    memcpy((v2 + 24), v16[2], 8 * v12);
-    return v2;
+    v16 = v14 - 3;
+    v17 = a2;
+    v3 = palloc(8 * (v14 - 3) + 24, a3);
+    *v3 = v12;
+    *(v3 + 4) = v13;
+    *(v3 + 8) = v16;
+    *(v3 + 16) = v3 + 24;
+    memcpy((v3 + 24), v17[2], 8 * v13);
+    return v3;
   }
 
-  v2 = a1;
+  v3 = a1;
   if (!a2)
   {
-    return v2;
+    return v3;
   }
 
-  v3 = *(a2 + 1);
-  v4 = *(a1 + 4);
-  v5 = v3 + v4;
-  if (v3 + v4 > *(a1 + 8))
+  v4 = *(a2 + 1);
+  v5 = *(a1 + 4);
+  v6 = v4 + v5;
+  if (v4 + v5 > *(a1 + 8))
   {
-    v6 = a2;
-    if (v5 <= 16)
+    v7 = a2;
+    if (v6 <= 16)
     {
-      v7 = 16;
+      v8 = 16;
     }
 
     else
     {
-      v7 = v3 + v4;
+      v8 = v4 + v5;
     }
 
-    v8 = 1 << -__clz(v7);
-    if ((v7 & (v7 - 1)) != 0)
+    v9 = 1 << -__clz(v8);
+    if ((v8 & (v8 - 1)) != 0)
     {
-      v9 = v8;
+      v10 = v9;
     }
 
     else
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    v10 = *(a1 + 16);
-    if (v10 == v2 + 24)
+    v11 = *(a1 + 16);
+    if (v11 == v3 + 24)
     {
-      v18 = MemoryContextAlloc(*(v2 - 8), 8 * v9);
-      *(v2 + 16) = v18;
-      memcpy(v18, (v2 + 24), 8 * *(v2 + 4));
+      v19 = MemoryContextAlloc(*(v3 - 8), 8 * v10);
+      *(v3 + 16) = v19;
+      memcpy(v19, (v3 + 24), 8 * *(v3 + 4));
     }
 
     else
     {
-      *(v2 + 16) = repalloc(v10, 8 * v9);
+      *(v3 + 16) = repalloc(v11, 8 * v10);
     }
 
-    *(v2 + 8) = v9;
-    v4 = *(v2 + 4);
-    a2 = v6;
-    v3 = *(v6 + 1);
+    *(v3 + 8) = v10;
+    v5 = *(v3 + 4);
+    a2 = v7;
+    v4 = *(v7 + 1);
   }
 
-  memcpy((*(v2 + 16) + 8 * v4), a2[2], 8 * v3);
-  *(v2 + 4) = v5;
-  return v2;
+  memcpy((*(v3 + 16) + 8 * v5), a2[2], 8 * v4);
+  *(v3 + 4) = v6;
+  return v3;
 }
 
-uint64_t list_copy(const void **a1)
+uint64_t list_copy(const void **a1, double a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v1 = *a1;
-  v2 = *(a1 + 1);
-  v3 = v2 + 3;
-  if (v2 + 3 <= 8)
+  v2 = *a1;
+  v3 = *(a1 + 1);
+  v4 = v3 + 3;
+  if (v3 + 3 <= 8)
   {
-    v3 = 8;
+    v4 = 8;
   }
 
-  v4 = 1 << -__clz(v3);
-  if ((v3 & (v3 - 1)) != 0)
+  v5 = 1 << -__clz(v4);
+  if ((v4 & (v4 - 1)) != 0)
   {
-    v3 = v4;
+    v4 = v5;
   }
 
-  v5 = v3 - 3;
-  v7 = palloc(8 * (v3 - 3) + 24);
-  *v7 = v1;
-  *(v7 + 4) = v2;
-  *(v7 + 8) = v5;
-  *(v7 + 16) = v7 + 24;
-  memcpy((v7 + 24), a1[2], 8 * v2);
-  return v7;
+  v6 = v4 - 3;
+  v8 = palloc(8 * (v4 - 3) + 24, a2);
+  *v8 = v2;
+  *(v8 + 4) = v3;
+  *(v8 + 8) = v6;
+  *(v8 + 16) = v8 + 24;
+  memcpy((v8 + 24), a1[2], 8 * v3);
+  return v8;
 }
 
 uint64_t list_truncate(uint64_t result, int a2)
@@ -12851,94 +12853,94 @@ uint64_t list_delete_cell(uint64_t a1, uint64_t a2)
   return result;
 }
 
-_DWORD *list_copy_tail(_DWORD *result, int a2)
+_DWORD *list_copy_tail(_DWORD *result, int a2, double a3)
 {
   if (result)
   {
-    v2 = a2 & ~(a2 >> 31);
-    v3 = result[1];
-    v4 = v3 - v2;
-    if (v3 <= v2)
+    v3 = a2 & ~(a2 >> 31);
+    v4 = result[1];
+    v5 = v4 - v3;
+    if (v4 <= v3)
     {
       return 0;
     }
 
     else
     {
-      v5 = *result;
-      v6 = v4 + 3;
-      if (v4 + 3 <= 8)
+      v6 = *result;
+      v7 = v5 + 3;
+      if (v5 + 3 <= 8)
       {
-        v6 = 8;
+        v7 = 8;
       }
 
-      v7 = 1 << -__clz(v6);
-      if ((v6 & (v6 - 1)) != 0)
+      v8 = 1 << -__clz(v7);
+      if ((v7 & (v7 - 1)) != 0)
       {
-        v6 = v7;
+        v7 = v8;
       }
 
-      v8 = v6 - 3;
-      v9 = result;
-      v10 = palloc(8 * (v6 - 3) + 24);
-      *v10 = v5;
-      *(v10 + 4) = v4;
-      *(v10 + 8) = v8;
-      *(v10 + 16) = v10 + 24;
-      memcpy((v10 + 24), (*(v9 + 2) + 8 * v2), 8 * v4);
-      return v10;
+      v9 = v7 - 3;
+      v10 = result;
+      v11 = palloc(8 * (v7 - 3) + 24, a3);
+      *v11 = v6;
+      *(v11 + 4) = v5;
+      *(v11 + 8) = v9;
+      *(v11 + 16) = v11 + 24;
+      memcpy((v11 + 24), (*(v10 + 2) + 8 * v3), 8 * v5);
+      return v11;
     }
   }
 
   return result;
 }
 
-uint64_t list_copy_deep(int *a1)
+uint64_t list_copy_deep(int *a1, double a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = v3 + 3;
-  if (v3 + 3 <= 8)
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = v4 + 3;
+  if (v4 + 3 <= 8)
   {
-    v4 = 8;
+    v5 = 8;
   }
 
-  v5 = 1 << -__clz(v4);
-  if ((v4 & (v4 - 1)) != 0)
+  v6 = 1 << -__clz(v5);
+  if ((v5 & (v5 - 1)) != 0)
   {
-    v4 = v5;
+    v5 = v6;
   }
 
-  v6 = v4 - 3;
-  v7 = palloc(8 * (v4 - 3) + 24);
-  *v7 = v2;
-  *(v7 + 4) = v3;
-  *(v7 + 8) = v6;
-  *(v7 + 16) = v7 + 24;
-  if (v3 >= 1)
+  v7 = v5 - 3;
+  v8 = palloc(8 * (v5 - 3) + 24, a2);
+  *v8 = v3;
+  *(v8 + 4) = v4;
+  *(v8 + 8) = v7;
+  *(v8 + 16) = v8 + 24;
+  if (v4 >= 1)
   {
-    v8 = 0;
+    v9 = 0;
     do
     {
-      *(*(v7 + 16) + 8 * v8) = copyObjectImpl(*(*(a1 + 2) + 8 * v8));
-      ++v8;
+      *(*(v8 + 16) + 8 * v9) = copyObjectImpl(*(*(a1 + 2) + 8 * v9));
+      ++v9;
     }
 
-    while (v8 < *(v7 + 4));
+    while (v9 < *(v8 + 4));
   }
 
-  return v7;
+  return v8;
 }
 
-unint64_t makeA_Expr(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+unint64_t makeA_Expr(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, double a6)
 {
-  v10 = CurrentMemoryContext();
-  result = MemoryContextAllocZeroAligned(*v10, 0x28uLL);
+  v11 = CurrentMemoryContext(a6);
+  result = MemoryContextAllocZeroAligned(*v11, 0x28uLL);
   *result = 346;
   *(result + 4) = a1;
   *(result + 8) = a2;
@@ -12948,19 +12950,19 @@ unint64_t makeA_Expr(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
   return result;
 }
 
-unint64_t makeSimpleA_Expr(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+unint64_t makeSimpleA_Expr(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, double a6)
 {
-  v10 = CurrentMemoryContext();
-  v11 = MemoryContextAllocZeroAligned(*v10, 0x28uLL);
-  *v11 = 346;
-  *(v11 + 4) = a1;
-  String = makeString(a2);
-  list_make1_impl(226, String);
-  *(v11 + 8) = v13;
-  *(v11 + 16) = a3;
-  *(v11 + 24) = a4;
-  *(v11 + 32) = a5;
-  return v11;
+  v11 = CurrentMemoryContext(a6);
+  v12 = MemoryContextAllocZeroAligned(*v11, 0x28uLL);
+  *v12 = 346;
+  *(v12 + 4) = a1;
+  String = makeString(a2, v13);
+  list_make1_impl(226, String, v15);
+  *(v12 + 8) = v16;
+  *(v12 + 16) = a3;
+  *(v12 + 24) = a4;
+  *(v12 + 32) = a5;
+  return v12;
 }
 
 unint64_t makeBoolExpr(int a1, uint64_t a2, int a3, double a4)
@@ -12974,20 +12976,20 @@ unint64_t makeBoolExpr(int a1, uint64_t a2, int a3, double a4)
   return result;
 }
 
-unint64_t makeAlias(const char *a1, uint64_t a2)
+unint64_t makeAlias(const char *a1, uint64_t a2, double a3)
 {
-  v4 = CurrentMemoryContext();
-  v5 = MemoryContextAllocZeroAligned(*v4, 0x18uLL);
-  *v5 = 102;
-  *(v5 + 8) = pstrdup(a1);
-  *(v5 + 16) = a2;
-  return v5;
+  v5 = CurrentMemoryContext(a3);
+  v6 = MemoryContextAllocZeroAligned(*v5, 0x18uLL);
+  *v6 = 102;
+  *(v6 + 8) = pstrdup(a1, v7);
+  *(v6 + 16) = a2;
+  return v6;
 }
 
-unint64_t makeRangeVar(uint64_t a1, uint64_t a2, int a3)
+unint64_t makeRangeVar(uint64_t a1, uint64_t a2, int a3, double a4)
 {
-  v6 = CurrentMemoryContext();
-  result = MemoryContextAllocZeroAligned(*v6, 0x38uLL);
+  v7 = CurrentMemoryContext(a4);
+  result = MemoryContextAllocZeroAligned(*v7, 0x38uLL);
   *result = 103;
   *(result + 8) = 0;
   *(result + 16) = a1;
@@ -12998,15 +13000,15 @@ unint64_t makeRangeVar(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-unint64_t makeTypeName(uint64_t a1)
+unint64_t makeTypeName(uint64_t a1, double a2)
 {
-  String = makeString(a1);
-  v2 = list_make1_impl(226, String);
-  v4 = v3;
-  v5 = CurrentMemoryContext(v2);
-  result = MemoryContextAllocZeroAligned(*v5, 0x38uLL);
+  String = makeString(a1, a2);
+  v4 = list_make1_impl(226, String, v3);
+  v6 = v5;
+  v7 = CurrentMemoryContext(v4);
+  result = MemoryContextAllocZeroAligned(*v7, 0x38uLL);
   *result = 366;
-  *(result + 8) = v4;
+  *(result + 8) = v6;
   *(result + 24) = 0;
   *(result + 32) = -1;
   *(result + 48) = -1;
@@ -13581,81 +13583,80 @@ void raw_expression_tree_walker_cold_1(_DWORD *a1)
   __break(1u);
 }
 
-_DWORD *makeInteger(int a1)
+_DWORD *makeInteger(int a1, double a2)
 {
-  v2 = CurrentMemoryContext();
-  result = MemoryContextAllocZeroAligned(*v2, 0x10uLL);
+  v3 = CurrentMemoryContext(a2);
+  result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 221;
   result[2] = a1;
   return result;
 }
 
-unint64_t makeFloat(uint64_t a1)
+unint64_t makeFloat(uint64_t a1, double a2)
 {
-  v2 = CurrentMemoryContext();
-  result = MemoryContextAllocZeroAligned(*v2, 0x10uLL);
+  v3 = CurrentMemoryContext(a2);
+  result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 222;
   *(result + 8) = a1;
   return result;
 }
 
-unint64_t makeString(uint64_t a1)
+unint64_t makeString(uint64_t a1, double a2)
 {
-  v2 = CurrentMemoryContext();
-  result = MemoryContextAllocZeroAligned(*v2, 0x10uLL);
+  v3 = CurrentMemoryContext(a2);
+  result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 223;
   *(result + 8) = a1;
   return result;
 }
 
-unint64_t makeBitString(uint64_t a1)
+unint64_t makeBitString(uint64_t a1, double a2)
 {
-  v2 = CurrentMemoryContext();
-  result = MemoryContextAllocZeroAligned(*v2, 0x10uLL);
+  v3 = CurrentMemoryContext(a2);
+  result = MemoryContextAllocZeroAligned(*v3, 0x10uLL);
   *result = 224;
   *(result + 8) = a1;
   return result;
 }
 
-_DWORD *makeAConst(unsigned int *a1, int a2, double a3)
+_DWORD *makeAConst(double a1, uint64_t a2, int a3)
 {
-  v4 = *a1;
-  v5 = *CurrentMemoryContext(a3);
-  if (v7 == 221)
+  v4 = *CurrentMemoryContext(a1);
+  if (v6 == 221)
   {
-    v10 = *(v6 + 8);
-    result = MemoryContextAllocZeroAligned(v5, 0x20uLL);
+    v9 = *(v5 + 8);
+    result = MemoryContextAllocZeroAligned(v4, 0x20uLL);
     *result = 349;
     result[2] = 221;
-    result[4] = v10;
-    result[6] = a2;
+    result[4] = v9;
+    result[6] = a3;
   }
 
   else
   {
-    v8 = *(v6 + 8);
-    if (v7 == 222)
+    v7 = *(v5 + 8);
+    if (v6 == 222)
     {
-      result = MemoryContextAllocZeroAligned(v5, 0x20uLL);
+      result = MemoryContextAllocZeroAligned(v4, 0x20uLL);
       *result = 349;
       result[2] = 222;
     }
 
     else
     {
-      result = MemoryContextAllocZeroAligned(v5, 0x20uLL);
+      result = MemoryContextAllocZeroAligned(v4, 0x20uLL);
       *result = 349;
       result[2] = 223;
     }
 
-    *(result + 2) = v8;
-    result[6] = a2;
+    *(result + 2) = v7;
+    result[6] = a3;
   }
 
   return result;
 }
 
-uint64_t processCASbits(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4, _BYTE *a5, _BYTE *a6, _BYTE *a7)
+uint64_t processCASbits(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4, _BYTE *a5, _BYTE *a6, _BYTE *a7, uint64_t a8)
 {
   if (a4)
   {
@@ -13715,34 +13716,35 @@ uint64_t processCASbits(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4, _B
   return result;
 }
 
-unint64_t makeRangeVarFromAnyName(uint64_t a1, int a2, double a3)
+unint64_t makeRangeVarFromAnyName(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v5 = CurrentMemoryContext(a3);
-  result = MemoryContextAllocZeroAligned(*v5, 0x38uLL);
+  v4 = a2;
+  v6 = CurrentMemoryContext(a4);
+  result = MemoryContextAllocZeroAligned(*v6, 0x38uLL);
   *result = 103;
   if (!a1)
   {
     goto LABEL_9;
   }
 
-  v7 = *(a1 + 4);
-  if (v7 == 3)
+  v8 = *(a1 + 4);
+  if (v8 == 3)
   {
     *(result + 8) = *(**(a1 + 16) + 8);
     *(result + 16) = *(*(*(a1 + 16) + 8) + 8);
-    v8 = *(a1 + 16) + 16;
+    v9 = *(a1 + 16) + 16;
     goto LABEL_8;
   }
 
-  if (v7 == 2)
+  if (v8 == 2)
   {
     *(result + 8) = 0;
     *(result + 16) = *(**(a1 + 16) + 8);
-    v8 = *(a1 + 16) + 8;
+    v9 = *(a1 + 16) + 8;
     goto LABEL_8;
   }
 
-  if (v7 != 1)
+  if (v8 != 1)
   {
 LABEL_9:
     makeRangeVarFromAnyName_cold_1();
@@ -13750,34 +13752,33 @@ LABEL_9:
 
   *(result + 8) = 0;
   *(result + 16) = 0;
-  v8 = *(a1 + 16);
+  v9 = *(a1 + 16);
 LABEL_8:
-  *(result + 24) = *(*v8 + 8);
+  *(result + 24) = *(*v9 + 8);
   *(result + 33) = 112;
-  *(result + 48) = a2;
+  *(result + 48) = v4;
   return result;
 }
 
-uint64_t SplitColQualList(uint64_t result, uint64_t *a2, int **a3)
+uint64_t SplitColQualList(uint64_t result, uint64_t *a2, int **a3, uint64_t a4)
 {
   *a3 = 0;
   if (result)
   {
-    v5 = 0;
-    while (v5 < *(result + 4))
+    v6 = 0;
+    while (v6 < *(result + 4))
     {
-      v6 = (*(result + 16) + 8 * v5);
-      v7 = **v6;
-      if (v7 == 358)
+      v7 = (*(result + 16) + 8 * v6);
+      v8 = **v7;
+      if (v8 == 358)
       {
         if (*a3)
         {
-          v8 = *v6;
           SplitColQualList_cold_1();
         }
 
-        *a3 = *v6;
-        result = list_delete_cell(result, v6);
+        *a3 = *v7;
+        result = list_delete_cell(result, v7);
         if (!result)
         {
           break;
@@ -13786,12 +13787,12 @@ uint64_t SplitColQualList(uint64_t result, uint64_t *a2, int **a3)
 
       else
       {
-        if (v7 != 369)
+        if (v8 != 369)
         {
-          SplitColQualList_cold_2(*v6);
+          SplitColQualList_cold_2(*v7);
         }
 
-        ++v5;
+        ++v6;
       }
     }
   }
@@ -13800,79 +13801,79 @@ uint64_t SplitColQualList(uint64_t result, uint64_t *a2, int **a3)
   return result;
 }
 
-uint64_t mergeTableFuncParameters(uint64_t a1, const void **a2)
+uint64_t mergeTableFuncParameters(uint64_t a1, const void **a2, double a3)
 {
   if (a1)
   {
-    v2 = *(a1 + 4);
-    if (v2 >= 1)
+    v3 = *(a1 + 4);
+    if (v3 >= 1)
     {
-      v3 = *(a1 + 16);
+      v4 = *(a1 + 16);
       do
       {
-        v4 = *(*v3 + 24);
-        if (v4 != 105 && v4 != 118)
+        v5 = *(*v4 + 24);
+        if (v5 != 105 && v5 != 118)
         {
           mergeTableFuncParameters_cold_1();
         }
 
-        v3 += 8;
-        --v2;
+        v4 += 8;
+        --v3;
       }
 
-      while (v2);
+      while (v3);
     }
   }
 
-  return list_concat(a1, a2);
+  return list_concat(a1, a2, a3);
 }
 
-void TableFuncTypeName(uint64_t a1)
+void TableFuncTypeName(uint64_t a1, double a2)
 {
   if (a1 && *(a1 + 4) == 1)
   {
     copyObjectImpl(*(**(a1 + 16) + 16));
-    *(v1 + 20) = 1;
+    *(v2 + 20) = 1;
   }
 
   else
   {
-    String = makeString("pg_catalog");
-    v3 = makeString("record");
-    v4 = list_make2_impl(226, String, v3);
-    *(makeTypeNameFromNameList(v5, v4) + 20) = 1;
+    String = makeString("pg_catalog", a2);
+    v5 = makeString("record", v4);
+    v7 = list_make2_impl(226, String, v5, v6);
+    *(makeTypeNameFromNameList(v8, v7) + 20) = 1;
   }
 }
 
-uint64_t extractArgTypes(uint64_t result)
+uint64_t extractArgTypes(uint64_t result, double a2)
 {
   if (result)
   {
-    v1 = result;
-    v2 = *(result + 4);
-    if (v2 < 1)
+    v2 = result;
+    v3 = *(result + 4);
+    if (v3 < 1)
     {
       return 0;
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
       result = 0;
       do
       {
-        v4 = *(*(v1 + 16) + 8 * v3);
-        v5 = *(v4 + 24);
-        if (v5 != 111 && v5 != 116)
+        v5 = *(*(v2 + 16) + 8 * v4);
+        v6 = *(v5 + 24);
+        if (v6 != 111 && v6 != 116)
         {
-          result = lappend(result, *(v4 + 16));
-          v2 = *(v1 + 4);
+          result = lappend(result, *(v5 + 16), a2);
+          v3 = *(v2 + 4);
         }
 
-        ++v3;
+        ++v4;
       }
 
-      while (v3 < v2);
+      while (v4 < v3);
     }
   }
 
@@ -13905,35 +13906,35 @@ uint64_t check_func_name(uint64_t result, uint64_t a2)
   return result;
 }
 
-double makeOrderedSetArgs(uint64_t a1, uint64_t a2)
+double makeOrderedSetArgs(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v2 = a2;
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 4);
-  v6 = *(v4 + 8 * (v5 - 1));
-  if (*(v6 + 24) == 118)
+  v4 = a2;
+  v6 = *(a1 + 16);
+  v7 = *(a1 + 4);
+  v8 = *(v6 + 8 * (v7 - 1));
+  if (*(v8 + 24) == 118)
   {
-    v7 = **(a2 + 16);
-    if (*(a2 + 4) != 1 || *(v7 + 24) != 118 || !equal(*(v6 + 16), *(v7 + 16)))
+    v9 = **(a2 + 16);
+    if (*(a2 + 4) != 1 || *(v9 + 24) != 118 || !equal(*(v8 + 16), *(v9 + 16)))
     {
       makeOrderedSetArgs_cold_1();
     }
 
-    v2 = 0;
-    v5 = *(a1 + 4);
+    v4 = 0;
+    v7 = *(a1 + 4);
   }
 
-  Integer = makeInteger(v5);
-  v9 = list_concat(a1, v2);
+  Integer = makeInteger(v7, a4);
+  v12 = list_concat(a1, v4, v11);
 
-  return list_make2_impl(226, v9, Integer);
+  return list_make2_impl(226, v12, Integer, v13);
 }
 
 unint64_t makeRecursiveViewSelect(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   v7 = CurrentMemoryContext(a4);
-  v21 = MemoryContextAllocZeroAligned(*v7, 0x98uLL);
-  *v21 = 236;
+  v27 = MemoryContextAllocZeroAligned(*v7, 0x98uLL);
+  *v27 = 236;
   v8 = MemoryContextAllocZeroAligned(*v7, 0x18uLL);
   *v8 = 386;
   v9 = MemoryContextAllocZeroAligned(*v7, 0x58uLL);
@@ -13944,46 +13945,46 @@ unint64_t makeRecursiveViewSelect(uint64_t a1, uint64_t a2, uint64_t a3, double 
   *(v9 + 32) = a3;
   *(v9 + 40) = -1;
   *(v8 + 16) = 1;
-  list_make1_impl(226, v9);
-  *(v8 + 8) = v10;
+  v11 = list_make1_impl(226, v9, v10);
+  *(v8 + 8) = v12;
   *(v8 + 20) = -1;
   if (a2 && *(a2 + 4) >= 1)
   {
-    v11 = 0;
-    v12 = 0;
+    v13 = 0;
+    v14 = 0;
     do
     {
-      v13 = *(a2 + 16);
-      v14 = MemoryContextAllocZeroAligned(*v7, 0x28uLL);
-      *v14 = 355;
-      *(v14 + 8) = 0;
-      *(v14 + 16) = 0;
-      v15 = *(*(v13 + 8 * v11) + 8);
-      v16 = MemoryContextAllocZeroAligned(*v7, 0x18uLL);
-      *v16 = 347;
-      *(v16 + 16) = -1;
-      String = makeString(v15);
-      *(v16 + 8) = lcons(String, 0);
-      *(v14 + 24) = v16;
-      *(v14 + 32) = -1;
-      v12 = lappend(v12, v14);
-      ++v11;
+      v15 = *(a2 + 16);
+      v16 = MemoryContextAllocZeroAligned(*v7, 0x28uLL);
+      *v16 = 355;
+      *(v16 + 8) = 0;
+      *(v16 + 16) = 0;
+      v17 = *(*(v15 + 8 * v13) + 8);
+      v18 = MemoryContextAllocZeroAligned(*v7, 0x18uLL);
+      *v18 = 347;
+      *(v18 + 16) = -1;
+      String = makeString(v17, v19);
+      *(v18 + 8) = lcons(String, 0, v21);
+      *(v16 + 24) = v18;
+      *(v16 + 32) = -1;
+      v14 = lappend(v14, v16, v22);
+      ++v13;
     }
 
-    while (v11 < *(a2 + 4));
+    while (v13 < *(a2 + 4));
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  *(v21 + 120) = v8;
-  *(v21 + 24) = v12;
-  RangeVar = makeRangeVar(0, a1, -1);
-  list_make1_impl(226, RangeVar);
-  *(v21 + 32) = v19;
-  return v21;
+  *(v27 + 120) = v8;
+  *(v27 + 24) = v14;
+  RangeVar = makeRangeVar(0, a1, -1, v11);
+  list_make1_impl(226, RangeVar, v24);
+  *(v27 + 32) = v25;
+  return v27;
 }
 
 uint64_t check_indirection(uint64_t result, uint64_t a2)
@@ -14014,7 +14015,7 @@ uint64_t check_indirection(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t insertSelectOptions(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t a5)
+uint64_t insertSelectOptions(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
   if (a2)
   {
@@ -14026,7 +14027,7 @@ uint64_t insertSelectOptions(uint64_t a1, uint64_t a2, const void **a3, uint64_t
     *(a1 + 80) = a2;
   }
 
-  result = list_concat(*(a1 + 112), a3);
+  result = list_concat(*(a1 + 112), a3, a7);
   *(a1 + 112) = result;
   if (a4)
   {
@@ -14040,31 +14041,31 @@ uint64_t insertSelectOptions(uint64_t a1, uint64_t a2, const void **a3, uint64_t
       *(a1 + 88) = *a4;
     }
 
-    v9 = *(a4 + 8);
-    if (v9)
+    v11 = *(a4 + 8);
+    if (v11)
     {
       if (*(a1 + 96))
       {
         insertSelectOptions_cold_3();
       }
 
-      *(a1 + 96) = v9;
+      *(a1 + 96) = v11;
     }
 
-    v10 = *(a4 + 16);
-    if (v10)
+    v12 = *(a4 + 16);
+    if (v12)
     {
       if (*(a1 + 104))
       {
         insertSelectOptions_cold_4();
       }
 
-      if (v10 == 2 && !*(a1 + 80))
+      if (v12 == 2 && !*(a1 + 80))
       {
         insertSelectOptions_cold_5();
       }
 
-      *(a1 + 104) = v10;
+      *(a1 + 104) = v12;
     }
   }
 
@@ -14081,21 +14082,21 @@ uint64_t insertSelectOptions(uint64_t a1, uint64_t a2, const void **a3, uint64_t
   return result;
 }
 
-_DWORD *doNegate(_DWORD *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_DWORD *doNegate(_DWORD *result, int a2, double a3)
 {
-  v8 = result;
+  v3 = result;
   if (*result != 349)
   {
 LABEL_5:
 
-    return makeSimpleA_Expr(0, "-", 0, result, a2);
+    return makeSimpleA_Expr(0, "-", 0, result, a2, a3);
   }
 
   result[6] = a2;
-  v9 = result[2];
-  if (v9 != 222)
+  v4 = result[2];
+  if (v4 != 222)
   {
-    if (v9 == 221)
+    if (v4 == 221)
     {
       result[4] = -result[4];
       return result;
@@ -14104,97 +14105,97 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v10 = *(result + 2);
-  if (*v10 == 43)
+  v5 = *(result + 2);
+  if (*v5 == 43)
   {
-    ++v10;
+    ++v5;
   }
 
-  if (*v10 == 45)
+  if (*v5 == 45)
   {
-    *(result + 2) = v10 + 1;
+    *(result + 2) = v5 + 1;
   }
 
   else
   {
-    *(result + 2) = psprintf("-%s", a2, a3, a4, a2, a6, a7, a8, v10);
-    return v8;
+    *(result + 2) = psprintf("-%s", v5);
+    return v3;
   }
 
   return result;
 }
 
-unint64_t SystemTypeName(uint64_t a1)
+unint64_t SystemTypeName(uint64_t a1, double a2)
 {
-  String = makeString("pg_catalog");
-  v3 = makeString(a1);
-  v5 = list_make2_impl(226, String, v3);
+  String = makeString("pg_catalog", a2);
+  v5 = makeString(a1, v4);
+  v8 = list_make2_impl(226, String, v5, v6);
 
-  return makeTypeNameFromNameList(v4, v5);
+  return makeTypeNameFromNameList(v7, v8);
 }
 
-double SystemFuncName(uint64_t a1)
+double SystemFuncName(uint64_t a1, double a2)
 {
-  String = makeString("pg_catalog");
-  v3 = makeString(a1);
+  String = makeString("pg_catalog", a2);
+  v5 = makeString(a1, v4);
 
-  return list_make2_impl(226, String, v3);
+  return list_make2_impl(226, String, v5, v6);
 }
 
-unint64_t makeInterval_or_AExprOp(uint64_t a1, uint64_t a2, int a3)
+uint64_t makeInterval_or_AExprOp(uint64_t a1, uint64_t a2, int a3, double a4)
 {
   if (a1 && *a1 == 347 && !strcmp(*(**(*(a1 + 8) + 16) + 8), "interval"))
   {
-    String = makeString("pg_catalog");
-    v10 = makeString("interval");
-    v11 = list_make2_impl(226, String, v10);
-    TypeNameFromNameList = makeTypeNameFromNameList(v12, v11);
+    String = makeString("pg_catalog", a4);
+    v14 = makeString("interval", v13);
+    v16 = list_make2_impl(226, String, v14, v15);
+    TypeNameFromNameList = makeTypeNameFromNameList(v17, v16);
     *(TypeNameFromNameList + 48) = *(a1 + 16);
-    v15 = CurrentMemoryContext(v14);
-    v16 = v15;
+    v20 = CurrentMemoryContext(v19);
+    v21 = v20;
     if (a2)
     {
-      v17 = MemoryContextAllocZeroAligned(*v15, 0x20uLL);
-      *v17 = 349;
-      v17[2] = 221;
-      v17[4] = 0;
-      v17[6] = -1;
-      list_make1_impl(226, v17);
-      *(TypeNameFromNameList + 24) = v18;
+      v22 = MemoryContextAllocZeroAligned(*v20, 0x20uLL);
+      *v22 = 349;
+      v22[2] = 221;
+      v22[4] = 0;
+      v22[6] = -1;
+      list_make1_impl(226, v22, v23);
+      *(TypeNameFromNameList + 24) = v24;
     }
 
-    v19 = MemoryContextAllocZero(*v16, 0xCuLL);
-    *v19 = 348;
-    *(v19 + 8) = a3;
-    result = MemoryContextAllocZeroAligned(*v16, 0x20uLL);
+    v25 = MemoryContextAllocZero(*v21, 0xCuLL);
+    *v25 = 348;
+    *(v25 + 8) = a3;
+    result = MemoryContextAllocZeroAligned(*v21, 0x20uLL);
     *result = 357;
-    *(result + 8) = v19;
+    *(result + 8) = v25;
     *(result + 16) = TypeNameFromNameList;
     *(result + 24) = -1;
   }
 
   else
   {
-    v6 = makeString("?");
-    list_make1_impl(226, v6);
+    v7 = makeString("?", a4);
+    v10 = list_make1_impl(226, v7, v8);
 
-    return makeA_Expr(0, v7, a1, a2, a3);
+    return makeA_Expr(0, v9, a1, a2, a3, v10);
   }
 
   return result;
 }
 
-unint64_t makeAndExpr(_DWORD *a1, uint64_t a2, int a3)
+unint64_t makeAndExpr(_DWORD *a1, uint64_t a2, int a3, double a4)
 {
-  v4 = a1;
-  v5 = *a1;
+  v5 = a1;
+  v6 = *a1;
   if (*a1 == 346)
   {
-    while (v4[1] == 15)
+    while (v5[1] == 15)
     {
-      v4 = *(v4 + 2);
-      v5 = *v4;
-      if (*v4 != 346)
+      v5 = *(v5 + 2);
+      v6 = *v5;
+      if (*v5 != 346)
       {
         goto LABEL_4;
       }
@@ -14204,29 +14205,29 @@ unint64_t makeAndExpr(_DWORD *a1, uint64_t a2, int a3)
   else
   {
 LABEL_4:
-    if (v5 == 119 && !v4[1])
+    if (v6 == 119 && !v5[1])
     {
-      *(v4 + 1) = lappend(*(v4 + 1), a2);
-      return v4;
+      *(v5 + 1) = lappend(*(v5 + 1), a2, a4);
+      return v5;
     }
   }
 
-  v7 = list_make2_impl(226, a1, a2);
+  v8 = list_make2_impl(226, a1, a2, a4);
 
-  return makeBoolExpr(0, v6, a3, v7);
+  return makeBoolExpr(0, v7, a3, v8);
 }
 
-unint64_t makeOrExpr(_DWORD *a1, uint64_t a2, int a3)
+unint64_t makeOrExpr(_DWORD *a1, uint64_t a2, int a3, double a4)
 {
-  v4 = a1;
-  v5 = *a1;
+  v5 = a1;
+  v6 = *a1;
   if (*a1 == 346)
   {
-    while (v4[1] == 15)
+    while (v5[1] == 15)
     {
-      v4 = *(v4 + 2);
-      v5 = *v4;
-      if (*v4 != 346)
+      v5 = *(v5 + 2);
+      v6 = *v5;
+      if (*v5 != 346)
       {
         goto LABEL_4;
       }
@@ -14236,169 +14237,169 @@ unint64_t makeOrExpr(_DWORD *a1, uint64_t a2, int a3)
   else
   {
 LABEL_4:
-    if (v5 == 119 && v4[1] == 1)
+    if (v6 == 119 && v5[1] == 1)
     {
-      *(v4 + 1) = lappend(*(v4 + 1), a2);
-      return v4;
+      *(v5 + 1) = lappend(*(v5 + 1), a2, a4);
+      return v5;
     }
   }
 
-  v8 = list_make2_impl(226, a1, a2);
+  v9 = list_make2_impl(226, a1, a2, a4);
 
-  return makeBoolExpr(1, v7, a3, v8);
+  return makeBoolExpr(1, v8, a3, v9);
 }
 
-unint64_t makeNotExpr(uint64_t a1, int a2)
+unint64_t makeNotExpr(uint64_t a1, int a2, double a3)
 {
-  v4 = list_make1_impl(226, a1);
+  v5 = list_make1_impl(226, a1, a3);
 
-  return makeBoolExpr(2, v3, a2, v4);
+  return makeBoolExpr(2, v4, a2, v5);
 }
 
 unint64_t makeBoolAConst(int a1, int a2, double a3)
 {
   v5 = CurrentMemoryContext(a3);
   v6 = MemoryContextAllocZeroAligned(*v5, 0x20uLL);
-  v7 = v6;
+  v8 = v6;
   *v6 = 349;
   *(v6 + 8) = 223;
-  v8 = "f";
+  v9 = "f";
   if (a1)
   {
-    v8 = "t";
+    v9 = "t";
   }
 
-  *(v6 + 16) = v8;
+  *(v6 + 16) = v9;
   *(v6 + 24) = a2;
-  String = makeString("pg_catalog");
-  v10 = makeString("BOOL");
-  v11 = list_make2_impl(226, String, v10);
-  TypeNameFromNameList = makeTypeNameFromNameList(v12, v11);
+  String = makeString("pg_catalog", v7);
+  v12 = makeString("BOOL", v11);
+  v14 = list_make2_impl(226, String, v12, v13);
+  TypeNameFromNameList = makeTypeNameFromNameList(v15, v14);
   result = MemoryContextAllocZeroAligned(*v5, 0x20uLL);
   *result = 357;
-  *(result + 8) = v7;
+  *(result + 8) = v8;
   *(result + 16) = TypeNameFromNameList;
   *(result + 24) = -1;
   return result;
 }
 
-unint64_t makeColumnRef(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5)
+unint64_t makeColumnRef(uint64_t a1, uint64_t a2, int a3, double a4, uint64_t a5)
 {
-  v9 = CurrentMemoryContext(a5);
+  v9 = CurrentMemoryContext(a4);
   v10 = MemoryContextAllocZeroAligned(*v9, 0x18uLL);
   *v10 = 347;
   *(v10 + 16) = a3;
-  if (!a2 || (v11 = *(a2 + 4), v11 < 1))
+  if (!a2 || (v12 = *(a2 + 4), v12 < 1))
   {
 LABEL_10:
-    String = makeString(a1);
-    v19 = lcons(String, a2);
+    String = makeString(a1, v11);
+    v21 = lcons(String, a2, v20);
     result = v10;
-    v10 = v19;
+    v10 = v21;
     goto LABEL_11;
   }
 
-  v12 = 0;
-  v13 = *(a2 + 16);
-  v14 = v13 + 8 * v11;
-  v15 = v13 + 8;
-  v16 = -v11;
+  v13 = 0;
+  v14 = *(a2 + 16);
+  v15 = v14 + 8 * v12;
+  v16 = v14 + 8;
+  v17 = -v12;
   while (1)
   {
-    v17 = **(v15 - 8);
-    if (v17 != 351)
+    v18 = **(v16 - 8);
+    if (v18 != 351)
     {
       break;
     }
 
-    if (v15 && v15 < v14)
+    if (v16 && v16 < v15)
     {
       goto LABEL_9;
     }
 
 LABEL_5:
-    --v12;
-    v15 += 8;
-    if (v16 == v12)
+    --v13;
+    v16 += 8;
+    if (v17 == v13)
     {
       goto LABEL_10;
     }
   }
 
-  if (v17 != 352)
+  if (v18 != 352)
   {
     goto LABEL_5;
   }
 
-  v21 = MemoryContextAllocZeroAligned(*v9, 0x18uLL);
-  *v21 = 353;
-  if (v12)
+  v23 = MemoryContextAllocZeroAligned(*v9, 0x18uLL);
+  *v23 = 353;
+  if (v13)
   {
-    v22 = list_copy_tail(a2, -v12);
-    if (v22)
+    v25 = list_copy_tail(a2, -v13, v24);
+    if (v25)
     {
-      v23 = v22[1];
-      if (v23 >= 1)
+      v26 = v25[1];
+      if (v26 >= 1)
       {
-        v24 = *(v22 + 2);
-        v25 = v24 + 8 * v23;
-        v26 = v24 + 8;
+        v27 = *(v25 + 2);
+        v28 = v27 + 8 * v26;
+        v29 = v27 + 8;
         do
         {
-          v27 = **(v26 - 8) != 351 || v26 == 0;
-          if (!v27 && v26 < v25)
+          v30 = **(v29 - 8) != 351 || v29 == 0;
+          if (!v30 && v29 < v28)
           {
             goto LABEL_9;
           }
 
-          v26 += 8;
+          v29 += 8;
         }
 
-        while (--v23);
+        while (--v26);
       }
     }
 
-    *(v21 + 16) = v22;
-    v29 = list_truncate(a2, -v12);
-    v30 = makeString(a1);
-    v31 = lcons(v30, v29);
-    result = v21;
-    *(v10 + 8) = v31;
+    *(v23 + 16) = v25;
+    v32 = list_truncate(a2, -v13);
+    v34 = makeString(a1, v33);
+    v36 = lcons(v34, v32, v35);
+    result = v23;
+    *(v10 + 8) = v36;
   }
 
   else
   {
-    v32 = makeString(a1);
-    list_make1_impl(226, v32);
-    *(v10 + 8) = v33;
-    v34 = *(a2 + 4);
-    result = v21;
-    if (v34 >= 1)
+    v37 = makeString(a1, v24);
+    list_make1_impl(226, v37, v38);
+    *(v10 + 8) = v39;
+    v40 = *(a2 + 4);
+    result = v23;
+    if (v40 >= 1)
     {
-      v35 = *(a2 + 16);
-      v36 = v35 + 8 * v34;
-      v37 = v35 + 8;
+      v41 = *(a2 + 16);
+      v42 = v41 + 8 * v40;
+      v43 = v41 + 8;
       while (1)
       {
-        v38 = **(v37 - 8) != 351 || v37 == 0;
-        if (!v38 && v37 < v36)
+        v44 = **(v43 - 8) != 351 || v43 == 0;
+        if (!v44 && v43 < v42)
         {
           break;
         }
 
-        v37 += 8;
-        if (!--v34)
+        v43 += 8;
+        if (!--v40)
         {
           goto LABEL_37;
         }
       }
 
 LABEL_9:
-      scanner_yyerror("improper use of *", a4);
+      scanner_yyerror("improper use of *", a5);
     }
 
 LABEL_37:
-    *(v21 + 16) = a2;
+    *(v23 + 16) = a2;
   }
 
 LABEL_11:
@@ -14410,7 +14411,7 @@ void base_yyparse_cold_1()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("type modifier cannot have parameter name", v2, v3, v4, v5, v6, v7, v8, v9);
+  errmsg("type modifier cannot have parameter name");
   scanner_errposition(*(v1 + 28), v0);
   errfinish("gram.y", 15251, "base_yyparse");
   __break(1u);
@@ -14420,7 +14421,7 @@ void base_yyparse_cold_2()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("type modifier cannot have ORDER BY", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("type modifier cannot have ORDER BY");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 15257, "base_yyparse");
   __break(1u);
@@ -14430,7 +14431,7 @@ void base_yyparse_cold_3()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("type modifier cannot have parameter name", v2, v3, v4, v5, v6, v7, v8, v9);
+  errmsg("type modifier cannot have parameter name");
   scanner_errposition(*(v1 + 28), v0);
   errfinish("gram.y", 15212, "base_yyparse");
   __break(1u);
@@ -14440,7 +14441,7 @@ void base_yyparse_cold_4()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("type modifier cannot have ORDER BY", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("type modifier cannot have ORDER BY");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 15218, "base_yyparse");
   __break(1u);
@@ -14450,10 +14451,10 @@ void base_yyparse_cold_5()
 {
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_11();
-  String = makeString(*(v1 - 1));
-  v4 = lcons(String, *v1);
-  v5 = NameListToString(v4);
-  errmsg("improper qualified name (too many dotted names): %s", v6, v7, v8, v9, v10, v11, v12, v5);
+  String = makeString(*(v1 - 1), v3);
+  v6 = lcons(String, *v1, v5);
+  v8 = NameListToString(v6, v7);
+  errmsg("improper qualified name (too many dotted names): %s", v8);
   scanner_errposition(*(v2 - 4), v0);
   errfinish("gram.y", 15112, "base_yyparse");
   __break(1u);
@@ -14463,7 +14464,7 @@ void base_yyparse_cold_6()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_9_7();
-  errmsg("frame start cannot be UNBOUNDED FOLLOWING", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("frame start cannot be UNBOUNDED FOLLOWING");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 14535, "base_yyparse");
   __break(1u);
@@ -14473,7 +14474,7 @@ void base_yyparse_cold_7()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_9_7();
-  errmsg("frame end cannot be UNBOUNDED PRECEDING", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("frame end cannot be UNBOUNDED PRECEDING");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 14540, "base_yyparse");
   __break(1u);
@@ -14483,7 +14484,7 @@ void base_yyparse_cold_8()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_9_7();
-  errmsg("frame starting from following row cannot have preceding rows", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("frame starting from following row cannot have preceding rows");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 14553, "base_yyparse");
   __break(1u);
@@ -14493,7 +14494,7 @@ void base_yyparse_cold_9()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_9_7();
-  errmsg("frame starting from current row cannot have preceding rows", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("frame starting from current row cannot have preceding rows");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 14546, "base_yyparse");
   __break(1u);
@@ -14503,7 +14504,7 @@ void base_yyparse_cold_10()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_9_7();
-  errmsg("frame start cannot be UNBOUNDED FOLLOWING", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("frame start cannot be UNBOUNDED FOLLOWING");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 14512, "base_yyparse");
   __break(1u);
@@ -14513,7 +14514,7 @@ void base_yyparse_cold_11()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_9_7();
-  errmsg("frame starting from following row cannot end with current row", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("frame starting from following row cannot end with current row");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 14517, "base_yyparse");
   __break(1u);
@@ -14523,7 +14524,7 @@ void base_yyparse_cold_12()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("cannot use multiple ORDER BY clauses with WITHIN GROUP", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("cannot use multiple ORDER BY clauses with WITHIN GROUP");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 14036, "base_yyparse");
   __break(1u);
@@ -14533,7 +14534,7 @@ void base_yyparse_cold_13()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("cannot use VARIADIC with WITHIN GROUP", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("cannot use VARIADIC with WITHIN GROUP");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 14046, "base_yyparse");
   __break(1u);
@@ -14543,7 +14544,7 @@ void base_yyparse_cold_14()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("cannot use DISTINCT with WITHIN GROUP", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("cannot use DISTINCT with WITHIN GROUP");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 14041, "base_yyparse");
   __break(1u);
@@ -14553,7 +14554,7 @@ void base_yyparse_cold_15()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("UNIQUE predicate is not yet implemented", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("UNIQUE predicate is not yet implemented");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 13654, "base_yyparse");
   __break(1u);
@@ -14563,7 +14564,7 @@ void base_yyparse_cold_16()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("wrong number of parameters on right side of OVERLAPS expression", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("wrong number of parameters on right side of OVERLAPS expression");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 13479, "base_yyparse");
   __break(1u);
@@ -14573,7 +14574,7 @@ void base_yyparse_cold_17()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("wrong number of parameters on left side of OVERLAPS expression", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("wrong number of parameters on left side of OVERLAPS expression");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 13474, "base_yyparse");
   __break(1u);
@@ -14583,7 +14584,7 @@ void base_yyparse_cold_18()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("precision for type float must be less than 54 bits", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("precision for type float must be less than 54 bits");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 12978, "base_yyparse");
   __break(1u);
@@ -14593,7 +14594,7 @@ void base_yyparse_cold_19()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("precision for type float must be at least 1 bit", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("precision for type float must be at least 1 bit");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 12969, "base_yyparse");
   __break(1u);
@@ -14603,7 +14604,7 @@ void base_yyparse_cold_20()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("unrecognized column option %s", v1, v2, v3, v4, v5, v6, v7, *(v0 + 16));
+  errmsg("unrecognized column option %s", *(v0 + 16));
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 12716, "base_yyparse");
   __break(1u);
@@ -14613,7 +14614,7 @@ void base_yyparse_cold_21()
 {
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_11();
-  errmsg("conflicting or redundant NULL / NOT NULL declarations for column %s", v1, v2, v3, v4, v5, v6, v7, *(v0 + 8));
+  errmsg("conflicting or redundant NULL / NOT NULL declarations for column %s", *(v0 + 8));
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 12706, "base_yyparse");
   __break(1u);
@@ -14623,7 +14624,7 @@ void base_yyparse_cold_22()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("only one PATH value per column is allowed", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("only one PATH value per column is allowed");
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 12697, "base_yyparse");
   __break(1u);
@@ -14633,7 +14634,7 @@ void base_yyparse_cold_23()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("only one DEFAULT value is allowed", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("only one DEFAULT value is allowed");
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 12688, "base_yyparse");
   __break(1u);
@@ -14643,8 +14644,8 @@ void base_yyparse_cold_24()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("VALUES in FROM must have an alias", v0, v1, v2, v3, v4, v5, v6, v14);
-  errhint("For example, FROM (VALUES ...) [AS] foo.", v7, v8, v9, v10, v11, v12, v13, v15);
+  errmsg("VALUES in FROM must have an alias");
+  errhint("For example, FROM (VALUES ...) [AS] foo.");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 12229, "base_yyparse");
   __break(1u);
@@ -14654,8 +14655,8 @@ void base_yyparse_cold_25()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("subquery in FROM must have an alias", v0, v1, v2, v3, v4, v5, v6, v14);
-  errhint("For example, FROM (SELECT ...) [AS] foo.", v7, v8, v9, v10, v11, v12, v13, v15);
+  errmsg("subquery in FROM must have an alias");
+  errhint("For example, FROM (SELECT ...) [AS] foo.");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 12235, "base_yyparse");
   __break(1u);
@@ -14665,8 +14666,8 @@ void base_yyparse_cold_26()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("VALUES in FROM must have an alias", v0, v1, v2, v3, v4, v5, v6, v14);
-  errhint("For example, FROM (VALUES ...) [AS] foo.", v7, v8, v9, v10, v11, v12, v13, v15);
+  errmsg("VALUES in FROM must have an alias");
+  errhint("For example, FROM (VALUES ...) [AS] foo.");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 12204, "base_yyparse");
   __break(1u);
@@ -14676,8 +14677,8 @@ void base_yyparse_cold_27()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("subquery in FROM must have an alias", v0, v1, v2, v3, v4, v5, v6, v14);
-  errhint("For example, FROM (SELECT ...) [AS] foo.", v7, v8, v9, v10, v11, v12, v13, v15);
+  errmsg("subquery in FROM must have an alias");
+  errhint("For example, FROM (SELECT ...) [AS] foo.");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 12210, "base_yyparse");
   __break(1u);
@@ -14687,8 +14688,8 @@ void base_yyparse_cold_28()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("LIMIT #,# syntax is not supported", v2, v3, v4, v5, v6, v7, v8, v16);
-  errhint("Use separate LIMIT and OFFSET clauses.", v9, v10, v11, v12, v13, v14, v15, v17);
+  errmsg("LIMIT #,# syntax is not supported");
+  errhint("Use separate LIMIT and OFFSET clauses.");
   scanner_errposition(*(v1 - 12), v0);
   errfinish("gram.y", 11877, "base_yyparse");
   __break(1u);
@@ -14698,7 +14699,7 @@ void base_yyparse_cold_29()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_11_4();
-  errmsg("%s cannot be used as a role name here", v0, v1, v2, v3, v4, v5, v6, "CURRENT_USER");
+  errmsg("%s cannot be used as a role name here", "CURRENT_USER");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 15355, "base_yyparse");
   __break(1u);
@@ -14708,7 +14709,7 @@ void base_yyparse_cold_30()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_11_4();
-  errmsg("%s cannot be used as a role name here", v0, v1, v2, v3, v4, v5, v6, "SESSION_USER");
+  errmsg("%s cannot be used as a role name here", "SESSION_USER");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 15348, "base_yyparse");
   __break(1u);
@@ -14718,7 +14719,7 @@ void base_yyparse_cold_31()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_11_4();
-  errmsg("role name %s is reserved", v0, v1, v2, v3, v4, v5, v6, "public");
+  errmsg("role name %s is reserved", "public");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 15341, "base_yyparse");
   __break(1u);
@@ -14728,7 +14729,7 @@ void base_yyparse_cold_32()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_11_4();
-  errmsg("role name %s is reserved", v0, v1, v2, v3, v4, v5, v6, "none");
+  errmsg("role name %s is reserved", "none");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 15379, "base_yyparse");
   __break(1u);
@@ -14738,7 +14739,7 @@ void base_yyparse_cold_33()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("WITH CHECK OPTION not supported on recursive views", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("WITH CHECK OPTION not supported on recursive views");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 10268, "base_yyparse");
   __break(1u);
@@ -14748,7 +14749,7 @@ void base_yyparse_cold_34()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("WITH CHECK OPTION not supported on recursive views", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("WITH CHECK OPTION not supported on recursive views");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 10250, "base_yyparse");
   __break(1u);
@@ -14758,8 +14759,8 @@ void base_yyparse_cold_35()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("missing argument", v0, v1, v2, v3, v4, v5, v6, v14);
-  errhint("Use NONE to denote the missing argument of a unary operator.", v7, v8, v9, v10, v11, v12, v13, v15);
+  errmsg("missing argument");
+  errhint("Use NONE to denote the missing argument of a unary operator.");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 8321, "base_yyparse");
   __break(1u);
@@ -14769,7 +14770,7 @@ void base_yyparse_cold_36()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("aggregates cannot have output arguments", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("aggregates cannot have output arguments");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 7928, "base_yyparse");
   __break(1u);
@@ -14779,7 +14780,7 @@ void base_yyparse_cold_37()
 {
   OUTLINED_FUNCTION_3_15();
   errcode();
-  errmsg("CREATE ASSERTION is not yet implemented", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("CREATE ASSERTION is not yet implemented");
   errfinish("gram.y", 5792, "base_yyparse");
   __break(1u);
 }
@@ -14788,7 +14789,7 @@ void base_yyparse_cold_38()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("conflicting constraint properties", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("conflicting constraint properties");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 5697, "base_yyparse");
   __break(1u);
@@ -14798,7 +14799,7 @@ void base_yyparse_cold_39()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("constraint declared INITIALLY DEFERRED must be DEFERRABLE", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("constraint declared INITIALLY DEFERRED must be DEFERRABLE");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 5690, "base_yyparse");
   __break(1u);
@@ -14808,8 +14809,8 @@ void base_yyparse_cold_40()
 {
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_11();
-  errmsg("unrecognized row security option %s", v1, v2, v3, v4, v5, v6, v7, *v0);
-  errhint("Only PERMISSIVE or RESTRICTIVE policies are supported currently.", v8, v9, v10, v11, v12, v13, v14, v15);
+  errmsg("unrecognized row security option %s", *v0);
+  errhint("Only PERMISSIVE or RESTRICTIVE policies are supported currently.");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 5436, "base_yyparse");
   __break(1u);
@@ -14819,7 +14820,7 @@ void base_yyparse_cold_41()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("CREATE EXTENSION ... FROM is no longer supported", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("CREATE EXTENSION ... FROM is no longer supported");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 4609, "base_yyparse");
   __break(1u);
@@ -14829,7 +14830,7 @@ void base_yyparse_cold_42()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("MATCH PARTIAL not yet implemented", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("MATCH PARTIAL not yet implemented");
   OUTLINED_FUNCTION_6_6();
   errfinish("gram.y", 3915, "base_yyparse");
   __break(1u);
@@ -14839,7 +14840,7 @@ void base_yyparse_cold_43()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("for a generated column, GENERATED ALWAYS must be specified", v2, v3, v4, v5, v6, v7, v8, v9);
+  errmsg("for a generated column, GENERATED ALWAYS must be specified");
   scanner_errposition(*(v1 - 20), v0);
   errfinish("gram.y", 3648, "base_yyparse");
   __break(1u);
@@ -14849,7 +14850,7 @@ void base_yyparse_cold_44()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("STDIN/STDOUT not allowed with PROGRAM", v2, v3, v4, v5, v6, v7, v8, v9);
+  errmsg("STDIN/STDOUT not allowed with PROGRAM");
   scanner_errposition(*(v1 - 16), v0);
   errfinish("gram.y", 3096, "base_yyparse");
   __break(1u);
@@ -14859,7 +14860,7 @@ void base_yyparse_cold_45()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("WHERE clause not allowed with COPY TO", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("WHERE clause not allowed with COPY TO");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 3069, "base_yyparse");
   __break(1u);
@@ -14869,7 +14870,7 @@ void base_yyparse_cold_46()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("STDIN/STDOUT not allowed with PROGRAM", v2, v3, v4, v5, v6, v7, v8, v9);
+  errmsg("STDIN/STDOUT not allowed with PROGRAM");
   scanner_errposition(*(v1 - 12), v0);
   errfinish("gram.y", 3063, "base_yyparse");
   __break(1u);
@@ -14879,7 +14880,7 @@ void base_yyparse_cold_47()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("unrecognized hash partition bound specification %s", v1, v2, v3, v4, v5, v6, v7, *(v0 + 16));
+  errmsg("unrecognized hash partition bound specification %s", *(v0 + 16));
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 2851, "base_yyparse");
   __break(1u);
@@ -14889,7 +14890,7 @@ void base_yyparse_cold_48()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("remainder for hash partition provided more than once", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("remainder for hash partition provided more than once");
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 2843, "base_yyparse");
   __break(1u);
@@ -14899,7 +14900,7 @@ void base_yyparse_cold_49()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("modulus for hash partition provided more than once", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("modulus for hash partition provided more than once");
   OUTLINED_FUNCTION_8_7();
   errfinish("gram.y", 2834, "base_yyparse");
   __break(1u);
@@ -14909,7 +14910,7 @@ void base_yyparse_cold_50()
 {
   OUTLINED_FUNCTION_3_15();
   OUTLINED_FUNCTION_4_11();
-  errmsg("remainder for hash partition must be specified", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("remainder for hash partition must be specified");
   errfinish("gram.y", 2861, "base_yyparse");
   __break(1u);
 }
@@ -14918,7 +14919,7 @@ void base_yyparse_cold_51()
 {
   OUTLINED_FUNCTION_3_15();
   OUTLINED_FUNCTION_4_11();
-  errmsg("modulus for hash partition must be specified", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("modulus for hash partition must be specified");
   errfinish("gram.y", 2857, "base_yyparse");
   __break(1u);
 }
@@ -14927,7 +14928,7 @@ void base_yyparse_cold_52()
 {
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_11();
-  errmsg("sequence option %s not supported here", v1, v2, v3, v4, v5, v6, v7, *(*v0 + 16));
+  errmsg("sequence option %s not supported here", *(*v0 + 16));
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 2805, "base_yyparse");
   __break(1u);
@@ -14937,7 +14938,7 @@ void base_yyparse_cold_53()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("column number must be in range from 1 to %d", v2, v3, v4, v5, v6, v7, v8, 0x7FFF);
+  errmsg("column number must be in range from 1 to %d", 0x7FFF);
   scanner_errposition(*(v1 - 12), v0);
   errfinish("gram.y", 2273, "base_yyparse");
   __break(1u);
@@ -14947,7 +14948,7 @@ void base_yyparse_cold_54()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("time zone interval must be HOUR or HOUR TO MINUTE", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("time zone interval must be HOUR or HOUR TO MINUTE");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 1738, "base_yyparse");
   __break(1u);
@@ -14957,7 +14958,7 @@ void base_yyparse_cold_55()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("current database cannot be changed", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("current database cannot be changed");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 1554, "base_yyparse");
   __break(1u);
@@ -14967,7 +14968,7 @@ void base_yyparse_cold_56()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("CREATE SCHEMA IF NOT EXISTS cannot include schema elements", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("CREATE SCHEMA IF NOT EXISTS cannot include schema elements");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 1408, "base_yyparse");
   __break(1u);
@@ -14977,7 +14978,7 @@ void base_yyparse_cold_57()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("CREATE SCHEMA IF NOT EXISTS cannot include schema elements", v0, v1, v2, v3, v4, v5, v6, v7);
+  errmsg("CREATE SCHEMA IF NOT EXISTS cannot include schema elements");
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 1393, "base_yyparse");
   __break(1u);
@@ -14987,7 +14988,7 @@ void base_yyparse_cold_58()
 {
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_11();
-  errmsg("unrecognized role option %s", v1, v2, v3, v4, v5, v6, v7, *v0);
+  errmsg("unrecognized role option %s", *v0);
   OUTLINED_FUNCTION_5_8();
   errfinish("gram.y", 1146, "base_yyparse");
   __break(1u);
@@ -14997,8 +14998,8 @@ void base_yyparse_cold_59()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("UNENCRYPTED PASSWORD is no longer supported", v0, v1, v2, v3, v4, v5, v6, v14);
-  errhint("Remove UNENCRYPTED to store the password in encrypted form instead.", v7, v8, v9, v10, v11, v12, v13, v15);
+  errmsg("UNENCRYPTED PASSWORD is no longer supported");
+  errhint("Remove UNENCRYPTED to store the password in encrypted form instead.");
   OUTLINED_FUNCTION_7_8();
   errfinish("gram.y", 1084, "base_yyparse");
   __break(1u);
@@ -15008,7 +15009,7 @@ void processCASbits_cold_1()
 {
   OUTLINED_FUNCTION_1_3();
   errcode();
-  errmsg("%s constraints cannot be marked DEFERRABLE", v1, v2, v3, v4, v5, v6, v7, v0);
+  errmsg("%s constraints cannot be marked DEFERRABLE", v0);
   OUTLINED_FUNCTION_10_8();
   errfinish("gram.y", 16750, "processCASbits");
   __break(1u);
@@ -15018,7 +15019,7 @@ void processCASbits_cold_2()
 {
   OUTLINED_FUNCTION_1_3();
   errcode();
-  errmsg("%s constraints cannot be marked DEFERRABLE", v1, v2, v3, v4, v5, v6, v7, v0);
+  errmsg("%s constraints cannot be marked DEFERRABLE", v0);
   OUTLINED_FUNCTION_10_8();
   errfinish("gram.y", 16763, "processCASbits");
   __break(1u);
@@ -15028,7 +15029,7 @@ void processCASbits_cold_3()
 {
   OUTLINED_FUNCTION_1_3();
   errcode();
-  errmsg("%s constraints cannot be marked NOT VALID", v1, v2, v3, v4, v5, v6, v7, v0);
+  errmsg("%s constraints cannot be marked NOT VALID", v0);
   OUTLINED_FUNCTION_10_8();
   errfinish("gram.y", 16776, "processCASbits");
   __break(1u);
@@ -15038,7 +15039,7 @@ void processCASbits_cold_4()
 {
   OUTLINED_FUNCTION_1_3();
   errcode();
-  errmsg("%s constraints cannot be marked NO INHERIT", v1, v2, v3, v4, v5, v6, v7, v0);
+  errmsg("%s constraints cannot be marked NO INHERIT", v0);
   OUTLINED_FUNCTION_10_8();
   errfinish("gram.y", 16789, "processCASbits");
   __break(1u);
@@ -15048,8 +15049,8 @@ void makeRangeVarFromAnyName_cold_1()
 {
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_4_11();
-  v1 = NameListToString(v0);
-  errmsg("improper qualified name (too many dotted names): %s", v2, v3, v4, v5, v6, v7, v8, v1);
+  v2 = NameListToString(v0, v1);
+  errmsg("improper qualified name (too many dotted names): %s", v2);
   OUTLINED_FUNCTION_10_8();
   errfinish("gram.y", 16675, "makeRangeVarFromAnyName");
   __break(1u);
@@ -15059,7 +15060,7 @@ void SplitColQualList_cold_1()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("multiple COLLATE clauses not allowed", v2, v3, v4, v5, v6, v7, v8, v9);
+  errmsg("multiple COLLATE clauses not allowed");
   scanner_errposition(*(v1 + 24), v0);
   errfinish("gram.y", 16711, "SplitColQualList");
   __break(1u);
@@ -15077,7 +15078,7 @@ void mergeTableFuncParameters_cold_1()
 {
   OUTLINED_FUNCTION_3_15();
   OUTLINED_FUNCTION_4_11();
-  errmsg("OUT and INOUT arguments aren't allowed in TABLE functions", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("OUT and INOUT arguments aren't allowed in TABLE functions");
   errfinish("gram.y", 16614, "mergeTableFuncParameters");
   __break(1u);
 }
@@ -15086,9 +15087,9 @@ void makeOrderedSetArgs_cold_1()
 {
   OUTLINED_FUNCTION_0_26();
   errcode();
-  errmsg("an ordered-set aggregate with a VARIADIC direct argument must have one VARIADIC aggregated argument of the same data type", v2, v3, v4, v5, v6, v7, v8, v10);
-  v9 = exprLocation(v1);
-  scanner_errposition(v9, v0);
+  errmsg("an ordered-set aggregate with a VARIADIC direct argument must have one VARIADIC aggregated argument of the same data type");
+  v2 = exprLocation(v1);
+  scanner_errposition(v2, v0);
   errfinish("gram.y", 16333, "makeOrderedSetArgs");
   __break(1u);
 }
@@ -15097,9 +15098,9 @@ void insertSelectOptions_cold_1()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("multiple ORDER BY clauses not allowed", v2, v3, v4, v5, v6, v7, v8, v10);
-  v9 = exprLocation(v1);
-  scanner_errposition(v9, v0);
+  errmsg("multiple ORDER BY clauses not allowed");
+  v2 = exprLocation(v1);
+  scanner_errposition(v2, v0);
   errfinish("gram.y", 16370, "insertSelectOptions");
   __break(1u);
 }
@@ -15108,9 +15109,9 @@ void insertSelectOptions_cold_2()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("multiple OFFSET clauses not allowed", v2, v3, v4, v5, v6, v7, v8, v10);
-  v9 = exprLocation(*v1);
-  scanner_errposition(v9, v0);
+  errmsg("multiple OFFSET clauses not allowed");
+  v2 = exprLocation(*v1);
+  scanner_errposition(v2, v0);
   errfinish("gram.y", 16381, "insertSelectOptions");
   __break(1u);
 }
@@ -15119,9 +15120,9 @@ void insertSelectOptions_cold_3()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("multiple LIMIT clauses not allowed", v2, v3, v4, v5, v6, v7, v8, v10);
-  v9 = exprLocation(*v1);
-  scanner_errposition(v9, v0);
+  errmsg("multiple LIMIT clauses not allowed");
+  v2 = exprLocation(*v1);
+  scanner_errposition(v2, v0);
   errfinish("gram.y", 16390, "insertSelectOptions");
   __break(1u);
 }
@@ -15130,7 +15131,7 @@ void insertSelectOptions_cold_4()
 {
   OUTLINED_FUNCTION_3_15();
   OUTLINED_FUNCTION_4_11();
-  errmsg("multiple limit options not allowed", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("multiple limit options not allowed");
   errfinish("gram.y", 16398, "insertSelectOptions");
   __break(1u);
 }
@@ -15139,7 +15140,7 @@ void insertSelectOptions_cold_5()
 {
   OUTLINED_FUNCTION_3_15();
   OUTLINED_FUNCTION_4_11();
-  errmsg("WITH TIES cannot be specified without ORDER BY clause", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("WITH TIES cannot be specified without ORDER BY clause");
   errfinish("gram.y", 16402, "insertSelectOptions");
   __break(1u);
 }
@@ -15148,9 +15149,9 @@ void insertSelectOptions_cold_6()
 {
   OUTLINED_FUNCTION_0_26();
   OUTLINED_FUNCTION_4_11();
-  errmsg("multiple WITH clauses not allowed", v2, v3, v4, v5, v6, v7, v8, v10);
-  v9 = exprLocation(v1);
-  scanner_errposition(v9, v0);
+  errmsg("multiple WITH clauses not allowed");
+  v2 = exprLocation(v1);
+  scanner_errposition(v2, v0);
   errfinish("gram.y", 16411, "insertSelectOptions");
   __break(1u);
 }
@@ -15178,30 +15179,30 @@ uint64_t raw_parser(const char *a1)
   }
 }
 
-uint64_t base_yylex(const char **a1, _BYTE **a2, _BYTE ***a3)
+uint64_t base_yylex(const char **a1, unsigned int *a2, uint64_t *a3, double a4)
 {
   do
   {
     while (1)
     {
-      v7 = *a3;
+      v8 = *a3;
       if (*(*a3 + 88) == 1)
       {
         break;
       }
 
-      result = core_yylex(a1, a2, a3);
+      result = core_yylex(a1, a2, a3, a4);
       if ((result - 275) >= 2)
       {
         goto LABEL_5;
       }
     }
 
-    result = *(v7 + 23);
-    *a1 = *(v7 + 12);
-    *a2 = *(v7 + 26);
-    **(v7 + 14) = v7[120];
-    v7[88] = 0;
+    result = *(v8 + 92);
+    *a1 = *(v8 + 96);
+    *a2 = *(v8 + 104);
+    **(v8 + 112) = *(v8 + 120);
+    *(v8 + 88) = 0;
   }
 
   while ((result - 275) < 2);
@@ -15213,8 +15214,8 @@ LABEL_5:
       return result;
     }
 
-    v8 = result;
-    v9 = strlen((*v7 + *a2));
+    v9 = result;
+    v10 = strlen((*v8 + *a2));
   }
 
   else
@@ -15222,60 +15223,61 @@ LABEL_5:
     switch(result)
     {
       case 0x208:
-        v8 = result;
-        v9 = 3;
+        v9 = result;
+        v10 = 3;
         break;
       case 0x20F:
-        v8 = result;
-        v9 = 5;
+        v9 = result;
+        v10 = 5;
         break;
       case 0x2C2:
-        v8 = result;
-        v9 = 4;
+        v9 = result;
+        v10 = 4;
         break;
       default:
         return result;
     }
   }
 
-  *(v7 + 14) = *v7 + *a2 + v9;
-  v10 = *a2;
-  v11 = core_yylex(v7 + 12, a2, a3);
-  *(v7 + 23) = v11;
-  *(v7 + 26) = *a2;
-  *a2 = v10;
-  v12 = *(v7 + 14);
-  v7[120] = *v12;
-  *v12 = 0;
-  v7[88] = 1;
-  result = v8;
-  if (v8 <= 519)
+  *(v8 + 112) = *v8 + *a2 + v10;
+  v11 = *a2;
+  v12 = core_yylex((v8 + 96), a2, a3, a4);
+  *(v8 + 92) = v12;
+  *(v8 + 104) = *a2;
+  *a2 = v11;
+  v14 = *(v8 + 112);
+  *(v8 + 120) = *v14;
+  *v14 = 0;
+  *(v8 + 88) = 1;
+  result = v9;
+  if (v9 <= 519)
   {
-    if (v8 != 259 && v8 != 262)
+    if (v9 != 259 && v9 != 262)
     {
       return result;
     }
 
-    v13 = v8;
-    if (v11 == 675)
+    v15 = v9;
+    if (v12 == 675)
     {
-      v14 = *a2;
-      **(v7 + 14) = v7[120];
-      if (core_yylex(v7 + 12, a2, a3) != 261)
+      v16 = *a2;
+      **(v8 + 112) = *(v8 + 120);
+      if (core_yylex((v8 + 96), a2, a3, v13) != 261)
       {
         scanner_yyerror("UESCAPE must be followed by a simple string literal", a3);
       }
 
-      v15 = *(v7 + 12);
-      if (strlen(v15) != 1 || (v16 = *v15, (*(MEMORY[0x1E69E9830] + 4 * v16 + 60) & 0x10000) != 0) || (v16 <= 0x2B ? (v17 = ((1 << v16) & 0x88400000000) == 0) : (v17 = 1), !v17 || scanner_isspace(v16)))
+      v17 = *(v8 + 96);
+      if (strlen(v17) != 1 || (v18 = *v17, (*(MEMORY[0x1E69E9830] + 4 * v18 + 60) & 0x10000) != 0) || (v18 <= 0x2B ? (v19 = ((1 << v18) & 0x88400000000) == 0) : (v19 = 1), !v19 || scanner_isspace(v18)))
       {
         scanner_yyerror("invalid Unicode escape character", a3);
       }
 
-      *a2 = v14;
-      *a1 = str_udeescape(*a1, *v15, v14, a3);
-      v7[88] = 0;
-      if (v13 != 259)
+      *a2 = v16;
+      str_udeescape(*a1, *v17, v16, a3);
+      *a1 = v20;
+      *(v8 + 88) = 0;
+      if (v15 != 259)
       {
         return 261;
       }
@@ -15283,43 +15285,44 @@ LABEL_5:
 
     else
     {
-      *a1 = str_udeescape(*a1, 0x5Cu, *a2, a3);
-      if (v8 != 259)
+      str_udeescape(*a1, 0x5Cu, *a2, a3);
+      *a1 = v24;
+      if (v9 != 259)
       {
         return 261;
       }
     }
 
-    v21 = *a1;
-    v22 = strlen(v21);
-    truncate_identifier(v21, v22, 1);
+    v25 = *a1;
+    v26 = strlen(v25);
+    truncate_identifier(v25, v26, 1);
     return 258;
   }
 
-  switch(v8)
+  switch(v9)
   {
     case 0x2C2:
-      v18 = v11 == 542 || v11 == 661;
-      v19 = 706;
-      v20 = 729;
+      v21 = v12 == 542 || v12 == 661;
+      v22 = 706;
+      v23 = 729;
       goto LABEL_47;
     case 0x20F:
-      v18 = v11 == 477 || v11 == 415;
-      v19 = 527;
-      v20 = 728;
+      v21 = v12 == 477 || v12 == 415;
+      v22 = 527;
+      v23 = 728;
 LABEL_47:
-      if (v18)
+      if (v21)
       {
-        return v20;
+        return v23;
       }
 
       else
       {
-        return v19;
+        return v22;
       }
 
     case 0x208:
-      if ((v11 - 442) <= 0x2A && ((1 << (v11 + 70)) & 0x40000000021) != 0 || v11 == 627 || v11 == 306)
+      if ((v12 - 442) <= 0x2A && ((1 << (v12 + 70)) & 0x40000000021) != 0 || v12 == 627 || v12 == 306)
       {
         return 727;
       }
@@ -15333,107 +15336,107 @@ LABEL_47:
   return result;
 }
 
-_DWORD *str_udeescape(const char *a1, unsigned __int8 a2, int a3, _BYTE ***a4)
+void str_udeescape(const char *a1, unsigned __int8 a2, int a3, void **a4)
 {
-  v55 = 0;
-  memset(v54, 0, sizeof(v54));
+  v47 = 0;
+  memset(v46, 0, sizeof(v46));
   v8 = strlen(a1) + 17;
-  v9 = palloc(v8);
-  v10 = v9;
-  v11 = *a1;
+  v10 = palloc(v8, v9);
+  v11 = v10;
+  v12 = *a1;
   if (!*a1)
   {
-    v16 = v9;
+    v17 = v10;
 LABEL_102:
-    *v16 = 0;
-    return v10;
+    *v17 = 0;
+    return;
   }
 
-  LODWORD(v12) = 0;
-  v13 = a2;
-  v53 = a3 + 3;
-  v14 = MEMORY[0x1E69E9830];
-  v15 = a1;
-  v16 = v9;
+  LODWORD(v13) = 0;
+  v14 = a2;
+  v45 = a3 + 3;
+  v15 = MEMORY[0x1E69E9830];
+  v16 = a1;
+  v17 = v10;
   do
   {
     while (1)
     {
-      v18 = &v16[-v10];
-      if (&v16[-v10] > v8 - 17)
+      v19 = &v17[-v11];
+      if (&v17[-v11] > v8 - 17)
       {
         v8 *= 2;
-        v10 = repalloc(v10, v8);
-        v16 = &v18[v10];
-        v11 = *v15;
+        v11 = repalloc(v11, v8);
+        v17 = &v19[v11];
+        v12 = *v16;
       }
 
-      if (v11 == v13)
+      if (v12 == v14)
       {
         break;
       }
 
-      if (v12)
+      if (v13)
       {
         goto LABEL_116;
       }
 
-      *v16++ = v11;
-      v20 = *++v15;
-      v11 = v20;
-      if (!v20)
+      *v17++ = v12;
+      v21 = *++v16;
+      v12 = v21;
+      if (!v21)
       {
         goto LABEL_102;
       }
     }
 
-    setup_scanner_errposition_callback(v54, a4, v53 + v15 - a1);
-    v19 = *(v15 + 1);
-    if (v19 == v13)
+    setup_scanner_errposition_callback(v46, a4, v45 + v16 - a1);
+    v20 = *(v16 + 1);
+    if (v20 == v14)
     {
-      if (v12)
+      if (v13)
       {
         goto LABEL_116;
       }
 
-      *v16++ = v13;
-      v17 = 2;
+      *v17++ = v14;
+      v18 = 2;
       goto LABEL_4;
     }
 
-    if ((*(v14 + 4 * v19 + 60) & 0x10000) == 0 || (v21 = *(v15 + 2), (*(v14 + 4 * *(v15 + 2) + 60) & 0x10000) == 0) || (v22 = *(v15 + 3), (*(v14 + 4 * *(v15 + 3) + 60) & 0x10000) == 0) || (v23 = *(v15 + 4), (*(v14 + 4 * *(v15 + 4) + 60) & 0x10000) == 0))
+    if ((*(v15 + 4 * v20 + 60) & 0x10000) == 0 || (v22 = *(v16 + 2), (*(v15 + 4 * *(v16 + 2) + 60) & 0x10000) == 0) || (v23 = *(v16 + 3), (*(v15 + 4 * *(v16 + 3) + 60) & 0x10000) == 0) || (v24 = *(v16 + 4), (*(v15 + 4 * *(v16 + 4) + 60) & 0x10000) == 0))
     {
-      if (v19 != 43 || (v24 = *(v15 + 2), (*(v14 + 4 * *(v15 + 2) + 60) & 0x10000) == 0) || (v25 = *(v15 + 3), (*(v14 + 4 * *(v15 + 3) + 60) & 0x10000) == 0) || (v26 = *(v15 + 4), (*(v14 + 4 * *(v15 + 4) + 60) & 0x10000) == 0) || (v27 = *(v15 + 5), (*(v14 + 4 * *(v15 + 5) + 60) & 0x10000) == 0) || (v28 = *(v15 + 6), (*(v14 + 4 * *(v15 + 6) + 60) & 0x10000) == 0) || (v29 = *(v15 + 7), (*(v14 + 4 * *(v15 + 7) + 60) & 0x10000) == 0))
+      if (v20 != 43 || (v25 = *(v16 + 2), (*(v15 + 4 * *(v16 + 2) + 60) & 0x10000) == 0) || (v26 = *(v16 + 3), (*(v15 + 4 * *(v16 + 3) + 60) & 0x10000) == 0) || (v27 = *(v16 + 4), (*(v15 + 4 * *(v16 + 4) + 60) & 0x10000) == 0) || (v28 = *(v16 + 5), (*(v15 + 4 * *(v16 + 5) + 60) & 0x10000) == 0) || (v29 = *(v16 + 6), (*(v15 + 4 * *(v16 + 6) + 60) & 0x10000) == 0) || (v30 = *(v16 + 7), (*(v15 + 4 * *(v16 + 7) + 60) & 0x10000) == 0))
       {
         str_udeescape_cold_13();
       }
 
-      if ((v24 - 48) >= 0xA)
+      if ((v25 - 48) >= 0xA)
       {
-        if ((v24 - 97) >= 6)
+        if ((v25 - 97) >= 6)
         {
-          if ((v24 - 65) >= 6)
+          if ((v25 - 65) >= 6)
           {
             str_udeescape_cold_1();
           }
 
-          v30 = -55;
-          if ((v25 - 48) >= 0xA)
+          v31 = -55;
+          if ((v26 - 48) >= 0xA)
           {
 LABEL_34:
-            if ((v25 - 97) >= 6)
+            if ((v26 - 97) >= 6)
             {
-              if ((v25 - 65) >= 6)
+              if ((v26 - 65) >= 6)
               {
                 str_udeescape_cold_1();
               }
 
-              v31 = -55;
-              if ((v26 - 48) < 0xA)
+              v32 = -55;
+              if ((v27 - 48) < 0xA)
               {
 LABEL_36:
-                v32 = -48;
-                if ((v27 - 48) >= 0xA)
+                v33 = -48;
+                if ((v28 - 48) >= 0xA)
                 {
                   goto LABEL_46;
                 }
@@ -15444,109 +15447,25 @@ LABEL_36:
 
             else
             {
-              v31 = -87;
-              if ((v26 - 48) < 0xA)
+              v32 = -87;
+              if ((v27 - 48) < 0xA)
               {
                 goto LABEL_36;
               }
             }
 
 LABEL_40:
-            if ((v26 - 97) >= 6)
+            if ((v27 - 97) >= 6)
             {
-              if ((v26 - 65) >= 6)
+              if ((v27 - 65) >= 6)
               {
                 str_udeescape_cold_1();
               }
 
-              v32 = -55;
-              if ((v27 - 48) >= 0xA)
+              v33 = -55;
+              if ((v28 - 48) >= 0xA)
               {
 LABEL_46:
-                if ((v27 - 97) >= 6)
-                {
-                  if ((v27 - 65) >= 6)
-                  {
-                    str_udeescape_cold_1();
-                  }
-
-                  v33 = -55;
-                  if ((v28 - 48) < 0xA)
-                  {
-LABEL_48:
-                    v34 = -48;
-                    if ((v29 - 48) >= 0xA)
-                    {
-LABEL_57:
-                      if ((v29 - 97) >= 6)
-                      {
-                        if ((v29 - 65) >= 6)
-                        {
-                          str_udeescape_cold_1();
-                        }
-
-                        v35 = -55;
-                      }
-
-                      else
-                      {
-                        v35 = -87;
-                      }
-
-                      goto LABEL_61;
-                    }
-
-LABEL_54:
-                    v35 = -48;
-LABEL_61:
-                    v36 = (v35 + v29 + ((v30 + v24) << 20) + ((v31 + v25) << 16) + ((v32 + v26) << 12) + ((v33 + v27) << 8) + 16 * (v34 + v28));
-                    if ((v36 - 1) >= 0x10FFFF)
-                    {
-                      str_udeescape_cold_5();
-                    }
-
-                    v37 = v36 & 0x1FFC00;
-                    if (v12)
-                    {
-                      if (v37 != 56320)
-                      {
-                        goto LABEL_116;
-                      }
-
-                      v12 = (v36 & 0x3FF | ((v12 & 0x3FF) << 10)) + 0x10000;
-                    }
-
-                    else
-                    {
-                      v12 = v36;
-                      if (v37 == 56320)
-                      {
-                        goto LABEL_116;
-                      }
-                    }
-
-                    if (v12 >> 10 != 54)
-                    {
-                      pg_unicode_to_server(v12, v16);
-                      LODWORD(v12) = 0;
-                      v16 += strlen(v16);
-                    }
-
-                    v17 = 8;
-                    goto LABEL_4;
-                  }
-                }
-
-                else
-                {
-                  v33 = -87;
-                  if ((v28 - 48) < 0xA)
-                  {
-                    goto LABEL_48;
-                  }
-                }
-
-LABEL_52:
                 if ((v28 - 97) >= 6)
                 {
                   if ((v28 - 65) >= 6)
@@ -15555,7 +15474,91 @@ LABEL_52:
                   }
 
                   v34 = -55;
-                  if ((v29 - 48) >= 0xA)
+                  if ((v29 - 48) < 0xA)
+                  {
+LABEL_48:
+                    v35 = -48;
+                    if ((v30 - 48) >= 0xA)
+                    {
+LABEL_57:
+                      if ((v30 - 97) >= 6)
+                      {
+                        if ((v30 - 65) >= 6)
+                        {
+                          str_udeescape_cold_1();
+                        }
+
+                        v36 = -55;
+                      }
+
+                      else
+                      {
+                        v36 = -87;
+                      }
+
+                      goto LABEL_61;
+                    }
+
+LABEL_54:
+                    v36 = -48;
+LABEL_61:
+                    v37 = (v36 + v30 + ((v31 + v25) << 20) + ((v32 + v26) << 16) + ((v33 + v27) << 12) + ((v34 + v28) << 8) + 16 * (v35 + v29));
+                    if ((v37 - 1) >= 0x10FFFF)
+                    {
+                      str_udeescape_cold_5();
+                    }
+
+                    v38 = v37 & 0x1FFC00;
+                    if (v13)
+                    {
+                      if (v38 != 56320)
+                      {
+                        goto LABEL_116;
+                      }
+
+                      v13 = (v37 & 0x3FF | ((v13 & 0x3FF) << 10)) + 0x10000;
+                    }
+
+                    else
+                    {
+                      v13 = v37;
+                      if (v38 == 56320)
+                      {
+                        goto LABEL_116;
+                      }
+                    }
+
+                    if (v13 >> 10 != 54)
+                    {
+                      pg_unicode_to_server(v13, v17);
+                      LODWORD(v13) = 0;
+                      v17 += strlen(v17);
+                    }
+
+                    v18 = 8;
+                    goto LABEL_4;
+                  }
+                }
+
+                else
+                {
+                  v34 = -87;
+                  if ((v29 - 48) < 0xA)
+                  {
+                    goto LABEL_48;
+                  }
+                }
+
+LABEL_52:
+                if ((v29 - 97) >= 6)
+                {
+                  if ((v29 - 65) >= 6)
+                  {
+                    str_udeescape_cold_1();
+                  }
+
+                  v35 = -55;
+                  if ((v30 - 48) >= 0xA)
                   {
                     goto LABEL_57;
                   }
@@ -15563,8 +15566,8 @@ LABEL_52:
 
                 else
                 {
-                  v34 = -87;
-                  if ((v29 - 48) >= 0xA)
+                  v35 = -87;
+                  if ((v30 - 48) >= 0xA)
                   {
                     goto LABEL_57;
                   }
@@ -15576,16 +15579,16 @@ LABEL_52:
 
             else
             {
-              v32 = -87;
-              if ((v27 - 48) >= 0xA)
+              v33 = -87;
+              if ((v28 - 48) >= 0xA)
               {
                 goto LABEL_46;
               }
             }
 
 LABEL_42:
-            v33 = -48;
-            if ((v28 - 48) < 0xA)
+            v34 = -48;
+            if ((v29 - 48) < 0xA)
             {
               goto LABEL_48;
             }
@@ -15596,8 +15599,8 @@ LABEL_42:
 
         else
         {
-          v30 = -87;
-          if ((v25 - 48) >= 0xA)
+          v31 = -87;
+          if ((v26 - 48) >= 0xA)
           {
             goto LABEL_34;
           }
@@ -15606,15 +15609,15 @@ LABEL_42:
 
       else
       {
-        v30 = -48;
-        if ((v25 - 48) >= 0xA)
+        v31 = -48;
+        if ((v26 - 48) >= 0xA)
         {
           goto LABEL_34;
         }
       }
 
-      v31 = -48;
-      if ((v26 - 48) < 0xA)
+      v32 = -48;
+      if ((v27 - 48) < 0xA)
       {
         goto LABEL_36;
       }
@@ -15622,21 +15625,21 @@ LABEL_42:
       goto LABEL_40;
     }
 
-    if ((v19 - 48) >= 0xA)
+    if ((v20 - 48) >= 0xA)
     {
-      if ((v19 - 97) >= 6)
+      if ((v20 - 97) >= 6)
       {
-        if ((v19 - 65) >= 6)
+        if ((v20 - 65) >= 6)
         {
           str_udeescape_cold_1();
         }
 
-        v38 = -55;
-        if ((v21 - 48) < 0xA)
+        v39 = -55;
+        if ((v22 - 48) < 0xA)
         {
 LABEL_73:
-          v39 = -48;
-          if ((v22 - 48) < 0xA)
+          v40 = -48;
+          if ((v23 - 48) < 0xA)
           {
             goto LABEL_79;
           }
@@ -15647,8 +15650,8 @@ LABEL_73:
 
       else
       {
-        v38 = -87;
-        if ((v21 - 48) < 0xA)
+        v39 = -87;
+        if ((v22 - 48) < 0xA)
         {
           goto LABEL_73;
         }
@@ -15657,26 +15660,26 @@ LABEL_73:
 
     else
     {
-      v38 = -48;
-      if ((v21 - 48) < 0xA)
+      v39 = -48;
+      if ((v22 - 48) < 0xA)
       {
         goto LABEL_73;
       }
     }
 
-    if ((v21 - 97) >= 6)
+    if ((v22 - 97) >= 6)
     {
-      if ((v21 - 65) >= 6)
+      if ((v22 - 65) >= 6)
       {
         str_udeescape_cold_1();
       }
 
-      v39 = -55;
-      if ((v22 - 48) < 0xA)
+      v40 = -55;
+      if ((v23 - 48) < 0xA)
       {
 LABEL_79:
-        v40 = -48;
-        if ((v23 - 48) >= 0xA)
+        v41 = -48;
+        if ((v24 - 48) >= 0xA)
         {
           goto LABEL_88;
         }
@@ -15687,38 +15690,38 @@ LABEL_79:
 
     else
     {
-      v39 = -87;
-      if ((v22 - 48) < 0xA)
+      v40 = -87;
+      if ((v23 - 48) < 0xA)
       {
         goto LABEL_79;
       }
     }
 
 LABEL_83:
-    if ((v22 - 97) >= 6)
+    if ((v23 - 97) >= 6)
     {
-      if ((v22 - 65) >= 6)
+      if ((v23 - 65) >= 6)
       {
         str_udeescape_cold_1();
       }
 
-      v40 = -55;
-      if ((v23 - 48) >= 0xA)
+      v41 = -55;
+      if ((v24 - 48) >= 0xA)
       {
 LABEL_88:
-        if ((v23 - 97) >= 6)
+        if ((v24 - 97) >= 6)
         {
-          if ((v23 - 65) >= 6)
+          if ((v24 - 65) >= 6)
           {
             str_udeescape_cold_1();
           }
 
-          v41 = -55;
+          v42 = -55;
         }
 
         else
         {
-          v41 = -87;
+          v42 = -87;
         }
 
         goto LABEL_92;
@@ -15727,58 +15730,58 @@ LABEL_88:
 
     else
     {
-      v40 = -87;
-      if ((v23 - 48) >= 0xA)
+      v41 = -87;
+      if ((v24 - 48) >= 0xA)
       {
         goto LABEL_88;
       }
     }
 
 LABEL_85:
-    v41 = -48;
+    v42 = -48;
 LABEL_92:
-    v42 = (v41 + v23 + ((v38 + v19) << 12) + ((v39 + v21) << 8) + 16 * (v40 + v22));
-    if ((v42 - 1) >= 0x10FFFF)
+    v43 = (v42 + v24 + ((v39 + v20) << 12) + ((v40 + v22) << 8) + 16 * (v41 + v23));
+    if ((v43 - 1) >= 0x10FFFF)
     {
       str_udeescape_cold_5();
     }
 
-    v43 = v42 & 0x1FFC00;
-    if (v12)
+    v44 = v43 & 0x1FFC00;
+    if (v13)
     {
-      if (v43 != 56320)
+      if (v44 != 56320)
       {
         goto LABEL_116;
       }
 
-      v12 = (v42 & 0x3FF | ((v12 & 0x3FF) << 10)) + 0x10000;
+      v13 = (v43 & 0x3FF | ((v13 & 0x3FF) << 10)) + 0x10000;
     }
 
     else
     {
-      v12 = v42;
-      if (v43 == 56320)
+      v13 = v43;
+      if (v44 == 56320)
       {
         goto LABEL_116;
       }
     }
 
-    if (v12 >> 10 != 54)
+    if (v13 >> 10 != 54)
     {
-      pg_unicode_to_server(v12, v16);
-      LODWORD(v12) = 0;
-      v16 += strlen(v16);
+      pg_unicode_to_server(v13, v17);
+      LODWORD(v13) = 0;
+      v17 += strlen(v17);
     }
 
-    v17 = 5;
+    v18 = 5;
 LABEL_4:
-    v15 += v17;
-    cancel_scanner_errposition_callback(v54);
-    v11 = *v15;
+    v16 += v18;
+    cancel_scanner_errposition_callback();
+    v12 = *v16;
   }
 
-  while (*v15);
-  if (!v12)
+  while (*v16);
+  if (!v13)
   {
     goto LABEL_102;
   }
@@ -15786,11 +15789,10 @@ LABEL_4:
 LABEL_116:
   errstart(20, 0);
   errcode();
-  errmsg("invalid Unicode surrogate pair", v45, v46, v47, v48, v49, v50, v51, v52);
-  scanner_errposition((v53 + v15 - a1), a4);
-  result = errfinish("src/postgres/src_backend_parser_parser.c", 495, "str_udeescape");
+  errmsg("invalid Unicode surrogate pair");
+  scanner_errposition((v45 + v16 - a1), a4);
+  errfinish("src/postgres/src_backend_parser_parser.c", 495, "str_udeescape");
   __break(1u);
-  return result;
 }
 
 void str_udeescape_cold_1()
@@ -15805,7 +15807,7 @@ void str_udeescape_cold_5()
 {
   OUTLINED_FUNCTION_3_15();
   errcode();
-  errmsg("invalid Unicode escape value", v0, v1, v2, v3, v4, v5, v6, vars0);
+  errmsg("invalid Unicode escape value");
   errfinish("src/postgres/src_backend_parser_parser.c", 317, "check_unicode_value");
   __break(1u);
 }
@@ -15814,13 +15816,13 @@ void str_udeescape_cold_13()
 {
   OUTLINED_FUNCTION_3_15();
   errcode();
-  errmsg("invalid Unicode escape", v0, v1, v2, v3, v4, v5, v6, vars0);
-  errhint("Unicode escapes must be \\XXXX or \\+XXXXXX.", v7, v8, v9, v10, v11, v12, v13, vars0a);
+  errmsg("invalid Unicode escape");
+  errhint("Unicode escapes must be \\XXXX or \\+XXXXXX.");
   errfinish("src/postgres/src_backend_parser_parser.c", 465, "str_udeescape");
   __break(1u);
 }
 
-uint64_t core_yylex(_BYTE **a1, _BYTE **a2, _BYTE ***a3)
+uint64_t core_yylex(void *a1, void *a2, void **a3, double a4)
 {
   a3[19] = a1;
   a3[20] = a2;
@@ -15854,46 +15856,47 @@ LABEL_4:
     if (a3[2])
     {
 LABEL_5:
-      v4 = a3[5];
-      if (v4)
+      v5 = a3[5];
+      if (v5)
       {
 LABEL_6:
-        v5 = a3[3];
-        v6 = *(v4 + 8 * v5);
-        if (v6)
+        v6 = a3[3];
+        v7 = v5[v6];
+        if (v7)
         {
 LABEL_16:
-          a3[7] = *(v6 + 32);
-          v12 = *(*(v4 + 8 * v5) + 16);
-          a3[9] = v12;
-          a3[17] = v12;
-          a3[1] = **(v4 + 8 * v5);
-          *(a3 + 48) = *v12;
+          a3[7] = *(v7 + 32);
+          v13 = *(v5[v6] + 16);
+          a3[9] = v13;
+          a3[17] = v13;
+          a3[1] = *v5[v6];
+          *(a3 + 48) = *v13;
           goto LABEL_17;
         }
 
-        v7 = a3[4];
-        if (v5 < v7 - 1)
+        v8 = a3[4];
+        if (v6 < v8 - 1)
         {
 LABEL_15:
-          a3[5][a3[3]] = core_yy_create_buffer(a3[1], 0x4000, a3);
-          v4 = a3[5];
-          v5 = a3[3];
-          v6 = *(v4 + 8 * v5);
+          a3[5][a3[3]] = core_yy_create_buffer(a3[1], 0x4000, a3, a4);
+          v5 = a3[5];
+          v6 = a3[3];
+          v7 = v5[v6];
           goto LABEL_16;
         }
 
-        v8 = v7 + 1;
-        v9 = repalloc(v4, 8 * (v7 + 1));
-        a3[5] = v9;
-        if (v9)
+        v9 = v8 + 1;
+        v10 = repalloc(v5, 8 * (v8 + 1));
+        a3[5] = v10;
+        if (v10)
         {
-          v10 = (v9 + 8 * a3[4]);
-          v10[2] = 0u;
-          v10[3] = 0u;
-          *v10 = 0u;
-          v10[1] = 0u;
-          a3[4] = v8;
+          v11 = &v10[a3[4]];
+          a4 = 0.0;
+          v11[2] = 0u;
+          v11[3] = 0u;
+          *v11 = 0u;
+          v11[1] = 0u;
+          a3[4] = v9;
           goto LABEL_15;
         }
 
@@ -15902,11 +15905,12 @@ LABEL_395:
       }
 
 LABEL_13:
-      v11 = palloc(8uLL);
-      a3[5] = v11;
-      if (v11)
+      v12 = palloc(8uLL, a4);
+      a3[5] = v12;
+      if (v12)
       {
-        *v11 = 0;
+        *v12 = 0;
+        a4 = 0.0;
         *(a3 + 3) = xmmword_184D2A680;
         goto LABEL_15;
       }
@@ -15916,8 +15920,8 @@ LABEL_13:
 
 LABEL_12:
     a3[2] = *MEMORY[0x1E69E9858];
-    v4 = a3[5];
-    if (v4)
+    v5 = a3[5];
+    if (v5)
     {
       goto LABEL_6;
     }
@@ -15929,35 +15933,36 @@ LABEL_17:
   started = yy_start_state_list();
   while (2)
   {
-    v14 = a3[9];
-    v15 = *(a3 + 48);
-    *v14 = v15;
-    v16 = *(started + 8 * *(a3 + 21));
-    v17 = v14;
-    v18 = (v16 + 4 * v15);
-    if (*v18 == v15)
+    v16 = a3[9];
+    v17 = *(a3 + 48);
+    *v16 = v17;
+    v18 = *(started + 8 * *(a3 + 21));
+    v19 = v16;
+    v20 = (v18 + 4 * v17);
+    if (*v20 == v17)
     {
       do
       {
 LABEL_19:
-        v16 += 4 * v18[1];
-        v19 = *++v17;
-        v18 = (v16 + 4 * v19);
+        v18 += 4 * v20[1];
+        v21 = *(v19 + 1);
+        v19 = (v19 + 1);
+        v20 = (v18 + 4 * v21);
       }
 
-      while (*v18 == v19);
+      while (*v20 == v21);
     }
 
 LABEL_20:
-    v20 = *(v16 - 2);
-    a3[17] = v14;
-    a3[8] = (v17 - v14);
-    *(a3 + 48) = *v17;
-    *v17 = 0;
-    a3[9] = v17;
-    v21 = v20 - 1;
+    v22 = *(v18 - 2);
+    a3[17] = v16;
+    a3[8] = (v19 - v16);
+    *(a3 + 48) = *v19;
+    *v19 = 0;
+    a3[9] = v19;
+    v23 = v22 - 1;
 LABEL_21:
-    switch(v21)
+    switch(v23)
     {
       case 0u:
       case 5u:
@@ -15975,113 +15980,113 @@ LABEL_21:
       case 3u:
         ++*(*a3 + 15);
 LABEL_182:
-        *v17 = *(a3 + 48);
-        a3[17] = v14;
+        *v19 = *(a3 + 48);
+        a3[17] = v16;
         a3[8] = 2;
-        a3[9] = (v14 + 2);
-        *(a3 + 48) = v14[2];
-        v14[2] = 0;
-        a3[9] = (v14 + 2);
+        a3[9] = (v16 + 2);
+        *(a3 + 48) = *(v16 + 2);
+        *(v16 + 2) = 0;
+        a3[9] = (v16 + 2);
         continue;
       case 4u:
-        v133 = *a3;
-        v134 = *(*a3 + 15);
-        if (v134 <= 0)
+        v121 = *a3;
+        v122 = *(*a3 + 15);
+        if (v122 <= 0)
         {
           *(a3 + 21) = 1;
-          v133[21] = *(a3 + 34) - *v133 + *(a3 + 16);
+          v121[21] = *(a3 + 34) - *v121 + *(a3 + 16);
           return 276;
         }
 
-        v133[15] = v134 - 1;
+        v121[15] = v122 - 1;
         continue;
       case 8u:
         *a3[20] = *(a3 + 34) - **a3;
         *(a3 + 21) = 3;
         *(*a3 + 12) = 0;
-        v110 = *a3;
-        v101 = *(*a3 + 12);
-        v111 = *(*a3 + 13);
-        if (v101 + 1 >= v111)
+        v112 = *a3;
+        v103 = *(*a3 + 12);
+        v113 = *(*a3 + 13);
+        if (v103 + 1 >= v113)
         {
-          *(v110 + 52) = 2 * v111;
+          *(v112 + 52) = 2 * v113;
           (*a3)[5] = repalloc((*a3)[5], *(*a3 + 13));
-          v110 = *a3;
-          v101 = *(*a3 + 12);
+          v112 = *a3;
+          v103 = *(*a3 + 12);
         }
 
-        v103 = *(v110 + 40);
-        v104 = 98;
+        v105 = *(v112 + 40);
+        v106 = 98;
         goto LABEL_190;
       case 9u:
       case 0xAu:
-        v87 = a3[17];
-        v88 = a3[8];
-        v89 = *a3;
-        v91 = *(*a3 + 12);
-        v90 = *(*a3 + 13);
-        if (v91 + v88 < v90)
+        v89 = a3[17];
+        v90 = a3[8];
+        v91 = *a3;
+        v93 = *(*a3 + 12);
+        v92 = *(*a3 + 13);
+        if (v93 + v90 < v92)
         {
           goto LABEL_186;
         }
 
         do
         {
-          *(v89 + 13) = 2 * v90;
-          v89 = *a3;
-          v90 = *(*a3 + 13);
+          *(v91 + 52) = 2 * v92;
+          v91 = *a3;
+          v92 = *(*a3 + 13);
         }
 
-        while (*(*a3 + 12) + v88 >= v90);
+        while (*(*a3 + 12) + v90 >= v92);
         goto LABEL_185;
       case 0xBu:
         *a3[20] = *(a3 + 34) - **a3;
         *(a3 + 21) = 9;
         *(*a3 + 12) = 0;
-        v135 = *a3;
-        v101 = *(*a3 + 12);
-        v136 = *(*a3 + 13);
-        if (v101 + 1 >= v136)
+        v123 = *a3;
+        v103 = *(*a3 + 12);
+        v124 = *(*a3 + 13);
+        if (v103 + 1 >= v124)
         {
-          *(v135 + 52) = 2 * v136;
+          *(v123 + 52) = 2 * v124;
           (*a3)[5] = repalloc((*a3)[5], *(*a3 + 13));
-          v135 = *a3;
-          v101 = *(*a3 + 12);
+          v123 = *a3;
+          v103 = *(*a3 + 12);
         }
 
-        v103 = *(v135 + 40);
-        v104 = 120;
+        v105 = *(v123 + 40);
+        v106 = 120;
         goto LABEL_190;
       case 0xCu:
         *a3[20] = *(a3 + 34) - **a3;
-        *v17 = *(a3 + 48);
-        a3[17] = v14;
+        *v19 = *(a3 + 48);
+        a3[17] = v16;
         a3[8] = 1;
-        a3[9] = (v14 + 1);
-        *(a3 + 48) = v14[1];
-        v14[1] = 0;
-        a3[9] = (v14 + 1);
-        v243 = ScanKeywordLookup("nchar", (*a3)[2]);
-        if ((v243 & 0x80000000) == 0)
+        a3[9] = (v16 + 1);
+        *(a3 + 48) = *(v16 + 1);
+        *(v16 + 1) = 0;
+        a3[9] = (v16 + 1);
+        v173 = ScanKeywordLookup("nchar", (*a3)[2]);
+        if ((v173 & 0x80000000) == 0)
         {
           goto LABEL_306;
         }
 
-        v244 = pstrdup("n");
+        v175 = pstrdup("n", v174);
         goto LABEL_313;
       case 0xDu:
         *(*a3 + 80) = 1;
         *(*a3 + 81) = 0;
         *a3[20] = *(a3 + 34) - **a3;
-        v107 = *a3;
+        v109 = *a3;
         if (*(*a3 + 37))
         {
-          v108 = 11;
+          v110 = 11;
         }
 
         else
         {
-          v108 = 15;
+          v110 = 15;
         }
 
         goto LABEL_194;
@@ -16089,20 +16094,20 @@ LABEL_182:
         *(*a3 + 80) = 0;
         *(*a3 + 81) = 0;
         *a3[20] = *(a3 + 34) - **a3;
-        v105 = 15;
+        v107 = 15;
         goto LABEL_178;
       case 0xFu:
         *a3[20] = *(a3 + 34) - **a3;
-        v107 = *a3;
+        v109 = *a3;
         if ((*(*a3 + 37) & 1) == 0)
         {
           core_yylex_cold_3();
         }
 
-        v108 = 21;
+        v110 = 21;
 LABEL_194:
-        *(a3 + 21) = v108;
-        *(v107 + 48) = 0;
+        *(a3 + 21) = v110;
+        *(v109 + 48) = 0;
         continue;
       case 0x10u:
         *(*a3 + 14) = (*(a3 + 21) - 1) / 2;
@@ -16114,28 +16119,28 @@ LABEL_194:
       case 0x12u:
       case 0x13u:
       case 0x49u:
-        *v17 = *(a3 + 48);
-        a3[17] = v14;
+        *v19 = *(a3 + 48);
+        a3[17] = v16;
         a3[8] = 0;
-        a3[9] = v14;
-        *(a3 + 48) = *v14;
-        *v14 = 0;
-        a3[9] = v14;
+        a3[9] = v16;
+        *(a3 + 48) = *v16;
+        *v16 = 0;
+        a3[9] = v16;
         *(a3 + 21) = 1;
-        v209 = *a3;
-        v210 = *(*a3 + 14);
-        if (v210 <= 4)
+        v140 = *a3;
+        v141 = *(*a3 + 14);
+        if (v141 <= 4)
         {
-          if (v210 == 1)
+          if (v141 == 1)
           {
-            *a3[19] = litbufdup(a3);
+            *a3[19] = litbufdup(a3, *&v15);
             *(*a3 + 21) = *(a3 + 34) - **a3 + *(a3 + 16);
             return 263;
           }
 
-          if (v210 == 4)
+          if (v141 == 4)
           {
-            *a3[19] = litbufdup(a3);
+            *a3[19] = litbufdup(a3, *&v15);
             *(*a3 + 21) = *(a3 + 34) - **a3 + *(a3 + 16);
             return 264;
           }
@@ -16143,27 +16148,25 @@ LABEL_194:
 
         else
         {
-          if (v210 == 5 || v210 == 7)
+          if (v141 == 5 || v141 == 7)
           {
-            if (*(v209 + 81) == 1)
+            if (*(v140 + 81) == 1)
             {
-              v212 = *(v209 + 40);
-              v213 = *(v209 + 48);
               pg_verifymbstr();
-              v209 = *a3;
+              v140 = *a3;
             }
 
-            v214 = *(v209 + 48);
-            v215 = palloc(v214 + 1);
-            memcpy(v215, (*a3)[5], v214);
-            *(v215 + v214) = 0;
-            *a3[19] = v215;
+            v143 = *(v140 + 48);
+            v144 = palloc(v143 + 1, *&v15);
+            memcpy(v144, (*a3)[5], v143);
+            *(v144 + v143) = 0;
+            *a3[19] = v144;
             goto LABEL_247;
           }
 
-          if (v210 == 10)
+          if (v141 == 10)
           {
-            *a3[19] = litbufdup(a3);
+            *a3[19] = litbufdup(a3, *&v15);
             *(*a3 + 21) = *(a3 + 34) - **a3 + *(a3 + 16);
             return 262;
           }
@@ -16171,110 +16174,110 @@ LABEL_194:
 
         scanner_yyerror("unhandled previous state in xqs", a3);
       case 0x14u:
-        v112 = *a3;
-        v101 = *(*a3 + 12);
-        v113 = *(*a3 + 13);
-        if (v101 + 1 >= v113)
+        v114 = *a3;
+        v103 = *(*a3 + 12);
+        v115 = *(*a3 + 13);
+        if (v103 + 1 >= v115)
         {
-          *(v112 + 52) = 2 * v113;
+          *(v114 + 52) = 2 * v115;
           (*a3)[5] = repalloc((*a3)[5], *(*a3 + 13));
-          v112 = *a3;
-          v101 = *(*a3 + 12);
+          v114 = *a3;
+          v103 = *(*a3 + 12);
         }
 
-        v103 = *(v112 + 40);
-        v104 = 39;
+        v105 = *(v114 + 40);
+        v106 = 39;
         goto LABEL_190;
       case 0x15u:
-        v87 = a3[17];
-        v88 = a3[8];
-        v89 = *a3;
-        v91 = *(*a3 + 12);
-        v90 = *(*a3 + 13);
-        if (v91 + v88 < v90)
+        v89 = a3[17];
+        v90 = a3[8];
+        v91 = *a3;
+        v93 = *(*a3 + 12);
+        v92 = *(*a3 + 13);
+        if (v93 + v90 < v92)
         {
           goto LABEL_186;
         }
 
         do
         {
-          *(v89 + 13) = 2 * v90;
-          v89 = *a3;
-          v90 = *(*a3 + 13);
+          *(v91 + 52) = 2 * v92;
+          v91 = *a3;
+          v92 = *(*a3 + 13);
         }
 
-        while (*(*a3 + 12) + v88 >= v90);
+        while (*(*a3 + 12) + v90 >= v92);
         goto LABEL_185;
       case 0x16u:
-        v87 = a3[17];
-        v88 = a3[8];
-        v89 = *a3;
-        v91 = *(*a3 + 12);
-        v90 = *(*a3 + 13);
-        if (v91 + v88 < v90)
+        v89 = a3[17];
+        v90 = a3[8];
+        v91 = *a3;
+        v93 = *(*a3 + 12);
+        v92 = *(*a3 + 13);
+        if (v93 + v90 < v92)
         {
           goto LABEL_186;
         }
 
         do
         {
-          *(v89 + 13) = 2 * v90;
-          v89 = *a3;
-          v90 = *(*a3 + 13);
+          *(v91 + 52) = 2 * v92;
+          v91 = *a3;
+          v92 = *(*a3 + 13);
         }
 
-        while (*(*a3 + 12) + v88 >= v90);
+        while (*(*a3 + 12) + v90 >= v92);
         goto LABEL_185;
       case 0x17u:
-        v116 = strtoul(a3[17] + 2, 0, 16);
+        v118 = strtoul(a3[17] + 2, 0, 16);
         if (*(*a3 + 80) == 1 && *(*a3 + 36) == 1)
         {
-          v117 = v116;
-          v118 = errstart(19, 0);
-          v116 = v117;
-          if (v118)
+          v119 = v118;
+          v120 = errstart(19, 0);
+          v118 = v119;
+          if (v120)
           {
             errcode();
-            errmsg("nonstandard use of escape in a string literal", v119, v120, v121, v122, v123, v124, v125, v268);
-            errhint("Use the escape string syntax for escapes, e.g., E'\\r\\n'.", v126, v127, v128, v129, v130, v131, v132, v269);
+            errmsg("nonstandard use of escape in a string literal");
+            errhint("Use the escape string syntax for escapes, e.g., E'\\r\\n'.");
             scanner_errposition(*a3[20], a3);
             errfinish("scan.l", 1454, "check_escape_warning");
-            v116 = v117;
+            v118 = v119;
           }
         }
 
         *(*a3 + 80) = 0;
         *(*a3 + 18) = *a3[20];
         *a3[20] = *(a3 + 34) - **a3;
-        if ((v116 & 0xFFFFFC00) == 0xD800)
+        if ((v118 & 0xFFFFFC00) == 0xD800)
         {
-          *(*a3 + 19) = v116;
+          *(*a3 + 19) = v118;
           *(a3 + 21) = 23;
         }
 
         else
         {
-          if ((v116 & 0xFFFFFC00) == 0xDC00)
+          if ((v118 & 0xFFFFFC00) == 0xDC00)
           {
 LABEL_382:
             scanner_yyerror("invalid Unicode surrogate pair", a3);
           }
 
-          addunicode(v116, a3);
+          addunicode(v118, a3);
         }
 
         *a3[20] = *(*a3 + 18);
         continue;
       case 0x18u:
-        v109 = strtoul(a3[17] + 2, 0, 16);
+        v111 = strtoul(a3[17] + 2, 0, 16);
         *(*a3 + 18) = *a3[20];
         *a3[20] = *(a3 + 34) - **a3;
-        if (v109 >> 10 != 55)
+        if (v111 >> 10 != 55)
         {
           goto LABEL_382;
         }
 
-        addunicode((v109 & 0x3FF | ((*(*a3 + 19) & 0x3FF) << 10)) + 0x10000, a3);
+        addunicode((v111 & 0x3FF | ((*(*a3 + 19) & 0x3FF) << 10)) + 0x10000, a3);
         *a3[20] = *(*a3 + 18);
         *(a3 + 21) = 15;
         continue;
@@ -16291,8 +16294,8 @@ LABEL_382:
           goto LABEL_212;
         }
 
-        v106 = *(*a3 + 8);
-        if (v106 == 2)
+        v108 = *(*a3 + 8);
+        if (v108 == 2)
         {
           if (pg_get_client_encoding() >= 35 && pg_get_client_encoding() <= 41)
           {
@@ -16301,151 +16304,150 @@ LABEL_400:
           }
         }
 
-        else if (!v106)
+        else if (!v108)
         {
           goto LABEL_400;
         }
 
 LABEL_212:
-        v156 = *(a3[17] + 1);
-        v157 = *a3;
-        v158 = *(*a3 + 80);
-        if (v156 == 92)
+        v130 = *(a3[17] + 1);
+        v131 = *a3;
+        if (v130 == 92)
         {
-          if (*(*a3 + 80) && *(v157 + 36) == 1 && errstart(19, 0))
+          if (*(*a3 + 80) && *(v131 + 36) == 1 && errstart(19, 0))
           {
             errcode();
-            errmsg("nonstandard use of \\\\ in a string literal", v176, v177, v178, v179, v180, v181, v182, v268);
-            errhint("Use the escape string syntax for backslashes, e.g., E'\\\\'.", v183, v184, v185, v186, v187, v188, v189, v272);
-            v190 = *a3[20];
-            if ((v190 & 0x80000000) == 0)
+            errmsg("nonstandard use of \\\\ in a string literal");
+            errhint("Use the escape string syntax for backslashes, e.g., E'\\\\'.");
+            v135 = *a3[20];
+            if ((v135 & 0x80000000) == 0)
             {
-              pg_mbstrlen_with_len(**a3, v190);
+              pg_mbstrlen_with_len(**a3, v135);
               errposition();
             }
 
-            v174 = "check_string_escape_warning";
-            v175 = 1439;
+            v133 = "check_string_escape_warning";
+            v134 = 1439;
             goto LABEL_232;
           }
         }
 
-        else if (v156 == 39)
+        else if (v130 == 39)
         {
-          if (*(*a3 + 80) && *(v157 + 36) == 1 && errstart(19, 0))
+          if (*(*a3 + 80) && *(v131 + 36) == 1 && errstart(19, 0))
           {
             errcode();
-            errmsg("nonstandard use of \\' in a string literal", v159, v160, v161, v162, v163, v164, v165, v268);
-            errhint("Use '' to write quotes in strings, or use the escape string syntax (E'...').", v166, v167, v168, v169, v170, v171, v172, v271);
-            v173 = *a3[20];
-            if ((v173 & 0x80000000) == 0)
+            errmsg("nonstandard use of \\' in a string literal");
+            errhint("Use '' to write quotes in strings, or use the escape string syntax (E'...').");
+            v132 = *a3[20];
+            if ((v132 & 0x80000000) == 0)
             {
-              pg_mbstrlen_with_len(**a3, v173);
+              pg_mbstrlen_with_len(**a3, v132);
               errposition();
             }
 
-            v174 = "check_string_escape_warning";
-            v175 = 1429;
+            v133 = "check_string_escape_warning";
+            v134 = 1429;
 LABEL_232:
-            errfinish("scan.l", v175, v174);
+            errfinish("scan.l", v134, v133);
           }
         }
 
-        else if (*(*a3 + 80) && *(v157 + 36) == 1 && errstart(19, 0))
+        else if (*(*a3 + 80) && *(v131 + 36) == 1 && errstart(19, 0))
         {
           errcode();
-          errmsg("nonstandard use of escape in a string literal", v191, v192, v193, v194, v195, v196, v197, v268);
-          errhint("Use the escape string syntax for escapes, e.g., E'\\r\\n'.", v198, v199, v200, v201, v202, v203, v204, v273);
-          v205 = *a3[20];
-          if ((v205 & 0x80000000) == 0)
+          errmsg("nonstandard use of escape in a string literal");
+          errhint("Use the escape string syntax for escapes, e.g., E'\\r\\n'.");
+          v136 = *a3[20];
+          if ((v136 & 0x80000000) == 0)
           {
-            pg_mbstrlen_with_len(**a3, v205);
+            pg_mbstrlen_with_len(**a3, v136);
             errposition();
           }
 
-          v174 = "check_escape_warning";
-          v175 = 1454;
+          v133 = "check_escape_warning";
+          v134 = 1454;
           goto LABEL_232;
         }
 
         *(*a3 + 80) = 0;
-        v206 = *(a3[17] + 1);
-        HIDWORD(v208) = v206 - 98;
-        LODWORD(v208) = v206 - 98;
-        v207 = v208 >> 1;
-        if (v207 < 0xA && ((0x345u >> v207) & 1) != 0)
+        v137 = *(a3[17] + 1);
+        HIDWORD(v139) = v137 - 98;
+        LODWORD(v139) = v137 - 98;
+        v138 = v139 >> 1;
+        if (v138 < 0xA && ((0x345u >> v138) & 1) != 0)
         {
-          v83 = byte_184DCFEF4[v207];
+          v85 = byte_184DCFEF4[v138];
         }
 
         else
         {
-          v83 = *(a3[17] + 1);
-          if (v206 <= 0)
+          v85 = *(a3[17] + 1);
+          if (v137 <= 0)
           {
             *(*a3 + 81) = 1;
           }
         }
 
 LABEL_123:
-        v84 = *a3;
-        v85 = *(*a3 + 12);
-        v86 = *(*a3 + 13);
-        if (v85 + 1 >= v86)
+        v86 = *a3;
+        v87 = *(*a3 + 12);
+        v88 = *(*a3 + 13);
+        if (v87 + 1 >= v88)
         {
-          *(v84 + 13) = 2 * v86;
+          *(v86 + 52) = 2 * v88;
           (*a3)[5] = repalloc((*a3)[5], *(*a3 + 13));
-          v84 = *a3;
-          v85 = *(*a3 + 12);
+          v86 = *a3;
+          v87 = *(*a3 + 12);
         }
 
-        v84[5][v85] = v83;
+        *(*(v86 + 40) + v87) = v85;
 LABEL_191:
         ++*(*a3 + 12);
         continue;
       case 0x1Du:
-        v114 = a3[17] + 1;
-        v115 = 8;
+        v116 = a3[17] + 1;
+        v117 = 8;
         goto LABEL_197;
       case 0x1Eu:
-        v114 = a3[17] + 2;
-        v115 = 16;
+        v116 = a3[17] + 2;
+        v117 = 16;
 LABEL_197:
-        v137 = strtoul(v114, 0, v115);
+        v125 = strtoul(v116, 0, v117);
         if (*(*a3 + 80) == 1 && *(*a3 + 36) == 1 && errstart(19, 0))
         {
           errcode();
-          errmsg("nonstandard use of escape in a string literal", v138, v139, v140, v141, v142, v143, v144, v268);
-          errhint("Use the escape string syntax for escapes, e.g., E'\\r\\n'.", v145, v146, v147, v148, v149, v150, v151, v270);
+          errmsg("nonstandard use of escape in a string literal");
+          errhint("Use the escape string syntax for escapes, e.g., E'\\r\\n'.");
           scanner_errposition(*a3[20], a3);
           errfinish("scan.l", 1454, "check_escape_warning");
         }
 
         *(*a3 + 80) = 0;
-        v152 = *a3;
-        v153 = *(*a3 + 12);
-        v154 = *(*a3 + 13);
-        if (v153 + 1 >= v154)
+        v126 = *a3;
+        v127 = *(*a3 + 12);
+        v128 = *(*a3 + 13);
+        if (v127 + 1 >= v128)
         {
-          *(v152 + 13) = 2 * v154;
+          *(v126 + 52) = 2 * v128;
           (*a3)[5] = repalloc((*a3)[5], *(*a3 + 13));
-          v152 = *a3;
-          v153 = *(*a3 + 12);
+          v126 = *a3;
+          v127 = *(*a3 + 12);
         }
 
-        v152[5][v153] = v137;
+        *(*(v126 + 40) + v127) = v125;
         ++*(*a3 + 12);
-        if (v137)
+        if (v125)
         {
-          v155 = (v137 & 0x80) == 0;
+          v129 = (v125 & 0x80) == 0;
         }
 
         else
         {
-          v155 = 0;
+          v129 = 0;
         }
 
-        if (!v155)
+        if (!v129)
         {
           *(*a3 + 81) = 1;
         }
@@ -16453,205 +16455,205 @@ LABEL_197:
         continue;
       case 0x1Fu:
       case 0x25u:
-        v83 = *a3[17];
+        v85 = *a3[17];
         goto LABEL_123;
       case 0x20u:
         *a3[20] = *(a3 + 34) - **a3;
-        (*a3)[8] = pstrdup(a3[17]);
-        v105 = 17;
+        (*a3)[8] = pstrdup(a3[17], *&v15);
+        v107 = 17;
         goto LABEL_178;
       case 0x21u:
         *a3[20] = *(a3 + 34) - **a3;
-        *v17 = *(a3 + 48);
-        a3[17] = v14;
+        *v19 = *(a3 + 48);
+        a3[17] = v16;
         a3[8] = 1;
-        a3[9] = (v14 + 1);
-        *(a3 + 48) = v14[1];
-        v14[1] = 0;
-        a3[9] = (v14 + 1);
+        a3[9] = (v16 + 1);
+        *(a3 + 48) = *(v16 + 1);
+        *(v16 + 1) = 0;
+        a3[9] = (v16 + 1);
         return *a3[17];
       case 0x22u:
-        v92 = a3[17];
-        v93 = *a3;
-        v94 = (*a3)[8];
-        if (!strcmp(v92, v94))
+        v94 = a3[17];
+        v95 = *a3;
+        v96 = (*a3)[8];
+        if (!strcmp(v94, v96))
         {
-          pfree(v94);
+          pfree(v96);
           (*a3)[8] = 0;
           *(a3 + 21) = 1;
-          *a3[19] = litbufdup(a3);
+          *a3[19] = litbufdup(a3, v188);
 LABEL_247:
           *(*a3 + 21) = *(a3 + 34) - **a3 + *(a3 + 16);
           return 261;
         }
 
-        v95 = *(a3 + 16) - 1;
-        v97 = *(v93 + 12);
-        v96 = *(v93 + 13);
-        if (v95 + v97 >= v96)
+        v97 = *(a3 + 16) - 1;
+        v99 = *(v95 + 48);
+        v98 = *(v95 + 52);
+        if (v97 + v99 >= v98)
         {
           do
           {
-            *(v93 + 13) = 2 * v96;
-            v93 = *a3;
-            v96 = *(*a3 + 13);
+            *(v95 + 52) = 2 * v98;
+            v95 = *a3;
+            v98 = *(*a3 + 13);
           }
 
-          while (*(*a3 + 12) + v95 >= v96);
-          (*a3)[5] = repalloc(v93[5], v96);
-          v93 = *a3;
-          v97 = *(*a3 + 12);
+          while (*(*a3 + 12) + v97 >= v98);
+          (*a3)[5] = repalloc(*(v95 + 40), v98);
+          v95 = *a3;
+          v99 = *(*a3 + 12);
         }
 
-        memcpy(&v93[5][v97], v92, v95);
-        *(*a3 + 12) += v95;
-        v98 = *(a3 + 16);
-        *v17 = *(a3 + 48);
-        v99 = (v98 - 1);
-        a3[17] = v14;
-        a3[8] = v99;
-        a3[9] = (v99 + v14);
-        *(a3 + 48) = *(v99 + v14);
-        *(v99 + v14) = 0;
-        a3[9] = (v99 + v14);
+        memcpy((*(v95 + 40) + v99), v94, v97);
+        *(*a3 + 12) += v97;
+        v100 = *(a3 + 16);
+        *v19 = *(a3 + 48);
+        v101 = (v100 - 1);
+        a3[17] = v16;
+        a3[8] = v101;
+        a3[9] = (v101 + v16);
+        *(a3 + 48) = *(v101 + v16);
+        *(v101 + v16) = 0;
+        a3[9] = (v101 + v16);
         continue;
       case 0x23u:
-        v87 = a3[17];
-        v88 = a3[8];
-        v89 = *a3;
-        v91 = *(*a3 + 12);
-        v90 = *(*a3 + 13);
-        if (v91 + v88 < v90)
+        v89 = a3[17];
+        v90 = a3[8];
+        v91 = *a3;
+        v93 = *(*a3 + 12);
+        v92 = *(*a3 + 13);
+        if (v93 + v90 < v92)
         {
           goto LABEL_186;
         }
 
         do
         {
-          *(v89 + 13) = 2 * v90;
-          v89 = *a3;
-          v90 = *(*a3 + 13);
+          *(v91 + 52) = 2 * v92;
+          v91 = *a3;
+          v92 = *(*a3 + 13);
         }
 
-        while (*(*a3 + 12) + v88 >= v90);
+        while (*(*a3 + 12) + v90 >= v92);
         goto LABEL_185;
       case 0x24u:
-        v87 = a3[17];
-        v88 = a3[8];
-        v89 = *a3;
-        v91 = *(*a3 + 12);
-        v90 = *(*a3 + 13);
-        if (v91 + v88 < v90)
+        v89 = a3[17];
+        v90 = a3[8];
+        v91 = *a3;
+        v93 = *(*a3 + 12);
+        v92 = *(*a3 + 13);
+        if (v93 + v90 < v92)
         {
           goto LABEL_186;
         }
 
         do
         {
-          *(v89 + 13) = 2 * v90;
-          v89 = *a3;
-          v90 = *(*a3 + 13);
+          *(v91 + 52) = 2 * v92;
+          v91 = *a3;
+          v92 = *(*a3 + 13);
         }
 
-        while (*(*a3 + 12) + v88 >= v90);
+        while (*(*a3 + 12) + v90 >= v92);
         goto LABEL_185;
       case 0x26u:
         *a3[20] = *(a3 + 34) - **a3;
-        v105 = 7;
+        v107 = 7;
         goto LABEL_178;
       case 0x27u:
         *a3[20] = *(a3 + 34) - **a3;
-        v105 = 19;
+        v107 = 19;
 LABEL_178:
-        *(a3 + 21) = v105;
+        *(a3 + 21) = v107;
         *(*a3 + 12) = 0;
         continue;
       case 0x28u:
         *(a3 + 21) = 1;
-        v223 = *(*a3 + 12);
-        if (!v223)
+        v153 = *(*a3 + 12);
+        if (!v153)
         {
           goto LABEL_396;
         }
 
-        v224 = palloc(v223 + 1);
-        memcpy(v224, (*a3)[5], v223);
-        v224[v223] = 0;
-        v225 = *(*a3 + 12);
-        if (v225 >= 64)
+        v154 = palloc(v153 + 1, *&v15);
+        memcpy(v154, (*a3)[5], v153);
+        v154[v153] = 0;
+        v155 = *(*a3 + 12);
+        if (v155 >= 64)
         {
-          truncate_identifier(v224, v225, 1);
+          truncate_identifier(v154, v155, 1);
         }
 
-        *a3[19] = v224;
+        *a3[19] = v154;
         goto LABEL_314;
       case 0x29u:
         *(a3 + 21) = 1;
-        v226 = *(*a3 + 12);
-        if (!v226)
+        v156 = *(*a3 + 12);
+        if (!v156)
         {
 LABEL_396:
           scanner_yyerror("zero-length delimited identifier", a3);
         }
 
-        v227 = palloc(v226 + 1);
-        memcpy(v227, (*a3)[5], v226);
-        *(v227 + v226) = 0;
-        *a3[19] = v227;
+        v157 = palloc(v156 + 1, *&v15);
+        memcpy(v157, (*a3)[5], v156);
+        *(v157 + v156) = 0;
+        *a3[19] = v157;
         *(*a3 + 21) = *(a3 + 34) - **a3 + *(a3 + 16);
         return 259;
       case 0x2Au:
-        v100 = *a3;
-        v101 = *(*a3 + 12);
-        v102 = *(*a3 + 13);
-        if (v101 + 1 >= v102)
+        v102 = *a3;
+        v103 = *(*a3 + 12);
+        v104 = *(*a3 + 13);
+        if (v103 + 1 >= v104)
         {
-          *(v100 + 13) = 2 * v102;
+          *(v102 + 52) = 2 * v104;
           (*a3)[5] = repalloc((*a3)[5], *(*a3 + 13));
-          v100 = *a3;
-          v101 = *(*a3 + 12);
+          v102 = *a3;
+          v103 = *(*a3 + 12);
         }
 
-        v103 = v100[5];
-        v104 = 34;
+        v105 = *(v102 + 40);
+        v106 = 34;
 LABEL_190:
-        v103[v101] = v104;
+        *(v105 + v103) = v106;
         goto LABEL_191;
       case 0x2Bu:
-        v87 = a3[17];
-        v88 = a3[8];
-        v89 = *a3;
-        v91 = *(*a3 + 12);
-        v90 = *(*a3 + 13);
-        if (v91 + v88 >= v90)
+        v89 = a3[17];
+        v90 = a3[8];
+        v91 = *a3;
+        v93 = *(*a3 + 12);
+        v92 = *(*a3 + 13);
+        if (v93 + v90 >= v92)
         {
           do
           {
-            *(v89 + 13) = 2 * v90;
-            v89 = *a3;
-            v90 = *(*a3 + 13);
+            *(v91 + 52) = 2 * v92;
+            v91 = *a3;
+            v92 = *(*a3 + 13);
           }
 
-          while (*(*a3 + 12) + v88 >= v90);
+          while (*(*a3 + 12) + v90 >= v92);
 LABEL_185:
-          (*a3)[5] = repalloc(v89[5], v90);
-          v89 = *a3;
-          v91 = *(*a3 + 12);
+          (*a3)[5] = repalloc(*(v91 + 40), v92);
+          v91 = *a3;
+          v93 = *(*a3 + 12);
         }
 
 LABEL_186:
-        memcpy(&v89[5][v91], v87, v88);
-        *(*a3 + 12) += v88;
+        memcpy((*(v91 + 40) + v93), v89, v90);
+        *(*a3 + 12) += v90;
         continue;
       case 0x2Cu:
         *a3[20] = *(a3 + 34) - **a3;
-        *v17 = *(a3 + 48);
-        a3[17] = v14;
+        *v19 = *(a3 + 48);
+        a3[17] = v16;
         a3[8] = 1;
-        a3[9] = (v14 + 1);
-        *(a3 + 48) = v14[1];
-        v14[1] = 0;
-        a3[9] = (v14 + 1);
+        a3[9] = (v16 + 1);
+        *(a3 + 48) = *(v16 + 1);
+        *(v16 + 1) = 0;
+        a3[9] = (v16 + 1);
         goto LABEL_312;
       case 0x2Du:
         return *(a3[17] + 1);
@@ -16682,30 +16684,30 @@ LABEL_186:
         *a3[20] = *(a3 + 34) - **a3;
         return *a3[17];
       case 0x37u:
-        v228 = a3[8];
-        v229 = a3[17];
-          result = v263;
-          if (v264)
+        v158 = a3[8];
+        v159 = a3[17];
+          result = v197;
+          if (v198)
           {
             return result;
           }
 
-          v265 = v262;
+          v199 = v196;
         }
 
         else
         {
 LABEL_360:
-          if (v235 > 63)
+          if (v165 > 63)
           {
             scanner_yyerror("operator too long", a3);
           }
 
-          v265 = a3[17];
+          v199 = a3[17];
         }
 
 LABEL_362:
-        *a3[19] = pstrdup(v265);
+        *a3[19] = pstrdup(v199, v194);
         return 265;
       case 0x38u:
         *a3[20] = *(a3 + 34) - **a3;
@@ -16716,83 +16718,83 @@ LABEL_362:
       case 0x3Au:
       case 0x3Cu:
         *a3[20] = *(a3 + 34) - **a3;
-        *a3[19] = pstrdup(a3[17]);
+        *a3[19] = pstrdup(a3[17], *&v15);
         return 260;
       case 0x3Bu:
       case 0x3Eu:
-        v217 = *(a3 + 16);
-        *v17 = *(a3 + 48);
-        v218 = (v217 - 2);
-        a3[17] = v14;
-        a3[8] = v218;
-        a3[9] = (v218 + v14);
-        *(a3 + 48) = *(v218 + v14);
-        *(v218 + v14) = 0;
-        a3[9] = (v218 + v14);
+        v146 = *(a3 + 16);
+        *v19 = *(a3 + 48);
+        v147 = (v146 - 2);
+        a3[17] = v16;
+        a3[8] = v147;
+        a3[9] = (v147 + v16);
+        *(a3 + 48) = *(v147 + v16);
+        *(v147 + v16) = 0;
+        a3[9] = (v147 + v16);
         *a3[20] = *(a3 + 34) - **a3;
-        v219 = a3[17];
-        v220 = a3[19];
-        v274 = 0;
+        v148 = a3[17];
+        v149 = a3[19];
+        v202 = 0;
         *__error() = 0;
-        v221 = strtoint(v219, &v274, 10);
-        if (*v274 || (v222 = v221, *__error() == 34))
+        v150 = strtoint(v148, &v202, 10);
+        if (*v202 || (v152 = v150, *__error() == 34))
         {
-          *v220 = pstrdup(v219);
+          *v149 = pstrdup(v148, v151);
           return 260;
         }
 
         else
         {
-          *v220 = v222;
+          *v149 = v152;
           return 266;
         }
 
       case 0x3Du:
-        v245 = *(a3 + 16);
-        *v17 = *(a3 + 48);
-        v246 = (v245 - 1);
-        a3[17] = v14;
-        a3[8] = v246;
-        a3[9] = (v246 + v14);
-        *(a3 + 48) = *(v246 + v14);
-        *(v246 + v14) = 0;
-        a3[9] = (v246 + v14);
+        v176 = *(a3 + 16);
+        *v19 = *(a3 + 48);
+        v177 = (v176 - 1);
+        a3[17] = v16;
+        a3[8] = v177;
+        a3[9] = (v177 + v16);
+        *(a3 + 48) = *(v177 + v16);
+        *(v177 + v16) = 0;
+        a3[9] = (v177 + v16);
 LABEL_298:
         *a3[20] = *(a3 + 34) - **a3;
-        v247 = a3[17];
-        v248 = a3[19];
-        v274 = 0;
+        v178 = a3[17];
+        v179 = a3[19];
+        v202 = 0;
         *__error() = 0;
-        v249 = strtoint(v247, &v274, 10);
-        if (*v274 || (v250 = v249, *__error() == 34))
+        v180 = strtoint(v178, &v202, 10);
+        if (*v202 || (v182 = v180, *__error() == 34))
         {
-          *v248 = pstrdup(v247);
+          *v179 = pstrdup(v178, v181);
           return 260;
         }
 
         else
         {
-          *v248 = v250;
+          *v179 = v182;
           return 266;
         }
 
       case 0x3Fu:
-        v251 = pstrdup(a3[17]);
-        v252 = v251;
+        v183 = pstrdup(a3[17], *&v15);
+        v184 = v183;
         *a3[20] = *(a3 + 34) - **a3;
-        v253 = a3[8] - 1;
-        if (*(a3[17] + v253) == 63)
+        v185 = a3[8] - 1;
+        if (v185[a3[17]] == 63)
         {
-          v251[v253] = 0;
+          v185[v183] = 0;
         }
 
-        v243 = ScanKeywordLookup(v251, (*a3)[2]);
-        if ((v243 & 0x80000000) != 0)
+        v173 = ScanKeywordLookup(v183, (*a3)[2]);
+        if ((v173 & 0x80000000) != 0)
         {
 LABEL_312:
-          v244 = downcase_truncate_identifier(a3[17], *(a3 + 16), 1);
+          v175 = downcase_truncate_identifier(a3[17], *(a3 + 16), 1, *&v15);
 LABEL_313:
-          *a3[19] = v244;
+          *a3[19] = v175;
 LABEL_314:
           *(*a3 + 21) = *(a3 + 34) - **a3 + *(a3 + 16);
           return 258;
@@ -16800,101 +16802,102 @@ LABEL_314:
 
         else
         {
-          v254 = a3[8] - 1;
-          if (!v252[v254])
+          v186 = a3[8] - 1;
+          if (!v186[v184])
           {
-            *v17 = *(a3 + 48);
-            v255 = &v14[v254];
-            a3[17] = v14;
-            a3[8] = v254;
-            a3[9] = v255;
-            *(a3 + 48) = *v255;
-            *v255 = 0;
-            a3[9] = v255;
+            *v19 = *(a3 + 48);
+            v187 = (v16 + v186);
+            a3[17] = v16;
+            a3[8] = v186;
+            a3[9] = v187;
+            *(a3 + 48) = *v187;
+            *v187 = 0;
+            a3[9] = v187;
           }
 
 LABEL_306:
-          *a3[19] = (*(*a3)[2] + *(*((*a3)[2] + 1) + 2 * v243));
-          return *&(*a3)[3][2 * v243];
+          *a3[19] = *(*a3)[2] + *(*((*a3)[2] + 8) + 2 * v173);
+          return *((*a3)[3] + 2 * v173);
         }
 
       case 0x41u:
         fprintf_to_ereport("flex scanner jammed");
       case 0x42u:
-        v22 = a3[17];
-        *v17 = *(a3 + 48);
-        v23 = a3[5];
-        v24 = a3[3];
-        v25 = v23[v24];
-        if (!*(v25 + 16))
+        v24 = a3[17];
+        *v19 = *(a3 + 48);
+        v25 = a3[5];
+        v26 = a3[3];
+        v27 = v25[v26];
+        if (!*(v27 + 64))
         {
-          a3[7] = *(v25 + 4);
-          *v23[v24] = a3[1];
-          *(a3[5][a3[3]] + 16) = 1;
-          v23 = a3[5];
-          v24 = a3[3];
-          v25 = v23[v24];
+          a3[7] = *(v27 + 32);
+          *v25[v26] = a3[1];
+          *(a3[5][a3[3]] + 64) = 1;
+          v25 = a3[5];
+          v26 = a3[3];
+          v27 = v25[v26];
         }
 
-        v26 = a3[9];
-        v27 = *(v25 + 1);
-        v28 = a3[7];
-        if (v26 <= (v28 + v27))
+        v28 = a3[9];
+        v29 = *(v27 + 8);
+        v30 = a3[7];
+        if (v28 <= v30 + v29)
         {
-          v14 = a3[17];
-          v74 = ~v22 + v17;
-          v17 = &v14[v74];
-          a3[9] = &v14[v74];
-          v16 = *(started + 8 * *(a3 + 21));
-          if (v14 < &v14[v74])
+          v16 = a3[17];
+          v76 = ~v24 + v19;
+          v19 = (v16 + v76);
+          a3[9] = (v16 + v76);
+          v18 = *(started + 8 * *(a3 + 21));
+          if (v16 < (v16 + v76))
           {
-            v75 = v14;
+            v77 = v16;
             do
             {
-              v77 = *v75++;
-              v76 = v77;
-              if (!v77)
+              v79 = *v77++;
+              v78 = v79;
+              if (!v79)
               {
-                v76 = 256;
+                v78 = 256;
               }
 
-              v16 += 4 * *(v16 + 4 * v76 + 2);
-              --v74;
+              v18 += 4 * *(v18 + 4 * v78 + 2);
+              --v76;
             }
 
-            while (v74);
+            while (v76);
           }
 
-          v78 = v16 + 4 * *(v16 + 1026);
-          if (*(v16 + 1024) != 256 || v78 == 0)
+          v80 = v18 + 4 * *(v18 + 1026);
+          if (*(v18 + 1024) != 256 || v80 == 0)
           {
             goto LABEL_20;
           }
 
-          a3[9] = ++v17;
-          v16 = v78;
+          v19 = (v19 + 1);
+          a3[9] = v19;
+          v18 = v80;
           goto LABEL_120;
         }
 
-        if (v26 > (v28 + v27 + 1))
+        if (v28 > v30 + v29 + 1)
         {
           fprintf_to_ereport("fatal flex scanner internal error--end of buffer missed");
         }
 
-        v29 = a3[17];
-        v30 = v26 - v29;
-        if (!*(v25 + 15))
+        v31 = a3[17];
+        v32 = v28 - v31;
+        if (!*(v27 + 60))
         {
-          if (v30 != 1)
+          if (v32 != 1)
           {
             goto LABEL_99;
           }
 
 LABEL_94:
           *(a3 + 22) = 0;
-          a3[9] = v29;
-          v21 = (*(a3 + 21) - 1) / 2 + 67;
-          if (v21 > 0x4E)
+          a3[9] = v31;
+          v23 = (*(a3 + 21) - 1) / 2 + 67;
+          if (v23 > 0x4E)
           {
 LABEL_392:
             fprintf_to_ereport("fatal flex scanner internal error--no action found");
@@ -16903,102 +16906,103 @@ LABEL_392:
           goto LABEL_21;
         }
 
-        v31 = v30 - 1;
-        if (v30 - 1 < 1)
+        v33 = v32 - 1;
+        if (v32 - 1 < 1)
         {
           goto LABEL_48;
         }
 
-        LODWORD(v32) = 0;
-        v33 = (v26 - v29 - 2);
-        if (v33 < 7)
+        LODWORD(v34) = 0;
+        v35 = (v28 - v31 - 2);
+        if (v35 < 7)
         {
-          v34 = a3[17];
+          v36 = a3[17];
           goto LABEL_44;
         }
 
-        v34 = a3[17];
-        if ((v27 - v29) < 0x20)
+        v36 = a3[17];
+        if ((v29 - v31) < 0x20)
         {
           goto LABEL_44;
         }
 
-        v35 = v33 + 1;
-        if (v33 >= 0x1F)
+        v37 = v35 + 1;
+        if (v35 >= 0x1F)
         {
-          v36 = v35 & 0x1FFFFFFE0;
-          v37 = (v29 + 16);
-          v38 = v27 + 16;
-          v39 = v35 & 0x1FFFFFFE0;
+          v38 = v37 & 0x1FFFFFFE0;
+          v39 = (v31 + 2);
+          v40 = v29 + 16;
+          v41 = v37 & 0x1FFFFFFE0;
           do
           {
-            v40 = *v37;
-            *(v38 - 1) = *(v37 - 1);
-            *v38 = v40;
-            v37 += 2;
-            v38 += 2;
-            v39 -= 32;
+            v15 = *(v39 - 1);
+            v42 = *v39;
+            *(v40 - 1) = v15;
+            *v40 = v42;
+            v39 += 2;
+            v40 += 2;
+            v41 -= 32;
           }
 
-          while (v39);
-          if (v35 == v36)
+          while (v41);
+          if (v37 == v38)
           {
             goto LABEL_47;
           }
 
-          if ((v35 & 0x18) == 0)
+          if ((v37 & 0x18) == 0)
           {
-            v34 = &v29[v36];
-            v27 += v36;
-            LODWORD(v32) = v35 & 0xFFFFFFE0;
+            v36 = v31 + v38;
+            v29 += v38;
+            LODWORD(v34) = v37 & 0xFFFFFFE0;
 LABEL_44:
-            v46 = v32 + v29 - v26 + 1;
+            v48 = v34 + v31 - v28 + 1;
             do
             {
-              v47 = *v34++;
-              *v27++ = v47;
+              v49 = *v36++;
+              *v29++ = v49;
             }
 
-            while (!__CFADD__(v46++, 1));
+            while (!__CFADD__(v48++, 1));
             goto LABEL_47;
           }
         }
 
         else
         {
-          v36 = 0;
+          v38 = 0;
         }
 
-        v32 = v35 & 0x1FFFFFFF8;
-        v41 = &v27[v35 & 0x1FFFFFFF8];
-        v34 = &v29[v35 & 0x1FFFFFFF8];
-        v42 = &v29[v36];
-        v43 = &v27[v36];
-        v44 = v36 - (v35 & 0x1FFFFFFF8);
+        v34 = v37 & 0x1FFFFFFF8;
+        v43 = &v29[v37 & 0x1FFFFFFF8];
+        v36 = v31 + (v37 & 0x1FFFFFFF8);
+        v44 = (v31 + v38);
+        v45 = &v29[v38];
+        v46 = v38 - (v37 & 0x1FFFFFFF8);
         do
         {
-          v45 = *v42;
-          v42 += 8;
-          *v43++ = v45;
-          v44 += 8;
+          v47 = *v44++;
+          *&v15 = v47;
+          *v45++ = v47;
+          v46 += 8;
         }
 
-        while (v44);
-        v27 = v41;
-        if (v35 != v32)
+        while (v46);
+        v29 = v43;
+        if (v37 != v34)
         {
           goto LABEL_44;
         }
 
 LABEL_47:
-        v23 = a3[5];
-        v24 = a3[3];
-        v25 = v23[v24];
+        v25 = a3[5];
+        v26 = a3[3];
+        v27 = v25[v26];
 LABEL_48:
-        if (*(v25 + 16) == 2)
+        if (*(v27 + 64) == 2)
         {
           a3[7] = 0;
-          *(v23[v24] + 4) = 0;
+          *(v25[v26] + 32) = 0;
           if (a3[7])
           {
             goto LABEL_50;
@@ -17007,29 +17011,28 @@ LABEL_48:
 
         else
         {
-          v268 = v22;
-          v50 = ~v31;
-          v51 = *(v25 + 3);
-          v52 = v51 + v50;
-          if (!(v51 + v50))
+          v52 = ~v33;
+          v53 = *(v27 + 24);
+          v54 = v53 + v52;
+          if (!(v53 + v52))
           {
-            v57 = a3[9];
-            while (*(v25 + 10))
+            v59 = a3[9];
+            while (*(v27 + 40))
             {
-              v59 = *(v25 + 1);
-              v60 = 2 * v51;
-              v61 = v51 | (v51 >> 3);
-              if (v60)
+              v61 = *(v27 + 8);
+              v62 = 2 * v53;
+              v63 = v53 | (v53 >> 3);
+              if (v62)
               {
-                v61 = v60;
+                v63 = v62;
               }
 
-              *(v25 + 3) = v61;
-              if (v59)
+              *(v27 + 24) = v63;
+              if (v61)
               {
-                v58 = repalloc(v59, v61 + 2);
-                *(v25 + 1) = v58;
-                if (!v58)
+                v60 = repalloc(v61, v63 + 2);
+                *(v27 + 8) = v60;
+                if (!v60)
                 {
                   goto LABEL_380;
                 }
@@ -17037,62 +17040,62 @@ LABEL_48:
 
               else
               {
-                v58 = palloc(v61 + 2);
-                *(v25 + 1) = v58;
-                if (!v58)
+                v60 = palloc(v63 + 2, *&v15);
+                *(v27 + 8) = v60;
+                if (!v60)
                 {
                   goto LABEL_380;
                 }
               }
 
-              v57 = (v58 + v57 - v59);
-              a3[9] = v57;
-              v25 = a3[5][a3[3]];
-              v51 = *(v25 + 3);
-              v52 = v51 + v50;
-              if (v51 + v50)
+              v59 = (v60 + v59 - v61);
+              a3[9] = v59;
+              v27 = a3[5][a3[3]];
+              v53 = *(v27 + 24);
+              v54 = v53 + v52;
+              if (v53 + v52)
               {
                 goto LABEL_52;
               }
             }
 
-            *(v25 + 1) = 0;
+            *(v27 + 8) = 0;
 LABEL_380:
             fprintf_to_ereport("fatal error - scanner input buffer overflow");
           }
 
 LABEL_52:
-          if (v52 >= 0x2000)
+          if (v54 >= 0x2000)
           {
-            v53 = 0x2000;
+            v55 = 0x2000;
           }
 
           else
           {
-            v53 = v52;
+            v55 = v54;
           }
 
-          if (*(v25 + 11))
+          if (*(v27 + 44))
           {
-            v54 = 0;
+            v56 = 0;
             while (1)
             {
-              v55 = getc(a3[1]);
-              if (v55 == -1 || v55 == 10)
+              v57 = getc(a3[1]);
+              if (v57 == -1 || v57 == 10)
               {
                 break;
               }
 
-              *(v54 + *(a3[5][a3[3]] + 1) + v31) = v55;
-              v54 = (v54 + 1);
-              if (v53 == v54)
+              *(v56 + *(a3[5][a3[3]] + 8) + v33) = v57;
+              v56 = (v56 + 1);
+              if (v55 == v56)
               {
-                v54 = v53;
+                v56 = v55;
                 break;
               }
             }
 
-            if (v55 == -1)
+            if (v57 == -1)
             {
               if (ferror(a3[1]))
               {
@@ -17101,13 +17104,13 @@ LABEL_393:
               }
             }
 
-            else if (v55 == 10)
+            else if (v57 == 10)
             {
-              *(v54 + *(a3[5][a3[3]] + 1) + v31) = 10;
-              v54 = (v54 + 1);
+              *(v56 + *(a3[5][a3[3]] + 8) + v33) = 10;
+              v56 = (v56 + 1);
             }
 
-            a3[7] = v54;
+            a3[7] = v56;
           }
 
           else
@@ -17115,11 +17118,11 @@ LABEL_393:
             *__error() = 0;
             while (1)
             {
-              v62 = fread((*(a3[5][a3[3]] + 1) + v31), 1uLL, v53, a3[1]);
-              a3[7] = v62;
-              if (v62)
+              v64 = fread((*(a3[5][a3[3]] + 8) + v33), 1uLL, v55, a3[1]);
+              a3[7] = v64;
+              if (v64)
               {
-                v54 = v62;
+                v56 = v64;
                 goto LABEL_83;
               }
 
@@ -17137,128 +17140,129 @@ LABEL_393:
               clearerr(a3[1]);
             }
 
-            v54 = 0;
+            v56 = 0;
           }
 
 LABEL_83:
-          *(a3[5][a3[3]] + 4) = v54;
+          *(a3[5][a3[3]] + 32) = v56;
           if (a3[7])
           {
 LABEL_50:
-            v49 = 0;
+            v51 = 0;
             goto LABEL_87;
           }
         }
 
-        if (v31)
+        if (v33)
         {
-          v49 = 2;
-          *(a3[5][a3[3]] + 16) = 2;
+          v51 = 2;
+          *(a3[5][a3[3]] + 64) = 2;
         }
 
         else
         {
-          core_yyrestart(a3[1], a3);
-          v49 = 1;
+          core_yyrestart(a3[1], a3, *&v15);
+          v51 = 1;
         }
 
 LABEL_87:
-        v63 = a3[7];
-        v64 = (v63 + v31);
-        v65 = a3[5];
-        v66 = a3[3];
-        v67 = v65[v66];
-        if (v64 > *(v67 + 3))
+        v65 = a3[7];
+        v66 = (v65 + v33);
+        v67 = a3[5];
+        v68 = a3[3];
+        v69 = v67[v68];
+        if (v66 > *(v69 + 24))
         {
-          v68 = *(v67 + 1);
-          if (v68)
+          v70 = *(v69 + 8);
+          if (v70)
           {
-            v69 = repalloc(v68, v64 + (v63 >> 1));
+            v71 = repalloc(v70, v66 + (v65 >> 1));
           }
 
           else
           {
-            v69 = palloc(v64 + (v63 >> 1));
+            v71 = palloc(v66 + (v65 >> 1), *&v15);
           }
 
-          *(a3[5][a3[3]] + 1) = v69;
-          v65 = a3[5];
-          v66 = a3[3];
-          if (!*(v65[v66] + 1))
+          *(a3[5][a3[3]] + 8) = v71;
+          v67 = a3[5];
+          v68 = a3[3];
+          if (!*(v67[v68] + 8))
           {
             fprintf_to_ereport("out of dynamic memory in yy_get_next_buffer()");
           }
 
-          v64 = (a3[7] + v31);
+          v66 = (a3[7] + v33);
         }
 
-        a3[7] = v64;
-        *(v64 + *(v65[v66] + 1)) = 0;
-        *(a3[7] + *(a3[5][a3[3]] + 1) + 1) = 0;
-        v70 = a3[5];
-        v71 = a3[3];
-        v29 = *(v70[v71] + 1);
-        a3[17] = v29;
-        if (v49 == 1)
+        a3[7] = v66;
+        *(v66 + *(v67[v68] + 8)) = 0;
+        *(a3[7] + *(a3[5][a3[3]] + 8) + 1) = 0;
+        v72 = a3[5];
+        v73 = a3[3];
+        v31 = *(v72[v73] + 8);
+        a3[17] = v31;
+        if (v51 == 1)
         {
           goto LABEL_94;
         }
 
-        if (v49)
+        if (v51)
         {
-          v27 = *(v70[v71] + 1);
-          v28 = a3[7];
+          v29 = *(v72[v73] + 8);
+          v30 = a3[7];
 LABEL_99:
-          v14 = v29;
-          v17 = v28 + v27;
-          a3[9] = (v28 + v27);
-          v16 = *(started + 8 * *(a3 + 21));
-          if (v29 < v17)
+          v16 = v31;
+          v19 = (v30 + v29);
+          a3[9] = (v30 + v29);
+          v18 = *(started + 8 * *(a3 + 21));
+          if (v31 < v19)
           {
             do
             {
-              v73 = *v29++;
-              v72 = v73;
-              if (!v73)
+              v75 = *v31;
+              v31 = (v31 + 1);
+              v74 = v75;
+              if (!v75)
               {
-                v72 = 256;
+                v74 = 256;
               }
 
-              v16 += 4 * *(v16 + 4 * v72 + 2);
+              v18 += 4 * *(v18 + 4 * v74 + 2);
             }
 
-            while (v29 != v17);
+            while (v31 != v19);
           }
 
           goto LABEL_20;
         }
 
-        v80 = ~v22 + v17;
-        v17 = &v29[v80];
-        a3[9] = &v29[v80];
-        v16 = *(started + 8 * *(a3 + 21));
-        if (v29 < &v29[v80])
+        v82 = ~v24 + v19;
+        v19 = (v31 + v82);
+        a3[9] = (v31 + v82);
+        v18 = *(started + 8 * *(a3 + 21));
+        if (v31 < (v31 + v82))
         {
-          v81 = 0;
+          v83 = 0;
           do
           {
-            v82 = v29[v81];
-            if (!v29[v81])
+            v84 = *(v31 + v83);
+            if (!*(v31 + v83))
             {
-              v82 = 256;
+              v84 = 256;
             }
 
-            v16 += 4 * *(v16 + 4 * v82 + 2);
-            ++v81;
+            v18 += 4 * *(v18 + 4 * v84 + 2);
+            ++v83;
           }
 
-          while (v80 != v81);
+          while (v82 != v83);
         }
 
-        v14 = v29;
+        v16 = v31;
 LABEL_120:
-        v18 = (v16 + 4 * *v17);
-        if (*v18 != *v17)
+        v20 = (v18 + 4 * *v19);
+        if (*v20 != *v19)
         {
           goto LABEL_20;
         }

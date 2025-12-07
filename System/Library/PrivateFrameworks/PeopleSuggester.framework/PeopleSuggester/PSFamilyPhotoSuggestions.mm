@@ -20,16 +20,15 @@ void __67___PSFamilyPhotoSuggestions_photosRelationshipKnowledgeSuggestions__blo
 
 void __67___PSFamilyPhotoSuggestions_photosRelationshipKnowledgeSuggestions__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a3;
-  v5 = *(a1 + 48);
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = [v6 unsignedIntegerValue];
+  v9 = a3;
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = [v5 unsignedIntegerValue];
 
-  if ([v7 _allowRelationship:v8])
+  if ([v6 _allowRelationship:v7])
   {
-    [v10 floatValue];
-    if (v9 >= 0.2)
+    [v9 floatValue];
+    if (v8 >= 0.2)
     {
       [*(a1 + 32) addObject:*(a1 + 40)];
     }

@@ -446,7 +446,7 @@ LABEL_11:
   dispatch_async(MEMORY[0x1E69E96A0], v15);
 }
 
-uint64_t __83__PUSlideshowSession__distributeSlideshowDisplayContextWithPresentationController___block_invoke(uint64_t a1)
+void *__83__PUSlideshowSession__distributeSlideshowDisplayContextWithPresentationController___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) slideshowSession:*(a1 + 40) startDisplayingPresentationViewController:*(*(a1 + 40) + 72)];
   result = [*(*(a1 + 40) + 56) currentState];

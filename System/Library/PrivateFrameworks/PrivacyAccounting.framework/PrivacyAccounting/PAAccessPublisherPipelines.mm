@@ -141,7 +141,7 @@ uint64_t __76__PAAccessPublisherPipelines_accessPublisherWithoutUnknownCategoryA
   return v6;
 }
 
-id __66__PAAccessPublisherPipelines_accessRecordsFromPublisher_reversed___block_invoke(uint64_t a1, void *a2, void *a3)
+PAAccessRecordAccumulator *__66__PAAccessPublisherPipelines_accessRecordsFromPublisher_reversed___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -343,29 +343,29 @@ LABEL_5:
 
 id __64__PAAccessPublisherPipelines_ongoingAccessRecordsFromPublisher___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = [v2 allValues];
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [PAOngoingAccessRecord alloc];
         v11 = [v9 eventBody];
         [v9 timestamp];
@@ -376,42 +376,39 @@ id __64__PAAccessPublisherPipelines_ongoingAccessRecordsFromPublisher___block_in
         [v3 addObject:v16];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
   v17 = [objc_alloc(MEMORY[0x1E698F0E8]) initWithSequence:v3];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 + (id)coalesceAccessRecordsFromPublisher:(id)publisher withCoalescingWindowDuration:(double)duration reversed:(BOOL)reversed
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E695DFB0];
   publisherCopy = publisher;
   null = [v7 null];
   v10 = objc_alloc(MEMORY[0x1E698F0E8]);
-  v23[0] = null;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v22[0] = null;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v12 = [v10 initWithSequence:v11];
   v13 = [publisherCopy mergeWithOther:v12];
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __103__PAAccessPublisherPipelines_coalesceAccessRecordsFromPublisher_withCoalescingWindowDuration_reversed___block_invoke;
-  v19[3] = &unk_1E86AC3B0;
-  v20 = null;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __103__PAAccessPublisherPipelines_coalesceAccessRecordsFromPublisher_withCoalescingWindowDuration_reversed___block_invoke;
+  v18[3] = &unk_1E86AC3B0;
+  v19 = null;
   reversedCopy = reversed;
   durationCopy = duration;
   v14 = null;
-  v15 = [v13 scanWithInitial:0 nextPartialResult:v19];
+  v15 = [v13 scanWithInitial:0 nextPartialResult:v18];
   v16 = [v15 flatMapWithTransform:&__block_literal_global_110];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -661,7 +658,7 @@ LABEL_3:
 
 id __114__PAAccessPublisherPipelines_findBeginningForPartialAccessRecord_iteration_nextStartTime_endTime_accessPublisher___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E695DFB0] null];
 
@@ -675,13 +672,11 @@ id __114__PAAccessPublisherPipelines_findBeginningForPartialAccessRecord_iterati
     v5 = MEMORY[0x1E698F0E8];
     v6 = v3;
     v7 = [v5 alloc];
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
 
     v9 = [v7 initWithSequence:v8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

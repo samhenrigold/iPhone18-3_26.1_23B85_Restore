@@ -22,7 +22,7 @@
 
 - (void)didReceiveCachedEvent:(id)event topic:(id)topic source:(id)source
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   sourceCopy = source;
@@ -32,13 +32,13 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v20 = 138543874;
-    v21 = v14;
-    v22 = 2112;
-    v23 = eventCopy;
-    v24 = 2112;
-    v25 = topicCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Did receive cached event: %@, for topic: %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v14;
+    v21 = 2112;
+    v22 = eventCopy;
+    v23 = 2112;
+    v24 = topicCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Did receive cached event: %@, for topic: %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -52,13 +52,11 @@
     softwareUpdateDescriptorForLastEvent = [context3 softwareUpdateDescriptorForLastEvent];
     [context2 handleSoftwareUpdateDidBecomeAvailableWithDescriptor:softwareUpdateDescriptorForLastEvent];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveEvent:(id)event topic:(id)topic
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   v8 = objc_autoreleasePoolPush();
@@ -67,13 +65,13 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v17 = 138543874;
-    v18 = v11;
-    v19 = 2112;
-    v20 = eventCopy;
-    v21 = 2112;
-    v22 = topicCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Did receive event: %@, for topic: %@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v11;
+    v18 = 2112;
+    v19 = eventCopy;
+    v20 = 2112;
+    v21 = topicCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Did receive event: %@, for topic: %@", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -87,8 +85,6 @@
     softwareUpdateDescriptorForLastEvent = [context3 softwareUpdateDescriptorForLastEvent];
     [context2 handleSoftwareUpdateDidBecomeAvailableWithDescriptor:softwareUpdateDescriptorForLastEvent];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMSoftwareUpdateDescriptor)softwareUpdateDescriptorForLastEvent
@@ -117,7 +113,7 @@
 
 - (void)registerForEvents
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -125,7 +121,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v6;
+    v18 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Registering for events", buf, 0xCu);
   }
 
@@ -136,14 +132,14 @@
   if (topicForSoftwareUpdateDescriptor)
   {
     context2 = [(HMDSoftwareUpdateEventListener *)selfCopy context];
-    v17 = topicForSoftwareUpdateDescriptor;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __51__HMDSoftwareUpdateEventListener_registerForEvents__block_invoke;
-    v16[3] = &unk_278689230;
-    v16[4] = selfCopy;
-    [context2 registerConsumer:selfCopy topicFilters:v10 completion:v16];
+    v16 = topicForSoftwareUpdateDescriptor;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __51__HMDSoftwareUpdateEventListener_registerForEvents__block_invoke;
+    v15[3] = &unk_278689230;
+    v15[4] = selfCopy;
+    [context2 registerConsumer:selfCopy topicFilters:v10 completion:v15];
   }
 
   else
@@ -155,19 +151,17 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v14;
+      v18 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Not registering for events because failed to get software update topic", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMDSoftwareUpdateEventListener_registerForEvents__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -187,19 +181,17 @@ void __51__HMDSoftwareUpdateEventListener_registerForEvents__block_invoke(uint64
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = v5;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v5;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Subscribed with %@cachedEvents: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [*(a1 + 32) context];
   [v12 updateAppBadgeAndBulletinNotification];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSoftwareUpdateEventListener)initWithContext:(id)context
@@ -231,10 +223,9 @@ void __51__HMDSoftwareUpdateEventListener_registerForEvents__block_invoke(uint64
 
 void __45__HMDSoftwareUpdateEventListener_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_68154;
-  logCategory__hmf_once_v6_68154 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_68154;
+  logCategory__hmf_once_v6_68154 = v0;
 }
 
 @end

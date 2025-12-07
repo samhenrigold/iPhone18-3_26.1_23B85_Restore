@@ -3,6 +3,7 @@
 - (BOOL)accessibilityPerformMagicTap;
 - (CGRect)_defaultFocusRegionFrame;
 - (CGRect)accessibilityFrame;
+- (SiriUISiriStatusViewAccessibility)initWithFrame:(CGRect)frame screen:(id)screen textInputEnabled:(BOOL)enabled configuration:(id)configuration;
 - (unsigned)_accessibilityMediaAnalysisOptions;
 - (void)accessibilityElementDidLoseFocus;
 - (void)dealloc;
@@ -22,6 +23,25 @@
   [validationsCopy validateClass:@"AFUISiriSession" hasInstanceMethod:@"cancelRequest" withFullSignature:{"v", 0}];
 }
 
+- (SiriUISiriStatusViewAccessibility)initWithFrame:(CGRect)frame screen:(id)screen textInputEnabled:(BOOL)enabled configuration:(id)configuration
+{
+  v10.receiver = self;
+  v10.super_class = SiriUISiriStatusViewAccessibility;
+  v6 = [(SiriUISiriStatusViewAccessibility *)&v10 initWithFrame:screen screen:enabled textInputEnabled:configuration configuration:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v7 = accessibilityLocalizedString(@"listen.button.label");
+  [(SiriUISiriStatusViewAccessibility *)v6 setAccessibilityLabel:v7];
+
+  v8 = accessibilityLocalizedString(@"listen.button.hint.idle");
+  [(SiriUISiriStatusViewAccessibility *)v6 setAccessibilityHint:v8];
+
+  [(SiriUISiriStatusViewAccessibility *)v6 setAccessibilityTraits:*MEMORY[0x29EDC7FC8] | *MEMORY[0x29EDC7F70]];
+  [(SiriUISiriStatusViewAccessibility *)v6 setAccessibilityIdentifier:@"Listen"];
+  _UIAccessibilityBlockPostingOfNotification();
+  _UIAccessibilityBlockPostingOfNotification();
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7488], v6);
+  return v6;
+}
+
 - (void)dealloc
 {
   _UIAccessibilityUnblockPostingOfNotification();
@@ -35,9 +55,9 @@
 
 - (void)setMode:(int64_t)mode
 {
-  v10.receiver = self;
-  v10.super_class = SiriUISiriStatusViewAccessibility;
-  [(SiriUISiriStatusViewAccessibility *)&v10 setMode:?];
+  v9.receiver = self;
+  v9.super_class = SiriUISiriStatusViewAccessibility;
+  [(SiriUISiriStatusViewAccessibility *)&v9 setMode:?];
   if (mode == 1)
   {
     _UIAccessibilityBlockPostingOfNotification();
@@ -75,7 +95,6 @@
     _UIAccessibilityUnblockPostingOfNotification();
   }
 
-  v9 = *MEMORY[0x29EDC7ED8];
   _AXIgnoreNextNotification();
 }
 

@@ -29,51 +29,43 @@
 
 - (void)waitUntilFinishedIfAudioReceivedWithin:(double)within
 {
-  v19[1] = *MEMORY[0x277D85DE8];
   didReceiveAudioCondition = [(VSOspreyTTSCore *)self didReceiveAudioCondition];
   [didReceiveAudioCondition lock];
 
   didReceiveAudio = [(VSOspreyTTSCore *)self didReceiveAudio];
   didReceiveAudioCondition2 = [(VSOspreyTTSCore *)self didReceiveAudioCondition];
-  v8 = didReceiveAudioCondition2;
+  v7 = didReceiveAudioCondition2;
   if (didReceiveAudio)
   {
     [didReceiveAudioCondition2 unlock];
-
-    v9 = *MEMORY[0x277D85DE8];
-
-    [(VSOspreyTTSCore *)self waitUntilFinished];
   }
 
   else
   {
-    v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:within];
-    v11 = [v8 waitUntilDate:v10];
+    v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
+    v9 = [v7 waitUntilDate:?];
 
     didReceiveAudioCondition3 = [(VSOspreyTTSCore *)self didReceiveAudioCondition];
     [didReceiveAudioCondition3 unlock];
 
-    if ((v11 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      v13 = MEMORY[0x277CCA9B8];
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = @"Osprey core is not able to provide audio in time";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-      v15 = [v13 errorWithDomain:@"ServerTTSErrorDomain" code:602 userInfo:v14];
-      [(VSOspreyTTSCore *)self setError:v15];
+      v11 = MEMORY[0x277CCA9B8];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v13 = [v11 errorWithDomain:? code:? userInfo:?];
+      [(VSOspreyTTSCore *)self setError:?];
 
       timeoutCondition = [(VSOspreyTTSCore *)self timeoutCondition];
       [timeoutCondition stop];
     }
-
-    [(VSOspreyTTSCore *)self waitUntilFinished];
-    v17 = *MEMORY[0x277D85DE8];
   }
+
+  [(VSOspreyTTSCore *)self waitUntilFinished];
 }
 
 - (void)cancel
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -82,20 +74,18 @@
     _os_log_impl(&dword_2727E4000, v3, OS_LOG_TYPE_INFO, "Osprey core %p is cancelled", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = VSOspreyTTSCore;
-  [(VSOspreyTTSCore *)&v6 cancel];
+  v5.receiver = self;
+  v5.super_class = VSOspreyTTSCore;
+  [(VSOspreyTTSCore *)&v5 cancel];
   timeoutCondition = [(VSOspreyTTSCore *)self timeoutCondition];
   [timeoutCondition stop];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v3 = mach_absolute_time();
+  mach_absolute_time();
   instrumentMetrics = [(VSOspreyTTSCore *)self instrumentMetrics];
-  [instrumentMetrics setSynthesisBeginTimestamp:v3];
+  [instrumentMetrics setSynthesisBeginTimestamp:?];
 
   kdebug_trace();
   internalSettings = [(VSOspreyTTSCore *)self internalSettings];
@@ -111,9 +101,9 @@
     [(VSOspreyTTSCore *)self performStreamingOspreyTTS];
   }
 
-  v6 = mach_absolute_time();
+  mach_absolute_time();
   instrumentMetrics2 = [(VSOspreyTTSCore *)self instrumentMetrics];
-  [instrumentMetrics2 setSynthesisEndTimestamp:v6];
+  [instrumentMetrics2 setSynthesisEndTimestamp:?];
 
   kdebug_trace();
   delegateCallbackQueue = [(VSOspreyTTSCore *)self delegateCallbackQueue];
@@ -127,93 +117,92 @@
 
 void __23__VSOspreyTTSCore_main__block_invoke(uint64_t a1)
 {
-  v4 = [*(a1 + 32) delegate];
-  v2 = *(a1 + 32);
-  v3 = [v2 error];
-  [v4 ospreyCore:v2 didFinishWithError:v3];
+  v3 = [*(a1 + 32) delegate];
+  v2 = [*(a1 + 32) error];
+  [v3 ospreyCore:? didFinishWithError:?];
 }
 
 - (void)performStreamingOspreyTTS
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  location[5] = *MEMORY[0x277D85DE8];
   instrumentMetrics = [(VSOspreyTTSCore *)self instrumentMetrics];
-  [instrumentMetrics setSourceOfTTS:5];
+  [instrumentMetrics setSourceOfTTS:?];
 
   v4 = [VSTimeoutCondition alloc];
   [(VSOspreyTTSCore *)self timeout];
   v5 = [(VSTimeoutCondition *)v4 initWithTimeoutValue:?];
-  [(VSOspreyTTSCore *)self setTimeoutCondition:v5];
+  [(VSOspreyTTSCore *)self setTimeoutCondition:?];
 
-  objc_initWeak(&location, self);
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x2020000000;
-  v33[3] = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__869;
-  v31 = __Block_byref_object_dispose__870;
+  objc_initWeak(location, self);
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2020000000;
+  v36[3] = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__869;
+  v34 = __Block_byref_object_dispose__870;
   array = [MEMORY[0x277CBEB18] array];
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = __Block_byref_object_copy__869;
-  v25[4] = __Block_byref_object_dispose__870;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__869;
+  v28[4] = __Block_byref_object_dispose__870;
   array2 = [MEMORY[0x277CBEB18] array];
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3032000000;
-  v23[3] = __Block_byref_object_copy__869;
-  v23[4] = __Block_byref_object_dispose__870;
-  v24 = 0;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__869;
+  v26[4] = __Block_byref_object_dispose__870;
+  v27 = 0;
   serverTTSClient = [(VSOspreyTTSCore *)self serverTTSClient];
   request = [(VSOspreyTTSCore *)self request];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke;
-  v21[3] = &unk_279E4B638;
-  objc_copyWeak(&v22, &location);
-  v21[4] = self;
-  v21[5] = v33;
-  v21[6] = &v27;
-  v21[7] = v25;
-  v21[8] = v23;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_26;
-  v19[3] = &unk_279E4B660;
-  objc_copyWeak(&v20, &location);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2_28;
-  v17[3] = &unk_279E4B6B0;
-  objc_copyWeak(&v18, &location);
-  v17[4] = v33;
-  v17[5] = &v27;
-  v17[6] = v25;
-  [serverTTSClient ospreyStartStreamingRequest:request dataHandler:v21 metaInfoHandler:v19 completion:v17];
+  v24[1] = MEMORY[0x277D85DD0];
+  v24[2] = 3221225472;
+  v24[3] = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke;
+  v24[4] = &unk_279E4B638;
+  objc_copyWeak(&v25, location);
+  v24[5] = self;
+  v24[6] = v36;
+  v24[7] = &v30;
+  v24[8] = v28;
+  v24[9] = v26;
+  v23[1] = MEMORY[0x277D85DD0];
+  v23[2] = 3221225472;
+  v23[3] = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_26;
+  v23[4] = &unk_279E4B660;
+  objc_copyWeak(v24, location);
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2_28;
+  v19 = &unk_279E4B6B0;
+  objc_copyWeak(v23, location);
+  v20 = v36;
+  v21 = &v30;
+  v22 = v28;
+  [serverTTSClient ospreyStartStreamingRequest:? dataHandler:? metaInfoHandler:? completion:?];
 
   timeoutCondition = [(VSOspreyTTSCore *)self timeoutCondition];
   LOBYTE(request) = [timeoutCondition wait];
 
   if ((request & 1) == 0)
   {
-    if (v28[5])
+    if (v31[5])
     {
       v9 = VSGetLogDefault();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v16 = 0;
-        _os_log_error_impl(&dword_2727E4000, v9, OS_LOG_TYPE_ERROR, "Timeout in osprey streaming", v16, 2u);
+        *v15 = 0;
+        _os_log_error_impl(&dword_2727E4000, v9, OS_LOG_TYPE_ERROR, "Timeout in osprey streaming", v15, 2u);
       }
 
       v10 = MEMORY[0x277CCA9B8];
-      v35 = *MEMORY[0x277CCA450];
-      v36 = @"Osprey streaming TTS timed out";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-      v12 = [v10 errorWithDomain:@"ServerTTSErrorDomain" code:602 userInfo:v11];
-      [(VSOspreyTTSCore *)self setError:v12];
+      location[1] = *MEMORY[0x277CCA450];
+      location[2] = @"Osprey streaming TTS timed out";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v12 = [v10 errorWithDomain:? code:? userInfo:?];
+      [(VSOspreyTTSCore *)self setError:?];
     }
 
     else
@@ -221,37 +210,36 @@ void __23__VSOspreyTTSCore_main__block_invoke(uint64_t a1)
       v13 = VSGetLogDefault();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        *v16 = 0;
-        _os_log_error_impl(&dword_2727E4000, v13, OS_LOG_TYPE_ERROR, "Network stall in osprey streaming", v16, 2u);
+        *v15 = 0;
+        _os_log_error_impl(&dword_2727E4000, v13, OS_LOG_TYPE_ERROR, "Network stall in osprey streaming", v15, 2u);
       }
 
       v14 = MEMORY[0x277CCA9B8];
-      v37 = *MEMORY[0x277CCA450];
-      v38[0] = @"Osprey streaming network stall";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
-      v12 = [v14 errorWithDomain:@"ServerTTSErrorDomain" code:603 userInfo:v11];
-      [(VSOspreyTTSCore *)self setError:v12];
+      location[3] = *MEMORY[0x277CCA450];
+      location[4] = @"Osprey streaming network stall";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v12 = [v14 errorWithDomain:? code:? userInfo:?];
+      [(VSOspreyTTSCore *)self setError:?];
     }
 
     [(VSOspreyTTSCore *)self cancel];
   }
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
-  objc_destroyWeak(&v22);
-  _Block_object_dispose(v23, 8);
+  objc_destroyWeak(v23);
+  objc_destroyWeak(v24);
+  objc_destroyWeak(&v25);
+  _Block_object_dispose(v26, 8);
 
-  _Block_object_dispose(v25, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(&v30, 8);
 
-  _Block_object_dispose(v33, 8);
-  objc_destroyWeak(&location);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v36, 8);
+  objc_destroyWeak(location);
 }
 
 void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
@@ -287,60 +275,58 @@ LABEL_21:
 
     if (!v16)
     {
-      v17 = mach_absolute_time();
-      v18 = [*(a1 + 32) instrumentMetrics];
-      [v18 setServerFirstPacketTimestamp:v17];
+      mach_absolute_time();
+      v17 = [*(a1 + 32) instrumentMetrics];
+      [v17 setServerFirstPacketTimestamp:?];
     }
 
-    v19 = mach_absolute_time();
-    v20 = [*(a1 + 32) instrumentMetrics];
-    [v20 setServerLastPacketTimestamp:v19];
+    mach_absolute_time();
+    v18 = [*(a1 + 32) instrumentMetrics];
+    [v18 setServerLastPacketTimestamp:?];
 
-    v21 = *(*(*(a1 + 40) + 8) + 24);
-    v22 = [*(a1 + 32) instrumentMetrics];
-    [v22 setServerStreamedAudioDuration:v21];
+    v19 = [*(a1 + 32) instrumentMetrics];
+    [v19 setServerStreamedAudioDuration:?];
 
     if ([v8 didReceiveAudio])
     {
-      v23 = [v8 delegateCallbackQueue];
+      v20 = [v8 delegateCallbackQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_24;
       block[3] = &unk_279E4B970;
       block[4] = v8;
-      v49 = v5;
-      v50 = v6;
-      dispatch_async(v23, block);
+      v43 = v5;
+      v44 = v6;
+      dispatch_async(v20, block);
 
-      v24 = v49;
+      v21 = v43;
     }
 
     else
     {
-      v25 = *(*(*(a1 + 40) + 8) + 24);
+      v22 = *(*(*(a1 + 40) + 8) + 24);
       [v8 bufferDurationLimit];
-      if (v25 < v26)
+      if (v22 < v23)
       {
-        [*(*(*(a1 + 48) + 8) + 40) addObject:v5];
-        [*(*(*(a1 + 56) + 8) + 40) addObject:v6];
+        [*(*(*(a1 + 48) + 8) + 40) addObject:?];
+        [*(*(*(a1 + 56) + 8) + 40) addObject:?];
 LABEL_16:
-        v31 = *(*(*(a1 + 64) + 8) + 40);
-        if (v31)
+        v28 = *(*(*(a1 + 64) + 8) + 40);
+        if (v28)
         {
-          v32 = [v31 dateByAddingTimeInterval:*(*(*(a1 + 40) + 8) + 24)];
-          [v32 timeIntervalSinceNow];
-          v34 = v33 + 0.05;
-          v35 = [v8 timeoutCondition];
-          [v35 setTimeoutValue:v34];
+          v29 = [v28 dateByAddingTimeInterval:?];
+          [v29 timeIntervalSinceNow];
+          v30 = [v8 timeoutCondition];
+          [v30 setTimeoutValue:?];
 
-          v36 = VSGetLogDefault();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v31 = VSGetLogDefault();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
-            v37 = [v8 timeoutCondition];
-            [v37 timeoutValue];
+            v32 = [v8 timeoutCondition];
+            [v32 timeoutValue];
             *buf = 134217984;
-            v52 = v38;
-            _os_log_impl(&dword_2727E4000, v36, OS_LOG_TYPE_INFO, "Refresh timeout value as %.2f", buf, 0xCu);
+            v46 = v33;
+            _os_log_impl(&dword_2727E4000, v31, OS_LOG_TYPE_INFO, "Refresh timeout value as %.2f", buf, 0xCu);
           }
         }
 
@@ -349,52 +335,45 @@ LABEL_16:
         goto LABEL_21;
       }
 
-      [v8 setDidReceiveAudio:1];
-      v27 = [v8 delegateCallbackQueue];
-      v40 = MEMORY[0x277D85DD0];
-      v41 = 3221225472;
-      v42 = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2;
-      v43 = &unk_279E4B610;
-      v44 = v8;
-      v47 = *(a1 + 48);
-      v45 = v5;
-      v46 = v6;
-      dispatch_async(v27, &v40);
+      [v8 setDidReceiveAudio:?];
+      v24 = [v8 delegateCallbackQueue];
+      v34 = MEMORY[0x277D85DD0];
+      v35 = 3221225472;
+      v36 = __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2;
+      v37 = &unk_279E4B610;
+      v38 = v8;
+      v41 = *(a1 + 48);
+      v39 = v5;
+      v40 = v6;
+      dispatch_async(v24, &v34);
 
-      v28 = [MEMORY[0x277CBEAA8] date];
-      v29 = *(*(a1 + 64) + 8);
-      v30 = *(v29 + 40);
-      *(v29 + 40) = v28;
+      v25 = [MEMORY[0x277CBEAA8] date];
+      v26 = *(*(a1 + 64) + 8);
+      v27 = *(v26 + 40);
+      *(v26 + 40) = v25;
 
-      v24 = v45;
+      v21 = v39;
     }
 
     goto LABEL_16;
   }
 
 LABEL_22:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_26(uint64_t a1, void *a2, void *a3, float a4)
 {
-  v12 = a2;
-  v7 = a3;
+  v10 = a2;
+  v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v9 = WeakRetained;
-  if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0 && (objc_msgSend(v9, "isFinished") & 1) == 0)
+  v8 = WeakRetained;
+  if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0 && (objc_msgSend(v8, "isFinished") & 1) == 0)
   {
-    [v9 setVoice:v12];
-    [v9 setVoiceResource:v7];
-    v10 = [v9 internalSettings];
-    [v10 streamBufferDuration];
-    if (v11 == 0.0)
-    {
-      v11 = a4;
-    }
-
-    [v9 setBufferDurationLimit:v11];
+    [v8 setVoice:?];
+    [v8 setVoiceResource:?];
+    v9 = [v8 internalSettings];
+    [v9 streamBufferDuration];
+    [v8 setBufferDurationLimit:?];
   }
 }
 
@@ -421,7 +400,7 @@ void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2_28(uint64_t
 
       if (!v9)
       {
-        [v5 setError:v3];
+        [v5 setError:?];
       }
 
       v10 = [v5 delegateCallbackQueue];
@@ -449,17 +428,16 @@ void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_29(uint64_t a
   {
     if (!*(a1 + 32))
     {
-      [*(a1 + 40) setDidReceiveAudio:1];
+      [*(a1 + 40) setDidReceiveAudio:?];
       if ([*(*(*(a1 + 48) + 8) + 40) count])
       {
         v2 = 0;
         do
         {
           v3 = [*(a1 + 40) delegate];
-          v4 = *(a1 + 40);
-          v5 = [*(*(*(a1 + 48) + 8) + 40) objectAtIndexedSubscript:v2];
-          v6 = [*(*(*(a1 + 56) + 8) + 40) objectAtIndexedSubscript:v2];
-          [v3 ospreyCore:v4 didReceiveAudio:v5 wordTimingInfo:v6];
+          v4 = [*(*(*(a1 + 48) + 8) + 40) objectAtIndexedSubscript:?];
+          v5 = [*(*(*(a1 + 56) + 8) + 40) objectAtIndexedSubscript:?];
+          [v3 ospreyCore:? didReceiveAudio:? wordTimingInfo:?];
 
           ++v2;
         }
@@ -469,19 +447,19 @@ void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_29(uint64_t a
     }
   }
 
-  v7 = *(*(a1 + 48) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = 0;
+  v6 = *(*(a1 + 48) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = 0;
 
-  v9 = *(*(a1 + 56) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = 0;
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = 0;
 }
 
 void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_24(uint64_t a1)
 {
-  v2 = [*(a1 + 32) delegate];
-  [v2 ospreyCore:*(a1 + 32) didReceiveAudio:*(a1 + 40) wordTimingInfo:*(a1 + 48)];
+  v1 = [*(a1 + 32) delegate];
+  [v1 ospreyCore:? didReceiveAudio:? wordTimingInfo:?];
 }
 
 void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2(uint64_t a1)
@@ -492,10 +470,9 @@ void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2(uint64_t a1
     do
     {
       v3 = [*(a1 + 32) delegate];
-      v4 = *(a1 + 32);
-      v5 = [*(*(*(a1 + 56) + 8) + 40) objectAtIndexedSubscript:v2];
-      v6 = [*(*(*(a1 + 64) + 8) + 40) objectAtIndexedSubscript:v2];
-      [v3 ospreyCore:v4 didReceiveAudio:v5 wordTimingInfo:v6];
+      v4 = [*(*(*(a1 + 56) + 8) + 40) objectAtIndexedSubscript:?];
+      v5 = [*(*(*(a1 + 64) + 8) + 40) objectAtIndexedSubscript:?];
+      [v3 ospreyCore:? didReceiveAudio:? wordTimingInfo:?];
 
       ++v2;
     }
@@ -503,61 +480,57 @@ void __44__VSOspreyTTSCore_performStreamingOspreyTTS__block_invoke_2(uint64_t a1
     while (v2 < [*(*(*(a1 + 56) + 8) + 40) count]);
   }
 
-  v7 = [*(a1 + 32) delegate];
-  [v7 ospreyCore:*(a1 + 32) didReceiveAudio:*(a1 + 40) wordTimingInfo:*(a1 + 48)];
+  v6 = [*(a1 + 32) delegate];
+  [v6 ospreyCore:? didReceiveAudio:? wordTimingInfo:?];
 
-  v8 = *(*(a1 + 56) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = 0;
+  v7 = *(*(a1 + 56) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = 0;
 
-  v10 = *(*(a1 + 64) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = 0;
+  v9 = *(*(a1 + 64) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = 0;
 }
 
 - (void)performRoundTripOspreyTTS
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  location[3] = *MEMORY[0x277D85DE8];
   instrumentMetrics = [(VSOspreyTTSCore *)self instrumentMetrics];
-  [instrumentMetrics setSourceOfTTS:4];
+  [instrumentMetrics setSourceOfTTS:?];
 
   v4 = [VSTimeoutCondition alloc];
   [(VSOspreyTTSCore *)self timeout];
   v5 = [(VSTimeoutCondition *)v4 initWithTimeoutValue:?];
-  [(VSOspreyTTSCore *)self setTimeoutCondition:v5];
+  [(VSOspreyTTSCore *)self setTimeoutCondition:?];
 
-  objc_initWeak(&location, self);
+  objc_initWeak(location, self);
   serverTTSClient = [(VSOspreyTTSCore *)self serverTTSClient];
   request = [(VSOspreyTTSCore *)self request];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke;
-  v18[3] = &unk_279E4B5C0;
-  objc_copyWeak(&v19, &location);
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke_3;
-  v16 = &unk_279E4B5E8;
-  objc_copyWeak(&v17, &location);
-  [serverTTSClient ospreyStartSynthesisRequest:request responseHandler:v18 completion:&v13];
+  v13[1] = MEMORY[0x277D85DD0];
+  v13[2] = 3221225472;
+  v13[3] = __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke;
+  v13[4] = &unk_279E4B5C0;
+  objc_copyWeak(&v14, location);
+  v12 = MEMORY[0x277D85DD0];
+  objc_copyWeak(v13, location);
+  [serverTTSClient ospreyStartSynthesisRequest:v12 responseHandler:3221225472 completion:{__44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke_3, &unk_279E4B5E8}];
 
-  v8 = [(VSOspreyTTSCore *)self timeoutCondition:v13];
-  LOBYTE(request) = [v8 wait];
+  timeoutCondition = [(VSOspreyTTSCore *)self timeoutCondition];
+  LOBYTE(request) = [timeoutCondition wait];
 
   if ((request & 1) == 0)
   {
     v9 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"Osprey round-trip TTS timed out";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v11 = [v9 errorWithDomain:@"ServerTTSErrorDomain" code:602 userInfo:v10];
-    [(VSOspreyTTSCore *)self setError:v11];
+    location[1] = *MEMORY[0x277CCA450];
+    location[2] = @"Osprey round-trip TTS timed out";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v11 = [v9 errorWithDomain:? code:? userInfo:?];
+    [(VSOspreyTTSCore *)self setError:?];
   }
 
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(v13);
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(location);
 }
 
 void __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -568,7 +541,7 @@ void __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke(uint64_t a1, 
   v8 = WeakRetained;
   if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0 && (objc_msgSend(v8, "isFinished") & 1) == 0)
   {
-    [v8 setDidReceiveAudio:1];
+    [v8 setDidReceiveAudio:?];
     v9 = [v8 delegateCallbackQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -592,7 +565,7 @@ void __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke_3(uint64_t a1
 
     if (!v5)
     {
-      [v4 setError:v7];
+      [v4 setError:?];
     }
 
     v6 = [v4 timeoutCondition];
@@ -602,8 +575,8 @@ void __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke_3(uint64_t a1
 
 void __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) delegate];
-  [v2 ospreyCore:*(a1 + 32) didReceiveAudio:*(a1 + 40) wordTimingInfo:*(a1 + 48)];
+  v1 = [*(a1 + 32) delegate];
+  [v1 ospreyCore:? didReceiveAudio:? wordTimingInfo:?];
 }
 
 - (void)setDidReceiveAudio:(BOOL)audio
@@ -632,7 +605,7 @@ void __44__VSOspreyTTSCore_performRoundTripOspreyTTS__block_invoke_2(uint64_t a1
     serverConfig = [(VSOspreyTTSCore *)self serverConfig];
     request = [(VSOspreyTTSCore *)self request];
     clientBundleIdentifier = [request clientBundleIdentifier];
-    [serverConfig timeoutForAppId:clientBundleIdentifier];
+    [serverConfig timeoutForAppId:?];
     v9 = v8;
   }
 

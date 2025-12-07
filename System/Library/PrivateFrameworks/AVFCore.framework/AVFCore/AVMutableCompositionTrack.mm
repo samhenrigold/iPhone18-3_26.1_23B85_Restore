@@ -145,7 +145,7 @@
           v12 = *(*(&v23 + 1) + 8 * i);
           if (v12)
           {
-            [*(*(&v23 + 1) + 8 * i) timeMapping];
+            objc_msgSend_timeMapping(*(*(&v23 + 1) + 8 * i));
           }
 
           else
@@ -210,13 +210,14 @@ LABEL_19:
 
 - (BOOL)insertTimeRanges:(NSArray *)timeRanges ofTracks:(NSArray *)tracks atTime:(CMTime *)startTime error:(NSError *)outError
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v51 = [[AVTelemetryInterval alloc] initAndStartWith:40];
+  v34 = outError;
+  v55 = *MEMORY[0x1E69E9840];
+  v52 = [[AVTelemetryInterval alloc] initAndStartWith:40];
   selfCopy = self;
   _mutableComposition = [(AVCompositionTrack *)self _mutableComposition];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v32 = startTime;
+  v33 = startTime;
   array3 = [MEMORY[0x1E695DF70] array];
   array4 = [MEMORY[0x1E695DF70] array];
   [(AVMutableCompositionTrack *)self _notifySelfThatSegmentsWillChange];
@@ -226,28 +227,28 @@ LABEL_19:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Count of timeRanges array and count of tracks array do not match." userInfo:0]);
   }
 
-  v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v12 = [(NSArray *)tracks countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v49 = 0u;
+  v12 = [(NSArray *)tracks countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v12)
   {
-    v38 = *v48;
-    v35 = *MEMORY[0x1E695E738];
+    v39 = *v49;
+    v36 = *MEMORY[0x1E695E738];
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v48 != v38)
+        if (*v49 != v39)
         {
           objc_enumerationMutation(tracks);
         }
 
-        v14 = *(*(&v47 + 1) + 8 * i);
+        v14 = *(*(&v48 + 1) + 8 * i);
         if ([v14 isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
         {
-          [array addObject:v35];
+          [array addObject:v36];
           [array2 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", 0)}];
         }
 
@@ -279,7 +280,7 @@ LABEL_19:
             if (!_mutableComposition2)
             {
               fig_log_get_emitter();
-              v30 = FigSignalErrorAtGM();
+              v30 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v32, v33, v34);
               goto LABEL_34;
             }
 
@@ -288,7 +289,7 @@ LABEL_19:
         }
       }
 
-      v12 = [(NSArray *)tracks countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v12 = [(NSArray *)tracks countByEnumeratingWithState:&v48 objects:v54 count:16];
       if (v12)
       {
         continue;
@@ -298,34 +299,34 @@ LABEL_19:
     }
   }
 
-  v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v21 = [(NSArray *)timeRanges countByEnumeratingWithState:&v43 objects:v52 count:16];
+  v45 = 0u;
+  v21 = [(NSArray *)timeRanges countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v21)
   {
-    v22 = *v44;
+    v22 = *v45;
     v23 = *MEMORY[0x1E695E480];
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v44 != v22)
+        if (*v45 != v22)
         {
           objc_enumerationMutation(timeRanges);
         }
 
-        v25 = *(*(&v43 + 1) + 8 * j);
-        memset(v42, 0, sizeof(v42));
+        v25 = *(*(&v44 + 1) + 8 * j);
+        memset(v43, 0, sizeof(v43));
         if (v25)
         {
-          [v25 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v25);
         }
 
-        time = v42[0];
+        time = v43[0];
         v26 = CMTimeCopyAsDictionary(&time, v23);
-        time = v42[1];
+        time = v43[1];
         v27 = CMTimeCopyAsDictionary(&time, v23);
         [array3 addObject:v26];
         [array4 addObject:v27];
@@ -340,19 +341,19 @@ LABEL_19:
         }
       }
 
-      v21 = [(NSArray *)timeRanges countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v21 = [(NSArray *)timeRanges countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v21);
   }
 
   trackID = [(AVAssetTrack *)selfCopy trackID];
-  time = *v32;
+  time = *v33;
   v29 = *(*(CMBaseObjectGetVTable() + 16) + 168);
   if (v29)
   {
-    v42[0] = time;
-    v30 = v29(_mutableComposition, trackID, array, array2, array3, array4, v42);
+    v43[0] = time;
+    v30 = v29(_mutableComposition, trackID, array, array2, array3, array4, v43);
 LABEL_34:
     v20 = v30;
   }
@@ -360,17 +361,17 @@ LABEL_34:
   else
   {
 LABEL_32:
-    v20 = -12782;
+    v20 = 4294954514;
   }
 
 LABEL_35:
-  if (outError && v20)
+  if (v34 && v20)
   {
-    *outError = AVLocalizedErrorWithUnderlyingOSStatus(v20, 0);
+    *v34 = AVLocalizedErrorWithUnderlyingOSStatus(v20, 0);
   }
 
   [(AVMutableCompositionTrack *)selfCopy _notifySelfThatSegmentsDidChangeWithSuccess:v20 == 0];
-  AVTelemetryIntervalEnd(&v51);
+  AVTelemetryIntervalEnd(&v52);
   return v20 == 0;
 }
 
@@ -538,7 +539,7 @@ LABEL_3:
     memset(v19, 0, sizeof(v19));
     if (v10)
     {
-      [v10 timeMapping];
+      objc_msgSend_timeMapping(v10);
     }
 
     *&time1.value = v20;
@@ -920,7 +921,7 @@ LABEL_22:
     }
 
 LABEL_11:
-    v43 = -12782;
+    v43 = 4294954514;
     if (!error)
     {
       goto LABEL_17;
@@ -948,7 +949,7 @@ LABEL_11:
   else
   {
     fig_log_get_emitter();
-    v16 = FigSignalErrorAtGM();
+    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v45, selfCopy, v47);
   }
 
 LABEL_14:

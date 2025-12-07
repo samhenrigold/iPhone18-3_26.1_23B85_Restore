@@ -9,17 +9,17 @@
 
 - (BOOL)setPostprocessedPayloadContents:(id)contents
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   contentsCopy = contents;
   v5 = ne_log_large_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    *v27 = 138412546;
-    *&v27[4] = objc_opt_class();
-    *&v27[12] = 2112;
-    *&v27[14] = contentsCopy;
-    v26 = *&v27[4];
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ setPostprocessedPayloadContents newContents %@", v27, 0x16u);
+    *v26 = 138412546;
+    *&v26[4] = objc_opt_class();
+    *&v26[12] = 2112;
+    *&v26[14] = contentsCopy;
+    v25 = *&v26[4];
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ setPostprocessedPayloadContents newContents %@", v26, 0x16u);
   }
 
   v6 = [contentsCopy objectForKeyedSubscript:@"AuthName"];
@@ -31,7 +31,7 @@
     self->_userName = v7;
   }
 
-  v9 = [contentsCopy objectForKeyedSubscript:{@"AuthPassword", *v27, *&v27[16], v28}];
+  v9 = [contentsCopy objectForKeyedSubscript:{@"AuthPassword", *v26, *&v26[8], v27}];
 
   if (v9)
   {
@@ -76,13 +76,12 @@
     self->_pin = v22;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)getPreprocessedPayloadContents
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = v3;
   userName = self->_userName;
@@ -154,58 +153,55 @@
   v11 = ne_log_large_obj();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412290;
-    v15 = v4;
-    _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "NEProfilePayloadBaseVPN getPreprocessedPayloadContents: dict %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v4;
+    _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "NEProfilePayloadBaseVPN getPreprocessedPayloadContents: dict %@", &v13, 0xCu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)validatePayload
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = ne_log_large_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     payloadAtom = [(NEProfilePayloadBase *)self payloadAtom];
-    v7 = 138412290;
-    v8 = payloadAtom;
-    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "NEProfilePayloadBaseVPN validate: To-Do. dict %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = payloadAtom;
+    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "NEProfilePayloadBaseVPN validate: To-Do. dict %@", &v6, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (NEProfilePayloadBaseVPN)initWithPayload:(id)payload
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = ne_log_large_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v110 = objc_opt_class();
-    v111 = 2112;
-    v112 = payloadCopy;
-    v40 = v110;
+    v109 = objc_opt_class();
+    v110 = 2112;
+    v111 = payloadCopy;
+    v40 = v109;
     _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ NEProfilePayloadVPNBase initWithPayload: payloadDict %@", buf, 0x16u);
   }
 
-  v108.receiver = self;
-  v108.super_class = NEProfilePayloadBaseVPN;
-  v6 = [(NEProfilePayloadBase *)&v108 initWithPayload:payloadCopy];
+  v107.receiver = self;
+  v107.super_class = NEProfilePayloadBaseVPN;
+  v6 = [(NEProfilePayloadBase *)&v107 initWithPayload:payloadCopy];
   v7 = ne_log_large_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     payloadAtom = [(NEProfilePayloadBase *)v6 payloadAtom];
     *buf = 138412546;
-    v110 = v6;
-    v111 = 2112;
-    v112 = payloadAtom;
+    v109 = v6;
+    v110 = 2112;
+    v111 = payloadAtom;
     _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "NEProfilePayloadVPNBase initWithPayload: self %@,  cached atom %@", buf, 0x16u);
   }
 
@@ -217,9 +213,9 @@
     {
       v42 = objc_opt_class();
       *buf = 138412546;
-      v110 = v42;
-      v111 = 2112;
-      v112 = v8;
+      v109 = v42;
+      v110 = 2112;
+      v111 = v8;
       v43 = v42;
       _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ extractPayloadContents: payloadDict %@", buf, 0x16u);
     }
@@ -306,22 +302,22 @@
         v28 = v27;
         if (v27)
         {
-          v29 = [v27 isEqualToString:@"Prompt"];
+          isEqualToString = objc_msgSend_isEqualToString_(v27);
         }
 
         else
         {
-          v29 = 0;
+          isEqualToString = 0;
         }
       }
 
       else
       {
-        v29 = 0;
+        isEqualToString = 0;
       }
 
       v30 = [v20 objectForKeyedSubscript:@"VPNType"];
-      if ([v30 isEqualToString:@"IPSec"])
+      if (objc_msgSend_isEqualToString_(v30))
       {
         v31 = [v20 objectForKeyedSubscript:@"IPSec"];
 
@@ -331,7 +327,7 @@
           v26 = v32;
           if (v32)
           {
-            if ([v32 isEqualToString:@"SharedSecret"])
+            if (objc_msgSend_isEqualToString_(v32))
             {
               v33 = [v31 objectForKeyedSubscript:@"XAuthName"];
               userName = v6->_userName;
@@ -340,13 +336,13 @@
               v6->_userNameRequired = 1;
             }
 
-            if (v25 & v29 & 1) != 0 || ([v26 isEqualToString:@"Certificate"])
+            if (v25 & isEqualToString & 1) != 0 || (objc_msgSend_isEqualToString_(v26))
             {
               goto LABEL_57;
             }
           }
 
-          else if (v25 & v29)
+          else if (v25 & isEqualToString)
           {
             goto LABEL_57;
           }
@@ -380,7 +376,7 @@ LABEL_52:
         goto LABEL_59;
       }
 
-      if ([v30 isEqualToString:@"IKEv2"])
+      if (objc_msgSend_isEqualToString_(v30))
       {
         v31 = [v20 objectForKeyedSubscript:@"IKEv2"];
 
@@ -402,16 +398,16 @@ LABEL_52:
           goto LABEL_52;
         }
 
-        v98 = [v31 objectForKeyedSubscript:@"ExtensibleSSOProvider"];
+        v97 = [v31 objectForKeyedSubscript:@"ExtensibleSSOProvider"];
 
-        if (v98)
+        if (v97)
         {
           goto LABEL_52;
         }
 
-        v99 = [v31 objectForKeyedSubscript:@"AuthName"];
-        v100 = v6->_userName;
-        v6->_userName = v99;
+        v98 = [v31 objectForKeyedSubscript:@"AuthName"];
+        v99 = v6->_userName;
+        v6->_userName = v98;
 
         v35 = [v31 objectForKeyedSubscript:@"AuthPassword"];
         v6->_userNameRequired = 1;
@@ -419,7 +415,7 @@ LABEL_52:
 
       else
       {
-        if ([v30 isEqualToString:@"VPN"])
+        if (objc_msgSend_isEqualToString_(v30))
         {
           v35 = 0;
           v31 = v26;
@@ -438,7 +434,7 @@ LABEL_52:
         v38 = v6->_userName;
         v6->_userName = v37;
 
-        if (v25 & v29)
+        if (v25 & isEqualToString)
         {
           goto LABEL_52;
         }
@@ -467,9 +463,9 @@ LABEL_59:
       {
         v60 = objc_opt_class();
         *buf = 138412546;
-        v110 = v60;
-        v111 = 2112;
-        v112 = v47;
+        v109 = v60;
+        v110 = 2112;
+        v111 = v47;
         v61 = v60;
         _os_log_debug_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_DEBUG, "%@ extractPayloadContentsSharedSecret: dict %@", buf, 0x16u);
       }
@@ -482,7 +478,7 @@ LABEL_124:
 
         v86 = v47;
         v87 = [v86 objectForKeyedSubscript:@"VPNType"];
-        if ([v87 isEqualToString:@"IPSec"])
+        if (objc_msgSend_isEqualToString_(v87))
         {
           v88 = [v86 objectForKeyedSubscript:@"IPSec"];
           v89 = v88;
@@ -513,14 +509,14 @@ LABEL_132:
         goto LABEL_133;
       }
 
-      if ([v49 isEqualToString:@"IPSec"] & 1) != 0 || (objc_msgSend(v50, "isEqualToString:", @"L2TP"))
+      if (objc_msgSend_isEqualToString_(v49) & 1) != 0 || (objc_msgSend_isEqualToString_(v50))
       {
         v51 = kNEIPSecKey;
       }
 
       else
       {
-        if (![v50 isEqualToString:@"IKEv2"])
+        if (!objc_msgSend_isEqualToString_(v50))
         {
           goto LABEL_124;
         }
@@ -537,7 +533,7 @@ LABEL_132:
       v53 = v52;
       v54 = [v52 objectForKeyedSubscript:@"AuthenticationMethod"];
       v55 = v54;
-      if (!v54 || ([v54 isEqualToString:@"Certificate"] & 1) == 0)
+      if (!v54 || (objc_msgSend_isEqualToString_(v54) & 1) == 0)
       {
         v56 = [v53 objectForKeyedSubscript:@"PayloadCertificateUUID"];
         if (!v56)
@@ -561,14 +557,14 @@ LABEL_132:
           goto LABEL_122;
         }
 
-        v106 = v55;
+        v105 = v55;
         v58 = [v53 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
         bOOLValue = [v58 BOOLValue];
 
         if (v56)
         {
 
-          v55 = v106;
+          v55 = v105;
           if (!bOOLValue)
           {
             goto LABEL_123;
@@ -589,18 +585,18 @@ LABEL_85:
               v65 = ne_log_obj();
               if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
               {
-                v101 = v55;
-                v102 = objc_opt_class();
-                v103 = v102;
-                v104 = objc_opt_class();
+                v100 = v55;
+                v101 = objc_opt_class();
+                v102 = v101;
+                v103 = objc_opt_class();
                 *buf = 138412546;
-                v110 = v102;
-                v111 = 2112;
-                v112 = v104;
-                v105 = v104;
+                v109 = v101;
+                v110 = 2112;
+                v111 = v103;
+                v104 = v103;
                 _os_log_debug_impl(&dword_1BA83C000, v65, OS_LOG_TYPE_DEBUG, "%@ extractPayloadContentsSharedSecret: Invalid shared secret object type %@, setting to nil", buf, 0x16u);
 
-                v55 = v101;
+                v55 = v100;
               }
 
               v64 = 0;
@@ -696,16 +692,16 @@ LABEL_111:
 LABEL_112:
           v6->_sharedSecretRequired = 1;
           objc_storeStrong(&v6->_sharedSecret, v56);
-          if (v6->_sharedSecretRequired && [v50 isEqualToString:@"IKEv2"] && objc_msgSend(v55, "isEqualToString:", @"None"))
+          if (v6->_sharedSecretRequired && objc_msgSend_isEqualToString_(v50) && objc_msgSend_isEqualToString_(v55))
           {
             v82 = [v53 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
             if (isa_nsnumber(v82))
             {
               [v53 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
-              v83 = v107 = v55;
+              v83 = v106 = v55;
               bOOLValue2 = [v83 BOOLValue];
 
-              v55 = v107;
+              v55 = v106;
               if (bOOLValue2)
               {
                 v6->_sharedSecretRequired = 0;
@@ -720,25 +716,25 @@ LABEL_112:
           v85 = ne_log_obj();
           if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
           {
-            v93 = v55;
-            v94 = objc_opt_class();
-            v95 = v94;
-            v96 = objc_opt_class();
+            v92 = v55;
+            v93 = objc_opt_class();
+            v94 = v93;
+            v95 = objc_opt_class();
             *buf = 138412546;
-            v110 = v94;
-            v111 = 2112;
-            v112 = v96;
-            v97 = v96;
+            v109 = v93;
+            v110 = 2112;
+            v111 = v95;
+            v96 = v95;
             _os_log_debug_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_DEBUG, "%@ extractPayloadContentsSharedSecret: (value class %@)", buf, 0x16u);
 
-            v55 = v93;
+            v55 = v92;
           }
 
 LABEL_122:
           goto LABEL_123;
         }
 
-        v55 = v106;
+        v55 = v105;
         if (bOOLValue)
         {
           goto LABEL_85;
@@ -753,7 +749,6 @@ LABEL_123:
 
 LABEL_133:
 
-  v91 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

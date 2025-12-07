@@ -99,7 +99,7 @@
   if (nodeCopy)
   {
     v10 = &dCopy;
-    v8 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->_inputMap, &dCopy);
+    v8 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->_inputMap, &dCopy, &std::piecewise_construct, &v10);
     objc_storeStrong(v8 + 5, node);
   }
 
@@ -368,130 +368,33 @@
   p_end_node = &self->_inputMap.__tree_.__end_node_;
   if (begin_node != &self->_inputMap.__tree_.__end_node_)
   {
-    rendererCopy2 = renderer;
     selfCopy3 = self;
     do
     {
       left_low = LODWORD(begin_node[4].__left_);
-      v14 = begin_node[5].__left_;
-      v15 = atomic_load(HGLogger::_enabled);
-      if (v15)
+      v13 = begin_node[5].__left_;
+      v14 = atomic_load(HGLogger::_enabled);
+      if (v14)
       {
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Getting HGNode for effect inputID: %d\n", v12, v13, left_low);
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Getting HGNode for effect inputID: %d\n", v11, v12, left_low);
       }
 
-      v50 = *&time->var0;
+      v44 = *&time->var0;
       var3 = time->var3;
-      v49 = *context.m_Obj;
-      if (v49)
+      v43 = *context.m_Obj;
+      if (v43)
       {
-        (*(*v49 + 16))(v49);
+        (*(*v43 + 16))(v43);
       }
 
-      if (v14)
+      if (v13)
       {
-        [v14 hgNodeForTime:&v50 trackInputs:inputs renderer:rendererCopy2 igContext:&v49];
-      }
-
-      else
-      {
-        v52 = 0;
-      }
-
-      if (v49)
-      {
-        (*(*v49 + 24))(v49);
-      }
-
-      if (![(PVEffect *)selfCopy3->_effect supportsExtendedRangeInputs]&& +[PVEnvironment PV_CLAMP_XR_INPUTS_TO_FILTERS])
-      {
-        v16 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
-        v17 = +[PVColorSpace extendedSRGBColorSpace];
-        if ([v16 isEqual:v17])
-        {
-
-LABEL_17:
-          v24 = atomic_load(HGLogger::_enabled);
-          if (v24)
-          {
-            HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Clamping input (%d). XR working space and effect doesn't support it.\n", v18, v19, left_low);
-          }
-
-          v25 = HGObject::operator new(0x1C0uLL);
-          HGColorClamp::HGColorClamp(v25);
-        }
-
-        v20 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
-        m_Obj = context.m_Obj;
-        v22 = +[PVColorSpace extendedLinearSRGBColorSpace];
-        v23 = [v20 isEqual:v22];
-
-        context.m_Obj = m_Obj;
-        rendererCopy2 = renderer;
-        selfCopy3 = self;
-        if (v23)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      v48 = v52;
-      if (v52)
-      {
-        (*(*v52 + 16))(v52);
-      }
-
-      PVInputHGNodeMap<unsigned int>::SetNode(map, left_low, &v48);
-      if (v48)
-      {
-        (*(*v48 + 24))(v48);
-      }
-
-      effect = selfCopy3->_effect;
-      v45 = *context.m_Obj;
-      if (v45)
-      {
-        (*(*v45 + 16))(v45);
-      }
-
-      if (v14)
-      {
-        [v14 inputSizeForPVEffect:effect igContext:&v45];
+        objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(v13);
       }
 
       else
       {
-        v46 = 0u;
-        v47 = 0u;
-      }
-
-      if (v45)
-      {
-        (*(*v45 + 24))(v45);
-      }
-
-      v54[0] = left_low;
-      *&v44[0] = v54;
-      v27 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(map + 24, v54);
-      v28 = v47;
-      *(v27 + 5) = v46;
-      *(v27 + 7) = v28;
-      v29 = selfCopy3->_effect;
-      v30 = *context.m_Obj;
-      v43 = v30;
-      if (v30)
-      {
-        (*(*v30 + 16))(v30);
-      }
-
-      if (v14)
-      {
-        [v14 pixelTransformForPVEffect:v29 igContext:&v43];
-      }
-
-      else
-      {
-        memset(v44, 0, sizeof(v44));
+        v46 = 0;
       }
 
       if (v43)
@@ -499,24 +402,116 @@ LABEL_17:
         (*(*v43 + 24))(v43);
       }
 
-      PVInputHGNodeMap<unsigned int>::SetPixelTransform(map, left_low, v44);
+      if (![(PVEffect *)selfCopy3->_effect supportsExtendedRangeInputs]&& +[PVEnvironment PV_CLAMP_XR_INPUTS_TO_FILTERS])
+      {
+        v15 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
+        v16 = +[PVColorSpace extendedSRGBColorSpace];
+        if ([v15 isEqual:v16])
+        {
+
+LABEL_17:
+          v23 = atomic_load(HGLogger::_enabled);
+          if (v23)
+          {
+            HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Clamping input (%d). XR working space and effect doesn't support it.\n", v17, v18, left_low);
+          }
+
+          v24 = HGObject::operator new(0x1C0uLL);
+          HGColorClamp::HGColorClamp(v24);
+        }
+
+        v19 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
+        m_Obj = context.m_Obj;
+        v21 = +[PVColorSpace extendedLinearSRGBColorSpace];
+        v22 = [v19 isEqual:v21];
+
+        context.m_Obj = m_Obj;
+        selfCopy3 = self;
+        if (v22)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v42 = v46;
+      if (v46)
+      {
+        (*(*v46 + 16))(v46);
+      }
+
+      PVInputHGNodeMap<unsigned int>::SetNode(map, left_low, &v42);
+      if (v42)
+      {
+        (*(*v42 + 24))(v42);
+      }
+
+      v39 = *context.m_Obj;
+      if (v39)
+      {
+        (*(*v39 + 16))(v39);
+      }
+
+      if (v13)
+      {
+        objc_msgSend_inputSizeForPVEffect_igContext_(v13);
+      }
+
+      else
+      {
+        v40 = 0u;
+        v41 = 0u;
+      }
+
+      if (v39)
+      {
+        (*(*v39 + 24))(v39);
+      }
+
+      LODWORD(v48[0]) = left_low;
+      *&v38[0] = v48;
+      v25 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(map + 24, v48, &std::piecewise_construct, v38);
+      v26 = v41;
+      *(v25 + 5) = v40;
+      *(v25 + 7) = v26;
+      v37 = *context.m_Obj;
+      if (*context.m_Obj)
+      {
+        (*(**context.m_Obj + 16))(*context.m_Obj);
+      }
+
+      if (v13)
+      {
+        objc_msgSend_pixelTransformForPVEffect_igContext_(v13);
+      }
+
+      else
+      {
+        memset(v38, 0, sizeof(v38));
+      }
+
+      if (v37)
+      {
+        (*(*v37 + 24))(v37);
+      }
+
+      PVInputHGNodeMap<unsigned int>::SetPixelTransform(map, left_low, v38);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v31 = v14;
-        isPortrait = [v31 isPortrait];
-        v53 = left_low;
-        *v54 = &v53;
-        *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(map + 96, &v53) + 8) = isPortrait ^ 1;
-        timedMetadataGroup = [v31 timedMetadataGroup];
+        v27 = v13;
+        isPortrait = [v27 isPortrait];
+        v47 = left_low;
+        v48[0] = &v47;
+        *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(map + 96, &v47, &std::piecewise_construct, v48) + 8) = isPortrait ^ 1;
+        timedMetadataGroup = [v27 timedMetadataGroup];
         PVInputHGNodeMap<unsigned int>::SetTimedMetadata(map, left_low, timedMetadataGroup);
 
         selfCopy3 = self;
       }
 
-      if (v52)
+      if (v46)
       {
-        (*(*v52 + 24))(v52);
+        (*(*v46 + 24))(v46);
       }
 
       left = begin_node[1].__left_;
@@ -524,7 +519,7 @@ LABEL_17:
       {
         do
         {
-          v35 = left;
+          v31 = left;
           left = left->__left_;
         }
 
@@ -535,35 +530,35 @@ LABEL_17:
       {
         do
         {
-          v35 = begin_node[2].__left_;
-          v36 = v35->__left_ == begin_node;
-          begin_node = v35;
+          v31 = begin_node[2].__left_;
+          v32 = v31->__left_ == begin_node;
+          begin_node = v31;
         }
 
-        while (!v36);
+        while (!v32);
       }
 
-      begin_node = v35;
+      begin_node = v31;
     }
 
-    while (v35 != p_end_node);
+    while (v31 != p_end_node);
   }
 }
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
   v10 = v6;
-  HGTraceGuard::HGTraceGuard(v84, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphEffectNode hgNodeForTime:...]");
-  v83 = *context.m_Obj;
-  if (v83)
+  HGTraceGuard::HGTraceGuard(v83, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphEffectNode hgNodeForTime:...]");
+  v82 = *context.m_Obj;
+  if (v82)
   {
-    (*(*v83 + 16))(v83);
+    (*(*v82 + 16))(v82);
   }
 
-  [(PVInstructionGraphEffectNode *)self addDotTreeLinks:&v83];
-  if (v83)
+  [(PVInstructionGraphEffectNode *)self addDotTreeLinks:&v82];
+  if (v82)
   {
-    (*(*v83 + 24))(v83);
+    (*(*v82 + 24))(v82);
   }
 
   if ([(PVEffect *)self->_effect isHidden]&& ![(PVEffect *)self->_effect hasTimedPropertiesDelegates])
@@ -599,7 +594,7 @@ LABEL_17:
       effect = self->_effect;
       if (effect)
       {
-        [(PVEffect *)effect effectRange];
+        objc_msgSend_effectRange(effect);
       }
 
       else
@@ -622,7 +617,7 @@ LABEL_17:
     {
       if (v21)
       {
-        [(PVEffect *)v21 effectRange];
+        objc_msgSend_effectRange(v21);
         v28 = *(MEMORY[0x277CC08C8] + 16);
         *&time.start.value = *MEMORY[0x277CC08C8];
         *&time.start.epoch = v28;
@@ -663,11 +658,10 @@ LABEL_17:
 
       LODWORD(time.start.value) = 0;
       range.start.value = &time;
-      v38 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->_inputMap, &time)[5];
+      v38 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->_inputMap, &time, &std::piecewise_construct, &range)[5];
       *&range.start.value = *&time->var0;
       range.start.epoch = time->var3;
       v39 = *context.m_Obj;
-      v68 = v39;
       if (v39)
       {
         (*(*v39 + 16))(v39);
@@ -675,9 +669,8 @@ LABEL_17:
 
       if (v38)
       {
-        [v38 hgNodeForTime:&range trackInputs:inputs renderer:renderer igContext:&v68];
-        v39 = v68;
-        if (!v68)
+        objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(v38);
+        if (!v39)
         {
           goto LABEL_86;
         }
@@ -709,7 +702,7 @@ LABEL_17:
       v27 = self->_effect;
       if (v27)
       {
-        [(PVEffect *)v27 effectRange];
+        objc_msgSend_effectRange(v27);
       }
 
       else
@@ -747,9 +740,9 @@ LABEL_17:
       v53 = HGObject::operator new(0xA8uLL);
       *&range.start.value = *&time.start.value;
       range.start.epoch = time.start.epoch;
-      v86.width = v49;
-      v86.height = v51;
-      PVRendererInstructionGraphContext::PVRendererInstructionGraphContext(v53, v48, v86, v52, &range.start);
+      v85.width = v49;
+      v85.height = v51;
+      PVRendererInstructionGraphContext::PVRendererInstructionGraphContext(v53, v48, v85, v52, &range.start);
       if (v46 == v53)
       {
         if (v46)
@@ -771,16 +764,16 @@ LABEL_17:
       v10 = v65;
     }
 
-    v82 = v46;
+    v81 = v46;
     if (v46)
     {
       (*(*v46 + 16))(v46);
     }
 
-    [(PVInstructionGraphNode *)self loadIGNode:&v82];
-    if (v82)
+    [(PVInstructionGraphNode *)self loadIGNode:&v81];
+    if (v81)
     {
-      (*(*v82 + 24))(v82);
+      (*(*v81 + 24))(v81);
     }
 
     range.start.value = &range.start.timescale;
@@ -789,30 +782,30 @@ LABEL_17:
     range.duration.epoch = 0;
     range.start.epoch = 0;
     range.duration.value = &range.duration.timescale;
-    v77 = v78;
+    v76 = v77;
+    v77[0] = 0;
     v78[0] = 0;
-    v79[0] = 0;
-    v79[1] = 0;
     v78[1] = 0;
+    v77[1] = 0;
+    v77[2] = v78;
     v78[2] = v79;
-    v79[2] = v80;
+    v79[0] = 0;
     v80[0] = 0;
-    v81[0] = 0;
-    v81[1] = 0;
     v80[1] = 0;
-    v80[2] = v81;
+    v79[1] = 0;
+    v79[2] = v80;
     *&time.start.value = *&time->var0;
     time.start.epoch = time->var3;
-    v75 = v46;
+    v74 = v46;
     if (v46)
     {
       (*(*v46 + 16))(v46);
     }
 
-    [(PVInstructionGraphEffectNode *)self buildEffectInputMap:&range forTime:&time trackInputs:inputs renderer:renderer igContext:&v75];
-    if (v75)
+    [(PVInstructionGraphEffectNode *)self buildEffectInputMap:&range forTime:&time trackInputs:inputs renderer:renderer igContext:&v74];
+    if (v74)
     {
-      (*(*v75 + 24))(v75);
+      (*(*v74 + 24))(v74);
     }
 
     v54 = atomic_load(HGLogger::_enabled);
@@ -824,9 +817,9 @@ LABEL_17:
     }
 
     v59 = self->_effect;
-    v73 = *&time->var0;
+    v72 = *&time->var0;
     var3 = time->var3;
-    v72 = v46;
+    v71 = v46;
     if (v46)
     {
       (*(*v46 + 16))(v46);
@@ -834,7 +827,7 @@ LABEL_17:
 
     if (v59)
     {
-      [(PVEffect *)v59 hgNodeForTime:&v73 inputs:&range renderer:renderer igContext:&v72];
+      objc_msgSend_hgNodeForTime_inputs_renderer_igContext_(v59);
     }
 
     else
@@ -842,15 +835,15 @@ LABEL_17:
       *v10 = 0;
     }
 
-    if (v72)
+    if (v71)
     {
-      (*(*v72 + 24))(v72);
+      (*(*v71 + 24))(v71);
     }
 
     if (applyRenderTransformAfterEffect)
     {
       v60 = *v10;
-      v70 = v60;
+      v69 = v60;
       if (v60)
       {
         (*(*v60 + 16))(v60);
@@ -858,14 +851,14 @@ LABEL_17:
 
       (*(**context.m_Obj + 56))(&time);
       v61 = (*(**context.m_Obj + 64))();
-      HGXFormForCGAffineTransform(&v70, &time, v61, &v71);
+      HGXFormForCGAffineTransform(&v69, &time, v61, &v70);
       v62 = *v10;
-      v63 = v71;
-      if (*v10 == v71)
+      v63 = v70;
+      if (*v10 == v70)
       {
         if (v62)
         {
-          (*(*v71 + 24))(v71);
+          (*(*v70 + 24))(v70);
         }
       }
 
@@ -874,16 +867,16 @@ LABEL_17:
         if (v62)
         {
           (*(*v62 + 24))(v62);
-          v63 = v71;
+          v63 = v70;
         }
 
         *v10 = v63;
-        v71 = 0;
+        v70 = 0;
       }
 
-      if (v70)
+      if (v69)
       {
-        (*(*v70 + 24))(v70);
+        (*(*v69 + 24))(v69);
       }
     }
 
@@ -896,7 +889,7 @@ LABEL_17:
   }
 
 LABEL_86:
-  HGTraceGuard::~HGTraceGuard(v84);
+  HGTraceGuard::~HGTraceGuard(v83);
   return v64;
 }
 
@@ -912,51 +905,48 @@ LABEL_86:
   p_inputMap = &self->_inputMap;
   if (self->_inputMap.__tree_.__size_ == 1)
   {
-    v30 = *(p_inputMap->__tree_.__begin_node_ + 8);
-    *&v28 = &v30;
-    v15 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(p_inputMap, &v30)[5];
-    effect = self->_effect;
-    v17 = *context.m_Obj;
-    v27 = v17;
-    if (v17)
+    v28 = *(p_inputMap->__tree_.__begin_node_ + 8);
+    *&v26 = &v28;
+    v15 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(p_inputMap, &v28, &std::piecewise_construct, &v26)[5];
+    v16 = *context.m_Obj;
+    if (v16)
     {
-      (*(*v17 + 16))(v17);
+      (*(*v16 + 16))(v16);
     }
 
     if (v15)
     {
-      [v15 inputSizeForPVEffect:effect igContext:&v27];
-      v17 = v27;
+      objc_msgSend_inputSizeForPVEffect_igContext_(v15);
     }
 
     else
     {
-      v28 = 0u;
-      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
     }
 
-    v22 = v29;
-    *v7 = v28;
-    *(v7 + 16) = v22;
-    if (v17)
+    v21 = v27;
+    *v7 = v26;
+    *(v7 + 16) = v21;
+    if (v16)
     {
-      (*(*v17 + 24))(v17);
+      (*(*v16 + 24))(v16);
     }
   }
 
   else
   {
-    v18 = (*(**context.m_Obj + 40))();
-    v20 = v19;
-    v21 = (*(**context.m_Obj + 48))();
-    *(v7 + 16) = v18 / v21;
-    *(v7 + 24) = v20 / v21;
+    v17 = (*(**context.m_Obj + 40))();
+    v19 = v18;
+    v20 = (*(**context.m_Obj + 48))();
+    *(v7 + 16) = v17 / v20;
+    *(v7 + 24) = v19 / v20;
   }
 
-  result.var3 = v26;
-  result.var2 = v25;
-  result.var1 = v24;
-  result.var0 = v23;
+  result.var3 = v25;
+  result.var2 = v24;
+  result.var1 = v23;
+  result.var0 = v22;
   return result;
 }
 
@@ -1038,7 +1028,7 @@ LABEL_86:
       effect = self->_effect;
       if (effect)
       {
-        [(PVEffect *)effect effectRange];
+        objc_msgSend_effectRange(effect);
         receiver = v24[0].receiver;
         super_class_low = LODWORD(v24[0].super_class);
       }
@@ -1058,7 +1048,7 @@ LABEL_86:
       v18 = self->_effect;
       if (v18)
       {
-        [(PVEffect *)v18 effectRange];
+        objc_msgSend_effectRange(v18);
       }
 
       else

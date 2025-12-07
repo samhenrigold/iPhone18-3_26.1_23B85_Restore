@@ -64,14 +64,13 @@
 {
   v3 = sub_191CC61A8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3, v6);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v8, self + OBJC_IVAR____TtC9HealthKit26HKWorkoutMetricsDataSource_uuid, v3);
-  v9 = sub_191CC6168();
-  (*(v4 + 8))(v8, v3);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC9HealthKit26HKWorkoutMetricsDataSource_uuid, v3);
+  v7 = sub_191CC6168();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v7;
 }
 
 - (void)connectionInterrupted

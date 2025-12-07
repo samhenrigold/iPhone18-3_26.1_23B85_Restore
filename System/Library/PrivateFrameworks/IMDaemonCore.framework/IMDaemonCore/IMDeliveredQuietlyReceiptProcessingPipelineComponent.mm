@@ -61,7 +61,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -70,7 +70,7 @@
     {
       gUID = [inputCopy GUID];
       *buf = 138412290;
-      v47 = gUID;
+      v46 = gUID;
       _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "<IMDeliveredQuietlyReceiptProcessingPipelineComponent> Started processing for Message GUID: %@", buf, 0xCu);
     }
   }
@@ -84,7 +84,7 @@
       {
         gUID2 = [inputCopy GUID];
         *buf = 138412290;
-        v47 = gUID2;
+        v46 = gUID2;
         _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "    Ignoring delivered quietly receipt for message: %@", buf, 0xCu);
       }
     }
@@ -99,7 +99,7 @@
     if (gUID3)
     {
       gUID4 = [inputCopy GUID];
-      v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
       pipelineResources = [(IMDeliveredQuietlyReceiptProcessingPipelineComponent *)self pipelineResources];
       messageStore = [pipelineResources messageStore];
       v13 = [messageStore chatsForMessageGUID:gUID4];
@@ -110,52 +110,52 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v47 = gUID4;
-          v48 = 2112;
-          v49 = v13;
+          v46 = gUID4;
+          v47 = 2112;
+          v48 = v13;
           _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Found chats for messageID: %@   chats: %@", buf, 0x16u);
         }
       }
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v15 = v13;
-      v16 = [v15 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (v16)
       {
-        v17 = *v42;
+        v17 = *v41;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v42 != v17)
+            if (*v41 != v17)
             {
               objc_enumerationMutation(v15);
             }
 
-            v19 = *(*(&v41 + 1) + 8 * i);
+            v19 = *(*(&v40 + 1) + 8 * i);
             pipelineResources2 = [(IMDeliveredQuietlyReceiptProcessingPipelineComponent *)self pipelineResources];
             messageStore2 = [pipelineResources2 messageStore];
             v22 = [messageStore2 messageWithGUID:gUID4];
 
             if (v22)
             {
-              [v40 addObject:v22];
+              [v39 addObject:v22];
               _account = [(IMDeliveredQuietlyReceiptProcessingPipelineComponent *)self _account];
               session = [_account session];
               [(IMDeliveredQuietlyReceiptProcessingPipelineComponent *)self _markMessageAsDeliveredQuietlyAndNotify:v22 session:session chat:v19];
             }
           }
 
-          v16 = [v15 countByEnumeratingWithState:&v41 objects:v45 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
         }
 
         while (v16);
       }
 
-      v25 = [v40 count] == 0;
+      v25 = [v39 count] == 0;
       v26 = IMOSLoggingEnabled();
       if (v25)
       {
@@ -166,7 +166,7 @@
           {
             gUID5 = [inputCopy GUID];
             *buf = 138412290;
-            v47 = gUID5;
+            v46 = gUID5;
             _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Unable to mark message delivered quietly with GUID=%@: message not found", buf, 0xCu);
           }
         }
@@ -185,7 +185,7 @@
           {
             gUID6 = [inputCopy GUID];
             *buf = 138412290;
-            v47 = gUID6;
+            v46 = gUID6;
             _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Marked message with GUID=%@ as delivered quietly", buf, 0xCu);
           }
         }
@@ -193,7 +193,7 @@
         firstObject = [v15 firstObject];
         [inputCopy setChat:firstObject];
 
-        v30 = [v40 copy];
+        v30 = [v39 copy];
         [inputCopy setMessageItems:v30];
 
         v8 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
@@ -218,14 +218,12 @@
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)_markMessageAsDeliveredQuietlyAndNotify:(id)notify session:(id)session chat:(id)chat
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notifyCopy = notify;
   sessionCopy = session;
   chatCopy = chat;
@@ -234,9 +232,9 @@
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v18 = 138412290;
-      v19 = notifyCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Mark message as delivered quietly: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = notifyCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Mark message as delivered quietly: %@", &v17, 0xCu);
     }
   }
 
@@ -253,8 +251,6 @@
   pipelineResources2 = [(IMDeliveredQuietlyReceiptProcessingPipelineComponent *)self pipelineResources];
   chatRegistry = [pipelineResources2 chatRegistry];
   [chatRegistry updateStateForChat:chatCopy hintMessage:0 shouldRebuildFailedMessageDate:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

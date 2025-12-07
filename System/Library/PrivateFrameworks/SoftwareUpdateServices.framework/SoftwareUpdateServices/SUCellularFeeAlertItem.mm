@@ -99,17 +99,16 @@
 
 uint64_t __36__SUCellularFeeAlertItem__yesButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User accepted to use cellular.", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User accepted to use cellular.", v4, v5, v6, v7, v8, v9, v3);
 
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v12 = *(result + 16);
+    v11 = *(result + 16);
 
-    return v12();
+    return v11();
   }
 
   return result;
@@ -132,17 +131,16 @@ uint64_t __36__SUCellularFeeAlertItem__yesButton__block_invoke(uint64_t a1)
 
 uint64_t __35__SUCellularFeeAlertItem__noButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User declined to use cellular.", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User declined to use cellular.", v4, v5, v6, v7, v8, v9, v3);
 
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v12 = *(result + 16);
+    v11 = *(result + 16);
 
-    return v12();
+    return v11();
   }
 
   return result;

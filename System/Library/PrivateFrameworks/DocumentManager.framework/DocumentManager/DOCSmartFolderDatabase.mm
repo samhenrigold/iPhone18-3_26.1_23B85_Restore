@@ -1894,11 +1894,11 @@ LABEL_53:
   return v23;
 }
 
-uint64_t __57__DOCSmartFolderDatabase__openConnectionToDatabaseAtURL___block_invoke(uint64_t result)
+id *__57__DOCSmartFolderDatabase__openConnectionToDatabaseAtURL___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _relinquishBackgroundAssertionWithReason:0];
+    return [result[4] _relinquishBackgroundAssertionWithReason:0];
   }
 
   return result;
@@ -2218,33 +2218,33 @@ void __48__DOCSmartFolderDatabase__setUpDatabaseWatcher___block_invoke_184(uint6
   [*(a1 + 32) _relinquishBackgroundAssertionWithReason:1];
 }
 
-void __48__DOCSmartFolderDatabase__setUpDatabaseWatcher___block_invoke_185(uint64_t a1)
+void __48__DOCSmartFolderDatabase__setUpDatabaseWatcher___block_invoke_185(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E699A468];
-  v3 = *MEMORY[0x1E699A468];
+  v3 = MEMORY[0x1E699A468];
+  v4 = *MEMORY[0x1E699A468];
   if (!*MEMORY[0x1E699A468])
   {
     DOCInitLogging();
-    v3 = *v2;
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __48__DOCSmartFolderDatabase__setUpDatabaseWatcher___block_invoke_185_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v6 = WeakRetained[6];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __48__DOCSmartFolderDatabase__setUpDatabaseWatcher___block_invoke_186;
-    v7[3] = &unk_1E8782320;
-    v7[4] = WeakRetained;
-    v8 = *(a1 + 32);
-    dispatch_sync(v6, v7);
+    v7 = WeakRetained[6];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __48__DOCSmartFolderDatabase__setUpDatabaseWatcher___block_invoke_186;
+    v8[3] = &unk_1E8782320;
+    v8[4] = WeakRetained;
+    v9 = *(a1 + 32);
+    dispatch_sync(v7, v8);
   }
 }
 
@@ -2708,7 +2708,7 @@ void __40__DOCSmartFolderDatabase_registerEvent___block_invoke_cold_3()
   v3 = [v0 folderItem];
   v4 = [v3 displayName];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_10_0(&dword_1E57D8000, v5, v6, "Can't archive folder (%@) to register hot folder event: %@.", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_10_0(&dword_1E57D8000, v5, v6, "Can't archive folder (%@) to register hot folder event: %@.", v7, v8, v9, v10);
 }
 
 void __40__DOCSmartFolderDatabase_registerEvent___block_invoke_cold_4(uint64_t a1, void *a2)
@@ -2877,7 +2877,7 @@ uint64_t __41__DOCSmartFolderDatabase_purgeOldEntries__block_invoke_cold_8()
   v2 = v1;
   v3 = [v0 displayName];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_10_0(&dword_1E57D8000, v4, v5, "Can't archive folder (%@) to register hit: %@.", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_10_0(&dword_1E57D8000, v4, v5, "Can't archive folder (%@) to register hit: %@.", v6, v7, v8, v9);
 }
 
 void __30__DOCSmartFolderDatabase_open__block_invoke_cold_1()

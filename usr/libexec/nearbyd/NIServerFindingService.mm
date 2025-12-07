@@ -27,14 +27,19 @@
 - (void)_startOrUpdateAdvertising;
 - (void)_submitToUsageAnalyticsAggregator;
 - (void)_tryToStartRangingWithPeerAdvertisement:(id)advertisement;
+- (void)_updatePeerTrackingAdvertisingState:(int)state;
+- (void)_updatePeerTrackingClientWantsUpdates:(BOOL)updates;
+- (void)_updatePeerTrackingDiscoveryState:(int)state;
 - (void)_updatePeerTrackingOOBRefreshPeriod:(id)period;
 - (void)_updatePeerTrackingOverallState:(id)state;
+- (void)_updatePeerTrackingRangingState:(int)state;
 - (void)bluetoothDiscoveryBecameAvailable;
 - (void)bluetoothDiscoveryBecameUnavailable;
 - (void)bluetoothDiscoveryFinishedActivating;
 - (void)clientWithIdentifier:(id)identifier updatedStateToRunning:(BOOL)running dueToTimeout:(BOOL)timeout;
 - (void)dealloc;
 - (void)didAttemptRangingWithPeer:(id)peer unsuccessfulSolution:(const void *)solution;
+- (void)didDiscoverPeer:(id)peer advertisement:(id)advertisement overBluetooth:(BOOL)bluetooth;
 - (void)didLosePeer:(id)peer;
 - (void)didRangeWithPeer:(id)peer newSolution:(const void *)solution;
 - (void)didRangingAuthorizationFailForPeer:(id)peer;
@@ -600,7 +605,7 @@ LABEL_21:
       v58 = self->_rangingProvider;
       if (v58)
       {
-        [(NIServerFindingRangingProvider *)v58 supportedTechnologies];
+        objc_msgSend_supportedTechnologies(v58);
       }
 
       else
@@ -1419,6 +1424,49 @@ LABEL_12:
   objc_destroyWeak(&location);
 }
 
+- (void)didDiscoverPeer:(id)peer advertisement:(id)advertisement overBluetooth:(BOOL)bluetooth
+{
+  bluetoothCopy = bluetooth;
+  peerCopy = peer;
+  advertisementCopy = advertisement;
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(NIDiscoveryToken *)self->_findingToken isEqual:peerCopy])
+  {
+    v10 = qword_1009F9820;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      findingToken = self->_findingToken;
+      advertisementCopy = [NSString stringWithFormat:@"BT: %d. PeerAdv: %@", bluetoothCopy, advertisementCopy];
+      v13 = sub_1003464D4("DiscoveredPeer", 1, findingToken, advertisementCopy);
+      *buf = 138543362;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#find-ses,%{public}@", buf, 0xCu);
+    }
+
+    if (bluetoothCopy)
+    {
+      v14 = 2;
+    }
+
+    else
+    {
+      v14 = 1;
+    }
+
+    [(NIServerFindingService *)self _updatePeerTrackingDiscoveryState:v14];
+    oobRefreshPeriodSeconds = [advertisementCopy oobRefreshPeriodSeconds];
+    v16 = oobRefreshPeriodSeconds == 0;
+
+    if (!v16)
+    {
+      oobRefreshPeriodSeconds2 = [advertisementCopy oobRefreshPeriodSeconds];
+      [(NIServerFindingService *)self _updatePeerTrackingOOBRefreshPeriod:oobRefreshPeriodSeconds2];
+    }
+
+    [(NIServerFindingService *)self _tryToStartRangingWithPeerAdvertisement:advertisementCopy];
+  }
+}
+
 - (void)didLosePeer:(id)peer
 {
   peerCopy = peer;
@@ -1557,13 +1605,13 @@ LABEL_12:
         [(NIServerFindingService *)self _logSuccessfulRange:v11];
         [(NIServerFindingService *)self _updatePeerTrackingRangingState:3];
         self->_cachedSolutionMacAddr = *(solution + 5);
-        sub_100224EF8();
+        sub_100224EF8(728957964, 0, 0, 0, 0, 0);
         [(NINearbyUpdatesEngine *)self->_updatesEngine acceptRoseSolution:solution];
       }
 
       else
       {
-        sub_100224EF8();
+        sub_100224EF8(728957968, 0, 0, 0, 0, 0);
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
           sub_1004B031C();
@@ -1595,7 +1643,7 @@ LABEL_12:
       [(NIServerFindingService *)self _updatePeerTrackingRangingState:2];
     }
 
-    sub_100224EF8();
+    sub_100224EF8(728957972, 0, 0, 0, 0, 0);
     [(NINearbyUpdatesEngine *)self->_updatesEngine acceptUnsuccessfulRoseSolution:solution];
   }
 
@@ -1791,6 +1839,42 @@ LABEL_12:
 
     [(NINearbyUpdatesEngine *)updatesEngine acceptPeerDeviceType:v8];
   }
+}
+
+- (void)_updatePeerTrackingDiscoveryState:(int)state
+{
+  v3 = *&state;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = [(NIServerFindingPeerTracking *)self->_peerTracking copy];
+  [v5 setDiscoveryState:v3];
+  [(NIServerFindingService *)self _updatePeerTrackingOverallState:v5];
+}
+
+- (void)_updatePeerTrackingAdvertisingState:(int)state
+{
+  v3 = *&state;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = [(NIServerFindingPeerTracking *)self->_peerTracking copy];
+  [v5 setAdvertisingState:v3];
+  [(NIServerFindingService *)self _updatePeerTrackingOverallState:v5];
+}
+
+- (void)_updatePeerTrackingRangingState:(int)state
+{
+  v3 = *&state;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = [(NIServerFindingPeerTracking *)self->_peerTracking copy];
+  [v5 setRangingState:v3];
+  [(NIServerFindingService *)self _updatePeerTrackingOverallState:v5];
+}
+
+- (void)_updatePeerTrackingClientWantsUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = [(NIServerFindingPeerTracking *)self->_peerTracking copy];
+  [v5 setClientWantsUpdates:updatesCopy];
+  [(NIServerFindingService *)self _updatePeerTrackingOverallState:v5];
 }
 
 - (void)_addAlgorithmOutputFlagsToPeerTrackingState:(unsigned __int8)state
@@ -2194,7 +2278,7 @@ LABEL_104:
   rangingProvider = self->_rangingProvider;
   if (rangingProvider)
   {
-    [(NIServerFindingRangingProvider *)rangingProvider supportedTechnologies];
+    objc_msgSend_supportedTechnologies(rangingProvider);
   }
 
   else
@@ -2354,7 +2438,7 @@ LABEL_104:
   rangingProvider = self->_rangingProvider;
   if (rangingProvider)
   {
-    [(NIServerFindingRangingProvider *)rangingProvider supportedTechnologies];
+    objc_msgSend_supportedTechnologies(rangingProvider);
   }
 
   else
@@ -2743,7 +2827,7 @@ LABEL_7:
 - (void)DataCallback:(id)callback
 {
   updatesEngine = self->_updatesEngine;
-  [NIGnssExtensionsManager getGnssSatelliteDataVecFromDict:callback];
+  objc_msgSend_getGnssSatelliteDataVecFromDict_(NIGnssExtensionsManager, a2, callback);
   [(NINearbyUpdatesEngine *)updatesEngine acceptGnssSatelliteData:__p];
   if (__p[0])
   {

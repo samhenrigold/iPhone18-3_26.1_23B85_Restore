@@ -29,7 +29,7 @@
 
 - (id)startMonitoringForPeopleDiscovery:(id)discovery
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   discoveryCopy = discovery;
   v6 = discoveryCopy;
   if (discoveryCopy)
@@ -58,24 +58,22 @@ LABEL_5:
     }
 
     v15 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A578];
-    v20 = @"Invalid parameter value for density update handler.  Requires non-nil value.";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A578];
+    v19 = @"Invalid parameter value for density update handler.  Requires non-nil value.";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v12 = [v15 errorWithDomain:@"RTErrorDomain" code:7 userInfo:v16];
   }
 
   else
   {
     v13 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22[0] = @"Invalid configuration to register for people discovery service.  Requires non-nil value.";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A578];
+    v21[0] = @"Invalid configuration to register for people discovery service.  Requires non-nil value.";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v12 = [v13 errorWithDomain:@"RTErrorDomain" code:7 userInfo:v14];
   }
 
 LABEL_8:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -94,7 +92,7 @@ LABEL_8:
 
 - (void)onDensityUpdate:(id)update error:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   errorCopy = error;
   v9 = self->_configuration;
@@ -115,17 +113,17 @@ LABEL_8:
       }
 
       v13 = [(RTPeopleDiscoveryServiceConfiguration *)v9 description];
-      v16 = 138413314;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2048;
-      v23 = [updateCopy count];
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_INFO, "%@, registered, %@, monitoredConfig, %@, densityBundles count, %lu, error, %@", &v16, 0x34u);
+      v15 = 138413314;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2048;
+      v22 = [updateCopy count];
+      v23 = 2112;
+      v24 = errorCopy;
+      _os_log_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_INFO, "%@, registered, %@, monitoredConfig, %@, densityBundles count, %lu, error, %@", &v15, 0x34u);
     }
   }
 
@@ -137,8 +135,6 @@ LABEL_8:
       densityHandler[2](densityHandler, updateCopy, errorCopy);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

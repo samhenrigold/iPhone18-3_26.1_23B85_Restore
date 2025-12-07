@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    durationFromVoiceRecordingEnd = self->_durationFromVoiceRecordingEnd;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if (has)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  durationFromVoiceSendEnd = self->_durationFromVoiceSendEnd;
 
   PBDataWriterWriteUint64Field();
 }

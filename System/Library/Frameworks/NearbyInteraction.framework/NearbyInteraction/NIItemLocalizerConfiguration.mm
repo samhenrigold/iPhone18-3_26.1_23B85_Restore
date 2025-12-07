@@ -66,11 +66,11 @@
 
 - (NIItemLocalizerConfiguration)initWithCoder:(id)coder
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = NIItemLocalizerConfiguration;
-  v5 = [(NIConfiguration *)&v21 initWithCoder:coderCopy];
+  v20.receiver = self;
+  v20.super_class = NIItemLocalizerConfiguration;
+  v5 = [(NIConfiguration *)&v20 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"itemUUID"];
@@ -80,14 +80,14 @@
       if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v8 = [coderCopy decodeIntegerForKey:@"preferredUpdateRate"], +[NIInternalUtils isIntValidNearbyObjectUpdateRate:](NIInternalUtils, "isIntValidNearbyObjectUpdateRate:", v8)))
       {
         v9 = MEMORY[0x1E695DFD8];
-        v23[0] = objc_opt_class();
-        v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+        v22[0] = objc_opt_class();
+        v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
         v11 = [v9 setWithArray:v10];
 
         v12 = MEMORY[0x1E695DFD8];
-        v22[0] = objc_opt_class();
-        v22[1] = objc_opt_class();
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+        v21[0] = objc_opt_class();
+        v21[1] = objc_opt_class();
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
         v14 = [v12 setWithArray:v13];
 
         v15 = [coderCopy decodeDictionaryWithKeysOfClasses:v11 objectsOfClasses:v14 forKey:@"debugParameters"];
@@ -119,7 +119,6 @@
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

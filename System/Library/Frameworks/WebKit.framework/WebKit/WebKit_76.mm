@@ -96,18 +96,18 @@ uint64_t WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF:
   return WTF::fastFree((a1 - 16), a2);
 }
 
-uint64_t mpark::detail::copy_constructor<mpark::detail::traits<WebKit::JavaScriptEvaluationResult::NullType,BOOL,double,WTF::String,WTF::Seconds,WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,(mpark::detail::Trait)1>::copy_constructor(uint64_t a1, uint64_t a2)
+uint64_t *mpark::detail::copy_constructor<mpark::detail::traits<WebKit::JavaScriptEvaluationResult::NullType,BOOL,double,WTF::String,WTF::Seconds,WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,(mpark::detail::Trait)1>::copy_constructor(uint64_t *a1, _BYTE *a2)
 {
   *a1 = 0;
   *(a1 + 16) = -1;
-  v4 = *(a2 + 16);
+  v4 = a2[16];
   if (v4 <= 3)
   {
-    if (*(a2 + 16) <= 1u)
+    if (a2[16] <= 1u)
     {
       *a1 = *a2;
 LABEL_15:
-      *(a1 + 16) = *(a2 + 16);
+      *(a1 + 16) = a2[16];
       return a1;
     }
 
@@ -128,7 +128,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (*(a2 + 16) <= 5u)
+  if (a2[16] <= 5u)
   {
     if (v4 != 4)
     {
@@ -458,7 +458,7 @@ uint64_t WTF::Vector<WTF::Ref<WebCore::LegacyWebArchive,WTF::RawPtrTraits<WebCor
       {
         if (v6[2] == 1)
         {
-          (*(*v6 + 8))(v6);
+          (*(*v6 + 8))(v6, a2);
         }
 
         else
@@ -665,13 +665,13 @@ void sub_19D985624(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::RetainPtr<NSMutableArray>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::RetainPtr<NSMutableArray>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 24 * a1[3] <= a3)
+  if (*a1 > a3 || v5 + 24 * *(a1 + 3) <= a3)
   {
-    v10 = a1[2];
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -703,7 +703,7 @@ unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit:
   else
   {
     v6 = a3 - v5;
-    v7 = a1[2];
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -736,9 +736,9 @@ unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit:
   return v3;
 }
 
-unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::RetainPtr<NSMutableArray>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(unsigned int *result, unint64_t a2)
+WTF *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::RetainPtr<NSMutableArray>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(WTF *result, unint64_t a2)
 {
-  if (result[2] < a2)
+  if (*(result + 2) < a2)
   {
     if (a2 >= 0xAAAAAAB)
     {
@@ -749,10 +749,10 @@ unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<Web
     {
       v2 = result;
       v3 = *result;
-      v4 = result[3];
+      v4 = *(result + 3);
       v5 = 24 * a2;
-      result = WTF::fastMalloc((24 * a2));
-      v2[2] = v5 / 0x18;
+      result = WTF::fastMalloc((3 * a2), (24 * a2));
+      *(v2 + 2) = v5 / 0x18;
       *v2 = result;
       if (v4)
       {
@@ -792,7 +792,7 @@ unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<Web
         if (*v2 == v3)
         {
           *v2 = 0;
-          v2[2] = 0;
+          *(v2 + 2) = 0;
         }
 
         return WTF::fastFree(v3, v6);
@@ -803,13 +803,13 @@ unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<Web
   return result;
 }
 
-unint64_t WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::RetainPtr<NSMutableDictionary>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::RetainPtr<NSMutableDictionary>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 16 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 16 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -841,7 +841,7 @@ unint64_t WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -888,7 +888,7 @@ void WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSO
     {
       v4 = *a1;
       v5 = *(a1 + 12);
-      v6 = WTF::fastMalloc((16 * a2));
+      v6 = WTF::fastMalloc(0, (16 * a2));
       *(a1 + 8) = v2;
       *a1 = v6;
       if (v5)
@@ -937,17 +937,17 @@ void WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSO
   }
 }
 
-WTF::StringImpl *API::String::create@<X0>(API::Object **a1@<X8>)
+WTF::StringImpl *API::String::create@<X0>(Object **__return_ptr a1@<X8>)
 {
   WTF::String::isolatedCopy();
-  API::String::create(&v6, a1);
-  result = v6;
-  v6 = 0;
+  API::String::create(&v5, a1);
+  result = v5;
+  v5 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v4);
+      return WTF::StringImpl::destroy(result, v3);
     }
   }
 
@@ -967,13 +967,13 @@ void sub_19D985A50(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::Ref<API::Array,WTF::RawPtrTraits<API::Array>,WTF::DefaultRefDerefTraits<API::Array>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::Ref<API::Array,WTF::RawPtrTraits<API::Array>,WTF::DefaultRefDerefTraits<API::Array>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 24 * a1[3] <= a3)
+  if (*a1 > a3 || v5 + 24 * *(a1 + 3) <= a3)
   {
-    v10 = a1[2];
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -1005,7 +1005,7 @@ unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit:
   else
   {
     v6 = a3 - v5;
-    v7 = a1[2];
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -1038,9 +1038,9 @@ unint64_t WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit:
   return v3;
 }
 
-unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::Ref<API::Array,WTF::RawPtrTraits<API::Array>,WTF::DefaultRefDerefTraits<API::Array>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(unsigned int *result, unint64_t a2)
+WTF *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::Ref<API::Array,WTF::RawPtrTraits<API::Array>,WTF::DefaultRefDerefTraits<API::Array>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(WTF *result, unint64_t a2)
 {
-  if (result[2] < a2)
+  if (*(result + 2) < a2)
   {
     if (a2 >= 0xAAAAAAB)
     {
@@ -1051,10 +1051,10 @@ unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<Web
     {
       v2 = result;
       v3 = *result;
-      v4 = result[3];
+      v4 = *(result + 3);
       v5 = 24 * a2;
-      result = WTF::fastMalloc((24 * a2));
-      v2[2] = v5 / 0x18;
+      result = WTF::fastMalloc((3 * a2), (24 * a2));
+      *(v2 + 2) = v5 / 0x18;
       *v2 = result;
       if (v4)
       {
@@ -1095,7 +1095,7 @@ unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<Web
         if (*v2 == v3)
         {
           *v2 = 0;
-          v2[2] = 0;
+          *(v2 + 2) = 0;
         }
 
         return WTF::fastFree(v3, v6);
@@ -1106,13 +1106,13 @@ unsigned int *WTF::Vector<std::pair<WTF::Vector<WTF::ObjectIdentifierGeneric<Web
   return result;
 }
 
-unint64_t WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::Ref<API::Dictionary,WTF::RawPtrTraits<API::Dictionary>,WTF::DefaultRefDerefTraits<API::Dictionary>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::Ref<API::Dictionary,WTF::RawPtrTraits<API::Dictionary>,WTF::DefaultRefDerefTraits<API::Dictionary>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 16 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 16 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -1144,7 +1144,7 @@ unint64_t WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -1191,7 +1191,7 @@ void WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSO
     {
       v4 = *a1;
       v5 = *(a1 + 12);
-      v6 = WTF::fastMalloc((16 * a2));
+      v6 = WTF::fastMalloc(0, (16 * a2));
       *(a1 + 8) = v2;
       *a1 = v6;
       if (v5)
@@ -1241,24 +1241,25 @@ void WTF::Vector<std::pair<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSO
   }
 }
 
-_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand(uint64_t *a1)
+_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand(uint64_t *a1, uint64_t a2)
 {
-  v1 = *a1;
-  if (*a1 && (v2 = *(v1 - 4)) != 0)
+  v2 = *a1;
+  if (*a1 && (v3 = *(v2 - 4)) != 0)
   {
-    v3 = v2 << (6 * *(v1 - 12) >= (2 * v2));
+    v4 = (v3 << (6 * *(v2 - 12) >= (2 * v3)));
   }
 
   else
   {
-    v3 = 8;
+    v4 = 8;
   }
 
-  return WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(a1, v3);
+  return WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(a1, v4);
 }
 
-_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1274,8 +1275,8 @@ _DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -1412,24 +1413,25 @@ LABEL_8:
   return result;
 }
 
-_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand(uint64_t *a1)
+_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand(uint64_t *a1, uint64_t a2)
 {
-  v1 = *a1;
-  if (*a1 && (v2 = *(v1 - 4)) != 0)
+  v2 = *a1;
+  if (*a1 && (v3 = *(v2 - 4)) != 0)
   {
-    v3 = v2 << (6 * *(v1 - 12) >= (2 * v2));
+    v4 = (v3 << (6 * *(v2 - 12) >= (2 * v3)));
   }
 
   else
   {
-    v3 = 8;
+    v4 = 8;
   }
 
-  return WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(a1, v3);
+  return WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(a1, v4);
 }
 
-_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1445,8 +1447,8 @@ _DWORD *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -1603,14 +1605,14 @@ uint64_t WTF::HashMapTranslator<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit
   return mpark::detail::move_constructor<mpark::detail::traits<WebKit::JavaScriptEvaluationResult::NullType,BOOL,double,WTF::String,WTF::Seconds,WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,(mpark::detail::Trait)1>::~move_constructor(v6, v4);
 }
 
-void sub_19D9864AC(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_19D9864AC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   mpark::detail::move_constructor<mpark::detail::traits<WebKit::JavaScriptEvaluationResult::NullType,BOOL,double,WTF::String,WTF::Seconds,WTF::Vector<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,(mpark::detail::Trait)1>::~move_constructor(va, a2);
   _Unwind_Resume(a1);
 }
 
-uint64_t WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::find<WTF::HashMapTranslator<WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>>,(WTF::ShouldValidateKey)1,objc_object const*>(uint64_t *a1, uint64_t *a2)
+uint64_t WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::find<WTF::HashMapTranslator<WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>>,(WTF::ShouldValidateKey)1,objc_object const*>(uint64_t *a1, WTF **a2)
 {
   if (!*a1)
   {
@@ -1634,7 +1636,7 @@ uint64_t WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::Ret
   return result;
 }
 
-uint64_t WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::lookup<WTF::HashMapTranslator<WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>>,(WTF::ShouldValidateKey)1,objc_object const*>(uint64_t *a1, uint64_t *a2)
+uint64_t WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::lookup<WTF::HashMapTranslator<WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>>,(WTF::ShouldValidateKey)1,objc_object const*>(uint64_t *a1, WTF **a2)
 {
   WTF::checkHashTableKey<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashMapTranslator<WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>>,(WTF::ShouldValidateKey)1,objc_object const*>(*a2);
   v4 = *a1;
@@ -1675,13 +1677,13 @@ uint64_t WTF::checkHashTableKey<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<
   return result;
 }
 
-void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::inlineSet<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>&>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::inlineSet<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>&>(uint64_t a1, void ***a2, WTF **a3, WTF **a4)
 {
   WTF::checkHashTableKey<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashMapTranslator<WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>>,(WTF::ShouldValidateKey)1,WTF::RetainPtr<objc_object *>>(*a3);
   v8 = *a2;
   if (*a2 || (WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::expand(a2, 0), (v8 = *a2) != 0))
   {
-    v9 = *(v8 - 8);
+    v9 = *(v8 - 2);
   }
 
   else
@@ -1690,7 +1692,7 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
   }
 
   v10 = WTF::intHash(*a3) & v9;
-  v11 = (v8 + 16 * v10);
+  v11 = &v8[2 * v10];
   v12 = *v11;
   v13 = *a3;
   if (*v11)
@@ -1704,7 +1706,7 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
         v21 = *a2;
         if (*a2)
         {
-          v22 = *(v21 - 4);
+          v22 = *(v21 - 1);
         }
 
         else
@@ -1713,7 +1715,7 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
         }
 
         *a1 = v11;
-        *(a1 + 8) = v21 + 16 * v22;
+        *(a1 + 8) = &v21[2 * v22];
         *(a1 + 16) = 0;
         v11[1] = *a4;
         return;
@@ -1725,7 +1727,7 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
       }
 
       v10 = (v10 + v20) & v9;
-      v11 = (v8 + 16 * v10);
+      v11 = &v8[2 * v10];
       v12 = *v11;
       ++v20;
     }
@@ -1735,7 +1737,7 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
     {
       *v19 = 0;
       v19[1] = 0;
-      --*(*a2 - 16);
+      --*(*a2 - 4);
       v13 = *a3;
       v11 = v19;
     }
@@ -1752,7 +1754,7 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
   v15 = *a2;
   if (*a2)
   {
-    v16 = *(v15 - 12) + 1;
+    v16 = *(v15 - 3) + 1;
   }
 
   else
@@ -1760,9 +1762,9 @@ void WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<Web
     v16 = 1;
   }
 
-  *(v15 - 12) = v16;
-  v17 = (*(v15 - 16) + v16);
-  v18 = *(v15 - 4);
+  *(v15 - 3) = v16;
+  v17 = (*(v15 - 4) + v16);
+  v18 = *(v15 - 1);
   if (v18 > 0x400)
   {
     if (v18 > 2 * v17)
@@ -1775,7 +1777,7 @@ LABEL_21:
     v15 = *a2;
     if (*a2)
     {
-      v18 = *(v15 - 4);
+      v18 = *(v15 - 1);
     }
 
     else
@@ -1793,7 +1795,7 @@ LABEL_21:
 
 LABEL_11:
   *a1 = v11;
-  *(a1 + 8) = v15 + 16 * v18;
+  *(a1 + 8) = &v15[2 * v18];
   *(a1 + 16) = 1;
 }
 
@@ -1808,12 +1810,12 @@ uint64_t WTF::checkHashTableKey<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<
   return result;
 }
 
-void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::expand(uint64_t *a1, uint64_t *a2)
+void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::expand(void ***a1, void **a2)
 {
   v3 = *a1;
-  if (*a1 && (v4 = *(v3 - 4)) != 0)
+  if (*a1 && (v4 = *(v3 - 1)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 3) >= (2 * v4)));
   }
 
   else
@@ -1824,8 +1826,9 @@ void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::Retain
   return WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashMap<WTF::RetainPtr<objc_object *>,WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::DefaultHash<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::JSObjectIDType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::FastMalloc>::rehash(void ***a1, unint64_t a2, void **a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -1840,11 +1843,11 @@ void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::Retain
   }
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
-  *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  *a1 = (v9 + 16);
+  *(v9 + 8) = v4 - 1;
+  *(v9 + 12) = v4;
   *v9 = 0;
-  v9[1] = v8;
+  *(v9 + 4) = v8;
   v11 = 0;
   if (v7)
   {
@@ -1927,12 +1930,12 @@ void *WTF::HashTable<WTF::RetainPtr<objc_object *>,WTF::KeyValuePair<WTF::Retain
   return result;
 }
 
-void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long long>,WTF::FastMalloc>::expand(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long long>,WTF::FastMalloc>::expand(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -1943,8 +1946,9 @@ void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF
   return WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<WTF::RefPtr<WebKit::ProcessThrottlerActivity,WTF::RawPtrTraits<WebKit::ProcessThrottlerActivity>,WTF::DefaultRefDerefTraits<WebKit::ProcessThrottlerActivity>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -1960,8 +1964,8 @@ void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -2057,7 +2061,7 @@ void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF
   return v12;
 }
 
-IPC::Encoder *WebKit::AuxiliaryProcessProxy::send<Messages::RemoteObjectRegistry::InvokeMethod>(uint64_t a1, void *a2, uint64_t a3)
+IPC::Encoder *WebKit::AuxiliaryProcessProxy::send<Messages::RemoteObjectRegistry::InvokeMethod>(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v6 = IPC::Encoder::operator new(0x238, a2);
   *v6 = 1504;
@@ -2094,11 +2098,11 @@ IPC::Encoder *WebKit::AuxiliaryProcessProxy::send<Messages::RemoteObjectRegistry
   return result;
 }
 
-void sub_19D986C58(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19D986C58(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -2148,11 +2152,11 @@ uint64_t WebKit::AuxiliaryProcessProxy::send<Messages::RemoteObjectRegistry::Cal
   return v10;
 }
 
-void sub_19D986DCC(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19D986DCC(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -2410,7 +2414,7 @@ uint64_t IPC::handleMessageAsync<Messages::DrawingArea::SetDeviceScaleFactor,IPC
 
       WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_6:
-      v11 = WTF::fastMalloc(0x18);
+      v11 = WTF::fastMalloc(v10, 0x18);
       *v11 = &unk_1F10EEC10;
       v11[1] = v9;
       v11[2] = a1;
@@ -2455,7 +2459,7 @@ LABEL_4:
         }
 
 LABEL_6:
-        v10 = WTF::fastMalloc(0x18);
+        v10 = WTF::fastMalloc(v9, 0x18);
         *v10 = &unk_1F10EEC38;
         v10[1] = v8;
         v10[2] = a1;
@@ -2487,7 +2491,7 @@ LABEL_6:
 
 void IPC::handleMessage<Messages::DrawingArea::SetColorSpace,IPC::Connection,WebKit::DrawingArea,WebKit::DrawingArea,void ()(std::optional<WebCore::DestinationColorSpace>)>(IPC::Decoder *a1, uint64_t a2)
 {
-  IPC::ArgumentCoder<std::optional<WebCore::DestinationColorSpace>,void>::decode<IPC::Decoder>(a1, &cf);
+  IPC::ArgumentCoder<std::optional<WebCore::DestinationColorSpace>,void>::decode<IPC::Decoder>(&cf, a1);
   if (v14)
   {
     goto LABEL_2;
@@ -2649,7 +2653,7 @@ uint64_t IPC::handleMessageAsync<Messages::DrawingArea::CommitTransientZoom,IPC:
 
       WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_8:
-      v11 = WTF::fastMalloc(0x18);
+      v11 = WTF::fastMalloc(v9, 0x18);
       *v11 = &unk_1F10EEC60;
       v11[1] = v8;
       v11[2] = a1;
@@ -2883,7 +2887,7 @@ uint64_t IPC::handleMessage<Messages::EventDispatcher::WheelEvent,IPC::Connectio
   return result;
 }
 
-WTF *IPC::handleMessageAsync<Messages::EventDispatcher::TouchEvent,IPC::Connection,WebKit::EventDispatcher,WebKit::EventDispatcher,void ()(WTF::ObjectIdentifierGeneric<WebCore::PageIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::FrameIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WebKit::WebTouchEvent const&,WTF::CompletionHandler<void ()(BOOL,std::optional<WebKit::RemoteWebTouchEvent>)> &&)>(atomic_ullong *a1, IPC::Decoder *a2, uint64_t a3)
+WTF *IPC::handleMessageAsync<Messages::EventDispatcher::TouchEvent,IPC::Connection,WebKit::EventDispatcher,WebKit::EventDispatcher,void ()(WTF::ObjectIdentifierGeneric<WebCore::PageIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::FrameIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WebKit::WebTouchEvent const&,WTF::CompletionHandler<void ()(BOOL,std::optional<WebKit::RemoteWebTouchEvent>)> &&)>(atomic_ullong *a1, IPC::Decoder *a2, unint64_t a3)
 {
   v62 = *MEMORY[0x1E69E9840];
   v6 = IPC::Decoder::decode<WTF::ObjectIdentifierGeneric<WebKit::WebPageProxyIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>(a2);
@@ -2996,10 +3000,10 @@ LABEL_21:
 
     WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_13:
-    v28 = WTF::fastMalloc(0x18);
+    v28 = WTF::fastMalloc(v26, 0x18);
     *v28 = &unk_1F10EEC88;
-    *(v28 + 1) = v25;
-    *(v28 + 2) = a1;
+    v28[1] = v25;
+    v28[2] = a1;
     v50 = v28;
     if ((v49 & 1) == 0)
     {
@@ -3035,7 +3039,7 @@ LABEL_16:
 
 atomic_ullong *WebKit::GPUConnectionToWebProcess::didReceiveMessage(WebKit::GPUConnectionToWebProcess *this, IPC::Connection *a2, IPC::Decoder *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = *(this + 43);
   v7 = *(this + 176);
   v8 = (this + 16);
@@ -3047,9 +3051,9 @@ atomic_ullong *WebKit::GPUConnectionToWebProcess::didReceiveMessage(WebKit::GPUC
       break;
     }
 
-    v25 = *v8;
-    atomic_compare_exchange_strong_explicit(v8, &v25, v9 + 2, memory_order_relaxed, memory_order_relaxed);
-    if (v25 == v9)
+    v20 = *v8;
+    atomic_compare_exchange_strong_explicit(v8, &v20, v9 + 2, memory_order_relaxed, memory_order_relaxed);
+    if (v20 == v9)
     {
       goto LABEL_4;
     }
@@ -3066,25 +3070,25 @@ LABEL_4:
       IPC::handleMessage<Messages::GPUConnectionToWebProcess::ConfigureLoggingChannel,IPC::Connection,WebKit::GPUConnectionToWebProcess,WebKit::GPUConnectionToWebProcess,void ()(WTF::String const&,WTFLogChannelState,WTFLogLevel)>(a3, this);
       break;
     case '&':
-      v17 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v18)
+      v16 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+      if (v10)
       {
-        WebKit::GPUConnectionToWebProcess::createAudioHardwareListener(this, v17);
+        WebKit::GPUConnectionToWebProcess::createAudioHardwareListener(this, v16);
       }
 
       break;
     case '\'':
       if ((v7 & 0x4000) == 0)
       {
-        v15 = qword_1ED6416C8;
+        v14 = qword_1ED6416C8;
         if (!os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
-        *v34 = 136315138;
-        *&v34[4] = "GPUConnectionToWebProcess_CreateGPU";
-        v16 = "Message %s received by a disabled message endpoint";
+        *v28 = 136315138;
+        *&v28[4] = "GPUConnectionToWebProcess_CreateGPU";
+        v15 = "Message %s received by a disabled message endpoint";
         goto LABEL_59;
       }
 
@@ -3093,25 +3097,25 @@ LABEL_4:
     case '(':
       if ((v7 & 0x800) == 0 || (v6 & 0x400000000) == 0)
       {
-        v15 = qword_1ED6416C8;
+        v14 = qword_1ED6416C8;
         if (!os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
-        *v34 = 136315138;
-        *&v34[4] = "GPUConnectionToWebProcess_CreateGraphicsContextGL";
-        v16 = "Message %s received by a disabled message endpoint";
+        *v28 = 136315138;
+        *&v28[4] = "GPUConnectionToWebProcess_CreateGraphicsContextGL";
+        v15 = "Message %s received by a disabled message endpoint";
         goto LABEL_59;
       }
 
       IPC::handleMessage<Messages::GPUConnectionToWebProcess::CreateGraphicsContextGL,IPC::Connection,WebKit::GPUConnectionToWebProcess,WebKit::GPUConnectionToWebProcess,void ()(WTF::ObjectIdentifierGeneric<WebKit::GraphicsContextGLIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::GraphicsContextGLAttributes,WTF::ObjectIdentifierGeneric<WebKit::RenderingBackendIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,IPC::StreamServerConnectionHandle &&)>(a3, this);
       break;
     case ')':
-      v21 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v22)
+      v18 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+      if (v10)
       {
-        WebKit::GPUConnectionToWebProcess::createRemoteCommandListener(this, v21);
+        WebKit::GPUConnectionToWebProcess::createRemoteCommandListener(this, v18);
       }
 
       break;
@@ -3122,101 +3126,101 @@ LABEL_4:
       IPC::handleMessage<Messages::GPUConnectionToWebProcess::CreateVisibilityPropagationContextForPage,IPC::Connection,WebKit::GPUConnectionToWebProcess,WebKit::GPUConnectionToWebProcess,void ()(WTF::ObjectIdentifierGeneric<WebKit::WebPageProxyIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::PageIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,BOOL)>(a3, this);
       break;
     case ',':
-      IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::WebPageProxyIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::PageIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(v34, a3);
-      if (v34[16] == 1)
+      IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::WebPageProxyIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::PageIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(v28, a3);
+      if (v28[16] == 1)
       {
-        WebKit::GPUConnectionToWebProcess::destroyVisibilityPropagationContextForPage(this, *v34, *&v34[8]);
+        WebKit::GPUConnectionToWebProcess::destroyVisibilityPropagationContextForPage(this, *v28, *&v28[8]);
       }
 
       break;
     case '-':
       if ((v6 & 0x440000000000) == 0)
       {
-        v15 = qword_1ED6416C8;
+        v14 = qword_1ED6416C8;
         if (!os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
-        *v34 = 136315138;
-        *&v34[4] = "GPUConnectionToWebProcess_EnableMockMediaSource";
-        v16 = "Message %s received by a disabled message endpoint";
+        *v28 = 136315138;
+        *&v28[4] = "GPUConnectionToWebProcess_EnableMockMediaSource";
+        v15 = "Message %s received by a disabled message endpoint";
         goto LABEL_59;
       }
 
       WebKit::GPUConnectionToWebProcess::enableMockMediaSource(this);
       break;
     case '.':
-      WebKit::GPUConnectionToWebProcess::ensureMediaSessionHelper(this);
+      WebKit::GPUConnectionToWebProcess::ensureMediaSessionHelper(this, a2);
       break;
     case '/':
-      v19 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v20)
+      v17 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+      if (v10)
       {
-        WebKit::GPUConnectionToWebProcess::releaseAudioHardwareListener(this, v19);
+        WebKit::GPUConnectionToWebProcess::releaseAudioHardwareListener(this, v17);
       }
 
       break;
     case '0':
       if ((v7 & 0x4000) == 0)
       {
-        v15 = qword_1ED6416C8;
+        v14 = qword_1ED6416C8;
         if (!os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
-        *v34 = 136315138;
-        *&v34[4] = "GPUConnectionToWebProcess_ReleaseGPU";
-        v16 = "Message %s received by a disabled message endpoint";
+        *v28 = 136315138;
+        *&v28[4] = "GPUConnectionToWebProcess_ReleaseGPU";
+        v15 = "Message %s received by a disabled message endpoint";
         goto LABEL_59;
       }
 
-      v26 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::AudioMediaStreamTrackRendererInternalUnitIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v27)
+      v21 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::AudioMediaStreamTrackRendererInternalUnitIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+      if (v10)
       {
-        WebKit::GPUConnectionToWebProcess::releaseGPU(this, v26);
+        WebKit::GPUConnectionToWebProcess::releaseGPU(this, v21);
       }
 
       break;
     case '1':
       if ((v7 & 0x800) == 0 || (v6 & 0x400000000) == 0)
       {
-        v15 = qword_1ED6416C8;
+        v14 = qword_1ED6416C8;
         if (!os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
-        *v34 = 136315138;
-        *&v34[4] = "GPUConnectionToWebProcess_ReleaseGraphicsContextGL";
-        v16 = "Message %s received by a disabled message endpoint";
+        *v28 = 136315138;
+        *&v28[4] = "GPUConnectionToWebProcess_ReleaseGraphicsContextGL";
+        v15 = "Message %s received by a disabled message endpoint";
 LABEL_59:
-        v32 = v15;
-        v33 = 12;
+        v26 = v14;
+        v27 = 12;
         goto LABEL_60;
       }
 
       v13 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::AudioMediaStreamTrackRendererInternalUnitIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v14)
+      if (v10)
       {
         WebKit::GPUConnectionToWebProcess::releaseGraphicsContextGL(this, v13);
       }
 
       break;
     case '2':
-      v23 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v24)
+      v19 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RemoteAudioHardwareListenerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+      if (v10)
       {
-        WebKit::GPUConnectionToWebProcess::releaseRemoteCommandListener(this, v23);
+        WebKit::GPUConnectionToWebProcess::releaseRemoteCommandListener(this, v19);
       }
 
       break;
     case '3':
-      v11 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RenderingBackendIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-      if (v12)
+      v12 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebKit::RenderingBackendIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+      if (v10)
       {
-        WebKit::GPUConnectionToWebProcess::releaseRenderingBackend(this, v11);
+        WebKit::GPUConnectionToWebProcess::releaseRenderingBackend(this, v12);
       }
 
       break;
@@ -3235,26 +3239,26 @@ LABEL_59:
     default:
       if (!WebKit::GPUConnectionToWebProcess::dispatchMessage(this, a2, a3))
       {
-        v28 = qword_1ED6416C8;
+        v22 = qword_1ED6416C8;
         if (os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
-          v29 = *(a3 + 25);
-          if (v29 >= 0x107F)
+          v23 = *(a3 + 25);
+          if (v23 >= 0x107F)
           {
-            v29 = 4223;
+            v23 = 4223;
           }
 
-          v30 = (&IPC::Detail::messageDescriptions)[3 * v29];
-          v31 = *(a3 + 7);
-          *v34 = 136315394;
-          *&v34[4] = v30;
-          *&v34[12] = 2048;
-          *&v34[14] = v31;
-          v16 = "Unhandled message %s to %llu";
-          v32 = v28;
-          v33 = 22;
+          v24 = (&IPC::Detail::messageDescriptions)[3 * v23];
+          v25 = *(a3 + 7);
+          *v28 = 136315394;
+          *&v28[4] = v24;
+          *&v28[12] = 2048;
+          *&v28[14] = v25;
+          v15 = "Unhandled message %s to %llu";
+          v26 = v22;
+          v27 = 22;
 LABEL_60:
-          _os_log_error_impl(&dword_19D52D000, v32, OS_LOG_TYPE_ERROR, v16, v34, v33);
+          _os_log_error_impl(&dword_19D52D000, v26, OS_LOG_TYPE_ERROR, v15, v28, v27);
         }
 
 LABEL_46:
@@ -3264,7 +3268,7 @@ LABEL_46:
       break;
   }
 
-  return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v8);
+  return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v8, v10);
 }
 
 _BYTE *IPC::handleMessage<Messages::GPUConnectionToWebProcess::CreateRenderingBackend,IPC::Connection,WebKit::GPUConnectionToWebProcess,WebKit::GPUConnectionToWebProcess,void ()(WTF::ObjectIdentifierGeneric<WebKit::RenderingBackendIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,IPC::StreamServerConnectionHandle &&)>(IPC::Decoder *a1, uint64_t a2)
@@ -3499,7 +3503,7 @@ id **IPC::handleMessage<Messages::GPUConnectionToWebProcess::CreateVisibilityPro
   return result;
 }
 
-void IPC::handleMessage<Messages::GPUConnectionToWebProcess::SetMediaOverridesForTesting,IPC::Connection,WebKit::GPUConnectionToWebProcess,WebKit::GPUConnectionToWebProcess,void ()(WebKit::MediaOverridesForTesting)>(IPC::Decoder *a1, uint64_t a2)
+void IPC::handleMessage<Messages::GPUConnectionToWebProcess::SetMediaOverridesForTesting,IPC::Connection,WebKit::GPUConnectionToWebProcess,WebKit::GPUConnectionToWebProcess,void ()(WebKit::MediaOverridesForTesting)>(IPC::Decoder **a1, uint64_t a2)
 {
   IPC::ArgumentCoder<WebKit::MediaOverridesForTesting,void>::decode(a1, &v13);
   if (v16)
@@ -3514,17 +3518,17 @@ void IPC::handleMessage<Messages::GPUConnectionToWebProcess::SetMediaOverridesFo
   else
   {
     v4 = *a1;
-    v5 = *(a1 + 1);
+    v5 = a1[1];
     *a1 = 0;
-    *(a1 + 1) = 0;
-    v6 = *(a1 + 3);
+    a1[1] = 0;
+    v6 = a1[3];
     if (v6 && v5)
     {
       (*(*v6 + 16))(v6, v4);
-      v7 = *(a1 + 1);
-      v8 = *(a1 + 3);
+      v7 = a1[1];
+      v8 = a1[3];
       *a1 = 0;
-      *(a1 + 1) = 0;
+      a1[1] = 0;
       if (v8 && v7)
       {
         v9 = *(*v8 + 16);
@@ -3536,7 +3540,7 @@ void IPC::handleMessage<Messages::GPUConnectionToWebProcess::SetMediaOverridesFo
     else
     {
       *a1 = 0;
-      *(a1 + 1) = 0;
+      a1[1] = 0;
     }
   }
 }
@@ -3573,8 +3577,8 @@ void IPC::handleMessage<Messages::GPUConnectionToWebProcess::UpdateSampleBufferD
   }
 
   v6 = v4;
-  IPC::ArgumentCoder<WebCore::FloatRect,void>::decode(a1, &v24);
-  if ((v25 & 1) == 0)
+  IPC::ArgumentCoder<WebCore::FloatRect,void>::decode(a1, &v25);
+  if ((v26 & 1) == 0)
   {
     v16 = *a1;
     v17 = a1[1];
@@ -3588,7 +3592,7 @@ void IPC::handleMessage<Messages::GPUConnectionToWebProcess::UpdateSampleBufferD
 
 LABEL_13:
     LOBYTE(v19) = 0;
-    v23 = 0;
+    v24 = 0;
     v11 = *a1;
     v12 = a1[1];
     *a1 = 0;
@@ -3610,7 +3614,7 @@ LABEL_13:
     }
 
     (*(*v13 + 16))(v13, v11);
-    if ((v23 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
       return;
     }
@@ -3618,8 +3622,8 @@ LABEL_13:
     goto LABEL_9;
   }
 
-  IPC::ArgumentCoder<std::optional<WTF::MachSendRightAnnotated>,void>::decode<IPC::Decoder>(a1, v26);
-  if ((v29 & 1) == 0)
+  IPC::ArgumentCoder<std::optional<WTF::MachSendRightAnnotated>,void>::decode<IPC::Decoder>(a1, v27);
+  if ((v30 & 1) == 0)
   {
     v8 = *a1;
     v9 = a1[1];
@@ -3637,45 +3641,46 @@ LABEL_13:
     }
 
     (*(*v10 + 16))(v10, v8);
-    if ((v29 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
       goto LABEL_13;
     }
   }
 
   v19 = v6;
-  v20[0] = 0;
-  v22 = 0;
-  if (v28 == 1)
+  v20 = v25;
+  v21[0] = 0;
+  v23 = 0;
+  if (v29 == 1)
   {
     WTF::MachSendRight::MachSendRight();
-    v21 = v27;
-    v22 = 1;
+    v22 = v28;
     v23 = 1;
-    if (v29 & 1) != 0 && (v28)
+    v24 = 1;
+    if (v30 & 1) != 0 && (v29)
     {
-      v27 = 0;
-      WTF::MachSendRight::~MachSendRight(v26);
+      v28 = 0;
+      WTF::MachSendRight::~MachSendRight(v27);
     }
   }
 
   else
   {
-    v23 = 1;
+    v24 = 1;
   }
 
 LABEL_9:
-  WebKit::GPUConnectionToWebProcess::updateSampleBufferDisplayLayerBoundsAndPosition(a2, v19, v20);
-  if ((v23 & 1) != 0 && v22 == 1)
+  WebKit::GPUConnectionToWebProcess::updateSampleBufferDisplayLayerBoundsAndPosition(a2, v19, v21, *&v20, *(&v20 + 1), *(&v20 + 2), *(&v20 + 3));
+  if ((v24 & 1) != 0 && v23 == 1)
   {
-    v15 = v21;
-    v21 = 0;
+    v15 = v22;
+    v22 = 0;
     if (v15)
     {
       WTF::fastFree(v15, v7);
     }
 
-    WTF::MachSendRight::~MachSendRight(v20);
+    WTF::MachSendRight::~MachSendRight(v21);
   }
 }
 
@@ -3747,7 +3752,7 @@ LABEL_6:
 
     WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a2);
 LABEL_19:
-    v21 = WTF::fastMalloc(0x18);
+    v21 = WTF::fastMalloc(v19, 0x18);
     *v21 = &unk_1F10EECB0;
     v21[1] = v18;
     v21[2] = a2;
@@ -3770,7 +3775,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v13 = qword_1ED6416C8;
+  v14 = qword_1ED6416C8;
   if (os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
   {
     v24 = *(a3 + 50);
@@ -3785,26 +3790,26 @@ LABEL_21:
     *&v27[4] = v25;
     v28 = 2048;
     v29 = v26;
-    _os_log_error_impl(&dword_19D52D000, v13, OS_LOG_TYPE_ERROR, "Unhandled synchronous message %s to %llu", v27, 0x16u);
+    _os_log_error_impl(&dword_19D52D000, v14, OS_LOG_TYPE_ERROR, "Unhandled synchronous message %s to %llu", v27, 0x16u);
   }
 
-  v14 = *a3;
+  v13 = *a3;
   v15 = *(a3 + 8);
   *a3 = 0;
   *(a3 + 8) = 0;
   v16 = *(a3 + 24);
   if (v16 && v15)
   {
-    (*(*v16 + 16))(v16, v14);
+    (*(*v16 + 16))(v16, v13);
   }
 
   v17 = 0;
 LABEL_22:
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v9);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v9, v13);
   return v17;
 }
 
-atomic_uchar **WebKit::GPUProcessConnection::didReceiveMessage(WebKit::GPUProcessConnection *this, IPC::Connection *a2, IPC::Decoder *a3)
+atomic_ullong *WebKit::GPUProcessConnection::didReceiveMessage(WebKit::GPUProcessConnection *this, IPC::Connection *a2, IPC::Decoder *a3)
 {
   v22 = *MEMORY[0x1E69E9840];
   v6 = (this + 24);
@@ -3880,10 +3885,10 @@ LABEL_4:
 
 uint64_t IPC::handleMessage<Messages::GPUProcessConnection::DidReceiveRemoteCommand,IPC::Connection,WebKit::GPUProcessConnection,WebKit::GPUProcessConnection,void ()(WebCore::PlatformMediaSessionRemoteControlCommandType,WebCore::PlatformMediaSessionRemoteCommandArgument const&)>(uint64_t *a1, WebCore::PlatformMediaSessionManager *a2)
 {
-  IPC::ArgumentCoder<std::tuple<WebCore::PlatformMediaSessionRemoteControlCommandType,WebCore::PlatformMediaSessionRemoteCommandArgument>,void>::decode<IPC::Decoder>(a1, v8);
+  IPC::ArgumentCoder<std::tuple<WebCore::PlatformMediaSessionRemoteControlCommandType,WebCore::PlatformMediaSessionRemoteCommandArgument>,void>::decode<IPC::Decoder>(a1, &v8);
   if (v10)
   {
-    return WebKit::GPUProcessConnection::didReceiveRemoteCommand(a2, v8[0], &v9);
+    return WebKit::GPUProcessConnection::didReceiveRemoteCommand(a2, v8, &v9);
   }
 
   v5 = *a1;
@@ -3896,14 +3901,14 @@ uint64_t IPC::handleMessage<Messages::GPUProcessConnection::DidReceiveRemoteComm
     result = (*(*result + 16))(result, v5);
     if (v10)
     {
-      return WebKit::GPUProcessConnection::didReceiveRemoteCommand(a2, v8[0], &v9);
+      return WebKit::GPUProcessConnection::didReceiveRemoteCommand(a2, v8, &v9);
     }
   }
 
   return result;
 }
 
-uint64_t WebKit::GPUProcessConnection::didReceiveSyncMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t WebKit::GPUProcessConnection::didReceiveSyncMessage(uint64_t a1, uint64_t a2, void **a3, uint64_t a4)
 {
   v24 = *MEMORY[0x1E69E9840];
   v8 = (a1 + 24);
@@ -3931,14 +3936,14 @@ LABEL_6:
     v13 = qword_1ED6416C8;
     if (os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a3 + 50);
+      v17 = *(a3 + 25);
       if (v17 >= 0x107F)
       {
         v17 = 4223;
       }
 
       v18 = (&IPC::Detail::messageDescriptions)[3 * v17];
-      v19 = *(a3 + 56);
+      v19 = a3[7];
       v20 = 136315394;
       v21 = v18;
       v22 = 2048;
@@ -3947,10 +3952,10 @@ LABEL_6:
     }
 
     v11 = *a3;
-    v14 = *(a3 + 8);
+    v14 = a3[1];
     *a3 = 0;
-    *(a3 + 8) = 0;
-    v15 = *(a3 + 24);
+    a3[1] = 0;
+    v15 = a3[3];
     if (v15 && v14)
     {
       (*(*v15 + 16))(v15, v11);
@@ -3961,7 +3966,7 @@ LABEL_6:
   return v12;
 }
 
-void IPC::handleMessageAsync<Messages::GPUProcess::InitializeGPUProcess,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WebKit::GPUProcessCreationParameters &&,WTF::CompletionHandler<void ()(void)> &&)>(WTF::ThreadSafeWeakPtrControlBlock **a1, IPC::Decoder *a2, uint64_t a3)
+void IPC::handleMessageAsync<Messages::GPUProcess::InitializeGPUProcess,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WebKit::GPUProcessCreationParameters &&,WTF::CompletionHandler<void ()(void)> &&)>(WTF::ThreadSafeWeakPtrControlBlock **a1, IPC::Decoder *a2, unint64_t a3)
 {
   IPC::Decoder::decode<std::tuple<WebKit::GPUProcessCreationParameters>>(v14, a2);
   if (v15 == 1)
@@ -3988,7 +3993,7 @@ LABEL_4:
         }
 
 LABEL_6:
-        v10 = WTF::fastMalloc(0x18);
+        v10 = WTF::fastMalloc(v9, 0x18);
         *v10 = &unk_1F10EECD8;
         v10[1] = v8;
         v10[2] = a1;
@@ -4045,7 +4050,7 @@ LABEL_4:
         }
 
 LABEL_6:
-        v10 = WTF::fastMalloc(0x18);
+        v10 = WTF::fastMalloc(v9, 0x18);
         *v10 = &unk_1F10EED00;
         v10[1] = v8;
         v10[2] = a1;
@@ -4072,7 +4077,7 @@ LABEL_6:
   return std::optional<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,PAL::SessionID,IPC::ConnectionHandle,WebKit::GPUProcessConnectionParameters>>::~optional(v15, v6);
 }
 
-uint64_t IPC::handleMessageAsync<Messages::GPUProcess::SharedPreferencesForWebProcessDidChange,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WebKit::SharedPreferencesForWebProcess &&,WTF::CompletionHandler<void ()(void)> &&)>(WTF::ThreadSafeWeakPtrControlBlock **a1, IPC::Decoder *a2, uint64_t a3)
+void *IPC::handleMessageAsync<Messages::GPUProcess::SharedPreferencesForWebProcessDidChange,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WebKit::SharedPreferencesForWebProcess &&,WTF::CompletionHandler<void ()(void)> &&)>(WTF::ThreadSafeWeakPtrControlBlock **a1, IPC::Decoder *a2, uint64_t a3)
 {
   result = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WebKit::SharedPreferencesForWebProcess>>(a2, &v13);
   if (v15 == 1)
@@ -4099,7 +4104,7 @@ LABEL_4:
         }
 
 LABEL_6:
-        v10 = WTF::fastMalloc(0x18);
+        v10 = WTF::fastMalloc(v9, 0x18);
         *v10 = &unk_1F10EED28;
         v10[1] = v8;
         v10[2] = a1;
@@ -4128,7 +4133,7 @@ LABEL_6:
 
 void IPC::handleMessage<Messages::GPUProcess::UpdateSandboxAccess,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&)>(IPC::Decoder *a1, void *a2)
 {
-  IPC::Decoder::decode<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(a1, a2, v4);
+  IPC::Decoder::decode<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(a1, v4, a2);
   if (v5 == 1)
   {
     WebKit::GPUProcess::updateSandboxAccess(a2, v4);
@@ -4139,7 +4144,7 @@ void IPC::handleMessage<Messages::GPUProcess::UpdateSandboxAccess,IPC::Connectio
   }
 }
 
-void *IPC::handleMessageAsync<Messages::GPUProcess::PrepareToSuspend,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(BOOL,WTF::MonotonicTime,WTF::CompletionHandler<void ()(void)> &&)>(atomic_ullong *a1, IPC::Decoder *a2, WebKit::GPUProcess *a3)
+uint64_t *IPC::handleMessageAsync<Messages::GPUProcess::PrepareToSuspend,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(BOOL,WTF::MonotonicTime,WTF::CompletionHandler<void ()(void)> &&)>(atomic_ullong *a1, IPC::Decoder *a2, WebKit::GPUProcess *a3)
 {
   result = IPC::Decoder::decode<std::tuple<BOOL,WTF::MonotonicTime>>(a2, v12);
   if (v13 == 1)
@@ -4166,7 +4171,7 @@ void *IPC::handleMessageAsync<Messages::GPUProcess::PrepareToSuspend,IPC::Connec
 
       WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_8:
-      result = WTF::fastMalloc(0x18);
+      result = WTF::fastMalloc(v9, 0x18);
       *result = &unk_1F10EED50;
       result[1] = v8;
       result[2] = a1;
@@ -4476,7 +4481,7 @@ LABEL_31:
 
     WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_17:
-    v22 = WTF::fastMalloc(0x18);
+    v22 = WTF::fastMalloc(v20, 0x18);
     *v22 = &unk_1F10EED78;
     v22[1] = v19;
     v22[2] = a1;
@@ -4626,35 +4631,35 @@ LABEL_33:
   return result;
 }
 
-WTF::StringImpl *IPC::handleMessage<Messages::GPUProcess::AddMockMediaDevice,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WebCore::MockMediaDevice const&)>(IPC::Decoder *a1)
+WTF::StringImpl *IPC::handleMessage<Messages::GPUProcess::AddMockMediaDevice,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WebCore::MockMediaDevice const&)>(IPC::Decoder *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  IPC::ArgumentCoder<std::tuple<WebCore::MockMediaDevice>,void>::decode<IPC::Decoder>(a1, &v9);
-  if (v13 & 1) != 0 || ((v5 = *a1, v6 = *(a1 + 1), *a1 = 0, *(a1 + 1) = 0, (result = *(a1 + 3)) != 0) ? (v7 = v6 == 0) : (v7 = 1), !v7 && (result = (*(*result + 16))(result, v5), (v13)))
+  v16 = *MEMORY[0x1E69E9840];
+  IPC::ArgumentCoder<std::tuple<WebCore::MockMediaDevice>,void>::decode<IPC::Decoder>(a1, &v11);
+  if (v15 & 1) != 0 || ((v7 = *a1, v8 = *(a1 + 1), *a1 = 0, *(a1 + 1) = 0, (result = *(a1 + 3)) != 0) ? (v9 = v8 == 0) : (v9 = 1), !v9 && (result = (*(*result + 16))(result, v7), (v15)))
   {
-    result = WebKit::GPUProcess::addMockMediaDevice();
-    if (v13)
+    result = WebKit::GPUProcess::addMockMediaDevice(a2, &v11);
+    if (v15)
     {
-      if (v12 != 255)
+      if (v14 != 255)
       {
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::MockMicrophoneProperties,WebCore::MockSpeakerProperties,WebCore::MockCameraProperties,WebCore::MockDisplayProperties>,(mpark::detail::Trait)1> &>(&v8, v11);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WebCore::MockMicrophoneProperties,WebCore::MockSpeakerProperties,WebCore::MockCameraProperties,WebCore::MockDisplayProperties>,(mpark::detail::Trait)1> &>(&v10, v13);
       }
 
-      v12 = -1;
-      v4 = v10;
-      v10 = 0;
-      if (v4 && atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v14 = -1;
+      v6 = v12;
+      v12 = 0;
+      if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v4, v3);
+        WTF::StringImpl::destroy(v6, v5);
       }
 
-      result = v9;
-      v9 = 0;
+      result = v11;
+      v11 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          return WTF::StringImpl::destroy(result, v3);
+          return WTF::StringImpl::destroy(result, v5);
         }
       }
     }
@@ -4938,7 +4943,7 @@ LABEL_12:
   if ((v13 & 0x1000000) != 0)
   {
 
-    return WebKit::GPUProcess::triggerMockCaptureConfigurationChange(this);
+    return WebKit::GPUProcess::triggerMockCaptureConfigurationChange(this, v13 & 1, v13 & 0x100, v13 & 0x10000);
   }
 
   return result;
@@ -4972,7 +4977,7 @@ uint64_t IPC::handleMessageAsync<Messages::GPUProcess::RequestBitmapImageForCurr
 
       WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_15:
-      v19 = WTF::fastMalloc(0x18);
+      v19 = WTF::fastMalloc(v15, 0x18);
       *v19 = &unk_1F10EEDA0;
       v19[1] = v14;
       v19[2] = a1;
@@ -5014,15 +5019,15 @@ LABEL_15:
   return result;
 }
 
-uint64_t IPC::handleMessage<Messages::GPUProcess::UserPreferredLanguagesChanged,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>(IPC::Decoder *a1)
+uint64_t IPC::handleMessage<Messages::GPUProcess::UserPreferredLanguagesChanged,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>(IPC::Decoder *a1, uint64_t a2)
 {
-  result = IPC::Decoder::decode<std::tuple<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(a1, v3);
-  if (v4 == 1)
+  result = IPC::Decoder::decode<std::tuple<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(a1, v5);
+  if (v6 == 1)
   {
-    result = WebKit::GPUProcess::userPreferredLanguagesChanged();
-    if (v4)
+    result = WebKit::GPUProcess::userPreferredLanguagesChanged(a2, v5);
+    if (v6)
     {
-      return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v3, v2);
+      return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v5, v4);
     }
   }
 
@@ -5053,7 +5058,7 @@ uint64_t IPC::handleMessageAsync<Messages::GPUProcess::WebProcessConnectionCount
 
     WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_7:
-    v10 = WTF::fastMalloc(0x18);
+    v10 = WTF::fastMalloc(v8, 0x18);
     *v10 = &unk_1F10EEDC8;
     v10[1] = v7;
     v10[2] = a1;
@@ -5103,7 +5108,7 @@ uint64_t IPC::handleMessageAsync<Messages::GPUProcess::PostWillTakeSnapshotNotif
 
     WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a1);
 LABEL_7:
-    v10 = WTF::fastMalloc(0x18);
+    v10 = WTF::fastMalloc(v8, 0x18);
     *v10 = &unk_1F10EEDF0;
     v10[1] = v7;
     v10[2] = a1;
@@ -5120,9 +5125,9 @@ LABEL_7:
   return result;
 }
 
-uint64_t IPC::handleMessage<Messages::GPUProcess::RegisterFonts,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>(IPC::Decoder *a1, void *a2)
+WebKit::SandboxExtensionImpl *IPC::handleMessage<Messages::GPUProcess::RegisterFonts,IPC::Connection,WebKit::GPUProcess,WebKit::GPUProcess,void ()(WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>(IPC::Decoder *a1, void *a2)
 {
-  result = IPC::Decoder::decode<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(a1, a2, v5);
+  result = IPC::Decoder::decode<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>(a1, v5, a2);
   if (v6 == 1)
   {
     result = WebKit::GPUProcess::registerFonts(a2, v5);
@@ -5137,7 +5142,7 @@ uint64_t IPC::handleMessage<Messages::GPUProcess::RegisterFonts,IPC::Connection,
 
 void WebKit::GPUProcessProxy::didReceiveMessage(atomic_uint *this, atomic_ullong *a2, IPC::Decoder *a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v5 = this + 4;
   atomic_fetch_add(this + 4, 1u);
   v6 = *(a3 + 25);
@@ -5149,13 +5154,13 @@ void WebKit::GPUProcessProxy::didReceiveMessage(atomic_uint *this, atomic_ullong
       {
         if (v6 == 68)
         {
-          v33 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
-          if ((v34 & 1) == 0)
+          v32 = IPC::Decoder::decode<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>(a3);
+          if ((v9 & 1) == 0)
           {
             goto LABEL_78;
           }
 
-          WebKit::GPUProcessProxy::terminateWebProcess(this, v33);
+          WebKit::GPUProcessProxy::terminateWebProcess(this, v32);
           if (!this)
           {
             return;
@@ -5216,17 +5221,17 @@ void WebKit::GPUProcessProxy::didReceiveMessage(atomic_uint *this, atomic_ullong
 
             WTF::ThreadSafeWeakPtrControlBlock::strongRef(*a2);
 LABEL_66:
-            v42 = WTF::fastMalloc(0x18);
-            *v42 = &unk_1F10EEE18;
-            v42[1] = v10;
-            v42[2] = a2;
-            *buf = v42;
+            v39 = WTF::fastMalloc(v11, 0x18);
+            *v39 = &unk_1F10EEE18;
+            v39[1] = v10;
+            v39[2] = a2;
+            *buf = v39;
             WebKit::GPUProcessProxy::statusBarWasTapped(this, buf);
-            v43 = *buf;
+            v40 = *buf;
             *buf = 0;
-            if (v43)
+            if (v40)
             {
-              (*(*v43 + 8))(v43);
+              (*(*v40 + 8))(v40);
               if (!this)
               {
                 return;
@@ -5246,40 +5251,40 @@ LABEL_78:
         }
 
 LABEL_60:
-        v38 = qword_1ED6416C8;
+        v36 = qword_1ED6416C8;
         if (os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_ERROR))
         {
           if (v6 >= 0x107F)
           {
-            v46 = 4223;
+            v43 = 4223;
           }
 
           else
           {
-            v46 = v6;
+            v43 = v6;
           }
 
-          v47 = (&IPC::Detail::messageDescriptions)[3 * v46];
-          v48 = *(a3 + 7);
+          v44 = (&IPC::Detail::messageDescriptions)[3 * v43];
+          v45 = *(a3 + 7);
           *buf = 136315394;
-          *&buf[4] = v47;
+          *&buf[4] = v44;
           *&buf[12] = 2048;
-          *&buf[14] = v48;
-          _os_log_error_impl(&dword_19D52D000, v38, OS_LOG_TYPE_ERROR, "Unhandled message %s to %llu", buf, 0x16u);
+          *&buf[14] = v45;
+          _os_log_error_impl(&dword_19D52D000, v36, OS_LOG_TYPE_ERROR, "Unhandled message %s to %llu", buf, 0x16u);
         }
 
 LABEL_61:
-        v39 = *a3;
-        v40 = *(a3 + 1);
+        v9 = *a3;
+        v37 = *(a3 + 1);
         *a3 = 0;
         *(a3 + 1) = 0;
-        v41 = *(a3 + 3);
-        if (!v41 || !v40)
+        v38 = *(a3 + 3);
+        if (!v38 || !v37)
         {
           goto LABEL_78;
         }
 
-        (*(*v41 + 16))(v41, v39);
+        (*(*v38 + 16))(v38, v9);
         if (!this)
         {
           return;
@@ -5301,14 +5306,14 @@ LABEL_55:
         goto LABEL_78;
       }
 
-      v37 = *&buf[8];
+      v35 = *&buf[8];
       *&buf[8] = 0;
-      if (!v37 || atomic_fetch_add_explicit(v37, 0xFFFFFFFE, memory_order_relaxed) != 2)
+      if (!v35 || atomic_fetch_add_explicit(v35, 0xFFFFFFFE, memory_order_relaxed) != 2)
       {
         goto LABEL_78;
       }
 
-      WTF::StringImpl::destroy(v37, v32);
+      WTF::StringImpl::destroy(v35, v9);
       if (!this)
       {
         return;
@@ -5317,13 +5322,13 @@ LABEL_55:
       goto LABEL_79;
     }
 
-    v36 = IPC::Decoder::decode<std::tuple<BOOL>>(a3);
-    if ((v36 & 0x100) == 0)
+    v34 = IPC::Decoder::decode<std::tuple<BOOL>>(a3);
+    if ((v34 & 0x100) == 0)
     {
       goto LABEL_78;
     }
 
-    v14 = v36 & 0x101;
+    v14 = v34 & 0x101;
     v15 = &WebKit::GPUProcessProxy::s_hasVP9HardwareDecoder;
 LABEL_51:
     *v15 = v14;
@@ -5339,13 +5344,13 @@ LABEL_51:
   {
     if (v6 == 61)
     {
-      v35 = IPC::Decoder::decode<std::tuple<BOOL>>(a3);
-      if ((v35 & 0x100) == 0)
+      v33 = IPC::Decoder::decode<std::tuple<BOOL>>(a3);
+      if ((v33 & 0x100) == 0)
       {
         goto LABEL_78;
       }
 
-      WebKit::GPUProcessProxy::microphoneMuteStatusChanged(this, v35 & 1);
+      WebKit::GPUProcessProxy::microphoneMuteStatusChanged(this, v33 & 1);
       if (!this)
       {
         return;
@@ -5414,12 +5419,12 @@ LABEL_51:
         {
           *a3 = 0;
           *(a3 + 1) = 0;
-          v49 = *(a3 + 3);
-          if (v49)
+          v46 = *(a3 + 3);
+          if (v46)
           {
             if (v26)
             {
-              (*(*v49 + 16))(v49);
+              (*(*v46 + 16))(v46);
               v26 = *(a3 + 1);
             }
           }
@@ -5432,10 +5437,10 @@ LABEL_51:
 
         *a3 = 0;
         *(a3 + 1) = 0;
-        v50 = *(a3 + 3);
-        if (v50 && v26)
+        v47 = *(a3 + 3);
+        if (v47 && v26)
         {
-          (*(*v50 + 16))(v50);
+          (*(*v47 + 16))(v47);
         }
       }
     }
@@ -5455,37 +5460,37 @@ LABEL_51:
   }
 
   v18 = v16;
-  IPC::Decoder::decode<WTF::RefPtr<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>(a3, &v51);
-  if (v52 == 1)
+  IPC::Decoder::decode<WTF::RefPtr<WebCore::SharedBuffer,WTF::RawPtrTraits<WebCore::SharedBuffer>,WTF::DefaultRefDerefTraits<WebCore::SharedBuffer>>>(a3, &v48);
+  if (v49 == 1)
   {
     v19 = IPC::Decoder::decode<WTF::ObjectIdentifierGeneric<WebKit::RemoteVideoFrameIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>(a3);
     if (v20)
     {
-      if ((v52 & 1) == 0)
+      if ((v49 & 1) == 0)
       {
         __break(1u);
       }
 
       *buf = v18;
-      *&buf[8] = v51;
+      *&buf[8] = v48;
       *&buf[16] = v19;
-      v54 = 1;
+      v51 = 1;
     }
 
     else
     {
       buf[0] = 0;
-      v54 = 0;
-      if (v52)
+      v51 = 0;
+      if (v49)
       {
-        v44 = v51;
-        v51 = 0;
-        if (v44)
+        v41 = v48;
+        v48 = 0;
+        if (v41)
         {
-          if (atomic_fetch_add(v44 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v41 + 2, 0xFFFFFFFF) == 1)
           {
-            atomic_store(1u, v44 + 2);
-            (*(*v44 + 8))(v44);
+            atomic_store(1u, v41 + 2);
+            (*(*v41 + 8))(v41);
           }
         }
       }
@@ -5495,37 +5500,37 @@ LABEL_51:
   else
   {
     buf[0] = 0;
-    v54 = 0;
+    v51 = 0;
   }
 
-  if ((v54 & 1) == 0)
+  if ((v51 & 1) == 0)
   {
     goto LABEL_61;
   }
 
   WebKit::GPUProcessProxy::didDrawRemoteToPDF(this, *buf, &buf[8], *&buf[16]);
-  if ((v54 & 1) == 0)
+  if ((v51 & 1) == 0)
   {
     goto LABEL_78;
   }
 
-  v45 = *&buf[8];
+  v42 = *&buf[8];
   *&buf[8] = 0;
-  if (!v45 || atomic_fetch_add(v45 + 2, 0xFFFFFFFF) != 1)
+  if (!v42 || atomic_fetch_add(v42 + 2, 0xFFFFFFFF) != 1)
   {
     goto LABEL_78;
   }
 
-  atomic_store(1u, v45 + 2);
-  (*(*v45 + 8))(v45);
+  atomic_store(1u, v42 + 2);
+  (*(*v42 + 8))(v42);
   if (this)
   {
 LABEL_79:
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5, v9);
   }
 }
 
-void WebKit::LegacyCustomProtocolManager::didReceiveMessage(WebKit::LegacyCustomProtocolManager *this, IPC::Connection *a2, IPC::Decoder *a3)
+void WebKit::LegacyCustomProtocolManager::didReceiveMessage(atomic_uchar *this, IPC::Connection *a2, IPC::Decoder *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   WebKit::LegacyCustomProtocolManager::ref(this);
@@ -6110,7 +6115,7 @@ LABEL_18:
   }
 }
 
-WTF::StringImpl *IPC::handleMessage<Messages::LegacyCustomProtocolManager::RegisterScheme,IPC::Connection,WebKit::LegacyCustomProtocolManager,WebKit::LegacyCustomProtocolManager,void ()(WTF::String const&)>(IPC::Decoder *a1, WebKit::LegacyCustomProtocolManager *a2)
+WTF::StringImpl *IPC::handleMessage<Messages::LegacyCustomProtocolManager::RegisterScheme,IPC::Connection,WebKit::LegacyCustomProtocolManager,WebKit::LegacyCustomProtocolManager,void ()(WTF::String const&)>(IPC::Decoder *a1, atomic_uchar *a2)
 {
   result = IPC::Decoder::decode<std::tuple<WTF::String>>(a1, &v5);
   if (v6 == 1)
@@ -6133,7 +6138,7 @@ WTF::StringImpl *IPC::handleMessage<Messages::LegacyCustomProtocolManager::Regis
   return result;
 }
 
-WTF::StringImpl *IPC::handleMessage<Messages::LegacyCustomProtocolManager::UnregisterScheme,IPC::Connection,WebKit::LegacyCustomProtocolManager,WebKit::LegacyCustomProtocolManager,void ()(WTF::String const&)>(IPC::Decoder *a1, WebKit::LegacyCustomProtocolManager *a2)
+WTF::StringImpl *IPC::handleMessage<Messages::LegacyCustomProtocolManager::UnregisterScheme,IPC::Connection,WebKit::LegacyCustomProtocolManager,WebKit::LegacyCustomProtocolManager,void ()(WTF::String const&)>(IPC::Decoder *a1, atomic_uchar *a2)
 {
   IPC::ArgumentCoder<std::tuple<WTF::String>,void>::decode<IPC::Decoder>(a1, &v9);
   if (v10 & 1) != 0 || ((v6 = *a1, v7 = *(a1 + 1), *a1 = 0, *(a1 + 1) = 0, (result = *(a1 + 3)) != 0) ? (v8 = v7 == 0) : (v8 = 1), !v8 && (result = (*(*result + 16))(result, v6), (v10)))
@@ -6156,14 +6161,14 @@ WTF::StringImpl *IPC::handleMessage<Messages::LegacyCustomProtocolManager::Unreg
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11DrawingArea20SetDeviceScaleFactorENS2_10ConnectionEN6WebKit11DrawingAreaES9_FvfONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11DrawingArea20SetDeviceScaleFactorENS2_10ConnectionEN6WebKit11DrawingAreaES9_FvfONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEC10;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -6176,7 +6181,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -6249,8 +6254,8 @@ void IPC::ArgumentCoder<std::tuple<WebCore::IntSize,BOOL,WTF::MachSendRight>,voi
 
 void IPC::ArgumentCoder<std::tuple<WebCore::IntSize,BOOL,WTF::MachSendRight>,void>::decode<IPC::Decoder,WebCore::IntSize,BOOL>(uint64_t a1, IPC::Decoder *this, uint64_t a3, char *a4)
 {
-  IPC::Decoder::takeLastAttachment(this, v8);
-  if (v9 == 1)
+  IPC::Decoder::takeLastAttachment(&v8, this);
+  if (BYTE4(v8) == 1)
   {
     if (*(a3 + 8) & 1) != 0 && (a4[1])
     {
@@ -6259,9 +6264,9 @@ void IPC::ArgumentCoder<std::tuple<WebCore::IntSize,BOOL,WTF::MachSendRight>,voi
       *(a1 + 8) = v7;
       WTF::MachSendRight::MachSendRight();
       *(a1 + 16) = 1;
-      if (v9)
+      if ((v8 & 0x100000000) != 0)
       {
-        WTF::MachSendRight::~MachSendRight(v8);
+        WTF::MachSendRight::~MachSendRight(&v8);
       }
     }
 
@@ -6278,14 +6283,14 @@ void IPC::ArgumentCoder<std::tuple<WebCore::IntSize,BOOL,WTF::MachSendRight>,voi
   }
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11DrawingArea14UpdateGeometryENS2_10ConnectionEN6WebKit11DrawingAreaES9_FvRKN7WebCore7IntSizeEbRKNS_13MachSendRightEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11DrawingArea14UpdateGeometryENS2_10ConnectionEN6WebKit11DrawingAreaES9_FvRKN7WebCore7IntSizeEbRKNS_13MachSendRightEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEC38;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -6298,7 +6303,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -6525,14 +6530,14 @@ uint64_t IPC::Decoder::decode<std::tuple<double,WebCore::FloatPoint>>(uint64_t a
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11DrawingArea19CommitTransientZoomENS2_10ConnectionEN6WebKit11DrawingAreaES9_FvdN7WebCore10FloatPointEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11DrawingArea19CommitTransientZoomENS2_10ConnectionEN6WebKit11DrawingAreaES9_FvdN7WebCore10FloatPointEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEC60;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -6545,7 +6550,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages11
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -6649,14 +6654,14 @@ LABEL_16:
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages15EventDispatcher10TouchEventENS2_10ConnectionEN6WebKit15EventDispatcherES9_FvNS_23ObjectIdentifierGenericIN7WebCore18PageIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEENSA_INSB_19FrameIdentifierTypeESE_yEERKNS8_13WebTouchEventEONS_17CompletionHandlerIFvbNSt3__18optionalINS8_19RemoteWebTouchEventEEEEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJbSP_EED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages15EventDispatcher10TouchEventENS2_10ConnectionEN6WebKit15EventDispatcherES9_FvNS_23ObjectIdentifierGenericIN7WebCore18PageIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEENSA_INSB_19FrameIdentifierTypeESE_yEERKNS8_13WebTouchEventEONS_17CompletionHandlerIFvbNSt3__18optionalINS8_19RemoteWebTouchEventEEEEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJbSP_EED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEC88;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -6669,7 +6674,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages15
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -6977,7 +6982,7 @@ uint64_t IPC::ArgumentCoder<std::tuple<WTF::String,WTFLogChannelState,WTFLogLeve
   v7 = result;
   if ((result & 0x100) != 0)
   {
-    return IPC::ArgumentCoder<std::tuple<WTF::String,WTFLogChannelState,WTFLogLevel>,void>::decode<IPC::Decoder,WTF::String,WTFLogChannelState>(a1, a2, &v7, a3);
+    return IPC::ArgumentCoder<std::tuple<WTF::String,WTFLogChannelState,WTFLogLevel>,void>::decode<IPC::Decoder,WTF::String,WTFLogChannelState>(a2, &v7, a3, a1);
   }
 
   *a3 = 0;
@@ -6985,25 +6990,25 @@ uint64_t IPC::ArgumentCoder<std::tuple<WTF::String,WTFLogChannelState,WTFLogLeve
   return result;
 }
 
-uint64_t IPC::ArgumentCoder<std::tuple<WTF::String,WTFLogChannelState,WTFLogLevel>,void>::decode<IPC::Decoder,WTF::String,WTFLogChannelState>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, _BYTE *a3@<X2>, _BYTE *a4@<X8>)
+uint64_t IPC::ArgumentCoder<std::tuple<WTF::String,WTFLogChannelState,WTFLogLevel>,void>::decode<IPC::Decoder,WTF::String,WTFLogChannelState>@<X0>(uint64_t *a1@<X1>, _BYTE *a2@<X2>, _BYTE *a3@<X8>, uint64_t *a4@<X0>)
 {
-  result = IPC::Decoder::decode<WTFLogLevel>(a1);
+  result = IPC::Decoder::decode<WTFLogLevel>(a4);
   if ((result & 0x100) == 0)
   {
     v8 = 0;
-    *a4 = 0;
+    *a3 = 0;
 LABEL_6:
-    a4[16] = v8;
+    a3[16] = v8;
     return result;
   }
 
-  if (a2[1] & 1) != 0 && (a3[1])
+  if (a1[1] & 1) != 0 && (a2[1])
   {
-    v9 = *a2;
-    *a2 = 0;
-    *a4 = v9;
-    a4[8] = *a3;
-    a4[9] = result;
+    v9 = *a1;
+    *a1 = 0;
+    *a3 = v9;
+    a3[8] = *a2;
+    a3[9] = result;
     v8 = 1;
     goto LABEL_6;
   }
@@ -7155,45 +7160,45 @@ LABEL_4:
   return result;
 }
 
-uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Messages25GPUConnectionToWebProcess18EnsureAudioSessionEN6WebKit25GPUConnectionToWebProcessES8_FvONS_17CompletionHandlerIFvRKNS7_31RemoteAudioSessionConfigurationEEEEEEEbRNS2_10ConnectionERNS2_7DecoderERNS_9UniqueRefINS2_7EncoderEEEPT0_MT1_T2_EUlDpOT_E_vJSC_EED1Ev(uint64_t a1)
+uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Messages25GPUConnectionToWebProcess18EnsureAudioSessionEN6WebKit25GPUConnectionToWebProcessES8_FvONS_17CompletionHandlerIFvRKNS7_31RemoteAudioSessionConfigurationEEEEEEEbRNS2_10ConnectionERNS2_7DecoderERNS_9UniqueRefINS2_7EncoderEEEPT0_MT1_T2_EUlDpOT_E_vJSC_EED1Ev(uint64_t a1, unint64_t a2)
 {
   *a1 = &unk_1F10EECB0;
-  v2 = *(a1 + 16);
+  v3 = *(a1 + 16);
   *(a1 + 16) = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   std::unique_ptr<IPC::Encoder>::reset[abi:sn200100]((a1 + 8), 0);
   return a1;
 }
 
-uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Messages25GPUConnectionToWebProcess18EnsureAudioSessionEN6WebKit25GPUConnectionToWebProcessES8_FvONS_17CompletionHandlerIFvRKNS7_31RemoteAudioSessionConfigurationEEEEEEEbRNS2_10ConnectionERNS2_7DecoderERNS_9UniqueRefINS2_7EncoderEEEPT0_MT1_T2_EUlDpOT_E_vJSC_EED0Ev(uint64_t a1)
+uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Messages25GPUConnectionToWebProcess18EnsureAudioSessionEN6WebKit25GPUConnectionToWebProcessES8_FvONS_17CompletionHandlerIFvRKNS7_31RemoteAudioSessionConfigurationEEEEEEEbRNS2_10ConnectionERNS2_7DecoderERNS_9UniqueRefINS2_7EncoderEEEPT0_MT1_T2_EUlDpOT_E_vJSC_EED0Ev(uint64_t a1, unint64_t a2)
 {
   *a1 = &unk_1F10EECB0;
-  v2 = *(a1 + 16);
+  v3 = *(a1 + 16);
   *(a1 + 16) = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   std::unique_ptr<IPC::Encoder>::reset[abi:sn200100]((a1 + 8), 0);
 
-  return WTF::fastFree(a1, v3);
+  return WTF::fastFree(a1, v4);
 }
 
 uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Messages25GPUConnectionToWebProcess18EnsureAudioSessionEN6WebKit25GPUConnectionToWebProcessES8_FvONS_17CompletionHandlerIFvRKNS7_31RemoteAudioSessionConfigurationEEEEEEEbRNS2_10ConnectionERNS2_7DecoderERNS_9UniqueRefINS2_7EncoderEEEPT0_MT1_T2_EUlDpOT_E_vJSC_EE4callESC_(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   IPC::ArgumentCoder<WebKit::RemoteAudioSessionConfiguration,void>::encode(*(a1 + 8), a2);
-  v3 = v2[1];
+  v3 = *(v2 + 8);
 
   return IPC::Connection::sendMessageImpl(v3, v2, 0, 0);
 }
 
-atomic_uchar **WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUProcessConnection,(WTF::DestructionThread)0>::deref(atomic_uchar **result, void *a2)
+atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUProcessConnection,(WTF::DestructionThread)0>::deref(atomic_ullong *result, void *a2)
 {
   do
   {
@@ -7210,7 +7215,7 @@ atomic_uchar **WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUP
   while (v3 != v2);
   if (v2 == 3)
   {
-    return (*(*(result - 3) + 3))();
+    return (*(*(result - 3) + 24))();
   }
 
   return result;
@@ -7222,7 +7227,7 @@ uint64_t WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebKit::GPUProcessConne
   atomic_compare_exchange_strong_explicit(this, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
   {
-    MEMORY[0x19EB01E30](this);
+    MEMORY[0x19EB01E30](this, a2);
   }
 
   v4 = *(this + 1) - 1;
@@ -7630,14 +7635,14 @@ uint64_t _ZNSt3__127__optional_copy_assign_baseINS_5tupleIJN6WebKit28GPUProcessC
   return a1;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess20InitializeGPUProcessENS2_10ConnectionEN6WebKit10GPUProcessES9_FvONS8_28GPUProcessCreationParametersEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess20InitializeGPUProcessENS2_10ConnectionEN6WebKit10GPUProcessES9_FvONS8_28GPUProcessCreationParametersEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EECD8;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -7650,7 +7655,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7768,15 +7773,15 @@ void IPC::Decoder::decode<WebKit::GPUProcessConnectionParameters>(WTF::MachSendR
   }
 }
 
-void IPC::ArgumentCoder<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,PAL::SessionID,IPC::ConnectionHandle,WebKit::GPUProcessConnectionParameters>,void>::decode<IPC::Decoder,WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,PAL::SessionID,IPC::ConnectionHandle,WebKit::GPUProcessConnectionParameters>(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7)
+void IPC::ArgumentCoder<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,PAL::SessionID,IPC::ConnectionHandle,WebKit::GPUProcessConnectionParameters>,void>::decode<IPC::Decoder,WTF::ObjectIdentifierGeneric<WebCore::ProcessIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,PAL::SessionID,IPC::ConnectionHandle,WebKit::GPUProcessConnectionParameters>(void *result, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7)
 {
   if (a3 & 1) != 0 && (a5 & 1) != 0 && (*(a6 + 4) & 1) != 0 && (*(a7 + 64))
   {
-    *a1 = a2;
-    *(a1 + 8) = a4;
+    *result = a2;
+    result[1] = a4;
     WTF::MachSendRight::MachSendRight();
-    WebKit::GPUProcessConnectionParameters::GPUProcessConnectionParameters((a1 + 24), a7);
-    *(a1 + 88) = 1;
+    WebKit::GPUProcessConnectionParameters::GPUProcessConnectionParameters((result + 3), a7);
+    *(result + 88) = 1;
   }
 
   else
@@ -7825,14 +7830,14 @@ WTF::MachSendRight *std::optional<WebKit::GPUProcessConnectionParameters>::~opti
   return this;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess31CreateGPUConnectionToWebProcessENS2_10ConnectionEN6WebKit10GPUProcessES9_FvNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEN3PAL9SessionIDEONS2_16ConnectionHandleEONS8_30GPUProcessConnectionParametersEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess31CreateGPUConnectionToWebProcessENS2_10ConnectionEN6WebKit10GPUProcessES9_FvNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEN3PAL9SessionIDEONS2_16ConnectionHandleEONS8_30GPUProcessConnectionParametersEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EED00;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -7845,7 +7850,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7944,14 +7949,14 @@ uint64_t IPC::ArgumentCoder<std::tuple<WTF::ObjectIdentifierGeneric<WebCore::Pro
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess39SharedPreferencesForWebProcessDidChangeENS2_10ConnectionEN6WebKit10GPUProcessES9_FvNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS8_30SharedPreferencesForWebProcessEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess39SharedPreferencesForWebProcessDidChangeENS2_10ConnectionEN6WebKit10GPUProcessES9_FvNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS8_30SharedPreferencesForWebProcessEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EED28;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -7964,7 +7969,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7994,10 +7999,10 @@ IPC::Encoder *IPC::Connection::sendAsyncReply<Messages::GPUProcess::SharedPrefer
   return result;
 }
 
-uint64_t IPC::Decoder::decode<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>@<X0>(IPC::Decoder *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t IPC::Decoder::decode<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X8>, void *a3@<X1>)
 {
-  result = IPC::ArgumentCoder<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,void>::decode<IPC::Decoder>(a1, a2, a3);
-  if ((*(a3 + 16) & 1) == 0)
+  result = IPC::ArgumentCoder<std::tuple<WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,void>::decode<IPC::Decoder>(a1, a3, a2);
+  if ((*(a2 + 16) & 1) == 0)
   {
     v6 = *(a1 + 1);
     *a1 = 0;
@@ -8069,14 +8074,14 @@ uint64_t IPC::ArgumentCoder<std::tuple<BOOL,WTF::MonotonicTime>,void>::decode<IP
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess16PrepareToSuspendENS2_10ConnectionEN6WebKit10GPUProcessES9_FvbNS_13MonotonicTimeEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess16PrepareToSuspendENS2_10ConnectionEN6WebKit10GPUProcessES9_FvbNS_13MonotonicTimeEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EED50;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -8089,7 +8094,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8253,14 +8258,14 @@ uint64_t IPC::Decoder::decode<std::tuple<PAL::SessionID>>(IPC::Decoder *a1)
   }
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess19UpdateCaptureAccessENS2_10ConnectionEN6WebKit10GPUProcessES9_FvbbbNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess19UpdateCaptureAccessENS2_10ConnectionEN6WebKit10GPUProcessES9_FvbbbNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EED78;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -8273,7 +8278,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8472,14 +8477,14 @@ uint64_t IPC::ArgumentCoder<std::tuple<BOOL,BOOL>,void>::decode<IPC::Decoder,BOO
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess32RequestBitmapImageForCurrentTimeENS2_10ConnectionEN6WebKit10GPUProcessES9_FvNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEENSA_INSB_25MediaPlayerIdentifierTypeESE_yEEONS_17CompletionHandlerIFvONSt3__18optionalINSB_21ShareableBitmapHandleEEEEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJSN_EED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess32RequestBitmapImageForCurrentTimeENS2_10ConnectionEN6WebKit10GPUProcessES9_FvNS_23ObjectIdentifierGenericIN7WebCore21ProcessIdentifierTypeENS_38ObjectIdentifierMainThreadAccessTraitsIyEEyEENSA_INSB_25MediaPlayerIdentifierTypeESE_yEEONS_17CompletionHandlerIFvONSt3__18optionalINSB_21ShareableBitmapHandleEEEEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJSN_EED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEDA0;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -8492,7 +8497,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8525,14 +8530,14 @@ IPC::Encoder *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messa
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess35WebProcessConnectionCountForTestingENS2_10ConnectionEN6WebKit10GPUProcessES9_FvONS_17CompletionHandlerIFvyEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJyEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess35WebProcessConnectionCountForTestingENS2_10ConnectionEN6WebKit10GPUProcessES9_FvONS_17CompletionHandlerIFvyEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJyEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEDC8;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -8545,7 +8550,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8578,14 +8583,14 @@ IPC::Encoder *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messa
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess32PostWillTakeSnapshotNotificationENS2_10ConnectionEN6WebKit10GPUProcessES9_FvONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10GPUProcess32PostWillTakeSnapshotNotificationENS2_10ConnectionEN6WebKit10GPUProcessES9_FvONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEDF0;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -8598,7 +8603,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages10
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8630,14 +8635,14 @@ IPC::Encoder *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messa
   return result;
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages15GPUProcessProxy18StatusBarWasTappedENS2_10ConnectionEN6WebKit15GPUProcessProxyES9_FvONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1)
+void *_ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages15GPUProcessProxy18StatusBarWasTappedENS2_10ConnectionEN6WebKit15GPUProcessProxyES9_FvONS_17CompletionHandlerIFvvEEEEEEvRT0_RNS2_7DecoderEPT1_MT2_T3_EUlDpOT_E_vJEED1Ev(void *a1, unint64_t a2)
 {
   *a1 = &unk_1F10EEE18;
-  v2 = a1[2];
+  v3 = a1[2];
   a1[2] = 0;
-  if (v2)
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return a1;
@@ -8650,7 +8655,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages15
   *(this + 2) = 0;
   if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8774,7 +8779,7 @@ void encodeToObjectStream(WKRemoteObjectEncoder *a1, NSInvocation *a2)
     v6 = v21;
     if (v21)
     {
-      CFRetain(v21[1]);
+      CFRetain(v21->var1);
     }
 
     v7 = a1->_objectStream.m_ptr;
@@ -8874,7 +8879,7 @@ void sub_19D98FD80(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-CFTypeRef **createEncodedObject(CFTypeRef **result, WKRemoteObjectEncoder *a2, NSInvocation *a3)
+Object **createEncodedObject(Object **result, WKRemoteObjectEncoder *a2, NSInvocation *a3)
 {
   v3 = result;
   v69 = *MEMORY[0x1E69E9840];
@@ -8898,12 +8903,12 @@ CFTypeRef **createEncodedObject(CFTypeRef **result, WKRemoteObjectEncoder *a2, N
   }
 
   v61[1] = m_ptr;
-  CFRetain(v6[1]);
-  isa = p_currentDictionary->isa;
-  p_currentDictionary->isa = v6;
-  if (isa)
+  CFRetain(v6->var1);
+  v10 = p_currentDictionary->m_ptr;
+  p_currentDictionary->m_ptr = v6;
+  if (v10)
   {
-    CFRelease(*(isa + 1));
+    CFRelease(*(v10 + 1));
   }
 
   if (([(NSInvocation *)a3 conformsToProtocol:&unk_1F11B6ED8]& 1) == 0)
@@ -8945,7 +8950,7 @@ LABEL_23:
 
     if (!m_table)
     {
-      WTF::HashTable<NSObject *,NSObject *,WTF::IdentityExtractor,WTF::DefaultHash<NSObject *>,WTF::HashTraits<NSObject *>,WTF::HashTraits<NSObject *>,WTF::FastMalloc>::expand(&a2->_objectsBeingEncoded);
+      WTF::HashTable<NSObject *,NSObject *,WTF::IdentityExtractor,WTF::DefaultHash<NSObject *>,WTF::HashTraits<NSObject *>,WTF::HashTraits<NSObject *>,WTF::FastMalloc>::expand(&a2->_objectsBeingEncoded, 0);
       m_table = a2->_objectsBeingEncoded.m_impl.m_table;
     }
 
@@ -8954,7 +8959,7 @@ LABEL_23:
     v28 = 9 * ((v27 + ~(v27 << 13)) ^ ((v27 + ~(v27 << 13)) >> 8));
     v29 = (v28 ^ (v28 >> 15)) + ~((v28 ^ (v28 >> 15)) << 27);
     v30 = v26 & ((v29 >> 31) ^ v29);
-    v31 = (m_table + 8 * v30);
+    v31 = &m_table[v30];
     v32 = *v31;
     if (*v31)
     {
@@ -8968,7 +8973,7 @@ LABEL_23:
         }
 
         v30 = (v30 + v55) & v26;
-        v31 = (m_table + 8 * v30);
+        v31 = &m_table[v30];
         v32 = *v31;
         ++v55;
         if (!*v31)
@@ -9047,7 +9052,7 @@ LABEL_32:
       v65 = 0;
       if (v44)
       {
-        CFRelease(*(v44 + 1));
+        CFRelease(v44->var1);
       }
 
       v45 = v64;
@@ -9118,7 +9123,7 @@ LABEL_32:
         v65 = 0;
         if (v51)
         {
-          CFRelease(*(v51 + 1));
+          CFRelease(v51->var1);
         }
 
         v52 = v64;
@@ -9152,7 +9157,7 @@ LABEL_32:
       goto LABEL_20;
     }
 
-    WTF::HashTable<NSObject *,NSObject *,WTF::IdentityExtractor,WTF::DefaultHash<NSObject *>,WTF::HashTraits<NSObject *>,WTF::HashTraits<NSObject *>,WTF::FastMalloc>::expand(&a2->_objectsBeingEncoded);
+    WTF::HashTable<NSObject *,NSObject *,WTF::IdentityExtractor,WTF::DefaultHash<NSObject *>,WTF::HashTraits<NSObject *>,WTF::HashTraits<NSObject *>,WTF::FastMalloc>::expand(&a2->_objectsBeingEncoded, v31);
     goto LABEL_31;
   }
 
@@ -9167,14 +9172,14 @@ LABEL_32:
   v18 = 9 * ((v17 + ~(v17 << 13)) ^ ((v17 + ~(v17 << 13)) >> 8));
   v19 = (v18 ^ (v18 >> 15)) + ~((v18 ^ (v18 >> 15)) << 27);
   v20 = v16 & ((v19 >> 31) ^ v19);
-  v21 = *(m_table + v20);
+  v21 = m_table[v20];
   if (v21 != a3)
   {
     v22 = 1;
     while (v21)
     {
       v20 = (v20 + v22) & v16;
-      v21 = *(m_table + v20);
+      v21 = m_table[v20];
       ++v22;
       if (v21 == a3)
       {
@@ -9207,7 +9212,7 @@ LABEL_20:
   return WTF::SetForScope<WTF::RefPtr<API::Dictionary,WTF::RawPtrTraits<API::Dictionary>,WTF::DefaultRefDerefTraits<API::Dictionary>>>::~SetForScope(v61);
 }
 
-void sub_19D990550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18)
+void sub_19D990550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18)
 {
   if (v19)
   {
@@ -9637,9 +9642,9 @@ WKRemoteObjectDecoder *decodeObject(WKRemoteObjectDecoder *result, uint64_t a2, 
   return result;
 }
 
-void sub_19D992760(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D992760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::SetForScope<WTF::RefPtr<API::Dictionary,WTF::RawPtrTraits<API::Dictionary>,WTF::DefaultRefDerefTraits<API::Dictionary>>>::~SetForScope(va);
   _Unwind_Resume(a1);
 }
@@ -9702,19 +9707,6 @@ void sub_19D992D58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (a10)
   {
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_19D992DEC(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
-{
-  if (v2)
-  {
-    if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v2, a2);
-    }
   }
 
   _Unwind_Resume(exception_object);

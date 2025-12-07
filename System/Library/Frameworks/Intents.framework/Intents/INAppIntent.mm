@@ -415,7 +415,7 @@ void __32__INAppIntent__nonNilParameters__block_invoke(uint64_t a1, void *a2, vo
 
 - (LNAction)linkAction
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   linkAction = self->_linkAction;
   if (linkAction)
   {
@@ -433,7 +433,7 @@ void __32__INAppIntent__nonNilParameters__block_invoke(uint64_t a1, void *a2, vo
     }
 
     *buf = 136315138;
-    v27 = "[INAppIntent linkAction]";
+    v26 = "[INAppIntent linkAction]";
     v21 = "%s No VoiceShortcutClient; completing with nil";
 LABEL_23:
     _os_log_error_impl(&dword_18E991000, v20, OS_LOG_TYPE_ERROR, v21, buf, 0xCu);
@@ -445,9 +445,9 @@ LABEL_23:
     launchId = [(INAppIntent *)self launchId];
     appIntentIdentifier = [(INAppIntent *)self appIntentIdentifier];
     serializedParameters = [(INAppIntent *)self serializedParameters];
-    v25 = 0;
-    v9 = [voiceShortcutClient linkActionWithAppBundleIdentifier:launchId appIntentIdentifier:appIntentIdentifier serializedParameterStates:serializedParameters error:&v25];
-    v10 = v25;
+    v24 = 0;
+    v9 = [voiceShortcutClient linkActionWithAppBundleIdentifier:launchId appIntentIdentifier:appIntentIdentifier serializedParameterStates:serializedParameters error:&v24];
+    v10 = v24;
     v11 = self->_linkAction;
     self->_linkAction = v9;
 
@@ -460,18 +460,18 @@ LABEL_23:
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v27 = "[INAppIntent linkAction]";
-          v28 = 2114;
-          v29 = v10;
+          v26 = "[INAppIntent linkAction]";
+          v27 = 2114;
+          v28 = v10;
           _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s No linkAction due to XPC interruption %{public}@ - attempting a retry", buf, 0x16u);
         }
 
         launchId2 = [(INAppIntent *)self launchId];
         appIntentIdentifier2 = [(INAppIntent *)self appIntentIdentifier];
         serializedParameters2 = [(INAppIntent *)self serializedParameters];
-        v24 = 0;
-        v17 = [voiceShortcutClient linkActionWithAppBundleIdentifier:launchId2 appIntentIdentifier:appIntentIdentifier2 serializedParameterStates:serializedParameters2 error:&v24];
-        v10 = v24;
+        v23 = 0;
+        v17 = [voiceShortcutClient linkActionWithAppBundleIdentifier:launchId2 appIntentIdentifier:appIntentIdentifier2 serializedParameterStates:serializedParameters2 error:&v23];
+        v10 = v23;
         v18 = self->_linkAction;
         self->_linkAction = v17;
       }
@@ -483,9 +483,9 @@ LABEL_23:
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v27 = "[INAppIntent linkAction]";
-          v28 = 2114;
-          v29 = v10;
+          v26 = "[INAppIntent linkAction]";
+          v27 = 2114;
+          v28 = v10;
           _os_log_error_impl(&dword_18E991000, v19, OS_LOG_TYPE_ERROR, "%s No LinkAction; returning nil. Error: %{public}@", buf, 0x16u);
           v12 = self->_linkAction;
         }
@@ -506,7 +506,7 @@ LABEL_23:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v27 = "[INAppIntent linkAction]";
+    v26 = "[INAppIntent linkAction]";
     v21 = "%s VoiceShortcutClient didn't implement linkActionWithAppBundleIdentifier yet.";
     goto LABEL_23;
   }
@@ -516,7 +516,6 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -564,7 +563,7 @@ LABEL_19:
 
 - (INAppIntent)initWithAppBundleIdentifier:(id)identifier linkAction:(id)action linkActionMetadata:(id)metadata
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   actionCopy = action;
   metadataCopy = metadata;
@@ -600,7 +599,7 @@ LABEL_19:
     }
 
     *buf = 136315138;
-    v32 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
+    v31 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
     v20 = "%s No VoiceShortcutClient; completing with nil";
 LABEL_26:
     _os_log_error_impl(&dword_18E991000, v19, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
@@ -609,9 +608,9 @@ LABEL_26:
 
   if (objc_opt_respondsToSelector())
   {
-    v30 = 0;
-    v15 = [voiceShortcutClient serializedParametersForLinkAction:actionCopy actionMetadata:metadataCopy error:&v30];
-    v16 = v30;
+    v29 = 0;
+    v15 = [voiceShortcutClient serializedParametersForLinkAction:actionCopy actionMetadata:metadataCopy error:&v29];
+    v16 = v29;
     if (v15)
     {
       goto LABEL_9;
@@ -625,20 +624,20 @@ LABEL_26:
     v21 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v27 = v21;
+      v26 = v21;
       identifier = [actionCopy identifier];
       *buf = 136315650;
-      v32 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
-      v33 = 2114;
-      v34 = identifier;
-      v35 = 2114;
-      v36 = v16;
-      _os_log_error_impl(&dword_18E991000, v27, OS_LOG_TYPE_ERROR, "%s Unable to get serialized parameters for %{public}@ due to XPC interruption %{public}@ - attempting a retry", buf, 0x20u);
+      v31 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
+      v32 = 2114;
+      v33 = identifier;
+      v34 = 2114;
+      v35 = v16;
+      _os_log_error_impl(&dword_18E991000, v26, OS_LOG_TYPE_ERROR, "%s Unable to get serialized parameters for %{public}@ due to XPC interruption %{public}@ - attempting a retry", buf, 0x20u);
     }
 
-    v29 = 0;
-    v15 = [voiceShortcutClient serializedParametersForLinkAction:actionCopy actionMetadata:metadataCopy error:&v29];
-    v16 = v29;
+    v28 = 0;
+    v15 = [voiceShortcutClient serializedParametersForLinkAction:actionCopy actionMetadata:metadataCopy error:&v28];
+    v16 = v28;
     if (v15)
     {
 LABEL_9:
@@ -661,15 +660,15 @@ LABEL_19:
       v22 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v25 = v22;
+        v24 = v22;
         identifier2 = [actionCopy identifier];
         *buf = 136315650;
-        v32 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
-        v33 = 2114;
-        v34 = identifier2;
-        v35 = 2114;
-        v36 = v16;
-        _os_log_error_impl(&dword_18E991000, v25, OS_LOG_TYPE_ERROR, "%s Unable to get serialized parameters for %{public}@; returning nil. Error: %{public}@", buf, 0x20u);
+        v31 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
+        v32 = 2114;
+        v33 = identifier2;
+        v34 = 2114;
+        v35 = v16;
+        _os_log_error_impl(&dword_18E991000, v24, OS_LOG_TYPE_ERROR, "%s Unable to get serialized parameters for %{public}@; returning nil. Error: %{public}@", buf, 0x20u);
       }
 
       v15 = 0;
@@ -683,7 +682,7 @@ LABEL_19:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v32 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
+    v31 = "[INAppIntent initWithAppBundleIdentifier:linkAction:linkActionMetadata:]";
     v20 = "%s VoiceShortcutClient didn't implement serializedParametersForLinkAction:actionMetadata:error: yet.";
     goto LABEL_26;
   }
@@ -692,7 +691,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_24:
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

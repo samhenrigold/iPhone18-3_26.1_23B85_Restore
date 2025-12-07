@@ -1845,29 +1845,29 @@ LABEL_45:
 
 - (id)titleStrings
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v2 = sub_100026F48(self);
+  sub_100026F2C(v2);
   return 0;
 }
 
 - (id)bodyStringDict
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v2 = sub_100026F48(self);
+  sub_100026F2C(v2);
   return 0;
 }
 
 - (id)actions
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v2 = sub_100026F48(self);
+  sub_100026F2C(v2);
   return 0;
 }
 
 - (unint64_t)options
 {
-  sub_100026F48();
-  sub_100026F2C();
+  v2 = sub_100026F48(self);
+  sub_100026F2C(v2);
   return 0;
 }
 

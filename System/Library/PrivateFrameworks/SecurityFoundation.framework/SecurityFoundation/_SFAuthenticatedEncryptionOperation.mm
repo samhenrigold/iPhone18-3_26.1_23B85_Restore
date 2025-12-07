@@ -274,10 +274,7 @@
 
 - (void)setEncryptionKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  authenticatedEncryptionOperationInternal = self->_authenticatedEncryptionOperationInternal;
-  v6 = authenticatedEncryptionOperationInternal[1];
-  authenticatedEncryptionOperationInternal[1] = v4;
+  *(self->_authenticatedEncryptionOperationInternal + 1) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }

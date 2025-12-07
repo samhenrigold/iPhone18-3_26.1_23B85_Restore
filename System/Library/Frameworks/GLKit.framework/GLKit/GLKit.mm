@@ -1,41 +1,41 @@
 uint64_t _modelviewMatrixMask(uint64_t result)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     v2 = *(*(result + 144) + 152);
     if (!v2 || (result = [v2 enabled], result != 1))
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
-      v6 = v1[7];
-      v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
-      if (v7)
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v5 = v1[7];
+      v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (v6)
       {
-        v8 = v7;
-        v9 = *v22;
+        v7 = v6;
+        v8 = *v21;
 LABEL_9:
-        v10 = 0;
+        v9 = 0;
         while (1)
         {
-          if (*v22 != v9)
+          if (*v21 != v8)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v5);
           }
 
-          result = _reflectionMappingEnabled(*(*(&v21 + 1) + 8 * v10));
+          result = _reflectionMappingEnabled(*(*(&v20 + 1) + 8 * v9));
           if (result)
           {
             break;
           }
 
-          if (v8 == ++v10)
+          if (v7 == ++v9)
           {
-            v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
-            if (v8)
+            v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+            if (v7)
             {
               goto LABEL_9;
             }
@@ -48,12 +48,12 @@ LABEL_9:
       else
       {
 LABEL_15:
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
         v18 = 0u;
-        v11 = v1[19];
-        result = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
+        v10 = v1[19];
+        result = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (!result)
         {
 LABEL_25:
@@ -62,37 +62,37 @@ LABEL_25:
           goto LABEL_5;
         }
 
-        v12 = result;
-        v13 = *v18;
+        v11 = result;
+        v12 = *v17;
 LABEL_17:
-        v14 = 0;
+        v13 = 0;
         while (1)
         {
-          if (*v18 != v13)
+          if (*v17 != v12)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * v14);
-          if ([v15 enabled])
+          v14 = *(*(&v16 + 1) + 8 * v13);
+          if ([v14 enabled])
           {
-            result = [v15 position];
-            if (v16 != 0.0)
+            result = [v14 position];
+            if (v15 != 0.0)
             {
               break;
             }
 
-            result = [v15 isAttenuated];
+            result = [v14 isAttenuated];
             if (result)
             {
               break;
             }
           }
 
-          if (v12 == ++v14)
+          if (v11 == ++v13)
           {
-            result = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
-            v12 = result;
+            result = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+            v11 = result;
             if (result)
             {
               goto LABEL_17;
@@ -110,50 +110,49 @@ LABEL_5:
     *v3 = v4;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _useTexCoordAttribMask(uint64_t result)
+void *_useTexCoordAttribMask(void *result)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
-    v2 = *(result + 56);
-    result = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v2 = result[7];
+    result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (result)
     {
       v3 = result;
-      v4 = *v10;
+      v4 = *v9;
       while (2)
       {
         v5 = 0;
         do
         {
-          if (*v10 != v4)
+          if (*v9 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          result = [*(*(&v9 + 1) + 8 * v5) useTexCoordAttribMask];
+          result = [*(*(&v8 + 1) + 8 * v5) useTexCoordAttribMask];
           if (result)
           {
-            v6 = *(v1 + 200);
-            **(v1 + 208) = vorrq_s8(**(v1 + 208), xmmword_27DF40400);
+            v6 = v1[25];
+            *v1[26] = vorrq_s8(*v1[26], xmmword_27DF40400);
             v7 = vorrq_s8(*v6, xmmword_27DF404D0);
             goto LABEL_12;
           }
 
-          ++v5;
+          v5 = (v5 + 1);
         }
 
         while (v3 != v5);
-        result = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
         v3 = result;
         if (result)
         {
@@ -164,48 +163,47 @@ uint64_t _useTexCoordAttribMask(uint64_t result)
       }
     }
 
-    v6 = *(v1 + 200);
-    **(v1 + 208) = vbicq_s8(**(v1 + 208), xmmword_27DF40400);
+    v6 = v1[25];
+    *v1[26] = vbicq_s8(*v1[26], xmmword_27DF40400);
     v7 = vbicq_s8(*v6, xmmword_27DF404D0);
 LABEL_12:
     *v6 = v7;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _texturingEnabledMask(uint64_t result)
+_BYTE *_texturingEnabledMask(_BYTE *result)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    *(result + 48) = 0;
+    result[48] = 0;
+    v8 = 0u;
     v9 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
-    v2 = *(result + 56);
-    result = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v2 = *(result + 7);
+    result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (result)
     {
       v3 = result;
-      v4 = *v10;
+      v4 = *v9;
       while (2)
       {
         v5 = 0;
         do
         {
-          if (*v10 != v4)
+          if (*v9 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          result = [*(*(&v9 + 1) + 8 * v5) enabled];
+          result = [*(*(&v8 + 1) + 8 * v5) enabled];
           if (result)
           {
-            *(v1 + 48) = 1;
+            v1[48] = 1;
             goto LABEL_13;
           }
 
@@ -213,7 +211,7 @@ uint64_t _texturingEnabledMask(uint64_t result)
         }
 
         while (v3 != v5);
-        result = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
         v3 = result;
         if (result)
         {
@@ -224,71 +222,70 @@ uint64_t _texturingEnabledMask(uint64_t result)
       }
     }
 
-    if (*(v1 + 48))
+    if (v1[48])
     {
 LABEL_13:
-      v6 = *(v1 + 200);
-      **(v1 + 208) = vorrq_s8(**(v1 + 208), xmmword_27DF40410);
+      v6 = *(v1 + 25);
+      **(v1 + 26) = vorrq_s8(**(v1 + 26), xmmword_27DF40410);
       v7 = vorrq_s8(*v6, xmmword_27DF404E0);
     }
 
     else
     {
-      v6 = *(v1 + 200);
-      **(v1 + 208) = vbicq_s8(**(v1 + 208), xmmword_27DF40410);
+      v6 = *(v1 + 25);
+      **(v1 + 26) = vbicq_s8(**(v1 + 26), xmmword_27DF40410);
       v7 = vbicq_s8(*v6, xmmword_27DF404E0);
     }
 
     *v6 = v7;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _normalizedNormalsMask(uint64_t result)
+void *_normalizedNormalsMask(void *result)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     if (!*(result + 72) && !*(result + 73))
     {
-      v11 = 0u;
-      v12 = 0u;
-      v9 = 0u;
       v10 = 0u;
-      v5 = *(result + 56);
-      result = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v11 = 0u;
+      v8 = 0u;
+      v9 = 0u;
+      v4 = result[7];
+      result = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (!result)
       {
 LABEL_15:
-        v2 = *(v1 + 208);
+        v2 = v1[26];
         v3 = vbicq_s8(*v2, xmmword_27DF40420);
         goto LABEL_5;
       }
 
-      v6 = result;
-      v7 = *v10;
+      v5 = result;
+      v6 = *v9;
 LABEL_9:
-      v8 = 0;
+      v7 = 0;
       while (1)
       {
-        if (*v10 != v7)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        result = [*(*(&v9 + 1) + 8 * v8) normalizedNormalsMask];
+        result = [*(*(&v8 + 1) + 8 * v7) normalizedNormalsMask];
         if (result)
         {
           break;
         }
 
-        if (v6 == ++v8)
+        if (v5 == ++v7)
         {
-          result = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
-          v6 = result;
+          result = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
+          v5 = result;
           if (result)
           {
             goto LABEL_9;
@@ -299,60 +296,59 @@ LABEL_9:
       }
     }
 
-    v2 = *(v1 + 208);
+    v2 = v1[26];
     v3 = vorrq_s8(*v2, xmmword_27DF40420);
 LABEL_5:
     *v2 = v3;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _vNormalEyeMask(uint64_t result)
+void *_vNormalEyeMask(void *result)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     if (!*(result + 73))
     {
-      v11 = 0u;
-      v12 = 0u;
-      v9 = 0u;
       v10 = 0u;
-      v5 = *(result + 56);
-      result = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v11 = 0u;
+      v8 = 0u;
+      v9 = 0u;
+      v4 = result[7];
+      result = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (!result)
       {
 LABEL_14:
-        v2 = *(v1 + 200);
-        **(v1 + 208) = vbicq_s8(**(v1 + 208), xmmword_27DF40440);
+        v2 = v1[25];
+        *v1[26] = vbicq_s8(*v1[26], xmmword_27DF40440);
         v3 = vbicq_s8(*v2, xmmword_27DF40500);
         goto LABEL_4;
       }
 
-      v6 = result;
-      v7 = *v10;
+      v5 = result;
+      v6 = *v9;
 LABEL_8:
-      v8 = 0;
+      v7 = 0;
       while (1)
       {
-        if (*v10 != v7)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        result = [*(*(&v9 + 1) + 8 * v8) vNormalEyeMask];
+        result = [*(*(&v8 + 1) + 8 * v7) vNormalEyeMask];
         if (result)
         {
           break;
         }
 
-        if (v6 == ++v8)
+        if (v5 == ++v7)
         {
-          result = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
-          v6 = result;
+          result = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
+          v5 = result;
           if (result)
           {
             goto LABEL_8;
@@ -363,50 +359,49 @@ LABEL_8:
       }
     }
 
-    v2 = *(v1 + 200);
-    **(v1 + 208) = vorrq_s8(**(v1 + 208), xmmword_27DF40440);
+    v2 = v1[25];
+    *v1[26] = vorrq_s8(*v1[26], xmmword_27DF40440);
     v3 = vorrq_s8(*v2, xmmword_27DF40500);
 LABEL_4:
     *v2 = v3;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _vPositionEyeMask(uint64_t result)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v2 = *(result + 56);
-    v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v22;
+      v5 = *v21;
 LABEL_4:
       v6 = 0;
       while (1)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v21 + 1) + 8 * v6) vPositionEyeMask])
+        if ([*(*(&v20 + 1) + 8 * v6) vPositionEyeMask])
         {
           break;
         }
 
         if (v4 == ++v6)
         {
-          v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v4 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
           if (v4)
           {
             goto LABEL_4;
@@ -420,7 +415,7 @@ LABEL_4:
     else
     {
 LABEL_10:
-      if (!*(v1 + 73) || (v19 = 0u, v20 = 0u, v17 = 0u, v18 = 0u, v7 = *(v1 + 152), (v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16]) == 0))
+      if (!*(v1 + 73) || (v18 = 0u, v19 = 0u, v16 = 0u, v17 = 0u, v7 = *(v1 + 152), (v8 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16]) == 0))
       {
 LABEL_20:
         v14 = *(v1 + 200);
@@ -428,22 +423,21 @@ LABEL_20:
         v15 = vbicq_s8(*v14, xmmword_27DF404F0);
 LABEL_22:
         *v14 = v15;
-        result = _modelviewMatrixMask(v1);
-        goto LABEL_23;
+        return _modelviewMatrixMask(v1);
       }
 
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
 LABEL_13:
       v11 = 0;
       while (1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         if ([v12 enabled])
         {
           [v12 position];
@@ -455,7 +449,7 @@ LABEL_13:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16];
           if (v9)
           {
             goto LABEL_13;
@@ -472,42 +466,40 @@ LABEL_13:
     goto LABEL_22;
   }
 
-LABEL_23:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _lightStateChanged(uint64_t result)
+void *_lightStateChanged(void *result)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_21;
+    return result;
   }
 
   v1 = result;
-  *(result + 72) = 0;
+  *(result + 36) = 0;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v2 = *(result + 152);
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v2 = result[19];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   v4 = &xmmword_27DF404C0;
   if (v3)
   {
     v5 = v3;
-    v6 = *v19;
+    v6 = *v18;
 LABEL_4:
     v7 = 0;
     while (1)
     {
-      if (*v19 != v6)
+      if (*v18 != v6)
       {
         objc_enumerationMutation(v2);
       }
 
-      v8 = *(*(&v18 + 1) + 8 * v7);
+      v8 = *(*(&v17 + 1) + 8 * v7);
       if ([v8 enabled])
       {
         break;
@@ -515,7 +507,7 @@ LABEL_4:
 
       if (v5 == ++v7)
       {
-        v5 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v5 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v5)
         {
           goto LABEL_4;
@@ -539,8 +531,8 @@ LABEL_13:
   if (*(v1 + 72))
   {
 LABEL_16:
-    v10 = *(v1 + 200);
-    v12 = *(v1 + 208);
+    v10 = v1[25];
+    v12 = v1[26];
     *v12 = vorrq_s8(*v12, xmmword_27DF403F0);
     v9 = &xmmword_27DF404C0 + 8;
     v11 = &xmmword_27DF404C0;
@@ -548,14 +540,14 @@ LABEL_16:
   }
 
   v9 = &xmmword_27DF403F0 + 8;
-  v10 = *(v1 + 208);
+  v10 = v1[26];
   v11 = &xmmword_27DF403F0;
   v12 = v10;
 LABEL_17:
   v13 = v10->i64[1] & ~*v9;
   v10->i64[0] &= ~*v11;
   v10->i64[1] = v13;
-  v14 = *(v1 + 200);
+  v14 = v1[25];
   if (*(v1 + 73))
   {
     *v14 = vorrq_s8(*v14, xmmword_27DF404C0);
@@ -574,10 +566,7 @@ LABEL_17:
   v14->i64[1] = v16;
   _lightModelTwoSidedMask(v1);
   _normalizedNormalsMask(v1);
-  result = _vNormalEyeMask(v1);
-LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return _vNormalEyeMask(v1);
 }
 
 uint64_t _lightModelTwoSidedMask(uint64_t result)
@@ -1258,66 +1247,66 @@ LABEL_7:
   return result;
 }
 
-uint64_t _texGenSMask(uint64_t result)
+int *_texGenSMask(int *result)
 {
   v1 = result;
-  v2 = *(*(result + 24) + 16);
-  v3 = *(result + 92);
+  v2 = *(*(result + 3) + 16);
+  v3 = result[23];
   v4 = *v2;
-  if (*(result + 136))
+  if (*(result + 17))
   {
     v5 = &_staticFshMasks_1[2 * v3];
     v6 = v4 | v5[18];
     v7 = v2[1] | v5[19];
     *v2 = v6;
     v2[1] = v7;
-    v8 = [*(result + 136) mode];
-    v9 = *(*(v1 + 24) + 16);
-    v10 = _staticFshMasks_1[2 * *(v1 + 92) + 90];
+    v8 = [*(result + 17) mode];
+    v9 = *(*(v1 + 3) + 16);
+    v10 = _staticFshMasks_1[2 * v1[23] + 90];
     if (v8)
     {
       v11 = *v9 & ~v10;
-      v12 = v9[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 91];
+      v12 = v9[1] & ~_staticFshMasks_1[2 * v1[23] + 91];
     }
 
     else
     {
       v11 = *v9 | v10;
-      v12 = v9[1] | _staticFshMasks_1[2 * *(v1 + 92) + 91];
+      v12 = v9[1] | _staticFshMasks_1[2 * v1[23] + 91];
     }
 
     *v9 = v11;
     v9[1] = v12;
-    v15 = [*(v1 + 136) mode];
-    v16 = *(*(v1 + 24) + 16);
-    v17 = _staticFshMasks_1[2 * *(v1 + 92) + 108];
+    v15 = [*(v1 + 17) mode];
+    v16 = *(*(v1 + 3) + 16);
+    v17 = _staticFshMasks_1[2 * v1[23] + 108];
     if (v15 == 1)
     {
       v18 = *v16 | v17;
-      v19 = v16[1] | _staticFshMasks_1[2 * *(v1 + 92) + 109];
+      v19 = v16[1] | _staticFshMasks_1[2 * v1[23] + 109];
     }
 
     else
     {
       v18 = *v16 & ~v17;
-      v19 = v16[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 109];
+      v19 = v16[1] & ~_staticFshMasks_1[2 * v1[23] + 109];
     }
 
     *v16 = v18;
     v16[1] = v19;
-    result = [*(v1 + 136) mode];
-    v20 = *(*(v1 + 24) + 16);
-    v21 = _staticFshMasks_1[2 * *(v1 + 92) + 126];
+    result = [*(v1 + 17) mode];
+    v20 = *(*(v1 + 3) + 16);
+    v21 = _staticFshMasks_1[2 * v1[23] + 126];
     if (result == 2)
     {
       v22 = *v20 | v21;
-      v23 = v20[1] | _staticFshMasks_1[2 * *(v1 + 92) + 127];
+      v23 = v20[1] | _staticFshMasks_1[2 * v1[23] + 127];
     }
 
     else
     {
       v22 = *v20 & ~v21;
-      v23 = v20[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 127];
+      v23 = v20[1] & ~_staticFshMasks_1[2 * v1[23] + 127];
     }
 
     *v20 = v22;
@@ -1330,75 +1319,75 @@ uint64_t _texGenSMask(uint64_t result)
     v14 = v2[1] | v13[18].i64[1];
     *v2 = v4 | v13[18].i64[0];
     v2[1] = v14;
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[9]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[45]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[54]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[63]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[9]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[45]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[54]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[63]);
   }
 
   return result;
 }
 
-uint64_t _texGenTMask(uint64_t result)
+int *_texGenTMask(int *result)
 {
   v1 = result;
-  v2 = *(*(result + 24) + 16);
-  v3 = *(result + 92);
+  v2 = *(*(result + 3) + 16);
+  v3 = result[23];
   v4 = *v2;
-  if (*(result + 144))
+  if (*(result + 18))
   {
     v5 = &_staticFshMasks_1[2 * v3];
     v6 = v4 | v5[24];
     v7 = v2[1] | v5[25];
     *v2 = v6;
     v2[1] = v7;
-    v8 = [*(result + 144) mode];
-    v9 = *(*(v1 + 24) + 16);
-    v10 = _staticFshMasks_1[2 * *(v1 + 92) + 96];
+    v8 = [*(result + 18) mode];
+    v9 = *(*(v1 + 3) + 16);
+    v10 = _staticFshMasks_1[2 * v1[23] + 96];
     if (v8)
     {
       v11 = *v9 & ~v10;
-      v12 = v9[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 97];
+      v12 = v9[1] & ~_staticFshMasks_1[2 * v1[23] + 97];
     }
 
     else
     {
       v11 = *v9 | v10;
-      v12 = v9[1] | _staticFshMasks_1[2 * *(v1 + 92) + 97];
+      v12 = v9[1] | _staticFshMasks_1[2 * v1[23] + 97];
     }
 
     *v9 = v11;
     v9[1] = v12;
-    v15 = [*(v1 + 144) mode];
-    v16 = *(*(v1 + 24) + 16);
-    v17 = _staticFshMasks_1[2 * *(v1 + 92) + 114];
+    v15 = [*(v1 + 18) mode];
+    v16 = *(*(v1 + 3) + 16);
+    v17 = _staticFshMasks_1[2 * v1[23] + 114];
     if (v15 == 1)
     {
       v18 = *v16 | v17;
-      v19 = v16[1] | _staticFshMasks_1[2 * *(v1 + 92) + 115];
+      v19 = v16[1] | _staticFshMasks_1[2 * v1[23] + 115];
     }
 
     else
     {
       v18 = *v16 & ~v17;
-      v19 = v16[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 115];
+      v19 = v16[1] & ~_staticFshMasks_1[2 * v1[23] + 115];
     }
 
     *v16 = v18;
     v16[1] = v19;
-    result = [*(v1 + 144) mode];
-    v20 = *(*(v1 + 24) + 16);
-    v21 = _staticFshMasks_1[2 * *(v1 + 92) + 132];
+    result = [*(v1 + 18) mode];
+    v20 = *(*(v1 + 3) + 16);
+    v21 = _staticFshMasks_1[2 * v1[23] + 132];
     if (result == 2)
     {
       v22 = *v20 | v21;
-      v23 = v20[1] | _staticFshMasks_1[2 * *(v1 + 92) + 133];
+      v23 = v20[1] | _staticFshMasks_1[2 * v1[23] + 133];
     }
 
     else
     {
       v22 = *v20 & ~v21;
-      v23 = v20[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 133];
+      v23 = v20[1] & ~_staticFshMasks_1[2 * v1[23] + 133];
     }
 
     *v20 = v22;
@@ -1411,75 +1400,75 @@ uint64_t _texGenTMask(uint64_t result)
     v14 = v2[1] | v13[21].i64[1];
     *v2 = v4 | v13[21].i64[0];
     v2[1] = v14;
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[12]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[48]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[57]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[66]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[12]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[48]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[57]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[66]);
   }
 
   return result;
 }
 
-uint64_t _texGenRMask(uint64_t result)
+int *_texGenRMask(int *result)
 {
   v1 = result;
-  v2 = *(*(result + 24) + 16);
-  v3 = *(result + 92);
+  v2 = *(*(result + 3) + 16);
+  v3 = result[23];
   v4 = *v2;
-  if (*(result + 152))
+  if (*(result + 19))
   {
     v5 = &_staticFshMasks_1[2 * v3];
     v6 = v4 | v5[30];
     v7 = v2[1] | v5[31];
     *v2 = v6;
     v2[1] = v7;
-    v8 = [*(result + 152) mode];
-    v9 = *(*(v1 + 24) + 16);
-    v10 = _staticFshMasks_1[2 * *(v1 + 92) + 102];
+    v8 = [*(result + 19) mode];
+    v9 = *(*(v1 + 3) + 16);
+    v10 = _staticFshMasks_1[2 * v1[23] + 102];
     if (v8)
     {
       v11 = *v9 & ~v10;
-      v12 = v9[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 103];
+      v12 = v9[1] & ~_staticFshMasks_1[2 * v1[23] + 103];
     }
 
     else
     {
       v11 = *v9 | v10;
-      v12 = v9[1] | _staticFshMasks_1[2 * *(v1 + 92) + 103];
+      v12 = v9[1] | _staticFshMasks_1[2 * v1[23] + 103];
     }
 
     *v9 = v11;
     v9[1] = v12;
-    v15 = [*(v1 + 152) mode];
-    v16 = *(*(v1 + 24) + 16);
-    v17 = _staticFshMasks_1[2 * *(v1 + 92) + 120];
+    v15 = [*(v1 + 19) mode];
+    v16 = *(*(v1 + 3) + 16);
+    v17 = _staticFshMasks_1[2 * v1[23] + 120];
     if (v15 == 1)
     {
       v18 = *v16 | v17;
-      v19 = v16[1] | _staticFshMasks_1[2 * *(v1 + 92) + 121];
+      v19 = v16[1] | _staticFshMasks_1[2 * v1[23] + 121];
     }
 
     else
     {
       v18 = *v16 & ~v17;
-      v19 = v16[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 121];
+      v19 = v16[1] & ~_staticFshMasks_1[2 * v1[23] + 121];
     }
 
     *v16 = v18;
     v16[1] = v19;
-    result = [*(v1 + 152) mode];
-    v20 = *(*(v1 + 24) + 16);
-    v21 = _staticFshMasks_1[2 * *(v1 + 92) + 138];
+    result = [*(v1 + 19) mode];
+    v20 = *(*(v1 + 3) + 16);
+    v21 = _staticFshMasks_1[2 * v1[23] + 138];
     if (result == 2)
     {
       v22 = *v20 | v21;
-      v23 = v20[1] | _staticFshMasks_1[2 * *(v1 + 92) + 139];
+      v23 = v20[1] | _staticFshMasks_1[2 * v1[23] + 139];
     }
 
     else
     {
       v22 = *v20 & ~v21;
-      v23 = v20[1] & ~_staticFshMasks_1[2 * *(v1 + 92) + 139];
+      v23 = v20[1] & ~_staticFshMasks_1[2 * v1[23] + 139];
     }
 
     *v20 = v22;
@@ -1492,10 +1481,10 @@ uint64_t _texGenRMask(uint64_t result)
     v14 = v2[1] | v13[24].i64[1];
     *v2 = v4 | v13[24].i64[0];
     v2[1] = v14;
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[15]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[51]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[60]);
-    **(*(result + 24) + 16) = vbicq_s8(**(*(result + 24) + 16), v13[69]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[15]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[51]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[60]);
+    **(*(result + 3) + 16) = vbicq_s8(**(*(result + 3) + 16), v13[69]);
   }
 
   return result;
@@ -1629,7 +1618,7 @@ BOOL _reflectionMappingEnabled(uint64_t a1)
   return (v4 & *v1) != 0 || (v3[1] & v1[1]) != 0;
 }
 
-uint64_t glkLinkedOSVersion()
+uint64_t glkLinkedOSVersion(uint64_t a1, uint64_t a2)
 {
   if (glkLinkedOSVersion_once != -1)
   {
@@ -1649,16 +1638,16 @@ uint64_t __glkLinkedOSVersion_block_invoke()
 GLKMatrix4 *__cdecl GLKMatrix4Invert(GLKMatrix4 *__return_ptr retstr, GLKMatrix4 *matrix, BOOL *isInvertible)
 {
   v3 = 0;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v4 = 0uLL;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0;
   v62 = 0u;
-  v61 = -1;
-  LODWORD(v63) = -1;
-  DWORD1(v64) = -1;
-  v66 = -1;
+  v63 = 0u;
+  v64 = 0;
+  v61 = 0u;
+  v60 = -1;
+  LODWORD(v62) = -1;
+  DWORD1(v63) = -1;
+  v65 = -1;
   v5 = *&matrix->m[4];
   v6 = *&matrix->m[8];
   v7 = *&matrix->m[12];
@@ -1686,7 +1675,7 @@ GLKMatrix4 *__cdecl GLKMatrix4Invert(GLKMatrix4 *__return_ptr retstr, GLKMatrix4
     v28 = vbsl_s8(v27, 0xF0E0D0C0B0A0908, 0x706050403020100);
     v29 = vdupq_lane_s32(vbsl_s8(vcgt_u32(vrev64_s32(*v25.i8), *v25.i8), vdup_lane_s32(v28, 1), v28), 0);
     v16 = vmin_u32(v16, vpmax_u32(*v25.i8, *v25.i8));
-    v4 = vbslq_s8(*(&v61 + v3), v29, v4);
+    v4 = vbslq_s8(*(&v60 + v3), v29, v4);
     v30 = vceqq_s32(v29, xmmword_238915130);
     v24 = vbslq_s8(v30, vdupq_n_s32(v18), v24);
     v18 += 67372036;
@@ -1768,7 +1757,6 @@ GLKMatrix4 *__cdecl GLKMatrix4Invert(GLKMatrix4 *__return_ptr retstr, GLKMatrix4
   }
 
   *&retstr->m[12] = v59;
-  v60 = *MEMORY[0x277D85DE8];
   return matrix;
 }
 
@@ -1790,108 +1778,26 @@ GLKQuaternion GLKQuaternionMakeWithMatrix3(GLKMatrix3 *matrix)
 {
   m00 = matrix->m00;
   m11 = matrix->m11;
-  v3 = matrix->m00 + m11;
   m22 = matrix->m22;
-  if ((v3 + m22) >= 0.0)
+  if (((matrix->m00 + m11) + m22) < 0.0)
   {
-    v14 = 0.5 / sqrt((v3 + m22) + 1.0);
-    v15.i32[0] = LODWORD(matrix->m21);
-    v15.i32[1] = LODWORD(matrix->m02);
-    v16 = vmulq_n_f64(vcvtq_f64_f32(vsub_f32(*&matrix->m[5], v15)), v14);
-    v17 = v14 * (matrix->m01 - matrix->m10);
-  }
-
-  else
-  {
-    v5 = m11 > m00;
+    v4 = m11 > m00;
     if (m22 > *(&matrix->m00 + 4 * (m11 > m00)))
     {
-      v5 = 2;
+      v4 = 2;
     }
 
-    if (v5 == 2)
+    if (v4 != 2)
     {
-      v18 = 0.5 / sqrt(((m22 - v3) + 1.0));
-      v19.i32[0] = LODWORD(matrix->m02);
-      v19.i32[1] = LODWORD(matrix->m12);
-      v20 = vmulq_n_f64(vcvtq_f64_f32(vadd_f32(*&matrix->m[6], v19)), v18);
-      v19.f32[0] = matrix->m01 - matrix->m10;
-    }
+      if (v4 == 1)
+      {
+        __asm { FMOV            V0.2D, #0.5 }
+      }
 
-    else if (v5 == 1)
-    {
-      v6 = sqrt(((m11 - (m00 + m22)) + 1.0));
-      v7 = 0.5 / v6 * (matrix->m21 + matrix->m12);
-      v8 = 0.5 / v6 * (matrix->m20 - matrix->m02);
-      __asm { FMOV            V0.2D, #0.5 }
-
-      *&_Q0 = (matrix->m10 + matrix->m01);
-    }
-
-    else
-    {
-      __asm { FMOV            V3.2D, #0.5 }
-
-      *(&_Q3 + 1) = (matrix->m10 + matrix->m01);
-      v22 = 0.5 / sqrt(((m00 - (m11 + m22)) + 1.0)) * (matrix->m02 + matrix->m20);
-      *&_Q3 = matrix->m12 - matrix->m21;
-    }
-  }
-
-  *&result.x = matrix;
-  return result;
-}
-
-GLKQuaternion GLKQuaternionMakeWithMatrix4(GLKMatrix4 *matrix)
-{
-  m00 = matrix->m00;
-  m11 = matrix->m11;
-  v3 = matrix->m00 + m11;
-  m22 = matrix->m22;
-  if ((v3 + m22) >= 0.0)
-  {
-    v11 = 0.5 / sqrt((v3 + m22) + 1.0);
-    v12 = v11 * (matrix->m12 - matrix->m21);
-    v13 = v11 * (matrix->m20 - matrix->m02);
-    v14 = v11 * (matrix->m01 - matrix->m10);
-  }
-
-  else
-  {
-    v5 = m11 > m00;
-    v6 = 20;
-    if (m11 <= m00)
-    {
-      v6 = 0;
-    }
-
-    if (m22 > *(&matrix->m00 + v6))
-    {
-      v5 = 2;
-    }
-
-    if (v5 == 2)
-    {
-      v15 = 0.5 / sqrt(((m22 - v3) + 1.0));
-      v16 = v15 * (matrix->m02 + matrix->m20);
-      v17 = v15 * (matrix->m21 + matrix->m12);
-      v18 = matrix->m01 - matrix->m10;
-    }
-
-    else if (v5 == 1)
-    {
-      v7 = 0.5 / sqrt(((m11 - (m00 + m22)) + 1.0));
-      v8 = v7 * (matrix->m21 + matrix->m12);
-      v9 = v7 * (matrix->m10 + matrix->m01);
-      v10 = matrix->m20 - matrix->m02;
-    }
-
-    else
-    {
-      v19 = 0.5 / sqrt(((m00 - (m11 + m22)) + 1.0));
-      v20 = v19 * (matrix->m10 + matrix->m01);
-      v21 = v19 * (matrix->m02 + matrix->m20);
-      v22 = matrix->m12 - matrix->m21;
+      else
+      {
+        __asm { FMOV            V3.2D, #0.5 }
+      }
     }
   }
 
@@ -2291,26 +2197,20 @@ GLKMatrix3 *__cdecl GLKMatrixStackGetMatrix3(GLKMatrix3 *__return_ptr retstr, GL
 
 GLKMatrix2 GLKMatrixStackGetMatrix2(GLKMatrixStackRef stack)
 {
-  v1 = *(stack + 2);
-  v2 = v1;
-  if (*v1 >= 2)
+  v1 = **(stack + 2);
+  if (v1 >= 2)
   {
-    v3 = *v1 - 1;
-    v2 = *(stack + 2);
+    v2 = v1 - 1;
+    v3 = *(stack + 2);
     do
     {
-      v2 = *(v2 + 32);
-      --v3;
+      v3 = *(v3 + 32);
+      --v2;
     }
 
-    while (v3);
+    while (v2);
   }
 
-  v4 = (*(v2 + 24) + *(v1 + 8) * *(v1 + 4));
-  v5 = *v4;
-  v6 = v4[1];
-  v7 = v4[4];
-  v8 = v4[5];
   *&result.m00 = stack;
   return result;
 }
@@ -3392,13 +3292,13 @@ uint64_t _GLKTextureErrorWithCodeAndErrorString(uint64_t a1, uint64_t a2)
 GLKMatrix3 *__cdecl GLKMatrix3Invert(GLKMatrix3 *__return_ptr retstr, GLKMatrix3 *matrix, BOOL *isInvertible)
 {
   v3 = 0;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v4 = 0uLL;
-  memset(v56, 0, sizeof(v56));
-  v55 = 0u;
-  v54 = -1;
-  *v56 = -1;
-  *&v56[20] = -1;
+  memset(v55, 0, sizeof(v55));
+  v54 = 0u;
+  v53 = -1;
+  *v55 = -1;
+  *&v55[20] = -1;
   v5 = *&matrix->m[3];
   v6 = *&matrix->m[5];
   *v7.f32 = vzip1_s32(*&matrix->m00, v5);
@@ -3426,7 +3326,7 @@ GLKMatrix3 *__cdecl GLKMatrix3Invert(GLKMatrix3 *__return_ptr retstr, GLKMatrix3
     v26 = vbsl_s8(v25, 0xF0E0D0C0B0A0908, 0x706050403020100);
     v27 = vdupq_lane_s32(vbsl_s8(vcgt_u32(vrev64_s32(*v23.i8), *v23.i8), vdup_lane_s32(v26, 1), v26), 0);
     v14 = vmin_u32(v14, vpmax_u32(*v23.i8, *v23.i8));
-    v4 = vbslq_s8(*(&v54 + v3), v27, v4);
+    v4 = vbslq_s8(*(&v53 + v3), v27, v4);
     v28 = vceqq_s32(v27, xmmword_238915130);
     v22 = vbslq_s8(v28, vdupq_n_s32(v16), v22);
     v16 += 67372036;
@@ -3498,7 +3398,6 @@ GLKMatrix3 *__cdecl GLKMatrix3Invert(GLKMatrix3 *__return_ptr retstr, GLKMatrix3
     *&retstr->m[4] = *&GLKMatrix3Identity.m[4];
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return matrix;
 }
 
@@ -3514,28 +3413,50 @@ GLKMatrix3 *__cdecl GLKMatrix3InvertAndTranspose(GLKMatrix3 *__return_ptr retstr
   return GLKMatrix3Invert(retstr, &matrixa, isInvertible);
 }
 
-void sub_23890E444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23890E444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23890E61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23890E61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
+}
+
+GLKVector3 GLKMathUnproject(GLKVector3 window, GLKMatrix4 *model, GLKMatrix4 *projection, int *viewport, BOOL *success)
+{
+  isInvertible = 0;
+  v6 = *(*&window.v[2] + 16);
+  v7 = *(*&window.v[2] + 32);
+  v8 = *(*&window.v[2] + 48);
+  v9 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(**&window.v[2], COERCE_FLOAT(*(*&window.x + 16))), v6, *(*&window.x + 16), 1), v7, *(*&window.x + 16), 2), v8, *(*&window.x + 16), 3);
+  v10 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(**&window.v[2], COERCE_FLOAT(*(*&window.x + 32))), v6, *(*&window.x + 32), 1), v7, *(*&window.x + 32), 2), v8, *(*&window.x + 32), 3);
+  v11 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(**&window.v[2], COERCE_FLOAT(*(*&window.x + 48))), v6, *(*&window.x + 48), 1), v7, *(*&window.x + 48), 2), v8, *(*&window.x + 48), 3);
+  *&v14.m00 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(**&window.v[2], COERCE_FLOAT(**&window.x)), v6, **&window.x, 1), v7, **&window.x, 2), v8, **&window.x, 3);
+  *&v14.m[4] = v9;
+  *&v14.m[8] = v10;
+  *&v14.m[12] = v11;
+  v12 = GLKMatrix4Invert(&v15, &v14, &isInvertible);
+  if (projection)
+  {
+    LOBYTE(projection->m00) = isInvertible;
+  }
+
+  *&result.x = v12;
+  result.z = v13;
+  return result;
 }
 
 uint64_t _GLKModelErrorWithCodeAndErrorString(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"GLKModelErrorKey";
-  v5[0] = a2;
-  result = [MEMORY[0x277CCA9B8] errorWithDomain:@"GLKModelErrorDomain" code:a1 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v5, &v4, 1)}];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"GLKModelErrorKey";
+  v4[0] = a2;
+  return [MEMORY[0x277CCA9B8] errorWithDomain:@"GLKModelErrorDomain" code:a1 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v4, &v3, 1)}];
 }
 
 __float2 __sincosf_stret(float a1)

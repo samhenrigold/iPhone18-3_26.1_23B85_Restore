@@ -1,6 +1,7 @@
 @interface EMBlockedSenderManager
 + (BOOL)shouldMoveToTrashForMailboxType:(int64_t)type gmailLabels:(id)labels;
 + (BOOL)shouldPromptForBlockedSender;
++ (void)setPromptForBlockedSender:(BOOL)sender;
 - (BOOL)_isEmailAddressBlocked:(id)blocked;
 - (BOOL)areAnyEmailAddressesBlocked:(id)blocked;
 - (BOOL)isBlockedSenderEnabled;
@@ -18,6 +19,7 @@
 - (void)blockEmailAddresses:(id)addresses;
 - (void)blockTokenAddress:(id)address;
 - (void)dealloc;
+- (void)setBlockedSenderEnabled:(BOOL)enabled;
 - (void)setMoveToTrashEnabled:(BOOL)enabled;
 - (void)test_tearDown;
 - (void)unblockEmailAddress:(id)address;
@@ -155,9 +157,9 @@ void ___ef_log_EMBlockedSenderManager_block_invoke()
 
 - (void)_locked_repopulateBlockedSenderCachedState:(id)state
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
   CMFBlockListCopyItemsForAllServicesService();
   v5 = objc_alloc_init(MEMORY[0x1E699AFD8]);
   v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -174,7 +176,7 @@ void ___ef_log_EMBlockedSenderManager_block_invoke()
     }
   }
 
-  CFRelease(v20);
+  CFRelease(v19);
 
   if ([stateCopy valid])
   {
@@ -187,59 +189,55 @@ void ___ef_log_EMBlockedSenderManager_block_invoke()
   }
 
   v10 = blockedSenders;
-  v11 = _ef_log_EMBlockedSenderManager();
+  v11 = _ef_log_EMBlockedSenderManager(blockedSenders);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *cf = 134218752;
     *&cf[4] = self;
-    v22 = 2048;
-    v23 = [v5 count];
-    v24 = 2048;
-    v25 = [v10 count];
-    v26 = 2048;
-    v27 = v7;
+    v21 = 2048;
+    v22 = [v5 count];
+    v23 = 2048;
+    v24 = [v10 count];
+    v25 = 2048;
+    v26 = v7;
     _os_log_impl(&dword_1C6655000, v11, OS_LOG_TYPE_DEFAULT, "%p: Update Blocked Sender List - New Blocked Senders=%lu, Previous Blocked Senders=%lu, Block List Count=%lu", cf, 0x2Au);
   }
 
   [stateCopy setBlockedSenders:v5];
   [stateCopy setValid:1];
   notificationScheduler = [(EMBlockedSenderManager *)self notificationScheduler];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __69__EMBlockedSenderManager__locked_repopulateBlockedSenderCachedState___block_invoke;
-  v16[3] = &unk_1E826C230;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __69__EMBlockedSenderManager__locked_repopulateBlockedSenderCachedState___block_invoke;
+  v15[3] = &unk_1E826C230;
   v13 = v5;
-  v17 = v13;
+  v16 = v13;
   v14 = v10;
-  v18 = v14;
+  v17 = v14;
   selfCopy = self;
-  [notificationScheduler performBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [notificationScheduler performBlock:v15];
 }
 
 void __69__EMBlockedSenderManager__locked_repopulateBlockedSenderCachedState___block_invoke(uint64_t a1)
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   v2 = a1 + 32;
   v3 = [*(a1 + 32) ef_setByRemovingObjectsFromSet:*(a1 + 40)];
   v4 = [*(v2 + 8) ef_setByRemovingObjectsFromSet:*v2];
   v5 = *(a1 + 32);
-  v10[0] = @"EMBlockedSenderManagerBlockedSendersKey";
-  v10[1] = @"EMBlockedSenderManagerAddedBlockedSendersKey";
-  v11[0] = v5;
-  v11[1] = v3;
-  v11[2] = v4;
-  v10[2] = @"EMBlockedSenderManagerRemovedBlockedSendersKey";
-  v10[3] = @"EMBlockedSenderManagerIsBlockedSenderEnabledKey";
+  v9[0] = @"EMBlockedSenderManagerBlockedSendersKey";
+  v9[1] = @"EMBlockedSenderManagerAddedBlockedSendersKey";
+  v10[0] = v5;
+  v10[1] = v3;
+  v10[2] = v4;
+  v9[2] = @"EMBlockedSenderManagerRemovedBlockedSendersKey";
+  v9[3] = @"EMBlockedSenderManagerIsBlockedSenderEnabledKey";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 48), "isBlockedSenderEnabled")}];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   v8 = [MEMORY[0x1E696AD88] defaultCenter];
   [v8 postNotificationName:@"EMBlockedSenderManagerBlockedListDidChangeNotification" object:*(a1 + 48) userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postBlockedSenderListDidChangeNotificationBasedOnBlockedSenderEnabledState
@@ -255,7 +253,7 @@ void __69__EMBlockedSenderManager__locked_repopulateBlockedSenderCachedState___b
 
 void __101__EMBlockedSenderManager__postBlockedSenderListDidChangeNotificationBasedOnBlockedSenderEnabledState__block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isBlockedSenderEnabled];
   if (v2)
   {
@@ -268,38 +266,34 @@ void __101__EMBlockedSenderManager__postBlockedSenderListDidChangeNotificationBa
   }
 
   v4 = v3;
-  v9[0] = @"EMBlockedSenderManagerBlockedSendersKey";
-  v9[1] = @"EMBlockedSenderManagerIsBlockedSenderEnabledKey";
-  v10[0] = v3;
+  v8[0] = @"EMBlockedSenderManagerBlockedSendersKey";
+  v8[1] = @"EMBlockedSenderManagerIsBlockedSenderEnabledKey";
+  v9[0] = v3;
   v5 = [MEMORY[0x1E696AD98] numberWithBool:v2];
-  v10[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   v7 = [MEMORY[0x1E696AD88] defaultCenter];
   [v7 postNotificationName:@"EMBlockedSenderManagerBlockedListDidChangeNotification" object:*(a1 + 32) userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMoveToTrashEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = _ef_log_EMBlockedSenderManager();
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = _ef_log_EMBlockedSenderManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218240;
+    v8 = 134218240;
     selfCopy = self;
-    v11 = 1024;
-    v12 = enabledCopy;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Update Move To Trash=%{BOOL}d", &v9, 0x12u);
+    v10 = 1024;
+    v11 = enabledCopy;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Update Move To Trash=%{BOOL}d", &v8, 0x12u);
   }
 
   em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:enabledCopy];
   [em_userDefaults setValue:v7 forKey:@"BlockedSenderAction"];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isMoveToTrashEnabled
@@ -311,6 +305,26 @@ void __101__EMBlockedSenderManager__postBlockedSenderListDidChangeNotificationBa
   v4 = (objc_opt_isKindOfClass() & 1) == 0 || [v3 integerValue] == 1;
 
   return v4;
+}
+
+- (void)setBlockedSenderEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = _ef_log_EMBlockedSenderManager(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 134218240;
+    selfCopy = self;
+    v9 = 1024;
+    v10 = enabledCopy;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Update Blocked Senders Enabled=%{BOOL}d", &v7, 0x12u);
+  }
+
+  em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
+  [em_userDefaults setBool:enabledCopy forKey:@"BlockedSenderEnabled"];
+
+  [(EMBlockedSenderManager *)self _postBlockedSenderListDidChangeNotificationBasedOnBlockedSenderEnabledState];
 }
 
 - (BOOL)isEmailAddressBlocked:(id)blocked
@@ -354,9 +368,9 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
 
 - (void)blockEmailAddress:(id)address
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   addressCopy = address;
-  v5 = _ef_log_EMBlockedSenderManager();
+  v5 = _ef_log_EMBlockedSenderManager(addressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = addressCopy;
@@ -374,11 +388,11 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
       ef_publicDescription = [v10 fullyOrPartiallyRedactedStringForString:stringValue];
     }
 
-    v14 = 134218242;
+    v13 = 134218242;
     selfCopy = self;
-    v16 = 2114;
-    v17 = ef_publicDescription;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Block email address: %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = ef_publicDescription;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Block email address: %{public}@", &v13, 0x16u);
   }
 
   v12 = CMFItemCreateWithEmailAddress();
@@ -387,15 +401,13 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
   {
     CFRelease(v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unblockEmailAddress:(id)address
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   addressCopy = address;
-  v5 = _ef_log_EMBlockedSenderManager();
+  v5 = _ef_log_EMBlockedSenderManager(addressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = addressCopy;
@@ -413,11 +425,11 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
       ef_publicDescription = [v10 fullyOrPartiallyRedactedStringForString:stringValue];
     }
 
-    v14 = 134218242;
+    v13 = 134218242;
     selfCopy = self;
-    v16 = 2114;
-    v17 = ef_publicDescription;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Unblock email address: %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = ef_publicDescription;
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Unblock email address: %{public}@", &v13, 0x16u);
   }
 
   v12 = CMFItemCreateWithEmailAddress();
@@ -426,84 +438,78 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
   {
     CFRelease(v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)blockEmailAddresses:(id)addresses
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   addressesCopy = addresses;
-  v5 = [addressesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [addressesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(addressesCopy);
         }
 
-        v8 = [MEMORY[0x1E699AFD0] rawAddressFromFullAddress:{*(*(&v10 + 1) + 8 * v7), v10}];
+        v8 = [MEMORY[0x1E699AFD0] rawAddressFromFullAddress:{*(*(&v9 + 1) + 8 * v7), v9}];
         [(EMBlockedSenderManager *)self blockEmailAddress:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [addressesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [addressesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unblockEmailAddresses:(id)addresses
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   addressesCopy = addresses;
-  v5 = [addressesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [addressesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(addressesCopy);
         }
 
-        v8 = [MEMORY[0x1E699AFD0] rawAddressFromFullAddress:{*(*(&v10 + 1) + 8 * v7), v10}];
+        v8 = [MEMORY[0x1E699AFD0] rawAddressFromFullAddress:{*(*(&v9 + 1) + 8 * v7), v9}];
         [(EMBlockedSenderManager *)self unblockEmailAddress:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [addressesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [addressesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isTokenAddressIsBlocked:(id)blocked
@@ -585,12 +591,12 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
 
   if (*(v22 + 24) == 1)
   {
-    v7 = _ef_log_EMBlockedSenderManager();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _ef_log_EMBlockedSenderManager(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v6;
-      emailAddressValue = [v8 emailAddressValue];
-      v10 = emailAddressValue;
+      v9 = v6;
+      emailAddressValue = [v9 emailAddressValue];
+      v11 = emailAddressValue;
       if (emailAddressValue)
       {
         ef_publicDescription = [emailAddressValue ef_publicDescription];
@@ -598,32 +604,31 @@ uint64_t __43__EMBlockedSenderManager_isContactBlocked___block_invoke(uint64_t a
 
       else
       {
-        v13 = MEMORY[0x1E699B858];
-        stringValue = [v8 stringValue];
-        ef_publicDescription = [v13 fullyOrPartiallyRedactedStringForString:stringValue];
+        v14 = MEMORY[0x1E699B858];
+        stringValue = [v9 stringValue];
+        ef_publicDescription = [v14 fullyOrPartiallyRedactedStringForString:stringValue];
       }
 
-      v15 = *(v22 + 24);
+      v16 = *(v22 + 24);
       *buf = 134218498;
       selfCopy = self;
       v27 = 2114;
       v28 = ef_publicDescription;
       v29 = 1024;
-      v30 = v15;
-      _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "%p: Is %{public}@ blocked=%{BOOL}d", buf, 0x1Cu);
+      v30 = v16;
+      _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "%p: Is %{public}@ blocked=%{BOOL}d", buf, 0x1Cu);
     }
 
-    v12 = *(v22 + 24);
+    v13 = *(v22 + 24);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x1E69E9840];
-  return v12 & 1;
+  return v13 & 1;
 }
 
 void __49__EMBlockedSenderManager__isEmailAddressBlocked___block_invoke(uint64_t a1, void *a2)
@@ -652,15 +657,16 @@ void __49__EMBlockedSenderManager__isEmailAddressBlocked___block_invoke(uint64_t
     v6 = blockedSenderEmailAddresses;
     v21 = v6;
     v7 = [blockedCopy ef_firstObjectPassingTest:v20];
-    v8 = v7 != 0;
+    v8 = v7;
+    v9 = v7 != 0;
     if (v7)
     {
-      v9 = _ef_log_EMBlockedSenderManager();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _ef_log_EMBlockedSenderManager(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = v7;
-        emailAddressValue = [v10 emailAddressValue];
-        v12 = emailAddressValue;
+        v11 = v8;
+        emailAddressValue = [v11 emailAddressValue];
+        v13 = emailAddressValue;
         if (emailAddressValue)
         {
           ef_publicDescription = [emailAddressValue ef_publicDescription];
@@ -668,31 +674,30 @@ void __49__EMBlockedSenderManager__isEmailAddressBlocked___block_invoke(uint64_t
 
         else
         {
-          v14 = MEMORY[0x1E699B858];
-          stringValue = [v10 stringValue];
-          ef_publicDescription = [v14 fullyOrPartiallyRedactedStringForString:stringValue];
+          v15 = MEMORY[0x1E699B858];
+          stringValue = [v11 stringValue];
+          ef_publicDescription = [v15 fullyOrPartiallyRedactedStringForString:stringValue];
         }
 
-        v16 = ef_publicDescription;
-        v17 = [blockedCopy count];
+        v17 = ef_publicDescription;
+        v18 = [blockedCopy count];
         *buf = 134218498;
         selfCopy = self;
         v24 = 2114;
-        v25 = v16;
+        v25 = v17;
         v26 = 2048;
-        v27 = v17;
-        _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "%p: %{public}@ is blocked in list (%lu)", buf, 0x20u);
+        v27 = v18;
+        _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "%p: %{public}@ is blocked in list (%lu)", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 uint64_t __54__EMBlockedSenderManager_areAnyEmailAddressesBlocked___block_invoke(uint64_t a1, void *a2)
@@ -715,14 +720,14 @@ uint64_t __54__EMBlockedSenderManager_areAnyEmailAddressesBlocked___block_invoke
 
 - (void)_unblockPhoneNumber:(id)number
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   numberCopy = number;
-  v5 = _ef_log_EMBlockedSenderManager();
+  v5 = _ef_log_EMBlockedSenderManager(numberCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Unblock phone number", &v9, 0xCu);
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%p: Unblock phone number", &v8, 0xCu);
   }
 
   formattedInternationalStringValue = [numberCopy formattedInternationalStringValue];
@@ -732,8 +737,6 @@ uint64_t __54__EMBlockedSenderManager_areAnyEmailAddressesBlocked___block_invoke
     CMFBlockListRemoveItemFromAllServices();
     CFRelease(CMFItemFromString);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldPromptForBlockedSender
@@ -752,6 +755,14 @@ uint64_t __54__EMBlockedSenderManager_areAnyEmailAddressesBlocked___block_invoke
   }
 
   return bOOLValue;
+}
+
++ (void)setPromptForBlockedSender:(BOOL)sender
+{
+  senderCopy = sender;
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:senderCopy];
+  [standardUserDefaults setObject:v4 forKey:@"EMPromptUserForBlockedSenderKey"];
 }
 
 + (BOOL)shouldMoveToTrashForMailboxType:(int64_t)type gmailLabels:(id)labels

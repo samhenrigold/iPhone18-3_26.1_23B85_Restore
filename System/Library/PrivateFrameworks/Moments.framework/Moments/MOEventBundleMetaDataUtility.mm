@@ -144,7 +144,7 @@ LABEL_18:
 
 + (id)buildActivityMetaDataForEventBundle:(id)bundle
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   v4 = objc_opt_new();
   action = [bundleCopy action];
@@ -171,26 +171,26 @@ LABEL_18:
     {
 
 LABEL_9:
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       places2 = [bundleCopy places];
-      v12 = [places2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v12 = [places2 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v32;
+        v14 = *v31;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v32 != v14)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(places2);
             }
 
-            v16 = *(*(&v31 + 1) + 8 * i);
+            v16 = *(*(&v30 + 1) + 8 * i);
             placeName = [v16 placeName];
 
             if (placeName)
@@ -199,7 +199,7 @@ LABEL_9:
             }
           }
 
-          v13 = [places2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v13 = [places2 countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v13);
@@ -246,8 +246,6 @@ LABEL_22:
 
   photoTraits = [bundleCopy photoTraits];
   [MOEventBundleMetaDataUtility setMetaDataForHoliday:photoTraits metaData:v4 eventBundle:bundleCopy];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -370,19 +368,17 @@ LABEL_13:
 
 + (id)buildSharedContentMetaDataForEventBundle:(id)bundle
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
   bundleCopy = bundle;
   v5 = [v3 alloc];
-  v12 = @"default_label";
+  v11 = @"default_label";
   action = [bundleCopy action];
 
   actionName = [action actionName];
-  v13[0] = actionName;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = actionName;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 initWithDictionary:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -822,30 +818,30 @@ LABEL_35:
 
 + (id)buildEvergreenMetaDataForEventBundle:(id)bundle
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   resources = [bundle resources];
-  v4 = [resources countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v4 = [resources countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v30;
+    v6 = *v29;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v30 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(resources);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
+        v8 = *(*(&v28 + 1) + 8 * i);
         if ([v8 type] == 9)
         {
-          v27 = resources;
+          v26 = resources;
           v9 = objc_opt_new();
           v10 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:@"EVERGREEN_LABEL"];
           [v9 setObject:v10 forKeyedSubscript:@"default_label"];
@@ -855,7 +851,7 @@ LABEL_35:
           v13 = [v11 stringWithFormat:@"%@_%@", @"evergreen_type", name];
 
           name2 = [v8 name];
-          v28 = v9;
+          v27 = v9;
           [MOEventBundleMetaDataUtility setMetaDataWithKeyword:@"evergreen_type" extendedKeyword:v13 value:name2 metaData:v9];
 
           v15 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
@@ -875,15 +871,15 @@ LABEL_35:
               if (v19)
               {
                 v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"evergreen_slot_", j];
-                [v28 setObject:v19 forKeyedSubscript:v20];
+                [v27 setObject:v19 forKeyedSubscript:v20];
                 v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%d", @"evergreen_index", objc_msgSend(v19, "intValue")];
                 stringValue = [v19 stringValue];
-                [MOEventBundleMetaDataUtility setMetaDataWithKeyword:v20 extendedKeyword:v21 value:stringValue metaData:v28];
+                [MOEventBundleMetaDataUtility setMetaDataWithKeyword:v20 extendedKeyword:v21 value:stringValue metaData:v27];
               }
             }
           }
 
-          [v28 setObject:&unk_284100A50 forKeyedSubscript:@"shuffle_mode"];
+          [v27 setObject:&unk_284100A50 forKeyedSubscript:@"shuffle_mode"];
           v23 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
@@ -896,12 +892,12 @@ LABEL_35:
             [MOEventBundleMetaDataUtility buildEvergreenMetaDataForEventBundle:v8];
           }
 
-          resources = v27;
+          resources = v26;
           goto LABEL_22;
         }
       }
 
-      v5 = [resources countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v5 = [resources countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v5)
       {
         continue;
@@ -911,17 +907,15 @@ LABEL_35:
     }
   }
 
-  v28 = 0;
+  v27 = 0;
 LABEL_22:
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 + (id)buildTimeContextMetaDataForEventBundle:(id)bundle
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   v4 = objc_opt_new();
   action = [bundleCopy action];
@@ -1006,14 +1000,12 @@ LABEL_17:
   {
     startDate2 = [bundleCopy startDate];
     allKeys = [v4 allKeys];
-    v28 = 138412546;
-    v29 = startDate2;
-    v30 = 2112;
-    v31 = allKeys;
-    _os_log_impl(&dword_22D8C5000, v23, OS_LOG_TYPE_INFO, "build meta for time context bundle, bundle startDate, %@, metaData, %@", &v28, 0x16u);
+    v27 = 138412546;
+    v28 = startDate2;
+    v29 = 2112;
+    v30 = allKeys;
+    _os_log_impl(&dword_22D8C5000, v23, OS_LOG_TYPE_INFO, "build meta for time context bundle, bundle startDate, %@, metaData, %@", &v27, 0x16u);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1187,14 +1179,14 @@ LABEL_17:
 
 + (id)buildThematicSummaryMetaDataForEventBundle:(id)bundle
 {
-  v276 = *MEMORY[0x277D85DE8];
+  v273 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   v6 = objc_opt_new();
   getSubTypeString = [bundleCopy getSubTypeString];
   [v6 setObject:getSubTypeString forKeyedSubscript:@"thematic_summary_subtype"];
 
   subBundleIDs = [bundleCopy subBundleIDs];
-  v253 = bundleCopy;
+  v250 = bundleCopy;
   if ([subBundleIDs count] < 3)
   {
     goto LABEL_10;
@@ -1221,7 +1213,7 @@ LABEL_7:
   weekOfYearHistogram = [clusterMetadata3 weekOfYearHistogram];
   v14 = [weekOfYearHistogram count] > 2;
 
-  bundleCopy = v253;
+  bundleCopy = v250;
   if (!v11)
   {
     goto LABEL_7;
@@ -1251,13 +1243,13 @@ LABEL_11:
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
-    bundleCopy = v253;
+    bundleCopy = v250;
     if ((isKindOfClass & 1) == 0)
     {
       goto LABEL_15;
     }
 
-    clusterMetadata4 = [v253 clusterMetadata];
+    clusterMetadata4 = [v250 clusterMetadata];
     phenotype3 = [clusterMetadata4 phenotype];
     v23 = [phenotype3 objectForKeyedSubscript:@"holiday"];
     [v6 setObject:v23 forKeyedSubscript:@"holiday_name"];
@@ -1267,146 +1259,143 @@ LABEL_15:
   clusterMetadata6 = [bundleCopy clusterMetadata];
   phenotype5 = [clusterMetadata6 phenotype];
   v26 = [phenotype5 objectForKeyedSubscript:@"otherSubjectFromPhotoTraits"];
-  v27 = 0x277CCA000uLL;
   objc_opt_class();
-  v28 = objc_opt_isKindOfClass();
+  v27 = objc_opt_isKindOfClass();
 
-  if (v28)
+  if (v27)
   {
     clusterMetadata7 = [bundleCopy clusterMetadata];
     phenotype6 = [clusterMetadata7 phenotype];
-    v31 = [phenotype6 objectForKeyedSubscript:@"otherSubjectFromPhotoTraits"];
-    [v6 setObject:v31 forKeyedSubscript:@"photo_trait_subject"];
+    v30 = [phenotype6 objectForKeyedSubscript:@"otherSubjectFromPhotoTraits"];
+    [v6 setObject:v30 forKeyedSubscript:@"photo_trait_subject"];
   }
 
   clusterMetadata8 = [bundleCopy clusterMetadata];
   phenotype7 = [clusterMetadata8 phenotype];
-  v34 = [phenotype7 objectForKeyedSubscript:@"withFamily"];
+  v33 = [phenotype7 objectForKeyedSubscript:@"withFamily"];
 
-  if (v34)
+  if (v33)
   {
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"with_family"];
   }
 
   clusterMetadata9 = [bundleCopy clusterMetadata];
   phenotype8 = [clusterMetadata9 phenotype];
-  v37 = [phenotype8 objectForKeyedSubscript:@"withFriend"];
+  v36 = [phenotype8 objectForKeyedSubscript:@"withFriend"];
 
-  if (v37)
+  if (v36)
   {
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"with_friends"];
   }
 
   clusterMetadata10 = [bundleCopy clusterMetadata];
   phenotype9 = [clusterMetadata10 phenotype];
-  v40 = [phenotype9 objectForKeyedSubscript:@"withMyPet"];
+  v39 = [phenotype9 objectForKeyedSubscript:@"withMyPet"];
 
-  if (v40)
+  if (v39)
   {
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"with_pets"];
   }
 
   clusterMetadata11 = [bundleCopy clusterMetadata];
   phenotypePersonUUIDs = [clusterMetadata11 phenotypePersonUUIDs];
-  v43 = [phenotypePersonUUIDs count];
+  v42 = [phenotypePersonUUIDs count];
 
-  v248 = v6;
-  if (v43)
+  v245 = v6;
+  if (v42)
   {
     clusterMetadata12 = [bundleCopy clusterMetadata];
     phenotype10 = [clusterMetadata12 phenotype];
-    v46 = [phenotype10 objectForKeyedSubscript:@"otherSubjectFromPhotoTraits"];
+    v45 = [phenotype10 objectForKeyedSubscript:@"otherSubjectFromPhotoTraits"];
 
-    if (v46)
+    if (v45)
     {
-      v47 = objc_opt_new();
+      v46 = objc_opt_new();
       clusterMetadata13 = [bundleCopy clusterMetadata];
       contactNamesHistogram = [clusterMetadata13 contactNamesHistogram];
-      v50 = [contactNamesHistogram keysSortedByValueUsingComparator:&__block_literal_global_600];
+      v49 = [contactNamesHistogram keysSortedByValueUsingComparator:&__block_literal_global_600];
 
-      v266 = 0u;
-      v267 = 0u;
+      v263 = 0u;
       v264 = 0u;
-      v265 = 0u;
-      obj = v50;
-      v255 = [obj countByEnumeratingWithState:&v264 objects:v275 count:16];
-      if (v255)
+      v261 = 0u;
+      v262 = 0u;
+      obj = v49;
+      v252 = [obj countByEnumeratingWithState:&v261 objects:v272 count:16];
+      if (v252)
       {
-        v251 = *v265;
+        v248 = *v262;
         do
         {
-          for (i = 0; i != v255; ++i)
+          for (i = 0; i != v252; ++i)
           {
-            if (*v265 != v251)
+            if (*v262 != v248)
             {
               objc_enumerationMutation(obj);
             }
 
-            v52 = *(*(&v264 + 1) + 8 * i);
+            v51 = *(*(&v261 + 1) + 8 * i);
+            v257 = 0u;
+            v258 = 0u;
+            v259 = 0u;
             v260 = 0u;
-            v261 = 0u;
-            v262 = 0u;
-            v263 = 0u;
             persons = [bundleCopy persons];
-            v54 = [persons countByEnumeratingWithState:&v260 objects:v274 count:16];
-            if (v54)
+            v53 = [persons countByEnumeratingWithState:&v257 objects:v271 count:16];
+            if (v53)
             {
-              v55 = v54;
-              v56 = *v261;
+              v54 = v53;
+              v55 = *v258;
               do
               {
-                for (j = 0; j != v55; ++j)
+                for (j = 0; j != v54; ++j)
                 {
-                  if (*v261 != v56)
+                  if (*v258 != v55)
                   {
                     objc_enumerationMutation(persons);
                   }
 
-                  v58 = *(*(&v260 + 1) + 8 * j);
-                  name = [v58 name];
-                  v60 = [name isEqualToString:v52];
+                  v57 = *(*(&v257 + 1) + 8 * j);
+                  name = [v57 name];
+                  v59 = [name isEqualToString:v51];
 
-                  if (v60)
+                  if (v59)
                   {
-                    [v47 addObject:v58];
+                    [v46 addObject:v57];
                   }
                 }
 
-                v55 = [persons countByEnumeratingWithState:&v260 objects:v274 count:16];
+                v54 = [persons countByEnumeratingWithState:&v257 objects:v271 count:16];
               }
 
-              while (v55);
+              while (v54);
             }
 
-            bundleCopy = v253;
+            bundleCopy = v250;
           }
 
-          v255 = [obj countByEnumeratingWithState:&v264 objects:v275 count:16];
+          v252 = [obj countByEnumeratingWithState:&v261 objects:v272 count:16];
         }
 
-        while (v255);
+        while (v252);
       }
 
-      v61 = v47;
+      v60 = v46;
       suggestionID = [bundleCopy suggestionID];
-      v6 = v248;
-      [MOEventBundleMetaDataUtility setMetaDataForPersons:v61 suggestionId:suggestionID metaData:v248 sortBycomparePersons:0];
-
-      v27 = 0x277CCA000;
+      v6 = v245;
+      [MOEventBundleMetaDataUtility setMetaDataForPersons:v60 suggestionId:suggestionID metaData:v245 sortBycomparePersons:0];
     }
 
     else
     {
-      v63 = MEMORY[0x277CCAC30];
+      v62 = MEMORY[0x277CCAC30];
       clusterMetadata14 = [bundleCopy clusterMetadata];
       phenotypePersonUUIDs2 = [clusterMetadata14 phenotypePersonUUIDs];
-      v66 = [v63 predicateWithFormat:@"contactIdentifier IN %@", phenotypePersonUUIDs2];
+      v65 = [v62 predicateWithFormat:@"contactIdentifier IN %@", phenotypePersonUUIDs2];
 
       persons2 = [bundleCopy persons];
-      v61 = [persons2 filteredArrayUsingPredicate:v66];
+      v60 = [persons2 filteredArrayUsingPredicate:v65];
 
       suggestionID2 = [bundleCopy suggestionID];
-      [MOEventBundleMetaDataUtility setMetaDataForPersons:v61 suggestionId:suggestionID2 metaData:v6 sortBycomparePersons:1];
+      [MOEventBundleMetaDataUtility setMetaDataForPersons:v60 suggestionId:suggestionID2 metaData:v6 sortBycomparePersons:1];
     }
 
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"with_contact"];
@@ -1414,133 +1403,133 @@ LABEL_15:
 
   clusterMetadata15 = [bundleCopy clusterMetadata];
   phenotype11 = [clusterMetadata15 phenotype];
-  v71 = [phenotype11 objectForKeyedSubscript:@"placeName"];
+  v70 = [phenotype11 objectForKeyedSubscript:@"placeName"];
 
   clusterMetadata16 = [bundleCopy clusterMetadata];
   phenotype12 = [clusterMetadata16 phenotype];
-  v74 = [phenotype12 objectForKeyedSubscript:@"combinedPlaceType"];
+  v73 = [phenotype12 objectForKeyedSubscript:@"combinedPlaceType"];
 
   clusterMetadata17 = [bundleCopy clusterMetadata];
   phenotype13 = [clusterMetadata17 phenotype];
-  v77 = [phenotype13 objectForKeyedSubscript:@"placeTypeFromPhotoTraits"];
+  v76 = [phenotype13 objectForKeyedSubscript:@"placeTypeFromPhotoTraits"];
 
   clusterMetadata18 = [bundleCopy clusterMetadata];
   phenotype14 = [clusterMetadata18 phenotype];
-  v252 = [phenotype14 objectForKeyedSubscript:@"enclosingAreaName"];
+  v249 = [phenotype14 objectForKeyedSubscript:@"enclosingAreaName"];
 
-  if ([v71 length])
+  if ([v70 length])
   {
-    v80 = v71;
-    v81 = kMOLabelFormatterMetaKeywordPlaceName;
+    v79 = v70;
+    v80 = kMOLabelFormatterMetaKeywordPlaceName;
     goto LABEL_51;
   }
 
-  if ([v74 length])
+  if ([v73 length])
   {
-    v80 = [objc_opt_class() combinedPlaceTypeLabelMetadataForThematicSummary:v74];
-    v82 = v74;
-    v74 = v80;
+    v79 = [objc_opt_class() combinedPlaceTypeLabelMetadataForThematicSummary:v73];
+    v81 = v73;
+    v73 = v79;
 LABEL_50:
 
-    v81 = kMOLabelFormatterMetaKeywordPlaceName;
+    v80 = kMOLabelFormatterMetaKeywordPlaceName;
     goto LABEL_51;
   }
 
-  if ([v77 length])
+  if ([v76 length])
   {
-    v80 = [objc_opt_class() placeTypePhotoTraitLabelMetadataForThematicSummary:v77];
-    v82 = v77;
-    v77 = v80;
+    v79 = [objc_opt_class() placeTypePhotoTraitLabelMetadataForThematicSummary:v76];
+    v81 = v76;
+    v76 = v79;
     goto LABEL_50;
   }
 
-  v80 = v252;
-  if (![v252 length])
+  v79 = v249;
+  if (![v249 length])
   {
     goto LABEL_52;
   }
 
-  v81 = kMOLabelFormatterMetaKeywordEnclosingArea;
+  v80 = kMOLabelFormatterMetaKeywordEnclosingArea;
 LABEL_51:
-  v83 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v80];
-  v84 = *v81;
-  v6 = v248;
-  [v248 setObject:v83 forKeyedSubscript:v84];
+  v82 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v79];
+  v83 = *v80;
+  v6 = v245;
+  [v245 setObject:v82 forKeyedSubscript:v83];
 
 LABEL_52:
   [v6 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:?];
   [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"not_home"];
-  if ([v71 length])
+  if ([v70 length])
   {
-    lowercaseString = [v71 lowercaseString];
-    v86 = [lowercaseString isEqualToString:@"home"];
+    lowercaseString = [v70 lowercaseString];
+    v85 = [lowercaseString isEqualToString:@"home"];
 
-    if (v86)
+    if (v85)
     {
       [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"at_home"];
       [v6 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"not_home"];
     }
   }
 
-  if ([v74 length])
+  if ([v73 length])
   {
-    lowercaseString2 = [v74 lowercaseString];
-    v88 = [lowercaseString2 isEqualToString:@"home"];
+    lowercaseString2 = [v73 lowercaseString];
+    v87 = [lowercaseString2 isEqualToString:@"home"];
 
-    if (v88)
+    if (v87)
     {
       [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"at_home"];
-      v89 = MEMORY[0x277CBEC28];
-      v90 = v6;
-      v91 = @"not_home";
+      v88 = MEMORY[0x277CBEC28];
+      v89 = v6;
+      v90 = @"not_home";
 LABEL_66:
-      [v90 setObject:v89 forKeyedSubscript:v91];
+      [v89 setObject:v88 forKeyedSubscript:v90];
       goto LABEL_67;
     }
 
-    if ([v74 isEqualToString:@"restaurants"])
+    if ([v73 isEqualToString:@"restaurants"])
     {
-      v92 = kMOLabelFormatterMetaKeywordAtRestaurant;
+      v91 = kMOLabelFormatterMetaKeywordAtRestaurant;
 LABEL_65:
-      v91 = *v92;
-      v89 = MEMORY[0x277CBEC38];
-      v90 = v6;
+      v90 = *v91;
+      v88 = MEMORY[0x277CBEC38];
+      v89 = v6;
       goto LABEL_66;
     }
 
-    if ([v74 isEqualToString:@"stores"])
+    if ([v73 isEqualToString:@"stores"])
     {
-      v92 = kMOLabelFormatterMetaKeywordAtStore;
+      v91 = kMOLabelFormatterMetaKeywordAtStore;
       goto LABEL_65;
     }
 
-    if (([v74 isEqualToString:@"parks"] & 1) != 0 || objc_msgSend(v74, "isEqualToString:", @"national parks"))
+    if (([v73 isEqualToString:@"parks"] & 1) != 0 || objc_msgSend(v73, "isEqualToString:", @"national parks"))
     {
-      v92 = kMOLabelFormatterMetaKeywordAtPark;
+      v91 = kMOLabelFormatterMetaKeywordAtPark;
       goto LABEL_65;
     }
   }
 
 LABEL_67:
-  v93 = [v6 objectForKeyedSubscript:@"place"];
-  obja = v71;
-  if (v93 || ([v6 objectForKeyedSubscript:@"enclosing_area"], (v93 = objc_claimAutoreleasedReturnValue()) != 0))
+  v92 = [v6 objectForKeyedSubscript:@"place"];
+  obja = v70;
+  if (v92 || ([v6 objectForKeyedSubscript:@"enclosing_area"], (v92 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    places2 = v93;
+    places2 = v92;
 LABEL_70:
 
     goto LABEL_71;
   }
 
   places = [bundleCopy places];
-  v118 = [places count];
+  v117 = [places count];
 
-  if (v118 >= 2)
+  if (v117 >= 2)
   {
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"multiple_places"];
-    v119 = [v6 objectForKeyedSubscript:@"place"];
+    v118 = [v6 objectForKeyedSubscript:@"place"];
 
-    if (!v119)
+    if (!v118)
     {
       places2 = [bundleCopy places];
       firstObject = [places2 firstObject];
@@ -1552,95 +1541,95 @@ LABEL_70:
   }
 
 LABEL_71:
-  v247 = v74;
+  v244 = v73;
   clusterMetadata19 = [bundleCopy clusterMetadata];
   phenotype15 = [clusterMetadata19 phenotype];
-  v97 = [phenotype15 objectForKeyedSubscript:@"secondLevelActivityType"];
+  v96 = [phenotype15 objectForKeyedSubscript:@"secondLevelActivityType"];
 
   clusterMetadata20 = [bundleCopy clusterMetadata];
   phenotype16 = [clusterMetadata20 phenotype];
-  v100 = phenotype16;
-  v246 = v77;
-  if (v97)
+  v99 = phenotype16;
+  v243 = v76;
+  if (v96)
   {
-    v101 = [phenotype16 objectForKeyedSubscript:@"secondLevelActivityType"];
+    v100 = [phenotype16 objectForKeyedSubscript:@"secondLevelActivityType"];
 
-    v102 = v253;
-    if ([v101 isEqualToString:@"eating out"])
+    v101 = v250;
+    if ([v100 isEqualToString:@"eating out"])
     {
-      v103 = [v6 objectForKeyedSubscript:@"at_home"];
+      v102 = [v6 objectForKeyedSubscript:@"at_home"];
 
-      if (v103)
+      if (v102)
       {
         lowercaseString3 = [@"dining" lowercaseString];
-        v105 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString3];
-        [v6 setObject:v105 forKeyedSubscript:@"action"];
+        v104 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString3];
+        [v6 setObject:v104 forKeyedSubscript:@"action"];
 
-        v106 = objc_opt_class();
+        v105 = objc_opt_class();
         lowercaseString4 = [@"dining" lowercaseString];
-        v108 = [v106 keywordFromString:lowercaseString4];
-        [v6 setObject:v108 forKeyedSubscript:@"action_type"];
+        v107 = [v105 keywordFromString:lowercaseString4];
+        [v6 setObject:v107 forKeyedSubscript:@"action_type"];
 
-        v109 = @"prompt_type";
-        v110 = v6;
-        v111 = @"dining";
+        v108 = @"prompt_type";
+        v109 = v6;
+        v110 = @"dining";
       }
 
       else
       {
         lowercaseString5 = [@"eating out" lowercaseString];
-        v123 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString5];
-        [v6 setObject:v123 forKeyedSubscript:@"action"];
+        v122 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString5];
+        [v6 setObject:v122 forKeyedSubscript:@"action"];
 
-        v124 = objc_opt_class();
+        v123 = objc_opt_class();
         lowercaseString6 = [@"eating out" lowercaseString];
-        v126 = [v124 keywordFromString:lowercaseString6];
-        [v6 setObject:v126 forKeyedSubscript:@"action_type"];
+        v125 = [v123 keywordFromString:lowercaseString6];
+        [v6 setObject:v125 forKeyedSubscript:@"action_type"];
 
         [v6 setObject:@"dining" forKeyedSubscript:@"prompt_type"];
-        v111 = MEMORY[0x277CBEC38];
-        v109 = @"is_outing";
-        v110 = v6;
+        v110 = MEMORY[0x277CBEC38];
+        v108 = @"is_outing";
+        v109 = v6;
       }
 
-      [v110 setObject:v111 forKeyedSubscript:v109];
+      [v109 setObject:v110 forKeyedSubscript:v108];
     }
 
-    if ([v101 isEqualToString:@"shopping"])
+    if ([v100 isEqualToString:@"shopping"])
     {
       lowercaseString7 = [@"shopping" lowercaseString];
-      v128 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString7];
-      [v6 setObject:v128 forKeyedSubscript:@"action"];
+      v127 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString7];
+      [v6 setObject:v127 forKeyedSubscript:@"action"];
 
-      v129 = objc_opt_class();
+      v128 = objc_opt_class();
       lowercaseString8 = [@"shopping" lowercaseString];
-      v131 = [v129 keywordFromString:lowercaseString8];
-      [v6 setObject:v131 forKeyedSubscript:@"action_type"];
+      v130 = [v128 keywordFromString:lowercaseString8];
+      [v6 setObject:v130 forKeyedSubscript:@"action_type"];
 
-      v132 = v6;
-      v133 = @"shopping";
+      v131 = v6;
+      v132 = @"shopping";
 LABEL_91:
-      [v132 setObject:v133 forKeyedSubscript:@"prompt_type"];
-      v134 = MEMORY[0x277CBEC38];
-      v135 = @"is_outing";
+      [v131 setObject:v132 forKeyedSubscript:@"prompt_type"];
+      v133 = MEMORY[0x277CBEC38];
+      v134 = @"is_outing";
 LABEL_95:
-      [v6 setObject:v134 forKeyedSubscript:v135];
+      [v6 setObject:v133 forKeyedSubscript:v134];
       goto LABEL_96;
     }
 
-    if ([v101 isEqualToString:@"visit"])
+    if ([v100 isEqualToString:@"visit"])
     {
-      v133 = @"visit";
-      v132 = v6;
+      v132 = @"visit";
+      v131 = v6;
       goto LABEL_91;
     }
 
-    action = [v253 action];
+    action = [v250 action];
     actionType = [action actionType];
 
     if (actionType != 4)
     {
-      action2 = [v253 action];
+      action2 = [v250 action];
       actionName = [action2 actionName];
       if ([actionName isEqualToString:@"Time at Home"])
       {
@@ -1648,70 +1637,69 @@ LABEL_95:
 
       else
       {
-        action3 = [v253 action];
+        action3 = [v250 action];
         actionName2 = [action3 actionName];
-        v232 = [actionName2 isEqualToString:@"visit"];
+        v229 = [actionName2 isEqualToString:@"visit"];
 
-        if ((v232 & 1) == 0)
+        if ((v229 & 1) == 0)
         {
-          action4 = [v253 action];
+          action4 = [v250 action];
           actionName3 = [action4 actionName];
           lowercaseString9 = [actionName3 lowercaseString];
-          v236 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString9];
-          [v6 setObject:v236 forKeyedSubscript:@"action"];
+          v233 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString9];
+          [v6 setObject:v233 forKeyedSubscript:@"action"];
 
-          v237 = objc_opt_class();
-          action5 = [v253 action];
+          v234 = objc_opt_class();
+          action5 = [v250 action];
           actionName4 = [action5 actionName];
           lowercaseString10 = [actionName4 lowercaseString];
-          v241 = [v237 keywordFromString:lowercaseString10];
-          [v6 setObject:v241 forKeyedSubscript:@"action_type"];
+          v238 = [v234 keywordFromString:lowercaseString10];
+          [v6 setObject:v238 forKeyedSubscript:@"action_type"];
         }
       }
 
-      v27 = 0x277CCA000;
       goto LABEL_96;
     }
 
-    action6 = [v253 action];
+    action6 = [v250 action];
     actionName5 = [action6 actionName];
     [MOEventBundleMetaDataUtility setActivityNameForThematicSummaryFromActionName:actionName5 metaData:v6 keyword:@"action" keywordType:@"action_type"];
 
 LABEL_94:
     [v6 setObject:@"workouts" forKeyedSubscript:@"diversity_key"];
-    v135 = @"prompt_type";
-    v134 = @"workout";
+    v134 = @"prompt_type";
+    v133 = @"workout";
     goto LABEL_95;
   }
 
-  v112 = [phenotype16 objectForKeyedSubscript:@"topLevelActivityType"];
+  v111 = [phenotype16 objectForKeyedSubscript:@"topLevelActivityType"];
 
-  v102 = v253;
-  if (!v112)
+  v101 = v250;
+  if (!v111)
   {
     goto LABEL_97;
   }
 
-  clusterMetadata21 = [v253 clusterMetadata];
+  clusterMetadata21 = [v250 clusterMetadata];
   phenotype17 = [clusterMetadata21 phenotype];
-  v101 = [phenotype17 objectForKeyedSubscript:@"topLevelActivityType"];
+  v100 = [phenotype17 objectForKeyedSubscript:@"topLevelActivityType"];
 
-  if ([v101 isEqualToString:@"contact"])
+  if ([v100 isEqualToString:@"contact"])
   {
-    v115 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:@"contact"];
-    [v6 setObject:v115 forKeyedSubscript:@"action"];
+    v114 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:@"contact"];
+    [v6 setObject:v114 forKeyedSubscript:@"action"];
 
-    v116 = [objc_opt_class() keywordFromString:@"contact"];
-    [v6 setObject:v116 forKeyedSubscript:@"action_type"];
+    v115 = [objc_opt_class() keywordFromString:@"contact"];
+    [v6 setObject:v115 forKeyedSubscript:@"action_type"];
   }
 
-  if ([v101 isEqualToString:@"outing"])
+  if ([v100 isEqualToString:@"outing"])
   {
     [v6 setObject:@"visit" forKeyedSubscript:@"prompt_type"];
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"is_outing"];
   }
 
-  if ([v101 isEqualToString:@"activity"])
+  if ([v100 isEqualToString:@"activity"])
   {
     goto LABEL_94;
   }
@@ -1719,81 +1707,80 @@ LABEL_94:
 LABEL_96:
 
 LABEL_97:
-  clusterMetadata22 = [v102 clusterMetadata];
+  clusterMetadata22 = [v101 clusterMetadata];
   phenotype18 = [clusterMetadata22 phenotype];
-  v142 = [phenotype18 objectForKeyedSubscript:@"activityTypeFromPhotoTraits"];
-  v143 = *(v27 + 3240);
+  v141 = [phenotype18 objectForKeyedSubscript:@"activityTypeFromPhotoTraits"];
   objc_opt_class();
-  v144 = objc_opt_isKindOfClass();
+  v142 = objc_opt_isKindOfClass();
 
-  if (v144)
+  if (v142)
   {
-    clusterMetadata23 = [v102 clusterMetadata];
+    clusterMetadata23 = [v101 clusterMetadata];
     phenotype19 = [clusterMetadata23 phenotype];
-    v147 = [phenotype19 objectForKeyedSubscript:@"topLevelActivityType"];
+    v145 = [phenotype19 objectForKeyedSubscript:@"topLevelActivityType"];
 
-    v148 = [v6 objectForKeyedSubscript:@"at_home"];
-    bOOLValue = [v148 BOOLValue];
+    v146 = [v6 objectForKeyedSubscript:@"at_home"];
+    bOOLValue = [v146 BOOLValue];
 
-    v150 = [objc_opt_class() activityPhotoTraitLabelMetadataForThematicSummary:v147 AtHome:bOOLValue];
+    v148 = [objc_opt_class() activityPhotoTraitLabelMetadataForThematicSummary:v145 AtHome:bOOLValue];
 
-    if ([v150 length])
+    if ([v148 length])
     {
-      lowercaseString11 = [v150 lowercaseString];
-      v152 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString11];
-      [v6 setObject:v152 forKeyedSubscript:@"action"];
+      lowercaseString11 = [v148 lowercaseString];
+      v150 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString11];
+      [v6 setObject:v150 forKeyedSubscript:@"action"];
 
-      v153 = objc_opt_class();
-      lowercaseString12 = [v150 lowercaseString];
-      v155 = [v153 keywordFromString:lowercaseString12];
-      [v6 setObject:v155 forKeyedSubscript:@"action_type"];
+      v151 = objc_opt_class();
+      lowercaseString12 = [v148 lowercaseString];
+      v153 = [v151 keywordFromString:lowercaseString12];
+      [v6 setObject:v153 forKeyedSubscript:@"action_type"];
     }
   }
 
-  v156 = [v6 objectForKeyedSubscript:@"diversity_key"];
-  if (v156)
+  v154 = [v6 objectForKeyedSubscript:@"diversity_key"];
+  if (v154)
   {
-    v157 = v156;
-    v158 = [v6 objectForKeyedSubscript:@"diversity_key"];
+    v155 = v154;
+    v156 = [v6 objectForKeyedSubscript:@"diversity_key"];
 
-    v6 = v248;
-    if (v158 == @"workouts")
+    v6 = v245;
+    if (v156 == @"workouts")
     {
-      v258 = 0u;
-      v259 = 0u;
+      v255 = 0u;
       v256 = 0u;
-      v257 = 0u;
-      actions = [v102 actions];
-      v198 = [actions countByEnumeratingWithState:&v256 objects:v273 count:16];
-      if (v198)
+      v253 = 0u;
+      v254 = 0u;
+      actions = [v101 actions];
+      v196 = [actions countByEnumeratingWithState:&v253 objects:v270 count:16];
+      if (v196)
       {
-        v199 = v198;
-        v200 = 0;
-        v201 = *v257;
+        v197 = v196;
+        v198 = 0;
+        v199 = *v254;
         do
         {
-          for (k = 0; k != v199; ++k)
+          for (k = 0; k != v197; ++k)
           {
-            if (*v257 != v201)
+            if (*v254 != v199)
             {
               objc_enumerationMutation(actions);
             }
 
-            if ([*(*(&v256 + 1) + 8 * k) actionType] == 4)
+            if ([*(*(&v253 + 1) + 8 * k) actionType] == 4)
             {
-              ++v200;
+              ++v198;
             }
           }
 
-          v199 = [actions countByEnumeratingWithState:&v256 objects:v273 count:16];
+          v197 = [actions countByEnumeratingWithState:&v253 objects:v270 count:16];
         }
 
-        while (v199);
+        while (v197);
 
-        v6 = v248;
-        if (v200 >= 2)
+        v6 = v245;
+        if (v198 >= 2)
         {
-          [v248 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"multiple_workouts"];
+          [v245 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"multiple_workouts"];
         }
       }
 
@@ -1803,68 +1790,68 @@ LABEL_97:
     }
   }
 
-  startDate = [v102 startDate];
+  startDate = [v101 startDate];
   if (startDate)
   {
-    v160 = startDate;
-    endDate = [v102 endDate];
+    v158 = startDate;
+    endDate = [v101 endDate];
 
     if (endDate)
     {
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-      startDate2 = [v102 startDate];
-      endDate2 = [v102 endDate];
-      v165 = [currentCalendar isDate:startDate2 inSameDayAsDate:endDate2];
+      startDate2 = [v101 startDate];
+      endDate2 = [v101 endDate];
+      v163 = [currentCalendar isDate:startDate2 inSameDayAsDate:endDate2];
 
-      if (v165)
+      if (v163)
       {
         [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"day_summary"];
       }
 
-      v102 = v253;
+      v101 = v250;
     }
   }
 
-  clusterMetadata24 = [v102 clusterMetadata];
+  clusterMetadata24 = [v101 clusterMetadata];
   phenotype20 = [clusterMetadata24 phenotype];
-  v168 = [phenotype20 objectForKeyedSubscript:@"timeTag"];
-  v169 = v102;
-  if (v168)
+  v166 = [phenotype20 objectForKeyedSubscript:@"timeTag"];
+  v167 = v101;
+  if (v166)
   {
-    v170 = v168;
-    clusterMetadata25 = [v102 clusterMetadata];
+    v168 = v166;
+    clusterMetadata25 = [v101 clusterMetadata];
     phenotype21 = [clusterMetadata25 phenotype];
-    v173 = [phenotype21 objectForKeyedSubscript:@"timeString"];
+    v171 = [phenotype21 objectForKeyedSubscript:@"timeString"];
 
-    if (v173)
+    if (v171)
     {
-      clusterMetadata26 = [v169 clusterMetadata];
+      clusterMetadata26 = [v167 clusterMetadata];
       phenotype22 = [clusterMetadata26 phenotype];
-      v176 = [phenotype22 objectForKeyedSubscript:@"timeString"];
+      v174 = [phenotype22 objectForKeyedSubscript:@"timeString"];
 
-      clusterMetadata27 = [v169 clusterMetadata];
+      clusterMetadata27 = [v167 clusterMetadata];
       phenotype23 = [clusterMetadata27 phenotype];
-      v179 = [phenotype23 objectForKeyedSubscript:@"timeTag"];
+      v177 = [phenotype23 objectForKeyedSubscript:@"timeTag"];
 
-      v180 = [MOTime timeStringSingularToPluralForm:v179];
-      v181 = MEMORY[0x277CCACA8];
-      capitalizedString = [v179 capitalizedString];
-      v182 = [v181 stringWithFormat:@"%@ %@", v176, capitalizedString];
+      v178 = [MOTime timeStringSingularToPluralForm:v177];
+      v179 = MEMORY[0x277CCACA8];
+      capitalizedString = [v177 capitalizedString];
+      v180 = [v179 stringWithFormat:@"%@ %@", v174, capitalizedString];
 
-      v184 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v182];
-      [v6 setObject:v184 forKeyedSubscript:@"time"];
+      v182 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v180];
+      [v6 setObject:v182 forKeyedSubscript:@"time"];
 
-      if (v180)
+      if (v178)
       {
-        v185 = MEMORY[0x277CCACA8];
-        capitalizedString2 = [v180 capitalizedString];
-        v186 = [v185 stringWithFormat:@"%@ %@", v176, capitalizedString2];
+        v183 = MEMORY[0x277CCACA8];
+        capitalizedString2 = [v178 capitalizedString];
+        v184 = [v183 stringWithFormat:@"%@ %@", v174, capitalizedString2];
 
-        v188 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v186];
-        [v6 setObject:v188 forKeyedSubscript:@"times"];
+        v186 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v184];
+        [v6 setObject:v186 forKeyedSubscript:@"times"];
       }
 
-      v189 = obja;
+      v187 = obja;
       goto LABEL_131;
     }
   }
@@ -1873,95 +1860,95 @@ LABEL_97:
   {
   }
 
-  clusterMetadata28 = [v169 clusterMetadata];
+  clusterMetadata28 = [v167 clusterMetadata];
   phenotype24 = [clusterMetadata28 phenotype];
-  v192 = [phenotype24 objectForKeyedSubscript:@"timeTag"];
+  v190 = [phenotype24 objectForKeyedSubscript:@"timeTag"];
 
-  clusterMetadata29 = [v169 clusterMetadata];
+  clusterMetadata29 = [v167 clusterMetadata];
   phenotype25 = [clusterMetadata29 phenotype];
-  v195 = phenotype25;
-  if (v192)
+  v193 = phenotype25;
+  if (v190)
   {
-    v176 = [phenotype25 objectForKeyedSubscript:@"timeTag"];
+    v174 = [phenotype25 objectForKeyedSubscript:@"timeTag"];
 
-    v179 = [MOTime timeStringSingularToPluralForm:v176];
-    v196 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v176];
-    [v6 setObject:v196 forKeyedSubscript:@"time"];
+    v177 = [MOTime timeStringSingularToPluralForm:v174];
+    v194 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v174];
+    [v6 setObject:v194 forKeyedSubscript:@"time"];
 
-    v189 = obja;
-    if (!v179)
+    v187 = obja;
+    if (!v177)
     {
-      v169 = v253;
+      v167 = v250;
       goto LABEL_132;
     }
 
-    v180 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v179];
-    [v6 setObject:v180 forKeyedSubscript:@"times"];
-    v169 = v253;
+    v178 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v177];
+    [v6 setObject:v178 forKeyedSubscript:@"times"];
+    v167 = v250;
     goto LABEL_131;
   }
 
-  v203 = [phenotype25 objectForKeyedSubscript:@"timeString"];
+  v201 = [phenotype25 objectForKeyedSubscript:@"timeString"];
 
-  v169 = v253;
-  v189 = obja;
-  if (!v203)
+  v167 = v250;
+  v187 = obja;
+  if (!v201)
   {
     goto LABEL_133;
   }
 
-  clusterMetadata30 = [v253 clusterMetadata];
+  clusterMetadata30 = [v250 clusterMetadata];
   phenotype26 = [clusterMetadata30 phenotype];
-  v176 = [phenotype26 objectForKeyedSubscript:@"timeString"];
+  v174 = [phenotype26 objectForKeyedSubscript:@"timeString"];
 
-  v179 = [MOTime timeStringSingularToPluralForm:v176];
-  v206 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v176];
-  [v6 setObject:v206 forKeyedSubscript:@"time"];
+  v177 = [MOTime timeStringSingularToPluralForm:v174];
+  v204 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v174];
+  [v6 setObject:v204 forKeyedSubscript:@"time"];
 
-  if (v179)
+  if (v177)
   {
-    v180 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v179];
-    [v6 setObject:v180 forKeyedSubscript:@"times"];
+    v178 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v177];
+    [v6 setObject:v178 forKeyedSubscript:@"times"];
 LABEL_131:
   }
 
 LABEL_132:
 
 LABEL_133:
-  if ([v169 bundleSubType] == 1001)
+  if ([v167 bundleSubType] == 1001)
   {
-    v272[0] = @"reflection";
-    v272[1] = @"moments";
-    v272[2] = @"highlights";
-    v207 = [MEMORY[0x277CBEA60] arrayWithObjects:v272 count:3];
-    v208 = [v207 objectAtIndex:{arc4random_uniform(objc_msgSend(v207, "count"))}];
-    [v6 setObject:v208 forKeyedSubscript:@"diversity_key"];
+    v269[0] = @"reflection";
+    v269[1] = @"moments";
+    v269[2] = @"highlights";
+    v205 = [MEMORY[0x277CBEA60] arrayWithObjects:v269 count:3];
+    v206 = [v205 objectAtIndex:{arc4random_uniform(objc_msgSend(v205, "count"))}];
+    [v6 setObject:v206 forKeyedSubscript:@"diversity_key"];
 
-    v209 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:arc4random_uniform(7u)];
-    [v6 setObject:v209 forKeyedSubscript:@"prompt_idx"];
+    v207 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:arc4random_uniform(7u)];
+    [v6 setObject:v207 forKeyedSubscript:@"prompt_idx"];
 
-    v210 = v246;
+    v208 = v243;
     goto LABEL_159;
   }
 
-  v210 = v246;
-  if ([v169 bundleSubType] == 1002)
+  v208 = v243;
+  if ([v167 bundleSubType] == 1002)
   {
-    v211 = [v6 objectForKeyedSubscript:@"with_family"];
-    if (v211)
+    v209 = [v6 objectForKeyedSubscript:@"with_family"];
+    if (v209)
     {
       goto LABEL_138;
     }
 
-    v211 = [v6 objectForKeyedSubscript:@"with_friends"];
-    if (v211)
+    v209 = [v6 objectForKeyedSubscript:@"with_friends"];
+    if (v209)
     {
       goto LABEL_138;
     }
 
-    v242 = [v6 objectForKeyedSubscript:@"with_pets"];
+    v239 = [v6 objectForKeyedSubscript:@"with_pets"];
 
-    if (v242)
+    if (v239)
     {
       goto LABEL_139;
     }
@@ -1969,27 +1956,27 @@ LABEL_133:
     goto LABEL_166;
   }
 
-  if ([v169 bundleSubType] == 1003)
+  if ([v167 bundleSubType] == 1003)
   {
-    v215 = [v6 objectForKeyedSubscript:@"prompt_type"];
+    v213 = [v6 objectForKeyedSubscript:@"prompt_type"];
 
-    if (!v215)
+    if (!v213)
     {
       goto LABEL_159;
     }
 
-    v216 = [v6 objectForKeyedSubscript:@"prompt_type"];
-    if ([v216 isEqualToString:@"workout"])
+    v214 = [v6 objectForKeyedSubscript:@"prompt_type"];
+    if ([v214 isEqualToString:@"workout"])
     {
-      v217 = MEMORY[0x277CCABB0];
-      v218 = 19;
+      v215 = MEMORY[0x277CCABB0];
+      v216 = 19;
     }
 
     else
     {
-      if (![v216 isEqualToString:@"visit"])
+      if (![v214 isEqualToString:@"visit"])
       {
-        if ([v216 isEqualToString:@"shopping"] || objc_msgSend(v216, "isEqualToString:", @"dining"))
+        if ([v214 isEqualToString:@"shopping"] || objc_msgSend(v214, "isEqualToString:", @"dining"))
         {
           [v6 setObject:&unk_284100A38 forKeyedSubscript:@"prompt_idx"];
         }
@@ -1997,66 +1984,66 @@ LABEL_133:
         goto LABEL_158;
       }
 
-      v217 = MEMORY[0x277CCABB0];
-      v218 = 4;
+      v215 = MEMORY[0x277CCABB0];
+      v216 = 4;
     }
 
-    v223 = [v217 numberWithUnsignedInt:arc4random_uniform(v218)];
-    [v6 setObject:v223 forKeyedSubscript:@"prompt_idx"];
+    v221 = [v215 numberWithUnsignedInt:arc4random_uniform(v216)];
+    [v6 setObject:v221 forKeyedSubscript:@"prompt_idx"];
 
 LABEL_158:
     goto LABEL_159;
   }
 
-  if ([v169 bundleSubType] == 1004)
+  if ([v167 bundleSubType] == 1004)
   {
-    v219 = [v6 objectForKeyedSubscript:@"at_home"];
+    v217 = [v6 objectForKeyedSubscript:@"at_home"];
 
-    if (!v219)
+    if (!v217)
     {
-      v243 = [v6 objectForKeyedSubscript:@"at_restaurant"];
+      v240 = [v6 objectForKeyedSubscript:@"at_restaurant"];
 
-      if (v243)
+      if (v240)
       {
-        v211 = [v6 objectForKeyedSubscript:@"with_contact"];
+        v209 = [v6 objectForKeyedSubscript:@"with_contact"];
 LABEL_138:
 
 LABEL_139:
-        v212 = MEMORY[0x277CCABB0];
-        v213 = 3;
+        v210 = MEMORY[0x277CCABB0];
+        v211 = 3;
 LABEL_140:
-        v214 = [v212 numberWithUnsignedInt:arc4random_uniform(v213)];
-        [v6 setObject:v214 forKeyedSubscript:@"prompt_idx"];
+        v212 = [v210 numberWithUnsignedInt:arc4random_uniform(v211)];
+        [v6 setObject:v212 forKeyedSubscript:@"prompt_idx"];
 
         goto LABEL_159;
       }
 
-      v244 = [v6 objectForKeyedSubscript:@"at_store"];
+      v241 = [v6 objectForKeyedSubscript:@"at_store"];
 
-      if (v244)
+      if (v241)
       {
-        v212 = MEMORY[0x277CCABB0];
-        v213 = 2;
+        v210 = MEMORY[0x277CCABB0];
+        v211 = 2;
         goto LABEL_140;
       }
 
-      v245 = [v6 objectForKeyedSubscript:@"at_park"];
+      v242 = [v6 objectForKeyedSubscript:@"at_park"];
 
-      if (!v245)
+      if (!v242)
       {
-        v212 = MEMORY[0x277CCABB0];
-        v213 = 6;
+        v210 = MEMORY[0x277CCABB0];
+        v211 = 6;
         goto LABEL_140;
       }
     }
 
-    v220 = [v6 objectForKeyedSubscript:@"with_contact"];
+    v218 = [v6 objectForKeyedSubscript:@"with_contact"];
 
-    if (!v220)
+    if (!v218)
     {
 LABEL_166:
-      v212 = MEMORY[0x277CCABB0];
-      v213 = 4;
+      v210 = MEMORY[0x277CCABB0];
+      v211 = 4;
       goto LABEL_140;
     }
 
@@ -2064,21 +2051,20 @@ LABEL_166:
   }
 
 LABEL_159:
-  v224 = _mo_log_facility_get_os_log(MOLogFacilityThematicSummarization);
-  if (os_log_type_enabled(v224, OS_LOG_TYPE_INFO))
+  v222 = _mo_log_facility_get_os_log(MOLogFacilityThematicSummarization);
+  if (os_log_type_enabled(v222, OS_LOG_TYPE_INFO))
   {
-    clusterMetadata31 = [v169 clusterMetadata];
+    clusterMetadata31 = [v167 clusterMetadata];
     phenotype27 = [clusterMetadata31 phenotype];
     *buf = 138478083;
-    v269 = phenotype27;
-    v270 = 2112;
-    v271 = v248;
-    v6 = v248;
-    _os_log_impl(&dword_22D8C5000, v224, OS_LOG_TYPE_INFO, "Built label metadata for thematic summary:cluster phenotype=%{private}@, metaData=%@", buf, 0x16u);
+    v266 = phenotype27;
+    v267 = 2112;
+    v268 = v245;
+    v6 = v245;
+    _os_log_impl(&dword_22D8C5000, v222, OS_LOG_TYPE_INFO, "Built label metadata for thematic summary:cluster phenotype=%{private}@, metaData=%@", buf, 0x16u);
   }
 
-  v227 = v6;
-  v228 = *MEMORY[0x277D85DE8];
+  v225 = v6;
   return v6;
 }
 
@@ -2103,7 +2089,7 @@ uint64_t __75__MOEventBundleMetaDataUtility_buildThematicSummaryMetaDataForEvent
 
 + (id)buildStateOfMindMetaDataForEventBundle:(id)bundle
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   +[MOEventBundleMetaDataUtility defineClassCollections];
   v4 = objc_opt_new();
@@ -2180,26 +2166,26 @@ uint64_t __75__MOEventBundleMetaDataUtility_buildThematicSummaryMetaDataForEvent
   }
 
   v31 = v4;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v21;
-  v32 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v32 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v53;
+    v34 = *v52;
     do
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v53 != v34)
+        if (*v52 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = *(*(&v52 + 1) + 8 * i);
+        v36 = *(*(&v51 + 1) + 8 * i);
         action4 = [bundleCopy action];
         if ([action4 actionSubtype] == 2)
         {
@@ -2288,13 +2274,11 @@ LABEL_37:
         }
       }
 
-      v33 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v33 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v33);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -2353,39 +2337,39 @@ LABEL_37:
 
 + (void)setMetaDataForActions:(id)actions metaData:(id)data
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   dataCopy = data;
   if (actionsCopy && [actionsCopy count])
   {
     v7 = objc_opt_new();
-    v48 = objc_opt_new();
+    v47 = objc_opt_new();
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v42 = actionsCopy;
+    v41 = actionsCopy;
     obj = actionsCopy;
-    v49 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
-    if (v49)
+    v48 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+    if (v48)
     {
-      v50 = 0;
-      v47 = 0;
-      v44 = 0;
-      v46 = *v52;
+      v49 = 0;
+      v46 = 0;
+      v43 = 0;
+      v45 = *v51;
       v8 = 1;
-      v9 = v48;
-      v43 = v7;
+      v9 = v47;
+      v42 = v7;
       do
       {
-        for (i = 0; i != v49; ++i)
+        for (i = 0; i != v48; ++i)
         {
-          if (*v52 != v46)
+          if (*v51 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v51 + 1) + 8 * i);
+          v11 = *(*(&v50 + 1) + 8 * i);
           v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"action_", v8];
           v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%d", @"action_type", v8];
           if ([v11 actionType] == 4)
@@ -2408,26 +2392,26 @@ LABEL_37:
 
           if ([v11 actionType] == 4)
           {
-            v19 = v50 + 1;
+            v19 = v49 + 1;
           }
 
           else
           {
-            v19 = v50;
+            v19 = v49;
           }
 
-          LODWORD(v50) = v19;
+          LODWORD(v49) = v19;
           if ([v11 actionType] == 2)
           {
-            v20 = HIDWORD(v50) + 1;
+            v20 = HIDWORD(v49) + 1;
           }
 
           else
           {
-            v20 = HIDWORD(v50);
+            v20 = HIDWORD(v49);
           }
 
-          HIDWORD(v50) = v20;
+          HIDWORD(v49) = v20;
           actionName3 = [v11 actionName];
           v22 = [v9 containsObject:actionName3];
 
@@ -2444,7 +2428,7 @@ LABEL_37:
               actionName5 = [v11 actionName];
               [MOEventBundleMetaDataUtility setActivityNameFromActionName:actionName5 metaData:dataCopy keyword:v25 keywordType:v26];
 
-              ++v44;
+              ++v43;
             }
 
             else
@@ -2461,7 +2445,7 @@ LABEL_37:
               dataCopy = v23;
             }
 
-            v7 = v43;
+            v7 = v42;
           }
 
           v33 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:{objc_msgSend(v11, "actionType")}];
@@ -2469,49 +2453,47 @@ LABEL_37:
 
           if ((v34 & 1) == 0)
           {
-            ++v47;
+            ++v46;
             v35 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:{objc_msgSend(v11, "actionType")}];
             [v7 addObject:v35];
           }
 
           v8 = (v8 + 1);
 
-          v9 = v48;
+          v9 = v47;
         }
 
-        v49 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v48 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
     else
     {
-      v50 = 0;
-      v47 = 0;
-      v44 = 0;
-      v9 = v48;
+      v49 = 0;
+      v46 = 0;
+      v43 = 0;
+      v9 = v47;
     }
 
     v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(obj, "count")}];
     [dataCopy setObject:v36 forKeyedSubscript:@"action_count"];
 
-    v37 = [MEMORY[0x277CCABB0] numberWithInt:v50];
+    v37 = [MEMORY[0x277CCABB0] numberWithInt:v49];
     [dataCopy setObject:v37 forKeyedSubscript:@"activity_count"];
 
-    v38 = [MEMORY[0x277CCABB0] numberWithInt:v47];
+    v38 = [MEMORY[0x277CCABB0] numberWithInt:v46];
     [dataCopy setObject:v38 forKeyedSubscript:@"unique_action_type_count"];
 
-    v39 = [MEMORY[0x277CCABB0] numberWithInt:v44];
+    v39 = [MEMORY[0x277CCABB0] numberWithInt:v43];
     [dataCopy setObject:v39 forKeyedSubscript:@"unique_activity_count"];
 
-    v40 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v50)];
+    v40 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v49)];
     [dataCopy setObject:v40 forKeyedSubscript:@"visit_count"];
 
-    actionsCopy = v42;
+    actionsCopy = v41;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setActivityNameFromActionName:(id)name metaData:(id)data keyword:(id)keyword keywordType:(id)type
@@ -2896,7 +2878,7 @@ LABEL_15:
 
 + (void)setMetaDataWithKeyword:(id)keyword extendedKeyword:(id)extendedKeyword value:(id)value metaData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keywordCopy = keyword;
   extendedKeywordCopy = extendedKeyword;
   valueCopy = value;
@@ -2915,21 +2897,19 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v16 = keywordCopy;
-      v17 = 2112;
-      v18 = extendedKeywordCopy;
-      v19 = 2048;
-      v20 = [valueCopy length];
+      v15 = keywordCopy;
+      v16 = 2112;
+      v17 = extendedKeywordCopy;
+      v18 = 2048;
+      v19 = [valueCopy length];
       _os_log_error_impl(&dword_22D8C5000, v13, OS_LOG_TYPE_ERROR, "build meta, keyword, %@, extendedKeyword, %@, value, %lu", buf, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setMetaDataForTime:(id)time startDate:(id)date endDate:(id)endDate metaData:(id)data
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   dateCopy = date;
   endDateCopy = endDate;
@@ -2939,13 +2919,13 @@ LABEL_15:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v62 = timeZoneObject;
-    v63 = 2112;
-    v64 = dateCopy;
-    v65 = 2112;
-    v66 = endDateCopy;
-    v67 = 2112;
-    v68 = timeCopy;
+    v61 = timeZoneObject;
+    v62 = 2112;
+    v63 = dateCopy;
+    v64 = 2112;
+    v65 = endDateCopy;
+    v66 = 2112;
+    v67 = timeCopy;
     _os_log_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_INFO, "build meta, time zone, %@, startDate, %@, endDate, %@, time, %@", buf, 0x2Au);
   }
 
@@ -2978,9 +2958,9 @@ LABEL_15:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v62 = dateCopy;
-          v63 = 2112;
-          v64 = v16;
+          v61 = dateCopy;
+          v62 = 2112;
+          v63 = v16;
           _os_log_impl(&dword_22D8C5000, v17, OS_LOG_TYPE_INFO, "setMetaDataForTime, startDate, %@, endDate, %@, the timestamps are inverted after snapping.", buf, 0x16u);
         }
       }
@@ -3035,11 +3015,11 @@ LABEL_36:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v62 = timeZoneObject;
-      v63 = 2112;
-      v64 = dateCopy;
-      v65 = 2112;
-      v66 = v21;
+      v61 = timeZoneObject;
+      v62 = 2112;
+      v63 = dateCopy;
+      v64 = 2112;
+      v65 = v21;
       _os_log_impl(&dword_22D8C5000, v22, OS_LOG_TYPE_INFO, "build meta, time zone, %@, startDate, %@, localDate, %@", buf, 0x20u);
     }
 
@@ -3072,11 +3052,11 @@ LABEL_36:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v62 = timeZoneObject;
-    v63 = 2112;
-    v64 = endDateCopy;
-    v65 = 2112;
-    v66 = v23;
+    v61 = timeZoneObject;
+    v62 = 2112;
+    v63 = endDateCopy;
+    v64 = 2112;
+    v65 = v23;
     _os_log_impl(&dword_22D8C5000, v25, OS_LOG_TYPE_INFO, "build meta, time zone, %@, endDate, %@, localDate, %@", buf, 0x20u);
   }
 
@@ -3091,9 +3071,9 @@ LABEL_36:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v62 = v21;
-      v63 = 2112;
-      v64 = v23;
+      v61 = v21;
+      v62 = 2112;
+      v63 = v23;
       _os_log_impl(&dword_22D8C5000, v26, OS_LOG_TYPE_INFO, "setMetaDataForTime, startDate, %@, endDate, %@, the timestamps are inverted after time zone shifting.", buf, 0x16u);
     }
 
@@ -3120,11 +3100,11 @@ LABEL_42:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v62 = timeZoneObject;
-    v63 = 2112;
-    v64 = v21;
-    v65 = 2112;
-    v66 = v23;
+    v61 = timeZoneObject;
+    v62 = 2112;
+    v63 = v21;
+    v64 = 2112;
+    v65 = v23;
     _os_log_impl(&dword_22D8C5000, v27, OS_LOG_TYPE_INFO, "build meta after timezone shift, time zone, %@, startDate, %@, endDate, %@", buf, 0x20u);
   }
 
@@ -3151,21 +3131,21 @@ LABEL_42:
   date = [MEMORY[0x277CBEAA8] date];
   v34 = [date dateByAddingTimeInterval:-604800.0];
 
-  v58 = v34;
+  v57 = v34;
   if ([v21 isAfterDate:v34])
   {
     [dataCopy setObject:&unk_284100A20 forKeyedSubscript:@"date_referece_recency"];
   }
 
-  v60 = timeCopy;
-  v56 = [MOTime typeOfDayTagFromStartDate:v21 endDate:v23 timeZone:0];
-  if (v56 == 10001)
+  v59 = timeCopy;
+  v55 = [MOTime typeOfDayTagFromStartDate:v21 endDate:v23 timeZone:0];
+  if (v55 == 10001)
   {
     v35 = [MOTime timeStringFromTimeTag:10001];
     [dataCopy setObject:v35 forKeyedSubscript:@"typeOfDay"];
   }
 
-  v59 = timeZoneObject;
+  v58 = timeZoneObject;
   v36 = [MOTime dayOfWeekTagFromStartDate:v21 endDate:v23];
   v37 = v36 - 102;
   if (v36 - 102 <= 6)
@@ -3176,7 +3156,7 @@ LABEL_42:
     [MOEventBundleMetaDataUtility setMetaDataWithKeyword:@"date_reference_weekday" extendedKeyword:v40 value:v39 metaData:dataCopy];
   }
 
-  v57 = v36;
+  v56 = v36;
   v41 = dataCopy;
   v42 = [MOTime timetagFromStartDate:v21 endDate:v23];
   if (v42 - 2 <= 6)
@@ -3195,7 +3175,7 @@ LABEL_42:
 
     if (v37 <= 6)
     {
-      v47 = [MOTime timeStringFromTimeTag:v57];
+      v47 = [MOTime timeStringFromTimeTag:v56];
       v48 = [MOTime timeStringFromTimeTag:v42];
       v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v47, v48];
       v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@_%@", @"date_reference_", v47, v48];
@@ -3217,29 +3197,27 @@ LABEL_42:
   {
     v54 = [v41 objectForKeyedSubscript:@"date_string"];
     *buf = 138413826;
-    v62 = v21;
-    v63 = 2112;
-    v64 = v23;
-    v65 = 2048;
-    v66 = v28;
-    v67 = 2048;
-    v68 = v56;
-    v69 = 2048;
-    v70 = v57;
-    v71 = 2048;
-    v72 = v42;
-    v73 = 2112;
-    v74 = v54;
+    v61 = v21;
+    v62 = 2112;
+    v63 = v23;
+    v64 = 2048;
+    v65 = v28;
+    v66 = 2048;
+    v67 = v55;
+    v68 = 2048;
+    v69 = v56;
+    v70 = 2048;
+    v71 = v42;
+    v72 = 2112;
+    v73 = v54;
     _os_log_impl(&dword_22D8C5000, v53, OS_LOG_TYPE_INFO, "build meta, startDate, %@, endDate, %@, dateTag, %lu, typeOfDay, %lu, dayOfWeek, %lu, timeOfDay, %lu, dateString, %@", buf, 0x48u);
   }
 
   v24 = v21;
   dataCopy = v41;
-  timeZoneObject = v59;
-  timeCopy = v60;
+  timeZoneObject = v58;
+  timeCopy = v59;
 LABEL_68:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setMetaDataForPlace:(id)place metaData:(id)data
@@ -3424,18 +3402,18 @@ LABEL_68:
 + (void)setMetaDataForPersons:(id)persons suggestionId:(id)id metaData:(id)data sortBycomparePersons:(BOOL)bycomparePersons
 {
   bycomparePersonsCopy = bycomparePersons;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   personsCopy = persons;
   idCopy = id;
   dataCopy = data;
   if (personsCopy && [personsCopy count])
   {
-    v60 = personsCopy;
-    v61 = idCopy;
+    v59 = personsCopy;
+    v60 = idCopy;
     if (bycomparePersonsCopy)
     {
-      v59 = [MEMORY[0x277CBEB98] setWithArray:personsCopy];
-      allObjects = [v59 allObjects];
+      v58 = [MEMORY[0x277CBEB98] setWithArray:personsCopy];
+      allObjects = [v58 allObjects];
       v11 = [allObjects sortedArrayUsingSelector:sel_comparePersons_];
       v12 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
@@ -3444,44 +3422,44 @@ LABEL_68:
         _os_log_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_INFO, "[setMetaDataForPersons] After Sorting setMetaDataForPersons", buf, 2u);
       }
 
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v72 objects:v80 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v71 objects:v79 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v73;
+        v16 = *v72;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v73 != v16)
+            if (*v72 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v72 + 1) + 8 * i);
+            v18 = *(*(&v71 + 1) + 8 * i);
             v19 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v79 = v18;
+              v78 = v18;
               _os_log_impl(&dword_22D8C5000, v19, OS_LOG_TYPE_INFO, " Person %@", buf, 0xCu);
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v72 objects:v80 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v71 objects:v79 count:16];
         }
 
         while (v15);
       }
 
-      v63 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isMePerson == NO"];
+      v62 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isMePerson == NO"];
       v20 = [v13 filteredArrayUsingPredicate:?];
-      v57 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isMePerson == YES"];
+      v56 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isMePerson == YES"];
       v21 = [v13 filteredArrayUsingPredicate:?];
       if ([v21 count])
       {
@@ -3507,11 +3485,11 @@ LABEL_68:
         }
       }
 
-      v56 = v21;
-      v55 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isPHPersonTypeImportant == YES"];
-      v54 = [v20 filteredArrayUsingPredicate:?];
-      v26 = [v54 mutableCopy];
-      v27 = [v61 hash];
+      v55 = v21;
+      v54 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isPHPersonTypeImportant == YES"];
+      v53 = [v20 filteredArrayUsingPredicate:?];
+      v26 = [v53 mutableCopy];
+      v27 = [v60 hash];
       [v26 shuffleWithSeed:v27];
       v28 = [MEMORY[0x277CCAC30] predicateWithFormat:@"isPHPersonTypeImportant == NO"];
       v29 = v20;
@@ -3527,7 +3505,7 @@ LABEL_68:
         _os_log_impl(&dword_22D8C5000, v33, OS_LOG_TYPE_INFO, "all shuffed persons by importance except me Person", buf, 2u);
       }
 
-      v35 = v59;
+      v35 = v58;
     }
 
     else
@@ -3542,52 +3520,52 @@ LABEL_68:
       }
     }
 
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     v36 = v32;
-    v37 = [v36 countByEnumeratingWithState:&v68 objects:v77 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v67 objects:v76 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v69;
+      v39 = *v68;
       do
       {
         for (j = 0; j != v38; ++j)
         {
-          if (*v69 != v39)
+          if (*v68 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          v41 = *(*(&v68 + 1) + 8 * j);
+          v41 = *(*(&v67 + 1) + 8 * j);
           v42 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
           if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v79 = v41;
+            v78 = v41;
             _os_log_impl(&dword_22D8C5000, v42, OS_LOG_TYPE_INFO, " Person %@", buf, 0xCu);
           }
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v68 objects:v77 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v67 objects:v76 count:16];
       }
 
       while (v38);
     }
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v43 = v36;
-    v44 = [v43 countByEnumeratingWithState:&v64 objects:v76 count:16];
+    v44 = [v43 countByEnumeratingWithState:&v63 objects:v75 count:16];
     if (v44)
     {
       v45 = v44;
       LODWORD(v46) = 0;
-      v47 = *v65;
+      v47 = *v64;
       while (2)
       {
         v48 = 0;
@@ -3595,7 +3573,7 @@ LABEL_68:
         v49 = (v46 + 1);
         do
         {
-          if (*v65 != v47)
+          if (*v64 != v47)
           {
             objc_enumerationMutation(v43);
           }
@@ -3606,7 +3584,7 @@ LABEL_68:
             goto LABEL_48;
           }
 
-          v50 = *(*(&v64 + 1) + 8 * v48);
+          v50 = *(*(&v63 + 1) + 8 * v48);
           if ([v50 mePersonIdentified])
           {
             [dataCopy setObject:@"Yes" forKeyedSubscript:@"me_person_identified"];
@@ -3621,7 +3599,7 @@ LABEL_68:
         }
 
         while (v45 != v48);
-        v45 = [v43 countByEnumeratingWithState:&v64 objects:v76 count:16];
+        v45 = [v43 countByEnumeratingWithState:&v63 objects:v75 count:16];
         if (v45)
         {
           continue;
@@ -3633,64 +3611,62 @@ LABEL_68:
 
 LABEL_48:
 
-    personsCopy = v60;
-    idCopy = v61;
+    personsCopy = v59;
+    idCopy = v60;
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setMetaDataForPlaces:(id)places metaData:(id)data
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   placesCopy = places;
   dataCopy = data;
   if (!placesCopy || ![placesCopy count])
   {
     v53 = 0;
-    v66 = 0;
+    v65 = 0;
     v54 = 0;
     goto LABEL_54;
   }
 
   v7 = objc_opt_new();
   v8 = objc_opt_new();
+  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
-  v61 = placesCopy;
+  v60 = placesCopy;
   obj = placesCopy;
-  v69 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
-  if (!v69)
+  v68 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
+  if (!v68)
   {
-    v63 = 0;
-    v66 = 0;
     v62 = 0;
+    v65 = 0;
+    v61 = 0;
     goto LABEL_53;
   }
 
-  v63 = 0;
-  v66 = 0;
   v62 = 0;
-  v68 = *v73;
+  v65 = 0;
+  v61 = 0;
+  v67 = *v72;
   v9 = 1;
-  v64 = v7;
+  v63 = v7;
   do
   {
-    for (i = 0; i != v69; ++i)
+    for (i = 0; i != v68; ++i)
     {
-      if (*v73 != v68)
+      if (*v72 != v67)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v72 + 1) + 8 * i);
-      v71 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"place_", v9];
+      v11 = *(*(&v71 + 1) + 8 * i);
+      v70 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"place_", v9];
       v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"Place_", v9];
       placeName = [v11 placeName];
 
-      v70 = v12;
+      v69 = v12;
       if (placeName)
       {
         if ([v11 placeUserType] && objc_msgSend(v11, "placeUserType") == 1)
@@ -3698,9 +3674,9 @@ LABEL_48:
           placeName2 = [v11 placeName];
           lowercaseString = [placeName2 lowercaseString];
           v16 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:lowercaseString];
-          [dataCopy setObject:v16 forKeyedSubscript:v71];
+          [dataCopy setObject:v16 forKeyedSubscript:v70];
 
-          v7 = v64;
+          v7 = v63;
           placeName3 = [v11 placeName];
           v18 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:placeName3];
           [dataCopy setObject:v18 forKeyedSubscript:v12];
@@ -3709,7 +3685,7 @@ LABEL_48:
         else
         {
           placeName4 = [v11 placeName];
-          [dataCopy setObject:placeName4 forKeyedSubscript:v71];
+          [dataCopy setObject:placeName4 forKeyedSubscript:v70];
 
           placeName3 = [v11 placeName];
           [dataCopy setObject:placeName3 forKeyedSubscript:v12];
@@ -3729,7 +3705,7 @@ LABEL_48:
 
         if ((v24 & 1) == 0)
         {
-          ++v63;
+          ++v62;
           enclosingArea4 = [v11 enclosingArea];
           [v8 addObject:enclosingArea4];
 
@@ -3738,7 +3714,7 @@ LABEL_48:
           [dataCopy setObject:enclosingArea5 forKeyedSubscript:v26];
         }
 
-        v7 = v64;
+        v7 = v63;
       }
 
       if ([v11 proposition] == 4)
@@ -3769,14 +3745,14 @@ LABEL_48:
         v7 = v34;
         v8 = v32;
 LABEL_27:
-        v36 = v70;
+        v36 = v69;
         goto LABEL_48;
       }
 
       placeName7 = [v11 placeName];
       [v34 addObject:placeName7];
 
-      v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"unique_place_", objc_msgSend(v34, "count")];
+      v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"unique_place_", objc_msgSend(v34, "count")];
       v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"Unique_place_", objc_msgSend(v34, "count")];
       v7 = v34;
       if ([v11 placeUserType] && objc_msgSend(v11, "placeUserType") == 1)
@@ -3785,10 +3761,10 @@ LABEL_27:
         [placeName8 lowercaseString];
         v41 = v40 = dataCopy;
         v42 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:v41];
-        [v40 setObject:v42 forKeyedSubscript:v67];
+        [v40 setObject:v42 forKeyedSubscript:v66];
 
         dataCopy = v40;
-        v7 = v64;
+        v7 = v63;
 
         placeName9 = [v11 placeName];
         v44 = [MOEventBundleLabelLocalizer _Moments_LocalizedStringForKey:placeName9];
@@ -3798,7 +3774,7 @@ LABEL_27:
       else
       {
         placeName10 = [v11 placeName];
-        [dataCopy setObject:placeName10 forKeyedSubscript:v67];
+        [dataCopy setObject:placeName10 forKeyedSubscript:v66];
 
         placeName9 = [v11 placeName];
         [dataCopy setObject:placeName9 forKeyedSubscript:v38];
@@ -3812,7 +3788,7 @@ LABEL_27:
       }
 
       v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%d", @"confidence_", objc_msgSend(v7, "count")];
-      v36 = v70;
+      v36 = v69;
       if ([v11 placeType] == 3 && (objc_msgSend(v11, "placeNameConfidence"), v48 >= 0.9) || objc_msgSend(v11, "placeType") == 2 && (objc_msgSend(v11, "placeNameConfidence"), v49 >= 0.9) || objc_msgSend(v11, "placeUserType") && objc_msgSend(v11, "placeUserType") < 0x64)
       {
         v50 = @"high";
@@ -3825,26 +3801,26 @@ LABEL_27:
 
       else
       {
-        v62 = 1;
+        v61 = 1;
         v50 = @"low";
       }
 
-      ++v66;
+      ++v65;
       [dataCopy setObject:v50 forKeyedSubscript:v47];
 
 LABEL_48:
       v9 = (v9 + 1);
     }
 
-    v69 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
+    v68 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
   }
 
-  while (v69);
+  while (v68);
 LABEL_53:
 
-  placesCopy = v61;
-  v53 = v63;
-  v54 = v62;
+  placesCopy = v60;
+  v53 = v62;
+  v54 = v61;
 LABEL_54:
   v55 = [MEMORY[0x277CCABB0] numberWithBool:v54 & 1];
   [dataCopy setObject:v55 forKeyedSubscript:@"include_low_confidence_place_name"];
@@ -3852,7 +3828,7 @@ LABEL_54:
   v56 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(placesCopy, "count")}];
   [dataCopy setObject:v56 forKeyedSubscript:@"place_count"];
 
-  v57 = [MEMORY[0x277CCABB0] numberWithInt:v66];
+  v57 = [MEMORY[0x277CCABB0] numberWithInt:v65];
   [dataCopy setObject:v57 forKeyedSubscript:@"unique_place_count"];
 
   v58 = [MEMORY[0x277CCABB0] numberWithInt:v53];
@@ -3863,44 +3839,42 @@ LABEL_54:
     v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(placesCopy, "count") - 1}];
     [dataCopy setObject:v59 forKeyedSubscript:@"place_count_minus_one"];
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setMetaDataForPhotos:(id)photos metaData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   photosCopy = photos;
   dataCopy = data;
   if (photosCopy && [photosCopy count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = photosCopy;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if ([*(*(&v13 + 1) + 8 * i) type] == 2)
+          if ([*(*(&v12 + 1) + 8 * i) type] == 2)
           {
             [dataCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"photo_attached"];
             goto LABEL_13;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v9)
         {
           continue;
@@ -3912,8 +3886,6 @@ LABEL_54:
 
 LABEL_13:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)andStringFromArray:(id)array propertyPath:(id)path maxCount:(unint64_t)count
@@ -4490,41 +4462,33 @@ LABEL_85:
 
 + (void)buildEvergreenMetaDataForEventBundle:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)buildEvergreenMetaDataForEventBundle:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 name];
+  v6 = [a1 name];
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setMetaDataForTime:startDate:endDate:metaData:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
-  v4 = v0;
-  _os_log_error_impl(&dword_22D8C5000, v1, OS_LOG_TYPE_ERROR, "setMetaDataForTime, startDate, %@, endDate, %@, the timestamps are inverted at the end", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_22D8C5000, v1, OS_LOG_TYPE_ERROR, "setMetaDataForTime, startDate, %@, endDate, %@, the timestamps are inverted at the end", v2, 0x16u);
 }
 
 + (void)setMetaDataForPersons:(uint64_t)a1 suggestionId:(NSObject *)a2 metaData:sortBycomparePersons:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "More than one person found : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "More than one person found : %@", &v2, 0xCu);
 }
 
 @end

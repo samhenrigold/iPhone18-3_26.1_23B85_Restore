@@ -38,7 +38,7 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = GuardrailResultWrapper.hash.getter();
+  v3 = GuardrailResultWrapper.hash.getter(selfCopy);
 
   return v3;
 }

@@ -1,36 +1,37 @@
-id MTLoggingTactSwitchHIDSessionFilter()
+id MTLoggingTactSwitchHIDSessionFilter(uint64_t a1)
 {
   if (MTLoggingTactSwitchHIDSessionFilter_onceToken != -1)
   {
     MTLoggingTactSwitchHIDSessionFilter_cold_1();
   }
 
-  v1 = MTLoggingTactSwitchHIDSessionFilter___logObj;
+  v2 = MTLoggingTactSwitchHIDSessionFilter___logObj;
 
-  return v1;
+  return v2;
 }
 
-tation TactSwitchHIDSessionFilter
+SwitchHIDSessionFilter
 
 - (TactSwitchHIDSessionFilter)initWithSession:(id)a3
 {
-  v10.receiver = self;
-  v10.super_class = TactSwitchHIDSessionFilter;
-  v3 = [(TactSwitchHIDSessionFilter *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = TactSwitchHIDSessionFilter;
+  v3 = [(TactSwitchHIDSessionFilter *)&v11 init];
+  v4 = v3;
   if (v3)
   {
-    v4 = MTLoggingTactSwitchHIDSessionFilter();
-    log = v3->_log;
-    v3->_log = v4;
+    v5 = MTLoggingTactSwitchHIDSessionFilter(v3);
+    log = v4->_log;
+    v4->_log = v5;
 
-    v6 = objc_opt_new();
-    services = v3->_services;
-    v3->_services = v6;
+    v7 = objc_opt_new();
+    services = v4->_services;
+    v4->_services = v7;
 
-    v8 = v3;
+    v9 = v4;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)propertyForKey:(id)a3

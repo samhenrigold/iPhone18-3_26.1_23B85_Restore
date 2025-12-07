@@ -9,13 +9,13 @@
 
 - (SCLCustomDayEditorSource)initWithListController:(id)controller viewModel:(id)model day:(int64_t)day title:(id)title
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   modelCopy = model;
   titleCopy = title;
-  v24.receiver = self;
-  v24.super_class = SCLCustomDayEditorSource;
-  v12 = [(SCLSpecifierDataSource *)&v24 initWithListController:controllerCopy viewModel:modelCopy];
+  v23.receiver = self;
+  v23.super_class = SCLCustomDayEditorSource;
+  v12 = [(SCLSpecifierDataSource *)&v23 initWithListController:controllerCopy viewModel:modelCopy];
   if (v12)
   {
     v13 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"CUSTOM_DAY_ENABLED_GROUP"];
@@ -25,8 +25,8 @@
     if (![timeIntervals count])
     {
       v16 = +[SCLTimeIntervalModel defaultTimeInterval];
-      v27[0] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+      v26[0] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
 
       timeIntervals = v17;
     }
@@ -37,17 +37,16 @@
 
     [(SCLTimeIntervalDataSource *)v12->_timeSource setDelegate:v12];
     -[SCLSpecifierDataSource setActive:](v12->_timeSource, "setActive:", [modelCopy isEnabled]);
-    v26 = v12->_timeSource;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v12->_timeSource;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     [(SCLSpecifierDataSource *)v12 setChildDataSources:v20];
 
-    v25[0] = v13;
-    v25[1] = v14;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = v13;
+    v24[1] = v14;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
     [(SCLSpecifierDataSource *)v12 setSpecifiers:v21];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

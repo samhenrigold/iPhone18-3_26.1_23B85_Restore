@@ -146,7 +146,7 @@ LABEL_17:
 
 - (id)fetchItemWithQuery:(id)query error:(id *)error
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v7 = *MEMORY[0x1E697AFF8];
   v8 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697AFF8]];
@@ -156,31 +156,31 @@ LABEL_17:
   {
     errorCopy = error;
     v10 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697AE88]];
-    v59 = queryCopy;
+    v58 = queryCopy;
     v11 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697ADC8]];
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
     selfCopy = self;
-    v61 = v10;
+    v60 = v10;
     v12 = [(NSMutableDictionary *)self->_genps objectForKeyedSubscript:v10];
-    v13 = [v12 countByEnumeratingWithState:&v75 objects:v82 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v74 objects:v81 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v76;
+      v15 = *v75;
       v16 = *MEMORY[0x1E697AC30];
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v76 != v15)
+          if (*v75 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v75 + 1) + 8 * i);
+          v18 = *(*(&v74 + 1) + 8 * i);
           v19 = [v18 objectForKeyedSubscript:v16];
           v20 = [v19 isEqualToString:v11];
 
@@ -188,14 +188,14 @@ LABEL_17:
           {
             v35 = v18;
 
-            queryCopy = v59;
+            queryCopy = v58;
 LABEL_45:
 
             goto LABEL_46;
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v75 objects:v82 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v74 objects:v81 count:16];
         if (v14)
         {
           continue;
@@ -206,7 +206,7 @@ LABEL_45:
     }
 
     error = errorCopy;
-    queryCopy = v59;
+    queryCopy = v58;
     self = selfCopy;
   }
 
@@ -216,36 +216,36 @@ LABEL_45:
   if (v22)
   {
     v23 = *MEMORY[0x1E697ADC8];
-    v61 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697ADC8]];
-    if (v61)
+    v60 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697ADC8]];
+    if (v60)
     {
       v24 = objc_alloc(MEMORY[0x1E696AEC0]);
       v25 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697AC48]];
       v26 = [v24 initWithData:v25 encoding:4];
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
       v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       allValues = [(NSMutableDictionary *)self->_keys objectForKeyedSubscript:v26];
-      v28 = [allValues countByEnumeratingWithState:&v71 objects:v81 count:16];
+      v28 = [allValues countByEnumeratingWithState:&v70 objects:v80 count:16];
       if (v28)
       {
         v29 = v28;
         errorCopy2 = error;
-        v30 = *v72;
+        v30 = *v71;
         while (2)
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v72 != v30)
+            if (*v71 != v30)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v32 = *(*(&v71 + 1) + 8 * j);
+            v32 = *(*(&v70 + 1) + 8 * j);
             v33 = [v32 objectForKeyedSubscript:v23];
-            v34 = [v33 isEqualToString:v61];
+            v34 = [v33 isEqualToString:v60];
 
             if (v34)
             {
@@ -254,7 +254,7 @@ LABEL_45:
             }
           }
 
-          v29 = [allValues countByEnumeratingWithState:&v71 objects:v81 count:16];
+          v29 = [allValues countByEnumeratingWithState:&v70 objects:v80 count:16];
           if (v29)
           {
             continue;
@@ -271,50 +271,50 @@ LABEL_45:
     {
       v36 = *MEMORY[0x1E697AC40];
       v26 = [queryCopy objectForKeyedSubscript:*MEMORY[0x1E697AC40]];
+      v66 = 0u;
       v67 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v70 = 0u;
       allValues = [(NSMutableDictionary *)self->_keys allValues];
-      v53 = [allValues countByEnumeratingWithState:&v67 objects:v80 count:16];
-      if (v53)
+      v52 = [allValues countByEnumeratingWithState:&v66 objects:v79 count:16];
+      if (v52)
       {
-        v37 = *v68;
+        v37 = *v67;
         errorCopy3 = error;
-        v60 = queryCopy;
-        v52 = *v68;
+        v59 = queryCopy;
+        v51 = *v67;
         do
         {
           v38 = 0;
           do
           {
-            if (*v68 != v37)
+            if (*v67 != v37)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v55 = v38;
-            v39 = *(*(&v67 + 1) + 8 * v38);
+            v54 = v38;
+            v39 = *(*(&v66 + 1) + 8 * v38);
+            v62 = 0u;
             v63 = 0u;
             v64 = 0u;
             v65 = 0u;
-            v66 = 0u;
             v40 = v39;
-            v41 = [v40 countByEnumeratingWithState:&v63 objects:v79 count:16];
+            v41 = [v40 countByEnumeratingWithState:&v62 objects:v78 count:16];
             if (v41)
             {
               v42 = v41;
-              v43 = *v64;
+              v43 = *v63;
               while (2)
               {
                 for (k = 0; k != v42; ++k)
                 {
-                  if (*v64 != v43)
+                  if (*v63 != v43)
                   {
                     objc_enumerationMutation(v40);
                   }
 
-                  v45 = *(*(&v63 + 1) + 8 * k);
+                  v45 = *(*(&v62 + 1) + 8 * k);
                   v46 = [v45 objectForKeyedSubscript:v36];
                   v47 = [v46 isEqualToData:v26];
 
@@ -322,14 +322,14 @@ LABEL_45:
                   {
                     v35 = v45;
 
-                    queryCopy = v60;
+                    queryCopy = v59;
 LABEL_44:
 
                     goto LABEL_45;
                   }
                 }
 
-                v42 = [v40 countByEnumeratingWithState:&v63 objects:v79 count:16];
+                v42 = [v40 countByEnumeratingWithState:&v62 objects:v78 count:16];
                 if (v42)
                 {
                   continue;
@@ -339,17 +339,17 @@ LABEL_44:
               }
             }
 
-            v38 = v55 + 1;
+            v38 = v54 + 1;
             error = errorCopy3;
-            queryCopy = v60;
-            v37 = v52;
+            queryCopy = v59;
+            v37 = v51;
           }
 
-          while (v55 + 1 != v53);
-          v53 = [allValues countByEnumeratingWithState:&v67 objects:v80 count:16];
+          while (v54 + 1 != v52);
+          v52 = [allValues countByEnumeratingWithState:&v66 objects:v79 count:16];
         }
 
-        while (v53);
+        while (v52);
       }
     }
   }
@@ -365,8 +365,6 @@ LABEL_44:
   }
 
 LABEL_46:
-
-  v50 = *MEMORY[0x1E69E9840];
 
   return v35;
 }

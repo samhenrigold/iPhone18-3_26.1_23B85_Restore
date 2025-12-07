@@ -193,7 +193,7 @@ void sub_DC8(uint64_t a1, const void *a2, void *a3, uint64_t a4)
     v8 = *(a1 + 80);
     if (v8 >= *(a1 + 88))
     {
-      v9 = sub_F78(a1 + 72, &v11, &value, a4);
+      v9 = sub_F78((a1 + 72), &v11, &value, a4);
     }
 
     else
@@ -242,21 +242,21 @@ uint64_t sub_F08(uint64_t a1, uint64_t a2)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t sub_F78(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t sub_F78(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v5 = v4 + 1;
   if (v4 + 1 > 0x555555555555555)
   {
     sub_1280();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v5)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v5)
   {
-    v5 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v5 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v8 = 0x555555555555555;
   }
@@ -276,14 +276,14 @@ uint64_t sub_F78(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
   v16 = 48 * v4;
   sub_10C0((48 * v4), a2, a3, a4);
   v17 = 48 * v4 + 48;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 48 * v4 + *a1 - v9;
   sub_13C8(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -292,9 +292,9 @@ uint64_t sub_F78(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
   return v14;
 }
 
-void sub_10AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_14C0(va);
   _Unwind_Resume(a1);
 }
@@ -311,9 +311,9 @@ void *sub_10C0(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
   return a1;
 }
 
-void sub_114C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_114C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1200(va);
   _Unwind_Resume(a1);
 }
@@ -467,8 +467,10 @@ double sub_1560(uint64_t a1)
   return result;
 }
 
-uint64_t sub_157C(uint64_t a1, int a2, unsigned int a3, unsigned int a4, unsigned int a5, char *a6, uint64_t a7)
+uint64_t sub_157C(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, char *a6, uint64_t a7)
 {
+  v9 = a5;
+  v12 = a2;
   v14 = 0xFFFFFFF;
   if (a5 != 36 && a5 != 112 && a5 != 126)
   {
@@ -487,187 +489,190 @@ uint64_t sub_157C(uint64_t a1, int a2, unsigned int a3, unsigned int a4, unsigne
   {
     if ((a5 & 0xFE) == 0x70)
     {
-      v19 = 127;
+      v21 = 127;
     }
 
     else
     {
-      v19 = a2;
+      v21 = a2;
     }
 
-    *(a1 + 185) = v19;
+    *(a1 + 185) = v21;
     *(a1 + 176) = a3;
     *(a1 + 180) = v14;
     *(a1 + 184) = a5;
     __src = 32496;
-    v48 = a2;
-    v49 = 13;
-    v50 = a5;
-    v51 = 1;
-    v52 = 0;
+    v53 = a2;
+    v54 = 13;
+    v55 = a5;
+    v56 = 1;
+    v57 = 0;
     if (!(a3 >> 28))
     {
-      v20 = vrev64_s16(vand_s8(vmovn_s32(vshlq_u32(vdupq_n_s32(a3), xmmword_20150)), 0x7F007F007F007FLL));
-      LODWORD(v52) = vuzp1_s8(v20, v20).u32[0];
+      v22 = vrev64_s16(vand_s8(vmovn_s32(vshlq_u32(vdupq_n_s32(a3), xmmword_20150)), 0x7F007F007F007FLL));
+      LODWORD(v57) = vuzp1_s8(v22, v22).u32[0];
     }
 
     if (!(v14 >> 28))
     {
-      v21 = vrev64_s16(vand_s8(vmovn_s32(vshlq_u32(vdupq_n_s32(v14), xmmword_20150)), 0x7F007F007F007FLL));
-      HIDWORD(v52) = vuzp1_s8(v21, v21).u32[0];
+      v23 = vrev64_s16(vand_s8(vmovn_s32(vshlq_u32(vdupq_n_s32(v14), xmmword_20150)), 0x7F007F007F007FLL));
+      HIDWORD(v57) = vuzp1_s8(v23, v23).u32[0];
     }
 
-    sub_1B1C();
+    sub_1B1C(a1, a2);
     if (os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_DEBUG))
     {
       operator new();
     }
 
-    sub_2234(a1 + 8, *(a1 + 16), &__src, &v53, 14);
+    v16 = sub_2234(a1 + 8, *(a1 + 16), &__src, &v58, 14);
   }
 
   else
   {
-    sub_1B1C();
+    sub_1B1C(a1, a2);
     v15 = qword_2C0F8;
-    if (os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_DEBUG))
+    v16 = os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_DEBUG);
+    if (v16)
     {
-      v16 = *(a1 + 16) - *(a1 + 8);
-      v29 = 136315650;
-      v30 = "MIDICIMessageEmitter.cpp";
-      v31 = 1024;
-      v32 = 49;
-      v33 = 2048;
-      *v34 = v16;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Message already has %lu bytes. Checking continuation ...", &v29, 0x1Cu);
+      v18 = *(a1 + 16) - *(a1 + 8);
+      v34 = 136315650;
+      v35 = "MIDICIMessageEmitter.cpp";
+      v36 = 1024;
+      v37 = 49;
+      v38 = 2048;
+      *v39 = v18;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Message already has %lu bytes. Checking continuation ...", &v34, 0x1Cu);
     }
 
-    if (*(a1 + 176) != a3 || *(a1 + 180) != a4 || *(a1 + 184) != a5)
+    if (*(a1 + 176) != a3 || *(a1 + 180) != a4 || *(a1 + 184) != v9)
     {
-      sub_1B1C();
-      v17 = qword_2C0F8;
+      sub_1B1C(v16, v17);
+      v19 = qword_2C0F8;
       if (os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_ERROR))
       {
-        v29 = 136315394;
-        v30 = "MIDICIMessageEmitter.cpp";
-        v31 = 1024;
-        v32 = 52;
-        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] MIDICIMessageEmitter::CreateCIMessage() can't continue message (kMIDINotPermitted)", &v29, 0x12u);
+        v34 = 136315394;
+        v35 = "MIDICIMessageEmitter.cpp";
+        v36 = 1024;
+        v37 = 52;
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] MIDICIMessageEmitter::CreateCIMessage() can't continue message (kMIDINotPermitted)", &v34, 0x12u);
       }
 
-      v18 = 4294956452;
+      v20 = 4294956452;
 LABEL_44:
       *(a1 + 16) = *(a1 + 8);
-      return v18;
+      return v20;
     }
   }
 
-  v22 = a5 >> 4;
-  if (a5 >> 4 > 2)
+  v24 = v9 >> 4;
+  if (v9 >> 4 > 2)
   {
-    if (v22 == 3)
+    if (v24 == 3)
     {
-      v23 = sub_1E0C(a1, a6, a7);
+      v25 = sub_1E0C(a1, a6, a7);
       goto LABEL_38;
     }
 
-    if (v22 == 7)
+    if (v24 == 7)
     {
-      v23 = sub_1F08(a1, a6, a7);
+      v25 = sub_1F08(a1, a6, a7);
       goto LABEL_38;
     }
   }
 
   else
   {
-    if (v22 == 1)
+    if (v24 == 1)
     {
-      v23 = sub_1B4C(a1, a6, a7);
+      v25 = sub_1B4C(a1, a6, a7);
       goto LABEL_38;
     }
 
-    if (v22 == 2)
+    if (v24 == 2)
     {
-      v23 = sub_1C94(a1, a6, a7);
+      v25 = sub_1C94(a1, a6, a7);
 LABEL_38:
-      v18 = v23;
+      v20 = v25;
       goto LABEL_39;
     }
   }
 
-  sub_1B1C();
-  v24 = qword_2C0F8;
-  if (os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_ERROR))
+  sub_1B1C(v16, v17);
+  v27 = qword_2C0F8;
+  v25 = os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_ERROR);
+  if (v25)
   {
-    v29 = 136315650;
-    v30 = "MIDICIMessageEmitter.cpp";
-    v31 = 1024;
-    v32 = 76;
-    v33 = 1024;
-    *v34 = a5 >> 4;
-    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d      Unhandled message type: 0x%x", &v29, 0x18u);
+    v34 = 136315650;
+    v35 = "MIDICIMessageEmitter.cpp";
+    v36 = 1024;
+    v37 = 76;
+    v38 = 1024;
+    *v39 = v9 >> 4;
+    _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d      Unhandled message type: 0x%x", &v34, 0x18u);
   }
 
-  v18 = 4294956452;
+  v20 = 4294956452;
 LABEL_39:
-  sub_1B1C();
-  v25 = qword_2C0F8;
-  if (os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_DEBUG))
+  sub_1B1C(v25, v26);
+  v28 = qword_2C0F8;
+  v29 = os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_DEBUG);
+  if (v29)
   {
-    v26 = sub_1BFB0(a5);
-    v29 = 136317442;
-    v30 = "MIDICIMessageEmitter.cpp";
-    v31 = 1024;
-    v32 = 80;
-    v33 = 1024;
-    *v34 = a2;
-    *&v34[4] = 1024;
-    *&v34[6] = a3;
-    v35 = 1024;
-    v36 = a4;
-    v37 = 1024;
-    v38 = a5;
-    v39 = 2080;
-    v40 = v26;
-    v41 = 2048;
-    v42 = a6;
-    v43 = 2048;
-    v44 = a7;
-    v45 = 1024;
-    v46 = v18;
-    _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d [*] MIDICIMessageEmitter::CreateCIMessage(channel:0x%x, sourceMUID:0x%08x, destMUID:0x%08x, msgIndex:0x%x (%s), data:%p, length:%lu) = %d", &v29, 0x4Eu);
+    v31 = sub_1BFB0(v9);
+    v34 = 136317442;
+    v35 = "MIDICIMessageEmitter.cpp";
+    v36 = 1024;
+    v37 = 80;
+    v38 = 1024;
+    *v39 = v12;
+    *&v39[4] = 1024;
+    *&v39[6] = a3;
+    v40 = 1024;
+    v41 = a4;
+    v42 = 1024;
+    v43 = v9;
+    v44 = 2080;
+    v45 = v31;
+    v46 = 2048;
+    v47 = a6;
+    v48 = 2048;
+    v49 = a7;
+    v50 = 1024;
+    v51 = v20;
+    _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d [*] MIDICIMessageEmitter::CreateCIMessage(channel:0x%x, sourceMUID:0x%08x, destMUID:0x%08x, msgIndex:0x%x (%s), data:%p, length:%lu) = %d", &v34, 0x4Eu);
   }
 
-  if (v18)
+  if (v20)
   {
-    sub_1B1C();
-    v27 = qword_2C0F8;
+    sub_1B1C(v29, v30);
+    v32 = qword_2C0F8;
     if (os_log_type_enabled(qword_2C0F8, OS_LOG_TYPE_ERROR))
     {
-      v29 = 136315650;
-      v30 = "MIDICIMessageEmitter.cpp";
-      v31 = 1024;
-      v32 = 83;
-      v33 = 1024;
-      *v34 = v18;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] MIDICIMessageEmitter::CreateCIMessage() failed with error %d (message will not be sent)", &v29, 0x18u);
+      v34 = 136315650;
+      v35 = "MIDICIMessageEmitter.cpp";
+      v36 = 1024;
+      v37 = 83;
+      v38 = 1024;
+      *v39 = v20;
+      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] MIDICIMessageEmitter::CreateCIMessage() failed with error %d (message will not be sent)", &v34, 0x18u);
     }
 
     goto LABEL_44;
   }
 
-  return v18;
+  return v20;
 }
 
-void sub_1B1C()
+void sub_1B1C(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2C100, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2C100, memory_order_acquire) & 1) == 0)
   {
     sub_1CEFC();
   }
 }
 
-uint64_t sub_1B4C(uint64_t a1, _BYTE *a2, unsigned int a3)
+uint64_t sub_1B4C(uint64_t a1, char *a2, unsigned int a3)
 {
   __src = 99;
   v14 = 0;
@@ -1001,13 +1006,13 @@ char *sub_2234(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v16 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v21 = &__dst[a5];
-      v22 = &v10[-a5];
+      v22 = (v10 - a5);
       v23 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -1042,7 +1047,7 @@ char *sub_2234(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
 
       else
       {
-        v18 = &a4[__dst] - __src;
+        v18 = (&a4[__dst] - __src);
         v19 = *(a1 + 8);
         do
         {
@@ -1060,9 +1065,9 @@ char *sub_2234(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
       }
 
       v32 = &__dst[a5];
-      v33 = (v18 - a5);
+      v33 = &v18[-a5];
       v34 = v18;
-      if (v18 - a5 < v10)
+      if (&v18[-a5] < v10)
       {
         do
         {
@@ -1089,7 +1094,7 @@ char *sub_2234(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
   }
 
   v11 = *a1;
-  v12 = &v10[a5 - *a1];
+  v12 = v10 - *a1 + a5;
   if (v12 < 0)
   {
     sub_1280();
@@ -1344,19 +1349,19 @@ uint64_t sub_2B48(uint64_t a1)
         v18 = CFUUIDGetConstantUUIDWithBytes(0, 0xC8u, 9u, 0xB8u, 0xD8u, 8u, 0x84u, 0x11u, 0xD7u, 0xBBu, 0x96u, 0, 3u, 0x93u, 0x3Eu, 0x3Eu, 0x3Eu);
         v19 = CFUUIDGetUUIDBytes(v18);
         v20 = (v17)(v15, *&v19.byte0, *&v19.byte8, v3);
-        ((*theInterface)->Release)(theInterface);
+        v21 = ((*theInterface)->Release)(theInterface);
         theInterface = 0;
         if (v20)
         {
-          sub_2E80();
-          v21 = qword_2C108;
+          sub_2E80(v21, v22);
+          v23 = qword_2C108;
           if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v25 = "USBDevice.cpp";
-            v26 = 1024;
-            v27 = 123;
-            _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d QueryInterface failed", buf, 0x12u);
+            v27 = "USBDevice.cpp";
+            v28 = 1024;
+            v29 = 123;
+            _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d QueryInterface failed", buf, 0x12u);
           }
 
           *v3 = 0;
@@ -1379,24 +1384,24 @@ uint64_t sub_2B48(uint64_t a1)
   return result;
 }
 
-void sub_2E80()
+void sub_2E80(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2C110, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2C110, memory_order_acquire) & 1) == 0)
   {
     sub_1D004();
   }
 }
 
-uint64_t sub_2EB0(uint64_t result)
+_BYTE *sub_2EB0(_BYTE *result)
 {
-  if ((*(result + 21) & 1) == 0)
+  if ((result[21] & 1) == 0)
   {
     v1 = result;
-    *(result + 21) = 1;
+    result[21] = 1;
     result = sub_2F9C(result, 3, 0, 0, v2, 256);
     if (result >= 3)
     {
-      *(v1 + 24) = (v2[0] - 2 + (((v2[0] - 2) & 0x8000u) >> 15)) >> 1;
+      *(v1 + 12) = (v2[0] - 2 + (((v2[0] - 2) & 0x8000u) >> 15)) >> 1;
       operator new[]();
     }
   }
@@ -1410,11 +1415,11 @@ uint64_t sub_2F9C(uint64_t a1, int a2, __int16 a3, __int16 a4, _BYTE *a5, __int1
   if (v12)
   {
     v13 = v12;
-    v24 = 1664;
+    v25 = 1664;
     v14 = a3 | (a2 << 8);
-    v25 = v14;
-    v26 = a4;
-    v28 = a5;
+    v26 = v14;
+    v27 = a4;
+    v29 = a5;
     if (a2 == 3)
     {
       v15 = 2;
@@ -1425,7 +1430,7 @@ uint64_t sub_2F9C(uint64_t a1, int a2, __int16 a3, __int16 a4, _BYTE *a5, __int1
       v15 = a6;
     }
 
-    v27 = v15;
+    v28 = v15;
     if (!(*(*v12 + 64))(*(a1 + 8)))
     {
       goto LABEL_12;
@@ -1436,7 +1441,7 @@ uint64_t sub_2F9C(uint64_t a1, int a2, __int16 a3, __int16 a4, _BYTE *a5, __int1
     {
       usleep(0x1388u);
       v17 = (*(*v13 + 64))(*(a1 + 8));
-      v18 = v17;
+      v19 = v17;
       if (v16 > 0x12)
       {
         break;
@@ -1449,57 +1454,57 @@ uint64_t sub_2F9C(uint64_t a1, int a2, __int16 a3, __int16 a4, _BYTE *a5, __int1
     if (!v17)
     {
 LABEL_12:
-      v20 = (*(*v13 + 208))(v13, &v24);
+      v21 = (*(*v13 + 208))(v13, &v25);
       if (a2 == 3)
       {
-        if (v20)
+        if (v21)
         {
-          v21 = v20 == -536870168;
+          v22 = v21 == -536870168;
         }
 
         else
         {
-          v21 = 1;
+          v22 = 1;
         }
 
-        if (!v21)
+        if (!v22)
         {
           return 0xFFFFFFFFLL;
         }
 
-        v22 = *a5;
+        v23 = *a5;
         if (!*a5)
         {
           return 0;
         }
 
-        v24 = 1664;
-        v25 = v14;
-        v26 = a4;
-        v27 = v22;
-        v28 = a5;
-        v20 = (*(*v13 + 208))(v13, &v24);
+        v25 = 1664;
+        v26 = v14;
+        v27 = a4;
+        v28 = v23;
+        v29 = a5;
+        v21 = (*(*v13 + 208))(v13, &v25);
       }
 
-      if (!v20)
+      if (!v21)
       {
-        return v29;
+        return v30;
       }
 
       return 0xFFFFFFFFLL;
     }
 
-    sub_2E80();
-    v19 = qword_2C108;
+    sub_2E80(v17, v18);
+    v20 = qword_2C108;
     if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v31 = "USBDevice.cpp";
-      v32 = 1024;
-      v33 = 264;
-      v34 = 1024;
-      v35 = v18;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d USBDevice::LoadDescriptor - Could not open device due to error 0x%x", buf, 0x18u);
+      v32 = "USBDevice.cpp";
+      v33 = 1024;
+      v34 = 264;
+      v35 = 1024;
+      v36 = v19;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d USBDevice::LoadDescriptor - Could not open device due to error 0x%x", buf, 0x18u);
     }
   }
 
@@ -1527,24 +1532,25 @@ CFStringRef sub_3188(uint64_t a1, int a2)
   }
 }
 
-uint64_t sub_3214(uint64_t a1, int a2, int a3, uint64_t a4, int a5, _DWORD *a6)
+uint64_t sub_3214(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, _DWORD *a6)
 {
-  sub_2E80();
+  v10 = a2;
+  sub_2E80(a1, a2);
   v12 = qword_2C108;
   if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_INFO))
   {
     *buf = 136316418;
-    v47 = "USBDevice.cpp";
-    v48 = 1024;
-    v49 = 309;
-    v50 = 1024;
-    *v51 = a2;
-    *&v51[4] = 1024;
-    *&v51[6] = a3;
-    v52 = 2048;
-    v53 = a4;
-    v54 = 1024;
-    v55 = a5;
+    v69 = "USBDevice.cpp";
+    v70 = 1024;
+    v71 = 309;
+    v72 = 1024;
+    *v73 = v10;
+    *&v73[4] = 1024;
+    *&v73[6] = a3;
+    v74 = 2048;
+    v75 = a4;
+    v76 = 1024;
+    v77 = a5;
     _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBDevice::LoadGroupTerminalDescriptors(interface: %d, altSettingNumber: %d, buf:%p, len:%d)", buf, 0x2Eu);
   }
 
@@ -1552,239 +1558,250 @@ uint64_t sub_3214(uint64_t a1, int a2, int a3, uint64_t a4, int a5, _DWORD *a6)
   v13 = sub_2B48(a1);
   if (v13)
   {
-    v14 = v13;
-    v15 = (*(*v13 + 64))(*(a1 + 8));
-    if (!v15)
+    v15 = v13;
+    v16 = (*(*v13 + 64))(*(a1 + 8));
+    if (!v16)
     {
       goto LABEL_13;
     }
 
-    v16 = v15;
-    sub_2E80();
-    v17 = qword_2C108;
+    v18 = v16;
+    sub_2E80(v16, v17);
+    v19 = qword_2C108;
     if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v47 = "USBDevice.cpp";
-      v48 = 1024;
-      v49 = 320;
-      v50 = 1024;
-      *v51 = v16;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d      USBDeviceOpen failed with error 0x%x. Will retrying ...", buf, 0x18u);
+      v69 = "USBDevice.cpp";
+      v70 = 1024;
+      v71 = 320;
+      v72 = 1024;
+      *v73 = v18;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "%25s:%-5d      USBDeviceOpen failed with error 0x%x. Will retrying ...", buf, 0x18u);
     }
 
-    v18 = 0;
+    v20 = 0;
     do
     {
       usleep(0x1388u);
-      v19 = (*(*v14 + 64))(*(a1 + 8));
-      v20 = v19;
-      if (v18 > 3)
+      v21 = (*(*v15 + 64))(*(a1 + 8));
+      v23 = v21;
+      if (v20 > 3)
       {
         break;
       }
 
-      ++v18;
+      ++v20;
     }
 
-    while (v19);
-    if (v19)
+    while (v21);
+    if (v21)
     {
-      sub_2E80();
-      v21 = qword_2C108;
+      sub_2E80(v21, v22);
+      v24 = qword_2C108;
       if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 326;
-        v50 = 1024;
-        *v51 = v20;
-        v22 = "%25s:%-5d [-] USBDevice::LoadGroupTerminalDescriptors() - Could not open device due to error 0x%x";
-        v23 = v21;
-        v24 = OS_LOG_TYPE_ERROR;
-        v25 = 24;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 326;
+        v72 = 1024;
+        *v73 = v23;
+        v25 = "%25s:%-5d [-] USBDevice::LoadGroupTerminalDescriptors() - Could not open device due to error 0x%x";
+        v26 = v24;
+        v27 = OS_LOG_TYPE_ERROR;
+        v28 = 24;
 LABEL_44:
-        _os_log_impl(&dword_0, v23, v24, v22, buf, v25);
+        _os_log_impl(&dword_0, v26, v27, v25, buf, v28);
       }
     }
 
     else
     {
 LABEL_13:
-      v40 = 1665;
-      v41 = a3 | 0x2600;
-      v42 = a2;
-      v44 = a4;
-      v45 = 0;
-      v43 = a5;
-      v20 = (*(*v14 + 208))(v14, &v40);
-      sub_2E80();
-      v26 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315394;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 23;
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEBUG, "%25s:%-5d [+] LogDeviceRequest()", buf, 0x12u);
-      }
-
-      sub_2E80();
-      v27 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 24;
-        v50 = 1024;
-        *v51 = v40;
-        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d      bmRequestType: 0x%00x", buf, 0x18u);
-      }
-
-      sub_2E80();
-      v28 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 25;
-        v50 = 1024;
-        *v51 = HIBYTE(v40);
-        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d      bRequest:      0x%00x", buf, 0x18u);
-      }
-
-      sub_2E80();
-      v29 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 26;
-        v50 = 1024;
-        *v51 = v41;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wValue:        0x%0000x", buf, 0x18u);
-      }
-
-      sub_2E80();
+      v62 = 1665;
+      v63 = a3 | 0x2600;
+      v64 = v10;
+      v66 = a4;
+      v67 = 0;
+      v65 = a5;
+      v23 = (*(*v15 + 208))(v15, &v62);
+      sub_2E80(v23, v29);
       v30 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 27;
-        v50 = 1024;
-        *v51 = v42;
-        _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wIndex:        0x%0000x", buf, 0x18u);
-      }
-
-      sub_2E80();
-      v31 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 28;
-        v50 = 1024;
-        *v51 = v43;
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wLength:       %u", buf, 0x18u);
-      }
-
-      sub_2E80();
-      v32 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 29;
-        v50 = 2048;
-        *v51 = v44;
-        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEBUG, "%25s:%-5d      pData:         %p", buf, 0x1Cu);
-      }
-
-      sub_2E80();
-      v33 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 136315650;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 30;
-        v50 = 1024;
-        *v51 = v45;
-        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wLenDone:      %u", buf, 0x18u);
-      }
-
-      sub_2E80();
-      v34 = qword_2C108;
-      if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
+      v31 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v31)
       {
         *buf = 136315394;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 31;
-        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEBUG, "%25s:%-5d [-] LogDeviceRequest()", buf, 0x12u);
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 23;
+        _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d [+] LogDeviceRequest()", buf, 0x12u);
       }
 
-      if (v20 == -536854449)
+      sub_2E80(v31, v32);
+      v33 = qword_2C108;
+      v34 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v34)
       {
-        sub_2E80();
-        v35 = qword_2C108;
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 24;
+        v72 = 1024;
+        *v73 = v62;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEBUG, "%25s:%-5d      bmRequestType: 0x%00x", buf, 0x18u);
+      }
+
+      sub_2E80(v34, v35);
+      v36 = qword_2C108;
+      v37 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v37)
+      {
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 25;
+        v72 = 1024;
+        *v73 = HIBYTE(v62);
+        _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d      bRequest:      0x%00x", buf, 0x18u);
+      }
+
+      sub_2E80(v37, v38);
+      v39 = qword_2C108;
+      v40 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v40)
+      {
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 26;
+        v72 = 1024;
+        *v73 = v63;
+        _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wValue:        0x%0000x", buf, 0x18u);
+      }
+
+      sub_2E80(v40, v41);
+      v42 = qword_2C108;
+      v43 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v43)
+      {
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 27;
+        v72 = 1024;
+        *v73 = v64;
+        _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wIndex:        0x%0000x", buf, 0x18u);
+      }
+
+      sub_2E80(v43, v44);
+      v45 = qword_2C108;
+      v46 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v46)
+      {
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 28;
+        v72 = 1024;
+        *v73 = v65;
+        _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wLength:       %u", buf, 0x18u);
+      }
+
+      sub_2E80(v46, v47);
+      v48 = qword_2C108;
+      v49 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v49)
+      {
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 29;
+        v72 = 2048;
+        *v73 = v66;
+        _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEBUG, "%25s:%-5d      pData:         %p", buf, 0x1Cu);
+      }
+
+      sub_2E80(v49, v50);
+      v51 = qword_2C108;
+      v52 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v52)
+      {
+        *buf = 136315650;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 30;
+        v72 = 1024;
+        *v73 = v67;
+        _os_log_impl(&dword_0, v51, OS_LOG_TYPE_DEBUG, "%25s:%-5d      wLenDone:      %u", buf, 0x18u);
+      }
+
+      sub_2E80(v52, v53);
+      v54 = qword_2C108;
+      v55 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v55)
+      {
+        *buf = 136315394;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 31;
+        _os_log_impl(&dword_0, v54, OS_LOG_TYPE_DEBUG, "%25s:%-5d [-] LogDeviceRequest()", buf, 0x12u);
+      }
+
+      if (v23 == -536854449)
+      {
+        sub_2E80(v55, v56);
+        v57 = qword_2C108;
         if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v47 = "USBDevice.cpp";
-          v48 = 1024;
-          v49 = 342;
-          _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "%25s:%-5d      Pipe stall on DeviceRequest(). Will retry once only.", buf, 0x12u);
+          v69 = "USBDevice.cpp";
+          v70 = 1024;
+          v71 = 342;
+          _os_log_impl(&dword_0, v57, OS_LOG_TYPE_INFO, "%25s:%-5d      Pipe stall on DeviceRequest(). Will retry once only.", buf, 0x12u);
         }
 
-        v20 = (*(*v14 + 208))(v14, &v40);
+        v55 = (*(*v15 + 208))(v15, &v62);
+        v23 = v55;
       }
 
-      if (v20)
+      if (v23)
       {
-        sub_2E80();
-        v36 = qword_2C108;
-        if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_ERROR))
+        sub_2E80(v55, v56);
+        v58 = qword_2C108;
+        v55 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_ERROR);
+        if (v55)
         {
           *buf = 136315650;
-          v47 = "USBDevice.cpp";
-          v48 = 1024;
-          v49 = 346;
-          v50 = 1024;
-          *v51 = v20;
-          _os_log_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "%25s:%-5d      DeviceRequest() returned error 0x%x", buf, 0x18u);
+          v69 = "USBDevice.cpp";
+          v70 = 1024;
+          v71 = 346;
+          v72 = 1024;
+          *v73 = v23;
+          _os_log_impl(&dword_0, v58, OS_LOG_TYPE_ERROR, "%25s:%-5d      DeviceRequest() returned error 0x%x", buf, 0x18u);
         }
       }
 
       else
       {
-        *a6 = v45;
+        *a6 = v67;
       }
 
-      sub_2E80();
-      v38 = qword_2C108;
+      sub_2E80(v55, v56);
+      v60 = qword_2C108;
       if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_INFO))
       {
         *buf = 136315906;
-        v47 = "USBDevice.cpp";
-        v48 = 1024;
-        v49 = 350;
-        v50 = 1024;
-        *v51 = v45;
-        *&v51[4] = 1024;
-        *&v51[6] = v20;
-        v22 = "%25s:%-5d [-] USBDevice::LoadGroupTerminalDescriptors(outLength: %u) = %d";
-        v23 = v38;
-        v24 = OS_LOG_TYPE_INFO;
-        v25 = 30;
+        v69 = "USBDevice.cpp";
+        v70 = 1024;
+        v71 = 350;
+        v72 = 1024;
+        *v73 = v67;
+        *&v73[4] = 1024;
+        *&v73[6] = v23;
+        v25 = "%25s:%-5d [-] USBDevice::LoadGroupTerminalDescriptors(outLength: %u) = %d";
+        v26 = v60;
+        v27 = OS_LOG_TYPE_INFO;
+        v28 = 30;
         goto LABEL_44;
       }
     }
@@ -1792,21 +1809,21 @@ LABEL_13:
 
   else
   {
-    sub_2E80();
-    v37 = qword_2C108;
+    sub_2E80(0, v14);
+    v59 = qword_2C108;
     if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v47 = "USBDevice.cpp";
-      v48 = 1024;
-      v49 = 313;
-      _os_log_impl(&dword_0, v37, OS_LOG_TYPE_ERROR, "%25s:%-5d [-] USBDevice::LoadGroupTerminalDescriptors() - Could not get plugin interface!", buf, 0x12u);
+      v69 = "USBDevice.cpp";
+      v70 = 1024;
+      v71 = 313;
+      _os_log_impl(&dword_0, v59, OS_LOG_TYPE_ERROR, "%25s:%-5d [-] USBDevice::LoadGroupTerminalDescriptors() - Could not get plugin interface!", buf, 0x12u);
     }
 
     return 4294956451;
   }
 
-  return v20;
+  return v23;
 }
 
 uint64_t sub_3A64(uint64_t a1)
@@ -1835,19 +1852,19 @@ uint64_t sub_3A64(uint64_t a1)
         v15 = CFUUIDGetConstantUUIDWithBytes(0, 0x8Fu, 0xDBu, 0x84u, 0x55u, 0x74u, 0xA6u, 0x11u, 0xD6u, 0x97u, 0xB1u, 0, 0x30u, 0x65u, 0xD3u, 0x60u, 0x8Eu);
         v16 = CFUUIDGetUUIDBytes(v15);
         v17 = (v14)(v12, *&v16.byte0, *&v16.byte8, v3);
-        ((*theInterface)->Release)(theInterface);
+        v18 = ((*theInterface)->Release)(theInterface);
         theInterface = 0;
         if (v17)
         {
-          sub_2E80();
-          v18 = qword_2C108;
+          sub_2E80(v18, v19);
+          v20 = qword_2C108;
           if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v22 = "USBDevice.cpp";
-            v23 = 1024;
-            v24 = 513;
-            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d QueryInterface failed", buf, 0x12u);
+            v24 = "USBDevice.cpp";
+            v25 = 1024;
+            v26 = 513;
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d QueryInterface failed", buf, 0x12u);
           }
 
           *v3 = 0;
@@ -1902,27 +1919,28 @@ uint64_t sub_3D7C(uint64_t a1)
     return 0;
   }
 
-  if ((*(*v3 + 64))(v3))
+  v4 = (*(*v3 + 64))(v3);
+  if (v4)
   {
-    sub_1D064();
-    return v6;
+    sub_1D064(v4, &v8);
+    return v8;
   }
 
   else
   {
     v1 = 1;
     *(a1 + 25) = 1;
-    sub_2E80();
-    v4 = qword_2C108;
+    sub_2E80(v4, v5);
+    v6 = qword_2C108;
     if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315650;
-      v7 = "USBDevice.cpp";
-      v8 = 1024;
-      v9 = 482;
-      v10 = 2048;
-      v11 = a1;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d [?] USBInterface(%p)::Open() - success", &v6, 0x1Cu);
+      v8 = 136315650;
+      v9 = "USBDevice.cpp";
+      v10 = 1024;
+      v11 = 482;
+      v12 = 2048;
+      v13 = a1;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d [?] USBInterface(%p)::Open() - success", &v8, 0x1Cu);
     }
   }
 
@@ -1961,17 +1979,18 @@ uint64_t sub_3F1C(uint64_t a1)
       v9 = *(**v4 + 8);
       v10 = CFUUIDGetConstantUUIDWithBytes(0, 0xEAu, 0x33u, 0xBAu, 0x4Fu, 0x8Au, 0x60u, 0x11u, 0xDBu, 0x84u, 0xDBu, 0, 0xDu, 0x93u, 0x6Du, 6u, 0xD2u);
       v11 = CFUUIDGetUUIDBytes(v10);
-      if (v9(v8, *&v11.byte0, *&v11.byte8, v3))
+      v12 = v9(v8, *&v11.byte0, *&v11.byte8, v3);
+      if (v12)
       {
-        sub_2E80();
-        v12 = qword_2C108;
+        sub_2E80(v12, v13);
+        v14 = qword_2C108;
         if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v15 = "USBDevice.cpp";
-          v16 = 1024;
-          v17 = 653;
-          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d QueryInterface failed", buf, 0x12u);
+          v17 = "USBDevice.cpp";
+          v18 = 1024;
+          v19 = 653;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d QueryInterface failed", buf, 0x12u);
         }
 
         *v3 = 0;
@@ -1980,7 +1999,7 @@ uint64_t sub_3F1C(uint64_t a1)
 
       else
       {
-        sub_44A8(a1);
+        sub_44A8(a1, v13);
       }
     }
 
@@ -1990,30 +2009,30 @@ uint64_t sub_3F1C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_4130(uint64_t a1)
+uint64_t sub_4130(uint64_t a1, uint64_t a2)
 {
-  sub_2E80();
-  v2 = qword_2C108;
+  sub_2E80(a1, a2);
+  v3 = qword_2C108;
   if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "USBDevice.cpp";
-    v8 = 1024;
-    v9 = 557;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Destroying USBIDAMInterface.", &v6, 0x12u);
+    v8 = 136315394;
+    v9 = "USBDevice.cpp";
+    v10 = 1024;
+    v11 = 557;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d Destroying USBIDAMInterface.", &v8, 0x12u);
   }
 
-  sub_422C(a1);
-  v3 = *(a1 + 8);
-  if (v3)
+  sub_422C(a1, v4);
+  v5 = *(a1 + 8);
+  if (v5)
   {
-    (*(*v3 + 24))(v3);
+    (*(*v5 + 24))(v5);
   }
 
-  v4 = *(a1 + 16);
-  if (v4)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    IODestroyPlugInInterface(v4);
+    IODestroyPlugInInterface(v6);
   }
 
   IOObjectRelease(*a1);
@@ -2030,7 +2049,7 @@ void sub_4220(_Unwind_Exception *a1, int a2)
   sub_1298(a1);
 }
 
-uint64_t sub_422C(uint64_t a1)
+uint64_t sub_422C(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 24))
   {
@@ -2040,51 +2059,54 @@ uint64_t sub_422C(uint64_t a1)
       return result;
     }
 
-    v3 = result;
-    v4 = MIDIGetDriverIORunLoop();
-    if (v4)
+    v4 = result;
+    v5 = MIDIGetDriverIORunLoop();
+    if (v5)
     {
-      v5 = v4;
-      if (!(*(*v3 + 56))(v3, v4, kCFRunLoopDefaultMode))
+      v7 = v5;
+      v8 = (*(*v4 + 56))(v4, v5, kCFRunLoopDefaultMode);
+      if (!v8)
       {
-        sub_2E80();
-        v6 = qword_2C108;
-        if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
+        sub_2E80(v8, v9);
+        v10 = qword_2C108;
+        v11 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+        if (v11)
         {
-          v10 = 136315650;
-          v11 = "USBDevice.cpp";
-          v12 = 1024;
-          v13 = 616;
-          v14 = 2048;
-          v15 = v5;
-          _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Unscheduled from runloop %p", &v10, 0x1Cu);
+          v17 = 136315650;
+          v18 = "USBDevice.cpp";
+          v19 = 1024;
+          v20 = 616;
+          v21 = 2048;
+          v22 = v7;
+          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Unscheduled from runloop %p", &v17, 0x1Cu);
         }
 
-        sub_2E80();
-        v7 = qword_2C108;
+        sub_2E80(v11, v12);
+        v13 = qword_2C108;
         if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
         {
-          v10 = 136315394;
-          v11 = "USBDevice.cpp";
-          v12 = 1024;
-          v13 = 623;
-          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d Closing the interface ...", &v10, 0x12u);
+          v17 = 136315394;
+          v18 = "USBDevice.cpp";
+          v19 = 1024;
+          v20 = 623;
+          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Closing the interface ...", &v17, 0x12u);
         }
 
-        if (!(*(*v3 + 40))(v3, 0))
+        v8 = (*(*v4 + 40))(v4, 0);
+        if (!v8)
         {
           *(a1 + 24) = 0;
-          sub_2E80();
-          v8 = qword_2C108;
+          sub_2E80(v8, v14);
+          v15 = qword_2C108;
           if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
           {
-            v10 = 136315394;
-            v11 = "USBDevice.cpp";
-            v12 = 1024;
-            v13 = 626;
-            v9 = "%25s:%-5d Closed the interface.";
+            v17 = 136315394;
+            v18 = "USBDevice.cpp";
+            v19 = 1024;
+            v20 = 626;
+            v16 = "%25s:%-5d Closed the interface.";
 LABEL_14:
-            _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, v9, &v10, 0x12u);
+            _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, v16, &v17, 0x12u);
             return 1;
           }
 
@@ -2095,117 +2117,122 @@ LABEL_14:
 
     else
     {
-      sub_1D124(&v10);
+      sub_1D124(&v17, v6);
+      v8 = v17;
     }
 
-    sub_1D1D4();
-    return v10;
+    sub_1D1D4(v8, &v17);
+    return v17;
   }
 
-  sub_2E80();
-  v8 = qword_2C108;
+  sub_2E80(a1, a2);
+  v15 = qword_2C108;
   if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315394;
-    v11 = "USBDevice.cpp";
-    v12 = 1024;
-    v13 = 605;
-    v9 = "%25s:%-5d Already closed.";
+    v17 = 136315394;
+    v18 = "USBDevice.cpp";
+    v19 = 1024;
+    v20 = 605;
+    v16 = "%25s:%-5d Already closed.";
     goto LABEL_14;
   }
 
   return 1;
 }
 
-uint64_t sub_44A8(uint64_t a1)
+uint64_t sub_44A8(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 24) == 1)
   {
-    sub_2E80();
-    v1 = qword_2C108;
+    sub_2E80(a1, a2);
+    v2 = qword_2C108;
     if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 136315394;
-      v15 = "USBDevice.cpp";
-      v16 = 1024;
-      v17 = 571;
-      v2 = "%25s:%-5d Already open.";
-      v3 = v1;
-      v4 = 18;
+      v19 = 136315394;
+      v20 = "USBDevice.cpp";
+      v21 = 1024;
+      v22 = 571;
+      v3 = "%25s:%-5d Already open.";
+      v4 = v2;
+      v5 = 18;
 LABEL_15:
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, v2, &v14, v4);
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, v3, &v19, v5);
       return 1;
     }
 
     return 1;
   }
 
-  result = sub_3F1C();
+  result = sub_3F1C(a1);
   if (!result)
   {
     return result;
   }
 
-  v7 = result;
-  v8 = (*(*result + 32))(result, 0);
-  if (v8)
+  v8 = result;
+  v9 = (*(*result + 32))(result, 0);
+  v11 = v9;
+  if (v9)
   {
-    if (v8 != -536870203)
+    if (v9 != -536870203)
     {
-LABEL_18:
-      sub_1D284();
-      return v14;
+LABEL_19:
+      sub_1D284(v11, &v19);
+      return v19;
     }
 
-    sub_2E80();
-    v9 = qword_2C108;
-    if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
+    sub_2E80(v9, v10);
+    v12 = qword_2C108;
+    v9 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+    if (v9)
     {
-      v14 = 136315394;
-      v15 = "USBDevice.cpp";
-      v16 = 1024;
-      v17 = 582;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d kIOReturnExclusiveAccess encountered but continuing.", &v14, 0x12u);
+      v19 = 136315394;
+      v20 = "USBDevice.cpp";
+      v21 = 1024;
+      v22 = 582;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d kIOReturnExclusiveAccess encountered but continuing.", &v19, 0x12u);
     }
   }
 
   *(a1 + 24) = 1;
-  sub_2E80();
-  v10 = qword_2C108;
-  if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
-  {
-    v14 = 136315394;
-    v15 = "USBDevice.cpp";
-    v16 = 1024;
-    v17 = 586;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Opened the interface.", &v14, 0x12u);
-  }
-
-  v11 = MIDIGetDriverIORunLoop();
-  if (!v11)
-  {
-    goto LABEL_18;
-  }
-
-  v12 = v11;
-  if ((*(*v7 + 48))(v7, v11, kCFRunLoopDefaultMode))
-  {
-    goto LABEL_18;
-  }
-
-  sub_2E80();
+  sub_2E80(v9, v10);
   v13 = qword_2C108;
   if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315650;
-    v15 = "USBDevice.cpp";
-    v16 = 1024;
-    v17 = 592;
-    v18 = 2048;
-    v19 = v12;
-    v2 = "%25s:%-5d Scheduled onto runloop %p";
-    v3 = v13;
-    v4 = 28;
+    v19 = 136315394;
+    v20 = "USBDevice.cpp";
+    v21 = 1024;
+    v22 = 586;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Opened the interface.", &v19, 0x12u);
+  }
+
+  v14 = MIDIGetDriverIORunLoop();
+  if (!v14)
+  {
+    goto LABEL_19;
+  }
+
+  v15 = v14;
+  v16 = (*(*v8 + 48))(v8, v14, kCFRunLoopDefaultMode);
+  if (v16)
+  {
+    v11 = v16;
+    goto LABEL_19;
+  }
+
+  sub_2E80(v16, v17);
+  v18 = qword_2C108;
+  if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
+  {
+    v19 = 136315650;
+    v20 = "USBDevice.cpp";
+    v21 = 1024;
+    v22 = 592;
+    v23 = 2048;
+    v24 = v15;
+    v3 = "%25s:%-5d Scheduled onto runloop %p";
+    v4 = v18;
+    v5 = 28;
     goto LABEL_15;
   }
 
@@ -2214,40 +2241,46 @@ LABEL_18:
 
 BOOL sub_4744(uint64_t a1)
 {
-  v5 = 0;
-  if (sub_3F1C(a1) && !(*(**(a1 + 8) + 288))(*(a1 + 8), &v5 + 4, &v5))
+  v7 = 0;
+  v2 = sub_3F1C(a1);
+  if (v2)
   {
-    sub_2E80();
-    v4 = qword_2C108;
-    if (os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG))
+    v2 = (*(**(a1 + 8) + 288))(*(a1 + 8), &v7 + 4, &v7);
+    if (!v2)
     {
-      *buf = 136315906;
-      v7 = "USBDevice.cpp";
-      v8 = 1024;
-      v9 = 670;
-      v10 = 1024;
-      v11 = HIDWORD(v5);
-      v12 = 1024;
-      v13 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d USBIDAMInterface::Usable() - active: %d speed: %d", buf, 0x1Eu);
-    }
+      sub_2E80(v2, v3);
+      v6 = qword_2C108;
+      v2 = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
+      if (v2)
+      {
+        *buf = 136315906;
+        v9 = "USBDevice.cpp";
+        v10 = 1024;
+        v11 = 670;
+        v12 = 1024;
+        v13 = HIDWORD(v7);
+        v14 = 1024;
+        v15 = v7;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d USBIDAMInterface::Usable() - active: %d speed: %d", buf, 0x1Eu);
+      }
 
-    if (HIDWORD(v5))
-    {
-      return 1;
+      if (HIDWORD(v7))
+      {
+        return 1;
+      }
     }
   }
 
-  sub_2E80();
-  v2 = qword_2C108;
+  sub_2E80(v2, v3);
+  v4 = qword_2C108;
   result = os_log_type_enabled(qword_2C108, OS_LOG_TYPE_DEBUG);
   if (result)
   {
     *buf = 136315394;
-    v7 = "USBDevice.cpp";
-    v8 = 1024;
-    v9 = 674;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d USBIDAMInterface::Usable() - NOT active!", buf, 0x12u);
+    v9 = "USBDevice.cpp";
+    v10 = 1024;
+    v11 = 674;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d USBIDAMInterface::Usable() - NOT active!", buf, 0x12u);
     return 0;
   }
 
@@ -2272,51 +2305,51 @@ uint64_t sub_4908(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_49DC(void *a1)
+uint64_t sub_49DC(void *a1, uint64_t a2)
 {
-  sub_4E84();
-  v2 = qword_2C118;
+  sub_4E84(a1, a2);
+  v3 = qword_2C118;
   if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
   {
-    v26 = 136315394;
-    v27 = "IDAMMIDIDevice.cpp";
-    *v28 = 1024;
-    *&v28[2] = 87;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d [+] IDAMMIDIDevice::Initialize()", &v26, 0x12u);
+    v33 = 136315394;
+    v34 = "IDAMMIDIDevice.cpp";
+    *v35 = 1024;
+    *&v35[2] = 87;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d [+] IDAMMIDIDevice::Initialize()", &v33, 0x12u);
   }
 
-  v3 = a1[63];
-  if (!v3)
+  v5 = a1[63];
+  if (!v5)
   {
-    sub_4E84();
-    v23 = qword_2C118;
+    sub_4E84(0, v4);
+    v30 = qword_2C118;
     if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_ERROR))
     {
-      v26 = 136315394;
-      v27 = "IDAMMIDIDevice.cpp";
-      *v28 = 1024;
-      *&v28[2] = 89;
-      v24 = "%25s:%-5d [!] Could not open interface! Returning false.";
+      v33 = 136315394;
+      v34 = "IDAMMIDIDevice.cpp";
+      *v35 = 1024;
+      *&v35[2] = 89;
+      v31 = "%25s:%-5d [!] Could not open interface! Returning false.";
 LABEL_27:
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, v24, &v26, 0x12u);
+      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, v31, &v33, 0x12u);
     }
 
     return 0;
   }
 
-  v4 = sub_3F1C(v3);
-  a1[64] = v4;
-  if (!v4)
+  v6 = sub_3F1C(v5);
+  a1[64] = v6;
+  if (!v6)
   {
-    sub_4E84();
-    v23 = qword_2C118;
+    sub_4E84(0, v7);
+    v30 = qword_2C118;
     if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_ERROR))
     {
-      v26 = 136315394;
-      v27 = "IDAMMIDIDevice.cpp";
-      *v28 = 1024;
-      *&v28[2] = 95;
-      v24 = "%25s:%-5d [!] Could not get the plugin interface! Returning false.";
+      v33 = 136315394;
+      v34 = "IDAMMIDIDevice.cpp";
+      *v35 = 1024;
+      *&v35[2] = 95;
+      v31 = "%25s:%-5d [!] Could not get the plugin interface! Returning false.";
       goto LABEL_27;
     }
 
@@ -2324,110 +2357,114 @@ LABEL_27:
   }
 
   (*(*a1 + 56))(a1);
-  if ((*(*a1 + 112))(a1) && (*(*a1 + 104))(a1))
+  if ((*(*a1 + 112))(a1))
   {
-    sub_4E84();
-    v5 = qword_2C118;
-    if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
+    v9 = (*(*a1 + 104))(a1);
+    if (v9)
     {
-      v26 = 136315394;
-      v27 = "IDAMMIDIDevice.cpp";
-      *v28 = 1024;
-      *&v28[2] = 105;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%25s:%-5d      Allocating read and write buffers...", &v26, 0x12u);
-    }
-
-    v6 = 0;
-    v7 = 1;
-    while (1)
-    {
-      v8 = v7;
-      v9 = &a1[3 * v6 + 69];
-      v10 = a1[64];
-      v11 = *(a1 + 262);
-      *v9 = a1;
-      v12 = (*(*v10 + 208))(v10, v11, v9 + 8);
-      v13 = v12 ? 0 : v11;
-      *(v9 + 16) = v13;
-      if (v12)
+      sub_4E84(v9, v8);
+      v10 = qword_2C118;
+      if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
       {
-        break;
+        v33 = 136315394;
+        v34 = "IDAMMIDIDevice.cpp";
+        *v35 = 1024;
+        *&v35[2] = 105;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d      Allocating read and write buffers...", &v33, 0x12u);
       }
 
-      v7 = 0;
-      v6 = 1;
-      if ((v8 & 1) == 0)
+      v11 = 0;
+      v12 = 1;
+      while (1)
       {
-        v14 = a1[64];
-        v15 = *(a1 + 270);
-        a1[75] = a1;
-        v16 = (*(*v14 + 208))(v14, v15, a1 + 76);
-        if (v16)
-        {
-          v17 = 0;
-        }
-
-        else
-        {
-          v17 = v15;
-        }
-
-        *(a1 + 154) = v17;
-        if (v16)
+        v13 = v12;
+        v14 = &a1[3 * v11 + 69];
+        v15 = a1[64];
+        v16 = *(a1 + 262);
+        *v14 = a1;
+        v17 = (*(*v15 + 208))(v15, v16, v14 + 1);
+        v18 = v17 ? 0 : v16;
+        *(v14 + 4) = v18;
+        if (v17)
         {
           break;
         }
 
-        *(a1 + 624) = 0;
-        sub_4E84();
-        v18 = qword_2C118;
-        v19 = 1;
-        if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
+        v12 = 0;
+        v11 = 1;
+        if ((v13 & 1) == 0)
         {
-          v20 = a1[68];
-          v21 = a1[66];
-          v26 = 136315906;
-          v27 = "IDAMMIDIDevice.cpp";
-          *v28 = 1024;
-          *&v28[2] = 114;
-          v29 = 1024;
-          v30 = v20;
-          v31 = 1024;
-          v32 = v21;
-          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "%25s:%-5d      Starting IDAM MIDI: mIDAMOutPipe=%d, mIDAMInPipe=%d", &v26, 0x1Eu);
-        }
+          v19 = a1[64];
+          v20 = *(a1 + 270);
+          a1[75] = a1;
+          v21 = (*(*v19 + 208))(v19, v20, a1 + 76);
+          if (v21)
+          {
+            v22 = 0;
+          }
 
-        (*(*a1 + 24))(a1, 1);
-        a1[60] = MIDITimerTaskCreate();
-        sub_4EB4(a1, (a1 + 69));
-        sub_4EB4(a1, (a1 + 72));
-        v26 = 1;
-        v27 = 0;
-        *v28 = -135266302;
-        (*(*a1 + 88))(a1, &v26, 0);
-        sub_4E84();
-        v22 = qword_2C118;
-        if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
-        {
-          v26 = 136315394;
-          v27 = "IDAMMIDIDevice.cpp";
-          *v28 = 1024;
-          *&v28[2] = 137;
-          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "%25s:%-5d [-] IDAMMIDIDevice::Initialize() = true", &v26, 0x12u);
-        }
+          else
+          {
+            v22 = v20;
+          }
 
-        return v19;
+          *(a1 + 154) = v22;
+          if (v21)
+          {
+            break;
+          }
+
+          *(a1 + 624) = 0;
+          sub_4E84(v21, v8);
+          v23 = qword_2C118;
+          v24 = 1;
+          if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
+          {
+            v25 = a1[68];
+            v26 = a1[66];
+            v33 = 136315906;
+            v34 = "IDAMMIDIDevice.cpp";
+            *v35 = 1024;
+            *&v35[2] = 114;
+            v36 = 1024;
+            v37 = v25;
+            v38 = 1024;
+            v39 = v26;
+            _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "%25s:%-5d      Starting IDAM MIDI: mIDAMOutPipe=%d, mIDAMInPipe=%d", &v33, 0x1Eu);
+          }
+
+          (*(*a1 + 24))(a1, 1);
+          a1[60] = MIDITimerTaskCreate();
+          sub_4EB4(a1, (a1 + 69));
+          sub_4EB4(a1, (a1 + 72));
+          v33 = 1;
+          v34 = 0;
+          *v35 = -135266302;
+          v27 = (*(*a1 + 88))(a1, &v33, 0);
+          sub_4E84(v27, v28);
+          v29 = qword_2C118;
+          if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
+          {
+            v33 = 136315394;
+            v34 = "IDAMMIDIDevice.cpp";
+            *v35 = 1024;
+            *&v35[2] = 137;
+            _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "%25s:%-5d [-] IDAMMIDIDevice::Initialize() = true", &v33, 0x12u);
+          }
+
+          return v24;
+        }
       }
     }
   }
 
-  sub_1D6DC(&v26);
-  return v26;
+  sub_1D6DC(&v33, v8);
+  return v33;
 }
 
-void sub_4E84()
+void sub_4E84(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2C120, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2C120, memory_order_acquire) & 1) == 0)
   {
     sub_1D79C();
   }
@@ -2442,36 +2479,36 @@ void sub_4EB4(uint64_t a1, uint64_t a2)
     v4 = (*(**(a1 + 512) + 160))(*(a1 + 512), *(a1 + 528), *(a2 + 8), *(a1 + 524), sub_1D508, a2);
   }
 
-  v6 = v4;
+  v7 = v4;
   if (v4)
   {
-    sub_4E84();
-    v7 = qword_2C118;
+    sub_4E84(v4, v5);
+    v8 = qword_2C118;
     if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "IDAMMIDIDevice.cpp";
-      v10 = 1024;
-      v11 = 282;
-      v12 = 1024;
-      v13 = v6;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] IDAMMIDIDevice::DoRead() failed with error 0x%x", &v8, 0x18u);
+      v9 = 136315650;
+      v10 = "IDAMMIDIDevice.cpp";
+      v11 = 1024;
+      v12 = 282;
+      v13 = 1024;
+      v14 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] IDAMMIDIDevice::DoRead() failed with error 0x%x", &v9, 0x18u);
     }
   }
 }
 
-void *sub_5010(void *a1)
+void *sub_5010(void *a1, uint64_t a2)
 {
   *a1 = off_28670;
-  sub_4E84();
-  v2 = qword_2C118;
+  sub_4E84(a1, a2);
+  v3 = qword_2C118;
   if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "IDAMMIDIDevice.cpp";
-    v11 = 1024;
-    v12 = 149;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d Destroying IDAMMIDIDevice.", &v9, 0x12u);
+    v11 = 136315394;
+    v12 = "IDAMMIDIDevice.cpp";
+    v13 = 1024;
+    v14 = 149;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d Destroying IDAMMIDIDevice.", &v11, 0x12u);
   }
 
   *(a1 + 184) = 1;
@@ -2493,27 +2530,28 @@ void *sub_5010(void *a1)
     a1[66] = -1;
   }
 
-  v3 = 201;
-  while (--v3 >= 2 && ((*(a1 + 572) & 1) != 0 || (*(a1 + 596) & 1) != 0 || *(a1 + 620) == 1))
+  v5 = 201;
+  while (--v5 >= 2 && ((*(a1 + 572) & 1) != 0 || (*(a1 + 596) & 1) != 0 || *(a1 + 620) == 1))
   {
     usleep(0x2710u);
   }
 
-  if (a1[60])
+  v6 = a1[60];
+  if (v6)
   {
-    MIDITimerTaskDispose();
+    v6 = MIDITimerTaskDispose();
     a1[60] = 0;
   }
 
-  sub_4E84();
-  v4 = qword_2C118;
+  sub_4E84(v6, v4);
+  v7 = qword_2C118;
   if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "IDAMMIDIDevice.cpp";
-    v11 = 1024;
-    v12 = 197;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d IDAM driver stopped MIDI.\n", &v9, 0x12u);
+    v11 = 136315394;
+    v12 = "IDAMMIDIDevice.cpp";
+    v13 = 1024;
+    v14 = 197;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d IDAM driver stopped MIDI.\n", &v11, 0x12u);
   }
 
   sub_4908((a1 + 75));
@@ -2522,7 +2560,7 @@ void *sub_5010(void *a1)
     sub_4908(&a1[i]);
   }
 
-  sub_10808(a1, v6, v7);
+  sub_10808(a1, v9);
   return a1;
 }
 
@@ -2536,74 +2574,70 @@ void sub_5310(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_5324(void *a1)
+void sub_5324(void *a1, uint64_t a2)
 {
-  sub_5010(a1);
+  sub_5010(a1, a2);
 
   operator delete();
 }
 
-uint64_t sub_535C(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_535C(uint64_t a1, int *a2, int a3)
 {
   result = (*(*a1 + 112))(a1);
   if (result)
   {
-    v11 = a1 + 344;
     result = (*(*(a1 + 344) + 16))();
-    v12 = result;
+    v9 = result;
     if (*a2 >= 1)
     {
-      v7 = *(a2 + 4);
-      v8 = *(a2 + 12);
-      if (v8 > 0x40)
+      v7 = *(a2 + 6);
+      if (v7 > 0x40)
       {
-        v9 = malloc_type_malloc(*(a2 + 12), 0x100004077774924uLL);
-        memcpy(v9, (a2 + 14), v8);
+        v8 = malloc_type_malloc(*(a2 + 6), 0x100004077774924uLL);
+        memcpy(v8, a2 + 14, v7);
       }
 
       else
       {
-        memcpy(&__dst, (a2 + 14), *(a2 + 12));
+        memcpy(&__dst, a2 + 14, *(a2 + 6));
       }
 
-      v14 = a3;
-      v15 = 0;
+      v11 = a3;
+      v12 = 0;
       operator new();
     }
 
     if ((*(a1 + 24 * *(a1 + 624) + 620) & 1) == 0 && !*(a1 + 488))
     {
       *(a1 + 488) = 1;
-      v10 = *(a1 + 480);
       mach_absolute_time();
       result = MIDITimerTaskSetNextWakeTime();
     }
 
-    if (v12)
+    if (v9)
     {
-      return (*(*v11 + 24))(v11);
+      return (*(*(a1 + 344) + 24))(a1 + 344);
     }
   }
 
   return result;
 }
 
-void sub_55A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_55A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_5A70(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_55CC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = mach_absolute_time();
-  v7 = *(a1 + 80);
-  v8 = *(a2 + 8);
+  v5 = mach_absolute_time();
+  v6 = *(a1 + 80);
   BytePtr = IOUSBDeviceDataGetBytePtr();
-  v10 = *(*v7 + 168);
+  v8 = *(*v6 + 168);
 
-  return v10(v7, a1, v6, BytePtr, a3, 0, 0);
+  return v8(v6, a1, v5, BytePtr, a3, 0, 0);
 }
 
 void sub_5668(uint64_t a1)
@@ -2611,10 +2645,9 @@ void sub_5668(uint64_t a1)
   if (*(a1 + 448))
   {
     v2 = a1 + 24 * *(a1 + 624);
-    v3 = *(v2 + 608);
     if (!IOUSBDeviceDataGetBytePtr())
     {
-      sub_4E84();
+      sub_4E84(0, v3);
       v17 = qword_2C118;
       if (!os_log_type_enabled(qword_2C118, OS_LOG_TYPE_ERROR))
       {
@@ -2633,23 +2666,22 @@ void sub_5668(uint64_t a1)
 
     v4 = v2 + 600;
     v5 = *(a1 + 496);
-    v6 = *(v4 + 8);
     BytePtr = IOUSBDeviceDataGetBytePtr();
-    v8 = (*(*v5 + 208))(v5, a1, a1 + 432, BytePtr, 1);
-    if (v8)
+    v7 = (*(*v5 + 208))(v5, a1, a1 + 432, BytePtr, 1);
+    if (v7)
     {
-      v9 = v8;
+      v8 = v7;
       *(v4 + 20) = 1;
-      v10 = (*(**(a1 + 512) + 176))(*(a1 + 512), *(a1 + 544), *(v4 + 8), v8, sub_58A0, a1);
-      if (v10 == -536854449 || v10 == -536870163)
+      v9 = (*(**(a1 + 512) + 176))(*(a1 + 512), *(a1 + 544), *(v4 + 8), v7, sub_58A0, a1);
+      if (v9 == -536854449 || v9 == -536870163)
       {
-        v10 = (*(**(a1 + 512) + 176))(*(a1 + 512), *(a1 + 544), *(v4 + 8), v9, sub_58A0, a1);
+        v9 = (*(**(a1 + 512) + 176))(*(a1 + 512), *(a1 + 544), *(v4 + 8), v8, sub_58A0, a1);
       }
 
-      v12 = v10;
-      if (v10)
+      v12 = v9;
+      if (v9)
       {
-        sub_4E84();
+        sub_4E84(v9, v10);
         v13 = qword_2C118;
         if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_ERROR))
         {
@@ -2674,32 +2706,33 @@ void sub_58A0(uint64_t a1, int a2)
 {
   v4 = a1 + 344;
   v5 = (*(*(a1 + 344) + 16))(a1 + 344);
-  v6 = *(a1 + 624);
-  *(a1 + 24 * v6 + 620) = 0;
-  if (v6)
+  v7 = v5;
+  v8 = *(a1 + 624);
+  *(a1 + 24 * v8 + 620) = 0;
+  if (v8)
   {
-    v7 = v6 + 1;
+    v9 = v8 + 1;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  *(a1 + 624) = v7;
+  *(a1 + 624) = v9;
   if (a2)
   {
-    sub_4E84();
-    v8 = qword_2C118;
+    sub_4E84(v5, v6);
+    v10 = qword_2C118;
     if (os_log_type_enabled(qword_2C118, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v10 = "IDAMMIDIDevice.cpp";
-      v11 = 1024;
-      v12 = 381;
+      v12 = "IDAMMIDIDevice.cpp";
       v13 = 1024;
-      v14 = a2;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d IDAMMIDIDevice::WriteCallback() - Error: 0x%x", buf, 0x18u);
+      v14 = 381;
+      v15 = 1024;
+      v16 = a2;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d IDAMMIDIDevice::WriteCallback() - Error: 0x%x", buf, 0x18u);
     }
   }
 
@@ -2708,7 +2741,7 @@ void sub_58A0(uint64_t a1, int a2)
     (*(*a1 + 72))(a1);
   }
 
-  if (v5)
+  if (v7)
   {
     (*(*v4 + 24))(v4);
   }
@@ -2718,7 +2751,6 @@ _BYTE *sub_5A70(_BYTE *a1)
 {
   if (a1[8] == 1)
   {
-    v2 = *a1;
     (*(**a1 + 24))();
   }
 
@@ -2741,20 +2773,20 @@ uint64_t sub_5B44(void *a1)
 {
   *a1 = off_28700;
   sub_5BE8(a1);
-  v2 = a1[9];
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = a1[10];
+  v3 = a1[9];
   if (v3)
   {
-    sub_44A4(v3);
+    (*(*v3 + 8))(v3);
+  }
+
+  v4 = a1[10];
+  if (v4)
+  {
+    sub_44A4(v4, v2);
     operator delete();
   }
 
-  return sub_17898(a1);
+  return sub_17898(a1, v2);
 }
 
 void *sub_5BE8(void *result)
@@ -2806,12 +2838,12 @@ void sub_5C98(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   }
 }
 
-void sub_5D6C(uint64_t a1)
+void sub_5D6C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 80);
-  if (v1)
+  v2 = *(a1 + 80);
+  if (v2)
   {
-    sub_44A4(v1);
+    sub_44A4(v2, a2);
     operator delete();
   }
 
@@ -2824,53 +2856,53 @@ CFStringRef sub_5EC0(uint64_t a1, const __CFString *a2)
   v5 = a2;
   if (v4)
   {
-    v14 = 0;
-    v6 = (*(*v4 + 272))(v4, &v14);
+    v16 = 0;
+    v6 = (*(*v4 + 272))(v4, &v16);
     if (v6)
     {
-      v7 = v6;
-      sub_60AC();
-      v8 = qword_2C128;
+      v8 = v6;
+      sub_60AC(v6, v7);
+      v9 = qword_2C128;
       v5 = a2;
       if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v16 = "USBMIDIDriverBase.cpp";
-        v17 = 1024;
-        v18 = 79;
+        v18 = "USBMIDIDriverBase.cpp";
         v19 = 1024;
-        v20 = v7;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d [!]  USBGetManufacturerStringIndex() returned error 0x%x", buf, 0x18u);
+        v20 = 79;
+        v21 = 1024;
+        v22 = v8;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d [!]  USBGetManufacturerStringIndex() returned error 0x%x", buf, 0x18u);
         v5 = a2;
       }
     }
 
     else
     {
-      v5 = sub_3188(a1, v14);
+      v5 = sub_3188(a1, v16);
     }
 
-    v9 = (*(*v4 + 280))(v4, &v14);
-    if (v9)
+    v10 = (*(*v4 + 280))(v4, &v16);
+    if (v10)
     {
-      v10 = v9;
-      sub_60AC();
-      v11 = qword_2C128;
+      v12 = v10;
+      sub_60AC(v10, v11);
+      v13 = qword_2C128;
       if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v16 = "USBMIDIDriverBase.cpp";
-        v17 = 1024;
-        v18 = 84;
+        v18 = "USBMIDIDriverBase.cpp";
         v19 = 1024;
-        v20 = v10;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d [!]  USBGetProductStringIndex() returned error 0x%x", buf, 0x18u);
+        v20 = 84;
+        v21 = 1024;
+        v22 = v12;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d [!]  USBGetProductStringIndex() returned error 0x%x", buf, 0x18u);
       }
     }
 
     else
     {
-      sub_3188(a1, v14);
+      sub_3188(a1, v16);
     }
   }
 
@@ -2885,9 +2917,9 @@ CFStringRef sub_5EC0(uint64_t a1, const __CFString *a2)
   }
 }
 
-void sub_60AC()
+void sub_60AC(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2C130, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2C130, memory_order_acquire) & 1) == 0)
   {
     sub_1D9EC();
   }
@@ -2898,65 +2930,65 @@ double sub_60DC@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v3 = (*(*a1 + 448))(a1, 0, 0);
   if (v3)
   {
-    v4 = v3;
-    v5 = *v3;
+    v5 = v3;
+    v6 = *v3;
     if (*v3)
     {
-      if (v5 >= 8)
+      if (v6 >= 8)
       {
         operator new();
       }
 
-      v11[23] = 3 * v5;
-      bzero(v11, 3 * v5);
-      v11[3 * v5] = 0;
-      if (v11[23] >= 0)
+      v12[23] = 3 * v6;
+      bzero(v12, 3 * v6);
+      v12[3 * v6] = 0;
+      if (v12[23] >= 0)
       {
-        v8 = v11;
+        v9 = v12;
       }
 
       else
       {
-        v8 = *v11;
+        v9 = *v12;
       }
 
-      v9 = v4;
+      v10 = v5;
       do
       {
-        v10 = *v9++;
-        *v8 = a0123456789abcd_0[v10 >> 4];
-        v8[1] = a0123456789abcd_0[v10 & 0xF];
-        v8[2] = 32;
-        v8 += 3;
-        --v5;
+        v11 = *v10++;
+        *v9 = a0123456789abcd_0[v11 >> 4];
+        v9[1] = a0123456789abcd_0[v11 & 0xF];
+        v9[2] = 32;
+        v9 += 3;
+        --v6;
       }
 
-      while (v5);
+      while (v6);
     }
 
     else
     {
-      v11[23] = 0;
-      v11[0] = 0;
+      v12[23] = 0;
+      v12[0] = 0;
     }
 
-    *a2 = v4;
-    result = *v11;
-    *(a2 + 8) = *v11;
-    *(a2 + 24) = *&v11[16];
+    *a2 = v5;
+    result = *v12;
+    *(a2 + 8) = *v12;
+    *(a2 + 24) = *&v12[16];
   }
 
   else
   {
-    sub_60AC();
-    v6 = qword_2C128;
+    sub_60AC(0, v4);
+    v7 = qword_2C128;
     if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 136315394;
-      *&v11[4] = "USBMIDIDriverBase.cpp";
-      *&v11[12] = 1024;
-      *&v11[14] = 99;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] findDescriptors() - no interface descriptor found", v11, 0x12u);
+      *v12 = 136315394;
+      *&v12[4] = "USBMIDIDriverBase.cpp";
+      *&v12[12] = 1024;
+      *&v12[14] = 99;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] findDescriptors() - no interface descriptor found", v12, 0x12u);
     }
 
     result = 0.0;
@@ -2967,7 +2999,7 @@ double sub_60DC@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-__n128 sub_62A8(uint64_t a1, unsigned __int8 *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+__n128 sub_62A8(uint64_t a1, unsigned __int8 *a2, uint64_t *a3, uint64_t a4, uint64_t a5, const void **a6)
 {
   if (!a1)
   {
@@ -2981,772 +3013,788 @@ __n128 sub_62A8(uint64_t a1, unsigned __int8 *a2, uint64_t *a3, uint64_t a4, uin
   }
 
   v7 = a1;
-  sub_60AC();
+  sub_60AC(a1, a2);
   v8 = &unk_2C000;
   v9 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  v10 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v10)
   {
     *buf = 136315394;
-    v103 = "USBMIDIDriverBase.cpp";
-    v104 = 1024;
-    v105 = 108;
+    v128 = "USBMIDIDriverBase.cpp";
+    v129 = 1024;
+    v130 = 108;
     _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBMIDIDriverBase::ParseDescriptors()", buf, 0x12u);
   }
 
-  v92 = 0;
-  v91 = -1;
-  v101 = 0;
-  v88 = v7;
+  v117 = 0;
+  v116 = -1;
+  v126 = 0;
+  v113 = v7;
   do
   {
-    v10 = *v6;
+    v12 = *v6;
     if (*v6)
     {
-      if (v10 >= 8)
+      if (v12 >= 8)
       {
         operator new();
       }
 
-      v98 = 3 * v10;
-      bzero(&__p, 3 * v10);
-      *(&__p + 3 * v10) = 0;
+      v123 = 3 * v12;
+      bzero(&__p, 3 * v12);
+      *(&__p + 3 * v12) = 0;
       p_p = __p;
-      if (v98 >= 0)
+      if (v123 >= 0)
       {
         p_p = &__p;
       }
 
-      v12 = v6;
+      v14 = v6;
       do
       {
-        v13 = *v12++;
-        *p_p = a0123456789abcd_0[v13 >> 4];
-        p_p[1] = a0123456789abcd_0[v13 & 0xF];
+        v15 = *v14++;
+        *p_p = a0123456789abcd_0[v15 >> 4];
+        p_p[1] = a0123456789abcd_0[v15 & 0xF];
         p_p[2] = 32;
         p_p += 3;
-        --v10;
+        --v12;
       }
 
-      while (v10);
+      while (v12);
     }
 
     else
     {
-      v98 = 0;
+      v123 = 0;
       LOBYTE(__p) = 0;
     }
 
-    v14 = v6[1];
-    v15 = v6[2];
-    sub_60AC();
-    v16 = *(v8 + 37);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v16 = v6[1];
+    v17 = v6[2];
+    sub_60AC(v10, v11);
+    v18 = *(v8 + 37);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+    if (v19)
     {
-      v17 = &__p;
-      if (v98 < 0)
+      v21 = &__p;
+      if (v123 < 0)
       {
-        v17 = __p;
+        v21 = __p;
       }
 
       *buf = 136315650;
-      v103 = "USBMIDIDriverBase.cpp";
-      v104 = 1024;
-      v105 = 139;
-      v106 = 2080;
-      *&v107 = v17;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Now @: %s", buf, 0x1Cu);
+      v128 = "USBMIDIDriverBase.cpp";
+      v129 = 1024;
+      v130 = 139;
+      v131 = 2080;
+      *&v132 = v21;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Now @: %s", buf, 0x1Cu);
     }
 
-    LOBYTE(v18) = 0;
-    if (v14 > 35)
+    LOBYTE(v22) = 0;
+    if (v16 > 35)
     {
-      if (v14 != 36)
+      if (v16 != 36)
       {
-        if (v14 != 37)
+        if (v16 != 37)
         {
           goto LABEL_131;
         }
 
-        if (v15 == 1 && (v91 & 0x80000000) == 0)
+        if (v17 == 1 && (v116 & 0x80000000) == 0)
         {
-          sub_60AC();
-          v26 = *(v8 + 37);
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+          sub_60AC(v19, v20);
+          v30 = *(v8 + 37);
+          v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
+          if (v31)
           {
             *buf = 136315394;
-            v103 = "USBMIDIDriverBase.cpp";
-            v104 = 1024;
-            v105 = 197;
-            _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "%25s:%-5d      USB MIDI 1.0 CS endpoint descriptor", buf, 0x12u);
+            v128 = "USBMIDIDriverBase.cpp";
+            v129 = 1024;
+            v130 = 197;
+            _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "%25s:%-5d      USB MIDI 1.0 CS endpoint descriptor", buf, 0x12u);
           }
 
-          v27 = v6[3];
-          sub_60AC();
-          v28 = *(v8 + 37);
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v33 = v6[3];
+          sub_60AC(v31, v32);
+          v34 = *(v8 + 37);
+          v35 = os_log_type_enabled(v34, OS_LOG_TYPE_INFO);
+          if (v35)
           {
-            v29 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 1);
+            v37 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 1);
             *buf = 136315906;
-            v103 = "USBMIDIDriverBase.cpp";
-            v104 = 1024;
-            v105 = 200;
-            v106 = 1024;
-            LODWORD(v107) = v27;
-            WORD2(v107) = 2048;
-            *(&v107 + 6) = v29;
-            _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "%25s:%-5d      %d embedded MIDI jack(s), searching %lu jack(s) for a match", buf, 0x22u);
+            v128 = "USBMIDIDriverBase.cpp";
+            v129 = 1024;
+            v130 = 200;
+            v131 = 1024;
+            LODWORD(v132) = v33;
+            WORD2(v132) = 2048;
+            *(&v132 + 6) = v37;
+            _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, "%25s:%-5d      %d embedded MIDI jack(s), searching %lu jack(s) for a match", buf, 0x22u);
           }
 
-          if (v27)
+          if (v33)
           {
-            v30 = 0;
-            if (v91)
+            v38 = 0;
+            if (v116)
             {
-              v31 = a4;
+              v39 = a4;
             }
 
             else
             {
-              v31 = a5;
+              v39 = a5;
             }
 
             do
             {
-              v33 = *a3;
-              v32 = a3[1];
-              if (*a3 != v32)
+              v41 = *a3;
+              v40 = a3[1];
+              if (*a3 != v40)
               {
-                while (*(v33 + 2) != v6[v30 + 4])
+                while (*(v41 + 2) != v6[v38 + 4])
                 {
-                  v33 += 6;
-                  if (v33 == v32)
+                  v41 += 6;
+                  if (v41 == v40)
                   {
                     goto LABEL_49;
                   }
                 }
               }
 
-              if (v33 == v32 || v33 == 0)
+              if (v41 == v40 || v41 == 0)
               {
 LABEL_49:
-                sub_60AC();
-                v35 = *(v8 + 37);
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+                sub_60AC(v35, v36);
+                v43 = *(v8 + 37);
+                v35 = os_log_type_enabled(v43, OS_LOG_TYPE_INFO);
+                if (v35)
                 {
                   *buf = 136315650;
-                  v103 = "USBMIDIDriverBase.cpp";
-                  v104 = 1024;
-                  v105 = 206;
-                  v106 = 1024;
-                  LODWORD(v107) = v92;
-                  _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "%25s:%-5d      Jack not found for endpoint 0x%x", buf, 0x18u);
+                  v128 = "USBMIDIDriverBase.cpp";
+                  v129 = 1024;
+                  v130 = 206;
+                  v131 = 1024;
+                  LODWORD(v132) = v117;
+                  _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "%25s:%-5d      Jack not found for endpoint 0x%x", buf, 0x18u);
                 }
               }
 
               else
               {
-                sub_60AC();
-                v36 = *(v8 + 37);
-                if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+                sub_60AC(v35, v36);
+                v44 = *(v8 + 37);
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                 {
-                  v38 = *(v33 + 2);
+                  v46 = *(v41 + 2);
                   *buf = 136315906;
-                  v103 = "USBMIDIDriverBase.cpp";
-                  v104 = 1024;
-                  v105 = 204;
-                  v106 = 1024;
-                  LODWORD(v107) = v38;
-                  WORD2(v107) = 1024;
-                  *(&v107 + 6) = v92;
-                  _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "%25s:%-5d      Found jack %d for endpoint 0x%x", buf, 0x1Eu);
+                  v128 = "USBMIDIDriverBase.cpp";
+                  v129 = 1024;
+                  v130 = 204;
+                  v131 = 1024;
+                  LODWORD(v132) = v46;
+                  WORD2(v132) = 1024;
+                  *(&v132 + 6) = v117;
+                  _os_log_impl(&dword_0, v44, OS_LOG_TYPE_INFO, "%25s:%-5d      Found jack %d for endpoint 0x%x", buf, 0x1Eu);
                 }
 
-                *(v33 + 5) = v92;
-                sub_740C(v31, v33);
+                *(v41 + 5) = v117;
+                sub_740C(v39, v41);
                 v8 = &unk_2C000;
               }
 
-              ++v30;
+              ++v38;
             }
 
-            while (v30 != v27);
-            LOBYTE(v18) = 0;
+            while (v38 != v33);
+            LOBYTE(v22) = 0;
           }
 
           else
           {
-            LOBYTE(v18) = 0;
+            LOBYTE(v22) = 0;
           }
 
 LABEL_124:
-          v7 = v88;
+          v7 = v113;
           goto LABEL_131;
         }
 
-        sub_60AC();
-        v49 = *(v8 + 37);
-        if (v15 == 2)
+        sub_60AC(v19, v20);
+        v63 = *(v8 + 37);
+        if (v17 == 2)
         {
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          v64 = os_log_type_enabled(v63, OS_LOG_TYPE_INFO);
+          if (v64)
           {
             *buf = 136315394;
-            v103 = "USBMIDIDriverBase.cpp";
-            v104 = 1024;
-            v105 = 216;
-            _os_log_impl(&dword_0, v49, OS_LOG_TYPE_INFO, "%25s:%-5d             (USB MIDI 2.0 CS endpoint descriptor)", buf, 0x12u);
+            v128 = "USBMIDIDriverBase.cpp";
+            v129 = 1024;
+            v130 = 216;
+            _os_log_impl(&dword_0, v63, OS_LOG_TYPE_INFO, "%25s:%-5d             (USB MIDI 2.0 CS endpoint descriptor)", buf, 0x12u);
           }
 
-          v18 = v6[3];
-          v50 = v92;
+          v22 = v6[3];
+          v66 = v117;
           if (v6[3])
           {
-            v51 = 0;
-            if (v91)
+            v67 = 0;
+            if (v116)
             {
-              v52 = v92;
+              v68 = v117;
             }
 
             else
             {
-              v52 = 0;
+              v68 = 0;
             }
 
-            v90 = v52;
-            if (v91)
+            v115 = v68;
+            if (v116)
             {
-              v50 = 0;
+              v66 = 0;
             }
 
-            v89 = v50;
-            v53 = a6;
+            v114 = v66;
+            v69 = a6;
             do
             {
-              v54 = v6[v51 + 4];
-              for (i = *v53; i != v53[1]; i += 12)
+              v70 = v6[v67 + 4];
+              for (i = *v69; i != v69[1]; i += 12)
               {
-                if (*i == v54)
+                if (*i == v70)
                 {
-                  sub_60AC();
-                  v64 = qword_2C128;
-                  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+                  sub_60AC(v64, v65);
+                  v80 = qword_2C128;
+                  v64 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+                  if (v64)
                   {
-                    v65 = *i;
+                    v81 = *i;
                     *buf = 136315906;
-                    v103 = "USBMIDIDriverBase.cpp";
-                    v104 = 1024;
-                    v105 = 233;
-                    v106 = 1024;
-                    LODWORD(v107) = v65;
-                    WORD2(v107) = 1024;
-                    *(&v107 + 6) = v92;
-                    _os_log_impl(&dword_0, v64, OS_LOG_TYPE_INFO, "%25s:%-5d      Reusing group terminal blockID %d for endpoint 0x%x", buf, 0x1Eu);
+                    v128 = "USBMIDIDriverBase.cpp";
+                    v129 = 1024;
+                    v130 = 233;
+                    v131 = 1024;
+                    LODWORD(v132) = v81;
+                    WORD2(v132) = 1024;
+                    *(&v132 + 6) = v117;
+                    _os_log_impl(&dword_0, v80, OS_LOG_TYPE_INFO, "%25s:%-5d      Reusing group terminal blockID %d for endpoint 0x%x", buf, 0x1Eu);
                   }
 
-                  v53 = a6;
-                  if (v91)
+                  v69 = a6;
+                  if (v116)
                   {
-                    i[6] = v92;
+                    i[6] = v117;
                   }
 
                   else
                   {
-                    i[7] = v92;
+                    i[7] = v117;
                   }
 
                   goto LABEL_108;
                 }
               }
 
-              sub_60AC();
-              v56 = qword_2C128;
-              if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+              sub_60AC(v64, v65);
+              v72 = qword_2C128;
+              v64 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+              if (v64)
               {
                 *buf = 136315906;
-                v103 = "USBMIDIDriverBase.cpp";
-                v104 = 1024;
-                v105 = 226;
-                v106 = 1024;
-                LODWORD(v107) = v54;
-                WORD2(v107) = 1024;
-                *(&v107 + 6) = v92;
-                _os_log_impl(&dword_0, v56, OS_LOG_TYPE_INFO, "%25s:%-5d      New group terminal blockID %d for endpoint 0x%x", buf, 0x1Eu);
+                v128 = "USBMIDIDriverBase.cpp";
+                v129 = 1024;
+                v130 = 226;
+                v131 = 1024;
+                LODWORD(v132) = v70;
+                WORD2(v132) = 1024;
+                *(&v132 + 6) = v117;
+                _os_log_impl(&dword_0, v72, OS_LOG_TYPE_INFO, "%25s:%-5d      New group terminal blockID %d for endpoint 0x%x", buf, 0x1Eu);
               }
 
-              v53 = a6;
-              v57 = *(a6 + 8);
-              v58 = *(a6 + 16);
-              if (v57 >= v58)
+              v69 = a6;
+              v73 = a6[1];
+              v74 = a6[2];
+              if (v73 >= v74)
               {
-                v60 = 0xAAAAAAAAAAAAAAABLL * ((v57 - *a6) >> 2);
-                v61 = v60 + 1;
-                if (v60 + 1 > 0x1555555555555555)
+                v76 = 0xAAAAAAAAAAAAAAABLL * ((v73 - *a6) >> 2);
+                v77 = v76 + 1;
+                if (v76 + 1 > 0x1555555555555555)
                 {
                   sub_1280();
                 }
 
-                v62 = 0xAAAAAAAAAAAAAAABLL * ((v58 - *a6) >> 2);
-                if (2 * v62 > v61)
+                v78 = 0xAAAAAAAAAAAAAAABLL * ((v74 - *a6) >> 2);
+                if (2 * v78 > v77)
                 {
-                  v61 = 2 * v62;
+                  v77 = 2 * v78;
                 }
 
-                if (v62 >= 0xAAAAAAAAAAAAAAALL)
+                if (v78 >= 0xAAAAAAAAAAAAAAALL)
                 {
-                  v63 = 0x1555555555555555;
+                  v79 = 0x1555555555555555;
                 }
 
                 else
                 {
-                  v63 = v61;
+                  v79 = v77;
                 }
 
-                if (v63)
+                if (v79)
                 {
-                  sub_B0C4(a6, v63);
+                  sub_B0C4(a6, v79);
                 }
 
-                v66 = 12 * v60;
-                *v66 = v54;
-                *(v66 + 1) = 0;
-                *(v66 + 5) = 0;
-                *(v66 + 6) = v90;
-                *(v66 + 7) = v89;
-                *(v66 + 8) = 0;
-                v59 = 12 * v60 + 12;
-                v67 = *(a6 + 8) - *a6;
-                v68 = v66 - v67;
-                memcpy((v66 - v67), *a6, v67);
-                v69 = *a6;
-                *a6 = v68;
-                v53 = a6;
-                *(a6 + 8) = v59;
-                *(a6 + 16) = 0;
-                if (v69)
+                v82 = 12 * v76;
+                *v82 = v70;
+                *(v82 + 1) = 0;
+                *(v82 + 5) = 0;
+                *(v82 + 6) = v115;
+                *(v82 + 7) = v114;
+                *(v82 + 8) = 0;
+                v75 = 12 * v76 + 12;
+                v83 = a6[1] - *a6;
+                v84 = v82 - v83;
+                memcpy((v82 - v83), *a6, v83);
+                v64 = *a6;
+                *a6 = v84;
+                v69 = a6;
+                a6[1] = v75;
+                a6[2] = 0;
+                if (v64)
                 {
-                  operator delete(v69);
+                  operator delete(v64);
                 }
               }
 
               else
               {
-                *v57 = v54;
-                *(v57 + 1) = 0;
-                *(v57 + 5) = 0;
-                *(v57 + 6) = v90;
-                *(v57 + 7) = v89;
-                v59 = v57 + 12;
-                *(v57 + 8) = 0;
+                *v73 = v70;
+                *(v73 + 1) = 0;
+                *(v73 + 5) = 0;
+                *(v73 + 6) = v115;
+                *(v73 + 7) = v114;
+                v75 = v73 + 12;
+                *(v73 + 8) = 0;
               }
 
-              v53[1] = v59;
+              v69[1] = v75;
 LABEL_108:
-              ++v51;
+              ++v67;
             }
 
-            while (v51 != v18);
-            LOBYTE(v18) = 0;
+            while (v67 != v22);
+            LOBYTE(v22) = 0;
             v8 = &unk_2C000;
           }
 
           goto LABEL_124;
         }
 
-        if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_130;
         }
 
         *buf = 136315906;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 241;
-        v106 = 1024;
-        LODWORD(v107) = 37;
-        WORD2(v107) = 1024;
-        *(&v107 + 6) = v15;
-        v22 = v49;
-        v23 = OS_LOG_TYPE_ERROR;
-        v24 = "%25s:%-5d      Unrecognized type/subtype: 0x%x / 0x%x";
-        v25 = 30;
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 241;
+        v131 = 1024;
+        LODWORD(v132) = 37;
+        WORD2(v132) = 1024;
+        *(&v132 + 6) = v17;
+        v26 = v63;
+        v27 = OS_LOG_TYPE_ERROR;
+        v28 = "%25s:%-5d      Unrecognized type/subtype: 0x%x / 0x%x";
+        v29 = 30;
         goto LABEL_27;
       }
 
-      if (v15 == 3)
+      if (v17 == 3)
       {
-        LOBYTE(v95) = 3;
-        v72 = v6[6];
-        *(&v95 + 1) = *(v6 + 3);
-        HIBYTE(v95) = v72;
-        v96 = v6[2 * v6[5] + 6];
-        sub_740C(a3, &v95);
-        sub_60AC();
-        v73 = *(v8 + 37);
-        if (!os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+        LOBYTE(v120) = 3;
+        v89 = v6[6];
+        *(&v120 + 1) = *(v6 + 3);
+        HIBYTE(v120) = v89;
+        v121 = v6[2 * v6[5] + 6];
+        sub_740C(a3, &v120);
+        sub_60AC(v90, v91);
+        v92 = *(v8 + 37);
+        if (!os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
         {
           goto LABEL_130;
         }
 
-        v74 = "external";
-        if (BYTE1(v95) == 1)
+        v93 = "external";
+        if (BYTE1(v120) == 1)
         {
-          v74 = "embedded";
+          v93 = "embedded";
         }
 
-        v75 = v6[5];
+        v94 = v6[5];
         *buf = 136316418;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 184;
-        v106 = 2080;
-        *&v107 = v74;
-        WORD4(v107) = 1024;
-        *(&v107 + 10) = BYTE2(v95);
-        HIWORD(v107) = 1024;
-        *v108 = HIBYTE(v95);
-        *&v108[4] = 1024;
-        v109 = v75;
-        v22 = v73;
-        v23 = OS_LOG_TYPE_INFO;
-        v24 = "%25s:%-5d      Added %s MIDI output jack %d: source jack %d, %d input pin(s)";
-        v25 = 46;
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 184;
+        v131 = 2080;
+        *&v132 = v93;
+        WORD4(v132) = 1024;
+        *(&v132 + 10) = BYTE2(v120);
+        HIWORD(v132) = 1024;
+        *v133 = HIBYTE(v120);
+        *&v133[4] = 1024;
+        v134 = v94;
+        v26 = v92;
+        v27 = OS_LOG_TYPE_INFO;
+        v28 = "%25s:%-5d      Added %s MIDI output jack %d: source jack %d, %d input pin(s)";
+        v29 = 46;
         goto LABEL_27;
       }
 
-      if (v15 == 2)
+      if (v17 == 2)
       {
-        LOBYTE(v95) = 2;
-        *(&v95 + 1) = *(v6 + 3);
-        HIBYTE(v95) = 0;
-        v96 = v6[5];
-        sub_740C(a3, &v95);
-        sub_60AC();
-        v70 = *(v8 + 37);
-        if (!os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+        LOBYTE(v120) = 2;
+        *(&v120 + 1) = *(v6 + 3);
+        HIBYTE(v120) = 0;
+        v121 = v6[5];
+        sub_740C(a3, &v120);
+        sub_60AC(v85, v86);
+        v87 = *(v8 + 37);
+        if (!os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
         {
           goto LABEL_130;
         }
 
-        v71 = "external";
-        if (BYTE1(v95) == 1)
+        v88 = "external";
+        if (BYTE1(v120) == 1)
         {
-          v71 = "embedded";
+          v88 = "embedded";
         }
 
         *buf = 136315906;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 173;
-        v106 = 2080;
-        *&v107 = v71;
-        WORD4(v107) = 1024;
-        *(&v107 + 10) = BYTE2(v95);
-        v22 = v70;
-        v23 = OS_LOG_TYPE_INFO;
-        v24 = "%25s:%-5d      Added %s MIDI input jack %d";
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 173;
+        v131 = 2080;
+        *&v132 = v88;
+        WORD4(v132) = 1024;
+        *(&v132 + 10) = BYTE2(v120);
+        v26 = v87;
+        v27 = OS_LOG_TYPE_INFO;
+        v28 = "%25s:%-5d      Added %s MIDI input jack %d";
 LABEL_26:
-        v25 = 34;
+        v29 = 34;
 LABEL_27:
-        _os_log_impl(&dword_0, v22, v23, v24, buf, v25);
+        _os_log_impl(&dword_0, v26, v27, v28, buf, v29);
         goto LABEL_130;
       }
 
-      if (v15 != 1)
+      if (v17 != 1)
       {
-        sub_60AC();
-        v76 = *(v8 + 37);
-        if (!os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+        sub_60AC(v19, v20);
+        v95 = *(v8 + 37);
+        if (!os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
         {
           goto LABEL_130;
         }
 
         *buf = 136315650;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 186;
-        v106 = 1024;
-        LODWORD(v107) = v15;
-        v22 = v76;
-        v23 = OS_LOG_TYPE_INFO;
-        v24 = "%25s:%-5d      Skipping unrecognized CS interface subtype %d...";
-        v25 = 24;
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 186;
+        v131 = 1024;
+        LODWORD(v132) = v17;
+        v26 = v95;
+        v27 = OS_LOG_TYPE_INFO;
+        v28 = "%25s:%-5d      Skipping unrecognized CS interface subtype %d...";
+        v29 = 24;
         goto LABEL_27;
       }
 
-      sub_60AC();
-      v42 = *(v8 + 37);
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      sub_60AC(v19, v20);
+      v52 = *(v8 + 37);
+      v53 = os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG);
+      if (v53)
       {
-        v43 = &__p;
-        if (v98 < 0)
+        v55 = &__p;
+        if (v123 < 0)
         {
-          v43 = __p;
+          v55 = __p;
         }
 
         *buf = 136315650;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 151;
-        v106 = 2080;
-        *&v107 = v43;
-        _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Found CS descriptor: %s", buf, 0x1Cu);
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 151;
+        v131 = 2080;
+        *&v132 = v55;
+        _os_log_impl(&dword_0, v52, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Found CS descriptor: %s", buf, 0x1Cu);
       }
 
-      v44 = *(v6 + 3);
-      sub_60AC();
-      v45 = *(v8 + 37);
-      v46 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
-      if (v44 != 512)
+      v56 = *(v6 + 3);
+      sub_60AC(v53, v54);
+      v57 = *(v8 + 37);
+      v58 = os_log_type_enabled(v57, OS_LOG_TYPE_INFO);
+      if (v56 != 512)
       {
-        if (v46)
+        if (v58)
         {
           *buf = 136315394;
-          v103 = "USBMIDIDriverBase.cpp";
-          v104 = 1024;
-          v105 = 163;
-          v22 = v45;
-          v23 = OS_LOG_TYPE_INFO;
-          v24 = "%25s:%-5d      Skipping CS interface descriptor";
+          v128 = "USBMIDIDriverBase.cpp";
+          v129 = 1024;
+          v130 = 163;
+          v26 = v57;
+          v27 = OS_LOG_TYPE_INFO;
+          v28 = "%25s:%-5d      Skipping CS interface descriptor";
           goto LABEL_129;
         }
 
 LABEL_130:
-        LOBYTE(v18) = 0;
+        LOBYTE(v22) = 0;
         goto LABEL_131;
       }
 
-      if (v46)
+      if (v58)
       {
         *buf = 136315394;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 155;
-        _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "%25s:%-5d      Found a USB MIDI 2.0 alternate setting", buf, 0x12u);
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 155;
+        _os_log_impl(&dword_0, v57, OS_LOG_TYPE_INFO, "%25s:%-5d      Found a USB MIDI 2.0 alternate setting", buf, 0x12u);
       }
 
-      v47 = (*(*v7 + 176))(v7, 1);
-      sub_60AC();
-      v48 = *(v8 + 37);
-      if (!v47)
+      v59 = (*(*v7 + 176))(v7, 1);
+      v60 = v59;
+      sub_60AC(v59, v61);
+      v62 = *(v8 + 37);
+      if (!v60)
       {
-        if (!os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
         {
           goto LABEL_130;
         }
 
         *buf = 136315394;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 160;
-        v22 = v48;
-        v23 = OS_LOG_TYPE_INFO;
-        v24 = "%25s:%-5d      Alternate interface now set for MIDI 2.0";
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 160;
+        v26 = v62;
+        v27 = OS_LOG_TYPE_INFO;
+        v28 = "%25s:%-5d      Alternate interface now set for MIDI 2.0";
 LABEL_129:
-        v25 = 18;
+        v29 = 18;
         goto LABEL_27;
       }
 
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 157;
-        _os_log_impl(&dword_0, v48, OS_LOG_TYPE_ERROR, "%25s:%-5d      Unable to set MIDI 2.0 alt setting!", buf, 0x12u);
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 157;
+        _os_log_impl(&dword_0, v62, OS_LOG_TYPE_ERROR, "%25s:%-5d      Unable to set MIDI 2.0 alt setting!", buf, 0x12u);
       }
 
-      LOBYTE(v18) = 1;
+      LOBYTE(v22) = 1;
     }
 
     else
     {
-      if (v14 != 4)
+      if (v16 != 4)
       {
-        if (v14 != 5)
+        if (v16 != 5)
         {
           goto LABEL_131;
         }
 
-        v19 = v6[2];
-        v91 = v19 >> 7;
-        sub_60AC();
-        v20 = *(v8 + 37);
-        v92 = v19;
-        if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v23 = v6[2];
+        v116 = v23 >> 7;
+        sub_60AC(v19, v20);
+        v24 = *(v8 + 37);
+        v117 = v23;
+        if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           goto LABEL_130;
         }
 
         *buf = 136315906;
-        v21 = "output";
-        if ((v19 & 0x80u) != 0)
+        v25 = "output";
+        if ((v23 & 0x80u) != 0)
         {
-          v21 = "input";
+          v25 = "input";
         }
 
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 192;
-        v106 = 1024;
-        LODWORD(v107) = v19;
-        WORD2(v107) = 2080;
-        *(&v107 + 6) = v21;
-        v22 = v20;
-        v23 = OS_LOG_TYPE_INFO;
-        v24 = "%25s:%-5d      Examining endpoint 0x%x (%s)";
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 192;
+        v131 = 1024;
+        LODWORD(v132) = v23;
+        WORD2(v132) = 2080;
+        *(&v132 + 6) = v25;
+        v26 = v24;
+        v27 = OS_LOG_TYPE_INFO;
+        v28 = "%25s:%-5d      Examining endpoint 0x%x (%s)";
         goto LABEL_26;
       }
 
-      v39 = v6[3];
-      sub_60AC();
-      v40 = *(v8 + 37);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v47 = v6[3];
+      sub_60AC(v19, v20);
+      v48 = *(v8 + 37);
+      v49 = os_log_type_enabled(v48, OS_LOG_TYPE_INFO);
+      if (v49)
       {
         *buf = 136315650;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 143;
-        v106 = 1024;
-        LODWORD(v107) = v39;
-        _os_log_impl(&dword_0, v40, OS_LOG_TYPE_INFO, "%25s:%-5d      Examining alt setting %d...", buf, 0x18u);
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 143;
+        v131 = 1024;
+        LODWORD(v132) = v47;
+        _os_log_impl(&dword_0, v48, OS_LOG_TYPE_INFO, "%25s:%-5d      Examining alt setting %d...", buf, 0x18u);
       }
 
-      if (v39 < 2)
+      if (v47 < 2)
       {
         goto LABEL_130;
       }
 
-      sub_60AC();
-      v41 = *(v8 + 37);
-      LOBYTE(v18) = 1;
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+      sub_60AC(v49, v50);
+      v51 = *(v8 + 37);
+      LOBYTE(v22) = 1;
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 146;
-        _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "%25s:%-5d      Done examining descriptors; halting", buf, 0x12u);
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 146;
+        _os_log_impl(&dword_0, v51, OS_LOG_TYPE_INFO, "%25s:%-5d      Done examining descriptors; halting", buf, 0x12u);
       }
     }
 
 LABEL_131:
-    v77 = (*(*v7 + 448))(v7, v6, 0);
-    if (!v77)
+    v10 = (*(*v7 + 448))(v7, v6, 0);
+    v96 = v10;
+    if (!v10)
     {
-      sub_60AC();
-      v78 = *(v8 + 37);
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+      sub_60AC(0, v11);
+      v97 = *(v8 + 37);
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v103 = "USBMIDIDriverBase.cpp";
-        v104 = 1024;
-        v105 = 248;
-        _os_log_impl(&dword_0, v78, OS_LOG_TYPE_DEBUG, "%25s:%-5d      FindNextAssociatedDescriptor() returned nullptr for kUSBAnyDesc", buf, 0x12u);
+        v128 = "USBMIDIDriverBase.cpp";
+        v129 = 1024;
+        v130 = 248;
+        _os_log_impl(&dword_0, v97, OS_LOG_TYPE_DEBUG, "%25s:%-5d      FindNextAssociatedDescriptor() returned nullptr for kUSBAnyDesc", buf, 0x12u);
       }
 
-      v77 = (*(*v7 + 448))(v7, v6, 4);
-      if (!v77)
+      v10 = (*(*v7 + 448))(v7, v6, 4);
+      v96 = v10;
+      if (!v10)
       {
-        sub_60AC();
-        v79 = *(v8 + 37);
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+        sub_60AC(0, v11);
+        v98 = *(v8 + 37);
+        v10 = os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG);
+        if (v10)
         {
           *buf = 136315394;
-          v103 = "USBMIDIDriverBase.cpp";
-          v104 = 1024;
-          v105 = 252;
-          _os_log_impl(&dword_0, v79, OS_LOG_TYPE_DEBUG, "%25s:%-5d      FindNextAssociatedDescriptor() returned nullptr for kUSBInterfaceDesc; done", buf, 0x12u);
+          v128 = "USBMIDIDriverBase.cpp";
+          v129 = 1024;
+          v130 = 252;
+          _os_log_impl(&dword_0, v98, OS_LOG_TYPE_DEBUG, "%25s:%-5d      FindNextAssociatedDescriptor() returned nullptr for kUSBInterfaceDesc; done", buf, 0x12u);
         }
 
-        v77 = 0;
+        v96 = 0;
       }
     }
 
-    if (v98 < 0)
+    if (v123 < 0)
     {
       operator delete(__p);
     }
 
-    if (v77)
+    if (v96)
     {
-      v80 = v18;
+      v99 = v22;
     }
 
     else
     {
-      v80 = 1;
+      v99 = 1;
     }
 
-    v6 = v77;
+    v6 = v96;
   }
 
-  while ((v80 & 1) == 0);
-  sub_60AC();
-  v81 = *(v8 + 37);
-  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+  while ((v99 & 1) == 0);
+  sub_60AC(v10, v11);
+  v100 = *(v8 + 37);
+  if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v103 = "USBMIDIDriverBase.cpp";
-    v104 = 1024;
-    v105 = 118;
-    _os_log_impl(&dword_0, v81, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Bailing out of loop...", buf, 0x12u);
+    v128 = "USBMIDIDriverBase.cpp";
+    v129 = 1024;
+    v130 = 118;
+    _os_log_impl(&dword_0, v100, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Bailing out of loop...", buf, 0x12u);
   }
 
   LOBYTE(__p) = 0;
-  LOBYTE(v95) = 0;
-  v100 = 0;
-  v99 = 0;
+  LOBYTE(v120) = 0;
+  v125 = 0;
+  v124 = 0;
   (*(*v7 + 80))(v7, &__p);
-  (*(*v7 + 88))(v7, &v95);
-  (*(*v7 + 104))(v7, &v101 + 2);
-  (*(*v7 + 112))(v7, &v101);
-  (*(*v7 + 136))(v7, &v100 + 1);
-  (*(*v7 + 144))(v7, &v100);
-  (*(*v7 + 152))(v7, &v99);
-  sub_60AC();
-  v82 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  (*(*v7 + 88))(v7, &v120);
+  (*(*v7 + 104))(v7, &v126 + 2);
+  (*(*v7 + 112))(v7, &v126);
+  (*(*v7 + 136))(v7, &v125 + 1);
+  (*(*v7 + 144))(v7, &v125);
+  v101 = (*(*v7 + 152))(v7, &v124);
+  sub_60AC(v101, v102);
+  v103 = qword_2C128;
+  v104 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v104)
   {
     *buf = 136316418;
-    v103 = "USBMIDIDriverBase.cpp";
-    v104 = 1024;
-    v105 = 127;
-    v106 = 1024;
-    LODWORD(v107) = __p;
-    WORD2(v107) = 1024;
-    *(&v107 + 6) = v95;
-    WORD5(v107) = 1024;
-    HIDWORD(v107) = HIWORD(v101);
-    *v108 = 1024;
-    *&v108[2] = v101;
-    _os_log_impl(&dword_0, v82, OS_LOG_TYPE_INFO, "%25s:%-5d      Interface class %d, subclass %d, for device 0x%04x /0x%04x", buf, 0x2Au);
+    v128 = "USBMIDIDriverBase.cpp";
+    v129 = 1024;
+    v130 = 127;
+    v131 = 1024;
+    LODWORD(v132) = __p;
+    WORD2(v132) = 1024;
+    *(&v132 + 6) = v120;
+    WORD5(v132) = 1024;
+    HIDWORD(v132) = HIWORD(v126);
+    *v133 = 1024;
+    *&v133[2] = v126;
+    _os_log_impl(&dword_0, v103, OS_LOG_TYPE_INFO, "%25s:%-5d      Interface class %d, subclass %d, for device 0x%04x /0x%04x", buf, 0x2Au);
   }
 
-  sub_60AC();
-  v83 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  sub_60AC(v104, v105);
+  v106 = qword_2C128;
+  v107 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v107)
   {
     *buf = 136316162;
-    v103 = "USBMIDIDriverBase.cpp";
-    v104 = 1024;
-    v105 = 128;
-    v106 = 1024;
-    LODWORD(v107) = HIBYTE(v100);
-    WORD2(v107) = 1024;
-    *(&v107 + 6) = v100;
-    WORD5(v107) = 1024;
-    HIDWORD(v107) = v99;
-    _os_log_impl(&dword_0, v83, OS_LOG_TYPE_INFO, "%25s:%-5d      Interface %d alternate setting %d : %d endpoints", buf, 0x24u);
+    v128 = "USBMIDIDriverBase.cpp";
+    v129 = 1024;
+    v130 = 128;
+    v131 = 1024;
+    LODWORD(v132) = HIBYTE(v125);
+    WORD2(v132) = 1024;
+    *(&v132 + 6) = v125;
+    WORD5(v132) = 1024;
+    HIDWORD(v132) = v124;
+    _os_log_impl(&dword_0, v106, OS_LOG_TYPE_INFO, "%25s:%-5d      Interface %d alternate setting %d : %d endpoints", buf, 0x24u);
   }
 
-  sub_60AC();
-  v84 = qword_2C128;
+  sub_60AC(v107, v108);
+  v109 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v103 = "USBMIDIDriverBase.cpp";
-    v104 = 1024;
-    v105 = 255;
-    _os_log_impl(&dword_0, v84, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDriverBase::ParseDescriptors()", buf, 0x12u);
+    v128 = "USBMIDIDriverBase.cpp";
+    v129 = 1024;
+    v130 = 255;
+    _os_log_impl(&dword_0, v109, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDriverBase::ParseDescriptors()", buf, 0x12u);
   }
 
   return result;
@@ -3825,13 +3873,15 @@ void sub_740C(uint64_t a1, int *a2)
   *(a1 + 8) = v7;
 }
 
-void sub_7514(uint64_t a1@<X0>, int a2@<W1>, unsigned __int8 **a3@<X2>, unint64_t *a4@<X8>)
+void sub_7514(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 **a3@<X2>, double **a4@<X8>)
 {
-  sub_60AC();
+  v5 = a2;
+  sub_60AC(a1, a2);
   v7 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  v8 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v8)
   {
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 2);
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 2);
     *buf = 136316162;
     *&buf[4] = "USBMIDIDriverBase.cpp";
     *&buf[12] = 1024;
@@ -3839,67 +3889,68 @@ void sub_7514(uint64_t a1@<X0>, int a2@<W1>, unsigned __int8 **a3@<X2>, unint64_
     *&buf[18] = 2048;
     *&buf[20] = a1;
     *&buf[28] = 1024;
-    *&buf[30] = a2;
+    *&buf[30] = v5;
     *&buf[34] = 2048;
-    *&buf[36] = v8;
+    *&buf[36] = v10;
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBMIDIDriverBase::CreatePortMapList(inUSBDevice:%p, interfaceNum:%d) - Constructing a USB MIDI 2.0 port map list for %lu group terminal block(s)", buf, 0x2Cu);
   }
 
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v97 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v117 = 0u;
+  v118 = 0u;
+  v115 = 0u;
+  v116 = 0u;
+  v113 = 0u;
+  v114 = 0u;
+  v111 = 0u;
+  v112 = 0u;
+  v110 = 0u;
   memset(buf, 0, sizeof(buf));
-  sub_60AC();
-  v9 = qword_2C128;
+  sub_60AC(v8, v9);
+  v11 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    *v88 = 136315394;
-    *&v88[4] = "USBMIDIDriverBase.cpp";
-    *&v88[12] = 1024;
-    *&v88[14] = 265;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d      Issuing device request to load group terminal block descriptors...", v88, 0x12u);
+    *v101 = 136315394;
+    *&v101[4] = "USBMIDIDriverBase.cpp";
+    *&v101[12] = 1024;
+    *&v101[14] = 265;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d      Issuing device request to load group terminal block descriptors...", v101, 0x12u);
   }
 
-  v87 = 0;
-  sub_3214(a1, a2, 1, buf, 5, &v87);
-  if (v87 != 5)
+  v100 = 0;
+  v12 = sub_3214(a1, v5, 1, buf, 5, &v100);
+  if (v100 != 5)
   {
-    sub_60AC();
-    v11 = qword_2C128;
-    if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
+    sub_60AC(v12, v13);
+    v15 = qword_2C128;
+    v16 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR);
+    if (v16)
     {
-      *v88 = 136316418;
-      *&v88[4] = "USBMIDIDriverBase.cpp";
-      *&v88[12] = 1024;
-      *&v88[14] = 341;
-      *&v88[18] = 1024;
-      *&v88[20] = a2;
-      *&v88[24] = 1024;
-      *&v88[26] = 1;
-      *&v88[30] = 1024;
-      *&v88[32] = 5;
-      *v89 = 1024;
-      *&v89[2] = v87;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d [!]  FATAL: Could not retrieve Group Terminal Descriptors for USB MIDI interface %d alternate setting %d. Expected header length %u but got %u", v88, 0x2Au);
+      *v101 = 136316418;
+      *&v101[4] = "USBMIDIDriverBase.cpp";
+      *&v101[12] = 1024;
+      *&v101[14] = 341;
+      *&v101[18] = 1024;
+      *&v101[20] = v5;
+      *&v101[24] = 1024;
+      *&v101[26] = 1;
+      *&v101[30] = 1024;
+      *&v101[32] = 5;
+      *v102 = 1024;
+      *&v102[2] = v100;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d [!]  FATAL: Could not retrieve Group Terminal Descriptors for USB MIDI interface %d alternate setting %d. Expected header length %u but got %u", v101, 0x2Au);
     }
 
     goto LABEL_103;
   }
 
-  v10 = buf[0];
+  v14 = buf[0];
   if (buf[0])
   {
     if (buf[0] >= 8u)
@@ -3907,489 +3958,501 @@ void sub_7514(uint64_t a1@<X0>, int a2@<W1>, unsigned __int8 **a3@<X2>, unint64_
       operator new();
     }
 
-    HIBYTE(v86) = 3 * buf[0];
+    HIBYTE(v99) = 3 * buf[0];
     bzero(__p, 3 * buf[0]);
-    *(__p + 3 * v10) = 0;
-    if (v86 >= 0)
+    *(__p + 3 * v14) = 0;
+    if (v99 >= 0)
     {
-      v12 = __p;
+      v18 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v18 = __p[0];
     }
 
-    v13 = buf;
+    v19 = buf;
     do
     {
-      v14 = *v13++;
-      *v12 = a0123456789abcd_0[v14 >> 4];
-      *(v12 + 1) = a0123456789abcd_0[v14 & 0xF];
-      *(v12 + 2) = 32;
-      v12 = (v12 + 3);
-      --v10;
+      v20 = *v19++;
+      *v18 = a0123456789abcd_0[v20 >> 4];
+      *(v18 + 1) = a0123456789abcd_0[v20 & 0xF];
+      *(v18 + 2) = 32;
+      v18 = (v18 + 3);
+      --v14;
     }
 
-    while (v10);
+    while (v14);
   }
 
   else
   {
-    HIBYTE(v86) = 0;
+    HIBYTE(v99) = 0;
     LOBYTE(__p[0]) = 0;
   }
 
-  v15 = *&buf[3];
-  v84 = 0;
-  sub_60AC();
-  v16 = qword_2C128;
+  v21 = *&buf[3];
+  v97 = 0;
+  sub_60AC(v12, v13);
+  v22 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    v17 = __p;
-    if (v86 < 0)
+    v23 = __p;
+    if (v99 < 0)
     {
-      v17 = __p[0];
+      v23 = __p[0];
     }
 
-    *v88 = 136315906;
-    *&v88[4] = "USBMIDIDriverBase.cpp";
-    *&v88[12] = 1024;
-    *&v88[14] = 276;
-    *&v88[18] = 1024;
-    *&v88[20] = v15;
-    *&v88[24] = 2080;
-    *&v88[26] = v17;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "%25s:%-5d      Got group terminal block descriptor header (totalLength = %d): %s", v88, 0x22u);
+    *v101 = 136315906;
+    *&v101[4] = "USBMIDIDriverBase.cpp";
+    *&v101[12] = 1024;
+    *&v101[14] = 276;
+    *&v101[18] = 1024;
+    *&v101[20] = v21;
+    *&v101[24] = 2080;
+    *&v101[26] = v23;
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "%25s:%-5d      Got group terminal block descriptor header (totalLength = %d): %s", v101, 0x22u);
   }
 
-  sub_3214(a1, a2, 1, buf, v15, &v84);
-  v18 = v84;
-  v82 = a3;
-  if (-991146299 * (v84 - v87) >= 0x13B13B14)
+  v24 = sub_3214(a1, v5, 1, buf, v21, &v97);
+  v26 = v97;
+  v95 = a3;
+  if (-991146299 * (v97 - v100) >= 0x13B13B14)
   {
-    sub_60AC();
-    v19 = qword_2C128;
-    v20 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR);
-    v18 = v84;
-    if (v20)
+    sub_60AC(v24, v25);
+    v27 = qword_2C128;
+    v24 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR);
+    v26 = v97;
+    if (v24)
     {
-      *v88 = 136315650;
-      *&v88[4] = "USBMIDIDriverBase.cpp";
-      *&v88[12] = 1024;
-      *&v88[14] = 279;
-      *&v88[18] = 1024;
-      *&v88[20] = v84;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d      Unexpected group terminal descriptor length: %u", v88, 0x18u);
-      v18 = v84;
+      *v101 = 136315650;
+      *&v101[4] = "USBMIDIDriverBase.cpp";
+      *&v101[12] = 1024;
+      *&v101[14] = 279;
+      *&v101[18] = 1024;
+      *&v101[20] = v97;
+      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d      Unexpected group terminal descriptor length: %u", v101, 0x18u);
+      v26 = v97;
     }
   }
 
-  v21 = v18 - v87;
-  v22 = (v18 - v87) / 0xD;
-  if ((v18 - v87) % 0xD)
+  v28 = v26 - v100;
+  v29 = (v26 - v100) / 0xD;
+  if ((v26 - v100) % 0xD)
   {
-    sub_60AC();
-    v23 = qword_2C128;
-    if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
+    sub_60AC(v24, v25);
+    v30 = qword_2C128;
+    v31 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR);
+    if (v31)
     {
-      *v88 = 136315650;
-      *&v88[4] = "USBMIDIDriverBase.cpp";
-      *&v88[12] = 1024;
-      *&v88[14] = 283;
-      *&v88[18] = 1024;
-      *&v88[20] = v84;
-      v24 = "%25s:%-5d      Unexpected total descriptor length: %u";
-      v25 = v23;
-      v26 = OS_LOG_TYPE_ERROR;
-      v27 = 24;
+      *v101 = 136315650;
+      *&v101[4] = "USBMIDIDriverBase.cpp";
+      *&v101[12] = 1024;
+      *&v101[14] = 283;
+      *&v101[18] = 1024;
+      *&v101[20] = v97;
+      v33 = "%25s:%-5d      Unexpected total descriptor length: %u";
+      v34 = v30;
+      v35 = OS_LOG_TYPE_ERROR;
+      v36 = 24;
 LABEL_35:
-      _os_log_impl(&dword_0, v25, v26, v24, v88, v27);
+      _os_log_impl(&dword_0, v34, v35, v33, v101, v36);
     }
   }
 
   else
   {
-    v28 = 0xAAAAAAAAAAAAAAABLL * ((v82[1] - *v82) >> 2);
-    sub_60AC();
-    v29 = qword_2C128;
-    if (v28 == v22)
+    v37 = 0xAAAAAAAAAAAAAAABLL * ((v95[1] - *v95) >> 2);
+    sub_60AC(v24, v25);
+    v38 = qword_2C128;
+    if (v37 == v29)
     {
-      if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+      v31 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+      if (v31)
       {
-        *&v88[4] = "USBMIDIDriverBase.cpp";
-        v30 = "s";
-        *&v88[14] = 287;
-        *v88 = 136316162;
-        *&v88[12] = 1024;
-        if (v21 - 13 < 0xD)
+        *&v101[4] = "USBMIDIDriverBase.cpp";
+        v39 = "s";
+        *&v101[14] = 287;
+        *v101 = 136316162;
+        *&v101[12] = 1024;
+        if (v28 - 13 < 0xD)
         {
-          v30 = "";
+          v39 = "";
         }
 
-        *&v88[18] = 1024;
-        *&v88[20] = v22;
-        *&v88[24] = 2080;
-        *&v88[26] = v30;
-        *&v88[34] = 1024;
-        *v89 = v84;
-        v24 = "%25s:%-5d      Got %d group terminal block descriptor%s (receivedLength = %u). ";
-        v25 = v29;
-        v26 = OS_LOG_TYPE_INFO;
-        v27 = 40;
+        *&v101[18] = 1024;
+        *&v101[20] = v29;
+        *&v101[24] = 2080;
+        *&v101[26] = v39;
+        *&v101[34] = 1024;
+        *v102 = v97;
+        v33 = "%25s:%-5d      Got %d group terminal block descriptor%s (receivedLength = %u). ";
+        v34 = v38;
+        v35 = OS_LOG_TYPE_INFO;
+        v36 = 40;
         goto LABEL_35;
       }
     }
 
-    else if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
+    else
     {
-      v31 = -1431655765 * ((v82[1] - *v82) >> 2);
-      *v88 = 136315906;
-      *&v88[4] = "USBMIDIDriverBase.cpp";
-      *&v88[12] = 1024;
-      *&v88[14] = 285;
-      *&v88[18] = 1024;
-      *&v88[20] = v31;
-      *&v88[24] = 1024;
-      *&v88[26] = v22;
-      v24 = "%25s:%-5d      Expected %d descriptors, not %d";
-      v25 = v29;
-      v26 = OS_LOG_TYPE_ERROR;
-      v27 = 30;
-      goto LABEL_35;
+      v31 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR);
+      if (v31)
+      {
+        v40 = -1431655765 * ((v95[1] - *v95) >> 2);
+        *v101 = 136315906;
+        *&v101[4] = "USBMIDIDriverBase.cpp";
+        *&v101[12] = 1024;
+        *&v101[14] = 285;
+        *&v101[18] = 1024;
+        *&v101[20] = v40;
+        *&v101[24] = 1024;
+        *&v101[26] = v29;
+        v33 = "%25s:%-5d      Expected %d descriptors, not %d";
+        v34 = v38;
+        v35 = OS_LOG_TYPE_ERROR;
+        v36 = 30;
+        goto LABEL_35;
+      }
     }
   }
 
-  v81 = v21 - 13;
-  if (v21 >= 0xD)
+  v94 = v28 - 13;
+  if (v28 >= 0xD)
   {
-    v32 = 0;
-    v33 = 0;
+    v41 = 0;
+    v42 = 0;
     do
     {
-      v34 = &buf[13 * v32 + v87];
-      v35 = *v34;
-      if (*v34)
+      v43 = &buf[13 * v41 + v100];
+      v44 = *v43;
+      if (*v43)
       {
-        if (v35 >= 8)
+        if (v44 >= 8)
         {
           operator new();
         }
 
-        v88[23] = 3 * v35;
-        bzero(v88, 3 * v35);
-        v88[3 * v35] = 0;
-        v36 = v88;
-        if (v88[23] < 0)
+        v101[23] = 3 * v44;
+        bzero(v101, 3 * v44);
+        v101[3 * v44] = 0;
+        v45 = v101;
+        if (v101[23] < 0)
         {
-          v36 = *v88;
+          v45 = *v101;
         }
 
         do
         {
-          v37 = *v34++;
-          *v36 = a0123456789abcd_0[v37 >> 4];
-          v36[1] = a0123456789abcd_0[v37 & 0xF];
-          v36[2] = 32;
-          v36 += 3;
-          --v35;
+          v46 = *v43++;
+          *v45 = a0123456789abcd_0[v46 >> 4];
+          v45[1] = a0123456789abcd_0[v46 & 0xF];
+          v45[2] = 32;
+          v45 += 3;
+          --v44;
         }
 
-        while (v35);
+        while (v44);
       }
 
       else
       {
-        v88[23] = 0;
-        v88[0] = 0;
+        v101[23] = 0;
+        v101[0] = 0;
       }
 
-      if (SHIBYTE(v86) < 0)
+      if (SHIBYTE(v99) < 0)
       {
         operator delete(__p[0]);
       }
 
-      *__p = *v88;
-      v86 = *&v88[16];
-      sub_60AC();
-      v38 = qword_2C128;
-      if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+      *__p = *v101;
+      v99 = *&v101[16];
+      sub_60AC(v31, v32);
+      v47 = qword_2C128;
+      v31 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+      if (v31)
       {
-        v39 = __p;
-        if (v86 < 0)
+        v48 = __p;
+        if (v99 < 0)
         {
-          v39 = __p[0];
+          v48 = __p[0];
         }
 
-        *v88 = 136315906;
-        *&v88[4] = "USBMIDIDriverBase.cpp";
-        *&v88[12] = 1024;
-        *&v88[14] = 294;
-        *&v88[18] = 1024;
-        *&v88[20] = v32;
-        *&v88[24] = 2080;
-        *&v88[26] = v39;
-        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_INFO, "%25s:%-5d      %00d: %s ", v88, 0x22u);
+        *v101 = 136315906;
+        *&v101[4] = "USBMIDIDriverBase.cpp";
+        *&v101[12] = 1024;
+        *&v101[14] = 294;
+        *&v101[18] = 1024;
+        *&v101[20] = v41;
+        *&v101[24] = 2080;
+        *&v101[26] = v48;
+        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "%25s:%-5d      %00d: %s ", v101, 0x22u);
       }
 
-      v32 = ++v33;
+      v41 = ++v42;
     }
 
-    while (v22 > v33);
+    while (v29 > v42);
   }
 
-  sub_60AC();
-  v40 = qword_2C128;
+  sub_60AC(v31, v32);
+  v49 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    v42 = "s";
-    *&v88[4] = "USBMIDIDriverBase.cpp";
-    *v88 = 136315650;
-    if (v81 < 0xD)
+    v51 = "s";
+    *&v101[4] = "USBMIDIDriverBase.cpp";
+    *v101 = 136315650;
+    if (v94 < 0xD)
     {
-      v42 = "";
+      v51 = "";
     }
 
-    *&v88[12] = 1024;
-    *&v88[14] = 296;
-    *&v88[18] = 2080;
-    *&v88[20] = v42;
-    _os_log_impl(&dword_0, v40, OS_LOG_TYPE_INFO, "%25s:%-5d      Parsing group terminal block descriptor%s ...", v88, 0x1Cu);
+    *&v101[12] = 1024;
+    *&v101[14] = 296;
+    *&v101[18] = 2080;
+    *&v101[20] = v51;
+    _os_log_impl(&dword_0, v49, OS_LOG_TYPE_INFO, "%25s:%-5d      Parsing group terminal block descriptor%s ...", v101, 0x1Cu);
   }
 
-  sub_829C(v82, &buf[5], v84, v41);
-  v43 = v82[1];
-  v44 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v43 - *v82) >> 2));
-  if (v43 == *v82)
+  sub_829C(v95, &buf[5], v97, v50);
+  v52 = v95[1];
+  v53 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v52 - *v95) >> 2));
+  if (v52 == *v95)
   {
-    v45 = 0;
+    v54 = 0;
   }
 
   else
   {
-    v45 = v44;
+    v54 = v53;
   }
 
-  sub_B11C(*v82, v43, v45, 1);
-  v47 = *v82;
-  v46 = v82[1];
-  if (*v82 != v46)
+  v55 = sub_B11C(*v95, v52, v54, 1);
+  v58 = *v95;
+  v57 = v95[1];
+  if (*v95 != v57)
   {
-    v48 = 0;
-    v49 = 0;
+    v59 = 0;
+    v60 = 0;
     do
     {
-      sub_60AC();
-      v50 = qword_2C128;
-      if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+      sub_60AC(v55, v56);
+      v61 = qword_2C128;
+      v55 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+      if (v55)
       {
-        v51 = *v47;
-        v52 = v47[1];
-        v53 = v47[2];
-        v54 = v47[3];
-        v55 = v47[6];
-        v56 = v47[7];
-        v57 = v47[4];
-        *v88 = 136317186;
-        *&v88[4] = "USBMIDIDriverBase.cpp";
-        *&v88[12] = 1024;
-        *&v88[14] = 306;
-        *&v88[18] = 1024;
-        *&v88[20] = v51;
-        *&v88[24] = 1024;
-        *&v88[26] = v52;
-        *&v88[30] = 1024;
-        *&v88[32] = v53;
-        *v89 = 1024;
-        *&v89[2] = v54;
-        v90 = 1024;
-        v91 = v55;
-        v92 = 1024;
-        v93 = v56;
-        v94 = 1024;
-        v95 = v57;
-        _os_log_impl(&dword_0, v50, OS_LOG_TYPE_INFO, "%25s:%-5d      blockID 0x%x blockType 0x%x first gt %u (%u total) inEP 0x%x outEP 0x%x gtb.midiProtocol 0x%x", v88, 0x3Cu);
+        v62 = *v58;
+        v63 = v58[1];
+        v64 = v58[2];
+        v65 = v58[3];
+        v66 = v58[6];
+        v67 = v58[7];
+        v68 = v58[4];
+        *v101 = 136317186;
+        *&v101[4] = "USBMIDIDriverBase.cpp";
+        *&v101[12] = 1024;
+        *&v101[14] = 306;
+        *&v101[18] = 1024;
+        *&v101[20] = v62;
+        *&v101[24] = 1024;
+        *&v101[26] = v63;
+        *&v101[30] = 1024;
+        *&v101[32] = v64;
+        *v102 = 1024;
+        *&v102[2] = v65;
+        v103 = 1024;
+        v104 = v66;
+        v105 = 1024;
+        v106 = v67;
+        v107 = 1024;
+        v108 = v68;
+        _os_log_impl(&dword_0, v61, OS_LOG_TYPE_INFO, "%25s:%-5d      blockID 0x%x blockType 0x%x first gt %u (%u total) inEP 0x%x outEP 0x%x gtb.midiProtocol 0x%x", v101, 0x3Cu);
       }
 
-      if (!v47[4])
+      if (!v58[4])
       {
-        v60 = v47[6];
-        v61 = v47[7];
-        sub_60AC();
-        v62 = qword_2C128;
-        if (!v60 || !v61)
+        v71 = v58[6];
+        v72 = v58[7];
+        sub_60AC(v55, v56);
+        v73 = qword_2C128;
+        if (!v71 || !v72)
         {
-          if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
+          v55 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR);
+          if (v55)
           {
-            v77 = *v47;
-            *v88 = 136315650;
-            *&v88[4] = "USBMIDIDriverBase.cpp";
-            *&v88[12] = 1024;
-            *&v88[14] = 319;
-            *&v88[18] = 1024;
-            *&v88[20] = v77;
-            _os_log_impl(&dword_0, v62, OS_LOG_TYPE_ERROR, "%25s:%-5d      blockID 0x%x cannot use MIDI-CI without both a valid input and output endpoint. Skipping ...", v88, 0x18u);
+            v90 = *v58;
+            *v101 = 136315650;
+            *&v101[4] = "USBMIDIDriverBase.cpp";
+            *&v101[12] = 1024;
+            *&v101[14] = 319;
+            *&v101[18] = 1024;
+            *&v101[20] = v90;
+            _os_log_impl(&dword_0, v73, OS_LOG_TYPE_ERROR, "%25s:%-5d      blockID 0x%x cannot use MIDI-CI without both a valid input and output endpoint. Skipping ...", v101, 0x18u);
           }
 
           goto LABEL_95;
         }
 
-        if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+        v55 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+        if (v55)
         {
-          *v88 = 136315394;
-          *&v88[4] = "USBMIDIDriverBase.cpp";
-          *&v88[12] = 1024;
-          *&v88[14] = 315;
-          _os_log_impl(&dword_0, v62, OS_LOG_TYPE_INFO, "%25s:%-5d           (MIDI-CI protocol negotiation will occur before going online)", v88, 0x12u);
+          *v101 = 136315394;
+          *&v101[4] = "USBMIDIDriverBase.cpp";
+          *&v101[12] = 1024;
+          *&v101[14] = 315;
+          _os_log_impl(&dword_0, v73, OS_LOG_TYPE_INFO, "%25s:%-5d           (MIDI-CI protocol negotiation will occur before going online)", v101, 0x12u);
         }
       }
 
-      v58 = v47[1];
-      if ((v58 | 2) == 2)
+      v69 = v58[1];
+      if ((v69 | 2) == 2)
       {
-        v59 = v47[6];
-      }
-
-      else
-      {
-        v59 = 0;
-      }
-
-      if (v58 >= 2)
-      {
-        v63 = 0;
+        v70 = v58[6];
       }
 
       else
       {
-        v63 = v47[7];
+        v70 = 0;
       }
 
-      if (v59 || v63)
+      if (v69 >= 2)
       {
-        v64 = *a4;
-        v65 = v47[2];
-        while (v64 < a4[1] && *(v64 + 5) <= v65)
+        v74 = 0;
+      }
+
+      else
+      {
+        v74 = v58[7];
+      }
+
+      if (v70 || v74)
+      {
+        v75 = *a4;
+        v76 = v58[2];
+        while (v75 < a4[1] && *(v75 + 5) <= v76)
         {
-          v64 += 8;
+          ++v75;
         }
 
-        if (v47[4] < 5u)
+        if (v58[4] < 5u)
         {
-          v66 = 1;
+          v77 = 1;
         }
 
         else
         {
-          v66 = 2;
+          v77 = 2;
         }
 
-        if (v47[4])
+        if (v58[4])
         {
-          v67 = v66;
+          v78 = v77;
         }
 
         else
         {
-          v67 = -1;
+          v78 = -1;
         }
 
-        v68 = v47[3];
-        v69 = *v47;
-        v88[0] = v48;
-        v88[1] = v49;
-        v88[2] = v59;
-        v88[3] = v63;
-        v88[4] = v67;
-        v88[5] = v65;
-        v88[6] = v68;
-        v88[7] = v69;
-        sub_8314(a4, v64, v88);
-        sub_60AC();
-        v70 = qword_2C128;
-        if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+        v79 = v58[3];
+        v80 = *v58;
+        v101[0] = v59;
+        v101[1] = v60;
+        v101[2] = v70;
+        v101[3] = v74;
+        v101[4] = v78;
+        v101[5] = v76;
+        v101[6] = v79;
+        v101[7] = v80;
+        v81 = sub_8314(a4, v75, v101);
+        sub_60AC(v81, v82);
+        v83 = qword_2C128;
+        v55 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+        if (v55)
         {
-          v71 = *v47;
-          v72 = v47[4];
-          if (v72 < 5)
+          v84 = *v58;
+          v85 = v58[4];
+          if (v85 < 5)
           {
-            v73 = 1;
+            v86 = 1;
           }
 
           else
           {
-            v73 = 2;
+            v86 = 2;
           }
 
-          v74 = v72 == 0;
-          v75 = v47[2];
-          if (v74)
+          v87 = v85 == 0;
+          v88 = v58[2];
+          if (v87)
           {
-            v73 = 255;
+            v86 = 255;
           }
 
-          v76 = v47[3];
-          *v88 = 136317186;
-          *&v88[4] = "USBMIDIDriverBase.cpp";
-          *&v88[12] = 1024;
-          *&v88[14] = 332;
-          *&v88[18] = 1024;
-          *&v88[20] = v71;
-          *&v88[24] = 1024;
-          *&v88[26] = v49;
-          *&v88[30] = 1024;
-          *&v88[32] = v59;
-          *v89 = 1024;
-          *&v89[2] = v63;
-          v90 = 1024;
-          v91 = v73;
-          v92 = 1024;
-          v93 = v75;
-          v94 = 1024;
-          v95 = v76;
-          _os_log_impl(&dword_0, v70, OS_LOG_TYPE_INFO, "%25s:%-5d      blockID 0x%x cable 0x%x, inEP 0x%x, outEP 0x%x, usbpipeprotocol 0x%00x, firstGroupTerminal %d, numGroups %d -> maplist", v88, 0x3Cu);
+          v89 = v58[3];
+          *v101 = 136317186;
+          *&v101[4] = "USBMIDIDriverBase.cpp";
+          *&v101[12] = 1024;
+          *&v101[14] = 332;
+          *&v101[18] = 1024;
+          *&v101[20] = v84;
+          *&v101[24] = 1024;
+          *&v101[26] = v60;
+          *&v101[30] = 1024;
+          *&v101[32] = v70;
+          *v102 = 1024;
+          *&v102[2] = v74;
+          v103 = 1024;
+          v104 = v86;
+          v105 = 1024;
+          v106 = v88;
+          v107 = 1024;
+          v108 = v89;
+          _os_log_impl(&dword_0, v83, OS_LOG_TYPE_INFO, "%25s:%-5d      blockID 0x%x cable 0x%x, inEP 0x%x, outEP 0x%x, usbpipeprotocol 0x%00x, firstGroupTerminal %d, numGroups %d -> maplist", v101, 0x3Cu);
         }
 
-        ++v48;
-        v49 += v47[3];
+        ++v59;
+        v60 += v58[3];
       }
 
 LABEL_95:
-      v47 += 12;
+      v58 += 12;
     }
 
-    while (v47 != v46);
+    while (v58 != v57);
   }
 
-  sub_60AC();
-  v78 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  sub_60AC(v55, v56);
+  v91 = qword_2C128;
+  v16 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v16)
   {
-    v79 = (a4[1] - *a4) >> 3;
-    *v88 = 136315650;
-    *&v88[4] = "USBMIDIDriverBase.cpp";
-    *&v88[12] = 1024;
-    *&v88[14] = 337;
-    *&v88[18] = 2048;
-    *&v88[20] = v79;
-    _os_log_impl(&dword_0, v78, OS_LOG_TYPE_INFO, "%25s:%-5d      Maplist constructed with %lu group terminal block(s).", v88, 0x1Cu);
+    v92 = a4[1] - *a4;
+    *v101 = 136315650;
+    *&v101[4] = "USBMIDIDriverBase.cpp";
+    *&v101[12] = 1024;
+    *&v101[14] = 337;
+    *&v101[18] = 2048;
+    *&v101[20] = v92;
+    _os_log_impl(&dword_0, v91, OS_LOG_TYPE_INFO, "%25s:%-5d      Maplist constructed with %lu group terminal block(s).", v101, 0x1Cu);
   }
 
-  if (SHIBYTE(v86) < 0)
+  if (SHIBYTE(v99) < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_103:
-  sub_60AC();
-  v80 = qword_2C128;
+  sub_60AC(v16, v17);
+  v93 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    *v88 = 136315394;
-    *&v88[4] = "USBMIDIDriverBase.cpp";
-    *&v88[12] = 1024;
-    *&v88[14] = 343;
-    _os_log_impl(&dword_0, v80, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDriverBase::CreatePortMapList()", v88, 0x12u);
+    *v101 = 136315394;
+    *&v101[4] = "USBMIDIDriverBase.cpp";
+    *&v101[12] = 1024;
+    *&v101[14] = 343;
+    _os_log_impl(&dword_0, v93, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDriverBase::CreatePortMapList()", v101, 0x12u);
   }
 }
 
@@ -4447,7 +4510,7 @@ LABEL_9:
   return result;
 }
 
-double *sub_8314(void *a1, uint64_t a2, double *a3)
+double *sub_8314(double **a1, char *a2, double *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -4506,12 +4569,12 @@ double *sub_8314(void *a1, uint64_t a2, double *a3)
   else if (a2 == v6)
   {
     *v6 = *a3;
-    a1[1] = v6 + 1;
+    a1[1] = (v6 + 8);
   }
 
   else
   {
-    sub_C89C(a1, a2, v6, (a2 + 8));
+    sub_C89C(a1, a2, v6, a2 + 8);
     *v4 = *a3;
   }
 
@@ -4528,245 +4591,257 @@ void sub_8448(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_8480(uint64_t a1@<X0>, int a2@<W1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, double **a5@<X8>)
+void sub_8480(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, double **a5@<X8>)
 {
+  v7 = a2;
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
-  sub_60AC();
+  sub_60AC(a1, a2);
   v10 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 1);
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 1);
-    *v43 = 136316418;
-    *&v43[4] = "USBMIDIDriverBase.cpp";
-    v44 = 1024;
-    v45 = 349;
-    v46 = 2048;
-    v47 = a1;
-    v48 = 1024;
-    v49 = a2;
-    v50 = 2048;
-    v51 = v11;
-    v52 = 2048;
-    v53 = v12;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBMIDIDriverBase::CreatePortMapList(inUSBDevice:%p, interfaceNum:%d) - Constructing a USB MIDI 1.0 port map list for %lu inputs and %lu outputs...", v43, 0x36u);
+    v12 = 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 1);
+    v13 = 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 1);
+    *v44 = 136316418;
+    *&v44[4] = "USBMIDIDriverBase.cpp";
+    v45 = 1024;
+    v46 = 349;
+    v47 = 2048;
+    v48 = a1;
+    v49 = 1024;
+    v50 = v7;
+    v51 = 2048;
+    v52 = v12;
+    v53 = 2048;
+    v54 = v13;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBMIDIDriverBase::CreatePortMapList(inUSBDevice:%p, interfaceNum:%d) - Constructing a USB MIDI 1.0 port map list for %lu inputs and %lu outputs...", v44, 0x36u);
   }
 
-  v14 = *a3;
-  v13 = a3[1];
-  if (v13 == *a3)
+  v15 = *a3;
+  v14 = a3[1];
+  if (v14 == *a3)
   {
-    v22 = 0xAAAAAAAAAAAAAAABLL * ((v13 - *a3) >> 1);
+    v23 = 0xAAAAAAAAAAAAAAABLL * ((v14 - *a3) >> 1);
   }
 
   else
   {
-    v15 = 0;
-    v16 = a5[1];
+    v16 = 0;
+    v17 = a5[1];
     do
     {
-      v17 = *(v14 + 6 * v15 + 5);
-      v18 = *a5;
-      if (*a5 == v16)
+      v18 = *(v15 + 6 * v16 + 5);
+      v19 = *a5;
+      if (*a5 == v17)
       {
-        v19 = 0;
+        v20 = 0;
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
         do
         {
-          v20 = (v17 & 0x80) != 0 && *(v18 + 2) == v17 || (v17 & 0x80u) == 0 && v17 == *(v18 + 3);
-          v19 += v20;
-          ++v18;
+          v21 = (v18 & 0x80) != 0 && *(v19 + 2) == v18 || (v18 & 0x80u) == 0 && v18 == *(v19 + 3);
+          v20 += v21;
+          ++v19;
         }
 
-        while (v18 != v16);
+        while (v19 != v17);
       }
 
-      v43[0] = v15;
-      v43[1] = v19;
-      v43[2] = v17;
-      *&v43[3] = 0;
-      v43[7] = 0;
-      if (v16 >= a5[2])
+      v44[0] = v16;
+      v44[1] = v20;
+      v44[2] = v18;
+      *&v44[3] = 0;
+      v44[7] = 0;
+      if (v17 >= a5[2])
       {
-        v16 = sub_CC3C(a5, v43);
-        v14 = *a3;
-        v13 = a3[1];
+        v17 = sub_CC3C(a5, v44);
+        v15 = *a3;
+        v14 = a3[1];
       }
 
       else
       {
-        *v16 = v15;
-        *(v16 + 1) = v19;
-        *(v16 + 2) = v17;
-        *(v16 + 3) = 0;
-        *(v16++ + 7) = 0;
+        *v17 = v16;
+        *(v17 + 1) = v20;
+        *(v17 + 2) = v18;
+        *(v17 + 3) = 0;
+        *(v17++ + 7) = 0;
       }
 
-      a5[1] = v16;
-      ++v15;
-      v22 = 0xAAAAAAAAAAAAAAABLL * ((v13 - v14) >> 1);
+      a5[1] = v17;
+      ++v16;
+      v23 = 0xAAAAAAAAAAAAAAABLL * ((v14 - v15) >> 1);
     }
 
-    while (v22 > v15);
+    while (v23 > v16);
   }
 
-  v24 = *a4;
-  v23 = a4[1];
-  v25 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *a4) >> 1);
-  if (v25 >= v22)
+  v25 = *a4;
+  v24 = a4[1];
+  v26 = 0xAAAAAAAAAAAAAAABLL * ((v24 - *a4) >> 1);
+  if (v26 >= v23)
   {
-    LODWORD(v26) = v22;
-  }
-
-  else
-  {
-    v26 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *a4) >> 1);
-  }
-
-  if (v26 <= 0)
-  {
-    v28 = a5[1];
+    LODWORD(v27) = v23;
   }
 
   else
   {
-    v27 = 0;
-    v29 = *a5;
-    v28 = a5[1];
-    v30 = v26 & 0x7FFFFFFF;
+    v27 = 0xAAAAAAAAAAAAAAABLL * ((v24 - *a4) >> 1);
+  }
+
+  if (v27 <= 0)
+  {
+    v29 = a5[1];
+  }
+
+  else
+  {
+    v28 = 0;
+    v30 = *a5;
+    v29 = a5[1];
+    v31 = v27 & 0x7FFFFFFF;
     do
     {
-      if (v27 == v25)
+      if (v28 == v26)
       {
         sub_CB94();
       }
 
-      if (v29 != v28)
+      if (v30 != v29)
       {
-        v31 = *(v24 + 6 * v27 + 5);
-        v32 = v29;
+        v32 = *(v25 + 6 * v28 + 5);
+        v33 = v30;
         while (1)
         {
-          v33 = *(v32 + 3);
-          if ((v31 & 0x80) != 0 && *(v32 + 2) == v31)
+          v11 = *(v33 + 2);
+          v34 = *(v33 + 3);
+          if ((v32 & 0x80) != 0 && v11 == v32)
           {
             break;
           }
 
-          if ((v31 & 0x80) == 0 && v33 == v31)
+          if ((v32 & 0x80) == 0 && v34 == v32)
           {
-            v33 = *(v32 + 2);
+            v34 = *(v33 + 2);
             break;
           }
 
-          if (++v32 == v28)
+          if (++v33 == v29)
           {
             goto LABEL_45;
           }
         }
 
-        v34 = v29;
-        if (!v33)
+        v35 = v30;
+        if (!v34)
         {
 LABEL_45:
-          if (v29 != v28)
+          if (v30 != v29)
           {
-            v35 = v29;
-            while (*(v35 + 3))
+            v36 = v30;
+            while (*(v36 + 3))
             {
-              if (++v35 == v28)
+              if (++v36 == v29)
               {
                 goto LABEL_52;
               }
             }
 
-            *(v35 + 3) = v31;
+            *(v36 + 3) = v32;
           }
 
           goto LABEL_52;
         }
 
-        while (*(v34 + 2) != v33 || *(v34 + 3))
+        while (1)
         {
-          if (++v34 == v28)
+          v11 = *(v35 + 2);
+          if (v11 == v34)
+          {
+            v11 = *(v35 + 3);
+            if (!*(v35 + 3))
+            {
+              break;
+            }
+          }
+
+          if (++v35 == v29)
           {
             goto LABEL_52;
           }
         }
 
-        *(v34 + 3) = v31;
+        *(v35 + 3) = v32;
       }
 
 LABEL_52:
-      ++v27;
+      ++v28;
     }
 
-    while (v27 != v30);
+    while (v28 != v31);
   }
 
-  v36 = v28 - *a5;
-  if (v25 > v36 >> 3)
+  v37 = v29 - *a5;
+  if (v26 > v37 >> 3)
   {
-    v37 = v36 >> 3;
-    v38 = v36 >> 3;
-    v39 = *(v24 + 6 * v37 + 5);
+    v38 = v37 >> 3;
+    v39 = v37 >> 3;
+    v40 = *(v25 + 6 * v38 + 5);
     do
     {
-      v40 = v39;
-      v39 = *(v24 + 6 * v37 + 5);
-      if (v40 == v39)
+      v41 = v40;
+      v40 = *(v25 + 6 * v38 + 5);
+      if (v41 == v40)
       {
-        v41 = v38;
+        v42 = v39;
       }
 
       else
       {
-        v41 = 0;
+        v42 = 0;
       }
 
-      v43[0] = v37;
-      *&v43[1] = v41;
-      v43[3] = v39;
-      *&v43[4] = 1;
-      if (v28 >= a5[2])
+      v44[0] = v38;
+      *&v44[1] = v42;
+      v44[3] = v40;
+      *&v44[4] = 1;
+      if (v29 >= a5[2])
       {
-        v28 = sub_CC3C(a5, v43);
-        v24 = *a4;
-        v23 = a4[1];
+        v29 = sub_CC3C(a5, v44);
+        v25 = *a4;
+        v24 = a4[1];
       }
 
       else
       {
-        *v28 = v37;
-        *(v28 + 1) = v41;
-        *(v28 + 2) = 0;
-        *(v28 + 3) = v39;
-        *(v28++ + 1) = 1;
+        *v29 = v38;
+        *(v29 + 1) = v42;
+        *(v29 + 2) = 0;
+        *(v29 + 3) = v40;
+        *(v29++ + 1) = 1;
       }
 
-      LODWORD(v38) = v41 + 1;
-      a5[1] = v28;
-      v37 = v28 - *a5;
+      LODWORD(v39) = v42 + 1;
+      a5[1] = v29;
+      v38 = v29 - *a5;
     }
 
-    while (v37 < 0xAAAAAAAAAAAAAAABLL * ((v23 - v24) >> 1));
+    while (v38 < 0xAAAAAAAAAAAAAAABLL * ((v24 - v25) >> 1));
   }
 
-  sub_60AC();
-  v42 = qword_2C128;
+  sub_60AC(v29, v11);
+  v43 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    *v43 = 136315394;
-    *&v43[4] = "USBMIDIDriverBase.cpp";
-    v44 = 1024;
-    v45 = 398;
-    _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDriverBase::CreatePortMapList()", v43, 0x12u);
+    *v44 = 136315394;
+    *&v44[4] = "USBMIDIDriverBase.cpp";
+    v45 = 1024;
+    v46 = 398;
+    _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDriverBase::CreatePortMapList()", v44, 0x12u);
   }
 }
 
@@ -4837,95 +4912,99 @@ BOOL sub_89D8(uint64_t a1, const __CFString *a2, MIDIDeviceRef a3, uint64_t *a4,
 {
   newEntity = 0;
   v13 = a4[1];
-  v49 = *a4;
-  sub_60AC();
+  v52 = *a4;
+  sub_60AC(a1, a2);
   v14 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  v15 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v15)
   {
     *buf = 136315394;
-    *v60 = "USBMIDIDriverBase.cpp";
-    *&v60[8] = 1024;
-    *&v60[10] = 559;
+    *v63 = "USBMIDIDriverBase.cpp";
+    *&v63[8] = 1024;
+    *&v63[10] = 559;
     _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%25s:%-5d [+] configureDeviceUsingPortMap(using JackLists)", buf, 0x12u);
   }
 
-  sub_60AC();
-  v15 = qword_2C128;
-  if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+  sub_60AC(v15, v16);
+  v17 = qword_2C128;
+  v18 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+  if (v18)
   {
     *buf = 136315394;
-    *v60 = "USBMIDIDriverBase.cpp";
-    *&v60[8] = 1024;
-    *&v60[10] = 560;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d      Constructing USB MIDI 1.0 entities...", buf, 0x12u);
+    *v63 = "USBMIDIDriverBase.cpp";
+    *&v63[8] = 1024;
+    *&v63[10] = 560;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d      Constructing USB MIDI 1.0 entities...", buf, 0x12u);
   }
 
-  v48 = v13;
-  if (v13 != v49)
+  v51 = v13;
+  if (v13 != v52)
   {
-    v16 = 0;
-    if (((v48 - v49) >> 3) <= 1)
+    v20 = 0;
+    if (((v51 - v52) >> 3) <= 1)
     {
-      v17 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v17 = (v48 - v49) >> 3;
+      v21 = (v51 - v52) >> 3;
     }
 
-    v51 = v17;
-    v52 = a8;
+    v54 = v21;
+    v55 = a8;
     do
     {
-      v56 = &off_28878;
+      v59 = &off_28878;
       cf = 0;
-      if (v16 >= (a4[1] - *a4) >> 3)
+      if (v20 >= (a4[1] - *a4) >> 3)
       {
         sub_CB94();
       }
 
-      v18 = *a4 + 8 * v16;
-      v19 = *(v18 + 2);
-      v20 = *(v18 + 3);
-      if (*(v18 + 2))
+      v22 = *a4 + 8 * v20;
+      v23 = *(v22 + 2);
+      v24 = *(v22 + 3);
+      if (*(v22 + 2))
       {
-        v21 = sub_88E8(a1, *(*a6 + 6 * v16 + 4), a8);
-        v22 = *a6 + 6 * v16;
-        v23 = *a5;
-        v24 = a5[1];
-        if (*a5 != v24)
+        v18 = sub_88E8(a1, *(*a6 + 6 * v20 + 4), a8);
+        v25 = v18;
+        v26 = *a6 + 6 * v20;
+        v27 = *a5;
+        v28 = a5[1];
+        if (*a5 != v28)
         {
-          while (*(v23 + 2) != *(v22 + 3))
+          while (*(v27 + 2) != *(v26 + 3))
           {
-            v23 += 6;
-            if (v23 == v24)
+            v27 += 6;
+            if (v27 == v28)
             {
               goto LABEL_22;
             }
           }
         }
 
-        if (v23 != v24)
+        if (v27 != v28)
         {
-          if (v23)
+          if (v27)
           {
-            v25 = *(v23 + 1);
-            *(v22 + 1) = v25;
-            if (v25 == 1)
+            v29 = *(v27 + 1);
+            *(v26 + 1) = v29;
+            if (v29 == 1)
             {
-              sub_60AC();
-              v26 = qword_2C128;
-              if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+              sub_60AC(v18, v19);
+              v30 = qword_2C128;
+              v18 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+              if (v18)
               {
-                v27 = *(*a6 + 6 * v16 + 2);
+                v31 = *(*a6 + 6 * v20 + 2);
                 *buf = 136315650;
-                *v60 = "USBMIDIDriverBase.cpp";
-                *&v60[8] = 1024;
-                *&v60[10] = 576;
-                v61 = 1024;
-                LODWORD(v62) = v27;
-                _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "%25s:%-5d      Found an embedded input at jack ID %d.", buf, 0x18u);
+                *v63 = "USBMIDIDriverBase.cpp";
+                *&v63[8] = 1024;
+                *&v63[10] = 576;
+                v64 = 1024;
+                LODWORD(v65) = v31;
+                _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "%25s:%-5d      Found an embedded input at jack ID %d.", buf, 0x18u);
               }
             }
           }
@@ -4934,84 +5013,93 @@ BOOL sub_89D8(uint64_t a1, const __CFString *a2, MIDIDeviceRef a3, uint64_t *a4,
 
       else
       {
-        v21 = 0;
+        v25 = 0;
       }
 
 LABEL_22:
-      if (v20)
+      if (v24)
       {
-        v28 = sub_88E8(a1, *(*a7 + 6 * v16 + 4), a8);
-        v29 = *a7 + 6 * v16;
-        v30 = *a5;
-        v31 = a5[1];
-        if (*a5 != v31)
+        v18 = sub_88E8(a1, *(*a7 + 6 * v20 + 4), a8);
+        v32 = v18;
+        v33 = *a7 + 6 * v20;
+        v34 = *a5;
+        v35 = a5[1];
+        if (*a5 != v35)
         {
-          while (*(v30 + 3) != *(v29 + 2))
+          while (*(v34 + 3) != *(v33 + 2))
           {
-            v30 += 6;
-            if (v30 == v31)
+            v34 += 6;
+            if (v34 == v35)
             {
               goto LABEL_32;
             }
           }
         }
 
-        if (v30 != v31)
+        if (v34 != v35)
         {
-          if (v30)
+          if (v34)
           {
-            v32 = *(v30 + 1);
-            *(v29 + 1) = v32;
-            if (v32 == 1)
+            v36 = *(v34 + 1);
+            *(v33 + 1) = v36;
+            if (v36 == 1)
             {
-              sub_60AC();
-              v33 = qword_2C128;
-              if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
+              sub_60AC(v18, v19);
+              v37 = qword_2C128;
+              v18 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO);
+              if (v18)
               {
-                v34 = *(*a7 + 6 * v16 + 2);
+                v38 = *(*a7 + 6 * v20 + 2);
                 *buf = 136315650;
-                *v60 = "USBMIDIDriverBase.cpp";
-                *&v60[8] = 1024;
-                *&v60[10] = 586;
-                v61 = 1024;
-                LODWORD(v62) = v34;
-                _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "%25s:%-5d      Found an embedded output at jack ID %d.", buf, 0x18u);
+                *v63 = "USBMIDIDriverBase.cpp";
+                *&v63[8] = 1024;
+                *&v63[10] = 586;
+                v64 = 1024;
+                LODWORD(v65) = v38;
+                _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "%25s:%-5d      Found an embedded output at jack ID %d.", buf, 0x18u);
               }
             }
           }
         }
 
 LABEL_32:
-        if (v21 && v28 && CFEqual(v21, v28))
+        if (v25)
         {
-          CFRetain(v21);
-          v35 = cf;
-          cf = v21;
-          if (v35)
+          if (v32)
           {
-            CFRelease(v35);
-          }
+            v18 = CFEqual(v25, v32);
+            if (v18)
+            {
+              CFRetain(v25);
+              v39 = cf;
+              cf = v25;
+              if (v39)
+              {
+                CFRelease(v39);
+              }
 
-          CFRelease(v21);
-          CFRelease(v28);
-          v28 = 0;
-          v21 = 0;
-          goto LABEL_41;
+              CFRelease(v25);
+              CFRelease(v32);
+              v32 = 0;
+              v25 = 0;
+              goto LABEL_41;
+            }
+          }
         }
       }
 
       else
       {
-        v28 = 0;
+        v32 = 0;
       }
 
-      if (((v48 - v49) >> 3) >= 2)
+      if (((v51 - v52) >> 3) >= 2)
       {
-        v36 = sub_D84C(buf, a2, (v16 + 1));
-        v37 = cf;
-        cf = *&v60[4];
-        *&v60[4] = v37;
-        sub_CD30(v36);
+        v40 = sub_D84C(buf, a2, (v20 + 1));
+        v41 = cf;
+        cf = *&v63[4];
+        *&v63[4] = v41;
+        v18 = sub_CD30(v40);
       }
 
 LABEL_41:
@@ -5020,11 +5108,11 @@ LABEL_41:
         if (a8)
         {
           CFRetain(a8);
-          v41 = cf;
+          v18 = cf;
           cf = a8;
-          if (v41)
+          if (v18)
           {
-            CFRelease(v41);
+            CFRelease(v18);
           }
         }
 
@@ -5036,99 +5124,99 @@ LABEL_41:
 
       if (a9)
       {
-        if (v19 && v20 && (v38 = *(*a6 + 6 * v16 + 1), v38 == *(*a7 + 6 * v16 + 1)))
+        if (v23 && v24 && (v42 = *(*a6 + 6 * v20 + 1), v42 == *(*a7 + 6 * v20 + 1)))
         {
-          if (v38 == 1)
+          if (v42 == 1)
           {
-            sub_60AC();
-            v39 = qword_2C128;
-            v40 = 1;
+            sub_60AC(v18, v19);
+            v43 = qword_2C128;
+            v44 = 1;
             if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              *v60 = "USBMIDIDriverBase.cpp";
-              *&v60[8] = 1024;
-              *&v60[10] = 611;
-              _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "%25s:%-5d      Creating an embedded entity.", buf, 0x12u);
+              *v63 = "USBMIDIDriverBase.cpp";
+              *&v63[8] = 1024;
+              *&v63[10] = 611;
+              _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "%25s:%-5d      Creating an embedded entity.", buf, 0x12u);
             }
 
             goto LABEL_57;
           }
         }
 
-        else if ((v19 != 0) != (v20 != 0))
+        else if ((v23 != 0) != (v24 != 0))
         {
-          v42 = a7;
-          if (v19)
+          v45 = a7;
+          if (v23)
           {
-            v42 = a6;
+            v45 = a6;
           }
 
-          v40 = *(*v42 + 6 * v16 + 1) == 1;
+          v44 = *(*v45 + 6 * v20 + 1) == 1;
           goto LABEL_57;
         }
       }
 
-      v40 = 0;
+      v44 = 0;
 LABEL_57:
-      MIDIDeviceAddEntity(a3, cf, v40, v19 != 0, v20 != 0, &newEntity);
-      if (v21)
+      MIDIDeviceAddEntity(a3, cf, v44, v23 != 0, v24 != 0, &newEntity);
+      if (v25)
       {
         Source = MIDIEntityGetSource(newEntity, 0);
-        MIDIObjectSetStringProperty(Source, kMIDIPropertyName, v21);
+        MIDIObjectSetStringProperty(Source, kMIDIPropertyName, v25);
       }
 
-      if (v28)
+      if (v32)
       {
         Destination = MIDIEntityGetDestination(newEntity, 0);
-        MIDIObjectSetStringProperty(Destination, kMIDIPropertyName, v28);
+        MIDIObjectSetStringProperty(Destination, kMIDIPropertyName, v32);
       }
 
-      if (v16 >= (a4[1] - *a4) >> 3 || (MIDIObjectSetIntegerProperty(newEntity, @"In Endpoint", *(*a4 + 8 * v16 + 2)), v16 >= (a4[1] - *a4) >> 3) || (MIDIObjectSetIntegerProperty(newEntity, @"Out Endpoint", *(*a4 + 8 * v16 + 3)), v16 >= (a4[1] - *a4) >> 3))
+      if (v20 >= (a4[1] - *a4) >> 3 || (MIDIObjectSetIntegerProperty(newEntity, @"In Endpoint", *(*a4 + 8 * v20 + 2)), v20 >= (a4[1] - *a4) >> 3) || (MIDIObjectSetIntegerProperty(newEntity, @"Out Endpoint", *(*a4 + 8 * v20 + 3)), v20 >= (a4[1] - *a4) >> 3))
       {
         sub_CB94();
       }
 
-      MIDIObjectSetIntegerProperty(newEntity, @"Cable", *(*a4 + 8 * v16 + 1));
-      if (v21)
+      MIDIObjectSetIntegerProperty(newEntity, @"Cable", *(*a4 + 8 * v20 + 1));
+      if (v25)
       {
-        CFRelease(v21);
+        CFRelease(v25);
       }
 
-      if (v28)
+      if (v32)
       {
-        CFRelease(v28);
+        CFRelease(v32);
       }
 
       MIDIObjectSetIntegerProperty(a3, @"UMP Enabled", 0);
-      sub_CD30(&v56);
-      ++v16;
-      a8 = v52;
+      v18 = sub_CD30(&v59);
+      ++v20;
+      a8 = v55;
     }
 
-    while (v16 != v51);
+    while (v20 != v54);
   }
 
-  sub_60AC();
-  v45 = qword_2C128;
+  sub_60AC(v18, v19);
+  v48 = qword_2C128;
   if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    v46 = "false";
+    v49 = "false";
     *buf = 136315650;
-    *v60 = "USBMIDIDriverBase.cpp";
-    if (v48 != v49)
+    *v63 = "USBMIDIDriverBase.cpp";
+    if (v51 != v52)
     {
-      v46 = "true";
+      v49 = "true";
     }
 
-    *&v60[8] = 1024;
-    *&v60[10] = 637;
-    v61 = 2080;
-    v62 = v46;
-    _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "%25s:%-5d [+] configureDeviceUsingPortMap(using JackLists) = %s", buf, 0x1Cu);
+    *&v63[8] = 1024;
+    *&v63[10] = 637;
+    v64 = 2080;
+    v65 = v49;
+    _os_log_impl(&dword_0, v48, OS_LOG_TYPE_INFO, "%25s:%-5d [+] configureDeviceUsingPortMap(using JackLists) = %s", buf, 0x1Cu);
   }
 
-  return v48 != v49;
+  return v51 != v52;
 }
 
 void sub_9150(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
@@ -5141,15 +5229,15 @@ void sub_9150(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_9258(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_D7CC(va);
-  sub_184B4(v2);
+  sub_184B4(v3);
   _Unwind_Resume(a1);
 }
 
-void sub_9274(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_9274(const void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   sub_880();
   sub_D460(v5, a4);
@@ -5157,11 +5245,11 @@ void sub_9274(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   operator new();
 }
 
-void sub_9370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_9370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_1200(va);
-  sub_D7CC(v6 + 8);
+  sub_D7CC(v11 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -5213,52 +5301,53 @@ void sub_9488(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   }
 
   v10 = (*(*v9 + 136))(v9, a3 + 16);
-  sub_60AC();
-  v11 = qword_2C128;
-  if (v10)
+  v11 = v10;
+  sub_60AC(v10, v12);
+  v13 = qword_2C128;
+  if (v11)
   {
     if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
     {
-      *v16 = 136315650;
-      *&v16[4] = "USBMIDIDriverBase.cpp";
-      *&v16[12] = 1024;
-      *&v16[14] = 714;
-      v17 = 1024;
-      v18 = v10;
-      v12 = "%25s:%-5d [!] USBMIDIClassDriver::ProbeDevice() - GetInterfaceNumber() returned error 0x%x";
-      v13 = v11;
-      v14 = OS_LOG_TYPE_ERROR;
+      *v18 = 136315650;
+      *&v18[4] = "USBMIDIDriverBase.cpp";
+      *&v18[12] = 1024;
+      *&v18[14] = 714;
+      v19 = 1024;
+      v20 = v11;
+      v14 = "%25s:%-5d [!] USBMIDIClassDriver::ProbeDevice() - GetInterfaceNumber() returned error 0x%x";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-      _os_log_impl(&dword_0, v13, v14, v12, v16, 0x18u);
+      _os_log_impl(&dword_0, v15, v16, v14, v18, 0x18u);
     }
   }
 
   else if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_INFO))
   {
-    v15 = *v6;
-    *v16 = 136315650;
-    *&v16[4] = "USBMIDIDriverBase.cpp";
-    *&v16[12] = 1024;
-    *&v16[14] = 716;
-    v17 = 1024;
-    v18 = v15;
-    v12 = "%25s:%-5d [*] USBMIDIClassDriver::ProbeDevice() - inUSBInterface has interface number %d";
-    v13 = v11;
-    v14 = OS_LOG_TYPE_INFO;
+    v17 = *v6;
+    *v18 = 136315650;
+    *&v18[4] = "USBMIDIDriverBase.cpp";
+    *&v18[12] = 1024;
+    *&v18[14] = 716;
+    v19 = 1024;
+    v20 = v17;
+    v14 = "%25s:%-5d [*] USBMIDIClassDriver::ProbeDevice() - inUSBInterface has interface number %d";
+    v15 = v13;
+    v16 = OS_LOG_TYPE_INFO;
     goto LABEL_9;
   }
 
-  sub_60DC(v9, v16);
-  if (*v16)
+  sub_60DC(v9, v18);
+  if (*v18)
   {
-    sub_62A8(v9, *v16, (a3 + 24), a3 + 48, a3 + 72, a3 + 96);
+    sub_62A8(v9, *v18, (a3 + 24), a3 + 48, a3 + 72, (a3 + 96));
     *a3 = a1;
     *(a3 + 8) = a2;
   }
 
-  if (v19 < 0)
+  if (v21 < 0)
   {
-    operator delete(*&v16[8]);
+    operator delete(*&v18[8]);
   }
 }
 
@@ -5310,7 +5399,7 @@ void sub_97E0(int a1@<W0>, uint64_t a2@<X1>, double **a3@<X8>)
   }
 }
 
-void sub_9808(uint64_t a1, MIDITimeStamp a2, const UInt32 *a3, int64_t a4, uint64_t a5, MIDIProtocolID a6)
+void sub_9808(uint64_t a1, MIDITimeStamp a2, unsigned int *a3, uint64_t a4, uint64_t a5, MIDIProtocolID a6)
 {
   v7 = a3;
   if (a6)
@@ -5323,7 +5412,7 @@ void sub_9808(uint64_t a1, MIDITimeStamp a2, const UInt32 *a3, int64_t a4, uint6
 
     else
     {
-      sub_60AC();
+      sub_60AC(a1, a2);
       v63 = qword_2C128;
       if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_ERROR))
       {
@@ -5340,7 +5429,7 @@ void sub_9808(uint64_t a1, MIDITimeStamp a2, const UInt32 *a3, int64_t a4, uint6
 
   v98 = 0u;
   v99 = 0u;
-  v10 = a3 + a4;
+  v10 = (a3 + a4);
   v96 = 0u;
   v97 = 0u;
   v94 = 0u;
@@ -5852,8 +5941,7 @@ LABEL_68:
       }
 
 LABEL_94:
-      v16 += 4;
-      if (v16 >= v10)
+      if (++v16 >= v10)
       {
         goto LABEL_116;
       }
@@ -6192,8 +6280,8 @@ _BYTE *sub_A5F8(uint64_t a1, uint64_t *a2, _BYTE *a3, uint64_t a4, int a5)
     v9 = *(v8 + 292);
   }
 
-  v79 = v9;
-  v87 = &a3[a4];
+  v78 = v9;
+  v86 = &a3[a4];
   do
   {
     while (1)
@@ -6222,12 +6310,12 @@ _BYTE *sub_A5F8(uint64_t a1, uint64_t *a2, _BYTE *a3, uint64_t a4, int a5)
       v16 = v10 + 4 * v11 + 12;
       v17 = 4 * (v12 - v13);
       v18 = v16 + 4 * v14;
-      v19 = v87;
-      v83 = v12 - v13;
-      v84 = v8;
-      v81 = v17;
-      v82 = v16;
-      v80 = v18;
+      v19 = v86;
+      v82 = v12 - v13;
+      v83 = v8;
+      v80 = v17;
+      v81 = v16;
+      v79 = v18;
       while (1)
       {
         v20 = 4 * v15;
@@ -6250,15 +6338,15 @@ _BYTE *sub_A5F8(uint64_t a1, uint64_t *a2, _BYTE *a3, uint64_t a4, int a5)
           LODWORD(v30) = 0;
           v31 = 0;
           v32 = &v21[v28 & 0x3FFFFFFFCLL];
-          v85 = (v16 + 4 * v15);
-          v86 = v32;
+          v84 = (v16 + 4 * v15);
+          v85 = v32;
           while (1)
           {
             if (((v32 - v21) >> 2) < 1)
             {
 LABEL_138:
-              v66 = v21 - v85;
-              v21 = v85;
+              v66 = v21 - v84;
+              v21 = v84;
               v29 = v66 >> 2;
               goto LABEL_139;
             }
@@ -6319,7 +6407,7 @@ LABEL_119:
                 break;
               case 3u:
                 v35 = (v33 >> 20) & 0xF;
-                v88 = 0;
+                v87 = 0;
                 LODWORD(v30) = HIWORD(v33) & 0xF;
                 if (v35 >= 2)
                 {
@@ -6354,20 +6442,20 @@ LABEL_119:
 
                 if (v35 == 3 || (v39 = v30, !v35))
                 {
-                  *(&v87 + v30 + 7) = -9;
+                  *(&v86 + v30 + 7) = -9;
                   v39 = v30 - 1;
                 }
 
                 if (v35 > 1)
                 {
-                  v40 = &v88;
+                  v40 = &v87;
                 }
 
                 else
                 {
-                  LOBYTE(v88) = -16;
+                  LOBYTE(v87) = -16;
                   --v39;
-                  v40 = &v88 + 1;
+                  v40 = &v87 + 1;
                 }
 
                 if (v39 >= 1)
@@ -6402,7 +6490,7 @@ LABEL_119:
 
                 if (v30)
                 {
-                  if (*(&v87 + v30 + 7) == 247)
+                  if (*(&v86 + v30 + 7) == 247)
                   {
                     if (v30 >= 4)
                     {
@@ -6436,7 +6524,7 @@ LABEL_72:
                   v45 = 0;
                 }
 
-                if (v45 <= (v87 - v6) >> 2)
+                if (v45 <= (v86 - v6) >> 2)
                 {
                   v46 = 0;
                   while (v30 != 1)
@@ -6444,7 +6532,7 @@ LABEL_72:
                     if (!v30)
                     {
                       v63 = byte_20290[*v21 >> 28];
-                      v32 = v86;
+                      v32 = v85;
                       goto LABEL_126;
                     }
 
@@ -6490,7 +6578,7 @@ LABEL_98:
                       v31 = v58 | 4;
                       *v52 = v58 | 4;
                       v59 = v48;
-                      memcpy(v52 + 1, &v88 + v46, v48);
+                      memcpy(v52 + 1, &v87 + v46, v48);
                       LODWORD(v30) = 0;
                       v6 = &v52[v48 + 1];
                       if (v48 != 3)
@@ -6526,7 +6614,7 @@ LABEL_98:
                       }
 
                       *v6 = v31;
-                      v51 = &v88 + v46;
+                      v51 = &v87 + v46;
                       v6[1] = *v51;
                       v6[2] = v51[1];
                       v46 += 3;
@@ -6575,7 +6663,7 @@ LABEL_107:
                         }
 
                         *v52 = v31;
-                        v62 = *(&v88 + v46++);
+                        v62 = *(&v87 + v46++);
                         v52[1] = v62;
                         *(v52 + 1) = 0;
                         v6 = v52 + 4;
@@ -6595,19 +6683,19 @@ LABEL_107:
                   goto LABEL_95;
                 }
 
-                v68 = v21 - v85;
-                v21 = v85;
+                v68 = v21 - v84;
+                v21 = v84;
                 v29 = v68 >> 2;
 LABEL_139:
                 v5 = a5;
-                v9 = v79;
+                v9 = v78;
                 v7 = a2;
-                v14 = v83;
-                v8 = v84;
-                v19 = v87;
-                v17 = v81;
-                v16 = v82;
-                v18 = v80;
+                v14 = v82;
+                v8 = v83;
+                v19 = v86;
+                v17 = v80;
+                v16 = v81;
+                v18 = v79;
                 goto LABEL_140;
             }
 
@@ -6640,7 +6728,7 @@ LABEL_125:
             v63 = byte_20290[*v21 >> 28];
 LABEL_126:
             v21 += 4 * v63;
-            if (v6 >= v87)
+            if (v6 >= v86)
             {
               goto LABEL_138;
             }
@@ -6718,7 +6806,7 @@ LABEL_142:
       }
 
 LABEL_145:
-      sub_D228(&v88, v8 + 296, v7[1], v8);
+      sub_D228(&v87, v8 + 296, v7[1], v8);
       v70 = v69;
       for (j = v7[1]; j != v70; sub_D1B8(j))
       {
@@ -6734,24 +6822,23 @@ LABEL_9:
   }
 
   while (!v15);
-  v72 = *v7;
-  v73 = v7[1];
-  v74 = *v7;
-  if (*v7 != v73)
+  v72 = v7[1];
+  v73 = *v7;
+  if (*v7 != v72)
   {
-    while (*(v74 + 292) != v9)
+    while (*(v73 + 292) != v9)
     {
-      v74 += 296;
-      if (v74 == v73)
+      v73 += 296;
+      if (v73 == v72)
       {
         return (v6 - a3);
       }
     }
   }
 
-  if (v73 != v74)
+  if (v72 != v73)
   {
-    *(v74 + 288) += v15;
+    *(v73 + 288) += v15;
   }
 
   return (v6 - a3);
@@ -6897,12 +6984,12 @@ void sub_B0C4(uint64_t a1, unint64_t a2)
   sub_1394();
 }
 
-uint64_t sub_B11C(uint64_t result, unint64_t a2, uint64_t a3, char a4)
+uint64_t sub_B11C(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
   v8 = (a2 - 12);
-  v9 = (a2 - 24);
+  v9 = a2 - 3;
   v10 = (a2 - 36);
   v11 = v7;
   while (1)
@@ -6924,9 +7011,9 @@ LABEL_2:
           v220 = *(v11 + 8);
           v190 = *v11;
           v89 = *(a2 - 12);
-          *(v11 + 8) = *(a2 - 4);
+          *(v11 + 8) = *(a2 - 1);
           *v11 = v89;
-          *(a2 - 4) = v220;
+          *(a2 - 1) = v220;
           *(a2 - 12) = v190;
         }
 
@@ -7005,10 +7092,10 @@ LABEL_190:
 
       v160 = *(v11 + 24);
       v161 = *(v11 + 32);
-      v162 = *(a2 - 4);
+      v162 = *(a2 - 1);
       *(v11 + 24) = *v8;
       *(v11 + 32) = v162;
-      *(a2 - 4) = v161;
+      *(a2 - 1) = v161;
       *v8 = v160;
       if (*(v11 + 26) >= *(v11 + 14))
       {
@@ -7088,12 +7175,12 @@ LABEL_130:
               *(v108 + 3) = v193;
             }
 
-            v98 = v103 + 6;
+            v98 = (v103 + 12);
             v101 += 12;
             v102 = v103;
           }
 
-          while (v103 + 6 != a2);
+          while ((v103 + 12) != a2);
         }
       }
 
@@ -7112,8 +7199,8 @@ LABEL_130:
             do
             {
               v156 = v155;
-              v157 = *(v155 - 6);
-              v155 -= 6;
+              v157 = *(v155 - 12);
+              v155 = (v155 - 12);
               *v156 = v157;
               *(v156 + 2) = *(v156 - 1);
             }
@@ -7125,11 +7212,11 @@ LABEL_130:
             *(v155 + 3) = v197;
           }
 
-          v98 = v152 + 6;
+          v98 = (v152 + 12);
           v7 = v152;
         }
 
-        while (v152 + 6 != a2);
+        while ((v152 + 12) != a2);
       }
 
       return result;
@@ -7253,7 +7340,7 @@ LABEL_130:
           }
 
           while (v130 <= ((v129 - 2) >> 1));
-          a2 -= 12;
+          a2 = (a2 - 12);
           if (v133 == a2)
           {
             *(v133 + 8) = v225;
@@ -7263,9 +7350,9 @@ LABEL_130:
           else
           {
             v138 = *a2;
-            *(v133 + 8) = *(a2 + 8);
+            *(v133 + 8) = *(a2 + 2);
             *v133 = v138;
-            *(a2 + 8) = v225;
+            *(a2 + 2) = v225;
             *a2 = v195;
             v139 = v133 - v11 + 12;
             if (v139 >= 13)
@@ -7324,9 +7411,9 @@ LABEL_130:
           v203 = *(v15 + 8);
           v173 = *v15;
           v21 = *v8;
-          *(v15 + 8) = *(a2 - 4);
+          *(v15 + 8) = *(a2 - 1);
           *v15 = v21;
-          *(a2 - 4) = v203;
+          *(a2 - 1) = v203;
           *v8 = v173;
           if (*(v15 + 2) < *(v11 + 2))
           {
@@ -7348,7 +7435,7 @@ LABEL_130:
           v201 = *(v11 + 8);
           v171 = *v11;
           v18 = *v8;
-          *(v11 + 8) = *(a2 - 4);
+          *(v11 + 8) = *(a2 - 1);
           *v11 = v18;
           goto LABEL_27;
         }
@@ -7365,10 +7452,10 @@ LABEL_130:
           v201 = *(v15 + 8);
           v171 = *v15;
           v26 = *v8;
-          *(v15 + 8) = *(a2 - 4);
+          *(v15 + 8) = *(a2 - 1);
           *v15 = v26;
 LABEL_27:
-          *(a2 - 4) = v201;
+          *(a2 - 1) = v201;
           *v8 = v171;
         }
       }
@@ -7384,9 +7471,9 @@ LABEL_27:
           v208 = *(v28 + 8);
           v178 = *v28;
           v34 = *v9;
-          *(v28 + 8) = *(a2 - 16);
+          *(v28 + 8) = *(a2 - 4);
           *v28 = v34;
-          *(a2 - 16) = v208;
+          *(a2 - 4) = v208;
           *v9 = v178;
           if (*(v28 + 2) < *(v11 + 14))
           {
@@ -7407,7 +7494,7 @@ LABEL_27:
         {
           v31 = *(v11 + 12);
           v32 = *(v11 + 20);
-          v33 = *(a2 - 16);
+          v33 = *(a2 - 4);
           *(v11 + 12) = *v9;
           *(v11 + 20) = v33;
           goto LABEL_39;
@@ -7425,12 +7512,12 @@ LABEL_27:
           v210 = *(v28 + 8);
           v180 = *v28;
           v43 = *v9;
-          *(v28 + 8) = *(a2 - 16);
+          *(v28 + 8) = *(a2 - 4);
           *v28 = v43;
           v31 = v180;
           v32 = v210;
 LABEL_39:
-          *(a2 - 16) = v32;
+          *(a2 - 4) = v32;
           *v9 = v31;
         }
       }
@@ -7445,9 +7532,9 @@ LABEL_39:
           v211 = *(v44 + 20);
           v181 = *(v44 + 12);
           v50 = *v10;
-          *(v44 + 20) = *(a2 - 28);
+          *(v44 + 20) = *(a2 - 7);
           *(v44 + 12) = v50;
-          *(a2 - 28) = v211;
+          *(a2 - 7) = v211;
           *v10 = v181;
           if (*(v44 + 14) < *(v11 + 26))
           {
@@ -7468,7 +7555,7 @@ LABEL_39:
         {
           v47 = *(v11 + 24);
           v48 = *(v11 + 32);
-          v49 = *(a2 - 28);
+          v49 = *(a2 - 7);
           *(v11 + 24) = *v10;
           *(v11 + 32) = v49;
           goto LABEL_48;
@@ -7486,12 +7573,12 @@ LABEL_39:
           v212 = *(v44 + 20);
           v182 = *(v44 + 12);
           v57 = *v10;
-          *(v44 + 20) = *(a2 - 28);
+          *(v44 + 20) = *(a2 - 7);
           *(v44 + 12) = v57;
           v47 = v182;
           v48 = v212;
 LABEL_48:
-          *(a2 - 28) = v48;
+          *(a2 - 7) = v48;
           *v10 = v47;
         }
       }
@@ -7567,9 +7654,9 @@ LABEL_57:
         v205 = *(v11 + 8);
         v175 = *v11;
         v23 = *v8;
-        *(v11 + 8) = *(a2 - 4);
+        *(v11 + 8) = *(a2 - 1);
         *v11 = v23;
-        *(a2 - 4) = v205;
+        *(a2 - 1) = v205;
         *v8 = v175;
         if (*(v11 + 2) < *(v15 + 2))
         {
@@ -7591,10 +7678,10 @@ LABEL_57:
       v202 = *(v15 + 8);
       v172 = *v15;
       v20 = *v8;
-      *(v15 + 8) = *(a2 - 4);
+      *(v15 + 8) = *(a2 - 1);
       *v15 = v20;
 LABEL_36:
-      *(a2 - 4) = v202;
+      *(a2 - 1) = v202;
       *v8 = v172;
       goto LABEL_59;
     }
@@ -7611,7 +7698,7 @@ LABEL_36:
       v202 = *(v11 + 8);
       v172 = *v11;
       v39 = *v8;
-      *(v11 + 8) = *(a2 - 4);
+      *(v11 + 8) = *(a2 - 1);
       *v11 = v39;
       goto LABEL_36;
     }
@@ -7713,11 +7800,11 @@ LABEL_72:
         goto LABEL_83;
       }
 
-      v76 = sub_C3E8(v7, v11 - 12);
+      v76 = sub_C3E8(v7, (v11 - 12));
       result = sub_C3E8(v11, a2);
       if (result)
       {
-        a2 = v11 - 12;
+        a2 = (v11 - 12);
         if (!v76)
         {
           goto LABEL_2;
@@ -7841,10 +7928,10 @@ LABEL_83:
 
     v147 = *(v11 + 12);
     v148 = *(v11 + 20);
-    v149 = *(a2 - 4);
+    v149 = *(a2 - 1);
     *(v11 + 12) = *v8;
     *(v11 + 20) = v149;
-    *(a2 - 4) = v148;
+    *(a2 - 1) = v148;
     *v8 = v147;
     goto LABEL_194;
   }
@@ -7864,7 +7951,7 @@ LABEL_83:
 
     v93 = *(v11 + 12);
     v94 = *(v11 + 20);
-    v158 = *(a2 - 4);
+    v158 = *(a2 - 1);
     *(v11 + 12) = *v8;
     *(v11 + 20) = v158;
   }
@@ -7874,13 +7961,13 @@ LABEL_83:
     v221 = *(v11 + 8);
     v191 = *v11;
     v92 = *v8;
-    *(v11 + 8) = *(a2 - 4);
+    *(v11 + 8) = *(a2 - 1);
     *v11 = v92;
     v93 = v191;
     v94 = v221;
   }
 
-  *(a2 - 4) = v94;
+  *(a2 - 1) = v94;
   *v8 = v93;
   return result;
 }
@@ -8022,14 +8109,14 @@ LABEL_10:
   return result;
 }
 
-BOOL sub_C3E8(uint64_t a1, uint64_t a2)
+BOOL sub_C3E8(uint64_t a1, __int16 *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 2);
   if (v2 > 2)
   {
     if (v2 == 3)
     {
-      v6 = (a2 - 12);
+      v6 = (a2 - 6);
       v7 = *(a1 + 14);
       v8 = *(a2 - 10);
       if (v7 < *(a1 + 2))
@@ -8049,7 +8136,7 @@ BOOL sub_C3E8(uint64_t a1, uint64_t a2)
 
           v9 = *(a1 + 20);
           v10 = *(a1 + 12);
-          v36 = *(a2 - 4);
+          v36 = *(a2 - 1);
           *(a1 + 12) = *v6;
           *(a1 + 20) = v36;
         }
@@ -8058,13 +8145,13 @@ BOOL sub_C3E8(uint64_t a1, uint64_t a2)
         {
           v9 = *(a1 + 8);
           v10 = *a1;
-          v11 = *(a2 - 4);
+          v11 = *(a2 - 1);
           *a1 = *v6;
           *(a1 + 8) = v11;
         }
 
         *v6 = v10;
-        *(a2 - 4) = v9;
+        *(a2 - 1) = v9;
         return 1;
       }
 
@@ -8075,11 +8162,11 @@ BOOL sub_C3E8(uint64_t a1, uint64_t a2)
 
       v23 = *(a1 + 20);
       v24 = *(a1 + 12);
-      v25 = *(a2 - 4);
+      v25 = *(a2 - 1);
       *(a1 + 12) = *v6;
       *(a1 + 20) = v25;
       *v6 = v24;
-      *(a2 - 4) = v23;
+      *(a2 - 1) = v23;
 LABEL_50:
       if (*(a1 + 14) < *(a1 + 2))
       {
@@ -8101,7 +8188,7 @@ LABEL_50:
         goto LABEL_13;
       }
 
-      sub_C1A8(a1, (a1 + 12), (a1 + 24), (a1 + 36), (a2 - 12));
+      sub_C1A8(a1, (a1 + 12), (a1 + 24), (a1 + 36), (a2 - 6));
       return 1;
     }
 
@@ -8167,14 +8254,14 @@ LABEL_47:
       return 1;
     }
 
-    v49 = a2 - 12;
+    v49 = a2 - 6;
     v50 = *(a1 + 32);
     v51 = *(a1 + 24);
-    v52 = *(a2 - 4);
-    *(a1 + 24) = *(a2 - 12);
+    v52 = *(a2 - 1);
+    *(a1 + 24) = *(a2 - 6);
     *(a1 + 32) = v52;
     *v49 = v51;
-    *(v49 + 8) = v50;
+    *(v49 + 2) = v50;
     if (*(a1 + 26) >= *(a1 + 14))
     {
       return 1;
@@ -8200,18 +8287,18 @@ LABEL_47:
     {
       v3 = *(a1 + 8);
       v4 = *a1;
-      v5 = *(a2 - 4);
-      *a1 = *(a2 - 12);
+      v5 = *(a2 - 1);
+      *a1 = *(a2 - 6);
       *(a1 + 8) = v5;
-      *(a2 - 12) = v4;
-      *(a2 - 4) = v3;
+      *(a2 - 6) = v4;
+      *(a2 - 1) = v3;
     }
 
     return 1;
   }
 
 LABEL_13:
-  v12 = a1 + 24;
+  v12 = (a1 + 24);
   v13 = *(a1 + 14);
   v14 = *(a1 + 2);
   v15 = *(a1 + 26);
@@ -8271,8 +8358,8 @@ LABEL_13:
   }
 
 LABEL_33:
-  v39 = a1 + 36;
-  if (a1 + 36 == a2)
+  v39 = (a1 + 36);
+  if ((a1 + 36) == a2)
   {
     return 1;
   }
@@ -8314,13 +8401,13 @@ LABEL_41:
       *(v46 + 11) = v59;
       if (++v41 == 8)
       {
-        return v39 + 12 == a2;
+        return v39 + 6 == a2;
       }
     }
 
     v12 = v39;
     v40 += 12;
-    v39 += 12;
+    v39 += 6;
     if (v39 == a2)
     {
       return 1;
@@ -8331,7 +8418,7 @@ LABEL_41:
 uint64_t sub_C89C(uint64_t result, uint64_t a2, unint64_t a3, char *a4)
 {
   v4 = *(result + 8);
-  v5 = (v4 - a4);
+  v5 = v4 - a4;
   v6 = (a2 + v4 - a4);
   v7 = v4;
   while (v6 < a3)
@@ -8347,7 +8434,7 @@ uint64_t sub_C89C(uint64_t result, uint64_t a2, unint64_t a3, char *a4)
     v9 = v4 - 8;
     do
     {
-      *v9 = *&v5[a2 - 8];
+      *v9 = *(a2 - 8 + v5);
       v9 -= 8;
       v5 -= 8;
     }
@@ -8414,28 +8501,28 @@ void sub_CA14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_CA4C(uint64_t a1, uint64_t a2, double *a3)
+uint64_t sub_CA4C(double **a1, void *a2, double *a3)
 {
-  v6 = *(a2 + 8);
-  sub_CB7C(a1, a3, *(a1 + 8), *(a2 + 16));
+  v6 = a2[1];
+  sub_CB7C(a1, a3, a1[1], a2[2]);
   v7 = *a1;
-  v8 = *(a2 + 8);
-  *(a2 + 16) += *(a1 + 8) - a3;
-  *(a1 + 8) = a3;
+  v8 = a2[1];
+  a2[2] += a1[1] - a3;
+  a1[1] = a3;
   v9 = (v8 + v7 - a3);
   sub_CB7C(a1, v7, a3, v9);
-  *(a2 + 8) = v9;
+  a2[1] = v9;
   v10 = *a1;
-  *(a1 + 8) = *a1;
-  *a1 = *(a2 + 8);
-  *(a2 + 8) = v10;
-  v11 = *(a1 + 8);
-  *(a1 + 8) = *(a2 + 16);
-  *(a2 + 16) = v11;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = *(a2 + 24);
-  *(a2 + 24) = v12;
-  *a2 = *(a2 + 8);
+  a1[1] = *a1;
+  *a1 = a2[1];
+  a2[1] = v10;
+  v11 = a1[1];
+  a1[1] = a2[2];
+  a2[2] = v11;
+  v12 = a1[2];
+  a1[2] = a2[3];
+  a2[3] = v12;
+  *a2 = a2[1];
   return v6;
 }
 
@@ -8542,7 +8629,7 @@ double *sub_CC3C(double **a1, uint64_t *a2)
 
 void *sub_CD30(void *a1)
 {
-  *a1 = off_28858;
+  *a1 = &off_28858;
   v2 = a1[1];
   if (v2)
   {
@@ -8599,7 +8686,7 @@ void *sub_CDF4(void *a1)
   return a1;
 }
 
-uint64_t sub_CE58(unsigned __int8 *a1)
+uint64_t sub_CE58(char *a1)
 {
   result = sub_CED0(a1);
   if (result)
@@ -8631,7 +8718,7 @@ uint64_t sub_CE58(unsigned __int8 *a1)
   return result;
 }
 
-uint64_t sub_CED0(unsigned __int8 *a1)
+BOOL sub_CED0(unsigned __int8 *a1)
 {
   v1 = *(a1 + 2);
   if (!*(a1 + 2))
@@ -8987,9 +9074,9 @@ uint64_t sub_D61C(uint64_t a1, void *a2)
   return sub_D460((a2 + 2), a1 + 16);
 }
 
-void sub_D654(void *a1)
+void sub_D654(char *a1)
 {
-  sub_D7CC(a1 + 16);
+  sub_D7CC((a1 + 16));
 
   operator delete(a1);
 }
@@ -9073,52 +9160,54 @@ void *sub_D84C(void *a1, CFStringRef format, uint64_t a3)
 void sub_D938(uint64_t a1, uint64_t *a2)
 {
   v2 = *a2;
-  sub_60AC();
+  sub_60AC(a1, a2);
   if (v2)
   {
-    sub_60AC();
-    v3 = qword_2C128;
-    if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_DEBUG))
-    {
-      v6 = 136315394;
-      v7 = "USBMIDIDriverBase.cpp";
-      v8 = 1024;
-      v9 = 654;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ==========================================================================================================", &v6, 0x12u);
-    }
-
-    sub_60AC();
-    v4 = qword_2C128;
-    if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_DEBUG))
-    {
-      v6 = 136315650;
-      v7 = "USBMIDIDriverBase.cpp";
-      v8 = 1024;
-      v9 = 655;
-      v10 = 1024;
-      v11 = v2;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d NOTICE: USB MIDI Driver destructive tracing at level %d", &v6, 0x18u);
-    }
-
-    sub_60AC();
+    sub_60AC(v3, v4);
     v5 = qword_2C128;
+    v6 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_DEBUG);
+    if (v6)
+    {
+      v12 = 136315394;
+      v13 = "USBMIDIDriverBase.cpp";
+      v14 = 1024;
+      v15 = 654;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ==========================================================================================================", &v12, 0x12u);
+    }
+
+    sub_60AC(v6, v7);
+    v8 = qword_2C128;
+    v9 = os_log_type_enabled(qword_2C128, OS_LOG_TYPE_DEBUG);
+    if (v9)
+    {
+      v12 = 136315650;
+      v13 = "USBMIDIDriverBase.cpp";
+      v14 = 1024;
+      v15 = 655;
+      v16 = 1024;
+      v17 = v2;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d NOTICE: USB MIDI Driver destructive tracing at level %d", &v12, 0x18u);
+    }
+
+    sub_60AC(v9, v10);
+    v11 = qword_2C128;
     if (os_log_type_enabled(qword_2C128, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315394;
-      v7 = "USBMIDIDriverBase.cpp";
-      v8 = 1024;
-      v9 = 656;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ==========================================================================================================", &v6, 0x12u);
+      v12 = 136315394;
+      v13 = "USBMIDIDriverBase.cpp";
+      v14 = 1024;
+      v15 = 656;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d ==========================================================================================================", &v12, 0x12u);
     }
   }
 }
 
-void *sub_DB6C(void *a1, void *a2, void *a3, void *a4, unsigned int *a5)
+void *sub_DB6C(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, unsigned int *a5)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_28970;
-  sub_E6D8(a1 + 3, *a2, *a3, *a4, *a5);
+  sub_E6D8((a1 + 3), *a2, *a3, *a4, *a5);
   return a1;
 }
 
@@ -9171,12 +9260,12 @@ void sub_DCFC(std::__shared_weak_count *a1)
   }
 }
 
-void sub_DD68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void sub_DD68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   sub_1C224(a1, a5);
   *(v9 + 64) = 0;
   *(v9 + 72) = 0;
-  *v9 = off_289A8;
+  *v9 = &off_289A8;
   *(v9 + 80) = a2;
   *(v9 + 88) = a3;
   *(v9 + 96) = a4;
@@ -9221,7 +9310,7 @@ void sub_E2FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   sub_1298(exception_object);
 }
 
-void sub_E534(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_E534(const void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   sub_880();
   sub_16360(v5, a4);
@@ -9229,17 +9318,17 @@ void sub_E534(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   operator new();
 }
 
-void sub_E630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_E630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_1200(va);
-  sub_166CC(v6 + 8);
+  sub_166CC(v11 + 8);
   _Unwind_Resume(a1);
 }
 
-void sub_E65C()
+void sub_E65C(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2C140, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2C140, memory_order_acquire) & 1) == 0)
   {
     sub_1DC94();
   }
@@ -9261,10 +9350,10 @@ void *sub_E68C(void *a1, uint64_t *a2)
   return a1;
 }
 
-uint64_t sub_E6DC(void *a1)
+uint64_t sub_E6DC(void *a1, uint64_t a2)
 {
-  sub_E65C();
-  v2 = qword_2C138;
+  sub_E65C(a1, a2);
+  v3 = qword_2C138;
   if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
@@ -9273,53 +9362,53 @@ uint64_t sub_E6DC(void *a1)
     *&buf[14] = 136;
     *&buf[18] = 2048;
     *&buf[20] = a1;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBMIDIDevice(%p)::Initialize()", buf, 0x1Cu);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d [+] USBMIDIDevice(%p)::Initialize()", buf, 0x1Cu);
   }
 
-  v3 = (*(*a1[10] + 144))(a1[10], a1);
-  a1[12] = v3;
-  if (!v3 || (sub_3D7C(v3) & 1) == 0)
+  v4 = (*(*a1[10] + 144))(a1[10], a1);
+  a1[12] = v4;
+  if (!v4 || (v4 = sub_3D7C(v4), (v4 & 1) == 0))
   {
-    sub_E65C();
-    v25 = qword_2C138;
+    sub_E65C(v4, v5);
+    v33 = qword_2C138;
     if (!os_log_type_enabled(qword_2C138, OS_LOG_TYPE_ERROR))
     {
       return 0;
     }
 
-    v26 = a1[12];
+    v34 = a1[12];
     *&buf[4] = "USBMIDIDevice.cpp";
     *buf = 136315906;
     *&buf[12] = 1024;
-    if (v26)
+    if (v34)
     {
-      v27 = "mUSBInterface->Open() failed";
+      v35 = "mUSBInterface->Open() failed";
     }
 
     else
     {
-      v27 = "mUSBInterface = NULL";
+      v35 = "mUSBInterface = NULL";
     }
 
     *&buf[14] = 139;
     *&buf[18] = 2048;
     *&buf[20] = a1;
     *&buf[28] = 2080;
-    v73 = v27;
-    v28 = "%25s:%-5d [-] USBMIDIDevice(%p)::Initialize() - Failed: %s";
-    v29 = v25;
-    v30 = 38;
+    v86 = v35;
+    v36 = "%25s:%-5d [-] USBMIDIDevice(%p)::Initialize() - Failed: %s";
+    v37 = v33;
+    v38 = 38;
 LABEL_49:
-    _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, v28, buf, v30);
+    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_ERROR, v36, buf, v38);
     return 0;
   }
 
-  v4 = sub_3A64(a1[12]);
-  a1[13] = v4;
-  if (!v4)
+  v6 = sub_3A64(a1[12]);
+  a1[13] = v6;
+  if (!v6)
   {
-    sub_E65C();
-    v33 = qword_2C138;
+    sub_E65C(0, v7);
+    v41 = qword_2C138;
     if (!os_log_type_enabled(qword_2C138, OS_LOG_TYPE_ERROR))
     {
       return 0;
@@ -9331,158 +9420,161 @@ LABEL_49:
     *&buf[14] = 144;
     *&buf[18] = 2048;
     *&buf[20] = a1;
-    v28 = "%25s:%-5d [-] USBMIDIDevice(%p)::Initialize() - Failed: GetPluginInterface() failed";
-    v29 = v33;
-    v30 = 28;
+    v36 = "%25s:%-5d [-] USBMIDIDevice(%p)::Initialize() - Failed: GetPluginInterface() failed";
+    v37 = v41;
+    v38 = 28;
     goto LABEL_49;
   }
 
   *(a1 + 185) = 0;
-  v5 = sub_F498(a1);
-  *(a1 + 189) = v5;
-  if (v5)
+  v8 = sub_F498(a1);
+  *(a1 + 189) = v8;
+  if (v8)
   {
-    sub_E65C();
-    v6 = qword_2C138;
+    sub_E65C(v8, v9);
+    v10 = qword_2C138;
     if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       *&buf[4] = "USBMIDIDevice.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 152;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "%25s:%-5d      phantom entity detected and will be excluded from portmap list", buf, 0x12u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d      phantom entity detected and will be excluded from portmap list", buf, 0x12u);
     }
   }
 
   (*(*a1 + 120))(a1, *(a1 + 491));
   (*(*a1 + 56))(a1);
-  if (((*(*a1 + 112))(a1) & 1) != 0 || (*(*a1 + 104))(a1))
+  v11 = (*(*a1 + 112))(a1);
+  if ((v11 & 1) != 0 || (v11 = (*(*a1 + 104))(a1), v11))
   {
     if (*(a1[10] + 28) == 3)
     {
-      sub_E65C();
-      v7 = qword_2C138;
+      sub_E65C(v11, v12);
+      v13 = qword_2C138;
       if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
         *&buf[4] = "USBMIDIDevice.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 159;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d      Using USB MIDI Driver v3.", buf, 0x12u);
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d      Using USB MIDI Driver v3.", buf, 0x12u);
       }
     }
 
-    (*(*a1 + 32))(a1);
+    v14 = (*(*a1 + 32))(a1);
     if (a1[17] != a1[18])
     {
-      sub_16C5C(v69, a1 + 8);
-      v8 = *&v69[8];
-      *buf = *v69;
-      *&buf[8] = *&v69[8];
-      if (*&v69[8])
+      sub_16C5C(v82, a1 + 8);
+      v16 = *&v82[8];
+      *buf = *v82;
+      *&buf[8] = *&v82[8];
+      if (*&v82[8])
       {
-        atomic_fetch_add_explicit((*&v69[8] + 16), 1uLL, memory_order_relaxed);
-        sub_DCFC(v8);
+        atomic_fetch_add_explicit((*&v82[8] + 16), 1uLL, memory_order_relaxed);
+        sub_DCFC(v16);
       }
 
-      v67 = a1;
+      v80 = a1;
       sub_16CEC();
     }
 
     if (a1[20] != a1[21])
     {
-      sub_16C5C(v69, a1 + 8);
-      v9 = *&v69[8];
-      *buf = *v69;
-      *&buf[8] = *&v69[8];
-      if (*&v69[8])
+      sub_16C5C(v82, a1 + 8);
+      v17 = *&v82[8];
+      *buf = *v82;
+      *&buf[8] = *&v82[8];
+      if (*&v82[8])
       {
-        atomic_fetch_add_explicit((*&v69[8] + 16), 1uLL, memory_order_relaxed);
-        sub_DCFC(v9);
+        atomic_fetch_add_explicit((*&v82[8] + 16), 1uLL, memory_order_relaxed);
+        sub_DCFC(v17);
       }
 
-      v67 = a1;
+      v80 = a1;
       sub_16CEC();
     }
 
-    v10 = a1[17];
-    for (i = a1[18]; v10 != i; v10 += 8)
+    v18 = a1[17];
+    for (i = a1[18]; v18 != i; v18 += 8)
     {
-      sub_E65C();
-      v12 = qword_2C138;
-      if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
+      sub_E65C(v14, v15);
+      v20 = qword_2C138;
+      v14 = os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO);
+      if (v14)
       {
-        if (v10[1])
+        if (v18[1])
         {
-          v13 = *v10 | 0x80;
+          v21 = *v18 | 0x80;
         }
 
         else
         {
-          v13 = *v10;
+          v21 = *v18;
         }
 
-        v14 = v10[6];
+        v22 = v18[6];
         *buf = 136315906;
         *&buf[4] = "USBMIDIDevice.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 184;
         *&buf[18] = 1024;
-        *&buf[20] = v13;
+        *&buf[20] = v21;
         *&buf[24] = 1024;
-        *&buf[26] = v14;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%25s:%-5d      Configuring USB In Endpoint: 0x%0x, pipeIndex:%d", buf, 0x1Eu);
+        *&buf[26] = v22;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%25s:%-5d      Configuring USB In Endpoint: 0x%0x, pipeIndex:%d", buf, 0x1Eu);
       }
     }
 
-    v15 = a1[20];
-    for (j = a1[21]; v15 != j; v15 += 8)
+    v23 = a1[20];
+    for (j = a1[21]; v23 != j; v23 += 8)
     {
-      sub_E65C();
-      v17 = qword_2C138;
-      if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
+      sub_E65C(v14, v15);
+      v25 = qword_2C138;
+      v14 = os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO);
+      if (v14)
       {
-        if (v15[1])
+        if (v23[1])
         {
-          v18 = *v15 | 0x80;
+          v26 = *v23 | 0x80;
         }
 
         else
         {
-          v18 = *v15;
+          v26 = *v23;
         }
 
-        v19 = v15[6];
+        v27 = v23[6];
         *buf = 136315906;
         *&buf[4] = "USBMIDIDevice.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 187;
         *&buf[18] = 1024;
-        *&buf[20] = v18;
+        *&buf[20] = v26;
         *&buf[24] = 1024;
-        *&buf[26] = v19;
-        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d      Configuring USB Out Endpoint: 0x%0x, pipeIndex:%d", buf, 0x1Eu);
+        *&buf[26] = v27;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "%25s:%-5d      Configuring USB Out Endpoint: 0x%0x, pipeIndex:%d", buf, 0x1Eu);
       }
     }
 
-    v20 = a1[17];
-    v21 = a1[18];
-    if (v20 == v21)
+    v28 = a1[17];
+    v29 = a1[18];
+    if (v28 == v29)
     {
-      v23 = 0;
+      v31 = 0;
     }
 
     else
     {
-      v22 = v20 + 8;
+      v30 = v28 + 8;
       do
       {
-        v23 = *(v22 - 1) == 255;
-        v24 = *(v22 - 1) == 255 || v22 == v21;
-        v22 += 8;
+        v31 = *(v30 - 1) == 255;
+        v32 = *(v30 - 1) == 255 || v30 == v29;
+        v30 += 8;
       }
 
-      while (!v24);
+      while (!v32);
     }
 
     for (k = a1[20]; k != a1[21]; k += 8)
@@ -9493,215 +9585,218 @@ LABEL_49:
       }
     }
 
-    if (!v23)
+    if (!v31)
     {
       goto LABEL_99;
     }
 
 LABEL_60:
-    sub_E65C();
-    v35 = qword_2C138;
+    sub_E65C(v14, v15);
+    v43 = qword_2C138;
     if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       *&buf[4] = "USBMIDIDevice.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 191;
-      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "%25s:%-5d      MIDI-CI negotiation is necessary to determine initial protocol(s).", buf, 0x12u);
+      _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "%25s:%-5d      MIDI-CI negotiation is necessary to determine initial protocol(s).", buf, 0x12u);
     }
 
     *(a1 + 188) = 1;
     memset(buf, 0, 24);
-    sub_15BAC(buf, a1[20], a1[21], (a1[21] - a1[20]) >> 3);
-    v36 = *buf;
+    v44 = sub_15BAC(buf, a1[20], a1[21], (a1[21] - a1[20]) >> 3);
+    v46 = *buf;
     if (*buf != *&buf[8])
     {
-      while (v36[7] == 255)
+      while (v46[7] == 255)
       {
-        v36 += 8;
-        if (v36 == *&buf[8])
+        v46 += 8;
+        if (v46 == *&buf[8])
         {
           goto LABEL_72;
         }
       }
     }
 
-    if (v36 != *&buf[8])
+    if (v46 != *&buf[8])
     {
-      sub_E65C();
-      v37 = qword_2C138;
-      if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
+      sub_E65C(v44, v45);
+      v47 = qword_2C138;
+      v44 = os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO);
+      if (v44)
       {
-        *v69 = 136315394;
-        *&v69[4] = "USBMIDIDevice.cpp";
-        *&v69[12] = 1024;
-        *&v69[14] = 197;
-        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "%25s:%-5d      Culling endpoints with known protocols.", v69, 0x12u);
+        *v82 = 136315394;
+        *&v82[4] = "USBMIDIDevice.cpp";
+        *&v82[12] = 1024;
+        *&v82[14] = 197;
+        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "%25s:%-5d      Culling endpoints with known protocols.", v82, 0x12u);
       }
 
-      if (v36 + 8 != *&buf[8])
+      v45 = v46 + 8;
+      if (v46 + 8 != *&buf[8])
       {
-        v38 = ((*&buf[8] - v36) & 0xFFFFFFFFFFFFFFF8) - 8;
-        memmove(v36, v36 + 8, v38);
-        v36 += v38;
+        v48 = ((*&buf[8] - v46) & 0xFFFFFFFFFFFFFFF8) - 8;
+        v44 = memmove(v46, v45, v48);
+        v46 += v48;
       }
 
-      *&buf[8] = v36;
+      *&buf[8] = v46;
     }
 
 LABEL_72:
-    sub_E65C();
-    v39 = qword_2C138;
-    if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
+    sub_E65C(v44, v45);
+    v49 = qword_2C138;
+    v14 = os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO);
+    if (v14)
     {
-      *v69 = 136315650;
-      *&v69[4] = "USBMIDIDevice.cpp";
-      *&v69[12] = 1024;
-      *&v69[14] = 202;
-      v70 = 1024;
-      v71 = (*&buf[8] - *buf) >> 3;
-      _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "%25s:%-5d      Negotiating protocol for %u endpoint(s)...", v69, 0x18u);
+      *v82 = 136315650;
+      *&v82[4] = "USBMIDIDevice.cpp";
+      *&v82[12] = 1024;
+      *&v82[14] = 202;
+      v83 = 1024;
+      v84 = (*&buf[8] - *buf) >> 3;
+      _os_log_impl(&dword_0, v49, OS_LOG_TYPE_INFO, "%25s:%-5d      Negotiating protocol for %u endpoint(s)...", v82, 0x18u);
     }
 
-    v40 = *buf;
+    v50 = *buf;
     if (*buf != *&buf[8])
     {
       do
       {
-        v41 = a1[24];
-        v42 = a1[25];
-        if (v41 != v42)
+        v51 = a1[24];
+        v52 = a1[25];
+        if (v51 != v52)
         {
-          if (v40[1])
+          if (v50[1])
           {
-            v43 = *v40 | 0x80;
+            v53 = *v50 | 0x80;
           }
 
           else
           {
-            v43 = *v40;
+            v53 = *v50;
           }
 
-          while (*(v41 + 3) != v43)
+          while (*(v51 + 3) != v53)
           {
-            v41 += 8;
-            if (v41 == v42)
+            v51 += 8;
+            if (v51 == v52)
             {
               goto LABEL_84;
             }
           }
         }
 
-        if (v41 == v42)
+        if (v51 == v52)
         {
 LABEL_84:
-          v44 = 0;
+          v54 = 0;
         }
 
         else
         {
-          v44 = *(v41 + 2);
+          v54 = *(v51 + 2);
         }
 
-        v45 = a1[17];
-        v46 = a1[18];
-        if (v45 != v46)
+        v55 = a1[17];
+        v56 = a1[18];
+        if (v55 != v56)
         {
           while (1)
           {
-            v47 = v45[1] ? *v45 | 0x80 : *v45;
-            if (v44 == v47)
+            v57 = *(v55 + 1) ? *v55 | 0x80 : *v55;
+            if (v54 == v57)
             {
               break;
             }
 
-            v45 += 8;
-            if (v45 == v46)
+            v55 += 8;
+            if (v55 == v56)
             {
               goto LABEL_95;
             }
           }
         }
 
-        if (v45 != v46)
+        if (v55 != v56)
         {
-          v68 = *v45;
-          if ((~v68 & 0xFF000000000000) != 0)
+          v81 = *v55;
+          if ((~v81 & 0xFF000000000000) != 0)
           {
-            sub_16C5C(&v67, a1 + 8);
+            sub_16C5C(&v80, a1 + 8);
             sub_17084();
           }
         }
 
 LABEL_95:
-        v40 += 8;
+        v50 += 8;
       }
 
-      while (v40 != *&buf[8]);
-      v40 = *buf;
+      while (v50 != *&buf[8]);
+      v50 = *buf;
     }
 
-    if (v40)
+    if (v50)
     {
-      *&buf[8] = v40;
-      operator delete(v40);
+      *&buf[8] = v50;
+      operator delete(v50);
     }
 
 LABEL_99:
-    sub_E65C();
-    v48 = qword_2C138;
+    sub_E65C(v14, v15);
+    v58 = qword_2C138;
     if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
     {
-      v49 = (a1[18] - a1[17]) >> 3;
+      v59 = (a1[18] - a1[17]) >> 3;
       *buf = 136315650;
       *&buf[4] = "USBMIDIDevice.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 213;
       *&buf[18] = 1024;
-      *&buf[20] = v49;
-      _os_log_impl(&dword_0, v48, OS_LOG_TYPE_INFO, "%25s:%-5d      Priming %d input pipe(s)", buf, 0x18u);
+      *&buf[20] = v59;
+      _os_log_impl(&dword_0, v58, OS_LOG_TYPE_INFO, "%25s:%-5d      Priming %d input pipe(s)", buf, 0x18u);
     }
 
     if (a1[18] != a1[17])
     {
-      v50 = 0;
+      v60 = 0;
       do
       {
-        v51 = 0;
-        v52 = 1;
+        v61 = 0;
+        v62 = 1;
         do
         {
-          v53 = v52;
-          v54 = v51 | (2 * v50);
-          v55 = a1[34];
-          if (v54 >= (a1[35] - v55) >> 4)
+          v63 = v62;
+          v64 = v61 | (2 * v60);
+          v65 = a1[34];
+          if (v64 >= (a1[35] - v65) >> 4)
           {
             sub_CB94();
           }
 
-          v56 = a1[17];
-          if (v50 >= (a1[18] - v56) >> 3)
+          v66 = a1[17];
+          if (v60 >= (a1[18] - v66) >> 3)
           {
             sub_CB94();
           }
 
-          *(*(v55 + 16 * v54) + 64) = *(v56 + 8 * v50 + 6);
+          *(*(v65 + 16 * v64) + 64) = *(v66 + 8 * v60 + 6);
           (*(*a1 + 64))(a1);
-          v52 = 0;
-          v51 = 1;
+          v62 = 0;
+          v61 = 1;
         }
 
-        while ((v53 & 1) != 0);
-        ++v50;
+        while ((v63 & 1) != 0);
+        ++v60;
       }
 
-      while (v50 < (a1[18] - a1[17]) >> 3);
+      while (v60 < (a1[18] - a1[17]) >> 3);
     }
 
-    (*(*a1[10] + 152))(a1[10], a1);
-    v57 = a1[14];
-    v58 = a1[15];
-    if (v57 == v58)
+    v67 = (*(*a1[10] + 152))(a1[10], a1);
+    v69 = a1[14];
+    v70 = a1[15];
+    if (v69 == v70)
     {
       goto LABEL_125;
     }
@@ -9710,14 +9805,14 @@ LABEL_99:
     {
       if ((*(a1 + 492) & 1) != 0 || *(a1 + 493) == 1)
       {
-        sub_E65C();
-        v59 = qword_2C138;
+        sub_E65C(v67, v68);
+        v71 = qword_2C138;
         if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
         {
-          v60 = "forcemidi1upfallback";
+          v72 = "forcemidi1upfallback";
           if (*(a1 + 492))
           {
-            v60 = "forcemidi1fallback";
+            v72 = "forcemidi1fallback";
           }
 
           *buf = 136315650;
@@ -9725,63 +9820,63 @@ LABEL_99:
           *&buf[12] = 1024;
           *&buf[14] = 226;
           *&buf[18] = 2080;
-          *&buf[20] = v60;
-          _os_log_impl(&dword_0, v59, OS_LOG_TYPE_INFO, "%25s:%-5d [AQAMIDI] %s is set in defaults, so negotiation will be skipped.", buf, 0x1Cu);
+          *&buf[20] = v72;
+          _os_log_impl(&dword_0, v71, OS_LOG_TYPE_INFO, "%25s:%-5d [AQAMIDI] %s is set in defaults, so negotiation will be skipped.", buf, 0x1Cu);
         }
 
-        v61 = *v57;
-        if (*(*v57 + 41))
+        v73 = *v69;
+        if (*(*v69 + 41))
         {
-          v62 = *(*v57 + 40) | 0x80;
+          v74 = *(*v69 + 40) | 0x80;
         }
 
         else
         {
-          v62 = *(*v57 + 40);
+          v74 = *(*v69 + 40);
         }
 
-        v63 = *(v61 + 49);
-        v64 = *(v61 + 48);
-        if (v63)
+        v75 = *(v73 + 49);
+        v76 = *(v73 + 48);
+        if (v75)
         {
-          v64 |= 0x80u;
+          v76 |= 0x80u;
         }
 
-        sub_F728(a1, v62, v64, 255);
+        sub_F728(a1, v74, v76, 255);
       }
 
       else
       {
-        sub_19078(*v57);
+        sub_19078(*v69, v68);
       }
 
-      v57 += 2;
+      v69 += 2;
     }
 
-    while (v57 != v58);
+    while (v69 != v70);
     if (a1[14] == a1[15])
     {
 LABEL_125:
-      v31 = (*(*a1 + 48))(a1);
-      sub_E65C();
-      v65 = qword_2C138;
+      v39 = (*(*a1 + 48))(a1);
+      sub_E65C(v39, v77);
+      v78 = qword_2C138;
       if (os_log_type_enabled(qword_2C138, OS_LOG_TYPE_INFO))
       {
-        v66 = "false";
+        v79 = "false";
         *&buf[4] = "USBMIDIDevice.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 236;
         *buf = 136315906;
-        if (v31)
+        if (v39)
         {
-          v66 = "true";
+          v79 = "true";
         }
 
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2080;
-        v73 = v66;
-        _os_log_impl(&dword_0, v65, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDevice(%p)::Initialize() = %s", buf, 0x26u);
+        v86 = v79;
+        _os_log_impl(&dword_0, v78, OS_LOG_TYPE_INFO, "%25s:%-5d [-] USBMIDIDevice(%p)::Initialize() = %s", buf, 0x26u);
       }
     }
 
@@ -9797,5 +9892,5 @@ LABEL_125:
     return buf[0];
   }
 
-  return v31;
+  return v39;
 }

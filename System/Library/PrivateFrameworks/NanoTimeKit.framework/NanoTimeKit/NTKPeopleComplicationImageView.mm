@@ -248,7 +248,7 @@ LABEL_5:
   }
 
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  v14 = NTKInterpolateBetweenColors();
+  v14 = NTKInterpolateBetweenColors(fraction);
   cGColor = [v14 CGColor];
   layer4 = [(UIView *)self->_ringView layer];
   [layer4 setBorderColor:cGColor];

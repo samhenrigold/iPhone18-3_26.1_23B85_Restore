@@ -23,7 +23,7 @@
 
 - (void)_enumerateWithXPCConnection:(id)connection block:(id)block
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   blockCopy = block;
   bundleIdentifier = [(_LSApplicationIsInstalledQuery *)self bundleIdentifier];
@@ -36,26 +36,26 @@
     goto LABEL_17;
   }
 
-  v29 = 0;
+  v28 = 0;
+  v25 = 0;
   v26 = 0;
   v27 = 0;
-  v28 = 0;
   v9 = +[_LSDServiceDomain defaultServiceDomain];
-  v10 = LaunchServices::Database::Context::_get(&v26, v9, 0);
+  v10 = LaunchServices::Database::Context::_get(&v25, v9, 0);
 
   if (v10)
   {
-    v25 = 0;
     v24 = 0;
+    v23 = 0;
     bundleIdentifier2 = [(_LSApplicationIsInstalledQuery *)self bundleIdentifier];
-    v30 = kLSVersionNumberNull;
-    v31 = unk_1817E90C0;
-    if (_LSBundleFindWithInfo(v10, 0, bundleIdentifier2, 0, &v30, 2, 0, &v25, &v24))
+    v29 = kLSVersionNumberNull;
+    v30 = unk_1817E90C0;
+    if (_LSBundleFindWithInfo(v10, 0, bundleIdentifier2, 0, &v29, 2, 0, &v24, &v23))
     {
       bundleIdentifier3 = [(_LSApplicationIsInstalledQuery *)self bundleIdentifier];
-      v30 = kLSVersionNumberNull;
-      v31 = unk_1817E90C0;
-      v13 = _LSBundleFindWithInfo(v10, 0, bundleIdentifier3, 0, &v30, 2, 1024, &v25, &v24) == 0;
+      v29 = kLSVersionNumberNull;
+      v30 = unk_1817E90C0;
+      v13 = _LSBundleFindWithInfo(v10, 0, bundleIdentifier3, 0, &v29, 2, 1024, &v24, &v23) == 0;
 
       if (!v13)
       {
@@ -68,7 +68,7 @@
     }
 
     v18 = [_LSQueryResultWithPropertyList alloc];
-    v19 = [MEMORY[0x1E696AD98] numberWithBool:v24 != 0];
+    v19 = [MEMORY[0x1E696AD98] numberWithBool:v23 != 0];
     v20 = [(_LSQueryResultWithPropertyList *)v18 initWithPropertyList:v19];
 
     (blockCopy)[2](blockCopy, v20, 0);
@@ -77,7 +77,7 @@
   else
   {
     v15 = +[_LSDServiceDomain defaultServiceDomain];
-    v16 = LaunchServices::Database::Context::_get(&v26, v15, 0);
+    v16 = LaunchServices::Database::Context::_get(&v25, v15, 0);
 
     if (v16)
     {
@@ -86,28 +86,27 @@
 
     else
     {
-      v17 = v29;
+      v17 = v28;
     }
 
     blockCopy[2](blockCopy, 0, v17);
   }
 
 LABEL_13:
-  if (v26 && v28 == 1)
+  if (v25 && v27 == 1)
   {
-    _LSContextDestroy(v26);
+    _LSContextDestroy(v25);
   }
 
-  v21 = v27;
+  v21 = v26;
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
 
+  v27 = 0;
+  v22 = v28;
   v28 = 0;
-  v22 = v29;
-  v29 = 0;
 
 LABEL_17:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder

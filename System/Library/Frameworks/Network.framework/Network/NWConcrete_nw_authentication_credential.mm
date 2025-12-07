@@ -54,7 +54,7 @@
   v3 = __nwlog_obj();
   *buf = 136446210;
   v15 = "[NWConcrete_nw_authentication_credential initWithType:]";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v11 = 0;

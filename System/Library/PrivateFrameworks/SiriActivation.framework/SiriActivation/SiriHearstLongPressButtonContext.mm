@@ -40,12 +40,11 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   contextOverride = [(SiriContext *)self contextOverride];
-  isTemporaryDevice = self->_isTemporaryDevice;
-  v6 = NSStringFromBOOL();
+  v5 = NSStringFromBOOL();
   speechRequestOptions = [(SiriContext *)self speechRequestOptions];
-  v8 = [v3 stringWithFormat:@"<SiriHearstLongPressButtonContext contextOverride:%@ isTemporaryDevice:%@ speechRequestOptions:%@>", contextOverride, v6, speechRequestOptions];
+  v7 = [v3 stringWithFormat:@"<SiriHearstLongPressButtonContext contextOverride:%@ isTemporaryDevice:%@ speechRequestOptions:%@>", contextOverride, v5, speechRequestOptions];
 
-  return v8;
+  return v7;
 }
 
 - (SiriHearstLongPressButtonContext)initWithCoder:(id)coder

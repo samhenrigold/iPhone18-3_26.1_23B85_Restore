@@ -362,7 +362,7 @@ LABEL_26:
 + (Class)classForTimeSpan:(unint64_t)span withError:(id *)error
 {
   v5 = 0;
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   if (span > 1)
   {
     switch(span)
@@ -385,9 +385,9 @@ LABEL_26:
         if (error)
         {
           v6 = MEMORY[0x1E696ABC0];
-          v32 = *MEMORY[0x1E696A588];
-          v33 = @"WAErrorCodeInvalidInput";
-          v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+          v31 = *MEMORY[0x1E696A588];
+          v32 = @"WAErrorCodeInvalidInput";
+          v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
           *error = [v6 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v7];
         }
 
@@ -416,9 +416,9 @@ LABEL_26:
     if (error)
     {
       v12 = MEMORY[0x1E696ABC0];
-      v36 = *MEMORY[0x1E696A588];
-      v37[0] = @"WAErrorCodeInvalidInput";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x1E696A588];
+      v36[0] = @"WAErrorCodeInvalidInput";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       *error = [v12 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v13];
     }
 
@@ -433,9 +433,9 @@ LABEL_26:
   if (error)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A588];
-    v35 = @"WAErrorCodeInvalidInput";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33 = *MEMORY[0x1E696A588];
+    v34 = @"WAErrorCodeInvalidInput";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     *error = [v10 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v11];
   }
 
@@ -458,8 +458,8 @@ LABEL_25:
 LABEL_26:
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v17 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v16 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446722;
       *&buf[4] = "+[UsageHelper classForTimeSpan:withError:]";
@@ -467,7 +467,7 @@ LABEL_26:
       *&buf[14] = 267;
       *&buf[18] = 2112;
       *&buf[20] = v5;
-      _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_FAULT, "%{public}s::%d:class %@ is not a Usage Entity", buf, 0x1Cu);
+      _os_log_impl(&dword_1C8460000, v16, OS_LOG_TYPE_FAULT, "%{public}s::%d:class %@ is not a Usage Entity", buf, 0x1Cu);
     }
 
     if (!error)
@@ -475,19 +475,19 @@ LABEL_26:
       goto LABEL_46;
     }
 
-    v18 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A588];
-    v30 = @"WAErrorCodeStore_Fault";
-    v19 = MEMORY[0x1E695DF20];
-    v20 = &v30;
-    v21 = &v29;
+    v17 = MEMORY[0x1E696ABC0];
+    v28 = *MEMORY[0x1E696A588];
+    v29 = @"WAErrorCodeStore_Fault";
+    v18 = MEMORY[0x1E695DF20];
+    v19 = &v29;
+    v20 = &v28;
     goto LABEL_45;
   }
 
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v22 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v21 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446722;
       *&buf[4] = "+[UsageHelper classForTimeSpan:withError:]";
@@ -495,7 +495,7 @@ LABEL_26:
       *&buf[14] = 268;
       *&buf[18] = 2112;
       *&buf[20] = v5;
-      _os_log_impl(&dword_1C8460000, v22, OS_LOG_TYPE_FAULT, "%{public}s::%d:class %@ is not an Entity", buf, 0x1Cu);
+      _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_FAULT, "%{public}s::%d:class %@ is not an Entity", buf, 0x1Cu);
     }
 
     if (!error)
@@ -503,12 +503,12 @@ LABEL_26:
       goto LABEL_46;
     }
 
-    v18 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A588];
-    v28 = @"WAErrorCodeStore_Fault";
-    v19 = MEMORY[0x1E695DF20];
-    v20 = &v28;
-    v21 = &v27;
+    v17 = MEMORY[0x1E696ABC0];
+    v26 = *MEMORY[0x1E696A588];
+    v27 = @"WAErrorCodeStore_Fault";
+    v18 = MEMORY[0x1E695DF20];
+    v19 = &v27;
+    v20 = &v26;
     goto LABEL_45;
   }
 
@@ -518,8 +518,8 @@ LABEL_26:
     goto LABEL_30;
   }
 
-  v23 = WALogCategoryDeviceStoreHandle();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+  v22 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
   {
     *buf = 136446722;
     *&buf[4] = "+[UsageHelper classForTimeSpan:withError:]";
@@ -527,37 +527,92 @@ LABEL_26:
     *&buf[14] = 269;
     *&buf[18] = 2112;
     *&buf[20] = v5;
-    _os_log_impl(&dword_1C8460000, v23, OS_LOG_TYPE_FAULT, "%{public}s::%d:class %@ is not a Usage Entity", buf, 0x1Cu);
+    _os_log_impl(&dword_1C8460000, v22, OS_LOG_TYPE_FAULT, "%{public}s::%d:class %@ is not a Usage Entity", buf, 0x1Cu);
   }
 
   if (error)
   {
-    v18 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A588];
-    v26 = @"WAErrorCodeStore_Fault";
-    v19 = MEMORY[0x1E695DF20];
-    v20 = &v26;
-    v21 = &v25;
+    v17 = MEMORY[0x1E696ABC0];
+    v24 = *MEMORY[0x1E696A588];
+    v25 = @"WAErrorCodeStore_Fault";
+    v18 = MEMORY[0x1E695DF20];
+    v19 = &v25;
+    v20 = &v24;
 LABEL_45:
-    v24 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:{1, v25, v26, v27, v28, v29, v30, *buf, *&buf[16]}];
-    *error = [v18 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9043 userInfo:v24];
+    v23 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:{1, v24, v25, v26, v27, v28, v29, *buf, *&buf[8]}];
+    *error = [v17 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9043 userInfo:v23];
   }
 
 LABEL_46:
   v14 = 0;
 LABEL_30:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)availableDimensionsFor:(unint64_t)for withError:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = [self classForTimeSpan:for withError:?];
   if (v5)
   {
     v6 = +[WAPersistentContainer dimensionsForUsageEntity:](WAPersistentContainer, "dimensionsForUsageEntity:", [v5 performSelector:sel_entity]);
+  }
+
+  else
+  {
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      if (error)
+      {
+        v9 = *error;
+      }
+
+      else
+      {
+        v9 = @"no error provided";
+      }
+
+      v10 = 136446722;
+      v11 = "+[UsageHelper availableDimensionsFor:withError:]";
+      v12 = 1024;
+      v13 = 280;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:failed: %@", &v10, 0x1Cu);
+    }
+
+    v6 = 0;
+  }
+
+  return v6;
+}
+
++ (id)aggregateNameFor:(unint64_t)for withError:(id *)error
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v5 = [self classForTimeSpan:for withError:?];
+  if (v5)
+  {
+    v6 = v5;
+    if (objc_opt_respondsToSelector())
+    {
+      v7 = [(__CFString *)v6 performSelector:sel_aggregateName];
+      goto LABEL_4;
+    }
+
+    v11 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      v12 = 136446722;
+      v13 = "+[UsageHelper aggregateNameFor:withError:]";
+      v14 = 1024;
+      v15 = 292;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_FAULT, "%{public}s::%d:Class %@ does not implement aggregateName", &v12, 0x1Cu);
+    }
   }
 
   else
@@ -575,77 +630,18 @@ LABEL_30:
         v10 = @"no error provided";
       }
 
-      v11 = 136446722;
-      v12 = "+[UsageHelper availableDimensionsFor:withError:]";
-      v13 = 1024;
-      v14 = 280;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:failed: %@", &v11, 0x1Cu);
-    }
-
-    v6 = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-+ (id)aggregateNameFor:(unint64_t)for withError:(id *)error
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v5 = [self classForTimeSpan:for withError:?];
-  if (v5)
-  {
-    v6 = v5;
-    if (objc_opt_respondsToSelector())
-    {
-      v7 = [(__CFString *)v6 performSelector:sel_aggregateName];
-      goto LABEL_4;
-    }
-
-    v12 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-    {
-      v13 = 136446722;
-      v14 = "+[UsageHelper aggregateNameFor:withError:]";
-      v15 = 1024;
-      v16 = 292;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_FAULT, "%{public}s::%d:Class %@ does not implement aggregateName", &v13, 0x1Cu);
-    }
-  }
-
-  else
-  {
-    v10 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      if (error)
-      {
-        v11 = *error;
-      }
-
-      else
-      {
-        v11 = @"no error provided";
-      }
-
-      v13 = 136446722;
-      v14 = "+[UsageHelper aggregateNameFor:withError:]";
-      v15 = 1024;
-      v16 = 291;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:failed: %@", &v13, 0x1Cu);
+      v12 = 136446722;
+      v13 = "+[UsageHelper aggregateNameFor:withError:]";
+      v14 = 1024;
+      v15 = 291;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:failed: %@", &v12, 0x1Cu);
     }
   }
 
   v7 = 0;
 LABEL_4:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

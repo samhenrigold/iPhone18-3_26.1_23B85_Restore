@@ -26,10 +26,6 @@
 - (int)_allocateTextures;
 - (int)_compileShaders;
 - (int)processBuffer:(__CVBuffer *)buffer outputPixelBuffer:(__CVBuffer *)pixelBuffer;
-- (uint64_t)_allocateTextures;
-- (uint64_t)_compileShaders;
-- (uint64_t)_initializeMetal;
-- (uint64_t)_updateDeskEdgeDetectionDataInOutputSpace;
 - (unsigned)exifOrientation;
 - (void)_filterDeskEdgeDetectorEndPoints:(DeskCamRenderingSession *)self :(SEL)a2;
 - (void)_initializeControls;
@@ -558,8 +554,8 @@ LABEL_14:
 - (CGRect)_framingSpaceRectangleLandscapeLeft
 {
   v3 = *&self->_anon_d0[3];
-  width = v3.f32[0];
-  height = v3.f32[1];
+  width = *v3.i32;
+  height = *&v3.i32[1];
   y = 0.0;
   if (self->_isFrontFacingCamera || self->_deviceType != 1)
   {
@@ -583,18 +579,18 @@ LABEL_14:
     v18.f32[0] = v8.f32[0] + v7;
     v19 = vminnm_f32(vmaxnm_f32(v18, 0), v3);
     v20 = vsub_f32(v19, v8);
-    v19.i32[0] = fminf(fmaxf(v8.f32[0] - v7, 0.0), v3.f32[0]);
+    v19.i32[0] = fminf(fmaxf(v8.f32[0] - v7, 0.0), *v3.i32);
     v21 = vsub_f32(v19, v8);
     v22 = v9 * vaddv_f32(vmul_f32(v21, v21));
     LODWORD(v23) = vmla_n_f32(v8, v21, 1.0 / (((v10 + ((v11 + ((v12 + ((v13 + ((v14 + ((v15 + ((v16 + (v17 * v22)) * v22)) * v22)) * v22)) * v22)) * v22)) * v22)) * 0.01) + 1.0)).u32[0];
     v21.f32[0] = v9 * vaddv_f32(vmul_f32(v20, v20));
     LODWORD(v24) = vmla_n_f32(v8, v20, 1.0 / (((v10 + ((v11 + ((v12 + ((v13 + ((v14 + ((v15 + ((v16 + (v17 * v21.f32[0])) * v21.f32[0])) * v21.f32[0])) * v21.f32[0])) * v21.f32[0])) * v21.f32[0])) * v21.f32[0])) * 0.01) + 1.0)).u32[0];
-    v20.f32[0] = fminf(fmaxf(v23, 0.0), v3.f32[0]);
-    v21.f32[0] = fminf(fmaxf(v24, 0.0), v3.f32[0]);
-    v25.f32[0] = fminf(fmaxf(v8.f32[0], 0.0), v3.f32[0]);
-    v26 = vsub_f32(__PAIR64__(COERCE_UNSIGNED_INT(fminf(fmaxf(v8.f32[1] - v7, 0.0), v3.f32[1])), v25.u32[0]), v8);
+    v20.f32[0] = fminf(fmaxf(v23, 0.0), *v3.i32);
+    v21.f32[0] = fminf(fmaxf(v24, 0.0), *v3.i32);
+    v25.f32[0] = fminf(fmaxf(v8.f32[0], 0.0), *v3.i32);
+    v26 = vsub_f32(__PAIR64__(COERCE_UNSIGNED_INT(fminf(fmaxf(v8.f32[1] - v7, 0.0), *&v3.i32[1])), v25.u32[0]), v8);
     v27 = v9 * vaddv_f32(vmul_f32(v26, v26));
-    v25.i32[1] = fminf(fmaxf(v8.f32[1] + v7, 0.0), v3.f32[1]);
+    v25.i32[1] = fminf(fmaxf(v8.f32[1] + v7, 0.0), *&v3.i32[1]);
     v28 = vsub_f32(v25, v8);
     v29 = v9 * vaddv_f32(vmul_f32(v28, v28));
     v30 = vminnm_f32(vmaxnm_f32(vzip2_s32(vmla_n_f32(v8, v28, 1.0 / (((v10 + ((v11 + ((v12 + ((v13 + ((v14 + ((v15 + ((v16 + (v17 * v29)) * v29)) * v29)) * v29)) * v29)) * v29)) * v29)) * 0.01) + 1.0)), vmla_n_f32(v8, v26, 1.0 / (((v10 + ((v11 + ((v12 + ((v13 + ((v14 + ((v15 + ((v16 + (v17 * v27)) * v27)) * v27)) * v27)) * v27)) * v27)) * v27)) * 0.01) + 1.0))), 0), vdup_lane_s32(v3, 1));
@@ -660,28 +656,32 @@ LABEL_14:
 {
   commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
   computeCommandEncoder = [commandBuffer computeCommandEncoder];
-  v101 = 0;
+  v105 = 0;
+  v106 = 0;
   v102 = 0;
-  v98 = 0;
-  v99 = 0;
-  v9 = cachedTexturesFromPixelBuffer(buffer, v100, self->_metalTextureCacheRef);
-  if (v9)
+  v103 = 0;
+  v10 = cachedTexturesFromPixelBuffer(buffer, v104, self->_metalTextureCacheRef);
+  if (v10)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v4, v57, v58, v60, *(&v60 + 1), v61, v62);
 LABEL_35:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_32;
   }
 
-  v9 = cachedTexturesFromPixelBuffer(pixelBuffer, v97, self->_metalTextureCacheRef);
-  if (v9)
+  v10 = cachedTexturesFromPixelBuffer(pixelBuffer, v101, self->_metalTextureCacheRef);
+  if (v10)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v4, v57, v58, v60, *(&v60 + 1), v61, v62);
     goto LABEL_35;
   }
 
+  v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   v95 = 0u;
   v96 = 0u;
   v93 = 0u;
@@ -700,71 +700,67 @@ LABEL_35:
   v82 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v77 = 0u;
+  v77 = 0;
   v78 = 0u;
-  v75 = 0u;
+  v75 = 0;
   v76 = 0u;
-  v73 = 0;
-  v74 = 0u;
-  v71 = 0;
-  v72 = 0u;
   size = 0;
-  v70 = 0u;
+  v74 = 0u;
   origin = 0;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  [(DeskCamRenderingSession *)self _undistortControls];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  objc_msgSend__undistortControls(self);
   deviceType = self->_deviceType;
   if ((deviceType - 2) >= 3)
   {
     if (deviceType == 1)
     {
-      v16 = qword_27ED77988;
-      [computeCommandEncoder setComputePipelineState:v16];
-      [computeCommandEncoder setTexture:v101 atIndex:0];
-      [computeCommandEncoder setTexture:v102 atIndex:1];
-      [computeCommandEncoder setTexture:v98 atIndex:2];
-      [computeCommandEncoder setTexture:v99 atIndex:3];
-      [computeCommandEncoder setBytes:&v65 length:512 atIndex:0];
+      v17 = qword_27ED77988;
+      [computeCommandEncoder setComputePipelineState:v17];
+      [computeCommandEncoder setTexture:v105 atIndex:0];
+      [computeCommandEncoder setTexture:v106 atIndex:1];
+      [computeCommandEncoder setTexture:v102 atIndex:2];
+      [computeCommandEncoder setTexture:v103 atIndex:3];
+      [computeCommandEncoder setBytes:&v69 length:512 atIndex:0];
       [computeCommandEncoder setImageblockWidth:32 height:32];
-      width = [v98 width];
-      height = [v98 height];
-      v63 = 1;
-      *v64 = vdupq_n_s64(0x20uLL);
-      *&v64[16] = 1;
-      [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v64];
+      width = [v102 width];
+      height = [v102 height];
+      v67 = 1;
+      *v68 = vdupq_n_s64(0x20uLL);
+      *&v68[16] = 1;
+      [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v68];
       goto LABEL_31;
     }
 
 LABEL_8:
-    v19 = qword_27ED77998;
-    [computeCommandEncoder setComputePipelineState:v19];
-    [computeCommandEncoder setTexture:v101 atIndex:0];
-    [computeCommandEncoder setTexture:v102 atIndex:1];
+    v20 = qword_27ED77998;
+    [computeCommandEncoder setComputePipelineState:v20];
+    [computeCommandEncoder setTexture:v105 atIndex:0];
+    [computeCommandEncoder setTexture:v106 atIndex:1];
     [computeCommandEncoder setTexture:self->_warpedRGBLowResTexture atIndex:2];
-    [computeCommandEncoder setBytes:&v65 length:512 atIndex:0];
-    threadExecutionWidth = [v19 threadExecutionWidth];
-    v56 = commandBuffer;
-    maxTotalThreadsPerThreadgroup = [v19 maxTotalThreadsPerThreadgroup];
+    [computeCommandEncoder setBytes:&v69 length:512 atIndex:0];
+    threadExecutionWidth = [v20 threadExecutionWidth];
+    v59 = commandBuffer;
+    maxTotalThreadsPerThreadgroup = [v20 maxTotalThreadsPerThreadgroup];
     width2 = [(MTLTexture *)self->_warpedRGBLowResTexture width];
     height2 = [(MTLTexture *)self->_warpedRGBLowResTexture height];
     width = width2;
     height = height2;
-    v63 = 1;
-    *v64 = threadExecutionWidth;
-    *&v64[8] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-    *&v64[16] = 1;
-    [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v64];
-    v24 = 0;
+    v67 = 1;
+    *v68 = threadExecutionWidth;
+    *&v68[8] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+    *&v68[16] = 1;
+    [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v68];
+    v25 = 0;
     p_blurredRGBLowResTexture = &self->_blurredRGBLowResTexture;
     do
     {
-      v26 = v19;
-      v19 = qword_27ED779A8;
+      v27 = v20;
+      v20 = qword_27ED779A8;
 
-      [computeCommandEncoder setComputePipelineState:v19];
-      if (v24)
+      [computeCommandEncoder setComputePipelineState:v20];
+      if (v25)
       {
         p_warpedRGBLowResTexture = &self->_blurredRGBLowResTexture;
       }
@@ -775,121 +771,121 @@ LABEL_8:
       }
 
       [computeCommandEncoder setTexture:*p_warpedRGBLowResTexture atIndex:0];
-      if (v24)
+      if (v25)
       {
-        v28 = &self->_warpedRGBLowResTexture;
+        v29 = &self->_warpedRGBLowResTexture;
       }
 
       else
       {
-        v28 = &self->_blurredRGBLowResTexture;
+        v29 = &self->_blurredRGBLowResTexture;
       }
 
-      [computeCommandEncoder setTexture:*v28 atIndex:1];
+      [computeCommandEncoder setTexture:*v29 atIndex:1];
       [computeCommandEncoder setBytes:&self->_imageBlurringControls length:1036 atIndex:0];
-      threadExecutionWidth2 = [v19 threadExecutionWidth];
-      maxTotalThreadsPerThreadgroup2 = [v19 maxTotalThreadsPerThreadgroup];
+      threadExecutionWidth2 = [v20 threadExecutionWidth];
+      maxTotalThreadsPerThreadgroup2 = [v20 maxTotalThreadsPerThreadgroup];
       width3 = [(MTLTexture *)*p_blurredRGBLowResTexture width];
       height3 = [(MTLTexture *)*p_blurredRGBLowResTexture height];
       width = width3;
       height = height3;
-      v63 = 1;
-      *v64 = threadExecutionWidth2;
-      *&v64[8] = maxTotalThreadsPerThreadgroup2 / threadExecutionWidth2;
-      *&v64[16] = 1;
-      [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v64];
-      ++v24;
+      v67 = 1;
+      *v68 = threadExecutionWidth2;
+      *&v68[8] = maxTotalThreadsPerThreadgroup2 / threadExecutionWidth2;
+      *&v68[16] = 1;
+      [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v68];
+      ++v25;
     }
 
-    while (v24 != 5);
-    v16 = qword_27ED779B8;
+    while (v25 != 5);
+    v17 = qword_27ED779B8;
 
-    [computeCommandEncoder setComputePipelineState:v16];
-    commandBuffer = v56;
-    [computeCommandEncoder setTexture:v101 atIndex:0];
-    [computeCommandEncoder setTexture:v102 atIndex:1];
+    [computeCommandEncoder setComputePipelineState:v17];
+    commandBuffer = v59;
+    [computeCommandEncoder setTexture:v105 atIndex:0];
+    [computeCommandEncoder setTexture:v106 atIndex:1];
     [computeCommandEncoder setTexture:*p_blurredRGBLowResTexture atIndex:2];
-    [computeCommandEncoder setTexture:v98 atIndex:3];
-    [computeCommandEncoder setTexture:v99 atIndex:4];
-    [computeCommandEncoder setBytes:&v65 length:512 atIndex:0];
+    [computeCommandEncoder setTexture:v102 atIndex:3];
+    [computeCommandEncoder setTexture:v103 atIndex:4];
+    [computeCommandEncoder setBytes:&v69 length:512 atIndex:0];
     [computeCommandEncoder setBytes:&self->_imageBlendingControls length:8 atIndex:1];
     [computeCommandEncoder setImageblockWidth:32 height:32];
-    width4 = [v98 width];
-    height4 = [v98 height];
+    width4 = [v102 width];
+    height4 = [v102 height];
     width = width4;
     height = height4;
-    v63 = 1;
-    *v64 = vdupq_n_s64(0x20uLL);
-    *&v64[16] = 1;
-    [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v64];
+    v67 = 1;
+    *v68 = vdupq_n_s64(0x20uLL);
+    *&v68[16] = 1;
+    [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v68];
     if (self->_autoZoomSupported)
     {
       outputCropRectangle = self->_outputCropRectangle;
-      v104 = CGRectInset(outputCropRectangle, outputCropRectangle.size.width * -0.899999976, 0.0);
-      y = v104.origin.y;
-      height = v104.size.height;
-      *&v65 = vcvt_f32_f64(v104.origin);
-      *(&v65 + 1) = vcvt_f32_f64(v104.size);
-      v104.origin = *&self->_plane2CameraShift[3];
-      v66 = *&self->_camera2PlaneShift[3];
-      origin = v104.origin;
-      v104.size = *&self->_outputPlaneShift[3];
-      v68 = *&self->_inputPlaneShift[3];
-      size = v104.size;
-      v104.origin = *&self->_anon_1a0[3];
-      *&v104.size.height = *&self->_anon_1a0[35];
-      v37 = *&self->_anon_1d0[3];
-      v74 = *&self->_anon_1a0[19];
-      v75 = *&v104.size.height;
-      v104.size = *&self->_anon_1d0[19];
-      *&v104.origin.y = *&self->_translationVector[3];
-      v72 = *&self->_anon_1d0[35];
-      v73 = v104.origin;
-      v70 = v37;
-      v71 = v104.size;
-      v76 = *&v104.origin.y;
+      v108 = CGRectInset(outputCropRectangle, outputCropRectangle.size.width * -0.899999976, 0.0);
+      y = v108.origin.y;
+      height = v108.size.height;
+      *&v69 = vcvt_f32_f64(v108.origin);
+      *(&v69 + 1) = vcvt_f32_f64(v108.size);
+      v108.origin = *&self->_plane2CameraShift[3];
+      v70 = *&self->_camera2PlaneShift[3];
+      origin = v108.origin;
+      v108.size = *&self->_outputPlaneShift[3];
+      v72 = *&self->_inputPlaneShift[3];
+      size = v108.size;
+      v108.origin = *&self->_anon_1a0[3];
+      *&v108.size.height = *&self->_anon_1a0[35];
+      v38 = *&self->_anon_1d0[3];
+      v78 = *&self->_anon_1a0[19];
+      v79 = *&v108.size.height;
+      v108.size = *&self->_anon_1d0[19];
+      *&v108.origin.y = *&self->_translationVector[3];
+      v76 = *&self->_anon_1d0[35];
+      v77 = v108.origin;
+      v74 = v38;
+      v75 = v108.size;
+      v80 = *&v108.origin.y;
       if (self->_isFrontFacingCamera)
       {
-        v38 = 0;
+        v39 = 0;
       }
 
       else
       {
-        v38 = 2;
+        v39 = 2;
       }
 
-      LODWORD(v77) = v38;
-      v39 = qword_27ED779E8;
+      LODWORD(v81) = v39;
+      v40 = qword_27ED779E8;
 
-      v59 = 1065353216;
-      v60 = 1;
-      [computeCommandEncoder setComputePipelineState:v39];
-      [computeCommandEncoder setTexture:v101 atIndex:0];
-      [computeCommandEncoder setTexture:v102 atIndex:1];
+      v63 = 1065353216;
+      v64 = 1;
+      [computeCommandEncoder setComputePipelineState:v40];
+      [computeCommandEncoder setTexture:v105 atIndex:0];
+      [computeCommandEncoder setTexture:v106 atIndex:1];
       [computeCommandEncoder setTexture:self->_lineDetectionController.inputTexture atIndex:2];
-      [computeCommandEncoder setBytes:&v65 length:512 atIndex:0];
-      [computeCommandEncoder setBytes:&v60 length:4 atIndex:1];
-      [computeCommandEncoder setBytes:&v59 length:4 atIndex:2];
-      threadExecutionWidth3 = [v39 threadExecutionWidth];
-      maxTotalThreadsPerThreadgroup3 = [v39 maxTotalThreadsPerThreadgroup];
+      [computeCommandEncoder setBytes:&v69 length:512 atIndex:0];
+      [computeCommandEncoder setBytes:&v64 length:4 atIndex:1];
+      [computeCommandEncoder setBytes:&v63 length:4 atIndex:2];
+      threadExecutionWidth3 = [v40 threadExecutionWidth];
+      maxTotalThreadsPerThreadgroup3 = [v40 maxTotalThreadsPerThreadgroup];
       p_lineDetectionController = &self->_lineDetectionController;
       width5 = [(MTLTexture *)self->_lineDetectionController.inputTexture width];
       height5 = [(MTLTexture *)self->_lineDetectionController.inputTexture height];
-      *v64 = width5;
-      *&v64[8] = height5;
-      *&v64[16] = 1;
-      *&v57 = threadExecutionWidth3;
-      *(&v57 + 1) = maxTotalThreadsPerThreadgroup3 / threadExecutionWidth3;
-      v58 = 1;
-      [computeCommandEncoder dispatchThreads:v64 threadsPerThreadgroup:&v57];
-      v16 = qword_27ED779A8;
+      *v68 = width5;
+      *&v68[8] = height5;
+      *&v68[16] = 1;
+      *&v60 = threadExecutionWidth3;
+      *(&v60 + 1) = maxTotalThreadsPerThreadgroup3 / threadExecutionWidth3;
+      v61 = 1;
+      [computeCommandEncoder dispatchThreads:v68 threadsPerThreadgroup:&v60];
+      v17 = qword_27ED779A8;
 
-      v45 = 1;
+      v46 = 1;
       do
       {
-        v46 = v45;
-        [computeCommandEncoder setComputePipelineState:v16];
-        if (v46)
+        v47 = v46;
+        [computeCommandEncoder setComputePipelineState:v17];
+        if (v47)
         {
           p_auxiliaryTexture = &self->_lineDetectionController;
         }
@@ -900,49 +896,49 @@ LABEL_8:
         }
 
         [computeCommandEncoder setTexture:p_auxiliaryTexture->inputTexture atIndex:0];
-        if (v46)
+        if (v47)
         {
-          v48 = &self->_lineDetectionController.auxiliaryTexture;
+          v49 = &self->_lineDetectionController.auxiliaryTexture;
         }
 
         else
         {
-          v48 = &self->_lineDetectionController;
+          v49 = &self->_lineDetectionController;
         }
 
-        [computeCommandEncoder setTexture:v48->inputTexture atIndex:1];
+        [computeCommandEncoder setTexture:v49->inputTexture atIndex:1];
         [computeCommandEncoder setBytes:&self->_anon_ad0[64] length:1036 atIndex:0];
-        threadExecutionWidth4 = [v16 threadExecutionWidth];
-        maxTotalThreadsPerThreadgroup4 = [v16 maxTotalThreadsPerThreadgroup];
+        threadExecutionWidth4 = [v17 threadExecutionWidth];
+        maxTotalThreadsPerThreadgroup4 = [v17 maxTotalThreadsPerThreadgroup];
         width6 = [(MTLTexture *)p_lineDetectionController->inputTexture width];
         height6 = [(MTLTexture *)p_lineDetectionController->inputTexture height];
-        *v64 = width6;
-        *&v64[8] = height6;
-        *&v64[16] = 1;
-        *&v57 = threadExecutionWidth4;
-        *(&v57 + 1) = maxTotalThreadsPerThreadgroup4 / threadExecutionWidth4;
-        v58 = 1;
-        [computeCommandEncoder dispatchThreads:v64 threadsPerThreadgroup:&v57];
-        v45 = 0;
+        *v68 = width6;
+        *&v68[8] = height6;
+        *&v68[16] = 1;
+        *&v60 = threadExecutionWidth4;
+        *(&v60 + 1) = maxTotalThreadsPerThreadgroup4 / threadExecutionWidth4;
+        v61 = 1;
+        [computeCommandEncoder dispatchThreads:v68 threadsPerThreadgroup:&v60];
+        v46 = 0;
       }
 
-      while ((v46 & 1) != 0);
+      while ((v47 & 1) != 0);
       for (i = 0; i != 31; ++i)
       {
-        v54 = __sincosf_stret(DeskCamEdgeDetectorAngles[i]);
-        *(&width + i) = __PAIR64__(LODWORD(v54.__sinval), LODWORD(v54.__cosval));
+        v55 = __sincosf_stret(DeskCamEdgeDetectorAngles[i]);
+        *(&width + i) = __PAIR64__(LODWORD(v55.__sinval), LODWORD(v55.__cosval));
       }
 
       [computeCommandEncoder setComputePipelineState:qword_27ED779F8];
       [computeCommandEncoder setTexture:p_lineDetectionController->inputTexture atIndex:0];
       [computeCommandEncoder setBytes:&width length:248 atIndex:0];
       [computeCommandEncoder setTexture:*&self->_anon_ad0[16] atIndex:1];
-      *v64 = [*&self->_anon_ad0[16] width];
-      *&v64[8] = xmmword_2434F7930;
-      v57 = xmmword_2434F7940;
-      v58 = 1;
-      [computeCommandEncoder dispatchThreads:v64 threadsPerThreadgroup:&v57];
-      commandBuffer = v56;
+      *v68 = [*&self->_anon_ad0[16] width];
+      *&v68[8] = xmmword_2434F7930;
+      v60 = xmmword_2434F7940;
+      v61 = 1;
+      [computeCommandEncoder dispatchThreads:v68 threadsPerThreadgroup:&v60];
+      commandBuffer = v59;
     }
 
     goto LABEL_31;
@@ -953,48 +949,48 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v11 = qword_27ED779C8;
-  [computeCommandEncoder setComputePipelineState:v11];
-  [computeCommandEncoder setTexture:v101 atIndex:0];
-  [computeCommandEncoder setTexture:v102 atIndex:1];
+  v12 = qword_27ED779C8;
+  [computeCommandEncoder setComputePipelineState:v12];
+  [computeCommandEncoder setTexture:v105 atIndex:0];
+  [computeCommandEncoder setTexture:v106 atIndex:1];
   [computeCommandEncoder setTexture:self->_warpedRGBHiResTexture atIndex:2];
-  [computeCommandEncoder setBytes:&v65 length:512 atIndex:0];
+  [computeCommandEncoder setBytes:&v69 length:512 atIndex:0];
   [computeCommandEncoder setBytes:&self->_imageToneMappingControls length:12 atIndex:1];
-  threadExecutionWidth5 = [v11 threadExecutionWidth];
-  maxTotalThreadsPerThreadgroup5 = [v11 maxTotalThreadsPerThreadgroup];
+  threadExecutionWidth5 = [v12 threadExecutionWidth];
+  maxTotalThreadsPerThreadgroup5 = [v12 maxTotalThreadsPerThreadgroup];
   width7 = [(MTLTexture *)self->_warpedRGBHiResTexture width];
   height7 = [(MTLTexture *)self->_warpedRGBHiResTexture height];
   width = width7;
   height = height7;
-  v63 = 1;
-  *v64 = threadExecutionWidth5;
-  *&v64[8] = maxTotalThreadsPerThreadgroup5 / threadExecutionWidth5;
-  *&v64[16] = 1;
-  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v64];
-  v16 = qword_27ED779D8;
+  v67 = 1;
+  *v68 = threadExecutionWidth5;
+  *&v68[8] = maxTotalThreadsPerThreadgroup5 / threadExecutionWidth5;
+  *&v68[16] = 1;
+  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v68];
+  v17 = qword_27ED779D8;
 
-  [computeCommandEncoder setComputePipelineState:v16];
+  [computeCommandEncoder setComputePipelineState:v17];
   [computeCommandEncoder setTexture:self->_warpedRGBHiResTexture atIndex:0];
-  [computeCommandEncoder setTexture:v98 atIndex:1];
-  [computeCommandEncoder setTexture:v99 atIndex:2];
+  [computeCommandEncoder setTexture:v102 atIndex:1];
+  [computeCommandEncoder setTexture:v103 atIndex:2];
   [computeCommandEncoder setBytes:&self->_imageSharpeningControls length:1040 atIndex:0];
   [computeCommandEncoder setImageblockWidth:32 height:32];
-  width8 = [v98 width];
-  height8 = [v98 height];
+  width8 = [v102 width];
+  height8 = [v102 height];
   width = width8;
   height = height8;
-  v63 = 1;
-  *v64 = vdupq_n_s64(0x20uLL);
-  *&v64[16] = 1;
-  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v64];
+  v67 = 1;
+  *v68 = vdupq_n_s64(0x20uLL);
+  *&v68[16] = 1;
+  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:v68];
 LABEL_31:
   [computeCommandEncoder endEncoding];
   [commandBuffer commit];
   [commandBuffer waitUntilCompleted];
-  v9 = 0;
+  v10 = 0;
 LABEL_32:
 
-  return v9;
+  return v10;
 }
 
 - (float)autoZoomValue
@@ -1141,7 +1137,7 @@ LABEL_32:
 
 - (void)_updateDeskEdgeDetectionDataInOutputSpace
 {
-  [(DeskCamRenderingSession *)self _deskEdgeDetectorResult];
+  objc_msgSend__deskEdgeDetectorResult(self, a2);
   v3 = vneg_f32(0x80000000800000);
   if (v39.i32[0] < 0)
   {
@@ -1165,42 +1161,43 @@ LABEL_25:
   v34 = xmmword_2434F7960;
   outputCropRectangle = self->_outputCropRectangle;
   v45 = CGRectInset(outputCropRectangle, outputCropRectangle.size.width * -0.899999976, 0.0);
-  [(DeskCamRenderingSession *)self _transformMatrixWithOutputCropRectangle:v45.origin.x, v45.origin.y, v45.size.width, v45.size.height];
-  v10 = vaddq_f32(v9, vmlaq_lane_f32(vmulq_n_f32(v7, *v41.i32), v8, v41, 1));
-  if (*&v10.i32[2] == 0.0)
+  v7 = [(DeskCamRenderingSession *)self _transformMatrixWithOutputCropRectangle:v45.origin.x, v45.origin.y, v45.size.width, v45.size.height];
+  v11 = vaddq_f32(v10, vmlaq_lane_f32(vmulq_n_f32(v8, *v41.i32), v9, v41, 1));
+  if (v11.n128_f32[2] == 0.0)
   {
-    [DeskCamRenderingSession _updateDeskEdgeDetectionDataInOutputSpace];
+    [(DeskCamRenderingSession *)v7 _updateDeskEdgeDetectionDataInOutputSpace:v8];
   }
 
   else
   {
-    v11 = vaddq_f32(v9, vmlaq_lane_f32(vmulq_n_f32(v7, *v40.i32), v8, v40, 1));
-    if (v11.f32[2] == 0.0)
+    v12 = vaddq_f32(v10, vmlaq_lane_f32(vmulq_n_f32(v8, *v40.i32), v9, v40, 1));
+    if (v12.f32[2] == 0.0)
     {
-      [DeskCamRenderingSession _updateDeskEdgeDetectionDataInOutputSpace];
+      [(DeskCamRenderingSession *)v7 _updateDeskEdgeDetectionDataInOutputSpace];
     }
 
     else
     {
-      v36 = v11;
-      v37 = vdiv_f32(*v10.i8, vdup_laneq_s32(v10, 2));
+      v36 = v12;
+      v37 = vdiv_f32(v11.n128_u64[0], vdup_laneq_s32(v11, 2));
       [(DeskCamRenderingSession *)self transformMatrix];
       v43 = __invert_f3(v42);
-      v12 = vaddq_f32(v43.columns[2], vmlaq_lane_f32(vmulq_n_f32(v43.columns[0], v37.f32[0]), v43.columns[1], v37, 1));
-      if (*&v12.i32[2] == 0.0)
+      v13 = vaddq_f32(v43.columns[2], vmlaq_lane_f32(vmulq_n_f32(v43.columns[0], v37.f32[0]), v43.columns[1], v37, 1));
+      if (v13.n128_f32[2] == 0.0)
       {
-        [DeskCamRenderingSession _updateDeskEdgeDetectionDataInOutputSpace];
+        [(DeskCamRenderingSession *)v43.columns[0] _updateDeskEdgeDetectionDataInOutputSpace:v43.columns[2]];
       }
 
       else
       {
-        v13 = vdiv_f32(*v36.i8, vdup_laneq_s32(v36, 2));
-        v14 = vaddq_f32(v43.columns[2], vmlaq_lane_f32(vmulq_n_f32(v43.columns[0], v13.f32[0]), v43.columns[1], v13, 1));
-        if (*&v14.i32[2] != 0.0)
+        v14 = vdiv_f32(*v36.i8, vdup_laneq_s32(v36, 2));
+        v43.columns[2] = vaddq_f32(v43.columns[2], vmlaq_lane_f32(vmulq_n_f32(v43.columns[0], v14.f32[0]), v43.columns[1], v14, 1));
+        if (v43.columns[2].f32[2] != 0.0)
         {
-          v3 = vdiv_f32(*v14.i8, vdup_laneq_s32(v14, 2));
-          v38 = vdiv_f32(*v12.i8, vdup_laneq_s32(v12, 2));
-          _getLineToRectIntersectionPoints(&v39, v38, v3, 0.0, 0.0, 1.0, 1.0);
+          v3 = vdiv_f32(*v43.columns[2].f32, vdup_laneq_s32(v43.columns[2], 2));
+          v38 = vdiv_f32(v13.n128_u64[0], vdup_laneq_s32(v13, 2));
+          *v43.columns[1].f32 = v3;
+          _getLineToRectIntersectionPoints(&v39, v38, v43.columns[1], 0.0, 0.0, 1.0, 1.0);
           v15 = 0;
           v16 = vneg_f32(0x80000000800000);
           while (1)
@@ -1660,37 +1657,37 @@ LABEL_15:
   {
     [(DeskCamRenderingSession *)self _rollMatrix];
     v8 = 0;
-    v67 = v9;
-    v65 = v11;
-    v66 = v10;
+    v68 = v9;
+    v66 = v11;
+    v67 = v10;
     v12 = vneg_f32(0x80000000800000);
     v13.i64[0] = 0x80000000800000;
     v13.i64[1] = 0x80000000800000;
-    v52 = vnegq_f32(v13);
-    v51 = xmmword_2434F7960;
+    v53 = vnegq_f32(v13);
+    v52 = xmmword_2434F7960;
     v14 = 1.0;
     v15 = 0.5;
-    v53 = y;
-    v54 = width;
+    v54 = y;
+    v55 = width;
     do
     {
-      v63 = v14;
-      v64 = v15;
-      v62 = (v15 + v14) * 0.5;
-      v16 = (1.0 - v62);
+      v64 = v14;
+      v65 = v15;
+      v63 = (v15 + v14) * 0.5;
+      v16 = (1.0 - v63);
       v17 = width * v16 * 0.5;
       v18 = height * v16 * 0.5;
-      v69.origin.x = x;
-      v69.origin.y = y;
-      v69.size.width = width;
-      v69.size.height = height;
-      v70 = CGRectInset(v69, v17, v18);
-      *&v19 = v70.origin.x;
-      *&v20 = v70.origin.x + v70.size.width + -1.0;
-      v21 = v70.origin.y + v70.size.height + -1.0;
+      v70.origin.x = x;
+      v70.origin.y = y;
+      v70.size.width = width;
+      v70.size.height = height;
+      v71 = CGRectInset(v70, v17, v18);
+      *&v19 = v71.origin.x;
+      *&v20 = v71.origin.x + v71.size.width + -1.0;
+      v21 = v71.origin.y + v71.size.height + -1.0;
       if (self->_isFrontFacingCamera)
       {
-        v21 = v70.origin.y;
+        v21 = v71.origin.y;
       }
 
       v22 = 100000.0;
@@ -1701,75 +1698,77 @@ LABEL_15:
 
       v23 = v21;
       *(&v20 + 1) = v23;
-      v60 = v20;
+      v61 = v20;
       *(&v19 + 1) = v23;
       *&v24 = v22 + v23;
-      v55 = COERCE_DOUBLE(__PAIR64__(v24, LODWORD(v19)));
-      v56 = COERCE_DOUBLE(__PAIR64__(v24, LODWORD(v20)));
-      [(DeskCamRenderingSession *)self _projectPoint:v19 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v67, v66, v65, *&v51, *&v52];
-      v58 = v25;
-      [(DeskCamRenderingSession *)self _projectPoint:v60 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v67, v66, v65];
-      v61 = v26;
-      [(DeskCamRenderingSession *)self _projectPoint:v55 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v67, v66, v65];
+      v56 = COERCE_DOUBLE(__PAIR64__(v24, LODWORD(v19)));
+      v57 = COERCE_DOUBLE(__PAIR64__(v24, LODWORD(v20)));
+      [(DeskCamRenderingSession *)self _projectPoint:v19 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v68, v67, v66, *&v52, *&v53];
+      v59 = v25;
+      [(DeskCamRenderingSession *)self _projectPoint:v61 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v68, v67, v66];
+      v62 = v26;
+      [(DeskCamRenderingSession *)self _projectPoint:v56 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v68, v67, v66];
       v27 = height;
       v29 = v28;
-      [(DeskCamRenderingSession *)self _projectPoint:v56 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v67, v66, v65];
-      v57 = v30;
+      [(DeskCamRenderingSession *)self _projectPoint:v57 intrinsicMatrix:*&self->_anon_d0[67] rotationMatrix:*&self->_anon_d0[83], *&self->_anon_d0[99], v68, v67, v66];
+      v58 = v30;
       v31 = self->_framingSpaceRectangle.origin.x;
       v32 = self->_framingSpaceRectangle.origin.y;
       v33 = self->_framingSpaceRectangle.size.width;
       v34 = self->_framingSpaceRectangle.size.height;
       v35 = v29;
       height = v27;
-      _getLineToRectIntersectionPoints(v68, v35, v58, v31, v32, v33, v34);
-      v36 = 0;
+      v36.n128_u64[0] = v59;
+      _getLineToRectIntersectionPoints(v69, v35, v36, v31, v32, v33, v34);
+      v38 = 0;
       while (1)
       {
-        v37 = v68[v36];
-        v38 = vmvn_s8(vceq_f32(v37, v12));
-        if ((vpmin_u32(v38, v38).u32[0] & 0x80000000) != 0)
+        v37.n128_f64[0] = v69[v38];
+        v39 = vmvn_s8(vceq_f32(v37.n128_u64[0], v12));
+        if ((vpmin_u32(v39, v39).u32[0] & 0x80000000) != 0)
         {
           break;
         }
 
-        if (++v36 == 4)
+        if (++v38 == 4)
         {
-          v37 = v12;
+          v37.n128_u64[0] = v12;
           break;
         }
       }
 
-      v59 = v37;
-      _getLineToRectIntersectionPoints(v68, v57, v61, v31, v32, v33, v34);
+      v60 = v37.n128_u64[0];
+      v37.n128_u64[0] = v62;
+      _getLineToRectIntersectionPoints(v69, v58, v37, v31, v32, v33, v34);
       for (i = 0; i != 4; ++i)
       {
-        v40 = v68[i];
-        v41 = vneg_f32(0x80000000800000);
-        v42 = vmvn_s8(vceq_f32(v40, v41));
-        if ((vpmin_u32(v42, v42).u32[0] & 0x80000000) != 0)
+        v41 = *&v69[i];
+        v42 = vneg_f32(0x80000000800000);
+        v43 = vmvn_s8(vceq_f32(v41, v42));
+        if ((vpmin_u32(v43, v43).u32[0] & 0x80000000) != 0)
         {
           break;
         }
 
-        v40 = v41;
+        v41 = v42;
       }
 
-      v43.i64[0] = v59;
-      *&v43.u32[2] = v40;
-      v14 = v63;
-      v15 = v64;
-      if ((vaddvq_s32(vandq_s8(vceqq_f32(v43, v52), v51)) & 0xF) != 0)
+      v44.i64[0] = v60;
+      *&v44.u32[2] = v41;
+      v14 = v64;
+      v15 = v65;
+      if ((vaddvq_s32(vandq_s8(vceqq_f32(v44, v53), v52)) & 0xF) != 0)
       {
-        v14 = v62;
+        v14 = v63;
       }
 
       else
       {
-        v15 = v62;
+        v15 = v63;
       }
 
-      y = v53;
-      width = v54;
+      y = v54;
+      width = v55;
       if (v8 > 0xD)
       {
         break;
@@ -1779,28 +1778,28 @@ LABEL_15:
     }
 
     while ((v14 - v15) > 0.001);
-    v44 = (1.0 - v15);
-    v45 = v54 * v44 * 0.5;
-    v46 = v27 * v44 * 0.5;
-    v71.origin.x = x;
-    v71.origin.y = v53;
-    v71.size.width = v54;
-    v71.size.height = v27;
-    v72 = CGRectInset(v71, v45, v46);
-    x = v72.origin.x;
-    y = v72.origin.y;
-    width = v72.size.width;
-    height = v72.size.height;
+    v45 = (1.0 - v15);
+    v46 = v55 * v45 * 0.5;
+    v47 = v27 * v45 * 0.5;
+    v72.origin.x = x;
+    v72.origin.y = v54;
+    v72.size.width = v55;
+    v72.size.height = v27;
+    v73 = CGRectInset(v72, v46, v47);
+    x = v73.origin.x;
+    y = v73.origin.y;
+    width = v73.size.width;
+    height = v73.size.height;
   }
 
-  v47 = x;
-  v48 = y;
-  v49 = width;
-  v50 = height;
-  result.size.height = v50;
-  result.size.width = v49;
-  result.origin.y = v48;
-  result.origin.x = v47;
+  v48 = x;
+  v49 = y;
+  v50 = width;
+  v51 = height;
+  result.size.height = v51;
+  result.size.width = v50;
+  result.origin.y = v49;
+  result.origin.x = v48;
   return result;
 }
 
@@ -1825,84 +1824,86 @@ LABEL_15:
   a6.n128_f32[1] = v11;
   *(&v9 + 1) = v11;
   *&v12 = v10 + v11;
-  v44 = COERCE_DOUBLE(__PAIR64__(v12, LODWORD(v9)));
-  v45 = COERCE_DOUBLE(__PAIR64__(v12, a6.n128_u32[0]));
+  v46 = COERCE_DOUBLE(__PAIR64__(v12, LODWORD(v9)));
+  v47 = COERCE_DOUBLE(__PAIR64__(v12, a6.n128_u32[0]));
   [self _projectPoint:v9 intrinsicMatrix:*(self + 272) rotationMatrix:{*(self + 288), *(self + 304), *(self + 464), *(self + 480), *(self + 496), *&a6}];
   v14 = v13;
-  [self _projectPoint:v43 intrinsicMatrix:*(self + 272) rotationMatrix:{*(self + 288), *(self + 304), *(self + 464), *(self + 480), *(self + 496)}];
-  v16 = v15;
-  [self _projectPoint:v44 intrinsicMatrix:*(self + 272) rotationMatrix:{*(self + 288), *(self + 304), *(self + 464), *(self + 480), *(self + 496)}];
-  v18 = v17;
   [self _projectPoint:v45 intrinsicMatrix:*(self + 272) rotationMatrix:{*(self + 288), *(self + 304), *(self + 464), *(self + 480), *(self + 496)}];
+  v16 = v15;
+  [self _projectPoint:v46 intrinsicMatrix:*(self + 272) rotationMatrix:{*(self + 288), *(self + 304), *(self + 464), *(self + 480), *(self + 496)}];
+  v18 = v17;
+  [self _projectPoint:v47 intrinsicMatrix:*(self + 272) rotationMatrix:{*(self + 288), *(self + 304), *(self + 464), *(self + 480), *(self + 496)}];
   v20 = v19;
   v21 = *(self + 80);
   v22 = *(self + 88);
   v23 = *(self + 96);
   v24 = *(self + 104);
-  _getLineToRectIntersectionPoints(v46, v18, v14, v21, v22, v23, v24);
-  v25 = 0;
-  v26 = vneg_f32(0x80000000800000);
+  v25.n128_u64[0] = v14;
+  _getLineToRectIntersectionPoints(v48, v18, v25, v21, v22, v23, v24);
+  v27 = 0;
+  v28 = vneg_f32(0x80000000800000);
   while (1)
   {
-    v27 = v46[v25];
-    v28 = vmvn_s8(vceq_f32(v27, v26));
-    if ((vpmin_u32(v28, v28).u32[0] & 0x80000000) != 0)
+    v29 = *&v48[v27];
+    v30 = vmvn_s8(vceq_f32(v29, v28));
+    if ((vpmin_u32(v30, v30).u32[0] & 0x80000000) != 0)
     {
       break;
     }
 
-    if (++v25 == 4)
+    if (++v27 == 4)
     {
-      v27 = v26;
+      v29 = v28;
       break;
     }
   }
 
-  _getLineToRectIntersectionPoints(v46, v20, v16, v21, v22, v23, v24);
-  v30 = 0;
-  v31 = vneg_f32(0x80000000800000);
+  v26.n128_u64[0] = v16;
+  _getLineToRectIntersectionPoints(v48, v20, v26, v21, v22, v23, v24);
+  v32 = 0;
+  v33 = vneg_f32(0x80000000800000);
   while (1)
   {
-    *v29.f32 = v46[v30];
-    v32 = vmvn_s8(vceq_f32(*v29.f32, v31));
-    if ((vpmin_u32(v32, v32).u32[0] & 0x80000000) != 0)
+    *v31.i64 = v48[v32];
+    v34 = vmvn_s8(vceq_f32(*v31.f32, v33));
+    if ((vpmin_u32(v34, v34).u32[0] & 0x80000000) != 0)
     {
       break;
     }
 
-    if (++v30 == 4)
+    if (++v32 == 4)
     {
-      *v29.f32 = v31;
+      *v31.f32 = v33;
       break;
     }
   }
 
-  v33 = *(self + 272);
-  v34 = vsub_f32(v27, v14);
-  v35 = vmul_f32(v34, v34);
-  v36 = vsub_f32(*v29.f32, v16);
+  v35 = *(self + 272);
+  v36 = vsub_f32(v29, v14);
   v37 = vmul_f32(v36, v36);
-  v38 = vsqrt_f32(vadd_f32(vzip1_s32(v35, v37), vzip2_s32(v35, v37)));
-  if (vcgt_f32(vdup_lane_s32(v38, 1), v38).u8[0])
+  v38 = vsub_f32(*v31.f32, v16);
+  v39 = vmul_f32(v38, v38);
+  v40 = vsqrt_f32(vadd_f32(vzip1_s32(v37, v39), vzip2_s32(v37, v39)));
+  if (vcgt_f32(vdup_lane_s32(v40, 1), v40).u8[0])
   {
-    v39 = -1;
+    v41 = -1;
   }
 
   else
   {
-    v39 = 0;
+    v41 = 0;
   }
 
-  v40 = vdup_n_s32(v39);
-  v41.i32[0] = vextq_s8(v33, v33, 8uLL).u32[0];
-  v41.i32[1] = *(self + 296);
-  v33.i32[1] = *(self + 292);
-  *v29.f32 = vdiv_f32(vsub_f32(vbsl_s8(v40, v27, *v29.f32), v41), *v33.f32);
-  v29.i32[2] = 1.0;
-  *v33.f32 = vdiv_f32(vsub_f32(vbsl_s8(v40, v14, v16), v41), *v33.f32);
-  v33.i32[2] = 1.0;
-  v29.i64[0] = vsubq_f32(v29, v33).u64[0];
-  return *v29.i64;
+  v42 = vdup_n_s32(v41);
+  v43.i32[0] = vextq_s8(v35, v35, 8uLL).u32[0];
+  v43.i32[1] = *(self + 296);
+  v35.i32[1] = *(self + 292);
+  *v31.f32 = vdiv_f32(vsub_f32(vbsl_s8(v42, v29, *v31.f32), v43), *v35.f32);
+  v31.i32[2] = 1.0;
+  *v35.f32 = vdiv_f32(vsub_f32(vbsl_s8(v42, v14, v16), v43), *v35.f32);
+  v35.i32[2] = 1.0;
+  v31.i64[0] = vsubq_f32(v31, v35).u64[0];
+  return *v31.i64;
 }
 
 - (float32x2_t)_projectPoint:(int8x16_t)point intrinsicMatrix:(double)matrix rotationMatrix:(float32x4_t)rotationMatrix
@@ -2392,7 +2393,7 @@ LABEL_8:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
 - (int)_allocateTextures
@@ -2648,7 +2649,7 @@ LABEL_8:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       goto LABEL_46;
     }
 
@@ -2673,7 +2674,8 @@ LABEL_8:
       v21 = 0.0;
       do
       {
-        v22 = *v17++;
+        v22 = *v17;
+        v17 += 16;
         v21 = v21 + (v13 * *&v22);
         *v20++ = v21;
         --v19;
@@ -2730,12 +2732,12 @@ LABEL_8:
           v33 = v23 + 1;
           v23 = &v9[8 * v23];
           *v23 = v32;
-          *(v23 + 1) = v25;
-          *(v23 + 2) = v25;
-          v23[3] = v28;
-          v23[4] = v28;
-          *(v23 + 3) = 0;
-          v23[5] = 0.0;
+          *(v23 + 4) = v25;
+          *(v23 + 8) = v25;
+          *(v23 + 12) = v28;
+          *(v23 + 16) = v28;
+          *(v23 + 24) = 0;
+          *(v23 + 20) = 0;
           LODWORD(v23) = v33;
         }
 
@@ -2803,7 +2805,7 @@ LABEL_24:
               }
 
               v44 += 8;
-              v23 = (v23 - 1);
+              --v23;
             }
 
             while (v23);
@@ -2984,90 +2986,6 @@ LABEL_46:
   result.origin.y = v6;
   result.origin.x = v5;
   return result;
-}
-
-- (uint64_t)initWithOutputDimensions:portType:deviceType:isFrontFacingCamera:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_updateDeskEdgeDetectionDataInOutputSpace
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_initializeMetal
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_allocateTextures
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileShaders
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newBufferWithLength:options:label:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 @end

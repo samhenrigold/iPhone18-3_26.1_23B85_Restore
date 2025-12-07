@@ -201,7 +201,7 @@ LABEL_38:
       v31 = 0;
       if (data)
       {
-        [data dataAtIndex:v34];
+        objc_msgSend_dataAtIndex_(data);
       }
 
       [(NSData *)v10 appendBytes:&v30 length:8];

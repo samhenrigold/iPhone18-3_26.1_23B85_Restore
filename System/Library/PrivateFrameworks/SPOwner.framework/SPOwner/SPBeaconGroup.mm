@@ -114,7 +114,7 @@
 
 - (SPBeaconGroup)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   self->_version = [coderCopy decodeIntegerForKey:@"version"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
@@ -126,9 +126,9 @@
   self->_name = v7;
 
   v9 = MEMORY[0x277CBEB98];
-  v38[0] = objc_opt_class();
-  v38[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v37[0] = objc_opt_class();
+  v37[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"beaconIdentifiers"];
   beaconIdentifiers = self->_beaconIdentifiers;
@@ -145,20 +145,20 @@
   self->_status = [coderCopy decodeIntegerForKey:@"status"];
   self->_classification = [coderCopy decodeIntegerForKey:@"classification"];
   v16 = MEMORY[0x277CBEB98];
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v37[2] = objc_opt_class();
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v36[2] = objc_opt_class();
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
   v18 = [v16 setWithArray:v17];
   v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"beaconMap"];
   beaconMap = self->_beaconMap;
   self->_beaconMap = v19;
 
   v21 = MEMORY[0x277CBEB98];
-  v36[0] = objc_opt_class();
-  v36[1] = objc_opt_class();
-  v36[2] = objc_opt_class();
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+  v35[0] = objc_opt_class();
+  v35[1] = objc_opt_class();
+  v35[2] = objc_opt_class();
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
   v23 = [v21 setWithArray:v22];
   v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"taskInformation"];
   taskInformation = self->_taskInformation;
@@ -169,16 +169,15 @@
   self->_lostModeInfo = v26;
 
   v28 = MEMORY[0x277CBEB98];
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   v30 = [v28 setWithArray:v29];
   v31 = [coderCopy decodeObjectOfClasses:v30 forKey:@"multipartStatus"];
 
   multipartStatus = self->_multipartStatus;
   self->_multipartStatus = v31;
 
-  v33 = *MEMORY[0x277D85DE8];
   return self;
 }
 

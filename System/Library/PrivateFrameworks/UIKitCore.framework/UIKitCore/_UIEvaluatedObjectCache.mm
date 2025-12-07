@@ -8,11 +8,11 @@
 - (id)succinctDescriptionBuilder;
 - (id)topEvaluatedObject;
 - (void)_createStorageIfNeeded;
-- (void)addObject:(uint64_t)object;
-- (void)demoteObject:(uint64_t)object;
+- (void)addObject:(uint64_t)result;
+- (void)demoteObject:(uint64_t)result;
 - (void)evaluateTopObject;
 - (void)initWithSortComparator:(const void *)comparator evaluationBlock:;
-- (void)promoteObject:(uint64_t)object;
+- (void)promoteObject:(uint64_t)result;
 - (void)removeObject:(uint64_t)object;
 - (void)sortAndEvaluateTopObject;
 @end
@@ -34,14 +34,14 @@
 
 - (void)sortAndEvaluateTopObject
 {
-  if (self)
+  if (result)
   {
-    if ([*(self + 24) count] >= 2)
+    if ([*(result + 24) count] >= 2)
     {
-      [*(self + 24) sortWithOptions:16 usingComparator:*(self + 8)];
+      [*(result + 24) sortWithOptions:16 usingComparator:*(result + 8)];
     }
 
-    [(_UIEvaluatedObjectCache *)self evaluateTopObject];
+    [(_UIEvaluatedObjectCache *)result evaluateTopObject];
   }
 }
 
@@ -190,23 +190,23 @@
   return v6;
 }
 
-- (void)addObject:(uint64_t)object
+- (void)addObject:(uint64_t)result
 {
-  if (object)
+  if (result)
   {
     if (!a2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:sel_addObject_ object:object file:@"_UIEvaluatedObjectCache.m" lineNumber:94 description:{@"Invalid parameter not satisfying: %@", @"object"}];
+      [currentHandler handleFailureInMethod:sel_addObject_ object:result file:@"_UIEvaluatedObjectCache.m" lineNumber:94 description:{@"Invalid parameter not satisfying: %@", @"object"}];
     }
 
-    [(_UIEvaluatedObjectCache *)object _createStorageIfNeeded];
-    if (([*(object + 24) containsObject:a2] & 1) == 0)
+    [(_UIEvaluatedObjectCache *)result _createStorageIfNeeded];
+    if (([*(result + 24) containsObject:a2] & 1) == 0)
     {
-      [*(object + 24) addObject:a2];
+      [*(result + 24) addObject:a2];
     }
 
-    [(_UIEvaluatedObjectCache *)object sortAndEvaluateTopObject];
+    [(_UIEvaluatedObjectCache *)result sortAndEvaluateTopObject];
   }
 }
 
@@ -234,50 +234,50 @@
   }
 }
 
-- (void)promoteObject:(uint64_t)object
+- (void)promoteObject:(uint64_t)result
 {
-  if (object)
+  if (result)
   {
     if (!a2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:sel_promoteObject_ object:object file:@"_UIEvaluatedObjectCache.m" lineNumber:121 description:{@"Invalid parameter not satisfying: %@", @"object"}];
+      [currentHandler handleFailureInMethod:sel_promoteObject_ object:result file:@"_UIEvaluatedObjectCache.m" lineNumber:121 description:{@"Invalid parameter not satisfying: %@", @"object"}];
     }
 
-    [(_UIEvaluatedObjectCache *)object _createStorageIfNeeded];
-    v4 = [*(object + 24) containsObject:a2];
-    v5 = *(object + 24);
+    [(_UIEvaluatedObjectCache *)result _createStorageIfNeeded];
+    v4 = [*(result + 24) containsObject:a2];
+    v5 = *(result + 24);
     if (v4)
     {
       [v5 removeObject:a2];
-      v5 = *(object + 24);
+      v5 = *(result + 24);
     }
 
     [v5 addObject:a2];
 
-    [(_UIEvaluatedObjectCache *)object sortAndEvaluateTopObject];
+    [(_UIEvaluatedObjectCache *)result sortAndEvaluateTopObject];
   }
 }
 
-- (void)demoteObject:(uint64_t)object
+- (void)demoteObject:(uint64_t)result
 {
-  if (object)
+  if (result)
   {
     if (!a2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:sel_demoteObject_ object:object file:@"_UIEvaluatedObjectCache.m" lineNumber:134 description:{@"Invalid parameter not satisfying: %@", @"object"}];
+      [currentHandler handleFailureInMethod:sel_demoteObject_ object:result file:@"_UIEvaluatedObjectCache.m" lineNumber:134 description:{@"Invalid parameter not satisfying: %@", @"object"}];
     }
 
-    [(_UIEvaluatedObjectCache *)object _createStorageIfNeeded];
-    if ([*(object + 24) containsObject:a2])
+    [(_UIEvaluatedObjectCache *)result _createStorageIfNeeded];
+    if ([*(result + 24) containsObject:a2])
     {
-      [*(object + 24) removeObject:a2];
+      [*(result + 24) removeObject:a2];
     }
 
-    [*(object + 24) insertObject:a2 atIndex:0];
+    [*(result + 24) insertObject:a2 atIndex:0];
 
-    [(_UIEvaluatedObjectCache *)object sortAndEvaluateTopObject];
+    [(_UIEvaluatedObjectCache *)result sortAndEvaluateTopObject];
   }
 }
 

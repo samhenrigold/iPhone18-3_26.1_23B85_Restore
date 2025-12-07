@@ -241,41 +241,31 @@
 
 - (void)publishButtonEvent:(void *)event
 {
-  v50 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (event)
   {
     event[1] = [v3 mask];
     v5 = objc_getProperty(event, sel_buttonEventObservers, 16, 1);
-    v7 = OUTLINED_FUNCTION_1(v5, v6);
-    if (v7)
+    if (OUTLINED_FUNCTION_1(v5, v6, v7, v8, v9, v10, v11, v12, v32, v35, v38, v41, v44))
     {
-      OUTLINED_FUNCTION_4(v7, v8, v9, v10, v11, v12, v13, v14, v35, v38, v41);
-      while (1)
+      OUTLINED_FUNCTION_4();
+      do
       {
-        OUTLINED_FUNCTION_3(v15, v16, v17, v18, v19, v20, v21, v22, v36, v39, v42);
-        if (!v31)
+        OUTLINED_FUNCTION_3();
+        if (!v21)
         {
           objc_enumerationMutation(event);
         }
 
-        v32 = OUTLINED_FUNCTION_0(v23, v24, v25, v26, v27, v28, v29, v30, v37, v40);
-        v33(v32);
+        v22 = OUTLINED_FUNCTION_0(v13, v14, v15, v16, v17, v18, v19, v20, v33, v34);
+        v23(v22);
         OUTLINED_FUNCTION_5();
-        if (v31)
-        {
-          v15 = OUTLINED_FUNCTION_2(v15, v16, v17, v18, v19, v20, v21, v22, v36, v39, v42, v43, v44, v45, v46, v47, v48, v49);
-          if (!v15)
-          {
-            break;
-          }
-        }
       }
+
+      while (!v21 || OUTLINED_FUNCTION_2(v24, v25, v26, v27, v28, v29, v30, v31, v33, v34, v36, v37, v39, v40, v42, v43, v45));
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMaskAndPublishButtonEvent:(uint64_t)event atTimestamp:
@@ -302,150 +292,110 @@
 
 - (void)publishKeyboardEvent:(void *)event
 {
-  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (event)
   {
     v4 = objc_getProperty(event, sel_keyboardEventObservers, 24, 1);
-    v6 = OUTLINED_FUNCTION_1(v4, v5);
-    if (v6)
+    if (OUTLINED_FUNCTION_1(v4, v5, v6, v7, v8, v9, v10, v11, v31, v34, v37, v40, v43))
     {
-      OUTLINED_FUNCTION_4(v6, v7, v8, v9, v10, v11, v12, v13, v34, v37, v40);
-      while (1)
+      OUTLINED_FUNCTION_4();
+      do
       {
-        OUTLINED_FUNCTION_3(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41);
-        if (!v30)
+        OUTLINED_FUNCTION_3();
+        if (!v20)
         {
           objc_enumerationMutation(event);
         }
 
-        v31 = OUTLINED_FUNCTION_0(v22, v23, v24, v25, v26, v27, v28, v29, v36, v39);
-        v32(v31);
+        v21 = OUTLINED_FUNCTION_0(v12, v13, v14, v15, v16, v17, v18, v19, v32, v33);
+        v22(v21);
         OUTLINED_FUNCTION_5();
-        if (v30)
-        {
-          v14 = OUTLINED_FUNCTION_2(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41, v42, v43, v44, v45, v46, v47, v48);
-          if (!v14)
-          {
-            break;
-          }
-        }
       }
+
+      while (!v20 || OUTLINED_FUNCTION_2(v23, v24, v25, v26, v27, v28, v29, v30, v32, v33, v35, v36, v38, v39, v41, v42, v44));
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishScrollEvent:(void *)event
 {
-  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (event)
   {
     v4 = objc_getProperty(event, sel_scrollEventObservers, 32, 1);
-    v6 = OUTLINED_FUNCTION_1(v4, v5);
-    if (v6)
+    if (OUTLINED_FUNCTION_1(v4, v5, v6, v7, v8, v9, v10, v11, v31, v34, v37, v40, v43))
     {
-      OUTLINED_FUNCTION_4(v6, v7, v8, v9, v10, v11, v12, v13, v34, v37, v40);
-      while (1)
+      OUTLINED_FUNCTION_4();
+      do
       {
-        OUTLINED_FUNCTION_3(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41);
-        if (!v30)
+        OUTLINED_FUNCTION_3();
+        if (!v20)
         {
           objc_enumerationMutation(event);
         }
 
-        v31 = OUTLINED_FUNCTION_0(v22, v23, v24, v25, v26, v27, v28, v29, v36, v39);
-        v32(v31);
+        v21 = OUTLINED_FUNCTION_0(v12, v13, v14, v15, v16, v17, v18, v19, v32, v33);
+        v22(v21);
         OUTLINED_FUNCTION_5();
-        if (v30)
-        {
-          v14 = OUTLINED_FUNCTION_2(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41, v42, v43, v44, v45, v46, v47, v48);
-          if (!v14)
-          {
-            break;
-          }
-        }
       }
+
+      while (!v20 || OUTLINED_FUNCTION_2(v23, v24, v25, v26, v27, v28, v29, v30, v32, v33, v35, v36, v38, v39, v41, v42, v44));
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishDigitizerEvent:(void *)event
 {
-  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (event)
   {
     v4 = objc_getProperty(event, sel_digitizerEventObservers, 40, 1);
-    v6 = OUTLINED_FUNCTION_1(v4, v5);
-    if (v6)
+    if (OUTLINED_FUNCTION_1(v4, v5, v6, v7, v8, v9, v10, v11, v31, v34, v37, v40, v43))
     {
-      OUTLINED_FUNCTION_4(v6, v7, v8, v9, v10, v11, v12, v13, v34, v37, v40);
-      while (1)
+      OUTLINED_FUNCTION_4();
+      do
       {
-        OUTLINED_FUNCTION_3(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41);
-        if (!v30)
+        OUTLINED_FUNCTION_3();
+        if (!v20)
         {
           objc_enumerationMutation(event);
         }
 
-        v31 = OUTLINED_FUNCTION_0(v22, v23, v24, v25, v26, v27, v28, v29, v36, v39);
-        v32(v31);
+        v21 = OUTLINED_FUNCTION_0(v12, v13, v14, v15, v16, v17, v18, v19, v32, v33);
+        v22(v21);
         OUTLINED_FUNCTION_5();
-        if (v30)
-        {
-          v14 = OUTLINED_FUNCTION_2(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41, v42, v43, v44, v45, v46, v47, v48);
-          if (!v14)
-          {
-            break;
-          }
-        }
       }
+
+      while (!v20 || OUTLINED_FUNCTION_2(v23, v24, v25, v26, v27, v28, v29, v30, v32, v33, v35, v36, v38, v39, v41, v42, v44));
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishPointerEvent:(void *)event
 {
-  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (event)
   {
     v4 = objc_getProperty(event, sel_pointerEventObservers, 48, 1);
-    v6 = OUTLINED_FUNCTION_1(v4, v5);
-    if (v6)
+    if (OUTLINED_FUNCTION_1(v4, v5, v6, v7, v8, v9, v10, v11, v31, v34, v37, v40, v43))
     {
-      OUTLINED_FUNCTION_4(v6, v7, v8, v9, v10, v11, v12, v13, v34, v37, v40);
-      while (1)
+      OUTLINED_FUNCTION_4();
+      do
       {
-        OUTLINED_FUNCTION_3(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41);
-        if (!v30)
+        OUTLINED_FUNCTION_3();
+        if (!v20)
         {
           objc_enumerationMutation(event);
         }
 
-        v31 = OUTLINED_FUNCTION_0(v22, v23, v24, v25, v26, v27, v28, v29, v36, v39);
-        v32(v31);
+        v21 = OUTLINED_FUNCTION_0(v12, v13, v14, v15, v16, v17, v18, v19, v32, v33);
+        v22(v21);
         OUTLINED_FUNCTION_5();
-        if (v30)
-        {
-          v14 = OUTLINED_FUNCTION_2(v14, v15, v16, v17, v18, v19, v20, v21, v35, v38, v41, v42, v43, v44, v45, v46, v47, v48);
-          if (!v14)
-          {
-            break;
-          }
-        }
       }
+
+      while (!v20 || OUTLINED_FUNCTION_2(v23, v24, v25, v26, v27, v28, v29, v30, v32, v33, v35, v36, v38, v39, v41, v42, v44));
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

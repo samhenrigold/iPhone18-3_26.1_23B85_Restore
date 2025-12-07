@@ -1,4 +1,5 @@
 @interface CMPednetResponse
+- (void)errorString:(char *)string :(unsigned int)a4;
 - (void)errorStringLength:(unsigned int *)length;
 - (void)getMachContinuousTimestamp:(unint64_t *)timestamp;
 - (void)getType:(char *)type;
@@ -9,8 +10,8 @@
 
 - (void)getType:(char *)type
 {
-  v5 = *(*(type metadata accessor for CoreMotionPednet_Response(0) - 8) + 64);
-  __chkstk_darwin();
+  v5 = type metadata accessor for CoreMotionPednet_Response(0);
+  __chkstk_darwin(v5 - 8);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
@@ -36,8 +37,8 @@
 
 - (void)getMachContinuousTimestamp:(unint64_t *)timestamp
 {
-  v5 = *(*(type metadata accessor for CoreMotionPednet_Response(0) - 8) + 64);
-  __chkstk_darwin();
+  v5 = type metadata accessor for CoreMotionPednet_Response(0);
+  __chkstk_darwin(v5 - 8);
   v7 = (&v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v8 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
@@ -49,8 +50,8 @@
 
 - (void)writePredictionValuesToBuffer:(float *)buffer :(int64_t)a4
 {
-  v7 = *(*(type metadata accessor for CoreMotionPednet_Response(0) - 8) + 64);
-  __chkstk_darwin();
+  v7 = type metadata accessor for CoreMotionPednet_Response(0);
+  __chkstk_darwin(v7 - 8);
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
@@ -71,8 +72,8 @@
 
 - (void)errorStringLength:(unsigned int *)length
 {
-  v5 = *(*(type metadata accessor for CoreMotionPednet_Response(0) - 8) + 64);
-  __chkstk_darwin();
+  v5 = type metadata accessor for CoreMotionPednet_Response(0);
+  __chkstk_darwin(v5 - 8);
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
@@ -94,6 +95,21 @@
   }
 
   __break(1u);
+}
+
+- (void)errorString:(char *)string :(unsigned int)a4
+{
+  v4 = *&a4;
+  v7 = type metadata accessor for CoreMotionPednet_Response(0);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *((swift_isaMask & self->super.isa) + 0x58);
+  selfCopy = self;
+  v10();
+  v12 = CoreMotionPednet_Response.errorMessage.getter();
+  v14 = v13;
+  sub_100009878(v9, type metadata accessor for CoreMotionPednet_Response);
+  sub_10000A1F4(v12, v14, string, v4);
 }
 
 @end

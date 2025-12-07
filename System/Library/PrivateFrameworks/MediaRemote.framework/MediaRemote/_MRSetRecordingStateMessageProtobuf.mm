@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)state;
 - (unint64_t)hash;
@@ -26,20 +27,35 @@
   }
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769FC80[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsState:(id)state
 {
   stateCopy = state;
-  if ([stateCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 0;
   }
 
-  else if ([stateCopy isEqualToString:@"Recording"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 1;
   }
 
-  else if ([stateCopy isEqualToString:@"NotRecording"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 2;
   }
@@ -90,7 +106,6 @@
 {
   if (*&self->_has)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 }

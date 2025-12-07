@@ -83,9 +83,8 @@
 {
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"<%@: %p ", objc_opt_class(), self];;
   [v3 appendFormat:@"transactionDate: '%@'; ", self->_transactionDate];
-  paymentAmountCategory = self->_paymentAmountCategory;
-  v5 = FHPaymentRingSuggestionCategoryToString();
-  [v3 appendFormat:@"paymentAmountCategory: '%@'; ", v5];
+  v4 = FHPaymentRingSuggestionCategoryToString();
+  [v3 appendFormat:@"paymentAmountCategory: '%@'; ", v4];
 
   [v3 appendFormat:@"transactionAmount: '%@'; ", self->_transactionAmount];
   [v3 appendFormat:@">"];

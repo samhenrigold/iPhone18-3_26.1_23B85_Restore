@@ -12,37 +12,38 @@
 {
   y = test.y;
   x = test.x;
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   BSFloatLessThanOrEqualToFloat();
-  if (BSFloatGreaterThanOrEqualToFloat() && BSFloatLessThanFloat() && (-[_SBProximityTouchHandlingView window](self, "window"), v7 = objc_claimAutoreleasedReturnValue(), [v7 screen], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "bounds"), v9 = BSFloatLessThanFloat(), v8, v7, v9))
+  v7 = BSFloatGreaterThanOrEqualToFloat();
+  if (v7 && (v7 = BSFloatLessThanFloat(), v7) && (-[_SBProximityTouchHandlingView window](self, "window"), v8 = objc_claimAutoreleasedReturnValue(), [v8 screen], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "bounds"), v10 = BSFloatLessThanFloat(), v9, v8, v10))
   {
     delegate = [(_SBProximityTouchHandlingView *)&self->super.super.super.isa delegate];
     [delegate didHitAllowedRegion:{x, y}];
 
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = SBLogProximitySensor();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogProximitySensor(v7);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     statusBarHeight = self->_statusBarHeight;
-    v16 = 134218752;
-    v17 = x;
-    v18 = 2048;
-    v19 = y;
-    v20 = 1024;
-    v21 = v10;
-    v22 = 2048;
-    v23 = statusBarHeight;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Prox hit test (%g,%g) - hitStatusBar:%{BOOL}u (statusBarHeight:%g)", &v16, 0x26u);
+    v17 = 134218752;
+    v18 = x;
+    v19 = 2048;
+    v20 = y;
+    v21 = 1024;
+    v22 = v11;
+    v23 = 2048;
+    v24 = statusBarHeight;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Prox hit test (%g,%g) - hitStatusBar:%{BOOL}u (statusBarHeight:%g)", &v17, 0x26u);
   }
 
-  if (v10)
+  if (v11)
   {
     selfCopy = 0;
   }

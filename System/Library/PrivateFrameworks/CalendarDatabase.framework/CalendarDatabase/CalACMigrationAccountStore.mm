@@ -54,7 +54,7 @@ uint64_t __44__CalACMigrationAccountStore_sharedInstance__block_invoke()
 
 - (id)topLevelAccountsWithAccountTypeIdentifier:(id)identifier error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   defaultProvider = [MEMORY[0x1E6992F00] defaultProvider];
   v7 = [defaultProvider accountsWithAccountTypeIdentifier:identifierCopy error:error];
@@ -62,26 +62,26 @@ uint64_t __44__CalACMigrationAccountStore_sharedInstance__block_invoke()
   if (v7)
   {
     v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           parentAccount = [v14 parentAccount];
 
           if (!parentAccount)
@@ -91,7 +91,7 @@ uint64_t __44__CalACMigrationAccountStore_sharedInstance__block_invoke()
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -105,14 +105,12 @@ uint64_t __44__CalACMigrationAccountStore_sharedInstance__block_invoke()
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)childAccountsForAccount:(id)account withTypeIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   identifierCopy = identifier;
   objc_opt_class();
@@ -124,39 +122,39 @@ uint64_t __44__CalACMigrationAccountStore_sharedInstance__block_invoke()
 
     if (v9)
     {
-      v20 = account;
+      v19 = account;
       v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v22;
+        v14 = *v21;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [[CalACMigrationAccount alloc] initWithACAccount:*(*(&v21 + 1) + 8 * i)];
+            v16 = [[CalACMigrationAccount alloc] initWithACAccount:*(*(&v20 + 1) + 8 * i)];
             [v10 addObject:v16];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v13);
       }
 
       v17 = [v10 copy];
-      account = v20;
+      account = v19;
     }
 
     else
@@ -169,8 +167,6 @@ uint64_t __44__CalACMigrationAccountStore_sharedInstance__block_invoke()
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

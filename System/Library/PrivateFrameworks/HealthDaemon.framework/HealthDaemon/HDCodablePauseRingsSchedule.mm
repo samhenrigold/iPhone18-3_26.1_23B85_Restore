@@ -15,8 +15,8 @@
 
 - (BOOL)applyToObject:(id)object
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   objectCopy = object;
   if (self)
   {
@@ -43,7 +43,7 @@
         goto LABEL_14;
       }
 
-      [MEMORY[0x277CCA9B8] hk_assignError:&v15 code:3 format:@"Failed to decode superclass message"];
+      [MEMORY[0x277CCA9B8] hk_assignError:&v14 code:3 format:@"Failed to decode superclass message"];
     }
 
     else
@@ -51,24 +51,23 @@
       v9 = MEMORY[0x277CCA9B8];
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
-      [v9 hk_assignError:&v15 code:3 format:{@"Unexpected class %@", v11}];
+      [v9 hk_assignError:&v14 code:3 format:{@"Unexpected class %@", v11}];
     }
   }
 
-  v7 = v15;
+  v7 = v14;
   _HKInitializeLogging();
   v12 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v17 = v7;
+    v16 = v7;
     _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Failed to decode object of type HKPauseRingsSchedule with error %@", buf, 0xCu);
   }
 
   v8 = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -130,27 +129,25 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startDateIndex = self->_startDateIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    endDateIndex = self->_endDateIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

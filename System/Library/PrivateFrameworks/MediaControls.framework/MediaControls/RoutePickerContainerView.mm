@@ -12,14 +12,14 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for RoutePickerContainerView();
+  v8.super_class = type metadata accessor for RoutePickerContainerView(self, a2);
   return [(RoutePickerContainerView *)&v8 initWithFrame:x, y, width, height];
 }
 
 - (_TtC13MediaControls24RoutePickerContainerView)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for RoutePickerContainerView();
+  v7.super_class = type metadata accessor for RoutePickerContainerView(self, a2);
   coderCopy = coder;
   v5 = [(RoutePickerContainerView *)&v7 initWithCoder:coderCopy];
 

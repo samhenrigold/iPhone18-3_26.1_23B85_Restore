@@ -1,301 +1,8 @@
-void closure #1 in InstrumentationManager.doLogStateTransition(previousState:currentState:event:timestamp:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void, void), uint64_t a5, uint64_t a6)
-{
-  v132 = a4;
-  v133 = a6;
-  v138 = a3;
-  v6 = type metadata accessor for Logger();
-  v136 = *(v6 - 8);
-  v137 = v6;
-  v7 = *(v136 + 64);
-  v9 = MEMORY[0x28223BE20](v6, v8);
-  v11 = &v120[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v13 = MEMORY[0x28223BE20](v9, v12);
-  v129 = &v120[-v14];
-  MEMORY[0x28223BE20](v13, v15);
-  v128 = &v120[-v16];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17 - 8, v19);
-  v21 = &v120[-v20];
-  v22 = type metadata accessor for UUID();
-  v134 = *(v22 - 8);
-  v135 = v22;
-  v23 = v134[8];
-  v25 = MEMORY[0x28223BE20](v22, v24);
-  v127 = &v120[-((v26 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v28 = MEMORY[0x28223BE20](v25, v27);
-  v131 = &v120[-v29];
-  v31 = MEMORY[0x28223BE20](v28, v30);
-  v130 = &v120[-v32];
-  MEMORY[0x28223BE20](v31, v33);
-  v35 = &v120[-v34];
-  v36 = swift_projectBox();
-  type metadata accessor for State();
-  v37 = State.disabled.unsafeMutableAddressor();
-  v38 = *v37;
-  v39 = static NSObject.== infix(_:_:)();
-
-  if (v39)
-  {
-    goto LABEL_3;
-  }
-
-  v40 = *v37;
-  v41 = static NSObject.== infix(_:_:)();
-
-  if (v41)
-  {
-    goto LABEL_3;
-  }
-
-  v47 = *State.available.unsafeMutableAddressor();
-  v48 = static NSObject.== infix(_:_:)();
-
-  if (v48)
-  {
-    v49 = *State.analyzing.unsafeMutableAddressor();
-    v50 = static NSObject.== infix(_:_:)();
-
-    if (v50 & 1) != 0 || (v51 = *State.responding.unsafeMutableAddressor(), v52 = static NSObject.== infix(_:_:)(), v51, (v52))
-    {
-LABEL_3:
-      UUID.init()();
-      (*(*v138 + 120))(v35);
-    }
-  }
-
-  v42 = [objc_allocWithZone(MEMORY[0x277D5AD80]) init];
-  if (v42)
-  {
-    v43 = v42;
-    v44 = [objc_allocWithZone(MEMORY[0x277D5AD70]) init];
-    if (v44)
-    {
-      v45 = v44;
-      v126 = [objc_allocWithZone(MEMORY[0x277D5AD78]) init];
-      if (v126)
-      {
-        [v43 setPreviousState_];
-        [v43 setCurrentState_];
-        v125 = v45;
-        if (v132 > 0x10)
-        {
-          v46 = 0;
-        }
-
-        else
-        {
-          v46 = dword_2691ABBD4[v132];
-        }
-
-        v59 = [v43 setReason_];
-        (*(*v138 + 112))(v59);
-        v60 = objc_allocWithZone(MEMORY[0x277D5AC78]);
-        isa = UUID._bridgeToObjectiveC()().super.isa;
-        v62 = [v60 initWithNSUUID_];
-
-        v63 = v134;
-        v64 = v134[1];
-        v65 = v35;
-        v66 = v135;
-        v64(v65, v135);
-        [v126 setSessionId_];
-
-        swift_beginAccess();
-        outlined init with copy of UUID?(v36, v21);
-        if ((v63[6])(v21, 1, v66) == 1)
-        {
-          outlined destroy of UUID?(v21);
-        }
-
-        else
-        {
-          v132 = v64;
-          v67 = v130;
-          (v63[4])(v130, v21, v66);
-          v68 = objc_opt_self();
-          v69 = UUID._bridgeToObjectiveC()().super.isa;
-          v70 = [v68 derivedIdentifierForComponentName:20 fromSourceIdentifier:v69];
-
-          if (v70)
-          {
-            static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-            v71 = objc_allocWithZone(MEMORY[0x277D5AC78]);
-            v72 = UUID._bridgeToObjectiveC()().super.isa;
-            v73 = [v71 initWithNSUUID_];
-
-            v74 = objc_allocWithZone(MEMORY[0x277D5AC78]);
-            v75 = UUID._bridgeToObjectiveC()().super.isa;
-            v76 = [v74 initWithNSUUID_];
-
-            v77 = [objc_allocWithZone(MEMORY[0x277D5A9D0]) init];
-            if (v77)
-            {
-              v78 = v77;
-              v79 = [objc_allocWithZone(MEMORY[0x277D5A9E0]) init];
-              if (v79)
-              {
-                v80 = v79;
-                v81 = v73;
-                v82 = [objc_allocWithZone(MEMORY[0x277D5A9E0]) init];
-                if (v82)
-                {
-                  v83 = v82;
-                  v123 = v81;
-                  [v80 setUuid_];
-                  [v80 setComponent_];
-                  [v78 setSource_];
-                  v129 = v76;
-                  [v83 setUuid_];
-                  [v83 setComponent_];
-                  v124 = v83;
-                  [v78 setTarget_];
-                  v84 = Logger.framework.unsafeMutableAddressor();
-                  v85 = v136;
-                  v86 = v128;
-                  (*(v136 + 16))(v128, v84, v137);
-                  v87 = v127;
-                  (v134[2])(v127, v131, v135);
-                  v88 = Logger.logObject.getter();
-                  v89 = static os_log_type_t.info.getter();
-                  if (os_log_type_enabled(v88, v89))
-                  {
-                    v90 = swift_slowAlloc();
-                    v122 = v90;
-                    v134 = swift_slowAlloc();
-                    v139 = v134;
-                    *v90 = 136315138;
-                    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-                    v121 = v89;
-                    v91 = v135;
-                    v92 = dispatch thunk of CustomStringConvertible.description.getter();
-                    v94 = v93;
-                    v95 = v87;
-                    v96 = v132;
-                    (v132)(v95, v91);
-                    v97 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v94, &v139);
-
-                    v98 = v122;
-                    *(v122 + 1) = v97;
-                    v99 = v98;
-                    _os_log_impl(&dword_269189000, v88, v121, "#SRST RequestLinking setting srstId=%s", v98, 0xCu);
-                    v100 = v134;
-                    __swift_destroy_boxed_opaque_existential_1Tm(v134);
-                    MEMORY[0x26D632230](v100, -1, -1);
-                    MEMORY[0x26D632230](v99, -1, -1);
-
-                    (*(v85 + 8))(v128, v137);
-                  }
-
-                  else
-                  {
-
-                    v116 = v87;
-                    v96 = v132;
-                    (v132)(v116, v135);
-                    (*(v85 + 8))(v86, v137);
-                  }
-
-                  v113 = v133;
-                  v117 = v130;
-                  v118 = v123;
-                  [v126 setSrstId_];
-
-                  [*(v138 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_stream) emitMessage:v78 timestamp:v113];
-                  v119 = v135;
-                  v96(v131, v135);
-                  v96(v117, v119);
-                  goto LABEL_37;
-                }
-              }
-
-              else
-              {
-                v80 = v78;
-              }
-            }
-
-            v101 = Logger.framework.unsafeMutableAddressor();
-            v102 = v136;
-            v103 = v129;
-            (*(v136 + 16))(v129, v101, v137);
-            v104 = Logger.logObject.getter();
-            v105 = static os_log_type_t.error.getter();
-            if (os_log_type_enabled(v104, v105))
-            {
-              v106 = v73;
-              v107 = v67;
-              v108 = swift_slowAlloc();
-              *v108 = 0;
-              _os_log_impl(&dword_269189000, v104, v105, "#SRST RequestLinking Failed to create RequestLink event for SiriStates", v108, 2u);
-              MEMORY[0x26D632230](v108, -1, -1);
-
-              (*(v102 + 8))(v103, v137);
-              v109 = v132;
-              v110 = v135;
-              (v132)(v131, v135);
-              v109(v107, v110);
-            }
-
-            else
-            {
-
-              (*(v102 + 8))(v103, v137);
-              v111 = v132;
-              v112 = v135;
-              (v132)(v131, v135);
-              v111(v67, v112);
-            }
-          }
-
-          else
-          {
-            (v132)(v67, v66);
-          }
-        }
-
-        v113 = v133;
-LABEL_37:
-        v114 = v125;
-        v115 = v126;
-        [v125 setEventMetadata_];
-        [v114 setStateTransitionEvent_];
-        [*(v138 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_stream) emitMessage:v114 timestamp:v113];
-
-        return;
-      }
-    }
-
-    else
-    {
-      v45 = v43;
-    }
-  }
-
-  v53 = Logger.framework.unsafeMutableAddressor();
-  v55 = v136;
-  v54 = v137;
-  (*(v136 + 16))(v11, v53, v137);
-  v56 = Logger.logObject.getter();
-  v57 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v56, v57))
-  {
-    v58 = swift_slowAlloc();
-    *v58 = 0;
-    _os_log_impl(&dword_269189000, v56, v57, "#SRST RequestLinking unable to init SSSchemaProvisionalSiriStateTransitionEvent", v58, 2u);
-    MEMORY[0x26D632230](v58, -1, -1);
-  }
-
-  (*(v55 + 8))(v11, v54);
-}
-
 uint64_t thunk for @escaping @callee_guaranteed @Sendable () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t InstrumentationManager.deinit()
@@ -304,7 +11,6 @@ uint64_t InstrumentationManager.deinit()
   v2 = type metadata accessor for UUID();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
-  v3 = *(v0 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_stream);
   swift_unknownObjectRelease();
   return v0;
 }
@@ -315,59 +21,54 @@ uint64_t InstrumentationManager.__deallocating_deinit()
   v2 = type metadata accessor for UUID();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
-  v3 = *(v0 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_stream);
   swift_unknownObjectRelease();
-  v4 = *(*v0 + 48);
-  v5 = *(*v0 + 52);
+  v3 = *(*v0 + 48);
+  v4 = *(*v0 + 52);
 
-  return MEMORY[0x2821FE8D8](v0, v4, v5);
+  return MEMORY[0x2821FE8D8](v0, v3, v4);
 }
 
 uint64_t specialized InstrumentationManager.init(_:)(uint64_t a1)
 {
   v2 = v1;
   v4 = type metadata accessor for UUID();
-  v28 = *(v4 - 8);
-  v29 = v4;
-  v5 = *(v28 + 64);
-  MEMORY[0x28223BE20](v4, v6);
-  v27 = v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v8 = *(v26 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v26, v10);
-  v12 = v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13, v15);
-  v16 = type metadata accessor for DispatchQoS();
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8, v18);
+  v20 = *(v4 - 8);
+  v21 = v4;
+  MEMORY[0x28223BE20](v4);
+  v19 = v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v6 = *(v18 - 8);
+  MEMORY[0x28223BE20](v18);
+  v8 = v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v9);
+  v10 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v10 - 8);
   *(v2 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_stream) = a1;
-  v19 = type metadata accessor for OS_dispatch_queue();
-  v25[1] = "sruifUserDefaults";
-  v25[2] = v19;
+  v11 = type metadata accessor for OS_dispatch_queue();
+  v17[1] = "sruifUserDefaults";
+  v17[2] = v11;
   swift_unknownObjectRetain();
   static DispatchQoS.utility.getter();
-  v30 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
+  v22 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v8 + 104))(v12, *MEMORY[0x277D85260], v26);
+  (*(v6 + 104))(v8, *MEMORY[0x277D85260], v18);
   *(v2 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_queue) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v20 = v27;
+  v12 = v19;
   UUID.init()();
-  (*(v28 + 32))(v2 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_currentSessionIdentifier, v20, v29);
-  v21 = objc_allocWithZone(MEMORY[0x277CBEBD0]);
-  v22 = MEMORY[0x26D631880](0xD000000000000019, 0x80000002691AC910);
-  v23 = [v21 initWithSuiteName_];
+  (*(v20 + 32))(v2 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_currentSessionIdentifier, v12, v21);
+  v13 = objc_allocWithZone(MEMORY[0x277CBEBD0]);
+  v14 = MEMORY[0x26D631880](0xD000000000000019, 0x80000002691AC910);
+  v15 = [v13 initWithSuiteName_];
 
-  *(v2 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_sruifUserDefaults) = v23;
+  *(v2 + OBJC_IVAR____TtC10SiriStates22InstrumentationManager_sruifUserDefaults) = v15;
   return v2;
 }
 
-uint64_t type metadata accessor for InstrumentationManager()
+uint64_t type metadata accessor for InstrumentationManager(uint64_t a1)
 {
   result = type metadata singleton initialization cache for InstrumentationManager;
   if (!type metadata singleton initialization cache for InstrumentationManager)
@@ -378,12 +79,11 @@ uint64_t type metadata accessor for InstrumentationManager()
   return result;
 }
 
-uint64_t type metadata completion function for InstrumentationManager()
+uint64_t type metadata completion function for InstrumentationManager(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -396,9 +96,6 @@ uint64_t type metadata completion function for InstrumentationManager()
 
 uint64_t sub_2691A7818()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
@@ -417,77 +114,77 @@ uint64_t outlined assign with take of UUID?(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t specialized InstrumentationManager.mapStateToStateEnum(state:)()
+uint64_t specialized InstrumentationManager.mapStateToStateEnum(state:)(uint64_t a1)
 {
   swift_getObjectType();
-  v0 = *State.abstract.unsafeMutableAddressor();
-  v1 = static NSObject.== infix(_:_:)();
+  v1 = *State.abstract.unsafeMutableAddressor();
+  v2 = static NSObject.== infix(_:_:)();
 
-  if (v1)
+  if (v2)
   {
     return 0;
   }
 
-  v3 = *State.analyzing.unsafeMutableAddressor();
-  v4 = static NSObject.== infix(_:_:)();
+  v4 = *State.analyzing.unsafeMutableAddressor();
+  v5 = static NSObject.== infix(_:_:)();
 
-  if (v4)
+  if (v5)
   {
     return 3;
   }
 
-  v5 = *State.available.unsafeMutableAddressor();
-  v6 = static NSObject.== infix(_:_:)();
+  v6 = *State.available.unsafeMutableAddressor();
+  v7 = static NSObject.== infix(_:_:)();
 
-  if (v6)
+  if (v7)
   {
     return 2;
   }
 
-  v7 = *State.disabled.unsafeMutableAddressor();
-  v8 = static NSObject.== infix(_:_:)();
+  v8 = *State.disabled.unsafeMutableAddressor();
+  v9 = static NSObject.== infix(_:_:)();
 
-  if (v8)
+  if (v9)
   {
     return 1;
   }
 
-  v9 = *State.postResponse.unsafeMutableAddressor();
-  v10 = static NSObject.== infix(_:_:)();
+  v10 = *State.postResponse.unsafeMutableAddressor();
+  v11 = static NSObject.== infix(_:_:)();
 
-  if (v10)
+  if (v11)
   {
     return 8;
   }
 
-  v11 = *State.processing.unsafeMutableAddressor();
-  v12 = static NSObject.== infix(_:_:)();
+  v12 = *State.processing.unsafeMutableAddressor();
+  v13 = static NSObject.== infix(_:_:)();
 
-  if (v12)
+  if (v13)
   {
     return 5;
   }
 
-  v13 = *State.responding.unsafeMutableAddressor();
-  v14 = static NSObject.== infix(_:_:)();
+  v14 = *State.responding.unsafeMutableAddressor();
+  v15 = static NSObject.== infix(_:_:)();
 
-  if (v14)
+  if (v15)
   {
     return 6;
   }
 
-  v15 = *State.resting.unsafeMutableAddressor();
-  v16 = static NSObject.== infix(_:_:)();
+  v16 = *State.resting.unsafeMutableAddressor();
+  v17 = static NSObject.== infix(_:_:)();
 
-  if (v16)
+  if (v17)
   {
     return 7;
   }
 
-  v17 = *State.understanding.unsafeMutableAddressor();
-  v18 = static NSObject.== infix(_:_:)();
+  v18 = *State.understanding.unsafeMutableAddressor();
+  v19 = static NSObject.== infix(_:_:)();
 
-  if (v18)
+  if (v19)
   {
     return 4;
   }
@@ -512,7 +209,7 @@ uint64_t outlined destroy of UUID?(uint64_t a1)
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -626,13 +323,13 @@ uint64_t static CallState.allStates.getter()
   }
 }
 
-void _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SiriStates9CallStateC_Tt0g5Tf4g_n(uint64_t a1)
+void _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SiriStates9CallStateC_Tt0g5Tf4g_n(unint64_t a1)
 {
   v1 = a1;
   v2 = a1 >> 62;
   if (a1 >> 62)
   {
-    if (a1 >= 0)
+    if ((a1 & 0x8000000000000000) == 0)
     {
       a1 &= 0xFFFFFFFFFFFFFF8uLL;
     }
@@ -879,24 +576,22 @@ uint64_t one-time initialization function for lock()
   return result;
 }
 
-uint64_t static Clientele.add<A>(_:)(uint64_t a1, uint64_t a2)
+uint64_t static Clientele.add<A>(_:)(uint64_t a1)
 {
   if (one-time initialization token for lock != -1)
   {
-    v6 = a1;
-    v7 = a2;
+    v4 = a1;
     swift_once();
-    a2 = v7;
-    a1 = v6;
+    a1 = v4;
   }
 
-  v2 = static Clientele.lock;
-  v3 = MEMORY[0x28223BE20](a1, a2);
-  MEMORY[0x28223BE20](v3, v4);
-  os_unfair_lock_lock(v2 + 4);
-  partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)(&v8);
-  os_unfair_lock_unlock(v2 + 4);
-  return v8;
+  v1 = static Clientele.lock;
+  v2 = MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](v2);
+  os_unfair_lock_lock(v1 + 4);
+  partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)(&v5);
+  os_unfair_lock_unlock(v1 + 4);
+  return v5;
 }
 
 uint64_t partial apply for closure #1 in static Clientele.add<A>(_:)@<X0>(uint64_t *a1@<X8>)
@@ -914,31 +609,28 @@ uint64_t partial apply for closure #1 in static Clientele.add<A>(_:)@<X0>(uint64
   return result;
 }
 
-uint64_t static Clientele.contains<A>(_:)(uint64_t a1, uint64_t a2)
+uint64_t static Clientele.contains<A>(_:)(uint64_t a1)
 {
   if (one-time initialization token for lock != -1)
   {
-    v9 = a1;
-    v10 = a2;
+    v7 = a1;
     swift_once();
-    a1 = v9;
-    a2 = v10;
+    a1 = v7;
   }
 
-  v2 = static Clientele.lock;
-  v3 = MEMORY[0x28223BE20](a1, a2);
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v3;
-  v11[10] = type metadata accessor for Optional();
-  v11[11] = partial apply for closure #1 in static Clientele.contains<A>(_:);
-  v11[12] = v11;
-  v6 = *(*v2 + *MEMORY[0x277D841D0] + 16);
-  v7 = (*(*v2 + 48) + 3) & 0x1FFFFFFFCLL;
-  os_unfair_lock_lock((v2 + v7));
+  v1 = static Clientele.lock;
+  v2 = MEMORY[0x28223BE20](a1);
+  v8[2] = v3;
+  v8[3] = v4;
+  v8[4] = v2;
+  v8[10] = type metadata accessor for Optional();
+  v8[11] = partial apply for closure #1 in static Clientele.contains<A>(_:);
+  v8[12] = v8;
+  v5 = (*(*v1 + 48) + 3) & 0x1FFFFFFFCLL;
+  os_unfair_lock_lock((v1 + v5));
   partial apply for closure #1 in OSAllocatedUnfairLock<A>.withLockUnchecked<A>(_:)();
-  os_unfair_lock_unlock((v2 + v7));
-  return v11[7];
+  os_unfair_lock_unlock((v1 + v5));
+  return v8[7];
 }
 
 BOOL specialized Set.contains(_:)(uint64_t a1, uint64_t a2)
@@ -973,26 +665,24 @@ BOOL specialized Set.contains(_:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void static Clientele.remove<A>(_:)(uint64_t a1, uint64_t a2)
+void static Clientele.remove<A>(_:)(uint64_t a1)
 {
   if (one-time initialization token for lock != -1)
   {
-    v5 = a1;
-    v6 = a2;
+    v3 = a1;
     swift_once();
-    a2 = v6;
-    a1 = v5;
+    a1 = v3;
   }
 
-  v2 = static Clientele.lock;
-  v3 = MEMORY[0x28223BE20](a1, a2);
-  MEMORY[0x28223BE20](v3, v4);
-  os_unfair_lock_lock(v2 + 4);
+  v1 = static Clientele.lock;
+  v2 = MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](v2);
+  os_unfair_lock_lock(v1 + 4);
   partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)();
-  os_unfair_lock_unlock(v2 + 4);
+  os_unfair_lock_unlock(v1 + 4);
 }
 
-uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, uint64_t a2)
+uint64_t specialized Set._Variant.insert(_:)(void *a1, uint64_t a2)
 {
   v5 = *v2;
   v6 = MEMORY[0x26D631B70](*(*v2 + 40));
@@ -1023,11 +713,10 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, uint64_t a2)
   else
   {
 LABEL_5:
-    v11 = *v2;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v14 = *v2;
+    v13 = *v2;
     specialized _NativeSet.insertNew(_:at:isUnique:)(a2, v8, isUniquelyReferenced_nonNull_native);
-    *v2 = v14;
+    *v2 = v13;
     result = 1;
   }
 
@@ -1039,116 +728,111 @@ uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySvGMd, &_ss11_SetStorageCySvGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    v26 = v2;
-    if (v9 < 64)
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    v25 = v2;
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v18 = *(*(v3 + 48) + 8 * (v15 | (v7 << 6)));
-      result = MEMORY[0x26D631B70](*(v6 + 40), v18);
-      v19 = -1 << *(v6 + 32);
-      v20 = result & ~v19;
-      v21 = v20 >> 6;
-      if (((-1 << v20) & ~*(v13 + 8 * (v20 >> 6))) == 0)
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
+      result = MEMORY[0x26D631B70](*(v5 + 40), v17);
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
       {
-        v22 = 0;
-        v23 = (63 - v19) >> 6;
-        while (++v21 != v23 || (v22 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v24 = v21 == v23;
-          if (v21 == v23)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v21 = 0;
+            v20 = 0;
           }
 
-          v22 |= v24;
-          v25 = *(v13 + 8 * v21);
-          if (v25 != -1)
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
           {
-            v14 = __clz(__rbit64(~v25)) + (v21 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_32:
+LABEL_30:
         __break(1u);
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v20) & ~*(v13 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v6 + 48) + 8 * v14) = v18;
-      ++*(v6 + 16);
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
     }
 
-    v16 = v7;
+    v15 = v6;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         __break(1u);
-        goto LABEL_32;
+        goto LABEL_30;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
       {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
+        goto LABEL_15;
       }
     }
 
-    if (v9 >= 64)
+    if (v8 >= 64)
     {
-      bzero((v3 + 56), 8 * v12);
+      bzero((v3 + 56), 8 * v11);
     }
 
     else
     {
-      *v8 = -1 << v9;
+      *v7 = -1 << v8;
     }
 
-    v2 = v26;
+    v2 = v25;
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
@@ -1295,106 +979,101 @@ uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySvGMd, &_ss11_SetStorageCySvGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v9 = ~(-1 << v8);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    while (v10)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v14 = __clz(__rbit64(v10));
-      v10 &= v10 - 1;
-LABEL_17:
-      v17 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
-      result = MEMORY[0x26D631B70](*(v6 + 40), v17);
-      v18 = -1 << *(v6 + 32);
-      v19 = result & ~v18;
-      v20 = v19 >> 6;
-      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
+      result = MEMORY[0x26D631B70](*(v5 + 40), v16);
+      v17 = -1 << *(v5 + 32);
+      v18 = result & ~v17;
+      v19 = v18 >> 6;
+      if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
       {
-        v21 = 0;
-        v22 = (63 - v18) >> 6;
-        while (++v20 != v22 || (v21 & 1) == 0)
+        v20 = 0;
+        v21 = (63 - v17) >> 6;
+        while (++v19 != v21 || (v20 & 1) == 0)
         {
-          v23 = v20 == v22;
-          if (v20 == v22)
+          v22 = v19 == v21;
+          if (v19 == v21)
           {
-            v20 = 0;
+            v19 = 0;
           }
 
-          v21 |= v23;
-          v24 = *(v12 + 8 * v20);
-          if (v24 != -1)
+          v20 |= v22;
+          v23 = *(v11 + 8 * v19);
+          if (v23 != -1)
           {
-            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
-            goto LABEL_9;
+            v12 = __clz(__rbit64(~v23)) + (v19 << 6);
+            goto LABEL_7;
           }
         }
 
-        goto LABEL_28;
+        goto LABEL_26;
       }
 
-      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      *(*(v6 + 48) + 8 * v13) = v17;
-      ++*(v6 + 16);
+      v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      *(*(v5 + 48) + 8 * v12) = v16;
+      ++*(v5 + 16);
     }
 
-    v15 = v7;
+    v14 = v6;
     while (1)
     {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v7 >= v11)
+      if (v6 >= v10)
       {
-        goto LABEL_26;
+        goto LABEL_24;
       }
 
-      v16 = *(v3 + 56 + 8 * v7);
-      ++v15;
-      if (v16)
+      v15 = *(v3 + 56 + 8 * v6);
+      ++v14;
+      if (v15)
       {
-        v14 = __clz(__rbit64(v16));
-        v10 = (v16 - 1) & v16;
-        goto LABEL_17;
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
+        goto LABEL_15;
       }
     }
 
     __break(1u);
-LABEL_28:
+LABEL_26:
     __break(1u);
   }
 
   else
   {
-LABEL_26:
+LABEL_24:
 
-    *v2 = v6;
+    *v2 = v5;
   }
 
   return result;
@@ -1421,20 +1100,19 @@ uint64_t specialized Set._Variant.remove(_:)(uint64_t a1)
     }
   }
 
-  v9 = *v1;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *v1;
-  v13 = *v1;
+  v10 = *v1;
+  v12 = *v1;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     specialized _NativeSet.copy()();
-    v11 = v13;
+    v10 = v12;
   }
 
-  v12 = *(*(v11 + 48) + 8 * v6);
+  v11 = *(*(v10 + 48) + 8 * v6);
   specialized _NativeSet._delete(at:)(v6);
-  result = v12;
-  *v1 = v13;
+  result = v11;
+  *v1 = v12;
   return result;
 }
 
@@ -1510,12 +1188,10 @@ LABEL_16:
 
 void *partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)@<X0>(void *a1@<X8>)
 {
-  v4 = *(v1 + 16);
-  v5 = *(v1 + 24);
-  result = v4(&v7);
+  result = (*(v1 + 16))(&v5);
   if (!v2)
   {
-    *a1 = v7;
+    *a1 = v5;
   }
 
   return result;
@@ -1557,20 +1233,6 @@ uint64_t partial apply for closure #1 in static Clientele.remove<A>(_:)()
   swift_beginAccess();
   specialized Set._Variant.remove(_:)(v1);
   return swift_endAccess();
-}
-
-uint64_t partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-uint64_t partial apply for closure #1 in OSAllocatedUnfairLock<A>.withLockUnchecked<A>(_:)()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return v1();
 }
 
 uint64_t getEnumTagSinglePayload for os_unfair_lock_s(uint64_t a1, int a2)

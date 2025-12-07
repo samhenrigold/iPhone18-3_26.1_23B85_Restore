@@ -20,11 +20,7 @@
       dispatch_once(&qword_100229208, &stru_1001FC280);
     }
 
-    v7 = 113;
-    selfCopy = self;
-    v5 = "";
-    v6 = "[NRLinkDirectorRequest dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100229200, 1, "%s%.30s:%-4d Dealloc: %@", ", "[NRLinkDirectorRequest dealloc]"", 113, self);
   }
 
   if (self)
@@ -38,9 +34,9 @@
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = NRLinkDirectorRequest;
-  [(NRLinkDirectorRequest *)&v9 dealloc:v5];
+  v5.receiver = self;
+  v5.super_class = NRLinkDirectorRequest;
+  [(NRLinkDirectorRequest *)&v5 dealloc];
 }
 
 - (id)description
@@ -190,9 +186,9 @@ LABEL_44:
 
 - (NRLinkDirectorRequest)init
 {
-  v11.receiver = self;
-  v11.super_class = NRLinkDirectorRequest;
-  v2 = [(NRLinkDirectorRequest *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = NRLinkDirectorRequest;
+  v2 = [(NRLinkDirectorRequest *)&v13 init];
   if (!v2)
   {
     v6 = sub_100139E64();
@@ -201,14 +197,14 @@ LABEL_44:
     if (IsLevelEnabled)
     {
       v8 = sub_100139E64();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v8, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRLinkDirectorRequest init]"", 43);
     }
 
-    _os_log_pack_size();
-    v9 = *__error();
-    v10 = _os_log_pack_fill();
-    *v10 = 136446210;
-    *(v10 + 4) = "[NRLinkDirectorRequest init]";
+    v9 = _os_log_pack_size();
+    v10 = __error();
+    v11 = _os_log_pack_fill(&v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v9, *v10, &_mh_execute_header, "%{public}s [super init] failed");
+    *v11 = 136446210;
+    *(v11 + 4) = "[NRLinkDirectorRequest init]";
     sub_100139E64();
     _NRLogAbortWithPack();
   }

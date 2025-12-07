@@ -31,9 +31,9 @@
 
 - (void)loadView
 {
-  v51.receiver = self;
-  v51.super_class = BuddySimpleTCController;
-  [(BuddySimpleTCController *)&v51 loadView];
+  v52.receiver = self;
+  v52.super_class = BuddySimpleTCController;
+  [(BuddySimpleTCController *)&v52 loadView];
   view = [(BuddySimpleTCController *)self view];
   v4 = +[UIColor blackColor];
   [view setBackgroundColor:v4];
@@ -118,10 +118,10 @@
   setupController = [UIApp setupController];
   pairingReportManager = [setupController pairingReportManager];
 
-  [pairingReportManager addPairingTimeEventToPairingReportPlist:14 withValue:&__kCFBooleanTrue withError:0];
-  v48 = self->_webView;
-  v49 = sub_10002D68C();
-  v50 = [(UIWebView *)v48 stringByEvaluatingJavaScriptFromString:v49];
+  v48 = [pairingReportManager addPairingTimeEventToPairingReportPlist:14 withValue:&__kCFBooleanTrue withError:0];
+  v49 = self->_webView;
+  v50 = sub_10002D68C(v48);
+  v51 = [(UIWebView *)v49 stringByEvaluatingJavaScriptFromString:v50];
 }
 
 - (void)viewDidLoad

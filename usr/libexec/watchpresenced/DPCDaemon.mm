@@ -10,6 +10,7 @@
 - (void)notifyNewEvents:(unint64_t)events probability:(float)probability;
 - (void)notifyNewWatchStatusEvents:(unint64_t)events;
 - (void)setCurrentWatchPresenceStatus:(unint64_t)status;
+- (void)setStreamingMode:(BOOL)mode;
 - (void)setupWatchPresenceDetection;
 - (void)shutdownTheDetection;
 - (void)startWatchPresenceDetection;
@@ -407,6 +408,26 @@
   self->_currentWatchPresenceType = status;
   LODWORD(v7) = 1065185444;
   [(DPCDaemon *)self forceNotifyNewEvents:status probability:v7];
+}
+
+- (void)setStreamingMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5 = sub_100001040(off_100016898);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6 = @"disable";
+    if (modeCopy)
+    {
+      v6 = @"enable";
+    }
+
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Going to %@ streaming mode", &v7, 0xCu);
+  }
+
+  [(DPCWatchPresenceDetector *)self->_detector setEnabledStreamingMode:modeCopy];
 }
 
 @end

@@ -21,7 +21,7 @@
   _Block_release(v4);
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for SafetyMonitorManager();
+  v7.super_class = type metadata accessor for SafetyMonitorManager(0);
   [(SafetyMonitorManager *)&v7 dealloc];
 }
 

@@ -80,11 +80,12 @@
 
 - (CGPoint)center
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for _UITabButton();
-  [(UIView *)&v4 center];
-  result.y = v3;
-  result.x = v2;
+  v3 = type metadata accessor for _UITabButton();
+  v7.receiver = self;
+  v7.super_class = v4;
+  [(UIView *)&v7 center];
+  result.y = v6;
+  result.x = v5;
   return result;
 }
 
@@ -93,21 +94,22 @@
   y = center.y;
   x = center.x;
   selfCopy = self;
-  sub_189203310(x, y);
+  sub_189203310(selfCopy, x, y);
 }
 
 - (double)alpha
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UITabButton();
-  [(UIView *)&v3 alpha];
+  v3 = type metadata accessor for _UITabButton();
+  v6.receiver = self;
+  v6.super_class = v4;
+  [(UIView *)&v6 alpha];
   return result;
 }
 
 - (void)setAlpha:(double)alpha
 {
   selfCopy = self;
-  sub_189203450(alpha);
+  sub_189203450(selfCopy, alpha);
 }
 
 - (id)_unselectedTintColor
@@ -128,16 +130,17 @@
 - (void)setSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for _UITabButton();
-  v4 = v7.receiver;
-  [(UIControl *)&v7 setSelected:selectedCopy];
-  sub_189202C38();
+  type metadata accessor for _UITabButton();
+  v10.receiver = self;
+  v10.super_class = v5;
+  selfCopy = self;
+  [(UIControl *)&v10 setSelected:selectedCopy];
+  sub_189202C38(v7);
   sub_189205B48();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v6 = Strong;
+    v9 = Strong;
     [Strong setSelected_];
   }
 }
@@ -145,11 +148,12 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for _UITabButton();
-  v4 = v5.receiver;
-  [(UIControl *)&v5 setHighlighted:highlightedCopy];
-  sub_189203A18();
+  type metadata accessor for _UITabButton();
+  v8.receiver = self;
+  v8.super_class = v5;
+  selfCopy = self;
+  [(UIControl *)&v8 setHighlighted:highlightedCopy];
+  sub_189203A18(v7);
 }
 
 - (id)_systemDefaultFocusGroupIdentifier
@@ -215,7 +219,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_189204760();
+  sub_189204760(selfCopy);
 }
 
 - (void)_updateUserInterfaceStyleIfNeeded

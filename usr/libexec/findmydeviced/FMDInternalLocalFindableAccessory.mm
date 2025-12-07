@@ -3,6 +3,7 @@
 - (FMDInternalLocalFindableAccessory)initWithCoder:(id)coder;
 - (FMDInternalLocalFindableAccessory)initWithLocalFindableAccessory:(id)accessory;
 - (id)_computehash:(id)_computehash;
+- (id)_deviceTypeFromVendorId:(unsigned int)id productId:(unsigned int)productId;
 - (id)connectionStateAsString;
 - (id)currentLastActiveTime;
 - (id)deviceInfo;
@@ -249,8 +250,7 @@
   productId = [(FMDInternalLocalFindableAccessory *)self productId];
   v21 = [NSScanner scannerWithString:productId];
 
-  [v21 scanHexInt:&v38];
-  v22 = sub_100002880();
+  v22 = sub_100002880([v21 scanHexInt:&v38]);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
@@ -396,30 +396,37 @@
   if (isConnected)
   {
     lastActiveTime = +[NSDate date];
-    [(FMDInternalLocalFindableAccessory *)self setLastActiveTime:lastActiveTime];
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002880([(FMDInternalLocalFindableAccessory *)self setLastActiveTime:lastActiveTime]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) updated lastActiveTime", &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) updated lastActiveTime", &v10, 0xCu);
     }
   }
 
   else
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) fetching cached lastActiveTime", &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) fetching cached lastActiveTime", &v10, 0xCu);
     }
 
     lastActiveTime = [(FMDInternalLocalFindableAccessory *)self lastActiveTime];
   }
 
   return lastActiveTime;
+}
+
+- (id)_deviceTypeFromVendorId:(unsigned int)id productId:(unsigned int)productId
+{
+  v5 = [NSString stringWithFormat:@"BT_%u_%u", *&id, *&productId];
+  v6 = [(FMDInternalLocalFindableAccessory *)self _computehash:v5];
+
+  return v6;
 }
 
 - (id)_computehash:(id)_computehash

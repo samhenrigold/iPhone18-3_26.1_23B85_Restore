@@ -1,6 +1,7 @@
 @interface NUNAegirOffscreen
 - (MTLTexture)texture0;
 - (MTLTexture)texture1;
+- (NUNAegirOffscreen)initWithDevice:(id)device width:(int)width height:(int)height pixelFormat0:(unint64_t)format0 pixelFormat1:(unint64_t)format1 mipmaps:(int)mipmaps loadAction:(unint64_t)action clearColor0:(id)self0 clearColor1:(id)self1;
 - (NUNAegirOffscreen)initWithDevice:(id)device width:(int)width height:(int)height texture0:(id)texture0 texture1:(id)texture1 loadAction:(unint64_t)action clearColor0:(id)color0 clearColor1:(id)self0;
 - (void)setTexture0:(id)texture0;
 - (void)setTexture1:(id)texture1;
@@ -56,6 +57,26 @@
   }
 
   return v26;
+}
+
+- (NUNAegirOffscreen)initWithDevice:(id)device width:(int)width height:(int)height pixelFormat0:(unint64_t)format0 pixelFormat1:(unint64_t)format1 mipmaps:(int)mipmaps loadAction:(unint64_t)action clearColor0:(id)self0 clearColor1:(id)self1
+{
+  v14 = *&height;
+  v15 = *&width;
+  var3 = color1.var3;
+  var2 = color1.var2;
+  var1 = color1.var1;
+  var0 = color1.var0;
+  v20 = color0.var3;
+  v21 = color0.var2;
+  v22 = color0.var1;
+  v23 = color0.var0;
+  deviceCopy = device;
+  v26 = _NUNAegirCreateTexture(deviceCopy, v15, v14, mipmaps, format0);
+  v27 = _NUNAegirCreateTexture(deviceCopy, v15, v14, mipmaps, format1);
+  var3 = [(NUNAegirOffscreen *)self initWithDevice:deviceCopy width:v15 height:v14 texture0:v26 texture1:v27 loadAction:action clearColor0:v23 clearColor1:v22, v21, v20, var0, var1, var2, var3];
+
+  return var3;
 }
 
 - (MTLTexture)texture0

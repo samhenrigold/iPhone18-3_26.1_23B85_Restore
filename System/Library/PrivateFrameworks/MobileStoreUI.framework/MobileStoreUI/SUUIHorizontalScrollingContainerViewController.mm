@@ -428,9 +428,9 @@ uint64_t __69__SUUIHorizontalScrollingContainerViewController_setViewControllers
   v8 = [(NSArray *)self->_viewControllers objectAtIndex:index];
   title = [v8 title];
   title2 = [controllerCopy title];
-  v11 = [title isEqualToString:title2];
+  isEqualToString = objc_msgSend_isEqualToString_(title);
 
-  if (v11)
+  if (isEqualToString)
   {
     v12 = [(NSArray *)self->_viewControllers count];
     selfCopy = self;

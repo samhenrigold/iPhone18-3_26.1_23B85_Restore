@@ -5,17 +5,17 @@
 
 void ___AFLocalSetVolumeActionNoCheck_block_invoke(uint64_t a1, __CFError *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextDaemon;
   if (a2)
   {
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "_AFLocalSetVolumeActionNoCheck_block_invoke";
-      v14 = 2112;
-      v15 = a2;
-      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Media Remote error %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "_AFLocalSetVolumeActionNoCheck_block_invoke";
+      v13 = 2112;
+      v14 = a2;
+      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Media Remote error %@", &v11, 0x16u);
     }
 
     v5 = objc_alloc(MEMORY[0x1E69C7778]);
@@ -37,9 +37,9 @@ void ___AFLocalSetVolumeActionNoCheck_block_invoke(uint64_t a1, __CFError *a2)
   {
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "_AFLocalSetVolumeActionNoCheck_block_invoke";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Media Remote reported success", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "_AFLocalSetVolumeActionNoCheck_block_invoke";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Media Remote reported success", &v11, 0xCu);
     }
 
     v8 = objc_alloc_init(MEMORY[0x1E69C7788]);
@@ -51,8 +51,6 @@ void ___AFLocalSetVolumeActionNoCheck_block_invoke(uint64_t a1, __CFError *a2)
   {
     (*(v10 + 16))(v10, v9, 0);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

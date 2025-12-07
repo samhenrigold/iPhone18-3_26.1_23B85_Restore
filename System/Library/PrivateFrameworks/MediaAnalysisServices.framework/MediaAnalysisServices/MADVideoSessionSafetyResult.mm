@@ -9,12 +9,12 @@
 
 - (MADVideoSessionSafetyResult)initWithSensitivityAttributes:(id)attributes requestID:(id)d
 {
-  v24[5] = *MEMORY[0x1E69E9840];
+  v25[5] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   dCopy = d;
-  v19.receiver = self;
-  v19.super_class = MADVideoSessionSafetyResult;
-  v8 = [(MADVideoSessionResult *)&v19 initWithRequestID:dCopy];
+  v20.receiver = self;
+  v20.super_class = MADVideoSessionSafetyResult;
+  v8 = [(MADVideoSessionResult *)&v20 initWithRequestID:dCopy];
   if (!v8)
   {
 LABEL_7:
@@ -22,33 +22,33 @@ LABEL_7:
     goto LABEL_11;
   }
 
-  v18 = 0;
-  v9 = [objc_alloc(getSCSensitivityAnalysisClass()) initWithPixelBufferClassificationDictionary:attributesCopy error:&v18];
-  v10 = v18;
+  v19 = 0;
+  v9 = [objc_alloc(getSCSensitivityAnalysisClass()) initWithPixelBufferClassificationDictionary:attributesCopy error:&v19];
+  v10 = v19;
   if (v9)
   {
     objc_storeStrong(&v8->_analysisResult, v9);
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v11 = getSCMLImageExplicitSensitivityScoreSymbolLoc(void)::ptr;
-    v23 = getSCMLImageExplicitSensitivityScoreSymbolLoc(void)::ptr;
+    v24 = getSCMLImageExplicitSensitivityScoreSymbolLoc(void)::ptr;
     if (!getSCMLImageExplicitSensitivityScoreSymbolLoc(void)::ptr)
     {
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = ___ZL45getSCMLImageExplicitSensitivityScoreSymbolLocv_block_invoke;
-      v24[3] = &unk_1E83437B0;
-      v24[4] = &v20;
-      ___ZL45getSCMLImageExplicitSensitivityScoreSymbolLocv_block_invoke(v24);
-      v11 = v21[3];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = ___ZL45getSCMLImageExplicitSensitivityScoreSymbolLocv_block_invoke;
+      v25[3] = &unk_1E83437B0;
+      v25[4] = &v21;
+      ___ZL45getSCMLImageExplicitSensitivityScoreSymbolLocv_block_invoke(v25);
+      v11 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (!v11)
     {
-      dlerror();
-      abort_report_np();
+      v18 = dlerror();
+      abort_report_np("%s", v18);
       __break(1u);
     }
 
@@ -63,7 +63,7 @@ LABEL_7:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v16 = objc_opt_class();
-    [(MADVideoSessionSafetyResult *)v16 initWithSensitivityAttributes:v10 requestID:v24];
+    [(MADVideoSessionSafetyResult *)v16 initWithSensitivityAttributes:v10 requestID:v25];
   }
 
   v15 = 0;

@@ -38,9 +38,9 @@
   isRTL = objc_msgSend_initWithContext_spillOrigin_isRTL_(self, v12, contextCopy, *&origin, lCopy);
   if (isRTL)
   {
-    v18 = objc_msgSend_copy(rangeCopy, v13, v14, v15, v16);
+    v17 = objc_msgSend_copy(rangeCopy, v13, v14, v15);
     chromeSpillingRange = isRTL->_chromeSpillingRange;
-    isRTL->_chromeSpillingRange = v18;
+    isRTL->_chromeSpillingRange = v17;
 
     isRTL->_isRTL = lCopy;
   }
@@ -54,36 +54,36 @@
   contextCopy = context;
   childrenCopy = children;
   objc_opt_class();
-  v14 = TSUDynamicCast();
-  if (!v14)
+  v13 = TSUDynamicCast();
+  if (!v13)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTSpillOriginRefNode initAsCopyOf:intoContext:children:]", v12, v13);
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTSpillOriginRefNode.mm", v18, v19);
-    v22 = @"nil";
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTSpillOriginRefNode initAsCopyOf:intoContext:children:]", v12);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTSpillOriginRefNode.mm", v17);
+    v20 = @"nil";
     if (ofCopy)
     {
-      v22 = ofCopy;
+      v20 = ofCopy;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v21, 80, 0, "Unexpected object in initAsCopyOf:... expected TSTSpillOriginRefNode, got %@", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v19, 80, 0, "Unexpected object in initAsCopyOf:... expected TSTSpillOriginRefNode, got %@", v20);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
-  v36.receiver = self;
-  v36.super_class = TSTSpillOriginRefNode;
-  v27 = [(TSTExpressionNode *)&v36 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
-  v32 = v27;
-  if (v27)
+  v32.receiver = self;
+  v32.super_class = TSTSpillOriginRefNode;
+  v24 = [(TSTExpressionNode *)&v32 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
+  v28 = v24;
+  if (v24)
   {
-    v27[16] = *(v14 + 128);
-    v33 = objc_msgSend_copy(*(v14 + 136), v28, v29, v30, v31);
-    v34 = v32[17];
-    v32[17] = v33;
+    v24[16] = *(v13 + 128);
+    v29 = objc_msgSend_copy(*(v13 + 136), v25, v26, v27);
+    v30 = v28[17];
+    v28[17] = v29;
   }
 
-  return v32;
+  return v28;
 }
 
 - (TSTCSENodeData)recordHashesForSubexpressions:(id)subexpressions
@@ -101,37 +101,37 @@
   nodeCopy = node;
   if (self == nodeCopy)
   {
-    v11 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = TSTSpillOriginRefNode;
-    if ([(TSTExpressionNode *)&v15 isEqualToExpressionNode:nodeCopy])
+    v14.receiver = self;
+    v14.super_class = TSTSpillOriginRefNode;
+    if ([(TSTExpressionNode *)&v14 isEqualToExpressionNode:nodeCopy])
     {
-      v8 = nodeCopy;
+      v7 = nodeCopy;
       spillOrigin = self->_spillOrigin;
-      v10 = v8->_spillOrigin;
-      v11 = 0;
-      if (spillOrigin._coord.row == v10._coord.row && ((*&v10 ^ *&spillOrigin) & 0x101FFFF00000000) == 0)
+      v9 = v7->_spillOrigin;
+      v10 = 0;
+      if (spillOrigin._coord.row == v9._coord.row && ((*&v9 ^ *&spillOrigin) & 0x101FFFF00000000) == 0)
       {
         chromeSpillingRange = self->_chromeSpillingRange;
-        v14 = v8->_chromeSpillingRange;
-        if (chromeSpillingRange == v14 || objc_msgSend_isEqual_(chromeSpillingRange, v5, v14, v6, v7))
+        v13 = v7->_chromeSpillingRange;
+        if (chromeSpillingRange == v13 || objc_msgSend_isEqual_(chromeSpillingRange, v5, v13, v6))
         {
-          v11 = 1;
+          v10 = 1;
         }
       }
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)string
@@ -141,41 +141,41 @@
     goto LABEL_6;
   }
 
-  if (objc_msgSend_isRTL(self, a2, v2, v3, v4))
+  if (objc_msgSend_isRTL(self, a2, v2, v3))
   {
-    if (self->_chromeSpillingRange && objc_msgSend_isRTL(self, a2, v2, v3, v4))
+    if (self->_chromeSpillingRange && objc_msgSend_isRTL(self, a2, v2, v3))
     {
-      v6 = MEMORY[0x277CCACA8];
-      v7 = objc_msgSend_description(self->_chromeSpillingRange, a2, v2, v3, v4);
-      v11 = objc_msgSend_stringWithFormat_(v6, v8, @"↲ (%@):", v9, v10, v7);
+      v5 = MEMORY[0x277CCACA8];
+      v6 = objc_msgSend_description(self->_chromeSpillingRange, a2, v2, v3);
+      v9 = objc_msgSend_stringWithFormat_(v5, v7, @"↲ (%@):", v8, v6);
       goto LABEL_11;
     }
 
 LABEL_6:
-    isRTL = objc_msgSend_isRTL(self, a2, v2, v3, v4);
-    v13 = MEMORY[0x277CCACA8];
-    v14 = NSStringFromTSUCellCoord();
-    v7 = v14;
+    isRTL = objc_msgSend_isRTL(self, a2, v2, v3);
+    v11 = MEMORY[0x277CCACA8];
+    v12 = NSStringFromTSUCellCoord();
+    v6 = v12;
     if (isRTL)
     {
-      objc_msgSend_stringWithFormat_(v13, v15, @"↱ %@:", v16, v17, v14);
+      objc_msgSend_stringWithFormat_(v11, v13, @"↱ %@:", v14, v12);
     }
 
     else
     {
-      objc_msgSend_stringWithFormat_(v13, v15, @"↰ %@:", v16, v17, v14);
+      objc_msgSend_stringWithFormat_(v11, v13, @"↰ %@:", v14, v12);
     }
-    v11 = ;
+    v9 = ;
     goto LABEL_11;
   }
 
-  v18 = MEMORY[0x277CCACA8];
-  v7 = objc_msgSend_description(self->_chromeSpillingRange, a2, v2, v3, v4);
-  v11 = objc_msgSend_stringWithFormat_(v18, v19, @"↳ (%@):", v20, v21, v7);
+  v15 = MEMORY[0x277CCACA8];
+  v6 = objc_msgSend_description(self->_chromeSpillingRange, a2, v2, v3);
+  v9 = objc_msgSend_stringWithFormat_(v15, v16, @"↳ (%@):", v17, v6);
 LABEL_11:
-  v22 = v11;
+  v18 = v9;
 
-  return v22;
+  return v18;
 }
 
 - (void)insertFormulaText:(id)text printingOptions:(unsigned int)options
@@ -184,28 +184,28 @@ LABEL_11:
   textCopy = text;
   if (optionsCopy)
   {
-    v10 = objc_msgSend_whitespaceBefore(self, v6, v7, v8, v9);
+    v9 = objc_msgSend_whitespaceBefore(self, v6, v7, v8);
 
-    if (v10)
+    if (v9)
     {
-      v15 = objc_msgSend_whitespaceBefore(self, v11, v12, v13, v14);
-      objc_msgSend_takeText_(textCopy, v16, v15, v17, v18);
+      v13 = objc_msgSend_whitespaceBefore(self, v10, v11, v12);
+      objc_msgSend_takeText_(textCopy, v14, v13, v15);
     }
   }
 
-  v19 = [TSTWPTokenAttachment alloc];
-  v24 = objc_msgSend_context(self, v20, v21, v22, v23);
-  v27 = objc_msgSend_initWithContext_expressionNode_(v19, v25, v24, self, v26);
+  v16 = [TSTWPTokenAttachment alloc];
+  v20 = objc_msgSend_context(self, v17, v18, v19);
+  v22 = objc_msgSend_initWithContext_expressionNode_(v16, v21, v20, self);
 
-  objc_msgSend_insertUIGraphicalAttachment_(textCopy, v28, v27, v29, v30);
+  objc_msgSend_insertUIGraphicalAttachment_(textCopy, v23, v22, v24);
   if (optionsCopy)
   {
-    v35 = objc_msgSend_whitespaceAfter(self, v31, v32, v33, v34);
+    v28 = objc_msgSend_whitespaceAfter(self, v25, v26, v27);
 
-    if (v35)
+    if (v28)
     {
-      v40 = objc_msgSend_whitespaceAfter(self, v36, v37, v38, v39);
-      objc_msgSend_takeText_(textCopy, v41, v40, v42, v43);
+      v32 = objc_msgSend_whitespaceAfter(self, v29, v30, v31);
+      objc_msgSend_takeText_(textCopy, v33, v32, v34);
     }
   }
 }
@@ -214,30 +214,30 @@ LABEL_11:
 {
   v5 = MEMORY[0x277D81150];
   v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTSpillOriginRefNode buildASTNodeArray:hostCell:symbolTable:]", *&cell, table);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTSpillOriginRefNode.mm", v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 167, 0, "TSTSpillOriginRef should NOT be in a normal TSTFormula");
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTSpillOriginRefNode.mm", v8);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 167, 0, "TSTSpillOriginRef should NOT be in a normal TSTFormula");
 
-  v16 = MEMORY[0x277D81150];
+  v14 = MEMORY[0x277D81150];
 
-  objc_msgSend_logBacktraceThrottled(v16, v12, v13, v14, v15);
+  objc_msgSend_logBacktraceThrottled(v14, v11, v12, v13);
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[234], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[234], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2214C4BE0, off_2812E4498[234], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2214C4BE0, off_2812E4498[234]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver

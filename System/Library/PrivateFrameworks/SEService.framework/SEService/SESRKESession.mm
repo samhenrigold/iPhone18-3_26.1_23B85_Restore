@@ -14,6 +14,7 @@
 - (void)didReceivePassthroughMessage:(id)message fromVehicle:(id)vehicle;
 - (void)didStartSession:(id)session;
 - (void)sendEvent:(id)event fromVehicle:(id)vehicle;
+- (void)sendRKEFunction:(id)function action:(id)action readerIdentifier:(id)identifier authorization:(id)authorization isEnduring:(BOOL)enduring isHandlingExternal:(BOOL)external completion:(id)completion;
 @end
 
 @implementation SESRKESession
@@ -23,50 +24,49 @@
   availableCopy = available;
   if ([(SESSession *)self state]== 1)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__10;
-    v19 = __Block_byref_object_dispose__10;
     v20 = 0;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __59__SESRKESession_isPassiveEntryAvailable_isAvailable_error___block_invoke;
-    v14[3] = &unk_1E82D1170;
-    v14[4] = &v15;
-    v9 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v14];
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__10;
+    v18 = __Block_byref_object_dispose__10;
+    v19 = 0;
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __59__SESRKESession_isPassiveEntryAvailable_isAvailable_error___block_invoke_2;
-    v13[3] = &unk_1E82D0DF0;
-    v13[4] = &v21;
-    v13[5] = &v15;
-    [v9 isPassiveEntryAvailable:availableCopy reply:v13];
+    v13[2] = __59__SESRKESession_isPassiveEntryAvailable_isAvailable_error___block_invoke;
+    v13[3] = &unk_1E82D1170;
+    v13[4] = &v14;
+    v9 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __59__SESRKESession_isPassiveEntryAvailable_isAvailable_error___block_invoke_2;
+    v12[3] = &unk_1E82D0DF0;
+    v12[4] = &v20;
+    v12[5] = &v14;
+    [v9 isPassiveEntryAvailable:availableCopy reply:v12];
 
     if (isAvailable)
     {
-      *isAvailable = *(v22 + 24);
+      *isAvailable = *(v21 + 24);
     }
 
     if (error)
     {
-      *error = v16[5];
+      *error = v15[5];
     }
 
-    LOBYTE(error) = v16[5] == 0;
-    _Block_object_dispose(&v15, 8);
+    LOBYTE(error) = v15[5] == 0;
+    _Block_object_dispose(&v14, 8);
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else if (error)
   {
     v10 = SESDefaultLogObject();
-    v11 = *MEMORY[0x1E69E5148];
     *error = SESCreateAndLogError();
 
     LOBYTE(error) = 0;
@@ -75,9 +75,78 @@
   return error;
 }
 
+- (void)sendRKEFunction:(id)function action:(id)action readerIdentifier:(id)identifier authorization:(id)authorization isEnduring:(BOOL)enduring isHandlingExternal:(BOOL)external completion:(id)completion
+{
+  externalCopy = external;
+  enduringCopy = enduring;
+  v34 = *MEMORY[0x1E69E9840];
+  functionCopy = function;
+  actionCopy = action;
+  identifierCopy = identifier;
+  authorizationCopy = authorization;
+  completionCopy = completion;
+  v20 = SESDefaultLogObject();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67110402;
+    *&buf[4] = [functionCopy unsignedIntValue];
+    LOWORD(v30) = 1024;
+    *(&v30 + 2) = [actionCopy unsignedIntValue];
+    HIWORD(v30) = 2112;
+    v31 = identifierCopy;
+    LOWORD(v32) = 1024;
+    *(&v32 + 2) = authorizationCopy != 0;
+    HIWORD(v32) = 1024;
+    LODWORD(v33) = enduringCopy;
+    WORD2(v33) = 1024;
+    *(&v33 + 6) = externalCopy;
+    _os_log_impl(&dword_1C7B9A000, v20, OS_LOG_TYPE_INFO, "sendRKEFunction 0x%X rkeAction 0x%X readerIdentifier %@ authorization %d isEnduring %d isHandlingExternal %d", buf, 0x2Au);
+  }
+
+  if ([(SESSession *)self state]== 1)
+  {
+    *buf = 0;
+    v30 = buf;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__10;
+    *&v33 = __Block_byref_object_dispose__10;
+    *(&v33 + 1) = 0;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __112__SESRKESession_sendRKEFunction_action_readerIdentifier_authorization_isEnduring_isHandlingExternal_completion___block_invoke;
+    v26[3] = &unk_1E82D1170;
+    v26[4] = buf;
+    v21 = [(SESSession *)self remoteObjectProxyWithErrorHandler:v26];
+    [v21 sendRKEFunction:objc_msgSend(functionCopy action:"unsignedShortValue") readerIdentifier:objc_msgSend(actionCopy authorization:"unsignedCharValue") isEnduring:identifierCopy isHandlingExternal:authorizationCopy completion:{enduringCopy, externalCopy, completionCopy}];
+
+    if (*(v30 + 5))
+    {
+      v22 = SESDefaultLogObject();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        v23 = *(v30 + 5);
+        *v27 = 138412290;
+        v28 = v23;
+        _os_log_impl(&dword_1C7B9A000, v22, OS_LOG_TYPE_ERROR, "%@", v27, 0xCu);
+      }
+
+      (*(completionCopy + 2))(completionCopy, 0, *(v30 + 5));
+    }
+
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    v24 = SESDefaultLogObject();
+    v25 = SESCreateAndLogError();
+    (*(completionCopy + 2))(completionCopy, 0, v25);
+  }
+}
+
 - (id)cancelRKEFunction:(id)function readerIdentifier:(id)identifier
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   functionCopy = function;
   identifierCopy = identifier;
   v8 = SESDefaultLogObject();
@@ -91,77 +160,73 @@
   if ([(SESSession *)self state]== 1)
   {
     *buf = 0;
-    v33 = buf;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__10;
-    v36 = __Block_byref_object_dispose__10;
-    v37 = 0;
+    v30 = buf;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__10;
+    v33 = __Block_byref_object_dispose__10;
+    v34 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __52__SESRKESession_cancelRKEFunction_readerIdentifier___block_invoke;
-    v25[3] = &unk_1E82D1170;
-    v25[4] = buf;
-    v9 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v25];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __52__SESRKESession_cancelRKEFunction_readerIdentifier___block_invoke;
+    v22[3] = &unk_1E82D1170;
+    v22[4] = buf;
+    v9 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
     unsignedShortValue = [functionCopy unsignedShortValue];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __52__SESRKESession_cancelRKEFunction_readerIdentifier___block_invoke_2;
-    v24[3] = &unk_1E82D0DF0;
-    v24[4] = &v26;
-    v24[5] = buf;
-    [v9 cancelRKEFunction:unsignedShortValue readerIdentifier:identifierCopy reply:v24];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __52__SESRKESession_cancelRKEFunction_readerIdentifier___block_invoke_2;
+    v21[3] = &unk_1E82D0DF0;
+    v21[4] = &v23;
+    v21[5] = buf;
+    [v9 cancelRKEFunction:unsignedShortValue readerIdentifier:identifierCopy reply:v21];
 
-    v11 = v33;
-    if ((v27[3] & 1) == 0 && !*(v33 + 5))
+    v11 = v30;
+    if ((v24[3] & 1) == 0 && !*(v30 + 5))
     {
       v12 = SESDefaultLogObject();
-      v13 = *MEMORY[0x1E69E5148];
-      v14 = SESCreateAndLogError();
-      v15 = *(v33 + 5);
-      *(v33 + 5) = v14;
+      v13 = SESCreateAndLogError();
+      v14 = *(v30 + 5);
+      *(v30 + 5) = v13;
 
-      v11 = v33;
+      v11 = v30;
     }
 
-    v16 = *(v11 + 5);
-    if (v16)
+    v15 = *(v11 + 5);
+    if (v15)
     {
-      v17 = SESDefaultLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = SESDefaultLogObject();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = *(v33 + 5);
-        *v30 = 138412290;
-        v31 = v18;
-        _os_log_impl(&dword_1C7B9A000, v17, OS_LOG_TYPE_ERROR, "%@", v30, 0xCu);
+        v17 = *(v30 + 5);
+        *v27 = 138412290;
+        v28 = v17;
+        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "%@", v27, 0xCu);
       }
 
-      v16 = *(v33 + 5);
+      v15 = *(v30 + 5);
     }
 
-    v19 = v16;
-    _Block_object_dispose(&v26, 8);
+    v18 = v15;
+    _Block_object_dispose(&v23, 8);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v20 = SESDefaultLogObject();
-    v21 = *MEMORY[0x1E69E5148];
-    v19 = SESCreateAndLogError();
+    v19 = SESDefaultLogObject();
+    v18 = SESCreateAndLogError();
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 - (BOOL)continueExecutingRKEFunction:(id)function action:(id)action arbitraryData:(id)data readerIdentifier:(id)identifier error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   functionCopy = function;
   actionCopy = action;
   dataCopy = data;
@@ -171,51 +236,51 @@
   {
     *buf = 67109890;
     *&buf[4] = [functionCopy unsignedIntValue];
-    LOWORD(v36) = 1024;
-    *(&v36 + 2) = [actionCopy unsignedIntValue];
-    HIWORD(v36) = 1024;
-    LODWORD(v37) = dataCopy != 0;
-    WORD2(v37) = 2112;
-    *(&v37 + 6) = identifierCopy;
+    LOWORD(v33) = 1024;
+    *(&v33 + 2) = [actionCopy unsignedIntValue];
+    HIWORD(v33) = 1024;
+    LODWORD(v34) = dataCopy != 0;
+    WORD2(v34) = 2112;
+    *(&v34 + 6) = identifierCopy;
     _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_INFO, "continueExecutingRKEFunction 0x%X rkeAction 0x%X arbitraryData %d readerIdentifier %@", buf, 0x1Eu);
   }
 
   if ([(SESSession *)self state]== 1)
   {
     *buf = 0;
-    v36 = buf;
-    *&v37 = 0x3032000000;
-    *(&v37 + 1) = __Block_byref_object_copy__10;
-    v38 = __Block_byref_object_dispose__10;
-    v39 = 0;
+    v33 = buf;
+    *&v34 = 0x3032000000;
+    *(&v34 + 1) = __Block_byref_object_copy__10;
+    v35 = __Block_byref_object_dispose__10;
+    v36 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
     v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __90__SESRKESession_continueExecutingRKEFunction_action_arbitraryData_readerIdentifier_error___block_invoke;
-    v30[3] = &unk_1E82D1170;
-    v30[4] = buf;
-    v17 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v30];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __90__SESRKESession_continueExecutingRKEFunction_action_arbitraryData_readerIdentifier_error___block_invoke;
+    v27[3] = &unk_1E82D1170;
+    v27[4] = buf;
+    v17 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v27];
     unsignedShortValue = [functionCopy unsignedShortValue];
     unsignedCharValue = [actionCopy unsignedCharValue];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __90__SESRKESession_continueExecutingRKEFunction_action_arbitraryData_readerIdentifier_error___block_invoke_2;
-    v29[3] = &unk_1E82D0DF0;
-    v29[4] = &v31;
-    v29[5] = buf;
-    [v17 continueExecutingRKEFunction:unsignedShortValue action:unsignedCharValue arbitraryData:dataCopy readerIdentifier:identifierCopy reply:v29];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __90__SESRKESession_continueExecutingRKEFunction_action_arbitraryData_readerIdentifier_error___block_invoke_2;
+    v26[3] = &unk_1E82D0DF0;
+    v26[4] = &v28;
+    v26[5] = buf;
+    [v17 continueExecutingRKEFunction:unsignedShortValue action:unsignedCharValue arbitraryData:dataCopy readerIdentifier:identifierCopy reply:v26];
 
-    v20 = v36;
-    if ((v32[3] & 1) != 0 || *(v36 + 5))
+    v20 = v33;
+    if ((v29[3] & 1) != 0 || *(v33 + 5))
     {
       if (!error)
       {
 LABEL_8:
         LOBYTE(error) = *(v20 + 5) == 0;
-        _Block_object_dispose(&v31, 8);
+        _Block_object_dispose(&v28, 8);
         _Block_object_dispose(buf, 8);
 
         goto LABEL_11;
@@ -224,13 +289,12 @@ LABEL_8:
 
     else
     {
-      v25 = SESDefaultLogObject();
-      v26 = *MEMORY[0x1E69E5148];
-      v27 = SESCreateAndLogError();
-      v28 = *(v36 + 5);
-      *(v36 + 5) = v27;
+      v23 = SESDefaultLogObject();
+      v24 = SESCreateAndLogError();
+      v25 = *(v33 + 5);
+      *(v33 + 5) = v24;
 
-      v20 = v36;
+      v20 = v33;
       if (!error)
       {
         goto LABEL_8;
@@ -238,14 +302,13 @@ LABEL_8:
     }
 
     *error = *(v20 + 5);
-    v20 = v36;
+    v20 = v33;
     goto LABEL_8;
   }
 
   if (error)
   {
     v21 = SESDefaultLogObject();
-    v22 = *MEMORY[0x1E69E5148];
     *error = SESCreateAndLogError();
 
     LOBYTE(error) = 0;
@@ -253,13 +316,12 @@ LABEL_8:
 
 LABEL_11:
 
-  v23 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (BOOL)sendPassthroughMessage:(id)message readerIdentifier:(id)identifier error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   identifierCopy = identifier;
   v10 = SESDefaultLogObject();
@@ -274,70 +336,68 @@ LABEL_11:
     if ([messageCopy length] < 0x10000)
     {
       *buf = 0;
-      v32 = buf;
-      v33 = 0x3032000000;
-      v34 = __Block_byref_object_copy__10;
-      v35 = __Block_byref_object_dispose__10;
-      v36 = 0;
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x2020000000;
-      v30 = 0;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __63__SESRKESession_sendPassthroughMessage_readerIdentifier_error___block_invoke;
-      v26[3] = &unk_1E82D1170;
-      v26[4] = buf;
-      v15 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v26];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __63__SESRKESession_sendPassthroughMessage_readerIdentifier_error___block_invoke_2;
-      v25[3] = &unk_1E82D0DF0;
-      v25[4] = &v27;
-      v25[5] = buf;
-      [v15 sendPassthroughMessage:messageCopy readerIdentifier:identifierCopy reply:v25];
+      v28 = buf;
+      v29 = 0x3032000000;
+      v30 = __Block_byref_object_copy__10;
+      v31 = __Block_byref_object_dispose__10;
+      v32 = 0;
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v26 = 0;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __63__SESRKESession_sendPassthroughMessage_readerIdentifier_error___block_invoke;
+      v22[3] = &unk_1E82D1170;
+      v22[4] = buf;
+      v13 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __63__SESRKESession_sendPassthroughMessage_readerIdentifier_error___block_invoke_2;
+      v21[3] = &unk_1E82D0DF0;
+      v21[4] = &v23;
+      v21[5] = buf;
+      [v13 sendPassthroughMessage:messageCopy readerIdentifier:identifierCopy reply:v21];
 
-      v16 = v32;
-      if ((v28[3] & 1) == 0 && !*(v32 + 5))
+      v14 = v28;
+      if ((v24[3] & 1) == 0 && !*(v28 + 5))
       {
-        v17 = SESDefaultLogObject();
-        v18 = *MEMORY[0x1E69E5148];
-        v19 = SESCreateAndLogError();
-        v20 = *(v32 + 5);
-        *(v32 + 5) = v19;
+        v15 = SESDefaultLogObject();
+        v16 = SESCreateAndLogError();
+        v17 = *(v28 + 5);
+        *(v28 + 5) = v16;
 
-        v16 = v32;
+        v14 = v28;
       }
 
-      if (*(v16 + 5))
+      if (*(v14 + 5))
       {
-        v21 = SESDefaultLogObject();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v18 = SESDefaultLogObject();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = *(v32 + 5);
-          *v37 = 138412290;
-          v38 = v22;
-          _os_log_impl(&dword_1C7B9A000, v21, OS_LOG_TYPE_ERROR, "%@", v37, 0xCu);
+          v19 = *(v28 + 5);
+          *v33 = 138412290;
+          v34 = v19;
+          _os_log_impl(&dword_1C7B9A000, v18, OS_LOG_TYPE_ERROR, "%@", v33, 0xCu);
         }
 
-        v16 = v32;
+        v14 = v28;
       }
 
       if (error)
       {
-        *error = *(v16 + 5);
-        v16 = v32;
+        *error = *(v14 + 5);
+        v14 = v28;
       }
 
-      LOBYTE(error) = *(v16 + 5) == 0;
-      _Block_object_dispose(&v27, 8);
+      LOBYTE(error) = *(v14 + 5) == 0;
+      _Block_object_dispose(&v23, 8);
       _Block_object_dispose(buf, 8);
     }
 
     else if (error)
     {
       v11 = SESDefaultLogObject();
-      v12 = *MEMORY[0x1E69E5148];
       [messageCopy length];
       *error = SESCreateAndLogError();
 
@@ -348,20 +408,18 @@ LABEL_9:
 
   else if (error)
   {
-    v13 = SESDefaultLogObject();
-    v14 = *MEMORY[0x1E69E5148];
+    v12 = SESDefaultLogObject();
     *error = SESCreateAndLogError();
 
     goto LABEL_9;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (id)getVehicleReports:(id *)reports
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = SESDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
@@ -372,76 +430,72 @@ LABEL_9:
   if ([(SESSession *)self state]== 1)
   {
     *buf = 0;
-    v27 = buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__10;
-    v30 = __Block_byref_object_dispose__10;
-    v31 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__10;
-    v24 = __Block_byref_object_dispose__10;
-    v25 = 0;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __35__SESRKESession_getVehicleReports___block_invoke;
-    v19[3] = &unk_1E82D1170;
-    v19[4] = buf;
-    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v19];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __35__SESRKESession_getVehicleReports___block_invoke_2;
-    v18[3] = &unk_1E82D1198;
-    v18[4] = &v20;
-    v18[5] = buf;
-    [v6 getVehicleReports:v18];
+    v24 = buf;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__10;
+    v27 = __Block_byref_object_dispose__10;
+    v28 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy__10;
+    v21 = __Block_byref_object_dispose__10;
+    v22 = 0;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __35__SESRKESession_getVehicleReports___block_invoke;
+    v16[3] = &unk_1E82D1170;
+    v16[4] = buf;
+    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __35__SESRKESession_getVehicleReports___block_invoke_2;
+    v15[3] = &unk_1E82D1198;
+    v15[4] = &v17;
+    v15[5] = buf;
+    [v6 getVehicleReports:v15];
 
-    v7 = v27;
-    if (!v21[5] && !*(v27 + 5))
+    v7 = v24;
+    if (!v18[5] && !*(v24 + 5))
     {
       v8 = SESDefaultLogObject();
-      v9 = *MEMORY[0x1E69E5148];
-      v10 = SESCreateAndLogError();
-      v11 = *(v27 + 5);
-      *(v27 + 5) = v10;
+      v9 = SESCreateAndLogError();
+      v10 = *(v24 + 5);
+      *(v24 + 5) = v9;
 
-      v7 = v27;
+      v7 = v24;
     }
 
     if (*(v7 + 5))
     {
-      v12 = SESDefaultLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = SESDefaultLogObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(v27 + 5);
-        *v32 = 138412290;
-        v33 = v13;
-        _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "%@", v32, 0xCu);
+        v12 = *(v24 + 5);
+        *v29 = 138412290;
+        v30 = v12;
+        _os_log_impl(&dword_1C7B9A000, v11, OS_LOG_TYPE_ERROR, "%@", v29, 0xCu);
       }
     }
 
     if (reports)
     {
-      *reports = *(v27 + 5);
+      *reports = *(v24 + 5);
     }
 
-    reports = v21[5];
-    _Block_object_dispose(&v20, 8);
+    reports = v18[5];
+    _Block_object_dispose(&v17, 8);
 
     _Block_object_dispose(buf, 8);
   }
 
   else if (reports)
   {
-    v14 = SESDefaultLogObject();
-    v15 = *MEMORY[0x1E69E5148];
+    v13 = SESDefaultLogObject();
     *reports = SESCreateAndLogError();
 
     reports = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return reports;
 }
@@ -462,7 +516,7 @@ void __35__SESRKESession_getVehicleReports___block_invoke_2(uint64_t a1, void *a
 
 - (id)sign:(id)sign readerIdentifier:(id)identifier error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   signCopy = sign;
   identifierCopy = identifier;
   v10 = SESDefaultLogObject();
@@ -478,62 +532,61 @@ void __35__SESRKESession_getVehicleReports___block_invoke_2(uint64_t a1, void *a
     if (hexStringAsData)
     {
       *buf = 0;
-      v35 = buf;
-      v36 = 0x3032000000;
-      v37 = __Block_byref_object_copy__10;
-      v38 = __Block_byref_object_dispose__10;
-      v39 = 0;
-      v28 = 0;
-      v29 = &v28;
-      v30 = 0x3032000000;
-      v31 = __Block_byref_object_copy__10;
-      v32 = __Block_byref_object_dispose__10;
-      v33 = 0;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __45__SESRKESession_sign_readerIdentifier_error___block_invoke;
-      v27[3] = &unk_1E82D1170;
-      v27[4] = buf;
-      v12 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v27];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __45__SESRKESession_sign_readerIdentifier_error___block_invoke_2;
-      v26[3] = &unk_1E82D17E0;
-      v26[4] = &v28;
-      v26[5] = buf;
-      [v12 sign:signCopy readerIdentifier:hexStringAsData reply:v26];
+      v31 = buf;
+      v32 = 0x3032000000;
+      v33 = __Block_byref_object_copy__10;
+      v34 = __Block_byref_object_dispose__10;
+      v35 = 0;
+      v24 = 0;
+      v25 = &v24;
+      v26 = 0x3032000000;
+      v27 = __Block_byref_object_copy__10;
+      v28 = __Block_byref_object_dispose__10;
+      v29 = 0;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __45__SESRKESession_sign_readerIdentifier_error___block_invoke;
+      v23[3] = &unk_1E82D1170;
+      v23[4] = buf;
+      v12 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __45__SESRKESession_sign_readerIdentifier_error___block_invoke_2;
+      v22[3] = &unk_1E82D17E0;
+      v22[4] = &v24;
+      v22[5] = buf;
+      [v12 sign:signCopy readerIdentifier:hexStringAsData reply:v22];
 
-      v13 = v35;
-      if (!v29[5] && !*(v35 + 5))
+      v13 = v31;
+      if (!v25[5] && !*(v31 + 5))
       {
         v14 = SESDefaultLogObject();
-        v15 = *MEMORY[0x1E69E5148];
-        v16 = SESCreateAndLogError();
-        v17 = *(v35 + 5);
-        *(v35 + 5) = v16;
+        v15 = SESCreateAndLogError();
+        v16 = *(v31 + 5);
+        *(v31 + 5) = v15;
 
-        v13 = v35;
+        v13 = v31;
       }
 
       if (*(v13 + 5))
       {
-        v18 = SESDefaultLogObject();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = SESDefaultLogObject();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v19 = *(v35 + 5);
-          *v40 = 138412290;
-          v41 = v19;
-          _os_log_impl(&dword_1C7B9A000, v18, OS_LOG_TYPE_ERROR, "%@", v40, 0xCu);
+          v18 = *(v31 + 5);
+          *v36 = 138412290;
+          v37 = v18;
+          _os_log_impl(&dword_1C7B9A000, v17, OS_LOG_TYPE_ERROR, "%@", v36, 0xCu);
         }
       }
 
       if (error)
       {
-        *error = *(v35 + 5);
+        *error = *(v31 + 5);
       }
 
-      v20 = v29[5];
-      _Block_object_dispose(&v28, 8);
+      v19 = v25[5];
+      _Block_object_dispose(&v24, 8);
 
       _Block_object_dispose(buf, 8);
     }
@@ -542,12 +595,11 @@ void __35__SESRKESession_getVehicleReports___block_invoke_2(uint64_t a1, void *a
     {
       if (error)
       {
-        v22 = SESDefaultLogObject();
-        v23 = *MEMORY[0x1E69E5148];
+        v20 = SESDefaultLogObject();
         *error = SESCreateAndLogError();
       }
 
-      v20 = 0;
+      v19 = 0;
     }
   }
 
@@ -555,20 +607,18 @@ void __35__SESRKESession_getVehicleReports___block_invoke_2(uint64_t a1, void *a
   {
     if (!error)
     {
-      v20 = 0;
+      v19 = 0;
       goto LABEL_22;
     }
 
     hexStringAsData = SESDefaultLogObject();
-    v21 = *MEMORY[0x1E69E5148];
     SESCreateAndLogError();
-    *error = v20 = 0;
+    *error = v19 = 0;
   }
 
 LABEL_22:
-  v24 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v19;
 }
 
 void __45__SESRKESession_sign_readerIdentifier_error___block_invoke_2(uint64_t a1, void *a2, void *a3)

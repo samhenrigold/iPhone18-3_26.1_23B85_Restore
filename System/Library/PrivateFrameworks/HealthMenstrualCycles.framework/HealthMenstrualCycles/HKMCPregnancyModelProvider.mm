@@ -56,7 +56,7 @@ void __40__HKMCPregnancyModelProvider_startQuery__block_invoke(uint64_t a1, uint
 
 - (void)_handlePregnancyModelQueryResult:(id)result error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
@@ -67,13 +67,13 @@ void __40__HKMCPregnancyModelProvider_startQuery__block_invoke(uint64_t a1, uint
     self->_lastError = 0;
 
     observers = self->_observers;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __69__HKMCPregnancyModelProvider__handlePregnancyModelQueryResult_error___block_invoke;
-    v25[3] = &unk_2796D4C48;
-    v26 = resultCopy;
-    [(HKObserverSet *)observers notifyObservers:v25];
-    v11 = v26;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __69__HKMCPregnancyModelProvider__handlePregnancyModelQueryResult_error___block_invoke;
+    v24[3] = &unk_2796D4C48;
+    v25 = resultCopy;
+    [(HKObserverSet *)observers notifyObservers:v24];
+    v11 = v25;
 LABEL_3:
 
     goto LABEL_7;
@@ -90,16 +90,16 @@ LABEL_3:
   {
     if (errorCopy)
     {
-      v20 = errorCopy;
+      v19 = errorCopy;
     }
 
     else
     {
-      v20 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Query returned with no model and no error"];
+      v19 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Query returned with no model and no error"];
     }
 
     v11 = self->_lastError;
-    self->_lastError = v20;
+    self->_lastError = v19;
     goto LABEL_3;
   }
 
@@ -107,38 +107,36 @@ LABEL_7:
   v13 = [(NSMutableArray *)self->_nextPregnancyModelQueryResultBlocks copy];
   [(NSMutableArray *)self->_nextPregnancyModelQueryResultBlocks removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       v18 = 0;
       do
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        (*(*(*(&v21 + 1) + 8 * v18) + 16))(*(*(&v21 + 1) + 8 * v18));
+        (*(*(*(&v20 + 1) + 8 * v18) + 16))(*(*(&v20 + 1) + 8 * v18));
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -157,7 +155,7 @@ LABEL_7:
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
@@ -166,18 +164,17 @@ LABEL_7:
     v5 = objc_opt_class();
     pregnancyModelQuery = self->_pregnancyModelQuery;
     *buf = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = pregnancyModelQuery;
+    v10 = v5;
+    v11 = 2114;
+    v12 = pregnancyModelQuery;
     v7 = v5;
     _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping pregnancy model query %{public}@", buf, 0x16u);
   }
 
   [(HKHealthStore *)self->_healthStore stopQuery:self->_pregnancyModelQuery];
-  v9.receiver = self;
-  v9.super_class = HKMCPregnancyModelProvider;
-  [(HKMCPregnancyModelProvider *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HKMCPregnancyModelProvider;
+  [(HKMCPregnancyModelProvider *)&v8 dealloc];
 }
 
 - (id)getCurrentPregnancyModel
@@ -210,16 +207,14 @@ LABEL_7:
 
 - (void)_handlePregnancyModelQueryResult:(uint64_t)a3 error:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error in pregnancy state query: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error in pregnancy state query: %{public}@", &v6, 0x16u);
 }
 
 @end

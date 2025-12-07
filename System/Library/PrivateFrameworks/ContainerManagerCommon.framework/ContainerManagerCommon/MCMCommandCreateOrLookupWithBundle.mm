@@ -1,14 +1,6 @@
 @interface MCMCommandCreateOrLookupWithBundle
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
-- (BOOL)createIfNecessary;
-- (BOOL)issueSandboxExtension;
-- (BOOL)preflightClientAllowed;
-- (BOOL)transient;
 - (MCMCommandCreateOrLookupWithBundle)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (NSURL)bundleURL;
-- (NSURL)executableURL;
-- (const)sandboxToken;
 - (id)_containerIdentityWithError:(id *)error;
 - (id)_tokenForContainerPath:(id)path containerIdentity:(id)identity error:(id *)error;
 - (void)dealloc;
@@ -17,57 +9,8 @@
 
 @implementation MCMCommandCreateOrLookupWithBundle
 
-- (NSURL)executableURL
-{
-  result = self->_executableURL;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)bundleURL
-{
-  result = self->_bundleURL;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (const)sandboxToken
-{
-  result = self->_sandboxToken;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)issueSandboxExtension
-{
-  result = self->_issueSandboxExtension;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)transient
-{
-  result = self->_transient;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)createIfNecessary
-{
-  result = self->_createIfNecessary;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (id)_tokenForContainerPath:(id)path containerIdentity:(id)identity error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   pathCopy = path;
   v10 = [MCMSandboxExtension alloc];
@@ -87,15 +30,13 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)_containerIdentityWithError:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v51 = 1;
+  v53 = *MEMORY[0x1E69E9840];
+  v50 = 1;
   if ([(MCMCommandCreateOrLookupWithBundle *)self sandboxToken])
   {
     [(MCMCommandCreateOrLookupWithBundle *)self sandboxToken];
@@ -128,7 +69,7 @@
       bundleURL2 = [(MCMCommandCreateOrLookupWithBundle *)self bundleURL];
       path2 = [bundleURL2 path];
       *buf = 138543362;
-      v53 = path2;
+      v52 = path2;
       _os_log_debug_impl(&dword_1DF2C3000, v14, OS_LOG_TYPE_DEBUG, "[%{public}@] is a plugin", buf, 0xCu);
     }
 
@@ -147,12 +88,12 @@
 
   v19 = [MCMCodeSignInfo alloc];
   executableURL = [(MCMCommandCreateOrLookupWithBundle *)self executableURL];
-  v7 = [(MCMCodeSignInfo *)v19 initWithURL:executableURL error:&v51];
+  v7 = [(MCMCodeSignInfo *)v19 initWithURL:executableURL error:&v50];
 
   if (!v7)
   {
     v27 = [MCMError alloc];
-    v6 = [(MCMError *)v27 initWithErrorType:v51];
+    v6 = [(MCMError *)v27 initWithErrorType:v50];
     goto LABEL_30;
   }
 
@@ -213,8 +154,8 @@ LABEL_30:
   }
 
   errorCopy = error;
-  v49 = v8;
-  v47 = v5;
+  v48 = v8;
+  v46 = v5;
 
   identifier = [(MCMCodeSignInfo *)v7 identifier];
   context2 = [(MCMCommand *)self context];
@@ -222,16 +163,16 @@ LABEL_30:
   context3 = [(MCMCommand *)self context];
   userIdentityCache = [context3 userIdentityCache];
   warnings = [(MCMCommand *)self warnings];
-  v50 = 0;
-  v10 = [MCMXPCMessageBase legacyUserIdentityForIdentifier:identifier targetUserIdentity:0 containerConfig:v49 clientIdentity:clientIdentity userIdentityCache:userIdentityCache warnings:warnings error:&v50];
-  v6 = v50;
+  v49 = 0;
+  v10 = [MCMXPCMessageBase legacyUserIdentityForIdentifier:identifier targetUserIdentity:0 containerConfig:v48 clientIdentity:clientIdentity userIdentityCache:userIdentityCache warnings:warnings error:&v49];
+  v6 = v49;
 
   if (!v10)
   {
     v9 = 0;
     error = errorCopy;
-    v8 = v49;
-    if (v47 < 0)
+    v8 = v48;
+    if (v46 < 0)
     {
       goto LABEL_32;
     }
@@ -243,19 +184,19 @@ LABEL_30:
   platform2 = [(MCMCodeSignInfo *)v7 platform];
   context4 = [(MCMCommand *)self context];
   userIdentityCache2 = [context4 userIdentityCache];
-  v9 = [MCMContainerIdentity containerIdentityWithUserIdentity:v10 identifier:identifier2 containerConfig:v49 platform:platform2 userIdentityCache:userIdentityCache2 error:&v51];
+  v9 = [MCMContainerIdentity containerIdentityWithUserIdentity:v10 identifier:identifier2 containerConfig:v48 platform:platform2 userIdentityCache:userIdentityCache2 error:&v50];
 
-  v8 = v49;
+  v8 = v48;
   if (!v9)
   {
     v40 = [MCMError alloc];
-    v41 = [(MCMError *)v40 initWithErrorType:v51];
+    v41 = [(MCMError *)v40 initWithErrorType:v50];
 
     v6 = v41;
   }
 
   error = errorCopy;
-  if ((v47 & 0x8000000000000000) == 0)
+  if ((v46 & 0x8000000000000000) == 0)
   {
 LABEL_31:
     sandbox_extension_release();
@@ -268,18 +209,16 @@ LABEL_32:
     *error = v6;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)execute
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
-  v26[0] = 0;
-  v4 = [(MCMCommandCreateOrLookupWithBundle *)self _containerIdentityWithError:v26];
-  v5 = v26[0];
+  v25[0] = 0;
+  v4 = [(MCMCommandCreateOrLookupWithBundle *)self _containerIdentityWithError:v25];
+  v5 = v25[0];
   if (!v4)
   {
     v9 = 0;
@@ -306,9 +245,9 @@ LABEL_10:
 
   context2 = [(MCMCommand *)self context];
   containerFactory = [context2 containerFactory];
-  v25 = v5;
-  v9 = [containerFactory containerForContainerIdentity:v4 createIfNecessary:-[MCMCommandCreateOrLookupWithBundle createIfNecessary](self error:{"createIfNecessary"), &v25}];
-  v12 = v25;
+  v24 = v5;
+  v9 = [containerFactory containerForContainerIdentity:v4 createIfNecessary:-[MCMCommandCreateOrLookupWithBundle createIfNecessary](self error:{"createIfNecessary"), &v24}];
+  v12 = v24;
 
   metadataMinimal = [v9 metadataMinimal];
   if (!metadataMinimal)
@@ -317,24 +256,13 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  if ([(MCMCommandCreateOrLookupWithBundle *)self issueSandboxExtension])
+  if (-[MCMCommandCreateOrLookupWithBundle issueSandboxExtension](self, "issueSandboxExtension") || (-[MCMCommand context](self, "context"), v14 = objc_claimAutoreleasedReturnValue(), [v14 clientIdentity], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "userIdentity"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isDataSeparated"), v16, v15, v14, v17))
   {
-    goto LABEL_6;
-  }
-
-  context3 = [(MCMCommand *)self context];
-  clientIdentity2 = [context3 clientIdentity];
-  userIdentity = [clientIdentity2 userIdentity];
-  isDataSeparated = [userIdentity isDataSeparated];
-
-  if (isDataSeparated)
-  {
-LABEL_6:
     containerPath = [metadataMinimal containerPath];
     containerIdentity = [metadataMinimal containerIdentity];
-    v24 = v12;
-    v20 = [(MCMCommandCreateOrLookupWithBundle *)self _tokenForContainerPath:containerPath containerIdentity:containerIdentity error:&v24];
-    v5 = v24;
+    v23 = v12;
+    v20 = [(MCMCommandCreateOrLookupWithBundle *)self _tokenForContainerPath:containerPath containerIdentity:containerIdentity error:&v23];
+    v5 = v23;
   }
 
   else
@@ -364,19 +292,11 @@ LABEL_12:
   [resultPromise completeWithResult:v21];
 
   objc_autoreleasePoolPop(v3);
-  v23 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)preflightClientAllowed
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 1;
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   sandboxToken = self->_sandboxToken;
   if (sandboxToken)
   {
@@ -384,19 +304,18 @@ LABEL_12:
     memset_s(&self->_sandboxToken, 8uLL, 0, 8uLL);
   }
 
-  v5.receiver = self;
-  v5.super_class = MCMCommandCreateOrLookupWithBundle;
-  [(MCMCommandCreateOrLookupWithBundle *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MCMCommandCreateOrLookupWithBundle;
+  [(MCMCommandCreateOrLookupWithBundle *)&v4 dealloc];
 }
 
 - (MCMCommandCreateOrLookupWithBundle)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v17.receiver = self;
-  v17.super_class = MCMCommandCreateOrLookupWithBundle;
-  v9 = [(MCMCommand *)&v17 initWithMessage:messageCopy context:context reply:reply];
+  v16.receiver = self;
+  v16.super_class = MCMCommandCreateOrLookupWithBundle;
+  v9 = [(MCMCommand *)&v16 initWithMessage:messageCopy context:context reply:reply];
   if (v9)
   {
     v9->_createIfNecessary = [messageCopy createIfNecessary];
@@ -418,23 +337,13 @@ LABEL_12:
     v9->_executableURL = executableURL;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 36;
 }
 
 @end

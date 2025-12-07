@@ -75,7 +75,7 @@
   return v6 & 1;
 }
 
-uint64_t __47__ULPersistenceMigrator_migrateToLatestVersion__block_invoke(uint64_t a1)
+void *__47__ULPersistenceMigrator_migrateToLatestVersion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _databaseMigrationTransaction];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -84,7 +84,7 @@ uint64_t __47__ULPersistenceMigrator_migrateToLatestVersion__block_invoke(uint64
 
 - (BOOL)_databaseMigrationTransaction
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dbStore = [(ULPersistenceMigrator *)self dbStore];
   v4 = (*(dbStore->var0 + 2))(dbStore);
   persistenceStore = [v4 persistenceStore];
@@ -135,17 +135,17 @@ uint64_t __47__ULPersistenceMigrator_migrateToLatestVersion__block_invoke(uint64
       v23 = (*(dbStore4->var0 + 2))(dbStore4);
       getLocalStoreURL = [v23 getLocalStoreURL];
       path = [getLocalStoreURL path];
-      v29[0] = 68289795;
-      v29[1] = 0;
-      v30 = 2082;
-      v31 = "";
-      v32 = 2082;
-      v33 = v21;
-      v34 = 2049;
-      v35 = -v19;
-      v36 = 2113;
-      v37 = path;
-      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Version Migration complete, result:%{public, location:escape_only}s, duration [s]:%{private}f, store path:%{private, location:escape_only}@}", v29, 0x30u);
+      v28[0] = 68289795;
+      v28[1] = 0;
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = v21;
+      v33 = 2049;
+      v34 = -v19;
+      v35 = 2113;
+      v36 = path;
+      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Version Migration complete, result:%{public, location:escape_only}s, duration [s]:%{private}f, store path:%{private, location:escape_only}@}", v28, 0x30u);
     }
   }
 
@@ -159,14 +159,13 @@ uint64_t __47__ULPersistenceMigrator_migrateToLatestVersion__block_invoke(uint64
     v26 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29[0]) = 0;
-      _os_log_impl(&dword_258FE9000, v26, OS_LOG_TYPE_DEFAULT, "Store already using latest model version", v29, 2u);
+      LOWORD(v28[0]) = 0;
+      _os_log_impl(&dword_258FE9000, v26, OS_LOG_TYPE_DEFAULT, "Store already using latest model version", v28, 2u);
     }
 
     LOBYTE(v13) = 1;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

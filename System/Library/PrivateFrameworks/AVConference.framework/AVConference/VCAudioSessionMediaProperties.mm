@@ -491,10 +491,10 @@ LABEL_97:
   v73 = v14;
   v74 = v14;
   v75 = v14;
-  [equal inputFormat];
+  objc_msgSend_inputFormat(equal, -1, v14, v14);
   if (!memcmp(v70, &self->_inputFormat, 0x28uLL))
   {
-    [equal outputFormat];
+    objc_msgSend_outputFormat(equal);
     v70[0] = *buf;
     v70[1] = *&buf[16];
     v71 = *&buf[32];

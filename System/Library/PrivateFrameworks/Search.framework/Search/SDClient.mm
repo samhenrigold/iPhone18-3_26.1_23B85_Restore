@@ -87,19 +87,18 @@
   queryCopy = query;
   v4 = si_tracing_current_span();
   v5 = *(v4 + 16);
-  v144 = *v4;
-  v145 = v5;
-  v146 = *(v4 + 32);
-  v113 = v4;
+  v137 = *v4;
+  v138 = v5;
+  v139 = *(v4 + 32);
+  v106 = v4;
   v6 = *v4;
   spanid = si_tracing_calc_next_spanid();
-  v8 = *(v113 + 8);
-  v9 = *(v113 + 24);
-  *v113 = v6;
-  *(v113 + 8) = spanid;
-  *(v113 + 16) = v8;
-  *(v113 + 28) = 102;
-  *(v113 + 32) = "[SDClient addAndStartQuery:]";
+  v8 = *(v106 + 8);
+  *v106 = v6;
+  *(v106 + 8) = spanid;
+  *(v106 + 16) = v8;
+  *(v106 + 28) = 102;
+  *(v106 + 32) = "[SDClient addAndStartQuery:]";
   si_tracing_log_span_begin();
   +[SDController readyForQueries];
   if ((byte_1000A8218 & 1) == 0)
@@ -123,88 +122,88 @@
     currentSearchString = [queryContext searchString];
   }
 
-  v13 = SPLogForSPLogCategoryDefault();
-  v14 = v13;
+  v12 = SPLogForSPLogCategoryDefault();
+  v13 = v12;
   if (gSPLogDebugAsDefault)
   {
-    v15 = OS_LOG_TYPE_DEFAULT;
+    v14 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v15 = OS_LOG_TYPE_DEBUG;
+    v14 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v13, v15))
+  if (os_log_type_enabled(v12, v14))
   {
     searchDomains = [queryContext searchDomains];
     *buf = 138412546;
-    v152 = currentSearchString;
-    v153 = 2112;
-    v154 = searchDomains;
-    _os_log_impl(&_mh_execute_header, v14, v15, "#query Starting query for %@ on domains %@", buf, 0x16u);
+    v145 = currentSearchString;
+    v146 = 2112;
+    v147 = searchDomains;
+    _os_log_impl(&_mh_execute_header, v13, v14, "#query Starting query for %@ on domains %@", buf, 0x16u);
   }
 
   if (!self->_queriesByExternId)
   {
-    v17 = objc_alloc_init(NSMutableDictionary);
+    v16 = objc_alloc_init(NSMutableDictionary);
     queriesByExternId = self->_queriesByExternId;
-    self->_queriesByExternId = v17;
+    self->_queriesByExternId = v16;
   }
 
-  v19 = SPLogForSPLogCategoryDefault();
-  v20 = v19;
+  v18 = SPLogForSPLogCategoryDefault();
+  v19 = v18;
   if (gSPLogDebugAsDefault)
   {
-    v21 = OS_LOG_TYPE_DEFAULT;
+    v20 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v21 = OS_LOG_TYPE_DEBUG;
+    v20 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v19, v21))
+  if (os_log_type_enabled(v18, v20))
   {
     searchDomains2 = [queryContext searchDomains];
     *buf = 138412546;
-    v152 = currentSearchString;
-    v153 = 2112;
-    v154 = searchDomains2;
-    _os_log_impl(&_mh_execute_header, v20, v21, "#query Starting query '%@' on domains:%@", buf, 0x16u);
+    v145 = currentSearchString;
+    v146 = 2112;
+    v147 = searchDomains2;
+    _os_log_impl(&_mh_execute_header, v19, v20, "#query Starting query '%@' on domains:%@", buf, 0x16u);
   }
 
+  v22 = self->_queriesByExternId;
+  objc_sync_enter(v22);
   v23 = self->_queriesByExternId;
-  objc_sync_enter(v23);
-  v24 = self->_queriesByExternId;
-  v25 = +[NSNumber numberWithUnsignedLong:](NSNumber, "numberWithUnsignedLong:", [queryCopy externalID]);
-  [(NSMutableDictionary *)v24 setObject:queryCopy forKey:v25];
+  v24 = +[NSNumber numberWithUnsignedLong:](NSNumber, "numberWithUnsignedLong:", [queryCopy externalID]);
+  [(NSMutableDictionary *)v23 setObject:queryCopy forKey:v24];
 
-  objc_sync_exit(v23);
+  objc_sync_exit(v22);
   connection = [queryCopy connection];
   bundleID = [connection bundleID];
 
-  v27 = [bundleID isEqual:SPSpotlightAppBundleId];
-  v28 = &OBJC_IVAR___SPParsecDatastore__sessionStartTime;
-  if (v27)
+  v26 = [bundleID isEqual:SPSpotlightAppBundleId];
+  v27 = &OBJC_IVAR___SPParsecDatastore__sessionStartTime;
+  if (v26)
   {
     if ([currentSearchString length])
     {
       if (-[NSString length](self->_lastQuery, "length") && (([currentSearchString hasPrefix:self->_lastQuery] & 1) != 0 || -[NSString hasPrefix:](self->_lastQuery, "hasPrefix:", currentSearchString)))
       {
-        v29 = [currentSearchString length];
-        v30 = [(NSString *)self->_lastQuery length];
-        v31 = &v29[-v30];
-        if (&v29[-v30] < 0)
+        v28 = [currentSearchString length];
+        v29 = [(NSString *)self->_lastQuery length];
+        v30 = &v28[-v29];
+        if (&v28[-v29] < 0)
         {
-          v31 = (v30 - v29);
+          v30 = (v29 - v28);
         }
 
-        v133 = _NSConcreteStackBlock;
-        v134 = 3221225472;
-        v135 = sub_100006804;
-        v136 = &unk_100091F30;
-        v137 = v31;
+        v126 = _NSConcreteStackBlock;
+        v127 = 3221225472;
+        v128 = sub_100006804;
+        v129 = &unk_100091F30;
+        v130 = v30;
         AnalyticsSendEventLazy();
       }
 
@@ -213,442 +212,436 @@
         lastQuery = self->_lastQuery;
         if (lastQuery)
         {
-          v33 = [(NSString *)lastQuery commonPrefixWithString:currentSearchString options:2];
+          v32 = [(NSString *)lastQuery commonPrefixWithString:currentSearchString options:2];
         }
 
         else
         {
-          v33 = &stru_100094040;
+          v32 = &stru_100094040;
         }
 
-        v138 = _NSConcreteStackBlock;
-        v139 = 3221225472;
-        v140 = sub_100006730;
-        v141 = &unk_100091F10;
-        v142 = currentSearchString;
-        v143 = v33;
+        v131 = _NSConcreteStackBlock;
+        v132 = 3221225472;
+        v133 = sub_100006730;
+        v134 = &unk_100091F10;
+        v135 = currentSearchString;
+        v136 = v32;
         AnalyticsSendEventLazy();
       }
     }
 
-    v34 = [currentSearchString copy];
-    v35 = self->_lastQuery;
-    self->_lastQuery = v34;
+    v33 = [currentSearchString copy];
+    v34 = self->_lastQuery;
+    self->_lastQuery = v33;
 
-    v28 = &OBJC_IVAR___SPParsecDatastore__sessionStartTime;
+    v27 = &OBJC_IVAR___SPParsecDatastore__sessionStartTime;
   }
 
-  datastores = [v28 + 108 datastores];
-  v37 = [datastores count] == 0;
+  datastores = [v27 + 108 datastores];
+  v36 = [datastores count] == 0;
 
-  if (!v37)
+  if (!v36)
   {
-    v38 = objc_alloc_init(NSMutableOrderedSet);
-    if ([currentSearchString length] || (objc_msgSend(queryContext, "searchEntities"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "count") == 0, v39, !v40))
+    v37 = objc_alloc_init(NSMutableOrderedSet);
+    if ([currentSearchString length] || (objc_msgSend(queryContext, "searchEntities"), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "count") == 0, v38, !v39))
     {
       if ([queryContext isSearchToolClient])
       {
         searchString = [queryContext searchString];
-        v42 = [SPSearchQueryContext normalizeSearchString:searchString queryContext:queryContext];
-        [queryContext setSearchString:v42];
+        v41 = [SPSearchQueryContext normalizeSearchString:searchString queryContext:queryContext];
+        [queryContext setSearchString:v41];
 
-        v43 = [SDController datastoreForDomain:1];
-        if (v43)
+        v42 = [SDController datastoreForDomain:1];
+        if (v42)
         {
-          [v38 addObject:v43];
+          [v37 addObject:v42];
         }
       }
 
       else
       {
         searchDomains3 = [queryContext searchDomains];
-        v47 = [searchDomains3 arrayByAddingObject:&off_100098978];
+        v46 = [searchDomains3 arrayByAddingObject:&off_100098978];
 
-        v43 = [v47 arrayByAddingObject:&off_100098990];
+        v42 = [v46 arrayByAddingObject:&off_100098990];
 
-        v149 = @"ExtendedDeviceLockState";
-        v150 = kCFBooleanTrue;
-        v110 = [NSDictionary dictionaryWithObjects:&v150 forKeys:&v149 count:1];
+        v142 = @"ExtendedDeviceLockState";
+        v143 = kCFBooleanTrue;
+        v103 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
         if ([queryContext deviceAuthenticationState])
         {
-          v48 = [SDController datastoreForDomain:1];
-          v49 = [SDController datastoreForDomain:2];
-          v50 = [SDController datastoreForDomain:7];
-          v115 = [SDController datastoreForDomain:3];
-          v111 = [SDController datastoreForDomain:6];
-          v109 = [SDController datastoreForDomain:8];
-          v51 = [SDController datastoreForDomain:9];
-          v52 = [SDController datastoreForDomain:10];
-          v53 = [SDController datastoreForDomain:11];
-          v54 = v53;
-          v55 = v50;
-          if (v49 || v115 || v48 || v111 || v51 || v52 || v53)
+          v47 = [SDController datastoreForDomain:1];
+          v48 = [SDController datastoreForDomain:2];
+          v49 = [SDController datastoreForDomain:7];
+          v108 = [SDController datastoreForDomain:3];
+          v104 = [SDController datastoreForDomain:6];
+          v102 = [SDController datastoreForDomain:8];
+          v50 = [SDController datastoreForDomain:9];
+          v51 = [SDController datastoreForDomain:10];
+          v52 = [SDController datastoreForDomain:11];
+          v53 = v52;
+          v54 = v49;
+          if (v48 || v108 || v47 || v104 || v50 || v51 || v52)
           {
-            if (v49)
+            if (v48)
             {
-              v56 = SPGetDisabledDomains();
-              v57 = [v56 containsObject:&off_1000989A8];
+              v55 = SPGetDisabledDomains();
+              v56 = [v55 containsObject:&off_1000989A8];
 
-              if ((v57 & 1) == 0)
+              if ((v56 & 1) == 0)
               {
-                [v38 addObject:v49];
+                [v37 addObject:v48];
               }
             }
 
-            if (v115)
+            if (v108)
             {
-              [v38 addObject:v115];
+              [v37 addObject:v108];
             }
 
-            if (v48)
+            if (v47)
             {
-              [v38 addObject:v48];
+              [v37 addObject:v47];
             }
 
-            if (v111)
+            if (v104)
             {
-              [v38 addObject:v111];
+              [v37 addObject:v104];
             }
 
-            if (v109)
+            if (v102)
             {
-              [v38 addObject:v109];
-            }
-
-            if (v55)
-            {
-              [v38 addObject:v55];
-            }
-
-            if (v51)
-            {
-              [v38 addObject:v51];
-            }
-
-            if (v52)
-            {
-              [v38 addObject:v52];
+              [v37 addObject:v102];
             }
 
             if (v54)
             {
-              [v38 addObject:v54];
+              [v37 addObject:v54];
+            }
+
+            if (v50)
+            {
+              [v37 addObject:v50];
+            }
+
+            if (v51)
+            {
+              [v37 addObject:v51];
+            }
+
+            if (v53)
+            {
+              [v37 addObject:v53];
             }
           }
         }
 
         else
         {
-          if ([v43 containsObject:&off_100098978])
+          if ([v42 containsObject:&off_100098978])
           {
-            v58 = [SDController datastoreForDomain:10];
+            v57 = [SDController datastoreForDomain:10];
+            if (v57)
+            {
+              [v37 addObject:v57];
+            }
+          }
+
+          if ([v42 containsObject:&off_1000989C0])
+          {
+            v58 = [SDController datastoreForDomain:1];
             if (v58)
             {
-              [v38 addObject:v58];
+              [v37 addObject:v58];
             }
           }
 
-          if ([v43 containsObject:&off_1000989C0])
+          if ([v42 containsObject:&off_1000989D8])
           {
-            v59 = [SDController datastoreForDomain:1];
+            v59 = [SDController datastoreForDomain:2];
+            v60 = [SDController datastoreForDomain:7];
             if (v59)
             {
-              [v38 addObject:v59];
-            }
-          }
+              v61 = SPGetDisabledDomains();
+              v62 = [v61 containsObject:&off_1000989A8];
 
-          if ([v43 containsObject:&off_1000989D8])
-          {
-            v60 = [SDController datastoreForDomain:2];
-            v61 = [SDController datastoreForDomain:7];
-            if (v60)
-            {
-              v62 = SPGetDisabledDomains();
-              v63 = [v62 containsObject:&off_1000989A8];
-
-              if ((v63 & 1) == 0)
+              if ((v62 & 1) == 0)
               {
-                [v38 addObject:v60];
+                [v37 addObject:v59];
               }
             }
 
-            if (v61)
+            if (v60)
             {
-              [v38 addObject:v61];
+              [v37 addObject:v60];
             }
           }
 
-          if (v43)
+          if (v42)
           {
-            v64 = [v43 arrayByAddingObject:&off_1000989F0];
+            v63 = [v42 arrayByAddingObject:&off_1000989F0];
           }
 
           else
           {
-            v64 = 0;
+            v63 = 0;
           }
 
-          v131 = 0u;
-          v132 = 0u;
-          v129 = 0u;
-          v130 = 0u;
-          v48 = v64;
-          v65 = [v48 countByEnumeratingWithState:&v129 objects:v148 count:16];
-          if (v65)
+          v124 = 0u;
+          v125 = 0u;
+          v122 = 0u;
+          v123 = 0u;
+          v47 = v63;
+          v64 = [v47 countByEnumeratingWithState:&v122 objects:v141 count:16];
+          if (v64)
           {
-            v66 = *v130;
+            v65 = *v123;
             do
             {
-              for (i = 0; i != v65; i = i + 1)
+              for (i = 0; i != v64; i = i + 1)
               {
-                if (*v130 != v66)
+                if (*v123 != v65)
                 {
-                  objc_enumerationMutation(v48);
+                  objc_enumerationMutation(v47);
                 }
 
-                v68 = *(*(&v129 + 1) + 8 * i);
-                intValue = [v68 intValue];
-                v70 = [SDController datastoreForDomain:intValue];
-                v71 = v70;
+                v67 = *(*(&v122 + 1) + 8 * i);
+                intValue = [v67 intValue];
+                v69 = [SDController datastoreForDomain:intValue];
+                v70 = v69;
                 if (intValue == 6)
                 {
-                  [queryCopy addDelayedStartStore:v70];
+                  [queryCopy addDelayedStartStore:v69];
                 }
 
-                else if (v70)
+                else if (v69)
                 {
-                  if (([v38 containsObject:v70] & 1) == 0)
+                  if (([v37 containsObject:v69] & 1) == 0)
                   {
-                    [v38 addObject:v71];
+                    [v37 addObject:v70];
                   }
                 }
 
                 else
                 {
-                  v72 = SPLogForSPLogCategoryQuery();
-                  v73 = v72;
+                  v71 = SPLogForSPLogCategoryQuery();
+                  v72 = v71;
                   if (gSPLogDebugAsDefault)
                   {
-                    v74 = OS_LOG_TYPE_DEFAULT;
+                    v73 = OS_LOG_TYPE_DEFAULT;
                   }
 
                   else
                   {
-                    v74 = OS_LOG_TYPE_DEBUG;
+                    v73 = OS_LOG_TYPE_DEBUG;
                   }
 
-                  if (os_log_type_enabled(v72, v74))
+                  if (os_log_type_enabled(v71, v73))
                   {
                     *buf = 138412290;
-                    v152 = v68;
-                    _os_log_impl(&_mh_execute_header, v73, v74, "#query Missing datastore for domain %@!", buf, 0xCu);
+                    v145 = v67;
+                    _os_log_impl(&_mh_execute_header, v72, v73, "#query Missing datastore for domain %@!", buf, 0xCu);
                   }
                 }
               }
 
-              v65 = [v48 countByEnumeratingWithState:&v129 objects:v148 count:16];
+              v64 = [v47 countByEnumeratingWithState:&v122 objects:v141 count:16];
             }
 
-            while (v65);
+            while (v64);
           }
 
-          v43 = v48;
+          v42 = v47;
         }
       }
     }
 
-    if (![v38 count])
+    if (![v37 count])
     {
-      v83 = SPLogForSPLogCategoryQuery();
-      v84 = gSPLogInfoAsDefault;
-      if (os_log_type_enabled(v83, ((gSPLogInfoAsDefault & 1) == 0)))
+      v82 = SPLogForSPLogCategoryQuery();
+      v83 = gSPLogInfoAsDefault;
+      if (os_log_type_enabled(v82, ((gSPLogInfoAsDefault & 1) == 0)))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v83, ((v84 & 1) == 0), "#query No stores for query!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v82, ((v83 & 1) == 0), "#query No stores for query!", buf, 2u);
       }
 
       [queryCopy sendQueryCompleted];
       goto LABEL_146;
     }
 
-    v75 = objc_alloc_init(NSMutableSet);
+    v74 = objc_alloc_init(NSMutableSet);
     if ([queryCopy infinitePatience])
     {
-      v76 = SPLogForSPLogCategoryDefault();
-      v77 = v76;
+      v75 = SPLogForSPLogCategoryDefault();
+      v76 = v75;
       if (gSPLogDebugAsDefault)
       {
-        v78 = OS_LOG_TYPE_DEFAULT;
+        v77 = OS_LOG_TYPE_DEFAULT;
       }
 
       else
       {
-        v78 = OS_LOG_TYPE_DEBUG;
+        v77 = OS_LOG_TYPE_DEBUG;
       }
 
-      v79 = 0.0;
-      if (!os_log_type_enabled(v76, v78))
+      v78 = 0.0;
+      if (!os_log_type_enabled(v75, v77))
       {
         goto LABEL_140;
       }
 
       *buf = 0;
-      v80 = "Query with infinite patience";
+      v79 = "Query with infinite patience";
+      v80 = v76;
       v81 = v77;
-      v82 = v78;
     }
 
     else
     {
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v85 = v38;
-      v86 = [v85 countByEnumeratingWithState:&v125 objects:v147 count:16];
-      if (v86)
+      v120 = 0u;
+      v121 = 0u;
+      v118 = 0u;
+      v119 = 0u;
+      v84 = v37;
+      v85 = [v84 countByEnumeratingWithState:&v118 objects:v140 count:16];
+      if (v85)
       {
-        v87 = *v126;
-        v79 = 0.0;
+        v86 = *v119;
+        v78 = 0.0;
         do
         {
-          for (j = 0; j != v86; j = j + 1)
+          for (j = 0; j != v85; j = j + 1)
           {
-            if (*v126 != v87)
+            if (*v119 != v86)
             {
-              objc_enumerationMutation(v85);
+              objc_enumerationMutation(v84);
             }
 
-            v89 = *(*(&v125 + 1) + 8 * j);
+            v88 = *(*(&v118 + 1) + 8 * j);
             if (objc_opt_respondsToSelector())
             {
-              [v89 timeOut:{objc_msgSend(v89, "domain") == 7}];
-              v91 = v90;
-              if (v90 > 0.0)
+              [v88 timeOut:{objc_msgSend(v88, "domain") == 7}];
+              v90 = v89;
+              if (v89 > 0.0)
               {
-                [v75 addObject:v89];
-                if (v91 >= v79)
+                [v74 addObject:v88];
+                if (v90 >= v78)
                 {
-                  v92 = v79;
+                  v91 = v78;
                 }
 
                 else
                 {
-                  v92 = v91;
+                  v91 = v90;
                 }
 
-                if (v79 <= 0.0)
+                if (v78 <= 0.0)
                 {
-                  v79 = v91;
+                  v78 = v90;
                 }
 
                 else
                 {
-                  v79 = v92;
+                  v78 = v91;
                 }
               }
             }
           }
 
-          v86 = [v85 countByEnumeratingWithState:&v125 objects:v147 count:16];
+          v85 = [v84 countByEnumeratingWithState:&v118 objects:v140 count:16];
         }
 
-        while (v86);
+        while (v85);
       }
 
       else
       {
-        v79 = 0.0;
+        v78 = 0.0;
       }
 
-      v93 = SPLogForSPLogCategoryDefault();
-      v77 = v93;
+      v92 = SPLogForSPLogCategoryDefault();
+      v76 = v92;
       if (gSPLogDebugAsDefault)
       {
-        v94 = OS_LOG_TYPE_DEFAULT;
+        v93 = OS_LOG_TYPE_DEFAULT;
       }
 
       else
       {
-        v94 = OS_LOG_TYPE_DEBUG;
+        v93 = OS_LOG_TYPE_DEBUG;
       }
 
-      if (!os_log_type_enabled(v93, v94))
+      if (!os_log_type_enabled(v92, v93))
       {
         goto LABEL_140;
       }
 
       *buf = 0;
-      v80 = "Query with timeout";
-      v81 = v77;
-      v82 = v94;
+      v79 = "Query with timeout";
+      v80 = v76;
+      v81 = v93;
     }
 
-    _os_log_impl(&_mh_execute_header, v81, v82, v80, buf, 2u);
+    _os_log_impl(&_mh_execute_header, v80, v81, v79, buf, 2u);
 LABEL_140:
 
-    v95 = SPLogForSPLogCategoryDefault();
-    v96 = v95;
+    v94 = SPLogForSPLogCategoryDefault();
+    v95 = v94;
     if (gSPLogDebugAsDefault)
     {
-      v97 = OS_LOG_TYPE_DEFAULT;
+      v96 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      v97 = OS_LOG_TYPE_DEBUG;
+      v96 = OS_LOG_TYPE_DEBUG;
     }
 
-    if (os_log_type_enabled(v95, v97))
+    if (os_log_type_enabled(v94, v96))
     {
-      v98 = qos_class_self();
+      v97 = qos_class_self();
       *buf = 67109120;
-      LODWORD(v152) = v98;
-      _os_log_impl(&_mh_execute_header, v96, v97, "QOS addAndStartQuery: %d", buf, 8u);
+      LODWORD(v145) = v97;
+      _os_log_impl(&_mh_execute_header, v95, v96, "QOS addAndStartQuery: %d", buf, 8u);
     }
 
-    v99 = +[SDController workQueue];
+    v98 = +[SDController workQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000068B8;
     block[3] = &unk_100091F80;
-    v119 = queryCopy;
-    v120 = bundleID;
-    v124 = v79;
-    v121 = v38;
-    v100 = v75;
-    v122 = v100;
-    v123 = currentSearchString;
-    v101 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, block);
+    v112 = queryCopy;
+    v113 = bundleID;
+    v117 = v78;
+    v114 = v37;
+    v99 = v74;
+    v115 = v99;
+    v116 = currentSearchString;
+    v100 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, block);
     tracing_dispatch_async();
 
 LABEL_146:
     goto LABEL_147;
   }
 
-  v44 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  v43 = SPLogForSPLogCategoryDefault();
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
-    sub_100062298(v44);
+    sub_100062298(v43);
   }
 
-  v45 = [NSError errorWithDomain:@"SearchError" code:1 userInfo:0];
-  [queryCopy sendError:v45];
+  v44 = [NSError errorWithDomain:@"SearchError" code:1 userInfo:0];
+  [queryCopy sendError:v44];
 
   [queryCopy sendQueryCompleted];
 LABEL_147:
 
-  v102 = *v113;
-  v103 = *(v113 + 8);
-  v104 = *(v113 + 16);
-  v105 = *(v113 + 24);
-  v106 = *(v113 + 28);
-  v107 = *(v113 + 32);
   si_tracing_log_span_end();
-  v108 = v145;
-  *v113 = v144;
-  *(v113 + 16) = v108;
-  *(v113 + 32) = v146;
+  v101 = v138;
+  *v106 = v137;
+  *(v106 + 16) = v101;
+  *(v106 + 32) = v139;
 }
 
 - (void)clearInputForConnection:(id)connection

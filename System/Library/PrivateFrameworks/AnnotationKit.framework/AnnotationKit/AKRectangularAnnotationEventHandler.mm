@@ -244,7 +244,7 @@ LABEL_11:
   v23.size.width = v7;
   v23.size.height = v6;
   MidY = CGRectGetMidY(v23);
-  [AKGeometryHelper rotationTransformForRect:x withAngle:y, width, height, rotation];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, x, y, width, height, rotation);
   v12 = MidY * 0.0 + 0.0 * MidX + 0.0;
   v24.origin.x = v9;
   v24.origin.y = v8;
@@ -299,7 +299,7 @@ LABEL_11:
   v104 = 0u;
   v102 = 0u;
   [annotation rectangle];
-  [AKGeometryHelper rotationTransformForRect:"rotationTransformForRect:withAngle:" withAngle:?];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper);
   v16 = y * 0.0 + 0.0 * x + 0.0;
   if ([(AKAnnotationEventHandler *)self draggingHorizontalOnly])
   {
@@ -535,7 +535,7 @@ LABEL_11:
     }
 
     [annotation2 rectangle];
-    [AKGeometryHelper rotationTransformForRect:"rotationTransformForRect:withAngle:" withAngle:?];
+    objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper);
     [(AKAnnotationEventHandler *)self initialOtherPoint];
     v15 = v10;
     v16 = v9;

@@ -1,3 +1,46 @@
+void RoseTransport::~RoseTransport(id *this)
+{
+  *this = &unk_2A2025298;
+  RoseTransport::destroyRoseController(this);
+  v2 = this[14];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = this[11];
+  this[11] = 0;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  v4 = this[10];
+  this[10] = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = this[8];
+  this[8] = 0;
+  if (v5)
+  {
+    (*(*v5 + 16))(v5);
+  }
+
+  std::unique_ptr<ACFUSynchronize::Syncher>::reset[abi:ne200100](this + 7, 0);
+  std::unique_ptr<ACFUSynchronize::Syncher>::reset[abi:ne200100](this + 6, 0);
+
+  MEMORY[0x2A1C5F0F8](this);
+}
+
+{
+  RoseTransport::~RoseTransport(this);
+
+  operator delete(v1);
+}
+
 uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
@@ -29,20 +72,20 @@ void std::unique_ptr<ACFUSynchronize::Syncher>::reset[abi:ne200100](uint64_t *a1
   }
 }
 
-char *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(char *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
+uint64_t *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
     v6 = result;
     result = std::vector<__CFString const*>::__vallocate[abi:ne200100](result, a4);
-    v7 = *(v6 + 1);
+    v7 = v6[1];
     while (a2 != a3)
     {
       v8 = *a2++;
       *v7++ = v8;
     }
 
-    *(v6 + 1) = v7;
+    v6[1] = v7;
   }
 
   return result;
@@ -110,7 +153,7 @@ void sub_299EB1E4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const**,__CFString const**>(void *result, const void *a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const**,__CFString const**>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -168,25 +211,24 @@ uint64_t std::__function::__func<RoseTransport::pushFirmware(std::shared_ptr<ACF
   }
 
   v3 = *v2;
-  v4 = **v2;
-  if (!v5)
+  if (!v4)
   {
-    v6 = 0;
+    v5 = 0;
     *(v1 + 64) = 0;
     goto LABEL_7;
   }
 
-  v6 = (**v5)(v5);
+  v5 = (**v4)(v4);
   v2 = *(v1 + 64);
   *(v1 + 64) = 0;
   if (v2)
   {
     v3 = *v2;
 LABEL_7:
-    (*(v3 + 2))(v2);
+    (*(v3 + 16))(v2);
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t std::__function::__func<RoseTransport::pushFirmware(std::shared_ptr<ACFUFirmware>)::$_0,std::allocator<RoseTransport::pushFirmware(std::shared_ptr<ACFUFirmware>)::$_0>,BOOL ()(void)>::target(uint64_t a1, uint64_t a2)
@@ -430,16 +472,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -462,9 +504,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_299EB27B8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_299EB27B8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C2B5250](&a10);
+  MEMORY[0x29C2B5250](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -584,37 +626,36 @@ uint64_t std::__function::__func<RoseTransport::sendCalibration(__CFData const*,
     return 0;
   }
 
-  v4 = **v3;
   if (*(a1 + 16) == 1)
   {
-    if (v5)
+    if (v4)
     {
-      v6 = (**v5)(v5);
+      v5 = (**v4)(v4);
 LABEL_8:
-      v7 = v6;
+      v6 = v5;
       goto LABEL_10;
     }
   }
 
   else
   {
-    if (v8)
+    if (v7)
     {
-      v6 = RoseCommandCompleteEvent::validate(v8, 32);
+      v5 = RoseCommandCompleteEvent::validate(v7, 32);
       goto LABEL_8;
     }
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_10:
-  v9 = *(v2 + 64);
+  v8 = *(v2 + 64);
   *(v2 + 64) = 0;
-  if (v9)
+  if (v8)
   {
-    (*(*v9 + 16))(v9);
+    (*(*v8 + 16))(v8);
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t std::__function::__func<RoseTransport::sendCalibration(__CFData const*,BOOL,std::string const&)::$_0,std::allocator<RoseTransport::sendCalibration(__CFData const*,BOOL,std::string const&)::$_0>,BOOL ()(void)>::target(uint64_t a1, uint64_t a2)
@@ -631,23 +672,24 @@ uint64_t std::__function::__func<RoseTransport::sendCalibration(__CFData const*,
 
 ACFURestore *RoseRestore::create(RoseRestore *this, const __CFDictionary *a2)
 {
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
-  v3 = operator new(0x178uLL);
-  ACFURestore::ACFURestore(v3);
-  *v3 = &unk_2A2025620;
-  *(v3 + 180) = 0;
-  *(v3 + 46) = 0;
-  v4 = RoseRestore::init(v3, this, @"Rap,Ticket");
-  if (v4)
+  LogInstance = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: RoseUpdater Version: %s\n", "RoseRestore", "create", "RoseUpdater-115~31852");
+  v4 = operator new(0x178uLL);
+  ACFURestore::ACFURestore(v4);
+  *v4 = &unk_2A2025620;
+  *(v4 + 180) = 0;
+  *(v4 + 46) = 0;
+  v5 = RoseRestore::init(v4, this, @"Rap,Ticket");
+  if (v5)
   {
-    ACFULogging::getLogInstance(v4);
-    ACFULogging::handleMessage();
-    (*(*v3 + 8))(v3);
+    v6 = v5;
+    v7 = ACFULogging::getLogInstance(v5);
+    ACFULogging::handleMessage(v7, 2, "%s::%s: Failed to initialize restore object (%d)\n", "RoseRestore", "create", v6);
+    (*(*v4 + 8))(v4);
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
 void RoseRestore::RoseRestore(RoseRestore *this)
@@ -671,12 +713,11 @@ void RoseRestore::queryCmd(RoseRestore *this@<X0>, uint64_t a2@<X8>)
 
     else
     {
-      ACFULogging::getLogInstance(0);
-      ACFULogging::handleMessage();
-      v15 = *(this + 13);
+      LogInstance = ACFULogging::getLogInstance(0);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to collect preflight info\n", "RoseRestore", "queryCmd");
       std::string::basic_string[abi:ne200100]<0>(&__p, "Failed to collect preflight info");
       ACFUError::addError();
-      if (v19 < 0)
+      if (v21 < 0)
       {
         operator delete(__p);
       }
@@ -690,8 +731,8 @@ void RoseRestore::queryCmd(RoseRestore *this@<X0>, uint64_t a2@<X8>)
   {
     Cmd = ACFURestore::queryCmd(&__s2, this);
     v5 = __s2;
-    v6 = v17;
-    if (v17)
+    v6 = v19;
+    if (v19)
     {
       if ((ACFURestore::isPreflight(this) & 1) == 0 && CFDictionaryContainsKey(v5, @"Rap,BoardID"))
       {
@@ -726,15 +767,25 @@ void RoseRestore::queryCmd(RoseRestore *this@<X0>, uint64_t a2@<X8>)
           }
         }
 
-        ACFULogging::getLogInstance(Value);
-        ACFULogging::handleMessage();
-        v14 = MEMORY[0x29EDB8F00];
-        if (!v9)
+        v14 = ACFULogging::getLogInstance(Value);
+        if (v9)
         {
-          v14 = MEMORY[0x29EDB8EF8];
+          v15 = "Yes";
         }
 
-        CFDictionaryAddValue(v5, @"LocalSigningID", *v14);
+        else
+        {
+          v15 = "No";
+        }
+
+        ACFULogging::handleMessage(v14, 3, "%s::%s: Local sign enabled? %s\n", "RoseRestore", "queryCmd", v15);
+        v16 = MEMORY[0x29EDB8F00];
+        if (!v9)
+        {
+          v16 = MEMORY[0x29EDB8EF8];
+        }
+
+        CFDictionaryAddValue(v5, @"LocalSigningID", *v16);
       }
     }
 
@@ -809,28 +860,28 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
 
       v10 = this[21];
       {
-        v12 = this[22];
-        if (v12)
+        v11 = this[22];
+        if (v11)
         {
-          atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
         }
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
       }
 
       RoseTransport::getCapabilities(v10, &v36);
-      v13 = RoseCalibration::sendCalibration(&v40, &v38, &v36, &v42);
+      v12 = RoseCalibration::sendCalibration(&v40, &v38, &v36, &v42);
       if (v37)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v37);
       }
 
-      if (v12)
+      if (v11)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
       }
 
       if (v39)
@@ -844,7 +895,7 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
         std::__shared_weak_count::__release_shared[abi:ne200100](v41);
       }
 
-      if (v13)
+      if (v12)
       {
         RoseRestore::performCmd(&v42);
         return 0;
@@ -857,38 +908,38 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
     }
 
     this[25] = this[44];
-    v14 = this[18];
-    this[26] = v14;
+    v13 = this[18];
+    this[26] = v13;
     if (this[27] && this[28])
     {
-      if (v14)
+      if (v13)
       {
         MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, this[15]);
         if (MutableCopy)
         {
-          v16 = MutableCopy;
-          v17 = ACFUFirmware::copyFWContainer(this[19]);
-          if (v17)
+          v15 = MutableCopy;
+          v16 = ACFUFirmware::copyFWContainer(this[19]);
+          if (v16)
           {
-            v18 = v17;
-            CFDictionarySetValue(v16, @"FirmwareData", v17);
-            CFRelease(v18);
-            ACFULogging::getLogInstance(v19);
+            v17 = v16;
+            CFDictionarySetValue(v15, @"FirmwareData", v16);
+            CFRelease(v17);
+            ACFULogging::getLogInstance(v18);
             std::string::basic_string[abi:ne200100]<0>(&v30, "RoseRestore");
-            v20 = std::string::append(&v30, "::");
-            v21 = *&v20->__r_.__value_.__l.__data_;
-            v31.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-            *&v31.__r_.__value_.__l.__data_ = v21;
-            v20->__r_.__value_.__l.__size_ = 0;
-            v20->__r_.__value_.__r.__words[2] = 0;
-            v20->__r_.__value_.__r.__words[0] = 0;
-            v22 = std::string::append(&v31, "performCmd");
-            v23 = *&v22->__r_.__value_.__l.__data_;
-            v43 = v22->__r_.__value_.__r.__words[2];
-            v42 = v23;
-            v22->__r_.__value_.__l.__size_ = 0;
-            v22->__r_.__value_.__r.__words[2] = 0;
-            v22->__r_.__value_.__r.__words[0] = 0;
+            v19 = std::string::append(&v30, "::");
+            v20 = *&v19->__r_.__value_.__l.__data_;
+            v31.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
+            *&v31.__r_.__value_.__l.__data_ = v20;
+            v19->__r_.__value_.__l.__size_ = 0;
+            v19->__r_.__value_.__r.__words[2] = 0;
+            v19->__r_.__value_.__r.__words[0] = 0;
+            v21 = std::string::append(&v31, "performCmd");
+            v22 = *&v21->__r_.__value_.__l.__data_;
+            v43 = v21->__r_.__value_.__r.__words[2];
+            v42 = v22;
+            v21->__r_.__value_.__l.__size_ = 0;
+            v21->__r_.__value_.__r.__words[2] = 0;
+            v21->__r_.__value_.__r.__words[0] = 0;
             ACFULogging::handleMessageCFType();
             if (SHIBYTE(v43) < 0)
             {
@@ -905,24 +956,24 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
               operator delete(v30.__r_.__value_.__l.__data_);
             }
 
-            v24 = (*(*this[6] + 32))(this[6], this + 200, this[17], v16, 0);
-            if (!v24)
+            v23 = (*(*this[6] + 32))(this[6], this + 25, this[17], v15, 0);
+            if (!v23)
             {
-              CFRelease(v16);
+              CFRelease(v15);
               return 1;
             }
 
-            ACFULogging::getLogInstance(v24);
-            ACFULogging::handleMessage();
-            v28 = this[13];
+            v27 = v23;
+            LogInstance = ACFULogging::getLogInstance(v23);
+            ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to perform certification step (ret: %d)\n", "RoseRestore", "performCmd", v27);
             std::string::basic_string[abi:ne200100]<0>(v29, "Failed to perform certification step");
             ACFUError::addError();
-            RoseRestore::performCmd(v29, v16);
+            RoseRestore::performCmd(v29, v15);
           }
 
           else
           {
-            RoseRestore::performCmd(v16);
+            RoseRestore::performCmd(v15);
           }
         }
 
@@ -934,9 +985,8 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
         return 0;
       }
 
-      ACFULogging::getLogInstance(isPostSealing);
-      ACFULogging::handleMessage();
-      v27 = this[13];
+      v26 = ACFULogging::getLogInstance(isPostSealing);
+      ACFULogging::handleMessage(v26, 2, "%s::%s: No certification URL found for certification step (ret: %d)\n", "RoseRestore", "performCmd", 1009);
       std::string::basic_string[abi:ne200100]<0>(&__p, "No certification URL found for certification step");
       ACFUError::addError();
       if ((v33 & 0x80000000) == 0)
@@ -944,14 +994,13 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
         return 0;
       }
 
-      v26 = __p;
+      v25 = __p;
     }
 
     else
     {
-      ACFULogging::getLogInstance(isPostSealing);
-      ACFULogging::handleMessage();
-      v25 = this[13];
+      v24 = ACFULogging::getLogInstance(isPostSealing);
+      ACFULogging::handleMessage(v24, 2, "%s::%s: Incomplete parameter set for certification (ret: %d)\n", "RoseRestore", "performCmd", 1005);
       std::string::basic_string[abi:ne200100]<0>(&v34, "Incomplete parameter set for certification");
       ACFUError::addError();
       if ((v35 & 0x80000000) == 0)
@@ -959,10 +1008,10 @@ uint64_t RoseRestore::performCmd(CFDictionaryRef *this)
         return 0;
       }
 
-      v26 = v34;
+      v25 = v34;
     }
 
-    operator delete(v26);
+    operator delete(v25);
     return 0;
   }
 
@@ -986,249 +1035,244 @@ void RoseRestore::~RoseRestore(RoseRestore *this)
   operator delete(v1);
 }
 
-ACFULogging *RoseRestore::gatherPreflightParameters(__CFString **this)
+std::__shared_weak_count *RoseRestore::gatherPreflightParameters(__CFString **this)
 {
   isNeRDOS = ACFURestore::isNeRDOS(this);
   v3 = isNeRDOS;
-  ACFULogging::getLogInstance(isNeRDOS);
+  LogInstance = ACFULogging::getLogInstance(isNeRDOS);
   if ((v3 & 1) == 0)
   {
-    ACFULogging::handleMessage();
-    v8 = dlopen("/System/Library/PrivateFrameworks/Proximity.framework/Proximity", 1);
-    if (!v8)
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Booted OS preflight attempt...\n", "RoseRestore", "gatherPreflightParameters");
+    v10 = dlopen("/System/Library/PrivateFrameworks/Proximity.framework/Proximity", 1);
+    if (!v10)
     {
       RoseRestore::gatherPreflightParameters(0);
       return 0;
     }
 
-    v6 = v8;
-    v9 = dlsym(v8, "PRGetPreflightInfo");
-    ACFULogging::getLogInstance(v9);
-    if (v9)
+    v7 = v10;
+    v11 = dlsym(v10, "PRGetPreflightInfo");
+    v12 = ACFULogging::getLogInstance(v11);
+    if (v11)
     {
-      v5 = ACFULogging::handleMessage();
-      v10 = 1;
+      v6 = ACFULogging::handleMessage(v12, 0, "%s::%s: Performing Rose preflight...\n", "RoseRestore", "gatherPreflightParameters");
+      v13 = 1;
       while (1)
       {
-        ACFULogging::getLogInstance(v5);
-        v11 = ACFULogging::handleMessage();
-        v5 = (v9)(v11);
-        if (v5)
+        v14 = ACFULogging::getLogInstance(v6);
+        v15 = ACFULogging::handleMessage(v14, 0, "%s::%s: attempt %u of %u...\n", "RoseRestore", "gatherPreflightParameters", v13, 2);
+        v6 = (v11)(v15);
+        if (v6)
         {
           break;
         }
 
-        ++v10;
+        ++v13;
         __ns.__rep_ = 1000000000;
         std::this_thread::sleep_for (&__ns);
-        if (v10 == 3)
+        if (v13 == 3)
         {
           goto LABEL_10;
         }
       }
 
 LABEL_3:
-      v7 = v5;
-      ACFULogging::getLogInstance(v5);
-      ACFULogging::handleMessage();
-      if (!v6)
+      v8 = v6;
+      v9 = ACFULogging::getLogInstance(v6);
+      ACFULogging::handleMessage(v9, 0, "%s::%s: successfully collected preflight information\n", "RoseRestore", "gatherPreflightParameters");
+      if (!v7)
       {
-        return v7;
+        return v8;
       }
 
       goto LABEL_11;
     }
 
-    ACFULogging::handleMessage();
-    v7 = 0;
+    ACFULogging::handleMessage(v12, 2, "%s::%s: failed to init framework operation\n", "RoseRestore", "gatherPreflightParameters");
+    v8 = 0;
 LABEL_11:
-    dlclose(v6);
-    return v7;
+    dlclose(v7);
+    return v8;
   }
 
-  ACFULogging::handleMessage();
-  v5 = RoseBootstrappedPreflight::bootstrappedPreflight(0, 0, this[46], v4);
-  v6 = 0;
-  if (v5)
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: NeRD OS preflight attempt...\n", "RoseRestore", "gatherPreflightParameters");
+  v6 = RoseBootstrappedPreflight::bootstrappedPreflight(0, 0, this[46], v5);
+  v7 = 0;
+  if (v6)
   {
     goto LABEL_3;
   }
 
 LABEL_10:
-  ACFULogging::getLogInstance(v5);
-  ACFULogging::handleMessage();
-  v7 = 0;
-  if (v6)
+  v16 = ACFULogging::getLogInstance(v6);
+  ACFULogging::handleMessage(v16, 2, "%s::%s: failed to collect preflight information\n", "RoseRestore", "gatherPreflightParameters");
+  v8 = 0;
+  if (v7)
   {
     goto LABEL_11;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t RoseRestore::init(RoseRestore *this, const __CFDictionary *a2, const void *a3)
+uint64_t RoseRestore::init(ACFUError **this, const __CFDictionary *a2, const void *a3)
 {
-  v55 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   v4 = ACFURestore::init(this, a2, a3);
   if (v4)
   {
-    ACFULogging::getLogInstance(v4);
-    ACFULogging::handleMessage();
-    v14 = 4000;
-    goto LABEL_18;
+    LogInstance = ACFULogging::getLogInstance(v4);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to initialize base object\n", "RoseRestore", "init");
+    return 4000;
   }
 
-  if (CFDictionaryContainsKey(*(this + 16), @"DebugLogPath"))
+  if (CFDictionaryContainsKey(this[16], @"DebugLogPath"))
   {
-    Value = CFDictionaryGetValue(*(this + 16), @"DebugLogPath");
+    Value = CFDictionaryGetValue(this[16], @"DebugLogPath");
     if (!Value || (v6 = Value, v7 = CFGetTypeID(Value), Value = CFStringGetTypeID(), v7 != Value))
     {
       RoseRestore::init(Value);
-      v14 = 4002;
-      goto LABEL_18;
+      return 4002;
     }
 
-    *(this + 46) = v6;
+    this[46] = v6;
   }
 
   isPreflight = ACFURestore::isPreflight(this);
   if (isPreflight & 1) != 0 || (isPreflight = ACFURestore::isNeRDOS(this), (isPreflight))
   {
-    ACFULogging::getLogInstance(isPreflight);
-    ACFULogging::handleMessage();
-    v10 = 0;
+    v10 = ACFULogging::getLogInstance(isPreflight);
+    ACFULogging::handleMessage(v10, 0, "%s::%s: Initializing RoseRestore for preflight\n", "RoseRestore", "init");
     v11 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
-  v49 = 1;
+  v52 = 1;
+  v56 = 0;
+  v57 = 0;
   v53 = 0;
   v54 = 0;
-  v50 = 0;
-  v51 = 0;
-  v52 = &v53;
-  v48 = 1;
-  URLByAppendingStrings = ACFUCommon::createURLByAppendingStrings(*(this + 44), @"/usr/standalone/firmware/Rose/", v9);
-  v10 = URLByAppendingStrings;
+  v55 = &v56;
+  v51 = 1;
+  URLByAppendingStrings = ACFUCommon::createURLByAppendingStrings(this[44], @"/usr/standalone/firmware/Rose/", v9);
+  v11 = URLByAppendingStrings;
   if (URLByAppendingStrings)
   {
-    v50 = @"Rap,Ticket";
-    v51 = URLByAppendingStrings;
-    GetRoseTatsuTagToFileNameMap(&v45);
-    std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v52, v53);
-    v18 = v46;
-    v52 = v45;
-    v53 = v46;
-    v54 = v47;
-    if (v47)
+    v53 = @"Rap,Ticket";
+    v54 = URLByAppendingStrings;
+    GetRoseTatsuTagToFileNameMap(&v48);
+    std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v55, v56);
+    v18 = v49;
+    v55 = v48;
+    v56 = v49;
+    v57 = v50;
+    if (v50)
     {
-      v46->__shared_weak_owners_ = &v53;
-      v45 = &v46;
-      v46 = 0;
-      v47 = 0;
+      v49->__shared_weak_owners_ = &v56;
+      v48 = &v49;
+      v49 = 0;
+      v50 = 0;
       v18 = 0;
     }
 
     else
     {
-      v52 = &v53;
+      v55 = &v56;
     }
 
-    std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v45, v18);
+    std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v48, v18);
     RTKitFirmware::create();
-    std::shared_ptr<RTKitFirmware>::operator=[abi:ne200100]<RTKitFirmware,std::default_delete<RTKitFirmware>,0>(this + 19, &v45);
-    v19 = v45;
-    v45 = 0;
+    std::shared_ptr<RTKitFirmware>::operator=[abi:ne200100]<RTKitFirmware,std::default_delete<RTKitFirmware>,0>(this + 19, &v48);
+    v19 = v48;
+    v48 = 0;
     if (v19)
     {
       v19 = (*(*v19 + 56))(v19);
     }
 
-    if (*(this + 19))
+    if (this[19])
     {
-      v20 = *(this + 24);
-      v43 = *(this + 23);
-      v44 = v20;
+      v20 = this[24];
+      v46 = this[23];
+      v47 = v20;
       if (v20)
       {
         atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      RoseTransport::create(&v43, 0, 0, &v45);
-      std::shared_ptr<RoseTransport>::operator=[abi:ne200100]<RoseTransport,std::default_delete<RoseTransport>,0>(this + 21, &v45);
-      v21 = v45;
-      v45 = 0;
+      RoseTransport::create(&v46, 0, 0, &v48);
+      std::shared_ptr<RoseTransport>::operator=[abi:ne200100]<RoseTransport,std::default_delete<RoseTransport>,0>(this + 21, &v48);
+      v21 = v48;
+      v48 = 0;
       if (v21)
       {
         (*(*v21 + 64))(v21);
       }
 
-      v22 = v44;
-      if (v44)
+      v22 = v47;
+      if (v47)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v47);
       }
 
-      if (*(this + 21))
+      if (this[21])
       {
-        v23 = *(this + 22);
-        v41 = *(this + 21);
-        v42 = v23;
+        v23 = this[22];
+        v45 = v23;
         if (v23)
         {
-          atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
         }
 
-        v24 = *(this + 20);
-        v39 = *(this + 19);
-        v40 = v24;
+        v24 = this[20];
+        v44 = v24;
         if (v24)
         {
-          atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v24 + 1, 1uLL, memory_order_relaxed);
         }
 
-        v25 = *(this + 24);
-        v37 = *(this + 23);
-        v38 = v25;
+        v25 = this[24];
+        v43 = v25;
         if (v25)
         {
-          atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v25 + 1, 1uLL, memory_order_relaxed);
         }
 
         ACFURTKitROM::create();
-        v11 = v45;
-        v12 = v46;
-        v45 = 0;
-        v46 = 0;
-        if (v38)
+        v12 = v48;
+        v13 = v49;
+        v48 = 0;
+        v49 = 0;
+        if (v43)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v43);
         }
 
-        if (v40)
+        if (v44)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v44);
         }
 
-        v26 = v42;
-        if (v42)
+        v26 = v45;
+        if (v45)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v45);
         }
 
-        if (v11)
+        if (v12)
         {
-          if (*(this + 18))
+          if (this[18])
           {
             isPostSealing = ACFURestore::isPostSealing(this);
             *(this + 360) = isPostSealing ^ 1;
             if ((isPostSealing & 1) == 0)
             {
-              ACFULogging::getLogInstance(isPostSealing);
-              ACFULogging::handleMessage();
-              v28 = *(this + 21);
+              v28 = ACFULogging::getLogInstance(isPostSealing);
+              ACFULogging::handleMessage(v28, 0, "%s::%s: Enabling Rose certification step\n", "RoseRestore", "init");
+              v29 = this[21];
               {
-                v30 = *(this + 22);
+                v30 = this[22];
                 if (v30)
                 {
                   atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1240,21 +1284,21 @@ uint64_t RoseRestore::init(RoseRestore *this, const __CFDictionary *a2, const vo
                 v30 = 0;
               }
 
-              RoseTransport::getCapabilities(v28, &v45);
-              v31 = RoseCapabilities::chipNameForCertification(v45);
-              *(this + 25) = 0;
-              *(this + 26) = 0;
-              *(this + 27) = v31;
-              *(this + 28) = @"rcrt";
+              RoseTransport::getCapabilities(v29, &v48);
+              v31 = RoseCapabilities::chipNameForCertification(v48);
+              this[25] = 0;
+              this[26] = 0;
+              this[27] = v31;
+              this[28] = @"rcrt";
               *(this + 58) = 1;
-              *(this + 31) = 0;
-              *(this + 32) = 0;
-              *(this + 30) = 0;
+              this[31] = 0;
+              this[32] = 0;
+              this[30] = 0;
               *(this + 264) = 0;
-              *(this + 34) = 0;
-              if (v46)
+              this[34] = 0;
+              if (v49)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v49);
               }
 
               if (v30)
@@ -1271,68 +1315,73 @@ uint64_t RoseRestore::init(RoseRestore *this, const __CFDictionary *a2, const vo
 
           if (ACFURestore::isPostSealing(this))
           {
-            v32 = *(this + 21);
+            v32 = this[21];
             {
-              v34 = *(this + 22);
-              if (v34)
+              v33 = this[22];
+              if (v33)
               {
-                atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
               }
             }
 
             else
             {
-              v34 = 0;
+              v33 = 0;
             }
 
-            RoseTransport::getCapabilities(v32, &v45);
-            *(this + 361) = RoseCapabilities::supportsRTKitIOConfig(v45);
-            if (v46)
+            RoseTransport::getCapabilities(v32, &v48);
+            *(this + 361) = RoseCapabilities::supportsRTKitIOConfig(v48);
+            if (v49)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v49);
             }
 
-            if (v34)
+            if (v33)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v33);
             }
 
-            v36 = ACFUCommon::parseDebugArgs(&v45, *(this + 15), "combinedFDRObjects", v35);
-            if (!HIDWORD(v45))
+            v35 = ACFUCommon::parseDebugArgs(&v48, this[15], "combinedFDRObjects", v34);
+            if (!HIDWORD(v48))
             {
-              *(this + 361) = v45 != 0;
-              ACFULogging::getLogInstance(v36);
-              *(this + 361);
-              ACFULogging::handleMessage();
+              *(this + 361) = v48 != 0;
+              v36 = ACFULogging::getLogInstance(v35);
+              v37 = "No";
+              if (*(this + 361))
+              {
+                v37 = "Yes";
+              }
+
+              ACFULogging::handleMessage(v36, 0, "%s::%s: overriding combined FDR objects to %s due to debug-arg: %u\n", "RoseRestore", "init", v37, v48);
             }
           }
 
-          std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v52, v53);
-          if (v12)
+          std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v55, v56);
+          if (v13)
           {
-            v13 = 0;
-            atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-            v49 = 0;
-            v50 = v11;
-            v51 = v12;
-            atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-LABEL_10:
-            LOWORD(v52) = 3;
-            BYTE2(v52) = 1;
-            std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__assign_unique<std::pair<ACFURestore::UpdateSteps const,RestoreStep> const*>(this + 3, &v49, &v53);
-            if (v51)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v51);
-            }
-
-            if ((v13 & 1) == 0)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-            }
-
-            ACFUError::createAppendedDomain(*(this + 13), @"RoseRestore");
             v14 = 0;
-            if (!v10)
+            atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+            v52 = 0;
+            v53 = v12;
+            v54 = v13;
+            atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+LABEL_10:
+            LOWORD(v55) = 3;
+            BYTE2(v55) = 1;
+            std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__assign_unique<std::pair<ACFURestore::UpdateSteps const,RestoreStep> const*>(this + 3, &v52, &v56);
+            if (v54)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+            }
+
+            if ((v14 & 1) == 0)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+            }
+
+            ACFUError::createAppendedDomain(this[13], @"RoseRestore");
+            v15 = 0;
+            if (!v11)
             {
               goto LABEL_16;
             }
@@ -1341,61 +1390,59 @@ LABEL_10:
           }
 
 LABEL_9:
-          v12 = 0;
-          v49 = 0;
-          v13 = 1;
-          v50 = v11;
-          v51 = 0;
+          v13 = 0;
+          v52 = 0;
+          v14 = 1;
+          v53 = v12;
+          v54 = 0;
           goto LABEL_10;
         }
 
-        ACFULogging::getLogInstance(v26);
-        ACFULogging::handleMessage();
+        v42 = ACFULogging::getLogInstance(v26);
+        ACFULogging::handleMessage(v42, 2, "%s::%s: failed to initialize update operations\n", "RoseRestore", "init");
       }
 
       else
       {
-        ACFULogging::getLogInstance(v22);
-        v12 = 0;
-        ACFULogging::handleMessage();
+        v41 = ACFULogging::getLogInstance(v22);
+        v13 = 0;
+        ACFULogging::handleMessage(v41, 2, "%s::%s: Could not create RoseTransport\n", "RoseRestore", "init");
       }
 
-      v14 = 4008;
+      v15 = 4008;
     }
 
     else
     {
-      ACFULogging::getLogInstance(v19);
-      v12 = 0;
-      ACFULogging::handleMessage();
-      v14 = 1000;
+      v40 = ACFULogging::getLogInstance(v19);
+      v13 = 0;
+      ACFULogging::handleMessage(v40, 2, "%s::%s: Could not create RTKitFirmware\n", "RoseRestore", "init");
+      v15 = 1000;
     }
   }
 
   else
   {
-    ACFULogging::getLogInstance(0);
-    v12 = 0;
-    ACFULogging::handleMessage();
-    v14 = 4000;
+    v39 = ACFULogging::getLogInstance(0);
+    v13 = 0;
+    ACFULogging::handleMessage(v39, 2, "%s::%s: Failed to get a restore mount point to create FW object with\n", "RoseRestore", "init");
+    v15 = 4000;
   }
 
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v52, v53);
-  if (v10)
+  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(&v55, v56);
+  if (v11)
   {
 LABEL_15:
-    CFRelease(v10);
+    CFRelease(v11);
   }
 
 LABEL_16:
-  if (v12)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x29EDCA608];
-  return v14;
+  return v15;
 }
 
 void sub_299EB3DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
@@ -1429,15 +1476,15 @@ void sub_299EB3EB4()
   JUMPOUT(0x299EB3E8CLL);
 }
 
-uint64_t **std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__assign_unique<std::pair<ACFURestore::UpdateSteps const,RestoreStep> const*>(uint64_t **result, int *a2, int *a3)
+void *std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__assign_unique<std::pair<ACFURestore::UpdateSteps const,RestoreStep> const*>(void *result, int *a2, int *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -1497,18 +1544,18 @@ uint64_t **std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,s
   return result;
 }
 
-void sub_299EB3FB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299EB3FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__node_assign_unique(uint64_t **a1, int *a2, uint64_t a3)
+uint64_t *std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__node_assign_unique(uint64_t a1, int *a2, uint64_t a3)
 {
   v3 = a3;
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   v7 = *a2;
   if (v5)
   {
@@ -1547,7 +1594,7 @@ uint64_t *std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,st
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_9:
     *(a3 + 32) = v7;
     RestoreStep::operator=();
@@ -1557,10 +1604,10 @@ LABEL_9:
   return v3;
 }
 
-uint64_t std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](uint64_t a1)
+uint64_t *std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](uint64_t *a1)
 {
-  std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::destroy(*a1, *(a1 + 16));
-  v2 = *(a1 + 8);
+  std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::destroy(*a1, a1[2]);
+  v2 = a1[1];
   if (v2)
   {
     v3 = v2[2];
@@ -1573,7 +1620,7 @@ uint64_t std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std
       }
 
       while (v3);
-      *(a1 + 8) = v2;
+      a1[1] = v2;
     }
 
     std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::destroy(*a1, v2);
@@ -1598,10 +1645,10 @@ void std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__
   }
 }
 
-uint64_t **std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__emplace_unique_key_args<ACFURestore::UpdateSteps,std::pair<ACFURestore::UpdateSteps const,RestoreStep> const&>(uint64_t **a1, int *a2, uint64_t a3)
+uint64_t **std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::__map_value_compare<ACFURestore::UpdateSteps,std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,std::less<ACFURestore::UpdateSteps>,true>,std::allocator<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>>>::__emplace_unique_key_args<ACFURestore::UpdateSteps,std::pair<ACFURestore::UpdateSteps const,RestoreStep> const&>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v7 = *a2;
@@ -1640,7 +1687,7 @@ uint64_t **std::__tree<std::__value_type<ACFURestore::UpdateSteps,RestoreStep>,s
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_10:
     v10 = operator new(0x40uLL);
     v11 = v10;
@@ -1668,250 +1715,124 @@ uint64_t RoseTargetMap::getRoseTarget(RoseTargetMap *this)
     RoseTargetMap::getRoseTarget();
   }
 
-  ACFULogging::getLogInstance(this);
+  LogInstance = ACFULogging::getLogInstance(this);
   if (RoseTargetMap::getRoseTarget(void)::roseTarget)
   {
-    [RoseTargetMap::getRoseTarget(void)::roseTarget UTF8String];
+    v2 = [RoseTargetMap::getRoseTarget(void)::roseTarget UTF8String];
   }
 
-  ACFULogging::handleMessage();
+  else
+  {
+    v2 = "NULL";
+  }
+
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Rose target string: %s\n", "RoseTargetMap", "getRoseTarget", v2);
   return RoseTargetMap::getRoseTarget(void)::roseTarget;
 }
 
 uint64_t ___ZN13RoseTargetMap13getRoseTargetEv_block_invoke()
 {
   result = MGGetProductType();
-  if (result > 2309863437)
+  if (result <= 2309863437)
   {
-    if (result <= 3564012491)
+    if (result <= 1280909811)
     {
-      if (result > 2940697644)
+      if (result > 749116820)
       {
-        if (result <= 3001488777)
+        if (result <= 877582974)
         {
-          if (result <= 2943112656)
-          {
-            if (result != 2940697645)
-            {
-              v1 = 2941181571;
-              goto LABEL_104;
-            }
-
-            goto LABEL_75;
-          }
-
-          if (result != 2943112657)
-          {
-            v9 = 2979575960;
-            goto LABEL_108;
-          }
-
-LABEL_90:
-          v3 = 0x2A14F2000;
-          v4 = @"r1w0";
-          goto LABEL_112;
-        }
-
-        if (result <= 3143587591)
-        {
-          if (result != 3001488778)
-          {
-            v1 = 3048527336;
-            goto LABEL_104;
-          }
-
-LABEL_100:
-          v3 = 0x2A14F2000;
-          v4 = @"r1p1";
-          goto LABEL_112;
-        }
-
-        if (result != 3143587592)
-        {
-          if (result == 3348380076)
-          {
-            v3 = 0x2A14F2000;
-            v4 = @"r1hp0";
-            goto LABEL_112;
-          }
-
-          goto LABEL_114;
-        }
-
-        goto LABEL_101;
-      }
-
-      if (result > 2688879998)
-      {
-        if (result <= 2793418700)
-        {
-          if (result != 2688879999)
-          {
-            if (result != 2722529672)
-            {
-              goto LABEL_114;
-            }
-
-            goto LABEL_72;
-          }
-
-LABEL_75:
-          v3 = 0x2A14F2000;
-          v4 = @"r1p3";
-          goto LABEL_112;
-        }
-
-        if (result != 2793418701)
-        {
-          v1 = 2795618603;
-          goto LABEL_104;
-        }
-
-LABEL_111:
-        v3 = 0x2A14F2000uLL;
-        v4 = @"r2p0";
-        goto LABEL_112;
-      }
-
-      if (result != 2309863438)
-      {
-        if (result != 2390434178)
-        {
-          v6 = 2625074843;
-LABEL_93:
-          if (result != v6)
-          {
-            goto LABEL_114;
-          }
-
-          goto LABEL_101;
-        }
-
-        goto LABEL_71;
-      }
-
-LABEL_85:
-      v3 = 0x2A14F2000;
-      v4 = @"r1p2";
-      goto LABEL_112;
-    }
-
-    if (result > 3819635029)
-    {
-      if (result <= 3885279869)
-      {
-        if (result > 3839750254)
-        {
-          if (result == 3839750255)
+          if (result == 749116821)
           {
             goto LABEL_101;
           }
 
-          v6 = 3867318491;
-          goto LABEL_93;
-        }
-
-        if (result != 3819635030)
-        {
-          if (result != 3825599860)
+          if (result != 851437781)
           {
-            goto LABEL_114;
+            v7 = 861924853;
+LABEL_63:
+            if (result != v7)
+            {
+              goto LABEL_114;
+            }
+
+            goto LABEL_71;
           }
 
-          goto LABEL_111;
+          goto LABEL_105;
         }
 
-LABEL_110:
-        v3 = 0x2A14F2000;
-        v4 = @"r1w2";
-        goto LABEL_112;
-      }
-
-      if (result > 4068102501)
-      {
-        if (result != 4068102502)
+        if (result > 1169082143)
         {
-          if (result != 4201643249)
+          if (result == 1169082144)
           {
-            goto LABEL_114;
+            goto LABEL_100;
           }
 
-          goto LABEL_100;
-        }
-
-LABEL_101:
-        v3 = 0x2A14F2000;
-        v4 = @"r2w0";
-        goto LABEL_112;
-      }
-
-      if (result == 3885279870)
-      {
-        goto LABEL_100;
-      }
-
-      v7 = 4018315120;
-      goto LABEL_63;
-    }
-
-    if (result > 3591055298)
-    {
-      if (result > 3742999857)
-      {
-        if (result != 3742999858)
-        {
-          v9 = 3767261006;
-LABEL_108:
-          if (result == v9)
+          v1 = 1260109173;
+LABEL_104:
+          if (result == v1)
           {
-            goto LABEL_109;
+            goto LABEL_105;
           }
 
-LABEL_114:
-          ACFULogging::getLogInstance(result);
-          return ACFULogging::handleMessage();
-        }
-
-        goto LABEL_110;
-      }
-
-      if (result != 3591055299)
-      {
-        v2 = 3663011141;
-LABEL_43:
-        if (result != v2)
-        {
           goto LABEL_114;
         }
 
-        goto LABEL_110;
+        if (result == 877582975)
+        {
+          goto LABEL_105;
+        }
+
+        v5 = 1060988941;
       }
 
-LABEL_105:
-      v3 = 0x2A14F2000;
-      v4 = @"r2p1";
-      goto LABEL_112;
-    }
-
-    if (result != 3564012492)
-    {
-      if (result == 3571532206)
+      else
       {
-        goto LABEL_90;
+        if (result <= 347088859)
+        {
+          if (result == -1)
+          {
+            LogInstance = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
+            return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: MGProductTypeUnknown\n");
+          }
+
+          if (result != 133314240)
+          {
+            v1 = 330877086;
+            goto LABEL_104;
+          }
+
+          goto LABEL_105;
+        }
+
+        if (result <= 574536382)
+        {
+          if (result != 347088860)
+          {
+            v2 = 425046865;
+            goto LABEL_43;
+          }
+
+          goto LABEL_71;
+        }
+
+        if (result == 574536383)
+        {
+          goto LABEL_105;
+        }
+
+        v5 = 689804742;
       }
 
-      v5 = 3585085679;
-      goto LABEL_84;
+LABEL_84:
+      if (result != v5)
+      {
+        goto LABEL_114;
+      }
+
+      goto LABEL_85;
     }
 
-LABEL_71:
-    v3 = 0x2A14F2000;
-    v4 = @"r2w2";
-    goto LABEL_112;
-  }
-
-  if (result > 1280909811)
-  {
     if (result <= 1770142588)
     {
       if (result > 1434404432)
@@ -2018,117 +1939,251 @@ LABEL_72:
     goto LABEL_90;
   }
 
-  if (result > 749116820)
+  if (result <= 3564012491)
   {
-    if (result <= 877582974)
+    if (result > 2940697644)
     {
-      if (result == 749116821)
+      if (result <= 3001488777)
       {
-        goto LABEL_101;
+        if (result <= 2943112656)
+        {
+          if (result != 2940697645)
+          {
+            v1 = 2941181571;
+            goto LABEL_104;
+          }
+
+          goto LABEL_75;
+        }
+
+        if (result != 2943112657)
+        {
+          v9 = 2979575960;
+          goto LABEL_108;
+        }
+
+LABEL_90:
+        v3 = 0x2A14F2000;
+        v4 = @"r1w0";
+        goto LABEL_112;
       }
 
-      if (result != 851437781)
+      if (result <= 3143587591)
       {
-        v7 = 861924853;
-LABEL_63:
-        if (result != v7)
+        if (result != 3001488778)
+        {
+          v1 = 3048527336;
+          goto LABEL_104;
+        }
+
+LABEL_100:
+        v3 = 0x2A14F2000;
+        v4 = @"r1p1";
+        goto LABEL_112;
+      }
+
+      if (result != 3143587592)
+      {
+        if (result == 3348380076)
+        {
+          v3 = 0x2A14F2000;
+          v4 = @"r1hp0";
+          goto LABEL_112;
+        }
+
+        goto LABEL_114;
+      }
+
+      goto LABEL_101;
+    }
+
+    if (result > 2688879998)
+    {
+      if (result <= 2793418700)
+      {
+        if (result != 2688879999)
+        {
+          if (result != 2722529672)
+          {
+            goto LABEL_114;
+          }
+
+          goto LABEL_72;
+        }
+
+LABEL_75:
+        v3 = 0x2A14F2000;
+        v4 = @"r1p3";
+        goto LABEL_112;
+      }
+
+      if (result != 2793418701)
+      {
+        v1 = 2795618603;
+        goto LABEL_104;
+      }
+
+LABEL_111:
+      v3 = 0x2A14F2000uLL;
+      v4 = @"r2p0";
+      goto LABEL_112;
+    }
+
+    if (result != 2309863438)
+    {
+      if (result != 2390434178)
+      {
+        v6 = 2625074843;
+LABEL_93:
+        if (result != v6)
         {
           goto LABEL_114;
         }
 
-        goto LABEL_71;
-      }
-
-      goto LABEL_105;
-    }
-
-    if (result > 1169082143)
-    {
-      if (result == 1169082144)
-      {
-        goto LABEL_100;
-      }
-
-      v1 = 1260109173;
-LABEL_104:
-      if (result == v1)
-      {
-        goto LABEL_105;
-      }
-
-      goto LABEL_114;
-    }
-
-    if (result == 877582975)
-    {
-      goto LABEL_105;
-    }
-
-    v5 = 1060988941;
-    goto LABEL_84;
-  }
-
-  if (result > 347088859)
-  {
-    if (result <= 574536382)
-    {
-      if (result != 347088860)
-      {
-        v2 = 425046865;
-        goto LABEL_43;
+        goto LABEL_101;
       }
 
       goto LABEL_71;
     }
 
-    if (result == 574536383)
-    {
-      goto LABEL_105;
-    }
-
-    v5 = 689804742;
-LABEL_84:
-    if (result != v5)
-    {
-      goto LABEL_114;
-    }
-
-    goto LABEL_85;
+LABEL_85:
+    v3 = 0x2A14F2000;
+    v4 = @"r1p2";
+    goto LABEL_112;
   }
 
-  if (result != -1)
+  if (result > 3819635029)
   {
-    if (result != 133314240)
+    if (result <= 3885279869)
     {
-      v1 = 330877086;
-      goto LABEL_104;
+      if (result > 3839750254)
+      {
+        if (result == 3839750255)
+        {
+          goto LABEL_101;
+        }
+
+        v6 = 3867318491;
+        goto LABEL_93;
+      }
+
+      if (result != 3819635030)
+      {
+        if (result != 3825599860)
+        {
+          goto LABEL_114;
+        }
+
+        goto LABEL_111;
+      }
+
+LABEL_110:
+      v3 = 0x2A14F2000;
+      v4 = @"r1w2";
+      goto LABEL_112;
     }
 
-    goto LABEL_105;
+    if (result > 4068102501)
+    {
+      if (result != 4068102502)
+      {
+        if (result != 4201643249)
+        {
+          goto LABEL_114;
+        }
+
+        goto LABEL_100;
+      }
+
+LABEL_101:
+      v3 = 0x2A14F2000;
+      v4 = @"r2w0";
+      goto LABEL_112;
+    }
+
+    if (result == 3885279870)
+    {
+      goto LABEL_100;
+    }
+
+    v7 = 4018315120;
+    goto LABEL_63;
   }
 
-  ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
-  return ACFULogging::handleMessage();
+  if (result <= 3591055298)
+  {
+    if (result != 3564012492)
+    {
+      if (result == 3571532206)
+      {
+        goto LABEL_90;
+      }
+
+      v5 = 3585085679;
+      goto LABEL_84;
+    }
+
+LABEL_71:
+    v3 = 0x2A14F2000;
+    v4 = @"r2w2";
+    goto LABEL_112;
+  }
+
+  if (result <= 3742999857)
+  {
+    if (result != 3591055299)
+    {
+      v2 = 3663011141;
+LABEL_43:
+      if (result != v2)
+      {
+        goto LABEL_114;
+      }
+
+      goto LABEL_110;
+    }
+
+LABEL_105:
+    v3 = 0x2A14F2000;
+    v4 = @"r2p1";
+    goto LABEL_112;
+  }
+
+  if (result == 3742999858)
+  {
+    goto LABEL_110;
+  }
+
+  v9 = 3767261006;
+LABEL_108:
+  if (result == v9)
+  {
+    goto LABEL_109;
+  }
+
+LABEL_114:
+  v11 = ACFULogging::getLogInstance(result);
+  return ACFULogging::handleMessage(v11, 2, "%s::%s: unhandled product %lld\n");
 }
 
 void *RoseUpdaterCreate(const __CFDictionary *a1, void (*a2)(void *, const char *), void *a3, void *a4)
 {
-  v8 = MEMORY[0x29C2B5140](v26, @"RoseUpdaterCreate");
+  v8 = MEMORY[0x29C2B5140](v31, @"RoseUpdaterCreate");
   LogInstance = ACFULogging::getLogInstance(v8);
   inited = ACFULogging::initLog(LogInstance, a1, a2, a3);
   if (inited)
   {
-    ACFULogging::getLogInstance(inited);
-    ACFULogging::handleMessage();
-    std::string::basic_string[abi:ne200100]<0>(v24, "failed to init logging");
-    v16 = ACFUError::addError();
+    v16 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v16, 2, "%s::%s: failed to init logging\n", "RoseUpdater", "RoseUpdaterCreate");
+    std::string::basic_string[abi:ne200100]<0>(v29, "failed to init logging");
+    v17 = ACFUError::addError();
     Instance = 0;
-    if ((v25 & 0x80000000) == 0)
+    if ((v30 & 0x80000000) == 0)
     {
       goto LABEL_18;
     }
 
-    v17 = v24;
+    v18 = v29;
     goto LABEL_17;
   }
 
@@ -2139,62 +2194,61 @@ void *RoseUpdaterCreate(const __CFDictionary *a1, void (*a2)(void *, const char 
 
   if (!kRoseRestoreObjTypeID)
   {
-    ACFULogging::getLogInstance(inited);
-    ACFULogging::handleMessage();
-    std::string::basic_string[abi:ne200100]<0>(v22, "failed to create Rose CFRuntimeClass");
-    v16 = ACFUError::addError();
+    v19 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v19, 2, "%s::%s: failed to create Rose CFRuntimeClass\n", "RoseUpdater", "RoseUpdaterCreate");
+    std::string::basic_string[abi:ne200100]<0>(v27, "failed to create Rose CFRuntimeClass");
+    v17 = ACFUError::addError();
     Instance = 0;
-    if ((v23 & 0x80000000) == 0)
+    if ((v28 & 0x80000000) == 0)
     {
       goto LABEL_18;
     }
 
-    v17 = v22;
+    v18 = v27;
     goto LABEL_17;
   }
 
-  v11 = *MEMORY[0x29EDB8ED8];
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage();
-    std::string::basic_string[abi:ne200100]<0>(v20, "failed to create Rose CFType object");
-    v16 = ACFUError::addError();
+    v20 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v20, 2, "%s::%s: failed to create Rose CFType object\n", "RoseUpdater", "RoseUpdaterCreate");
+    std::string::basic_string[abi:ne200100]<0>(v25, "failed to create Rose CFType object");
+    v17 = ACFUError::addError();
     Instance = 0;
-    if ((v21 & 0x80000000) == 0)
+    if ((v26 & 0x80000000) == 0)
     {
       goto LABEL_18;
     }
 
-    v17 = v20;
+    v18 = v25;
     goto LABEL_17;
   }
 
-  v14 = RoseRestore::create(a1, v12);
-  Instance[2] = v14;
-  if (v14)
+  v13 = RoseRestore::create(a1, v11);
+  Instance[2] = v13;
+  if (v13)
   {
-    ACFULogging::getLogInstance(v14);
-    ACFULogging::handleMessage();
+    v14 = ACFULogging::getLogInstance(v13);
+    ACFULogging::handleMessage(v14, 0, "%s::%s: Updater object created successfully\n", "RoseUpdater", "RoseUpdaterCreate");
     goto LABEL_8;
   }
 
-  ACFULogging::getLogInstance(0);
-  ACFULogging::handleMessage();
-  std::string::basic_string[abi:ne200100]<0>(v18, "failed to get the Rose restore instance");
-  v16 = ACFUError::addError();
-  if (v19 < 0)
+  v21 = ACFULogging::getLogInstance(0);
+  ACFULogging::handleMessage(v21, 2, "%s::%s: failed to get the Rose restore instance\n", "RoseUpdater", "RoseUpdaterCreate");
+  std::string::basic_string[abi:ne200100]<0>(v23, "failed to get the Rose restore instance");
+  v17 = ACFUError::addError();
+  if (v24 < 0)
   {
-    v17 = v18;
+    v18 = v23;
 LABEL_17:
-    operator delete(*v17);
+    operator delete(*v18);
   }
 
 LABEL_18:
-  ACFULogging::getLogInstance(v16);
-  ACFULogging::handleMessage();
-  *a4 = ACFUError::getCFError(v26);
+  v22 = ACFULogging::getLogInstance(v17);
+  ACFULogging::handleMessage(v22, 2, "%s::%s: failed to create restore object\n", "RoseUpdater", "RoseUpdaterCreate");
+  *a4 = ACFUError::getCFError(v31);
   if (Instance)
   {
     CFRelease(Instance);
@@ -2202,18 +2256,18 @@ LABEL_18:
   }
 
 LABEL_8:
-  MEMORY[0x29C2B5150](v26);
+  MEMORY[0x29C2B5150](v31);
   return Instance;
 }
 
-void sub_299EB4BD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_299EB4BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
   if (a16 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C2B5150](v28 - 48);
+  MEMORY[0x29C2B5150](v28 - 48, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -2233,8 +2287,8 @@ void *RoseRestoreObjDestroy(void *result)
     if (result)
     {
       v2 = (*(*result + 8))(result);
-      ACFULogging::getLogInstance(v2);
-      result = ACFULogging::handleMessage();
+      LogInstance = ACFULogging::getLogInstance(v2);
+      result = ACFULogging::handleMessage(LogInstance, 3, "%s::%s: Cleaning up restore object\n", "RoseUpdater", "RoseRestoreObjDestroy");
       v1[2] = 0;
     }
   }
@@ -2262,22 +2316,22 @@ uint64_t RoseUpdaterExecCommand(ACFULogging *a1, ACFURestore *this, uint64_t a3,
     v5 = *(a1 + 2);
     if (v5)
     {
-      ACFURestore::restoreCommand(this, this);
+      v7 = ACFURestore::restoreCommand(this, this);
       if (ACFURestore::executeCommand())
       {
         return 1;
       }
 
-      ACFURestore::getErrorHandle(&v9, v5);
-      *a5 = ACFUError::getCFError(v9);
-      v8 = v10;
-      if (v10)
+      ACFURestore::getErrorHandle(&v11, v5);
+      *a5 = ACFUError::getCFError(v11);
+      v9 = v12;
+      if (v12)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
 
-      ACFULogging::getLogInstance(v8);
-      ACFULogging::handleMessage();
+      LogInstance = ACFULogging::getLogInstance(v9);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to execute command %d\n", "RoseUpdater", "RoseUpdaterExecCommand", v7);
     }
 
     else
@@ -2311,34 +2365,34 @@ uint64_t RoseUpdaterIsDone(uint64_t result, void *a2)
     v3 = *(result + 16);
     if (!v3)
     {
-      v5 = MEMORY[0x29C2B5140](&v8, @"RoseUpdaterIsDone");
-      ACFULogging::getLogInstance(v5);
-      ACFULogging::handleMessage();
+      v6 = MEMORY[0x29C2B5140](&v10, @"RoseUpdaterIsDone");
+      LogInstance = ACFULogging::getLogInstance(v6);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: RoseRestore object doesn't exist\n", "RoseUpdater", "RoseUpdaterIsDone");
       std::string::basic_string[abi:ne200100]<0>(&__p, "RoseRestore object doesn't exist");
       ACFUError::addError();
-      if (v7 < 0)
+      if (v9 < 0)
       {
         operator delete(__p);
       }
 
-      *a2 = ACFUError::getCFError(&v8);
-      MEMORY[0x29C2B5150](&v8);
+      *a2 = ACFUError::getCFError(&v10);
+      MEMORY[0x29C2B5150](&v10);
       return 1;
     }
 
     result = ACFURestore::isRestoreComplete(*(result + 16));
     if (result)
     {
-      ACFURestore::getErrorHandle(&v8, v3);
-      *a2 = ACFUError::getCFError(v8);
-      v4 = v9;
-      if (v9)
+      ACFURestore::getErrorHandle(&v10, v3);
+      *a2 = ACFUError::getCFError(v10);
+      v4 = v11;
+      if (v11)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
       }
 
-      ACFULogging::getLogInstance(v4);
-      ACFULogging::handleMessage();
+      v5 = ACFULogging::getLogInstance(v4);
+      ACFULogging::handleMessage(v5, 0, "%s::%s: Rose Update is complete!\n", "RoseUpdater", "RoseUpdaterIsDone");
       return 1;
     }
 
@@ -2359,23 +2413,21 @@ void sub_299EB4F58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GetRoseTatsuTagToFileNameMap(uint64_t a1@<X8>)
+void GetRoseTatsuTagToFileNameMap(uint64_t ***a1@<X8>)
 {
-  v7[4] = *MEMORY[0x29EDCA608];
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v4, kRoseSwDsp1, "sbd1");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v5, kRoseRtkitos, "rkos");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v6, kRoseRestoreRtkitos, "rrko");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v7, &kRoseRtkitosICNF, "icnf");
-  std::map<__CFString const*,std::string>::map[abi:ne200100](a1, v4, 4);
+  v6[4] = *MEMORY[0x29EDCA608];
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v3, kRoseSwDsp1, "sbd1");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v4, kRoseRtkitos, "rkos");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(&v5, kRoseRestoreRtkitos, "rrko");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v6, &kRoseRtkitosICNF, "icnf");
+  std::map<__CFString const*,std::string>::map[abi:ne200100](a1, v3, 4);
   for (i = 0; i != -16; i -= 4)
   {
-    if (SHIBYTE(v7[i + 3]) < 0)
+    if (SHIBYTE(v6[i + 3]) < 0)
     {
-      operator delete(v7[i + 1]);
+      operator delete(v6[i + 1]);
     }
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299EB50A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -2442,12 +2494,12 @@ LABEL_10:
   return a1;
 }
 
-uint64_t std::map<__CFString const*,std::string>::map[abi:ne200100](uint64_t a1, unint64_t *a2, uint64_t a3)
+uint64_t ***std::map<__CFString const*,std::string>::map[abi:ne200100](uint64_t ***a1, unint64_t *a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
@@ -2464,7 +2516,7 @@ uint64_t std::map<__CFString const*,std::string>::map[abi:ne200100](uint64_t a1,
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,std::string> const&>(uint64_t **a1, void *a2, unint64_t *a3, uint64_t a4)
+uint64_t *std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,std::string> const&>(uint64_t ***a1, void *a2, unint64_t *a3, uint64_t a4)
 {
   v6 = std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__find_equal<__CFString const*>(a1, a2, &v10, &v9, a3);
   result = *v6;
@@ -2717,44 +2769,44 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
 
 uint64_t RoseRestoreHost::createRequest(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: security mode demotion disallowed for Rose\n", "RoseRestoreHost", "createRequest");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create output request dictionary\n", "RoseRestoreHost", "createRequest");
 }
 
 uint64_t RoseRestoreHost::init(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Bad chip ID size\n", "RoseRestoreHost", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize base class\n", "RoseRestoreHost", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create capabilities\n", "RoseRestoreHost", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: No chip ID\n", "RoseRestoreHost", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: No device info\n", "RoseRestoreHost", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Bad options\n", "RoseRestoreHost", "init");
 }
 
 const __CFData *ACFUCommon::Parameter::GetDataAsType<unsigned short>(uint64_t a1, _WORD *a2)
@@ -2785,436 +2837,420 @@ const __CFData *ACFUCommon::Parameter::GetDataAsType<unsigned short>(uint64_t a1
   return result;
 }
 
-uint64_t RoseBootstrappedPreflight::bootstrappedPreflight(uint64_t *a1)
+uint64_t RoseBootstrappedPreflight::bootstrappedPreflight()
 {
-  v1 = OUTLINED_FUNCTION_0(a1);
-  return (*(v2 + 64))(v1);
+  OUTLINED_FUNCTION_0();
+  return (*(v0 + 64))();
 }
 
 {
-  v1 = OUTLINED_FUNCTION_0(a1);
-  return (*(v2 + 56))(v1);
+  OUTLINED_FUNCTION_0();
+  return (*(v0 + 56))();
 }
 
 {
-  v1 = OUTLINED_FUNCTION_0(a1);
-  return (*(v2 + 56))(v1);
+  OUTLINED_FUNCTION_0();
+  return (*(v0 + 56))();
 }
 
 uint64_t RoseEvent::init(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate event\n", "RoseEvent", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad input parameter\n", "RoseEvent", "init");
 }
 
 uint64_t RoseEvent::validate(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: message is not an event\n", "RoseEvent", "validate");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get event data\n", "RoseEvent", "validate");
 }
 
 uint64_t RoseCommandCompleteEvent::validate(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid event format\n", "RoseEvent", "validate");
 }
 
 {
   OUTLINED_FUNCTION_1(a1);
   OUTLINED_FUNCTION_0_0();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: Unrecognized event/size: gid: 0x%02x oid: 0x%03x msg type: 0x%02x size: %zu\n", "RoseEvent", "validate", v3, v4, v5, v6);
 }
 
 uint64_t RoseCommandCompleteEvent::validate(ACFULogging *a1, unsigned __int16 *a2, uint64_t a3)
 {
-  ACFULogging::getLogInstance(a1);
-  v8 = *a1;
-  v9 = *a2;
-  ACFULogging::handleMessage();
-  v6 = *(*a3 + 24);
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Error in event: expectedCompleteEvent 0x%02x status 0x%x\n", "RoseEvent", "validate", *a1, *a2);
+  v7 = *(*a3 + 24);
 
-  return v6(a3);
+  return v7(a3);
 }
 
-uint64_t RoseFDRTrustEvaluationCompleteEvent::validate(ACFULogging *a1, uint64_t *a2, uint64_t a3)
+uint64_t RoseFDRTrustEvaluationCompleteEvent::validate(ACFULogging *a1, void *a2, uint64_t a3)
 {
-  ACFULogging::getLogInstance(a1);
-  v8 = *a1;
-  v9 = *a2;
-  ACFULogging::handleMessage();
-  v6 = *(*a3 + 24);
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Error in event: status 0x%04x, trustEvaluationError 0x%016llx\n", "RoseEvent", "validate", *a1, *a2);
+  v7 = *(*a3 + 24);
 
-  return v6(a3);
+  return v7(a3);
 }
 
 uint64_t RoseInitDoneEvent::validate(ACFULogging *a1)
 {
-  OUTLINED_FUNCTION_1(a1);
-  v5 = *v2;
-  ACFULogging::handleMessage();
-  v3 = *(*v1 + 24);
+  v3 = OUTLINED_FUNCTION_1(a1);
+  ACFULogging::handleMessage(v3, 2, "%s::%s: Error in event: status 0x%x\n", "RoseEvent", "validate", *v2);
+  v4 = *(*v1 + 24);
 
-  return v3(v1);
+  return v4(v1);
 }
 
 uint64_t RoseTransport::init(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Unable to get the current Rose chip power state\n", "RoseTransport", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Unable to power on Rose chip\n", "RoseTransport", "init");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create capabilities\n", "RoseTransport", "init");
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to get chipID (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 uint64_t RoseTransport::createRoseController(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to set log sink: 0x%x\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to set dispatch queue: 0x%x\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to register event callback: 0x%x\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to register crash callback: 0x%x\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create event syncher\n", "RoseTransport", "createRoseController");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create crash syncher\n", "RoseTransport", "createRoseController");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create dispatch queue\n", "RoseTransport", "createRoseController");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to query rose plugin interface\n", "RoseTransport", "createRoseController");
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: creating rose plugin interface failed: 0x%x\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  OUTLINED_FUNCTION_0_1();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to get rose driver: 0x%x\n", v3, v4, v5);
+}
+
+{
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to find rose service\n", "RoseTransport", "createRoseController");
 }
 
 uint64_t RoseTransport::getPowerState(const void *a1)
 {
   CFRelease(a1);
-  ACFULogging::getLogInstance(v1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(v1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: getDebugInfo failed\n", "RoseTransport", "getPowerState");
 }
 
 uint64_t RoseTransport::getBootNonceHash(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to get boot nonce hash 1st time (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  v2 = *a1;
   OUTLINED_FUNCTION_1_0();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: bad boot nonce hash size 1st time: %zu\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to generate a boot nonce (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to get boot nonce hash 2nd time (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  v2 = *a1;
   OUTLINED_FUNCTION_1_0();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: bad boot nonce hash size 2nd time: %zu\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  v2 = *a1;
   OUTLINED_FUNCTION_1_0();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: boot nonce hash is all zero (%zu bytes) after successful nonce generation\n", v3, v4, v5);
 }
 
 uint64_t RoseTransport::setNonce(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: SetHostBootNonce failed with error (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameter\n", "RoseTransport", "setNonce");
 }
 
 uint64_t RoseTransport::pushFirmware(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to set bootMode (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  v3 = *a1;
-  return ACFULogging::handleMessage();
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Boot mode failed to update: expected 0x%x, found 0x%x\n", "RoseTransport", "pushFirmware", 0, *a1);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: DownloadCustomFirmwareExt failed with error (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  OUTLINED_FUNCTION_0_1();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: DownloadCustomFirmware failed with error (ret: 0x%08x)\n", v3, v4, v5);
+}
+
+{
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Manifest for firmware is missing!\n", "RoseTransport", "pushFirmware");
 }
 
 uint64_t RoseTransport::isCrashLogAvailable(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: error while trying to dequeue FirwmareCrashLogs (ret: 0x%8x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  v2 = *a1;
   OUTLINED_FUNCTION_1_0();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: invalid crashlog of size: %zu\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameter\n", "RoseTransport", "isCrashLogAvailable");
 }
 
 uint64_t RoseTransport::collectFirmwareLogs(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: pausing firmware logs failed (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to dequeue firmware logs (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  v3 = *a1;
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: dequeued more logs than we have room for (%zu > %zu)\n", "RoseTransport", "collectFirmwareLogs", *a1, 0x400uLL);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate buffer for firmware logs\n", "RoseTransport", "collectFirmwareLogs");
 }
 
 uint64_t RoseTransport::logCrashLogReason(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  v3 = *a1;
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Crash string section version mismatch. Expected: 0x%x Version in Crashlog: 0x%x\n", "RoseTransport", "logCrashLogReason", 257, *a1);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: crashlog section is too small. Section signature: 0x%x version: 0x%x size: %d\n", "RoseTransport", "logCrashLogReason", *a1, *(a1 + 2), *(a1 + 3));
 }
 
-uint64_t RoseTransport::logCrashLogReason(unsigned int *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  v4 = a1[2];
-  v5 = a1[3];
-  v3 = *a1;
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: crashLogSize is too small\n", "RoseTransport", "logCrashLogReason");
 }
 
 uint64_t RoseTransport::collectIOReport(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: group pruning failed\n", "RoseTransport", "collectIOReport");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create ioReport array\n", "RoseTransport", "collectIOReport");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: IOReportCreateSamples failed\n", "RoseTransport", "collectIOReport");
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: Unexpected subscribed channel count: %d\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: IOReportCreateSubscription failed\n", "RoseTransport", "collectIOReport");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: IOReportCopyAllChannels failed\n", "RoseTransport", "collectIOReport");
 }
 
 uint64_t RoseTransport::getDebugInfo(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to get debug info  (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate dict\n", "RoseTransport", "getDebugInfo");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no diagnostics object provided\n", "RoseTransport", "getDebugInfo");
 }
 
 uint64_t RoseTransport::getRoseDebugInfoDict(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: error getting debug info: 0x%x\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid debugInfoDict\n", "RoseTransport", "getRoseDebugInfoDict");
 }
 
 uint64_t RoseTransport::sendRoseCommand(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to perform command with timeout: 0x%08x\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to perform command: 0x%08x\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameter\n", "RoseTransport", "sendRoseCommand");
 }
 
 uint64_t RoseTransport::parsePingResponse(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to parse HSI2 ping info\n", "RoseTransport", "parsePingResponse");
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: response size %zu too small for HSI2\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to parse HSI1 ping info\n", "RoseTransport", "parsePingResponse");
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: response size %zu too small for HSI1\n", v3, v4, v5);
 }
 
 void RoseTransport::sendCalibration()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     unk_2A14F21D8 = 0;
     xmmword_2A14F21C8 = 0uLL;
     __cxa_atexit(MEMORY[0x29EDC9388], &xmmword_2A14F21C8, &dword_299EA3000);
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
@@ -3226,83 +3262,83 @@ uint64_t RoseTransport::runCertification(ACFULogging *a1)
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: unsupported sikblobtype: %u\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to set bootNonce\n", "RoseTransport", "runCertification");
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to set bootMode (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: DownloadCustomFirmwareExt failed with error (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
   OUTLINED_FUNCTION_0_1();
-  return ACFULogging::handleMessage();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: DownloadCustomFirmware failed with error (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
   ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  OUTLINED_FUNCTION_0_1();
+  return ACFULogging::handleMessage(v1, 2, "%s::%s: failed to collect the SiK CSR (ret: 0x%08x)\n", v3, v4, v5);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create data payload (ret: 0x%08x)\n", "RoseTransport", "runCertification", 0);
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware does not have bootNonce available\n", "RoseTransport", "runCertification");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Manifest for firmware is missing!\n", "RoseTransport", "runCertification");
+}
+
+{
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Firmware to push is missing!\n", "RoseTransport", "runCertification");
 }
 
 uint64_t RoseRestore::performCmd(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: AP ticket has wrong type\n", "RoseRestore", "performCmd");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to send calibration\n", "RoseRestore", "performCmd");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate override options\n", "RoseRestore", "performCmd");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  return ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no AP ticket in updater options\n", "RoseRestore", "performCmd");
 }
 
 {
-  ACFULogging::getLogInstance(a1);
-  ACFURestore::getCurrentUpdateStep(a1);
-  return ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  CurrentUpdateStep = ACFURestore::getCurrentUpdateStep(a1);
+  return ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Command %d not supported by restore step\n", "RoseRestore", "performCmd", CurrentUpdateStep);
 }
 
 void RoseRestore::performCmd(uint64_t a1, CFTypeRef cf)
@@ -3317,8 +3353,8 @@ void RoseRestore::performCmd(uint64_t a1, CFTypeRef cf)
 
 void RoseRestore::performCmd(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to retain reference to personalized firmware\n", "RoseRestore", "performCmd");
   CFRelease(a1);
 }
 

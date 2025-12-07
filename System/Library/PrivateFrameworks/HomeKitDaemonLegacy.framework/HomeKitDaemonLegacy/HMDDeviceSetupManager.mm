@@ -17,7 +17,7 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v3 = selfCopy;
   if (selfCopy)
@@ -39,7 +39,7 @@
         {
           v11 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v15 = v11;
+          v14 = v11;
           _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to unregister for ProxSetup notifications", buf, 0xCu);
         }
 
@@ -53,21 +53,20 @@
     }
   }
 
-  v13.receiver = v3;
-  v13.super_class = HMDDeviceSetupManager;
-  [(HMDDeviceSetupManager *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = v3;
+  v12.super_class = HMDDeviceSetupManager;
+  [(HMDDeviceSetupManager *)&v12 dealloc];
 }
 
 - (HMDDeviceSetupManager)initWithNotificationCenter:(id)center followUpManager:(id)manager darwinNotificationProvider:(id)provider
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   managerCopy = manager;
   providerCopy = provider;
-  v25.receiver = self;
-  v25.super_class = HMDDeviceSetupManager;
-  v12 = [(HMDDeviceSetupManager *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = HMDDeviceSetupManager;
+  v12 = [(HMDDeviceSetupManager *)&v24 init];
   v13 = v12;
   if (v12)
   {
@@ -83,12 +82,12 @@
       darwinNotificationProvider = [(HMDDeviceSetupManager *)v15 darwinNotificationProvider];
       uTF8String = [@"com.apple.sharing.wha-prox-setup" UTF8String];
       v18 = MEMORY[0x277D85CD0];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = ____HMDDeviceSetupManagerRegisterForProxSetupNotifications_block_invoke;
-      v26[3] = &unk_27972FE68;
-      objc_copyWeak(&v27, &location);
-      LODWORD(uTF8String) = [darwinNotificationProvider notifyRegisterDispatch:uTF8String outToken:&v13->_proxSetupNotificationToken queue:MEMORY[0x277D85CD0] handler:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = ____HMDDeviceSetupManagerRegisterForProxSetupNotifications_block_invoke;
+      v25[3] = &unk_27972FE68;
+      objc_copyWeak(&v26, &location);
+      LODWORD(uTF8String) = [darwinNotificationProvider notifyRegisterDispatch:uTF8String outToken:&v13->_proxSetupNotificationToken queue:MEMORY[0x277D85CD0] handler:v25];
 
       if (uTF8String)
       {
@@ -99,18 +98,18 @@
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v30 = v22;
+          v29 = v22;
           _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for ProxSetup notifications", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v19);
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v26);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v26);
         objc_destroyWeak(&location);
 
         v15->_running = __HMDDeviceSetupManagerIsProxSetupRunning(v15);
@@ -122,7 +121,6 @@
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

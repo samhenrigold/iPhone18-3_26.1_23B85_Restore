@@ -1,5 +1,6 @@
 @interface ATXActionToWidgetConverter
 + (BOOL)isWidgetIntent:(id)intent validConversionFromActionIntent:(id)actionIntent;
+- (ATXActionToWidgetConverter)initWithAllowsSendMessageIntentConversion:(BOOL)conversion;
 - (ATXActionToWidgetConverter)initWithIntentMetadataCache:(id)cache widgetDescriptorCache:(id)descriptorCache infoConfidenceMapper:(id)mapper engagementRecordManager:(id)manager metadataProvider:(id)provider allowsSendMessageIntentConversion:(BOOL)conversion;
 - (id)_convertedSuggestionFromInfoSuggestion:(id)suggestion originalSuggestion:(id)originalSuggestion;
 - (id)_infoSuggestionForAction:(id)action;
@@ -11,6 +12,19 @@
 @end
 
 @implementation ATXActionToWidgetConverter
+
+- (ATXActionToWidgetConverter)initWithAllowsSendMessageIntentConversion:(BOOL)conversion
+{
+  conversionCopy = conversion;
+  v5 = +[ATXIntentMetadataCache sharedInstance];
+  mEMORY[0x277CEB998] = [MEMORY[0x277CEB998] sharedInstance];
+  v7 = objc_opt_new();
+  mEMORY[0x277CEB500] = [MEMORY[0x277CEB500] sharedInstance];
+  v9 = objc_opt_new();
+  v10 = [(ATXActionToWidgetConverter *)self initWithIntentMetadataCache:v5 widgetDescriptorCache:mEMORY[0x277CEB998] infoConfidenceMapper:v7 engagementRecordManager:mEMORY[0x277CEB500] metadataProvider:v9 allowsSendMessageIntentConversion:conversionCopy];
+
+  return v10;
+}
 
 - (ATXActionToWidgetConverter)initWithIntentMetadataCache:(id)cache widgetDescriptorCache:(id)descriptorCache infoConfidenceMapper:(id)mapper engagementRecordManager:(id)manager metadataProvider:(id)provider allowsSendMessageIntentConversion:(BOOL)conversion
 {
@@ -86,35 +100,36 @@
         if (v11)
         {
           v14 = [(ATXActionToWidgetConverter *)self _convertedSuggestionFromInfoSuggestion:v11 originalSuggestion:v9];
+          v15 = v14;
           if (v14)
           {
-            v15 = v6;
-            v16 = __atxlog_handle_blending();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v16 = v6;
+            v17 = __atxlog_handle_blending(v14);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = v24;
               v35 = v9;
               v36 = 2112;
-              v37 = v14;
-              _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Converted action suggestion: %@, to widget suggestion: %@", buf, 0x16u);
+              v37 = v15;
+              _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Converted action suggestion: %@, to widget suggestion: %@", buf, 0x16u);
             }
 
-            clientModelSpecification = [v14 clientModelSpecification];
+            clientModelSpecification = [v15 clientModelSpecification];
             clientModelId = [clientModelSpecification clientModelId];
 
-            v19 = [v5 objectForKeyedSubscript:clientModelId];
+            v20 = [v5 objectForKeyedSubscript:clientModelId];
 
-            if (!v19)
+            if (!v20)
             {
-              v20 = objc_opt_new();
-              [v5 setObject:v20 forKeyedSubscript:clientModelId];
+              v21 = objc_opt_new();
+              [v5 setObject:v21 forKeyedSubscript:clientModelId];
             }
 
-            v21 = [v5 objectForKeyedSubscript:clientModelId];
-            [v21 addObject:v14];
+            v22 = [v5 objectForKeyedSubscript:clientModelId];
+            [v22 addObject:v15];
 
-            v6 = v15;
-            [v15 addObject:v14];
+            v6 = v16;
+            [v16 addObject:v15];
 
             self = selfCopy;
           }
@@ -136,8 +151,6 @@
   v29[4] = self;
   [v5 enumerateKeysAndObjectsUsingBlock:v29];
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -157,26 +170,26 @@
     bundleId = [containerCopy bundleId];
     action = [containerCopy action];
     identifier = [action identifier];
-    v24 = 0;
-    v11 = [(LNMetadataProvider *)metadataProvider actionForBundleIdentifier:bundleId andActionIdentifier:identifier error:&v24];
-    cachedAppIntent2 = v24;
+    v25 = 0;
+    v11 = [(LNMetadataProvider *)metadataProvider actionForBundleIdentifier:bundleId andActionIdentifier:identifier error:&v25];
+    cachedAppIntent2 = v25;
 
     if (cachedAppIntent2 || !v11)
     {
-      launchId = __atxlog_handle_blending();
+      launchId = __atxlog_handle_blending(v12);
       if (os_log_type_enabled(launchId, OS_LOG_TYPE_ERROR))
       {
         [(ATXActionToWidgetConverter *)containerCopy _infoSuggestionForLinkActionContainer:cachedAppIntent2, launchId];
       }
 
-      v22 = 0;
+      v23 = 0;
       goto LABEL_12;
     }
 
-    v12 = objc_alloc(MEMORY[0x277CD3A70]);
+    v13 = objc_alloc(MEMORY[0x277CD3A70]);
     bundleId2 = [containerCopy bundleId];
     action2 = [containerCopy action];
-    cachedAppIntent2 = [v12 initWithAppBundleIdentifier:bundleId2 linkAction:action2 linkActionMetadata:v11];
+    cachedAppIntent2 = [v13 initWithAppBundleIdentifier:bundleId2 linkAction:action2 linkActionMetadata:v11];
 
     [containerCopy setCachedAppIntent:cachedAppIntent2];
   }
@@ -184,24 +197,24 @@
   v11 = [(ATXActionToWidgetConverter *)self _widgetForIntent:cachedAppIntent2];
   if (!v11)
   {
-    v22 = 0;
+    v23 = 0;
     goto LABEL_13;
   }
 
-  v15 = MEMORY[0x277D42040];
+  v16 = MEMORY[0x277D42040];
   cachedAppIntent2 = cachedAppIntent2;
-  v16 = [v15 alloc];
+  v17 = [v16 alloc];
   launchId = [cachedAppIntent2 launchId];
   extensionBundleIdentifier = [v11 extensionBundleIdentifier];
   kind = [v11 kind];
   atx_layoutOptions = [v11 atx_layoutOptions];
   appIntentIdentifier = [cachedAppIntent2 appIntentIdentifier];
-  v22 = [v16 initWithAppBundleIdentifier:launchId widgetBundleIdentifier:extensionBundleIdentifier widgetKind:kind criterion:&stru_2839A6058 applicableLayouts:atx_layoutOptions suggestionIdentifier:appIntentIdentifier startDate:0 endDate:0 intent:cachedAppIntent2 metadata:0 relevanceScore:0];
+  v23 = [v17 initWithAppBundleIdentifier:launchId widgetBundleIdentifier:extensionBundleIdentifier widgetKind:kind criterion:&stru_2839A6058 applicableLayouts:atx_layoutOptions suggestionIdentifier:appIntentIdentifier startDate:0 endDate:0 intent:cachedAppIntent2 metadata:0 relevanceScore:0];
 
 LABEL_12:
 LABEL_13:
 
-  return v22;
+  return v23;
 }
 
 - (id)_infoSuggestionForAction:(id)action
@@ -252,23 +265,23 @@ LABEL_9:
 
 - (id)_widgetForIntent:(id)intent
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 || [(ATXIntentMetadataCache *)self->_intentMetadataCache isEligibleForWidgetsForIntent:intentCopy])
   {
     v5 = [(ATXWidgetDescriptorCache *)self->_descriptorCache homeScreenDescriptorForIntent:intentCopy];
-    v6 = __atxlog_handle_blending();
+    v6 = __atxlog_handle_blending(v5);
     v7 = v6;
     if (v5)
     {
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412546;
-        v12 = v5;
-        v13 = 2112;
-        v14 = intentCopy;
-        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Found descriptor %@ for eligible intent %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v5;
+        v12 = 2112;
+        v13 = intentCopy;
+        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Found descriptor %@ for eligible intent %@", &v10, 0x16u);
       }
 
       v8 = v5;
@@ -287,8 +300,6 @@ LABEL_9:
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -335,7 +346,7 @@ LABEL_9:
 
     else
     {
-      v10 = __atxlog_handle_blending();
+      v10 = __atxlog_handle_blending(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ATXActionToWidgetConverter _peopleInfoSuggestionForSendMessageIntent:v7 action:v10];
@@ -355,7 +366,7 @@ LABEL_9:
 
 - (id)_selectPersonIntentForSendMessageIntent:(id)intent
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   recipients = [intentCopy recipients];
   v5 = [recipients count];
@@ -369,62 +380,60 @@ LABEL_9:
 
     if (contactIdentifier)
     {
-      v9 = objc_alloc(MEMORY[0x277CD3A70]);
-      v21 = @"person";
+      v11 = objc_alloc(MEMORY[0x277CD3A70]);
+      v23 = @"person";
       contactIdentifier2 = [firstObject contactIdentifier];
-      v19[1] = @"displayString";
-      v20[0] = contactIdentifier2;
+      v21[1] = @"displayString";
+      v22[0] = contactIdentifier2;
       displayName = [firstObject displayName];
-      v20[1] = displayName;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-      v22 = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-      v14 = [v9 initWithAppBundleIdentifier:@"com.apple.PeopleViewService" appIntentIdentifier:@"SelectPersonIntent" serializedParameters:v13];
+      v22[1] = displayName;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+      v24 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v16 = [v11 initWithAppBundleIdentifier:@"com.apple.PeopleViewService" appIntentIdentifier:@"SelectPersonIntent" serializedParameters:v15];
 
-      if (v14)
+      if (v16)
       {
         goto LABEL_13;
       }
 
-      v15 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v18 = __atxlog_handle_blending(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        [ATXActionToWidgetConverter _selectPersonIntentForSendMessageIntent:v15];
+        [ATXActionToWidgetConverter _selectPersonIntentForSendMessageIntent:v18];
       }
     }
 
     else
     {
-      v15 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_blending(v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Not converting INSendMessageIntent: no contact identifier", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Not converting INSendMessageIntent: no contact identifier", buf, 2u);
       }
 
-      v14 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    firstObject = __atxlog_handle_blending();
+    firstObject = __atxlog_handle_blending(v6);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
     {
       recipients3 = [intentCopy recipients];
       *buf = 134217984;
-      v24 = [recipients3 count];
+      v26 = [recipients3 count];
       _os_log_impl(&dword_2263AA000, firstObject, OS_LOG_TYPE_DEFAULT, "ATXActionToWidgetConverter: Not converting INSendMessageIntent: recipient count (%lu) is not 1", buf, 0xCu);
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 + (BOOL)isWidgetIntent:(id)intent validConversionFromActionIntent:(id)actionIntent
@@ -557,31 +566,28 @@ LABEL_30:
 
 - (void)_infoSuggestionForLinkActionContainer:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXActionToWidgetConverter: error fetching metadata for link action (%@): %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXActionToWidgetConverter: error fetching metadata for link action (%@): %@", &v3, 0x16u);
 }
 
 - (void)_widgetForIntent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXActionToWidgetConverter: Unable to find descriptor for eligible intent %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXActionToWidgetConverter: Unable to find descriptor for eligible intent %@", &v2, 0xCu);
 }
 
 - (void)_peopleInfoSuggestionForSendMessageIntent:(uint64_t)a1 action:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXActionToWidgetConverter: Unable to find People widget descriptor for select person intent: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXActionToWidgetConverter: Unable to find People widget descriptor for select person intent: %@", &v2, 0xCu);
 }
 
 @end

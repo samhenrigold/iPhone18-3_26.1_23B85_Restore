@@ -27,7 +27,7 @@
   lCopy = l;
   if (!lCopy)
   {
-    v5 = blt_send_queue_log();
+    v5 = blt_send_queue_log(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BLTSendQueueSerializer setSendFileURL:];
@@ -44,7 +44,7 @@
 - (void)cleanup
 {
   v38 = *MEMORY[0x277D85DE8];
-  v3 = blt_general_log();
+  v3 = blt_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     sendFileURL = self->_sendFileURL;
@@ -98,14 +98,14 @@
 
             if ((v20 & 1) == 0)
             {
-              v22 = blt_general_log();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              v23 = blt_general_log(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 *buf = v24;
                 v34 = v17;
                 v35 = 2112;
                 v36 = v21;
-                _os_log_error_impl(&dword_241FB3000, v22, OS_LOG_TYPE_ERROR, "Error removing %@ error: %@", buf, 0x16u);
+                _os_log_error_impl(&dword_241FB3000, v23, OS_LOG_TYPE_ERROR, "Error removing %@ error: %@", buf, 0x16u);
               }
             }
 
@@ -119,13 +119,11 @@
       while (v14);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)add:(id)add type:(unsigned __int16)type messageIdentifier:(id *)identifier
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   addCopy = add;
   typeCopy = type;
   sendFileURL = [(BLTSendQueueSerializer *)self sendFileURL];
@@ -139,85 +137,74 @@
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       v14 = [defaultManager fileExistsAtPath:v12];
 
-      if (v14)
+      if (v14 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v15 = objc_claimAutoreleasedReturnValue(), v36 = *MEMORY[0x277CCA1B0], v37[0] = *MEMORY[0x277CCA1B8], objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v37, &v36, 1), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "createFileAtPath:contents:attributes:", v12, 0, v16), v16, v15, (v17))
       {
-        goto LABEL_5;
-      }
-
-      defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v35 = *MEMORY[0x277CCA1B0];
-      v36[0] = *MEMORY[0x277CCA1B8];
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-      v17 = [defaultManager2 createFileAtPath:v12 contents:0 attributes:v16];
-
-      if (v17)
-      {
-LABEL_5:
-        v31 = 0;
-        v18 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v10 error:&v31];
-        v19 = v31;
-        if (v18)
+        v32 = 0;
+        v19 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v10 error:&v32];
+        v20 = v32;
+        v21 = v20;
+        if (v19)
         {
-          [v18 seekToEndOfFile];
-          v20 = [MEMORY[0x277CBEA90] dataWithBytes:&typeCopy length:2];
-          _writeDataToFile(v20, v18);
+          [v19 seekToEndOfFile];
+          v22 = [MEMORY[0x277CBEA90] dataWithBytes:&typeCopy length:2];
+          _writeDataToFile(v22, v19);
 
           data = [addCopy data];
-          v22 = blt_ids_log();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = blt_ids_log(data);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = [data length];
+            v25 = [data length];
             *buf = 134217984;
-            v34 = v23;
-            _os_log_impl(&dword_241FB3000, v22, OS_LOG_TYPE_DEFAULT, "Serializing protobuf bytes: %lu", buf, 0xCu);
+            v35 = v25;
+            _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_DEFAULT, "Serializing protobuf bytes: %lu", buf, 0xCu);
           }
 
-          _writeDataToFile(data, v18);
+          _writeDataToFile(data, v19);
           if ([(BLTSendQueueSerializer *)self usesMessageIdentifiers])
           {
             uUID = [MEMORY[0x277CCAD78] UUID];
             uUIDString = [uUID UUIDString];
-            v26 = [@"blt-" stringByAppendingString:uUIDString];
+            v28 = [@"blt-" stringByAppendingString:uUIDString];
 
-            v27 = [v26 dataUsingEncoding:4];
-            _writeDataToFile(v27, v18);
+            v29 = [v28 dataUsingEncoding:4];
+            _writeDataToFile(v29, v19);
 
             if (identifier)
             {
-              v28 = v26;
-              *identifier = v26;
+              v30 = v28;
+              *identifier = v28;
             }
           }
         }
 
         else
         {
-          data = blt_send_queue_log();
+          data = blt_send_queue_log(v20);
           if (os_log_type_enabled(data, OS_LOG_TYPE_ERROR))
           {
-            [BLTSendQueueSerializer add:v19 type:data messageIdentifier:?];
+            [BLTSendQueueSerializer add:v21 type:data messageIdentifier:?];
           }
         }
       }
 
       else
       {
-        v18 = blt_send_queue_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = blt_send_queue_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [BLTSendQueueSerializer add:v12 type:v18 messageIdentifier:?];
+          [BLTSendQueueSerializer add:v12 type:v19 messageIdentifier:?];
         }
 
-        v19 = 0;
+        v21 = 0;
       }
 
-      v10 = v19;
+      v10 = v21;
     }
 
     else
     {
-      v29 = blt_send_queue_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v31 = blt_send_queue_log(0);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
         [BLTSendQueueSerializer add:type:messageIdentifier:];
       }
@@ -226,19 +213,17 @@ LABEL_5:
 
   else
   {
-    v10 = blt_send_queue_log();
+    v10 = blt_send_queue_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [BLTSendQueueSerializer add:v10 type:? messageIdentifier:?];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendWithSender:(id)sender timeout:(id)timeout responseHandlers:(id)handlers didSend:(id)send didQueue:(id)queue
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   timeoutCopy = timeout;
   handlersCopy = handlers;
@@ -251,68 +236,66 @@ LABEL_5:
 
   if (v20)
   {
-    v31 = timeoutCopy;
-    v21 = senderCopy;
+    v32 = timeoutCopy;
+    v22 = senderCopy;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v37 = 0;
-    v23 = [defaultManager linkItemAtURL:sendFileURL toURL:v20 error:&v37];
-    v24 = v37;
+    v38 = 0;
+    v24 = [defaultManager linkItemAtURL:sendFileURL toURL:v20 error:&v38];
+    v25 = v38;
 
-    if (v23)
+    if (v24)
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v36 = v24;
-      v26 = [defaultManager2 removeItemAtURL:sendFileURL error:&v36];
-      v27 = v36;
+      v37 = v25;
+      v27 = [defaultManager2 removeItemAtURL:sendFileURL error:&v37];
+      v28 = v37;
 
-      senderCopy = v21;
-      if ((v26 & 1) == 0)
+      senderCopy = v22;
+      if ((v27 & 1) == 0)
       {
-        v28 = blt_send_queue_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v30 = blt_send_queue_log(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [BLTSendQueueSerializer sendWithSender:timeout:responseHandlers:didSend:didQueue:];
         }
       }
 
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSend_didQueue___block_invoke;
-      v32[3] = &unk_278D31D38;
-      v33 = v20;
-      v34 = sendFileURL;
-      v35 = sendCopy;
-      timeoutCopy = v31;
-      [v21 sendFileURL:v33 withTimeout:v31 extraMetadata:0 responseHandlers:handlersCopy didSend:v32 didQueue:queueCopy];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSend_didQueue___block_invoke;
+      v33[3] = &unk_278D31D38;
+      v34 = v20;
+      v35 = sendFileURL;
+      v36 = sendCopy;
+      timeoutCopy = v32;
+      [v22 sendFileURL:v34 withTimeout:v32 extraMetadata:0 responseHandlers:handlersCopy didSend:v33 didQueue:queueCopy];
 
-      v29 = v33;
+      v31 = v34;
       goto LABEL_12;
     }
 
-    v27 = v24;
-    senderCopy = v21;
+    v28 = v25;
+    senderCopy = v22;
   }
 
   else
   {
-    v27 = 0;
+    v28 = 0;
   }
 
-  v29 = blt_send_queue_log();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v31 = blt_send_queue_log(v21);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v39 = sendFileURL;
-    v40 = 2112;
-    v41 = v20;
-    v42 = 2112;
-    v43 = v27;
-    _os_log_error_impl(&dword_241FB3000, v29, OS_LOG_TYPE_ERROR, "Error creating link for sending URL: %@ at %@ error: %@", buf, 0x20u);
+    v40 = sendFileURL;
+    v41 = 2112;
+    v42 = v20;
+    v43 = 2112;
+    v44 = v28;
+    _os_log_error_impl(&dword_241FB3000, v31, OS_LOG_TYPE_ERROR, "Error creating link for sending URL: %@ at %@ error: %@", buf, 0x20u);
   }
 
 LABEL_12:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSend_didQueue___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -320,23 +303,23 @@ void __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSen
   v5 = a3;
   v6 = [MEMORY[0x277CCAA00] defaultManager];
   v7 = *(a1 + 32);
-  v12 = 0;
-  v8 = [v6 removeItemAtURL:v7 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [v6 removeItemAtURL:v7 error:&v13];
+  v9 = v13;
 
   if ((v8 & 1) == 0)
   {
-    v10 = blt_send_queue_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = blt_send_queue_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSend_didQueue___block_invoke_cold_1(a1, v9, v10);
+      __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSend_didQueue___block_invoke_cold_1(a1, v9, v11);
     }
   }
 
-  v11 = *(a1 + 48);
-  if (v11)
+  v12 = *(a1 + 48);
+  if (v12)
   {
-    (*(v11 + 16))(v11, a2, v5);
+    (*(v12 + 16))(v12, a2, v5);
   }
 }
 
@@ -345,7 +328,7 @@ void __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSen
   v40 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
-  v8 = blt_send_queue_log();
+  v8 = blt_send_queue_log(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -361,7 +344,7 @@ void __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSen
     v34 = v10;
     v12 = _readDataFromFile(v9);
     v13 = _readDataFromFile(v9);
-    v14 = blt_ids_log();
+    v14 = blt_ids_log(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [v13 length];
@@ -417,20 +400,20 @@ void __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSen
 
         v27 = _readDataFromFile(v9);
 
-        v28 = blt_ids_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = blt_ids_log(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = [v27 length];
+          v30 = [v27 length];
           *buf = 134217984;
-          v37 = v29;
-          _os_log_impl(&dword_241FB3000, v28, OS_LOG_TYPE_DEFAULT, "Deserializing protobuf bytes: %lu", buf, 0xCu);
+          v37 = v30;
+          _os_log_impl(&dword_241FB3000, v29, OS_LOG_TYPE_DEFAULT, "Deserializing protobuf bytes: %lu", buf, 0xCu);
         }
 
         if ([(BLTSendQueueSerializer *)self usesMessageIdentifiers])
         {
-          v30 = _readDataFromFile(v9);
+          v31 = _readDataFromFile(v9);
 
-          v16 = v30;
+          v16 = v31;
         }
 
         v12 = v26;
@@ -452,7 +435,7 @@ LABEL_28:
 
   else
   {
-    v17 = blt_send_queue_log();
+    v17 = blt_send_queue_log(v10);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
@@ -466,71 +449,55 @@ LABEL_28:
     v18 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)setSendFileURL:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  v3 = 0;
-  _os_log_error_impl(&dword_241FB3000, v0, OS_LOG_TYPE_ERROR, "%@ setSendFileURL: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  _os_log_error_impl(&dword_241FB3000, v0, OS_LOG_TYPE_ERROR, "%@ setSendFileURL: %@", v1, 0x16u);
 }
 
 - (void)add:(uint64_t)a1 type:(NSObject *)a2 messageIdentifier:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error creating file %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error creating file %@", &v2, 0xCu);
 }
 
 - (void)add:(uint64_t)a1 type:(NSObject *)a2 messageIdentifier:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Encountered error opening file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Encountered error opening file: %@", &v2, 0xCu);
 }
 
 - (void)add:type:messageIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)add:(uint64_t)a1 type:(NSObject *)a2 messageIdentifier:.cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_241FB3000, a2, OS_LOG_TYPE_FAULT, "%@ add:type:messageIdentifier: sendURL is nil", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendWithSender:timeout:responseHandlers:didSend:didQueue:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v0, v1, "Error removing %@ error: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_241FB3000, a2, OS_LOG_TYPE_FAULT, "%@ add:type:messageIdentifier: sendURL is nil", &v2, 0xCu);
 }
 
 void __83__BLTSendQueueSerializer_sendWithSender_timeout_responseHandlers_didSend_didQueue___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 40);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Error removing %@ error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 40);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Error removing %@ error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

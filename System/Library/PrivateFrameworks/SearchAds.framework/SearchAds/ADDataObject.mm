@@ -5,6 +5,7 @@
 - (id)AD_jsonDictionary;
 - (id)_jsonToDict:(id)dict error:(id *)error;
 - (id)addCachedFeaturesToOdmlResponse:(id)response;
+- (id)dictionaryWithModifiedTransparencyPayload:(id)payload locationState:(BOOL)state personalizedAdsState:(BOOL)adsState;
 - (id)parseDataForAdResponse:(id)response;
 - (id)parseDataForODMLResponse:(id)response;
 - (id)parseOdmlResponseFromString:(id)string;
@@ -12,6 +13,7 @@
 - (id)parseResponseForAdditionalFeatures:(id)features odmlResponse:(id)response;
 - (void)parseResponseData;
 - (void)setAdResponseInUseType:(int64_t)type;
+- (void)updateAdDataWithLocationState:(BOOL)state personalizedAdsState:(BOOL)adsState;
 @end
 
 @implementation ADDataObject
@@ -170,16 +172,16 @@
 
 - (id)parseDataForAdResponse:(id)response
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   if (responseCopy)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = 0;
-      v7 = objc_msgSend__jsonToDict_error_(self, v5, responseCopy, &v13, v6);
-      v8 = v13;
+      v12 = 0;
+      v7 = objc_msgSend__jsonToDict_error_(self, v5, responseCopy, &v12, v6);
+      v8 = v12;
       if (v8)
       {
         v9 = APLogForCategory();
@@ -187,11 +189,11 @@
         {
           v10 = objc_opt_class();
           *buf = 138412802;
-          v15 = v10;
-          v16 = 2112;
-          v17 = responseCopy;
-          v18 = 2112;
-          v19 = v8;
+          v14 = v10;
+          v15 = 2112;
+          v16 = responseCopy;
+          v17 = 2112;
+          v18 = v8;
           _os_log_impl(&dword_264E42000, v9, OS_LOG_TYPE_ERROR, "[%@] Error deserializing ad data response %@: %@", buf, 0x20u);
         }
       }
@@ -203,7 +205,7 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = objc_opt_class();
+        v14 = objc_opt_class();
         _os_log_impl(&dword_264E42000, v8, OS_LOG_TYPE_ERROR, "[%@] Data is not a string", buf, 0xCu);
       }
 
@@ -215,8 +217,6 @@
   {
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -231,7 +231,7 @@
 
 - (id)parseDataForODMLResponse:(id)response
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v11 = objc_msgSend_parseOdmlStringFromResponseData_(self, v5, responseCopy, v6, v7);
   if (v11)
@@ -249,13 +249,13 @@
       goto LABEL_9;
     }
 
-    v27 = 138412290;
-    v28 = objc_opt_class();
+    v26 = 138412290;
+    v27 = objc_opt_class();
     v22 = "[%@] ERROR: Failed to parse ODML response from string.";
     v23 = v21;
     v24 = 12;
 LABEL_8:
-    _os_log_impl(&dword_264E42000, v23, OS_LOG_TYPE_ERROR, v22, &v27, v24);
+    _os_log_impl(&dword_264E42000, v23, OS_LOG_TYPE_ERROR, v22, &v26, v24);
 LABEL_9:
 
     goto LABEL_10;
@@ -266,10 +266,10 @@ LABEL_9:
   {
     v16 = objc_opt_class();
     v21 = objc_msgSend_AD_jsonString(responseCopy, v17, v18, v19, v20);
-    v27 = 138412546;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v21;
+    v26 = 138412546;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v21;
     v22 = "[%@] ERROR: No ODML data was returned with the Ad Response: %@";
     v23 = v14;
     v24 = 22;
@@ -280,14 +280,12 @@ LABEL_10:
   v15 = 0;
 LABEL_11:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)parseOdmlStringFromResponseData:(id)data
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
@@ -300,31 +298,29 @@ LABEL_11:
     v8 = APLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_264E42000, v8, OS_LOG_TYPE_ERROR, "[%@] Cannot find response dictionary in the ad response.", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = objc_opt_class();
+      _os_log_impl(&dword_264E42000, v8, OS_LOG_TYPE_ERROR, "[%@] Cannot find response dictionary in the ad response.", &v10, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)parseOdmlResponseFromString:(id)string
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEA90];
   stringCopy = string;
   v5 = [v3 alloc];
   v8 = objc_msgSend_initWithBase64EncodedString_options_(v5, v6, stringCopy, 0, v7);
 
   v13 = objc_msgSend_sharedInstance(MEMORY[0x277CE96B8], v9, v10, v11, v12);
-  v31 = 0;
-  v16 = objc_msgSend_deserializeMessage_error_(v13, v14, v8, &v31, v15);
-  v17 = v31;
+  v30 = 0;
+  v16 = objc_msgSend_deserializeMessage_error_(v13, v14, v8, &v30, v15);
+  v17 = v30;
 
   if (v17)
   {
@@ -333,11 +329,11 @@ LABEL_11:
     {
       v19 = objc_opt_class();
       *buf = 138412802;
-      v33 = v19;
-      v34 = 2112;
-      v35 = v8;
-      v36 = 2112;
-      v37 = v17;
+      v32 = v19;
+      v33 = 2112;
+      v34 = v8;
+      v35 = 2112;
+      v36 = v17;
       _os_log_impl(&dword_264E42000, v18, OS_LOG_TYPE_ERROR, "[%@] Error deserializing protobuf %@: %@", buf, 0x20u);
     }
 
@@ -351,8 +347,6 @@ LABEL_11:
     v25 = objc_alloc(MEMORY[0x277D42CC8]);
     v20 = objc_msgSend_initWithSRPResponse_(v25, v26, v18, v27, v28);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -412,6 +406,122 @@ LABEL_11:
   }
 
   return responseCopy;
+}
+
+- (void)updateAdDataWithLocationState:(BOOL)state personalizedAdsState:(BOOL)adsState
+{
+  stateCopy = state;
+  adsStateCopy = adsState;
+  v74 = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend_usesSingleRepresentation(self, a2, state, adsState, v4);
+  selfCopy = self;
+  v11 = objc_msgSend_adData(self, v7, v8, v9, v10);
+  if (v6)
+  {
+    if (v11)
+    {
+      v62 = v11;
+      v16 = objc_msgSend_mutableCopy(v11, v12, v13, v14, v15);
+      v18 = objc_msgSend_dictionaryWithModifiedTransparencyPayload_locationState_personalizedAdsState_(self, v17, v16, stateCopy, adsStateCopy);
+      objc_msgSend_setAdData_(self, v19, v18, v20, v21);
+
+      v11 = v62;
+    }
+  }
+
+  else
+  {
+    v63 = v11;
+    v22 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v12, v13, v14, v15);
+    if (v63)
+    {
+      v65 = v22;
+      v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v23 = v63;
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v69, v73, 16);
+      if (v25)
+      {
+        v29 = v25;
+        v64 = *v70;
+        do
+        {
+          for (i = 0; i != v29; ++i)
+          {
+            if (*v70 != v64)
+            {
+              objc_enumerationMutation(v23);
+            }
+
+            v31 = *(*(&v69 + 1) + 8 * i);
+            v32 = objc_msgSend_objectForKey_(v23, v26, v31, v27, v28);
+            v36 = objc_msgSend_dataUsingEncoding_(v32, v33, 4, v34, v35);
+            v38 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v37, v36, 0, 0);
+            v43 = objc_msgSend_mutableCopy(v38, v39, v40, v41, v42);
+            v45 = objc_msgSend_dictionaryWithModifiedTransparencyPayload_locationState_personalizedAdsState_(selfCopy, v44, v43, stateCopy, adsStateCopy);
+
+            v47 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v46, v45, 0, 0);
+            v48 = objc_alloc(MEMORY[0x277CCACA8]);
+            v51 = objc_msgSend_initWithData_encoding_(v48, v49, v47, 4, v50);
+            objc_msgSend_setValue_forKey_(v65, v52, v51, v31, v53);
+          }
+
+          v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v69, v73, 16);
+        }
+
+        while (v29);
+      }
+
+      v22 = v65;
+      v58 = objc_msgSend_copy(v65, v54, v55, v56, v57);
+      objc_msgSend_setAdData_(selfCopy, v59, v58, v60, v61);
+    }
+  }
+}
+
+- (id)dictionaryWithModifiedTransparencyPayload:(id)payload locationState:(BOOL)state personalizedAdsState:(BOOL)adsState
+{
+  adsStateCopy = adsState;
+  stateCopy = state;
+  payloadCopy = payload;
+  v11 = objc_msgSend_objectForKeyedSubscript_(payloadCopy, v8, @"privacy", v9, v10);
+  if (v11)
+  {
+    v12 = objc_alloc(MEMORY[0x277CBEA90]);
+    v15 = objc_msgSend_initWithBase64EncodedString_options_(v12, v13, v11, 0, v14);
+    v16 = objc_alloc(MEMORY[0x277CE96C8]);
+    v20 = objc_msgSend_initWithData_(v16, v17, v15, v18, v19);
+    v25 = objc_msgSend_dictionaryRepresentation(v20, v21, v22, v23, v24);
+    v29 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v26, stateCopy, v27, v28);
+    objc_msgSend_setValue_forKey_(v25, v30, v29, @"renderingStateForLocation", v31);
+
+    v35 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v32, adsStateCopy, v33, v34);
+    objc_msgSend_setValue_forKey_(v25, v36, v35, @"renderingStateForPA", v37);
+
+    v53 = 0;
+    v39 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v38, v25, 0, &v53);
+    v43 = v39;
+    if (v53)
+    {
+      v44 = payloadCopy;
+    }
+
+    else
+    {
+      v45 = objc_msgSend_base64EncodedStringWithOptions_(v39, v40, 0, v41, v42);
+      objc_msgSend_setValue_forKey_(payloadCopy, v46, v45, @"privacy", v47);
+      v44 = objc_msgSend_copy(payloadCopy, v48, v49, v50, v51);
+    }
+  }
+
+  else
+  {
+    v44 = payloadCopy;
+  }
+
+  return v44;
 }
 
 @end

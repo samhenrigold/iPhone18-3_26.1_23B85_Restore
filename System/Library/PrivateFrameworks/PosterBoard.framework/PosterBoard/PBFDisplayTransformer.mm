@@ -16,7 +16,7 @@
 
 - (id)transformDisplayConfiguration:(id)configuration
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CD92C10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CD92C10, &unk_21B6D8340);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_21B6D81D0;
   *(inited + 32) = configuration;

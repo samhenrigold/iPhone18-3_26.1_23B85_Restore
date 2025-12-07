@@ -71,7 +71,7 @@
 
   else
   {
-    [BWPhotonicEngineNodeSampleBufferAndInputQueue newSampleBuffersAndInputsWithPredicate:];
+    [(BWPhotonicEngineNodeSampleBufferAndInputQueue *)self newSampleBuffersAndInputsWithPredicate:a2];
   }
 
   return predicateCopy;

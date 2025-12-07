@@ -34,7 +34,7 @@
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      [SUCoreDDMActivityScheduler initWithDelegate:options:];
+      [SUCoreDDMActivityScheduler initWithDelegate:oslog options:?];
     }
 
     selfCopy = 0;
@@ -45,7 +45,7 @@
 
 - (BOOL)armActivitySchedulerWithDate:(id)date options:(id)options
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   optionsCopy = options;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -54,7 +54,7 @@
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v44 = objc_opt_class();
+    v43 = objc_opt_class();
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DDM] %@: Arming", buf, 0xCu);
   }
 
@@ -65,7 +65,7 @@
 
     if (os_log_type_enabled(oslog2, OS_LOG_TYPE_ERROR))
     {
-      [SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:];
+      [SUCoreDDMActivityScheduler armActivitySchedulerWithDate:oslog2 options:?];
     }
 
     goto LABEL_9;
@@ -79,7 +79,7 @@
 
     if (os_log_type_enabled(oslog2, OS_LOG_TYPE_ERROR))
     {
-      [SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:];
+      [SUCoreDDMActivityScheduler armActivitySchedulerWithDate:oslog2 options:?];
     }
 
 LABEL_9:
@@ -104,11 +104,11 @@ LABEL_9:
     fireDate = [(SUCoreDDMActivityScheduler *)self fireDate];
     options = [(SUCoreDDMActivityScheduler *)self options];
     *buf = 138412802;
-    v44 = v17;
-    v45 = 2112;
-    v46 = fireDate;
-    v47 = 2112;
-    v48 = options;
+    v43 = v17;
+    v44 = 2112;
+    v45 = fireDate;
+    v46 = 2112;
+    v47 = options;
     _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[DDM] %@: Fire date: %@, options: %@", buf, 0x20u);
   }
 
@@ -120,7 +120,7 @@ LABEL_9:
     if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v44 = "[SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:]";
+      v43 = "[SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:]";
       _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "[DDM] %s: Using XPC alarm stream", buf, 0xCu);
     }
 
@@ -142,7 +142,7 @@ LABEL_9:
     if (os_log_type_enabled(oslog5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v44 = "[SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:]";
+      v43 = "[SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:]";
       _os_log_impl(&dword_23193C000, oslog5, OS_LOG_TYPE_DEFAULT, "[DDM] %s: Using PCSimpleTimer", buf, 0xCu);
     }
 
@@ -164,17 +164,17 @@ LABEL_9:
     if (os_log_type_enabled(oslog6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v44 = "[SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:]";
+      v43 = "[SUCoreDDMActivityScheduler armActivitySchedulerWithDate:options:]";
       _os_log_impl(&dword_23193C000, oslog6, OS_LOG_TYPE_DEFAULT, "[DDM] %s: Using NSTimer", buf, 0xCu);
     }
 
     v36 = objc_alloc(MEMORY[0x277CBEBB8]);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __67__SUCoreDDMActivityScheduler_armActivitySchedulerWithDate_options___block_invoke;
-    v42[3] = &unk_27892CAD8;
-    v42[4] = self;
-    v37 = [v36 initWithFireDate:dateCopy interval:0 repeats:v42 block:0.0];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __67__SUCoreDDMActivityScheduler_armActivitySchedulerWithDate_options___block_invoke;
+    v41[3] = &unk_27892CAD8;
+    v41[4] = self;
+    v37 = [v36 initWithFireDate:dateCopy interval:0 repeats:v41 block:0.0];
     [(SUCoreDDMActivityScheduler *)self setTimer:v37];
 
     mainRunLoop2 = [MEMORY[0x277CBEB88] mainRunLoop];
@@ -185,13 +185,12 @@ LABEL_9:
   v14 = 1;
 LABEL_28:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_handleTimerFired:(id)fired
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
 
@@ -200,21 +199,19 @@ LABEL_28:
     v6 = objc_opt_class();
     options = [(SUCoreDDMActivityScheduler *)self options];
     fireDate = [(SUCoreDDMActivityScheduler *)self fireDate];
-    v12 = 138412802;
-    v13 = v6;
-    v14 = 2112;
-    v15 = options;
-    v16 = 2112;
-    v17 = fireDate;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DDM] %@: Fired with options: %@, fireDate: %@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v6;
+    v13 = 2112;
+    v14 = options;
+    v15 = 2112;
+    v16 = fireDate;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DDM] %@: Fired with options: %@, fireDate: %@", &v11, 0x20u);
   }
 
   [(SUCoreDDMActivityScheduler *)self setIsArmed:0];
   delegate = [(SUCoreDDMActivityScheduler *)self delegate];
   options2 = [(SUCoreDDMActivityScheduler *)self options];
   [delegate timeFiredForScheduler:self withOptions:options2 replyBlock:&__block_literal_global];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disarmActivityScheduler
@@ -257,28 +254,25 @@ LABEL_28:
   [(SUCoreDDMActivityScheduler *)self setFireDate:0];
 }
 
-- (void)initWithDelegate:options:.cold.1()
+- (void)initWithDelegate:(uint64_t)a1 options:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_23193C000, v0, v1, "[DDM] %@: Can't init SUCoreDDMActivityScheduler with nil as delegate", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  OUTLINED_FUNCTION_0(&dword_23193C000, v2, v3, "[DDM] %@: Can't init SUCoreDDMActivityScheduler with nil as delegate", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)armActivitySchedulerWithDate:options:.cold.1()
+- (void)armActivitySchedulerWithDate:(uint64_t)a1 options:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_23193C000, v0, v1, "[DDM] %@: Trying to schedule for a date earlier than now, bailing", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  OUTLINED_FUNCTION_0(&dword_23193C000, v2, v3, "[DDM] %@: Trying to schedule for a date earlier than now, bailing", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)armActivitySchedulerWithDate:options:.cold.2()
+- (void)armActivitySchedulerWithDate:(uint64_t)a1 options:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_23193C000, v0, v1, "[DDM] %@: No custom date found to schedule update, bail", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  OUTLINED_FUNCTION_0(&dword_23193C000, v2, v3, "[DDM] %@: No custom date found to schedule update, bail", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

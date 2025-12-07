@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (PRZhuyinModification)initWithRange:(_NSRange)range replacementString:(id)string modificationType:(unint64_t)type syllableRange:(_NSRange)syllableRange additionalSyllableRange:(_NSRange)additionalSyllableRange modificationScore:(double)score syllableCountScore:(unint64_t)countScore syllableLetters:(const char *)self0 producesPartialSyllable:(BOOL)self1;
 - (_NSRange)additionalSyllableRange;
+- (_NSRange)combinedSyllableRange;
 - (_NSRange)range;
 - (_NSRange)syllableRange;
 - (id)description;
@@ -171,6 +172,19 @@ LABEL_20:
   result.length = length;
   result.location = location;
   return result;
+}
+
+- (_NSRange)combinedSyllableRange
+{
+  additionalSyllableRange = self->_additionalSyllableRange;
+  v3 = additionalSyllableRange.location == 0x7FFFFFFFFFFFFFFFLL && additionalSyllableRange.length == 0;
+  syllableRange = self->_syllableRange;
+  if (!v3)
+  {
+    return NSUnionRange(syllableRange, additionalSyllableRange);
+  }
+
+  return syllableRange;
 }
 
 - (BOOL)_shouldAppendLetter:(unsigned __int8)letter

@@ -3,18 +3,10 @@
 + (NSArray)upwardArrowConfigurationStrings;
 - (ICQInlineTip)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation ICQInlineTip
-
-- (id)description
-{
-  v2 = *&self->_title;
-  dismissURL = self->_dismissURL;
-  return [MEMORY[0x277CCACA8] stringWithFormat:@"id: %@ anchor: %@, title: %@, subtitle: %@ actions: %@, criteria: %@, arrowConfiguration:%@ icon: %@ dismissURL:%@, displayURL: %@", self->_id, self->_anchor, self->_title, self->_subTitle, self->_actions, self->_criteria, self->_arrowConfiguration, self->_icon, dismissURL, self->_displayURL];
-}
 
 + (NSArray)upwardArrowConfigurationStrings
 {
@@ -30,16 +22,14 @@
 
 void __47__ICQInlineTip_upwardArrowConfigurationStrings__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"TOP";
-  v3[1] = @"TOPLEFT";
-  v3[2] = @"TOPRIGHT";
-  v3[3] = @"NONE";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"TOP";
+  v2[1] = @"TOPLEFT";
+  v2[2] = @"TOPRIGHT";
+  v2[3] = @"NONE";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = upwardArrowConfigurationStrings_strings;
   upwardArrowConfigurationStrings_strings = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (NSArray)downwardArrowConfigurationStrings
@@ -56,16 +46,14 @@ void __47__ICQInlineTip_upwardArrowConfigurationStrings__block_invoke()
 
 void __49__ICQInlineTip_downwardArrowConfigurationStrings__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"BOTTOM";
-  v3[1] = @"BOTTOMLEFT";
-  v3[2] = @"BOTTOMRIGHT";
-  v3[3] = @"NONE";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"BOTTOM";
+  v2[1] = @"BOTTOMLEFT";
+  v2[2] = @"BOTTOMRIGHT";
+  v2[3] = @"NONE";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = downwardArrowConfigurationStrings_strings;
   downwardArrowConfigurationStrings_strings = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -102,11 +90,11 @@ void __49__ICQInlineTip_downwardArrowConfigurationStrings__block_invoke()
 
 - (ICQInlineTip)initWithCoder:(id)coder
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = ICQInlineTip;
-  v5 = [(ICQInlineTip *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = ICQInlineTip;
+  v5 = [(ICQInlineTip *)&v30 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"id"];
@@ -126,9 +114,9 @@ void __49__ICQInlineTip_downwardArrowConfigurationStrings__block_invoke()
     v5->_subTitle = v12;
 
     v14 = MEMORY[0x277CBEB98];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v16 = [v14 setWithArray:v15];
 
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"actions"];
@@ -156,7 +144,6 @@ void __49__ICQInlineTip_downwardArrowConfigurationStrings__block_invoke()
     v5->_displayURL = v27;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -3,9 +3,21 @@
 - (void)_presentWebsite;
 - (void)cancel;
 - (void)safariViewControllerDidFinish:(id)finish;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation WebViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = WebViewController;
+  [(WebViewController *)&v5 viewDidAppear:appear];
+  viewServiceHost = [(BaseViewController *)self viewServiceHost];
+  [viewServiceHost setAllowsAlertStacking:1];
+
+  [(WebViewController *)self _presentWebsite];
+}
 
 - (void)_presentWebsite
 {

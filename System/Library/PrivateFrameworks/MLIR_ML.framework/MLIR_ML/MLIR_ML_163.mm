@@ -1,40 +1,3 @@
-BOOL mlir::presburger::PresburgerRelation::isObviouslyEqual(mlir::presburger::PresburgerRelation *this, const mlir::presburger::PresburgerRelation *a2)
-{
-  result = mlir::presburger::PresburgerSpace::isCompatible(this, a2);
-  if (result)
-  {
-    v5 = *(this + 12);
-    if (v5 == *(a2 + 12))
-    {
-      if (v5)
-      {
-        v6 = 0;
-        v7 = 624 * v5 - 624;
-        do
-        {
-          result = mlir::presburger::IntegerRelation::isObviouslyEqual((*(this + 5) + v6), (*(a2 + 5) + v6));
-          v8 = !result || v7 == v6;
-          v6 += 624;
-        }
-
-        while (!v8);
-      }
-
-      else
-      {
-        return 1;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
 BOOL mlir::presburger::PresburgerRelation::isObviouslyUniverse(mlir::presburger::PresburgerRelation *this)
 {
   v1 = *(this + 12);
@@ -157,7 +120,7 @@ uint64_t mlir::presburger::PresburgerRelation::containsPoint(uint64_t a1, uint64
 
 void mlir::presburger::PresburgerRelation::getUniverse(int32x4_t *this@<X0>, int32x4_t *a2@<X8>)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   *a2 = *this;
   a2[1].i8[0] = this[1].i8[0];
   a2[1].i64[1] = &a2[2].i64[1];
@@ -172,7 +135,7 @@ void mlir::presburger::PresburgerRelation::getUniverse(int32x4_t *this@<X0>, int
 
   a2[2].i64[1] = &a2[3].i64[1];
   a2[3].i64[0] = 0x200000000;
-  mlir::presburger::IntegerRelation::IntegerRelation(v3, 0, 0, vaddvq_s32(*this) + 1, this);
+  mlir::presburger::IntegerRelation::IntegerRelation(v2, 0, 0, (vaddvq_s32(*this) + 1), this);
 }
 
 double mlir::presburger::PresburgerRelation::getEmpty@<D0>(mlir::presburger::PresburgerRelation *this@<X0>, uint64_t a2@<X8>)
@@ -192,10 +155,10 @@ double mlir::presburger::PresburgerRelation::getEmpty@<D0>(mlir::presburger::Pre
   return result;
 }
 
-uint64_t mlir::presburger::PresburgerRelation::intersect@<X0>(uint64_t this@<X0>, const mlir::presburger::PresburgerRelation *a2@<X1>, uint64_t a3@<X8>)
+void mlir::presburger::PresburgerRelation::intersect(mlir::presburger::PresburgerRelation *this@<X0>, const mlir::presburger::PresburgerRelation *a2@<X1>, uint64_t a3@<X8>)
 {
   v30[78] = *MEMORY[0x277D85DE8];
-  v4 = *(this + 48);
+  v4 = *(this + 12);
   if (!v4)
   {
     goto LABEL_12;
@@ -212,7 +175,7 @@ uint64_t mlir::presburger::PresburgerRelation::intersect@<X0>(uint64_t this@<X0>
       v7 -= 624;
       if (!v7)
       {
-        v8 = *(this + 40);
+        v8 = *(this + 5);
         v17 = v8 + 624 * v4;
         v9 = 624 * v4;
         for (i = v8; *(i + 48) + *(i + 336); i += 624)
@@ -224,7 +187,7 @@ uint64_t mlir::presburger::PresburgerRelation::intersect@<X0>(uint64_t this@<X0>
             *(a3 + 16) = *(this + 16);
             *(a3 + 24) = a3 + 40;
             *(a3 + 32) = 0;
-            if (a3 != this && *(this + 32))
+            if (a3 != this && *(this + 8))
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
@@ -274,7 +237,7 @@ uint64_t mlir::presburger::PresburgerRelation::intersect@<X0>(uint64_t this@<X0>
             }
 
             while (v8 != v17);
-            return this;
+            return;
           }
         }
 
@@ -287,7 +250,7 @@ LABEL_12:
     *(a3 + 16) = *(this + 16);
     *(a3 + 24) = a3 + 40;
     *(a3 + 32) = 0;
-    if (a3 != this && *(this + 32))
+    if (a3 != this && *(this + 8))
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
@@ -296,14 +259,15 @@ LABEL_12:
     *(a3 + 48) = 0x200000000;
     if (v4)
     {
-      v11 = (this + 40);
+      v11 = this + 40;
       v12 = a3 + 40;
 LABEL_22:
 
-      return llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v12, v11);
+      llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v12, v11);
+      return;
     }
 
-    return this;
+    return;
   }
 
 LABEL_17:
@@ -324,8 +288,6 @@ LABEL_17:
     v11 = a2 + 40;
     goto LABEL_22;
   }
-
-  return this;
 }
 
 void mlir::presburger::PresburgerRelation::intersectRange(mlir::presburger::PresburgerRelation *this@<X0>, const mlir::presburger::PresburgerSet *a2@<X1>, uint64_t a3@<X8>)
@@ -559,10 +521,10 @@ void mlir::presburger::PresburgerRelation::inverse(mlir::presburger::PresburgerR
   }
 }
 
-void mlir::presburger::PresburgerRelation::getDomainSet(mlir::presburger::PresburgerRelation *this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::PresburgerRelation::getDomainSet(void ***this@<X0>, uint64_t a2@<X8>)
 {
   v12[73] = *MEMORY[0x277D85DE8];
-  mlir::presburger::PresburgerSpace::getDomainSpace(this, &v8);
+  mlir::presburger::PresburgerSpace::getDomainSpace(&v8, this);
   *a2 = v8;
   *(a2 + 16) = v9;
   v4 = a2 + 40;
@@ -583,7 +545,7 @@ void mlir::presburger::PresburgerRelation::getDomainSet(mlir::presburger::Presbu
   v5 = *(this + 12);
   if (v5)
   {
-    v6 = *(this + 5);
+    v6 = this[5];
     v7 = 624 * v5;
     do
     {
@@ -615,7 +577,7 @@ double mlir::presburger::PresburgerSet::getEmpty@<D0>(mlir::presburger::Presburg
   return result;
 }
 
-void mlir::presburger::PresburgerRelation::getRangeSet(mlir::presburger::PresburgerRelation *this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::PresburgerRelation::getRangeSet(void ***this@<X0>, uint64_t a2@<X8>)
 {
   v12[73] = *MEMORY[0x277D85DE8];
   mlir::presburger::PresburgerSpace::getRangeSpace(this, &v8);
@@ -639,7 +601,7 @@ void mlir::presburger::PresburgerRelation::getRangeSet(mlir::presburger::Presbur
   v5 = *(this + 12);
   if (v5)
   {
-    v6 = *(this + 5);
+    v6 = this[5];
     v7 = 624 * v5;
     do
     {
@@ -899,53 +861,49 @@ void mlir::presburger::PresburgerRelation::applyDomain(mlir::presburger::Presbur
   }
 }
 
-mlir::presburger::SymbolicLexOpt *findSymbolicIntegerLexOpt(const mlir::presburger::PresburgerRelation *a1, uint64_t a2)
+void findSymbolicIntegerLexOpt(const mlir::presburger::PresburgerRelation *a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v9 = v3;
-  v5 = v4;
-  v11 = *MEMORY[0x277D85DE8];
-  result = mlir::presburger::SymbolicLexOpt::SymbolicLexOpt(v2, v4);
-  if (*(v5 + 12))
+  v1 = MEMORY[0x28223BE20](a1);
+  v6 = v2;
+  v4 = v3;
+  v8 = *MEMORY[0x277D85DE8];
+  mlir::presburger::SymbolicLexOpt::SymbolicLexOpt(v1, v3);
+  if (*(v4 + 12))
   {
-    v7 = *(v5 + 5);
-    mlir::presburger::SymbolicLexOpt::SymbolicLexOpt(&v10, v5);
-    if (v9)
+    v5 = *(v4 + 5);
+    mlir::presburger::SymbolicLexOpt::SymbolicLexOpt(&v7, v4);
+    if (v6)
     {
-      mlir::presburger::IntegerRelation::findSymbolicIntegerLexMin(v7);
+      mlir::presburger::IntegerRelation::findSymbolicIntegerLexMin(v5);
     }
 
-    mlir::presburger::IntegerRelation::findSymbolicIntegerLexMax(v7, v8);
+    mlir::presburger::IntegerRelation::findSymbolicIntegerLexMax(v5);
   }
-
-  return result;
 }
 
-uint64_t mlir::presburger::PresburgerRelation::computeReprWithOnlyDivLocals@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::PresburgerRelation::computeReprWithOnlyDivLocals(mlir::presburger::IntegerRelation **this@<X0>, uint64_t a2@<X8>)
 {
-  if (*(this + 48))
+  if (*(this + 12))
   {
-    mlir::presburger::IntegerRelation::hasOnlyDivLocals(*(this + 40));
+    mlir::presburger::IntegerRelation::hasOnlyDivLocals(this[5]);
   }
 
   *a2 = *this;
   *(a2 + 16) = *(this + 16);
   *(a2 + 24) = a2 + 40;
   *(a2 + 32) = 0;
-  if (a2 != this && *(this + 32))
+  if (a2 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
   *(a2 + 40) = a2 + 56;
   *(a2 + 48) = 0x200000000;
-  if (*(this + 48))
+  if (*(this + 12))
   {
 
-    return llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a2 + 40, this + 40);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a2 + 40, (this + 5));
   }
-
-  return this;
 }
 
 uint64_t mlir::presburger::PresburgerRelation::hasOnlyDivLocals(mlir::presburger::IntegerRelation **this)
@@ -958,53 +916,51 @@ uint64_t mlir::presburger::PresburgerRelation::hasOnlyDivLocals(mlir::presburger
   return 1;
 }
 
-BOOL getSetDifference(uint64_t a1, uint64_t a2)
+void getSetDifference(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v7 = v2;
-  result = mlir::presburger::IntegerRelation::isEmptyByGCDTest(v5);
-  if (!result)
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v6 = v1;
+  if (!mlir::presburger::IntegerRelation::isEmptyByGCDTest(v4, v4, v2))
   {
-    if (*(v4 + 48))
+    if (*(v3 + 12))
     {
-      mlir::presburger::IntegerRelation::hasOnlyDivLocals(*(v4 + 40));
+      mlir::presburger::IntegerRelation::hasOnlyDivLocals(*(v3 + 5));
     }
 
-    mlir::presburger::IntegerRelation::removeDuplicateDivs(v6);
+    mlir::presburger::IntegerRelation::removeDuplicateDivs(v5);
   }
 
-  v9 = *(v6 + 4);
-  *v7 = *(v6 + 1);
-  *(v7 + 8) = v9;
-  *(v7 + 12) = 0;
-  *(v7 + 16) = 0;
-  *(v7 + 40) = v7 + 56;
-  *(v7 + 24) = v7 + 40;
-  *(v7 + 32) = 0;
-  *(v7 + 48) = 0x200000000;
-  return result;
+  v7 = *(v5 + 4);
+  *v6 = *(v5 + 1);
+  *(v6 + 8) = v7;
+  *(v6 + 12) = 0;
+  *(v6 + 16) = 0;
+  *(v6 + 40) = v6 + 56;
+  *(v6 + 24) = v6 + 40;
+  *(v6 + 32) = 0;
+  *(v6 + 48) = 0x200000000;
 }
 
-void mlir::presburger::PresburgerRelation::subtract(mlir::presburger::PresburgerRelation *this@<X0>, const mlir::presburger::PresburgerRelation *a2@<X1>, uint64_t a3@<X8>)
+void mlir::presburger::PresburgerRelation::subtract(mlir::presburger::PresburgerRelation *__return_ptr a1@<X8>, mlir::presburger::PresburgerRelation *this@<X0>, const mlir::presburger::PresburgerRelation *a3@<X1>)
 {
   v35[156] = *MEMORY[0x277D85DE8];
-  *a3 = *this;
-  *(a3 + 16) = *(this + 16);
-  *(a3 + 24) = a3 + 40;
-  *(a3 + 32) = 0;
-  if (a3 != this && *(this + 8))
+  *a1 = *this;
+  *(a1 + 16) = *(this + 16);
+  *(a1 + 3) = a1 + 40;
+  *(a1 + 4) = 0;
+  if (a1 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(a3 + 40) = a3 + 56;
-  *(a3 + 48) = 0x200000000;
-  if (mlir::presburger::PresburgerSpace::isCompatible(this, a2))
+  *(a1 + 5) = a1 + 56;
+  *(a1 + 6) = 0x200000000;
+  if (mlir::presburger::PresburgerSpace::isCompatible(this, a3))
   {
     v6 = *(this + 12);
-    if (v6 == *(a2 + 12))
+    if (v6 == *(a3 + 12))
     {
       if (!v6)
       {
@@ -1013,7 +969,7 @@ void mlir::presburger::PresburgerRelation::subtract(mlir::presburger::Presburger
 
       v7 = 0;
       v8 = 624 * v6;
-      while (mlir::presburger::IntegerRelation::isObviouslyEqual((*(this + 5) + v7), (*(a2 + 5) + v7)))
+      while (mlir::presburger::IntegerRelation::isObviouslyEqual((*(this + 5) + v7), (*(a3 + 5) + v7)))
       {
         v7 += 624;
         if (v8 == v7)
@@ -1062,8 +1018,8 @@ void mlir::presburger::PresburgerRelation::subtract(mlir::presburger::Presburger
         llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v29, (v10 + 352));
       }
 
-      getSetDifference(v31, &v19);
-      mlir::presburger::PresburgerRelation::unionInPlace(a3, v31);
+      getSetDifference(v31);
+      mlir::presburger::PresburgerRelation::unionInPlace(a1, v31);
       v14 = v33;
       if (v34)
       {
@@ -1102,47 +1058,47 @@ void mlir::presburger::PresburgerRelation::subtract(mlir::presburger::Presburger
 
 uint64_t mlir::presburger::PresburgerRelation::isSubsetOf(mlir::presburger::PresburgerRelation *this, const mlir::presburger::PresburgerRelation *a2)
 {
-  v17[156] = *MEMORY[0x277D85DE8];
-  mlir::presburger::PresburgerRelation::subtract(this, a2, &v13);
-  v3 = v15;
-  if (v16)
+  v16[156] = *MEMORY[0x277D85DE8];
+  mlir::presburger::PresburgerRelation::subtract(&v12, this, a2);
+  v2 = v14;
+  if (v15)
   {
-    v4 = 624 * v16 - 624;
+    v3 = 624 * v15 - 624;
     do
     {
-      result = mlir::presburger::IntegerRelation::isIntegerEmpty(v3, v2);
+      result = mlir::presburger::IntegerRelation::isIntegerEmpty(v2);
       if (!result)
       {
         break;
       }
 
-      v3 = (v3 + 624);
-      v6 = v4;
-      v4 -= 624;
+      v2 = (v2 + 624);
+      v5 = v3;
+      v3 -= 624;
     }
 
-    while (v6);
-    v3 = v15;
-    if (v16)
+    while (v5);
+    v2 = v14;
+    if (v15)
     {
-      v7 = result;
-      v8 = -624 * v16;
-      v9 = v15 + 624 * v16 - 624;
-      v10 = v9;
+      v6 = result;
+      v7 = -624 * v15;
+      v8 = v14 + 624 * v15 - 624;
+      v9 = v8;
       do
       {
-        (**v10)(v10);
-        v10 -= 78;
-        v9 -= 624;
-        v8 += 624;
+        (**v9)(v9);
+        v9 -= 78;
+        v8 -= 624;
+        v7 += 624;
       }
 
-      while (v8);
-      v3 = v15;
-      result = v7;
+      while (v7);
+      v2 = v14;
+      result = v6;
     }
 
-    if (v3 != v17)
+    if (v2 != v16)
     {
       goto LABEL_10;
     }
@@ -1151,49 +1107,49 @@ uint64_t mlir::presburger::PresburgerRelation::isSubsetOf(mlir::presburger::Pres
   else
   {
     result = 1;
-    if (v15 != v17)
+    if (v14 != v16)
     {
 LABEL_10:
-      v11 = result;
-      free(v3);
-      result = v11;
+      v10 = result;
+      free(v2);
+      result = v10;
     }
   }
 
-  if (v14 != &v15)
+  if (v13 != &v14)
   {
-    v12 = result;
-    free(v14);
-    return v12;
+    v11 = result;
+    free(v13);
+    return v11;
   }
 
   return result;
 }
 
-uint64_t mlir::presburger::PresburgerRelation::isIntegerEmpty(mlir::presburger::PresburgerRelation *this, uint64_t a2)
+uint64_t mlir::presburger::PresburgerRelation::isIntegerEmpty(mlir::presburger::PresburgerRelation *this)
 {
-  v2 = *(this + 12);
-  if (!v2)
+  v1 = *(this + 12);
+  if (!v1)
   {
     return 1;
   }
 
-  v3 = *(this + 5);
-  v4 = 624 * v2 - 624;
+  v2 = *(this + 5);
+  v3 = 624 * v1 - 624;
   do
   {
-    result = mlir::presburger::IntegerRelation::isIntegerEmpty(v3, a2);
+    result = mlir::presburger::IntegerRelation::isIntegerEmpty(v2);
     if (!result)
     {
       break;
     }
 
-    v3 = (v3 + 624);
-    v6 = v4;
-    v4 -= 624;
+    v2 = (v2 + 624);
+    v5 = v3;
+    v3 -= 624;
   }
 
-  while (v6);
+  while (v5);
   return result;
 }
 
@@ -1209,7 +1165,7 @@ uint64_t mlir::presburger::PresburgerRelation::isEqual(mlir::presburger::Presbur
   return result;
 }
 
-uint64_t mlir::presburger::PresburgerRelation::findIntegerSample(uint64_t a1, uint64_t **a2)
+uint64_t mlir::presburger::PresburgerRelation::findIntegerSample(uint64_t a1, uint64_t a2)
 {
   v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
@@ -1222,7 +1178,7 @@ uint64_t mlir::presburger::PresburgerRelation::findIntegerSample(uint64_t a1, ui
   v5 = 624 * v2;
   while (1)
   {
-    mlir::presburger::IntegerRelation::findIntegerSample(v4, a2);
+    mlir::presburger::IntegerRelation::findIntegerSample(v4);
     if (v17 == 1)
     {
       break;
@@ -1279,22 +1235,21 @@ uint64_t mlir::presburger::PresburgerRelation::findIntegerSample(uint64_t a1, ui
   return 1;
 }
 
-uint64_t mlir::presburger::PresburgerRelation::computeVolume@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::PresburgerRelation::computeVolume(mlir::presburger::IntegerRelation **this@<X0>, uint64_t a2@<X8>)
 {
-  if (*(this + 48))
+  if (*(this + 12))
   {
-    mlir::presburger::IntegerRelation::computeVolume(*(this + 40));
+    mlir::presburger::IntegerRelation::computeVolume(this[5]);
   }
 
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 1;
-  return this;
 }
 
 mlir::presburger::SetCoalescer *mlir::presburger::SetCoalescer::SetCoalescer(mlir::presburger::SetCoalescer *this, const mlir::presburger::PresburgerRelation *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   *(this + 16) = *(a2 + 16);
   *this = v4;
@@ -1321,9 +1276,10 @@ mlir::presburger::SetCoalescer *mlir::presburger::SetCoalescer::SetCoalescer(mli
   *(this + 469) = this + 3768;
   *(this + 470) = 0x200000000;
   llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v5, a2 + 40);
-  if (*(this + 329) < *(a2 + 12))
+  v6 = *(a2 + 12);
+  if (*(this + 329) < v6)
   {
-    llvm::SmallVectorTemplateBase<mlir::presburger::Simplex,false>::grow();
+    llvm::SmallVectorTemplateBase<mlir::presburger::Simplex,false>::grow(this + 1304, v6);
   }
 
   if (*(this + 12))
@@ -1487,7 +1443,7 @@ uint64_t mlir::presburger::SetCoalescer::coalescePair(mlir::presburger::SetCoale
 
   if (*(this + 916))
   {
-    if (mlir::presburger::SetCoalescer::coalescePairCutCase(this, a2))
+    if (mlir::presburger::SetCoalescer::coalescePairCutCase(this, a2, a3))
     {
       return 1;
     }
@@ -1496,7 +1452,7 @@ uint64_t mlir::presburger::SetCoalescer::coalescePair(mlir::presburger::SetCoale
     llvm::SmallVectorImpl<mlir::PromotableAllocationOpInterface>::swap(this + 914, this + 938);
     if (*(this + 916))
     {
-      return mlir::presburger::SetCoalescer::coalescePairCutCase(this, a3);
+      return mlir::presburger::SetCoalescer::coalescePairCutCase(this, a3, a2);
     }
 
     v10 = this;
@@ -1864,55 +1820,55 @@ LABEL_38:
   goto LABEL_38;
 }
 
-uint64_t mlir::presburger::SetCoalescer::coalescePairCutCase(mlir::presburger::SetCoalescer *this, unsigned int a2)
+uint64_t mlir::presburger::SetCoalescer::coalescePairCutCase(mlir::presburger::SetCoalescer *this, unsigned int a2, unsigned int a3)
 {
-  v21[78] = *MEMORY[0x277D85DE8];
-  v4 = *(this + 5);
-  v5 = *(this + 916);
-  if (!v5)
+  v22[78] = *MEMORY[0x277D85DE8];
+  v5 = *(this + 5);
+  v6 = *(this + 916);
+  if (!v6)
   {
 LABEL_14:
-    mlir::presburger::IntegerRelation::IntegerRelation(v21, 0, 0, vaddvq_s32(*(v4 + 624 * a2 + 8)) + 1, (v4 + 624 * a2 + 8));
+    mlir::presburger::IntegerRelation::IntegerRelation(v22, 0, 0, (vaddvq_s32(*(v5 + 624 * a2 + 8)) + 1), (v5 + 624 * a2 + 8));
   }
 
-  v6 = (*(this + 163) + 1088 * a2);
-  v7 = *(this + 457);
-  v8 = &v7[2 * v5];
+  v7 = (*(this + 163) + 1088 * a2);
+  v8 = *(this + 457);
+  v9 = &v8[2 * v6];
   while (1)
   {
-    v9 = *v7;
-    v10 = v7[1];
-    Snapshot = mlir::presburger::SimplexBase::getSnapshot(v6);
-    mlir::presburger::SimplexBase::addEquality(v6, v9, v10);
-    v12 = *(this + 940);
-    if (v12)
+    v10 = *v8;
+    v11 = v8[1];
+    Snapshot = mlir::presburger::SimplexBase::getSnapshot(v7);
+    mlir::presburger::SimplexBase::addEquality(v7, v10, v11);
+    v13 = *(this + 940);
+    if (v13)
     {
       break;
     }
 
-    mlir::presburger::SimplexBase::rollback(v6, Snapshot);
+    mlir::presburger::SimplexBase::rollback(v7, Snapshot);
 LABEL_4:
-    v7 += 2;
-    if (v7 == v8)
+    v8 += 2;
+    if (v8 == v9)
     {
       goto LABEL_14;
     }
   }
 
-  v13 = *(this + 469);
-  v14 = &v13[2 * v12];
+  v14 = *(this + 469);
+  v15 = &v14[2 * v13];
   do
   {
-    v15 = *v13;
-    v16 = v13[1];
-    v13 += 2;
-    isRedundantInequality = mlir::presburger::Simplex::isRedundantInequality(v6, v15, v16);
+    v16 = *v14;
+    v17 = v14[1];
+    v14 += 2;
+    isRedundantInequality = mlir::presburger::Simplex::isRedundantInequality(v7, v16, v17);
   }
 
-  while (isRedundantInequality && v13 != v14);
-  v19 = isRedundantInequality;
-  mlir::presburger::SimplexBase::rollback(v6, Snapshot);
-  if (v19)
+  while (isRedundantInequality && v14 != v15);
+  v20 = isRedundantInequality;
+  mlir::presburger::SimplexBase::rollback(v7, Snapshot);
+  if (v20)
   {
     goto LABEL_4;
   }
@@ -2001,12 +1957,12 @@ LABEL_7:
   v11 = *(a1 + 3504);
   if (v11 >= *(a1 + 3508))
   {
-    llvm::SmallVectorTemplateBase<llvm::SmallVector<llvm::DynamicAPInt,2u>,false>::growAndEmplaceBack<llvm::SmallVector<llvm::DynamicAPInt,8u>>();
+    llvm::SmallVectorTemplateBase<llvm::SmallVector<llvm::DynamicAPInt,2u>,false>::growAndEmplaceBack<llvm::SmallVector<llvm::DynamicAPInt,8u>>(a1 + 3496, v28);
   }
 
-  v12 = *(a1 + 3496) + 48 * v11;
-  *v12 = v12 + 16;
-  *(v12 + 8) = 0x200000000;
+  v12 = (*(a1 + 3496) + 48 * v11);
+  *v12 = v12 + 2;
+  v12[1] = 0x200000000;
   if (LODWORD(v28[1]))
   {
     llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v12, v28);
@@ -2171,142 +2127,142 @@ void mlir::presburger::PresburgerRelation::coalesce(mlir::presburger::Presburger
   mlir::presburger::SetCoalescer::~SetCoalescer(v3);
 }
 
-void mlir::presburger::PresburgerRelation::simplify(mlir::presburger::PresburgerRelation *this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::PresburgerRelation::simplify(mlir::presburger::PresburgerRelation *__return_ptr a1@<X8>, mlir::presburger::PresburgerRelation *this@<X0>, uint64_t a3@<X1>, const llvm::detail::SlowDynamicAPInt *a4@<X2>)
 {
-  v16[156] = *MEMORY[0x277D85DE8];
-  v10 = *this;
-  v11 = *(this + 16);
-  __dst = &v14;
-  v13 = 0;
-  if (&v10 != this && *(this + 8))
+  v20[156] = *MEMORY[0x277D85DE8];
+  v14 = *this;
+  v15 = *(this + 16);
+  __dst = &v18;
+  v17 = 0;
+  if (&v14 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v14 = v16;
-  v15 = 0x200000000;
+  v18 = v20;
+  v19 = 0x200000000;
   if (*(this + 12))
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v14, this + 40);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v18, this + 40);
   }
 
-  *a2 = *this;
-  *(a2 + 16) = *(this + 16);
-  v4 = a2 + 40;
-  *(a2 + 24) = a2 + 40;
-  *(a2 + 32) = 0;
-  if (a2 != this && *(this + 8))
+  *a1 = *this;
+  *(a1 + 16) = *(this + 16);
+  v6 = a1 + 40;
+  *(a1 + 3) = a1 + 40;
+  *(a1 + 4) = 0;
+  if (a1 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(a2 + 40) = a2 + 56;
-  *(a2 + 48) = 0x200000000;
-  v5 = v14;
-  if (v15)
+  *(a1 + 5) = a1 + 56;
+  *(a1 + 6) = 0x200000000;
+  v7 = v18;
+  if (v19)
   {
-    v6 = 624 * v15;
+    v8 = 624 * v19;
     do
     {
-      mlir::presburger::IntegerRelation::simplify(v5);
-      if (!mlir::presburger::IntegerRelation::isObviouslyEmpty(v5))
+      mlir::presburger::IntegerRelation::simplify(v7, a3, a4);
+      if (!mlir::presburger::IntegerRelation::isObviouslyEmpty(v7, v9, v10))
       {
-        llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::emplace_back<mlir::presburger::IntegerRelation const&>(v4, v5);
+        llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::emplace_back<mlir::presburger::IntegerRelation const&>(v6, v7);
       }
 
-      v5 = (v5 + 624);
-      v6 -= 624;
+      v7 = (v7 + 624);
+      v8 -= 624;
     }
 
-    while (v6);
-    v5 = v14;
-    if (v15)
+    while (v8);
+    v7 = v18;
+    if (v19)
     {
-      v7 = -624 * v15;
-      v8 = v14 + 624 * v15 - 624;
-      v9 = v8;
+      v11 = -624 * v19;
+      v12 = v18 + 624 * v19 - 624;
+      v13 = v12;
       do
       {
-        (**v9)(v9);
-        v9 -= 78;
-        v8 -= 624;
-        v7 += 624;
+        (**v13)(v13);
+        v13 -= 78;
+        v12 -= 624;
+        v11 += 624;
       }
 
-      while (v7);
-      v5 = v14;
+      while (v11);
+      v7 = v18;
     }
   }
 
-  if (v5 != v16)
+  if (v7 != v20)
   {
-    free(v5);
+    free(v7);
   }
 
-  if (__dst != &v14)
+  if (__dst != &v18)
   {
     free(__dst);
   }
 }
 
-uint64_t mlir::presburger::PresburgerRelation::isFullDim(mlir::presburger::PresburgerRelation *this)
+uint64_t mlir::presburger::PresburgerRelation::isFullDim(mlir::presburger::PresburgerRelation *this, uint64_t a2, const llvm::detail::SlowDynamicAPInt *a3)
 {
-  v23[32] = *MEMORY[0x277D85DE8];
-  v1 = *(this + 12);
-  if (!v1)
+  v25[32] = *MEMORY[0x277D85DE8];
+  v3 = *(this + 12);
+  if (!v3)
   {
     return 0;
   }
 
-  v2 = 0;
-  v3 = *(this + 5);
-  v4 = 624 * v1 - 624;
+  v4 = 0;
+  v5 = *(this + 5);
+  v6 = 624 * v3 - 624;
   do
   {
-    v5 = v3 + v2;
-    v12 = &unk_286893110;
-    v6 = *(v3 + v2 + 8);
-    v14 = *(v3 + v2 + 24);
-    v13 = v6;
-    __dst = &v17;
-    v16 = 0;
-    if ((v3 + v2) != &v12 && *(v5 + 40))
+    v7 = v5 + v4;
+    v14 = &unk_286893110;
+    v8 = *(v5 + v4 + 8);
+    v16 = *(v5 + v4 + 24);
+    v15 = v8;
+    __dst = &v19;
+    v18 = 0;
+    if ((v5 + v4) != &v14 && *(v7 + 40))
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
 
-    v7 = *(v5 + 48);
-    v18 = *(v5 + 56);
-    v17 = v7;
-    v19[0] = v20;
-    v19[1] = 0x1000000000;
-    if (*(v5 + 72))
+    v9 = *(v7 + 48);
+    v20 = *(v7 + 56);
+    v19 = v9;
+    v21[0] = v22;
+    v21[1] = 0x1000000000;
+    if (*(v7 + 72))
     {
-      llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v19, (v3 + v2 + 64));
+      llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v21, (v5 + v4 + 64));
     }
 
-    v8 = *(v3 + v2 + 336);
-    v21 = *(v3 + v2 + 344);
-    v20[32] = v8;
-    v22[0] = v23;
-    v22[1] = 0x1000000000;
-    if (*(v3 + v2 + 360))
+    v10 = *(v5 + v4 + 336);
+    v23 = *(v5 + v4 + 344);
+    v22[32] = v10;
+    v24[0] = v25;
+    v24[1] = 0x1000000000;
+    if (*(v5 + v4 + 360))
     {
-      llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v22, (v3 + v2 + 352));
+      llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v24, (v5 + v4 + 352));
     }
 
-    isFullDim = mlir::presburger::IntegerRelation::isFullDim(&v12);
-    mlir::presburger::IntegerRelation::~IntegerRelation(&v12);
+    isFullDim = mlir::presburger::IntegerRelation::isFullDim(&v14, a2, a3);
+    mlir::presburger::IntegerRelation::~IntegerRelation(&v14);
     if (isFullDim)
     {
       break;
     }
 
-    v10 = v4 == v2;
-    v2 += 624;
+    v12 = v6 == v4;
+    v4 += 624;
   }
 
-  while (!v10);
+  while (!v12);
   return isFullDim;
 }
 
@@ -2391,14 +2347,14 @@ void mlir::presburger::PresburgerRelation::dump(mlir::presburger::PresburgerRela
   mlir::presburger::PresburgerRelation::print(this, v2);
 }
 
-void mlir::presburger::PresburgerSet::getUniverse(int32x4_t *this@<X0>, int32x4_t *a2@<X8>)
+void mlir::presburger::PresburgerSet::getUniverse(int32x4_t *__return_ptr a1@<X8>, int32x4_t *this@<X0>)
 {
-  v3[78] = *MEMORY[0x277D85DE8];
-  *a2 = *this;
-  a2[1].i8[0] = this[1].i8[0];
-  a2[1].i64[1] = &a2[2].i64[1];
-  a2[2].i64[0] = 0;
-  if (a2 != this)
+  v2[78] = *MEMORY[0x277D85DE8];
+  *a1 = *this;
+  a1[1].i8[0] = this[1].i8[0];
+  a1[1].i64[1] = &a1[2].i64[1];
+  a1[2].i64[0] = 0;
+  if (a1 != this)
   {
     if (this[2].i32[0])
     {
@@ -2406,9 +2362,9 @@ void mlir::presburger::PresburgerSet::getUniverse(int32x4_t *this@<X0>, int32x4_
     }
   }
 
-  a2[2].i64[1] = &a2[3].i64[1];
-  a2[3].i64[0] = 0x200000000;
-  mlir::presburger::IntegerRelation::IntegerRelation(v3, 0, 0, vaddvq_s32(*this) + 1, this);
+  a1[2].i64[1] = &a1[3].i64[1];
+  a1[3].i64[0] = 0x200000000;
+  mlir::presburger::IntegerRelation::IntegerRelation(v2, 0, 0, (vaddvq_s32(*this) + 1), this);
 }
 
 mlir::presburger::PresburgerSet *mlir::presburger::PresburgerSet::PresburgerSet(mlir::presburger::PresburgerSet *this, const mlir::presburger::IntegerPolyhedron *a2)
@@ -2485,7 +2441,7 @@ mlir::presburger::PresburgerSet *mlir::presburger::PresburgerSet::PresburgerSet(
   return this;
 }
 
-void mlir::presburger::PresburgerSet::unionSet(mlir::presburger::PresburgerSet *this@<X0>, const mlir::presburger::PresburgerRelation *a2@<X1>, uint64_t a3@<X8>)
+void mlir::presburger::PresburgerSet::unionSet(__int128 *__return_ptr a1@<X8>, mlir::presburger::PresburgerSet *this@<X0>, const mlir::presburger::PresburgerRelation *a3@<X1>)
 {
   v15[156] = *MEMORY[0x277D85DE8];
   v9 = *this;
@@ -2504,21 +2460,21 @@ void mlir::presburger::PresburgerSet::unionSet(mlir::presburger::PresburgerSet *
     llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v13, this + 40);
   }
 
-  mlir::presburger::PresburgerRelation::unionInPlace(&v9, a2);
-  *a3 = v9;
-  *(a3 + 16) = v10;
-  *(a3 + 24) = a3 + 40;
-  *(a3 + 32) = 0;
-  if (&v9 != a3 && v12)
+  mlir::presburger::PresburgerRelation::unionInPlace(&v9, a3);
+  *a1 = v9;
+  *(a1 + 16) = v10;
+  *(a1 + 3) = a1 + 40;
+  *(a1 + 4) = 0;
+  if (&v9 != a1 && v12)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(a3 + 40) = a3 + 56;
-  *(a3 + 48) = 0x200000000;
+  *(a1 + 5) = a1 + 56;
+  *(a1 + 6) = 0x200000000;
   if (v14)
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a3 + 40, &v13);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a1 + 40, &v13);
     v5 = v13;
     if (!v14)
     {
@@ -2552,24 +2508,24 @@ LABEL_14:
   }
 }
 
-void mlir::presburger::PresburgerSet::intersect(mlir::presburger::PresburgerSet *this@<X0>, const mlir::presburger::PresburgerRelation *a2@<X1>, uint64_t a3@<X8>)
+void mlir::presburger::PresburgerSet::intersect(__int128 *__return_ptr a1@<X8>, mlir::presburger::PresburgerSet *this@<X0>, const mlir::presburger::PresburgerRelation *a3@<X1>)
 {
   v14[156] = *MEMORY[0x277D85DE8];
-  mlir::presburger::PresburgerRelation::intersect(this, a2, &v8);
-  *a3 = v8;
-  *(a3 + 16) = v9;
-  *(a3 + 24) = a3 + 40;
-  *(a3 + 32) = 0;
-  if (&v8 != a3 && v11)
+  mlir::presburger::PresburgerRelation::intersect(this, a3, &v8);
+  *a1 = v8;
+  *(a1 + 16) = v9;
+  *(a1 + 3) = a1 + 40;
+  *(a1 + 4) = 0;
+  if (&v8 != a1 && v11)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(a3 + 40) = a3 + 56;
-  *(a3 + 48) = 0x200000000;
+  *(a1 + 5) = a1 + 56;
+  *(a1 + 6) = 0x200000000;
   if (v13)
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a3 + 40, &v12);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a1 + 40, &v12);
     v4 = v12;
     if (!v13)
     {
@@ -2603,24 +2559,24 @@ LABEL_9:
   }
 }
 
-void mlir::presburger::PresburgerSet::subtract(mlir::presburger::PresburgerSet *this@<X0>, const mlir::presburger::PresburgerRelation *a2@<X1>, uint64_t a3@<X8>)
+void mlir::presburger::PresburgerSet::subtract(__int128 *__return_ptr a1@<X8>, mlir::presburger::PresburgerSet *this@<X0>, const mlir::presburger::PresburgerRelation *a3@<X1>)
 {
   v14[156] = *MEMORY[0x277D85DE8];
-  mlir::presburger::PresburgerRelation::subtract(this, a2, &v8);
-  *a3 = v8;
-  *(a3 + 16) = v9;
-  *(a3 + 24) = a3 + 40;
-  *(a3 + 32) = 0;
-  if (&v8 != a3 && v11)
+  mlir::presburger::PresburgerRelation::subtract(&v8, this, a3);
+  *a1 = v8;
+  *(a1 + 16) = v9;
+  *(a1 + 3) = a1 + 40;
+  *(a1 + 4) = 0;
+  if (&v8 != a1 && v11)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(a3 + 40) = a3 + 56;
-  *(a3 + 48) = 0x200000000;
+  *(a1 + 5) = a1 + 56;
+  *(a1 + 6) = 0x200000000;
   if (v13)
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a3 + 40, &v12);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a1 + 40, &v12);
     v4 = v12;
     if (!v13)
     {
@@ -2654,56 +2610,56 @@ LABEL_9:
   }
 }
 
-void mlir::presburger::PresburgerSet::coalesce(mlir::presburger::PresburgerSet *this, uint64_t a2)
+void mlir::presburger::PresburgerSet::coalesce(mlir::presburger::PresburgerSet *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v4 = v3;
-  v17 = *MEMORY[0x277D85DE8];
-  mlir::presburger::SetCoalescer::SetCoalescer(v16, v2);
-  mlir::presburger::SetCoalescer::coalesce(v16, &v9);
-  mlir::presburger::SetCoalescer::~SetCoalescer(v16);
-  *v4 = v9;
-  *(v4 + 16) = v10;
-  *(v4 + 24) = v4 + 40;
-  *(v4 + 32) = 0;
-  if (&v9 != v4 && v12)
+  v1 = MEMORY[0x28223BE20](this);
+  v3 = v2;
+  v16 = *MEMORY[0x277D85DE8];
+  mlir::presburger::SetCoalescer::SetCoalescer(v15, v1);
+  mlir::presburger::SetCoalescer::coalesce(v15, &v8);
+  mlir::presburger::SetCoalescer::~SetCoalescer(v15);
+  *v3 = v8;
+  *(v3 + 16) = v9;
+  *(v3 + 24) = v3 + 40;
+  *(v3 + 32) = 0;
+  if (&v8 != v3 && v11)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(v4 + 40) = v4 + 56;
-  *(v4 + 48) = 0x200000000;
-  if (v14)
+  *(v3 + 40) = v3 + 56;
+  *(v3 + 48) = 0x200000000;
+  if (v13)
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v4 + 40, &v13);
-    v5 = v13;
-    if (!v14)
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v3 + 40, &v12);
+    v4 = v12;
+    if (!v13)
     {
       goto LABEL_9;
     }
 
-    v6 = -624 * v14;
-    v7 = v13 + 624 * v14 - 624;
-    v8 = v7;
+    v5 = -624 * v13;
+    v6 = v12 + 624 * v13 - 624;
+    v7 = v6;
     do
     {
-      (**v8)(v8);
-      v8 -= 78;
-      v7 -= 624;
-      v6 += 624;
+      (**v7)(v7);
+      v7 -= 78;
+      v6 -= 624;
+      v5 += 624;
     }
 
-    while (v6);
+    while (v5);
   }
 
-  v5 = v13;
+  v4 = v12;
 LABEL_9:
-  if (v5 != &v15)
+  if (v4 != &v14)
   {
-    free(v5);
+    free(v4);
   }
 
-  if (__src != &v13)
+  if (__src != &v12)
   {
     free(__src);
   }
@@ -2723,7 +2679,7 @@ mlir::presburger::SymbolicLexOpt *mlir::presburger::SymbolicLexOpt::SymbolicLexO
 
   *(this + 5) = this + 56;
   *(this + 6) = 0x400000000;
-  mlir::presburger::PresburgerSpace::getDomainSpace(a2, &v5);
+  mlir::presburger::PresburgerSpace::getDomainSpace(&v5, a2);
   *(this + 8056) = v5;
   *(this + 8072) = v6;
   *(this + 1010) = this + 8096;
@@ -2743,37 +2699,37 @@ mlir::presburger::SymbolicLexOpt *mlir::presburger::SymbolicLexOpt::SymbolicLexO
   return this;
 }
 
-uint64_t llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::operator=(uint64_t a1, uint64_t a2)
+char ***llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::operator=(char ***a1, char ***a2)
 {
   if (a1 != a2)
   {
     v4 = *a2;
-    if (*a2 != a2 + 16)
+    if (*a2 != (a2 + 2))
     {
       llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::assignRemote(a1, a2);
       return a1;
     }
 
-    v5 = *(a2 + 8);
-    v6 = *(a1 + 8);
+    v5 = *(a2 + 2);
+    v6 = *(a1 + 2);
     if (v6 < v5)
     {
-      if (*(a1 + 12) < v5)
+      if (*(a1 + 3) < v5)
       {
         if (v6)
         {
           v7 = *a1;
-          v8 = *a1 + 2000 * v6;
+          v8 = &(*a1)[250 * v6];
           do
           {
             mlir::presburger::MultiAffineFunction::~MultiAffineFunction((v8 - 696));
             v9 = (v8 - 1960);
-            v10 = *(v8 - 1960);
-            v11 = *(v8 - 1952);
+            v10 = *(v8 - 245);
+            v11 = *(v8 - 488);
             if (v11)
             {
               v12 = -624 * v11;
-              v13 = v10 + 624 * v11 - 624;
+              v13 = &v10[624 * v11 - 624];
               v14 = v13;
               do
               {
@@ -2787,12 +2743,12 @@ uint64_t llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::operator=
               v10 = *v9;
             }
 
-            if (v10 != (v8 - 1944))
+            if (v10 != v8 - 1944)
             {
               free(v10);
             }
 
-            v15 = *(v8 - 1976);
+            v15 = *(v8 - 247);
             if (v15 != v9)
             {
               free(v15);
@@ -2804,7 +2760,7 @@ uint64_t llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::operator=
           while (v8 != v7);
         }
 
-        *(a1 + 8) = 0;
+        *(a1 + 2) = 0;
         llvm::SmallVectorBase<unsigned int>::mallocForGrow();
       }
 
@@ -2816,19 +2772,19 @@ uint64_t llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::operator=
         {
           mlir::presburger::PWMAFunction::Piece::operator=(v19, v4);
           v4 += 2000;
-          v19 += 2000;
+          v19 += 250;
           v20 -= 2000;
         }
 
         while (v20);
         v19 = *a1;
         v21 = *a2;
-        v22 = *(a2 + 8);
+        v22 = *(a2 + 2);
         if (v6 == v22)
         {
 LABEL_54:
-          *(a1 + 8) = v5;
-          v43 = *(a2 + 8);
+          *(a1 + 2) = v5;
+          v43 = *(a2 + 2);
           if (v43)
           {
             v44 = &v21[2000 * v43];
@@ -2873,7 +2829,7 @@ LABEL_54:
           }
 
 LABEL_65:
-          *(a2 + 8) = 0;
+          *(a2 + 2) = 0;
           return a1;
         }
       }
@@ -2882,14 +2838,14 @@ LABEL_65:
       {
         LODWORD(v6) = 0;
         v21 = *a2;
-        LODWORD(v22) = *(a2 + 8);
+        LODWORD(v22) = *(a2 + 2);
         if (!v22)
         {
           goto LABEL_54;
         }
       }
 
-      v40 = &v19[2000 * v6];
+      v40 = &v19[250 * v6];
       v41 = &v21[2000 * v6];
       v42 = 2000 * v22 - 2000 * v6;
       do
@@ -2905,7 +2861,7 @@ LABEL_65:
     }
 
     v16 = *a1;
-    v53 = *(a2 + 8);
+    v53 = *(a2 + 2);
     if (v5)
     {
       v17 = 2000 * v5;
@@ -2913,31 +2869,31 @@ LABEL_65:
       {
         mlir::presburger::PWMAFunction::Piece::operator=(v16, v4);
         v4 += 2000;
-        v16 += 2000;
+        v16 += 250;
         v17 -= 2000;
       }
 
       while (v17);
-      v18 = *a1 + 2000 * *(a1 + 8);
+      v18 = &(*a1)[250 * *(a1 + 2)];
       if (v18 == v16)
       {
 LABEL_39:
-        *(a1 + 8) = v53;
-        v30 = *(a2 + 8);
+        *(a1 + 2) = v53;
+        v30 = *(a2 + 2);
         if (v30)
         {
           v31 = *a2;
-          v32 = *a2 + 2000 * v30;
+          v32 = &(*a2)[250 * v30];
           do
           {
             mlir::presburger::MultiAffineFunction::~MultiAffineFunction((v32 - 696));
             v33 = (v32 - 1960);
-            v34 = *(v32 - 1960);
-            v35 = *(v32 - 1952);
+            v34 = *(v32 - 245);
+            v35 = *(v32 - 488);
             if (v35)
             {
               v36 = -624 * v35;
-              v37 = v34 + 624 * v35 - 624;
+              v37 = &v34[624 * v35 - 624];
               v38 = v37;
               do
               {
@@ -2951,12 +2907,12 @@ LABEL_39:
               v34 = *v33;
             }
 
-            if (v34 != (v32 - 1944))
+            if (v34 != v32 - 1944)
             {
               free(v34);
             }
 
-            v39 = *(v32 - 1976);
+            v39 = *(v32 - 247);
             if (v39 != v33)
             {
               free(v39);
@@ -2974,7 +2930,7 @@ LABEL_39:
 
     else
     {
-      v18 = &v16[2000 * v6];
+      v18 = &v16[250 * v6];
       if (v18 == v16)
       {
         goto LABEL_39;
@@ -2985,12 +2941,12 @@ LABEL_39:
     {
       mlir::presburger::MultiAffineFunction::~MultiAffineFunction((v18 - 696));
       v23 = (v18 - 1960);
-      v24 = *(v18 - 1960);
-      v25 = *(v18 - 1952);
+      v24 = *(v18 - 245);
+      v25 = *(v18 - 488);
       if (v25)
       {
         v26 = -624 * v25;
-        v27 = v24 + 624 * v25 - 624;
+        v27 = &v24[624 * v25 - 624];
         v28 = v27;
         do
         {
@@ -3004,12 +2960,12 @@ LABEL_39:
         v24 = *v23;
       }
 
-      if (v24 != (v18 - 1944))
+      if (v24 != v18 - 1944)
       {
         free(v24);
       }
 
-      v29 = *(v18 - 1976);
+      v29 = *(v18 - 247);
       if (v29 != v23)
       {
         free(v29);
@@ -3025,17 +2981,17 @@ LABEL_39:
   return a1;
 }
 
-double llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::assignRemote(char **a1, char **a2)
+double llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::assignRemote(char ***a1, char **a2)
 {
   v4 = *a1;
   v5 = *(a1 + 2);
   if (v5)
   {
-    v6 = &v4[2000 * v5];
+    v6 = &v4[250 * v5];
     do
     {
-      mlir::presburger::MultiAffineFunction::~MultiAffineFunction((v6 - 696));
-      v7 = (v6 - 1960);
+      mlir::presburger::MultiAffineFunction::~MultiAffineFunction((v6 - 87));
+      v7 = (v6 - 245);
       v8 = *(v6 - 245);
       v9 = *(v6 - 488);
       if (v9)
@@ -3055,7 +3011,7 @@ double llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::assignRemot
         v8 = *v7;
       }
 
-      if (v8 != v6 - 1944)
+      if (v8 != (v6 - 243))
       {
         free(v8);
       }
@@ -3066,7 +3022,7 @@ double llvm::SmallVectorImpl<mlir::presburger::PWMAFunction::Piece>::assignRemot
         free(v13);
       }
 
-      v6 -= 2000;
+      v6 -= 250;
     }
 
     while (v6 != v4);
@@ -3093,7 +3049,7 @@ uint64_t mlir::presburger::PWMAFunction::Piece::operator=(uint64_t a1, __int128 
   *a1 = v4;
   if (a1 == a2)
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a1 + 40, a2 + 40);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=((a1 + 40), a2 + 5);
     v9 = *(a2 + 1320);
     *(a1 + 1304) = *(a2 + 1304);
     *(a1 + 1320) = v9;
@@ -3101,7 +3057,7 @@ uint64_t mlir::presburger::PWMAFunction::Piece::operator=(uint64_t a1, __int128 
 
   else
   {
-    v6 = (a2 + 2);
+    v6 = a2 + 2;
     v5 = *(a2 + 8);
     if (v5)
     {
@@ -3126,7 +3082,7 @@ uint64_t mlir::presburger::PWMAFunction::Piece::operator=(uint64_t a1, __int128 
     }
 
     *v6 = 0;
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(a1 + 40, a2 + 40);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=((a1 + 40), a2 + 5);
     v10 = *(a2 + 1304);
     *(a1 + 1320) = *(a2 + 1320);
     *(a1 + 1304) = v10;
@@ -3159,18 +3115,18 @@ uint64_t mlir::presburger::PWMAFunction::Piece::operator=(uint64_t a1, __int128 
   v14 = *(a2 + 168);
   *(a1 + 1352) = *(a2 + 338);
   *(a1 + 1344) = v14;
-  llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((a1 + 1360), a2 + 170);
+  llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a1 + 1360, a2 + 170);
   v15 = *(a2 + 410);
   *(a1 + 1632) = *(a2 + 204);
   *(a1 + 1640) = v15;
-  llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((a1 + 1648), a2 + 206);
-  llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((a1 + 1920), a2 + 240);
+  llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a1 + 1648, a2 + 206);
+  llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a1 + 1920, a2 + 240);
   return a1;
 }
 
-void llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::moveElementsForGrow(uint64_t a1, uint64_t a2)
+void llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::moveElementsForGrow(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   if (v2)
   {
     v5 = *a1;
@@ -3184,7 +3140,7 @@ void llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>:
     }
 
     while (v6);
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7)
     {
       v8 = *a1;
@@ -3236,7 +3192,7 @@ uint64_t mlir::presburger::PWMAFunction::Piece::Piece(uint64_t a1, __int128 *a2)
   v4 = *a2;
   *(a1 + 16) = *(a2 + 16);
   *a1 = v4;
-  v5 = a1 + 40;
+  v5 = (a1 + 40);
   *(a1 + 24) = a1 + 40;
   v6 = a1 + 24;
   *(a1 + 32) = 0;
@@ -3249,7 +3205,7 @@ uint64_t mlir::presburger::PWMAFunction::Piece::Piece(uint64_t a1, __int128 *a2)
   *(a1 + 48) = 0x200000000;
   if (*(a2 + 12))
   {
-    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v5, a2 + 40);
+    llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v5, a2 + 5);
   }
 
   v7 = *(a2 + 1304);
@@ -3269,7 +3225,7 @@ uint64_t mlir::presburger::PWMAFunction::Piece::Piece(uint64_t a1, __int128 *a2)
   *(a1 + 1368) = 0x1000000000;
   if (*(a2 + 342))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((a1 + 1360), a2 + 170);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a1 + 1360, a2 + 170);
   }
 
   v9 = *(a2 + 204);
@@ -3279,14 +3235,14 @@ uint64_t mlir::presburger::PWMAFunction::Piece::Piece(uint64_t a1, __int128 *a2)
   *(a1 + 1656) = 0x1000000000;
   if (*(a2 + 414))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((a1 + 1648), a2 + 206);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a1 + 1648, a2 + 206);
   }
 
   *(a1 + 1920) = a1 + 1936;
   *(a1 + 1928) = 0x400000000;
   if (*(a2 + 482))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((a1 + 1920), a2 + 240);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a1 + 1920, a2 + 240);
   }
 
   return a1;
@@ -3417,7 +3373,7 @@ uint64_t getSetDifference(mlir::presburger::IntegerRelation,mlir::presburger::Pr
   return a1;
 }
 
-void getIneqCoeffsFromIdx(const mlir::presburger::IntegerRelation *a1, uint64_t a2, unsigned int a3)
+void getIneqCoeffsFromIdx(const mlir::presburger::IntegerRelation *a1, uint64_t a2, uint64_t a3)
 {
   if (a3 < *(a2 + 336))
   {
@@ -3833,7 +3789,7 @@ LABEL_12:
     }
 
     *(v2 + 2) = 0;
-    llvm::SmallVectorTemplateBase<llvm::SmallVector<int,8u>,false>::grow();
+    llvm::SmallVectorTemplateBase<llvm::SmallVector<int,8u>,false>::grow(v2, v4);
   }
 
   if (v5)
@@ -4101,10 +4057,10 @@ mlir::presburger::SimplexBase *mlir::presburger::SimplexBase::SimplexBase(mlir::
   v5 = *(a2 + 3);
   v6 = *(a2 + 8);
   *(this + 5) = this + 56;
-  v7 = (this + 40);
+  v7 = this + 40;
   *(v7 - 2) = v6;
   *(v7 - 2) = v5;
-  v7[1] = 0x1000000000;
+  *(v7 + 1) = 0x1000000000;
   if (*(a2 + 12))
   {
     llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v7, a2 + 5);
@@ -4206,7 +4162,7 @@ mlir::presburger::SimplexBase *mlir::presburger::SimplexBase::SimplexBase(mlir::
   return this;
 }
 
-void llvm::SmallVectorTemplateBase<llvm::SmallVector<llvm::DynamicAPInt,2u>,false>::moveElementsForGrow(uint64_t *a1, uint64_t a2)
+void llvm::SmallVectorTemplateBase<llvm::SmallVector<llvm::DynamicAPInt,2u>,false>::moveElementsForGrow(uint64_t *a1, void *a2)
 {
   v2 = *(a1 + 2);
   if (v2)
@@ -4215,14 +4171,14 @@ void llvm::SmallVectorTemplateBase<llvm::SmallVector<llvm::DynamicAPInt,2u>,fals
     v6 = 48 * v2;
     do
     {
-      *a2 = a2 + 16;
-      *(a2 + 8) = 0x200000000;
+      *a2 = a2 + 2;
+      a2[1] = 0x200000000;
       if (*(v5 + 8))
       {
         llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(a2, v5);
       }
 
-      a2 += 48;
+      a2 += 6;
       v5 += 48;
       v6 -= 48;
     }
@@ -4284,7 +4240,7 @@ void llvm::SmallVectorTemplateBase<llvm::SmallVector<llvm::DynamicAPInt,2u>,fals
   }
 }
 
-void *mlir::presburger::Identifier::print(mlir::presburger::Identifier *this, llvm::raw_ostream *a2)
+llvm::raw_ostream *mlir::presburger::Identifier::print(mlir::presburger::Identifier *this, llvm::raw_ostream *a2)
 {
   v3 = *(a2 + 4);
   if ((*(a2 + 3) - v3) > 2)
@@ -4293,8 +4249,8 @@ void *mlir::presburger::Identifier::print(mlir::presburger::Identifier *this, ll
     *v3 = 25673;
     *(a2 + 4) += 3;
     result = llvm::raw_ostream::operator<<(a2, *this);
-    v6 = result[4];
-    if (result[3] != v6)
+    v6 = *(result + 4);
+    if (*(result + 3) != v6)
     {
       goto LABEL_3;
     }
@@ -4304,12 +4260,12 @@ void *mlir::presburger::Identifier::print(mlir::presburger::Identifier *this, ll
   {
     v4 = llvm::raw_ostream::write(a2, "Id<", 3uLL);
     result = llvm::raw_ostream::operator<<(v4, *this);
-    v6 = result[4];
-    if (result[3] != v6)
+    v6 = *(result + 4);
+    if (*(result + 3) != v6)
     {
 LABEL_3:
       *v6 = 62;
-      ++result[4];
+      ++*(result + 4);
       return result;
     }
   }
@@ -4317,11 +4273,11 @@ LABEL_3:
   return llvm::raw_ostream::write(result, ">", 1uLL);
 }
 
-void *mlir::presburger::Identifier::dump(mlir::presburger::Identifier *this)
+llvm::raw_ostream *mlir::presburger::Identifier::dump(mlir::presburger::Identifier *this)
 {
   v2 = llvm::errs(this);
-  v3 = v2[4];
-  if ((v2[3] - v3) <= 2)
+  v3 = *(v2 + 4);
+  if ((*(v2 + 3) - v3) <= 2)
   {
     v4 = llvm::raw_ostream::write(v2, "Id<", 3uLL);
     v5 = llvm::raw_ostream::operator<<(v4, *this);
@@ -4334,8 +4290,8 @@ void *mlir::presburger::Identifier::dump(mlir::presburger::Identifier *this)
 LABEL_6:
     v9 = llvm::raw_ostream::write(v5, ">", 1uLL);
     result = llvm::errs(v9);
-    v8 = result[4];
-    if (result[3] != v8)
+    v8 = *(result + 4);
+    if (*(result + 3) != v8)
     {
       goto LABEL_4;
     }
@@ -4345,7 +4301,7 @@ LABEL_6:
 
   *(v3 + 2) = 60;
   *v3 = 25673;
-  v2[4] += 3;
+  *(v2 + 4) += 3;
   v5 = llvm::raw_ostream::operator<<(v2, *this);
   v6 = *(v5 + 4);
   if (*(v5 + 3) == v6)
@@ -4357,12 +4313,12 @@ LABEL_3:
   *v6 = 62;
   ++*(v5 + 4);
   result = llvm::errs(v5);
-  v8 = result[4];
-  if (result[3] != v8)
+  v8 = *(result + 4);
+  if (*(result + 3) != v8)
   {
 LABEL_4:
     *v8 = 10;
-    ++result[4];
+    ++*(result + 4);
     return result;
   }
 
@@ -4371,72 +4327,73 @@ LABEL_7:
   return llvm::raw_ostream::write(result, "\n", 1uLL);
 }
 
-unsigned int *mlir::presburger::PresburgerSpace::getDomainSpace@<X0>(unsigned int *this@<X0>, unsigned int *a2@<X8>)
+uint64_t *mlir::presburger::PresburgerSpace::getDomainSpace@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = this;
-  *a2 = *this;
-  *(a2 + 16) = *(this + 16);
-  *(a2 + 3) = a2 + 10;
-  v4 = (a2 + 6);
-  *(a2 + 4) = 0;
-  if (a2 != this && this[8])
+  *a1 = *this;
+  *(a1 + 16) = *(this + 16);
+  a1[3] = (a1 + 5);
+  v4 = (a1 + 3);
+  a1[4] = 0;
+  if (a1 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v5 = this[1];
+  v5 = *(this + 1);
   if (v5)
   {
-    a2[1] -= v5;
-    if (*(a2 + 16) == 1)
+    *(a1 + 1) -= v5;
+    if (*(a1 + 16) == 1)
     {
-      v6 = *(a2 + 3);
-      v7 = &v6[24 * *a2];
+      v6 = a1[3];
+      v7 = &v6[24 * *a1];
       v8 = &v7[24 * v5];
       v9 = v6 - v8;
       if (v6 != v8)
       {
-        this = memmove(&v6[24 * *a2], v8, v6 - v8);
+        this = memmove(&v6[24 * *a1], v8, v6 - v8);
         v6 = *v4;
       }
 
-      a2[8] = -1431655765 * ((&v7[v9] - v6) >> 3);
+      *(a1 + 8) = -1431655765 * ((&v7[v9] - v6) >> 3);
     }
   }
 
   v10 = *v2;
-  v11 = *a2;
-  if (*(a2 + 16) == 1)
+  v11 = *a1;
+  if (*(a1 + 16) == 1)
   {
-    v12 = *v4 + 24 * v11;
-    memset(v18, 0, sizeof(v18));
-    this = llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert((a2 + 6), v12, v10, v18);
+    v12 = (*v4 + 24 * v11);
+    v18 = 0uLL;
+    v19 = 0;
+    this = llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert((a1 + 3), v12, v10, &v18);
     if (v10)
     {
       this = memmove(*v4 + 24 * v11, *v4, 24 * v10);
     }
 
-    v13 = *(a2 + 3);
-    v14 = a2[8];
+    v13 = a1[3];
+    v14 = *(a1 + 8);
     v15 = 24 * (v14 - v10);
     if (v14 == v10)
     {
-      v16 = *(a2 + 3);
+      v16 = a1[3];
     }
 
     else
     {
-      this = memmove(*(a2 + 3), (v13 + 24 * v10), v15);
+      this = memmove(a1[3], (v13 + 24 * v10), v15);
       v16 = *v4;
     }
 
-    a2[8] = -1431655765 * ((v13 + v15 - v16) >> 3);
-    v11 = *a2;
+    *(a1 + 8) = -1431655765 * ((v13 + v15 - v16) >> 3);
+    v11 = *a1;
   }
 
-  v17 = a2[1] + v10;
-  *a2 = v11 - v10;
-  a2[1] = v17;
+  v17 = *(a1 + 1) + v10;
+  *a1 = v11 - v10;
+  *(a1 + 1) = v17;
   return this;
 }
 
@@ -4533,11 +4490,10 @@ LABEL_16:
 LABEL_17:
           if (v12)
           {
-            v13 = (result + 24);
-            v14 = *(result + 3) + 24 * v11;
-            v29 = 0;
+            v13 = result + 24;
+            v14 = (*(result + 3) + 24 * v11);
+            v29 = 0uLL;
             v30 = 0;
-            v31 = 0;
             result = llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert((result + 24), v14, a4, &v29);
             if (v11 >= v10)
             {
@@ -4576,10 +4532,9 @@ LABEL_33:
 LABEL_26:
         if (v12)
         {
-          v24 = *(result + 3) + 24 * v11;
-          v29 = 0;
+          v24 = (*(result + 3) + 24 * v11);
+          v29 = 0uLL;
           v30 = 0;
-          v31 = 0;
           result = llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert((result + 24), v24, a4, &v29);
         }
 
@@ -4720,14 +4675,14 @@ LABEL_45:
   return result;
 }
 
-unsigned int *mlir::presburger::PresburgerSpace::getRangeSpace@<X0>(unsigned int *this@<X0>, uint64_t a2@<X8>)
+const void **mlir::presburger::PresburgerSpace::getRangeSpace@<X0>(const void **this@<X0>, uint64_t a2@<X8>)
 {
   *a2 = *this;
   *(a2 + 16) = *(this + 16);
   *(a2 + 24) = a2 + 40;
   v3 = (a2 + 24);
   *(a2 + 32) = 0;
-  if (a2 != this && this[8])
+  if (a2 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
@@ -4748,21 +4703,21 @@ unsigned int *mlir::presburger::PresburgerSpace::getRangeSpace@<X0>(unsigned int
   return this;
 }
 
-uint64_t mlir::presburger::PresburgerSpace::getSpaceWithoutLocals@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+const void **mlir::presburger::PresburgerSpace::getSpaceWithoutLocals@<X0>(const void **this@<X0>, const void **a2@<X8>)
 {
   *a2 = *this;
   *(a2 + 16) = *(this + 16);
-  *(a2 + 24) = a2 + 40;
-  *(a2 + 32) = 0;
-  if (a2 != this && *(this + 32))
+  a2[3] = a2 + 5;
+  a2[4] = 0;
+  if (a2 != this && *(this + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v3 = *(this + 12);
+  v3 = *(this + 3);
   if (v3)
   {
-    *(a2 + 12) -= v3;
+    *(a2 + 3) -= v3;
   }
 
   return this;
@@ -4917,8 +4872,9 @@ uint64_t mlir::presburger::PresburgerSpace::insertVar(uint64_t a1, int a2, uint6
 
 LABEL_9:
       v6 = *(a1 + 24);
-      memset(v8, 0, sizeof(v8));
-      llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(a1 + 24, v6 + 24 * v4, a4, v8);
+      v8 = 0uLL;
+      v9 = 0;
+      llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(a1 + 24, (v6 + 24 * v4), a4, &v8);
       return v4;
     case 2:
       *a1 += a4;
@@ -4935,7 +4891,7 @@ LABEL_9:
   return v7;
 }
 
-char *llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+char *llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(uint64_t a1, __int128 *a2, unint64_t a3, __int128 *a4)
 {
   v4 = a4;
   v5 = a3;
@@ -4965,7 +4921,7 @@ char *llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(uint64_t a1, u
       do
       {
         v23 = *a4;
-        *(v21 + 16) = *(a4 + 16);
+        *(v21 + 16) = *(a4 + 2);
         *v21 = v23;
         v21 += 24;
         --v22;
@@ -5361,14 +5317,14 @@ BOOL mlir::presburger::PresburgerSpace::isAligned(unsigned int *a1, unsigned int
 
   if (!*(a1 + 16))
   {
-    v5 = (a1 + 2);
-    v6 = (a2 + 2);
-    v7 = (a1 + 3);
-    v8 = (a2 + 3);
+    v5 = a1 + 2;
+    v6 = a2 + 2;
+    v7 = a1 + 3;
+    v8 = a2 + 3;
     if (a3 == 3)
     {
-      v7 = (a1 + 1);
-      v8 = (a2 + 1);
+      v7 = a1 + 1;
+      v8 = a2 + 1;
     }
 
     if (a3 == 2)
@@ -5511,7 +5467,7 @@ LABEL_31:
       ++*(this + 2);
       if (*(this + 16) == 1)
       {
-        v32 = *v5 + 24 * (v8 + v31 + v30);
+        v32 = (*v5 + 24 * (v8 + v31 + v30));
         v39 = 0uLL;
         v40 = 0;
         llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(v5, v32, 1uLL, &v39);
@@ -5628,7 +5584,7 @@ LABEL_12:
     {
       v39 = 0uLL;
       v40 = 0;
-      llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(a2 + 24, v12 + 24 * (v15 + v8), 1uLL, &v39);
+      llvm::SmallVectorImpl<mlir::presburger::Identifier>::insert(a2 + 24, (v12 + 24 * (v15 + v8)), 1uLL, &v39);
       v21 = *(a2 + 16);
       v13 = *a2;
       v14 = *(a2 + 1);
@@ -5694,7 +5650,7 @@ LABEL_24:
   return a3.n128_f64[0];
 }
 
-void *mlir::presburger::PresburgerSpace::print(mlir::presburger::PresburgerSpace *this, llvm::raw_ostream *a2)
+llvm::raw_ostream *mlir::presburger::PresburgerSpace::print(mlir::presburger::PresburgerSpace *this, llvm::raw_ostream *a2)
 {
   v4 = *(a2 + 4);
   if (*(a2 + 3) - v4 > 7uLL)
@@ -5814,8 +5770,8 @@ LABEL_8:
     *v17 = 0x203A736C61636F4CLL;
     *(v14 + 4) += 8;
     result = llvm::raw_ostream::operator<<(v14, *(this + 3));
-    v19 = result[4];
-    if (result[3] != v19)
+    v19 = *(result + 4);
+    if (*(result + 3) != v19)
     {
       goto LABEL_9;
     }
@@ -5826,12 +5782,12 @@ LABEL_8:
 LABEL_17:
   v22 = llvm::raw_ostream::write(v14, "Locals: ", 8uLL);
   result = llvm::raw_ostream::operator<<(v22, *(this + 3));
-  v19 = result[4];
-  if (result[3] != v19)
+  v19 = *(result + 4);
+  if (*(result + 3) != v19)
   {
 LABEL_9:
     *v19 = 10;
-    ++result[4];
+    ++*(result + 4);
     if (*(this + 16) != 1)
     {
       return result;
@@ -5908,15 +5864,15 @@ LABEL_18:
   return result;
 }
 
-void *mlir::presburger::PresburgerSpace::print(llvm::raw_ostream &)const::$_0::operator()(void *a1, int a2)
+llvm::raw_ostream *mlir::presburger::PresburgerSpace::print(llvm::raw_ostream &)const::$_0::operator()(llvm::raw_ostream **a1, int a2)
 {
   result = *a1;
   v5 = a1[1];
-  v7 = result[4];
-  if (result[3] != v7)
+  v7 = *(result + 4);
+  if (*(result + 3) != v7)
   {
     *v7 = 32;
-    ++result[4];
+    ++*(result + 4);
     v8 = *(v5 + 3);
     if (a2)
     {
@@ -5925,9 +5881,9 @@ void *mlir::presburger::PresburgerSpace::print(llvm::raw_ostream &)const::$_0::o
 
 LABEL_8:
     v10 = *v5;
-    v11 = v5[1];
-    v5 += 2;
-    v8 += 3 * v11 + 3 * v10;
+    v11 = *(v5 + 1);
+    v5 = (v5 + 8);
+    v8 += 3 * (v11 + v10);
 LABEL_9:
     v9 = *v5;
     if (!v9)
@@ -5953,9 +5909,9 @@ LABEL_3:
 
   if (a2 != 3)
   {
-    v8 += 3 * v5[1] + 3 * *v5 + 3 * v5[2];
-    v9 = v5[3];
-    if (!v5[3])
+    v8 += 3 * (*(v5 + 1) + *v5 + *(v5 + 2));
+    v9 = *(v5 + 3);
+    if (!*(v5 + 3))
     {
       return result;
     }
@@ -5964,7 +5920,7 @@ LABEL_3:
   }
 
   v8 += 3 * *v5;
-  v9 = v5[1];
+  v9 = *(v5 + 1);
   if (v9)
   {
 LABEL_10:
@@ -5974,8 +5930,8 @@ LABEL_10:
       {
         v13 = *v8;
         v14 = *a1;
-        v15 = *(*a1 + 32);
-        v16 = *(*a1 + 24) - v15;
+        v15 = *(*a1 + 4);
+        v16 = *(*a1 + 3) - v15;
         if (!*v8)
         {
           break;
@@ -5985,14 +5941,14 @@ LABEL_10:
         {
           *(v15 + 2) = 60;
           *v15 = 25673;
-          v14[4] += 3;
+          *(v14 + 4) += 3;
           v14 = llvm::raw_ostream::operator<<(v14, v13);
-          v18 = v14[4];
-          if (v14[3] != v18)
+          v18 = *(v14 + 4);
+          if (*(v14 + 3) != v18)
           {
 LABEL_15:
             *v18 = 62;
-            v19 = v14[4] + 1;
+            v19 = *(v14 + 4) + 1;
             goto LABEL_23;
           }
         }
@@ -6001,8 +5957,8 @@ LABEL_15:
         {
           v17 = llvm::raw_ostream::write(v14, "Id<", 3uLL);
           v14 = llvm::raw_ostream::operator<<(v17, v13);
-          v18 = v14[4];
-          if (v14[3] != v18)
+          v18 = *(v14 + 4);
+          if (*(v14 + 3) != v18)
           {
             goto LABEL_15;
           }
@@ -6010,15 +5966,15 @@ LABEL_15:
 
         llvm::raw_ostream::write(v14, ">", 1uLL);
         result = *a1;
-        v20 = *(*a1 + 32);
-        if (*(*a1 + 24) == v20)
+        v20 = *(*a1 + 4);
+        if (*(*a1 + 3) == v20)
         {
           goto LABEL_24;
         }
 
 LABEL_11:
         *v20 = 32;
-        ++result[4];
+        ++*(result + 4);
         v8 += 3;
         i -= 24;
         if (!i)
@@ -6031,8 +5987,8 @@ LABEL_11:
       {
         llvm::raw_ostream::write(v14, "None", 4uLL);
         result = *a1;
-        v20 = *(*a1 + 32);
-        if (*(*a1 + 24) == v20)
+        v20 = *(*a1 + 4);
+        if (*(*a1 + 3) == v20)
         {
           goto LABEL_24;
         }
@@ -6041,12 +5997,12 @@ LABEL_11:
       }
 
       *v15 = 1701736270;
-      v19 = v14[4] + 4;
+      v19 = *(v14 + 4) + 4;
 LABEL_23:
-      v14[4] = v19;
+      *(v14 + 4) = v19;
       result = *a1;
-      v20 = *(*a1 + 32);
-      if (*(*a1 + 24) != v20)
+      v20 = *(*a1 + 4);
+      if (*(*a1 + 3) != v20)
       {
         goto LABEL_11;
       }
@@ -6060,13 +6016,13 @@ LABEL_24:
   return result;
 }
 
-void *mlir::presburger::PresburgerSpace::dump(mlir::presburger::PresburgerSpace *this)
+llvm::raw_ostream *mlir::presburger::PresburgerSpace::dump(mlir::presburger::PresburgerSpace *this)
 {
   v2 = llvm::errs(this);
   v3 = mlir::presburger::PresburgerSpace::print(this, v2);
   result = llvm::errs(v3);
-  v5 = result[4];
-  if (result[3] == v5)
+  v5 = *(result + 4);
+  if (*(result + 3) == v5)
   {
 
     return llvm::raw_ostream::write(result, "\n", 1uLL);
@@ -6075,16 +6031,16 @@ void *mlir::presburger::PresburgerSpace::dump(mlir::presburger::PresburgerSpace 
   else
   {
     *v5 = 10;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
 }
 
-void mlir::presburger::PWMAFunction::getDomain(mlir::presburger::PWMAFunction *this@<X0>, mlir::presburger::PresburgerRelation *a2@<X8>)
+void mlir::presburger::PWMAFunction::getDomain(mlir::presburger::PresburgerRelation *__return_ptr a1@<X8>, mlir::presburger::PWMAFunction *this@<X0>)
 {
-  mlir::presburger::PresburgerSpace::getDomainSpace(this, v7);
-  mlir::presburger::PresburgerSet::getEmpty(v7, a2);
+  mlir::presburger::PresburgerSpace::getDomainSpace(v7, this);
+  mlir::presburger::PresburgerSet::getEmpty(v7, a1);
   if (v8 != &v9)
   {
     free(v8);
@@ -6097,7 +6053,7 @@ void mlir::presburger::PWMAFunction::getDomain(mlir::presburger::PWMAFunction *t
     v6 = 2000 * v4;
     do
     {
-      mlir::presburger::PresburgerRelation::unionInPlace(a2, v5);
+      mlir::presburger::PresburgerRelation::unionInPlace(a1, v5);
       v5 = (v5 + 2000);
       v6 -= 2000;
     }
@@ -6106,7 +6062,7 @@ void mlir::presburger::PWMAFunction::getDomain(mlir::presburger::PWMAFunction *t
   }
 }
 
-void mlir::presburger::MultiAffineFunction::print(mlir::presburger::MultiAffineFunction *this, llvm::raw_ostream *a2)
+void mlir::presburger::MultiAffineFunction::print(llvm::DynamicAPInt **this, llvm::raw_ostream *a2)
 {
   mlir::presburger::PresburgerSpace::print(this, a2);
   v4 = *(a2 + 4);
@@ -6121,191 +6077,192 @@ void mlir::presburger::MultiAffineFunction::print(mlir::presburger::MultiAffineF
     llvm::raw_ostream::write(a2, "Division Representation:\n", 0x19uLL);
   }
 
-  mlir::presburger::DivisionRepr::print((this + 328), a2);
+  mlir::presburger::DivisionRepr::print(this + 41, a2);
 }
 
 void mlir::presburger::MultiAffineFunction::valueAt(uint64_t a1, const llvm::APInt *a2, unint64_t a3)
 {
-  v33[16] = *MEMORY[0x277D85DE8];
-  v28 = v30;
-  v29 = 0x300000000;
+  v35[16] = *MEMORY[0x277D85DE8];
+  v30 = v32;
+  v31 = 0x300000000;
   if (a3 >= 4)
   {
-    llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::grow();
+    llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::grow(&v30, a3);
   }
 
   if (a3)
   {
-    v4 = 16 * a3;
-    v6 = v30;
+    v5 = 16 * a3;
+    v7 = v32;
     do
     {
-      *v6 = *a2;
-      *(v6 + 2) = 0;
-      v7 = *(a2 + 2);
-      if (v7)
+      *v7 = *a2;
+      *(v7 + 2) = 0;
+      v8 = *(a2 + 2);
+      if (v8)
       {
-        *(v6 + 2) = v7;
-        if (v7 > 0x40)
+        *(v7 + 2) = v8;
+        if (v8 > 0x40)
         {
-          llvm::APInt::initSlowCase(v6, a2);
+          llvm::APInt::initSlowCase(v7, a2);
         }
 
-        *v6 = *a2;
+        *v7 = *a2;
       }
 
       a2 = (a2 + 16);
-      v6 = (v6 + 16);
-      v4 -= 16;
+      v7 = (v7 + 16);
+      v5 -= 16;
     }
 
-    while (v4);
-    v8 = v29;
+    while (v5);
+    v9 = v31;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v31 = v33;
-  v32 = 0x800000000;
-  LODWORD(v29) = v8 + a3;
-  if (v8 + a3)
+  v33 = v35;
+  v34 = 0x800000000;
+  LODWORD(v31) = v9 + a3;
+  if (v9 + a3)
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v31, &v28);
-    v9 = v28;
-    if (!v29)
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v33, &v30);
+    v10 = v30;
+    if (!v31)
     {
       goto LABEL_21;
     }
 
-    v10 = (v28 + 16 * v29 - 8);
-    v11 = -16 * v29;
-    v12 = v10;
+    v11 = (v30 + 16 * v31 - 8);
+    v12 = -16 * v31;
+    v13 = v11;
     do
     {
-      v14 = *v12;
-      v12 -= 4;
-      v13 = v14;
-      if (v14)
+      v15 = *v13;
+      v13 -= 4;
+      v14 = v15;
+      if (v15)
       {
-        if (v13 >= 0x41)
+        if (v14 >= 0x41)
         {
-          v15 = *(v10 - 1);
-          if (v15)
+          v16 = *(v11 - 1);
+          if (v16)
           {
-            MEMORY[0x259C63150](v15, 0x1000C8000313F17);
+            MEMORY[0x259C63150](v16, 0x1000C8000313F17);
           }
         }
       }
 
-      v10 = v12;
-      v11 += 16;
+      v11 = v13;
+      v12 += 16;
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v9 = v28;
+  v10 = v30;
 LABEL_21:
-  if (v9 != v30)
+  if (v10 != v32)
   {
-    free(v9);
+    free(v10);
   }
 
-  mlir::presburger::DivisionRepr::divValuesAt((a1 + 328), &v25);
-  v28 = v30;
-  v29 = 0x800000000;
-  if (v26)
+  mlir::presburger::DivisionRepr::divValuesAt((a1 + 328), &v27);
+  v30 = v32;
+  v31 = 0x800000000;
+  if (v28)
   {
-    llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operator=(&v28, &v25);
-    v16 = v25;
-    if (!v26)
+    llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operator=(&v30, &v27);
+    v17 = v27;
+    if (!v28)
     {
       goto LABEL_32;
     }
 
-    v17 = v25 + 24 * v26 - 8;
-    v18 = -24 * v26;
+    v18 = v27 + 24 * v28 - 8;
+    v19 = -24 * v28;
     do
     {
-      if (*v17 == 1 && *(v17 - 2) > 0x40u)
+      if (*v18 == 1 && *(v18 - 2) > 0x40u)
       {
-        v19 = *(v17 - 2);
-        if (v19)
+        v20 = *(v18 - 2);
+        if (v20)
         {
-          MEMORY[0x259C63150](v19, 0x1000C8000313F17);
+          MEMORY[0x259C63150](v20, 0x1000C8000313F17);
         }
       }
 
-      v17 -= 24;
-      v18 += 24;
+      v18 -= 24;
+      v19 += 24;
     }
 
-    while (v18);
+    while (v19);
   }
 
-  v16 = v25;
+  v17 = v27;
 LABEL_32:
-  if (v16 != &v27)
+  if (v17 != &v29)
   {
-    free(v16);
+    free(v17);
   }
 
-  if (v29 + v32 > HIDWORD(v32))
+  v21 = v31 + v34;
+  if (v21 > HIDWORD(v34))
   {
-    llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::grow();
+    llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::grow(&v33, v21);
   }
 
-  if (v29)
+  if (v31)
   {
-    v20 = v28;
-    v21 = 24 * v29;
+    v22 = v30;
+    v23 = 24 * v31;
     do
     {
-      if (v32 >= HIDWORD(v32))
+      if (v34 >= HIDWORD(v34))
       {
-        llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::growAndEmplaceBack<llvm::DynamicAPInt>();
+        llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::growAndEmplaceBack<llvm::DynamicAPInt>(&v33, v22);
       }
 
-      v22 = &v31[2 * v32];
-      *v22 = *v20;
-      *(v22 + 2) = 0;
-      v23 = *(v20 + 2);
-      if (v23)
+      v24 = &v33[2 * v34];
+      *v24 = *v22;
+      *(v24 + 2) = 0;
+      v25 = *(v22 + 2);
+      if (v25)
       {
-        *(v22 + 2) = v23;
-        if (v23 > 0x40)
+        *(v24 + 2) = v25;
+        if (v25 > 0x40)
         {
-          llvm::APInt::initSlowCase(v22, v20);
+          llvm::APInt::initSlowCase(v24, v22);
         }
 
-        *v22 = *v20;
+        *v24 = *v22;
       }
 
-      LODWORD(v32) = v32 + 1;
-      v20 = (v20 + 24);
-      v21 -= 24;
+      LODWORD(v34) = v34 + 1;
+      v22 = (v22 + 24);
+      v23 -= 24;
     }
 
-    while (v21);
+    while (v23);
   }
 
-  LODWORD(v25) = 1;
-  if (v32 < HIDWORD(v32))
+  LODWORD(v27) = 1;
+  if (v34 < HIDWORD(v34))
   {
-    v24 = &v31[2 * v32];
-    *v24 = 1;
-    *(v24 + 2) = 0;
-    LODWORD(v32) = v32 + 1;
+    v26 = &v33[2 * v34];
+    *v26 = 1;
+    *(v26 + 2) = 0;
+    LODWORD(v34) = v34 + 1;
     mlir::presburger::Matrix<llvm::DynamicAPInt>::postMultiplyWithColumn();
   }
 
-  llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::growAndEmplaceBack<int>();
+  llvm::SmallVectorTemplateBase<llvm::DynamicAPInt,false>::growAndEmplaceBack<int>(&v33, &v27);
 }
 
-void mlir::presburger::MultiAffineFunction::getAsRelation(mlir::presburger::MultiAffineFunction *this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::MultiAffineFunction::getAsRelation(uint64_t *__return_ptr a1@<X8>, mlir::presburger::MultiAffineFunction *this@<X0>)
 {
   v8[13] = *MEMORY[0x277D85DE8];
   v2 = *(this + 2);
@@ -6315,22 +6272,22 @@ void mlir::presburger::MultiAffineFunction::getAsRelation(mlir::presburger::Mult
   v5 = 0;
   v6 = v8;
   v7 = 0;
-  *a2 = &unk_286893110;
-  *(a2 + 24) = 0;
-  *(a2 + 8) = *v4;
-  *(a2 + 32) = a2 + 48;
-  *(a2 + 40) = 0;
+  *a1 = &unk_286893110;
+  *(a1 + 24) = 0;
+  *(a1 + 1) = *v4;
+  a1[4] = (a1 + 6);
+  a1[5] = 0;
   mlir::presburger::Matrix<llvm::DynamicAPInt>::Matrix();
 }
 
 uint64_t mlir::presburger::MultiAffineFunction::isEqual(mlir::presburger::MultiAffineFunction *this, const mlir::presburger::MultiAffineFunction *a2, const mlir::presburger::PresburgerSet *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8[78] = *MEMORY[0x277D85DE8];
   AllDisjuncts = mlir::presburger::PresburgerRelation::getAllDisjuncts(a3);
   if (v5)
   {
     mlir::presburger::IntegerPolyhedron::IntegerPolyhedron(v7, AllDisjuncts);
-    mlir::presburger::MultiAffineFunction::getAsRelation(this, v8);
+    mlir::presburger::MultiAffineFunction::getAsRelation(v8, this);
   }
 
   return 1;
@@ -6348,78 +6305,78 @@ unsigned int *mlir::presburger::MultiAffineFunction::removeOutputs(unsigned int 
   return this;
 }
 
-void mlir::presburger::MultiAffineFunction::getLexSet(__int128 *a1, uint64_t a2, __int128 *a3)
+void mlir::presburger::MultiAffineFunction::getLexSet(__int128 *a1, int a2, __int128 *a3)
 {
-  v30[13] = *MEMORY[0x277D85DE8];
-  v18 = *a1;
-  v19 = *(a1 + 16);
-  __dst = &v22;
-  v21 = 0;
-  if (&v18 != a1 && *(a1 + 8))
+  v31[13] = *MEMORY[0x277D85DE8];
+  v19 = *a1;
+  v20 = *(a1 + 16);
+  __dst = &v23;
+  v22 = 0;
+  if (&v19 != a1 && *(a1 + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v22 = *(a1 + 5);
-  v23 = *(a1 + 12);
-  v24[0] = v25;
-  v24[1] = 0x1000000000;
+  v23 = *(a1 + 5);
+  v24 = *(a1 + 12);
+  v25[0] = v26;
+  v25[1] = 0x1000000000;
   if (*(a1 + 16))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v24, a1 + 7);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v25, a1 + 7);
   }
 
-  v25[32] = *(a1 + 41);
-  v26 = *(a1 + 84);
-  v27[0] = &v28;
-  v27[1] = 0x1000000000;
+  v26[32] = *(a1 + 41);
+  v27 = *(a1 + 84);
+  v28[0] = &v29;
+  v28[1] = 0x1000000000;
   if (*(a1 + 88))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v27, a1 + 43);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v28, a1 + 43);
   }
 
-  v29[0] = v30;
-  v29[1] = 0x400000000;
+  v30[0] = v31;
+  v30[1] = 0x400000000;
   if (*(a1 + 156))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v29, a1 + 77);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v30, a1 + 77);
   }
 
-  v5 = *a3;
-  v6 = *(a3 + 16);
-  v7 = &v9;
-  v8 = 0;
-  if (&v5 != a3 && *(a3 + 8))
+  v6 = *a3;
+  v7 = *(a3 + 16);
+  v8 = &v10;
+  v9 = 0;
+  if (&v6 != a3 && *(a3 + 8))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v9 = *(a3 + 5);
-  v10 = *(a3 + 12);
-  v11[0] = v12;
-  v11[1] = 0x1000000000;
+  v10 = *(a3 + 5);
+  v11 = *(a3 + 12);
+  v12[0] = v13;
+  v12[1] = 0x1000000000;
   if (*(a3 + 16))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v11, a3 + 7);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v12, a3 + 7);
   }
 
-  v12[32] = *(a3 + 41);
-  v13 = *(a3 + 84);
-  v14[0] = &v15;
-  v14[1] = 0x1000000000;
+  v13[32] = *(a3 + 41);
+  v14 = *(a3 + 84);
+  v15[0] = &v16;
+  v15[1] = 0x1000000000;
   if (*(a3 + 88))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v14, a3 + 43);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v15, a3 + 43);
   }
 
-  v16[0] = &v17;
-  v16[1] = 0x400000000;
+  v17[0] = &v18;
+  v17[1] = 0x400000000;
   if (*(a3 + 156))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v16, a3 + 77);
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v17, a3 + 77);
   }
 
-  mlir::presburger::MultiAffineFunction::mergeDivs(&v18, &v5);
+  mlir::presburger::MultiAffineFunction::mergeDivs(&v19, &v6);
 }
 
 BOOL mlir::presburger::PWMAFunction::isEqual(const mlir::presburger::PresburgerRelation **this, const mlir::presburger::PresburgerRelation **a2)
@@ -6428,8 +6385,8 @@ BOOL mlir::presburger::PWMAFunction::isEqual(const mlir::presburger::PresburgerR
   result = mlir::presburger::PresburgerSpace::isCompatible(this, a2);
   if (result)
   {
-    mlir::presburger::PresburgerSpace::getDomainSpace(this, v37);
-    mlir::presburger::PresburgerSet::getEmpty(v37, v42);
+    mlir::presburger::PresburgerSpace::getDomainSpace(v37, this);
+    mlir::presburger::PresburgerSet::getEmpty(v37, &v42);
     if (v38 != &v39)
     {
       free(v38);
@@ -6442,7 +6399,7 @@ BOOL mlir::presburger::PWMAFunction::isEqual(const mlir::presburger::PresburgerR
       v7 = 2000 * v5;
       do
       {
-        mlir::presburger::PresburgerRelation::unionInPlace(v42, v6);
+        mlir::presburger::PresburgerRelation::unionInPlace(&v42, v6);
         v6 = (v6 + 2000);
         v7 -= 2000;
       }
@@ -6450,7 +6407,7 @@ BOOL mlir::presburger::PWMAFunction::isEqual(const mlir::presburger::PresburgerR
       while (v7);
     }
 
-    mlir::presburger::PresburgerSpace::getDomainSpace(a2, v59);
+    mlir::presburger::PresburgerSpace::getDomainSpace(v59, a2);
     mlir::presburger::PresburgerSet::getEmpty(v59, v37);
     if (v60 != &v61)
     {
@@ -6472,7 +6429,7 @@ BOOL mlir::presburger::PWMAFunction::isEqual(const mlir::presburger::PresburgerR
       while (v10);
     }
 
-    isEqual = mlir::presburger::PresburgerRelation::isEqual(v42, v37);
+    isEqual = mlir::presburger::PresburgerRelation::isEqual(&v42, v37);
     v12 = v39;
     if (v40)
     {
@@ -6545,8 +6502,8 @@ LABEL_32:
           do
           {
             v36 = v22;
-            mlir::presburger::PresburgerSet::intersect(v35, v22, v42);
-            AllDisjuncts = mlir::presburger::PresburgerRelation::getAllDisjuncts(v42);
+            mlir::presburger::PresburgerSet::intersect(&v42, v35, v22);
+            AllDisjuncts = mlir::presburger::PresburgerRelation::getAllDisjuncts(&v42);
             if (v24)
             {
               v25 = AllDisjuncts;
@@ -6582,7 +6539,7 @@ LABEL_32:
               }
 
               v47 = &unk_286893188;
-              mlir::presburger::MultiAffineFunction::getAsRelation((v35 + 1304), v37);
+              mlir::presburger::MultiAffineFunction::getAsRelation(v37, (v35 + 1304));
             }
 
             v29 = v44;
@@ -6651,8 +6608,9 @@ uint64_t mlir::presburger::PWMAFunction::addPiece(uint64_t a1, __int128 *a2)
   v3 = *(a1 + 48);
   if (v3 >= *(a1 + 52))
   {
+    v5 = a1 + 40;
 
-    llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::growAndEmplaceBack<mlir::presburger::PWMAFunction::Piece const&>();
+    llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::growAndEmplaceBack<mlir::presburger::PWMAFunction::Piece const&>(v5, a2);
   }
 
   result = mlir::presburger::PWMAFunction::Piece::Piece(*(a1 + 40) + 2000 * v3, a2);
@@ -6660,23 +6618,23 @@ uint64_t mlir::presburger::PWMAFunction::addPiece(uint64_t a1, __int128 *a2)
   return result;
 }
 
-void *mlir::presburger::PWMAFunction::print(mlir::presburger::PWMAFunction *this, llvm::raw_ostream *a2)
+llvm::raw_ostream *mlir::presburger::PWMAFunction::print(llvm::DynamicAPInt ***this, llvm::raw_ostream *a2)
 {
   mlir::presburger::PresburgerSpace::print(this, a2);
   result = llvm::raw_ostream::operator<<(a2, *(this + 12));
-  v5 = result[4];
-  if ((result[3] - v5) > 8)
+  v5 = *(result + 4);
+  if ((*(result + 3) - v5) > 8)
   {
     *(v5 + 8) = 10;
     *v5 = *" pieces:\n";
-    result[4] += 9;
+    *(result + 4) += 9;
     if (!*(this + 12))
     {
       return result;
     }
 
 LABEL_5:
-    v6 = *(this + 5);
+    v6 = this[5];
     v7 = *(a2 + 4);
     if ((*(a2 + 3) - v7) > 0x10)
     {
@@ -6696,11 +6654,11 @@ LABEL_5:
     {
       *v8 = *"Output of piece\n";
       *(a2 + 4) += 16;
-      mlir::presburger::MultiAffineFunction::print((v6 + 1304), a2);
+      mlir::presburger::MultiAffineFunction::print(v6 + 163, a2);
     }
 
     llvm::raw_ostream::write(a2, "Output of piece\n", 0x10uLL);
-    mlir::presburger::MultiAffineFunction::print((v6 + 1304), a2);
+    mlir::presburger::MultiAffineFunction::print(v6 + 163, a2);
   }
 
   result = llvm::raw_ostream::write(result, " pieces:\n", 9uLL);
@@ -6712,1540 +6670,1540 @@ LABEL_5:
   return result;
 }
 
-void *mlir::presburger::PWMAFunction::dump(mlir::presburger::PWMAFunction *this)
+llvm::raw_ostream *mlir::presburger::PWMAFunction::dump(mlir::presburger::PWMAFunction *this)
 {
   v2 = llvm::errs(this);
 
   return mlir::presburger::PWMAFunction::print(this, v2);
 }
 
-void mlir::presburger::PWMAFunction::unionFunction(uint64_t a1, uint64_t a2)
+void mlir::presburger::PWMAFunction::unionFunction(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
+  v1 = MEMORY[0x28223BE20](a1);
+  v223 = v3;
   v224 = v4;
-  v225 = v5;
-  v217 = v6;
-  v7 = v3;
-  v362[9] = *MEMORY[0x277D85DE8];
-  *v3 = *v2;
-  *(v3 + 16) = *(v2 + 16);
-  v226 = (v3 + 40);
-  *(v3 + 24) = v3 + 40;
-  *(v3 + 32) = 0;
-  if (v3 != v2 && *(v2 + 32))
+  v216 = v5;
+  v6 = v2;
+  v361[9] = *MEMORY[0x277D85DE8];
+  *v2 = *v1;
+  *(v2 + 16) = *(v1 + 16);
+  v225 = (v2 + 40);
+  *(v2 + 24) = v2 + 40;
+  *(v2 + 32) = 0;
+  if (v2 != v1 && *(v1 + 32))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v214 = v3 + 56;
-  *(v3 + 40) = v3 + 56;
-  *(v3 + 48) = 0x400000000;
-  v215 = v2;
-  v8 = *(v2 + 48);
-  v249 = v7;
-  if (v8)
+  v213 = v2 + 56;
+  *(v2 + 40) = v2 + 56;
+  *(v2 + 48) = 0x400000000;
+  v214 = v1;
+  v7 = *(v1 + 48);
+  v248 = v6;
+  if (v7)
   {
-    v9 = *(v215 + 5);
-    v216 = v9 + 2000 * v8;
-    v232 = &v315;
-    v223 = &v314;
-    v218 = &v317;
-    v10 = &v286;
-    v247 = &v289;
-    v248 = &v288;
-    v245 = &v297;
-    v246 = &v296;
-    v243 = &v303;
-    v244 = &v300;
-    v241 = &v267;
-    v242 = &v266;
-    v239 = &v275;
-    v240 = &v274;
-    v237 = &v281;
-    v238 = &v278;
-    v231 = &v308;
-    v222 = &v310;
-    v259 = v345;
-    v251 = &v355;
-    v252 = &v346;
-    v256 = v359;
-    v257 = v354;
-    v255 = v362;
-    v250 = &v322;
-    v221 = &v325;
-    v253 = &v328;
-    v254 = &v286;
-    v235 = &v331;
-    v236 = v324;
-    v233 = &v338;
-    v234 = &v335;
-    v219 = &v342;
-    v220 = &v332;
-    v258 = &v264;
+    v8 = *(v214 + 5);
+    v215 = v8 + 2000 * v7;
+    v231 = &v314;
+    v222 = &v313;
+    v217 = &v316;
+    v9 = &v285;
+    v246 = &v288;
+    v247 = &v287;
+    v244 = &v296;
+    v245 = &v295;
+    v242 = &v302;
+    v243 = &v299;
+    v240 = &v266;
+    v241 = &v265;
+    v238 = &v274;
+    v239 = &v273;
+    v236 = &v280;
+    v237 = &v277;
+    v230 = &v307;
+    v221 = &v309;
+    v258 = v344;
+    v250 = &v354;
+    v251 = &v345;
+    v255 = v358;
+    v256 = v353;
+    v254 = v361;
+    v249 = &v321;
+    v220 = &v324;
+    v252 = &v327;
+    v253 = &v285;
+    v234 = &v330;
+    v235 = v323;
+    v232 = &v337;
+    v233 = &v334;
+    v218 = &v341;
+    v219 = &v331;
+    v257 = &v263;
     do
     {
-      v11 = *v9;
-      v312 = *(v9 + 16);
-      v311 = v11;
-      __dst = v232;
-      v314 = 0;
-      if (&v311 != v9 && *(v9 + 32))
+      v10 = *v8;
+      v311 = *(v8 + 16);
+      v310 = v10;
+      __dst = v231;
+      v313 = 0;
+      if (&v310 != v8 && *(v8 + 32))
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v315 = v218;
-      v316 = 0x200000000;
-      if (*(v9 + 48))
+      v314 = v217;
+      v315 = 0x200000000;
+      if (*(v8 + 48))
       {
-        llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v232, v9 + 40);
+        llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v231, v8 + 40);
       }
 
-      v12 = *(v217 + 48);
-      if (v12)
+      v11 = *(v216 + 48);
+      if (v11)
       {
-        v13 = *(v217 + 40);
-        v229 = (v9 + 1304);
-        v230 = v13 + 2000 * v12;
-        v227 = (v9 + 1632);
-        v228 = (v9 + 1344);
+        v12 = *(v216 + 40);
+        v228 = (v8 + 1304);
+        v229 = v12 + 2000 * v11;
+        v226 = (v8 + 1632);
+        v227 = (v8 + 1344);
         do
         {
-          v14 = *v13;
-          v283 = *(v13 + 16);
-          v282 = v14;
-          __src = v10;
-          v285 = 0;
-          if (&v282 != v13 && *(v13 + 32))
+          v13 = *v12;
+          v282 = *(v12 + 16);
+          v281 = v13;
+          __src = v9;
+          v284 = 0;
+          if (&v281 != v12 && *(v12 + 32))
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v286 = v248;
-          v287 = 0x200000000;
-          if (*(v13 + 48))
+          v285 = v247;
+          v286 = 0x200000000;
+          if (*(v12 + 48))
           {
-            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v10, v13 + 40);
+            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v9, v12 + 40);
           }
 
-          v15 = *(v13 + 1304);
-          v16 = v247;
-          *(v247 + 16) = *(v13 + 1320);
-          *v16 = v15;
-          v290 = &v292;
-          v291 = 0;
-          if (&v282 != v13 && *(v13 + 1336))
-          {
-            llvm::SmallVectorBase<unsigned int>::grow_pod();
-          }
-
-          v17 = *(v13 + 1344);
-          v293 = *(v13 + 1352);
-          v292 = v17;
-          v294 = v246;
-          v295 = 0x1000000000;
-          if (*(v13 + 1368))
-          {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v294, (v13 + 1360));
-          }
-
-          v18 = *(v13 + 1632);
-          v19 = v245;
-          *(v245 + 2) = *(v13 + 1640);
-          *v19 = v18;
-          v298 = v244;
-          v299 = 0x1000000000;
-          if (*(v13 + 1656))
-          {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v298, (v13 + 1648));
-          }
-
-          v301 = v243;
-          v302 = 0x400000000;
-          if (*(v13 + 1928))
-          {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v301, (v13 + 1920));
-          }
-
-          v20 = *v9;
-          v261 = *(v9 + 16);
-          v260 = v20;
-          v262 = v258;
-          v263 = 0;
-          if (&v260 != v9 && *(v9 + 32))
+          v14 = *(v12 + 1304);
+          v15 = v246;
+          *(v246 + 16) = *(v12 + 1320);
+          *v15 = v14;
+          v289 = &v291;
+          v290 = 0;
+          if (&v281 != v12 && *(v12 + 1336))
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v264 = v242;
-          v265 = 0x200000000;
-          if (*(v9 + 48))
+          v16 = *(v12 + 1344);
+          v292 = *(v12 + 1352);
+          v291 = v16;
+          v293 = v245;
+          v294 = 0x1000000000;
+          if (*(v12 + 1368))
           {
-            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v258, v9 + 40);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v293, (v12 + 1360));
           }
 
-          v21 = *v229;
-          v22 = v241;
-          *(v241 + 16) = *(v229 + 16);
-          *v22 = v21;
-          v268 = &v270;
-          v269 = 0;
-          if (&v260 != v9 && *(v9 + 1336))
+          v17 = *(v12 + 1632);
+          v18 = v244;
+          *(v244 + 2) = *(v12 + 1640);
+          *v18 = v17;
+          v297 = v243;
+          v298 = 0x1000000000;
+          if (*(v12 + 1656))
+          {
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v297, (v12 + 1648));
+          }
+
+          v300 = v242;
+          v301 = 0x400000000;
+          if (*(v12 + 1928))
+          {
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v300, (v12 + 1920));
+          }
+
+          v19 = *v8;
+          v260 = *(v8 + 16);
+          v259 = v19;
+          v261 = v257;
+          v262 = 0;
+          if (&v259 != v8 && *(v8 + 32))
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v23 = *v228;
-          v271 = *(v228 + 2);
-          v270 = v23;
-          v272 = v240;
-          v273 = 0x1000000000;
-          if (*(v9 + 1368))
+          v263 = v241;
+          v264 = 0x200000000;
+          if (*(v8 + 48))
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v272, (v9 + 1360));
+            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v257, v8 + 40);
           }
 
-          v24 = *v227;
-          v25 = v239;
-          *(v239 + 2) = *(v227 + 2);
-          *v25 = v24;
-          v276 = v238;
-          v277 = 0x1000000000;
-          if (*(v9 + 1656))
+          v20 = *v228;
+          v21 = v240;
+          *(v240 + 16) = *(v228 + 16);
+          *v21 = v20;
+          v267 = &v269;
+          v268 = 0;
+          if (&v259 != v8 && *(v8 + 1336))
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v276, (v9 + 1648));
+            llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v279 = v237;
-          v280 = 0x400000000;
-          if (*(v9 + 1928))
+          v22 = *v227;
+          v270 = *(v227 + 2);
+          v269 = v22;
+          v271 = v239;
+          v272 = 0x1000000000;
+          if (*(v8 + 1368))
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v279, (v9 + 1920));
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v271, (v8 + 1360));
           }
 
+          v23 = *v226;
+          v24 = v238;
+          *(v238 + 2) = *(v226 + 2);
+          *v24 = v23;
+          v275 = v237;
+          v276 = 0x1000000000;
+          if (*(v8 + 1656))
+          {
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v275, (v8 + 1648));
+          }
+
+          v278 = v236;
+          v279 = 0x400000000;
+          if (*(v8 + 1928))
+          {
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v278, (v8 + 1920));
+          }
+
+          v338 = v281;
           v339 = v282;
-          v340 = v283;
-          v341 = &v343;
-          v342 = 0;
-          if (v285)
+          v340 = &v342;
+          v341 = 0;
+          if (v284)
           {
-            if (__src == v10)
+            if (__src == v9)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
 
-            v341 = __src;
-            v342 = v285;
-            __src = v10;
-            v285 = 0;
+            v340 = __src;
+            v341 = v284;
+            __src = v9;
+            v284 = 0;
           }
 
-          v343 = v259;
-          v344 = 0x200000000;
-          if (v287)
+          v342 = v258;
+          v343 = 0x200000000;
+          if (v286)
           {
-            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v343, v10);
+            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v342, v9);
           }
 
-          v26 = v247;
-          v27 = v252;
-          *v252 = *v247;
-          *(v27 + 16) = *(v26 + 16);
-          v348 = &v350;
-          v349 = 0;
-          if (v291)
+          v25 = v246;
+          v26 = v251;
+          *v251 = *v246;
+          *(v26 + 16) = *(v25 + 16);
+          v347 = &v349;
+          v348 = 0;
+          if (v290)
           {
-            if (v290 == &v292)
+            if (v289 == &v291)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
 
+            v347 = v289;
             v348 = v290;
-            v349 = v291;
-            v290 = &v292;
-            v291 = 0;
+            v289 = &v291;
+            v290 = 0;
           }
 
+          v349 = v291;
           v350 = v292;
-          v351 = v293;
-          v352 = v257;
-          v353 = 0x1000000000;
-          if (v295)
+          v351 = v256;
+          v352 = 0x1000000000;
+          if (v294)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v352, &v294);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v351, &v293);
           }
 
-          v28 = v245;
-          v29 = v251;
-          *v251 = *v245;
-          *(v29 + 2) = *(v28 + 2);
-          v357 = v256;
-          v358 = 0x1000000000;
-          if (v299)
+          v27 = v244;
+          v28 = v250;
+          *v250 = *v244;
+          *(v28 + 2) = *(v27 + 2);
+          v356 = v255;
+          v357 = 0x1000000000;
+          if (v298)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v357, &v298);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v356, &v297);
           }
 
-          v360 = v255;
-          v361 = 0x400000000;
-          if (v302)
+          v359 = v254;
+          v360 = 0x400000000;
+          if (v301)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v360, &v301);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v359, &v300);
           }
 
+          v317 = v259;
           v318 = v260;
-          v319 = v261;
-          v320 = v250;
-          v321 = 0;
-          if (v263)
+          v319 = v249;
+          v320 = 0;
+          if (v262)
           {
-            if (v262 == v258)
+            if (v261 == v257)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
 
+            v319 = v261;
             v320 = v262;
-            v321 = v263;
-            v262 = v258;
-            v263 = 0;
+            v261 = v257;
+            v262 = 0;
           }
 
-          v322 = v236;
-          v323 = 0x200000000;
-          if (v265)
+          v321 = v235;
+          v322 = 0x200000000;
+          if (v264)
           {
-            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v250, v258);
+            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v249, v257);
           }
 
-          v30 = v241;
-          v31 = v221;
-          *v221 = *v241;
-          *(v31 + 16) = *(v30 + 16);
-          v326 = v253;
-          v327 = 0;
-          if (v269)
+          v29 = v240;
+          v30 = v220;
+          *v220 = *v240;
+          *(v30 + 16) = *(v29 + 16);
+          v325 = v252;
+          v326 = 0;
+          if (v268)
           {
-            if (v268 == &v270)
+            if (v267 == &v269)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
 
+            v325 = v267;
             v326 = v268;
-            v327 = v269;
-            v268 = &v270;
-            v269 = 0;
+            v267 = &v269;
+            v268 = 0;
           }
 
-          v32 = v253;
-          *v253 = v270;
-          *(v32 + 2) = v271;
-          v329 = v235;
-          v330 = 0x1000000000;
-          if (v273)
+          v31 = v252;
+          *v252 = v269;
+          *(v31 + 2) = v270;
+          v328 = v234;
+          v329 = 0x1000000000;
+          if (v272)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v329, &v272);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v328, &v271);
           }
 
-          v33 = v239;
-          v34 = v220;
-          *v220 = *v239;
-          *(v34 + 2) = *(v33 + 2);
-          v333 = v234;
-          v334 = 0x1000000000;
-          if (v277)
+          v32 = v238;
+          v33 = v219;
+          *v219 = *v238;
+          *(v33 + 2) = *(v32 + 2);
+          v332 = v233;
+          v333 = 0x1000000000;
+          if (v276)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v333, &v276);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v332, &v275);
           }
 
-          v336 = v233;
-          v337 = 0x400000000;
-          if (v280)
+          v335 = v232;
+          v336 = 0x400000000;
+          if (v279)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v336, &v279);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v335, &v278);
           }
 
-          v224(&v304, v225, &v339, &v318);
-          v35 = v336;
-          if (v337)
+          v223(&v303, v224, &v338, &v317);
+          v34 = v335;
+          if (v336)
           {
-            v36 = (v336 + 16 * v337 - 8);
-            v37 = -16 * v337;
-            v38 = v36;
+            v35 = (v335 + 16 * v336 - 8);
+            v36 = -16 * v336;
+            v37 = v35;
             do
             {
-              v40 = *v38;
-              v38 -= 4;
-              v39 = v40;
-              if (v40)
+              v39 = *v37;
+              v37 -= 4;
+              v38 = v39;
+              if (v39)
               {
-                if (v39 >= 0x41)
+                if (v38 >= 0x41)
                 {
-                  v41 = *(v36 - 1);
-                  if (v41)
+                  v40 = *(v35 - 1);
+                  if (v40)
                   {
-                    MEMORY[0x259C63150](v41, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v40, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v36 = v38;
-              v37 += 16;
+              v35 = v37;
+              v36 += 16;
             }
 
-            while (v37);
-            v35 = v336;
+            while (v36);
+            v34 = v335;
           }
 
-          if (v35 != v233)
+          if (v34 != v232)
           {
-            free(v35);
+            free(v34);
           }
 
-          v42 = v333;
-          if (v334)
+          v41 = v332;
+          if (v333)
           {
-            v43 = (v333 + 16 * v334 - 8);
-            v44 = -16 * v334;
-            v45 = v43;
+            v42 = (v332 + 16 * v333 - 8);
+            v43 = -16 * v333;
+            v44 = v42;
             do
             {
-              v47 = *v45;
-              v45 -= 4;
-              v46 = v47;
-              if (v47)
+              v46 = *v44;
+              v44 -= 4;
+              v45 = v46;
+              if (v46)
               {
-                if (v46 >= 0x41)
+                if (v45 >= 0x41)
                 {
-                  v48 = *(v43 - 1);
-                  if (v48)
+                  v47 = *(v42 - 1);
+                  if (v47)
                   {
-                    MEMORY[0x259C63150](v48, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v47, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v43 = v45;
-              v44 += 16;
+              v42 = v44;
+              v43 += 16;
             }
 
-            while (v44);
-            v42 = v333;
+            while (v43);
+            v41 = v332;
           }
 
-          if (v42 != v234)
+          if (v41 != v233)
           {
-            free(v42);
+            free(v41);
           }
 
-          v49 = v329;
-          if (v330)
+          v48 = v328;
+          if (v329)
           {
-            v50 = (v329 + 16 * v330 - 8);
-            v51 = -16 * v330;
-            v52 = v50;
+            v49 = (v328 + 16 * v329 - 8);
+            v50 = -16 * v329;
+            v51 = v49;
             do
             {
-              v54 = *v52;
-              v52 -= 4;
-              v53 = v54;
-              if (v54)
+              v53 = *v51;
+              v51 -= 4;
+              v52 = v53;
+              if (v53)
               {
-                if (v53 >= 0x41)
+                if (v52 >= 0x41)
                 {
-                  v55 = *(v50 - 1);
-                  if (v55)
+                  v54 = *(v49 - 1);
+                  if (v54)
                   {
-                    MEMORY[0x259C63150](v55, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v54, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v50 = v52;
-              v51 += 16;
+              v49 = v51;
+              v50 += 16;
             }
 
-            while (v51);
-            v49 = v329;
+            while (v50);
+            v48 = v328;
           }
 
-          if (v49 != v235)
+          if (v48 != v234)
           {
-            free(v49);
+            free(v48);
           }
 
-          if (v326 != v253)
+          if (v325 != v252)
           {
-            free(v326);
+            free(v325);
           }
 
-          v56 = v322;
-          if (v323)
+          v55 = v321;
+          if (v322)
           {
-            v57 = -624 * v323;
-            v58 = v322 + 624 * v323 - 624;
-            v59 = v58;
+            v56 = -624 * v322;
+            v57 = v321 + 624 * v322 - 624;
+            v58 = v57;
             do
             {
-              (**v59)(v59);
-              v59 -= 78;
-              v58 -= 624;
-              v57 += 624;
+              (**v58)(v58);
+              v58 -= 78;
+              v57 -= 624;
+              v56 += 624;
             }
 
-            while (v57);
-            v56 = v322;
-            v10 = v254;
+            while (v56);
+            v55 = v321;
+            v9 = v253;
           }
 
-          if (v56 != v236)
+          if (v55 != v235)
           {
-            free(v56);
+            free(v55);
           }
 
-          if (v320 != v250)
+          if (v319 != v249)
           {
-            free(v320);
+            free(v319);
           }
 
-          v60 = v360;
-          if (v361)
+          v59 = v359;
+          if (v360)
           {
-            v61 = (v360 + 16 * v361 - 8);
-            v62 = -16 * v361;
-            v63 = v61;
+            v60 = (v359 + 16 * v360 - 8);
+            v61 = -16 * v360;
+            v62 = v60;
             do
             {
-              v65 = *v63;
-              v63 -= 4;
-              v64 = v65;
-              if (v65)
+              v64 = *v62;
+              v62 -= 4;
+              v63 = v64;
+              if (v64)
               {
-                if (v64 >= 0x41)
+                if (v63 >= 0x41)
                 {
-                  v66 = *(v61 - 1);
-                  if (v66)
+                  v65 = *(v60 - 1);
+                  if (v65)
                   {
-                    MEMORY[0x259C63150](v66, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v65, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v61 = v63;
-              v62 += 16;
+              v60 = v62;
+              v61 += 16;
             }
 
-            while (v62);
-            v60 = v360;
+            while (v61);
+            v59 = v359;
           }
 
-          if (v60 != v255)
+          if (v59 != v254)
           {
-            free(v60);
+            free(v59);
           }
 
-          v67 = v357;
-          if (v358)
+          v66 = v356;
+          if (v357)
           {
-            v68 = (v357 + 16 * v358 - 8);
-            v69 = -16 * v358;
-            v70 = v68;
+            v67 = (v356 + 16 * v357 - 8);
+            v68 = -16 * v357;
+            v69 = v67;
             do
             {
-              v72 = *v70;
-              v70 -= 4;
-              v71 = v72;
-              if (v72)
+              v71 = *v69;
+              v69 -= 4;
+              v70 = v71;
+              if (v71)
               {
-                if (v71 >= 0x41)
+                if (v70 >= 0x41)
                 {
-                  v73 = *(v68 - 1);
-                  if (v73)
+                  v72 = *(v67 - 1);
+                  if (v72)
                   {
-                    MEMORY[0x259C63150](v73, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v72, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v68 = v70;
-              v69 += 16;
+              v67 = v69;
+              v68 += 16;
             }
 
-            while (v69);
-            v67 = v357;
+            while (v68);
+            v66 = v356;
           }
 
-          if (v67 != v256)
+          if (v66 != v255)
           {
-            free(v67);
+            free(v66);
           }
 
-          v74 = v352;
-          if (v353)
+          v73 = v351;
+          if (v352)
           {
-            v75 = (v352 + 16 * v353 - 8);
-            v76 = -16 * v353;
-            v77 = v75;
+            v74 = (v351 + 16 * v352 - 8);
+            v75 = -16 * v352;
+            v76 = v74;
             do
             {
-              v79 = *v77;
-              v77 -= 4;
-              v78 = v79;
-              if (v79)
+              v78 = *v76;
+              v76 -= 4;
+              v77 = v78;
+              if (v78)
               {
-                if (v78 >= 0x41)
+                if (v77 >= 0x41)
                 {
-                  v80 = *(v75 - 1);
-                  if (v80)
+                  v79 = *(v74 - 1);
+                  if (v79)
                   {
-                    MEMORY[0x259C63150](v80, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v79, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v75 = v77;
-              v76 += 16;
+              v74 = v76;
+              v75 += 16;
             }
 
-            while (v76);
-            v74 = v352;
+            while (v75);
+            v73 = v351;
           }
 
-          if (v74 != v257)
+          if (v73 != v256)
           {
-            free(v74);
+            free(v73);
           }
 
-          if (v348 != &v350)
+          if (v347 != &v349)
           {
-            free(v348);
+            free(v347);
           }
 
-          v81 = v343;
-          if (v344)
+          v80 = v342;
+          if (v343)
           {
-            v82 = -624 * v344;
-            v83 = v343 + 624 * v344 - 624;
-            v84 = v83;
+            v81 = -624 * v343;
+            v82 = v342 + 624 * v343 - 624;
+            v83 = v82;
             do
             {
-              (**v84)(v84);
-              v84 -= 78;
-              v83 -= 624;
-              v82 += 624;
+              (**v83)(v83);
+              v83 -= 78;
+              v82 -= 624;
+              v81 += 624;
             }
 
-            while (v82);
-            v81 = v343;
-            v10 = v254;
+            while (v81);
+            v80 = v342;
+            v9 = v253;
           }
 
-          if (v81 != v259)
+          if (v80 != v258)
           {
-            free(v81);
+            free(v80);
           }
 
-          if (v341 != &v343)
+          if (v340 != &v342)
           {
-            free(v341);
+            free(v340);
           }
 
-          v85 = v279;
-          if (v280)
+          v84 = v278;
+          if (v279)
           {
-            v86 = (v279 + 16 * v280 - 8);
-            v87 = -16 * v280;
-            v88 = v86;
+            v85 = (v278 + 16 * v279 - 8);
+            v86 = -16 * v279;
+            v87 = v85;
             do
             {
-              v90 = *v88;
-              v88 -= 4;
-              v89 = v90;
-              if (v90)
+              v89 = *v87;
+              v87 -= 4;
+              v88 = v89;
+              if (v89)
               {
-                if (v89 >= 0x41)
+                if (v88 >= 0x41)
                 {
-                  v91 = *(v86 - 1);
-                  if (v91)
+                  v90 = *(v85 - 1);
+                  if (v90)
                   {
-                    MEMORY[0x259C63150](v91, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v90, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v86 = v88;
-              v87 += 16;
+              v85 = v87;
+              v86 += 16;
             }
 
-            while (v87);
-            v85 = v279;
+            while (v86);
+            v84 = v278;
           }
 
-          if (v85 != v237)
+          if (v84 != v236)
           {
-            free(v85);
+            free(v84);
           }
 
-          v92 = v276;
-          if (v277)
+          v91 = v275;
+          if (v276)
           {
-            v93 = (v276 + 16 * v277 - 8);
-            v94 = -16 * v277;
-            v95 = v93;
+            v92 = (v275 + 16 * v276 - 8);
+            v93 = -16 * v276;
+            v94 = v92;
             do
             {
-              v97 = *v95;
-              v95 -= 4;
-              v96 = v97;
-              if (v97)
+              v96 = *v94;
+              v94 -= 4;
+              v95 = v96;
+              if (v96)
               {
-                if (v96 >= 0x41)
+                if (v95 >= 0x41)
                 {
-                  v98 = *(v93 - 1);
-                  if (v98)
+                  v97 = *(v92 - 1);
+                  if (v97)
                   {
-                    MEMORY[0x259C63150](v98, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v97, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v93 = v95;
-              v94 += 16;
+              v92 = v94;
+              v93 += 16;
             }
 
-            while (v94);
-            v92 = v276;
+            while (v93);
+            v91 = v275;
           }
 
-          if (v92 != v238)
+          if (v91 != v237)
           {
-            free(v92);
+            free(v91);
           }
 
-          v99 = v272;
-          if (v273)
+          v98 = v271;
+          if (v272)
           {
-            v100 = (v272 + 16 * v273 - 8);
-            v101 = -16 * v273;
-            v102 = v100;
+            v99 = (v271 + 16 * v272 - 8);
+            v100 = -16 * v272;
+            v101 = v99;
             do
             {
-              v104 = *v102;
-              v102 -= 4;
-              v103 = v104;
-              if (v104)
+              v103 = *v101;
+              v101 -= 4;
+              v102 = v103;
+              if (v103)
               {
-                if (v103 >= 0x41)
+                if (v102 >= 0x41)
                 {
-                  v105 = *(v100 - 1);
-                  if (v105)
+                  v104 = *(v99 - 1);
+                  if (v104)
                   {
-                    MEMORY[0x259C63150](v105, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v104, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v100 = v102;
-              v101 += 16;
+              v99 = v101;
+              v100 += 16;
             }
 
-            while (v101);
-            v99 = v272;
+            while (v100);
+            v98 = v271;
           }
 
-          if (v99 != v240)
+          if (v98 != v239)
           {
-            free(v99);
+            free(v98);
           }
 
-          if (v268 != &v270)
+          if (v267 != &v269)
           {
-            free(v268);
+            free(v267);
           }
 
-          v106 = v264;
-          if (v265)
+          v105 = v263;
+          if (v264)
           {
-            v107 = -624 * v265;
-            v108 = v264 + 624 * v265 - 624;
-            v109 = v108;
+            v106 = -624 * v264;
+            v107 = v263 + 624 * v264 - 624;
+            v108 = v107;
             do
             {
-              (**v109)(v109);
-              v109 -= 78;
-              v108 -= 624;
-              v107 += 624;
+              (**v108)(v108);
+              v108 -= 78;
+              v107 -= 624;
+              v106 += 624;
             }
 
-            while (v107);
-            v106 = v264;
-            v10 = v254;
+            while (v106);
+            v105 = v263;
+            v9 = v253;
           }
 
-          if (v106 != v242)
+          if (v105 != v241)
           {
-            free(v106);
+            free(v105);
           }
 
-          if (v262 != v258)
+          if (v261 != v257)
           {
-            free(v262);
+            free(v261);
           }
 
-          v110 = v301;
-          if (v302)
+          v109 = v300;
+          if (v301)
           {
-            v111 = (v301 + 16 * v302 - 8);
-            v112 = -16 * v302;
-            v113 = v111;
+            v110 = (v300 + 16 * v301 - 8);
+            v111 = -16 * v301;
+            v112 = v110;
             do
             {
-              v115 = *v113;
-              v113 -= 4;
-              v114 = v115;
-              if (v115)
+              v114 = *v112;
+              v112 -= 4;
+              v113 = v114;
+              if (v114)
               {
-                if (v114 >= 0x41)
+                if (v113 >= 0x41)
                 {
-                  v116 = *(v111 - 1);
-                  if (v116)
+                  v115 = *(v110 - 1);
+                  if (v115)
                   {
-                    MEMORY[0x259C63150](v116, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v115, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v111 = v113;
-              v112 += 16;
+              v110 = v112;
+              v111 += 16;
             }
 
-            while (v112);
-            v110 = v301;
+            while (v111);
+            v109 = v300;
           }
 
-          if (v110 != v243)
+          if (v109 != v242)
           {
-            free(v110);
+            free(v109);
           }
 
-          v117 = v298;
-          if (v299)
+          v116 = v297;
+          if (v298)
           {
-            v118 = (v298 + 16 * v299 - 8);
-            v119 = -16 * v299;
-            v120 = v118;
+            v117 = (v297 + 16 * v298 - 8);
+            v118 = -16 * v298;
+            v119 = v117;
             do
             {
-              v122 = *v120;
-              v120 -= 4;
-              v121 = v122;
-              if (v122)
+              v121 = *v119;
+              v119 -= 4;
+              v120 = v121;
+              if (v121)
               {
-                if (v121 >= 0x41)
+                if (v120 >= 0x41)
                 {
-                  v123 = *(v118 - 1);
-                  if (v123)
+                  v122 = *(v117 - 1);
+                  if (v122)
                   {
-                    MEMORY[0x259C63150](v123, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v122, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v118 = v120;
-              v119 += 16;
+              v117 = v119;
+              v118 += 16;
             }
 
-            while (v119);
-            v117 = v298;
+            while (v118);
+            v116 = v297;
           }
 
-          if (v117 != v244)
+          if (v116 != v243)
           {
-            free(v117);
+            free(v116);
           }
 
-          v124 = v294;
-          if (v295)
+          v123 = v293;
+          if (v294)
           {
-            v125 = (v294 + 16 * v295 - 8);
-            v126 = -16 * v295;
-            v127 = v125;
+            v124 = (v293 + 16 * v294 - 8);
+            v125 = -16 * v294;
+            v126 = v124;
             do
             {
-              v129 = *v127;
-              v127 -= 4;
-              v128 = v129;
-              if (v129)
+              v128 = *v126;
+              v126 -= 4;
+              v127 = v128;
+              if (v128)
               {
-                if (v128 >= 0x41)
+                if (v127 >= 0x41)
                 {
-                  v130 = *(v125 - 1);
-                  if (v130)
+                  v129 = *(v124 - 1);
+                  if (v129)
                   {
-                    MEMORY[0x259C63150](v130, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v129, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v125 = v127;
-              v126 += 16;
+              v124 = v126;
+              v125 += 16;
             }
 
-            while (v126);
-            v124 = v294;
+            while (v125);
+            v123 = v293;
           }
 
-          if (v124 != v246)
+          if (v123 != v245)
           {
-            free(v124);
+            free(v123);
           }
 
-          if (v290 != &v292)
+          if (v289 != &v291)
           {
-            free(v290);
+            free(v289);
           }
 
-          v131 = v286;
-          if (v287)
+          v130 = v285;
+          if (v286)
           {
-            v132 = -624 * v287;
-            v133 = v286 + 624 * v287 - 624;
-            v134 = v133;
+            v131 = -624 * v286;
+            v132 = v285 + 624 * v286 - 624;
+            v133 = v132;
             do
             {
-              (**v134)(v134);
-              v134 -= 78;
-              v133 -= 624;
-              v132 += 624;
+              (**v133)(v133);
+              v133 -= 78;
+              v132 -= 624;
+              v131 += 624;
             }
 
-            while (v132);
-            v131 = v286;
-            v10 = v254;
+            while (v131);
+            v130 = v285;
+            v9 = v253;
           }
 
-          if (v131 != v248)
+          if (v130 != v247)
           {
-            free(v131);
+            free(v130);
           }
 
-          if (__src != v10)
+          if (__src != v9)
           {
             free(__src);
           }
 
+          v338 = v303;
           v339 = v304;
-          v340 = v305;
-          v341 = &v343;
-          v342 = 0;
-          if (v307)
+          v340 = &v342;
+          v341 = 0;
+          if (v306)
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v343 = v259;
-          v344 = 0x200000000;
-          if (v309)
+          v342 = v258;
+          v343 = 0x200000000;
+          if (v308)
           {
-            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v343, v231);
+            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v342, v230);
           }
 
-          v135 = *(v13 + 1304);
-          v136 = v252;
-          *(v252 + 16) = *(v13 + 1320);
-          *v136 = v135;
-          v348 = &v350;
-          v349 = 0;
-          v137 = v249;
-          if (&v339 != v13 && *(v13 + 1336))
+          v134 = *(v12 + 1304);
+          v135 = v251;
+          *(v251 + 16) = *(v12 + 1320);
+          *v135 = v134;
+          v347 = &v349;
+          v348 = 0;
+          v136 = v248;
+          if (&v338 != v12 && *(v12 + 1336))
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v138 = *(v13 + 1344);
-          v351 = *(v13 + 1352);
-          v350 = v138;
-          v352 = v257;
-          v353 = 0x1000000000;
-          if (*(v13 + 1368))
+          v137 = *(v12 + 1344);
+          v350 = *(v12 + 1352);
+          v349 = v137;
+          v351 = v256;
+          v352 = 0x1000000000;
+          if (*(v12 + 1368))
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v352, (v13 + 1360));
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v351, (v12 + 1360));
           }
 
-          v139 = *(v13 + 1632);
-          v140 = v251;
-          *(v251 + 2) = *(v13 + 1640);
-          *v140 = v139;
-          v357 = v256;
-          v358 = 0x1000000000;
-          if (*(v13 + 1656))
+          v138 = *(v12 + 1632);
+          v139 = v250;
+          *(v250 + 2) = *(v12 + 1640);
+          *v139 = v138;
+          v356 = v255;
+          v357 = 0x1000000000;
+          if (*(v12 + 1656))
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v357, (v13 + 1648));
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v356, (v12 + 1648));
           }
 
-          v360 = v255;
-          v361 = 0x400000000;
-          if (*(v13 + 1928))
+          v359 = v254;
+          v360 = 0x400000000;
+          if (*(v12 + 1928))
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v360, (v13 + 1920));
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v359, (v12 + 1920));
           }
 
-          v141 = *(v137 + 48);
-          if (v141 >= *(v137 + 52))
+          v140 = *(v136 + 48);
+          if (v140 >= *(v136 + 52))
           {
-            *&v318 = 0;
+            *&v317 = 0;
             llvm::SmallVectorBase<unsigned int>::mallocForGrow();
           }
 
-          v142 = *v226 + 2000 * v141;
-          v143 = v339;
-          *(v142 + 16) = v340;
-          *v142 = v143;
-          *(v142 + 24) = v142 + 40;
-          *(v142 + 32) = 0;
-          if (v142 != &v339 && v342)
+          v141 = *v225 + 2000 * v140;
+          v142 = v338;
+          *(v141 + 16) = v339;
+          *v141 = v142;
+          *(v141 + 24) = v141 + 40;
+          *(v141 + 32) = 0;
+          if (v141 != &v338 && v341)
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          *(v142 + 40) = v142 + 56;
-          *(v142 + 48) = 0x200000000;
-          if (v344)
+          *(v141 + 40) = v141 + 56;
+          *(v141 + 48) = 0x200000000;
+          if (v343)
           {
-            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v142 + 40, &v343);
+            llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v141 + 40, &v342);
           }
 
-          v144 = *v252;
-          *(v142 + 1320) = *(v252 + 16);
-          *(v142 + 1304) = v144;
-          *(v142 + 1328) = v142 + 1344;
-          *(v142 + 1336) = 0;
-          if (v142 != &v339 && v349)
+          v143 = *v251;
+          *(v141 + 1320) = *(v251 + 16);
+          *(v141 + 1304) = v143;
+          *(v141 + 1328) = v141 + 1344;
+          *(v141 + 1336) = 0;
+          if (v141 != &v338 && v348)
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v145 = v350;
-          *(v142 + 1352) = v351;
-          *(v142 + 1344) = v145;
-          *(v142 + 1360) = v142 + 1376;
-          *(v142 + 1368) = 0x1000000000;
-          if (v353)
+          v144 = v349;
+          *(v141 + 1352) = v350;
+          *(v141 + 1344) = v144;
+          *(v141 + 1360) = v141 + 1376;
+          *(v141 + 1368) = 0x1000000000;
+          if (v352)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((v142 + 1360), &v352);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((v141 + 1360), &v351);
           }
 
-          v146 = *v251;
-          *(v142 + 1640) = *(v251 + 2);
-          *(v142 + 1632) = v146;
-          *(v142 + 1648) = v142 + 1664;
-          *(v142 + 1656) = 0x1000000000;
-          if (v358)
+          v145 = *v250;
+          *(v141 + 1640) = *(v250 + 2);
+          *(v141 + 1632) = v145;
+          *(v141 + 1648) = v141 + 1664;
+          *(v141 + 1656) = 0x1000000000;
+          if (v357)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((v142 + 1648), &v357);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((v141 + 1648), &v356);
           }
 
-          *(v142 + 1920) = v142 + 1936;
-          *(v142 + 1928) = 0x400000000;
-          if (v361)
+          *(v141 + 1920) = v141 + 1936;
+          *(v141 + 1928) = 0x400000000;
+          if (v360)
           {
-            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((v142 + 1920), &v360);
+            llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=((v141 + 1920), &v359);
           }
 
-          v7 = v249;
-          ++*(v249 + 48);
-          v147 = v360;
-          if (v361)
+          v6 = v248;
+          ++*(v248 + 48);
+          v146 = v359;
+          if (v360)
           {
-            v148 = (v360 + 16 * v361 - 8);
-            v149 = -16 * v361;
-            v150 = v148;
+            v147 = (v359 + 16 * v360 - 8);
+            v148 = -16 * v360;
+            v149 = v147;
             do
             {
-              v152 = *v150;
-              v150 -= 4;
-              v151 = v152;
-              if (v152)
+              v151 = *v149;
+              v149 -= 4;
+              v150 = v151;
+              if (v151)
               {
-                if (v151 >= 0x41)
+                if (v150 >= 0x41)
                 {
-                  v153 = *(v148 - 1);
-                  if (v153)
+                  v152 = *(v147 - 1);
+                  if (v152)
                   {
-                    MEMORY[0x259C63150](v153, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v152, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v148 = v150;
-              v149 += 16;
+              v147 = v149;
+              v148 += 16;
             }
 
-            while (v149);
-            v147 = v360;
+            while (v148);
+            v146 = v359;
           }
 
-          if (v147 != v255)
+          if (v146 != v254)
           {
-            free(v147);
+            free(v146);
           }
 
-          v154 = v357;
-          if (v358)
+          v153 = v356;
+          if (v357)
           {
-            v155 = (v357 + 16 * v358 - 8);
-            v156 = -16 * v358;
-            v157 = v155;
+            v154 = (v356 + 16 * v357 - 8);
+            v155 = -16 * v357;
+            v156 = v154;
             do
             {
-              v159 = *v157;
-              v157 -= 4;
-              v158 = v159;
-              if (v159)
+              v158 = *v156;
+              v156 -= 4;
+              v157 = v158;
+              if (v158)
               {
-                if (v158 >= 0x41)
+                if (v157 >= 0x41)
                 {
-                  v160 = *(v155 - 1);
-                  if (v160)
+                  v159 = *(v154 - 1);
+                  if (v159)
                   {
-                    MEMORY[0x259C63150](v160, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v159, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v155 = v157;
-              v156 += 16;
+              v154 = v156;
+              v155 += 16;
             }
 
-            while (v156);
-            v154 = v357;
+            while (v155);
+            v153 = v356;
           }
 
-          if (v154 != v256)
+          if (v153 != v255)
           {
-            free(v154);
+            free(v153);
           }
 
-          v161 = v352;
-          if (v353)
+          v160 = v351;
+          if (v352)
           {
-            v162 = (v352 + 16 * v353 - 8);
-            v163 = -16 * v353;
-            v164 = v162;
+            v161 = (v351 + 16 * v352 - 8);
+            v162 = -16 * v352;
+            v163 = v161;
             do
             {
-              v166 = *v164;
-              v164 -= 4;
-              v165 = v166;
-              if (v166)
+              v165 = *v163;
+              v163 -= 4;
+              v164 = v165;
+              if (v165)
               {
-                if (v165 >= 0x41)
+                if (v164 >= 0x41)
                 {
-                  v167 = *(v162 - 1);
-                  if (v167)
+                  v166 = *(v161 - 1);
+                  if (v166)
                   {
-                    MEMORY[0x259C63150](v167, 0x1000C8000313F17);
+                    MEMORY[0x259C63150](v166, 0x1000C8000313F17);
                   }
                 }
               }
 
-              v162 = v164;
-              v163 += 16;
+              v161 = v163;
+              v162 += 16;
             }
 
-            while (v163);
-            v161 = v352;
+            while (v162);
+            v160 = v351;
           }
 
-          if (v161 != v257)
+          if (v160 != v256)
           {
-            free(v161);
+            free(v160);
           }
 
-          if (v348 != &v350)
+          if (v347 != &v349)
           {
-            free(v348);
+            free(v347);
           }
 
-          v168 = v343;
-          if (v344)
+          v167 = v342;
+          if (v343)
           {
-            v169 = -624 * v344;
-            v170 = v343 + 624 * v344 - 624;
-            v171 = v170;
+            v168 = -624 * v343;
+            v169 = v342 + 624 * v343 - 624;
+            v170 = v169;
             do
             {
-              (**v171)(v171);
-              v171 -= 78;
-              v170 -= 624;
-              v169 += 624;
+              (**v170)(v170);
+              v170 -= 78;
+              v169 -= 624;
+              v168 += 624;
             }
 
-            while (v169);
-            v168 = v343;
+            while (v168);
+            v167 = v342;
           }
 
-          if (v168 != v259)
+          if (v167 != v258)
           {
-            free(v168);
+            free(v167);
           }
 
-          if (v341 != &v343)
+          if (v340 != &v342)
           {
-            free(v341);
+            free(v340);
           }
 
-          mlir::presburger::PresburgerSet::subtract(&v311, &v304, &v339);
+          mlir::presburger::PresburgerSet::subtract(&v338, &v310, &v303);
+          v310 = v338;
           v311 = v339;
-          v312 = v340;
-          v172 = v342;
-          v173 = v223;
-          if (v342)
+          v171 = v341;
+          v172 = v222;
+          if (v341)
           {
-            if (__dst != v232)
+            if (__dst != v231)
             {
               free(__dst);
-              v172 = v342;
+              v171 = v341;
             }
 
-            __dst = v341;
-            v314 = __PAIR64__(HIDWORD(v342), v172);
-            v341 = &v343;
-            HIDWORD(v342) = 0;
-            v173 = v219;
+            __dst = v340;
+            v313 = __PAIR64__(HIDWORD(v341), v171);
+            v340 = &v342;
+            HIDWORD(v341) = 0;
+            v172 = v218;
           }
 
-          *v173 = 0;
-          llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v232, &v343);
-          v174 = v343;
-          if (v344)
+          *v172 = 0;
+          llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(v231, &v342);
+          v173 = v342;
+          if (v343)
           {
-            v175 = -624 * v344;
-            v176 = v343 + 624 * v344 - 624;
-            v177 = v176;
+            v174 = -624 * v343;
+            v175 = v342 + 624 * v343 - 624;
+            v176 = v175;
             do
             {
-              (**v177)(v177);
-              v177 -= 78;
-              v176 -= 624;
-              v175 += 624;
+              (**v176)(v176);
+              v176 -= 78;
+              v175 -= 624;
+              v174 += 624;
             }
 
-            while (v175);
-            v174 = v343;
+            while (v174);
+            v173 = v342;
           }
 
-          if (v174 != v259)
+          if (v173 != v258)
           {
-            free(v174);
+            free(v173);
           }
 
-          if (v341 != &v343)
+          if (v340 != &v342)
           {
-            free(v341);
+            free(v340);
           }
 
-          v178 = v308;
-          if (v309)
+          v177 = v307;
+          if (v308)
           {
-            v179 = -624 * v309;
-            v180 = v308 + 624 * v309 - 624;
-            v181 = v180;
+            v178 = -624 * v308;
+            v179 = v307 + 624 * v308 - 624;
+            v180 = v179;
             do
             {
-              (**v181)(v181);
-              v181 -= 78;
-              v180 -= 624;
-              v179 += 624;
+              (**v180)(v180);
+              v180 -= 78;
+              v179 -= 624;
+              v178 += 624;
             }
 
-            while (v179);
-            v178 = v308;
+            while (v178);
+            v177 = v307;
           }
 
-          v10 = v254;
-          if (v178 != v222)
+          v9 = v253;
+          if (v177 != v221)
           {
-            free(v178);
+            free(v177);
           }
 
-          if (v306 != v231)
+          if (v305 != v230)
           {
-            free(v306);
+            free(v305);
           }
 
-          v13 += 2000;
+          v12 += 2000;
         }
 
-        while (v13 != v230);
+        while (v12 != v229);
       }
 
+      v338 = v310;
       v339 = v311;
-      v340 = v312;
-      v341 = &v343;
-      v342 = 0;
-      if (v314)
+      v340 = &v342;
+      v341 = 0;
+      if (v313)
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v343 = v259;
-      v344 = 0x200000000;
-      if (v316)
+      v342 = v258;
+      v343 = 0x200000000;
+      if (v315)
       {
-        llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v343, v232);
+        llvm::SmallVectorImpl<mlir::presburger::IntegerRelation>::operator=(&v342, v231);
       }
 
-      v182 = *(v9 + 1304);
-      v183 = v252;
-      *(v252 + 16) = *(v9 + 1320);
-      *v183 = v182;
-      v348 = &v350;
-      v349 = 0;
-      if (&v339 != v9 && *(v9 + 1336))
+      v181 = *(v8 + 1304);
+      v182 = v251;
+      *(v251 + 16) = *(v8 + 1320);
+      *v182 = v181;
+      v347 = &v349;
+      v348 = 0;
+      if (&v338 != v8 && *(v8 + 1336))
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v184 = *(v9 + 1344);
-      v351 = *(v9 + 1352);
-      v350 = v184;
-      v352 = v257;
-      v353 = 0x1000000000;
-      if (*(v9 + 1368))
+      v183 = *(v8 + 1344);
+      v350 = *(v8 + 1352);
+      v349 = v183;
+      v351 = v256;
+      v352 = 0x1000000000;
+      if (*(v8 + 1368))
       {
-        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v352, (v9 + 1360));
+        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v351, (v8 + 1360));
       }
 
-      v185 = *(v9 + 1632);
-      v186 = v251;
-      *(v251 + 2) = *(v9 + 1640);
-      *v186 = v185;
-      v357 = v256;
-      v358 = 0x1000000000;
-      if (*(v9 + 1656))
+      v184 = *(v8 + 1632);
+      v185 = v250;
+      *(v250 + 2) = *(v8 + 1640);
+      *v185 = v184;
+      v356 = v255;
+      v357 = 0x1000000000;
+      if (*(v8 + 1656))
       {
-        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v357, (v9 + 1648));
+        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v356, (v8 + 1648));
       }
 
-      v360 = v255;
-      v361 = 0x400000000;
-      if (*(v9 + 1928))
+      v359 = v254;
+      v360 = 0x400000000;
+      if (*(v8 + 1928))
       {
-        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v360, (v9 + 1920));
+        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v359, (v8 + 1920));
       }
 
-      v187 = *(v7 + 48);
-      if (v187 >= *(v7 + 52))
+      v186 = *(v6 + 48);
+      if (v186 >= *(v6 + 52))
       {
-        llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::growAndEmplaceBack<mlir::presburger::PWMAFunction::Piece const&>();
+        llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::growAndEmplaceBack<mlir::presburger::PWMAFunction::Piece const&>(v225, &v338);
       }
 
-      mlir::presburger::PWMAFunction::Piece::Piece(*(v7 + 40) + 2000 * v187, &v339);
-      ++*(v7 + 48);
-      mlir::presburger::MultiAffineFunction::~MultiAffineFunction(v252);
-      v188 = v343;
-      if (v344)
+      mlir::presburger::PWMAFunction::Piece::Piece(*(v6 + 40) + 2000 * v186, &v338);
+      ++*(v6 + 48);
+      mlir::presburger::MultiAffineFunction::~MultiAffineFunction(v251);
+      v187 = v342;
+      if (v343)
       {
-        v189 = -624 * v344;
-        v190 = v343 + 624 * v344 - 624;
-        v191 = v190;
+        v188 = -624 * v343;
+        v189 = v342 + 624 * v343 - 624;
+        v190 = v189;
         do
         {
-          (**v191)(v191);
-          v191 -= 78;
-          v190 -= 624;
-          v189 += 624;
+          (**v190)(v190);
+          v190 -= 78;
+          v189 -= 624;
+          v188 += 624;
         }
 
-        while (v189);
-        v188 = v343;
+        while (v188);
+        v187 = v342;
       }
 
-      if (v188 != v259)
+      if (v187 != v258)
       {
-        free(v188);
+        free(v187);
       }
 
-      if (v341 != &v343)
+      if (v340 != &v342)
       {
-        free(v341);
+        free(v340);
       }
 
-      v192 = v315;
-      if (v316)
+      v191 = v314;
+      if (v315)
       {
-        v193 = -624 * v316;
-        v194 = v315 + 624 * v316 - 624;
-        v195 = v194;
+        v192 = -624 * v315;
+        v193 = v314 + 624 * v315 - 624;
+        v194 = v193;
         do
         {
-          (**v195)(v195);
-          v195 -= 78;
-          v194 -= 624;
-          v193 += 624;
+          (**v194)(v194);
+          v194 -= 78;
+          v193 -= 624;
+          v192 += 624;
         }
 
-        while (v193);
-        v192 = v315;
+        while (v192);
+        v191 = v314;
       }
 
-      if (v192 != v218)
+      if (v191 != v217)
       {
-        free(v192);
+        free(v191);
       }
 
-      if (__dst != v232)
+      if (__dst != v231)
       {
         free(__dst);
       }
 
-      v9 += 2000;
+      v8 += 2000;
     }
 
-    while (v9 != v216);
+    while (v8 != v215);
   }
 
-  v196 = v215;
-  mlir::presburger::PresburgerSpace::getDomainSpace(v215, &v339);
-  mlir::presburger::PresburgerSet::getEmpty(&v339, &v318);
-  if (v341 != &v343)
+  v195 = v214;
+  mlir::presburger::PresburgerSpace::getDomainSpace(&v338, v214);
+  mlir::presburger::PresburgerSet::getEmpty(&v338, &v317);
+  if (v340 != &v342)
   {
-    free(v341);
+    free(v340);
   }
 
-  v197 = *(v196 + 12);
-  if (v197)
+  v196 = *(v195 + 12);
+  if (v196)
   {
-    v198 = *(v196 + 5);
-    v199 = 2000 * v197;
+    v197 = *(v195 + 5);
+    v198 = 2000 * v196;
     do
     {
-      mlir::presburger::PresburgerRelation::unionInPlace(&v318, v198);
-      v198 = (v198 + 2000);
-      v199 -= 2000;
+      mlir::presburger::PresburgerRelation::unionInPlace(&v317, v197);
+      v197 = (v197 + 2000);
+      v198 -= 2000;
     }
 
-    while (v199);
+    while (v198);
   }
 
-  v200 = *(v217 + 48);
-  if (v200)
+  v199 = *(v216 + 48);
+  if (v199)
   {
-    v201 = *(v217 + 40);
-    v258 = v354;
-    v259 = (v201 + 2000 * v200);
-    v256 = v362;
-    v257 = v359;
+    v200 = *(v216 + 40);
+    v257 = v353;
+    v258 = (v200 + 2000 * v199);
+    v255 = v361;
+    v256 = v358;
     do
     {
-      mlir::presburger::PresburgerSet::subtract(v201, &v318, &v339);
-      v202 = *(v201 + 1304);
-      v347 = *(v201 + 1320);
-      v346 = v202;
-      v348 = &v350;
-      v349 = 0;
-      if (&v339 != v201 && *(v201 + 1336))
+      mlir::presburger::PresburgerSet::subtract(&v338, v200, &v317);
+      v201 = *(v200 + 1304);
+      v346 = *(v200 + 1320);
+      v345 = v201;
+      v347 = &v349;
+      v348 = 0;
+      if (&v338 != v200 && *(v200 + 1336))
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v203 = *(v201 + 1344);
-      v351 = *(v201 + 1352);
-      v350 = v203;
-      v352 = v258;
-      v353 = 0x1000000000;
-      if (*(v201 + 1368))
+      v202 = *(v200 + 1344);
+      v350 = *(v200 + 1352);
+      v349 = v202;
+      v351 = v257;
+      v352 = 0x1000000000;
+      if (*(v200 + 1368))
       {
-        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v352, (v201 + 1360));
+        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v351, (v200 + 1360));
       }
 
-      v204 = *(v201 + 1632);
-      v356 = *(v201 + 1640);
-      v355 = v204;
-      v357 = v257;
-      v358 = 0x1000000000;
-      if (*(v201 + 1656))
+      v203 = *(v200 + 1632);
+      v355 = *(v200 + 1640);
+      v354 = v203;
+      v356 = v256;
+      v357 = 0x1000000000;
+      if (*(v200 + 1656))
       {
-        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v357, (v201 + 1648));
+        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v356, (v200 + 1648));
       }
 
-      v360 = v256;
-      v361 = 0x400000000;
-      if (*(v201 + 1928))
+      v359 = v255;
+      v360 = 0x400000000;
+      if (*(v200 + 1928))
       {
-        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v360, (v201 + 1920));
+        llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(&v359, (v200 + 1920));
       }
 
-      v205 = *(v7 + 48);
-      if (v205 >= *(v7 + 52))
+      v204 = *(v6 + 48);
+      if (v204 >= *(v6 + 52))
       {
-        llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::growAndEmplaceBack<mlir::presburger::PWMAFunction::Piece const&>();
+        llvm::SmallVectorTemplateBase<mlir::presburger::PWMAFunction::Piece,false>::growAndEmplaceBack<mlir::presburger::PWMAFunction::Piece const&>(v225, &v338);
       }
 
-      mlir::presburger::PWMAFunction::Piece::Piece(*(v7 + 40) + 2000 * v205, &v339);
-      ++*(v7 + 48);
-      mlir::presburger::MultiAffineFunction::~MultiAffineFunction(&v346);
-      v206 = v343;
-      if (v344)
+      mlir::presburger::PWMAFunction::Piece::Piece(*(v6 + 40) + 2000 * v204, &v338);
+      ++*(v6 + 48);
+      mlir::presburger::MultiAffineFunction::~MultiAffineFunction(&v345);
+      v205 = v342;
+      if (v343)
       {
-        v207 = -624 * v344;
-        v208 = v343 + 624 * v344 - 624;
-        v209 = v208;
+        v206 = -624 * v343;
+        v207 = v342 + 624 * v343 - 624;
+        v208 = v207;
         do
         {
-          (**v209)(v209);
-          v209 -= 78;
-          v208 -= 624;
-          v207 += 624;
+          (**v208)(v208);
+          v208 -= 78;
+          v207 -= 624;
+          v206 += 624;
         }
 
-        while (v207);
-        v206 = v343;
-        v7 = v249;
+        while (v206);
+        v205 = v342;
+        v6 = v248;
       }
 
-      if (v206 != v345)
+      if (v205 != v344)
       {
-        free(v206);
+        free(v205);
       }
 
-      if (v341 != &v343)
+      if (v340 != &v342)
       {
-        free(v341);
+        free(v340);
       }
 
-      v201 += 2000;
+      v200 += 2000;
     }
 
-    while (v201 != v259);
+    while (v200 != v258);
   }
 
-  v210 = v322;
-  if (v323)
+  v209 = v321;
+  if (v322)
   {
-    v211 = -624 * v323;
-    v212 = v322 + 624 * v323 - 624;
-    v213 = v212;
+    v210 = -624 * v322;
+    v211 = v321 + 624 * v322 - 624;
+    v212 = v211;
     do
     {
-      (**v213)(v213);
-      v213 -= 78;
-      v212 -= 624;
-      v211 += 624;
+      (**v212)(v212);
+      v212 -= 78;
+      v211 -= 624;
+      v210 += 624;
     }
 
-    while (v211);
-    v210 = v322;
+    while (v210);
+    v209 = v321;
   }
 
-  if (v210 != v324)
+  if (v209 != v323)
   {
-    free(v210);
+    free(v209);
   }
 
-  if (v320 != &v322)
+  if (v319 != &v321)
   {
-    free(v320);
+    free(v319);
   }
 }
 
@@ -8304,18 +8262,17 @@ unsigned int *mlir::presburger::PWMAFunction::removeOutputs(mlir::presburger::PW
   return result;
 }
 
-uint64_t mlir::presburger::PWMAFunction::valueAt@<X0>(uint64_t result@<X0>, const llvm::APInt *a2@<X1>, unint64_t a3@<X2>, _BYTE *a4@<X8>)
+void mlir::presburger::PWMAFunction::valueAt(uint64_t a1@<X0>, const llvm::APInt *a2@<X1>, unint64_t a3@<X2>, _BYTE *a4@<X8>)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v5 = *(result + 48);
+  v5 = *(a1 + 48);
   if (v5)
   {
-    v8 = *(result + 40);
+    v8 = *(a1 + 40);
     v9 = 2000 * v5;
     do
     {
-      result = mlir::presburger::PresburgerRelation::containsPoint(v8, a2, a3);
-      if (result)
+      if (mlir::presburger::PresburgerRelation::containsPoint(v8, a2, a3))
       {
         mlir::presburger::MultiAffineFunction::valueAt(v8 + 1304, a2, a3);
       }
@@ -8329,10 +8286,9 @@ uint64_t mlir::presburger::PWMAFunction::valueAt@<X0>(uint64_t result@<X0>, cons
 
   *a4 = 0;
   a4[144] = 0;
-  return result;
 }
 
-unsigned int **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operator=(unsigned int **result, unsigned int **a2)
+char **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operator=(char **result, char **a2)
 {
   if (result != a2)
   {
@@ -8344,18 +8300,18 @@ unsigned int **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operato
       v6 = *(result + 2);
       if (v6)
       {
-        v7 = &v5[6 * v6 - 2];
+        v7 = &v5[3 * v6 - 1];
         v8 = -24 * v6;
         do
         {
-          if (*v7 == 1 && *(v7 - 2) > 0x40 && *(v7 - 2))
+          if (*v7 == 1 && *(v7 - 2) > 0x40u && *(v7 - 2))
           {
             v9 = result;
             MEMORY[0x259C63150](*(v7 - 2), 0x1000C8000313F17);
             result = v9;
           }
 
-          v7 -= 6;
+          v7 -= 3;
           v8 += 24;
         }
 
@@ -8363,7 +8319,7 @@ unsigned int **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operato
         v5 = *result;
       }
 
-      if (v5 != (result + 2))
+      if (v5 != result + 2)
       {
         v10 = result;
         free(v5);
@@ -8387,18 +8343,18 @@ unsigned int **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operato
       {
         if (v13)
         {
-          v14 = &(*result)[6 * v13 - 2];
+          v14 = &(*result)[24 * v13 - 8];
           v15 = -24 * v13;
           do
           {
-            if (*v14 == 1 && *(v14 - 2) > 0x40 && *(v14 - 2))
+            if (*v14 == 1 && *(v14 - 2) > 0x40u && *(v14 - 2))
             {
               v16 = result;
               MEMORY[0x259C63150](*(v14 - 2), 0x1000C8000313F17);
               result = v16;
             }
 
-            v14 -= 6;
+            v14 -= 24;
             v15 += 24;
           }
 
@@ -8406,7 +8362,7 @@ unsigned int **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operato
         }
 
         *(result + 2) = 0;
-        llvm::SmallVectorTemplateBase<std::optional<llvm::DynamicAPInt>,false>::grow();
+        llvm::SmallVectorTemplateBase<std::optional<llvm::DynamicAPInt>,false>::grow(result, v12);
       }
 
       if (v13)
@@ -8417,7 +8373,7 @@ unsigned int **llvm::SmallVectorImpl<std::optional<llvm::DynamicAPInt>>::operato
         do
         {
           std::__optional_storage_base<llvm::DynamicAPInt,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<llvm::DynamicAPInt,false>>(v22, v4);
-          v4 = (v4 + 24);
+          v4 += 24;
           v22 += 6;
           v23 -= 24;
         }
@@ -8439,7 +8395,7 @@ LABEL_14:
           }
 
 LABEL_62:
-          v39 = v24 + 24 * v26 - 8;
+          v39 = &v24[24 * v26 - 8];
           v40 = -24 * v26;
           do
           {
@@ -8477,31 +8433,31 @@ LABEL_62:
       v35 = 24 * v25;
       do
       {
-        v36 = &v33[v34 / 4];
-        v37 = (v24 + v34);
+        v36 = &v33[v34];
+        v37 = &v24[v34];
         *v36 = 0;
-        *(v36 + 16) = 0;
-        if (*(v24 + v34 + 16) == 1)
+        v36[16] = 0;
+        if (v24[v34 + 16] == 1)
         {
           *v36 = *v37;
-          v36[2] = 0;
+          *(v36 + 2) = 0;
           v38 = *(v37 + 2);
           if (v38)
           {
-            v36[2] = v38;
+            *(v36 + 2) = v38;
             if (v38 > 0x40)
             {
-              llvm::APInt::initSlowCase(&v33[v34 / 4], v37);
+              llvm::APInt::initSlowCase(&v33[v34], v37);
             }
 
             *v36 = *v37;
           }
 
-          *(v36 + 16) = 1;
+          v36[16] = 1;
         }
 
-        v33 += 6;
-        v24 = (v24 + 24);
+        v33 += 24;
+        v24 += 24;
         v35 -= 24;
       }
 
@@ -8525,14 +8481,14 @@ LABEL_62:
       do
       {
         std::__optional_storage_base<llvm::DynamicAPInt,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<llvm::DynamicAPInt,false>>(v17, v4);
-        v4 = (v4 + 24);
+        v4 += 24;
         v17 += 6;
         v19 -= 24;
       }
 
       while (v19);
       result = v18;
-      v20 = &(*v18)[6 * *(v18 + 2)];
+      v20 = &(*v18)[24 * *(v18 + 2)];
       if (v20 == v17)
       {
 LABEL_45:
@@ -8540,18 +8496,18 @@ LABEL_45:
         v29 = *(a2 + 2);
         if (v29)
         {
-          v30 = &(*a2)[6 * v29 - 2];
+          v30 = &(*a2)[24 * v29 - 8];
           v31 = -24 * v29;
           do
           {
-            if (*v30 == 1 && *(v30 - 2) > 0x40 && *(v30 - 2))
+            if (*v30 == 1 && *(v30 - 2) > 0x40u && *(v30 - 2))
             {
               v32 = result;
               MEMORY[0x259C63150](*(v30 - 2), 0x1000C8000313F17);
               result = v32;
             }
 
-            v30 -= 6;
+            v30 -= 24;
             v31 += 24;
           }
 
@@ -8676,14 +8632,14 @@ uint64_t llvm::function_ref<BOOL ()(unsigned int,unsigned int)>::callback_fn<mli
   return 0;
 }
 
-uint64_t mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t *a5, unint64_t a6)
 {
   *a1 = a2;
   *(a1 + 4) = 1;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 40) = a1 + 56;
-  v9 = (a1 + 40);
+  v9 = a1 + 40;
   *(a1 + 24) = v9;
   *(a1 + 32) = 0;
   *(a1 + 48) = 0x100000000;
@@ -8691,7 +8647,7 @@ uint64_t mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2,
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   *(a1 + 88) = 0;
-  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(a1 + 88, a5, a5 + 24 * a6, a6);
+  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>((a1 + 88), a5, &a5[3 * a6], a6);
   return a1;
 }
 
@@ -8701,7 +8657,7 @@ uint64_t mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2,
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 40) = a1 + 56;
-  v9 = (a1 + 40);
+  v9 = a1 + 40;
   *(a1 + 24) = v9;
   *(a1 + 32) = 0;
   *(a1 + 48) = 0x100000000;
@@ -8709,7 +8665,7 @@ uint64_t mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2,
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   *(a1 + 88) = 0;
-  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(a1 + 88, a5, a5 + 24 * a6, a6);
+  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>((a1 + 88), a5, &a5[3 * a6], a6);
   return a1;
 }
 
@@ -8718,7 +8674,7 @@ void mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2, llv
   v13 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   *(a1 + 4) = 1;
-  v4 = (a1 + 40);
+  v4 = a1 + 40;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = v4;
@@ -8736,7 +8692,7 @@ void mlir::presburger::QuasiPolynomial::QuasiPolynomial(uint64_t a1, int a2, llv
   }
 
   v7 = *(a3 + 2);
-  v6 = (a3 + 16);
+  v6 = a3 + 16;
   v11 = v7;
   v12 = 0;
   v8 = *(v6 + 2);
@@ -8781,7 +8737,7 @@ void mlir::presburger::QuasiPolynomial::operator+(uint64_t a1@<X0>, uint64_t a2@
   v25 = 0x100000000;
   if (*(a1 + 48))
   {
-    llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(&v24, a1 + 40);
+    llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(&v24, (a1 + 40));
   }
 
   llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>(&v24, *(a2 + 40), *(a2 + 40) + 32 * *(a2 + 48));
@@ -8804,7 +8760,7 @@ void mlir::presburger::QuasiPolynomial::operator+(uint64_t a1@<X0>, uint64_t a2@
   *(a3 + 24) = a3 + 40;
   *(a3 + 32) = 0;
   *(a3 + 48) = 0x100000000;
-  llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>((a3 + 40), v7, v7 + 32 * v8);
+  llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>(a3 + 40, v7, v7 + 32 * v8);
   *(a3 + 88) = 0;
   *(a3 + 96) = 0;
   v12 = a3 + 88;
@@ -8884,7 +8840,7 @@ void mlir::presburger::QuasiPolynomial::operator-(_DWORD *a1@<X0>, uint64_t a2@<
   v21 = 0x100000000;
   llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>(&v20, v5, v5 + 32 * v6);
   memset(v23, 0, 24);
-  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(v23, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 3));
+  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(v23, v7, v8, 0xAAAAAAAAAAAAAAABLL * (v8 - v7));
   if (v21)
   {
     v9 = v20;
@@ -8942,7 +8898,7 @@ void mlir::presburger::QuasiPolynomial::operator*(uint64_t a1@<X0>, uint64_t a2@
           mlir::presburger::operator*(v5, v8, &v47);
           if (v52 >= HIDWORD(v52))
           {
-            llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>();
+            llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>(&v51, &v47);
           }
 
           v10 = v51 + 32 * v52;
@@ -8990,7 +8946,7 @@ void mlir::presburger::QuasiPolynomial::operator*(uint64_t a1@<X0>, uint64_t a2@
             MEMORY[0x259C63150](v47, 0x1000C8000313F17);
           }
 
-          v8 += 4;
+          v8 = (v8 + 32);
           v9 -= 32;
         }
 
@@ -9059,14 +9015,14 @@ LABEL_32:
           v21 = v48;
           do
           {
-            v23 = *(v21 - 48);
+            v23 = *(v21 - 6);
             v21 -= 48;
             v22 = v23;
-            v24 = *(v21 + 8);
+            v24 = *(v21 + 2);
             if (v24)
             {
               v25 = 32 * v24;
-              v26 = v22 + v25 - 16;
+              v26 = &v22[v25 - 16];
               v27 = -v25;
               do
               {
@@ -9092,7 +9048,7 @@ LABEL_32:
               v22 = *v21;
             }
 
-            if (v22 != (v19 - 32))
+            if (v22 != v19 - 32)
             {
               free(v22);
             }
@@ -9152,7 +9108,7 @@ LABEL_32:
           std::string::__throw_length_error[abi:nn200100]();
         }
 
-        v17 = (v32 + 3);
+        v17 = v32 + 3;
         memcpy(v32 - v29, v33, v29);
         if (v33)
         {
@@ -9184,11 +9140,11 @@ LABEL_67:
   *(v40 + 24) = v40 + 40;
   *(v40 + 32) = 0;
   *(v40 + 48) = 0x100000000;
-  llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>((v40 + 40), v34, v34 + 32 * v35);
+  llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>(v40 + 40, v34, v34 + 32 * v35);
   *(v40 + 88) = 0;
   *(v40 + 96) = 0;
   *(v40 + 104) = 0;
-  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(v40 + 88, v33, v17, 0xAAAAAAAAAAAAAAABLL * ((v17 - v33) >> 3));
+  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>((v40 + 88), v33, v17, 0xAAAAAAAAAAAAAAABLL * ((v17 - v33) >> 3));
   if (v33)
   {
     while (v17 != v33)
@@ -9259,7 +9215,7 @@ void mlir::presburger::QuasiPolynomial::operator/(uint64_t a1@<X0>, uint64_t *a2
   *(a3 + 48) = 0x100000000;
   if (*(a1 + 48))
   {
-    llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=((a3 + 40), a1 + 40);
+    llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=((a3 + 40), (a1 + 40));
   }
 
   *(a3 + 88) = 0;
@@ -9297,7 +9253,7 @@ void mlir::presburger::QuasiPolynomial::operator/(uint64_t a1@<X0>, uint64_t *a2
   }
 }
 
-void mlir::presburger::QuasiPolynomial::simplify(mlir::presburger::QuasiPolynomial *this@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::QuasiPolynomial::simplify(uint64_t *__return_ptr a1@<X8>, mlir::presburger::QuasiPolynomial *this@<X0>)
 {
   v129 = *MEMORY[0x277D85DE8];
   p_p = 1;
@@ -9422,7 +9378,7 @@ void mlir::presburger::QuasiPolynomial::simplify(mlir::presburger::QuasiPolynomi
                 break;
               }
 
-              v11 += 4;
+              v11 = (v11 + 32);
               v12 -= 32;
               if (!v12)
               {
@@ -9450,7 +9406,7 @@ LABEL_42:
           if (!v4)
           {
 LABEL_59:
-            mlir::presburger::operator*(&v117, &v25[4 * v4], &p_p);
+            mlir::presburger::operator*(&v117, (v25 + 32 * v4), &p_p);
             if (v126)
             {
               valueAt(&v118, v126, &p_p, &v117);
@@ -9579,7 +9535,7 @@ LABEL_64:
               break;
             }
 
-            v28 += 4;
+            v28 = (v28 + 32);
             v27 -= 32;
             if (!v27)
             {
@@ -9614,22 +9570,22 @@ LABEL_94:
             v47 = v40;
             while (1)
             {
-              v48 = &v25[v44 / 8];
+              v48 = (v25 + v44);
               v49 = &v47[v44 / 8];
-              *v49 = v25[v44 / 8];
+              *v49 = *(v25 + v44);
               *(v49 + 2) = 0;
-              v50 = v25[v44 / 8 + 1];
+              v50 = *(v25 + v44 + 8);
               if (v50)
               {
                 *(v49 + 2) = v50;
                 if (v50 > 0x40)
                 {
-                  llvm::APInt::initSlowCase(&v47[v44 / 8], &v25[v44 / 8]);
+                  llvm::APInt::initSlowCase(&v47[v44 / 8], (v25 + v44));
                 }
 
                 *v49 = *v48;
                 v55 = v48[2];
-                v51 = (v48 + 2);
+                v51 = v48 + 2;
                 v49[2] = v55;
                 v53 = (v49 + 2);
                 *(v49 + 6) = 0;
@@ -9650,7 +9606,7 @@ LABEL_83:
               else
               {
                 v52 = v48[2];
-                v51 = (v48 + 2);
+                v51 = v48 + 2;
                 v49[2] = v52;
                 v53 = (v49 + 2);
                 *(v49 + 6) = 0;
@@ -9744,22 +9700,22 @@ LABEL_93:
           v61 = 48 * v41 + 16;
           while (1)
           {
-            v62 = &v25[v59 / 8];
+            v62 = (v25 + v59);
             v63 = v61 + v59;
-            *v63 = v25[v59 / 8];
+            *v63 = *(v25 + v59);
             *(v63 + 8) = 0;
-            v64 = v25[v59 / 8 + 1];
+            v64 = *(v25 + v59 + 8);
             if (v64)
             {
               *(v63 + 8) = v64;
               if (v64 > 0x40)
               {
-                llvm::APInt::initSlowCase((v61 + v59), &v25[v59 / 8]);
+                llvm::APInt::initSlowCase((v61 + v59), (v25 + v59));
               }
 
               *v63 = *v62;
               v69 = v62[2];
-              v65 = (v62 + 2);
+              v65 = v62 + 2;
               *(v63 + 16) = v69;
               v67 = (v63 + 16);
               *(v63 + 24) = 0;
@@ -9780,7 +9736,7 @@ LABEL_101:
             else
             {
               v66 = v62[2];
-              v65 = (v62 + 2);
+              v65 = v62 + 2;
               *(v63 + 16) = v66;
               v67 = (v63 + 16);
               *(v63 + 24) = 0;
@@ -9815,9 +9771,9 @@ LABEL_112:
                 v75 = -16 * (v73 >> 4) + 48 * v41;
                 do
                 {
-                  v76 = v75 + v74;
+                  v76 = (v75 + v74);
                   *v76 = v75 + v74 + 16;
-                  *(v76 + 8) = 0x100000000;
+                  v76[1] = 0x100000000;
                   if (*&v71[v74 + 8])
                   {
                     llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(v76, &v71[v74]);
@@ -9903,7 +9859,7 @@ LABEL_41:
 
         if (v115 >= HIDWORD(v115))
         {
-          llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>();
+          llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>(&v114, &v117);
         }
 
         v20 = v114 + 32 * v115;
@@ -9946,8 +9902,8 @@ LABEL_41:
         else
         {
           *v109 = 0;
-          *(v24 + 1) = 0;
-          *(v24 + 2) = 0;
+          v24[1] = 0;
+          v24[2] = 0;
           if (v112 != __p)
           {
             if (0xAAAAAAAAAAAAAAABLL * ((v112 - __p) >> 4) <= 0x555555555555555)
@@ -9959,7 +9915,7 @@ LABEL_188:
             std::string::__throw_length_error[abi:nn200100]();
           }
 
-          v109 = v24 + 24;
+          v109 = v24 + 3;
         }
       }
 
@@ -9975,19 +9931,19 @@ LABEL_6:
   v90 = v108;
   v91 = v109;
   v92 = 0xAAAAAAAAAAAAAAABLL * ((v109 - v108) >> 3);
-  *a2 = *(this + 2) + *this;
-  *(a2 + 4) = 1;
-  *(a2 + 8) = 0;
-  *(a2 + 40) = a2 + 56;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = a2 + 40;
-  *(a2 + 32) = 0;
-  *(a2 + 48) = 0x100000000;
-  llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>((a2 + 40), v88, v88 + 32 * v89);
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 104) = 0;
-  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(a2 + 88, v90, v91, v92);
+  *a1 = *(this + 2) + *this;
+  *(a1 + 1) = 1;
+  a1[1] = 0;
+  a1[5] = (a1 + 7);
+  *(a1 + 16) = 0;
+  a1[3] = (a1 + 5);
+  a1[4] = 0;
+  a1[6] = 0x100000000;
+  llvm::SmallVectorImpl<mlir::presburger::Fraction>::append<mlir::presburger::Fraction const*,void>((a1 + 5), v88, v88 + 32 * v89);
+  a1[11] = 0;
+  a1[12] = 0;
+  a1[13] = 0;
+  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(a1 + 22, v90, v91, v92);
   v93 = v108;
   if (v108)
   {

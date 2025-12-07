@@ -2,6 +2,7 @@
 - (BOOL)_nsExtension:(id)extension isOnlyExtensionInContainingAppAmongNSExtensions:(id)extensions;
 - (CDXRetrieveExtensionsOperation)initWithStore:(id)store;
 - (CDXRetrieveExtensionsOperation)initWithStore:(id)store extensionsDataSource:(id)source queue:(id)queue;
+- (id)_extensionWithNSExtension:(id)extension storeExtension:(id)storeExtension isOnlyExtensionInContainingApp:(BOOL)app;
 - (id)_extensionsFromNSExtensions:(id)extensions usingProritizedStoreExtensions:(id)storeExtensions;
 - (void)performWithCompletionHandler:(id)handler;
 @end
@@ -56,90 +57,117 @@
   extensionsCopy = extensions;
   storeExtensionsCopy = storeExtensions;
   v8 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [extensionsCopy count]);
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v9 = extensionsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v36 objects:v43 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v37;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v36 != v12)
+        if (*v37 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v36 + 1) + 8 * i);
         identifier = [v14 identifier];
         [v8 setObject:v14 forKeyedSubscript:identifier];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v36 objects:v43 count:16];
     }
 
     while (v11);
   }
 
   v16 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [storeExtensionsCopy count]);
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
   obj = storeExtensionsCopy;
-  v17 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v17 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (v17)
   {
     v19 = v17;
-    v20 = *v32;
+    v20 = *v33;
     *&v18 = 138412290;
-    v29 = v18;
+    v30 = v18;
     do
     {
       for (j = 0; j != v19; j = j + 1)
       {
-        if (*v32 != v20)
+        if (*v33 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * j);
+        v22 = *(*(&v32 + 1) + 8 * j);
         identifier2 = [v22 identifier];
         v24 = [v8 objectForKeyedSubscript:identifier2];
 
         if (v24)
         {
-          v25 = [(CDXRetrieveExtensionsOperation *)self _extensionWithNSExtension:v24 storeExtension:v22 isOnlyExtensionInContainingApp:[(CDXRetrieveExtensionsOperation *)self _nsExtension:v24 isOnlyExtensionInContainingAppAmongNSExtensions:v9]];
-          [v16 addObject:v25];
+          v26 = [(CDXRetrieveExtensionsOperation *)self _extensionWithNSExtension:v24 storeExtension:v22 isOnlyExtensionInContainingApp:[(CDXRetrieveExtensionsOperation *)self _nsExtension:v24 isOnlyExtensionInContainingAppAmongNSExtensions:v9]];
+          [v16 addObject:v26];
         }
 
         else
         {
-          v25 = sub_100005CC4();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = sub_100005CC4(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             identifier3 = [v22 identifier];
-            *buf = v29;
-            v40 = identifier3;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "No NSExtension found with prioritized store extension identifier %@", buf, 0xCu);
+            *buf = v30;
+            v41 = identifier3;
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "No NSExtension found with prioritized store extension identifier %@", buf, 0xCu);
           }
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v19 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
     }
 
     while (v19);
   }
 
-  v27 = [v16 copy];
+  v28 = [v16 copy];
 
-  return v27;
+  return v28;
+}
+
+- (id)_extensionWithNSExtension:(id)extension storeExtension:(id)storeExtension isOnlyExtensionInContainingApp:(BOOL)app
+{
+  appCopy = app;
+  storeExtensionCopy = storeExtension;
+  extensionCopy = extension;
+  v9 = objc_alloc_init(CXCallDirectoryExtension);
+  identifier = [storeExtensionCopy identifier];
+  [v9 setIdentifier:identifier];
+
+  [v9 setState:{objc_msgSend(storeExtensionCopy, "state")}];
+  priority = [storeExtensionCopy priority];
+
+  [v9 setPriority:priority];
+  localizedName = [extensionCopy localizedName];
+  [v9 setLocalizedName:localizedName];
+
+  localizedContainingAppName = [extensionCopy localizedContainingAppName];
+  [v9 setLocalizedContainingAppName:localizedContainingAppName];
+
+  plugInKitProxy = [extensionCopy plugInKitProxy];
+
+  [v9 setPlugInKitProxy:plugInKitProxy];
+  [v9 setOnlyExtensionInContainingApp:appCopy];
+
+  return v9;
 }
 
 - (BOOL)_nsExtension:(id)extension isOnlyExtensionInContainingAppAmongNSExtensions:(id)extensions

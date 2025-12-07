@@ -85,7 +85,7 @@ void __42__TSWPShapeStyle_propertiesAllowingNSNull__block_invoke(uint64_t a1)
   +[TSWPShapeStyle propertiesAllowingNSNull]::s_nullProperties = [v2 copy];
 }
 
-uint64_t __42__TSWPShapeStyle_propertiesAllowingNSNull__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__42__TSWPShapeStyle_propertiesAllowingNSNull__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [objc_msgSend(*(a1 + 32) "properties")];
   if (result)
@@ -164,18 +164,18 @@ LABEL_4:
   {
     v5 = String(styleIdentifier);
 
-    return TSWPShapePresetKindForPackageString(v5);
+    return TSWPShapePresetKindForPackageString(v5, v6);
   }
 
   else
   {
     objc_opt_class();
     [(TSSStyle *)self parent];
-    v7 = TSUDynamicCast();
-    if (v7)
+    v8 = TSUDynamicCast();
+    if (v8)
     {
 
-      return [v7 presetKind];
+      return [v8 presetKind];
     }
 
     else

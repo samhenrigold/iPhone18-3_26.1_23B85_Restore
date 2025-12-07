@@ -48,7 +48,7 @@
 
 - (id)requiredEntitlements
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = +[_HKBehavior sharedBehavior];
   isAppleWatch = [v3 isAppleWatch];
 
@@ -61,11 +61,9 @@
   {
     featureIdentifier = [(HKFeatureAvailabilityOnboardingEligibilityRequirement *)self featureIdentifier];
     v7 = [HKFeatureAvailabilityRequirementEntitlement featureAvailabilityReadEntitlementForFeatureIdentifier:featureIdentifier];
-    v10[0] = v7;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v7;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

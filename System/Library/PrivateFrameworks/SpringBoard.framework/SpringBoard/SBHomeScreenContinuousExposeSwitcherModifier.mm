@@ -89,7 +89,7 @@
 
     [v11 setSource:60];
     v14 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v11 gestureInitiated:0];
-    v15 = SBAppendSwitcherModifierResponse(v14, v4);
+    v15 = SBAppendSwitcherModifierResponse();
 
     v4 = v15;
   }
@@ -139,7 +139,7 @@
         [v12 setDisplayItemLayoutAttributesMap:v14];
 
         v15 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v12 gestureInitiated:0];
-        v16 = SBAppendSwitcherModifierResponse(v15, v5);
+        v16 = SBAppendSwitcherModifierResponse();
 
         v5 = v16;
       }

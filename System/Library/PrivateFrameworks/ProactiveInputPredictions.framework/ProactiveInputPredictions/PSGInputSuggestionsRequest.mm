@@ -26,37 +26,37 @@
 
 - (id)description
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAB68]);
   v4 = objc_msgSend(objc_alloc(MEMORY[0x277CCACA8]), "initWithFormat:", @"<PSGInputSuggestionsRequest ctx_sz:%tu cvt:("), -[NSString length](self->_responseContext, "length");
   v5 = [v3 initWithString:v4];
 
-  v48 = 0u;
-  v49 = 0u;
+  v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v6 = self->_conversationTurns;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v43 objects:v50 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v47;
+    v9 = *v44;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v47 != v9)
+        if (*v44 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v46 + 1) + 8 * i) description];
+        v11 = [*(*(&v43 + 1) + 8 * i) description];
         [v5 appendString:v11];
 
         [v5 appendString:@"; "];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v43 objects:v50 count:16];
     }
 
     while (v8);
@@ -65,60 +65,60 @@
   v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" aci:%@ dac:%d rcb:%d cbi_sz:%tu mkt_sz:%tu stt_sz:%tu cai_sz:%tu mkt_range:{%tu, %tu} lid:%@ bid:%@ rts:("), self->_adaptationContextID, self->_shouldDisableAutoCaps, self->_isResponseContextBlacklisted, -[NSString length](self->_contextBeforeInput, "length"), -[NSString length](self->_markedText, "length"), -[NSString length](self->_selectedText, "length"), -[NSString length](self->_contextAfterInput, "length"), self->_selectedRangeInMarkedText.location, self->_selectedRangeInMarkedText.length, self->_localeIdentifier, self->_bundleIdentifier];
   [v5 appendString:v12];
 
-  v44 = 0u;
-  v45 = 0u;
+  v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v13 = self->_recipients;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v43;
+    v16 = *v40;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v43 != v16)
+        if (*v40 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v5 appendString:*(*(&v42 + 1) + 8 * j)];
+        [v5 appendString:*(*(&v39 + 1) + 8 * j)];
         [v5 appendString:@"; "];
       }
 
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v52 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v15);
   }
 
   [v5 appendString:@") rns:("];
-  v40 = 0u;
-  v41 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v18 = self->_recipientNames;
-  v19 = [(NSSet *)v18 countByEnumeratingWithState:&v38 objects:v51 count:16];
+  v19 = [(NSSet *)v18 countByEnumeratingWithState:&v35 objects:v48 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v39;
+    v21 = *v36;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v39 != v21)
+        if (*v36 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [v5 appendString:*(*(&v38 + 1) + 8 * k)];
+        [v5 appendString:*(*(&v35 + 1) + 8 * k)];
         [v5 appendString:@"; "];
       }
 
-      v20 = [(NSSet *)v18 countByEnumeratingWithState:&v38 objects:v51 count:16];
+      v20 = [(NSSet *)v18 countByEnumeratingWithState:&v35 objects:v48 count:16];
     }
 
     while (v20);
@@ -127,41 +127,37 @@
   v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@") tct:%@ app:(", self->_textContentType];
   [v5 appendString:v23];
 
-  v36 = 0u;
-  v37 = 0u;
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v24 = self->_availableApps;
-  v25 = [(NSSet *)v24 countByEnumeratingWithState:&v34 objects:v50 count:16];
+  v25 = [(NSSet *)v24 countByEnumeratingWithState:&v31 objects:v47 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v35;
+    v27 = *v32;
     do
     {
       for (m = 0; m != v26; ++m)
       {
-        if (*v35 != v27)
+        if (*v32 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        [v5 appendString:*(*(&v34 + 1) + 8 * m)];
+        [v5 appendString:*(*(&v31 + 1) + 8 * m)];
         [v5 appendString:@"; "];
       }
 
-      v26 = [(NSSet *)v24 countByEnumeratingWithState:&v34 objects:v50 count:16];
+      v26 = [(NSSet *)v24 countByEnumeratingWithState:&v31 objects:v47 count:16];
     }
 
     while (v26);
   }
 
-  v29 = objc_alloc(MEMORY[0x277CCACA8]);
-  totalSuggestionsLimit = self->_totalSuggestionsLimit;
-  v31 = [v29 initWithFormat:@" txtl:%tu strl:%tu tsgl:%tu ipr:%@>"], self->_textualResponseLimit, self->_structuredInfoLimit, totalSuggestionsLimit, self->_initiatingProcess);
-  [v5 appendString:v31];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" txtl:%tu strl:%tu tsgl:%tu ipr:%@>"], self->_textualResponseLimit, self->_structuredInfoLimit, self->_totalSuggestionsLimit, self->_initiatingProcess);
+  [v5 appendString:v29];
 
   return v5;
 }
@@ -575,44 +571,44 @@ LABEL_66:
 
 - (PSGInputSuggestionsRequest)initWithCoder:(id)coder
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = MEMORY[0x277D42620];
   v7 = psg_default_log_handle();
-  v86 = v4;
-  v87 = [v6 robustDecodeObjectOfClass:v4 forKey:@"ctx" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v7];
+  v85 = v4;
+  v86 = [v6 robustDecodeObjectOfClass:v4 forKey:@"ctx" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v7];
 
   v8 = MEMORY[0x277D42620];
   v9 = objc_autoreleasePoolPush();
-  v84 = v5;
+  v83 = v5;
   v10 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), v5, 0}];
   objc_autoreleasePoolPop(v9);
   v11 = psg_default_log_handle();
   v12 = [v8 robustDecodeObjectOfClasses:v10 forKey:@"cvt" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v11];
 
   v13 = objc_opt_new();
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
   obj = v12;
-  v14 = [obj countByEnumeratingWithState:&v90 objects:v94 count:16];
+  v14 = [obj countByEnumeratingWithState:&v89 objects:v93 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v91;
+    v16 = *v90;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v91 != v16)
+        if (*v90 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v90 + 1) + 8 * i);
+        v18 = *(*(&v89 + 1) + 8 * i);
         v19 = objc_alloc(MEMORY[0x277D46BC0]);
         text = [v18 text];
         senderID = [v18 senderID];
@@ -624,7 +620,7 @@ LABEL_66:
           v60 = 0;
           v62 = obj;
           v63 = obj;
-          v59 = v87;
+          v59 = v86;
           selfCopy3 = self;
           goto LABEL_17;
         }
@@ -632,7 +628,7 @@ LABEL_66:
         [v13 addObject:v23];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v90 objects:v94 count:16];
+      v15 = [obj countByEnumeratingWithState:&v89 objects:v93 count:16];
       if (v15)
       {
         continue;
@@ -644,81 +640,81 @@ LABEL_66:
 
   v24 = MEMORY[0x277D42620];
   v25 = psg_default_log_handle();
-  v77 = [v24 robustDecodeObjectOfClass:v86 forKey:@"aci" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v25];
+  v76 = [v24 robustDecodeObjectOfClass:v85 forKey:@"aci" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v25];
 
-  v74 = [coderCopy decodeBoolForKey:@"dac"];
-  v73 = [coderCopy decodeBoolForKey:@"rcb"];
+  v73 = [coderCopy decodeBoolForKey:@"dac"];
+  v72 = [coderCopy decodeBoolForKey:@"rcb"];
   v26 = MEMORY[0x277D42620];
   v27 = psg_default_log_handle();
-  v76 = [v26 robustDecodeObjectOfClass:v86 forKey:@"cbi" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v27];
+  v75 = [v26 robustDecodeObjectOfClass:v85 forKey:@"cbi" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v27];
 
   v28 = MEMORY[0x277D42620];
   v29 = psg_default_log_handle();
-  v75 = [v28 robustDecodeObjectOfClass:v86 forKey:@"mkt" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v29];
+  v74 = [v28 robustDecodeObjectOfClass:v85 forKey:@"mkt" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v29];
 
   v30 = MEMORY[0x277D42620];
   v31 = psg_default_log_handle();
-  v83 = [v30 robustDecodeObjectOfClass:v86 forKey:@"stt" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v31];
+  v82 = [v30 robustDecodeObjectOfClass:v85 forKey:@"stt" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v31];
 
   v32 = MEMORY[0x277D42620];
   v33 = psg_default_log_handle();
-  v82 = [v32 robustDecodeObjectOfClass:v86 forKey:@"cai" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v33];
+  v81 = [v32 robustDecodeObjectOfClass:v85 forKey:@"cai" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v33];
 
-  v72 = [coderCopy decodeInt64ForKey:@"loc"];
-  v71 = [coderCopy decodeInt64ForKey:@"len"];
+  v71 = [coderCopy decodeInt64ForKey:@"loc"];
+  v70 = [coderCopy decodeInt64ForKey:@"len"];
   v34 = MEMORY[0x277D42620];
   v35 = psg_default_log_handle();
-  v81 = [v34 robustDecodeObjectOfClass:v86 forKey:@"lid" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v35];
+  v80 = [v34 robustDecodeObjectOfClass:v85 forKey:@"lid" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v35];
 
   v36 = MEMORY[0x277D42620];
   v37 = psg_default_log_handle();
-  v80 = [v36 robustDecodeObjectOfClass:v86 forKey:@"bid" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v37];
+  v79 = [v36 robustDecodeObjectOfClass:v85 forKey:@"bid" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v37];
 
   v38 = MEMORY[0x277D42620];
   v39 = objc_autoreleasePoolPush();
-  v40 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v86, v84, 0}];
+  v40 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v85, v83, 0}];
   objc_autoreleasePoolPop(v39);
   v41 = psg_default_log_handle();
-  v85 = [v38 robustDecodeObjectOfClasses:v40 forKey:@"rts" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v41];
+  v84 = [v38 robustDecodeObjectOfClasses:v40 forKey:@"rts" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v41];
 
   v42 = MEMORY[0x277D42620];
   v43 = objc_autoreleasePoolPush();
-  v44 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v86, objc_opt_class(), 0}];
+  v44 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v85, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v43);
   v45 = psg_default_log_handle();
-  v79 = [v42 robustDecodeObjectOfClasses:v44 forKey:@"rns" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v45];
+  v78 = [v42 robustDecodeObjectOfClasses:v44 forKey:@"rns" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v45];
 
   v46 = MEMORY[0x277D42620];
   v47 = psg_default_log_handle();
-  v78 = [v46 robustDecodeObjectOfClass:v86 forKey:@"tct" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v47];
+  v77 = [v46 robustDecodeObjectOfClass:v85 forKey:@"tct" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v47];
 
   v48 = MEMORY[0x277D42620];
   v49 = objc_autoreleasePoolPush();
-  v50 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v86, objc_opt_class(), 0}];
+  v50 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v85, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v49);
   v51 = psg_default_log_handle();
   v52 = [v48 robustDecodeObjectOfClasses:v50 forKey:@"app" withCoder:coderCopy expectNonNull:0 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v51];
 
-  v70 = [coderCopy decodeInt64ForKey:@"txtl"];
+  v69 = [coderCopy decodeInt64ForKey:@"txtl"];
   v53 = [coderCopy decodeInt64ForKey:@"strl"];
   v54 = [coderCopy decodeInt64ForKey:@"tsgl"];
   v55 = MEMORY[0x277D42620];
   v56 = psg_default_log_handle();
-  v57 = [v55 robustDecodeObjectOfClass:v86 forKey:@"ipr" withCoder:coderCopy expectNonNull:1 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v56];
+  v57 = [v55 robustDecodeObjectOfClass:v85 forKey:@"ipr" withCoder:coderCopy expectNonNull:1 errorDomain:@"PSGErrorDomain" errorCode:3 logHandle:v56];
 
   if (v57)
   {
     error = [coderCopy error];
 
-    v59 = v87;
+    v59 = v86;
     if (!error)
     {
-      v69 = v54;
-      v68 = v53;
-      v65 = v75;
-      v64 = v76;
-      v63 = v77;
-      selfCopy3 = [(PSGInputSuggestionsRequest *)self initWithResponseContext:v87 conversationTurns:obj responseKitConversationTurns:v13 adaptationContextID:v77 shouldDisableAutoCaps:v74 isResponseContextBlacklisted:v73 contextBeforeInput:v76 markedText:v75 selectedText:v83 contextAfterInput:v82 selectedRangeInMarkedText:v72 localeIdentifier:v71 bundleIdentifier:v81 recipients:v80 recipientNames:v85 textContentType:v79 availableApps:v78 textualResponseLimit:v52 structuredInfoLimit:v70 totalSuggestionsLimit:v68 initiatingProcess:v69, v57];
+      v68 = v54;
+      v67 = v53;
+      v65 = v74;
+      v64 = v75;
+      v63 = v76;
+      selfCopy3 = [(PSGInputSuggestionsRequest *)self initWithResponseContext:v86 conversationTurns:obj responseKitConversationTurns:v13 adaptationContextID:v76 shouldDisableAutoCaps:v73 isResponseContextBlacklisted:v72 contextBeforeInput:v75 markedText:v74 selectedText:v82 contextAfterInput:v81 selectedRangeInMarkedText:v71 localeIdentifier:v70 bundleIdentifier:v80 recipients:v79 recipientNames:v84 textContentType:v78 availableApps:v77 textualResponseLimit:v52 structuredInfoLimit:v69 totalSuggestionsLimit:v67 initiatingProcess:v68, v57];
       v60 = selfCopy3;
       goto LABEL_16;
     }
@@ -730,19 +726,18 @@ LABEL_66:
   else
   {
     v60 = 0;
-    v59 = v87;
+    v59 = v86;
     selfCopy3 = self;
   }
 
-  v64 = v76;
-  v63 = v77;
-  v65 = v75;
+  v64 = v75;
+  v63 = v76;
+  v65 = v74;
 LABEL_16:
 
   v62 = obj;
 LABEL_17:
 
-  v66 = *MEMORY[0x277D85DE8];
   return v60;
 }
 
@@ -750,7 +745,7 @@ LABEL_17:
 {
   capsCopy = caps;
   blacklistedCopy = blacklisted;
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   turnsCopy = turns;
   dCopy = d;
@@ -765,26 +760,26 @@ LABEL_17:
   typeCopy = type;
   appsCopy = apps;
   v25 = objc_opt_new();
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   v26 = turnsCopy;
-  v27 = [v26 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v57;
+    v29 = *v56;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v57 != v29)
+        if (*v56 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v56 + 1) + 8 * i);
+        v31 = *(*(&v55 + 1) + 8 * i);
         text = [v31 text];
 
         if (text)
@@ -798,14 +793,13 @@ LABEL_17:
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
     while (v28);
   }
 
   suggestionsLimit = [(PSGInputSuggestionsRequest *)self initWithResponseContext:contextCopy conversationTurns:v25 responseKitConversationTurns:v26 adaptationContextID:dCopy shouldDisableAutoCaps:capsCopy isResponseContextBlacklisted:blacklistedCopy contextBeforeInput:inputCopy markedText:textCopy selectedText:selectedTextCopy contextAfterInput:afterInputCopy selectedRangeInMarkedText:markedText.location localeIdentifier:markedText.length bundleIdentifier:identifierCopy recipients:bundleIdentifierCopy recipientNames:recipientsCopy textContentType:namesCopy availableApps:typeCopy textualResponseLimit:appsCopy structuredInfoLimit:limit totalSuggestionsLimit:infoLimit, suggestionsLimit];
-  v38 = *MEMORY[0x277D85DE8];
   return suggestionsLimit;
 }
 
@@ -813,7 +807,7 @@ LABEL_17:
 {
   capsCopy = caps;
   blacklistedCopy = blacklisted;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   turnsCopy = turns;
   dCopy = d;
@@ -827,26 +821,26 @@ LABEL_17:
   typeCopy = type;
   appsCopy = apps;
   v23 = objc_opt_new();
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v24 = turnsCopy;
-  v25 = [v24 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v54;
+    v27 = *v53;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v54 != v27)
+        if (*v53 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v53 + 1) + 8 * i);
+        v29 = *(*(&v52 + 1) + 8 * i);
         text = [v29 text];
 
         if (text)
@@ -860,15 +854,14 @@ LABEL_17:
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v52 objects:v56 count:16];
     }
 
     while (v26);
   }
 
-  v49 = [(PSGInputSuggestionsRequest *)self initWithResponseContext:contextCopy conversationTurns:v23 responseKitConversationTurns:v24 adaptationContextID:dCopy shouldDisableAutoCaps:capsCopy isResponseContextBlacklisted:blacklistedCopy contextBeforeInput:inputCopy markedText:textCopy selectedText:selectedTextCopy contextAfterInput:afterInputCopy selectedRangeInMarkedText:markedText.location localeIdentifier:markedText.length bundleIdentifier:identifierCopy recipients:bundleIdentifierCopy recipientNames:recipientsCopy textContentType:0 availableApps:typeCopy textualResponseLimit:appsCopy structuredInfoLimit:limit totalSuggestionsLimit:infoLimit, 3];
-  v36 = *MEMORY[0x277D85DE8];
-  return v49;
+  v48 = [(PSGInputSuggestionsRequest *)self initWithResponseContext:contextCopy conversationTurns:v23 responseKitConversationTurns:v24 adaptationContextID:dCopy shouldDisableAutoCaps:capsCopy isResponseContextBlacklisted:blacklistedCopy contextBeforeInput:inputCopy markedText:textCopy selectedText:selectedTextCopy contextAfterInput:afterInputCopy selectedRangeInMarkedText:markedText.location localeIdentifier:markedText.length bundleIdentifier:identifierCopy recipients:bundleIdentifierCopy recipientNames:recipientsCopy textContentType:0 availableApps:typeCopy textualResponseLimit:appsCopy structuredInfoLimit:limit totalSuggestionsLimit:infoLimit, 3];
+  return v48;
 }
 
 - (PSGInputSuggestionsRequest)initWithResponseContext:(id)context conversationTurns:(id)turns responseKitConversationTurns:(id)conversationTurns adaptationContextID:(id)d shouldDisableAutoCaps:(BOOL)caps isResponseContextBlacklisted:(BOOL)blacklisted contextBeforeInput:(id)input markedText:(id)self0 selectedText:(id)self1 contextAfterInput:(id)self2 selectedRangeInMarkedText:(_NSRange)self3 localeIdentifier:(id)self4 bundleIdentifier:(id)self5 recipients:(id)self6 recipientNames:(id)self7 textContentType:(id)self8 availableApps:(id)self9 textualResponseLimit:(unint64_t)limit structuredInfoLimit:(unint64_t)infoLimit totalSuggestionsLimit:(unint64_t)suggestionsLimit

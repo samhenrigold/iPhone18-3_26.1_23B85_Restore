@@ -22,13 +22,13 @@
 - (uint64_t)mixedObjectWithFraction:()TSDMixingAdditions ofObject:
 {
   objc_opt_class();
-  v2 = TSUCheckedDynamicCast();
-  v3 = MEMORY[0x277CCABB0];
+  v3 = TSUCheckedDynamicCast();
+  v4 = MEMORY[0x277CCABB0];
   [self doubleValue];
-  [v2 doubleValue];
+  [v3 doubleValue];
   TSUMixFloats();
 
-  return [v3 numberWithDouble:?];
+  return [v4 numberWithDouble:?];
 }
 
 @end

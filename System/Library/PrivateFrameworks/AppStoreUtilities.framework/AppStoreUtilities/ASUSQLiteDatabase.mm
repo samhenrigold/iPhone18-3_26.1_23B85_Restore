@@ -69,17 +69,16 @@
   [(ASUSQLiteDatabase *)self _reentrantSafePerformBlock:v10];
 }
 
-void __50__ASUSQLiteDatabase_modifyStore_usingTransaction___block_invoke(uint64_t a1)
+void __50__ASUSQLiteDatabase_modifyStore_usingTransaction___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = a1[4];
+  if (v3)
   {
-    [(ASUSQLiteDatabase *)v2 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
+    [(ASUSQLiteDatabase *)v3 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
   }
 
-  v3 = *(a1 + 40);
   v4 = [objc_opt_class() storeDescriptor];
-  -[ASUSQLiteDatabase _modifyUsingTransactionClass:withBlock:](*(a1 + 32), [v4 transactionClass], *(a1 + 48));
+  -[ASUSQLiteDatabase _modifyUsingTransactionClass:withBlock:](a1[4], [v4 transactionClass], a1[6]);
 }
 
 - (void)_modifyUsingTransactionClass:(void *)class withBlock:
@@ -142,15 +141,14 @@ void __50__ASUSQLiteDatabase_modifyStore_usingTransaction___block_invoke(uint64_
   dispatch_async(transactionQueue, v15);
 }
 
-void __61__ASUSQLiteDatabase_modifyStore_usingTransaction_completion___block_invoke(uint64_t a1)
+void __61__ASUSQLiteDatabase_modifyStore_usingTransaction_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [(ASUSQLiteDatabase *)v2 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
+    [(ASUSQLiteDatabase *)v3 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
   }
 
-  v3 = *(a1 + 40);
   v5 = [objc_opt_class() storeDescriptor];
   -[ASUSQLiteDatabase _modifyUsingTransactionClass:withBlock:](*(a1 + 32), [v5 transactionClass], *(a1 + 48));
   v4 = dispatch_get_global_queue(21, 0);
@@ -174,17 +172,17 @@ void __61__ASUSQLiteDatabase_modifyStore_usingTransaction_completion___block_inv
   [(ASUSQLiteDatabase *)self _reentrantSafePerformBlock:v12];
 }
 
-void __65__ASUSQLiteDatabase_modifyStore_usingTransactionClass_withBlock___block_invoke(uint64_t a1)
+void __65__ASUSQLiteDatabase_modifyStore_usingTransactionClass_withBlock___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2)
   {
     [(ASUSQLiteDatabase *)v2 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
-    v2 = *(a1 + 32);
+    v2 = a1[4];
   }
 
-  v4 = *(a1 + 48);
-  v3 = *(a1 + 56);
+  v4 = a1[6];
+  v3 = a1[7];
 
   [(ASUSQLiteDatabase *)v2 _modifyUsingTransactionClass:v3 withBlock:v4];
 }
@@ -240,15 +238,14 @@ void __76__ASUSQLiteDatabase_modifyStore_usingTransactionClass_withBlock_complet
   [(ASUSQLiteDatabase *)self _reentrantSafePerformBlock:v10];
 }
 
-void __44__ASUSQLiteDatabase_readStore_usingSession___block_invoke(uint64_t a1)
+void __44__ASUSQLiteDatabase_readStore_usingSession___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [(ASUSQLiteDatabase *)v2 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
+    [(ASUSQLiteDatabase *)v3 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
   }
 
-  v3 = *(a1 + 40);
   v4 = [objc_opt_class() storeDescriptor];
   v5 = [objc_alloc(objc_msgSend(v4 "sessionClass"))];
   v6 = *(a1 + 32);
@@ -319,15 +316,14 @@ void __44__ASUSQLiteDatabase_readStore_usingSession___block_invoke(uint64_t a1)
   dispatch_async(transactionQueue, v15);
 }
 
-void __55__ASUSQLiteDatabase_readStore_usingSession_completion___block_invoke(uint64_t a1)
+void __55__ASUSQLiteDatabase_readStore_usingSession_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [(ASUSQLiteDatabase *)v2 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
+    [(ASUSQLiteDatabase *)v3 _performMigrationIfNeededForStore:0 calledAfterTransaction:?];
   }
 
-  v3 = *(a1 + 40);
   v4 = [objc_opt_class() storeDescriptor];
   v5 = [objc_alloc(objc_msgSend(v4 "sessionClass"))];
   v6 = [(ASUSQLiteDatabase *)*(a1 + 32) _readUsingSession:v5 withBlock:*(a1 + 48)];
@@ -345,7 +341,7 @@ void __55__ASUSQLiteDatabase_readStore_usingSession_completion___block_invoke(ui
 
 - (BOOL)connectionNeedsResetForReopen:(id)reopen
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   reopenCopy = reopen;
   dispatch_assert_queue_V2(self->_transactionQueue);
   v5 = ASULogHandleForCategory(1);
@@ -353,13 +349,12 @@ void __55__ASUSQLiteDatabase_readStore_usingSession_completion___block_invoke(ui
   {
     options = [reopenCopy options];
     databasePath = [options databasePath];
-    v10 = 138543362;
-    v11 = databasePath;
-    _os_log_error_impl(&dword_2400F8000, v5, OS_LOG_TYPE_ERROR, "Requiring all stores to migrate after truncating corrupt database at: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = databasePath;
+    _os_log_error_impl(&dword_2400F8000, v5, OS_LOG_TYPE_ERROR, "Requiring all stores to migrate after truncating corrupt database at: %{public}@", &v9, 0xCu);
   }
 
   NSResetHashTable(self->_migratedStores);
-  v6 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -435,7 +430,7 @@ void __55__ASUSQLiteDatabase_readStore_usingSession_completion___block_invoke(ui
   return self;
 }
 
-uint64_t __33__ASUSQLiteDatabase_tableExists___block_invoke(void *a1)
+void *__33__ASUSQLiteDatabase_tableExists___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) tableExists:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -454,7 +449,7 @@ uint64_t __33__ASUSQLiteDatabase_tableExists___block_invoke(void *a1)
 
 void __44__ASUSQLiteDatabase_verifyDatabaseIntegrity__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) options];
   v3 = [v2 databasePath];
 
@@ -465,23 +460,21 @@ void __44__ASUSQLiteDatabase_verifyDatabaseIntegrity__block_invoke(uint64_t a1)
   {
     if (v5)
     {
-      v8 = 138543362;
-      v9 = v3;
+      v7 = 138543362;
+      v8 = v3;
       v6 = "Database opened at: %{public}@";
 LABEL_6:
-      _os_log_impl(&dword_2400F8000, v4, OS_LOG_TYPE_INFO, v6, &v8, 0xCu);
+      _os_log_impl(&dword_2400F8000, v4, OS_LOG_TYPE_INFO, v6, &v7, 0xCu);
     }
   }
 
   else if (v5)
   {
-    v8 = 138543362;
-    v9 = v3;
+    v7 = 138543362;
+    v8 = v3;
     v6 = "Database created at: %{public}@";
     goto LABEL_6;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_performMigrationIfNeededForStore:(char)store calledAfterTransaction:
@@ -527,10 +520,9 @@ LABEL_6:
   return v6;
 }
 
-uint64_t __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTransaction___block_invoke(uint64_t a1)
+uint64_t __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTransaction___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [objc_opt_class() createOrMigrateStoreUsingSchema:*(a1 + 40)];
   if (v3)
   {
@@ -538,13 +530,13 @@ uint64_t __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTr
     {
       v4 = *(a1 + 48);
       v5 = *(v4 + 8);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTransaction___block_invoke_2;
-      v11[3] = &unk_278C97C78;
-      v11[4] = v4;
-      v12 = *(a1 + 32);
-      [v5 dispatchAfterTransaction:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTransaction___block_invoke_2;
+      v10[3] = &unk_278C97C78;
+      v10[4] = v4;
+      v11 = *(a1 + 32);
+      [v5 dispatchAfterTransaction:v10];
     }
   }
 
@@ -553,16 +545,15 @@ uint64_t __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTr
     v6 = ASULogHandleForCategory(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v9 = [*(a1 + 56) schemaName];
-      v10 = [*(a1 + 40) currentSchemaVersion];
+      v8 = [*(a1 + 56) schemaName];
+      v9 = [*(a1 + 40) currentSchemaVersion];
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v10;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v9;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -589,13 +580,12 @@ void __78__ASUSQLiteDatabase__performMigrationIfNeededForStore_calledAfterTransa
   }
 }
 
-uint64_t __49__ASUSQLiteDatabase__readUsingSession_withBlock___block_invoke(void *a1)
+uint64_t __49__ASUSQLiteDatabase__readUsingSession_withBlock___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = (*(a1[5] + 16))();
-  v4 = *(a1[6] + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = (*(*(a1 + 40) + 16))();
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
   return 1;
 }

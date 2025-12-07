@@ -13,7 +13,7 @@
 
 + (void)installLoggingProfile:(id)profile sessionIdentifier:(id)identifier extensionIdentifier:(id)extensionIdentifier error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   extensionIdentifierCopy = extensionIdentifier;
   v12 = [self managedLoggingProfilesDirectoryForSessionIdentifier:identifier createIfNeeded:1 error:error];
@@ -30,22 +30,20 @@
       v15 = +[DELogging fwHandle];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v18 = 138543362;
-        v19 = v14;
-        _os_log_impl(&dword_248AB3000, v15, OS_LOG_TYPE_INFO, "Failed to install logging preference payload. Deleting [%{public}@]", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v14;
+        _os_log_impl(&dword_248AB3000, v15, OS_LOG_TYPE_INFO, "Failed to install logging preference payload. Deleting [%{public}@]", &v17, 0xCu);
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       [defaultManager removeItemAtURL:v14 error:0];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)removeLoggingProfileForSessionIdentifier:(id)identifier extensionIdentifier:(id)extensionIdentifier error:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   extensionIdentifierCopy = extensionIdentifier;
   v9 = [self managedLoggingProfilesDirectoryForSessionIdentifier:identifier createIfNeeded:0 error:0];
   v10 = [v9 URLByAppendingPathComponent:extensionIdentifierCopy];
@@ -76,9 +74,9 @@
           v19 = +[DELogging fwHandle];
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v26 = 138543362;
-            v27 = v9;
-            _os_log_impl(&dword_248AB3000, v19, OS_LOG_TYPE_INFO, "Deleting [%{public}@]", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = v9;
+            _os_log_impl(&dword_248AB3000, v19, OS_LOG_TYPE_INFO, "Deleting [%{public}@]", &v25, 0xCu);
           }
 
           defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
@@ -92,28 +90,26 @@
     else
     {
       v22 = MEMORY[0x277CCA9B8];
-      v28 = @"url";
-      v29[0] = v11;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v27 = @"url";
+      v28[0] = v11;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
       *error = [v22 errorWithDomain:@"DEExtensionErrorDomain" code:3 userInfo:v23];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)loggingPayloadForURL:(id)l error:(id *)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = [self _subsystemPayloadForURL:l error:error];
   v5 = v4;
   if (v4)
   {
-    v9 = @"Subsystems";
-    v10[0] = v4;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"Subsystems";
+    v9[0] = v4;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -121,41 +117,39 @@
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)combinedLoggingPayloadForURLs:(id)ls error:(id *)error
 {
   errorCopy = error;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
-  v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
-  v29 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
+  v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
+  v28 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = lsCopy;
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
-        v31 = 0;
-        v10 = [self _subsystemPayloadForURL:v9 error:{&v31, errorCopy}];
-        v11 = v31;
+        v9 = *(*(&v31 + 1) + 8 * i);
+        v30 = 0;
+        v10 = [self _subsystemPayloadForURL:v9 error:{&v30, errorCopy}];
+        v11 = v30;
         if (v10)
         {
           allKeys = [v10 allKeys];
@@ -163,40 +157,40 @@
           v14 = [v10 objectForKeyedSubscript:firstObject];
           allKeys2 = [v10 allKeys];
           firstObject2 = [allKeys2 firstObject];
-          [v29 setObject:v14 forKeyedSubscript:firstObject2];
+          [v28 setObject:v14 forKeyedSubscript:firstObject2];
         }
 
         else
         {
-          [v27 addObject:v11];
+          [v26 addObject:v11];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v6);
   }
 
-  if (errorCopy && [v27 count])
+  if (errorCopy && [v26 count])
   {
     v17 = MEMORY[0x277CCA9B8];
-    v38 = @"errors";
-    v18 = [MEMORY[0x277CBEA60] arrayWithArray:v27];
-    v39 = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v37 = @"errors";
+    v18 = [MEMORY[0x277CBEA60] arrayWithArray:v26];
+    v38 = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     *errorCopy = [v17 errorWithDomain:@"DEExtensionErrorDomain" code:1 userInfo:v19];
   }
 
-  allKeys3 = [v29 allKeys];
+  allKeys3 = [v28 allKeys];
   v21 = [allKeys3 count];
 
   if (v21)
   {
-    v36 = @"Subsystems";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v29];
-    v37 = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v35 = @"Subsystems";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v28];
+    v36 = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
   }
 
   else
@@ -204,14 +198,12 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 + (id)_subsystemPayloadForURL:(id)l error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v6 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:lCopy];
   if (v6)
@@ -221,9 +213,9 @@
 
     if (lastPathComponent)
     {
-      v15 = lastPathComponent;
-      v16 = v6;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = lastPathComponent;
+      v15 = v6;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     }
 
     else
@@ -231,9 +223,9 @@
       if (error)
       {
         v11 = MEMORY[0x277CCA9B8];
-        v17 = @"url";
-        v18 = lCopy;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v16 = @"url";
+        v17 = lCopy;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
         *error = [v11 errorWithDomain:@"DEExtensionErrorDomain" code:4 userInfo:v12];
       }
 
@@ -246,9 +238,9 @@
   if (error)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v19 = @"url";
-    v20[0] = lCopy;
-    lastPathComponent = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = @"url";
+    v19[0] = lCopy;
+    lastPathComponent = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     [v10 errorWithDomain:@"DEExtensionErrorDomain" code:2 userInfo:lastPathComponent];
     *error = v9 = 0;
 LABEL_9:
@@ -258,8 +250,6 @@ LABEL_9:
 
   v9 = 0;
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

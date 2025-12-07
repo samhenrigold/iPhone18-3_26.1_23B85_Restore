@@ -10,10 +10,10 @@
 
 - (_BlastDoorLPArtworkMetadata)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = _BlastDoorLPArtworkMetadata;
-  v2 = [(_BlastDoorLPArtworkMetadata *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = _BlastDoorLPArtworkMetadata;
+  v2 = [(_BlastDoorLPArtworkMetadata *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -21,17 +21,16 @@
     v4 = v2;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (_BlastDoorLPArtworkMetadata)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = _BlastDoorLPArtworkMetadata;
-  v5 = [(_BlastDoorLPArtworkMetadata *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = _BlastDoorLPArtworkMetadata;
+  v5 = [(_BlastDoorLPArtworkMetadata *)&v13 init];
   if (v5)
   {
     v5->_version = [coderCopy decodeInt32ForKey:@"version"];
@@ -47,7 +46,6 @@
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -80,11 +78,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorLPArtworkMetadata;
-  if ([(_BlastDoorLPArtworkMetadata *)&v12 isEqual:equalCopy])
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPArtworkMetadata;
+  if ([(_BlastDoorLPArtworkMetadata *)&v11 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -122,7 +120,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

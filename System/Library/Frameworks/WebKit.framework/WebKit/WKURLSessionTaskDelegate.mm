@@ -178,147 +178,6 @@ LABEL_2:
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
-  if (!kdebug_is_enabled())
-  {
-    goto LABEL_2;
-  }
-
-  v26 = *MEMORY[0x1E696EB68];
-  v27 = WTFSignpostLogHandle();
-  v28 = v27;
-  if (v26 == 1)
-  {
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67109888;
-      v34 = 0;
-      v35 = 1024;
-      v36 = 0;
-      v37 = 2048;
-      selfCopy = self;
-      v39 = 2048;
-      v40 = WTFCurrentContinuousTime();
-      _os_log_impl(&dword_19D52D000, v28, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu received challenge", buf, 0x22u);
-    }
-
-    goto LABEL_2;
-  }
-
-  if (v27)
-  {
-    v29 = v27;
-  }
-
-  if (!self)
-  {
-    v30 = 0xEEEEB0B5B2B2EEEELL;
-LABEL_28:
-    if (os_signpost_enabled(v28))
-    {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19D52D000, v28, OS_SIGNPOST_EVENT, v30, "DataTask", "received challenge", buf, 2u);
-    }
-
-    goto LABEL_30;
-  }
-
-  v30 = os_signpost_id_make_with_pointer(v28, self);
-  if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_30:
-  if (v28)
-  {
-  }
-
-LABEL_2:
-  connection = [(WKURLSessionTaskDelegate *)self connection];
-  v10 = connection;
-  if (connection)
-  {
-    while (1)
-    {
-      v11 = *connection;
-      if ((*connection & 1) == 0)
-      {
-        break;
-      }
-
-      v12 = *connection;
-      atomic_compare_exchange_strong_explicit(connection, &v12, v11 + 2, memory_order_relaxed, memory_order_relaxed);
-      if (v12 == v11)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    WTF::ThreadSafeWeakPtrControlBlock::strongRef(*connection);
-LABEL_7:
-    if (!self->_identifier.m_value.m_identifier || (MEMORY[0x19EB0B400](buf, challenge), v13 = _Block_copy(handler), v14 = WTF::fastMalloc(0x10), *v14 = &unk_1F10EE020, v14[1] = v13, _Block_release(0), WTF::ObjectIdentifierGeneric<IPC::AsyncReplyIDType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>::m_generationProtected == 1))
-    {
-      __break(0xC471u);
-      JUMPOUT(0x19D952EC8);
-    }
-
-    IdentifierInternal = WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>::generateIdentifierInternal();
-    v17 = IPC::Encoder::operator new(0x238, v16);
-    *v17 = 526;
-    *(v17 + 68) = 0;
-    *(v17 + 70) = 0;
-    *(v17 + 69) = 0;
-    *(v17 + 2) = 0;
-    *(v17 + 3) = 0;
-    *(v17 + 1) = 0;
-    IPC::Encoder::encodeHeader(v17);
-    v32 = v17;
-    IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v17, self->_identifier.m_value.m_identifier);
-    IPC::ArgumentCoder<WebCore::AuthenticationChallenge,void>::encode(v17, buf);
-    v31[0] = v14;
-    v31[1] = IdentifierInternal;
-    IPC::Connection::sendMessageWithAsyncReply(v10, &v32, v31, 0, 0);
-    v19 = v31[0];
-    v31[0] = 0;
-    if (v19)
-    {
-      (*(*v19 + 8))(v19);
-    }
-
-    v20 = v32;
-    v32 = 0;
-    if (v20)
-    {
-      IPC::Encoder::~Encoder(v20, v18);
-      bmalloc::api::tzoneFree(v24, v25);
-    }
-
-    _Block_release(0);
-    v22 = v42;
-    v42 = 0;
-    if (v22)
-    {
-    }
-
-    v23 = v41;
-    v41 = 0;
-    if (v23)
-    {
-    }
-
-    WebCore::AuthenticationChallengeBase::~AuthenticationChallengeBase(buf, v21);
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v10);
-  }
-
-  else
-  {
-    (*(handler + 2))(handler, 3, 0);
-  }
-}
-
-- (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
-{
   v45 = *MEMORY[0x1E69E9840];
   if (!kdebug_is_enabled())
   {
@@ -333,14 +192,14 @@ LABEL_7:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109888;
-      v37 = 0;
-      v38 = 1024;
-      v39 = 0;
-      v40 = 2048;
+      v36 = 0;
+      v37 = 1024;
+      v38 = 0;
+      v39 = 2048;
       selfCopy = self;
-      v42 = 2048;
-      v43 = WTFCurrentContinuousTime();
-      _os_log_impl(&dword_19D52D000, v30, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu redirect", buf, 0x22u);
+      v41 = 2048;
+      v42 = WTFCurrentContinuousTime();
+      _os_log_impl(&dword_19D52D000, v30, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu received challenge", buf, 0x22u);
     }
 
     goto LABEL_2;
@@ -358,7 +217,7 @@ LABEL_28:
     if (os_signpost_enabled(v30))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19D52D000, v30, OS_SIGNPOST_EVENT, v32, "DataTask", "redirect", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19D52D000, v30, OS_SIGNPOST_EVENT, v32, "DataTask", "received challenge", buf, 2u);
     }
 
     goto LABEL_30;
@@ -377,6 +236,147 @@ LABEL_30:
 
 LABEL_2:
   connection = [(WKURLSessionTaskDelegate *)self connection];
+  v10 = connection;
+  if (connection)
+  {
+    while (1)
+    {
+      v11 = *&connection->_os_unfair_lock_opaque;
+      if ((*&connection->_os_unfair_lock_opaque & 1) == 0)
+      {
+        break;
+      }
+
+      v12 = *&connection->_os_unfair_lock_opaque;
+      atomic_compare_exchange_strong_explicit(connection, &v12, v11 + 2, memory_order_relaxed, memory_order_relaxed);
+      if (v12 == v11)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    WTF::ThreadSafeWeakPtrControlBlock::strongRef(*&connection->_os_unfair_lock_opaque);
+LABEL_7:
+    if (!self->_identifier.m_value.m_identifier || (MEMORY[0x19EB0B400](buf, challenge), v13 = _Block_copy(handler), v15 = WTF::fastMalloc(v14, 0x10), *v15 = &unk_1F10EE020, v15[1] = v13, _Block_release(0), WTF::ObjectIdentifierGeneric<IPC::AsyncReplyIDType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>::m_generationProtected == 1))
+    {
+      __break(0xC471u);
+      JUMPOUT(0x19D952EC8);
+    }
+
+    IdentifierInternal = WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>::generateIdentifierInternal();
+    v18 = IPC::Encoder::operator new(0x238, v17);
+    *v18 = 526;
+    *(v18 + 68) = 0;
+    *(v18 + 70) = 0;
+    *(v18 + 69) = 0;
+    *(v18 + 2) = 0;
+    *(v18 + 3) = 0;
+    *(v18 + 1) = 0;
+    IPC::Encoder::encodeHeader(v18);
+    v34 = v18;
+    IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v18, self->_identifier.m_value.m_identifier);
+    IPC::ArgumentCoder<WebCore::AuthenticationChallenge,void>::encode(v18, buf);
+    v33[0] = v15;
+    v33[1] = IdentifierInternal;
+    IPC::Connection::sendMessageWithAsyncReply(v10, &v34, v33, 0, 0);
+    v20 = v33[0];
+    v33[0] = 0;
+    if (v20)
+    {
+      (*(*v20 + 8))(v20);
+    }
+
+    v21 = v34;
+    v34 = 0;
+    if (v21)
+    {
+      IPC::Encoder::~Encoder(v21, v19);
+      bmalloc::api::tzoneFree(v26, v27);
+    }
+
+    _Block_release(0);
+    v23 = v44;
+    v44 = 0;
+    if (v23)
+    {
+    }
+
+    v24 = v43;
+    v43 = 0;
+    if (v24)
+    {
+    }
+
+    WebCore::AuthenticationChallengeBase::~AuthenticationChallengeBase(buf, v22);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v10, v25);
+  }
+
+  else
+  {
+    (*(handler + 2))(handler, 3, 0);
+  }
+}
+
+- (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
+{
+  v47 = *MEMORY[0x1E69E9840];
+  if (!kdebug_is_enabled())
+  {
+    goto LABEL_2;
+  }
+
+  v30 = *MEMORY[0x1E696EB68];
+  v31 = WTFSignpostLogHandle();
+  v32 = v31;
+  if (v30 == 1)
+  {
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109888;
+      v39 = 0;
+      v40 = 1024;
+      v41 = 0;
+      v42 = 2048;
+      selfCopy = self;
+      v44 = 2048;
+      v45 = WTFCurrentContinuousTime();
+      _os_log_impl(&dword_19D52D000, v32, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu redirect", buf, 0x22u);
+    }
+
+    goto LABEL_2;
+  }
+
+  if (v31)
+  {
+    v33 = v31;
+  }
+
+  if (!self)
+  {
+    v34 = 0xEEEEB0B5B2B2EEEELL;
+LABEL_28:
+    if (os_signpost_enabled(v32))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_19D52D000, v32, OS_SIGNPOST_EVENT, v34, "DataTask", "redirect", buf, 2u);
+    }
+
+    goto LABEL_30;
+  }
+
+  v34 = os_signpost_id_make_with_pointer(v32, self);
+  if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_30:
+  if (v32)
+  {
+  }
+
+LABEL_2:
+  connection = [(WKURLSessionTaskDelegate *)self connection];
   v12 = connection;
   if (!connection)
   {
@@ -386,13 +386,13 @@ LABEL_2:
 
   while (1)
   {
-    v13 = *connection;
-    if ((*connection & 1) == 0)
+    v13 = *&connection->_os_unfair_lock_opaque;
+    if ((*&connection->_os_unfair_lock_opaque & 1) == 0)
     {
       break;
     }
 
-    v14 = *connection;
+    v14 = *&connection->_os_unfair_lock_opaque;
     atomic_compare_exchange_strong_explicit(connection, &v14, v13 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v14 == v13)
     {
@@ -400,7 +400,7 @@ LABEL_2:
     }
   }
 
-  WTF::ThreadSafeWeakPtrControlBlock::strongRef(*connection);
+  WTF::ThreadSafeWeakPtrControlBlock::strongRef(*&connection->_os_unfair_lock_opaque);
 LABEL_7:
   if (!self->_identifier.m_value.m_identifier)
   {
@@ -409,17 +409,17 @@ LABEL_7:
   }
 
   WebCore::ResourceResponse::ResourceResponse(buf, redirection);
-  MEMORY[0x19EB06210](v33, request);
-  v15 = _Block_copy(handler);
+  MEMORY[0x19EB06210](v35, request);
+  v16 = _Block_copy(handler);
   if (request)
   {
     requestCopy = request;
   }
 
-  v17 = WTF::fastMalloc(0x18);
-  *v17 = &unk_1F10EE048;
-  v17[1] = v15;
-  v17[2] = request;
+  v18 = WTF::fastMalloc(v15, 0x18);
+  *v18 = &unk_1F10EE048;
+  v18[1] = v16;
+  v18[2] = request;
   _Block_release(0);
   if (WTF::ObjectIdentifierGeneric<IPC::AsyncReplyIDType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>::m_generationProtected == 1)
   {
@@ -429,104 +429,104 @@ LABEL_34:
   }
 
   IdentifierInternal = WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>::generateIdentifierInternal();
-  v20 = IPC::Encoder::operator new(0x238, v19);
-  *v20 = 527;
-  *(v20 + 68) = 0;
-  *(v20 + 70) = 0;
-  *(v20 + 69) = 0;
-  *(v20 + 2) = 0;
-  *(v20 + 3) = 0;
-  *(v20 + 1) = 0;
-  IPC::Encoder::encodeHeader(v20);
-  v35 = v20;
-  IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v20, self->_identifier.m_value.m_identifier);
-  IPC::ArgumentCoder<WebCore::ResourceResponse,void>::encode(v20, buf);
-  IPC::ArgumentCoder<WebCore::ResourceRequest,void>::encode(v20, v33);
-  v34[0] = v17;
-  v34[1] = IdentifierInternal;
-  IPC::Connection::sendMessageWithAsyncReply(v12, &v35, v34, 0, 0);
-  v22 = v34[0];
-  v34[0] = 0;
-  if (v22)
-  {
-    (*(*v22 + 8))(v22);
-  }
-
-  v23 = v35;
-  v35 = 0;
+  v21 = IPC::Encoder::operator new(0x238, v20);
+  *v21 = 527;
+  *(v21 + 68) = 0;
+  *(v21 + 70) = 0;
+  *(v21 + 69) = 0;
+  *(v21 + 2) = 0;
+  *(v21 + 3) = 0;
+  *(v21 + 1) = 0;
+  IPC::Encoder::encodeHeader(v21);
+  v37 = v21;
+  IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v21, self->_identifier.m_value.m_identifier);
+  IPC::ArgumentCoder<WebCore::ResourceResponse,void>::encode(v21, buf);
+  IPC::ArgumentCoder<WebCore::ResourceRequest,void>::encode(v21, v35);
+  v36[0] = v18;
+  v36[1] = IdentifierInternal;
+  IPC::Connection::sendMessageWithAsyncReply(v12, &v37, v36, 0, 0);
+  v23 = v36[0];
+  v36[0] = 0;
   if (v23)
   {
-    IPC::Encoder::~Encoder(v23, v21);
-    bmalloc::api::tzoneFree(v26, v27);
+    (*(*v23 + 8))(v23);
+  }
+
+  v24 = v37;
+  v37 = 0;
+  if (v24)
+  {
+    IPC::Encoder::~Encoder(v24, v22);
+    bmalloc::api::tzoneFree(v28, v29);
   }
 
   _Block_release(0);
-  WebCore::ResourceRequest::~ResourceRequest(v33);
-  v25 = v44;
-  v44 = 0;
-  if (v25)
+  WebCore::ResourceRequest::~ResourceRequest(v35);
+  v26 = v46;
+  v46 = 0;
+  if (v26)
   {
   }
 
-  WebCore::ResourceResponseBase::~ResourceResponseBase(buf, v24);
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v12);
+  WebCore::ResourceResponseBase::~ResourceResponseBase(buf, v25);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v12, v27);
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (!kdebug_is_enabled())
   {
     goto LABEL_2;
   }
 
-  v25 = *MEMORY[0x1E696EB68];
-  v26 = WTFSignpostLogHandle();
-  v27 = v26;
-  if (v25 == 1)
+  v27 = *MEMORY[0x1E696EB68];
+  v28 = WTFSignpostLogHandle();
+  v29 = v28;
+  if (v27 == 1)
   {
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109888;
-      v33 = 0;
-      v34 = 1024;
       v35 = 0;
-      v36 = 2048;
-      selfCopy = self;
+      v36 = 1024;
+      v37 = 0;
       v38 = 2048;
-      v39 = WTFCurrentContinuousTime();
-      _os_log_impl(&dword_19D52D000, v27, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu received response headers", buf, 0x22u);
+      selfCopy = self;
+      v40 = 2048;
+      v41 = WTFCurrentContinuousTime();
+      _os_log_impl(&dword_19D52D000, v29, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu received response headers", buf, 0x22u);
     }
 
     goto LABEL_2;
   }
 
-  if (v26)
+  if (v28)
   {
-    v28 = v26;
+    v30 = v28;
   }
 
   if (!self)
   {
-    v29 = 0xEEEEB0B5B2B2EEEELL;
+    v31 = 0xEEEEB0B5B2B2EEEELL;
 LABEL_26:
-    if (os_signpost_enabled(v27))
+    if (os_signpost_enabled(v29))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19D52D000, v27, OS_SIGNPOST_EVENT, v29, "DataTask", "received response headers", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19D52D000, v29, OS_SIGNPOST_EVENT, v31, "DataTask", "received response headers", buf, 2u);
     }
 
     goto LABEL_28;
   }
 
-  v29 = os_signpost_id_make_with_pointer(v27, self);
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v31 = os_signpost_id_make_with_pointer(v29, self);
+  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     goto LABEL_26;
   }
 
 LABEL_28:
-  if (v27)
+  if (v29)
   {
   }
 
@@ -537,13 +537,13 @@ LABEL_2:
   {
     while (1)
     {
-      v11 = *connection;
-      if ((*connection & 1) == 0)
+      v11 = *&connection->_os_unfair_lock_opaque;
+      if ((*&connection->_os_unfair_lock_opaque & 1) == 0)
       {
         break;
       }
 
-      v12 = *connection;
+      v12 = *&connection->_os_unfair_lock_opaque;
       atomic_compare_exchange_strong_explicit(connection, &v12, v11 + 2, memory_order_relaxed, memory_order_relaxed);
       if (v12 == v11)
       {
@@ -551,54 +551,54 @@ LABEL_2:
       }
     }
 
-    WTF::ThreadSafeWeakPtrControlBlock::strongRef(*connection);
+    WTF::ThreadSafeWeakPtrControlBlock::strongRef(*&connection->_os_unfair_lock_opaque);
 LABEL_7:
-    if (!self->_identifier.m_value.m_identifier || (WebCore::ResourceResponse::ResourceResponse(buf, response), v13 = _Block_copy(handler), v14 = WTF::fastMalloc(0x10), *v14 = &unk_1F10EE070, v14[1] = v13, _Block_release(0), WTF::ObjectIdentifierGeneric<IPC::AsyncReplyIDType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>::m_generationProtected == 1))
+    if (!self->_identifier.m_value.m_identifier || (WebCore::ResourceResponse::ResourceResponse(buf, response), v13 = _Block_copy(handler), v15 = WTF::fastMalloc(v14, 0x10), *v15 = &unk_1F10EE070, v15[1] = v13, _Block_release(0), WTF::ObjectIdentifierGeneric<IPC::AsyncReplyIDType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>::m_generationProtected == 1))
     {
       __break(0xC471u);
       JUMPOUT(0x19D953724);
     }
 
     IdentifierInternal = WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>::generateIdentifierInternal();
-    v17 = IPC::Encoder::operator new(0x238, v16);
-    *v17 = 525;
-    *(v17 + 68) = 0;
-    *(v17 + 70) = 0;
-    *(v17 + 69) = 0;
-    *(v17 + 2) = 0;
-    *(v17 + 3) = 0;
-    *(v17 + 1) = 0;
-    IPC::Encoder::encodeHeader(v17);
-    v31 = v17;
-    IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v17, self->_identifier.m_value.m_identifier);
-    IPC::ArgumentCoder<WebCore::ResourceResponse,void>::encode(v17, buf);
-    v30[0] = v14;
-    v30[1] = IdentifierInternal;
-    IPC::Connection::sendMessageWithAsyncReply(v10, &v31, v30, 0, 0);
-    v19 = v30[0];
-    v30[0] = 0;
-    if (v19)
-    {
-      (*(*v19 + 8))(v19);
-    }
-
-    v20 = v31;
-    v31 = 0;
+    v18 = IPC::Encoder::operator new(0x238, v17);
+    *v18 = 525;
+    *(v18 + 68) = 0;
+    *(v18 + 70) = 0;
+    *(v18 + 69) = 0;
+    *(v18 + 2) = 0;
+    *(v18 + 3) = 0;
+    *(v18 + 1) = 0;
+    IPC::Encoder::encodeHeader(v18);
+    v33 = v18;
+    IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v18, self->_identifier.m_value.m_identifier);
+    IPC::ArgumentCoder<WebCore::ResourceResponse,void>::encode(v18, buf);
+    v32[0] = v15;
+    v32[1] = IdentifierInternal;
+    IPC::Connection::sendMessageWithAsyncReply(v10, &v33, v32, 0, 0);
+    v20 = v32[0];
+    v32[0] = 0;
     if (v20)
     {
-      IPC::Encoder::~Encoder(v20, v18);
-      bmalloc::api::tzoneFree(v23, v24);
+      (*(*v20 + 8))(v20);
+    }
+
+    v21 = v33;
+    v33 = 0;
+    if (v21)
+    {
+      IPC::Encoder::~Encoder(v21, v19);
+      bmalloc::api::tzoneFree(v25, v26);
     }
 
     _Block_release(0);
-    v22 = v40;
-    v40 = 0;
-    if (v22)
+    v23 = v42;
+    v42 = 0;
+    if (v23)
     {
     }
 
-    WebCore::ResourceResponseBase::~ResourceResponseBase(buf, v21);
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v10);
+    WebCore::ResourceResponseBase::~ResourceResponseBase(buf, v22);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v10, v24);
   }
 
   else
@@ -609,61 +609,61 @@ LABEL_7:
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!kdebug_is_enabled())
   {
     goto LABEL_2;
   }
 
-  v15 = *MEMORY[0x1E696EB68];
-  v16 = WTFSignpostLogHandle();
-  v17 = v16;
-  if (v15 == 1)
+  v16 = *MEMORY[0x1E696EB68];
+  v17 = WTFSignpostLogHandle();
+  v18 = v17;
+  if (v16 == 1)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *&buf = 67110144;
       WORD4(buf) = 1024;
       *(&buf + 10) = 0;
       HIWORD(buf) = 2048;
       selfCopy = self;
-      v23 = 2048;
-      v24 = WTFCurrentContinuousTime();
-      v25 = 2048;
-      v26 = [data length];
-      _os_log_impl(&dword_19D52D000, v17, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu received %zu bytes", &buf, 0x2Cu);
+      v24 = 2048;
+      v25 = WTFCurrentContinuousTime();
+      v26 = 2048;
+      v27 = [data length];
+      _os_log_impl(&dword_19D52D000, v18, OS_LOG_TYPE_DEFAULT, "type=%d name=%d p=%lu ts=%llu received %zu bytes", &buf, 0x2Cu);
     }
 
     goto LABEL_2;
   }
 
-  if (v16)
+  if (v17)
   {
-    v18 = v16;
+    v19 = v17;
   }
 
   if (!self)
   {
-    v19 = 0xEEEEB0B5B2B2EEEELL;
+    v20 = 0xEEEEB0B5B2B2EEEELL;
 LABEL_22:
-    if (os_signpost_enabled(v17))
+    if (os_signpost_enabled(v18))
     {
       LODWORD(buf) = 134217984;
       *(&buf + 4) = [data length];
-      _os_signpost_emit_with_name_impl(&dword_19D52D000, v17, OS_SIGNPOST_EVENT, v19, "DataTask", "received %zu bytes", &buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_19D52D000, v18, OS_SIGNPOST_EVENT, v20, "DataTask", "received %zu bytes", &buf, 0xCu);
     }
 
     goto LABEL_24;
   }
 
-  v19 = os_signpost_id_make_with_pointer(v17, self);
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v20 = os_signpost_id_make_with_pointer(v18, self);
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     goto LABEL_22;
   }
 
 LABEL_24:
-  if (v17)
+  if (v18)
   {
   }
 
@@ -706,12 +706,12 @@ LABEL_7:
         v14 = 0;
       }
 
-      v20[0] = bytes;
-      v20[1] = v14;
+      v21[0] = bytes;
+      v21[1] = v14;
       *&buf = p_identifier;
-      *(&buf + 1) = v20;
+      *(&buf + 1) = v21;
       IPC::Connection::send<Messages::NetworkProcessProxy::DataTaskDidReceiveData>(v8, &buf, 0, 0, 0);
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v8);
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v8, v15);
     }
 
     else
@@ -867,7 +867,7 @@ LABEL_40:
 
   WebKit::NetworkSessionCocoa::removeDataTask(v18, p_identifier->m_value.m_identifier);
 LABEL_23:
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v8);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v8, v12);
 }
 
 - (id).cxx_construct

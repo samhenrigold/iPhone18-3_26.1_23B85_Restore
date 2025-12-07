@@ -8,7 +8,7 @@
 
 + (void)receiverDataWithNonce:(id)nonce nearbyMetadata:(id)metadata appearanceData:(id)data completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840, &qword_1ADB783A0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v24 - v10;
   v12 = _Block_copy(completion);
@@ -43,7 +43,7 @@
   swift_allocObject();
   selfCopy = self;
   sub_1ADB059C0();
-  sub_1AD4F75FC(&qword_1EB59BAA0, v4, type metadata accessor for NearbyPeerPaymentReceiverResponseMetadata);
+  sub_1AD4F75FC(&qword_1EB59BAA0, v4, type metadata accessor for NearbyPeerPaymentReceiverResponseMetadata, &protocol conformance descriptor for NearbyPeerPaymentReceiverResponseMetadata);
   v5 = sub_1ADB059B0();
   v7 = v6;
 

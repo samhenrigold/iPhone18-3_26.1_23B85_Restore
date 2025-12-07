@@ -7,17 +7,15 @@
 
 + (id)fp_errorForCollisionWithURL:()FPFSHelpers
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = *MEMORY[0x1E696A250];
-  v11 = @"FPErrorCollidingURLKey";
-  v12[0] = a3;
+  v10 = @"FPErrorCollidingURLKey";
+  v11[0] = a3;
   v5 = MEMORY[0x1E695DF20];
   v6 = a3;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v3 errorWithDomain:v4 code:516 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

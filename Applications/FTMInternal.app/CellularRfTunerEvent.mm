@@ -137,7 +137,6 @@ LABEL_11:
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -154,7 +153,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    elapsedMs = self->_elapsedMs;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -174,12 +172,10 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  timeoutMs = self->_timeoutMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_10:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -307,7 +303,6 @@ LABEL_6:
     goto LABEL_25;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -319,7 +314,7 @@ LABEL_6:
   else if (*(equalCopy + 48))
   {
 LABEL_25:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_26;
   }
 
@@ -364,7 +359,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v8 = (*(equalCopy + 48) & 4) == 0;
+  v7 = (*(equalCopy + 48) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 48) & 4) == 0 || self->_subsId != *(equalCopy + 10))
@@ -372,12 +367,12 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_26:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

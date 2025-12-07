@@ -17,7 +17,7 @@
   if (v2)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    [(CRInsightsContext *)v2 setInfo:dictionary];
+    [(CRInsightsContext *)v2 setInfo:?];
   }
 
   return v2;
@@ -32,12 +32,12 @@
   if (v5)
   {
     cameraReader = [contextCopy cameraReader];
-    [(CRInsightsContext *)v5 setCameraReader:cameraReader];
+    [(CRInsightsContext *)v5 setCameraReader:?];
 
     v7 = MEMORY[0x277CBEB38];
     info = [contextCopy info];
-    v9 = [v7 dictionaryWithDictionary:info];
-    [(CRInsightsContext *)v5 setInfo:v9];
+    v9 = [v7 dictionaryWithDictionary:?];
+    [(CRInsightsContext *)v5 setInfo:?];
   }
 
   return v5;
@@ -47,7 +47,7 @@
 {
   keyCopy = key;
   info = [(CRInsightsContext *)self info];
-  v6 = [info objectForKey:keyCopy];
+  v6 = [info objectForKey:?];
 
   return v6;
 }
@@ -60,12 +60,12 @@
   v8 = info;
   if (valueCopy)
   {
-    [info setObject:valueCopy forKey:keyCopy];
+    [info setObject:? forKey:?];
   }
 
   else
   {
-    [info removeObjectForKey:keyCopy];
+    [info removeObjectForKey:?];
   }
 }
 
@@ -75,7 +75,7 @@
   cameraReader = [(CRInsightsContext *)self cameraReader];
   info = [(CRInsightsContext *)self info];
   v6 = [info description];
-  v7 = [v3 stringWithFormat:@"CRInsightsContext %p\r{\rCamera reader: %p\rKey-value pairs:\r%@\r}", self, cameraReader, v6];
+  v7 = [v3 stringWithFormat:self, cameraReader, v6];
 
   return v7;
 }

@@ -182,9 +182,9 @@ LABEL_3:
       if (bundle == bundleCopy)
       {
         tableName = [v13 tableName];
-        v17 = [tableName isEqualToString:nameCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(tableName);
 
-        if (v17)
+        if (isEqualToString)
         {
           v18 = v13;
 

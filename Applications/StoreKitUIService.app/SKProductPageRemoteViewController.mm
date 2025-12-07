@@ -3,10 +3,13 @@
 - (void)finishImmediately;
 - (void)finishWithResult:(unint64_t)result completion:(id)completion;
 - (void)loadDidFinish;
+- (void)setAskToBuy:(BOOL)buy;
 - (void)setCancelButtonTitle:(id)title;
 - (void)setPreview:(id)preview;
 - (void)setPromptString:(id)string;
 - (void)setRightBarButtonTitle:(id)title;
+- (void)setShowsRightBarButton:(BOOL)button;
+- (void)setShowsStoreButton:(BOOL)button;
 - (void)setUsageContext:(id)context;
 - (void)setVisibleInClientWindow:(id)window;
 - (void)setupWithClientBundleID:(id)d bagType:(int64_t)type;
@@ -48,6 +51,13 @@
   [delegate productPageRemoteViewController:self userDidInteractWithProduct:product];
 }
 
+- (void)setShowsStoreButton:(BOOL)button
+{
+  buttonCopy = button;
+  extensionProxy = [(SKProductPageRemoteViewController *)self extensionProxy];
+  [extensionProxy _setShowsStoreButton:buttonCopy];
+}
+
 - (void)setCancelButtonTitle:(id)title
 {
   titleCopy = title;
@@ -62,11 +72,25 @@
   [extensionProxy _setRightBarButtonTitle:titleCopy];
 }
 
+- (void)setShowsRightBarButton:(BOOL)button
+{
+  buttonCopy = button;
+  extensionProxy = [(SKProductPageRemoteViewController *)self extensionProxy];
+  [extensionProxy _setShowsRightBarButton:buttonCopy];
+}
+
 - (void)setPromptString:(id)string
 {
   stringCopy = string;
   extensionProxy = [(SKProductPageRemoteViewController *)self extensionProxy];
   [extensionProxy _setPromptString:stringCopy];
+}
+
+- (void)setAskToBuy:(BOOL)buy
+{
+  buyCopy = buy;
+  extensionProxy = [(SKProductPageRemoteViewController *)self extensionProxy];
+  [extensionProxy _setAskToBuy:buyCopy];
 }
 
 - (void)setUsageContext:(id)context

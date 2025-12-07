@@ -230,16 +230,15 @@ void __97__WFPlayMusicContextualAction__unsafeDisambiguationEntriesForCollection
 {
   if (a2)
   {
-    v5 = [a2 if_compactMap:&__block_literal_global_20263];
+    v4 = [a2 if_compactMap:&__block_literal_global_20263];
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -268,17 +267,15 @@ WFPlayMusicContextualAction *__97__WFPlayMusicContextualAction__unsafeDisambigua
 
 + (WFTopHitItemContextualAction)disambiguationAction
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [WFPlayMusicContextualAction alloc];
   disambiguationParameter = [self disambiguationParameter];
-  v12[0] = disambiguationParameter;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = disambiguationParameter;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v6 = WFLocalizedStringWithKey(@"Recently Played Music (Display Format String)", @"Play %@");
   v7 = WFLocalizedStringWithKey(@"Recently Played (Title)", @"Recently Played");
   v8 = [[WFContextualActionIcon alloc] initWithSystemName:@"music.quarternote.3"];
   v9 = [(WFTopHitItemContextualAction *)v3 initWithItem:0 identifier:@"is.workflow.actions.playmusic" wfActionIdentifier:@"is.workflow.actions.playmusic" associatedAppBundleIdentifier:@"com.apple.Music" parameters:v5 displayString:v6 title:v7 subtitle:0 primaryColor:0 icon:v8 accessoryIcon:0 namedQueryInfo:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

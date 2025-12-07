@@ -299,8 +299,8 @@
 
 + (uint64_t)motionTrackingCameraInputWithAVCaptureDevice:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getAVCaptureDeviceClass_block_invoke_cold_1();
 }
 

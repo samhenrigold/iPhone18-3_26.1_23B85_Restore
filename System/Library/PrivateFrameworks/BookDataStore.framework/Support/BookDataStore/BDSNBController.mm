@@ -15,40 +15,41 @@
 - (BDSNBController)initWithCloudDataSource:(id)source
 {
   sourceCopy = source;
-  v21.receiver = self;
-  v21.super_class = BDSNBController;
-  v6 = [(BDSNBController *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = BDSNBController;
+  v6 = [(BDSNBController *)&v22 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_10000DC90();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_10000DC90(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_1001C376C();
     }
 
-    objc_storeStrong(&v6->_dataSource, source);
-    v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v9 = dispatch_queue_create("dataStoreFetch", v8);
-    fetchQueue = v6->_fetchQueue;
-    v6->_fetchQueue = v9;
+    objc_storeStrong(&v7->_dataSource, source);
+    v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v10 = dispatch_queue_create("dataStoreFetch", v9);
+    fetchQueue = v7->_fetchQueue;
+    v7->_fetchQueue = v10;
 
-    objc_initWeak(&location, v6);
-    v11 = +[NSDistributedNotificationCenter defaultCenter];
-    v15 = _NSConcreteStackBlock;
-    v16 = 3221225472;
-    v17 = sub_100075F78;
-    v18 = &unk_100241C78;
-    objc_copyWeak(&v19, &location);
-    v12 = [v11 addObserverForName:@"BCCloudAssetDetailManagerChanged" object:0 queue:0 usingBlock:&v15];
-    observer = v6->_observer;
-    v6->_observer = v12;
+    objc_initWeak(&location, v7);
+    v12 = +[NSDistributedNotificationCenter defaultCenter];
+    v16 = _NSConcreteStackBlock;
+    v17 = 3221225472;
+    v18 = sub_100075F78;
+    v19 = &unk_100241C78;
+    objc_copyWeak(&v20, &location);
+    v13 = [v12 addObserverForName:@"BCCloudAssetDetailManagerChanged" object:0 queue:0 usingBlock:&v16];
+    observer = v7->_observer;
+    v7->_observer = v13;
 
-    [(BDSNBController *)v6 fetchLatestCompletion:&stru_100241C98, v15, v16, v17, v18];
-    objc_destroyWeak(&v19);
+    [(BDSNBController *)v7 fetchLatestCompletion:&stru_100241C98, v16, v17, v18, v19];
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -142,67 +143,67 @@
   [itemCopy playbackDuration];
   v11 = v10;
 
-  v12 = 0.0;
+  v13 = 0.0;
   if (v11 != 0.0)
   {
-    [detailCopy bookmarkTime];
-    v12 = v13 / v11;
+    bookmarkTime = [detailCopy bookmarkTime];
+    v13 = v14 / v11;
   }
 
-  if (v12 < 0.0 || v12 > 1.0)
+  if (v13 < 0.0 || v13 > 1.0)
   {
-    v14 = sub_10000DC90();
-    v15 = v12;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = sub_10000DC90(bookmarkTime);
+    v16 = v13;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       [detailCopy bookmarkTime];
       *buf = 134218496;
-      v25 = v15;
-      v26 = 2048;
-      v27 = v21;
-      v28 = 2048;
-      v29 = v11;
-      _os_log_fault_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "Calculated reading progress out of range %f.  bookmarkTime=%f audiobookDuration=%f", buf, 0x20u);
+      v26 = v16;
+      v27 = 2048;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v11;
+      _os_log_fault_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Calculated reading progress out of range %f.  bookmarkTime=%f audiobookDuration=%f", buf, 0x20u);
     }
 
     BUClamp();
-    v12 = v16;
+    v13 = v17;
   }
 
   [detailCopy readingProgressHighWaterMark];
-  if (*&v17 >= v12)
+  if (*&v18 >= v13)
   {
-    v18 = *&v17;
+    v19 = *&v18;
   }
 
   else
   {
-    v18 = v12;
+    v19 = v13;
   }
 
-  *&v17 = v12;
-  [detailCopy setReadingProgress:v17];
-  *&v19 = v18;
-  [detailCopy setReadingProgressHighWaterMark:v19];
+  *&v18 = v13;
+  [detailCopy setReadingProgress:v18];
+  *&v20 = v19;
+  [detailCopy setReadingProgressHighWaterMark:v20];
   [detailCopy assetID];
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100076BD8;
-  v23 = v22[3] = &unk_100241D58;
-  v20 = v23;
-  [assetDetailManager setAssetDetail:detailCopy completion:v22];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100076BD8;
+  v24 = v23[3] = &unk_100241D58;
+  v21 = v24;
+  [assetDetailManager setAssetDetail:detailCopy completion:v23];
 }
 
 - (void)_updateBookmarkTimeFromAssetDetail:(id)detail
 {
   detailCopy = detail;
-  v5 = sub_10000DC90();
+  v5 = sub_10000DC90(detailCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     assetID = [detailCopy assetID];
-    v37 = 138412290;
-    v38 = assetID;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSNBController attempting to update bookmark time from assetDetail %@", &v37, 0xCu);
+    v39 = 138412290;
+    v40 = assetID;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSNBController attempting to update bookmark time from assetDetail %@", &v39, 0xCu);
   }
 
   assetID2 = [detailCopy assetID];
@@ -210,86 +211,70 @@
 
   if (!v8)
   {
-    v30 = sub_10000DC90();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = sub_10000DC90(v9);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      sub_1001C39EC(detailCopy, v30);
+      sub_1001C39EC(detailCopy, v32);
     }
 
     goto LABEL_16;
   }
 
-  if (![v8 hasBeenPlayed])
+  hasBeenPlayed = [v8 hasBeenPlayed];
+  if (!hasBeenPlayed || ([v8 lastPlayedDate], (hasBeenPlayed = objc_claimAutoreleasedReturnValue()) == 0) || (v11 = hasBeenPlayed, objc_msgSend(v8, "lastPlayedDate"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(detailCopy, "datePlaybackTimeUpdated"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "compare:", v13), v13, v12, v11, v14 == -1))
   {
-    goto LABEL_11;
-  }
-
-  lastPlayedDate = [v8 lastPlayedDate];
-  if (!lastPlayedDate)
-  {
-    goto LABEL_11;
-  }
-
-  v10 = lastPlayedDate;
-  lastPlayedDate2 = [v8 lastPlayedDate];
-  datePlaybackTimeUpdated = [detailCopy datePlaybackTimeUpdated];
-  v13 = [lastPlayedDate2 compare:datePlaybackTimeUpdated];
-
-  if (v13 == -1)
-  {
-LABEL_11:
-    v25 = sub_10000DC90();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_10000DC90(hasBeenPlayed);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       [detailCopy bookmarkTime];
-      v27 = v26;
+      v29 = v28;
       assetID3 = [detailCopy assetID];
-      v37 = 134218242;
-      v38 = v27;
-      v39 = 2112;
-      v40 = assetID3;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "BDSNBController Setting bookmark time %f for media item assetDetail %@", &v37, 0x16u);
+      v39 = 134218242;
+      v40 = v29;
+      v41 = 2112;
+      v42 = assetID3;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "BDSNBController Setting bookmark time %f for media item assetDetail %@", &v39, 0x16u);
     }
 
     [v8 setHasBeenPlayed:1];
-    datePlaybackTimeUpdated2 = [detailCopy datePlaybackTimeUpdated];
-    [v8 setLastPlayedDate:datePlaybackTimeUpdated2];
+    datePlaybackTimeUpdated = [detailCopy datePlaybackTimeUpdated];
+    [v8 setLastPlayedDate:datePlaybackTimeUpdated];
 
     [detailCopy bookmarkTime];
-    v30 = [NSNumber numberWithDouble:?];
-    [v8 setValue:v30 forProperty:MPMediaItemPropertyBookmarkTime withCompletionBlock:0];
+    v32 = [NSNumber numberWithDouble:?];
+    [v8 setValue:v32 forProperty:MPMediaItemPropertyBookmarkTime withCompletionBlock:0];
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  lastPlayedDate3 = [v8 lastPlayedDate];
-  datePlaybackTimeUpdated3 = [detailCopy datePlaybackTimeUpdated];
-  v16 = [lastPlayedDate3 compare:datePlaybackTimeUpdated3];
+  lastPlayedDate = [v8 lastPlayedDate];
+  datePlaybackTimeUpdated2 = [detailCopy datePlaybackTimeUpdated];
+  v17 = [lastPlayedDate compare:datePlaybackTimeUpdated2];
 
-  v17 = sub_10000DC90();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-  if (v16 == -1)
+  v19 = sub_10000DC90(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  if (v17 == -1)
   {
-    if (v18)
+    if (v20)
     {
       assetID4 = [detailCopy assetID];
-      lastPlayedDate4 = [v8 lastPlayedDate];
+      lastPlayedDate2 = [v8 lastPlayedDate];
       [v8 bookmarkTime];
-      v34 = v33;
-      datePlaybackTimeUpdated4 = [detailCopy datePlaybackTimeUpdated];
+      v36 = v35;
+      datePlaybackTimeUpdated3 = [detailCopy datePlaybackTimeUpdated];
       [detailCopy bookmarkTime];
-      v37 = 138413314;
-      v38 = assetID4;
-      v39 = 2112;
-      v40 = lastPlayedDate4;
-      v41 = 2048;
-      v42 = v34;
-      v43 = 2112;
-      v44 = datePlaybackTimeUpdated4;
-      v45 = 2048;
-      v46 = v36;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BDSNBController media item has a newer date. Updating asset:%@. from mediaItem.lastPlayDate: %@ mediaItem.bookmarkTime %f, assetDetail.datePlaybackTimeUpdated:%@ assetDetail.bookmarkTime:%f", &v37, 0x34u);
+      v39 = 138413314;
+      v40 = assetID4;
+      v41 = 2112;
+      v42 = lastPlayedDate2;
+      v43 = 2048;
+      v44 = v36;
+      v45 = 2112;
+      v46 = datePlaybackTimeUpdated3;
+      v47 = 2048;
+      v48 = v38;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "BDSNBController media item has a newer date. Updating asset:%@. from mediaItem.lastPlayDate: %@ mediaItem.bookmarkTime %f, assetDetail.datePlaybackTimeUpdated:%@ assetDetail.bookmarkTime:%f", &v39, 0x34u);
     }
 
     [(BDSNBController *)self _updateAssetDetail:detailCopy fromMediaItem:v8];
@@ -297,25 +282,25 @@ LABEL_16:
 
   else
   {
-    if (v18)
+    if (v20)
     {
       assetID5 = [detailCopy assetID];
-      lastPlayedDate5 = [v8 lastPlayedDate];
+      lastPlayedDate3 = [v8 lastPlayedDate];
       [v8 bookmarkTime];
-      v22 = v21;
-      datePlaybackTimeUpdated5 = [detailCopy datePlaybackTimeUpdated];
+      v24 = v23;
+      datePlaybackTimeUpdated4 = [detailCopy datePlaybackTimeUpdated];
       [detailCopy bookmarkTime];
-      v37 = 138413314;
-      v38 = assetID5;
-      v39 = 2112;
-      v40 = lastPlayedDate5;
-      v41 = 2048;
-      v42 = v22;
-      v43 = 2112;
-      v44 = datePlaybackTimeUpdated5;
-      v45 = 2048;
-      v46 = v24;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BDSNBController media item has the same date, not updating asset:%@. mediaItem.lastPlayDate: %@ mediaItem.bookmarkTime %f, assetDetail.datePlaybackTimeUpdated:%@ assetDetail.bookmarkTime:%f", &v37, 0x34u);
+      v39 = 138413314;
+      v40 = assetID5;
+      v41 = 2112;
+      v42 = lastPlayedDate3;
+      v43 = 2048;
+      v44 = v24;
+      v45 = 2112;
+      v46 = datePlaybackTimeUpdated4;
+      v47 = 2048;
+      v48 = v26;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "BDSNBController media item has the same date, not updating asset:%@. mediaItem.lastPlayDate: %@ mediaItem.bookmarkTime %f, assetDetail.datePlaybackTimeUpdated:%@ assetDetail.bookmarkTime:%f", &v39, 0x34u);
     }
   }
 
@@ -329,28 +314,28 @@ LABEL_17:
   fetchQueue = [(BDSNBController *)self fetchQueue];
   dispatch_assert_queue_V2(fetchQueue);
 
-  v9 = sub_10000DC90();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10000DC90(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = sinceCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BDSNBController fetching changes since cloudSyncVersions: %@", buf, 0xCu);
+    v18 = sinceCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "BDSNBController fetching changes since cloudSyncVersions: %@", buf, 0xCu);
   }
 
-  v10 = +[BCCloudAssetManager sharedManager];
-  assetDetailManager = [v10 assetDetailManager];
+  v11 = +[BCCloudAssetManager sharedManager];
+  assetDetailManager = [v11 assetDetailManager];
 
   objc_initWeak(buf, self);
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1000772AC;
-  v13[3] = &unk_100241DA8;
-  objc_copyWeak(&v15, buf);
-  v12 = completionCopy;
-  v14 = v12;
-  [assetDetailManager getAssetDetailChangesSince:sinceCopy completion:v13];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000772AC;
+  v14[3] = &unk_100241DA8;
+  objc_copyWeak(&v16, buf);
+  v13 = completionCopy;
+  v15 = v13;
+  [assetDetailManager getAssetDetailChangesSince:sinceCopy completion:v14];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 }
 

@@ -4,6 +4,7 @@
 - (NEVPN)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -12,11 +13,11 @@
 
 - (id)initFromLegacyDictionary:(id)dictionary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v32.receiver = self;
-  v32.super_class = NEVPN;
-  v5 = [(NEVPN *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = NEVPN;
+  v5 = [(NEVPN *)&v31 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"__NEVPNProtocolType"];
@@ -76,28 +77,28 @@ LABEL_11:
     v15 = [dictionaryCopy objectForKeyedSubscript:@"ExceptionApps"];
     if (isa_nsarray(v15) && [v15 count])
     {
-      v26 = v12;
+      v25 = v12;
       array = [MEMORY[0x1E695DF70] array];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v17 = v15;
-      v18 = [v17 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v26 objects:v32 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v28;
+        v20 = *v27;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v28 != v20)
+            if (*v27 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v27 + 1) + 8 * i);
+            v22 = *(*(&v26 + 1) + 8 * i);
             if (isa_nsstring(v22))
             {
               v23 = [[NEAppRule alloc] initWithSigningIdentifier:v22];
@@ -108,13 +109,13 @@ LABEL_11:
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v27 objects:v33 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v26 objects:v32 count:16];
         }
 
         while (v19);
       }
 
-      v12 = v26;
+      v12 = v25;
     }
 
     v9 = v5;
@@ -126,13 +127,12 @@ LABEL_29:
   v9 = 0;
 LABEL_30:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)copyLegacyDictionary
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   protocol = [(NEVPN *)self protocol];
 
   if (protocol)
@@ -153,12 +153,12 @@ LABEL_30:
 
   if (onDemandRules)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     onDemandRules2 = [(NEVPN *)self onDemandRules];
-    v9 = [onDemandRules2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [onDemandRules2 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (!v9)
     {
       v11 = onDemandRules2;
@@ -167,17 +167,17 @@ LABEL_30:
 
     v10 = v9;
     v11 = 0;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(onDemandRules2);
         }
 
-        copyLegacyDictionary2 = [*(*(&v29 + 1) + 8 * i) copyLegacyDictionary];
+        copyLegacyDictionary2 = [*(*(&v28 + 1) + 8 * i) copyLegacyDictionary];
         if (!v11)
         {
           v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -186,7 +186,7 @@ LABEL_30:
         [v11 addObject:copyLegacyDictionary2];
       }
 
-      v10 = [onDemandRules2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v10 = [onDemandRules2 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v10);
@@ -203,30 +203,30 @@ LABEL_17:
   if (exceptionApps)
   {
     v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     exceptionApps2 = [(NEVPN *)self exceptionApps];
-    v18 = [exceptionApps2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v18 = [exceptionApps2 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(exceptionApps2);
           }
 
-          matchSigningIdentifier = [*(*(&v25 + 1) + 8 * j) matchSigningIdentifier];
+          matchSigningIdentifier = [*(*(&v24 + 1) + 8 * j) matchSigningIdentifier];
           [v16 addObject:matchSigningIdentifier];
         }
 
-        v19 = [exceptionApps2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v19 = [exceptionApps2 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v19);
@@ -235,40 +235,71 @@ LABEL_17:
     [copyLegacyDictionary setObject:v16 forKeyedSubscript:@"ExceptionApps"];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return copyLegacyDictionary;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEVPN isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEVPN isOnDemandEnabled](self withName:"isOnDemandEnabled") andIndent:@"onDemandEnabled" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEVPN isDisconnectOnDemandEnabled](self withName:"isDisconnectOnDemandEnabled") andIndent:@"disconnectOnDemandEnabled" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEVPN isOnDemandUserOverrideDisabled](self withName:"isOnDemandUserOverrideDisabled") andIndent:@"onDemandUserOverrideDisabled" options:{v5, options}];
+  onDemandRules = [(NEVPN *)self onDemandRules];
+  [v7 appendPrettyObject:onDemandRules withName:@"onDemandRules" andIndent:v5 options:options];
+
+  protocol = [(NEVPN *)self protocol];
+  [v7 appendPrettyObject:protocol withName:@"protocol" andIndent:v5 options:options];
+
+  exceptionApps = [(NEVPN *)self exceptionApps];
+  [v7 appendPrettyObject:exceptionApps withName:@"exceptionApps" andIndent:v5 options:options];
+
+  if ([(NEVPN *)self tunnelType]== 2)
+  {
+    v11 = @"app-proxy";
+  }
+
+  else
+  {
+    v11 = @"packet";
+  }
+
+  [v7 appendPrettyObject:v11 withName:@"tunnelType" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   onDemandRules = [(NEVPN *)self onDemandRules];
 
   if (onDemandRules)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     selfCopy = self;
     onDemandRules2 = [(NEVPN *)self onDemandRules];
-    v7 = [onDemandRules2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v7 = [onDemandRules2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v25;
       v10 = 1;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(onDemandRules2);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
+          v12 = *(*(&v24 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -282,7 +313,7 @@ LABEL_17:
           }
         }
 
-        v8 = [onDemandRules2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v8 = [onDemandRules2 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v8);
@@ -346,7 +377,6 @@ LABEL_17:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return protocol;
 }
 

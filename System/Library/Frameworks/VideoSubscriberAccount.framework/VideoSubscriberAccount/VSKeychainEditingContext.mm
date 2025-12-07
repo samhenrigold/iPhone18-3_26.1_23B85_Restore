@@ -548,18 +548,18 @@ LABEL_13:
   [v7 setObject:secItemClass forKey:*MEMORY[0x277CDC228]];
   [v7 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CDC558]];
   keychainStore = [(VSKeychainEditingContext *)self keychainStore];
-  v19 = 0;
-  v10 = [keychainStore findItemsMatchingQuery:v7 error:&v19];
-  v11 = v19;
+  v20 = 0;
+  v10 = [keychainStore findItemsMatchingQuery:v7 error:&v20];
+  v11 = v20;
 
   if (v10)
   {
-    v12 = v10;
+    v13 = v10;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ![v12 count])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ![v13 count])
     {
-      v18 = VSErrorLogObject();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = VSErrorLogObject(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [VSKeychainEditingContext fulfillFault:];
       }
@@ -570,15 +570,15 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = v12;
+        v14 = v13;
         primitiveValues = [faultCopy primitiveValues];
-        v15 = [v13 copy];
-        [primitiveValues setObject:v15 forKey:@"data"];
+        v16 = [v14 copy];
+        [primitiveValues setObject:v16 forKey:@"data"];
 
         committedValues2 = [faultCopy committedValues];
-        v17 = [v13 copy];
+        v18 = [v14 copy];
 
-        [committedValues2 setObject:v17 forKey:@"data"];
+        [committedValues2 setObject:v18 forKey:@"data"];
         [faultCopy setHasFaultForData:0];
       }
 
@@ -591,8 +591,8 @@ LABEL_13:
 
   else
   {
-    v12 = VSErrorLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = VSErrorLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [VSKeychainEditingContext fulfillFault:];
     }
@@ -887,351 +887,354 @@ LABEL_13:
 
 - (BOOL)save:(id *)save
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v4 = VSDefaultLogObject();
+  selfCopy = self;
+  v126 = *MEMORY[0x277D85DE8];
+  v4 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v123 = "[VSKeychainEditingContext save:]";
+    v125 = "[VSKeychainEditingContext save:]";
     _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  deletedItems = [(VSKeychainEditingContext *)self deletedItems];
+  deletedItems = [(VSKeychainEditingContext *)selfCopy deletedItems];
   v7 = [deletedItems copy];
 
-  updatedItems = [(VSKeychainEditingContext *)self updatedItems];
+  updatedItems = [(VSKeychainEditingContext *)selfCopy updatedItems];
   v9 = [updatedItems copy];
 
-  insertedItems = [(VSKeychainEditingContext *)self insertedItems];
+  insertedItems = [(VSKeychainEditingContext *)selfCopy insertedItems];
   v11 = [insertedItems copy];
 
   v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v77 = v11;
+  v79 = v11;
   [v12 setObject:v11 forKey:@"VSInsertedKeychainItemsKey"];
-  v71 = v9;
+  v73 = v9;
   [v12 setObject:v9 forKey:@"VSUpdatedKeychainItemsKey"];
   [v12 setObject:v7 forKey:@"VSDeletedKeychainItemsKey"];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v73 = v12;
-  [defaultCenter postNotificationName:@"VSKeychainEditingContextWillSaveNotification" object:self userInfo:v12];
-  undoManager = [(VSKeychainEditingContext *)self undoManager];
-  keychainStore = [(VSKeychainEditingContext *)self keychainStore];
-  v115 = 0u;
-  v116 = 0u;
+  v75 = v12;
+  [defaultCenter postNotificationName:@"VSKeychainEditingContextWillSaveNotification" object:selfCopy userInfo:v12];
+  undoManager = [(VSKeychainEditingContext *)selfCopy undoManager];
+  keychainStore = [(VSKeychainEditingContext *)selfCopy keychainStore];
   v117 = 0u;
   v118 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   obj = v7;
-  v89 = [obj countByEnumeratingWithState:&v115 objects:v121 count:16];
-  v92 = v5;
-  selfCopy = self;
-  if (v89)
+  v91 = [obj countByEnumeratingWithState:&v117 objects:v123 count:16];
+  v94 = v5;
+  v96 = selfCopy;
+  if (v91)
   {
-    v87 = *v116;
-    v84 = *MEMORY[0x277CDC228];
-    v79 = *MEMORY[0x277CBE660];
-    v93 = 1;
+    v89 = *v118;
+    v86 = *MEMORY[0x277CDC228];
+    v81 = *MEMORY[0x277CBE660];
+    v95 = 1;
     do
     {
-      for (i = 0; i != v89; i = i + 1)
+      for (i = 0; i != v91; i = i + 1)
       {
-        if (*v116 != v87)
+        if (*v118 != v89)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v115 + 1) + 8 * i);
+        v14 = *(*(&v117 + 1) + 8 * i);
         itemKind = [v14 itemKind];
         committedValues = [v14 committedValues];
-        v17 = [(VSKeychainEditingContext *)self _deleteQueryForItemValues:committedValues withItemKind:itemKind];
-        [v17 setObject:objc_msgSend(itemKind forKey:{"secItemClass"), v84}];
-        v114 = 0;
-        selfCopy2 = self;
-        v19 = [keychainStore deleteItemsMatchingQuery:v17 error:&v114];
-        v20 = v114;
+        v17 = [(VSKeychainEditingContext *)selfCopy _deleteQueryForItemValues:committedValues withItemKind:itemKind];
+        [v17 setObject:objc_msgSend(itemKind forKey:{"secItemClass"), v86}];
+        v116 = 0;
+        v18 = selfCopy;
+        v19 = [keychainStore deleteItemsMatchingQuery:v17 error:&v116];
+        v20 = v116;
+        v21 = v20;
         if (v19)
         {
-          undoManager2 = [(VSKeychainEditingContext *)selfCopy2 undoManager];
-          v110[0] = MEMORY[0x277D85DD0];
-          v110[1] = 3221225472;
-          v110[2] = __33__VSKeychainEditingContext_save___block_invoke;
-          v110[3] = &unk_278B753E8;
-          v110[4] = selfCopy2;
-          v111 = committedValues;
-          v112 = itemKind;
-          v113 = keychainStore;
-          [undoManager2 registerUndoWithTarget:selfCopy2 handler:v110];
+          undoManager2 = [(VSKeychainEditingContext *)v18 undoManager];
+          v112[0] = MEMORY[0x277D85DD0];
+          v112[1] = 3221225472;
+          v112[2] = __33__VSKeychainEditingContext_save___block_invoke;
+          v112[3] = &unk_278B753E8;
+          v112[4] = v18;
+          v113 = committedValues;
+          v114 = itemKind;
+          v115 = keychainStore;
+          [undoManager2 registerUndoWithTarget:v18 handler:v112];
 
           [v14 setDeleted:0];
-          items = [(VSKeychainEditingContext *)selfCopy2 items];
-          v23 = [undoManager prepareWithInvocationTarget:items];
-          [v23 addObject:v14];
+          items = [(VSKeychainEditingContext *)v18 items];
+          v24 = [undoManager prepareWithInvocationTarget:items];
+          [v24 addObject:v14];
 
           [items removeObject:v14];
-          v24 = [undoManager prepareWithInvocationTarget:v14];
-          [v24 setEditingContext:selfCopy2];
+          v25 = [undoManager prepareWithInvocationTarget:v14];
+          [v25 setEditingContext:v18];
 
-          v5 = v92;
+          v5 = v94;
           [v14 setEditingContext:0];
 
-          self = selfCopy2;
+          selfCopy = v18;
         }
 
         else
         {
-          v25 = VSDefaultLogObject();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = VSDefaultLogObject(v20);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v123 = v20;
-            _os_log_impl(&dword_23AB8E000, v25, OS_LOG_TYPE_DEFAULT, "VSKeychainEditingContext: Deletion error %@", buf, 0xCu);
+            v125 = v21;
+            _os_log_impl(&dword_23AB8E000, v26, OS_LOG_TYPE_DEFAULT, "VSKeychainEditingContext: Deletion error %@", buf, 0xCu);
           }
 
-          if (!v20)
+          if (!v21)
           {
-            [MEMORY[0x277CBEAD8] raise:v79 format:@"The deletionError parameter must not be nil."];
+            [MEMORY[0x277CBEAD8] raise:v81 format:@"The deletionError parameter must not be nil."];
           }
 
-          self = selfCopy;
-          [(VSKeychainEditingContext *)selfCopy _populateErrors:v5 withError:v20 affectingItem:v14];
-          v93 = 0;
+          selfCopy = v96;
+          [(VSKeychainEditingContext *)v96 _populateErrors:v5 withError:v21 affectingItem:v14];
+          v95 = 0;
         }
       }
 
-      v89 = [obj countByEnumeratingWithState:&v115 objects:v121 count:16];
+      v91 = [obj countByEnumeratingWithState:&v117 objects:v123 count:16];
     }
 
-    while (v89);
+    while (v91);
   }
 
   else
   {
-    v93 = 1;
+    v95 = 1;
   }
 
+  v110 = 0u;
+  v111 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v80 = v77;
-  v90 = [v80 countByEnumeratingWithState:&v106 objects:v120 count:16];
-  if (v90)
+  v82 = v79;
+  v92 = [v82 countByEnumeratingWithState:&v108 objects:v122 count:16];
+  if (v92)
   {
-    v26 = *v107;
-    v88 = *MEMORY[0x277CDC550];
-    v85 = *MEMORY[0x277CDC228];
-    v75 = *MEMORY[0x277CBE658];
-    v78 = *MEMORY[0x277CDBF90];
-    v74 = *MEMORY[0x277CBE660];
-    v27 = keychainStore;
-    v83 = *v107;
+    v27 = *v109;
+    v90 = *MEMORY[0x277CDC550];
+    v87 = *MEMORY[0x277CDC228];
+    v77 = *MEMORY[0x277CBE658];
+    v80 = *MEMORY[0x277CDBF90];
+    v76 = *MEMORY[0x277CBE660];
+    v28 = keychainStore;
+    v85 = *v109;
     do
     {
-      for (j = 0; j != v90; j = j + 1)
+      for (j = 0; j != v92; j = j + 1)
       {
-        if (*v107 != v26)
+        if (*v109 != v27)
         {
-          objc_enumerationMutation(v80);
+          objc_enumerationMutation(v82);
         }
 
-        v29 = *(*(&v106 + 1) + 8 * j);
-        itemKind2 = [v29 itemKind];
-        primitiveValues = [v29 primitiveValues];
-        v32 = [(VSKeychainEditingContext *)self _queryForItemValues:primitiveValues withItemKind:itemKind2];
+        v30 = *(*(&v108 + 1) + 8 * j);
+        itemKind2 = [v30 itemKind];
+        primitiveValues = [v30 primitiveValues];
+        v33 = [(VSKeychainEditingContext *)selfCopy _queryForItemValues:primitiveValues withItemKind:itemKind2];
 
-        [v32 setObject:MEMORY[0x277CBEC38] forKey:v88];
-        [v32 setObject:objc_msgSend(itemKind2 forKey:{"secItemClass"), v85}];
-        v105 = 0;
-        v33 = [v27 addItem:v32 error:&v105];
-        v34 = v105;
-        v35 = v34;
-        if (v33)
+        [v33 setObject:MEMORY[0x277CBEC38] forKey:v90];
+        [v33 setObject:objc_msgSend(itemKind2 forKey:{"secItemClass"), v87}];
+        v107 = 0;
+        v34 = [v28 addItem:v33 error:&v107];
+        v35 = v107;
+        v36 = v35;
+        if (v34)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v82 = v35;
-            primitiveValues2 = [v29 primitiveValues];
-            itemKind3 = [v29 itemKind];
+            v84 = v36;
+            primitiveValues2 = [v30 primitiveValues];
+            itemKind3 = [v30 itemKind];
             attributesBySecItemAttributeKey = [itemKind3 attributesBySecItemAttributeKey];
-            v39 = [attributesBySecItemAttributeKey objectForKey:v78];
-            name = [v39 name];
+            v40 = [attributesBySecItemAttributeKey objectForKey:v80];
+            name = [v40 name];
 
             if (name)
             {
-              v41 = name;
-              v42 = [v33 objectForKey:v78];
-              if (v42)
+              v42 = name;
+              v43 = [v34 objectForKey:v80];
+              if (v43)
               {
-                primitiveValues3 = [v29 primitiveValues];
-                [primitiveValues3 setObject:v42 forKey:v41];
+                primitiveValues3 = [v30 primitiveValues];
+                [primitiveValues3 setObject:v43 forKey:v42];
               }
             }
 
-            undoManager3 = [(VSKeychainEditingContext *)selfCopy undoManager];
-            v101[0] = MEMORY[0x277D85DD0];
-            v101[1] = 3221225472;
-            v101[2] = __33__VSKeychainEditingContext_save___block_invoke_158;
-            v101[3] = &unk_278B75410;
-            v102 = primitiveValues2;
-            v103 = itemKind2;
-            v27 = keychainStore;
-            v104 = keychainStore;
-            v45 = primitiveValues2;
-            [undoManager3 registerUndoWithTarget:selfCopy handler:v101];
+            undoManager3 = [(VSKeychainEditingContext *)v96 undoManager];
+            v103[0] = MEMORY[0x277D85DD0];
+            v103[1] = 3221225472;
+            v103[2] = __33__VSKeychainEditingContext_save___block_invoke_158;
+            v103[3] = &unk_278B75410;
+            v104 = primitiveValues2;
+            v105 = itemKind2;
+            v28 = keychainStore;
+            v106 = keychainStore;
+            v46 = primitiveValues2;
+            [undoManager3 registerUndoWithTarget:v96 handler:v103];
 
-            [v29 _setCommittedValues:v45 registeringUndo:1];
-            [v29 setInserted:0];
+            [v30 _setCommittedValues:v46 registeringUndo:1];
+            [v30 setInserted:0];
 
-            self = selfCopy;
-            v5 = v92;
-            v26 = v83;
-            v35 = v82;
+            selfCopy = v96;
+            v5 = v94;
+            v27 = v85;
+            v36 = v84;
           }
 
           else
           {
-            [MEMORY[0x277CBEAD8] raise:v75 format:{@"Unexpected add result: %@", v33}];
+            [MEMORY[0x277CBEAD8] raise:v77 format:{@"Unexpected add result: %@", v34}];
           }
         }
 
         else
         {
-          v46 = v27;
-          v47 = v5;
-          v48 = v34;
-          v49 = VSDefaultLogObject();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v47 = v28;
+          v48 = v5;
+          v49 = v35;
+          v50 = VSDefaultLogObject(v35);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v123 = v48;
-            _os_log_impl(&dword_23AB8E000, v49, OS_LOG_TYPE_DEFAULT, "VSKeychainEditingContext: Insertion error %@", buf, 0xCu);
+            v125 = v49;
+            _os_log_impl(&dword_23AB8E000, v50, OS_LOG_TYPE_DEFAULT, "VSKeychainEditingContext: Insertion error %@", buf, 0xCu);
           }
 
-          v35 = v48;
-          if (!v48)
+          v36 = v49;
+          if (!v49)
           {
-            [MEMORY[0x277CBEAD8] raise:v74 format:@"The additionError parameter must not be nil."];
+            [MEMORY[0x277CBEAD8] raise:v76 format:@"The additionError parameter must not be nil."];
           }
 
-          v5 = v47;
-          [(VSKeychainEditingContext *)self _populateErrors:v47 withError:v35 affectingItem:v29];
-          v93 = 0;
-          v27 = v46;
-          v26 = v83;
+          v5 = v48;
+          [(VSKeychainEditingContext *)selfCopy _populateErrors:v48 withError:v36 affectingItem:v30];
+          v95 = 0;
+          v28 = v47;
+          v27 = v85;
         }
       }
 
-      v90 = [v80 countByEnumeratingWithState:&v106 objects:v120 count:16];
+      v92 = [v82 countByEnumeratingWithState:&v108 objects:v122 count:16];
     }
 
-    while (v90);
+    while (v92);
   }
 
+  v101 = 0u;
+  v102 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v91 = v71;
-  v50 = [v91 countByEnumeratingWithState:&v97 objects:v119 count:16];
-  if (v50)
+  v93 = v73;
+  v51 = [v93 countByEnumeratingWithState:&v99 objects:v121 count:16];
+  if (v51)
   {
-    v51 = v50;
-    v52 = *v98;
-    v53 = *MEMORY[0x277CDC228];
-    v86 = *MEMORY[0x277CBE660];
+    v52 = v51;
+    v53 = *v100;
+    v54 = *MEMORY[0x277CDC228];
+    v88 = *MEMORY[0x277CBE660];
     do
     {
-      for (k = 0; k != v51; ++k)
+      for (k = 0; k != v52; ++k)
       {
-        if (*v98 != v52)
+        if (*v100 != v53)
         {
-          objc_enumerationMutation(v91);
+          objc_enumerationMutation(v93);
         }
 
-        v55 = *(*(&v97 + 1) + 8 * k);
-        itemKind4 = [v55 itemKind];
-        committedValues2 = [v55 committedValues];
-        v58 = [(VSKeychainEditingContext *)selfCopy _queryForItemValues:committedValues2 withItemKind:itemKind4];
+        v56 = *(*(&v99 + 1) + 8 * k);
+        itemKind4 = [v56 itemKind];
+        committedValues2 = [v56 committedValues];
+        v59 = [(VSKeychainEditingContext *)v96 _queryForItemValues:committedValues2 withItemKind:itemKind4];
 
-        [v58 setObject:objc_msgSend(itemKind4 forKey:{"secItemClass"), v53}];
-        changedValues = [v55 changedValues];
-        v60 = [(VSKeychainEditingContext *)selfCopy _queryForItemValues:changedValues withItemKind:itemKind4];
+        [v59 setObject:objc_msgSend(itemKind4 forKey:{"secItemClass"), v54}];
+        changedValues = [v56 changedValues];
+        v61 = [(VSKeychainEditingContext *)v96 _queryForItemValues:changedValues withItemKind:itemKind4];
 
-        v96 = 0;
-        LODWORD(changedValues) = [keychainStore updateAttributes:v60 ofItemsMatchingQuery:v58 error:&v96];
-        v61 = v96;
+        v98 = 0;
+        LODWORD(changedValues) = [keychainStore updateAttributes:v61 ofItemsMatchingQuery:v59 error:&v98];
+        v62 = v98;
+        v63 = v62;
         if (changedValues)
         {
-          primitiveValues4 = [v55 primitiveValues];
-          [v55 _setCommittedValues:primitiveValues4 registeringUndo:1];
+          primitiveValues4 = [v56 primitiveValues];
+          [v56 _setCommittedValues:primitiveValues4 registeringUndo:1];
 
-          [v55 setUpdated:0];
+          [v56 setUpdated:0];
         }
 
         else
         {
-          v63 = VSDefaultLogObject();
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          v65 = VSDefaultLogObject(v62);
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v123 = v61;
-            _os_log_impl(&dword_23AB8E000, v63, OS_LOG_TYPE_DEFAULT, "VSKeychainEditingContext: Update error %@", buf, 0xCu);
+            v125 = v63;
+            _os_log_impl(&dword_23AB8E000, v65, OS_LOG_TYPE_DEFAULT, "VSKeychainEditingContext: Update error %@", buf, 0xCu);
           }
 
-          if (!v61)
+          if (!v63)
           {
-            [MEMORY[0x277CBEAD8] raise:v86 format:@"The updateError parameter must not be nil."];
+            [MEMORY[0x277CBEAD8] raise:v88 format:@"The updateError parameter must not be nil."];
           }
 
-          [(VSKeychainEditingContext *)selfCopy _populateErrors:v92 withError:v61 affectingItem:v55];
-          v93 = 0;
+          [(VSKeychainEditingContext *)v96 _populateErrors:v94 withError:v63 affectingItem:v56];
+          v95 = 0;
         }
       }
 
-      v51 = [v91 countByEnumeratingWithState:&v97 objects:v119 count:16];
+      v52 = [v93 countByEnumeratingWithState:&v99 objects:v121 count:16];
     }
 
-    while (v51);
+    while (v52);
   }
 
-  if (v93)
+  if (v95)
   {
-    v65 = defaultCenter;
-    v64 = v73;
-    [defaultCenter postNotificationName:@"VSKeychainEditingContextDidSaveNotification" object:selfCopy userInfo:v73];
-    v66 = v92;
-    v67 = keychainStore;
+    v67 = defaultCenter;
+    v66 = v75;
+    [defaultCenter postNotificationName:@"VSKeychainEditingContextDidSaveNotification" object:v96 userInfo:v75];
+    v68 = v94;
+    v69 = keychainStore;
   }
 
   else
   {
-    v66 = v92;
-    v65 = defaultCenter;
-    v64 = v73;
-    v67 = keychainStore;
+    v68 = v94;
+    v67 = defaultCenter;
+    v66 = v75;
+    v69 = keychainStore;
     if (save)
     {
-      if ([v92 count] < 2)
+      if ([v94 count] < 2)
       {
-        *save = [v92 firstObject];
+        *save = [v94 firstObject];
       }
 
       else
       {
-        v68 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        [v68 setObject:v92 forKey:@"VSKeychainDetailedErrorsKey"];
-        *save = [MEMORY[0x277CCA9B8] errorWithDomain:@"VSKeychainErrorDomain" code:0 userInfo:v68];
+        v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        [v70 setObject:v94 forKey:@"VSKeychainDetailedErrorsKey"];
+        *save = [MEMORY[0x277CCA9B8] errorWithDomain:@"VSKeychainErrorDomain" code:0 userInfo:v70];
       }
     }
   }
 
-  return v93 & 1;
+  return v95 & 1;
 }
 
 void __33__VSKeychainEditingContext_save___block_invoke(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1243,24 +1246,24 @@ void __33__VSKeychainEditingContext_save___block_invoke(uint64_t a1)
   v4 = [*(a1 + 48) secItemClass];
   [v3 setObject:v4 forKey:*MEMORY[0x277CDC228]];
   v5 = *(a1 + 56);
-  v10 = 0;
-  v6 = [v5 addItem:v3 error:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [v5 addItem:v3 error:&v11];
+  v7 = v11;
 
   if (v6)
   {
-    v8 = VSDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VSDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Undid deletion.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Undid deletion.", v10, 2u);
     }
   }
 
   else
   {
-    v8 = VSErrorLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VSErrorLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __33__VSKeychainEditingContext_save___block_invoke_cold_1();
     }
@@ -1270,7 +1273,7 @@ void __33__VSKeychainEditingContext_save___block_invoke(uint64_t a1)
 void __33__VSKeychainEditingContext_save___block_invoke_158(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1285,7 +1288,7 @@ void __33__VSKeychainEditingContext_save___block_invoke_158(uint64_t a1, void *a
   v12 = 0;
   v8 = [v7 deleteItemsMatchingQuery:v5 error:&v12];
   v9 = v12;
-  v10 = VSErrorLogObject();
+  v10 = VSErrorLogObject(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
   if (v8)
   {

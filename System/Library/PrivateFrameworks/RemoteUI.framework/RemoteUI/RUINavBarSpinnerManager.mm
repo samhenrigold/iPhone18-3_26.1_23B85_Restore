@@ -52,7 +52,7 @@
 {
   itemsCopy = items;
   buttonCopy = button;
-  v41 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   titleCopy = title;
   identifierCopy = identifier;
@@ -60,42 +60,43 @@
 
   if (!v15)
   {
-    v29 = buttonCopy;
-    v30 = itemsCopy;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v16 = self->_savedRecords;
-    v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v31 objects:v40 count:16];
-    if (v17)
+    v35 = buttonCopy;
+    v36 = itemsCopy;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v19 = self->_savedRecords;
+    v20 = [(NSMutableDictionary *)v19 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    if (v20)
     {
-      v18 = v17;
-      v19 = *v32;
+      v21 = v20;
+      v22 = *v38;
       while (2)
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v21; ++i)
         {
-          if (*v32 != v19)
+          if (*v38 != v22)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v19);
           }
 
-          v21 = [(NSMutableDictionary *)self->_savedRecords objectForKeyedSubscript:*(*(&v31 + 1) + 8 * i)];
-          navigationItem = [v21 navigationItem];
+          v24 = [(NSMutableDictionary *)self->_savedRecords objectForKeyedSubscript:*(*(&v37 + 1) + 8 * i)];
+          navigationItem = [v24 navigationItem];
 
           if (navigationItem == itemCopy)
           {
-            if (_isInternalInstall())
+            isInternalInstall = _isInternalInstall(v26, v27);
+            if (isInternalInstall)
             {
-              v28 = _RUILoggingFacility();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v34 = _RUILoggingFacility(isInternalInstall);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v37 = itemCopy;
-                v38 = 2112;
-                v39 = identifierCopy;
-                _os_log_impl(&dword_21B93D000, v28, OS_LOG_TYPE_DEFAULT, "Adding a second spinner to navigation item %@, identifer %@", buf, 0x16u);
+                v43 = itemCopy;
+                v44 = 2112;
+                v45 = identifierCopy;
+                _os_log_impl(&dword_21B93D000, v34, OS_LOG_TYPE_DEFAULT, "Adding a second spinner to navigation item %@, identifer %@", buf, 0x16u);
               }
             }
 
@@ -103,8 +104,8 @@
           }
         }
 
-        v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v31 objects:v40 count:16];
-        if (v18)
+        v21 = [(NSMutableDictionary *)v19 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        if (v21)
         {
           continue;
         }
@@ -113,57 +114,58 @@
       }
     }
 
-    v16 = objc_opt_new();
-    [(NSMutableDictionary *)v16 setNavigationItem:itemCopy];
-    [(NSMutableDictionary *)self->_savedRecords setObject:v16 forKey:identifierCopy];
+    v19 = objc_opt_new();
+    [(NSMutableDictionary *)v19 setNavigationItem:itemCopy];
+    [(NSMutableDictionary *)self->_savedRecords setObject:v19 forKey:identifierCopy];
     rightBarButtonItems = [itemCopy rightBarButtonItems];
-    [(NSMutableDictionary *)v16 setRightItems:rightBarButtonItems];
+    [(NSMutableDictionary *)v19 setRightItems:rightBarButtonItems];
 
     leftBarButtonItems = [itemCopy leftBarButtonItems];
-    [(NSMutableDictionary *)v16 setLeftItems:leftBarButtonItems];
+    [(NSMutableDictionary *)v19 setLeftItems:leftBarButtonItems];
 
-    -[NSMutableDictionary setHidesBackButton:](v16, "setHidesBackButton:", [itemCopy hidesBackButton]);
-    v25 = [[RUIBarButtonSpinnerView alloc] initWithActivityIndicatorStyle:[(RUINavBarSpinnerManager *)self activityIndicatorViewStyle]];
-    [(UIBarButtonItem *)v25 noPlatter];
-    if (v29)
+    -[NSMutableDictionary setHidesBackButton:](v19, "setHidesBackButton:", [itemCopy hidesBackButton]);
+    v30 = [[RUIBarButtonSpinnerView alloc] initWithActivityIndicatorStyle:[(RUINavBarSpinnerManager *)self activityIndicatorViewStyle]];
+    [(UIBarButtonItem *)v30 noPlatter];
+    if (v35)
     {
       [itemCopy setHidesBackButton:1 animated:1];
     }
 
-    if (v30)
+    if (v36)
     {
       [itemCopy setLeftBarButtonItems:0 animated:1];
     }
 
-    v35 = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-    [itemCopy setRightBarButtonItems:v26 animated:1];
+    v41 = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+    [itemCopy setRightBarButtonItems:v31 animated:1];
 
     if (titleCopy)
     {
       title = [itemCopy title];
-      [(NSMutableDictionary *)v16 setTitle:title];
+      [(NSMutableDictionary *)v19 setTitle:title];
 
-      [(NSMutableDictionary *)v16 setSpinningTitle:titleCopy];
+      [(NSMutableDictionary *)v19 setSpinningTitle:titleCopy];
       [itemCopy setTitle:titleCopy];
     }
 
     [MEMORY[0x277CD9FF0] begin];
-    [(RUIBarButtonSpinnerView *)v25 startAnimating];
+    [(RUIBarButtonSpinnerView *)v30 startAnimating];
     [MEMORY[0x277CD9FF0] commit];
     [MEMORY[0x277CD9FF0] flush];
 
     goto LABEL_25;
   }
 
-  if (_isInternalInstall())
+  v18 = _isInternalInstall(v16, v17);
+  if (v18)
   {
-    v16 = _RUILoggingFacility();
-    if (os_log_type_enabled(&v16->super.super, OS_LOG_TYPE_DEFAULT))
+    v19 = _RUILoggingFacility(v18);
+    if (os_log_type_enabled(&v19->super.super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = identifierCopy;
-      _os_log_impl(&dword_21B93D000, &v16->super.super, OS_LOG_TYPE_DEFAULT, "Duplicate spinner for identifier %@", buf, 0xCu);
+      v43 = identifierCopy;
+      _os_log_impl(&dword_21B93D000, &v19->super.super, OS_LOG_TYPE_DEFAULT, "Duplicate spinner for identifier %@", buf, 0xCu);
     }
 
 LABEL_25:
@@ -172,7 +174,7 @@ LABEL_25:
 
 - (void)stopAnimatingForIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(NSMutableDictionary *)self->_savedRecords objectForKey:identifierCopy];
 
@@ -183,7 +185,8 @@ LABEL_25:
     rightBarButtonItems = [navigationItem rightBarButtonItems];
     lastObject = [rightBarButtonItems lastObject];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [lastObject stopAnimating];
       leftItems = [v6 leftItems];
@@ -203,17 +206,21 @@ LABEL_8:
       }
     }
 
-    else if (_isInternalInstall())
+    else
     {
-      title = _RUILoggingFacility();
-      if (os_log_type_enabled(title, OS_LOG_TYPE_DEFAULT))
+      isInternalInstall = _isInternalInstall(isKindOfClass, v11);
+      if (isInternalInstall)
       {
-        v14 = 138412290;
-        v15 = identifierCopy;
-        _os_log_impl(&dword_21B93D000, title, OS_LOG_TYPE_DEFAULT, "Error: Tried to remove a spinner for identifier %@but it wasn't there.", &v14, 0xCu);
-      }
+        title = _RUILoggingFacility(isInternalInstall);
+        if (os_log_type_enabled(title, OS_LOG_TYPE_DEFAULT))
+        {
+          v17 = 138412290;
+          v18 = identifierCopy;
+          _os_log_impl(&dword_21B93D000, title, OS_LOG_TYPE_DEFAULT, "Error: Tried to remove a spinner for identifier %@but it wasn't there.", &v17, 0xCu);
+        }
 
-      goto LABEL_8;
+        goto LABEL_8;
+      }
     }
 
     [(NSMutableDictionary *)self->_savedRecords removeObjectForKey:identifierCopy];

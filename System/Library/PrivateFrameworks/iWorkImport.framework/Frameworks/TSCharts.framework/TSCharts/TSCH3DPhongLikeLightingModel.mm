@@ -112,57 +112,57 @@
   if (materialCopy)
   {
     v12 = materialCopy;
-    v17 = v12;
+    v16 = v12;
     if (!percentageCopy)
     {
       goto LABEL_14;
     }
 
-    objc_msgSend_color(v12, v13, v14, v15, v16);
+    objc_msgSend_color(v12, v13, v14, v15);
   }
 
   else
   {
-    v22 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, "[TSCH3DPhongLikeLightingModel p_lightenDiffuseMaterial:percentage:]");
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPhongLikeLightingModel.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v29, v30, v31, v32, v23, v28, 78, 0, "invalid nil value for '%{public}s'", "diffuseMaterial");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, "[TSCH3DPhongLikeLightingModel p_lightenDiffuseMaterial:percentage:]");
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPhongLikeLightingModel.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v27, v28, v29, v30, v21, v26, 78, 0, "invalid nil value for '%{public}s'", "diffuseMaterial");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
     if (!percentageCopy)
     {
-      v17 = 0;
+      v16 = 0;
       goto LABEL_14;
     }
 
-    v46 = 0uLL;
+    v44 = 0uLL;
   }
 
-  objc_msgSend_p_lightenedColorForColor_percentage_(self, v18, v19, v20, v21, &v46, percentageCopy);
+  objc_msgSend_p_lightenedColorForColor_percentage_(self, v17, v18, v19);
   if (materialCopy)
   {
-    objc_msgSend_color(materialCopy, v37, v38, v39, v40);
-    LODWORD(v41) = v46;
+    objc_msgSend_color(materialCopy, v36, v37, v38);
+    LODWORD(v39) = v44;
   }
 
   else
   {
-    v46 = 0uLL;
-    v41 = 0.0;
+    v44 = 0uLL;
+    v39 = 0.0;
   }
 
-  LODWORD(v39) = v47;
-  if (*&v47 != *&v41 || (LODWORD(v41) = DWORD1(v47), LODWORD(v39) = DWORD1(v46), *(&v47 + 1) != *(&v46 + 1)) || (LODWORD(v41) = DWORD2(v47), LODWORD(v39) = DWORD2(v46), *(&v47 + 2) != *(&v46 + 2)) || (LODWORD(v41) = HIDWORD(v47), LODWORD(v39) = HIDWORD(v46), v17 = materialCopy, *(&v47 + 3) != *(&v46 + 3)))
+  LODWORD(v37) = v45;
+  if (*&v45 != *&v39 || (LODWORD(v39) = DWORD1(v45), LODWORD(v37) = DWORD1(v44), *(&v45 + 1) != *(&v44 + 1)) || (LODWORD(v39) = DWORD2(v45), LODWORD(v37) = DWORD2(v44), *(&v45 + 2) != *(&v44 + 2)) || (LODWORD(v39) = HIDWORD(v45), LODWORD(v37) = HIDWORD(v44), v16 = materialCopy, *(&v45 + 3) != *(&v44 + 3)))
   {
-    v17 = objc_msgSend_copy(materialCopy, v37, v41, v39, v40);
+    v16 = objc_msgSend_copy(materialCopy, v35, v39, v37, v38);
 
-    v46 = v47;
-    objc_msgSend_setColor_(v17, v42, *&v47, v43, v44, &v46);
+    v44 = v45;
+    objc_msgSend_setColor_(v16, v40, *&v45, v41, v42, &v44);
   }
 
 LABEL_14:
 
-  return v17;
+  return v16;
 }
 
 - (void)affect:(id)affect states:(id)states scene:(id)scene texturePool:(id)pool percentage:(id)percentage

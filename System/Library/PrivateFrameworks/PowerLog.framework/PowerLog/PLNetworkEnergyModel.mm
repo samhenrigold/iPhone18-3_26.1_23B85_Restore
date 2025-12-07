@@ -1,8 +1,10 @@
 @interface PLNetworkEnergyModel
 - (PLNetworkEnergyModel)initWithLinkType:(unsigned __int8)type;
+- (PLNetworkEnergyModel)initWithLinkType:(unsigned __int8)type withTaskUUID:(id)d;
 - (double)computeLevel1TimeWithBytes:(double)bytes;
 - (double)getEnergy;
 - (id)description;
+- (void)reportEnergyToPowerlogWithClientID:(signed __int16)d;
 - (void)updateAllLevelTimesWithLevel1Time:(double)time withUpdateDuration:(double)duration;
 - (void)updateWithBytes:(double)bytes withDuration:(double)duration;
 @end
@@ -11,10 +13,10 @@
 
 - (PLNetworkEnergyModel)initWithLinkType:(unsigned __int8)type
 {
-  v23[4] = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = PLNetworkEnergyModel;
-  v4 = [(PLNetworkEnergyModel *)&v19 init];
+  v22[4] = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = PLNetworkEnergyModel;
+  v4 = [(PLNetworkEnergyModel *)&v18 init];
   v5 = v4;
   if (v4)
   {
@@ -34,29 +36,42 @@
     linkCost = v5->_linkCost;
     v5->_linkCost = &unk_1F38E3620;
 
-    v23[0] = &unk_1F38E3638;
+    v22[0] = &unk_1F38E3638;
     v9 = [MEMORY[0x1E696AD98] numberWithDouble:0.000002];
-    v22[0] = v9;
-    v22[1] = &unk_1F38E3248;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
-    v23[1] = v10;
+    v21[0] = v9;
+    v21[1] = &unk_1F38E3248;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v22[1] = v10;
     v11 = [MEMORY[0x1E696AD98] numberWithDouble:0.000005];
-    v21[0] = v11;
-    v21[1] = &unk_1F38E3668;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
-    v23[2] = v12;
-    v13 = [MEMORY[0x1E696AD98] numberWithDouble:0.000001];
-    v20[0] = v13;
+    v20[0] = v11;
     v20[1] = &unk_1F38E3668;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
-    v23[3] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v22[2] = v12;
+    v13 = [MEMORY[0x1E696AD98] numberWithDouble:0.000001];
+    v19[0] = v13;
+    v19[1] = &unk_1F38E3668;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v22[3] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
     linkLevel1Parameters = v5->_linkLevel1Parameters;
     v5->_linkLevel1Parameters = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (PLNetworkEnergyModel)initWithLinkType:(unsigned __int8)type withTaskUUID:(id)d
+{
+  typeCopy = type;
+  dCopy = d;
+  v8 = [(PLNetworkEnergyModel *)self initWithLinkType:typeCopy];
+  v9 = v8;
+  if (dCopy && v8)
+  {
+    objc_storeStrong(&v8->_taskUUID, d);
+  }
+
+  return v9;
 }
 
 - (id)description
@@ -191,6 +206,45 @@
   v26 = v24 + v25;
 
   [(PLNetworkEnergyModel *)self setPowerlevel3Duration:v26];
+}
+
+- (void)reportEnergyToPowerlogWithClientID:(signed __int16)d
+{
+  dCopy = d;
+  v17[6] = *MEMORY[0x1E69E9840];
+  [(PLNetworkEnergyModel *)self getEnergy];
+  v16[0] = @"Energy";
+  v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v17[0] = v5;
+  v16[1] = @"UpdateCount";
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[PLNetworkEnergyModel updateCount](self, "updateCount")}];
+  v17[1] = v6;
+  v16[2] = @"OverallBytes";
+  v7 = MEMORY[0x1E696AD98];
+  [(PLNetworkEnergyModel *)self overallBytes];
+  v8 = [v7 numberWithDouble:?];
+  v17[2] = v8;
+  v16[3] = @"OverallDuration";
+  v9 = MEMORY[0x1E696AD98];
+  [(PLNetworkEnergyModel *)self overallDuration];
+  v10 = [v9 numberWithDouble:?];
+  v17[3] = v10;
+  v16[4] = @"LinkType";
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[PLNetworkEnergyModel linkType](self, "linkType")}];
+  v17[4] = v11;
+  v16[5] = @"taskUUID";
+  taskUUID = [(PLNetworkEnergyModel *)self taskUUID];
+  v13 = taskUUID;
+  v14 = &stru_1F38DE2A8;
+  if (taskUUID)
+  {
+    v14 = taskUUID;
+  }
+
+  v17[5] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
+
+  PLLogRegisteredEvent(dCopy, @"NetworkEnergyModel", v15);
 }
 
 @end

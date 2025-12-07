@@ -68,7 +68,7 @@
   if ([topic isEqualToString:@"com.apple.ist.demounit.demodevicenotifications"])
   {
     userInfo = [messageCopy userInfo];
-    v7 = sub_100063A54();
+    v7 = sub_100063A54(userInfo);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_1000CD058(userInfo, v7);
@@ -79,68 +79,72 @@
 
     if (v9)
     {
-      v10 = sub_100063A54();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100063A54(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received request to ping the hub.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received request to ping the hub.", buf, 2u);
       }
 
-      v11 = +[MSDMailProcessor sharedInstance];
-      [v11 sendPushNotificationPing];
+      v12 = +[MSDMailProcessor sharedInstance];
+      [v12 sendPushNotificationPing];
       goto LABEL_27;
     }
 
-    v12 = [userInfo objectForKey:@"action"];
-    v13 = [v12 isEqualToString:@"collect_logs"];
+    v13 = [userInfo objectForKey:@"action"];
+    v14 = [v13 isEqualToString:@"collect_logs"];
 
-    if (v13)
+    if (v14)
     {
-      v14 = [userInfo objectForKey:@"parameters"];
-      v15 = +[MSDTargetDevice sharedInstance];
-      v11 = [v14 objectForKey:@"url"];
-      hubSuppliedSettings = [v15 hubSuppliedSettings];
-      v17 = [hubSuppliedSettings objectForKey:@"LogS3BucketUrl"];
+      v15 = [userInfo objectForKey:@"parameters"];
+      v16 = +[MSDTargetDevice sharedInstance];
+      v12 = [v15 objectForKey:@"url"];
+      hubSuppliedSettings = [v16 hubSuppliedSettings];
+      v18 = [hubSuppliedSettings objectForKey:@"LogS3BucketUrl"];
 
-      if (v17 && ([v11 hasPrefix:v17]& 1) != 0)
+      if (v18)
       {
-        v18 = [v14 objectForKey:@"retryAttempts"];
-        integerValue = [v18 integerValue];
-
-        v20 = [v14 objectForKey:@"logType"];
-        unsignedIntegerValue = [v20 unsignedIntegerValue];
-
-        v21 = [v14 objectForKey:@"headers"];
-        v22 = sub_100063A54();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v19 = [v12 hasPrefix:v18];
+        if (v19)
         {
-          *buf = 138543618;
-          v32 = v11;
-          v33 = 2048;
-          v34 = integerValue;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Received request to collect MobileStoreDemo logs. Upload url: %{public}@, retry attempts: %ld", buf, 0x16u);
+          v20 = [v15 objectForKey:@"retryAttempts"];
+          integerValue = [v20 integerValue];
+
+          v22 = [v15 objectForKey:@"logType"];
+          unsignedIntegerValue = [v22 unsignedIntegerValue];
+
+          v23 = [v15 objectForKey:@"headers"];
+          v24 = sub_100063A54(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138543618;
+            v38 = v12;
+            v39 = 2048;
+            v40 = integerValue;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Received request to collect MobileStoreDemo logs. Upload url: %{public}@, retry attempts: %ld", buf, 0x16u);
+          }
+
+          v25 = +[MSDS3UploadHandler sharedInstance];
+          [v25 uploadDemoLogsTo:v12 HttpHeaders:v23 andMaxAttempts:integerValue ofType:unsignedIntegerValue];
+
+          goto LABEL_27;
         }
-
-        v23 = +[MSDS3UploadHandler sharedInstance];
-        [v23 uploadDemoLogsTo:v11 HttpHeaders:v21 andMaxAttempts:integerValue ofType:unsignedIntegerValue];
-
-        goto LABEL_27;
       }
 
-      v26 = sub_100063A54();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v30 = sub_100063A54(v19);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Provided S3 URL does not match stored URL pre-fix. Abandoning log upload", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Provided S3 URL does not match stored URL pre-fix. Abandoning log upload", buf, 2u);
       }
     }
 
     else
     {
-      v24 = [userInfo objectForKey:@"action"];
-      v25 = [v24 isEqualToString:@"demo_device_lock"];
+      v26 = [userInfo objectForKey:@"action"];
+      v27 = [v26 isEqualToString:@"demo_device_lock"];
 
-      if (v25)
+      if (v27)
       {
         if (!os_variant_has_internal_content())
         {
@@ -149,29 +153,31 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        v11 = +[MSDTargetDevice sharedInstance];
-        if ([v11 isDDLDevice]&& [v11 isContentFrozen])
+        v12 = +[MSDTargetDevice sharedInstance];
+        isDDLDevice = [v12 isDDLDevice];
+        if (isDDLDevice && (isDDLDevice = [v12 isContentFrozen], isDDLDevice))
         {
-          if (([v11 unenrollWithObliteration:0 preserveESim:1 callUnregister:0 preserveDDLFlag:1]& 1) != 0)
+          v29 = [v12 unenrollWithObliteration:0 preserveESim:1 callUnregister:0 preserveDDLFlag:1];
+          if (v29)
           {
 LABEL_27:
 
             goto LABEL_28;
           }
 
-          v14 = sub_100063A54();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = sub_100063A54(v29);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            sub_1000CD198(v14);
+            sub_1000CD198(v15);
           }
         }
 
         else
         {
-          v14 = sub_100063A54();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = sub_100063A54(isDDLDevice);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            sub_1000CD154(v14);
+            sub_1000CD154(v15);
           }
         }
 
@@ -180,46 +186,47 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v27 = [userInfo objectForKey:@"action"];
-      v28 = [v27 isEqualToString:@"discover"];
+      v31 = [userInfo objectForKey:@"action"];
+      v32 = [v31 isEqualToString:@"discover"];
 
-      v11 = sub_100063A54();
-      v29 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (!v28)
+      v12 = sub_100063A54(v33);
+      v34 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      if (!v32)
       {
-        if (!v29)
+        if (!v34)
         {
           goto LABEL_27;
         }
 
-        v14 = [userInfo objectForKey:@"action"];
+        v15 = [userInfo objectForKey:@"action"];
         *buf = 138543362;
-        v32 = v14;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received invalid command from DU. %{public}@", buf, 0xCu);
+        v38 = v15;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received invalid command from DU. %{public}@", buf, 0xCu);
         goto LABEL_26;
       }
 
-      if (v29)
+      if (v34)
       {
         *buf = 136315138;
-        v32 = "[MSDPushNotificationHandler connection:didReceiveIncomingMessage:]";
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - INFO - Received request to flash the device.", buf, 0xCu);
+        v38 = "[MSDPushNotificationHandler connection:didReceiveIncomingMessage:]";
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s - INFO - Received request to flash the device.", buf, 0xCu);
       }
 
-      v11 = +[MSDAVFlashlight sharedInstance];
-      v14 = [userInfo objectForKey:@"parameters"];
-      v15 = [v14 objectForKey:@"flashDeviceDuration"];
-      if (-[NSObject flash:](v11, "flash:", [v15 unsignedIntegerValue]))
+      v12 = +[MSDAVFlashlight sharedInstance];
+      v15 = [userInfo objectForKey:@"parameters"];
+      v16 = [v15 objectForKey:@"flashDeviceDuration"];
+      v35 = -[NSObject flash:](v12, "flash:", [v16 unsignedIntegerValue]);
+      if (v35)
       {
 LABEL_25:
 
         goto LABEL_26;
       }
 
-      v17 = sub_100063A54();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sub_100063A54(v35);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_1000CD0D0(v17);
+        sub_1000CD0D0(v18);
       }
     }
 
@@ -234,10 +241,10 @@ LABEL_29:
   hexStringRepresentation = [token hexStringRepresentation];
   [(MSDPushNotificationHandler *)self setApsToken:hexStringRepresentation];
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = sub_100063A54(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000CD1DC(self, v8);
+    sub_1000CD1DC(self, v9);
   }
 }
 

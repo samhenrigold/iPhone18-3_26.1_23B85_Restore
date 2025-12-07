@@ -6,17 +6,17 @@ Swift::Int sub_1794()
   return sub_6384();
 }
 
-Swift::Int sub_1808()
+Swift::Int sub_1808(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_6364();
-  sub_6374(v1);
+  sub_6374(v2);
   return sub_6384();
 }
 
 id sub_184C()
 {
-  result = [objc_allocWithZone(type metadata accessor for NameRecognitionPluginService()) init];
+  result = [objc_allocWithZone(type metadata accessor for NameRecognitionPluginService(0)) init];
   qword_C940 = result;
   return result;
 }
@@ -38,51 +38,49 @@ id sub_196C()
   v1 = v0;
   v2 = sub_5784(&qword_C670, &qword_6B20);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = aBlock - v5;
+  v5 = aBlock - v4;
   v1[OBJC_IVAR___AXNameRecognitionPluginService_serviceState] = 0;
   v1[OBJC_IVAR___AXNameRecognitionPluginService_isNameRecognitionEnabled] = 2;
-  v7 = OBJC_IVAR___AXNameRecognitionPluginService__isStoreReady;
+  v6 = OBJC_IVAR___AXNameRecognitionPluginService__isStoreReady;
   LOBYTE(aBlock[0]) = 0;
   sub_61C4();
-  (*(v3 + 32))(&v1[v7], v6, v2);
+  (*(v3 + 32))(&v1[v6], v5, v2);
   sub_5FF4();
   *&v1[OBJC_IVAR___AXNameRecognitionPluginService_triggerController] = sub_5FE4();
   sub_6154();
   *&v1[OBJC_IVAR___AXNameRecognitionPluginService_store] = sub_6144();
-  v8 = type metadata accessor for NameRecognitionPluginService();
-  v17.receiver = v1;
-  v17.super_class = v8;
-  v9 = objc_msgSendSuper2(&v17, "init");
+  v7 = type metadata accessor for NameRecognitionPluginService(0);
+  v16.receiver = v1;
+  v16.super_class = v7;
+  v8 = objc_msgSendSuper2(&v16, "init");
   sub_24A8();
-  v10 = CFNotificationCenterGetDarwinNotifyCenter();
-  v11 = AXkMobileKeyBagLockStatusNotificationID();
-  CFNotificationCenterAddObserver(v10, v9, sub_27B8, v11, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+  v9 = CFNotificationCenterGetDarwinNotifyCenter();
+  v10 = AXkMobileKeyBagLockStatusNotificationID();
+  CFNotificationCenterAddObserver(v9, v8, sub_27B8, v10, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
 
-  v12 = [objc_opt_self() sharedInstance];
-  v13 = swift_allocObject();
+  v11 = [objc_opt_self() sharedInstance];
+  v12 = swift_allocObject();
   swift_unknownObjectWeakInit();
   aBlock[4] = sub_5894;
-  aBlock[5] = v13;
+  aBlock[5] = v12;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1C18;
   aBlock[3] = &unk_8818;
-  v14 = _Block_copy(aBlock);
+  v13 = _Block_copy(aBlock);
 
-  [v12 registerUpdateBlock:v14 forRetrieveSelector:"isNameRecognitionEnabled" withListener:v9];
+  [v11 registerUpdateBlock:v13 forRetrieveSelector:"isNameRecognitionEnabled" withListener:v8];
 
-  _Block_release(v14);
-  return v9;
+  _Block_release(v13);
+  return v8;
 }
 
 uint64_t sub_1C18(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 id NameRecognitionPluginService.__deallocating_deinit()
@@ -90,30 +88,29 @@ id NameRecognitionPluginService.__deallocating_deinit()
   v1 = v0;
   v2 = sub_61A4();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_6184();
-  v7 = sub_6194();
-  v8 = sub_62B4();
-  if (os_log_type_enabled(v7, v8))
+  v6 = sub_6194();
+  v7 = sub_62B4();
+  if (os_log_type_enabled(v6, v7))
   {
-    v9 = swift_slowAlloc();
-    *v9 = 0;
-    _os_log_impl(&dword_0, v7, v8, "Deinitializing NameRecognitionPluginService", v9, 2u);
+    v8 = swift_slowAlloc();
+    *v8 = 0;
+    _os_log_impl(&dword_0, v6, v7, "Deinitializing NameRecognitionPluginService", v8, 2u);
   }
 
-  (*(v3 + 8))(v6, v2);
-  v10 = CFNotificationCenterGetDarwinNotifyCenter();
-  CFNotificationCenterRemoveEveryObserver(v10, v1);
+  (*(v3 + 8))(v5, v2);
+  v9 = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterRemoveEveryObserver(v9, v1);
 
-  v11 = type metadata accessor for NameRecognitionPluginService();
-  v13.receiver = v1;
-  v13.super_class = v11;
-  return objc_msgSendSuper2(&v13, "dealloc");
+  v10 = type metadata accessor for NameRecognitionPluginService(0);
+  v12.receiver = v1;
+  v12.super_class = v10;
+  return objc_msgSendSuper2(&v12, "dealloc");
 }
 
-uint64_t type metadata accessor for NameRecognitionPluginService()
+uint64_t type metadata accessor for NameRecognitionPluginService(uint64_t a1)
 {
   result = qword_C828;
   if (!qword_C828)
@@ -248,29 +245,27 @@ LABEL_26:
 void sub_2380()
 {
   v1 = v0;
-  v2 = *(v0 + OBJC_IVAR___AXNameRecognitionPluginService_store);
 
-  v3 = sub_60D4();
+  v2 = sub_60D4();
 
-  if (v3)
+  if (v2)
   {
-    v4 = OBJC_IVAR___AXNameRecognitionPluginService_isNameRecognitionEnabled;
-    v5 = *(v1 + OBJC_IVAR___AXNameRecognitionPluginService_isNameRecognitionEnabled);
-    v6 = objc_opt_self();
-    v7 = [v6 sharedInstance];
-    v8 = [v7 isNameRecognitionEnabled];
+    v3 = OBJC_IVAR___AXNameRecognitionPluginService_isNameRecognitionEnabled;
+    v4 = *(v0 + OBJC_IVAR___AXNameRecognitionPluginService_isNameRecognitionEnabled);
+    v5 = objc_opt_self();
+    v6 = [v5 sharedInstance];
+    v7 = [v6 isNameRecognitionEnabled];
 
-    if (v5 == 2 || ((v8 ^ v5) & 1) != 0)
+    if (v4 == 2 || ((v7 ^ v4) & 1) != 0)
     {
-      v9 = [v6 sharedInstance];
-      v10 = [v9 isNameRecognitionEnabled];
+      v8 = [v5 sharedInstance];
+      v9 = [v8 isNameRecognitionEnabled];
 
-      *(v1 + v4) = v10;
-      v11 = [v6 sharedInstance];
-      LODWORD(v9) = [v11 isNameRecognitionEnabled];
+      *(v1 + v3) = v9;
+      v10 = [v5 sharedInstance];
+      LODWORD(v8) = [v10 isNameRecognitionEnabled];
 
-      v12 = *(v1 + OBJC_IVAR___AXNameRecognitionPluginService_triggerController);
-      if (v9)
+      if (v8)
       {
         sub_5FB4();
       }
@@ -285,89 +280,84 @@ void sub_2380()
 
 uint64_t sub_24A8()
 {
-  v1 = sub_5784(&qword_C658, &qword_6B10);
-  v15 = *(v1 - 8);
-  v2 = v15;
-  v3 = *(v15 + 64);
-  v4 = (__chkstk_darwin)();
-  v17 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v7 = &v15 - v6;
-  v8 = sub_5784(&qword_C660, &qword_6B18);
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v8);
-  v12 = &v15 - v11;
-  v13 = *(v0 + OBJC_IVAR___AXNameRecognitionPluginService_store);
+  v0 = sub_5784(&qword_C658, &qword_6B10);
+  v11 = *(v0 - 8);
+  v1 = v11;
+  v2 = __chkstk_darwin(v0);
+  v13 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v5 = &v11 - v4;
+  v6 = sub_5784(&qword_C660, &qword_6B18);
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v11 - v8;
 
   sub_60E4();
 
-  sub_5814(&qword_C668, &qword_C658, &qword_6B10);
+  sub_5814(&qword_C668, &qword_C658, &qword_6B10, &protocol conformance descriptor for Published<A>.Publisher);
   sub_6204();
-  v16 = *(v2 + 8);
-  v16(v7, v1);
+  v12 = *(v1 + 8);
+  v12(v5, v0);
   swift_beginAccess();
   sub_5784(&qword_C670, &qword_6B20);
   sub_61D4();
   swift_endAccess();
-  sub_5814(&qword_C678, &qword_C660, &qword_6B18);
+  sub_5814(&qword_C678, &qword_C660, &qword_6B18, &protocol conformance descriptor for Publishers.RemoveDuplicates<A>);
   sub_6214();
-  (*(v9 + 8))(v12, v8);
-  (*(v15 + 16))(v17, v7, v1);
+  (*(v7 + 8))(v9, v6);
+  (*(v11 + 16))(v13, v5, v0);
   swift_beginAccess();
   sub_61E4();
   swift_endAccess();
-  return (v16)(v7, v1);
+  return (v12)(v5, v0);
 }
 
-void sub_27C0()
+void sub_27C0(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_61A4();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = sub_61A4();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_6054();
-  if (!v1)
+  if (!v2)
   {
     v8 = v7;
-    v9 = *(v0 + OBJC_IVAR___AXNameRecognitionPluginService_triggerController);
     sub_5FB4();
-    v10 = [v8 frameCapacity];
-    v11 = [v8 format];
-    [v11 sampleRate];
-    v13 = v12;
+    v9 = [v8 frameCapacity];
+    v10 = [v8 format];
+    [v10 sampleRate];
+    v12 = v11;
 
-    v14 = v10 / v13;
-    v20.super._impl = mach_absolute_time();
-    v20.super.super.isa = v8;
-    sub_5FD4(v20, v15);
+    v13 = v9 / v12;
+    v19.super._impl = mach_absolute_time();
+    v19.super.super.isa = v8;
+    sub_5FD4(v19, v14);
     sub_6184();
-    v16 = sub_6194();
-    v17 = sub_62B4();
-    if (os_log_type_enabled(v16, v17))
+    v15 = sub_6194();
+    v16 = sub_62B4();
+    if (os_log_type_enabled(v15, v16))
     {
-      v18 = swift_slowAlloc();
-      *v18 = 134217984;
-      *(v18 + 4) = v14;
-      _os_log_impl(&dword_0, v16, v17, "Audio length is %f seconds, will sleep for that duration", v18, 0xCu);
+      v17 = swift_slowAlloc();
+      *v17 = 134217984;
+      *(v17 + 4) = v13;
+      _os_log_impl(&dword_0, v15, v16, "Audio length is %f seconds, will sleep for that duration", v17, 0xCu);
     }
 
-    (*(v3 + 8))(v6, v2);
-    [objc_opt_self() sleepForTimeInterval:v14];
+    (*(v4 + 8))(v6, v3);
+    [objc_opt_self() sleepForTimeInterval:v13];
     sub_5FA4();
   }
 }
 
-uint64_t sub_29E4@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_29E4@<X0>(uint64_t *a2@<X8>)
 {
-  type metadata accessor for NameRecognitionPluginService();
+  type metadata accessor for NameRecognitionPluginService(0);
   result = sub_61B4();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t sub_2A24(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_2A24(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_2AF0(v11, 0, 0, 1, a1, a2);
@@ -467,11 +457,9 @@ LABEL_8:
 
 char *sub_2BFC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_2C48(a1, a2);
+  v3 = sub_2C48(a1, a2);
   sub_2D78(&off_8738);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_2C48(uint64_t a1, unint64_t a2)
@@ -571,7 +559,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -585,15 +572,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_2ED8(result, v12, 1, v3);
+  result = sub_2ED8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -608,15 +595,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -625,12 +612,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -748,12 +735,11 @@ unint64_t sub_2FCC(uint64_t a1)
 
 unint64_t sub_3010(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_6364();
   sub_6254();
-  v6 = sub_6384();
+  v4 = sub_6384();
 
-  return sub_3150(a1, a2, v6);
+  return sub_3150(a1, a2, v4);
 }
 
 unint64_t sub_3088(uint64_t a1, uint64_t a2)
@@ -927,307 +913,297 @@ LABEL_10:
 
 unint64_t sub_345C(char *a1, uint64_t a2)
 {
-  v166 = a1;
+  v140 = a1;
   v3 = sub_5784(&qword_C690, &qword_6B38);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v174 = &v161 - v5;
-  v176 = sub_6034();
-  v180 = *(v176 - 8);
-  v6 = *(v180 + 64);
-  v7 = __chkstk_darwin(v176);
-  v9 = &v161 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v165 = &v161 - v10;
-  v11 = sub_6174();
-  v162 = *(v11 - 8);
-  v163 = v11;
-  v12 = *(v162 + 64);
+  v148 = &v135 - v4;
+  v150 = sub_6034();
+  v154 = *(v150 - 8);
+  v5 = __chkstk_darwin(v150);
+  v7 = &v135 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v139 = &v135 - v8;
+  v9 = sub_6174();
+  v136 = *(v9 - 8);
+  v137 = v9;
+  __chkstk_darwin(v9);
+  v138 = &v135 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_61A4();
+  v145 = *(v11 - 8);
+  v146 = v11;
   __chkstk_darwin(v11);
-  v164 = &v161 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_61A4();
-  v171 = *(v14 - 8);
-  v172 = v14;
-  v15 = *(v171 + 64);
-  __chkstk_darwin(v14);
-  v182 = &v161 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_6024();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 8);
-  v20 = __chkstk_darwin(v17);
-  v173 = &v161 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __chkstk_darwin(v20);
-  v167 = &v161 - v23;
-  v24 = __chkstk_darwin(v22);
-  v179 = &v161 - v25;
-  __chkstk_darwin(v24);
-  v183 = &v161 - v26;
-  v27 = sub_5784(&qword_C698, &qword_6B40);
-  v28 = *(*(v27 - 8) + 64);
-  v29 = __chkstk_darwin(v27 - 8);
-  v178 = &v161 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = __chkstk_darwin(v29);
-  v33 = &v161 - v32;
-  v34 = __chkstk_darwin(v31);
-  v36 = &v161 - v35;
-  __chkstk_darwin(v34);
-  v37 = v18 + 56;
-  v38 = *(v18 + 7);
-  v189 = &v161 - v39;
-  v40 = v38();
+  v156 = &v135 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_6024();
+  v14 = *(v13 - 8);
+  v15 = __chkstk_darwin(v13);
+  v147 = &v135 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = __chkstk_darwin(v15);
+  v141 = &v135 - v18;
+  v19 = __chkstk_darwin(v17);
+  v153 = &v135 - v20;
+  __chkstk_darwin(v19);
+  v157 = &v135 - v21;
+  v22 = sub_5784(&qword_C698, &qword_6B40);
+  v23 = __chkstk_darwin(v22 - 8);
+  v152 = &v135 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = __chkstk_darwin(v23);
+  v27 = &v135 - v26;
+  v28 = __chkstk_darwin(v25);
+  v30 = &v135 - v29;
+  __chkstk_darwin(v28);
+  v31 = v14 + 56;
+  v32 = *(v14 + 7);
+  v163 = &v135 - v33;
+  v34 = v32();
   if (a2 < 0)
   {
     __break(1u);
     goto LABEL_77;
   }
 
-  v168 = v9;
+  v142 = v7;
   sub_6004();
-  v177 = *(v18 + 6);
-  v41 = (v177)(v36, 1, v17);
-  v181 = v18;
-  v170 = a2;
-  if (v41 == 1)
+  v151 = *(v14 + 6);
+  v35 = (v151)(v30, 1, v13);
+  v155 = v14;
+  v144 = a2;
+  if (v35 == 1)
   {
-    sub_5CF8(v36, &qword_C698, &qword_6B40);
+    sub_5CF8(v30, &qword_C698, &qword_6B40);
     sub_6014();
-    v42 = v189;
-    sub_5CF8(v189, &qword_C698, &qword_6B40);
-    sub_5B08(v33, v42);
+    v36 = v163;
+    sub_5CF8(v163, &qword_C698, &qword_6B40);
+    sub_5B08(v27, v36);
   }
 
   else
   {
-    v43 = v189;
-    sub_5CF8(v189, &qword_C698, &qword_6B40);
-    (*(v18 + 4))(v43, v36, v17);
-    (v38)(v43, 0, 1, v17);
+    v37 = v163;
+    sub_5CF8(v163, &qword_C698, &qword_6B40);
+    (*(v14 + 4))(v37, v30, v13);
+    (v32)(v37, 0, 1, v13);
   }
 
-  v33 = v17;
-  v44 = v178;
-  sub_5EB4(v189, v178, &qword_C698, &qword_6B40);
-  v45 = (v177)(v44, 1, v17);
-  v46 = v182;
-  v47 = v179;
-  if (v45 == 1)
+  v27 = v13;
+  v38 = v152;
+  sub_5EB4(v163, v152, &qword_C698, &qword_6B40);
+  v39 = (v151)(v38, 1, v13);
+  v40 = v156;
+  v41 = v153;
+  if (v39 == 1)
   {
-    sub_5CF8(v44, &qword_C698, &qword_6B40);
-    sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError);
-    v9 = v176;
-    v48 = swift_allocError();
-    v50 = v49;
-    v51 = (v49 + *(sub_5784(&qword_C6A8, &qword_6B48) + 48));
-    v52 = enum case for RuntimeError.ipc(_:);
-    v53 = sub_60C4();
-    (*(*(v53 - 8) + 104))(v50, v52, v53);
-    v186[0]._countAndFlagsBits = 0;
-    v186[0]._object = 0xE000000000000000;
+    sub_5CF8(v38, &qword_C698, &qword_6B40);
+    sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError, &protocol conformance descriptor for NameRecognitionError);
+    v7 = v150;
+    v42 = swift_allocError();
+    v44 = v43;
+    v45 = (v43 + *(sub_5784(&qword_C6A8, &qword_6B48) + 48));
+    v46 = enum case for RuntimeError.ipc(_:);
+    v47 = sub_60C4();
+    (*(*(v47 - 8) + 104))(v44, v46, v47);
+    v160[0]._countAndFlagsBits = 0;
+    v160[0]._object = 0xE000000000000000;
     sub_6314(74);
-    v190._countAndFlagsBits = 0xD000000000000048;
-    v190._object = 0x80000000000074B0;
-    sub_6264(v190);
-    *&v187 = v170;
-    v191._countAndFlagsBits = sub_6344();
-    sub_6264(v191);
+    v164._countAndFlagsBits = 0xD000000000000048;
+    v164._object = 0x80000000000074B0;
+    sub_6264(v164);
+    *&v161 = v144;
+    v165._countAndFlagsBits = sub_6344();
+    sub_6264(v165);
 
-    object = v186[0]._object;
-    *v51 = v186[0]._countAndFlagsBits;
-    v51[1] = object;
-    v17 = v180;
-    (*(v180 + 104))(v50, enum case for NameRecognitionError.runtime(_:), v9);
+    object = v160[0]._object;
+    *v45 = v160[0]._countAndFlagsBits;
+    v45[1] = object;
+    v13 = v154;
+    (*(v154 + 104))(v44, enum case for NameRecognitionError.runtime(_:), v7);
     swift_willThrow();
     goto LABEL_7;
   }
 
-  v62 = v181;
-  v63 = v183;
-  v181[4](v183, v44, v33);
+  v53 = v155;
+  v54 = v157;
+  v155[4](v157, v38, v27);
   sub_6184();
-  v177 = v62[2];
-  v177(v47, v63, v33);
-  v64 = sub_6194();
-  v65 = sub_62B4();
-  if (os_log_type_enabled(v64, v65))
+  v151 = v53[2];
+  v151(v41, v54, v27);
+  v55 = sub_6194();
+  v56 = sub_62B4();
+  if (os_log_type_enabled(v55, v56))
   {
-    v66 = swift_slowAlloc();
-    v178 = v33;
-    v67 = v66;
-    v68 = swift_slowAlloc();
-    v186[0]._countAndFlagsBits = v68;
-    *v67 = 136315138;
-    v177(v167, v47, v178);
-    v69 = sub_6244();
-    v71 = v70;
-    v179 = v181[1];
-    (v179)(v47, v178);
-    v72 = sub_2A24(v69, v71, &v186[0]._countAndFlagsBits);
-    v62 = v181;
+    v57 = swift_slowAlloc();
+    v152 = v27;
+    v58 = v57;
+    v59 = swift_slowAlloc();
+    v160[0]._countAndFlagsBits = v59;
+    *v58 = 136315138;
+    v151(v141, v41, v152);
+    v60 = sub_6244();
+    v62 = v61;
+    v153 = v155[1];
+    (v153)(v41, v152);
+    v63 = sub_2A24(v60, v62, &v160[0]._countAndFlagsBits);
+    v53 = v155;
 
-    *(v67 + 4) = v72;
-    _os_log_impl(&dword_0, v64, v65, "Successfully recieved messageID: %s", v67, 0xCu);
-    sub_5E54(v68);
+    *(v58 + 4) = v63;
+    _os_log_impl(&dword_0, v55, v56, "Successfully recieved messageID: %s", v58, 0xCu);
+    sub_5E54(v59);
 
-    v33 = v178;
+    v27 = v152;
 
-    (*(v171 + 8))(v182, v172);
+    (*(v145 + 8))(v156, v146);
   }
 
   else
   {
 
-    v179 = v62[1];
-    (v179)(v47, v33);
-    (*(v171 + 8))(v46, v172);
+    v153 = v53[1];
+    (v153)(v41, v27);
+    (*(v145 + 8))(v40, v146);
   }
 
-  v77 = v175;
-  v36 = v173;
-  v177(v173, v183, v33);
-  v40 = (v62[11])(v36, v33);
-  v17 = v180;
-  if (v40 == enum case for NameRecognitionServiceMessageID.startup(_:))
+  v68 = v149;
+  v30 = v147;
+  v151(v147, v157, v27);
+  v34 = (v53[11])(v30, v27);
+  v13 = v154;
+  if (v34 == enum case for NameRecognitionServiceMessageID.startup(_:))
   {
-    v78 = OBJC_IVAR___AXNameRecognitionPluginService_serviceState;
-    v79 = v169;
-    if (*(v169 + OBJC_IVAR___AXNameRecognitionPluginService_serviceState) == 1)
+    v69 = OBJC_IVAR___AXNameRecognitionPluginService_serviceState;
+    v70 = v143;
+    if (*(v143 + OBJC_IVAR___AXNameRecognitionPluginService_serviceState) == 1)
     {
-      v90 = sub_3208(&_swiftEmptyArrayStorage);
-      (v179)(v183, v33);
+      v80 = sub_3208(&_swiftEmptyArrayStorage);
+      (v153)(v157, v27);
       goto LABEL_32;
     }
 
     sub_2380();
-    (v179)(v183, v33);
-    *(v79 + v78) = 1;
+    (v153)(v157, v27);
+    *(v70 + v69) = 1;
 LABEL_31:
-    v90 = sub_3208(&_swiftEmptyArrayStorage);
+    v80 = sub_3208(&_swiftEmptyArrayStorage);
     goto LABEL_32;
   }
 
-  if (v40 != enum case for NameRecognitionServiceMessageID.prebuildRecognizer(_:))
+  if (v34 != enum case for NameRecognitionServiceMessageID.prebuildRecognizer(_:))
   {
-    v9 = v176;
-    if (v40 == enum case for NameRecognitionServiceMessageID.shutdown(_:))
+    v7 = v150;
+    if (v34 == enum case for NameRecognitionServiceMessageID.shutdown(_:))
     {
-      v81 = OBJC_IVAR___AXNameRecognitionPluginService_serviceState;
-      v82 = v169;
-      if (*(v169 + OBJC_IVAR___AXNameRecognitionPluginService_serviceState) != 2)
+      v71 = OBJC_IVAR___AXNameRecognitionPluginService_serviceState;
+      v72 = v143;
+      if (*(v143 + OBJC_IVAR___AXNameRecognitionPluginService_serviceState) != 2)
       {
-        v98 = [objc_opt_self() sharedInstance];
-        v99 = [v98 isNameRecognitionEnabled];
+        v84 = [objc_opt_self() sharedInstance];
+        v85 = [v84 isNameRecognitionEnabled];
 
-        if (v99)
+        if (v85)
         {
           sub_62A4();
-          v100 = sub_6294();
-          [v100 setNameRecognitionEnabled:0];
+          v86 = sub_6294();
+          [v86 setNameRecognitionEnabled:0];
         }
 
-        (v179)(v183, v33);
-        *(v82 + v81) = 2;
+        (v153)(v157, v27);
+        *(v72 + v71) = 2;
         goto LABEL_31;
       }
 
-      v90 = sub_3208(&_swiftEmptyArrayStorage);
-      v83 = v183;
-      v84 = v33;
+      v80 = sub_3208(&_swiftEmptyArrayStorage);
+      v73 = v157;
+      v74 = v27;
 LABEL_46:
-      (v179)(v83, v84);
+      (v153)(v73, v74);
       goto LABEL_32;
     }
 
-    if (v40 == enum case for NameRecognitionServiceMessageID.fetchEnrolledNames(_:))
+    if (v34 == enum case for NameRecognitionServiceMessageID.fetchEnrolledNames(_:))
     {
-      v91 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_store);
 
-      v92 = sub_6114();
+      v81 = sub_6114();
 
-      v93 = sub_5F74();
-      v94 = *(v93 + 48);
-      v95 = *(v93 + 52);
+      sub_5F74();
       swift_allocObject();
       sub_5F64();
-      v186[0]._countAndFlagsBits = v92;
+      v160[0]._countAndFlagsBits = v81;
       sub_5784(&qword_C700, &qword_6B88);
       sub_5D58();
-      v96 = sub_5F54();
-      v48 = v77;
-      if (!v77)
+      v82 = sub_5F54();
+      v42 = v68;
+      if (!v68)
       {
-        v110 = v96;
-        v111 = v97;
+        v94 = v82;
+        v95 = v83;
 
         sub_5784(&qword_C6E8, &qword_6B78);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_69E0;
         *(inited + 32) = sub_6084();
-        *(inited + 40) = v113;
-        *(inited + 48) = v110;
-        *(inited + 56) = v111;
-        sub_5B78(v110, v111);
-        v114 = sub_3344(inited);
+        *(inited + 40) = v97;
+        *(inited + 48) = v94;
+        *(inited + 56) = v95;
+        sub_5B78(v94, v95);
+        v98 = sub_3344(inited);
         swift_setDeallocating();
         sub_5CF8(inited + 32, &qword_C6F0, &qword_6B80);
-        v90 = sub_1F20(v114);
+        v80 = sub_1F20(v98);
 
-        sub_5BCC(v110, v111);
-        v83 = v183;
-        v84 = v33;
+        sub_5BCC(v94, v95);
+        v73 = v157;
+        v74 = v27;
         goto LABEL_46;
       }
 
-      (v179)(v183, v33);
+      (v153)(v157, v27);
 
 LABEL_26:
 
       goto LABEL_7;
     }
 
-    v18 = &v187;
-    if (v40 == enum case for NameRecognitionServiceMessageID.deleteName(_:))
+    v14 = &v161;
+    if (v34 == enum case for NameRecognitionServiceMessageID.deleteName(_:))
     {
-      v102 = v166;
-      if (!v166)
+      v88 = v140;
+      if (!v140)
       {
 LABEL_85:
-        *v18 = 0u;
-        v18[1] = 0u;
+        *v14 = 0u;
+        v14[1] = 0u;
         goto LABEL_86;
       }
 
-      v184 = sub_6064();
-      v185 = v103;
+      v158 = sub_6064();
+      v159 = v89;
       sub_62E4();
-      if (*(v102 + 2))
+      if (*(v88 + 2))
       {
-        v104 = sub_2FCC(v186);
-        if (v105)
+        v90 = sub_2FCC(v160);
+        if (v91)
         {
-          sub_5C20(*(v102 + 7) + 32 * v104, &v187);
-          sub_5AB4(v186);
-          if (*(&v188 + 1))
+          sub_5C20(*(v88 + 7) + 32 * v90, &v161);
+          sub_5AB4(v160);
+          if (*(&v162 + 1))
           {
             if (swift_dynamicCast())
             {
-              countAndFlagsBits = v186[0]._countAndFlagsBits;
-              v107 = v186[0]._object;
-              v108 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_store);
+              countAndFlagsBits = v160[0]._countAndFlagsBits;
+              v93 = v160[0]._object;
 
-              v192._countAndFlagsBits = countAndFlagsBits;
-              v192._object = v107;
-              sub_6104(v192);
-              if (v77)
+              v166._countAndFlagsBits = countAndFlagsBits;
+              v166._object = v93;
+              sub_6104(v166);
+              if (v68)
               {
-                (v179)(v183, v33);
+                (v153)(v157, v27);
 
 LABEL_44:
 
-                v48 = v77;
+                v42 = v68;
                 goto LABEL_7;
               }
 
-              (v179)(v183, v33);
+              (v153)(v157, v27);
 
               goto LABEL_59;
             }
@@ -1240,71 +1216,67 @@ LABEL_44:
       }
 
 LABEL_84:
-      sub_5AB4(v186);
+      sub_5AB4(v160);
       goto LABEL_85;
     }
 
-    v37 = v166;
-    if (v40 == enum case for NameRecognitionServiceMessageID.deleteAll(_:))
+    v31 = v140;
+    if (v34 == enum case for NameRecognitionServiceMessageID.deleteAll(_:))
     {
-      v109 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_store);
 
       sub_6124();
-      if (v77)
+      if (v68)
       {
-        (v179)(v183, v33);
+        (v153)(v157, v27);
         goto LABEL_44;
       }
 
-      (v179)(v183, v33);
+      (v153)(v157, v27);
 LABEL_59:
 
       goto LABEL_31;
     }
 
-    if (v40 == enum case for NameRecognitionServiceMessageID.addNameConfig(_:))
+    if (v34 == enum case for NameRecognitionServiceMessageID.addNameConfig(_:))
     {
-      if (v166)
+      if (v140)
       {
-        v184 = sub_6074();
-        v185 = v115;
+        v158 = sub_6074();
+        v159 = v99;
         sub_62E4();
-        if (*(v37 + 2))
+        if (*(v31 + 2))
         {
-          v116 = sub_2FCC(v186);
-          if (v117)
+          v100 = sub_2FCC(v160);
+          if (v101)
           {
-            sub_5C20(*(v37 + 7) + 32 * v116, &v187);
-            sub_5AB4(v186);
-            if (*(&v188 + 1))
+            sub_5C20(*(v31 + 7) + 32 * v100, &v161);
+            sub_5AB4(v160);
+            if (*(&v162 + 1))
             {
               if (swift_dynamicCast())
               {
-                v118 = v186[0]._countAndFlagsBits;
-                v119 = v186[0]._object;
-                v120 = sub_5F44();
-                v121 = *(v120 + 48);
-                v122 = *(v120 + 52);
+                v102 = v160[0]._countAndFlagsBits;
+                v103 = v160[0]._object;
+                sub_5F44();
                 swift_allocObject();
-                v48 = v77;
+                v42 = v68;
                 sub_5F34();
-                sub_5E0C(&qword_C6F8, &type metadata accessor for NRNameConfiguration);
+                sub_5E0C(&qword_C6F8, &type metadata accessor for NRNameConfiguration, &protocol conformance descriptor for NRNameConfiguration);
                 sub_5F24();
-                if (!v77)
+                if (!v68)
                 {
-                  v154 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_store);
 
                   sub_6134();
 
-                  sub_5BCC(v118, v119);
-                  (*(v162 + 8))(v164, v163);
-                  (v179)(v183, v33);
+                  sub_5BCC(v102, v103);
+                  (*(v136 + 8))(v138, v137);
+                  (v153)(v157, v27);
                   goto LABEL_31;
                 }
 
-                (v179)(v183, v33);
+                (v153)(v157, v27);
 
-                sub_5BCC(v118, v119);
+                sub_5BCC(v102, v103);
                 goto LABEL_7;
               }
 
@@ -1312,223 +1284,218 @@ LABEL_59:
             }
 
 LABEL_65:
-            sub_5CF8(&v187, &qword_C6D0, &qword_6B68);
+            sub_5CF8(&v161, &qword_C6D0, &qword_6B68);
 LABEL_66:
-            v125 = sub_5784(&qword_C6A8, &qword_6B48);
-            v126 = v165;
-            v127 = &v165[*(v125 + 48)];
-            v128 = enum case for RuntimeError.ipc(_:);
-            v129 = sub_60C4();
-            (*(*(v129 - 8) + 104))(v126, v128, v129);
-            *v127 = 0xD00000000000001FLL;
-            *(v127 + 1) = 0x8000000000007550;
-            (*(v17 + 104))(v126, enum case for NameRecognitionError.runtime(_:), v9);
-            sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError);
-            v48 = swift_allocError();
-            (*(v17 + 16))(v130, v126, v9);
+            v104 = sub_5784(&qword_C6A8, &qword_6B48);
+            v105 = v139;
+            v106 = &v139[*(v104 + 48)];
+            v107 = enum case for RuntimeError.ipc(_:);
+            v108 = sub_60C4();
+            (*(*(v108 - 8) + 104))(v105, v107, v108);
+            *v106 = 0xD00000000000001FLL;
+            *(v106 + 1) = 0x8000000000007550;
+            (*(v13 + 104))(v105, enum case for NameRecognitionError.runtime(_:), v7);
+            sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError, &protocol conformance descriptor for NameRecognitionError);
+            v42 = swift_allocError();
+            (*(v13 + 16))(v109, v105, v7);
             swift_willThrow();
-            (*(v17 + 8))(v126, v9);
+            (*(v13 + 8))(v105, v7);
 LABEL_89:
-            (v179)(v183, v33);
+            (v153)(v157, v27);
             goto LABEL_7;
           }
         }
 
-        sub_5AB4(v186);
+        sub_5AB4(v160);
       }
 
-      v187 = 0u;
-      v188 = 0u;
+      v161 = 0u;
+      v162 = 0u;
       goto LABEL_65;
     }
 
-    if (v40 == enum case for NameRecognitionServiceMessageID.openTapToRadar(_:))
+    if (v34 == enum case for NameRecognitionServiceMessageID.openTapToRadar(_:))
     {
-      v123 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_store);
 
       sub_60F4();
-      v48 = v77;
-      if (!v77)
+      v42 = v68;
+      if (!v68)
       {
 
         sub_6044();
 
         sub_6164();
-        (v179)(v183, v33);
+        (v153)(v157, v27);
 
         goto LABEL_31;
       }
 
-      (v179)(v183, v33);
+      (v153)(v157, v27);
 
       goto LABEL_7;
     }
 
-    if (v40 == enum case for NameRecognitionServiceMessageID.storeAudio(_:))
+    if (v34 == enum case for NameRecognitionServiceMessageID.storeAudio(_:))
     {
-      v124 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_store);
 
       sub_60F4();
-      v48 = v77;
-      if (!v77)
+      v42 = v68;
+      if (!v68)
       {
 
-        v150 = sub_6044();
-        v178 = v33;
+        v128 = sub_6044();
+        v152 = v27;
 
-        v151 = sub_5F74();
-        v152 = *(v151 + 48);
-        v153 = *(v151 + 52);
+        sub_5F74();
         swift_allocObject();
         sub_5F64();
-        v186[0]._countAndFlagsBits = v150;
+        v160[0]._countAndFlagsBits = v128;
         sub_5784(&qword_C6D8, &qword_6B70);
         sub_5C7C();
-        v155 = sub_5F54();
-        v157 = v156;
+        v129 = sub_5F54();
+        v131 = v130;
 
         sub_5784(&qword_C6E8, &qword_6B78);
-        v158 = swift_initStackObject();
-        *(v158 + 16) = xmmword_69E0;
-        *(v158 + 32) = sub_60B4();
-        *(v158 + 40) = v159;
-        *(v158 + 48) = v155;
-        *(v158 + 56) = v157;
-        sub_5B78(v155, v157);
-        v160 = sub_3344(v158);
+        v132 = swift_initStackObject();
+        *(v132 + 16) = xmmword_69E0;
+        *(v132 + 32) = sub_60B4();
+        *(v132 + 40) = v133;
+        *(v132 + 48) = v129;
+        *(v132 + 56) = v131;
+        sub_5B78(v129, v131);
+        v134 = sub_3344(v132);
         swift_setDeallocating();
-        sub_5CF8(v158 + 32, &qword_C6F0, &qword_6B80);
-        v90 = sub_1F20(v160);
+        sub_5CF8(v132 + 32, &qword_C6F0, &qword_6B80);
+        v80 = sub_1F20(v134);
 
-        sub_5BCC(v155, v157);
-        (v179)(v183, v178);
+        sub_5BCC(v129, v131);
+        (v153)(v157, v152);
         goto LABEL_32;
       }
 
-      (v179)(v183, v33);
+      (v153)(v157, v27);
       goto LABEL_26;
     }
 
-    if (v40 == enum case for NameRecognitionServiceMessageID.listen(_:))
+    if (v34 == enum case for NameRecognitionServiceMessageID.listen(_:))
     {
-      if (v166)
+      if (v140)
       {
-        v184 = sub_60A4();
-        v185 = v131;
+        v158 = sub_60A4();
+        v159 = v110;
         sub_62E4();
-        if (*(v37 + 2))
+        if (*(v31 + 2))
         {
-          v132 = sub_2FCC(v186);
-          if (v133)
+          v111 = sub_2FCC(v160);
+          if (v112)
           {
-            sub_5C20(*(v37 + 7) + 32 * v132, &v187);
-            sub_5AB4(v186);
-            if (*(&v188 + 1))
+            sub_5C20(*(v31 + 7) + 32 * v111, &v161);
+            sub_5AB4(v160);
+            if (*(&v162 + 1))
             {
               if (swift_dynamicCast())
               {
-                v134 = v175;
-                sub_27C0();
-                v48 = v134;
-                if (!v134)
+                v113 = v149;
+                sub_27C0(v160[0]._countAndFlagsBits, v160[0]._object);
+                v42 = v113;
+                if (!v113)
                 {
-                  (v179)(v183, v33);
+                  (v153)(v157, v27);
 
                   goto LABEL_31;
                 }
 
-                (v179)(v183, v33);
+                (v153)(v157, v27);
 
-                v9 = v176;
-                v17 = v180;
+                v7 = v150;
+                v13 = v154;
                 goto LABEL_7;
               }
 
-              v9 = v176;
-              v17 = v180;
+              v7 = v150;
+              v13 = v154;
               goto LABEL_96;
             }
 
 LABEL_95:
-            sub_5CF8(&v187, &qword_C6D0, &qword_6B68);
+            sub_5CF8(&v161, &qword_C6D0, &qword_6B68);
 LABEL_96:
-            sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError);
-            v48 = swift_allocError();
-            v140 = v147;
-            v141 = (v147 + *(sub_5784(&qword_C6A8, &qword_6B48) + 48));
-            v148 = enum case for RuntimeError.ipc(_:);
-            v149 = sub_60C4();
-            (*(*(v149 - 8) + 104))(v140, v148, v149);
-            v144 = 0x8000000000007500;
-            v145 = 0xD000000000000011;
+            sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError, &protocol conformance descriptor for NameRecognitionError);
+            v42 = swift_allocError();
+            v118 = v125;
+            v119 = (v125 + *(sub_5784(&qword_C6A8, &qword_6B48) + 48));
+            v126 = enum case for RuntimeError.ipc(_:);
+            v127 = sub_60C4();
+            (*(*(v127 - 8) + 104))(v118, v126, v127);
+            v122 = 0x8000000000007500;
+            v123 = 0xD000000000000011;
             goto LABEL_88;
           }
         }
 
-        sub_5AB4(v186);
+        sub_5AB4(v160);
       }
 
-      v187 = 0u;
-      v188 = 0u;
+      v161 = 0u;
+      v162 = 0u;
       goto LABEL_95;
     }
 
 LABEL_77:
-    if (v40 != enum case for NameRecognitionServiceMessageID.sendNotification(_:))
+    if (v34 != enum case for NameRecognitionServiceMessageID.sendNotification(_:))
     {
-      v146 = v179;
-      (v179)(v183, v33);
-      v146(v36, v33);
+      v124 = v153;
+      (v153)(v157, v27);
+      v124(v30, v27);
       goto LABEL_31;
     }
 
-    if (!v37)
+    if (!v31)
     {
       goto LABEL_85;
     }
 
-    v184 = sub_6064();
-    v185 = v135;
+    v158 = sub_6064();
+    v159 = v114;
     sub_62E4();
-    if (*(v37 + 2))
+    if (*(v31 + 2))
     {
-      v136 = sub_2FCC(v186);
-      if (v137)
+      v115 = sub_2FCC(v160);
+      if (v116)
       {
-        sub_5C20(*(v37 + 7) + 32 * v136, &v187);
-        sub_5AB4(v186);
-        if (*(&v188 + 1))
+        sub_5C20(*(v31 + 7) + 32 * v115, &v161);
+        sub_5AB4(v160);
+        if (*(&v162 + 1))
         {
           if (swift_dynamicCast())
           {
-            v138 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_triggerController);
-            sub_5FC4(v186[0]);
+            sub_5FC4(v160[0]);
 
-            (v179)(v183, v33);
+            (v153)(v157, v27);
             goto LABEL_31;
           }
 
-          v9 = v176;
-          v17 = v180;
+          v7 = v150;
+          v13 = v154;
           goto LABEL_87;
         }
 
 LABEL_86:
-        sub_5CF8(&v187, &qword_C6D0, &qword_6B68);
+        sub_5CF8(&v161, &qword_C6D0, &qword_6B68);
 LABEL_87:
-        sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError);
-        v48 = swift_allocError();
-        v140 = v139;
-        v141 = (v139 + *(sub_5784(&qword_C6A8, &qword_6B48) + 48));
-        v142 = enum case for RuntimeError.ipc(_:);
-        v143 = sub_60C4();
-        (*(*(v143 - 8) + 104))(v140, v142, v143);
-        v144 = 0x8000000000007520;
-        v145 = 0xD000000000000021;
+        sub_5E0C(&qword_C6A0, &type metadata accessor for NameRecognitionError, &protocol conformance descriptor for NameRecognitionError);
+        v42 = swift_allocError();
+        v118 = v117;
+        v119 = (v117 + *(sub_5784(&qword_C6A8, &qword_6B48) + 48));
+        v120 = enum case for RuntimeError.ipc(_:);
+        v121 = sub_60C4();
+        (*(*(v121 - 8) + 104))(v118, v120, v121);
+        v122 = 0x8000000000007520;
+        v123 = 0xD000000000000021;
 LABEL_88:
-        *v141 = v145;
-        v141[1] = v144;
-        (*(v17 + 104))(v140, enum case for NameRecognitionError.runtime(_:), v9);
+        *v119 = v123;
+        v119[1] = v122;
+        (*(v13 + 104))(v118, enum case for NameRecognitionError.runtime(_:), v7);
         swift_willThrow();
         goto LABEL_89;
       }
@@ -1537,81 +1504,78 @@ LABEL_88:
     goto LABEL_84;
   }
 
-  v80 = *(v169 + OBJC_IVAR___AXNameRecognitionPluginService_triggerController);
   sub_5F94();
-  v9 = v176;
-  if (!v77)
+  v7 = v150;
+  if (!v68)
   {
-    (v179)(v183, v33);
+    (v153)(v157, v27);
     goto LABEL_31;
   }
 
-  (v179)(v183, v33);
-  v48 = v77;
+  (v153)(v157, v27);
+  v42 = v68;
 LABEL_7:
-  v186[0]._countAndFlagsBits = v48;
+  v160[0]._countAndFlagsBits = v42;
   swift_errorRetain();
   sub_5784(&qword_C6B0, &qword_6B50);
-  v55 = v174;
-  v56 = swift_dynamicCast();
-  v57 = *(v17 + 56);
-  if (v56)
+  v49 = v148;
+  v50 = swift_dynamicCast();
+  v51 = *(v13 + 56);
+  if (v50)
   {
-    v57(v55, 0, 1, v9);
-    v58 = v168;
-    (*(v17 + 32))(v168, v55, v9);
-    v59 = sub_5F74();
-    v60 = *(v59 + 48);
-    v61 = *(v59 + 52);
+    v51(v49, 0, 1, v7);
+    v52 = v142;
+    (*(v13 + 32))(v142, v49, v7);
+    sub_5F74();
     swift_allocObject();
     sub_5F64();
-    sub_5E0C(&qword_C6C8, &type metadata accessor for NameRecognitionError);
-    v85 = sub_5F54();
-    v175 = 0;
-    v87 = v86;
+    sub_5E0C(&qword_C6C8, &type metadata accessor for NameRecognitionError, &protocol conformance descriptor for NameRecognitionError);
+    v75 = sub_5F54();
+    v149 = 0;
+    v77 = v76;
     sub_5784(&qword_C6B8, &qword_6B58);
-    v88 = swift_initStackObject();
-    *(v88 + 16) = xmmword_69E0;
-    v186[0]._countAndFlagsBits = sub_6094();
-    v186[0]._object = v89;
+    v78 = swift_initStackObject();
+    *(v78 + 16) = xmmword_69E0;
+    v160[0]._countAndFlagsBits = sub_6094();
+    v160[0]._object = v79;
     sub_62E4();
-    *(v88 + 96) = &type metadata for Data;
-    *(v88 + 72) = v85;
-    *(v88 + 80) = v87;
-    sub_5B78(v85, v87);
-    v90 = sub_3208(v88);
+    *(v78 + 96) = &type metadata for Data;
+    *(v78 + 72) = v75;
+    *(v78 + 80) = v77;
+    sub_5B78(v75, v77);
+    v80 = sub_3208(v78);
     swift_setDeallocating();
-    sub_5CF8(v88 + 32, &qword_C6C0, &qword_6B60);
+    sub_5CF8(v78 + 32, &qword_C6C0, &qword_6B60);
 
-    sub_5BCC(v85, v87);
+    sub_5BCC(v75, v77);
 
-    (*(v17 + 8))(v58, v176);
+    (*(v13 + 8))(v52, v150);
   }
 
   else
   {
-    v57(v55, 1, 1, v9);
-    sub_5CF8(v55, &qword_C690, &qword_6B38);
+    v51(v49, 1, 1, v7);
+    sub_5CF8(v49, &qword_C690, &qword_6B38);
     sub_5784(&qword_C6B8, &qword_6B58);
-    v73 = swift_initStackObject();
-    *(v73 + 16) = xmmword_69E0;
-    v186[0]._countAndFlagsBits = sub_6094();
-    v186[0]._object = v74;
+    v64 = swift_initStackObject();
+    *(v64 + 16) = xmmword_69E0;
+    v160[0]._countAndFlagsBits = sub_6094();
+    v160[0]._object = v65;
     sub_62E4();
-    v186[0]._countAndFlagsBits = v48;
+    v160[0]._countAndFlagsBits = v42;
     swift_errorRetain();
-    v75 = sub_6244();
-    *(v73 + 96) = &type metadata for String;
-    *(v73 + 72) = v75;
-    *(v73 + 80) = v76;
-    v90 = sub_3208(v73);
+    v66 = sub_6244();
+    *(v64 + 96) = &type metadata for String;
+    *(v64 + 72) = v66;
+    *(v64 + 80) = v67;
+    v80 = sub_3208(v64);
     swift_setDeallocating();
-    sub_5CF8(v73 + 32, &qword_C6C0, &qword_6B60);
+    sub_5CF8(v64 + 32, &qword_C6C0, &qword_6B60);
   }
 
 LABEL_32:
-  sub_5CF8(v189, &qword_C698, &qword_6B40);
-  return v90;
+  sub_5CF8(v163, &qword_C698, &qword_6B40);
+  return v80;
 }
 
 Swift::Int sub_51C4(uint64_t a1)
@@ -1699,12 +1663,11 @@ Swift::Int _s30AXNameRecognitionPluginService04NamebcD0C48possibleRequiredEntitl
   return v1;
 }
 
-void sub_54B0()
+void sub_54B0(uint64_t a1)
 {
   sub_5568();
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
@@ -1900,7 +1863,6 @@ uint64_t sub_5784(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1913,7 +1875,6 @@ uint64_t sub_57CC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1921,7 +1882,7 @@ uint64_t sub_57CC(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_5814(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_5814(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1994,24 +1955,24 @@ uint64_t sub_5B08(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_5B78(uint64_t a1, unint64_t a2)
+uint64_t sub_5B78(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_5BCC(uint64_t a1, unint64_t a2)
+uint64_t sub_5BCC(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -2050,7 +2011,7 @@ unint64_t sub_5D58()
   if (!qword_C708)
   {
     sub_57CC(&qword_C700, &qword_6B88);
-    sub_5E0C(&qword_C710, &type metadata accessor for NREnrolledName);
+    sub_5E0C(&qword_C710, &type metadata accessor for NREnrolledName, &protocol conformance descriptor for NREnrolledName);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_C708);
   }
@@ -2058,7 +2019,7 @@ unint64_t sub_5D58()
   return result;
 }
 
-uint64_t sub_5E0C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_5E0C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2071,15 +2032,17 @@ uint64_t sub_5E0C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_5E54(uint64_t *a1)
+uint64_t sub_5E54(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 _OWORD *sub_5EA4(_OWORD *a1, _OWORD *a2)

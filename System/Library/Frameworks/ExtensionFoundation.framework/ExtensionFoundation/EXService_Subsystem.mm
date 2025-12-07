@@ -25,7 +25,7 @@
 
 + (id)initForPlugInKit
 {
-  v2 = _EXLegacyLog();
+  v2 = _EXLegacyLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -42,7 +42,7 @@
   v21 = *MEMORY[0x1E69E9840];
   usingCopy = using;
   bundleCopy = bundle;
-  v8 = _EXLegacyLog();
+  v8 = _EXLegacyLog(bundleCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138543618;
@@ -55,7 +55,7 @@
   v9 = +[_EXRunningExtensionInfo extensionInfoForCurrentProcess];
   if (!v9)
   {
-    v16 = _EXDefaultLog();
+    v16 = _EXDefaultLog(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [EXService_Subsystem beginUsing:v16 withBundle:?];
@@ -68,47 +68,43 @@
   runLoopType = [v9 runLoopType];
   v12 = [runLoopType isEqualToString:@"NSRunLoop"];
 
-  v13 = _EXDefaultLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+  v14 = _EXDefaultLog(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
   if (v12)
   {
-    if (v14)
+    if (v15)
     {
-      [EXService_Subsystem beginUsing:v13 withBundle:?];
+      [EXService_Subsystem beginUsing:v14 withBundle:?];
     }
   }
 
-  else if (v14)
+  else if (v15)
   {
-    [EXService_Subsystem beginUsing:v10 withBundle:v13];
+    [EXService_Subsystem beginUsing:v10 withBundle:v14];
   }
 
   [MEMORY[0x1E696B0F8] _startListening:v12];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginUsing:(void *)a1 withBundle:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 runLoopType];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1847D1000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ (non-NSRunLoop) type detected. Start listening with delayed launchd checkin.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1847D1000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ (non-NSRunLoop) type detected. Start listening with delayed launchd checkin.", &v4, 0xCu);
 }
 
 - (void)beginUsing:(os_log_t)log withBundle:.cold.3(os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = "info";
-  v4 = 2080;
-  v2 = 136315650;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/PK Subsystems/EXService_Subsystem.m";
-  v6 = 1024;
-  v7 = 36;
-  _os_log_fault_impl(&dword_1847D1000, log, OS_LOG_TYPE_FAULT, "%s - %s:%d: Failed to get extension info  for current process", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = "info";
+  v3 = 2080;
+  v1 = 136315650;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/PK Subsystems/EXService_Subsystem.m";
+  v5 = 1024;
+  v6 = 36;
+  _os_log_fault_impl(&dword_1847D1000, log, OS_LOG_TYPE_FAULT, "%s - %s:%d: Failed to get extension info  for current process", &v1, 0x1Cu);
 }
 
 @end

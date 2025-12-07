@@ -30,7 +30,7 @@
 
 - (SSDownloadManagerBookShim2)initWithManagerOptions:(id)options
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v5)
@@ -41,16 +41,21 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -59,127 +64,144 @@
   {
     v9 = objc_opt_class();
     v10 = v9;
-    v44 = 138543618;
-    v45 = v9;
-    v46 = 2114;
-    v47 = objc_opt_class();
-    v11 = v47;
-    LODWORD(v42) = 22;
-    v41 = &v44;
-    v12 = _os_log_send_and_compose_impl();
+    v47 = 138543618;
+    v48 = v9;
+    v49 = 2114;
+    v50 = objc_opt_class();
+    v11 = v50;
+    v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[%{public}@]: Creating a new instance of %{public}@", &v47, 22);
 
     if (!v12)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v44, v42}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
   }
 
-LABEL_12:
-  v43.receiver = self;
-  v43.super_class = SSDownloadManagerBookShim2;
-  v19 = [(SSDownloadManager *)&v43 initWithManagerOptions:optionsCopy];
+LABEL_13:
+  v46.receiver = self;
+  v46.super_class = SSDownloadManagerBookShim2;
+  v19 = [(SSDownloadManager *)&v46 initWithManagerOptions:optionsCopy];
 
   if (v19)
   {
-    v20 = SSVBookAssetDaemonFramework();
-    v21 = SSVWeakLinkedClassForString(&cfstr_Bldownloadqueu.isa, v20);
-    if (v21)
+    v22 = SSVBookAssetDaemonFramework(v20, v21);
+    v23 = SSVWeakLinkedClassForString(&cfstr_Bldownloadqueu.isa, v22);
+    if (v23)
     {
-      sharedInstance = [v21 sharedInstance];
+      sharedInstance = [v23 sharedInstance];
       downloadQueue = v19->_downloadQueue;
       v19->_downloadQueue = sharedInstance;
 
-      v24 = v19->_downloadQueue;
-      if (v24)
+      v26 = v19->_downloadQueue;
+      if (v26)
       {
-        [(SSBookDownloadQueue *)v24 addObserver:v19];
+        [(SSBookDownloadQueue *)v26 addObserver:v19];
         return v19;
       }
 
-      v25 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v25)
+      v27 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v27)
       {
-        v25 = +[SSLogConfig sharedConfig];
+        v27 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v25 shouldLog];
-      if ([v25 shouldLogToDisk])
+      shouldLog2 = [v27 shouldLog];
+      if ([v27 shouldLogToDisk])
       {
-        v30 = shouldLog2 | 2;
+        LODWORD(v35) = shouldLog2 | 2;
       }
 
       else
       {
-        v30 = shouldLog2;
+        LODWORD(v35) = shouldLog2;
       }
 
-      oSLogObject2 = [v25 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      oSLogObject2 = [v27 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        v30 &= 2u;
+        v35 = v35;
       }
 
-      if (!v30)
+      else
       {
-        goto LABEL_35;
+        v35 &= 2u;
       }
+
+      if (!v35)
+      {
+        goto LABEL_39;
+      }
+
+      v36 = objc_opt_class();
+      v47 = 138543362;
+      v48 = v36;
+      v32 = v36;
+      LODWORD(v45) = 12;
+      v33 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "[%{public}@]: Could not create a BLDownloadQueue sharedInstance", &v47, v45);
     }
 
     else
     {
-      v25 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v25)
+      v27 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v27)
       {
-        v25 = +[SSLogConfig sharedConfig];
+        v27 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v25 shouldLog];
-      if ([v25 shouldLogToDisk])
+      shouldLog3 = [v27 shouldLog];
+      if ([v27 shouldLogToDisk])
       {
-        v27 = shouldLog3 | 2;
+        LODWORD(v29) = shouldLog3 | 2;
       }
 
       else
       {
-        v27 = shouldLog3;
+        LODWORD(v29) = shouldLog3;
       }
 
-      oSLogObject2 = [v25 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      oSLogObject2 = [v27 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        v27 &= 2u;
+        v29 = v29;
       }
 
-      if (!v27)
+      else
       {
-        goto LABEL_35;
+        v29 &= 2u;
       }
+
+      if (!v29)
+      {
+        goto LABEL_39;
+      }
+
+      v31 = objc_opt_class();
+      v47 = 138543362;
+      v48 = v31;
+      v32 = v31;
+      LODWORD(v45) = 12;
+      v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "[%{public}@]: Could not retrieve the BLDownloadQueue class", &v47, v45);
     }
 
-    v31 = objc_opt_class();
-    v44 = 138543362;
-    v45 = v31;
-    v32 = v31;
-    LODWORD(v42) = 12;
-    v33 = _os_log_send_and_compose_impl();
+    v37 = v33;
 
-    if (!v33)
+    if (!v37)
     {
-LABEL_36:
+LABEL_40:
 
       return v19;
     }
 
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:{4, &v44, v42}];
-    free(v33);
-    SSFileLog(v25, @"%@", v34, v35, v36, v37, v38, v39, oSLogObject2);
-LABEL_35:
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:4];
+    free(v37);
+    SSFileLog(v27, @"%@", v38, v39, v40, v41, v42, v43, oSLogObject2);
+LABEL_39:
 
-    goto LABEL_36;
+    goto LABEL_40;
   }
 
   return v19;
@@ -187,7 +209,7 @@ LABEL_35:
 
 - (void)downloadQueue:(id)queue downloadStatesDidChange:(id)change
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   v6 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v6)
@@ -198,42 +220,45 @@ LABEL_35:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    v38 = 138543618;
-    v39 = objc_opt_class();
-    v40 = 2112;
-    v41 = changeCopy;
-    v10 = v39;
-    LODWORD(v34) = 22;
-    v33 = &v38;
-    v11 = _os_log_send_and_compose_impl();
+    v37 = 138543618;
+    v38 = objc_opt_class();
+    v39 = 2112;
+    v40 = changeCopy;
+    v10 = v38;
+    v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[%{public}@]: downloadStatesDidChange: %@", &v37, 22);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v38, v34}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
   }
 
-LABEL_12:
+LABEL_13:
   v18 = [(SSDownloadManagerBookShim2 *)self __book_downloadsForStati:changeCopy overrideFinished:0 overrideFailed:0];
   v19 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v19)
@@ -244,16 +269,21 @@ LABEL_12:
   shouldLog2 = [v19 shouldLog];
   if ([v19 shouldLogToDisk])
   {
-    v21 = shouldLog2 | 2;
+    LODWORD(v21) = shouldLog2 | 2;
   }
 
   else
   {
-    v21 = shouldLog2;
+    LODWORD(v21) = shouldLog2;
   }
 
   oSLogObject2 = [v19 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v21 = v21;
+  }
+
+  else
   {
     v21 &= 2u;
   }
@@ -261,25 +291,25 @@ LABEL_12:
   if (v21)
   {
     v23 = objc_opt_class();
-    v38 = 138543618;
-    v39 = v23;
-    v40 = 2112;
-    v41 = v18;
+    v37 = 138543618;
+    v38 = v23;
+    v39 = 2112;
+    v40 = v18;
     v24 = v23;
-    LODWORD(v34) = 22;
-    v25 = _os_log_send_and_compose_impl();
+    LODWORD(v33) = 22;
+    v25 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "[%{public}@]: downloadStatesDidChange: -- created SSBookDownloads: %@", &v37, v33);
 
     if (!v25)
     {
-      goto LABEL_23;
+      goto LABEL_25;
     }
 
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, &v38, v34}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
     free(v25);
     SSFileLog(v19, @"%@", v26, v27, v28, v29, v30, v31, oSLogObject2);
   }
 
-LABEL_23:
+LABEL_25:
   if ([v18 count])
   {
     accessQueue = self->super._accessQueue;
@@ -287,7 +317,7 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = __68__SSDownloadManagerBookShim2_downloadQueue_downloadStatesDidChange___block_invoke;
     block[3] = &unk_1E84AC028;
-    v36 = v18;
+    v35 = v18;
     selfCopy = self;
     dispatch_async(accessQueue, block);
   }
@@ -391,7 +421,7 @@ void __68__SSDownloadManagerBookShim2_downloadQueue_downloadStatesDidChange___bl
 
 - (void)downloadQueue:(id)queue downloadStates:(id)states didCompleteWithError:(id)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   v8 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v8)
@@ -402,43 +432,46 @@ void __68__SSDownloadManagerBookShim2_downloadQueue_downloadStatesDidChange___bl
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (v10)
   {
-    v39 = 138543618;
-    v40 = objc_opt_class();
-    v41 = 2112;
-    v42 = statesCopy;
-    v12 = v40;
-    LODWORD(v36) = 22;
-    v35 = &v39;
-    v13 = _os_log_send_and_compose_impl();
+    v38 = 138543618;
+    v39 = objc_opt_class();
+    v40 = 2112;
+    v41 = statesCopy;
+    v12 = v39;
+    v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[%{public}@]: downloadStatesDidChange: %@", &v38, 22);
 
     if (!v13)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v39, v36}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
   }
 
-LABEL_12:
-  v20 = [(SSDownloadManagerBookShim2 *)self __book_downloadsForStati:statesCopy overrideFinished:error == 0 overrideFailed:error != 0, v35];
+LABEL_13:
+  v20 = [(SSDownloadManagerBookShim2 *)self __book_downloadsForStati:statesCopy overrideFinished:error == 0 overrideFailed:error != 0];
   v21 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v21)
   {
@@ -448,16 +481,21 @@ LABEL_12:
   shouldLog2 = [v21 shouldLog];
   if ([v21 shouldLogToDisk])
   {
-    v23 = shouldLog2 | 2;
+    LODWORD(v23) = shouldLog2 | 2;
   }
 
   else
   {
-    v23 = shouldLog2;
+    LODWORD(v23) = shouldLog2;
   }
 
   oSLogObject2 = [v21 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v23 = v23;
+  }
+
+  else
   {
     v23 &= 2u;
   }
@@ -465,25 +503,25 @@ LABEL_12:
   if (v23)
   {
     v25 = objc_opt_class();
-    v39 = 138543618;
-    v40 = v25;
-    v41 = 2112;
-    v42 = v20;
+    v38 = 138543618;
+    v39 = v25;
+    v40 = 2112;
+    v41 = v20;
     v26 = v25;
-    LODWORD(v36) = 22;
-    v27 = _os_log_send_and_compose_impl();
+    LODWORD(v35) = 22;
+    v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "[%{public}@]: downloadStatesDidChange: -- created SSBookDownloads: %@", &v38, v35);
 
     if (!v27)
     {
-      goto LABEL_23;
+      goto LABEL_25;
     }
 
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:{4, &v39, v36}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:4];
     free(v27);
     SSFileLog(v21, @"%@", v28, v29, v30, v31, v32, v33, oSLogObject2);
   }
 
-LABEL_23:
+LABEL_25:
   if ([v20 count])
   {
     accessQueue = self->super._accessQueue;
@@ -492,7 +530,7 @@ LABEL_23:
     block[2] = __80__SSDownloadManagerBookShim2_downloadQueue_downloadStates_didCompleteWithError___block_invoke;
     block[3] = &unk_1E84AC028;
     block[4] = self;
-    v38 = v20;
+    v37 = v20;
     dispatch_async(accessQueue, block);
   }
 }

@@ -42,7 +42,7 @@ void __25__HMBShareOperation_main__block_invoke(uint64_t a1, void *a2)
 
 void __25__HMBShareOperation_main__block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmbIsRetryShareOperationError];
   v5 = objc_autoreleasePoolPush();
@@ -55,9 +55,9 @@ void __25__HMBShareOperation_main__block_invoke_2(uint64_t a1, void *a2)
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v3;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v3;
       _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling retry share operation error: %@", buf, 0x16u);
     }
 
@@ -65,20 +65,20 @@ void __25__HMBShareOperation_main__block_invoke_2(uint64_t a1, void *a2)
     v10 = [*(a1 + 32) cloudZone];
     v11 = [HMBProcessingOptions optionsWithLabel:@"Share Operation Retry"];
     v12 = [v10 performCloudPullWithOptions:v11];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __25__HMBShareOperation_main__block_invoke_5;
-    v19[3] = &unk_2786E13C0;
-    v13 = *(a1 + 40);
-    v19[4] = *(a1 + 32);
-    v20 = v13;
-    v14 = [v12 addSuccessBlock:v19];
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
-    v18[2] = __25__HMBShareOperation_main__block_invoke_8;
-    v18[3] = &unk_2786E13E8;
+    v18[2] = __25__HMBShareOperation_main__block_invoke_5;
+    v18[3] = &unk_2786E13C0;
+    v13 = *(a1 + 40);
     v18[4] = *(a1 + 32);
-    v15 = [v14 addFailureBlock:v18];
+    v19 = v13;
+    v14 = [v12 addSuccessBlock:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __25__HMBShareOperation_main__block_invoke_8;
+    v17[3] = &unk_2786E13E8;
+    v17[4] = *(a1 + 32);
+    v15 = [v14 addFailureBlock:v17];
   }
 
   else
@@ -87,22 +87,20 @@ void __25__HMBShareOperation_main__block_invoke_2(uint64_t a1, void *a2)
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v3;
+      v21 = v16;
+      v22 = 2114;
+      v23 = v3;
       _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Share operation failed: %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     [*(a1 + 32) cancelWithError:v3];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __25__HMBShareOperation_main__block_invoke_5(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) cloudZone];
   v5 = [v4 shareModel];
@@ -122,13 +120,13 @@ void __25__HMBShareOperation_main__block_invoke_5(uint64_t a1, void *a2)
     {
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 40);
-      v20 = 138543874;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      v24 = 2112;
-      v25 = v6;
-      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_ERROR, "%{public}@Not retrying share operation because no new CKShare changes were found after performing cloud pull (initialShare: %@, currentShare: %@)", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v6;
+      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_ERROR, "%{public}@Not retrying share operation because no new CKShare changes were found after performing cloud pull (initialShare: %@, currentShare: %@)", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -142,21 +140,19 @@ void __25__HMBShareOperation_main__block_invoke_5(uint64_t a1, void *a2)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_INFO, "%{public}@Retrying share operation after finishing cloud pull", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_INFO, "%{public}@Retrying share operation after finishing cloud pull", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     [*(a1 + 32) main];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __25__HMBShareOperation_main__block_invoke_8(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -164,17 +160,15 @@ void __25__HMBShareOperation_main__block_invoke_8(uint64_t a1, void *a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_ERROR, "%{public}@Canceling share operation due to failed cloud pull: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_ERROR, "%{public}@Canceling share operation due to failed cloud pull: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) cancelWithError:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMBShareOperation)initWithCloudZone:(id)zone block:(id)block
@@ -206,12 +200,11 @@ void __25__HMBShareOperation_main__block_invoke_8(uint64_t a1, void *a2)
 
 uint64_t __32__HMBShareOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6;
-  logCategory__hmf_once_v6 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6;
+  logCategory__hmf_once_v6 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

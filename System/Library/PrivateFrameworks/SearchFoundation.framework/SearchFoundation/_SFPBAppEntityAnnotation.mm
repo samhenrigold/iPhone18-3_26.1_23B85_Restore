@@ -211,18 +211,14 @@ LABEL_13:
 
 - (void)setEntityIdentifer:(id)identifer
 {
-  v4 = [identifer copy];
-  entityIdentifer = self->_entityIdentifer;
-  self->_entityIdentifer = v4;
+  self->_entityIdentifer = [identifer copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTypeIdentifer:(id)identifer
 {
-  v4 = [identifer copy];
-  typeIdentifer = self->_typeIdentifer;
-  self->_typeIdentifer = v4;
+  self->_typeIdentifer = [identifer copy];
 
   MEMORY[0x1EEE66BB8]();
 }

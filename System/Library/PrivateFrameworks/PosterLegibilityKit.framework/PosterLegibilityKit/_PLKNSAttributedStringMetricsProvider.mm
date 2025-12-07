@@ -6,7 +6,7 @@
 
 - (CGRect)plk_boundingRectForObject:(id)object maxSize:(CGSize)size
 {
-  [object boundingRectWithSize:0 options:0 context:{size.width, size.height}];
+  [object boundingRectWithSize:? options:? context:?];
   v8 = fabs(v5);
   v9 = v5 + v8;
   v10 = v7 + v8;

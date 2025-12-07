@@ -37,30 +37,30 @@
 {
   identifierCopy = identifier;
   storeCopy = store;
-  v23.receiver = self;
-  v23.super_class = HKFeatureAvailabilityStore;
-  v9 = [(HKFeatureAvailabilityStore *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = HKFeatureAvailabilityStore;
+  v9 = [(HKFeatureAvailabilityStore *)&v24 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_featureIdentifier, identifier);
     v11 = [HKObserverSet alloc];
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"HKFeatureAvailabilityStore:%@", identifierCopy];
-    v13 = HKLogInfrastructure();
-    v14 = [(HKObserverSet *)v11 initWithName:identifierCopy loggingCategory:v13];
+    v14 = HKLogInfrastructure(identifierCopy, v13);
+    v15 = [(HKObserverSet *)v11 initWithName:identifierCopy loggingCategory:v14];
     observers = v10->_observers;
-    v10->_observers = v14;
+    v10->_observers = v15;
 
-    v16 = [HKTaskServerProxyProvider alloc];
+    v17 = [HKTaskServerProxyProvider alloc];
     taskIdentifier = [objc_opt_class() taskIdentifier];
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    v19 = [(HKTaskServerProxyProvider *)v16 initWithHealthStore:storeCopy taskIdentifier:taskIdentifier exportedObject:v10 taskUUID:uUID];
+    v20 = [(HKTaskServerProxyProvider *)v17 initWithHealthStore:storeCopy taskIdentifier:taskIdentifier exportedObject:v10 taskUUID:uUID];
     proxyProvider = v10->_proxyProvider;
-    v10->_proxyProvider = v19;
+    v10->_proxyProvider = v20;
 
     [(HKProxyProvider *)v10->_proxyProvider setShouldRetryOnInterruption:0];
-    v21 = [[HKFeatureAvailabilityStoreServerConfiguration alloc] initWithFeatureIdentifier:identifierCopy];
-    [(HKTaskServerProxyProvider *)v10->_proxyProvider setTaskConfiguration:v21];
+    v22 = [[HKFeatureAvailabilityStoreServerConfiguration alloc] initWithFeatureIdentifier:identifierCopy];
+    [(HKTaskServerProxyProvider *)v10->_proxyProvider setTaskConfiguration:v22];
   }
 
   return v10;
@@ -942,12 +942,12 @@ uint64_t __49__HKFeatureAvailabilityStore_unregisterObserver___block_invoke(uint
 
 void __49__HKFeatureAvailabilityStore_unregisterObserver___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
+  v6 = HKLogInfrastructure(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __49__HKFeatureAvailabilityStore_unregisterObserver___block_invoke_3_cold_1(a1);
+    __49__HKFeatureAvailabilityStore_unregisterObserver___block_invoke_3_cold_1();
   }
 }
 
@@ -973,11 +973,11 @@ void __49__HKFeatureAvailabilityStore_unregisterObserver___block_invoke_3(uint64
 void __67__HKFeatureAvailabilityStore__startObservingWithActivationHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __67__HKFeatureAvailabilityStore__startObservingWithActivationHandler___block_invoke_2_cold_1(a1);
+    __67__HKFeatureAvailabilityStore__startObservingWithActivationHandler___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1045,34 +1045,34 @@ uint64_t __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError_
 void __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError___block_invoke_3_cold_1(a1);
+    __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError___block_invoke_3_cold_1();
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v3;
 }
 
 - (void)_handleAutomaticProxyReconnection
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v3 = [(HKFeatureAvailabilityStore *)self _synchronouslyStartObservingWithError:&v8];
-  v4 = v8;
-  _HKInitializeLogging();
-  v5 = HKLogInfrastructure();
-  v6 = v5;
+  v13 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v3 = [(HKFeatureAvailabilityStore *)self _synchronouslyStartObservingWithError:&v10];
+  v4 = v10;
+  _HKInitializeLogging(v4, v5);
+  v8 = HKLogInfrastructure(v6, v7);
+  v9 = v8;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notification of successful server reconnection", buf, 0xCu);
+      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notification of successful server reconnection", buf, 0xCu);
     }
 
     [(HKFeatureAvailabilityStore *)self _notifyObserversForOnboardingCompletionUpdate];
@@ -1080,95 +1080,89 @@ void __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError___bl
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(HKKeyValueDomain *)self _handleAutomaticProxyReconnection];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_featureAvailabilityExtensionDidUpdateOnboardingCompletion
 {
-  v7 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received server notification of onboarding completion update", &v5, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received server notification of onboarding completion update", &v6, 0xCu);
   }
 
   [(HKFeatureAvailabilityStore *)self _notifyObserversForOnboardingCompletionUpdate];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_featureAvailabilityProvidingDidUpdateSettings
 {
-  v7 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received server notification of settings update", &v5, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received server notification of settings update", &v6, 0xCu);
   }
 
   [(HKFeatureAvailabilityStore *)self _notifyObserversForSettingsUpdate];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversForOnboardingCompletionUpdate
 {
-  v12 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HKObserverSet count](self->_observers, "count")}];
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HKObserverSet count](self->_observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of onboarding completion update", buf, 0x16u);
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of onboarding completion update", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __75__HKFeatureAvailabilityStore__notifyObserversForOnboardingCompletionUpdate__block_invoke;
-  v7[3] = &unk_1E7381CA0;
-  v7[4] = self;
-  [(HKObserverSet *)observers notifyObservers:v7];
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __75__HKFeatureAvailabilityStore__notifyObserversForOnboardingCompletionUpdate__block_invoke;
+  v8[3] = &unk_1E7381CA0;
+  v8[4] = self;
+  [(HKObserverSet *)observers notifyObservers:v8];
 }
 
 - (void)_notifyObserversForSettingsUpdate
 {
-  v12 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HKObserverSet count](self->_observers, "count")}];
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HKObserverSet count](self->_observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of settings update", buf, 0x16u);
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of settings update", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __63__HKFeatureAvailabilityStore__notifyObserversForSettingsUpdate__block_invoke;
-  v7[3] = &unk_1E7381CA0;
-  v7[4] = self;
-  [(HKObserverSet *)observers notifyObservers:v7];
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __63__HKFeatureAvailabilityStore__notifyObserversForSettingsUpdate__block_invoke;
+  v8[3] = &unk_1E7381CA0;
+  v8[4] = self;
+  [(HKObserverSet *)observers notifyObservers:v8];
 }
 
 void __63__HKFeatureAvailabilityStore__notifyObserversForSettingsUpdate__block_invoke(uint64_t a1, void *a2)
@@ -1343,33 +1337,12 @@ void __63__HKFeatureAvailabilityStore__notifyObserversForSettingsUpdate__block_i
   [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v9 errorHandler:v7];
 }
 
-void __49__HKFeatureAvailabilityStore_unregisterObserver___block_invoke_3_cold_1(uint64_t a1)
+void __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError___block_invoke_3_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[%{public}@] Failed to communicate with task server for observation stop: %{public}@");
   v4 = *MEMORY[0x1E69E9840];
-}
-
-void __67__HKFeatureAvailabilityStore__startObservingWithActivationHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[%{public}@] Failed to communicate with task server for observation start: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __68__HKFeatureAvailabilityStore__synchronouslyStartObservingWithError___block_invoke_3_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  OUTLINED_FUNCTION_1_8();
-  v7 = v3;
-  _os_log_error_impl(&dword_19197B000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to communicate with task server for observation start: %{public}@", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_19197B000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to communicate with task server for observation start: %{public}@", v2, 0x16u);
 }
 
 @end

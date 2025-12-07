@@ -23,9 +23,9 @@
     {
       v11 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v10];
       scheme = [v11 scheme];
-      v13 = [scheme isEqualToString:@"resource"];
+      isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-      if (v13)
+      if (isEqualToString)
       {
         host = [v11 host];
         resourceName = v9->_resourceName;
@@ -197,9 +197,9 @@ LABEL_10:
     self->_hasValidFallbackImage = 1;
     style = [(SUUIBadgeViewElement *)self style];
     badgeTreatment = [style badgeTreatment];
-    v5 = [badgeTreatment isEqualToString:@"rect"];
+    isEqualToString = objc_msgSend_isEqualToString_(badgeTreatment);
 
-    if (v5)
+    if (isEqualToString)
     {
       v6 = self->_text;
       ikColor = [style ikColor];

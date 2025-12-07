@@ -28,26 +28,24 @@
   if ([(NSArray *)self->_activityZones count])
   {
     motionDetections = [(HMIVideoAnalyzerResultActivityZoneFilter *)self motionDetections];
-    v6 = [HMIMotionDetection firstMotionDetectionInArray:motionDetections withMode:2];
+    v6 = [HMIMotionDetection firstMotionDetectionInArray:"firstMotionDetectionInArray:withMode:" withMode:?];
 
     events = [resultCopy events];
     activityZones = [(HMIVideoAnalyzerResultActivityZoneFilter *)self activityZones];
-    LODWORD(v9) = 1042536202;
-    LODWORD(v10) = 1042536202;
-    v11 = [HMICameraActivityZone filterEvents:events withActivityZones:activityZones motionDetection:v6 insetPercentageInclusion:v9 insetPercentageExclusion:v10];
+    v9 = [HMICameraActivityZone filterEvents:"filterEvents:withActivityZones:motionDetection:insetPercentageInclusion:insetPercentageExclusion:" withActivityZones:? motionDetection:? insetPercentageInclusion:? insetPercentageExclusion:?];
 
-    v12 = [HMIVideoAnalyzerFrameResult alloc];
+    v10 = [HMIVideoAnalyzerFrameResult alloc];
     frame = [resultCopy frame];
     [resultCopy regionOfInterest];
-    v14 = [(HMIVideoAnalyzerFrameResult *)v12 initWithFrame:frame events:v11 regionOfInterest:?];
+    v12 = [HMIVideoAnalyzerFrameResult initWithFrame:v10 events:"initWithFrame:events:regionOfInterest:" regionOfInterest:?];
   }
 
   else
   {
-    v14 = resultCopy;
+    v12 = resultCopy;
   }
 
-  return v14;
+  return v12;
 }
 
 @end

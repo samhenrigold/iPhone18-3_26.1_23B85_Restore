@@ -8,9 +8,11 @@
 - (void)didApply:(BOOL)apply info:(id)info error:(id)error;
 - (void)didBootstrap:(BOOL)bootstrap info:(id)info error:(id)error;
 - (void)didDownload:(BOOL)download info:(id)info error:(id)error;
+- (void)didFind:(BOOL)find info:(id)info updateAvailable:(BOOL)available needsDownload:(BOOL)download error:(id)error;
 - (void)didFinish:(BOOL)finish info:(id)info error:(id)error;
 - (void)didPrepare:(BOOL)prepare info:(id)info error:(id)error;
 - (void)downloadFirmwareWithOptions:(id)options;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)finishWithOptions:(id)options;
 - (void)handleServiceDisconnect;
 - (void)issueNotification:(id)notification;
@@ -280,6 +282,44 @@ LABEL_3:
   _Block_object_dispose(&v10, 8);
 }
 
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3052000000;
+  v14 = sub_100006AF8;
+  v15 = sub_100006B08;
+  v16 = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 1;
+  xpcServiceConn = self->_xpcServiceConn;
+  if (!xpcServiceConn)
+  {
+    v10 = 0;
+    goto LABEL_3;
+  }
+
+  self->_currentState = 5;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100007390;
+  v6[3] = &unk_100081338;
+  v6[4] = self;
+  v6[5] = &v7;
+  v6[6] = &v11;
+  [-[NSXPCConnection remoteObjectProxyWithErrorHandler:](xpcServiceConn remoteObjectProxyWithErrorHandler:{v6), "findFirmwareWithOptions:remote:", options, remote}];
+  if ((v8[3] & 1) == 0)
+  {
+LABEL_3:
+    [(FudPluginDelegate *)self->_delegate didFind:0 info:0 updateAvailable:0 needsDownload:0 error:v12[5]];
+  }
+
+  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v11, 8);
+}
+
 - (void)downloadFirmwareWithOptions:(id)options
 {
   v10 = 0;
@@ -507,12 +547,11 @@ LABEL_3:
 
 - (void)issueNotification:(id)notification
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(FudPluginDelegate *)v6 issueNotification:notification];
+    [(FudPluginDelegate *)delegate issueNotification:notification];
   }
 }
 
@@ -529,6 +568,29 @@ LABEL_3:
     delegate = self->_delegate;
 
     [(FudPluginDelegate *)delegate didBootstrap:v9 info:info error:error];
+  }
+}
+
+- (void)didFind:(BOOL)find info:(id)info updateAvailable:(BOOL)available needsDownload:(BOOL)download error:(id)error
+{
+  if (self->_currentState == 5)
+  {
+    downloadCopy = download;
+    availableCopy = available;
+    findCopy = find;
+    if (!find)
+    {
+      [(AUServiceShim *)self closeXPCConnection];
+    }
+
+    if (!availableCopy)
+    {
+      [(AUServiceShim *)self closeXPCConnection];
+    }
+
+    delegate = self->_delegate;
+
+    [(FudPluginDelegate *)delegate didFind:findCopy info:info updateAvailable:availableCopy needsDownload:downloadCopy error:error];
   }
 }
 

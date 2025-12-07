@@ -203,20 +203,18 @@ LABEL_3:
 
 + (NSDictionary)properties
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"data";
+  v9[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"data";
   v2 = [MEMORY[0x1E69E0AF8] typeWithUTType:*MEMORY[0x1E6982D60]];
   v3 = [WFCloudKitItemProperty assetPropertyWithName:@"dataFileRepresentation" fileType:v2];
-  v10[0] = v3;
-  v9[1] = @"version";
+  v9[0] = v3;
+  v8[1] = @"version";
   v4 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v10[1] = v4;
-  v9[2] = @"syncHash";
+  v9[1] = v4;
+  v8[2] = @"syncHash";
   v5 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:ignoredByDefault:encrypted:" nilValue:? ignoredByDefault:? encrypted:?];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

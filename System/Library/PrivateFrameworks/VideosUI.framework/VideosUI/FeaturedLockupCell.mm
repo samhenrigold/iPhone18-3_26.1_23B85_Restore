@@ -6,10 +6,11 @@
 
 - (CGSize)vui_layoutSubviews:(CGSize)subviews computationOnly:(BOOL)only
 {
+  onlyCopy = only;
   height = subviews.height;
   width = subviews.width;
   selfCopy = self;
-  sub_1E40BC260(only, width, height);
+  sub_1E40BC260(onlyCopy, width, height);
   v9 = v8;
   v11 = v10;
 

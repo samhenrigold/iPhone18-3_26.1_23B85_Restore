@@ -17,6 +17,7 @@
 - (void)invalidAuthHandler:(id)handler;
 - (void)passcodeEntryViewControllerEntryCompleted:(id)completed passcode:(id)passcode;
 - (void)registerForUnlockNotification;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -116,6 +117,14 @@
     block[4] = self;
     dispatch_async(&_dispatch_main_q, block);
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PBADevicePasscodeViewController;
+  [(PBADevicePasscodeViewController *)&v4 viewDidAppear:appear];
+  [(PBASimpleLockScreenView *)self->_newLockScreenView becomeFirstResponder];
 }
 
 - (void)handlePasscodeEntrySuccessful:(id)successful
@@ -301,7 +310,7 @@
 
 - (void)failedAuthHandler:(id)handler error:(id)error
 {
-  v5 = sub_10000A054();
+  v5 = sub_10000A054(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -316,7 +325,7 @@
 
 - (void)invalidAuthHandler:(id)handler
 {
-  v4 = sub_10000A054();
+  v4 = sub_10000A054(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

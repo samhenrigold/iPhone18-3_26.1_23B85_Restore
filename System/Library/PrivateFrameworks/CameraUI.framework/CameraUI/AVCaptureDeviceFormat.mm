@@ -25,7 +25,7 @@ void __69__AVCaptureDeviceFormat_CAMCaptureEngine__cam_supportsFrameDuration___b
   v7 = v6;
   if (v6)
   {
-    [v6 minFrameDuration];
+    objc_msgSend_minFrameDuration(v6);
   }
 
   else
@@ -38,7 +38,7 @@ void __69__AVCaptureDeviceFormat_CAMCaptureEngine__cam_supportsFrameDuration___b
   {
     if (v7)
     {
-      [v7 maxFrameDuration];
+      objc_msgSend_maxFrameDuration(v7);
     }
 
     else
@@ -63,7 +63,7 @@ void __77__AVCaptureDeviceFormat_CAMCaptureEngine__cam_supportsPanoramaConfigura
   v9 = *(a1 + 32);
   if (v9)
   {
-    [v9 minimumFramerate];
+    objc_msgSend_minimumFramerate(v9);
     v10 = v18;
   }
 
@@ -80,7 +80,7 @@ void __77__AVCaptureDeviceFormat_CAMCaptureEngine__cam_supportsPanoramaConfigura
     v11 = *(a1 + 32);
     if (v11)
     {
-      [v11 maximumFramerate];
+      objc_msgSend_maximumFramerate(v11);
       v12 = v15;
     }
 

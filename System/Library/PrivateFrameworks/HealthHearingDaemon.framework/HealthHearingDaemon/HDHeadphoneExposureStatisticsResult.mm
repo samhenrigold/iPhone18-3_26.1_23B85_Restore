@@ -1,7 +1,9 @@
 @interface HDHeadphoneExposureStatisticsResult
++ (HDHeadphoneExposureStatisticsResult)resultWithCache:(id)cache eligbleForUserNotification:(BOOL)notification;
 + (HDHeadphoneExposureStatisticsResult)resultWithCache:(id)cache prunedCount:(id)count;
 + (id)resultForAppendedSamplesDuringStartup;
 - (id)_initWithCache:(id)cache eligbleForUserNotification:(BOOL)notification prunedCount:(id)count;
+- (id)copyWithEligbleForUserNotificationOverride:(BOOL)override;
 @end
 
 @implementation HDHeadphoneExposureStatisticsResult
@@ -20,6 +22,30 @@
   v8 = [[self alloc] _initWithCache:cacheCopy eligbleForUserNotification:0 prunedCount:countCopy];
 
   return v8;
+}
+
++ (HDHeadphoneExposureStatisticsResult)resultWithCache:(id)cache eligbleForUserNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  cacheCopy = cache;
+  if (!cacheCopy)
+  {
+    [HDHeadphoneExposureStatisticsResult resultWithCache:a2 eligbleForUserNotification:self];
+  }
+
+  v8 = [[self alloc] _initWithCache:cacheCopy eligbleForUserNotification:notificationCopy prunedCount:0];
+
+  return v8;
+}
+
+- (id)copyWithEligbleForUserNotificationOverride:(BOOL)override
+{
+  overrideCopy = override;
+  v5 = objc_alloc(objc_opt_class());
+  cache = self->_cache;
+  prunedCount = self->_prunedCount;
+
+  return [v5 _initWithCache:cache eligbleForUserNotification:overrideCopy prunedCount:prunedCount];
 }
 
 - (id)_initWithCache:(id)cache eligbleForUserNotification:(BOOL)notification prunedCount:(id)count

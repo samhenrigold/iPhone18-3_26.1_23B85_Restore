@@ -71,33 +71,33 @@
 
 void __56__ISScrollViewVitalityController__updateVitalityFilters__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       v8 = 0;
       do
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * v8);
-        v24 = 0;
-        v22 = 0;
+        v9 = *(*(&v24 + 1) + 8 * v8);
         v23 = 0;
-        [v3 getVisibility:&v24 offset:&v23 targetVisibilityOffset:&v22 forView:v9];
+        v21 = 0;
+        v22 = 0;
+        [v3 getVisibility:&v23 offset:&v22 targetVisibilityOffset:&v21 forView:v9];
         v10 = [v9 livePhotoPlayer];
         v11 = [v10 vitalityFilter];
         v12 = v11;
@@ -109,19 +109,19 @@ void __56__ISScrollViewVitalityController__updateVitalityFilters__block_invoke(u
             [v10 setVitalityFilter:v12];
           }
 
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __56__ISScrollViewVitalityController__updateVitalityFilters__block_invoke_2;
-          v14[3] = &unk_279A29F80;
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __56__ISScrollViewVitalityController__updateVitalityFilters__block_invoke_2;
+          v13[3] = &unk_279A29F80;
           v12 = v12;
-          v15 = v12;
-          v19 = v24;
-          v20 = *(a1 + 57);
-          v17 = v23;
-          v18 = v22;
-          v16 = *(a1 + 48);
-          v21 = *(a1 + 58);
-          [v12 performInputChanges:v14];
+          v14 = v12;
+          v18 = v23;
+          v19 = *(a1 + 57);
+          v16 = v22;
+          v17 = v21;
+          v15 = *(a1 + 48);
+          v20 = *(a1 + 58);
+          [v12 performInputChanges:v13];
         }
 
         else
@@ -133,13 +133,11 @@ void __56__ISScrollViewVitalityController__updateVitalityFilters__block_invoke(u
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__ISScrollViewVitalityController__updateVitalityFilters__block_invoke_2(uint64_t a1)

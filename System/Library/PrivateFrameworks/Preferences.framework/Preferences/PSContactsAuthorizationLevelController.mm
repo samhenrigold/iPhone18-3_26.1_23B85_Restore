@@ -7,7 +7,6 @@
 - (id)_pickerUsageSectionSpecifiers;
 - (id)footerStringForSpecifiers:(id)specifiers;
 - (id)specifiers;
-- (uint64_t)dealloc;
 - (unint64_t)_currentTCCAuthorizationRight;
 - (void)_addLimitedAccessSection;
 - (void)_addPickerUsageSectionIfNeeded;
@@ -41,41 +40,9 @@
 
 - (void)dealloc
 {
-  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  [defaultCenter removeObserver:self name:@"PSContactsPrivacyUpgradePromptCompletedNotification" object:0];
-
-  defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v5 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr;
-  v17 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr;
-  if (!getCNContactStoreDidChangeNotificationSymbolLoc_ptr)
-  {
-    v9 = MEMORY[0x1E69E9820];
-    v10 = 3221225472;
-    v11 = __getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke;
-    v12 = &unk_1E71DBC78;
-    v13 = &v14;
-    v6 = ContactsLibrary();
-    v15[3] = dlsym(v6, "CNContactStoreDidChangeNotification");
-    getCNContactStoreDidChangeNotificationSymbolLoc_ptr = *(v13[1] + 24);
-    v5 = v15[3];
-  }
-
-  _Block_object_dispose(&v14, 8);
-  if (!v5)
-  {
-    v7 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v14, 8);
-    _Unwind_Resume(v7);
-  }
-
-  [defaultCenter2 removeObserver:self name:*v5 object:0];
-
-  v8.receiver = self;
-  v8.super_class = PSContactsAuthorizationLevelController;
-  [(PSListItemsController *)&v8 dealloc];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [PSContactsAuthorizationLevelController _currentTCCAuthorizationRight];
 }
 
 - (void)_handleUpgradePromptNotification:(id)notification
@@ -147,7 +114,7 @@ void __71__PSContactsAuthorizationLevelController__currentTCCAuthorizationRight_
 
   else
   {
-    v8 = _PSLoggingFacility();
+    v8 = _PSLoggingFacility(0);
     v6 = v8;
     if (a3)
     {
@@ -395,7 +362,7 @@ LABEL_12:
 
 - (id)_limitedAccessSectionSpecifiers
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   if (!self->_limitedAccessSectionSpecifiers)
   {
     v3 = +[PSSpecifier emptyGroupSpecifier];
@@ -408,9 +375,9 @@ LABEL_12:
 
     [v5 setProperty:@"CONTACTS_MANUAL_SELECTION_BUTTON" forKey:@"id"];
     [v5 setButtonAction:sel__presentContactsPickerForModifyingSelection];
-    v15[0] = v3;
-    v15[1] = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+    v16[0] = v3;
+    v16[1] = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     limitedAccessSectionSpecifiers = self->_limitedAccessSectionSpecifiers;
     self->_limitedAccessSectionSpecifiers = v7;
   }
@@ -425,10 +392,11 @@ LABEL_12:
   {
     v11 = _currentTCCAuthorizationRight;
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-    if (([currentDevice sf_isInternalInstall] & 1) != 0 || PSDiagnosticsAreEnabled())
+    sf_isInternalInstall = [currentDevice sf_isInternalInstall];
+    if ((sf_isInternalInstall & 1) != 0 || (sf_isInternalInstall = PSDiagnosticsAreEnabled(), sf_isInternalInstall))
     {
-      v13 = _PSLoggingFacility();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = _PSLoggingFacility(sf_isInternalInstall);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [(PSContactsAuthorizationLevelController *)v11 _limitedAccessSectionSpecifiers];
       }
@@ -474,7 +442,7 @@ LABEL_12:
       goto LABEL_17;
     }
 
-    v15 = _PSLoggingFacility();
+    v15 = _PSLoggingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
@@ -500,7 +468,7 @@ LABEL_16:
   v14 = v13;
   if (!v12 && v13)
   {
-    v15 = _PSLoggingFacility();
+    v15 = _PSLoggingFacility(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
@@ -560,39 +528,40 @@ LABEL_17:
 
 - (void)contactPicker:(Class)picker didSelectContacts:(id)contacts
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = [(PSContactsAuthorizationLevelController *)self limitedAccessSpecifier:picker];
   [(PSContactsAuthorizationLevelController *)self updateContactsCountSubtitleForSpecifier:v5 contactsTCCAccess:1];
   [(PSListController *)self reloadSpecifier:v5];
-  if (![(PSContactsAuthorizationLevelController *)self isAppLinkedWithContactsLimitedAccessSupportedSDK])
+  isAppLinkedWithContactsLimitedAccessSupportedSDK = [(PSContactsAuthorizationLevelController *)self isAppLinkedWithContactsLimitedAccessSupportedSDK];
+  if ((isAppLinkedWithContactsLimitedAccessSupportedSDK & 1) == 0)
   {
-    v6 = _PSLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _PSLoggingFacility(isAppLinkedWithContactsLimitedAccessSupportedSDK);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       displayName = [(PSContactsAuthorizationLevelController *)self displayName];
       serviceKey = [(PSContactsAuthorizationLevelController *)self serviceKey];
       *buf = 138412546;
-      v28 = displayName;
-      v29 = 2112;
-      v30 = serviceKey;
-      _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "App %@(%@) is linked using SDK that doesn't support LimitedAccess for Contacts", buf, 0x16u);
+      v30 = displayName;
+      v31 = 2112;
+      v32 = serviceKey;
+      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "App %@(%@) is linked using SDK that doesn't support LimitedAccess for Contacts", buf, 0x16u);
     }
 
-    v9 = [objc_alloc(MEMORY[0x1E69C7650]) initWithExplanation:@"Terminating app as selected contacts changed for legacy linked app"];
-    if (!v9)
+    v10 = [objc_alloc(MEMORY[0x1E69C7650]) initWithExplanation:@"Terminating app as selected contacts changed for legacy linked app"];
+    if (!v10)
     {
       goto LABEL_22;
     }
 
-    v10 = objc_alloc(MEMORY[0x1E69635D8]);
+    v11 = objc_alloc(MEMORY[0x1E69635D8]);
     serviceKey2 = [(PSContactsAuthorizationLevelController *)self serviceKey];
-    v12 = [v10 initWithBundleIdentifier:serviceKey2 URL:0 personaUniqueString:0 personaType:4];
+    v13 = [v11 initWithBundleIdentifier:serviceKey2 URL:0 personaUniqueString:0 personaType:4];
 
-    v13 = [MEMORY[0x1E69C75F0] identityForLSApplicationIdentity:v12];
-    if (!v13)
+    v14 = [MEMORY[0x1E69C75F0] identityForLSApplicationIdentity:v13];
+    if (!v14)
     {
-      v14 = _PSLoggingFacility();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _PSLoggingFacility(0);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_21:
 
@@ -603,38 +572,38 @@ LABEL_22:
       displayName2 = [(PSContactsAuthorizationLevelController *)self displayName];
       serviceKey3 = [(PSContactsAuthorizationLevelController *)self serviceKey];
       *buf = 138412546;
-      v28 = displayName2;
-      v29 = 2112;
-      v30 = serviceKey3;
-      _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "Unable to get process identity for %@(%@)", buf, 0x16u);
+      v30 = displayName2;
+      v31 = 2112;
+      v32 = serviceKey3;
+      _os_log_impl(&dword_18B008000, v15, OS_LOG_TYPE_DEFAULT, "Unable to get process identity for %@(%@)", buf, 0x16u);
 
 LABEL_20:
       goto LABEL_21;
     }
 
-    v14 = [MEMORY[0x1E69C7610] predicateMatchingIdentity:v13];
-    v15 = [objc_alloc(MEMORY[0x1E69C7660]) initWithPredicate:v14 context:v9];
-    displayName2 = v15;
-    if (v15)
+    v15 = [MEMORY[0x1E69C7610] predicateMatchingIdentity:v14];
+    v16 = [objc_alloc(MEMORY[0x1E69C7660]) initWithPredicate:v15 context:v10];
+    displayName2 = v16;
+    if (v16)
     {
-      v26 = 0;
-      v17 = [v15 execute:&v26];
-      v18 = v26;
-      v19 = v18;
-      if (v17)
+      v28 = 0;
+      v18 = [v16 execute:&v28];
+      v19 = v28;
+      v20 = v19;
+      if (v18)
       {
-        displayName4 = _PSLoggingFacility();
+        displayName4 = _PSLoggingFacility(v19);
         if (os_log_type_enabled(displayName4, OS_LOG_TYPE_DEFAULT))
         {
           displayName3 = [(PSContactsAuthorizationLevelController *)self displayName];
           serviceKey4 = [(PSContactsAuthorizationLevelController *)self serviceKey];
           *buf = 138412546;
-          v28 = displayName3;
-          v29 = 2112;
-          v30 = serviceKey4;
-          v23 = "Successfully terminated %@(%@)";
+          v30 = displayName3;
+          v31 = 2112;
+          v32 = serviceKey4;
+          v24 = "Successfully terminated %@(%@)";
 LABEL_17:
-          _os_log_impl(&dword_18B008000, displayName4, OS_LOG_TYPE_DEFAULT, v23, buf, 0x16u);
+          _os_log_impl(&dword_18B008000, displayName4, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
 
           goto LABEL_18;
         }
@@ -642,18 +611,19 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      if ([v18 code]!= 3)
+      code = [v19 code];
+      if (code != 3)
       {
-        displayName4 = _PSLoggingFacility();
+        displayName4 = _PSLoggingFacility(code);
         if (os_log_type_enabled(displayName4, OS_LOG_TYPE_DEFAULT))
         {
           displayName3 = [(PSContactsAuthorizationLevelController *)self displayName];
           serviceKey4 = [(PSContactsAuthorizationLevelController *)self serviceKey];
           *buf = 138412546;
-          v28 = displayName3;
-          v29 = 2112;
-          v30 = serviceKey4;
-          v23 = "Failed to kill %@(%@)";
+          v30 = displayName3;
+          v31 = 2112;
+          v32 = serviceKey4;
+          v24 = "Failed to kill %@(%@)";
           goto LABEL_17;
         }
 
@@ -663,16 +633,16 @@ LABEL_18:
 
     else
     {
-      v19 = _PSLoggingFacility();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = _PSLoggingFacility(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         displayName4 = [(PSContactsAuthorizationLevelController *)self displayName];
         serviceKey5 = [(PSContactsAuthorizationLevelController *)self serviceKey];
         *buf = 138412546;
-        v28 = displayName4;
-        v29 = 2112;
-        v30 = serviceKey5;
-        _os_log_impl(&dword_18B008000, v19, OS_LOG_TYPE_DEFAULT, "Unable to create terminate request for %@(%@)", buf, 0x16u);
+        v30 = displayName4;
+        v31 = 2112;
+        v32 = serviceKey5;
+        _os_log_impl(&dword_18B008000, v20, OS_LOG_TYPE_DEFAULT, "Unable to create terminate request for %@(%@)", buf, 0x16u);
 
         goto LABEL_18;
       }
@@ -746,7 +716,7 @@ LABEL_23:
 void __85__PSContactsAuthorizationLevelController__presentContactsPickerForModifyingSelection__block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = _PSLoggingFacility();
+  v2 = _PSLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) displayName];
@@ -961,13 +931,6 @@ void __85__PSContactsAuthorizationLevelController__presentContactsPickerForModif
   WeakRetained = objc_loadWeakRetained(&self->_limitedAccessSpecifier);
 
   return WeakRetained;
-}
-
-- (uint64_t)dealloc
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [(PSContactsAuthorizationLevelController *)v0 _currentTCCAuthorizationRight];
 }
 
 - (void)_limitedAccessSectionSpecifiers

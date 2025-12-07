@@ -82,7 +82,7 @@
     if (view)
     {
       v6 = view;
-      type metadata accessor for SyncedLyricsLineView();
+      type metadata accessor for SyncedLyricsLineView(0);
       v7 = swift_dynamicCastClass();
       if (v7)
       {

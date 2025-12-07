@@ -34,7 +34,7 @@
 {
   if (self->_isObserving)
   {
-    v2 = RMSLogger();
+    v2 = RMSLogger(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -59,7 +59,7 @@
 
 void __52__RMSDAAPNowPlayingManager_beginObservingNowPlaying__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = WeakRetained;
@@ -88,31 +88,31 @@ void __52__RMSDAAPNowPlayingManager_beginObservingNowPlaying__block_invoke(uint6
 
     else
     {
-      [WeakRetained[2] setRevisionNumber:0];
-      v10 = v8[9];
-      if (v10 >= 9)
+      v10 = [WeakRetained[2] setRevisionNumber:0];
+      v11 = v8[9];
+      if (v11 >= 9)
       {
-        v10 = 9;
+        v11 = 9;
       }
 
-      v8[9] = (v10 + 1);
-      v11 = RMSLogger();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v8[9] = (v11 + 1);
+      v12 = RMSLogger(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v8[9];
+        v13 = v8[9];
         *buf = 134217984;
-        v17 = v12;
-        _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Now playing info unavailable, retrying in %zd seconds", buf, 0xCu);
+        v18 = v13;
+        _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Now playing info unavailable, retrying in %zd seconds", buf, 0xCu);
       }
 
-      v13 = dispatch_time(0, 1000000000 * v8[9]);
+      v14 = dispatch_time(0, 1000000000 * v8[9]);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __52__RMSDAAPNowPlayingManager_beginObservingNowPlaying__block_invoke_1;
       block[3] = &unk_279B08898;
-      objc_copyWeak(&v15, (a1 + 32));
-      dispatch_after(v13, MEMORY[0x277D85CD0], block);
-      objc_destroyWeak(&v15);
+      objc_copyWeak(&v16, (a1 + 32));
+      dispatch_after(v14, MEMORY[0x277D85CD0], block);
+      objc_destroyWeak(&v16);
     }
   }
 }
@@ -183,7 +183,7 @@ void __72__RMSDAAPNowPlayingManager__requestNowPlayingInfoWithCompletionHandler_
   if (a2 == 1)
   {
     v6 = [RMSDAAPParser objectWithData:v5];
-    v7 = RMSLogger();
+    v7 = RMSLogger(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v34 = 138412290;
@@ -362,17 +362,17 @@ LABEL_27:
 
 - (void)_requestArtworkDataIfNecessaryForNowPlayingInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   artworkIdentifier = [infoCopy artworkIdentifier];
   v6 = artworkIdentifier;
   if (!artworkIdentifier)
   {
-    v11 = RMSLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = RMSLogger(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Now playing is empty, don't fetch artwork", buf, 2u);
+      _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Now playing is empty, don't fetch artwork", buf, 2u);
     }
 
     [(NSURLSessionDataTask *)self->_artworkRequest cancel];
@@ -391,12 +391,12 @@ LABEL_27:
 
     if (currentArtworkIdentifier)
     {
-      v9 = RMSLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = RMSLogger(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = v6;
-        _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Artwork was cached for identifier: %@", buf, 0xCu);
+        v21 = v6;
+        _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Artwork was cached for identifier: %@", buf, 0xCu);
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -408,18 +408,18 @@ LABEL_27:
       WeakRetained = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/1/%s", "ctrl-int", "nowplayingartwork"];
       objc_initWeak(buf, self);
       requestManager = self->_requestManager;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __76__RMSDAAPNowPlayingManager__requestArtworkDataIfNecessaryForNowPlayingInfo___block_invoke;
-      v15[3] = &unk_279B08DD0;
-      objc_copyWeak(&v18, buf);
-      v16 = infoCopy;
-      v17 = v6;
-      v13 = [(RMSDAAPRequestManager *)requestManager requestWithPath:WeakRetained method:@"GET" postData:0 queryArgs:0 completionHandler:v15];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __76__RMSDAAPNowPlayingManager__requestArtworkDataIfNecessaryForNowPlayingInfo___block_invoke;
+      v16[3] = &unk_279B08DD0;
+      objc_copyWeak(&v19, buf);
+      v17 = infoCopy;
+      v18 = v6;
+      v14 = [(RMSDAAPRequestManager *)requestManager requestWithPath:WeakRetained method:@"GET" postData:0 queryArgs:0 completionHandler:v16];
       artworkRequest = self->_artworkRequest;
-      self->_artworkRequest = v13;
+      self->_artworkRequest = v14;
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(buf);
     }
 
@@ -429,7 +429,7 @@ LABEL_12:
 
 void __76__RMSDAAPNowPlayingManager__requestArtworkDataIfNecessaryForNowPlayingInfo___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -449,20 +449,20 @@ void __76__RMSDAAPNowPlayingManager__requestArtworkDataIfNecessaryForNowPlayingI
       v9 = *(WeakRetained + 11);
       *(WeakRetained + 11) = 0;
 
-      v10 = *(WeakRetained + 10);
-      if (v10 >= 9)
+      v11 = *(WeakRetained + 10);
+      if (v11 >= 9)
       {
-        v10 = 9;
+        v11 = 9;
       }
 
-      *(WeakRetained + 10) = v10 + 1;
-      v11 = RMSLogger();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      *(WeakRetained + 10) = v11 + 1;
+      v12 = RMSLogger(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(WeakRetained + 10);
-        v13 = 134217984;
-        v14 = v12;
-        _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Artwork unavailable, retrying in %zd seconds", &v13, 0xCu);
+        v13 = *(WeakRetained + 10);
+        v14 = 134217984;
+        v15 = v13;
+        _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Artwork unavailable, retrying in %zd seconds", &v14, 0xCu);
       }
 
       [WeakRetained _scheduleArtworkRetryForNowPlayingInfo:*(a1 + 32) delay:*(WeakRetained + 10)];

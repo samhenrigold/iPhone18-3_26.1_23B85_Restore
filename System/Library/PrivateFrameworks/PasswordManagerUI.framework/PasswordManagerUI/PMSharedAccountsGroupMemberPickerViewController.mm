@@ -30,8 +30,8 @@
 - (void)composeRecipientView:(id)view didRemoveRecipient:(id)recipient;
 - (void)composeRecipientView:(id)view textDidChange:(id)change;
 - (void)consumeAutocompleteSearchResults:(id)results taskID:(id)d;
-- (void)finishedSearchingForAutocompleteResults;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PMSharedAccountsGroupMemberPickerViewController
@@ -97,10 +97,10 @@
 
 - (void)viewDidLoad
 {
-  v45[8] = *MEMORY[0x277D85DE8];
-  v44.receiver = self;
-  v44.super_class = PMSharedAccountsGroupMemberPickerViewController;
-  [(PMSharedAccountsGroupMemberPickerViewController *)&v44 viewDidLoad];
+  v44[8] = *MEMORY[0x277D85DE8];
+  v43.receiver = self;
+  v43.super_class = PMSharedAccountsGroupMemberPickerViewController;
+  [(PMSharedAccountsGroupMemberPickerViewController *)&v43 viewDidLoad];
   view = [(PMSharedAccountsGroupMemberPickerViewController *)self view];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   [view setBackgroundColor:systemBackgroundColor];
@@ -125,7 +125,7 @@
   [view2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
   [(CNAutocompleteResultsTableViewController *)self->_contactsResultsTableViewController view];
-  v11 = v43 = view;
+  v11 = v42 = view;
   [view addSubview:?];
   heightAnchor = [(CNComposeRecipientTextView *)self->_recipientTextView heightAnchor];
   [MEMORY[0x277CFBCB0] preferredHeight];
@@ -134,44 +134,51 @@
   self->_recipientTextViewHeightConstraint = v13;
 
   safeAreaLayoutGuide = [view safeAreaLayoutGuide];
-  v33 = MEMORY[0x277CCAAD0];
+  v32 = MEMORY[0x277CCAAD0];
   topAnchor = [(CNComposeRecipientTextView *)self->_recipientTextView topAnchor];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v40 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v45[0] = v40;
+  v39 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v44[0] = v39;
   leadingAnchor = [(CNComposeRecipientTextView *)self->_recipientTextView leadingAnchor];
   leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
-  v37 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v45[1] = v37;
+  v36 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v44[1] = v36;
   trailingAnchor = [(CNComposeRecipientTextView *)self->_recipientTextView trailingAnchor];
   trailingAnchor2 = [safeAreaLayoutGuide trailingAnchor];
-  v34 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
   v16 = self->_recipientTextViewHeightConstraint;
-  v45[2] = v34;
-  v45[3] = v16;
+  v44[2] = v33;
+  v44[3] = v16;
   v17 = v11;
   bottomAnchor = [v11 bottomAnchor];
   bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
-  v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v45[4] = v29;
+  v28 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v44[4] = v28;
   leadingAnchor3 = [v11 leadingAnchor];
   leadingAnchor4 = [safeAreaLayoutGuide leadingAnchor];
   v18 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v45[5] = v18;
-  v32 = v11;
+  v44[5] = v18;
+  v31 = v11;
   trailingAnchor3 = [v11 trailingAnchor];
   trailingAnchor4 = [safeAreaLayoutGuide trailingAnchor];
   v21 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v45[6] = v21;
+  v44[6] = v21;
   topAnchor3 = [v17 topAnchor];
   bottomAnchor3 = [(CNComposeRecipientTextView *)self->_recipientTextView bottomAnchor];
   v24 = [topAnchor3 constraintEqualToAnchor:bottomAnchor3];
-  v45[7] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:8];
-  [v33 activateConstraints:v25];
+  v44[7] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:8];
+  [v32 activateConstraints:v25];
 
   [(PMSharedAccountsGroupMemberPickerViewController *)self _resetSearchQuery];
-  v26 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PMSharedAccountsGroupMemberPickerViewController;
+  [(PMSharedAccountsGroupMemberPickerViewController *)&v4 viewWillAppear:appear];
+  [(CNComposeRecipientTextView *)self->_recipientTextView becomeFirstResponder];
 }
 
 - (void)_addMembersButtonPressed
@@ -418,7 +425,7 @@ uint64_t __85__PMSharedAccountsGroupMemberPickerViewController__eligibleRecipien
 
 - (void)_fetchEligibilityForRecipient:(id)recipient completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   recipientCopy = recipient;
   handlerCopy = handler;
   v7 = [MEMORY[0x277CBEB58] set];
@@ -440,33 +447,33 @@ uint64_t __85__PMSharedAccountsGroupMemberPickerViewController__eligibleRecipien
   }
 
   allObjects = [v7 allObjects];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2;
-  v41[3] = &unk_27831CC70;
-  v41[4] = self;
-  v30 = [allObjects safari_filterObjectsUsingBlock:v41];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2;
+  v42[3] = &unk_27831CC70;
+  v42[4] = self;
+  v31 = [allObjects safari_filterObjectsUsingBlock:v42];
 
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   obj = v7;
-  v14 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  v14 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v38;
+    v16 = *v39;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v38 != v16)
+        if (*v39 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v37 + 1) + 8 * i);
+        v18 = *(*(&v38 + 1) + 8 * i);
         if ([(NSMutableSet *)self->_addressesCurrentlyBeingCheckedForAvailability containsObject:v18])
         {
           v19 = [(NSMutableDictionary *)self->_otherRecipientsAwaitingEligibilityForAddress objectForKeyedSubscript:v18];
@@ -485,41 +492,39 @@ uint64_t __85__PMSharedAccountsGroupMemberPickerViewController__eligibleRecipien
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v15 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v15);
   }
 
-  [(NSMutableSet *)self->_addressesCurrentlyBeingCheckedForAvailability addObjectsFromArray:v30];
+  [(NSMutableSet *)self->_addressesCurrentlyBeingCheckedForAvailability addObjectsFromArray:v31];
   [(CNComposeRecipientTextView *)self->_recipientTextView invalidateAtomPresentationOptionsForRecipient:v10];
-  [(NSMutableSet *)self->_addressesThatHaveBeenFetched addObjectsFromArray:v30];
-  v21 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v21 = [(NSMutableSet *)self->_addressesThatHaveBeenFetched addObjectsFromArray:v31];
+  v23 = WBS_LOG_CHANNEL_PREFIXPasswords(v21, v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     addressesThatHaveBeenFetched = self->_addressesThatHaveBeenFetched;
-    v23 = v21;
-    v24 = [(NSMutableSet *)addressesThatHaveBeenFetched count];
+    v25 = v23;
+    v26 = [(NSMutableSet *)addressesThatHaveBeenFetched count];
     *buf = 134217984;
-    v43 = v24;
-    _os_log_impl(&dword_21C6E5000, v23, OS_LOG_TYPE_DEFAULT, "PMSharedAccountsGroupMemberPickerViewController has tried to fetch %lu unique handles so far.", buf, 0xCu);
+    v44 = v26;
+    _os_log_impl(&dword_21C6E5000, v25, OS_LOG_TYPE_DEFAULT, "PMSharedAccountsGroupMemberPickerViewController has tried to fetch %lu unique handles so far.", buf, 0xCu);
   }
 
   mEMORY[0x277CDBD30] = [MEMORY[0x277CDBD30] sharedInstance];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_33;
-  v33[3] = &unk_27831CCC0;
-  v33[4] = self;
-  v34 = v30;
-  v35 = v10;
-  v36 = handlerCopy;
-  v26 = v10;
-  v27 = handlerCopy;
-  v28 = v30;
-  [mEMORY[0x277CDBD30] checkAvailabilityForHandles:v28 completion:v33];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_33;
+  v34[3] = &unk_27831CCC0;
+  v34[4] = self;
+  v35 = v31;
+  v36 = v10;
+  v37 = handlerCopy;
+  v28 = v10;
+  v29 = handlerCopy;
+  v30 = v31;
+  [mEMORY[0x277CDBD30] checkAvailabilityForHandles:v30 completion:v34];
 }
 
 uint64_t __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -561,48 +566,48 @@ void __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForR
 
 uint64_t __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2_34(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 1056);
   v3 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 40)];
   [v2 minusSet:v3];
 
   if (*(a1 + 48))
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswords(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2_34_cold_1((a1 + 48), v4);
+      __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2_34_cold_1((a1 + 48), v6);
     }
   }
 
   else
   {
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
     obj = *(a1 + 40);
-    v22 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
-    if (v22)
+    v24 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+    if (v24)
     {
-      v21 = *v28;
-      *&v5 = 138739971;
-      v19 = v5;
+      v23 = *v30;
+      *&v7 = 138739971;
+      v21 = v7;
       do
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v28 != v21)
+          if (*v30 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v27 + 1) + 8 * i);
-          v8 = [*(a1 + 56) objectForKeyedSubscript:{v7, v19}];
-          if (v8)
+          v9 = *(*(&v29 + 1) + 8 * i);
+          v11 = [*(a1 + 56) objectForKeyedSubscript:{v9, v21}];
+          if (v11)
           {
-            [*(*(a1 + 32) + 1024) setObject:v8 forKeyedSubscript:v7];
-            if ([v8 BOOLValue])
+            [*(*(a1 + 32) + 1024) setObject:v11 forKeyedSubscript:v9];
+            if ([v11 BOOLValue])
             {
               [MEMORY[0x277D75348] tintColor];
             }
@@ -611,67 +616,65 @@ uint64_t __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibility
             {
               [MEMORY[0x277D75348] secondaryLabelColor];
             }
-            v10 = ;
+            v13 = ;
+            v27 = 0u;
+            v28 = 0u;
             v25 = 0u;
             v26 = 0u;
-            v23 = 0u;
-            v24 = 0u;
-            v11 = [*(*(a1 + 32) + 1072) objectForKeyedSubscript:v7];
-            v12 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
-            if (v12)
+            v14 = [*(*(a1 + 32) + 1072) objectForKeyedSubscript:v9];
+            v15 = [v14 countByEnumeratingWithState:&v25 objects:v35 count:16];
+            if (v15)
             {
-              v13 = v12;
-              v14 = *v24;
+              v16 = v15;
+              v17 = *v26;
               do
               {
-                for (j = 0; j != v13; ++j)
+                for (j = 0; j != v16; ++j)
                 {
-                  if (*v24 != v14)
+                  if (*v26 != v17)
                   {
-                    objc_enumerationMutation(v11);
+                    objc_enumerationMutation(v14);
                   }
 
-                  [*(*(a1 + 32) + 992) setTintColor:v10 forRecipient:*(*(&v23 + 1) + 8 * j)];
+                  [*(*(a1 + 32) + 992) setTintColor:v13 forRecipient:*(*(&v25 + 1) + 8 * j)];
                 }
 
-                v13 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v25 objects:v35 count:16];
               }
 
-              while (v13);
+              while (v16);
             }
 
-            v16 = [*(*(a1 + 32) + 1072) objectForKeyedSubscript:v7];
-            [v16 removeAllObjects];
+            v19 = [*(*(a1 + 32) + 1072) objectForKeyedSubscript:v9];
+            [v19 removeAllObjects];
           }
 
           else
           {
-            v9 = WBS_LOG_CHANNEL_PREFIXPasswords();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v12 = WBS_LOG_CHANNEL_PREFIXPasswords(0, v10);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
-              *buf = v19;
-              v32 = v7;
-              _os_log_error_impl(&dword_21C6E5000, v9, OS_LOG_TYPE_ERROR, "No result returned from KCSharing availability check for handle: %{sensitive}@. Considering this handle ineligible.", buf, 0xCu);
+              *buf = v21;
+              v34 = v9;
+              _os_log_error_impl(&dword_21C6E5000, v12, OS_LOG_TYPE_ERROR, "No result returned from KCSharing availability check for handle: %{sensitive}@. Considering this handle ineligible.", buf, 0xCu);
             }
 
-            v10 = [MEMORY[0x277CCABB0] numberWithBool:0];
-            [*(*(a1 + 32) + 1024) setObject:v10 forKeyedSubscript:v7];
+            v13 = [MEMORY[0x277CCABB0] numberWithBool:0];
+            [*(*(a1 + 32) + 1024) setObject:v13 forKeyedSubscript:v9];
           }
         }
 
-        v22 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+        v24 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
       }
 
-      while (v22);
+      while (v24);
     }
 
     [*(a1 + 32) _updatePreferredHandleForRecipientIfNecessary:*(a1 + 64)];
     [*(*(a1 + 32) + 1000) invalidateAtomPresentationOptionsForRecipient:*(a1 + 64)];
   }
 
-  result = (*(*(a1 + 72) + 16))();
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 72) + 16))();
 }
 
 - (void)_handleSelectionForSingleRecipient:(id)recipient
@@ -736,38 +739,36 @@ void __86__PMSharedAccountsGroupMemberPickerViewController__handleSelectionForSi
 
 - (void)_handleSelectionForMultipleRecipientsInGroup:(id)group
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   children = [group children];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [children countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(children);
         }
 
-        [(PMSharedAccountsGroupMemberPickerViewController *)self _handleSelectionForSingleRecipient:*(*(&v10 + 1) + 8 * v8++)];
+        [(PMSharedAccountsGroupMemberPickerViewController *)self _handleSelectionForSingleRecipient:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [children countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addRecipient:(id)recipient
@@ -1049,7 +1050,7 @@ void __114__PMSharedAccountsGroupMemberPickerViewController_autocompleteResultsC
 
 - (void)autocompleteResultsController:(id)controller didRequestInfoAboutRecipient:(id)recipient
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   recipientCopy = recipient;
   contact = [recipientCopy contact];
 
@@ -1058,28 +1059,24 @@ void __114__PMSharedAccountsGroupMemberPickerViewController_autocompleteResultsC
   {
     contact2 = [recipientCopy contact];
 
-    v18 = [v7 viewControllerForContact:contact2];
+    v16 = [v7 viewControllerForContact:contact2];
 
     navigationController = [(PMSharedAccountsGroupMemberPickerViewController *)self navigationController];
-    [navigationController pushViewController:v18 animated:1];
-
-    v10 = *MEMORY[0x277D85DE8];
+    [navigationController pushViewController:v16 animated:1];
   }
 
   else
   {
-    v11 = MEMORY[0x277CBDA58];
+    v10 = MEMORY[0x277CBDA58];
     normalizedAddress = [recipientCopy normalizedAddress];
 
-    v19[0] = normalizedAddress;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-    v14 = [v11 contactWithDisplayName:0 handleStrings:v13];
-    v15 = [v7 viewControllerForUnknownContact:v14];
+    v17[0] = normalizedAddress;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v13 = [v10 contactWithDisplayName:0 handleStrings:v12];
+    v14 = [v7 viewControllerForUnknownContact:v13];
 
     navigationController2 = [(PMSharedAccountsGroupMemberPickerViewController *)self navigationController];
-    [navigationController2 pushViewController:v15 animated:1];
-
-    v17 = *MEMORY[0x277D85DE8];
+    [navigationController2 pushViewController:v14 animated:1];
   }
 }
 
@@ -1183,42 +1180,42 @@ uint64_t __91__PMSharedAccountsGroupMemberPickerViewController_consumeAutocomple
 
 - (id)_recipientsWithEligibleAddressesAsDefaultAddressesIfPossible:(id)possible
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   possibleCopy = possible;
   v5 = [possibleCopy mutableCopy];
   if ([possibleCopy count])
   {
     v6 = 0;
-    v22 = possibleCopy;
-    v23 = v5;
+    v21 = possibleCopy;
+    v22 = v5;
     do
     {
       v7 = [v5 objectAtIndex:v6];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v24 = v7;
+        v23 = v7;
         children = [v7 children];
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         v9 = children;
-        v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v26;
+          v12 = *v25;
           while (2)
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v26 != v12)
+              if (*v25 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v25 + 1) + 8 * i);
+              v14 = *(*(&v24 + 1) + 8 * i);
               addressToEligibility = self->_addressToEligibility;
               normalizedAddress = [v14 normalizedAddress];
               v17 = [(NSMutableDictionary *)addressToEligibility objectForKeyedSubscript:normalizedAddress];
@@ -1227,15 +1224,15 @@ uint64_t __91__PMSharedAccountsGroupMemberPickerViewController_consumeAutocomple
               if (bOOLValue)
               {
                 v19 = [objc_alloc(MEMORY[0x277CFBCB8]) initWithChildren:v9 defaultChild:v14];
-                v5 = v23;
-                [v23 replaceObjectAtIndex:v6 withObject:v19];
+                v5 = v22;
+                [v22 replaceObjectAtIndex:v6 withObject:v19];
 
                 goto LABEL_14;
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
-            v5 = v23;
+            v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v5 = v22;
             if (v11)
             {
               continue;
@@ -1247,8 +1244,8 @@ uint64_t __91__PMSharedAccountsGroupMemberPickerViewController_consumeAutocomple
 
 LABEL_14:
 
-        possibleCopy = v22;
-        v7 = v24;
+        possibleCopy = v21;
+        v7 = v23;
       }
 
       ++v6;
@@ -1257,16 +1254,7 @@ LABEL_14:
     while (v6 < [possibleCopy count]);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v5;
-}
-
-- (void)finishedSearchingForAutocompleteResults
-{
-  currentSearchTaskID = self->_currentSearchTaskID;
-  self->_currentSearchTaskID = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (PMSharedAccountsGroupMemberPickerViewControllerDelegate)delegate
@@ -1278,15 +1266,13 @@ LABEL_14:
 
 void __99__PMSharedAccountsGroupMemberPickerViewController__fetchEligibilityForRecipient_completionHandler___block_invoke_2_34_cold_1(void **a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 safari_privacyPreservingDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_21C6E5000, v3, OS_LOG_TYPE_ERROR, "Failed to check recipient eligibility for shared account groups with error: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_21C6E5000, v3, OS_LOG_TYPE_ERROR, "Failed to check recipient eligibility for shared account groups with error: %@", &v5, 0xCu);
 }
 
 @end

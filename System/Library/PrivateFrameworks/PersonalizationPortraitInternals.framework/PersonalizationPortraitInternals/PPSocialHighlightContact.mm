@@ -78,7 +78,6 @@
       goto LABEL_13;
     }
 
-    v10 = *(equalCopy + 17);
     if (self->_isSignificant)
     {
       if ((*(equalCopy + 17) & 1) == 0)
@@ -192,25 +191,23 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    isSignificant = self->_isSignificant;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_handle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    isMe = self->_isMe;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

@@ -21,8 +21,8 @@
 
 - (id)initWithUUID:(int)d uid:(void *)uid name:(void *)name primaryGroupUUID:(void *)iD fullName:(void *)fullName homeDirectory:(void *)directory shell:(void *)shell memberships:
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v36 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v35 = a2;
   uidCopy = uid;
   nameCopy = name;
   iDCopy = iD;
@@ -31,12 +31,12 @@
   shellCopy = shell;
   if (self)
   {
-    v38.receiver = self;
-    v38.super_class = DDIUser;
-    v23 = objc_msgSendSuper2(&v38, sel_init);
+    v37.receiver = self;
+    v37.super_class = DDIUser;
+    v23 = objc_msgSendSuper2(&v37, sel_init);
     if (!v23)
     {
-      [DDIUser initWithUUID:v39 uid:? name:? primaryGroupUUID:? fullName:? homeDirectory:? shell:? memberships:?];
+      [DDIUser initWithUUID:v36 uid:v38 name:? primaryGroupUUID:? fullName:? homeDirectory:? shell:? memberships:?];
     }
 
     self = v23;
@@ -65,11 +65,10 @@
     self[8] = v32;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return self;
 }
 
-- (void)initWithUUID:(uint64_t *)a1 uid:(_OWORD *)a2 name:primaryGroupUUID:fullName:homeDirectory:shell:memberships:.cold.1(uint64_t *a1, _OWORD *a2)
+- (void)initWithUUID:(void *)a1 uid:(_OWORD *)a2 name:primaryGroupUUID:fullName:homeDirectory:shell:memberships:.cold.1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -79,16 +78,15 @@
   *a2 = 0u;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = 3;
+    v5 = 3;
   }
 
   else
   {
-    v6 = 2;
+    v5 = 2;
   }
 
-  OUTLINED_FUNCTION_1(v6, v3, v4, v5, &dword_2480DF000);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v5, v2, v3, v4, &dword_2480DF000);
   _os_crash_msg();
   __break(1u);
   sub_2481240A8();

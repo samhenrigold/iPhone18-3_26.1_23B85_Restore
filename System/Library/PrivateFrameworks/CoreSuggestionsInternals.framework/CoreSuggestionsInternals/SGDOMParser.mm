@@ -11,7 +11,7 @@
 
 - (void)runJavascriptOnWebView:(id)view withCallback:(id)callback
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   callbackCopy = callback;
   v7 = +[SGAsset localeAsset];
@@ -19,17 +19,17 @@
 
   if (v8)
   {
-    v16 = 0;
-    v9 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v8 encoding:4 error:&v16];
-    v10 = v16;
+    v15 = 0;
+    v9 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v8 encoding:4 error:&v15];
+    v10 = v15;
     if (v9)
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __51__SGDOMParser_runJavascriptOnWebView_withCallback___block_invoke;
-      v14[3] = &unk_27894E6A8;
-      v15 = callbackCopy;
-      [viewCopy evaluateJavaScript:v9 completionHandler:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __51__SGDOMParser_runJavascriptOnWebView_withCallback___block_invoke;
+      v13[3] = &unk_27894E6A8;
+      v14 = callbackCopy;
+      [viewCopy evaluateJavaScript:v9 completionHandler:v13];
     }
 
     else
@@ -38,7 +38,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v10;
+        v17 = v10;
         _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "SGDOMParser: jsContent nil: %@", buf, 0xCu);
       }
 
@@ -57,13 +57,11 @@
 
     (*(callbackCopy + 2))(callbackCopy, MEMORY[0x277CBEC10]);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SGDOMParser_runJavascriptOnWebView_withCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -71,9 +69,9 @@ void __51__SGDOMParser_runJavascriptOnWebView_withCallback___block_invoke(uint64
     v7 = sgEventsLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Error evaluating JS: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Error evaluating JS: %@", &v8, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -85,8 +83,6 @@ void __51__SGDOMParser_runJavascriptOnWebView_withCallback___block_invoke(uint64
     objc_opt_isKindOfClass();
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webViewWebContentProcessDidTerminate:(id)terminate
@@ -382,38 +378,38 @@ LABEL_19:
 
 - (id)parseHTML:(id)l
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   lCopy = l;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&selfCopy->_html, l);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__18529;
-  v47 = __Block_byref_object_dispose__18530;
-  v48 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__18529;
+  v46 = __Block_byref_object_dispose__18530;
+  v47 = 0;
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     *buf = 0;
-    v40 = buf;
-    v41 = 0x2020000000;
-    v42 = 0;
+    v39 = buf;
+    v40 = 0x2020000000;
+    v41 = 0;
     v6 = dispatch_get_global_queue(2, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __25__SGDOMParser_parseHTML___block_invoke;
     block[3] = &unk_278956180;
-    v37 = &v43;
+    v36 = &v42;
     block[4] = selfCopy;
-    v36 = lCopy;
-    v38 = buf;
+    v35 = lCopy;
+    v37 = buf;
     dispatch_async(v6, block);
 
     v7 = *MEMORY[0x277CBE640];
     do
     {
-      if (v40[24])
+      if (v39[24])
       {
         break;
       }
@@ -431,12 +427,12 @@ LABEL_19:
   else
   {
     v11 = [(SGDOMParser *)selfCopy _parseDocument:lCopy];
-    v12 = v44[5];
-    v44[5] = v11;
+    v12 = v43[5];
+    v43[5] = v11;
   }
 
-  v13 = [v44[5] objectForKeyedSubscript:@"plainText"];
-  if (!v13 || ([v44[5] objectForKeyedSubscript:@"taggedCharacterRanges"], v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 == 0, v14, v13, v15))
+  v13 = [v43[5] objectForKeyedSubscript:@"plainText"];
+  if (!v13 || ([v43[5] objectForKeyedSubscript:@"taggedCharacterRanges"], v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 == 0, v14, v13, v15))
   {
     v26 = 0;
   }
@@ -444,26 +440,26 @@ LABEL_19:
   else
   {
     v16 = objc_opt_new();
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v17 = [v44[5] objectForKeyedSubscript:@"taggedCharacterRanges"];
-    v18 = [v17 countByEnumeratingWithState:&v31 objects:v49 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v17 = [v43[5] objectForKeyedSubscript:@"taggedCharacterRanges"];
+    v18 = [v17 countByEnumeratingWithState:&v30 objects:v48 count:16];
     if (v18)
     {
-      v19 = *v32;
+      v19 = *v31;
       while (2)
       {
         v20 = 0;
         do
         {
-          if (*v32 != v19)
+          if (*v31 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v31 + 1) + 8 * v20);
+          v21 = *(*(&v30 + 1) + 8 * v20);
           v22 = objc_autoreleasePoolPush();
           v23 = [[SGTaggedCharacterRange alloc] initWithDict:v21];
           if (v23)
@@ -492,7 +488,7 @@ LABEL_19:
         }
 
         while (v18 != v20);
-        v18 = [v17 countByEnumeratingWithState:&v31 objects:v49 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v30 objects:v48 count:16];
         if (v18)
         {
           continue;
@@ -503,18 +499,17 @@ LABEL_19:
     }
 
     v25 = [SGDOMParserResult alloc];
-    v17 = [v44[5] objectForKeyedSubscript:@"plainText"];
+    v17 = [v43[5] objectForKeyedSubscript:@"plainText"];
     v26 = [(SGDOMParserResult *)v25 initWithPlainText:v17 taggedCharacterRanges:v16];
 LABEL_25:
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
 
   html = selfCopy->_html;
   selfCopy->_html = 0;
 
   objc_sync_exit(selfCopy);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

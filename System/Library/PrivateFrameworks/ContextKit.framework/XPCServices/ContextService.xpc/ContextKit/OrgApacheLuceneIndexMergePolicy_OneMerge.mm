@@ -16,49 +16,49 @@
   readers = self->readers_;
   if (!readers)
   {
-    v12 = new_JavaLangIllegalStateException_initWithNSString_(@"IndexWriter has not initialized readers from the segment infos yet");
-    objc_exception_throw(v12);
+    v13 = new_JavaLangIllegalStateException_initWithNSString_(@"IndexWriter has not initialized readers from the segment infos yet");
+    objc_exception_throw(v13);
   }
 
   v4 = new_JavaUtilArrayList_initWithInt_([(JavaUtilList *)readers size]);
-  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v5 = self->readers_;
-  v6 = [(JavaUtilList *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(JavaUtilList *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = *v14;
+    v8 = v6;
+    v9 = *v15;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v8; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        if (!v10)
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (!v11)
         {
           JreThrowNullPointerException();
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) numDocs] >= 1)
+        if ([*(*(&v14 + 1) + 8 * i) numDocs] >= 1)
         {
-          [(JavaUtilArrayList *)v4 addWithId:v10];
+          [(JavaUtilArrayList *)v4 addWithId:v11];
         }
       }
 
-      v7 = [(JavaUtilList *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(JavaUtilList *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v4);
+  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v4, v7);
 }
 
 - (id)getDocMapWithOrgApacheLuceneIndexMergeState:(id)state
@@ -137,7 +137,6 @@
 
   if (self->maxNumSegments_ != -1)
   {
-    maxNumSegments = self->maxNumSegments_;
     [(JavaLangStringBuilder *)v3 appendWithNSString:JreStrcat("$IC", v6, v7, v8, v9, v10, v11, v12, @" [maxNumSegments=")];
   }
 

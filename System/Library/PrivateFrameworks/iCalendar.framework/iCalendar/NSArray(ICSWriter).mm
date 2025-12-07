@@ -77,33 +77,33 @@
 
 - (void)_ICSStringsForPropertyValuesWithOptions:()ICSWriter appendingToString:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = a4;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * v12);
+        v13 = *(*(&v15 + 1) + 8 * v12);
         if (v10)
         {
-          [v6 appendString:{@", ", v16}];
+          [v6 appendString:{@", ", v15}];
         }
 
         _ICSStringForProperyValue = [v13 _ICSStringForProperyValue];
@@ -114,13 +114,11 @@
       }
 
       while (v9 != v12);
-      v9 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

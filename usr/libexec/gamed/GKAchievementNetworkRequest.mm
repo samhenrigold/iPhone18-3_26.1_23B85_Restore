@@ -80,7 +80,7 @@
             v33 = identifier2;
             serverRepresentation = [v18 serverRepresentation];
             v34 = serverRepresentation;
-            v23 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+            v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             v24 = mergeValuesForKeyWithDictionary(requestData, v23);
             [(GKAchievementNetworkRequest *)v8 setRequestData:v24];
           }

@@ -7,8 +7,8 @@ void __57__UILabel_MTVisualStylingSupport__mt_applyVisualStyling___block_invoke(
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  [v3 setTextColor:v4];
-  [*(a1 + 32) setTintColor:v4];
+  [v3 setTextColor:?];
+  [*(a1 + 32) setTintColor:?];
 }
 
 @end

@@ -94,8 +94,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_100113574(policy, v8, v11, v10, v12);
-  sub_1000588AC(v10);
-  sub_1000588AC(v8);
+  sub_1000588AC(v10, v12);
+  sub_1000588AC(v8, v11);
 }
 
 - (void)submitRatingsAndPhotosWithUploadPolicy:(int64_t)policy progressBlock:(id)block completion:(id)completion
@@ -131,8 +131,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_100113E18(policy, v8, v11, v10, v12);
-  sub_1000588AC(v10);
-  sub_1000588AC(v8);
+  sub_1000588AC(v10, v12);
+  sub_1000588AC(v8, v11);
 }
 
 - (id)buildPhotosSubmissionParameters

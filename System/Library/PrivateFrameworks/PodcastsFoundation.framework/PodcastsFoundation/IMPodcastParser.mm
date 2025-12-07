@@ -389,77 +389,67 @@ LABEL_51:
 
 void __83__IMPodcastParser_rssParser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke()
 {
-  v3[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"title";
-  v3[1] = @"pubDate";
-  v3[2] = @"link";
-  v3[3] = @"description";
-  v3[4] = @"guid";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:5];
+  v2[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"title";
+  v2[1] = @"pubDate";
+  v2[2] = @"link";
+  v2[3] = @"description";
+  v2[4] = @"guid";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:5];
   v1 = rssParser_didStartElement_namespaceURI_qualifiedName_attributes__globalElementsToCapture;
   rssParser_didStartElement_namespaceURI_qualifiedName_attributes__globalElementsToCapture = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __83__IMPodcastParser_rssParser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke_2()
 {
-  v3[10] = *MEMORY[0x1E69E9840];
-  v3[0] = @"duration";
-  v3[1] = @"author";
-  v3[2] = @"order";
-  v3[3] = @"explicit";
-  v3[4] = @"summary";
-  v3[5] = @"title";
-  v3[6] = @"subtitle";
-  v3[7] = @"season";
-  v3[8] = @"episode";
-  v3[9] = @"episodeType";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:10];
+  v2[10] = *MEMORY[0x1E69E9840];
+  v2[0] = @"duration";
+  v2[1] = @"author";
+  v2[2] = @"order";
+  v2[3] = @"explicit";
+  v2[4] = @"summary";
+  v2[5] = @"title";
+  v2[6] = @"subtitle";
+  v2[7] = @"season";
+  v2[8] = @"episode";
+  v2[9] = @"episodeType";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:10];
   v1 = rssParser_didStartElement_namespaceURI_qualifiedName_attributes__itunesElementsToCapture;
   rssParser_didStartElement_namespaceURI_qualifiedName_attributes__itunesElementsToCapture = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __83__IMPodcastParser_rssParser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke_3()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = @"encoded";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = @"encoded";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = rssParser_didStartElement_namespaceURI_qualifiedName_attributes__contentElementsToCapture;
   rssParser_didStartElement_namespaceURI_qualifiedName_attributes__contentElementsToCapture = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __83__IMPodcastParser_rssParser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke_4()
 {
-  v3[3] = *MEMORY[0x1E69E9840];
-  v3[0] = @"description";
-  v3[1] = @"title";
-  v3[2] = @"link";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
+  v2[3] = *MEMORY[0x1E69E9840];
+  v2[0] = @"description";
+  v2[1] = @"title";
+  v2[2] = @"link";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:3];
   v1 = rssParser_didStartElement_namespaceURI_qualifiedName_attributes__subelement_globalElementsToCapture;
   rssParser_didStartElement_namespaceURI_qualifiedName_attributes__subelement_globalElementsToCapture = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __83__IMPodcastParser_rssParser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke_5()
 {
-  v3[6] = *MEMORY[0x1E69E9840];
-  v3[0] = @"summary";
-  v3[1] = @"new-feed-url";
-  v3[2] = @"author";
-  v3[3] = @"provider";
-  v3[4] = @"explicit";
-  v3[5] = @"type";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x1E69E9840];
+  v2[0] = @"summary";
+  v2[1] = @"new-feed-url";
+  v2[2] = @"author";
+  v2[3] = @"provider";
+  v2[4] = @"explicit";
+  v2[5] = @"type";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:6];
   v1 = rssParser_didStartElement_namespaceURI_qualifiedName_attributes__subelement_itunesElementsToCapture;
   rssParser_didStartElement_namespaceURI_qualifiedName_attributes__subelement_itunesElementsToCapture = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_parseEnclosureElement:(id)element forFeedItem:(id)item

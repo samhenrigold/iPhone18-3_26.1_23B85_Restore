@@ -31,23 +31,20 @@
 {
   v19.receiver = self;
   v19.super_class = SDAirDropHandleriWorkLinks;
-  if ([(SDAirDropHandlerGenericLinks *)&v19 canHandleTransfer])
+  if (![(SDAirDropHandlerGenericLinks *)&v19 canHandleTransfer])
   {
-    goto LABEL_3;
+    v3 = [SDAirDropHandlerWebLinks alloc];
+    transfer = [(SDAirDropHandler *)self transfer];
+    v5 = [(SDAirDropHandlerWebLinks *)v3 initWithTransfer:transfer];
+    webLinksHandler = self->_webLinksHandler;
+    self->_webLinksHandler = v5;
+
+    if (![(SDAirDropHandlerWebLinks *)self->_webLinksHandler canHandleTransfer])
+    {
+      return 0;
+    }
   }
 
-  v3 = [SDAirDropHandlerWebLinks alloc];
-  transfer = [(SDAirDropHandler *)self transfer];
-  v5 = [(SDAirDropHandlerWebLinks *)v3 initWithTransfer:transfer];
-  webLinksHandler = self->_webLinksHandler;
-  self->_webLinksHandler = v5;
-
-  if (![(SDAirDropHandlerWebLinks *)self->_webLinksHandler canHandleTransfer])
-  {
-    return 0;
-  }
-
-LABEL_3:
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;

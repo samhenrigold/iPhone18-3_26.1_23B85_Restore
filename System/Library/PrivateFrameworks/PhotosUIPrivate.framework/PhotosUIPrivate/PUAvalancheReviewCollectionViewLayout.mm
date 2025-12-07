@@ -72,9 +72,9 @@
     for (i = 0; i != v7; ++i)
     {
       v9 = [v5 objectAtIndexedSubscript:i];
-      indexPath = [v9 indexPath];
+      v10 = objc_msgSend_indexPath(v9);
       zoomingCellIndexPath = [(PUAvalancheReviewCollectionViewLayout *)self zoomingCellIndexPath];
-      [v9 setHidden:{objc_msgSend(indexPath, "isEqual:", zoomingCellIndexPath)}];
+      [v9 setHidden:{objc_msgSend(v10, "isEqual:", zoomingCellIndexPath)}];
 
       v12 = [(PUAvalancheReviewCollectionViewLayout *)self _badgeLayoutAttributesForItemLayoutAttributes:v9];
       [v5 addObject:v12];
@@ -99,8 +99,8 @@
 - (id)_badgeLayoutAttributesForItemLayoutAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  indexPath = [attributesCopy indexPath];
-  v6 = [MEMORY[0x1E69DC858] layoutAttributesForSupplementaryViewOfKind:@"PUAvalancheReviewBadgeKind" withIndexPath:indexPath];
+  v5 = objc_msgSend_indexPath(attributesCopy);
+  v6 = [MEMORY[0x1E69DC858] layoutAttributesForSupplementaryViewOfKind:@"PUAvalancheReviewBadgeKind" withIndexPath:v5];
   collectionView = [(PUAvalancheReviewCollectionViewLayout *)self collectionView];
   [collectionView bounds];
   v9 = v8;
@@ -145,13 +145,13 @@
 
   else
   {
-    indexPath2 = [v6 indexPath];
+    v29 = objc_msgSend_indexPath(v6);
     zoomingCellIndexPath = [(PUAvalancheReviewCollectionViewLayout *)self zoomingCellIndexPath];
-    v28 = [indexPath2 isEqual:zoomingCellIndexPath];
+    v28 = [v29 isEqual:zoomingCellIndexPath];
   }
 
   [v6 setHidden:v28];
-  [(PUAvalancheReviewCollectionViewLayout *)self _floatingSelectionBadgeFrameForItemFrame:indexPath visibleItemFrame:v17 atIndexPath:v19, v21, v23, x, y, width, height];
+  [(PUAvalancheReviewCollectionViewLayout *)self _floatingSelectionBadgeFrameForItemFrame:v5 visibleItemFrame:v17 atIndexPath:v19, v21, v23, x, y, width, height];
   [v6 setFrame:?];
   [v6 setZIndex:{objc_msgSend(attributesCopy, "zIndex") + 1}];
   [v6 setAlpha:1.0];

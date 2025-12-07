@@ -63,7 +63,7 @@
 
 void __71__HMDAccessoryDataStreamAdapter_accessory_didCloseDataStreamWithError___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessory];
   v3 = *(a1 + 40);
 
@@ -77,11 +77,11 @@ void __71__HMDAccessoryDataStreamAdapter_accessory_didCloseDataStreamWithError__
     {
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 32) accessory];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Accessory:%@ closed data stream", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Accessory:%@ closed data stream", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -95,19 +95,17 @@ void __71__HMDAccessoryDataStreamAdapter_accessory_didCloseDataStreamWithError__
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 32) accessory];
       v10 = *(a1 + 40);
-      v14 = 138543874;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Accessory Closed Data Stream, expected accessory: %@ actual accessory: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Accessory Closed Data Stream, expected accessory: %@ actual accessory: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDidStartListening:(id)listening
@@ -126,7 +124,7 @@ void __71__HMDAccessoryDataStreamAdapter_accessory_didCloseDataStreamWithError__
 
 void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessory];
   v3 = *(a1 + 40);
 
@@ -140,11 +138,11 @@ void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invo
     {
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 32) accessory];
-      v19 = 138543618;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Accessory:%@ started listening", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Accessory:%@ started listening", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -159,9 +157,9 @@ void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invo
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling pending start bulk send session request", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling pending start bulk send session request", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -176,19 +174,17 @@ void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invo
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 32) accessory];
       v10 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Accessory start listening failed, expected accessory: %@ actual accessory: %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Accessory start listening failed, expected accessory: %@ actual accessory: %@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_bulkSendDidComplete
@@ -270,7 +266,7 @@ void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invo
 
 - (void)_callPendingOpenSessionCallbackWithResult:(id)result error:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   workQueue = [(HMDAccessoryDataStreamAdapter *)self workQueue];
@@ -294,19 +290,17 @@ void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invo
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v16;
-    v20 = 2112;
-    v21 = resultCopy;
-    v22 = 2112;
-    v23 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Calling pending callback with result: %@ error: %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v16;
+    v19 = 2112;
+    v20 = resultCopy;
+    v21 = 2112;
+    v22 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Calling pending callback with result: %@ error: %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
   (pendingOpenSessionCallback)[2](pendingOpenSessionCallback, resultCopy, errorCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callPendingOpenSessionCallbackWithResult:(id)result error:(id)error
@@ -328,7 +322,7 @@ void __60__HMDAccessoryDataStreamAdapter_accessoryDidStartListening___block_invo
 
 void __80__HMDAccessoryDataStreamAdapter_callPendingOpenSessionCallbackWithResult_error___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pendingOpenSessionCallback];
 
   if (v2)
@@ -336,26 +330,24 @@ void __80__HMDAccessoryDataStreamAdapter_callPendingOpenSessionCallbackWithResul
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v6 = *MEMORY[0x277D85DE8];
 
     [v3 _callPendingOpenSessionCallbackWithResult:v4 error:v5];
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
-    v8 = *(a1 + 32);
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v6 = objc_autoreleasePoolPush();
+    v7 = *(a1 + 32);
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Pending open session callback was unexpectedly nil", &v12, 0xCu);
+      v9 = HMFGetLogIdentifier();
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Pending open session callback was unexpectedly nil", &v10, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v7);
-    v11 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v6);
   }
 }
 
@@ -391,7 +383,7 @@ void __45__HMDAccessoryDataStreamAdapter__openSession__block_invoke(uint64_t a1,
 
 - (void)_setUpTransport
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDataStreamAdapter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -401,22 +393,20 @@ void __45__HMDAccessoryDataStreamAdapter__openSession__block_invoke(uint64_t a1,
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Setting up data stream transport", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Setting up data stream transport", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   accessory = [(HMDAccessoryDataStreamAdapter *)selfCopy accessory];
   fileType = [(HMDAccessoryDataStreamAdapter *)selfCopy fileType];
   [accessory addDataStreamBulkSendListener:selfCopy fileType:fileType];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDataStreamAdapter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -425,12 +415,12 @@ void __45__HMDAccessoryDataStreamAdapter__openSession__block_invoke(uint64_t a1,
   if (currentBulkSendSession)
   {
     currentBulkSendSession2 = [(HMDAccessoryDataStreamAdapter *)self currentBulkSendSession];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __41__HMDAccessoryDataStreamAdapter_readData__block_invoke;
-    v12[3] = &unk_279734EB8;
-    v12[4] = self;
-    [currentBulkSendSession2 read:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __41__HMDAccessoryDataStreamAdapter_readData__block_invoke;
+    v11[3] = &unk_279734EB8;
+    v11[4] = self;
+    [currentBulkSendSession2 read:v11];
   }
 
   else
@@ -443,22 +433,20 @@ void __45__HMDAccessoryDataStreamAdapter__openSession__block_invoke(uint64_t a1,
       v9 = HMFGetLogIdentifier();
       accessory = [(HMDAccessoryDataStreamAdapter *)selfCopy accessory];
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = accessory;
+      v13 = v9;
+      v14 = 2112;
+      v15 = accessory;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Read data failed with no bulkSend session present for accessory:%@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HMDAccessoryDataStreamAdapter *)selfCopy _bulkSendDidFail];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMDAccessoryDataStreamAdapter_readData__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) workQueue];
@@ -479,11 +467,11 @@ LABEL_5:
     }
 
     v11 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v6;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics transfer read data channel has error:(%@)", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v6;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics transfer read data channel has error:(%@)", &v20, 0x16u);
 LABEL_4:
 
     goto LABEL_5;
@@ -500,52 +488,50 @@ LABEL_4:
     }
 
     v11 = HMFGetLogIdentifier();
-    v20 = [*(a1 + 32) accessory];
-    v21 = 138543618;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v20;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Received data frame is not accepted for accessory:%@", &v21, 0x16u);
+    v19 = [*(a1 + 32) accessory];
+    v20 = 138543618;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v19;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Received data frame is not accepted for accessory:%@", &v20, 0x16u);
 
     goto LABEL_4;
   }
 
-  v13 = [*(a1 + 32) currentBulkSendSession];
-  v14 = [v13 isActive];
+  v12 = [*(a1 + 32) currentBulkSendSession];
+  v13 = [v12 isActive];
 
-  if (v14)
+  if (v13)
   {
     [*(a1 + 32) readData];
   }
 
   else
   {
-    v15 = objc_autoreleasePoolPush();
-    v16 = *(a1 + 32);
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v14 = objc_autoreleasePoolPush();
+    v15 = *(a1 + 32);
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = HMFGetLogIdentifier();
-      v19 = [*(a1 + 32) accessory];
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v19;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Diagnostics data transfer is completed for accessory:%@", &v21, 0x16u);
+      v17 = HMFGetLogIdentifier();
+      v18 = [*(a1 + 32) accessory];
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v18;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Diagnostics data transfer is completed for accessory:%@", &v20, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
+    objc_autoreleasePoolPop(v14);
     [*(a1 + 32) _bulkSendDidComplete];
   }
 
 LABEL_6:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpWithCallback:(id)callback
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   workQueue = [(HMDAccessoryDataStreamAdapter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -560,9 +546,9 @@ LABEL_6:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Session is being setup already", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Session is being setup already", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -575,8 +561,6 @@ LABEL_6:
     [(HMDAccessoryDataStreamAdapter *)self _setUpTransport];
     [(HMDAccessoryDataStreamAdapter *)self setPendingOpenSessionCallback:callbackCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isBulkSendActive
@@ -600,7 +584,7 @@ LABEL_6:
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -608,15 +592,14 @@ LABEL_6:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDAccessoryDataStreamAdapter;
-  [(HMDAccessoryDataStreamAdapter *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDAccessoryDataStreamAdapter;
+  [(HMDAccessoryDataStreamAdapter *)&v7 dealloc];
 }
 
 - (void)shutDown
@@ -667,29 +650,27 @@ LABEL_6:
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   fileType = [(HMDAccessoryDataStreamAdapter *)self fileType];
   v5 = [v3 initWithName:@"Diagnostics DataStream File Type" value:fileType];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryDataStreamAdapter *)self transportReady];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"TransportReady" value:v7];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryDataStreamAdapter *)self didBulkSendFail];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"DidBulkSendFail" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryDataStreamAdapter *)self didBulkSendComplete];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"DidBulkSendComplete" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -731,12 +712,11 @@ LABEL_6:
 
 uint64_t __44__HMDAccessoryDataStreamAdapter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_28986;
-  logCategory__hmf_once_v15_28986 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_28986;
+  logCategory__hmf_once_v15_28986 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

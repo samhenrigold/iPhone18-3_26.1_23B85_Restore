@@ -56,7 +56,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   PhoneRecentsViewController.startSearching(for:completion:)(v8, text, v7, v10);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v10);
 }
 
 - (void)showDetailsForCallWithUniqueID:(id)d searchText:(id)text
@@ -190,7 +190,7 @@ LABEL_6:
 
 - (void)presentVoicemailDetailsWithUUID:(NSUUID *)d completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -217,7 +217,7 @@ LABEL_6:
 
 - (void)presentCallHistoryDetailsWithUniqueId:(NSString *)id completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -300,7 +300,7 @@ LABEL_6:
 
   selfCopy = self;
   PhoneRecentsViewController.keyPadSearch(for:shouldRefreshResult:completionHandler:)(v8, v10, resultCopy, v7, v11);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v11);
 }
 
 + (id)defaultPNGName

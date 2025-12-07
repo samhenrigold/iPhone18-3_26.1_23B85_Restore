@@ -311,7 +311,7 @@ LABEL_13:
 
 + (id)generateAndPersistPreviewFromSourceURL:(id)l senderContext:(id)context balloonBundleID:(id)d withPreviewConstraints:(IMPreviewConstraints *)constraints outSize:(CGSize *)size error:(id *)error
 {
-  v86[2] = *MEMORY[0x1E69E9840];
+  v87[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   contextCopy = context;
   dCopy = d;
@@ -321,61 +321,62 @@ LABEL_13:
   os_activity_scope_enter(v15, &state);
   if (lCopy && size && error)
   {
+    v16 = IMOSLoggingEnabled();
     errorCopy = error;
-    if (IMOSLoggingEnabled())
+    if (v16)
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         *&buf[4] = lCopy;
-        _os_log_impl(&dword_1A85E5000, v16, OS_LOG_TYPE_INFO, "Invoking Blastdoor for image at source URL: %@", buf, 0xCu);
+        _os_log_impl(&dword_1A85E5000, v17, OS_LOG_TYPE_INFO, "Invoking Blastdoor for image at source URL: %@", buf, 0xCu);
       }
     }
 
-    v17 = MEMORY[0x1E695DFF8];
-    v18 = IMSafeTemporaryDirectory();
-    path = [v18 path];
-    v86[0] = path;
-    v86[1] = @"ImagePreview";
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:2];
-    v21 = [v17 fileURLWithPathComponents:v20];
+    v18 = MEMORY[0x1E695DFF8];
+    v19 = IMSafeTemporaryDirectory(v16);
+    path = [v19 path];
+    v87[0] = path;
+    v87[1] = @"ImagePreview";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:2];
+    v22 = [v18 fileURLWithPathComponents:v21];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    [defaultManager createDirectoryAtURL:v21 withIntermediateDirectories:1 attributes:0 error:0];
+    [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:0];
 
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
-    v24 = [v21 URLByAppendingPathComponent:stringGUID isDirectory:0];
-    v25 = [v24 URLByAppendingPathExtension:@"ktx"];
+    v25 = [v22 URLByAppendingPathComponent:stringGUID isDirectory:0];
+    v26 = [v25 URLByAppendingPathExtension:@"ktx"];
 
-    if (!v25)
+    if (!v26)
     {
       if (IMOSLoggingEnabled())
       {
-        v61 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+        v62 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           *&buf[4] = lCopy;
-          _os_log_impl(&dword_1A85E5000, v61, OS_LOG_TYPE_INFO, "Failed to get a temporaryPreviewURL for sourceURL: %@", buf, 0xCu);
+          _os_log_impl(&dword_1A85E5000, v62, OS_LOG_TYPE_INFO, "Failed to get a temporaryPreviewURL for sourceURL: %@", buf, 0xCu);
         }
       }
 
       [MEMORY[0x1E696ABC0] errorWithDomain:@"__kIMPreviewGenerationErrorDomain" code:6 userInfo:0];
-      v25 = 0;
-      *error = v60 = 0;
+      v26 = 0;
+      *error = v61 = 0;
       goto LABEL_88;
     }
 
     if (![self writesToDisk])
     {
-      v60 = 0;
+      v61 = 0;
 LABEL_88:
 
       goto LABEL_89;
     }
 
-    v81 = 0;
+    v82 = 0;
     var0 = constraints->var0;
     if (constraints->var0 < *"")
     {
@@ -383,128 +384,128 @@ LABEL_88:
     }
 
     var2 = constraints->var2;
-    v79 = 0;
     v80 = 0;
-    v28 = [self _newBlastdoorPreviewForFileAtURL:lCopy senderContext:contextCopy maxPxWidth:&v81 + 1 scale:&v81 isScreenshot:&v80 isMonoskiAsset:&v79 stickerEffect:var0 error:var2];
-    v72 = v80;
-    v29 = v79;
-    v71 = v29;
-    if (!v28 || v29)
+    v81 = 0;
+    v29 = [self _newBlastdoorPreviewForFileAtURL:lCopy senderContext:contextCopy maxPxWidth:&v82 + 1 scale:&v82 isScreenshot:&v81 isMonoskiAsset:&v80 stickerEffect:var0 error:var2];
+    v73 = v81;
+    v30 = v80;
+    v72 = v30;
+    if (!v29 || v30)
     {
-      if (v29)
+      if (v30)
       {
-        v62 = v29;
+        v63 = v30;
 
         goto LABEL_86;
       }
 
-      v62 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"__kIMPreviewGenerationErrorDomain" code:1 userInfo:0];
+      v63 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"__kIMPreviewGenerationErrorDomain" code:1 userInfo:0];
 
-      if (v62)
+      if (v63)
       {
         goto LABEL_86;
       }
 
 LABEL_62:
-      v62 = 0;
-      v25 = 0;
+      v63 = 0;
+      v26 = 0;
 LABEL_87:
-      v25 = v25;
+      v26 = v26;
 
-      v60 = v25;
+      v61 = v26;
       goto LABEL_88;
     }
 
-    image = v28;
-    [IMImageUtilities imageRefPxSize:v28];
-    v31 = v30;
-    v33 = v32;
-    v34 = constraints->var0;
-    v35 = fmax(v30 / v32, 0.75);
-    if (v35 <= 1.77777778)
+    image = v29;
+    [IMImageUtilities imageRefPxSize:v29];
+    v32 = v31;
+    v34 = v33;
+    v35 = constraints->var0;
+    v36 = fmax(v31 / v33, 0.75);
+    if (v36 <= 1.77777778)
     {
-      v36 = v35;
+      v37 = v36;
     }
 
     else
     {
-      v36 = 1.77777778;
+      v37 = 1.77777778;
     }
 
-    v37 = +[IMImageUtilities isCroppingAvoidanceEnabled];
-    v38 = v34 / v36;
-    v39 = round(v34);
-    v40 = round(v38);
-    if (v37)
+    v38 = +[IMImageUtilities isCroppingAvoidanceEnabled];
+    v39 = v35 / v37;
+    v40 = round(v35);
+    v41 = round(v39);
+    if (v38)
     {
       if (constraints->var3)
       {
-        v40 = v33;
-        v39 = v31;
+        v41 = v34;
+        v40 = v32;
       }
 
-      v41 = [IMImageUtilities newUncroppedPreviewImageFromImage:v28 isScreenshot:HIBYTE(v81) maximumSizeInPx:v39 minimumSizeInPx:v40, constraints->var1.width, constraints->var1.height];
-      if (v41)
+      v42 = [IMImageUtilities newUncroppedPreviewImageFromImage:v29 isScreenshot:HIBYTE(v82) maximumSizeInPx:v40 minimumSizeInPx:v41, constraints->var1.width, constraints->var1.height];
+      if (v42)
       {
         goto LABEL_22;
       }
     }
 
-    v42 = *&constraints->var1.height;
+    v43 = *&constraints->var1.height;
     *buf = *&constraints->var0;
-    v84 = v42;
-    v85 = *&constraints->var3;
-    v43 = [self newCroppedAndRescaledImageFromImage:v28 constraints:buf targetPxSize:{v39, v40}];
-    v41 = v43;
-    if (v43)
+    v85 = v43;
+    v86 = *&constraints->var3;
+    v44 = [self newCroppedAndRescaledImageFromImage:v29 constraints:buf targetPxSize:{v40, v41}];
+    v42 = v44;
+    if (v44)
     {
 LABEL_22:
-      v78 = 0;
-      v44 = v41;
-      v45 = [IMImageUtilities persistPreviewToDiskCache:v41 previewURL:v25 error:&v78];
-      v73 = v78;
-      if (v45)
+      v79 = 0;
+      v45 = v42;
+      v46 = [IMImageUtilities persistPreviewToDiskCache:v42 previewURL:v26 error:&v79];
+      v74 = v79;
+      if (v46)
       {
-        [IMImageUtilities imageRefPxSize:v44];
-        v31 = v46;
-        v33 = v47;
-        uRLByDeletingPathExtension = [v25 URLByDeletingPathExtension];
-        v49 = [uRLByDeletingPathExtension URLByAppendingPathExtension:@"plist"];
+        [IMImageUtilities imageRefPxSize:v45];
+        v32 = v47;
+        v34 = v48;
+        uRLByDeletingPathExtension = [v26 URLByDeletingPathExtension];
+        v50 = [uRLByDeletingPathExtension URLByAppendingPathExtension:@"plist"];
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v50 = +[IMFeatureFlags sharedFeatureFlags];
-        isClingEnabled = [v50 isClingEnabled];
+        v51 = +[IMFeatureFlags sharedFeatureFlags];
+        isClingEnabled = [v51 isClingEnabled];
 
-        if (isClingEnabled && [v72 length] && (objc_msgSend(v72, "isEqualToString:", @"none") & 1) == 0)
-        {
-          if (IMOSLoggingEnabled())
-          {
-            v52 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
-            {
-              *buf = 138412290;
-              *&buf[4] = v72;
-              _os_log_impl(&dword_1A85E5000, v52, OS_LOG_TYPE_INFO, "Sticker had effect: %@", buf, 0xCu);
-            }
-          }
-
-          [dictionary setObject:v72 forKeyedSubscript:@"stickerEffectType"];
-        }
-
-        if (v81 == 1)
+        if (isClingEnabled && [v73 length] && (objc_msgSend(v73, "isEqualToString:", @"none") & 1) == 0)
         {
           if (IMOSLoggingEnabled())
           {
             v53 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
             {
-              *buf = 0;
-              _os_log_impl(&dword_1A85E5000, v53, OS_LOG_TYPE_INFO, "Image was monoski.", buf, 2u);
+              *buf = 138412290;
+              *&buf[4] = v73;
+              _os_log_impl(&dword_1A85E5000, v53, OS_LOG_TYPE_INFO, "Sticker had effect: %@", buf, 0xCu);
             }
           }
 
-          v54 = [MEMORY[0x1E696AD98] numberWithBool:v81];
-          [dictionary setObject:v54 forKeyedSubscript:@"IMIsMonoskiAssetKey"];
+          [dictionary setObject:v73 forKeyedSubscript:@"stickerEffectType"];
+        }
+
+        if (v82 == 1)
+        {
+          if (IMOSLoggingEnabled())
+          {
+            v54 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_1A85E5000, v54, OS_LOG_TYPE_INFO, "Image was monoski.", buf, 2u);
+            }
+          }
+
+          v55 = [MEMORY[0x1E696AD98] numberWithBool:v82];
+          [dictionary setObject:v55 forKeyedSubscript:@"IMIsMonoskiAssetKey"];
         }
 
         if (![dictionary count])
@@ -514,29 +515,29 @@ LABEL_22:
 
         if (IMOSLoggingEnabled())
         {
-          v55 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+          v56 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A85E5000, v55, OS_LOG_TYPE_INFO, "Writing preview metadata", buf, 2u);
+            _os_log_impl(&dword_1A85E5000, v56, OS_LOG_TYPE_INFO, "Writing preview metadata", buf, 2u);
           }
         }
 
-        v77 = 0;
-        v56 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v77];
-        v57 = v77;
-        if (v56)
+        v78 = 0;
+        v57 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v78];
+        v58 = v78;
+        if (v57)
         {
-          if ([v56 writeToURL:v49 atomically:1])
+          if ([v57 writeToURL:v50 atomically:1])
           {
             if (IMOSLoggingEnabled())
             {
-              v58 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+              v59 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                *&buf[4] = v49;
-                _os_log_impl(&dword_1A85E5000, v58, OS_LOG_TYPE_INFO, "Wrote down preview metadata plist to %@", buf, 0xCu);
+                *&buf[4] = v50;
+                _os_log_impl(&dword_1A85E5000, v59, OS_LOG_TYPE_INFO, "Wrote down preview metadata plist to %@", buf, 0xCu);
               }
 
 LABEL_77:
@@ -545,12 +546,12 @@ LABEL_77:
 
           else if (IMOSLoggingEnabled())
           {
-            v58 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+            v59 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *&buf[4] = v49;
-              _os_log_impl(&dword_1A85E5000, v58, OS_LOG_TYPE_INFO, "Couldn't write down preview metadata plist to %@", buf, 0xCu);
+              *&buf[4] = v50;
+              _os_log_impl(&dword_1A85E5000, v59, OS_LOG_TYPE_INFO, "Couldn't write down preview metadata plist to %@", buf, 0xCu);
             }
 
             goto LABEL_77;
@@ -559,74 +560,74 @@ LABEL_77:
 
         else if (IMOSLoggingEnabled())
         {
-          v58 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+          v59 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            *&buf[4] = v57;
-            _os_log_impl(&dword_1A85E5000, v58, OS_LOG_TYPE_INFO, "Failed making preview metadata plist %@", buf, 0xCu);
+            *&buf[4] = v58;
+            _os_log_impl(&dword_1A85E5000, v59, OS_LOG_TYPE_INFO, "Failed making preview metadata plist %@", buf, 0xCu);
           }
 
           goto LABEL_77;
         }
 
 LABEL_79:
-        v63 = 0;
-        v65 = 1;
+        v64 = 0;
+        v66 = 1;
         goto LABEL_80;
       }
 
-      v43 = v73;
+      v44 = v74;
     }
 
     else
     {
-      v44 = 0;
+      v45 = 0;
     }
 
-    v73 = v43;
-    v63 = [(CGImage *)v43 copy];
+    v74 = v44;
+    v64 = [(CGImage *)v44 copy];
     if (IMOSLoggingEnabled())
     {
-      v64 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+      v65 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *&buf[4] = v63;
-        _os_log_impl(&dword_1A85E5000, v64, OS_LOG_TYPE_INFO, "IMImagePreviewGenerator - Unable to generate image: error=%@", buf, 0xCu);
+        *&buf[4] = v64;
+        _os_log_impl(&dword_1A85E5000, v65, OS_LOG_TYPE_INFO, "IMImagePreviewGenerator - Unable to generate image: error=%@", buf, 0xCu);
       }
     }
 
-    v65 = 0;
+    v66 = 0;
 LABEL_80:
-    CGImageRelease(v44);
-    v62 = v63;
+    CGImageRelease(v45);
+    v63 = v64;
     CGImageRelease(image);
 
-    if (v63)
+    if (v64)
     {
-      v66 = 0;
+      v67 = 0;
     }
 
     else
     {
-      v66 = v65;
+      v67 = v66;
     }
 
-    if (v66 == 1)
+    if (v67 == 1)
     {
-      v62 = 0;
-      size->width = v31;
-      size->height = v33;
+      v63 = 0;
+      size->width = v32;
+      size->height = v34;
       goto LABEL_87;
     }
 
-    if (v63)
+    if (v64)
     {
 LABEL_86:
-      v67 = v62;
-      v25 = 0;
-      *errorCopy = v62;
+      v68 = v63;
+      v26 = 0;
+      *errorCopy = v63;
       goto LABEL_87;
     }
 
@@ -635,19 +636,19 @@ LABEL_86:
 
   if (IMOSLoggingEnabled())
   {
-    v59 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+    v60 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A85E5000, v59, OS_LOG_TYPE_INFO, "Invalid parameters", buf, 2u);
+      _os_log_impl(&dword_1A85E5000, v60, OS_LOG_TYPE_INFO, "Invalid parameters", buf, 2u);
     }
   }
 
-  v60 = 0;
+  v61 = 0;
 LABEL_89:
   os_activity_scope_leave(&state);
 
-  return v60;
+  return v61;
 }
 
 @end

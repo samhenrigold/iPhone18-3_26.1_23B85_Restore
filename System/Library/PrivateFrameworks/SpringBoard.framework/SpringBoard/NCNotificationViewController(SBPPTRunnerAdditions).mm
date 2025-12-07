@@ -15,7 +15,7 @@
 {
   if (a3)
   {
-    v4 = MEMORY[0x223D6F7F0](a3);
+    v4 = MEMORY[0x223D6F7F0](a3, a2);
     objc_setAssociatedObject(self, &_SBPPTRunnerBannerLongLookWillPresentCompletion, v4, 3);
   }
 }
@@ -24,7 +24,7 @@
 {
   if (a3)
   {
-    v4 = MEMORY[0x223D6F7F0](a3);
+    v4 = MEMORY[0x223D6F7F0](a3, a2);
     objc_setAssociatedObject(self, &_SBPPTRunnerBannerLongLookDidPresentCompletion, v4, 3);
   }
 }
@@ -33,7 +33,7 @@
 {
   if (a3)
   {
-    v4 = MEMORY[0x223D6F7F0](a3);
+    v4 = MEMORY[0x223D6F7F0](a3, a2);
     objc_setAssociatedObject(self, &_SBPPTRunnerBannerLongLookWillDismissCompletion, v4, 3);
   }
 }
@@ -42,7 +42,7 @@
 {
   if (a3)
   {
-    v4 = MEMORY[0x223D6F7F0](a3);
+    v4 = MEMORY[0x223D6F7F0](a3, a2);
     objc_setAssociatedObject(self, &_SBPPTRunnerBannerLongLookDidDismissCompletion, v4, 3);
   }
 }

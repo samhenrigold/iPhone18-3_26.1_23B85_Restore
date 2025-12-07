@@ -54,35 +54,35 @@
 
   if ((v7 & 1) == 0)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100063A54(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = containerCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "creating container:%{public}@", &v16, 0xCu);
+      v17 = 138543362;
+      v18 = containerCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "creating container:%{public}@", &v17, 0xCu);
     }
 
     device = [(MSDCache *)selfCopy device];
     [device manageDemoVolume:@"Setup"];
   }
 
-  v10 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage" stringByAppendingPathComponent:containerCopy];
+  v11 = [@"/private/var/mnt/com.apple.mobilestoredemo.storage" stringByAppendingPathComponent:containerCopy];
   fileManager2 = [(MSDCache *)selfCopy fileManager];
-  v12 = [fileManager2 fileExistsAtPath:v10];
+  v13 = [fileManager2 fileExistsAtPath:v11];
 
-  if (v12)
+  if (v13)
   {
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v14 = +[MSDHelperAgent sharedInstance];
-    v13 = [v14 prepareWorkDirectory:v10 writableByNonRoot:1];
+    v15 = +[MSDHelperAgent sharedInstance];
+    v14 = [v15 prepareWorkDirectory:v11 writableByNonRoot:1];
   }
 
   objc_sync_exit(selfCopy);
-  return v13;
+  return v14;
 }
 
 - (BOOL)containerExist:(id)exist
@@ -109,19 +109,19 @@
 
   if (v8)
   {
-    v12 = sub_100063B64();
-    sub_1000CDB00(v12);
-    v10 = 0;
+    v13 = sub_100063B64(v9);
+    sub_1000CDB00(v13, v6);
+    v11 = 0;
   }
 
   else
   {
-    v9 = +[MSDHelperAgent sharedInstance];
-    v10 = [v9 removeWorkDirectory:v6];
+    v10 = +[MSDHelperAgent sharedInstance];
+    v11 = [v10 removeWorkDirectory:v6];
   }
 
   objc_sync_exit(selfCopy);
-  return v10;
+  return v11;
 }
 
 - (BOOL)checkIfFileIsInContainer:(id)container container:(id)a4
@@ -168,38 +168,43 @@
   fileManager = [(MSDCache *)selfCopy fileManager];
   v11 = [fileManager fileExistsAtPath:v9];
 
-  if ((v11 & 1) == 0 && ![(MSDCache *)selfCopy createContainer:identifierCopy])
+  if ((v11 & 1) == 0)
   {
-    v15 = sub_100063B64();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v12 = [(MSDCache *)selfCopy createContainer:identifierCopy];
+    if ((v12 & 1) == 0)
     {
-      sub_1000CDB94(identifierCopy, v15);
-    }
+      v17 = sub_100063B64(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000CDB94(identifierCopy, v17);
+      }
 
-    goto LABEL_10;
+      goto LABEL_10;
+    }
   }
 
-  if ([blobCopy length] >= 0x400000)
+  v13 = [blobCopy length];
+  if (v13 >= 0x400000)
   {
-    v15 = sub_100063B64();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063B64(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CDC0C(v16, [blobCopy length], v15);
+      sub_1000CDC0C(v18, [blobCopy length], v17);
     }
 
 LABEL_10:
 
-    v13 = 0;
-    v12 = @"PersistentDataBlob";
+    v15 = 0;
+    v14 = @"PersistentDataBlob";
     goto LABEL_5;
   }
 
-  v12 = [v9 stringByAppendingPathComponent:@"PersistentDataBlob"];
-  v13 = [blobCopy writeToFile:v12 atomically:1];
+  v14 = [v9 stringByAppendingPathComponent:@"PersistentDataBlob"];
+  v15 = [blobCopy writeToFile:v14 atomically:1];
 LABEL_5:
 
   objc_sync_exit(selfCopy);
-  return v13;
+  return v15;
 }
 
 - (id)retrieveDataBlob:(id)blob
@@ -213,38 +218,38 @@ LABEL_5:
 
   if (v8)
   {
-    v9 = [v6 stringByAppendingPathComponent:@"PersistentDataBlob"];
+    v10 = [v6 stringByAppendingPathComponent:@"PersistentDataBlob"];
     fileManager2 = [(MSDCache *)selfCopy fileManager];
-    v11 = [fileManager2 fileExistsAtPath:v9];
+    v12 = [fileManager2 fileExistsAtPath:v10];
 
-    if (v11)
+    if (v12)
     {
-      v12 = [NSData dataWithContentsOfFile:v9];
+      v14 = [NSData dataWithContentsOfFile:v10];
       goto LABEL_8;
     }
   }
 
   else
   {
-    v13 = sub_100063B64();
-    sub_1000CDC54(v13);
-    v9 = @"PersistentDataBlob";
+    v15 = sub_100063B64(v9);
+    sub_1000CDC54(v15, v6);
+    v10 = @"PersistentDataBlob";
   }
 
-  v14 = sub_100063A54();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100063A54(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = v9;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "persistent data blob file does not exist:%{public}@", &v16, 0xCu);
+    v18 = 138543362;
+    v19 = v10;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "persistent data blob file does not exist:%{public}@", &v18, 0xCu);
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_8:
 
   objc_sync_exit(selfCopy);
 
-  return v12;
+  return v14;
 }
 
 - (BOOL)deleteDataBlob:(id)blob
@@ -259,24 +264,24 @@ LABEL_8:
   if (v8)
   {
     fileManager2 = [(MSDCache *)selfCopy fileManager];
-    v13 = 0;
-    v10 = [fileManager2 removeItemAtPath:v6 error:&v13];
-    v11 = v13;
+    v14 = 0;
+    v11 = [fileManager2 removeItemAtPath:v6 error:&v14];
+    v12 = v14;
   }
 
   else
   {
-    v11 = sub_100063B64();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063B64(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CDCE8(v11);
+      sub_1000CDCE8(v12);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   objc_sync_exit(selfCopy);
-  return v10;
+  return v11;
 }
 
 @end

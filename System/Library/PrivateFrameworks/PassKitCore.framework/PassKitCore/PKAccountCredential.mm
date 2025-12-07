@@ -66,7 +66,7 @@
   v10 = v9;
   if (v8 == v9)
   {
-    v12 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -83,16 +83,16 @@
 
     if (v11)
     {
-      v12 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v12 = [v8 isEqualToString:v9];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
     }
   }
 
-  return v12;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

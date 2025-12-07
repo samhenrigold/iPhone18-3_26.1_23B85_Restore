@@ -35,6 +35,9 @@
 - (void)encodeDashboardTagForResourceGroup:(id)group;
 - (void)encodeSignalEvent:(id)event value:(unint64_t)value;
 - (void)encodeWaitForEvent:(id)event value:(unint64_t)value;
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout;
+- (void)executeSynchronizationNotifications:(int)notifications;
+- (void)executeSynchronizationNotifications:(int)notifications scope:(unint64_t)scope resources:(const void *)resources count:(unint64_t)count;
 - (void)lockPurgeableObjects;
 - (void)postCompletionHandlers;
 - (void)preCommit;
@@ -126,6 +129,25 @@
   v9.receiver = self;
   v9.super_class = MTLDebugCommandBuffer;
   [(MTLToolsCommandBuffer *)&v9 encodeWaitForEvent:event value:value];
+}
+
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout
+{
+  v5 = *&timeout;
+  v9 = objc_opt_class();
+  if (v9 == objc_opt_class())
+  {
+    device = [event device];
+    if (device != [(MTLToolsObject *)self device])
+    {
+      [MTLDebugCommandBuffer encodeWaitForEvent:value:timeout:];
+    }
+  }
+
+  [(MTLDebugCommandBuffer *)self addObject:event retained:1 purgeable:0];
+  v11.receiver = self;
+  v11.super_class = MTLDebugCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v11 encodeWaitForEvent:event value:value timeout:v5];
 }
 
 - (void)encodeSignalEvent:(id)event value:(unint64_t)value
@@ -386,8 +408,8 @@
 
 - (id)computeCommandEncoderWithDescriptor:(id)descriptor
 {
-  v13 = 0;
-  memset(&v12[28], 0, 48);
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   if (!descriptor || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -403,7 +425,7 @@
 
   if (MTLReportFailureTypeEnabled())
   {
-    validateComputePassDescriptor(descriptor, [(MTLToolsObject *)self device]);
+    validateComputePassDescriptor(descriptor, [(MTLToolsObject *)self device], v13);
   }
 
   _MTLMessageContextEnd();
@@ -418,7 +440,7 @@
     objc_autoreleasePoolPop(v7);
     std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::clear(&self->_attachmentSet.__table_.__bucket_list_.__ptr_);
     v10 = 0;
-    memset(v12, 0, 448);
+    memset(v12, 0, sizeof(v12));
     do
     {
       AttachmentDescriptorSimple::AttachmentDescriptorSimple((v12 + v10));
@@ -737,7 +759,7 @@
 LABEL_10:
     os_unfair_lock_lock(&self->_purgeableObjectsLock);
     v7 = objectCopy;
-    std::__hash_table<objc_object  {objcproto25MTLDebugResourcePurgeable}*,std::hash<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::equal_to<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::allocator<objc_object  {objcproto25MTLDebugResourcePurgeable}>>::__emplace_unique_key_args<objc_object  {objcproto25MTLDebugResourcePurgeable},objc_object  {objcproto25MTLDebugResourcePurgeable}>(&self->_referencedPurgeableObjects.__table_.__bucket_list_.__ptr_, &v7);
+    std::__hash_table<objc_object  {objcproto25MTLDebugResourcePurgeable}*,std::hash<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::equal_to<objc_object  {objcproto25MTLDebugResourcePurgeable}>,std::allocator<objc_object  {objcproto25MTLDebugResourcePurgeable}>>::__emplace_unique_key_args<objc_object  {objcproto25MTLDebugResourcePurgeable},objc_object  {objcproto25MTLDebugResourcePurgeable}>(&self->_referencedPurgeableObjects.__table_.__bucket_list_.__ptr_, &v7, &v7);
     os_unfair_lock_unlock(&self->_purgeableObjectsLock);
   }
 }
@@ -795,7 +817,7 @@ LABEL_10:
     v6 = &OBJC_IVAR___MTLDebugCommandBuffer__internallyRetainedObjects;
   }
 
-  std::__hash_table<MTLToolsObject *,std::hash<MTLToolsObject *>,std::equal_to<MTLToolsObject *>,std::allocator<MTLToolsObject *>>::__emplace_unique_key_args<MTLToolsObject *,MTLToolsObject * const&>(&self->MTLToolsCommandBuffer_opaque[*v6], &objectCopy);
+  std::__hash_table<MTLToolsObject *,std::hash<MTLToolsObject *>,std::equal_to<MTLToolsObject *>,std::allocator<MTLToolsObject *>>::__emplace_unique_key_args<MTLToolsObject *,MTLToolsObject * const&>(&self->MTLToolsCommandBuffer_opaque[*v6], &objectCopy, &objectCopy);
   if (v7)
   {
     atomic_fetch_add(objectCopy + 8, 1u);
@@ -862,7 +884,7 @@ LABEL_10:
 
 - (void)preCommit
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   currentEncoder = self->_currentEncoder;
   if (currentEncoder && [(_MTLCommandEncoder *)currentEncoder commandBuffer])
   {
@@ -883,7 +905,7 @@ LABEL_10:
 
   if (!v5)
   {
-    v21 = self->_referencedDeadObject;
+    v20 = self->_referencedDeadObject;
     MTLReportFailure();
   }
 
@@ -891,26 +913,26 @@ LABEL_10:
   os_unfair_lock_unlock(&self->_retainedObjectsLock);
   os_unfair_lock_lock(&self->_renderTargetAttachmentLock);
   self->_didAddRenderTargetAttachments = 1;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   renderTargetAttachments = self->_renderTargetAttachments;
-  v7 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(renderTargetAttachments);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         baseTexture = [v11 baseTexture];
         baseLevelOffset = [v11 baseLevelOffset];
         baseSliceRangeOffset = [v11 baseSliceRangeOffset];
@@ -921,7 +943,7 @@ LABEL_10:
         [baseResolveTexture addUsedRenderTarget:resolveLevelOffset slices:{resolveSliceRangeOffset, v19}];
       }
 
-      v8 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
@@ -930,10 +952,9 @@ LABEL_10:
   os_unfair_lock_unlock(&self->_renderTargetAttachmentLock);
   [*&self->MTLToolsCommandBuffer_opaque[8] validateDeadlineAwareness:self];
   [(MTLDebugCommandBuffer *)self lockPurgeableObjects];
-  v22.receiver = self;
-  v22.super_class = MTLDebugCommandBuffer;
-  [(MTLToolsCommandBuffer *)&v22 preCommit];
-  v20 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = MTLDebugCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v21 preCommit];
 }
 
 - (void)preCompletionHandlers
@@ -967,30 +988,30 @@ LABEL_10:
 
 - (void)_removeUsedRenderTargetsExcept:(id)except
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_renderTargetAttachmentLock);
   if (self->_didAddRenderTargetAttachments)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     renderTargetAttachments = self->_renderTargetAttachments;
-    v6 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(renderTargetAttachments);
           }
 
-          v10 = *(*(&v22 + 1) + 8 * i);
+          v10 = *(*(&v21 + 1) + 8 * i);
           baseTexture = [v10 baseTexture];
           if (baseTexture != except)
           {
@@ -1010,7 +1031,7 @@ LABEL_10:
           }
         }
 
-        v7 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [(NSMutableSet *)renderTargetAttachments countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v7);
@@ -1019,7 +1040,6 @@ LABEL_10:
 
   [(NSMutableSet *)self->_renderTargetAttachments removeAllObjects];
   os_unfair_lock_unlock(&self->_renderTargetAttachmentLock);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sampledRenderCommandEncoderWithDescriptor:(id)descriptor programInfoBuffer:(id *)buffer capacity:(unint64_t)capacity
@@ -1080,7 +1100,7 @@ LABEL_10:
 
   if (MTLReportFailureTypeEnabled())
   {
-    validateComputePassDescriptor(descriptor, [(MTLToolsObject *)self device]);
+    validateComputePassDescriptor(descriptor, [(MTLToolsObject *)self device], &v15);
   }
 
   _MTLMessageContextEnd();
@@ -1210,6 +1230,22 @@ LABEL_10:
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject addSynchronizationNotification:notification];
+}
+
+- (void)executeSynchronizationNotifications:(int)notifications
+{
+  v3 = *&notifications;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject executeSynchronizationNotifications:v3];
+}
+
+- (void)executeSynchronizationNotifications:(int)notifications scope:(unint64_t)scope resources:(const void *)resources count:(unint64_t)count
+{
+  v9 = *&notifications;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject executeSynchronizationNotifications:v9 scope:scope resources:resources count:count];
 }
 
 - (void)debugBufferContentsWithLength:(unint64_t *)length
@@ -1352,9 +1388,8 @@ LABEL_10:
 
 - (void)encodeDashboardTagForResourceGroup:(id)group
 {
-  v7 = 0;
-  memset(&v6[1], 0, 48);
-  v5 = *&self->MTLToolsCommandBuffer_opaque[24];
+  v6 = 0;
+  memset(&v5[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!group)
   {
@@ -1363,18 +1398,17 @@ LABEL_10:
 
   _MTLMessageContextEnd();
   [(MTLDebugCommandBuffer *)self addObject:group retained:1 purgeable:0];
-  v6[0].receiver = self;
-  v6[0].super_class = MTLDebugCommandBuffer;
-  [(objc_super *)v6 encodeDashboardTagForResourceGroup:group];
+  v5[0].receiver = self;
+  v5[0].super_class = MTLDebugCommandBuffer;
+  [(objc_super *)v5 encodeDashboardTagForResourceGroup:group];
 }
 
 - (void)encodeDashboardFinalizeForResourceGroup:(id)group dashboard:(unint64_t)dashboard value:(unint64_t)value forIndex:(unint64_t)index
 {
-  v16 = 0;
-  v14 = 0u;
-  v15 = 0u;
+  v15 = 0;
   v13 = 0u;
-  v11 = *&self->MTLToolsCommandBuffer_opaque[24];
+  v14 = 0u;
+  v12 = 0u;
   _MTLMessageContextBegin_();
   if (!group)
   {
@@ -1397,18 +1431,17 @@ LABEL_5:
 LABEL_3:
   _MTLMessageContextEnd();
   [(MTLDebugCommandBuffer *)self addObject:group retained:1 purgeable:0];
-  v12.receiver = self;
-  v12.super_class = MTLDebugCommandBuffer;
-  [(MTLToolsCommandBuffer *)&v12 encodeDashboardFinalizeForResourceGroup:group dashboard:dashboard value:value forIndex:index];
+  v11.receiver = self;
+  v11.super_class = MTLDebugCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v11 encodeDashboardFinalizeForResourceGroup:group dashboard:dashboard value:value forIndex:index];
 }
 
 - (void)encodeDashboardFinalizeForResourceGroup:(id)group dashboard:(unint64_t)dashboard values:(const unint64_t *)values indices:(const unint64_t *)indices count:(unint64_t)count
 {
-  v18 = 0;
-  v16 = 0u;
-  v17 = 0u;
+  v17 = 0;
   v15 = 0u;
-  v13 = *&self->MTLToolsCommandBuffer_opaque[24];
+  v16 = 0u;
+  v14 = 0u;
   _MTLMessageContextBegin_();
   if (!group)
   {
@@ -1431,9 +1464,9 @@ LABEL_5:
 LABEL_3:
   _MTLMessageContextEnd();
   [(MTLDebugCommandBuffer *)self addObject:group retained:1 purgeable:0];
-  v14.receiver = self;
-  v14.super_class = MTLDebugCommandBuffer;
-  [(MTLToolsCommandBuffer *)&v14 encodeDashboardFinalizeForResourceGroup:group dashboard:dashboard values:values indices:indices count:count];
+  v13.receiver = self;
+  v13.super_class = MTLDebugCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v13 encodeDashboardFinalizeForResourceGroup:group dashboard:dashboard values:values indices:indices count:count];
 }
 
 - (void)addActiveRenderTargets:(id)targets
@@ -1456,13 +1489,13 @@ LABEL_3:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [MTLDebugCommandBuffer commitWithDeadline:?];
+    [(MTLDebugCommandBuffer *)self commitWithDeadline:v6];
   }
 
   [(MTLDebugCommandBuffer *)self preCommit];
-  v6.receiver = self;
-  v6.super_class = MTLDebugCommandBuffer;
-  [(MTLToolsCommandBuffer *)&v6 commitWithDeadline:deadline];
+  v7.receiver = self;
+  v7.super_class = MTLDebugCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v7 commitWithDeadline:deadline];
 }
 
 - (void)useResidencySet:(id)set
@@ -1569,13 +1602,13 @@ LABEL_3:
   return MTLReportFailure();
 }
 
-- (uint64_t)commitWithDeadline:(void *)a1 .cold.2(void *a1)
+- (uint64_t)commitWithDeadline:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  [NSStringFromClass(v2) UTF8String];
-  [a1 deadlineProfile];
   v3 = objc_opt_class();
   [NSStringFromClass(v3) UTF8String];
+  [a1 deadlineProfile];
+  v4 = objc_opt_class();
+  [NSStringFromClass(v4) UTF8String];
   return MTLReportFailure();
 }
 

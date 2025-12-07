@@ -63,16 +63,16 @@
 
 - (id)unSoundForCategory:(unint64_t)category
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = MTLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [objc_opt_class() descriptionForCategory:category];
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy = self;
-    v23 = 2114;
-    v24 = v6;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "[Sound] Converting %{public}@ to UNNotificationSound for category %{public}@", &v21, 0x16u);
+    v22 = 2114;
+    v23 = v6;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "[Sound] Converting %{public}@ to UNNotificationSound for category %{public}@", &v20, 0x16u);
   }
 
   v7 = [MEMORY[0x1E6983238] soundWithAlertType:{objc_msgSend(objc_opt_class(), "_alertTypeForCategory:", category)}];
@@ -127,12 +127,10 @@
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     mt_Description = [v8 mt_Description];
-    v21 = 138412290;
+    v20 = 138412290;
     selfCopy = mt_Description;
-    _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "[Sound] Made %@", &v21, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "[Sound] Made %@", &v20, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -381,7 +379,7 @@ LABEL_10:
 
 + (id)_loadDefaultAlarmSound
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = +[MTUserDefaults sharedUserDefaults];
   v3 = [v2 objectForKey:@"MTDefaultAlarmSoundType"];
 
@@ -486,9 +484,9 @@ LABEL_17:
   if (os_log_type_enabled(mEMORY[0x1E69DA8F0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v35 = v13;
-    v36 = 2112;
-    v37 = v10;
+    v34 = v13;
+    v35 = 2112;
+    v36 = v10;
     _os_log_impl(&dword_1B1F9F000, mEMORY[0x1E69DA8F0], OS_LOG_TYPE_DEFAULT, "[Sound] Alarm sound from stored defaults (toneID: %@, mediaItemID: %@)", buf, 0x16u);
   }
 
@@ -518,7 +516,7 @@ LABEL_25:
     if (v28)
     {
       *buf = 138412290;
-      v35 = v26;
+      v34 = v26;
       _os_log_impl(&dword_1B1F9F000, mEMORY[0x1E69DA8F8], OS_LOG_TYPE_DEFAULT, "[Sound] Alarm vibration from stored defaults (vibrationID: %@)", buf, 0xCu);
     }
 
@@ -551,18 +549,16 @@ LABEL_25:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = v30;
+    v34 = v30;
     _os_log_impl(&dword_1B1F9F000, v31, OS_LOG_TYPE_DEFAULT, "[Sound] Default alarm sound is %@", buf, 0xCu);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
 
 + (id)_loadDefaultTimerSound
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[MTUserDefaults sharedUserDefaults];
   v3 = [v2 objectForKey:@"MTDefaultTimerToneID"];
 
@@ -591,19 +587,17 @@ LABEL_25:
   v10 = MTLogForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "[Sound] Default timer sound is %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "[Sound] Default timer sound is %@", &v12, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (void)_saveDefaultAlarmSound:(id)sound
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   soundCopy = sound;
   toneIdentifier = [soundCopy toneIdentifier];
   mediaItemIdentifier = [soundCopy mediaItemIdentifier];
@@ -626,23 +620,21 @@ LABEL_25:
   {
     v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(soundCopy, "soundType")}];
     vibrationIdentifier2 = [soundCopy vibrationIdentifier];
-    v16 = 138413058;
-    v17 = v13;
-    v18 = 2112;
-    v19 = toneIdentifier;
-    v20 = 2112;
-    v21 = mediaItemIdentifier;
-    v22 = 2112;
-    v23 = vibrationIdentifier2;
-    _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "[Sound] Storing Alarm Defaults (soundTypeKey: %@, toneIDKey: %@, mediaItemIDKey: %@, vibrationIDKey: %@)", &v16, 0x2Au);
+    v15 = 138413058;
+    v16 = v13;
+    v17 = 2112;
+    v18 = toneIdentifier;
+    v19 = 2112;
+    v20 = mediaItemIdentifier;
+    v21 = 2112;
+    v22 = vibrationIdentifier2;
+    _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "[Sound] Storing Alarm Defaults (soundTypeKey: %@, toneIDKey: %@, mediaItemIDKey: %@, vibrationIDKey: %@)", &v15, 0x2Au);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_saveDefaultTimerSound:(id)sound
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   soundCopy = sound;
   toneIdentifier = [soundCopy toneIdentifier];
   soundType = [soundCopy soundType];
@@ -660,12 +652,10 @@ LABEL_25:
   v7 = MTLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = toneIdentifier;
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "[Sound] Storing Timer Defaults (toneIDKey: %@)", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = toneIdentifier;
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "[Sound] Storing Timer Defaults (toneIDKey: %@)", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash

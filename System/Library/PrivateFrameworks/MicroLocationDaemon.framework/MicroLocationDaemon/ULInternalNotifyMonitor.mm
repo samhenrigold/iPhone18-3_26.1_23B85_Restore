@@ -47,19 +47,19 @@
 
 - (void)_startMonitoringForEventName:(id)name identifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identifierCopy = identifier;
   objc_initWeak(&location, self);
   notificationHelper = [(ULInternalNotifyMonitor *)self notificationHelper];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __67__ULInternalNotifyMonitor__startMonitoringForEventName_identifier___block_invoke;
-  v12[3] = &unk_2798D42F8;
-  objc_copyWeak(&v14, &location);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __67__ULInternalNotifyMonitor__startMonitoringForEventName_identifier___block_invoke;
+  v11[3] = &unk_2798D42F8;
+  objc_copyWeak(&v13, &location);
   v9 = nameCopy;
-  v13 = v9;
-  [notificationHelper addObserverForNotificationName:identifierCopy handler:v12];
+  v12 = v9;
+  [notificationHelper addObserverForNotificationName:identifierCopy handler:v11];
 
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -70,14 +70,12 @@
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v9;
+    v16 = v9;
     _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ULInternalNotifyMonitor__startMonitoringForEventName_identifier___block_invoke(uint64_t a1)
@@ -93,7 +91,7 @@ void __67__ULInternalNotifyMonitor__startMonitoringForEventName_identifier___blo
 
 - (void)_stopMonitoringForEventName:(id)name identifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identifierCopy = identifier;
   if (onceToken_MicroLocation_Default != -1)
@@ -104,15 +102,13 @@ void __67__ULInternalNotifyMonitor__startMonitoringForEventName_identifier___blo
   v8 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = nameCopy;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = nameCopy;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v10, 0xCu);
   }
 
   notificationHelper = [(ULInternalNotifyMonitor *)self notificationHelper];
   [notificationHelper removeObserverForNotificationName:identifierCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNotificationForEventName:(id)name

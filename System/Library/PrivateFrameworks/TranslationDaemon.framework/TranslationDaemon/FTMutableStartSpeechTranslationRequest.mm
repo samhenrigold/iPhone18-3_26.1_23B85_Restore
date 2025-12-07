@@ -9,7 +9,9 @@
 - (void)setOpt_in_status:(int64_t)opt_in_status;
 - (void)setOptions:(id)options;
 - (void)setRequest_id:(id)request_id;
+- (void)setRestricted_mode:(BOOL)restricted_mode;
 - (void)setStart_speech_request:(id)start_speech_request;
+- (void)setStreaming_mode:(BOOL)streaming_mode;
 - (void)setText_to_speech_requests:(id)text_to_speech_requests;
 - (void)setTranslation_locale_pairs:(id)translation_locale_pairs;
 - (void)setTranslation_request:(id)translation_request;
@@ -86,6 +88,12 @@
   return bOOLValue;
 }
 
+- (void)setRestricted_mode:(BOOL)restricted_mode
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:restricted_mode];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setApp_id:(id)app_id
 {
   v4 = [app_id copy];
@@ -112,6 +120,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setStreaming_mode:(BOOL)streaming_mode
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:streaming_mode];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setOptions:(id)options

@@ -1,5 +1,5 @@
 @interface NSSymbolEffect(UIKitAdditions)
-- (id)ui_animationConfigurationWithOptions:()UIKitAdditions configuration:forAddingEffect:completion:;
+- (_UIRBSymbolAnimationConfiguration)ui_animationConfigurationWithOptions:()UIKitAdditions configuration:forAddingEffect:completion:;
 - (uint64_t)ui_isSupportedByBarButtonItem;
 - (uint64_t)ui_rbAnimationForAddingEffect:()UIKitAdditions;
 - (uint64_t)ui_rbSymbolScaleLevelForAddingEffect;
@@ -93,7 +93,7 @@
   }
 }
 
-- (id)ui_animationConfigurationWithOptions:()UIKitAdditions configuration:forAddingEffect:completion:
+- (_UIRBSymbolAnimationConfiguration)ui_animationConfigurationWithOptions:()UIKitAdditions configuration:forAddingEffect:completion:
 {
   v11 = a3;
   v12 = a6;

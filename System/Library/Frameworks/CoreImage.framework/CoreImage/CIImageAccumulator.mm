@@ -16,7 +16,7 @@
 
 - (CIImageAccumulator)init
 {
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [CIImageAccumulator init];
@@ -70,21 +70,23 @@
   width = extent.size.width;
   y = extent.origin.y;
   x = extent.origin.x;
-  v40 = *MEMORY[0x1E69E9840];
-  v37.receiver = self;
-  v37.super_class = CIImageAccumulator;
-  v11 = [(CIImageAccumulator *)&v37 init];
+  v47 = *MEMORY[0x1E69E9840];
+  v44.receiver = self;
+  v44.super_class = CIImageAccumulator;
+  v11 = [(CIImageAccumulator *)&v44 init];
   if (v11)
   {
     v12 = [options objectForKey:@"color_space"];
-    v41.origin.x = x;
-    v41.origin.y = y;
-    v41.size.width = width;
-    v41.size.height = height;
-    if (CGRectIsEmpty(v41))
+    v48.origin.x = x;
+    v48.origin.y = y;
+    v48.size.width = width;
+    v48.size.height = height;
+    IsEmpty = CGRectIsEmpty(v48);
+    if (IsEmpty)
     {
-      v13 = ci_logger_api();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = ci_logger_api(IsEmpty, v14);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      if (v16)
       {
         [CIImageAccumulator initWithExtent:format:options:];
       }
@@ -109,15 +111,15 @@
 
       if (formatCopy == 2824)
       {
-        v17 = 2056;
+        v21 = 2056;
       }
 
       else
       {
-        v17 = formatCopy;
+        v21 = formatCopy;
       }
 
-      if (v17 == 2312 || v17 == 2056 || v17 == 266)
+      if (v21 == 2312 || v21 == 2056 || v21 == 266)
       {
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         [dictionary setObject:MEMORY[0x1E695E110] forKey:@"kCIContextEnableBlending"];
@@ -127,54 +129,55 @@
         }
 
         [dictionary setObject:@"CIImageAccumulator" forKey:@"kCIContextName"];
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v38[0] = @"kCIContextCacheIntermediates";
-        v38[1] = @"priority_request_low";
-        v38[2] = @"priority_request_high";
-        v38[3] = @"kCIContextUseMetalRenderer";
-        v38[4] = @"quality";
-        v38[5] = @"high_quality_downsample";
-        v38[6] = @"kCIContextName";
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:{7, 0}];
-        v22 = [v21 countByEnumeratingWithState:&v33 objects:v39 count:16];
-        if (v22)
+        v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v45[0] = @"kCIContextCacheIntermediates";
+        v45[1] = @"priority_request_low";
+        v45[2] = @"priority_request_high";
+        v45[3] = @"kCIContextUseMetalRenderer";
+        v45[4] = @"quality";
+        v45[5] = @"high_quality_downsample";
+        v45[6] = @"kCIContextName";
+        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:{7, 0}];
+        v26 = [v25 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        if (v26)
         {
-          v23 = *v34;
+          v27 = *v41;
           do
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v26; ++i)
             {
-              if (*v34 != v23)
+              if (*v41 != v27)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v25);
               }
 
-              v25 = *(*(&v33 + 1) + 8 * i);
-              if ([options valueForKey:v25])
+              v29 = *(*(&v40 + 1) + 8 * i);
+              if ([options valueForKey:v29])
               {
-                [dictionary setObject:objc_msgSend(options forKey:{"valueForKey:", v25), v25}];
+                [dictionary setObject:objc_msgSend(options forKey:{"valueForKey:", v29), v29}];
               }
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v33 objects:v39 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v40 objects:v46 count:16];
           }
 
-          while (v22);
+          while (v26);
         }
 
-        if ([CIContext contextWithOptions:dictionary])
+        v16 = [CIContext contextWithOptions:dictionary];
+        if (v16)
         {
-          v26 = [options objectForKey:@"blend_kernel"];
-          if (v26)
+          v30 = [options objectForKey:@"blend_kernel"];
+          if (v30)
           {
-            if (([v26 isMemberOfClass:objc_opt_class()] & 1) == 0)
+            if (([v30 isMemberOfClass:objc_opt_class()] & 1) == 0)
             {
-              [objc_msgSend(objc_opt_class() "description")];
-              v27 = ci_logger_api();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              v31 = [objc_msgSend(objc_opt_class() "description")];
+              v33 = ci_logger_api(v31, v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 [CIImageAccumulator initWithExtent:format:options:];
               }
@@ -187,26 +190,27 @@
 
       else
       {
-        v28 = CI::name_for_format(v17) == 0;
-        v29 = ci_logger_api();
-        v30 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
-        if (v28)
+        v34 = CI::name_for_format(v21);
+        v35 = v34 == 0;
+        v37 = ci_logger_api(v34, v36);
+        v16 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
+        if (v35)
         {
-          if (v30)
+          if (v16)
           {
             [CIImageAccumulator initWithExtent:format:options:];
           }
         }
 
-        else if (v30)
+        else if (v16)
         {
           [CIImageAccumulator initWithExtent:format:options:];
         }
       }
     }
 
-    v31 = ci_logger_api();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v38 = ci_logger_api(v16, v17);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [CIImageAccumulator initWithExtent:format:options:];
     }

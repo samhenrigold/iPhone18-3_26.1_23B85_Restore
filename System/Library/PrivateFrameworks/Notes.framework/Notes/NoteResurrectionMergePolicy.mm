@@ -101,56 +101,56 @@
 
 - (BOOL)resolveConflicts:(id)conflicts error:(id *)error
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   conflictsCopy = conflicts;
   selfCopy = self;
-  v131.receiver = self;
-  v131.super_class = NoteResurrectionMergePolicy;
-  v7 = [(NSMergePolicy *)&v131 resolveConflicts:conflictsCopy error:error];
+  v130.receiver = self;
+  v130.super_class = NoteResurrectionMergePolicy;
+  v7 = [(NSMergePolicy *)&v130 resolveConflicts:conflictsCopy error:error];
   v8 = v7;
   if (!v7)
   {
     goto LABEL_98;
   }
 
-  v87 = v7;
-  v95 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v97 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v102 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v86 = v7;
+  v94 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v96 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v101 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v100 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v126 = 0u;
   v127 = 0u;
   v128 = 0u;
   v129 = 0u;
-  v130 = 0u;
-  v88 = conflictsCopy;
+  v87 = conflictsCopy;
   obj = conflictsCopy;
-  v9 = [obj countByEnumeratingWithState:&v127 objects:v137 count:16];
+  v9 = [obj countByEnumeratingWithState:&v126 objects:v136 count:16];
   if (v9)
   {
     v10 = v9;
+    v104 = 0;
     v105 = 0;
-    v106 = 0;
-    v96 = 0;
-    v100 = 0;
+    v95 = 0;
+    v99 = 0;
     v11 = 0;
     v12 = 0;
-    v13 = *v128;
-    v93 = *v128;
+    v13 = *v127;
+    v92 = *v127;
     while (1)
     {
       v14 = 0;
-      v98 = v10;
+      v97 = v10;
       do
       {
-        if (*v128 != v13)
+        if (*v127 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v127 + 1) + 8 * v14);
+        v15 = *(*(&v126 + 1) + 8 * v14);
         sourceObject = [v15 sourceObject];
         entity = [sourceObject entity];
-        if (!v106)
+        if (!v105)
         {
           managedObjectContext = [sourceObject managedObjectContext];
           v19 = [MEMORY[0x277CBE408] entityForName:@"Note" inManagedObjectContext:managedObjectContext];
@@ -161,14 +161,14 @@
 
           v22 = [MEMORY[0x277CBE408] entityForName:@"Store" inManagedObjectContext:managedObjectContext];
 
-          v106 = managedObjectContext;
+          v105 = managedObjectContext;
           v23 = [MEMORY[0x277CBE408] entityForName:@"Account" inManagedObjectContext:managedObjectContext];
 
-          v96 = v23;
-          v13 = v93;
-          v10 = v98;
-          v100 = v22;
-          v105 = v21;
+          v95 = v23;
+          v13 = v92;
+          v10 = v97;
+          v99 = v22;
+          v104 = v21;
           v11 = v20;
           v12 = v19;
         }
@@ -178,33 +178,33 @@
           if ([entity isEqual:v12])
           {
             objectID = [sourceObject objectID];
-            [v95 setObject:sourceObject forKey:objectID];
+            [v94 setObject:sourceObject forKey:objectID];
           }
 
           else if ([entity isEqual:v11])
           {
             objectID = [(NoteResurrectionMergePolicy *)selfCopy snapshotFromRecord:v15];
             v25 = [objectID objectForKey:@"owner"];
-            [v97 setObject:sourceObject forKey:v25];
+            [v96 setObject:sourceObject forKey:v25];
           }
 
           else
           {
-            if ([entity isEqual:v100])
+            if ([entity isEqual:v99])
             {
               objectID = [sourceObject objectID];
-              v26 = v102;
+              v26 = v101;
             }
 
             else
             {
-              if (![entity isEqual:v96])
+              if (![entity isEqual:v95])
               {
                 goto LABEL_20;
               }
 
               objectID = [sourceObject objectID];
-              v26 = v101;
+              v26 = v100;
             }
 
             [v26 addObject:objectID];
@@ -217,7 +217,7 @@ LABEL_20:
       }
 
       while (v10 != v14);
-      v10 = [obj countByEnumeratingWithState:&v127 objects:v137 count:16];
+      v10 = [obj countByEnumeratingWithState:&v126 objects:v136 count:16];
       if (!v10)
       {
         goto LABEL_24;
@@ -225,47 +225,47 @@ LABEL_20:
     }
   }
 
+  v104 = 0;
   v105 = 0;
-  v106 = 0;
-  v96 = 0;
-  v100 = 0;
+  v95 = 0;
+  v99 = 0;
   v11 = 0;
   v12 = 0;
 LABEL_24:
 
-  v27 = v97;
-  v28 = v106;
-  if (![v95 count] && !objc_msgSend(v97, "count") && !objc_msgSend(v102, "count") && !objc_msgSend(v101, "count"))
+  v27 = v96;
+  v28 = v105;
+  if (![v94 count] && !objc_msgSend(v96, "count") && !objc_msgSend(v101, "count") && !objc_msgSend(v100, "count"))
   {
     goto LABEL_97;
   }
 
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
   v124 = 0u;
-  insertedObjects = [v106 insertedObjects];
-  v29 = [insertedObjects countByEnumeratingWithState:&v123 objects:v136 count:16];
-  v90 = v11;
-  v99 = v12;
+  v125 = 0u;
+  v122 = 0u;
+  v123 = 0u;
+  insertedObjects = [v105 insertedObjects];
+  v29 = [insertedObjects countByEnumeratingWithState:&v122 objects:v135 count:16];
+  v89 = v11;
+  v98 = v12;
   if (!v29)
   {
     goto LABEL_53;
   }
 
   v30 = v29;
-  v31 = *v124;
-  v89 = *v124;
+  v31 = *v123;
+  v88 = *v123;
   do
   {
     for (i = 0; i != v30; ++i)
     {
-      if (*v124 != v31)
+      if (*v123 != v31)
       {
         objc_enumerationMutation(insertedObjects);
       }
 
-      v33 = *(*(&v123 + 1) + 8 * i);
+      v33 = *(*(&v122 + 1) + 8 * i);
       entity2 = [v33 entity];
       v35 = [entity2 isEqual:v12];
       if (v35)
@@ -283,7 +283,7 @@ LABEL_37:
         v37 = owner;
         store = [owner store];
         objectID2 = [store objectID];
-        if ([v102 containsObject:objectID2])
+        if ([v101 containsObject:objectID2])
         {
 
           goto LABEL_40;
@@ -293,25 +293,25 @@ LABEL_37:
         account = [store2 account];
         [account objectID];
         v43 = v42 = v30;
-        v94 = [v101 containsObject:v43];
+        v93 = [v100 containsObject:v43];
 
         v30 = v42;
-        v11 = v90;
+        v11 = v89;
 
-        v31 = v89;
-        if (v94)
+        v31 = v88;
+        if (v93)
         {
 LABEL_40:
           objectID3 = [v37 objectID];
-          v27 = v97;
+          v27 = v96;
           if (v35)
           {
-            v45 = v95;
+            v45 = v94;
           }
 
           else
           {
-            v45 = v97;
+            v45 = v96;
           }
 
           [v45 setObject:v33 forKey:objectID3];
@@ -319,15 +319,15 @@ LABEL_40:
 
         else
         {
-          v27 = v97;
+          v27 = v96;
         }
 
-        v12 = v99;
+        v12 = v98;
         entity2 = obja;
         goto LABEL_50;
       }
 
-      if (![entity2 isEqual:v100])
+      if (![entity2 isEqual:v99])
       {
         goto LABEL_51;
       }
@@ -336,52 +336,52 @@ LABEL_40:
       v37 = v33;
       account2 = [v37 account];
       objectID4 = [account2 objectID];
-      v49 = [v101 containsObject:objectID4];
+      v49 = [v100 containsObject:objectID4];
 
       if (v49)
       {
         objectID5 = [v37 objectID];
-        [v102 addObject:objectID5];
+        [v101 addObject:objectID5];
 
-        [v106 deleteObject:v37];
+        [v105 deleteObject:v37];
       }
 
-      v12 = v99;
+      v12 = v98;
       entity2 = v46;
-      v11 = v90;
+      v11 = v89;
 LABEL_50:
 
-      v28 = v106;
+      v28 = v105;
 LABEL_51:
     }
 
-    v30 = [insertedObjects countByEnumeratingWithState:&v123 objects:v136 count:16];
+    v30 = [insertedObjects countByEnumeratingWithState:&v122 objects:v135 count:16];
   }
 
   while (v30);
 LABEL_53:
 
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
   v120 = 0u;
-  v51 = v95;
-  v52 = [v51 countByEnumeratingWithState:&v119 objects:v135 count:16];
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v51 = v94;
+  v52 = [v51 countByEnumeratingWithState:&v118 objects:v134 count:16];
   if (v52)
   {
     v53 = v52;
     v54 = 0;
-    v55 = *v120;
+    v55 = *v119;
     do
     {
       for (j = 0; j != v53; ++j)
       {
-        if (*v120 != v55)
+        if (*v119 != v55)
         {
           objc_enumerationMutation(v51);
         }
 
-        v57 = *(*(&v119 + 1) + 8 * j);
+        v57 = *(*(&v118 + 1) + 8 * j);
         v58 = [v51 objectForKey:v57];
         v59 = [v27 objectForKey:v57];
         if (v59)
@@ -404,7 +404,7 @@ LABEL_53:
         [v27 removeObjectForKey:v57];
       }
 
-      v53 = [v51 countByEnumeratingWithState:&v119 objects:v135 count:16];
+      v53 = [v51 countByEnumeratingWithState:&v118 objects:v134 count:16];
     }
 
     while (v53);
@@ -415,103 +415,103 @@ LABEL_53:
     v54 = 0;
   }
 
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
   v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   v60 = v27;
-  v61 = [v60 countByEnumeratingWithState:&v115 objects:v134 count:16];
+  v61 = [v60 countByEnumeratingWithState:&v114 objects:v133 count:16];
   if (v61)
   {
     v62 = v61;
-    v63 = *v116;
+    v63 = *v115;
     do
     {
       for (k = 0; k != v62; ++k)
       {
-        if (*v116 != v63)
+        if (*v115 != v63)
         {
           objc_enumerationMutation(v60);
         }
 
-        v65 = [v60 objectForKey:*(*(&v115 + 1) + 8 * k)];
+        v65 = [v60 objectForKey:*(*(&v114 + 1) + 8 * k)];
         [v28 deleteObject:v65];
       }
 
-      v62 = [v60 countByEnumeratingWithState:&v115 objects:v134 count:16];
+      v62 = [v60 countByEnumeratingWithState:&v114 objects:v133 count:16];
     }
 
     while (v62);
   }
 
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
   v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
   insertedObjects2 = [v28 insertedObjects];
-  v67 = [insertedObjects2 countByEnumeratingWithState:&v111 objects:v133 count:16];
+  v67 = [insertedObjects2 countByEnumeratingWithState:&v110 objects:v132 count:16];
   if (v67)
   {
     v68 = v67;
-    v69 = *v112;
+    v69 = *v111;
     do
     {
       for (m = 0; m != v68; ++m)
       {
-        if (*v112 != v69)
+        if (*v111 != v69)
         {
           objc_enumerationMutation(insertedObjects2);
         }
 
-        v71 = *(*(&v111 + 1) + 8 * m);
+        v71 = *(*(&v110 + 1) + 8 * m);
         entity3 = [v71 entity];
-        if ([entity3 isEqual:v105])
+        if ([entity3 isEqual:v104])
         {
           store3 = [v71 store];
           objectID6 = [store3 objectID];
-          v75 = [v102 containsObject:objectID6];
+          v75 = [v101 containsObject:objectID6];
 
           if (v75)
           {
-            [v106 deleteObject:v71];
+            [v105 deleteObject:v71];
           }
         }
       }
 
-      v68 = [insertedObjects2 countByEnumeratingWithState:&v111 objects:v133 count:16];
+      v68 = [insertedObjects2 countByEnumeratingWithState:&v110 objects:v132 count:16];
     }
 
     while (v68);
   }
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
-  v76 = v102;
-  v77 = [v76 countByEnumeratingWithState:&v107 objects:v132 count:16];
-  v27 = v97;
-  v28 = v106;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
+  v76 = v101;
+  v77 = [v76 countByEnumeratingWithState:&v106 objects:v131 count:16];
+  v27 = v96;
+  v28 = v105;
   if (v77)
   {
     v78 = v77;
-    v79 = *v108;
+    v79 = *v107;
     do
     {
       for (n = 0; n != v78; ++n)
       {
-        if (*v108 != v79)
+        if (*v107 != v79)
         {
           objc_enumerationMutation(v76);
         }
 
-        v81 = [v106 objectWithID:*(*(&v107 + 1) + 8 * n)];
+        v81 = [v105 objectWithID:*(*(&v106 + 1) + 8 * n)];
         account3 = [v81 account];
 
         if (account3)
         {
           objectID7 = [account3 objectID];
-          if ([v101 containsObject:objectID7])
+          if ([v100 containsObject:objectID7])
           {
           }
 
@@ -521,27 +521,26 @@ LABEL_53:
 
             if (!v84)
             {
-              [v106 deleteObject:account3];
+              [v105 deleteObject:account3];
             }
           }
         }
       }
 
-      v78 = [v76 countByEnumeratingWithState:&v107 objects:v132 count:16];
+      v78 = [v76 countByEnumeratingWithState:&v106 objects:v131 count:16];
     }
 
     while (v78);
   }
 
-  v11 = v90;
-  v12 = v99;
+  v11 = v89;
+  v12 = v98;
 LABEL_97:
 
-  conflictsCopy = v88;
-  v8 = v87;
+  conflictsCopy = v87;
+  v8 = v86;
 LABEL_98:
 
-  v85 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

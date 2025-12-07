@@ -8,16 +8,16 @@
 
 - (THSearchTableViewNoResultsCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v7.receiver = self;
-  v7.super_class = THSearchTableViewNoResultsCell;
-  v4 = [(THSearchTableViewNoResultsCell *)&v7 initWithStyle:style reuseIdentifier:identifier];
+  v9.receiver = self;
+  v9.super_class = THSearchTableViewNoResultsCell;
+  v4 = [(THSearchTableViewNoResultsCell *)&v9 initWithStyle:style reuseIdentifier:identifier];
   v5 = v4;
   if (v4)
   {
     [(THSearchTableViewNoResultsCell *)v4 setSelectionStyle:0];
     [-[THSearchTableViewNoResultsCell textLabel](v5 "textLabel")];
     [-[THSearchTableViewNoResultsCell textLabel](v5 "textLabel")];
-    [-[THSearchTableViewNoResultsCell textLabel](v5 "textLabel")];
+    v6 = [-[THSearchTableViewNoResultsCell textLabel](v5 "textLabel")];
     [-[THSearchTableViewNoResultsCell textLabel](v5 "textLabel")];
     [-[THSearchTableViewNoResultsCell detailTextLabel](v5 "detailTextLabel")];
     [-[THSearchTableViewNoResultsCell detailTextLabel](v5 "detailTextLabel")];
@@ -29,7 +29,7 @@
 
 - (void)setSearchKind:(int)kind
 {
-  v5 = THBundle();
+  v5 = THBundle(self, a2);
   if (kind)
   {
     v6 = @"No matches in media found.";

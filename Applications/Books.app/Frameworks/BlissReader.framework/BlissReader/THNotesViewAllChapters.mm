@@ -178,7 +178,7 @@
 
 - (NSString)title
 {
-  v2 = THBundle();
+  v2 = THBundle(self, a2);
 
   return [v2 localizedStringForKey:@"All Chapters" value:&stru_471858 table:0];
 }
@@ -269,121 +269,121 @@
 
 - (NSArray)sectionArray
 {
-  v24 = +[NSMutableArray array];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
+  v29 = +[NSMutableArray array];
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = self->mNavigationUnits;
-  v19 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v19)
+  v24 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v24)
   {
-    v18 = *v30;
+    v23 = *v35;
     do
     {
       v3 = 0;
       do
       {
-        if (*v30 != v18)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v29 + 1) + 8 * v3);
+        v4 = *(*(&v34 + 1) + 8 * v3);
         v5 = [(THDocumentNavigationModel *)self->mNavigationModel sectionIdentifierForNavigationUnit:v4];
         if (v5)
         {
-          v21 = -[NSString stringByTransformingForTHNotesSectionHeader](+[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Chapter %@" value:&stru_471858 table:0], v5), "stringByTransformingForTHNotesSectionHeader");
+          v26 = -[NSString stringByTransformingForTHNotesSectionHeader](+[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v5 v6)], v5), "stringByTransformingForTHNotesSectionHeader");
         }
 
         else
         {
-          v21 = 0;
+          v26 = 0;
         }
 
-        v20 = v3;
-        v6 = objc_alloc_init(NSMutableArray);
-        v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v28 = 0u;
+        v25 = v3;
+        v7 = objc_alloc_init(NSMutableArray);
+        v30 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         contentNodes = [v4 contentNodes];
-        v7 = [contentNodes countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (v7)
+        v8 = [contentNodes countByEnumeratingWithState:&v30 objects:v38 count:16];
+        if (v8)
         {
-          v8 = v7;
-          v9 = 0;
-          v23 = *v26;
-          v10 = 1;
+          v9 = v8;
+          v10 = 0;
+          v28 = *v31;
+          v11 = 1;
           do
           {
-            for (i = 0; i != v8; i = i + 1)
+            for (i = 0; i != v9; i = i + 1)
             {
-              if (*v26 != v23)
+              if (*v31 != v28)
               {
                 objc_enumerationMutation(contentNodes);
               }
 
-              v12 = *(*(&v25 + 1) + 8 * i);
-              v13 = objc_alloc_init(THNotesViewSection);
-              [(NSArray *)v24 addObject:v13];
-              if (v9)
+              v13 = *(*(&v30 + 1) + 8 * i);
+              v14 = objc_alloc_init(THNotesViewSection);
+              v15 = [(NSArray *)v29 addObject:v14];
+              if (v10)
               {
-                title = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Section %lu - %@" value:&stru_471858 table:0], v9, objc_msgSend(v12, "title"));
+                title = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v15 v16)], v10, objc_msgSend(v13, "title"));
               }
 
               else
               {
-                title = [v12 title];
+                title = [v13 title];
               }
 
-              [(THNotesViewSection *)v13 setTitle:[(NSString *)title stringByTransformingForTHNotesSectionHeader]];
-              -[THNotesViewSection setNotes:](v13, "setNotes:", [-[THNotesViewAllChapters p_annotationCacheForContentNode:](self p_annotationCacheForContentNode:{v12), "highlightAnnotationsSortedByRange"}]);
-              if ((([(NSArray *)[(THNotesViewSection *)v13 notes] count]!= 0) & v10) == 1)
+              [(THNotesViewSection *)v14 setTitle:[(NSString *)title stringByTransformingForTHNotesSectionHeader]];
+              -[THNotesViewSection setNotes:](v14, "setNotes:", [-[THNotesViewAllChapters p_annotationCacheForContentNode:](self p_annotationCacheForContentNode:{v13), "highlightAnnotationsSortedByRange"}]);
+              if ((([(NSArray *)[(THNotesViewSection *)v14 notes] count]!= 0) & v11) == 1)
               {
-                [(THNotesViewSection *)v13 setChapterTitle:v21];
-                v10 = 0;
+                [(THNotesViewSection *)v14 setChapterTitle:v26];
+                v11 = 0;
               }
 
-              [v6 addObjectsFromArray:{objc_msgSend(-[THNotesViewAllChapters p_annotationCacheForContentNode:](self, "p_annotationCacheForContentNode:", v12), "orphanedAnnotations")}];
-              ++v9;
+              [v7 addObjectsFromArray:{objc_msgSend(-[THNotesViewAllChapters p_annotationCacheForContentNode:](self, "p_annotationCacheForContentNode:", v13), "orphanedAnnotations")}];
+              ++v10;
             }
 
-            v8 = [contentNodes countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v9 = [contentNodes countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
-          while (v8);
+          while (v9);
         }
 
         else
         {
-          v10 = 1;
+          v11 = 1;
         }
 
-        if ([v6 count])
+        if ([v7 count])
         {
-          v15 = objc_alloc_init(THNotesViewSection);
-          [(NSArray *)v24 addObject:v15];
-          -[THNotesViewSection setTitle:](v15, "setTitle:", [objc_msgSend(THBundle() localizedStringForKey:@"Old Notes" value:&stru_471858 table:{0), "stringByTransformingForTHNotesSectionHeader"}]);
-          if (v10)
+          v18 = objc_alloc_init(THNotesViewSection);
+          v19 = [(NSArray *)v29 addObject:v18];
+          -[THNotesViewSection setTitle:](v18, "setTitle:", [objc_msgSend(THBundle(v19 v20)]);
+          if (v11)
           {
-            [(THNotesViewSection *)v15 setChapterTitle:v21];
+            [(THNotesViewSection *)v18 setChapterTitle:v26];
           }
 
-          [(THNotesViewSection *)v15 setNotes:v6];
+          [(THNotesViewSection *)v18 setNotes:v7];
         }
 
-        v3 = v20 + 1;
+        v3 = v25 + 1;
       }
 
-      while ((v20 + 1) != v19);
-      v19 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while ((v25 + 1) != v24);
+      v24 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v19);
+    while (v24);
   }
 
-  return v24;
+  return v29;
 }
 
 @end

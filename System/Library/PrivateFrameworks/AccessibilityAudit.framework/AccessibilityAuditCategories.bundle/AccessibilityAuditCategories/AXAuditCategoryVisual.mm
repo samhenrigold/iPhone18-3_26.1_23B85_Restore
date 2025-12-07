@@ -107,7 +107,7 @@ LABEL_33:
   [v15 setIsRTL:{objc_msgSend(uiElement, "BOOLWithAXAttribute:", 3026)}];
   [v15 setOrientation:{-[AXAuditCategoryVisual _interfaceOrientationForElement:](self, "_interfaceOrientationForElement:", uiElement)}];
   memset(v101, 0, sizeof(v101));
-  [(AXAuditCategoryEmbedded *)self windowContextInformation];
+  objc_msgSend_windowContextInformation(self);
   [v15 setFullRect:{*&v101[8], *&v101[16], *&v101[32]}];
   [v15 setIncludedLayerContextIDs:*v101];
   [v15 setPreserveInputImageSize:1];

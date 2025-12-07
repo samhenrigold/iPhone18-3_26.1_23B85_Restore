@@ -3,7 +3,9 @@
 + (id)groupedCommerceSenderMessageListForMailboxes:(id)mailboxes withRepository:(id)repository grouping:(int64_t)grouping sectionPredicates:(id)predicates countOfItemsToPrecache:(unint64_t)precache;
 + (id)groupedCommerceSenderMessageListForMailboxes:(id)mailboxes withRepository:(id)repository grouping:(int64_t)grouping sectionPredicates:(id)predicates countOfItemsToPrecache:(unint64_t)precache transformPredicate:(id)predicate;
 + (id)simpleMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options countOfItemsToPrecache:(unint64_t)precache shouldUpdateDisplayDate:(BOOL)date sortDescriptors:(id)descriptors sectionPredicates:(id)predicates transformPredicate:(id)self0;
++ (id)simpleMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options shouldUpdateDisplayDate:(BOOL)date;
 + (id)threadedMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options countOfItemsToPrecache:(unint64_t)precache shouldUpdateDisplayDate:(BOOL)date sortDescriptors:(id)descriptors sectionPredicates:(id)predicates transformPredicate:(id)self0;
++ (id)threadedMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options shouldUpdateDisplayDate:(BOOL)date;
 - (BOOL)_threadIsExpanded:(id)expanded;
 - (BOOL)_threadIsExpandedForItemID:(id)d;
 - (BOOL)anyExpandedThreadContainsItemID:(id)d;
@@ -42,6 +44,7 @@
 - (id)itemIDsForStateCaptureWithErrorString:(id *)string;
 - (id)labelForStateCapture;
 - (id)messageListItemForItemID:(id)d;
+- (id)messageListItemForItemID:(id)d ifAvailable:(BOOL)available;
 - (id)messageListItemsForItemIDs:(id)ds;
 - (id)messageListItemsForItemIDs:(id)ds ifAvailable:(BOOL)available;
 - (id)objectIDForItemID:(id)d;
@@ -244,6 +247,20 @@ void __20__EMMessageList_log__block_invoke(uint64_t a1)
   [(EMRepositoryObject *)&v7 setRepository:repositoryCopy];
 }
 
++ (id)threadedMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options shouldUpdateDisplayDate:(BOOL)date
+{
+  dateCopy = date;
+  v16[1] = *MEMORY[0x1E69E9840];
+  mailboxesCopy = mailboxes;
+  repositoryCopy = repository;
+  v12 = [EMMessageListItemPredicates sortDescriptorForDateAscending:0];
+  v16[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v14 = [self threadedMessageListForMailboxes:mailboxesCopy withRepository:repositoryCopy additionalQueryOptions:options countOfItemsToPrecache:0 shouldUpdateDisplayDate:dateCopy sortDescriptors:v13 sectionPredicates:0 transformPredicate:0];
+
+  return v14;
+}
+
 + (id)threadedMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options countOfItemsToPrecache:(unint64_t)precache shouldUpdateDisplayDate:(BOOL)date sortDescriptors:(id)descriptors sectionPredicates:(id)predicates transformPredicate:(id)self0
 {
   mailboxesCopy = mailboxes;
@@ -255,6 +272,20 @@ void __20__EMMessageList_log__block_invoke(uint64_t a1)
   v21 = [[self alloc] initWithMailboxes:mailboxesCopy repository:repositoryCopy sortDescriptors:descriptorsCopy sectionPredicates:predicatesCopy transformPredicate:predicateCopy targetClass:objc_opt_class() additionalQueryOptions:options countOfItemsToPrecache:precache shouldUpdateDisplayDate:v23 labelPrefix:@"EMMessageList-threaded"];
 
   return v21;
+}
+
++ (id)simpleMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options shouldUpdateDisplayDate:(BOOL)date
+{
+  dateCopy = date;
+  v16[1] = *MEMORY[0x1E69E9840];
+  mailboxesCopy = mailboxes;
+  repositoryCopy = repository;
+  v12 = [EMMessageListItemPredicates sortDescriptorForDateAscending:0];
+  v16[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v14 = [self simpleMessageListForMailboxes:mailboxesCopy withRepository:repositoryCopy additionalQueryOptions:options countOfItemsToPrecache:0 shouldUpdateDisplayDate:dateCopy sortDescriptors:v13 sectionPredicates:0 transformPredicate:0];
+
+  return v14;
 }
 
 + (id)simpleMessageListForMailboxes:(id)mailboxes withRepository:(id)repository additionalQueryOptions:(unint64_t)options countOfItemsToPrecache:(unint64_t)precache shouldUpdateDisplayDate:(BOOL)date sortDescriptors:(id)descriptors sectionPredicates:(id)predicates transformPredicate:(id)self0
@@ -279,16 +310,16 @@ void __20__EMMessageList_log__block_invoke(uint64_t a1)
 
 + (id)groupedCommerceSenderMessageListForMailboxes:(id)mailboxes withRepository:(id)repository grouping:(int64_t)grouping sectionPredicates:(id)predicates countOfItemsToPrecache:(unint64_t)precache transformPredicate:(id)predicate
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   repositoryCopy = repository;
   predicatesCopy = predicates;
-  v30 = predicatesCopy;
+  v29 = predicatesCopy;
   predicateCopy = predicate;
   v14 = [EMMessageListItemPredicates predicateForMessagesInMailboxes:mailboxes];
-  v33 = v14;
+  v32 = v14;
   if (predicateCopy)
   {
-    v33 = predicateCopy[2](predicateCopy, v14);
+    v32 = predicateCopy[2](predicateCopy, v14);
   }
 
   if ([predicatesCopy count])
@@ -327,25 +358,24 @@ LABEL_8:
 LABEL_12:
   v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"EMMessageList-grouped-%p", self];
   v19 = [EMMessageListItemPredicates sortDescriptorForKeyPath:@"displayDate" ascending:0];
-  v38[0] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+  v37[0] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
 
   v21 = [EMQuery alloc];
   v22 = objc_opt_class();
-  ef_simplifiedPredicate = [v33 ef_simplifiedPredicate];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __146__EMMessageList_groupedCommerceSenderMessageListForMailboxes_withRepository_grouping_sectionPredicates_countOfItemsToPrecache_transformPredicate___block_invoke;
-  v34[3] = &unk_1E826DB78;
-  v37 = 72;
+  ef_simplifiedPredicate = [v32 ef_simplifiedPredicate];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __146__EMMessageList_groupedCommerceSenderMessageListForMailboxes_withRepository_grouping_sectionPredicates_countOfItemsToPrecache_transformPredicate___block_invoke;
+  v33[3] = &unk_1E826DB78;
+  v36 = 72;
   v24 = v18;
-  v35 = v24;
+  v34 = v24;
   v25 = v16;
-  v36 = v25;
-  v26 = [(EMQuery *)v21 initWithTargetClass:v22 predicate:ef_simplifiedPredicate sortDescriptors:v20 builder:v34];
+  v35 = v25;
+  v26 = [(EMQuery *)v21 initWithTargetClass:v22 predicate:ef_simplifiedPredicate sortDescriptors:v20 builder:v33];
 
   v27 = [[self alloc] initWithQuery:v26 repository:repositoryCopy];
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -565,16 +595,15 @@ LABEL_14:
 
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    v31 = self->_contentProtectionQueue;
     EFRegisterContentProtectionObserver();
   }
 
-  v32 = [EMCollectionItemIDStateCapturer alloc];
-  v33 = objc_opt_class();
-  v34 = NSStringFromClass(v33);
-  v35 = [(EMCollectionItemIDStateCapturer *)v32 initWithTitle:v34 delegate:self];
+  v31 = [EMCollectionItemIDStateCapturer alloc];
+  v32 = objc_opt_class();
+  v33 = NSStringFromClass(v32);
+  v34 = [(EMCollectionItemIDStateCapturer *)v31 initWithTitle:v33 delegate:self];
   stateCapturer = self->_stateCapturer;
-  self->_stateCapturer = v35;
+  self->_stateCapturer = v34;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -803,116 +832,112 @@ LABEL_8:
 
 void __54__EMMessageList__updateSectionsWithItemIDs_extraInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v5 = *(a1 + 32);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __54__EMMessageList__updateSectionsWithItemIDs_extraInfo___block_invoke_2;
-  v18[3] = &unk_1E826DBA0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __54__EMMessageList__updateSectionsWithItemIDs_extraInfo___block_invoke_2;
+  v17[3] = &unk_1E826DBA0;
   v6 = v3;
-  v19 = v6;
+  v18 = v6;
   v7 = v4;
-  v20 = v7;
-  [v5 enumerateKeysAndObjectsUsingBlock:v18];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v19 = v7;
+  [v5 enumerateKeysAndObjectsUsingBlock:v17];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        if (([v7 containsObject:{v12, v14}] & 1) == 0)
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if (([v7 containsObject:{v12, v13}] & 1) == 0)
         {
           [v6 setObject:0 forKeyedSubscript:v12];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__EMMessageList__updateSectionsWithItemIDs_extraInfo___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
-        [*(a1 + 32) setObject:v5 forKeyedSubscript:{v10, v12}];
+        v10 = *(*(&v11 + 1) + 8 * i);
+        [*(a1 + 32) setObject:v5 forKeyedSubscript:{v10, v11}];
         [*(a1 + 40) addObject:v10];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)removeItemIDs:(id)ds
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   dsCopy = ds;
-  v5 = [dsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [dsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         cache = [(EMMessageList *)self cache];
         [cache removeObjectForKey:v8];
       }
 
-      v5 = [dsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [dsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -924,19 +949,17 @@ void __54__EMMessageList__updateSectionsWithItemIDs_extraInfo___block_invoke_2(u
   if (v11)
   {
     itemIDSections = [(EMMessageList *)self itemIDSections];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __31__EMMessageList_removeItemIDs___block_invoke;
-    v17[3] = &unk_1E826CA58;
-    v18 = dsCopy;
-    [itemIDSections performWhileLocked:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __31__EMMessageList_removeItemIDs___block_invoke;
+    v16[3] = &unk_1E826CA58;
+    v17 = dsCopy;
+    [itemIDSections performWhileLocked:v16];
   }
 
-  v16.receiver = self;
-  v16.super_class = EMMessageList;
-  v13 = [(EMQueryingCollection *)&v16 removeItemIDs:dsCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = EMMessageList;
+  v13 = [(EMQueryingCollection *)&v15 removeItemIDs:dsCopy];
 
   return v13;
 }
@@ -1007,45 +1030,43 @@ void __54__EMMessageList__snippetHintsByObjectIDFromExtraInfo___block_invoke(uin
 
 - (void)_addPrecachedItemsFromExtraInfo:(id)info
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v13 = [info objectForKeyedSubscript:@"precachedItems"];
+  v20 = *MEMORY[0x1E69E9840];
+  v12 = [info objectForKeyedSubscript:@"precachedItems"];
   cache = [(EMMessageList *)self cache];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  obj = v13;
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  obj = v12;
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         objectID = [v8 objectID];
         v10 = [(EMMessageList *)self itemIDForObjectID:objectID];
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __49__EMMessageList__addPrecachedItemsFromExtraInfo___block_invoke;
-        v15[3] = &unk_1E826DC40;
-        v15[4] = v8;
-        v11 = [cache objectForKey:v10 generator:v15];
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __49__EMMessageList__addPrecachedItemsFromExtraInfo___block_invoke;
+        v14[3] = &unk_1E826DC40;
+        v14[4] = v8;
+        v11 = [cache objectForKey:v10 generator:v14];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyChangeObserversAboutAddedItemIDs:(id)ds before:(id)before extraInfo:(id)info
@@ -1089,7 +1110,7 @@ void __54__EMMessageList__snippetHintsByObjectIDFromExtraInfo___block_invoke(uin
 
 void __73__EMMessageList_notifyChangeObserversAboutAddedItemIDs_before_extraInfo___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -1105,11 +1126,11 @@ void __73__EMMessageList_notifyChangeObserversAboutAddedItemIDs_before_extraInfo
     }
 
     v7 = [*(a1 + 32) _unreadItemIDsFromExtraInfo:*(a1 + 40)];
-    v21 = 0x7FFFFFFFFFFFFFFFLL;
+    v20 = 0x7FFFFFFFFFFFFFFFLL;
     v8 = *(a1 + 56);
     if (objc_opt_respondsToSelector())
     {
-      v9 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 56) changeObserver:v5 extraInfo:*(a1 + 40) outObserverSectionIndex:&v21];
+      v9 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 56) changeObserver:v5 extraInfo:*(a1 + 40) outObserverSectionIndex:&v20];
 
       if ([v9 ef_isEmpty])
       {
@@ -1121,7 +1142,7 @@ void __73__EMMessageList_notifyChangeObserversAboutAddedItemIDs_before_extraInfo
 
       else
       {
-        v13 = [*(a1 + 32) _adjustedItemIDToInsertBeforeForExistingItemID:*(*(*(a1 + 64) + 8) + 40) sectionIndex:v21];
+        v13 = [*(a1 + 32) _adjustedItemIDToInsertBeforeForExistingItemID:*(*(*(a1 + 64) + 8) + 40) sectionIndex:v20];
         v14 = *(*(a1 + 64) + 8);
         v12 = *(v14 + 40);
         *(v14 + 40) = v13;
@@ -1135,19 +1156,19 @@ void __73__EMMessageList_notifyChangeObserversAboutAddedItemIDs_before_extraInfo
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(a1 + 32);
-      v17 = v21;
+      v17 = v20;
       v18 = [v8 count];
       v19 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 134219010;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
-      v26 = 2048;
-      v27 = v18;
-      v28 = 2114;
-      v29 = v19;
-      v30 = 1024;
-      v31 = a3;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
+      v25 = 2048;
+      v26 = v18;
+      v27 = 2114;
+      v28 = v19;
+      v29 = 1024;
+      v30 = a3;
       _os_log_impl(&dword_1C6655000, v15, OS_LOG_TYPE_DEFAULT, "<%p> [section %lu] Adding %lu items before %{public}@, isLastObserver: %{BOOL}d", buf, 0x30u);
     }
   }
@@ -1156,8 +1177,6 @@ void __73__EMMessageList_notifyChangeObserversAboutAddedItemIDs_before_extraInfo
   {
     [v5 collection:*(a1 + 32) addedItemIDs:*(a1 + 56) before:*(*(*(a1 + 64) + 8) + 40)];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyChangeObserversAboutAddedItemIDs:(id)ds after:(id)after extraInfo:(id)info
@@ -1189,7 +1208,7 @@ void __73__EMMessageList_notifyChangeObserversAboutAddedItemIDs_before_extraInfo
 
 void __72__EMMessageList_notifyChangeObserversAboutAddedItemIDs_after_extraInfo___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -1200,11 +1219,11 @@ void __72__EMMessageList_notifyChangeObserversAboutAddedItemIDs_after_extraInfo_
     }
 
     v7 = [*(a1 + 32) _unreadItemIDsFromExtraInfo:*(a1 + 40)];
-    v21 = 0x7FFFFFFFFFFFFFFFLL;
+    v20 = 0x7FFFFFFFFFFFFFFFLL;
     v8 = *(a1 + 48);
     if (objc_opt_respondsToSelector())
     {
-      v9 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 48) changeObserver:v5 extraInfo:*(a1 + 40) outObserverSectionIndex:&v21];
+      v9 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 48) changeObserver:v5 extraInfo:*(a1 + 40) outObserverSectionIndex:&v20];
 
       if ([v9 ef_isEmpty])
       {
@@ -1216,7 +1235,7 @@ void __72__EMMessageList_notifyChangeObserversAboutAddedItemIDs_after_extraInfo_
 
       else
       {
-        v13 = [*(a1 + 32) _adjustedItemIDToInsertBeforeForExistingItemID:*(*(*(a1 + 56) + 8) + 40) sectionIndex:v21];
+        v13 = [*(a1 + 32) _adjustedItemIDToInsertBeforeForExistingItemID:*(*(*(a1 + 56) + 8) + 40) sectionIndex:v20];
         v14 = *(*(a1 + 56) + 8);
         v12 = *(v14 + 40);
         *(v14 + 40) = v13;
@@ -1230,19 +1249,19 @@ void __72__EMMessageList_notifyChangeObserversAboutAddedItemIDs_after_extraInfo_
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(a1 + 32);
-      v17 = v21;
+      v17 = v20;
       v18 = [v8 count];
       v19 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 134219010;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
-      v26 = 2048;
-      v27 = v18;
-      v28 = 2114;
-      v29 = v19;
-      v30 = 1024;
-      v31 = a3;
+      v22 = v16;
+      v23 = 2048;
+      v24 = v17;
+      v25 = 2048;
+      v26 = v18;
+      v27 = 2114;
+      v28 = v19;
+      v29 = 1024;
+      v30 = a3;
       _os_log_impl(&dword_1C6655000, v15, OS_LOG_TYPE_DEFAULT, "<%p> [section %lu] Adding %lu items after %{public}@, isLastObserver: %{BOOL}d", buf, 0x30u);
     }
   }
@@ -1251,8 +1270,6 @@ void __72__EMMessageList_notifyChangeObserversAboutAddedItemIDs_after_extraInfo_
   {
     [v5 collection:*(a1 + 32) addedItemIDs:*(a1 + 48) after:*(*(*(a1 + 56) + 8) + 40)];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyChangeObserversAboutMovedItemIDs:(id)ds before:(id)before extraInfo:(id)info
@@ -1283,15 +1300,15 @@ void __72__EMMessageList_notifyChangeObserversAboutAddedItemIDs_after_extraInfo_
 
 void __73__EMMessageList_notifyChangeObserversAboutMovedItemIDs_before_extraInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v12 = 0x7FFFFFFFFFFFFFFFLL;
-  v4 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 40) changeObserver:v3 extraInfo:*(a1 + 48) outObserverSectionIndex:&v12];
+  v11 = 0x7FFFFFFFFFFFFFFFLL;
+  v4 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 40) changeObserver:v3 extraInfo:*(a1 + 48) outObserverSectionIndex:&v11];
   if ([v4 count])
   {
     if (objc_opt_respondsToSelector())
     {
-      v5 = [*(a1 + 32) _adjustedItemIDToInsertBeforeForExistingItemID:*(*(*(a1 + 56) + 8) + 40) sectionIndex:v12];
+      v5 = [*(a1 + 32) _adjustedItemIDToInsertBeforeForExistingItemID:*(*(*(a1 + 56) + 8) + 40) sectionIndex:v11];
       v6 = *(*(a1 + 56) + 8);
       v7 = *(v6 + 40);
       *(v6 + 40) = v5;
@@ -1301,21 +1318,19 @@ void __73__EMMessageList_notifyChangeObserversAboutMovedItemIDs_before_extraInfo
     v8 = +[EMMessageList log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(a1 + 32);
-      v11 = *(*(*(a1 + 56) + 8) + 40);
+      v9 = *(a1 + 32);
+      v10 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 134218754;
-      v14 = v10;
-      v15 = 2048;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v4;
-      v19 = 2114;
-      v20 = v11;
+      v13 = v9;
+      v14 = 2048;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v4;
+      v18 = 2114;
+      v19 = v10;
       _os_log_debug_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEBUG, "<%p> [section %lu] Moved %{public}@ before %{public}@", buf, 0x2Au);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyChangeObserversAboutMovedItemIDs:(id)ds after:(id)after extraInfo:(id)info
@@ -1346,13 +1361,13 @@ void __73__EMMessageList_notifyChangeObserversAboutMovedItemIDs_before_extraInfo
 
 void __72__EMMessageList_notifyChangeObserversAboutMovedItemIDs_after_extraInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v12 = 0x7FFFFFFFFFFFFFFFLL;
-  v4 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 40) changeObserver:v3 extraInfo:*(a1 + 48) outObserverSectionIndex:&v12];
+  v11 = 0x7FFFFFFFFFFFFFFFLL;
+  v4 = [*(a1 + 32) _itemIDsForItemIDs:*(a1 + 40) changeObserver:v3 extraInfo:*(a1 + 48) outObserverSectionIndex:&v11];
   if ([v4 count])
   {
-    v5 = [*(a1 + 32) _adjustedItemIDToInsertAfterForExistingItemID:*(*(*(a1 + 56) + 8) + 40) sectionIndex:v12];
+    v5 = [*(a1 + 32) _adjustedItemIDToInsertAfterForExistingItemID:*(*(*(a1 + 56) + 8) + 40) sectionIndex:v11];
     v6 = *(*(a1 + 56) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
@@ -1361,21 +1376,19 @@ void __72__EMMessageList_notifyChangeObserversAboutMovedItemIDs_after_extraInfo_
     v8 = +[EMMessageList log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(a1 + 32);
-      v11 = *(*(*(a1 + 56) + 8) + 40);
+      v9 = *(a1 + 32);
+      v10 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 134218754;
-      v14 = v10;
-      v15 = 2048;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v4;
-      v19 = 2114;
-      v20 = v11;
+      v13 = v9;
+      v14 = 2048;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v4;
+      v18 = 2114;
+      v19 = v10;
       _os_log_debug_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEBUG, "<%p> [section %lu] Moved %{public}@ after %{public}@", buf, 0x2Au);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyChangeObserver:(id)observer stockedItemIDs:(id)ds
@@ -1409,36 +1422,36 @@ void __72__EMMessageList_notifyChangeObserversAboutMovedItemIDs_after_extraInfo_
 
 void __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = [a2 setRepresentation];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2;
-  v27[3] = &unk_1E826DCE0;
-  v27[4] = *(a1 + 32);
-  v4 = [v3 ef_partition:v27];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2;
+  v25[3] = &unk_1E826DCE0;
+  v25[4] = *(a1 + 32);
+  v4 = [v3 ef_partition:v25];
 
-  v25 = 0u;
-  v26 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = [v4 first];
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v6)
   {
     v7 = 0;
-    v8 = *v24;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         v11 = *(a1 + 40);
         v12 = [v4 first];
         (*(v11 + 16))(v11, v10, ++v7 == [v12 count]);
@@ -1447,44 +1460,41 @@ void __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke(uint64_t
       }
 
       while (v6 != v9);
-      v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v21 = 0u;
-  v22 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v13 = [v4 second];
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v17 objects:v26 count:16];
   if (v14)
   {
-    v15 = *v20;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
         (*(*(a1 + 40) + 16))();
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2(uint64_t a1, void *a2)
@@ -1506,7 +1516,7 @@ uint64_t __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2(ui
 - (id)filteredMessageListWithPredicate:(id)predicate userFiltered:(BOOL)filtered
 {
   filteredCopy = filtered;
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if (self->_unfilteredMessageList)
   {
@@ -1517,13 +1527,13 @@ uint64_t __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2(ui
   query = [(EMQueryingCollection *)self query];
   v9 = MEMORY[0x1E696AB28];
   predicate = [query predicate];
-  v32[0] = predicate;
-  v32[1] = predicateCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v31[0] = predicate;
+  v31[1] = predicateCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
   v12 = [v9 andPredicateWithSubpredicates:v11];
 
   targetClassOptions = [query targetClassOptions];
-  v27 = [targetClassOptions mutableCopy];
+  v26 = [targetClassOptions mutableCopy];
 
   if (filteredCopy)
   {
@@ -1539,14 +1549,14 @@ uint64_t __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2(ui
   targetClass = [query targetClass];
   ef_simplifiedPredicate = [v12 ef_simplifiedPredicate];
   sortDescriptors = [query sortDescriptors];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __63__EMMessageList_filteredMessageListWithPredicate_userFiltered___block_invoke;
-  v29[3] = &unk_1E826DD30;
-  v31 = queryOptions;
-  v19 = v28;
-  v30 = v19;
-  v20 = [(EMQuery *)v15 initWithTargetClass:targetClass predicate:ef_simplifiedPredicate sortDescriptors:sortDescriptors builder:v29];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __63__EMMessageList_filteredMessageListWithPredicate_userFiltered___block_invoke;
+  v28[3] = &unk_1E826DD30;
+  v30 = queryOptions;
+  v19 = v27;
+  v29 = v19;
+  v20 = [(EMQuery *)v15 initWithTargetClass:targetClass predicate:ef_simplifiedPredicate sortDescriptors:sortDescriptors builder:v28];
 
   v21 = objc_alloc(objc_opt_class());
   repository = [(EMMessageList *)self repository];
@@ -1554,8 +1564,6 @@ uint64_t __49__EMMessageList_enumerateObserversWithLastBlock___block_invoke_2(ui
 
   [v23 setFilterPredicate:predicateCopy];
   [v23 setUnfilteredMessageList:self];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -1724,7 +1732,7 @@ void __43__EMMessageList__sectionIdentierForItemID___block_invoke(uint64_t a1, v
 
 - (id)_adjustedItemIDToInsertBeforeForExistingItemID:(id)d sectionIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -1740,13 +1748,13 @@ void __43__EMMessageList__sectionIdentierForItemID___block_invoke(uint64_t a1, v
       v9 = +[EMMessageList log];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v12 = 134218498;
+        v11 = 134218498;
         indexCopy = index;
-        v14 = 2114;
-        v15 = dCopy;
-        v16 = 2048;
+        v13 = 2114;
+        v14 = dCopy;
+        v15 = 2048;
         indexCopy2 = v8;
-        _os_log_fault_impl(&dword_1C6655000, v9, OS_LOG_TYPE_FAULT, "Attempting to insert items from section %lu before item %{public}@ in previous section %lu", &v12, 0x20u);
+        _os_log_fault_impl(&dword_1C6655000, v9, OS_LOG_TYPE_FAULT, "Attempting to insert items from section %lu before item %{public}@ in previous section %lu", &v11, 0x20u);
       }
     }
 
@@ -1755,13 +1763,13 @@ void __43__EMMessageList__sectionIdentierForItemID___block_invoke(uint64_t a1, v
       v9 = +[EMMessageList log];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = 138543874;
+        v11 = 138543874;
         indexCopy = dCopy;
-        v14 = 2048;
-        v15 = v8;
-        v16 = 2048;
+        v13 = 2048;
+        v14 = v8;
+        v15 = 2048;
         indexCopy2 = index;
-        _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_INFO, "Existing item %{public}@ in section %lu, inserting at end of section %lu", &v12, 0x20u);
+        _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_INFO, "Existing item %{public}@ in section %lu, inserting at end of section %lu", &v11, 0x20u);
       }
     }
 
@@ -1769,14 +1777,13 @@ void __43__EMMessageList__sectionIdentierForItemID___block_invoke(uint64_t a1, v
   }
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return dCopy;
 }
 
 - (id)_adjustedItemIDToInsertAfterForExistingItemID:(id)d sectionIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -1795,11 +1802,11 @@ LABEL_10:
         goto LABEL_13;
       }
 
-      v12 = 138543874;
+      v11 = 138543874;
       indexCopy = dCopy;
-      v14 = 2048;
-      v15 = v8;
-      v16 = 2048;
+      v13 = 2048;
+      v14 = v8;
+      v15 = 2048;
       indexCopy2 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
@@ -1815,13 +1822,13 @@ LABEL_10:
         v9 = +[EMMessageList log];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
-          v12 = 134218498;
+          v11 = 134218498;
           indexCopy = index;
-          v14 = 2114;
-          v15 = dCopy;
-          v16 = 2048;
+          v13 = 2114;
+          v14 = dCopy;
+          v15 = 2048;
           indexCopy2 = v8;
-          _os_log_fault_impl(&dword_1C6655000, v9, OS_LOG_TYPE_FAULT, "Attempting to insert items from section %lu after item %{public}@ in following section %lu", &v12, 0x20u);
+          _os_log_fault_impl(&dword_1C6655000, v9, OS_LOG_TYPE_FAULT, "Attempting to insert items from section %lu after item %{public}@ in following section %lu", &v11, 0x20u);
         }
 
         goto LABEL_13;
@@ -1836,27 +1843,26 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v12 = 138543874;
+      v11 = 138543874;
       indexCopy = dCopy;
-      v14 = 2048;
-      v15 = v8;
-      v16 = 2048;
+      v13 = 2048;
+      v14 = v8;
+      v15 = 2048;
       indexCopy2 = index;
     }
 
-    _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_INFO, "Existing item %{public}@ in section %lu, inserting at start of section %lu", &v12, 0x20u);
+    _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_INFO, "Existing item %{public}@ in section %lu, inserting at start of section %lu", &v11, 0x20u);
     goto LABEL_13;
   }
 
 LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
 
   return dCopy;
 }
 
 - (void)expandThreadsFromThreadItemIDs:(id)ds
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (![(EMMessageList *)self isThreaded])
   {
@@ -1865,42 +1871,40 @@ LABEL_14:
   }
 
   [(EMMessageList *)self messageListItemsForItemIDs:dsCopy];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v6 = v15 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v13 = 0u;
+  v6 = v14 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __48__EMMessageList_expandThreadsFromThreadItemIDs___block_invoke;
-        v13[3] = &unk_1E826DDA8;
-        v13[4] = self;
-        [v10 addSuccessBlock:v13];
+        v10 = *(*(&v13 + 1) + 8 * v9);
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __48__EMMessageList_expandThreadsFromThreadItemIDs___block_invoke;
+        v12[3] = &unk_1E826DDA8;
+        v12[4] = self;
+        [v10 addSuccessBlock:v12];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __48__EMMessageList_expandThreadsFromThreadItemIDs___block_invoke(uint64_t a1, void *a2)
@@ -1996,17 +2000,15 @@ void __32__EMMessageList_collapseThread___block_invoke_2(uint64_t a1)
 
 void __32__EMMessageList_collapseThread___block_invoke_4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EMMessageList log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
     v6 = [v3 ef_publicDescription];
-    __32__EMMessageList_collapseThread___block_invoke_4_cold_1(v5, v6, v8, v4);
+    __32__EMMessageList_collapseThread___block_invoke_4_cold_1(v5, v6, v7, v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)anyExpandedThreadContainsItemID:(id)d
@@ -2033,6 +2035,37 @@ void __32__EMMessageList_collapseThread___block_invoke_4(uint64_t a1, void *a2)
   return v3;
 }
 
+- (id)messageListItemForItemID:(id)d ifAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v17 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  v7 = dCopy;
+  if (dCopy)
+  {
+    v15 = dCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v9 = [(EMMessageList *)self messageListItemsForItemIDs:v8 ifAvailable:availableCopy];
+    firstObject = [v9 firstObject];
+  }
+
+  else
+  {
+    v11 = +[EMMessageList log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      ef_publicDescription = [(EMMessageList *)self ef_publicDescription];
+      [(EMMessageList *)ef_publicDescription messageListItemForItemID:buf ifAvailable:v11];
+    }
+
+    v13 = MEMORY[0x1E699B7C8];
+    v8 = [MEMORY[0x1E696ABC0] em_itemNotFoundErrorWithItemID:0];
+    firstObject = [v13 futureWithError:v8];
+  }
+
+  return firstObject;
+}
+
 - (id)messageListItemsForItemIDs:(id)ds
 {
   v3 = [(EMMessageList *)self messageListItemsForItemIDs:ds ifAvailable:0];
@@ -2043,7 +2076,7 @@ void __32__EMMessageList_collapseThread___block_invoke_4(uint64_t a1, void *a2)
 - (id)messageListItemsForItemIDs:(id)ds ifAvailable:(BOOL)available
 {
   availableCopy = available;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v7 = +[EMMessageList log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -2057,11 +2090,11 @@ void __32__EMMessageList_collapseThread___block_invoke_4(uint64_t a1, void *a2)
       v10 = @" available";
     }
 
-    v19 = v10;
-    v20 = 2112;
-    v21 = dsCopy;
-    v22 = 2114;
-    v23 = ef_shortPublicDescription;
+    v18 = v10;
+    v19 = 2112;
+    v20 = dsCopy;
+    v21 = 2114;
+    v22 = ef_shortPublicDescription;
     _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Getting%{public}@ message list items: %@\n%{public}@", buf, 0x20u);
   }
 
@@ -2073,17 +2106,15 @@ void __32__EMMessageList_collapseThread___block_invoke_4(uint64_t a1, void *a2)
   else
   {
     v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __56__EMMessageList_messageListItemsForItemIDs_ifAvailable___block_invoke;
-    v16[3] = &unk_1E826DE20;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __56__EMMessageList_messageListItemsForItemIDs_ifAvailable___block_invoke;
+    v15[3] = &unk_1E826DE20;
     v13 = v12;
-    v17 = v13;
-    v11 = [dsCopy ef_map:v16];
+    v16 = v13;
+    v11 = [dsCopy ef_map:v15];
     [(EMMessageList *)self _attemptToFinishRetryingPromisesByItemID:v13];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2160,23 +2191,23 @@ id __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke(uint6
 
 NSObject *__54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_2(id *a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([a1[4] containsItemID:v3 includeRecovery:0])
   {
     v4 = [a1[5] cachedObjectForKey:v3];
     if (v4)
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_3;
-      v30[3] = &unk_1E826DE48;
-      v31 = a1[5];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_3;
+      v29[3] = &unk_1E826DE48;
+      v30 = a1[5];
       v5 = v3;
       v6 = a1[4];
-      v32[0] = v5;
-      v32[1] = v6;
-      [v4 addSuccessBlock:v30];
+      v31[0] = v5;
+      v31[1] = v6;
+      [v4 addSuccessBlock:v29];
       v7 = +[EMMessageList log];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
@@ -2191,48 +2222,48 @@ NSObject *__54__EMMessageList__availableMessageListItemsForItemIDs___block_invok
           v12 = v9;
         }
 
-        v34 = v5;
-        v35 = 2114;
-        v36 = v4;
-        v37 = 2114;
-        v38 = v12;
-        v39 = 2114;
-        v40 = v10;
+        v33 = v5;
+        v34 = 2114;
+        v35 = v4;
+        v36 = 2114;
+        v37 = v12;
+        v38 = 2114;
+        v39 = v10;
         _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Cache hit for %{public}@ returning cached %{public}@:\n%{public}@\n%{public}@", buf, 0x2Au);
       }
 
-      v13 = &v31;
-      v14 = v32;
+      v13 = &v30;
+      v14 = v31;
       v15 = v4;
     }
 
     else
     {
-      v23 = MEMORY[0x1E69E9820];
-      v24 = 3221225472;
-      v25 = __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_169;
-      v26 = &unk_1E826DE98;
+      v22 = MEMORY[0x1E69E9820];
+      v23 = 3221225472;
+      v24 = __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_169;
+      v25 = &unk_1E826DE98;
       v17 = a1[5];
-      v29 = a1[6];
+      v28 = a1[6];
       v18 = v3;
-      v27 = v18;
-      v28 = a1[5];
-      v15 = [v17 objectForKey:v18 generator:&v23];
-      v19 = [EMMessageList log:v23];
+      v26 = v18;
+      v27 = a1[5];
+      v15 = [v17 objectForKey:v18 generator:&v22];
+      v19 = [EMMessageList log:v22];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         v20 = [a1[4] ef_shortPublicDescription];
         *buf = 138543874;
-        v34 = v18;
-        v35 = 2114;
-        v36 = v15;
-        v37 = 2114;
-        v38 = v20;
+        v33 = v18;
+        v34 = 2114;
+        v35 = v15;
+        v36 = 2114;
+        v37 = v20;
         _os_log_impl(&dword_1C6655000, v19, OS_LOG_TYPE_DEFAULT, "Cache miss for %{public}@ returning cached %{public}@\n%{public}@", buf, 0x20u);
       }
 
-      v13 = &v29;
-      v14 = &v27;
+      v13 = &v28;
+      v14 = &v26;
     }
   }
 
@@ -2244,23 +2275,21 @@ NSObject *__54__EMMessageList__availableMessageListItemsForItemIDs___block_invok
     {
       v16 = [a1[4] ef_shortPublicDescription];
       *buf = 138543874;
-      v34 = v3;
-      v35 = 2114;
-      v36 = v15;
-      v37 = 2114;
-      v38 = v16;
+      v33 = v3;
+      v34 = 2114;
+      v35 = v15;
+      v36 = 2114;
+      v37 = v16;
       _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "Unknown item request for %{public}@ returning uncached %{public}@\n%{public}@", buf, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 void __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 summary];
 
@@ -2272,30 +2301,27 @@ void __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_3(u
     {
       v6 = *(a1 + 40);
       v7 = *(a1 + 48);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Missing summary for itemID, refetching: %{public}@\n%@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Missing summary for itemID, refetching: %{public}@\n%@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 id __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_169(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = (*(*(a1 + 48) + 16))();
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_2_170;
-  v5[3] = &unk_1E826DE70;
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  [v3 addFailureBlock:v5];
+  v2 = (*(*(a1 + 48) + 16))();
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_2_170;
+  v4[3] = &unk_1E826DE70;
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 32);
+  [v2 addFailureBlock:v4];
 
-  return v3;
+  return v2;
 }
 
 id __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_171(uint64_t a1, void *a2)
@@ -2321,7 +2347,7 @@ id __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_171(u
 
 void __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_173(id *a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a1[4] objectAtIndexedSubscript:a3];
   v7 = [a1[5] itemIDForObjectID:v6];
@@ -2332,22 +2358,20 @@ void __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_173
   {
     v10 = [v8 future];
     v11 = a1[5];
-    v15 = 138544130;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v11;
-    _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "Repository future %{public}@ finishes future %{public}@ for itemID %{public}@\n%@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "Repository future %{public}@ finishes future %{public}@ for itemID %{public}@\n%@", &v14, 0x2Au);
   }
 
   v12 = [v5 delegate];
   v13 = [v8 future];
   [v13 setDelegate:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_attemptToFinishRetryingPromisesByItemID:(id)d
@@ -2369,7 +2393,7 @@ void __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_173
 
 void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke(id *a1, void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a1[4] objectAtIndexedSubscript:a3];
   v7 = [a1[5] objectForKeyedSubscript:v5];
@@ -2382,35 +2406,33 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
   {
     v11 = [a1[6] ef_shortPublicDescription];
     *buf = 138544130;
-    v22 = v6;
-    v23 = 2114;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v5;
-    v27 = 2114;
-    v28 = v11;
+    v21 = v6;
+    v22 = 2114;
+    v23 = v8;
+    v24 = 2114;
+    v25 = v5;
+    v26 = 2114;
+    v27 = v11;
     _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "Future %{public}@ finishes retrying future %{public}@ for itemID %{public}@\n%{public}@", buf, 0x2Au);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke_175;
-  v19[3] = &unk_1E826DDA8;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke_175;
+  v18[3] = &unk_1E826DDA8;
   v12 = v7;
-  v20 = v12;
-  [v6 addSuccessBlock:v19];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke_2;
-  v16[3] = &unk_1E826DF38;
-  v16[4] = a1[6];
+  v19 = v12;
+  [v6 addSuccessBlock:v18];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke_2;
+  v15[3] = &unk_1E826DF38;
+  v15[4] = a1[6];
   v13 = v5;
-  v17 = v13;
+  v16 = v13;
   v14 = v12;
-  v18 = v14;
-  [v6 addFailureBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = v14;
+  [v6 addFailureBlock:v15];
 }
 
 void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke_2(id *a1, void *a2)
@@ -2449,7 +2471,7 @@ LABEL_6:
 
 void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke_3(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((EFProtectedDataAvailable() & 1) != 0 || _os_feature_enabled_impl())
   {
     v2 = +[EMMessageList log];
@@ -2458,17 +2480,17 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
       v3 = a1[4];
       v4 = a1[5];
       *buf = 138543618;
-      v15 = v3;
-      v16 = 2112;
-      v17 = v4;
+      v14 = v3;
+      v15 = 2112;
+      v16 = v4;
       _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "Retrying for item: %{public}@\n%@", buf, 0x16u);
     }
 
     v5 = a1[5];
     v6 = a1[6];
-    v12 = a1[4];
-    v13 = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = a1[4];
+    v12 = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     [v5 _attemptToFinishRetryingPromisesByItemID:v7];
   }
 
@@ -2480,53 +2502,49 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
       v9 = a1[4];
       v10 = a1[5];
       *buf = 138543618;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
       _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "Adding item for retry when unlocked: %{public}@\n%@", buf, 0x16u);
     }
 
     [*(a1[5] + 104) setObject:a1[6] forKey:a1[4]];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateCacheForItemIDs:(id)ds
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   cache = [(EMMessageList *)self cache];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [cache removeObjectForKey:{*(*(&v11 + 1) + 8 * v9++), v11}];
+        [cache removeObjectForKey:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)itemIDOfMessageListItemWithDisplayMessage:(id)message
@@ -2558,10 +2576,10 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
 
 - (void)finishRecovery
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = EMMessageList;
-  [(EMQueryingCollection *)&v18 finishRecovery];
+  v19 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = EMMessageList;
+  [(EMQueryingCollection *)&v17 finishRecovery];
   cache = [(EMMessageList *)self cache];
   [cache removeAllObjects];
 
@@ -2570,25 +2588,25 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
     os_unfair_lock_lock(&self->_expandedThreadsLock);
     allValues = [(NSMutableDictionary *)self->_expandedThreads allValues];
     os_unfair_lock_unlock(&self->_expandedThreadsLock);
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = allValues;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           allItemIDs = [v9 allItemIDs];
           resultIfAvailable = [allItemIDs resultIfAvailable];
 
@@ -2599,19 +2617,17 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v6);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contentProtectionStateChanged:(int64_t)changed previousState:(int64_t)state
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = [(EMMessageList *)self contentProtectionQueue:changed];
   dispatch_assert_queue_V2(v5);
 
@@ -2624,39 +2640,37 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         allKeys = [dictionaryRepresentation allKeys];
-        v10 = 138543618;
-        v11 = allKeys;
-        v12 = 2114;
+        v9 = 138543618;
+        v10 = allKeys;
+        v11 = 2114;
         selfCopy = self;
-        _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Retrying for items: %{public}@\n%{public}@", &v10, 0x16u);
+        _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Retrying for items: %{public}@\n%{public}@", &v9, 0x16u);
       }
 
       [(EMMessageList *)self _attemptToFinishRetryingPromisesByItemID:dictionaryRepresentation];
       [(NSMapTable *)self->_messageListItemsForRetry removeAllObjects];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_extraInfoForThread:(id)thread addedItemIDs:(id)ds
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   dsCopy = ds;
-  if (_os_feature_enabled_impl() & 1) != 0 || _os_feature_enabled_impl() && (EMIsGreymatterSupported())
+  if (_os_feature_enabled_impl() & 1) != 0 || (v12 = _os_feature_enabled_impl(), v12) && (EMIsGreymatterSupported(v12, v13))
   {
     itemID = [threadCopy itemID];
     v9 = [(EMMessageList *)self _sectionIdentierForItemID:itemID];
 
     if (v9)
     {
-      v15 = dsCopy;
-      v16 = @"collectionItemIDBySections";
-      v14 = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v17[0] = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v16 = dsCopy;
+      v17 = @"collectionItemIDBySections";
+      v15 = v9;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v18[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     }
 
     else
@@ -2669,8 +2683,6 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2721,7 +2733,7 @@ void __58__EMMessageList__attemptToFinishRetryingPromisesByItemID___block_invoke
 
 void __48__EMMessageList_collection_addedItemIDs_before___block_invoke(uint64_t a1)
 {
-  if ((_os_feature_enabled_impl() & 1) != 0 || _os_feature_enabled_impl() && EMIsGreymatterSupported())
+  if ((_os_feature_enabled_impl() & 1) != 0 || (v6 = _os_feature_enabled_impl(), v6) && EMIsGreymatterSupported(v6, v7))
   {
     v2 = *(a1 + 32);
     v3 = *(a1 + 40);
@@ -2733,24 +2745,24 @@ void __48__EMMessageList_collection_addedItemIDs_before___block_invoke(uint64_t 
 
   else
   {
-    v6 = [*(a1 + 32) firstExistingItemIDAfterItemID:*(a1 + 48)];
-    v7 = *(a1 + 32);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __48__EMMessageList_collection_addedItemIDs_before___block_invoke_2;
-    v9[3] = &unk_1E826DF88;
-    v9[4] = v7;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 64);
-    v12 = v6;
-    v8 = v6;
-    [v7 enumerateObserversWithLastBlock:v9];
+    v8 = [*(a1 + 32) firstExistingItemIDAfterItemID:*(a1 + 48)];
+    v9 = *(a1 + 32);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __48__EMMessageList_collection_addedItemIDs_before___block_invoke_2;
+    v11[3] = &unk_1E826DF88;
+    v11[4] = v9;
+    v12 = *(a1 + 40);
+    v13 = *(a1 + 64);
+    v14 = v8;
+    v10 = v8;
+    [v9 enumerateObserversWithLastBlock:v11];
   }
 }
 
 void __48__EMMessageList_collection_addedItemIDs_before___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = objc_opt_respondsToSelector();
   v7 = *(a1 + 32);
@@ -2767,17 +2779,17 @@ void __48__EMMessageList_collection_addedItemIDs_before___block_invoke_2(uint64_
       v12 = [*(a1 + 40) count];
       v13 = [*(a1 + 48) itemID];
       v14 = *(a1 + 56);
-      v16 = 134219010;
-      v17 = v11;
-      v18 = 2048;
-      v19 = v12;
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 1024;
-      v25 = a3;
-      _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "<%p> Adding %lu items to threadItemID: %{public}@ before %{public}@, isLastObserver: %{BOOL}d", &v16, 0x30u);
+      v15 = 134219010;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v14;
+      v23 = 1024;
+      v24 = a3;
+      _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "<%p> Adding %lu items to threadItemID: %{public}@ before %{public}@, isLastObserver: %{BOOL}d", &v15, 0x30u);
     }
   }
 
@@ -2785,8 +2797,6 @@ void __48__EMMessageList_collection_addedItemIDs_before___block_invoke_2(uint64_
   {
     [v5 collection:*(a1 + 32) addedItemIDs:*(a1 + 40) before:*(a1 + 56)];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collection:(id)collection addedItemIDs:(id)ds after:(id)after
@@ -2834,7 +2844,7 @@ void __48__EMMessageList_collection_addedItemIDs_before___block_invoke_2(uint64_
 
 void __47__EMMessageList_collection_addedItemIDs_after___block_invoke(uint64_t a1)
 {
-  if ((_os_feature_enabled_impl() & 1) != 0 || _os_feature_enabled_impl() && EMIsGreymatterSupported())
+  if ((_os_feature_enabled_impl() & 1) != 0 || (v6 = _os_feature_enabled_impl(), v6) && EMIsGreymatterSupported(v6, v7))
   {
     v2 = *(a1 + 32);
     v3 = *(a1 + 40);
@@ -2846,24 +2856,24 @@ void __47__EMMessageList_collection_addedItemIDs_after___block_invoke(uint64_t a
 
   else
   {
-    v6 = [*(a1 + 32) firstExistingItemIDBeforeItemID:*(a1 + 48)];
-    v7 = *(a1 + 32);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __47__EMMessageList_collection_addedItemIDs_after___block_invoke_2;
-    v9[3] = &unk_1E826DF88;
-    v9[4] = v7;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 64);
-    v12 = v6;
-    v8 = v6;
-    [v7 enumerateObserversWithLastBlock:v9];
+    v8 = [*(a1 + 32) firstExistingItemIDBeforeItemID:*(a1 + 48)];
+    v9 = *(a1 + 32);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __47__EMMessageList_collection_addedItemIDs_after___block_invoke_2;
+    v11[3] = &unk_1E826DF88;
+    v11[4] = v9;
+    v12 = *(a1 + 40);
+    v13 = *(a1 + 64);
+    v14 = v8;
+    v10 = v8;
+    [v9 enumerateObserversWithLastBlock:v11];
   }
 }
 
 void __47__EMMessageList_collection_addedItemIDs_after___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = objc_opt_respondsToSelector();
   v7 = *(a1 + 32);
@@ -2880,17 +2890,17 @@ void __47__EMMessageList_collection_addedItemIDs_after___block_invoke_2(uint64_t
       v12 = [*(a1 + 40) count];
       v13 = [*(a1 + 48) itemID];
       v14 = *(a1 + 56);
-      v16 = 134219010;
-      v17 = v11;
-      v18 = 2048;
-      v19 = v12;
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 1024;
-      v25 = a3;
-      _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "<%p> Adding %lu items to threadItemID: %{public}@ after %{public}@, isLastObserver: %{BOOL}d", &v16, 0x30u);
+      v15 = 134219010;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v14;
+      v23 = 1024;
+      v24 = a3;
+      _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "<%p> Adding %lu items to threadItemID: %{public}@ after %{public}@, isLastObserver: %{BOOL}d", &v15, 0x30u);
     }
   }
 
@@ -2898,8 +2908,6 @@ void __47__EMMessageList_collection_addedItemIDs_after___block_invoke_2(uint64_t
   {
     [v5 collection:*(a1 + 32) addedItemIDs:*(a1 + 40) after:*(a1 + 56)];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collection:(id)collection movedItemIDs:(id)ds before:(id)before
@@ -3186,63 +3194,63 @@ void __65__EMMessageList_collection_replacedExistingItemID_withNewItemID___block
 
 - (void)queryMatchedChangedObjectIDs:(id)ds extraInfo:(id)info
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v38.receiver = self;
-  v38.super_class = EMMessageList;
+  v40 = *MEMORY[0x1E69E9840];
+  v37.receiver = self;
+  v37.super_class = EMMessageList;
   infoCopy = info;
-  [(EMQueryingCollection *)&v38 queryMatchedChangedObjectIDs:ds extraInfo:infoCopy];
-  v20 = [infoCopy objectForKeyedSubscript:@"changesByObjectID"];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__6;
-  v36 = __Block_byref_object_dispose__6;
-  v37 = 0;
+  [(EMQueryingCollection *)&v37 queryMatchedChangedObjectIDs:ds extraInfo:infoCopy];
+  v19 = [infoCopy objectForKeyedSubscript:@"changesByObjectID"];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__6;
+  v35 = __Block_byref_object_dispose__6;
+  v36 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __56__EMMessageList_queryMatchedChangedObjectIDs_extraInfo___block_invoke;
   aBlock[3] = &unk_1E826E000;
-  aBlock[4] = &v32;
+  aBlock[4] = &v31;
   v6 = _Block_copy(aBlock);
   os_unfair_lock_lock(&self->_expandedThreadsLock);
-  v7 = [v20 count];
+  v7 = [v19 count];
   if (v7 >= [(NSMutableDictionary *)self->_expandedThreads count])
   {
     expandedThreads = self->_expandedThreads;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __56__EMMessageList_queryMatchedChangedObjectIDs_extraInfo___block_invoke_2;
-    v29[3] = &unk_1E826E028;
-    v30 = v6;
-    [(NSMutableDictionary *)expandedThreads enumerateKeysAndObjectsUsingBlock:v29];
-    allKeys = v30;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __56__EMMessageList_queryMatchedChangedObjectIDs_extraInfo___block_invoke_2;
+    v28[3] = &unk_1E826E028;
+    v29 = v6;
+    [(NSMutableDictionary *)expandedThreads enumerateKeysAndObjectsUsingBlock:v28];
+    allKeys = v29;
   }
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    allKeys = [v20 allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v25 objects:v40 count:16];
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    allKeys = [v19 allKeys];
+    v9 = [allKeys countByEnumeratingWithState:&v24 objects:v39 count:16];
     if (v9)
     {
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = [(NSMutableDictionary *)self->_expandedThreads objectForKeyedSubscript:*(*(&v25 + 1) + 8 * i)];
+          v12 = [(NSMutableDictionary *)self->_expandedThreads objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
           (*(v6 + 2))(v6, v12);
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v25 objects:v40 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v24 objects:v39 count:16];
       }
 
       while (v9);
@@ -3250,35 +3258,34 @@ void __65__EMMessageList_collection_replacedExistingItemID_withNewItemID___block
   }
 
   os_unfair_lock_unlock(&self->_expandedThreadsLock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v14 = v33[5];
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v39 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v14 = v32[5];
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v38 count:16];
   if (v15)
   {
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(EMMessageList *)self collapseThread:*(*(&v21 + 1) + 8 * j)];
+        [(EMMessageList *)self collapseThread:*(*(&v20 + 1) + 8 * j)];
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v21 objects:v39 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v20 objects:v38 count:16];
     }
 
     while (v15);
   }
 
-  _Block_object_dispose(&v32, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
 }
 
 void __56__EMMessageList_queryMatchedChangedObjectIDs_extraInfo___block_invoke(uint64_t a1, void *a2)
@@ -3304,45 +3311,45 @@ void __56__EMMessageList_queryMatchedChangedObjectIDs_extraInfo___block_invoke(u
 
 - (id)_expandedObjectIDsForObjectIDs:(id)ds
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ([(EMMessageList *)self isThreaded])
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v5 = dsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           [v4 addObject:v9];
           v10 = [(EMMessageList *)self itemIDForObjectID:v9];
           if ([(EMMessageList *)self _threadIsExpandedForItemID:v10])
           {
-            v16[0] = MEMORY[0x1E69E9820];
-            v16[1] = 3221225472;
-            v16[2] = __48__EMMessageList__expandedObjectIDsForObjectIDs___block_invoke;
-            v16[3] = &unk_1E826E050;
-            v16[4] = self;
-            v17 = v4;
-            v11 = [(EMQueryingCollection *)self iterateItemIDsStartingAtItemID:v10 inReverse:0 withBlock:v16];
+            v15[0] = MEMORY[0x1E69E9820];
+            v15[1] = 3221225472;
+            v15[2] = __48__EMMessageList__expandedObjectIDsForObjectIDs___block_invoke;
+            v15[3] = &unk_1E826E050;
+            v15[4] = self;
+            v16 = v4;
+            v11 = [(EMQueryingCollection *)self iterateItemIDsStartingAtItemID:v10 inReverse:0 withBlock:v15];
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v6);
@@ -3356,8 +3363,6 @@ void __56__EMMessageList_queryMatchedChangedObjectIDs_extraInfo___block_invoke(u
     v12 = dsCopy;
     v4 = dsCopy;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -3551,15 +3556,15 @@ uint64_t __52__EMMessageList__nextThreadItemIDAfterThreadItemID___block_invoke(u
 
 - (id)itemIDOfFirstMessageListItemMatchingPredicate:(id)predicate
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = objc_alloc_init(MEMORY[0x1E699B868]);
   query = [(EMQueryingCollection *)self query];
   v7 = objc_alloc(MEMORY[0x1E696AB28]);
-  v24[0] = predicateCopy;
+  v23[0] = predicateCopy;
   predicate = [query predicate];
-  v24[1] = predicate;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[1] = predicate;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
   v10 = [v7 initWithType:1 subpredicates:v9];
 
   v11 = [EMQuery alloc];
@@ -3585,8 +3590,6 @@ uint64_t __52__EMMessageList__nextThreadItemIDAfterThreadItemID___block_invoke(u
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -3630,23 +3633,21 @@ void __32__EMMessageList_collapseThread___block_invoke_4_cold_1(uint64_t a1, voi
 
 void __54__EMMessageList__availableMessageListItemsForItemIDs___block_invoke_171_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1C6655000, log, OS_LOG_TYPE_ERROR, "Invalid item: %{public}@\n%@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_1C6655000, log, OS_LOG_TYPE_ERROR, "Invalid item: %{public}@\n%@", &v4, 0x16u);
 }
 
 - (void)queryMatchedOldestItemsUpdatedForMailboxesObjectIDs:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "<%p> Oldest items updated for mailboxes", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "<%p> Oldest items updated for mailboxes", &v2, 0xCu);
 }
 
 @end

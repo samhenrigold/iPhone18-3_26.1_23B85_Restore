@@ -49,20 +49,46 @@
 
 - (BWCoreImageIntermediateAllocator)initWithBackend:(id)backend allocatorBackend:(id)allocatorBackend memoryPool:(unint64_t)pool
 {
-  v12.receiver = self;
-  v12.super_class = BWCoreImageIntermediateAllocator;
-  v8 = [(BWCoreImageIntermediateAllocator *)&v12 init];
-  v8->_poolID = pool;
-  v8->_device = backend;
-  v9 = objc_opt_new();
-  v10 = v9;
-  if (!v9 || ([v9 setWireMemory:1], objc_msgSend(v10, "setResourceOptions:", objc_msgSend(allocatorBackend, "resourceOptions")), objc_msgSend(v10, "setLabel:", @"FigMetalAllocator_CoreImageFilterRenderer"), allocatorBackend) && (v8->_metalAllocator = objc_msgSend(objc_alloc(MEMORY[0x1E6991750]), "initWithDevice:allocatorType:", backend, objc_msgSend(allocatorBackend, "allocatorType")), objc_msgSend(v10, "setMemSize:", objc_msgSend(allocatorBackend, "memSize")), -[FigMetalAllocator setupWithDescriptor:allocatorBackend:](v8->_metalAllocator, "setupWithDescriptor:allocatorBackend:", v10, allocatorBackend)))
+  v21.receiver = self;
+  v21.super_class = BWCoreImageIntermediateAllocator;
+  v9 = [(BWCoreImageIntermediateAllocator *)&v21 init];
+  v9->_poolID = pool;
+  v9->_device = backend;
+  v10 = objc_opt_new();
+  v11 = v10;
+  if (!v10)
   {
-    FigDebugAssert3();
-    FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v21.receiver, v21.super_class, v22, v23, v24, v25);
+    v16 = qword_1ED844648;
+    v17 = 4294893831;
+    v18 = 86;
+LABEL_7:
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v17, "<<<< BWCoreImageFilterRenderer >>>>", v18, v5, v14, v15, v20);
+    goto LABEL_4;
   }
 
-  return v8;
+  [v10 setWireMemory:1];
+  [v11 setResourceOptions:{objc_msgSend(allocatorBackend, "resourceOptions")}];
+  [v11 setLabel:@"FigMetalAllocator_CoreImageFilterRenderer"];
+  if (allocatorBackend)
+  {
+    v9->_metalAllocator = [objc_alloc(MEMORY[0x1E6991750]) initWithDevice:backend allocatorType:{objc_msgSend(allocatorBackend, "allocatorType")}];
+    [v11 setMemSize:{objc_msgSend(allocatorBackend, "memSize")}];
+    v12 = [(FigMetalAllocator *)v9->_metalAllocator setupWithDescriptor:v11 allocatorBackend:allocatorBackend];
+    if (v12)
+    {
+      v19 = v12;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v5, v21.receiver, v21.super_class, v22, v23, v24, v25);
+      v16 = qword_1ED844648;
+      v17 = v19;
+      v18 = 96;
+      goto LABEL_7;
+    }
+  }
+
+LABEL_4:
+
+  return v9;
 }
 
 @end

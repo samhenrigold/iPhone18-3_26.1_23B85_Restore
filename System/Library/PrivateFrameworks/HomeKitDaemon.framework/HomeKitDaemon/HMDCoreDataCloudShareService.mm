@@ -50,16 +50,16 @@
 
 uint64_t __81__HMDCoreDataCloudShareService__fetchUserRecordIDForUserWithAccountHandle_share___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) participants];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __81__HMDCoreDataCloudShareService__fetchUserRecordIDForUserWithAccountHandle_share___block_invoke_2;
-  v30[3] = &unk_27866F378;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __81__HMDCoreDataCloudShareService__fetchUserRecordIDForUserWithAccountHandle_share___block_invoke_2;
+  v29[3] = &unk_27866F378;
   v5 = v3;
-  v31 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v30];
+  v30 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v29];
 
   if (!v6)
   {
@@ -71,11 +71,11 @@ uint64_t __81__HMDCoreDataCloudShareService__fetchUserRecordIDForUserWithAccount
       v20 = HMFGetLogIdentifier();
       v21 = *(a1 + 32);
       *buf = 138543874;
-      v33 = v20;
-      v34 = 2112;
-      v35 = v5;
-      v36 = 2112;
-      v37 = v21;
+      v32 = v20;
+      v33 = 2112;
+      v34 = v5;
+      v35 = 2112;
+      v36 = v21;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Participant for account handle not found on share using fetched participant %@: %@", buf, 0x20u);
     }
 
@@ -109,9 +109,9 @@ uint64_t __81__HMDCoreDataCloudShareService__fetchUserRecordIDForUserWithAccount
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v6;
+      v32 = v24;
+      v33 = 2112;
+      v34 = v6;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Participant for account handle has no user record ID: %@", buf, 0x16u);
     }
 
@@ -140,11 +140,11 @@ LABEL_18:
     v13 = HMFGetLogIdentifier();
     v14 = *(a1 + 48);
     *buf = 138543874;
-    v33 = v13;
-    v34 = 2112;
-    v35 = v14;
-    v36 = 2112;
-    v37 = v8;
+    v32 = v13;
+    v33 = 2112;
+    v34 = v14;
+    v35 = 2112;
+    v36 = v8;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Fetched user record ID for user with account handle %@: %@", buf, 0x20u);
   }
 
@@ -153,7 +153,6 @@ LABEL_18:
   v16 = 1;
 LABEL_19:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -218,7 +217,7 @@ uint64_t __80__HMDCoreDataCloudShareService_fetchUserRecordIDForUserWithAccountH
 
 void __65__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation___block_invoke(id *a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -238,15 +237,15 @@ void __65__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation___block
     {
       v13 = HMFGetLogIdentifier();
       v14 = [a1[4] url];
-      v16 = 138544130;
-      v17 = v13;
-      v18 = 2160;
-      v19 = 1752392040;
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v9;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Fetching metadata for URL %{mask.hash}@ failed due to %{public}@", &v16, 0x2Au);
+      v15 = 138544130;
+      v16 = v13;
+      v17 = 2160;
+      v18 = 1752392040;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v9;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Fetching metadata for URL %{mask.hash}@ failed due to %{public}@", &v15, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -257,13 +256,11 @@ void __65__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation___block
   {
     [a1[5] fulfillWithValue:v5];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchShareMetadataForInvitation:(id)invitation completion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
   v8 = objc_alloc(MEMORY[0x277CBC3F8]);
@@ -274,26 +271,26 @@ void __65__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation___block
 
   array = [MEMORY[0x277CBEB18] array];
   objc_initWeak(&location, self);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke;
-  v31[3] = &unk_27866F468;
-  objc_copyWeak(&v33, &location);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke;
+  v30[3] = &unk_27866F468;
+  objc_copyWeak(&v32, &location);
   v14 = array;
-  v32 = v14;
-  [v12 setPerShareMetadataBlock:v31];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke_80;
-  v26[3] = &unk_278685FB0;
-  objc_copyWeak(&v30, &location);
+  v31 = v14;
+  [v12 setPerShareMetadataBlock:v30];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke_80;
+  v25[3] = &unk_278685FB0;
+  objc_copyWeak(&v29, &location);
   v15 = completionCopy;
-  v29 = v15;
+  v28 = v15;
   v16 = invitationCopy;
-  v27 = v16;
+  v26 = v16;
   v17 = v14;
-  v28 = v17;
-  [v12 setFetchShareMetadataCompletionBlock:v26];
+  v27 = v17;
+  [v12 setFetchShareMetadataCompletionBlock:v25];
   v18 = objc_autoreleasePoolPush();
   selfCopy = self;
   v20 = HMFGetOSLogHandle();
@@ -303,13 +300,13 @@ void __65__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation___block
     v22 = [v16 url];
     operationID = [v12 operationID];
     *buf = 138544130;
-    v36 = v21;
-    v37 = 2160;
-    v38 = 1752392040;
-    v39 = 2112;
-    v40 = v22;
-    v41 = 2112;
-    v42 = operationID;
+    v35 = v21;
+    v36 = 2160;
+    v37 = 1752392040;
+    v38 = 2112;
+    v39 = v22;
+    v40 = 2112;
+    v41 = operationID;
     _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Fetching share metadata for invitation URL %{mask.hash}@ (operationID: %@)", buf, 0x2Au);
   }
 
@@ -317,16 +314,14 @@ void __65__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation___block
   ckContainer = [(HMDCoreDataCloudShareService *)selfCopy ckContainer];
   [ckContainer addOperation:v12];
 
-  objc_destroyWeak(&v30);
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -339,15 +334,15 @@ void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_complet
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138544130;
-      v17 = v14;
-      v18 = 2160;
-      v19 = 1752392040;
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2114;
-      v23 = v9;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching metadata for URL %{mask.hash}@ failed due to %{public}@", &v16, 0x2Au);
+      v15 = 138544130;
+      v16 = v14;
+      v17 = 2160;
+      v18 = 1752392040;
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2114;
+      v22 = v9;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching metadata for URL %{mask.hash}@ failed due to %{public}@", &v15, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -357,13 +352,11 @@ void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_complet
   {
     [*(a1 + 32) addObject:v8];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke_80(id *a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   if (WeakRetained)
@@ -382,15 +375,15 @@ void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_complet
           v10 = HMFGetLogIdentifier();
           v11 = [a1[4] url];
           *buf = 138544386;
-          v28 = v10;
-          v29 = 2160;
-          v30 = 1752392040;
-          v31 = 2112;
-          v32 = v11;
-          v33 = 2114;
-          v34 = v5;
-          v35 = 2112;
-          v36 = v3;
+          v27 = v10;
+          v28 = 2160;
+          v29 = 1752392040;
+          v30 = 2112;
+          v31 = v11;
+          v32 = 2114;
+          v33 = v5;
+          v34 = 2112;
+          v35 = v3;
           _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Retrying fetching share metadata for URL %{mask.hash}@ in %{public}@s due to error: %@", buf, 0x34u);
         }
 
@@ -402,8 +395,8 @@ void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_complet
         block[2] = __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_completion___block_invoke_81;
         block[3] = &unk_278689F98;
         block[4] = v7;
-        v25 = a1[4];
-        v26 = a1[6];
+        v24 = a1[4];
+        v25 = a1[6];
         dispatch_after(v13, MEMORY[0x277D85CD0], block);
 
         goto LABEL_19;
@@ -414,13 +407,13 @@ void __76__HMDCoreDataCloudShareService__fetchShareMetadataForInvitation_complet
         v20 = HMFGetLogIdentifier();
         v21 = [a1[4] url];
         *buf = 138544130;
-        v28 = v20;
-        v29 = 2160;
-        v30 = 1752392040;
-        v31 = 2112;
-        v32 = v21;
-        v33 = 2114;
-        v34 = v3;
+        v27 = v20;
+        v28 = 2160;
+        v29 = 1752392040;
+        v30 = 2112;
+        v31 = v21;
+        v32 = 2114;
+        v33 = v3;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch metadata for URL %{mask.hash}@ due to %{public}@", buf, 0x2Au);
       }
 
@@ -456,7 +449,7 @@ LABEL_19:
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v16;
+    v27 = v16;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Lost self fetching share metadata", buf, 0xCu);
   }
 
@@ -469,7 +462,6 @@ LABEL_19:
   }
 
 LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pushUpdatedShare:(id)share
@@ -494,7 +486,7 @@ LABEL_20:
 
 void __50__HMDCoreDataCloudShareService__pushUpdatedShare___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -506,11 +498,11 @@ void __50__HMDCoreDataCloudShareService__pushUpdatedShare___block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetching share failed with %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetching share failed with %{public}@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -531,40 +523,38 @@ void __50__HMDCoreDataCloudShareService__pushUpdatedShare___block_invoke(uint64_
       [v12 rejectWithError:v13];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pushUpdatedShare:(id)share completion:(id)completion
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   shareCopy = share;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBC4F0]);
   [v8 setQualityOfService:17];
   v9 = objc_alloc(MEMORY[0x277CBC4A0]);
-  v35[0] = shareCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = shareCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   v11 = [v9 initWithRecordsToSave:v10 recordIDsToDelete:0];
 
   [v11 setConfiguration:v8];
   objc_initWeak(&location, self);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke;
-  v26[3] = &unk_27866F418;
-  objc_copyWeak(&v27, &location);
-  [v11 setPerRecordCompletionBlock:v26];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke_75;
-  v22[3] = &unk_27866F440;
-  objc_copyWeak(&v25, &location);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke;
+  v25[3] = &unk_27866F418;
+  objc_copyWeak(&v26, &location);
+  [v11 setPerRecordCompletionBlock:v25];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke_75;
+  v21[3] = &unk_27866F440;
+  objc_copyWeak(&v24, &location);
   v12 = completionCopy;
-  v24 = v12;
+  v23 = v12;
   v13 = shareCopy;
-  v23 = v13;
-  [v11 setModifyRecordsCompletionBlock:v22];
+  v22 = v13;
+  [v11 setModifyRecordsCompletionBlock:v21];
   v14 = objc_autoreleasePoolPush();
   selfCopy = self;
   v16 = HMFGetOSLogHandle();
@@ -573,11 +563,11 @@ void __50__HMDCoreDataCloudShareService__pushUpdatedShare___block_invoke(uint64_
     v17 = HMFGetLogIdentifier();
     operationID = [v11 operationID];
     *buf = 138543874;
-    v30 = v17;
-    v31 = 2112;
-    v32 = v13;
-    v33 = 2112;
-    v34 = operationID;
+    v29 = v17;
+    v30 = 2112;
+    v31 = v13;
+    v32 = 2112;
+    v33 = operationID;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Pushing updated share %@ (operationID: %@)", buf, 0x20u);
   }
 
@@ -586,16 +576,14 @@ void __50__HMDCoreDataCloudShareService__pushUpdatedShare___block_invoke(uint64_
   privateCloudDatabase = [ckContainer privateCloudDatabase];
   [privateCloudDatabase addOperation:v11];
 
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -608,28 +596,28 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v18 = 138543875;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2113;
-      v23 = v6;
+      v17 = 138543875;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2113;
+      v22 = v6;
       v13 = "%{public}@Failed to push share %@: %{private}@";
       v14 = v11;
       v15 = OS_LOG_TYPE_ERROR;
       v16 = 32;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v14, v15, v13, &v18, v16);
+      _os_log_impl(&dword_229538000, v14, v15, v13, &v17, v16);
     }
   }
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v5;
+    v17 = 138543618;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v5;
     v13 = "%{public}@Successfully pushed share: %@";
     v14 = v11;
     v15 = OS_LOG_TYPE_DEFAULT;
@@ -638,12 +626,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke_75(id *a1, void *a2, void *a3, void *a4)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -659,9 +646,9 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v14;
-        v51 = 2114;
-        v52 = v9;
+        v49 = v14;
+        v50 = 2114;
+        v51 = v9;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Push updated share operation failed: %{public}@", buf, 0x16u);
       }
 
@@ -677,9 +664,9 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v50 = v20;
-          v51 = 2114;
-          v52 = v16;
+          v49 = v20;
+          v50 = 2114;
+          v51 = v16;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Retrying pushing updated share in %{public}@s", buf, 0x16u);
         }
 
@@ -691,8 +678,8 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
         block[2] = __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_invoke_76;
         block[3] = &unk_278689F98;
         block[4] = v18;
-        v47 = a1[4];
-        v48 = a1[5];
+        v46 = a1[4];
+        v47 = a1[5];
         dispatch_after(v22, MEMORY[0x277D85CD0], block);
       }
 
@@ -708,9 +695,9 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v50 = v41;
-          v51 = 2114;
-          v52 = v37;
+          v49 = v41;
+          v50 = 2114;
+          v51 = v37;
           _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failing push updated share with %{public}@", buf, 0x16u);
         }
 
@@ -751,14 +738,14 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
         {
           v32 = HMFGetLogIdentifier();
           [v7 firstObject];
-          v33 = v45 = v29;
+          v33 = v44 = v29;
           *buf = 138543618;
-          v50 = v32;
-          v51 = 2112;
-          v52 = v33;
+          v49 = v32;
+          v50 = 2112;
+          v51 = v33;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unexpected record received when pushing updated share: %@", buf, 0x16u);
 
-          v29 = v45;
+          v29 = v44;
         }
 
         objc_autoreleasePoolPop(v29);
@@ -781,7 +768,7 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v50 = v25;
+      v49 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Lost self while pushing updated share", buf, 0xCu);
     }
 
@@ -793,8 +780,6 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
       (*(v26 + 2))(v26, 0, v9);
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchShareWithRecordID:(id)d
@@ -819,7 +804,7 @@ void __61__HMDCoreDataCloudShareService__pushUpdatedShare_completion___block_inv
 
 void __55__HMDCoreDataCloudShareService_fetchShareWithRecordID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -831,11 +816,11 @@ void __55__HMDCoreDataCloudShareService_fetchShareWithRecordID___block_invoke(ui
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetching share failed with %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetching share failed with %{public}@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -856,40 +841,38 @@ void __55__HMDCoreDataCloudShareService_fetchShareWithRecordID___block_invoke(ui
       [v12 rejectWithError:v13];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchShareWithRecordID:(id)d completion:(id)completion
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBC4F0]);
   [v8 setQualityOfService:17];
   v9 = objc_alloc(MEMORY[0x277CBC3E0]);
-  v35[0] = dCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = dCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   v11 = [v9 initWithRecordIDs:v10];
 
   [v11 setConfiguration:v8];
   objc_initWeak(&location, self);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke;
-  v26[3] = &unk_27866F3A0;
-  objc_copyWeak(&v27, &location);
-  [v11 setPerRecordCompletionBlock:v26];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke_68;
-  v22[3] = &unk_27866F3C8;
-  objc_copyWeak(&v25, &location);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke;
+  v25[3] = &unk_27866F3A0;
+  objc_copyWeak(&v26, &location);
+  [v11 setPerRecordCompletionBlock:v25];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke_68;
+  v21[3] = &unk_27866F3C8;
+  objc_copyWeak(&v24, &location);
   v12 = completionCopy;
-  v24 = v12;
+  v23 = v12;
   v13 = dCopy;
-  v23 = v13;
-  [v11 setFetchRecordsCompletionBlock:v22];
+  v22 = v13;
+  [v11 setFetchRecordsCompletionBlock:v21];
   v14 = objc_autoreleasePoolPush();
   selfCopy = self;
   v16 = HMFGetOSLogHandle();
@@ -898,11 +881,11 @@ void __55__HMDCoreDataCloudShareService_fetchShareWithRecordID___block_invoke(ui
     v17 = HMFGetLogIdentifier();
     operationID = [v11 operationID];
     *buf = 138543874;
-    v30 = v17;
-    v31 = 2112;
-    v32 = v13;
-    v33 = 2112;
-    v34 = operationID;
+    v29 = v17;
+    v30 = 2112;
+    v31 = v13;
+    v32 = 2112;
+    v33 = operationID;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Fetching share with record ID: %@ (operationID: %@)", buf, 0x20u);
   }
 
@@ -911,16 +894,14 @@ void __55__HMDCoreDataCloudShareService_fetchShareWithRecordID___block_invoke(ui
   privateCloudDatabase = [ckContainer privateCloudDatabase];
   [privateCloudDatabase addOperation:v11];
 
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -934,28 +915,28 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2114;
-      v26 = v9;
+      v20 = 138543874;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v7;
+      v24 = 2114;
+      v25 = v9;
       v16 = "%{public}@Failed to fetch share %@: %{public}@";
       v17 = v14;
       v18 = OS_LOG_TYPE_ERROR;
       v19 = 32;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v17, v18, v16, &v21, v19);
+      _os_log_impl(&dword_229538000, v17, v18, v16, &v20, v19);
     }
   }
 
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v15;
-    v23 = 2112;
-    v24 = v7;
+    v20 = 138543618;
+    v21 = v15;
+    v22 = 2112;
+    v23 = v7;
     v16 = "%{public}@Successfully fetched share: %@";
     v17 = v14;
     v18 = OS_LOG_TYPE_DEFAULT;
@@ -964,12 +945,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v11);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke_68(id *a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -984,9 +964,9 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v44 = v11;
-        v45 = 2114;
-        v46 = v6;
+        v43 = v11;
+        v44 = 2114;
+        v45 = v6;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetch share operation failed: %{public}@", buf, 0x16u);
       }
 
@@ -1002,11 +982,11 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v44 = v17;
-          v45 = 2114;
-          v46 = v13;
-          v47 = 2112;
-          v48 = v6;
+          v43 = v17;
+          v44 = 2114;
+          v45 = v13;
+          v46 = 2112;
+          v47 = v6;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Retrying fetching share in %{public}@s due to error: %@", buf, 0x20u);
         }
 
@@ -1018,8 +998,8 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
         block[2] = __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___block_invoke_69;
         block[3] = &unk_278689F98;
         block[4] = v15;
-        v41 = a1[4];
-        v42 = a1[5];
+        v40 = a1[4];
+        v41 = a1[5];
         dispatch_after(v19, MEMORY[0x277D85CD0], block);
       }
 
@@ -1033,9 +1013,9 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
         {
           v36 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v44 = v36;
-          v45 = 2114;
-          v46 = v32;
+          v43 = v36;
+          v44 = 2114;
+          v45 = v32;
           _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failing fetch share failed with %{public}@", buf, 0x16u);
         }
 
@@ -1076,9 +1056,9 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v44 = v29;
-          v45 = 2112;
-          v46 = v5;
+          v43 = v29;
+          v44 = 2112;
+          v45 = v5;
           _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetched share: %@", buf, 0x16u);
         }
 
@@ -1102,7 +1082,7 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v22;
+      v43 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Lost self while fetching share", buf, 0xCu);
     }
 
@@ -1114,27 +1094,25 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
       (*(v23 + 2))(v23, 0, v6);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchParticipantForAccountHandle:(id)handle
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v5 = handleCopy;
   if (handleCopy)
   {
-    v15[0] = handleCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = handleCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v7 = [(HMDCoreDataCloudShareService *)self _fetchParticipantsForAccountHandles:v6];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___block_invoke;
-    v12[3] = &unk_278687110;
-    v13 = v5;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___block_invoke;
+    v11[3] = &unk_278687110;
+    v12 = v5;
     selfCopy = self;
-    v8 = [v7 then:v12];
+    v8 = [v7 then:v11];
   }
 
   else
@@ -1144,14 +1122,12 @@ void __67__HMDCoreDataCloudShareService__fetchShareWithRecordID_completion___blo
     v8 = [v9 futureWithError:v6];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
   v5 = v4;
@@ -1170,11 +1146,11 @@ uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@No participant with handle %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@No participant with handle %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1194,38 +1170,37 @@ uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___
     v6 = 2;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)_fetchParticipantsForAccountHandles:(id)handles
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(handlesCopy, "count")}];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v5 = handlesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v36 objects:v43 count:16];
-  v31 = v4;
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v30 = v4;
   if (v6)
   {
     v8 = v6;
-    v9 = *v37;
+    v9 = *v36;
     *&v7 = 138543618;
-    v30 = v7;
+    v29 = v7;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v35 + 1) + 8 * i);
         cloudKitLookupInfo = [v11 cloudKitLookupInfo];
         if (cloudKitLookupInfo)
         {
@@ -1249,20 +1224,20 @@ uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             v16 = HMFGetLogIdentifier();
-            *buf = v30;
+            *buf = v29;
             *&buf[4] = v16;
-            v41 = 2112;
-            v42 = v11;
+            v40 = 2112;
+            v41 = v11;
             _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Skipping user with handle %@ due to missing cloudkit lookup info", buf, 0x16u);
 
-            v4 = v31;
+            v4 = v30;
           }
 
           objc_autoreleasePoolPop(v13);
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v36 objects:v43 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v35 objects:v42 count:16];
       if (v8)
       {
         continue;
@@ -1280,14 +1255,14 @@ uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      allKeys = [v31 allKeys];
+      allKeys = [v30 allKeys];
       *buf = 138543618;
       *&buf[4] = v20;
-      v41 = 2112;
-      v42 = allKeys;
+      v40 = 2112;
+      v41 = allKeys;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetching share participants using lookup infos: %@", buf, 0x16u);
 
-      v4 = v31;
+      v4 = v30;
     }
 
     objc_autoreleasePoolPop(v17);
@@ -1296,16 +1271,16 @@ uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___
     container = [(HMDCoreDataCloudShareService *)selfCopy2 container];
     allKeys2 = [v4 allKeys];
     privateStore = [(HMDCoreDataCloudShareService *)selfCopy2 privateStore];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___block_invoke;
-    v33[3] = &unk_278688348;
-    v33[4] = selfCopy2;
-    v34 = v31;
-    v35 = *buf;
-    [container fetchParticipantsMatchingLookupInfos:allKeys2 intoPersistentStore:privateStore completion:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___block_invoke;
+    v32[3] = &unk_278688348;
+    v32[4] = selfCopy2;
+    v33 = v30;
+    v34 = *buf;
+    [container fetchParticipantsMatchingLookupInfos:allKeys2 intoPersistentStore:privateStore completion:v32];
 
-    v4 = v31;
+    v4 = v30;
   }
 
   else
@@ -1315,14 +1290,12 @@ uint64_t __66__HMDCoreDataCloudShareService__fetchParticipantForAccountHandle___
 
 LABEL_20:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___block_invoke(id *a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1336,11 +1309,11 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
       v11 = HMFGetLogIdentifier();
       v12 = [v7[5] allKeys];
       *buf = 138543874;
-      v45 = v11;
-      v46 = 2112;
-      v47 = v12;
-      v48 = 2114;
-      v49 = v6;
+      v44 = v11;
+      v45 = 2112;
+      v46 = v12;
+      v47 = 2114;
+      v48 = v6;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetching participant for %@ resulted in error %{public}@", buf, 0x20u);
     }
 
@@ -1350,30 +1323,30 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
 
   else if ([v5 count])
   {
-    v38 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v5, "count")}];
+    v37 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v5, "count")}];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v35 = v5;
+    v34 = v5;
     v13 = v5;
-    v14 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v40;
-      v36 = a1;
-      v37 = v13;
+      v16 = *v39;
+      v35 = a1;
+      v36 = v13;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v40 != v16)
+          if (*v39 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v39 + 1) + 8 * i);
+          v18 = *(*(&v38 + 1) + 8 * i);
           v19 = [v18 userIdentity];
           v20 = [v19 lookupInfo];
 
@@ -1382,7 +1355,7 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
             v21 = [a1[5] objectForKeyedSubscript:v20];
             if (v21)
             {
-              [v38 setObject:v18 forKeyedSubscript:v21];
+              [v37 setObject:v18 forKeyedSubscript:v21];
             }
 
             else
@@ -1394,29 +1367,29 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
               {
                 v25 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v45 = v25;
-                v46 = 2112;
-                v47 = v18;
+                v44 = v25;
+                v45 = 2112;
+                v46 = v18;
                 _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Cannot find account handle for fetching participant %@", buf, 0x16u);
 
-                a1 = v36;
+                a1 = v35;
               }
 
               objc_autoreleasePoolPop(v22);
-              v13 = v37;
+              v13 = v36;
             }
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v15);
     }
 
-    [a1[6] fulfillWithValue:v38];
+    [a1[6] fulfillWithValue:v37];
     v6 = 0;
-    v5 = v35;
+    v5 = v34;
   }
 
   else
@@ -1430,9 +1403,9 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
       v30 = HMFGetLogIdentifier();
       v31 = [v26[5] allKeys];
       *buf = 138543618;
-      v45 = v30;
-      v46 = 2112;
-      v47 = v31;
+      v44 = v30;
+      v45 = 2112;
+      v46 = v31;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Did not fetch any participants using lookup infos %@", buf, 0x16u);
     }
 
@@ -1441,13 +1414,11 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
     v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [v32 rejectWithError:v33];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_removeParticipant:(id)participant share:(id)share
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   shareCopy = share;
   v8 = objc_autoreleasePoolPush();
@@ -1457,21 +1428,21 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v65 = v11;
-    v66 = 2112;
-    v67 = participantCopy;
+    v64 = v11;
+    v65 = 2112;
+    v66 = participantCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing participant %@ from share", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   participants = [shareCopy participants];
-  v59 = MEMORY[0x277D85DD0];
-  v60 = 3221225472;
-  v61 = __57__HMDCoreDataCloudShareService__removeParticipant_share___block_invoke;
-  v62 = &unk_27866F378;
+  v58 = MEMORY[0x277D85DD0];
+  v59 = 3221225472;
+  v60 = __57__HMDCoreDataCloudShareService__removeParticipant_share___block_invoke;
+  v61 = &unk_27866F378;
   v13 = participantCopy;
-  v63 = v13;
-  v14 = [participants na_firstObjectPassingTest:&v59];
+  v62 = v13;
+  v14 = [participants na_firstObjectPassingTest:&v58];
 
   if (!v14)
   {
@@ -1482,7 +1453,7 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v65 = v27;
+      v64 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Not removing participant from share: No equal participant exists on the share", buf, 0xCu);
     }
 
@@ -1500,7 +1471,7 @@ void __68__HMDCoreDataCloudShareService__fetchParticipantsForAccountHandles___bl
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v65 = v18;
+      v64 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Cannot remove participant from share: Cannot remove the owner from a share", buf, 0xCu);
     }
 
@@ -1528,7 +1499,7 @@ LABEL_15:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v65 = v32;
+      v64 = v32;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Cannot remove participant from share: Cannot remove the current user from the share", buf, 0xCu);
     }
 
@@ -1563,47 +1534,46 @@ LABEL_20:
     goto LABEL_19;
   }
 
-  v42 = objc_autoreleasePoolPush();
-  v43 = selfCopy;
-  v44 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+  v41 = objc_autoreleasePoolPush();
+  v42 = selfCopy;
+  v43 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
   {
-    v45 = HMFGetLogIdentifier();
+    v44 = HMFGetLogIdentifier();
     currentUserParticipant3 = [shareCopy currentUserParticipant];
     role2 = [currentUserParticipant3 role];
     *buf = 138543618;
-    v65 = v45;
-    v66 = 2048;
-    v67 = role2;
-    _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Current user participant with non-owner role %ld cannot remove participants from a share", buf, 0x16u);
+    v64 = v44;
+    v65 = 2048;
+    v66 = role2;
+    _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Current user participant with non-owner role %ld cannot remove participants from a share", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v42);
-  v48 = [HMDAssertionLogEvent alloc];
+  objc_autoreleasePoolPop(v41);
+  v47 = [HMDAssertionLogEvent alloc];
   currentUserParticipant4 = [shareCopy currentUserParticipant];
   role3 = [currentUserParticipant4 role];
-  v51 = [(HMDAssertionLogEvent *)v48 initWithReason:@"Current user participant with non-owner role %ld cannot remove participants from a share", role3, v59, v60, v61, v62];
+  v50 = [(HMDAssertionLogEvent *)v47 initWithReason:@"Current user participant with non-owner role %ld cannot remove participants from a share", role3, v58, v59, v60, v61];
 
-  v52 = +[HMDMetricsManager sharedLogEventSubmitter];
-  [v52 submitLogEvent:v51];
+  v51 = +[HMDMetricsManager sharedLogEventSubmitter];
+  [v51 submitLogEvent:v50];
 
-  v53 = MEMORY[0x277D0F7C0];
-  v54 = MEMORY[0x277CCA9B8];
-  v55 = MEMORY[0x277CCACA8];
+  v52 = MEMORY[0x277D0F7C0];
+  v53 = MEMORY[0x277CCA9B8];
+  v54 = MEMORY[0x277CCACA8];
   currentUserParticipant5 = [shareCopy currentUserParticipant];
-  v57 = [v55 stringWithFormat:@"Current user participant with non-owner role %ld cannot remove participants from a share", objc_msgSend(currentUserParticipant5, "role")];
-  v58 = [v54 hmfErrorWithCode:5 reason:v57];
-  v36 = [v53 futureWithError:v58];
+  v56 = [v54 stringWithFormat:@"Current user participant with non-owner role %ld cannot remove participants from a share", objc_msgSend(currentUserParticipant5, "role")];
+  v57 = [v53 hmfErrorWithCode:5 reason:v56];
+  v36 = [v52 futureWithError:v57];
 
 LABEL_21:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
 
 - (id)_addParticipant:(id)participant share:(id)share
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   shareCopy = share;
   v8 = objc_autoreleasePoolPush();
@@ -1612,18 +1582,16 @@ LABEL_21:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = participantCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding participant %@ to share", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2112;
+    v17 = participantCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding participant %@ to share", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [shareCopy addParticipant:participantCopy];
   v12 = [(HMDCoreDataCloudShareService *)selfCopy _pushUpdatedShare:shareCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1688,43 +1656,43 @@ uint64_t __84__HMDCoreDataCloudShareService__auditUsersForRevokedAccessWithAccou
   else
   {
     v8 = _HMFPreconditionFailure();
-    return __84__HMDCoreDataCloudShareService__auditUsersForRevokedAccessWithAccountHandles_share___block_invoke_2(v8);
+    return __84__HMDCoreDataCloudShareService__auditUsersForRevokedAccessWithAccountHandles_share___block_invoke_2(v8, v9);
   }
 }
 
 uint64_t __84__HMDCoreDataCloudShareService__auditUsersForRevokedAccessWithAccountHandles_share___block_invoke_2(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CBEB18];
   v5 = [*(a1 + 32) count];
   v6 = v4;
   v7 = v3;
-  v27 = [v6 arrayWithCapacity:v5];
+  v26 = [v6 arrayWithCapacity:v5];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = [v3 allKeys];
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v30;
+    v11 = *v29;
     *&v9 = 138543874;
-    v25 = v9;
-    v26 = v3;
+    v24 = v9;
+    v25 = v3;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
-        v14 = [v7 objectForKeyedSubscript:{v13, v25}];
+        v13 = *(*(&v28 + 1) + 8 * i);
+        v14 = [v7 objectForKeyedSubscript:{v13, v24}];
         v15 = [*(*(*(a1 + 48) + 8) + 40) participants];
         v16 = [v15 containsObject:v14];
 
@@ -1738,30 +1706,29 @@ uint64_t __84__HMDCoreDataCloudShareService__auditUsersForRevokedAccessWithAccou
           {
             v21 = HMFGetLogIdentifier();
             v22 = *(*(*(a1 + 48) + 8) + 40);
-            *buf = v25;
-            v34 = v21;
-            v35 = 2112;
-            v36 = v14;
-            v37 = 2112;
-            v38 = v22;
+            *buf = v24;
+            v33 = v21;
+            v34 = 2112;
+            v35 = v14;
+            v36 = 2112;
+            v37 = v22;
             _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Participant %@ no longer found on share %@", buf, 0x20u);
 
-            v7 = v26;
+            v7 = v25;
           }
 
           objc_autoreleasePoolPop(v18);
-          [v27 addObject:v13];
+          [v26 addObject:v13];
           v11 = v17;
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v10 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v10);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1817,13 +1784,13 @@ uint64_t __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandl
   else
   {
     v8 = _HMFPreconditionFailure();
-    return __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandle_share___block_invoke_2(v8);
+    return __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandle_share___block_invoke_2(v8, v9);
   }
 }
 
 uint64_t __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandle_share___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(*(a1 + 48) + 8) + 40) participants];
   v5 = [v4 containsObject:v3];
@@ -1842,13 +1809,13 @@ uint64_t __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandl
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@No matching participant %@ found on share %@ to revoke", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@No matching participant %@ found on share %@ to revoke", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1863,13 +1830,12 @@ uint64_t __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandl
 
   v13 = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 - (id)_grantAccessForUserWithAccountHandle:(id)handle share:(id)share logEventBuilder:(id)builder
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   shareCopy = share;
   builderCopy = builder;
@@ -1884,7 +1850,7 @@ uint64_t __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandl
     *&buf[12] = 2112;
     *&buf[14] = handleCopy;
     *&buf[22] = 2112;
-    v41 = shareCopy;
+    v40 = shareCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Granting access for user with account handle %@ to share: %@", buf, 0x20u);
   }
 
@@ -1892,60 +1858,58 @@ uint64_t __76__HMDCoreDataCloudShareService__revokeAccessForUserWithAccountHandl
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v41 = __Block_byref_object_copy__10242;
-  v42 = __Block_byref_object_dispose__10243;
-  v43 = 0;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = __Block_byref_object_copy__10242;
-  v38[4] = __Block_byref_object_dispose__10243;
-  v39 = 0;
+  v40 = __Block_byref_object_copy__10242;
+  v41 = __Block_byref_object_dispose__10243;
+  v42 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3032000000;
+  v37[3] = __Block_byref_object_copy__10242;
+  v37[4] = __Block_byref_object_dispose__10243;
+  v38 = 0;
   [builderCopy markAddUserBegin];
   recordID = [shareCopy recordID];
   v16 = [(HMDCoreDataCloudShareService *)selfCopy fetchShareWithRecordID:recordID];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke;
-  v35[3] = &unk_27866F240;
-  v37 = buf;
-  v35[4] = selfCopy;
-  v17 = handleCopy;
-  v36 = v17;
-  v18 = [v16 then:v35];
   v34[0] = MEMORY[0x277D85DD0];
   v34[1] = 3221225472;
-  v34[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2;
-  v34[3] = &unk_27866F2B8;
-  v34[5] = v38;
-  v34[6] = buf;
+  v34[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke;
+  v34[3] = &unk_27866F240;
+  v36 = buf;
   v34[4] = selfCopy;
-  v19 = [v18 then:v34];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2_36;
-  v30[3] = &unk_27866F2E0;
-  v33 = v38;
-  v30[4] = selfCopy;
-  v31 = builderCopy;
-  v32 = v17;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_38;
-  v26[3] = &unk_2786864A0;
-  v26[4] = selfCopy;
-  v20 = v32;
-  v27 = v20;
+  v17 = handleCopy;
+  v35 = v17;
+  v18 = [v16 then:v34];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2;
+  v33[3] = &unk_27866F2B8;
+  v33[5] = v37;
+  v33[6] = buf;
+  v33[4] = selfCopy;
+  v19 = [v18 then:v33];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2_36;
+  v29[3] = &unk_27866F2E0;
+  v32 = v37;
+  v29[4] = selfCopy;
+  v30 = builderCopy;
+  v31 = v17;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_38;
+  v25[3] = &unk_2786864A0;
+  v25[4] = selfCopy;
+  v20 = v31;
+  v26 = v20;
   v21 = shareCopy;
-  v28 = v21;
-  v22 = v31;
-  v29 = v22;
-  v23 = [v19 then:v30 orRecover:v26];
+  v27 = v21;
+  v22 = v30;
+  v28 = v22;
+  v23 = [v19 then:v29 orRecover:v25];
 
-  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(v37, 8);
   _Block_object_dispose(buf, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1965,13 +1929,13 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
   else
   {
     v8 = _HMFPreconditionFailure();
-    return __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2(v8);
+    return __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2(v8, v9);
   }
 }
 
 uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v5 = [*(*(*(a1 + 48) + 8) + 40) owner];
@@ -1992,20 +1956,20 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
         v22 = HMFGetLogIdentifier();
         v23 = *(*(*(a1 + 40) + 8) + 40);
         *buf = 138543618;
-        v35 = v22;
-        v36 = 2112;
-        v37 = v23;
+        v34 = v22;
+        v35 = 2112;
+        v36 = v23;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Removing and re-adding participant because fetched share already contains equivalent participant: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
       v24 = [*(a1 + 32) _removeParticipant:*(*(*(a1 + 40) + 8) + 40) share:*(*(*(a1 + 48) + 8) + 40)];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_35;
-      v32[3] = &unk_27866F290;
-      v33 = *(a1 + 32);
-      v25 = [v24 then:v32];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_35;
+      v31[3] = &unk_27866F290;
+      v32 = *(a1 + 32);
+      v25 = [v24 then:v31];
       if (v25)
       {
         v26 = v25;
@@ -2040,13 +2004,13 @@ LABEL_13:
     v12 = [*(*(*(a1 + 48) + 8) + 40) owner];
     v13 = *(*(*(a1 + 40) + 8) + 40);
     *buf = 138544130;
-    v35 = v11;
-    v36 = 2112;
-    v37 = v12;
-    v38 = 2112;
-    v39 = v13;
-    v40 = 2112;
-    v41 = v7;
+    v34 = v11;
+    v35 = 2112;
+    v36 = v12;
+    v37 = 2112;
+    v38 = v13;
+    v39 = 2112;
+    v40 = v7;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Refusing to grant access. Owner is same as participant. Owner: %@ Participant: %@. error: %@", buf, 0x2Au);
   }
 
@@ -2067,34 +2031,33 @@ LABEL_13:
   v29 = 2;
 LABEL_16:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_2_36(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v4 = [v3 participants];
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
+        v9 = *(*(&v31 + 1) + 8 * i);
         if ([v9 isEqual:*(*(*(a1 + 56) + 8) + 40)])
         {
           v18 = [v9 invitationToken];
@@ -2110,9 +2073,9 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
               v23 = HMFGetLogIdentifier();
               v24 = *(a1 + 48);
               *buf = 138543618;
-              v37 = v23;
-              v38 = 2112;
-              v39 = v24;
+              v36 = v23;
+              v37 = 2112;
+              v38 = v24;
               _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Successfully added user with handle %@ to share", buf, 0x16u);
             }
 
@@ -2131,7 +2094,7 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
             {
               v27 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v37 = v27;
+              v36 = v27;
               _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unexpected nil invitation token after adding user as new participant", buf, 0xCu);
             }
 
@@ -2160,7 +2123,7 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (v6)
       {
         continue;
@@ -2177,7 +2140,7 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v13;
+    v36 = v13;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unexpected no matching participant after adding user as a new participant", buf, 0xCu);
   }
 
@@ -2203,13 +2166,12 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
 
 LABEL_24:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle_share_logEventBuilder___block_invoke_38(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmd_isRecordConflictCKError];
   v5 = objc_autoreleasePoolPush();
@@ -2223,11 +2185,11 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
       v9 = HMFGetLogIdentifier();
       v10 = [v3 hmd_conciseCKError];
       v11 = [v10 shortDescription];
-      v20 = 138543618;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v11;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Failed to save share, need to resolve conflict, %{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v11;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Failed to save share, need to resolve conflict, %{public}@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -2247,11 +2209,11 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v15;
-      v22 = 2114;
-      v23 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to add participant with %{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v15;
+      v21 = 2114;
+      v22 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to add participant with %{public}@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -2271,7 +2233,6 @@ uint64_t __91__HMDCoreDataCloudShareService__grantAccessForUserWithAccountHandle
     v14 = 2;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -2329,7 +2290,7 @@ uint64_t __54__HMDCoreDataCloudShareService_acceptShareInvitation___block_invoke
 
 - (id)validateGrantingAccessForUserWithAccountHandle:(id)handle share:(id)share
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   shareCopy = share;
   v8 = objc_autoreleasePoolPush();
@@ -2343,7 +2304,7 @@ uint64_t __54__HMDCoreDataCloudShareService_acceptShareInvitation___block_invoke
     *&buf[12] = 2112;
     *&buf[14] = handleCopy;
     *&buf[22] = 2112;
-    v30 = shareCopy;
+    v29 = shareCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Validation granting access for user with account handle %@ to share: %@", buf, 0x20u);
   }
 
@@ -2351,41 +2312,39 @@ uint64_t __54__HMDCoreDataCloudShareService_acceptShareInvitation___block_invoke
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v30 = __Block_byref_object_copy__10242;
-  v31 = __Block_byref_object_dispose__10243;
-  v32 = 0;
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__10242;
-  v27[4] = __Block_byref_object_dispose__10243;
-  v28 = 0;
+  v29 = __Block_byref_object_copy__10242;
+  v30 = __Block_byref_object_dispose__10243;
+  v31 = 0;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__10242;
+  v26[4] = __Block_byref_object_dispose__10243;
+  v27 = 0;
   recordID = [shareCopy recordID];
   v13 = [(HMDCoreDataCloudShareService *)selfCopy fetchShareWithRecordID:recordID];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke;
-  v24[3] = &unk_27866F240;
-  v26 = buf;
-  v24[4] = selfCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke;
+  v23[3] = &unk_27866F240;
+  v25 = buf;
+  v23[4] = selfCopy;
   v14 = handleCopy;
-  v25 = v14;
-  v15 = [v13 then:v24];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke_2;
-  v20[3] = &unk_27866F268;
-  v22 = v27;
-  v23 = buf;
-  v20[4] = selfCopy;
+  v24 = v14;
+  v15 = [v13 then:v23];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke_2;
+  v19[3] = &unk_27866F268;
+  v21 = v26;
+  v22 = buf;
+  v19[4] = selfCopy;
   v16 = v14;
-  v21 = v16;
-  v17 = [v15 then:v20];
+  v20 = v16;
+  v17 = [v15 then:v19];
 
-  _Block_object_dispose(v27, 8);
+  _Block_object_dispose(v26, 8);
   _Block_object_dispose(buf, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2405,13 +2364,13 @@ uint64_t __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAcc
   else
   {
     v8 = _HMFPreconditionFailure();
-    return __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke_2(v8);
+    return __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke_2(v8, v9);
   }
 }
 
 uint64_t __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAccountHandle_share___block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   v5 = [*(*(*(a1 + 56) + 8) + 40) owner];
@@ -2428,15 +2387,15 @@ uint64_t __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAcc
       v11 = HMFGetLogIdentifier();
       v12 = [*(*(*(a1 + 56) + 8) + 40) owner];
       v13 = *(*(*(a1 + 48) + 8) + 40);
-      v25 = 138544130;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v12;
-      v29 = 2112;
-      v30 = v13;
-      v31 = 2112;
-      v32 = v7;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Validation failed. Share owner is same as participant. Owner: %@ Participant: %@. error: %@", &v25, 0x2Au);
+      v24 = 138544130;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v7;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Validation failed. Share owner is same as participant. Owner: %@ Participant: %@. error: %@", &v24, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -2465,18 +2424,17 @@ uint64_t __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAcc
     {
       v20 = HMFGetLogIdentifier();
       v21 = *(a1 + 40);
-      v25 = 138543618;
-      v26 = v20;
-      v27 = 2112;
-      v28 = v21;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Validated %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v21;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Validated %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
     v22 = 1;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -2497,11 +2455,11 @@ uint64_t __85__HMDCoreDataCloudShareService_validateGrantingAccessForUserWithAcc
 
 uint64_t __55__HMDCoreDataCloudShareService__acceptShareInvitation___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v11[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [*(a1 + 32) sharedStore];
   v7 = [v4 acceptShareInvitationsFromMetadata:v5 intoPersistentStore:v6];
   if (!v7)
@@ -2511,7 +2469,6 @@ uint64_t __55__HMDCoreDataCloudShareService__acceptShareInvitation___block_invok
 
   v8 = v7;
 
-  v9 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
@@ -2549,7 +2506,7 @@ uint64_t __55__HMDCoreDataCloudShareService__acceptShareInvitation___block_invok
 
 void __87__HMDCoreDataCloudShareService_acceptShareInvitationsFromMetadata_intoPersistentStore___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -2572,11 +2529,11 @@ void __87__HMDCoreDataCloudShareService_acceptShareInvitationsFromMetadata_intoP
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to accept share, no metadata returned for %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to accept share, no metadata returned for %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -2584,13 +2541,11 @@ void __87__HMDCoreDataCloudShareService_acceptShareInvitationsFromMetadata_intoP
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [v13 rejectWithError:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_acceptShareInvitationsFromMetadata:(id)metadata intoPersistentStore:(id)store completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   storeCopy = store;
   completionCopy = completion;
@@ -2601,37 +2556,35 @@ void __87__HMDCoreDataCloudShareService_acceptShareInvitationsFromMetadata_intoP
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v14;
-    v27 = 2112;
-    v28 = metadataCopy;
+    v25 = v14;
+    v26 = 2112;
+    v27 = metadataCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Accepting share invitations from metadata: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   objc_initWeak(buf, selfCopy);
   container = [(HMDCoreDataCloudShareService *)selfCopy container];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __99__HMDCoreDataCloudShareService__acceptShareInvitationsFromMetadata_intoPersistentStore_completion___block_invoke;
-  v20[3] = &unk_27866F1F0;
-  objc_copyWeak(&v24, buf);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __99__HMDCoreDataCloudShareService__acceptShareInvitationsFromMetadata_intoPersistentStore_completion___block_invoke;
+  v19[3] = &unk_27866F1F0;
+  objc_copyWeak(&v23, buf);
   v16 = completionCopy;
-  v23 = v16;
+  v22 = v16;
   v17 = metadataCopy;
-  v21 = v17;
+  v20 = v17;
   v18 = storeCopy;
-  v22 = v18;
-  [container acceptShareInvitationsFromMetadata:v17 intoPersistentStore:v18 completion:v20];
+  v21 = v18;
+  [container acceptShareInvitationsFromMetadata:v17 intoPersistentStore:v18 completion:v19];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __99__HMDCoreDataCloudShareService__acceptShareInvitationsFromMetadata_intoPersistentStore_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -2643,7 +2596,7 @@ void __99__HMDCoreDataCloudShareService__acceptShareInvitationsFromMetadata_into
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v18;
+      v31 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Lost self while accepting share invitations", buf, 0xCu);
     }
 
@@ -2687,26 +2640,26 @@ LABEL_13:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v32 = v13;
-      v33 = 2112;
-      v34 = v8;
-      v35 = 2114;
-      v36 = v6;
+      v31 = v13;
+      v32 = 2112;
+      v33 = v8;
+      v34 = 2114;
+      v35 = v6;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Retrying with %@, failed to accept share invitation due to %{public}@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
     [v8 doubleValue];
     v15 = dispatch_time(0, (v14 * 1000000000.0));
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __99__HMDCoreDataCloudShareService__acceptShareInvitationsFromMetadata_intoPersistentStore_completion___block_invoke_25;
-    v27[3] = &unk_278689AB8;
-    v27[4] = v10;
-    v28 = *(a1 + 32);
-    v29 = *(a1 + 40);
-    v30 = *(a1 + 48);
-    dispatch_after(v15, MEMORY[0x277D85CD0], v27);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __99__HMDCoreDataCloudShareService__acceptShareInvitationsFromMetadata_intoPersistentStore_completion___block_invoke_25;
+    v26[3] = &unk_278689AB8;
+    v26[4] = v10;
+    v27 = *(a1 + 32);
+    v28 = *(a1 + 40);
+    v29 = *(a1 + 48);
+    dispatch_after(v15, MEMORY[0x277D85CD0], v26);
   }
 
   else
@@ -2715,9 +2668,9 @@ LABEL_13:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v23;
-      v33 = 2114;
-      v34 = v6;
+      v31 = v23;
+      v32 = 2114;
+      v33 = v6;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to accept share invitation due to %{public}@", buf, 0x16u);
     }
 
@@ -2731,7 +2684,6 @@ LABEL_13:
   }
 
 LABEL_21:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)auditUsersForRevokedAccessWithAccountHandles:(id)handles share:(id)share
@@ -2906,10 +2858,9 @@ uint64_t __90__HMDCoreDataCloudShareService_grantAccessForUserWithAccountHandle_
 
 void __43__HMDCoreDataCloudShareService_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_10275;
-  logCategory__hmf_once_v1_10275 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_10275;
+  logCategory__hmf_once_v1_10275 = v0;
 }
 
 @end

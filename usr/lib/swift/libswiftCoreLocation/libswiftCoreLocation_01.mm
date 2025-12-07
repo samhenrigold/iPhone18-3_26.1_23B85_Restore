@@ -18,25 +18,25 @@ unint64_t lazy protocol witness table accessor for type Date and conformance Dat
   return result;
 }
 
-void type metadata completion function for CLHistoricalPlaceContext()
+void type metadata completion function for CLHistoricalPlaceContext(uint64_t a1)
 {
   type metadata accessor for Date?(319, &lazy cache variable for type metadata for Date?, MEMORY[0x1E6969530]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x1E69E6158]);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x1E6969080]);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for CLLocationCoordinate2D(319);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for Date?(319, &lazy cache variable for type metadata for UUID?, MEMORY[0x1E69695A8]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for CLClientDiagnosticMask(319);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -47,7 +47,7 @@ void type metadata completion function for CLHistoricalPlaceContext()
   }
 }
 
-void type metadata accessor for Date?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for Date?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -98,31 +98,19 @@ uint64_t CLBackgroundActivitySession.getDiagnostics()()
   else
   {
     v2 = *(v0 + 16);
-    v3 = type metadata accessor for CLBackgroundActivitySession.Diagnostics(0);
-    v4 = *(v3 + 48);
-    v5 = *(v3 + 52);
+    type metadata accessor for CLBackgroundActivitySession.Diagnostics(0);
     swift_allocObject();
-    v6 = v2;
-    v7 = v0;
-    v1 = specialized CLBackgroundActivitySession.Diagnostics.init(_:)(v6);
+    v3 = v2;
+    v1 = specialized CLBackgroundActivitySession.Diagnostics.init(_:)(v3);
 
-    v8 = *(v0 + 24);
-    *(v7 + 24) = v1;
+    *(v0 + 24) = v1;
   }
 
   return v1;
 }
 
-uint64_t CLBackgroundActivitySession.deinit()
-{
-  v1 = *(v0 + 24);
-
-  return v0;
-}
-
 uint64_t CLBackgroundActivitySession.__deallocating_deinit()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocClassInstance();
 }
@@ -138,26 +126,24 @@ uint64_t CLLocationManager.backgroundActivitySession()()
 
 uint64_t CLBackgroundActivitySession.Diagnostics.Iterator.next()(uint64_t a1)
 {
-  v3 = *(MEMORY[0x1E69E8680] + 4);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
-  *v4 = v1;
-  v4[1] = protocol witness for AsyncIteratorProtocol.next() in conformance CLIdentifiableConnectionSequence<A>.Iterator;
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
+  *v3 = v1;
+  v3[1] = protocol witness for AsyncIteratorProtocol.next() in conformance CLIdentifiableConnectionSequence<A>.Iterator;
 
-  return MEMORY[0x1EEE6D9D0](a1, v5);
+  return MEMORY[0x1EEE6D9D0](a1, v4);
 }
 
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance CLBackgroundActivitySession.Diagnostics.Iterator(uint64_t a1)
 {
-  v3 = *(MEMORY[0x1E69E8680] + 4);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
-  *v4 = v1;
-  v4[1] = protocol witness for AsyncIteratorProtocol.next() in conformance CLServiceSession.Diagnostics.Iterator;
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS8IteratorVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
+  *v3 = v1;
+  v3[1] = protocol witness for AsyncIteratorProtocol.next() in conformance CLServiceSession.Diagnostics.Iterator;
 
-  return MEMORY[0x1EEE6D9D0](a1, v5);
+  return MEMORY[0x1EEE6D9D0](a1, v4);
 }
 
 uint64_t CLBackgroundActivitySession.Diagnostics.makeAsyncIterator()()
@@ -187,29 +173,28 @@ void closure #1 in CLBackgroundActivitySession.Diagnostics.init(_:)(void *a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV__GMd, &_sScS12ContinuationV11YieldResultOy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV__GMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = v12 - v5;
-  v12[1] = a1;
-  v7 = a1;
+  v5 = v11 - v4;
+  v11[1] = a1;
+  v6 = a1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
   AsyncStream.Continuation.yield(_:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   if (one-time initialization token for logger != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, logger);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v7 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v7, logger);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&dword_1C5333000, v9, v10, "#backgroundActivitySession yielding a Diagnostic", v11, 2u);
-    MEMORY[0x1C6945100](v11, -1, -1);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&dword_1C5333000, v8, v9, "#backgroundActivitySession yielding a Diagnostic", v10, 2u);
+    MEMORY[0x1C6945100](v10, -1, -1);
   }
 }
 
@@ -252,15 +237,11 @@ uint64_t CLBackgroundActivitySession.Diagnostics.__deallocating_deinit()
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticVGMd, &_sScSy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticVGMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
-  v3 = *(*v0 + 48);
-  v4 = *(*v0 + 52);
-
   return swift_deallocClassInstance();
 }
 
 uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance CLBackgroundActivitySession.Diagnostics()
 {
-  v1 = *v0;
   CLBackgroundActivitySession.Diagnostics.makeAsyncIterator()();
 }
 
@@ -299,20 +280,19 @@ unint64_t lazy protocol witness table accessor for type CLBackgroundActivitySess
   return result;
 }
 
-void type metadata completion function for CLBackgroundActivitySession.Diagnostics()
+void type metadata completion function for CLBackgroundActivitySession.Diagnostics(uint64_t a1)
 {
   type metadata accessor for AsyncStream<CLBackgroundActivitySession.Diagnostic>(319, &lazy cache variable for type metadata for AsyncStream<CLBackgroundActivitySession.Diagnostic>, MEMORY[0x1E69E8698]);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata completion function for CLBackgroundActivitySession.Diagnostics.Iterator()
+void type metadata completion function for CLBackgroundActivitySession.Diagnostics.Iterator(uint64_t a1)
 {
   type metadata accessor for AsyncStream<CLBackgroundActivitySession.Diagnostic>(319, &lazy cache variable for type metadata for AsyncStream<CLBackgroundActivitySession.Diagnostic>.Iterator, MEMORY[0x1E69E8688]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -332,78 +312,76 @@ void type metadata accessor for AsyncStream<CLBackgroundActivitySession.Diagnost
 
 uint64_t specialized CLBackgroundActivitySession.Diagnostics.init(_:)(void *a1)
 {
-  v35 = a1;
+  v33 = a1;
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV__GMd, &_sScS12ContinuationV15BufferingPolicyOy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV__GMR);
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x1EEE9AC00](v1);
-  v5 = &v32 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
-  v33 = *(v6 - 8);
-  v7 = *(v33 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v9 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v32 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticVGMd, &_sScSy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticVGMR);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v32 - v15;
-  (*(v2 + 104))(v5, *MEMORY[0x1E69E8650], v1);
+  v4 = &v30 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
+  v31 = *(v5 - 8);
+  v6 = *(v31 + 64);
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v8 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v30 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticVGMd, &_sScSy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticVGMR);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v30 - v13;
+  (*(v2 + 104))(v4, *MEMORY[0x1E69E8650], v1);
   static AsyncStream.makeStream(of:bufferingPolicy:)();
-  v17 = v5;
-  v18 = v34;
-  (*(v2 + 8))(v17, v1);
-  v36 = v13;
-  v37 = v12;
-  v19 = v12;
-  v20 = v6;
-  v21 = v33;
-  (*(v13 + 16))(v18 + OBJC_IVAR____TtCC12CoreLocation27CLBackgroundActivitySession11Diagnostics_stream, v16, v19);
-  v22 = v35;
-  *(v18 + OBJC_IVAR____TtCC12CoreLocation27CLBackgroundActivitySession11Diagnostics_bas) = v35;
-  (*(v21 + 16))(v9, v11, v20);
-  v23 = (*(v21 + 80) + 16) & ~*(v21 + 80);
-  v24 = swift_allocObject();
-  (*(v21 + 32))(v24 + v23, v9, v20);
+  v15 = v4;
+  v16 = v32;
+  (*(v2 + 8))(v15, v1);
+  v34 = v12;
+  v35 = v11;
+  v17 = v11;
+  v18 = v5;
+  v19 = v31;
+  (*(v12 + 16))(v16 + OBJC_IVAR____TtCC12CoreLocation27CLBackgroundActivitySession11Diagnostics_stream, v14, v17);
+  v20 = v33;
+  *(v16 + OBJC_IVAR____TtCC12CoreLocation27CLBackgroundActivitySession11Diagnostics_bas) = v33;
+  (*(v19 + 16))(v8, v10, v18);
+  v21 = (*(v19 + 80) + 16) & ~*(v19 + 80);
+  v22 = swift_allocObject();
+  (*(v19 + 32))(v22 + v21, v8, v18);
   aBlock[4] = partial apply for closure #1 in CLBackgroundActivitySession.Diagnostics.init(_:);
-  aBlock[5] = v24;
+  aBlock[5] = v22;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed CLServiceSessionDiagnostic) -> ();
   aBlock[3] = &block_descriptor_4;
-  v25 = _Block_copy(aBlock);
-  v26 = v22;
+  v23 = _Block_copy(aBlock);
+  v24 = v20;
 
-  [v26 setHandler_];
-  _Block_release(v25);
+  [v24 setHandler_];
+  _Block_release(v23);
   if (one-time initialization token for logger != -1)
   {
     swift_once();
   }
 
-  v27 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v27, logger);
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v28, v29))
+  v25 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v25, logger);
+  v26 = Logger.logObject.getter();
+  v27 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v26, v27))
   {
-    v30 = swift_slowAlloc();
-    *v30 = 0;
-    _os_log_impl(&dword_1C5333000, v28, v29, "#backgroundActivitySession successfully created", v30, 2u);
-    MEMORY[0x1C6945100](v30, -1, -1);
+    v28 = swift_slowAlloc();
+    *v28 = 0;
+    _os_log_impl(&dword_1C5333000, v26, v27, "#backgroundActivitySession successfully created", v28, 2u);
+    MEMORY[0x1C6945100](v28, -1, -1);
   }
 
   AsyncStream.Continuation.onTermination.setter();
-  (*(v21 + 8))(v11, v20);
-  (*(v36 + 8))(v16, v37);
-  return v18;
+  (*(v19 + 8))(v10, v18);
+  (*(v34 + 8))(v14, v35);
+  return v16;
 }
 
 void partial apply for closure #1 in CLBackgroundActivitySession.Diagnostics.init(_:)(void *a1)
 {
-  v2 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR) - 8) + 80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMd, &_sScS12ContinuationVy12CoreLocation27CLBackgroundActivitySessionC10DiagnosticV_GMR);
 
   closure #1 in CLBackgroundActivitySession.Diagnostics.init(_:)(a1);
 }

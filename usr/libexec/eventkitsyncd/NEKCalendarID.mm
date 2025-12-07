@@ -4,6 +4,7 @@
 + (void)resetLocalCalendarCache;
 - (BOOL)isEqual:(id)equal;
 - (NEKCalendarID)initWithCalendar:(id)calendar;
+- (NEKCalendarID)initWithIdentifier:(id)identifier isDefaultLocalCalendar:(BOOL)calendar;
 - (NEKCalendarID)initWithList:(id)list;
 - (id)description;
 - (id)initUniquelyWithKey:(id)key localFlag:(BOOL)flag;
@@ -26,6 +27,30 @@
   }
 
   return v9;
+}
+
+- (NEKCalendarID)initWithIdentifier:(id)identifier isDefaultLocalCalendar:(BOOL)calendar
+{
+  calendarCopy = calendar;
+  identifierCopy = identifier;
+  v7 = identifierCopy;
+  v8 = @">>LOCAL<<";
+  if (!calendarCopy)
+  {
+    v8 = identifierCopy;
+  }
+
+  v9 = v8;
+  v10 = [[NEKCalendarID alloc] initUniquelyWithKey:v9 localFlag:calendarCopy];
+
+  if (qword_1000D1810 != -1)
+  {
+    sub_100071EC8();
+  }
+
+  v11 = [qword_1000D1818 cachedCopy:v10];
+
+  return v11;
 }
 
 - (id)description

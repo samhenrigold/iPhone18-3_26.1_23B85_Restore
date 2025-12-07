@@ -484,14 +484,14 @@ SKUIStorePageViewController *__72__SKUIIPadProductPageViewController_productPage
 {
   if (!self->_bannerText)
   {
-    v5 = SKUIAskPermissionFramework();
+    v5 = SKUIAskPermissionFramework(self, a2);
     v6 = SKUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v5);
-    v7 = SKUIAskPermissionFramework();
-    v8 = *SKUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v7);
-    v10 = [v6 _requestQueueForIdentifier:v8];
+    v8 = SKUIAskPermissionFramework(v6, v7);
+    v9 = *SKUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v8);
+    v11 = [v6 _requestQueueForIdentifier:v9];
     itemIdentifier = [(SKUIItem *)self->_item itemIdentifier];
 
-    [v10 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:itemIdentifier completionHandler:0];
+    [v11 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:itemIdentifier completionHandler:0];
   }
 }
 
@@ -802,7 +802,7 @@ LABEL_12:
   }
 
   domain = [errorCopy domain];
-  if ([domain isEqualToString:@"SKUIErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     code = [errorCopy code];
 

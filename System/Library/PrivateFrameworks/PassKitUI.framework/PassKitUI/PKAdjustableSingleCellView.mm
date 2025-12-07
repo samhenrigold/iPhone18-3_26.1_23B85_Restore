@@ -210,7 +210,7 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v70[1] = *MEMORY[0x1E69E9840];
+  v105[1] = *MEMORY[0x1E69E9840];
   traitCollection = [(PKAdjustableSingleCellView *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
@@ -299,60 +299,94 @@
   [(UIImageView *)self->_disclosureView alpha];
   if (v29 > 0.0)
   {
+    v101 = v15;
+    v30 = width;
     [(UIImageView *)self->_disclosureView sizeThatFits:v18, v20];
-    v31 = v30;
-    v72.origin.x = v16;
-    v72.origin.y = v17;
-    v72.size.width = v18;
-    v72.size.height = v20;
-    CGRectDivide(v72, &slice, &remainder, v31, v21);
+    v32 = v31;
+    v34 = v33;
+    v107.origin.x = v16;
+    v107.origin.y = v17;
+    v107.size.width = v18;
+    v107.size.height = v20;
+    CGRectDivide(v107, &slice, &remainder, v32, v21);
     if (!self->_isTemplateLayout)
     {
       disclosureView = self->_disclosureView;
-      PKSizeAlignedInRect();
+      v37.n128_u64[0] = *&slice.origin.x;
+      v38.n128_u64[0] = *&slice.origin.y;
+      v39.n128_u64[0] = *&slice.size.width;
+      v40.n128_u64[0] = *&slice.size.height;
+      v35.n128_f64[0] = v32;
+      v36.n128_u64[0] = v34;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v35, v36, v37, v38, v39, v40, v41);
       [(UIImageView *)disclosureView setFrame:?];
     }
 
     CGRectDivide(remainder, &slice, &remainder, v13, v21);
+    width = v30;
+    v15 = v101;
   }
 
-  v33 = v15 + v15;
+  v43 = v15 + v15;
   [(PKContinuousButton *)self->_actionButton alpha];
-  if (v34 > 0.0)
+  if (v44 > 0.0)
   {
     [(PKContinuousButton *)self->_actionButton sizeThatFits:remainder.size.width, remainder.size.height];
+    v47 = v46;
+    v48 = v45;
     if (IsAccessibilityCategory)
     {
-      CGRectDivide(remainder, &slice, &remainder, v35, CGRectMaxYEdge);
+      CGRectDivide(remainder, &slice, &remainder, v45, CGRectMaxYEdge);
       if (!self->_isTemplateLayout)
       {
         actionButton = self->_actionButton;
-        PKSizeAlignedInRect();
+        v51.n128_u64[0] = *&slice.origin.x;
+        v52.n128_u64[0] = *&slice.origin.y;
+        v53.n128_u64[0] = *&slice.size.width;
+        v54.n128_u64[0] = *&slice.size.height;
+        v49.n128_f64[0] = v47;
+        v50.n128_f64[0] = v48;
+        PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v49, v50, v51, v52, v53, v54, v55);
         [(PKContinuousButton *)actionButton setFrame:?];
       }
 
       CGRectDivide(remainder, &slice, &remainder, v15, CGRectMaxYEdge);
-      PKFloatRoundToPixel();
-      v33 = v33 + v37;
+      v57.n128_f64[0] = v48 + v15 * 2.0;
+      PKFloatRoundToPixel(v57, v58);
+      v43 = v43 + v59;
     }
 
     else
     {
-      PKSizeRoundToPixel();
-      CGRectDivide(remainder, &slice, &remainder, v38 + 16.0, v21);
+      v60 = remainder.size.width * 0.5;
+      if (remainder.size.width * 0.5 >= v47)
+      {
+        v60 = v47;
+      }
+
+      PKSizeRoundToPixel(v60, v45);
+      v62 = *&v61;
+      v64 = v63;
+      CGRectDivide(remainder, &slice, &remainder, v61 + 16.0, v21);
       if (!self->_isTemplateLayout)
       {
-        v39 = self->_actionButton;
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        [(PKContinuousButton *)v39 setFrame:?];
+        v65 = self->_actionButton;
+        v66 = PKContentAlignmentMake();
+        v67.n128_u64[0] = *&slice.origin.x;
+        v68.n128_u64[0] = *&slice.origin.y;
+        v69.n128_u64[0] = *&slice.size.width;
+        v70.n128_u64[0] = *&slice.size.height;
+        v71.n128_u64[0] = v62;
+        v72.n128_u64[0] = v64;
+        PKSizeAlignedInRect(v66, v71, v72, v67, v68, v69, v70, v73);
+        [(PKContinuousButton *)v65 setFrame:?];
       }
     }
   }
 
   [(UILabel *)self->_titleView sizeThatFits:remainder.size.width, 1.79769313e308];
-  v41 = v40;
-  CGRectDivide(remainder, &slice, &remainder, v40, CGRectMinYEdge);
+  v75 = v74;
+  CGRectDivide(remainder, &slice, &remainder, v74, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(UILabel *)self->_titleView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
@@ -362,29 +396,29 @@
   {
     detail = self->_detail;
     _detailFont2 = [(PKAdjustableSingleCellView *)self _detailFont];
-    v44 = remainder.size.width;
-    v45 = detail;
-    v46 = _detailFont2;
-    v47 = v45;
-    v48 = v47;
-    if (v47 && (v49 = [(NSString *)v47 length], v48, v49))
+    v78 = remainder.size.width;
+    v79 = detail;
+    v80 = _detailFont2;
+    v81 = v79;
+    v82 = v81;
+    if (v81 && (v83 = [(NSString *)v81 length], v82, v83))
     {
-      v50 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v69 = *MEMORY[0x1E69DB648];
-      v70[0] = v46;
-      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:&v69 count:1];
-      v52 = [v50 initWithString:v48 attributes:v51];
+      v84 = objc_alloc(MEMORY[0x1E696AAB0]);
+      v104 = *MEMORY[0x1E69DB648];
+      v105[0] = v80;
+      v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:&v104 count:1];
+      v86 = [v84 initWithString:v82 attributes:v85];
 
-      [v52 pkui_sizeThatFits:1 withNumberOfLines:0 forceWordWrap:{v44, 1.79769313e308}];
-      v54 = v53;
-      [v52 pkui_sizeThatFits:2 withNumberOfLines:1 forceWordWrap:?];
-      v56 = v55;
+      [v86 pkui_sizeThatFits:1 withNumberOfLines:0 forceWordWrap:{v78, 1.79769313e308}];
+      v88 = v87;
+      [v86 pkui_sizeThatFits:2 withNumberOfLines:1 forceWordWrap:?];
+      v90 = v89;
 
-      if (v56 > v54)
+      if (v90 > v88)
       {
-        v57 = self->_detailView;
+        v91 = self->_detailView;
         _smallerDetailFont = [(PKAdjustableSingleCellView *)self _smallerDetailFont];
-        [(UILabel *)v57 setFont:_smallerDetailFont];
+        [(UILabel *)v91 setFont:_smallerDetailFont];
 
         if (![(NSString *)self->_title length])
         {
@@ -399,34 +433,34 @@
     }
   }
 
-  v59 = v33 + v41;
+  v93 = v43 + v75;
   [(UILabel *)self->_detailView sizeThatFits:remainder.size.width, 1.79769313e308];
-  v61 = v60;
-  CGRectDivide(remainder, &slice, &remainder, v60, CGRectMinYEdge);
+  v95 = v94;
+  CGRectDivide(remainder, &slice, &remainder, v94, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(UILabel *)self->_detailView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  v62 = v59 + v61;
+  v96 = v93 + v95;
   if ([(PKAdjustableSingleCellView *)self _needsThirdLine])
   {
     [(UILabel *)self->_subDetailView sizeThatFits:remainder.size.width, 1.79769313e308];
-    v64 = v63;
-    CGRectDivide(remainder, &slice, &remainder, v63, CGRectMinYEdge);
+    v98 = v97;
+    CGRectDivide(remainder, &slice, &remainder, v97, CGRectMinYEdge);
     if (!self->_isTemplateLayout)
     {
       [(UILabel *)self->_subDetailView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
     }
 
-    v62 = v62 + v64;
+    v96 = v96 + v98;
     CGRectDivide(remainder, &slice, &remainder, v15, CGRectMinYEdge);
   }
 
-  v65 = width;
-  v66 = v62;
-  result.height = v66;
-  result.width = v65;
+  v99 = width;
+  v100 = v96;
+  result.height = v100;
+  result.width = v99;
   return result;
 }
 

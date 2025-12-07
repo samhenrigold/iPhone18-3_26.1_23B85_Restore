@@ -79,22 +79,19 @@ void sub_1000011A8(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10000141C(void *a1)
+void sub_10000141C(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[6];
-  v4 = a1[7];
-  v5 = PKPeerPaymentRecurringPaymentMemoImage();
-  v6 = a1[5];
-  v8 = v5;
-  if (v5)
+  v2 = PKPeerPaymentRecurringPaymentMemoImage();
+  v3 = *(a1 + 40);
+  v5 = v2;
+  if (v2)
   {
-    v7 = UIImagePNGRepresentation(v5);
-    (*(v6 + 16))(v6, v7);
+    v4 = UIImagePNGRepresentation(v2);
+    (*(v3 + 16))(v3, v4);
   }
 
   else
   {
-    (*(v6 + 16))(v6, 0);
+    (*(v3 + 16))(v3, 0);
   }
 }

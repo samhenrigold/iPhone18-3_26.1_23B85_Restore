@@ -1,4 +1,6 @@
 @interface CAFInt8Range
+- (BOOL)valueIsInRange:(char)range;
+- (char)limitedValueForValue:(char)value;
 - (char)maximumValue;
 - (char)minimumValue;
 - (char)stepValue;
@@ -31,6 +33,14 @@
   return charValue;
 }
 
+- (BOOL)valueIsInRange:(char)range
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithChar:range];
+  LOBYTE(self) = [(CAFRange *)self isInRange:v4];
+
+  return self;
+}
+
 - (char)valueRoundedToNearestStepValue:(char)value
 {
   valueCopy = value;
@@ -43,6 +53,15 @@
   }
 
   return valueCopy;
+}
+
+- (char)limitedValueForValue:(char)value
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithChar:value];
+  v5 = [(CAFRange *)self limitedToRange:v4];
+  charValue = [v5 charValue];
+
+  return charValue;
 }
 
 @end

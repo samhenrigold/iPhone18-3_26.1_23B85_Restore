@@ -600,7 +600,6 @@ LABEL_21:
   has = self->_has;
   if ((*&has & 0x40000) != 0)
   {
-    tcpECNClientNegotiationEnabled = self->_tcpECNClientNegotiationEnabled;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((*&has & 0x80000) == 0)
@@ -620,7 +619,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  tcpECNServerNegotiationEnabled = self->_tcpECNServerNegotiationEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -635,7 +633,6 @@ LABEL_4:
   }
 
 LABEL_24:
-  tcpECNClientSetup = self->_tcpECNClientSetup;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -650,7 +647,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  tcpECNServerSetup = self->_tcpECNServerSetup;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -665,7 +661,6 @@ LABEL_6:
   }
 
 LABEL_26:
-  tcpECNClientSuccess = self->_tcpECNClientSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -680,7 +675,6 @@ LABEL_7:
   }
 
 LABEL_27:
-  tcpECNServerSuccess = self->_tcpECNServerSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -695,7 +689,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  tcpECNNotSupportedPeer = self->_tcpECNNotSupportedPeer;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -710,7 +703,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  tcpECNSynLost = self->_tcpECNSynLost;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -725,7 +717,6 @@ LABEL_10:
   }
 
 LABEL_30:
-  tcpECNSynAckLost = self->_tcpECNSynAckLost;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -740,7 +731,6 @@ LABEL_11:
   }
 
 LABEL_31:
-  tcpECNRecvCE = self->_tcpECNRecvCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -755,7 +745,6 @@ LABEL_12:
   }
 
 LABEL_32:
-  tcpECNRecvECE = self->_tcpECNRecvECE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -770,7 +759,6 @@ LABEL_13:
   }
 
 LABEL_33:
-  tcpECNSentECE = self->_tcpECNSentECE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -785,7 +773,6 @@ LABEL_14:
   }
 
 LABEL_34:
-  tcpECNConnRecvCE = self->_tcpECNConnRecvCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -800,7 +787,6 @@ LABEL_15:
   }
 
 LABEL_35:
-  tcpECNConnRecvECE = self->_tcpECNConnRecvECE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -815,7 +801,6 @@ LABEL_16:
   }
 
 LABEL_36:
-  tcpECNConnPacketLossNoCE = self->_tcpECNConnPacketLossNoCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -830,7 +815,6 @@ LABEL_17:
   }
 
 LABEL_37:
-  tcpECNConnPacketLossCE = self->_tcpECNConnPacketLossCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -845,7 +829,6 @@ LABEL_18:
   }
 
 LABEL_38:
-  tcpECNConnNoPacketLossCE = self->_tcpECNConnNoPacketLossCE;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -857,7 +840,6 @@ LABEL_19:
     }
 
 LABEL_40:
-    tcpECNFallbackReorder = self->_tcpECNFallbackReorder;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x80) == 0)
     {
@@ -868,7 +850,6 @@ LABEL_40:
   }
 
 LABEL_39:
-  tcpECNFallbackSynLoss = self->_tcpECNFallbackSynLoss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) != 0)
@@ -883,7 +864,6 @@ LABEL_20:
   }
 
 LABEL_41:
-  tcpECNFallbackCE = self->_tcpECNFallbackCE;
 
   PBDataWriterWriteUint64Field();
 }
@@ -1490,7 +1470,6 @@ LABEL_21:
       goto LABEL_107;
     }
 
-    v8 = *(equal + 152);
     if (self->_tcpECNClientNegotiationEnabled)
     {
       if ((*(equal + 152) & 1) == 0)
@@ -1514,7 +1493,6 @@ LABEL_21:
   {
     if ((v7 & 0x80000) != 0)
     {
-      v9 = *(equal + 153);
       if (self->_tcpECNServerNegotiationEnabled)
       {
         if ((*(equal + 153) & 1) == 0)

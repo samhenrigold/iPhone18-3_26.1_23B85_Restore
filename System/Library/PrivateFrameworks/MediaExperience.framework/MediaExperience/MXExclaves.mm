@@ -1,4 +1,5 @@
 @interface MXExclaves
++ (id)sensorStatusToString:(unsigned int)string;
 + (id)sharedInstance;
 - (BOOL)shouldSendSensorStatusStatistics:(unsigned int)statistics newStatus:(unsigned int)status;
 - (MXExclaves)init;
@@ -30,46 +31,59 @@ MXExclaves *__28__MXExclaves_sharedInstance__block_invoke()
   return result;
 }
 
++ (id)sensorStatusToString:(unsigned int)string
+{
+  if (string - 1 >= 4)
+  {
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown(%d)", *&string];
+  }
+
+  else
+  {
+    return off_1E7AEB2F0[string - 1];
+  }
+}
+
 - (MXExclaves)init
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = MXExclaves;
-  v2 = [(MXExclaves *)&v6 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = MXExclaves;
+  v2 = [(MXExclaves *)&v8 init];
+  v4 = v2;
   if (v2)
   {
-    if (!CMSMDeviceState_DeviceHasExclaveCapability())
+    if (!CMSMDeviceState_DeviceHasExclaveCapability(v2, v3))
     {
-      goto LABEL_5;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      goto LABEL_8;
     }
 
     if (exclaves_sensor_create())
     {
       if (!dword_1EB75DE40)
       {
-LABEL_8:
+LABEL_9:
 
-        v2 = 0;
-        goto LABEL_9;
+        return 0;
       }
 
-LABEL_5:
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+LABEL_8:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      goto LABEL_8;
+      goto LABEL_9;
     }
 
-    v2->mSensorAccessCount = 0;
-    v2->mSensorPortLock = objc_alloc_init(MEMORY[0x1E696AD10]);
-    v2->mSensorStatus = 2;
-    v2->mClientsUsingSensorToRecord = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v4->mSensorAccessCount = 0;
+    v4->mSensorPortLock = objc_alloc_init(MEMORY[0x1E696AD10]);
+    v4->mSensorStatus = 2;
+    v4->mClientsUsingSensorToRecord = objc_alloc_init(MEMORY[0x1E695DF70]);
     vaeAddExclavesStatusChangedNotificationListener();
   }
 
-LABEL_9:
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
@@ -85,70 +99,69 @@ LABEL_9:
 
 - (int)updateSensorStatus:(id)status reason:(id)reason
 {
-  v34[24] = *MEMORY[0x1E69E9840];
+  v29[24] = *MEMORY[0x1E69E9840];
   if (status)
   {
-    v31 = 0;
+    v26 = 0;
     [(NSLock *)self->mSensorPortLock lock];
     if (([status isUsingExclaveSensor] & 1) != 0 || !objc_msgSend(status, "requiresExclaveSensor"))
     {
       if ([status isUsingExclaveSensor] && (objc_msgSend(status, "requiresExclaveSensor") & 1) == 0)
       {
-        mSensorPort = self->mSensorPort;
         if (exclaves_sensor_stop())
         {
 LABEL_12:
-          *v30 = 0;
+          *v25 = 0;
           type = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          v9 = -15685;
+          v8 = -15685;
 LABEL_30:
-          [(NSLock *)self->mSensorPortLock unlock:v23];
-          goto LABEL_31;
+          [(NSLock *)self->mSensorPortLock unlock];
+          return v8;
         }
 
         --self->mSensorAccessCount;
         [status setIsUsingExclaveSensor:0];
         if (dword_1EB75DE40)
         {
-          *v30 = 0;
+          *v25 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+          v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v15 = [(NSMutableArray *)self->mClientsUsingSensorToRecord copy:v23];
-        v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v16 = [v15 countByEnumeratingWithState:&v25 objects:v32 count:16];
-        if (v16)
+        v13 = [(NSMutableArray *)self->mClientsUsingSensorToRecord copy];
+        v20 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v14 = [v13 countByEnumeratingWithState:&v20 objects:v27 count:16];
+        if (v14)
         {
-          v17 = v16;
-          v18 = *v26;
+          v15 = v14;
+          v16 = *v21;
           while (2)
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v15; ++i)
             {
-              if (*v26 != v18)
+              if (*v21 != v16)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v13);
               }
 
-              v20 = *(*(&v25 + 1) + 8 * i);
-              if ([objc_msgSend(v20 "allKeys")])
+              v18 = *(*(&v20 + 1) + 8 * i);
+              if ([objc_msgSend(v18 "allKeys")])
               {
-                [(NSMutableArray *)self->mClientsUsingSensorToRecord removeObject:v20];
+                [(NSMutableArray *)self->mClientsUsingSensorToRecord removeObject:v18];
                 goto LABEL_28;
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v25 objects:v32 count:16];
-            if (v17)
+            v15 = [v13 countByEnumeratingWithState:&v20 objects:v27 count:16];
+            if (v15)
             {
               continue;
             }
@@ -162,17 +175,16 @@ LABEL_28:
 
       else if (dword_1EB75DE40)
       {
-        *v30 = 0;
+        *v25 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+        v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
     }
 
     else
     {
-      v6 = self->mSensorPort;
       if (exclaves_sensor_start())
       {
         goto LABEL_12;
@@ -182,37 +194,32 @@ LABEL_28:
       [status setIsUsingExclaveSensor:1];
       if (dword_1EB75DE40)
       {
-        *v30 = 0;
+        *v25 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+        v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
       mClientsUsingSensorToRecord = self->mClientsUsingSensorToRecord;
       displayID = [status displayID];
-      v34[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:mach_absolute_time()];
-      -[NSMutableArray addObject:](mClientsUsingSensorToRecord, "addObject:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&displayID count:1]);
+      v29[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:mach_absolute_time()];
+      -[NSMutableArray addObject:](mClientsUsingSensorToRecord, "addObject:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&displayID count:1]);
     }
 
-    v9 = 0;
+    v8 = 0;
     goto LABEL_30;
   }
 
-  v31 = 0;
-  v30[0] = OS_LOG_TYPE_DEFAULT;
-  v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v9 = -12981;
-LABEL_31:
-  v21 = *MEMORY[0x1E69E9840];
-  return v9;
+  return -12981;
 }
 
 - (void)dumpDebugInfo
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->mSensorPortLock lock];
   if (dword_1EB75DE40)
   {
@@ -221,57 +228,55 @@ LABEL_31:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  mSensorPort = self->mSensorPort;
   if (exclaves_sensor_status() || dword_1EB75DE40)
   {
-    v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE40)
     {
-      v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       if (dword_1EB75DE40)
       {
-        v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+        v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
     }
   }
 
-  [(NSLock *)self->mSensorPortLock unlock:v9];
-  v8 = *MEMORY[0x1E69E9840];
+  [(NSLock *)self->mSensorPortLock unlock];
 }
 
 - (void)handleSensorStatusChanged
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = vaeCopyExclavesSensorStatusInfo();
   v4 = objc_alloc_init(MEMORY[0x1E696AB78]);
   [v4 setDateFormat:@"YYYY.MM.dd HH:mm:ss:ms"];
-  v21 = 0u;
-  v22 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   obj = v3;
-  v18 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v18)
+  v15 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v15)
   {
-    v5 = *v20;
-    v15 = v4;
-    v16 = *v20;
+    v5 = *v17;
+    v12 = v4;
+    v13 = *v17;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v20 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = [objc_msgSend(v7 objectForKey:{@"machAbsoluteTime", "unsignedLongLongValue"}];
         [v4 stringFromDate:{objc_msgSend(MEMORY[0x1E695DF00], "dateWithTimeIntervalSinceReferenceDate:", v8)}];
         v9 = [objc_msgSend(v7 objectForKey:{@"statusRawValue", "intValue"}];
@@ -289,11 +294,11 @@ LABEL_31:
             os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
             fig_log_call_emit_and_clean_up_after_send_and_compose();
             mSensorStatus = self->mSensorStatus;
-            v4 = v15;
-            v5 = v16;
+            v4 = v12;
+            v5 = v13;
           }
 
-          if ([(MXExclaves *)self shouldSendSensorStatusStatistics:mSensorStatus newStatus:v9, v13, v14])
+          if ([(MXExclaves *)self shouldSendSensorStatusStatistics:mSensorStatus newStatus:v9])
           {
             [(MXExclaves *)self reportExclavesSensorStatusStatistics:v8 previousStatus:self->mSensorStatus newStatus:v9];
           }
@@ -307,38 +312,36 @@ LABEL_31:
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v18);
+    while (v15);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportExclavesSensorStatusStatistics:(unint64_t)statistics previousStatus:(unsigned int)status newStatus:(unsigned int)newStatus
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   obj = self->mClientsUsingSensorToRecord;
-  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         v10 = [objc_msgSend(v9 "allKeys")];
         v11 = [objc_msgSend(objc_msgSend(v9 "allValues")];
         v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:statistics - v11];
@@ -355,37 +358,33 @@ LABEL_31:
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        [+[MXAudioStatistics sendSingleMessageWithDictionary:v21]eventType:"sendSingleMessageWithDictionary:eventCategory:eventType:", v18, 2, 18];
+        [+[MXAudioStatistics sharedInstance](MXAudioStatistics sendSingleMessageWithDictionary:"sendSingleMessageWithDictionary:eventCategory:eventType:" eventCategory:v18 eventType:2, 18];
       }
 
-      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSessionTimestampFromSensorStart:(unint64_t)start
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->mClientsUsingSensorToRecord count])
   {
     v5 = [MEMORY[0x1E696AD98] numberWithLongLong:start];
     v6 = [objc_msgSend(-[NSMutableArray firstObject](self->mClientsUsingSensorToRecord "firstObject")];
     mClientsUsingSensorToRecord = self->mClientsUsingSensorToRecord;
-    v9 = v6;
-    v10[0] = v5;
-    -[NSMutableArray replaceObjectAtIndex:withObject:](mClientsUsingSensorToRecord, "replaceObjectAtIndex:withObject:", 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1]);
+    v8 = v6;
+    v9[0] = v5;
+    -[NSMutableArray replaceObjectAtIndex:withObject:](mClientsUsingSensorToRecord, "replaceObjectAtIndex:withObject:", 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldSendSensorStatusStatistics:(unsigned int)statistics newStatus:(unsigned int)status
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (statistics != status)
   {
     if (status == 1)
@@ -403,36 +402,36 @@ LABEL_31:
       }
 
       copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+      v10 = 0u;
       v11 = 0u;
       v12 = 0u;
       v13 = 0u;
-      v14 = 0u;
-      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (!v8)
       {
 LABEL_17:
 
-        goto LABEL_18;
+        return v8;
       }
 
-      v6 = *v12;
+      v6 = *v11;
 LABEL_7:
       v7 = 0;
       while (1)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        if ([*(*(&v11 + 1) + 8 * v7) isUsingExclaveSensor])
+        if ([*(*(&v10 + 1) + 8 * v7) isUsingExclaveSensor])
         {
           break;
         }
 
         if (v8 == ++v7)
         {
-          v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v17 count:16];
+          v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
           if (v8)
           {
             goto LABEL_7;
@@ -447,41 +446,37 @@ LABEL_7:
     goto LABEL_17;
   }
 
-  v16 = 0;
-  type = OS_LOG_TYPE_DEFAULT;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
   LOBYTE(v8) = 0;
-LABEL_18:
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)resetClientsStillUsingExclavesSensor
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(NSMutableArray *)self->mClientsUsingSensorToRecord removeAllObjects];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) isUsingExclaveSensor])
+        if ([*(*(&v8 + 1) + 8 * i) isUsingExclaveSensor])
         {
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -490,13 +485,11 @@ LABEL_18:
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

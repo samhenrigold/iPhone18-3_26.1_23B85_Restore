@@ -1,8 +1,19 @@
 @interface AWDMETRICSKCellularNrSDMActivation
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currentRatAsString:(int)string;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frAsString:(int)string;
+- (id)newStateAsString:(int)string;
+- (id)newStateNrsaAsString:(int)string;
+- (id)prevRatAsString:(int)string;
+- (id)prevTriggerCauseAsString:(int)string;
+- (id)saVerdictAsString:(int)string;
+- (id)stateAsString:(int)string;
+- (id)stateNrsaAsString:(int)string;
+- (id)triggerCauseAsString:(int)string;
 - (int)StringAsCurrentRat:(id)rat;
 - (int)StringAsDeployment:(id)deployment;
 - (int)StringAsFr:(id)fr;
@@ -165,6 +176,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFEFFFF | v3);
+}
+
+- (id)triggerCauseAsString:(int)string
+{
+  if (string >= 0x20)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825ABF8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsTriggerCause:(id)cause
@@ -364,6 +390,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
+}
+
+- (id)prevTriggerCauseAsString:(int)string
+{
+  if (string >= 0x20)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825ABF8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevTriggerCause:(id)cause
@@ -670,6 +711,49 @@
   self->_has = (*&self->_has & 0xFFFFFFDF | v3);
 }
 
+- (id)frAsString:(int)string
+{
+  if (string > 2)
+  {
+    if (string == 3)
+    {
+      v4 = @"POWERLOG_SUB6_MMWAVE";
+    }
+
+    else
+    {
+      if (string != 255)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"POWERLOG_INVALID";
+    }
+  }
+
+  else
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"POWERLOG_MMWAVE";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"POWERLOG_SUB6";
+  }
+
+  return v4;
+}
+
 - (int)StringAsFr:(id)fr
 {
   frCopy = fr;
@@ -729,6 +813,21 @@
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
 }
 
+- (id)deploymentAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825ACF8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeployment:(id)deployment
 {
   deploymentCopy = deployment;
@@ -781,6 +880,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFEFF | v3);
+}
+
+- (id)prevRatAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AD10[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevRat:(id)rat
@@ -837,6 +951,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFB | v3);
 }
 
+- (id)currentRatAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AD10[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCurrentRat:(id)rat
 {
   ratCopy = rat;
@@ -889,6 +1018,17 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
+}
+
+- (id)newStateAsString:(int)string
+{
+  if (string < 8)
+  {
+    return off_27825AD28[string];
+  }
+
+  [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (int)StringAsNewState:(id)state
@@ -970,6 +1110,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AD28[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsState:(id)state
 {
   stateCopy = state;
@@ -1047,6 +1202,17 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFF7F | v3);
+}
+
+- (id)newStateNrsaAsString:(int)string
+{
+  if (string < 8)
+  {
+    return off_27825AD28[string];
+  }
+
+  [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (int)StringAsNewStateNrsa:(id)nrsa
@@ -1128,6 +1294,21 @@
   self->_has = (*&self->_has & 0xFFFFDFFF | v3);
 }
 
+- (id)stateNrsaAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AD28[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsStateNrsa:(id)nrsa
 {
   nrsaCopy = nrsa;
@@ -1205,6 +1386,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFBFF | v3);
+}
+
+- (id)saVerdictAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825AD68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSaVerdict:(id)verdict
@@ -2029,7 +2225,6 @@ LABEL_33:
   has = self->_has;
   if ((*&has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x80000) == 0)
@@ -2049,7 +2244,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  fr1MeasDisabled = self->_fr1MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -2064,7 +2258,6 @@ LABEL_4:
   }
 
 LABEL_42:
-  fr2MeasDisabled = self->_fr2MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -2079,7 +2272,6 @@ LABEL_5:
   }
 
 LABEL_43:
-  prevFr1MeasDisabled = self->_prevFr1MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -2094,7 +2286,6 @@ LABEL_6:
   }
 
 LABEL_44:
-  prevFr2MeasDisabled = self->_prevFr2MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -2109,7 +2300,6 @@ LABEL_7:
   }
 
 LABEL_45:
-  triggerCause = self->_triggerCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -2124,7 +2314,6 @@ LABEL_8:
   }
 
 LABEL_46:
-  apNrRecomm = self->_apNrRecomm;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -2139,7 +2328,6 @@ LABEL_9:
   }
 
 LABEL_47:
-  apNrRecommConfFactor = self->_apNrRecommConfFactor;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -2154,7 +2342,6 @@ LABEL_10:
   }
 
 LABEL_48:
-  sib24Configured = self->_sib24Configured;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -2169,7 +2356,6 @@ LABEL_11:
   }
 
 LABEL_49:
-  durationInPrevState = self->_durationInPrevState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -2184,7 +2370,6 @@ LABEL_12:
   }
 
 LABEL_50:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -2199,7 +2384,6 @@ LABEL_13:
   }
 
 LABEL_51:
-  isRrcConnected = self->_isRrcConnected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -2214,7 +2398,6 @@ LABEL_14:
   }
 
 LABEL_52:
-  isEndcCallActive = self->_isEndcCallActive;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -2229,7 +2412,6 @@ LABEL_15:
   }
 
 LABEL_53:
-  fr = self->_fr;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -2244,7 +2426,6 @@ LABEL_16:
   }
 
 LABEL_54:
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -2259,7 +2440,6 @@ LABEL_17:
   }
 
 LABEL_55:
-  cellId = self->_cellId;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -2274,7 +2454,6 @@ LABEL_18:
   }
 
 LABEL_56:
-  deployment = self->_deployment;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -2289,7 +2468,6 @@ LABEL_19:
   }
 
 LABEL_57:
-  prevRat = self->_prevRat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -2304,7 +2482,6 @@ LABEL_20:
   }
 
 LABEL_58:
-  currentRat = self->_currentRat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -2319,7 +2496,6 @@ LABEL_21:
   }
 
 LABEL_59:
-  prevTriggerCause = self->_prevTriggerCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -2334,7 +2510,6 @@ LABEL_22:
   }
 
 LABEL_60:
-  newState = self->_newState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -2349,12 +2524,10 @@ LABEL_23:
   }
 
 LABEL_61:
-  saVerdict = self->_saVerdict;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_24:
-    stateDurationBinIndex = self->_stateDurationBinIndex;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2364,16 +2537,15 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x800) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) != 0)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
-    if ((*&v6 & 0x200000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x200000) == 0)
     {
 LABEL_29:
-      if ((*&v6 & 0x80) == 0)
+      if ((*&v5 & 0x80) == 0)
       {
         goto LABEL_30;
       }
@@ -2382,18 +2554,17 @@ LABEL_29:
     }
   }
 
-  else if ((*&v6 & 0x200000) == 0)
+  else if ((*&v5 & 0x200000) == 0)
   {
     goto LABEL_29;
   }
 
-  isDataPreferred = self->_isDataPreferred;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x80) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) == 0)
   {
 LABEL_30:
-    if ((*&v6 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_31;
     }
@@ -2402,13 +2573,12 @@ LABEL_30:
   }
 
 LABEL_65:
-  newStateNrsa = self->_newStateNrsa;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_31:
-    if ((*&v6 & 0x800000) == 0)
+    if ((*&v5 & 0x800000) == 0)
     {
       goto LABEL_32;
     }
@@ -2417,13 +2587,12 @@ LABEL_31:
   }
 
 LABEL_66:
-  stateNrsa = self->_stateNrsa;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800000) == 0)
   {
 LABEL_32:
-    if ((*&v6 & 0x20000000) == 0)
+    if ((*&v5 & 0x20000000) == 0)
     {
       goto LABEL_33;
     }
@@ -2432,13 +2601,12 @@ LABEL_32:
   }
 
 LABEL_67:
-  isRrcConnRelRequested = self->_isRrcConnRelRequested;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x20000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000000) == 0)
   {
 LABEL_33:
-    if ((*&v6 & 0x2000000) == 0)
+    if ((*&v5 & 0x2000000) == 0)
     {
       goto LABEL_34;
     }
@@ -2447,13 +2615,12 @@ LABEL_33:
   }
 
 LABEL_68:
-  ratChangeStatus = self->_ratChangeStatus;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000000) == 0)
   {
 LABEL_34:
-    if ((*&v6 & 0x10000000) == 0)
+    if ((*&v5 & 0x10000000) == 0)
     {
       goto LABEL_35;
     }
@@ -2462,13 +2629,12 @@ LABEL_34:
   }
 
 LABEL_69:
-  isSaDisabled = self->_isSaDisabled;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x10000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000000) == 0)
   {
 LABEL_35:
-    if ((*&v6 & 0x40000000) == 0)
+    if ((*&v5 & 0x40000000) == 0)
     {
       goto LABEL_37;
     }
@@ -2477,12 +2643,10 @@ LABEL_35:
   }
 
 LABEL_70:
-  prevIsSaDisabled = self->_prevIsSaDisabled;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40000000) != 0)
   {
 LABEL_36:
-    sdmScgReleased = self->_sdmScgReleased;
     PBDataWriterWriteBOOLField();
   }
 
@@ -3456,7 +3620,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v7 = *(equalCopy + 94);
     if (self->_fr1MeasDisabled)
     {
       if ((*(equalCopy + 94) & 1) == 0)
@@ -3483,7 +3646,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v8 = *(equalCopy + 95);
     if (self->_fr2MeasDisabled)
     {
       if ((*(equalCopy + 95) & 1) == 0)
@@ -3510,7 +3672,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v9 = *(equalCopy + 101);
     if (self->_prevFr1MeasDisabled)
     {
       if ((*(equalCopy + 101) & 1) == 0)
@@ -3537,7 +3698,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v10 = *(equalCopy + 102);
     if (self->_prevFr2MeasDisabled)
     {
       if ((*(equalCopy + 102) & 1) == 0)
@@ -3577,7 +3737,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v11 = *(equalCopy + 92);
     if (self->_apNrRecomm)
     {
       if ((*(equalCopy + 92) & 1) == 0)
@@ -3604,7 +3763,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v12 = *(equalCopy + 93);
     if (self->_apNrRecommConfFactor)
     {
       if ((*(equalCopy + 93) & 1) == 0)
@@ -3631,7 +3789,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v13 = *(equalCopy + 106);
     if (self->_sib24Configured)
     {
       if ((*(equalCopy + 106) & 1) == 0)
@@ -3684,7 +3841,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v14 = *(equalCopy + 99);
     if (self->_isRrcConnected)
     {
       if ((*(equalCopy + 99) & 1) == 0)
@@ -3711,7 +3867,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v15 = *(equalCopy + 97);
     if (self->_isEndcCallActive)
     {
       if ((*(equalCopy + 97) & 1) == 0)
@@ -3893,7 +4048,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v17 = *(equalCopy + 96);
     if (self->_isDataPreferred)
     {
       if ((*(equalCopy + 96) & 1) == 0)
@@ -3946,7 +4100,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v19 = *(equalCopy + 98);
     if (self->_isRrcConnRelRequested)
     {
       if ((*(equalCopy + 98) & 1) == 0)
@@ -3973,7 +4126,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v20 = *(equalCopy + 104);
     if (self->_ratChangeStatus)
     {
       if ((*(equalCopy + 104) & 1) == 0)
@@ -4000,7 +4152,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v21 = *(equalCopy + 100);
     if (self->_isSaDisabled)
     {
       if ((*(equalCopy + 100) & 1) == 0)
@@ -4027,7 +4178,6 @@ LABEL_35:
       goto LABEL_209;
     }
 
-    v22 = *(equalCopy + 103);
     if (self->_prevIsSaDisabled)
     {
       if ((*(equalCopy + 103) & 1) == 0)
@@ -4062,20 +4212,20 @@ LABEL_35:
       else if (!*(equalCopy + 105))
       {
 LABEL_211:
-        v18 = 1;
+        v8 = 1;
         goto LABEL_210;
       }
     }
 
 LABEL_209:
-    v18 = 0;
+    v8 = 0;
     goto LABEL_210;
   }
 
-  v18 = (v6 & 0x40000000) == 0;
+  v8 = (v6 & 0x40000000) == 0;
 LABEL_210:
 
-  return v18;
+  return v8;
 }
 
 - (unint64_t)hash

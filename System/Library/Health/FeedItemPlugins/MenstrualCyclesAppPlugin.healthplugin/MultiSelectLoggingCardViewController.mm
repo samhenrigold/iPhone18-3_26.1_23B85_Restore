@@ -145,7 +145,7 @@
   v8[2] = self;
   v8[3] = section;
   selfCopy = self;
-  LOBYTE(self) = sub_29E0D8ABC(sub_29DF22510, v8, "MenstrualCyclesAppPlugin/MultiSelectLoggingCardViewController.swift");
+  LOBYTE(self) = sub_29E0D8ABC(sub_29DF22510, v8, "MenstrualCyclesAppPlugin/MultiSelectLoggingCardViewController.swift", 67, 2, 229);
 
   return self & 1;
 }

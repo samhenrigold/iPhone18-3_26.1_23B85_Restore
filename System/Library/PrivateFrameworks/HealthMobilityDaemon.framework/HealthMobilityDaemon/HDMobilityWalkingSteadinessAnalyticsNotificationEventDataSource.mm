@@ -49,29 +49,28 @@
 - (id)daysSinceLastNotificationWithError:(id *)error
 {
   v5 = HKMobilityWalkingSteadinessEventType();
-  date = self->_date;
-  v7 = HDSampleEntityPredicateForEndDate();
-  v8 = MEMORY[0x277D10848];
+  v6 = HDSampleEntityPredicateForEndDate();
+  v7 = MEMORY[0x277D10848];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v17 = 0;
-  v10 = [v8 mostRecentSampleWithType:v5 profile:WeakRetained encodingOptions:0 predicate:v7 anchor:0 error:&v17];
-  v11 = v17;
+  v16 = 0;
+  v9 = [v7 mostRecentSampleWithType:v5 profile:WeakRetained encodingOptions:0 predicate:v6 anchor:0 error:&v16];
+  v10 = v16;
 
-  if (v10)
+  if (v9)
   {
-    v12 = MEMORY[0x277D11AA0];
-    endDate = [v10 endDate];
-    v14 = [v12 numberOfDaysBetweenStartDate:endDate endDate:self->_date];
+    v11 = MEMORY[0x277D11AA0];
+    endDate = [v9 endDate];
+    v13 = [v11 numberOfDaysBetweenStartDate:endDate endDate:self->_date];
     goto LABEL_8;
   }
 
-  endDate = v11;
+  endDate = v10;
   if (endDate)
   {
     if (error)
     {
-      v15 = endDate;
-      v14 = 0;
+      v14 = endDate;
+      v13 = 0;
       *error = endDate;
       goto LABEL_8;
     }
@@ -79,10 +78,10 @@
     _HKLogDroppedError();
   }
 
-  v14 = 0;
+  v13 = 0;
 LABEL_8:
 
-  return v14;
+  return v13;
 }
 
 - (id)areHealthNotificationsAuthorizedWithError:(id *)error

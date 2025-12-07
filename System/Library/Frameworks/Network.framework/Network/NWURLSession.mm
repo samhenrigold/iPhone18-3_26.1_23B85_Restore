@@ -57,15 +57,15 @@
   }
 }
 
-void __26__NWURLSession_initialize__block_invoke()
+void __26__NWURLSession_initialize__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
-  addCategories(v0, v1);
   v2 = objc_opt_class();
   v3 = objc_opt_class();
-
   addCategories(v2, v3);
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+
+  addCategories(v4, v5);
 }
 
 - (void)checkForCompletion
@@ -600,22 +600,22 @@ LABEL_13:
   return v21;
 }
 
-void __71__NWURLSession__downloadTaskWithResumeData_delegate_completionHandler___block_invoke(uint64_t a1)
+void __71__NWURLSession__downloadTaskWithResumeData_delegate_completionHandler___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2 && *(v2 + 28) == 1)
   {
     v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"URLSessionDownloadTask created on an invalidated session" userInfo:0];
     objc_exception_throw(v22);
   }
 
-  v3 = [NWURLSessionDownloadResumeInfo infoWithResumeData:*(a1 + 40)];
+  v3 = [NWURLSessionDownloadResumeInfo infoWithResumeData:a1[5]];
   if (v3)
   {
     v23 = v3;
     v4 = [NWURLSessionRequestBodyInfo alloc];
     v5 = [v23 currentRequest];
-    v6 = *(a1 + 32);
+    v6 = a1[4];
     if (v6)
     {
       v7 = *(v6 + 144);
@@ -628,14 +628,14 @@ void __71__NWURLSession__downloadTaskWithResumeData_delegate_completionHandler__
 
     v8 = [(NWURLSessionRequestBodyInfo *)v4 initWithRequest:v5 queue:v7];
 
-    v9 = [[NWURLSessionResponseConsumerDownload alloc] initWithResumeInfo:v23 completionHandler:*(a1 + 56)];
+    v9 = [[NWURLSessionResponseConsumerDownload alloc] initWithResumeInfo:v23 completionHandler:a1[7]];
     v10 = [NWURLSessionDownloadTask alloc];
-    v11 = *(a1 + 32);
+    v11 = a1[4];
     if (v11)
     {
       v12 = *(v11 + 32) + 1;
       *(v11 + 32) = v12;
-      v13 = *(a1 + 32);
+      v13 = a1[4];
     }
 
     else
@@ -645,15 +645,15 @@ void __71__NWURLSession__downloadTaskWithResumeData_delegate_completionHandler__
     }
 
     v14 = [(NWURLSessionTask *)&v10->super.super.isa initWithResumeInfo:v23 identifier:v12 session:v13];
-    v15 = *(*(a1 + 64) + 8);
+    v15 = *(a1[8] + 8);
     v16 = *(v15 + 40);
     *(v15 + 40) = v14;
 
-    v17 = *(*(*(a1 + 64) + 8) + 40);
-    if (v17 && (objc_storeStrong((v17 + 432), v8), (v18 = *(*(*(a1 + 64) + 8) + 40)) != 0))
+    v17 = *(*(a1[8] + 8) + 40);
+    if (v17 && (objc_storeStrong((v17 + 432), v8), (v18 = *(*(a1[8] + 8) + 40)) != 0))
     {
       objc_storeStrong((v18 + 440), v9);
-      v19 = *(*(*(a1 + 64) + 8) + 40);
+      v19 = *(*(a1[8] + 8) + 40);
     }
 
     else
@@ -661,8 +661,8 @@ void __71__NWURLSession__downloadTaskWithResumeData_delegate_completionHandler__
       v19 = 0;
     }
 
-    [v19 setDelegate:*(a1 + 48)];
-    v20 = *(a1 + 32);
+    [v19 setDelegate:a1[6]];
+    v20 = a1[4];
     if (v20)
     {
       v21 = *(v20 + 104);
@@ -673,7 +673,7 @@ void __71__NWURLSession__downloadTaskWithResumeData_delegate_completionHandler__
       v21 = 0;
     }
 
-    [v21 addObject:*(*(*(a1 + 64) + 8) + 40)];
+    [v21 addObject:*(*(a1[8] + 8) + 40)];
 
     v3 = v23;
   }
@@ -1223,26 +1223,26 @@ void __68__NWURLSession__downloadTaskWithRequest_delegate_completionHandler___bl
   return v21;
 }
 
-void __69__NWURLSession__uploadTaskWithResumeData_delegate_completionHandler___block_invoke(uint64_t a1)
+void __69__NWURLSession__uploadTaskWithResumeData_delegate_completionHandler___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2 && *(v2 + 28) == 1)
   {
     v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"URLSessionUploadTask created on an invalidated session" userInfo:0];
     objc_exception_throw(v16);
   }
 
-  v3 = [NWURLSessionUploadResumeInfo infoWithResumeData:*(a1 + 40)];
+  v3 = [NWURLSessionUploadResumeInfo infoWithResumeData:a1[5]];
   if (v3)
   {
     v17 = v3;
     v4 = [NWURLSessionUploadTask alloc];
-    v5 = *(a1 + 32);
+    v5 = a1[4];
     if (v5)
     {
       v6 = *(v5 + 32) + 1;
       *(v5 + 32) = v6;
-      v7 = *(a1 + 32);
+      v7 = a1[4];
     }
 
     else
@@ -1252,11 +1252,11 @@ void __69__NWURLSession__uploadTaskWithResumeData_delegate_completionHandler___b
     }
 
     v8 = [(NWURLSessionUploadTask *)&v4->super.super.super.isa initWithUploadResumeInfo:v17 identifier:v6 session:v7];
-    v9 = *(*(a1 + 64) + 8);
+    v9 = *(a1[8] + 8);
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
 
-    if (*(a1 + 56))
+    if (a1[7])
     {
       v11 = [[NWURLSessionResponseConsumerDataCompletionHandler alloc] initWithCompletionHandler:?];
     }
@@ -1267,14 +1267,14 @@ void __69__NWURLSession__uploadTaskWithResumeData_delegate_completionHandler___b
     }
 
     v12 = v11;
-    v13 = *(*(*(a1 + 64) + 8) + 40);
+    v13 = *(*(a1[8] + 8) + 40);
     if (v13)
     {
       objc_storeStrong((v13 + 440), v11);
     }
 
-    [*(*(*(a1 + 64) + 8) + 40) setDelegate:*(a1 + 48)];
-    v14 = *(a1 + 32);
+    [*(*(a1[8] + 8) + 40) setDelegate:a1[6]];
+    v14 = a1[4];
     if (v14)
     {
       v15 = *(v14 + 104);
@@ -1285,7 +1285,7 @@ void __69__NWURLSession__uploadTaskWithResumeData_delegate_completionHandler___b
       v15 = 0;
     }
 
-    [v15 addObject:*(*(*(a1 + 64) + 8) + 40)];
+    [v15 addObject:*(*(a1[8] + 8) + 40)];
     v3 = v17;
   }
 }
@@ -1692,25 +1692,25 @@ LABEL_13:
   return v21;
 }
 
-void __60__NWURLSession__dataTaskWithURL_delegate_completionHandler___block_invoke(uint64_t a1)
+void __60__NWURLSession__dataTaskWithURL_delegate_completionHandler___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2 && *(v2 + 28) == 1)
   {
     v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:@"URLSessionTask created on an invalidated session" userInfo:0];
     objc_exception_throw(v15);
   }
 
-  v3 = [MEMORY[0x1E695AC18] requestWithURL:*(a1 + 40)];
+  v3 = [MEMORY[0x1E695AC18] requestWithURL:a1[5]];
   v16 = [(NWURLSession *)v2 preparedRequestFromRequest:v3 bodyInfo:0];
 
   v4 = [NWURLSessionDataTask alloc];
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   if (v5)
   {
     v6 = *(v5 + 32) + 1;
     *(v5 + 32) = v6;
-    v7 = *(a1 + 32);
+    v7 = a1[4];
   }
 
   else
@@ -1720,20 +1720,20 @@ void __60__NWURLSession__dataTaskWithURL_delegate_completionHandler___block_invo
   }
 
   v8 = [(NWURLSessionTask *)&v4->super.super.isa initWithRequest:v16 identifier:v6 session:v7];
-  v9 = *(*(a1 + 64) + 8);
+  v9 = *(a1[8] + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
   v11 = [[NWURLSessionResponseConsumerDataCompletionHandler alloc] initWithCompletionHandler:?];
-  v12 = *(*(*(a1 + 64) + 8) + 40);
+  v12 = *(*(a1[8] + 8) + 40);
   if (v12)
   {
     objc_storeStrong((v12 + 440), v11);
   }
 
-  [*(*(*(a1 + 64) + 8) + 40) setPrefersIncrementalDelivery:0];
-  [*(*(*(a1 + 64) + 8) + 40) setDelegate:*(a1 + 48)];
-  v13 = *(a1 + 32);
+  [*(*(a1[8] + 8) + 40) setPrefersIncrementalDelivery:0];
+  [*(*(a1[8] + 8) + 40) setDelegate:a1[6]];
+  v13 = a1[4];
   if (v13)
   {
     v14 = *(v13 + 104);
@@ -1744,7 +1744,7 @@ void __60__NWURLSession__dataTaskWithURL_delegate_completionHandler___block_invo
     v14 = 0;
   }
 
-  [v14 addObject:*(*(*(a1 + 64) + 8) + 40)];
+  [v14 addObject:*(*(a1[8] + 8) + 40)];
 }
 
 - (id)_dataTaskWithRequest:(id)request delegate:(id)delegate completionHandler:(id)handler
@@ -3948,7 +3948,7 @@ void __34__NWURLSession_checkForCompletion__block_invoke_2(uint64_t a1, const ch
             objc_enumerationMutation(v5);
           }
 
-          nw_protocol_http_messaging_teardown([*(*(&v25 + 1) + 8 * i) unsignedIntegerValue]);
+          nw_protocol_http_messaging_teardown([*(*(&v25 + 1) + 8 * i) unsignedIntegerValue], 0);
         }
 
         v7 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
@@ -4458,7 +4458,7 @@ LABEL_38:
 
 void __62__NWURLSession_systemPowerChangedNotification_notificationID___block_invoke(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (__nwlog_url_log::onceToken != -1)
   {
     dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
@@ -4467,8 +4467,8 @@ void __62__NWURLSession_systemPowerChangedNotification_notificationID___block_in
   v2 = gurlLogObj;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9[0]) = 0;
-    _os_log_impl(&dword_181A37000, v2, OS_LOG_TYPE_INFO, "Continuing system sleep", v9, 2u);
+    LOWORD(v8[0]) = 0;
+    _os_log_impl(&dword_181A37000, v2, OS_LOG_TYPE_INFO, "Continuing system sleep", v8, 2u);
   }
 
   v3 = a1[4];
@@ -4485,22 +4485,22 @@ void __62__NWURLSession_systemPowerChangedNotification_notificationID___block_in
   v5 = IOAllowPowerChange(v4, a1[6]);
   if (v5)
   {
-    v7 = v5;
+    v6 = v5;
     if (__nwlog_url_log::onceToken != -1)
     {
       dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
     }
 
-    v8 = gurlLogObj;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = gurlLogObj;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9[0] = 67109120;
-      v9[1] = v7;
-      _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_ERROR, "Failed to continue system sleep: %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = v6;
+      _os_log_impl(&dword_181A37000, v7, OS_LOG_TYPE_ERROR, "Failed to continue system sleep: %d", v8, 8u);
     }
   }
 
-  nw_queue_cancel_source(*(*(a1[5] + 8) + 24), v6);
+  nw_queue_cancel_source(*(*(a1[5] + 8) + 24));
 }
 
 - (BOOL)isKindOfClass:(Class)class

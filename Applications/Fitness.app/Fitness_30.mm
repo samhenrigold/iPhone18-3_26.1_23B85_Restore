@@ -2,13 +2,13 @@ void sub_100396C7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v29 = a2;
   v30 = a3;
-  v7 = sub_100140278(&unk_1008DB8A0);
+  v7 = sub_100140278(&unk_1008DB8A0, qword_1006DBA20);
   v28 = *(v7 - 8);
   v8 = *(v28 + 64);
   __chkstk_darwin(v7 - 8);
   v10 = &v27 - v9;
   v11 = objc_opt_self();
-  sub_100140278(&qword_1008DE3E8);
+  sub_100140278(&qword_1008DE3E8, &unk_1006E33C0);
   v12 = type metadata accessor for UUID();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 80) + 32) & ~*(v13 + 80);
@@ -19,14 +19,14 @@ void sub_100396C7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   swift_setDeallocating();
   (*(v13 + 8))(v15 + v14, v12);
   swift_deallocClassInstance();
-  sub_10039D820(&qword_1008E4E10, &type metadata accessor for UUID);
+  sub_10039D820(&qword_1008E4E10, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v17 = [v11 predicateForObjectsWithUUIDs:isa];
 
-  sub_1000059F8(0, &unk_1008E4E30);
+  sub_1000059F8(0, &unk_1008E4E30, HKSampleType_ptr);
   v18 = [swift_getObjCClassFromMetadata() workoutType];
-  sub_10001B104(v29, v10, &unk_1008DB8A0);
+  sub_10001B104(v29, v10, &unk_1008DB8A0, qword_1006DBA20);
   v19 = (*(v28 + 80) + 16) & ~*(v28 + 80);
   v20 = (v8 + v19 + 7) & 0xFFFFFFFFFFFFFFF8;
   v21 = swift_allocObject();
@@ -117,7 +117,7 @@ void sub_100397060(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void *a5
       if ((*(*(v24 - 8) + 48))(a4, 1, v24) != 1)
       {
         v26 = [v23 workoutActivities];
-        sub_1000059F8(0, &qword_1008EAF90);
+        sub_1000059F8(0, &qword_1008EAF90, HKWorkoutActivity_ptr);
         v27 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
         v42 = &v41;
@@ -126,7 +126,7 @@ void sub_100397060(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void *a5
         v25 = sub_10042C650(sub_10039EB5C, (&v41 - 4), v27);
       }
 
-      sub_1000059F8(0, &qword_1008E3FD0);
+      sub_1000059F8(0, &qword_1008E3FD0, OS_dispatch_queue_ptr);
       v42 = static OS_dispatch_queue.main.getter();
       v29 = swift_allocObject();
       v29[2] = a5;
@@ -149,9 +149,9 @@ void sub_100397060(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void *a5
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      sub_10039D820(&qword_1008E33B0, &type metadata accessor for DispatchWorkItemFlags);
-      sub_100140278(&unk_1008E7F50);
-      sub_100282B7C(&qword_1008E33C0, &unk_1008E7F50);
+      sub_10039D820(&qword_1008E33B0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      sub_100140278(&unk_1008E7F50, &qword_1006D8190);
+      sub_100282B7C(&qword_1008E33C0, &unk_1008E7F50, &qword_1006D8190);
       dispatch thunk of SetAlgebra.init<A>(_:)();
       v35 = v42;
       OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -175,11 +175,11 @@ uint64_t sub_100397550(id *a1, uint64_t a2)
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v24 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100140278(&unk_1008E4E40);
+  v6 = sub_100140278(&unk_1008E4E40, &unk_1006E33D0);
   v7 = v6 - 8;
   __chkstk_darwin(v6);
   v9 = &v24 - v8;
-  v10 = sub_100140278(&unk_1008DB8A0);
+  v10 = sub_100140278(&unk_1008DB8A0, qword_1006DBA20);
   __chkstk_darwin(v10 - 8);
   v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   *&v14 = __chkstk_darwin(v13).n128_u64[0];
@@ -189,41 +189,41 @@ uint64_t sub_100397550(id *a1, uint64_t a2)
 
   (*(v4 + 56))(v16, 0, 1, v3);
   v18 = *(v7 + 56);
-  sub_10001B104(v16, v9, &unk_1008DB8A0);
-  sub_10001B104(v25, &v9[v18], &unk_1008DB8A0);
+  sub_10001B104(v16, v9, &unk_1008DB8A0, qword_1006DBA20);
+  sub_10001B104(v25, &v9[v18], &unk_1008DB8A0, qword_1006DBA20);
   v19 = *(v4 + 48);
   if (v19(v9, 1, v3) != 1)
   {
-    sub_10001B104(v9, v12, &unk_1008DB8A0);
+    sub_10001B104(v9, v12, &unk_1008DB8A0, qword_1006DBA20);
     if (v19(&v9[v18], 1, v3) != 1)
     {
       v21 = v24;
       (*(v4 + 32))(v24, &v9[v18], v3);
-      sub_10039D820(&qword_1008EAFA0, &type metadata accessor for UUID);
+      sub_10039D820(&qword_1008EAFA0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v20 = dispatch thunk of static Equatable.== infix(_:_:)();
       v22 = *(v4 + 8);
       v22(v21, v3);
-      sub_10000EA04(v16, &unk_1008DB8A0);
+      sub_10000EA04(v16, &unk_1008DB8A0, qword_1006DBA20);
       v22(v12, v3);
-      sub_10000EA04(v9, &unk_1008DB8A0);
+      sub_10000EA04(v9, &unk_1008DB8A0, qword_1006DBA20);
       return v20 & 1;
     }
 
-    sub_10000EA04(v16, &unk_1008DB8A0);
+    sub_10000EA04(v16, &unk_1008DB8A0, qword_1006DBA20);
     (*(v4 + 8))(v12, v3);
     goto LABEL_6;
   }
 
-  sub_10000EA04(v16, &unk_1008DB8A0);
+  sub_10000EA04(v16, &unk_1008DB8A0, qword_1006DBA20);
   if (v19(&v9[v18], 1, v3) != 1)
   {
 LABEL_6:
-    sub_10000EA04(v9, &unk_1008E4E40);
+    sub_10000EA04(v9, &unk_1008E4E40, &unk_1006E33D0);
     v20 = 0;
     return v20 & 1;
   }
 
-  sub_10000EA04(v9, &unk_1008DB8A0);
+  sub_10000EA04(v9, &unk_1008DB8A0, qword_1006DBA20);
   v20 = 1;
   return v20 & 1;
 }
@@ -232,19 +232,19 @@ void sub_100397B04(char a1)
 {
   v2 = *(v1 + OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_context);
   v3 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_historyDataProvider);
-  v116 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_fitnessAppContext);
+  v117 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_fitnessAppContext);
   v4 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_fiuiFormattingManager);
-  v119 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_workoutFormattingManager);
+  v120 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_workoutFormattingManager);
   v5 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_healthStore);
   v6 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_fiuiModel);
-  v122 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_badgeImageFactory);
+  v123 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_badgeImageFactory);
   v7 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_friendListManager);
   v8 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_achievementLocalizationProvider);
   v9 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_pauseRingsCoordinator);
   v10 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_achievementResourceProvider);
   v11 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_chAwardsDataProvider);
-  v128 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_mindfulnessSessionFormattingManager);
-  v125 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_stackFormattingManager);
+  v129 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_mindfulnessSessionFormattingManager);
+  v126 = *(v2 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_stackFormattingManager);
   v12 = type metadata accessor for HistoryListViewController();
   v13 = objc_allocWithZone(v12);
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_dataSource] = 0;
@@ -259,76 +259,76 @@ void sub_100397B04(char a1)
   *v15 = 0;
   *(v15 + 4) = 1792;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_dataProvider] = v3;
-  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_fitnessAppContext] = v116;
+  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_fitnessAppContext] = v117;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_fiuiFormattingManager] = v4;
-  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_workoutFormattingManager] = v119;
+  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_workoutFormattingManager] = v120;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_healthStore] = v5;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_model] = v6;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_friendListManager] = v7;
-  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_badgeImageFactory] = v122;
+  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_badgeImageFactory] = v123;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_achievementLocalizationProvider] = v8;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_pauseRingsCoordinator] = v9;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_achievementResourceProvider] = v10;
   *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_awardsDataProvider] = v11;
-  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_mindfulnessSessionFormattingManager] = v128;
-  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_stackFormattingManager] = v125;
-  v134.receiver = v13;
-  v134.super_class = v12;
-  v114 = v3;
-  v117 = v116;
-  v112 = v4;
-  v120 = v119;
-  v110 = v5;
-  v108 = v6;
-  v16 = v122;
+  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_mindfulnessSessionFormattingManager] = v129;
+  *&v13[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_stackFormattingManager] = v126;
+  v135.receiver = v13;
+  v135.super_class = v12;
+  v115 = v3;
+  v118 = v117;
+  v113 = v4;
+  v121 = v120;
+  v111 = v5;
+  v109 = v6;
+  v16 = v123;
   v17 = v7;
   v18 = v8;
   v19 = v9;
   v20 = v10;
   v21 = v11;
-  v129 = v128;
-  v126 = v125;
-  v22 = v114;
-  v123 = v117;
-  v118 = v112;
-  v23 = v120;
-  v24 = v110;
-  v121 = v108;
-  v25 = v17;
-  v109 = v16;
-  v115 = v18;
-  v113 = v19;
-  v111 = v20;
-  v105 = v21;
   v130 = v129;
   v127 = v126;
-  v26 = objc_msgSendSuper2(&v134, "initWithNibName:bundle:", 0, 0);
+  v22 = v115;
+  v124 = v118;
+  v119 = v113;
+  v23 = v121;
+  v24 = v111;
+  v122 = v109;
+  v25 = v17;
+  v110 = v16;
+  v116 = v18;
+  v114 = v19;
+  v112 = v20;
+  v106 = v21;
+  v131 = v130;
+  v128 = v127;
+  v26 = objc_msgSendSuper2(&v135, "initWithNibName:bundle:", 0, 0);
   v27 = *&v26[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterValue];
-  LODWORD(v20) = *&v26[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterValue + 8];
-  v28 = v26;
-  v29 = sub_100448AF0(v27, v20);
+  v28 = *&v26[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterValue + 8];
+  v29 = v26;
+  sub_100448AF0(v27, v28);
   v31 = v30;
-  *&v28[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_allHistoryItems] = v29;
+  *&v29[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_allHistoryItems] = v32;
 
-  *&v28[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_workoutStatistics] = v31;
+  *&v29[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_workoutStatistics] = v31;
 
-  v32 = swift_allocObject();
+  v33 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v33 = objc_allocWithZone(type metadata accessor for HistoryFilterUIViewController());
-  v34 = sub_1002586AC(sub_100282934, v32);
-  v35 = OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterViewController;
-  v36 = *&v28[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterViewController];
-  *&v28[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterViewController] = v34;
+  v34 = objc_allocWithZone(type metadata accessor for HistoryFilterUIViewController());
+  v35 = sub_1002586AC(sub_100282934, v33);
+  v36 = OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterViewController;
+  v37 = *&v29[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterViewController];
+  *&v29[OBJC_IVAR____TtC10FitnessApp25HistoryListViewController_filterViewController] = v35;
 
-  v37 = *&v22[OBJC_IVAR___CHHistoryDataProvider_lock];
-  v38 = v22;
-  v39 = v34;
-  os_unfair_lock_lock(v37 + 4);
-  sub_1001DF0A8(v131);
-  os_unfair_lock_unlock(v37 + 4);
-  if (*(v131[0] + 16))
+  v38 = *&v22[OBJC_IVAR___CHHistoryDataProvider_lock];
+  v39 = v22;
+  v40 = v35;
+  os_unfair_lock_lock(v38 + 4);
+  sub_1001DF0A8(v132);
+  os_unfair_lock_unlock(v38 + 4);
+  if (*(v132[0] + 16))
   {
-    *&v39[OBJC_IVAR____TtC10FitnessApp29HistoryFilterUIViewController_historyTypes] = v131[0];
+    *&v40[OBJC_IVAR____TtC10FitnessApp29HistoryFilterUIViewController_historyTypes] = v132[0];
 
     sub_100258840();
   }
@@ -337,75 +337,75 @@ void sub_100397B04(char a1)
   {
   }
 
-  v40 = [objc_opt_self() mainBundle];
-  v41 = String._bridgeToObjectiveC()();
-  v42 = [v40 localizedStringForKey:v41 value:0 table:0];
+  v41 = [objc_opt_self() mainBundle];
+  v42 = String._bridgeToObjectiveC()();
+  v43 = [v41 localizedStringForKey:v42 value:0 table:0];
 
-  if (!v42)
+  if (!v43)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v42 = String._bridgeToObjectiveC()();
+    v43 = String._bridgeToObjectiveC()();
   }
 
-  [v28 setTitle:v42];
-  v43 = [v28 tableView];
-  if (!v43)
+  [v29 setTitle:v43];
+  v44 = [v29 tableView];
+  if (!v44)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  v44 = v43;
-  [v43 setSectionHeaderTopPadding:0.0];
+  v45 = v44;
+  [v44 setSectionHeaderTopPadding:0.0];
 
-  v45 = [v28 tableView];
-  if (!v45)
+  v46 = [v29 tableView];
+  if (!v46)
   {
 LABEL_30:
     __break(1u);
     goto LABEL_31;
   }
 
-  v46 = v45;
-  [v45 setSeparatorStyle:0];
+  v47 = v46;
+  [v46 setSeparatorStyle:0];
 
-  v47 = [v28 tableView];
-  if (!v47)
+  v48 = [v29 tableView];
+  if (!v48)
   {
 LABEL_31:
     __break(1u);
     goto LABEL_32;
   }
 
-  v48 = v47;
-  v49 = *&v28[v35];
-  if (!v49)
+  v49 = v48;
+  v50 = *&v29[v36];
+  if (!v50)
   {
 LABEL_32:
     __break(1u);
     goto LABEL_33;
   }
 
-  v50 = [v49 view];
-  if (!v50)
+  v51 = [v50 view];
+  if (!v51)
   {
 LABEL_33:
     __break(1u);
     goto LABEL_34;
   }
 
-  v51 = v50;
-  [v50 frame];
-  v53 = v52;
-  v55 = v54;
-  v57 = v56;
-  v59 = v58;
+  v52 = v51;
+  [v51 frame];
+  v54 = v53;
+  v56 = v55;
+  v58 = v57;
+  v60 = v59;
 
-  v60 = [objc_allocWithZone(UIView) initWithFrame:{v53, v55, v57, v59}];
-  [v48 setTableHeaderView:v60];
+  v61 = [objc_allocWithZone(UIView) initWithFrame:{v54, v56, v58, v60}];
+  [v49 setTableHeaderView:v61];
 
-  v61 = [v28 tableView];
-  if (!v61)
+  v62 = [v29 tableView];
+  if (!v62)
   {
 LABEL_34:
     __break(1u);
@@ -414,173 +414,173 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v62 = v61;
-  v63 = [v61 tableHeaderView];
+  v63 = v62;
+  v64 = [v62 tableHeaderView];
 
-  if (v63)
+  if (v64)
   {
-    v64 = *&v28[v35];
-    if (!v64)
+    v65 = *&v29[v36];
+    if (!v65)
     {
 LABEL_40:
       __break(1u);
       goto LABEL_41;
     }
 
-    v65 = [v64 view];
-    if (!v65)
+    v66 = [v65 view];
+    if (!v66)
     {
 LABEL_41:
       __break(1u);
       return;
     }
 
-    v66 = v65;
-    [v63 addSubview:v65];
+    v67 = v66;
+    [v64 addSubview:v66];
   }
 
-  v124 = v24;
-  v67 = [v28 tableView];
-  if (!v67)
+  v125 = v24;
+  v68 = [v29 tableView];
+  if (!v68)
   {
     goto LABEL_35;
   }
 
-  v68 = v67;
-  v69 = v25;
-  sub_1000059F8(0, &unk_1008E4DF0);
+  v69 = v68;
+  v70 = v25;
+  sub_1000059F8(0, &unk_1008E4DF0, off_100832810);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v71 = String._bridgeToObjectiveC()();
-  [v68 registerClass:ObjCClassFromMetadata forHeaderFooterViewReuseIdentifier:v71];
+  v72 = String._bridgeToObjectiveC()();
+  [v69 registerClass:ObjCClassFromMetadata forHeaderFooterViewReuseIdentifier:v72];
 
-  v72 = [v28 tableView];
-  if (!v72)
+  v73 = [v29 tableView];
+  if (!v73)
   {
 LABEL_36:
     __break(1u);
     goto LABEL_37;
   }
 
-  v73 = v72;
-  sub_1000059F8(0, &unk_1008EAF80);
-  v74 = swift_getObjCClassFromMetadata();
-  v75 = String._bridgeToObjectiveC()();
-  [v73 registerClass:v74 forCellReuseIdentifier:v75];
+  v74 = v73;
+  sub_1000059F8(0, &unk_1008EAF80, off_100832808);
+  v75 = swift_getObjCClassFromMetadata();
+  v76 = String._bridgeToObjectiveC()();
+  [v74 registerClass:v75 forCellReuseIdentifier:v76];
 
-  v76 = [v28 tableView];
-  if (!v76)
+  v77 = [v29 tableView];
+  if (!v77)
   {
 LABEL_37:
     __break(1u);
     goto LABEL_38;
   }
 
-  v77 = v76;
+  v78 = v77;
   type metadata accessor for MindfulnessSessionListTableViewCell();
-  v78 = swift_getObjCClassFromMetadata();
-  v79 = String._bridgeToObjectiveC()();
-  [v77 registerClass:v78 forCellReuseIdentifier:v79];
+  v79 = swift_getObjCClassFromMetadata();
+  v80 = String._bridgeToObjectiveC()();
+  [v78 registerClass:v79 forCellReuseIdentifier:v80];
 
-  v80 = [v28 tableView];
-  if (!v80)
+  v81 = [v29 tableView];
+  if (!v81)
   {
 LABEL_38:
     __break(1u);
     goto LABEL_39;
   }
 
-  v81 = v80;
+  v82 = v81;
   type metadata accessor for WorkoutsListTableViewCell();
-  v82 = swift_getObjCClassFromMetadata();
-  v83 = String._bridgeToObjectiveC()();
-  [v81 registerClass:v82 forCellReuseIdentifier:v83];
+  v83 = swift_getObjCClassFromMetadata();
+  v84 = String._bridgeToObjectiveC()();
+  [v82 registerClass:v83 forCellReuseIdentifier:v84];
 
-  v84 = [v28 tableView];
-  if (!v84)
+  v85 = [v29 tableView];
+  if (!v85)
   {
 LABEL_39:
     __break(1u);
     goto LABEL_40;
   }
 
-  type metadata accessor for StackListTableViewCell();
-  v85 = swift_getObjCClassFromMetadata();
-  v86 = String._bridgeToObjectiveC()();
-  [v84 registerClass:v85 forCellReuseIdentifier:v86];
+  type metadata accessor for StackListTableViewCell(0);
+  v86 = swift_getObjCClassFromMetadata();
+  v87 = String._bridgeToObjectiveC()();
+  [v85 registerClass:v86 forCellReuseIdentifier:v87];
 
-  v87 = type metadata accessor for WorkoutFeatures();
-  v132 = v87;
-  v88 = sub_10039D820(&qword_1008E4E00, &type metadata accessor for WorkoutFeatures);
+  v88 = type metadata accessor for WorkoutFeatures();
   v133 = v88;
-  v89 = sub_100005994(v131);
-  v90 = *(*(v87 - 8) + 104);
-  v90(v89, enum case for WorkoutFeatures.Kahana(_:), v87);
-  v91 = isFeatureEnabled(_:)();
-  sub_100005A40(v131);
-  v92 = v28;
-  if (v91)
+  v89 = sub_10039D820(&qword_1008E4E00, &type metadata accessor for WorkoutFeatures, &protocol conformance descriptor for WorkoutFeatures);
+  v134 = v89;
+  v90 = sub_100005994(v132);
+  v91 = *(*(v88 - 8) + 104);
+  v91(v90, enum case for WorkoutFeatures.Kahana(_:), v88);
+  v92 = isFeatureEnabled(_:)();
+  sub_100005A40(v132);
+  v93 = v29;
+  if (v92)
   {
-    v132 = v87;
     v133 = v88;
-    v93 = sub_100005994(v131);
-    v90(v93, enum case for WorkoutFeatures.ManualLogging(_:), v87);
-    v94 = isFeatureEnabled(_:)();
-    sub_100005A40(v131);
-    v92 = v28;
-    if (v94)
+    v134 = v89;
+    v94 = sub_100005994(v132);
+    v91(v94, enum case for WorkoutFeatures.ManualLogging(_:), v88);
+    v95 = isFeatureEnabled(_:)();
+    sub_100005A40(v132);
+    v93 = v29;
+    if (v95)
     {
-      v95 = [v28 navigationItem];
-      v92 = [objc_allocWithZone(UIBarButtonItem) initWithBarButtonSystemItem:7 target:v28 action:"presentManualLoggingViewController"];
+      v96 = [v29 navigationItem];
+      v93 = [objc_allocWithZone(UIBarButtonItem) initWithBarButtonSystemItem:7 target:v29 action:"presentManualLoggingViewController"];
 
-      [v95 setRightBarButtonItem:v92];
+      [v96 setRightBarButtonItem:v93];
     }
   }
 
   sub_10059D990();
-  v96 = swift_allocObject();
+  v97 = swift_allocObject();
   swift_unknownObjectWeakInit();
 
-  v97 = swift_allocObject();
-  *(v97 + 16) = sub_100282958;
-  *(v97 + 24) = v96;
-  v98 = OBJC_IVAR___CHHistoryDataProvider_onChangeHandlers;
+  v98 = swift_allocObject();
+  *(v98 + 16) = sub_100282958;
+  *(v98 + 24) = v97;
+  v99 = OBJC_IVAR___CHHistoryDataProvider_onChangeHandlers;
   swift_beginAccess();
-  v99 = *&v38[v98];
+  v100 = *&v39[v99];
   swift_retain_n();
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *&v38[v98] = v99;
+  *&v39[v99] = v100;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v99 = sub_1001A1E7C(0, v99[2] + 1, 1, v99);
-    *&v38[v98] = v99;
+    v100 = sub_1001A1E7C(0, v100[2] + 1, 1, v100);
+    *&v39[v99] = v100;
   }
 
-  v102 = v99[2];
-  v101 = v99[3];
-  if (v102 >= v101 >> 1)
+  v103 = v100[2];
+  v102 = v100[3];
+  if (v103 >= v102 >> 1)
   {
-    v99 = sub_1001A1E7C((v101 > 1), v102 + 1, 1, v99);
+    v100 = sub_1001A1E7C((v102 > 1), v103 + 1, 1, v100);
   }
 
-  v99[2] = v102 + 1;
-  v103 = &v99[2 * v102];
-  v103[4] = sub_10039ECDC;
-  v103[5] = v97;
-  *&v38[v98] = v99;
+  v100[2] = v103 + 1;
+  v104 = &v100[2 * v103];
+  v104[4] = sub_10039ECDC;
+  v104[5] = v98;
+  *&v39[v99] = v100;
   swift_endAccess();
 
   sub_10059CE6C();
 
   sub_10059D320(0, 1280);
-  v104 = [v106 navigationController];
-  [v104 pushViewController:v28 animated:a1 & 1];
+  v105 = [v107 navigationController];
+  [v105 pushViewController:v29 animated:a1 & 1];
 }
 
 void sub_10039885C(uint64_t a1)
 {
   v2 = v1;
   v4 = objc_opt_self();
-  sub_100140278(&qword_1008DE3E8);
+  sub_100140278(&qword_1008DE3E8, &unk_1006E33C0);
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
   v7 = (*(v6 + 80) + 32) & ~*(v6 + 80);
@@ -591,12 +591,12 @@ void sub_10039885C(uint64_t a1)
   swift_setDeallocating();
   (*(v6 + 8))(v8 + v7, v5);
   swift_deallocClassInstance();
-  sub_10039D820(&qword_1008E4E10, &type metadata accessor for UUID);
+  sub_10039D820(&qword_1008E4E10, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v10 = [v4 predicateForObjectsWithUUIDs:isa];
 
-  sub_1000059F8(0, &unk_1008E4060);
+  sub_1000059F8(0, &unk_1008E4060, HKCategoryType_ptr);
   v11 = HKCategoryType.init(_:)(HKCategoryTypeIdentifierMindfulSession).super.super.super.isa;
   v12 = swift_allocObject();
   *(v12 + 16) = v2;
@@ -697,14 +697,14 @@ void sub_100398B54(uint64_t a1, unint64_t a2, uint64_t a3, void *a4)
 
       v26 = [v17 sourceRevision];
 
-      sub_100140278(&unk_1008E4E20);
+      sub_100140278(&unk_1008E4E20, &qword_1006D5040);
       v27 = swift_allocObject();
       *(v27 + 16) = xmmword_1006D4E70;
       *(v27 + 32) = v17;
       v28 = objc_allocWithZone(type metadata accessor for MindfulnessSessionViewModel());
       v29 = v20;
       v30 = MindfulnessSessionViewModel.init(uuid:startDate:endDate:duration:metadata:sourceRevision:mindfulnessSessions:)();
-      sub_1000059F8(0, &qword_1008E3FD0);
+      sub_1000059F8(0, &qword_1008E3FD0, OS_dispatch_queue_ptr);
       v31 = static OS_dispatch_queue.main.getter();
       v32 = swift_allocObject();
       v33 = v42;
@@ -722,9 +722,9 @@ void sub_100398B54(uint64_t a1, unint64_t a2, uint64_t a3, void *a4)
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      sub_10039D820(&qword_1008E33B0, &type metadata accessor for DispatchWorkItemFlags);
-      sub_100140278(&unk_1008E7F50);
-      sub_100282B7C(&qword_1008E33C0, &unk_1008E7F50);
+      sub_10039D820(&qword_1008E33B0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      sub_100140278(&unk_1008E7F50, &qword_1006D8190);
+      sub_100282B7C(&qword_1008E33C0, &unk_1008E7F50, &qword_1006D8190);
       v37 = v40;
       dispatch thunk of SetAlgebra.init<A>(_:)();
       OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -743,102 +743,102 @@ void sub_100398B54(uint64_t a1, unint64_t a2, uint64_t a3, void *a4)
 
 uint64_t sub_100399214(uint64_t a1, uint64_t a2)
 {
-  v60 = a2;
+  v61 = a2;
   v3 = type metadata accessor for Date();
-  v63 = *(v3 - 8);
-  v64 = v3;
+  v64 = *(v3 - 8);
+  v65 = v3;
   __chkstk_darwin(v3);
-  v59 = &v48 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100140278(&unk_1008EAEF0);
+  v60 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_100140278(&unk_1008EAEF0, &unk_1006E9510);
   __chkstk_darwin(v5 - 8);
-  v53 = &v48 - v6;
-  v7 = sub_100140278(&unk_1008EB5B0);
+  v54 = &v49 - v6;
+  v7 = sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
   __chkstk_darwin(v7 - 8);
-  v50 = &v48 - v8;
-  v9 = sub_100140278(&qword_1008E4DB0);
+  v51 = &v49 - v8;
+  v9 = sub_100140278(&qword_1008E4DB0, &qword_1006E3370);
   __chkstk_darwin(v9 - 8);
-  v11 = &v48 - v10;
+  v11 = &v49 - v10;
   v12 = type metadata accessor for MetricPage();
-  v61 = *(v12 - 8);
-  v62 = v12;
+  v62 = *(v12 - 8);
+  v63 = v12;
   __chkstk_darwin(v12);
-  v49 = &v48 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_100140278(&unk_1008E4DA0);
-  v15 = __chkstk_darwin(v14 - 8);
-  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v48 - v18;
+  v50 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = sub_100140278(&unk_1008E4DA0, &unk_1006E3360);
+  __chkstk_darwin(v14 - 8);
+  v16 = &v49 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v19 = &v49 - v18;
   v20 = type metadata accessor for MetricClickElement();
   v21 = *(v20 - 8);
-  v55 = v20;
-  v56 = v21;
+  v56 = v20;
+  v57 = v21;
   __chkstk_darwin(v20);
-  v23 = &v48 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v54 = v23;
+  v23 = &v49 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = v23;
   v24 = type metadata accessor for MetricClickAction();
   v25 = *(v24 - 8);
-  v57 = v24;
-  v58 = v25;
-  __chkstk_darwin(v24);
-  v27 = &v48 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v66 = v2;
-  (*(v28 + 104))(v27, enum case for MetricClickAction.navigate(_:));
+  v58 = v24;
+  v59 = v25;
+  v26 = __chkstk_darwin(v24);
+  v28 = &v49 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v67 = v2;
+  (*(v29 + 104))(v28, enum case for MetricClickAction.navigate(_:), v26);
   (*(v21 + 104))(v23, enum case for MetricClickElement.lockup(_:), v20);
-  v29 = CatalogLockup.identifier.getter();
-  v51 = v30;
-  v52 = v29;
-  v31 = enum case for MetricClickDestination.workout(_:);
-  v32 = type metadata accessor for MetricClickDestination();
-  v33 = *(v32 - 8);
-  (*(v33 + 104))(v19, v31, v32);
-  v34 = *(v33 + 56);
-  v34(v19, 0, 1, v32);
-  v35 = enum case for MetricPageCategory.summary(_:);
-  v36 = type metadata accessor for MetricPageCategory();
-  v37 = *(v36 - 8);
-  (*(v37 + 104))(v11, v35, v36);
-  (*(v37 + 56))(v11, 0, 1, v36);
-  v38 = type metadata accessor for URL();
-  (*(*(v38 - 8) + 56))(v50, 1, 1, v38);
-  v34(v17, 1, 1, v32);
-  v39 = type metadata accessor for MetricPlaybackEntitlement();
-  (*(*(v39 - 8) + 56))(v53, 1, 1, v39);
-  v40 = v49;
+  v30 = CatalogLockup.identifier.getter();
+  v52 = v31;
+  v53 = v30;
+  v32 = enum case for MetricClickDestination.workout(_:);
+  v33 = type metadata accessor for MetricClickDestination();
+  v34 = *(v33 - 8);
+  (*(v34 + 104))(v19, v32, v33);
+  v35 = *(v34 + 56);
+  v35(v19, 0, 1, v33);
+  v36 = enum case for MetricPageCategory.summary(_:);
+  v37 = type metadata accessor for MetricPageCategory();
+  v38 = *(v37 - 8);
+  (*(v38 + 104))(v11, v36, v37);
+  (*(v38 + 56))(v11, 0, 1, v37);
+  v39 = type metadata accessor for URL();
+  (*(*(v39 - 8) + 56))(v51, 1, 1, v39);
+  v35(v16, 1, 1, v33);
+  v40 = type metadata accessor for MetricPlaybackEntitlement();
+  (*(*(v40 - 8) + 56))(v54, 1, 1, v40);
+  v41 = v50;
   MetricPage.init(pageIdentifier:pageType:pageContext:pageUrl:pageName:contentType:entitlementRequired:)();
-  sub_100140278(&unk_1008EAF00);
-  v41 = type metadata accessor for MetricLocation();
-  v42 = *(v41 - 8);
-  v43 = (*(v42 + 80) + 32) & ~*(v42 + 80);
-  v44 = swift_allocObject();
-  *(v44 + 16) = xmmword_1006D46C0;
-  (*(v42 + 16))(v44 + v43, v60, v41);
-  v65 = *(v48 + OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_impressionsTracker);
+  sub_100140278(&unk_1008EAF00, &qword_1006E3400);
+  v42 = type metadata accessor for MetricLocation();
+  v43 = *(v42 - 8);
+  v44 = (*(v43 + 80) + 32) & ~*(v43 + 80);
+  v45 = swift_allocObject();
+  *(v45 + 16) = xmmword_1006D46C0;
+  (*(v43 + 16))(v45 + v44, v61, v42);
+  v66 = *(v49 + OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_impressionsTracker);
 
-  v45 = v59;
+  v46 = v60;
   Date.init()();
   type metadata accessor for ActivityDashboardImpressionsTracker();
-  sub_10039D820(&unk_1008EE690, type metadata accessor for ActivityDashboardImpressionsTracker);
+  sub_10039D820(&unk_1008EE690, type metadata accessor for ActivityDashboardImpressionsTracker, &unk_1006F50B4);
   MetricImpressionConsuming.snapshotOnScreenImpressions(on:)();
-  (*(v63 + 8))(v45, v64);
+  (*(v64 + 8))(v46, v65);
 
-  type metadata accessor for ActivityDashboardViewController();
-  sub_10039D820(&unk_1008EAF10, type metadata accessor for ActivityDashboardViewController);
-  v46 = v54;
+  type metadata accessor for ActivityDashboardViewController(0);
+  sub_10039D820(&unk_1008EAF10, type metadata accessor for ActivityDashboardViewController, &unk_1006F2890);
+  v47 = v55;
   MetricClickPublishing.publishClick(actionType:targetType:targetIdentifier:targetIdentifierType:metricPage:locations:impressions:topicRoutingBehavior:)();
 
-  (*(v61 + 8))(v40, v62);
-  sub_10000EA04(v19, &unk_1008E4DA0);
-  (*(v56 + 8))(v46, v55);
-  return (*(v58 + 8))(v27, v57);
+  (*(v62 + 8))(v41, v63);
+  sub_10000EA04(v19, &unk_1008E4DA0, &unk_1006E3360);
+  (*(v57 + 8))(v47, v56);
+  return (*(v59 + 8))(v28, v58);
 }
 
 void sub_100399A2C()
 {
   ObjectType = swift_getObjectType();
-  v1 = sub_100140278(&qword_1008E4E80);
+  v1 = sub_100140278(&qword_1008E4E80, &qword_100700A40);
   __chkstk_darwin(v1 - 8);
   v3 = &ObjectType - v2;
-  v4 = type metadata accessor for CatalogTipSection();
+  v4 = type metadata accessor for CatalogTipSection(0);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &ObjectType - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -847,13 +847,13 @@ void sub_100399A2C()
   v10 = (*(*v8 + 48) + 3) & 0x1FFFFFFFCLL;
 
   os_unfair_lock_lock((v8 + v10));
-  v11 = type metadata accessor for CatalogTipActivityTileDataModel.State();
-  sub_10001B104(v8 + *(v11 + 20) + v9, v3, &qword_1008E4E80);
+  v11 = type metadata accessor for CatalogTipActivityTileDataModel.State(0);
+  sub_10001B104(v8 + *(v11 + 20) + v9, v3, &qword_1008E4E80, &qword_100700A40);
   os_unfair_lock_unlock((v8 + v10));
 
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_10000EA04(v3, &qword_1008E4E80);
+    sub_10000EA04(v3, &qword_1008E4E80, &qword_100700A40);
     v12 = static os_log_type_t.default.getter();
     v13 = HKLogActivity;
     if (os_log_type_enabled(HKLogActivity, v12))
@@ -885,7 +885,7 @@ void sub_100399A2C()
 uint64_t sub_100399D60(uint64_t a1)
 {
   v32 = a1;
-  v2 = sub_100140278(&unk_1008E4E70);
+  v2 = sub_100140278(&unk_1008E4E70, &qword_1006EC9D0);
   __chkstk_darwin(v2 - 8);
   v41 = v29 - v3;
   v4 = type metadata accessor for URL();
@@ -893,7 +893,7 @@ uint64_t sub_100399D60(uint64_t a1)
   v40 = v4;
   __chkstk_darwin(v4);
   v38 = v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100140278(&unk_1008EAF20);
+  v6 = sub_100140278(&unk_1008EAF20, &unk_1006E33E0);
   __chkstk_darwin(v6 - 8);
   v35 = v29 - v7;
   v8 = type metadata accessor for CatalogTipPlayerOptions();
@@ -904,7 +904,7 @@ uint64_t sub_100399D60(uint64_t a1)
   v42 = *(v37 - 8);
   __chkstk_darwin(v37);
   v11 = v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for CatalogTipSection();
+  v12 = type metadata accessor for CatalogTipSection(0);
   v13 = v12 - 8;
   v14 = *(v12 - 8);
   v15 = *(v14 + 64);
@@ -919,20 +919,20 @@ uint64_t sub_100399D60(uint64_t a1)
   CatalogTipSummaryNavigationHandlers.init(onLearnMoreTapped:onSeeMoreTipsTapped:)();
   v34 = type metadata accessor for CatalogTipPlayerPresenter();
   v33 = *(*(*&v43[OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_context] + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_fitnessAppContext) + OBJC_IVAR___CHFitnessAppContext_dependencies);
-  sub_100140278(&qword_1008E4E88);
+  sub_100140278(&qword_1008E4E88, &qword_1006E33F0);
   v18 = swift_allocObject();
   *(v18 + 16) = xmmword_1006D1F70;
 
   static CatalogTipPlayerOptions.summary.getter();
   static CatalogTipPlayerOptions.catalogSync.getter();
   v44 = v18;
-  sub_10039D820(&qword_1008E4E90, &type metadata accessor for CatalogTipPlayerOptions);
-  sub_100140278(&qword_1008E4E98);
-  sub_100282B7C(&unk_1008E4EA0, &qword_1008E4E98);
+  sub_10039D820(&qword_1008E4E90, &type metadata accessor for CatalogTipPlayerOptions, &protocol conformance descriptor for CatalogTipPlayerOptions);
+  sub_100140278(&qword_1008E4E98, &qword_1006E33F8);
+  sub_100282B7C(&unk_1008E4EA0, &qword_1008E4E98, &qword_1006E33F8);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v19 = v32 + *(v13 + 44);
-  v20 = type metadata accessor for CatalogTipSectionItem();
-  sub_10001B104(v19 + v20[8], v35, &unk_1008EAF20);
+  v20 = type metadata accessor for CatalogTipSectionItem(0);
+  sub_10001B104(v19 + v20[8], v35, &unk_1008EAF20, &unk_1006E33E0);
   v21 = *(v19 + v20[9]);
   v31 = *(v19 + v20[10]);
   v32 = v21;
@@ -954,9 +954,9 @@ uint64_t sub_100399D60(uint64_t a1)
   return (*(v42 + 8))(v30, v25);
 }
 
-uint64_t sub_10039A3D8()
+double sub_10039A3D8()
 {
-  v0 = sub_100140278(&qword_1008E1760);
+  v0 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v0 - 8);
   v2 = &v7 - v1;
   v3 = type metadata accessor for TaskPriority();
@@ -967,6 +967,8 @@ uint64_t sub_10039A3D8()
   *(v5 + 16) = v4;
   *(v5 + 24) = &protocol witness table for MainActor;
   sub_10026E198(0, 0, v2, &unk_1006EC9F8, v5);
+
+  return result;
 }
 
 uint64_t sub_10039A4E4()
@@ -975,9 +977,9 @@ uint64_t sub_10039A4E4()
   v0[18] = v1;
   v0[19] = *(v1 - 8);
   v0[20] = swift_task_alloc();
-  sub_100140278(&unk_1008EB5B0);
+  sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
   v0[21] = swift_task_alloc();
-  sub_100140278(&unk_1008EAF30);
+  sub_100140278(&unk_1008EAF30, &qword_1006DE210);
   v0[22] = swift_task_alloc();
   type metadata accessor for MainActor();
   v0[23] = static MainActor.shared.getter();
@@ -997,7 +999,7 @@ uint64_t sub_10039A644()
   v4 = *(v3 + 48);
   if (!v4(v1, 1, v2))
   {
-    sub_100140278(&unk_1008EAF40);
+    sub_100140278(&unk_1008EAF40, &unk_1006D6990);
     type metadata accessor for URLQueryItem();
     *(swift_allocObject() + 16) = xmmword_1006D46C0;
     URLQueryItem.init(name:value:)();
@@ -1042,7 +1044,7 @@ uint64_t sub_10039A644()
   v0[7] = v0 + 28;
   v0[3] = sub_10039A9E4;
   v20 = swift_continuation_init();
-  v0[17] = sub_100140278(&qword_1008E45C8);
+  v0[17] = sub_100140278(&qword_1008E45C8, &unk_1006E2160);
   v0[10] = _NSConcreteStackBlock;
   v0[11] = 1107296256;
   v0[12] = sub_10039070C;
@@ -1067,21 +1069,21 @@ uint64_t sub_10039AAEC()
   v1 = v0[27];
   v3 = v0[22];
 
-  sub_10000EA04(v3, &unk_1008EAF30);
+  sub_10000EA04(v3, &unk_1008EAF30, &qword_1006DE210);
 
   v4 = v0[1];
 
   return v4();
 }
 
-uint64_t sub_10039AB9C(uint64_t a1)
+double sub_10039AB9C(uint64_t a1)
 {
-  v2 = type metadata accessor for CatalogTipSection();
+  v2 = type metadata accessor for CatalogTipSection(0);
   v3 = *(v2 - 8);
   v4 = *(v3 + 64);
   __chkstk_darwin(v2 - 8);
   v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100140278(&qword_1008E1760);
+  v6 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v6 - 8);
   v8 = &v14 - v7;
   v9 = type metadata accessor for TaskPriority();
@@ -1095,6 +1097,8 @@ uint64_t sub_10039AB9C(uint64_t a1)
   *(v12 + 24) = &protocol witness table for MainActor;
   sub_100282AA8(v5, v12 + v11, type metadata accessor for CatalogTipSection);
   sub_10026E198(0, 0, v8, &unk_1006EC9E0, v12);
+
+  return result;
 }
 
 uint64_t sub_10039AD7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1104,9 +1108,9 @@ uint64_t sub_10039AD7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[19] = v5;
   v4[20] = *(v5 - 8);
   v4[21] = swift_task_alloc();
-  sub_100140278(&unk_1008EB5B0);
+  sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
   v4[22] = swift_task_alloc();
-  sub_100140278(&unk_1008EAF30);
+  sub_100140278(&unk_1008EAF30, &qword_1006DE210);
   v4[23] = swift_task_alloc();
   type metadata accessor for MainActor();
   v4[24] = static MainActor.shared.getter();
@@ -1127,14 +1131,14 @@ uint64_t sub_10039AEE0()
   v5 = *(v4 + 48);
   if (!v5(v2, 1, v3))
   {
-    sub_100140278(&unk_1008EAF40);
+    sub_100140278(&unk_1008EAF40, &unk_1006D6990);
     type metadata accessor for URLQueryItem();
     *(swift_allocObject() + 16) = xmmword_1006D64F0;
     URLQueryItem.init(name:value:)();
     ShelfDisplayStyle.rawValue.getter();
     URLQueryItem.init(name:value:)();
 
-    type metadata accessor for CatalogTipSection();
+    type metadata accessor for CatalogTipSection(0);
     v1 = v0 + 29;
     URLQueryItem.init(name:value:)();
     URLComponents.queryItems.setter();
@@ -1178,7 +1182,7 @@ uint64_t sub_10039AEE0()
   v0[7] = v1;
   v0[3] = sub_10039B30C;
   v21 = swift_continuation_init();
-  v0[17] = sub_100140278(&qword_1008E45C8);
+  v0[17] = sub_100140278(&qword_1008E45C8, &unk_1006E2160);
   v0[10] = _NSConcreteStackBlock;
   v0[11] = 1107296256;
   v0[12] = sub_10039070C;
@@ -1203,123 +1207,123 @@ uint64_t sub_10039B414()
   v1 = v0[28];
   v3 = v0[23];
 
-  sub_10000EA04(v3, &unk_1008EAF30);
+  sub_10000EA04(v3, &unk_1008EAF30, &qword_1006DE210);
 
   v4 = v0[1];
 
   return v4();
 }
 
-uint64_t sub_10039B4C4(uint64_t a1)
+uint64_t sub_10039B4C4(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for Date();
-  v69 = *(v2 - 8);
-  v70 = v2;
-  __chkstk_darwin(v2);
-  v66 = &v52 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100140278(&unk_1008EAEF0);
-  __chkstk_darwin(v4 - 8);
-  v65 = &v52 - v5;
-  v6 = sub_100140278(&unk_1008EB5B0);
-  __chkstk_darwin(v6 - 8);
-  v63 = &v52 - v7;
-  v8 = sub_100140278(&qword_1008E4DB0);
-  __chkstk_darwin(v8 - 8);
-  v60 = &v52 - v9;
-  v10 = type metadata accessor for MetricPage();
-  v67 = *(v10 - 8);
-  v68 = v10;
-  __chkstk_darwin(v10);
-  v62 = &v52 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_100140278(&unk_1008E4DA0);
-  v13 = __chkstk_darwin(v12 - 8);
-  v56 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v71 = &v52 - v15;
-  v16 = type metadata accessor for MetricClickAction();
-  v74 = *(v16 - 8);
-  v75 = v16;
-  __chkstk_darwin(v16);
-  v73 = &v52 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for MetricClickElement();
-  v64 = *(v18 - 8);
-  v19 = v64;
-  __chkstk_darwin(v18);
-  v21 = &v52 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v59 = type metadata accessor for MetricLocation();
-  v54 = *(v59 - 8);
-  v55 = v59 - 8;
-  v72 = v54;
-  __chkstk_darwin(v59 - 8);
-  v53 = &v52 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = a1 + *(type metadata accessor for CatalogTipSection() + 36);
-  v24 = (v23 + *(type metadata accessor for CatalogTipSectionItem() + 28));
-  v25 = v24[1];
-  v58 = *v24;
-  v57 = v25;
+  v3 = type metadata accessor for Date();
+  v70 = *(v3 - 8);
+  v71 = v3;
+  __chkstk_darwin(v3);
+  v67 = &v53 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_100140278(&unk_1008EAEF0, &unk_1006E9510);
+  __chkstk_darwin(v5 - 8);
+  v66 = &v53 - v6;
+  v7 = sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
+  __chkstk_darwin(v7 - 8);
+  v64 = &v53 - v8;
+  v9 = sub_100140278(&qword_1008E4DB0, &qword_1006E3370);
+  __chkstk_darwin(v9 - 8);
+  v61 = &v53 - v10;
+  v11 = type metadata accessor for MetricPage();
+  v68 = *(v11 - 8);
+  v69 = v11;
+  __chkstk_darwin(v11);
+  v63 = &v53 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_100140278(&unk_1008E4DA0, &unk_1006E3360);
+  __chkstk_darwin(v13 - 8);
+  v57 = &v53 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v72 = &v53 - v16;
+  v17 = type metadata accessor for MetricClickAction();
+  v75 = *(v17 - 8);
+  v76 = v17;
+  __chkstk_darwin(v17);
+  v74 = &v53 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for MetricClickElement();
+  v65 = *(v19 - 8);
+  v20 = v65;
+  __chkstk_darwin(v19);
+  v22 = &v53 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v60 = type metadata accessor for MetricLocation();
+  v55 = *(v60 - 8);
+  v56 = v60 - 8;
+  v73 = v55;
+  __chkstk_darwin(v60 - 8);
+  v54 = &v53 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = a1 + *(type metadata accessor for CatalogTipSection(0) + 36);
+  v25 = (v24 + *(type metadata accessor for CatalogTipSectionItem(0) + 28));
+  v26 = v25[1];
+  v59 = *v25;
+  v58 = v26;
 
-  v26 = ShelfLockupAttributedTagStrings.detail.getter();
-  v27 = [v26 string];
+  v27 = ShelfLockupAttributedTagStrings.detail.getter();
+  v28 = [v27 string];
 
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v28 = enum case for MetricClickElement.button(_:);
-  v29 = *(v19 + 104);
-  v61 = v18;
-  v29(v21, enum case for MetricClickElement.button(_:), v18);
+  v29 = enum case for MetricClickElement.button(_:);
+  v30 = *(v20 + 104);
+  v62 = v19;
+  v30(v22, enum case for MetricClickElement.button(_:), v19);
   sub_1004A8614(_swiftEmptyArrayStorage);
-  v30 = v21;
+  v31 = v22;
   MetricLocation.init(identifier:identifierType:index:name:elementType:entitlementRequired:contentType:metadata:)();
-  v78 = v76;
-  (*(v74 + 104))(v73, enum case for MetricClickAction.navigate(_:), v75);
-  v29(v21, v28, v18);
-  v31 = enum case for MetricClickDestination.trainerTip(_:);
-  v32 = type metadata accessor for MetricClickDestination();
-  v33 = *(v32 - 8);
-  v34 = v71;
-  (*(v33 + 104))(v71, v31, v32);
-  v35 = *(v33 + 56);
-  v35(v34, 0, 1, v32);
-  v36 = enum case for MetricPageCategory.summary(_:);
-  v37 = type metadata accessor for MetricPageCategory();
-  v38 = *(v37 - 8);
-  v39 = v60;
-  (*(v38 + 104))(v60, v36, v37);
-  (*(v38 + 56))(v39, 0, 1, v37);
-  v40 = type metadata accessor for URL();
-  (*(*(v40 - 8) + 56))(v63, 1, 1, v40);
-  v35(v56, 1, 1, v32);
-  v41 = type metadata accessor for MetricPlaybackEntitlement();
-  (*(*(v41 - 8) + 56))(v65, 1, 1, v41);
-  v42 = v62;
+  v79 = v77;
+  (*(v75 + 104))(v74, enum case for MetricClickAction.navigate(_:), v76);
+  v30(v22, v29, v19);
+  v32 = enum case for MetricClickDestination.trainerTip(_:);
+  v33 = type metadata accessor for MetricClickDestination();
+  v34 = *(v33 - 8);
+  v35 = v72;
+  (*(v34 + 104))(v72, v32, v33);
+  v36 = *(v34 + 56);
+  v36(v35, 0, 1, v33);
+  v37 = enum case for MetricPageCategory.summary(_:);
+  v38 = type metadata accessor for MetricPageCategory();
+  v39 = *(v38 - 8);
+  v40 = v61;
+  (*(v39 + 104))(v61, v37, v38);
+  (*(v39 + 56))(v40, 0, 1, v38);
+  v41 = type metadata accessor for URL();
+  (*(*(v41 - 8) + 56))(v64, 1, 1, v41);
+  v36(v57, 1, 1, v33);
+  v42 = type metadata accessor for MetricPlaybackEntitlement();
+  (*(*(v42 - 8) + 56))(v66, 1, 1, v42);
+  v43 = v63;
   MetricPage.init(pageIdentifier:pageType:pageContext:pageUrl:pageName:contentType:entitlementRequired:)();
-  sub_100140278(&unk_1008EAF00);
-  v43 = v72;
-  v44 = (*(v72 + 80) + 32) & ~*(v72 + 80);
-  v45 = swift_allocObject();
-  *(v45 + 16) = xmmword_1006D46C0;
-  v46 = v53;
-  v47 = v59;
-  (*(v43 + 16))(v45 + v44, v53, v59);
-  v77 = *(v76 + OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_impressionsTracker);
+  sub_100140278(&unk_1008EAF00, &qword_1006E3400);
+  v44 = v73;
+  v45 = (*(v73 + 80) + 32) & ~*(v73 + 80);
+  v46 = swift_allocObject();
+  *(v46 + 16) = xmmword_1006D46C0;
+  v47 = v54;
+  v48 = v60;
+  (*(v44 + 16))(v46 + v45, v54, v60);
+  v78 = *(v77 + OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_impressionsTracker);
 
-  v48 = v66;
+  v49 = v67;
   Date.init()();
   type metadata accessor for ActivityDashboardImpressionsTracker();
-  sub_10039D820(&unk_1008EE690, type metadata accessor for ActivityDashboardImpressionsTracker);
+  sub_10039D820(&unk_1008EE690, type metadata accessor for ActivityDashboardImpressionsTracker, &unk_1006F50B4);
   MetricImpressionConsuming.snapshotOnScreenImpressions(on:)();
-  (*(v69 + 8))(v48, v70);
+  (*(v70 + 8))(v49, v71);
 
-  type metadata accessor for ActivityDashboardViewController();
-  sub_10039D820(&unk_1008EAF10, type metadata accessor for ActivityDashboardViewController);
-  v49 = v73;
-  v50 = v71;
+  type metadata accessor for ActivityDashboardViewController(0);
+  sub_10039D820(&unk_1008EAF10, type metadata accessor for ActivityDashboardViewController, &unk_1006F2890);
+  v50 = v74;
+  v51 = v72;
   MetricClickPublishing.publishClick(actionType:targetType:targetIdentifier:targetIdentifierType:metricPage:locations:impressions:topicRoutingBehavior:)();
 
-  (*(v67 + 8))(v42, v68);
-  sub_10000EA04(v50, &unk_1008E4DA0);
-  (*(v64 + 8))(v30, v61);
-  (*(v74 + 8))(v49, v75);
-  return (*(v72 + 8))(v46, v47);
+  (*(v68 + 8))(v43, v69);
+  sub_10000EA04(v51, &unk_1008E4DA0, &unk_1006E3360);
+  (*(v65 + 8))(v31, v62);
+  (*(v75 + 8))(v50, v76);
+  return (*(v73 + 8))(v47, v48);
 }
 
 void sub_10039BE54(char a1)
@@ -1455,7 +1459,7 @@ void sub_10039C45C(uint64_t a1)
   v5 = v4;
   v6 = [v4 viewControllers];
 
-  sub_1000059F8(0, &qword_1008E4DD0);
+  sub_1000059F8(0, &qword_1008E4DD0, UIViewController_ptr);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v7 >> 62)
@@ -1492,15 +1496,16 @@ LABEL_9:
             v15 = *(v3 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_trendsFormattingManager);
             v16 = *(v3 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_trendsDataProvider);
             v17 = v15;
-            v20 = sub_100351600(a1);
+            sub_100351600(a1);
+            v21 = v18;
 
-            if (v20)
+            if (v21)
             {
-              v18 = [v13 navigationController];
-              if (v18)
+              v19 = [v13 navigationController];
+              if (v19)
               {
-                v19 = v18;
-                [v18 pushViewController:v20 animated:1];
+                v20 = v19;
+                [v19 pushViewController:v21 animated:1];
               }
             }
           }
@@ -1656,15 +1661,15 @@ void sub_10039C700(unint64_t a1, char a2)
   }
 }
 
-uint64_t sub_10039CD30()
+double sub_10039CD30()
 {
   v1 = v0;
   v2 = *&v0[OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_context];
-  type metadata accessor for LoadDetailViewControllerCoordinator();
+  type metadata accessor for LoadDetailViewControllerCoordinator(0);
   v3 = swift_allocObject();
   *(v3 + 24) = 0;
   v4 = OBJC_IVAR____TtC10FitnessApp35LoadDetailViewControllerCoordinator____lazy_storage___loadDetailView;
-  DetailsView = type metadata accessor for LoadDetailsView();
+  DetailsView = type metadata accessor for LoadDetailsView(0);
   (*(*(DetailsView - 8) + 56))(v3 + v4, 1, 1, DetailsView);
   *(v3 + 16) = v2;
   v6 = v2;
@@ -1675,6 +1680,8 @@ uint64_t sub_10039CD30()
     v9 = sub_10043B420();
     [v8 pushViewController:v9 animated:1];
   }
+
+  return result;
 }
 
 void sub_10039CE78(uint64_t a1)
@@ -1736,7 +1743,7 @@ LABEL_25:
         v18 = v17;
         sub_1004C9534(_swiftEmptyArrayStorage);
         type metadata accessor for OpenExternalURLOptionsKey(0);
-        sub_10039D820(&qword_1008F7990, type metadata accessor for OpenExternalURLOptionsKey);
+        sub_10039D820(&qword_1008F7990, type metadata accessor for OpenExternalURLOptionsKey, &unk_1006D3BFC);
         isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
         [v15 openURL:v18 options:isa completionHandler:0];
@@ -1776,79 +1783,79 @@ LABEL_15:
   }
 }
 
-void sub_10039D2D4(char a1)
+void sub_10039D2D4(char a1, uint64_t a2)
 {
-  v2 = v1;
-  v4 = type metadata accessor for Date();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v32[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v3 = v2;
+  v5 = type metadata accessor for Date();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v33[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   Date.init()();
-  v8 = *&v2[OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_context];
-  v9 = *(v8 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_activityDataProvider);
-  v10 = sub_1001E9F44();
-  v11 = *&v9[OBJC_IVAR____TtC10FitnessApp20ActivityDataProvider_summaryCache];
-  v12 = [v11 activitySummaryForCacheIndex:v10];
+  v9 = *&v3[OBJC_IVAR____TtC10FitnessApp31ActivityDashboardViewController_context];
+  v10 = *(v9 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_activityDataProvider);
+  v11 = sub_1001E9F44();
+  v12 = *&v10[OBJC_IVAR____TtC10FitnessApp20ActivityDataProvider_summaryCache];
+  v13 = [v12 activitySummaryForCacheIndex:v11];
 
-  if (v12)
+  if (v13)
   {
-    v13 = &selRef__isStandalonePhoneSummary;
+    v14 = &selRef__isStandalonePhoneSummary;
   }
 
   else
   {
-    v14 = [objc_opt_self() sharedBehavior];
-    if (!v14)
+    v15 = [objc_opt_self() sharedBehavior];
+    if (!v15)
     {
       goto LABEL_10;
     }
 
-    v12 = v14;
-    v13 = &selRef_isStandalonePhoneFitnessMode;
+    v13 = v15;
+    v14 = &selRef_isStandalonePhoneFitnessMode;
   }
 
-  v15 = [v12 *v13];
+  v16 = [v13 *v14];
 
-  v16 = [*(v8 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_wheelchairUseCache) isWheelchairUser];
-  v17 = *(v8 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_pauseRingsCoordinator);
-  v18 = type metadata accessor for PauseRingsViewController();
-  v19 = objc_allocWithZone(v18);
-  *&v19[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_hostingController] = 0;
-  v20 = &v19[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController____lazy_storage___pauseRingsView];
-  *v20 = 0u;
-  *(v20 + 1) = 0u;
-  *(v20 + 2) = 0u;
-  *(v20 + 6) = 0;
-  *&v19[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_pauseRingsCoordinator] = v17;
-  v19[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_isStandalone] = v15;
-  v19[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_isWheelchair] = v16;
-  v19[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_shouldShowEditFlow] = a1 & 1;
-  v33.receiver = v19;
-  v33.super_class = v18;
-  v21 = v17;
-  v22 = objc_msgSendSuper2(&v33, "initWithNibName:bundle:", 0, 0);
-  sub_1003BFF20(v32);
-  v23 = objc_allocWithZone(sub_100140278(&qword_1008EAF78));
-  v24 = UIHostingController.init(rootView:)();
-  v25 = *&v22[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_hostingController];
-  *&v22[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_hostingController] = v24;
-  v26 = v24;
+  v17 = [*(v9 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_wheelchairUseCache) isWheelchairUser];
+  v18 = *(v9 + OBJC_IVAR____TtC10FitnessApp24ActivityDashboardContext_pauseRingsCoordinator);
+  v19 = type metadata accessor for PauseRingsViewController();
+  v20 = objc_allocWithZone(v19);
+  *&v20[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_hostingController] = 0;
+  v21 = &v20[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController____lazy_storage___pauseRingsView];
+  *v21 = 0u;
+  *(v21 + 1) = 0u;
+  *(v21 + 2) = 0u;
+  *(v21 + 6) = 0;
+  *&v20[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_pauseRingsCoordinator] = v18;
+  v20[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_isStandalone] = v16;
+  v20[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_isWheelchair] = v17;
+  v20[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_shouldShowEditFlow] = a1 & 1;
+  v34.receiver = v20;
+  v34.super_class = v19;
+  v22 = v18;
+  v23 = objc_msgSendSuper2(&v34, "initWithNibName:bundle:", 0, 0);
+  sub_1003BFF20(v33);
+  v24 = objc_allocWithZone(sub_100140278(&qword_1008EAF78, &qword_1006ECA18));
+  v25 = UIHostingController.init(rootView:)();
+  v26 = *&v23[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_hostingController];
+  *&v23[OBJC_IVAR____TtC10FitnessApp24PauseRingsViewController_hostingController] = v25;
+  v27 = v25;
 
-  v27 = v22;
-  v28 = v26;
-  [v27 addChildViewController:v28];
-  v29 = [v27 view];
+  v28 = v23;
+  v29 = v27;
+  [v28 addChildViewController:v29];
+  v30 = [v28 view];
 
-  if (v29)
+  if (v30)
   {
-    v30 = [v28 view];
+    v31 = [v29 view];
 
-    if (v30)
+    if (v31)
     {
-      [v29 addSubview:v30];
+      [v30 addSubview:v31];
 
-      [v2 presentViewController:v27 animated:1 completion:0];
-      (*(v5 + 8))(v7, v4);
+      [v3 presentViewController:v28 animated:1 completion:0];
+      (*(v6 + 8))(v8, v5);
       return;
     }
   }
@@ -1863,7 +1870,7 @@ LABEL_10:
   __break(1u);
 }
 
-uint64_t sub_10039D820(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10039D820(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1879,7 +1886,7 @@ uint64_t sub_10039D820(unint64_t *a1, void (*a2)(uint64_t))
 uint64_t sub_10039D868(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   v33 = a4;
-  v7 = sub_100140278(&qword_1008E1760);
+  v7 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v7 - 8);
   v9 = &v32[-v8];
   v10 = type metadata accessor for AppStoreQuery();
@@ -1941,10 +1948,10 @@ uint64_t sub_10039D868(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 
 uint64_t sub_10039DBCC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = sub_100140278(&qword_1008E0BC0);
+  v7 = sub_100140278(&qword_1008E0BC0, &qword_1006DC7C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v19 - v8;
-  v10 = type metadata accessor for FitnessPlusStackViewModel();
+  v10 = type metadata accessor for FitnessPlusStackViewModel(0);
   v11 = *(v10 - 8);
   __chkstk_darwin(v10);
   v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1953,8 +1960,8 @@ uint64_t sub_10039DBCC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v14 = sub_100005994(v22);
   (*(*(a3 - 8) + 16))(v14, a1, a3);
   sub_100007C5C(v22, v21);
-  sub_100140278(&unk_1008E4E60);
-  sub_1000059F8(0, &qword_1008ED7C0);
+  sub_100140278(&unk_1008E4E60, &qword_1006D8F30);
+  sub_1000059F8(0, &qword_1008ED7C0, HKWorkout_ptr);
   if (swift_dynamicCast())
   {
     v15 = v20;
@@ -1987,15 +1994,15 @@ LABEL_5:
   else
   {
     v18(v9, 1, 1, v10);
-    sub_10000EA04(v9, &qword_1008E0BC0);
+    sub_10000EA04(v9, &qword_1008E0BC0, &qword_1006DC7C0);
   }
 
   return sub_100005A40(v22);
 }
 
-uint64_t sub_10039DE9C()
+double sub_10039DE9C()
 {
-  v1 = *(type metadata accessor for CatalogTipSection() - 8);
+  v1 = *(type metadata accessor for CatalogTipSection(0) - 8);
   v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
 
   return sub_10039AB9C(v2);
@@ -2003,7 +2010,7 @@ uint64_t sub_10039DE9C()
 
 uint64_t sub_10039DEFC(uint64_t a1)
 {
-  v4 = *(type metadata accessor for CatalogTipSection() - 8);
+  v4 = *(type metadata accessor for CatalogTipSection(0) - 8);
   v5 = (*(v4 + 80) + 32) & ~*(v4 + 80);
   v6 = *(v1 + 16);
   v7 = *(v1 + 24);
@@ -2034,7 +2041,7 @@ uint64_t sub_10039E0C4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 void sub_10039E12C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = sub_100140278(&qword_1008E7F80);
+  v9 = sub_100140278(&qword_1008E7F80, &qword_1006E86F0);
   __chkstk_darwin(v9 - 8);
   v11 = &v61 - v10;
   v12 = type metadata accessor for AAUIAwardsDataProviderSection();
@@ -2053,7 +2060,7 @@ void sub_10039E12C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   sub_1005C85CC(v18, v11);
   if ((*(v13 + 48))(v11, 1, v12) == 1)
   {
-    sub_10000EA04(v11, &qword_1008E7F80);
+    sub_10000EA04(v11, &qword_1008E7F80, &qword_1006E86F0);
 LABEL_13:
 
     return;
@@ -2095,7 +2102,7 @@ LABEL_13:
     else
     {
       (*(v19 + 104))(v15, enum case for AAUIAwardsDataProviderSection.goForIt(_:), v12);
-      sub_10039D820(&unk_1008E4DE0, &type metadata accessor for AAUIAwardsDataProviderSection);
+      sub_10039D820(&unk_1008E4DE0, &type metadata accessor for AAUIAwardsDataProviderSection, &protocol conformance descriptor for AAUIAwardsDataProviderSection);
       v26 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v19 + 8))(v15, v12);
       LODWORD(v73) = v26 ^ 1;
@@ -2189,7 +2196,7 @@ void *sub_10039E7B4(void *result, void *a2, void *a3)
       }
 
       v10 = v3;
-      sub_1000059F8(0, &qword_1008E4DD0);
+      sub_1000059F8(0, &qword_1008E4DD0, UIViewController_ptr);
       v11 = v9;
       v12 = a3;
       v13 = static NSObject.== infix(_:_:)();
@@ -2233,7 +2240,7 @@ void *sub_10039E7B4(void *result, void *a2, void *a3)
         return 0;
       }
 
-      type metadata accessor for ActivityDashboardViewController();
+      type metadata accessor for ActivityDashboardViewController(0);
       if (![a2 isKindOfClass:swift_getObjCClassFromMetadata()])
       {
         return 0;
@@ -2267,7 +2274,7 @@ uint64_t sub_10039E9CC(uint64_t a1, uint64_t (*a2)(void))
 
 void sub_10039EA5C(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v7 = *(sub_100140278(&unk_1008DB8A0) - 8);
+  v7 = *(sub_100140278(&unk_1008DB8A0, qword_1006DBA20) - 8);
   v8 = (*(v7 + 80) + 16) & ~*(v7 + 80);
   v9 = (*(v7 + 64) + v8 + 7) & 0xFFFFFFFFFFFFFFF8;
   v10 = *(v3 + v9);
@@ -2291,7 +2298,7 @@ uint64_t sub_10039EB7C(uint64_t a1)
   return sub_10052BED8(a1, v4, v5, v6);
 }
 
-uint64_t sub_10039EC30(uint64_t a1, uint64_t a2, char a3)
+void sub_10039EC30(uint64_t a1, uint64_t a2, char a3)
 {
   if (a3 == 1)
   {
@@ -2300,8 +2307,6 @@ uint64_t sub_10039EC30(uint64_t a1, uint64_t a2, char a3)
   else if (!a3)
   {
   }
-
-  return result;
 }
 
 uint64_t sub_10039ED48()
@@ -2386,7 +2391,7 @@ id sub_10039F28C(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = objc_msgSendSuper2(&v15, "initWithStyle:reuseIdentifier:", a1, v5);
 
   v7 = objc_opt_self();
-  sub_100140278(&unk_1008E4E20);
+  sub_100140278(&unk_1008E4E20, &qword_1006D5040);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_1006D4E70;
   v9 = v6;
@@ -2406,15 +2411,15 @@ id sub_10039F28C(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_10039F4FC(uint64_t a1, void *a2)
 {
   v3 = v2;
-  v77 = a2;
+  v79 = a2;
   ObjectType = swift_getObjectType();
-  v78 = type metadata accessor for Logger();
-  v4 = *(v78 - 8);
-  __chkstk_darwin(v78);
+  v80 = type metadata accessor for Logger();
+  v4 = *(v80 - 8);
+  __chkstk_darwin(v80);
   v6 = &ObjectType - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for SummaryWorkoutVoiceOutroView();
-  v79 = *(v7 - 8);
-  v80 = v7;
+  v81 = *(v7 - 8);
+  v82 = v7;
   __chkstk_darwin(v7);
   v9 = &ObjectType - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
@@ -2426,61 +2431,61 @@ void sub_10039F4FC(uint64_t a1, void *a2)
   __chkstk_darwin(v17);
   v19 = &ObjectType - v18;
   dispatch thunk of WorkoutSummaryDataSource.workoutVoiceOutroState.getter();
-  (*(v14 + 104))(v16, enum case for WorkoutVoiceOutroState.unavailable(_:), v13);
-  sub_10039FED8();
-  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v81 = *(v14 + 8);
-  v82 = v14 + 8;
-  v81(v16, v13);
-  if (v20)
+  v20 = (*(v14 + 104))(v16, enum case for WorkoutVoiceOutroState.unavailable(_:), v13);
+  sub_10039FED8(v20, v21);
+  v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v83 = *(v14 + 8);
+  v84 = v14 + 8;
+  v83(v16, v13);
+  if (v22)
   {
-    v76 = v19;
+    v78 = v19;
     static WOLog.workoutVoice.getter();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v21, v22))
+    v23 = Logger.logObject.getter();
+    v24 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v23, v24))
     {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v83[0] = v24;
-      *v23 = 136315138;
-      v83[1] = ObjectType;
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v85[0] = v26;
+      *v25 = 136315138;
+      v85[1] = ObjectType;
       swift_getMetatypeMetadata();
-      v25 = String.init<A>(describing:)();
-      v27 = sub_10000AFDC(v25, v26, v83);
+      v27 = String.init<A>(describing:)();
+      v29 = sub_10000AFDC(v27, v28, v85);
 
-      *(v23 + 4) = v27;
-      _os_log_impl(&_mh_execute_header, v21, v22, "[%s] No transcript due to unavailable state", v23, 0xCu);
-      sub_100005A40(v24);
+      *(v25 + 4) = v29;
+      _os_log_impl(&_mh_execute_header, v23, v24, "[%s] No transcript due to unavailable state", v25, 0xCu);
+      sub_100005A40(v26);
     }
 
-    (*(v4 + 8))(v6, v78);
-    v28 = v76;
+    (*(v4 + 8))(v6, v80);
+    v30 = v78;
     goto LABEL_18;
   }
 
   (*(v14 + 16))(v16, v19, v13);
   SummaryWorkoutVoiceOutroView.init(state:)();
-  v29 = OBJC_IVAR___CHWorkoutVoiceOutroTableViewCell_hostingController;
-  v30 = *&v3[OBJC_IVAR___CHWorkoutVoiceOutroTableViewCell_hostingController];
-  if (v30)
+  v31 = OBJC_IVAR___CHWorkoutVoiceOutroTableViewCell_hostingController;
+  v32 = *&v3[OBJC_IVAR___CHWorkoutVoiceOutroTableViewCell_hostingController];
+  if (v32)
   {
-    v32 = v79;
-    v31 = v80;
-    (*(v79 + 16))(v9, v12, v80);
-    v33 = v30;
+    v34 = v81;
+    v33 = v82;
+    (*(v81 + 16))(v9, v12, v82);
+    v35 = v32;
     dispatch thunk of UIHostingController.rootView.setter();
-    v34 = [v33 view];
-    if (v34)
+    v36 = [v35 view];
+    if (v36)
     {
-      v35 = v34;
+      v37 = v36;
 LABEL_17:
-      [v35 layoutIfNeeded];
+      [v37 layoutIfNeeded];
 
-      (*(v32 + 8))(v12, v31);
-      v28 = v19;
+      (*(v34 + 8))(v12, v33);
+      v30 = v19;
 LABEL_18:
-      v81(v28, v13);
+      v83(v30, v13);
       return;
     }
 
@@ -2488,136 +2493,136 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  (*(v79 + 16))(v9, v12, v80);
-  v36 = objc_allocWithZone(sub_100140278(&qword_1008EB020));
-  v37 = UIHostingController.init(rootView:)();
-  v38 = *&v3[v29];
-  *&v3[v29] = v37;
-  v39 = v37;
+  (*(v81 + 16))(v9, v12, v82);
+  v38 = objc_allocWithZone(sub_100140278(&qword_1008EB020, "fj\v"));
+  v39 = UIHostingController.init(rootView:)();
+  v40 = *&v3[v31];
+  *&v3[v31] = v39;
+  v41 = v39;
 
-  v33 = v39;
-  v40 = [v33 view];
-  if (!v40)
+  v35 = v41;
+  v42 = [v35 view];
+  if (!v42)
   {
 LABEL_20:
     __break(1u);
     goto LABEL_21;
   }
 
-  v41 = v40;
-  [v40 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v43 = v42;
+  [v42 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v42 = [v33 view];
-  if (!v42)
+  v44 = [v35 view];
+  if (!v44)
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  v43 = v42;
-  v44 = [objc_opt_self() clearColor];
-  [v43 setBackgroundColor:v44];
+  v45 = v44;
+  v46 = [objc_opt_self() clearColor];
+  [v45 setBackgroundColor:v46];
 
-  v45 = [v3 contentView];
-  v46 = [v33 view];
-  if (!v46)
+  v47 = [v3 contentView];
+  v48 = [v35 view];
+  if (!v48)
   {
 LABEL_22:
     __break(1u);
     goto LABEL_23;
   }
 
-  v47 = v46;
-  v78 = v13;
+  v49 = v48;
+  v80 = v13;
   ObjectType = v12;
-  v76 = v19;
-  [v45 addSubview:v46];
+  v78 = v19;
+  [v47 addSubview:v48];
 
-  [v77 addChildViewController:v33];
-  sub_100140278(&unk_1008E4E20);
-  v48 = swift_allocObject();
-  *(v48 + 16) = xmmword_1006D5300;
-  v49 = [v33 view];
-  if (!v49)
+  [v79 addChildViewController:v35];
+  sub_100140278(&unk_1008E4E20, &qword_1006D5040);
+  v50 = swift_allocObject();
+  *(v50 + 16) = xmmword_1006D5300;
+  v51 = [v35 view];
+  if (!v51)
   {
 LABEL_23:
     __break(1u);
     goto LABEL_24;
   }
 
-  v50 = v49;
-  v51 = [v49 topAnchor];
+  v52 = v51;
+  v53 = [v51 topAnchor];
 
-  v52 = [v3 contentView];
-  v53 = [v52 topAnchor];
+  v54 = [v3 contentView];
+  v55 = [v54 topAnchor];
 
-  v54 = [v51 constraintEqualToAnchor:v53 constant:12.0];
-  *(v48 + 32) = v54;
-  v55 = [v33 view];
-  if (!v55)
+  v56 = [v53 constraintEqualToAnchor:v55 constant:12.0];
+  *(v50 + 32) = v56;
+  v57 = [v35 view];
+  if (!v57)
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  v56 = v55;
-  v57 = [v55 leadingAnchor];
+  v58 = v57;
+  v59 = [v57 leadingAnchor];
 
-  v58 = [v3 contentView];
-  v59 = [v58 leadingAnchor];
+  v60 = [v3 contentView];
+  v61 = [v60 leadingAnchor];
 
-  v60 = [v57 constraintEqualToAnchor:v59 constant:12.0];
-  *(v48 + 40) = v60;
-  v61 = [v33 view];
-  if (!v61)
+  v62 = [v59 constraintEqualToAnchor:v61 constant:12.0];
+  *(v50 + 40) = v62;
+  v63 = [v35 view];
+  if (!v63)
   {
 LABEL_25:
     __break(1u);
     goto LABEL_26;
   }
 
-  v62 = v61;
-  v63 = [v61 trailingAnchor];
+  v64 = v63;
+  v65 = [v63 trailingAnchor];
 
-  v64 = [v3 contentView];
-  v65 = [v64 trailingAnchor];
+  v66 = [v3 contentView];
+  v67 = [v66 trailingAnchor];
 
-  v66 = [v63 constraintEqualToAnchor:v65 constant:-12.0];
-  *(v48 + 48) = v66;
-  v67 = [v33 view];
-  if (!v67)
+  v68 = [v65 constraintEqualToAnchor:v67 constant:-12.0];
+  *(v50 + 48) = v68;
+  v69 = [v35 view];
+  if (!v69)
   {
 LABEL_26:
     __break(1u);
     goto LABEL_27;
   }
 
-  v68 = v67;
-  v69 = objc_opt_self();
-  v70 = [v68 bottomAnchor];
+  v70 = v69;
+  v71 = objc_opt_self();
+  v72 = [v70 bottomAnchor];
 
-  v71 = [v3 contentView];
-  v72 = [v71 bottomAnchor];
+  v73 = [v3 contentView];
+  v74 = [v73 bottomAnchor];
 
-  v73 = [v70 constraintEqualToAnchor:v72 constant:-12.0];
-  *(v48 + 56) = v73;
+  v75 = [v72 constraintEqualToAnchor:v74 constant:-12.0];
+  *(v50 + 56) = v75;
   sub_10019EC5C();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v69 activateConstraints:isa];
+  [v71 activateConstraints:isa];
 
-  [v33 didMoveToParentViewController:v77];
-  v35 = [v33 view];
+  [v35 didMoveToParentViewController:v79];
+  v37 = [v35 view];
 
-  if (v35)
+  if (v37)
   {
     v12 = ObjectType;
-    v19 = v76;
-    v32 = v79;
-    v31 = v80;
-    v13 = v78;
+    v19 = v78;
+    v34 = v81;
+    v33 = v82;
+    v13 = v80;
     goto LABEL_17;
   }
 
@@ -2625,14 +2630,14 @@ LABEL_27:
   __break(1u);
 }
 
-id sub_10039FE70()
+id sub_10039FE70(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WorkoutVoiceOutroTableViewCell();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for WorkoutVoiceOutroTableViewCell();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-unint64_t sub_10039FED8()
+unint64_t sub_10039FED8(uint64_t a1, uint64_t a2)
 {
   result = qword_1008EB018;
   if (!qword_1008EB018)
@@ -2706,7 +2711,7 @@ void sub_1003A01C0()
 {
   v1 = v0;
   v26 = objc_opt_self();
-  sub_100140278(&unk_1008E4E20);
+  sub_100140278(&unk_1008E4E20, &qword_1006D5040);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1006D9800;
   v3 = *&v1[OBJC_IVAR____TtC10FitnessApp19StackDetailItemView_titleLabel];
@@ -2776,11 +2781,11 @@ void sub_1003A05B8(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*
   [v12 setAttributedText:v13];
 }
 
-id sub_1003A0758()
+id sub_1003A0758(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for StackDetailItemView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for StackDetailItemView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_1003A07FC()
@@ -2888,7 +2893,7 @@ void sub_1003A0BB0()
 
 void sub_1003A0C48()
 {
-  sub_1000059F8(0, &qword_1008F73C0);
+  sub_1000059F8(0, &qword_1008F73C0, UIFont_ptr);
   v0 = UIFontDescriptorSystemDesignRounded;
   v1 = static UIFont.systemFont(ofSize:weight:design:)();
 
@@ -2992,7 +2997,7 @@ char *sub_1003A0CCC(double a1, double a2, double a3, double a4)
 void sub_1003A1254()
 {
   v49 = objc_opt_self();
-  sub_100140278(&unk_1008E4E20);
+  sub_100140278(&unk_1008E4E20, &qword_1006D5040);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_1006E1300;
   v2 = *&v0[OBJC_IVAR____TtC10FitnessApp43AppStoreAppRecommendationCollectionViewCell_insetContentView];
@@ -3070,7 +3075,7 @@ void sub_1003A1254()
   v48 = [v46 constraintEqualToAnchor:v47];
 
   *(v1 + 144) = v48;
-  sub_1000059F8(0, &qword_1008DC980);
+  sub_1000059F8(0, &qword_1008DC980, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v49 activateConstraints:isa];
@@ -3157,11 +3162,11 @@ uint64_t sub_1003A1C58()
   return v1();
 }
 
-id sub_1003A1D98()
+id sub_1003A1D98(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AppStoreAppRecommendationCollectionViewCell();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for AppStoreAppRecommendationCollectionViewCell();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 void sub_1003A1E9C()
@@ -3242,54 +3247,54 @@ void sub_1003A1E9C()
   __break(1u);
 }
 
-Swift::Int sub_1003A230C()
+Swift::Int sub_1003A230C(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v63 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100140278(&unk_1008F73A0);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v63 - v7;
+  v3 = v2;
+  v4 = type metadata accessor for Date();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v65 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_100140278(&unk_1008F73A0, &unk_1006DB450);
+  __chkstk_darwin(v8 - 8);
+  v10 = &v65 - v9;
   Hasher.init()();
-  v9 = type metadata accessor for ActivityRingsCard();
-  v10 = (v0 + v9[5]);
-  v11 = *v10;
-  v12 = *(v10 + 16);
-  sub_100035B30(*v10, *(v10 + 16));
+  v11 = type metadata accessor for ActivityRingsCard(0);
+  v12 = (v2 + v11[5]);
+  v13 = *v12;
+  v14 = *(v12 + 16);
+  sub_100035B30(*v12, *(v12 + 16));
   String.hash(into:)();
 
-  if (!v12 || v12 == 2)
+  if (!v14 || v14 == 2)
   {
-    Hasher._combine(_:)(v11);
+    Hasher._combine(_:)(v13);
   }
 
-  else if (v12 == 1)
+  else if (v14 == 1)
   {
     String.hash(into:)();
   }
 
-  Hasher._combine(_:)(*(v1 + v9[6]));
-  Hasher._combine(_:)(*(v1 + v9[7]));
-  sub_1001CE7A0(v1 + v9[10], v8);
-  if ((*(v3 + 48))(v8, 1, v2) == 1)
+  Hasher._combine(_:)(*(v3 + v11[6]));
+  Hasher._combine(_:)(*(v3 + v11[7]));
+  sub_1001CE7A0(v3 + v11[10], v10);
+  if ((*(v5 + 48))(v10, 1, v4) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    (*(v3 + 32))(v5, v8, v2);
+    (*(v5 + 32))(v7, v10, v4);
     Hasher._combine(_:)(1u);
-    sub_10008192C(&qword_1008DEF18, &type metadata accessor for Date);
+    sub_10008192C(&qword_1008DEF18, &type metadata accessor for Date, &protocol conformance descriptor for Date);
     dispatch thunk of Hashable.hash(into:)();
-    (*(v3 + 8))(v5, v2);
+    (*(v5 + 8))(v7, v4);
   }
 
-  v13 = *(v1 + v9[9]);
-  v14 = &selRef_initWithLayer_;
-  if (!v13)
+  v15 = *(v3 + v11[9]);
+  v16 = &selRef_initWithLayer_;
+  if (!v15)
   {
     Hasher._combine(_:)(0);
     Hasher._combine(_:)(0);
@@ -3303,13 +3308,13 @@ Swift::Int sub_1003A230C()
     Hasher._combine(_:)(0);
 LABEL_40:
     Hasher._combine(_:)(0);
-    v60 = *(v1 + v9[12]);
-    if (v60 != 2)
+    v62 = *(v3 + v11[12]);
+    if (v62 != 2)
     {
       goto LABEL_44;
     }
 
-    if (!v13)
+    if (!v15)
     {
       goto LABEL_43;
     }
@@ -3317,138 +3322,138 @@ LABEL_40:
     goto LABEL_42;
   }
 
-  v15 = [v13 _activitySummaryIndex];
+  v17 = [v15 _activitySummaryIndex];
   Hasher._combine(_:)(1u);
-  Hasher._combine(_:)(v15);
-  v16 = [v13 _wheelchairUse];
+  Hasher._combine(_:)(v17);
+  v18 = [v15 _wheelchairUse];
   Hasher._combine(_:)(1u);
-  Hasher._combine(_:)(v16);
-  LOBYTE(v16) = [v13 paused];
+  Hasher._combine(_:)(v18);
+  LOBYTE(v18) = [v15 paused];
   Hasher._combine(_:)(1u);
-  Hasher._combine(_:)(v16);
-  v17 = [v13 activeEnergyBurned];
-  v18 = objc_opt_self();
-  v19 = [v18 largeCalorieUnit];
-  [v17 doubleValueForUnit:v19];
-  v21 = v20;
+  Hasher._combine(_:)(v18);
+  v19 = [v15 activeEnergyBurned];
+  v20 = objc_opt_self();
+  v21 = [v20 largeCalorieUnit];
+  [v19 doubleValueForUnit:v21];
+  v23 = v22;
 
   Hasher._combine(_:)(1u);
-  if (v21 == 0.0)
+  if (v23 == 0.0)
   {
-    v22 = 0.0;
+    v24 = 0.0;
   }
 
   else
   {
-    v22 = v21;
+    v24 = v23;
   }
 
-  Hasher._combine(_:)(*&v22);
-  v23 = [v13 appleMoveTime];
-  v24 = [v18 minuteUnit];
-  [v23 doubleValueForUnit:v24];
-  v26 = v25;
+  Hasher._combine(_:)(*&v24);
+  v25 = [v15 appleMoveTime];
+  v26 = [v20 minuteUnit];
+  [v25 doubleValueForUnit:v26];
+  v28 = v27;
 
   Hasher._combine(_:)(1u);
-  if (v26 == 0.0)
+  if (v28 == 0.0)
   {
-    v27 = 0.0;
+    v29 = 0.0;
   }
 
   else
   {
-    v27 = v26;
+    v29 = v28;
   }
 
-  Hasher._combine(_:)(*&v27);
-  v28 = [v13 appleExerciseTime];
-  v29 = [v18 minuteUnit];
-  [v28 doubleValueForUnit:v29];
-  v31 = v30;
+  Hasher._combine(_:)(*&v29);
+  v30 = [v15 appleExerciseTime];
+  v31 = [v20 minuteUnit];
+  [v30 doubleValueForUnit:v31];
+  v33 = v32;
 
   Hasher._combine(_:)(1u);
-  if (v31 == 0.0)
+  if (v33 == 0.0)
   {
-    v32 = 0.0;
+    v34 = 0.0;
   }
 
   else
   {
-    v32 = v31;
+    v34 = v33;
   }
 
-  Hasher._combine(_:)(*&v32);
-  v33 = [v13 appleStandHours];
-  v34 = [v18 countUnit];
-  [v33 doubleValueForUnit:v34];
-  v36 = v35;
+  Hasher._combine(_:)(*&v34);
+  v35 = [v15 appleStandHours];
+  v36 = [v20 countUnit];
+  [v35 doubleValueForUnit:v36];
+  v38 = v37;
 
   Hasher._combine(_:)(1u);
-  if (v36 == 0.0)
+  if (v38 == 0.0)
   {
-    v37 = 0.0;
+    v39 = 0.0;
   }
 
   else
   {
-    v37 = v36;
+    v39 = v38;
   }
 
-  Hasher._combine(_:)(*&v37);
-  v38 = [v13 activeEnergyBurnedGoal];
-  v39 = [v18 largeCalorieUnit];
-  [v38 doubleValueForUnit:v39];
-  v41 = v40;
+  Hasher._combine(_:)(*&v39);
+  v40 = [v15 activeEnergyBurnedGoal];
+  v41 = [v20 largeCalorieUnit];
+  [v40 doubleValueForUnit:v41];
+  v43 = v42;
 
   Hasher._combine(_:)(1u);
-  if (v41 == 0.0)
+  if (v43 == 0.0)
   {
-    v42 = 0.0;
+    v44 = 0.0;
   }
 
   else
   {
-    v42 = v41;
+    v44 = v43;
   }
 
-  Hasher._combine(_:)(*&v42);
-  v43 = [v13 appleMoveTimeGoal];
-  v44 = [v18 minuteUnit];
-  [v43 doubleValueForUnit:v44];
-  v46 = v45;
+  Hasher._combine(_:)(*&v44);
+  v45 = [v15 appleMoveTimeGoal];
+  v46 = [v20 minuteUnit];
+  [v45 doubleValueForUnit:v46];
+  v48 = v47;
 
   Hasher._combine(_:)(1u);
-  if (v46 == 0.0)
+  if (v48 == 0.0)
   {
-    v47 = 0.0;
+    v49 = 0.0;
   }
 
   else
-  {
-    v47 = v46;
-  }
-
-  Hasher._combine(_:)(*&v47);
-  v48 = [v13 exerciseTimeGoal];
-  if (v48)
   {
     v49 = v48;
-    v50 = [v18 minuteUnit];
-    [v49 doubleValueForUnit:v50];
-    v52 = v51;
+  }
+
+  Hasher._combine(_:)(*&v49);
+  v50 = [v15 exerciseTimeGoal];
+  if (v50)
+  {
+    v51 = v50;
+    v52 = [v20 minuteUnit];
+    [v51 doubleValueForUnit:v52];
+    v54 = v53;
 
     Hasher._combine(_:)(1u);
-    if (v52 == 0.0)
+    if (v54 == 0.0)
     {
-      v53 = 0.0;
+      v55 = 0.0;
     }
 
     else
     {
-      v53 = v52;
+      v55 = v54;
     }
 
-    Hasher._combine(_:)(*&v53);
+    Hasher._combine(_:)(*&v55);
   }
 
   else
@@ -3456,31 +3461,31 @@ LABEL_40:
     Hasher._combine(_:)(0);
   }
 
-  v54 = [v13 standHoursGoal];
-  v14 = &selRef_initWithLayer_;
-  if (!v54)
+  v56 = [v15 standHoursGoal];
+  v16 = &selRef_initWithLayer_;
+  if (!v56)
   {
     goto LABEL_40;
   }
 
-  v55 = v54;
-  v56 = [objc_opt_self() countUnit];
-  [v55 doubleValueForUnit:v56];
-  v58 = v57;
+  v57 = v56;
+  v58 = [objc_opt_self() countUnit];
+  [v57 doubleValueForUnit:v58];
+  v60 = v59;
 
   Hasher._combine(_:)(1u);
-  v59 = 0.0;
-  if (v58 != 0.0)
+  v61 = 0.0;
+  if (v60 != 0.0)
   {
-    v59 = v58;
+    v61 = v60;
   }
 
-  Hasher._combine(_:)(*&v59);
-  v60 = *(v1 + v9[12]);
-  if (v60 != 2)
+  Hasher._combine(_:)(*&v61);
+  v62 = *(v3 + v11[12]);
+  if (v62 != 2)
   {
 LABEL_44:
-    if (v60)
+    if (v62)
     {
       goto LABEL_45;
     }
@@ -3489,36 +3494,36 @@ LABEL_44:
   }
 
 LABEL_42:
-  if ([v13 v14[39]] == 2)
+  if ([v15 v16[39]] == 2)
   {
 LABEL_45:
-    v61 = 1;
+    v63 = 1;
     goto LABEL_46;
   }
 
 LABEL_43:
-  v61 = 0;
+  v63 = 0;
 LABEL_46:
-  Hasher._combine(_:)(v61);
+  Hasher._combine(_:)(v63);
   return Hasher.finalize()();
 }
 
-void sub_1003A2A78()
+void sub_1003A2A78(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_10006DAB0(319, &qword_1008E3090, &qword_1008E3098);
-    if (v1 <= 0x3F)
+    sub_10006DAB0(319, &qword_1008E3090, &qword_1008E3098, HKActivitySummary_ptr);
+    if (v2 <= 0x3F)
     {
-      sub_1001F3724();
-      if (v2 <= 0x3F)
+      sub_1001F3724(319, v2);
+      if (v3 <= 0x3F)
       {
-        sub_10006DAB0(319, &qword_1008E30A0, &qword_1008F24B0);
-        if (v3 <= 0x3F)
+        sub_10006DAB0(319, &qword_1008E30A0, &qword_1008F24B0, FIUIFormattingManager_ptr);
+        if (v4 <= 0x3F)
         {
           sub_10019C0F4();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -3530,15 +3535,15 @@ void sub_1003A2A78()
 
 void sub_1003A2BA0(uint64_t a1, char *a2)
 {
-  v3 = sub_100140278(&unk_1008F73A0);
+  v3 = sub_100140278(&unk_1008F73A0, &unk_1006DB450);
   __chkstk_darwin(v3 - 8);
   v5 = &v116 - v4;
-  v6 = sub_100140278(&qword_1008DD010);
+  v6 = sub_100140278(&qword_1008DD010, &qword_1006D5898);
   __chkstk_darwin(v6 - 8);
   v8 = &v116 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
   v11 = &v116 - v10;
-  v12 = type metadata accessor for ActivityRingsCard();
+  v12 = type metadata accessor for ActivityRingsCard(0);
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
   v117 = &v116 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3592,7 +3597,7 @@ LABEL_56:
   if (v30 != 3 || v28 | v29)
   {
     sub_10001D4F8(v28, v29, v30);
-    sub_1000059F8(0, &qword_1008E0C88);
+    sub_1000059F8(0, &qword_1008E0C88, UIAction_ptr);
     v38 = objc_opt_self();
     v39 = [v38 mainBundle];
     v124._object = 0xE000000000000000;
@@ -3632,7 +3637,7 @@ LABEL_56:
     sub_100006260(v119, v54 + 24);
     v55 = v47;
     v56 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100140278(&unk_1008E4E20);
+    sub_100140278(&unk_1008E4E20, &qword_1006D5040);
     v57 = swift_allocObject();
     *(v57 + 16) = xmmword_1006D68D0;
     *(v57 + 32) = v48;
@@ -3640,9 +3645,9 @@ LABEL_56:
 LABEL_52:
 
     dispatch thunk of __ContiguousArrayStorageBase.staticElementType.getter();
-    sub_1000059F8(0, &qword_1008EAA38);
+    sub_1000059F8(0, &qword_1008EAA38, UIMenuElement_ptr);
 
-    sub_1000059F8(0, &qword_1008EB650);
+    sub_1000059F8(0, &qword_1008EB650, UIMenu_ptr);
     v114._countAndFlagsBits = 0;
     v114._object = 0xE000000000000000;
     v123.value.super.isa = 0;
@@ -3652,13 +3657,13 @@ LABEL_52:
   }
 
   sub_100007C5C(v120, v119);
-  sub_100140278(&unk_1008EE6B0);
+  sub_100140278(&unk_1008EE6B0, &qword_1006D58A0);
   v31 = swift_dynamicCast();
   v32 = *(v13 + 56);
   if ((v31 & 1) == 0)
   {
     v32(v11, 1, 1, v12);
-    sub_10000EA04(v11, &qword_1008DD010);
+    sub_10000EA04(v11, &qword_1008DD010, &qword_1006D5898);
     goto LABEL_17;
   }
 
@@ -3667,7 +3672,7 @@ LABEL_52:
   sub_1001CE7A0(&v17[*(v12 + 40)], v5);
   v33 = type metadata accessor for Date();
   v34 = (*(*(v33 - 8) + 48))(v5, 1, v33);
-  sub_10000EA04(v5, &unk_1008F73A0);
+  sub_10000EA04(v5, &unk_1008F73A0, &unk_1006DB450);
   if (v34 == 1 && ((v35 = *&v17[*(v12 + 36)]) == 0 || ![v35 paused]) || !v21)
   {
     sub_1003A4124(v17);
@@ -3705,7 +3710,7 @@ LABEL_25:
             v65 = 0xEB0000000053474ELL;
           }
 
-          sub_1000059F8(0, &qword_1008E0C88);
+          sub_1000059F8(0, &qword_1008E0C88, UIAction_ptr);
           v66 = objc_opt_self();
           v67 = [v66 mainBundle];
           v126._object = 0xE000000000000000;
@@ -3764,7 +3769,7 @@ LABEL_35:
             *(swift_allocObject() + 16) = v75;
             v88 = v75;
             v89 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-            sub_100140278(&unk_1008E4E20);
+            sub_100140278(&unk_1008E4E20, &qword_1006D5040);
             v57 = swift_allocObject();
             *(v57 + 16) = xmmword_1006D68D0;
             *(v57 + 32) = v76;
@@ -3809,7 +3814,7 @@ LABEL_58:
     else
     {
       v32(v8, 1, 1, v12);
-      sub_10000EA04(v8, &qword_1008DD010);
+      sub_10000EA04(v8, &qword_1008DD010, &qword_1006D5898);
     }
 
 LABEL_53:
@@ -3842,7 +3847,7 @@ LABEL_44:
       v95 = 0xEC00000053474E49;
     }
 
-    sub_1000059F8(0, &qword_1008E0C88);
+    sub_1000059F8(0, &qword_1008E0C88, UIAction_ptr);
     v96 = objc_opt_self();
     v97 = [v96 mainBundle];
     v128._object = 0xE000000000000000;
@@ -3877,7 +3882,7 @@ LABEL_44:
     *(swift_allocObject() + 16) = v105;
     v112 = v105;
     v113 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100140278(&unk_1008E4E20);
+    sub_100140278(&unk_1008E4E20, &qword_1006D5040);
     v57 = swift_allocObject();
     *(v57 + 16) = xmmword_1006D68D0;
     *(v57 + 32) = v106;
@@ -3979,42 +3984,42 @@ void sub_1003A3F7C(uint64_t a1)
   sub_1003A2BA0(a1, v3);
 }
 
-uint64_t sub_1003A3FF0()
+void sub_1003A3FF0()
 {
   v1 = v0[2];
   v2 = v0[6];
   v3 = v0[7];
   v4 = sub_1000066AC(v0 + 3, v2);
 
-  return sub_100475448(v4, v1, v2, v3);
+  sub_100475448(v4, v1, v2, v3);
 }
 
 uint64_t sub_1003A4044()
 {
-  sub_100005A40(v0 + 24);
+  sub_100005A40((v0 + 24));
 
   return _swift_deallocObject(v0, 64, 7);
 }
 
 uint64_t sub_1003A40C0(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ActivityRingsCard();
+  v4 = type metadata accessor for ActivityRingsCard(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1003A4124(uint64_t a1)
 {
-  v2 = type metadata accessor for ActivityRingsCard();
+  v2 = type metadata accessor for ActivityRingsCard(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-id sub_1003A424C()
+id sub_1003A424C(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WorkoutConfigurationViewer();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for WorkoutConfigurationViewer();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_1003A42A8()
@@ -4045,11 +4050,11 @@ uint64_t sub_1003A4358(uint64_t a1, uint64_t a2)
 {
   v2[3] = a1;
   v2[4] = a2;
-  v3 = sub_100140278(&qword_1008EB1F8);
+  v3 = sub_100140278(&qword_1008EB1F8, &qword_1006ECD98);
   v2[5] = v3;
   v2[6] = *(v3 - 8);
   v2[7] = swift_task_alloc();
-  v4 = sub_100140278(&qword_1008EB200);
+  v4 = sub_100140278(&qword_1008EB200, &qword_1006ECDA0);
   v2[8] = v4;
   v2[9] = *(v4 - 8);
   v2[10] = swift_task_alloc();
@@ -4073,18 +4078,18 @@ uint64_t sub_1003A448C()
   v7 = [v4 predicateForObjectsWithUUIDs:isa];
   v0[11] = v7;
 
-  sub_1000059F8(0, &unk_1008E4060);
+  sub_1000059F8(0, &unk_1008E4060, HKCategoryType_ptr);
   v8 = HKCategoryType.init(_:)(HKCategoryTypeIdentifierMindfulSession).super.super.super.isa;
-  sub_1000059F8(0, &qword_1008E04D0);
+  sub_1000059F8(0, &qword_1008E04D0, HKSample_ptr);
   v9 = v7;
   static HKSamplePredicate.categorySample(type:predicate:)();
 
-  sub_100140278(&qword_1008EB208);
+  sub_100140278(&qword_1008EB208, &qword_1006ECDA8);
   v10 = (*(v1 + 80) + 32) & ~*(v1 + 80);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_1006D46C0;
   (*(v1 + 16))(v11 + v10, v2, v3);
-  sub_1000059F8(0, &qword_1008EB220);
+  sub_1000059F8(0, &qword_1008EB220, HKCategorySample_ptr);
   HKSampleQueryDescriptor.init(predicates:sortDescriptors:limit:)();
   AppDependency.wrappedValue.getter();
   v12 = v0[2];
@@ -4161,7 +4166,7 @@ uint64_t sub_1003A4824()
     }
 
     ++v4;
-    sub_10028AE34(v6);
+    sub_10028AE34(v6, v7);
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
@@ -4170,20 +4175,20 @@ uint64_t sub_1003A4824()
 
   while (v2 != v4);
 LABEL_11:
-  v7 = v0[10];
-  v8 = v0[11];
-  v9 = v0[8];
-  v10 = v0[9];
-  v12 = v0[6];
-  v11 = v0[7];
-  v13 = v0[5];
+  v8 = v0[10];
+  v9 = v0[11];
+  v10 = v0[8];
+  v11 = v0[9];
+  v13 = v0[6];
+  v12 = v0[7];
+  v14 = v0[5];
 
-  (*(v12 + 8))(v11, v13);
-  (*(v10 + 8))(v7, v9);
+  (*(v13 + 8))(v12, v14);
+  (*(v11 + 8))(v8, v10);
 
-  v14 = v0[1];
+  v15 = v0[1];
 
-  return v14(_swiftEmptyArrayStorage);
+  return v15(_swiftEmptyArrayStorage);
 }
 
 uint64_t sub_1003A4A20()
@@ -4206,11 +4211,11 @@ uint64_t sub_1003A4A20()
 uint64_t sub_1003A4AE0(uint64_t a1)
 {
   v1[3] = a1;
-  v2 = sub_100140278(&qword_1008EB1F8);
+  v2 = sub_100140278(&qword_1008EB1F8, &qword_1006ECD98);
   v1[4] = v2;
   v1[5] = *(v2 - 8);
   v1[6] = swift_task_alloc();
-  v3 = sub_100140278(&qword_1008EB200);
+  v3 = sub_100140278(&qword_1008EB200, &qword_1006ECDA0);
   v1[7] = v3;
   v1[8] = *(v3 - 8);
   v1[9] = swift_task_alloc();
@@ -4223,22 +4228,22 @@ uint64_t sub_1003A4C14()
   v2 = v0[8];
   v1 = v0[9];
   v3 = v0[7];
-  sub_1000059F8(0, &unk_1008E4060);
+  sub_1000059F8(0, &unk_1008E4060, HKCategoryType_ptr);
   isa = HKCategoryType.init(_:)(HKCategoryTypeIdentifierMindfulSession).super.super.super.isa;
-  sub_1000059F8(0, &qword_1008E04D0);
+  sub_1000059F8(0, &qword_1008E04D0, HKSample_ptr);
   static HKSamplePredicate.categorySample(type:predicate:)();
 
-  sub_100140278(&qword_1008EB208);
+  sub_100140278(&qword_1008EB208, &qword_1006ECDA8);
   v5 = (*(v2 + 80) + 32) & ~*(v2 + 80);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_1006D46C0;
   (*(v2 + 16))(v6 + v5, v1, v3);
-  sub_100140278(&qword_1008EB210);
-  sub_100140278(&qword_1008EB218);
+  sub_100140278(&qword_1008EB210, &qword_1006ECDB0);
+  sub_100140278(&qword_1008EB218, &unk_1006ECDB8);
   *(swift_allocObject() + 16) = xmmword_1006D46C0;
   swift_getKeyPath();
   SortDescriptor.init<A>(_:order:)();
-  sub_1000059F8(0, &qword_1008EB220);
+  sub_1000059F8(0, &qword_1008EB220, HKCategorySample_ptr);
   HKSampleQueryDescriptor.init(predicates:sortDescriptors:limit:)();
   AppDependency.wrappedValue.getter();
   v7 = v0[2];
@@ -4315,7 +4320,7 @@ uint64_t sub_1003A4FBC()
     }
 
     ++v4;
-    sub_10028AE34(v6);
+    sub_10028AE34(v6, v7);
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
@@ -4324,19 +4329,19 @@ uint64_t sub_1003A4FBC()
 
   while (v2 != v4);
 LABEL_11:
-  v8 = v0[8];
-  v7 = v0[9];
-  v10 = v0[6];
-  v9 = v0[7];
-  v11 = v0[4];
-  v12 = v0[5];
+  v9 = v0[8];
+  v8 = v0[9];
+  v11 = v0[6];
+  v10 = v0[7];
+  v12 = v0[4];
+  v13 = v0[5];
 
-  (*(v12 + 8))(v10, v11);
-  (*(v8 + 8))(v7, v9);
+  (*(v13 + 8))(v11, v12);
+  (*(v9 + 8))(v8, v10);
 
-  v13 = v0[1];
+  v14 = v0[1];
 
-  return v13(_swiftEmptyArrayStorage);
+  return v14(_swiftEmptyArrayStorage);
 }
 
 uint64_t sub_1003A51A8()
@@ -4354,7 +4359,7 @@ uint64_t sub_1003A51A8()
 
 uint64_t sub_1003A5254@<X0>(uint64_t *a1@<X8>)
 {
-  sub_100140278(&qword_1008DD148);
+  sub_100140278(&qword_1008DD148, &unk_1006D5CD0);
   type metadata accessor for AppDependencyManager();
   static AppDependencyManager.shared.getter();
   result = AppDependency.__allocating_init(key:manager:)();
@@ -4402,7 +4407,7 @@ unint64_t sub_1003A5460()
   result = qword_1008EB1E8;
   if (!qword_1008EB1E8)
   {
-    sub_100141EEC(&qword_1008EB1F0);
+    sub_100141EEC(&qword_1008EB1F0, qword_1006ECC78);
     sub_10028AAE0();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1008EB1E8);
@@ -4826,7 +4831,7 @@ uint64_t sub_1003A5DE0(uint64_t a1, uint64_t a2)
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (*(a2 + 16) && (sub_1003A7354(&qword_1008EB288, &type metadata accessor for Feature), v7 = dispatch thunk of Hashable._rawHashValue(seed:)(), v8 = -1 << *(a2 + 32), v9 = v7 & ~v8, v18 = a2 + 56, ((*(a2 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) != 0))
+  if (*(a2 + 16) && (sub_1003A7354(&qword_1008EB288, &type metadata accessor for Feature, &protocol conformance descriptor for Feature), v7 = dispatch thunk of Hashable._rawHashValue(seed:)(), v8 = -1 << *(a2 + 32), v9 = v7 & ~v8, v18 = a2 + 56, ((*(a2 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) != 0))
   {
     v17 = a2;
     v10 = ~v8;
@@ -4837,7 +4842,7 @@ uint64_t sub_1003A5DE0(uint64_t a1, uint64_t a2)
     do
     {
       v12(v6, *(v17 + 48) + v13 * v9, v3);
-      sub_1003A7354(&qword_1008EB290, &type metadata accessor for Feature);
+      sub_1003A7354(&qword_1008EB290, &type metadata accessor for Feature, &protocol conformance descriptor for Feature);
       v15 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*v14)(v6, v3);
       if (v15)
@@ -4863,17 +4868,17 @@ id sub_1003A6018(uint64_t a1, void *a2)
 {
   v3 = v2;
   v6 = type metadata accessor for Artwork();
-  v30 = *(v6 - 8);
-  v31 = v6;
+  v31 = *(v6 - 8);
+  v32 = v6;
   __chkstk_darwin(v6);
-  v28 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = type metadata accessor for StandardArtworkDescriptor();
-  v27 = *(v29 - 8);
-  __chkstk_darwin(v29);
-  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = type metadata accessor for StandardArtworkDescriptor();
+  v28 = *(v30 - 8);
+  __chkstk_darwin(v30);
+  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for ArtworkDescriptor();
   __chkstk_darwin(v10 - 8);
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000066AC(a2, a2[3]);
   v13 = CatalogLockup.titleTags.getter();
   isa = MediaTagStringBuilding.attributedString(for:)(v13).super.isa;
@@ -4886,25 +4891,25 @@ id sub_1003A6018(uint64_t a1, void *a2)
   *&v3[OBJC_IVAR___CHCatalogItemViewModel_subtitle] = v16;
   CatalogLockup.artworkDescriptor.getter();
   ArtworkDescriptor.standardArtworkDescriptor.getter();
-  sub_1003A7230(v12);
-  v17 = v28;
+  sub_1003A7230(v12, v17);
+  v18 = v29;
   StandardArtworkDescriptor.artwork.getter();
-  (*(v27 + 8))(v9, v29);
-  (*(v30 + 32))(&v3[OBJC_IVAR___CHCatalogItemViewModel_artwork], v17, v31);
-  v18 = CatalogLockup.mediaType.getter();
-  v19 = &v3[OBJC_IVAR___CHCatalogItemViewModel_mediaType];
-  *v19 = v18;
-  *(v19 + 1) = v20;
-  v19[16] = v21;
+  (*(v28 + 8))(v9, v30);
+  (*(v31 + 32))(&v3[OBJC_IVAR___CHCatalogItemViewModel_artwork], v18, v32);
+  v19 = CatalogLockup.mediaType.getter();
+  v20 = &v3[OBJC_IVAR___CHCatalogItemViewModel_mediaType];
+  *v20 = v19;
+  *(v20 + 1) = v21;
+  v20[16] = v22;
   *&v3[OBJC_IVAR___CHCatalogItemViewModel_workouts] = _swiftEmptyArrayStorage;
-  v22 = type metadata accessor for CatalogItemViewModel();
-  v32.receiver = v3;
-  v32.super_class = v22;
-  v23 = objc_msgSendSuper2(&v32, "init");
-  v24 = type metadata accessor for CatalogLockup();
-  (*(*(v24 - 8) + 8))(a1, v24);
+  v23 = type metadata accessor for CatalogItemViewModel(0);
+  v33.receiver = v3;
+  v33.super_class = v23;
+  v24 = objc_msgSendSuper2(&v33, "init");
+  v25 = type metadata accessor for CatalogLockup();
+  (*(*(v25 - 8) + 8))(a1, v25);
   sub_100005A40(a2);
-  return v23;
+  return v24;
 }
 
 uint64_t sub_1003A637C()
@@ -4983,7 +4988,7 @@ uint64_t sub_1003A662C()
   _StringGuts.grow(_:)(53);
   v26 = v24;
   v25.receiver = v0;
-  v25.super_class = type metadata accessor for CatalogItemViewModel();
+  v25.super_class = type metadata accessor for CatalogItemViewModel(0);
   v2 = objc_msgSendSuper2(&v25, "description");
   v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = v4;
@@ -5018,14 +5023,14 @@ uint64_t sub_1003A662C()
   v19._object = 0xEB00000000203A6BLL;
   String.append(_:)(v19);
   type metadata accessor for Artwork();
-  sub_1003A7354(&qword_1008EB2A8, &type metadata accessor for Artwork);
+  sub_1003A7354(&qword_1008EB2A8, &type metadata accessor for Artwork, &protocol conformance descriptor for Artwork);
   v20._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v20);
 
   v21._countAndFlagsBits = 0x54616964656D202CLL;
   v21._object = 0xED0000203A657079;
   String.append(_:)(v21);
-  sub_100140278(&qword_1008EB2B0);
+  sub_100140278(&qword_1008EB2B0, qword_1006ECE60);
   v22._countAndFlagsBits = Optional.description.getter();
   String.append(_:)(v22);
 
@@ -5035,11 +5040,11 @@ uint64_t sub_1003A662C()
 id sub_1003A68DC()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for CatalogItemViewModel();
+  v2.super_class = type metadata accessor for CatalogItemViewModel(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for CatalogItemViewModel()
+uint64_t type metadata accessor for CatalogItemViewModel(uint64_t a1)
 {
   result = qword_1008EB260;
   if (!qword_1008EB260)
@@ -5050,10 +5055,10 @@ uint64_t type metadata accessor for CatalogItemViewModel()
   return result;
 }
 
-uint64_t sub_1003A6A1C()
+uint64_t sub_1003A6A1C(uint64_t a1)
 {
   result = type metadata accessor for Artwork();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -5067,21 +5072,21 @@ uint64_t sub_1003A6A1C()
 
 id sub_1003A6AD4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100140278(&qword_1008EB280);
+  v4 = sub_100140278(&qword_1008EB280, &unk_1006ECE50);
   __chkstk_darwin(v4 - 8);
   v6 = v18 - v5;
   v7 = type metadata accessor for Playlist();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10001B104(a2, v6, &qword_1008EB280);
+  sub_10001B104(a2, v6, &qword_1008EB280, &unk_1006ECE50);
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    sub_10000EA04(v6, &qword_1008EB280);
+    sub_10000EA04(v6, &qword_1008EB280, &unk_1006ECE50);
     v19 = &_swiftEmptySetSingleton;
     sub_1003A55A8(a1, &v19);
     v18[1] = v11;
-    sub_100140278(&unk_1008E99C0);
+    sub_100140278(&unk_1008E99C0, &unk_1006D2070);
     sub_100020FC0();
     BidirectionalCollection<>.joined(separator:)();
 
@@ -5112,7 +5117,7 @@ Class sub_1003A6D80(uint64_t a1, uint64_t a2, void *a3)
   v42 = *(v5 - 8);
   __chkstk_darwin(v5);
   v39 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100140278(&qword_1008EB270);
+  v7 = sub_100140278(&qword_1008EB270, &unk_1006ECE40);
   __chkstk_darwin(v7 - 8);
   v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
@@ -5148,12 +5153,12 @@ Class sub_1003A6D80(uint64_t a1, uint64_t a2, void *a3)
       __chkstk_darwin(v25);
       *(&v35 - 2) = v16;
       sub_1004155CC(sub_1003A7210, v47, v12);
-      sub_10001B104(v12, v9, &qword_1008EB270);
+      sub_10001B104(v12, v9, &qword_1008EB270, &unk_1006ECE40);
       v26 = v46;
       if ((*v43)(v9, 1, v46) == 1)
       {
-        sub_10000EA04(v12, &qword_1008EB270);
-        sub_10000EA04(v9, &qword_1008EB270);
+        sub_10000EA04(v12, &qword_1008EB270, &unk_1006ECE40);
+        sub_10000EA04(v9, &qword_1008EB270, &unk_1006ECE40);
       }
 
       else
@@ -5163,7 +5168,7 @@ Class sub_1003A6D80(uint64_t a1, uint64_t a2, void *a3)
         MediaDuration.duration.getter();
         v29 = v28;
         (*v37)(v27, v26);
-        sub_10000EA04(v12, &qword_1008EB270);
+        sub_10000EA04(v12, &qword_1008EB270, &unk_1006ECE40);
         v23 = v23 + v29;
       }
 
@@ -5186,7 +5191,7 @@ Class sub_1003A6D80(uint64_t a1, uint64_t a2, void *a3)
   }
 
   sub_1000066AC(a3, a3[3]);
-  sub_100140278(&qword_1008EB278);
+  sub_100140278(&qword_1008EB278, &unk_1006FE350);
   v30 = *(type metadata accessor for MediaTag() - 8);
   v31 = (*(v30 + 80) + 32) & ~*(v30 + 80);
   v32 = swift_allocObject();
@@ -5198,14 +5203,14 @@ Class sub_1003A6D80(uint64_t a1, uint64_t a2, void *a3)
   return isa;
 }
 
-uint64_t sub_1003A7230(uint64_t a1)
+uint64_t sub_1003A7230(uint64_t a1, __n128 a2)
 {
-  v2 = type metadata accessor for ArtworkDescriptor();
-  (*(*(v2 - 8) + 8))(a1, v2);
+  v3 = type metadata accessor for ArtworkDescriptor();
+  (*(*(v3 - 8) + 8))(a1, v3);
   return a1;
 }
 
-uint64_t sub_1003A728C(uint64_t a1, uint64_t a2, char a3)
+double sub_1003A728C(uint64_t a1, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
@@ -5247,7 +5252,7 @@ uint64_t sub_1003A7344(uint64_t a1, uint64_t a2, char a3)
   return result;
 }
 
-uint64_t sub_1003A7354(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1003A7354(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5272,18 +5277,18 @@ uint64_t sub_1003A739C(uint64_t result, uint64_t a2, char a3)
 
 __n128 sub_1003A73E0@<Q0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100140278(&qword_1008EB2B8);
+  v2 = sub_100140278(&qword_1008EB2B8, &qword_1006ECEE8);
   __chkstk_darwin(v2 - 8);
   v4 = v10 - v3;
   *v4 = static VerticalAlignment.center.getter();
   *(v4 + 1) = 0x4028000000000000;
   v4[16] = 0;
-  v5 = sub_100140278(&qword_1008EB2C0);
+  v5 = sub_100140278(&qword_1008EB2C0, &qword_1006ECEF0);
   sub_1003A7518(&v4[*(v5 + 44)]);
   static Alignment.center.getter();
   _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
   sub_100094230(v4, a1);
-  v6 = a1 + *(sub_100140278(&qword_1008EB2C8) + 36);
+  v6 = a1 + *(sub_100140278(&qword_1008EB2C8, &qword_1006ECEF8) + 36);
   v7 = v10[5];
   *(v6 + 64) = v10[4];
   *(v6 + 80) = v7;
@@ -5299,7 +5304,7 @@ __n128 sub_1003A73E0@<Q0>(uint64_t a1@<X8>)
 
 uint64_t sub_1003A7518@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100140278(&qword_1008EB2D0);
+  v2 = sub_100140278(&qword_1008EB2D0, &qword_1006ECF00);
   v3 = v2 - 8;
   __chkstk_darwin(v2);
   v5 = &v23[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -5307,7 +5312,7 @@ uint64_t sub_1003A7518@<X0>(uint64_t a1@<X8>)
   v8 = &v23[-v7];
   *v8 = static Alignment.center.getter();
   v8[1] = v9;
-  v10 = sub_100140278(&qword_1008EB2D8);
+  v10 = sub_100140278(&qword_1008EB2D8, &qword_1006ECF08);
   sub_1003A78C0(v8 + *(v10 + 44));
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
@@ -5339,8 +5344,8 @@ uint64_t sub_1003A7518@<X0>(uint64_t a1@<X8>)
   v38[5] = *&v42[64];
   v38[0] = v41;
   v38[1] = *v42;
-  sub_10001B104(&v28, &v39, &qword_1008EB2E0);
-  sub_10000EA04(v38, &qword_1008EB2E0);
+  sub_10001B104(&v28, &v39, &qword_1008EB2E0, &qword_1006ECF10);
+  sub_10000EA04(v38, &qword_1008EB2E0, &qword_1006ECF10);
   *&v23[103] = v34;
   *&v23[119] = v35;
   *&v23[135] = v36;
@@ -5352,9 +5357,9 @@ uint64_t sub_1003A7518@<X0>(uint64_t a1@<X8>)
   *&v23[7] = v28;
   *&v23[23] = v29;
   v14 = v24;
-  sub_10001B104(v8, v5, &qword_1008EB2D0);
-  sub_10001B104(v5, a1, &qword_1008EB2D0);
-  v15 = *(sub_100140278(&qword_1008EB2E8) + 48);
+  sub_10001B104(v8, v5, &qword_1008EB2D0, &qword_1006ECF00);
+  sub_10001B104(v5, a1, &qword_1008EB2D0, &qword_1006ECF00);
+  v15 = *(sub_100140278(&qword_1008EB2E8, &qword_1006ECF18) + 48);
   *&v40[113] = *&v23[112];
   *&v40[129] = *&v23[128];
   *&v40[145] = *&v23[144];
@@ -5386,8 +5391,8 @@ uint64_t sub_1003A7518@<X0>(uint64_t a1@<X8>)
   v21 = *&v40[32];
   *(v16 + 32) = *&v40[16];
   *(v16 + 48) = v21;
-  sub_10001B104(&v39, &v41, &qword_1008EB2F0);
-  sub_10000EA04(v8, &qword_1008EB2D0);
+  sub_10001B104(&v39, &v41, &qword_1008EB2F0, &qword_1006ECF20);
+  sub_10000EA04(v8, &qword_1008EB2D0, &qword_1006ECF00);
   *&v42[113] = *&v23[112];
   *&v42[129] = *&v23[128];
   v43[0] = *&v23[144];
@@ -5401,8 +5406,8 @@ uint64_t sub_1003A7518@<X0>(uint64_t a1@<X8>)
   v42[0] = v14;
   *(v43 + 15) = *&v23[159];
   *&v42[33] = *&v23[32];
-  sub_10000EA04(&v41, &qword_1008EB2F0);
-  return sub_10000EA04(v5, &qword_1008EB2D0);
+  sub_10000EA04(&v41, &qword_1008EB2F0, &qword_1006ECF20);
+  return sub_10000EA04(v5, &qword_1008EB2D0, &qword_1006ECF00);
 }
 
 uint64_t sub_1003A78C0@<X0>(uint64_t a1@<X8>)
@@ -5412,13 +5417,13 @@ uint64_t sub_1003A78C0@<X0>(uint64_t a1@<X8>)
   v1 = *(Band - 8);
   __chkstk_darwin(Band);
   v3 = &v36 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100140278(&qword_1008EB300);
+  v4 = sub_100140278(&qword_1008EB300, &qword_1006ECF90);
   v5 = v4 - 8;
   __chkstk_darwin(v4);
   v38 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
   v9 = &v36 - v8;
-  v10 = sub_100140278(&qword_1008E7B48);
+  v10 = sub_100140278(&qword_1008E7B48, &unk_1006E8320);
   v11 = v10 - 8;
   __chkstk_darwin(v10);
   v37 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5435,7 +5440,7 @@ uint64_t sub_1003A78C0@<X0>(uint64_t a1@<X8>)
   __asm { FMOV            V0.2D, #4.0 }
 
   *v17 = _Q0;
-  *&v17[*(sub_100140278(&qword_1008DE1E0) + 36)] = 256;
+  *&v17[*(sub_100140278(&qword_1008DE1E0, &unk_1006DC6E0) + 36)] = 256;
   *v15 = v16;
   v26 = Image.init(_internalSystemName:)();
   v27 = static Font.largeTitle.getter();
@@ -5443,7 +5448,7 @@ uint64_t sub_1003A78C0@<X0>(uint64_t a1@<X8>)
   v41 = v26;
   v42 = KeyPath;
   v43 = v27;
-  sub_100140278(&qword_1008E2BE8);
+  sub_100140278(&qword_1008E2BE8, &unk_1006E1D00);
   sub_1002397DC();
   View.bold(_:)();
 
@@ -5453,17 +5458,17 @@ uint64_t sub_1003A78C0@<X0>(uint64_t a1@<X8>)
   (*(v1 + 8))(v3, v29);
   *&v9[*(v5 + 44)] = v30;
   v31 = v37;
-  sub_10001B104(v15, v37, &qword_1008E7B48);
+  sub_10001B104(v15, v37, &qword_1008E7B48, &unk_1006E8320);
   v32 = v38;
-  sub_10001B104(v9, v38, &qword_1008EB300);
+  sub_10001B104(v9, v38, &qword_1008EB300, &qword_1006ECF90);
   v33 = v40;
-  sub_10001B104(v31, v40, &qword_1008E7B48);
-  v34 = sub_100140278(&qword_1008EB308);
-  sub_10001B104(v32, v33 + *(v34 + 48), &qword_1008EB300);
-  sub_10000EA04(v9, &qword_1008EB300);
-  sub_10000EA04(v15, &qword_1008E7B48);
-  sub_10000EA04(v32, &qword_1008EB300);
-  return sub_10000EA04(v31, &qword_1008E7B48);
+  sub_10001B104(v31, v40, &qword_1008E7B48, &unk_1006E8320);
+  v34 = sub_100140278(&qword_1008EB308, qword_1006ECF98);
+  sub_10001B104(v32, v33 + *(v34 + 48), &qword_1008EB300, &qword_1006ECF90);
+  sub_10000EA04(v9, &qword_1008EB300, &qword_1006ECF90);
+  sub_10000EA04(v15, &qword_1008E7B48, &unk_1006E8320);
+  sub_10000EA04(v32, &qword_1008EB300, &qword_1006ECF90);
+  return sub_10000EA04(v31, &qword_1008E7B48, &unk_1006E8320);
 }
 
 uint64_t sub_1003A7CD0@<X0>(uint64_t a1@<X8>)
@@ -5612,7 +5617,7 @@ uint64_t sub_1003A7CD0@<X0>(uint64_t a1@<X8>)
   *(v59 + 136) = v47;
   *(v59 + 144) = v13;
   *(v59 + 152) = v50;
-  sub_10001B104(&v86, v100, &qword_1008EB2F8);
+  sub_10001B104(&v86, v100, &qword_1008EB2F8, &qword_1006ECF88);
   sub_10006965C(v45, v47, v13);
 
   sub_10004642C(v45, v47, v13);
@@ -5639,7 +5644,7 @@ uint64_t sub_1003A7CD0@<X0>(uint64_t a1@<X8>)
   v115 = v23;
   v116 = v25;
   v117 = 0;
-  return sub_10000EA04(v100, &qword_1008EB2F8);
+  return sub_10000EA04(v100, &qword_1008EB2F8, &qword_1006ECF88);
 }
 
 unint64_t sub_1003A8378()
@@ -5647,8 +5652,8 @@ unint64_t sub_1003A8378()
   result = qword_1008EB310;
   if (!qword_1008EB310)
   {
-    sub_100141EEC(&qword_1008EB2C8);
-    sub_10014A6B0(&qword_1008EB318, &qword_1008EB2B8);
+    sub_100141EEC(&qword_1008EB2C8, &qword_1006ECEF8);
+    sub_10014A6B0(&qword_1008EB318, &qword_1008EB2B8, &qword_1006ECEE8, &protocol conformance descriptor for HStack<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1008EB310);
   }
@@ -5656,154 +5661,154 @@ unint64_t sub_1003A8378()
   return result;
 }
 
-uint64_t sub_1003A8430(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_1003A8430(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v72 = a7;
-  v73 = a8;
-  v71 = a6;
-  v69 = a5;
-  v74 = a4;
-  v65 = a2;
-  v76 = a11;
-  v77 = a10;
-  v67 = type metadata accessor for DispatchWorkItemFlags();
-  v12 = *(v67 - 8);
-  __chkstk_darwin(v67);
-  v14 = &v61 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v66 = type metadata accessor for DispatchQoS();
-  v15 = *(v66 - 8);
+  v71 = a7;
+  v72 = a8;
+  v70 = a6;
+  v68 = a5;
+  v73 = a4;
+  v64 = a2;
+  v75 = a11;
+  v76 = a10;
+  v66 = type metadata accessor for DispatchWorkItemFlags();
+  v12 = *(v66 - 8);
   __chkstk_darwin(v66);
-  v17 = &v61 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v70 = type metadata accessor for DateComponents();
-  v68 = *(v70 - 8);
-  v18 = *(v68 + 64);
-  v19 = __chkstk_darwin(v70);
-  v79 = &v61 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v60 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v65 = type metadata accessor for DispatchQoS();
+  v15 = *(v65 - 8);
+  __chkstk_darwin(v65);
+  v17 = &v60 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = type metadata accessor for DateComponents();
+  v67 = *(v69 - 8);
+  v18 = *(v67 + 64);
+  __chkstk_darwin(v69);
+  v78 = &v60 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
-  v78 = &v61 - v20;
+  v77 = &v60 - v20;
   v21 = type metadata accessor for Date();
   v22 = *(v21 - 8);
   v23 = *(v22 + 64);
-  v24 = __chkstk_darwin(v21);
+  __chkstk_darwin(v21);
   __chkstk_darwin(v24);
-  v27 = &v61 - v25;
+  v27 = &v60 - v25;
   if (a3)
   {
-    v67 = a9;
+    v66 = a9;
     v28 = HKLogActivity;
-    v63 = &v61 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v62 = &v61 - v25;
-    v75 = v26;
+    v62 = &v60 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v61 = &v60 - v25;
+    v74 = v26;
     swift_errorRetain();
     v29 = v28;
-    LODWORD(v66) = static os_log_type_t.error.getter();
-    sub_100140278(&unk_1008E4E50);
+    LODWORD(v65) = static os_log_type_t.error.getter();
+    sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
     v30 = swift_allocObject();
-    v64 = a3;
+    v63 = a3;
     v31 = v30;
     *(v30 + 16) = xmmword_1006D46C0;
     v32 = _convertErrorToNSError(_:)();
-    v31[7] = sub_1000059F8(0, &qword_1008E56F0);
-    v31[8] = sub_10025F118(&qword_1008E4030, &qword_1008E56F0);
+    v31[7] = sub_1000059F8(0, &qword_1008E56F0, NSError_ptr);
+    v31[8] = sub_10025F118(&qword_1008E4030, &qword_1008E56F0, NSError_ptr);
     v31[4] = v32;
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("Retrying chart query after error: %@", 36, 2, &_mh_execute_header, v29, v65, v31);
 
     v33 = *(v22 + 16);
     v34 = v27;
-    v35 = v75;
-    v33(v34, v69, v75);
-    v33(&v61 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0), v71, v35);
-    v36 = v68;
-    v37 = *(v68 + 16);
-    v38 = v70;
-    v37(v78, v72, v70);
-    v37(v79, v73, v38);
+    v35 = v74;
+    v33(v34, v68, v74);
+    v33(&v60 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0), v70, v35);
+    v36 = v67;
+    v37 = *(v67 + 16);
+    v38 = v69;
+    v37(v77, v71, v69);
+    v37(v78, v72, v38);
     v39 = *(v22 + 80);
     v40 = (v39 + 24) & ~v39;
     v41 = (v23 + v39 + v40) & ~v39;
     v42 = *(v36 + 80);
     v43 = (v23 + v42 + v41) & ~v42;
-    v72 = (v18 + v42 + v43) & ~v42;
-    v73 = (v18 + v72 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v71 = (v73 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v71 = (v18 + v42 + v43) & ~v42;
+    v72 = (v18 + v71 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v70 = (v72 + 15) & 0xFFFFFFFFFFFFFFF8;
     v44 = swift_allocObject();
-    v45 = v74;
-    *(v44 + 16) = v74;
+    v45 = v73;
+    *(v44 + 16) = v73;
     v46 = *(v22 + 32);
     v47 = v44 + v40;
-    v49 = v75;
-    v48 = v76;
-    v46(v47, v62, v75);
-    v46(v44 + v41, v63, v49);
+    v49 = v74;
+    v48 = v75;
+    v46(v47, v61, v74);
+    v46(v44 + v41, v62, v49);
     v50 = *(v36 + 32);
-    v50(v44 + v43, v78, v38);
-    v50(v44 + v72, v79, v38);
-    *(v44 + v73) = v67;
-    v51 = (v44 + v71);
-    *v51 = v77;
+    v50(v44 + v43, v77, v38);
+    v50(v44 + v71, v78, v38);
+    *(v44 + v72) = v66;
+    v51 = (v44 + v70);
+    *v51 = v76;
     v51[1] = v48;
     v52 = v45;
 
-    sub_1001B1314(sub_1003AAE10, v44);
+    sub_1001B1314(sub_1003AAE10, v44, 0.15);
   }
 
   else
   {
-    sub_1000059F8(0, &qword_1008E3FD0);
-    v54 = static OS_dispatch_queue.main.getter();
-    v55 = swift_allocObject();
-    v56 = v76;
-    v55[2] = v77;
-    v55[3] = v56;
-    v57 = v65;
-    v55[4] = v65;
-    v55[5] = 0;
+    sub_1000059F8(0, &qword_1008E3FD0, OS_dispatch_queue_ptr);
+    v53 = static OS_dispatch_queue.main.getter();
+    v54 = swift_allocObject();
+    v55 = v75;
+    v54[2] = v76;
+    v54[3] = v55;
+    v56 = v64;
+    v54[4] = v64;
+    v54[5] = 0;
     aBlock[4] = sub_1003AADE0;
-    aBlock[5] = v55;
+    aBlock[5] = v54;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_1000449A8;
     aBlock[3] = &unk_1008554C0;
-    v58 = _Block_copy(aBlock);
-    v59 = v57;
+    v57 = _Block_copy(aBlock);
+    v58 = v56;
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = _swiftEmptyArrayStorage;
     sub_1000261C4();
-    sub_100140278(&unk_1008E7F50);
+    sub_100140278(&unk_1008E7F50, &qword_1006D8190);
     sub_10002621C();
-    v60 = v67;
+    v59 = v66;
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
-    _Block_release(v58);
+    _Block_release(v57);
 
-    (*(v12 + 8))(v14, v60);
-    return (*(v15 + 8))(v17, v66);
+    (*(v12 + 8))(v14, v59);
+    (*(v15 + 8))(v17, v65);
   }
 }
 
 void sub_1003A8B04(char *a1, void *a2, void (*a3)(uint64_t, char *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v104 = a7;
-  v111 = a5;
-  v107 = a4;
-  v109 = a3;
-  v113 = a2;
-  v110 = type metadata accessor for DateComponents();
-  v11 = *(v110 - 8);
+  v107 = a7;
+  v114 = a5;
+  v110 = a4;
+  v112 = a3;
+  v116 = a2;
+  v113 = type metadata accessor for DateComponents();
+  v11 = *(v113 - 8);
   v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v110);
-  v112 = &v83 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v113);
+  v115 = &v86 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
-  v15 = &v83 - v14;
+  v15 = &v86 - v14;
   v16 = type metadata accessor for Date();
   v17 = *(v16 - 8);
   v18 = *(v17 + 64);
-  v19 = __chkstk_darwin(v16);
-  v108 = &v83 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19);
-  v106 = &v83 - v20;
-  v21 = a6 + 1;
+  __chkstk_darwin(v16);
+  v111 = &v86 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = __chkstk_darwin(v19);
+  v109 = &v86 - v21;
+  v22 = a6 + 1;
   if (__OFADD__(a6, 1))
   {
     __break(1u);
@@ -5811,174 +5816,174 @@ void sub_1003A8B04(char *a1, void *a2, void (*a3)(uint64_t, char *, uint64_t), u
 
   else
   {
-    v22 = OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_chartQuery;
+    v23 = OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_chartQuery;
     if (*&a1[OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_chartQuery])
     {
-      v23 = v21;
-      [*&a1[OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore] stopQuery:?];
-      v24 = *&a1[v22];
-      *&a1[v22] = 0;
+      v24 = v22;
+      [*&a1[OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore] stopQuery:v20.n128_f64[0]];
+      v25 = *&a1[v23];
+      *&a1[v23] = 0;
 
-      v21 = v23;
+      v22 = v24;
     }
 
-    if (v21 < 11)
+    if (v22 < 11)
     {
-      v102 = a8;
-      v26 = *(v17 + 16);
-      v99 = v21;
-      v26(v106, v113, v16);
-      v100 = v16;
-      v94 = v17 + 16;
-      v92 = v26;
-      v26(v108, v109, v16);
-      v103 = v22;
-      v27 = *(v11 + 16);
-      v28 = v110;
-      v27(v15, v107, v110);
-      v101 = v15;
-      v105 = a1;
-      v91 = v11 + 16;
-      v89 = v27;
-      v27(v112, v111, v28);
-      v29 = *(v17 + 80);
-      v30 = (v29 + 24) & ~v29;
-      v31 = (v18 + v29 + v30) & ~v29;
-      v32 = *(v11 + 80);
-      v33 = (v18 + v32 + v31) & ~v32;
-      v34 = (v12 + v32 + v33) & ~v32;
-      v35 = (v12 + v34 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v86 = v29 | v32;
-      v36 = swift_allocObject();
-      *(v36 + 16) = v105;
-      v37 = *(v17 + 32);
-      v87 = v30;
-      v38 = v36 + v30;
-      v39 = v100;
-      v37(v38, v106, v100);
-      v88 = v31;
-      v97 = v17 + 32;
-      v85 = v37;
-      v37(v36 + v31, v108, v39);
-      v40 = *(v11 + 32);
-      v90 = v33;
-      v41 = v110;
-      v40(v36 + v33, v101, v110);
-      v93 = v34;
-      v98 = v11 + 32;
-      v40(v36 + v34, v112, v41);
-      v96 = v35;
-      *(v36 + v35) = v99;
-      v95 = (v35 + 15) & 0xFFFFFFFFFFFFFFF8;
-      v42 = (v36 + v95);
-      v43 = v102;
-      *v42 = v104;
-      v42[1] = v43;
-      v44 = objc_allocWithZone(_HKActivityStatisticsQuery);
+      v105 = a8;
+      v28 = *(v17 + 16);
+      v102 = v22;
+      v28(v109, v116, v16, v20);
+      v103 = v16;
+      v97 = v17 + 16;
+      v95 = v28;
+      (v28)(v111, v112, v16);
+      v106 = v23;
+      v29 = *(v11 + 16);
+      v30 = v113;
+      v29(v15, v110, v113);
+      v104 = v15;
+      v108 = a1;
+      v94 = v11 + 16;
+      v92 = v29;
+      v29(v115, v114, v30);
+      v31 = *(v17 + 80);
+      v32 = (v31 + 24) & ~v31;
+      v33 = (v18 + v31 + v32) & ~v31;
+      v34 = *(v11 + 80);
+      v35 = (v18 + v34 + v33) & ~v34;
+      v36 = (v12 + v34 + v35) & ~v34;
+      v37 = (v12 + v36 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v89 = v31 | v34;
+      v38 = swift_allocObject();
+      *(v38 + 16) = v108;
+      v39 = *(v17 + 32);
+      v90 = v32;
+      v40 = v38 + v32;
+      v41 = v103;
+      v39(v40, v109, v103);
+      v91 = v33;
+      v100 = v17 + 32;
+      v88 = v39;
+      v39(v38 + v33, v111, v41);
+      v42 = *(v11 + 32);
+      v93 = v35;
+      v43 = v113;
+      v42(v38 + v35, v104, v113);
+      v96 = v36;
+      v101 = v11 + 32;
+      v42(v38 + v36, v115, v43);
+      v99 = v37;
+      *(v38 + v37) = v102;
+      v98 = (v37 + 15) & 0xFFFFFFFFFFFFFFF8;
+      v44 = (v38 + v98);
       v45 = v105;
+      *v44 = v107;
+      v44[1] = v45;
+      v46 = objc_allocWithZone(_HKActivityStatisticsQuery);
+      v47 = v108;
 
       isa = Date._bridgeToObjectiveC()().super.isa;
-      v47 = Date._bridgeToObjectiveC()().super.isa;
-      v48 = DateComponents._bridgeToObjectiveC()().super.isa;
-      v49 = v105;
+      v49 = Date._bridgeToObjectiveC()().super.isa;
       v50 = DateComponents._bridgeToObjectiveC()().super.isa;
-      v118 = sub_1001FB6E8;
-      v119 = v36;
+      v51 = v108;
+      v52 = DateComponents._bridgeToObjectiveC()().super.isa;
+      v121 = sub_1001FB6E8;
+      v122 = v38;
       aBlock = _NSConcreteStackBlock;
-      v115 = 1107296256;
-      v116 = sub_100018C74;
-      v117 = &unk_100855538;
-      v51 = _Block_copy(&aBlock);
-      v52 = [v44 initWithStartDate:isa endDate:v47 moveIntervalComponents:v48 exerciseIntervalComponents:v50 initialQueryResultsHandler:v51];
-      _Block_release(v51);
+      v118 = 1107296256;
+      v119 = sub_100018C74;
+      v120 = &unk_100855538;
+      v53 = _Block_copy(&aBlock);
+      v54 = [v46 initWithStartDate:isa endDate:v49 moveIntervalComponents:v50 exerciseIntervalComponents:v52 initialQueryResultsHandler:v53];
+      _Block_release(v53);
 
-      v53 = v103;
+      v55 = v106;
 
-      v54 = *&v49[v53];
-      *&v49[v53] = v52;
+      v56 = *&v51[v55];
+      *&v51[v55] = v54;
 
-      if (v52)
+      if (v54)
       {
-        v55 = v52;
-        v53 = v103;
-        v56 = String._bridgeToObjectiveC()();
-        [v55 setDebugIdentifier:v56];
+        v57 = v54;
+        v55 = v106;
+        v58 = String._bridgeToObjectiveC()();
+        [v57 setDebugIdentifier:v58];
       }
 
-      if (*&v49[v53])
+      if (*&v51[v55])
       {
-        v57 = v106;
-        v58 = v45;
-        v59 = v100;
-        v60 = v92;
-        v84 = *&v49[v53];
-        v92(v106, v113, v100);
-        v61 = v108;
-        v60(v108, v109, v59);
-        v109 = v40;
-        v62 = v101;
-        v63 = v110;
-        v64 = v89;
-        v89(v101, v107, v110);
-        v65 = v112;
-        v64(v112, v111, v63);
-        v66 = v95;
-        v67 = swift_allocObject();
-        *(v67 + 16) = v58;
-        v68 = v58;
-        v69 = v85;
-        v85(v67 + v87, v57, v59);
-        v69(v67 + v88, v61, v59);
-        v70 = v62;
-        v71 = v109;
-        v109(v67 + v90, v70, v63);
-        v71(v67 + v93, v65, v63);
-        *(v67 + v96) = v99;
-        v72 = (v67 + v66);
-        v73 = v102;
-        *v72 = v104;
-        v72[1] = v73;
-        v118 = sub_1003AB1DC;
-        v119 = v67;
+        v59 = v109;
+        v60 = v47;
+        v61 = v103;
+        v62 = v95;
+        v87 = *&v51[v55];
+        (v95)(v109, v116, v103);
+        v63 = v111;
+        (v62)(v111, v112, v61);
+        v112 = v42;
+        v64 = v104;
+        v65 = v113;
+        v66 = v92;
+        v92(v104, v110, v113);
+        v67 = v115;
+        v66(v115, v114, v65);
+        v68 = v98;
+        v69 = swift_allocObject();
+        *(v69 + 16) = v60;
+        v70 = v60;
+        v71 = v88;
+        v88(v69 + v90, v59, v61);
+        v71(v69 + v91, v63, v61);
+        v72 = v64;
+        v73 = v112;
+        v112(v69 + v93, v72, v65);
+        v73(v69 + v96, v67, v65);
+        *(v69 + v99) = v102;
+        v74 = (v69 + v68);
+        v75 = v105;
+        *v74 = v107;
+        v74[1] = v75;
+        v121 = sub_1003AB1DC;
+        v122 = v69;
         aBlock = _NSConcreteStackBlock;
-        v115 = 1107296256;
-        v116 = sub_100018C74;
-        v117 = &unk_100855588;
-        v74 = _Block_copy(&aBlock);
-        v75 = v68;
+        v118 = 1107296256;
+        v119 = sub_100018C74;
+        v120 = &unk_100855588;
+        v76 = _Block_copy(&aBlock);
+        v77 = v70;
 
-        v76 = v84;
+        v78 = v87;
 
-        [v76 setQueryUpdateHandler:v74];
-        _Block_release(v74);
+        [v78 setQueryUpdateHandler:v76];
+        _Block_release(v76);
 
-        v77 = *&v105[v103];
-        if (v77)
+        v79 = *&v108[v106];
+        if (v79)
         {
-          v78 = v77;
-          static os_log_type_t.default.getter();
-          v79 = HKLogActivity;
-          sub_100140278(&unk_1008E4E50);
-          v80 = swift_allocObject();
-          *(v80 + 16) = xmmword_1006D46C0;
-          v81 = v79;
-          v82 = Date._bridgeToObjectiveC()().super.isa;
-          *(v80 + 56) = sub_1000059F8(0, &qword_1008E04E0);
-          *(v80 + 64) = sub_10025F118(&qword_1008E51E0, &qword_1008E04E0);
-          *(v80 + 32) = v82;
-          os_log(_:dso:log:_:_:)();
+          v80 = v79;
+          v81 = static os_log_type_t.default.getter();
+          v82 = HKLogActivity;
+          sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+          v83 = swift_allocObject();
+          *(v83 + 16) = xmmword_1006D46C0;
+          v84 = v82;
+          v85 = Date._bridgeToObjectiveC()().super.isa;
+          *(v83 + 56) = sub_1000059F8(0, &qword_1008E04E0, NSDate_ptr);
+          *(v83 + 64) = sub_10025F118(&qword_1008E51E0, &qword_1008E04E0, NSDate_ptr);
+          *(v83 + 32) = v85;
+          os_log(_:dso:log:_:_:)(v81, &_mh_execute_header, v84, "Executing chart query for start date: %@", 40, 2, v83);
 
-          [*&v75[OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore] executeQuery:v78];
+          [*&v77[OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore] executeQuery:v80];
         }
       }
     }
 
     else
     {
-      v113 = HKLogActivity;
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
-      v25 = v113;
+      v116 = HKLogActivity;
+      v26 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Reached maximum number of retries in chart query. Bailing.", 58, 2, &_mh_execute_header, v116, v26, _swiftEmptyArrayStorage);
+      v27 = v116;
     }
   }
 }
@@ -6003,7 +6008,7 @@ void sub_1003A9424(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     [v17 doubleValue];
     v20 = [objc_opt_self() quantityWithUnit:v18 doubleValue:v19];
 
-    sub_1000059F8(0, &qword_1008E3FD0);
+    sub_1000059F8(0, &qword_1008E3FD0, OS_dispatch_queue_ptr);
     v21 = static OS_dispatch_queue.main.getter();
     v22 = swift_allocObject();
     v22[2] = a3;
@@ -6022,7 +6027,7 @@ void sub_1003A9424(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     static DispatchQoS.unspecified.getter();
     aBlock[0] = _swiftEmptyArrayStorage;
     sub_1000261C4();
-    sub_100140278(&unk_1008E7F50);
+    sub_100140278(&unk_1008E7F50, &qword_1006D8190);
     sub_10002621C();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -6035,51 +6040,51 @@ void sub_1003A9424(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 void sub_1003A9764(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v113 = a4;
-  v115 = a3;
-  v116 = a2;
-  v118 = a1;
+  v115 = a4;
+  v117 = a3;
+  v118 = a2;
+  v120 = a1;
   v5 = type metadata accessor for Calendar.Component();
-  v109 = *(v5 - 1);
-  v110 = v5;
+  v111 = *(v5 - 1);
+  v112 = v5;
   __chkstk_darwin(v5);
-  v7 = &v100 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100140278(&unk_1008F73A0);
+  v7 = &v102 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_100140278(&unk_1008F73A0, &unk_1006DB450);
   __chkstk_darwin(v8 - 8);
-  v10 = &v100 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v102 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
-  v13 = &v100 - v12;
+  v13 = &v102 - v12;
   v14 = type metadata accessor for Date();
   v15 = *(v14 - 8);
-  v111 = v14;
-  v112 = v15;
+  v113 = v14;
+  v114 = v15;
   v16 = *(v15 + 64);
   __chkstk_darwin(v14);
-  v104 = &v100 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v106 = &v102 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v17);
-  v103 = &v100 - v18;
+  v105 = &v102 - v18;
   __chkstk_darwin(v19);
-  v21 = &v100 - v20;
+  v21 = &v102 - v20;
   v22 = type metadata accessor for Calendar();
-  v114 = *(v22 - 8);
+  v116 = *(v22 - 8);
   __chkstk_darwin(v22);
-  v24 = &v100 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = sub_100140278(&unk_1008E3FB0);
+  v24 = &v102 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = sub_100140278(&unk_1008E3FB0, &unk_1006DCB80);
   __chkstk_darwin(v25 - 8);
-  v27 = &v100 - v26;
-  v28 = sub_100140278(&unk_1008E51A0);
+  v27 = &v102 - v26;
+  v28 = sub_100140278(&unk_1008E51A0, &unk_1006E09C0);
   __chkstk_darwin(v28 - 8);
-  v30 = &v100 - v29;
+  v30 = &v102 - v29;
   v31 = type metadata accessor for DateComponents();
-  v107 = *(v31 - 8);
-  v108 = v31;
+  v109 = *(v31 - 8);
+  v110 = v31;
   __chkstk_darwin(v31);
-  v117 = &v100 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v119 = &v102 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   v33 = [objc_opt_self() quantityTypeForIdentifier:HKQuantityTypeIdentifierBasalEnergyBurned];
   if (v33)
   {
-    v106 = v22;
-    v105 = v33;
+    v108 = v22;
+    v107 = v33;
     v34 = OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_basalEnergyQuery;
     if (*(v4 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_basalEnergyQuery))
     {
@@ -6088,172 +6093,172 @@ void sub_1003A9764(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       *(v4 + v34) = 0;
     }
 
-    v102 = v34;
-    if (v116 < 11)
+    v104 = v34;
+    if (v118 < 11)
     {
-      v101 = v4;
-      (v114)[7](v30, 1, 1, v106);
-      v42 = type metadata accessor for TimeZone();
-      (*(*(v42 - 8) + 56))(v27, 1, 1, v42);
+      v103 = v4;
+      (v116)[7](v30, 1, 1, v108);
+      v43 = type metadata accessor for TimeZone();
+      (*(*(v43 - 8) + 56))(v27, 1, 1, v43);
       DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
       DateComponents.day.setter();
       static Calendar.autoupdatingCurrent.getter();
       Calendar.startOfDay(for:)();
-      v44 = v109;
-      v43 = v110;
-      v109[13](v7, enum case for Calendar.Component.day(_:), v110);
+      v45 = v111;
+      v44 = v112;
+      v111[13](v7, enum case for Calendar.Component.day(_:), v112);
       Calendar.date(byAdding:value:to:wrappingComponents:)();
-      (v44[1])(v7, v43);
-      v45.super.isa = Date._bridgeToObjectiveC()().super.isa;
+      (v45[1])(v7, v44);
+      v46.super.isa = Date._bridgeToObjectiveC()().super.isa;
       sub_1001CE7A0(v13, v10);
-      v47 = v111;
-      v46 = v112;
+      v48 = v113;
+      v47 = v114;
       isa = 0;
-      if ((*(v112 + 48))(v10, 1, v111) != 1)
+      if ((*(v114 + 48))(v10, 1, v113) != 1)
       {
         isa = Date._bridgeToObjectiveC()().super.isa;
-        (*(v46 + 8))(v10, v47);
+        (*(v47 + 8))(v10, v48);
       }
 
-      v49 = [objc_opt_self() predicateForSamplesWithStartDate:v45.super.isa endDate:isa options:0];
+      v50 = [objc_opt_self() predicateForSamplesWithStartDate:v46.super.isa endDate:isa options:0];
 
       sub_1001F145C(v13);
-      (*(v46 + 8))(v21, v47);
-      (v114[1])(v24, v106);
-      v50 = [objc_opt_self() sharedBehavior];
-      if (v50)
+      (*(v47 + 8))(v21, v48);
+      (v116[1])(v24, v108);
+      v51 = [objc_opt_self() sharedBehavior];
+      if (v51)
       {
-        v51 = v50;
-        v52 = [v50 isStandalonePhoneFitnessMode];
+        v52 = v51;
+        v53 = [v51 isStandalonePhoneFitnessMode];
 
-        v53 = v101;
-        if ((v52 & 1) == 0)
+        v54 = v103;
+        if ((v53 & 1) == 0)
         {
-          sub_100140278(&unk_1008E4E20);
-          v54 = swift_allocObject();
-          *(v54 + 16) = xmmword_1006D68D0;
-          v55 = *(v53 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_watchSourcePredicate);
-          *(v54 + 32) = v55;
-          *(v54 + 40) = v49;
-          sub_1000059F8(0, &unk_1008E4070);
-          v56 = v55;
-          v57 = v49;
-          v58 = Array._bridgeToObjectiveC()().super.isa;
+          sub_100140278(&unk_1008E4E20, &qword_1006D5040);
+          v55 = swift_allocObject();
+          *(v55 + 16) = xmmword_1006D68D0;
+          v56 = *(v54 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_watchSourcePredicate);
+          *(v55 + 32) = v56;
+          *(v55 + 40) = v50;
+          sub_1000059F8(0, &unk_1008E4070, NSPredicate_ptr);
+          v57 = v56;
+          v58 = v50;
+          v59 = Array._bridgeToObjectiveC()().super.isa;
 
-          v49 = [objc_opt_self() andPredicateWithSubpredicates:v58];
+          v50 = [objc_opt_self() andPredicateWithSubpredicates:v59];
         }
 
-        v59 = v102;
-        v60 = objc_allocWithZone(HKStatisticsCollectionQuery);
-        v61 = v49;
-        v62 = v105;
-        v63 = Date._bridgeToObjectiveC()().super.isa;
-        v64 = DateComponents._bridgeToObjectiveC()().super.isa;
-        v65 = [v60 initWithQuantityType:v62 quantitySamplePredicate:v61 options:16 anchorDate:v63 intervalComponents:v64];
+        v60 = v104;
+        v61 = objc_allocWithZone(HKStatisticsCollectionQuery);
+        v62 = v50;
+        v63 = v107;
+        v64 = Date._bridgeToObjectiveC()().super.isa;
+        v65 = DateComponents._bridgeToObjectiveC()().super.isa;
+        v66 = [v61 initWithQuantityType:v63 quantitySamplePredicate:v62 options:16 anchorDate:v64 intervalComponents:v65];
 
-        v66 = *(v53 + v59);
-        *(v53 + v59) = v65;
-        v67 = v65;
+        v67 = *(v54 + v60);
+        *(v54 + v60) = v66;
+        v68 = v66;
 
-        if (v67)
+        if (v68)
         {
-          v68 = String._bridgeToObjectiveC()();
-          [v67 setDebugIdentifier:v68];
+          v69 = String._bridgeToObjectiveC()();
+          [v68 setDebugIdentifier:v69];
         }
 
-        v69 = *(v53 + v59);
-        if (v69)
+        v70 = *(v54 + v60);
+        if (v70)
         {
-          v70 = swift_allocObject();
+          v71 = swift_allocObject();
           swift_unknownObjectWeakInit();
-          v71 = v112;
-          v72 = *(v112 + 16);
-          v106 = v112 + 16;
-          v109 = v72;
-          v114 = v61;
-          v73 = v103;
-          (v72)(v103, v118, v47);
-          v74 = *(v71 + 80);
-          v75 = (v74 + 24) & ~v74;
-          v105 = (v16 + 7);
-          v76 = v16 + 7 + v75;
-          v77 = v47;
-          v78 = v76 & 0xFFFFFFFFFFFFFFF8;
-          v110 = v62;
-          v79 = ((v76 & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
-          v80 = swift_allocObject();
-          *(v80 + 16) = v70;
-          v112 = *(v71 + 32);
-          v81 = v73;
-          v82 = v77;
-          (v112)(v80 + v75, v81, v77);
-          v83 = v115;
-          *(v80 + v78) = v116;
-          v84 = (v80 + v79);
-          v85 = v113;
-          *v84 = v83;
-          v84[1] = v85;
-          v123 = sub_1003AAF3C;
-          v124 = v80;
+          v72 = v114;
+          v73 = *(v114 + 16);
+          v108 = v114 + 16;
+          v111 = v73;
+          v116 = v62;
+          v74 = v105;
+          (v73)(v105, v120, v48);
+          v75 = *(v72 + 80);
+          v76 = (v75 + 24) & ~v75;
+          v107 = (v16 + 7);
+          v77 = v16 + 7 + v76;
+          v78 = v48;
+          v79 = v77 & 0xFFFFFFFFFFFFFFF8;
+          v112 = v63;
+          v80 = ((v77 & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
+          v81 = swift_allocObject();
+          *(v81 + 16) = v71;
+          v114 = *(v72 + 32);
+          v82 = v74;
+          v83 = v78;
+          (v114)(v81 + v76, v82, v78);
+          v84 = v117;
+          *(v81 + v79) = v118;
+          v85 = (v81 + v80);
+          v86 = v115;
+          *v85 = v84;
+          v85[1] = v86;
+          v125 = sub_1003AAF3C;
+          v126 = v81;
           aBlock = _NSConcreteStackBlock;
-          v120 = 1107296256;
-          v116 = &v121;
-          v121 = sub_100018C74;
-          v122 = &unk_100855650;
-          v86 = _Block_copy(&aBlock);
+          v122 = 1107296256;
+          v118 = &v123;
+          v123 = sub_100018C74;
+          v124 = &unk_100855650;
+          v87 = _Block_copy(&aBlock);
 
-          v87 = v69;
-          v103 = v87;
+          v88 = v70;
+          v105 = v88;
 
-          sub_10000B210(sub_1003AAF3C);
+          sub_10000B210(sub_1003AAF3C, v81);
 
-          [v87 setInitialResultsHandler:v86];
-          _Block_release(v86);
+          [v88 setInitialResultsHandler:v87];
+          _Block_release(v87);
 
-          v88 = v104;
-          v89 = v82;
-          (v109)(v104, v118, v82);
-          v90 = (v74 + 16) & ~v74;
-          v91 = (v105 + v90) & 0xFFFFFFFFFFFFFFF8;
-          v92 = swift_allocObject();
-          (v112)(v92 + v90, v88, v89);
-          v93 = (v92 + v91);
-          *v93 = v115;
-          v93[1] = v85;
-          v123 = sub_1003AB004;
-          v124 = v92;
+          v89 = v106;
+          v90 = v83;
+          (v111)(v106, v120, v83);
+          v91 = (v75 + 16) & ~v75;
+          v92 = (v107 + v91) & 0xFFFFFFFFFFFFFFF8;
+          v93 = swift_allocObject();
+          (v114)(v93 + v91, v89, v90);
+          v94 = (v93 + v92);
+          *v94 = v117;
+          v94[1] = v86;
+          v125 = sub_1003AB004;
+          v126 = v93;
           aBlock = _NSConcreteStackBlock;
-          v120 = 1107296256;
-          v121 = sub_1003AAC30;
-          v122 = &unk_100855628;
-          v94 = _Block_copy(&aBlock);
+          v122 = 1107296256;
+          v123 = sub_1003AAC30;
+          v124 = &unk_100855628;
+          v95 = _Block_copy(&aBlock);
 
-          sub_10000B210(sub_1003AB004);
+          sub_10000B210(sub_1003AB004, v93);
 
-          v95 = v103;
-          [v103 setStatisticsUpdateHandler:v94];
-          _Block_release(v94);
+          v96 = v105;
+          [v105 setStatisticsUpdateHandler:v95];
+          _Block_release(v95);
 
-          static os_log_type_t.default.getter();
-          v96 = HKLogActivity;
-          sub_100140278(&unk_1008E4E50);
-          v97 = swift_allocObject();
-          *(v97 + 16) = xmmword_1006D46C0;
-          v98 = v96;
-          v99 = Date._bridgeToObjectiveC()().super.isa;
-          *(v97 + 56) = sub_1000059F8(0, &qword_1008E04E0);
-          *(v97 + 64) = sub_10025F118(&qword_1008E51E0, &qword_1008E04E0);
-          *(v97 + 32) = v99;
-          os_log(_:dso:log:_:_:)();
+          v97 = static os_log_type_t.default.getter();
+          v98 = HKLogActivity;
+          sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+          v99 = swift_allocObject();
+          *(v99 + 16) = xmmword_1006D46C0;
+          v100 = v98;
+          v101 = Date._bridgeToObjectiveC()().super.isa;
+          *(v99 + 56) = sub_1000059F8(0, &qword_1008E04E0, NSDate_ptr);
+          *(v99 + 64) = sub_10025F118(&qword_1008E51E0, &qword_1008E04E0, NSDate_ptr);
+          *(v99 + 32) = v101;
+          os_log(_:dso:log:_:_:)(v97, &_mh_execute_header, v100, "Executing basal stats query for date: %@", 40, 2, v99);
 
-          [*(v101 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore) executeQuery:v95];
+          [*(v103 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore) executeQuery:v96];
 
-          (*(v107 + 8))(v117, v108);
+          (*(v109 + 8))(v119, v110);
         }
 
         else
         {
-          (*(v107 + 8))(v117, v108);
+          (*(v109 + 8))(v119, v110);
         }
       }
 
@@ -6266,25 +6271,25 @@ void sub_1003A9764(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     else
     {
       v36 = HKLogActivity;
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v37 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Reached maximum number of retries in basal energy query. Executing raw calculation.", 83, 2, &_mh_execute_header, v36, v37, _swiftEmptyArrayStorage);
 
-      v37 = *(v4 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore);
-      v38 = Date._bridgeToObjectiveC()().super.isa;
-      v39 = swift_allocObject();
-      v40 = v113;
-      *(v39 + 16) = v115;
-      *(v39 + 24) = v40;
-      v123 = sub_1003AB0CC;
-      v124 = v39;
+      v38 = *(v4 + OBJC_IVAR____TtC10FitnessApp21ActivityQueryExecutor_healthStore);
+      v39 = Date._bridgeToObjectiveC()().super.isa;
+      v40 = swift_allocObject();
+      v41 = v115;
+      *(v40 + 16) = v117;
+      *(v40 + 24) = v41;
+      v125 = sub_1003AB0CC;
+      v126 = v40;
       aBlock = _NSConcreteStackBlock;
-      v120 = 1107296256;
-      v121 = sub_100212B08;
-      v122 = &unk_1008556A0;
-      v41 = _Block_copy(&aBlock);
+      v122 = 1107296256;
+      v123 = sub_100212B08;
+      v124 = &unk_1008556A0;
+      v42 = _Block_copy(&aBlock);
 
-      [v37 ch_calculateBMRForDate:v38 useEndOfDay:1 completion:v41];
-      _Block_release(v41);
+      [v38 ch_calculateBMRForDate:v39 useEndOfDay:1 completion:v42];
+      _Block_release(v42);
     }
   }
 }
@@ -6308,7 +6313,7 @@ void sub_1003AA500(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (v16)
     {
-      sub_1000059F8(0, &qword_1008E3FD0);
+      sub_1000059F8(0, &qword_1008E3FD0, OS_dispatch_queue_ptr);
       v17 = static OS_dispatch_queue.main.getter();
       v18 = swift_allocObject();
       v18[2] = a3;
@@ -6327,7 +6332,7 @@ void sub_1003AA500(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
       sub_1000261C4();
-      sub_100140278(&unk_1008E7F50);
+      sub_100140278(&unk_1008E7F50, &qword_1006D8190);
       sub_10002621C();
       dispatch thunk of SetAlgebra.init<A>(_:)();
       OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -6341,7 +6346,7 @@ void sub_1003AA500(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 void sub_1003AA80C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v37 = a5;
+  v38 = a5;
   v13 = type metadata accessor for Date();
   v14 = *(v13 - 8);
   v15 = *(v14 + 64);
@@ -6353,43 +6358,43 @@ void sub_1003AA80C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
     v17 = Strong;
     if (a3)
     {
-      v36 = a7;
+      v37 = a7;
       v18 = HKLogActivity;
       swift_errorRetain();
-      v33 = v18;
-      v32[3] = static os_log_type_t.default.getter();
-      sub_100140278(&unk_1008E4E50);
-      v35 = a6;
+      v34 = v18;
+      v33 = static os_log_type_t.default.getter();
+      sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+      v36 = a6;
       v19 = swift_allocObject();
       *(v19 + 16) = xmmword_1006D46C0;
       v20 = _convertErrorToNSError(_:)();
-      v34 = a8;
-      *(v19 + 56) = sub_1000059F8(0, &qword_1008E56F0);
-      *(v19 + 64) = sub_10025F118(&qword_1008E4030, &qword_1008E56F0);
+      v35 = a8;
+      *(v19 + 56) = sub_1000059F8(0, &qword_1008E56F0, NSError_ptr);
+      *(v19 + 64) = sub_10025F118(&qword_1008E4030, &qword_1008E56F0, NSError_ptr);
       *(v19 + 32) = v20;
-      os_log(_:dso:log:type:_:)();
+      os_log(_:dso:log:type:_:)("Error encountered in basal energy calculation: %@", 49, 2, &_mh_execute_header, v34, v33, v19);
 
-      (*(v14 + 16))(v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v37, v13);
+      (*(v14 + 16))(&v32[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)], v38, v13);
       v21 = (*(v14 + 80) + 24) & ~*(v14 + 80);
       v22 = (v15 + v21 + 7) & 0xFFFFFFFFFFFFFFF8;
       v23 = swift_allocObject();
       *(v23 + 16) = v17;
-      (*(v14 + 32))(v23 + v21, v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v13);
-      v24 = v36;
-      *(v23 + v22) = v35;
+      (*(v14 + 32))(v23 + v21, &v32[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)], v13);
+      v24 = v37;
+      *(v23 + v22) = v36;
       v25 = (v23 + ((v22 + 15) & 0xFFFFFFFFFFFFFFF8));
-      v26 = v34;
+      v26 = v35;
       *v25 = v24;
       v25[1] = v26;
       v17 = v17;
 
-      sub_1001B1314(sub_1003AB114, v23);
+      sub_1001B1314(sub_1003AB114, v23, 0.15);
     }
 
     else if (a2)
     {
       v27 = a2;
-      sub_1003AA500(v27, v37, a7, a8);
+      sub_1003AA500(v27, v38, a7, a8);
     }
 
     else
@@ -6435,33 +6440,33 @@ void sub_1003AAC30(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   v9(v13, a3, a4, a5);
 }
 
-id sub_1003AAD1C()
+id sub_1003AAD1C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ActivityQueryExecutor();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for ActivityQueryExecutor();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-void sub_1003AAE10()
+void sub_1003AAE10(uint64_t a1, uint64_t a2)
 {
-  v1 = *(type metadata accessor for Date() - 8);
-  v2 = *(v1 + 80);
-  v3 = (v2 + 24) & ~v2;
-  v4 = *(v1 + 64);
-  v5 = (v4 + v2 + v3) & ~v2;
-  v6 = *(type metadata accessor for DateComponents() - 8);
-  v7 = *(v6 + 80);
-  v8 = (v5 + v4 + v7) & ~v7;
-  v9 = *(v6 + 64);
-  v10 = (v9 + v7 + v8) & ~v7;
-  v11 = (v9 + v10 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = *(v0 + v11);
-  v13 = *(v0 + 16);
-  v14 = (v0 + ((v11 + 15) & 0xFFFFFFFFFFFFFFF8));
-  v15 = *v14;
-  v16 = v14[1];
+  v3 = *(type metadata accessor for Date() - 8);
+  v4 = *(v3 + 80);
+  v5 = (v4 + 24) & ~v4;
+  v6 = *(v3 + 64);
+  v7 = (v6 + v4 + v5) & ~v4;
+  v8 = *(type metadata accessor for DateComponents() - 8);
+  v9 = *(v8 + 80);
+  v10 = (v7 + v6 + v9) & ~v9;
+  v11 = *(v8 + 64);
+  v12 = (v11 + v9 + v10) & ~v9;
+  v13 = (v11 + v12 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v14 = *(v2 + v13);
+  v15 = *(v2 + 16);
+  v16 = (v2 + ((v13 + 15) & 0xFFFFFFFFFFFFFFF8));
+  v17 = *v16;
+  v18 = v16[1];
 
-  sub_1003A8B04(v13, (v0 + v3), (v0 + v5), v0 + v8, v0 + v10, v12, v15, v16);
+  sub_1003A8B04(v15, (v2 + v5), (v2 + v7), v2 + v10, v2 + v12, v14, v17, v18);
 }
 
 void sub_1003AAF3C(uint64_t a1, void *a2, uint64_t a3)
@@ -6495,190 +6500,190 @@ uint64_t sub_1003AB0D4()
   return _swift_deallocObject(v0, 40, 7);
 }
 
-uint64_t sub_1003AB114()
+void sub_1003AB114(uint64_t a1, uint64_t a2)
 {
-  v1 = type metadata accessor for Date();
-  v3 = *(v1 - 8);
-  result = v1 - 8;
+  v3 = *(type metadata accessor for Date() - 8);
   v4 = (*(v3 + 80) + 24) & ~*(v3 + 80);
   v5 = (*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + v5);
-  if (!__OFADD__(v6, 1))
+  v6 = *(v2 + v5);
+  if (__OFADD__(v6, 1))
   {
-    return sub_1003A9764(v0 + v4, v6 + 1, *(v0 + ((v5 + 15) & 0xFFFFFFFFFFFFFFF8)), *(v0 + ((v5 + 15) & 0xFFFFFFFFFFFFFFF8) + 8));
+    __break(1u);
   }
 
-  __break(1u);
-  return result;
+  else
+  {
+    sub_1003A9764(v2 + v4, v6 + 1, *(v2 + ((v5 + 15) & 0xFFFFFFFFFFFFFFF8)), *(v2 + ((v5 + 15) & 0xFFFFFFFFFFFFFFF8) + 8));
+  }
 }
 
-void *sub_1003AB20C()
+void *sub_1003AB20C(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = v2;
+  v4 = type metadata accessor for Date();
+  v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v8 = &v17 - v7;
-  v9 = _swiftEmptyArrayStorage;
-  v18 = _swiftEmptyArrayStorage;
-  v10 = [v1 workoutEvents];
-  if (v10)
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v9 = __chkstk_darwin(v8).n128_u64[0];
+  v11 = &v20 - v10;
+  v12 = _swiftEmptyArrayStorage;
+  v21 = _swiftEmptyArrayStorage;
+  v13 = [v3 workoutEvents];
+  if (v13)
   {
-    v11 = v10;
-    sub_1000059F8(0, &qword_1008DC000);
-    v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v14 = v13;
+    sub_1000059F8(0, &qword_1008DC000, HKWorkoutEvent_ptr);
+    v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v13 = [v1 startDate];
+    v16 = [v3 startDate];
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v14 = [v1 endDate];
+    v17 = [v3 endDate];
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-    sub_1003AB408(v8, v6, v12, &v18, sub_1003AC084);
+    sub_1003AB408(v11, v7, v15, &v21, sub_1003AC084);
 
-    v15 = *(v3 + 8);
-    v15(v6, v2);
-    v15(v8, v2);
-    return v18;
+    v18 = *(v5 + 8);
+    v18(v7, v4);
+    v18(v11, v4);
+    return v21;
   }
 
-  return v9;
+  return v12;
 }
 
 uint64_t sub_1003AB408(uint64_t a1, uint64_t a2, unint64_t a3, size_t *a4, void (*a5)(char *, uint64_t, size_t *))
 {
-  v46 = a5;
-  v51 = a4;
-  v61 = type metadata accessor for DateInterval();
-  v52 = *(v61 - 8);
-  v7 = __chkstk_darwin(v61);
-  v54 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v10 = &v46 - v9;
+  v47 = a5;
+  v52 = a4;
+  v62 = type metadata accessor for DateInterval();
+  v53 = *(v62 - 8);
+  __chkstk_darwin(v62);
+  v55 = &v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v10 = &v47 - v9;
   v11 = type metadata accessor for Date();
   v12 = *(v11 - 8);
-  v13 = __chkstk_darwin(v11);
-  v50 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __chkstk_darwin(v13);
-  v53 = &v46 - v16;
-  v17 = __chkstk_darwin(v15);
-  v19 = &v46 - v18;
-  __chkstk_darwin(v17);
-  v20 = *(v12 + 16);
-  v59 = &v46 - v21;
-  v62 = v22;
-  v56 = v20;
-  v57 = v12 + 16;
-  result = v20();
+  __chkstk_darwin(v11);
+  v51 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v54 = &v47 - v15;
+  __chkstk_darwin(v16);
+  v18 = &v47 - v17;
+  v20 = __chkstk_darwin(v19);
+  v21 = *(v12 + 16);
+  v60 = &v47 - v22;
+  v63 = v23;
+  v57 = v21;
+  v58 = v12 + 16;
+  result = v21(v20);
   if (!(a3 >> 62))
   {
-    v24 = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v24)
+    v25 = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v25)
     {
       goto LABEL_3;
     }
 
-    return (*(v12 + 8))(v59, v62);
+    return (*(v12 + 8))(v60, v63);
   }
 
   result = _CocoaArrayWrapper.endIndex.getter();
-  v24 = result;
+  v25 = result;
   if (!result)
   {
-    return (*(v12 + 8))(v59, v62);
+    return (*(v12 + 8))(v60, v63);
   }
 
 LABEL_3:
-  if (v24 >= 1)
+  if (v25 >= 1)
   {
-    v25 = 0;
-    v63 = a3 & 0xC000000000000001;
-    v60 = (v52 + 8);
-    v47 = v12;
-    v48 = v52 + 32;
-    v26 = (v12 + 8);
-    LODWORD(v58) = 1;
-    v27 = v59;
-    v55 = a2;
-    v49 = v24;
+    v26 = 0;
+    v64 = a3 & 0xC000000000000001;
+    v61 = (v53 + 8);
+    v48 = v12;
+    v49 = v53 + 32;
+    v27 = (v12 + 8);
+    LODWORD(v59) = 1;
+    v28 = v60;
+    v56 = a2;
+    v50 = v25;
     do
     {
-      if (v63)
+      if (v64)
       {
-        v28 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v29 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v28 = *(a3 + 8 * v25 + 32);
+        v29 = *(a3 + 8 * v26 + 32);
       }
 
-      v29 = v28;
-      if ([v28 type] == 1 || objc_msgSend(v29, "type") == 2)
+      v30 = v29;
+      if ([v29 type] == 1 || objc_msgSend(v30, "type") == 2)
       {
-        v30 = [v29 dateInterval];
+        v31 = [v30 dateInterval];
         static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
 
         DateInterval.start.getter();
-        (*v60)(v10, v61);
+        (*v61)(v10, v62);
         if (Date.compare(_:)() == -1 || Date.compare(_:)() == 1)
         {
 
-          (*v26)(v19, v62);
+          (*v27)(v18, v63);
         }
 
         else
         {
-          if ((v58 & 1) == 0 && Date.compare(_:)() == 1)
+          if ((v59 & 1) == 0 && Date.compare(_:)() == 1)
           {
-            v31 = v27;
-            v32 = v62;
-            v33 = v56;
-            (v56)(v53, v31, v62);
-            (v33)(v50, v19, v32);
+            v32 = v28;
+            v33 = v63;
+            v34 = v57;
+            (v57)(v54, v32, v63);
+            (v34)(v51, v18, v33);
             DateInterval.init(start:end:)();
-            v34 = v51;
-            v35 = *v51;
+            v35 = v52;
+            v36 = *v52;
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            *v34 = v35;
+            *v35 = v36;
             if ((isUniquelyReferenced_nonNull_native & 1) == 0)
             {
-              v35 = sub_1001A1B60(0, v35[2] + 1, 1, v35);
-              *v51 = v35;
+              v36 = sub_1001A1B60(0, v36[2] + 1, 1, v36);
+              *v52 = v36;
             }
 
-            v38 = v35[2];
-            v37 = v35[3];
-            v39 = v38 + 1;
-            v27 = v59;
-            v24 = v49;
-            if (v38 >= v37 >> 1)
+            v39 = v36[2];
+            v38 = v36[3];
+            v40 = v39 + 1;
+            v28 = v60;
+            v25 = v50;
+            if (v39 >= v38 >> 1)
             {
-              v58 = v38 + 1;
-              v45 = sub_1001A1B60(v37 > 1, v38 + 1, 1, v35);
-              v39 = v58;
-              v35 = v45;
-              *v51 = v45;
+              v59 = v39 + 1;
+              v46 = sub_1001A1B60((v38 > 1), v39 + 1, 1, v36);
+              v40 = v59;
+              v36 = v46;
+              *v52 = v46;
             }
 
-            v35[2] = v39;
-            (*(v52 + 32))(v35 + ((*(v52 + 80) + 32) & ~*(v52 + 80)) + *(v52 + 72) * v38, v54, v61);
+            v36[2] = v40;
+            (*(v53 + 32))(v36 + ((*(v53 + 80) + 32) & ~*(v53 + 80)) + *(v53 + 72) * v39, v55, v62);
           }
 
-          v40 = *v26;
-          v41 = v27;
-          v42 = v62;
-          (*v26)(v41, v62);
-          (v56)(v59, v19, v42);
-          v43 = [v29 type];
+          v41 = *v27;
+          v42 = v28;
+          v43 = v63;
+          (*v27)(v42, v63);
+          (v57)(v60, v18, v43);
+          v44 = [v30 type];
 
-          v44 = v42;
-          v27 = v59;
-          v40(v19, v44);
-          LODWORD(v58) = v43 == 2;
-          a2 = v55;
+          v45 = v43;
+          v28 = v60;
+          v41(v18, v45);
+          LODWORD(v59) = v44 == 2;
+          a2 = v56;
         }
       }
 
@@ -6686,17 +6691,17 @@ LABEL_3:
       {
       }
 
-      ++v25;
+      ++v26;
     }
 
-    while (v24 != v25);
-    v12 = v47;
-    if ((v58 & 1) == 0 && Date.compare(_:)() == 1)
+    while (v25 != v26);
+    v12 = v48;
+    if ((v59 & 1) == 0 && Date.compare(_:)() == 1)
     {
-      v46(v59, a2, v51);
+      v47(v60, a2, v52);
     }
 
-    return (*(v12 + 8))(v59, v62);
+    return (*(v12 + 8))(v60, v63);
   }
 
   __break(1u);
@@ -6736,44 +6741,44 @@ uint64_t sub_1003ABBB8(uint64_t a1, uint64_t a2, uint64_t a3)
   v40 = v5;
   __chkstk_darwin(v5);
   v38 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100140278(&unk_1008F73A0);
-  v8 = __chkstk_darwin(v7 - 8);
-  v10 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
+  v7 = sub_100140278(&unk_1008F73A0, &unk_1006DB450);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
   v12 = &v36 - v11;
   v13 = type metadata accessor for Date();
   v14 = *(v13 - 8);
-  v15 = __chkstk_darwin(v13);
-  v37 = &v36 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __chkstk_darwin(v15);
-  v19 = &v36 - v18;
-  v20 = __chkstk_darwin(v17);
-  v42 = &v36 - v21;
-  __chkstk_darwin(v20);
+  __chkstk_darwin(v13);
+  v37 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v18 = &v36 - v17;
+  __chkstk_darwin(v19);
+  v42 = &v36 - v20;
+  __chkstk_darwin(v21);
   v23 = &v36 - v22;
-  sub_10001B104(a1, v12, &unk_1008F73A0);
+  sub_10001B104(a1, v12, &unk_1008F73A0, &unk_1006DB450);
   v24 = *(v14 + 48);
   if (v24(v12, 1, v13) == 1)
   {
-    return sub_10000EA04(v12, &unk_1008F73A0);
+    return sub_10000EA04(v12, &unk_1008F73A0, &unk_1006DB450);
   }
 
   v36 = a3;
   v26 = *(v14 + 32);
   v26(v23, v12, v13);
-  sub_10001B104(v41, v10, &unk_1008F73A0);
-  if (v24(v10, 1, v13) == 1)
+  sub_10001B104(v41, v9, &unk_1008F73A0, &unk_1006DB450);
+  if (v24(v9, 1, v13) == 1)
   {
     (*(v14 + 8))(v23, v13);
-    return sub_10000EA04(v10, &unk_1008F73A0);
+    return sub_10000EA04(v9, &unk_1008F73A0, &unk_1006DB450);
   }
 
   else
   {
     v27 = v42;
-    v26(v42, v10, v13);
+    v26(v42, v9, v13);
     v28 = *(v14 + 16);
-    v28(v19, v23, v13);
+    v28(v18, v23, v13);
     v28(v37, v27, v13);
     v29 = v38;
     DateInterval.init(start:end:)();
@@ -6792,7 +6797,7 @@ uint64_t sub_1003ABBB8(uint64_t a1, uint64_t a2, uint64_t a3)
     v33 = v31[3];
     if (v34 >= v33 >> 1)
     {
-      v31 = sub_1001A1B60(v33 > 1, v34 + 1, 1, v31);
+      v31 = sub_1001A1B60((v33 > 1), v34 + 1, 1, v31);
     }
 
     v31[2] = v34 + 1;
@@ -6804,43 +6809,43 @@ uint64_t sub_1003ABBB8(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_1003AC084(uint64_t a1, uint64_t a2, void **a3)
+uint64_t sub_1003AC084(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = a3;
+  v25 = a3;
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v23 - v10;
+  __chkstk_darwin(v5);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v11 = &v24 - v10;
   v12 = type metadata accessor for DateInterval();
   v13 = *(v12 - 8);
-  __chkstk_darwin(v12);
-  v15 = &v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = *(v6 + 16);
-  v16(v11, a1, v5);
-  v16(v9, a2, v5);
-  v17 = v24;
+  v14 = __chkstk_darwin(v12);
+  v16 = &v24 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *(v6 + 16);
+  v17(v11, a1, v5, v14);
+  (v17)(v8, a2, v5);
+  v18 = v25;
   DateInterval.init(start:end:)();
-  v18 = *v17;
+  v19 = *v18;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v17 = v18;
+  *v18 = v19;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v18 = sub_1001A1B60(0, v18[2] + 1, 1, v18);
-    *v17 = v18;
+    v19 = sub_1001A1B60(0, v19[2] + 1, 1, v19);
+    *v18 = v19;
   }
 
-  v21 = v18[2];
-  v20 = v18[3];
-  if (v21 >= v20 >> 1)
+  v22 = v19[2];
+  v21 = v19[3];
+  if (v22 >= v21 >> 1)
   {
-    v18 = sub_1001A1B60(v20 > 1, v21 + 1, 1, v18);
-    *v17 = v18;
+    v19 = sub_1001A1B60((v21 > 1), v22 + 1, 1, v19);
+    *v18 = v19;
   }
 
-  v18[2] = v21 + 1;
-  return (*(v13 + 32))(v18 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + *(v13 + 72) * v21, v15, v12);
+  v19[2] = v22 + 1;
+  return (*(v13 + 32))(v19 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + *(v13 + 72) * v22, v16, v12);
 }
 
 uint64_t sub_1003AC468()
@@ -6876,7 +6881,7 @@ uint64_t sub_1003AC468()
       dispatch thunk of WorkoutConfiguration.type.getter();
 
       (*(v2 + 32))(v8, v4, v1);
-      sub_100140278(&unk_1008EB390);
+      sub_100140278(&unk_1008EB390, qword_1006ED068);
       v9 = *(v2 + 72);
       v12 = (*(v2 + 80) + 32) & ~*(v2 + 80);
       v13 = swift_allocObject();
@@ -6903,10 +6908,10 @@ BOOL sub_1003AC770()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v35 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100140278(&qword_1008EB380);
+  v4 = sub_100140278(&qword_1008EB380, &qword_1006ED058);
   __chkstk_darwin(v4);
   v6 = &v34 - v5;
-  v7 = sub_100140278(&qword_1008EB388);
+  v7 = sub_100140278(&qword_1008EB388, &qword_1006ED060);
   __chkstk_darwin(v7 - 8);
   v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
@@ -6945,16 +6950,16 @@ BOOL sub_1003AC770()
   (*(v2 + 104))(v12, enum case for ConfigurationType.interval(_:), v1);
   v20(v12, 0, 1, v1);
   v21 = *(v4 + 48);
-  sub_10001B104(v16, v6, &qword_1008EB388);
-  sub_10001B104(v12, &v6[v21], &qword_1008EB388);
+  sub_10001B104(v16, v6, &qword_1008EB388, &qword_1006ED060);
+  sub_10001B104(v12, &v6[v21], &qword_1008EB388, &qword_1006ED060);
   v22 = *(v2 + 48);
   if (v22(v6, 1, v1) == 1)
   {
-    sub_10000EA04(v12, &qword_1008EB388);
-    sub_10000EA04(v16, &qword_1008EB388);
+    sub_10000EA04(v12, &qword_1008EB388, &qword_1006ED060);
+    sub_10000EA04(v16, &qword_1008EB388, &qword_1006ED060);
     if (v22(&v6[v21], 1, v1) == 1)
     {
-      sub_10000EA04(v6, &qword_1008EB388);
+      sub_10000EA04(v6, &qword_1008EB388, &qword_1006ED060);
       return 1;
     }
 
@@ -6962,14 +6967,14 @@ BOOL sub_1003AC770()
   }
 
   v23 = v36;
-  sub_10001B104(v6, v36, &qword_1008EB388);
+  sub_10001B104(v6, v36, &qword_1008EB388, &qword_1006ED060);
   if (v22(&v6[v21], 1, v1) == 1)
   {
-    sub_10000EA04(v12, &qword_1008EB388);
-    sub_10000EA04(v16, &qword_1008EB388);
+    sub_10000EA04(v12, &qword_1008EB388, &qword_1006ED060);
+    sub_10000EA04(v16, &qword_1008EB388, &qword_1006ED060);
     (*(v2 + 8))(v23, v1);
 LABEL_11:
-    sub_10000EA04(v6, &qword_1008EB380);
+    sub_10000EA04(v6, &qword_1008EB380, &qword_1006ED058);
     goto LABEL_12;
   }
 
@@ -6981,10 +6986,10 @@ LABEL_11:
   v32 = dispatch thunk of static Equatable.== infix(_:_:)();
   v33 = *(v2 + 8);
   v33(v30, v1);
-  sub_10000EA04(v12, &qword_1008EB388);
-  sub_10000EA04(v16, &qword_1008EB388);
+  sub_10000EA04(v12, &qword_1008EB388, &qword_1006ED060);
+  sub_10000EA04(v16, &qword_1008EB388, &qword_1006ED060);
   v33(v31, v1);
-  sub_10000EA04(v6, &qword_1008EB388);
+  sub_10000EA04(v6, &qword_1008EB388, &qword_1006ED060);
   if (v32)
   {
     return 1;
@@ -6998,7 +7003,7 @@ LABEL_12:
   }
 
   v26 = [v24 workoutActivities];
-  sub_1000059F8(0, &qword_1008EAF90);
+  sub_1000059F8(0, &qword_1008EAF90, HKWorkoutActivity_ptr);
   v27 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v27 >> 62)
@@ -7040,9 +7045,9 @@ BOOL sub_1003ACD8C()
   {
 
 LABEL_8:
-    static os_log_type_t.default.getter();
-    v8 = HKLogWorkouts;
-    os_log(_:dso:log:_:_:)();
+    v8 = static os_log_type_t.default.getter();
+    v9 = HKLogWorkouts;
+    os_log(_:dso:log:_:_:)(v8, &_mh_execute_header, v9, "[race] unable to serialize race as race configuration", 53, 2, _swiftEmptyArrayStorage);
 
     return 0;
   }
@@ -7060,9 +7065,9 @@ LABEL_8:
   }
 
   v5.value._rawValue = v7;
-  v10 = RaceWorkoutConfiguration.shouldShowResultsRow(metadata:)(v5);
+  v11 = RaceWorkoutConfiguration.shouldShowResultsRow(metadata:)(v5);
 
-  return v10;
+  return v11;
 }
 
 double sub_1003ACF7C()
@@ -7091,9 +7096,9 @@ double sub_1003ACF7C()
   {
 
 LABEL_7:
-    static os_log_type_t.default.getter();
+    v6 = static os_log_type_t.default.getter();
     v4 = HKLogWorkouts;
-    os_log(_:dso:log:_:_:)();
+    os_log(_:dso:log:_:_:)(v6, &_mh_execute_header, v4, "[race] unable to serialize race as race configuration", 53, 2, _swiftEmptyArrayStorage);
     v5 = 0.0;
     goto LABEL_8;
   }
@@ -7125,16 +7130,16 @@ uint64_t sub_1003AD0E0()
     type metadata accessor for RaceWorkoutConfiguration();
     if (swift_dynamicCastClass())
     {
-      v8 = RaceWorkoutConfiguration.secondsAheadFrom(_:)(v1);
-      v5 = *&v8.is_nil;
+      v9 = RaceWorkoutConfiguration.secondsAheadFrom(_:)(v1);
+      v5 = *&v9.is_nil;
 
       return v5;
     }
   }
 
-  static os_log_type_t.default.getter();
-  v7 = HKLogWorkouts;
-  os_log(_:dso:log:_:_:)();
+  v7 = static os_log_type_t.default.getter();
+  v8 = HKLogWorkouts;
+  os_log(_:dso:log:_:_:)(v7, &_mh_execute_header, v8, "[race] unable to serialize race as race configuration", 53, 2, _swiftEmptyArrayStorage);
 
   return 0;
 }
@@ -7165,17 +7170,17 @@ BOOL sub_1003AD280()
   {
 
 LABEL_7:
-    static os_log_type_t.default.getter();
+    v8 = static os_log_type_t.default.getter();
     v4 = HKLogWorkouts;
-    os_log(_:dso:log:_:_:)();
+    os_log(_:dso:log:_:_:)(v8, &_mh_execute_header, v4, "[race] unable to serialize race as race configuration", 53, 2, _swiftEmptyArrayStorage);
     v7 = 0;
     goto LABEL_8;
   }
 
   [v1 raceTime];
   v6 = v5;
-  v9.is_nil = sub_1003AD0E0();
-  v7 = RaceWorkoutConfiguration.raceTimeWouldWinRace(_:secondsAhead:)(v6, v9);
+  v10.is_nil = sub_1003AD0E0();
+  v7 = RaceWorkoutConfiguration.raceTimeWouldWinRace(_:secondsAhead:)(v6, v10);
 LABEL_8:
 
   return v7;
@@ -7188,10 +7193,10 @@ uint64_t sub_1003AD450(unsigned int *a1)
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v30 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100140278(&qword_1008EB380);
+  v5 = sub_100140278(&qword_1008EB380, &qword_1006ED058);
   __chkstk_darwin(v5);
   v7 = &v29 - v6;
-  v8 = sub_100140278(&qword_1008EB388);
+  v8 = sub_100140278(&qword_1008EB388, &qword_1006ED060);
   __chkstk_darwin(v8 - 8);
   v31 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
@@ -7228,13 +7233,13 @@ uint64_t sub_1003AD450(unsigned int *a1)
   (*(v3 + 104))(v12, *v32, v2);
   v20(v12, 0, 1, v2);
   v21 = *(v5 + 48);
-  sub_10001B104(v16, v7, &qword_1008EB388);
-  sub_10001B104(v12, &v7[v21], &qword_1008EB388);
+  sub_10001B104(v16, v7, &qword_1008EB388, &qword_1006ED060);
+  sub_10001B104(v12, &v7[v21], &qword_1008EB388, &qword_1006ED060);
   v22 = *(v3 + 48);
   if (v22(v7, 1, v2) != 1)
   {
     v24 = v31;
-    sub_10001B104(v7, v31, &qword_1008EB388);
+    sub_10001B104(v7, v31, &qword_1008EB388, &qword_1006ED060);
     if (v22(&v7[v21], 1, v2) != 1)
     {
       v25 = v30;
@@ -7244,30 +7249,30 @@ uint64_t sub_1003AD450(unsigned int *a1)
       v23 = dispatch thunk of static Equatable.== infix(_:_:)();
       v27 = *(v3 + 8);
       v27(v25, v2);
-      sub_10000EA04(v12, &qword_1008EB388);
-      sub_10000EA04(v16, &qword_1008EB388);
+      sub_10000EA04(v12, &qword_1008EB388, &qword_1006ED060);
+      sub_10000EA04(v16, &qword_1008EB388, &qword_1006ED060);
       v27(v26, v2);
-      sub_10000EA04(v7, &qword_1008EB388);
+      sub_10000EA04(v7, &qword_1008EB388, &qword_1006ED060);
       return v23 & 1;
     }
 
-    sub_10000EA04(v12, &qword_1008EB388);
-    sub_10000EA04(v16, &qword_1008EB388);
+    sub_10000EA04(v12, &qword_1008EB388, &qword_1006ED060);
+    sub_10000EA04(v16, &qword_1008EB388, &qword_1006ED060);
     (*(v3 + 8))(v24, v2);
     goto LABEL_11;
   }
 
-  sub_10000EA04(v12, &qword_1008EB388);
-  sub_10000EA04(v16, &qword_1008EB388);
+  sub_10000EA04(v12, &qword_1008EB388, &qword_1006ED060);
+  sub_10000EA04(v16, &qword_1008EB388, &qword_1006ED060);
   if (v22(&v7[v21], 1, v2) != 1)
   {
 LABEL_11:
-    sub_10000EA04(v7, &qword_1008EB380);
+    sub_10000EA04(v7, &qword_1008EB380, &qword_1006ED058);
     v23 = 0;
     return v23 & 1;
   }
 
-  sub_10000EA04(v7, &qword_1008EB388);
+  sub_10000EA04(v7, &qword_1008EB388, &qword_1006ED060);
   v23 = 1;
   return v23 & 1;
 }
@@ -7373,7 +7378,7 @@ id sub_1003ADE34()
     {
       sub_10000B1B4(*(v3 + 56) + 32 * v4, v7);
 
-      sub_1000059F8(0, &qword_1008E1750);
+      sub_1000059F8(0, &qword_1008E1750, NSNumber_ptr);
       if (swift_dynamicCast())
       {
         return v6;
@@ -7397,7 +7402,7 @@ id sub_1003ADE34()
 
 uint64_t sub_1003ADF34(char a1)
 {
-  v3 = sub_100140278(&qword_1008EB378);
+  v3 = sub_100140278(&qword_1008EB378, &qword_1006ED050);
   *&v4 = __chkstk_darwin(v3 - 8).n128_u64[0];
   v6 = &v13 - v5;
   v7 = [v1 metadata];
@@ -7429,7 +7434,7 @@ uint64_t sub_1003ADF34(char a1)
 
 uint64_t sub_1003AE168()
 {
-  v1 = sub_100140278(&qword_1008EB378);
+  v1 = sub_100140278(&qword_1008EB378, &qword_1006ED050);
   *&v2 = __chkstk_darwin(v1 - 8).n128_u64[0];
   v4 = &v12 - v3;
   v5 = [v0 metadata];
@@ -7462,13 +7467,13 @@ uint64_t sub_1003AE168()
 
   v9 = 0;
 LABEL_8:
-  sub_10000EA04(v4, &qword_1008EB378);
+  sub_10000EA04(v4, &qword_1008EB378, &qword_1006ED050);
   return v9;
 }
 
 void *sub_1003AE38C()
 {
-  v1 = sub_100140278(&qword_1008EB378);
+  v1 = sub_100140278(&qword_1008EB378, &qword_1006ED050);
   *&v2 = __chkstk_darwin(v1 - 8).n128_u64[0];
   v4 = &v10 - v3;
   v5 = [v0 metadata];
@@ -7496,19 +7501,19 @@ void *sub_1003AE38C()
       v7 = WorkoutPlan.Route.snapshot.getter();
     }
 
-    sub_10000EA04(v4, &qword_1008EB378);
+    sub_10000EA04(v4, &qword_1008EB378, &qword_1006ED050);
   }
 
   return v7;
 }
 
-size_t sub_1003AE504(void *a1, uint64_t a2, unint64_t a3)
+void *sub_1003AE504(void *a1, uint64_t a2, unint64_t a3)
 {
   v42 = type metadata accessor for RoutePoint();
   v7 = *(v42 - 8);
   __chkstk_darwin(v42);
   v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_100140278(&qword_1008EB378);
+  v10 = sub_100140278(&qword_1008EB378, &qword_1006ED050);
   __chkstk_darwin(v10 - 8);
   v12 = &v35 - v11;
   if (!a1)
@@ -7521,7 +7526,7 @@ size_t sub_1003AE504(void *a1, uint64_t a2, unint64_t a3)
   v41 = a3;
   v13 = a1;
   v14 = [v13 allValidLocations];
-  sub_1000059F8(0, &qword_1008E55D0);
+  sub_1000059F8(0, &qword_1008E55D0, CLLocation_ptr);
   v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v15 >> 62)
@@ -7621,7 +7626,7 @@ LABEL_10:
       v30 = v25[3];
       if (v31 >= v30 >> 1)
       {
-        sub_100186254(v30 > 1, v31 + 1, 1);
+        sub_100186254((v30 > 1), v31 + 1, 1);
         v26 = v38;
         v25 = v43;
       }
@@ -7764,139 +7769,151 @@ uint64_t sub_1003AEE14(void *a1)
       if (v31)
       {
         v33 = v31;
-        static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v36 = v35;
 
-        sub_10000FCBC();
-        v126 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-        v32 = v34;
+        v136 = v34;
+        v137 = v36;
+        v135[0] = 32;
+        v135[1] = 0xE100000000000000;
+        v134[0] = 0;
+        v134[1] = 0xE000000000000000;
+        v37 = sub_10000FCBC();
+        v130 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v135, v134, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v37, v37, v37);
+        v32 = v38;
       }
 
       else
       {
-        v126 = 0;
+        v130 = 0;
       }
 
       RaceWorkoutConfiguration.referenceRouteDuration.getter();
-      v45 = v44;
-      v46 = [a1 stringWithDuration:2 durationFormat:?];
-      if (v46)
+      v49 = v48;
+      v50 = [a1 stringWithDuration:2 durationFormat:?];
+      if (v50)
       {
-        v47 = v46;
-        v48 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v124 = v49;
+        v51 = v50;
+        v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v128 = v53;
       }
 
       else
       {
-        v48 = 0;
-        v124 = 0xE000000000000000;
+        v52 = 0;
+        v128 = 0xE000000000000000;
       }
 
-      v50 = [objc_opt_self() meterUnit];
-      v51 = [objc_opt_self() quantityWithUnit:v50 doubleValue:v24];
+      v54 = [objc_opt_self() meterUnit];
+      v55 = [objc_opt_self() quantityWithUnit:v54 doubleValue:v24];
 
-      v52 = dispatch thunk of WorkoutConfiguration.activityType.getter();
-      v53 = FIUIPaceFormatForWorkoutActivityType();
+      v56 = dispatch thunk of WorkoutConfiguration.activityType.getter();
+      v57 = FIUIPaceFormatForWorkoutActivityType();
 
-      v123 = v51;
-      v54 = [a1 localizedPaceStringWithDistance:v51 overDuration:v53 paceFormat:v27 distanceType:v45];
-      v129 = v25;
-      if (v54)
+      v127 = v55;
+      v58 = [a1 localizedPaceStringWithDistance:v55 overDuration:v57 paceFormat:v27 distanceType:v49];
+      v133 = v25;
+      if (v58)
       {
-        v55 = v54;
-        v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v58 = v57;
+        v59 = v58;
+        v60 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v62 = v61;
       }
 
       else
       {
-        v56 = 0;
-        v58 = 0xE000000000000000;
+        v60 = 0;
+        v62 = 0xE000000000000000;
       }
 
-      v59 = &selRef_initWithFitnessAppContext_activitySharingClient_;
-      if (v53 == 4)
+      v63 = &selRef_initWithFitnessAppContext_activitySharingClient_;
+      if (v57 == 4)
       {
-        v60 = [a1 localizedSpeedUnitStringForDistanceUnit:v30 unitStyle:1];
-        if (v60)
+        v64 = [a1 localizedSpeedUnitStringForDistanceUnit:v30 unitStyle:1];
+        if (v64)
         {
-          v61 = v60;
-          v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v64 = v63;
+          v65 = v64;
+          v66 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v68 = v67;
 
-          v59 = &selRef_initWithFitnessAppContext_activitySharingClient_;
+          v63 = &selRef_initWithFitnessAppContext_activitySharingClient_;
         }
 
         else
         {
-          v62 = 0;
-          v64 = 0xE000000000000000;
+          v66 = 0;
+          v68 = 0xE000000000000000;
         }
 
-        v77._countAndFlagsBits = v62;
-        v77._object = v64;
-        String.append(_:)(v77);
+        v136 = v60;
+        v137 = v62;
+        v81._countAndFlagsBits = v66;
+        v81._object = v68;
+        String.append(_:)(v81);
+
+        v60 = v136;
+        v62 = v137;
       }
 
       else
       {
-        v122 = v48;
-        v65 = [objc_opt_self() mainBundle];
-        v66 = String._bridgeToObjectiveC()();
-        v67 = [v65 localizedStringForKey:v66 value:0 table:0];
+        v126 = v52;
+        v69 = [objc_opt_self() mainBundle];
+        v70 = String._bridgeToObjectiveC()();
+        v71 = [v69 localizedStringForKey:v70 value:0 table:0];
 
         static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v68 = [a1 localizedShortUnitStringForDistanceUnit:v30];
-        if (v68)
+        v72 = [a1 localizedShortUnitStringForDistanceUnit:v30];
+        if (v72)
         {
-          v69 = v68;
-          v70 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v72 = v71;
+          v73 = v72;
+          v74 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v76 = v75;
 
-          sub_100140278(&unk_1008E4E50);
-          v73 = swift_allocObject();
-          *(v73 + 16) = xmmword_1006D1F70;
-          *(v73 + 56) = &type metadata for String;
-          v74 = sub_10000A788();
-          *(v73 + 32) = v56;
-          *(v73 + 40) = v58;
-          *(v73 + 96) = &type metadata for String;
-          *(v73 + 104) = v74;
-          *(v73 + 64) = v74;
-          *(v73 + 72) = v70;
-          *(v73 + 80) = v72;
-          v56 = String.init(format:_:)();
-          v58 = v75;
+          sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+          v77 = swift_allocObject();
+          *(v77 + 16) = xmmword_1006D1F70;
+          *(v77 + 56) = &type metadata for String;
+          v78 = sub_10000A788();
+          *(v77 + 32) = v60;
+          *(v77 + 40) = v62;
+          *(v77 + 96) = &type metadata for String;
+          *(v77 + 104) = v78;
+          *(v77 + 64) = v78;
+          *(v77 + 72) = v74;
+          *(v77 + 80) = v76;
+          v60 = String.init(format:_:)();
+          v62 = v79;
         }
 
-        v48 = v122;
-        v59 = &selRef_initWithFitnessAppContext_activitySharingClient_;
+        v52 = v126;
+        v63 = &selRef_initWithFitnessAppContext_activitySharingClient_;
       }
 
-      v78 = [objc_opt_self() mainBundle];
-      v79 = String._bridgeToObjectiveC()();
-      v80 = [v78 v59[265]];
+      v82 = [objc_opt_self() mainBundle];
+      v83 = String._bridgeToObjectiveC()();
+      v84 = [v82 v63[265]];
 
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      sub_100140278(&unk_1008E4E50);
-      v81 = swift_allocObject();
-      *(v81 + 16) = xmmword_1006D64F0;
-      *(v81 + 56) = &type metadata for String;
-      v82 = sub_10000A788();
-      *(v81 + 32) = v126;
-      *(v81 + 40) = v32;
-      *(v81 + 96) = &type metadata for String;
-      *(v81 + 104) = v82;
-      *(v81 + 64) = v82;
-      *(v81 + 72) = v48;
-      *(v81 + 80) = v124;
-      *(v81 + 136) = &type metadata for String;
-      *(v81 + 144) = v82;
-      *(v81 + 112) = v56;
-      *(v81 + 120) = v58;
-      v83 = String.init(format:_:)();
+      sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+      v85 = swift_allocObject();
+      *(v85 + 16) = xmmword_1006D64F0;
+      *(v85 + 56) = &type metadata for String;
+      v86 = sub_10000A788();
+      *(v85 + 32) = v130;
+      *(v85 + 40) = v32;
+      *(v85 + 96) = &type metadata for String;
+      *(v85 + 104) = v86;
+      *(v85 + 64) = v86;
+      *(v85 + 72) = v52;
+      *(v85 + 80) = v128;
+      *(v85 + 136) = &type metadata for String;
+      *(v85 + 144) = v86;
+      *(v85 + 112) = v60;
+      *(v85 + 120) = v62;
+      v87 = String.init(format:_:)();
 
-      return v83;
+      return v87;
     }
 
     __break(1u);
@@ -7911,7 +7928,7 @@ LABEL_51:
     type metadata accessor for MultiSportWorkoutConfiguration();
     if (swift_dynamicCastClass())
     {
-      v76 = v7;
+      v80 = v7;
       v18 = MultiSportWorkoutConfiguration.displayName.getter();
 
       return v18;
@@ -7919,125 +7936,127 @@ LABEL_51:
 
     _StringGuts.grow(_:)(49);
 
-    v117 = [v3 description];
-    v118 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v120 = v119;
+    v136 = 0xD00000000000002FLL;
+    v137 = 0x800000010075A1D0;
+    v121 = [v3 description];
+    v122 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v124 = v123;
 
-    v121._countAndFlagsBits = v118;
-    v121._object = v120;
-    String.append(_:)(v121);
+    v125._countAndFlagsBits = v122;
+    v125._object = v124;
+    String.append(_:)(v125);
 
     goto LABEL_54;
   }
 
-  v35 = v7;
-  v36 = PacerWorkoutConfiguration.distanceGoal.getter();
-  v37 = [v36 goalTypeIdentifier];
+  v39 = v7;
+  v40 = PacerWorkoutConfiguration.distanceGoal.getter();
+  v41 = [v40 goalTypeIdentifier];
 
-  v38 = PacerWorkoutConfiguration.distanceGoal.getter();
-  [v38 doubleValue];
-  v40 = v39;
+  v42 = PacerWorkoutConfiguration.distanceGoal.getter();
+  [v42 doubleValue];
+  v44 = v43;
 
-  v41 = dispatch thunk of WorkoutConfiguration.activityType.getter();
-  v42 = [a1 localizedGoalDescriptionForGoalType:v37 goalValue:v41 activityType:v40];
+  v45 = dispatch thunk of WorkoutConfiguration.activityType.getter();
+  v46 = [a1 localizedGoalDescriptionForGoalType:v41 goalValue:v45 activityType:v44];
 
-  if (v42)
+  if (v46)
   {
-    v127 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v128 = v43;
+    v131 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v132 = v47;
   }
 
   else
   {
-    v127 = 11565;
-    v128 = 0xE200000000000000;
+    v131 = 11565;
+    v132 = 0xE200000000000000;
   }
 
-  v84 = PacerWorkoutConfiguration.timeGoal.getter();
-  v85 = [v84 goalTypeIdentifier];
+  v88 = PacerWorkoutConfiguration.timeGoal.getter();
+  v89 = [v88 goalTypeIdentifier];
 
-  v86 = PacerWorkoutConfiguration.timeGoal.getter();
-  [v86 doubleValue];
-  v88 = v87;
-
-  v89 = dispatch thunk of WorkoutConfiguration.activityType.getter();
-  v90 = [a1 localizedGoalDescriptionForGoalType:v85 goalValue:v89 activityType:v88];
-
-  if (v90)
-  {
-    v91 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v125 = v92;
-  }
-
-  else
-  {
-    v125 = 0xE500000000000000;
-    v91 = 0x2D2D3A2D2DLL;
-  }
+  v90 = PacerWorkoutConfiguration.timeGoal.getter();
+  [v90 doubleValue];
+  v92 = v91;
 
   v93 = dispatch thunk of WorkoutConfiguration.activityType.getter();
-  v94 = FIUIPaceFormatForWorkoutActivityType();
+  v94 = [a1 localizedGoalDescriptionForGoalType:v89 goalValue:v93 activityType:v92];
 
-  v95 = PacerWorkoutConfiguration.distanceGoal.getter();
-  v2 = [v95 value];
+  if (v94)
+  {
+    v95 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v129 = v96;
+  }
+
+  else
+  {
+    v129 = 0xE500000000000000;
+    v95 = 0x2D2D3A2D2DLL;
+  }
+
+  v97 = dispatch thunk of WorkoutConfiguration.activityType.getter();
+  v98 = FIUIPaceFormatForWorkoutActivityType();
+
+  v99 = PacerWorkoutConfiguration.distanceGoal.getter();
+  v2 = [v99 value];
 
   if (v2)
   {
-    v96 = PacerWorkoutConfiguration.timeGoal.getter();
-    v97 = [v96 value];
+    v100 = PacerWorkoutConfiguration.timeGoal.getter();
+    v101 = [v100 value];
 
-    if (v97)
+    if (v101)
     {
-      v98 = [objc_opt_self() secondUnit];
-      [v97 doubleValueForUnit:v98];
-      v100 = v99;
+      v102 = [objc_opt_self() secondUnit];
+      [v101 doubleValueForUnit:v102];
+      v104 = v103;
 
-      v101 = v35;
-      v102 = dispatch thunk of WorkoutConfiguration.activityType.getter();
+      v105 = v39;
+      v106 = dispatch thunk of WorkoutConfiguration.activityType.getter();
 
-      v103 = FIUIDistanceTypeForActivityType();
-      v104 = [a1 localizedPaceStringWithDistance:v2 overDuration:v94 paceFormat:v103 distanceType:v100];
-      if (v104)
+      v107 = FIUIDistanceTypeForActivityType();
+      v108 = [a1 localizedPaceStringWithDistance:v2 overDuration:v98 paceFormat:v107 distanceType:v104];
+      if (v108)
       {
-        v105 = v104;
-        v106 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v108 = v107;
+        v109 = v108;
+        v110 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v112 = v111;
       }
 
       else
       {
-        v109 = [objc_opt_self() mainBundle];
-        v110 = String._bridgeToObjectiveC()();
-        v105 = [v109 localizedStringForKey:v110 value:0 table:0];
+        v113 = [objc_opt_self() mainBundle];
+        v114 = String._bridgeToObjectiveC()();
+        v109 = [v113 localizedStringForKey:v114 value:0 table:0];
 
-        v106 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v108 = v111;
+        v110 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v112 = v115;
       }
 
-      v112 = [objc_opt_self() mainBundle];
-      v113 = String._bridgeToObjectiveC()();
-      v114 = [v112 localizedStringForKey:v113 value:0 table:0];
+      v116 = [objc_opt_self() mainBundle];
+      v117 = String._bridgeToObjectiveC()();
+      v118 = [v116 localizedStringForKey:v117 value:0 table:0];
 
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      sub_100140278(&unk_1008E4E50);
-      v115 = swift_allocObject();
-      *(v115 + 16) = xmmword_1006D64F0;
-      *(v115 + 56) = &type metadata for String;
-      v116 = sub_10000A788();
-      *(v115 + 32) = v127;
-      *(v115 + 40) = v128;
-      *(v115 + 96) = &type metadata for String;
-      *(v115 + 104) = v116;
-      *(v115 + 64) = v116;
-      *(v115 + 72) = v91;
-      *(v115 + 80) = v125;
-      *(v115 + 136) = &type metadata for String;
-      *(v115 + 144) = v116;
-      *(v115 + 112) = v106;
-      *(v115 + 120) = v108;
-      v83 = String.init(format:_:)();
+      sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+      v119 = swift_allocObject();
+      *(v119 + 16) = xmmword_1006D64F0;
+      *(v119 + 56) = &type metadata for String;
+      v120 = sub_10000A788();
+      *(v119 + 32) = v131;
+      *(v119 + 40) = v132;
+      *(v119 + 96) = &type metadata for String;
+      *(v119 + 104) = v120;
+      *(v119 + 64) = v120;
+      *(v119 + 72) = v95;
+      *(v119 + 80) = v129;
+      *(v119 + 136) = &type metadata for String;
+      *(v119 + 144) = v120;
+      *(v119 + 112) = v110;
+      *(v119 + 120) = v112;
+      v87 = String.init(format:_:)();
 
-      return v83;
+      return v87;
     }
 
     goto LABEL_51;
@@ -8052,7 +8071,7 @@ LABEL_54:
 id sub_1003AFB2C(uint64_t a1, uint64_t a2, void *a3)
 {
   v22 = a3;
-  v4 = sub_100140278(&qword_1008EAC00);
+  v4 = sub_100140278(&qword_1008EAC00, "N\t\v");
   __chkstk_darwin(v4 - 8);
   v6 = &v21 - v5;
   v7 = type metadata accessor for IntervalWorkoutKeyPath();
@@ -8109,23 +8128,23 @@ LABEL_10:
     return 0;
   }
 
-  sub_10000EA04(v6, &qword_1008EAC00);
+  sub_10000EA04(v6, &qword_1008EAC00, "N\t\v");
   return 0;
 }
 
-id sub_1003AFF4C()
+id sub_1003AFF4C(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_100140278(&qword_1008EAC00);
-  __chkstk_darwin(v1 - 8);
-  v3 = &v18 - v2;
-  v4 = type metadata accessor for IntervalWorkoutKeyPath();
-  v5 = *(v4 - 8);
-  *&v6 = __chkstk_darwin(v4).n128_u64[0];
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = [v0 metadata];
-  if (v9)
+  v3 = sub_100140278(&qword_1008EAC00, "N\t\v");
+  __chkstk_darwin(v3 - 8);
+  v5 = &v20 - v4;
+  v6 = type metadata accessor for IntervalWorkoutKeyPath();
+  v7 = *(v6 - 8);
+  *&v8 = __chkstk_darwin(v6).n128_u64[0];
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = [v2 metadata];
+  if (v11)
   {
-    v10 = v9;
+    v12 = v11;
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -8133,9 +8152,9 @@ id sub_1003AFF4C()
   type metadata accessor for BlastDoorConfigurationValidator();
   swift_allocObject();
   BlastDoorConfigurationValidator.init()();
-  v11 = static WorkoutConfiguration.deserialize(from:requiringOccurrence:validator:)();
+  v13 = static WorkoutConfiguration.deserialize(from:requiringOccurrence:validator:)();
 
-  if (!v11)
+  if (!v13)
   {
     return 0;
   }
@@ -8147,48 +8166,48 @@ id sub_1003AFF4C()
   }
 
   IntervalWorkoutKeyPath.init(serializedString:)();
-  if ((*(v5 + 48))(v3, 1, v4) != 1)
+  if ((*(v7 + 48))(v5, 1, v6) != 1)
   {
-    (*(v5 + 32))(v8, v3, v4);
-    v12 = IntervalWorkoutConfiguration.intervalWorkout.getter();
+    (*(v7 + 32))(v10, v5, v6);
+    v14 = IntervalWorkoutConfiguration.intervalWorkout.getter();
     IntervalWorkout.stepForKeyPath(_:)();
 
-    v13 = WorkoutStep.goal.getter();
-    v14 = [v13 goalTypeIdentifier];
+    v15 = WorkoutStep.goal.getter();
+    v16 = [v15 goalTypeIdentifier];
 
-    if (v14 == 2)
+    if (v16 == 2)
     {
-      v15 = WorkoutStep.goal.getter();
-      v16 = [v15 requiredDistance];
+      v17 = WorkoutStep.goal.getter();
+      v18 = [v17 requiredDistance];
 
-      (*(v5 + 8))(v8, v4);
-      return v16;
+      (*(v7 + 8))(v10, v6);
+      return v18;
     }
 
-    (*(v5 + 8))(v8, v4);
+    (*(v7 + 8))(v10, v6);
 
 LABEL_10:
 
     return 0;
   }
 
-  sub_10000EA04(v3, &qword_1008EAC00);
+  sub_10000EA04(v5, &qword_1008EAC00, "N\t\v");
   return 0;
 }
 
-uint64_t sub_1003B02C8()
+uint64_t sub_1003B02C8(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_100140278(&qword_1008EAC00);
-  __chkstk_darwin(v1 - 8);
-  v3 = &v14 - v2;
-  v4 = type metadata accessor for IntervalWorkoutKeyPath();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = [v0 metadata];
-  if (v8)
+  v3 = sub_100140278(&qword_1008EAC00, "N\t\v");
+  __chkstk_darwin(v3 - 8);
+  v5 = &v17 - v4;
+  v6 = type metadata accessor for IntervalWorkoutKeyPath();
+  v7 = *(v6 - 8);
+  *&v8 = __chkstk_darwin(v6).n128_u64[0];
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = [v2 metadata];
+  if (v11)
   {
-    v9 = v8;
+    v12 = v11;
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -8196,31 +8215,31 @@ uint64_t sub_1003B02C8()
   type metadata accessor for BlastDoorConfigurationValidator();
   swift_allocObject();
   BlastDoorConfigurationValidator.init()();
-  v10 = static WorkoutConfiguration.deserialize(from:requiringOccurrence:validator:)();
+  v13 = static WorkoutConfiguration.deserialize(from:requiringOccurrence:validator:)();
 
   result = 0;
-  if (v10)
+  if (v13)
   {
     type metadata accessor for IntervalWorkoutConfiguration();
     if (swift_dynamicCastClass())
     {
 
       IntervalWorkoutKeyPath.init(serializedString:)();
-      if ((*(v5 + 48))(v3, 1, v4) == 1)
+      if ((*(v7 + 48))(v5, 1, v6) == 1)
       {
 
-        sub_10000EA04(v3, &qword_1008EAC00);
+        sub_10000EA04(v5, &qword_1008EAC00, "N\t\v");
         return 0;
       }
 
       else
       {
-        (*(v5 + 32))(v7, v3, v4);
-        v12 = IntervalWorkoutConfiguration.intervalWorkout.getter();
-        v13 = IntervalWorkout.stepForKeyPath(_:)();
+        (*(v7 + 32))(v10, v5, v6);
+        v15 = IntervalWorkoutConfiguration.intervalWorkout.getter();
+        v16 = IntervalWorkout.stepForKeyPath(_:)();
 
-        (*(v5 + 8))(v7, v4);
-        return v13;
+        (*(v7 + 8))(v10, v6);
+        return v16;
       }
     }
 
@@ -8234,22 +8253,22 @@ uint64_t sub_1003B02C8()
   return result;
 }
 
-uint64_t sub_1003B0560@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1003B0560@<X0>(uint64_t *a2@<X8>)
 {
-  sub_1000059F8(0, &qword_1008ED7C0);
+  sub_1000059F8(0, &qword_1008ED7C0, HKWorkout_ptr);
   result = Identifiable<>.id.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t sub_1003B05B4(uint64_t a1, unint64_t a2)
+uint64_t sub_1003B05B4(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_100215414(a1, a2);
+    return sub_100215414(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 unint64_t sub_1003B05C8()
@@ -8267,7 +8286,7 @@ unint64_t sub_1003B05C8()
 
 id sub_1003B0754()
 {
-  v0 = sub_100140278(&unk_1008EB5B0);
+  v0 = sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
   __chkstk_darwin(v0 - 8);
   v60 = v51 - v1;
   v59 = type metadata accessor for URL();
@@ -8304,7 +8323,7 @@ id sub_1003B0754()
   v16 = [v14 localizedStringForKey:v15 value:0 table:0];
 
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100140278(&unk_1008E4E50);
+  sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
   v17 = swift_allocObject();
   *(v17 + 16) = xmmword_1006D46C0;
   *(v17 + 56) = &type metadata for String;
@@ -8313,12 +8332,12 @@ id sub_1003B0754()
   *(v17 + 40) = v12;
   static String.localizedStringWithFormat(_:_:)();
 
-  v55 = sub_100140278(&unk_1008E7FB0);
+  v55 = sub_100140278(&unk_1008E7FB0, &unk_1006D6940);
   inited = swift_initStackObject();
   v54 = xmmword_1006D1F70;
   *(inited + 16) = xmmword_1006D1F70;
   *(inited + 32) = NSFontAttributeName;
-  v19 = sub_100140278(&unk_1008EB5C8);
+  v19 = sub_100140278(&unk_1008EB5C8, &unk_1006EFAB0);
   *(inited + 40) = v3;
   v53 = v19;
   *(inited + 64) = v19;
@@ -8328,16 +8347,16 @@ id sub_1003B0754()
   v63 = v3;
   v21 = NSForegroundColorAttributeName;
   v22 = [v20 secondaryLabelColor];
-  *(inited + 104) = sub_1000059F8(0, &qword_1008E7FC0);
+  *(inited + 104) = sub_1000059F8(0, &qword_1008E7FC0, UIColor_ptr);
   *(inited + 80) = v22;
   sub_1004C9200(inited);
   swift_setDeallocating();
-  v51[1] = sub_100140278(&unk_1008EE730);
+  v51[1] = sub_100140278(&unk_1008EE730, &unk_1006D8460);
   swift_arrayDestroy();
   v23 = objc_allocWithZone(NSMutableAttributedString);
   v24 = String._bridgeToObjectiveC()();
   type metadata accessor for Key(0);
-  sub_10005FB54(&qword_1008E7FD0, type metadata accessor for Key);
+  sub_10005FB54(&qword_1008E7FD0, type metadata accessor for Key, &unk_1006D3C84);
   v25 = v3;
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -8350,7 +8369,7 @@ id sub_1003B0754()
   if ((*(v57 + 48))(v28, 1, v59) == 1)
   {
 
-    sub_10000EA04(v28, &unk_1008EB5B0);
+    sub_10000EA04(v28, &unk_1008EB5B0, &unk_1006D2BF0);
   }
 
   else
@@ -8457,14 +8476,14 @@ char *sub_1003B0F3C(uint64_t a1, uint64_t a2, uint64_t a3)
   v36 = [v33 constraintEqualToAnchor:v35 constant:-20.0];
 
   v37 = objc_opt_self();
-  sub_100140278(&unk_1008E4E20);
+  sub_100140278(&unk_1008E4E20, &qword_1006D5040);
   v38 = swift_allocObject();
   *(v38 + 16) = xmmword_1006D5300;
   *(v38 + 32) = v24;
   *(v38 + 40) = v28;
   *(v38 + 48) = v32;
   *(v38 + 56) = v36;
-  sub_1000059F8(0, &qword_1008DC980);
+  sub_1000059F8(0, &qword_1008DC980, NSLayoutConstraint_ptr);
   v39 = v24;
   v40 = v28;
   v41 = v32;
@@ -8485,7 +8504,7 @@ id sub_1003B142C(uint64_t (*a1)(void))
 
 uint64_t sub_1003B1498@<X0>(uint64_t *a1@<X8>)
 {
-  sub_100140278(&qword_1008DE578);
+  sub_100140278(&qword_1008DE578, &unk_1006D8DE0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1006D46C0;
   *(v3 + 32) = *v1;
@@ -8551,13 +8570,13 @@ LABEL_11:
   return 0x203A656761;
 }
 
-void sub_1003B1678()
+void sub_1003B1678(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     sub_1003B4194();
   }
 }
@@ -8621,11 +8640,11 @@ id sub_1003B18E0()
   return objc_msgSendSuper2(&v5, "dealloc");
 }
 
-void sub_1003B1AF0()
+void sub_1003B1AF0(uint64_t a1)
 {
-  v35.receiver = v0;
-  v35.super_class = type metadata accessor for TrendsListViewController();
-  objc_msgSendSuper2(&v35, "viewDidLoad");
+  v36.receiver = v1;
+  v36.super_class = type metadata accessor for TrendsListViewController();
+  objc_msgSendSuper2(&v36, "viewDidLoad");
   if ([objc_opt_self() isAppleInternalInstall])
   {
     if (qword_1008DAFA0 != -1)
@@ -8635,105 +8654,105 @@ void sub_1003B1AF0()
 
     if ((byte_1008F8688 & 1) == 0)
     {
-      v1 = objc_opt_self();
-      v2 = String._bridgeToObjectiveC()();
-      v3 = [v1 __systemImageNamedSwift:v2];
+      v2 = objc_opt_self();
+      v3 = String._bridgeToObjectiveC()();
+      v4 = [v2 __systemImageNamedSwift:v3];
 
-      v4 = [objc_allocWithZone(UIBarButtonItem) initWithImage:v3 style:0 target:v0 action:"tapToRadar"];
-      v5 = [v0 navigationItem];
-      sub_100140278(&unk_1008E4E20);
-      v6 = swift_allocObject();
-      *(v6 + 16) = xmmword_1006D4E70;
-      *(v6 + 32) = v4;
-      sub_1000059F8(0, &qword_1008EB5C0);
-      v7 = v4;
+      v5 = [objc_allocWithZone(UIBarButtonItem) initWithImage:v4 style:0 target:v1 action:"tapToRadar"];
+      v6 = [v1 navigationItem];
+      sub_100140278(&unk_1008E4E20, &qword_1006D5040);
+      v7 = swift_allocObject();
+      *(v7 + 16) = xmmword_1006D4E70;
+      *(v7 + 32) = v5;
+      sub_1000059F8(0, &qword_1008EB5C0, UIBarButtonItem_ptr);
+      v8 = v5;
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      [v5 setRightBarButtonItems:isa];
+      [v6 setRightBarButtonItems:isa];
     }
   }
 
-  v9 = [v0 navigationItem];
-  v10 = [objc_opt_self() mainBundle];
-  v11 = String._bridgeToObjectiveC()();
-  v12 = [v10 localizedStringForKey:v11 value:0 table:0];
+  v10 = [v1 navigationItem];
+  v11 = [objc_opt_self() mainBundle];
+  v12 = String._bridgeToObjectiveC()();
+  v13 = [v11 localizedStringForKey:v12 value:0 table:0];
 
-  if (!v12)
+  if (!v13)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = String._bridgeToObjectiveC()();
+    v13 = String._bridgeToObjectiveC()();
   }
 
-  [v9 setTitle:v12];
-  v13 = *&v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_tableView];
+  [v10 setTitle:v13];
+  v14 = *&v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_tableView];
   type metadata accessor for TrendsPregnancyDisclaimerCell();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v15 = String._bridgeToObjectiveC()();
-  [v13 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v15];
+  v16 = String._bridgeToObjectiveC()();
+  [v14 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v16];
 
   type metadata accessor for TrendPairTableViewCell(0);
-  v16 = swift_getObjCClassFromMetadata();
-  v17 = String._bridgeToObjectiveC()();
-  [v13 registerClass:v16 forCellReuseIdentifier:v17];
+  v17 = swift_getObjCClassFromMetadata();
+  v18 = String._bridgeToObjectiveC()();
+  [v14 registerClass:v17 forCellReuseIdentifier:v18];
 
-  type metadata accessor for TrendingDownTableViewCell();
-  v18 = swift_getObjCClassFromMetadata();
-  v19 = String._bridgeToObjectiveC()();
-  [v13 registerClass:v18 forCellReuseIdentifier:v19];
+  type metadata accessor for TrendingDownTableViewCell(0);
+  v19 = swift_getObjCClassFromMetadata();
+  v20 = String._bridgeToObjectiveC()();
+  [v14 registerClass:v19 forCellReuseIdentifier:v20];
 
   type metadata accessor for TrendListFooter();
-  v20 = swift_getObjCClassFromMetadata();
-  v21 = String._bridgeToObjectiveC()();
-  [v13 registerClass:v20 forCellReuseIdentifier:v21];
+  v21 = swift_getObjCClassFromMetadata();
+  v22 = String._bridgeToObjectiveC()();
+  [v14 registerClass:v21 forCellReuseIdentifier:v22];
 
-  [v13 setRowHeight:UITableViewAutomaticDimension];
-  [v13 setEstimatedRowHeight:100.0];
-  v22 = objc_opt_self();
-  v23 = [v22 systemBackgroundColor];
-  [v13 setBackgroundColor:v23];
+  [v14 setRowHeight:UITableViewAutomaticDimension];
+  [v14 setEstimatedRowHeight:100.0];
+  v23 = objc_opt_self();
+  v24 = [v23 systemBackgroundColor];
+  [v14 setBackgroundColor:v24];
 
-  v24 = [v22 separatorColor];
-  [v13 setSeparatorColor:v24];
+  v25 = [v23 separatorColor];
+  [v14 setSeparatorColor:v25];
 
-  [v13 _setHeaderAndFooterViewsFloat:0];
-  [v13 setSectionHeaderTopPadding:0.0];
-  [v13 setAllowsSelection:0];
-  [v13 contentInset];
-  [v13 setContentInset:-13.0];
-  v25 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
-  [v13 setTableFooterView:v25];
+  [v14 _setHeaderAndFooterViewsFloat:0];
+  [v14 setSectionHeaderTopPadding:0.0];
+  [v14 setAllowsSelection:0];
+  [v14 contentInset];
+  [v14 setContentInset:-13.0];
+  v26 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  [v14 setTableFooterView:v26];
 
-  v26 = *(*&v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_activityDataProvider] + OBJC_IVAR____TtC10FitnessApp20ActivityDataProvider_isWheelchairUser);
-  v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser] = v26;
-  if (v26 == 1)
+  v27 = *(*&v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_activityDataProvider] + OBJC_IVAR____TtC10FitnessApp20ActivityDataProvider_isWheelchairUser);
+  v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser] = v27;
+  if (v27 == 1)
   {
     sub_1003B30BC();
   }
 
-  v27 = [v0 view];
-  if (!v27)
+  v28 = [v1 view];
+  if (!v28)
   {
     __break(1u);
     goto LABEL_18;
   }
 
-  v28 = v27;
-  [v27 addSubview:v13];
+  v29 = v28;
+  [v28 addSubview:v14];
 
-  [v13 setDataSource:v0];
-  [v13 setDelegate:v0];
-  if ((v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataDidLoad] & 1) == 0)
+  [v14 setDataSource:v1];
+  [v14 setDelegate:v1];
+  if ((v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataDidLoad] & 1) == 0)
   {
-    [v13 setHidden:1];
-    v29 = *&v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_spinner];
-    [v29 setHidesWhenStopped:1];
-    v30 = [v0 view];
-    if (v30)
+    [v14 setHidden:1];
+    v30 = *&v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_spinner];
+    [v30 setHidesWhenStopped:1];
+    v31 = [v1 view];
+    if (v31)
     {
-      v31 = v30;
-      [v30 addSubview:v29];
+      v32 = v31;
+      [v31 addSubview:v30];
 
-      [v29 startAnimating];
+      [v30 startAnimating];
       goto LABEL_14;
     }
 
@@ -8743,36 +8762,36 @@ LABEL_18:
   }
 
 LABEL_14:
-  v32 = objc_opt_self();
-  v33 = [v32 defaultCenter];
+  v33 = objc_opt_self();
+  v34 = [v33 defaultCenter];
   if (qword_1008DA5A0 != -1)
   {
     swift_once();
   }
 
-  [v33 addObserver:v0 selector:? name:? object:?];
+  [v34 addObserver:v1 selector:? name:? object:?];
 
-  v34 = [v32 defaultCenter];
-  [v34 addObserver:v0 selector:"reloadForFontSizeChangeWithNote:" name:UIContentSizeCategoryDidChangeNotification object:0];
+  v35 = [v33 defaultCenter];
+  [v35 addObserver:v1 selector:"reloadForFontSizeChangeWithNote:" name:UIContentSizeCategoryDidChangeNotification object:0];
 }
 
-uint64_t sub_1003B2228()
+uint64_t sub_1003B2228(__n128 a1)
 {
-  v1 = v0;
+  v2 = v1;
   result = Notification.userInfo.getter();
   if (result)
   {
-    v3 = result;
+    v4 = result;
     AnyHashable.init<A>(_:)();
-    if (*(v3 + 16) && (v4 = sub_1004C5BC0(v6), (v5 & 1) != 0))
+    if (*(v4 + 16) && (v5 = sub_1004C5BC0(v7), (v6 & 1) != 0))
     {
-      sub_10000B1B4(*(v3 + 56) + 32 * v4, v7);
-      sub_100282EF8(v6);
+      sub_10000B1B4(*(v4 + 56) + 32 * v5, v8);
+      sub_100282EF8(v7);
 
       result = swift_dynamicCast();
-      if ((result & 1) != 0 && *(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser) != 16)
+      if ((result & 1) != 0 && *(v2 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser) != 16)
       {
-        *(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser) = 16;
+        *(v2 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser) = 16;
         return sub_1003B4194();
       }
     }
@@ -8780,51 +8799,51 @@ uint64_t sub_1003B2228()
     else
     {
 
-      return sub_100282EF8(v6);
+      return sub_100282EF8(v7);
     }
   }
 
   return result;
 }
 
-id sub_1003B2414()
+id sub_1003B2414(uint64_t a1)
 {
-  v23.receiver = v0;
-  v23.super_class = type metadata accessor for TrendsListViewController();
-  objc_msgSendSuper2(&v23, "viewWillLayoutSubviews");
-  v1 = *&v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_tableView];
-  result = [v0 view];
+  v24.receiver = v1;
+  v24.super_class = type metadata accessor for TrendsListViewController();
+  objc_msgSendSuper2(&v24, "viewWillLayoutSubviews");
+  v2 = *&v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_tableView];
+  result = [v1 view];
   if (result)
   {
-    v3 = result;
+    v4 = result;
     [result bounds];
-    v5 = v4;
-    v7 = v6;
-    v9 = v8;
-    v11 = v10;
+    v6 = v5;
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
 
-    [v1 setFrame:{v5, v7, v9, v11}];
-    v12 = *&v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_spinner];
-    result = [v0 view];
+    [v2 setFrame:{v6, v8, v10, v12}];
+    v13 = *&v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_spinner];
+    result = [v1 view];
     if (result)
     {
-      v13 = result;
+      v14 = result;
       [result bounds];
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
-      v21 = v20;
+      v16 = v15;
+      v18 = v17;
+      v20 = v19;
+      v22 = v21;
 
-      v24.origin.x = v15;
-      v24.origin.y = v17;
-      v24.size.width = v19;
-      v24.size.height = v21;
-      MidX = CGRectGetMidX(v24);
-      v25.origin.x = v15;
-      v25.origin.y = v17;
-      v25.size.width = v19;
-      v25.size.height = v21;
-      return [v12 setCenter:{MidX, CGRectGetMidY(v25)}];
+      v25.origin.x = v16;
+      v25.origin.y = v18;
+      v25.size.width = v20;
+      v25.size.height = v22;
+      MidX = CGRectGetMidX(v25);
+      v26.origin.x = v16;
+      v26.origin.y = v18;
+      v26.size.width = v20;
+      v26.size.height = v22;
+      return [v13 setCenter:{MidX, CGRectGetMidY(v26)}];
     }
   }
 
@@ -8837,11 +8856,12 @@ id sub_1003B2414()
   return result;
 }
 
-void sub_1003B25BC(char a1)
+void sub_1003B25BC(uint64_t a1)
 {
+  v2 = a1;
   v20.receiver = v1;
   v20.super_class = type metadata accessor for TrendsListViewController();
-  objc_msgSendSuper2(&v20, "viewWillAppear:", a1 & 1);
+  objc_msgSendSuper2(&v20, "viewWillAppear:", v2 & 1);
   v3 = [v1 navigationController];
   if (v3)
   {
@@ -8849,10 +8869,10 @@ void sub_1003B25BC(char a1)
     [v3 setNavigationBarHidden:0 animated:1];
   }
 
-  if ((a1 & 1) == 0 || v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_initialAppearance] == 1)
+  if ((v2 & 1) == 0 || v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_initialAppearance] == 1)
   {
     v5 = [*&v1[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_tableView] visibleCells];
-    sub_1000059F8(0, &qword_1008EB560);
+    sub_1000059F8(0, &qword_1008EB560, UITableViewCell_ptr);
     v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     if (v6 >> 62)
@@ -8890,7 +8910,7 @@ LABEL_7:
 
           v16 = v11;
           v12 = v11;
-          sub_100140278(&qword_1008EB568);
+          sub_100140278(&qword_1008EB568, &qword_1006ED190);
           if (swift_dynamicCast())
           {
             sub_100006260(v14, v17);
@@ -8908,7 +8928,7 @@ LABEL_7:
 
             v15 = 0;
             memset(v14, 0, sizeof(v14));
-            sub_10000EA04(v14, &unk_1008EB570);
+            sub_10000EA04(v14, &unk_1008EB570, &unk_1006ED198);
           }
         }
       }
@@ -8916,14 +8936,15 @@ LABEL_7:
   }
 }
 
-void sub_1003B2878(char a1)
+void sub_1003B2878(uint64_t a1)
 {
+  v2 = a1;
   v6.receiver = v1;
   v6.super_class = type metadata accessor for TrendsListViewController();
-  objc_msgSendSuper2(&v6, "viewDidAppear:", a1 & 1);
-  if (*(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataDidLoad) == 1 && ((a1 & 1) == 0 || *(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_initialAppearance) == 1))
+  objc_msgSendSuper2(&v6, "viewDidAppear:", v2 & 1);
+  if (*(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataDidLoad) == 1 && ((v2 & 1) == 0 || *(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_initialAppearance) == 1))
   {
-    sub_100140278(&qword_1008EB598);
+    sub_100140278(&qword_1008EB598, &qword_1006ED1A8);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1006D46C0;
     *(inited + 32) = 0x746E657665;
@@ -8931,9 +8952,9 @@ void sub_1003B2878(char a1)
     *(inited + 48) = String._bridgeToObjectiveC()();
     sub_1004C9668(inited);
     swift_setDeallocating();
-    sub_10000EA04(inited + 32, &unk_1008EB5A0);
+    sub_10000EA04(inited + 32, &unk_1008EB5A0, &unk_1006ED1B0);
     v4 = String._bridgeToObjectiveC()();
-    sub_1000059F8(0, &qword_1008DB898);
+    sub_1000059F8(0, &qword_1008DB898, NSObject_ptr);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     AnalyticsSendEvent();
@@ -8947,7 +8968,7 @@ void sub_1003B2878(char a1)
 void sub_1003B2BB4(uint64_t a1)
 {
   v2 = v1;
-  v4 = type metadata accessor for TrendListMetric();
+  v4 = type metadata accessor for TrendListMetric(0);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4 - 8);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8974,7 +8995,7 @@ void sub_1003B2BB4(uint64_t a1)
 
 void sub_1003B2D0C()
 {
-  v1 = type metadata accessor for TrendListMetric();
+  v1 = type metadata accessor for TrendListMetric(0);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1 - 8);
   v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -9016,7 +9037,7 @@ void sub_1003B2EA0(uint64_t a1)
   v4 = v3;
   v5 = [v3 viewControllers];
 
-  sub_1000059F8(0, &qword_1008E4DD0);
+  sub_1000059F8(0, &qword_1008E4DD0, UIViewController_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v6 >> 62)
@@ -9050,7 +9071,7 @@ LABEL_9:
 
           if (v13)
           {
-            v14 = sub_100351600(a1);
+            sub_100351600(a1);
             if (v14)
             {
               v17 = v14;
@@ -9085,29 +9106,29 @@ LABEL_9:
   }
 }
 
-uint64_t sub_1003B30BC()
+void sub_1003B30BC()
 {
   v1 = v0;
-  *&v138 = 0;
-  v2 = sub_100140278(&unk_1008EE8E0);
+  *&v139 = 0;
+  v2 = sub_100140278(&unk_1008EE8E0, qword_1006E2D40);
   __chkstk_darwin(v2 - 8);
-  v4 = &v101 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v102 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
-  v7 = &v101 - v6;
-  v137 = type metadata accessor for AttributedString();
-  v8 = *(v137 - 8);
-  __chkstk_darwin(v137);
-  v121 = &v101 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v102 - v6;
+  v138 = type metadata accessor for AttributedString();
+  v8 = *(v138 - 8);
+  __chkstk_darwin(v138);
+  v122 = &v102 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v133 = &v101 - v11;
-  v12 = sub_100140278(&qword_1008E3D18);
+  v134 = &v102 - v11;
+  v12 = sub_100140278(&qword_1008E3D18, &unk_1006E1370);
   __chkstk_darwin(v12 - 8);
-  v120 = &v101 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v121 = &v102 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v14);
-  v112 = &v101 - v15;
+  v113 = &v102 - v15;
   v16 = OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_metricsByTrendType;
   swift_beginAccess();
-  v129 = v16;
+  v130 = v16;
   *(v1 + v16) = &_swiftEmptyDictionarySingleton;
 
   v17 = *(v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
@@ -9115,84 +9136,84 @@ uint64_t sub_1003B30BC()
   swift_beginAccess();
   v19 = *(v17 + v18);
   swift_beginAccess();
-  v136 = v17;
-  v204[0] = v19;
+  v137 = v17;
+  v205[0] = v19;
 
   v21 = v4;
   sub_10019EDE4(v20);
-  result = v204[0];
-  v23 = *(v204[0] + 16);
-  v134 = OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser;
-  v135 = OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_trendsFormattingManager;
-  v130 = v4;
-  v111 = v23;
+  v22 = v205[0];
+  v23 = *(v205[0] + 16);
+  v135 = OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_isWheelchairUser;
+  v136 = OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_trendsFormattingManager;
+  v131 = v4;
+  v112 = v23;
   if (v23)
   {
     v24 = 0;
-    v119 = (v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_userFirstName);
-    v118 = v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_userCharacteristics;
-    v116 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_statisticsByTrendType90;
-    v117 = &v160;
-    v106 = (v8 + 32);
-    v101 = (v8 + 16);
-    v113 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_statisticsByTrendType365;
-    v114 = v143;
-    v107 = (v8 + 8);
-    v108 = (v8 + 56);
-    v110 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_mannKendallTestByTrendType90;
-    v104 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_unitManager;
-    v105 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_pregnancyStateProvider;
-    v102 = v8;
-    v103 = v1;
-    v109 = v7;
-    v115 = v204[0];
+    v120 = (v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_userFirstName);
+    v119 = v1 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_userCharacteristics;
+    v117 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_statisticsByTrendType90;
+    v118 = &v161;
+    v107 = (v8 + 32);
+    v102 = (v8 + 16);
+    v114 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_statisticsByTrendType365;
+    v115 = v144;
+    v108 = (v8 + 8);
+    v109 = (v8 + 56);
+    v111 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_mannKendallTestByTrendType90;
+    v105 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_unitManager;
+    v106 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_pregnancyStateProvider;
+    v103 = v8;
+    v104 = v1;
+    v110 = v7;
+    v116 = v205[0];
     do
     {
-      if (v24 >= *(result + 16))
+      if (v24 >= *(v22 + 16))
       {
         goto LABEL_37;
       }
 
-      v122 = v24;
-      v25 = *(result + v24 + 32);
-      v132 = *(v1 + v135);
-      v26 = *v119;
-      v128 = v119[1];
-      v125 = *v118;
-      v126 = v26;
-      v124 = *(v118 + 8);
-      LODWORD(v127) = *(v118 + 16);
-      LODWORD(v131) = *(v1 + v134);
-      v27 = *(v136 + v116);
-      sub_100011DA0(&v185);
-      v182 = v195;
+      v123 = v24;
+      v25 = *(v22 + v24 + 32);
+      v133 = *(v1 + v136);
+      v26 = *v120;
+      v129 = v120[1];
+      v126 = *v119;
+      v127 = v26;
+      v125 = *(v119 + 8);
+      LODWORD(v128) = *(v119 + 16);
+      LODWORD(v132) = *(v1 + v135);
+      v27 = *(v137 + v117);
+      sub_100011DA0(&v186);
       v183 = v196;
       v184 = v197;
-      v178 = v191;
+      v185 = v198;
       v179 = v192;
       v180 = v193;
       v181 = v194;
-      v174 = v187;
+      v182 = v195;
       v175 = v188;
       v176 = v189;
       v177 = v190;
-      v172 = v185;
+      v178 = v191;
       v173 = v186;
+      v174 = v187;
       v28 = *(v27 + 24);
       v29 = swift_allocObject();
-      *(v29 + 16) = &v172;
+      *(v29 + 16) = &v173;
       *(v29 + 24) = v27;
       *(v29 + 32) = v25;
       v30 = swift_allocObject();
       *(v30 + 16) = sub_10028E41C;
       *(v30 + 24) = v29;
-      *&v161 = sub_10007BD60;
-      *(&v161 + 1) = v30;
-      *&v159 = _NSConcreteStackBlock;
-      *(&v159 + 1) = 1107296256;
-      *&v160 = sub_1003579C0;
-      *(&v160 + 1) = &unk_100855928;
-      v31 = _Block_copy(&v159);
+      *&v162 = sub_10007BD60;
+      *(&v162 + 1) = v30;
+      *&v160 = _NSConcreteStackBlock;
+      *(&v160 + 1) = 1107296256;
+      *&v161 = sub_1003579C0;
+      *(&v161 + 1) = &unk_100855928;
+      v31 = _Block_copy(&v160);
       swift_retain_n();
 
       dispatch_sync(v28, v31);
@@ -9205,68 +9226,68 @@ uint64_t sub_1003B30BC()
         goto LABEL_38;
       }
 
-      v198[9] = v181;
-      v198[10] = v182;
-      v198[11] = v183;
-      v198[5] = v177;
-      v198[6] = v178;
-      v198[7] = v179;
-      v198[8] = v180;
-      v198[1] = v173;
-      v198[2] = v174;
-      v198[3] = v175;
-      v198[4] = v176;
-      v198[0] = v172;
-      v200[9] = v181;
-      v200[10] = v182;
-      v200[11] = v183;
-      v200[5] = v177;
-      v200[6] = v178;
-      v200[7] = v179;
-      v200[8] = v180;
-      v200[1] = v173;
-      v200[2] = v174;
-      v200[3] = v175;
-      v200[4] = v176;
-      v199 = v184;
-      v201 = v184;
-      v200[0] = v172;
-      if (sub_100013184(v200) == 1)
+      v199[9] = v182;
+      v199[10] = v183;
+      v199[11] = v184;
+      v199[5] = v178;
+      v199[6] = v179;
+      v199[7] = v180;
+      v199[8] = v181;
+      v199[1] = v174;
+      v199[2] = v175;
+      v199[3] = v176;
+      v199[4] = v177;
+      v199[0] = v173;
+      v201[9] = v182;
+      v201[10] = v183;
+      v201[11] = v184;
+      v201[5] = v178;
+      v201[6] = v179;
+      v201[7] = v180;
+      v201[8] = v181;
+      v201[1] = v174;
+      v201[2] = v175;
+      v201[3] = v176;
+      v201[4] = v177;
+      v200 = v185;
+      v202 = v185;
+      v201[0] = v173;
+      if (sub_100013184(v201) == 1)
       {
         goto LABEL_30;
       }
 
-      v32 = v136;
-      v33 = *(v136 + v113);
-      v123 = v25;
-      v154 = v195;
+      v32 = v137;
+      v33 = *(v137 + v114);
+      v124 = v25;
       v155 = v196;
       v156 = v197;
-      v150 = v191;
+      v157 = v198;
       v151 = v192;
       v152 = v193;
       v153 = v194;
-      v146 = v187;
+      v154 = v195;
       v147 = v188;
       v148 = v189;
       v149 = v190;
-      v144 = v185;
+      v150 = v191;
       v145 = v186;
+      v146 = v187;
       v34 = *(v33 + 24);
       v35 = swift_allocObject();
-      *(v35 + 16) = &v144;
+      *(v35 + 16) = &v145;
       *(v35 + 24) = v33;
       *(v35 + 32) = v25;
       v36 = swift_allocObject();
       *(v36 + 16) = sub_10028E444;
       *(v36 + 24) = v35;
-      v143[2] = sub_1002831F4;
-      v143[3] = v36;
-      v142[0] = _NSConcreteStackBlock;
-      v142[1] = 1107296256;
-      v143[0] = sub_1003579C0;
-      v143[1] = &unk_1008559A0;
-      v37 = _Block_copy(v142);
+      v144[2] = sub_1002831F4;
+      v144[3] = v36;
+      v143[0] = _NSConcreteStackBlock;
+      v143[1] = 1107296256;
+      v144[0] = sub_1003579C0;
+      v144[1] = &unk_1008559A0;
+      v37 = _Block_copy(v143);
       swift_retain_n();
 
       dispatch_sync(v34, v37);
@@ -9279,98 +9300,100 @@ uint64_t sub_1003B30BC()
         goto LABEL_39;
       }
 
-      v157[10] = v154;
-      v157[11] = v155;
-      v157[6] = v150;
-      v157[7] = v151;
-      v157[8] = v152;
-      v157[9] = v153;
-      v157[2] = v146;
-      v157[3] = v147;
-      v157[4] = v148;
-      v157[5] = v149;
-      v157[0] = v144;
-      v157[1] = v145;
-      v169 = v154;
+      v158[10] = v155;
+      v158[11] = v156;
+      v158[6] = v151;
+      v158[7] = v152;
+      v158[8] = v153;
+      v158[9] = v154;
+      v158[2] = v147;
+      v158[3] = v148;
+      v158[4] = v149;
+      v158[5] = v150;
+      v158[0] = v145;
+      v158[1] = v146;
       v170 = v155;
-      v165 = v150;
+      v171 = v156;
       v166 = v151;
       v167 = v152;
       v168 = v153;
-      v161 = v146;
+      v169 = v154;
       v162 = v147;
       v163 = v148;
       v164 = v149;
-      v158 = v156;
-      v171 = v156;
-      v159 = v144;
+      v165 = v150;
+      v159 = v157;
+      v172 = v157;
       v160 = v145;
-      if (sub_100013184(&v159) == 1)
+      v161 = v146;
+      if (sub_100013184(&v160) == 1)
       {
-        sub_10000EA04(v198, &qword_1008E5710);
+        sub_10000EA04(v199, &qword_1008E5710, &unk_1006E1760);
 LABEL_30:
 
         goto LABEL_32;
       }
 
       v38 = v25;
-      sub_100357B7C(v25, v202);
+      sub_100357B7C(v25, v203);
 
-      if (v203)
+      if (v204)
       {
 
-        sub_10000EA04(v157, &qword_1008E5710);
-        sub_10000EA04(v198, &qword_1008E5710);
+        sub_10000EA04(v158, &qword_1008E5710, &unk_1006E1760);
+        sub_10000EA04(v199, &qword_1008E5710, &unk_1006E1760);
 LABEL_32:
         sub_10006CB8C();
-        *&v138 = swift_allocError();
+        *&v139 = swift_allocError();
         *v95 = 1;
 LABEL_35:
         swift_willThrow();
-        static os_log_type_t.error.getter();
-        v97 = HKLogActivity;
-        sub_100140278(&unk_1008E4E50);
-        v98 = swift_allocObject();
-        *(v98 + 16) = xmmword_1006D46C0;
-        v99 = v97;
-        v100 = _convertErrorToNSError(_:)();
-        *(v98 + 56) = sub_1000059F8(0, &qword_1008E56F0);
-        *(v98 + 64) = sub_10028E1EC();
-        *(v98 + 32) = v100;
-        os_log(_:dso:log:_:_:)();
+        v97 = static os_log_type_t.error.getter();
+        v98 = HKLogActivity;
+        sub_100140278(&unk_1008E4E50, &qword_1006D4A60);
+        v99 = swift_allocObject();
+        *(v99 + 16) = xmmword_1006D46C0;
+        v100 = v98;
+        v101 = _convertErrorToNSError(_:)();
+        *(v99 + 56) = sub_1000059F8(0, &qword_1008E56F0, NSError_ptr);
+        *(v99 + 64) = sub_10028E1EC();
+        *(v99 + 32) = v101;
+        os_log(_:dso:log:_:_:)(v97, &_mh_execute_header, v100, "Error populating trend types: %@", 32, 2, v99);
+
+        return;
       }
 
-      v39 = *&v202[1];
-      v40 = *&v202[4];
-      sub_10000EA04(v198, &qword_1008E5710);
-      v41 = *v200;
-      v42 = sub_1003D2500(byte_1006ED27E[v123]);
-      v43 = [objc_opt_self() quantityWithUnit:v42 doubleValue:{v41, v101}];
+      v39 = *&v203[1];
+      v40 = *&v203[4];
+      sub_10000EA04(v199, &qword_1008E5710, &unk_1006E1760);
+      v41 = *v201;
+      v42 = sub_1003D2500(byte_1006ED27E[v124]);
+      v43 = [objc_opt_self() quantityWithUnit:v42 doubleValue:{v41, v102}];
 
-      v44 = v109;
+      v44 = v110;
       v45 = v25;
-      v46 = v132;
-      v47 = v138;
-      sub_100603B5C(v43, v45, 2, v109);
+      v46 = v133;
+      v47 = v139;
+      sub_100603B5C(v43, v45, 2, v110);
       if (v47)
       {
 
-        sub_10000EA04(v157, &qword_1008E5710);
+        sub_10000EA04(v158, &qword_1008E5710, &unk_1006E1760);
 
-        (*v108)(v44, 1, 1, v137);
+        (*v109)(v44, 1, 1, v138);
         v94 = v44;
 LABEL_34:
-        sub_10000EA04(v94, &unk_1008EE8E0);
+        sub_10000EA04(v94, &unk_1008EE8E0, qword_1006E2D40);
         sub_1002D8190();
-        *&v138 = swift_allocError();
+        *&v139 = swift_allocError();
         *v96 = 0;
         goto LABEL_35;
       }
 
-      v48 = v137;
-      (*v108)(v44, 0, 1, v137);
-      (*v106)(v133, v44, v48);
-      v49 = [*(v32 + v105) currentModel];
+      v48 = v138;
+      (*v109)(v44, 0, 1, v138);
+      (*v107)(v134, v44, v48);
+      v49 = [*(v32 + v106) currentModel];
       if (v49)
       {
         v50 = v49;
@@ -9384,34 +9407,34 @@ LABEL_34:
         v52 = 0;
       }
 
-      v53 = v125;
-      v54 = v124;
-      LOBYTE(v142[0]) = v127;
-      if (v127)
+      v53 = v126;
+      v54 = v125;
+      LOBYTE(v143[0]) = v128;
+      if (v128)
       {
         v53 = 0;
         v54 = 0;
       }
 
-      v141 = v127;
-      *&v205 = v126;
-      *(&v205 + 1) = v128;
-      v206 = v54;
-      v207 = v127;
-      v208 = v53;
-      v209 = v127;
-      v210 = v131;
-      v211 = v52;
-      v55 = *(v32 + v104);
+      v142 = v128;
+      *&v206 = v127;
+      *(&v206 + 1) = v129;
+      v207 = v54;
+      v208 = v128;
+      v209 = v53;
+      v210 = v128;
+      v211 = v132;
+      v212 = v52;
+      v55 = *(v32 + v105);
 
       v56 = sub_1005831C0(v55, v38, v41);
-      v57 = sub_1005831C0(v55, v38, *&v159) > v56;
-      v58 = v160;
-      v138 = v162;
-      v131 = v161;
-      v59 = v163;
+      v57 = sub_1005831C0(v55, v38, *&v160) > v56;
+      v58 = v161;
+      v139 = v163;
+      v132 = v162;
+      v59 = v164;
 
-      sub_10000EA04(v157, &qword_1008E5710);
+      sub_10000EA04(v158, &qword_1008E5710, &unk_1006E1760);
       if (v40 >= 0.9)
       {
         if (v39 > 0.0)
@@ -9430,131 +9453,135 @@ LABEL_34:
       v60 = 1;
 LABEL_21:
       v61 = 2 * v57;
+      v141 = 1;
       v140 = 1;
-      v139 = 1;
-      v212[0] = v58;
-      v212[1] = v131;
-      v212[2] = v138;
-      v213 = v59;
-      v214 = 2 * v57;
-      v215 = v60;
-      v216 = v38;
-      v217 = 0x3FF199999999999ALL;
-      v218 = 0;
-      v219 = 1;
-      v220 = 0;
-      v221 = 1;
-      sub_1001AAC54(&v205, v212, *(v46 + OBJC_IVAR____TtC10FitnessApp23TrendsFormattingManager_fiuiFormatter), v204);
-      *&v138 = 0;
-      v62 = v122 + 1;
-      v132 = sub_10007C29C();
-      *&v131 = v63;
-      v64 = type metadata accessor for TrendListMetric();
-      v65 = v112;
-      v66 = v133;
-      v67 = v137;
-      (*v101)(&v112[*(v64 + 28)], v133, v137);
+      v213[0] = v58;
+      v213[1] = v132;
+      v213[2] = v139;
+      v214 = v59;
+      v215 = 2 * v57;
+      v216 = v60;
+      v217 = v38;
+      v218 = 0x3FF199999999999ALL;
+      v219 = 0;
+      v220 = 1;
+      v221 = 0;
+      v222 = 1;
+      sub_1001AAC54(&v206, v213, *(v46 + OBJC_IVAR____TtC10FitnessApp23TrendsFormattingManager_fiuiFormatter), v205);
+      *&v139 = 0;
+      v62 = v123 + 1;
+      v133 = sub_10007C29C();
+      *&v132 = v63;
+      v64 = type metadata accessor for TrendListMetric(0);
+      v65 = v113;
+      v66 = v134;
+      v67 = v138;
+      (*v102)(&v113[*(v64 + 28)], v134, v138);
       v68 = sub_1001A0380(0, 0);
-      v128 = v69;
-      sub_1001AB3B0(v204);
-      (*v107)(v66, v67);
+      v129 = v69;
+      sub_1001AB3B0(v205);
+      (*v108)(v66, v67);
       *v65 = v38;
       *(v65 + 1) = v61;
       v24 = v62;
-      v70 = v131;
-      *(v65 + 8) = v132;
+      v70 = v132;
+      *(v65 + 8) = v133;
       *(v65 + 16) = v70;
       v71 = (v65 + *(v64 + 32));
-      v72 = v128;
+      v72 = v129;
       *v71 = v68;
       v71[1] = v72;
       (*(*(v64 - 8) + 56))(v65, 0, 1, v64);
-      v1 = v103;
+      v1 = v104;
       swift_beginAccess();
       sub_10055A35C(v65, v38);
       swift_endAccess();
-      v21 = v130;
-      v8 = v102;
-      result = v115;
+      v21 = v131;
+      v8 = v103;
+      v22 = v116;
     }
 
-    while (v111 != v62);
+    while (v112 != v62);
   }
 
   v73 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedInvalidTrends;
-  v74 = v136;
+  v74 = v137;
   swift_beginAccess();
   v75 = *(v74 + v73);
   v76 = *(v75 + 16);
 
-  v128 = v76;
-  if (!v76)
+  v129 = v76;
+  if (v76)
   {
-  }
-
-  v77 = 0;
-  v126 = v75;
-  v127 = (v8 + 56);
-  v125 = (v8 + 32);
-  while (v77 < *(v75 + 16))
-  {
-    v78 = *(v75 + v77 + 32);
-    v136 = sub_10007C29C();
-    v80 = v79;
-    v81 = v138;
-    sub_10007B084(v78, 2, v21);
-    *&v138 = v81;
-    if (v81)
+    v77 = 0;
+    v127 = v75;
+    v128 = (v8 + 56);
+    v126 = (v8 + 32);
+    while (v77 < *(v75 + 16))
     {
+      v78 = *(v75 + v77 + 32);
+      v137 = sub_10007C29C();
+      v80 = v79;
+      v81 = v139;
+      sub_10007B084(v78, 2u, v21);
+      *&v139 = v81;
+      if (v81)
+      {
 
-      (*v127)(v21, 1, 1, v137);
-      v94 = v21;
-      goto LABEL_34;
+        (*v128)(v21, 1, 1, v138);
+        v94 = v21;
+        goto LABEL_34;
+      }
+
+      ++v77;
+      v82 = v21;
+      v83 = v21;
+      v84 = v138;
+      (*v128)(v82, 0, 1, v138);
+      v134 = v80;
+      v85 = *v126;
+      v86 = v122;
+      (*v126)(v122, v83, v84);
+      v133 = sub_10007CA9C();
+      *&v132 = v87;
+      v88 = type metadata accessor for TrendListMetric(0);
+      v89 = v121;
+      v85(&v121[*(v88 + 28)], v86, v84);
+      *v89 = v78;
+      v89[1] = 1;
+      v90 = v134;
+      *(v89 + 1) = v137;
+      *(v89 + 2) = v90;
+      v91 = &v89[*(v88 + 32)];
+      v21 = v131;
+      v92 = v132;
+      *v91 = v133;
+      v91[1] = v92;
+      (*(*(v88 - 8) + 56))(v89, 0, 1, v88);
+      swift_beginAccess();
+      v93 = v89;
+      v75 = v127;
+      sub_10055A35C(v93, v78);
+      swift_endAccess();
+      if (v129 == v77)
+      {
+        goto LABEL_27;
+      }
     }
 
-    ++v77;
-    v82 = v21;
-    v83 = v21;
-    v84 = v137;
-    (*v127)(v82, 0, 1, v137);
-    v133 = v80;
-    v85 = *v125;
-    v86 = v121;
-    (*v125)(v121, v83, v84);
-    v132 = sub_10007CA9C();
-    *&v131 = v87;
-    v88 = type metadata accessor for TrendListMetric();
-    v89 = v120;
-    v85(&v120[*(v88 + 28)], v86, v84);
-    *v89 = v78;
-    v89[1] = 1;
-    v90 = v133;
-    *(v89 + 1) = v136;
-    *(v89 + 2) = v90;
-    v91 = &v89[*(v88 + 32)];
-    v21 = v130;
-    v92 = v131;
-    *v91 = v132;
-    v91[1] = v92;
-    (*(*(v88 - 8) + 56))(v89, 0, 1, v88);
-    swift_beginAccess();
-    v93 = v89;
-    v75 = v126;
-    sub_10055A35C(v93, v78);
-    result = swift_endAccess();
-    if (v128 == v77)
-    {
-    }
-  }
-
-  __break(1u);
+    __break(1u);
 LABEL_37:
-  __break(1u);
+    __break(1u);
 LABEL_38:
-  __break(1u);
+    __break(1u);
 LABEL_39:
-  __break(1u);
-  return result;
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_27:
+  }
 }
 
 uint64_t sub_1003B4194()
@@ -9574,7 +9601,7 @@ uint64_t sub_1003B4194()
   [*&v0[OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_spinner] stopAnimating];
   sub_1003B30BC();
   [v8 reloadData];
-  sub_1000059F8(0, &qword_1008E3FD0);
+  sub_1000059F8(0, &qword_1008E3FD0, OS_dispatch_queue_ptr);
   v9 = static OS_dispatch_queue.main.getter();
   v10 = swift_allocObject();
   *(v10 + 16) = v0;
@@ -9589,9 +9616,9 @@ uint64_t sub_1003B4194()
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  sub_10005FB54(&qword_1008E33B0, &type metadata accessor for DispatchWorkItemFlags);
-  sub_100140278(&unk_1008E7F50);
-  sub_10014A6B0(&qword_1008E33C0, &unk_1008E7F50);
+  sub_10005FB54(&qword_1008E33B0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_100140278(&unk_1008E7F50, &qword_1006D8190);
+  sub_10014A6B0(&qword_1008E33C0, &unk_1008E7F50, &qword_1006D8190, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v11);
@@ -9603,7 +9630,7 @@ uint64_t sub_1003B4194()
 void sub_1003B44F8()
 {
   v1 = [*(v0 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_tableView) visibleCells];
-  sub_1000059F8(0, &qword_1008EB560);
+  sub_1000059F8(0, &qword_1008EB560, UITableViewCell_ptr);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v2 >> 62)
@@ -9632,7 +9659,7 @@ LABEL_3:
           }
 
           v8 = v7;
-          sub_100140278(&qword_1008EB568);
+          sub_100140278(&qword_1008EB568, &qword_1006ED190);
           if (swift_dynamicCast())
           {
             v9 = *(&v13 + 1);
@@ -9647,7 +9674,7 @@ LABEL_3:
             v14 = 0;
             v12 = 0u;
             v13 = 0u;
-            sub_10000EA04(&v12, &unk_1008EB570);
+            sub_10000EA04(&v12, &unk_1008EB570, &unk_1006ED198);
           }
 
           v11 = v8;
@@ -9667,7 +9694,7 @@ LABEL_3:
             v14 = 0;
             v12 = 0u;
             v13 = 0u;
-            sub_10000EA04(&v12, &unk_1008EB570);
+            sub_10000EA04(&v12, &unk_1008EB570, &unk_1006ED198);
           }
         }
       }
@@ -9686,140 +9713,137 @@ LABEL_3:
   }
 }
 
-unint64_t sub_1003B476C(uint64_t a1, char a2)
+void sub_1003B476C(uint64_t a1, char a2)
 {
   v3 = v2;
-  if (IndexPath.section.getter() != 1)
+  if (IndexPath.section.getter() == 1)
   {
-    if (IndexPath.section.getter() == 2)
+    if (a2)
     {
-      v12 = *(v2 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
-      v13 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedValidDownTrends;
-      swift_beginAccess();
-      v3 = *(v12 + v13);
-
-      result = IndexPath.row.getter();
-      if ((result & 0x8000000000000000) != 0)
+      v5 = IndexPath.row.getter();
+      if (v5 + 0x4000000000000000 >= 0)
       {
-LABEL_23:
-        __break(1u);
-        goto LABEL_24;
-      }
-
-      if (result >= *(v3 + 16))
-      {
-        __break(1u);
-LABEL_11:
-        sub_100140278(&qword_1008DE578);
-        v14 = swift_allocObject();
-        *(v14 + 16) = xmmword_1006D46C0;
-        v15 = *(v3 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
-        v16 = IndexPath.row.getter();
-        v17 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedValidUpTrends;
-        result = swift_beginAccess();
-        if ((v16 & 0x8000000000000000) == 0)
+        v6 = 2 * v5;
+        v7 = (2 * v5) | 1;
+        v8 = *(v3 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
+        v9 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedValidUpTrends;
+        swift_beginAccess();
+        v10 = *(v8 + v9);
+        v11 = *(v10 + 16);
+        sub_100140278(&qword_1008DE578, &unk_1006D8DE0);
+        if (v7 >= v11)
         {
-          v18 = *(v15 + v17);
-          if (v16 < *(v18 + 16))
+          v25 = swift_allocObject();
+          *(v25 + 16) = xmmword_1006D46C0;
+          if (v6 < v11)
           {
-            result = v14;
-            *(v14 + 32) = *(v18 + v16 + 32);
-            return result;
+            *(v25 + 32) = *(v10 + v6 + 32);
+            return;
           }
 
-          goto LABEL_25;
+          goto LABEL_28;
         }
 
-LABEL_24:
-        __break(1u);
-LABEL_25:
-        __break(1u);
-LABEL_26:
-        __break(1u);
-LABEL_27:
-        __break(1u);
-        goto LABEL_28;
-      }
-    }
+        v12 = swift_allocObject();
+        *(v12 + 16) = xmmword_1006D1F70;
+        if ((v6 & 0x8000000000000000) == 0)
+        {
+          *(v12 + 32) = *(v10 + 32 + v6);
+          *(v12 + 33) = *(v10 + 32 + v7);
+          return;
+        }
 
-    else
-    {
-      if (IndexPath.section.getter() != 3)
-      {
-        return _swiftEmptyArrayStorage;
-      }
-
-      v19 = *(v2 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
-      v20 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedInvalidTrends;
-      swift_beginAccess();
-      v3 = *(v19 + v20);
-
-      result = IndexPath.row.getter();
-      if ((result & 0x8000000000000000) != 0)
-      {
         goto LABEL_26;
       }
 
-      if (result >= *(v3 + 16))
-      {
-LABEL_28:
-        __break(1u);
-        goto LABEL_29;
-      }
+      __break(1u);
+      goto LABEL_22;
     }
 
-    v21 = *(v3 + result + 32);
-
-    sub_100140278(&qword_1008DE578);
-    result = swift_allocObject();
-    *(result + 16) = xmmword_1006D46C0;
-    *(result + 32) = v21;
-    return result;
-  }
-
-  if ((a2 & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  result = IndexPath.row.getter();
-  if ((result + 0x4000000000000000) < 0)
-  {
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  v6 = 2 * result;
-  v7 = (2 * result) | 1;
-  v8 = *(v3 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
-  v9 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedValidUpTrends;
-  swift_beginAccess();
-  v10 = *(v8 + v9);
-  v11 = *(v10 + 16);
-  sub_100140278(&qword_1008DE578);
-  if (v7 < v11)
-  {
-    result = swift_allocObject();
-    *(result + 16) = xmmword_1006D1F70;
-    if ((v6 & 0x8000000000000000) == 0)
+LABEL_11:
+    sub_100140278(&qword_1008DE578, &unk_1006D8DE0);
+    v16 = swift_allocObject();
+    *(v16 + 16) = xmmword_1006D46C0;
+    v17 = *(v3 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
+    v18 = IndexPath.row.getter();
+    v19 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedValidUpTrends;
+    swift_beginAccess();
+    if ((v18 & 0x8000000000000000) == 0)
     {
-      *(result + 32) = *(v10 + 32 + v6);
-      *(result + 33) = *(v10 + 32 + v7);
-      return result;
+      v20 = *(v17 + v19);
+      if (v18 < *(v20 + 16))
+      {
+        *(v16 + 32) = *(v20 + v18 + 32);
+        return;
+      }
+
+      goto LABEL_24;
     }
 
-    goto LABEL_27;
-  }
-
-  result = swift_allocObject();
-  *(result + 16) = xmmword_1006D46C0;
-  if (v6 >= v11)
-  {
-LABEL_29:
+LABEL_23:
     __break(1u);
-    return result;
+LABEL_24:
+    __break(1u);
+    goto LABEL_25;
   }
 
-  *(result + 32) = *(v10 + v6 + 32);
-  return result;
+  if (IndexPath.section.getter() == 2)
+  {
+    v13 = *(v2 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
+    v14 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedValidDownTrends;
+    swift_beginAccess();
+    v3 = *(v13 + v14);
+
+    v15 = IndexPath.row.getter();
+    if ((v15 & 0x8000000000000000) != 0)
+    {
+LABEL_22:
+      __break(1u);
+      goto LABEL_23;
+    }
+
+    if (v15 >= *(v3 + 16))
+    {
+      __break(1u);
+      goto LABEL_11;
+    }
+
+LABEL_17:
+    v23 = *(v3 + v15 + 32);
+
+    sub_100140278(&qword_1008DE578, &unk_1006D8DE0);
+    v24 = swift_allocObject();
+    *(v24 + 16) = xmmword_1006D46C0;
+    *(v24 + 32) = v23;
+    return;
+  }
+
+  if (IndexPath.section.getter() == 3)
+  {
+    v21 = *(v2 + OBJC_IVAR____TtC10FitnessApp24TrendsListViewController_dataProvider);
+    v22 = OBJC_IVAR____TtC10FitnessApp18TrendsDataProvider_orderedInvalidTrends;
+    swift_beginAccess();
+    v3 = *(v21 + v22);
+
+    v15 = IndexPath.row.getter();
+    if ((v15 & 0x8000000000000000) != 0)
+    {
+LABEL_25:
+      __break(1u);
+LABEL_26:
+      __break(1u);
+      goto LABEL_27;
+    }
+
+    if (v15 >= *(v3 + 16))
+    {
+LABEL_27:
+      __break(1u);
+LABEL_28:
+      __break(1u);
+      return;
+    }
+
+    goto LABEL_17;
+  }
 }

@@ -24,40 +24,36 @@ uint64_t __44__OSADeviceRecoveryEnvHelper_sharedInstance__block_invoke()
   v1 = sharedInstance__sharedInstance;
   sharedInstance__sharedInstance = v0;
 
-  v2 = objc_opt_new();
-  v3 = *(sharedInstance__sharedInstance + 8);
-  *(sharedInstance__sharedInstance + 8) = v2;
+  *(sharedInstance__sharedInstance + 8) = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)overrideMountPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   [(OSADeviceRecoveryEnvHelper *)self releaseSandboxExtensions];
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v17 = 0u;
   sandboxExtensions = [pathCopy sandboxExtensions];
-  v6 = [sandboxExtensions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [sandboxExtensions countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(sandboxExtensions);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
-        v11 = OSASandboxConsumeExtensionNoRelease();
-        if (v11 < 0)
+        v10 = OSASandboxConsumeExtensionNoRelease();
+        if (v10 < 0)
         {
 
           [(OSADeviceRecoveryEnvHelper *)self releaseSandboxExtensions];
@@ -66,11 +62,11 @@ uint64_t __44__OSADeviceRecoveryEnvHelper_sharedInstance__block_invoke()
         }
 
         sandboxExtensions = self->_sandboxExtensions;
-        v13 = [MEMORY[0x277CCABB0] numberWithLongLong:v11];
-        [(NSMutableArray *)sandboxExtensions addObject:v13];
+        v12 = [MEMORY[0x277CCABB0] numberWithLongLong:v10];
+        [(NSMutableArray *)sandboxExtensions addObject:v12];
       }
 
-      v7 = [sandboxExtensions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [sandboxExtensions countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -84,46 +80,45 @@ uint64_t __44__OSADeviceRecoveryEnvHelper_sharedInstance__block_invoke()
   overrideMountPath = [mEMORY[0x277D36B80] overrideMountPath];
 
 LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
   return overrideMountPath;
 }
 
 - (void)releaseSandboxExtensions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = self->_sandboxExtensions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v16;
+    v7 = *v15;
     v8 = MEMORY[0x277D86220];
     *&v5 = 136315394;
-    v14 = v5;
+    v13 = v5;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v15 + 1) + 8 * v9) longLongValue];
+        [*(*(&v14 + 1) + 8 * v9) longLongValue];
         if ((sandbox_extension_release() & 0x80000000) != 0 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           v10 = __error();
           v11 = strerror(*v10);
           v12 = *__error();
-          *buf = v14;
-          v20 = v11;
-          v21 = 1024;
-          v22 = v12;
+          *buf = v13;
+          v19 = v11;
+          v20 = 1024;
+          v21 = v12;
           _os_log_error_impl(&dword_25D12D000, v8, OS_LOG_TYPE_ERROR, "Failed to release sandbox extension: %s (%i)", buf, 0x12u);
         }
 
@@ -131,14 +126,13 @@ LABEL_11:
       }
 
       while (v6 != v9);
-      v6 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v6 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v6);
   }
 
   [(NSMutableArray *)self->_sandboxExtensions removeAllObjects];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

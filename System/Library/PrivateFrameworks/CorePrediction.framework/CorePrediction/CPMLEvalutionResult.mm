@@ -124,19 +124,18 @@
 
 - (id)getListDict
 {
-  object = self->object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->object;
+    v3 = self->object;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 @end

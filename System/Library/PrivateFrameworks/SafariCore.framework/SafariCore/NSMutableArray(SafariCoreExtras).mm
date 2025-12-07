@@ -17,20 +17,20 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)safari_addObjectsFromArrayUnlessNil:()SafariCoreExtras
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)safari_setObject:()SafariCoreExtras atIndex:withPaddingObject:
@@ -89,15 +89,14 @@
 
 - (void)safari_insertObject:()SafariCoreExtras afterObject:
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = a3;
+  v11 = *MEMORY[0x1E69E9840];
+  v10 = a3;
   v6 = MEMORY[0x1E695DEC8];
   v7 = a4;
   v8 = a3;
-  v9 = [v6 arrayWithObjects:&v11 count:1];
+  v9 = [v6 arrayWithObjects:&v10 count:1];
 
-  [self safari_insertObjects:v9 afterObject:{v7, v11, v12}];
-  v10 = *MEMORY[0x1E69E9840];
+  [self safari_insertObjects:v9 afterObject:{v7, v10, v11}];
 }
 
 - (void)safari_insertObjects:()SafariCoreExtras afterObject:

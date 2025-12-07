@@ -7,6 +7,7 @@
 + (id)validateKind:(int64_t)kind;
 + (id)validateLabels:(id)labels;
 + (id)validateValence:(double)valence;
+- (BOOL)_validateForSavingWithClientEntitlements:(id)entitlements applicationSDKVersionToken:(unint64_t)token isAppleWatch:(BOOL)watch error:(id *)error;
 - (BOOL)hasAnyUnknownDomain;
 - (BOOL)isEquivalent:(id)equivalent;
 - (HKStateOfMind)initWithCoder:(id)coder;
@@ -282,6 +283,29 @@ uint64_t __24__HKStateOfMind_domains__block_invoke(uint64_t a1, void *a2)
   }
 
   return v4;
+}
+
+- (BOOL)_validateForSavingWithClientEntitlements:(id)entitlements applicationSDKVersionToken:(unint64_t)token isAppleWatch:(BOOL)watch error:(id *)error
+{
+  watchCopy = watch;
+  entitlementsCopy = entitlements;
+  v13.receiver = self;
+  v13.super_class = HKStateOfMind;
+  if ([(HKObject *)&v13 _validateForSavingWithClientEntitlements:entitlementsCopy applicationSDKVersionToken:token isAppleWatch:watchCopy error:error])
+  {
+    if (([entitlementsCopy hasEntitlement:@"com.apple.private.healthkit"] & 1) != 0 || (objc_msgSend(entitlementsCopy, "hasPrivateAccessEntitlementWithIdentifier:", @"mental-health") & 1) != 0 || !self->_context)
+    {
+      v11 = 1;
+      goto LABEL_8;
+    }
+
+    [MEMORY[0x1E696ABC0] hk_assignError:error code:2 description:@"Unable to save state of mind sample with this configuration"];
+  }
+
+  v11 = 0;
+LABEL_8:
+
+  return v11;
 }
 
 - (BOOL)isEquivalent:(id)equivalent

@@ -23,32 +23,32 @@
 {
   v6 = sub_1D78B34F4();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D78B34C4();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1D7866148(viewCopy);
+  v13 = sub_1D7866148(viewCopy, v10);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 
-  return v12;
+  return v13;
 }
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
 {
   v7 = sub_1D78B34F4();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7, v9);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D78B34C4();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D7866B08(viewCopy, v10);
+  v14 = sub_1D7866B08(viewCopy, v11);
 
-  (*(v8 + 8))(v10, v7);
+  (*(v8 + 8))(v11, v7);
 
-  return v13;
+  return v14;
 }
 
 - (_TtC16NewsSubscription39FlexiblePaywallCollectionViewDataSource)init

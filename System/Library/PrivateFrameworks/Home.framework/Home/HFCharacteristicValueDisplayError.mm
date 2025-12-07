@@ -222,7 +222,7 @@ LABEL_41:
 
 + (id)mostEgregiousError:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if ([errorCopy count] > 1)
   {
@@ -253,32 +253,32 @@ LABEL_41:
 
     else if ([v7 count] < 2)
     {
-      v30 = v7;
+      v29 = v7;
       v13 = [errorCopy na_dictionaryByBucketingObjectsUsingKeyGenerator:&__block_literal_global_34_2];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
       v14 = *MEMORY[0x277CCFD28];
-      v35[0] = @"HFErrorDomain";
-      v35[1] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-      v16 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v34[0] = @"HFErrorDomain";
+      v34[1] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+      v16 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v32;
+        v18 = *v31;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v32 != v18)
+            if (*v31 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
             v20 = v13;
-            v21 = [v13 objectForKeyedSubscript:*(*(&v31 + 1) + 8 * i)];
+            v21 = [v13 objectForKeyedSubscript:*(*(&v30 + 1) + 8 * i)];
             allObjects = [v21 allObjects];
             v23 = [allObjects sortedArrayUsingComparator:&__block_literal_global_40_0];
 
@@ -291,7 +291,7 @@ LABEL_41:
             v13 = v20;
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
           if (v17)
           {
             continue;
@@ -312,7 +312,7 @@ LABEL_41:
 LABEL_22:
       anyObject = [v23 firstObject];
 
-      v7 = v30;
+      v7 = v29;
     }
 
     else
@@ -328,8 +328,6 @@ LABEL_22:
   {
     anyObject = [errorCopy anyObject];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }

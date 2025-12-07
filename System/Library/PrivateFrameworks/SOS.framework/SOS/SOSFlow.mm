@@ -104,8 +104,8 @@ LABEL_4:
         break;
       case 2uLL:
         [(SOSFlow *)self _invalidateTimer];
-        v13 = [dataCopy objectForKeyedSubscript:&unk_2875D2950];
-        integerValue = [v13 integerValue];
+        v14 = [dataCopy objectForKeyedSubscript:&unk_2875D2950];
+        integerValue = [v14 integerValue];
 
         [(SOSFlow *)self userRespondedToConfirmationWith:integerValue];
         break;
@@ -123,8 +123,8 @@ LABEL_4:
         [(SOSFlow *)self contactsCountdownDismissed];
         break;
       case 8uLL:
-        v11 = [dataCopy objectForKeyedSubscript:&unk_2875D2968];
-        integerValue2 = [v11 integerValue];
+        v12 = [dataCopy objectForKeyedSubscript:&unk_2875D2968];
+        integerValue2 = [v12 integerValue];
 
         [(SOSFlow *)self userRespondedToRestingStateWith:integerValue2];
         break;
@@ -153,10 +153,10 @@ LABEL_4:
     goto LABEL_9;
   }
 
-  v10 = sos_default_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = sos_default_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [(SOSFlow *)event handleSOSFlowEvent:v10 withMetaData:?];
+    [(SOSFlow *)event handleSOSFlowEvent:v11 withMetaData:?];
   }
 
 LABEL_9:
@@ -281,24 +281,22 @@ LABEL_6:
 
 - (void)motionDidCancel
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if ([(SOSFlow *)self shouldIgnoreMotionCancel])
+  v7 = *MEMORY[0x277D85DE8];
+  shouldIgnoreMotionCancel = [(SOSFlow *)self shouldIgnoreMotionCancel];
+  if (shouldIgnoreMotionCancel)
   {
-    v3 = sos_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sos_default_log(shouldIgnoreMotionCancel);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[SOSFlow motionDidCancel]";
-      _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s: Ignoring SOSFlowEventMotionDidCancel", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SOSFlow motionDidCancel]";
+      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ignoring SOSFlowEventMotionDidCancel", &v5, 0xCu);
     }
-
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     [(SOSFlow *)self updateState:12];
-    v5 = *MEMORY[0x277D85DE8];
 
     [(SOSFlow *)self _invalidateTimer];
   }
@@ -306,7 +304,7 @@ LABEL_6:
 
 - (void)userRespondedToRestingStateWith:(int64_t)with
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   switch(with)
   {
     case 2:
@@ -322,19 +320,17 @@ LABEL_7:
       goto LABEL_11;
   }
 
-  v6 = sos_default_log();
+  v6 = sos_default_log(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[SOSFlow userRespondedToRestingStateWith:]";
-    _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "%s: Unexpected SOSResponse from resting state", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[SOSFlow userRespondedToRestingStateWith:]";
+    _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "%s: Unexpected SOSResponse from resting state", &v8, 0xCu);
   }
 
 LABEL_11:
   coreAnalyticsReporter = [(SOSFlow *)self coreAnalyticsReporter];
   [coreAnalyticsReporter reportSOSRestingResponse:-[SOSFlow sosFlowTrigger](self restingResponse:"sosFlowTrigger") hasMedicalID:{with, -[SOSFlow shouldShowMedicalID](self, "shouldShowMedicalID")}];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEmergencyCallInititated
@@ -348,7 +344,7 @@ LABEL_11:
 
 - (void)_prefetchMedicalID
 {
-  v3 = sos_default_log();
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(SOSFlow *)v3 _prefetchMedicalID];
@@ -412,13 +408,13 @@ void __29__SOSFlow__prefetchMedicalID__block_invoke(uint64_t a1, void *a2)
 
 - (void)updateState:(int64_t)state
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v5 = sos_default_log();
+  v23 = *MEMORY[0x277D85DE8];
+  v5 = sos_default_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = SOSStringForSOSFlowState(state);
     *buf = 138412290;
-    v23 = v6;
+    v22 = v6;
     _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSFlow: Updating state to %@", buf, 0xCu);
   }
 
@@ -432,33 +428,33 @@ void __29__SOSFlow__prefetchMedicalID__block_invoke(uint64_t a1, void *a2)
   [v7 updateSOSFlowState:state];
 
   [(SOSFlow *)self startFlowStateHeartbeatTimer];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   observers = [(SOSFlow *)self observers];
   v9 = [observers copy];
 
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v17 + 1) + 8 * v13++) sosFlow:self didChangeToState:{-[SOSFlow currentState](self, "currentState")}];
+        [*(*(&v16 + 1) + 8 * v13++) sosFlow:self didChangeToState:{-[SOSFlow currentState](self, "currentState")}];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -470,56 +466,52 @@ void __29__SOSFlow__prefetchMedicalID__block_invoke(uint64_t a1, void *a2)
     v15 = state == 3 || isUserResponsive;
     [(SOSFlow *)self setIsUserResponsive:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willHandleEvent:(unint64_t)event withMetaData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v7 = sos_default_log();
+  v7 = sos_default_log(dataCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = sosFlowEventDescription(event);
     *buf = 138412290;
-    v22 = v8;
+    v21 = v8;
     _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "SOSFlow: Will handle event %@", buf, 0xCu);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   observers = [(SOSFlow *)self observers];
   v10 = [observers copy];
 
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) sosFlow:self willHandleEvent:event withMetaData:dataCopy];
+        [*(*(&v15 + 1) + 8 * v14++) sosFlow:self willHandleEvent:event withMetaData:dataCopy];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (double)checkInTimeoutForSOSFlowType:(unint64_t)type
@@ -536,40 +528,39 @@ void __29__SOSFlow__prefetchMedicalID__block_invoke(uint64_t a1, void *a2)
 - (void)startTimerToAutoDial
 {
   v15 = *MEMORY[0x277D85DE8];
-  [(SOSFlow *)self checkInTimeoutForSOSFlowType:[(SOSFlow *)self sosFlowType]];
-  v4 = v3;
-  v5 = sos_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v3 = [(SOSFlow *)self checkInTimeoutForSOSFlowType:[(SOSFlow *)self sosFlowType]];
+  v5 = v4;
+  v6 = sos_default_log(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134218242;
-    v12 = v4;
+    v12 = v5;
     v13 = 2112;
     v14 = @"com.apple.sos.sosFlow";
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "Starting countdown: %f for service identifier: %@", &v11, 0x16u);
+    _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "Starting countdown: %f for service identifier: %@", &v11, 0x16u);
   }
 
-  v6 = [objc_alloc(MEMORY[0x277D3A180]) initWithTimeInterval:@"com.apple.sos.sosFlow" serviceIdentifier:self target:sel_timerFired_ selector:0 userInfo:v4];
+  v7 = [objc_alloc(MEMORY[0x277D3A180]) initWithTimeInterval:@"com.apple.sos.sosFlow" serviceIdentifier:self target:sel_timerFired_ selector:0 userInfo:v5];
   timer = self->_timer;
-  self->_timer = v6;
+  self->_timer = v7;
 
   [(PCPersistentTimer *)self->_timer setMinimumEarlyFireProportion:1.0];
-  v8 = self->_timer;
+  v9 = self->_timer;
   mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
-  [(PCPersistentTimer *)v8 scheduleInRunLoop:mainRunLoop];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(PCPersistentTimer *)v9 scheduleInRunLoop:mainRunLoop];
 }
 
 - (void)timerFired:(id)fired
 {
-  v4 = sos_default_log();
+  v4 = sos_default_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "Timer fired for autodial", buf, 2u);
   }
 
-  if ([(SOSFlow *)self canDeviceTriggerAutoDialForSOSFlowType:[(SOSFlow *)self sosFlowType]])
+  v5 = [(SOSFlow *)self canDeviceTriggerAutoDialForSOSFlowType:[(SOSFlow *)self sosFlowType]];
+  if (v5)
   {
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -581,18 +572,18 @@ void __29__SOSFlow__prefetchMedicalID__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v5 = sos_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sos_default_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "Skipping autodial countdown", buf, 2u);
+      _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "Skipping autodial countdown", buf, 2u);
     }
   }
 }
 
 uint64_t __22__SOSFlow_timerFired___block_invoke(uint64_t a1)
 {
-  v2 = sos_default_log();
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -606,7 +597,7 @@ uint64_t __22__SOSFlow_timerFired___block_invoke(uint64_t a1)
 {
   if (self->_timer)
   {
-    v3 = sos_default_log();
+    v3 = sos_default_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -623,36 +614,37 @@ uint64_t __22__SOSFlow_timerFired___block_invoke(uint64_t a1)
 {
   [(SOSFlow *)self clearFlowStateHeartbeatTimer];
   v3 = [SOSFlow needsHeartbeatForState:[(SOSFlow *)self currentState]];
-  v4 = sos_default_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  v4 = v3;
+  v5 = sos_default_log(v3);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSFlow,starting flow state heartbeat timer", buf, 2u);
+      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSFlow,starting flow state heartbeat timer", buf, 2u);
     }
 
     objc_initWeak(buf, self);
-    v6 = MEMORY[0x277CBEBB8];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke;
-    v8[3] = &unk_279B53798;
-    objc_copyWeak(&v9, buf);
-    v7 = [v6 scheduledTimerWithTimeInterval:1 repeats:v8 block:35.0];
-    [(SOSFlow *)self setFlowStateHeartbeatTimer:v7];
+    v7 = MEMORY[0x277CBEBB8];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke;
+    v9[3] = &unk_279B53798;
+    objc_copyWeak(&v10, buf);
+    v8 = [v7 scheduledTimerWithTimeInterval:1 repeats:v9 block:35.0];
+    [(SOSFlow *)self setFlowStateHeartbeatTimer:v8];
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSFlow,not starting flow state heartbeat timer", buf, 2u);
+      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSFlow,not starting flow state heartbeat timer", buf, 2u);
     }
   }
 }
@@ -661,25 +653,26 @@ void __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = +[SOSFlow needsHeartbeatForState:](SOSFlow, "needsHeartbeatForState:", [WeakRetained currentState]);
-  v3 = sos_default_log();
-  v4 = v3;
-  if (v2)
+  v3 = v2;
+  v4 = sos_default_log(v2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSFlow,sos flow state heartbeat timer fired", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSFlow,sos flow state heartbeat timer fired", v7, 2u);
     }
 
-    v5 = +[SOSStatusReporter sharedInstance];
-    [v5 updateSOSFlowState:{objc_msgSend(WeakRetained, "currentState")}];
+    v6 = +[SOSStatusReporter sharedInstance];
+    [v6 updateSOSFlowState:{objc_msgSend(WeakRetained, "currentState")}];
   }
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke_cold_1(v4);
+      __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke_cold_1(v5);
     }
 
     [WeakRetained clearFlowStateHeartbeatTimer];
@@ -692,11 +685,11 @@ void __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke(uint64_t a1)
 
   if (flowStateHeartbeatTimer)
   {
-    v4 = sos_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sos_default_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSFlow,clearing sos flow state heartbeat timer", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSFlow,clearing sos flow state heartbeat timer", v7, 2u);
     }
 
     flowStateHeartbeatTimer2 = [(SOSFlow *)self flowStateHeartbeatTimer];
@@ -721,16 +714,14 @@ void __39__SOSFlow_startFlowStateHeartbeatTimer__block_invoke(uint64_t a1)
 
 - (void)handleSOSFlowEvent:(NSObject *)a3 withMetaData:.cold.1(unint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = sosFlowEventDescription(a1);
   v6 = SOSStringForSOSFlowState([a2 currentState]);
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_264323000, a3, OS_LOG_TYPE_ERROR, "Invalid event %@ for current state %@!", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_264323000, a3, OS_LOG_TYPE_ERROR, "Invalid event %@ for current state %@!", &v7, 0x16u);
 }
 
 @end

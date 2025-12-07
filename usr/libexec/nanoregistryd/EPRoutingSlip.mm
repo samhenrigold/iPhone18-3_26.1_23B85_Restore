@@ -289,18 +289,18 @@ LABEL_6:
 
 - (void)resume
 {
-  v3 = sub_1000034AC();
+  v3 = sub_1000034AC(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000034AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000034AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       transaction = self->_transaction;
-      *v46 = 138412290;
-      *&v46[4] = transaction;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "resume called for _transaction %@", v46, 0xCu);
+      *v58 = 138412290;
+      *&v58[4] = transaction;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "resume called for _transaction %@", v58, 0xCu);
     }
   }
 
@@ -309,21 +309,21 @@ LABEL_6:
   {
     if (state == 2)
     {
-      v29 = sub_1000034AC();
-      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+      v36 = sub_1000034AC(2);
+      v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
 
-      if (!v30)
+      if (!v37)
       {
         goto LABEL_34;
       }
 
-      transaction = sub_1000034AC();
+      transaction = sub_1000034AC(v38);
       if (os_log_type_enabled(transaction, OS_LOG_TYPE_DEFAULT))
       {
         identifier = self->_identifier;
-        *v46 = 138543362;
-        *&v46[4] = identifier;
-        _os_log_impl(&_mh_execute_header, transaction, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Completed", v46, 0xCu);
+        *v58 = 138543362;
+        *&v58[4] = identifier;
+        _os_log_impl(&_mh_execute_header, transaction, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Completed", v58, 0xCu);
       }
 
       goto LABEL_33;
@@ -331,18 +331,18 @@ LABEL_6:
 
     if (state == 3)
     {
-      v14 = sub_1000034AC();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      v17 = sub_1000034AC(3);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-      if (v15)
+      if (v18)
       {
-        v16 = sub_1000034AC();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_1000034AC(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = self->_identifier;
-          *v46 = 138543362;
-          *&v46[4] = v17;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: cancelling transaction queued for cancellation", v46, 0xCu);
+          v21 = self->_identifier;
+          *v58 = 138543362;
+          *&v58[4] = v21;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: cancelling transaction queued for cancellation", v58, 0xCu);
         }
       }
 
@@ -356,72 +356,74 @@ LABEL_6:
   {
     if (!state)
     {
-      v18 = sub_1000034AC();
-      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+      v22 = sub_1000034AC(0);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-      if (v19)
+      if (v23)
       {
-        v20 = sub_1000034AC();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_1000034AC(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = self->_identifier;
-          *v46 = 138543362;
-          *&v46[4] = v21;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Not started", v46, 0xCu);
+          v26 = self->_identifier;
+          *v58 = 138543362;
+          *&v58[4] = v26;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Not started", v58, 0xCu);
         }
       }
 
-      v22 = [NROSTransaction transactionWithName:@"saga"];
+      v27 = [NROSTransaction transactionWithName:@"saga"];
       osTransaction = self->_osTransaction;
-      self->_osTransaction = v22;
+      self->_osTransaction = v27;
 
       [(EPRoutingSlip *)self setState:1];
       transaction = [(EPRoutingSlip *)self currentEntry];
       transaction2 = [(EPRoutingSlip *)self transaction];
-      if (![(EPRoutingSlip *)self didFail]|| [(EPRoutingSlip *)self notUnrollable])
+      didFail = [(EPRoutingSlip *)self didFail];
+      if (!didFail || (didFail = [(EPRoutingSlip *)self notUnrollable], (didFail & 1) != 0))
       {
-        v24 = sub_1000034AC();
-        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+        v30 = sub_1000034AC(didFail);
+        v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-        if (v25)
+        if (v31)
         {
-          v13 = sub_1000034AC();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v16 = sub_1000034AC(v32);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_29:
-            v26 = self->_identifier;
+            v33 = self->_identifier;
             transactionIndex = self->_transactionIndex;
             shortDescription = [transaction shortDescription];
-            *v46 = 138543874;
-            *&v46[4] = v26;
-            *&v46[12] = 2048;
-            *&v46[14] = transactionIndex;
-            *&v46[22] = 2114;
-            v47 = shortDescription;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Starting saga entry %ld:%{public}@", v46, 0x20u);
+            *v58 = 138543874;
+            *&v58[4] = v33;
+            *&v58[12] = 2048;
+            *&v58[14] = transactionIndex;
+            *&v58[22] = 2114;
+            v59 = shortDescription;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Starting saga entry %ld:%{public}@", v58, 0x20u);
           }
 
 LABEL_30:
         }
 
 LABEL_31:
-        [transaction2 beginTransactionWithRoutingSlipEntry:transaction serviceRegistry:{self->_serviceRegistry, *v46, *&v46[16], v47}];
+        [transaction2 beginTransactionWithRoutingSlipEntry:transaction serviceRegistry:{self->_serviceRegistry, *v58, *&v58[8], v59}];
 LABEL_32:
 
 LABEL_33:
         goto LABEL_34;
       }
 
-      v32 = objc_opt_respondsToSelector();
-      v33 = sub_1000034AC();
-      v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+      v40 = objc_opt_respondsToSelector();
+      v41 = v40;
+      v42 = sub_1000034AC(v40);
+      v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
 
-      if (v32)
+      if (v41)
       {
-        if (v34)
+        if (v43)
         {
-          v35 = sub_1000034AC();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v45 = sub_1000034AC(v44);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_48;
           }
@@ -430,14 +432,14 @@ LABEL_33:
         }
 
 LABEL_50:
-        [transaction2 beginRollbackWithRoutingSlipEntry:transaction serviceRegistry:{self->_serviceRegistry, *v46, *&v46[8], v47}];
+        [transaction2 beginRollbackWithRoutingSlipEntry:transaction serviceRegistry:{self->_serviceRegistry, *v58, *&v58[8], v59}];
         goto LABEL_32;
       }
 
-      if (v34)
+      if (v43)
       {
-        v36 = sub_1000034AC();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v46 = sub_1000034AC(v44);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_53;
         }
@@ -446,7 +448,7 @@ LABEL_50:
       }
 
 LABEL_55:
-      [(EPRoutingSlip *)self transactionDidComplete:transaction2, *v46, *&v46[8], v47];
+      [(EPRoutingSlip *)self transactionDidComplete:transaction2, *v58, *&v58[8], v59];
       goto LABEL_32;
     }
 
@@ -458,15 +460,16 @@ LABEL_55:
       {
         transaction = [(EPRoutingSlip *)self currentEntry];
         transaction2 = [(EPRoutingSlip *)self transaction];
-        if (![(EPRoutingSlip *)self didFail]|| [(EPRoutingSlip *)self notUnrollable])
+        didFail2 = [(EPRoutingSlip *)self didFail];
+        if (!didFail2 || (didFail2 = [(EPRoutingSlip *)self notUnrollable], (didFail2 & 1) != 0))
         {
-          v11 = sub_1000034AC();
-          v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+          v13 = sub_1000034AC(didFail2);
+          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-          if (v12)
+          if (v14)
           {
-            v13 = sub_1000034AC();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v16 = sub_1000034AC(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_29;
             }
@@ -477,28 +480,29 @@ LABEL_55:
           goto LABEL_31;
         }
 
-        v37 = objc_opt_respondsToSelector();
-        v38 = sub_1000034AC();
-        v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+        v47 = objc_opt_respondsToSelector();
+        v48 = v47;
+        v49 = sub_1000034AC(v47);
+        v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
 
-        if (v37)
+        if (v48)
         {
-          if (v39)
+          if (v50)
           {
-            v35 = sub_1000034AC();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v45 = sub_1000034AC(v51);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_48:
-              v40 = self->_identifier;
-              v41 = self->_transactionIndex;
+              v52 = self->_identifier;
+              v53 = self->_transactionIndex;
               shortDescription2 = [transaction shortDescription];
-              *v46 = 138543874;
-              *&v46[4] = v40;
-              *&v46[12] = 2048;
-              *&v46[14] = v41;
-              *&v46[22] = 2114;
-              v47 = shortDescription2;
-              _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Rolling back saga entry %ld:%{public}@", v46, 0x20u);
+              *v58 = 138543874;
+              *&v58[4] = v52;
+              *&v58[12] = 2048;
+              *&v58[14] = v53;
+              *&v58[22] = 2114;
+              v59 = shortDescription2;
+              _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Rolling back saga entry %ld:%{public}@", v58, 0x20u);
             }
 
 LABEL_49:
@@ -509,22 +513,22 @@ LABEL_49:
           goto LABEL_50;
         }
 
-        if (v39)
+        if (v50)
         {
-          v36 = sub_1000034AC();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v46 = sub_1000034AC(v51);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_53:
-            v43 = self->_identifier;
-            v44 = self->_transactionIndex;
+            v55 = self->_identifier;
+            v56 = self->_transactionIndex;
             shortDescription3 = [transaction shortDescription];
-            *v46 = 138543874;
-            *&v46[4] = v43;
-            *&v46[12] = 2048;
-            *&v46[14] = v44;
-            *&v46[22] = 2114;
-            v47 = shortDescription3;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Rollback not implement for saga entry %ld:%{public}@", v46, 0x20u);
+            *v58 = 138543874;
+            *&v58[4] = v55;
+            *&v58[12] = 2048;
+            *&v58[14] = v56;
+            *&v58[22] = 2114;
+            v59 = shortDescription3;
+            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Rollback not implement for saga entry %ld:%{public}@", v58, 0x20u);
           }
 
 LABEL_54:
@@ -598,41 +602,41 @@ LABEL_34:
 
 - (void)printDescription
 {
-  v3 = sub_1000034AC();
+  v3 = sub_1000034AC(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000034AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000034AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       identifier = self->_identifier;
       *buf = 138543362;
-      v14 = identifier;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Begin dumping EPRoutingSlipEntries of EPRoutingSlip[%{public}@]", buf, 0xCu);
+      v17 = identifier;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Begin dumping EPRoutingSlipEntries of EPRoutingSlip[%{public}@]", buf, 0xCu);
     }
   }
 
   entries = [(EPRoutingSlip *)self entries];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000FC00C;
-  v12[3] = &unk_100179ED8;
-  v12[4] = self;
-  [entries enumerateObjectsUsingBlock:v12];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000FC00C;
+  v15[3] = &unk_100179ED8;
+  v15[4] = self;
+  [entries enumerateObjectsUsingBlock:v15];
 
-  v8 = sub_1000034AC();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_1000034AC(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v11)
   {
-    v10 = sub_1000034AC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000034AC(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = self->_identifier;
+      v14 = self->_identifier;
       *buf = 138543362;
-      v14 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "End dumping EPRoutingSlipEntries of EPRoutingSlip[%{public}@]", buf, 0xCu);
+      v17 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "End dumping EPRoutingSlipEntries of EPRoutingSlip[%{public}@]", buf, 0xCu);
     }
   }
 }
@@ -751,31 +755,31 @@ LABEL_34:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       transaction = self->_transaction;
-      v29 = 136315394;
-      v30 = "[EPRoutingSlip cancelWithError:]";
-      v31 = 2112;
-      v32 = transaction;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s - _transaction %@", &v29, 0x16u);
+      v28 = 136315394;
+      v29 = "[EPRoutingSlip cancelWithError:]";
+      v30 = 2112;
+      v31 = transaction;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s - _transaction %@", &v28, 0x16u);
     }
   }
 
   if ([(EPRoutingSlip *)self state]!= 1)
   {
-    v16 = nr_daemon_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v15 = nr_daemon_log();
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (!v17)
+    if (!v16)
     {
       goto LABEL_31;
     }
 
-    v18 = nr_daemon_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = nr_daemon_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       identifier = self->_identifier;
-      v29 = 138543362;
-      v30 = identifier;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: cancelWithError on dead routing slip does nothing", &v29, 0xCu);
+      v28 = 138543362;
+      v29 = identifier;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: cancelWithError on dead routing slip does nothing", &v28, 0xCu);
     }
 
 LABEL_17:
@@ -799,17 +803,16 @@ LABEL_17:
       v12 = self->_identifier;
       currentEntry = [(EPRoutingSlip *)self currentEntry];
       shortDescription = [currentEntry shortDescription];
-      v29 = 138543874;
-      v30 = v12;
-      v31 = 2114;
-      v32 = shortDescription;
-      v33 = 2114;
-      v34 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: canceling running transaction %{public}@ with error:%{public}@", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v12;
+      v30 = 2114;
+      v31 = shortDescription;
+      v32 = 2114;
+      v33 = errorCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: canceling running transaction %{public}@ with error:%{public}@", &v28, 0x20u);
     }
   }
 
-  v15 = self->_transaction;
   if (objc_opt_respondsToSelector())
   {
     [(EPTransaction *)self->_transaction cancelWithError:errorCopy];
@@ -829,40 +832,40 @@ LABEL_17:
     goto LABEL_31;
   }
 
-  v22 = self->_transaction;
-  v23 = nr_daemon_log();
-  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+  v21 = self->_transaction;
+  v22 = nr_daemon_log();
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-  if (v22)
+  if (v21)
   {
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_31;
     }
 
-    v18 = nr_daemon_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = nr_daemon_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = self->_identifier;
+      v24 = self->_identifier;
       currentEntry3 = [(EPRoutingSlip *)self currentEntry];
       shortDescription2 = [currentEntry3 shortDescription];
-      v29 = 138543618;
-      v30 = v25;
-      v31 = 2114;
-      v32 = shortDescription2;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: canceling running transaction %{public}@ failed, transaction does not respond to the cancel selector!", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v24;
+      v30 = 2114;
+      v31 = shortDescription2;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: canceling running transaction %{public}@ failed, transaction does not respond to the cancel selector!", &v28, 0x16u);
     }
 
     goto LABEL_17;
   }
 
-  if (v24)
+  if (v23)
   {
-    v28 = nr_daemon_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = nr_daemon_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Transaction is nil, flagging for cancellation once the routingSlip is setup", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Transaction is nil, flagging for cancellation once the routingSlip is setup", &v28, 2u);
     }
   }
 

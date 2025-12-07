@@ -7,7 +7,7 @@
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   location = [entity location];
   v5 = location;
   if (location)
@@ -24,11 +24,11 @@
     v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
     LODWORD(v17) = v11;
     v18 = [MEMORY[0x277CCABB0] numberWithFloat:{v17, v16}];
-    v25[1] = v18;
+    v24[1] = v18;
     LODWORD(v19) = v13;
     v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-    v25[2] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[2] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     v22 = [v14 initWithArray:v21];
   }
 
@@ -37,19 +37,16 @@
     v22 = [MEMORY[0x277D22C40] zerosOfCount:3];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)featureNames
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"LOCATION_X";
-  v5[1] = @"LOCATION_Y";
-  v5[2] = @"LOCATION_Z";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"LOCATION_X";
+  v4[1] = @"LOCATION_Y";
+  v4[2] = @"LOCATION_Z";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

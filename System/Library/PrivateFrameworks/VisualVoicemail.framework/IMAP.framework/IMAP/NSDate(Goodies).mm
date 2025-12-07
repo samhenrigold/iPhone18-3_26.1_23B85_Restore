@@ -42,7 +42,7 @@
 
   else
   {
-    v11 = vm_imap_log();
+    v11 = vm_imap_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -62,7 +62,7 @@
 
   else
   {
-    v15 = vm_imap_log();
+    v15 = vm_imap_log(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *v23 = 0;

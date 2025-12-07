@@ -127,7 +127,7 @@ uint64_t __35__CNDateComponentsFormatter_os_log__block_invoke()
 
 - (id)dateFormatPlaceholderStringForLanguage:(id)language
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   if ([(CNDateComponentsFormatter *)self shouldUseArabicGregorianPlaceholderStringForLanguage:languageCopy])
   {
@@ -149,12 +149,12 @@ LABEL_5:
   pErrorCode = U_ZERO_ERROR;
   [localeIdentifier UTF8String];
   udatpg_open();
-  v22 = localeIdentifier;
+  v21 = localeIdentifier;
   v9 = &stru_1EF441028;
   v10 = &dword_185A9209C;
   v11 = 1;
   v12 = &stru_1EF441028;
-  v23 = &stru_1EF441028;
+  v22 = &stru_1EF441028;
   do
   {
     AppendItemName = udatpg_getAppendItemName();
@@ -163,9 +163,9 @@ LABEL_5:
     v15 = v14;
     if (v11 == 1)
     {
-      v16 = v23;
+      v16 = v22;
       v17 = v12;
-      v23 = v14;
+      v22 = v14;
       goto LABEL_13;
     }
 
@@ -196,10 +196,9 @@ LABEL_14:
 
   while (v19 != 16);
   udatpg_close();
-  v6 = [(CNDateComponentsFormatter *)self placeholderStringWithLocalizedDay:v9 month:v12 year:v23];
+  v6 = [(CNDateComponentsFormatter *)self placeholderStringWithLocalizedDay:v9 month:v12 year:v22];
 
 LABEL_16:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -324,22 +323,21 @@ LABEL_16:
 
 + (BOOL)shouldUseIslamicSpecificFormattersForLocale:(id)locale
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695D880];
-  v12[0] = *MEMORY[0x1E695D878];
-  v12[1] = v3;
+  v11[0] = *MEMORY[0x1E695D878];
+  v11[1] = v3;
   v4 = *MEMORY[0x1E695D888];
-  v12[2] = *MEMORY[0x1E695D890];
-  v12[3] = v4;
+  v11[2] = *MEMORY[0x1E695D890];
+  v11[3] = v4;
   v5 = MEMORY[0x1E695DEC8];
   localeCopy = locale;
-  v7 = [v5 arrayWithObjects:v12 count:4];
+  v7 = [v5 arrayWithObjects:v11 count:4];
   v8 = [localeCopy objectForKey:*MEMORY[0x1E695D958]];
 
   calendarIdentifier = [v8 calendarIdentifier];
   LOBYTE(v5) = [v7 containsObject:calendarIdentifier];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -672,7 +670,7 @@ id __56__CNDateComponentsFormatter_formatterFuturesWithLocale___block_invoke_12(
 
 - (BOOL)getObjectValue:(id *)value forString:(id)string errorDescription:(id *)description
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy length])
   {
@@ -682,17 +680,17 @@ id __56__CNDateComponentsFormatter_formatterFuturesWithLocale___block_invoke_12(
       [CNDateComponentsFormatter getObjectValue:stringCopy forString:os_log errorDescription:?];
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = self->_lazyFormatterFutures;
-    v10 = [(NSArray *)obj countByEnumeratingWithState:&v47 objects:v57 count:16];
+    v10 = [(NSArray *)obj countByEnumeratingWithState:&v46 objects:v56 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v44 = *v48;
+      v43 = *v47;
       valueCopy = value;
       while (2)
       {
@@ -700,22 +698,22 @@ id __56__CNDateComponentsFormatter_formatterFuturesWithLocale___block_invoke_12(
         v14 = obj;
         do
         {
-          if (*v48 != v44)
+          if (*v47 != v43)
           {
             objc_enumerationMutation(v14);
           }
 
-          v15 = [*(*(&v47 + 1) + 8 * v13) result:0];
-          v46 = 0;
-          v16 = [v15 getObjectValue:&v46 forString:stringCopy errorDescription:description];
-          v17 = v46;
+          v15 = [*(*(&v46 + 1) + 8 * v13) result:0];
+          v45 = 0;
+          v16 = [v15 getObjectValue:&v45 forString:stringCopy errorDescription:description];
+          v17 = v45;
 
           os_log2 = [objc_opt_class() os_log];
           if (os_log_type_enabled(os_log2, OS_LOG_TYPE_DEBUG))
           {
             locale = [v15 locale];
             localeIdentifier = [locale localeIdentifier];
-            v38 = localeIdentifier;
+            v37 = localeIdentifier;
             dateFormat = [v15 dateFormat];
             *buf = 138412802;
             v23 = @"failed";
@@ -724,12 +722,12 @@ id __56__CNDateComponentsFormatter_formatterFuturesWithLocale___block_invoke_12(
               v23 = @"succeeded";
             }
 
-            v52 = localeIdentifier;
-            v53 = 2112;
-            v54 = dateFormat;
+            v51 = localeIdentifier;
+            v52 = 2112;
+            v53 = dateFormat;
             v24 = dateFormat;
-            v55 = 2112;
-            v56 = v23;
+            v54 = 2112;
+            v55 = v23;
             _os_log_debug_impl(&dword_1859F0000, os_log2, OS_LOG_TYPE_DEBUG, "Parse attempt with locale:%@ date format: %@ %@", buf, 0x20u);
 
             v14 = obj;
@@ -755,16 +753,16 @@ LABEL_26:
           }
 
           [v15 setLenient:1];
-          v45 = 0;
-          v19 = [v15 getObjectValue:&v45 forString:stringCopy errorDescription:description];
-          v12 = v45;
+          v44 = 0;
+          v19 = [v15 getObjectValue:&v44 forString:stringCopy errorDescription:description];
+          v12 = v44;
 
           os_log4 = [objc_opt_class() os_log];
           if (os_log_type_enabled(os_log4, OS_LOG_TYPE_DEBUG))
           {
             locale2 = [v15 locale];
             localeIdentifier2 = [locale2 localeIdentifier];
-            v39 = localeIdentifier2;
+            v38 = localeIdentifier2;
             dateFormat2 = [v15 dateFormat];
             *buf = 138412802;
             v27 = @"failed";
@@ -773,12 +771,12 @@ LABEL_26:
               v27 = @"succeeded";
             }
 
-            v52 = localeIdentifier2;
-            v53 = 2112;
-            v54 = dateFormat2;
+            v51 = localeIdentifier2;
+            v52 = 2112;
+            v53 = dateFormat2;
             v28 = dateFormat2;
-            v55 = 2112;
-            v56 = v27;
+            v54 = 2112;
+            v55 = v27;
             _os_log_debug_impl(&dword_1859F0000, os_log4, OS_LOG_TYPE_DEBUG, "Parse attempt with lenient option, locale:%@ date format: %@ %@", buf, 0x20u);
 
             v14 = obj;
@@ -793,7 +791,7 @@ LABEL_26:
         }
 
         while (v11 != v13);
-        v29 = [(NSArray *)v14 countByEnumeratingWithState:&v47 objects:v57 count:16];
+        v29 = [(NSArray *)v14 countByEnumeratingWithState:&v46 objects:v56 count:16];
         v11 = v29;
         v30 = 0;
         v31 = 0;
@@ -828,7 +826,6 @@ LABEL_29:
     v31 = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -865,28 +862,25 @@ LABEL_29:
 
 - (void)getObjectValue:(uint64_t)a1 forString:(NSObject *)a2 errorDescription:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Attempting to parse string: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Attempting to parse string: %@", &v2, 0xCu);
 }
 
 - (void)getObjectValue:(void *)a1 forString:(uint64_t)a2 errorDescription:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = [a1 locale];
   v7 = [v6 localeIdentifier];
   v8 = [a1 dateFormat];
-  v10 = 138412802;
-  v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  v14 = 2112;
-  v15 = a2;
-  _os_log_debug_impl(&dword_1859F0000, a3, OS_LOG_TYPE_DEBUG, "Locale: %@ Format %@ parsed successfully into date components %@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138412802;
+  v10 = v7;
+  v11 = 2112;
+  v12 = v8;
+  v13 = 2112;
+  v14 = a2;
+  _os_log_debug_impl(&dword_1859F0000, a3, OS_LOG_TYPE_DEBUG, "Locale: %@ Format %@ parsed successfully into date components %@", &v9, 0x20u);
 }
 
 @end

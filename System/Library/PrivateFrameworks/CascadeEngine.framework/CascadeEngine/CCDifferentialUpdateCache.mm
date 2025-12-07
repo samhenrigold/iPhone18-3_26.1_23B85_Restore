@@ -36,7 +36,7 @@
   if (hashCopy)
   {
     longLongValue = [hashCopy longLongValue];
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&self->_unmodified_set.__table_.__bucket_list_.__ptr_, &longLongValue);
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&self->_unmodified_set.__table_.__bucket_list_.__ptr_, &longLongValue, &longLongValue);
     v7 = v6;
   }
 

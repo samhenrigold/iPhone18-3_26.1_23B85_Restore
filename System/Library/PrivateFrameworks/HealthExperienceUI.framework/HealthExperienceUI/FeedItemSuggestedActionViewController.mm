@@ -25,28 +25,28 @@
 {
   appearingCopy = appearing;
   v5 = sub_1BA4A4018();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v5, v6);
   selfCopy = self;
   sub_1BA4A71E8();
-  v9 = 7;
+  v10 = 7;
   sub_1B9F3AEE8();
   sub_1BA4A4008();
   sub_1BA4A71F8();
-  v7 = type metadata accessor for FeedItemSuggestedActionViewController();
-  v8.receiver = selfCopy;
-  v8.super_class = v7;
-  [(FeedItemSuggestedActionViewController *)&v8 viewIsAppearing:appearingCopy];
+  v8 = type metadata accessor for FeedItemSuggestedActionViewController(0);
+  v9.receiver = selfCopy;
+  v9.super_class = v8;
+  [(FeedItemSuggestedActionViewController *)&v9 viewIsAppearing:appearingCopy];
 }
 
 - (void)viewDidLoad
 {
   swift_getObjectType();
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FeedItemSuggestedActionViewController();
+  v7.super_class = type metadata accessor for FeedItemSuggestedActionViewController(0);
   selfCopy = self;
   [(FeedItemSuggestedActionViewController *)&v7 viewDidLoad];
   sub_1BA02A1AC();
-  sub_1B9F7A684();
+  sub_1B9F7A684(0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1BA4B5480;
   v5 = sub_1BA4A4858();

@@ -413,81 +413,79 @@ LABEL_17:
   return v3;
 }
 
-void __49__GKMatchRequestInternal_secureCodedPropertyKeys__block_invoke()
+void __49__GKMatchRequestInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v26[22] = *MEMORY[0x277D85DE8];
-  v25[0] = @"minPlayers";
-  v26[0] = objc_opt_class();
-  v25[1] = @"maxPlayers";
-  v26[1] = objc_opt_class();
-  v25[2] = @"defaultNumberOfPlayers";
-  v26[2] = objc_opt_class();
-  v25[3] = @"playerGroup";
-  v26[3] = objc_opt_class();
-  v25[4] = @"playerAttributes";
-  v26[4] = objc_opt_class();
-  v25[5] = @"localPlayerID";
-  v26[5] = objc_opt_class();
-  v25[6] = @"recipients";
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v26[6] = v3;
-  v25[7] = @"recipientPlayerIDs";
-  v4 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
-  v6 = objc_opt_class();
-  v7 = [v4 setWithObjects:{v5, v6, objc_opt_class(), 0}];
-  v26[7] = v7;
-  v25[8] = @"messagesBasedRecipients";
-  v8 = MEMORY[0x277CBEB98];
-  v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v11 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
-  v26[8] = v11;
-  v25[9] = @"inviteMessage";
-  v26[9] = objc_opt_class();
-  v25[10] = @"localizableInviteMessage";
-  v12 = MEMORY[0x277CBEB98];
-  v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v15 = [v12 setWithObjects:{v13, v14, objc_opt_class(), 0}];
-  v26[10] = v15;
-  v25[11] = @"matchType";
-  v26[11] = objc_opt_class();
-  v25[12] = @"sessionToken";
-  v26[12] = objc_opt_class();
-  v25[13] = @"rid";
-  v26[13] = objc_opt_class();
-  v25[14] = @"version";
-  v26[14] = objc_opt_class();
-  v25[15] = @"preloadedMatch";
-  v26[15] = objc_opt_class();
-  v25[16] = @"restrictToAutomatch";
-  v26[16] = objc_opt_class();
-  v25[17] = @"archivedSharePlayInviteeTokensFromProgrammaticInvite";
-  v26[17] = objc_opt_class();
-  v25[18] = @"isLateJoin";
-  v26[18] = objc_opt_class();
-  v25[19] = @"queueName";
-  v26[19] = objc_opt_class();
-  v25[20] = @"properties";
-  v16 = MEMORY[0x277CBEB98];
-  v17 = +[GKInternalRepresentation secureCodedJsonTypes];
-  v18 = [v16 setWithSet:v17];
-  v26[20] = v18;
-  v25[21] = @"recipientProperties";
-  v19 = [MEMORY[0x277CBEB58] setWithObject:objc_opt_class()];
-  v20 = +[GKInternalRepresentation secureCodedJsonTypes];
-  v21 = [v19 setByAddingObjectsFromSet:v20];
-  v26[21] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:22];
+  v27[22] = *MEMORY[0x277D85DE8];
+  v26[0] = @"minPlayers";
+  v27[0] = objc_opt_class();
+  v26[1] = @"maxPlayers";
+  v27[1] = objc_opt_class();
+  v26[2] = @"defaultNumberOfPlayers";
+  v27[2] = objc_opt_class();
+  v26[3] = @"playerGroup";
+  v27[3] = objc_opt_class();
+  v26[4] = @"playerAttributes";
+  v27[4] = objc_opt_class();
+  v26[5] = @"localPlayerID";
+  v27[5] = objc_opt_class();
+  v26[6] = @"recipients";
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v27[6] = v5;
+  v26[7] = @"recipientPlayerIDs";
+  v6 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
+  v8 = objc_opt_class();
+  v9 = [v6 setWithObjects:{v7, v8, objc_opt_class(), 0}];
+  v27[7] = v9;
+  v26[8] = @"messagesBasedRecipients";
+  v10 = MEMORY[0x277CBEB98];
+  v11 = objc_opt_class();
+  v12 = objc_opt_class();
+  v13 = [v10 setWithObjects:{v11, v12, objc_opt_class(), 0}];
+  v27[8] = v13;
+  v26[9] = @"inviteMessage";
+  v27[9] = objc_opt_class();
+  v26[10] = @"localizableInviteMessage";
+  v14 = MEMORY[0x277CBEB98];
+  v15 = objc_opt_class();
+  v16 = objc_opt_class();
+  v17 = [v14 setWithObjects:{v15, v16, objc_opt_class(), 0}];
+  v27[10] = v17;
+  v26[11] = @"matchType";
+  v27[11] = objc_opt_class();
+  v26[12] = @"sessionToken";
+  v27[12] = objc_opt_class();
+  v26[13] = @"rid";
+  v27[13] = objc_opt_class();
+  v26[14] = @"version";
+  v27[14] = objc_opt_class();
+  v26[15] = @"preloadedMatch";
+  v27[15] = objc_opt_class();
+  v26[16] = @"restrictToAutomatch";
+  v27[16] = objc_opt_class();
+  v26[17] = @"archivedSharePlayInviteeTokensFromProgrammaticInvite";
+  v27[17] = objc_opt_class();
+  v26[18] = @"isLateJoin";
+  v27[18] = objc_opt_class();
+  v26[19] = @"queueName";
+  v27[19] = objc_opt_class();
+  v26[20] = @"properties";
+  v18 = MEMORY[0x277CBEB98];
+  v19 = +[GKInternalRepresentation secureCodedJsonTypes];
+  v20 = [v18 setWithSet:v19];
+  v27[20] = v20;
+  v26[21] = @"recipientProperties";
+  v21 = [MEMORY[0x277CBEB58] setWithObject:objc_opt_class()];
+  v22 = +[GKInternalRepresentation secureCodedJsonTypes];
+  v23 = [v21 setByAddingObjectsFromSet:v22];
+  v27[21] = v23;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:22];
 
-  v23 = secureCodedPropertyKeys_sSecureCodedKeys_29;
-  secureCodedPropertyKeys_sSecureCodedKeys_29 = v22;
-
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = secureCodedPropertyKeys_sSecureCodedKeys_29;
+  secureCodedPropertyKeys_sSecureCodedKeys_29 = v24;
 }
 
 - (BOOL)hasGuestPlayers
@@ -509,7 +507,7 @@ void __49__GKMatchRequestInternal_secureCodedPropertyKeys__block_invoke()
   return recipients;
 }
 
-uint64_t __41__GKMatchRequestInternal_hasGuestPlayers__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__41__GKMatchRequestInternal_hasGuestPlayers__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isGuestPlayer];
   if (result)

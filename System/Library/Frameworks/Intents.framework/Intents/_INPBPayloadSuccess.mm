@@ -139,7 +139,6 @@ LABEL_13:
 
   if (resolvedKeyPath)
   {
-    resolvedKeyPath = self->_resolvedKeyPath;
     PBDataWriterWriteStringField();
   }
 

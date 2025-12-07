@@ -99,8 +99,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v14[0] = @"label";
+  v14[3] = *MEMORY[0x1E69E9840];
+  v13[0] = @"label";
   label = [(INCreateTimerIntent *)self label];
   null = label;
   if (!label)
@@ -108,8 +108,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"duration";
+  v14[0] = null;
+  v13[1] = @"duration";
   v5 = MEMORY[0x1E696AD98];
   [(INCreateTimerIntent *)self duration];
   v6 = [v5 numberWithDouble:?];
@@ -119,8 +119,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"type";
+  v14[1] = null2;
+  v13[2] = @"type";
   type = [(INCreateTimerIntent *)self type];
   v9 = @"unknown";
   if (type == 2)
@@ -134,8 +134,8 @@
   }
 
   v10 = v9;
-  v15[2] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   if (!v6)
   {
@@ -144,8 +144,6 @@
   if (!label)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

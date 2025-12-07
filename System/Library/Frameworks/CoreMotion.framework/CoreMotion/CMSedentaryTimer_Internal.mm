@@ -69,12 +69,13 @@
       dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
     }
 
-    v12 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v12[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _isActive.", v12, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _isActive]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -85,16 +86,14 @@
   block[3] = &unk_1E7532988;
   block[4] = self;
   dispatch_sync(fDaemonQueue, block);
-  result = objc_msgSend_isTimerArmed(self, v7, v8);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_isTimerArmed(self, v8, v9);
 }
 
 - (void)_handleStartStopTimerResponse:(shared_ptr<CLConnectionMessage>)response withHandler:(id)handler
 {
   var1 = response.var1;
   var0 = response.var0;
-  v44 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
   v9 = objc_opt_class();
@@ -105,13 +104,13 @@
     if (v14)
     {
       fClientQueue = self->fClientQueue;
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = sub_19B5CEE34;
-      v40[3] = &unk_1E7532B68;
-      v40[4] = v14;
-      v40[5] = var1;
-      v16 = v40;
+      v49 = MEMORY[0x1E69E9820];
+      v50 = 3221225472;
+      v51 = sub_19B5CEE34;
+      v52 = &unk_1E7532B68;
+      v53 = v14;
+      v54 = var1;
+      v16 = &v49;
     }
 
     else
@@ -121,15 +120,15 @@
         dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
       }
 
-      v21 = off_1ED71C838;
+      v22 = off_1ED71C838;
       if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_FAULT, "SedentaryAlarm,Error start / stop response.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_FAULT, "SedentaryAlarm,Error start / stop response.", buf, 2u);
       }
 
-      v22 = sub_19B420058();
-      if ((*(v22 + 160) & 0x80000000) == 0 || (*(v22 + 164) & 0x80000000) == 0 || (*(v22 + 168) & 0x80000000) == 0 || *(v22 + 152))
+      v23 = sub_19B420058();
+      if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C830 != -1)
@@ -137,41 +136,43 @@
           dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
         }
 
-        v42 = 0;
-        v23 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v23);
-        if (v23 != buf)
+        v56[0] = 0;
+        LODWORD(v43) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 17, "SedentaryAlarm,Error start / stop response.", v56, v43);
+        v25 = v24;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v24);
+        if (v25 != buf)
         {
-          free(v23);
+          free(v25);
         }
       }
 
       fClientQueue = self->fClientQueue;
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = sub_19B5CF058;
-      v39[3] = &unk_1E7532B40;
-      v39[4] = var1;
-      v16 = v39;
+      v44 = MEMORY[0x1E69E9820];
+      v45 = 3221225472;
+      v46 = sub_19B5CF058;
+      v47 = &unk_1E7532B40;
+      v48 = var1;
+      v16 = &v44;
     }
 
     dispatch_async(fClientQueue, v16);
-    if (objc_msgSend_intValue(v14, v24, v25) == 100)
+    if (objc_msgSend_intValue(v14, v26, v27) == 100)
     {
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
       }
 
-      v26 = off_1ED71C838;
+      v28 = off_1ED71C838;
       if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse CMErrorNULL.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse CMErrorNULL.", buf, 2u);
       }
 
-      v27 = sub_19B420058();
-      if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
+      v29 = sub_19B420058();
+      if (*(v29 + 160) > 1 || *(v29 + 164) > 1 || *(v29 + 168) > 1 || *(v29 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C830 != -1)
@@ -179,83 +180,88 @@
           dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
         }
 
-        v42 = 0;
-        v28 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v28);
-        if (v28 != buf)
+        v56[0] = 0;
+        LODWORD(v43) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse CMErrorNULL.", v56, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54);
+        v31 = v30;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v30);
+        if (v31 != buf)
         {
-          free(v28);
+          free(v31);
         }
       }
 
-      v29 = CLConnectionMessage::name(*var0);
-      if (*(v29 + 23) < 0 && *(v29 + 8) == 39 && !memcmp(*v29, "kCLConnectionMessageSedentaryTimerStart", 0x27uLL))
+      v32 = CLConnectionMessage::name(*var0);
+      if (*(v32 + 23) < 0 && *(v32 + 8) == 39 && !memcmp(*v32, "kCLConnectionMessageSedentaryTimerStart", 0x27uLL))
       {
-        objc_msgSend_setTimerArmed_(self, v30, 1);
+        objc_msgSend_setTimerArmed_(self, v33, 1);
         if (qword_1ED71C830 != -1)
         {
           dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
         }
 
-        v35 = off_1ED71C838;
+        v40 = off_1ED71C838;
         if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse timer is armed.", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse timer is armed.", buf, 2u);
         }
 
-        v36 = sub_19B420058();
-        if (*(v36 + 160) > 1 || *(v36 + 164) > 1 || *(v36 + 168) > 1 || *(v36 + 152))
+        v41 = sub_19B420058();
+        if (*(v41 + 160) > 1 || *(v41 + 164) > 1 || *(v41 + 168) > 1 || *(v41 + 152))
         {
           bzero(buf, 0x65CuLL);
-          if (qword_1ED71C830 == -1)
-          {
-            goto LABEL_68;
-          }
-
-          goto LABEL_73;
-        }
-      }
-
-      else
-      {
-        v31 = CLConnectionMessage::name(*var0);
-        if (*(v31 + 23) < 0 && *(v31 + 8) == 38 && !memcmp(*v31, "kCLConnectionMessageSedentaryTimerStop", 0x26uLL))
-        {
-          objc_msgSend_setTimerArmed_(self, v32, 0);
           if (qword_1ED71C830 != -1)
           {
             dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
           }
 
-          v33 = off_1ED71C838;
+          v56[0] = 0;
+          LODWORD(v43) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse timer is armed.", v56, v43);
+          v39 = v42;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v42);
+          goto LABEL_71;
+        }
+      }
+
+      else
+      {
+        v34 = CLConnectionMessage::name(*var0);
+        if (*(v34 + 23) < 0 && *(v34 + 8) == 38 && !memcmp(*v34, "kCLConnectionMessageSedentaryTimerStop", 0x26uLL))
+        {
+          objc_msgSend_setTimerArmed_(self, v35, 0);
+          if (qword_1ED71C830 != -1)
+          {
+            dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
+          }
+
+          v36 = off_1ED71C838;
           if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse timer is not armed.", buf, 2u);
+            _os_log_impl(&dword_19B41C000, v36, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse timer is not armed.", buf, 2u);
           }
 
-          v34 = sub_19B420058();
-          if (*(v34 + 160) > 1 || *(v34 + 164) > 1 || *(v34 + 168) > 1 || *(v34 + 152))
+          v37 = sub_19B420058();
+          if (*(v37 + 160) > 1 || *(v37 + 164) > 1 || *(v37 + 168) > 1 || *(v37 + 152))
           {
             bzero(buf, 0x65CuLL);
-            if (qword_1ED71C830 == -1)
+            if (qword_1ED71C830 != -1)
             {
-LABEL_68:
-              v42 = 0;
-              v37 = _os_log_send_and_compose_impl();
-              sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v37);
-              if (v37 != buf)
-              {
-                free(v37);
-              }
-
-              goto LABEL_70;
+              dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
             }
 
-LABEL_73:
-            dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
-            goto LABEL_68;
+            v56[0] = 0;
+            LODWORD(v43) = 2;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse timer is not armed.", v56, v43);
+            v39 = v38;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v38);
+LABEL_71:
+            if (v39 != buf)
+            {
+              free(v39);
+            }
           }
         }
       }
@@ -285,33 +291,32 @@ LABEL_73:
         dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
       }
 
-      v42 = 0;
-      v19 = _os_log_send_and_compose_impl();
+      v56[0] = 0;
+      LODWORD(v43) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleStartStopTimerResponse dispatching handler.", v56, v43);
+      v20 = v19;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleStartStopTimerResponse:withHandler:]", "CoreLocation: %s\n", v19);
-      if (v19 != buf)
+      if (v20 != buf)
       {
-        free(v19);
+        free(v20);
       }
     }
 
-    v20 = self->fClientQueue;
+    v21 = self->fClientQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_19B5CEC4C;
     block[3] = &unk_1E7532B40;
     block[4] = var1;
-    dispatch_async(v20, block);
+    dispatch_async(v21, block);
   }
-
-LABEL_70:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleAlarmDataResponse:(shared_ptr<CLConnectionMessage>)response withHandler:(id)handler
 {
   var1 = response.var1;
   var0 = response.var0;
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
   v9 = objc_opt_class();
@@ -346,28 +351,30 @@ LABEL_70:
           dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
         }
 
-        v40 = 0;
-        v22 = _os_log_send_and_compose_impl();
+        v44[0] = 0;
+        LODWORD(v39) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse error.", v44, v39);
+        v23 = v22;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v22);
-        if (v22 != buf)
+        if (v23 != buf)
         {
-          free(v22);
+          free(v23);
         }
       }
 
       fClientQueue = self->fClientQueue;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = sub_19B5CFA20;
-      v38[3] = &unk_1E7532B68;
-      v38[4] = v17;
-      v38[5] = var1;
-      v24 = v38;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = sub_19B5CFA20;
+      v42[3] = &unk_1E7532B68;
+      v42[4] = v17;
+      v42[5] = var1;
+      v25 = v42;
     }
 
     else
     {
-      v29 = v19;
+      v30 = v19;
       if (v19)
       {
         if (qword_1ED71C830 != -1)
@@ -375,15 +382,15 @@ LABEL_70:
           dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
         }
 
-        v30 = off_1ED71C838;
+        v31 = off_1ED71C838;
         if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse alarmDataArray.", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse alarmDataArray.", buf, 2u);
         }
 
-        v31 = sub_19B420058();
-        if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
+        v32 = sub_19B420058();
+        if (*(v32 + 160) > 1 || *(v32 + 164) > 1 || *(v32 + 168) > 1 || *(v32 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1ED71C830 != -1)
@@ -391,23 +398,25 @@ LABEL_70:
             dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
           }
 
-          v40 = 0;
-          v32 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v32);
-          if (v32 != buf)
+          v44[0] = 0;
+          LODWORD(v39) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse alarmDataArray.", v44, v39);
+          v34 = v33;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v33);
+          if (v34 != buf)
           {
-            free(v32);
+            free(v34);
           }
         }
 
         fClientQueue = self->fClientQueue;
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = sub_19B5CFD8C;
-        v37[3] = &unk_1E7532B90;
-        v37[4] = v29;
-        v37[5] = var1;
-        v24 = v37;
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = sub_19B5CFD8C;
+        v41[3] = &unk_1E7532B90;
+        v41[4] = v30;
+        v41[5] = var1;
+        v25 = v41;
       }
 
       else
@@ -417,15 +426,15 @@ LABEL_70:
           dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
         }
 
-        v33 = off_1ED71C838;
+        v35 = off_1ED71C838;
         if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_FAULT, "SedentaryAlarm,Error parsing alarm data.", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_FAULT, "SedentaryAlarm,Error parsing alarm data.", buf, 2u);
         }
 
-        v34 = sub_19B420058();
-        if ((*(v34 + 160) & 0x80000000) == 0 || (*(v34 + 164) & 0x80000000) == 0 || (*(v34 + 168) & 0x80000000) == 0 || *(v34 + 152))
+        v36 = sub_19B420058();
+        if ((*(v36 + 160) & 0x80000000) == 0 || (*(v36 + 164) & 0x80000000) == 0 || (*(v36 + 168) & 0x80000000) == 0 || *(v36 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1ED71C830 != -1)
@@ -433,22 +442,24 @@ LABEL_70:
             dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
           }
 
-          v40 = 0;
-          v35 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v35);
-          if (v35 != buf)
+          v44[0] = 0;
+          LODWORD(v39) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 17, "SedentaryAlarm,Error parsing alarm data.", v44, v39);
+          v38 = v37;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v37);
+          if (v38 != buf)
           {
-            free(v35);
+            free(v38);
           }
         }
 
         fClientQueue = self->fClientQueue;
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = sub_19B5CFF50;
-        v36[3] = &unk_1E7532B40;
-        v36[4] = var1;
-        v24 = v36;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = sub_19B5CFF50;
+        v40[3] = &unk_1E7532B40;
+        v40[4] = var1;
+        v25 = v40;
       }
     }
   }
@@ -460,15 +471,15 @@ LABEL_70:
       dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
     }
 
-    v25 = off_1ED71C838;
+    v26 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse nil response dispatching handler.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse nil response dispatching handler.", buf, 2u);
     }
 
-    v26 = sub_19B420058();
-    if (*(v26 + 160) > 1 || *(v26 + 164) > 1 || *(v26 + 168) > 1 || *(v26 + 152))
+    v27 = sub_19B420058();
+    if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C830 != -1)
@@ -476,12 +487,14 @@ LABEL_70:
         dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
       }
 
-      v40 = 0;
-      v27 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v27);
-      if (v27 != buf)
+      v44[0] = 0;
+      LODWORD(v39) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _handleAlarmDataResponse nil response dispatching handler.", v44, v39);
+      v29 = v28;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _handleAlarmDataResponse:withHandler:]", "CoreLocation: %s\n", v28);
+      if (v29 != buf)
       {
-        free(v27);
+        free(v29);
       }
     }
 
@@ -491,30 +504,29 @@ LABEL_70:
     block[2] = sub_19B5CF834;
     block[3] = &unk_1E7532B40;
     block[4] = var1;
-    v24 = block;
+    v25 = block;
   }
 
-  dispatch_async(fClientQueue, v24);
-  v28 = *MEMORY[0x1E69E9840];
+  dispatch_async(fClientQueue, v25);
 }
 
 - (void)_registerForAlarmsWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C830 != -1)
   {
     dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
   }
 
-  v4 = off_1ED71C838;
+  v3 = off_1ED71C838;
   if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _registerForAlarmsWithHandler.", buf, 2u);
+    _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_DEFAULT, "[SedentaryTimerTriage] SedentaryAlarm _registerForAlarmsWithHandler.", buf, 2u);
   }
 
-  v5 = sub_19B420058();
-  if (*(v5 + 160) > 1 || *(v5 + 164) > 1 || *(v5 + 168) > 1 || *(v5 + 152))
+  v4 = sub_19B420058();
+  if (*(v4 + 160) > 1 || *(v4 + 164) > 1 || *(v4 + 168) > 1 || *(v4 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C830 != -1)
@@ -522,23 +534,22 @@ LABEL_70:
       dispatch_once(&qword_1ED71C830, &unk_1F0E28BA0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _registerForAlarmsWithHandler:]", "CoreLocation: %s\n", v6);
+    v7[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[SedentaryTimerTriage] SedentaryAlarm _registerForAlarmsWithHandler.", v7, 2);
+    v6 = v5;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSedentaryTimer_Internal _registerForAlarmsWithHandler:]", "CoreLocation: %s\n", v5);
     if (v6 != buf)
     {
       free(v6);
     }
   }
 
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(buf, "kCLConnectionMessageSedentaryTimerAlarm");
   CLConnectionClient::setHandlerForMessage();
-  if (v10 < 0)
+  if (v9 < 0)
   {
     operator delete(*buf);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -29,7 +29,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    isEqual = 1;
+    v9 = 1;
   }
 
   else
@@ -38,23 +38,23 @@
     if (objc_opt_isKindOfClass())
     {
       v6 = equalCopy;
-      v9 = objc_msgSend_attributionType(self, v7, v8);
-      if (v9 != objc_msgSend_attributionType(v6, v10, v11) || (v14 = objc_msgSend_showsLearnMoreLink(self, v12, v13), v14 != objc_msgSend_showsLearnMoreLink(v6, v15, v16)))
+      attributionType = [(IMMessageAttributionChatItem *)self attributionType];
+      if (attributionType != [(IMMessageAttributionChatItem *)v6 attributionType]|| (v8 = [(IMMessageAttributionChatItem *)self showsLearnMoreLink], v8 != [(IMMessageAttributionChatItem *)v6 showsLearnMoreLink]))
       {
-        isEqual = 0;
+        v9 = 0;
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      v22 = objc_msgSend_attributionInfo(self, v17, v18);
-      if (v22 || (objc_msgSend_attributionInfo(v6, v20, v21), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+      attributionInfo = [(IMMessageAttributionChatItem *)self attributionInfo];
+      if (attributionInfo || ([(IMMessageAttributionChatItem *)v6 attributionInfo], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v23 = objc_msgSend_attributionInfo(self, v20, v21);
-        v26 = objc_msgSend_attributionInfo(v6, v24, v25);
-        isEqual = objc_msgSend_isEqual_(v23, v27, v26);
+        attributionInfo2 = [(IMMessageAttributionChatItem *)self attributionInfo];
+        attributionInfo3 = [(IMMessageAttributionChatItem *)v6 attributionInfo];
+        v9 = [attributionInfo2 isEqual:attributionInfo3];
 
-        if (v22)
+        if (attributionInfo)
         {
 LABEL_14:
 
@@ -64,37 +64,34 @@ LABEL_14:
 
       else
       {
-        isEqual = 1;
+        v9 = 1;
       }
 
       goto LABEL_14;
     }
 
-    isEqual = 0;
+    v9 = 0;
   }
 
 LABEL_16:
 
-  return isEqual;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_messageItem(self, a2, zone);
-  v7 = objc_msgSend_statusItemSequenceNumber(self, v5, v6);
-  v8 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend__initWithItem_attributionInfo_attributionType_showsLearnMoreLink_statusItemSequenceNumber_(v8, v9, v4, self->_attributionInfo, self->_attributionType, self->_showsLearnMoreLink, v7);
+  messageItem = [(IMMessageStatusChatItem *)self messageItem];
+  v5 = [objc_alloc(objc_opt_class()) _initWithItem:messageItem attributionInfo:self->_attributionInfo attributionType:self->_attributionType showsLearnMoreLink:self->_showsLearnMoreLink statusItemSequenceNumber:{-[IMMessageStatusChatItem statusItemSequenceNumber](self, "statusItemSequenceNumber")}];
 
-  return v10;
+  return v5;
 }
 
 - (id)copyWithStatusItemSequenceNumber:(unint64_t)number
 {
-  v5 = objc_msgSend_messageItem(self, a2, number);
-  v6 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend__initWithItem_attributionInfo_attributionType_showsLearnMoreLink_statusItemSequenceNumber_(v6, v7, v5, self->_attributionInfo, self->_attributionType, self->_showsLearnMoreLink, number);
+  messageItem = [(IMMessageStatusChatItem *)self messageItem];
+  v6 = [objc_alloc(objc_opt_class()) _initWithItem:messageItem attributionInfo:self->_attributionInfo attributionType:self->_attributionType showsLearnMoreLink:self->_showsLearnMoreLink statusItemSequenceNumber:number];
 
-  return v8;
+  return v6;
 }
 
 @end

@@ -386,7 +386,7 @@ LABEL_6:
   return v7;
 }
 
-uint64_t __47__ICQInAppMessaging__recalculateCurrentMessage__block_invoke(uint64_t a1)
+void *__47__ICQInAppMessaging__recalculateCurrentMessage__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) regularOffer];
   v3 = *(*(a1 + 40) + 8);
@@ -1002,7 +1002,7 @@ LABEL_27:
   _Block_object_dispose(&v42, 8);
 }
 
-uint64_t __76__ICQInAppMessaging_fetchMessageForReason_pendingItemsCount_withCompletion___block_invoke(uint64_t a1)
+void *__76__ICQInAppMessaging_fetchMessageForReason_pendingItemsCount_withCompletion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) regularOffer];
   v3 = *(*(a1 + 40) + 8);

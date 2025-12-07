@@ -32,14 +32,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100006860;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_1000054A8(v6);
-  sub_100006434(v6);
+  sub_100006434(v6, v7);
 }
 
 - (void)configureWithContext:(id)context completion:(id)completion
@@ -60,7 +66,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_100002674(context, v6, v7);
-  sub_100006434(v6);
+  sub_100006434(v6, v7);
 }
 
 - (_TtC18FeedbackRemoteView28FeedbackRemoteViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -118,19 +124,18 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_100005764();
+  sub_100005764(error);
 }
 
 - (void)feedbackDraftViewController:(id)controller didFailToAttachURL:(id)l error:(int64_t)error
 {
-  v5 = type metadata accessor for URL();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for URL();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1000058C4(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_1000058C4(v9, error, v10);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)feedbackDraftViewControllerDidCancel:(id)cancel

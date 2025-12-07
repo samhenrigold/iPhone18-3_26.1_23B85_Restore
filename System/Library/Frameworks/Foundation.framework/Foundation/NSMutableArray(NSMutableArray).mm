@@ -19,10 +19,10 @@
     if (a4)
     {
 LABEL_9:
-      v10 = (a3 - 1);
+      v10 = a3 - 1;
       do
       {
-        [self removeObjectAtIndex:*&v10[8 * a4--]];
+        [self removeObjectAtIndex:v10[a4--]];
       }
 
       while (a4);

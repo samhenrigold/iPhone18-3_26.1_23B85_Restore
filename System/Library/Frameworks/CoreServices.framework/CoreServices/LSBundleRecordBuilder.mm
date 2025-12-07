@@ -54,17 +54,17 @@
 
 - (int)registerQueriableSchemes:(id)schemes bundleData:(LSBundleData *)data
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   schemesCopy = schemes;
   v5 = objc_autoreleasePoolPush();
   v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   context = v5;
-  v30 = 0;
+  v29 = 0;
   v7 = self->_queriableSchemes;
   if (v7)
   {
     v8 = v7;
-    v9 = [(LSBundleRecordBuilder *)self truncate:&v30 queriableSchemesIfNeeded:v7];
+    v9 = [(LSBundleRecordBuilder *)self truncate:&v29 queriableSchemesIfNeeded:v7];
 
     [v6 addObjectsFromArray:v9];
   }
@@ -74,26 +74,26 @@
     v9 = 0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v10 = self->_URLClaims;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v11)
   {
-    v12 = *v27;
+    v12 = *v26;
     v13 = *MEMORY[0x1E695E190];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         if (_NSIsNSDictionary())
         {
           v16 = objc_opt_class();
@@ -121,7 +121,7 @@ LABEL_16:
         }
       }
 
-      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v11);
@@ -145,7 +145,7 @@ LABEL_16:
   }
 
   v20 = 0;
-  if (v30 == 1)
+  if (v29 == 1)
   {
     *&self->_moreFlags |= 0x40u;
   }
@@ -153,7 +153,6 @@ LABEL_16:
 LABEL_26:
 
   objc_autoreleasePoolPop(context);
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -172,15 +171,15 @@ LABEL_26:
   *&v17[16] = v9;
   v22[0] = v20;
   v22[1] = v21;
-  if (_LSVersionNumberCompare(v17, v22) > 1 || [neededCopy count] <= schemeQueryLimit)
+  if (_LSVersionNumberCompare(v17, v22) > 1 || (v10 = [neededCopy count], v10 <= schemeQueryLimit))
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v10 = _LSInstallLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _LSInstallLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       identifier = self->_identifier;
       if (!identifier)
@@ -197,12 +196,12 @@ LABEL_26:
       *&v17[24] = schemeQueryLimit;
       v18 = 2048;
       v19 = schemeQueryLimit;
-      _os_log_error_impl(&dword_18162D000, v10, OS_LOG_TYPE_ERROR, "Application %@ has requested permission to query %llu URL schemes, but the maximum queriable is %llu. Limiting to the first %llu listed in its Info.plist.", v17, 0x2Au);
+      _os_log_error_impl(&dword_18162D000, v11, OS_LOG_TYPE_ERROR, "Application %@ has requested permission to query %llu URL schemes, but the maximum queriable is %llu. Limiting to the first %llu listed in its Info.plist.", v17, 0x2Au);
     }
 
-    v11 = [neededCopy subarrayWithRange:{0, schemeQueryLimit}];
-    v12 = 1;
-    if (v11)
+    v12 = [neededCopy subarrayWithRange:{0, schemeQueryLimit}];
+    v13 = 1;
+    if (v12)
     {
       if (!truncate)
       {
@@ -213,18 +212,16 @@ LABEL_26:
     }
   }
 
-  v11 = neededCopy;
+  v12 = neededCopy;
   if (truncate)
   {
 LABEL_6:
-    *truncate = v12;
+    *truncate = v13;
   }
 
 LABEL_7:
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (id)_LSBundleFlagMap
@@ -241,106 +238,104 @@ LABEL_7:
 
 void __41__LSBundleRecordBuilder__LSBundleFlagMap__block_invoke()
 {
-  v4[47] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E695E120];
-  v3[1] = @"LSHasLocalizedDisplayName";
-  v4[0] = &unk_1EEF8E9D8;
-  v4[1] = &unk_1EEF8E9D8;
-  v3[2] = *MEMORY[0x1E695E4F8];
-  v3[3] = @"LSUIElement";
-  v4[2] = &unk_1EEF8E9D8;
-  v4[3] = &unk_1EEF8E9F0;
-  v3[4] = @"NSUIElement";
-  v3[5] = @"UINewsstandApp";
-  v4[4] = &unk_1EEF8E9F0;
-  v4[5] = &unk_1EEF8EA08;
-  v3[6] = @"LSBackgroundOnly";
-  v3[7] = @"NSBGOnly";
-  v4[6] = &unk_1EEF8EA20;
-  v4[7] = &unk_1EEF8EA20;
-  v3[8] = @"LSMultipleInstancesProhibited";
-  v3[9] = @"_LSIsExecutableForParentBundle";
-  v4[8] = &unk_1EEF8EA38;
-  v4[9] = &unk_1EEF8EA50;
-  v3[10] = @"_LSInfoPlistIsMissing";
-  v3[11] = @"_LSNoExecutableInfo";
-  v4[10] = &unk_1EEF8EA68;
-  v4[11] = &unk_1EEF8EA80;
-  v3[12] = @"LSFileQuarantineEnabled";
-  v3[13] = @"_LSRequiresOldJavaStub";
-  v4[12] = &unk_1EEF8EA98;
-  v4[13] = &unk_1EEF8EAB0;
-  v3[14] = @"_LSRequiresJavaRuntime";
-  v3[15] = @"_LSRequiresIPhoneSimulator";
-  v4[14] = &unk_1EEF8EAC8;
-  v4[15] = &unk_1EEF8EAE0;
-  v3[16] = @"LSRequiresIPhoneOS";
-  v3[17] = @"_LSBundleVersionTooLow";
-  v4[16] = &unk_1EEF8EAF8;
-  v4[17] = &unk_1EEF8EB10;
-  v3[18] = @"ASAccountAuthenticationModificationOptOutOfSecurityPromptsOnSignIn";
-  v3[19] = @"is-purchased-redownload";
-  v4[18] = &unk_1EEF8EB28;
-  v4[19] = &unk_1EEF8EB40;
-  v3[20] = @"DeviceBasedVPP";
-  v3[21] = @"IsPlaceholder";
-  v4[20] = &unk_1EEF8EB58;
-  v4[21] = &unk_1EEF8EB70;
-  v3[22] = @"HasMIDBasedSINF";
-  v3[23] = @"MissingSINF";
-  v4[22] = &unk_1EEF8EB88;
-  v4[23] = &unk_1EEF8EBA0;
-  v3[24] = @"RestrictedDownload";
-  v3[25] = @"IsParallelPlaceholder";
-  v4[24] = &unk_1EEF8EBB8;
-  v4[25] = &unk_1EEF8EBD0;
-  v3[26] = @"IsUpdatedSystemApp";
-  v3[27] = @"IsDeletable";
-  v4[26] = &unk_1EEF8EBD0;
-  v4[27] = &unk_1EEF8EBE8;
-  v3[28] = @"IsAdHocSigned";
-  v3[29] = @"HasSettingsBundle";
-  v4[28] = &unk_1EEF8EC00;
-  v4[29] = &unk_1EEF8EC18;
-  v3[30] = @"NSSupportsPurgeableLocalStorage";
-  v3[31] = @"HasCustomNotificationKey";
-  v4[30] = &unk_1EEF8EC30;
-  v4[31] = &unk_1EEF8EC48;
-  v3[32] = @"HasWatchGlance";
-  v3[33] = @"SkipWatchAppInstall";
-  v4[32] = &unk_1EEF8EC60;
-  v4[33] = &unk_1EEF8EC78;
-  v3[34] = @"SupportsAudiobooks";
-  v3[35] = @"MPSupportsExternallyPlayableContent";
-  v4[34] = &unk_1EEF8EC90;
-  v4[35] = &unk_1EEF8ECA8;
-  v3[36] = @"UIFileSharingEnabled";
-  v3[37] = @"LSSupportsOpeningDocumentsInPlace";
-  v4[36] = &unk_1EEF8ECC0;
-  v4[37] = &unk_1EEF8ECD8;
-  v3[38] = @"UISupportsDocumentBrowser";
-  v3[39] = @"_LSBundleIsInGenerationalStorage";
-  v4[38] = &unk_1EEF8ECD8;
-  v4[39] = &unk_1EEF8ECF0;
-  v3[40] = @"_LSBundleIsApplet";
-  v3[41] = @"LSApplicationIsStickerProvider";
-  v4[40] = &unk_1EEF8ED08;
-  v4[41] = &unk_1EEF8ED20;
-  v3[42] = @"LSApplicationLaunchProhibited";
-  v3[43] = @"initialODRSize";
-  v4[42] = &unk_1EEF8ED20;
-  v4[43] = &unk_1EEF8ED38;
-  v3[44] = @"gameCenterEnabled";
-  v3[45] = @"gameCenterEverEnabled";
-  v4[44] = &unk_1EEF8ED50;
-  v4[45] = &unk_1EEF8ED68;
-  v3[46] = @"NSApplicationRequiresArcade";
-  v4[46] = &unk_1EEF8ED80;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:47];
+  v3[47] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E695E120];
+  v2[1] = @"LSHasLocalizedDisplayName";
+  v3[0] = &unk_1EEF8E9D8;
+  v3[1] = &unk_1EEF8E9D8;
+  v2[2] = *MEMORY[0x1E695E4F8];
+  v2[3] = @"LSUIElement";
+  v3[2] = &unk_1EEF8E9D8;
+  v3[3] = &unk_1EEF8E9F0;
+  v2[4] = @"NSUIElement";
+  v2[5] = @"UINewsstandApp";
+  v3[4] = &unk_1EEF8E9F0;
+  v3[5] = &unk_1EEF8EA08;
+  v2[6] = @"LSBackgroundOnly";
+  v2[7] = @"NSBGOnly";
+  v3[6] = &unk_1EEF8EA20;
+  v3[7] = &unk_1EEF8EA20;
+  v2[8] = @"LSMultipleInstancesProhibited";
+  v2[9] = @"_LSIsExecutableForParentBundle";
+  v3[8] = &unk_1EEF8EA38;
+  v3[9] = &unk_1EEF8EA50;
+  v2[10] = @"_LSInfoPlistIsMissing";
+  v2[11] = @"_LSNoExecutableInfo";
+  v3[10] = &unk_1EEF8EA68;
+  v3[11] = &unk_1EEF8EA80;
+  v2[12] = @"LSFileQuarantineEnabled";
+  v2[13] = @"_LSRequiresOldJavaStub";
+  v3[12] = &unk_1EEF8EA98;
+  v3[13] = &unk_1EEF8EAB0;
+  v2[14] = @"_LSRequiresJavaRuntime";
+  v2[15] = @"_LSRequiresIPhoneSimulator";
+  v3[14] = &unk_1EEF8EAC8;
+  v3[15] = &unk_1EEF8EAE0;
+  v2[16] = @"LSRequiresIPhoneOS";
+  v2[17] = @"_LSBundleVersionTooLow";
+  v3[16] = &unk_1EEF8EAF8;
+  v3[17] = &unk_1EEF8EB10;
+  v2[18] = @"ASAccountAuthenticationModificationOptOutOfSecurityPromptsOnSignIn";
+  v2[19] = @"is-purchased-redownload";
+  v3[18] = &unk_1EEF8EB28;
+  v3[19] = &unk_1EEF8EB40;
+  v2[20] = @"DeviceBasedVPP";
+  v2[21] = @"IsPlaceholder";
+  v3[20] = &unk_1EEF8EB58;
+  v3[21] = &unk_1EEF8EB70;
+  v2[22] = @"HasMIDBasedSINF";
+  v2[23] = @"MissingSINF";
+  v3[22] = &unk_1EEF8EB88;
+  v3[23] = &unk_1EEF8EBA0;
+  v2[24] = @"RestrictedDownload";
+  v2[25] = @"IsParallelPlaceholder";
+  v3[24] = &unk_1EEF8EBB8;
+  v3[25] = &unk_1EEF8EBD0;
+  v2[26] = @"IsUpdatedSystemApp";
+  v2[27] = @"IsDeletable";
+  v3[26] = &unk_1EEF8EBD0;
+  v3[27] = &unk_1EEF8EBE8;
+  v2[28] = @"IsAdHocSigned";
+  v2[29] = @"HasSettingsBundle";
+  v3[28] = &unk_1EEF8EC00;
+  v3[29] = &unk_1EEF8EC18;
+  v2[30] = @"NSSupportsPurgeableLocalStorage";
+  v2[31] = @"HasCustomNotificationKey";
+  v3[30] = &unk_1EEF8EC30;
+  v3[31] = &unk_1EEF8EC48;
+  v2[32] = @"HasWatchGlance";
+  v2[33] = @"SkipWatchAppInstall";
+  v3[32] = &unk_1EEF8EC60;
+  v3[33] = &unk_1EEF8EC78;
+  v2[34] = @"SupportsAudiobooks";
+  v2[35] = @"MPSupportsExternallyPlayableContent";
+  v3[34] = &unk_1EEF8EC90;
+  v3[35] = &unk_1EEF8ECA8;
+  v2[36] = @"UIFileSharingEnabled";
+  v2[37] = @"LSSupportsOpeningDocumentsInPlace";
+  v3[36] = &unk_1EEF8ECC0;
+  v3[37] = &unk_1EEF8ECD8;
+  v2[38] = @"UISupportsDocumentBrowser";
+  v2[39] = @"_LSBundleIsInGenerationalStorage";
+  v3[38] = &unk_1EEF8ECD8;
+  v3[39] = &unk_1EEF8ECF0;
+  v2[40] = @"_LSBundleIsApplet";
+  v2[41] = @"LSApplicationIsStickerProvider";
+  v3[40] = &unk_1EEF8ED08;
+  v3[41] = &unk_1EEF8ED20;
+  v2[42] = @"LSApplicationLaunchProhibited";
+  v2[43] = @"initialODRSize";
+  v3[42] = &unk_1EEF8ED20;
+  v3[43] = &unk_1EEF8ED38;
+  v2[44] = @"gameCenterEnabled";
+  v2[45] = @"gameCenterEverEnabled";
+  v3[44] = &unk_1EEF8ED50;
+  v3[45] = &unk_1EEF8ED68;
+  v2[46] = @"NSApplicationRequiresArcade";
+  v3[46] = &unk_1EEF8ED80;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:47];
   v1 = [LSBundleRecordBuilder _LSBundleFlagMap]::bundleFlagMap;
   [LSBundleRecordBuilder _LSBundleFlagMap]::bundleFlagMap = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_LSPlistRaritiesMap
@@ -357,50 +352,48 @@ void __41__LSBundleRecordBuilder__LSBundleFlagMap__block_invoke()
 
 void __44__LSBundleRecordBuilder__LSPlistRaritiesMap__block_invoke()
 {
-  v4[19] = *MEMORY[0x1E69E9840];
-  v3[0] = @"LSLaunchDLabel";
-  v3[1] = @"LSFileQuarantineExcludedPathPatterns";
-  v4[0] = &unk_1EEF8ED98;
-  v4[1] = &unk_1EEF8EDB0;
-  v3[2] = @"MKDirectionsApplicationSupportedModes";
-  v3[3] = @"UIBackgroundModes";
-  v4[2] = &unk_1EEF8EDC8;
-  v4[3] = &unk_1EEF8EDE0;
-  v3[4] = @"AudioComponents";
-  v3[5] = @"UIVPNPlugin";
-  v4[4] = &unk_1EEF8EDF8;
-  v4[5] = &unk_1EEF8EE10;
-  v3[6] = @"SBAppTags";
-  v3[7] = @"UIRequiredDeviceCapabilities";
-  v4[6] = &unk_1EEF8EE28;
-  v4[7] = &unk_1EEF8EE40;
-  v3[8] = @"UISupportedExternalAccessoryProtocols";
-  v3[9] = @"LSMinimumSystemVersionByArchitecture";
-  v4[8] = &unk_1EEF8EE58;
-  v4[9] = &unk_1EEF8EE70;
-  v3[10] = @"LSEnvironment";
-  v3[11] = @"storeCohort";
-  v4[10] = &unk_1EEF8EE88;
-  v4[11] = &unk_1EEF8EEA0;
-  v3[12] = @"subgenres";
-  v3[13] = @"INIntentsSupported";
-  v4[12] = &unk_1EEF8EEB8;
-  v4[13] = &unk_1EEF8EED0;
-  v3[14] = @"INIntentsRestrictedWhileLocked";
-  v3[15] = @"INIntentsRestrictedWhileProtectedDataUnavailable";
-  v4[14] = &unk_1EEF8EED0;
-  v4[15] = &unk_1EEF8EED0;
-  v3[16] = @"INSupportedMediaCategories";
-  v3[17] = @"LSEligibilityDeletionDomain";
-  v4[16] = &unk_1EEF8EED0;
-  v4[17] = &unk_1EEF8EEE8;
-  v3[18] = @"JSNotificationURLFormat";
-  v4[18] = &unk_1EEF8EF00;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:19];
+  v3[19] = *MEMORY[0x1E69E9840];
+  v2[0] = @"LSLaunchDLabel";
+  v2[1] = @"LSFileQuarantineExcludedPathPatterns";
+  v3[0] = &unk_1EEF8ED98;
+  v3[1] = &unk_1EEF8EDB0;
+  v2[2] = @"MKDirectionsApplicationSupportedModes";
+  v2[3] = @"UIBackgroundModes";
+  v3[2] = &unk_1EEF8EDC8;
+  v3[3] = &unk_1EEF8EDE0;
+  v2[4] = @"AudioComponents";
+  v2[5] = @"UIVPNPlugin";
+  v3[4] = &unk_1EEF8EDF8;
+  v3[5] = &unk_1EEF8EE10;
+  v2[6] = @"SBAppTags";
+  v2[7] = @"UIRequiredDeviceCapabilities";
+  v3[6] = &unk_1EEF8EE28;
+  v3[7] = &unk_1EEF8EE40;
+  v2[8] = @"UISupportedExternalAccessoryProtocols";
+  v2[9] = @"LSMinimumSystemVersionByArchitecture";
+  v3[8] = &unk_1EEF8EE58;
+  v3[9] = &unk_1EEF8EE70;
+  v2[10] = @"LSEnvironment";
+  v2[11] = @"storeCohort";
+  v3[10] = &unk_1EEF8EE88;
+  v3[11] = &unk_1EEF8EEA0;
+  v2[12] = @"subgenres";
+  v2[13] = @"INIntentsSupported";
+  v3[12] = &unk_1EEF8EEB8;
+  v3[13] = &unk_1EEF8EED0;
+  v2[14] = @"INIntentsRestrictedWhileLocked";
+  v2[15] = @"INIntentsRestrictedWhileProtectedDataUnavailable";
+  v3[14] = &unk_1EEF8EED0;
+  v3[15] = &unk_1EEF8EED0;
+  v2[16] = @"INSupportedMediaCategories";
+  v2[17] = @"LSEligibilityDeletionDomain";
+  v3[16] = &unk_1EEF8EED0;
+  v3[17] = &unk_1EEF8EEE8;
+  v2[18] = @"JSNotificationURLFormat";
+  v3[18] = &unk_1EEF8EF00;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:19];
   v1 = [LSBundleRecordBuilder _LSPlistRaritiesMap]::plistMap;
   [LSBundleRecordBuilder _LSPlistRaritiesMap]::plistMap = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_LSKeyTypeMap
@@ -417,40 +410,38 @@ void __44__LSBundleRecordBuilder__LSPlistRaritiesMap__block_invoke()
 
 void __38__LSBundleRecordBuilder__LSKeyTypeMap__block_invoke()
 {
-  v4[14] = *MEMORY[0x1E69E9840];
-  v3[0] = @"LSLaunchDLabel";
-  v4[0] = objc_opt_class();
-  v3[1] = @"LSFileQuarantineExcludedPathPatterns";
-  v4[1] = objc_opt_class();
-  v3[2] = @"MKDirectionsApplicationSupportedModes";
-  v4[2] = objc_opt_class();
-  v3[3] = @"UIBackgroundModes";
-  v4[3] = objc_opt_class();
-  v3[4] = @"AudioComponents";
-  v4[4] = objc_opt_class();
-  v3[5] = @"SBAppTags";
-  v4[5] = objc_opt_class();
-  v3[6] = @"UIRequiredDeviceCapabilities";
-  v4[6] = objc_opt_class();
-  v3[7] = @"UISupportedExternalAccessoryProtocols";
-  v4[7] = objc_opt_class();
-  v3[8] = @"LSMinimumSystemVersionByArchitecture";
-  v4[8] = objc_opt_class();
-  v3[9] = @"LSEnvironment";
-  v4[9] = objc_opt_class();
-  v3[10] = @"storeCohort";
-  v4[10] = objc_opt_class();
-  v3[11] = @"subgenres";
-  v4[11] = objc_opt_class();
-  v3[12] = @"LSEligibilityDeletionDomain";
-  v4[12] = objc_opt_class();
-  v3[13] = @"JSNotificationURLFormat";
-  v4[13] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:14];
+  v3[14] = *MEMORY[0x1E69E9840];
+  v2[0] = @"LSLaunchDLabel";
+  v3[0] = objc_opt_class();
+  v2[1] = @"LSFileQuarantineExcludedPathPatterns";
+  v3[1] = objc_opt_class();
+  v2[2] = @"MKDirectionsApplicationSupportedModes";
+  v3[2] = objc_opt_class();
+  v2[3] = @"UIBackgroundModes";
+  v3[3] = objc_opt_class();
+  v2[4] = @"AudioComponents";
+  v3[4] = objc_opt_class();
+  v2[5] = @"SBAppTags";
+  v3[5] = objc_opt_class();
+  v2[6] = @"UIRequiredDeviceCapabilities";
+  v3[6] = objc_opt_class();
+  v2[7] = @"UISupportedExternalAccessoryProtocols";
+  v3[7] = objc_opt_class();
+  v2[8] = @"LSMinimumSystemVersionByArchitecture";
+  v3[8] = objc_opt_class();
+  v2[9] = @"LSEnvironment";
+  v3[9] = objc_opt_class();
+  v2[10] = @"storeCohort";
+  v3[10] = objc_opt_class();
+  v2[11] = @"subgenres";
+  v3[11] = objc_opt_class();
+  v2[12] = @"LSEligibilityDeletionDomain";
+  v3[12] = objc_opt_class();
+  v2[13] = @"JSNotificationURLFormat";
+  v3[13] = objc_opt_class();
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:14];
   v1 = [LSBundleRecordBuilder _LSKeyTypeMap]::typeMap;
   [LSBundleRecordBuilder _LSKeyTypeMap]::typeMap = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFlagsFromDictionary:(id)dictionary
@@ -630,7 +621,7 @@ void __62__LSBundleRecordBuilder_setCommonInfoPlistKeysFromDictionary___block_in
 
 - (id)iconsDictionaryFromDict:(id)dict
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v5 = objc_opt_class();
   v6 = [dictCopy objectForKey:@"CFBundleIcons"];
@@ -669,9 +660,9 @@ void __62__LSBundleRecordBuilder_setCommonInfoPlistKeysFromDictionary___block_in
 
 LABEL_14:
     v13 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v7];
-    v32 = @"CFBundleIconName";
-    v33[0] = v12;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = @"CFBundleIconName";
+    v32[0] = v12;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     [v13 setObject:v14 forKeyedSubscript:@"CFBundlePrimaryIcon"];
 
     v15 = [v13 copy];
@@ -727,8 +718,8 @@ LABEL_15:
         if (v24)
         {
 LABEL_22:
-          v31 = v18;
-          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+          v30 = v18;
+          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
           if (!v17)
           {
 LABEL_29:
@@ -737,12 +728,12 @@ LABEL_29:
           }
 
 LABEL_23:
-          v29 = @"CFBundlePrimaryIcon";
+          v28 = @"CFBundlePrimaryIcon";
           v19 = [MEMORY[0x1E696AD98] numberWithBool:{v9, @"CFBundleIconFiles", @"UIPrerenderedIcon", v17}];
-          v28[1] = v19;
-          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:2];
-          v30 = v20;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+          v27[1] = v19;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:2];
+          v29 = v20;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
 
           v7 = v21;
           goto LABEL_29;
@@ -755,8 +746,6 @@ LABEL_23:
   }
 
 LABEL_30:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -784,7 +773,7 @@ LABEL_30:
 
 - (void)parseDeviceFamilyFromDict:(id)dict
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v5 = [dictCopy objectForKey:@"UIDeviceFamily"];
   if (!v5)
@@ -803,18 +792,16 @@ LABEL_30:
 
   else if ((_NSIsNSString() & 1) != 0 || _NSIsNSNumber())
   {
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     deviceFamily = self->_deviceFamily;
     self->_deviceFamily = v6;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parseDocumentClaimsFromDict:(id)dict
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v4 = objc_opt_class();
   v5 = [dictCopy objectForKey:*MEMORY[0x1E695E128]];
@@ -848,29 +835,29 @@ LABEL_30:
     goto LABEL_26;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v12 = v11;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v13)
   {
     goto LABEL_25;
   }
 
-  v14 = *v24;
+  v14 = *v23;
   v15 = *MEMORY[0x1E695E178];
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v24 != v14)
+      if (*v23 != v14)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v23 + 1) + 8 * i);
+      v17 = *(*(&v22 + 1) + 8 * i);
       if (_NSIsNSDictionary())
       {
         v18 = objc_opt_class();
@@ -904,7 +891,7 @@ LABEL_20:
       }
     }
 
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       continue;
@@ -916,12 +903,11 @@ LABEL_20:
 LABEL_25:
 
 LABEL_26:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parseURLClaimsFromDict:(id)dict
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v5 = objc_opt_class();
   v6 = [dictCopy objectForKey:@"PrivateURLSchemes"];
@@ -974,22 +960,21 @@ LABEL_14:
 
   v12 = [v11 mutableCopy];
 LABEL_15:
-  v16[0] = *MEMORY[0x1E695E190];
-  v16[1] = @"CFBundleURLIsPrivate";
-  v17[0] = v7;
-  v17[1] = MEMORY[0x1E695E118];
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x1E695E190];
+  v15[1] = @"CFBundleURLIsPrivate";
+  v16[0] = v7;
+  v16[1] = MEMORY[0x1E695E118];
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   [(NSArray *)v12 addObject:v13];
   URLClaims = self->_URLClaims;
   self->_URLClaims = v12;
 
 LABEL_18:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)parseInfoPlist:(id)plist
 {
-  v301 = *MEMORY[0x1E69E9840];
+  v299 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   if ((_NSIsNSDictionary() & 1) == 0)
   {
@@ -1011,7 +996,7 @@ LABEL_18:
   if (!self->_identifier)
   {
 LABEL_38:
-    v25 = 0;
+    v24 = 0;
     goto LABEL_368;
   }
 
@@ -1027,50 +1012,60 @@ LABEL_38:
   sdkVersion = self->_sdkVersion;
   self->_sdkVersion = v11;
 
-  v13 = self->_sdkVersion;
-  if (v13)
+  if (self->_sdkVersion)
   {
-    _LSVersionNumberMakeWithString(buf, v13);
-    v14 = v300;
+    _LSVersionNumberMakeWithString();
+    v13 = v298;
     *self->_sdkVersionNumber._opaque = *buf;
-    *&self->_sdkVersionNumber._opaque[16] = v14;
+    *&self->_sdkVersionNumber._opaque[16] = v13;
   }
 
   [(LSBundleRecordBuilder *)self setFlagsFromDictionary:plistCopy];
   [(LSBundleRecordBuilder *)self setRaritiesFromDictionary:plistCopy];
   [(LSBundleRecordBuilder *)self setCommonInfoPlistKeysFromDictionary:plistCopy];
-  v15 = [plistCopy valueForKey:@"LSIsSecuredSystemContent"];
-  if ([v15 BOOLValue])
+  v14 = [plistCopy valueForKey:@"LSIsSecuredSystemContent"];
+  if ([v14 BOOLValue])
   {
-    v16 = 16;
+    v15 = 16;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  *&self->_baseFlags = *&self->_baseFlags & 0xEF | v16;
+  *&self->_baseFlags = *&self->_baseFlags & 0xEF | v15;
 
-  v288 = [plistCopy objectForKey:@"UIApplicationSupportsAlwaysOnDisplay"];
-  if (v288 && (objc_opt_respondsToSelector() & 1) != 0)
+  v286 = [plistCopy objectForKey:@"UIApplicationSupportsAlwaysOnDisplay"];
+  if (v286 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    if ([v288 BOOLValue])
+    if ([v286 BOOLValue])
     {
-      v17 = 512;
+      v16 = 512;
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    self->_moreFlags = (*&self->_moreFlags & 0xFFFFFDFF | v17);
+    self->_moreFlags = (*&self->_moreFlags & 0xFFFFFDFF | v16);
   }
 
   if ([plistCopy _LS_BoolForKey:@"UIDefaultsToPrivateAlwaysOnDisplayTreatment"])
   {
-    v18 = 1024;
+    v17 = 1024;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  self->_moreFlags = (*&self->_moreFlags & 0xFFFFFBFF | v17);
+  if ([plistCopy _LS_BoolForKey:@"LSRequiresPostProcessing"])
+  {
+    v18 = 0x2000;
   }
 
   else
@@ -1078,10 +1073,10 @@ LABEL_38:
     v18 = 0;
   }
 
-  self->_moreFlags = (*&self->_moreFlags & 0xFFFFFBFF | v18);
-  if ([plistCopy _LS_BoolForKey:@"LSRequiresPostProcessing"])
+  self->_moreFlags = (*&self->_moreFlags & 0xFFFFDFFF | v18);
+  if ([plistCopy _LS_BoolForKey:@"NSSupportsLiveActivities"])
   {
-    v19 = 0x2000;
+    v19 = 2048;
   }
 
   else
@@ -1089,10 +1084,10 @@ LABEL_38:
     v19 = 0;
   }
 
-  self->_moreFlags = (*&self->_moreFlags & 0xFFFFDFFF | v19);
-  if ([plistCopy _LS_BoolForKey:@"NSSupportsLiveActivities"])
+  self->_moreFlags = (*&self->_moreFlags & 0xFFFFF7FF | v19);
+  if ([plistCopy _LS_BoolForKey:@"NSSupportsLiveActivitiesFrequentUpdates"])
   {
-    v20 = 2048;
+    v20 = 4096;
   }
 
   else
@@ -1100,24 +1095,13 @@ LABEL_38:
     v20 = 0;
   }
 
-  self->_moreFlags = (*&self->_moreFlags & 0xFFFFF7FF | v20);
-  if ([plistCopy _LS_BoolForKey:@"NSSupportsLiveActivitiesFrequentUpdates"])
+  self->_moreFlags = (*&self->_moreFlags & 0xFFFFEFFF | v20);
+  v21 = objc_opt_class();
+  v22 = [plistCopy objectForKey:@"_LSIsLinkEnabled"];
+  v23 = v22;
+  if (!v21 || !v22)
   {
-    v21 = 4096;
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  self->_moreFlags = (*&self->_moreFlags & 0xFFFFEFFF | v21);
-  v22 = objc_opt_class();
-  v23 = [plistCopy objectForKey:@"_LSIsLinkEnabled"];
-  v24 = v23;
-  if (!v22 || !v23)
-  {
-    if (!v23)
+    if (!v22)
     {
       goto LABEL_45;
     }
@@ -1128,51 +1112,51 @@ LABEL_38:
   if (objc_opt_isKindOfClass())
   {
 LABEL_40:
-    if ([v24 BOOLValue])
+    if ([v23 BOOLValue])
     {
-      v26 = 8;
+      v25 = 8;
     }
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
 
-    *&self->_baseFlags = *&self->_baseFlags & 0xF7 | v26;
+    *&self->_baseFlags = *&self->_baseFlags & 0xF7 | v25;
   }
 
 LABEL_45:
-  v27 = [plistCopy objectForKey:@"_LSIsLinkEnabled"];
-  if ([v27 BOOLValue])
+  v26 = [plistCopy objectForKey:@"_LSIsLinkEnabled"];
+  if ([v26 BOOLValue])
   {
-    v28 = 8;
+    v27 = 8;
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  *&self->_baseFlags = *&self->_baseFlags & 0xF7 | v28;
+  *&self->_baseFlags = *&self->_baseFlags & 0xF7 | v27;
 
-  v29 = objc_opt_class();
-  v30 = [plistCopy objectForKey:@"PurchaserID"];
-  v31 = v30;
-  if (v29 && v30 && (objc_opt_isKindOfClass() & 1) == 0)
+  v28 = objc_opt_class();
+  v29 = [plistCopy objectForKey:@"PurchaserID"];
+  v30 = v29;
+  if (v28 && v29 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v31 = 0;
+    v30 = 0;
   }
 
   purchaserDSID = self->_purchaserDSID;
-  self->_purchaserDSID = v31;
+  self->_purchaserDSID = v30;
 
   self->_hfsType = _LSGetRawOSTypeForPossibleString([plistCopy objectForKey:*MEMORY[0x1E695E138]]);
   self->_platform = 0;
-  v33 = objc_opt_class();
-  v34 = [plistCopy objectForKey:@"LSExecutablePlatformKey"];
-  v35 = v34;
-  if (v33 && v34)
+  v32 = objc_opt_class();
+  v33 = [plistCopy objectForKey:@"LSExecutablePlatformKey"];
+  v34 = v33;
+  if (v32 && v33)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1182,551 +1166,551 @@ LABEL_45:
     goto LABEL_57;
   }
 
-  if (v34)
+  if (v33)
   {
 LABEL_57:
-    self->_platform = [v35 unsignedLongLongValue];
+    self->_platform = [v34 unsignedLongLongValue];
 LABEL_58:
   }
 
-  v36 = objc_opt_class();
-  v37 = [plistCopy objectForKey:@"DTAppStoreToolsBuild"];
-  v38 = v37;
-  if (v36 && v37 && (objc_opt_isKindOfClass() & 1) == 0)
+  v35 = objc_opt_class();
+  v36 = [plistCopy objectForKey:@"DTAppStoreToolsBuild"];
+  v37 = v36;
+  if (v35 && v36 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v38 = 0;
+    v37 = 0;
   }
 
   appStoreToolsBuildVersion = self->_appStoreToolsBuildVersion;
-  self->_appStoreToolsBuildVersion = v38;
+  self->_appStoreToolsBuildVersion = v37;
 
-  v40 = objc_opt_class();
-  v41 = [plistCopy objectForKey:*MEMORY[0x1E695E500]];
-  v42 = v41;
-  if (v40 && v41 && (objc_opt_isKindOfClass() & 1) == 0)
+  v39 = objc_opt_class();
+  v40 = [plistCopy objectForKey:*MEMORY[0x1E695E500]];
+  v41 = v40;
+  if (v39 && v40 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v42 = 0;
+    v41 = 0;
   }
 
   version = self->_version;
-  self->_version = v42;
+  self->_version = v41;
 
   platform = self->_platform;
-  _LSVersionNumberMakeWithString(buf, self->_sdkVersion);
+  _LSVersionNumberMakeWithString();
   _LSGetMinimumOSVersionStringAndReferencePlatformForPlatformSDKLinkage(plistCopy, platform, buf, &self->_minSystemVersion, &self->_minSystemVersionPlatform);
-  v45 = objc_opt_class();
-  v46 = [plistCopy objectForKey:@"LSMaximumSystemVersion"];
-  v47 = v46;
-  if (v45 && v46 && (objc_opt_isKindOfClass() & 1) == 0)
+  v44 = objc_opt_class();
+  v45 = [plistCopy objectForKey:@"LSMaximumSystemVersion"];
+  v46 = v45;
+  if (v44 && v45 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v47 = 0;
+    v46 = 0;
   }
 
   maxSystemVersion = self->_maxSystemVersion;
-  self->_maxSystemVersion = v47;
+  self->_maxSystemVersion = v46;
 
-  v49 = objc_opt_class();
-  v50 = [plistCopy objectForKey:*MEMORY[0x1E695E148]];
-  v51 = v50;
-  if (v49 && v50 && (objc_opt_isKindOfClass() & 1) == 0)
+  v48 = objc_opt_class();
+  v49 = [plistCopy objectForKey:*MEMORY[0x1E695E148]];
+  v50 = v49;
+  if (v48 && v49 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v51 = 0;
+    v50 = 0;
   }
 
   shortVersionString = self->_shortVersionString;
-  self->_shortVersionString = v51;
+  self->_shortVersionString = v50;
 
-  v53 = objc_opt_class();
-  v286 = *MEMORY[0x1E695E4F8];
-  v54 = [plistCopy objectForKey:?];
-  v55 = v54;
-  if (v53 && v54 && (objc_opt_isKindOfClass() & 1) == 0)
+  v52 = objc_opt_class();
+  v284 = *MEMORY[0x1E695E4F8];
+  v53 = [plistCopy objectForKey:?];
+  v54 = v53;
+  if (v52 && v53 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v55 = 0;
+    v54 = 0;
   }
 
   bundleName = self->_bundleName;
-  self->_bundleName = v55;
+  self->_bundleName = v54;
 
-  v57 = objc_opt_class();
-  v285 = *MEMORY[0x1E695E120];
-  v58 = [plistCopy objectForKey:?];
-  v59 = v58;
-  if (v57 && v58 && (objc_opt_isKindOfClass() & 1) == 0)
+  v56 = objc_opt_class();
+  v283 = *MEMORY[0x1E695E120];
+  v57 = [plistCopy objectForKey:?];
+  v58 = v57;
+  if (v56 && v57 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v59 = 0;
+    v58 = 0;
   }
 
   displayName = self->_displayName;
-  self->_displayName = v59;
+  self->_displayName = v58;
 
-  v61 = objc_opt_class();
-  v62 = [plistCopy objectForKey:v286];
-  v63 = v62;
-  if (v61 && v62 && (objc_opt_isKindOfClass() & 1) == 0)
+  v60 = objc_opt_class();
+  v61 = [plistCopy objectForKey:v284];
+  v62 = v61;
+  if (v60 && v61 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v63 = 0;
+    v62 = 0;
   }
 
   shortDisplayName = self->_shortDisplayName;
-  self->_shortDisplayName = v63;
+  self->_shortDisplayName = v62;
 
-  v65 = objc_opt_class();
-  v66 = [plistCopy objectForKey:@"NSMicrophoneUsageDescription"];
-  v67 = v66;
-  if (v65 && v66 && (objc_opt_isKindOfClass() & 1) == 0)
+  v64 = objc_opt_class();
+  v65 = [plistCopy objectForKey:@"NSMicrophoneUsageDescription"];
+  v66 = v65;
+  if (v64 && v65 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v67 = 0;
+    v66 = 0;
   }
 
   microphoneUsageDescription = self->_microphoneUsageDescription;
-  self->_microphoneUsageDescription = v67;
+  self->_microphoneUsageDescription = v66;
 
-  v69 = objc_opt_class();
-  v70 = [plistCopy objectForKey:@"NSIdentityUsageDescription"];
-  v71 = v70;
-  if (v69 && v70 && (objc_opt_isKindOfClass() & 1) == 0)
+  v68 = objc_opt_class();
+  v69 = [plistCopy objectForKey:@"NSIdentityUsageDescription"];
+  v70 = v69;
+  if (v68 && v69 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v71 = 0;
+    v70 = 0;
   }
 
   identityUsageDescription = self->_identityUsageDescription;
-  self->_identityUsageDescription = v71;
+  self->_identityUsageDescription = v70;
 
-  v73 = objc_opt_class();
-  v74 = [plistCopy objectForKey:@"artistName"];
-  v75 = v74;
-  if (v73 && v74 && (objc_opt_isKindOfClass() & 1) == 0)
+  v72 = objc_opt_class();
+  v73 = [plistCopy objectForKey:@"artistName"];
+  v74 = v73;
+  if (v72 && v73 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v75 = 0;
+    v74 = 0;
   }
 
   vendorName = self->_vendorName;
-  self->_vendorName = v75;
+  self->_vendorName = v74;
 
-  v77 = objc_opt_class();
-  v78 = [plistCopy objectForKey:@"itemName"];
-  v79 = v78;
-  if (v77 && v78 && (objc_opt_isKindOfClass() & 1) == 0)
+  v76 = objc_opt_class();
+  v77 = [plistCopy objectForKey:@"itemName"];
+  v78 = v77;
+  if (v76 && v77 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v79 = 0;
+    v78 = 0;
   }
 
   itemName = self->_itemName;
-  self->_itemName = v79;
+  self->_itemName = v78;
 
-  v81 = objc_opt_class();
-  v82 = [plistCopy objectForKey:@"s"];
-  v83 = v82;
-  if (v81 && v82 && (objc_opt_isKindOfClass() & 1) == 0)
+  v80 = objc_opt_class();
+  v81 = [plistCopy objectForKey:@"s"];
+  v82 = v81;
+  if (v80 && v81 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v83 = 0;
+    v82 = 0;
   }
 
   storefront = self->_storefront;
-  self->_storefront = v83;
+  self->_storefront = v82;
 
-  v85 = objc_opt_class();
-  v86 = [plistCopy objectForKey:@"softwareVersionExternalIdentifier"];
-  v87 = v86;
-  if (v85 && v86 && (objc_opt_isKindOfClass() & 1) == 0)
+  v84 = objc_opt_class();
+  v85 = [plistCopy objectForKey:@"softwareVersionExternalIdentifier"];
+  v86 = v85;
+  if (v84 && v85 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v87 = 0;
+    v86 = 0;
   }
 
   versionID = self->_versionID;
-  self->_versionID = v87;
+  self->_versionID = v86;
 
   if (!self->_versionID)
   {
-    v89 = objc_opt_class();
-    v90 = [plistCopy objectForKey:@"betaExternalVersionIdentifier"];
-    v91 = v90;
-    if (v89 && v90 && (objc_opt_isKindOfClass() & 1) == 0)
+    v88 = objc_opt_class();
+    v89 = [plistCopy objectForKey:@"betaExternalVersionIdentifier"];
+    v90 = v89;
+    if (v88 && v89 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v91 = 0;
+      v90 = 0;
     }
 
-    v92 = self->_versionID;
-    self->_versionID = v91;
+    v91 = self->_versionID;
+    self->_versionID = v90;
   }
 
-  v93 = objc_opt_class();
-  v94 = [plistCopy objectForKey:@"sourceApp"];
-  v95 = v94;
-  if (v93 && v94 && (objc_opt_isKindOfClass() & 1) == 0)
+  v92 = objc_opt_class();
+  v93 = [plistCopy objectForKey:@"sourceApp"];
+  v94 = v93;
+  if (v92 && v93 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v95 = 0;
+    v94 = 0;
   }
 
   sourceAppBundleID = self->_sourceAppBundleID;
-  self->_sourceAppBundleID = v95;
+  self->_sourceAppBundleID = v94;
 
-  v97 = objc_opt_class();
-  v98 = [plistCopy objectForKey:@"variantID"];
-  v99 = v98;
-  if (v97 && v98 && (objc_opt_isKindOfClass() & 1) == 0)
+  v96 = objc_opt_class();
+  v97 = [plistCopy objectForKey:@"variantID"];
+  v98 = v97;
+  if (v96 && v97 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v99 = 0;
+    v98 = 0;
   }
 
   appVariant = self->_appVariant;
-  self->_appVariant = v99;
+  self->_appVariant = v98;
 
-  v101 = objc_opt_class();
-  v102 = [plistCopy objectForKey:@"_LSExecutablePath"];
-  v103 = v102;
-  if (v101 && v102 && (objc_opt_isKindOfClass() & 1) == 0)
+  v100 = objc_opt_class();
+  v101 = [plistCopy objectForKey:@"_LSExecutablePath"];
+  v102 = v101;
+  if (v100 && v101 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v103 = 0;
+    v102 = 0;
   }
 
   execPath = self->_execPath;
-  self->_execPath = v103;
+  self->_execPath = v102;
 
-  v105 = objc_opt_class();
-  v106 = [plistCopy objectForKey:@"genre"];
-  v107 = v106;
-  if (v105 && v106 && (objc_opt_isKindOfClass() & 1) == 0)
+  v104 = objc_opt_class();
+  v105 = [plistCopy objectForKey:@"genre"];
+  v106 = v105;
+  if (v104 && v105 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v107 = 0;
+    v106 = 0;
   }
 
   genre = self->_genre;
-  self->_genre = v107;
+  self->_genre = v106;
 
-  v109 = objc_opt_class();
-  v110 = [plistCopy objectForKey:@"distributorInfo"];
-  v111 = v110;
-  if (v109 && v110 && (objc_opt_isKindOfClass() & 1) == 0)
+  v108 = objc_opt_class();
+  v109 = [plistCopy objectForKey:@"distributorInfo"];
+  v110 = v109;
+  if (v108 && v109 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v111 = 0;
+    v110 = 0;
   }
 
   distributorInfo = self->_distributorInfo;
-  self->_distributorInfo = v111;
+  self->_distributorInfo = v110;
 
-  v113 = objc_opt_class();
-  v114 = [plistCopy objectForKey:@"managementDeclarationIdentifier"];
-  v115 = v114;
-  if (v113 && v114 && (objc_opt_isKindOfClass() & 1) == 0)
+  v112 = objc_opt_class();
+  v113 = [plistCopy objectForKey:@"managementDeclarationIdentifier"];
+  v114 = v113;
+  if (v112 && v113 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v115 = 0;
+    v114 = 0;
   }
 
   managementDeclarationIdentifier = self->_managementDeclarationIdentifier;
-  self->_managementDeclarationIdentifier = v115;
+  self->_managementDeclarationIdentifier = v114;
 
-  v117 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v116 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   equivalentBundleIDs = self->_equivalentBundleIDs;
-  self->_equivalentBundleIDs = v117;
+  self->_equivalentBundleIDs = v116;
 
-  v119 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v118 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   counterpartAppBundleIDs = self->_counterpartAppBundleIDs;
-  self->_counterpartAppBundleIDs = v119;
+  self->_counterpartAppBundleIDs = v118;
 
-  v121 = objc_opt_class();
-  v122 = [plistCopy objectForKey:@"LSCounterpartIdentifiers"];
-  v287 = v122;
-  v123 = v122;
-  if (v121 && v122)
+  v120 = objc_opt_class();
+  v121 = [plistCopy objectForKey:@"LSCounterpartIdentifiers"];
+  v285 = v121;
+  v122 = v121;
+  if (v120 && v121)
   {
-    v123 = v122;
+    v122 = v121;
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 
 LABEL_147:
-      v287 = 0;
+      v285 = 0;
       goto LABEL_148;
     }
   }
 
-  else if (!v122)
+  else if (!v121)
   {
     goto LABEL_147;
   }
 
-  [(NSMutableSet *)self->_counterpartAppBundleIDs addObjectsFromArray:v123];
-  [(NSMutableSet *)self->_equivalentBundleIDs addObjectsFromArray:v123];
+  [(NSMutableSet *)self->_counterpartAppBundleIDs addObjectsFromArray:v122];
+  [(NSMutableSet *)self->_equivalentBundleIDs addObjectsFromArray:v122];
 LABEL_148:
-  v124 = objc_opt_class();
-  v125 = [plistCopy objectForKey:@"NSEquivalentBundleIdentifiers"];
-  v289 = v125;
-  v126 = v125;
-  if (v124 && v125)
+  v123 = objc_opt_class();
+  v124 = [plistCopy objectForKey:@"NSEquivalentBundleIdentifiers"];
+  v287 = v124;
+  v125 = v124;
+  if (v123 && v124)
   {
     isKindOfClass = objc_opt_isKindOfClass();
-    v126 = v289;
+    v125 = v287;
     if ((isKindOfClass & 1) == 0)
     {
 
 LABEL_154:
-      v289 = 0;
+      v287 = 0;
       goto LABEL_155;
     }
   }
 
-  else if (!v125)
+  else if (!v124)
   {
     goto LABEL_154;
   }
 
-  [(NSMutableSet *)self->_equivalentBundleIDs addObjectsFromArray:v126];
+  [(NSMutableSet *)self->_equivalentBundleIDs addObjectsFromArray:v125];
 LABEL_155:
-  v128 = objc_opt_class();
-  v129 = [plistCopy objectForKey:@"label"];
-  v130 = v129;
-  if (v128 && v129 && (objc_opt_isKindOfClass() & 1) == 0)
+  v127 = objc_opt_class();
+  v128 = [plistCopy objectForKey:@"label"];
+  v129 = v128;
+  if (v127 && v128 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v130 = 0;
+    v129 = 0;
   }
 
   ratingLabel = self->_ratingLabel;
-  self->_ratingLabel = v130;
+  self->_ratingLabel = v129;
 
-  v132 = objc_opt_class();
-  v133 = [plistCopy objectForKey:@"itemId"];
-  v134 = v133;
-  if (v132 && v133 && (objc_opt_isKindOfClass() & 1) == 0)
+  v131 = objc_opt_class();
+  v132 = [plistCopy objectForKey:@"itemId"];
+  v133 = v132;
+  if (v131 && v132 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v134 = 0;
+    v133 = 0;
   }
 
   itemID = self->_itemID;
-  self->_itemID = v134;
+  self->_itemID = v133;
 
-  v136 = objc_opt_class();
-  v137 = [plistCopy objectForKey:@"rank"];
-  v138 = v137;
-  if (v136 && v137 && (objc_opt_isKindOfClass() & 1) == 0)
+  v135 = objc_opt_class();
+  v136 = [plistCopy objectForKey:@"rank"];
+  v137 = v136;
+  if (v135 && v136 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v138 = 0;
+    v137 = 0;
   }
 
   ratingRank = self->_ratingRank;
-  self->_ratingRank = v138;
+  self->_ratingRank = v137;
 
-  v140 = objc_opt_class();
-  v141 = [plistCopy objectForKey:@"genreId"];
-  v142 = v141;
-  if (v140 && v141 && (objc_opt_isKindOfClass() & 1) == 0)
+  v139 = objc_opt_class();
+  v140 = [plistCopy objectForKey:@"genreId"];
+  v141 = v140;
+  if (v139 && v140 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v142 = 0;
+    v141 = 0;
   }
 
   genreID = self->_genreID;
-  self->_genreID = v142;
+  self->_genreID = v141;
 
-  v144 = objc_opt_class();
-  v145 = [plistCopy objectForKey:@"LSApplicationCategoryType"];
-  v146 = v145;
-  if (v144 && v145 && (objc_opt_isKindOfClass() & 1) == 0)
+  v143 = objc_opt_class();
+  v144 = [plistCopy objectForKey:@"LSApplicationCategoryType"];
+  v145 = v144;
+  if (v143 && v144 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v146 = 0;
+    v145 = 0;
   }
 
   categoryType = self->_categoryType;
-  self->_categoryType = v146;
+  self->_categoryType = v145;
 
-  v148 = objc_opt_class();
-  v149 = [plistCopy objectForKey:@"LSApplicationSecondaryCategoryType"];
-  v150 = v149;
-  if (v148 && v149 && (objc_opt_isKindOfClass() & 1) == 0)
+  v147 = objc_opt_class();
+  v148 = [plistCopy objectForKey:@"LSApplicationSecondaryCategoryType"];
+  v149 = v148;
+  if (v147 && v148 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v150 = 0;
+    v149 = 0;
   }
 
   secondCategoryType = self->_secondCategoryType;
-  self->_secondCategoryType = v150;
+  self->_secondCategoryType = v149;
 
   if (!self->_categoryType && !self->_secondCategoryType)
   {
-    v152 = objc_opt_class();
-    v153 = [plistCopy objectForKey:@"categories"];
-    v154 = v153;
-    if (v152 && v153 && (objc_opt_isKindOfClass() & 1) == 0)
+    v151 = objc_opt_class();
+    v152 = [plistCopy objectForKey:@"categories"];
+    v153 = v152;
+    if (v151 && v152 && (objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v154 = 0;
+      v153 = 0;
     }
 
-    firstObject = [v154 firstObject];
+    firstObject = [v153 firstObject];
     objc_opt_class();
-    v156 = objc_opt_isKindOfClass();
+    v155 = objc_opt_isKindOfClass();
 
-    if (v156)
+    if (v155)
     {
-      firstObject2 = [v154 firstObject];
-      v158 = self->_categoryType;
+      firstObject2 = [v153 firstObject];
+      v157 = self->_categoryType;
       self->_categoryType = firstObject2;
 
-      if ([v154 count] >= 2)
+      if ([v153 count] >= 2)
       {
-        v159 = [v154 objectAtIndex:1];
+        v158 = [v153 objectAtIndex:1];
         objc_opt_class();
-        v160 = objc_opt_isKindOfClass();
+        v159 = objc_opt_isKindOfClass();
 
-        if (v160)
+        if (v159)
         {
-          v161 = [v154 objectAtIndex:1];
-          v162 = self->_secondCategoryType;
-          self->_secondCategoryType = v161;
+          v160 = [v153 objectAtIndex:1];
+          v161 = self->_secondCategoryType;
+          self->_secondCategoryType = v160;
         }
       }
     }
   }
 
-  v163 = objc_opt_class();
-  v164 = [plistCopy objectForKey:@"MachOUUIDs"];
-  v165 = v164;
-  if (v163 && v164 && (objc_opt_isKindOfClass() & 1) == 0)
+  v162 = objc_opt_class();
+  v163 = [plistCopy objectForKey:@"MachOUUIDs"];
+  v164 = v163;
+  if (v162 && v163 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v165 = 0;
+    v164 = 0;
   }
 
   machOUUIDs = self->_machOUUIDs;
-  self->_machOUUIDs = v165;
+  self->_machOUUIDs = v164;
 
-  v167 = objc_opt_class();
-  v168 = [plistCopy objectForKey:@"LSApplicationQueriesSchemes"];
-  v169 = v168;
-  if (v167 && v168 && (objc_opt_isKindOfClass() & 1) == 0)
+  v166 = objc_opt_class();
+  v167 = [plistCopy objectForKey:@"LSApplicationQueriesSchemes"];
+  v168 = v167;
+  if (v166 && v167 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v169 = 0;
+    v168 = 0;
   }
 
   queriableSchemes = self->_queriableSchemes;
-  self->_queriableSchemes = v169;
+  self->_queriableSchemes = v168;
 
-  v171 = objc_opt_class();
-  v172 = [plistCopy objectForKey:@"_LSBundleLibraryPath"];
-  v173 = v172;
-  if (v171 && v172 && (objc_opt_isKindOfClass() & 1) == 0)
+  v170 = objc_opt_class();
+  v171 = [plistCopy objectForKey:@"_LSBundleLibraryPath"];
+  v172 = v171;
+  if (v170 && v171 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v173 = 0;
+    v172 = 0;
   }
 
   libraryPath = self->_libraryPath;
-  self->_libraryPath = v173;
+  self->_libraryPath = v172;
 
-  v175 = objc_opt_class();
-  v176 = [plistCopy objectForKey:@"_LSBundleLibraryItems"];
-  v177 = v176;
-  if (v175 && v176 && (objc_opt_isKindOfClass() & 1) == 0)
+  v174 = objc_opt_class();
+  v175 = [plistCopy objectForKey:@"_LSBundleLibraryItems"];
+  v176 = v175;
+  if (v174 && v175 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v177 = 0;
+    v176 = 0;
   }
 
   libraryItems = self->_libraryItems;
-  self->_libraryItems = v177;
+  self->_libraryItems = v176;
 
-  v179 = objc_opt_class();
-  v180 = [plistCopy objectForKey:@"UTExportedTypeDeclarations"];
-  v181 = v180;
-  if (v179 && v180 && (objc_opt_isKindOfClass() & 1) == 0)
+  v178 = objc_opt_class();
+  v179 = [plistCopy objectForKey:@"UTExportedTypeDeclarations"];
+  v180 = v179;
+  if (v178 && v179 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v181 = 0;
+    v180 = 0;
   }
 
   exportedTypes = self->_exportedTypes;
-  self->_exportedTypes = v181;
+  self->_exportedTypes = v180;
 
-  v183 = objc_opt_class();
-  v184 = [plistCopy objectForKey:@"UTImportedTypeDeclarations"];
-  v185 = v184;
-  if (v183 && v184 && (objc_opt_isKindOfClass() & 1) == 0)
+  v182 = objc_opt_class();
+  v183 = [plistCopy objectForKey:@"UTImportedTypeDeclarations"];
+  v184 = v183;
+  if (v182 && v183 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v185 = 0;
+    v184 = 0;
   }
 
   importedTypes = self->_importedTypes;
-  self->_importedTypes = v185;
+  self->_importedTypes = v184;
 
   [(LSBundleRecordBuilder *)self parseDocumentClaimsFromDict:plistCopy];
-  v187 = objc_opt_class();
-  v188 = [plistCopy objectForKey:@"_LSBundlePlugins"];
-  v189 = v188;
-  if (v187 && v188 && (objc_opt_isKindOfClass() & 1) == 0)
+  v186 = objc_opt_class();
+  v187 = [plistCopy objectForKey:@"_LSBundlePlugins"];
+  v188 = v187;
+  if (v186 && v187 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v189 = 0;
+    v188 = 0;
   }
 
   pluginPlists = self->_pluginPlists;
-  self->_pluginPlists = v189;
+  self->_pluginPlists = v188;
 
-  v191 = objc_opt_class();
-  v192 = [plistCopy objectForKey:@"_LSIntentDefinitionURLs"];
-  v193 = v192;
-  if (v191 && v192 && (objc_opt_isKindOfClass() & 1) == 0)
+  v190 = objc_opt_class();
+  v191 = [plistCopy objectForKey:@"_LSIntentDefinitionURLs"];
+  v192 = v191;
+  if (v190 && v191 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v193 = 0;
+    v192 = 0;
   }
 
   intentDefinitionURLs = self->_intentDefinitionURLs;
-  self->_intentDefinitionURLs = v193;
+  self->_intentDefinitionURLs = v192;
 
-  v195 = objc_opt_class();
-  v196 = [plistCopy objectForKey:@"BGTaskSchedulerPermittedIdentifiers"];
-  v197 = v196;
-  if (v195 && v196 && (objc_opt_isKindOfClass() & 1) == 0)
+  v194 = objc_opt_class();
+  v195 = [plistCopy objectForKey:@"BGTaskSchedulerPermittedIdentifiers"];
+  v196 = v195;
+  if (v194 && v195 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v197 = 0;
+    v196 = 0;
   }
 
   bgPermittedIdentifiers = self->_bgPermittedIdentifiers;
-  self->_bgPermittedIdentifiers = v197;
+  self->_bgPermittedIdentifiers = v196;
 
-  v199 = objc_opt_class();
-  v200 = [plistCopy objectForKey:@"CARInstrumentClusterURLSchemes"];
-  v201 = v200;
-  if (v199 && v200 && (objc_opt_isKindOfClass() & 1) == 0)
+  v198 = objc_opt_class();
+  v199 = [plistCopy objectForKey:@"CARInstrumentClusterURLSchemes"];
+  v200 = v199;
+  if (v198 && v199 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v201 = 0;
+    v200 = 0;
   }
 
   carPlayInstrumentClusterURLSchemes = self->_carPlayInstrumentClusterURLSchemes;
-  self->_carPlayInstrumentClusterURLSchemes = v201;
+  self->_carPlayInstrumentClusterURLSchemes = v200;
 
-  v203 = objc_opt_class();
-  v204 = [plistCopy objectForKey:@"GCSupportsControllerUserInteraction"];
-  v205 = v204;
-  if (v203 && v204)
+  v202 = objc_opt_class();
+  v203 = [plistCopy objectForKey:@"GCSupportsControllerUserInteraction"];
+  v204 = v203;
+  if (v202 && v203)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1736,42 +1720,42 @@ LABEL_239:
     }
 
 LABEL_235:
-    if ([v205 BOOLValue])
+    if ([v204 BOOLValue])
     {
-      v206 = 4;
+      v205 = 4;
     }
 
     else
     {
-      v206 = 0;
+      v205 = 0;
     }
 
-    self->_moreFlags = (*&self->_moreFlags & 0xFFFFFFFB | v206);
+    self->_moreFlags = (*&self->_moreFlags & 0xFFFFFFFB | v205);
     goto LABEL_239;
   }
 
-  if (v204)
+  if (v203)
   {
     goto LABEL_235;
   }
 
 LABEL_240:
-  v207 = objc_opt_class();
-  v208 = [plistCopy objectForKey:@"GCSupportedGameControllers"];
-  v209 = v208;
-  if (v207 && v208 && (objc_opt_isKindOfClass() & 1) == 0)
+  v206 = objc_opt_class();
+  v207 = [plistCopy objectForKey:@"GCSupportedGameControllers"];
+  v208 = v207;
+  if (v206 && v207 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v209 = 0;
+    v208 = 0;
   }
 
   supportedGameControllers = self->_supportedGameControllers;
-  self->_supportedGameControllers = v209;
+  self->_supportedGameControllers = v208;
 
-  v211 = objc_opt_class();
-  v212 = [plistCopy objectForKey:@"CoreSpotlightContinuation"];
-  v213 = v212;
-  if (v211 && v212)
+  v210 = objc_opt_class();
+  v211 = [plistCopy objectForKey:@"CoreSpotlightContinuation"];
+  v212 = v211;
+  if (v210 && v211)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1781,30 +1765,30 @@ LABEL_253:
     }
 
 LABEL_249:
-    if ([v213 BOOLValue])
+    if ([v212 BOOLValue])
     {
-      v214 = 8;
+      v213 = 8;
     }
 
     else
     {
-      v214 = 0;
+      v213 = 0;
     }
 
-    self->_moreFlags = (*&self->_moreFlags & 0xFFFFFFF7 | v214);
+    self->_moreFlags = (*&self->_moreFlags & 0xFFFFFFF7 | v213);
     goto LABEL_253;
   }
 
-  if (v212)
+  if (v211)
   {
     goto LABEL_249;
   }
 
 LABEL_254:
-  v215 = objc_opt_class();
-  v216 = [plistCopy objectForKey:@"CoreSpotlightActions"];
-  v217 = v216;
-  if (v215 && v216)
+  v214 = objc_opt_class();
+  v215 = [plistCopy objectForKey:@"CoreSpotlightActions"];
+  v216 = v215;
+  if (v214 && v215)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1812,7 +1796,7 @@ LABEL_254:
     }
   }
 
-  else if (!v216)
+  else if (!v215)
   {
     goto LABEL_261;
   }
@@ -1821,130 +1805,130 @@ LABEL_254:
 LABEL_260:
 
 LABEL_261:
-  v218 = [plistCopy objectForKey:@"GCSupportsGameMode"];
-  v219 = v218 == 0;
+  v217 = [plistCopy objectForKey:@"GCSupportsGameMode"];
+  v218 = v217 == 0;
 
-  if (!v219)
+  if (!v218)
   {
     *&self->_moreFlags |= 0x800000u;
     if ([plistCopy _LS_BoolForKey:@"GCSupportsGameMode"])
     {
-      v220 = 0x1000000;
+      v219 = 0x1000000;
     }
 
     else
     {
-      v220 = 0;
+      v219 = 0;
     }
 
-    self->_moreFlags = (*&self->_moreFlags & 0xFEFFFFFF | v220);
+    self->_moreFlags = (*&self->_moreFlags & 0xFEFFFFFF | v219);
   }
 
-  v221 = [plistCopy objectForKey:@"LSSupportsGameMode"];
-  v222 = v221 == 0;
+  v220 = [plistCopy objectForKey:@"LSSupportsGameMode"];
+  v221 = v220 == 0;
 
-  if (!v222)
+  if (!v221)
   {
     *&self->_moreFlags |= 0x800000u;
     if ([plistCopy _LS_BoolForKey:@"LSSupportsGameMode"])
     {
-      v223 = 0x1000000;
+      v222 = 0x1000000;
     }
 
     else
     {
-      v223 = 0;
+      v222 = 0;
     }
 
-    self->_moreFlags = (*&self->_moreFlags & 0xFEFFFFFF | v223);
+    self->_moreFlags = (*&self->_moreFlags & 0xFEFFFFFF | v222);
   }
 
   if ([plistCopy _LS_BoolForKey:@"_LSIsOnCryptex"])
   {
-    v224 = 0x2000000;
+    v223 = 0x2000000;
   }
 
   else
   {
-    v224 = 0;
+    v223 = 0;
   }
 
-  self->_moreFlags = (*&self->_moreFlags & 0xFDFFFFFF | v224);
-  v225 = objc_opt_class();
-  v226 = [plistCopy objectForKey:@"_LSLocalizedStringsDictionary"];
-  v227 = v226;
-  if (v225 && v226)
+  self->_moreFlags = (*&self->_moreFlags & 0xFDFFFFFF | v223);
+  v224 = objc_opt_class();
+  v225 = [plistCopy objectForKey:@"_LSLocalizedStringsDictionary"];
+  v226 = v225;
+  if (v224 && v225)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v227 = 0;
+      v226 = 0;
       goto LABEL_295;
     }
   }
 
-  else if (!v226)
+  else if (!v225)
   {
     goto LABEL_295;
   }
 
+  v227 = objc_opt_class();
   v228 = objc_opt_class();
-  v229 = objc_opt_class();
-  if (_LSIsDictionaryWithKeysAndValuesOfClass(v227, v228, v229))
+  if (_LSIsDictionaryWithKeysAndValuesOfClass(v226, v227, v228))
   {
     *buf = 0;
     *&buf[8] = buf;
-    *&v300 = 0x2020000000;
-    BYTE8(v300) = 1;
-    v297[0] = MEMORY[0x1E69E9820];
-    v297[1] = 3221225472;
-    v297[2] = __40__LSBundleRecordBuilder_parseInfoPlist___block_invoke;
-    v297[3] = &unk_1E6A1B058;
-    v297[4] = buf;
-    [v227 enumerateKeysAndObjectsUsingBlock:v297];
+    *&v298 = 0x2020000000;
+    BYTE8(v298) = 1;
+    v295[0] = MEMORY[0x1E69E9820];
+    v295[1] = 3221225472;
+    v295[2] = __40__LSBundleRecordBuilder_parseInfoPlist___block_invoke;
+    v295[3] = &unk_1E6A1B058;
+    v295[4] = buf;
+    [v226 enumerateKeysAndObjectsUsingBlock:v295];
     if (*(*&buf[8] + 24) == 1)
     {
-      objc_storeStrong(&self->_localizedStrings, v227);
-      v230 = [v227 objectForKeyedSubscript:v285];
-      v231 = v230;
-      if (v230 && [v230 count])
+      objc_storeStrong(&self->_localizedStrings, v226);
+      v229 = [v226 objectForKeyedSubscript:v283];
+      v230 = v229;
+      if (v229 && [v229 count])
       {
-        objc_storeStrong(&self->_localizedNames, v231);
+        objc_storeStrong(&self->_localizedNames, v230);
       }
 
-      v232 = [v227 objectForKeyedSubscript:v286];
-      v233 = v232;
-      if (v232 && [v232 count])
+      v231 = [v226 objectForKeyedSubscript:v284];
+      v232 = v231;
+      if (v231 && [v231 count])
       {
-        objc_storeStrong(&self->_localizedShortNames, v233);
+        objc_storeStrong(&self->_localizedShortNames, v232);
       }
 
-      v234 = [v227 objectForKeyedSubscript:@"NSMicrophoneUsageDescription"];
-      v235 = v234;
-      if (v234 && [v234 count])
+      v233 = [v226 objectForKeyedSubscript:@"NSMicrophoneUsageDescription"];
+      v234 = v233;
+      if (v233 && [v233 count])
       {
-        objc_storeStrong(&self->_localizedMicrophoneUsageDescription, v235);
+        objc_storeStrong(&self->_localizedMicrophoneUsageDescription, v234);
       }
 
-      v236 = [v227 objectForKeyedSubscript:@"NSIdentityUsageDescription"];
-      v237 = v236;
-      if (v236 && [v236 count])
+      v235 = [v226 objectForKeyedSubscript:@"NSIdentityUsageDescription"];
+      v236 = v235;
+      if (v235 && [v235 count])
       {
-        objc_storeStrong(&self->_localizedIdentityUsageDescription, v237);
+        objc_storeStrong(&self->_localizedIdentityUsageDescription, v236);
       }
 
-      v238 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v294[0] = MEMORY[0x1E69E9820];
-      v294[1] = 3221225472;
-      v294[2] = __40__LSBundleRecordBuilder_parseInfoPlist___block_invoke_2;
-      v294[3] = &unk_1E6A1B080;
-      v239 = v238;
-      v295 = v239;
-      v296 = plistCopy;
-      _LSBundleDisplayNameContextEnumerate(v294);
-      v240 = [v239 copy];
+      v237 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v292[0] = MEMORY[0x1E69E9820];
+      v292[1] = 3221225472;
+      v292[2] = __40__LSBundleRecordBuilder_parseInfoPlist___block_invoke_2;
+      v292[3] = &unk_1E6A1B080;
+      v238 = v237;
+      v293 = v238;
+      v294 = plistCopy;
+      _LSBundleDisplayNameContextEnumerate(v292);
+      v239 = [v238 copy];
       unlocalizedNamesWithContext = self->_unlocalizedNamesWithContext;
-      self->_unlocalizedNamesWithContext = v240;
+      self->_unlocalizedNamesWithContext = v239;
     }
 
     _Block_object_dispose(buf, 8);
@@ -1953,77 +1937,77 @@ LABEL_261:
 LABEL_295:
 
   *&self->_baseFlags = (2 * *&self->_baseFlags) & 0x20 | *&self->_baseFlags & 0xDF;
-  v242 = objc_opt_class();
-  v243 = [plistCopy objectForKey:@"bundlePersonas"];
-  v244 = v243;
-  if (v242 && v243 && (objc_opt_isKindOfClass() & 1) == 0)
+  v241 = objc_opt_class();
+  v242 = [plistCopy objectForKey:@"bundlePersonas"];
+  v243 = v242;
+  if (v241 && v242 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v244 = 0;
+    v243 = 0;
   }
 
   bundlePersonas = self->_bundlePersonas;
-  self->_bundlePersonas = v244;
+  self->_bundlePersonas = v243;
 
-  v246 = [plistCopy objectForKey:@"_LSUsesSystemPersona"];
-  bOOLValue = [v246 BOOLValue];
+  v245 = [plistCopy objectForKey:@"_LSUsesSystemPersona"];
+  bOOLValue = [v245 BOOLValue];
 
   if (bOOLValue)
   {
     [(LSBundleRecordBuilder *)self addBundleFlag:0x100000000000000];
   }
 
-  v292 = 0u;
-  v293 = 0u;
   v290 = 0u;
   v291 = 0u;
-  v248 = self->_bundlePersonas;
-  v249 = [(NSArray *)v248 countByEnumeratingWithState:&v290 objects:v298 count:16];
-  if (v249)
+  v288 = 0u;
+  v289 = 0u;
+  v247 = self->_bundlePersonas;
+  v248 = [(NSArray *)v247 countByEnumeratingWithState:&v288 objects:v296 count:16];
+  if (v248)
   {
-    v250 = *v291;
+    v249 = *v289;
     do
     {
-      for (i = 0; i != v249; ++i)
+      for (i = 0; i != v248; ++i)
       {
-        if (*v291 != v250)
+        if (*v289 != v249)
         {
-          objc_enumerationMutation(v248);
+          objc_enumerationMutation(v247);
         }
 
-        v252 = *(*(&v290 + 1) + 8 * i);
-        if ([(_LSPersonaWithAttributes *)v252 personaType]!= 1 && [(_LSPersonaWithAttributes *)v252 personaType]!= 3)
+        v251 = *(*(&v288 + 1) + 8 * i);
+        if ([(_LSPersonaWithAttributes *)v251 personaType]!= 1 && [(_LSPersonaWithAttributes *)v251 personaType]!= 3)
         {
           *&self->_baseFlags &= ~0x20u;
         }
       }
 
-      v249 = [(NSArray *)v248 countByEnumeratingWithState:&v290 objects:v298 count:16];
+      v248 = [(NSArray *)v247 countByEnumeratingWithState:&v288 objects:v296 count:16];
     }
 
-    while (v249);
+    while (v248);
   }
 
-  v253 = objc_opt_class();
-  v254 = [plistCopy objectForKey:@"_LSDirectoryClass"];
-  v255 = v254;
-  if (v253 && v254 && (objc_opt_isKindOfClass() & 1) == 0)
+  v252 = objc_opt_class();
+  v253 = [plistCopy objectForKey:@"_LSDirectoryClass"];
+  v254 = v253;
+  if (v252 && v253 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v255 = 0;
+    v254 = 0;
   }
 
   directoryClass = self->_directoryClass;
-  self->_directoryClass = v255;
+  self->_directoryClass = v254;
 
   [(LSBundleRecordBuilder *)self parseURLClaimsFromDict:plistCopy];
   [(LSBundleRecordBuilder *)self parseIconFilenamesFromDict:plistCopy forPlatform:self->_platform];
   [(LSBundleRecordBuilder *)self parseDeviceFamilyFromDict:plistCopy];
   [(LSBundleRecordBuilder *)self parseArchitecturesFromDict:plistCopy];
-  v257 = objc_opt_class();
-  v258 = [plistCopy objectForKey:@"_LSRequiresGarbageCollection"];
-  v259 = v258;
-  if (v257 && v258)
+  v256 = objc_opt_class();
+  v257 = [plistCopy objectForKey:@"_LSRequiresGarbageCollection"];
+  v258 = v257;
+  if (v256 && v257)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2033,30 +2017,30 @@ LABEL_324:
     }
 
 LABEL_320:
-    if ([v259 BOOLValue])
+    if ([v258 BOOLValue])
     {
-      v260 = 2;
+      v259 = 2;
     }
 
     else
     {
-      v260 = 0;
+      v259 = 0;
     }
 
-    *&self->_baseFlags = *&self->_baseFlags & 0xFD | v260;
+    *&self->_baseFlags = *&self->_baseFlags & 0xFD | v259;
     goto LABEL_324;
   }
 
-  if (v258)
+  if (v257)
   {
     goto LABEL_320;
   }
 
 LABEL_325:
-  v261 = objc_opt_class();
-  v262 = [plistCopy objectForKey:@"NSBuiltWithThreadSanitizer"];
-  v263 = v262;
-  if (v261 && v262)
+  v260 = objc_opt_class();
+  v261 = [plistCopy objectForKey:@"NSBuiltWithThreadSanitizer"];
+  v262 = v261;
+  if (v260 && v261)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2066,45 +2050,45 @@ LABEL_334:
     }
 
 LABEL_330:
-    if ([v263 BOOLValue])
+    if ([v262 BOOLValue])
     {
-      v264 = 4;
+      v263 = 4;
     }
 
     else
     {
-      v264 = 0;
+      v263 = 0;
     }
 
-    *&self->_baseFlags = *&self->_baseFlags & 0xFB | v264;
+    *&self->_baseFlags = *&self->_baseFlags & 0xFB | v263;
     goto LABEL_334;
   }
 
-  if (v262)
+  if (v261)
   {
     goto LABEL_330;
   }
 
 LABEL_335:
-  v265 = objc_opt_class();
-  v266 = [plistCopy objectForKey:@"LSExecutableFormat"];
-  v267 = v266;
-  if (v265 && v266)
+  v264 = objc_opt_class();
+  v265 = [plistCopy objectForKey:@"LSExecutableFormat"];
+  v266 = v265;
+  if (v264 && v265)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v267 = 0;
+      v266 = 0;
       goto LABEL_342;
     }
   }
 
-  else if (!v266)
+  else if (!v265)
   {
     goto LABEL_342;
   }
 
-  if ([v267 isEqualToString:@"LSExecutable#!Format"])
+  if ([v266 isEqualToString:@"LSExecutable#!Format"])
   {
     [(LSBundleRecordBuilder *)self addBundleFlag:16];
   }
@@ -2112,21 +2096,21 @@ LABEL_335:
 LABEL_342:
   if (self->_inode)
   {
-    v268 = 0;
+    v267 = 0;
   }
 
   else
   {
-    v269 = [plistCopy objectForKey:*MEMORY[0x1E695E4E8]];
-    v268 = v269 != 0;
+    v268 = [plistCopy objectForKey:*MEMORY[0x1E695E4E8]];
+    v267 = v268 != 0;
   }
 
-  v270 = objc_opt_class();
-  v271 = [plistCopy objectForKey:@"LSEligibilityInstallPredicate"];
-  v272 = v271;
-  if (!v270 || !v271)
+  v269 = objc_opt_class();
+  v270 = [plistCopy objectForKey:@"LSEligibilityInstallPredicate"];
+  v271 = v270;
+  if (!v269 || !v270)
   {
-    if (!v271)
+    if (!v270)
     {
       goto LABEL_351;
     }
@@ -2144,29 +2128,29 @@ LABEL_356:
   }
 
 LABEL_351:
-  v273 = objc_opt_class();
-  v274 = [plistCopy objectForKey:@"LSEligibilityUninstallPredicate"];
-  v275 = v274;
-  if (v273 && v274 && (objc_opt_isKindOfClass() & 1) == 0)
+  v272 = objc_opt_class();
+  v273 = [plistCopy objectForKey:@"LSEligibilityUninstallPredicate"];
+  v274 = v273;
+  if (v272 && v273 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v275 = 0;
+    v274 = 0;
   }
 
-  if (v275)
+  if (v274)
   {
     goto LABEL_356;
   }
 
 LABEL_357:
-  v276 = objc_opt_class();
-  v277 = [plistCopy objectForKey:@"LSRequiredFeatureFlags"];
-  v278 = v277;
-  if (v276 && v277)
+  v275 = objc_opt_class();
+  v276 = [plistCopy objectForKey:@"LSRequiredFeatureFlags"];
+  v277 = v276;
+  if (v275 && v276)
   {
-    v279 = objc_opt_isKindOfClass();
+    v278 = objc_opt_isKindOfClass();
 
-    if ((v279 & 1) == 0)
+    if ((v278 & 1) == 0)
     {
       goto LABEL_363;
     }
@@ -2174,33 +2158,31 @@ LABEL_357:
     goto LABEL_362;
   }
 
-  v280 = v277 == 0;
+  v279 = v276 == 0;
 
-  if (!v280)
+  if (!v279)
   {
 LABEL_362:
     [(LSBundleRecordBuilder *)self addPlistFlag:0x4000000];
   }
 
 LABEL_363:
-  if (v268)
+  if (v267)
   {
-    [(LSBundleRecordBuilder *)self addBundleFlag:512];
-    v281 = _LSInstallLog();
-    if (os_log_type_enabled(v281, OS_LOG_TYPE_DEFAULT))
+    v280 = _LSInstallLog([(LSBundleRecordBuilder *)self addBundleFlag:512]);
+    if (os_log_type_enabled(v280, OS_LOG_TYPE_DEFAULT))
     {
-      v282 = self->_identifier;
+      v281 = self->_identifier;
       *buf = 138412290;
-      *&buf[4] = v282;
-      _os_log_impl(&dword_18162D000, v281, OS_LOG_TYPE_DEFAULT, "Placeholder detected - Flagging bundle %@ incomplete", buf, 0xCu);
+      *&buf[4] = v281;
+      _os_log_impl(&dword_18162D000, v280, OS_LOG_TYPE_DEFAULT, "Placeholder detected - Flagging bundle %@ incomplete", buf, 0xCu);
     }
   }
 
-  v25 = 1;
+  v24 = 1;
 LABEL_368:
 
-  v283 = *MEMORY[0x1E69E9840];
-  return v25;
+  return v24;
 }
 
 void __40__LSBundleRecordBuilder_parseInfoPlist___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -2252,7 +2234,7 @@ void __40__LSBundleRecordBuilder_parseInfoPlist___block_invoke_2(uint64_t a1, ui
 
 - (BOOL)parseInstallationInfo:(id)info
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = _NSIsNSDictionary();
   if ((v5 & 1) == 0)
@@ -2487,137 +2469,137 @@ LABEL_35:
   serializedPlaceholderPath = self->_serializedPlaceholderPath;
   self->_serializedPlaceholderPath = v70;
 
-  if ([(NSString *)self->_appType isEqualToString:@"SystemAppPlaceholder"])
+  v72 = [(NSString *)self->_appType isEqualToString:@"SystemAppPlaceholder"];
+  if (v72)
   {
     self->_bundleClass = 14;
-    v72 = _LSRegistrationLog();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+    v73 = _LSRegistrationLog(v72);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
     {
       identifier = self->_identifier;
-      v151 = 138412290;
-      v152 = identifier;
-      _os_log_impl(&dword_18162D000, v72, OS_LOG_TYPE_DEBUG, "Setting LSBundleClassSystemPlaceholder for app %@", &v151, 0xCu);
+      v150 = 138412290;
+      v151 = identifier;
+      _os_log_impl(&dword_18162D000, v73, OS_LOG_TYPE_DEBUG, "Setting LSBundleClassSystemPlaceholder for app %@", &v150, 0xCu);
     }
   }
 
-  v74 = objc_opt_class();
-  v75 = [infoCopy objectForKey:@"WatchKitVersion"];
-  v76 = v75;
-  if (v74 && v75 && (objc_opt_isKindOfClass() & 1) == 0)
+  v75 = objc_opt_class();
+  v76 = [infoCopy objectForKey:@"WatchKitVersion"];
+  v77 = v76;
+  if (v75 && v76 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v76 = 0;
+    v77 = 0;
   }
 
   watchKitVersion = self->_watchKitVersion;
-  self->_watchKitVersion = v76;
+  self->_watchKitVersion = v77;
 
-  v78 = objc_opt_class();
-  v79 = [infoCopy objectForKey:@"ComplicationPrincipalClass"];
-  v80 = v79;
-  if (v78 && v79 && (objc_opt_isKindOfClass() & 1) == 0)
+  v79 = objc_opt_class();
+  v80 = [infoCopy objectForKey:@"ComplicationPrincipalClass"];
+  v81 = v80;
+  if (v79 && v80 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v80 = 0;
+    v81 = 0;
   }
 
   complicationPrincipalClass = self->_complicationPrincipalClass;
-  self->_complicationPrincipalClass = v80;
+  self->_complicationPrincipalClass = v81;
 
-  v82 = objc_opt_class();
-  v83 = [infoCopy objectForKey:@"StaticDiskUsage"];
-  v84 = v83;
-  if (v82 && v83 && (objc_opt_isKindOfClass() & 1) == 0)
+  v83 = objc_opt_class();
+  v84 = [infoCopy objectForKey:@"StaticDiskUsage"];
+  v85 = v84;
+  if (v83 && v84 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v84 = 0;
+    v85 = 0;
   }
 
   staticDiskUsage = self->_staticDiskUsage;
-  self->_staticDiskUsage = v84;
+  self->_staticDiskUsage = v85;
 
-  v86 = objc_opt_class();
-  v87 = [infoCopy objectForKey:@"SupportedComplicationFamilies"];
-  v88 = v87;
-  if (v86 && v87 && (objc_opt_isKindOfClass() & 1) == 0)
+  v87 = objc_opt_class();
+  v88 = [infoCopy objectForKey:@"SupportedComplicationFamilies"];
+  v89 = v88;
+  if (v87 && v88 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v88 = 0;
+    v89 = 0;
   }
 
   supportedComplicationFamilies = self->_supportedComplicationFamilies;
-  self->_supportedComplicationFamilies = v88;
+  self->_supportedComplicationFamilies = v89;
 
-  v90 = objc_opt_class();
-  v91 = [infoCopy objectForKey:@"LSCounterpartIdentifiers"];
-  v92 = v91;
-  if (v90 && v91)
+  v91 = objc_opt_class();
+  v92 = [infoCopy objectForKey:@"LSCounterpartIdentifiers"];
+  v93 = v92;
+  if (v91 && v92)
   {
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 
-      v92 = 0;
+      v93 = 0;
       goto LABEL_102;
     }
   }
 
-  else if (!v91)
+  else if (!v92)
   {
     goto LABEL_102;
   }
 
-  [(NSMutableSet *)self->_counterpartAppBundleIDs addObjectsFromArray:v92];
-  [(NSMutableSet *)self->_equivalentBundleIDs addObjectsFromArray:v92];
+  [(NSMutableSet *)self->_counterpartAppBundleIDs addObjectsFromArray:v93];
+  [(NSMutableSet *)self->_equivalentBundleIDs addObjectsFromArray:v93];
 LABEL_102:
-  v93 = objc_opt_class();
-  v94 = [infoCopy objectForKey:@"GroupContainers"];
-  v95 = v94;
-  if (v93 && v94 && (objc_opt_isKindOfClass() & 1) == 0)
+  v94 = objc_opt_class();
+  v95 = [infoCopy objectForKey:@"GroupContainers"];
+  v96 = v95;
+  if (v94 && v95 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v95 = 0;
+    v96 = 0;
   }
 
   groupContainers = self->_groupContainers;
-  self->_groupContainers = v95;
+  self->_groupContainers = v96;
 
-  v97 = objc_opt_class();
-  v98 = [infoCopy objectForKey:@"EnvironmentVariables"];
-  v99 = v98;
-  if (v97 && v98 && (objc_opt_isKindOfClass() & 1) == 0)
+  v98 = objc_opt_class();
+  v99 = [infoCopy objectForKey:@"EnvironmentVariables"];
+  v100 = v99;
+  if (v98 && v99 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v99 = 0;
+    v100 = 0;
   }
 
   sandboxEnvironmentVariables = self->_sandboxEnvironmentVariables;
-  self->_sandboxEnvironmentVariables = v99;
+  self->_sandboxEnvironmentVariables = v100;
 
-  v101 = objc_opt_class();
-  v102 = [infoCopy objectForKey:@"_LSBundlePlugins"];
-  v103 = v102;
-  if (v101 && v102 && (objc_opt_isKindOfClass() & 1) == 0)
+  v102 = objc_opt_class();
+  v103 = [infoCopy objectForKey:@"_LSBundlePlugins"];
+  v104 = v103;
+  if (v102 && v103 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v103 = 0;
+    v104 = 0;
   }
 
   pluginMIDicts = self->_pluginMIDicts;
-  self->_pluginMIDicts = v103;
+  self->_pluginMIDicts = v104;
 
-  v105 = objc_opt_class();
-  v106 = [infoCopy objectForKey:@"DriverKitExtensionPaths"];
-  v107 = v106;
-  if (v105 && v106 && (objc_opt_isKindOfClass() & 1) == 0)
+  v106 = objc_opt_class();
+  v107 = [infoCopy objectForKey:@"DriverKitExtensionPaths"];
+  v108 = v107;
+  if (v106 && v107 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v107 = 0;
+    v108 = 0;
   }
 
   driverExtensionPaths = self->_driverExtensionPaths;
-  self->_driverExtensionPaths = v107;
+  self->_driverExtensionPaths = v108;
 
-  platform = self->_platform;
   v110 = _LSGetTeamIdentifierFromInstallDict(infoCopy);
   teamID = self->_teamID;
   self->_teamID = v110;
@@ -2784,7 +2766,6 @@ LABEL_102:
   self->_moreFlags = (*&self->_moreFlags & 0xFFBFFFFF | v148);
 
 LABEL_170:
-  v149 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -2945,31 +2926,32 @@ LABEL_20:
 
         v16 = *(*(&v29 + 1) + 8 * i);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
-          v19 = _LSExtensionsLog();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v20 = _LSExtensionsLog(isKindOfClass);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v20 = objc_opt_class();
-            v21 = NSStringFromClass(v20);
-            [(LSBundleRecordBuilder *)v21 parseNSExtensionSDKDefinitionsFromDictionary:buf, v19];
+            v21 = objc_opt_class();
+            v22 = NSStringFromClass(v21);
+            [(LSBundleRecordBuilder *)v22 parseNSExtensionSDKDefinitionsFromDictionary:buf, v20];
           }
 
           goto LABEL_28;
         }
 
-        v17 = _LSExtensionsLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = _LSExtensionsLog(isKindOfClass);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v34 = v16;
-          _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Registering extension point definition: %@", buf, 0xCu);
+          _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "Registering extension point definition: %@", buf, 0xCu);
         }
 
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v16];
-        if (v18)
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v16];
+        if (v19)
         {
-          [v28 addEntriesFromDictionary:v18];
+          [v28 addEntriesFromDictionary:v19];
         }
       }
 
@@ -2987,18 +2969,17 @@ LABEL_28:
 
   if ([v28 count])
   {
-    v22 = [v28 copy];
+    v23 = [v28 copy];
     extensionSDK = selfCopy->_extensionSDK;
-    selfCopy->_extensionSDK = v22;
+    selfCopy->_extensionSDK = v23;
   }
 
   objc_autoreleasePoolPop(context);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (LSBundleData)buildBundleData:(SEL)data error:(id)error
 {
-  v220 = *MEMORY[0x1E69E9840];
+  v219 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   bzero(retstr, 0x238uLL);
   retries = self->_retries;
@@ -3007,19 +2988,19 @@ LABEL_28:
   __src = retstr;
   retstr->_clas = self->_bundleClass;
   bundleAlias = self->_bundleAlias;
-  v207 = 0;
-  v181 = errorCopy;
-  obj = _LSAliasAdd(errorCopy, bundleAlias, &v207);
-  v10 = v207;
+  v206 = 0;
+  v180 = errorCopy;
+  obj = _LSAliasAdd(errorCopy, bundleAlias, &v206);
+  v10 = v206;
   v11 = obj;
-  v175 = v10;
+  v174 = v10;
   if (!obj)
   {
     v12 = _LSGetOSStatusFromNSError(v10);
     v11 = 0;
     if (v12)
     {
-      v27 = v175;
+      v29 = v174;
 LABEL_116:
       if (a5)
       {
@@ -3045,10 +3026,10 @@ LABEL_116:
 
   Current = CFAbsoluteTimeGetCurrent();
   _LSBundleDataSetRegTime(retstr, Current);
-  v15 = CFAbsoluteTimeGetCurrent();
+  v16 = CFAbsoluteTimeGetCurrent();
   p_appStoreToolsBuildVersion = &retstr->appStoreToolsBuildVersion;
   hfsType = self->_hfsType;
-  retstr->localizedNameWithContext[0] = v15;
+  retstr->localizedNameWithContext[0] = v16;
   retstr->moreFlags = hfsType;
   retstr->base.platform = self->_platform;
   compatibilityState = self->_compatibilityState;
@@ -3056,18 +3037,19 @@ LABEL_116:
   if (compatibilityState)
   {
     unsignedLongLongValue = [(NSNumber *)compatibilityState unsignedLongLongValue];
+    v21 = unsignedLongLongValue;
     *(&retstr->sequenceNumber + 4) = unsignedLongLongValue;
     if (unsignedLongLongValue)
     {
-      v20 = _LSRegistrationLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = _LSRegistrationLog(unsignedLongLongValue);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         identifier = self->_identifier;
         *buf = 138412546;
         *&buf[4] = identifier;
         *&buf[12] = 2048;
-        *&buf[14] = unsignedLongLongValue;
-        _os_log_impl(&dword_18162D000, v20, OS_LOG_TYPE_DEBUG, "Registering app %@ with compatibility state %llu", buf, 0x16u);
+        *&buf[14] = v21;
+        _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_DEBUG, "Registering app %@ with compatibility state %llu", buf, 0x16u);
       }
     }
   }
@@ -3075,40 +3057,41 @@ LABEL_116:
   installFailureReason = self->_installFailureReason;
   if (installFailureReason)
   {
-    unsignedLongLongValue2 = [(NSNumber *)installFailureReason unsignedLongLongValue];
-    *(p_appStoreToolsBuildVersion + 8) = unsignedLongLongValue2;
-    if (unsignedLongLongValue2)
+    installFailureReason = [(NSNumber *)installFailureReason unsignedLongLongValue];
+    v25 = installFailureReason;
+    *(p_appStoreToolsBuildVersion + 8) = installFailureReason;
+    if (installFailureReason)
     {
-      v24 = _LSRegistrationLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = _LSRegistrationLog(installFailureReason);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v25 = self->_identifier;
+        v27 = self->_identifier;
         *buf = 138412546;
-        *&buf[4] = v25;
+        *&buf[4] = v27;
         *&buf[12] = 2048;
-        *&buf[14] = unsignedLongLongValue2;
-        _os_log_impl(&dword_18162D000, v24, OS_LOG_TYPE_ERROR, "Registering app %@ with install failure reason %llu", buf, 0x16u);
+        *&buf[14] = v25;
+        _os_log_impl(&dword_18162D000, v26, OS_LOG_TYPE_ERROR, "Registering app %@ with install failure reason %llu", buf, 0x16u);
       }
     }
   }
 
-  if (([__LSDefaultsGetSharedInstance() isInEducationMode] & 1) != 0 || (dataContainerURL = self->_dataContainerURL) == 0)
+  if (([__LSDefaultsGetSharedInstance(installFailureReason v15)] & 1) != 0 || (dataContainerURL = self->_dataContainerURL) == 0)
   {
-    v173 = 0;
-    v27 = v175;
+    v172 = 0;
+    v29 = v174;
   }
 
   else
   {
-    v206 = v175;
-    v173 = _LSAliasAddURL(errorCopy, dataContainerURL, &v206);
-    v27 = v206;
+    v205 = v174;
+    v172 = _LSAliasAddURL(errorCopy, dataContainerURL, &v205);
+    v29 = v205;
 
-    if (!v173)
+    if (!v172)
     {
-      v12 = _LSGetOSStatusFromNSError(v27);
-      v173 = 0;
+      v12 = _LSGetOSStatusFromNSError(v29);
       v172 = 0;
+      v171 = 0;
       if (v12)
       {
         goto LABEL_110;
@@ -3116,21 +3099,21 @@ LABEL_116:
     }
   }
 
-  __src->base.dataContainerAlias = v173;
+  __src->base.dataContainerAlias = v172;
   bundleContainerURL = self->_bundleContainerURL;
   if (bundleContainerURL)
   {
-    v205 = v27;
-    v29 = _LSAliasAddURL(errorCopy, bundleContainerURL, &v205);
-    v176 = v205;
+    v204 = v29;
+    v31 = _LSAliasAddURL(errorCopy, bundleContainerURL, &v204);
+    v175 = v204;
 
-    if (!v29)
+    if (!v31)
     {
-      v12 = _LSGetOSStatusFromNSError(v176);
-      v29 = 0;
+      v12 = _LSGetOSStatusFromNSError(v175);
+      v31 = 0;
       if (v12)
       {
-        v172 = 0;
+        v171 = 0;
         goto LABEL_109;
       }
     }
@@ -3138,32 +3121,30 @@ LABEL_116:
 
   else
   {
-    v29 = 0;
-    v176 = v27;
+    v31 = 0;
+    v175 = v29;
   }
 
-  v172 = v29;
-  __src->activityTypes = v29;
-  version = self->_version;
-  if (version || (version = self->_shortVersionString) != 0)
+  v171 = v31;
+  __src->activityTypes = v31;
+  if (self->_version || self->_shortVersionString)
   {
-    _LSVersionNumberMakeWithString(buf, version);
-    v31 = *buf;
-    v32 = *&buf[16];
+    _LSVersionNumberMakeWithString();
+    v32 = *buf;
+    v33 = *&buf[16];
   }
 
   else
   {
-    v31 = kLSVersionNumberNull;
-    v32 = unk_1817E90C0;
+    v32 = kLSVersionNumberNull;
+    v33 = unk_1817E90C0;
   }
 
-  *__src->base.version._opaque = v31;
-  *&__src->base.version._opaque[16] = v32;
-  minSystemVersion = self->_minSystemVersion;
-  if (minSystemVersion)
+  *__src->base.version._opaque = v32;
+  *&__src->base.version._opaque[16] = v33;
+  if (self->_minSystemVersion)
   {
-    _LSVersionNumberMakeWithString(buf, minSystemVersion);
+    _LSVersionNumberMakeWithString();
     v34 = *buf;
     v35 = *&buf[16];
   }
@@ -3178,38 +3159,37 @@ LABEL_116:
   *&__src->minSystemVersionPlatform = v34;
   *&__src->_minSystemVersion._opaque[12] = v35;
   __src->_mtime = self->_minSystemVersionPlatform;
-  maxSystemVersion = self->_maxSystemVersion;
-  if (maxSystemVersion)
+  if (self->_maxSystemVersion)
   {
-    _LSVersionNumberMakeWithString(buf, maxSystemVersion);
-    v38 = *buf;
-    v39 = *&buf[16];
+    _LSVersionNumberMakeWithString();
+    v37 = *buf;
+    v38 = *&buf[16];
     v36 = __src;
   }
 
   else
   {
-    v38 = kLSVersionNumberNull;
-    v39 = unk_1817E90C0;
+    v37 = kLSVersionNumberNull;
+    v38 = unk_1817E90C0;
   }
 
-  *&v36->_minSystemVersion._opaque[28] = v38;
-  *&v36->_maxSystemVersion._opaque[12] = v39;
-  v40 = *&self->_sdkVersionNumber._opaque[16];
+  *&v36->_minSystemVersion._opaque[28] = v37;
+  *&v36->_maxSystemVersion._opaque[12] = v38;
+  v39 = *&self->_sdkVersionNumber._opaque[16];
   *v36->base.execSDKVersion._opaque = *self->_sdkVersionNumber._opaque;
-  *&v36->base.execSDKVersion._opaque[16] = v40;
-  *&__src->_maxSystemVersion._opaque[28] = _LSDatabaseCreateStringForCFString(v181, self->_appStoreToolsBuildVersion, 0);
+  *&v36->base.execSDKVersion._opaque[16] = v39;
+  *&__src->_maxSystemVersion._opaque[28] = _LSDatabaseCreateStringForCFString(v180, self->_appStoreToolsBuildVersion, 0);
   installType = self->_installType;
   if (installType && [(NSNumber *)installType unsignedLongLongValue])
   {
     previousInstallType = [(NSNumber *)self->_installType unsignedLongLongValue];
-    v43 = v181;
+    v42 = v180;
   }
 
   else
   {
     previousInstallType = self->_previousInstallType;
-    v43 = v181;
+    v42 = v180;
     if (!previousInstallType)
     {
       goto LABEL_40;
@@ -3273,112 +3253,112 @@ LABEL_40:
     __src->storefront = [(NSNumber *)versionID unsignedLongLongValue];
   }
 
-  LODWORD(__src->versionIdentifier) = _LSDatabaseCreateStringForCFString(v43, self->_sourceAppBundleID, 0);
-  __src->deviceFamilies = _LSDatabaseCreateStringForCFString(v181, self->_identifier, 1);
-  __src->base.exactIdentifier = _LSDatabaseCreateStringForCFString(v181, self->_identifier, 0);
-  __src->base.bundleName = _LSDatabaseCreateStringForCFString(v181, self->_bundleName, 0);
-  __src->base.execPath = _LSDatabaseCreateStringForCFString(v181, self->_execPath, 0);
-  __src->base.displayName = _LSDatabaseCreateStringForCFString(v181, self->_displayName, 0);
-  __src->filename = _LSDatabaseCreateStringForCFString(v181, self->_version, 0);
-  __src->bundleVersion = _LSDatabaseCreateStringForCFString(v181, self->_shortVersionString, 0);
-  HIDWORD(__src->installFailureReason) = _LSDatabaseCreateStringForCFString(v181, self->_vendorName, 0);
+  LODWORD(__src->versionIdentifier) = _LSDatabaseCreateStringForCFString(v42, self->_sourceAppBundleID, 0);
+  __src->deviceFamilies = _LSDatabaseCreateStringForCFString(v180, self->_identifier, 1);
+  __src->base.exactIdentifier = _LSDatabaseCreateStringForCFString(v180, self->_identifier, 0);
+  __src->base.bundleName = _LSDatabaseCreateStringForCFString(v180, self->_bundleName, 0);
+  __src->base.execPath = _LSDatabaseCreateStringForCFString(v180, self->_execPath, 0);
+  __src->base.displayName = _LSDatabaseCreateStringForCFString(v180, self->_displayName, 0);
+  __src->filename = _LSDatabaseCreateStringForCFString(v180, self->_version, 0);
+  __src->bundleVersion = _LSDatabaseCreateStringForCFString(v180, self->_shortVersionString, 0);
+  HIDWORD(__src->installFailureReason) = _LSDatabaseCreateStringForCFString(v180, self->_vendorName, 0);
   appType = self->_appType;
   if (appType)
   {
     if ([(NSString *)appType isEqualToString:@"CoreServices"])
     {
-      StringForCFString = _LSDatabaseCreateStringForCFString(v181, @"Hidden", 0);
+      StringForCFString = _LSDatabaseCreateStringForCFString(v180, @"Hidden", 0);
       goto LABEL_64;
     }
 
-    v55 = self->_appType;
+    v54 = self->_appType;
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
-  StringForCFString = _LSDatabaseCreateStringForCFString(v181, v55, 0);
+  StringForCFString = _LSDatabaseCreateStringForCFString(v180, v54, 0);
 LABEL_64:
   __src->vendorName = StringForCFString;
-  HIDWORD(__src->familyID) = _LSDatabaseCreateStringForCFString(v181, self->_itemName, 0);
-  HIDWORD(__src->versionIdentifier) = _LSDatabaseCreateStringForCFString(v181, self->_appVariant, 0);
-  __src->sourceAppBundleID = _LSDatabaseCreateStringForCFString(v181, self->_managementDeclarationIdentifier, 0);
+  HIDWORD(__src->familyID) = _LSDatabaseCreateStringForCFString(v180, self->_itemName, 0);
+  HIDWORD(__src->versionIdentifier) = _LSDatabaseCreateStringForCFString(v180, self->_appVariant, 0);
+  __src->sourceAppBundleID = _LSDatabaseCreateStringForCFString(v180, self->_managementDeclarationIdentifier, 0);
   counterpartAppBundleIDs = self->_counterpartAppBundleIDs;
   if (counterpartAppBundleIDs)
   {
     allObjects = [(NSMutableSet *)counterpartAppBundleIDs allObjects];
-    __src->identifier = _LSDatabaseCreateStringArray(v181, allObjects, 0, 0);
+    __src->identifier = _LSDatabaseCreateStringArray(v180, allObjects, 0, 0);
   }
 
   equivalentBundleIDs = self->_equivalentBundleIDs;
   if (equivalentBundleIDs)
   {
     allObjects2 = [(NSMutableSet *)equivalentBundleIDs allObjects];
-    __src->counterpartIdentifiers = _LSDatabaseCreateStringArray(v181, allObjects2, 0, 0);
+    __src->counterpartIdentifiers = _LSDatabaseCreateStringArray(v180, allObjects2, 0, 0);
   }
 
   parentApplicationIdentifiers = self->_parentApplicationIdentifiers;
   if (parentApplicationIdentifiers)
   {
-    __src->sandboxEnvironmentVariables = _LSDatabaseCreateStringArray(v181, parentApplicationIdentifiers, 0, 0);
+    __src->sandboxEnvironmentVariables = _LSDatabaseCreateStringArray(v180, parentApplicationIdentifiers, 0, 0);
   }
 
   if ([(NSArray *)self->_bundlePersonas count])
   {
-    v61 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_bundlePersonas, "count")}];
+    v60 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_bundlePersonas, "count")}];
     memset(buf, 0, 24);
     std::vector<unsigned int>::reserve(buf, [(NSArray *)self->_bundlePersonas count]);
-    v203 = 0u;
-    v204 = 0u;
-    v201 = 0u;
     v202 = 0u;
-    v62 = self->_bundlePersonas;
-    v63 = [(NSArray *)v62 countByEnumeratingWithState:&v201 objects:v219 count:16];
-    if (v63)
+    v203 = 0u;
+    v200 = 0u;
+    v201 = 0u;
+    v61 = self->_bundlePersonas;
+    v62 = [(NSArray *)v61 countByEnumeratingWithState:&v200 objects:v218 count:16];
+    if (v62)
     {
-      v64 = *v202;
+      v63 = *v201;
       do
       {
-        for (i = 0; i != v63; ++i)
+        for (i = 0; i != v62; ++i)
         {
-          if (*v202 != v64)
+          if (*v201 != v63)
           {
-            objc_enumerationMutation(v62);
+            objc_enumerationMutation(v61);
           }
 
-          v66 = *(*(&v201 + 1) + 8 * i);
-          personaUniqueString = [(_LSPersonaWithAttributes *)v66 personaUniqueString];
-          [v61 addObject:personaUniqueString];
+          v65 = *(*(&v200 + 1) + 8 * i);
+          personaUniqueString = [(_LSPersonaWithAttributes *)v65 personaUniqueString];
+          [v60 addObject:personaUniqueString];
 
-          *v216 = [(_LSPersonaWithAttributes *)v66 personaType];
-          std::vector<unsigned int>::push_back[abi:nn200100](buf, v216);
+          *v215 = [(_LSPersonaWithAttributes *)v65 personaType];
+          std::vector<unsigned int>::push_back[abi:nn200100](buf, v215);
         }
 
-        v63 = [(NSArray *)v62 countByEnumeratingWithState:&v201 objects:v219 count:16];
+        v62 = [(NSArray *)v61 countByEnumeratingWithState:&v200 objects:v218 count:16];
       }
 
-      while (v63);
+      while (v62);
     }
 
-    p_appStoreToolsBuildVersion[62] = _LSDatabaseCreateStringArray(v181, v61, 0, 0);
-    v68 = v181;
-    [(_LSDatabase *)v181 store];
-    v69 = _CSArrayCreate();
-    *&__src->revision = v69;
-    if (!__src->appContainerAlias || !v69)
+    p_appStoreToolsBuildVersion[62] = _LSDatabaseCreateStringArray(v180, v60, 0, 0);
+    v67 = v180;
+    [(_LSDatabase *)v180 store];
+    v68 = _CSArrayCreate();
+    *&__src->revision = v68;
+    if (!__src->appContainerAlias || !v68)
     {
-      v70 = _LSRegistrationLog();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v69 = _LSRegistrationLog(v68);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         appContainerAlias = __src->appContainerAlias;
-        v72 = *&__src->revision;
-        *v216 = 134218240;
-        *&v216[4] = appContainerAlias;
-        v217 = 2048;
-        v218 = v72;
-        _os_log_impl(&dword_18162D000, v70, OS_LOG_TYPE_ERROR, "failed to allocate personas (%llx) or persona types (%llx) CSArray", v216, 0x16u);
+        v71 = *&__src->revision;
+        *v215 = 134218240;
+        *&v215[4] = appContainerAlias;
+        v216 = 2048;
+        v217 = v71;
+        _os_log_impl(&dword_18162D000, v69, OS_LOG_TYPE_ERROR, "failed to allocate personas (%llx) or persona types (%llx) CSArray", v215, 0x16u);
       }
 
       *(p_appStoreToolsBuildVersion + 31) = 0;
@@ -3396,23 +3376,23 @@ LABEL_64:
   directoryClass = self->_directoryClass;
   if (directoryClass)
   {
-    unsignedLongLongValue3 = [(NSNumber *)directoryClass unsignedLongLongValue];
+    unsignedLongLongValue2 = [(NSNumber *)directoryClass unsignedLongLongValue];
   }
 
   else
   {
-    unsignedLongLongValue3 = -1;
+    unsignedLongLongValue2 = -1;
   }
 
-  __src->base.containingDirectoryClass = unsignedLongLongValue3;
+  __src->base.containingDirectoryClass = unsignedLongLongValue2;
   __src->base.profileValidationState = [(LSBundleRecordBuilder *)self profileValidationState];
-  *(&__src->managementDeclarationIdentifier + 1) = _LSDatabaseCreateStringForCFString(v181, self->_ratingLabel, 0);
-  __src->ratingLabel = _LSDatabaseCreateStringForCFString(v181, self->_genre, 0);
-  *(&__src->ratingLabel + 1) = _LSPlistAdd(v181, self->_distributorInfo);
-  v75 = [FSNode nameForBookmarkData:self->_bundleAlias error:0];
-  if (v75)
+  *(&__src->managementDeclarationIdentifier + 1) = _LSDatabaseCreateStringForCFString(v180, self->_ratingLabel, 0);
+  __src->ratingLabel = _LSDatabaseCreateStringForCFString(v180, self->_genre, 0);
+  *(&__src->ratingLabel + 1) = _LSPlistAdd(v180, self->_distributorInfo);
+  v74 = [FSNode nameForBookmarkData:self->_bundleAlias error:0];
+  if (v74)
   {
-    __src->secondaryCategoryType = _LSDatabaseCreateStringForCFString(v181, v75, 1);
+    __src->secondaryCategoryType = _LSDatabaseCreateStringForCFString(v180, v74, 1);
   }
 
   if (!__src->secondaryCategoryType)
@@ -3421,62 +3401,62 @@ LABEL_64:
     goto LABEL_109;
   }
 
-  v76 = selfCopy;
-  __src->equivalentBundleIdentifiers = _LSDatabaseCreateStringForCFString(v181, selfCopy->_categoryType, 0);
-  __src->categoryType = _LSDatabaseCreateStringForCFString(v181, selfCopy->_secondCategoryType, 0);
+  v75 = selfCopy;
+  __src->equivalentBundleIdentifiers = _LSDatabaseCreateStringForCFString(v180, selfCopy->_categoryType, 0);
+  __src->categoryType = _LSDatabaseCreateStringForCFString(v180, selfCopy->_secondCategoryType, 0);
   deviceFamily = selfCopy->_deviceFamily;
   if (deviceFamily)
   {
     memset(buf, 0, 24);
+    v196 = 0u;
     v197 = 0u;
     v198 = 0u;
     v199 = 0u;
-    v200 = 0u;
-    v78 = deviceFamily;
-    v79 = [(NSArray *)v78 countByEnumeratingWithState:&v197 objects:v215 count:16];
-    if (v79)
+    v77 = deviceFamily;
+    v78 = [(NSArray *)v77 countByEnumeratingWithState:&v196 objects:v214 count:16];
+    if (v78)
     {
-      v80 = *v198;
+      v79 = *v197;
       do
       {
-        for (j = 0; j != v79; ++j)
+        for (j = 0; j != v78; ++j)
         {
-          if (*v198 != v80)
+          if (*v197 != v79)
           {
-            objc_enumerationMutation(v78);
+            objc_enumerationMutation(v77);
           }
 
-          v82 = *(*(&v197 + 1) + 8 * j);
+          v81 = *(*(&v196 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
-            intValue = [v82 intValue];
+            intValue = [v81 intValue];
             if (intValue >= 1)
             {
-              *v216 = intValue;
-              std::vector<unsigned int>::push_back[abi:nn200100](buf, v216);
+              *v215 = intValue;
+              std::vector<unsigned int>::push_back[abi:nn200100](buf, v215);
             }
           }
         }
 
-        v79 = [(NSArray *)v78 countByEnumeratingWithState:&v197 objects:v215 count:16];
+        v78 = [(NSArray *)v77 countByEnumeratingWithState:&v196 objects:v214 count:16];
       }
 
-      while (v79);
+      while (v78);
     }
 
-    *v216 = 0;
-    v84 = v181;
-    [(_LSDatabase *)v181 store];
-    v85 = _CSArrayCreate();
-    HIDWORD(__src->itemID) = v85;
-    if (v85)
+    *v215 = 0;
+    v83 = v180;
+    [(_LSDatabase *)v180 store];
+    v84 = _CSArrayCreate();
+    HIDWORD(__src->itemID) = v84;
+    if (v84)
     {
       v12 = 0;
     }
 
     else
     {
-      v12 = _LSGetOSStatusFromNSError(*v216);
+      v12 = _LSGetOSStatusFromNSError(*v215);
     }
 
     if (*buf)
@@ -3485,32 +3465,32 @@ LABEL_64:
       operator delete(*buf);
     }
 
-    v76 = selfCopy;
+    v75 = selfCopy;
     if (v12)
     {
       goto LABEL_109;
     }
   }
 
-  machOUUIDs = v76->_machOUUIDs;
+  machOUUIDs = v75->_machOUUIDs;
   if (machOUUIDs)
   {
-    __src->base.machOUUIDs = _LSDatabaseCreateStringArray(v181, machOUUIDs, 0, 0);
+    __src->base.machOUUIDs = _LSDatabaseCreateStringArray(v180, machOUUIDs, 0, 0);
   }
 
-  v12 = [(LSBundleRecordBuilder *)v76 registerQueriableSchemes:v181 bundleData:?];
+  v12 = [(LSBundleRecordBuilder *)v75 registerQueriableSchemes:v180 bundleData:?];
   if (v12)
   {
     goto LABEL_109;
   }
 
-  LODWORD(__src->genreID) = _LSDatabaseCreateStringForCFString(v181, v76->_primaryIconName, 0);
-  HIDWORD(__src->genreID) = _LSDatabaseCreateStringForCFString(v181, v76->_alternatePrimaryIconName, 0);
-  __src->genre = _LSPlistAdd(v181, v76->_iconsDict);
-  iconFileNames = v76->_iconFileNames;
+  LODWORD(__src->genreID) = _LSDatabaseCreateStringForCFString(v180, v75->_primaryIconName, 0);
+  HIDWORD(__src->genreID) = _LSDatabaseCreateStringForCFString(v180, v75->_alternatePrimaryIconName, 0);
+  __src->genre = _LSPlistAdd(v180, v75->_iconsDict);
+  iconFileNames = v75->_iconFileNames;
   if (iconFileNames)
   {
-    StringArray = _LSDatabaseCreateStringArray(v181, iconFileNames, 0, 0);
+    StringArray = _LSDatabaseCreateStringArray(v180, iconFileNames, 0, 0);
     __src->distributorInfo = StringArray;
     if (!StringArray)
     {
@@ -3518,23 +3498,23 @@ LABEL_64:
     }
   }
 
-  if ([(NSMutableDictionary *)v76->_plistRarities count]|| [(NSMutableDictionary *)v76->_commonInfoPlistEntries count])
+  if ([(NSMutableDictionary *)v75->_plistRarities count]|| [(NSMutableDictionary *)v75->_commonInfoPlistEntries count])
   {
-    v89 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v90 = v89;
-    if (v76->_plistRarities)
+    v88 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v89 = v88;
+    if (v75->_plistRarities)
     {
-      [v89 addEntriesFromDictionary:?];
+      [v88 addEntriesFromDictionary:?];
     }
 
     if (selfCopy->_commonInfoPlistEntries)
     {
-      [v90 addEntriesFromDictionary:?];
+      [v89 addEntriesFromDictionary:?];
     }
 
-    __src->base.infoDictionary = _LSPlistAdd(v181, v90);
+    __src->base.infoDictionary = _LSPlistAdd(v180, v89);
 
-    v76 = selfCopy;
+    v75 = selfCopy;
   }
 
   else
@@ -3542,148 +3522,148 @@ LABEL_64:
     __src->base.infoDictionary = 0;
   }
 
-  __src->base.groupContainers = _LSPlistAdd(v181, v76->_groupContainers);
-  __src->base.entitlements = _LSPlistAdd(v181, v76->_entitlements);
-  __src->bgPermittedIDs = _LSPlistAdd(v181, v76->_sandboxEnvironmentVariables);
-  __src->base.intentDefinitionURLs = _LSPlistAdd(v181, v76->_intentDefinitionURLs);
-  __src->driverExtensions = _LSDatabaseCreateStringArray(v181, v76->_bgPermittedIdentifiers, 0, 0);
-  __src->extensionPoints = _LSDatabaseCreateStringArray(v181, v76->_carPlayInstrumentClusterURLSchemes, 0, 0);
+  __src->base.groupContainers = _LSPlistAdd(v180, v75->_groupContainers);
+  __src->base.entitlements = _LSPlistAdd(v180, v75->_entitlements);
+  __src->bgPermittedIDs = _LSPlistAdd(v180, v75->_sandboxEnvironmentVariables);
+  __src->base.intentDefinitionURLs = _LSPlistAdd(v180, v75->_intentDefinitionURLs);
+  __src->driverExtensions = _LSDatabaseCreateStringArray(v180, v75->_bgPermittedIdentifiers, 0, 0);
+  __src->extensionPoints = _LSDatabaseCreateStringArray(v180, v75->_carPlayInstrumentClusterURLSchemes, 0, 0);
   context = objc_autoreleasePoolPush();
   memset(buf, 0, 24);
+  v192 = 0u;
   v193 = 0u;
   v194 = 0u;
   v195 = 0u;
-  v196 = 0u;
-  v91 = selfCopy->_supportedGameControllers;
-  v92 = [(NSArray *)v91 countByEnumeratingWithState:&v193 objects:v214 count:16];
-  v93 = v181;
-  if (v92)
+  v90 = selfCopy->_supportedGameControllers;
+  v91 = [(NSArray *)v90 countByEnumeratingWithState:&v192 objects:v213 count:16];
+  v92 = v180;
+  if (v91)
   {
-    v94 = *v194;
+    v93 = *v193;
     do
     {
-      for (k = 0; k != v92; ++k)
+      for (k = 0; k != v91; ++k)
       {
-        if (*v194 != v94)
+        if (*v193 != v93)
         {
-          objc_enumerationMutation(v91);
+          objc_enumerationMutation(v90);
         }
 
-        v96 = _LSPlistAdd(v93, *(*(&v193 + 1) + 8 * k));
-        if (v96)
+        v95 = _LSPlistAdd(v92, *(*(&v192 + 1) + 8 * k));
+        if (v95)
         {
-          v97 = *&buf[8];
+          v96 = *&buf[8];
           if (*&buf[8] >= *&buf[16])
           {
-            v99 = *buf;
-            v100 = *&buf[8] - *buf;
-            v101 = (*&buf[8] - *buf) >> 2;
-            v102 = v101 + 1;
-            if ((v101 + 1) >> 62)
+            v98 = *buf;
+            v99 = *&buf[8] - *buf;
+            v100 = (*&buf[8] - *buf) >> 2;
+            v101 = v100 + 1;
+            if ((v100 + 1) >> 62)
             {
               std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
             }
 
-            v103 = *&buf[16] - *buf;
-            if ((*&buf[16] - *buf) >> 1 > v102)
+            v102 = *&buf[16] - *buf;
+            if ((*&buf[16] - *buf) >> 1 > v101)
             {
-              v102 = v103 >> 1;
+              v101 = v102 >> 1;
             }
 
-            if (v103 >= 0x7FFFFFFFFFFFFFFCLL)
+            if (v102 >= 0x7FFFFFFFFFFFFFFCLL)
             {
-              v104 = 0x3FFFFFFFFFFFFFFFLL;
+              v103 = 0x3FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v104 = v102;
+              v103 = v101;
             }
 
+            if (v103)
+            {
+              std::allocator<unsigned int>::allocate_at_least[abi:nn200100](buf, v103);
+            }
+
+            *(4 * v100) = v95;
+            v97 = 4 * v100 + 4;
+            memcpy(0, v98, v99);
+            v104 = *buf;
+            *buf = 0;
+            *&buf[8] = v97;
+            *&buf[16] = 0;
             if (v104)
             {
-              std::allocator<unsigned int>::allocate_at_least[abi:nn200100](buf, v104);
+              operator delete(v104);
             }
 
-            *(4 * v101) = v96;
-            v98 = 4 * v101 + 4;
-            memcpy(0, v99, v100);
-            v105 = *buf;
-            *buf = 0;
-            *&buf[8] = v98;
-            *&buf[16] = 0;
-            if (v105)
-            {
-              operator delete(v105);
-            }
-
-            v93 = v181;
+            v92 = v180;
           }
 
           else
           {
-            **&buf[8] = v96;
-            v98 = v97 + 4;
+            **&buf[8] = v95;
+            v97 = v96 + 4;
           }
 
-          *&buf[8] = v98;
+          *&buf[8] = v97;
         }
       }
 
-      v92 = [(NSArray *)v91 countByEnumeratingWithState:&v193 objects:v214 count:16];
+      v91 = [(NSArray *)v90 countByEnumeratingWithState:&v192 objects:v213 count:16];
     }
 
-    while (v92);
+    while (v91);
   }
 
-  v106 = *buf;
+  v105 = *buf;
   if (*buf != *&buf[8])
   {
-    v107 = v181;
-    [(_LSDatabase *)v181 store];
+    v106 = v180;
+    [(_LSDatabase *)v180 store];
     __src->bundlePersonas = _CSArrayCreate();
-    v106 = *buf;
+    v105 = *buf;
   }
 
-  if (v106)
+  if (v105)
   {
-    *&buf[8] = v106;
-    operator delete(v106);
+    *&buf[8] = v105;
+    operator delete(v105);
   }
 
   objc_autoreleasePoolPop(context);
-  __src->base.localizedDisplayName = LaunchServices::LocalizedString::Add(v181, selfCopy->_localizedNames, selfCopy->_displayName);
-  __src->base.localizedShortDisplayName = LaunchServices::LocalizedString::Add(v181, selfCopy->_localizedShortNames, selfCopy->_shortDisplayName);
-  __src->base.localizedMicrophoneUsageDescription = LaunchServices::LocalizedString::Add(v181, selfCopy->_localizedMicrophoneUsageDescription, selfCopy->_microphoneUsageDescription);
-  __src->base.localizedIdentityUsageDescription = LaunchServices::LocalizedString::Add(v181, selfCopy->_localizedIdentityUsageDescription, selfCopy->_identityUsageDescription);
+  __src->base.localizedDisplayName = LaunchServices::LocalizedString::Add(v180, selfCopy->_localizedNames, selfCopy->_displayName);
+  __src->base.localizedShortDisplayName = LaunchServices::LocalizedString::Add(v180, selfCopy->_localizedShortNames, selfCopy->_shortDisplayName);
+  __src->base.localizedMicrophoneUsageDescription = LaunchServices::LocalizedString::Add(v180, selfCopy->_localizedMicrophoneUsageDescription, selfCopy->_microphoneUsageDescription);
+  __src->base.localizedIdentityUsageDescription = LaunchServices::LocalizedString::Add(v180, selfCopy->_localizedIdentityUsageDescription, selfCopy->_identityUsageDescription);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x26812000000;
   *&buf[24] = __Block_byref_object_copy__10;
-  v211 = __Block_byref_object_dispose__10;
-  v212 = &unk_1818533FF;
-  memcpy(v213, __src, sizeof(v213));
-  v190[0] = MEMORY[0x1E69E9820];
-  v190[1] = 3221225472;
-  v190[2] = __47__LSBundleRecordBuilder_buildBundleData_error___block_invoke;
-  v190[3] = &unk_1E6A1B0C8;
-  v190[4] = selfCopy;
-  v192 = buf;
-  v174 = v181;
-  v191 = v174;
-  _LSBundleDisplayNameContextEnumerate(v190);
+  v210 = __Block_byref_object_dispose__10;
+  v211 = &unk_1818533FF;
+  memcpy(v212, __src, sizeof(v212));
+  v189[0] = MEMORY[0x1E69E9820];
+  v189[1] = 3221225472;
+  v189[2] = __47__LSBundleRecordBuilder_buildBundleData_error___block_invoke;
+  v189[3] = &unk_1E6A1B0C8;
+  v189[4] = selfCopy;
+  v191 = buf;
+  v173 = v180;
+  v190 = v173;
+  _LSBundleDisplayNameContextEnumerate(v189);
   memcpy(__src, (*&buf[8] + 48), 0x238uLL);
 
   _Block_object_dispose(buf, 8);
-  v108 = selfCopy;
-  v109 = v174;
-  __src->primaryIconName = _LSDatabaseCreateStringForCFString(v174, selfCopy->_libraryPath, 0);
+  v107 = selfCopy;
+  v108 = v173;
+  __src->primaryIconName = _LSDatabaseCreateStringForCFString(v173, selfCopy->_libraryPath, 0);
   libraryItems = selfCopy->_libraryItems;
   if (libraryItems)
   {
-    v111 = _LSDatabaseCreateStringArray(v174, libraryItems, 0, 0);
-    __src->alternatePrimaryIconName = v111;
-    if (!v111)
+    v110 = _LSDatabaseCreateStringArray(v173, libraryItems, 0, 0);
+    __src->alternatePrimaryIconName = v110;
+    if (!v110)
     {
       goto LABEL_282;
     }
@@ -3697,13 +3677,13 @@ LABEL_64:
   if (selfCopy->_exportedTypes || selfCopy->_importedTypes)
   {
     *buf = 0;
-    v112 = v174;
-    [(_LSDatabase *)v174 store];
+    v111 = v173;
+    [(_LSDatabase *)v173 store];
     [(NSArray *)selfCopy->_exportedTypes count];
     [(NSArray *)selfCopy->_importedTypes count];
-    v113 = _CSArrayCreateWithCapacity();
-    __src->iconFileNames = v113;
-    if (!v113)
+    v112 = _CSArrayCreateWithCapacity();
+    __src->iconFileNames = v112;
+    if (!v112)
     {
       v12 = _LSGetOSStatusFromNSError(*buf);
       if (v12)
@@ -3718,7 +3698,7 @@ LABEL_64:
       [(LSBundleRecordBuilder *)selfCopy addPlistFlag:0x10000];
     }
 
-    v109 = v174;
+    v108 = v173;
   }
 
   if (!selfCopy->_URLClaims && !selfCopy->_documentClaims)
@@ -3727,13 +3707,13 @@ LABEL_64:
   }
 
   *buf = 0;
-  v116 = v109;
-  [(_LSDatabase *)v174 store];
+  v115 = v108;
+  [(_LSDatabase *)v173 store];
   [(NSArray *)selfCopy->_URLClaims count];
   [(NSArray *)selfCopy->_documentClaims count];
-  v117 = _CSArrayCreateWithCapacity();
-  __src->iconsDict = v117;
-  if (!v117)
+  v116 = _CSArrayCreateWithCapacity();
+  __src->iconsDict = v116;
+  if (!v116)
   {
     v12 = _LSGetOSStatusFromNSError(*buf);
     if (v12)
@@ -3750,30 +3730,30 @@ LABEL_284:
     [(LSBundleRecordBuilder *)selfCopy addPlistFlag:0x10000];
   }
 
-  v109 = v174;
+  v108 = v173;
 LABEL_179:
-  v108 = selfCopy;
+  v107 = selfCopy;
   if (selfCopy->_pluginPlists)
   {
     *buf = 0;
-    v120 = v109;
-    [(_LSDatabase *)v174 store];
+    v119 = v108;
+    [(_LSDatabase *)v173 store];
     [(NSDictionary *)selfCopy->_pluginPlists count];
-    v121 = _CSArrayCreateWithCapacity();
-    __src->libraryPath = v121;
-    if (v121)
+    v120 = _CSArrayCreateWithCapacity();
+    __src->libraryPath = v120;
+    if (v120)
     {
 
-      v108 = selfCopy;
-      v109 = v174;
+      v107 = selfCopy;
+      v108 = v173;
     }
 
     else
     {
       v12 = _LSGetOSStatusFromNSError(*buf);
 
-      v108 = selfCopy;
-      v109 = v174;
+      v107 = selfCopy;
+      v108 = v173;
       if (v12)
       {
         goto LABEL_109;
@@ -3781,144 +3761,148 @@ LABEL_179:
     }
   }
 
-  if (v108->_extensionSDK)
+  if (v107->_extensionSDK)
   {
     *buf = 0;
-    v122 = v109;
-    [(_LSDatabase *)v174 store];
+    v121 = v108;
+    [(_LSDatabase *)v173 store];
     [(NSDictionary *)selfCopy->_extensionSDK count];
-    v123 = _CSArrayCreateWithCapacity();
-    __src->claims = v123;
-    if (v123)
+    v122 = _CSArrayCreateWithCapacity();
+    __src->claims = v122;
+    if (v122)
     {
 
-      v108 = selfCopy;
-      v109 = v174;
+      v107 = selfCopy;
+      v108 = v173;
       goto LABEL_185;
     }
 
     v12 = _LSGetOSStatusFromNSError(*buf);
 
-    v108 = selfCopy;
-    v109 = v174;
+    v107 = selfCopy;
+    v108 = v173;
     if (!v12)
     {
       goto LABEL_185;
     }
 
 LABEL_109:
-    v27 = v176;
+    v29 = v175;
 LABEL_110:
     if (obj)
     {
-      _LSAliasRemove(v181, obj);
+      _LSAliasRemove(v180, obj);
+    }
+
+    if (v171)
+    {
+      _LSAliasRemove(v180, v171);
     }
 
     if (v172)
     {
-      _LSAliasRemove(v181, v172);
-    }
-
-    if (v173)
-    {
-      _LSAliasRemove(v181, v173);
+      _LSAliasRemove(v180, v172);
     }
 
     goto LABEL_116;
   }
 
 LABEL_185:
-  driverExtensionPaths = v108->_driverExtensionPaths;
+  driverExtensionPaths = v107->_driverExtensionPaths;
   if (driverExtensionPaths)
   {
-    __src->libraryItems = _LSDatabaseCreateStringArray(v109, driverExtensionPaths, 0, 0);
+    __src->libraryItems = _LSDatabaseCreateStringArray(v108, driverExtensionPaths, 0, 0);
   }
 
-  v125 = v108->_identifier;
-  if (v125 && [(NSString *)v125 hasPrefix:@"com.apple."])
+  v124 = v107->_identifier;
+  if (v124 && [(NSString *)v124 hasPrefix:@"com.apple."])
   {
     goto LABEL_195;
   }
 
-  v126 = v108->_appType;
-  if (!v126)
+  v125 = v107->_appType;
+  if (!v125)
   {
     goto LABEL_216;
   }
 
-  if ([(NSString *)v126 isEqualToString:@"Internal"]|| [(NSString *)v108->_appType isEqualToString:@"System"]|| [(NSString *)v108->_appType isEqualToString:@"SystemAppPlaceholder"]|| [(NSString *)v108->_appType isEqualToString:@"CoreServices"]|| [(NSString *)v108->_appType isEqualToString:@"Hidden"])
+  if ([(NSString *)v125 isEqualToString:@"Internal"]|| [(NSString *)v107->_appType isEqualToString:@"System"]|| [(NSString *)v107->_appType isEqualToString:@"SystemAppPlaceholder"]|| [(NSString *)v107->_appType isEqualToString:@"CoreServices"]|| [(NSString *)v107->_appType isEqualToString:@"Hidden"])
   {
 LABEL_195:
-    *&v108->_baseFlags |= 1u;
+    *&v107->_baseFlags |= 1u;
   }
 
-  v127 = v108->_appType;
-  if (v127 && ![(NSString *)v127 isEqualToString:@"User"])
+  v126 = v107->_appType;
+  if (v126 && ![(NSString *)v126 isEqualToString:@"User"])
   {
-    if ((v108->_plistContentFlags & 0x800) != 0)
+    if ((v107->_plistContentFlags & 0x800) != 0)
     {
-      plistRarities = v108->_plistRarities;
-      v130 = objc_opt_class();
-      v131 = [(NSMutableDictionary *)plistRarities objectForKey:@"SBAppTags"];
-      v132 = v131;
-      if (v130 && v131 && (objc_opt_isKindOfClass() & 1) == 0)
+      plistRarities = v107->_plistRarities;
+      v129 = objc_opt_class();
+      v130 = [(NSMutableDictionary *)plistRarities objectForKey:@"SBAppTags"];
+      v131 = v130;
+      if (v129 && v130 && (objc_opt_isKindOfClass() & 1) == 0)
       {
 
-        v132 = 0;
-        v108 = selfCopy;
+        v131 = 0;
+        v107 = selfCopy;
       }
 
-      if ([v132 containsObject:@"hidden"])
+      if ([v131 containsObject:@"hidden"])
       {
-        [(LSBundleRecordBuilder *)v108 addBundleFlag:0x40000000000];
+        [(LSBundleRecordBuilder *)v107 addBundleFlag:0x40000000000];
       }
 
-      v108 = selfCopy;
-      v109 = v174;
+      v107 = selfCopy;
+      v108 = v173;
     }
 
-    else if ([(NSString *)v108->_appType isEqualToString:@"CoreServices"]|| (v128 = v108->_identifier) != 0 && [(NSString *)v128 isEqualToString:@"com.apple.purplebuddy"])
+    else if ([(NSString *)v107->_appType isEqualToString:@"CoreServices"]|| (v127 = v107->_identifier) != 0 && [(NSString *)v127 isEqualToString:@"com.apple.purplebuddy"])
     {
-      [(LSBundleRecordBuilder *)v108 addBundleFlag:0x40000000000];
+      [(LSBundleRecordBuilder *)v107 addBundleFlag:0x40000000000];
     }
   }
 
 LABEL_216:
-  teamID = v108->_teamID;
+  teamID = v107->_teamID;
   if (teamID)
   {
 LABEL_219:
-    __src->base.teamID = _LSDatabaseCreateStringForCFString(v109, teamID, 0);
+    __src->base.teamID = _LSDatabaseCreateStringForCFString(v108, teamID, 0);
     goto LABEL_220;
   }
 
-  if (*&v108->_baseFlags)
+  if (*&v107->_baseFlags)
   {
     teamID = @"0000000000";
     goto LABEL_219;
   }
 
 LABEL_220:
-  if ((v108->_bundleFlags & 0x1000000000000000) != 0 && [(NSArray *)v108->_activityTypes count])
+  if ((v107->_bundleFlags & 0x1000000000000000) != 0)
   {
-    v134 = _LSInstallLog();
-    if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+    v133 = [(NSArray *)v107->_activityTypes count];
+    if (v133)
     {
-      v135 = v108->_identifier;
-      *buf = 138412290;
-      *&buf[4] = v135;
-      _os_log_impl(&dword_18162D000, v134, OS_LOG_TYPE_DEFAULT, "App %@ is an app clip; ignoring its activity types.", buf, 0xCu);
-    }
+      v134 = _LSInstallLog(v133);
+      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+      {
+        v135 = v107->_identifier;
+        *buf = 138412290;
+        *&buf[4] = v135;
+        _os_log_impl(&dword_18162D000, v134, OS_LOG_TYPE_DEFAULT, "App %@ is an app clip; ignoring its activity types.", buf, 0xCu);
+      }
 
-    v108 = selfCopy;
-    v109 = v174;
-    goto LABEL_227;
+      v107 = selfCopy;
+      v108 = v173;
+      goto LABEL_227;
+    }
   }
 
-  activityTypes = v108->_activityTypes;
+  activityTypes = v107->_activityTypes;
   if (activityTypes)
   {
-    v137 = _LSDatabaseCreateStringArray(v109, activityTypes, 0, 0);
+    v137 = _LSDatabaseCreateStringArray(v108, activityTypes, 0, 0);
     __src->types = v137;
     if (!v137)
     {
@@ -3929,35 +3913,35 @@ LABEL_282:
   }
 
 LABEL_227:
-  __src->base.signerIdentity = _LSDatabaseCreateStringForCFString(v109, v108->_signerIdentity, 0);
-  __src->base.codeInfoIdentifier = _LSDatabaseCreateStringForCFString(v109, v108->_codeInfoIdentifier, 0);
-  __src->base.signerOrganization = _LSDatabaseCreateStringForCFString(v109, v108->_signerOrganization, 0);
-  __src->base.signatureVersion = [(NSNumber *)v108->_signatureVersion unsignedLongLongValue];
-  __src->bundlePersonaTypes = _LSPlistAdd(v109, v108->_mobileInstallIDs);
-  __src->appClipFields.parentAppIDs = _LSDatabaseCreateStringForCFString(v109, v108->_applicationManagementDomain, 0);
-  __src->supportedGameControllers = _LSDatabaseCreateStringForCFString(v109, v108->_linkedParentBundleID, 0);
-  if (v108->_URLClaims)
+  __src->base.signerIdentity = _LSDatabaseCreateStringForCFString(v108, v107->_signerIdentity, 0);
+  __src->base.codeInfoIdentifier = _LSDatabaseCreateStringForCFString(v108, v107->_codeInfoIdentifier, 0);
+  __src->base.signerOrganization = _LSDatabaseCreateStringForCFString(v108, v107->_signerOrganization, 0);
+  __src->base.signatureVersion = [(NSNumber *)v107->_signatureVersion unsignedLongLongValue];
+  __src->bundlePersonaTypes = _LSPlistAdd(v108, v107->_mobileInstallIDs);
+  __src->appClipFields.parentAppIDs = _LSDatabaseCreateStringForCFString(v108, v107->_applicationManagementDomain, 0);
+  __src->supportedGameControllers = _LSDatabaseCreateStringForCFString(v108, v107->_linkedParentBundleID, 0);
+  if (v107->_URLClaims)
   {
-    v188 = 0u;
-    v189 = 0u;
-    v186 = 0u;
     v187 = 0u;
-    obja = v108->_URLClaims;
-    v138 = [(NSArray *)obja countByEnumeratingWithState:&v186 objects:v209 count:16];
+    v188 = 0u;
+    v185 = 0u;
+    v186 = 0u;
+    obja = v107->_URLClaims;
+    v138 = [(NSArray *)obja countByEnumeratingWithState:&v185 objects:v208 count:16];
     if (v138)
     {
-      v139 = *v187;
+      v139 = *v186;
       v140 = *MEMORY[0x1E695E190];
       do
       {
         for (m = 0; m != v138; ++m)
         {
-          if (*v187 != v139)
+          if (*v186 != v139)
           {
             objc_enumerationMutation(obja);
           }
 
-          v142 = *(*(&v186 + 1) + 8 * m);
+          v142 = *(*(&v185 + 1) + 8 * m);
           if (_NSIsNSDictionary())
           {
             v143 = objc_opt_class();
@@ -3969,25 +3953,25 @@ LABEL_227:
               v145 = 0;
             }
 
-            v184 = 0u;
-            v185 = 0u;
-            v182 = 0u;
             v183 = 0u;
+            v184 = 0u;
+            v181 = 0u;
+            v182 = 0u;
             v146 = v145;
-            v147 = [v146 countByEnumeratingWithState:&v182 objects:v208 count:16];
+            v147 = [v146 countByEnumeratingWithState:&v181 objects:v207 count:16];
             if (v147)
             {
-              v148 = *v183;
+              v148 = *v182;
               while (2)
               {
                 for (n = 0; n != v147; ++n)
                 {
-                  if (*v183 != v148)
+                  if (*v182 != v148)
                   {
                     objc_enumerationMutation(v146);
                   }
 
-                  v150 = *(*(&v182 + 1) + 8 * n);
+                  v150 = *(*(&v181 + 1) + 8 * n);
                   if (_NSIsNSString() && ![v150 caseInsensitiveCompare:@"file"])
                   {
                     [(LSBundleRecordBuilder *)selfCopy addBundleFlag:0x8000000];
@@ -3995,7 +3979,7 @@ LABEL_227:
                   }
                 }
 
-                v147 = [v146 countByEnumeratingWithState:&v182 objects:v208 count:16];
+                v147 = [v146 countByEnumeratingWithState:&v181 objects:v207 count:16];
                 if (v147)
                 {
                   continue;
@@ -4009,24 +3993,24 @@ LABEL_249:
           }
         }
 
-        v138 = [(NSArray *)obja countByEnumeratingWithState:&v186 objects:v209 count:16];
+        v138 = [(NSArray *)obja countByEnumeratingWithState:&v185 objects:v208 count:16];
       }
 
       while (v138);
     }
 
-    v108 = selfCopy;
-    v109 = v174;
+    v107 = selfCopy;
+    v108 = v173;
   }
 
-  entitlements = v108->_entitlements;
+  entitlements = v107->_entitlements;
   if (entitlements)
   {
     v152 = [(NSDictionary *)entitlements objectForKey:@"beta-reports-active"];
     v153 = v152 == 0;
 
-    v108 = selfCopy;
-    v109 = v174;
+    v107 = selfCopy;
+    v108 = v173;
     if (!v153)
     {
       [(LSBundleRecordBuilder *)selfCopy addBundleFlag:0x200000];
@@ -4045,45 +4029,45 @@ LABEL_249:
       v156 = [(NSDictionary *)selfCopy->_entitlements objectForKey:@"com.apple.developer.embedded-web-browser-engine"];
       v157 = v156 == 0;
 
-      v108 = selfCopy;
-      v109 = v174;
+      v107 = selfCopy;
+      v108 = v173;
       if (!v157)
       {
         *&selfCopy->_moreFlags |= 0x40000u;
       }
     }
 
-    if ([(NSDictionary *)v108->_entitlements _LS_BoolForKey:@"com.apple.developer.game-center"])
+    if ([(NSDictionary *)v107->_entitlements _LS_BoolForKey:@"com.apple.developer.game-center"])
     {
-      [(LSBundleRecordBuilder *)v108 addBundleFlag:0x2000000000000];
+      [(LSBundleRecordBuilder *)v107 addBundleFlag:0x2000000000000];
     }
   }
 
-  __src->recordModificationTime = _LSPlistAdd(v109, v108->_stashedAppInfo);
-  __src->base._sliceMask = _LSSliceMaskForSliceArray(v108->_slices);
-  if (v108->_webNotificationPlaceholder)
+  __src->recordModificationTime = _LSPlistAdd(v108, v107->_stashedAppInfo);
+  __src->base._sliceMask = _LSSliceMaskForSliceArray(v107->_slices);
+  if (v107->_webNotificationPlaceholder)
   {
-    [(LSBundleRecordBuilder *)v108 addBundleFlag:0x8000000000];
+    [(LSBundleRecordBuilder *)v107 addBundleFlag:0x8000000000];
   }
 
-  v158 = v108->_registrationInfo;
+  v158 = v107->_registrationInfo;
   if ((v158->options & 0x40) != 0 || v158->bundleClass == 16)
   {
-    [(LSBundleRecordBuilder *)v108 addBundleFlag:0x40000];
+    [(LSBundleRecordBuilder *)v107 addBundleFlag:0x40000];
   }
 
-  plistContentFlags = v108->_plistContentFlags;
-  iconFlags = v108->_iconFlags;
-  *(&__src->_clas + 1) = v108->_bundleFlags;
+  plistContentFlags = v107->_plistContentFlags;
+  iconFlags = v107->_iconFlags;
+  *(&__src->_clas + 1) = v107->_bundleFlags;
   LOBYTE(__src->_itemFlags) = iconFlags;
-  itemFlags = v108->_itemFlags;
+  itemFlags = v107->_itemFlags;
   HIDWORD(__src->_bundleFlags) = plistContentFlags;
   __src->_plistContentFlags = itemFlags;
-  moreFlags = v108->_moreFlags;
+  moreFlags = v107->_moreFlags;
   *(&__src->_itemFlags + 1) = moreFlags;
-  *&__src->base.flags = v108->_baseFlags;
+  *&__src->base.flags = v107->_baseFlags;
   v163 = +[_LSDAppProtectionClient hiddenApplicationsForLSDUseOnly];
-  if ([v163 ls_caseInsensitiveContainsString:v108->_identifier])
+  if ([v163 ls_caseInsensitiveContainsString:v107->_identifier])
   {
     v164 = 0x100000;
   }
@@ -4108,77 +4092,82 @@ LABEL_249:
   serializedPlaceholderPath = selfCopy->_serializedPlaceholderPath;
   if (serializedPlaceholderPath)
   {
-    __src->mobileInstallIDs = _LSDatabaseCreateStringForCFString(v174, serializedPlaceholderPath, 0);
+    __src->mobileInstallIDs = _LSDatabaseCreateStringForCFString(v173, serializedPlaceholderPath, 0);
   }
 
-  v27 = v176;
+  v29 = v175;
 LABEL_277:
 
-  v169 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void __47__LSBundleRecordBuilder_buildBundleData_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void __47__LSBundleRecordBuilder_buildBundleData_error___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = [*(*(a1 + 32) + 816) objectForKeyedSubscript:a4];
-  v7 = [*(*(a1 + 32) + 808) objectForKeyedSubscript:a4];
-  *(*(*(a1 + 48) + 8) + 4 * a2 + 568) = LaunchServices::LocalizedString::Add(*(a1 + 40), v7, v8);
+  v8 = [*(a1[4] + 816) objectForKeyedSubscript:a4];
+  v7 = [*(a1[4] + 808) objectForKeyedSubscript:a4];
+  *(*(a1[6] + 8) + 4 * a2 + 568) = LaunchServices::LocalizedString::Add(a1[5], v7, v8);
 }
 
 - (int)activateBindings:(id)bindings unitID:(unsigned int)d bundleData:(const LSBundleData *)data
 {
+  v6 = *&d;
   bindingsCopy = bindings;
-  exactIdentifier = data->base.exactIdentifier;
-  v9 = _LSBindableActivate(bindingsCopy, d);
-  if (!v9)
+  v8 = _LSBindableActivate(bindingsCopy, v6, 6u, data->base.exactIdentifier, 0, 0);
+  if (!v8)
   {
-    secondaryCategoryType = data->secondaryCategoryType;
-    v9 = _LSBindableActivate(bindingsCopy, d);
-    if (!v9 && (!data->base.bundleName || (v9 = _LSBindableActivate(bindingsCopy, d)) == 0))
+    v8 = _LSBindableActivate(bindingsCopy, v6, 7u, data->secondaryCategoryType, 0, 0);
+    if (!v8)
     {
-      if (data->supportedGameControllers)
+      bundleName = data->base.bundleName;
+      if (!bundleName || (v8 = _LSBindableActivate(bindingsCopy, v6, 7u, bundleName, 0, 0)) == 0)
       {
-        v9 = _LSBindableActivate(bindingsCopy, d);
-      }
+        supportedGameControllers = data->supportedGameControllers;
+        if (supportedGameControllers)
+        {
+          v8 = _LSBindableActivate(bindingsCopy, v6, 0xDu, supportedGameControllers, 0, 0);
+        }
 
-      else
-      {
-        v9 = 0;
+        else
+        {
+          v8 = 0;
+        }
       }
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - (unsigned)registerBundleRecord:(id)record error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v41 = 0;
-  memset(__src, 0, 512);
+  *&__src.stashedAppDict = *MEMORY[0x1E69E9840];
+  v43 = 0;
+  memset(&__src, 0, 512);
   recordCopy = record;
   errorCopy = error;
-  [LSBundleRecordBuilder buildBundleData:"buildBundleData:error:" error:?];
-  memcpy(__dst, __src, 0x238uLL);
-  v34 = _LSBundleAdd(recordCopy, __dst, &v41);
-  if (v34)
+  objc_msgSend_buildBundleData_error_(self);
+  memcpy(__dst, &__src, 0x238uLL);
+  v5 = _LSBundleAdd(recordCopy, __dst, &v43);
+  v36 = v5;
+  if (v5)
   {
-    v41 = 0;
+    v43 = 0;
   }
 
   else
   {
-    v34 = [(LSBundleRecordBuilder *)self activateBindings:recordCopy unitID:v41 bundleData:__src];
-    if (!v34)
+    v5 = [(LSBundleRecordBuilder *)self activateBindings:recordCopy unitID:v43 bundleData:&__src];
+    v36 = v5;
+    if (!v5)
     {
       if (*&self->_baseFlags)
       {
-        v5 = 4;
+        v7 = 4;
       }
 
       else
       {
-        v5 = 0;
+        v7 = 0;
       }
 
       registrationInfo = self->_registrationInfo;
@@ -4187,161 +4176,162 @@ void __47__LSBundleRecordBuilder_buildBundleData_error___block_invoke(uint64_t a
         LODWORD(registrationInfo) = (registrationInfo->options >> 23) & 0x20;
       }
 
-      v7 = (registrationInfo | v5 | (LODWORD(self->_bundleFlags) >> 1) & 0x40) ^ 0x40;
+      v9 = (registrationInfo | v7 | (LODWORD(self->_bundleFlags) >> 1) & 0x40) ^ 0x40;
       exportedTypes = self->_exportedTypes;
-      v9 = *&__src[476];
-      if (exportedTypes && *&__src[476])
+      iconFileNames = __src.iconFileNames;
+      if (exportedTypes && __src.iconFileNames)
       {
-        _LSRegisterTypeDeclarationsForBundle(recordCopy, v41, __src, exportedTypes, self->_localizedStrings);
-        v9 = *&__src[476];
+        _LSRegisterTypeDeclarationsForBundle(recordCopy, v43, &__src, exportedTypes, self->_localizedStrings, v9 | 0x10);
+        iconFileNames = __src.iconFileNames;
       }
 
       importedTypes = self->_importedTypes;
-      if (importedTypes && v9)
+      if (importedTypes && iconFileNames)
       {
-        _LSRegisterTypeDeclarationsForBundle(recordCopy, v41, __src, importedTypes, self->_localizedStrings);
+        _LSRegisterTypeDeclarationsForBundle(recordCopy, v43, &__src, importedTypes, self->_localizedStrings, v9);
       }
 
-      v11 = *&__src[472];
-      if (self->_documentClaims && *&__src[472])
+      iconsDict = __src.iconsDict;
+      if (self->_documentClaims && __src.iconsDict)
       {
-        localizedStrings = self->_localizedStrings;
         _LSRegisterDocumentTypes(recordCopy);
-        v11 = *&__src[472];
+        iconsDict = __src.iconsDict;
       }
 
-      if (self->_URLClaims && v11)
+      if (self->_URLClaims && iconsDict)
       {
         _LSRegisterURLTypes(recordCopy);
       }
 
-      v34 = _LSRegisterDefaultAppsClaims(recordCopy, v41, __src, self->_entitlements);
-      if (*&__src[492])
+      UnsupportedFormatFlag = _LSRegisterDefaultAppsClaims(recordCopy, v43, &__src, self->_entitlements);
+      v36 = UnsupportedFormatFlag;
+      if (__src.types)
       {
-        v34 = _LSBundleActivateBindingsForUserActivityTypes(recordCopy, v41, __src);
+        UnsupportedFormatFlag = _LSBundleActivateBindingsForUserActivityTypes(recordCopy, v43, &__src);
+        v36 = UnsupportedFormatFlag;
       }
 
-      if (!self->_registrationInfo || !self->_pluginPlists || !*&__src[480] || _LSBundleDataIsInUnsupportedLocation(recordCopy, __src) || _LSBundleDataGetUnsupportedFormatFlag() || (__src[172] & 0x80) != 0)
+      if (!self->_registrationInfo || !self->_pluginPlists || !__src.libraryPath || (UnsupportedFormatFlag = _LSBundleDataIsInUnsupportedLocation(recordCopy, &__src), UnsupportedFormatFlag) || (UnsupportedFormatFlag = _LSBundleDataGetUnsupportedFormatFlag(), UnsupportedFormatFlag) || (*(&__src._clas + 1) & 0x80) != 0)
       {
-        v14 = _LSExtensionsLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = _LSExtensionsLog(UnsupportedFormatFlag);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          [LSBundleRecordBuilder registerBundleRecord:v14 error:?];
+          [LSBundleRecordBuilder registerBundleRecord:v16 error:?];
         }
       }
 
       else
       {
-        v13 = _LSExtensionsLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v15 = _LSExtensionsLog(UnsupportedFormatFlag);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          [LSBundleRecordBuilder registerBundleRecord:v13 error:?];
+          [LSBundleRecordBuilder registerBundleRecord:v15 error:?];
         }
 
-        v34 = _LSRegisterPlugins(recordCopy, self->_registrationInfo->containerUnit, v41, self->_pluginPlists, self->_pluginMIDicts);
+        v36 = _LSRegisterPlugins(recordCopy, self->_registrationInfo->containerUnit, v43, self->_pluginPlists, self->_pluginMIDicts, 0);
       }
 
-      if (self->_identifier && self->_extensionSDK && *&__src[488])
+      if (self->_identifier && self->_extensionSDK && __src.claims)
       {
-        v15 = [objc_alloc(get_EXAppExtensionPointEnumeratorClass()) initWithBundleIdentifier:self->_identifier sdkDictionary:self->_extensionSDK entitlements:self->_entitlements];
+        v17 = [objc_alloc(get_EXAppExtensionPointEnumeratorClass()) initWithBundleIdentifier:self->_identifier sdkDictionary:self->_extensionSDK entitlements:self->_entitlements];
+        v41 = 0u;
+        v42 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v16 = v15;
-        v17 = [v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
-        if (v17)
+        v18 = v17;
+        v19 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        if (v19)
         {
-          v18 = *v38;
+          v20 = *v40;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v19; ++i)
             {
-              if (*v38 != v18)
+              if (*v40 != v20)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v18);
               }
 
-              v20 = *(*(&v37 + 1) + 8 * i);
-              identifier = [v20 identifier];
-              platform = [v20 platform];
-              sDKDictionary = [v20 SDKDictionary];
-              v24 = [v20 url];
-              v25 = _LSExtensionsLog();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+              v22 = *(*(&v39 + 1) + 8 * i);
+              identifier = [v22 identifier];
+              platform = [v22 platform];
+              sDKDictionary = [v22 SDKDictionary];
+              v26 = [v22 url];
+              v27 = _LSExtensionsLog(v26);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
               {
                 __dst[0] = 136315394;
                 *&__dst[1] = "[LSBundleRecordBuilder registerBundleRecord:error:]";
                 LOWORD(__dst[3]) = 2112;
-                *(&__dst[3] + 2) = v20;
-                _os_log_debug_impl(&dword_18162D000, v25, OS_LOG_TYPE_DEBUG, "%s Registering extension point: %@", __dst, 0x16u);
+                *(&__dst[3] + 2) = v22;
+                _os_log_debug_impl(&dword_18162D000, v27, OS_LOG_TYPE_DEBUG, "%s Registering extension point: %@", __dst, 0x16u);
               }
 
-              _LSRegisterExtensionPoint(recordCopy, v41, identifier, platform, sDKDictionary, v24);
+              _LSRegisterExtensionPoint(recordCopy, v43, identifier, platform, sDKDictionary, v26);
             }
 
-            v17 = [v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
+            v19 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
           }
 
-          while (v17);
+          while (v19);
         }
       }
 
-      _LSBundleSetLegacySpecialApplicationTypes(recordCopy, v41, 0, 0);
+      _LSBundleSetLegacySpecialApplicationTypes(recordCopy, v43, 0, 0);
     }
   }
 
-  v26 = v34;
-  if (v34 && v41)
+  v28 = v36;
+  if (v36 && (v6 = v43) != 0)
   {
-    _LSBundleRemove(recordCopy, v41, 0);
-    v41 = 0;
-    v26 = v34;
+    v5 = _LSBundleRemove(recordCopy, v43, 0);
+    v43 = 0;
+    v28 = v36;
   }
 
-  else if (!v34)
+  else if (!v36)
   {
-    self->_registerChildItemsTrusted = (__src[172] & 0x80) == 0;
+    self->_registerChildItemsTrusted = (*(&__src._clas + 1) & 0x80) == 0;
     goto LABEL_54;
   }
 
   if (errorCopy)
   {
-    *errorCopy = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v26, 0, "[LSBundleRecordBuilder registerBundleRecord:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSBundleRecordBuilder.mm", 2399);
+    v5 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v28, 0, "[LSBundleRecordBuilder registerBundleRecord:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSBundleRecordBuilder.mm", 2399);
+    *errorCopy = v5;
   }
 
 LABEL_54:
   if (self->_identifier)
   {
-    if ([__LSDefaultsGetSharedInstance() allowsAlternateIcons])
+    if ([__LSDefaultsGetSharedInstance(v5 v6)])
     {
-      v27 = (self->_bundleFlags & 0x40000) == 0;
+      v29 = (self->_bundleFlags & 0x40000) == 0;
     }
 
     else
     {
-      v27 = 0;
+      v29 = 0;
     }
 
-    v28 = objc_autoreleasePoolPush();
-    if (([__LSDefaultsGetSharedInstance() isLightweightSystemServer] & 1) == 0 && (IconServicesLibrary(void)::frameworkLibrary || (IconServicesLibrary(void)::frameworkLibrary = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2)) != 0))
+    v30 = objc_autoreleasePoolPush();
+    if (([__LSDefaultsGetSharedInstance(v30 v31)] & 1) == 0 && (IconServicesLibrary(void)::frameworkLibrary || (IconServicesLibrary(void)::frameworkLibrary = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2)) != 0))
     {
       softLink_ISInvalidateCacheEntriesForBundleIdentifier(self->_identifier);
     }
 
-    if (v27)
+    if (v29)
     {
-      v29 = +[LSAltIconManager sharedInstance];
-      [v29 clearAlternateNameForBundleIdentifier:self->_identifier validationDictionary:self->_iconsDict];
+      v32 = +[LSAltIconManager sharedInstance];
+      [v32 clearAlternateNameForBundleIdentifier:self->_identifier validationDictionary:self->_iconsDict];
     }
 
-    objc_autoreleasePoolPop(v28);
+    objc_autoreleasePoolPop(v30);
   }
 
-  v30 = v41;
+  v33 = v43;
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v30;
+  return v33;
 }
 
 - (void)parseNSExtensionSDKDefinitionsFromDictionary:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -4356,20 +4346,18 @@ LABEL_54:
 
 - (void)registerBundleRecord:(os_log_t)log error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[LSBundleRecordBuilder registerBundleRecord:error:]";
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "%s Registering extensions", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[LSBundleRecordBuilder registerBundleRecord:error:]";
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "%s Registering extensions", &v1, 0xCu);
 }
 
 - (void)registerBundleRecord:(os_log_t)log error:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[LSBundleRecordBuilder registerBundleRecord:error:]";
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "%s Skipped registering extensions", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[LSBundleRecordBuilder registerBundleRecord:error:]";
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "%s Skipped registering extensions", &v1, 0xCu);
 }
 
 @end

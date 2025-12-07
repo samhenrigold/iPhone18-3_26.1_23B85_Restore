@@ -10,7 +10,7 @@
 
 - (void)_updateAvailability
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   availability = self->_availability;
   state64 = 0;
   notify_get_state(self->_token, &state64);
@@ -20,10 +20,10 @@
   {
     *buf = 134218496;
     selfCopy = self;
-    v11 = 2048;
-    v12 = state64;
-    v13 = 2048;
-    v14 = availability;
+    v10 = 2048;
+    v11 = state64;
+    v12 = 2048;
+    v13 = availability;
     _os_log_impl(&dword_1959FF000, v5, OS_LOG_TYPE_DEFAULT, "[IDSServiceMonitor _updateAvailability] {self: %p, state: %llu, previousAvailability: %llu}", buf, 0x20u);
   }
 
@@ -34,19 +34,17 @@
   {
     [(IDSServiceMonitor *)self _postAvailability:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (IDSServiceMonitor)initWithService:(id)service
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   if (!_IDSRunningInDaemon())
   {
-    v14.receiver = self;
-    v14.super_class = IDSServiceMonitor;
-    v8 = [(IDSServiceMonitor *)&v14 init];
+    v13.receiver = self;
+    v13.super_class = IDSServiceMonitor;
+    v8 = [(IDSServiceMonitor *)&v13 init];
     v9 = v8;
     if (!v8)
     {
@@ -61,9 +59,9 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v16 = v9;
-      v17 = 2112;
-      v18 = serviceCopy;
+      v15 = v9;
+      v16 = 2112;
+      v17 = serviceCopy;
       _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "[IDSServiceMonitor init] {self: %p, service: %@}", buf, 0x16u);
     }
 
@@ -79,8 +77,8 @@ LABEL_14:
 LABEL_11:
         if (IMUserScopedNotification())
         {
-          v13 = v9;
-          v13->_token = IMDispatchForNotify();
+          v12 = v9;
+          v12->_token = IMDispatchForNotify();
         }
 
         goto LABEL_13;
@@ -103,13 +101,12 @@ LABEL_13:
   selfCopy = 0;
 LABEL_15:
 
-  v11 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[IDSLogging ServiceAvailability];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -119,10 +116,9 @@ LABEL_15:
   }
 
   notify_cancel(self->_token);
-  v5.receiver = self;
-  v5.super_class = IDSServiceMonitor;
-  [(IDSServiceMonitor *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = IDSServiceMonitor;
+  [(IDSServiceMonitor *)&v4 dealloc];
 }
 
 - (void)_postAvailability:(int64_t)availability

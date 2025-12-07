@@ -101,17 +101,13 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v10 = toCopy;
   PBDataWriterWriteInt64Field();
   if (self->_label)
   {
     PBDataWriterWriteStringField();
   }
 
-  creationTime = self->_creationTime;
   PBDataWriterWriteDoubleField();
-  lastUpdatedTime = self->_lastUpdatedTime;
   PBDataWriterWriteDoubleField();
   if (!self->_lastUpdateOSVersion)
   {
@@ -129,42 +125,41 @@
     PBDataWriterWriteDataField();
   }
 
-  v8 = v10;
+  v4 = toCopy;
   if (*&self->_has)
   {
-    assetState = self->_assetState;
     PBDataWriterWriteInt64Field();
-    v8 = v10;
+    v4 = toCopy;
   }
 
   if (self->_enrollmentIdentifier)
   {
     PBDataWriterWriteStringField();
-    v8 = v10;
+    v4 = toCopy;
   }
 
   if (self->_creatorAttest)
   {
     PBDataWriterWriteDataField();
-    v8 = v10;
+    v4 = toCopy;
   }
 
   if (self->_serverAttest)
   {
     PBDataWriterWriteDataField();
-    v8 = v10;
+    v4 = toCopy;
   }
 
   if (self->_deviceIdentifier)
   {
     PBDataWriterWriteStringField();
-    v8 = v10;
+    v4 = toCopy;
   }
 
   if (self->_deviceName)
   {
     PBDataWriterWriteStringField();
-    v8 = v10;
+    v4 = toCopy;
   }
 }
 
@@ -340,7 +335,6 @@
     }
   }
 
-  v9 = *(equalCopy + 112);
   if (*&self->_has)
   {
     if ((*(equalCopy + 112) & 1) == 0 || self->_assetState != *(equalCopy + 1))
@@ -352,7 +346,7 @@
   else if (*(equalCopy + 112))
   {
 LABEL_28:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_29;
   }
 
@@ -392,17 +386,17 @@ LABEL_28:
   deviceName = self->_deviceName;
   if (deviceName | *(equalCopy + 8))
   {
-    v15 = [(NSString *)deviceName isEqual:?];
+    v14 = [(NSString *)deviceName isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_29:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash

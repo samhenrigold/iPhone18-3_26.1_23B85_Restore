@@ -2,6 +2,7 @@
 + (id)listenerDelegateWithExportedObject:(id)object exportedInterfaceProtocol:(id)protocol;
 + (id)reasonConnectionWasInvalidated:(id)invalidated;
 + (id)resumedConnectionForServiceName:(id)name remoteObjectInterfaceProtocol:(id)protocol;
++ (void)addAllowedClasses:(id)classes toInterface:(id)interface forSelector:(SEL)selector argumentIndex:(unint64_t)index ofReply:(BOOL)reply;
 @end
 
 @implementation CNXPC
@@ -35,6 +36,17 @@
   v7 = [[CNXPCListenerDelegate alloc] initWithWithExportedObject:objectCopy exportedInterfaceProtocol:protocolCopy];
 
   return v7;
+}
+
++ (void)addAllowedClasses:(id)classes toInterface:(id)interface forSelector:(SEL)selector argumentIndex:(unint64_t)index ofReply:(BOOL)reply
+{
+  replyCopy = reply;
+  interfaceCopy = interface;
+  classesCopy = classes;
+  v13 = [interfaceCopy classesForSelector:selector argumentIndex:index ofReply:replyCopy];
+  v14 = [v13 setByAddingObjectsFromArray:classesCopy];
+
+  [interfaceCopy setClasses:v14 forSelector:selector argumentIndex:index ofReply:replyCopy];
 }
 
 + (id)reasonConnectionWasInvalidated:(id)invalidated
@@ -73,11 +85,10 @@ LABEL_7:
 
 + (void)resumedConnectionForServiceName:(uint64_t)a1 remoteObjectInterfaceProtocol:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_1859F0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create XPC connection for service: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_1859F0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create XPC connection for service: %{public}@", &v1, 0xCu);
 }
 
 @end

@@ -40,67 +40,50 @@
 {
   presetCopy = preset;
   presetsCopy = presets;
-  if (([presetsCopy containsObject:presetCopy] & 1) == 0)
+  if (([presetsCopy containsObject:?] & 1) == 0)
   {
-    [presetsCopy addObject:presetCopy];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPresets___block_invoke;
-    v13[3] = &unk_1E7F47A00;
-    v13[4] = self;
-    v8 = presetCopy;
-    v14 = v8;
-    v9 = presetsCopy;
-    v15 = v9;
-    [v8 enumeratePresetDependencies:v13];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPresets___block_invoke_2;
-    v10[3] = &unk_1E7F47A28;
-    v10[4] = self;
-    v11 = v8;
-    v12 = v9;
-    [v11 enumeratePresetSpecificPresetDependencies:v10];
+    [presetsCopy addObject:?];
+    v11 = presetCopy;
+    v12 = presetsCopy;
+    [v11 enumeratePresetDependencies:?];
+    v8 = MEMORY[0x1E69E9820];
+    v9 = v11;
+    v10 = v12;
+    [v9 enumeratePresetSpecificPresetDependencies:{v8, 3221225472, __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPresets___block_invoke_2, &unk_1E7F47A28, self}];
   }
 }
 
 void __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPresets___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(*(a1 + 32) + 8 * a2 + 648);
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v7 = v6;
-  v8 = [(AVTPresetStoreDependency *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v8)
+  v7 = [AVTPresetStoreDependency countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:0];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v17;
+    v8 = v7;
+    v9 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v17 != v10)
+        if (MEMORY[0] != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        v13 = [v12 overridePreset];
+        v11 = *(8 * i);
+        v12 = [v11 overridePreset];
 
-        if (v13 == v5)
+        if (v12 == v5)
         {
-          [v12 addConditionOnPreset:*(a1 + 40)];
-          v14 = v7;
+          [v11 addConditionOnPreset:?];
+          v13 = v6;
           goto LABEL_11;
         }
       }
 
-      v9 = [(AVTPresetStoreDependency *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v9)
+      v8 = [AVTPresetStoreDependency countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      if (v8)
       {
         continue;
       }
@@ -109,53 +92,45 @@ void __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPres
     }
   }
 
-  v14 = [[AVTPresetStoreDependency alloc] initWithOverridePreset:v5 conditionedOnPreset:*(a1 + 40)];
-  [(AVTPresetStoreDependency *)v7 addObject:v14];
+  v13 = [AVTPresetStoreDependency initWithOverridePreset:"initWithOverridePreset:conditionedOnPreset:" conditionedOnPreset:?];
+  [(AVTPresetStoreDependency *)v6 addObject:?];
   ++*(*(a1 + 32) + 968);
-  [*(a1 + 32) registerDependenciesForPreset:v5 previouslyRegisteredPresets:*(a1 + 48)];
+  [*(a1 + 32) registerDependenciesForPreset:? previouslyRegisteredPresets:?];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPresets___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = *(*(a1 + 32) + 8 * a2 + 648);
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v10 = v9;
-  v11 = [(AVTPresetStoreDependency *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v11)
+  v10 = [AVTPresetStoreDependency countByEnumeratingWithState:v9 objects:"countByEnumeratingWithState:objects:count:" count:0];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v20;
+    v11 = v10;
+    v12 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v20 != v13)
+        if (MEMORY[0] != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = [v15 overridePreset];
+        v14 = *(8 * i);
+        v15 = [v14 overridePreset];
 
-        if (v16 == v8)
+        if (v15 == v8)
         {
-          [v15 addConditionOnPreset:*(a1 + 40) forSpecificPresetIdentifier:v7];
-          v17 = v10;
+          [v14 addConditionOnPreset:? forSpecificPresetIdentifier:?];
+          v16 = v9;
           goto LABEL_11;
         }
       }
 
-      v12 = [(AVTPresetStoreDependency *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v12)
+      v11 = [AVTPresetStoreDependency countByEnumeratingWithState:v9 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      if (v11)
       {
         continue;
       }
@@ -164,25 +139,23 @@ void __76__AVTPresetStore_registerDependenciesForPreset_previouslyRegisteredPres
     }
   }
 
-  v17 = [[AVTPresetStoreDependency alloc] initWithOverridePreset:v8 conditionedOnPreset:*(a1 + 40) forSpecificPresetIdentifier:v7];
-  [(AVTPresetStoreDependency *)v10 addObject:v17];
+  v16 = [AVTPresetStoreDependency initWithOverridePreset:"initWithOverridePreset:conditionedOnPreset:forSpecificPresetIdentifier:" conditionedOnPreset:? forSpecificPresetIdentifier:?];
+  [(AVTPresetStoreDependency *)v9 addObject:?];
   ++*(*(a1 + 32) + 968);
-  [*(a1 + 32) registerDependenciesForPreset:v8 previouslyRegisteredPresets:*(a1 + 48)];
+  [*(a1 + 32) registerDependenciesForPreset:? previouslyRegisteredPresets:?];
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)solveDependencies
 {
   v3 = 0;
-  v21 = *MEMORY[0x1E69E9840];
-  memset(v20, 0, sizeof(v20));
+  v20 = *MEMORY[0x1E69E9840];
+  memset(v19, 0, sizeof(v19));
   resolvedPresets = self->_resolvedPresets;
   self->_unresolvedDependencyCount = 0;
   do
   {
-    objc_storeStrong((v20 + v3 * 8), self->_resolvedPresets[v3]);
+    objc_storeStrong((v19 + v3 * 8), self->_resolvedPresets[v3]);
     objc_storeStrong(&self->_resolvedPresets[v3], self->_presets[v3]);
     [(NSMutableArray *)self->_unresolvedDependencies[v3++] removeAllObjects];
   }
@@ -191,24 +164,23 @@ LABEL_11:
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   for (i = 8; i != 328; i += 8)
   {
-    v7 = *(&self->super.isa + i);
-    if (v7)
+    if (*(&self->super.isa + i))
     {
-      [(AVTPresetStore *)self registerDependenciesForPreset:v7 previouslyRegisteredPresets:v5];
+      [AVTPresetStore registerDependenciesForPreset:"registerDependenciesForPreset:previouslyRegisteredPresets:" previouslyRegisteredPresets:?];
     }
   }
 
-  v8 = 0;
+  v7 = 0;
   while (self->_unresolvedDependencyCount)
   {
     for (j = 0; j != 40; ++j)
     {
-      [(AVTPresetStore *)self solveDependenciesForCategory:j];
+      v9 = [(AVTPresetStore *)self solveDependenciesForCategory:?];
     }
 
-    if (++v8 == 5)
+    if (++v7 == 5)
     {
-      v10 = avt_default_log();
+      v10 = avt_default_log(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [(AVTPresetStore *)v10 solveDependencies];
@@ -225,27 +197,26 @@ LABEL_11:
   v15 = vdupq_n_s64(2uLL);
   do
   {
-    v13 = vorrq_s8(vbicq_s8(vshlq_u64(v14, v12), vceqq_s64(v20[v11 / 2], *&resolvedPresets[v11])), v13);
+    v13 = vorrq_s8(vbicq_s8(vshlq_u64(v14, v12), vceqq_s64(v19[v11 / 2], *&resolvedPresets[v11])), v13);
     v12 = vaddq_s64(v12, v15);
     v11 += 2;
   }
 
   while (v11 != 40);
-  v19 = v13;
+  v18 = v13;
 
   for (k = 312; k != -8; k -= 8)
   {
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return vorr_s8(*v19.i8, *&vextq_s8(v19, v19, 8uLL));
+  return vorr_s8(*v18.i8, *&vextq_s8(v18, v18, 8uLL));
 }
 
 - (void)solveDependenciesForCategory:(int64_t)category
 {
   categoryCopy = category;
   selfCopy = self;
-  v74 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v5 = (&self->super.isa + category);
   v6 = v5[81];
   if (![v6 count])
@@ -253,13 +224,9 @@ LABEL_11:
     goto LABEL_67;
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
   v7 = v6;
   v50 = v6;
-  v55 = [v7 countByEnumeratingWithState:&v67 objects:v73 count:16];
+  v55 = [v7 countByEnumeratingWithState:? objects:? count:?];
   v47 = v5;
   v8 = 0;
   if (!v55)
@@ -272,21 +239,21 @@ LABEL_11:
   v48 = 0;
   v49 = 0;
   v53 = selfCopy;
-  v54 = *v68;
+  v54 = MEMORY[0];
   presets = selfCopy->_presets;
   resolvedPresets = selfCopy->_resolvedPresets;
   v51 = categoryCopy;
   v52 = v7;
   do
   {
-    for (i = 0; i != v55; ++i)
+    for (i = 0; i != v55; i = (i + 1))
     {
-      if (*v68 != v54)
+      if (MEMORY[0] != v54)
       {
         objc_enumerationMutation(v7);
       }
 
-      *buf = *(*(&v67 + 1) + 8 * i);
+      *buf = *(8 * i);
       [v8 removeAllObjects];
       conditions = [*buf conditions];
       v61 = [conditions count];
@@ -302,24 +269,24 @@ LABEL_11:
       v60 = conditions;
       do
       {
-        v66 = [conditions objectAtIndexedSubscript:v12];
-        presetOfOtherCategory = [v66 presetOfOtherCategory];
+        v62 = [conditions objectAtIndexedSubscript:?];
+        presetOfOtherCategory = [v62 presetOfOtherCategory];
         category = [presetOfOtherCategory category];
 
-        v15 = [(AVTPresetStore *)selfCopy hasUnresolvedDependenciesForCategory:category];
+        v15 = [(AVTPresetStore *)selfCopy hasUnresolvedDependenciesForCategory:?];
         if (v15)
         {
 LABEL_10:
-          v11 |= !v15;
+          v11 |= v15 ^ 1;
           goto LABEL_33;
         }
 
-        presetOfOtherCategory2 = [v66 presetOfOtherCategory];
+        presetOfOtherCategory2 = [v62 presetOfOtherCategory];
         v17 = resolvedPresets[category];
 
         if (presetOfOtherCategory2 == v17)
         {
-          specificPresetIdentifier = [v66 specificPresetIdentifier];
+          specificPresetIdentifier = [v62 specificPresetIdentifier];
 
           conditions = v60;
           if (!specificPresetIdentifier)
@@ -327,42 +294,38 @@ LABEL_10:
             goto LABEL_10;
           }
 
-          specificPresetIdentifier2 = [v66 specificPresetIdentifier];
+          specificPresetIdentifier2 = [v62 specificPresetIdentifier];
           identifier = [(AVTPreset *)presets[categoryCopy] identifier];
-          v23 = [specificPresetIdentifier2 isEqualToString:identifier];
+          v23 = [specificPresetIdentifier2 isEqualToString:?];
 
           v24 = [v7 count];
           v19 = v24 != 1;
           LOBYTE(v18) = v19 | v23;
           if (v24 != 1 && (v23 & 1) == 0)
           {
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
-            v63 = 0u;
             v25 = v7;
-            v26 = [v25 countByEnumeratingWithState:&v62 objects:v72 count:16];
+            v26 = [v25 countByEnumeratingWithState:? objects:? count:?];
             if (v26)
             {
               v27 = v26;
               v57 = v8;
-              v28 = *v63;
+              v28 = MEMORY[0];
               while (2)
               {
-                for (j = 0; j != v27; ++j)
+                for (j = 0; j != v27; j = (j + 1))
                 {
-                  if (*v63 != v28)
+                  if (MEMORY[0] != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  v30 = *(*(&v62 + 1) + 8 * j);
+                  v30 = *(8 * j);
                   if (v30 != *buf)
                   {
-                    specificPresetIdentifier3 = [v66 specificPresetIdentifier];
+                    specificPresetIdentifier3 = [v62 specificPresetIdentifier];
                     overridePreset = [v30 overridePreset];
                     identifier2 = [overridePreset identifier];
-                    v34 = [specificPresetIdentifier3 isEqualToString:identifier2];
+                    v34 = [specificPresetIdentifier3 isEqualToString:?];
 
                     if (v34)
                     {
@@ -372,7 +335,7 @@ LABEL_10:
                   }
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v62 objects:v72 count:16];
+                v27 = [v25 countByEnumeratingWithState:? objects:? count:?];
                 if (v27)
                 {
                   continue;
@@ -411,18 +374,18 @@ LABEL_36:
 
         else if (v8)
         {
-          [v8 addObject:v66];
+          [v8 addObject:?];
         }
 
         else
         {
-          v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:&v66 count:1];
+          v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:? count:?];
         }
 
         conditions = v60;
 LABEL_33:
 
-        ++v12;
+        v12 = (v12 + 1);
       }
 
       while (v12 != v61);
@@ -436,18 +399,18 @@ LABEL_44:
         {
           if (v49)
           {
-            [v49 addObject:*buf];
+            [v49 addObject:?];
           }
 
           else
           {
-            v49 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:buf count:1];
+            v49 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:? count:?];
           }
         }
 
         else
         {
-          [conditions removeObjectsInArray:v8];
+          [conditions removeObjectsInArray:?];
         }
 
         goto LABEL_51;
@@ -455,12 +418,12 @@ LABEL_44:
 
       if (v48)
       {
-        [v48 addObject:*buf];
+        [v48 addObject:?];
       }
 
       else
       {
-        v48 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:buf count:1];
+        v48 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:? count:?];
       }
 
       v6 = v50;
@@ -468,7 +431,7 @@ LABEL_44:
 LABEL_51:
     }
 
-    v55 = [v7 countByEnumeratingWithState:&v67 objects:v73 count:16];
+    v55 = [v7 countByEnumeratingWithState:? objects:? count:?];
   }
 
   while (v55);
@@ -485,15 +448,15 @@ LABEL_55:
       v39 = 1;
       do
       {
-        v40 = [v36 objectAtIndexedSubscript:v39];
+        v40 = [v36 objectAtIndexedSubscript:?];
         overridePreset3 = [v40 overridePreset];
 
         if (overridePreset2 != overridePreset3)
         {
-          v42 = avt_default_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v43 = avt_default_log(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            [(AVTPresetStore *)buf solveDependenciesForCategory:v42];
+            [(AVTPresetStore *)buf solveDependenciesForCategory:v43];
           }
         }
 
@@ -504,29 +467,28 @@ LABEL_55:
       while (v39 < [v48 count]);
     }
 
-    v43 = v47[41];
+    v44 = v47[41];
     v47[41] = overridePreset2;
-    v44 = overridePreset2;
+    v45 = overridePreset2;
 
     selfCopy->_unresolvedDependencyCount -= [v7 count];
     [v7 removeAllObjects];
 
-    v45 = v49;
+    v46 = v49;
     v6 = v50;
   }
 
   else
   {
-    v45 = v49;
+    v46 = v49;
     if ([v49 count])
     {
       selfCopy->_unresolvedDependencyCount -= [v49 count];
-      [v7 removeObjectsInArray:v49];
+      [v7 removeObjectsInArray:?];
     }
   }
 
 LABEL_67:
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (id)debugDescription
@@ -538,7 +500,7 @@ LABEL_67:
 
   v3 = MEMORY[0x1E696AD60];
   v4 = [(AVTPresetStore *)self description];
-  v5 = [v3 stringWithString:v4];
+  v5 = [v3 stringWithString:?];
 
   v6 = 0;
   presets = self->_presets;
@@ -548,24 +510,24 @@ LABEL_67:
     v9 = presets[v6];
     v10 = resolvedPresets[v6];
     v11 = AVTPresetCategoryToString(v6);
-    [v5 appendFormat:@"\n * %@", v11];
+    [v5 appendFormat:v11];
     v12 = debugDescription_maxCategoryToStringLength;
     for (i = v12 - [v11 length]; i; --i)
     {
-      [v5 appendString:@"."];
+      [v5 appendString:?];
     }
 
     identifier = [(AVTPreset *)v9 identifier];
     v15 = identifier;
     if (v9 == v10)
     {
-      [v5 appendFormat:@": %@", identifier];
+      [v5 appendFormat:identifier];
     }
 
     else
     {
       identifier2 = [(AVTPreset *)v10 identifier];
-      [v5 appendFormat:@": %@ → %@", v15, identifier2];
+      [v5 appendFormat:v15, identifier2];
     }
 
     ++v6;

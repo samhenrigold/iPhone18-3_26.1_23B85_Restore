@@ -3,10 +3,26 @@
 - (NEEthernetTunnelNetworkSettings)initWithCoder:(id)coder;
 - (NEEthernetTunnelNetworkSettings)initWithTunnelRemoteAddress:(NSString *)address ethernetAddress:(NSString *)ethernetAddress mtu:(NSInteger)mtu;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEEthernetTunnelNetworkSettings
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v12.receiver = self;
+  v12.super_class = NEEthernetTunnelNetworkSettings;
+  v8 = [(NEPacketTunnelNetworkSettings *)&v12 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  ethernetAddress = [(NEEthernetTunnelNetworkSettings *)self ethernetAddress];
+  [v9 appendPrettyObject:ethernetAddress withName:@"ethernetAddress" andIndent:v5 options:options];
+
+  return v9;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {

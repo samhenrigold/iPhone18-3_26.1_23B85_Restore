@@ -9,7 +9,7 @@ uint64_t edt_supports_recoveryos(int a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   if ((edt_supports_recoveryos_supports & 1) == 0 && a1)
   {
     v9 = 1;
-    logfunction(&unk_10000FA0E, 1, @"supports-recoveryos is false, but returning true on internal\n", a4, a5, a6, a7, a8, v11);
+    logfunction(&unk_10000FA0E, 1, @"supports-recoveryos is false, but returning true on internal\n", a4, a5, a6, a7, a8);
   }
 
   return v9;
@@ -40,7 +40,7 @@ void __edt_supports_recoveryos_block_invoke(id a1)
 
       else
       {
-        logfunction(&unk_10000FA0E, 1, @"Expected supports-recoveryos to be of data type\n", v16, v17, v18, v19, v20, v28);
+        logfunction(&unk_10000FA0E, 1, @"Expected supports-recoveryos to be of data type\n", v16, v17, v18, v19, v20);
       }
 
       CFRelease(v14);
@@ -48,7 +48,7 @@ void __edt_supports_recoveryos_block_invoke(id a1)
 
     else
     {
-      logfunction(&unk_10000FA0E, 1, @"Did not find supports-recoveryos property for product\n", v9, v10, v11, v12, v13, v28);
+      logfunction(&unk_10000FA0E, 1, @"Did not find supports-recoveryos property for product\n", v9, v10, v11, v12, v13);
     }
 
     IOObjectRelease(v7);
@@ -57,27 +57,28 @@ void __edt_supports_recoveryos_block_invoke(id a1)
   else
   {
 
-    logfunction(&unk_10000FA0E, 1, @"Failed to find product entry in EDT\n", v2, v3, v4, v5, v6, v30);
+    logfunction(&unk_10000FA0E, 1, @"Failed to find product entry in EDT\n", v2, v3, v4, v5, v6);
   }
 }
 
-void logfunction(uint64_t a1, uint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void logfunction(uint64_t a1, uint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, a3, &a9);
-  NSLog(@"%s: %@", a1, v10);
-  CFRelease(v10);
+  va_start(va, a8);
+  v9 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, a3, va);
+  NSLog(@"%s: %@", a1, v9);
+  CFRelease(v9);
 }
 
-id nrdSharedLogger()
+id nrdSharedLogger(uint64_t a1)
 {
   if (nrdSharedLogger_pred != -1)
   {
     nrdSharedLogger_cold_1();
   }
 
-  v1 = nrdSharedLogger___instance;
+  v2 = nrdSharedLogger___instance;
 
-  return v1;
+  return v2;
 }
 
 void __nrdSharedLogger_block_invoke(id a1)
@@ -89,25 +90,24 @@ void __nrdSharedLogger_block_invoke(id a1)
 
 uint64_t load_trust_cache_at_path(const char *a1, NSError **a2)
 {
-  v3 = a1;
-  memset(&v66, 0, sizeof(v66));
+  memset(&v67, 0, sizeof(v67));
   connect = 0;
   v4 = open(a1, 0);
   if (v4 < 0)
   {
     v16 = *__error();
-    v78 = NSDebugDescriptionErrorKey;
+    v79 = NSDebugDescriptionErrorKey;
     v17 = __error();
-    v79 = [NSString stringWithFormat:@"open() failed: %s", strerror(*v17)];
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v16 userInfo:[NSDictionary dictionaryWithObjects:&v79 forKeys:&v78 count:1]];
+    v80 = [NSString stringWithFormat:@"open() failed: %s", strerror(*v17)];
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v16 userInfo:[NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1]];
     v18 = __error();
-    strerror(*v18);
-    logfunction(&unk_10000FA0E, 1, @"Could not open trust cache at path %s: %s.\n", v19, v20, v21, v22, v23, v3);
-    v24 = MGCopyAnswer();
-    if (v24 == kCFBooleanFalse && (bzero(__s1, 0x400uLL), v64 = 1024, !sysctlbyname("kern.bootargs", __s1, &v64, 0, 0)) && strstr(__s1, "msu_eng_brain=1"))
+    v19 = strerror(*v18);
+    logfunction(&unk_10000FA0E, 1, @"Could not open trust cache at path %s: %s.\n", v20, v21, v22, v23, v24, a1, v19);
+    v25 = MGCopyAnswer();
+    if (v25 == kCFBooleanFalse && (bzero(__s1, 0x400uLL), v65 = 1024, !sysctlbyname("kern.bootargs", __s1, &v65, 0, 0)) && strstr(__s1, "msu_eng_brain=1"))
     {
       v15 = 1;
-      logfunction(&unk_10000FA0E, 1, @"System policy for update brain is in effect.\n", v53, v54, v55, v56, v57, outputStructa);
+      logfunction(&unk_10000FA0E, 1, @"System policy for update brain is in effect.\n", v54, v55, v56, v57, v58);
       v8 = 0;
     }
 
@@ -116,96 +116,96 @@ uint64_t load_trust_cache_at_path(const char *a1, NSError **a2)
       v15 = 0;
     }
 
-    CFRelease(v24);
+    CFRelease(v25);
     goto LABEL_9;
   }
 
   v5 = v4;
-  if (fstat(v4, &v66))
+  if (fstat(v4, &v67))
   {
     v6 = *__error();
-    v75 = NSDebugDescriptionErrorKey;
+    v76 = NSDebugDescriptionErrorKey;
     v7 = __error();
-    v76 = [NSString stringWithFormat:@"fstat() failed: %s", strerror(*v7)];
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v6 userInfo:[NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1]];
+    v77 = [NSString stringWithFormat:@"fstat() failed: %s", strerror(*v7)];
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v6 userInfo:[NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1]];
     v9 = __error();
-    outputStructb = strerror(*v9);
-    logfunction(&unk_10000FA0E, 1, @"Could not fstat trust cache: %s\n", v10, v11, v12, v13, v14, outputStructb);
+    outputStructa = strerror(*v9);
+    logfunction(&unk_10000FA0E, 1, @"Could not fstat trust cache: %s\n", v10, v11, v12, v13, v14, outputStructa);
 LABEL_4:
     close(v5);
     v15 = 0;
     goto LABEL_9;
   }
 
-  v26 = mmap(0, v66.st_size, 1, 1026, v5, 0);
-  if (v26 == -1)
+  v27 = mmap(0, v67.st_size, 1, 1026, v5, 0);
+  if (v27 == -1)
   {
-    v39 = *__error();
-    v73 = NSDebugDescriptionErrorKey;
-    v40 = __error();
-    v74 = [NSString stringWithFormat:@"mmap() failed: %s", strerror(*v40)];
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v39 userInfo:[NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1]];
+    v40 = *__error();
+    v74 = NSDebugDescriptionErrorKey;
     v41 = __error();
-    strerror(*v41);
-    logfunction(&unk_10000FA0E, 1, @"Could not map file %s: %s\n", v42, v43, v44, v45, v46, v3);
+    v75 = [NSString stringWithFormat:@"mmap() failed: %s", strerror(*v41)];
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v40 userInfo:[NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1]];
+    v42 = __error();
+    v64 = strerror(*v42);
+    logfunction(&unk_10000FA0E, 1, @"Could not map file %s: %s\n", v43, v44, v45, v46, v47, a1, v64);
     goto LABEL_4;
   }
 
-  v27 = v26;
-  v28 = IOServiceMatching("AppleMobileFileIntegrity");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v28);
-  v30 = MatchingService;
+  v28 = v27;
+  v29 = IOServiceMatching("AppleMobileFileIntegrity");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v29);
+  v31 = MatchingService;
   if (!MatchingService)
   {
-    v71 = NSDebugDescriptionErrorKey;
-    v72 = @"Could not find AppleMobileFileIntegrity service";
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:3 userInfo:[NSDictionary dictionaryWithObjects:&v72 forKeys:&v71 count:1]];
-    v52 = @"Could not find AppleMobileFileIntegrity service\n";
+    v72 = NSDebugDescriptionErrorKey;
+    v73 = @"Could not find AppleMobileFileIntegrity service";
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:3 userInfo:[NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1]];
+    v53 = @"Could not find AppleMobileFileIntegrity service\n";
 LABEL_22:
-    logfunction(&unk_10000FA0E, 1, v52, v47, v48, v49, v50, v51, outputStruct);
+    logfunction(&unk_10000FA0E, 1, v53, v48, v49, v50, v51, v52, outputStruct);
     goto LABEL_23;
   }
 
-  v31 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
-  if (!v31)
+  v32 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
+  if (!v32)
   {
-    v58 = IOConnectCallMethod(connect, 2u, 0, 0, v27, v66.st_size, 0, 0, 0, 0);
-    if (!v58)
+    v59 = IOConnectCallMethod(connect, 2u, 0, 0, v28, v67.st_size, 0, 0, 0, 0);
+    if (!v59)
     {
       v8 = 0;
       v15 = 1;
       goto LABEL_24;
     }
 
-    v59 = v58;
-    v60 = v58;
-    v67 = NSDebugDescriptionErrorKey;
-    v68 = [NSString stringWithFormat:@"IOConnectCallMethod() failed: 0x%x", v58];
-    v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v60 userInfo:[NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1]];
-    outputStruct = v59;
-    v52 = @"Unable to load trust cache: 0x%x\n";
+    v60 = v59;
+    v61 = v59;
+    v68 = NSDebugDescriptionErrorKey;
+    v69 = [NSString stringWithFormat:@"IOConnectCallMethod() failed: 0x%x", v59];
+    v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v61 userInfo:[NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1]];
+    outputStruct = v60;
+    v53 = @"Unable to load trust cache: 0x%x\n";
     goto LABEL_22;
   }
 
-  v32 = v31;
-  v33 = v31;
-  v69 = NSDebugDescriptionErrorKey;
-  v70 = [NSString stringWithFormat:@"IOServiceOpen() failed: 0x%x", v31];
-  v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v33 userInfo:[NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1]];
-  logfunction(&unk_10000FA0E, 1, @"Unable to open user client: 0x%x\n", v34, v35, v36, v37, v38, v32);
+  v33 = v32;
+  v34 = v32;
+  v70 = NSDebugDescriptionErrorKey;
+  v71 = [NSString stringWithFormat:@"IOServiceOpen() failed: 0x%x", v32];
+  v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v34 userInfo:[NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1]];
+  logfunction(&unk_10000FA0E, 1, @"Unable to open user client: 0x%x\n", v35, v36, v37, v38, v39, v33);
 LABEL_23:
   v15 = 0;
 LABEL_24:
   close(v5);
-  munmap(v27, v66.st_size);
+  munmap(v28, v67.st_size);
   if (connect)
   {
     IOServiceClose(connect);
   }
 
-  if (v30)
+  if (v31)
   {
-    IOObjectRelease(v30);
+    IOObjectRelease(v31);
   }
 
 LABEL_9:
@@ -234,51 +234,67 @@ void sub_100001A64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100001EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100001EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100004860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1000066D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose((v9 - 96), 8);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10000956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100002D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a11);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000066D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
+  _Block_object_dispose((v16 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+void sub_10000956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = nrdSharedLogger();
+  v3 = nrdSharedLogger(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -293,30 +309,30 @@ int main(int argc, const char **argv, const char **envp)
   *buf = _NSConcreteStackBlock;
   *&buf[8] = 3221225472;
   *&buf[16] = __setupSignalHandlers_block_invoke;
-  v13 = &__block_descriptor_36_e5_v8__0l;
-  v14 = 15;
+  v15 = &__block_descriptor_36_e5_v8__0l;
+  v16 = 15;
   dispatch_source_set_event_handler(v5, buf);
   dispatch_resume(v5);
   v6 = setupSignalHandlers_signalSources_0;
   setupSignalHandlers_signalSources_0 = v5;
 
-  signal(15, 1);
-  v7 = nrdSharedLogger();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = signal(15, 1);
+  v8 = nrdSharedLogger(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = 15;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[SIGNAL_HANDLER] signal handler has been registered for signal: %d", v11, 8u);
+    v13[0] = 67109120;
+    v13[1] = 15;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[SIGNAL_HANDLER] signal handler has been registered for signal: %d", v13, 8u);
   }
 
-  v8 = +[NRDUpdateDaemonServerImpl sharedInstance];
-  [v8 runUntilExit];
+  v9 = +[NRDUpdateDaemonServerImpl sharedInstance];
+  [v9 runUntilExit];
 
-  v9 = nrdSharedLogger();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = nrdSharedLogger(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Exiting NRDUpdated", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Exiting NRDUpdated", buf, 2u);
   }
 
   return 0;
@@ -325,7 +341,7 @@ int main(int argc, const char **argv, const char **envp)
 void __setupSignalHandlers_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
   if (v1 == 15)
   {

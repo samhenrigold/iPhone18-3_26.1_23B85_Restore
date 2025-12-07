@@ -12,7 +12,6 @@
 
 - (id)trifbCreateBoxedInt64FromBoxedInt64:()TRIFBBoxedInt64
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -42,8 +41,6 @@
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:*(v8 + 4) - v10 + *(v8 + 5)];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -57,7 +54,7 @@
 
 - (id)trifbCreateVectorOfBoxedInt64WithCount:()TRIFBBoxedInt64 block:
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v7 = a4;
   if (!v7)
   {
@@ -76,15 +73,13 @@
   else
   {
     v10 = [self fbb];
-    v15[0] = &unk_28435E458;
-    v15[1] = MEMORY[0x2318F2490](v7);
-    v15[3] = v15;
-    VectorOf = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVectorOfStructs<BoxedInt64>(v10, a3, v15);
-    std::__function::__value_func<void ()(unsigned long,BoxedInt64 *)>::~__value_func[abi:ne200100](v15);
+    v14[0] = &unk_28435E458;
+    v14[1] = MEMORY[0x2318F2490](v7);
+    v14[3] = v14;
+    VectorOf = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVectorOfStructs<BoxedInt64>(v10, a3, v14);
+    std::__function::__value_func<void ()(unsigned long,BoxedInt64 *)>::~__value_func[abi:ne200100](v14);
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:VectorOf];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -116,14 +111,13 @@
 
 - (void)trifbCreateVectorOfBoxedInt64WithCount:()TRIFBBoxedInt64 block:
 {
-  v4 = *a2;
-  v5 = *a3;
-  v6 = objc_autoreleasePoolPush();
-  v7 = objc_opt_new();
+  v4 = *a3;
+  v5 = objc_autoreleasePoolPush();
+  v6 = objc_opt_new();
   (*(*(self + 8) + 16))();
-  *v5 = *[v7 cppPointer];
+  *v4 = *[v6 cppPointer];
 
-  objc_autoreleasePoolPop(v6);
+  objc_autoreleasePoolPop(v5);
 }
 
 - (uint64_t)trifbCreateVectorOfBoxedInt64WithCount:()TRIFBBoxedInt64 block:

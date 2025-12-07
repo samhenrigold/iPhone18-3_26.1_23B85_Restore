@@ -21,6 +21,7 @@
 - (NSString)symbolName;
 - (SidecarService)init;
 - (SidecarService)initWithDevice:(id)device;
+- (id)_devicesByForcingFetchFromRelay:(BOOL)relay;
 - (id)copyWithDevice:(id)device;
 - (id)makeRequestToDevice:(id)device;
 - (id)mutableRequestMessage;
@@ -88,7 +89,7 @@ void __36__SidecarService_Camera_returnTypes__block_invoke()
 
 - (id)makeRequestToDevice:(id)device
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = filterTargetDevice(self, deviceCopy, 0);
   if (v5)
@@ -101,9 +102,9 @@ void __36__SidecarService_Camera_returnTypes__block_invoke()
   if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [deviceCopy identifier];
-    v15 = 138412290;
-    v16 = identifier;
-    _os_log_impl(&dword_26604C000, v7, OS_LOG_TYPE_DEFAULT, "While trying to make a request to device with IDS identifier [%@], the target device was not found. Forcing a fetch to SidecarRelay to find the device.", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = identifier;
+    _os_log_impl(&dword_26604C000, v7, OS_LOG_TYPE_DEFAULT, "While trying to make a request to device with IDS identifier [%@], the target device was not found. Forcing a fetch to SidecarRelay to find the device.", &v14, 0xCu);
   }
 
   v5 = filterTargetDevice(self, deviceCopy, 1);
@@ -116,20 +117,18 @@ LABEL_4:
 
   else
   {
-    v12 = SidecarCoreLogSubsystem(OS_LOG_TYPE_DEFAULT);
-    v8 = v12;
-    if (v12 && os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = SidecarCoreLogSubsystem(OS_LOG_TYPE_DEFAULT);
+    v8 = v11;
+    if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       identifier2 = [deviceCopy identifier];
-      v15 = 138412290;
-      v16 = identifier2;
-      _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_DEFAULT, "Even after forcing a fetch to SidecarRelay, the device with identifier [%@] could not be found.  Will not be able to make a request to it.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = identifier2;
+      _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_DEFAULT, "Even after forcing a fetch to SidecarRelay, the device with identifier [%@] could not be found.  Will not be able to make a request to it.", &v14, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -201,6 +200,42 @@ LABEL_4:
   return [v2 name];
 }
 
+- (id)_devicesByForcingFetchFromRelay:(BOOL)relay
+{
+  v14[1] = *MEMORY[0x277D85DE8];
+  if (self->_targetDevice)
+  {
+    v14[0] = self->_targetDevice;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  }
+
+  else
+  {
+    v4 = [SidecarDevice allDevicesByForcingFetchFromRelay:relay];
+    minimumRapportVersion = [objc_opt_class() minimumRapportVersion];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __filterSupportedDevices_block_invoke;
+    v11[3] = &__block_descriptor_40_e23_B16__0__SidecarDevice_8l;
+    v11[4] = minimumRapportVersion;
+    v6 = v11;
+    v7 = MEMORY[0x277CBEB18];
+    v8 = v4;
+    v9 = [[v7 alloc] initWithCapacity:{objc_msgSend(v8, "count")}];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __filterDevices_block_invoke;
+    v12[3] = &unk_279BC3598;
+    v12[4] = v9;
+    v13 = v6;
+    [v8 enumerateObjectsUsingBlock:v12];
+
+    v3 = [v9 copy];
+  }
+
+  return v3;
+}
+
 - (SidecarService)initWithDevice:(id)device
 {
   deviceCopy = device;
@@ -267,31 +302,31 @@ LABEL_4:
 
 void __32__SidecarService_allReturnTypes__block_invoke()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v0 = +[SidecarService services];
   v1 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v0, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = v0;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = MEMORY[0x277CBEB98];
-        v8 = [*(*(&v13 + 1) + 8 * v6) returnTypes];
+        v8 = [*(*(&v12 + 1) + 8 * v6) returnTypes];
         v9 = [v7 setWithArray:v8];
 
         [v1 unionSet:v9];
@@ -299,7 +334,7 @@ void __32__SidecarService_allReturnTypes__block_invoke()
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -308,8 +343,6 @@ void __32__SidecarService_allReturnTypes__block_invoke()
   v10 = [v1 copy];
   v11 = allReturnTypes_allTypes;
   allReturnTypes_allTypes = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (NSArray)returnTypes
@@ -328,33 +361,33 @@ void __32__SidecarService_allReturnTypes__block_invoke()
 
 + (id)servicesForPasteboardSendTypes:(id)types returnTypes:(id)returnTypes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   returnTypesCopy = returnTypes;
   v5 = +[SidecarService services];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
-  v19 = returnTypesCopy;
+  v18 = returnTypesCopy;
   v7 = [MEMORY[0x277CBEB98] setWithArray:returnTypesCopy];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
         v13 = MEMORY[0x277CBEB98];
-        returnTypes = [*(*(&v20 + 1) + 8 * i) returnTypes];
+        returnTypes = [*(*(&v19 + 1) + 8 * i) returnTypes];
         v15 = [v13 setWithArray:returnTypes];
 
         if ([v15 intersectsSet:v7])
@@ -364,13 +397,11 @@ void __32__SidecarService_allReturnTypes__block_invoke()
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -391,35 +422,35 @@ void __32__SidecarService_allReturnTypes__block_invoke()
 
 void __41__SidecarService_extensionForIdentifier___block_invoke()
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v0 = +[SidecarService allServices];
   v1 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v0, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = v0;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 serviceExtension];
         v9 = [v7 serviceIdentifier];
         [v1 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -427,95 +458,134 @@ void __41__SidecarService_extensionForIdentifier___block_invoke()
 
   v10 = extensionForIdentifier__serviceToExtension;
   extensionForIdentifier__serviceToExtension = v1;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (NSArray)allMenuServices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = +[SidecarService menuServices];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v10 = objc_opt_new();
-        [v3 addObject:{v10, v13}];
+        v9 = objc_opt_new();
+        [v3 addObject:{v9, v11}];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (NSArray)allServices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = +[SidecarService services];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v10 = objc_opt_new();
-        [v3 addObject:{v10, v13}];
+        v9 = objc_opt_new();
+        [v3 addObject:{v9, v11}];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)serviceWithName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   +[SidecarService services];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v4 = v14 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = *v12;
+    while (2)
+    {
+      for (i = 0; i != v5; i = i + 1)
+      {
+        if (*v12 != v6)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        name = [*(*(&v11 + 1) + 8 * i) name];
+        v9 = [nameCopy isEqualToString:name];
+
+        if (v9)
+        {
+          v5 = objc_opt_new();
+          goto LABEL_11;
+        }
+      }
+
+      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  return v5;
+}
+
++ (id)serviceWithIdentifier:(id)identifier
+{
+  v17 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  +[SidecarService allServices];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
@@ -533,12 +603,13 @@ void __41__SidecarService_extensionForIdentifier___block_invoke()
           objc_enumerationMutation(v4);
         }
 
-        name = [*(*(&v12 + 1) + 8 * i) name];
-        v9 = [nameCopy isEqualToString:name];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        serviceIdentifier = [v8 serviceIdentifier];
+        v10 = [identifierCopy isEqualToString:serviceIdentifier];
 
-        if (v9)
+        if (v10)
         {
-          v5 = objc_opt_new();
+          v5 = v8;
           goto LABEL_11;
         }
       }
@@ -554,58 +625,6 @@ void __41__SidecarService_extensionForIdentifier___block_invoke()
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v5;
-}
-
-+ (id)serviceWithIdentifier:(id)identifier
-{
-  v18 = *MEMORY[0x277D85DE8];
-  identifierCopy = identifier;
-  +[SidecarService allServices];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v5)
-  {
-    v6 = *v14;
-    while (2)
-    {
-      for (i = 0; i != v5; i = i + 1)
-      {
-        if (*v14 != v6)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v8 = *(*(&v13 + 1) + 8 * i);
-        serviceIdentifier = [v8 serviceIdentifier];
-        v10 = [identifierCopy isEqualToString:serviceIdentifier];
-
-        if (v10)
-        {
-          v5 = v8;
-          goto LABEL_11;
-        }
-      }
-
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v5)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -624,18 +643,16 @@ LABEL_11:
 
 void __30__SidecarService_menuServices__block_invoke()
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v0 = objc_opt_self();
-  v6[0] = v0;
+  v5[0] = v0;
   v1 = objc_opt_self();
-  v6[1] = v1;
+  v5[1] = v1;
   v2 = objc_opt_self();
-  v6[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v5[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
   v4 = menuServices_services;
   menuServices_services = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)services
@@ -652,28 +669,26 @@ void __30__SidecarService_menuServices__block_invoke()
 
 void __26__SidecarService_services__block_invoke()
 {
-  v11[8] = *MEMORY[0x277D85DE8];
+  v10[8] = *MEMORY[0x277D85DE8];
   v0 = objc_opt_self();
-  v11[0] = v0;
+  v10[0] = v0;
   v1 = objc_opt_self();
-  v11[1] = v1;
+  v10[1] = v1;
   v2 = objc_opt_self();
-  v11[2] = v2;
+  v10[2] = v2;
   v3 = objc_opt_self();
-  v11[3] = v3;
+  v10[3] = v3;
   v4 = objc_opt_self();
-  v11[4] = v4;
+  v10[4] = v4;
   v5 = objc_opt_self();
-  v11[5] = v5;
+  v10[5] = v5;
   v6 = objc_opt_self();
-  v11[6] = v6;
+  v10[6] = v6;
   v7 = objc_opt_self();
-  v11[7] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:8];
+  v10[7] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:8];
   v9 = services_services;
   services_services = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __36__SidecarService_Sketch_returnTypes__block_invoke()

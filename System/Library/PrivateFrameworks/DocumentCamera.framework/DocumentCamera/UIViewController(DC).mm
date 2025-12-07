@@ -1,8 +1,8 @@
 @interface UIViewController(DC)
 + (void)dc_enableUIViewAnimations:()DC forBlock:;
 - (BOOL)dc_isViewVisible;
+- (CGFloat)dc_safeAreaDistanceFromTop;
 - (double)dc_safeAreaDistanceFromBottom;
-- (double)dc_safeAreaDistanceFromTop;
 - (id)dc_safeAreaLayoutGuide;
 - (uint64_t)dc_isRTL;
 - (void)dc_showViewController:()DC animated:sender:;
@@ -70,7 +70,7 @@
   return v4;
 }
 
-- (double)dc_safeAreaDistanceFromTop
+- (CGFloat)dc_safeAreaDistanceFromTop
 {
   dc_safeAreaLayoutGuide = [self dc_safeAreaLayoutGuide];
   [dc_safeAreaLayoutGuide layoutFrame];

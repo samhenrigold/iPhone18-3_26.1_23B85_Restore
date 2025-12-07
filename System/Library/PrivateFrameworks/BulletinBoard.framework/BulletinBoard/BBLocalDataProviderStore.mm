@@ -6,6 +6,8 @@
 - (id)debugDescriptionWithChildren:(unint64_t)children;
 - (void)_addDataProviderClass:(Class)class performMigration:(BOOL)migration;
 - (void)_addLocalDataProviderFactoryOfClass:(Class)class;
+- (void)_loadDataProviderPluginBundle:(id)bundle performMigration:(BOOL)migration;
+- (void)_queue_addDataProvider:(id)provider performMigration:(BOOL)migration;
 - (void)_queue_removeDataProvider:(id)provider;
 - (void)addDataProvider:(id)provider performMigration:(BOOL)migration;
 - (void)addParentSectionInfo:(id)info displayName:(id)name icon:(id)icon universalSectionID:(id)d;
@@ -96,28 +98,28 @@
 
 void __57__BBLocalDataProviderStore_debugDescriptionWithChildren___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = *MEMORY[0x277D85DE8];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(a1[4] + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1[4] + 32) objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v6)];
+        v7 = [*(a1[4] + 32) objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v6)];
         v8 = a1[5];
         v9 = [v7 debugDescriptionWithChildren:a1[6] + 1];
         [v8 appendFormat:@"\n%@", v9];
@@ -126,63 +128,61 @@ void __57__BBLocalDataProviderStore_debugDescriptionWithChildren___block_invoke(
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadAllDataProvidersAndPerformMigration:(BOOL)migration
 {
   migrationCopy = migration;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = BBLibraryDirectoriesForFolderNamed(@"BulletinBoardPlugins");
-  v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v20)
   {
-    v20 = *v30;
+    v19 = *v29;
     do
     {
       v3 = 0;
       do
       {
-        if (*v30 != v20)
+        if (*v29 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v3;
-        v4 = *(*(&v29 + 1) + 8 * v3);
+        v21 = v3;
+        v4 = *(*(&v28 + 1) + 8 * v3);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
         v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:0];
 
-        v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v26;
+          v9 = *v25;
           do
           {
             v10 = 0;
             do
             {
-              if (*v26 != v9)
+              if (*v25 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v25 + 1) + 8 * v10);
+              v11 = *(*(&v24 + 1) + 8 * v10);
               v12 = objc_autoreleasePoolPush();
               pathExtension = [v11 pathExtension];
               v14 = [pathExtension caseInsensitiveCompare:@"bundle"];
@@ -204,23 +204,172 @@ void __57__BBLocalDataProviderStore_debugDescriptionWithChildren___block_invoke(
             }
 
             while (v8 != v10);
-            v8 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v8);
         }
 
-        v3 = v22 + 1;
+        v3 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v21 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v20);
+  }
+}
+
+- (void)_loadDataProviderPluginBundle:(id)bundle performMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  v28 = *MEMORY[0x277D85DE8];
+  bundleCopy = bundle;
+  v26 = 0;
+  v6 = [bundleCopy loadAndReturnError:&v26];
+  v7 = v26;
+  v8 = v7;
+  if (v6)
+  {
+    v9 = [bundleCopy objectForInfoDictionaryKey:@"BBDataProviderClasses"];
+    if (v9)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        if ([v9 count])
+        {
+          v20 = v9;
+          v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
+          v10 = v9;
+          v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          if (v11)
+          {
+            v12 = v11;
+            v13 = *v23;
+            do
+            {
+              for (i = 0; i != v12; ++i)
+              {
+                if (*v23 != v13)
+                {
+                  objc_enumerationMutation(v10);
+                }
+
+                v15 = *(*(&v22 + 1) + 8 * i);
+                v16 = NSClassFromString(v15);
+                if (v16 && (v17 = v16, [(objc_class *)v16 conformsToProtocol:&unk_2854452F8]))
+                {
+                  [(BBLocalDataProviderStore *)self _addDataProviderClass:v17 performMigration:migrationCopy];
+                }
+
+                else
+                {
+                  NSLog(&cfstr_NoConformingCl.isa, v15, bundleCopy);
+                }
+              }
+
+              v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+            }
+
+            while (v12);
+          }
+
+          v9 = v20;
+          goto LABEL_24;
+        }
+      }
+    }
+
+    principalClass = [bundleCopy principalClass];
+    if (principalClass)
+    {
+      v19 = principalClass;
+      if ([principalClass conformsToProtocol:&unk_2854452F8])
+      {
+        [(BBLocalDataProviderStore *)self _addDataProviderClass:v19 performMigration:migrationCopy];
+LABEL_24:
+
+        goto LABEL_25;
+      }
+
+      if ([v19 conformsToProtocol:&unk_285445358])
+      {
+        [(BBLocalDataProviderStore *)self _addLocalDataProviderFactoryOfClass:v19];
+        goto LABEL_24;
+      }
+    }
+
+    NSLog(&cfstr_NoConformingPr.isa, bundleCopy);
+    goto LABEL_24;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  NSLog(&cfstr_UnableToLoadPl.isa, bundleCopy, v7);
+LABEL_25:
+}
+
+- (void)_queue_addDataProvider:(id)provider performMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  v24 = *MEMORY[0x277D85DE8];
+  providerCopy = provider;
+  sectionIdentifier = [providerCopy sectionIdentifier];
+  if (sectionIdentifier)
+  {
+    v8 = [(NSMutableDictionary *)self->_dataProvidersBySectionID objectForKey:sectionIdentifier];
+    if ([providerCopy isEqual:v8])
+    {
+      v9 = BBLogConnection;
+      if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138544130;
+        selfCopy = self;
+        v18 = 2114;
+        v19 = sectionIdentifier;
+        v20 = 2112;
+        v21 = v8;
+        v22 = 2112;
+        v23 = providerCopy;
+        _os_log_error_impl(&dword_241EFF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ was asked to add a second data provider for section %{public}@. Please file a SpringBoard bug.\n\tOld: %@\n\tNew: %@", buf, 0x2Au);
+      }
+    }
+
+    [(NSMutableDictionary *)self->_dataProvidersBySectionID setObject:providerCopy forKeyedSubscript:sectionIdentifier];
+    universalSectionIdentifier = [providerCopy universalSectionIdentifier];
+    if (universalSectionIdentifier)
+    {
+      v11 = [(NSMutableDictionary *)self->_dataProvidersByUniversalSectionID objectForKey:universalSectionIdentifier];
+      if (!v11)
+      {
+        v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      }
+
+      [v11 addObject:providerCopy];
+      [(NSMutableDictionary *)self->_dataProvidersByUniversalSectionID setObject:v11 forKey:universalSectionIdentifier];
+    }
+
+    NSLog(&cfstr_AddingLocal.isa, sectionIdentifier, providerCopy);
+    delegate = self->_delegate;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __68__BBLocalDataProviderStore__queue_addDataProvider_performMigration___block_invoke;
+    v14[3] = &unk_278D2A600;
+    v15 = providerCopy;
+    [(BBDataProviderStoreDelegate *)delegate dataProviderStore:self didAddDataProvider:v15 performMigration:migrationCopy completion:v14];
+  }
+
+  else
+  {
+    v13 = BBLogConnection;
+    if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_ERROR))
+    {
+      [BBLocalDataProviderStore _queue_addDataProvider:v13 performMigration:self];
+    }
+  }
 }
 
 - (void)_addDataProviderClass:(Class)class performMigration:(BOOL)migration
@@ -270,10 +419,7 @@ void __67__BBLocalDataProviderStore__addDataProviderClass_performMigration___blo
 
 uint64_t __53__BBLocalDataProviderStore_dataProviderForSectionID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -306,10 +452,7 @@ uint64_t __53__BBLocalDataProviderStore_dataProviderForSectionID___block_invoke(
 
 uint64_t __63__BBLocalDataProviderStore_dataProvidersForUniversalSectionID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -340,7 +483,7 @@ uint64_t __63__BBLocalDataProviderStore_dataProvidersForUniversalSectionID___blo
     v8 = BBLogConnection;
     if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_ERROR))
     {
-      [BBLocalDataProviderStore _queue_removeDataProvider:v8];
+      [(BBLocalDataProviderStore *)v8 _queue_removeDataProvider:?];
     }
   }
 }
@@ -380,74 +523,71 @@ uint64_t __63__BBLocalDataProviderStore_dataProvidersForUniversalSectionID___blo
 
 void __56__BBLocalDataProviderStore_performBlockOnDataProviders___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v22 = 0u;
-  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v3 = *(*(a1 + 32) + 32);
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(&v20 + 1) + 8 * v7)];
+        v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v7)];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  v18 = 0u;
-  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = v2;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addLocalDataProviderFactoryOfClass:(Class)class
@@ -512,7 +652,7 @@ void __60__BBLocalDataProviderStore_removeDataProviderWithSectionID___block_invo
 
 - (void)addParentSectionInfo:(id)info displayName:(id)name icon:(id)icon universalSectionID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iconCopy = icon;
   nameCopy = name;
@@ -530,42 +670,33 @@ void __60__BBLocalDataProviderStore_removeDataProviderWithSectionID___block_invo
     v17 = objc_opt_class();
     v18 = NSStringFromClass(v17);
     sectionIdentifier = [v14 sectionIdentifier];
-    v22 = 138543618;
-    v23 = v18;
-    v24 = 2114;
-    v25 = sectionIdentifier;
-    _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ adding parent section factory for section %{public}@", &v22, 0x16u);
+    v20 = 138543618;
+    v21 = v18;
+    v22 = 2114;
+    v23 = sectionIdentifier;
+    _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ adding parent section factory for section %{public}@", &v20, 0x16u);
   }
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(BBDataProviderStoreDelegate *)self->_delegate dataProviderStore:self didAddParentSectionFactory:v14];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_queue_addDataProvider:(void *)a1 performMigration:.cold.1(void *a1)
+- (void)_queue_addDataProvider:(void *)a1 performMigration:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0_2(v2);
-  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v4, v5, "%{public}@: Data provider %{public}@ specified no sectionID. Ignoring.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v5, v6, "%{public}@: Data provider %{public}@ specified no sectionID. Ignoring.", v7, v8, v9, v10);
 }
 
-- (void)_queue_removeDataProvider:(void *)a1 .cold.1(void *a1)
+- (void)_queue_removeDataProvider:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0_2(v2);
-  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v4, v5, "%{public}@ Asked to remove a data provider (%{public}@) without a sectionID. Ignoring.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0_2(v3);
+  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v5, v6, "%{public}@ Asked to remove a data provider (%{public}@) without a sectionID. Ignoring.", v7, v8, v9, v10);
 }
 
 - (void)performBlockOnDataProviders:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

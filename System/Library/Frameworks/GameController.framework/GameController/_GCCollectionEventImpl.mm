@@ -37,36 +37,36 @@
 
 - (_GCCollectionEventImpl)initWithCollectionEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  v23.receiver = self;
-  v23.super_class = _GCCollectionEventImpl;
-  v5 = [(_GCCollectionEventImpl *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = _GCCollectionEventImpl;
+  v5 = [(_GCCollectionEventImpl *)&v22 init];
   v5->_timestamp = [eventCopy timestamp];
   v6 = objc_opt_new();
   values = v5->_values;
   v5->_values = v6;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   allKeys = [eventCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = v5->_values;
         v15 = MEMORY[0x1E696AD98];
         [eventCopy floatValueForKey:{objc_msgSend(v13, "unsignedLongLongValue")}];
@@ -74,13 +74,12 @@
         [(NSMutableDictionary *)v14 setObject:v16 forKey:v13];
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v10);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

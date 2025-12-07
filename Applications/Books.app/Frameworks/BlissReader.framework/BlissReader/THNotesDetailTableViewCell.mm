@@ -221,9 +221,9 @@
   if ([(THNotesDetailTableViewCell *)self longPressGR]== r)
   {
     [(THNotesDetailTableViewCellHighlightView *)[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] highlightView] frame];
-    v35.x = v6;
-    v35.y = v8;
-    if (CGRectContainsPoint(v37, v35) && [-[THAnnotation annotationRepresentativeText](-[THNotesDetailTableViewCellController annotation](-[THNotesDetailTableViewCell tableViewCellController](self "tableViewCellController")])
+    v37.x = v6;
+    v37.y = v8;
+    if (CGRectContainsPoint(v39, v37) && [-[THAnnotation annotationRepresentativeText](-[THNotesDetailTableViewCellController annotation](-[THNotesDetailTableViewCell tableViewCellController](self "tableViewCellController")])
     {
       [(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] highlightTextFrame];
       [(THNotesDetailTableViewCell *)self convertRect:[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] highlightView] fromView:v9, v10, v11, v12];
@@ -241,9 +241,9 @@
       width = CGRectZero.size.width;
       height = CGRectZero.size.height;
       [(UILabel *)[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] noteLabel] frame];
-      v36.x = v6;
-      v36.y = v8;
-      if (CGRectContainsPoint(v38, v36) && [-[THAnnotation annotationNote](-[THNotesDetailTableViewCellController annotation](-[THNotesDetailTableViewCell tableViewCellController](self "tableViewCellController")])
+      v38.x = v6;
+      v38.y = v8;
+      if (CGRectContainsPoint(v40, v38) && [-[THAnnotation annotationNote](-[THNotesDetailTableViewCellController annotation](-[THNotesDetailTableViewCell tableViewCellController](self "tableViewCellController")])
       {
         [(UILabel *)[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] noteLabel] frame];
         x = v21;
@@ -253,11 +253,11 @@
         v25 = [+[NSParagraphStyle defaultParagraphStyle](NSParagraphStyle mutableCopy];
         [v25 setLineBreakMode:{-[UILabel lineBreakMode](-[THNotesDetailTableViewCellController noteLabel](-[THNotesDetailTableViewCell tableViewCellController](self, "tableViewCellController"), "noteLabel"), "lineBreakMode")}];
         text = [(UILabel *)[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] noteLabel] text];
-        v33[0] = NSFontAttributeName;
-        v33[1] = NSParagraphStyleAttributeName;
-        v34[0] = [(UILabel *)[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] noteLabel] font];
-        v34[1] = v25;
-        [(NSString *)text boundingRectWithSize:1 options:[NSDictionary dictionaryWithObjects:v33 forKeys:2 count:?], 0, width, height];
+        v35[0] = NSFontAttributeName;
+        v35[1] = NSParagraphStyleAttributeName;
+        v36[0] = [(UILabel *)[(THNotesDetailTableViewCellController *)[(THNotesDetailTableViewCell *)self tableViewCellController] noteLabel] font];
+        v36[1] = v25;
+        [(NSString *)text boundingRectWithSize:1 options:[NSDictionary dictionaryWithObjects:v35 forKeys:2 count:?], 0, width, height];
         v28 = v27;
         v30 = v29;
 
@@ -275,8 +275,9 @@
     {
       [(THNotesDetailTableViewCell *)self becomeFirstResponder];
       v31 = +[UIMenuController sharedMenuController];
-      v32 = [[UIMenuItem alloc] initWithTitle:objc_msgSend(THBundle() action:{"localizedStringForKey:value:table:", @"Search", &stru_471858, 0), "searchText:"}];
-      [(UIMenuController *)v31 setMenuItems:[NSArray arrayWithObject:v32]];
+      v32 = [UIMenuItem alloc];
+      v34 = [v32 initWithTitle:objc_msgSend(THBundle(v32 action:{v33), "localizedStringForKey:value:table:", @"Search", &stru_471858, 0), "searchText:"}];
+      [(UIMenuController *)v31 setMenuItems:[NSArray arrayWithObject:v34]];
 
       [(UIMenuController *)v31 setTargetRect:self inView:x, y, width, height];
       [(UIMenuController *)v31 setMenuVisible:1 animated:1];

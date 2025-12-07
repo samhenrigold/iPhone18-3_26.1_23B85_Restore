@@ -786,7 +786,7 @@ LABEL_17:
 
 - (id)migratedThreeWidgets:(id)widgets
 {
-  v76[5] = *MEMORY[0x277D85DE8];
+  v77[5] = *MEMORY[0x277D85DE8];
   widgetsCopy = widgets;
   defaultSmallClockWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)self defaultSmallClockWidgetIcon];
   defaultSmallCalendarWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)self defaultSmallCalendarWidgetIcon];
@@ -795,8 +795,8 @@ LABEL_17:
   v8 = [widgetsCopy objectAtIndex:0];
   gridSizeClass = [v8 gridSizeClass];
   v10 = *MEMORY[0x277D66520];
-  v49 = *MEMORY[0x277D66520];
-  v53 = defaultSmallClockWidgetIcon;
+  v50 = *MEMORY[0x277D66520];
+  v54 = defaultSmallClockWidgetIcon;
   if (gridSizeClass != *MEMORY[0x277D66520])
   {
     v4 = [widgetsCopy objectAtIndex:0];
@@ -828,12 +828,12 @@ LABEL_11:
     v17 = [gridSizeClass4 isEqualToString:v13];
   }
 
-  v10 = v49;
-  if (gridSizeClass == v49)
+  v10 = v50;
+  if (gridSizeClass == v50)
   {
 
     widgetsCopy = v14;
-    self = v48;
+    self = v49;
     if (!v17)
     {
       goto LABEL_11;
@@ -844,7 +844,7 @@ LABEL_11:
   {
 
     widgetsCopy = v14;
-    self = v48;
+    self = v49;
     if ((v17 & 1) == 0)
     {
       goto LABEL_11;
@@ -863,177 +863,177 @@ LABEL_12:
   {
 
 LABEL_23:
-    v33 = SBLogWidgetDiscoverability();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = SBLogWidgetDiscoverability(v27);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_DEFAULT, "Builder logic small, small, medium widgets", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v34, OS_LOG_TYPE_DEFAULT, "Builder logic small, small, medium widgets", buf, 2u);
     }
 
     if (!v22)
     {
-      v29 = defaultSmallCalendarWidgetIcon;
-      v76[0] = v53;
-      v76[1] = defaultSmallCalendarWidgetIcon;
-      v76[2] = firstObject;
-      v76[3] = v19;
-      v76[4] = v21;
-      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:5];
-      v31 = defaultMediumSecondSuggestionWidgetIcon;
-      v30 = defaultMediumFirstSuggestionWidgetIcon;
+      v30 = defaultSmallCalendarWidgetIcon;
+      v77[0] = v54;
+      v77[1] = defaultSmallCalendarWidgetIcon;
+      v77[2] = firstObject;
+      v77[3] = v19;
+      v77[4] = v21;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:5];
+      v32 = defaultMediumSecondSuggestionWidgetIcon;
+      v31 = defaultMediumFirstSuggestionWidgetIcon;
       goto LABEL_93;
     }
 
     if ([(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:firstObject])
     {
-      v31 = defaultMediumSecondSuggestionWidgetIcon;
-      v30 = defaultMediumFirstSuggestionWidgetIcon;
+      v32 = defaultMediumSecondSuggestionWidgetIcon;
+      v31 = defaultMediumFirstSuggestionWidgetIcon;
       if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v19])
       {
-        v34 = *MEMORY[0x277D66548];
+        v35 = *MEMORY[0x277D66548];
         [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-        [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v34];
-        v75[0] = v53;
-        v75[1] = firstObject;
-        v75[2] = defaultMediumFirstSuggestionWidgetIcon;
-        v75[3] = defaultMediumSecondSuggestionWidgetIcon;
-        v75[4] = v21;
-        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:5];
-        v29 = defaultSmallCalendarWidgetIcon;
+        [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v35];
+        v76[0] = v54;
+        v76[1] = firstObject;
+        v76[2] = defaultMediumFirstSuggestionWidgetIcon;
+        v76[3] = defaultMediumSecondSuggestionWidgetIcon;
+        v76[4] = v21;
+        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:5];
+        v30 = defaultSmallCalendarWidgetIcon;
         goto LABEL_93;
       }
 
-      v29 = defaultSmallCalendarWidgetIcon;
+      v30 = defaultSmallCalendarWidgetIcon;
       if ([(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v19])
       {
-        v42 = *MEMORY[0x277D66548];
+        v43 = *MEMORY[0x277D66548];
         [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-        [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v42];
-        v74[0] = v53;
-        v74[1] = firstObject;
-        v74[2] = defaultMediumSecondSuggestionWidgetIcon;
-        v74[3] = defaultMediumFirstSuggestionWidgetIcon;
-        v74[4] = v21;
-        v36 = MEMORY[0x277CBEA60];
-        v37 = v74;
+        [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v43];
+        v75[0] = v54;
+        v75[1] = firstObject;
+        v75[2] = defaultMediumSecondSuggestionWidgetIcon;
+        v75[3] = defaultMediumFirstSuggestionWidgetIcon;
+        v75[4] = v21;
+        v37 = MEMORY[0x277CBEA60];
+        v38 = v75;
 LABEL_87:
-        v44 = 5;
+        v45 = 5;
         goto LABEL_88;
       }
 
-      [defaultSmallCalendarWidgetIcon setGridSizeClass:v49];
-      v73[0] = v53;
-      v73[1] = v19;
-      v73[2] = defaultSmallCalendarWidgetIcon;
-      v73[3] = v21;
-      v36 = MEMORY[0x277CBEA60];
-      v37 = v73;
+      [defaultSmallCalendarWidgetIcon setGridSizeClass:v50];
+      v74[0] = v54;
+      v74[1] = v19;
+      v74[2] = defaultSmallCalendarWidgetIcon;
+      v74[3] = v21;
+      v37 = MEMORY[0x277CBEA60];
+      v38 = v74;
     }
 
     else
     {
-      v31 = defaultMediumSecondSuggestionWidgetIcon;
-      v30 = defaultMediumFirstSuggestionWidgetIcon;
+      v32 = defaultMediumSecondSuggestionWidgetIcon;
+      v31 = defaultMediumFirstSuggestionWidgetIcon;
       if ([(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:v19])
       {
-        v29 = defaultSmallCalendarWidgetIcon;
+        v30 = defaultSmallCalendarWidgetIcon;
         if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:firstObject])
         {
-          v72[0] = v53;
-          v72[1] = v19;
-          v72[2] = defaultMediumFirstSuggestionWidgetIcon;
-          v72[3] = v21;
-          v36 = MEMORY[0x277CBEA60];
-          v37 = v72;
+          v73[0] = v54;
+          v73[1] = v19;
+          v73[2] = defaultMediumFirstSuggestionWidgetIcon;
+          v73[3] = v21;
+          v37 = MEMORY[0x277CBEA60];
+          v38 = v73;
         }
 
         else if ([(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:firstObject])
         {
-          v71[0] = v53;
-          v71[1] = v19;
-          v71[2] = defaultMediumSecondSuggestionWidgetIcon;
-          v71[3] = v21;
-          v36 = MEMORY[0x277CBEA60];
-          v37 = v71;
+          v72[0] = v54;
+          v72[1] = v19;
+          v72[2] = defaultMediumSecondSuggestionWidgetIcon;
+          v72[3] = v21;
+          v37 = MEMORY[0x277CBEA60];
+          v38 = v72;
         }
 
         else
         {
-          [defaultSmallCalendarWidgetIcon setGridSizeClass:v49];
-          v70[0] = v53;
-          v70[1] = firstObject;
-          v70[2] = defaultSmallCalendarWidgetIcon;
-          v70[3] = v21;
-          v36 = MEMORY[0x277CBEA60];
-          v37 = v70;
+          [defaultSmallCalendarWidgetIcon setGridSizeClass:v50];
+          v71[0] = v54;
+          v71[1] = firstObject;
+          v71[2] = defaultSmallCalendarWidgetIcon;
+          v71[3] = v21;
+          v37 = MEMORY[0x277CBEA60];
+          v38 = v71;
         }
       }
 
       else
       {
-        v29 = defaultSmallCalendarWidgetIcon;
+        v30 = defaultSmallCalendarWidgetIcon;
         if (![(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:v21])
         {
-          v35 = 0;
+          v36 = 0;
           goto LABEL_93;
         }
 
         if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:firstObject]&& ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v19])
         {
-          v45 = *MEMORY[0x277D66548];
+          v46 = *MEMORY[0x277D66548];
           [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-          [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v45];
-          v69[0] = v53;
-          v69[1] = defaultMediumFirstSuggestionWidgetIcon;
-          v69[2] = v21;
-          v69[3] = v19;
-          v69[4] = defaultMediumSecondSuggestionWidgetIcon;
-          v36 = MEMORY[0x277CBEA60];
-          v37 = v69;
+          [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v46];
+          v70[0] = v54;
+          v70[1] = defaultMediumFirstSuggestionWidgetIcon;
+          v70[2] = v21;
+          v70[3] = v19;
+          v70[4] = defaultMediumSecondSuggestionWidgetIcon;
+          v37 = MEMORY[0x277CBEA60];
+          v38 = v70;
           goto LABEL_87;
         }
 
         if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v19]&& ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:firstObject])
         {
-          v46 = *MEMORY[0x277D66548];
+          v47 = *MEMORY[0x277D66548];
           [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-          [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v46];
-          v68[0] = v53;
-          v68[1] = firstObject;
-          v68[2] = v21;
-          v68[3] = defaultMediumFirstSuggestionWidgetIcon;
-          v68[4] = defaultMediumSecondSuggestionWidgetIcon;
-          v36 = MEMORY[0x277CBEA60];
-          v37 = v68;
+          [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:v47];
+          v69[0] = v54;
+          v69[1] = firstObject;
+          v69[2] = v21;
+          v69[3] = defaultMediumFirstSuggestionWidgetIcon;
+          v69[4] = defaultMediumSecondSuggestionWidgetIcon;
+          v37 = MEMORY[0x277CBEA60];
+          v38 = v69;
           goto LABEL_87;
         }
 
         if ((![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:firstObject]|| ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v19]) && (![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v19]|| ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:firstObject]))
         {
           [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-          v66[0] = v53;
-          v66[1] = defaultMediumFirstSuggestionWidgetIcon;
-          v66[2] = firstObject;
-          v66[3] = v19;
-          v66[4] = v21;
-          v36 = MEMORY[0x277CBEA60];
-          v37 = v66;
+          v67[0] = v54;
+          v67[1] = defaultMediumFirstSuggestionWidgetIcon;
+          v67[2] = firstObject;
+          v67[3] = v19;
+          v67[4] = v21;
+          v37 = MEMORY[0x277CBEA60];
+          v38 = v67;
           goto LABEL_87;
         }
 
         [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-        v67[0] = v53;
-        v67[1] = defaultMediumFirstSuggestionWidgetIcon;
-        v67[2] = v21;
-        v67[3] = defaultMediumSecondSuggestionWidgetIcon;
-        v36 = MEMORY[0x277CBEA60];
-        v37 = v67;
+        v68[0] = v54;
+        v68[1] = defaultMediumFirstSuggestionWidgetIcon;
+        v68[2] = v21;
+        v68[3] = defaultMediumSecondSuggestionWidgetIcon;
+        v37 = MEMORY[0x277CBEA60];
+        v38 = v68;
       }
     }
 
-    v44 = 4;
+    v45 = 4;
 LABEL_88:
-    v35 = [v36 arrayWithObjects:v37 count:v44];
+    v36 = [v37 arrayWithObjects:v38 count:v45];
     goto LABEL_93;
   }
 
@@ -1045,101 +1045,101 @@ LABEL_88:
     goto LABEL_23;
   }
 
-  v27 = SBLogWidgetDiscoverability();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = SBLogWidgetDiscoverability(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Builder logic small, small, small widgets", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Builder logic small, small, small widgets", buf, 2u);
   }
 
-  v28 = widgetsCopy;
+  v29 = widgetsCopy;
 
-  v30 = defaultMediumFirstSuggestionWidgetIcon;
-  v29 = defaultSmallCalendarWidgetIcon;
-  v31 = defaultMediumSecondSuggestionWidgetIcon;
+  v31 = defaultMediumFirstSuggestionWidgetIcon;
+  v30 = defaultSmallCalendarWidgetIcon;
+  v32 = defaultMediumSecondSuggestionWidgetIcon;
   if ([(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:v19])
   {
-    v32 = firstObject;
+    v33 = firstObject;
     firstObject = v19;
   }
 
   else
   {
-    v38 = [(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:v21];
-    if (v38)
+    v39 = [(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:v21];
+    if (v39)
     {
-      v39 = firstObject;
+      v40 = firstObject;
     }
 
     else
     {
-      v39 = v21;
+      v40 = v21;
     }
 
-    if (v38)
+    if (v39)
     {
       firstObject = v21;
     }
 
-    v21 = v39;
-    v32 = v19;
+    v21 = v40;
+    v33 = v19;
   }
 
   if (![(SBWidgetOnboardingLayoutBuilder *)self isCalendarWidgetIcon:firstObject])
   {
     if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:firstObject])
     {
-      v61[0] = v53;
-      v61[1] = defaultSmallCalendarWidgetIcon;
-      v61[2] = v32;
-      v61[3] = v21;
-      v61[4] = defaultMediumFirstSuggestionWidgetIcon;
-      v40 = MEMORY[0x277CBEA60];
-      v41 = v61;
+      v62[0] = v54;
+      v62[1] = defaultSmallCalendarWidgetIcon;
+      v62[2] = v33;
+      v62[3] = v21;
+      v62[4] = defaultMediumFirstSuggestionWidgetIcon;
+      v41 = MEMORY[0x277CBEA60];
+      v42 = v62;
     }
 
     else if ([(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:firstObject])
     {
-      v60[0] = v53;
-      v60[1] = defaultSmallCalendarWidgetIcon;
-      v60[2] = v32;
-      v60[3] = v21;
-      v60[4] = defaultMediumSecondSuggestionWidgetIcon;
-      v40 = MEMORY[0x277CBEA60];
-      v41 = v60;
+      v61[0] = v54;
+      v61[1] = defaultSmallCalendarWidgetIcon;
+      v61[2] = v33;
+      v61[3] = v21;
+      v61[4] = defaultMediumSecondSuggestionWidgetIcon;
+      v41 = MEMORY[0x277CBEA60];
+      v42 = v61;
     }
 
-    else if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v32])
+    else if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v33])
     {
-      v59[0] = v53;
+      v60[0] = v54;
+      v60[1] = defaultSmallCalendarWidgetIcon;
+      v60[2] = firstObject;
+      v60[3] = v21;
+      v60[4] = defaultMediumFirstSuggestionWidgetIcon;
+      v41 = MEMORY[0x277CBEA60];
+      v42 = v60;
+    }
+
+    else if ([(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v33])
+    {
+      v59[0] = v54;
       v59[1] = defaultSmallCalendarWidgetIcon;
       v59[2] = firstObject;
       v59[3] = v21;
-      v59[4] = defaultMediumFirstSuggestionWidgetIcon;
-      v40 = MEMORY[0x277CBEA60];
-      v41 = v59;
-    }
-
-    else if ([(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v32])
-    {
-      v58[0] = v53;
-      v58[1] = defaultSmallCalendarWidgetIcon;
-      v58[2] = firstObject;
-      v58[3] = v21;
-      v58[4] = defaultMediumSecondSuggestionWidgetIcon;
-      v40 = MEMORY[0x277CBEA60];
-      v41 = v58;
+      v59[4] = defaultMediumSecondSuggestionWidgetIcon;
+      v41 = MEMORY[0x277CBEA60];
+      v42 = v59;
     }
 
     else if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21])
     {
-      v57[0] = v53;
-      v57[1] = defaultSmallCalendarWidgetIcon;
-      v57[2] = firstObject;
-      v57[3] = v32;
-      v57[4] = defaultMediumFirstSuggestionWidgetIcon;
-      v40 = MEMORY[0x277CBEA60];
-      v41 = v57;
+      v58[0] = v54;
+      v58[1] = defaultSmallCalendarWidgetIcon;
+      v58[2] = firstObject;
+      v58[3] = v33;
+      v58[4] = defaultMediumFirstSuggestionWidgetIcon;
+      v41 = MEMORY[0x277CBEA60];
+      v42 = v58;
     }
 
     else
@@ -1147,84 +1147,84 @@ LABEL_88:
       if (![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21])
       {
         [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-        v55[0] = v53;
-        v55[1] = defaultSmallCalendarWidgetIcon;
-        v55[2] = firstObject;
-        v55[3] = v32;
-        v55[4] = v21;
-        v55[5] = defaultMediumFirstSuggestionWidgetIcon;
-        v40 = MEMORY[0x277CBEA60];
-        v41 = v55;
-        v43 = 6;
+        v56[0] = v54;
+        v56[1] = defaultSmallCalendarWidgetIcon;
+        v56[2] = firstObject;
+        v56[3] = v33;
+        v56[4] = v21;
+        v56[5] = defaultMediumFirstSuggestionWidgetIcon;
+        v41 = MEMORY[0x277CBEA60];
+        v42 = v56;
+        v44 = 6;
         goto LABEL_92;
       }
 
-      v56[0] = v53;
-      v56[1] = defaultSmallCalendarWidgetIcon;
-      v56[2] = firstObject;
-      v56[3] = v32;
-      v56[4] = defaultMediumSecondSuggestionWidgetIcon;
-      v40 = MEMORY[0x277CBEA60];
-      v41 = v56;
+      v57[0] = v54;
+      v57[1] = defaultSmallCalendarWidgetIcon;
+      v57[2] = firstObject;
+      v57[3] = v33;
+      v57[4] = defaultMediumSecondSuggestionWidgetIcon;
+      v41 = MEMORY[0x277CBEA60];
+      v42 = v57;
     }
 
     goto LABEL_91;
   }
 
-  if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v32]&& ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21]|| [(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21]&& ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v32])
+  if ([(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v33]&& ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21]|| [(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21]&& ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v33])
   {
     [defaultMediumSecondSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-    v65[0] = v53;
-    v65[1] = firstObject;
-    v65[2] = v32;
-    v65[3] = v21;
-    v65[4] = defaultMediumSecondSuggestionWidgetIcon;
-    v40 = MEMORY[0x277CBEA60];
-    v41 = v65;
+    v66[0] = v54;
+    v66[1] = firstObject;
+    v66[2] = v33;
+    v66[3] = v21;
+    v66[4] = defaultMediumSecondSuggestionWidgetIcon;
+    v41 = MEMORY[0x277CBEA60];
+    v42 = v66;
     goto LABEL_91;
   }
 
-  if (![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v32]&& [(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21]|| ![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21]&& [(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v32])
+  if (![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v33]&& [(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21]|| ![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21]&& [(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v33])
   {
     [defaultMediumFirstSuggestionWidgetIcon setGridSizeClass:*MEMORY[0x277D66548]];
-    v64[0] = v53;
-    v64[1] = firstObject;
-    v64[2] = v32;
-    v64[3] = v21;
-    v64[4] = defaultMediumFirstSuggestionWidgetIcon;
-    v40 = MEMORY[0x277CBEA60];
-    v41 = v64;
+    v65[0] = v54;
+    v65[1] = firstObject;
+    v65[2] = v33;
+    v65[3] = v21;
+    v65[4] = defaultMediumFirstSuggestionWidgetIcon;
+    v41 = MEMORY[0x277CBEA60];
+    v42 = v65;
 LABEL_91:
-    v43 = 5;
+    v44 = 5;
     goto LABEL_92;
   }
 
-  if ((![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v32]|| ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21]) && (![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21]|| ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v32]))
+  if ((![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v33]|| ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v21]) && (![(SBWidgetOnboardingLayoutBuilder *)self isFirstSuggestionActiveWidgetIcon:v21]|| ![(SBWidgetOnboardingLayoutBuilder *)self isSecondSuggestionActiveWidgetIcon:v33]))
   {
-    v62[0] = v53;
-    v62[1] = firstObject;
-    v62[2] = v32;
-    v62[3] = v21;
-    v62[4] = defaultMediumFirstSuggestionWidgetIcon;
-    v40 = MEMORY[0x277CBEA60];
-    v41 = v62;
+    v63[0] = v54;
+    v63[1] = firstObject;
+    v63[2] = v33;
+    v63[3] = v21;
+    v63[4] = defaultMediumFirstSuggestionWidgetIcon;
+    v41 = MEMORY[0x277CBEA60];
+    v42 = v63;
     goto LABEL_91;
   }
 
-  v63[0] = v53;
-  v63[1] = firstObject;
-  v63[2] = defaultMediumFirstSuggestionWidgetIcon;
-  v63[3] = defaultMediumSecondSuggestionWidgetIcon;
-  v40 = MEMORY[0x277CBEA60];
-  v41 = v63;
-  v43 = 4;
+  v64[0] = v54;
+  v64[1] = firstObject;
+  v64[2] = defaultMediumFirstSuggestionWidgetIcon;
+  v64[3] = defaultMediumSecondSuggestionWidgetIcon;
+  v41 = MEMORY[0x277CBEA60];
+  v42 = v64;
+  v44 = 4;
 LABEL_92:
-  v35 = [v40 arrayWithObjects:v41 count:v43];
-  v19 = v32;
-  widgetsCopy = v28;
+  v36 = [v41 arrayWithObjects:v42 count:v44];
+  v19 = v33;
+  widgetsCopy = v29;
 LABEL_93:
 
-  return v35;
+  return v36;
 }
 
 - (id)migratedFourWidgets:(id)widgets
@@ -1303,7 +1303,7 @@ LABEL_19:
 {
   widgetsCopy = widgets;
   selfCopy = self;
-  v72[5] = *MEMORY[0x277D85DE8];
+  v76[5] = *MEMORY[0x277D85DE8];
   v5 = self->_pinnedWidgets;
   if (widgetsCopy)
   {
@@ -1312,13 +1312,13 @@ LABEL_19:
     defaultMediumCalendarWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultMediumCalendarWidgetIcon];
     defaultLargeFirstSuggestionWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultLargeFirstSuggestionWidgetIcon];
     defaultLargeSecondSuggestionWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultLargeSecondSuggestionWidgetIcon];
-    v72[0] = defaultSmallClockWidgetIcon;
-    v72[1] = defaultSmallNotesWidgetIcon;
-    v72[2] = defaultLargeFirstSuggestionWidgetIcon;
-    v72[3] = defaultLargeSecondSuggestionWidgetIcon;
-    v72[4] = defaultMediumCalendarWidgetIcon;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:5];
-    v12 = SBLogWidgetDiscoverability();
+    v76[0] = defaultSmallClockWidgetIcon;
+    v76[1] = defaultSmallNotesWidgetIcon;
+    v76[2] = defaultLargeFirstSuggestionWidgetIcon;
+    v76[3] = defaultLargeSecondSuggestionWidgetIcon;
+    v76[4] = defaultMediumCalendarWidgetIcon;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:5];
+    v12 = SBLogWidgetDiscoverability(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1339,14 +1339,14 @@ LABEL_6:
       if ([(NSArray *)v13 count]== 3)
       {
         v11 = [(SBWidgetOnboardingLayoutBuilder *)selfCopy migratedThreeWidgets:v13];
-        defaultSmallClockWidgetIcon = SBLogWidgetDiscoverability();
+        defaultSmallClockWidgetIcon = SBLogWidgetDiscoverability(v11);
         if (!os_log_type_enabled(defaultSmallClockWidgetIcon, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_52;
         }
 
         *buf = 0;
-        v38 = "Builder logic three widgets";
+        v40 = "Builder logic three widgets";
       }
 
       else
@@ -1357,42 +1357,42 @@ LABEL_6:
           defaultSmallNotesWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultSmallCalendarWidgetIcon];
           defaultMediumCalendarWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultMediumFirstSuggestionWidgetIcon];
           defaultLargeFirstSuggestionWidgetIcon = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultMediumSecondSuggestionWidgetIcon];
-          v71[0] = defaultSmallClockWidgetIcon;
-          v71[1] = defaultSmallNotesWidgetIcon;
-          v71[2] = defaultMediumCalendarWidgetIcon;
-          v71[3] = defaultLargeFirstSuggestionWidgetIcon;
-          v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:4];
-          v45 = SBLogWidgetDiscoverability();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v75[0] = defaultSmallClockWidgetIcon;
+          v75[1] = defaultSmallNotesWidgetIcon;
+          v75[2] = defaultMediumCalendarWidgetIcon;
+          v75[3] = defaultLargeFirstSuggestionWidgetIcon;
+          v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:4];
+          v47 = SBLogWidgetDiscoverability(v11);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v45, OS_LOG_TYPE_DEFAULT, "Builder logic other", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v47, OS_LOG_TYPE_DEFAULT, "Builder logic other", buf, 2u);
           }
 
           goto LABEL_5;
         }
 
         v11 = [(SBWidgetOnboardingLayoutBuilder *)selfCopy migratedFourWidgets:v13];
-        defaultSmallClockWidgetIcon = SBLogWidgetDiscoverability();
+        defaultSmallClockWidgetIcon = SBLogWidgetDiscoverability(v11);
         if (!os_log_type_enabled(defaultSmallClockWidgetIcon, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_52;
         }
 
         *buf = 0;
-        v38 = "Builder logic four widgets";
+        v40 = "Builder logic four widgets";
       }
 
-      _os_log_impl(&dword_21ED4E000, defaultSmallClockWidgetIcon, OS_LOG_TYPE_DEFAULT, v38, buf, 2u);
+      _os_log_impl(&dword_21ED4E000, defaultSmallClockWidgetIcon, OS_LOG_TYPE_DEFAULT, v40, buf, 2u);
       goto LABEL_52;
     }
 
-    v30 = selfCopy;
+    v32 = selfCopy;
     defaultSmallClockWidgetIcon = [(NSArray *)v13 firstObject];
     defaultSmallNotesWidgetIcon = [(NSArray *)v13 objectAtIndex:1];
     gridSizeClass = [defaultSmallClockWidgetIcon gridSizeClass];
     gridSizeClass2 = [defaultSmallNotesWidgetIcon gridSizeClass];
-    v33 = gridSizeClass2;
+    v35 = gridSizeClass2;
     if (gridSizeClass == gridSizeClass2)
     {
     }
@@ -1401,29 +1401,29 @@ LABEL_6:
     {
       gridSizeClass3 = [defaultSmallClockWidgetIcon gridSizeClass];
       gridSizeClass4 = [defaultSmallNotesWidgetIcon gridSizeClass];
-      v36 = [gridSizeClass3 isEqualToString:gridSizeClass4];
+      v38 = [gridSizeClass3 isEqualToString:gridSizeClass4];
 
-      if (!v36)
+      if (!v38)
       {
-        selfCopy = v30;
-        v11 = [(SBWidgetOnboardingLayoutBuilder *)v30 migratedSmallAndMediumWidget:v13];
-        defaultMediumCalendarWidgetIcon = SBLogWidgetDiscoverability();
+        selfCopy = v32;
+        v11 = [(SBWidgetOnboardingLayoutBuilder *)v32 migratedSmallAndMediumWidget:v13];
+        defaultMediumCalendarWidgetIcon = SBLogWidgetDiscoverability(v11);
         if (!os_log_type_enabled(defaultMediumCalendarWidgetIcon, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_6;
         }
 
         *buf = 0;
-        v37 = "Builder logic one small, one medium";
+        v39 = "Builder logic one small, one medium";
 LABEL_39:
-        _os_log_impl(&dword_21ED4E000, defaultMediumCalendarWidgetIcon, OS_LOG_TYPE_DEFAULT, v37, buf, 2u);
+        _os_log_impl(&dword_21ED4E000, defaultMediumCalendarWidgetIcon, OS_LOG_TYPE_DEFAULT, v39, buf, 2u);
         goto LABEL_6;
       }
     }
 
     gridSizeClass5 = [defaultSmallClockWidgetIcon gridSizeClass];
-    v41 = gridSizeClass5;
-    v42 = *MEMORY[0x277D66548];
+    v43 = gridSizeClass5;
+    v44 = *MEMORY[0x277D66548];
     if (gridSizeClass5 == *MEMORY[0x277D66548])
     {
     }
@@ -1431,34 +1431,34 @@ LABEL_39:
     else
     {
       gridSizeClass6 = [defaultSmallClockWidgetIcon gridSizeClass];
-      v44 = [gridSizeClass6 isEqualToString:v42];
+      v46 = [gridSizeClass6 isEqualToString:v44];
 
-      if (!v44)
+      if (!v46)
       {
-        selfCopy = v30;
-        v11 = [(SBWidgetOnboardingLayoutBuilder *)v30 migratedTwoMediumWidgets:v13];
-        defaultMediumCalendarWidgetIcon = SBLogWidgetDiscoverability();
+        selfCopy = v32;
+        v11 = [(SBWidgetOnboardingLayoutBuilder *)v32 migratedTwoMediumWidgets:v13];
+        defaultMediumCalendarWidgetIcon = SBLogWidgetDiscoverability(v11);
         if (!os_log_type_enabled(defaultMediumCalendarWidgetIcon, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_6;
         }
 
         *buf = 0;
-        v37 = "Builder logic two mediums";
+        v39 = "Builder logic two mediums";
         goto LABEL_39;
       }
     }
 
-    selfCopy = v30;
-    v11 = [(SBWidgetOnboardingLayoutBuilder *)v30 migratedTwoSmallWidgets:v13];
-    defaultMediumCalendarWidgetIcon = SBLogWidgetDiscoverability();
+    selfCopy = v32;
+    v11 = [(SBWidgetOnboardingLayoutBuilder *)v32 migratedTwoSmallWidgets:v13];
+    defaultMediumCalendarWidgetIcon = SBLogWidgetDiscoverability(v11);
     if (!os_log_type_enabled(defaultMediumCalendarWidgetIcon, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_6;
     }
 
     *buf = 0;
-    v37 = "Builder logic two smalls";
+    v39 = "Builder logic two smalls";
     goto LABEL_39;
   }
 
@@ -1493,8 +1493,8 @@ LABEL_39:
         if (!v24)
         {
           gridSizeClass11 = [defaultSmallClockWidgetIcon gridSizeClass];
-          v26 = gridSizeClass11;
-          v27 = *MEMORY[0x277D66548];
+          v27 = gridSizeClass11;
+          v28 = *MEMORY[0x277D66548];
           if (gridSizeClass11 == *MEMORY[0x277D66548])
           {
           }
@@ -1502,9 +1502,9 @@ LABEL_39:
           else
           {
             gridSizeClass12 = [defaultSmallClockWidgetIcon gridSizeClass];
-            v29 = [gridSizeClass12 isEqualToString:v27];
+            v30 = [gridSizeClass12 isEqualToString:v28];
 
-            if (!v29)
+            if (!v30)
             {
               v11 = 0;
               selfCopy = v14;
@@ -1512,104 +1512,104 @@ LABEL_39:
             }
           }
 
-          v48 = SBLogWidgetDiscoverability();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+          v50 = SBLogWidgetDiscoverability(v31);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v48, OS_LOG_TYPE_DEFAULT, "Builder logic one small", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEFAULT, "Builder logic one small", buf, 2u);
           }
 
           selfCopy = v14;
-          v47 = [(SBWidgetOnboardingLayoutBuilder *)v14 migratedOneSmallWidget:defaultSmallClockWidgetIcon];
+          v49 = [(SBWidgetOnboardingLayoutBuilder *)v14 migratedOneSmallWidget:defaultSmallClockWidgetIcon];
           goto LABEL_51;
         }
       }
 
-      v46 = SBLogWidgetDiscoverability();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v48 = SBLogWidgetDiscoverability(v25);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v46, OS_LOG_TYPE_DEFAULT, "Builder logic one medium", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v48, OS_LOG_TYPE_DEFAULT, "Builder logic one medium", buf, 2u);
       }
 
       selfCopy = v14;
-      v47 = [(SBWidgetOnboardingLayoutBuilder *)v14 migratedOneMediumWidget:defaultSmallClockWidgetIcon];
+      v49 = [(SBWidgetOnboardingLayoutBuilder *)v14 migratedOneMediumWidget:defaultSmallClockWidgetIcon];
 LABEL_51:
-      v11 = v47;
+      v11 = v49;
       goto LABEL_52;
     }
   }
 
   selfCopy = v14;
   v11 = [(SBWidgetOnboardingLayoutBuilder *)v14 migratedOneLargeWidget:defaultSmallClockWidgetIcon];
-  v39 = SBLogWidgetDiscoverability();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v41 = SBLogWidgetDiscoverability(v11);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEFAULT, "Builder logic one large", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "Builder logic one large", buf, 2u);
   }
 
 LABEL_52:
-  v49 = SBLogWidgetDiscoverability();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v52 = SBLogWidgetDiscoverability(v51);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v49, OS_LOG_TYPE_DEFAULT, "Builder logic CalendarWidgetMigrator starting...", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v52, OS_LOG_TYPE_DEFAULT, "Builder logic CalendarWidgetMigrator starting...", buf, 2u);
   }
 
-  v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
+  v53 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   obj = v11;
-  v51 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
-  if (v51)
+  v54 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
+  if (v54)
   {
-    v52 = v51;
-    v53 = *v66;
+    v55 = v54;
+    v56 = *v70;
     do
     {
-      for (i = 0; i != v52; ++i)
+      for (i = 0; i != v55; ++i)
       {
-        if (*v66 != v53)
+        if (*v70 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v55 = *(*(&v65 + 1) + 8 * i);
-        activeWidget = [v55 activeWidget];
+        v58 = *(*(&v69 + 1) + 8 * i);
+        activeWidget = [v58 activeWidget];
         kind = [activeWidget kind];
         if ([kind isEqualToString:@"com.apple.CalendarWidget.CalendarWidget"])
         {
-          gridSizeClass13 = [v55 gridSizeClass];
-          v59 = selfCopy;
-          v60 = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultCalendarWidgetIcon:gridSizeClass13];
-          [v50 addObject:v60];
+          gridSizeClass13 = [v58 gridSizeClass];
+          v62 = selfCopy;
+          v63 = [(SBWidgetOnboardingLayoutBuilder *)selfCopy defaultCalendarWidgetIcon:gridSizeClass13];
+          [v53 addObject:v63];
 
-          v61 = SBLogWidgetDiscoverability();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+          v65 = SBLogWidgetDiscoverability(v64);
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v61, OS_LOG_TYPE_DEFAULT, "Builder logic: Upgrading calendar widget", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v65, OS_LOG_TYPE_DEFAULT, "Builder logic: Upgrading calendar widget", buf, 2u);
           }
 
-          selfCopy = v59;
+          selfCopy = v62;
         }
 
         else
         {
-          [v50 addObject:v55];
+          [v53 addObject:v58];
         }
       }
 
-      v52 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v55 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
     }
 
-    while (v52);
+    while (v55);
   }
 
-  return v50;
+  return v53;
 }
 
 @end

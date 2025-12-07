@@ -610,7 +610,7 @@
   if ([(TVRUIStackViewController *)self _hostingViewIndexIsValid:?])
   {
     v5 = [(TVRUIStackViewController *)self _hostingViewAboveIndex:index];
-    [(TVRUIStackViewController *)self _transformWithMultiplier:-1.0];
+    objc_msgSend__transformWithMultiplier_(self, -1.0);
     v12 = v15;
     v13 = v16;
     v14 = v17;
@@ -619,7 +619,7 @@
     [view bringSubviewToFront:v5];
 
     v7 = [(TVRUIStackViewController *)self _hostingViewBelowIndex:index];
-    [(TVRUIStackViewController *)self _transformWithMultiplier:1.0];
+    objc_msgSend__transformWithMultiplier_(self, 1.0);
     v12 = v9;
     v13 = v10;
     v14 = v11;
@@ -640,7 +640,7 @@
 
     [(TVRUIStackViewController *)self _multiplierForTranslation:x, y];
     v11 = v10;
-    [(TVRUIStackViewController *)self _transformWithMultiplier:?];
+    objc_msgSend__transformWithMultiplier_(self);
     v20 = v23;
     v21 = v24;
     v22 = v25;
@@ -648,7 +648,7 @@
     if (y <= 0.0)
     {
       v12 = [(TVRUIStackViewController *)self _hostingViewBelowIndex:index];
-      [(TVRUIStackViewController *)self _transformWithMultiplier:v11 + 1.0];
+      objc_msgSend__transformWithMultiplier_(self, v11 + 1.0);
       v20 = v14;
       v21 = v15;
       v13 = v16;
@@ -657,7 +657,7 @@
     else
     {
       v12 = [(TVRUIStackViewController *)self _hostingViewAboveIndex:index];
-      [(TVRUIStackViewController *)self _transformWithMultiplier:v11 + -1.0];
+      objc_msgSend__transformWithMultiplier_(self, v11 + -1.0);
       v20 = v17;
       v21 = v18;
       v13 = v19;
@@ -765,7 +765,7 @@ void __68__TVRUIStackViewController__animateToFinalIndex_fromIndex_duration___bl
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 _transformWithMultiplier:-1.0];
+    objc_msgSend__transformWithMultiplier_(v6, -1.0);
   }
 
   else
@@ -787,7 +787,7 @@ LABEL_8:
     v8 = *(a1 + 32);
     if (v8)
     {
-      [v8 _transformWithMultiplier:1.0];
+      objc_msgSend__transformWithMultiplier_(v8, 1.0);
     }
 
     else
@@ -844,7 +844,7 @@ LABEL_8:
           v13 = -1.0;
         }
 
-        [(TVRUIStackViewController *)self _transformWithMultiplier:v12];
+        objc_msgSend__transformWithMultiplier_(self, v12);
         *v25 = *&v25[7];
         *&v25[2] = *&v25[9];
         *&v25[4] = *&v25[11];
@@ -908,32 +908,32 @@ void __61__TVRUIStackViewController__transitionToFinalIndex_duration___block_inv
   }
 }
 
-uint64_t __61__TVRUIStackViewController__transitionToFinalIndex_duration___block_invoke_2(uint64_t a1)
+uint64_t __61__TVRUIStackViewController__transitionToFinalIndex_duration___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 _transformWithMultiplier:*(a1 + 56)];
+    objc_msgSend__transformWithMultiplier_(v3, a2, *(a1 + 56));
   }
 
   else
   {
-    v11 = 0u;
     v12 = 0u;
-    v10 = 0u;
+    v13 = 0u;
+    v11 = 0u;
   }
 
-  v3 = *(a1 + 32);
-  v7 = v10;
+  v4 = *(a1 + 32);
   v8 = v11;
   v9 = v12;
-  [v3 setTransform:&v7];
-  v4 = *(a1 + 48);
-  v5 = *(MEMORY[0x277CBF2C0] + 16);
-  v7 = *MEMORY[0x277CBF2C0];
-  v8 = v5;
-  v9 = *(MEMORY[0x277CBF2C0] + 32);
-  return [v4 setTransform:&v7];
+  v10 = v13;
+  [v4 setTransform:&v8];
+  v5 = *(a1 + 48);
+  v6 = *(MEMORY[0x277CBF2C0] + 16);
+  v8 = *MEMORY[0x277CBF2C0];
+  v9 = v6;
+  v10 = *(MEMORY[0x277CBF2C0] + 32);
+  return [v5 setTransform:&v8];
 }
 
 uint64_t __61__TVRUIStackViewController__transitionToFinalIndex_duration___block_invoke_3(void *a1)
@@ -964,7 +964,7 @@ uint64_t __61__TVRUIStackViewController__transitionToFinalIndex_duration___block
         hostingViews2 = [(TVRUIStackViewController *)self hostingViews];
         v10 = [hostingViews2 objectAtIndexedSubscript:v8];
 
-        [(TVRUIStackViewController *)self _transformWithMultiplier:-1.0];
+        objc_msgSend__transformWithMultiplier_(self, -1.0);
         v15[0] = v15[3];
         v15[1] = v15[4];
         v15[2] = v15[5];

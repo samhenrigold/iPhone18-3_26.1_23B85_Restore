@@ -8,10 +8,10 @@
 
 - (_MFNewcastleAuthenticator)initWithAuthScheme:(id)scheme account:(id)account connection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = _MFNewcastleAuthenticator;
-  v6 = [(MFSASLAuthenticator *)&v12 initWithAuthScheme:scheme account:account connection:connection];
+  v14 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = _MFNewcastleAuthenticator;
+  v6 = [(MFSASLAuthenticator *)&v11 initWithAuthScheme:scheme account:account connection:connection];
   if (v6)
   {
     objc_opt_class();
@@ -20,13 +20,13 @@
       accountCopy = account;
 LABEL_4:
       *&v6->_sentResponse = accountCopy;
-      goto LABEL_11;
+      return v6;
     }
 
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      goto LABEL_11;
+      return v6;
     }
 
     mailAccountIfAvailable = [account mailAccountIfAvailable];
@@ -45,11 +45,9 @@ LABEL_4:
       _os_log_impl(&dword_258B7A000, v9, OS_LOG_TYPE_DEFAULT, "#Warning couldn't find our CastleAccount for our sending account: %@", buf, 0xCu);
     }
 
-    v6 = 0;
+    return 0;
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

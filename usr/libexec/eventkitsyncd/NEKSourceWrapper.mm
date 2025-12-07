@@ -1,9 +1,84 @@
 @interface NEKSourceWrapper
+- (NEKSourceWrapper)initWithChangeType:(int)type account:(id)account;
+- (NEKSourceWrapper)initWithChangeType:(int)type source:(id)source;
+- (NEKSourceWrapper)initWithStoreType:(int64_t)type nekChangeType:(int)changeType attributes:(id)attributes;
 - (id)description;
 - (id)objectIdentifier;
 @end
 
 @implementation NEKSourceWrapper
+
+- (NEKSourceWrapper)initWithChangeType:(int)type source:(id)source
+{
+  if (source)
+  {
+    v5 = *&type;
+    sourceCopy = source;
+    v7 = [[NEKSourceAttributes alloc] initWithSource:sourceCopy];
+
+    if (v7)
+    {
+      self = [(NEKSourceWrapper *)self initWithStoreType:0 nekChangeType:v5 attributes:v7];
+      selfCopy = self;
+    }
+
+    else
+    {
+      selfCopy = 0;
+    }
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (NEKSourceWrapper)initWithChangeType:(int)type account:(id)account
+{
+  if (account)
+  {
+    v5 = *&type;
+    accountCopy = account;
+    v7 = [[NEKSourceAttributes alloc] initWithAccount:accountCopy];
+
+    if (v7)
+    {
+      self = [(NEKSourceWrapper *)self initWithStoreType:1 nekChangeType:v5 attributes:v7];
+      selfCopy = self;
+    }
+
+    else
+    {
+      selfCopy = 0;
+    }
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (NEKSourceWrapper)initWithStoreType:(int64_t)type nekChangeType:(int)changeType attributes:(id)attributes
+{
+  v6 = *&changeType;
+  attributesCopy = attributes;
+  v13.receiver = self;
+  v13.super_class = NEKSourceWrapper;
+  v10 = [(NEKWrapper *)&v13 initWithStoreType:type nekChangeType:v6];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_attributes, attributes);
+  }
+
+  return v11;
+}
 
 - (id)objectIdentifier
 {

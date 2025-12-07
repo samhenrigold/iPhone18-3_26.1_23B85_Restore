@@ -69,71 +69,70 @@ LABEL_11:
 
 - (id)actionConfigurationByEvaluatingAction:()LinkServices context:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v37 = v6;
+  v34 = v6;
   v8 = [self valueForAction:v6 context:v7];
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
   cases = [self cases];
-  v10 = [cases countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v10 = [cases countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v43;
-    v14 = 0x1E695D000uLL;
-    v34 = v7;
-    v36 = cases;
+    v13 = *v40;
+    v31 = v7;
+    v33 = cases;
 LABEL_3:
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      if (*v43 != v13)
+      if (*v40 != v13)
       {
         objc_enumerationMutation(cases);
       }
 
-      v16 = *(*(&v42 + 1) + 8 * v15);
-      if ([v16 isDefaultCase])
+      v15 = *(*(&v39 + 1) + 8 * v14);
+      if ([v15 isDefaultCase])
       {
-        v17 = v12;
-        v12 = v16;
+        v16 = v12;
+        v12 = v15;
       }
 
       else
       {
-        value = [v16 value];
-        v18Value = [value value];
+        value = [v15 value];
+        v17Value = [value value];
 
-        if (!v18Value || (v20 = *(v14 + 3784), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        if (!v17Value || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
 
           if (!v8)
           {
-            value2 = [v16 value];
+            value2 = [v15 value];
             if (!value2)
             {
 LABEL_36:
-              v18Value = [v16 configuration];
-              v29 = v37;
-              v7 = v34;
-              v30 = [v18Value actionConfigurationByEvaluatingAction:v37 context:v34];
+              v17Value = [v15 configuration];
+              v27 = v34;
+              v7 = v31;
+              v28 = [v17Value actionConfigurationByEvaluatingAction:v34 context:v31];
 LABEL_38:
 
               goto LABEL_39;
             }
           }
 
-          value3 = [v16 value];
-          v27 = [v8 isEqual:value3];
+          value3 = [v15 value];
+          v25 = [v8 isEqual:value3];
 
           if (v8)
           {
-            if (v27)
+            if (v25)
             {
               goto LABEL_36;
             }
@@ -142,7 +141,7 @@ LABEL_38:
           else
           {
 
-            if (v27)
+            if (v25)
             {
               goto LABEL_36;
             }
@@ -151,59 +150,59 @@ LABEL_38:
           goto LABEL_30;
         }
 
-        if ([v18Value count])
+        if ([v17Value count])
         {
-          v21 = 0;
+          v19 = 0;
         }
 
         else
         {
-          v21 = v8 == 0;
+          v19 = v8 == 0;
         }
 
-        if (v21)
+        if (v19)
         {
-          configuration = [v16 configuration];
-          v29 = v37;
-          v7 = v34;
-          v30 = [configuration actionConfigurationByEvaluatingAction:v37 context:v34];
+          configuration = [v15 configuration];
+          v27 = v34;
+          v7 = v31;
+          v28 = [configuration actionConfigurationByEvaluatingAction:v34 context:v31];
 
           goto LABEL_38;
         }
 
-        v40 = 0u;
-        v41 = 0u;
+        v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
-        v17 = v18Value;
-        v22 = [v17 countByEnumeratingWithState:&v38 objects:v46 count:16];
-        if (v22)
+        v35 = 0u;
+        v36 = 0u;
+        v16 = v17Value;
+        v20 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        if (v20)
         {
-          v23 = v22;
-          v24 = *v39;
+          v21 = v20;
+          v22 = *v36;
           while (2)
           {
-            for (i = 0; i != v23; ++i)
+            for (i = 0; i != v21; ++i)
             {
-              if (*v39 != v24)
+              if (*v36 != v22)
               {
-                objc_enumerationMutation(v17);
+                objc_enumerationMutation(v16);
               }
 
-              if ([v8 isEqual:*(*(&v38 + 1) + 8 * i)])
+              if ([v8 isEqual:*(*(&v35 + 1) + 8 * i)])
               {
-                configuration2 = [v16 configuration];
-                v29 = v37;
-                v7 = v34;
-                v30 = [configuration2 actionConfigurationByEvaluatingAction:v37 context:v34];
+                configuration2 = [v15 configuration];
+                v27 = v34;
+                v7 = v31;
+                v28 = [configuration2 actionConfigurationByEvaluatingAction:v34 context:v31];
 
-                cases = v36;
+                cases = v33;
                 goto LABEL_39;
               }
             }
 
-            v23 = [v17 countByEnumeratingWithState:&v38 objects:v46 count:16];
-            if (v23)
+            v21 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
+            if (v21)
             {
               continue;
             }
@@ -212,15 +211,14 @@ LABEL_38:
           }
         }
 
-        cases = v36;
-        v14 = 0x1E695D000;
+        cases = v33;
       }
 
 LABEL_30:
-      if (++v15 == v11)
+      if (++v14 == v11)
       {
-        v11 = [cases countByEnumeratingWithState:&v42 objects:v47 count:16];
-        v7 = v34;
+        v11 = [cases countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v7 = v31;
         if (v11)
         {
           goto LABEL_3;
@@ -235,13 +233,11 @@ LABEL_30:
 LABEL_35:
 
   cases = [v12 configuration];
-  v29 = v37;
-  v30 = [cases actionConfigurationByEvaluatingAction:v37 context:v7];
+  v27 = v34;
+  v28 = [cases actionConfigurationByEvaluatingAction:v34 context:v7];
 LABEL_39:
 
-  v32 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v28;
 }
 
 @end

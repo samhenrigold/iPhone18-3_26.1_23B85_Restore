@@ -22,7 +22,7 @@
   {
     if (FigCFEqual())
     {
-      v4 = *MEMORY[0x1E6958680];
+      v6 = *MEMORY[0x1E6958680];
       selfCopy2 = self;
       goto LABEL_13;
     }
@@ -36,10 +36,10 @@ LABEL_6:
   }
 
   selfCopy2 = self;
-  v4 = 0;
+  v6 = 0;
 LABEL_13:
 
-  return [selfCopy2 markAsCancelledWithReason:v4];
+  return [selfCopy2 markAsCancelledWithReason:v6];
 }
 
 - (uint64_t)changeToTerminalStatusBasedOnRouteConfigUpdatedReason:()FigRoutingContextAdditions
@@ -59,7 +59,7 @@ LABEL_2:
   if (FigCFEqual())
   {
     selfCopy2 = self;
-    v4 = 0;
+    v6 = 0;
   }
 
   else
@@ -76,11 +76,11 @@ LABEL_6:
       return [self markAsFailed];
     }
 
-    v4 = *MEMORY[0x1E6958680];
+    v6 = *MEMORY[0x1E6958680];
     selfCopy2 = self;
   }
 
-  return [selfCopy2 markAsCancelledWithReason:v4];
+  return [selfCopy2 markAsCancelledWithReason:v6];
 }
 
 @end

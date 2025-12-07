@@ -19,7 +19,7 @@
   v5 = [(HDEncryptedArchiveSymmetricKey *)&v9 init];
   if (v5)
   {
-    v6 = [dataCopy copy];
+    v6 = objc_msgSend_copy(dataCopy);
     key = v5->_key;
     v5->_key = v6;
   }
@@ -47,30 +47,30 @@
 
 + (id)fetchFromKeychainForLabel:(id)label error:(id *)error
 {
-  v33[7] = *MEMORY[0x277D85DE8];
+  v32[7] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   result = 0;
   v6 = *MEMORY[0x277CDC228];
-  v32[0] = *MEMORY[0x277CDC080];
-  v32[1] = v6;
+  v31[0] = *MEMORY[0x277CDC080];
+  v31[1] = v6;
   v7 = *MEMORY[0x277CDC250];
-  v33[0] = labelCopy;
-  v33[1] = v7;
+  v32[0] = labelCopy;
+  v32[1] = v7;
   v8 = *MEMORY[0x277CDC008];
   v9 = *MEMORY[0x277CDC5C8];
-  v32[2] = *MEMORY[0x277CDBFE0];
-  v32[3] = v9;
+  v31[2] = *MEMORY[0x277CDBFE0];
+  v31[3] = v9;
   v10 = *MEMORY[0x277CDBED8];
-  v32[4] = *MEMORY[0x277CDC140];
-  v32[5] = v10;
+  v31[4] = *MEMORY[0x277CDC140];
+  v31[5] = v10;
   v11 = *MEMORY[0x277CDBF18];
-  v33[4] = MEMORY[0x277CBEC28];
-  v33[5] = v11;
-  v33[2] = v8;
-  v33[3] = MEMORY[0x277CBEC38];
-  v32[6] = *MEMORY[0x277CDC558];
-  v33[6] = MEMORY[0x277CBEC38];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:7];
+  v32[4] = MEMORY[0x277CBEC28];
+  v32[5] = v11;
+  v32[2] = v8;
+  v32[3] = MEMORY[0x277CBEC38];
+  v31[6] = *MEMORY[0x277CDC558];
+  v32[6] = MEMORY[0x277CBEC38];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:7];
   v13 = SecItemCopyMatching(v12, &result);
   if (v13)
   {
@@ -79,9 +79,9 @@
       v14 = MEMORY[0x277CCA9B8];
       v15 = *MEMORY[0x277CCA590];
       v16 = v13;
-      v30 = *MEMORY[0x277CCA450];
-      v31 = @"Failed to retrieve symmetric key.";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x277CCA450];
+      v30 = @"Failed to retrieve symmetric key.";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v18 = [v14 errorWithDomain:v15 code:v16 userInfo:v17];
       if (v18)
       {
@@ -130,51 +130,49 @@ LABEL_13:
   v23 = 0;
 LABEL_14:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (BOOL)addToKeychainWithLabel:(id)label error:(id *)error
 {
-  v29[8] = *MEMORY[0x277D85DE8];
+  v28[8] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   key = self->_key;
   v8 = *MEMORY[0x277CDC228];
-  v28[0] = *MEMORY[0x277CDC5E8];
-  v28[1] = v8;
+  v27[0] = *MEMORY[0x277CDC5E8];
+  v27[1] = v8;
   v9 = *MEMORY[0x277CDC250];
-  v29[0] = key;
-  v29[1] = v9;
-  v28[2] = *MEMORY[0x277CDC018];
+  v28[0] = key;
+  v28[1] = v9;
+  v27[2] = *MEMORY[0x277CDC018];
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{8 * -[NSData length](key, "length")}];
   v11 = *MEMORY[0x277CDBFE0];
   v12 = *MEMORY[0x277CDC008];
-  v29[2] = v10;
-  v29[3] = v12;
+  v28[2] = v10;
+  v28[3] = v12;
   v13 = *MEMORY[0x277CDC080];
-  v28[3] = v11;
-  v28[4] = v13;
+  v27[3] = v11;
+  v27[4] = v13;
   v14 = *MEMORY[0x277CDC5C8];
-  v29[4] = labelCopy;
-  v29[5] = MEMORY[0x277CBEC38];
+  v28[4] = labelCopy;
+  v28[5] = MEMORY[0x277CBEC38];
   v15 = *MEMORY[0x277CDC140];
-  v28[5] = v14;
-  v28[6] = v15;
-  v28[7] = *MEMORY[0x277CDBED8];
+  v27[5] = v14;
+  v27[6] = v15;
+  v27[7] = *MEMORY[0x277CDBED8];
   v16 = *MEMORY[0x277CDBF18];
-  v29[6] = MEMORY[0x277CBEC28];
-  v29[7] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:8];
+  v28[6] = MEMORY[0x277CBEC28];
+  v28[7] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:8];
 
   v18 = SecItemAdd(v17, 0);
   if (v18)
   {
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277CCA590];
-    v26 = *MEMORY[0x277CCA450];
-    v27 = @"Failed to store public key.";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA450];
+    v26 = @"Failed to store public key.";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v22 = [v19 errorWithDomain:v20 code:v18 userInfo:v21];
     if (v22)
     {
@@ -191,37 +189,36 @@ LABEL_14:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v18 == 0;
 }
 
 - (BOOL)deleteFromKeychainWithLabel:(id)label error:(id *)error
 {
-  v24[5] = *MEMORY[0x277D85DE8];
+  v23[5] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v6 = *MEMORY[0x277CDC228];
-  v23[0] = *MEMORY[0x277CDC080];
-  v23[1] = v6;
+  v22[0] = *MEMORY[0x277CDC080];
+  v22[1] = v6;
   v7 = *MEMORY[0x277CDC250];
-  v24[0] = labelCopy;
-  v24[1] = v7;
+  v23[0] = labelCopy;
+  v23[1] = v7;
   v8 = *MEMORY[0x277CDC140];
-  v23[2] = *MEMORY[0x277CDC5C8];
-  v23[3] = v8;
-  v24[2] = MEMORY[0x277CBEC38];
-  v24[3] = MEMORY[0x277CBEC28];
-  v23[4] = *MEMORY[0x277CDBED8];
-  v24[4] = *MEMORY[0x277CDBF18];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
+  v22[2] = *MEMORY[0x277CDC5C8];
+  v22[3] = v8;
+  v23[2] = MEMORY[0x277CBEC38];
+  v23[3] = MEMORY[0x277CBEC28];
+  v22[4] = *MEMORY[0x277CDBED8];
+  v23[4] = *MEMORY[0x277CDBF18];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
   v10 = SecItemDelete(v9);
   v11 = v10;
   if (v10 != -25300 && v10)
   {
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277CCA590];
-    v21 = *MEMORY[0x277CCA450];
-    v22 = @"Failed to delete key.";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21 = @"Failed to delete key.";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v15 = [v12 errorWithDomain:v13 code:v11 userInfo:v14];
     if (v15)
     {
@@ -250,7 +247,6 @@ LABEL_14:
 
   v18 = v17;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

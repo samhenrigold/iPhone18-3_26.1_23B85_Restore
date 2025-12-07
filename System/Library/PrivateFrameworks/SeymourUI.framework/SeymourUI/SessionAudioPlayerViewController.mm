@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20B8C8458();
+  sub_20B8C8458(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -23,7 +23,7 @@
   {
     v6 = changeCopy;
     traitCollection = [v4 traitCollection];
-    sub_20B51C88C(0, &qword_27C7655A0);
+    sub_20B51C88C(0, &qword_27C7655A0, 0x277D75C80);
     v8 = sub_20C13D5F4();
 
     if ((v8 & 1) == 0)

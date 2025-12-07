@@ -24,45 +24,44 @@
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!self->_lock_wasHandled)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Client code must accept/reject the connection <%@:%p> before dealloc", objc_opt_class(), self];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Client code must accept/reject the connection <%@:%p> before dealloc", objc_opt_class(), self];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BKHIDIncomingServiceConnection.m";
-      v18 = 1024;
-      v19 = 47;
-      v20 = 2114;
-      v21 = v5;
+      v15 = 2114;
+      v16 = @"BKHIDIncomingServiceConnection.m";
+      v17 = 1024;
+      v18 = 47;
+      v19 = 2114;
+      v20 = v4;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CC1B64);
   }
 
-  v9.receiver = self;
-  v9.super_class = BKHIDIncomingServiceConnection;
-  [(BKHIDIncomingServiceConnection *)&v9 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = BKHIDIncomingServiceConnection;
+  [(BKHIDIncomingServiceConnection *)&v8 dealloc];
 }
 
 - (void)incomingServiceConnectionDidRevoke:(id)revoke
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_wasHandled = self->_lock_wasHandled;
   WeakRetained = objc_loadWeakRetained(&self->_lock_delegate);
@@ -73,11 +72,11 @@
   {
     if (v7)
     {
-      v9 = 138543618;
+      v8 = 138543618;
       selfCopy2 = self;
-      v11 = 2048;
-      v12 = WeakRetained;
-      _os_log_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEFAULT, "Incoming connection revoked: %{public}@  - not notifying delegate %p because this incoming connection was already handled", &v9, 0x16u);
+      v10 = 2048;
+      v11 = WeakRetained;
+      _os_log_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEFAULT, "Incoming connection revoked: %{public}@  - not notifying delegate %p because this incoming connection was already handled", &v8, 0x16u);
     }
   }
 
@@ -85,17 +84,15 @@
   {
     if (v7)
     {
-      v9 = 138543618;
+      v8 = 138543618;
       selfCopy2 = self;
-      v11 = 2048;
-      v12 = WeakRetained;
-      _os_log_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEFAULT, "Incoming connection revoked: %{public}@  - notifying delegate %p", &v9, 0x16u);
+      v10 = 2048;
+      v11 = WeakRetained;
+      _os_log_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEFAULT, "Incoming connection revoked: %{public}@  - notifying delegate %p", &v8, 0x16u);
     }
 
     [WeakRetained incomingServiceConnectionDidRevoke:self];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendDescriptionToStream:(id)stream
@@ -120,7 +117,7 @@ void __60__BKHIDIncomingServiceConnection_appendDescriptionToStream___block_invo
 
 - (void)rejectConnection
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_wasHandled = self->_lock_wasHandled;
   WeakRetained = objc_loadWeakRetained(&self->_lock_handler);
@@ -132,11 +129,11 @@ void __60__BKHIDIncomingServiceConnection_appendDescriptionToStream___block_invo
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
       v6 = "ignoring call to rejectConnection: %{public}@, already handled";
 LABEL_9:
-      _os_log_error_impl(&dword_223CBE000, log, OS_LOG_TYPE_ERROR, v6, &v8, 0xCu);
+      _os_log_error_impl(&dword_223CBE000, log, OS_LOG_TYPE_ERROR, v6, &v7, 0xCu);
     }
   }
 
@@ -150,45 +147,42 @@ LABEL_9:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
       v6 = "ignoring call to rejectConnection: %{public}@, no handler";
       goto LABEL_9;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acceptConnectionWithMappedObject:(id)object
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (!objectCopy)
   {
-    debugMappedObjectName = self->_debugMappedObjectName;
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to provide %@ while activating incoming connection: %@", debugMappedObjectName, self->_domainIncomingServiceConnection];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to provide %@ while activating incoming connection: %@", self->_debugMappedObjectName, self->_domainIncomingServiceConnection];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = NSStringFromSelector(a2);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v12 = NSStringFromSelector(a2);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138544642;
-      selfCopy3 = v14;
-      v19 = 2114;
-      v20 = v16;
-      v21 = 2048;
+      selfCopy3 = v12;
+      v17 = 2114;
+      v18 = v14;
+      v19 = 2048;
       selfCopy = self;
-      v23 = 2114;
-      v24 = @"BKHIDIncomingServiceConnection.m";
-      v25 = 1024;
-      v26 = 99;
-      v27 = 2114;
-      v28 = v13;
+      v21 = 2114;
+      v22 = @"BKHIDIncomingServiceConnection.m";
+      v23 = 1024;
+      v24 = 99;
+      v25 = 2114;
+      v26 = v11;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v13 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE0324);
@@ -230,13 +224,11 @@ LABEL_10:
       goto LABEL_10;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHandler:(id)handler
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_wasHandled)
@@ -244,9 +236,9 @@ LABEL_10:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy = self;
-      _os_log_error_impl(&dword_223CBE000, log, OS_LOG_TYPE_ERROR, "can't set handler for connection: %{public}@, already handled", &v8, 0xCu);
+      _os_log_error_impl(&dword_223CBE000, log, OS_LOG_TYPE_ERROR, "can't set handler for connection: %{public}@, already handled", &v7, 0xCu);
     }
   }
 
@@ -261,8 +253,6 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (_BKHIDIncomingServiceConnectionHandler)handler
@@ -276,7 +266,7 @@ LABEL_10:
 
 - (void)setDelegate:(id)delegate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_wasHandled)
@@ -284,9 +274,9 @@ LABEL_10:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy = self;
-      _os_log_error_impl(&dword_223CBE000, log, OS_LOG_TYPE_ERROR, "can't set delegate for connection: %{public}@, already handled", &v8, 0xCu);
+      _os_log_error_impl(&dword_223CBE000, log, OS_LOG_TYPE_ERROR, "can't set delegate for connection: %{public}@, already handled", &v7, 0xCu);
     }
 
     goto LABEL_7;
@@ -309,8 +299,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BKHIDIncomingServiceConnectionDelegate)delegate

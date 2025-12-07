@@ -1603,7 +1603,7 @@ void __54__CPSLaunchContentViewController_handlePolicyRecovery__block_invoke_2(u
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __54__CPSLaunchContentViewController_handlePolicyRecovery__block_invoke_3(uint64_t a1)
+void *__54__CPSLaunchContentViewController_handlePolicyRecovery__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (*(a1 + 48) == 1)
@@ -1756,24 +1756,24 @@ void __64__CPSLaunchContentViewController_showUnavailableViewWithReason___block_
   }
 }
 
-uint64_t __47__CPSLaunchContentViewController__openAppClip___block_invoke_2(uint64_t a1)
+uint64_t __47__CPSLaunchContentViewController__openAppClip___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = CPS_LOG_CHANNEL_PREFIXClipUIServices(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 1112);
-    v10 = 134217984;
-    v11 = v3;
-    _os_log_impl(&dword_24374B000, v2, OS_LOG_TYPE_DEFAULT, "CPSLaunchContentViewController: Opening clip for proxy (%p)", &v10, 0xCu);
+    v4 = *(*(a1 + 32) + 1112);
+    v11 = 134217984;
+    v12 = v4;
+    _os_log_impl(&dword_24374B000, v3, OS_LOG_TYPE_DEFAULT, "CPSLaunchContentViewController: Opening clip for proxy (%p)", &v11, 0xCu);
   }
 
-  v4 = [MEMORY[0x277CFA680] sharedLogger];
-  v5 = [*(*(a1 + 32) + 1104) clipBundleID];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 1104);
-  v8 = [*(v6 + 1112) launchReason];
-  [v4 recordDidTapOpenButtonInCardWithBundleID:v5 metadata:v7 launchReason:v8 launchOptions:*(a1 + 40) didShowCardInline:*(*(a1 + 32) + 1224) == 1];
+  v5 = [MEMORY[0x277CFA680] sharedLogger];
+  v6 = [*(*(a1 + 32) + 1104) clipBundleID];
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 1104);
+  v9 = [*(v7 + 1112) launchReason];
+  [v5 recordDidTapOpenButtonInCardWithBundleID:v6 metadata:v8 launchReason:v9 launchOptions:*(a1 + 40) didShowCardInline:*(*(a1 + 32) + 1224) == 1];
 
   return [*(*(a1 + 32) + 1112) openClipWithLaunchOptions:*(a1 + 40) completion:0];
 }
@@ -2135,38 +2135,39 @@ LABEL_15:
 
 void __58__CPSLaunchContentViewController_createNetworkPathMonitor__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v6 = *(a1 + 32);
   v5 = a1 + 32;
   objc_storeStrong((v6 + 1168), a2);
-  if (nw_path_get_status(*(*v5 + 1168)) == nw_path_status_unsatisfied)
+  status = nw_path_get_status(*(*v5 + 1168));
+  if (status == 2)
   {
-    v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = CPS_LOG_CHANNEL_PREFIXClipUIServices(status, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __58__CPSLaunchContentViewController_createNetworkPathMonitor__block_invoke_cold_1(v4, v5, v7);
+      __58__CPSLaunchContentViewController_createNetworkPathMonitor__block_invoke_cold_1(v4, v5, v9);
     }
 
-    v8 = *v5;
-    if (v8[147])
+    v10 = *v5;
+    if (v10[147])
     {
-      v9 = [v8 _reasonStringForError:?];
-      [v8 showUnavailableViewWithReason:v9];
+      v11 = [v10 _reasonStringForError:?];
+      [v10 showUnavailableViewWithReason:v11];
     }
   }
 
   else
   {
-    v10 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = CPS_LOG_CHANNEL_PREFIXClipUIServices(status, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*v5 + 1176);
-      v12 = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v11;
-      _os_log_impl(&dword_24374B000, v10, OS_LOG_TYPE_DEFAULT, "Network path: %@ _proxyError: %@", &v12, 0x16u);
+      v13 = *(*v5 + 1176);
+      v14 = 138412546;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_24374B000, v12, OS_LOG_TYPE_DEFAULT, "Network path: %@ _proxyError: %@", &v14, 0x16u);
     }
   }
 }
@@ -2237,24 +2238,24 @@ uint64_t __57__CPSLaunchContentViewController_proxyDidUpdateMetadata___block_inv
 
 - (void)proxyDidInstallApplicationPlaceholder:(id)placeholder
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   placeholderCopy = placeholder;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(placeholderCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v10 = placeholderCopy;
-    _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "CPSLaunchContentViewController: Did install placeholder for proxy (%p)", buf, 0xCu);
+    v11 = placeholderCopy;
+    _os_log_impl(&dword_24374B000, v6, OS_LOG_TYPE_DEFAULT, "CPSLaunchContentViewController: Did install placeholder for proxy (%p)", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __72__CPSLaunchContentViewController_proxyDidInstallApplicationPlaceholder___block_invoke;
-  v7[3] = &unk_278DD2670;
-  v7[4] = self;
-  v8 = placeholderCopy;
-  v6 = placeholderCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __72__CPSLaunchContentViewController_proxyDidInstallApplicationPlaceholder___block_invoke;
+  v8[3] = &unk_278DD2670;
+  v8[4] = self;
+  v9 = placeholderCopy;
+  v7 = placeholderCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __72__CPSLaunchContentViewController_proxyDidInstallApplicationPlaceholder___block_invoke(uint64_t a1)
@@ -2320,23 +2321,23 @@ void __67__CPSLaunchContentViewController_proxy_didRetrieveApplicationIcon___blo
 - (void)proxyRemoteServiceDidCrash:(id)crash
 {
   crashCopy = crash;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices(crashCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [(CPSLaunchContentViewController *)crashCopy proxyRemoteServiceDidCrash:v4];
+    [(CPSLaunchContentViewController *)crashCopy proxyRemoteServiceDidCrash:v5];
   }
 }
 
 - (void)proxy:(id)proxy didFinishLoadingWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   errorCopy = error;
-  v8 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = CPS_LOG_CHANNEL_PREFIXClipUIServices(errorCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     cps_privacyPreservingDescription = [errorCopy cps_privacyPreservingDescription];
-    [(CPSLaunchContentViewController *)proxyCopy proxy:cps_privacyPreservingDescription didFinishLoadingWithError:buf, v8];
+    [(CPSLaunchContentViewController *)proxyCopy proxy:cps_privacyPreservingDescription didFinishLoadingWithError:buf, v9];
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -2344,10 +2345,10 @@ void __67__CPSLaunchContentViewController_proxy_didRetrieveApplicationIcon___blo
   block[2] = __66__CPSLaunchContentViewController_proxy_didFinishLoadingWithError___block_invoke;
   block[3] = &unk_278DD2788;
   block[4] = self;
-  v13 = errorCopy;
-  v14 = proxyCopy;
-  v10 = proxyCopy;
-  v11 = errorCopy;
+  v14 = errorCopy;
+  v15 = proxyCopy;
+  v11 = proxyCopy;
+  v12 = errorCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 

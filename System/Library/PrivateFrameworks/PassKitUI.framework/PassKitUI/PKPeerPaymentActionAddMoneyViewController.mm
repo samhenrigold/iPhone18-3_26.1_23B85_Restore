@@ -1028,7 +1028,7 @@ void __58__PKPeerPaymentActionAddMoneyViewController__addBarButton__block_invoke
 
     else
     {
-      IsHardwareKeyboardActive = PKUIKeyboardIsHardwareKeyboardActive();
+      v9 = PKUIKeyboardIsHardwareKeyboardActive();
       if (self->_suggestionView)
       {
         v7 = v25;
@@ -1038,7 +1038,7 @@ void __58__PKPeerPaymentActionAddMoneyViewController__addBarButton__block_invoke
       else
       {
         v7 = v25;
-        if (IsHardwareKeyboardActive)
+        if (v9)
         {
           v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
           objc_initWeak(&location, val);

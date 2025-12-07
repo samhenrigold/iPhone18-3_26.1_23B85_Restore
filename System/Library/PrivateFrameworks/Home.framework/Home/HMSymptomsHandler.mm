@@ -37,7 +37,7 @@ uint64_t __63__HMSymptomsHandler_HFAdditions__hf_symptomArraySortComparator__blo
   return v12;
 }
 
-uint64_t __63__HMSymptomsHandler_HFAdditions__hf_symptomArraySortComparator__block_invoke_2(uint64_t a1, void *a2)
+char *__63__HMSymptomsHandler_HFAdditions__hf_symptomArraySortComparator__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);

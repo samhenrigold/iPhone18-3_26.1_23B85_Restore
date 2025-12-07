@@ -15,8 +15,6 @@ uint64_t ___CalDatabaseRemoveAttendeeChangesInCalendarToIndex_block_invoke(uint6
     }
   }
 
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 48);
   result = CPRecordStoreDeleteChangesForClassToIndexWhere();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;

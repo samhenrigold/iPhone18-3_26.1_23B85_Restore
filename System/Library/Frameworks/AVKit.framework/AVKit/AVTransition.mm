@@ -699,7 +699,7 @@ void __49__AVTransition__freezeDismissingViewForFinishing__block_invoke(uint64_t
   v6 = v5;
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
@@ -884,7 +884,7 @@ void __49__AVTransition__freezeDismissingViewForFinishing__block_invoke(uint64_t
       v66 = presentedView6;
       if (presentedView6)
       {
-        [presentedView6 transform];
+        objc_msgSend_transform(presentedView6);
       }
 
       else
@@ -992,7 +992,7 @@ LABEL_44:
         v52 = presentingTransition5;
         if (presentingTransition5)
         {
-          [presentingTransition5 rotationTransform];
+          objc_msgSend_rotationTransform(presentingTransition5);
         }
 
         else
@@ -1399,7 +1399,7 @@ void __42__AVTransition_pauseInteractiveTransition__block_invoke_6(uint64_t a1)
 
   if (v20)
   {
-    [v20 transform];
+    objc_msgSend_transform(v20);
   }
 
   else
@@ -1638,7 +1638,7 @@ LABEL_7:
 
 LABEL_8:
   v12 = objc_alloc(MEMORY[0x1E69DD278]);
-  [(AVTransition *)self duration];
+  objc_msgSend_duration(self);
   v14 = v13;
   v15 = [objc_alloc(MEMORY[0x1E69DC908]) initWithAnimationCurve:5];
   v16 = [v12 initWithDuration:v15 timingParameters:v14];
@@ -1653,7 +1653,7 @@ LABEL_8:
   [allAnimators addObject:clientAnimator2];
 
   v21 = objc_alloc(MEMORY[0x1E69DD278]);
-  [(AVTransition *)self duration];
+  objc_msgSend_duration(self);
   v23 = v22;
   v24 = [objc_alloc(MEMORY[0x1E69DC908]) initWithAnimationCurve:5];
   v25 = [v21 initWithDuration:v24 timingParameters:v23];

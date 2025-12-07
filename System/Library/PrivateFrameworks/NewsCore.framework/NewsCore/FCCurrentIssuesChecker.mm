@@ -127,7 +127,7 @@
 
 id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(FCCurrentIssuesPromiseChainingData);
   v5 = objc_alloc_init(FCCurrentIssuesCheckerResult);
@@ -153,9 +153,9 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
 
     v8 = bundleChannelIDs;
     v9 = v6;
-    LODWORD(v16) = 134217984;
-    *(&v16 + 4) = [(NSOrderedSet *)v8 count];
-    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "Found %lu bundle channels", &v16, 0xCu);
+    LODWORD(v15) = 134217984;
+    *(&v15 + 4) = [(NSOrderedSet *)v8 count];
+    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "Found %lu bundle channels", &v15, 0xCu);
   }
 
   v10 = *(a1 + 32);
@@ -163,14 +163,14 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
   if (v10)
   {
     v12 = objc_alloc(MEMORY[0x1E69B68F8]);
-    *&v16 = MEMORY[0x1E69E9820];
-    *(&v16 + 1) = 3221225472;
-    v17 = __101__FCCurrentIssuesChecker__promiseFollowedAndAutofavoriteChannelIDsWithChainingData_qualityOfService___block_invoke;
-    v18 = &unk_1E7C42770;
-    v19 = v10;
-    v21 = 17;
-    v20 = v11;
-    v13 = [v12 initWithResolver:&v16];
+    *&v15 = MEMORY[0x1E69E9820];
+    *(&v15 + 1) = 3221225472;
+    v16 = __101__FCCurrentIssuesChecker__promiseFollowedAndAutofavoriteChannelIDsWithChainingData_qualityOfService___block_invoke;
+    v17 = &unk_1E7C42770;
+    v18 = v10;
+    v20 = 17;
+    v19 = v11;
+    v13 = [v12 initWithResolver:&v15];
   }
 
   else
@@ -178,14 +178,12 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_14(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCCurrentIssuesCheckerLog;
   if (os_log_type_enabled(FCCurrentIssuesCheckerLog, OS_LOG_TYPE_DEFAULT))
@@ -214,11 +212,11 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
     }
 
     v10 = v9;
-    v17 = 134218240;
-    v18 = v8;
-    v19 = 2048;
-    v20 = [v10 count];
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Found %lu followed channels and %lu autofavorite tags", &v17, 0x16u);
+    v16 = 134218240;
+    v17 = v8;
+    v18 = 2048;
+    v19 = [v10 count];
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Found %lu followed channels and %lu autofavorite tags", &v16, 0x16u);
   }
 
   if (v3)
@@ -236,8 +234,6 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
   v13 = [v11 arrayByAddingObjectsFromArray:v12];
 
   v14 = [(FCCurrentIssuesChecker *)*(a1 + 32) _promiseCurrentIssuesFromChannelIDs:v13 withChainingData:v3 qualityOfService:17];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -270,7 +266,7 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
 
 id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_16(uint64_t a1, void *a2)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -284,13 +280,13 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
     v5 = 0;
   }
 
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_2_17;
-  v53[3] = &unk_1E7C3B270;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_2_17;
+  v52[3] = &unk_1E7C3B270;
   v6 = v3;
-  v54 = v6;
-  v7 = [v5 fc_arrayOfObjectsFailingTest:v53];
+  v53 = v6;
+  v7 = [v5 fc_arrayOfObjectsFailingTest:v52];
   if (v4)
   {
     v8 = v4[1];
@@ -301,13 +297,13 @@ id __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_in
     v8 = 0;
   }
 
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_3;
-  v51[3] = &unk_1E7C3B270;
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_3;
+  v50[3] = &unk_1E7C3B270;
   v9 = v6;
-  v52 = v9;
-  v10 = [v8 fc_arrayOfObjectsPassingTest:v51];
+  v51 = v9;
+  v10 = [v8 fc_arrayOfObjectsPassingTest:v50];
   v11 = [(FCCurrentIssuesChecker *)*(a1 + 32) demoFollowedChannelIDs];
   v12 = [v11 count];
 
@@ -369,7 +365,7 @@ LABEL_12:
 
   v18 = 0;
 LABEL_13:
-  v50 = v10;
+  v49 = v10;
   [v18 setAutoFavoriteIssues:v17];
   if (v12)
   {
@@ -378,7 +374,7 @@ LABEL_13:
   v19 = FCCurrentIssuesCheckerLog;
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v49 = v9;
+    v48 = v9;
     v20 = v7;
     if (v4)
     {
@@ -412,7 +408,7 @@ LABEL_13:
     _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "Found %lu auto favorited issues: %@", buf, 0x16u);
 
     v7 = v20;
-    v9 = v49;
+    v9 = v48;
   }
 
   v28 = FCCurrentIssuesCheckerLog;
@@ -473,15 +469,15 @@ LABEL_13:
   {
     if (!v41 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issues"];
+      v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issues"];
       *buf = 136315906;
       *&buf[4] = "[FCCurrentIssuesChecker _promiseFilterUnreadIssuesWithFromIssues:withChainingdata:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCCurrentIssuesChecker.m";
       *&buf[22] = 1024;
-      LODWORD(v56) = 311;
-      WORD2(v56) = 2114;
-      *(&v56 + 6) = v47;
+      LODWORD(v55) = 311;
+      WORD2(v55) = 2114;
+      *(&v55 + 6) = v46;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       if (!v4)
@@ -489,15 +485,15 @@ LABEL_13:
 LABEL_33:
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "data"];
+          v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "data"];
           *buf = 136315906;
           *&buf[4] = "[FCCurrentIssuesChecker _promiseFilterUnreadIssuesWithFromIssues:withChainingdata:]";
           *&buf[12] = 2080;
           *&buf[14] = "FCCurrentIssuesChecker.m";
           *&buf[22] = 1024;
-          LODWORD(v56) = 312;
-          WORD2(v56) = 2114;
-          *(&v56 + 6) = v48;
+          LODWORD(v55) = 312;
+          WORD2(v55) = 2114;
+          *(&v55 + 6) = v47;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
       }
@@ -512,10 +508,10 @@ LABEL_33:
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withChainingdata___block_invoke;
-    *&v56 = &unk_1E7C3B768;
-    *(&v56 + 1) = v38;
-    v57 = v41;
-    v58 = v42;
+    *&v55 = &unk_1E7C3B768;
+    *(&v55 + 1) = v38;
+    v56 = v41;
+    v57 = v42;
     v44 = [v43 initWithResolver:buf];
 
     goto LABEL_36;
@@ -523,8 +519,6 @@ LABEL_33:
 
   v44 = 0;
 LABEL_36:
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return v44;
 }
@@ -602,7 +596,7 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
 
 uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_19(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -648,9 +642,9 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
     v13 = v12;
     v14 = [v13 unreadFollowedIssues];
     *buf = 134218242;
-    v53 = v11;
-    v54 = 2112;
-    v55 = v14;
+    v52 = v11;
+    v53 = 2112;
+    v54 = v14;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "Found %lu unread issues: %@", buf, 0x16u);
   }
 
@@ -666,14 +660,14 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
 
   v16 = v15;
   v17 = [v16 unreadFollowedIssues];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_20;
-  v51[3] = &unk_1E7C3B270;
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_20;
+  v50[3] = &unk_1E7C3B270;
   v18 = *(a1 + 32);
 
-  v51[4] = v18;
-  v19 = [v17 fc_arrayOfObjectsPassingTest:v51];
+  v50[4] = v18;
+  v19 = [v17 fc_arrayOfObjectsPassingTest:v50];
 
   if (v4)
   {
@@ -716,9 +710,9 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
     v28 = v27;
     v29 = [v28 unbadgedIssues];
     *buf = 134218242;
-    v53 = v26;
-    v54 = 2112;
-    v55 = v29;
+    v52 = v26;
+    v53 = 2112;
+    v54 = v29;
     _os_log_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_DEFAULT, "Found %lu unbadged issues: %@", buf, 0x16u);
   }
 
@@ -734,14 +728,14 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
 
   v31 = v30;
   v32 = [v31 unreadFollowedIssues];
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_21;
-  v50[3] = &unk_1E7C3B270;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_21;
+  v49[3] = &unk_1E7C3B270;
   v33 = *(a1 + 32);
 
-  v50[4] = v33;
-  v34 = [v32 fc_arrayOfObjectsPassingTest:v50];
+  v49[4] = v33;
+  v34 = [v32 fc_arrayOfObjectsPassingTest:v49];
 
   if (v4)
   {
@@ -785,9 +779,9 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
     v44 = v43;
     v45 = [v44 seenIssues];
     *buf = 134218242;
-    v53 = v41;
-    v54 = 2112;
-    v55 = v45;
+    v52 = v41;
+    v53 = 2112;
+    v54 = v45;
     _os_log_impl(&dword_1B63EF000, v39, OS_LOG_TYPE_DEFAULT, "Found %lu seen issues: %@", buf, 0x16u);
 
     a1 = v42;
@@ -809,7 +803,6 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
     (*(v46 + 16))(v46, v47);
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -845,14 +838,14 @@ uint64_t __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___bl
 
 void __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_invoke_22(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCCurrentIssuesCheckerLog;
   if (os_log_type_enabled(FCCurrentIssuesCheckerLog, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Failed to check for current issues with error: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Failed to check for current issues with error: %{public}@", &v7, 0xCu);
   }
 
   v5 = objc_alloc_init(FCCurrentIssuesCheckerResult);
@@ -862,8 +855,6 @@ void __64__FCCurrentIssuesChecker_fetchUsersCurrentIssuesWithCompletion___block_
   {
     (*(v6 + 16))(v6, v5);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchUsersFollowedIssuesWithQualityOfService:(int64_t)service completion:(id)completion
@@ -949,14 +940,14 @@ uint64_t __82__FCCurrentIssuesChecker_fetchUsersFollowedIssuesWithQualityOfServi
 
 void __82__FCCurrentIssuesChecker_fetchUsersFollowedIssuesWithQualityOfService_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCCurrentIssuesCheckerLog;
   if (os_log_type_enabled(FCCurrentIssuesCheckerLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Failed to check for current issues with error: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Failed to check for current issues with error: %{public}@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -964,33 +955,31 @@ void __82__FCCurrentIssuesChecker_fetchUsersFollowedIssuesWithQualityOfService_c
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __51__FCCurrentIssuesChecker_sortIssues_basedOnTagIDs___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [v8 sourceChannel];
         v10 = [v9 identifier];
         v11 = [v10 isEqualToString:v3];
@@ -1002,7 +991,7 @@ id __51__FCCurrentIssuesChecker_sortIssues_basedOnTagIDs___block_invoke_2(uint64
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -1013,8 +1002,6 @@ id __51__FCCurrentIssuesChecker_sortIssues_basedOnTagIDs___block_invoke_2(uint64
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1103,7 +1090,7 @@ void __101__FCCurrentIssuesChecker__promiseFollowedAndAutofavoriteChannelIDsWith
 
 void __101__FCCurrentIssuesChecker__promiseFollowedAndAutofavoriteChannelIDsWithChainingData_qualityOfService___block_invoke_2(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v15 = a2;
+  v14 = a2;
   if (a3)
   {
     v5 = *(a1[7] + 16);
@@ -1121,7 +1108,7 @@ void __101__FCCurrentIssuesChecker__promiseFollowedAndAutofavoriteChannelIDsWith
 
     else
     {
-      [v15 fc_arrayByTransformingWithBlock:&__block_literal_global_111];
+      [v14 fc_arrayByTransformingWithBlock:&__block_literal_global_111];
     }
     v8 = ;
     v9 = a1[5];
@@ -1144,7 +1131,6 @@ void __101__FCCurrentIssuesChecker__promiseFollowedAndAutofavoriteChannelIDsWith
       objc_storeStrong((v13 + 32), v12);
     }
 
-    v14 = a1[5];
     v5 = *(a1[6] + 16);
   }
 
@@ -1240,15 +1226,14 @@ void __96__FCCurrentIssuesChecker__promiseCurrentIssuesFromChannelIDs_withChaini
   else
   {
     v6 = [MEMORY[0x1E695DF70] array];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __96__FCCurrentIssuesChecker__promiseCurrentIssuesFromChannelIDs_withChainingData_qualityOfService___block_invoke_5;
-    v9[3] = &unk_1E7C42798;
-    v10 = v6;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __96__FCCurrentIssuesChecker__promiseCurrentIssuesFromChannelIDs_withChainingData_qualityOfService___block_invoke_5;
+    v8[3] = &unk_1E7C42798;
+    v9 = v6;
     v7 = v6;
-    [v5 enumerateKeysAndObjectsUsingBlock:v9];
+    [v5 enumerateKeysAndObjectsUsingBlock:v8];
     [(FCPurchaseController *)a1[4] setPurchasesDiscoveredTagIDs:v7];
-    v8 = a1[4];
     (*(a1[5] + 16))();
   }
 }
@@ -1280,7 +1265,7 @@ void __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withC
 
 void __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withChainingdata___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
@@ -1288,30 +1273,26 @@ void __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withC
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = v4;
+      v10 = v4;
       _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "Failed to fetch our issue reading history; Unable to determine unread state, error=%{public}@", buf, 0xCu);
     }
 
     [(FCPurchaseController *)*(a1 + 48) setPurchasesDiscoveredTagIDs:?];
-    v6 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withChainingdata___block_invoke_3;
-    v11[3] = &unk_1E7C3B270;
-    v7 = *(a1 + 32);
-    v11[4] = *(a1 + 40);
-    v8 = [v7 fc_arrayOfObjectsPassingTest:v11];
-    [(FCPurchaseController *)*(a1 + 48) setPurchasesDiscoveredTagIDs:v8];
-    v9 = *(a1 + 48);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withChainingdata___block_invoke_3;
+    v8[3] = &unk_1E7C3B270;
+    v6 = *(a1 + 32);
+    v8[4] = *(a1 + 40);
+    v7 = [v6 fc_arrayOfObjectsPassingTest:v8];
+    [(FCPurchaseController *)*(a1 + 48) setPurchasesDiscoveredTagIDs:v7];
     (*(*(a1 + 56) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__FCCurrentIssuesChecker__promiseFilterUnreadIssuesWithFromIssues_withChainingdata___block_invoke_3(uint64_t a1, void *a2)

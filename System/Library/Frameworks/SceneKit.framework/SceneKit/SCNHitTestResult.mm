@@ -53,7 +53,7 @@
 
 - (SCNNode)node
 {
-  result = C3DHitTestResultGetNode(self->_result);
+  result = C3DHitTestResultGetNode(self->_result, a2);
   if (result)
   {
 
@@ -65,7 +65,7 @@
 
 - (SCNNode)boneNode
 {
-  result = C3DHitTestResultGetJoint(self->_result);
+  result = C3DHitTestResultGetJoint(self->_result, a2);
   if (result)
   {
 
@@ -144,7 +144,7 @@
   v12 = 0u;
   v9 = 0u;
   v10 = 0u;
-  ModelTransform = C3DHitTestResultGetModelTransform(self->_result);
+  ModelTransform = C3DHitTestResultGetModelTransform(self->_result, a3);
   if (ModelTransform)
   {
     v5 = *ModelTransform;
@@ -198,7 +198,7 @@
 
 - (simd_float3)simdLocalCoordinates
 {
-  LocalPosition = C3DHitTestResultGetLocalPosition(self->_result);
+  LocalPosition = C3DHitTestResultGetLocalPosition(self->_result, a2);
   if (LocalPosition)
   {
     return *LocalPosition;
@@ -212,7 +212,7 @@
 
 - (simd_float3)simdWorldCoordinates
 {
-  WorldPosition = C3DHitTestResultGetWorldPosition(self->_result);
+  WorldPosition = C3DHitTestResultGetWorldPosition(self->_result, a2);
   if (WorldPosition)
   {
     return *WorldPosition;
@@ -226,7 +226,7 @@
 
 - (simd_float3)simdLocalNormal
 {
-  LocalNormal = C3DHitTestResultGetLocalNormal(self->_result);
+  LocalNormal = C3DHitTestResultGetLocalNormal(self->_result, a2);
   if (LocalNormal)
   {
     return *LocalNormal;
@@ -240,7 +240,7 @@
 
 - (simd_float4x4)simdModelTransform
 {
-  ModelTransform = C3DHitTestResultGetModelTransform(self->_result);
+  ModelTransform = C3DHitTestResultGetModelTransform(self->_result, a2);
   v3 = MEMORY[0x277D860B8];
   if (ModelTransform)
   {

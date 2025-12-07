@@ -78,8 +78,8 @@
 - (id)diagnosticErrorsByComponentForHUDType:(int64_t)type
 {
   v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
-  currentError = [(PXStoryTransitionController *)self currentError];
-  [v4 setObject:currentError forKeyedSubscript:@"Transitions"];
+  v5 = objc_msgSend_currentError(self);
+  [v4 setObject:v5 forKeyedSubscript:@"Transitions"];
 
   v6 = [v4 copy];
 
@@ -96,7 +96,7 @@
   v9 = v8;
   if (v8)
   {
-    [v8 nominalPlaybackTime];
+    objc_msgSend_nominalPlaybackTime(v8);
   }
 
   +[PXStoryAutoEditConfigurationFactory autoEditConfiguration];
@@ -372,15 +372,15 @@ void __70__PXStoryTransitionController__updateCurrentSegmentIdentifierIfNeeded__
   v26 = 0u;
   if (pendingTransitionModel)
   {
-    [pendingTransitionModel transitionInfo];
+    objc_msgSend_transitionInfo(pendingTransitionModel);
     v24 = 0;
     v22 = 0u;
     v23 = 0u;
-    [v6 orderOutCompositionInfo];
+    objc_msgSend_orderOutCompositionInfo(v6);
     v21 = 0;
     v19 = 0u;
     v20 = 0u;
-    [v6 orderInCompositionInfo];
+    objc_msgSend_orderInCompositionInfo(v6);
   }
 
   else
@@ -783,7 +783,7 @@ uint64_t __48__PXStoryTransitionController__startTransition___block_invoke(uint6
   PXRectWithOriginAndSize();
 }
 
-void __86__PXStoryTransitionController__updatePendingTransitionModelWithSegmentTransitionInfo___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __86__PXStoryTransitionController__updatePendingTransitionModelWithSegmentTransitionInfo___block_invoke(uint64_t a1, const char *a2, uint64_t a3)
 {
   v14 = 0u;
   v15 = 0u;
@@ -791,7 +791,7 @@ void __86__PXStoryTransitionController__updatePendingTransitionModelWithSegmentT
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 timeRangeForSegmentWithIdentifier:a2];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(v5, a2, a2);
     v6 = *(a1 + 32);
   }
 
@@ -815,7 +815,7 @@ void __86__PXStoryTransitionController__updatePendingTransitionModelWithSegmentT
   [v6 enumerateClipsInTimeRange:v8 rect:v9 usingBlock:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
 }
 
-uint64_t __86__PXStoryTransitionController__updatePendingTransitionModelWithSegmentTransitionInfo___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__86__PXStoryTransitionController__updatePendingTransitionModelWithSegmentTransitionInfo___block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2 >= 1)
   {
@@ -832,8 +832,8 @@ uint64_t __86__PXStoryTransitionController__updatePendingTransitionModelWithSegm
       result = [objc_opt_class() _isSupportedTransitionWithKind:*(v8 + 56) forClipWithResourceKind:v11];
       if (result)
       {
-        v12 = *(v8 + 40);
-        v13 = *(v8 + 48);
+        v12 = v8[5];
+        v13 = v8[6];
         v14[0] = v10;
         v14[1] = v11;
         memcpy(v15, __dst, sizeof(v15));

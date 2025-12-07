@@ -68,10 +68,10 @@ LABEL_3:
 
     if ((v20 & 1) == 0)
     {
-      v21 = vm_imap_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = vm_imap_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [NSError(IMAPError) errorWithDomain:v16 code:v21 localizedDescription:? title:? userInfo:?];
+        [NSError(IMAPError) errorWithDomain:v16 code:v22 localizedDescription:? title:? userInfo:?];
       }
     }
 
@@ -237,13 +237,11 @@ LABEL_19:
 
 + (void)errorWithDomain:()IMAPError code:localizedDescription:title:userInfo:.cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_2720B1000, a2, OS_LOG_TYPE_ERROR, "Created error: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_2720B1000, a2, OS_LOG_TYPE_ERROR, "Created error: %{public}@", &v4, 0xCu);
 }
 
 @end

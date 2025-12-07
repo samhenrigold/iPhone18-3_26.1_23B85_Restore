@@ -51,15 +51,15 @@
 
 uint64_t __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [a3 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
   v6 = _log_2();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v19 = v5;
-    v20 = 1024;
-    v21 = a2;
+    v18 = v5;
+    v19 = 1024;
+    v20 = a2;
     _os_log_impl(&dword_2615D3000, v6, OS_LOG_TYPE_INFO, "#CacheDelete computing purgeable space on %@ with urgency %d", buf, 0x12u);
   }
 
@@ -69,24 +69,23 @@ uint64_t __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex__
   v10 = [QLServerThreadInstance cacheThreadForVolume:v7];
   v11 = [v10 purgeableSpaceOnMountPoint:v7 withUrgency:a2 beforeDate:v8];
   v12 = [MEMORY[0x277CCABB0] numberWithLongLong:{v11 + v9, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v5}];
-  v17[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:2];
+  v16[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:2];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___block_invoke_8(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [a3 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
   v6 = _log_2();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v19 = v5;
-    v20 = 1024;
-    v21 = a2;
+    v18 = v5;
+    v19 = 1024;
+    v20 = a2;
     _os_log_impl(&dword_2615D3000, v6, OS_LOG_TYPE_INFO, "#CacheDelete purging on %@ with urgency %d", buf, 0x12u);
   }
 
@@ -96,23 +95,15 @@ uint64_t __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex__
   v10 = [*(a1 + 32) purgeOnMountPoint:v7 withUrgency:a2 beforeDate:v8];
   v11 = [v9 purgeOnMountPoint:v7 withUrgency:a2 beforeDate:v8];
   v12 = [MEMORY[0x277CCABB0] numberWithLongLong:{v11 + v10, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v5}];
-  v17[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:2];
+  v16[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:2];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
-}
-
-uint64_t __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___block_invoke_2(void *a1)
-{
-  v1 = a1[5];
-  v2 = a1[6];
-  return MEMORY[0x282146EF8](@"com.apple.quicklook.ThumbnailsAgent.CacheDelete", a1[4]);
 }
 
 void __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___block_invoke_3(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a2;
   string = xpc_dictionary_get_string(v2, "Name");
   v4 = xpc_dictionary_get_string(v2, *MEMORY[0x277D86430]);
@@ -136,13 +127,13 @@ void __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___blo
   v9 = _log_2();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = v4;
-    v16 = 2080;
-    v17 = string;
-    v18 = 2080;
-    v19 = v8;
-    _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_DEFAULT, "Got event: %s, name: %s, object_str: %s", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = v4;
+    v15 = 2080;
+    v16 = string;
+    v17 = 2080;
+    v18 = v8;
+    _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_DEFAULT, "Got event: %s, name: %s, object_str: %s", &v13, 0x20u);
   }
 
   v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
@@ -157,8 +148,6 @@ void __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___blo
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___block_invoke_29(uint64_t a1, void *a2)
@@ -194,11 +183,10 @@ void __67__QLCacheDeleteHandler_setUpCacheDeleteWithThumbnailAdditionIndex___blo
 
 + (void)dateBeforePurgingThumbnailsForUrgency:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "Unhandled #CacheDelete urgency %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "Unhandled #CacheDelete urgency %d", v2, 8u);
 }
 
 @end

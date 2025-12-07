@@ -32,10 +32,10 @@
 
 + (id)createHostableWithOptions:(id)options error:(id *)error
 {
-  sub_265750188();
-  v4 = sub_26574F39C();
+  v4 = sub_265750188();
+  v5 = sub_26574F39C(v4);
 
-  return v4;
+  return v5;
 }
 
 - (void)dealloc

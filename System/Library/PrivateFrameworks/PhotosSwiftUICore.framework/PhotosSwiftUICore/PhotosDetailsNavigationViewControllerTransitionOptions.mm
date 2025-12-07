@@ -7,7 +7,7 @@
 - (CGRect)frameOfSourceInDestination
 {
   selfCopy = self;
-  sub_1C12340D4();
+  sub_1C12340D4(selfCopy);
   v4 = v3;
   v6 = v5;
   v8 = v7;

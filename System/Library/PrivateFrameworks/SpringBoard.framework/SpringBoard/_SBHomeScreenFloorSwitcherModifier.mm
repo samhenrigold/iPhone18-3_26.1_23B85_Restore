@@ -225,7 +225,7 @@ LABEL_38:
         [(SBFullScreenToHomeIconZoomSwitcherModifier *)v68 setSupportsGlassHighlight:0];
         v39 = [[SBCaptureDropletZoomSwitcherModifier alloc] initWithTransitionID:transitionID zoomModifier:v68 appLayout:v91 launchPreludeAnimationToken:consumeToken];
         v69 = [[SBConsumedPreludeAnimationTokenSwitcherEventResponse alloc] initWithPreludeToken:consumeToken];
-        v70 = SBAppendSwitcherModifierResponse(v69, v5);
+        v70 = SBAppendSwitcherModifierResponse();
 
         toAppLayout2 = v91;
         v5 = v70;
@@ -350,7 +350,7 @@ LABEL_39:
       if (v39)
       {
         v64 = [[SBAddModifierSwitcherEventResponse alloc] initWithModifier:v39 level:3];
-        v65 = SBAppendSwitcherModifierResponse(v64, v5);
+        v65 = SBAppendSwitcherModifierResponse();
 
         v5 = v65;
       }

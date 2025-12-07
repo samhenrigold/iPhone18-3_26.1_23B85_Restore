@@ -76,7 +76,7 @@
 
 - (void)didAddToBatchWithSender:(SEL)sender
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   batchBeginDate = [(HFMessageBatcher *)self batchBeginDate];
 
   if (batchBeginDate)
@@ -92,8 +92,6 @@
       cancelable = [(HFMessageBatcher *)self cancelable];
       [cancelable cancel];
 
-      v12 = *MEMORY[0x277D85DE8];
-
       [(HFMessageBatcher *)self executeBatch];
       return;
     }
@@ -104,18 +102,18 @@
     date = [MEMORY[0x277CBEAA8] date];
     [(HFMessageBatcher *)self setBatchBeginDate:date];
 
-    v14 = HFLogForCategory(0x36uLL);
-    v15 = v14;
+    v13 = HFLogForCategory(0x36uLL);
+    v14 = v13;
     signpostID = self->signpostID;
-    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
       identifier = [(HFMessageBatcher *)self identifier];
-      v18 = NSStringFromSelector(sender);
+      v17 = NSStringFromSelector(sender);
       *buf = 138543618;
-      v29 = identifier;
-      v30 = 2114;
-      v31 = v18;
-      _os_signpost_emit_with_name_impl(&dword_20D9BF000, v15, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "HFMessageBatcher", "HFMessageBatcher-%{public}@: Started batch with sender %{public}@", buf, 0x16u);
+      v27 = identifier;
+      v28 = 2114;
+      v29 = v17;
+      _os_signpost_emit_with_name_impl(&dword_20D9BF000, v14, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "HFMessageBatcher", "HFMessageBatcher-%{public}@: Started batch with sender %{public}@", buf, 0x16u);
     }
   }
 
@@ -130,18 +128,17 @@
   objc_initWeak(buf, self);
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
   [(HFMessageBatcher *)self batchingInterval];
-  v23 = v22;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __44__HFMessageBatcher_didAddToBatchWithSender___block_invoke;
-  v26[3] = &unk_277DF4460;
-  objc_copyWeak(&v27, buf);
-  v24 = [mainThreadScheduler afterDelay:v26 performBlock:v23];
-  [(HFMessageBatcher *)self setCancelable:v24];
+  v22 = v21;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __44__HFMessageBatcher_didAddToBatchWithSender___block_invoke;
+  v24[3] = &unk_277DF4460;
+  objc_copyWeak(&v25, buf);
+  v23 = [mainThreadScheduler afterDelay:v24 performBlock:v22];
+  [(HFMessageBatcher *)self setCancelable:v23];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HFMessageBatcher_didAddToBatchWithSender___block_invoke(uint64_t a1)
@@ -157,7 +154,7 @@ void __44__HFMessageBatcher_didAddToBatchWithSender___block_invoke(uint64_t a1)
 
 - (void)executeBatch
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objects = [(HFMessageBatcher *)self objects];
   [(HFMessageBatcher *)self setCancelable:0];
   mutableObjects = [(HFMessageBatcher *)self mutableObjects];
@@ -172,18 +169,16 @@ void __44__HFMessageBatcher_didAddToBatchWithSender___block_invoke(uint64_t a1)
     if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       identifier = [(HFMessageBatcher *)self identifier];
-      v11 = 138543618;
-      v12 = identifier;
-      v13 = 2048;
-      v14 = [objects count];
-      _os_signpost_emit_with_name_impl(&dword_20D9BF000, v6, OS_SIGNPOST_INTERVAL_END, signpostID, "HFMessageBatcher", "HFMessageBatcher-%{public}@: executing batch with %lu objects", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = identifier;
+      v12 = 2048;
+      v13 = [objects count];
+      _os_signpost_emit_with_name_impl(&dword_20D9BF000, v6, OS_SIGNPOST_INTERVAL_END, signpostID, "HFMessageBatcher", "HFMessageBatcher-%{public}@: executing batch with %lu objects", &v10, 0x16u);
     }
 
     block = [(HFMessageBatcher *)self block];
     (block)[2](block, objects);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -19,14 +19,17 @@
 - (BOOL)incomingMessageHasTooManyRecipients:(id)recipients;
 - (BOOL)isGroupMessagingEnabledFor:(id)for;
 - (BOOL)reflectPriorityMessageToPeerDevicesForMessageGUIDs:(id)ds;
+- (BOOL)replicateMessage:(id)message chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style lastKnownReplicationDate:(id)date callerID:(id)d;
 - (BOOL)replicationRequiredForFeaturesUsedByMessageItem:(id)item;
 - (BOOL)responsibleForMessageID:(id)d;
 - (IMDRelayEnrollmentController)relayEnrollmentController;
 - (IMDTelephonyServiceSession)initWithAccount:(id)account service:(id)service replicatingForSession:(id)session;
 - (double)_periodicReplicationTimeInterval;
 - (id)_businessNameForIndiaShortCodeSender:(id)sender;
+- (id)_callerIDForChatWithChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style foundChat:(id)chat;
 - (id)_callerIDUsingFromIdentifier:(id)identifier;
 - (id)_chatForGroupID:(id)d originalGroupID:(id)iD;
+- (id)_chatForSendingMessageItem:(id)item chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style;
 - (id)_countryCodeForIncomingTextMessage:(id)message;
 - (id)_identifierForMergedBusinessThread:(id)thread;
 - (id)_messageDictionaryToRelayWithIncomingMessageDictionary:(id)dictionary smsMessage:(id)message;
@@ -58,7 +61,9 @@
 - (void)_deferredReplicatedMessageReleaseWithAllowedMessage:(id)message outgoingProxyBlock:(id)block;
 - (void)_enqueueBlock:(id)block withTimeout:(double)timeout;
 - (void)_findUnsubscribeTextForChat:(id)chat inMessageBody:(id)body;
+- (void)_finishSendingMessageItem:(id)item chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style foundChat:(id)chat didSendSMS:(BOOL)s attemptingReplication:(BOOL)replication shouldForceFail:(BOOL)fail watchSendsOverCellular:(BOOL)self0 forceReflection:(BOOL)self1 forceRelay:(BOOL)self2 callerID:(id)self3;
 - (void)_generatePreviewForTransfer:(id)transfer message:(id)message;
+- (void)_markMessageAsSent:(id)sent wasInterworked:(BOOL)interworked;
 - (void)_messageTimedOut:(id)out;
 - (void)_processReceivedDictionaryInBlastDoor:(id)door storageContext:(id)context receivedViaRelay:(BOOL)relay withCompletionBlock:(id)block;
 - (void)_processReceivedSMSMessage:(id)message storageContext:(id)context receivedViaRelay:(BOOL)relay serviceName:(id)name completionBlock:(id)block;
@@ -69,12 +74,16 @@
 - (void)_releasePendingMessagesAndProcessReceivedSMSMessage:(id)message storageContext:(id)context receivedViaRelay:(BOOL)relay serviceName:(id)name completionBlock:(id)block;
 - (void)_removeOriginatedMessage:(id)message;
 - (void)_reportTelephonyJunkForMessageItem:(id)item chat:(id)chat;
+- (void)_resetAndBroadcastBlackholeErrorStateIfNeededForChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style;
 - (void)_setClearMessageSendTimer;
 - (void)_setTimeoutTimerForRelayMessageID:(id)d timeout:(double)timeout;
 - (void)_setupCoreTelephonyObservation;
 - (void)_teardownCoreTelephonyObservation;
 - (void)_updateCategoryForChat:(id)chat andMessage:(id)message category:(int64_t)category subCategory:(int64_t)subCategory spamExtensionName:(id)name;
+- (void)_updateLastAddressedIDsIfNeededForChatWithIdentifier:(id)identifier style:(unsigned __int8)style lastAddressedHandle:(id)handle lastAddressedSIMID:(id)d iMessageCapability:(int64_t)capability;
 - (void)_updatePhoneNumberCallerID;
+- (void)_updateShouldForceToSMSForChatWithIdentifier:(id)identifier style:(unsigned __int8)style shouldForceToSMS:(BOOL)s;
+- (void)didReceiveDisplayNameChange:(id)change guid:(id)guid fromID:(id)d toIdentifier:(id)identifier forChat:(id)chat style:(unsigned __int8)style account:(id)account shouldRelay:(BOOL)self0;
 - (void)didReceiveMessages:(id)messages forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d completion:(id)completion;
 - (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account forceDate:(id)date itemIsComingFromStorage:(BOOL)storage;
 - (void)enrollDeviceInSMSRelay:(id)relay;
@@ -96,16 +105,31 @@
 - (void)handler:(id)handler outgoingDownloadMessage:(id)message toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp isBeingReplayed:(BOOL)self0 isInProxyMode:(BOOL)self1 storageContext:(id)self2;
 - (void)handler:(id)handler outgoingPlainTextMessage:(id)message toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp isBeingReplayed:(BOOL)self0 isInProxyMode:(BOOL)self1 storageContext:(id)self2;
 - (void)handler:(id)handler receivedPriorityMessageCommand:(id)command fromIdentifier:(id)identifier toIdentifier:(id)toIdentifier fromToken:(id)token;
+- (void)joinChat:(id)chat handleInfo:(id)info style:(unsigned __int8)style groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD joinProperties:(id)properties;
 - (void)loginServiceSessionWithAccount:(id)account;
 - (void)logoutServiceSessionWithAccount:(id)account;
+- (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog completionBlock:(id)block;
 - (void)processMessageSendFailure:(id)failure;
+- (void)refetchChatBackgroundIfNeededForChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style;
 - (void)relayDisplayNameChange:(id)change forChat:(id)chat fromID:(id)d messageID:(id)iD didOccurLocally:(BOOL)locally;
+- (void)requestTranscriptBackground:(id)background toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage;
+- (void)requestTranscriptBackgroundIfNecessary:(id)necessary incomingVersion:(unint64_t)version toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage;
+- (void)retryGroupPhotoUpload:(id)upload toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh;
+- (void)retryTranscriptBackgroundUpload:(id)upload chatIdentifier:(id)identifier style:(unsigned __int8)style transferID:(id)d;
+- (void)sendBrandLogoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)sendDeleteCommand:(id)command forChatGUID:(id)d;
+- (void)sendEditedMessage:(id)message previousMessage:(id)previousMessage partIndex:(int64_t)index editType:(unint64_t)type toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account backwardCompatabilityText:(id)self0;
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style account:(id)account;
+- (void)sendMessageFromIMMessageItem:(id)item forChat:(id)chat chat:(id)a5 style:(unsigned __int8)style;
 - (void)sendRecoverCommand:(id)command forChatGUID:(id)d;
 - (void)sendReportJunkMessageGUID:(id)d shouldRelay:(BOOL)relay;
+- (void)sendRepositionStickerMessage:(id)message chatIdentifier:(id)identifier accountID:(id)d style:(unsigned __int8)style;
 - (void)sendUnapproveToToken:(id)token messageGUID:(id)d completion:(id)completion;
+- (void)setServiceCompatibleContentOn:(id)on forChat:(id)chat style:(unsigned __int8)style from:(id)from completionBlock:(id)block;
+- (void)setTranscriptBackground:(id)background andSendToChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style transferID:(id)d isRefresh:(BOOL)refresh;
 - (void)unEnrollDeviceInSMSRelay:(id)relay;
+- (void)updateDisplayName:(id)name fromDisplayName:(id)displayName fromID:(id)d forChatID:(id)iD identifier:(id)identifier style:(unsigned __int8)style messageID:(id)messageID;
 @end
 
 @implementation IMDTelephonyServiceSession
@@ -126,7 +150,7 @@
 
 + (id)createCompatibleBodyForMessage:(id)message processedMessageItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   itemCopy = item;
   if ([itemCopy sendAlternateLayoutAsText])
@@ -138,7 +162,7 @@
       {
         guid = [itemCopy guid];
         *buf = 138412290;
-        v22 = guid;
+        v21 = guid;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Replacing message body with text for layout (sendAlternateLayoutAsText):%@", buf, 0xCu);
       }
     }
@@ -155,28 +179,26 @@
     aBlock[1] = 3221225472;
     aBlock[2] = sub_22B54DE90;
     aBlock[3] = &unk_2787033A8;
-    v20 = v11;
+    v19 = v11;
     v12 = v11;
     v13 = _Block_copy(aBlock);
-    v18 = 0;
-    v14 = [payloadData __im_attributedStringByReplacingAdaptiveImageGlyphFileTransfersUsingFileTransferProvider:v13 replacementTextProvider:&unk_283F19AC8 removedTransferGUIDsOut:&v18];
+    v17 = 0;
+    v14 = [payloadData __im_attributedStringByReplacingAdaptiveImageGlyphFileTransfersUsingFileTransferProvider:v13 replacementTextProvider:&unk_283F19AC8 removedTransferGUIDsOut:&v17];
     string = [v14 string];
     v10 = _IMStringStrippingControlCharacters();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (void)createFallbackTextForMessage:(id)message processedMessageItem:(id)item leadingFallbackText:(id)text trailingFallbackText:(id)fallbackText
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   itemCopy = item;
   textCopy = text;
   fallbackTextCopy = fallbackText;
-  v52 = itemCopy;
+  v51 = itemCopy;
   expressiveSendStyleID = [itemCopy expressiveSendStyleID];
   v11 = [expressiveSendStyleID length];
 
@@ -189,7 +211,7 @@
       {
         guid = [itemCopy guid];
         *buf = 138412290;
-        v62 = guid;
+        v61 = guid;
         _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Appending expressive send style id for message %@", buf, 0xCu);
       }
     }
@@ -213,32 +235,32 @@
     if (v18)
     {
       messageSummaryInfo2 = [itemCopy messageSummaryInfo];
-      v47 = [messageSummaryInfo2 objectForKeyedSubscript:v17];
+      v46 = [messageSummaryInfo2 objectForKeyedSubscript:v17];
 
-      if (v47)
+      if (v46)
       {
         translationMessagePartClasses = [MEMORY[0x277D1AA70] translationMessagePartClasses];
-        v59 = 0;
-        v44 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:translationMessagePartClasses fromData:v47 error:&v59];
-        v43 = v59;
-        v20 = v44;
-        if (v44)
+        v58 = 0;
+        v43 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:translationMessagePartClasses fromData:v46 error:&v58];
+        v42 = v58;
+        v20 = v43;
+        if (v43)
         {
-          allValues = [v44 allValues];
+          allValues = [v43 allValues];
           firstObject = [allValues firstObject];
 
           if (firstObject)
           {
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
             v56 = 0u;
+            v57 = 0u;
+            v54 = 0u;
+            v55 = 0u;
             obj = firstObject;
             v23 = 0;
-            v24 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+            v24 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
             if (v24)
             {
-              v25 = *v56;
+              v25 = *v55;
               v26 = &stru_283F23018;
               do
               {
@@ -247,16 +269,16 @@
                 v29 = v26;
                 do
                 {
-                  if (*v56 != v25)
+                  if (*v55 != v25)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v30 = *(*(&v55 + 1) + 8 * v27);
+                  v30 = *(*(&v54 + 1) + 8 * v27);
                   v31 = MEMORY[0x277CCACA8];
                   v32 = [v30 objectForKey:@"translatedText"];
                   string = [v32 string];
-                  v26 = [v31 stringWithFormat:@"%@%@", v29, string, v43];
+                  v26 = [v31 stringWithFormat:@"%@%@", v29, string, v42];
 
                   v23 = [v30 objectForKey:@"translationLanguage"];
 
@@ -266,7 +288,7 @@
                 }
 
                 while (v24 != v27);
-                v24 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+                v24 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
               }
 
               while (v24);
@@ -278,8 +300,8 @@
             }
 
             v35 = [self backwardCompatibilityPrefixForLanguageCode:v23];
-            v54 = 0;
-            v34 = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v35 validFormatSpecifiers:@"%@" error:&v54, v26];
+            v53 = 0;
+            v34 = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v35 validFormatSpecifiers:@"%@" error:&v53, v26];
 
             [fallbackTextCopy appendFormat:@"\n\n%@", v34];
           }
@@ -289,7 +311,7 @@
             v34 = &stru_283F23018;
           }
 
-          v20 = v44;
+          v20 = v43;
         }
 
         else
@@ -305,7 +327,7 @@
     }
   }
 
-  threadIdentifier = [v52 threadIdentifier];
+  threadIdentifier = [v51 threadIdentifier];
   v37 = [threadIdentifier length] == 0;
 
   if (!v37)
@@ -315,9 +337,9 @@
       v38 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        guid2 = [v52 guid];
+        guid2 = [v51 guid];
         *buf = 138412290;
-        v62 = guid2;
+        v61 = guid2;
         _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Formatting plain text reply message for message %@", buf, 0xCu);
       }
     }
@@ -326,8 +348,6 @@
     v41 = [v40 localizedStringForKey:@"REPLIED_BACKWARD_COMPATIBILITY" value:&stru_283F23018 table:@"IMSharedUtilities"];
     [textCopy appendFormat:@"%@\n", v41];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (IMDTelephonyServiceSession)initWithAccount:(id)account service:(id)service replicatingForSession:(id)session
@@ -365,14 +385,14 @@
 
 - (void)_updatePhoneNumberCallerID
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Updating", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Updating", &v18, 2u);
     }
   }
 
@@ -385,9 +405,9 @@
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412290;
-      v20 = v6;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Default phone number from telephony is: %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v6;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Default phone number from telephony is: %@", &v18, 0xCu);
     }
   }
 
@@ -402,9 +422,9 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v19 = 138412290;
-        v20 = v6;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "No phone number from telephony, adopting relay phone number %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = v6;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "No phone number from telephony, adopting relay phone number %@", &v18, 0xCu);
       }
     }
 
@@ -417,9 +437,9 @@
   registration = [MEMORY[0x277D19298] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = v6;
-    _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "Updating SMS service with number: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v6;
+    _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "Updating SMS service with number: %@", &v18, 0xCu);
   }
 
   account = [(IMDServiceSession *)self account];
@@ -431,13 +451,11 @@
   account2 = [(IMDServiceSession *)self account];
   v17 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v6 forKey:*MEMORY[0x277D19408]];
   [account2 writeAccountDefaults:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_callerIDUsingFromIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy hasPrefix:@"device:"])
   {
@@ -452,30 +470,28 @@
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = _stripFZIDPrefix;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Stripping FZIDPrefix, after: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = _stripFZIDPrefix;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Stripping FZIDPrefix, after: %@", &v7, 0xCu);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return _stripFZIDPrefix;
 }
 
 - (void)loginServiceSessionWithAccount:(id)account
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "SMS: %@", &v8, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "SMS: %@", &v7, 0xCu);
     }
   }
 
@@ -486,27 +502,25 @@
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "%@: Log in.", &v8, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "%@: Log in.", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logoutServiceSessionWithAccount:(id)account
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "SMS: %@", &v8, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "SMS: %@", &v7, 0xCu);
     }
   }
 
@@ -519,80 +533,77 @@
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
+        v7 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "%@: Logging out.", &v8, 0xCu);
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "%@: Logging out.", &v7, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)compatibleMessageToSendForMessageItem:(id)item
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   balloonBundleID = [itemCopy balloonBundleID];
-  v5 = *MEMORY[0x277D19710];
-  v6 = IMBalloonExtensionIDWithSuffix();
-  v7 = [balloonBundleID isEqualToString:v6];
+  v5 = IMBalloonExtensionIDWithSuffix();
+  v6 = [balloonBundleID isEqualToString:v5];
 
-  if (v7)
+  if (v6)
   {
-    v8 = IMExtensionPayloadUnarchivingClasses();
-    v9 = objc_alloc(MEMORY[0x277CCAAC8]);
+    v7 = IMExtensionPayloadUnarchivingClasses();
+    v8 = objc_alloc(MEMORY[0x277CCAAC8]);
     payloadData = [itemCopy payloadData];
-    v33 = 0;
-    v11 = [v9 initForReadingFromData:payloadData error:&v33];
-    v12 = v33;
+    v31 = 0;
+    v10 = [v8 initForReadingFromData:payloadData error:&v31];
+    v11 = v31;
 
-    v13 = [v11 decodeObjectOfClasses:v8 forKey:*MEMORY[0x277CCA308]];
-    if (v12 && IMOSLoggingEnabled())
+    v12 = [v10 decodeObjectOfClasses:v7 forKey:*MEMORY[0x277CCA308]];
+    if (v11 && IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v35 = v12;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Failed to unarchive attributionInfo. Error: %@", buf, 0xCu);
+        v33 = v11;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Failed to unarchive attributionInfo. Error: %@", buf, 0xCu);
       }
     }
 
-    if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v15 = [v13 objectForKey:*MEMORY[0x277D19D60]];
-      v16 = [v15 objectForKey:@"messageText"];
-      v17 = v16 == 0;
+      v14 = [v12 objectForKey:*MEMORY[0x277D19D60]];
+      v15 = [v14 objectForKey:@"messageText"];
+      v16 = v15 == 0;
 
-      if (!v17)
+      if (!v16)
       {
-        v18 = objc_alloc(MEMORY[0x277CCAB48]);
-        v19 = [v15 objectForKey:@"messageText"];
-        v20 = [v18 initWithString:v19];
+        v17 = objc_alloc(MEMORY[0x277CCAB48]);
+        v18 = [v14 objectForKey:@"messageText"];
+        v19 = [v17 initWithString:v18];
 
-        if (v20)
+        if (v19)
         {
-          v31 = objc_alloc(MEMORY[0x277D1AA70]);
+          v29 = objc_alloc(MEMORY[0x277D1AA70]);
           sender = [itemCopy sender];
           time = [itemCopy time];
           flags = [itemCopy flags];
           guid = [itemCopy guid];
-          v24 = [v31 initWithSender:sender time:time body:v20 attributes:0 fileTransferGUIDs:0 flags:flags error:0 guid:guid threadIdentifier:0];
+          v23 = [v29 initWithSender:sender time:time body:v19 attributes:0 fileTransferGUIDs:0 flags:flags error:0 guid:guid threadIdentifier:0];
 
           if (IMOSLoggingEnabled())
           {
-            v25 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+            v24 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
-              guid2 = [v24 guid];
+              guid2 = [v23 guid];
               *buf = 138412290;
-              v35 = guid2;
-              _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Sending activity sharing fallback for message %@", buf, 0xCu);
+              v33 = guid2;
+              _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Sending activity sharing fallback for message %@", buf, 0xCu);
             }
           }
 
-          v27 = 0;
+          v26 = 0;
           goto LABEL_23;
         }
       }
@@ -600,25 +611,25 @@
 
     else
     {
-      v15 = 0;
+      v14 = 0;
     }
 
     if (IMOSLoggingEnabled())
     {
-      v28 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v27 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Activity sharing payload doesn't have message text to send. Bailing", buf, 2u);
+        _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Activity sharing payload doesn't have message text to send. Bailing", buf, 2u);
       }
     }
 
-    v24 = itemCopy;
-    v20 = 0;
-    v27 = 1;
+    v23 = itemCopy;
+    v19 = 0;
+    v26 = 1;
 LABEL_23:
 
-    if (v27)
+    if (v26)
     {
       goto LABEL_25;
     }
@@ -626,20 +637,18 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v24 = itemCopy;
+  v23 = itemCopy;
 LABEL_24:
-  v24 = v24;
-  itemCopy = v24;
+  v23 = v23;
+  itemCopy = v23;
 LABEL_25:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return itemCopy;
 }
 
 - (BOOL)allowedToSendMessage:(id)message toChat:(id)chat
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   chatIdentifier = [chatCopy chatIdentifier];
@@ -653,9 +662,9 @@ LABEL_25:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         guid = [messageCopy guid];
-        v18 = 138412290;
-        v19 = guid;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, " ** New Feature, and backwards compat is not enabled for message %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = guid;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, " ** New Feature, and backwards compat is not enabled for message %@", &v17, 0xCu);
       }
     }
 
@@ -676,9 +685,9 @@ LABEL_25:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         guid2 = [messageCopy guid];
-        v18 = 138412290;
-        v19 = guid2;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received attempt to send a scheduled message through the telephony service session, message guid: %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = guid2;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received attempt to send a scheduled message through the telephony service session, message guid: %@", &v17, 0xCu);
       }
     }
 
@@ -692,13 +701,12 @@ LABEL_25:
   v15 = 0;
 LABEL_15:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)_newFeatureRequiredByMessageItem:(id)item chatIdentifier:(id)identifier
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   associatedMessageType = [itemCopy associatedMessageType];
@@ -729,7 +737,7 @@ LABEL_15:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v37 = identifierCopy;
+          v36 = identifierCopy;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Ignoring backwards compat check and allowing sending message to %@", buf, 0xCu);
         }
       }
@@ -745,25 +753,25 @@ LABEL_15:
 LABEL_14:
     fileTransferGUIDs = [itemCopy fileTransferGUIDs];
     v10 = +[IMDFileTransferCenter sharedInstance];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v9 = fileTransferGUIDs;
-    v18 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v18 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v18)
     {
-      v19 = *v32;
+      v19 = *v31;
 LABEL_16:
       v20 = 0;
       while (1)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(v9);
         }
 
-        v21 = [v10 transferForGUID:{*(*(&v31 + 1) + 8 * v20), v31}];
+        v21 = [v10 transferForGUID:{*(*(&v30 + 1) + 8 * v20), v30}];
         isAdaptiveImageGlyph = [v21 isAdaptiveImageGlyph];
 
         if (isAdaptiveImageGlyph)
@@ -773,7 +781,7 @@ LABEL_16:
 
         if (v18 == ++v20)
         {
-          v18 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v18 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
           if (v18)
           {
             goto LABEL_16;
@@ -821,14 +829,290 @@ LABEL_29:
   v23 = 1;
 LABEL_30:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v23;
+}
+
+- (id)_chatForSendingMessageItem:(id)item chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style
+{
+  v7.receiver = self;
+  v7.super_class = IMDTelephonyServiceSession;
+  v5 = [(IMDServiceSession *)&v7 chatForChatIdentifier:identifier style:style updatingAccount:1];
+
+  return v5;
+}
+
+- (void)_markMessageAsSent:(id)sent wasInterworked:(BOOL)interworked
+{
+  interworkedCopy = interworked;
+  originatedMessages = self->_originatedMessages;
+  sentCopy = sent;
+  if ([(NSMutableSet *)originatedMessages containsObject:?])
+  {
+    [(IMDTelephonyServiceSession *)self _clearTimoutTimerForRelayMessageID:sentCopy];
+    [(IMDServiceSession *)self notifyDidSendMessageID:sentCopy account:0 shouldNotify:1 wasDowngraded:0 wasInterworked:interworkedCopy];
+    [(IMDTelephonyServiceSession *)self _removeOriginatedMessage:sentCopy];
+  }
+
+  else
+  {
+    [(IMDServiceSession *)self notifyDidSendMessageID:sentCopy account:0 shouldNotify:0 wasDowngraded:0 wasInterworked:interworkedCopy];
+    [(IMDTelephonyServiceSession *)self _clearTimoutTimerForRelayMessageID:sentCopy];
+  }
+}
+
+- (void)_updateLastAddressedIDsIfNeededForChatWithIdentifier:(id)identifier style:(unsigned __int8)style lastAddressedHandle:(id)handle lastAddressedSIMID:(id)d iMessageCapability:(int64_t)capability
+{
+  styleCopy = style;
+  v63 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  handleCopy = handle;
+  dCopy = d;
+  if ([handleCopy length] || objc_msgSend(dCopy, "length"))
+  {
+    capabilityCopy = capability;
+    v13 = +[IMDChatRegistry sharedInstance];
+    v14 = [v13 allExistingSupportedServiceChatsWithIdentifier:identifierCopy style:styleCopy];
+
+    if (IMOSLoggingEnabled())
+    {
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138413058;
+        v59 = identifierCopy;
+        v60 = 1024;
+        *v61 = styleCopy;
+        *&v61[4] = 2112;
+        *&v61[6] = handleCopy;
+        *&v61[14] = 2112;
+        *&v61[16] = dCopy;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Checking if chats with chatIdentifier %@ and style %hhu need to have their last addressed handle updated to %@ or their last addressed sim id updated to %@", buf, 0x26u);
+      }
+    }
+
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    obj = v14;
+    v16 = 0;
+    v17 = 0;
+    v18 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+    if (v18)
+    {
+      v52 = 0;
+      v53 = *v55;
+      while (1)
+      {
+        for (i = 0; i != v18; ++i)
+        {
+          if (*v55 != v53)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v20 = *(*(&v54 + 1) + 8 * i);
+          chatIdentifier = [v20 chatIdentifier];
+          v22 = [chatIdentifier length] == 0;
+
+          if (!v22)
+          {
+            if ([dCopy length])
+            {
+              lastAddressedSIMID = [v20 lastAddressedSIMID];
+              v24 = [lastAddressedSIMID isEqualToString:dCopy];
+
+              v17 |= v24 ^ 1;
+            }
+
+            lastAddressedLocalHandle = [v20 lastAddressedLocalHandle];
+            v26 = MEMORY[0x231897D30](lastAddressedLocalHandle, handleCopy);
+
+            if ((v26 & 1) == 0)
+            {
+              if ([handleCopy length] || (objc_msgSend(v20, "serviceName"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEqualToString:", *MEMORY[0x277D1A620]), v27, !v28))
+              {
+                v16 = 1;
+              }
+
+              else if (IMOSLoggingEnabled())
+              {
+                v29 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+                {
+                  *buf = 0;
+                  _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Last address handle is nil, not updating iMessage to nil last addressed handle", buf, 2u);
+                }
+              }
+            }
+
+            if (v17 & v16)
+            {
+              if (IMOSLoggingEnabled())
+              {
+                v30 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+                {
+                  guid = [v20 guid];
+                  lastAddressedLocalHandle2 = [v20 lastAddressedLocalHandle];
+                  *buf = 138413058;
+                  v59 = guid;
+                  v60 = 2112;
+                  *v61 = handleCopy;
+                  *&v61[8] = 2112;
+                  *&v61[10] = lastAddressedLocalHandle2;
+                  *&v61[18] = 2112;
+                  *&v61[20] = dCopy;
+                  _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "  ** Updating both caller ID for chat with guid %@ to be: %@ from %@ and sim ID to be: %@", buf, 0x2Au);
+                }
+              }
+
+              [v20 updateLastAddressedHandle:handleCopy forceUpdateHandle:0 lastAddressedSIMID:dCopy];
+            }
+
+            else if (v17)
+            {
+              if (IMOSLoggingEnabled())
+              {
+                v33 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+                {
+                  guid2 = [v20 guid];
+                  *buf = 138412546;
+                  v59 = guid2;
+                  v60 = 2112;
+                  *v61 = dCopy;
+                  _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "  ** Updating sim ID for chat with guid %@ to be: %@", buf, 0x16u);
+                }
+              }
+
+              [v20 updateLastAddressedSIMID:dCopy];
+            }
+
+            else if (v16)
+            {
+              if (IMOSLoggingEnabled())
+              {
+                v35 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+                {
+                  guid3 = [v20 guid];
+                  lastAddressedLocalHandle3 = [v20 lastAddressedLocalHandle];
+                  *buf = 138412802;
+                  v59 = guid3;
+                  v60 = 2112;
+                  *v61 = handleCopy;
+                  *&v61[8] = 2112;
+                  *&v61[10] = lastAddressedLocalHandle3;
+                  _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "  ** Updating caller ID for chat with guid %@ to be: %@ from %@", buf, 0x20u);
+                }
+              }
+
+              [v20 updateLastAddressedHandle:handleCopy];
+            }
+
+            serviceName = [v20 serviceName];
+            v39 = [serviceName isEqualToString:*MEMORY[0x277D1A610]];
+
+            if (v39)
+            {
+              v40 = v20;
+
+              v52 = v40;
+            }
+
+            if (capabilityCopy == 2)
+            {
+              if (IMOSLoggingEnabled())
+              {
+                v44 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+                {
+                  guid4 = [v20 guid];
+                  *buf = 138412290;
+                  v59 = guid4;
+                  _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "Updating chat with guid %@ to have shouldForceToSMS = YES", buf, 0xCu);
+                }
+              }
+
+              v43 = 1;
+            }
+
+            else
+            {
+              if (capabilityCopy != 1)
+              {
+                continue;
+              }
+
+              if (IMOSLoggingEnabled())
+              {
+                v41 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+                {
+                  guid5 = [v20 guid];
+                  *buf = 138412290;
+                  v59 = guid5;
+                  _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_INFO, "Updating chat with guid %@ to have shouldForceToSMS = NO", buf, 0xCu);
+                }
+              }
+
+              v43 = 0;
+            }
+
+            [v20 updateShouldForceToSMS:v43];
+          }
+        }
+
+        v18 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+        if (!v18)
+        {
+          goto LABEL_60;
+        }
+      }
+    }
+
+    v52 = 0;
+LABEL_60:
+
+    if (!(v16 & 1 | ((IMSharedHelperDeviceHasMultipleSubscriptions() & v17 & 1) == 0)) && v52)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v46 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+        {
+          guid6 = [v52 guid];
+          *buf = 138412546;
+          v59 = guid6;
+          v60 = 2112;
+          *v61 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v46, OS_LOG_TYPE_INFO, "Updated simID on chat %@ to %@ but phoneNumber is nil so force updating IMChat to have nil lastAddressedHandle", buf, 0x16u);
+        }
+      }
+
+      [v52 updateLastAddressedHandle:0 forceUpdate:1];
+    }
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v48 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      v59 = identifierCopy;
+      v60 = 1024;
+      *v61 = styleCopy;
+      _os_log_impl(&dword_22B4CC000, v48, OS_LOG_TYPE_INFO, "Not updating chats with identifier %@ and style %hhu as both last addressed handle and last addressed sim id are nil", buf, 0x12u);
+    }
+  }
 }
 
 - (void)didReceiveMessages:(id)messages forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d completion:(id)completion
 {
   styleCopy = style;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   chatCopy = chat;
   accountCopy = account;
@@ -837,29 +1121,29 @@ LABEL_30:
   v15 = +[IMDChatRegistry sharedInstance];
   selfCopy = self;
   account = [(IMDServiceSession *)self account];
-  v41 = chatCopy;
+  v40 = chatCopy;
   v17 = [v15 existingChatWithIdentifier:chatCopy account:account];
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = messagesCopy;
-  v18 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v18 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v18)
   {
     v19 = v18;
-    v44 = *v53;
+    v43 = *v52;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v53 != v44)
+        if (*v52 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v52 + 1) + 8 * i);
+        v21 = *(*(&v51 + 1) + 8 * i);
         service = [accountCopy service];
         internalName = [service internalName];
 
@@ -874,47 +1158,45 @@ LABEL_30:
         [(IMDTelephonyServiceSession *)selfCopy _findUnsubscribeTextForChat:v17 inMessageBody:string];
       }
 
-      v19 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v19 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v19);
   }
 
-  v51.receiver = selfCopy;
-  v51.super_class = IMDTelephonyServiceSession;
-  [(IMDServiceSession *)&v51 didReceiveMessages:obj forChat:v41 style:styleCopy account:accountCopy fromIDSID:dCopy completion:completionCopy];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  v50.receiver = selfCopy;
+  v50.super_class = IMDTelephonyServiceSession;
+  [(IMDServiceSession *)&v50 didReceiveMessages:obj forChat:v40 style:styleCopy account:accountCopy fromIDSID:dCopy completion:completionCopy];
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v30 = obj;
-  v31 = [v30 countByEnumeratingWithState:&v47 objects:v56 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v46 objects:v55 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v48;
+    v33 = *v47;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v48 != v33)
+        if (*v47 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v47 + 1) + 8 * j);
+        v35 = *(*(&v46 + 1) + 8 * j);
         v36 = +[IMDRelayPushHandler sharedInstance];
         guid2 = [v35 guid];
         [v36 _handleMessageProcessedWithGUID:guid2];
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v47 objects:v56 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
     while (v32);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account forceDate:(id)date itemIsComingFromStorage:(BOOL)storage
@@ -949,7 +1231,7 @@ LABEL_30:
 
 - (id)_resolvedCallerIDForLastAddressedLocalHandle:(id)handle lastAddressedSIMID:(id)d saveResolvedCallerIDToChat:(BOOL *)chat
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   dCopy = d;
   myCTPhoneNumber = [MEMORY[0x277D1A8F8] myCTPhoneNumber];
@@ -973,9 +1255,9 @@ LABEL_30:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v48 = handleCopy;
-      v49 = 2112;
-      v50 = dCopy;
+      v47 = handleCopy;
+      v48 = 2112;
+      v49 = dCopy;
       _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "The Last Addressed Handle For This Chat is %@ and lastAddressedSIMID is %@", buf, 0x16u);
     }
   }
@@ -1004,9 +1286,9 @@ LABEL_30:
       }
 
       *buf = 138412546;
-      v48 = v19;
-      v49 = 2112;
-      v50 = v18;
+      v47 = v19;
+      v48 = 2112;
+      v49 = v18;
       _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Has multiple active subscriptions %@, has at least one active %@", buf, 0x16u);
     }
   }
@@ -1025,7 +1307,7 @@ LABEL_30:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v48 = phoneNumber;
+        v47 = phoneNumber;
         _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "Last addressed handle was nil but found it a phone number on the context so using that phone number %@", buf, 0xCu);
       }
     }
@@ -1076,7 +1358,7 @@ LABEL_30:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v48 = phoneNumber;
+      v47 = phoneNumber;
       _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "We have a last addressed alias for this chat, and its one of our active aliases, setting callerID to %@", buf, 0xCu);
     }
 
@@ -1102,7 +1384,7 @@ LABEL_33:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v48 = phoneNumber;
+      v47 = phoneNumber;
       _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "We have a last addressed alias for this chat with at least one subscription active, setting callerID to %@", buf, 0xCu);
     }
 
@@ -1132,7 +1414,7 @@ LABEL_58:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v48 = _callerIDForRelay;
+          v47 = _callerIDForRelay;
           _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Updating last address handle to be %@", buf, 0xCu);
         }
       }
@@ -1161,7 +1443,7 @@ LABEL_58:
             if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v48 = myCTPhoneNumber;
+              v47 = myCTPhoneNumber;
               _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Updating last address handle to be my phone number %@", buf, 0xCu);
             }
           }
@@ -1201,9 +1483,9 @@ LABEL_77:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v48 = phoneNumber;
-      v49 = 2112;
-      v50 = dCopy;
+      v47 = phoneNumber;
+      v48 = 2112;
+      v49 = dCopy;
       _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "We do not have a valid lastAddressedHandle %@ so using lastAddressedSIMID to send %@", buf, 0x16u);
     }
 
@@ -1222,68 +1504,94 @@ LABEL_77:
   dominentPhoneNumberAlias2 = [v31 phoneNumber];
 
 LABEL_78:
-  v41 = *MEMORY[0x277D85DE8];
 
   return dominentPhoneNumberAlias2;
 }
 
+- (id)_callerIDForChatWithChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style foundChat:(id)chat
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  chatCopy = chat;
+  v16 = 0;
+  lastAddressedLocalHandle = [chatCopy lastAddressedLocalHandle];
+  lastAddressedSIMID = [chatCopy lastAddressedSIMID];
+  v12 = [(IMDTelephonyServiceSession *)self _resolvedCallerIDForLastAddressedLocalHandle:lastAddressedLocalHandle lastAddressedSIMID:lastAddressedSIMID saveResolvedCallerIDToChat:&v16];
+
+  if (v16 == 1)
+  {
+    v13 = [identifierCopy length];
+    if (styleCopy)
+    {
+      if (v13)
+      {
+        lastAddressedSIMID2 = [chatCopy lastAddressedSIMID];
+        [(IMDTelephonyServiceSession *)self _updateLastAddressedIDsIfNeededForChatWithIdentifier:identifierCopy style:styleCopy lastAddressedHandle:v12 lastAddressedSIMID:lastAddressedSIMID2];
+      }
+    }
+  }
+
+  return v12;
+}
+
 - (id)createHandleInfoFor:(id)for
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   forCopy = for;
   style = [forCopy style];
-  v4 = IMDTelephonyServiceLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v26 = style;
+  v5 = IMDTelephonyServiceLogHandle(style);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     participants = [forCopy participants];
     *buf = 138412290;
-    v37 = participants;
-    _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_DEFAULT, "Participants: %@", buf, 0xCu);
+    v36 = participants;
+    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Participants: %@", buf, 0xCu);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v29 = forCopy;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = forCopy;
   obj = [forCopy participants];
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (!v6)
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (!v7)
   {
-    v8 = 0;
     v9 = 0;
     v10 = 0;
+    v11 = 0;
     goto LABEL_27;
   }
 
-  v7 = v6;
-  v8 = 0;
+  v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v32;
+  v11 = 0;
+  v12 = *v31;
   do
   {
-    v12 = 0;
+    v13 = 0;
     do
     {
-      if (*v32 != v11)
+      if (*v31 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v31 + 1) + 8 * v12);
-      v14 = IMDTelephonyServiceLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v14 = *(*(&v30 + 1) + 8 * v13);
+      v15 = IMDTelephonyServiceLogHandle(v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [v13 ID];
+        v16 = [v14 ID];
         *buf = 138412290;
-        v37 = v15;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_DEFAULT, "  Recipient: %@", buf, 0xCu);
+        v36 = v16;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_DEFAULT, "  Recipient: %@", buf, 0xCu);
       }
 
-      if (v10)
+      if (v11)
       {
-        if (!v9)
+        if (!v10)
         {
           goto LABEL_22;
         }
@@ -1291,12 +1599,12 @@ LABEL_78:
 
       else
       {
-        v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        if (!v9)
+        v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        if (!v10)
         {
 LABEL_22:
-          v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          if (v8)
+          v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          if (v9)
           {
             goto LABEL_13;
           }
@@ -1305,59 +1613,57 @@ LABEL_22:
         }
       }
 
-      if (v8)
+      if (v9)
       {
         goto LABEL_13;
       }
 
 LABEL_23:
-      v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
 LABEL_13:
-      v16 = [v13 ID];
-      [v10 addObject:v16];
+      v17 = [v14 ID];
+      [v11 addObject:v17];
 
-      unformattedID = [v13 unformattedID];
-      v18 = unformattedID;
+      unformattedID = [v14 unformattedID];
+      v19 = unformattedID;
       if (unformattedID)
       {
-        v19 = unformattedID;
+        v20 = unformattedID;
       }
 
       else
       {
-        v19 = &stru_283F23018;
+        v20 = &stru_283F23018;
       }
 
-      [v9 addObject:v19];
+      [v10 addObject:v20];
 
-      countryCode = [v13 countryCode];
-      v21 = countryCode;
+      countryCode = [v14 countryCode];
+      v22 = countryCode;
       if (countryCode)
       {
-        v22 = countryCode;
+        v23 = countryCode;
       }
 
       else
       {
-        v22 = @"us";
+        v23 = @"us";
       }
 
-      [v8 addObject:v22];
+      [v9 addObject:v23];
 
-      ++v12;
+      ++v13;
     }
 
-    while (v7 != v12);
-    v23 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-    v7 = v23;
+    while (v8 != v13);
+    v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v8 = v7;
   }
 
-  while (v23);
+  while (v7);
 LABEL_27:
 
-  v24 = [(IMDTelephonyServiceSession *)self createHandleInfoForParticipants:v10 unformattedIDs:v9 countryCodes:v8 isGroupChat:style == 43];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = [(IMDTelephonyServiceSession *)self createHandleInfoForParticipants:v11 unformattedIDs:v10 countryCodes:v9 isGroupChat:v26 == 43];
 
   return v24;
 }
@@ -1418,9 +1724,329 @@ LABEL_27:
   return v12;
 }
 
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  v53 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  chatCopy = chat;
+  v48 = styleCopy;
+  accountCopy = account;
+  if (![(IMDTelephonyServiceSession *)self _shouldFailSMSMessageForTesting:messageCopy chatIdentifier:chatCopy chatStyle:styleCopy])
+  {
+    v46 = chatCopy;
+    [(IMDServiceSession *)self canonicalizeChatIdentifier:&v46 style:&v48];
+    v13 = v46;
+
+    if (!v13)
+    {
+      chatCopy = 0;
+      goto LABEL_23;
+    }
+
+    v14 = [(IMDTelephonyServiceSession *)self _chatForSendingMessageItem:messageCopy chatIdentifier:v13 chatStyle:v48];
+    if (![(IMDTelephonyServiceSession *)self allowedToSendMessage:messageCopy toChat:v14])
+    {
+      v45.receiver = self;
+      v45.super_class = IMDTelephonyServiceSession;
+      [(IMDServiceSession *)&v45 sendMessage:messageCopy toChat:v13 style:v48 account:accountCopy];
+      [(IMDServiceSession *)self didSendMessage:messageCopy forChat:v13 style:v48];
+LABEL_22:
+
+      chatCopy = v13;
+      goto LABEL_23;
+    }
+
+    [(IMDServiceSession *)self _configureSessionInformationOnItem:messageCopy toChat:v13 withStyle:v48 forAccount:accountCopy];
+    if (IMOSLoggingEnabled())
+    {
+      v15 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        guid = [messageCopy guid];
+        criticalMessagingAppName = [messageCopy criticalMessagingAppName];
+        *buf = 138413058;
+        *&buf[4] = guid;
+        *&buf[12] = 2112;
+        *&buf[14] = v13;
+        *&buf[22] = 2112;
+        v50 = criticalMessagingAppName;
+        v51 = 2112;
+        v52 = v14;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "send message guid: %@  to identifier: %@  critical app name: %@   chat: %@", buf, 0x2Au);
+      }
+    }
+
+    mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
+    [mEMORY[0x277D1AAA8] trackEvent:*MEMORY[0x277D1A218]];
+
+    v32 = [(IMDTelephonyServiceSession *)self _callerIDForChatWithChatIdentifier:v13 chatStyle:v48 foundChat:v14];
+    [messageCopy setDestinationCallerID:v32];
+    v31 = [(IMDTelephonyServiceSession *)self compatibleMessageToSendForMessageItem:messageCopy];
+    lastAddressedLocalHandle = [v14 lastAddressedLocalHandle];
+    lastAddressedSIMID = [v14 lastAddressedSIMID];
+    v21 = [(IMDTelephonyServiceSession *)self _sendingDecisionForMessageItem:v31 callerID:v32 lastAddressedLocalHandle:lastAddressedLocalHandle lastAddressedSIMID:lastAddressedSIMID];
+
+    if ((v21 & 3) != 0)
+    {
+      v22 = v48;
+      lastReplicationSinceLoadDate = [v14 lastReplicationSinceLoadDate];
+      v24 = [(IMDTelephonyServiceSession *)self replicateMessage:messageCopy chatIdentifier:v13 chatStyle:v22 lastKnownReplicationDate:lastReplicationSinceLoadDate callerID:v32];
+
+      if (v24)
+      {
+        v25 = [MEMORY[0x277CBEAA8] now];
+        [v14 setLastReplicationSinceLoadDate:v25];
+      }
+
+      v26 = IMGetCachedDomainBoolForKey();
+      mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
+      isInternalInstall = [mEMORY[0x277D19268] isInternalInstall];
+
+      if ((isInternalInstall & v26) != 0)
+      {
+        if (IMOSLoggingEnabled())
+        {
+          v29 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "** Skipping true SMS send, DisableNonReplicationSMSSend is set", buf, 2u);
+          }
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      LOBYTE(v24) = 0;
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    LOBYTE(v50) = [v31 useStandalone];
+    v30 = v48;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = sub_22B551A54;
+    v33[3] = &unk_2787041D0;
+    v33[4] = self;
+    v39 = buf;
+    v34 = v31;
+    v35 = v32;
+    v40 = v21;
+    v36 = v14;
+    v41 = 0;
+    v37 = v13;
+    v42 = v48;
+    v38 = accountCopy;
+    v43 = v24;
+    v44 = 0;
+    [(IMDTelephonyServiceSession *)self processMessageForSending:v34 toChat:v37 style:v30 allowWatchdog:1 completionBlock:v33];
+
+    _Block_object_dispose(buf, 8);
+LABEL_21:
+
+    messageCopy = v31;
+    goto LABEL_22;
+  }
+
+  v47.receiver = self;
+  v47.super_class = IMDTelephonyServiceSession;
+  [(IMDServiceSession *)&v47 sendMessage:messageCopy toChat:chatCopy style:styleCopy account:accountCopy];
+LABEL_23:
+}
+
+- (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog completionBlock:(id)block
+{
+  watchdogCopy = watchdog;
+  styleCopy = style;
+  sendingCopy = sending;
+  chatCopy = chat;
+  blockCopy = block;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_22B55216C;
+  v19[3] = &unk_2787041F8;
+  v19[4] = self;
+  v20 = chatCopy;
+  v23 = styleCopy;
+  v21 = sendingCopy;
+  v22 = blockCopy;
+  v18.receiver = self;
+  v18.super_class = IMDTelephonyServiceSession;
+  v15 = blockCopy;
+  v16 = sendingCopy;
+  v17 = chatCopy;
+  [(IMDServiceSession *)&v18 processMessageForSending:v16 toChat:v17 style:styleCopy allowWatchdog:watchdogCopy completionBlock:v19];
+}
+
+- (void)setServiceCompatibleContentOn:(id)on forChat:(id)chat style:(unsigned __int8)style from:(id)from completionBlock:(id)block
+{
+  styleCopy = style;
+  v71 = *MEMORY[0x277D85DE8];
+  onCopy = on;
+  chatCopy = chat;
+  fromCopy = from;
+  blockCopy = block;
+  v43 = onCopy;
+  balloonBundleID = [onCopy balloonBundleID];
+  payloadData = [onCopy payloadData];
+  if ([balloonBundleID length] && objc_msgSend(payloadData, "length"))
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "We have a 3rd party message and need to transcode the payload data", buf, 2u);
+      }
+    }
+
+    fileTransferGUIDs = [fromCopy fileTransferGUIDs];
+    obj = [fileTransferGUIDs __imArrayByApplyingBlock:&unk_283F19AE8];
+
+    mEMORY[0x277D1ADE0] = [MEMORY[0x277D1ADE0] sharedInstance];
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = sub_22B552874;
+    v64[3] = &unk_278704240;
+    v65 = balloonBundleID;
+    v66 = onCopy;
+    v67 = blockCopy;
+    [mEMORY[0x277D1ADE0] transcodeFallbackFileTransferPayloadData:payloadData balloonBundleID:v65 attachments:obj completionBlock:v64];
+  }
+
+  else
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "We have transfers for this message and this is not a 3rd party message, so let's try and transcode them", buf, 2u);
+      }
+    }
+
+    obj = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    fileTransferGUIDs2 = [fromCopy fileTransferGUIDs];
+    v17 = [fileTransferGUIDs2 countByEnumeratingWithState:&v60 objects:v70 count:16];
+    if (v17)
+    {
+      v18 = *v61;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v61 != v18)
+          {
+            objc_enumerationMutation(fileTransferGUIDs2);
+          }
+
+          v20 = *(*(&v60 + 1) + 8 * i);
+          v21 = +[IMDFileTransferCenter sharedInstance];
+          v22 = [v21 transferForGUID:v20];
+
+          if ([v22 isAutoloopVideo])
+          {
+            [obj addObject:v22];
+          }
+        }
+
+        v17 = [fileTransferGUIDs2 countByEnumeratingWithState:&v60 objects:v70 count:16];
+      }
+
+      while (v17);
+    }
+
+    if ([obj count])
+    {
+      fileTransferGUIDs3 = [fromCopy fileTransferGUIDs];
+      v24 = [fileTransferGUIDs3 count];
+
+      v37 = [(IMDServiceSession *)self chatForChatIdentifier:chatCopy style:styleCopy updatingAccount:1];
+      v25 = [(IMDServiceSession *)self maxSizePerAttachmentWithCount:v24 forChat:v37];
+      v26 = dispatch_group_create();
+      v27 = objc_alloc_init(MEMORY[0x277CCA9E8]);
+      v28 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(obj, "count")}];
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      obj = obj;
+      v29 = [obj countByEnumeratingWithState:&v56 objects:v69 count:16];
+      if (v29)
+      {
+        v30 = *v57;
+        do
+        {
+          for (j = 0; j != v29; ++j)
+          {
+            if (*v57 != v30)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v32 = *(*(&v56 + 1) + 8 * j);
+            dispatch_group_enter(v26);
+            localURL = [v32 localURL];
+            v54 = v25;
+            v55 = 0;
+            v51[0] = MEMORY[0x277D85DD0];
+            v51[1] = 3221225472;
+            v51[2] = sub_22B552AFC;
+            v51[3] = &unk_278704290;
+            v51[4] = v32;
+            v51[5] = self;
+            v52 = v28;
+            v34 = v26;
+            v53 = v34;
+            [v27 coordinateReadingItemAtURL:localURL options:0 error:&v55 byAccessor:v51];
+            v35 = v55;
+
+            if (v35)
+            {
+              dispatch_group_leave(v34);
+            }
+          }
+
+          v29 = [obj countByEnumeratingWithState:&v56 objects:v69 count:16];
+        }
+
+        while (v29);
+      }
+
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = sub_22B552E48;
+      block[3] = &unk_278702F50;
+      v47 = fromCopy;
+      v48 = v28;
+      v49 = v43;
+      v50 = blockCopy;
+      v36 = v28;
+      dispatch_group_notify(v26, MEMORY[0x277D85CD0], block);
+    }
+
+    else
+    {
+      (*(blockCopy + 2))(blockCopy, v43);
+    }
+  }
+}
+
 - (void)_updateCategoryForChat:(id)chat andMessage:(id)message category:(int64_t)category subCategory:(int64_t)subCategory spamExtensionName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   messageCopy = message;
   nameCopy = name;
@@ -1430,20 +2056,65 @@ LABEL_27:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       guid = [chatCopy guid];
-      v17 = 138412802;
-      v18 = guid;
-      v19 = 2048;
+      v16 = 138412802;
+      v17 = guid;
+      v18 = 2048;
       categoryCopy = category;
-      v21 = 2048;
+      v20 = 2048;
       subCategoryCopy = subCategory;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Updating chat %@ category %ld subCategory @%ld", &v17, 0x20u);
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Updating chat %@ category %ld subCategory @%ld", &v16, 0x20u);
     }
   }
 
   [chatCopy updateSMSCategory:category subCategory:subCategory];
   [chatCopy updateSMSSpamExtensionNameChatProperty:nameCopy];
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)_resetAndBroadcastBlackholeErrorStateIfNeededForChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style
+{
+  styleCopy = style;
+  v21 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = +[IMDChatRegistry sharedInstance];
+  v8 = [v7 allExistingChatsWithIdentifier:identifierCopy style:styleCopy];
+
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v16 + 1) + 8 * i);
+        if ([v13 receivedBlackholeError])
+        {
+          [v13 updateReceivedBlackholeError:0];
+          v14 = +[IMDChatStore sharedInstance];
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = sub_22B5533C0;
+          v15[3] = &unk_2787042B8;
+          v15[4] = self;
+          [v14 remapMessageError:43 toError:0 forChat:v13 completion:v15];
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
 }
 
 - (BOOL)_disableScreenTimeRestrictionsForMessageItem:(id)item chat:(id)chat watchSendsOverCellular:(BOOL)cellular emergencyNumbersFoundInRecipients:(int64_t *)recipients
@@ -1458,38 +2129,38 @@ LABEL_27:
 
 - (int64_t)_iMessageCapabilityForSIMID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   mEMORY[0x277D1A908] = [MEMORY[0x277D1A908] sharedInstance];
   registeredSIMIDs = [mEMORY[0x277D1A908] registeredSIMIDs];
 
-  v6 = [registeredSIMIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [registeredSIMIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     v9 = 1;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(registeredSIMIDs);
       }
 
-      if ([dCopy isEqualToString:*(*(&v13 + 1) + 8 * v10)])
+      if ([dCopy isEqualToString:*(*(&v12 + 1) + 8 * v10)])
       {
         break;
       }
 
       if (v7 == ++v10)
       {
-        v7 = [registeredSIMIDs countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [registeredSIMIDs countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1506,13 +2177,12 @@ LABEL_9:
     v9 = 2;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_relayMessage:(id)message chat:(id)chat didSendSMS:(BOOL)s attemptingReplication:(BOOL)replication forceReflection:(BOOL)reflection relayToWatchOnly:(BOOL)only shouldDisableScreenTimeRestrictions:(BOOL)restrictions callerID:(id)self0
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   dCopy = d;
@@ -1542,7 +2212,7 @@ LABEL_9:
   }
 
   lastAddressedSIMID = [chatCopy lastAddressedSIMID];
-  v47 = [(IMDTelephonyServiceSession *)self _iMessageCapabilityForSIMID:lastAddressedSIMID];
+  v46 = [(IMDTelephonyServiceSession *)self _iMessageCapabilityForSIMID:lastAddressedSIMID];
 
   balloonBundleID = [messageCopy balloonBundleID];
   v21 = [balloonBundleID isEqualToString:*MEMORY[0x277D19730]];
@@ -1562,11 +2232,11 @@ LABEL_9:
   if (!isChatBot2)
   {
 LABEL_12:
-    v52 = 0;
+    v51 = 0;
     goto LABEL_13;
   }
 
-  v52 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D188F0]];
+  v51 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D188F0]];
 LABEL_13:
   v26 = IMOSLoggingEnabled();
   if ((v23 | v21))
@@ -1578,30 +2248,30 @@ LABEL_13:
       {
         guid = [messageCopy guid];
         *buf = 138412290;
-        v68 = guid;
+        v67 = guid;
         _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "No attachments or rich links, relaying message with guid %@", buf, 0xCu);
       }
     }
 
-    v29 = v53;
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = sub_22B554000;
-    v53[3] = &unk_2787042E0;
-    v53[4] = self;
-    v53[5] = messageCopy;
+    v29 = v52;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = sub_22B554000;
+    v52[3] = &unk_2787042E0;
+    v52[4] = self;
+    v52[5] = messageCopy;
     v30 = chatCopy;
-    v53[6] = v30;
+    v52[6] = v30;
     sCopy = s;
     replicationCopy = replication;
     reflectionCopy = reflection;
     onlyCopy = only;
     restrictionsCopy = restrictions;
-    v53[7] = dCopy;
-    v53[8] = v52;
-    v53[9] = v47;
-    v31 = v52;
-    [(IMDTelephonyServiceSession *)self waitForChatRelayReadiness:v30 withBlock:v53];
+    v52[7] = dCopy;
+    v52[8] = v51;
+    v52[9] = v46;
+    v31 = v51;
+    [(IMDTelephonyServiceSession *)self waitForChatRelayReadiness:v30 withBlock:v52];
   }
 
   else
@@ -1613,7 +2283,7 @@ LABEL_13:
       {
         guid2 = [messageCopy guid];
         *buf = 138412290;
-        v68 = guid2;
+        v67 = guid2;
         _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Message with Guid %@ contains attachments, uploading to MMCS", buf, 0xCu);
       }
     }
@@ -1621,44 +2291,43 @@ LABEL_13:
     attachmentController = [(IMDTelephonyServiceSession *)self attachmentController];
     lastAddressedLocalHandle = [chatCopy lastAddressedLocalHandle];
     lastAddressedSIMID2 = [chatCopy lastAddressedSIMID];
-    v29 = v61;
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = sub_22B553BF4;
-    v61[3] = &unk_278704308;
-    v61[4] = self;
-    v61[5] = chatCopy;
+    v29 = v60;
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = sub_22B553BF4;
+    v60[3] = &unk_278704308;
+    v60[4] = self;
+    v60[5] = chatCopy;
     v37 = messageCopy;
     onlyCopy2 = only;
     v39 = messageCopy;
     selfCopy = self;
     v41 = dCopy;
     v42 = v37;
-    v61[6] = v37;
+    v60[6] = v37;
     sCopy2 = s;
     replicationCopy2 = replication;
     reflectionCopy2 = reflection;
-    v65 = onlyCopy2;
+    v64 = onlyCopy2;
     restrictionsCopy2 = restrictions;
-    v61[7] = v41;
-    v61[8] = v52;
-    v61[9] = v48;
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = sub_22B553EE8;
-    v59[3] = &unk_278704330;
-    v59[4] = selfCopy;
+    v60[7] = v41;
+    v60[8] = v51;
+    v60[9] = v47;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = sub_22B553EE8;
+    v58[3] = &unk_278704330;
+    v58[4] = selfCopy;
     messageCopy = v39;
     v43 = v42;
     dCopy = v41;
     v44 = v43;
-    v60 = v43;
-    v45 = v52;
-    [attachmentController processAttachmentsForPeerRelayForMessage:v44 lastAddressHandle:lastAddressedLocalHandle lastAddressedSIMID:lastAddressedSIMID2 completionBlock:v61 uploadFailureBlock:v59];
+    v59 = v43;
+    v45 = v51;
+    [attachmentController processAttachmentsForPeerRelayForMessage:v44 lastAddressHandle:lastAddressedLocalHandle lastAddressedSIMID:lastAddressedSIMID2 completionBlock:v60 uploadFailureBlock:v58];
   }
 
 LABEL_25:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setTimeoutTimerForRelayMessageID:(id)d timeout:(double)timeout
@@ -1704,7 +2373,7 @@ LABEL_25:
 
 - (void)_addOriginatedMessage:(id)message
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy length])
   {
@@ -1713,9 +2382,9 @@ LABEL_25:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = messageCopy;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, " Adding Message with GUID: %@ to originated Message Map", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = messageCopy;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, " Adding Message with GUID: %@ to originated Message Map", &v9, 0xCu);
       }
     }
 
@@ -1732,13 +2401,11 @@ LABEL_25:
     [(NSMutableSet *)originatedMessages addObject:messageCopy];
     [(IMDTelephonyServiceSession *)self _setClearMessageSendTimer];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeOriginatedMessage:(id)message
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy length])
   {
@@ -1747,9 +2414,9 @@ LABEL_25:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v7 = 138412290;
-        v8 = messageCopy;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, " Removing Message with GUID: %@ from originated Message Map", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = messageCopy;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, " Removing Message with GUID: %@ from originated Message Map", &v6, 0xCu);
       }
     }
 
@@ -1759,8 +2426,6 @@ LABEL_25:
       [(IMDTelephonyServiceSession *)self _clearInactivityTimer];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearInactivityTimer
@@ -1784,7 +2449,7 @@ LABEL_25:
 
 - (void)_enqueueBlock:(id)block withTimeout:(double)timeout
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (IMOSLoggingEnabled())
   {
@@ -1792,11 +2457,11 @@ LABEL_25:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       accountID = [(IMDServiceSession *)self accountID];
-      v14 = 138412546;
-      v15 = accountID;
-      v16 = 2048;
+      v13 = 138412546;
+      v14 = accountID;
+      v15 = 2048;
       timeoutCopy = timeout;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, " Enqueued item for key: %@    timeout: %f", &v14, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, " Enqueued item for key: %@    timeout: %f", &v13, 0x16u);
     }
   }
 
@@ -1812,8 +2477,6 @@ LABEL_25:
 
   accountID2 = [(IMDServiceSession *)self accountID];
   [(IMMultiQueue *)incomingMessageMultiQueue addBlock:blockCopy withTimeout:accountID2 forKey:0 description:timeout];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)maxRecipientsForPhoneNumber:(id)number simID:(id)d
@@ -1835,7 +2498,7 @@ LABEL_25:
 
 - (id)subscriptionContextForChat:(id)chat
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   lastAddressedLocalHandle = [chatCopy lastAddressedLocalHandle];
   lastAddressedSIMID = [chatCopy lastAddressedSIMID];
@@ -1846,11 +2509,11 @@ LABEL_25:
     {
       guid = [chatCopy guid];
       *buf = 138412802;
-      v40 = guid;
-      v41 = 2112;
-      v42 = lastAddressedLocalHandle;
-      v43 = 2112;
-      v44 = lastAddressedSIMID;
+      v39 = guid;
+      v40 = 2112;
+      v41 = lastAddressedLocalHandle;
+      v42 = 2112;
+      v43 = lastAddressedSIMID;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Not first chat (%@): lastAddressedLocalHandle %@ lastAddressedSIMID %@", buf, 0x20u);
     }
   }
@@ -1888,39 +2551,39 @@ LABEL_25:
     {
       guid2 = [chatCopy guid];
       *buf = 138412802;
-      v40 = lastAddressedLocalHandle;
-      v41 = 2112;
-      v42 = lastAddressedSIMID;
-      v43 = 2112;
-      v44 = guid2;
+      v39 = lastAddressedLocalHandle;
+      v40 = 2112;
+      v41 = lastAddressedSIMID;
+      v42 = 2112;
+      v43 = guid2;
       _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Could not find a subscription context to send with based on lastAddressedHandle %@ lastAddressedSIMID %@ so finding context preferred subscription for chat %@", buf, 0x20u);
     }
   }
 
   v16 = objc_opt_new();
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   participants = [chatCopy participants];
-  v18 = [participants countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v18 = [participants countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v18)
   {
-    v19 = *v35;
+    v19 = *v34;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v35 != v19)
+        if (*v34 != v19)
         {
           objc_enumerationMutation(participants);
         }
 
-        v21 = [*(*(&v34 + 1) + 8 * i) ID];
+        v21 = [*(*(&v33 + 1) + 8 * i) ID];
         [v16 addObject:v21];
       }
 
-      v18 = [participants countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v18 = [participants countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v18);
@@ -1937,7 +2600,7 @@ LABEL_21:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v40 = firstObject;
+        v39 = firstObject;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Setting the context for context %@ and updating lastAddressed if needed", buf, 0xCu);
       }
     }
@@ -1969,20 +2632,258 @@ LABEL_21:
 
   if (IMOSLoggingEnabled())
   {
-    v32 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v31 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Could not find a subscription context to send with based on contact preferred subscription in context so failing message", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Could not find a subscription context to send with based on contact preferred subscription in context so failing message", buf, 2u);
     }
   }
 
   firstObject = 0;
 LABEL_30:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return firstObject;
+}
+
+- (void)_updateShouldForceToSMSForChatWithIdentifier:(id)identifier style:(unsigned __int8)style shouldForceToSMS:(BOOL)s
+{
+  sCopy = s;
+  styleCopy = style;
+  v27 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v8 = +[IMDChatRegistry sharedInstance];
+  v9 = [v8 allExistingSupportedServiceChatsWithIdentifier:identifierCopy style:styleCopy];
+
+  if (IMOSLoggingEnabled())
+  {
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = @"NO";
+      *buf = 138412802;
+      v22 = identifierCopy;
+      if (sCopy)
+      {
+        v11 = @"YES";
+      }
+
+      v23 = 1024;
+      v24 = styleCopy;
+      v25 = 2112;
+      v26 = v11;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Checking if chats with chatIdentifier %@ and style %hhu need to have shouldForceToSMS updated to %@.", buf, 0x1Cu);
+    }
+  }
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v12 = v9;
+  v13 = [v12 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v13)
+  {
+    v14 = *v17;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v17 != v14)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        [*(*(&v16 + 1) + 8 * v15++) updateShouldForceToSMS:{sCopy, v16}];
+      }
+
+      while (v13 != v15);
+      v13 = [v12 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v13);
+  }
+}
+
+- (void)_finishSendingMessageItem:(id)item chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style foundChat:(id)chat didSendSMS:(BOOL)s attemptingReplication:(BOOL)replication shouldForceFail:(BOOL)fail watchSendsOverCellular:(BOOL)self0 forceReflection:(BOOL)self1 forceRelay:(BOOL)self2 callerID:(id)self3
+{
+  replicationCopy = replication;
+  sCopy = s;
+  styleCopy = style;
+  v77 = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  identifierCopy = identifier;
+  chatCopy = chat;
+  dCopy = d;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v18 = +[IMDChatRegistry sharedInstance];
+  v19 = [v18 allExistingSupportedServiceChatsWithIdentifier:identifierCopy style:styleCopy];
+
+  v20 = [v19 countByEnumeratingWithState:&v64 objects:v76 count:16];
+  if (v20)
+  {
+    v21 = *v65;
+    do
+    {
+      for (i = 0; i != v20; ++i)
+      {
+        if (*v65 != v21)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        v23 = *(*(&v64 + 1) + 8 * i);
+        guid = [itemCopy guid];
+        [v23 updateLastSeenMessageGuidIfNeeded:guid];
+      }
+
+      v20 = [v19 countByEnumeratingWithState:&v64 objects:v76 count:16];
+    }
+
+    while (v20);
+  }
+
+  if (([MEMORY[0x277D1AC58] isInternationalSpamFilteringEnabled] & sCopy) == 1)
+  {
+    [(IMDTelephonyServiceSession *)self _resetAndBroadcastBlackholeErrorStateIfNeededForChatIdentifier:identifierCopy chatStyle:styleCopy];
+  }
+
+  v63 = 0;
+  v55 = [(IMDTelephonyServiceSession *)self _disableScreenTimeRestrictionsForMessageItem:itemCopy chat:chatCopy watchSendsOverCellular:cellular emergencyNumbersFoundInRecipients:&v63];
+  relayController = [(IMDTelephonyServiceSession *)self relayController];
+  hasPeerDevices = [relayController hasPeerDevices];
+
+  IsAltAccount = IMSharedHelperDeviceIsAltAccount();
+  relayController2 = [(IMDTelephonyServiceSession *)self relayController];
+  watchConnectedOverBT = [relayController2 watchConnectedOverBT];
+
+  v29 = v63;
+  v30 = [(IMDTelephonyServiceSession *)self shouldExcludeChatFromRelay:chatCopy];
+  criticalMessagingAppName = [itemCopy criticalMessagingAppName];
+  v32 = [criticalMessagingAppName length];
+
+  isMessagesTheDefaultTextApp = [MEMORY[0x277D1A8F8] isMessagesTheDefaultTextApp];
+  if (relay || (v37 = isMessagesTheDefaultTextApp, !((fail || (hasPeerDevices & 1) == 0) | IsAltAccount & 1)) && (v63 == 0) | watchConnectedOverBT & 1 && !v30 && (v32 == 0) | isMessagesTheDefaultTextApp & 1)
+  {
+    if (sCopy && (-[IMDTelephonyServiceSession relayEnrollmentController](self, "relayEnrollmentController"), v34 = objc_claimAutoreleasedReturnValue(), [v34 _allowedDevicesforSMSRelay], v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "count") == 0, v35, v34, v36))
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v47 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_22B4CC000, v47, OS_LOG_TYPE_INFO, "None of our peer devices are on the allowed list, Not relaying message", buf, 2u);
+        }
+      }
+
+      v48 = +[IMDAccountController sharedInstance];
+      accountID = [itemCopy accountID];
+      v50 = [v48 accountForAccountID:accountID];
+      v51 = v50;
+      if (v50)
+      {
+        account = v50;
+      }
+
+      else
+      {
+        account = [(IMDServiceSession *)self account];
+      }
+
+      v53 = account;
+
+      v62.receiver = self;
+      v62.super_class = IMDTelephonyServiceSession;
+      [(IMDServiceSession *)&v62 sendMessage:itemCopy toChat:identifierCopy style:styleCopy account:v53];
+    }
+
+    else
+    {
+      LOBYTE(v54) = v55;
+      [(IMDTelephonyServiceSession *)self _relayMessage:itemCopy chat:chatCopy didSendSMS:sCopy attemptingReplication:replicationCopy forceReflection:reflection relayToWatchOnly:v29 > 0 shouldDisableScreenTimeRestrictions:v54 callerID:dCopy];
+    }
+  }
+
+  else
+  {
+    HasMultipleSubscriptions = IMSharedHelperDeviceHasMultipleSubscriptions();
+    v39 = IMOSLoggingEnabled();
+    if ((HasMultipleSubscriptions & fail) != 0)
+    {
+      if (v39)
+      {
+        v40 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        {
+          guid2 = [itemCopy guid];
+          *buf = 138412290;
+          v69 = guid2;
+          _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "SMS was not sent out and message was force failed so that user can pick correct subscription to send with %@", buf, 0xCu);
+        }
+      }
+
+LABEL_38:
+      guid3 = [itemCopy guid];
+      [(IMDServiceSession *)self didReceiveError:4 forMessageID:guid3 forceError:1];
+
+      goto LABEL_47;
+    }
+
+    if (v39)
+    {
+      v42 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      {
+        v43 = @"NO";
+        if (hasPeerDevices)
+        {
+          v44 = @"YES";
+        }
+
+        else
+        {
+          v44 = @"NO";
+        }
+
+        *buf = 138413058;
+        v69 = v44;
+        if (v32)
+        {
+          v45 = @"YES";
+        }
+
+        else
+        {
+          v45 = @"NO";
+        }
+
+        v70 = 2048;
+        v71 = v63;
+        if (v37)
+        {
+          v43 = @"YES";
+        }
+
+        v72 = 2112;
+        v73 = v45;
+        v74 = 2112;
+        v75 = v43;
+        _os_log_impl(&dword_22B4CC000, v42, OS_LOG_TYPE_INFO, "We have no peer devices %@, or this message had emergency number(s) %lu, or this was a critical message (%@) and we are not the default app (%@): not relaying message", buf, 0x2Au);
+      }
+    }
+
+    if (!sCopy)
+    {
+      goto LABEL_38;
+    }
+  }
+
+LABEL_47:
 }
 
 - (void)sendDeleteCommand:(id)command forChatGUID:(id)d
@@ -2051,7 +2952,7 @@ LABEL_30:
 
 - (int64_t)maxSizePerAttachmentWithCount:(int)count lastAddressHandle:(id)handle lastAddressedSIMID:(id)d
 {
-  *&v16[5] = *MEMORY[0x277D85DE8];
+  *&v15[5] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   dCopy = d;
   v9 = ([MEMORY[0x277D1A8F8] IMMMSMaximumMessageByteCountForPhoneNumber:handleCopy simID:dCopy] * 0.92);
@@ -2060,9 +2961,9 @@ LABEL_30:
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v15 = 134217984;
-      *v16 = v9;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "   Maximum byte length for attachments is: %lld", &v15, 0xCu);
+      v14 = 134217984;
+      *v15 = v9;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "   Maximum byte length for attachments is: %lld", &v14, 0xCu);
     }
   }
 
@@ -2072,21 +2973,80 @@ LABEL_30:
     v12 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 67109376;
-      v16[0] = count;
-      LOWORD(v16[1]) = 2048;
-      *(&v16[1] + 2) = v11;
-      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "     Part byte length for %d attachments will be: %lld", &v15, 0x12u);
+      v14 = 67109376;
+      v15[0] = count;
+      LOWORD(v15[1]) = 2048;
+      *(&v15[1] + 2) = v11;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "     Part byte length for %d attachments will be: %lld", &v14, 0x12u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (void)sendMessageFromIMMessageItem:(id)item forChat:(id)chat chat:(id)a5 style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v30 = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  chatCopy = chat;
+  v12 = a5;
+  if (IMOSLoggingEnabled())
+  {
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Message sending...", buf, 2u);
+    }
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      participants = [v12 participants];
+      *buf = 138412546;
+      v27 = v12;
+      v28 = 2112;
+      v29 = participants;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Looking at participants for chat %@ participants %@", buf, 0x16u);
+    }
+  }
+
+  participants2 = [v12 participants];
+  v17 = [(IMDTelephonyServiceSession *)self _resolveHandlesFor:participants2 withMessage:itemCopy];
+
+  v18 = [(IMDTelephonyServiceSession *)self makeSenderFor:itemCopy forChat:v12 chatStyle:styleCopy recipients:v17];
+  v19 = v18;
+  if (v18)
+  {
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_22B555BF8;
+    v21[3] = &unk_2787043A0;
+    v22 = v18;
+    selfCopy = self;
+    v24 = chatCopy;
+    v25 = styleCopy;
+    [v22 prepareWithCompletion:v21];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Unable to create Message Sender, can't send", buf, 2u);
+    }
+  }
 }
 
 - (BOOL)_canSendWithCallerID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (IMSharedHelperDeviceHasMultipleActiveSubscriptions())
   {
@@ -2105,9 +3065,9 @@ LABEL_30:
           v8 = @"YES";
         }
 
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Should send if caller ID is part of the subscription context: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Should send if caller ID is part of the subscription context: %@", &v11, 0xCu);
       }
     }
   }
@@ -2118,7 +3078,6 @@ LABEL_30:
     LOBYTE(v6) = MEMORY[0x231897D30](myCTPhoneNumber, dCopy);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2342,7 +3301,7 @@ LABEL_24:
 
 - (void)_messageTimedOut:(id)out
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   outCopy = out;
   userInfo = [outCopy userInfo];
   v6 = +[IMDMessageStore sharedInstance];
@@ -2368,9 +3327,9 @@ LABEL_4:
         v12 = OSLogHandleForIMEventCategory();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v16 = 138412290;
-          v17 = userInfo;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Failed to send relay message ID guid (timed out): %@", &v16, 0xCu);
+          v15 = 138412290;
+          v16 = userInfo;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Failed to send relay message ID guid (timed out): %@", &v15, 0xCu);
         }
       }
 
@@ -2379,9 +3338,9 @@ LABEL_4:
         v13 = OSLogHandleForIMEventCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v16 = 138412290;
-          v17 = userInfo;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Error sending message: %@ SMS Relay timed out", &v16, 0xCu);
+          v15 = 138412290;
+          v16 = userInfo;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Error sending message: %@ SMS Relay timed out", &v15, 0xCu);
         }
       }
 
@@ -2405,7 +3364,38 @@ LABEL_4:
   }
 
 LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (void)joinChat:(id)chat handleInfo:(id)info style:(unsigned __int8)style groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD joinProperties:(id)properties
+{
+  styleCopy = style;
+  v32 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  infoCopy = info;
+  dCopy = d;
+  handleCopy = handle;
+  iDCopy = iD;
+  propertiesCopy = properties;
+  if (IMOSLoggingEnabled())
+  {
+    v21 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138413314;
+      v23 = chatCopy;
+      v24 = 1024;
+      v25 = styleCopy;
+      v26 = 2112;
+      v27 = infoCopy;
+      v28 = 2112;
+      v29 = handleCopy;
+      v30 = 2112;
+      v31 = iDCopy;
+      _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Request to join chat: %@  style: %c handleInfo: %@ lastAddressedHandle %@ lastAddressedSIMID %@", buf, 0x30u);
+    }
+  }
+
+  [(IMDServiceSession *)self didJoinChat:chatCopy style:styleCopy displayName:0 groupID:dCopy lastAddressedHandle:handleCopy lastAddressedSIMID:iDCopy handleInfo:infoCopy];
 }
 
 - (IMDRelayEnrollmentController)relayEnrollmentController
@@ -2446,9 +3436,83 @@ LABEL_18:
   }
 }
 
+- (void)didReceiveDisplayNameChange:(id)change guid:(id)guid fromID:(id)d toIdentifier:(id)identifier forChat:(id)chat style:(unsigned __int8)style account:(id)account shouldRelay:(BOOL)self0
+{
+  styleCopy = style;
+  changeCopy = change;
+  guidCopy = guid;
+  dCopy = d;
+  identifierCopy = identifier;
+  chatCopy = chat;
+  accountCopy = account;
+  v45.receiver = self;
+  v45.super_class = IMDTelephonyServiceSession;
+  v44 = changeCopy;
+  [(IMDServiceSession *)&v45 didReceiveDisplayNameChange:changeCopy guid:guidCopy fromID:dCopy toIdentifier:identifierCopy forChat:chatCopy style:styleCopy account:accountCopy];
+  service = [(IMDServiceSession *)self service];
+  v23 = [service supportsCapability:*MEMORY[0x277D1A560]];
+
+  if (v23)
+  {
+    v24 = !relay;
+  }
+
+  else
+  {
+    v24 = 1;
+  }
+
+  if (!v24 && [identifierCopy length])
+  {
+    v25 = [(IMDServiceSession *)self chatForChatIdentifier:chatCopy style:styleCopy updatingAccount:1];
+    groupID = [v25 groupID];
+    originalGroupID = [v25 originalGroupID];
+    mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+    isMissingMessagesEnabled = [mEMORY[0x277D1A9B8] isMissingMessagesEnabled];
+
+    v42 = v25;
+    if (isMissingMessagesEnabled)
+    {
+      service2 = [accountCopy service];
+      internalName = [service2 internalName];
+      v30 = IMChatLookupDomainForServiceName();
+
+      if (v30)
+      {
+        v31 = [v25 latestIdentifierForDomain:v30];
+        v32 = v31;
+        if (v31)
+        {
+          v33 = originalGroupID;
+          originalGroupID = v31;
+        }
+
+        else
+        {
+          v33 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            sub_22B7D2220(v30, v33);
+          }
+        }
+      }
+    }
+
+    v34 = [IMDRelayGroupDisplayNameMutationMessage alloc];
+    service3 = [(IMDServiceSession *)self service];
+    internalName2 = [service3 internalName];
+    v37 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:guidCopy];
+    LOWORD(v40) = 0;
+    v38 = [(IMDRelayGroupDisplayNameMutationMessage *)v34 initWithName:v44 sender:dCopy service:internalName2 groupID:groupID originalGroupID:originalGroupID guid:v37 destinationCallerID:identifierCopy failed:v40 fromMe:?];
+
+    relayController = [(IMDTelephonyServiceSession *)self relayController];
+    [relayController reflectGroupMutation:v38 callerID:identifierCopy didOccurLocally:1];
+  }
+}
+
 - (void)_findUnsubscribeTextForChat:(id)chat inMessageBody:(id)body
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   bodyCopy = body;
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
@@ -2505,28 +3569,28 @@ LABEL_18:
         v9 = off_281422530(bodyCopy);
         if ([v9 count])
         {
-          v22 = chatCopy;
-          v25 = 0u;
-          v26 = 0u;
-          v23 = 0u;
+          v21 = chatCopy;
           v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
           v10 = v9;
-          v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
           if (v11)
           {
             v12 = v11;
             v13 = 0;
-            v14 = *v24;
+            v14 = *v23;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v24 != v14)
+                if (*v23 != v14)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v16 = *(*(&v23 + 1) + 8 * i);
+                v16 = *(*(&v22 + 1) + 8 * i);
                 v17 = [v16 objectForKeyedSubscript:qword_281422548];
                 if ([v17 isEqualToString:qword_281422568])
                 {
@@ -2536,7 +3600,7 @@ LABEL_18:
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
             }
 
             while (v12);
@@ -2547,7 +3611,7 @@ LABEL_18:
             v13 = 0;
           }
 
-          chatCopy = v22;
+          chatCopy = v21;
         }
 
         else
@@ -2564,9 +3628,9 @@ LABEL_18:
 
         if ([v13 length])
         {
-          v27 = *MEMORY[0x277D19980];
-          v28 = v13;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+          v26 = *MEMORY[0x277D19980];
+          v27 = v13;
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
           [chatCopy updateProperties:v20];
         }
 
@@ -2574,14 +3638,12 @@ LABEL_37:
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendReportJunkMessageGUID:(id)d shouldRelay:(BOOL)relay
 {
   relayCopy = relay;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = +[IMDMessageStore sharedInstance];
   v8 = [v7 messageWithGUID:dCopy];
@@ -2596,11 +3658,11 @@ LABEL_37:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v19 = 138412546;
-        v20 = dCopy;
-        v21 = 1024;
-        v22 = relayCopy;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "No chat found when reporting message GUID %@ as junk (relay=%{BOOL}d)", &v19, 0x12u);
+        v18 = 138412546;
+        v19 = dCopy;
+        v20 = 1024;
+        v21 = relayCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "No chat found when reporting message GUID %@ as junk (relay=%{BOOL}d)", &v18, 0x12u);
       }
     }
 
@@ -2614,8 +3676,8 @@ LABEL_37:
         v14 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Sending junk report via relay...", &v19, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Sending junk report via relay...", &v18, 2u);
         }
       }
 
@@ -2634,8 +3696,8 @@ LABEL_37:
       v17 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Cellular service not at home service. Cannot report junk", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Cellular service not at home service. Cannot report junk", &v18, 2u);
       }
     }
 
@@ -2649,19 +3711,17 @@ LABEL_23:
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412546;
-      v20 = dCopy;
-      v21 = 1024;
-      v22 = relayCopy;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "No message found with GUID %@ to report junk (relay=%{BOOL}d)", &v19, 0x12u);
+      v18 = 138412546;
+      v19 = dCopy;
+      v20 = 1024;
+      v21 = relayCopy;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "No message found with GUID %@ to report junk (relay=%{BOOL}d)", &v18, 0x12u);
     }
 
     goto LABEL_23;
   }
 
 LABEL_24:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportTelephonyJunkForMessageItem:(id)item chat:(id)chat
@@ -2738,13 +3798,12 @@ LABEL_24:
       v3 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Registering for Message Receipts.", v6, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Registering for Message Receipts.", v5, 2u);
       }
     }
 
     CTTelephonyCenterGetDefault();
-    v4 = *MEMORY[0x277CC4208];
     CTTelephonyCenterAddObserver();
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, self, sub_22B557B78, *MEMORY[0x277D1A4E8], 0, CFNotificationSuspensionBehaviorDeliverImmediately);
@@ -2761,13 +3820,12 @@ LABEL_24:
       v3 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Unregistering for Message Receipts.", v5, 2u);
+        *v4 = 0;
+        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Unregistering for Message Receipts.", v4, 2u);
       }
     }
 
     CTTelephonyCenterGetDefault();
-    v4 = *MEMORY[0x277CC4208];
     CTTelephonyCenterRemoveObserver();
   }
 }
@@ -2818,7 +3876,7 @@ LABEL_24:
 {
   existsCopy = exists;
   modeCopy = mode;
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   selfCopy = self;
@@ -2828,12 +3886,12 @@ LABEL_24:
   if (v10)
   {
     v11 = [messageCopy objectForKeyedSubscript:IMDRelayMessageItemDictionary];
-    v83 = [v11 objectForKeyedSubscript:IMDRelayMessageDictionaryChatDisplayNameKey];
+    v82 = [v11 objectForKeyedSubscript:IMDRelayMessageDictionaryChatDisplayNameKey];
   }
 
   else
   {
-    v83 = 0;
+    v82 = 0;
   }
 
   service2 = [(IMDServiceSession *)self service];
@@ -2842,16 +3900,16 @@ LABEL_24:
   if (v13)
   {
     v14 = [messageCopy objectForKeyedSubscript:IMDRelayMessageItemDictionary];
-    v82 = [v14 objectForKeyedSubscript:IMDRelayMessageDictionaryChatGroupIDKey];
+    v81 = [v14 objectForKeyedSubscript:IMDRelayMessageDictionaryChatGroupIDKey];
 
     v15 = [messageCopy objectForKeyedSubscript:IMDRelayMessageItemDictionary];
-    v84 = [v15 objectForKeyedSubscript:IMDRelayMessageDictionaryChatOriginalGroupID];
+    v83 = [v15 objectForKeyedSubscript:IMDRelayMessageDictionaryChatOriginalGroupID];
   }
 
   else
   {
-    v84 = 0;
-    v82 = 0;
+    v83 = 0;
+    v81 = 0;
   }
 
   v16 = [messageCopy objectForKey:IMDCTMessageDictionaryReceipientsKey];
@@ -2863,7 +3921,7 @@ LABEL_24:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v103 = v17;
+      v102 = v17;
       _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "ChatForOutgoingMessage recipients %@", buf, 0xCu);
     }
   }
@@ -2871,16 +3929,16 @@ LABEL_24:
   relayController = [(IMDTelephonyServiceSession *)self relayController];
   v20 = [relayController _isDefaultPairedDeviceRelayingLocally:identifierCopy];
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   obj = v17;
-  v21 = [(__CFString *)obj countByEnumeratingWithState:&v97 objects:v110 count:16];
+  v21 = [(__CFString *)obj countByEnumeratingWithState:&v96 objects:v109 count:16];
   if (v21)
   {
     v22 = v20 | modeCopy;
-    v23 = *v98;
+    v23 = *v97;
     if (v20 | modeCopy)
     {
       v24 = @"YES";
@@ -2891,7 +3949,7 @@ LABEL_24:
       v24 = @"NO";
     }
 
-    v90 = v24;
+    v89 = v24;
     if (v20)
     {
       v25 = @"YES";
@@ -2916,12 +3974,12 @@ LABEL_24:
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v98 != v23)
+        if (*v97 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v97 + 1) + 8 * i);
+        v28 = *(*(&v96 + 1) + 8 * i);
         mEMORY[0x277D18998] = [MEMORY[0x277D18998] sharedInstance];
         v30 = [mEMORY[0x277D18998] isPhoneNumberEmergencyNumber:v28];
 
@@ -2955,19 +4013,19 @@ LABEL_24:
               v33 = @"YES";
             }
 
-            v103 = v33;
-            v104 = 2112;
-            v105 = v90;
-            v106 = 2112;
-            v107 = v25;
-            v108 = 2112;
-            v109 = v26;
+            v102 = v33;
+            v103 = 2112;
+            v104 = v89;
+            v105 = 2112;
+            v106 = v25;
+            v107 = 2112;
+            v108 = v26;
             _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Will send SMS, recipient is Emergency %@, shouldRelayEmergencyTextFromPairedDevice: %@, isDefaultPairedDeviceRelayingLocally: %@, isInProxyMode %@ ", buf, 0x2Au);
           }
         }
       }
 
-      v21 = [(__CFString *)obj countByEnumeratingWithState:&v97 objects:v110 count:16];
+      v21 = [(__CFString *)obj countByEnumeratingWithState:&v96 objects:v109 count:16];
       if (v21)
       {
         continue;
@@ -2977,19 +4035,19 @@ LABEL_24:
     }
   }
 
-  v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v34 = [messageCopy objectForKey:IMDRelayMessageDictionaryChatStyleKey];
-  v79 = _ChatStyleFromChatStyleString(v34);
+  v78 = _ChatStyleFromChatStyleString(v34);
 
-  buf[0] = v79;
-  if (v79 == 45)
+  buf[0] = v78;
+  if (v78 == 45)
   {
     __imFirstObject = [(__CFString *)obj __imFirstObject];
     v35 = MEMORY[0x277CBEAC0];
     v36 = [MEMORY[0x277CCABB0] numberWithInt:2];
     v37 = [v35 dictionaryWithObjectsAndKeys:{v36, *MEMORY[0x277D192F8], __imFirstObject, *MEMORY[0x277D193A8], 0}];
 
-    [(__CFString *)v91 addObject:v37];
+    [(__CFString *)v90 addObject:v37];
     v38 = +[IMDChatRegistry sharedInstance];
     __imFirstObject2 = [(__CFString *)obj __imFirstObject];
     account = [(IMDServiceSession *)selfCopy account];
@@ -3004,35 +4062,35 @@ LABEL_56:
   account2 = [(IMDServiceSession *)selfCopy account];
   __imFirstObject = [chatRegistry generateUnusedChatIdentifierForGroupChatWithAccount:account2];
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
-  v89 = obj;
-  v47 = [(__CFString *)v89 countByEnumeratingWithState:&v93 objects:v101 count:16];
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  v88 = obj;
+  v47 = [(__CFString *)v88 countByEnumeratingWithState:&v92 objects:v100 count:16];
   if (v47)
   {
-    v48 = *v94;
+    v48 = *v93;
     v49 = *MEMORY[0x277D192F8];
     v50 = *MEMORY[0x277D193A8];
     do
     {
       for (j = 0; j != v47; ++j)
       {
-        if (*v94 != v48)
+        if (*v93 != v48)
         {
-          objc_enumerationMutation(v89);
+          objc_enumerationMutation(v88);
         }
 
-        v52 = *(*(&v93 + 1) + 8 * j);
+        v52 = *(*(&v92 + 1) + 8 * j);
         v53 = MEMORY[0x277CBEAC0];
         v54 = [MEMORY[0x277CCABB0] numberWithInt:2];
         v55 = [v53 dictionaryWithObjectsAndKeys:{v54, v49, v52, v50, 0}];
 
-        [(__CFString *)v91 addObject:v55];
+        [(__CFString *)v90 addObject:v55];
       }
 
-      v47 = [(__CFString *)v89 countByEnumeratingWithState:&v93 objects:v101 count:16];
+      v47 = [(__CFString *)v88 countByEnumeratingWithState:&v92 objects:v100 count:16];
     }
 
     while (v47);
@@ -3043,7 +4101,7 @@ LABEL_56:
   service3 = [(IMDServiceSession *)selfCopy service];
   if ([service3 groupsMergeDisplayNames])
   {
-    v59 = v83;
+    v59 = v82;
   }
 
   else
@@ -3051,16 +4109,16 @@ LABEL_56:
     v59 = 0;
   }
 
-  v60 = [v56 existingChatForIDs:v89 account:account3 displayName:v59 groupID:v82 style:43];
+  v60 = [v56 existingChatForIDs:v88 account:account3 displayName:v59 groupID:v81 style:43];
 
-  if (!v60 && v84)
+  if (!v60 && v83)
   {
     v38 = +[IMDChatRegistry sharedInstance];
     __imFirstObject2 = [(IMDServiceSession *)selfCopy account];
     account = [(IMDServiceSession *)selfCopy service];
     if ([account groupsMergeDisplayNames])
     {
-      v61 = v83;
+      v61 = v82;
     }
 
     else
@@ -3068,7 +4126,7 @@ LABEL_56:
       v61 = 0;
     }
 
-    v41 = [v38 existingChatForIDs:v89 account:__imFirstObject2 displayName:v61 originalGroupID:v84 style:43];
+    v41 = [v38 existingChatForIDs:v88 account:__imFirstObject2 displayName:v61 originalGroupID:v83 style:43];
     goto LABEL_56;
   }
 
@@ -3083,21 +4141,21 @@ LABEL_57:
 
   else
   {
-    v92 = __imFirstObject;
-    [(IMDServiceSession *)selfCopy canonicalizeChatIdentifier:&v92 style:buf];
-    chatIdentifier = v92;
+    v91 = __imFirstObject;
+    [(IMDServiceSession *)selfCopy canonicalizeChatIdentifier:&v91 style:buf];
+    chatIdentifier = v91;
 
     if (existsCopy)
     {
       v63 = objc_alloc_init(IMDChatStatusChangeContext);
-      [(IMDChatStatusChangeContext *)v63 setDisplayName:v83];
-      [(IMDChatStatusChangeContext *)v63 setGroupID:v82];
-      [(IMDChatStatusChangeContext *)v63 setOriginalGroupID:v84];
-      [(IMDChatStatusChangeContext *)v63 setHandleInfo:v91];
+      [(IMDChatStatusChangeContext *)v63 setDisplayName:v82];
+      [(IMDChatStatusChangeContext *)v63 setGroupID:v81];
+      [(IMDChatStatusChangeContext *)v63 setOriginalGroupID:v83];
+      [(IMDChatStatusChangeContext *)v63 setHandleInfo:v90];
       [(IMDChatStatusChangeContext *)v63 setIsMessageSentFromMe:1];
       [(IMDServiceSession *)selfCopy didUpdateChatStatus:2 chat:chatIdentifier style:buf[0] context:v63];
       v64 = +[IMDChatRegistry sharedInstance];
-      if (v79 == 45)
+      if (v78 == 45)
       {
         __imFirstObject3 = [(__CFString *)obj __imFirstObject];
         account4 = [(IMDServiceSession *)selfCopy account];
@@ -3107,7 +4165,7 @@ LABEL_57:
       else
       {
         __imFirstObject3 = [(IMDServiceSession *)selfCopy account];
-        v43 = [v64 existingChatForIDs:obj account:__imFirstObject3 displayName:v83 groupID:v82 style:43];
+        v43 = [v64 existingChatForIDs:obj account:__imFirstObject3 displayName:v82 groupID:v81 style:43];
       }
     }
 
@@ -3128,12 +4186,12 @@ LABEL_57:
 
     v72 = [v43 latestIdentifierForDomain:originalGroupID];
     guid = v72;
-    if (!v84 || ([v72 isEqualToString:?] & 1) != 0 || !-[IMDServiceSession allowedToOverwriteOriginalGroupIDForChat:](selfCopy, "allowedToOverwriteOriginalGroupIDForChat:", v43))
+    if (!v83 || ([v72 isEqualToString:?] & 1) != 0 || !-[IMDServiceSession allowedToOverwriteOriginalGroupIDForChat:](selfCopy, "allowedToOverwriteOriginalGroupIDForChat:", v43))
     {
       goto LABEL_75;
     }
 
-    [v43 assignIdentifier:v84 forDomain:originalGroupID isHistoricalIdentifier:0];
+    [v43 assignIdentifier:v83 forDomain:originalGroupID isHistoricalIdentifier:0];
 
 LABEL_74:
     v75 = +[IMDChatStore sharedInstance];
@@ -3148,10 +4206,10 @@ LABEL_75:
     goto LABEL_76;
   }
 
-  if (v84)
+  if (v83)
   {
     originalGroupID = [v43 originalGroupID];
-    if ([originalGroupID isEqualToString:v84])
+    if ([originalGroupID isEqualToString:v83])
     {
 LABEL_76:
 
@@ -3162,17 +4220,15 @@ LABEL_76:
 
     if (v74)
     {
-      [v43 setOriginalGroupID:v84];
+      [v43 setOriginalGroupID:v83];
       goto LABEL_74;
     }
   }
 
 LABEL_77:
 
-  v44 = v91;
+  v44 = v90;
 LABEL_78:
-
-  v77 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
@@ -3180,7 +4236,7 @@ LABEL_78:
 - (BOOL)_allowedToProcessMessageFromToken:(id)token fromID:(id)d reflectOnly:(BOOL)only isInProxyMode:(BOOL)mode
 {
   modeCopy = mode;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   relayController = [(IMDTelephonyServiceSession *)self relayController];
@@ -3192,9 +4248,9 @@ LABEL_78:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       name = [v13 name];
-      v37 = 138412290;
-      v38 = name;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, " Outgoing message request from %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = name;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, " Outgoing message request from %@", &v36, 0xCu);
     }
   }
 
@@ -3207,9 +4263,9 @@ LABEL_78:
         v30 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
-          v37 = 138412290;
-          v38 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, " This message was likely from a local device, looking for fromID: %@", &v37, 0xCu);
+          v36 = 138412290;
+          v37 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, " This message was likely from a local device, looking for fromID: %@", &v36, 0xCu);
         }
       }
 
@@ -3230,8 +4286,8 @@ LABEL_78:
         v18 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v37) = 0;
-          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, " This message was destined for me to send out, I am the gatekeeper", &v37, 2u);
+          LOWORD(v36) = 0;
+          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, " This message was destined for me to send out, I am the gatekeeper", &v36, 2u);
         }
       }
 
@@ -3264,9 +4320,9 @@ LABEL_78:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             name2 = [v13 name];
-            v37 = 138412290;
-            v38 = name2;
-            _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, " Device %@ is on the allowed list, Telling the block to continue", &v37, 0xCu);
+            v36 = 138412290;
+            v37 = name2;
+            _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, " Device %@ is on the allowed list, Telling the block to continue", &v36, 0xCu);
           }
         }
 
@@ -3280,9 +4336,9 @@ LABEL_78:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           name3 = [v13 name];
-          v37 = 138412290;
-          v38 = name3;
-          _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, " Device %@ is on the blockList, sending back a failure", &v37, 0xCu);
+          v36 = 138412290;
+          v37 = name3;
+          _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, " Device %@ is on the blockList, sending back a failure", &v36, 0xCu);
         }
       }
 
@@ -3309,11 +4365,11 @@ LABEL_25:
         v34 = @"NO";
       }
 
-      v37 = 136315394;
-      v38 = v33;
-      v39 = 2112;
-      v40 = v34;
-      _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, " This message was not for us to gatekeep, we should reflect it only if it came from one of our devices (senderDevice %s) isInProxyMode %@", &v37, 0x16u);
+      v36 = 136315394;
+      v37 = v33;
+      v38 = 2112;
+      v39 = v34;
+      _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, " This message was not for us to gatekeep, we should reflect it only if it came from one of our devices (senderDevice %s) isInProxyMode %@", &v36, 0x16u);
     }
   }
 
@@ -3324,44 +4380,43 @@ LABEL_25:
 
 LABEL_42:
 
-  v35 = *MEMORY[0x277D85DE8];
   return modeCopy;
 }
 
 - (BOOL)_hasRegisteredLocalPhoneNumberForHandle:(id)handle
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if (IMSharedHelperRetrieveSimDetailsFromTelephony())
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     mEMORY[0x277D1A908] = [MEMORY[0x277D1A908] sharedInstance];
     registeredPhoneNumbers = [mEMORY[0x277D1A908] registeredPhoneNumbers];
 
-    v6 = [registeredPhoneNumbers countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [registeredPhoneNumbers countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(registeredPhoneNumbers);
           }
 
-          if (MEMORY[0x231897D30](handleCopy, *(*(&v11 + 1) + 8 * i)))
+          if (MEMORY[0x231897D30](handleCopy, *(*(&v10 + 1) + 8 * i)))
           {
             LOBYTE(v6) = 1;
             goto LABEL_13;
           }
         }
 
-        v6 = [registeredPhoneNumbers countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [registeredPhoneNumbers countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           continue;
@@ -3379,7 +4434,6 @@ LABEL_13:
     LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3641,7 +4695,7 @@ LABEL_8:
 
 - (void)handler:(id)handler localFileResponse:(id)response storageContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   responseCopy = response;
   contextCopy = context;
@@ -3652,23 +4706,21 @@ LABEL_8:
     {
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
-      v16 = 138412546;
-      v17 = internalName;
-      v18 = 2112;
-      v19 = responseCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received remote file response %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = internalName;
+      v17 = 2112;
+      v18 = responseCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received remote file response %@", &v15, 0x16u);
     }
   }
 
   attachmentController = [(IMDTelephonyServiceSession *)self attachmentController];
   [attachmentController remoteFileResponse:responseCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler localFileRequest:(id)request storageContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   requestCopy = request;
   contextCopy = context;
@@ -3679,23 +4731,21 @@ LABEL_8:
     {
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
-      v16 = 138412546;
-      v17 = internalName;
-      v18 = 2112;
-      v19 = requestCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received remote file request %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = internalName;
+      v17 = 2112;
+      v18 = requestCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received remote file request %@", &v15, 0x16u);
     }
   }
 
   attachmentController = [(IMDTelephonyServiceSession *)self attachmentController];
   [attachmentController remotefileRequest:requestCopy attempts:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler localIncommingMessage:(id)message storageContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   contextCopy = context;
@@ -3706,21 +4756,19 @@ LABEL_8:
     {
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
-      v16 = 138412290;
-      v17 = internalName;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received Local incomming Message", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = internalName;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received Local incomming Message", &v15, 0xCu);
     }
   }
 
   v14 = [messageCopy objectForKeyedSubscript:IMDRelayLocalMessageDictionaryIncomingDictKey];
   [(IMDTelephonyServiceSession *)self _processReceivedDictionary:v14 storageContext:contextCopy receivedViaRelay:1 withCompletionBlock:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler localIncomingDownloadMessage:(id)message storageContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   contextCopy = context;
@@ -3731,21 +4779,19 @@ LABEL_8:
     {
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
-      v16 = 138412290;
-      v17 = internalName;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received Local incomming download Message", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = internalName;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ relay received Local incomming download Message", &v15, 0xCu);
     }
   }
 
   v14 = [messageCopy objectForKeyedSubscript:IMDRelayLocalMessageDictionaryIncomingDictKey];
   [(IMDTelephonyServiceSession *)self _processReceivedDictionary:v14 storageContext:contextCopy receivedViaRelay:1 withCompletionBlock:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler localOutgoingDownloadMessage:(id)message isBeingReplayed:(BOOL)replayed storageContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   contextCopy = context;
@@ -3757,23 +4803,21 @@ LABEL_8:
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
       *buf = 138412290;
-      v21 = internalName;
+      v20 = internalName;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%@ relay received Local outgoing Download Message", buf, 0xCu);
     }
   }
 
   v16 = [messageCopy objectForKeyedSubscript:IMDRelayLocalMessageDictionaryOutgoingDictKey];
   v17 = [messageCopy objectForKeyedSubscript:IMDRelayLocalMessageDictionaryGUIDKey];
-  BYTE1(v19) = 1;
-  LOBYTE(v19) = replayed;
-  [(IMDTelephonyServiceSession *)self handler:handlerCopy outgoingDownloadMessage:v16 toIdentifier:0 fromIdentifier:0 fromToken:0 messageGUID:v17 timeStamp:0 isBeingReplayed:v19 isInProxyMode:contextCopy storageContext:?];
-
-  v18 = *MEMORY[0x277D85DE8];
+  BYTE1(v18) = 1;
+  LOBYTE(v18) = replayed;
+  [(IMDTelephonyServiceSession *)self handler:handlerCopy outgoingDownloadMessage:v16 toIdentifier:0 fromIdentifier:0 fromToken:0 messageGUID:v17 timeStamp:0 isBeingReplayed:v18 isInProxyMode:contextCopy storageContext:?];
 }
 
 - (void)handler:(id)handler localOutgoingMessage:(id)message isBeingReplayed:(BOOL)replayed storageContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   contextCopy = context;
@@ -3785,18 +4829,16 @@ LABEL_8:
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
       *buf = 138412290;
-      v21 = internalName;
+      v20 = internalName;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%@ relay received Local outgoing Message", buf, 0xCu);
     }
   }
 
   v16 = [messageCopy objectForKeyedSubscript:IMDRelayLocalMessageDictionaryOutgoingDictKey];
   v17 = [messageCopy objectForKeyedSubscript:IMDRelayLocalMessageDictionaryGUIDKey];
-  BYTE1(v19) = 1;
-  LOBYTE(v19) = replayed;
-  [(IMDTelephonyServiceSession *)self handler:0 outgoingPlainTextMessage:v16 toIdentifier:0 fromIdentifier:0 fromToken:0 messageGUID:v17 timeStamp:0 isBeingReplayed:v19 isInProxyMode:contextCopy storageContext:?];
-
-  v18 = *MEMORY[0x277D85DE8];
+  BYTE1(v18) = 1;
+  LOBYTE(v18) = replayed;
+  [(IMDTelephonyServiceSession *)self handler:0 outgoingPlainTextMessage:v16 toIdentifier:0 fromIdentifier:0 fromToken:0 messageGUID:v17 timeStamp:0 isBeingReplayed:v18 isInProxyMode:contextCopy storageContext:?];
 }
 
 - (void)handler:(id)handler localMessageError:(id)error storageContext:(id)context
@@ -3835,30 +4877,30 @@ LABEL_8:
 
 - (id)_chatForGroupID:(id)d originalGroupID:(id)iD
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v6 = +[IMDChatRegistry sharedInstance];
   service = [(IMDServiceSession *)self service];
   internalName = [service internalName];
-  v33 = [v6 newestExistingChatWithOriginalGroupID:iDCopy onService:internalName];
+  v32 = [v6 newestExistingChatWithOriginalGroupID:iDCopy onService:internalName];
 
-  v9 = v33;
-  if (v33)
+  v9 = v32;
+  if (v32)
   {
-    firstObject = v33;
+    firstObject = v32;
     goto LABEL_27;
   }
 
   v11 = +[IMDChatRegistry sharedInstance];
-  v32 = [v11 existingChatsWithGroupID:dCopy];
+  v31 = [v11 existingChatsWithGroupID:dCopy];
 
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
   isOneChatEnabled = [mEMORY[0x277D1A9B8] isOneChatEnabled];
 
   if (isOneChatEnabled)
   {
-    if ([v32 count] && IMOSLoggingEnabled())
+    if ([v31 count] && IMOSLoggingEnabled())
     {
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
@@ -3868,11 +4910,11 @@ LABEL_8:
       }
     }
 
-    firstObject = [v32 firstObject];
+    firstObject = [v31 firstObject];
     mEMORY[0x277D1A9B8]2 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
     isMissingMessagesEnabled = [mEMORY[0x277D1A9B8]2 isMissingMessagesEnabled];
 
-    if (!isMissingMessagesEnabled || ![v32 count])
+    if (!isMissingMessagesEnabled || ![v31 count])
     {
       goto LABEL_26;
     }
@@ -3891,9 +4933,9 @@ LABEL_8:
 
       else
       {
-        v31 = [(IMDServiceSession *)self allowedToOverwriteOriginalGroupIDForChat:firstObject];
+        v30 = [(IMDServiceSession *)self allowedToOverwriteOriginalGroupIDForChat:firstObject];
 
-        if (v31)
+        if (v30)
         {
           [firstObject assignIdentifier:iDCopy forDomain:v19 isHistoricalIdentifier:0];
         }
@@ -3903,25 +4945,25 @@ LABEL_8:
 
   else
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v19 = v32;
-    firstObject = [v19 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v19 = v31;
+    firstObject = [v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (firstObject)
     {
-      v22 = *v37;
+      v22 = *v36;
       while (2)
       {
         for (i = 0; i != firstObject; i = i + 1)
         {
-          if (*v37 != v22)
+          if (*v36 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v36 + 1) + 8 * i);
+          v24 = *(*(&v35 + 1) + 8 * i);
           serviceName = [v24 serviceName];
           service3 = [(IMDServiceSession *)self service];
           internalName3 = [service3 internalName];
@@ -3934,7 +4976,7 @@ LABEL_8:
           }
         }
 
-        firstObject = [v19 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        firstObject = [v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
         if (firstObject)
         {
           continue;
@@ -3950,8 +4992,6 @@ LABEL_25:
 LABEL_26:
   v9 = 0;
 LABEL_27:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -4027,7 +5067,7 @@ LABEL_27:
 
 - (double)_periodicReplicationTimeInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v3 = [v2 objectForKey:@"forced-replication-interval"];
   v4 = 14400.0;
@@ -4042,9 +5082,9 @@ LABEL_27:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           [v3 doubleValue];
-          v11 = 134217984;
-          v12 = v7;
-          _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Server bag value for periodic replication interval: %f", &v11, 0xCu);
+          v10 = 134217984;
+          v11 = v7;
+          _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Server bag value for periodic replication interval: %f", &v10, 0xCu);
         }
       }
 
@@ -4053,13 +5093,12 @@ LABEL_27:
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)_shouldForceReplicationForStaleChatWithLastKnownReplicationDate:(id)date
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   [(IMDTelephonyServiceSession *)self _periodicReplicationTimeInterval];
   v6 = v5;
@@ -4070,8 +5109,8 @@ LABEL_27:
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Periodic forced replication interval is less than or equal to zero, disabling", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Periodic forced replication interval is less than or equal to zero, disabling", &v16, 2u);
       }
     }
 
@@ -4091,18 +5130,18 @@ LABEL_27:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = @"NO";
-        v17 = 138412802;
+        v16 = 138412802;
         if (v9 > v6)
         {
           v12 = @"YES";
         }
 
-        v18 = v12;
-        v19 = 2048;
-        v20 = v9;
-        v21 = 2048;
-        v22 = v6;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Should force replication: %@ (time since last: %f, interval: %f)", &v17, 0x20u);
+        v17 = v12;
+        v18 = 2048;
+        v19 = v9;
+        v20 = 2048;
+        v21 = v6;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Should force replication: %@ (time since last: %f, interval: %f)", &v16, 0x20u);
       }
     }
   }
@@ -4114,15 +5153,14 @@ LABEL_27:
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "No last known replication date, forcing replication", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "No last known replication date, forcing replication", &v16, 2u);
       }
     }
 
     v10 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4156,7 +5194,7 @@ LABEL_27:
 - (BOOL)acceptsIncomingReplicatedMessagesFromAccount:(id)account toIdentifier:(id)identifier isSOS:(BOOL)s
 {
   sCopy = s;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   identifierCopy = identifier;
   if (!sCopy || [(IMDTelephonyServiceSession *)self _sosReplicationDisabledByServerBag])
@@ -4175,13 +5213,13 @@ LABEL_27:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           account = [(IMDServiceSession *)self account];
-          v16 = 138412802;
-          v17 = accountCopy;
-          v18 = 2112;
-          v19 = account;
-          v20 = 2112;
-          v21 = identifierCopy;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Cannot receive replication provided by %@ to %@, not a phone number %@", &v16, 0x20u);
+          v15 = 138412802;
+          v16 = accountCopy;
+          v17 = 2112;
+          v18 = account;
+          v19 = 2112;
+          v20 = identifierCopy;
+          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Cannot receive replication provided by %@ to %@, not a phone number %@", &v15, 0x20u);
         }
       }
     }
@@ -4195,18 +5233,17 @@ LABEL_27:
     v13 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v16 = 138412546;
-      v17 = accountCopy;
-      v18 = 2112;
-      v19 = identifierCopy;
-      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Allowing incoming replicated SOS message from %@ to %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = accountCopy;
+      v17 = 2112;
+      v18 = identifierCopy;
+      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Allowing incoming replicated SOS message from %@ to %@", &v15, 0x16u);
     }
   }
 
   v10 = 1;
 LABEL_17:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4240,7 +5277,7 @@ LABEL_17:
 
 - (id)preferredAccountForReplicationOnService:(id)service eligibleAccounts:(id)accounts
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountsCopy = accounts;
   if (IMOSLoggingEnabled())
@@ -4249,33 +5286,33 @@ LABEL_17:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v55 = serviceCopy;
-      v56 = 2112;
-      v57 = accountsCopy;
+      v54 = serviceCopy;
+      v55 = 2112;
+      v56 = accountsCopy;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Choosing preferred replication account for %@ from %@", buf, 0x16u);
     }
   }
 
   replicationPhoneNumbers = [(IMDTelephonyServiceSession *)self replicationPhoneNumbers];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v9 = accountsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v10)
   {
-    v11 = *v49;
+    v11 = *v48;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * i);
+        v13 = *(*(&v47 + 1) + 8 * i);
         loginID = [v13 loginID];
         v15 = MEMORY[0x231897A70]();
 
@@ -4290,11 +5327,11 @@ LABEL_17:
             if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               *buf = 138412802;
-              v55 = v13;
-              v56 = 2112;
-              v57 = v15;
-              v58 = 2112;
-              v59 = _stripFZIDPrefix;
+              v54 = v13;
+              v55 = 2112;
+              v56 = v15;
+              v57 = 2112;
+              v58 = _stripFZIDPrefix;
               _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Preferring account %@ for replication based on loginID %@ canonicalLoginID %@", buf, 0x20u);
             }
           }
@@ -4305,7 +5342,7 @@ LABEL_17:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v47 objects:v59 count:16];
       if (v10)
       {
         continue;
@@ -4315,46 +5352,46 @@ LABEL_17:
     }
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = v9;
-  v37 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+  if (v36)
   {
-    v18 = *v45;
-    v35 = *v45;
+    v18 = *v44;
+    v34 = *v44;
     do
     {
-      for (j = 0; j != v37; ++j)
+      for (j = 0; j != v36; ++j)
       {
-        if (*v45 != v18)
+        if (*v44 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v44 + 1) + 8 * j);
+        v20 = *(*(&v43 + 1) + 8 * j);
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v36 = v20;
+        v35 = v20;
         aliases = [v20 aliases];
-        v22 = [aliases countByEnumeratingWithState:&v40 objects:v52 count:16];
+        v22 = [aliases countByEnumeratingWithState:&v39 objects:v51 count:16];
         if (v22)
         {
-          v23 = *v41;
+          v23 = *v40;
           while (2)
           {
             for (k = 0; k != v22; ++k)
             {
-              if (*v41 != v23)
+              if (*v40 != v23)
               {
                 objc_enumerationMutation(aliases);
               }
 
-              v25 = *(*(&v40 + 1) + 8 * k);
+              v25 = *(*(&v39 + 1) + 8 * k);
               v26 = IMChatCanonicalIDSIDsForAddress();
               _stripFZIDPrefix2 = [v26 _stripFZIDPrefix];
 
@@ -4366,20 +5403,20 @@ LABEL_17:
                   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412546;
-                    v55 = v36;
-                    v56 = 2112;
-                    v57 = v25;
+                    v54 = v35;
+                    v55 = 2112;
+                    v56 = v25;
                     _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Preferring account %@ for replication based on alias %@", buf, 0x16u);
                   }
                 }
 
-                v30 = v36;
+                v30 = v35;
 
                 goto LABEL_43;
               }
             }
 
-            v22 = [aliases countByEnumeratingWithState:&v40 objects:v52 count:16];
+            v22 = [aliases countByEnumeratingWithState:&v39 objects:v51 count:16];
             if (v22)
             {
               continue;
@@ -4389,14 +5426,14 @@ LABEL_17:
           }
         }
 
-        v18 = v35;
+        v18 = v34;
       }
 
-      v37 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-      v18 = v35;
+      v36 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v18 = v34;
     }
 
-    while (v37);
+    while (v36);
   }
 
   if (IMOSLoggingEnabled())
@@ -4406,15 +5443,13 @@ LABEL_17:
     {
       allObjects = [replicationPhoneNumbers allObjects];
       *buf = 138412290;
-      v55 = allObjects;
+      v54 = allObjects;
       _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Failed to find matching replication account with possible numbers %@", buf, 0xCu);
     }
   }
 
   v30 = 0;
 LABEL_43:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -4468,7 +5503,7 @@ LABEL_10:
 
 - (void)_deferredReplicatedMessageReleaseWithAllowedMessage:(id)message outgoingProxyBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   blockCopy = block;
   v8 = [(IMDTelephonyServiceSession *)self _replicatedMessageGUIDToReleaseFromMessageDictionary:messageCopy];
@@ -4480,7 +5515,7 @@ LABEL_10:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v17 = v8;
+        v16 = v8;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Delaying release of replicated message %@", buf, 0xCu);
       }
     }
@@ -4490,9 +5525,9 @@ LABEL_10:
     block[1] = 3221225472;
     block[2] = sub_22B667B7C;
     block[3] = &unk_2787037B8;
-    v13 = v8;
+    v12 = v8;
     selfCopy = self;
-    v15 = blockCopy;
+    v14 = blockCopy;
     dispatch_after(v10, MEMORY[0x277D85CD0], block);
   }
 
@@ -4500,8 +5535,167 @@ LABEL_10:
   {
     (*(blockCopy + 2))(blockCopy, 1);
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (BOOL)replicateMessage:(id)message chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style lastKnownReplicationDate:(id)date callerID:(id)d
+{
+  styleCopy = style;
+  v45[2] = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  identifierCopy = identifier;
+  dateCopy = date;
+  dCopy = d;
+  v16 = [(IMDTelephonyServiceSession *)self _shouldReplicateMessageItem:messageCopy chatStyle:styleCopy lastKnownReplicationDate:dateCopy callerID:dCopy];
+  if (v16)
+  {
+    service = [(IMDServiceSession *)self service];
+    v18 = [service supportsCapability:*MEMORY[0x277D1A588]];
+
+    if ((v18 & 1) == 0)
+    {
+      stringGUID = [MEMORY[0x277CCACA8] stringGUID];
+      v45[0] = stringGUID;
+      stringGUID2 = [MEMORY[0x277CCACA8] stringGUID];
+      v45[1] = stringGUID2;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+      [messageCopy setReplicatedFallbackGUIDs:v21];
+    }
+
+    v22 = IMGetCachedDomainIntForKey();
+    mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
+    isInternalInstall = [mEMORY[0x277D19268] isInternalInstall];
+    if (v22 > 0)
+    {
+      v25 = isInternalInstall;
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    v26 = IMOSLoggingEnabled();
+    if (v25)
+    {
+      if (v26)
+      {
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        {
+          guid = [messageCopy guid];
+          *buf = 138412546;
+          v42 = guid;
+          v43 = 1024;
+          v44 = v22;
+          _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "** Replication delay is enabled, delaying send of %@ by %d seconds", buf, 0x12u);
+        }
+      }
+
+      v29 = dispatch_time(0, 1000000000 * v22);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = sub_22B668224;
+      v36[3] = &unk_2787073E8;
+      v37 = messageCopy;
+      selfCopy = self;
+      v39 = identifierCopy;
+      v40 = styleCopy;
+      dispatch_after(v29, MEMORY[0x277D85CD0], v36);
+    }
+
+    else
+    {
+      if (v26)
+      {
+        v32 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        {
+          guid2 = [messageCopy guid];
+          *buf = 138412290;
+          v42 = guid2;
+          _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Sending message %@ to replicationProxy", buf, 0xCu);
+        }
+      }
+
+      replicationProxy = [(IMDServiceSession *)self replicationProxy];
+      [replicationProxy sendMessage:messageCopy toChat:identifierCopy style:styleCopy];
+    }
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v30 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    {
+      guid3 = [messageCopy guid];
+      *buf = 138412290;
+      v42 = guid3;
+      _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Not replicating message %@", buf, 0xCu);
+    }
+  }
+
+  return v16;
+}
+
+- (void)sendRepositionStickerMessage:(id)message chatIdentifier:(id)identifier accountID:(id)d style:(unsigned __int8)style
+{
+  styleCopy = style;
+  messageCopy = message;
+  identifierCopy = identifier;
+  dCopy = d;
+  v12 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy updatingAccount:1];
+  v13 = [(IMDTelephonyServiceSession *)self _callerIDForChatWithChatIdentifier:identifierCopy chatStyle:styleCopy foundChat:v12];
+  if (styleCopy == 43 && [(IMDTelephonyServiceSession *)self replicationRequirementsSatisfiedForPhoneNumber:v13 simID:0])
+  {
+    replicationProxy = [(IMDServiceSession *)self replicationProxy];
+    [replicationProxy sendRepositionStickerMessage:messageCopy chatIdentifier:identifierCopy accountID:dCopy style:43];
+  }
+}
+
+- (void)sendEditedMessage:(id)message previousMessage:(id)previousMessage partIndex:(int64_t)index editType:(unint64_t)type toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account backwardCompatabilityText:(id)self0
+{
+  styleCopy = style;
+  v32 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  previousMessageCopy = previousMessage;
+  identifierCopy = identifier;
+  accountCopy = account;
+  textCopy = text;
+  v19 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy updatingAccount:1];
+  v20 = [(IMDTelephonyServiceSession *)self _callerIDForChatWithChatIdentifier:identifierCopy chatStyle:styleCopy foundChat:v19];
+  if (styleCopy == 43 && [(IMDTelephonyServiceSession *)self replicationRequirementsSatisfiedForPhoneNumber:v20 simID:0])
+  {
+    replicationProxy = [(IMDServiceSession *)self replicationProxy];
+    [replicationProxy sendEditedMessage:messageCopy previousMessage:previousMessageCopy partIndex:index editType:type toChatIdentifier:identifierCopy style:43 account:accountCopy backwardCompatabilityText:textCopy];
+  }
+
+  isMessagesTheDefaultTextApp = [MEMORY[0x277D1A8F8] isMessagesTheDefaultTextApp];
+  copyForBackwardsCompatibility = [messageCopy copyForBackwardsCompatibility];
+  [copyForBackwardsCompatibility setBody:textCopy];
+  relayController = [(IMDTelephonyServiceSession *)self relayController];
+  v25 = [relayController _localDeviceSupportsSMS] & isMessagesTheDefaultTextApp;
+
+  if (v25 == 1)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v31 = copyForBackwardsCompatibility;
+        _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Device supports SMS, sending backwards compatibility edit to CT: %@", buf, 0xCu);
+      }
+    }
+
+    [(IMDTelephonyServiceSession *)self sendMessageFromIMMessageItem:copyForBackwardsCompatibility forChat:identifierCopy chat:v19 style:styleCopy];
+  }
+
+  else if (![(IMDTelephonyServiceSession *)self shouldExcludeChatFromRelay:v19])
+  {
+    relayController2 = [(IMDTelephonyServiceSession *)self relayController];
+    [relayController2 sendEditedMessage:messageCopy toChat:v19 fromCallerID:v20 backwardCompatabilityText:textCopy];
+  }
 }
 
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account
@@ -4514,6 +5708,47 @@ LABEL_10:
     updateCopy = update;
     replicationProxy = [(IMDServiceSession *)self replicationProxy];
     [replicationProxy sendGroupPhotoUpdate:updateCopy toChatID:dCopy identifier:identifierCopy style:43 account:accountCopy];
+  }
+}
+
+- (void)sendBrandLogoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  accountCopy = account;
+  identifierCopy = identifier;
+  dCopy = d;
+  updateCopy = update;
+  replicationProxy = [(IMDServiceSession *)self replicationProxy];
+  [replicationProxy sendBrandLogoUpdate:updateCopy toChatID:dCopy identifier:identifierCopy style:styleCopy account:accountCopy];
+}
+
+- (void)retryGroupPhotoUpload:(id)upload toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh
+{
+  if (style == 43)
+  {
+    refreshCopy = refresh;
+    accountCopy = account;
+    identifierCopy = identifier;
+    dCopy = d;
+    uploadCopy = upload;
+    replicationProxy = [(IMDServiceSession *)self replicationProxy];
+    [replicationProxy retryGroupPhotoUpload:uploadCopy toChatID:dCopy identifier:identifierCopy style:43 account:accountCopy isPhotoRefresh:refreshCopy];
+  }
+}
+
+- (void)retryTranscriptBackgroundUpload:(id)upload chatIdentifier:(id)identifier style:(unsigned __int8)style transferID:(id)d
+{
+  styleCopy = style;
+  uploadCopy = upload;
+  identifierCopy = identifier;
+  dCopy = d;
+  mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+  isTranscriptBackgroundsEnabled = [mEMORY[0x277D1A9B8] isTranscriptBackgroundsEnabled];
+
+  if (isTranscriptBackgroundsEnabled)
+  {
+    replicationProxy = [(IMDServiceSession *)self replicationProxy];
+    [replicationProxy retryTranscriptBackgroundUpload:uploadCopy chatIdentifier:identifierCopy style:styleCopy transferID:dCopy];
   }
 }
 
@@ -4569,9 +5804,40 @@ LABEL_10:
   [relayController reflectGroupMutation:v29 callerID:dCopy didOccurLocally:locallyCopy];
 }
 
+- (void)updateDisplayName:(id)name fromDisplayName:(id)displayName fromID:(id)d forChatID:(id)iD identifier:(id)identifier style:(unsigned __int8)style messageID:(id)messageID
+{
+  styleCopy = style;
+  nameCopy = name;
+  displayNameCopy = displayName;
+  dCopy = d;
+  iDCopy = iD;
+  identifierCopy = identifier;
+  messageIDCopy = messageID;
+  v25.receiver = self;
+  v25.super_class = IMDTelephonyServiceSession;
+  [(IMDServiceSession *)&v25 updateDisplayName:nameCopy fromDisplayName:displayNameCopy fromID:dCopy forChatID:iDCopy identifier:identifierCopy style:styleCopy messageID:messageIDCopy];
+  service = [(IMDServiceSession *)self service];
+  v22 = [service supportsCapability:*MEMORY[0x277D1A560]];
+
+  if (styleCopy == 43 && (v22 & 1) == 0)
+  {
+    replicationProxy = [(IMDServiceSession *)self replicationProxy];
+    [replicationProxy updateDisplayName:nameCopy fromDisplayName:displayNameCopy fromID:dCopy forChatID:iDCopy identifier:identifierCopy style:43 messageID:messageIDCopy];
+  }
+
+  if (v22)
+  {
+    v24 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy updatingAccount:1];
+    if (v24)
+    {
+      [(IMDTelephonyServiceSession *)self relayDisplayNameChange:nameCopy forChat:v24 fromID:dCopy messageID:messageIDCopy didOccurLocally:1];
+    }
+  }
+}
+
 - (BOOL)replicationRequiredForFeaturesUsedByMessageItem:(id)item
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([itemCopy isSOS])
   {
@@ -4589,9 +5855,9 @@ LABEL_10:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         guid = [itemCopy guid];
-        v24 = 138412290;
-        v25 = guid;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Allowing replication for %@, has associated message GUID", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = guid;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Allowing replication for %@, has associated message GUID", &v23, 0xCu);
       }
 
 LABEL_16:
@@ -4618,9 +5884,9 @@ LABEL_16:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           guid2 = [itemCopy guid];
-          v24 = 138412290;
-          v25 = guid2;
-          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Allowing replication for %@, has balloon bundle ID", &v24, 0xCu);
+          v23 = 138412290;
+          v24 = guid2;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Allowing replication for %@, has balloon bundle ID", &v23, 0xCu);
         }
 
         goto LABEL_16;
@@ -4630,19 +5896,19 @@ LABEL_16:
     }
 
     messageSummaryInfo = [itemCopy messageSummaryInfo];
-    v19 = [messageSummaryInfo objectForKeyedSubscript:*MEMORY[0x277D1A058]];
+    v18 = [messageSummaryInfo objectForKeyedSubscript:*MEMORY[0x277D1A058]];
 
-    if ([v19 length])
+    if ([v18 length])
     {
       if (IMOSLoggingEnabled())
       {
-        v20 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           guid3 = [itemCopy guid];
-          v24 = 138412290;
-          v25 = guid3;
-          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Allowing replication for %@, has translated message parts", &v24, 0xCu);
+          v23 = 138412290;
+          v24 = guid3;
+          _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Allowing replication for %@, has translated message parts", &v23, 0xCu);
         }
 
 LABEL_28:
@@ -4663,13 +5929,13 @@ LABEL_30:
 
       if (IMOSLoggingEnabled())
       {
-        v20 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           guid4 = [itemCopy guid];
-          v24 = 138412290;
-          v25 = guid4;
-          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Allowing replication for %@, has non-plaintext or unknown attributes", &v24, 0xCu);
+          v23 = 138412290;
+          v24 = guid4;
+          _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Allowing replication for %@, has non-plaintext or unknown attributes", &v23, 0xCu);
         }
 
         goto LABEL_28;
@@ -4686,9 +5952,9 @@ LABEL_30:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       guid5 = [itemCopy guid];
-      v24 = 138412290;
-      v25 = guid5;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Allowing replication for %@, has expressive send", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = guid5;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Allowing replication for %@, has expressive send", &v23, 0xCu);
     }
 
     goto LABEL_16;
@@ -4698,7 +5964,6 @@ LABEL_17:
   LOBYTE(v15) = 1;
 LABEL_18:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -4736,6 +6001,45 @@ LABEL_18:
   v6 = [relayController reflectPriorityMessageToPeerDevicesForMessageGUIDs:dsCopy];
 
   return v6;
+}
+
+- (void)requestTranscriptBackgroundIfNecessary:(id)necessary incomingVersion:(unint64_t)version toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  fromIdentifierCopy = fromIdentifier;
+  identifierCopy = identifier;
+  necessaryCopy = necessary;
+  replicationProxy = [(IMDServiceSession *)self replicationProxy];
+  [replicationProxy requestTranscriptBackgroundIfNecessary:necessaryCopy incomingVersion:version toIdentifier:identifierCopy fromIdentifier:fromIdentifierCopy messageIsFromStorage:storageCopy];
+}
+
+- (void)requestTranscriptBackground:(id)background toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  fromIdentifierCopy = fromIdentifier;
+  identifierCopy = identifier;
+  backgroundCopy = background;
+  replicationProxy = [(IMDServiceSession *)self replicationProxy];
+  [replicationProxy requestTranscriptBackground:backgroundCopy toIdentifier:identifierCopy fromIdentifier:fromIdentifierCopy messageIsFromStorage:storageCopy];
+}
+
+- (void)refetchChatBackgroundIfNeededForChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  replicationProxy = [(IMDServiceSession *)self replicationProxy];
+  [replicationProxy refetchChatBackgroundIfNeededForChatIdentifier:identifierCopy chatStyle:styleCopy];
+}
+
+- (void)setTranscriptBackground:(id)background andSendToChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style transferID:(id)d isRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  styleCopy = style;
+  dCopy = d;
+  identifierCopy = identifier;
+  backgroundCopy = background;
+  replicationProxy = [(IMDServiceSession *)self replicationProxy];
+  [replicationProxy setTranscriptBackground:backgroundCopy andSendToChatIdentifier:identifierCopy chatStyle:styleCopy transferID:dCopy isRefresh:refreshCopy];
 }
 
 - (void)_processReceivedDictionaryInBlastDoor:(id)door storageContext:(id)context receivedViaRelay:(BOOL)relay withCompletionBlock:(id)block
@@ -4796,7 +6100,7 @@ LABEL_18:
 {
   messageCopy = message;
   transferCopy = transfer;
-  v7 = IMDTelephonyServiceLogHandle();
+  v7 = IMDTelephonyServiceLogHandle(transferCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -4881,7 +6185,7 @@ LABEL_11:
 
 - (BOOL)incomingMessageHasTooManyRecipients:(id)recipients
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   recipientsCopy = recipients;
   originatedDeviceSIM = [recipientsCopy originatedDeviceSIM];
   originatedDeviceNumber = [recipientsCopy originatedDeviceNumber];
@@ -4894,9 +6198,9 @@ LABEL_11:
       v9 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v19 = 134217984;
-        v20 = unsignedIntegerValue;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Carrier bundle value for maxReceipients was 0 or INT_MAX (%llu), falling back to iMessage maximum", &v19, 0xCu);
+        v18 = 134217984;
+        v19 = unsignedIntegerValue;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Carrier bundle value for maxReceipients was 0 or INT_MAX (%llu), falling back to iMessage maximum", &v18, 0xCu);
       }
     }
 
@@ -4924,22 +6228,21 @@ LABEL_11:
     {
       recipients2 = [recipientsCopy recipients];
       v16 = [recipients2 count];
-      v19 = 134218240;
-      v20 = v16;
-      v21 = 2048;
-      v22 = unsignedIntegerValue;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Filtering message due to excessive recipient count: %llu maxRecipients: %llu", &v19, 0x16u);
+      v18 = 134218240;
+      v19 = v16;
+      v20 = 2048;
+      v21 = unsignedIntegerValue;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Filtering message due to excessive recipient count: %llu maxRecipients: %llu", &v18, 0x16u);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13 > unsignedIntegerValue;
 }
 
 - (void)_processReceivedSMSMessage:(id)message storageContext:(id)context receivedViaRelay:(BOOL)relay serviceName:(id)name completionBlock:(id)block
 {
   relayCopy = relay;
-  v617 = *MEMORY[0x277D85DE8];
+  v673 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   contextCopy = context;
   nameCopy = name;
@@ -4955,33 +6258,33 @@ LABEL_11:
     sendEnabled = 1;
   }
 
-  v527 = v11;
+  v583 = v11;
   [(IMDTelephonyIncomingMessageContext *)v11 setIsSendEnabled:sendEnabled];
-  v526 = messageCopy;
+  v582 = messageCopy;
   originatedDeviceNumber = [messageCopy originatedDeviceNumber];
-  [(IMDTelephonyIncomingMessageContext *)v527 setMyNumberString:originatedDeviceNumber];
+  [(IMDTelephonyIncomingMessageContext *)v583 setMyNumberString:originatedDeviceNumber];
 
   originatedDeviceSIM = [messageCopy originatedDeviceSIM];
-  [(IMDTelephonyIncomingMessageContext *)v527 setMySIMIDString:originatedDeviceSIM];
+  [(IMDTelephonyIncomingMessageContext *)v583 setMySIMIDString:originatedDeviceSIM];
 
   sender = [messageCopy sender];
-  [(IMDTelephonyIncomingMessageContext *)v527 setSender:sender];
+  [(IMDTelephonyIncomingMessageContext *)v583 setSender:sender];
 
   sender2 = [messageCopy sender];
-  [(IMDTelephonyIncomingMessageContext *)v527 setSenderUnformatted:sender2];
+  [(IMDTelephonyIncomingMessageContext *)v583 setSenderUnformatted:sender2];
 
   v17 = [(IMDTelephonyServiceSession *)self _countryCodeForIncomingTextMessage:messageCopy];
-  [(IMDTelephonyIncomingMessageContext *)v527 setCountryCode:v17];
+  [(IMDTelephonyIncomingMessageContext *)v583 setCountryCode:v17];
 
-  -[IMDTelephonyIncomingMessageContext setCapability:](v527, "setCapability:", [messageCopy iMessageCapability]);
-  [(IMDTelephonyIncomingMessageContext *)v527 setWasRelayed:relayCopy];
+  -[IMDTelephonyIncomingMessageContext setCapability:](v583, "setCapability:", [messageCopy iMessageCapability]);
+  [(IMDTelephonyIncomingMessageContext *)v583 setWasRelayed:relayCopy];
   service = [(IMDServiceSession *)self service];
   v19 = [service supportsCapability:*MEMORY[0x277D1A560]];
 
   if (v19)
   {
     displayName = [messageCopy displayName];
-    [(IMDTelephonyIncomingMessageContext *)v527 setDisplayName:displayName];
+    [(IMDTelephonyIncomingMessageContext *)v583 setDisplayName:displayName];
   }
 
   service2 = [(IMDServiceSession *)self service];
@@ -4990,14 +6293,14 @@ LABEL_11:
   if (v22)
   {
     groupID = [messageCopy groupID];
-    [(IMDTelephonyIncomingMessageContext *)v527 setGroupID:groupID];
+    [(IMDTelephonyIncomingMessageContext *)v583 setGroupID:groupID];
 
     originalGroupID = [messageCopy originalGroupID];
-    [(IMDTelephonyIncomingMessageContext *)v527 setOriginalGroupID:originalGroupID];
+    [(IMDTelephonyIncomingMessageContext *)v583 setOriginalGroupID:originalGroupID];
   }
 
   version = [messageCopy version];
-  sender3 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+  sender3 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
   v26 = sender3 | version;
 
   if (v26)
@@ -5029,40 +6332,40 @@ LABEL_11:
       [v33 addMessagesID:v31];
     }
 
-    v498 = v31;
+    v554 = v31;
     v34 = IMOSLoggingEnabled();
-    v35 = v527;
+    v35 = v583;
     if (v34)
     {
       v36 = OSLogHandleForIMEventCategory();
       if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
-        sender4 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+        sender4 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
         items = [messageCopy items];
         v39 = [items count];
         type = [messageCopy type];
         countryCode = [messageCopy countryCode];
-        serviceCenter = [v526 serviceCenter];
-        countryCode2 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
-        displayName2 = [(IMDTelephonyIncomingMessageContext *)v527 displayName];
+        serviceCenter = [v582 serviceCenter];
+        countryCode2 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
+        displayName2 = [(IMDTelephonyIncomingMessageContext *)v583 displayName];
         *buf = 138413826;
         *&buf[4] = sender4;
         *&buf[12] = 2048;
         *&buf[14] = v39;
         *&buf[22] = 2048;
-        v611 = type;
-        *v612 = 2112;
-        *&v612[2] = countryCode;
-        *&v612[10] = 2112;
-        *&v612[12] = serviceCenter;
-        v613 = 2112;
-        v614 = countryCode2;
-        v615 = 2112;
-        v616 = displayName2;
+        v667 = type;
+        *v668 = 2112;
+        *&v668[2] = countryCode;
+        *&v668[10] = 2112;
+        *&v668[12] = serviceCenter;
+        v669 = 2112;
+        v670 = countryCode2;
+        v671 = 2112;
+        v672 = displayName2;
         _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "received message with sender: %@, %lu parts, type: %ld  msgCountryCode: %@ service center: %@  incoming code: %@ displayName: %@", buf, 0x48u);
       }
 
-      v35 = v527;
+      v35 = v583;
     }
 
     sender5 = [(IMDTelephonyIncomingMessageContext *)v35 sender];
@@ -5072,31 +6375,31 @@ LABEL_11:
     {
       v47 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v48 = [v47 localizedStringForKey:@"Unknown" value:&stru_283F23018 table:@"SMSLocalizable"];
-      [(IMDTelephonyIncomingMessageContext *)v527 setSender:v48];
+      [(IMDTelephonyIncomingMessageContext *)v583 setSender:v48];
 
-      sender6 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-      [(IMDTelephonyIncomingMessageContext *)v527 setSenderUnformatted:sender6];
+      sender6 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+      [(IMDTelephonyIncomingMessageContext *)v583 setSenderUnformatted:sender6];
     }
 
-    sender7 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+    sender7 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
 
     if (sender7)
     {
-      sender8 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+      sender8 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
       _appearsToBePhoneNumber = [sender8 _appearsToBePhoneNumber];
 
-      sender9 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+      sender9 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
       v54 = sender9;
       if (_appearsToBePhoneNumber)
       {
-        countryCode3 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
+        countryCode3 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
         v56 = IMPhoneNumberRefCopyForPhoneNumber();
 
         v57 = IMNormalizedPhoneNumberForCFPhoneNumberRef();
-        v58 = IMDTelephonyServiceLogHandle();
+        v58 = IMDTelephonyServiceLogHandle(v57);
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
-          sender10 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+          sender10 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
           *buf = 138412546;
           *&buf[4] = v56;
           *&buf[12] = 2112;
@@ -5104,21 +6407,21 @@ LABEL_11:
           _os_log_impl(&dword_22B4CC000, v58, OS_LOG_TYPE_DEFAULT, "Created number ref: %@  for ID: %@", buf, 0x16u);
         }
 
-        v60 = IMDTelephonyServiceLogHandle();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+        v61 = IMDTelephonyServiceLogHandle(v60);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
-          countryCode4 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
+          countryCode4 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
           *buf = 138412290;
           *&buf[4] = countryCode4;
-          _os_log_impl(&dword_22B4CC000, v60, OS_LOG_TYPE_DEFAULT, "    => Country code: %@", buf, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v61, OS_LOG_TYPE_DEFAULT, "    => Country code: %@", buf, 0xCu);
         }
 
-        v62 = IMDTelephonyServiceLogHandle();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        v64 = IMDTelephonyServiceLogHandle(v63);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           *&buf[4] = v57;
-          _os_log_impl(&dword_22B4CC000, v62, OS_LOG_TYPE_DEFAULT, "      => Normalized: %@", buf, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v64, OS_LOG_TYPE_DEFAULT, "      => Normalized: %@", buf, 0xCu);
         }
 
         if (v56)
@@ -5126,7 +6429,7 @@ LABEL_11:
           CFRelease(v56);
         }
 
-        v63 = [v57 length];
+        v65 = [v57 length];
       }
 
       else
@@ -5138,47 +6441,46 @@ LABEL_11:
           goto LABEL_44;
         }
 
-        sender11 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+        sender11 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
         v57 = IMNormalizeFormattedString();
 
-        v63 = [v57 length];
+        v65 = [v57 length];
       }
 
-      if (v63)
+      if (v65)
       {
-        [(IMDTelephonyIncomingMessageContext *)v527 setSender:v57];
+        [(IMDTelephonyIncomingMessageContext *)v583 setSender:v57];
       }
     }
 
 LABEL_44:
-    displayName3 = [(IMDTelephonyIncomingMessageContext *)v527 displayName];
+    displayName3 = [(IMDTelephonyIncomingMessageContext *)v583 displayName];
     if (!displayName3)
     {
-      displayName3 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+      displayName3 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
       if (([displayName3 __im_isChatBotPatterned] & 1) == 0)
       {
         if (IMShouldHandleInternalPhishingAttempts())
         {
-          sender12 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+          sender12 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
           if (IMStringIsEmail())
           {
-            sender13 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-            v609 = sender13;
-            v69 = [MEMORY[0x277CBEA60] arrayWithObjects:&v609 count:1];
+            sender13 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+            v665 = sender13;
+            v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v665 count:1];
             if (IMDAreAllAliasesUnknown())
             {
-              v70 = *MEMORY[0x277D1A4F8];
-              v71 = IMGetDomainBoolForKey();
+              v72 = IMGetDomainBoolForKey();
 
-              if ((v71 & 1) == 0)
+              if ((v72 & 1) == 0)
               {
-                v72 = IMDTelephonyServiceLogHandle();
-                if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+                v74 = IMDTelephonyServiceLogHandle(v73);
+                if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
                 {
-                  sender14 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                  sender14 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                   *buf = 138412290;
                   *&buf[4] = sender14;
-                  _os_log_impl(&dword_22B4CC000, v72, OS_LOG_TYPE_DEFAULT, "*** Blocking likely phishing SMS message from sender: %@", buf, 0xCu);
+                  _os_log_impl(&dword_22B4CC000, v74, OS_LOG_TYPE_DEFAULT, "*** Blocking likely phishing SMS message from sender: %@", buf, 0xCu);
                 }
 
                 if (!blockCopy)
@@ -5190,50 +6492,50 @@ LABEL_44:
               }
 
 LABEL_57:
-              sender15 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+              sender15 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
               _stripFZIDPrefix = [sender15 _stripFZIDPrefix];
-              v76 = IMPhoneNumberRefCopyForPhoneNumber();
-              if (v76)
+              v78 = IMPhoneNumberRefCopyForPhoneNumber();
+              if (v78)
               {
-                v77 = CMFItemCreateWithPhoneNumber();
+                v79 = CMFItemCreateWithPhoneNumber();
                 IsItemBlocked = CMFBlockListIsItemBlocked();
-                CFRelease(v76);
-                if (v77)
+                CFRelease(v78);
+                if (v79)
                 {
-                  CFRelease(v77);
+                  CFRelease(v79);
                   if (IsItemBlocked)
                   {
 LABEL_60:
-                    v79 = 1;
+                    v81 = 1;
 LABEL_64:
                     if (IMOSLoggingEnabled())
                     {
-                      v81 = OSLogHandleForIMFoundationCategory();
-                      if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+                      v83 = OSLogHandleForIMFoundationCategory();
+                      if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
                       {
-                        v82 = @"NO";
-                        if (v79)
+                        v84 = @"NO";
+                        if (v81)
                         {
-                          v82 = @"YES";
+                          v84 = @"YES";
                         }
 
                         *buf = 138412546;
                         *&buf[4] = sender15;
                         *&buf[12] = 2112;
-                        *&buf[14] = v82;
-                        _os_log_impl(&dword_22B4CC000, v81, OS_LOG_TYPE_INFO, "filtering message for handle: %@ = %@", buf, 0x16u);
+                        *&buf[14] = v84;
+                        _os_log_impl(&dword_22B4CC000, v83, OS_LOG_TYPE_INFO, "filtering message for handle: %@ = %@", buf, 0x16u);
                       }
                     }
 
-                    if (v79)
+                    if (v81)
                     {
-                      v83 = IMDTelephonyServiceLogHandle();
-                      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+                      v86 = IMDTelephonyServiceLogHandle(v85);
+                      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
                       {
-                        sender16 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                        sender16 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                         *buf = 138412290;
                         *&buf[4] = sender16;
-                        _os_log_impl(&dword_22B4CC000, v83, OS_LOG_TYPE_DEFAULT, "*** Blocking message from sender: %@", buf, 0xCu);
+                        _os_log_impl(&dword_22B4CC000, v86, OS_LOG_TYPE_DEFAULT, "*** Blocking message from sender: %@", buf, 0xCu);
                       }
 
                       if (!blockCopy)
@@ -5244,15 +6546,16 @@ LABEL_64:
                       goto LABEL_79;
                     }
 
-                    if ([(IMDTelephonyServiceSession *)self incomingMessageHasTooManyRecipients:v526])
+                    v88 = [(IMDTelephonyServiceSession *)self incomingMessageHasTooManyRecipients:v582];
+                    if (v88)
                     {
-                      v85 = IMDTelephonyServiceLogHandle();
-                      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+                      v89 = IMDTelephonyServiceLogHandle(v88);
+                      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
                       {
-                        sender17 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                        sender17 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                         *buf = 138412290;
                         *&buf[4] = sender17;
-                        _os_log_impl(&dword_22B4CC000, v85, OS_LOG_TYPE_DEFAULT, "*** Blocking message with too many participants from sender: %@", buf, 0xCu);
+                        _os_log_impl(&dword_22B4CC000, v89, OS_LOG_TYPE_DEFAULT, "*** Blocking message with too many participants from sender: %@", buf, 0xCu);
                       }
 
                       if (!blockCopy)
@@ -5261,122 +6564,123 @@ LABEL_64:
                       }
 
 LABEL_79:
-                      (*(blockCopy + 2))(blockCopy, 0, v498, 0);
+                      (*(blockCopy + 2))(blockCopy, 0, v554, 0);
 LABEL_547:
 
                       goto LABEL_548;
                     }
 
-                    if ([v526 type])
+                    if ([v582 type])
                     {
                       replaceMessage = 0;
                     }
 
                     else
                     {
-                      replaceMessage = [v526 replaceMessage];
+                      replaceMessage = [v582 replaceMessage];
                     }
 
-                    v87 = objc_alloc(MEMORY[0x277CBEB38]);
-                    items2 = [v526 items];
-                    v528 = [v87 initWithCapacity:{objc_msgSend(items2, "count")}];
-
-                    v89 = objc_alloc(MEMORY[0x277CBEB38]);
-                    items3 = [v526 items];
-                    v533 = [v89 initWithCapacity:{objc_msgSend(items3, "count")}];
-
                     v91 = objc_alloc(MEMORY[0x277CBEB38]);
-                    items4 = [v526 items];
-                    v493 = [v91 initWithCapacity:{objc_msgSend(items4, "count")}];
+                    items2 = [v582 items];
+                    v584 = [v91 initWithCapacity:{objc_msgSend(items2, "count")}];
 
-                    v93 = objc_alloc(MEMORY[0x277CBEB18]);
-                    items5 = [v526 items];
-                    v529 = [v93 initWithCapacity:{objc_msgSend(items5, "count")}];
+                    v93 = objc_alloc(MEMORY[0x277CBEB38]);
+                    items3 = [v582 items];
+                    v589 = [v93 initWithCapacity:{objc_msgSend(items3, "count")}];
 
-                    v491 = objc_alloc_init(MEMORY[0x277CCAB68]);
-                    v492 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                    v594 = 0u;
-                    v593 = 0u;
-                    v592 = 0u;
-                    v591 = 0u;
-                    obj = [v526 items];
-                    v497 = [obj countByEnumeratingWithState:&v591 objects:v608 count:16];
-                    if (!v497)
+                    v95 = objc_alloc(MEMORY[0x277CBEB38]);
+                    items4 = [v582 items];
+                    v549 = [v95 initWithCapacity:{objc_msgSend(items4, "count")}];
+
+                    v97 = objc_alloc(MEMORY[0x277CBEB18]);
+                    items5 = [v582 items];
+                    v585 = [v97 initWithCapacity:{objc_msgSend(items5, "count")}];
+
+                    v547 = objc_alloc_init(MEMORY[0x277CCAB68]);
+                    v548 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                    v650 = 0u;
+                    v649 = 0u;
+                    v648 = 0u;
+                    v647 = 0u;
+                    obj = [v582 items];
+                    v99 = [obj countByEnumeratingWithState:&v647 objects:v664 count:16];
+                    v553 = v99;
+                    if (!v99)
                     {
-                      v494 = 0;
+                      v550 = 0;
                       goto LABEL_281;
                     }
 
-                    v494 = 0;
-                    v496 = *v592;
-                    v487 = *MEMORY[0x277D19730];
-                    v490 = *MEMORY[0x277D1A4E0];
-                    v489 = *MEMORY[0x277D19998];
+                    v550 = 0;
+                    v552 = *v648;
+                    v543 = *MEMORY[0x277D19730];
+                    v546 = *MEMORY[0x277D1A4E0];
+                    v545 = *MEMORY[0x277D19998];
                     while (1)
                     {
-                      v95 = 0;
+                      v100 = 0;
                       do
                       {
-                        if (*v592 != v496)
+                        if (*v648 != v552)
                         {
-                          v96 = v95;
+                          v101 = v100;
                           objc_enumerationMutation(obj);
-                          v95 = v96;
+                          v100 = v101;
                         }
 
-                        v499 = v95;
-                        v97 = *(*(&v591 + 1) + 8 * v95);
-                        v98 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-                        {
-                          *buf = 0;
-                          _os_log_impl(&dword_22B4CC000, v98, OS_LOG_TYPE_DEFAULT, "  Part:", buf, 2u);
-                        }
-
-                        v99 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
-                        {
-                          contentType = [v97 contentType];
-                          *buf = 138412290;
-                          *&buf[4] = contentType;
-                          _os_log_impl(&dword_22B4CC000, v99, OS_LOG_TYPE_DEFAULT, "      content type: %@", buf, 0xCu);
-                        }
-
-                        v101 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
-                        {
-                          contentId = [v97 contentId];
-                          *buf = 138412290;
-                          *&buf[4] = contentId;
-                          _os_log_impl(&dword_22B4CC000, v101, OS_LOG_TYPE_DEFAULT, "        content ID: %@", buf, 0xCu);
-                        }
-
-                        v103 = IMDTelephonyServiceLogHandle();
+                        v555 = v100;
+                        v102 = *(*(&v647 + 1) + 8 * v100);
+                        v103 = IMDTelephonyServiceLogHandle(v99);
                         if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
                         {
-                          contentLocation = [v97 contentLocation];
+                          *buf = 0;
+                          _os_log_impl(&dword_22B4CC000, v103, OS_LOG_TYPE_DEFAULT, "  Part:", buf, 2u);
+                        }
+
+                        v105 = IMDTelephonyServiceLogHandle(v104);
+                        if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+                        {
+                          contentType = [v102 contentType];
+                          *buf = 138412290;
+                          *&buf[4] = contentType;
+                          _os_log_impl(&dword_22B4CC000, v105, OS_LOG_TYPE_DEFAULT, "      content type: %@", buf, 0xCu);
+                        }
+
+                        v108 = IMDTelephonyServiceLogHandle(v107);
+                        if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+                        {
+                          contentId = [v102 contentId];
+                          *buf = 138412290;
+                          *&buf[4] = contentId;
+                          _os_log_impl(&dword_22B4CC000, v108, OS_LOG_TYPE_DEFAULT, "        content ID: %@", buf, 0xCu);
+                        }
+
+                        v111 = IMDTelephonyServiceLogHandle(v110);
+                        if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+                        {
+                          contentLocation = [v102 contentLocation];
                           *buf = 138412290;
                           *&buf[4] = contentLocation;
-                          _os_log_impl(&dword_22B4CC000, v103, OS_LOG_TYPE_DEFAULT, "  content location: %@", buf, 0xCu);
+                          _os_log_impl(&dword_22B4CC000, v111, OS_LOG_TYPE_DEFAULT, "  content location: %@", buf, 0xCu);
                         }
 
-                        contentId2 = [v97 contentId];
-                        v504 = SMSCopySanitizedContentID(contentId2);
+                        contentId2 = [v102 contentId];
+                        v560 = SMSCopySanitizedContentID(contentId2);
 
-                        contentLocation2 = [v97 contentLocation];
-                        v506 = SMSCopySanitizedContentLocation(contentLocation2);
+                        contentLocation2 = [v102 contentLocation];
+                        v562 = SMSCopySanitizedContentLocation(contentLocation2);
 
-                        v107 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+                        v116 = IMDTelephonyServiceLogHandle(v115);
+                        if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 138412546;
-                          *&buf[4] = v504;
+                          *&buf[4] = v560;
                           *&buf[12] = 2112;
-                          *&buf[14] = v506;
-                          _os_log_impl(&dword_22B4CC000, v107, OS_LOG_TYPE_DEFAULT, "Sanitized ID %@  sanitized loc %@", buf, 0x16u);
+                          *&buf[14] = v562;
+                          _os_log_impl(&dword_22B4CC000, v116, OS_LOG_TYPE_DEFAULT, "Sanitized ID %@  sanitized loc %@", buf, 0x16u);
                         }
 
-                        content = [v97 content];
+                        content = [v102 content];
                         type2 = [content type];
 
                         if (type2 <= 1)
@@ -5385,198 +6689,199 @@ LABEL_547:
                           {
                             if (type2 == 1)
                             {
-                              content2 = [v97 content];
+                              content2 = [v102 content];
                               smil = [content2 smil];
                               oslog = [smil contentBody];
 
-                              v126 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+                              v137 = IMDTelephonyServiceLogHandle(v136);
+                              if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 0;
-                                _os_log_impl(&dword_22B4CC000, v126, OS_LOG_TYPE_DEFAULT, "  * This is a SMIL part", buf, 2u);
+                                _os_log_impl(&dword_22B4CC000, v137, OS_LOG_TYPE_DEFAULT, "  * This is a SMIL part", buf, 2u);
                               }
 
-                              v127 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+                              v139 = IMDTelephonyServiceLogHandle(v138);
+                              if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
                               {
-                                v128 = MarcoLoggingStringForMessageData();
+                                v140 = MarcoLoggingStringForMessageData();
                                 *buf = 138412290;
-                                *&buf[4] = v128;
-                                _os_log_impl(&dword_22B4CC000, v127, OS_LOG_TYPE_DEFAULT, "  * Out body: %@", buf, 0xCu);
+                                *&buf[4] = v140;
+                                _os_log_impl(&dword_22B4CC000, v139, OS_LOG_TYPE_DEFAULT, "  * Out body: %@", buf, 0xCu);
                               }
 
-                              if (!-[NSObject length](oslog, "length") || (-[NSObject string](oslog, "string"), v129 = objc_claimAutoreleasedReturnValue(), [v129 trimmedString], v130 = objc_claimAutoreleasedReturnValue(), v131 = objc_msgSend(v130, "length") == 0, v130, v129, v131))
+                              v141 = [oslog length];
+                              if (!v141 || (-[NSObject string](oslog, "string"), v142 = objc_claimAutoreleasedReturnValue(), [v142 trimmedString], v143 = objc_claimAutoreleasedReturnValue(), v144 = objc_msgSend(v143, "length") == 0, v143, v142, v144))
                               {
-                                v170 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
+                                v185 = IMDTelephonyServiceLogHandle(v141);
+                                if (os_log_type_enabled(v185, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *buf = 0;
-                                  _os_log_impl(&dword_22B4CC000, v170, OS_LOG_TYPE_DEFAULT, "  => Empty", buf, 2u);
+                                  _os_log_impl(&dword_22B4CC000, v185, OS_LOG_TYPE_DEFAULT, "  => Empty", buf, 2u);
                                 }
                               }
 
                               else
                               {
-                                v132 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+                                v145 = IMDTelephonyServiceLogHandle(v141);
+                                if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  v133 = MarcoLoggingStringForMessageData();
+                                  v146 = MarcoLoggingStringForMessageData();
                                   *buf = 138412290;
-                                  *&buf[4] = v133;
-                                  _os_log_impl(&dword_22B4CC000, v132, OS_LOG_TYPE_DEFAULT, "  => Appending body %@", buf, 0xCu);
+                                  *&buf[4] = v146;
+                                  _os_log_impl(&dword_22B4CC000, v145, OS_LOG_TYPE_DEFAULT, "  => Appending body %@", buf, 0xCu);
                                 }
 
-                                if ([v504 length])
+                                if ([v560 length])
                                 {
-                                  [v528 setObject:oslog forKey:v504];
+                                  [v584 setObject:oslog forKey:v560];
                                 }
 
-                                if ([v506 length])
+                                if ([v562 length])
                                 {
-                                  [v533 setObject:oslog forKey:v506];
+                                  [v589 setObject:oslog forKey:v562];
                                 }
 
-                                [v529 addObject:oslog];
+                                [v585 addObject:oslog];
                               }
 
                               cf1a = objc_alloc_init(MEMORY[0x277CBEB18]);
-                              v586 = 0u;
-                              v585 = 0u;
-                              v584 = 0u;
-                              v583 = 0u;
-                              content3 = [v97 content];
+                              v642 = 0u;
+                              v641 = 0u;
+                              v640 = 0u;
+                              v639 = 0u;
+                              content3 = [v102 content];
                               smil2 = [content3 smil];
                               orderedParts = [smil2 orderedParts];
 
-                              v523 = [orderedParts countByEnumeratingWithState:&v583 objects:v606 count:16];
-                              if (v523)
+                              v579 = [orderedParts countByEnumeratingWithState:&v639 objects:v662 count:16];
+                              if (v579)
                               {
-                                v515 = *v584;
+                                v571 = *v640;
                                 do
                                 {
-                                  v173 = 0;
+                                  v188 = 0;
                                   do
                                   {
-                                    if (*v584 != v515)
+                                    if (*v640 != v571)
                                     {
-                                      v174 = v173;
+                                      v189 = v188;
                                       objc_enumerationMutation(orderedParts);
-                                      v173 = v174;
+                                      v188 = v189;
                                     }
 
-                                    v531 = v173;
-                                    v175 = *(*(&v583 + 1) + 8 * v173);
-                                    v176 = objc_alloc_init(IMDSMSPart);
-                                    v582 = 0u;
-                                    v581 = 0u;
-                                    v580 = 0u;
-                                    v579 = 0u;
-                                    textParts = [v175 textParts];
-                                    v178 = [textParts countByEnumeratingWithState:&v579 objects:v605 count:16];
-                                    if (v178)
+                                    v587 = v188;
+                                    v190 = *(*(&v639 + 1) + 8 * v188);
+                                    v191 = objc_alloc_init(IMDSMSPart);
+                                    v638 = 0u;
+                                    v637 = 0u;
+                                    v636 = 0u;
+                                    v635 = 0u;
+                                    textParts = [v190 textParts];
+                                    v193 = [textParts countByEnumeratingWithState:&v635 objects:v661 count:16];
+                                    if (v193)
                                     {
-                                      v179 = *v580;
+                                      v194 = *v636;
                                       do
                                       {
-                                        for (i = 0; i != v178; ++i)
+                                        for (i = 0; i != v193; ++i)
                                         {
-                                          if (*v580 != v179)
+                                          if (*v636 != v194)
                                           {
                                             objc_enumerationMutation(textParts);
                                           }
 
-                                          v181 = *(*(&v579 + 1) + 8 * i);
-                                          v182 = [IMDSMSTextPart alloc];
-                                          contentLocation3 = [v181 contentLocation];
-                                          v184 = [(IMDSMSTextPart *)v182 initWithContentLocation:contentLocation3];
+                                          v196 = *(*(&v635 + 1) + 8 * i);
+                                          v197 = [IMDSMSTextPart alloc];
+                                          contentLocation3 = [v196 contentLocation];
+                                          v199 = [(IMDSMSTextPart *)v197 initWithContentLocation:contentLocation3];
 
-                                          text = [v181 text];
-                                          [(IMDSMSTextPart *)v184 appendText:text];
+                                          text = [v196 text];
+                                          [(IMDSMSTextPart *)v199 appendText:text];
 
-                                          [(IMDSMSPart *)v176 addTextPart:v184];
+                                          [(IMDSMSPart *)v191 addTextPart:v199];
                                         }
 
-                                        v178 = [textParts countByEnumeratingWithState:&v579 objects:v605 count:16];
+                                        v193 = [textParts countByEnumeratingWithState:&v635 objects:v661 count:16];
                                       }
 
-                                      while (v178);
+                                      while (v193);
                                     }
 
-                                    v578 = 0u;
-                                    v577 = 0u;
-                                    v576 = 0u;
-                                    v575 = 0u;
-                                    attachmentParts = [v175 attachmentParts];
-                                    v187 = [attachmentParts countByEnumeratingWithState:&v575 objects:v604 count:16];
-                                    if (v187)
+                                    v634 = 0u;
+                                    v633 = 0u;
+                                    v632 = 0u;
+                                    v631 = 0u;
+                                    attachmentParts = [v190 attachmentParts];
+                                    v202 = [attachmentParts countByEnumeratingWithState:&v631 objects:v660 count:16];
+                                    if (v202)
                                     {
-                                      v188 = *v576;
+                                      v203 = *v632;
                                       do
                                       {
-                                        for (j = 0; j != v187; ++j)
+                                        for (j = 0; j != v202; ++j)
                                         {
-                                          if (*v576 != v188)
+                                          if (*v632 != v203)
                                           {
                                             objc_enumerationMutation(attachmentParts);
                                           }
 
-                                          v190 = *(*(&v575 + 1) + 8 * j);
-                                          v191 = [IMDSMSAttachmentPart alloc];
-                                          contentLocation4 = [v190 contentLocation];
-                                          v193 = [(IMDSMSAttachmentPart *)v191 initWithContentLocation:contentLocation4];
+                                          v205 = *(*(&v631 + 1) + 8 * j);
+                                          v206 = [IMDSMSAttachmentPart alloc];
+                                          contentLocation4 = [v205 contentLocation];
+                                          v208 = [(IMDSMSAttachmentPart *)v206 initWithContentLocation:contentLocation4];
 
-                                          [(IMDSMSPart *)v176 addAttachmentPart:v193];
+                                          [(IMDSMSPart *)v191 addAttachmentPart:v208];
                                         }
 
-                                        v187 = [attachmentParts countByEnumeratingWithState:&v575 objects:v604 count:16];
+                                        v202 = [attachmentParts countByEnumeratingWithState:&v631 objects:v660 count:16];
                                       }
 
-                                      while (v187);
+                                      while (v202);
                                     }
 
-                                    [cf1a addObject:v176];
-                                    v173 = v531 + 1;
+                                    [cf1a addObject:v191];
+                                    v188 = v587 + 1;
                                   }
 
-                                  while (v531 + 1 != v523);
-                                  v523 = [orderedParts countByEnumeratingWithState:&v583 objects:v606 count:16];
+                                  while (v587 + 1 != v579);
+                                  v579 = [orderedParts countByEnumeratingWithState:&v639 objects:v662 count:16];
                                 }
 
-                                while (v523);
+                                while (v579);
                               }
 
                               if ([cf1a count])
                               {
-                                if (v494)
+                                if (v550)
                                 {
                                   if (IMOSLoggingEnabled())
                                   {
-                                    v194 = OSLogHandleForIMFoundationCategory();
-                                    if (os_log_type_enabled(v194, OS_LOG_TYPE_INFO))
+                                    v209 = OSLogHandleForIMFoundationCategory();
+                                    if (os_log_type_enabled(v209, OS_LOG_TYPE_INFO))
                                     {
                                       *buf = 0;
-                                      _os_log_impl(&dword_22B4CC000, v194, OS_LOG_TYPE_INFO, "Two SMILs found in MMS - this should not happen!", buf, 2u);
+                                      _os_log_impl(&dword_22B4CC000, v209, OS_LOG_TYPE_INFO, "Two SMILs found in MMS - this should not happen!", buf, 2u);
                                     }
                                   }
 
-                                  v195 = [v494 mutableCopy];
-                                  [v195 addObjectsFromArray:cf1a];
-                                  v196 = v195;
+                                  v210 = [v550 mutableCopy];
+                                  [v210 addObjectsFromArray:cf1a];
+                                  v211 = v210;
                                 }
 
                                 else
                                 {
-                                  v196 = cf1a;
+                                  v211 = cf1a;
                                 }
 
-                                v203 = v196;
+                                v219 = v211;
 
-                                v494 = v203;
+                                v550 = v219;
                               }
 
                               else
                               {
-                                v203 = cf1a;
+                                v219 = cf1a;
                               }
 
 LABEL_273:
@@ -5585,10 +6890,10 @@ LABEL_273:
                             }
 
 LABEL_150:
-                            oslog = IMDTelephonyServiceLogHandle();
+                            oslog = IMDTelephonyServiceLogHandle(v119);
                             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
                             {
-                              content4 = [v97 content];
+                              content4 = [v102 content];
                               type3 = [content4 type];
                               *buf = 134217984;
                               *&buf[4] = type3;
@@ -5598,23 +6903,23 @@ LABEL_150:
                             goto LABEL_274;
                           }
 
-                          content5 = [v97 content];
+                          content5 = [v102 content];
                           plain = [content5 plain];
                           plainTextContentBody = [plain plainTextContentBody];
 
                           if (plainTextContentBody)
                           {
                             oslog = objc_alloc_init(MEMORY[0x277CCAB68]);
-                            content6 = [v97 content];
+                            content6 = [v102 content];
                             plain2 = [content6 plain];
                             plainTextContentBody2 = [plain2 plainTextContentBody];
                             [oslog appendString:plainTextContentBody2];
 
-                            content7 = [v97 content];
+                            content7 = [v102 content];
                             plain3 = [content7 plain];
                             plainTextContentBody3 = [plain3 plainTextContentBody];
                             stringByRemovingWhitespace = [plainTextContentBody3 stringByRemovingWhitespace];
-                            [v491 appendString:stringByRemovingWhitespace];
+                            [v547 appendString:stringByRemovingWhitespace];
                           }
 
                           else
@@ -5622,50 +6927,50 @@ LABEL_150:
                             oslog = 0;
                           }
 
-                          v197 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
+                          v212 = IMDTelephonyServiceLogHandle(v175);
+                          if (os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
                           {
-                            v198 = MarcoLoggingStringForMessageData();
+                            v213 = MarcoLoggingStringForMessageData();
                             *buf = 138412290;
-                            *&buf[4] = v198;
-                            _os_log_impl(&dword_22B4CC000, v197, OS_LOG_TYPE_DEFAULT, "  * This is a text part (%@)", buf, 0xCu);
+                            *&buf[4] = v213;
+                            _os_log_impl(&dword_22B4CC000, v212, OS_LOG_TYPE_DEFAULT, "  * This is a text part (%@)", buf, 0xCu);
                           }
 
                           if ([oslog length])
                           {
                             newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
-                            v200 = [newlineCharacterSet characterIsMember:{-[NSObject characterAtIndex:](oslog, "characterAtIndex:", -[NSObject length](oslog, "length") - 1)}];
+                            v215 = [newlineCharacterSet characterIsMember:{-[NSObject characterAtIndex:](oslog, "characterAtIndex:", -[NSObject length](oslog, "length") - 1)}];
 
-                            if ((v200 & 1) == 0)
+                            if ((v215 & 1) == 0)
                             {
-                              v201 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v201, OS_LOG_TYPE_DEFAULT))
+                              v217 = IMDTelephonyServiceLogHandle(v216);
+                              if (os_log_type_enabled(v217, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 0;
-                                _os_log_impl(&dword_22B4CC000, v201, OS_LOG_TYPE_DEFAULT, "  * There's no trailing newline here, we'll make sure to append one next", buf, 2u);
+                                _os_log_impl(&dword_22B4CC000, v217, OS_LOG_TYPE_DEFAULT, "  * There's no trailing newline here, we'll make sure to append one next", buf, 2u);
                               }
 
                               [oslog appendString:@"\n"];
                             }
 
-                            v202 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:oslog];
-                            v203 = v202;
-                            if (v202)
+                            v218 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:oslog];
+                            v219 = v218;
+                            if (v218)
                             {
-                              __im_attributedStringByAssigningMessagePartNumbers = [v202 __im_attributedStringByAssigningMessagePartNumbers];
+                              __im_attributedStringByAssigningMessagePartNumbers = [v218 __im_attributedStringByAssigningMessagePartNumbers];
                               if (__im_attributedStringByAssigningMessagePartNumbers)
                               {
-                                if ([v504 length])
+                                if ([v560 length])
                                 {
-                                  [v528 setObject:__im_attributedStringByAssigningMessagePartNumbers forKey:v504];
+                                  [v584 setObject:__im_attributedStringByAssigningMessagePartNumbers forKey:v560];
                                 }
 
-                                if ([v506 length])
+                                if ([v562 length])
                                 {
-                                  [v533 setObject:__im_attributedStringByAssigningMessagePartNumbers forKey:v506];
+                                  [v589 setObject:__im_attributedStringByAssigningMessagePartNumbers forKey:v562];
                                 }
 
-                                [v529 addObject:__im_attributedStringByAssigningMessagePartNumbers];
+                                [v585 addObject:__im_attributedStringByAssigningMessagePartNumbers];
                               }
                             }
 
@@ -5678,185 +6983,185 @@ LABEL_150:
                           switch(type2)
                           {
                             case 2:
-                              v134 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+                              v147 = IMDTelephonyServiceLogHandle(v119);
+                              if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 0;
-                                _os_log_impl(&dword_22B4CC000, v134, OS_LOG_TYPE_DEFAULT, "  * This is an attachment part", buf, 2u);
+                                _os_log_impl(&dword_22B4CC000, v147, OS_LOG_TYPE_DEFAULT, "  * This is an attachment part", buf, 2u);
                               }
 
                               oslog = +[IMDFileTransferCenter sharedInstance];
-                              v135 = v506;
-                              v136 = v135;
-                              if (![v135 length])
+                              v148 = v562;
+                              v149 = v148;
+                              if (![v148 length])
                               {
-                                v136 = v504;
+                                v149 = v560;
                               }
 
-                              cf1 = [v97 contentType];
-                              content8 = [v97 content];
+                              cf1 = [v102 contentType];
+                              content8 = [v102 content];
                               attachment = [content8 attachment];
                               contentData = [attachment contentData];
 
-                              content9 = [v97 content];
+                              content9 = [v102 content];
                               attachment2 = [content9 attachment];
                               richCardOriginalGuid = [attachment2 richCardOriginalGuid];
 
-                              stringByRemovingURLEscapes = [v136 stringByRemovingURLEscapes];
+                              stringByRemovingURLEscapes = [v149 stringByRemovingURLEscapes];
 
                               if (![(__CFString *)stringByRemovingURLEscapes length])
                               {
-                                v143 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
+                                v156 = IMDTelephonyServiceLogHandle(0);
+                                if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *buf = 0;
-                                  _os_log_impl(&dword_22B4CC000, v143, OS_LOG_TYPE_DEFAULT, "  *** Empty filename!", buf, 2u);
+                                  _os_log_impl(&dword_22B4CC000, v156, OS_LOG_TYPE_DEFAULT, "  *** Empty filename!", buf, 2u);
                                 }
 
                                 stringByRemovingURLEscapes = @"Attachment";
                               }
 
                               pathExtension = [(__CFString *)stringByRemovingURLEscapes pathExtension];
-                              v145 = [pathExtension length] == 0;
+                              v158 = [pathExtension length] == 0;
 
-                              if (v145)
+                              if (v158)
                               {
-                                v207 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v207, OS_LOG_TYPE_DEFAULT))
+                                v223 = IMDTelephonyServiceLogHandle(v159);
+                                if (os_log_type_enabled(v223, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *buf = 138412290;
                                   *&buf[4] = stringByRemovingURLEscapes;
-                                  _os_log_impl(&dword_22B4CC000, v207, OS_LOG_TYPE_DEFAULT, "  *** Filename has no extension: %@", buf, 0xCu);
+                                  _os_log_impl(&dword_22B4CC000, v223, OS_LOG_TYPE_DEFAULT, "  *** Filename has no extension: %@", buf, 0xCu);
                                 }
 
                                 defaultHFSFileManager = [MEMORY[0x277D19250] defaultHFSFileManager];
-                                v209 = [defaultHFSFileManager pathExtensionForMIMEType:cf1];
+                                v225 = [defaultHFSFileManager pathExtensionForMIMEType:cf1];
 
-                                v210 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v210, OS_LOG_TYPE_DEFAULT))
+                                v227 = IMDTelephonyServiceLogHandle(v226);
+                                if (os_log_type_enabled(v227, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *buf = 138412290;
-                                  *&buf[4] = v209;
-                                  _os_log_impl(&dword_22B4CC000, v210, OS_LOG_TYPE_DEFAULT, "  Proposed extension: %@", buf, 0xCu);
+                                  *&buf[4] = v225;
+                                  _os_log_impl(&dword_22B4CC000, v227, OS_LOG_TYPE_DEFAULT, "  Proposed extension: %@", buf, 0xCu);
                                 }
 
-                                if ([v209 length])
+                                if ([v225 length])
                                 {
-                                  v211 = [(__CFString *)stringByRemovingURLEscapes stringByAppendingPathExtension:v209];
+                                  v228 = [(__CFString *)stringByRemovingURLEscapes stringByAppendingPathExtension:v225];
 
-                                  v212 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
+                                  v230 = IMDTelephonyServiceLogHandle(v229);
+                                  if (os_log_type_enabled(v230, OS_LOG_TYPE_DEFAULT))
                                   {
                                     *buf = 138412290;
-                                    *&buf[4] = v211;
-                                    _os_log_impl(&dword_22B4CC000, v212, OS_LOG_TYPE_DEFAULT, "  * Replacement filename: %@", buf, 0xCu);
+                                    *&buf[4] = v228;
+                                    _os_log_impl(&dword_22B4CC000, v230, OS_LOG_TYPE_DEFAULT, "  * Replacement filename: %@", buf, 0xCu);
                                   }
                                 }
 
                                 else
                                 {
-                                  v211 = stringByRemovingURLEscapes;
+                                  v228 = stringByRemovingURLEscapes;
                                 }
 
-                                v146 = v211;
+                                v160 = v228;
                               }
 
                               else
                               {
-                                v146 = stringByRemovingURLEscapes;
+                                v160 = stringByRemovingURLEscapes;
                               }
 
-                              v213 = v146;
-                              lastPathComponent = [v146 lastPathComponent];
-                              v214 = -[NSObject guidForNewIncomingTransferWithFilename:isDirectory:totalBytes:hfsType:hfsCreator:hfsFlags:](oslog, "guidForNewIncomingTransferWithFilename:isDirectory:totalBytes:hfsType:hfsCreator:hfsFlags:", lastPathComponent, 0, [contentData length], 0, 0, 0);
-                              v215 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v215, OS_LOG_TYPE_DEFAULT))
+                              v231 = v160;
+                              lastPathComponent = [v160 lastPathComponent];
+                              v232 = -[NSObject guidForNewIncomingTransferWithFilename:isDirectory:totalBytes:hfsType:hfsCreator:hfsFlags:](oslog, "guidForNewIncomingTransferWithFilename:isDirectory:totalBytes:hfsType:hfsCreator:hfsFlags:", lastPathComponent, 0, [contentData length], 0, 0, 0);
+                              v233 = IMDTelephonyServiceLogHandle(v232);
+                              if (os_log_type_enabled(v233, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 138412290;
-                                *&buf[4] = v213;
-                                _os_log_impl(&dword_22B4CC000, v215, OS_LOG_TYPE_DEFAULT, "         filename: %@", buf, 0xCu);
+                                *&buf[4] = v231;
+                                _os_log_impl(&dword_22B4CC000, v233, OS_LOG_TYPE_DEFAULT, "         filename: %@", buf, 0xCu);
                               }
 
-                              v216 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v216, OS_LOG_TYPE_DEFAULT))
+                              v235 = IMDTelephonyServiceLogHandle(v234);
+                              if (os_log_type_enabled(v235, OS_LOG_TYPE_DEFAULT))
                               {
-                                v217 = [contentData length];
+                                v236 = [contentData length];
                                 *buf = 67109120;
-                                *&buf[4] = v217;
-                                _os_log_impl(&dword_22B4CC000, v216, OS_LOG_TYPE_DEFAULT, "      data length: %d", buf, 8u);
+                                *&buf[4] = v236;
+                                _os_log_impl(&dword_22B4CC000, v235, OS_LOG_TYPE_DEFAULT, "      data length: %d", buf, 8u);
                               }
 
-                              v218 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
+                              v238 = IMDTelephonyServiceLogHandle(v237);
+                              if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 138412290;
                                 *&buf[4] = lastPathComponent;
-                                _os_log_impl(&dword_22B4CC000, v218, OS_LOG_TYPE_DEFAULT, "    transfer name: %@", buf, 0xCu);
+                                _os_log_impl(&dword_22B4CC000, v238, OS_LOG_TYPE_DEFAULT, "    transfer name: %@", buf, 0xCu);
                               }
 
-                              v219 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
+                              v240 = IMDTelephonyServiceLogHandle(v239);
+                              if (os_log_type_enabled(v240, OS_LOG_TYPE_DEFAULT))
                               {
                                 *buf = 138412290;
-                                *&buf[4] = v214;
-                                _os_log_impl(&dword_22B4CC000, v219, OS_LOG_TYPE_DEFAULT, "             guid: %@", buf, 0xCu);
+                                *&buf[4] = v232;
+                                _os_log_impl(&dword_22B4CC000, v240, OS_LOG_TYPE_DEFAULT, "             guid: %@", buf, 0xCu);
                               }
 
                               *buf = 0;
                               *&buf[8] = buf;
                               *&buf[16] = 0x3032000000;
-                              v611 = sub_22B4D7830;
-                              *v612 = sub_22B4D7980;
-                              *&v612[8] = 0;
-                              if (v214)
+                              v667 = sub_22B4D7830;
+                              *v668 = sub_22B4D7980;
+                              *&v668[8] = 0;
+                              if (v232)
                               {
                                 mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
                                 isRelayChatBotEnabled = [mEMORY[0x277D1A9B8] isRelayChatBotEnabled];
 
                                 if (richCardOriginalGuid)
                                 {
-                                  v222 = isRelayChatBotEnabled;
+                                  v243 = isRelayChatBotEnabled;
                                 }
 
                                 else
                                 {
-                                  v222 = 0;
+                                  v243 = 0;
                                 }
 
-                                if (v222 == 1)
+                                if (v243 == 1)
                                 {
-                                  [v493 setObject:v214 forKeyedSubscript:richCardOriginalGuid];
+                                  [v549 setObject:v232 forKeyedSubscript:richCardOriginalGuid];
                                 }
 
                                 defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-                                v224 = [defaultManager im_randomTemporaryFileURLWithFileName:lastPathComponent];
+                                v245 = [defaultManager im_randomTemporaryFileURLWithFileName:lastPathComponent];
 
-                                v225 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v225, OS_LOG_TYPE_DEFAULT))
+                                v247 = IMDTelephonyServiceLogHandle(v246);
+                                if (os_log_type_enabled(v247, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  *v595 = 138412290;
-                                  *v596 = v224;
-                                  _os_log_impl(&dword_22B4CC000, v225, OS_LOG_TYPE_DEFAULT, "  => Writing data to path: %@", v595, 0xCu);
+                                  *v651 = 138412290;
+                                  *v652 = v245;
+                                  _os_log_impl(&dword_22B4CC000, v247, OS_LOG_TYPE_DEFAULT, "  => Writing data to path: %@", v651, 0xCu);
                                 }
 
-                                v226 = v527;
-                                if (([contentData writeToURL:v224 atomically:1] & 1) == 0)
+                                v248 = v583;
+                                if (([contentData writeToURL:v245 atomically:1] & 1) == 0)
                                 {
-                                  v226 = v527;
+                                  v248 = v583;
                                   if (IMOSLoggingEnabled())
                                   {
-                                    v227 = OSLogHandleForIMFoundationCategory();
-                                    if (os_log_type_enabled(v227, OS_LOG_TYPE_INFO))
+                                    v249 = OSLogHandleForIMFoundationCategory();
+                                    if (os_log_type_enabled(v249, OS_LOG_TYPE_INFO))
                                     {
-                                      v228 = [contentData length];
-                                      *v595 = 67109378;
-                                      *v596 = v228;
-                                      *&v596[4] = 2112;
-                                      *&v596[6] = v224;
-                                      _os_log_impl(&dword_22B4CC000, v227, OS_LOG_TYPE_INFO, "Failed to write data of length: %d   to path: %@", v595, 0x12u);
+                                      v250 = [contentData length];
+                                      *v651 = 67109378;
+                                      *v652 = v250;
+                                      *&v652[4] = 2112;
+                                      *&v652[6] = v245;
+                                      _os_log_impl(&dword_22B4CC000, v249, OS_LOG_TYPE_INFO, "Failed to write data of length: %d   to path: %@", v651, 0x12u);
                                     }
 
-                                    v226 = v527;
+                                    v248 = v583;
                                   }
                                 }
 
@@ -5864,136 +7169,125 @@ LABEL_150:
                                 aBlock[1] = 3221225472;
                                 aBlock[2] = sub_22B6C77B4;
                                 aBlock[3] = &unk_2787082E8;
-                                v569 = oslog;
-                                v229 = v214;
-                                v570 = v229;
+                                v625 = oslog;
+                                v251 = v232;
+                                v626 = v251;
                                 selfCopy = self;
-                                v572 = v226;
-                                v574 = buf;
-                                v573 = v492;
-                                v230 = _Block_copy(aBlock);
+                                v628 = v248;
+                                v630 = buf;
+                                v629 = v548;
+                                v252 = _Block_copy(aBlock);
                                 if ([MEMORY[0x277D1A9A0] deviceIsLockedDown])
                                 {
                                   mEMORY[0x277D1ADE0] = [MEMORY[0x277D1ADE0] sharedInstance];
-                                  v564[0] = MEMORY[0x277D85DD0];
-                                  v564[1] = 3221225472;
-                                  v564[2] = sub_22B6C7C58;
-                                  v564[3] = &unk_278708310;
-                                  v565 = v229;
-                                  v232 = v224;
-                                  v566 = v232;
-                                  v567 = v230;
-                                  [mEMORY[0x277D1ADE0] generateSafeRender:v232 completionBlock:v564];
+                                  v620[0] = MEMORY[0x277D85DD0];
+                                  v620[1] = 3221225472;
+                                  v620[2] = sub_22B6C7C58;
+                                  v620[3] = &unk_278708310;
+                                  v621 = v251;
+                                  v254 = v245;
+                                  v622 = v254;
+                                  v623 = v252;
+                                  [mEMORY[0x277D1ADE0] generateSafeRender:v254 completionBlock:v620];
                                 }
 
                                 else
                                 {
-                                  (*(v230 + 2))(v230, 1, v224, 0);
+                                  (*(v252 + 2))(v252, 1, v245, 0);
                                 }
                               }
 
                               else if (IMOSLoggingEnabled())
                               {
-                                v233 = OSLogHandleForIMFoundationCategory();
-                                if (os_log_type_enabled(v233, OS_LOG_TYPE_INFO))
+                                v255 = OSLogHandleForIMFoundationCategory();
+                                if (os_log_type_enabled(v255, OS_LOG_TYPE_INFO))
                                 {
-                                  *v595 = 138412290;
-                                  *v596 = v97;
-                                  _os_log_impl(&dword_22B4CC000, v233, OS_LOG_TYPE_INFO, "Failed building file transfer guid for part: %@", v595, 0xCu);
+                                  *v651 = 138412290;
+                                  *v652 = v102;
+                                  _os_log_impl(&dword_22B4CC000, v255, OS_LOG_TYPE_INFO, "Failed building file transfer guid for part: %@", v651, 0xCu);
                                 }
                               }
 
                               if (*(*&buf[8] + 40))
                               {
-                                v234 = +[IMDMessageStore sharedInstance];
-                                v235 = [v234 messageWithGUID:v498];
+                                v256 = +[IMDMessageStore sharedInstance];
+                                v257 = [v256 messageWithGUID:v554];
 
-                                if ([(IMDTelephonyServiceSession *)self _allowedToGeneratePreviewForTransfer:*(*&buf[8] + 40) smsMessage:v526])
+                                if ([(IMDTelephonyServiceSession *)self _allowedToGeneratePreviewForTransfer:*(*&buf[8] + 40) smsMessage:v582])
                                 {
-                                  [(IMDTelephonyServiceSession *)self _generatePreviewForTransfer:*(*&buf[8] + 40) message:v235];
+                                  [(IMDTelephonyServiceSession *)self _generatePreviewForTransfer:*(*&buf[8] + 40) message:v257];
                                 }
 
                                 mEMORY[0x277D1A9B8]2 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
                                 isRelayChatBotEnabled2 = [mEMORY[0x277D1A9B8]2 isRelayChatBotEnabled];
                                 if (richCardOriginalGuid)
                                 {
-                                  v238 = isRelayChatBotEnabled2;
+                                  v260 = isRelayChatBotEnabled2;
                                 }
 
                                 else
                                 {
-                                  v238 = 0;
+                                  v260 = 0;
                                 }
 
-                                if ((v238 & 1) == 0)
+                                if ((v260 & 1) == 0)
                                 {
-                                  v239 = MEMORY[0x277CCA898];
+                                  v261 = MEMORY[0x277CCA898];
                                   guid = [*(*&buf[8] + 40) guid];
-                                  v603 = guid;
-                                  v241 = [MEMORY[0x277CBEA60] arrayWithObjects:&v603 count:1];
-                                  v242 = [v239 __im_attributedStringWithFileTransfers:v241];
-                                  __im_attributedStringByAssigningMessagePartNumbers2 = [v242 __im_attributedStringByAssigningMessagePartNumbers];
+                                  v659 = guid;
+                                  v263 = [MEMORY[0x277CBEA60] arrayWithObjects:&v659 count:1];
+                                  v264 = [v261 __im_attributedStringWithFileTransfers:v263];
+                                  __im_attributedStringByAssigningMessagePartNumbers2 = [v264 __im_attributedStringByAssigningMessagePartNumbers];
 
-                                  if ([v504 length])
+                                  if ([v560 length])
                                   {
-                                    [v528 setObject:__im_attributedStringByAssigningMessagePartNumbers2 forKey:v504];
+                                    [v584 setObject:__im_attributedStringByAssigningMessagePartNumbers2 forKey:v560];
                                   }
 
-                                  if ([v135 length])
+                                  if ([v148 length])
                                   {
-                                    [v533 setObject:__im_attributedStringByAssigningMessagePartNumbers2 forKey:v135];
+                                    [v589 setObject:__im_attributedStringByAssigningMessagePartNumbers2 forKey:v148];
                                   }
 
-                                  [v529 addObject:__im_attributedStringByAssigningMessagePartNumbers2];
+                                  [v585 addObject:__im_attributedStringByAssigningMessagePartNumbers2];
                                 }
 
-                                balloonBundleID = [v235 balloonBundleID];
-                                v245 = [balloonBundleID containsString:v487];
+                                balloonBundleID = [v257 balloonBundleID];
+                                v267 = [balloonBundleID containsString:v543];
 
-                                if (v245)
+                                if (v267)
                                 {
-                                  richLinkURLs = [v235 richLinkURLs];
+                                  richLinkURLs = [v257 richLinkURLs];
                                   lastObject = [richLinkURLs lastObject];
 
-                                  if (lastObject)
+                                  if (lastObject || (v270 = MEMORY[0x277CBEBC0], [v257 body], v271 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v271, "string"), v272 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v270, "URLWithString:", v272), lastObject = objc_claimAutoreleasedReturnValue(), v272, v271, lastObject))
                                   {
-                                    goto LABEL_263;
-                                  }
-
-                                  v248 = MEMORY[0x277CBEBC0];
-                                  body = [v235 body];
-                                  string = [body string];
-                                  lastObject = [v248 URLWithString:string];
-
-                                  if (lastObject)
-                                  {
-LABEL_263:
                                     mEMORY[0x277D1AC40] = [MEMORY[0x277D1AC40] sharedManager];
-                                    v563 = 0;
-                                    v562 = 0;
-                                    [mEMORY[0x277D1AC40] appNameAndBundleIDFoURL:lastObject outAppName:&v563 outBundleID:&v562];
-                                    v252 = v563;
-                                    v253 = v562;
+                                    v619 = 0;
+                                    v618 = 0;
+                                    [mEMORY[0x277D1AC40] appNameAndBundleIDFoURL:lastObject outAppName:&v619 outBundleID:&v618];
+                                    v275 = v619;
+                                    v276 = v618;
 
-                                    if ([v252 length])
+                                    if ([v275 length])
                                     {
-                                      [v235 setSwyAppName:v252];
+                                      [v257 setSwyAppName:v275];
                                     }
 
-                                    if ([v253 length])
+                                    if ([v276 length])
                                     {
-                                      [v235 setSwyBundleID:v253];
+                                      [v257 setSwyBundleID:v276];
                                     }
                                   }
 
                                   else
                                   {
-                                    lastObject = IMDTelephonyServiceLogHandle();
+                                    lastObject = IMDTelephonyServiceLogHandle(v273);
                                     if (os_log_type_enabled(lastObject, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      *v595 = 138412290;
-                                      *v596 = v498;
-                                      _os_log_impl(&dword_22B4CC000, lastObject, OS_LOG_TYPE_DEFAULT, "unable to extract URL for message identified as RichLink: %@", v595, 0xCu);
+                                      *v651 = 138412290;
+                                      *v652 = v554;
+                                      _os_log_impl(&dword_22B4CC000, lastObject, OS_LOG_TYPE_DEFAULT, "unable to extract URL for message identified as RichLink: %@", v651, 0xCu);
                                     }
                                   }
                                 }
@@ -6003,120 +7297,120 @@ LABEL_263:
 
                               break;
                             case 3:
-                              content10 = [v97 content];
+                              content10 = [v102 content];
                               attributedChipList = [content10 attributedChipList];
                               oslog = [attributedChipList chipList];
 
-                              v149 = [objc_alloc(MEMORY[0x277D1A928]) initWithDictionary:oslog];
-                              v150 = objc_alloc(MEMORY[0x277CCA898]);
-                              dictionaryRepresentation = [v149 dictionaryRepresentation];
-                              v152 = [v150 initWithString:v489 attributes:dictionaryRepresentation];
+                              v163 = [objc_alloc(MEMORY[0x277D1A928]) initWithDictionary:oslog];
+                              v164 = objc_alloc(MEMORY[0x277CCA898]);
+                              dictionaryRepresentation = [v163 dictionaryRepresentation];
+                              v166 = [v164 initWithString:v545 attributes:dictionaryRepresentation];
 
-                              if ([v152 length])
+                              if ([v166 length])
                               {
                                 if (IMOSLoggingEnabled())
                                 {
-                                  v153 = OSLogHandleForIMFoundationCategory();
-                                  if (os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
+                                  v167 = OSLogHandleForIMFoundationCategory();
+                                  if (os_log_type_enabled(v167, OS_LOG_TYPE_INFO))
                                   {
-                                    suggestedReplies = [v149 suggestedReplies];
-                                    v155 = [suggestedReplies count];
-                                    suggestedActions = [v149 suggestedActions];
-                                    v157 = [suggestedActions count];
+                                    suggestedReplies = [v163 suggestedReplies];
+                                    v169 = [suggestedReplies count];
+                                    suggestedActions = [v163 suggestedActions];
+                                    v171 = [suggestedActions count];
                                     *buf = 134218240;
-                                    *&buf[4] = v155;
+                                    *&buf[4] = v169;
                                     *&buf[12] = 2048;
-                                    *&buf[14] = v157;
-                                    _os_log_impl(&dword_22B4CC000, v153, OS_LOG_TYPE_INFO, "Received chiplist, suggested relies: %lu, actions: %lu", buf, 0x16u);
+                                    *&buf[14] = v171;
+                                    _os_log_impl(&dword_22B4CC000, v167, OS_LOG_TYPE_INFO, "Received chiplist, suggested relies: %lu, actions: %lu", buf, 0x16u);
                                   }
                                 }
 
-                                [v529 addObject:v152];
+                                [v585 addObject:v166];
                               }
 
                               else
                               {
-                                v206 = IMLogHandleForCategory();
-                                if (os_log_type_enabled(v206, OS_LOG_TYPE_ERROR))
+                                v222 = IMLogHandleForCategory();
+                                if (os_log_type_enabled(v222, OS_LOG_TYPE_ERROR))
                                 {
                                   *buf = 138412290;
                                   *&buf[4] = oslog;
-                                  _os_log_error_impl(&dword_22B4CC000, v206, OS_LOG_TYPE_ERROR, "Failed to read chiplist: %@", buf, 0xCu);
+                                  _os_log_error_impl(&dword_22B4CC000, v222, OS_LOG_TYPE_ERROR, "Failed to read chiplist: %@", buf, 0xCu);
                                 }
                               }
 
                               break;
                             case 4:
-                              content11 = [v97 content];
+                              content11 = [v102 content];
                               attributedRichCards = [content11 attributedRichCards];
                               oslog = [attributedRichCards richCards];
 
-                              v112 = [objc_alloc(MEMORY[0x277D1AB58]) initWithDictionary:oslog];
-                              v113 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v490 attributes:oslog];
-                              if ([v113 length])
+                              v122 = [objc_alloc(MEMORY[0x277D1AB58]) initWithDictionary:oslog];
+                              v123 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v546 attributes:oslog];
+                              if ([v123 length])
                               {
                                 if (IMOSLoggingEnabled())
                                 {
-                                  v114 = OSLogHandleForIMFoundationCategory();
-                                  if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
+                                  v124 = OSLogHandleForIMFoundationCategory();
+                                  if (os_log_type_enabled(v124, OS_LOG_TYPE_INFO))
                                   {
-                                    cards = [v112 cards];
-                                    v116 = [cards count];
+                                    cards = [v122 cards];
+                                    v126 = [cards count];
                                     *buf = 134217984;
-                                    *&buf[4] = v116;
-                                    _os_log_impl(&dword_22B4CC000, v114, OS_LOG_TYPE_INFO, "Received richcards, %lu cards", buf, 0xCu);
+                                    *&buf[4] = v126;
+                                    _os_log_impl(&dword_22B4CC000, v124, OS_LOG_TYPE_INFO, "Received richcards, %lu cards", buf, 0xCu);
                                   }
                                 }
 
-                                if ([v493 count])
+                                if ([v549 count])
                                 {
-                                  v590 = 0u;
-                                  v589 = 0u;
-                                  v588 = 0u;
-                                  v587 = 0u;
-                                  v117 = v493;
-                                  v118 = [v117 countByEnumeratingWithState:&v587 objects:v607 count:16];
-                                  if (v118)
+                                  v646 = 0u;
+                                  v645 = 0u;
+                                  v644 = 0u;
+                                  v643 = 0u;
+                                  v127 = v549;
+                                  v128 = [v127 countByEnumeratingWithState:&v643 objects:v663 count:16];
+                                  if (v128)
                                   {
-                                    v119 = *v588;
+                                    v129 = *v644;
                                     do
                                     {
-                                      v120 = 0;
-                                      v121 = v113;
+                                      v130 = 0;
+                                      v131 = v123;
                                       do
                                       {
-                                        if (*v588 != v119)
+                                        if (*v644 != v129)
                                         {
-                                          objc_enumerationMutation(v117);
+                                          objc_enumerationMutation(v127);
                                         }
 
-                                        v122 = *(*(&v587 + 1) + 8 * v120);
-                                        v123 = [v117 objectForKeyedSubscript:v122];
-                                        v113 = [v121 __im_attributedStringByReplacingRichCardGUID:v122 withUpdatedTransferGUID:v123];
+                                        v132 = *(*(&v643 + 1) + 8 * v130);
+                                        v133 = [v127 objectForKeyedSubscript:v132];
+                                        v123 = [v131 __im_attributedStringByReplacingRichCardGUID:v132 withUpdatedTransferGUID:v133];
 
-                                        ++v120;
-                                        v121 = v113;
+                                        ++v130;
+                                        v131 = v123;
                                       }
 
-                                      while (v118 != v120);
-                                      v118 = [v117 countByEnumeratingWithState:&v587 objects:v607 count:16];
+                                      while (v128 != v130);
+                                      v128 = [v127 countByEnumeratingWithState:&v643 objects:v663 count:16];
                                     }
 
-                                    while (v118);
+                                    while (v128);
                                   }
                                 }
 
-                                [v529 addObject:v113];
+                                [v585 addObject:v123];
                               }
 
                               else
                               {
-                                v205 = IMLogHandleForCategory();
-                                if (os_log_type_enabled(v205, OS_LOG_TYPE_ERROR))
+                                v221 = IMLogHandleForCategory();
+                                if (os_log_type_enabled(v221, OS_LOG_TYPE_ERROR))
                                 {
                                   *buf = 138412290;
                                   *&buf[4] = oslog;
-                                  _os_log_error_impl(&dword_22B4CC000, v205, OS_LOG_TYPE_ERROR, "Failed to read richcards: %@", buf, 0xCu);
+                                  _os_log_error_impl(&dword_22B4CC000, v221, OS_LOG_TYPE_ERROR, "Failed to read richcards: %@", buf, 0xCu);
                                 }
                               }
 
@@ -6128,338 +7422,348 @@ LABEL_263:
 
 LABEL_274:
 
-                        v95 = v499 + 1;
+                        v100 = v555 + 1;
                       }
 
-                      while (v499 + 1 != v497);
-                      v254 = [obj countByEnumeratingWithState:&v591 objects:v608 count:16];
-                      v497 = v254;
-                      if (!v254)
+                      while (v555 + 1 != v553);
+                      v99 = [obj countByEnumeratingWithState:&v647 objects:v664 count:16];
+                      v553 = v99;
+                      if (!v99)
                       {
 LABEL_281:
 
-                        v255 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT))
+                        v278 = IMDTelephonyServiceLogHandle(v277);
+                        if (os_log_type_enabled(v278, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 0;
-                          _os_log_impl(&dword_22B4CC000, v255, OS_LOG_TYPE_DEFAULT, "After parsing the SMS, we have:", buf, 2u);
+                          _os_log_impl(&dword_22B4CC000, v278, OS_LOG_TYPE_DEFAULT, "After parsing the SMS, we have:", buf, 2u);
                         }
 
-                        v256 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v256, OS_LOG_TYPE_DEFAULT))
+                        v280 = IMDTelephonyServiceLogHandle(v279);
+                        if (os_log_type_enabled(v280, OS_LOG_TYPE_DEFAULT))
                         {
-                          v257 = MarcoLoggingStringForMessageData();
+                          v281 = MarcoLoggingStringForMessageData();
                           *buf = 138412290;
-                          *&buf[4] = v257;
-                          _os_log_impl(&dword_22B4CC000, v256, OS_LOG_TYPE_DEFAULT, "  orderedParts = %@", buf, 0xCu);
+                          *&buf[4] = v281;
+                          _os_log_impl(&dword_22B4CC000, v280, OS_LOG_TYPE_DEFAULT, "  orderedParts = %@", buf, 0xCu);
                         }
 
-                        v258 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v258, OS_LOG_TYPE_DEFAULT))
+                        v283 = IMDTelephonyServiceLogHandle(v282);
+                        if (os_log_type_enabled(v283, OS_LOG_TYPE_DEFAULT))
                         {
-                          v259 = MarcoLoggingStringForMessageData();
+                          v284 = MarcoLoggingStringForMessageData();
                           *buf = 138412290;
-                          *&buf[4] = v259;
-                          _os_log_impl(&dword_22B4CC000, v258, OS_LOG_TYPE_DEFAULT, "  contentIDToParts = %@", buf, 0xCu);
+                          *&buf[4] = v284;
+                          _os_log_impl(&dword_22B4CC000, v283, OS_LOG_TYPE_DEFAULT, "  contentIDToParts = %@", buf, 0xCu);
                         }
 
-                        v260 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v260, OS_LOG_TYPE_DEFAULT))
+                        v286 = IMDTelephonyServiceLogHandle(v285);
+                        if (os_log_type_enabled(v286, OS_LOG_TYPE_DEFAULT))
                         {
-                          v261 = MarcoLoggingStringForMessageData();
+                          v287 = MarcoLoggingStringForMessageData();
                           *buf = 138412290;
-                          *&buf[4] = v261;
-                          _os_log_impl(&dword_22B4CC000, v260, OS_LOG_TYPE_DEFAULT, "  contentLocToParts = %@", buf, 0xCu);
+                          *&buf[4] = v287;
+                          _os_log_impl(&dword_22B4CC000, v286, OS_LOG_TYPE_DEFAULT, "  contentLocToParts = %@", buf, 0xCu);
                         }
 
-                        v262 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v262, OS_LOG_TYPE_DEFAULT))
+                        v289 = IMDTelephonyServiceLogHandle(v288);
+                        if (os_log_type_enabled(v289, OS_LOG_TYPE_DEFAULT))
                         {
-                          v263 = MarcoLoggingStringForMessageData();
+                          v290 = MarcoLoggingStringForMessageData();
                           *buf = 138412290;
-                          *&buf[4] = v263;
-                          _os_log_impl(&dword_22B4CC000, v262, OS_LOG_TYPE_DEFAULT, "  allParts = %@", buf, 0xCu);
+                          *&buf[4] = v290;
+                          _os_log_impl(&dword_22B4CC000, v289, OS_LOG_TYPE_DEFAULT, "  allParts = %@", buf, 0xCu);
                         }
 
-                        v264 = objc_alloc_init(MEMORY[0x277CCAB48]);
-                        if ([v494 count])
+                        v291 = objc_alloc_init(MEMORY[0x277CCAB48]);
+                        if ([v550 count])
                         {
-                          v560 = 0u;
-                          v561 = 0u;
-                          v558 = 0u;
-                          v559 = 0u;
-                          v513 = v494;
-                          cf1b = [v513 countByEnumeratingWithState:&v558 objects:v602 count:16];
-                          if (cf1b)
+                          v616 = 0u;
+                          v617 = 0u;
+                          v614 = 0u;
+                          v615 = 0u;
+                          v569 = v550;
+                          v292 = [v569 countByEnumeratingWithState:&v614 objects:v658 count:16];
+                          cf1b = v292;
+                          if (v292)
                           {
-                            v516 = *v559;
+                            v572 = *v615;
                             do
                             {
-                              v265 = 0;
+                              v293 = 0;
                               do
                               {
-                                if (*v559 != v516)
+                                if (*v615 != v572)
                                 {
-                                  v266 = v265;
-                                  objc_enumerationMutation(v513);
-                                  v265 = v266;
+                                  v294 = v293;
+                                  objc_enumerationMutation(v569);
+                                  v293 = v294;
                                 }
 
-                                v524 = v265;
-                                v267 = *(*(&v558 + 1) + 8 * v265);
-                                v268 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v268, OS_LOG_TYPE_DEFAULT))
+                                v580 = v293;
+                                v295 = *(*(&v614 + 1) + 8 * v293);
+                                v296 = IMDTelephonyServiceLogHandle(v292);
+                                if (os_log_type_enabled(v296, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  v269 = MarcoLoggingStringForMessageData();
+                                  v297 = MarcoLoggingStringForMessageData();
                                   *buf = 138412290;
-                                  *&buf[4] = v269;
-                                  _os_log_impl(&dword_22B4CC000, v268, OS_LOG_TYPE_DEFAULT, "Examining part %@", buf, 0xCu);
+                                  *&buf[4] = v297;
+                                  _os_log_impl(&dword_22B4CC000, v296, OS_LOG_TYPE_DEFAULT, "Examining part %@", buf, 0xCu);
                                 }
 
-                                v556 = 0u;
-                                v557 = 0u;
-                                v554 = 0u;
-                                v555 = 0u;
-                                attachmentParts2 = [v267 attachmentParts];
-                                v271 = [attachmentParts2 countByEnumeratingWithState:&v554 objects:v601 count:16];
-                                if (v271)
+                                v612 = 0u;
+                                v613 = 0u;
+                                v610 = 0u;
+                                v611 = 0u;
+                                attachmentParts2 = [v295 attachmentParts];
+                                v299 = [attachmentParts2 countByEnumeratingWithState:&v610 objects:v657 count:16];
+                                v300 = v299;
+                                if (v299)
                                 {
-                                  v272 = *v555;
+                                  v301 = *v611;
                                   do
                                   {
-                                    v273 = 0;
+                                    v302 = 0;
                                     do
                                     {
-                                      if (*v555 != v272)
+                                      if (*v611 != v301)
                                       {
                                         objc_enumerationMutation(attachmentParts2);
                                       }
 
-                                      v274 = *(*(&v554 + 1) + 8 * v273);
-                                      v275 = IMDTelephonyServiceLogHandle();
-                                      if (os_log_type_enabled(v275, OS_LOG_TYPE_DEFAULT))
+                                      v303 = *(*(&v610 + 1) + 8 * v302);
+                                      v304 = IMDTelephonyServiceLogHandle(v299);
+                                      if (os_log_type_enabled(v304, OS_LOG_TYPE_DEFAULT))
                                       {
                                         *buf = 138412290;
-                                        *&buf[4] = v274;
-                                        _os_log_impl(&dword_22B4CC000, v275, OS_LOG_TYPE_DEFAULT, " Found attachmentPart %@", buf, 0xCu);
+                                        *&buf[4] = v303;
+                                        _os_log_impl(&dword_22B4CC000, v304, OS_LOG_TYPE_DEFAULT, " Found attachmentPart %@", buf, 0xCu);
                                       }
 
-                                      contentLocation5 = [v274 contentLocation];
-                                      v277 = [v533 objectForKey:contentLocation5];
+                                      contentLocation5 = [v303 contentLocation];
+                                      v306 = [v589 objectForKey:contentLocation5];
 
-                                      if (v277 || ([v274 contentLocation], v278 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v528, "objectForKey:", v278), v277 = objc_claimAutoreleasedReturnValue(), v278, v277))
+                                      if (v306 || ([v303 contentLocation], v307 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v584, "objectForKey:", v307), v306 = objc_claimAutoreleasedReturnValue(), v307, v306))
                                       {
-                                        [v264 appendAttributedString:v277];
-                                        [v529 removeObjectIdenticalTo:v277];
+                                        [v291 appendAttributedString:v306];
+                                        [v585 removeObjectIdenticalTo:v306];
                                       }
 
                                       else
                                       {
-                                        v277 = IMDTelephonyServiceLogHandle();
-                                        if (os_log_type_enabled(v277, OS_LOG_TYPE_DEFAULT))
+                                        v306 = IMDTelephonyServiceLogHandle(v308);
+                                        if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
                                         {
                                           *buf = 0;
-                                          _os_log_impl(&dword_22B4CC000, v277, OS_LOG_TYPE_DEFAULT, " Did not find attachment's attributed string!", buf, 2u);
+                                          _os_log_impl(&dword_22B4CC000, v306, OS_LOG_TYPE_DEFAULT, " Did not find attachment's attributed string!", buf, 2u);
                                         }
                                       }
 
-                                      ++v273;
+                                      ++v302;
                                     }
 
-                                    while (v271 != v273);
-                                    v279 = [attachmentParts2 countByEnumeratingWithState:&v554 objects:v601 count:16];
-                                    v271 = v279;
+                                    while (v300 != v302);
+                                    v299 = [attachmentParts2 countByEnumeratingWithState:&v610 objects:v657 count:16];
+                                    v300 = v299;
                                   }
 
-                                  while (v279);
+                                  while (v299);
                                 }
 
-                                v552 = 0u;
-                                v553 = 0u;
-                                v550 = 0u;
-                                v551 = 0u;
-                                textParts2 = [v267 textParts];
-                                v281 = [textParts2 countByEnumeratingWithState:&v550 objects:v600 count:16];
-                                if (v281)
+                                v608 = 0u;
+                                v609 = 0u;
+                                v606 = 0u;
+                                v607 = 0u;
+                                textParts2 = [v295 textParts];
+                                v310 = [textParts2 countByEnumeratingWithState:&v606 objects:v656 count:16];
+                                v311 = v310;
+                                if (v310)
                                 {
-                                  v282 = *v551;
+                                  v312 = *v607;
                                   do
                                   {
-                                    v283 = 0;
+                                    v313 = 0;
                                     do
                                     {
-                                      if (*v551 != v282)
+                                      if (*v607 != v312)
                                       {
                                         objc_enumerationMutation(textParts2);
                                       }
 
-                                      v284 = *(*(&v550 + 1) + 8 * v283);
-                                      v285 = IMDTelephonyServiceLogHandle();
-                                      if (os_log_type_enabled(v285, OS_LOG_TYPE_DEFAULT))
+                                      v314 = *(*(&v606 + 1) + 8 * v313);
+                                      v315 = IMDTelephonyServiceLogHandle(v310);
+                                      if (os_log_type_enabled(v315, OS_LOG_TYPE_DEFAULT))
                                       {
-                                        v286 = MarcoLoggingStringForMessageData();
+                                        v316 = MarcoLoggingStringForMessageData();
                                         *buf = 138412290;
-                                        *&buf[4] = v286;
-                                        _os_log_impl(&dword_22B4CC000, v285, OS_LOG_TYPE_DEFAULT, " Found textPart %@", buf, 0xCu);
+                                        *&buf[4] = v316;
+                                        _os_log_impl(&dword_22B4CC000, v315, OS_LOG_TYPE_DEFAULT, " Found textPart %@", buf, 0xCu);
                                       }
 
-                                      contentLocation6 = [v284 contentLocation];
-                                      v288 = [v533 objectForKey:contentLocation6];
+                                      contentLocation6 = [v314 contentLocation];
+                                      v318 = [v589 objectForKey:contentLocation6];
 
-                                      if (v288 || ([v284 contentLocation], v289 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v528, "objectForKey:", v289), v288 = objc_claimAutoreleasedReturnValue(), v289, v288))
+                                      if (v318 || ([v314 contentLocation], v320 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v584, "objectForKey:", v320), v318 = objc_claimAutoreleasedReturnValue(), v320, v318))
                                       {
-                                        v290 = IMDTelephonyServiceLogHandle();
-                                        if (os_log_type_enabled(v290, OS_LOG_TYPE_DEFAULT))
+                                        v321 = IMDTelephonyServiceLogHandle(v319);
+                                        if (os_log_type_enabled(v321, OS_LOG_TYPE_DEFAULT))
                                         {
-                                          v291 = MarcoLoggingStringForMessageData();
+                                          v322 = MarcoLoggingStringForMessageData();
                                           *buf = 138412290;
-                                          *&buf[4] = v291;
-                                          _os_log_impl(&dword_22B4CC000, v290, OS_LOG_TYPE_DEFAULT, " Appending text %@", buf, 0xCu);
+                                          *&buf[4] = v322;
+                                          _os_log_impl(&dword_22B4CC000, v321, OS_LOG_TYPE_DEFAULT, " Appending text %@", buf, 0xCu);
                                         }
 
-                                        [v264 appendAttributedString:v288];
-                                        [v529 removeObjectIdenticalTo:v288];
+                                        [v291 appendAttributedString:v318];
+                                        [v585 removeObjectIdenticalTo:v318];
                                       }
 
                                       else
                                       {
-                                        v288 = IMDTelephonyServiceLogHandle();
-                                        if (os_log_type_enabled(v288, OS_LOG_TYPE_DEFAULT))
+                                        v318 = IMDTelephonyServiceLogHandle(v319);
+                                        if (os_log_type_enabled(v318, OS_LOG_TYPE_DEFAULT))
                                         {
                                           *buf = 0;
-                                          _os_log_impl(&dword_22B4CC000, v288, OS_LOG_TYPE_DEFAULT, " Did not find textPart's attributed string!", buf, 2u);
+                                          _os_log_impl(&dword_22B4CC000, v318, OS_LOG_TYPE_DEFAULT, " Did not find textPart's attributed string!", buf, 2u);
                                         }
                                       }
 
-                                      text2 = [v284 text];
-                                      if ([text2 length])
+                                      text2 = [v314 text];
+                                      v324 = [text2 length];
+                                      if (v324)
                                       {
-                                        v293 = IMDTelephonyServiceLogHandle();
-                                        if (os_log_type_enabled(v293, OS_LOG_TYPE_DEFAULT))
+                                        v325 = IMDTelephonyServiceLogHandle(v324);
+                                        if (os_log_type_enabled(v325, OS_LOG_TYPE_DEFAULT))
                                         {
-                                          v294 = MarcoLoggingStringForMessageData();
+                                          v326 = MarcoLoggingStringForMessageData();
                                           *buf = 138412290;
-                                          *&buf[4] = v294;
-                                          _os_log_impl(&dword_22B4CC000, v293, OS_LOG_TYPE_DEFAULT, " Found embedded text %@", buf, 0xCu);
+                                          *&buf[4] = v326;
+                                          _os_log_impl(&dword_22B4CC000, v325, OS_LOG_TYPE_DEFAULT, " Found embedded text %@", buf, 0xCu);
                                         }
 
-                                        v295 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:text2];
-                                        [v264 appendAttributedString:v295];
+                                        v327 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:text2];
+                                        [v291 appendAttributedString:v327];
                                       }
 
-                                      ++v283;
+                                      ++v313;
                                     }
 
-                                    while (v281 != v283);
-                                    v296 = [textParts2 countByEnumeratingWithState:&v550 objects:v600 count:16];
-                                    v281 = v296;
+                                    while (v311 != v313);
+                                    v310 = [textParts2 countByEnumeratingWithState:&v606 objects:v656 count:16];
+                                    v311 = v310;
                                   }
 
-                                  while (v296);
+                                  while (v310);
                                 }
 
-                                v265 = v524 + 1;
+                                v293 = v580 + 1;
                               }
 
-                              while ((v524 + 1) != cf1b);
-                              cf1b = [v513 countByEnumeratingWithState:&v558 objects:v602 count:16];
+                              while ((v580 + 1) != cf1b);
+                              v292 = [v569 countByEnumeratingWithState:&v614 objects:v658 count:16];
+                              cf1b = v292;
                             }
 
-                            while (cf1b);
+                            while (v292);
                           }
                         }
 
-                        v548 = 0u;
-                        v549 = 0u;
-                        v546 = 0u;
-                        v547 = 0u;
-                        v530 = v529;
-                        v297 = [v530 countByEnumeratingWithState:&v546 objects:v599 count:16];
-                        if (v297)
+                        v604 = 0u;
+                        v605 = 0u;
+                        v602 = 0u;
+                        v603 = 0u;
+                        v586 = v585;
+                        v328 = [v586 countByEnumeratingWithState:&v602 objects:v655 count:16];
+                        v329 = v328;
+                        if (v328)
                         {
-                          v298 = *v547;
+                          v330 = *v603;
                           do
                           {
-                            for (k = 0; k != v297; ++k)
+                            v331 = 0;
+                            do
                             {
-                              if (*v547 != v298)
+                              if (*v603 != v330)
                               {
-                                objc_enumerationMutation(v530);
+                                objc_enumerationMutation(v586);
                               }
 
-                              v300 = *(*(&v546 + 1) + 8 * k);
-                              v301 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v301, OS_LOG_TYPE_DEFAULT))
+                              v332 = *(*(&v602 + 1) + 8 * v331);
+                              v333 = IMDTelephonyServiceLogHandle(v328);
+                              if (os_log_type_enabled(v333, OS_LOG_TYPE_DEFAULT))
                               {
-                                v302 = MarcoLoggingStringForMessageData();
+                                v334 = MarcoLoggingStringForMessageData();
                                 *buf = 138412290;
-                                *&buf[4] = v302;
-                                _os_log_impl(&dword_22B4CC000, v301, OS_LOG_TYPE_DEFAULT, "Found unordered part: %@", buf, 0xCu);
+                                *&buf[4] = v334;
+                                _os_log_impl(&dword_22B4CC000, v333, OS_LOG_TYPE_DEFAULT, "Found unordered part: %@", buf, 0xCu);
                               }
 
-                              [v264 appendAttributedString:v300];
+                              v328 = [v291 appendAttributedString:v332];
+                              ++v331;
                             }
 
-                            v297 = [v530 countByEnumeratingWithState:&v546 objects:v599 count:16];
+                            while (v329 != v331);
+                            v328 = [v586 countByEnumeratingWithState:&v602 objects:v655 count:16];
+                            v329 = v328;
                           }
 
-                          while (v297);
+                          while (v328);
                         }
 
-                        if ([v264 length])
+                        if ([v291 length])
                         {
                           newlineCharacterSet2 = [MEMORY[0x277CCA900] newlineCharacterSet];
-                          string2 = [v264 string];
-                          v305 = [newlineCharacterSet2 characterIsMember:{objc_msgSend(string2, "characterAtIndex:", objc_msgSend(v264, "length") - 1)}];
+                          string = [v291 string];
+                          v337 = [newlineCharacterSet2 characterIsMember:{objc_msgSend(string, "characterAtIndex:", objc_msgSend(v291, "length") - 1)}];
 
-                          if (v305)
+                          if (v337)
                           {
-                            v306 = IMDTelephonyServiceLogHandle();
-                            if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
+                            v339 = IMDTelephonyServiceLogHandle(v338);
+                            if (os_log_type_enabled(v339, OS_LOG_TYPE_DEFAULT))
                             {
                               *buf = 0;
-                              _os_log_impl(&dword_22B4CC000, v306, OS_LOG_TYPE_DEFAULT, "  * Trimming trailing newline", buf, 2u);
+                              _os_log_impl(&dword_22B4CC000, v339, OS_LOG_TYPE_DEFAULT, "  * Trimming trailing newline", buf, 2u);
                             }
 
-                            v307 = -1;
+                            v340 = -1;
                             goto LABEL_352;
                           }
 
-                          if ([v264 __im_hasChipList])
+                          if ([v291 __im_hasChipList])
                           {
-                            if ([v264 length] >= 2)
+                            if ([v291 length] >= 2)
                             {
                               newlineCharacterSet3 = [MEMORY[0x277CCA900] newlineCharacterSet];
-                              string3 = [v264 string];
-                              v310 = [newlineCharacterSet3 characterIsMember:{objc_msgSend(string3, "characterAtIndex:", objc_msgSend(v264, "length") - 2)}];
+                              string2 = [v291 string];
+                              v343 = [newlineCharacterSet3 characterIsMember:{objc_msgSend(string2, "characterAtIndex:", objc_msgSend(v291, "length") - 2)}];
 
-                              if (v310)
+                              if (v343)
                               {
                                 mEMORY[0x277D1A9B8]3 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
                                 isRelayChatBotEnabled3 = [mEMORY[0x277D1A9B8]3 isRelayChatBotEnabled];
 
                                 if (isRelayChatBotEnabled3)
                                 {
-                                  v306 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
+                                  v339 = IMDTelephonyServiceLogHandle(v346);
+                                  if (os_log_type_enabled(v339, OS_LOG_TYPE_DEFAULT))
                                   {
                                     *buf = 0;
-                                    _os_log_impl(&dword_22B4CC000, v306, OS_LOG_TYPE_DEFAULT, "  * Trimming trailing newline for chat bot rich contents", buf, 2u);
+                                    _os_log_impl(&dword_22B4CC000, v339, OS_LOG_TYPE_DEFAULT, "  * Trimming trailing newline for chat bot rich contents", buf, 2u);
                                   }
 
-                                  v307 = -2;
+                                  v340 = -2;
 LABEL_352:
 
-                                  [v264 deleteCharactersInRange:{objc_msgSend(v264, "length") + v307, 1}];
+                                  [v291 deleteCharactersInRange:{objc_msgSend(v291, "length") + v340, 1}];
                                 }
                               }
                             }
                           }
                         }
 
-                        v313 = [v264 length];
-                        [v264 removeAttribute:*MEMORY[0x277D19160] range:{0, v313}];
-                        __im_attributedStringByAssigningMessagePartNumbers3 = [v264 __im_attributedStringByAssigningMessagePartNumbers];
+                        v347 = [v291 length];
+                        [v291 removeAttribute:*MEMORY[0x277D19160] range:{0, v347}];
+                        __im_attributedStringByAssigningMessagePartNumbers3 = [v291 __im_attributedStringByAssigningMessagePartNumbers];
                         osloga = [__im_attributedStringByAssigningMessagePartNumbers3 mutableCopy];
 
                         if (IMSharedHelperDeviceIsAltAccount())
@@ -6477,8 +7781,8 @@ LABEL_352:
                           mEMORY[0x277D1A908] = [MEMORY[0x277D07DB0] sharedInstance];
                           ctPhoneNumber = [mEMORY[0x277D1A908] telephoneNumber];
 LABEL_364:
-                          v318 = ctPhoneNumber;
-                          countryCode5 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
+                          v352 = ctPhoneNumber;
+                          countryCode5 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
                           cf1c = IMPhoneNumberRefCopyForPhoneNumber();
                         }
 
@@ -6487,325 +7791,335 @@ LABEL_364:
                           cf1c = 0;
                         }
 
-                        if (!-[NSObject length](osloga, "length") && ![v492 count])
+                        if (!-[NSObject length](osloga, "length") && ![v548 count])
                         {
-                          v320 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:@" " attributes:0];
+                          v354 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:@" " attributes:0];
 
-                          osloga = v320;
+                          osloga = v354;
                         }
 
                         *buf = 0;
                         *&buf[8] = buf;
                         *&buf[16] = 0x3032000000;
-                        v611 = sub_22B4D7830;
-                        *v612 = sub_22B4D7980;
-                        v321 = objc_alloc(MEMORY[0x277D1AA70]);
-                        sender18 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-                        date = [v526 date];
-                        v324 = _ClampDate(date);
-                        v325 = [v492 arrayByApplyingSelector:sel_guid];
-                        *&v612[8] = [v321 initWithSender:sender18 time:v324 body:osloga attributes:0 fileTransferGUIDs:v325 flags:1 error:0 guid:v498 threadIdentifier:0];
+                        v667 = sub_22B4D7830;
+                        *v668 = sub_22B4D7980;
+                        v355 = objc_alloc(MEMORY[0x277D1AA70]);
+                        sender18 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+                        date = [v582 date];
+                        v358 = _ClampDate(date);
+                        v359 = [v548 arrayByApplyingSelector:sel_guid];
+                        *&v668[8] = [v355 initWithSender:sender18 time:v358 body:osloga attributes:0 fileTransferGUIDs:v359 flags:1 error:0 guid:v554 threadIdentifier:0];
 
-                        v326 = *(*&buf[8] + 40);
-                        destinationCallerID = [(IMDTelephonyIncomingMessageContext *)v527 destinationCallerID];
-                        [v326 setDestinationCallerID:destinationCallerID];
+                        v360 = *(*&buf[8] + 40);
+                        destinationCallerID = [(IMDTelephonyIncomingMessageContext *)v583 destinationCallerID];
+                        [v360 setDestinationCallerID:destinationCallerID];
 
-                        [(IMDServiceSession *)self _markFromStorageIfNeeded:contextCopy messageGUID:v498];
-                        v328 = *(*&buf[8] + 40);
+                        [(IMDServiceSession *)self _markFromStorageIfNeeded:contextCopy messageGUID:v554];
+                        v362 = *(*&buf[8] + 40);
                         accountID = [(IMDServiceSession *)self accountID];
-                        [v328 setAccountID:accountID];
+                        [v362 setAccountID:accountID];
 
-                        v330 = *(*&buf[8] + 40);
-                        subject = [v526 subject];
-                        [v330 setSubject:subject];
+                        v364 = *(*&buf[8] + 40);
+                        subject = [v582 subject];
+                        [v364 setSubject:subject];
 
                         [*(*&buf[8] + 40) setReplaceID:replaceMessage];
-                        fallbackHash = [v526 fallbackHash];
-                        if ([v491 length])
+                        fallbackHash = [v582 fallbackHash];
+                        if ([v547 length])
                         {
                           service3 = [(IMDServiceSession *)self service];
                           fallbackHashIsContentBased = [service3 fallbackHashIsContentBased];
 
                           if (fallbackHashIsContentBased)
                           {
-                            v598 = v491;
-                            v334 = [MEMORY[0x277CBEA60] arrayWithObjects:&v598 count:1];
-                            sHA256HexString = [v334 SHA256HexString];
+                            v654 = v547;
+                            v368 = [MEMORY[0x277CBEA60] arrayWithObjects:&v654 count:1];
+                            sHA256HexString = [v368 SHA256HexString];
 
-                            v336 = MEMORY[0x277CCACA8];
-                            fallbackHash2 = [v526 fallbackHash];
-                            v335 = [v336 stringWithFormat:@"%@<%@>", fallbackHash2, sHA256HexString];
+                            v370 = MEMORY[0x277CCACA8];
+                            fallbackHash2 = [v582 fallbackHash];
+                            v369 = [v370 stringWithFormat:@"%@<%@>", fallbackHash2, sHA256HexString];
 
-                            fallbackHash = v335;
+                            fallbackHash = v369;
                           }
                         }
 
-                        [*(*&buf[8] + 40) setFallbackHash:fallbackHash];
-                        v339 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v339, OS_LOG_TYPE_DEFAULT))
+                        v373 = IMDTelephonyServiceLogHandle([*(*&buf[8] + 40) setFallbackHash:fallbackHash]);
+                        if (os_log_type_enabled(v373, OS_LOG_TYPE_DEFAULT))
                         {
                           fallbackHash3 = [*(*&buf[8] + 40) fallbackHash];
-                          v341 = [fallbackHash3 length];
-                          *v595 = 134217984;
-                          *v596 = v341;
-                          _os_log_impl(&dword_22B4CC000, v339, OS_LOG_TYPE_DEFAULT, " => Fallback hash length: %llu", v595, 0xCu);
+                          v375 = [fallbackHash3 length];
+                          *v651 = 134217984;
+                          *v652 = v375;
+                          _os_log_impl(&dword_22B4CC000, v373, OS_LOG_TYPE_DEFAULT, " => Fallback hash length: %llu", v651, 0xCu);
                         }
 
-                        sender19 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-                        string4 = [osloga string];
-                        HSAAuthenticationProcessIncomingMessage();
+                        sender19 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+                        string3 = [osloga string];
+                        v378 = HSAAuthenticationProcessIncomingMessage();
                         if (sender19)
                         {
                           CFRelease(sender19);
                         }
 
-                        if (string4)
+                        if (string3)
                         {
-                          CFRelease(string4);
+                          CFRelease(string3);
                         }
 
-                        v344 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v344, OS_LOG_TYPE_DEFAULT))
+                        v379 = IMDTelephonyServiceLogHandle(v378);
+                        if (os_log_type_enabled(v379, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v595 = 138412290;
-                          *v596 = v492;
-                          _os_log_impl(&dword_22B4CC000, v344, OS_LOG_TYPE_DEFAULT, " => Transfers: %@", v595, 0xCu);
+                          *v651 = 138412290;
+                          *v652 = v548;
+                          _os_log_impl(&dword_22B4CC000, v379, OS_LOG_TYPE_DEFAULT, " => Transfers: %@", v651, 0xCu);
                         }
 
-                        v345 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v345, OS_LOG_TYPE_DEFAULT))
+                        v381 = IMDTelephonyServiceLogHandle(v380);
+                        if (os_log_type_enabled(v381, OS_LOG_TYPE_DEFAULT))
                         {
-                          v346 = MarcoLoggingStringForMessageData();
-                          *v595 = 138412290;
-                          *v596 = v346;
-                          _os_log_impl(&dword_22B4CC000, v345, OS_LOG_TYPE_DEFAULT, " => Ordered parts: %@", v595, 0xCu);
+                          v382 = MarcoLoggingStringForMessageData();
+                          *v651 = 138412290;
+                          *v652 = v382;
+                          _os_log_impl(&dword_22B4CC000, v381, OS_LOG_TYPE_DEFAULT, " => Ordered parts: %@", v651, 0xCu);
                         }
 
-                        v347 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v347, OS_LOG_TYPE_DEFAULT))
+                        v384 = IMDTelephonyServiceLogHandle(v383);
+                        if (os_log_type_enabled(v384, OS_LOG_TYPE_DEFAULT))
                         {
-                          v348 = *(*&buf[8] + 40);
-                          *v595 = 138412290;
-                          *v596 = v348;
-                          _os_log_impl(&dword_22B4CC000, v347, OS_LOG_TYPE_DEFAULT, " => Result message: %@", v595, 0xCu);
+                          v385 = *(*&buf[8] + 40);
+                          *v651 = 138412290;
+                          *v652 = v385;
+                          _os_log_impl(&dword_22B4CC000, v384, OS_LOG_TYPE_DEFAULT, " => Result message: %@", v651, 0xCu);
                         }
 
-                        [(IMDTelephonyIncomingMessageContext *)v527 setStyle:45];
-                        v349 = MEMORY[0x277D1A8F8];
-                        myNumberString = [(IMDTelephonyIncomingMessageContext *)v527 myNumberString];
-                        mySIMIDString = [(IMDTelephonyIncomingMessageContext *)v527 mySIMIDString];
-                        v525 = [v349 IMMMSEmailAddressToMatchForPhoneNumber:myNumberString simID:mySIMIDString];
+                        [(IMDTelephonyIncomingMessageContext *)v583 setStyle:45];
+                        v386 = MEMORY[0x277D1A8F8];
+                        myNumberString = [(IMDTelephonyIncomingMessageContext *)v583 myNumberString];
+                        mySIMIDString = [(IMDTelephonyIncomingMessageContext *)v583 mySIMIDString];
+                        v581 = [v386 IMMMSEmailAddressToMatchForPhoneNumber:myNumberString simID:mySIMIDString];
 
-                        v352 = MEMORY[0x277D1A8F8];
-                        myNumberString2 = [(IMDTelephonyIncomingMessageContext *)v527 myNumberString];
-                        mySIMIDString2 = [(IMDTelephonyIncomingMessageContext *)v527 mySIMIDString];
-                        v505 = [v352 IMCountryCodeForPhoneNumber:myNumberString2 simID:mySIMIDString2];
+                        v389 = MEMORY[0x277D1A8F8];
+                        myNumberString2 = [(IMDTelephonyIncomingMessageContext *)v583 myNumberString];
+                        mySIMIDString2 = [(IMDTelephonyIncomingMessageContext *)v583 mySIMIDString];
+                        v561 = [v389 IMCountryCodeForPhoneNumber:myNumberString2 simID:mySIMIDString2];
 
-                        v355 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v355, OS_LOG_TYPE_DEFAULT))
+                        v393 = IMDTelephonyServiceLogHandle(v392);
+                        if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
                         {
-                          isGroupMessagingEnabled = [(IMDTelephonyIncomingMessageContext *)v527 isGroupMessagingEnabled];
-                          *v595 = 67109120;
-                          *v596 = isGroupMessagingEnabled;
-                          _os_log_impl(&dword_22B4CC000, v355, OS_LOG_TYPE_DEFAULT, "Group Messaging Enabled: %{BOOL}d", v595, 8u);
+                          isGroupMessagingEnabled = [(IMDTelephonyIncomingMessageContext *)v583 isGroupMessagingEnabled];
+                          *v651 = 67109120;
+                          *v652 = isGroupMessagingEnabled;
+                          _os_log_impl(&dword_22B4CC000, v393, OS_LOG_TYPE_DEFAULT, "Group Messaging Enabled: %{BOOL}d", v651, 8u);
                         }
 
-                        v357 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v357, OS_LOG_TYPE_DEFAULT))
+                        v396 = IMDTelephonyServiceLogHandle(v395);
+                        if (os_log_type_enabled(v396, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v595 = 138412290;
-                          *v596 = cf1c;
-                          _os_log_impl(&dword_22B4CC000, v357, OS_LOG_TYPE_DEFAULT, "My number: %@", v595, 0xCu);
+                          *v651 = 138412290;
+                          *v652 = cf1c;
+                          _os_log_impl(&dword_22B4CC000, v396, OS_LOG_TYPE_DEFAULT, "My number: %@", v651, 0xCu);
                         }
 
-                        v358 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+                        v398 = IMDTelephonyServiceLogHandle(v397);
+                        if (os_log_type_enabled(v398, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v595 = 138412290;
-                          *v596 = v525;
-                          _os_log_impl(&dword_22B4CC000, v358, OS_LOG_TYPE_DEFAULT, "My email: %@", v595, 0xCu);
+                          *v651 = 138412290;
+                          *v652 = v581;
+                          _os_log_impl(&dword_22B4CC000, v398, OS_LOG_TYPE_DEFAULT, "My email: %@", v651, 0xCu);
                         }
 
-                        v359 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v359, OS_LOG_TYPE_DEFAULT))
+                        v400 = IMDTelephonyServiceLogHandle(v399);
+                        if (os_log_type_enabled(v400, OS_LOG_TYPE_DEFAULT))
                         {
-                          mySIMIDString3 = [(IMDTelephonyIncomingMessageContext *)v527 mySIMIDString];
-                          *v595 = 138412290;
-                          *v596 = mySIMIDString3;
-                          _os_log_impl(&dword_22B4CC000, v359, OS_LOG_TYPE_DEFAULT, "My sim ID: %@", v595, 0xCu);
+                          mySIMIDString3 = [(IMDTelephonyIncomingMessageContext *)v583 mySIMIDString];
+                          *v651 = 138412290;
+                          *v652 = mySIMIDString3;
+                          _os_log_impl(&dword_22B4CC000, v400, OS_LOG_TYPE_DEFAULT, "My sim ID: %@", v651, 0xCu);
                         }
 
-                        v361 = IMDTelephonyServiceLogHandle();
-                        if (os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT))
+                        v403 = IMDTelephonyServiceLogHandle(v402);
+                        if (os_log_type_enabled(v403, OS_LOG_TYPE_DEFAULT))
                         {
-                          *v595 = 138412290;
-                          *v596 = v505;
-                          _os_log_impl(&dword_22B4CC000, v361, OS_LOG_TYPE_DEFAULT, "My receiver ISO country region: %@", v595, 0xCu);
+                          *v651 = 138412290;
+                          *v652 = v561;
+                          _os_log_impl(&dword_22B4CC000, v403, OS_LOG_TYPE_DEFAULT, "My receiver ISO country region: %@", v651, 0xCu);
                         }
 
-                        if ([(IMDTelephonyIncomingMessageContext *)v527 isGroupMessagingEnabled])
+                        isGroupMessagingEnabled2 = [(IMDTelephonyIncomingMessageContext *)v583 isGroupMessagingEnabled];
+                        if (isGroupMessagingEnabled2)
                         {
-                          v362 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v362, OS_LOG_TYPE_DEFAULT))
+                          v405 = IMDTelephonyServiceLogHandle(isGroupMessagingEnabled2);
+                          if (os_log_type_enabled(v405, OS_LOG_TYPE_DEFAULT))
                           {
-                            recipients = [v526 recipients];
-                            *v595 = 138412290;
-                            *v596 = recipients;
-                            _os_log_impl(&dword_22B4CC000, v362, OS_LOG_TYPE_DEFAULT, "Recipients: %@", v595, 0xCu);
+                            recipients = [v582 recipients];
+                            *v651 = 138412290;
+                            *v652 = recipients;
+                            _os_log_impl(&dword_22B4CC000, v405, OS_LOG_TYPE_DEFAULT, "Recipients: %@", v651, 0xCu);
                           }
 
-                          v544 = 0u;
-                          v545 = 0u;
-                          v542 = 0u;
-                          v543 = 0u;
-                          recipients2 = [v526 recipients];
-                          v365 = [recipients2 countByEnumeratingWithState:&v542 objects:v597 count:16];
-                          if (v365)
+                          v600 = 0u;
+                          v601 = 0u;
+                          v598 = 0u;
+                          v599 = 0u;
+                          recipients2 = [v582 recipients];
+                          v408 = [recipients2 countByEnumeratingWithState:&v598 objects:v653 count:16];
+                          v409 = v408;
+                          if (v408)
                           {
-                            v366 = *v543;
-                            v517 = recipients2;
+                            v410 = *v599;
+                            v573 = recipients2;
                             do
                             {
-                              for (m = 0; m != v365; ++m)
+                              v411 = 0;
+                              do
                               {
-                                if (*v543 != v366)
+                                if (*v599 != v410)
                                 {
-                                  objc_enumerationMutation(v517);
+                                  objc_enumerationMutation(v573);
                                 }
 
-                                v368 = *(*(&v542 + 1) + 8 * m);
-                                v369 = IMDTelephonyServiceLogHandle();
-                                if (os_log_type_enabled(v369, OS_LOG_TYPE_DEFAULT))
+                                v412 = *(*(&v598 + 1) + 8 * v411);
+                                v413 = IMDTelephonyServiceLogHandle(v408);
+                                if (os_log_type_enabled(v413, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  *v595 = 138412290;
-                                  *v596 = v368;
-                                  _os_log_impl(&dword_22B4CC000, v369, OS_LOG_TYPE_DEFAULT, "  Recipient: %@", v595, 0xCu);
+                                  *v651 = 138412290;
+                                  *v652 = v412;
+                                  _os_log_impl(&dword_22B4CC000, v413, OS_LOG_TYPE_DEFAULT, "  Recipient: %@", v651, 0xCu);
                                 }
 
-                                v370 = [v368 copy];
-                                participants = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                                v372 = participants == 0;
+                                v414 = [v412 copy];
+                                participants = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                                v416 = participants == 0;
 
-                                if (v372)
+                                if (v416)
                                 {
-                                  v373 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                                  [(IMDTelephonyIncomingMessageContext *)v527 setParticipants:v373];
+                                  v417 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                                  [(IMDTelephonyIncomingMessageContext *)v583 setParticipants:v417];
                                 }
 
-                                unformattedIDs = [(IMDTelephonyIncomingMessageContext *)v527 unformattedIDs];
-                                v375 = unformattedIDs == 0;
+                                unformattedIDs = [(IMDTelephonyIncomingMessageContext *)v583 unformattedIDs];
+                                v419 = unformattedIDs == 0;
 
-                                if (v375)
+                                if (v419)
                                 {
-                                  v376 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                                  [(IMDTelephonyIncomingMessageContext *)v527 setUnformattedIDs:v376];
+                                  v420 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                                  [(IMDTelephonyIncomingMessageContext *)v583 setUnformattedIDs:v420];
                                 }
 
-                                countryCodes = [(IMDTelephonyIncomingMessageContext *)v527 countryCodes];
-                                v378 = countryCodes == 0;
+                                countryCodes = [(IMDTelephonyIncomingMessageContext *)v583 countryCodes];
+                                v422 = countryCodes == 0;
 
-                                if (v378)
+                                if (v422)
                                 {
-                                  v379 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                                  [(IMDTelephonyIncomingMessageContext *)v527 setCountryCodes:v379];
+                                  v423 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                                  [(IMDTelephonyIncomingMessageContext *)v583 setCountryCodes:v423];
                                 }
 
-                                if ([v370 _appearsToBePhoneNumber])
+                                if ([v414 _appearsToBePhoneNumber])
                                 {
-                                  countryCode6 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
-                                  v381 = IMPhoneNumberRefCopyForPhoneNumber();
+                                  countryCode6 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
+                                  v425 = IMPhoneNumberRefCopyForPhoneNumber();
 
                                   originatedDeviceEmail = IMNormalizedPhoneNumberForCFPhoneNumberRef();
-                                  v383 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v383, OS_LOG_TYPE_DEFAULT))
+                                  v427 = IMDTelephonyServiceLogHandle(originatedDeviceEmail);
+                                  if (os_log_type_enabled(v427, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *v595 = 138412546;
-                                    *v596 = v381;
-                                    *&v596[8] = 2112;
-                                    *&v596[10] = v370;
-                                    _os_log_impl(&dword_22B4CC000, v383, OS_LOG_TYPE_DEFAULT, "Created number ref: %@  for ID: %@", v595, 0x16u);
+                                    *v651 = 138412546;
+                                    *v652 = v425;
+                                    *&v652[8] = 2112;
+                                    *&v652[10] = v414;
+                                    _os_log_impl(&dword_22B4CC000, v427, OS_LOG_TYPE_DEFAULT, "Created number ref: %@  for ID: %@", v651, 0x16u);
                                   }
 
-                                  v384 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v384, OS_LOG_TYPE_DEFAULT))
+                                  v429 = IMDTelephonyServiceLogHandle(v428);
+                                  if (os_log_type_enabled(v429, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    countryCode7 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
-                                    *v595 = 138412290;
-                                    *v596 = countryCode7;
-                                    _os_log_impl(&dword_22B4CC000, v384, OS_LOG_TYPE_DEFAULT, "    => Country code: %@", v595, 0xCu);
+                                    countryCode7 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
+                                    *v651 = 138412290;
+                                    *v652 = countryCode7;
+                                    _os_log_impl(&dword_22B4CC000, v429, OS_LOG_TYPE_DEFAULT, "    => Country code: %@", v651, 0xCu);
                                   }
 
-                                  v386 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v386, OS_LOG_TYPE_DEFAULT))
+                                  v432 = IMDTelephonyServiceLogHandle(v431);
+                                  if (os_log_type_enabled(v432, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *v595 = 138412290;
-                                    *v596 = originatedDeviceEmail;
-                                    _os_log_impl(&dword_22B4CC000, v386, OS_LOG_TYPE_DEFAULT, "      => Normalized: %@", v595, 0xCu);
+                                    *v651 = 138412290;
+                                    *v652 = originatedDeviceEmail;
+                                    _os_log_impl(&dword_22B4CC000, v432, OS_LOG_TYPE_DEFAULT, "      => Normalized: %@", v651, 0xCu);
                                   }
 
-                                  if (v381 != 0 && cf1c != 0 && CFEqual(cf1c, v381))
+                                  if (v425 != 0 && cf1c != 0)
                                   {
-                                    v387 = IMDTelephonyServiceLogHandle();
-                                    if (os_log_type_enabled(v387, OS_LOG_TYPE_DEFAULT))
+                                    v433 = CFEqual(cf1c, v425);
+                                    if (v433)
                                     {
-                                      *v595 = 0;
-                                      _os_log_impl(&dword_22B4CC000, v387, OS_LOG_TYPE_DEFAULT, "      ** This is my number, ignoring", v595, 2u);
+                                      v434 = IMDTelephonyServiceLogHandle(v433);
+                                      if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
+                                      {
+                                        *v651 = 0;
+                                        _os_log_impl(&dword_22B4CC000, v434, OS_LOG_TYPE_DEFAULT, "      ** This is my number, ignoring", v651, 2u);
+                                      }
+
+                                      v414 = 0;
+                                      originatedDeviceEmail = 0;
                                     }
-
-                                    v370 = 0;
-                                    originatedDeviceEmail = 0;
                                   }
 
-                                  originatedDeviceNumber2 = [v526 originatedDeviceNumber];
-                                  v389 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
+                                  originatedDeviceNumber2 = [v582 originatedDeviceNumber];
+                                  v436 = IMDTelephonyServiceLogHandle(originatedDeviceNumber2);
+                                  if (os_log_type_enabled(v436, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *v595 = 138412290;
-                                    *v596 = originatedDeviceNumber2;
-                                    _os_log_impl(&dword_22B4CC000, v389, OS_LOG_TYPE_DEFAULT, "My Original Alias is %@", v595, 0xCu);
+                                    *v651 = 138412290;
+                                    *v652 = originatedDeviceNumber2;
+                                    _os_log_impl(&dword_22B4CC000, v436, OS_LOG_TYPE_DEFAULT, "My Original Alias is %@", v651, 0xCu);
                                   }
 
-                                  if (originatedDeviceNumber2 && MEMORY[0x231897D30](originatedDeviceNumber2, originatedDeviceEmail))
+                                  if (originatedDeviceNumber2)
                                   {
-                                    v390 = IMDTelephonyServiceLogHandle();
-                                    if (os_log_type_enabled(v390, OS_LOG_TYPE_DEFAULT))
+                                    v437 = MEMORY[0x231897D30](originatedDeviceNumber2, originatedDeviceEmail);
+                                    if (v437)
                                     {
-                                      *v595 = 0;
-                                      _os_log_impl(&dword_22B4CC000, v390, OS_LOG_TYPE_DEFAULT, "      ** My number is the service center, ignoring", v595, 2u);
-                                    }
+                                      v438 = IMDTelephonyServiceLogHandle(v437);
+                                      if (os_log_type_enabled(v438, OS_LOG_TYPE_DEFAULT))
+                                      {
+                                        *v651 = 0;
+                                        _os_log_impl(&dword_22B4CC000, v438, OS_LOG_TYPE_DEFAULT, "      ** My number is the service center, ignoring", v651, 2u);
+                                      }
 
-                                    v370 = 0;
-                                    originatedDeviceEmail = 0;
+                                      v414 = 0;
+                                      originatedDeviceEmail = 0;
+                                    }
                                   }
 
-                                  if (v381)
+                                  if (v425)
                                   {
-                                    CFRelease(v381);
+                                    CFRelease(v425);
                                   }
 
                                   if ([originatedDeviceEmail length])
                                   {
-                                    v391 = originatedDeviceEmail;
-                                    originatedDeviceEmail = v391;
+                                    v439 = originatedDeviceEmail;
+                                    originatedDeviceEmail = v439;
                                   }
 
                                   else
                                   {
-                                    v391 = IMNormalizeFormattedString();
+                                    v439 = IMNormalizeFormattedString();
                                   }
 
-                                  v393 = v391;
+                                  v443 = v439;
                                 }
 
                                 else
                                 {
-                                  if ([v525 length] && objc_msgSend(v525, "isEqualToIgnoringCase:", v370))
+                                  if ([v581 length] && (v440 = objc_msgSend(v581, "isEqualToIgnoringCase:", v414), v440))
                                   {
-                                    v392 = IMDTelephonyServiceLogHandle();
-                                    if (os_log_type_enabled(v392, OS_LOG_TYPE_DEFAULT))
+                                    v441 = IMDTelephonyServiceLogHandle(v440);
+                                    if (os_log_type_enabled(v441, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      *v595 = 0;
-                                      _os_log_impl(&dword_22B4CC000, v392, OS_LOG_TYPE_DEFAULT, "      ** This is my email, ignoring", v595, 2u);
+                                      *v651 = 0;
+                                      _os_log_impl(&dword_22B4CC000, v441, OS_LOG_TYPE_DEFAULT, "      ** This is my email, ignoring", v651, 2u);
                                     }
 
                                     originatedDeviceNumber2 = 0;
@@ -6813,123 +8127,127 @@ LABEL_364:
 
                                   else
                                   {
-                                    originatedDeviceNumber2 = v370;
+                                    originatedDeviceNumber2 = v414;
                                   }
 
-                                  originatedDeviceEmail = [v526 originatedDeviceEmail];
-                                  if (![originatedDeviceEmail length] || !objc_msgSend(originatedDeviceEmail, "isEqualToIgnoringCase:", originatedDeviceNumber2))
+                                  originatedDeviceEmail = [v582 originatedDeviceEmail];
+                                  if (![originatedDeviceEmail length] || (v442 = objc_msgSend(originatedDeviceEmail, "isEqualToIgnoringCase:", originatedDeviceNumber2), !v442))
                                   {
-                                    v393 = originatedDeviceNumber2;
+                                    v443 = originatedDeviceNumber2;
                                     goto LABEL_447;
                                   }
 
-                                  v370 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v370, OS_LOG_TYPE_DEFAULT))
+                                  v414 = IMDTelephonyServiceLogHandle(v442);
+                                  if (os_log_type_enabled(v414, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *v595 = 0;
-                                    _os_log_impl(&dword_22B4CC000, v370, OS_LOG_TYPE_DEFAULT, "      ** This is my email (via proxy), ignoring", v595, 2u);
+                                    *v651 = 0;
+                                    _os_log_impl(&dword_22B4CC000, v414, OS_LOG_TYPE_DEFAULT, "      ** This is my email (via proxy), ignoring", v651, 2u);
                                   }
 
-                                  v393 = 0;
+                                  v443 = 0;
                                 }
 
 LABEL_447:
-                                if (v393)
+                                if (v443)
                                 {
-                                  v394 = IMDTelephonyServiceLogHandle();
-                                  if (os_log_type_enabled(v394, OS_LOG_TYPE_DEFAULT))
+                                  v445 = IMDTelephonyServiceLogHandle(v444);
+                                  if (os_log_type_enabled(v445, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *v595 = 138412290;
-                                    *v596 = v393;
-                                    _os_log_impl(&dword_22B4CC000, v394, OS_LOG_TYPE_DEFAULT, "  => Canonical: %@", v595, 0xCu);
+                                    *v651 = 138412290;
+                                    *v652 = v443;
+                                    _os_log_impl(&dword_22B4CC000, v445, OS_LOG_TYPE_DEFAULT, "  => Canonical: %@", v651, 0xCu);
                                   }
 
-                                  participants2 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                                  [participants2 addObject:v393];
+                                  participants2 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                                  [participants2 addObject:v443];
 
-                                  v396 = [v368 copy];
-                                  countryCodes2 = [(IMDTelephonyIncomingMessageContext *)v527 countryCodes];
-                                  countryCode8 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
-                                  v399 = countryCode8;
+                                  v447 = [v412 copy];
+                                  countryCodes2 = [(IMDTelephonyIncomingMessageContext *)v583 countryCodes];
+                                  countryCode8 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
+                                  v450 = countryCode8;
                                   if (countryCode8)
                                   {
-                                    v400 = countryCode8;
+                                    v451 = countryCode8;
                                   }
 
                                   else
                                   {
-                                    v400 = @"us";
+                                    v451 = @"us";
                                   }
 
-                                  [countryCodes2 addObject:v400];
+                                  [countryCodes2 addObject:v451];
 
-                                  unformattedIDs2 = [(IMDTelephonyIncomingMessageContext *)v527 unformattedIDs];
-                                  v402 = unformattedIDs2;
-                                  if (v396)
+                                  unformattedIDs2 = [(IMDTelephonyIncomingMessageContext *)v583 unformattedIDs];
+                                  v453 = unformattedIDs2;
+                                  if (v447)
                                   {
-                                    v403 = v396;
+                                    v454 = v447;
                                   }
 
                                   else
                                   {
-                                    v403 = &stru_283F23018;
+                                    v454 = &stru_283F23018;
                                   }
 
-                                  [unformattedIDs2 addObject:v403];
+                                  [unformattedIDs2 addObject:v454];
                                 }
+
+                                ++v411;
                               }
 
-                              recipients2 = v517;
-                              v365 = [v517 countByEnumeratingWithState:&v542 objects:v597 count:16];
+                              while (v409 != v411);
+                              recipients2 = v573;
+                              v408 = [v573 countByEnumeratingWithState:&v598 objects:v653 count:16];
+                              v409 = v408;
                             }
 
-                            while (v365);
+                            while (v408);
                           }
 
-                          v404 = v527;
-                          sender20 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                          v455 = v583;
+                          sender20 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                           if (sender20)
                           {
-                            participants3 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                            sender21 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-                            v408 = [participants3 containsObject:sender21];
+                            participants3 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                            sender21 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+                            v459 = [participants3 containsObject:sender21];
 
-                            v404 = v527;
-                            if ((v408 & 1) == 0)
+                            v455 = v583;
+                            if ((v459 & 1) == 0)
                             {
-                              participants4 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                              sender22 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                              participants4 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                              sender22 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                               [participants4 addObject:sender22];
 
-                              senderUnformatted = [(IMDTelephonyIncomingMessageContext *)v527 senderUnformatted];
-                              countryCodes3 = [(IMDTelephonyIncomingMessageContext *)v527 countryCodes];
-                              countryCode9 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
-                              v414 = countryCode9;
+                              senderUnformatted = [(IMDTelephonyIncomingMessageContext *)v583 senderUnformatted];
+                              countryCodes3 = [(IMDTelephonyIncomingMessageContext *)v583 countryCodes];
+                              countryCode9 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
+                              v465 = countryCode9;
                               if (countryCode9)
                               {
-                                v415 = countryCode9;
+                                v466 = countryCode9;
                               }
 
                               else
                               {
-                                v415 = @"us";
+                                v466 = @"us";
                               }
 
-                              [countryCodes3 addObject:v415];
+                              [countryCodes3 addObject:v466];
 
-                              unformattedIDs3 = [(IMDTelephonyIncomingMessageContext *)v527 unformattedIDs];
-                              v417 = unformattedIDs3;
+                              unformattedIDs3 = [(IMDTelephonyIncomingMessageContext *)v583 unformattedIDs];
+                              v468 = unformattedIDs3;
                               if (senderUnformatted)
                               {
-                                v418 = senderUnformatted;
+                                v469 = senderUnformatted;
                               }
 
                               else
                               {
-                                v418 = &stru_283F23018;
+                                v469 = &stru_283F23018;
                               }
 
-                              [unformattedIDs3 addObject:v418];
+                              [unformattedIDs3 addObject:v469];
                               goto LABEL_481;
                             }
                           }
@@ -6937,82 +8255,82 @@ LABEL_447:
 
                         else
                         {
-                          v419 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v419, OS_LOG_TYPE_DEFAULT))
+                          v470 = IMDTelephonyServiceLogHandle(isGroupMessagingEnabled2);
+                          if (os_log_type_enabled(v470, OS_LOG_TYPE_DEFAULT))
                           {
-                            sender23 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-                            *v595 = 138412290;
-                            *v596 = sender23;
-                            _os_log_impl(&dword_22B4CC000, v419, OS_LOG_TYPE_DEFAULT, "Group messaging is disabled, ensuring the sender is in the participant set: %@", v595, 0xCu);
+                            sender23 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+                            *v651 = 138412290;
+                            *v652 = sender23;
+                            _os_log_impl(&dword_22B4CC000, v470, OS_LOG_TYPE_DEFAULT, "Group messaging is disabled, ensuring the sender is in the participant set: %@", v651, 0xCu);
                           }
 
-                          participants5 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                          v422 = participants5 == 0;
+                          participants5 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                          v473 = participants5 == 0;
 
-                          if (v422)
+                          if (v473)
                           {
-                            v423 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                            [(IMDTelephonyIncomingMessageContext *)v527 setParticipants:v423];
+                            v474 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                            [(IMDTelephonyIncomingMessageContext *)v583 setParticipants:v474];
                           }
 
-                          v404 = v527;
-                          sender24 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                          v455 = v583;
+                          sender24 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                           if (sender24)
                           {
-                            participants6 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                            sender25 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-                            v427 = [participants6 containsObject:sender25];
+                            participants6 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                            sender25 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+                            v478 = [participants6 containsObject:sender25];
 
-                            v404 = v527;
-                            if ((v427 & 1) == 0)
+                            v455 = v583;
+                            if ((v478 & 1) == 0)
                             {
-                              participants7 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                              sender26 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
+                              participants7 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                              sender26 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
                               [participants7 addObject:sender26];
 
-                              senderUnformatted = [(IMDTelephonyIncomingMessageContext *)v527 senderUnformatted];
-                              countryCodes4 = [(IMDTelephonyIncomingMessageContext *)v527 countryCodes];
-                              countryCode10 = [(IMDTelephonyIncomingMessageContext *)v527 countryCode];
-                              v432 = countryCode10;
+                              senderUnformatted = [(IMDTelephonyIncomingMessageContext *)v583 senderUnformatted];
+                              countryCodes4 = [(IMDTelephonyIncomingMessageContext *)v583 countryCodes];
+                              countryCode10 = [(IMDTelephonyIncomingMessageContext *)v583 countryCode];
+                              v483 = countryCode10;
                               if (countryCode10)
                               {
-                                v433 = countryCode10;
+                                v484 = countryCode10;
                               }
 
                               else
                               {
-                                v433 = @"us";
+                                v484 = @"us";
                               }
 
-                              [countryCodes4 addObject:v433];
+                              [countryCodes4 addObject:v484];
 
-                              unformattedIDs4 = [(IMDTelephonyIncomingMessageContext *)v527 unformattedIDs];
-                              v417 = unformattedIDs4;
+                              unformattedIDs4 = [(IMDTelephonyIncomingMessageContext *)v583 unformattedIDs];
+                              v468 = unformattedIDs4;
                               if (senderUnformatted)
                               {
-                                v435 = senderUnformatted;
+                                v486 = senderUnformatted;
                               }
 
                               else
                               {
-                                v435 = &stru_283F23018;
+                                v486 = &stru_283F23018;
                               }
 
-                              [unformattedIDs4 addObject:v435];
+                              [unformattedIDs4 addObject:v486];
 LABEL_481:
 
-                              v404 = v527;
+                              v455 = v583;
                             }
                           }
                         }
 
-                        if ([(IMDTelephonyIncomingMessageContext *)v404 isGroupChat])
+                        if ([(IMDTelephonyIncomingMessageContext *)v455 isGroupChat])
                         {
-                          [(IMDTelephonyIncomingMessageContext *)v404 setStyle:43];
+                          [(IMDTelephonyIncomingMessageContext *)v455 setStyle:43];
                           sender27 = +[IMDChatRegistry sharedInstance];
                           account = [(IMDServiceSession *)self account];
-                          v438 = [sender27 generateUnusedChatIdentifierForGroupChatWithAccount:account];
-                          [(IMDTelephonyIncomingMessageContext *)v404 setChatIdentifier:v438];
+                          v489 = [sender27 generateUnusedChatIdentifierForGroupChatWithAccount:account];
+                          [(IMDTelephonyIncomingMessageContext *)v455 setChatIdentifier:v489];
                         }
 
                         else
@@ -7022,230 +8340,235 @@ LABEL_481:
 
                           if (isMergeBusinessSenderIndiaEnabled)
                           {
-                            v441 = [(IMDTelephonyServiceSession *)self _identifierForMergedBusinessThread:v527];
-                            if (v441)
+                            v492 = [(IMDTelephonyServiceSession *)self _identifierForMergedBusinessThread:v583];
+                            if (v492)
                             {
-                              [(IMDTelephonyIncomingMessageContext *)v527 setIsMergedBusinessThread:1];
-                              [(IMDTelephonyIncomingMessageContext *)v527 setSender:v441];
-                              [(IMDTelephonyIncomingMessageContext *)v527 setDisplayName:v441];
+                              [(IMDTelephonyIncomingMessageContext *)v583 setIsMergedBusinessThread:1];
+                              [(IMDTelephonyIncomingMessageContext *)v583 setSender:v492];
+                              [(IMDTelephonyIncomingMessageContext *)v583 setDisplayName:v492];
                             }
                           }
 
-                          sender27 = [(IMDTelephonyIncomingMessageContext *)v527 sender];
-                          [(IMDTelephonyIncomingMessageContext *)v527 setChatIdentifier:sender27];
+                          sender27 = [(IMDTelephonyIncomingMessageContext *)v583 sender];
+                          [(IMDTelephonyIncomingMessageContext *)v583 setChatIdentifier:sender27];
                         }
 
-                        v442 = [(IMDTelephonyServiceSession *)self chatForIncomingMessageContext:v527 createIfNotExists:0];
-                        v443 = v442;
-                        if (v442)
+                        v493 = [(IMDTelephonyServiceSession *)self chatForIncomingMessageContext:v583 createIfNotExists:0];
+                        v494 = v493;
+                        if (v493)
                         {
-                          chatIdentifier = [v442 chatIdentifier];
-                          [(IMDTelephonyIncomingMessageContext *)v527 setChatIdentifier:chatIdentifier];
+                          chatIdentifier = [v493 chatIdentifier];
+                          [(IMDTelephonyIncomingMessageContext *)v583 setChatIdentifier:chatIdentifier];
 
-                          v445 = v527;
-                          -[IMDTelephonyIncomingMessageContext setStyle:](v527, "setStyle:", [v443 style]);
-                          if ([v443 isBlackholed])
+                          v496 = v583;
+                          -[IMDTelephonyIncomingMessageContext setStyle:](v583, "setStyle:", [v494 style]);
+                          if ([v494 isBlackholed])
                           {
                             if (IMOSLoggingEnabled())
                             {
-                              v446 = OSLogHandleForIMFoundationCategory();
-                              if (os_log_type_enabled(v446, OS_LOG_TYPE_INFO))
+                              v497 = OSLogHandleForIMFoundationCategory();
+                              if (os_log_type_enabled(v497, OS_LOG_TYPE_INFO))
                               {
-                                guid2 = [v443 guid];
-                                *v595 = 138412290;
-                                *v596 = guid2;
-                                _os_log_impl(&dword_22B4CC000, v446, OS_LOG_TYPE_INFO, "SMS: Unblackholing an SMS chat %@", v595, 0xCu);
+                                guid2 = [v494 guid];
+                                *v651 = 138412290;
+                                *v652 = guid2;
+                                _os_log_impl(&dword_22B4CC000, v497, OS_LOG_TYPE_INFO, "SMS: Unblackholing an SMS chat %@", v651, 0xCu);
                               }
 
-                              v445 = v527;
+                              v496 = v583;
                             }
 
-                            [v443 updateIsBlackholed:0];
+                            [v494 updateIsBlackholed:0];
                           }
 
-                          if ([v443 smsHandshakeState] == 1)
+                          if ([v494 smsHandshakeState] == 1)
                           {
                             mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
                             [mEMORY[0x277D1AAA8] trackSpamEvent:7];
 
-                            [v443 updateSMSHandshakeState:0xFFFFFFFFLL];
-                            v445 = v527;
+                            [v494 updateSMSHandshakeState:0xFFFFFFFFLL];
+                            v496 = v583;
                           }
 
-                          if ([(IMDTelephonyIncomingMessageContext *)v445 isSendEnabled])
+                          if ([(IMDTelephonyIncomingMessageContext *)v496 isSendEnabled])
                           {
-                            if ([v443 state] == 4)
+                            if ([v494 state] == 4)
                             {
-                              v449 = 0;
+                              v500 = 0;
                               goto LABEL_507;
                             }
                           }
 
-                          else if (-[IMDTelephonyIncomingMessageContext isGroupChat](v445, "isGroupChat") || ![v443 isFiltered])
+                          else if (-[IMDTelephonyIncomingMessageContext isGroupChat](v496, "isGroupChat") || (v503 = [v494 isFiltered]) == 0)
                           {
                             if (IMOSLoggingEnabled())
                             {
-                              v453 = OSLogHandleForIMFoundationCategory();
-                              if (os_log_type_enabled(v453, OS_LOG_TYPE_INFO))
+                              v505 = OSLogHandleForIMFoundationCategory();
+                              if (os_log_type_enabled(v505, OS_LOG_TYPE_INFO))
                               {
-                                isGroupChat = [(IMDTelephonyIncomingMessageContext *)v445 isGroupChat];
-                                isFiltered = [v443 isFiltered];
-                                v456 = @"NO";
+                                isGroupChat = [(IMDTelephonyIncomingMessageContext *)v496 isGroupChat];
+                                isFiltered = [v494 isFiltered];
+                                v508 = @"NO";
                                 if (isGroupChat)
                                 {
-                                  v456 = @"YES";
+                                  v508 = @"YES";
                                 }
 
-                                *v595 = 138412546;
-                                *v596 = v456;
-                                *&v596[8] = 2048;
-                                *&v596[10] = isFiltered;
-                                _os_log_impl(&dword_22B4CC000, v453, OS_LOG_TYPE_INFO, "Received a read only request for a group chat: %@ or known chat: %lld", v595, 0x16u);
+                                *v651 = 138412546;
+                                *v652 = v508;
+                                *&v652[8] = 2048;
+                                *&v652[10] = isFiltered;
+                                _os_log_impl(&dword_22B4CC000, v505, OS_LOG_TYPE_INFO, "Received a read only request for a group chat: %@ or known chat: %lld", v651, 0x16u);
                               }
 
-                              v445 = v527;
+                              v496 = v583;
                             }
                           }
 
                           else
                           {
-                            v452 = IMDTelephonyServiceLogHandle();
-                            if (os_log_type_enabled(v452, OS_LOG_TYPE_DEFAULT))
+                            v504 = IMDTelephonyServiceLogHandle(v503);
+                            if (os_log_type_enabled(v504, OS_LOG_TYPE_DEFAULT))
                             {
-                              *v595 = 0;
-                              _os_log_impl(&dword_22B4CC000, v452, OS_LOG_TYPE_DEFAULT, "Replying is disabled, setting join state to Read Only", v595, 2u);
+                              *v651 = 0;
+                              _os_log_impl(&dword_22B4CC000, v504, OS_LOG_TYPE_DEFAULT, "Replying is disabled, setting join state to Read Only", v651, 2u);
                             }
 
-                            v449 = 4;
-                            v445 = v527;
+                            v500 = 4;
+                            v496 = v583;
 LABEL_507:
-                            [v443 setState:v449];
+                            [v494 setState:v500];
                           }
 
-                          displayName4 = [(IMDTelephonyIncomingMessageContext *)v445 displayName];
+                          displayName4 = [(IMDTelephonyIncomingMessageContext *)v496 displayName];
 
                           if (displayName4)
                           {
-                            displayName5 = [(IMDTelephonyIncomingMessageContext *)v527 displayName];
-                            [v443 updateDisplayName:displayName5];
+                            displayName5 = [(IMDTelephonyIncomingMessageContext *)v583 displayName];
+                            [v494 updateDisplayName:displayName5];
 LABEL_516:
                           }
 
-                          if ([MEMORY[0x277D1AC58] isInternationalSpamFilteringEnabled])
+                          isInternationalSpamFilteringEnabled = [MEMORY[0x277D1AC58] isInternationalSpamFilteringEnabled];
+                          if (isInternationalSpamFilteringEnabled)
                           {
-                            v458 = +[IMDChatRegistry sharedInstance];
-                            if (v443)
+                            v511 = +[IMDChatRegistry sharedInstance];
+                            if (v494)
                             {
-                              chatIdentifier2 = [v443 chatIdentifier];
-                              [v458 existingiMessageChatForID:chatIdentifier2 withChatStyle:{objc_msgSend(v443, "style")}];
+                              chatIdentifier2 = [v494 chatIdentifier];
+                              [v511 existingiMessageChatForID:chatIdentifier2 withChatStyle:{objc_msgSend(v494, "style")}];
                             }
 
                             else
                             {
-                              chatIdentifier2 = [(IMDTelephonyIncomingMessageContext *)v527 chatIdentifier];
-                              [v458 existingiMessageChatForID:chatIdentifier2 withChatStyle:{-[IMDTelephonyIncomingMessageContext style](v527, "style")}];
+                              chatIdentifier2 = [(IMDTelephonyIncomingMessageContext *)v583 chatIdentifier];
+                              [v511 existingiMessageChatForID:chatIdentifier2 withChatStyle:{-[IMDTelephonyIncomingMessageContext style](v583, "style")}];
                             }
-                            v460 = ;
+                            v513 = ;
 
-                            if (v460 && [v460 isBlackholed])
+                            if (v513)
                             {
-                              v461 = IMDTelephonyServiceLogHandle();
-                              if (os_log_type_enabled(v461, OS_LOG_TYPE_DEFAULT))
+                              isBlackholed = [v513 isBlackholed];
+                              if (isBlackholed)
                               {
-                                guid3 = [v460 guid];
-                                *v595 = 138412290;
-                                *v596 = guid3;
-                                _os_log_impl(&dword_22B4CC000, v461, OS_LOG_TYPE_DEFAULT, "Unblackholing sibling iMessage chat (%@) on reception of SMS message.", v595, 0xCu);
-                              }
+                                v515 = IMDTelephonyServiceLogHandle(isBlackholed);
+                                if (os_log_type_enabled(v515, OS_LOG_TYPE_DEFAULT))
+                                {
+                                  guid3 = [v513 guid];
+                                  *v651 = 138412290;
+                                  *v652 = guid3;
+                                  _os_log_impl(&dword_22B4CC000, v515, OS_LOG_TYPE_DEFAULT, "Unblackholing sibling iMessage chat (%@) on reception of SMS message.", v651, 0xCu);
+                                }
 
-                              if ([(IMDTelephonyIncomingMessageContext *)v527 isGroupChat])
-                              {
-                                mEMORY[0x277D1AAA8]2 = [MEMORY[0x277D1AAA8] sharedInstance];
-                                [mEMORY[0x277D1AAA8]2 trackSpamEvent:21];
-                              }
+                                if ([(IMDTelephonyIncomingMessageContext *)v583 isGroupChat])
+                                {
+                                  mEMORY[0x277D1AAA8]2 = [MEMORY[0x277D1AAA8] sharedInstance];
+                                  [mEMORY[0x277D1AAA8]2 trackSpamEvent:21];
+                                }
 
-                              else
-                              {
-                                mEMORY[0x277D1AAA8]2 = [MEMORY[0x277D1AAA8] sharedInstance];
-                                [mEMORY[0x277D1AAA8]2 trackSpamEvent:20];
-                              }
+                                else
+                                {
+                                  mEMORY[0x277D1AAA8]2 = [MEMORY[0x277D1AAA8] sharedInstance];
+                                  [mEMORY[0x277D1AAA8]2 trackSpamEvent:20];
+                                }
 
-                              [v460 updateIsBlackholed:0];
-                              v464 = +[IMDMessageStore sharedInstance];
-                              lastMessage = [v460 lastMessage];
-                              guid4 = [lastMessage guid];
-                              [v464 markMessageGUIDUnread:guid4];
+                                [v513 updateIsBlackholed:0];
+                                v518 = +[IMDMessageStore sharedInstance];
+                                lastMessage = [v513 lastMessage];
+                                guid4 = [lastMessage guid];
+                                [v518 markMessageGUIDUnread:guid4];
+                              }
                             }
                           }
 
-                          v467 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v467, OS_LOG_TYPE_DEFAULT))
+                          v521 = IMDTelephonyServiceLogHandle(isInternationalSpamFilteringEnabled);
+                          if (os_log_type_enabled(v521, OS_LOG_TYPE_DEFAULT))
                           {
-                            participants8 = [(IMDTelephonyIncomingMessageContext *)v527 participants];
-                            *v595 = 138412290;
-                            *v596 = participants8;
-                            _os_log_impl(&dword_22B4CC000, v467, OS_LOG_TYPE_DEFAULT, "   participants: %@", v595, 0xCu);
+                            participants8 = [(IMDTelephonyIncomingMessageContext *)v583 participants];
+                            *v651 = 138412290;
+                            *v652 = participants8;
+                            _os_log_impl(&dword_22B4CC000, v521, OS_LOG_TYPE_DEFAULT, "   participants: %@", v651, 0xCu);
                           }
 
-                          v469 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v469, OS_LOG_TYPE_DEFAULT))
+                          v524 = IMDTelephonyServiceLogHandle(v523);
+                          if (os_log_type_enabled(v524, OS_LOG_TYPE_DEFAULT))
                           {
-                            guid5 = [v443 guid];
-                            *v595 = 138412546;
-                            *v596 = v443;
-                            *&v596[8] = 2112;
-                            *&v596[10] = guid5;
-                            _os_log_impl(&dword_22B4CC000, v469, OS_LOG_TYPE_DEFAULT, "   found chat: %@ (%@)", v595, 0x16u);
+                            guid5 = [v494 guid];
+                            *v651 = 138412546;
+                            *v652 = v494;
+                            *&v652[8] = 2112;
+                            *&v652[10] = guid5;
+                            _os_log_impl(&dword_22B4CC000, v524, OS_LOG_TYPE_DEFAULT, "   found chat: %@ (%@)", v651, 0x16u);
                           }
 
-                          v471 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v471, OS_LOG_TYPE_DEFAULT))
+                          v527 = IMDTelephonyServiceLogHandle(v526);
+                          if (os_log_type_enabled(v527, OS_LOG_TYPE_DEFAULT))
                           {
-                            isGroupChat2 = [(IMDTelephonyIncomingMessageContext *)v527 isGroupChat];
-                            *v595 = 67109120;
-                            *v596 = isGroupChat2;
-                            _os_log_impl(&dword_22B4CC000, v471, OS_LOG_TYPE_DEFAULT, "   isGroupChat: %{BOOL}d", v595, 8u);
+                            isGroupChat2 = [(IMDTelephonyIncomingMessageContext *)v583 isGroupChat];
+                            *v651 = 67109120;
+                            *v652 = isGroupChat2;
+                            _os_log_impl(&dword_22B4CC000, v527, OS_LOG_TYPE_DEFAULT, "   isGroupChat: %{BOOL}d", v651, 8u);
                           }
 
-                          v473 = IMDTelephonyServiceLogHandle();
-                          if (os_log_type_enabled(v473, OS_LOG_TYPE_DEFAULT))
+                          v530 = IMDTelephonyServiceLogHandle(v529);
+                          if (os_log_type_enabled(v530, OS_LOG_TYPE_DEFAULT))
                           {
-                            chatIdentifier3 = [(IMDTelephonyIncomingMessageContext *)v527 chatIdentifier];
-                            *v595 = 138412290;
-                            *v596 = chatIdentifier3;
-                            _os_log_impl(&dword_22B4CC000, v473, OS_LOG_TYPE_DEFAULT, "   chatIdentifier: %@", v595, 0xCu);
+                            chatIdentifier3 = [(IMDTelephonyIncomingMessageContext *)v583 chatIdentifier];
+                            *v651 = 138412290;
+                            *v652 = chatIdentifier3;
+                            _os_log_impl(&dword_22B4CC000, v530, OS_LOG_TYPE_DEFAULT, "   chatIdentifier: %@", v651, 0xCu);
                           }
 
-                          v534[0] = MEMORY[0x277D85DD0];
-                          v534[1] = 3221225472;
-                          v534[2] = sub_22B6C7F80;
-                          v534[3] = &unk_278708388;
-                          v475 = v527;
-                          v535 = v475;
+                          v590[0] = MEMORY[0x277D85DD0];
+                          v590[1] = 3221225472;
+                          v590[2] = sub_22B6C7F80;
+                          v590[3] = &unk_278708388;
+                          v532 = v583;
+                          v591 = v532;
                           selfCopy2 = self;
-                          v538 = buf;
-                          v539 = replaceMessage;
-                          v476 = v498;
-                          v537 = v476;
-                          v540 = relayCopy;
-                          v477 = _Block_copy(v534);
-                          sender28 = [(IMDTelephonyIncomingMessageContext *)v475 sender];
+                          v594 = buf;
+                          v595 = replaceMessage;
+                          v533 = v554;
+                          v593 = v533;
+                          v596 = relayCopy;
+                          v534 = _Block_copy(v590);
+                          sender28 = [(IMDTelephonyIncomingMessageContext *)v532 sender];
                           mEMORY[0x277D1A9B8]5 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
                           isMergeBusinessSenderIndiaEnabled2 = [mEMORY[0x277D1A9B8]5 isMergeBusinessSenderIndiaEnabled];
 
-                          if (isMergeBusinessSenderIndiaEnabled2 && [(IMDTelephonyIncomingMessageContext *)v475 isMergedBusinessThread])
+                          if (isMergeBusinessSenderIndiaEnabled2 && [(IMDTelephonyIncomingMessageContext *)v532 isMergedBusinessThread])
                           {
-                            senderUnformatted2 = [(IMDTelephonyIncomingMessageContext *)v475 senderUnformatted];
+                            senderUnformatted2 = [(IMDTelephonyIncomingMessageContext *)v532 senderUnformatted];
 
                             sender28 = senderUnformatted2;
                           }
 
-                          v595[0] = 0;
+                          v651[0] = 0;
                           filteringController = [(IMDTelephonyServiceSession *)self filteringController];
-                          chatIdentifier4 = [(IMDTelephonyIncomingMessageContext *)v475 chatIdentifier];
-                          participants9 = [(IMDTelephonyIncomingMessageContext *)v475 participants];
-                          LOBYTE(v486) = [*(*&buf[8] + 40) messageContainsOneTimeCode];
-                          [filteringController categorizeIncomingSMSMessage:v526 messageGUID:v476 sender:sender28 wasRelayed:relayCopy chatIdentifier:chatIdentifier4 participants:participants9 checkingForSpam:v595 myReceiverISOCountryCode:v505 messageBody:osloga foundChat:v443 service:nameCopy containsOneTimeCode:v486 completion:v477];
+                          chatIdentifier4 = [(IMDTelephonyIncomingMessageContext *)v532 chatIdentifier];
+                          participants9 = [(IMDTelephonyIncomingMessageContext *)v532 participants];
+                          LOBYTE(v542) = [*(*&buf[8] + 40) messageContainsOneTimeCode];
+                          [filteringController categorizeIncomingSMSMessage:v582 messageGUID:v533 sender:sender28 wasRelayed:relayCopy chatIdentifier:chatIdentifier4 participants:participants9 checkingForSpam:v651 myReceiverISOCountryCode:v561 messageBody:osloga foundChat:v494 service:nameCopy containsOneTimeCode:v542 completion:v534];
 
                           if (cf1c)
                           {
@@ -7254,21 +8577,21 @@ LABEL_516:
 
                           if (blockCopy)
                           {
-                            (*(blockCopy + 2))(blockCopy, 1, v476, v595[0]);
+                            (*(blockCopy + 2))(blockCopy, 1, v533, v651[0]);
                           }
 
                           _Block_object_dispose(buf, 8);
                           goto LABEL_547;
                         }
 
-                        chatIdentifier5 = [(IMDTelephonyIncomingMessageContext *)v527 chatIdentifier];
-                        v595[0] = [(IMDTelephonyIncomingMessageContext *)v527 style];
-                        v541 = chatIdentifier5;
-                        [(IMDServiceSession *)self canonicalizeChatIdentifier:&v541 style:v595];
-                        displayName5 = v541;
+                        chatIdentifier5 = [(IMDTelephonyIncomingMessageContext *)v583 chatIdentifier];
+                        v651[0] = [(IMDTelephonyIncomingMessageContext *)v583 style];
+                        v597 = chatIdentifier5;
+                        [(IMDServiceSession *)self canonicalizeChatIdentifier:&v597 style:v651];
+                        displayName5 = v597;
 
-                        [(IMDTelephonyIncomingMessageContext *)v527 setChatIdentifier:displayName5];
-                        [(IMDTelephonyIncomingMessageContext *)v527 setStyle:v595[0]];
+                        [(IMDTelephonyIncomingMessageContext *)v583 setChatIdentifier:displayName5];
+                        [(IMDTelephonyIncomingMessageContext *)v583 setStyle:v651[0]];
                         goto LABEL_516;
                       }
                     }
@@ -7281,11 +8604,11 @@ LABEL_516:
                 }
               }
 
-              v80 = CMFItemCreateWithEmailAddress();
-              v79 = CMFBlockListIsItemBlocked() != 0;
-              if (v80)
+              v82 = CMFItemCreateWithEmailAddress();
+              v81 = CMFBlockListIsItemBlocked() != 0;
+              if (v82)
               {
-                CFRelease(v80);
+                CFRelease(v82);
               }
 
               goto LABEL_64;
@@ -7314,8 +8637,6 @@ LABEL_516:
   }
 
 LABEL_548:
-
-  v485 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_businessNameForIndiaShortCodeSender:(id)sender
@@ -7373,7 +8694,7 @@ LABEL_548:
 
 - (id)getLabelFor:(int64_t)for subCategory:(int64_t)category
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (for == 3)
   {
     label = @"smsfp";
@@ -7390,26 +8711,26 @@ LABEL_548:
     label = @"smsft";
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   fetchSMSFilterExtensionParams = [MEMORY[0x277D1AB70] fetchSMSFilterExtensionParams];
-  v8 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(fetchSMSFilterExtensionParams);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         if ([v12 action] == for && objc_msgSend(v12, "subAction") == category)
         {
           label = [v12 label];
@@ -7417,7 +8738,7 @@ LABEL_548:
         }
       }
 
-      v9 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -7430,7 +8751,6 @@ LABEL_548:
 LABEL_16:
 
 LABEL_18:
-  v13 = *MEMORY[0x277D85DE8];
 
   return label;
 }
@@ -7481,7 +8801,7 @@ LABEL_18:
     v8 = v18;
   }
 
-  if (([contextCopy isSendEnabled] & 1) != 0 || objc_msgSend(contextCopy, "isGroupChat"))
+  if (([contextCopy isSendEnabled] & 1) != 0 || (v19 = objc_msgSend(contextCopy, "isGroupChat"), v19))
   {
     chatIdentifier = [contextCopy chatIdentifier];
     style = [contextCopy style];
@@ -7489,23 +8809,23 @@ LABEL_18:
     groupID = [contextCopy groupID];
     originalGroupID = [contextCopy originalGroupID];
     account = [(IMDServiceSession *)self account];
-    v24 = v8;
+    v25 = v8;
     category = [contextCopy category];
     spamExtensionName = [contextCopy spamExtensionName];
     LOBYTE(v33) = 0;
     v32 = category;
-    v8 = v24;
+    v8 = v25;
     chatIdentifier2 = chatIdentifier;
-    [(IMDServiceSession *)selfCopy didUpdateChatStatus:2 chat:chatIdentifier style:style displayName:displayName groupID:groupID originalGroupID:originalGroupID lastAddressedHandle:0 lastAddressedSIMID:0 handleInfo:v24 account:account category:v32 spamExtensionName:spamExtensionName isBlackholed:v33 spamDetectionSource:0];
+    [(IMDServiceSession *)selfCopy didUpdateChatStatus:2 chat:chatIdentifier style:style displayName:displayName groupID:groupID originalGroupID:originalGroupID lastAddressedHandle:0 lastAddressedSIMID:0 handleInfo:v25 account:account category:v32 spamExtensionName:spamExtensionName isBlackholed:v33 spamDetectionSource:0];
   }
 
   else
   {
-    v28 = IMDTelephonyServiceLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = IMDTelephonyServiceLogHandle(v19);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_DEFAULT, "Replying is disabled, joining chat with Read Only state", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_DEFAULT, "Replying is disabled, joining chat with Read Only state", buf, 2u);
     }
 
     chatIdentifier2 = [contextCopy chatIdentifier];
@@ -7515,8 +8835,6 @@ LABEL_18:
     groupID = [contextCopy spamExtensionName];
     [(IMDServiceSession *)selfCopy didJoinReadOnlyChat:chatIdentifier2 style:style2 displayName:displayName groupID:0 handleInfo:v8 category:category2 spamExtensionName:groupID];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updatedMessageContextForJunkProcessing:(id)processing
@@ -7553,17 +8871,16 @@ LABEL_9:
   chatIdentifier2 = [v7 chatIdentifier];
   [v7 setSender:chatIdentifier2];
 
-  v13 = IMDTelephonyServiceLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = IMDTelephonyServiceLogHandle(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     chatIdentifier3 = [v7 chatIdentifier];
     v17 = 138412290;
     v18 = chatIdentifier3;
-    _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_DEFAULT, "Generated new filtered chat identifier: %@", &v17, 0xCu);
+    _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_DEFAULT, "Generated new filtered chat identifier: %@", &v17, 0xCu);
   }
 
 LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -7694,66 +9011,44 @@ LABEL_10:
   v33 = groupID5;
   if (isMissingMessagesEnabled)
   {
-    if (!groupID5)
+    if (groupID5 && (v34 = *MEMORY[0x277D19780], [v18 latestIdentifierForDomain:*MEMORY[0x277D19780]], v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(contextCopy, "groupID"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v35, "isEqualToString:", v36), v36, v35, v33, (v37 & 1) == 0))
     {
-      goto LABEL_25;
-    }
-
-    v34 = *MEMORY[0x277D19780];
-    v35 = [v18 latestIdentifierForDomain:*MEMORY[0x277D19780]];
-    groupID6 = [contextCopy groupID];
-    v37 = [v35 isEqualToString:groupID6];
-
-    if ((v37 & 1) == 0)
-    {
-      groupID7 = [contextCopy groupID];
-      [v18 assignIdentifier:groupID7 forDomain:v34 isHistoricalIdentifier:0];
+      groupID6 = [contextCopy groupID];
+      [v18 assignIdentifier:groupID6 forDomain:v34 isHistoricalIdentifier:0];
 
       v38 = 1;
     }
 
     else
     {
-LABEL_25:
       v38 = 0;
     }
 
     service4 = [(IMDServiceSession *)self service];
     internalName2 = [service4 internalName];
-    originalGroupID10 = IMChatLookupDomainForServiceName();
+    originalGroupID9 = IMChatLookupDomainForServiceName();
 
-    groupID8 = [contextCopy groupID];
-    if (groupID8)
+    groupID7 = [contextCopy groupID];
+    if (groupID7)
     {
-      v51 = groupID8;
-      v52 = [v18 identifiersForDomain:originalGroupID10];
-      groupID9 = [contextCopy groupID];
-      v54 = [v52 containsObject:groupID9];
+      v51 = groupID7;
+      v52 = [v18 identifiersForDomain:originalGroupID9];
+      groupID8 = [contextCopy groupID];
+      v54 = [v52 containsObject:groupID8];
 
       if ((v54 & 1) == 0)
       {
-        groupID10 = [contextCopy groupID];
+        groupID9 = [contextCopy groupID];
         service5 = [(IMDServiceSession *)self service];
-        [v18 assignIdentifier:groupID10 forDomain:originalGroupID10 isHistoricalIdentifier:{objc_msgSend(service5, "groupIDIsHistoricalIdentifier")}];
+        [v18 assignIdentifier:groupID9 forDomain:originalGroupID9 isHistoricalIdentifier:{objc_msgSend(service5, "groupIDIsHistoricalIdentifier")}];
 
         v38 = 1;
       }
     }
 
     originalGroupID4 = [contextCopy originalGroupID];
-    if (!originalGroupID4)
+    if (!originalGroupID4 || (v58 = originalGroupID4, [v18 identifiersForDomain:originalGroupID9], v59 = objc_claimAutoreleasedReturnValue(), objc_msgSend(contextCopy, "originalGroupID"), v60 = objc_claimAutoreleasedReturnValue(), v61 = objc_msgSend(v59, "containsObject:", v60), v60, v59, v58, (v61 & 1) != 0))
     {
-      goto LABEL_38;
-    }
-
-    v58 = originalGroupID4;
-    v59 = [v18 identifiersForDomain:originalGroupID10];
-    originalGroupID5 = [contextCopy originalGroupID];
-    v61 = [v59 containsObject:originalGroupID5];
-
-    if (v61)
-    {
-LABEL_38:
 
       if ((v38 & 1) == 0)
       {
@@ -7763,48 +9058,38 @@ LABEL_38:
       goto LABEL_48;
     }
 
-    originalGroupID6 = [contextCopy originalGroupID];
+    originalGroupID5 = [contextCopy originalGroupID];
     service6 = [(IMDServiceSession *)self service];
-    [v18 assignIdentifier:originalGroupID6 forDomain:originalGroupID10 isHistoricalIdentifier:{objc_msgSend(service6, "groupIDIsHistoricalIdentifier") ^ 1}];
+    [v18 assignIdentifier:originalGroupID5 forDomain:originalGroupID9 isHistoricalIdentifier:{objc_msgSend(service6, "groupIDIsHistoricalIdentifier") ^ 1}];
 
     goto LABEL_47;
   }
 
-  if (!groupID5)
+  if (groupID5 && ([v18 groupID], v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(contextCopy, "groupID"), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(v42, "isEqualToString:", v43), v43, v42, v33, (v44 & 1) == 0))
   {
-    goto LABEL_31;
-  }
-
-  groupID11 = [v18 groupID];
-  groupID12 = [contextCopy groupID];
-  v44 = [groupID11 isEqualToString:groupID12];
-
-  if ((v44 & 1) == 0)
-  {
-    groupID13 = [contextCopy groupID];
-    [v18 setGroupID:groupID13];
+    groupID10 = [contextCopy groupID];
+    [v18 setGroupID:groupID10];
 
     v45 = 1;
   }
 
   else
   {
-LABEL_31:
     v45 = 0;
   }
 
-  originalGroupID7 = [contextCopy originalGroupID];
-  if (originalGroupID7)
+  originalGroupID6 = [contextCopy originalGroupID];
+  if (originalGroupID6)
   {
-    v64 = originalGroupID7;
-    originalGroupID8 = [v18 originalGroupID];
-    originalGroupID9 = [contextCopy originalGroupID];
-    v67 = [originalGroupID8 isEqualToString:originalGroupID9];
+    v64 = originalGroupID6;
+    originalGroupID7 = [v18 originalGroupID];
+    originalGroupID8 = [contextCopy originalGroupID];
+    v67 = [originalGroupID7 isEqualToString:originalGroupID8];
 
     if ((v67 & 1) == 0)
     {
-      originalGroupID10 = [contextCopy originalGroupID];
-      [v18 setOriginalGroupID:originalGroupID10];
+      originalGroupID9 = [contextCopy originalGroupID];
+      [v18 setOriginalGroupID:originalGroupID9];
 LABEL_47:
 
       goto LABEL_48;
@@ -7834,7 +9119,7 @@ LABEL_50:
   v54 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v7 = [context copy];
-  v8 = IMDTelephonyServiceLogHandle();
+  v8 = IMDTelephonyServiceLogHandle(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     chatIdentifier = [v7 chatIdentifier];
@@ -7876,11 +9161,11 @@ LABEL_50:
 
       if (v22)
       {
-        v23 = IMDTelephonyServiceLogHandle();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = IMDTelephonyServiceLogHandle(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_DEFAULT, "Receiving: Chat has been marked as an emergency chat", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_DEFAULT, "Receiving: Chat has been marked as an emergency chat", buf, 2u);
         }
 
         [v15 updateIsEmergencyChat:1];
@@ -7908,32 +9193,30 @@ LABEL_50:
   IsEmail = IMStringIsEmail();
 
   fileTransferGUIDs = [messageCopy fileTransferGUIDs];
-  v32 = [fileTransferGUIDs count] != 0;
+  v33 = [fileTransferGUIDs count] != 0;
 
   v44[0] = *MEMORY[0x277D1A2A0];
-  v33 = [MEMORY[0x277CCABB0] numberWithLong:0];
-  v45[0] = v33;
+  v34 = [MEMORY[0x277CCABB0] numberWithLong:0];
+  v45[0] = v34;
   v44[1] = *MEMORY[0x277D1A2F0];
-  v34 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v13, "isGroupChat")}];
-  v45[1] = v34;
+  v35 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v13, "isGroupChat")}];
+  v45[1] = v35;
   v44[2] = *MEMORY[0x277D1A2E8];
-  v35 = [MEMORY[0x277CCABB0] numberWithBool:IsEmail ^ 1];
-  v45[2] = v35;
+  v36 = [MEMORY[0x277CCABB0] numberWithBool:IsEmail ^ 1];
+  v45[2] = v36;
   v44[3] = *MEMORY[0x277D1A2E0];
-  v36 = [MEMORY[0x277CCABB0] numberWithInt:IsEmail];
-  v45[3] = v36;
+  v37 = [MEMORY[0x277CCABB0] numberWithInt:IsEmail];
+  v45[3] = v37;
   v44[4] = *MEMORY[0x277D1A2C8];
-  v37 = [MEMORY[0x277CCABB0] numberWithBool:v32];
-  v45[4] = v37;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
+  v38 = [MEMORY[0x277CCABB0] numberWithBool:v33];
+  v45[4] = v38;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
 
   mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
-  [mEMORY[0x277D1AAA8] trackEvent:*MEMORY[0x277D1A210] withDictionary:v38];
+  [mEMORY[0x277D1AAA8] trackEvent:*MEMORY[0x277D1A210] withDictionary:v39];
 
   subject = [messageCopy subject];
-  -[IMDTelephonyServiceSession _carrierReportJunkMetricsForSMSWithSubject:isGroupchat:hasAttachments:](self, "_carrierReportJunkMetricsForSMSWithSubject:isGroupchat:hasAttachments:", subject, [v13 isGroupChat], v32);
-
-  v41 = *MEMORY[0x277D85DE8];
+  -[IMDTelephonyServiceSession _carrierReportJunkMetricsForSMSWithSubject:isGroupchat:hasAttachments:](self, "_carrierReportJunkMetricsForSMSWithSubject:isGroupchat:hasAttachments:", subject, [v13 isGroupChat], v33);
 
   return v43;
 }
@@ -7957,7 +9240,7 @@ LABEL_50:
 - (void)_carrierReportJunkMetricsForSMSWithSubject:(id)subject isGroupchat:(BOOL)groupchat hasAttachments:(BOOL)attachments
 {
   groupchatCopy = groupchat;
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   subjectCopy = subject;
   v8 = subjectCopy;
   if (groupchatCopy || attachments || [subjectCopy length])
@@ -7980,13 +9263,11 @@ LABEL_50:
 
   mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
   v11 = *MEMORY[0x277D1A0D0];
-  v15 = @"type";
+  v14 = @"type";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
-  v16[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [mEMORY[0x277D1AAA8] trackEvent:v11 withDictionary:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)backwardCompatibilityPrefixForLanguageCode:(id)code
@@ -7995,11 +9276,15 @@ LABEL_50:
   codeCopy = code;
   sub_22B7DAC58();
   sub_22B7DB6A8();
+  v6 = v5;
   sub_22B7DAC38();
+  v8 = v7;
+  v6, v7, v9, v10, v11, v12, v13, v14, v24, v26;
+  v15 = sub_22B7DB678();
 
-  v5 = sub_22B7DB678();
+  v8, v16, v17, v18, v19, v20, v21, v22, v25, v27;
 
-  return v5;
+  return v15;
 }
 
 @end

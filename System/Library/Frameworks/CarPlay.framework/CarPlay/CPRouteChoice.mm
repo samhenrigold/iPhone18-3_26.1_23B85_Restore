@@ -112,13 +112,12 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = CPRouteChoice;
-  v4 = [(CPRouteChoice *)&v8 description];
-  identifier = self->_identifier;
-  v6 = [v3 stringWithFormat:@"%@ {identifier: %@, summaryVariants: %@, additionalInformationVariants: %@, selectionSummaryVariants %@}", v4, identifier, self->_summaryVariants, self->_additionalInformationVariants, self->_selectionSummaryVariants];
+  v7.receiver = self;
+  v7.super_class = CPRouteChoice;
+  v4 = [(CPRouteChoice *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@ {identifier: %@, summaryVariants: %@, additionalInformationVariants: %@, selectionSummaryVariants %@}", v4, self->_identifier, self->_summaryVariants, self->_additionalInformationVariants, self->_selectionSummaryVariants];
 
-  return v6;
+  return v5;
 }
 
 @end

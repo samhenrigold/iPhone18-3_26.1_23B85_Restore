@@ -2,30 +2,30 @@
 + (NSSet)allowedPayloadKeys;
 + (id)buildRequiredOnlyWithURL:(id)l;
 + (id)buildWithURL:(id)l name:(id)name subject:(id)subject challenge:(id)challenge keysize:(id)keysize keyType:(id)type keyUsage:(id)usage caFingerprint:(id)self0 retries:(id)self1 retryDelay:(id)self2 subjectAltName:(id)self3;
+- (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializeWithType:(signed __int16)type;
 @end
 
 @implementation RMModelSCEPCredentialDeclaration
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[11] = *MEMORY[0x277D85DE8];
+  v6[11] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"URL";
-  v7[1] = @"Name";
-  v7[2] = @"Subject";
-  v7[3] = @"Challenge";
-  v7[4] = @"Keysize";
-  v7[5] = @"Key Type";
-  v7[6] = @"Key Usage";
-  v7[7] = @"CAFingerprint";
-  v7[8] = @"Retries";
-  v7[9] = @"RetryDelay";
-  v7[10] = @"SubjectAltName";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:11];
+  v6[0] = @"URL";
+  v6[1] = @"Name";
+  v6[2] = @"Subject";
+  v6[3] = @"Challenge";
+  v6[4] = @"Keysize";
+  v6[5] = @"Key Type";
+  v6[6] = @"Key Usage";
+  v6[7] = @"CAFingerprint";
+  v6[8] = @"Retries";
+  v6[9] = @"RetryDelay";
+  v6[10] = @"SubjectAltName";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:11];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -125,58 +125,85 @@
   return v4;
 }
 
+- (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error
+{
+  typeCopy = type;
+  dictionaryCopy = dictionary;
+  v9 = MEMORY[0x277CBEB58];
+  allKeys = [dictionaryCopy allKeys];
+  v11 = [v9 setWithArray:allKeys];
+
+  v12 = +[RMModelSCEPCredentialDeclaration allowedPayloadKeys];
+  [v11 minusSet:v12];
+
+  v13 = [v11 copy];
+  [(RMModelPayloadBase *)self setUnknownPayloadKeys:v13];
+
+  if ([(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"URL" forKeyPath:@"payloadURL" isRequired:1 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"Name" forKeyPath:@"payloadName" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"Subject" forKeyPath:@"payloadSubject" validator:&__block_literal_global_15 isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"Challenge" forKeyPath:@"payloadChallenge" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"Keysize" forKeyPath:@"payloadKeysize" isRequired:0 defaultValue:&unk_28746B870 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"Key Type" forKeyPath:@"payloadKeyType" isRequired:0 defaultValue:@"RSA" error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"Key Usage" forKeyPath:@"payloadKeyUsage" isRequired:0 defaultValue:&unk_28746B888 error:error]&& [(RMModelPayloadBase *)self loadDataFromDictionary:dictionaryCopy usingKey:@"CAFingerprint" forKeyPath:@"payloadCAFingerprint" isRequired:0 defaultValue:0 serializationType:typeCopy error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"Retries" forKeyPath:@"payloadRetries" isRequired:0 defaultValue:&unk_28746B8A0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"RetryDelay" forKeyPath:@"payloadRetryDelay" isRequired:0 defaultValue:&unk_28746B8B8 error:error])
+  {
+    LOWORD(v16) = typeCopy;
+    v14 = [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"SubjectAltName" forKeyPath:@"payloadSubjectAltName" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v16 error:error];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
+}
+
 uint64_t __79__RMModelSCEPCredentialDeclaration_loadFromDictionary_serializationType_error___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v2 = a2;
-  v3 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
-    v17 = *v23;
+    v5 = *v21;
+    v15 = *v21;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_19:
-          v14 = 0;
+          v13 = 0;
           goto LABEL_21;
         }
 
-        v20 = 0u;
-        v21 = 0u;
         v18 = 0u;
         v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v19;
+          v11 = *v17;
           while (2)
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v19 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v18 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -185,7 +212,7 @@ LABEL_19:
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
             if (v10)
             {
               continue;
@@ -195,11 +222,11 @@ LABEL_19:
           }
         }
 
-        v5 = v17;
+        v5 = v15;
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
-      v14 = 1;
+      v4 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v13 = 1;
       if (v4)
       {
         continue;
@@ -211,13 +238,59 @@ LABEL_19:
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_21:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
+}
+
+- (id)serializeWithType:(signed __int16)type
+{
+  typeCopy = type;
+  v5 = objc_opt_new();
+  payloadURL = [(RMModelSCEPCredentialDeclaration *)self payloadURL];
+  [(RMModelPayloadBase *)self serializeStringIntoDictionary:v5 usingKey:@"URL" value:payloadURL isRequired:1 defaultValue:0];
+
+  payloadName = [(RMModelSCEPCredentialDeclaration *)self payloadName];
+  [(RMModelPayloadBase *)self serializeStringIntoDictionary:v5 usingKey:@"Name" value:payloadName isRequired:0 defaultValue:0];
+
+  payloadSubject = [(RMModelSCEPCredentialDeclaration *)self payloadSubject];
+  [(RMModelPayloadBase *)self serializeArrayIntoDictionary:v5 usingKey:@"Subject" value:payloadSubject itemSerializer:&__block_literal_global_83 isRequired:0 defaultValue:0];
+
+  payloadChallenge = [(RMModelSCEPCredentialDeclaration *)self payloadChallenge];
+  [(RMModelPayloadBase *)self serializeStringIntoDictionary:v5 usingKey:@"Challenge" value:payloadChallenge isRequired:0 defaultValue:0];
+
+  payloadKeysize = [(RMModelSCEPCredentialDeclaration *)self payloadKeysize];
+  [(RMModelPayloadBase *)self serializeIntegerIntoDictionary:v5 usingKey:@"Keysize" value:payloadKeysize isRequired:0 defaultValue:&unk_28746B870];
+
+  payloadKeyType = [(RMModelSCEPCredentialDeclaration *)self payloadKeyType];
+  [(RMModelPayloadBase *)self serializeStringIntoDictionary:v5 usingKey:@"Key Type" value:payloadKeyType isRequired:0 defaultValue:@"RSA"];
+
+  payloadKeyUsage = [(RMModelSCEPCredentialDeclaration *)self payloadKeyUsage];
+  [(RMModelPayloadBase *)self serializeIntegerIntoDictionary:v5 usingKey:@"Key Usage" value:payloadKeyUsage isRequired:0 defaultValue:&unk_28746B888];
+
+  payloadCAFingerprint = [(RMModelSCEPCredentialDeclaration *)self payloadCAFingerprint];
+  [(RMModelPayloadBase *)self serializeDataIntoDictionary:v5 usingKey:@"CAFingerprint" value:payloadCAFingerprint isRequired:0 defaultValue:0 serializationType:typeCopy];
+
+  payloadRetries = [(RMModelSCEPCredentialDeclaration *)self payloadRetries];
+  [(RMModelPayloadBase *)self serializeIntegerIntoDictionary:v5 usingKey:@"Retries" value:payloadRetries isRequired:0 defaultValue:&unk_28746B8A0];
+
+  payloadRetryDelay = [(RMModelSCEPCredentialDeclaration *)self payloadRetryDelay];
+  [(RMModelPayloadBase *)self serializeIntegerIntoDictionary:v5 usingKey:@"RetryDelay" value:payloadRetryDelay isRequired:0 defaultValue:&unk_28746B8B8];
+
+  payloadSubjectAltName = [(RMModelSCEPCredentialDeclaration *)self payloadSubjectAltName];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __54__RMModelSCEPCredentialDeclaration_serializeWithType___block_invoke_2;
+  v19[3] = &__block_descriptor_34_e42___NSDictionary_16__0__RMModelPayloadBase_8l;
+  v20 = typeCopy;
+  [(RMModelPayloadBase *)self serializeDictionaryIntoDictionary:v5 usingKey:@"SubjectAltName" value:payloadSubjectAltName dictSerializer:v19 isRequired:0 defaultValue:0];
+
+  v17 = [v5 copy];
+
+  return v17;
 }
 
 id __54__RMModelSCEPCredentialDeclaration_serializeWithType___block_invoke(uint64_t a1, void *a2)

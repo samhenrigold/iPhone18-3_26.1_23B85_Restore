@@ -4,6 +4,8 @@
 - (CKProcessScopedDaemonProxy)initWithConnection:(id)connection;
 - (CKXPCConnection)connection;
 - (unint64_t)maxInlineMergeableDeltaSize;
+- (void)_getProcessScopedDaemonProxyCreatorSynchronous:(BOOL)synchronous completionHandler:(id)handler;
+- (void)_getProcessScopedDaemonProxySynchronous:(BOOL)synchronous errorHandler:(id)handler daemonProxyHandler:(id)proxyHandler;
 - (void)accountWithID:(id)d changedWithChangeType:(int64_t)type;
 - (void)accountsDidGrantAccessToBundleID:(id)d containerIdentifiers:(id)identifiers;
 - (void)accountsDidRevokeAccessToBundleID:(id)d containerIdentifiers:(id)identifiers;
@@ -157,7 +159,7 @@
 
 - (void)accountWithID:(id)d changedWithChangeType:(int64_t)type
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = _os_activity_create(&dword_1883EA000, "client/account-with-id-changed-with-change-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -173,28 +175,27 @@
   {
     v9 = CKStringFromAccountChangeType(type);
     *buf = 138412546;
-    v20 = dCopy;
-    v21 = 2114;
-    v22 = v9;
+    v19 = dCopy;
+    v20 = 2114;
+    v21 = v9;
     _os_log_impl(&dword_1883EA000, v8, OS_LOG_TYPE_INFO, "Notifying cloudd that account %@ changed with type %{public}@", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1885AD4D0;
-  v16[3] = &unk_1E70BC048;
-  v17 = dCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1885AD5C0;
-  v13[3] = &unk_1E70BE8C0;
-  v10 = v17;
-  v14 = v10;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1885AD4D0;
+  v15[3] = &unk_1E70BC048;
+  v16 = dCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1885AD5C0;
+  v12[3] = &unk_1E70BE8C0;
+  v10 = v16;
+  v13 = v10;
   typeCopy = type;
-  objc_msgSend__getProcessScopedDaemonProxySynchronous_errorHandler_daemonProxyHandler_(self, v11, type == 5, v16, v13);
+  objc_msgSend__getProcessScopedDaemonProxySynchronous_errorHandler_daemonProxyHandler_(self, v11, type == 5, v15, v12);
 
   os_activity_scope_leave(&state);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchUsabilityForTestAccountCredentials:(id)credentials completionHandler:(id)handler
@@ -308,6 +309,23 @@
   }
 }
 
+- (void)_getProcessScopedDaemonProxySynchronous:(BOOL)synchronous errorHandler:(id)handler daemonProxyHandler:(id)proxyHandler
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  proxyHandlerCopy = proxyHandler;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1885ADFA0;
+  v13[3] = &unk_1E70BC5E0;
+  v16 = synchronousCopy;
+  v14 = proxyHandlerCopy;
+  v15 = handlerCopy;
+  v10 = handlerCopy;
+  v11 = proxyHandlerCopy;
+  objc_msgSend__getProcessScopedDaemonProxyCreatorSynchronous_completionHandler_(self, v12, synchronousCopy, v13);
+}
+
 - (unint64_t)maxInlineMergeableDeltaSize
 {
   v3 = _os_activity_create(&dword_1883EA000, "client/max-inline-mergeable-delta-size", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -339,6 +357,64 @@
 
   os_activity_scope_leave(&state);
   return v10;
+}
+
+- (void)_getProcessScopedDaemonProxyCreatorSynchronous:(BOOL)synchronous completionHandler:(id)handler
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  v9 = objc_msgSend_connection(self, v7, v8);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v13 = objc_msgSend_connectionInterruptedObserver(selfCopy, v11, v12);
+
+  if (!v13)
+  {
+    objc_initWeak(&location, selfCopy);
+    v16 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v14, v15);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_1885AE5F4;
+    v29[3] = &unk_1E70BC608;
+    objc_copyWeak(&v30, &location);
+    v18 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v16, v17, @"CKXPCConnectionInterrupted", v9, 0, v29);
+    objc_msgSend_setConnectionInterruptedObserver_(selfCopy, v19, v18);
+
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&location);
+  }
+
+  objc_sync_exit(selfCopy);
+
+  v20 = selfCopy;
+  objc_sync_enter(v20);
+  if (objc_msgSend_hasValidProcessScopedDaemonProxyCreator(v20, v21, v22))
+  {
+    v25 = objc_msgSend_processScopedDaemonProxyCreator(v20, v23, v24);
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  objc_sync_exit(v20);
+
+  if (v25)
+  {
+    handlerCopy[2](handlerCopy, v25, 0);
+  }
+
+  else
+  {
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_1885AE6E4;
+    v27[3] = &unk_1E70BE950;
+    v27[4] = v20;
+    v28 = handlerCopy;
+    objc_msgSend_getProcessScopedDaemonProxyCreatorSynchronous_completionHandler_(v9, v26, synchronousCopy, v27);
+  }
 }
 
 - (CKXPCConnection)connection

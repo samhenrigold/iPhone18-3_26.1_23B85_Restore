@@ -70,7 +70,7 @@
 
   sub_2153C8FA4();
 
-  sub_2151ADCD8(v6, &qword_27CA5ABC0);
+  sub_2151ADCD8(v6, &qword_27CA5ABC0, &unk_2154BE110);
 }
 
 - (void)hideCloseButton:(id)button
@@ -106,7 +106,7 @@
   v6 = *(&self->super.super.super.isa + v5);
   if (v6)
   {
-    sub_2151A6C9C(0, &unk_27CA5C170);
+    sub_2151A6C9C(0, &unk_27CA5C170, 0x277D753B0);
     v7 = swift_allocObject();
     *(v7 + 16) = self;
     *(v7 + 24) = v6;

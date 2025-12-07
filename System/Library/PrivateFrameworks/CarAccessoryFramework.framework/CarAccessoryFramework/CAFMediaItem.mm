@@ -264,8 +264,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v42[14] = *MEMORY[0x277D85DE8];
-  v41[0] = @"artist";
+  v41[14] = *MEMORY[0x277D85DE8];
+  v40[0] = @"artist";
   artist = [(CAFMediaItem *)self artist];
   v4 = artist;
   if (!artist)
@@ -273,23 +273,23 @@
     artist = [MEMORY[0x277CBEB68] null];
   }
 
-  v40 = v4;
-  v32 = artist;
-  v42[0] = artist;
-  v41[1] = @"ensemble";
+  v39 = v4;
+  v31 = artist;
+  v41[0] = artist;
+  v40[1] = @"ensemble";
   ensemble = [(CAFMediaItem *)self ensemble];
-  v39 = ensemble;
+  v38 = ensemble;
   if (!ensemble)
   {
     ensemble = [MEMORY[0x277CBEB68] null];
   }
 
-  v31 = ensemble;
-  v42[1] = ensemble;
-  v41[2] = @"frequency";
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[CAFMediaItem frequency](self, "frequency")}];
-  v42[2] = v38;
-  v41[3] = @"identifier";
+  v30 = ensemble;
+  v41[1] = ensemble;
+  v40[2] = @"frequency";
+  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[CAFMediaItem frequency](self, "frequency")}];
+  v41[2] = v37;
+  v40[3] = @"identifier";
   identifier = [(CAFMediaItem *)self identifier];
   v7 = identifier;
   if (!identifier)
@@ -297,32 +297,32 @@
     identifier = [MEMORY[0x277CBEB68] null];
   }
 
-  v30 = identifier;
-  v42[3] = identifier;
-  v41[4] = @"mediaItemCategory";
-  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFMediaItem mediaItemCategory](self, "mediaItemCategory")}];
-  v42[4] = v36;
-  v41[5] = @"mediaItemCategoryUserVisibleLabel";
+  v29 = identifier;
+  v41[3] = identifier;
+  v40[4] = @"mediaItemCategory";
+  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFMediaItem mediaItemCategory](self, "mediaItemCategory")}];
+  v41[4] = v35;
+  v40[5] = @"mediaItemCategoryUserVisibleLabel";
   mediaItemCategoryUserVisibleLabel = [(CAFMediaItem *)self mediaItemCategoryUserVisibleLabel];
-  v35 = mediaItemCategoryUserVisibleLabel;
+  v34 = mediaItemCategoryUserVisibleLabel;
   if (!mediaItemCategoryUserVisibleLabel)
   {
     mediaItemCategoryUserVisibleLabel = [MEMORY[0x277CBEB68] null];
   }
 
-  v29 = mediaItemCategoryUserVisibleLabel;
-  v42[5] = mediaItemCategoryUserVisibleLabel;
-  v41[6] = @"mediaItemGroup";
+  v28 = mediaItemCategoryUserVisibleLabel;
+  v41[5] = mediaItemCategoryUserVisibleLabel;
+  v40[6] = @"mediaItemGroup";
   mediaItemGroup = [(CAFMediaItem *)self mediaItemGroup];
-  v34 = mediaItemGroup;
+  v33 = mediaItemGroup;
   if (!mediaItemGroup)
   {
     mediaItemGroup = [MEMORY[0x277CBEB68] null];
   }
 
-  v28 = mediaItemGroup;
-  v42[6] = mediaItemGroup;
-  v41[7] = @"mediaItemImageIdentifier";
+  v27 = mediaItemGroup;
+  v41[6] = mediaItemGroup;
+  v40[7] = @"mediaItemImageIdentifier";
   mediaItemImageIdentifier = [(CAFMediaItem *)self mediaItemImageIdentifier];
   v11 = mediaItemImageIdentifier;
   if (!mediaItemImageIdentifier)
@@ -330,9 +330,9 @@
     mediaItemImageIdentifier = [MEMORY[0x277CBEB68] null];
   }
 
-  v27 = mediaItemImageIdentifier;
-  v42[7] = mediaItemImageIdentifier;
-  v41[8] = @"mediaItemName";
+  v26 = mediaItemImageIdentifier;
+  v41[7] = mediaItemImageIdentifier;
+  v40[8] = @"mediaItemName";
   mediaItemName = [(CAFMediaItem *)self mediaItemName];
   v13 = mediaItemName;
   if (!mediaItemName)
@@ -340,10 +340,10 @@
     mediaItemName = [MEMORY[0x277CBEB68] null];
   }
 
-  v37 = v7;
-  v26 = mediaItemName;
-  v42[8] = mediaItemName;
-  v41[9] = @"mediaItemShortName";
+  v36 = v7;
+  v25 = mediaItemName;
+  v41[8] = mediaItemName;
+  v40[9] = @"mediaItemShortName";
   mediaItemShortName = [(CAFMediaItem *)self mediaItemShortName];
   v15 = mediaItemShortName;
   if (!mediaItemShortName)
@@ -351,8 +351,8 @@
     mediaItemShortName = [MEMORY[0x277CBEB68] null];
   }
 
-  v42[9] = mediaItemShortName;
-  v41[10] = @"mediaItemType";
+  v41[9] = mediaItemShortName;
+  v40[10] = @"mediaItemType";
   mediaItemType = [(CAFMediaItem *)self mediaItemType];
   null = mediaItemType;
   if (!mediaItemType)
@@ -360,11 +360,11 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v42[10] = null;
-  v41[11] = @"multicast";
+  v41[10] = null;
+  v40[11] = @"multicast";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFMediaItem multicast](self, "multicast")}];
-  v42[11] = v18;
-  v41[12] = @"title";
+  v41[11] = v18;
+  v40[12] = @"title";
   title = [(CAFMediaItem *)self title];
   null2 = title;
   if (!title)
@@ -372,8 +372,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v42[12] = null2;
-  v41[13] = @"userVisibleDescription";
+  v41[12] = null2;
+  v40[13] = @"userVisibleDescription";
   userVisibleDescription = [(CAFMediaItem *)self userVisibleDescription];
   null3 = userVisibleDescription;
   if (!userVisibleDescription)
@@ -381,8 +381,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v42[13] = null3;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:14];
+  v41[13] = null3;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:14];
   if (!userVisibleDescription)
   {
   }
@@ -407,15 +407,19 @@
   {
   }
 
+  if (!v33)
+  {
+  }
+
   if (!v34)
   {
   }
 
-  if (!v35)
+  if (!v36)
   {
   }
 
-  if (!v37)
+  if (!v38)
   {
   }
 
@@ -423,13 +427,7 @@
   {
   }
 
-  if (!v40)
-  {
-  }
-
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 - (id)description

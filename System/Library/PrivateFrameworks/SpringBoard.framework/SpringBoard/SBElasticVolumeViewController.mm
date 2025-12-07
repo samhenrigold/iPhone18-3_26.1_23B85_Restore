@@ -48,13 +48,13 @@
 
     v10 = MEMORY[0x277D65F10];
     processHandle = [MEMORY[0x277CF0CD0] processHandle];
-    auditToken = [processHandle auditToken];
-    v13 = [v10 targetWithPhysicalButton:1 generation:1 auditToken:auditToken identifier:1];
+    v12 = objc_msgSend_auditToken(processHandle);
+    v13 = [v10 targetWithPhysicalButton:1 generation:1 auditToken:v12 identifier:1];
 
     v14 = MEMORY[0x277D65F10];
     processHandle2 = [MEMORY[0x277CF0CD0] processHandle];
-    auditToken2 = [processHandle2 auditToken];
-    v17 = [v14 targetWithPhysicalButton:2 generation:1 auditToken:auditToken2 identifier:1];
+    v16 = objc_msgSend_auditToken(processHandle2);
+    v17 = [v14 targetWithPhysicalButton:2 generation:1 auditToken:v16 identifier:1];
 
     v18 = [MEMORY[0x277D65F00] targetWithSceneIdentity:identity];
     [v18 addButtonTarget:v13];

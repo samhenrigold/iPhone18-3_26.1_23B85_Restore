@@ -19,14 +19,13 @@
 {
   v2 = sub_26203965C();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  RSDDeviceInfo.uuid.getter(v6);
-  v7 = sub_26203961C();
-  (*(v3 + 8))(v6, v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  RSDDeviceInfo.uuid.getter(v5);
+  v6 = sub_26203961C();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (int64_t)hash

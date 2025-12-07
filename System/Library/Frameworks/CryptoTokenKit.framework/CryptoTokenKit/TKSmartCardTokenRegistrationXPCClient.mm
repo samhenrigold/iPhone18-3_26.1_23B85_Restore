@@ -73,7 +73,7 @@
 void __105__TKSmartCardTokenRegistrationXPCClient_registerSmartCardWithTokenID_promptMessage_callerBundleID_error___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = TK_LOG_smartcard_0();
+  v6 = TK_LOG_smartcard_0(v5);
   v7 = v6;
   if (v5)
   {
@@ -123,7 +123,7 @@ void __105__TKSmartCardTokenRegistrationXPCClient_registerSmartCardWithTokenID_p
 void __93__TKSmartCardTokenRegistrationXPCClient_unregisterSmartCardWithTokenID_callerBundleID_error___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = TK_LOG_smartcard_0();
+  v6 = TK_LOG_smartcard_0(v5);
   v7 = v6;
   if (v5)
   {
@@ -202,24 +202,8 @@ void __93__TKSmartCardTokenRegistrationXPCClient_unregisterSmartCardWithTokenID_
 {
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_connectionLock);
-  if (self->_connection)
+  if (self->_connection || (v12[0] = MEMORY[0x1E69E9820], v12[1] = 3221225472, v12[2] = __69__TKSmartCardTokenRegistrationXPCClient__connectionWithErrorHandler___block_invoke, v12[3] = &unk_1E86B7688, v12[4] = self, __69__TKSmartCardTokenRegistrationXPCClient__connectionWithErrorHandler___block_invoke(v12), v5 = objc_claimAutoreleasedReturnValue(), connection = self->_connection, self->_connection = v5, connection, [(TKXPCConnection *)self->_connection activate], self->_connection))
   {
-    goto LABEL_3;
-  }
-
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __69__TKSmartCardTokenRegistrationXPCClient__connectionWithErrorHandler___block_invoke;
-  v12[3] = &unk_1E86B7688;
-  v12[4] = self;
-  v5 = __69__TKSmartCardTokenRegistrationXPCClient__connectionWithErrorHandler___block_invoke(v12);
-  connection = self->_connection;
-  self->_connection = v5;
-
-  [(TKXPCConnection *)self->_connection activate];
-  if (self->_connection)
-  {
-LABEL_3:
     v7 = 0;
   }
 
@@ -278,7 +262,7 @@ TKXPCConnectionDefault *__69__TKSmartCardTokenRegistrationXPCClient__connectionW
 void __59__TKSmartCardTokenRegistrationXPCClient__remoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TK_LOG_smartcard_0();
+  v3 = TK_LOG_smartcard_0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __59__TKSmartCardTokenRegistrationXPCClient__remoteObjectProxy__block_invoke_cold_1();
@@ -296,7 +280,7 @@ void __59__TKSmartCardTokenRegistrationXPCClient__remoteObjectProxy__block_invok
 void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TK_LOG_smartcard_0();
+  v3 = TK_LOG_smartcard_0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__block_invoke_cold_1();
@@ -306,7 +290,7 @@ void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__
 void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__block_invoke_66(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TK_LOG_smartcard_0();
+  v3 = TK_LOG_smartcard_0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__block_invoke_66_cold_1();
@@ -316,7 +300,7 @@ void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__
 - (void)connectionDidActivate:(id)activate
 {
   activateCopy = activate;
-  v4 = TK_LOG_smartcard_0();
+  v4 = TK_LOG_smartcard_0(activateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [TKSmartCardTokenRegistrationXPCClient connectionDidActivate:];
@@ -325,77 +309,44 @@ void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__
 
 void __105__TKSmartCardTokenRegistrationXPCClient_registerSmartCardWithTokenID_promptMessage_callerBundleID_error___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) stringRepresentation];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v2, v3, "Failed to register smartcard, tokenID: %{public}@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v2, v3, "Failed to register smartcard, tokenID: %{public}@, error: %@", v4, v5, v6, v7);
 }
 
 void __105__TKSmartCardTokenRegistrationXPCClient_registerSmartCardWithTokenID_promptMessage_callerBundleID_error___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v5 = 138543618;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Registered smartcard, tokenID: %{public}@, bundleID: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Registered smartcard, tokenID: %{public}@, bundleID: %@", &v4, 0x16u);
 }
 
 void __93__TKSmartCardTokenRegistrationXPCClient_unregisterSmartCardWithTokenID_callerBundleID_error___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) stringRepresentation];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v2, v3, "Failed to unregister smartcard, tokenID: %{public}@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v2, v3, "Failed to unregister smartcard, tokenID: %{public}@, error: %@", v4, v5, v6, v7);
 }
 
 void __93__TKSmartCardTokenRegistrationXPCClient_unregisterSmartCardWithTokenID_callerBundleID_error___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Unregistered smartcard, tokenID: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __59__TKSmartCardTokenRegistrationXPCClient__remoteObjectProxy__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DF413000, v0, v1, "Remote object proxy failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DF413000, v0, v1, "Synchronous remote object proxy failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __70__TKSmartCardTokenRegistrationXPCClient__synchronousRemoteObjectProxy__block_invoke_66_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DF413000, v0, v1, "Synchronous call failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Unregistered smartcard, tokenID: %{public}@", &v3, 0xCu);
 }
 
 - (void)connectionDidActivate:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_1DF413000, v0, OS_LOG_TYPE_DEBUG, "XPC connection %@ was activated", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF413000, v0, OS_LOG_TYPE_DEBUG, "XPC connection %@ was activated", v1, 0xCu);
 }
 
 @end

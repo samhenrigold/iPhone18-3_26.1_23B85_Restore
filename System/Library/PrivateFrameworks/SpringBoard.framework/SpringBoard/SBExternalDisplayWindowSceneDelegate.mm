@@ -133,7 +133,7 @@ void __65__SBExternalDisplayWindowSceneDelegate__individuallyManagedRoles__block
 {
   roleCopy = role;
   _individuallyManagedRoles = [objc_opt_class() _individuallyManagedRoles];
-  v5 = [_individuallyManagedRoles containsObject:roleCopy];
+  v5 = objc_msgSend_containsObject_(_individuallyManagedRoles);
 
   return v5 ^ 1;
 }

@@ -32,32 +32,30 @@ void __56__MRDestinationResolverDependencies_defaultDependencies__block_invoke()
 
 - (void)createPlayerPathForEndpoint:(id)endpoint client:(id)client player:(id)player queue:(id)queue completion:(id)completion
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   clientCopy = client;
   playerCopy = player;
   queueCopy = queue;
   completionCopy = completion;
-  v29 = @"MREndpointConnectionReasonUserInfoKey";
-  v30[0] = @"MRNowPlayingController";
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __96__MRDestinationResolverDependencies_createPlayerPathForEndpoint_client_player_queue_completion___block_invoke;
-  v23[3] = &unk_1E769AF98;
-  v27 = playerCopy;
-  v28 = completionCopy;
-  v24 = queueCopy;
-  v25 = endpointCopy;
-  v26 = clientCopy;
+  v28 = @"MREndpointConnectionReasonUserInfoKey";
+  v29[0] = @"MRNowPlayingController";
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __96__MRDestinationResolverDependencies_createPlayerPathForEndpoint_client_player_queue_completion___block_invoke;
+  v22[3] = &unk_1E769AF98;
+  v26 = playerCopy;
+  v27 = completionCopy;
+  v23 = queueCopy;
+  v24 = endpointCopy;
+  v25 = clientCopy;
   v17 = playerCopy;
   v18 = clientCopy;
   v19 = endpointCopy;
   v20 = completionCopy;
   v21 = queueCopy;
-  [v19 connectToExternalDeviceWithUserInfo:v16 completion:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v19 connectToExternalDeviceWithUserInfo:v16 completion:v22];
 }
 
 void __96__MRDestinationResolverDependencies_createPlayerPathForEndpoint_client_player_queue_completion___block_invoke(uint64_t a1, void *a2)
@@ -86,17 +84,16 @@ void __96__MRDestinationResolverDependencies_createPlayerPathForEndpoint_client_
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 64);
-    v3 = *(*(a1 + 64) + 16);
+    v2 = *(*(a1 + 64) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = [MRPlayerPath alloc];
-    v5 = [*(a1 + 40) origin];
-    v6 = [(MRPlayerPath *)v4 initWithOrigin:v5 client:*(a1 + 48) player:*(a1 + 56)];
+    v3 = [MRPlayerPath alloc];
+    v4 = [*(a1 + 40) origin];
+    v5 = [(MRPlayerPath *)v3 initWithOrigin:v4 client:*(a1 + 48) player:*(a1 + 56)];
 
     (*(*(a1 + 64) + 16))();
   }
@@ -139,12 +136,12 @@ void __96__MRDestinationResolverDependencies_createPlayerPathForEndpoint_client_
 
 uint64_t __84__MRDestinationResolverDependencies_retrieveEndpointForContextUID_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 outputDevices];
-  v4 = [v3 firstObject];
-  v5 = [v4 groupContextID];
-  v6 = [v5 isEqualToString:*(a1 + 32)];
+  v2 = [a2 outputDevices];
+  v3 = [v2 firstObject];
+  v4 = [v3 groupContextID];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  return v6;
+  return isEqualToString;
 }
 
 void __84__MRDestinationResolverDependencies_retrieveEndpointForContextUID_queue_completion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -161,16 +158,16 @@ void __84__MRDestinationResolverDependencies_retrieveEndpointForContextUID_queue
   iDCopy = iD;
   queueCopy = queue;
   completionCopy = completion;
-  v13 = [dCopy isEqualToString:@"proactiveEndpoint"];
-  v14 = [dCopy isEqualToString:@"userSelectedEndpoint"];
-  if ((v13 & 1) != 0 || v14)
+  isEqualToString = objc_msgSend_isEqualToString_(dCopy);
+  v14 = objc_msgSend_isEqualToString_(dCopy);
+  if ((isEqualToString & 1) != 0 || v14)
   {
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
     v25[2] = __94__MRDestinationResolverDependencies_retrieveEndpointForUID_endpointGroupUID_queue_completion___block_invoke;
     v25[3] = &unk_1E769C338;
     v26 = completionCopy;
-    MRAVEndpointResolveActiveSystemEndpointWithType(v13, queueCopy, v25, 3.0);
+    MRAVEndpointResolveActiveSystemEndpointWithType(isEqualToString, queueCopy, v25, 3.0);
     v16 = v26;
   }
 

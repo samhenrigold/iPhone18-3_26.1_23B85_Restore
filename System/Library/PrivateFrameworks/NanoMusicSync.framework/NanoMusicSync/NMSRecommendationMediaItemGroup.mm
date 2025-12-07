@@ -7,71 +7,57 @@
 
 - (id)identifiersForContainerType:(unint64_t)type
 {
-  v26 = *MEMORY[0x277D85DE8];
-  if (type == 1)
+  v22 = *MEMORY[0x277D85DE8];
+  if (type > 1)
   {
-    v4 = 0x277CD5E40;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  if (!type)
+  else
   {
-    v4 = 0x277CD5EF0;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-    goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  v6 = 0;
-LABEL_7:
   array = [MEMORY[0x277CBEB18] array];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   recommendation = [(NMSRecommendationMediaItemGroup *)self recommendation];
   items = [recommendation items];
 
-  v10 = [items countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v10)
+  v8 = [items countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v22;
+    v9 = v8;
+    v10 = *v18;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v12)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(items);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
-        if (v6)
+        v12 = *(*(&v17 + 1) + 8 * i);
+        if (!v4 || (objc_opt_isKindOfClass() & 1) != 0)
         {
-          v15 = *(*(&v21 + 1) + 8 * i);
-          if ((objc_opt_isKindOfClass() & 1) == 0)
-          {
-            continue;
-          }
+          identifiers = [v12 identifiers];
+          v14 = [identifiers copy];
+          [array addObject:v14];
         }
-
-        identifiers = [v14 identifiers];
-        v17 = [identifiers copy];
-        [array addObject:v17];
       }
 
-      v11 = [items countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [items countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
 
-  v18 = [array copy];
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = [array copy];
 
-  return v18;
+  return v15;
 }
 
 - (id)itemList

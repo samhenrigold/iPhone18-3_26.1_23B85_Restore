@@ -87,15 +87,14 @@ void __83__GTFileWriterService_startTransfer_basePath_fromDevice_options_complet
 {
   if (a2)
   {
-    v3 = a1[6];
-    v4 = *(a1[6] + 16);
+    v3 = *(a1[6] + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1[4] + 48) makeURL:a1[5]];
+    v4 = [*(a1[4] + 48) makeURL:a1[5]];
     (*(a1[6] + 16))();
   }
 }
@@ -162,19 +161,19 @@ void __83__GTFileWriterService_startTransfer_basePath_fromDevice_options_complet
 
 void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
-    memset(&v33, 0, sizeof(v33));
-    if (stat([*(a1 + 32) fileSystemRepresentation], &v33))
+    memset(&v32, 0, sizeof(v32));
+    if (stat([*(a1 + 32) fileSystemRepresentation], &v32))
     {
       if (GTCoreLogUseOsLog())
       {
         v4 = gt_tagged_log(0x10u);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
-          __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke_cold_1((a1 + 32));
+          __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke_cold_1();
         }
       }
 
@@ -188,8 +187,8 @@ void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_opt
       goto LABEL_39;
     }
 
-    st_uid = v33.st_uid;
-    st_gid = v33.st_gid;
+    st_uid = v32.st_uid;
+    st_gid = v32.st_gid;
     v7 = *(a1 + 40);
     if (GTCoreLogUseOsLog())
     {
@@ -197,11 +196,11 @@ void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_opt
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v39 = v7;
-        v40 = 1024;
-        v41 = st_uid;
-        v42 = 1024;
-        v43 = st_gid;
+        v38 = v7;
+        v39 = 1024;
+        v40 = st_uid;
+        v41 = 1024;
+        v42 = st_gid;
         _os_log_debug_impl(&dword_24DBC9000, v8, OS_LOG_TYPE_DEBUG, "Updating owner of archive %@ to %u:%u", buf, 0x18u);
       }
     }
@@ -220,42 +219,42 @@ void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_opt
         v12 = [MEMORY[0x277CCAA00] defaultManager];
         v13 = [v12 enumeratorAtURL:v7 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 errorHandler:0];
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v34 objects:buf count:16];
+        v15 = [v14 countByEnumeratingWithState:&v33 objects:buf count:16];
         v16 = v14;
         if (v15)
         {
           v17 = v15;
-          v32 = v7;
-          v18 = *v35;
+          v31 = v7;
+          v18 = *v34;
           v19 = 1;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v35 != v18)
+              if (*v34 != v18)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v21 = *(*(&v34 + 1) + 8 * i);
+              v21 = *(*(&v33 + 1) + 8 * i);
               v22 = objc_autoreleasePoolPush();
               v19 &= chown([v21 fileSystemRepresentation], st_uid, st_gid) != -1;
               objc_autoreleasePoolPop(v22);
             }
 
-            v17 = [v14 countByEnumeratingWithState:&v34 objects:buf count:16];
+            v17 = [v14 countByEnumeratingWithState:&v33 objects:buf count:16];
           }
 
           while (v17);
 
           if (v19)
           {
-            v7 = v32;
+            v7 = v31;
             v3 = 0;
 LABEL_38:
 
@@ -266,7 +265,7 @@ LABEL_39:
             goto LABEL_40;
           }
 
-          v7 = v32;
+          v7 = v31;
           v3 = 0;
           if (GTCoreLogUseOsLog())
           {
@@ -280,7 +279,7 @@ LABEL_39:
           else
           {
             v27 = *MEMORY[0x277D85DF8];
-            v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to update owner of one or more files inside archive %@ after transfer", v32];
+            v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to update owner of one or more files inside archive %@ after transfer", v31];
             fprintf(v27, "%s\n", [v16 UTF8String]);
           }
         }
@@ -301,8 +300,8 @@ LABEL_39:
 
       v23 = *MEMORY[0x277D85DF8];
       v26 = MEMORY[0x277CCACA8];
-      v30 = v7;
-      v31 = *__error();
+      v29 = v7;
+      v30 = *__error();
       v25 = @"Failed to update owner of archive %@ after transfer: %{darwin.errno}d";
       v24 = v26;
     }
@@ -325,7 +324,7 @@ LABEL_39:
       v25 = @"Invalid archive passed to UpdateArchiveOwner";
     }
 
-    v14 = [v24 stringWithFormat:v25, v30, v31];
+    v14 = [v24 stringWithFormat:v25, v29, v30];
     fprintf(v23, "%s\n", [v14 UTF8String]);
     goto LABEL_38;
   }
@@ -333,35 +332,33 @@ LABEL_39:
   (*(*(a1 + 56) + 16))();
 LABEL_40:
   [*(a1 + 32) stopAccessingSecurityScopedResource];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiateTransfer:(id)transfer basePath:(id)path fromDevice:(id)device toURL:(id)l options:(id)options completionHandler:(id)handler
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   pathCopy = path;
   deviceCopy = device;
   lCopy = l;
   optionsCopy = options;
   handlerCopy = handler;
-  v58 = lCopy;
+  v57 = lCopy;
   if (GTCoreLogUseOsLog())
   {
     v20 = gt_tagged_log(0x10u);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413314;
-      v70 = pathCopy;
-      v71 = 2112;
-      v72 = deviceCopy;
-      v73 = 2112;
-      v74 = lCopy;
-      v75 = 2048;
+      v69 = pathCopy;
+      v70 = 2112;
+      v71 = deviceCopy;
+      v72 = 2112;
+      v73 = lCopy;
+      v74 = 2048;
       chunkSize = [optionsCopy chunkSize];
-      v77 = 2080;
-      v78 = GTFileTransferCompressionAlgorithmToString([optionsCopy compressionAlgorithm]);
+      v76 = 2080;
+      v77 = GTFileTransferCompressionAlgorithmToString([optionsCopy compressionAlgorithm]);
       _os_log_debug_impl(&dword_24DBC9000, v20, OS_LOG_TYPE_DEBUG, "Initiate transfer basePath:%@ device:%@ toURL:%@ chunkSize:%lu compression:%s", buf, 0x34u);
     }
   }
@@ -373,15 +370,15 @@ LABEL_40:
     fprintf(v21, "%s\n", [v22 UTF8String]);
   }
 
-  v57 = pathCopy;
+  v56 = pathCopy;
   if (GTFileTransferOptionsValidate(optionsCopy))
   {
-    v62 = 0;
-    v23 = [GTFileWriterSession sessionWithFileEntries:transferCopy relativeToURL:lCopy options:optionsCopy error:&v62];
-    v24 = v62;
+    v61 = 0;
+    v23 = [GTFileWriterSession sessionWithFileEntries:transferCopy relativeToURL:lCopy options:optionsCopy error:&v61];
+    v24 = v61;
     if (v23)
     {
-      v56 = transferCopy;
+      v55 = transferCopy;
       v25 = self->_sessionCounts + 1;
       self->_sessionCounts = v25;
       sessions = self->_sessions;
@@ -389,12 +386,12 @@ LABEL_40:
       [(NSMutableDictionary *)sessions setObject:v23 forKeyedSubscript:v27];
 
       v28 = [(GTConnectionProvider *)self->_connectionProvider connectionForDeviceUDID:deviceCopy];
-      v55 = v28;
+      v54 = v28;
       if (v28)
       {
         v29 = v28;
         v30 = FindRemoteGTFileWriterService(v28, deviceCopy, self->_connectionProvider);
-        v54 = v30;
+        v53 = v30;
         if (v30)
         {
           v31 = v30;
@@ -403,14 +400,14 @@ LABEL_40:
           v34 = [(GTFileWriterServiceXPCProxy *)v32 initWithConnection:v29 remoteProperties:serviceProperties];
 
           deviceUDID = self->_deviceUDID;
-          v59[0] = MEMORY[0x277D85DD0];
-          v59[1] = 3221225472;
-          v59[2] = __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke;
-          v59[3] = &unk_279661528;
-          v59[4] = self;
-          v61 = v25;
-          v60 = handlerCopy;
-          [(GTFileWriterServiceXPCProxy *)v34 beginTransferSessionWithFileEntries:v56 basePath:v57 toDevice:deviceUDID options:optionsCopy sessionID:v25 completionHandler:v59];
+          v58[0] = MEMORY[0x277D85DD0];
+          v58[1] = 3221225472;
+          v58[2] = __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke;
+          v58[3] = &unk_279661528;
+          v58[4] = self;
+          v60 = v25;
+          v59 = handlerCopy;
+          [(GTFileWriterServiceXPCProxy *)v34 beginTransferSessionWithFileEntries:v55 basePath:v56 toDevice:deviceUDID options:optionsCopy sessionID:v25 completionHandler:v58];
         }
 
         else
@@ -432,16 +429,16 @@ LABEL_40:
           }
 
           v50 = MEMORY[0x277CCA9B8];
-          v63 = *MEMORY[0x277CCA450];
+          v62 = *MEMORY[0x277CCA450];
           v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"Service is unavailable: %@", @"GTFileWriterService"];
-          v64 = v51;
-          v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+          v63 = v51;
+          v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
           v34 = [v50 errorWithDomain:@"com.apple.gputools.transport" code:1 userInfo:v52];
 
           (*(handlerCopy + 2))(handlerCopy, v34);
         }
 
-        v48 = v54;
+        v48 = v53;
       }
 
       else
@@ -463,16 +460,16 @@ LABEL_40:
         }
 
         v45 = MEMORY[0x277CCA9B8];
-        v65 = *MEMORY[0x277CCA450];
+        v64 = *MEMORY[0x277CCA450];
         v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to find remote connection"];
-        v66 = v46;
-        v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+        v65 = v46;
+        v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
         v48 = [v45 errorWithDomain:@"com.apple.gputools.transport" code:5 userInfo:v47];
 
         (*(handlerCopy + 2))(handlerCopy, v48);
       }
 
-      transferCopy = v56;
+      transferCopy = v55;
     }
 
     else
@@ -502,17 +499,15 @@ LABEL_40:
     }
 
     v39 = MEMORY[0x277CCA9B8];
-    v67 = *MEMORY[0x277CCA450];
+    v66 = *MEMORY[0x277CCA450];
     v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterService", @"options sent to initiateTransfer are invalid."];
-    v68 = v40;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+    v67 = v40;
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
     v24 = [v39 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v41];
 
     (*(handlerCopy + 2))(handlerCopy, v24);
     transferCopy = v37;
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke(void *a1, void *a2)
@@ -532,7 +527,7 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
       v10 = gt_tagged_log(0x10u);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_1(a1 + 6, v3);
+        __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_1((a1 + 6), v3);
       }
     }
 
@@ -571,7 +566,7 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
     v10 = gt_tagged_log(0x10u);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_1(a1 + 6, v8);
+      __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_1((a1 + 6), v8);
     }
   }
 
@@ -590,13 +585,13 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
 
 - (void)beginTransferSessionWithFileEntries:(id)entries basePath:(id)path toDevice:(id)device options:(id)options sessionID:(unint64_t)d completionHandler:(id)handler
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   pathCopy = path;
   deviceCopy = device;
   optionsCopy = options;
   handlerCopy = handler;
-  v56 = [(GTURLAccessProvider *)self->_urlAccessProvider urlForPath:pathCopy];
+  v55 = [(GTURLAccessProvider *)self->_urlAccessProvider urlForPath:pathCopy];
   if (![entriesCopy count])
   {
     if (GTCoreLogUseOsLog())
@@ -617,9 +612,9 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
 
     v33 = MEMORY[0x277CCA9B8];
     v34 = *MEMORY[0x277CCA5B8];
-    v72 = *MEMORY[0x277CCA450];
-    v73[0] = @"No files specified";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+    v71 = *MEMORY[0x277CCA450];
+    v72[0] = @"No files specified";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
     v35 = [v33 errorWithDomain:v34 code:2 userInfo:v20];
     goto LABEL_28;
   }
@@ -631,7 +626,7 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
     if (v19)
     {
       v21 = FindRemoteGTFileWriterService(v19, deviceCopy, self->_connectionProvider);
-      v55 = v21;
+      v54 = v21;
       if (v21)
       {
         v22 = v21;
@@ -639,21 +634,21 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
         serviceProperties = [v22 serviceProperties];
         v25 = [(GTFileWriterServiceXPCProxy *)v23 initWithConnection:v20 remoteProperties:serviceProperties];
 
-        [v56 startAccessingSecurityScopedResource];
+        [v55 startAccessingSecurityScopedResource];
         v26 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy isDirectory:1];
         queue = self->_fileTransferQueue;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke;
         block[3] = &unk_279661578;
-        v58 = entriesCopy;
-        v59 = v26;
-        v60 = optionsCopy;
+        v57 = entriesCopy;
+        v58 = v26;
+        v59 = optionsCopy;
         selfCopy = self;
-        v62 = v25;
+        v61 = v25;
         dCopy = d;
-        v63 = v56;
-        v64 = handlerCopy;
+        v62 = v55;
+        v63 = handlerCopy;
         v27 = v25;
         v28 = v26;
         dispatch_async(queue, block);
@@ -678,16 +673,16 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
         }
 
         v50 = MEMORY[0x277CCA9B8];
-        v66 = *MEMORY[0x277CCA450];
+        v65 = *MEMORY[0x277CCA450];
         v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"Service is unavailable: %@", @"GTFileWriterService"];
-        v67 = v51;
-        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v66 = v51;
+        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v28 = [v50 errorWithDomain:@"com.apple.gputools.transport" code:1 userInfo:v52];
 
         (*(handlerCopy + 2))(handlerCopy, v28);
       }
 
-      v35 = v55;
+      v35 = v54;
       goto LABEL_32;
     }
 
@@ -708,10 +703,10 @@ void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_option
     }
 
     v45 = MEMORY[0x277CCA9B8];
-    v68 = *MEMORY[0x277CCA450];
+    v67 = *MEMORY[0x277CCA450];
     v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to find remote connection"];
-    v69 = v46;
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+    v68 = v46;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
     v35 = [v45 errorWithDomain:@"com.apple.gputools.transport" code:5 userInfo:v47];
 
 LABEL_28:
@@ -738,70 +733,64 @@ LABEL_32:
   }
 
   v38 = MEMORY[0x277CCA9B8];
-  v70 = *MEMORY[0x277CCA450];
+  v69 = *MEMORY[0x277CCA450];
   v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterService", @"options sent to beginTransferSessionWithFileEntries is invalid"];
-  v71 = v39;
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+  v70 = v39;
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
   v20 = [v38 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v40];
 
   (*(handlerCopy + 2))(handlerCopy, v20);
 LABEL_33:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke(uint64_t a1)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__3;
-  v32 = __Block_byref_object_dispose__3;
-  v33 = 0;
+  v33[1] = *MEMORY[0x277D85DE8];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__3;
+  v30 = __Block_byref_object_dispose__3;
+  v31 = 0;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v27 = 0;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke_262;
-  v22 = &unk_279661550;
+  v25 = 0;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke_262;
+  v20 = &unk_279661550;
   v4 = *(a1 + 48);
   v5 = *(a1 + 64);
-  v23 = *(a1 + 56);
+  v21 = *(a1 + 56);
   v6 = v5;
   v7 = *(a1 + 88);
-  v25 = &v28;
-  v26 = v7;
-  v24 = v6;
-  LOBYTE(v3) = GTFileWriterTransferFileEntries(v2, v3, v4, &v27, &v19);
-  v8 = v27;
+  v23 = &v26;
+  v24 = v7;
+  v22 = v6;
+  LOBYTE(v3) = GTFileWriterTransferFileEntries(v2, v3, v4, &v25, &v17);
+  v8 = v25;
   if ((v3 & 1) == 0)
   {
-    [*(a1 + 72) stopAccessingSecurityScopedResource];
-    v11 = *(*(a1 + 80) + 16);
-LABEL_7:
-    v11();
-    goto LABEL_13;
+    goto LABEL_6;
   }
 
   v9 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 2000000000);
   if (!dispatch_semaphore_wait(*(*(a1 + 56) + 56), v9))
   {
-    if (v29[5])
-    {
-      [*(a1 + 72) stopAccessingSecurityScopedResource];
-      v12 = v29[5];
-    }
-
-    else
+    if (!v27[5])
     {
       dispatch_semaphore_signal(*(*(a1 + 56) + 56));
       [*(a1 + 72) stopAccessingSecurityScopedResource];
+      v11 = *(*(a1 + 80) + 16);
+      goto LABEL_7;
     }
 
+LABEL_6:
+    [*(a1 + 72) stopAccessingSecurityScopedResource];
     v11 = *(*(a1 + 80) + 16);
-    goto LABEL_7;
+LABEL_7:
+    v11();
+    goto LABEL_12;
   }
 
   if (GTCoreLogUseOsLog())
@@ -815,30 +804,28 @@ LABEL_7:
 
   else
   {
-    v13 = *MEMORY[0x277D85DF8];
+    v12 = *MEMORY[0x277D85DF8];
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"beginTransferSessionWithFileEntries timed out waiting for final write to complete"];
-    fprintf(v13, "%s\n", [v10 UTF8String]);
+    fprintf(v12, "%s\n", [v10 UTF8String]);
   }
 
-  v14 = MEMORY[0x277CCA9B8];
-  v34 = *MEMORY[0x277CCA450];
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ hit a timeout: %@", @"GTFileWriterService", @"beginTransferSessionWithFileEntries timed out waiting for final write to complete", v19, v20, v21, v22, v23];
-  v35[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-  v17 = [v14 errorWithDomain:@"com.apple.gputools.transport" code:6 userInfo:v16];
+  v13 = MEMORY[0x277CCA9B8];
+  v32 = *MEMORY[0x277CCA450];
+  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ hit a timeout: %@", @"GTFileWriterService", @"beginTransferSessionWithFileEntries timed out waiting for final write to complete", v17, v18, v19, v20, v21];
+  v33[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v16 = [v13 errorWithDomain:@"com.apple.gputools.transport" code:6 userInfo:v15];
 
   [*(a1 + 72) stopAccessingSecurityScopedResource];
   (*(*(a1 + 80) + 16))();
 
-LABEL_13:
-  _Block_object_dispose(&v28, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+LABEL_12:
+  _Block_object_dispose(&v26, 8);
 }
 
 BOOL __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke_262(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:a2 length:a3 freeWhenDone:0];
   v7 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 2000000000);
   v8 = dispatch_semaphore_wait(*(a1[4] + 56), v7);
@@ -846,15 +833,15 @@ BOOL __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toD
   {
     v10 = objc_autoreleasePoolPush();
     v11 = a1[7];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke_270;
-    v21[3] = &unk_279661418;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler___block_invoke_270;
+    v20[3] = &unk_279661418;
     v12 = a1[5];
     v13 = a1[6];
-    v21[4] = a1[4];
-    v21[5] = v13;
-    [v12 writeFileData:v6 sessionID:v11 completionHandler:v21];
+    v20[4] = a1[4];
+    v20[5] = v13;
+    [v12 writeFileData:v6 sessionID:v11 completionHandler:v20];
     objc_autoreleasePoolPop(v10);
     goto LABEL_10;
   }
@@ -872,10 +859,10 @@ BOOL __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toD
 
 LABEL_9:
     v16 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *MEMORY[0x277CCA450];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ hit a timeout: %@", @"GTFileWriterService", @"beginTransferSessionWithFileEntries timed out waiting for transfer to complete"];
-    v23[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     *a4 = [v16 errorWithDomain:@"com.apple.gputools.transport" code:6 userInfo:v18];
 
     goto LABEL_10;
@@ -894,7 +881,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8 == 0;
 }
 
@@ -939,90 +925,72 @@ void __113__GTFileWriterService_beginTransferSessionWithFileEntries_basePath_toD
 
 - (void)startTransfer:basePath:fromDevice:toDirectory:options:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_24DBC9000, v1, OS_LOG_TYPE_DEBUG, "Start transfer of %@ to %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_24DBC9000, v1, OS_LOG_TYPE_DEBUG, "Start transfer of %@ to %@", v2, 0x16u);
 }
 
 - (void)startTransfer:basePath:fromDevice:toDirectory:options:completionHandler:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_24DBC9000, v0, OS_LOG_TYPE_DEBUG, "Failed to consume sandbox extension for URL %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24DBC9000, v0, OS_LOG_TYPE_DEBUG, "Failed to consume sandbox extension for URL %@", v1, 0xCu);
 }
 
-void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke_cold_1(uint64_t *a1)
+void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = *__error();
+  __error();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
 void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __95__GTFileWriterService_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
 - (void)initiateTransfer:basePath:fromDevice:toURL:options:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiateTransfer:basePath:fromDevice:toURL:options:completionHandler:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = [a2 localizedDescription];
+  v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
 void __92__GTFileWriterService_initiateTransfer_basePath_fromDevice_toURL_options_completionHandler___block_invoke_cold_3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_DEBUG, "Transfer session %llu completed successfully", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_DEBUG, "Transfer session %llu completed successfully", &v3, 0xCu);
 }
 
 @end

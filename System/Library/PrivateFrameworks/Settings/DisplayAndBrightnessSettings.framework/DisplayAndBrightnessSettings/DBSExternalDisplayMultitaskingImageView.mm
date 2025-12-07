@@ -19,7 +19,7 @@
     objc_storeStrong(&v8->_name, name);
     v10 = MEMORY[0x277D755B8];
     _imageNameWithUserInterfaceStyle = [(DBSExternalDisplayMultitaskingImageView *)v9 _imageNameWithUserInterfaceStyle];
-    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework(_imageNameWithUserInterfaceStyle);
     v13 = [v10 imageNamed:_imageNameWithUserInterfaceStyle inBundle:v12 compatibleWithTraitCollection:0];
     [(DBSExternalDisplayMultitaskingImageView *)v9 setImage:v13];
 
@@ -72,7 +72,7 @@
 {
   v3 = MEMORY[0x277D755B8];
   _imageNameWithUserInterfaceStyle = [(DBSExternalDisplayMultitaskingImageView *)self _imageNameWithUserInterfaceStyle];
-  v4 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v4 = DBS_BundleForDisplayAndBrightnessSettingsFramework(_imageNameWithUserInterfaceStyle);
   v5 = [v3 imageNamed:_imageNameWithUserInterfaceStyle inBundle:v4 compatibleWithTraitCollection:0];
   [(DBSExternalDisplayMultitaskingImageView *)self setImage:v5];
 }

@@ -613,10 +613,10 @@ void __46__VUIAppDocumentUpdateEvent_pinnedTabsChanged__block_invoke()
 
   else
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(VUIAppDocumentModifiedFavoritesEvent *)self coalescedEvent:eventCopy, v9];
+      [(VUIAppDocumentModifiedFavoritesEvent *)self coalescedEvent:eventCopy, v10];
     }
 
     selfCopy = 0;

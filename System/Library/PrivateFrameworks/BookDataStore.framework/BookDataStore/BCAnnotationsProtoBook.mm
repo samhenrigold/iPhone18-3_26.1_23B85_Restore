@@ -44,7 +44,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   assetID = self->_assetID;
@@ -68,30 +68,30 @@
   if ([(NSMutableArray *)self->_annotations count])
   {
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_annotations, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = self->_annotations;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -100,14 +100,12 @@
     [v4 setObject:v8 forKey:@"annotation"];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (!self->_assetID)
   {
@@ -127,39 +125,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = self->_annotations;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -190,7 +185,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_assetID copyWithZone:zone];
   v7 = v5[3];
@@ -204,40 +199,39 @@
   v11 = v5[4];
   v5[4] = v10;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = self->_annotations;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       v16 = 0;
       do
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * v16) copyWithZone:{zone, v20}];
+        v17 = [*(*(&v19 + 1) + 8 * v16) copyWithZone:{zone, v19}];
         [v5 addAnnotation:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -276,7 +270,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -293,35 +287,33 @@
     [(BCAnnotationsProtoBook *)self setAssetVersion:?];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(fromCopy + 1);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(BCAnnotationsProtoBook *)self addAnnotation:*(*(&v11 + 1) + 8 * i), v11];
+        [(BCAnnotationsProtoBook *)self addAnnotation:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

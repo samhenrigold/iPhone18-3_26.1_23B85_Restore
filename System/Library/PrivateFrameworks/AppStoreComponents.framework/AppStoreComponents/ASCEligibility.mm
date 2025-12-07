@@ -14,11 +14,11 @@
 
 + (void)assertCurrentProcessEligibility
 {
-  objc_opt_self();
+  v0 = objc_opt_self();
   if ((+[ASCEligibility currentClientIsEligibleToUseASC]& 1) == 0)
   {
 
-    +[ASCEligibility abortExecution];
+    +[(ASCEligibility *)v0];
   }
 }
 

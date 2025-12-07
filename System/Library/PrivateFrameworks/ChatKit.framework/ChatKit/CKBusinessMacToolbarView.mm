@@ -20,8 +20,8 @@
   v46.super_class = CKBusinessMacToolbarView;
   [(CKBusinessMacToolbarView *)&v46 layoutSubviews];
   _shouldReverseLayoutDirection = [(CKBusinessMacToolbarView *)self _shouldReverseLayoutDirection];
-  leftItemView = [(CKBusinessMacToolbarView *)self leftItemView];
-  [leftItemView frame];
+  v4 = objc_msgSend_leftItemView(self);
+  [v4 frame];
 
   bannerImage = [(CKBusinessMacToolbarView *)self bannerImage];
   [(CKBusinessMacToolbarView *)self _maxSizeForImage:bannerImage];
@@ -106,8 +106,8 @@
   v43 = round(v34 * v42) / v42;
   v44 = round(v40 * v42) / v42;
 
-  leftItemView2 = [(CKBusinessMacToolbarView *)self leftItemView];
-  [leftItemView2 setFrame:{v43, v44, v16, v9}];
+  v45 = objc_msgSend_leftItemView(self);
+  [v45 setFrame:{v43, v44, v16, v9}];
 }
 
 - (void)setBannerImageData:(id)data
@@ -134,13 +134,13 @@
 
   if (!bannerImage)
   {
-    leftItemView = [(CKBusinessMacToolbarView *)self leftItemView];
-    superview = [leftItemView superview];
+    v7 = objc_msgSend_leftItemView(self);
+    superview = [v7 superview];
 
     if (superview)
     {
-      leftItemView2 = [(CKBusinessMacToolbarView *)self leftItemView];
-      [leftItemView2 removeFromSuperview];
+      v9 = objc_msgSend_leftItemView(self);
+      [v9 removeFromSuperview];
     }
 
     if (titleCopy)
@@ -148,8 +148,8 @@
       fallbackTitleLabel2 = [(CKBusinessMacToolbarView *)self fallbackTitleLabel];
       [(CKBusinessMacToolbarView *)self setLeftItemView:fallbackTitleLabel2];
 
-      leftItemView3 = [(CKBusinessMacToolbarView *)self leftItemView];
-      [(CKBusinessMacToolbarView *)self addSubview:leftItemView3];
+      v11 = objc_msgSend_leftItemView(self);
+      [(CKBusinessMacToolbarView *)self addSubview:v11];
 
       [(CKBusinessMacToolbarView *)self setNeedsLayout];
     }
@@ -267,21 +267,21 @@
   {
     imageCopy = image;
     [(CKBusinessMacToolbarView *)self setBannerImage:imageCopy];
-    leftItemView = [(CKBusinessMacToolbarView *)self leftItemView];
-    superview = [leftItemView superview];
+    v5 = objc_msgSend_leftItemView(self);
+    superview = [v5 superview];
 
     if (superview)
     {
-      leftItemView2 = [(CKBusinessMacToolbarView *)self leftItemView];
-      [leftItemView2 removeFromSuperview];
+      v7 = objc_msgSend_leftItemView(self);
+      [v7 removeFromSuperview];
     }
 
     v9 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:imageCopy];
 
     [v9 setClipsToBounds:1];
     [(CKBusinessMacToolbarView *)self setLeftItemView:v9];
-    leftItemView3 = [(CKBusinessMacToolbarView *)self leftItemView];
-    [(CKBusinessMacToolbarView *)self addSubview:leftItemView3];
+    v8 = objc_msgSend_leftItemView(self);
+    [(CKBusinessMacToolbarView *)self addSubview:v8];
 
     [(CKBusinessMacToolbarView *)self setNeedsLayout];
   }

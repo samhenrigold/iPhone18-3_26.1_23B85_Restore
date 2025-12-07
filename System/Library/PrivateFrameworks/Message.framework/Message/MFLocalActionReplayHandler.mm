@@ -40,12 +40,12 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
 
 - (MFLocalActionReplayHandler)initWithLibrary:(id)library account:(id)account
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   accountCopy = account;
-  v19.receiver = self;
-  v19.super_class = MFLocalActionReplayHandler;
-  v9 = [(MFLocalActionReplayHandler *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MFLocalActionReplayHandler;
+  v9 = [(MFLocalActionReplayHandler *)&v18 init];
   v10 = v9;
   if (v9)
   {
@@ -65,26 +65,25 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
   {
     identifier = [accountCopy identifier];
     *buf = 138543618;
-    v21 = v10;
-    v22 = 2114;
-    v23 = identifier;
+    v20 = v10;
+    v21 = 2114;
+    v22 = identifier;
     _os_log_impl(&dword_1B0389000, v15, OS_LOG_TYPE_DEFAULT, "Created %{public}@ for account %{public}@", buf, 0x16u);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)connectionEstablished
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[MFLocalActionReplayHandler log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [(MFLocalActionReplayHandler *)self ef_publicDescription];
-    v7 = 138543362;
-    v8 = ef_publicDescription;
-    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ connection established", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = ef_publicDescription;
+    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ connection established", &v6, 0xCu);
   }
 
   actionsToReplay = [(MFLocalActionReplayHandler *)self actionsToReplay];
@@ -96,8 +95,6 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(actionsToReplay);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newActionsAdded
@@ -115,7 +112,7 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
 
 - (void)addNewAction:(id)action
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   actionsToReplay = [(MFLocalActionReplayHandler *)self actionsToReplay];
   objc_sync_enter(actionsToReplay);
@@ -123,11 +120,11 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [(MFLocalActionReplayHandler *)self ef_publicDescription];
-    v10 = 138543618;
-    v11 = ef_publicDescription;
-    v12 = 2114;
-    v13 = actionCopy;
-    _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ added action %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = ef_publicDescription;
+    v11 = 2114;
+    v12 = actionCopy;
+    _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ added action %{public}@", &v9, 0x16u);
   }
 
   actionsToReplay2 = [(MFLocalActionReplayHandler *)self actionsToReplay];
@@ -139,13 +136,11 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(actionsToReplay);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_replayAllActions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actionsToReplay = [(MFLocalActionReplayHandler *)self actionsToReplay];
   objc_sync_enter(actionsToReplay);
   actionsToReplay2 = [(MFLocalActionReplayHandler *)self actionsToReplay];
@@ -157,36 +152,34 @@ void __33__MFLocalActionReplayHandler_log__block_invoke(uint64_t a1)
   {
     ef_publicDescription = [(MFLocalActionReplayHandler *)self ef_publicDescription];
     *buf = 138412546;
-    v15 = ef_publicDescription;
-    v16 = 2048;
-    v17 = v5;
+    v14 = ef_publicDescription;
+    v15 = 2048;
+    v16 = v5;
     _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Replaying all actions %@: %ld action(s) to replay", buf, 0x16u);
   }
 
   [(MFLocalActionReplayHandler *)self setReplayingActions:1];
   v8 = [MEMORY[0x1E699B860] transactionWithDescription:@"com.apple.mobilemail.localActionReplayScheduler"];
   replayScheduler = [(MFLocalActionReplayHandler *)self replayScheduler];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __47__MFLocalActionReplayHandler__replayAllActions__block_invoke;
-  v12[3] = &unk_1E7AA26E0;
-  v12[4] = self;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __47__MFLocalActionReplayHandler__replayAllActions__block_invoke;
+  v11[3] = &unk_1E7AA26E0;
+  v11[4] = self;
   v10 = v8;
-  v13 = v10;
-  [replayScheduler performBlock:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = v10;
+  [replayScheduler performBlock:v11];
 }
 
 void __47__MFLocalActionReplayHandler__replayAllActions__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) library];
   v3 = [v2 persistence];
   v4 = [v3 messageChangeManager];
 
   *&v5 = 138543874;
-  v26 = v5;
+  v25 = v5;
   while (1)
   {
     [*(a1 + 32) _checkForNewActions];
@@ -206,9 +199,9 @@ void __47__MFLocalActionReplayHandler__replayAllActions__block_invoke(uint64_t a
     {
       v10 = [*(a1 + 32) ef_publicDescription];
       *buf = 138543618;
-      v28 = v10;
-      v29 = 2114;
-      v30 = v8;
+      v27 = v10;
+      v28 = 2114;
+      v29 = v8;
       _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ replaying action %{public}@", buf, 0x16u);
     }
 
@@ -222,9 +215,9 @@ void __47__MFLocalActionReplayHandler__replayAllActions__block_invoke(uint64_t a
       {
         v19 = [*(a1 + 32) ef_publicDescription];
         *buf = 138543618;
-        v28 = v19;
-        v29 = 2114;
-        v30 = v8;
+        v27 = v19;
+        v28 = 2114;
+        v29 = v8;
         _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ Did not get results back for action: %{public}@. Will stop replaying actions.", buf, 0x16u);
       }
 
@@ -236,12 +229,12 @@ void __47__MFLocalActionReplayHandler__replayAllActions__block_invoke(uint64_t a
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [*(a1 + 32) ef_publicDescription];
-      *buf = v26;
-      v28 = v15;
-      v29 = 2114;
-      v30 = v8;
-      v31 = 1024;
-      v32 = v13;
+      *buf = v25;
+      v27 = v15;
+      v28 = 2114;
+      v29 = v8;
+      v30 = 1024;
+      v31 = v13;
       _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ action %{public}@ finished, needToReplayAction = %d", buf, 0x1Cu);
     }
 
@@ -271,16 +264,14 @@ void __47__MFLocalActionReplayHandler__replayAllActions__block_invoke(uint64_t a
     v23 = [*(a1 + 32) actionsToReplay];
     v24 = [v23 count];
     *buf = 138543618;
-    v28 = v22;
-    v29 = 2048;
-    v30 = v24;
+    v27 = v22;
+    v28 = 2048;
+    v29 = v24;
     _os_log_impl(&dword_1B0389000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished replaying actions. %ld action(s) left to replay", buf, 0x16u);
   }
 
   objc_sync_exit(v20);
   [*(a1 + 40) invalidate];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkForNewActions

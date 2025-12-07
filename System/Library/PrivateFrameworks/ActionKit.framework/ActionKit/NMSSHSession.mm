@@ -334,35 +334,35 @@ LABEL_16:
 
 - (int64_t)knownHostStatusInFiles:(id)files
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   filesCopy = files;
   if (!filesCopy)
   {
     userKnownHostsFileName = [(NMSSHSession *)self userKnownHostsFileName];
-    v19[0] = userKnownHostsFileName;
-    filesCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = userKnownHostsFileName;
+    filesCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = filesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = [(NMSSHSession *)self knownHostStatusWithFile:*(*(&v14 + 1) + 8 * v10), v14];
+      v11 = [(NMSSHSession *)self knownHostStatusWithFile:*(*(&v13 + 1) + 8 * v10), v13];
       if ((v11 - 4) < 0xFFFFFFFFFFFFFFFELL)
       {
         break;
@@ -370,7 +370,7 @@ LABEL_5:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -386,7 +386,6 @@ LABEL_5:
     v11 = 3;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -797,7 +796,7 @@ LABEL_6:
 
   if ([(NMSSHSession *)self rawSession])
   {
-    libssh2_session_disconnect_ex([(NMSSHSession *)self rawSession], 0xBu, "NMSSH: Disconnect", "");
+    libssh2_session_disconnect_ex([(NMSSHSession *)self rawSession], 11, "NMSSH: Disconnect", "");
     libssh2_session_free([(NMSSHSession *)self rawSession]);
     [(NMSSHSession *)self setSession:0];
   }
@@ -820,28 +819,28 @@ LABEL_6:
 
 - (BOOL)connectWithTimeout:(id)timeout
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   timeoutCopy = timeout;
   if ([(NMSSHSession *)self isConnected])
   {
     [(NMSSHSession *)self disconnect];
   }
 
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
-  v60 = 1;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 1;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __35__NMSSHSession_connectWithTimeout___block_invoke;
   block[3] = &unk_278C222B8;
-  block[4] = &v57;
+  block[4] = &v56;
   if (connectWithTimeout__onceToken != -1)
   {
     dispatch_once(&connectWithTimeout__onceToken, block);
   }
 
-  if (*(v58 + 24) != 1)
+  if (*(v57 + 24) != 1)
   {
     isConnected = 0;
     goto LABEL_32;
@@ -863,7 +862,7 @@ LABEL_24:
   }
 
   v7 = 0;
-  v54 = bswap32(integerValue) >> 16;
+  v53 = bswap32(integerValue) >> 16;
   v8 = *MEMORY[0x277CBECE8];
   v9 = 1;
   while (v7 < [hostIPAddresses count] && v9)
@@ -872,11 +871,11 @@ LABEL_24:
     if ([v10 length] == 16)
     {
       *bytes = 0;
-      v62 = 0;
+      v61 = 0;
       [v10 getBytes:bytes length:16];
-      *&bytes[2] = v54;
-      inet_ntop(2, &bytes[4], v63, 0x10u);
-      v11 = [MEMORY[0x277CCACA8] stringWithCString:v63 encoding:4];
+      *&bytes[2] = v53;
+      inet_ntop(2, &bytes[4], v62, 0x10u);
+      v11 = [MEMORY[0x277CCACA8] stringWithCString:v62 encoding:4];
       v12 = CFDataCreate(v8, bytes, 16);
       v13 = 2;
     }
@@ -892,15 +891,15 @@ LABEL_24:
         goto LABEL_21;
       }
 
-      *v63 = 0;
-      v64[0] = 0;
-      v65 = 0;
-      v64[1] = 0;
-      [v10 getBytes:v63 length:28];
-      *&v63[2] = v54;
-      inet_ntop(30, v64, bytes, 0x2Eu);
+      *v62 = 0;
+      v63[0] = 0;
+      v64 = 0;
+      v63[1] = 0;
+      [v10 getBytes:v62 length:28];
+      *&v62[2] = v53;
+      inet_ntop(30, v63, bytes, 0x2Eu);
       v11 = [MEMORY[0x277CCACA8] stringWithCString:bytes encoding:4];
-      v12 = CFDataCreate(v8, v63, 28);
+      v12 = CFDataCreate(v8, v62, 28);
       v13 = 30;
     }
 
@@ -967,31 +966,31 @@ LABEL_21:
   {
     rawSession = [(NMSSHSession *)self rawSession];
     banner2 = [(NMSSHSession *)self banner];
-    v33 = banner2;
+    v32 = banner2;
     LOBYTE(rawSession) = libssh2_session_banner_set(rawSession, [banner2 UTF8String]) == 0;
 
     if ((rawSession & 1) == 0)
     {
-      v34 = +[NMSSHLogger sharedLogger];
-      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failure setting the banner"];
-      [v34 logError:v35];
+      v33 = +[NMSSHLogger sharedLogger];
+      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failure setting the banner"];
+      [v33 logError:v34];
     }
   }
 
   rawSession2 = [(NMSSHSession *)self rawSession];
-  v37 = CFSocketGetNative(self->_socket);
-  if (!libssh2_session_handshake(rawSession2, v37))
+  v36 = CFSocketGetNative(self->_socket);
+  if (!libssh2_session_handshake(rawSession2, v36))
   {
-    v40 = +[NMSSHLogger sharedLogger];
-    v41 = MEMORY[0x277CCACA8];
+    v39 = +[NMSSHLogger sharedLogger];
+    v40 = MEMORY[0x277CCACA8];
     remoteBanner = [(NMSSHSession *)self remoteBanner];
-    v43 = [v41 stringWithFormat:@"Remote host banner is %@", remoteBanner];
-    [v40 logVerbose:v43];
+    v42 = [v40 stringWithFormat:@"Remote host banner is %@", remoteBanner];
+    [v39 logVerbose:v42];
 
     v10 = [(NMSSHSession *)self fingerprint:[(NMSSHSession *)self fingerprintHash]];
-    v44 = +[NMSSHLogger sharedLogger];
-    v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"The host's fingerprint is %@", v10];
-    [v44 logInfo:v45];
+    v43 = +[NMSSHLogger sharedLogger];
+    v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"The host's fingerprint is %@", v10];
+    [v43 logInfo:v44];
 
     delegate = [(NMSSHSession *)self delegate];
     if (delegate)
@@ -1000,13 +999,13 @@ LABEL_21:
       if (objc_opt_respondsToSelector())
       {
         delegate3 = [(NMSSHSession *)self delegate];
-        v49 = [delegate3 session:self shouldConnectToHostWithFingerprint:v10];
+        v48 = [delegate3 session:self shouldConnectToHostWithFingerprint:v10];
 
-        if ((v49 & 1) == 0)
+        if ((v48 & 1) == 0)
         {
-          v50 = +[NMSSHLogger sharedLogger];
-          v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fingerprint refused, aborting connection..."];
-          [v50 logWarn:v51];
+          v49 = +[NMSSHLogger sharedLogger];
+          v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fingerprint refused, aborting connection..."];
+          [v49 logWarn:v50];
 
           [(NMSSHSession *)self disconnect];
           goto LABEL_29;
@@ -1018,9 +1017,9 @@ LABEL_21:
       }
     }
 
-    v52 = +[NMSSHLogger sharedLogger];
-    v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"SSH session started"];
-    [v52 logVerbose:v53];
+    v51 = +[NMSSHLogger sharedLogger];
+    v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"SSH session started"];
+    [v51 logVerbose:v52];
 
     [(NMSSHSession *)self setConnected:1];
     isConnected = [(NMSSHSession *)self isConnected];
@@ -1029,9 +1028,9 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v38 = +[NMSSHLogger sharedLogger];
-  v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failure establishing SSH session"];
-  [v38 logError:v39];
+  v37 = +[NMSSHLogger sharedLogger];
+  v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failure establishing SSH session"];
+  [v37 logError:v38];
 
   [(NMSSHSession *)self disconnect];
 LABEL_25:
@@ -1039,9 +1038,8 @@ LABEL_25:
 LABEL_31:
 
 LABEL_32:
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v56, 8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return isConnected;
 }
 
@@ -1082,30 +1080,28 @@ void __35__NMSSHSession_connectWithTimeout___block_invoke(uint64_t a1)
 
 - (NSError)lastError
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if ([(NMSSHSession *)self rawSession])
   {
-    v13 = 0;
-    v3 = libssh2_session_last_error([(NMSSHSession *)self rawSession], &v13, 0, 0);
+    v12 = 0;
+    v3 = libssh2_session_last_error([(NMSSHSession *)self rawSession], &v12, 0, 0);
     v4 = MEMORY[0x277CCA9B8];
     v5 = v3;
-    v14 = *MEMORY[0x277CCA450];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v13];
-    v15 = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
+    v14 = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     v8 = [v4 errorWithDomain:@"libssh2" code:v5 userInfo:v7];
   }
 
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v16 = *MEMORY[0x277CCA450];
-    v17[0] = @"Error retrieving last session error due to absence of an active session.";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x277CCA450];
+    v16[0] = @"Error retrieving last session error due to absence of an active session.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v8 = [v9 errorWithDomain:@"libssh2" code:0 userInfo:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1231,32 +1227,32 @@ LABEL_10:
 
 - (NMSSHSession)initWithHost:(id)host configs:(id)configs withDefaultPort:(int64_t)port defaultUsername:(id)username
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   hostCopy = host;
   configsCopy = configs;
   usernameCopy = username;
   v12 = objc_alloc_init(NMSSHHostConfig);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v13 = configsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     do
     {
       v17 = 0;
       do
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v29 + 1) + 8 * v17) hostConfigForHost:hostCopy];
+        v18 = [*(*(&v28 + 1) + 8 * v17) hostConfigForHost:hostCopy];
         if (v18)
         {
           [(NMSSHHostConfig *)v12 mergeFrom:v18];
@@ -1266,7 +1262,7 @@ LABEL_10:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v15);
@@ -1290,7 +1286,6 @@ LABEL_10:
     [(NMSSHSession *)v25 setHostConfig:v12];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

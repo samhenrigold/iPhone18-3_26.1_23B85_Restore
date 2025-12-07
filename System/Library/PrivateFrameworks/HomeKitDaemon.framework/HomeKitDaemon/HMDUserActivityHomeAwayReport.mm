@@ -13,10 +13,10 @@
 
 - (id)attributeDescriptions
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = HMDUserActivityHomeAwayReport;
-  attributeDescriptions = [(HMDUserActivityReport *)&v18 attributeDescriptions];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = HMDUserActivityHomeAwayReport;
+  attributeDescriptions = [(HMDUserActivityReport *)&v17 attributeDescriptions];
   v4 = [attributeDescriptions mutableCopy];
 
   v5 = objc_alloc(MEMORY[0x277D0F778]);
@@ -33,17 +33,16 @@
 
   v8 = v7;
   v9 = [v5 initWithName:@"state" value:v8];
-  v19[0] = v9;
+  v18[0] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   sourceDevice = [(HMDUserActivityHomeAwayReport *)self sourceDevice];
   shortDescription = [sourceDevice shortDescription];
   v13 = [v10 initWithName:@"device" value:shortDescription];
-  v19[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   [v4 addObjectsFromArray:v14];
 
-  v15 = [v4 copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(v4);
 
   return v15;
 }
@@ -85,7 +84,7 @@
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserActivityHomeAwayReport state](self, "state")}];
   [v4 setObject:v5 forKeyedSubscript:@"HAS.HA.S"];
 
-  v6 = [v4 copy];
+  v6 = objc_msgSend_copy(v4);
 
   return v6;
 }
@@ -121,16 +120,16 @@
 
 - (id)initFromMessagePayload:(id)payload withUser:(id)user sourceDevice:(id)device
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   userCopy = user;
   deviceCopy = device;
   v11 = [payloadCopy hmf_numberForKey:@"HAS.HA.S"];
   if (v11)
   {
-    v20.receiver = self;
-    v20.super_class = HMDUserActivityHomeAwayReport;
-    v12 = [(HMDUserActivityReport *)&v20 initFromMessagePayload:payloadCopy withUser:userCopy];
+    v19.receiver = self;
+    v19.super_class = HMDUserActivityHomeAwayReport;
+    v12 = [(HMDUserActivityReport *)&v19 initFromMessagePayload:payloadCopy withUser:userCopy];
     if (v12)
     {
       *(v12 + 5) = [v11 unsignedIntValue];
@@ -150,7 +149,7 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@State not found. could not initialize the metadata from message payload.", buf, 0xCu);
     }
 
@@ -158,7 +157,6 @@
     v14 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

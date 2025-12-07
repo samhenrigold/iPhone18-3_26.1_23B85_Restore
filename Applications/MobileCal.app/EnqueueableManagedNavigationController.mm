@@ -644,11 +644,11 @@ LABEL_51:
       [(DismissPresentedViewControllerOperation *)v10 addDependency:lastObject];
     }
 
-    showViewControllersWhenReadyQueue2 = [(EnqueueableManagedNavigationController *)self showViewControllersWhenReadyQueue];
-    [showViewControllersWhenReadyQueue2 addOperation:v10];
+    v14 = [(EnqueueableManagedNavigationController *)self showViewControllersWhenReadyQueue:*v16];
+    [v14 addOperation:v10];
 
-    showViewControllersWhenReadyQueue3 = [(EnqueueableManagedNavigationController *)self showViewControllersWhenReadyQueue];
-    [showViewControllersWhenReadyQueue3 setSuspended:0];
+    showViewControllersWhenReadyQueue2 = [(EnqueueableManagedNavigationController *)self showViewControllersWhenReadyQueue];
+    [showViewControllersWhenReadyQueue2 setSuspended:0];
   }
 
   else

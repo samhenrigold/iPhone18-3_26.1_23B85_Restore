@@ -1,3 +1,215 @@
+void sub_1B55957C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+{
+  if (a32 < 0)
+  {
+    operator delete(__p);
+  }
+
+  fst::FstHeader::~FstHeader(&a15);
+  _Unwind_Resume(a1);
+}
+
+uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::WriteFstHeader(uint64_t a1, uint64_t a2, _BYTE *a3, int a4, std::string *__str, uint64_t a6, uint64_t a7)
+{
+  if (a3[24])
+  {
+    std::string::operator=((a7 + 8), __str);
+    v13 = fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Type();
+    std::string::operator=((a7 + 32), v13);
+    *(a7 + 56) = a4;
+    *(a7 + 64) = a6;
+    if ((*(*a1 + 112))(a1))
+    {
+      v14 = a3[25];
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = (*(*a1 + 120))(a1);
+    if (a3[26])
+    {
+      v16 = v14 | 2;
+    }
+
+    else
+    {
+      v16 = v14;
+    }
+
+    if (!v15)
+    {
+      v16 = v14;
+    }
+
+    if (a3[27])
+    {
+      v16 |= 4u;
+    }
+
+    *(a7 + 60) = v16;
+    fst::FstHeader::Write(a7, a2);
+  }
+
+  if ((*(*a1 + 112))(a1) && a3[25] == 1)
+  {
+    v17 = (*(*a1 + 112))(a1);
+    (*(*v17 + 72))(v17, a2);
+  }
+
+  result = (*(*a1 + 120))(a1);
+  if (result && a3[26] == 1)
+  {
+    v19 = *(*(*(*a1 + 120))(a1) + 72);
+
+    return v19();
+  }
+
+  return result;
+}
+
+uint64_t fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t **a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v43 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1B8C84B80](v32);
+  v16 = a2 + *(*a2 - 24);
+  if ((v16[32] & 5) == 0)
+  {
+    v17 = *(v16 + 5);
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    __p = 0u;
+    v35 = 0u;
+    v42 = a8;
+    (*(*v17 + 40))(v33);
+    if (v33[16] == -1)
+    {
+      std::ios_base::clear((a2 + *(*a2 - 24)), *(a2 + *(*a2 - 24) + 32) | 4);
+    }
+  }
+
+  MEMORY[0x1B8C84B90](v32);
+  if ((*(a2 + *(*a2 - 24) + 32) & 5) != 0)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
+    v18 = fst::LogMessage::LogMessage(v33, &__p);
+    v19 = fst::cerr(v18);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Fst::UpdateFstHeader: write failed: ", 36);
+    v21 = *(a3 + 23);
+    if (v21 >= 0)
+    {
+      v22 = a3;
+    }
+
+    else
+    {
+      v22 = *a3;
+    }
+
+    if (v21 >= 0)
+    {
+      v23 = *(a3 + 23);
+    }
+
+    else
+    {
+      v23 = a3[1];
+    }
+  }
+
+  else
+  {
+    fst::FstImpl<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::WriteFstHeader(a1, a2, a3, a4, a5, a6, a7);
+    if ((*(a2 + *(*a2 - 24) + 32) & 5) != 0)
+    {
+      std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
+      v24 = fst::LogMessage::LogMessage(v33, &__p);
+      v25 = fst::cerr(v24);
+      v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "Fst::UpdateFstHeader: write failed: ", 36);
+      v26 = *(a3 + 23);
+      if (v26 >= 0)
+      {
+        v22 = a3;
+      }
+
+      else
+      {
+        v22 = *a3;
+      }
+
+      if (v26 >= 0)
+      {
+        v23 = *(a3 + 23);
+      }
+
+      else
+      {
+        v23 = a3[1];
+      }
+    }
+
+    else
+    {
+      MEMORY[0x1B8C84B80](v33, a2);
+      v27 = a2 + *(*a2 - 24);
+      if ((v27[32] & 5) == 0)
+      {
+        (*(**(v27 + 5) + 32))(&__p);
+        if (v42 == -1)
+        {
+          std::ios_base::clear((a2 + *(*a2 - 24)), *(a2 + *(*a2 - 24) + 32) | 4);
+        }
+      }
+
+      MEMORY[0x1B8C84B90](v33);
+      if ((*(a2 + *(*a2 - 24) + 32) & 5) == 0)
+      {
+        return 1;
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
+      v28 = fst::LogMessage::LogMessage(v33, &__p);
+      v29 = fst::cerr(v28);
+      v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "Fst::UpdateFstHeader: write failed: ", 36);
+      v30 = *(a3 + 23);
+      if (v30 >= 0)
+      {
+        v22 = a3;
+      }
+
+      else
+      {
+        v22 = *a3;
+      }
+
+      if (v30 >= 0)
+      {
+        v23 = *(a3 + 23);
+      }
+
+      else
+      {
+        v23 = a3[1];
+      }
+    }
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v22, v23);
+  fst::LogMessage::~LogMessage(v33);
+  if (SBYTE7(v35) < 0)
+  {
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
 uint64_t fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Type()
 {
   {
@@ -9,38 +221,40 @@ uint64_t fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float
 
 uint64_t fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::WriteFile(fst *a1, uint64_t a2)
 {
+  v2 = a2;
   v25[19] = *MEMORY[0x1E69E9840];
   if (*(a2 + 23) < 0)
   {
     if (*(a2 + 8))
     {
-LABEL_5:
-      std::ofstream::basic_ofstream(&v20);
+      a2 = *a2;
+LABEL_6:
+      std::ofstream::basic_ofstream(&v20, a2, 20);
       if ((v24[*(v20.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
       {
         std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
         v4 = fst::LogMessage::LogMessage(&v19, &__p);
         v5 = fst::cerr(v4);
         v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Fst::Write: Can't open file: ", 29);
-        v7 = *(a2 + 23);
+        v7 = *(v2 + 23);
         if (v7 >= 0)
         {
-          v8 = a2;
+          v8 = v2;
         }
 
         else
         {
-          v8 = *a2;
+          v8 = *v2;
         }
 
         if (v7 >= 0)
         {
-          v9 = *(a2 + 23);
+          v9 = *(v2 + 23);
         }
 
         else
         {
-          v9 = *(a2 + 8);
+          v9 = *(v2 + 8);
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
@@ -56,14 +270,14 @@ LABEL_5:
       else
       {
         v13 = FLAGS_fst_align;
-        if (*(a2 + 23) < 0)
+        if (*(v2 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+          std::string::__init_copy_ctor_external(&__p, *v2, *(v2 + 8));
         }
 
         else
         {
-          __p = *a2;
+          __p = *v2;
         }
 
         v16 = 257;
@@ -87,7 +301,7 @@ LABEL_5:
 
   else if (*(a2 + 23))
   {
-    goto LABEL_5;
+    goto LABEL_6;
   }
 
   v11 = fst::cout(a1);
@@ -152,7 +366,7 @@ void sub_1B5596414(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::SetFinalProperties<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>(unint64_t a1, int *a2, int *a3)
+unint64_t fst::SetFinalProperties<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>(unint64_t a1, int *a2, int *a3)
 {
   v6 = fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>::Zero();
   v7 = *a2;
@@ -201,13 +415,13 @@ uint64_t fst::SetFinalProperties<fst::GallicWeight<int,fst::TropicalWeightTpl<fl
       goto LABEL_21;
     }
 
-    if (*(v16 + 16) != *(v17 + 16))
+    if (v16[4] != *(v17 + 16))
     {
       goto LABEL_22;
     }
 
     v14 = 0;
-    v10 = (v16 + 8);
+    v10 = (v16 + 2);
     v11 = (v17 + 8);
   }
 
@@ -267,13 +481,13 @@ LABEL_22:
         goto LABEL_42;
       }
 
-      if (*(v28 + 16) != *(v29 + 16))
+      if (v28[4] != *(v29 + 16))
       {
         goto LABEL_43;
       }
 
       v26 = 0;
-      v22 = (v28 + 8);
+      v22 = (v28 + 2);
       v23 = (v29 + 8);
     }
 
@@ -337,13 +551,13 @@ LABEL_43:
       goto LABEL_64;
     }
 
-    if (*(v40 + 16) != *(v41 + 16))
+    if (v40[4] != *(v41 + 16))
     {
       goto LABEL_65;
     }
 
     v38 = 0;
-    v34 = (v40 + 8);
+    v34 = (v40 + 2);
     v35 = (v41 + 8);
   }
 
@@ -403,13 +617,13 @@ LABEL_65:
         goto LABEL_85;
       }
 
-      if (*(v52 + 16) != *(v53 + 16))
+      if (v52[4] != *(v53 + 16))
       {
         goto LABEL_86;
       }
 
       v50 = 0;
-      v46 = (v52 + 8);
+      v46 = (v52 + 2);
       v47 = (v53 + 8);
     }
 
@@ -429,8 +643,9 @@ LABEL_86:
   return a1 & 0x3FFFFFF0007;
 }
 
-uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>::AddArc(void *a1, int a2, int *a3)
+uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>::AddArc(void *a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   v6 = *(*(a1[8] + 8 * a2) + 64);
   if (v6 == *(*(a1[8] + 8 * a2) + 56))
   {
@@ -443,13 +658,13 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
   }
 
   v8 = (*(*a1 + 24))(a1);
-  a1[1] = a1[1] & 4 | fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(v8, a2, a3, v7);
-  v9 = *(a1[8] + 8 * a2);
+  a1[1] = a1[1] & 4 | fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(v8, v4, a3, v7);
+  v9 = *(a1[8] + 8 * v4);
 
   return fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>::AddArc(v9, a3);
 }
 
-uint64_t fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(unint64_t a1, int a2, int *a3, _DWORD *a4)
+unint64_t fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(unint64_t a1, int a2, int *a3, _DWORD *a4)
 {
   v7 = *a3;
   v6 = a3[1];
@@ -550,13 +765,13 @@ uint64_t fst::AddArcProperties<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::T
       goto LABEL_37;
     }
 
-    if (*(v22 + 16) != *(v23 + 16))
+    if (v22[4] != *(v23 + 16))
     {
       goto LABEL_38;
     }
 
     v20 = 0;
-    v16 = (v22 + 8);
+    v16 = (v22 + 2);
     v17 = (v23 + 8);
   }
 
@@ -616,13 +831,13 @@ LABEL_38:
         goto LABEL_58;
       }
 
-      if (*(v34 + 16) != *(v35 + 16))
+      if (v34[4] != *(v35 + 16))
       {
         goto LABEL_59;
       }
 
       v32 = 0;
-      v28 = (v34 + 8);
+      v28 = (v34 + 2);
       v29 = (v35 + 8);
     }
 
@@ -664,159 +879,160 @@ void fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
 {
   v3 = a1;
   v4 = (a1 + 64);
-  std::vector<int>::vector[abi:ne200100](__p, (*(a1 + 72) - *(a1 + 64)) >> 3);
-  v5 = *a2;
-  v6 = a2[1] - *a2;
-  if (v6)
+  v5 = (*(a1 + 72) - *(a1 + 64)) >> 3;
+  v38 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, v5, &v38);
+  v6 = *a2;
+  v7 = a2[1] - *a2;
+  if (v7)
   {
-    v7 = v6 >> 2;
-    v8 = __p[0];
-    if (v7 <= 1)
+    v8 = v7 >> 2;
+    v9 = __p[0];
+    if (v8 <= 1)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     do
     {
-      v9 = *v5;
-      v5 += 4;
-      v8[v9] = -1;
-      --v7;
+      v10 = *v6++;
+      v9[v10] = -1;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = *(v3 + 64);
-  if (*(v3 + 72) == v10)
+  v11 = *(v3 + 64);
+  if (*(v3 + 72) == v11)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     do
     {
-      if (*(__p[0] + v11) == -1)
+      if (*(__p[0] + v12) == -1)
       {
-        fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>>::Destroy(*(v10 + 8 * v11));
+        fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>>::Destroy(*(v11 + 8 * v12));
       }
 
       else
       {
-        *(__p[0] + v11) = v12;
-        if (v11 != v12)
+        *(__p[0] + v12) = v13;
+        if (v12 != v13)
         {
-          *(v10 + 8 * v12) = *(v10 + 8 * v11);
+          *(v11 + 8 * v13) = *(v11 + 8 * v12);
         }
 
-        ++v12;
+        ++v13;
       }
 
-      ++v11;
-      v10 = *(v3 + 64);
+      ++v12;
+      v11 = *(v3 + 64);
     }
 
-    while (v11 < (*(v3 + 72) - v10) >> 3);
-    v13 = v12;
+    while (v12 < (*(v3 + 72) - v11) >> 3);
+    v14 = v13;
   }
 
-  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v13);
-  v14 = *(v3 + 64);
-  if (*(v3 + 72) != v14)
+  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v14);
+  v15 = *(v3 + 64);
+  if (*(v3 + 72) != v15)
   {
-    v15 = 0;
-    v35 = v3;
+    v16 = 0;
+    v36 = v3;
     do
     {
-      v16 = *(v14 + 8 * v15);
-      v17 = *(v16 + 40);
-      v18 = *(v16 + 64) - *(v16 + 56);
-      if (v18)
+      v17 = *(v15 + 8 * v16);
+      v18 = *(v17 + 40);
+      v19 = *(v17 + 64) - *(v17 + 56);
+      if (v19)
       {
-        v19 = *(v16 + 56);
+        v20 = *(v17 + 56);
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
       }
 
-      if (v18)
+      if (v19)
       {
-        v20 = 0;
         v21 = 0;
-        v22 = (v19 + 48);
-        v23 = v19 + 16;
+        v22 = 0;
+        v23 = (v20 + 48);
+        v24 = v20 + 16;
         do
         {
-          v24 = *(__p[0] + *v22);
-          if (v24 == -1)
+          v25 = *(__p[0] + *v23);
+          if (v25 == -1)
           {
-            v26 = *(v22 - 6);
-            v27.i64[0] = v26;
-            v27.i64[1] = HIDWORD(v26);
-            v17 = vaddq_s64(v17, vceqzq_s64(v27));
+            v27 = *(v23 - 6);
+            v28.i64[0] = v27;
+            v28.i64[1] = HIDWORD(v27);
+            v18 = vaddq_s64(v18, vceqzq_s64(v28));
           }
 
           else
           {
-            *v22 = v24;
-            if (v20 != v21)
+            *v23 = v25;
+            if (v21 != v22)
             {
-              v36 = v17;
-              v25 = v19 + 56 * v21;
-              *v25 = *(v22 - 6);
-              *(v25 + 8) = *(v22 - 10);
-              std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>((v25 + 16), *(v22 - 3), v23);
-              *(v25 + 40) = *(v22 - 2);
-              *(v25 + 48) = *v22;
-              v14 = *v4;
-              v17 = v36;
+              v37 = v18;
+              v26 = v20 + 56 * v22;
+              *v26 = *(v23 - 6);
+              *(v26 + 8) = *(v23 - 10);
+              std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>((v26 + 16), *(v23 - 3), v24);
+              *(v26 + 40) = *(v23 - 2);
+              *(v26 + 48) = *v23;
+              v15 = *v4;
+              v18 = v37;
             }
 
-            ++v21;
+            ++v22;
           }
 
-          ++v20;
-          v16 = *(v14 + 8 * v15);
-          v28 = 0x6DB6DB6DB6DB6DB7 * ((*(v16 + 64) - *(v16 + 56)) >> 3);
-          v22 += 14;
-          v23 += 56;
+          ++v21;
+          v17 = *(v15 + 8 * v16);
+          v29 = 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 64) - *(v17 + 56)) >> 3);
+          v23 += 14;
+          v24 += 56;
         }
 
-        while (v20 < v28);
-        v29 = v17.i64[1];
-        v30 = v17.i64[0];
-        v3 = v35;
+        while (v21 < v29);
+        v30 = v18.i64[1];
+        v31 = v18.i64[0];
+        v3 = v36;
       }
 
       else
       {
-        v21 = 0;
-        v28 = 0;
-        v29 = *(v16 + 48);
-        v30 = *(v16 + 40);
+        v22 = 0;
+        v29 = 0;
+        v30 = *(v17 + 48);
+        v31 = *(v17 + 40);
       }
 
-      fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>>::DeleteArcs(v16, v28 - v21);
-      v14 = *(v3 + 64);
-      v31 = *(v3 + 72);
-      v32 = *(v14 + 8 * v15);
-      *(v32 + 40) = v30;
-      *(v32 + 48) = v29;
-      ++v15;
+      fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>>::DeleteArcs(v17, v29 - v22);
+      v15 = *(v3 + 64);
+      v32 = *(v3 + 72);
+      v33 = *(v15 + 8 * v16);
+      *(v33 + 40) = v31;
+      *(v33 + 48) = v30;
+      ++v16;
     }
 
-    while (v15 < (v31 - v14) >> 3);
+    while (v16 < (v32 - v15) >> 3);
   }
 
-  v33 = *(v3 + 88);
-  if (v33 == -1)
+  v34 = *(v3 + 88);
+  if (v34 == -1)
   {
-    v34 = __p[0];
+    v35 = __p[0];
     if (!__p[0])
     {
       return;
@@ -825,12 +1041,12 @@ void fst::VectorFstBaseImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
 
   else
   {
-    v34 = __p[0];
-    *(v3 + 88) = *(__p[0] + v33);
+    v35 = __p[0];
+    *(v3 + 88) = *(__p[0] + v34);
   }
 
-  __p[1] = v34;
-  operator delete(v34);
+  __p[1] = v35;
+  operator delete(v35);
 }
 
 void sub_1B5596C84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
@@ -868,7 +1084,7 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::GallicArc<fst:
   return result;
 }
 
-uint64_t fst::MutableArcIterator<fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>>::SetValue(uint64_t a1, uint64_t a2)
+uint64_t fst::MutableArcIterator<fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>>::SetValue(uint64_t a1, int *a2)
 {
   v4 = *(*(a1 + 8) + 56) + 56 * *(a1 + 24);
   v5 = *v4;
@@ -1039,14 +1255,14 @@ LABEL_51:
   }
 
   v34 = 0x30FC30007;
-  if (*a2 == *v4 && *(a2 + 4) == *(v4 + 4) && *(a2 + 48) == *(v4 + 48))
+  if (*a2 == *v4 && a2[1] == *(v4 + 4) && a2[12] == *(v4 + 48))
   {
     v34 = 0x3FFFFFFF0007;
   }
 
   fst::VectorState<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>,std::allocator<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>>::SetArc(*(a1 + 8), a2, *(a1 + 24));
   v35 = *a2;
-  v36 = *(a2 + 4);
+  v36 = a2[1];
   if (*a2 != v36)
   {
     **(a1 + 16) = **(a1 + 16) & 0xFFFFFFFFFFFCFFFFLL | 0x20000;
@@ -1077,10 +1293,10 @@ LABEL_63:
   }
 
   result = fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>::Zero();
-  v41 = *(a2 + 8);
+  v41 = a2[2];
   if (v41)
   {
-    v42 = *(a2 + 32) + 1;
+    v42 = *(a2 + 4) + 1;
   }
 
   else
@@ -1103,7 +1319,7 @@ LABEL_63:
     goto LABEL_85;
   }
 
-  v44 = (a2 + 24);
+  v44 = (a2 + 6);
   v45 = (result + 16);
   v46 = v41 && v41 == *result;
   v47 = !v46;
@@ -1118,7 +1334,7 @@ LABEL_63:
       break;
     }
 
-    if (v50 == a2 + 16)
+    if (v50 == a2 + 4)
     {
       goto LABEL_84;
     }
@@ -1139,14 +1355,14 @@ LABEL_63:
   }
 
 LABEL_84:
-  if (*(a2 + 40) != *(result + 32))
+  if (*(a2 + 10) != *(result + 32))
   {
 LABEL_85:
     result = fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>::One();
-    v52 = *(a2 + 8);
+    v52 = a2[2];
     if (v52)
     {
-      v53 = *(a2 + 32) + 1;
+      v53 = *(a2 + 4) + 1;
     }
 
     else
@@ -1169,7 +1385,7 @@ LABEL_85:
       goto LABEL_106;
     }
 
-    v55 = (a2 + 24);
+    v55 = (a2 + 6);
     v56 = (result + 16);
     v57 = v52 && v52 == *result;
     v58 = !v57;
@@ -1184,7 +1400,7 @@ LABEL_85:
         break;
       }
 
-      if (v61 == a2 + 16)
+      if (v61 == a2 + 4)
       {
         goto LABEL_105;
       }
@@ -1205,7 +1421,7 @@ LABEL_85:
     }
 
 LABEL_105:
-    if (*(a2 + 40) != *(result + 32))
+    if (*(a2 + 10) != *(result + 32))
     {
 LABEL_106:
       **(a1 + 16) = **(a1 + 16) & 0xFFFFFFFCFFFFFFFFLL | 0x100000000;
@@ -1216,21 +1432,21 @@ LABEL_106:
   return result;
 }
 
-void *fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>::Reverse@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X8>)
+void *fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>::Reverse@<X0>(uint64_t a1@<X8>, _DWORD *a2@<X0>)
 {
-  fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Reverse(a1, &v4);
-  *a2 = v4;
-  std::list<int>::list((a2 + 8), v5);
-  *(a2 + 32) = v6;
+  fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Reverse(&v4, a2);
+  *a1 = v4;
+  std::list<int>::list((a1 + 8), v5);
+  *(a1 + 32) = v6;
   return std::__list_imp<char *>::clear(v5);
 }
 
-void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Reverse@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X8>)
+void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Reverse@<X0>(uint64_t a1@<X8>, _DWORD *a2@<X0>)
 {
-  fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Reverse(a1, &v4);
-  *a2 = v4;
-  std::list<int>::list((a2 + 8), v5);
-  *(a2 + 32) = v6;
+  fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Reverse(a2, &v4);
+  *a1 = v4;
+  std::list<int>::list((a1 + 8), v5);
+  *(a1 + 32) = v6;
   return std::__list_imp<char *>::clear(v5);
 }
 
@@ -1270,7 +1486,7 @@ LABEL_9:
       break;
     }
 
-    v3 = *(v6 + 16);
+    v3 = v6[4];
     if (v7)
     {
       goto LABEL_9;
@@ -1282,7 +1498,7 @@ LABEL_10:
     if ((v8 & 1) == 0)
     {
       v5 = 0;
-      v4 = (v6 + 8);
+      v4 = (v6 + 2);
       goto LABEL_2;
     }
   }
@@ -1320,7 +1536,7 @@ void fst::AutoQueue<int>::AutoQueue<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<f
   *(a1 + 12) = 0;
   *a1 = &unk_1F2CFB668;
   *(a1 + 24) = 0u;
-  v3 = a1 + 48;
+  v3 = (a1 + 48);
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   v4 = (*(*a2 + 64))(a2, 0x4E00000000, 0);
@@ -1335,7 +1551,7 @@ void fst::AutoQueue<int>::AutoQueue<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<f
         v5[1] = 0;
         v5[2] = 0;
         v5[3] = &v6;
-        fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(a2, v5);
+        fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::SccVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(a2, v5, 0);
       }
 
       operator new();
@@ -1797,17 +2013,17 @@ LABEL_120:
   return result;
 }
 
-void sub_1B5598398(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_1B5598398(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(uint64_t a1)
+void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 4;
   *(a1 + 12) = 0;
@@ -1817,9 +2033,9 @@ void fst::TopOrderQueue<int>::TopOrderQueue<fst::ReverseArc<fst::GallicArc<fst::
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   v3 = 0;
-  v1 = a1 + 24;
-  v2 = &v3;
-  fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::TopOrderVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>();
+  v2[0] = a1 + 24;
+  v2[1] = &v3;
+  fst::DfsVisit<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::TopOrderVisitor<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>,fst::AnyArcFilter<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(a2, v2, 0);
 }
 
 void sub_1B5598570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
@@ -1847,25 +2063,25 @@ void sub_1B5598570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B5598D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5598D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -2685,7 +2901,7 @@ uint64_t fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>
   return fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>::NoWeight(void)::no_weight;
 }
 
-uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
+uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>::push_back[abi:ne200100](unint64_t *a1, _DWORD *a2)
 {
   v4 = a1[1];
   if (v4 >= a1[2])
@@ -2706,7 +2922,7 @@ uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::G
   return result;
 }
 
-uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>::__emplace_back_slow_path<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1> const&>(uint64_t *a1, _DWORD *a2)
+uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>::__emplace_back_slow_path<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1> const&>(unint64_t *a1, _DWORD *a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -2760,14 +2976,14 @@ uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::G
   return v13;
 }
 
-void sub_1B559A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B559A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>,fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>,fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -2891,14 +3107,14 @@ uint64_t *std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::
   return result;
 }
 
-void sub_1B559A4F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B559A4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>::__construct_at_end(void *result, uint64_t a2, _DWORD *a3)
+uint64_t *std::__split_buffer<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)1>>::__construct_at_end(uint64_t *result, uint64_t a2, _DWORD *a3)
 {
   v3 = result;
   v4 = result[2];
@@ -3027,14 +3243,14 @@ uint64_t *std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::
   return result;
 }
 
-void sub_1B559A8F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B559A8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>>::__construct_at_end(void *result, uint64_t a2, _DWORD *a3)
+uint64_t *std::__split_buffer<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>>::__construct_at_end(uint64_t *result, uint64_t a2, _DWORD *a3)
 {
   v3 = result;
   v4 = result[2];
@@ -3138,19 +3354,19 @@ uint64_t std::vector<fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::G
   return v13;
 }
 
-void sub_1B559ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B559ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fst::GallicWeight<int,fst::LogWeightTpl<float>,(fst::GallicType)1>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)1>,fst::TropicalWeightTpl<float>>::Reverse@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X8>)
+void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)1>,fst::TropicalWeightTpl<float>>::Reverse@<X0>(uint64_t a1@<X8>, _DWORD *a2@<X0>)
 {
-  fst::PairWeight<fst::StringWeight<int,(fst::StringType)1>,fst::TropicalWeightTpl<float>>::Reverse(a1, &v4);
-  *a2 = v4;
-  std::list<int>::list((a2 + 8), v5);
-  *(a2 + 32) = v6;
+  fst::PairWeight<fst::StringWeight<int,(fst::StringType)1>,fst::TropicalWeightTpl<float>>::Reverse(a2, &v4);
+  *a1 = v4;
+  std::list<int>::list((a1 + 8), v5);
+  *(a1 + 32) = v6;
   return std::__list_imp<char *>::clear(v5);
 }
 
@@ -3190,7 +3406,7 @@ LABEL_9:
       break;
     }
 
-    v3 = *(v6 + 16);
+    v3 = v6[4];
     if (v7)
     {
       goto LABEL_9;
@@ -3202,7 +3418,7 @@ LABEL_10:
     if ((v8 & 1) == 0)
     {
       v5 = 0;
-      v4 = (v6 + 8);
+      v4 = (v6 + 2);
       goto LABEL_2;
     }
   }
@@ -3231,7 +3447,7 @@ void *fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ReverseArc<fst::Ga
   return a1;
 }
 
-void *fst::Divide<int>@<X0>(int *a1@<X0>, int *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+uint64_t *fst::Divide<int>@<X0>(int *a1@<X0>, int *a2@<X1>, int a3@<W2>, void *a4@<X8>)
 {
   if (a3)
   {
@@ -3257,7 +3473,7 @@ void *fst::Divide<int>@<X0>(int *a1@<X0>, int *a2@<X1>, int a3@<W2>, uint64_t a4
 
     v9 = fst::StringWeight<int,(fst::StringType)0>::NoWeight();
     *a4 = *v9;
-    return std::list<int>::list((a4 + 8), (v9 + 2));
+    return std::list<int>::list(a4 + 1, (v9 + 2));
   }
 
   else
@@ -3278,7 +3494,7 @@ void sub_1B559AFC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *fst::DivideLeft<int,(fst::StringType)0>@<X0>(int *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *fst::DivideLeft<int,(fst::StringType)0>@<X0>(int *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
 {
   if (*a1 && (*a1 == -2 ? (v6 = *(a1 + 3) == 0) : (v6 = 0), v6) || *a2 && (*a2 == -2 ? (v7 = *(a2 + 3) == 0) : (v7 = 0), v7))
   {
@@ -3439,12 +3655,12 @@ LABEL_26:
       break;
     }
 
-    if (*(v15 + 16) != *(v16 + 16))
+    if (v15[4] != *(v16 + 16))
     {
       goto LABEL_29;
     }
 
-    v12 = (v15 + 8);
+    v12 = (v15 + 2);
     v13 = (v16 + 8);
   }
 
@@ -3561,7 +3777,7 @@ void sub_1B559B6AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void *fst::QuantizeMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::operator()@<X0>(float *a1@<X0>, float *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = a2;
-  fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>::Quantize(a2 + 2, &v10, *a1);
+  fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>::Quantize(&v10, a2 + 2, *a1);
   v5 = *v3;
   v7 = v10;
   std::list<int>::list(v8, v11);
@@ -3583,21 +3799,21 @@ void sub_1B559B848(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>::Quantize@<X0>(float *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
+void *fst::GallicWeight<int,fst::TropicalWeightTpl<float>,(fst::GallicType)0>::Quantize@<X0>(uint64_t a1@<X8>, float *a2@<X0>, float a3@<S0>)
 {
-  fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Quantize(a1, &v5, a3);
-  *a2 = v5;
-  std::list<int>::list((a2 + 8), v6);
-  *(a2 + 32) = v7;
+  fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Quantize(&v5, a2, a3);
+  *a1 = v5;
+  std::list<int>::list((a1 + 8), v6);
+  *(a1 + 32) = v7;
   return std::__list_imp<char *>::clear(v6);
 }
 
-void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Quantize@<X0>(float *a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
+void *fst::ProductWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Quantize@<X0>(uint64_t a1@<X8>, float *a2@<X0>, float a3@<S0>)
 {
-  fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Quantize(a1, &v5, a3);
-  *a2 = v5;
-  std::list<int>::list((a2 + 8), v6);
-  *(a2 + 32) = v7;
+  fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWeightTpl<float>>::Quantize(a2, &v5, a3);
+  *a1 = v5;
+  std::list<int>::list((a1 + 8), v6);
+  *(a1 + 32) = v7;
   return std::__list_imp<char *>::clear(v6);
 }
 
@@ -3617,7 +3833,7 @@ void *fst::PairWeight<fst::StringWeight<int,(fst::StringType)0>,fst::TropicalWei
   return std::__list_imp<char *>::clear(v9);
 }
 
-void fst::EncodeMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::EncodeMapper(_DWORD *a1, int a2, int a3)
+void fst::EncodeMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::EncodeMapper(_DWORD *a1, uint64_t a2, int a3)
 {
   *a1 = a2;
   a1[1] = a3;
@@ -3927,7 +4143,7 @@ LABEL_54:
   return result;
 }
 
-void *fst::EncodeMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::operator()@<X0>(int *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *fst::EncodeMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::operator()@<X0>(int *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = a2[12];
   if (a1[1] != 1)
@@ -3991,13 +4207,13 @@ void *fst::EncodeMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>
             goto LABEL_62;
           }
 
-          if (*(v36 + 16) != *(v37 + 16))
+          if (v36[4] != *(v37 + 16))
           {
             goto LABEL_63;
           }
 
           v34 = 0;
-          v30 = (v36 + 8);
+          v30 = (v36 + 2);
           v31 = (v37 + 8);
         }
 
@@ -4171,12 +4387,12 @@ LABEL_63:
           break;
         }
 
-        if (*(v24 + 16) != *(v25 + 16))
+        if (v24[4] != *(v25 + 16))
         {
           goto LABEL_3;
         }
 
-        v21 = (v24 + 8);
+        v21 = (v24 + 2);
         v22 = (v25 + 8);
       }
 
@@ -4222,7 +4438,7 @@ LABEL_3:
 
   else
   {
-    v10 = (a2 + 2);
+    v10 = a2 + 2;
   }
 
   v65 = *v10;
@@ -4250,7 +4466,7 @@ void sub_1B559C9B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Encode(uint64_t a1, int *a2)
+uint64_t fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Encode(uint64_t a1, unsigned int *a2)
 {
   v3 = *a2;
   v4 = ((*a1 << 31) >> 31) & a2[1];
@@ -4467,35 +4683,35 @@ uint64_t fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<floa
   return v2;
 }
 
-void *std::__hash_table<std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,std::__unordered_map_hasher<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleEqual,false>,std::__unordered_map_equal<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleEqual,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey,true>,std::allocator<std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>>>::__emplace_unique_key_args<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::piecewise_construct_t const&,std::tuple<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const* const&>,std::tuple<>>(void *a1, int **a2)
+void *std::__hash_table<std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,std::__unordered_map_hasher<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleEqual,false>,std::__unordered_map_equal<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleEqual,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey,true>,std::allocator<std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>>>::__emplace_unique_key_args<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::piecewise_construct_t const&,std::tuple<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const* const&>,std::tuple<>>(void *a1, int **a2, uint64_t a3, void **a4)
 {
-  v4 = fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey::operator()((a1 + 4), *a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey::operator()((a1 + 4), *a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -4503,44 +4719,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::__unordered_map_equal<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleEqual,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey,true>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::__unordered_map_equal<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,std::__hash_value_type<fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Tuple const*,int>,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleEqual,fst::EncodeTable<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::TupleKey,true>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void fst::Connect<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(uint64_t a1)
@@ -4552,7 +4768,7 @@ void fst::Connect<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,
   v1[1] = v4;
   v1[2] = v3;
   v1[3] = &v2;
-  fst::DfsVisit<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::SccVisitor<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a1, v1);
+  fst::DfsVisit<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::SccVisitor<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a1, v1, 0);
 }
 
 void sub_1B559D360(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -4572,19 +4788,19 @@ void sub_1B559D360(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void fst::ArcSort<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(uint64_t a1)
+void fst::ArcSort<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = a1;
-  v4 = &v6;
-  memset(v5, 0, sizeof(v5));
-  v1[0] = a1;
-  v1[1] = &v6;
-  memset(v2, 0, sizeof(v2));
-  fst::StateMap<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ArcSortMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(a1, v1);
-  v7 = v2;
-  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  v7 = v5;
-  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v10 = a1;
+  v11 = &v13;
+  memset(v12, 0, sizeof(v12));
+  v8[0] = a1;
+  v8[1] = &v13;
+  memset(v9, 0, sizeof(v9));
+  fst::StateMap<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ArcSortMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(a1, v8);
+  v14 = v9;
+  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v14);
+  v14 = v12;
+  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v14);
 }
 
 void sub_1B559D414(_Unwind_Exception *a1)
@@ -4735,7 +4951,7 @@ uint64_t fst::StateMap<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,
   return result;
 }
 
-void *fst::ArcSortMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::SetState(uint64_t *a1, uint64_t a2)
+uint64_t fst::ArcSortMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::SetState(uint64_t *a1, uint64_t a2)
 {
   v4 = a1 + 2;
   v5 = a1[2];
@@ -4812,7 +5028,7 @@ LABEL_15:
 LABEL_17:
   v11 = a1[2];
   v12 = a1[3];
-  v13 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * (v12 - v11));
+  v13 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v12 - v11) >> 3));
   if (v12 == v11)
   {
     v14 = 0;
@@ -4841,7 +5057,7 @@ void sub_1B559DC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,false>(void *result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,false>(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -4853,17 +5069,17 @@ LABEL_3:
     v8 = v9;
     v11 = v10;
     v12 = a2 - v9;
-    v13 = 0x6DB6DB6DB6DB6DB7 * ((a2 - v9) >> 3);
+    v13 = 0x6DB6DB6DB6DB6DB7 * (a2 - v9);
     if (v13 > 2)
     {
       switch(v13)
       {
         case 3uLL:
-          return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v9, v9 + 56, (a2 - 7));
+          return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v9, v9 + 7, a2 - 7);
         case 4uLL:
-          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v9, v9 + 56, v9 + 112, (a2 - 7));
+          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v9, (v9 + 7), (v9 + 14), a2 - 7);
         case 5uLL:
-          return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v9, v9 + 56, v9 + 112, v9 + 168, (a2 - 7));
+          return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v9, (v9 + 7), (v9 + 14), (v9 + 21), a2 - 7);
       }
     }
 
@@ -4884,10 +5100,10 @@ LABEL_3:
         v45 = *(v23 + 10);
         v46 = *(v23 + 12);
         v37 = *v9;
-        v38 = *(v9 + 8);
-        std::list<int>::list(v39, v9 + 16);
-        v25 = *(v9 + 48);
-        v40 = *(v9 + 40);
+        v38 = *(v9 + 2);
+        std::list<int>::list(v39, (v9 + 2));
+        v25 = *(v9 + 12);
+        v40 = *(v9 + 10);
         v41 = v25;
         v26 = v42;
         v27 = v37;
@@ -4921,10 +5137,10 @@ LABEL_3:
     }
 
     v14 = v13 >> 1;
-    v15 = (v8 + 56 * (v13 >> 1));
+    v15 = &v8[7 * (v13 >> 1)];
     if (v12 < 0x1C01)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v15, v8, (a2 - 7));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v15, v8, a2 - 7);
       if (a5)
       {
         goto LABEL_19;
@@ -4933,12 +5149,12 @@ LABEL_3:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8, v15, (a2 - 7));
-      v16 = 56 * v14;
-      v17 = 56 * v14 + v8 - 56;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8 + 56, v17, (a2 - 14));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8 + 112, v8 + 56 + v16, (a2 - 21));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v17, v15, v8 + 56 + v16);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8, v15, a2 - 7);
+      v16 = 7 * v14;
+      v17 = &v8[7 * v14 - 7];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8 + 7, v17, a2 - 14);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8 + 14, &v8[v16 + 7], a2 - 21);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v17, v15, &v8[v16 + 7]);
       std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(v8, v15);
       if (a5)
       {
@@ -4946,15 +5162,15 @@ LABEL_3:
       }
     }
 
-    v32 = *(v8 - 56);
-    v33 = *(v8 - 48);
-    std::list<int>::list(v34, v8 - 40);
-    v35 = *(v8 - 16);
-    v36 = *(v8 - 8);
+    v32 = *(v8 - 7);
+    v33 = *(v8 - 12);
+    std::list<int>::list(v34, (v8 - 5));
+    v35 = *(v8 - 4);
+    v36 = *(v8 - 2);
     v28 = *v8;
-    std::list<int>::list(v29, v8 + 16);
-    v18 = *(v8 + 48);
-    v30 = *(v8 + 40);
+    std::list<int>::list(v29, (v8 + 2));
+    v18 = *(v8 + 12);
+    v30 = *(v8 + 10);
     v31 = v18;
     v19 = v32;
     std::__list_imp<char *>::clear(v29);
@@ -4977,8 +5193,8 @@ LABEL_19:
     }
 
     v22 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(v8, v20);
-    v9 = v20 + 56;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(v20 + 56, a2);
+    v9 = v20 + 7;
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>((v20 + 7), a2);
     if (result)
     {
       a4 = -v11;
@@ -4992,11 +5208,11 @@ LABEL_19:
     }
 
     v10 = v11 + 1;
-    if ((v22 & 1) == 0)
+    if (!v22)
     {
 LABEL_22:
       result = std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,false>(v8, v20, a3, -v11, a5 & 1);
-      v9 = v20 + 56;
+      v9 = v20 + 7;
       goto LABEL_23;
     }
   }
@@ -5009,19 +5225,19 @@ LABEL_22:
   return result;
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   v68 = *a2;
-  v69 = *(a2 + 8);
-  std::list<int>::list(v70, a2 + 16);
-  v6 = *(a2 + 48);
-  v71 = *(a2 + 40);
+  v69 = *(a2 + 2);
+  std::list<int>::list(v70, (a2 + 2));
+  v6 = *(a2 + 12);
+  v71 = *(a2 + 10);
   v72 = v6;
   v63 = *a1;
-  v64 = *(a1 + 8);
-  std::list<int>::list(v65, a1 + 16);
-  v7 = *(a1 + 48);
-  v66 = *(a1 + 40);
+  v64 = *(a1 + 2);
+  std::list<int>::list(v65, (a1 + 2));
+  v7 = *(a1 + 12);
+  v66 = *(a1 + 10);
   v67 = v7;
   v8 = v68;
   std::__list_imp<char *>::clear(v65);
@@ -5029,16 +5245,16 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
   if (v8 < v63)
   {
     v38 = *a3;
-    v39 = *(a3 + 8);
-    std::list<int>::list(v40, a3 + 16);
-    v9 = *(a3 + 48);
-    v41 = *(a3 + 40);
+    v39 = *(a3 + 2);
+    std::list<int>::list(v40, (a3 + 2));
+    v9 = *(a3 + 12);
+    v41 = *(a3 + 10);
     v42 = v9;
     v33 = *a2;
-    v34 = *(a2 + 8);
-    std::list<int>::list(v35, a2 + 16);
-    v10 = *(a2 + 48);
-    v36 = *(a2 + 40);
+    v34 = *(a2 + 2);
+    std::list<int>::list(v35, (a2 + 2));
+    v10 = *(a2 + 12);
+    v36 = *(a2 + 10);
     v37 = v10;
     v11 = v38;
     std::__list_imp<char *>::clear(v35);
@@ -5055,15 +5271,15 @@ LABEL_9:
 
     std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a1, a2);
     v28 = *a3;
-    v29 = *(a3 + 8);
-    std::list<int>::list(v30, a3 + 16);
-    v13 = *(a3 + 48);
-    v31 = *(a3 + 40);
+    v29 = *(a3 + 2);
+    std::list<int>::list(v30, (a3 + 2));
+    v13 = *(a3 + 12);
+    v31 = *(a3 + 10);
     v32 = v13;
     v24 = *a2;
-    std::list<int>::list(v25, a2 + 16);
-    v14 = *(a2 + 48);
-    v26 = *(a2 + 40);
+    std::list<int>::list(v25, (a2 + 2));
+    v14 = *(a2 + 12);
+    v26 = *(a2 + 10);
     v27 = v14;
     v15 = v28;
     std::__list_imp<char *>::clear(v25);
@@ -5078,16 +5294,16 @@ LABEL_9:
   }
 
   v58 = *a3;
-  v59 = *(a3 + 8);
-  std::list<int>::list(v60, a3 + 16);
-  v17 = *(a3 + 48);
-  v61 = *(a3 + 40);
+  v59 = *(a3 + 2);
+  std::list<int>::list(v60, (a3 + 2));
+  v17 = *(a3 + 12);
+  v61 = *(a3 + 10);
   v62 = v17;
   v53 = *a2;
-  v54 = *(a2 + 8);
-  std::list<int>::list(v55, a2 + 16);
-  v18 = *(a2 + 48);
-  v56 = *(a2 + 40);
+  v54 = *(a2 + 2);
+  std::list<int>::list(v55, (a2 + 2));
+  v18 = *(a2 + 12);
+  v56 = *(a2 + 10);
   v57 = v18;
   v19 = v58;
   std::__list_imp<char *>::clear(v55);
@@ -5096,16 +5312,16 @@ LABEL_9:
   {
     std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a2, a3);
     v48 = *a2;
-    v49 = *(a2 + 8);
-    std::list<int>::list(v50, a2 + 16);
-    v20 = *(a2 + 48);
-    v51 = *(a2 + 40);
+    v49 = *(a2 + 2);
+    std::list<int>::list(v50, (a2 + 2));
+    v20 = *(a2 + 12);
+    v51 = *(a2 + 10);
     v52 = v20;
     v43 = *a1;
-    v44 = *(a1 + 8);
-    std::list<int>::list(v45, a1 + 16);
-    v21 = *(a1 + 48);
-    v46 = *(a1 + 40);
+    v44 = *(a1 + 2);
+    std::list<int>::list(v45, (a1 + 2));
+    v21 = *(a1 + 12);
+    v46 = *(a1 + 10);
     v47 = v21;
     v22 = v48;
     std::__list_imp<char *>::clear(v45);
@@ -5123,14 +5339,14 @@ LABEL_9:
   return 0;
 }
 
-void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a2, a3);
   v42 = *a4;
-  v43 = *(a4 + 8);
-  std::list<int>::list(v44, a4 + 16);
-  v8 = *(a4 + 48);
-  v45 = *(a4 + 40);
+  v43 = *(a4 + 2);
+  std::list<int>::list(v44, (a4 + 2));
+  v8 = *(a4 + 12);
+  v45 = *(a4 + 10);
   v46 = v8;
   v37 = *a3;
   v38 = *(a3 + 8);
@@ -5186,14 +5402,14 @@ void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::
   return result;
 }
 
-void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a2, a3, a4);
   v57 = *a5;
-  v58 = *(a5 + 8);
-  std::list<int>::list(v59, a5 + 16);
-  v10 = *(a5 + 48);
-  v60 = *(a5 + 40);
+  v58 = *(a5 + 2);
+  std::list<int>::list(v59, (a5 + 2));
+  v10 = *(a5 + 12);
+  v60 = *(a5 + 10);
   v61 = v10;
   v52 = *a4;
   v53 = *(a4 + 8);
@@ -5456,7 +5672,7 @@ void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0> *,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0> *,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &>(uint64_t *a1, uint64_t *a2)
 {
   v3 = a1;
   v83 = *a1;
@@ -5643,7 +5859,7 @@ void sub_1B559F264(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0> *,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &>(uint64_t *a1, unint64_t a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0> *,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &>(uint64_t *a1, unint64_t a2)
 {
   v76 = *a1;
   v77 = *(a1 + 2);
@@ -5746,13 +5962,13 @@ LABEL_11:
       v17 = v15;
       do
       {
-        v18 = *(v15 + 56);
-        v15 += 56;
+        v18 = v15[7];
+        v15 += 7;
         v41 = v18;
-        v42 = *(v15 + 8);
-        std::list<int>::list(v43, v15 + 16);
-        v19 = *(v17 + 104);
-        v44 = *(v17 + 96);
+        v42 = *(v15 + 2);
+        std::list<int>::list(v43, (v15 + 2));
+        v19 = *(v17 + 26);
+        v44 = *(v17 + 24);
         v45 = v19;
         v36 = v76;
         v37 = v77;
@@ -5793,29 +6009,29 @@ LABEL_11:
     while (v15 < v16);
   }
 
-  if ((v15 - 56) != v26)
+  if (v15 - 7 != v26)
   {
-    *v26 = *(v15 - 56);
-    *(v26 + 2) = *(v15 - 48);
-    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v26 + 2, *(v15 - 32), v15 - 40);
-    *(v26 + 10) = *(v15 - 16);
-    *(v26 + 12) = *(v15 - 8);
+    *v26 = *(v15 - 7);
+    *(v26 + 2) = *(v15 - 12);
+    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v26 + 2, *(v15 - 4), (v15 - 5));
+    *(v26 + 10) = *(v15 - 4);
+    *(v26 + 12) = *(v15 - 2);
   }
 
-  *(v15 - 56) = v76;
-  *(v15 - 48) = v77;
-  if ((v15 - 56) != &v76)
+  *(v15 - 7) = v76;
+  *(v15 - 12) = v77;
+  if (v15 - 7 != &v76)
   {
-    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>((v15 - 40), v78[1], v78);
+    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v15 - 5, v78[1], v78);
   }
 
-  *(v15 - 16) = v79;
-  *(v15 - 8) = v80;
+  *(v15 - 4) = v79;
+  *(v15 - 2) = v80;
   std::__list_imp<char *>::clear(v78);
-  return v15 - 56;
+  return v15 - 7;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(uint64_t a1, uint64_t *a2)
 {
   v3 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
   if (v3 > 2)
@@ -5823,13 +6039,13 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
     switch(v3)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a1 + 56, a2 - 56);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, (a1 + 56), a2 - 7);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a1 + 56, a1 + 112, a2 - 56);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a1 + 56, a1 + 112, a2 - 7);
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 56);
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 7);
         return 1;
     }
   }
@@ -5843,12 +6059,12 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
 
     if (v3 == 2)
     {
-      v4 = (a2 - 56);
-      v55 = *(a2 - 56);
-      v56 = *(a2 - 48);
-      std::list<int>::list(v57, a2 - 40);
-      v5 = *(a2 - 8);
-      v58 = *(a2 - 16);
+      v4 = a2 - 7;
+      v55 = *(a2 - 7);
+      v56 = *(a2 - 12);
+      std::list<int>::list(v57, (a2 - 5));
+      v5 = *(a2 - 2);
+      v58 = *(a2 - 4);
       v59 = v5;
       v50 = *a1;
       v51 = *(a1 + 8);
@@ -5868,26 +6084,26 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
     }
   }
 
-  v8 = a1 + 112;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a1 + 56, a1 + 112);
-  v9 = a1 + 168;
-  if (a1 + 168 != a2)
+  v8 = (a1 + 112);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, (a1 + 56), (a1 + 112));
+  v9 = (a1 + 168);
+  if ((a1 + 168) != a2)
   {
     v10 = 0;
     v24 = 0;
     do
     {
       v45 = *v9;
-      v46 = *(v9 + 8);
-      std::list<int>::list(v47, v9 + 16);
-      v11 = *(v9 + 48);
-      v48 = *(v9 + 40);
+      v46 = *(v9 + 2);
+      std::list<int>::list(v47, (v9 + 2));
+      v11 = *(v9 + 12);
+      v48 = *(v9 + 10);
       v49 = v11;
       v40 = *v8;
-      v41 = *(v8 + 8);
-      std::list<int>::list(v42, v8 + 16);
-      v12 = *(v8 + 48);
-      v43 = *(v8 + 40);
+      v41 = *(v8 + 2);
+      std::list<int>::list(v42, (v8 + 2));
+      v12 = *(v8 + 12);
+      v43 = *(v8 + 10);
       v44 = v12;
       v13 = v45;
       v14 = v40;
@@ -5896,10 +6112,10 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
       if (v13 < v14)
       {
         v35 = *v9;
-        v36 = *(v9 + 8);
-        std::list<int>::list(v37, v9 + 16);
-        v15 = *(v9 + 48);
-        v38 = *(v9 + 40);
+        v36 = *(v9 + 2);
+        std::list<int>::list(v37, (v9 + 2));
+        v15 = *(v9 + 12);
+        v38 = *(v9 + 10);
         v39 = v15;
         v16 = v10;
         while (1)
@@ -5950,7 +6166,7 @@ LABEL_20:
         *(v20 + 48) = v21;
         if (v24 == 7)
         {
-          v22 = v9 + 56 == a2;
+          v22 = v9 + 7 == a2;
           std::__list_imp<char *>::clear(v37);
           return v22;
         }
@@ -5961,7 +6177,7 @@ LABEL_20:
 
       v8 = v9;
       v10 += 56;
-      v9 += 56;
+      v9 += 7;
     }
 
     while (v9 != a2);
@@ -6000,12 +6216,12 @@ void *std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<
   return std::__list_imp<char *>::clear(v9);
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
+    v8 = 0x6DB6DB6DB6DB6DB7 * (a2 - a1);
     v19 = a2 - a1;
     if (a2 - a1 >= 57)
     {
@@ -6236,8 +6452,8 @@ void *std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
     v12 = *result;
     v13 = *(result + 2);
     std::list<int>::list(&v14, (result + 2));
-    v8 = *(v7 + 48);
-    v16 = *(v7 + 40);
+    v8 = *(v7 + 12);
+    v16 = *(v7 + 10);
     v17 = v8;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(v7, a3, a4);
     v10 = v9;
@@ -6337,9 +6553,9 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabel
   return v8;
 }
 
-void sub_1B55A0564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B55A0564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__list_imp<char *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -6429,9 +6645,9 @@ void *std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst
   return result;
 }
 
-void sub_1B55A07B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B55A07B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__list_imp<char *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -6461,11 +6677,49 @@ uint64_t fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl
   return a1;
 }
 
-void fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Initialize(uint64_t a1, uint64_t a2)
+void fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Initialize(void *a1, uint64_t a2)
 {
-  fst::DfsVisit<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::HeightVisitor,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a2);
-  fst::Partition<int>::Initialize(a1, 0);
-  fst::Partition<int>::AllocateClasses(a1, 1);
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  fst::DfsVisit<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::HeightVisitor,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a2, &v10, 0);
+  fst::Partition<int>::Initialize(a1, v12);
+  fst::Partition<int>::AllocateClasses(a1, DWORD2(v11) + 1);
+  v3 = v10;
+  if (*(&v10 + 1) != v10)
+  {
+    v4 = 0;
+    v5 = 0;
+    do
+    {
+      v6 = v3[v5];
+      v7 = *(a1[1] + (v4 >> 29));
+      v8 = a1[4];
+      v9 = *(v8 + 8 * v6);
+      if (v9)
+      {
+        *(v9 + 16) = v7;
+        v9 = *(v8 + 8 * v6);
+      }
+
+      *(v7 + 8) = v9;
+      *(v7 + 16) = 0;
+      *(v8 + 8 * v6) = v7;
+      *(a1[10] + 4 * (v4 >> 32)) = v6;
+      ++*(a1[13] + 4 * v6);
+      ++v5;
+      v3 = v10;
+      v4 += 0x100000000;
+    }
+
+    while (v5 < (*(&v10 + 1) - v10) >> 2);
+  }
+
+  if (v3)
+  {
+    *(&v10 + 1) = v3;
+    operator delete(v3);
+  }
 }
 
 void sub_1B55A09E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
@@ -6506,7 +6760,7 @@ void fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<flo
       v8 = *(a1[4] + 8 * v5);
       v15 = *v8;
       v19 = &v15;
-      *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v16, &v15) + 32) = v5;
+      *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v16, &v15, &std::piecewise_construct, &v19) + 8) = v5;
       for (i = *(v8 + 8); i; i = *(i + 8))
       {
         v15 = *i;
@@ -6522,7 +6776,7 @@ void fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<flo
         }
 
         v19 = &v15;
-        *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v16, &v15) + 32) = v11;
+        *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v16, &v15, &std::piecewise_construct, &v19) + 8) = v11;
       }
 
       v12 = *(a1[4] + 8 * v5);
@@ -6531,7 +6785,7 @@ void fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<flo
         v15 = *v12;
         v13 = *(a1[10] + 4 * v15);
         v19 = &v15;
-        v14 = *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v16, &v15) + 32);
+        v14 = *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&v16, &v15, &std::piecewise_construct, &v19) + 8);
         v12 = *(v12 + 8);
         if (v13 != v14)
         {
@@ -6547,54 +6801,51 @@ void fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<flo
   }
 }
 
-uint64_t fst::DfsVisit<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::HeightVisitor,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(uint64_t a1)
+void fst::DfsVisit<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::AcyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::HeightVisitor,fst::AnyArcFilter<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(uint64_t a1, uint64_t *a2, char a3)
 {
-  result = (*(*a1 + 24))(a1);
-  if (result != -1)
+  if ((*(*a1 + 24))(a1) != -1)
   {
-    memset(&v6, 0, sizeof(v6));
-    v4 = 0u;
+    memset(&v7, 0, sizeof(v7));
     v5 = 0u;
-    v3 = 0u;
-    fst::MemoryPool<fst::DfsState<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::MemoryPool(v2, 64);
+    v6 = 0u;
+    v4 = 0u;
+    fst::MemoryPool<fst::DfsState<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::MemoryPool(v3, 64);
   }
-
-  return result;
 }
 
-void sub_1B55A133C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B55A133C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+void *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(uint64_t **a1, unsigned int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__find_equal<int>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__find_equal<int>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__find_equal<int>(uint64_t a1, void *a2, unsigned int *a3)
@@ -6856,11 +7107,11 @@ LABEL_49:
   return v24;
 }
 
-void sub_1B55A1A2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, _DWORD *a17)
+void sub_1B55A1A2C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, _DWORD *a17)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a17)
@@ -6932,7 +7183,7 @@ void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<floa
   *(a1 + 216) = 0u;
   *(a1 + 232) = 0u;
   *(a1 + 184) = &unk_1F2CFB7B0;
-  fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>::VectorFst();
+  fst::VectorFst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::VectorState<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,std::allocator<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>::VectorFst((a1 + 248));
 }
 
 void sub_1B55A1C90(_Unwind_Exception *a1)
@@ -6942,50 +7193,40 @@ void sub_1B55A1C90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Initialize(uint64_t a1, uint64_t a2)
+void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Initialize(uint64_t *a1, uint64_t a2)
 {
-  fst::Reverse<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a2, (a1 + 248), 1);
-  fst::ArcSort<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(a1 + 248);
-  fst::Partition<int>::Initialize(a1, (((*(*(a1 + 256) + 72) - *(*(a1 + 256) + 64)) << 29) - 0x100000000) >> 32);
+  fst::Reverse<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a2, a1 + 31, 1);
+  fst::ArcSort<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>((a1 + 31), v4, v5, v6, v7, v8, v9, v10);
+  fst::Partition<int>::Initialize(a1, (((*(a1[32] + 72) - *(a1[32] + 64)) << 29) - 0x100000000) >> 32);
   fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::PrePartition(a1, a2);
   operator new();
 }
 
-uint64_t fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Compute(uint64_t result)
+void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Compute(uint64_t result)
 {
-  v1 = *(result + 240);
-  if (v1)
+  for (i = *(result + 240); i; i = *(result + 240))
   {
-    v2 = result;
-    do
-    {
-      v3 = *(*(v2[26] + ((v2[29] >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v2[29] & 0x3FFLL));
-      ++v2[29];
-      v2[30] = v1 - 1;
-      std::deque<int>::__maybe_remove_front_spare[abi:ne200100]((v2 + 25), 1);
-      result = fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Split(v2, v3);
-      v1 = v2[30];
-    }
-
-    while (v1);
+    v3 = *(*(*(result + 208) + ((*(result + 232) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (*(result + 232) & 0x3FFLL));
+    ++*(result + 232);
+    *(result + 240) = i - 1;
+    std::deque<int>::__maybe_remove_front_spare[abi:ne200100](result + 200, 1);
+    fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Split(result, v3);
   }
-
-  return result;
 }
 
-void fst::ArcSort<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(uint64_t a1)
+void fst::ArcSort<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = a1;
-  v4 = &v6;
-  memset(v5, 0, sizeof(v5));
-  v1[0] = a1;
-  v1[1] = &v6;
-  memset(v2, 0, sizeof(v2));
-  fst::StateMap<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ArcSortMapper<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>(a1, v1);
-  v7 = v2;
-  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  v7 = v5;
-  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v10 = a1;
+  v11 = &v13;
+  memset(v12, 0, sizeof(v12));
+  v8[0] = a1;
+  v8[1] = &v13;
+  memset(v9, 0, sizeof(v9));
+  fst::StateMap<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ArcSortMapper<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>>(a1, v8);
+  v14 = v9;
+  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v14);
+  v14 = v12;
+  std::vector<fst::GallicArc<fst::ArcTpl<fst::LogWeightTpl<float>,int>,(fst::GallicType)1>>::__destroy_vector::operator()[abi:ne200100](&v14);
 }
 
 void sub_1B55A1E30(_Unwind_Exception *a1)
@@ -6998,7 +7239,7 @@ void sub_1B55A1E30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::PrePartition(uint64_t a1, uint64_t a2)
+void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::PrePartition(void *a1, uint64_t a2)
 {
   if (FLAGS_v >= 5)
   {
@@ -7032,8 +7273,8 @@ void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<floa
     v7 = v35;
   }
 
-  v8 = *(*(a1 + 8) + 8 * v7);
-  v9 = *(a1 + 32);
+  v8 = *(a1[1] + 8 * v7);
+  v9 = a1[4];
   v10 = *(v9 + 8 * v6);
   if (v10)
   {
@@ -7044,8 +7285,8 @@ void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<floa
   *(v8 + 8) = v10;
   *(v8 + 16) = 0;
   *(v9 + 8 * v6) = v8;
-  *(*(a1 + 80) + 4 * v7) = v6;
-  ++*(*(a1 + 104) + 4 * v6);
+  *(a1[10] + 4 * v7) = v6;
+  ++*(a1[13] + 4 * v6);
   if (v33)
   {
     v11 = (*(*v33 + 24))(v33);
@@ -7058,9 +7299,9 @@ void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<floa
 
   v32 = v11;
   v30[0] = &v32;
-  *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&__p, &v32) + 32) = v6;
+  *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&__p, &v32, &std::piecewise_construct, v30) + 8) = v6;
   LODWORD(v30[0]) = v6;
-  std::deque<int>::push_front((a1 + 200), v30);
+  std::deque<int>::push_front((a1 + 25), v30);
   v12 = v33;
   if (v33)
   {
@@ -7089,8 +7330,8 @@ LABEL_20:
       v21 = fst::Partition<int>::AddClass(a1);
       v22 = v21;
       v23 = v32;
-      v24 = *(*(a1 + 8) + 8 * v32);
-      v25 = *(a1 + 32);
+      v24 = *(a1[1] + 8 * v32);
+      v25 = a1[4];
       v26 = *(v25 + 8 * v21);
       if (v26)
       {
@@ -7101,20 +7342,20 @@ LABEL_20:
       *(v24 + 8) = v26;
       *(v24 + 16) = 0;
       *(v25 + 8 * v21) = v24;
-      *(*(a1 + 80) + 4 * v23) = v21;
-      ++*(*(a1 + 104) + 4 * v21);
+      *(a1[10] + 4 * v23) = v21;
+      ++*(a1[13] + 4 * v21);
       v30[0] = &v32;
-      *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&__p, &v32) + 32) = v21;
+      *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&__p, &v32, &std::piecewise_construct, v30) + 8) = v21;
       LODWORD(v30[0]) = v22;
-      std::deque<int>::push_front((a1 + 200), v30);
+      std::deque<int>::push_front((a1 + 25), v30);
     }
 
     else
     {
       v15 = v32;
       v16 = *(v14 + 32);
-      v17 = *(*(a1 + 8) + 8 * v32);
-      v18 = *(a1 + 32);
+      v17 = *(a1[1] + 8 * v32);
+      v18 = a1[4];
       v19 = *(v18 + 8 * v16);
       if (v19)
       {
@@ -7125,11 +7366,11 @@ LABEL_20:
       *(v17 + 8) = v19;
       *(v17 + 16) = 0;
       *(v18 + 8 * v16) = v17;
-      *(*(a1 + 80) + 4 * v15) = v16;
-      ++*(*(a1 + 104) + 4 * v16);
+      *(a1[10] + 4 * v15) = v16;
+      ++*(a1[13] + 4 * v16);
       v20 = *(v14 + 32);
       v30[0] = &v32;
-      *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&__p, &v32) + 32) = v20;
+      *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,fst::StateComparator<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,false>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&__p, &v32, &std::piecewise_construct, v30) + 8) = v20;
     }
 
     v12 = v33;
@@ -7159,7 +7400,7 @@ LABEL_30:
     v27 = fst::LogMessage::LogMessage(&v32, v30);
     v28 = fst::cerr(v27);
     v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Initial Partition: ", 19);
-    MEMORY[0x1B8C84C00](v29, (*(a1 + 40) - *(a1 + 32)) >> 3);
+    MEMORY[0x1B8C84C00](v29, (a1[5] - a1[4]) >> 3);
     fst::LogMessage::~LogMessage(&v32);
     if (v31 < 0)
     {
@@ -7175,7 +7416,7 @@ LABEL_30:
   std::__tree<int>::destroy(&__p, v37);
 }
 
-void sub_1B55A22C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, int a22, __int16 a23, char a24, char a25)
+void sub_1B55A22C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, int a22, __int16 a23, char a24, char a25)
 {
   if (a14 < 0)
   {
@@ -7184,7 +7425,7 @@ void sub_1B55A22C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::__tree<int>::destroy(&a20, a21);
@@ -7233,7 +7474,7 @@ uint64_t fst::StateMap<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalW
   return result;
 }
 
-void *fst::ArcSortMapper<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>::SetState(uint64_t *a1, uint64_t a2)
+uint64_t fst::ArcSortMapper<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>>::SetState(uint64_t *a1, uint64_t a2)
 {
   v4 = a1 + 2;
   v5 = a1[2];
@@ -7310,7 +7551,7 @@ LABEL_15:
 LABEL_17:
   v11 = a1[2];
   v12 = a1[3];
-  v13 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * (v12 - v11));
+  v13 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v12 - v11) >> 3));
   if (v12 == v11)
   {
     v14 = 0;
@@ -7339,7 +7580,7 @@ void sub_1B55A2874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,false>(void *result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,false>(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -7351,17 +7592,17 @@ LABEL_3:
     v8 = v9;
     v11 = v10;
     v12 = a2 - v9;
-    v13 = 0x6DB6DB6DB6DB6DB7 * ((a2 - v9) >> 3);
+    v13 = 0x6DB6DB6DB6DB6DB7 * (a2 - v9);
     if (v13 > 2)
     {
       switch(v13)
       {
         case 3uLL:
-          return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v9, v9 + 56, (a2 - 7));
+          return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v9, v9 + 7, a2 - 7);
         case 4uLL:
-          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v9, v9 + 56, v9 + 112, (a2 - 7));
+          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v9, (v9 + 7), (v9 + 14), a2 - 7);
         case 5uLL:
-          return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v9, v9 + 56, v9 + 112, v9 + 168, (a2 - 7));
+          return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v9, (v9 + 7), (v9 + 14), (v9 + 21), a2 - 7);
       }
     }
 
@@ -7382,10 +7623,10 @@ LABEL_3:
         v45 = *(v23 + 10);
         v46 = *(v23 + 12);
         v37 = *v9;
-        v38 = *(v9 + 8);
-        std::list<int>::list(v39, v9 + 16);
-        v25 = *(v9 + 48);
-        v40 = *(v9 + 40);
+        v38 = *(v9 + 2);
+        std::list<int>::list(v39, (v9 + 2));
+        v25 = *(v9 + 12);
+        v40 = *(v9 + 10);
         v41 = v25;
         v26 = v42;
         v27 = v37;
@@ -7419,10 +7660,10 @@ LABEL_3:
     }
 
     v14 = v13 >> 1;
-    v15 = (v8 + 56 * (v13 >> 1));
+    v15 = &v8[7 * (v13 >> 1)];
     if (v12 < 0x1C01)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v15, v8, (a2 - 7));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v15, v8, a2 - 7);
       if (a5)
       {
         goto LABEL_19;
@@ -7431,12 +7672,12 @@ LABEL_3:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v8, v15, (a2 - 7));
-      v16 = 56 * v14;
-      v17 = 56 * v14 + v8 - 56;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v8 + 56, v17, (a2 - 14));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v8 + 112, v8 + 56 + v16, (a2 - 21));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v17, v15, v8 + 56 + v16);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v8, v15, a2 - 7);
+      v16 = 7 * v14;
+      v17 = &v8[7 * v14 - 7];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v8 + 7, v17, a2 - 14);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v8 + 14, &v8[v16 + 7], a2 - 21);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(v17, v15, &v8[v16 + 7]);
       std::swap[abi:ne200100]<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(v8, v15);
       if (a5)
       {
@@ -7444,15 +7685,15 @@ LABEL_3:
       }
     }
 
-    v32 = *(v8 - 56);
-    v33 = *(v8 - 48);
-    std::list<int>::list(v34, v8 - 40);
-    v35 = *(v8 - 16);
-    v36 = *(v8 - 8);
+    v32 = *(v8 - 7);
+    v33 = *(v8 - 12);
+    std::list<int>::list(v34, (v8 - 5));
+    v35 = *(v8 - 4);
+    v36 = *(v8 - 2);
     v28 = *v8;
-    std::list<int>::list(v29, v8 + 16);
-    v18 = *(v8 + 48);
-    v30 = *(v8 + 40);
+    std::list<int>::list(v29, (v8 + 2));
+    v18 = *(v8 + 12);
+    v30 = *(v8 + 10);
     v31 = v18;
     v19 = v32;
     std::__list_imp<char *>::clear(v29);
@@ -7475,8 +7716,8 @@ LABEL_19:
     }
 
     v22 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(v8, v20);
-    v9 = v20 + 56;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(v20 + 56, a2);
+    v9 = v20 + 7;
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>((v20 + 7), a2);
     if (result)
     {
       a4 = -v11;
@@ -7490,11 +7731,11 @@ LABEL_19:
     }
 
     v10 = v11 + 1;
-    if ((v22 & 1) == 0)
+    if (!v22)
     {
 LABEL_22:
       result = std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,false>(v8, v20, a3, -v11, a5 & 1);
-      v9 = v20 + 56;
+      v9 = v20 + 7;
       goto LABEL_23;
     }
   }
@@ -7507,19 +7748,19 @@ LABEL_22:
   return result;
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   v68 = *a2;
-  v69 = *(a2 + 8);
-  std::list<int>::list(v70, a2 + 16);
-  v6 = *(a2 + 48);
-  v71 = *(a2 + 40);
+  v69 = *(a2 + 2);
+  std::list<int>::list(v70, (a2 + 2));
+  v6 = *(a2 + 12);
+  v71 = *(a2 + 10);
   v72 = v6;
   v63 = *a1;
-  v64 = *(a1 + 8);
-  std::list<int>::list(v65, a1 + 16);
-  v7 = *(a1 + 48);
-  v66 = *(a1 + 40);
+  v64 = *(a1 + 2);
+  std::list<int>::list(v65, (a1 + 2));
+  v7 = *(a1 + 12);
+  v66 = *(a1 + 10);
   v67 = v7;
   v8 = v68;
   std::__list_imp<char *>::clear(v65);
@@ -7527,16 +7768,16 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
   if (v8 < v63)
   {
     v38 = *a3;
-    v39 = *(a3 + 8);
-    std::list<int>::list(v40, a3 + 16);
-    v9 = *(a3 + 48);
-    v41 = *(a3 + 40);
+    v39 = *(a3 + 2);
+    std::list<int>::list(v40, (a3 + 2));
+    v9 = *(a3 + 12);
+    v41 = *(a3 + 10);
     v42 = v9;
     v33 = *a2;
-    v34 = *(a2 + 8);
-    std::list<int>::list(v35, a2 + 16);
-    v10 = *(a2 + 48);
-    v36 = *(a2 + 40);
+    v34 = *(a2 + 2);
+    std::list<int>::list(v35, (a2 + 2));
+    v10 = *(a2 + 12);
+    v36 = *(a2 + 10);
     v37 = v10;
     v11 = v38;
     std::__list_imp<char *>::clear(v35);
@@ -7553,15 +7794,15 @@ LABEL_9:
 
     std::swap[abi:ne200100]<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a1, a2);
     v28 = *a3;
-    v29 = *(a3 + 8);
-    std::list<int>::list(v30, a3 + 16);
-    v13 = *(a3 + 48);
-    v31 = *(a3 + 40);
+    v29 = *(a3 + 2);
+    std::list<int>::list(v30, (a3 + 2));
+    v13 = *(a3 + 12);
+    v31 = *(a3 + 10);
     v32 = v13;
     v24 = *a2;
-    std::list<int>::list(v25, a2 + 16);
-    v14 = *(a2 + 48);
-    v26 = *(a2 + 40);
+    std::list<int>::list(v25, (a2 + 2));
+    v14 = *(a2 + 12);
+    v26 = *(a2 + 10);
     v27 = v14;
     v15 = v28;
     std::__list_imp<char *>::clear(v25);
@@ -7576,16 +7817,16 @@ LABEL_9:
   }
 
   v58 = *a3;
-  v59 = *(a3 + 8);
-  std::list<int>::list(v60, a3 + 16);
-  v17 = *(a3 + 48);
-  v61 = *(a3 + 40);
+  v59 = *(a3 + 2);
+  std::list<int>::list(v60, (a3 + 2));
+  v17 = *(a3 + 12);
+  v61 = *(a3 + 10);
   v62 = v17;
   v53 = *a2;
-  v54 = *(a2 + 8);
-  std::list<int>::list(v55, a2 + 16);
-  v18 = *(a2 + 48);
-  v56 = *(a2 + 40);
+  v54 = *(a2 + 2);
+  std::list<int>::list(v55, (a2 + 2));
+  v18 = *(a2 + 12);
+  v56 = *(a2 + 10);
   v57 = v18;
   v19 = v58;
   std::__list_imp<char *>::clear(v55);
@@ -7594,16 +7835,16 @@ LABEL_9:
   {
     std::swap[abi:ne200100]<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>(a2, a3);
     v48 = *a2;
-    v49 = *(a2 + 8);
-    std::list<int>::list(v50, a2 + 16);
-    v20 = *(a2 + 48);
-    v51 = *(a2 + 40);
+    v49 = *(a2 + 2);
+    std::list<int>::list(v50, (a2 + 2));
+    v20 = *(a2 + 12);
+    v51 = *(a2 + 10);
     v52 = v20;
     v43 = *a1;
-    v44 = *(a1 + 8);
-    std::list<int>::list(v45, a1 + 16);
-    v21 = *(a1 + 48);
-    v46 = *(a1 + 40);
+    v44 = *(a1 + 2);
+    std::list<int>::list(v45, (a1 + 2));
+    v21 = *(a1 + 12);
+    v46 = *(a1 + 10);
     v47 = v21;
     v22 = v48;
     std::__list_imp<char *>::clear(v45);
@@ -7621,14 +7862,14 @@ LABEL_9:
   return 0;
 }
 
-void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a2, a3);
   v42 = *a4;
-  v43 = *(a4 + 8);
-  std::list<int>::list(v44, a4 + 16);
-  v8 = *(a4 + 48);
-  v45 = *(a4 + 40);
+  v43 = *(a4 + 2);
+  std::list<int>::list(v44, (a4 + 2));
+  v8 = *(a4 + 12);
+  v45 = *(a4 + 10);
   v46 = v8;
   v37 = *a3;
   v38 = *(a3 + 8);
@@ -7684,14 +7925,14 @@ void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::
   return result;
 }
 
-void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a2, a3, a4);
   v57 = *a5;
-  v58 = *(a5 + 8);
-  std::list<int>::list(v59, a5 + 16);
-  v10 = *(a5 + 48);
-  v60 = *(a5 + 40);
+  v58 = *(a5 + 2);
+  std::list<int>::list(v59, (a5 + 2));
+  v10 = *(a5 + 12);
+  v60 = *(a5 + 10);
   v61 = v10;
   v52 = *a4;
   v53 = *(a4 + 8);
@@ -7954,7 +8195,7 @@ void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> *,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> *,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &>(uint64_t *a1, uint64_t *a2)
 {
   v3 = a1;
   v83 = *a1;
@@ -8141,7 +8382,7 @@ void sub_1B55A3E40(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> *,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &>(uint64_t *a1, unint64_t a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>> *,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &>(uint64_t *a1, unint64_t a2)
 {
   v76 = *a1;
   v77 = *(a1 + 2);
@@ -8244,13 +8485,13 @@ LABEL_11:
       v17 = v15;
       do
       {
-        v18 = *(v15 + 56);
-        v15 += 56;
+        v18 = v15[7];
+        v15 += 7;
         v41 = v18;
-        v42 = *(v15 + 8);
-        std::list<int>::list(v43, v15 + 16);
-        v19 = *(v17 + 104);
-        v44 = *(v17 + 96);
+        v42 = *(v15 + 2);
+        std::list<int>::list(v43, (v15 + 2));
+        v19 = *(v17 + 26);
+        v44 = *(v17 + 24);
         v45 = v19;
         v36 = v76;
         v37 = v77;
@@ -8291,29 +8532,29 @@ LABEL_11:
     while (v15 < v16);
   }
 
-  if ((v15 - 56) != v26)
+  if (v15 - 7 != v26)
   {
-    *v26 = *(v15 - 56);
-    *(v26 + 2) = *(v15 - 48);
-    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v26 + 2, *(v15 - 32), v15 - 40);
-    *(v26 + 10) = *(v15 - 16);
-    *(v26 + 12) = *(v15 - 8);
+    *v26 = *(v15 - 7);
+    *(v26 + 2) = *(v15 - 12);
+    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v26 + 2, *(v15 - 4), (v15 - 5));
+    *(v26 + 10) = *(v15 - 4);
+    *(v26 + 12) = *(v15 - 2);
   }
 
-  *(v15 - 56) = v76;
-  *(v15 - 48) = v77;
-  if ((v15 - 56) != &v76)
+  *(v15 - 7) = v76;
+  *(v15 - 12) = v77;
+  if (v15 - 7 != &v76)
   {
-    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>((v15 - 40), v78[1], v78);
+    std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v15 - 5, v78[1], v78);
   }
 
-  *(v15 - 16) = v79;
-  *(v15 - 8) = v80;
+  *(v15 - 4) = v79;
+  *(v15 - 2) = v80;
   std::__list_imp<char *>::clear(v78);
-  return v15 - 56;
+  return v15 - 7;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(uint64_t a1, uint64_t *a2)
 {
   v3 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
   if (v3 > 2)
@@ -8321,13 +8562,13 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
     switch(v3)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a1 + 56, a2 - 56);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, (a1 + 56), a2 - 7);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a1 + 56, a1 + 112, a2 - 56);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a1 + 56, a1 + 112, a2 - 7);
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 56);
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 7);
         return 1;
     }
   }
@@ -8341,12 +8582,12 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
 
     if (v3 == 2)
     {
-      v4 = (a2 - 56);
-      v55 = *(a2 - 56);
-      v56 = *(a2 - 48);
-      std::list<int>::list(v57, a2 - 40);
-      v5 = *(a2 - 8);
-      v58 = *(a2 - 16);
+      v4 = a2 - 7;
+      v55 = *(a2 - 7);
+      v56 = *(a2 - 12);
+      std::list<int>::list(v57, (a2 - 5));
+      v5 = *(a2 - 2);
+      v58 = *(a2 - 4);
       v59 = v5;
       v50 = *a1;
       v51 = *(a1 + 8);
@@ -8366,26 +8607,26 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
     }
   }
 
-  v8 = a1 + 112;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, a1 + 56, a1 + 112);
-  v9 = a1 + 168;
-  if (a1 + 168 != a2)
+  v8 = (a1 + 112);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,0>(a1, (a1 + 56), (a1 + 112));
+  v9 = (a1 + 168);
+  if ((a1 + 168) != a2)
   {
     v10 = 0;
     v24 = 0;
     do
     {
       v45 = *v9;
-      v46 = *(v9 + 8);
-      std::list<int>::list(v47, v9 + 16);
-      v11 = *(v9 + 48);
-      v48 = *(v9 + 40);
+      v46 = *(v9 + 2);
+      std::list<int>::list(v47, (v9 + 2));
+      v11 = *(v9 + 12);
+      v48 = *(v9 + 10);
       v49 = v11;
       v40 = *v8;
-      v41 = *(v8 + 8);
-      std::list<int>::list(v42, v8 + 16);
-      v12 = *(v8 + 48);
-      v43 = *(v8 + 40);
+      v41 = *(v8 + 2);
+      std::list<int>::list(v42, (v8 + 2));
+      v12 = *(v8 + 12);
+      v43 = *(v8 + 10);
       v44 = v12;
       v13 = v45;
       v14 = v40;
@@ -8394,10 +8635,10 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,f
       if (v13 < v14)
       {
         v35 = *v9;
-        v36 = *(v9 + 8);
-        std::list<int>::list(v37, v9 + 16);
-        v15 = *(v9 + 48);
-        v38 = *(v9 + 40);
+        v36 = *(v9 + 2);
+        std::list<int>::list(v37, (v9 + 2));
+        v15 = *(v9 + 12);
+        v38 = *(v9 + 10);
         v39 = v15;
         v16 = v10;
         while (1)
@@ -8448,7 +8689,7 @@ LABEL_20:
         *(v20 + 48) = v21;
         if (v24 == 7)
         {
-          v22 = v9 + 56 == a2;
+          v22 = v9 + 7 == a2;
           std::__list_imp<char *>::clear(v37);
           return v22;
         }
@@ -8459,7 +8700,7 @@ LABEL_20:
 
       v8 = v9;
       v10 += 56;
-      v9 += 56;
+      v9 += 7;
     }
 
     while (v9 != a2);
@@ -8498,12 +8739,12 @@ void *std::swap[abi:ne200100]<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::Tr
   return std::__list_imp<char *>::clear(v9);
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
+    v8 = 0x6DB6DB6DB6DB6DB7 * (a2 - a1);
     v19 = a2 - a1;
     if (a2 - a1 >= 57)
     {
@@ -8734,8 +8975,8 @@ void *std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
     v12 = *result;
     v13 = *(result + 2);
     std::list<int>::list(&v14, (result + 2));
-    v8 = *(v7 + 48);
-    v16 = *(v7 + 40);
+    v8 = *(v7 + 12);
+    v16 = *(v7 + 10);
     v17 = v8;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>> &,fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>*>(v7, a3, a4);
     v10 = v9;
@@ -8835,9 +9076,9 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabel
   return v8;
 }
 
-void sub_1B55A5140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B55A5140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__list_imp<char *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -8927,18 +9168,18 @@ void *std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst
   return result;
 }
 
-void sub_1B55A538C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B55A538C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__list_imp<char *>::clear(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Split(void *a1, int a2)
+void fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::Split(const void **a1, int a2)
 {
-  for (i = *(a1[4] + 8 * a2); i; i = *(i + 1))
+  for (i = *(a1[4] + a2); i; i = *(i + 1))
   {
-    if (*(*(*(a1[32] + 64) + 8 * (*i + 1)) + 64) != *(*(*(a1[32] + 64) + 8 * (*i + 1)) + 56))
+    if (*(*(*(a1[32] + 8) + 8 * (*i + 1)) + 64) != *(*(*(a1[32] + 8) + 8 * (*i + 1)) + 56))
     {
       operator new();
     }
@@ -8946,20 +9187,20 @@ uint64_t fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<
 
   v4 = a1[33];
   v5 = *v4;
-  v6 = (v4 + 8);
-  v7 = *(v4 + 8);
+  v6 = v4 + 1;
+  v7 = v4[1];
   if (*v4 != v7)
   {
     v8 = -1;
     while (1)
     {
       v9 = *v5;
-      v36 = *(v4 + 24);
+      v35 = v4[3];
       v10 = (v7 - v5) >> 3;
       if (v10 >= 2)
       {
         v11 = *v5;
-        v12 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(v5, &v36, v10);
+        v12 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(v5, &v35, v10);
         v13 = (v7 - 8);
         if ((v7 - 8) == v12)
         {
@@ -8970,7 +9211,7 @@ uint64_t fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<
         {
           *v12 = *v13;
           *v13 = v11;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(v5, (v12 + 1), &v36, v12 + 1 - v5);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(v5, (v12 + 1), &v35, v12 + 1 - v5);
         }
       }
 
@@ -9009,7 +9250,7 @@ LABEL_24:
           fst::Partition<int>::FinalizeSplit<fst::LifoQueue<int>>(a1, (a1 + 23));
         }
 
-        if (*(a1[13] + 4 * *(a1[10] + 4 * (v19 - 1))) >= 2u)
+        if (*(a1[13] + *(a1[10] + v19 - 1)) >= 2u)
         {
           fst::Partition<int>::SplitOn(a1, v19 - 1);
         }
@@ -9043,8 +9284,8 @@ LABEL_51:
 
 LABEL_35:
             v21 = a1[33];
-            v23 = *(v21 + 8);
-            v22 = *(v21 + 16);
+            v23 = v21[1];
+            v22 = v21[2];
             if (v23 >= v22)
             {
               v26 = (v23 - *v21) >> 3;
@@ -9078,13 +9319,13 @@ LABEL_35:
               v30 = (8 * v26);
               *v30 = v9;
               v24 = 8 * v26 + 8;
-              v31 = *(v21 + 8) - *v21;
+              v31 = v21[1] - *v21;
               v32 = v30 - v31;
               memcpy(v30 - v31, *v21, v31);
               v33 = *v21;
               *v21 = v32;
-              *(v21 + 8) = v24;
-              *(v21 + 16) = 0;
+              v21[1] = v24;
+              v21[2] = 0;
               if (v33)
               {
                 operator delete(v33);
@@ -9094,13 +9335,13 @@ LABEL_35:
             else
             {
               *v23 = v9;
-              v24 = (v23 + 1);
+              v24 = (v23 + 8);
             }
 
-            *(v21 + 8) = v24;
+            v21[1] = v24;
             v34 = *v21;
-            v36 = *(v21 + 24);
-            std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(v34, v24, &v36, (v24 - v34) >> 3);
+            v35 = v21[3];
+            std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(v34, v24, &v35, (v24 - v34) >> 3);
             goto LABEL_51;
           }
         }
@@ -9129,11 +9370,11 @@ LABEL_18:
 LABEL_52:
       v4 = a1[33];
       v5 = *v4;
-      v6 = (v4 + 8);
-      v7 = *(v4 + 8);
+      v6 = v4 + 1;
+      v7 = v4[1];
       if (*v4 == v7)
       {
-        return fst::Partition<int>::FinalizeSplit<fst::LifoQueue<int>>(a1, (a1 + 23));
+        goto LABEL_53;
       }
     }
 
@@ -9152,7 +9393,8 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  return fst::Partition<int>::FinalizeSplit<fst::LifoQueue<int>>(a1, (a1 + 23));
+LABEL_53:
+  fst::Partition<int>::FinalizeSplit<fst::LifoQueue<int>>(a1, (a1 + 23));
 }
 
 BOOL std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CyclicMinimizer<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>,fst::LifoQueue<int>>::ArcIterCompare &,std::__wrap_iter<fst::ArcIterator<fst::Fst<fst::ReverseArc<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>>> **>>(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9459,7 +9701,7 @@ uint64_t *std::vector<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,i
   return result;
 }
 
-void *std::__introsort<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,false>(void *result, void *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t *std::__introsort<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,false>(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
   v9 = 0x6DB6DB6DB6DB6DB7;
@@ -9473,7 +9715,7 @@ LABEL_3:
     v8 = v10;
     v12 = v11;
     v13 = a2 - v10;
-    v14 = ((a2 - v10) >> 3) * v9;
+    v14 = (a2 - v10) * v9;
     if (v14 <= 2)
     {
       if (v14 < 2)
@@ -9484,7 +9726,7 @@ LABEL_3:
       if (v14 == 2)
       {
         v28 = *(a2 - 14);
-        if (v28 < *v10 || v28 <= *v10 && ((v29 = *(a2 - 13), v30 = *(v10 + 4), v29 < v30) || v29 <= v30 && *(a2 - 2) < *(v10 + 48)))
+        if (v28 < *v10 || v28 <= *v10 && ((v29 = *(a2 - 13), v30 = *(v10 + 1), v29 < v30) || v29 <= v30 && *(a2 - 2) < *(v10 + 12)))
         {
 
           return std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(v10, a2 - 7);
@@ -9504,13 +9746,13 @@ LABEL_3:
     if (v14 == 4)
     {
 
-      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, v10 + 56, v10 + 112, v31);
+      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, (v10 + 7), (v10 + 14), v31);
     }
 
     if (v14 == 5)
     {
 
-      return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, v10 + 56, v10 + 112, v10 + 168, v31);
+      return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, (v10 + 7), (v10 + 14), (v10 + 21), v31);
     }
 
 LABEL_11:
@@ -9541,7 +9783,7 @@ LABEL_11:
     }
 
     v15 = v14 >> 1;
-    v16 = (v10 + 56 * (v14 >> 1));
+    v16 = &v10[7 * (v14 >> 1)];
     if (v13 < 0x1C01)
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v16, v10, v31);
@@ -9554,13 +9796,13 @@ LABEL_11:
     else
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, v16, v31);
-      v17 = v10 + 56;
+      v17 = v10 + 7;
       v18 = v9;
-      v19 = 56 * v15;
-      v20 = (56 * v15 + v8 - 56);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>((v8 + 56), v20, (a2 - 14));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>((v8 + 112), (v17 + v19), (a2 - 21));
-      v21 = v17 + v19;
+      v19 = 7 * v15;
+      v20 = &v8[7 * v15 - 7];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8 + 7, v20, (a2 - 14));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v8 + 14, &v17[v19], (a2 - 21));
+      v21 = &v17[v19];
       v9 = v18;
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v20, v16, v21);
       std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(v8, v16);
@@ -9570,10 +9812,10 @@ LABEL_11:
       }
     }
 
-    v22 = *(v8 - 56);
+    v22 = *(v8 - 14);
     if (v22 >= *v8)
     {
-      if (v22 > *v8 || (v23 = *(v8 - 52), v24 = *(v8 + 4), v23 >= v24) && (v23 > v24 || *(v8 - 8) >= *(v8 + 48)))
+      if (v22 > *v8 || (v23 = *(v8 - 13), v24 = *(v8 + 1), v23 >= v24) && (v23 > v24 || *(v8 - 2) >= *(v8 + 12)))
       {
         result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0> *,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &>(v8, a2);
         v10 = result;
@@ -9589,8 +9831,8 @@ LABEL_22:
     }
 
     v27 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(v8, v25);
-    v10 = (v25 + 14);
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>((v25 + 14), a2);
+    v10 = v25 + 7;
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>((v25 + 7), a2);
     if (result)
     {
       a4 = -v12;
@@ -9604,11 +9846,11 @@ LABEL_22:
     }
 
     v11 = v12 + 1;
-    if ((v27 & 1) == 0)
+    if (!v27)
     {
 LABEL_25:
       result = std::__introsort<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,false>(v8, v25, a3, -v12, a5 & 1);
-      v10 = (v25 + 14);
+      v10 = v25 + 7;
 LABEL_27:
       a5 = 0;
       a4 = -v12;
@@ -9616,262 +9858,5 @@ LABEL_27:
     }
   }
 
-  return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, (v10 + 56), v31);
-}
-
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v5 = a1;
-  v6 = *a2;
-  if (*a2 < *a1 || v6 <= *a1 && ((v9 = *(a2 + 1), v10 = *(a1 + 1), v9 < v10) || v9 <= v10 && *(a2 + 12) < *(a1 + 12)))
-  {
-    if (*a3 >= v6)
-    {
-      if (*a3 > v6 || (v11 = *(a3 + 4), v12 = *(a2 + 1), v11 >= v12) && (v11 > v12 || *(a3 + 48) >= *(a2 + 12)))
-      {
-        std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a1, a2);
-        if (*a3 >= *a2)
-        {
-          if (*a3 > *a2)
-          {
-            return 1;
-          }
-
-          v15 = *(a3 + 4);
-          v16 = *(a2 + 1);
-          if (v15 >= v16 && (v15 > v16 || *(a3 + 48) >= *(a2 + 12)))
-          {
-            return 1;
-          }
-        }
-
-        a1 = a2;
-      }
-    }
-
-    v7 = a3;
-LABEL_12:
-    std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a1, v7);
-    return 1;
-  }
-
-  if (*a3 < v6 || *a3 <= v6 && ((v17 = *(a3 + 4), v18 = *(a2 + 1), v17 < v18) || v17 <= v18 && *(a3 + 48) < *(a2 + 12)))
-  {
-    std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a2, a3);
-    if (*a2 >= *v5)
-    {
-      if (*a2 > *v5)
-      {
-        return 1;
-      }
-
-      v13 = *(a2 + 1);
-      v14 = *(v5 + 1);
-      if (v13 >= v14 && (v13 > v14 || *(a2 + 12) >= *(v5 + 12)))
-      {
-        return 1;
-      }
-    }
-
-    a1 = v5;
-    v7 = a2;
-    goto LABEL_12;
-  }
-
-  return 0;
-}
-
-void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a2, a3);
-  if (*a4 < *a3 || *a4 <= *a3 && ((v9 = *(a4 + 4), v10 = *(a3 + 4), v9 < v10) || v9 <= v10 && *(a4 + 48) < *(a3 + 48)))
-  {
-    result = std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a3, a4);
-    if (*a3 < *a2 || *a3 <= *a2 && ((v11 = *(a3 + 4), v12 = *(a2 + 4), v11 < v12) || v11 <= v12 && *(a3 + 48) < *(a2 + 48)))
-    {
-      result = std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a2, a3);
-      if (*a2 < *a1 || *a2 <= *a1 && ((v13 = *(a2 + 4), v14 = *(a1 + 4), v13 < v14) || v13 <= v14 && *(a2 + 48) < *(a1 + 48)))
-      {
-
-        return std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a1, a2);
-      }
-    }
-  }
-
-  return result;
-}
-
-void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(a1, a2, a3, a4);
-  if (*a5 < *a4 || *a5 <= *a4 && ((v11 = *(a5 + 4), v12 = *(a4 + 4), v11 < v12) || v11 <= v12 && *(a5 + 48) < *(a4 + 48)))
-  {
-    result = std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a4, a5);
-    if (*a4 < *a3 || *a4 <= *a3 && ((v13 = *(a4 + 4), v14 = *(a3 + 4), v13 < v14) || v13 <= v14 && *(a4 + 48) < *(a3 + 48)))
-    {
-      result = std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a3, a4);
-      if (*a3 < *a2 || *a3 <= *a2 && ((v15 = *(a3 + 4), v16 = *(a2 + 4), v15 < v16) || v15 <= v16 && *(a3 + 48) < *(a2 + 48)))
-      {
-        result = std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a2, a3);
-        if (*a2 < *a1 || *a2 <= *a1 && ((v17 = *(a2 + 4), v18 = *(a1 + 4), v17 < v18) || v17 <= v18 && *(a2 + 48) < *(a1 + 48)))
-        {
-
-          return std::swap[abi:ne200100]<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>(a1, a2);
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-void *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(void *result, void *a2)
-{
-  if (result != a2)
-  {
-    v3 = result;
-    v4 = result + 7;
-    if (result + 7 != a2)
-    {
-      v5 = 0;
-      v6 = result;
-      do
-      {
-        v7 = v6;
-        v6 = v4;
-        v8 = v7[14];
-        if (v8 < *v7 || v8 <= *v7 && ((v14 = v7[15], v15 = v7[1], v14 < v15) || v14 <= v15 && v7[26] < v7[12]))
-        {
-          v18 = *v6;
-          v19 = v7[16];
-          std::list<int>::list(v20, (v7 + 18));
-          v9 = v7[26];
-          v21 = v7[24];
-          v22 = v9;
-          for (i = v5; ; i -= 56)
-          {
-            v11 = &v3[i];
-            *(v11 + 7) = *&v3[i];
-            *(v11 + 16) = *&v3[i + 8];
-            std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(&v3[i + 72], *&v3[i + 24], &v3[i + 16]);
-            *(v11 + 24) = *(v11 + 10);
-            *(v11 + 26) = *(v11 + 12);
-            if (!i)
-            {
-              v16 = v3;
-              goto LABEL_20;
-            }
-
-            v12 = *&v3[i - 56];
-            if (v18 >= v12)
-            {
-              if (v18 > v12)
-              {
-                break;
-              }
-
-              v13 = *&v3[i - 52];
-              if (SHIDWORD(v18) >= v13 && (SHIDWORD(v18) > v13 || v22 >= *&v3[i - 8]))
-              {
-                break;
-              }
-            }
-          }
-
-          v16 = &v3[i];
-LABEL_20:
-          *v16 = v18;
-          *(v16 + 2) = v19;
-          if (v16 != &v18)
-          {
-            std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v16 + 2, v20[1], v20);
-          }
-
-          v17 = v22;
-          *(v16 + 10) = v21;
-          *(v16 + 12) = v17;
-          result = std::__list_imp<char *>::clear(v20);
-        }
-
-        v4 = v6 + 7;
-        v5 += 56;
-      }
-
-      while (v6 + 7 != a2);
-    }
-  }
-
-  return result;
-}
-
-void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*>(void *result, void *a2)
-{
-  if (result != a2)
-  {
-    v3 = result;
-    v4 = result + 7;
-    if (result + 7 != a2)
-    {
-      v5 = 0;
-      v6 = result;
-      do
-      {
-        v7 = v6;
-        v6 = v4;
-        v8 = v7[14];
-        if (v8 < *v7 || v8 <= *v7 && ((v16 = v7[15], v17 = v7[1], v16 < v17) || v16 <= v17 && v7[26] < v7[12]))
-        {
-          v18 = *v6;
-          v19 = v7[16];
-          std::list<int>::list(v20, (v7 + 18));
-          v9 = v7[26];
-          v21 = v7[24];
-          v22 = v9;
-          for (i = v5; ; i -= 56)
-          {
-            v11 = v3 + i;
-            *(v11 + 7) = *(v3 + i);
-            *(v11 + 16) = *(v3 + i + 8);
-            std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>((v3 + i + 72), *(v3 + i + 24), v3 + i + 16);
-            *(v11 + 24) = *(v11 + 10);
-            *(v11 + 26) = *(v11 + 12);
-            v12 = *(v3 + i - 56);
-            if (v18 >= v12)
-            {
-              if (v18 > v12)
-              {
-                break;
-              }
-
-              v13 = *(v3 + i - 52);
-              if (SHIDWORD(v18) >= v13 && (SHIDWORD(v18) > v13 || v22 >= *(v3 + i - 8)))
-              {
-                break;
-              }
-            }
-          }
-
-          v14 = v3 + i;
-          *v14 = v18;
-          *(v14 + 2) = v19;
-          if (v14 != &v18)
-          {
-            std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(v14 + 2, v20[1], v20);
-          }
-
-          v15 = v22;
-          *(v14 + 10) = v21;
-          *(v14 + 12) = v15;
-          result = std::__list_imp<char *>::clear(v20);
-        }
-
-        v4 = v6 + 7;
-        v5 += 56;
-      }
-
-      while (v6 + 7 != a2);
-    }
-  }
-
-  return result;
+  return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcUniqueMapper<fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>>::Compare &,fst::GallicArc<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,(fst::GallicType)0>*,0>(v10, v10 + 7, v31);
 }

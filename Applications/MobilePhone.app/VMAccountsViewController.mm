@@ -46,22 +46,23 @@ void __39__VMAccountsViewController_viewDidLoad__block_invoke(uint64_t a1, void 
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "VMAccountsViewController - handling account manager updates %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "VMAccountsViewController - handling account manager updates %@", &v9, 0xCu);
     }
 
-    v6 = +[MPVoicemailAccountManagerUpdate accounts];
-    v7 = [v3 contains:v6];
+    v7 = +[MPVoicemailAccountManagerUpdate accounts];
+    v8 = [v3 contains:v7];
 
-    if (v7)
+    if (v8)
     {
-      [WeakRetained handleVoicemailManagerAccountsDidChange];
+      [v5 handleVoicemailManagerAccountsDidChange];
     }
   }
 }
@@ -126,7 +127,7 @@ void __39__VMAccountsViewController_viewDidLoad__block_invoke(uint64_t a1, void 
 
 id __67__VMAccountsViewController_handleVoicemailManagerAccountsDidChange__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;

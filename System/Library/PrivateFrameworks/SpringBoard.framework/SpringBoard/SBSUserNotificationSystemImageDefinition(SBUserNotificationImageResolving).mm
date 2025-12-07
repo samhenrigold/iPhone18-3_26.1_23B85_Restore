@@ -11,7 +11,7 @@
   v2 = [MEMORY[0x277D755B8] _systemImageNamed:systemImageName];
   if (!v2)
   {
-    v3 = SBLogAlertItems();
+    v3 = SBLogAlertItems(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [SBSUserNotificationSystemImageDefinition(SBUserNotificationImageResolving) sb_resolvedImage];

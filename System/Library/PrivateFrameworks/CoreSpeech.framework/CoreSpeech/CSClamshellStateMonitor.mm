@@ -2,9 +2,21 @@
 + (id)sharedInstance;
 - (CSClamshellStateMonitor)init;
 - (void)_didReceiveClamshellStateChangeNotification:(BOOL)notification;
+- (void)_notifyObserver:(id)observer withClamshellState:(BOOL)state;
 @end
 
 @implementation CSClamshellStateMonitor
+
+- (void)_notifyObserver:(id)observer withClamshellState:(BOOL)state
+{
+  stateCopy = state;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSClamshellStateMonitor:self didReceiveClamshellStateChange:stateCopy];
+  }
+}
 
 - (void)_didReceiveClamshellStateChangeNotification:(BOOL)notification
 {

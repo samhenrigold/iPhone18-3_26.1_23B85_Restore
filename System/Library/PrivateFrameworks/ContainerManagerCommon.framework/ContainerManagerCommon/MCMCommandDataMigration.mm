@@ -1,6 +1,5 @@
 @interface MCMCommandDataMigration
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
 - (BOOL)_performBundleContainerOwnershipMigrationWithError:(id *)error;
 - (BOOL)_performInternalACLMigrationWithError:(id *)error;
 - (BOOL)preflightClientAllowed;
@@ -11,22 +10,13 @@
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
 }
 
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 24;
-}
-
 - (BOOL)_performInternalACLMigrationWithError:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   context = [(MCMCommand *)self context];
   userIdentityCache = [context userIdentityCache];
@@ -54,95 +44,95 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v23 = containermanager_copy_global_configuration();
-  classPathCache = [v23 classPathCache];
-  v25 = [classPathCache containerClassPathForUserIdentity:defaultUserIdentity containerConfig:v11 typeClass:objc_opt_class()];
-  classURL = [v25 classURL];
+  v22 = containermanager_copy_global_configuration();
+  classPathCache = [v22 classPathCache];
+  v24 = [classPathCache containerClassPathForUserIdentity:defaultUserIdentity containerConfig:v11 typeClass:objc_opt_class()];
+  classURL = [v24 classURL];
 
-  v26 = +[MCMFileManager defaultManager];
-  LODWORD(classPathCache) = [v26 itemExistsAtURL:classURL];
+  v25 = +[MCMFileManager defaultManager];
+  LODWORD(classPathCache) = [v25 itemExistsAtURL:classURL];
 
   errorCopy = error;
   if (!classPathCache)
   {
-    v42 = 0;
+    v41 = 0;
     goto LABEL_12;
   }
 
-  v27 = +[MCMFileManager defaultManager];
-  v44 = 0;
-  v28 = [v27 standardizeAllSystemContainerACLsAtURL:classURL error:&v44];
-  v42 = v44;
+  v26 = +[MCMFileManager defaultManager];
+  v43 = 0;
+  v27 = [v26 standardizeAllSystemContainerACLsAtURL:classURL error:&v43];
+  v41 = v43;
 
-  if (v28)
+  if (v27)
   {
 LABEL_12:
     v16 = 0;
-    v40 = 1;
+    v39 = 1;
     goto LABEL_13;
   }
 
-  v29 = container_log_handle_for_category();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = container_log_handle_for_category();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v46 = v42;
-    _os_log_error_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_ERROR, "Failed to set ACLs on system containers : %@", buf, 0xCu);
+    v45 = v41;
+    _os_log_error_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_ERROR, "Failed to set ACLs on system containers : %@", buf, 0xCu);
   }
 
-  v16 = [[MCMError alloc] initWithNSError:v42 url:classURL defaultErrorType:63];
-  v40 = 0;
+  v16 = [[MCMError alloc] initWithNSError:v41 url:classURL defaultErrorType:63];
+  v39 = 0;
 LABEL_13:
-  v30 = containermanager_copy_global_configuration();
-  classPathCache2 = [v30 classPathCache];
-  v32 = [classPathCache2 containerClassPathForUserIdentity:defaultUserIdentity containerConfig:v14 typeClass:objc_opt_class()];
-  classURL2 = [v32 classURL];
+  v29 = containermanager_copy_global_configuration();
+  classPathCache2 = [v29 classPathCache];
+  v31 = [classPathCache2 containerClassPathForUserIdentity:defaultUserIdentity containerConfig:v14 typeClass:objc_opt_class()];
+  classURL2 = [v31 classURL];
 
-  v33 = +[MCMFileManager defaultManager];
-  LODWORD(v32) = [v33 itemExistsAtURL:classURL2];
+  v32 = +[MCMFileManager defaultManager];
+  LODWORD(v31) = [v32 itemExistsAtURL:classURL2];
 
-  if (v32)
+  if (v31)
   {
-    v34 = +[MCMFileManager defaultManager];
-    v43 = v42;
-    v35 = [v34 standardizeAllSystemContainerACLsAtURL:classURL2 error:&v43];
-    v19 = v43;
+    v33 = +[MCMFileManager defaultManager];
+    v42 = v41;
+    v34 = [v33 standardizeAllSystemContainerACLsAtURL:classURL2 error:&v42];
+    v19 = v42;
 
-    if ((v35 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
-      v36 = container_log_handle_for_category();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v35 = container_log_handle_for_category();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v46 = v19;
-        _os_log_error_impl(&dword_1DF2C3000, v36, OS_LOG_TYPE_ERROR, "Failed to set ACLs on system group containers : %@", buf, 0xCu);
+        v45 = v19;
+        _os_log_error_impl(&dword_1DF2C3000, v35, OS_LOG_TYPE_ERROR, "Failed to set ACLs on system group containers : %@", buf, 0xCu);
       }
 
-      v37 = [[MCMError alloc] initWithNSError:v19 url:classURL2 defaultErrorType:63];
-      v16 = v37;
-      v38 = errorCopy;
+      v36 = [[MCMError alloc] initWithNSError:v19 url:classURL2 defaultErrorType:63];
+      v16 = v36;
+      v37 = errorCopy;
       goto LABEL_21;
     }
   }
 
   else
   {
-    v19 = v42;
+    v19 = v41;
   }
 
-  v38 = errorCopy;
-  if (v40)
+  v37 = errorCopy;
+  if (v39)
   {
     [v5 setMigrationCompleteForType:@"ACLMigration"];
     goto LABEL_4;
   }
 
 LABEL_21:
-  if (v38)
+  if (v37)
   {
-    v39 = v16;
+    v38 = v16;
     v20 = 0;
-    *v38 = v16;
+    *v37 = v16;
   }
 
   else
@@ -152,13 +142,12 @@ LABEL_21:
 
 LABEL_5:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)_performBundleContainerOwnershipMigrationWithError:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   userIdentityCache = [context userIdentityCache];
   defaultUserIdentity = [userIdentityCache defaultUserIdentity];
@@ -197,9 +186,9 @@ LABEL_9:
     categoryURL = [v13 categoryURL];
     v21 = containermanager_copy_global_configuration();
     bundleContainerOwner = [v21 bundleContainerOwner];
-    v35 = 0;
-    v23 = [v19 standardizeOwnershipAtURL:categoryURL toPOSIXUser:bundleContainerOwner error:&v35];
-    v17 = v35;
+    v34 = 0;
+    v23 = [v19 standardizeOwnershipAtURL:categoryURL toPOSIXUser:bundleContainerOwner error:&v34];
+    v17 = v34;
 
     if (v23)
     {
@@ -224,25 +213,25 @@ LABEL_8:
     {
     }
 
-    v28 = [MCMError alloc];
+    v27 = [MCMError alloc];
     categoryURL2 = [v13 categoryURL];
-    v16 = [(MCMError *)v28 initWithNSError:v17 url:categoryURL2 defaultErrorType:127];
+    v16 = [(MCMError *)v27 initWithNSError:v17 url:categoryURL2 defaultErrorType:127];
 
-    v30 = container_log_handle_for_category();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = container_log_handle_for_category();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       categoryURL3 = [v13 categoryURL];
       path = [categoryURL3 path];
       *buf = 138412546;
-      v37 = path;
-      v38 = 2112;
-      v39 = v17;
-      _os_log_error_impl(&dword_1DF2C3000, v30, OS_LOG_TYPE_ERROR, "Failed to change owner of %@: %@", buf, 0x16u);
+      v36 = path;
+      v37 = 2112;
+      v38 = v17;
+      _os_log_error_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_ERROR, "Failed to change owner of %@: %@", buf, 0x16u);
     }
 
     if (errorCopy)
     {
-      v31 = v16;
+      v30 = v16;
       v9 = 0;
       *errorCopy = v16;
     }
@@ -261,33 +250,32 @@ LABEL_8:
 
 LABEL_10:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)execute
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = container_log_handle_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = +[MCMMigrationStatus currentBuildVersion];
     *buf = 138412290;
-    v24 = v5;
+    v23 = v5;
     _os_log_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEFAULT, "Performing Data Migration on %@", buf, 0xCu);
   }
 
-  v22 = 0;
-  v6 = [(MCMCommandDataMigration *)self _performInternalACLMigrationWithError:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [(MCMCommandDataMigration *)self _performInternalACLMigrationWithError:&v21];
+  v7 = v21;
   if (!v6)
   {
     v8 = container_log_handle_for_category();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = v7;
+      v23 = v7;
       _os_log_error_impl(&dword_1DF2C3000, v8, OS_LOG_TYPE_ERROR, "Failed to migrate ACLs on system containers : %@", buf, 0xCu);
     }
   }
@@ -297,9 +285,9 @@ LABEL_10:
 
   if (v10 == 1)
   {
-    v21 = v7;
-    v11 = [(MCMCommandDataMigration *)self _performBundleContainerOwnershipMigrationWithError:&v21];
-    v12 = v21;
+    v20 = v7;
+    v11 = [(MCMCommandDataMigration *)self _performBundleContainerOwnershipMigrationWithError:&v20];
+    v12 = v20;
 
     if (!v11)
     {
@@ -307,7 +295,7 @@ LABEL_10:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v12;
+        v23 = v12;
         _os_log_error_impl(&dword_1DF2C3000, v13, OS_LOG_TYPE_ERROR, "Failed to migrate bundle containers to system location : %@", buf, 0xCu);
       }
 
@@ -331,7 +319,7 @@ LABEL_15:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v24 = v12;
+    v23 = v12;
     _os_log_error_impl(&dword_1DF2C3000, v15, OS_LOG_TYPE_ERROR, "Failed to perform data migration : %@", buf, 0xCu);
   }
 
@@ -341,7 +329,7 @@ LABEL_18:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = v12;
+    v23 = v12;
     _os_log_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_DEFAULT, "System data migration; error = %@", buf, 0xCu);
   }
 
@@ -360,17 +348,14 @@ LABEL_18:
   [resultPromise completeWithResult:v18];
 
   objc_autoreleasePoolPop(v3);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v7 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   isAllowedToStartDataMigration = [clientIdentity isAllowedToStartDataMigration];
 
-  v5 = *MEMORY[0x1E69E9840];
   return isAllowedToStartDataMigration;
 }
 

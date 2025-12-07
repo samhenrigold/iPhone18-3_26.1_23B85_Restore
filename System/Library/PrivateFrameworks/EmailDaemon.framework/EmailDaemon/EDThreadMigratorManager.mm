@@ -66,70 +66,69 @@ void __30__EDThreadMigratorManager_log__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: EDThreadMigratorManager deallocating", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: EDThreadMigratorManager deallocating", &v2, 0xCu);
 }
 
 - (void)tearDown
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allValues = [(NSMutableDictionary *)self->_threadMigrators allValues];
-  v4 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v16 + 1) + 8 * v6++) cancel];
+        [*(*(&v15 + 1) + 8 * v6++) cancel];
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v4);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues2 = [(NSMutableDictionary *)self->_queryHandlers allValues];
-  v8 = [allValues2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v8 = [allValues2 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) cancel];
+        [*(*(&v11 + 1) + 8 * v10++) cancel];
       }
 
       while (v8 != v10);
-      v8 = [allValues2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v8 = [allValues2 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v8);
@@ -138,12 +137,11 @@ void __30__EDThreadMigratorManager_log__block_invoke(uint64_t a1)
   [(NSMutableDictionary *)self->_threadMigrators removeAllObjects];
   [(NSMutableDictionary *)self->_queryHandlers removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addThreadMigrator:(id)migrator inMemoryThreadQueryHandler:(id)handler withThreadScope:(id)scope
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   migratorCopy = migrator;
   handlerCopy = handler;
   scopeCopy = scope;
@@ -185,18 +183,16 @@ LABEL_6:
   v12 = +[EDThreadMigratorManager log];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 134218754;
+    v15 = 134218754;
     selfCopy = self;
-    v18 = 2048;
-    v19 = migratorCopy;
-    v20 = 2048;
-    v21 = handlerCopy;
-    v22 = 2112;
-    v23 = scopeCopy;
-    _os_log_debug_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEBUG, "%p: Added thread migrator %p, handler %p, thread scope\n%@", &v16, 0x2Au);
+    v17 = 2048;
+    v18 = migratorCopy;
+    v19 = 2048;
+    v20 = handlerCopy;
+    v21 = 2112;
+    v22 = scopeCopy;
+    _os_log_debug_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEBUG, "%p: Added thread migrator %p, handler %p, thread scope\n%@", &v15, 0x2Au);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeThreadMigratorWithThreadScope:(id)scope
@@ -221,7 +217,7 @@ LABEL_6:
 
 - (id)findThreadMigratorWithThreadScope:(id)scope inMemoryThreadQueryHandler:(id *)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   os_unfair_lock_lock(&self->_lock);
   v7 = [(NSMutableDictionary *)self->_threadMigrators objectForKeyedSubscript:scopeCopy];
@@ -240,18 +236,16 @@ LABEL_6:
   v9 = +[EDThreadMigratorManager log];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 134218754;
+    v11 = 134218754;
     selfCopy = self;
-    v14 = 2048;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v8;
-    v18 = 2112;
-    v19 = scopeCopy;
-    _os_log_debug_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEBUG, "%p: Found thread migrator %p, handler %p, for thread scope\n%@", &v12, 0x2Au);
+    v13 = 2048;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v8;
+    v17 = 2112;
+    v18 = scopeCopy;
+    _os_log_debug_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEBUG, "%p: Found thread migrator %p, handler %p, for thread scope\n%@", &v11, 0x2Au);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -270,22 +264,20 @@ LABEL_6:
 
 - (void)init
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: EDThreadMigratorManager initializing", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: EDThreadMigratorManager initializing", &v2, 0xCu);
 }
 
 - (void)_removeThreadMigratorWithThreadScope:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1C61EF000, log, OS_LOG_TYPE_DEBUG, "%p: Removed thread migrator for thread scope\n%@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1C61EF000, log, OS_LOG_TYPE_DEBUG, "%p: Removed thread migrator for thread scope\n%@", &v3, 0x16u);
 }
 
 @end

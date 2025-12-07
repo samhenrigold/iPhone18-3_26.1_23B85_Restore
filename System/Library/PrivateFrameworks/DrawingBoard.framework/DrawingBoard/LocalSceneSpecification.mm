@@ -29,7 +29,7 @@
 
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF1B190);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF1B190, qword_249D75790);
     v4 = sub_249D73224();
   }
 

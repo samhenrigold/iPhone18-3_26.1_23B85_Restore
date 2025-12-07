@@ -14,11 +14,13 @@
 - (void)createKeybagForUserSession:(id)session withSessionUID:(int)d WithSecret:(id)secret secretSize:(unint64_t)size withGracePeriod:(int)period withOpaqeStuff:(id)stuff withReply:(id)reply;
 - (void)createPersonaKeyForUserSession:(id)session forPath:(id)path withUID:(unsigned int)d WithSecret:(id)secret secretSize:(unint64_t)size secretIsACM:(BOOL)m withReply:(id)reply;
 - (void)createSyncBagForUserSession:(id)session withSessionUID:(int)d withReply:(id)reply;
+- (void)deleteKeybagForUserSession:(int)session withReply:(id)reply;
 - (void)disableBackupForVolume:(id)volume reply:(id)reply;
 - (void)enableBackupForVolume:(id)volume withSecret:(id)secret secretSize:(unint64_t)size secretIsACM:(BOOL)m reply:(id)reply;
 - (void)forgottenPasscodeEventWithReply:(id)reply;
 - (void)getBackupBlobreply:(id)blobreply;
 - (void)getBackupkeyForVolume:(id)volume andCryptoID:(unint64_t)d withReply:(id)reply;
+- (void)getDeviceLockState:(int)state needsExtended:(BOOL)extended withReply:(id)reply;
 - (void)getLockSateInfoforUser:(int)user WithReply:(id)reply;
 - (void)getPasscodeBlobWithReply:(id)reply;
 - (void)isKeyRollingInProgresswithreply:(id)progresswithreply;
@@ -103,7 +105,7 @@
 
   if (read([handleCopy fileDescriptor], withbaseaddress, length) != length)
   {
-    sub_100011BE0("[KBXPCService retrievePasscodeFromFileHandle:ofLength:withbaseaddress:]", @"Failed to read the retrievePasscodeFromFileHandle", v9, v10, v11, v12, v13, v14, v17);
+    sub_100011BE0("[KBXPCService retrievePasscodeFromFileHandle:ofLength:withbaseaddress:]", @"Failed to read the retrievePasscodeFromFileHandle", v9, v10, v11, v12, v13, v14);
 LABEL_5:
     v15 = 1;
     goto LABEL_6;
@@ -121,48 +123,48 @@ LABEL_6:
   newSecretCopy = newSecret;
   dataCopy = data;
   replyCopy = reply;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = sub_100005A78;
-  v79 = sub_100005A88;
-  v80 = 0;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = sub_100005A78;
+  v78 = sub_100005A88;
+  v79 = 0;
   address = 0;
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x2020000000;
-  v73 = -1;
+  v71[0] = 0;
+  v71[1] = v71;
+  v71[2] = 0x2020000000;
+  v72 = -1;
   if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.keystore.device"])
   {
     if (vm_page_size < size || vm_page_size < newSize)
     {
-      sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"Long Secret, can't handle ...", vm_page_size, v19, v20, v21, v22, v23, v61);
+      sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"Long Secret, can't handle ...", vm_page_size, v19, v20, v21, v22, v23);
       v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
       goto LABEL_8;
     }
 
     if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
     {
-      sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"FAILED to allocate VM", v27, v28, v29, v30, v31, v32, v61);
+      sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"FAILED to allocate VM", v27, v28, v29, v30, v31, v32);
       v33 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
-      v34 = v76[5];
-      v76[5] = v33;
+      v34 = v75[5];
+      v75[5] = v33;
 
       address = 0;
 LABEL_24:
-      replyCopy[2](replyCopy, v76[5]);
+      replyCopy[2](replyCopy, v75[5]);
       goto LABEL_25;
     }
 
     if (size)
     {
-      v62 = address;
+      v61 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:?])
       {
-        sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"Failed to retrieve oldpasscode", v35, v36, v37, v38, v39, v40, v61);
+        sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"Failed to retrieve oldpasscode", v35, v36, v37, v38, v39, v40);
         v41 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        v42 = v76[5];
-        v76[5] = v41;
+        v42 = v75[5];
+        v75[5] = v41;
 
         v43 = mach_task_self_;
         v44 = address;
@@ -186,7 +188,7 @@ LABEL_23:
 
     else
     {
-      v62 = 0;
+      v61 = 0;
     }
 
     if (newSize)
@@ -194,10 +196,10 @@ LABEL_23:
       v47 = address + 1024;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:newSecretCopy ofLength:newSize withbaseaddress:address + 1024])
       {
-        sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"Failed to retrieve newpasscode", v48, v49, v50, v51, v52, v53, v61);
+        sub_100011BE0("[KBXPCService changeSystemSecretfromOldSecret:oldSize:toNewSecret:newSize:opaqueData:withParams:reply:]", @"Failed to retrieve newpasscode", v48, v49, v50, v51, v52, v53);
         v54 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        v55 = v76[5];
-        v76[5] = v54;
+        v55 = v75[5];
+        v75[5] = v54;
 
         v43 = mach_task_self_;
         v44 = address;
@@ -226,14 +228,14 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = sub_100005A90;
     block[3] = &unk_100034D30;
-    v67 = v62;
+    v66 = v61;
     sizeCopy2 = size;
-    v69 = v47;
+    v68 = v47;
     newSizeCopy = newSize;
     paramsCopy = params;
-    v64 = dataCopy;
-    v65 = &v75;
-    v66 = v72;
+    v63 = dataCopy;
+    v64 = &v74;
+    v65 = v71;
     dispatch_sync(v56, block);
     v57 = mach_task_self_;
     v58 = address;
@@ -250,15 +252,15 @@ LABEL_23:
 
     memset_s(address, v60, 0, v60);
     vm_deallocate(v57, v58, v59);
-    replyCopy[2](replyCopy, v76[5]);
+    replyCopy[2](replyCopy, v75[5]);
 
     goto LABEL_25;
   }
 
   v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
 LABEL_8:
-  v26 = v76[5];
-  v76[5] = v25;
+  v26 = v75[5];
+  v75[5] = v25;
 
   if (replyCopy)
   {
@@ -266,17 +268,18 @@ LABEL_8:
   }
 
 LABEL_25:
-  _Block_object_dispose(v72, 8);
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(v71, 8);
+  _Block_object_dispose(&v74, 8);
 }
 
 - (void)setSpacedRepetitionMode:(unsigned int)mode reply:(id)reply
 {
+  v4 = *&mode;
   replyCopy = reply;
   if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.keystore.device"])
   {
-    sub_100011BE0("[KBXPCService setSpacedRepetitionMode:reply:]", @"setting spaced repetition verification mode to %d", v6, v7, v8, v9, v10, v11, mode);
-    dword_10003D280 = mode;
+    sub_100011BE0("[KBXPCService setSpacedRepetitionMode:reply:]", @"setting spaced repetition verification mode to %d", v6, v7, v8, v9, v10, v11, v4);
+    dword_10003D280 = v4;
     v12 = NSPOSIXErrorDomain;
     v13 = 0;
   }
@@ -331,48 +334,48 @@ LABEL_25:
   newSecretCopy = newSecret;
   dataCopy = data;
   replyCopy = reply;
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x3032000000;
-  v84 = sub_100005A78;
-  v85 = sub_100005A88;
-  v86 = 0;
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x3032000000;
+  v83 = sub_100005A78;
+  v84 = sub_100005A88;
+  v85 = 0;
   address = 0;
-  v78[0] = 0;
-  v78[1] = v78;
-  v78[2] = 0x2020000000;
-  v79 = -1;
+  v77[0] = 0;
+  v77[1] = v77;
+  v77[2] = 0x2020000000;
+  v78 = -1;
   if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.keystore.device"])
   {
     if (vm_page_size < size || vm_page_size < newSize)
     {
-      sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"Long Secret, can't handle ...", vm_page_size, v22, v23, v24, v25, v26, v64);
+      sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"Long Secret, can't handle ...", vm_page_size, v22, v23, v24, v25, v26);
       v28 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
       goto LABEL_8;
     }
 
     if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
     {
-      sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"FAILED to allocate VM", v30, v31, v32, v33, v34, v35, v64);
+      sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"FAILED to allocate VM", v30, v31, v32, v33, v34, v35);
       v36 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
-      v37 = v82[5];
-      v82[5] = v36;
+      v37 = v81[5];
+      v81[5] = v36;
 
       address = 0;
 LABEL_24:
-      replyCopy[2](replyCopy, v82[5]);
+      replyCopy[2](replyCopy, v81[5]);
       goto LABEL_25;
     }
 
     if (size)
     {
-      v66 = address;
+      v65 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:?])
       {
-        sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"Failed to retrieve oldpasscode", v38, v39, v40, v41, v42, v43, v64);
+        sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"Failed to retrieve oldpasscode", v38, v39, v40, v41, v42, v43);
         v44 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        v45 = v82[5];
-        v82[5] = v44;
+        v45 = v81[5];
+        v81[5] = v44;
 
         v46 = mach_task_self_;
         v47 = address;
@@ -396,7 +399,7 @@ LABEL_23:
 
     else
     {
-      v66 = 0;
+      v65 = 0;
     }
 
     if (newSize)
@@ -404,10 +407,10 @@ LABEL_23:
       v50 = address + 1024;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:newSecretCopy ofLength:newSize withbaseaddress:address + 1024])
       {
-        sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"Failed to retrieve newpasscode", v51, v52, v53, v54, v55, v56, v64);
+        sub_100011BE0("[KBXPCService changeSystemSecretWithEscrow:fromOldSecret:oldSize:toNewSecret:newSize:opaqueData:keepstate:withACM:reply:]", @"Failed to retrieve newpasscode", v51, v52, v53, v54, v55, v56);
         v57 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        v58 = v82[5];
-        v82[5] = v57;
+        v58 = v81[5];
+        v81[5] = v57;
 
         v47 = address;
         v48 = vm_page_size;
@@ -437,16 +440,16 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = sub_100006378;
     block[3] = &unk_100034D58;
-    v72 = v66;
+    v71 = v65;
     sizeCopy2 = size;
-    v74 = v50;
+    v73 = v50;
     newSizeCopy = newSize;
-    v68 = dataCopy;
+    v67 = dataCopy;
     mCopy = m;
     keepstateCopy = keepstate;
-    v69 = escrowCopy;
-    v70 = &v81;
-    v71 = v78;
+    v68 = escrowCopy;
+    v69 = &v80;
+    v70 = v77;
     dispatch_sync(queue, block);
     v60 = mach_task_self_;
     v61 = address;
@@ -463,15 +466,15 @@ LABEL_23:
 
     memset_s(address, v63, 0, v63);
     vm_deallocate(v60, v61, v62);
-    replyCopy[2](replyCopy, v82[5]);
+    replyCopy[2](replyCopy, v81[5]);
 
     goto LABEL_25;
   }
 
   v28 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
 LABEL_8:
-  v29 = v82[5];
-  v82[5] = v28;
+  v29 = v81[5];
+  v81[5] = v28;
 
   if (replyCopy)
   {
@@ -479,8 +482,8 @@ LABEL_8:
   }
 
 LABEL_25:
-  _Block_object_dispose(v78, 8);
-  _Block_object_dispose(&v81, 8);
+  _Block_object_dispose(v77, 8);
+  _Block_object_dispose(&v80, 8);
 }
 
 - (void)changeClassKeysGenerationWithSecret:(id)secret secretSize:(unint64_t)size secretIsACM:(BOOL)m generationOption:(int)option reply:(id)reply
@@ -504,7 +507,7 @@ LABEL_5:
 
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService changeClassKeysGenerationWithSecret:secretSize:secretIsACM:generationOption:reply:]", @"Long Secret, can't handle ...", vm_page_size, v14, v15, v16, v17, v18, v42);
+    sub_100011BE0("[KBXPCService changeClassKeysGenerationWithSecret:secretSize:secretIsACM:generationOption:reply:]", @"Long Secret, can't handle ...", vm_page_size, v14, v15, v16, v17, v18);
     v19 = NSPOSIXErrorDomain;
     v20 = 7;
     goto LABEL_5;
@@ -517,7 +520,7 @@ LABEL_5:
       v28 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
       {
-        sub_100011BE0("[KBXPCService changeClassKeysGenerationWithSecret:secretSize:secretIsACM:generationOption:reply:]", @"Failed to retrieve oldpasscode", v29, v30, v31, v32, v33, v34, v42);
+        sub_100011BE0("[KBXPCService changeClassKeysGenerationWithSecret:secretSize:secretIsACM:generationOption:reply:]", @"Failed to retrieve oldpasscode", v29, v30, v31, v32, v33, v34);
         v35 = NSPOSIXErrorDomain;
         v36 = 22;
         goto LABEL_15;
@@ -559,7 +562,7 @@ LABEL_17:
     goto LABEL_21;
   }
 
-  sub_100011BE0("[KBXPCService changeClassKeysGenerationWithSecret:secretSize:secretIsACM:generationOption:reply:]", @"FAILED to allocate VM", v22, v23, v24, v25, v26, v27, v42);
+  sub_100011BE0("[KBXPCService changeClassKeysGenerationWithSecret:secretSize:secretIsACM:generationOption:reply:]", @"FAILED to allocate VM", v22, v23, v24, v25, v26, v27);
   v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
   address = 0;
 LABEL_21:
@@ -617,7 +620,7 @@ LABEL_5:
 
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService registerBackupBag:withSecret:secretSize:secretIsACM:reply:]", @"Long Secret, can't handle ...", vm_page_size, v15, v16, v17, v18, v19, v43);
+    sub_100011BE0("[KBXPCService registerBackupBag:withSecret:secretSize:secretIsACM:reply:]", @"Long Secret, can't handle ...", vm_page_size, v15, v16, v17, v18, v19);
     v20 = NSPOSIXErrorDomain;
     v21 = 7;
     goto LABEL_5;
@@ -630,7 +633,7 @@ LABEL_5:
       v29 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
       {
-        sub_100011BE0("[KBXPCService registerBackupBag:withSecret:secretSize:secretIsACM:reply:]", @"Failed to retrieve oldpasscode", v30, v31, v32, v33, v34, v35, v43);
+        sub_100011BE0("[KBXPCService registerBackupBag:withSecret:secretSize:secretIsACM:reply:]", @"Failed to retrieve oldpasscode", v30, v31, v32, v33, v34, v35);
         v36 = NSPOSIXErrorDomain;
         v37 = 22;
         goto LABEL_15;
@@ -672,7 +675,7 @@ LABEL_17:
     goto LABEL_21;
   }
 
-  sub_100011BE0("[KBXPCService registerBackupBag:withSecret:secretSize:secretIsACM:reply:]", @"FAILED to allocate VM", v23, v24, v25, v26, v27, v28, v43);
+  sub_100011BE0("[KBXPCService registerBackupBag:withSecret:secretSize:secretIsACM:reply:]", @"FAILED to allocate VM", v23, v24, v25, v26, v27, v28);
   v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
   address = 0;
 LABEL_21:
@@ -811,7 +814,7 @@ LABEL_5:
 
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService enableBackupForVolume:withSecret:secretSize:secretIsACM:reply:]", @"Long Secret, can't handle ...", vm_page_size, v15, v16, v17, v18, v19, v46);
+    sub_100011BE0("[KBXPCService enableBackupForVolume:withSecret:secretSize:secretIsACM:reply:]", @"Long Secret, can't handle ...", vm_page_size, v15, v16, v17, v18, v19);
     v20 = NSPOSIXErrorDomain;
     v21 = 7;
     goto LABEL_5;
@@ -819,7 +822,7 @@ LABEL_5:
 
   if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
   {
-    sub_100011BE0("[KBXPCService enableBackupForVolume:withSecret:secretSize:secretIsACM:reply:]", @"FAILED to allocate VM", v23, v24, v25, v26, v27, v28, v46);
+    sub_100011BE0("[KBXPCService enableBackupForVolume:withSecret:secretSize:secretIsACM:reply:]", @"FAILED to allocate VM", v23, v24, v25, v26, v27, v28);
     v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
     address = 0;
 LABEL_9:
@@ -832,7 +835,7 @@ LABEL_9:
     v29 = address;
     if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
     {
-      sub_100011BE0("[KBXPCService enableBackupForVolume:withSecret:secretSize:secretIsACM:reply:]", @"Failed to retrieve oldpasscode", v30, v31, v32, v33, v34, v35, v46);
+      sub_100011BE0("[KBXPCService enableBackupForVolume:withSecret:secretSize:secretIsACM:reply:]", @"Failed to retrieve oldpasscode", v30, v31, v32, v33, v34, v35);
       v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
       v36 = mach_task_self_;
       v37 = address;
@@ -947,7 +950,7 @@ LABEL_5:
 
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService stashCreatewithSecret:secrestSize:withMode:withUID:WithFlags:reply:]", @"Long Secret, can't handle ...", vm_page_size, v16, v17, v18, v19, v20, v44);
+    sub_100011BE0("[KBXPCService stashCreatewithSecret:secrestSize:withMode:withUID:WithFlags:reply:]", @"Long Secret, can't handle ...", vm_page_size, v16, v17, v18, v19, v20);
     v21 = NSPOSIXErrorDomain;
     v22 = 7;
     goto LABEL_5;
@@ -960,7 +963,7 @@ LABEL_5:
       v30 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
       {
-        sub_100011BE0("[KBXPCService stashCreatewithSecret:secrestSize:withMode:withUID:WithFlags:reply:]", @"Failed to retrieve Passcode", v31, v32, v33, v34, v35, v36, v44);
+        sub_100011BE0("[KBXPCService stashCreatewithSecret:secrestSize:withMode:withUID:WithFlags:reply:]", @"Failed to retrieve Passcode", v31, v32, v33, v34, v35, v36);
         v37 = NSPOSIXErrorDomain;
         v38 = 22;
         goto LABEL_15;
@@ -1002,7 +1005,7 @@ LABEL_17:
     goto LABEL_21;
   }
 
-  sub_100011BE0("[KBXPCService stashCreatewithSecret:secrestSize:withMode:withUID:WithFlags:reply:]", @"FAILED to allocate VM", v24, v25, v26, v27, v28, v29, v44);
+  sub_100011BE0("[KBXPCService stashCreatewithSecret:secrestSize:withMode:withUID:WithFlags:reply:]", @"FAILED to allocate VM", v24, v25, v26, v27, v28, v29);
   v23 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
   address = 0;
 LABEL_21:
@@ -1162,27 +1165,45 @@ LABEL_8:
   replyCopy[2](replyCopy, v5, v6);
 }
 
+- (void)getDeviceLockState:(int)state needsExtended:(BOOL)extended withReply:(id)reply
+{
+  extendedCopy = extended;
+  replyCopy = reply;
+  v9 = 0;
+  if (sub_100015600(state, extendedCopy, &v9))
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+  }
+
+  replyCopy[2](replyCopy, v9, v8);
+}
+
 - (void)passcodeUnlockStartWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = sub_100011BDC(replyCopy, v3, v4);
-  sub_10000B8B8(v5);
+  v3 = sub_100011BDC();
+  sub_10000B8B8(v3);
   replyCopy[2](replyCopy, 0);
 }
 
 - (void)passcodeUnlockSuccessWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = sub_100011BDC(replyCopy, v3, v4);
-  sub_10000B8EC(v5);
+  v3 = sub_100011BDC();
+  sub_10000B8EC(v3);
   replyCopy[2](replyCopy, 0);
 }
 
 - (void)passcodeUnlockFailedWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = sub_100011BDC(replyCopy, v3, v4);
-  sub_10000B920(v5);
+  v3 = sub_100011BDC();
+  sub_10000B920(v3);
   replyCopy[2](replyCopy, 0);
 }
 
@@ -1194,14 +1215,14 @@ LABEL_8:
   address = 0;
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService SeshatEnrollWithSecret:secretSize:secretIsACM:withReply:]", @"Long Secret, can't handle ...", vm_page_size, v11, v12, v13, v14, v15, v38);
+    sub_100011BE0("[KBXPCService SeshatEnrollWithSecret:secretSize:secretIsACM:withReply:]", @"Long Secret, can't handle ...", vm_page_size, v11, v12, v13, v14, v15);
     v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
     goto LABEL_17;
   }
 
   if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
   {
-    sub_100011BE0("[KBXPCService SeshatEnrollWithSecret:secretSize:secretIsACM:withReply:]", @"FAILED to allocate VM", v18, v19, v20, v21, v22, v23, v38);
+    sub_100011BE0("[KBXPCService SeshatEnrollWithSecret:secretSize:secretIsACM:withReply:]", @"FAILED to allocate VM", v18, v19, v20, v21, v22, v23);
     v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
     address = 0;
     goto LABEL_17;
@@ -1212,7 +1233,7 @@ LABEL_8:
     v24 = address;
     if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
     {
-      sub_100011BE0("[KBXPCService SeshatEnrollWithSecret:secretSize:secretIsACM:withReply:]", @"Failed to retrieve oldpasscode", v25, v26, v27, v28, v29, v30, v38);
+      sub_100011BE0("[KBXPCService SeshatEnrollWithSecret:secretSize:secretIsACM:withReply:]", @"Failed to retrieve oldpasscode", v25, v26, v27, v28, v29, v30);
       v31 = NSPOSIXErrorDomain;
       v32 = 22;
       goto LABEL_11;
@@ -1264,7 +1285,7 @@ LABEL_17:
   address = 0;
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService SeshatUnlockWithSecret:secretSize:secretIsACM:withMemento:verifyOnly:withACMRef:forHandle:withReply:]", @"Long Secret, can't handle ...", vm_page_size, v18, v19, v20, v21, v22, v46);
+    sub_100011BE0("[KBXPCService SeshatUnlockWithSecret:secretSize:secretIsACM:withMemento:verifyOnly:withACMRef:forHandle:withReply:]", @"Long Secret, can't handle ...", vm_page_size, v18, v19, v20, v21, v22);
     v24 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
 LABEL_5:
     replyCopy[2](replyCopy, 0, v24);
@@ -1273,7 +1294,7 @@ LABEL_5:
 
   if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
   {
-    sub_100011BE0("[KBXPCService SeshatUnlockWithSecret:secretSize:secretIsACM:withMemento:verifyOnly:withACMRef:forHandle:withReply:]", @"FAILED to allocate VM", v25, v26, v27, v28, v29, v30, v46);
+    sub_100011BE0("[KBXPCService SeshatUnlockWithSecret:secretSize:secretIsACM:withMemento:verifyOnly:withACMRef:forHandle:withReply:]", @"FAILED to allocate VM", v25, v26, v27, v28, v29, v30);
     v24 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
     address = 0;
     goto LABEL_5;
@@ -1284,7 +1305,7 @@ LABEL_5:
     v31 = address;
     if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
     {
-      sub_100011BE0("[KBXPCService SeshatUnlockWithSecret:secretSize:secretIsACM:withMemento:verifyOnly:withACMRef:forHandle:withReply:]", @"Failed to retrieve oldpasscode", v32, v33, v34, v35, v36, v37, v46);
+      sub_100011BE0("[KBXPCService SeshatUnlockWithSecret:secretSize:secretIsACM:withMemento:verifyOnly:withACMRef:forHandle:withReply:]", @"Failed to retrieve oldpasscode", v32, v33, v34, v35, v36, v37);
       v24 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
       v38 = mach_task_self_;
       v39 = address;
@@ -1310,14 +1331,14 @@ LABEL_5:
     v31 = 0;
   }
 
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_100008038;
-  v47[3] = &unk_100034D80;
-  v48 = os_transaction_create();
-  v49 = replyCopy;
-  v24 = v48;
-  sub_100015EE4(handle, v31, size, mCopy, memento, only, refCopy, v47);
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_100008038;
+  v46[3] = &unk_100034D80;
+  v47 = os_transaction_create();
+  v48 = replyCopy;
+  v24 = v47;
+  sub_100015EE4(handle, v31, size, mCopy, memento, only, refCopy, v46);
   v42 = mach_task_self_;
   v43 = address;
   v44 = vm_page_size;
@@ -1344,7 +1365,7 @@ LABEL_6:
   address = 0;
   if (vm_page_size < size)
   {
-    sub_100011BE0("[KBXPCService SeshatRecoverWithSecret:secretSize:secretIsACM:withReply:]", @"Long Secret, can't handle ...", vm_page_size, v11, v12, v13, v14, v15, v41);
+    sub_100011BE0("[KBXPCService SeshatRecoverWithSecret:secretSize:secretIsACM:withReply:]", @"Long Secret, can't handle ...", vm_page_size, v11, v12, v13, v14, v15);
     v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
 LABEL_5:
     replyCopy[2](replyCopy, 0, v17);
@@ -1354,7 +1375,7 @@ LABEL_5:
 
   if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
   {
-    sub_100011BE0("[KBXPCService SeshatRecoverWithSecret:secretSize:secretIsACM:withReply:]", @"FAILED to allocate VM", v18, v19, v20, v21, v22, v23, v41);
+    sub_100011BE0("[KBXPCService SeshatRecoverWithSecret:secretSize:secretIsACM:withReply:]", @"FAILED to allocate VM", v18, v19, v20, v21, v22, v23);
     v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
     address = 0;
     goto LABEL_5;
@@ -1365,7 +1386,7 @@ LABEL_5:
     v24 = address;
     if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
     {
-      sub_100011BE0("[KBXPCService SeshatRecoverWithSecret:secretSize:secretIsACM:withReply:]", @"Failed to retrieve oldpasscode", v25, v26, v27, v28, v29, v30, v41);
+      sub_100011BE0("[KBXPCService SeshatRecoverWithSecret:secretSize:secretIsACM:withReply:]", @"Failed to retrieve oldpasscode", v25, v26, v27, v28, v29, v30);
       v31 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
       v32 = mach_task_self_;
       v33 = address;
@@ -1435,6 +1456,120 @@ LABEL_6:
   secretCopy = secret;
   stuffCopy = stuff;
   replyCopy = reply;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_100005A78;
+  v63 = sub_100005A88;
+  v64 = 0;
+  address = 0;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x2020000000;
+  v57 = -1;
+  if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.ops"])
+  {
+    if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
+    {
+      sub_100011BE0("[KBXPCService createKeybagForUserSession:withSessionUID:WithSecret:secretSize:withGracePeriod:withOpaqeStuff:withReply:]", @"FAILED to allocate VM", v19, v20, v21, v22, v23, v24);
+      v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
+      v26 = v60[5];
+      v60[5] = v25;
+
+      address = 0;
+LABEL_5:
+      replyCopy[2](replyCopy, v60[5]);
+      goto LABEL_17;
+    }
+
+    if (size)
+    {
+      v29 = address;
+      if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
+      {
+        sub_100011BE0("[KBXPCService createKeybagForUserSession:withSessionUID:WithSecret:secretSize:withGracePeriod:withOpaqeStuff:withReply:]", @"Failed to retrieve passcode info", v30, v31, v32, v33, v34, v35);
+        v36 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+        v37 = v60[5];
+        v60[5] = v36;
+
+        v38 = mach_task_self_;
+        v39 = address;
+        v40 = vm_page_size;
+        if (vm_page_size >= size)
+        {
+          sizeCopy = size;
+        }
+
+        else
+        {
+          sizeCopy = vm_page_size;
+        }
+
+        memset_s(address, sizeCopy, 0, sizeCopy);
+        vm_deallocate(v38, v39, v40);
+        goto LABEL_5;
+      }
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    v42 = qword_10003D2A0;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000086EC;
+    block[3] = &unk_100034DA8;
+    v48 = sessionCopy;
+    sizeCopy2 = size;
+    v53 = v29;
+    dCopy = d;
+    periodCopy = period;
+    v49 = stuffCopy;
+    v50 = &v59;
+    v51 = v56;
+    dispatch_sync(v42, block);
+    v43 = mach_task_self_;
+    v44 = address;
+    v45 = vm_page_size;
+    if (vm_page_size >= size)
+    {
+      sizeCopy3 = size;
+    }
+
+    else
+    {
+      sizeCopy3 = vm_page_size;
+    }
+
+    memset_s(address, sizeCopy3, 0, sizeCopy3);
+    vm_deallocate(v43, v44, v45);
+    replyCopy[2](replyCopy, v60[5]);
+  }
+
+  else
+  {
+    v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+    v28 = v60[5];
+    v60[5] = v27;
+
+    if (replyCopy)
+    {
+      goto LABEL_5;
+    }
+  }
+
+LABEL_17:
+  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(&v59, 8);
+}
+
+- (void)loadKeybagForUserSession:(id)session withSessionID:(int)d withSecret:(id)secret secretSize:(unint64_t)size shouldSetGracePeriod:(BOOL)period withGracePeriod:(int)gracePeriod isInEarlyStar:(BOOL)star withReply:(id)self0
+{
+  sessionCopy = session;
+  secretCopy = secret;
+  replyCopy = reply;
   v60 = 0;
   v61 = &v60;
   v62 = 0x3032000000;
@@ -1450,7 +1585,7 @@ LABEL_6:
   {
     if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
     {
-      sub_100011BE0("[KBXPCService createKeybagForUserSession:withSessionUID:WithSecret:secretSize:withGracePeriod:withOpaqeStuff:withReply:]", @"FAILED to allocate VM", v19, v20, v21, v22, v23, v24, v47);
+      sub_100011BE0("[KBXPCService loadKeybagForUserSession:withSessionID:withSecret:secretSize:shouldSetGracePeriod:withGracePeriod:isInEarlyStar:withReply:]", @"FAILED to allocate VM", v19, v20, v21, v22, v23, v24);
       v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
       v26 = v61[5];
       v61[5] = v25;
@@ -1466,7 +1601,7 @@ LABEL_5:
       v29 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
       {
-        sub_100011BE0("[KBXPCService createKeybagForUserSession:withSessionUID:WithSecret:secretSize:withGracePeriod:withOpaqeStuff:withReply:]", @"Failed to retrieve passcode info", v30, v31, v32, v33, v34, v35, v47);
+        sub_100011BE0("[KBXPCService loadKeybagForUserSession:withSessionID:withSecret:secretSize:shouldSetGracePeriod:withGracePeriod:isInEarlyStar:withReply:]", @"Failed to retrieve passcode info", v30, v31, v32, v33, v34, v35);
         v36 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
         v37 = v61[5];
         v61[5] = v36;
@@ -1498,16 +1633,17 @@ LABEL_5:
     v42 = qword_10003D2A0;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
-    block[2] = sub_1000086EC;
-    block[3] = &unk_100034DA8;
-    v49 = sessionCopy;
+    block[2] = sub_100008B90;
+    block[3] = &unk_100034DD0;
     sizeCopy2 = size;
-    v54 = v29;
-    dCopy = d;
+    v52 = v29;
     periodCopy = period;
-    v50 = stuffCopy;
-    v51 = &v60;
-    v52 = v57;
+    dCopy = d;
+    gracePeriodCopy = gracePeriod;
+    starCopy = star;
+    v48 = sessionCopy;
+    v49 = &v60;
+    v50 = v57;
     dispatch_sync(v42, block);
     v43 = mach_task_self_;
     v44 = address;
@@ -1544,121 +1680,6 @@ LABEL_17:
   _Block_object_dispose(&v60, 8);
 }
 
-- (void)loadKeybagForUserSession:(id)session withSessionID:(int)d withSecret:(id)secret secretSize:(unint64_t)size shouldSetGracePeriod:(BOOL)period withGracePeriod:(int)gracePeriod isInEarlyStar:(BOOL)star withReply:(id)self0
-{
-  sessionCopy = session;
-  secretCopy = secret;
-  replyCopy = reply;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = sub_100005A78;
-  v65 = sub_100005A88;
-  v66 = 0;
-  address = 0;
-  v58[0] = 0;
-  v58[1] = v58;
-  v58[2] = 0x2020000000;
-  v59 = -1;
-  if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.ops"])
-  {
-    if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
-    {
-      sub_100011BE0("[KBXPCService loadKeybagForUserSession:withSessionID:withSecret:secretSize:shouldSetGracePeriod:withGracePeriod:isInEarlyStar:withReply:]", @"FAILED to allocate VM", v19, v20, v21, v22, v23, v24, v47);
-      v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
-      v26 = v62[5];
-      v62[5] = v25;
-
-      address = 0;
-LABEL_5:
-      replyCopy[2](replyCopy, v62[5]);
-      goto LABEL_17;
-    }
-
-    if (size)
-    {
-      v29 = address;
-      if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
-      {
-        sub_100011BE0("[KBXPCService loadKeybagForUserSession:withSessionID:withSecret:secretSize:shouldSetGracePeriod:withGracePeriod:isInEarlyStar:withReply:]", @"Failed to retrieve passcode info", v30, v31, v32, v33, v34, v35, v47);
-        v36 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        v37 = v62[5];
-        v62[5] = v36;
-
-        v38 = mach_task_self_;
-        v39 = address;
-        v40 = vm_page_size;
-        if (vm_page_size >= size)
-        {
-          sizeCopy = size;
-        }
-
-        else
-        {
-          sizeCopy = vm_page_size;
-        }
-
-        memset_s(address, sizeCopy, 0, sizeCopy);
-        vm_deallocate(v38, v39, v40);
-        goto LABEL_5;
-      }
-    }
-
-    else
-    {
-      v29 = 0;
-    }
-
-    v42 = qword_10003D2A0;
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_100008B90;
-    block[3] = &unk_100034DD0;
-    sizeCopy2 = size;
-    v53 = v29;
-    periodCopy = period;
-    dCopy = d;
-    gracePeriodCopy = gracePeriod;
-    starCopy = star;
-    v49 = sessionCopy;
-    v50 = &v61;
-    v51 = v58;
-    dispatch_sync(v42, block);
-    v43 = mach_task_self_;
-    v44 = address;
-    v45 = vm_page_size;
-    if (vm_page_size >= size)
-    {
-      sizeCopy3 = size;
-    }
-
-    else
-    {
-      sizeCopy3 = vm_page_size;
-    }
-
-    memset_s(address, sizeCopy3, 0, sizeCopy3);
-    vm_deallocate(v43, v44, v45);
-    replyCopy[2](replyCopy, v62[5]);
-  }
-
-  else
-  {
-    v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v28 = v62[5];
-    v62[5] = v27;
-
-    if (replyCopy)
-    {
-      goto LABEL_5;
-    }
-  }
-
-LABEL_17:
-  _Block_object_dispose(v58, 8);
-  _Block_object_dispose(&v61, 8);
-}
-
 - (void)unloadKeybagForUserSession:(int)session withReply:(id)reply
 {
   replyCopy = reply;
@@ -1693,6 +1714,46 @@ LABEL_4:
 
 LABEL_5:
   _Block_object_dispose(&v11, 8);
+}
+
+- (void)deleteKeybagForUserSession:(int)session withReply:(id)reply
+{
+  v4 = *&session;
+  replyCopy = reply;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_100005A78;
+  v16 = sub_100005A88;
+  v17 = 0;
+  if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.ops"])
+  {
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100009058;
+    v10[3] = &unk_100034DF8;
+    v11 = v4;
+    v10[4] = &v12;
+    dispatch_sync(qword_10003D2A0, v10);
+    v7 = [MKBDeviceLockModelEducationalMode sharedLockModelWithUID:v4];
+    [v7 userDeleted];
+
+LABEL_4:
+    replyCopy[2](replyCopy, v13[5]);
+    goto LABEL_5;
+  }
+
+  v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+  v9 = v13[5];
+  v13[5] = v8;
+
+  if (replyCopy)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_5:
+  _Block_object_dispose(&v12, 8);
 }
 
 - (void)setVolumeToPersona:(id)persona withPersonaString:(id)string withReply:(id)reply
@@ -1936,29 +1997,29 @@ LABEL_5:
   pathCopy = path;
   secretCopy = secret;
   replyCopy = reply;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_100005A78;
-  v64 = sub_100005A88;
-  v65 = 0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_100005A78;
+  v63 = sub_100005A88;
+  v64 = 0;
   address = 0;
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x2020000000;
-  v58 = -1;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x2020000000;
+  v57 = -1;
   if ([(KBXPCService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.ops"])
   {
     if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
     {
-      sub_100011BE0("[KBXPCService createPersonaKeyForUserSession:forPath:withUID:WithSecret:secretSize:secretIsACM:withReply:]", @"FAILED to allocate VM", v19, v20, v21, v22, v23, v24, v47);
+      sub_100011BE0("[KBXPCService createPersonaKeyForUserSession:forPath:withUID:WithSecret:secretSize:secretIsACM:withReply:]", @"FAILED to allocate VM", v19, v20, v21, v22, v23, v24);
       v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
-      v26 = v61[5];
-      v61[5] = v25;
+      v26 = v60[5];
+      v60[5] = v25;
 
       address = 0;
 LABEL_5:
-      replyCopy[2](replyCopy, v61[5]);
+      replyCopy[2](replyCopy, v60[5]);
       goto LABEL_17;
     }
 
@@ -1967,10 +2028,10 @@ LABEL_5:
       v29 = address;
       if ([(KBXPCService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
       {
-        sub_100011BE0("[KBXPCService createPersonaKeyForUserSession:forPath:withUID:WithSecret:secretSize:secretIsACM:withReply:]", @"Failed to passcode info", v30, v31, v32, v33, v34, v35, v47);
+        sub_100011BE0("[KBXPCService createPersonaKeyForUserSession:forPath:withUID:WithSecret:secretSize:secretIsACM:withReply:]", @"Failed to passcode info", v30, v31, v32, v33, v34, v35);
         v36 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        v37 = v61[5];
-        v61[5] = v36;
+        v37 = v60[5];
+        v60[5] = v36;
 
         v38 = mach_task_self_;
         v39 = address;
@@ -2002,13 +2063,13 @@ LABEL_5:
     block[2] = sub_10000A60C;
     block[3] = &unk_100034E70;
     dCopy = d;
-    v49 = pathCopy;
+    v48 = pathCopy;
     sizeCopy2 = size;
-    v54 = v29;
+    v53 = v29;
     mCopy = m;
-    v50 = sessionCopy;
-    v51 = &v60;
-    v52 = v57;
+    v49 = sessionCopy;
+    v50 = &v59;
+    v51 = v56;
     dispatch_sync(v42, block);
     v43 = mach_task_self_;
     v44 = address;
@@ -2025,14 +2086,14 @@ LABEL_5:
 
     memset_s(address, sizeCopy3, 0, sizeCopy3);
     vm_deallocate(v43, v44, v45);
-    replyCopy[2](replyCopy, v61[5]);
+    replyCopy[2](replyCopy, v60[5]);
   }
 
   else
   {
     v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v28 = v61[5];
-    v61[5] = v27;
+    v28 = v60[5];
+    v60[5] = v27;
 
     if (replyCopy)
     {
@@ -2041,8 +2102,8 @@ LABEL_5:
   }
 
 LABEL_17:
-  _Block_object_dispose(v57, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(&v59, 8);
 }
 
 - (void)removePersonaKeyForUserSession:(id)session withUID:(unsigned int)d withVolumeUUIDString:(id)string withReply:(id)reply

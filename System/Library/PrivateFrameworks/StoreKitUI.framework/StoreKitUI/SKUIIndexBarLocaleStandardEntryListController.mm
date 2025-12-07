@@ -23,16 +23,16 @@
     }
   }
 
-  v19.receiver = self;
-  v19.super_class = SKUIIndexBarLocaleStandardEntryListController;
-  v14 = [(SKUIIndexBarLocaleStandardEntryListController *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = SKUIIndexBarLocaleStandardEntryListController;
+  v14 = [(SKUIIndexBarLocaleStandardEntryListController *)&v21 init];
   v15 = v14;
   if (v14)
   {
     objc_storeStrong(&v14->_entryListViewElement, element);
-    v16 = SKUIRequiredVisibilitySetForLocalizedIndexedCollation();
+    v18 = SKUIRequiredVisibilitySetForLocalizedIndexedCollation(v16, v17);
     requiredVisibilitySet = v15->_requiredVisibilitySet;
-    v15->_requiredVisibilitySet = v16;
+    v15->_requiredVisibilitySet = v18;
   }
 
   return v15;
@@ -107,6 +107,12 @@
     objc_storeStrong(&self->_style, style);
     [(SKUIIndexBarEntryListController *)self _didInvalidate];
   }
+}
+
+- (void)initWithSKUIIndexBarEntryListViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarLocaleStandardEntryListController initWithSKUIIndexBarEntryListViewElement:]";
 }
 
 @end

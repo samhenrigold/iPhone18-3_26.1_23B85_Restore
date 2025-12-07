@@ -18,10 +18,15 @@
 - (void)_finishValidation;
 - (void)_handleRegionListLoad;
 - (void)_handleTimeout;
+- (void)_hideCountryPickerAnimated:(BOOL)animated;
 - (void)_loadInitialValues;
 - (void)_loadRegionsIfNecessary;
+- (void)_refreshPhoneFieldAnimated:(BOOL)animated;
 - (void)_rightButtonTapped;
+- (void)_setFieldsEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (void)_setupEventHandlers;
+- (void)_showCountryPickerAnimated:(BOOL)animated;
+- (void)_showPhoneField:(BOOL)field animated:(BOOL)animated;
 - (void)_startListeningForRegionListChanges;
 - (void)_stopListeningForRegionListChanges;
 - (void)_updateControllerState;
@@ -29,17 +34,21 @@
 - (void)dismiss;
 - (void)regionChooser:(id)chooser selectedRegionID:(id)d;
 - (void)setCurrentPhoneNumber:(id)number forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegLocaleController
 
 - (CNFRegLocaleController)initWithRegController:(id)controller
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v20.receiver = self;
-  v20.super_class = CNFRegLocaleController;
-  v5 = [(CNFRegFirstRunController *)&v20 initWithRegController:controllerCopy];
+  v19.receiver = self;
+  v19.super_class = CNFRegLocaleController;
+  v5 = [(CNFRegFirstRunController *)&v19 initWithRegController:controllerCopy];
   if (v5)
   {
     mEMORY[0x277D07DE8] = [MEMORY[0x277D07DE8] sharedInstance];
@@ -54,26 +63,26 @@
       [(CNFRegLocaleController *)v5 _loadRegionsIfNecessary];
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     appleIDAccounts = [controllerCopy appleIDAccounts];
-    v9 = [appleIDAccounts countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v9 = [appleIDAccounts countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(appleIDAccounts);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           if ([v13 profileValidationStatus] != 3)
           {
             [(CNFRegFirstRunController *)v5 setAccount:v13];
@@ -81,7 +90,7 @@
           }
         }
 
-        v10 = [appleIDAccounts countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v10 = [appleIDAccounts countByEnumeratingWithState:&v15 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -94,7 +103,6 @@
 LABEL_15:
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -235,6 +243,51 @@ LABEL_15:
       [(CNFRegLocaleController *)self setCurrentPhoneValue:v15];
     }
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CNFRegLocaleController;
+  [(CNFRegFirstRunController *)&v5 viewWillAppear:appear];
+  [(CNFRegLocaleController *)self _loadInitialValues];
+  [(CNFRegLocaleController *)self _loadRegionsIfNecessary];
+  if ([(CNFRegLocaleController *)self containsSpecifier:self->_phoneNumberGroupSpecifier])
+  {
+    _phoneTextField = [(CNFRegLocaleController *)self _phoneTextField];
+    [_phoneTextField becomeFirstResponder];
+  }
+
+  [(CNFRegLocaleController *)self _updateUI];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegLocaleController;
+  [(CNFRegFirstRunController *)&v4 viewDidAppear:appear];
+  if (self->_isLoading)
+  {
+    [(CNFRegFirstRunController *)self _startValidationModeAnimated:0];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CNFRegLocaleController;
+  [(CNFRegFirstRunController *)&v5 viewWillDisappear:disappear];
+  _phoneTextField = [(CNFRegLocaleController *)self _phoneTextField];
+  [_phoneTextField resignFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegLocaleController;
+  [(CNFRegFirstRunController *)&v4 viewDidDisappear:disappear];
+  [(CNFRegLocaleController *)self _stopListeningForRegionListChanges];
+  [(CNFRegFirstRunController *)self _stopValidationModeAnimated:0];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -419,10 +472,10 @@ LABEL_15:
 
 - (void)_updateControllerState
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = CNFRegLocaleController;
-  [(CNFRegFirstRunController *)&v13 _updateControllerState];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = CNFRegLocaleController;
+  [(CNFRegFirstRunController *)&v12 _updateControllerState];
   [(CNFRegLocaleController *)self _updateUI];
   regController = [(CNFRegListController *)self regController];
   account = [(CNFRegFirstRunController *)self account];
@@ -438,7 +491,7 @@ LABEL_15:
     }
 
     *buf = 138412290;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Popping controller. Has local dialing support? %@", buf, 0xCu);
   }
 
@@ -450,11 +503,11 @@ LABEL_15:
       v8 = @"YES";
     }
 
-    v12 = v8;
+    v11 = v8;
     IMLogString();
   }
 
-  [(CNFRegLocaleController *)self dismissModalViewControllerWithTransition:7, v12];
+  [(CNFRegLocaleController *)self dismissModalViewControllerWithTransition:7, v11];
   completionBlock = [(CNFRegLocaleController *)self completionBlock];
 
   if (completionBlock)
@@ -462,8 +515,16 @@ LABEL_15:
     completionBlock2 = [(CNFRegLocaleController *)self completionBlock];
     completionBlock2[2](completionBlock2, (v5 >> 1) & 1);
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_setFieldsEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  [(CNFRegListController *)self _setSpecifierEnabled:self->_phoneNumberFieldSpecifier enabled:enabled animated:animated];
+  countryFieldSpecifier = self->_countryFieldSpecifier;
+
+  [(CNFRegListController *)self _setSpecifierEnabled:countryFieldSpecifier enabled:enabledCopy animated:animatedCopy];
 }
 
 - (id)_currentRegion
@@ -514,6 +575,33 @@ LABEL_6:
   return label;
 }
 
+- (void)_showPhoneField:(BOOL)field animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  fieldCopy = field;
+  v7 = [(CNFRegLocaleController *)self containsSpecifier:self->_phoneNumberGroupSpecifier];
+  if (!fieldCopy || (v7 & 1) != 0)
+  {
+    if (!fieldCopy && ((v7 ^ 1) & 1) == 0)
+    {
+      _phoneTextField = [(CNFRegLocaleController *)self _phoneTextField];
+      [_phoneTextField resignFirstResponder];
+
+      phoneNumberSpecifiers = self->_phoneNumberSpecifiers;
+
+      [(CNFRegLocaleController *)self removeContiguousSpecifiers:phoneNumberSpecifiers animated:animatedCopy];
+    }
+  }
+
+  else
+  {
+    v8 = self->_phoneNumberSpecifiers;
+    v9 = [*(&self->super.super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) count];
+
+    [(CNFRegLocaleController *)self insertContiguousSpecifiers:v8 atIndex:v9 animated:animatedCopy];
+  }
+}
+
 - (id)_phoneTextField
 {
   v2 = [(CNFRegLocaleController *)self cachedCellForSpecifier:self->_phoneNumberFieldSpecifier];
@@ -558,7 +646,7 @@ LABEL_6:
 
 - (id)currentPhoneNumberForSpecifier:(id)specifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   currentPhoneValue = [(CNFRegLocaleController *)self currentPhoneValue];
   currentPhoneCompatibleCountryCode = [(CNFRegLocaleController *)self currentPhoneCompatibleCountryCode];
@@ -572,9 +660,9 @@ LABEL_6:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v15 = currentPhoneCompatibleCountryCode;
-      v16 = 2112;
-      v17 = v9;
+      v14 = currentPhoneCompatibleCountryCode;
+      v15 = 2112;
+      v16 = v9;
       _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "Getting formatted phone number {%@}: %@", buf, 0x16u);
     }
 
@@ -590,7 +678,7 @@ LABEL_6:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = currentPhoneValue;
+      v14 = currentPhoneValue;
       _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "Getting unformatted phone number: %@", buf, 0xCu);
     }
 
@@ -602,14 +690,12 @@ LABEL_6:
     v9 = currentPhoneValue;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)setCurrentPhoneNumber:(id)number forSpecifier:(id)specifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   specifierCopy = specifier;
   v8 = [(CNFRegLocaleController *)self _unformattedPhoneNumber:numberCopy];
@@ -617,40 +703,49 @@ LABEL_6:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v8;
+    v12 = v8;
     _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "Setting unformatted phone number: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v11 = v8;
+    v10 = v8;
     IMLogString();
   }
 
-  [(CNFRegLocaleController *)self setCurrentPhoneValue:v8, v11];
+  [(CNFRegLocaleController *)self setCurrentPhoneValue:v8, v10];
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_refreshPhoneFieldAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ([(CNFRegLocaleController *)self containsSpecifier:self->_phoneNumberGroupSpecifier])
+  {
+    phoneNumberFieldSpecifier = self->_phoneNumberFieldSpecifier;
+
+    [(CNFRegLocaleController *)self reloadSpecifier:phoneNumberFieldSpecifier animated:animatedCopy];
+  }
 }
 
 - (void)_failValidationWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = errorCopy;
+    v19 = errorCopy;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "_failValidationWithError: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v18 = errorCopy;
+    v17 = errorCopy;
     IMLogString();
   }
 
-  [(CNFRegFirstRunController *)self _stopValidationModeAnimated:1, v18];
+  [(CNFRegFirstRunController *)self _stopValidationModeAnimated:1, v17];
   v6 = CommunicationsSetupUIBundle();
   v7 = CNFRegStringTableName();
   v8 = [v6 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v7];
@@ -672,7 +767,6 @@ LABEL_6:
   [v15 addAction:v16];
 
   [(CNFRegLocaleController *)self presentViewController:v15 animated:1 completion:0];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishValidation
@@ -703,7 +797,7 @@ LABEL_6:
 
 - (void)_rightButtonTapped
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (![(CNFRegListController *)self _showWiFiAlertIfNecessary])
   {
     _currentRegion = [(CNFRegLocaleController *)self _currentRegion];
@@ -729,7 +823,7 @@ LABEL_6:
       [(CNFRegLocaleController *)self presentViewController:v29 animated:1 completion:0];
 LABEL_37:
 
-      goto LABEL_38;
+      return;
     }
 
     regionID = [_currentRegion regionID];
@@ -751,13 +845,13 @@ LABEL_37:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = account;
+      v34 = account;
       _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, "Setting profile for account: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v32 = account;
+      v31 = account;
       IMLogString();
     }
 
@@ -765,13 +859,13 @@ LABEL_37:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = regionID;
+      v34 = regionID;
       _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "  => Region ID: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v32 = regionID;
+      v31 = regionID;
       IMLogString();
     }
 
@@ -779,17 +873,17 @@ LABEL_37:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = v7;
+      v34 = v7;
       _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "  => Phone: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v32 = v7;
+      v31 = v7;
       IMLogString();
     }
 
-    v15 = [(__CFString *)account setProfileString:regionID forKey:*MEMORY[0x277D18C50], v32];
+    v15 = [(__CFString *)account setProfileString:regionID forKey:*MEMORY[0x277D18C50], v31];
     v16 = v15 | [(__CFString *)account setProfileString:v7 forKey:*MEMORY[0x277D18C40]];
     v17 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -801,7 +895,7 @@ LABEL_37:
       }
 
       *buf = 138412290;
-      v35 = v18;
+      v34 = v18;
       _os_log_impl(&dword_243BE5000, v17, OS_LOG_TYPE_DEFAULT, "  => Changed: %@", buf, 0xCu);
     }
 
@@ -813,7 +907,7 @@ LABEL_37:
         v19 = @"YES";
       }
 
-      v33 = v19;
+      v32 = v19;
       IMLogString();
     }
 
@@ -830,14 +924,11 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    [(CNFRegFirstRunController *)self _startValidationModeAnimated:0, v33];
+    [(CNFRegFirstRunController *)self _startValidationModeAnimated:0, v32];
     [(CNFRegLocaleController *)self _startTimeout];
     [(__CFString *)account validateProfile];
     goto LABEL_36;
   }
-
-LABEL_38:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTimeout
@@ -863,6 +954,69 @@ LABEL_38:
   [(CNFRegLocaleController *)self _failValidationWithError:v8];
 }
 
+- (void)_showCountryPickerAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  navigationController = [(CNFRegLocaleController *)self navigationController];
+  visibleViewController = [navigationController visibleViewController];
+
+  if (visibleViewController == self)
+  {
+    [(CNFRegListController *)self setShowingChildController:1];
+    _phoneTextField = [(CNFRegLocaleController *)self _phoneTextField];
+    [_phoneTextField resignFirstResponder];
+
+    v21 = objc_alloc_init(MEMORY[0x277D3FAC8]);
+    [v21 setParentController:self];
+    rootController = [(CNFRegLocaleController *)self rootController];
+    [v21 setRootController:rootController];
+
+    v9 = [CNFRegRegionChooserController alloc];
+    regionData = [(CNFRegLocaleController *)self regionData];
+    currentRegionID = [(CNFRegLocaleController *)self currentRegionID];
+    v12 = [(CNFRegRegionChooserController *)v9 initWithRegionList:regionData selectedRegionID:currentRegionID];
+
+    [(CNFRegRegionChooserController *)v12 setDelegate:self];
+    [(CNFRegRegionChooserController *)v12 setRootController:v21];
+    [(CNFRegRegionChooserController *)v12 setParentController:v21];
+    [(CNFRegRegionChooserController *)v12 setSpecifier:self->_countryFieldSpecifier];
+    v13 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_hideCountryPicker];
+    navigationItem = [(CNFRegRegionChooserController *)v12 navigationItem];
+    [navigationItem setLeftBarButtonItem:v13];
+
+    drillDownControllerList = [(CNFRegRegionChooserController *)v12 drillDownControllerList];
+    [v21 setViewControllers:drillDownControllerList];
+
+    v16 = +[CNFRegAppearanceController globalAppearanceController];
+    [v21 setModalPresentationStyle:{objc_msgSend(v16, "modalPresentationStyle")}];
+    navigationBarStyle = [v16 navigationBarStyle];
+    navigationBar = [v21 navigationBar];
+    [navigationBar setBarStyle:navigationBarStyle];
+
+    navigationBarIsTranslucent = [v16 navigationBarIsTranslucent];
+    navigationBar2 = [v21 navigationBar];
+    [navigationBar2 setTranslucent:navigationBarIsTranslucent];
+
+    [(CNFRegLocaleController *)self showController:v21 animate:animatedCopy];
+  }
+}
+
+- (void)_hideCountryPickerAnimated:(BOOL)animated
+{
+  navigationController = [(CNFRegLocaleController *)self navigationController];
+  visibleViewController = [navigationController visibleViewController];
+
+  if (visibleViewController != self)
+  {
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __53__CNFRegLocaleController__hideCountryPickerAnimated___block_invoke;
+    v6[3] = &unk_278DE7E08;
+    v6[4] = self;
+    [(CNFRegFirstRunController *)self _executeDismissBlock:v6];
+  }
+}
+
 void __53__CNFRegLocaleController__hideCountryPickerAnimated___block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) presentedViewController];
@@ -879,9 +1033,7 @@ void __53__CNFRegLocaleController__hideCountryPickerAnimated___block_invoke(uint
 
 - (void)_buildCountryFieldSpecifierCache:(id)cache
 {
-  v4 = [cache specifierForID:@"FACETIME_LOCALE_COUNTRY_SELECT_ID"];
-  countryFieldSpecifier = self->_countryFieldSpecifier;
-  self->_countryFieldSpecifier = v4;
+  self->_countryFieldSpecifier = [cache specifierForID:@"FACETIME_LOCALE_COUNTRY_SELECT_ID"];
 
   MEMORY[0x2821F96F8]();
 }
@@ -939,7 +1091,7 @@ void __53__CNFRegLocaleController__hideCountryPickerAnimated___block_invoke(uint
 
 void __45__CNFRegLocaleController__setupEventHandlers__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = OSLogHandleForIDSCategory();
@@ -947,13 +1099,13 @@ void __45__CNFRegLocaleController__setupEventHandlers__block_invoke(uint64_t a1,
   {
     v8 = CNFRegStringForAccount(v5);
     *buf = 138412290;
-    v23 = v8;
+    v22 = v8;
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Profile status changed for account: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v17 = CNFRegStringForAccount(v5);
+    v16 = CNFRegStringForAccount(v5);
     IMLogString();
   }
 
@@ -965,12 +1117,12 @@ void __45__CNFRegLocaleController__setupEventHandlers__block_invoke(uint64_t a1,
     v15 = [v5 profileValidationStatus];
     if (v15 == 3)
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __45__CNFRegLocaleController__setupEventHandlers__block_invoke_2;
-      v19[3] = &unk_278DE7E08;
-      v19[4] = *(a1 + 32);
-      v14 = MEMORY[0x245D4D850](v19);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __45__CNFRegLocaleController__setupEventHandlers__block_invoke_2;
+      v18[3] = &unk_278DE7E08;
+      v18[4] = *(a1 + 32);
+      v14 = MEMORY[0x245D4D850](v18);
       if (!v14)
       {
         goto LABEL_20;
@@ -985,13 +1137,13 @@ void __45__CNFRegLocaleController__setupEventHandlers__block_invoke(uint64_t a1,
         goto LABEL_20;
       }
 
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __45__CNFRegLocaleController__setupEventHandlers__block_invoke_189;
-      v20[3] = &unk_278DE81E0;
-      v20[4] = *(a1 + 32);
-      v21 = v6;
-      v14 = MEMORY[0x245D4D850](v20);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __45__CNFRegLocaleController__setupEventHandlers__block_invoke_189;
+      v19[3] = &unk_278DE81E0;
+      v19[4] = *(a1 + 32);
+      v20 = v6;
+      v14 = MEMORY[0x245D4D850](v19);
 
       if (!v14)
       {
@@ -1014,25 +1166,23 @@ void __45__CNFRegLocaleController__setupEventHandlers__block_invoke(uint64_t a1,
     v12 = [*(a1 + 32) account];
     v13 = CNFRegStringForAccount(v12);
     *buf = 138412290;
-    v23 = v13;
+    v22 = v13;
     _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "  => Ignoring because the account does not match our account: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
     v14 = [*(a1 + 32) account];
-    v18 = CNFRegStringForAccount(v14);
+    v17 = CNFRegStringForAccount(v14);
     IMLogString();
 
 LABEL_20:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CNFRegLocaleController__setupEventHandlers__block_invoke_194(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = OSLogHandleForIDSCategory();
@@ -1048,9 +1198,9 @@ void __45__CNFRegLocaleController__setupEventHandlers__block_invoke_194(uint64_t
     }
 
     *buf = 138412546;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v9;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v9;
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Account status changed (isActive=%@): %@", buf, 0x16u);
   }
 
@@ -1067,13 +1217,11 @@ void __45__CNFRegLocaleController__setupEventHandlers__block_invoke_194(uint64_t
     }
 
     CNFRegStringForAccount(v5);
-    v15 = v14 = v12;
+    v14 = v13 = v12;
     IMLogString();
   }
 
   [*(a1 + 32) _updateControllerState];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_buildPhoneNumberSpecifierCache:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

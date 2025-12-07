@@ -28,7 +28,10 @@
 - (void)fetchInfoForContainerizedAppWithBundleID:(id)d options:(id)options completion:(id)completion;
 - (void)fetchInfoForFrameworkAtURL:(id)l options:(id)options completion:(id)completion;
 - (void)finalizeReference:(id)reference withCompletion:(id)completion;
+- (void)finalizeStagedInstallForIdentifier:(id)identifier returningResultInfo:(BOOL)info completion:(id)completion;
 - (void)getAppMetadataForApp:(id)app completion:(id)completion;
+- (void)installParallelPlaceholderForStagedIdentifier:(id)identifier fromURL:(id)l returningResultInfo:(BOOL)info completion:(id)completion;
+- (void)installURL:(id)l identity:(id)identity targetingDomain:(unint64_t)domain withOptions:(id)options returningResultInfo:(BOOL)info completion:(id)completion;
 - (void)invalidateReference:(id)reference withCompletion:(id)completion;
 - (void)linkedBundleIDsForAppIdentity:(id)identity withCompletion:(id)completion;
 - (void)listSafeHarborsOfType:(unint64_t)type forPersona:(id)persona withOptions:(id)options completion:(id)completion;
@@ -58,6 +61,7 @@
 - (void)unregisterContentsOnOSModuleAtURL:(id)l completion:(id)completion;
 - (void)updatePlaceholderMetadataForApp:(id)app installType:(unint64_t)type failureReason:(unint64_t)reason underlyingError:(id)error failureSource:(unint64_t)source completion:(id)completion;
 - (void)updateSinfForIXWithIdentifier:(id)identifier withOptions:(id)options sinfData:(id)data completion:(id)completion;
+- (void)updateSystemAppStateForIdentifier:(id)identifier appState:(int)state completion:(id)completion;
 - (void)updateiTunesMetadataForIXWithIdentifier:(id)identifier metadata:(id)metadata completion:(id)completion;
 - (void)waitForSystemAppMigratorToComplete:(id)complete;
 - (void)waitForSystemAppMigratorWithCompletion:(id)completion;
@@ -324,6 +328,32 @@ void __48__MIInstallerClient_releaseTerminationAssertion__block_invoke(uint64_t 
   return v4;
 }
 
+- (void)installURL:(id)l identity:(id)identity targetingDomain:(unint64_t)domain withOptions:(id)options returningResultInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  completionCopy = completion;
+  optionsCopy = options;
+  identityCopy = identity;
+  lCopy = l;
+  connection = [(MIInstallerClient *)self connection];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke;
+  v24[3] = &unk_1E80B9FA0;
+  v24[4] = self;
+  v19 = completionCopy;
+  v25 = v19;
+  v20 = [connection synchronousRemoteObjectProxyWithErrorHandler:v24];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke_3;
+  v22[3] = &unk_1E80B9FF0;
+  v22[4] = self;
+  v23 = v19;
+  v21 = v19;
+  [v20 installURL:lCopy identity:identityCopy targetingDomain:domain options:optionsCopy returningResultInfo:infoCopy completion:v22];
+}
+
 void __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -341,13 +371,12 @@ void __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_re
   dispatch_sync(v4, block);
 }
 
-uint64_t __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke_2(void *a1)
+uint64_t __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke_3(uint64_t a1, char a2, void *a3, void *a4, void *a5)
@@ -383,14 +412,10 @@ void __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_re
 
 uint64_t __100__MIInstallerClient_installURL_identity_targetingDomain_withOptions_returningResultInfo_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-  v6 = *(a1 + 56);
+  v2 = *(a1 + 56);
 
-  return [v6 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)stageInstallURL:(id)l identity:(id)identity targetingDomain:(unint64_t)domain withOptions:(id)options completion:(id)completion
@@ -435,13 +460,12 @@ void __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOption
   dispatch_sync(v4, block);
 }
 
-uint64_t __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOptions_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -463,14 +487,36 @@ void __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOption
   dispatch_sync(v7, v11);
 }
 
-uint64_t __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __85__MIInstallerClient_stageInstallURL_identity_targetingDomain_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
+}
+
+- (void)finalizeStagedInstallForIdentifier:(id)identifier returningResultInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  connection = [(MIInstallerClient *)self connection];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke;
+  v16[3] = &unk_1E80B9FA0;
+  v16[4] = self;
+  v11 = completionCopy;
+  v17 = v11;
+  v12 = [connection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke_3;
+  v14[3] = &unk_1E80B9FF0;
+  v14[4] = self;
+  v15 = v11;
+  v13 = v11;
+  [v12 finalizeStagedInstallForIdentifier:identifierCopy returningResultInfo:infoCopy completion:v14];
 }
 
 void __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke(uint64_t a1, void *a2)
@@ -490,13 +536,12 @@ void __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultI
   dispatch_sync(v4, block);
 }
 
-uint64_t __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke_2(void *a1)
+uint64_t __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke_3(uint64_t a1, char a2, void *a3, void *a4, void *a5)
@@ -532,14 +577,35 @@ void __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultI
 
 uint64_t __87__MIInstallerClient_finalizeStagedInstallForIdentifier_returningResultInfo_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-  v6 = *(a1 + 56);
+  v2 = *(a1 + 56);
 
-  return [v6 _invalidateObject];
+  return [v2 _invalidateObject];
+}
+
+- (void)installParallelPlaceholderForStagedIdentifier:(id)identifier fromURL:(id)l returningResultInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  completionCopy = completion;
+  lCopy = l;
+  identifierCopy = identifier;
+  connection = [(MIInstallerClient *)self connection];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke;
+  v19[3] = &unk_1E80B9FA0;
+  v19[4] = self;
+  v14 = completionCopy;
+  v20 = v14;
+  v15 = [connection synchronousRemoteObjectProxyWithErrorHandler:v19];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke_3;
+  v17[3] = &unk_1E80B9FF0;
+  v17[4] = self;
+  v18 = v14;
+  v16 = v14;
+  [v15 installParallelPlaceholderForStagedIdentifier:identifierCopy fromURL:lCopy returningResultInfo:infoCopy completion:v17];
 }
 
 void __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke(uint64_t a1, void *a2)
@@ -559,13 +625,12 @@ void __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_from
   dispatch_sync(v4, block);
 }
 
-uint64_t __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke_2(void *a1)
+uint64_t __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke_3(uint64_t a1, char a2, void *a3, void *a4, void *a5)
@@ -601,14 +666,10 @@ void __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_from
 
 uint64_t __106__MIInstallerClient_installParallelPlaceholderForStagedIdentifier_fromURL_returningResultInfo_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-  v6 = *(a1 + 56);
+  v2 = *(a1 + 56);
 
-  return [v6 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)cancelUpdateForStagedIdentifiers:(id)identifiers completion:(id)completion
@@ -651,13 +712,12 @@ void __65__MIInstallerClient_cancelUpdateForStagedIdentifiers_completion___block
   dispatch_sync(v4, block);
 }
 
-uint64_t __65__MIInstallerClient_cancelUpdateForStagedIdentifiers_completion___block_invoke_2(void *a1)
+uint64_t __65__MIInstallerClient_cancelUpdateForStagedIdentifiers_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __65__MIInstallerClient_cancelUpdateForStagedIdentifiers_completion___block_invoke_3(uint64_t a1, char a2, void *a3)
@@ -680,12 +740,10 @@ void __65__MIInstallerClient_cancelUpdateForStagedIdentifiers_completion___block
 
 uint64_t __65__MIInstallerClient_cancelUpdateForStagedIdentifiers_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)allStagedUpdatesWithCompletion:(id)completion
@@ -727,13 +785,12 @@ void __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke(uint6
   dispatch_sync(v4, block);
 }
 
-uint64_t __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke_2(void *a1)
+uint64_t __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -755,14 +812,12 @@ void __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke_3(uin
   dispatch_sync(v7, v11);
 }
 
-uint64_t __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke_4(void *a1)
+uint64_t __52__MIInstallerClient_allStagedUpdatesWithCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)registerPlaceholderForReference:(id)reference completion:(id)completion
@@ -805,13 +860,12 @@ void __64__MIInstallerClient_registerPlaceholderForReference_completion___block_
   dispatch_sync(v4, block);
 }
 
-uint64_t __64__MIInstallerClient_registerPlaceholderForReference_completion___block_invoke_2(void *a1)
+uint64_t __64__MIInstallerClient_registerPlaceholderForReference_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __64__MIInstallerClient_registerPlaceholderForReference_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -833,14 +887,12 @@ void __64__MIInstallerClient_registerPlaceholderForReference_completion___block_
   dispatch_sync(v7, v11);
 }
 
-uint64_t __64__MIInstallerClient_registerPlaceholderForReference_completion___block_invoke_4(void *a1)
+uint64_t __64__MIInstallerClient_registerPlaceholderForReference_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)revertForLSWithIdentifier:(id)identifier withOptions:(id)options completion:(id)completion
@@ -884,13 +936,12 @@ void __70__MIInstallerClient_revertForLSWithIdentifier_withOptions_completion___
   dispatch_sync(v4, block);
 }
 
-uint64_t __70__MIInstallerClient_revertForLSWithIdentifier_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __70__MIInstallerClient_revertForLSWithIdentifier_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __70__MIInstallerClient_revertForLSWithIdentifier_withOptions_completion___block_invoke_3(uint64_t a1, char a2, void *a3, void *a4, void *a5)
@@ -926,14 +977,10 @@ void __70__MIInstallerClient_revertForLSWithIdentifier_withOptions_completion___
 
 uint64_t __70__MIInstallerClient_revertForLSWithIdentifier_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-  v6 = *(a1 + 56);
+  v2 = *(a1 + 56);
 
-  return [v6 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)revertIdentity:(id)identity withOptions:(id)options completion:(id)completion
@@ -977,13 +1024,12 @@ void __59__MIInstallerClient_revertIdentity_withOptions_completion___block_invok
   dispatch_sync(v4, block);
 }
 
-uint64_t __59__MIInstallerClient_revertIdentity_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __59__MIInstallerClient_revertIdentity_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __59__MIInstallerClient_revertIdentity_withOptions_completion___block_invoke_3(uint64_t a1, char a2, void *a3, void *a4, void *a5)
@@ -1019,14 +1065,10 @@ void __59__MIInstallerClient_revertIdentity_withOptions_completion___block_invok
 
 uint64_t __59__MIInstallerClient_revertIdentity_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-  v6 = *(a1 + 56);
+  v2 = *(a1 + 56);
 
-  return [v6 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)uninstallIdentifiers:(id)identifiers withOptions:(id)options completion:(id)completion
@@ -1070,13 +1112,12 @@ void __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block
   dispatch_sync(v4, block);
 }
 
-uint64_t __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1105,14 +1146,12 @@ void __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block
   dispatch_sync(v8, block);
 }
 
-uint64_t __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __65__MIInstallerClient_uninstallIdentifiers_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)uninstallIdentity:(id)identity withOptions:(id)options completion:(id)completion
@@ -1156,13 +1195,12 @@ void __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_in
   dispatch_sync(v4, block);
 }
 
-uint64_t __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1182,13 +1220,12 @@ void __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_in
   dispatch_sync(v4, block);
 }
 
-uint64_t __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __62__MIInstallerClient_uninstallIdentity_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)finalizeReference:(id)reference withCompletion:(id)completion
@@ -1231,13 +1268,12 @@ void __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke(uin
   dispatch_sync(v4, block);
 }
 
-uint64_t __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke_2(void *a1)
+uint64_t __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1259,14 +1295,12 @@ void __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke_3(u
   dispatch_sync(v7, v11);
 }
 
-uint64_t __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke_4(void *a1)
+uint64_t __54__MIInstallerClient_finalizeReference_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)acquireReferenceforInstalledAppWithIdentity:(id)identity inDomain:(unint64_t)domain matchingInstallSessionID:(id)d withCompletion:(id)completion
@@ -1310,13 +1344,12 @@ void __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDoma
   dispatch_sync(v4, block);
 }
 
-uint64_t __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDomain_matchingInstallSessionID_withCompletion___block_invoke_2(void *a1)
+uint64_t __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDomain_matchingInstallSessionID_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDomain_matchingInstallSessionID_withCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1338,14 +1371,12 @@ void __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDoma
   dispatch_sync(v7, v11);
 }
 
-uint64_t __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDomain_matchingInstallSessionID_withCompletion___block_invoke_4(void *a1)
+uint64_t __114__MIInstallerClient_acquireReferenceforInstalledAppWithIdentity_inDomain_matchingInstallSessionID_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)invalidateReference:(id)reference withCompletion:(id)completion
@@ -1388,13 +1419,12 @@ void __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke(u
   dispatch_sync(v4, block);
 }
 
-uint64_t __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke_2(void *a1)
+uint64_t __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -1414,13 +1444,12 @@ void __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke_3
   dispatch_sync(v4, block);
 }
 
-uint64_t __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke_4(void *a1)
+uint64_t __56__MIInstallerClient_invalidateReference_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)lookupUninstalledWithOptions:(id)options completion:(id)completion
@@ -1463,13 +1492,12 @@ void __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_inv
   dispatch_sync(v4, block);
 }
 
-uint64_t __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_invoke_2(void *a1)
+uint64_t __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1491,14 +1519,12 @@ void __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_inv
   dispatch_sync(v7, v11);
 }
 
-uint64_t __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_invoke_4(void *a1)
+uint64_t __61__MIInstallerClient_lookupUninstalledWithOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)clearUninstalledIdentifiers:(id)identifiers withOptions:(id)options completion:(id)completion
@@ -1542,13 +1568,12 @@ void __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion_
   dispatch_sync(v4, block);
 }
 
-uint64_t __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1568,13 +1593,12 @@ void __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion_
   dispatch_sync(v4, block);
 }
 
-uint64_t __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __72__MIInstallerClient_clearUninstalledIdentifiers_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)lookupSystemAppStateWithOptions:(id)options completion:(id)completion
@@ -1617,13 +1641,12 @@ void __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_
   dispatch_sync(v4, block);
 }
 
-uint64_t __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_invoke_2(void *a1)
+uint64_t __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1645,14 +1668,36 @@ void __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_
   dispatch_sync(v7, v11);
 }
 
-uint64_t __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_invoke_4(void *a1)
+uint64_t __64__MIInstallerClient_lookupSystemAppStateWithOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
+}
+
+- (void)updateSystemAppStateForIdentifier:(id)identifier appState:(int)state completion:(id)completion
+{
+  v5 = *&state;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  connection = [(MIInstallerClient *)self connection];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke;
+  v16[3] = &unk_1E80B9FA0;
+  v16[4] = self;
+  v11 = completionCopy;
+  v17 = v11;
+  v12 = [connection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke_3;
+  v14[3] = &unk_1E80B9FA0;
+  v14[4] = self;
+  v15 = v11;
+  v13 = v11;
+  [v12 updateSystemAppStateForIdentifier:identifierCopy appState:v5 completion:v14];
 }
 
 void __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke(uint64_t a1, void *a2)
@@ -1672,13 +1717,12 @@ void __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completi
   dispatch_sync(v4, block);
 }
 
-uint64_t __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke_2(void *a1)
+uint64_t __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1698,13 +1742,12 @@ void __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completi
   dispatch_sync(v4, block);
 }
 
-uint64_t __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke_4(void *a1)
+uint64_t __75__MIInstallerClient_updateSystemAppStateForIdentifier_appState_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)registerContentsForDiskImageAtURL:(id)l completion:(id)completion
@@ -1747,13 +1790,12 @@ void __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___block_invoke_2(void *a1)
+uint64_t __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1773,13 +1815,12 @@ void __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___block_invoke_4(void *a1)
+uint64_t __66__MIInstallerClient_registerContentsForDiskImageAtURL_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)unregisterContentsForDiskImageAtURL:(id)l completion:(id)completion
@@ -1822,13 +1863,12 @@ void __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___bl
   dispatch_sync(v4, block);
 }
 
-uint64_t __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___block_invoke_2(void *a1)
+uint64_t __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1848,13 +1888,12 @@ void __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___bl
   dispatch_sync(v4, block);
 }
 
-uint64_t __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___block_invoke_4(void *a1)
+uint64_t __68__MIInstallerClient_unregisterContentsForDiskImageAtURL_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)registerContentsOnOSModuleAtURL:(id)l completion:(id)completion
@@ -1897,13 +1936,12 @@ void __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_
   dispatch_sync(v4, block);
 }
 
-uint64_t __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_invoke_2(void *a1)
+uint64_t __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1923,13 +1961,12 @@ void __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_
   dispatch_sync(v4, block);
 }
 
-uint64_t __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_invoke_4(void *a1)
+uint64_t __64__MIInstallerClient_registerContentsOnOSModuleAtURL_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)unregisterContentsOnOSModuleAtURL:(id)l completion:(id)completion
@@ -1972,13 +2009,12 @@ void __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___block_invoke_2(void *a1)
+uint64_t __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1998,13 +2034,12 @@ void __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___block_invoke_4(void *a1)
+uint64_t __66__MIInstallerClient_unregisterContentsOnOSModuleAtURL_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)reconcileContentsOnKnownOSModules:(id)modules completion:(id)completion
@@ -2047,13 +2082,12 @@ void __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___block_invoke_2(void *a1)
+uint64_t __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2073,13 +2107,12 @@ void __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___block_invoke_4(void *a1)
+uint64_t __66__MIInstallerClient_reconcileContentsOnKnownOSModules_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)enumerateInstalledAppsWithOptions:(id)options completion:(id)completion
@@ -2122,13 +2155,12 @@ void __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___block_invoke_2(void *a1)
+uint64_t __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2161,13 +2193,12 @@ void __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___bloc
   dispatch_sync(v6, block);
 }
 
-uint64_t __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___block_invoke_4(void *a1)
+uint64_t __66__MIInstallerClient_enumerateInstalledAppsWithOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)fetchInfoForFrameworkAtURL:(id)l options:(id)options completion:(id)completion
@@ -2211,13 +2242,12 @@ void __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___blo
   dispatch_sync(v4, block);
 }
 
-uint64_t __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___block_invoke_2(void *a1)
+uint64_t __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2239,14 +2269,12 @@ void __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___blo
   dispatch_sync(v7, v11);
 }
 
-uint64_t __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___block_invoke_4(void *a1)
+uint64_t __67__MIInstallerClient_fetchInfoForFrameworkAtURL_options_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)fetchInfoForContainerizedAppWithBundleID:(id)d options:(id)options completion:(id)completion
@@ -2292,13 +2320,12 @@ void __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_co
   dispatch_sync(v4, block);
 }
 
-uint64_t __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_completion___block_invoke_2(void *a1)
+uint64_t __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2320,14 +2347,12 @@ void __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_co
   dispatch_sync(v7, v11);
 }
 
-uint64_t __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_completion___block_invoke_4(void *a1)
+uint64_t __81__MIInstallerClient_fetchInfoForContainerizedAppWithBundleID_options_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)updateSinfForIXWithIdentifier:(id)identifier withOptions:(id)options sinfData:(id)data completion:(id)completion
@@ -2372,13 +2397,12 @@ void __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_
   dispatch_sync(v4, block);
 }
 
-uint64_t __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_completion___block_invoke_2(void *a1)
+uint64_t __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2400,14 +2424,12 @@ void __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_
   dispatch_sync(v7, v11);
 }
 
-uint64_t __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_completion___block_invoke_4(void *a1)
+uint64_t __83__MIInstallerClient_updateSinfForIXWithIdentifier_withOptions_sinfData_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)updateiTunesMetadataForIXWithIdentifier:(id)identifier metadata:(id)metadata completion:(id)completion
@@ -2451,13 +2473,12 @@ void __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_co
   dispatch_sync(v4, block);
 }
 
-uint64_t __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_completion___block_invoke_2(void *a1)
+uint64_t __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2477,13 +2498,12 @@ void __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_co
   dispatch_sync(v4, block);
 }
 
-uint64_t __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_completion___block_invoke_4(void *a1)
+uint64_t __81__MIInstallerClient_updateiTunesMetadataForIXWithIdentifier_metadata_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)registerSafeHarborAtPath:(id)path forIdentity:(id)identity ofType:(unint64_t)type withOptions:(id)options completion:(id)completion
@@ -2528,13 +2548,12 @@ void __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOpt
   dispatch_sync(v4, block);
 }
 
-uint64_t __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOptions_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2554,13 +2573,12 @@ void __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOpt
   dispatch_sync(v4, block);
 }
 
-uint64_t __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __88__MIInstallerClient_registerSafeHarborAtPath_forIdentity_ofType_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)removeSafeHarborForIdentity:(id)identity ofType:(unint64_t)type withOptions:(id)options completion:(id)completion
@@ -2604,13 +2622,12 @@ void __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_comp
   dispatch_sync(v4, block);
 }
 
-uint64_t __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2630,13 +2647,12 @@ void __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_comp
   dispatch_sync(v4, block);
 }
 
-uint64_t __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __79__MIInstallerClient_removeSafeHarborForIdentity_ofType_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)listSafeHarborsOfType:(unint64_t)type forPersona:(id)persona withOptions:(id)options completion:(id)completion
@@ -2680,13 +2696,12 @@ void __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_comple
   dispatch_sync(v4, block);
 }
 
-uint64_t __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2708,14 +2723,12 @@ void __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_comple
   dispatch_sync(v7, v11);
 }
 
-uint64_t __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __77__MIInstallerClient_listSafeHarborsOfType_forPersona_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)checkCapabilities:(id)capabilities withOptions:(id)options completion:(id)completion
@@ -2759,13 +2772,12 @@ void __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_in
   dispatch_sync(v4, block);
 }
 
-uint64_t __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_invoke_2(void *a1)
+uint64_t __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2787,14 +2799,12 @@ void __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_in
   dispatch_sync(v7, v11);
 }
 
-uint64_t __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_invoke_4(void *a1)
+uint64_t __62__MIInstallerClient_checkCapabilities_withOptions_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)updatePlaceholderMetadataForApp:(id)app installType:(unint64_t)type failureReason:(unint64_t)reason underlyingError:(id)error failureSource:(unint64_t)source completion:(id)completion
@@ -2838,13 +2848,12 @@ void __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failur
   dispatch_sync(v4, block);
 }
 
-uint64_t __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failureReason_underlyingError_failureSource_completion___block_invoke_2(void *a1)
+uint64_t __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failureReason_underlyingError_failureSource_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failureReason_underlyingError_failureSource_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2864,13 +2873,12 @@ void __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failur
   dispatch_sync(v4, block);
 }
 
-uint64_t __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failureReason_underlyingError_failureSource_completion___block_invoke_4(void *a1)
+uint64_t __120__MIInstallerClient_updatePlaceholderMetadataForApp_installType_failureReason_underlyingError_failureSource_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)getAppMetadataForApp:(id)app completion:(id)completion
@@ -2913,13 +2921,12 @@ void __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke(uint
   dispatch_sync(v4, block);
 }
 
-uint64_t __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke_2(void *a1)
+uint64_t __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2941,14 +2948,12 @@ void __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke_3(ui
   dispatch_sync(v7, v11);
 }
 
-uint64_t __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke_4(void *a1)
+uint64_t __53__MIInstallerClient_getAppMetadataForApp_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)snapshotWKAppInCompanionAppID:(id)d toURL:(id)l options:(id)options completion:(id)completion
@@ -2993,13 +2998,12 @@ void __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_complet
   dispatch_sync(v4, block);
 }
 
-uint64_t __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_completion___block_invoke_2(void *a1)
+uint64_t __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -3021,14 +3025,12 @@ void __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_complet
   dispatch_sync(v7, v11);
 }
 
-uint64_t __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_completion___block_invoke_4(void *a1)
+uint64_t __76__MIInstallerClient_snapshotWKAppInCompanionAppID_toURL_options_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)setSystemAppMigrationComplete:(id)complete
@@ -3070,13 +3072,12 @@ void __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke(uint64
   dispatch_sync(v4, block);
 }
 
-uint64_t __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke_2(void *a1)
+uint64_t __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke_3(uint64_t a1, void *a2)
@@ -3096,13 +3097,12 @@ void __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke_3(uint
   dispatch_sync(v4, block);
 }
 
-uint64_t __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke_4(void *a1)
+uint64_t __51__MIInstallerClient_setSystemAppMigrationComplete___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)systemAppMigratorHasCompleted:(id)completed
@@ -3144,13 +3144,12 @@ void __51__MIInstallerClient_systemAppMigratorHasCompleted___block_invoke(uint64
   dispatch_sync(v4, block);
 }
 
-uint64_t __51__MIInstallerClient_systemAppMigratorHasCompleted___block_invoke_2(void *a1)
+uint64_t __51__MIInstallerClient_systemAppMigratorHasCompleted___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __51__MIInstallerClient_systemAppMigratorHasCompleted___block_invoke_3(uint64_t a1, char a2, void *a3)
@@ -3173,12 +3172,10 @@ void __51__MIInstallerClient_systemAppMigratorHasCompleted___block_invoke_3(uint
 
 uint64_t __51__MIInstallerClient_systemAppMigratorHasCompleted___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)waitForSystemAppMigratorToComplete:(id)complete
@@ -3220,13 +3217,12 @@ void __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke(u
   dispatch_sync(v4, block);
 }
 
-uint64_t __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke_2(void *a1)
+uint64_t __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke_3(uint64_t a1, void *a2)
@@ -3246,13 +3242,12 @@ void __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke_3
   dispatch_sync(v4, block);
 }
 
-uint64_t __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke_4(void *a1)
+uint64_t __56__MIInstallerClient_waitForSystemAppMigratorToComplete___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)waitForSystemAppMigratorWithCompletion:(id)completion
@@ -3294,13 +3289,12 @@ void __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invo
   dispatch_sync(v4, block);
 }
 
-uint64_t __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invoke_2(void *a1)
+uint64_t __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -3320,13 +3314,12 @@ void __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invo
   dispatch_sync(v4, block);
 }
 
-uint64_t __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invoke_4(void *a1)
+uint64_t __60__MIInstallerClient_waitForSystemAppMigratorWithCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)cloneSerializedPlaceholderForInstalledAppWithBundeID:(id)d personaUniqueString:(id)string atResultURL:(id)l withCompletion:(id)completion
@@ -3371,13 +3364,12 @@ void __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBunde
   dispatch_sync(v4, block);
 }
 
-uint64_t __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBundeID_personaUniqueString_atResultURL_withCompletion___block_invoke_2(void *a1)
+uint64_t __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBundeID_personaUniqueString_atResultURL_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBundeID_personaUniqueString_atResultURL_withCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -3397,13 +3389,12 @@ void __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBunde
   dispatch_sync(v4, block);
 }
 
-uint64_t __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBundeID_personaUniqueString_atResultURL_withCompletion___block_invoke_4(void *a1)
+uint64_t __121__MIInstallerClient_cloneSerializedPlaceholderForInstalledAppWithBundeID_personaUniqueString_atResultURL_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)setLaunchWarningForApp:(id)app withUniqueInstallIdentifier:(id)identifier warningData:(id)data completion:(id)completion
@@ -3448,13 +3439,12 @@ void __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_
   dispatch_sync(v4, block);
 }
 
-uint64_t __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_warningData_completion___block_invoke_2(void *a1)
+uint64_t __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_warningData_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_warningData_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -3474,13 +3464,12 @@ void __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_
   dispatch_sync(v4, block);
 }
 
-uint64_t __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_warningData_completion___block_invoke_4(void *a1)
+uint64_t __95__MIInstallerClient_setLaunchWarningForApp_withUniqueInstallIdentifier_warningData_completion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)setDataSeparatedAppsWithBundleIDs:(id)ds withPersona:(id)persona withCompletion:(id)completion
@@ -3524,13 +3513,12 @@ void __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withC
   dispatch_sync(v4, block);
 }
 
-uint64_t __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withCompletion___block_invoke_2(void *a1)
+uint64_t __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -3550,13 +3538,12 @@ void __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withC
   dispatch_sync(v4, block);
 }
 
-uint64_t __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withCompletion___block_invoke_4(void *a1)
+uint64_t __82__MIInstallerClient_setDataSeparatedAppsWithBundleIDs_withPersona_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)addDataSeparatedAppsWithBundleIDs:(id)ds toPersona:(id)persona withCompletion:(id)completion
@@ -3600,13 +3587,12 @@ void __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCom
   dispatch_sync(v4, block);
 }
 
-uint64_t __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCompletion___block_invoke_2(void *a1)
+uint64_t __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -3626,13 +3612,12 @@ void __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCom
   dispatch_sync(v4, block);
 }
 
-uint64_t __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCompletion___block_invoke_4(void *a1)
+uint64_t __80__MIInstallerClient_addDataSeparatedAppsWithBundleIDs_toPersona_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)removeDataSeparatedAppsWithBundleIDs:(id)ds fromPersona:(id)persona withCompletion:(id)completion
@@ -3676,13 +3661,12 @@ void __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_wi
   dispatch_sync(v4, block);
 }
 
-uint64_t __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_withCompletion___block_invoke_2(void *a1)
+uint64_t __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_withCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -3702,13 +3686,12 @@ void __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_wi
   dispatch_sync(v4, block);
 }
 
-uint64_t __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_withCompletion___block_invoke_4(void *a1)
+uint64_t __85__MIInstallerClient_removeDataSeparatedAppsWithBundleIDs_fromPersona_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)linkedBundleIDsForAppIdentity:(id)identity withCompletion:(id)completion
@@ -3751,13 +3734,12 @@ void __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___bloc
   dispatch_sync(v4, block);
 }
 
-uint64_t __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___block_invoke_2(void *a1)
+uint64_t __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -3779,14 +3761,12 @@ void __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___bloc
   dispatch_sync(v7, v11);
 }
 
-uint64_t __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___block_invoke_4(void *a1)
+uint64_t __66__MIInstallerClient_linkedBundleIDsForAppIdentity_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (void)referencesForBundleWithIdentifier:(id)identifier inDomain:(unint64_t)domain withCompletion:(id)completion
@@ -3829,13 +3809,12 @@ void __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withComp
   dispatch_sync(v4, block);
 }
 
-uint64_t __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withCompletion___block_invoke_2(void *a1)
+uint64_t __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 void __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -3857,14 +3836,12 @@ void __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withComp
   dispatch_sync(v7, v11);
 }
 
-uint64_t __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withCompletion___block_invoke_4(void *a1)
+uint64_t __79__MIInstallerClient_referencesForBundleWithIdentifier_inDomain_withCompletion___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 _invalidateObject];
+  return [v2 _invalidateObject];
 }
 
 - (int)pidForTesting
@@ -3952,27 +3929,27 @@ uint64_t __34__MIInstallerClient_dieForTesting__block_invoke(uint64_t a1, void *
 
 - (BOOL)setTestMode:(id *)mode
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__1;
-  v18 = __Block_byref_object_dispose__1;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__1;
+  v17 = __Block_byref_object_dispose__1;
+  v18 = 0;
   connection = [(MIInstallerClient *)self connection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __33__MIInstallerClient_setTestMode___block_invoke;
-  v13[3] = &unk_1E80B9D88;
-  v13[4] = &v14;
-  v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v13];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __33__MIInstallerClient_setTestMode___block_invoke_2;
+  v12[2] = __33__MIInstallerClient_setTestMode___block_invoke;
   v12[3] = &unk_1E80B9D88;
-  v12[4] = &v14;
-  [v5 setTestModeWithCompletion:v12];
+  v12[4] = &v13;
+  v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __33__MIInstallerClient_setTestMode___block_invoke_2;
+  v11[3] = &unk_1E80B9D88;
+  v11[4] = &v13;
+  [v5 setTestModeWithCompletion:v11];
 
-  v6 = v15[5];
+  v6 = v14[5];
   if (!v6)
   {
     goto LABEL_4;
@@ -3981,7 +3958,7 @@ uint64_t __34__MIInstallerClient_dieForTesting__block_invoke(uint64_t a1, void *
   domain = [v6 domain];
   if ([domain isEqualToString:*MEMORY[0x1E69A8D00]])
   {
-    code = [v15[5] code];
+    code = [v14[5] code];
 
     if (code == 157)
     {
@@ -3997,45 +3974,44 @@ LABEL_4:
 
   if (!gLogHandle || *(gLogHandle + 44) >= 3)
   {
-    v11 = v15[5];
     MOLogWrite();
   }
 
   v9 = 0;
   if (mode)
   {
-    *mode = v15[5];
+    *mode = v14[5];
   }
 
 LABEL_11:
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
   return v9;
 }
 
 - (BOOL)endTestMode:(id *)mode
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__1;
-  v18 = __Block_byref_object_dispose__1;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__1;
+  v17 = __Block_byref_object_dispose__1;
+  v18 = 0;
   connection = [(MIInstallerClient *)self connection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __33__MIInstallerClient_endTestMode___block_invoke;
-  v13[3] = &unk_1E80B9D88;
-  v13[4] = &v14;
-  v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v13];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __33__MIInstallerClient_endTestMode___block_invoke_2;
+  v12[2] = __33__MIInstallerClient_endTestMode___block_invoke;
   v12[3] = &unk_1E80B9D88;
-  v12[4] = &v14;
-  [v5 endTestModeWithCompletion:v12];
+  v12[4] = &v13;
+  v5 = [connection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __33__MIInstallerClient_endTestMode___block_invoke_2;
+  v11[3] = &unk_1E80B9D88;
+  v11[4] = &v13;
+  [v5 endTestModeWithCompletion:v11];
 
-  v6 = v15[5];
+  v6 = v14[5];
   if (!v6)
   {
     goto LABEL_4;
@@ -4044,7 +4020,7 @@ LABEL_11:
   domain = [v6 domain];
   if ([domain isEqualToString:*MEMORY[0x1E69A8D00]])
   {
-    code = [v15[5] code];
+    code = [v14[5] code];
 
     if (code == 157)
     {
@@ -4060,65 +4036,63 @@ LABEL_4:
 
   if (!gLogHandle || *(gLogHandle + 44) >= 3)
   {
-    v11 = v15[5];
     MOLogWrite();
   }
 
   v9 = 0;
   if (mode)
   {
-    *mode = v15[5];
+    *mode = v14[5];
   }
 
 LABEL_11:
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
   return v9;
 }
 
 - (BOOL)getTestModeEnabled:(BOOL *)enabled outError:(id *)error
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__1;
-  v21 = __Block_byref_object_dispose__1;
-  v22 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
   v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__1;
+  v20 = __Block_byref_object_dispose__1;
+  v21 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   connection = [(MIInstallerClient *)self connection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __49__MIInstallerClient_getTestModeEnabled_outError___block_invoke;
-  v12[3] = &unk_1E80B9D88;
-  v12[4] = &v17;
-  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v12];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __49__MIInstallerClient_getTestModeEnabled_outError___block_invoke_2;
-  v11[3] = &unk_1E80BA218;
-  v11[4] = &v13;
-  v11[5] = &v17;
-  v11[6] = enabled;
-  [v7 getTestModeWithCompletion:v11];
+  v11[2] = __49__MIInstallerClient_getTestModeEnabled_outError___block_invoke;
+  v11[3] = &unk_1E80B9D88;
+  v11[4] = &v16;
+  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __49__MIInstallerClient_getTestModeEnabled_outError___block_invoke_2;
+  v10[3] = &unk_1E80BA218;
+  v10[4] = &v12;
+  v10[5] = &v16;
+  v10[6] = enabled;
+  [v7 getTestModeWithCompletion:v10];
 
-  if (v18[5] && (!gLogHandle || *(gLogHandle + 44) >= 3))
+  if (v17[5] && (!gLogHandle || *(gLogHandle + 44) >= 3))
   {
-    v10 = v18[5];
     MOLogWrite();
   }
 
-  v8 = *(v14 + 24);
-  if (error && (v14[3] & 1) == 0)
+  v8 = *(v13 + 24);
+  if (error && (v13[3] & 1) == 0)
   {
-    *error = v18[5];
-    v8 = *(v14 + 24);
+    *error = v17[5];
+    v8 = *(v13 + 24);
   }
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v16, 8);
 
   return v8 & 1;
 }

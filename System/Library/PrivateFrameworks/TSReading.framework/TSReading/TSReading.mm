@@ -21,24 +21,24 @@ uint64_t EQKit::Config::Operator::Dictionary::IdentifierMap::IdentifierMap(uint6
   return this;
 }
 
-EQKit::Config::Operator::Dictionary::IdentifierMap *EQKit::Config::Operator::Dictionary::IdentifierMap::IdentifierMap(EQKit::Config::Operator::Dictionary::IdentifierMap *this, const EQKit::Config::Operator::Dictionary::IdentifierMap *a2)
+EQKit::Config::Operator::Dictionary::IdentifierMap *EQKit::Config::Operator::Dictionary::IdentifierMap::IdentifierMap(EQKit::Config::Operator::Dictionary::IdentifierMap *this, const void ***a2)
 {
   *this = *a2;
   std::map<std::string,unsigned short>::map[abi:nn200100](this + 1, a2 + 1);
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(this + 32, *(a2 + 4), *(a2 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 5) - *(a2 + 4)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(this + 4, a2[4], a2[5], 0xAAAAAAAAAAAAAAABLL * (a2[5] - a2[4]));
   return this;
 }
 
-uint64_t EQKit::Config::Operator::Dictionary::IdentifierMap::operator=(uint64_t a1, uint64_t a2)
+_WORD *EQKit::Config::Operator::Dictionary::IdentifierMap::operator=(_WORD *a1, uint64_t a2)
 {
   if (a2 != a1)
   {
     *a1 = *a2;
-    std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,unsigned short>,std::__tree_node<std::__value_type<std::string,unsigned short>,void *> *,long>>((a1 + 8), *(a2 + 8), (a2 + 16));
-    std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>((a1 + 32), *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 3));
+    std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,unsigned short>,std::__tree_node<std::__value_type<std::string,unsigned short>,void *> *,long>>(a1 + 1, *(a2 + 8), (a2 + 16));
+    std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>((a1 + 16), *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 3));
   }
 
   return a1;
@@ -82,12 +82,12 @@ uint64_t *EQKit::Config::Operator::Dictionary::IdentifierMap::operator[](uint64_
   return &EQKit::Config::Operator::Dictionary::IdentifierMap::operator[](unsigned short)const::sEmpty;
 }
 
-uint64_t EQKit::Config::Operator::Dictionary::IdentifierMap::add(_WORD *a1, uint64_t a2)
+uint64_t EQKit::Config::Operator::Dictionary::IdentifierMap::add(uint64_t **a1, uint64_t a2)
 {
-  v4 = std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::find<std::string>((a1 + 4), a2);
-  if (a1 + 8 != v4)
+  v4 = std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::find<std::string>((a1 + 1), a2);
+  if (a1 + 2 != v4)
   {
-    return *(v4 + 56);
+    return *(v4 + 28);
   }
 
   v5 = *a1;
@@ -102,13 +102,13 @@ uint64_t EQKit::Config::Operator::Dictionary::IdentifierMap::add(_WORD *a1, uint
   }
 
   v8 = v5;
-  std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned short>>((a1 + 4), &__p.__r_.__value_.__l.__data_);
+  std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned short>>(a1 + 1, &__p.__r_.__value_.__l.__data_, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  std::vector<std::string>::push_back[abi:nn200100]((a1 + 16), a2);
+  std::vector<std::string>::push_back[abi:nn200100]((a1 + 4), a2);
   ++*a1;
   return v5;
 }
@@ -247,7 +247,7 @@ void EQKit::Config::Operator::Dictionary::~Dictionary(EQKit::Config::Operator::D
   std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::destroy(this + 8, *(this + 2));
 }
 
-EQKit::Config::Operator::Dictionary *EQKit::Config::Operator::Dictionary::dictionaryFromURL(EQKit::Config::Operator::Dictionary *this, NSURL *a2)
+uint64_t **EQKit::Config::Operator::Dictionary::dictionaryFromURL(EQKit::Config::Operator::Dictionary *this, NSURL *a2)
 {
   v72 = *MEMORY[0x277D85DE8];
   obj = [objc_alloc(MEMORY[0x277CBEA60]) initWithContentsOfURL:this];
@@ -259,26 +259,26 @@ LABEL_80:
   }
 
   *v2 = 1;
-  v2[2] = 0;
-  v2[3] = 0;
-  v2[4] = 0;
-  v2[1] = v2 + 2;
-  v2[8] = 0;
-  v2[5] = 0;
-  v2[6] = 0;
-  v2[7] = v2 + 8;
-  v41 = (v2 + 7);
-  v2[9] = 0;
-  v2[11] = 0;
-  v2[10] = v2 + 11;
-  v46 = (v2 + 10);
-  v2[12] = 0;
-  v2[14] = 0;
-  v49 = (v2 + 14);
+  *(v2 + 2) = 0;
+  *(v2 + 3) = 0;
+  *(v2 + 4) = 0;
+  *(v2 + 1) = v2 + 16;
+  *(v2 + 8) = 0;
+  *(v2 + 5) = 0;
+  *(v2 + 6) = 0;
+  *(v2 + 7) = v2 + 64;
+  v41 = (v2 + 56);
+  *(v2 + 9) = 0;
+  *(v2 + 11) = 0;
+  *(v2 + 10) = v2 + 88;
+  v46 = (v2 + 80);
+  *(v2 + 12) = 0;
+  *(v2 + 14) = 0;
+  v49 = (v2 + 112);
   v50 = v2;
-  v2[13] = v2 + 14;
-  v43 = (v2 + 13);
-  v2[15] = 0;
+  *(v2 + 13) = v2 + 112;
+  v43 = (v2 + 104);
+  *(v2 + 15) = 0;
   v68 = 0u;
   v69 = 0u;
   v66 = 0u;
@@ -491,16 +491,16 @@ LABEL_65:
       v52[0] = v60;
       v53 = v51;
       __p[0] = v52;
-      v29 = std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__emplace_unique_key_args<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::piecewise_construct_t const&,std::tuple<std::pair<unsigned short,EQKit::Config::Operator::Form>&&>,std::tuple<>>(v41, v52);
+      v29 = std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__emplace_unique_key_args<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::piecewise_construct_t const&,std::tuple<std::pair<unsigned short,EQKit::Config::Operator::Form>&&>,std::tuple<>>(v41, v52, &std::piecewise_construct, __p);
       *(v29 + 40) = v61;
       *(v29 + 56) = v62;
       *(v29 + 72) = v47;
       *(v29 + 80) = v64;
       *(v29 + 88) = v65[0];
       __p[0] = &v60;
-      *(std::__tree<std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,EQKit::Config::Operator::Form>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v46, &v60) + 8) = v51;
+      *(std::__tree<std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,EQKit::Config::Operator::Form>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v46, &v60, &std::piecewise_construct, __p) + 8) = v51;
       __p[0] = &v60;
-      v30 = std::__tree<std::__value_type<unsigned short,unsigned long>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned long>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned long>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v43, &v60);
+      v30 = std::__tree<std::__value_type<unsigned short,unsigned long>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned long>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned long>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v43, &v60, &std::piecewise_construct, __p);
       v30[5] |= 1 << v51;
       v3 = v48 + 1;
     }
@@ -594,7 +594,7 @@ void sub_26C6F5D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -608,13 +608,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -846,7 +846,7 @@ void *std::map<std::string,unsigned short>::map[abi:nn200100](void *a1, const vo
   return a1;
 }
 
-uint64_t std::map<std::string,unsigned short>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,unsigned short>,std::__tree_node<std::__value_type<std::string,unsigned short>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+void *std::map<std::string,unsigned short>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,unsigned short>,std::__tree_node<std::__value_type<std::string,unsigned short>,void *> *,long>>>(void *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -854,7 +854,7 @@ uint64_t std::map<std::string,unsigned short>::insert[abi:nn200100]<std::__map_c
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned short> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned short> const&>(v5, v5 + 1, v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -888,9 +888,9 @@ uint64_t std::map<std::string,unsigned short>::insert[abi:nn200100]<std::__map_c
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned short> const&>(void *a1, uint64_t a2, const void **a3)
+uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned short> const&>(void *a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__construct_node<std::pair<std::string const,unsigned short> const&>();
@@ -899,23 +899,23 @@ uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_va
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(void *a1, void *a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>::operator()[abi:nn200100](a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>::operator()[abi:nn200100](a1, a5, a2 + 4))
   {
-    if (!std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>::operator()[abi:nn200100](a1, (a2 + 32), a5))
+    if (!std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>::operator()[abi:nn200100](a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -969,7 +969,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return v12 + 1;
     }
 
     else
@@ -985,7 +985,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -996,7 +996,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -1004,7 +1004,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>::operator()[abi:nn200100](a1, (v12 + 32), a5))
+  if (std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>::operator()[abi:nn200100](a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -1021,7 +1021,7 @@ void sub_26C6F659C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1159,12 +1159,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1178,22 +1178,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1227,13 +1227,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1293,7 +1293,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1303,7 +1303,7 @@ uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,s
   return result;
 }
 
-void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1441,7 +1441,7 @@ uint64_t **std::__tree<std::__value_type<std::string,unsigned short>,std::__map_
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_multi<std::pair<std::string const,unsigned short> const&>();
+    std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_multi<std::pair<std::string const,unsigned short> const&>(v5, (a2 + 4));
   }
 
   return result;
@@ -1699,9 +1699,9 @@ uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_va
   return v6;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned short>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned short>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__construct_node<std::pair<std::string const,unsigned short> const&>();
@@ -1839,18 +1839,18 @@ void std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Opera
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__emplace_unique_key_args<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::piecewise_construct_t const&,std::tuple<std::pair<unsigned short,EQKit::Config::Operator::Form>&&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__emplace_unique_key_args<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::piecewise_construct_t const&,std::tuple<std::pair<unsigned short,EQKit::Config::Operator::Form>&&>,std::tuple<>>(uint64_t **a1, unsigned __int16 *a2, uint64_t a3, void **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__find_equal<std::pair<unsigned short,EQKit::Config::Operator::Form>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__find_equal<std::pair<unsigned short,EQKit::Config::Operator::Form>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__find_equal<std::pair<unsigned short,EQKit::Config::Operator::Form>>(uint64_t a1, void *a2, unsigned __int16 *a3)
+uint64_t *std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::__map_value_compare<std::pair<unsigned short,EQKit::Config::Operator::Form>,std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>,std::less<std::pair<unsigned short,EQKit::Config::Operator::Form>>,true>,std::allocator<std::__value_type<std::pair<unsigned short,EQKit::Config::Operator::Form>,EQKit::Config::Operator::Dictionary::Entry>>>::__find_equal<std::pair<unsigned short,EQKit::Config::Operator::Form>>(uint64_t a1, uint64_t **a2, unsigned __int16 *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -1864,7 +1864,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<unsigned short,EQKit::Config::
       while (1)
       {
         v8 = v4;
-        v9 = *(v4 + 16);
+        v9 = *(v4 + 32);
         if (v6 >= v9)
         {
           break;
@@ -1908,82 +1908,82 @@ LABEL_12:
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,EQKit::Config::Operator::Form>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,EQKit::Config::Operator::Form>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,EQKit::Config::Operator::Form>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,unsigned long>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned long>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned long>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,unsigned long>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned long>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned long>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2154,14 +2154,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -2189,7 +2189,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -2201,18 +2201,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -2221,7 +2221,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -2240,14 +2240,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -2257,11 +2257,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -2269,11 +2269,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -2288,11 +2288,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -2308,24 +2308,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -2335,7 +2335,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -2700,7 +2700,7 @@ BOOL std::operator==[abi:nn200100]<char,std::char_traits<char>,std::allocator<ch
   return 0;
 }
 
-double EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(double *a1, uint64_t a2, double a3)
+double EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(double *a1, uint64_t a2, __n128 a3)
 {
   v3 = a1[1];
   v4 = *a1;
@@ -2708,7 +2708,7 @@ double EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(double *a1, uint
   {
     if (v4 == 6)
     {
-      return v3 * a3;
+      return v3 * a3.n128_f64[0];
     }
 
     if (v4 != 5)
@@ -2717,8 +2717,8 @@ double EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(double *a1, uint
     }
 
 LABEL_7:
-    a3 = (*(*a2 + 16))(a2, v4);
-    return v3 * a3;
+    a3.n128_f64[0] = (*(*a2 + 16))(a2, v4, a3);
+    return v3 * a3.n128_f64[0];
   }
 
   if ((v4 - 2) < 2)
@@ -2728,7 +2728,7 @@ LABEL_7:
 
   if (v4 == 4)
   {
-    return v3 * a3 / 100.0;
+    return v3 * a3.n128_f64[0] / 100.0;
   }
 
   return v3;
@@ -2747,7 +2747,7 @@ double EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(double *a1, uint
         return v3;
       }
 
-      (*(a3 + 16))(a3);
+      (*(a3 + 16))(a3, a2);
       return v3 * v6;
     }
 
@@ -2757,7 +2757,7 @@ double EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(double *a1, uint
     }
 
 LABEL_10:
-    v6 = (*(*a2 + 16))(a2, v4);
+    v6 = (*(*a2 + 16))(a2, v4, a3);
     return v3 * v6;
   }
 
@@ -2768,7 +2768,7 @@ LABEL_10:
 
   if (v4 == 4 && a3 != 0)
   {
-    return v3 * (*(a3 + 16))(a3) / 100.0;
+    return v3 * (*(a3 + 16))(a3, a2) / 100.0;
   }
 
   return v3;
@@ -2838,11 +2838,11 @@ uint64_t EQKitLength::asString(EQKitLength *this)
   return MEMORY[0x26D6A99E0](&v10);
 }
 
-void sub_26C6F8B24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C6F8B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x277D82818]);
-  MEMORY[0x26D6A99E0](v2 + 128);
+  MEMORY[0x26D6A99E0](v3 + 128);
   _Unwind_Resume(a1);
 }
 
@@ -3160,40 +3160,40 @@ void ___ZL4_mapv_block_invoke()
 
 void sub_26C6F9370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  MEMORY[0x26D6A9A30](v67, 0x1020C4062D53EE8);
-  v69 = &a67;
-  v70 = -448;
-  v71 = &a67;
+  MEMORY[0x26D6A9A30](v65, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
+  v67 = &a65;
+  v68 = -448;
+  v69 = &a65;
   while (1)
   {
-    v72 = *v71;
-    v71 -= 32;
-    if (v72 < 0)
+    v70 = *v69;
+    v69 -= 32;
+    if (v70 < 0)
     {
-      operator delete(*(v69 - 23));
+      operator delete(*(v67 - 23));
     }
 
-    v69 = v71;
-    v70 += 32;
-    if (!v70)
+    v67 = v69;
+    v68 += 32;
+    if (!v68)
     {
       _Unwind_Resume(a1);
     }
   }
 }
 
-void *std::map<std::string const,float>::map[abi:nn200100]<std::pair<std::string const,float> const*>(void *a1, const void **a2, const void **a3)
+uint64_t **std::map<std::string const,float>::map[abi:nn200100]<std::pair<std::string const,float> const*>(uint64_t **a1, const void **a2, const void **a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,float>,std::__map_value_compare<std::string const,std::__value_type<std::string const,float>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,float>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,float>,std::__map_value_compare<std::string const,std::__value_type<std::string const,float>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,float>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,float> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -3203,9 +3203,9 @@ void *std::map<std::string const,float>::map[abi:nn200100]<std::pair<std::string
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string const,float>,std::__map_value_compare<std::string const,std::__value_type<std::string const,float>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,float>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,float> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string const,float>,std::__map_value_compare<std::string const,std::__value_type<std::string const,float>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,float>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,float> const&>(uint64_t **a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string const,float>,std::__map_value_compare<std::string const,std::__value_type<std::string const,float>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,float>>>::__construct_node<std::pair<std::string const,float> const&>();
@@ -3340,16 +3340,16 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -3896,13 +3896,13 @@ unint64_t EQKitPath::Subpath::prevElementSkipClose(EQKitPath::Subpath *this, uni
   return v3;
 }
 
-void EQKitPath::extractorFunction(EQKitPath *this, void *a2, const CGPathElement *a3)
+void EQKitPath::extractorFunction(uint64_t this, void *a2, const CGPathElement *a3)
 {
   if (this)
   {
     if (a2)
     {
-      v5 = *(this + 1);
+      v5 = *(this + 8);
       if (v5)
       {
         v6 = *a2;
@@ -4137,7 +4137,7 @@ void std::vector<EQKitPath::PathElement>::push_back[abi:ne200100](uint64_t a1, _
   *(a1 + 8) = v6;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4334,15 +4334,15 @@ void EQKitPath::EQKitPath(EQKitPath *this, const EQKitPath *a2)
   *(this + 1) = 0;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(this + 8, *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 4);
+  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(this + 1, *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 4);
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<EQKitPath::PathElement>::__init_with_size[abi:ne200100]<EQKitPath::PathElement*,EQKitPath::PathElement*>(this + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
+  std::vector<EQKitPath::PathElement>::__init_with_size[abi:ne200100]<EQKitPath::PathElement*,EQKitPath::PathElement*>(this + 4, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
   *(this + 7) = 0;
   *(this + 8) = 0;
   *(this + 9) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 56, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 7, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 3);
   *(this + 80) = *(a2 + 80);
   v4 = *(a2 + 88);
   *(this + 104) = *(a2 + 104);
@@ -4444,7 +4444,7 @@ uint64_t EQKitPath::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-const __CTFont *EQKitPath::newPathFromCharacterWithFont(EQKitPath *this, CTFontRef font, const __CTFont *a3)
+EQKitPath *EQKitPath::newPathFromCharacterWithFont(EQKitPath *this, CTFontRef font, const __CTFont *a3)
 {
   v3 = font;
   characters = this;
@@ -4467,7 +4467,7 @@ const __CTFont *EQKitPath::newPathFromCharacterWithFont(EQKitPath *this, CTFontR
   return v3;
 }
 
-uint64_t EQKitPath::newPathFromGlyphWithFont(EQKitPath *this, const __CTFont *a2, const __CTFont *a3)
+EQKitPath *EQKitPath::newPathFromGlyphWithFont(EQKitPath *this, const __CTFont *a2, const __CTFont *a3)
 {
   v4 = this;
   memset(&v6, 0, sizeof(v6));
@@ -4510,7 +4510,7 @@ BOOL EQKitPath::elementMinMax(EQKitPath *this, unint64_t a2, CGPoint *a3, CGPoin
   EQKitPath::extractPath(this);
   v8 = *MEMORY[0x277CBF348];
   v9 = *(this + 4);
-  if (a2 >= (*(this + 5) - v9) >> 4 || ((v10 = (v9 + 16 * a2), v11 = *v10, v32 = *MEMORY[0x277CBF348], v11 > 3) ? (v12 = 0) : (v12 = qword_26CA63850[v11]), (EQKitPath::subpathContainingElement(this, a2, &v33), v33 >= a2) ? (v13 = v34 + v33) : (v13 = a2), (v14 = v13 - 1, v15 = v13 == v34 + v33, v33 >= v14) ? (v16 = v34 + v33) : (v16 = v14), (v17 = v16 - 1, (v35 & v15) == 0) ? (v18 = v14) : (v18 = v17), v18 != 0x7FFFFFFFFFFFFFFFLL && (v19 = EQKitPath::endPointIndexForElement(this, v18), v19 != 0x7FFFFFFFFFFFFFFFLL) ? (v8 = *(*(this + 1) + 16 * v19), v20 = 1) : (v20 = 0, v8 = v32), v21 = *(v10 + 1), v21 >= v21 + v12))
+  if (a2 >= (*(this + 5) - v9) >> 4 || ((v10 = (v9 + 16 * a2), v11 = *v10, v32 = *MEMORY[0x277CBF348], v11 > 3) ? (v12 = 0) : (v12 = qword_26CA63850[v11]), (EQKitPath::subpathContainingElement(&v33, this, a2), v33 >= a2) ? (v13 = v34 + v33) : (v13 = a2), (v14 = v13 - 1, v15 = v13 == v34 + v33, v33 >= v14) ? (v16 = v34 + v33) : (v16 = v14), (v17 = v16 - 1, (v35 & v15) == 0) ? (v18 = v14) : (v18 = v17), v18 != 0x7FFFFFFFFFFFFFFFLL && (v19 = EQKitPath::endPointIndexForElement(this, v18), v19 != 0x7FFFFFFFFFFFFFFFLL) ? (v8 = *(*(this + 1) + 16 * v19), v20 = 1) : (v20 = 0, v8 = v32), v21 = *(v10 + 1), v21 >= v21 + v12))
   {
     result = 0;
     v25 = v8;
@@ -4575,14 +4575,14 @@ BOOL EQKitPath::elementMinMax(EQKitPath *this, unint64_t a2, CGPoint *a3, CGPoin
   return result;
 }
 
-void EQKitPath::subpathContainingElement(unint64_t **this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void EQKitPath::subpathContainingElement(uint64_t *__return_ptr a1@<X8>, unint64_t **this@<X0>, unint64_t a3@<X1>)
 {
   EQKitPath::extractPath(this);
-  *a3 = xmmword_26CA637B0;
-  *(a3 + 16) = 0;
+  *a1 = xmmword_26CA637B0;
+  *(a1 + 16) = 0;
   v6 = this[4];
   v7 = (this[5] - v6) >> 4;
-  if (v7 > a2)
+  if (v7 > a3)
   {
     v9 = this[7];
     v8 = this[8];
@@ -4602,7 +4602,7 @@ void EQKitPath::subpathContainingElement(unint64_t **this@<X0>, unint64_t a2@<X1
         v15 = *v13;
         v14 = v13 + 1;
         v10 += ~(v10 >> 1);
-        if (v15 > a2)
+        if (v15 > a3)
         {
           v10 = v12;
         }
@@ -4625,9 +4625,9 @@ void EQKitPath::subpathContainingElement(unint64_t **this@<X0>, unint64_t a2@<X1
       }
 
       v17 = v6[2 * v7 - 2];
-      *a3 = v16;
-      *(a3 + 8) = v7 - v16;
-      *(a3 + 16) = v17 == 4;
+      *a1 = v16;
+      a1[1] = v7 - v16;
+      *(a1 + 16) = v17 == 4;
     }
   }
 }
@@ -4665,7 +4665,7 @@ void EQKitPath::quantizeElementEdge(EQKitPath *a1, unint64_t a2, uint64_t a3, ui
     v12 = *v11;
     if (*v11 - 2 < 2)
     {
-      EQKitPath::subpathContainingElement(a1, a2, &v30);
+      EQKitPath::subpathContainingElement(&v30, a1, a2);
       if (v30 >= a2)
       {
         v20 = v31 + v30;
@@ -4748,7 +4748,7 @@ BOOL EQKitPath::isLineTo(unint64_t **this, unint64_t a2, unint64_t *a3, unint64_
 
   else
   {
-    EQKitPath::subpathContainingElement(this, a2, &v22);
+    EQKitPath::subpathContainingElement(&v22, this, a2);
   }
 
   *a3 = 0x7FFFFFFFFFFFFFFFLL;
@@ -5122,7 +5122,7 @@ LABEL_40:
 
 uint64_t _quantizeCurve(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v14 = a3 & 0xFFFFFFFD;
   v15 = *result;
   v16 = vdupq_laneq_s64(*result, 1);
@@ -5214,13 +5214,13 @@ uint64_t _quantizeCurve(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4,
 
   else if (v20 - v19 <= *(a4 + 24))
   {
-    v50 = result + 16 * a2;
-    v51 = *(v50 - 16);
-    v52 = *(v50 - 8);
+    v56 = result + 16 * a2;
+    v57 = *(v56 - 16);
+    v58 = *(v56 - 8);
     v30 = *(result + 8);
 LABEL_33:
 
-    return _quantizeLine(a3, a4, a5, v15.f64[0], v30, v51, v52);
+    return _quantizeLine(a3, a4, a5, v15.f64[0], v30, v57, v58);
   }
 
   else
@@ -5260,27 +5260,27 @@ LABEL_33:
     if (v33 >= a2)
     {
 LABEL_32:
-      v51 = *(v28 - 16);
-      v52 = *(v28 - 8);
+      v57 = *(v28 - 16);
+      v58 = *(v28 - 8);
       goto LABEL_33;
     }
 
     if (a2 == 3)
     {
-      v53 = (result + 16);
-      v69 = vld2q_f64(v53);
+      v59 = (result + 16);
+      v75 = vld2q_f64(v59);
       __asm { FMOV            V4.2D, #0.5 }
 
-      v55 = vmulq_f64(vaddq_f64(vextq_s8(vdupq_lane_s64(*&v15.f64[0], 0), v69.val[0], 8uLL), v69.val[0]), _Q4);
-      v56 = vmulq_f64(vaddq_f64(vextq_s8(v15, v69.val[1], 8uLL), v69.val[1]), _Q4);
-      v63 = *result;
-      v64 = vzip1q_s64(v55, v56);
-      v65 = vmulq_f64(vpaddq_f64(v55, v56), _Q4);
-      v59 = v65;
-      v60 = vzip2q_s64(v55, v56);
-      v61 = *(result + 32);
-      _quantizeCurve(&v63, 3, a3, a4, a5);
-      v49 = 3;
+      v61 = vmulq_f64(vaddq_f64(vextq_s8(vdupq_lane_s64(*&v15.f64[0], 0), v75.val[0], 8uLL), v75.val[0]), _Q4);
+      v62 = vmulq_f64(vaddq_f64(vextq_s8(v15, v75.val[1], 8uLL), v75.val[1]), _Q4);
+      v69 = *result;
+      v70 = vzip1q_s64(v61, v62);
+      v71 = vmulq_f64(vpaddq_f64(v61, v62), _Q4);
+      v65 = v71;
+      v66 = vzip2q_s64(v61, v62);
+      v67 = *(result + 32);
+      _quantizeCurve(&v69, 3uLL, a3, a4, a5, *&v67, *v61.i64, *v66.i64, *v70.i64, _Q4.f64[0], v69);
+      v55 = 3;
     }
 
     else
@@ -5296,32 +5296,33 @@ LABEL_32:
       do
       {
         v42 = *(result + v37 * 16 + 16);
-        v57[v37++] = vmulq_f64(vaddq_f64(v15, v42), _Q1);
+        v63[v37++] = vmulq_f64(vaddq_f64(v15, v42), _Q1);
         v15 = v42;
       }
 
       while (v37 != 3);
-      v43 = v57;
-      v44 = v58;
-      v45 = vld1q_dup_f64(v43++);
-      v70 = vld2q_f64(v44);
-      v46 = vld1q_dup_f64(v43);
-      v47 = vmulq_f64(vaddq_f64(vextq_s8(v45, v70.val[0], 8uLL), v70.val[0]), _Q1);
-      v70.val[0] = vmulq_f64(vaddq_f64(vextq_s8(v46, v70.val[1], 8uLL), v70.val[1]), _Q1);
-      v63 = *result;
-      v64 = v57[0];
-      v65 = vzip1q_s64(v47, v70.val[0]);
-      v66 = vmulq_f64(vpaddq_f64(v47, v70.val[0]), _Q1);
-      v59 = v66;
-      v60 = vzip2q_s64(v47, v70.val[0]);
+      v43 = v63;
+      i64 = v63[1].i64;
+      v45 = vld1q_dup_f64(v43->i64);
+      v43 = (v43 + 8);
+      v76 = vld2q_f64(i64);
+      v46 = vld1q_dup_f64(v43->i64);
+      v47 = vmulq_f64(vaddq_f64(vextq_s8(v45, v76.val[0], 8uLL), v76.val[0]), _Q1);
+      v76.val[0] = vmulq_f64(vaddq_f64(vextq_s8(v46, v76.val[1], 8uLL), v76.val[1]), _Q1);
+      v69 = *result;
+      v70 = v63[0];
+      v71 = vzip1q_s64(v47, v76.val[0]);
+      v72 = vmulq_f64(vpaddq_f64(v47, v76.val[0]), _Q1);
+      v65 = v72;
+      v66 = vzip2q_s64(v47, v76.val[0]);
       v48 = *(result + 48);
-      v61 = v58[1];
-      v62 = v48;
-      _quantizeCurve(&v63, 4, a3, a4, a5);
-      v49 = 4;
+      v67 = v64;
+      v68 = v48;
+      _quantizeCurve(&v69, 4uLL, a3, a4, a5, *&v48, _Q1.f64[0], *v71.i64, v76.val[0].f64[0], *v66.i64, v63[0]);
+      v55 = 4;
     }
 
-    return _quantizeCurve(&v59, v49, a3, a4, a5);
+    return _quantizeCurve(&v65, v55, a3, a4, a5, v49, v50, v51, v52, v53, v54);
   }
 
   return result;
@@ -5329,17 +5330,16 @@ LABEL_32:
 
 void EQKitPath::describeElement(EQKitPath *this@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  v22 = *MEMORY[0x277D85DE8];
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   EQKitPath::extractPath(this);
   if (a2 < (*(this + 5) - *(this + 4)) >> 4)
   {
-    EQKitPath::subpathContainingElement(this, a2, &v24);
-    if (v24 >= a2)
+    EQKitPath::subpathContainingElement(&v18, this, a2);
+    if (v18 >= a2)
     {
-      v6 = v25 + v24;
+      v6 = v19 + v18;
     }
 
     else
@@ -5348,10 +5348,10 @@ void EQKitPath::describeElement(EQKitPath *this@<X0>, unint64_t a2@<X1>, std::st
     }
 
     v7 = v6 - 1;
-    v8 = v6 == v25 + v24;
-    if (v24 >= v7)
+    v8 = v6 == v19 + v18;
+    if (v18 >= v7)
     {
-      v9 = v25 + v24;
+      v9 = v19 + v18;
     }
 
     else
@@ -5360,7 +5360,7 @@ void EQKitPath::describeElement(EQKitPath *this@<X0>, unint64_t a2@<X1>, std::st
     }
 
     v10 = v9 - 1;
-    if ((v26 & v8) != 0)
+    if ((v20 & v8) != 0)
     {
       v11 = v10;
     }
@@ -5370,13 +5370,13 @@ void EQKitPath::describeElement(EQKitPath *this@<X0>, unint64_t a2@<X1>, std::st
       v11 = v7;
     }
 
-    v12 = v11 != 0x7FFFFFFFFFFFFFFFLL && EQKitPath::endPointForElement(this, v11, v27, 0);
+    v12 = v11 != 0x7FFFFFFFFFFFFFFFLL && EQKitPath::endPointForElement(this, v11, v21, 0);
     v13 = (*(this + 4) + 16 * a2);
     v14 = *v13;
     if (v14 <= 3)
     {
       v15 = qword_26CA63850[v14];
-      memcpy(&v27[v12], (*(this + 1) + 16 * *(v13 + 1)), 16 * v15);
+      memcpy(&v21[v12], (*(this + 1) + 16 * *(v13 + 1)), 16 * v15);
       v12 += v15;
     }
 
@@ -5394,11 +5394,11 @@ void EQKitPath::describeElement(EQKitPath *this@<X0>, unint64_t a2@<X1>, std::st
     std::string::append(a3, " ");
     if (v12)
     {
-      v23 = v27 + 8;
+      v17 = v21 + 1;
       do
       {
-        _appendFormat(a3, "(%f, %f), ", v17, v18, v19, v20, v21, v22, *(v23 - 1));
-        v23 += 16;
+        _appendFormat(a3, "(%f, %f), ", *(v17 - 1), *v17);
+        v17 += 2;
         --v12;
       }
 
@@ -5423,7 +5423,7 @@ BOOL EQKitPath::endPointForElement(EQKitPath *a1, unint64_t a2, _OWORD *a3, void
   v8 = EQKitPath::endPointIndexForElement(a1, a2);
   v9 = *(a1 + 1);
   v10 = *(a1 + 2);
-  v11 = (a1 + 8);
+  v11 = a1 + 8;
   v12 = (v10 - v9) >> 4;
   if (v8 < v12)
   {
@@ -5443,11 +5443,12 @@ BOOL EQKitPath::endPointForElement(EQKitPath *a1, unint64_t a2, _OWORD *a3, void
   return v8 < v12;
 }
 
-void _appendFormat(std::string *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _appendFormat(std::string *a1, const char *a2, ...)
 {
+  va_start(va, a2);
   __s[0] = 0;
-  __s[1] = &a9;
-  vasprintf(__s, a2, &a9);
+  va_copy(&__s[1], va);
+  vasprintf(__s, a2, va);
   std::string::append(a1, __s[0]);
   free(__s[0]);
 }
@@ -5460,11 +5461,11 @@ void EQKitPath::describe(EQKitPath *this@<X0>, std::string *a2@<X8>)
   a2->__r_.__value_.__r.__words[2] = 0;
   if (*(this + 5) != *(this + 4))
   {
-    v10 = 0;
+    v4 = 0;
     do
     {
-      _appendFormat(a2, "[%2lu] ", v4, v5, v6, v7, v8, v9, v10);
-      EQKitPath::describeElement(this, v10, &__p);
+      _appendFormat(a2, "[%2lu] ", v4);
+      EQKitPath::describeElement(this, v4, &__p);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -5492,10 +5493,10 @@ void EQKitPath::describe(EQKitPath *this@<X0>, std::string *a2@<X8>)
       }
 
       std::string::append(a2, "\n");
-      ++v10;
+      ++v4;
     }
 
-    while (v10 < (*(this + 5) - *(this + 4)) >> 4);
+    while (v4 < (*(this + 5) - *(this + 4)) >> 4);
   }
 }
 
@@ -5509,7 +5510,7 @@ void sub_26C6FBD4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t EQKitPath::findJoinForEdge(void *a1, unsigned int a2, _OWORD *a3, void *a4)
+unint64_t EQKitPath::findJoinForEdge(EQKitPath *a1, unsigned int a2, _OWORD *a3, void *a4)
 {
   EQKitPath::extractPath(a1);
   if (a2 <= 3)
@@ -5522,7 +5523,7 @@ unint64_t EQKitPath::findJoinForEdge(void *a1, unsigned int a2, _OWORD *a3, void
   }
 
   v9 = 0x7FFFFFFFFFFFFFFFLL;
-  v10 = a1[5] - a1[4];
+  v10 = *(a1 + 5) - *(a1 + 4);
   if (!v10)
   {
     return v9;
@@ -5634,7 +5635,7 @@ LABEL_40:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 8);
     }
 
     EQKitPath::endPointForElement(a1, v8, a3, v21);
@@ -5706,7 +5707,7 @@ uint64_t EQKitPath::oppositeEdge(EQKitPath *this, CGRectEdge a2)
   }
 }
 
-uint64_t EQKitPath::findCurveMirrorParallelWithAxis(EQKitPath *a1, int a2, double *a3)
+unint64_t EQKitPath::findCurveMirrorParallelWithAxis(EQKitPath *a1, int a2, double *a3)
 {
   *a3 = 0.0;
   EQKitPath::extractPath(a1);
@@ -5746,7 +5747,7 @@ uint64_t EQKitPath::findCurveMirrorParallelWithAxis(EQKitPath *a1, int a2, doubl
       goto LABEL_36;
     }
 
-    EQKitPath::subpathContainingElement(a1, v9, v40);
+    EQKitPath::subpathContainingElement(v40, a1, v9);
     v25 = v40[0];
     if (v9 + 1 < v40[1] + v40[0])
     {
@@ -5851,7 +5852,7 @@ uint64_t EQKitPath::addLineToAfterElement(EQKitPath *this, unint64_t a2)
   return v5;
 }
 
-__n128 *std::vector<EQKitPath::PathElement>::insert(void *a1, __n128 *__src, __n128 *a3)
+char *std::vector<EQKitPath::PathElement>::insert(void *a1, char *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -5859,13 +5860,13 @@ __n128 *std::vector<EQKitPath::PathElement>::insert(void *a1, __n128 *__src, __n
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = ((v6 - *a1) >> 4) + 1;
+    v11 = (&v6[-*a1] >> 4) + 1;
     if (v11 >> 60)
     {
       std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 3 > v11)
     {
@@ -5921,12 +5922,12 @@ __n128 *std::vector<EQKitPath::PathElement>::insert(void *a1, __n128 *__src, __n
   else if (__src == v6)
   {
     *v6 = *a3;
-    a1[1] = v6 + 1;
+    a1[1] = v6 + 16;
   }
 
   else
   {
-    v8 = __src + 1;
+    v8 = __src + 16;
     if (v6 < 0x10)
     {
       v9 = a1[1];
@@ -5934,14 +5935,14 @@ __n128 *std::vector<EQKitPath::PathElement>::insert(void *a1, __n128 *__src, __n
 
     else
     {
-      v9 = v6 + 1;
-      *v6 = v6[-1];
+      v9 = (v6 + 16);
+      *v6 = *(v6 - 1);
     }
 
     a1[1] = v9;
     if (v6 != v8)
     {
-      memmove(&__src[1], __src, v6 - v8);
+      memmove(__src + 16, __src, v6 - v8);
       v9 = a1[1];
     }
 
@@ -6049,7 +6050,7 @@ uint64_t EQKitPath::findStemForEdge@<X0>(unint64_t **this@<X0>, unsigned int a2@
   if (result != 0x7FFFFFFFFFFFFFFFLL)
   {
     v7 = result;
-    EQKitPath::subpathContainingElement(this, result, &v43);
+    EQKitPath::subpathContainingElement(&v43, this, result);
     v41 = 0;
     v42 = 0;
     v40 = 0;
@@ -6363,7 +6364,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6385,7 +6386,7 @@ void sub_26C6FCE44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6395,7 +6396,7 @@ void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<EQKitPath::PathElement>::__init_with_size[abi:ne200100]<EQKitPath::PathElement*,EQKitPath::PathElement*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<EQKitPath::PathElement>::__init_with_size[abi:ne200100]<EQKitPath::PathElement*,EQKitPath::PathElement*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6417,7 +6418,7 @@ void sub_26C6FCEFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EQKitPath::PathElement>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<EQKitPath::PathElement>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6427,7 +6428,7 @@ void std::vector<EQKitPath::PathElement>::__vallocate[abi:ne200100](uint64_t a1,
   std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6449,7 +6450,7 @@ void sub_26C6FCFB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6459,7 +6460,7 @@ void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_
   std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<CGPoint>::__assign_with_size[abi:ne200100]<CGPoint*,CGPoint*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__assign_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6534,7 +6535,7 @@ void *std::vector<CGPoint>::__assign_with_size[abi:ne200100]<CGPoint*,CGPoint*>(
   return result;
 }
 
-void *std::vector<EQKitPath::PathElement>::__assign_with_size[abi:ne200100]<EQKitPath::PathElement*,EQKitPath::PathElement*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<EQKitPath::PathElement>::__assign_with_size[abi:ne200100]<EQKitPath::PathElement*,EQKitPath::PathElement*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6609,7 +6610,7 @@ void *std::vector<EQKitPath::PathElement>::__assign_with_size[abi:ne200100]<EQKi
   return result;
 }
 
-void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6684,7 +6685,7 @@ void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long
   return result;
 }
 
-__n128 std::__split_buffer<EQKitPath::PathElement>::emplace_back<EQKitPath::PathElement const&>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<EQKitPath::PathElement>::emplace_back<EQKitPath::PathElement const&>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -6717,13 +6718,13 @@ __n128 std::__split_buffer<EQKitPath::PathElement>::emplace_back<EQKitPath::Path
     }
 
     v4 = (v9 + v10);
-    a1[1] = &v5[v7];
-    a1[2] = (v9 + v10);
+    a1[1] = v5[v7].n128_u64;
+    a1[2] = v9->n128_u64 + v10;
   }
 
   result = *a2;
   *v4 = *a2;
-  ++a1[2];
+  a1[2] += 16;
   return result;
 }
 
@@ -6783,64 +6784,63 @@ void EQKitCompositeGlyph::EQKitCompositeGlyph(EQKitCompositeGlyph *this, const E
   EQKitCompositeGlyph::copyCache(this, a2);
 }
 
-uint64_t EQKitCompositeGlyph::copyCache(EQKitCompositeGlyph *this, const EQKitCompositeGlyph *a2)
+void EQKitCompositeGlyph::copyCache(EQKitCompositeGlyph *this, const EQKitPath **a2)
 {
-  result = EQKitCompositeGlyph::clearCache(this);
-  if (*(a2 + 4))
+  EQKitCompositeGlyph::clearCache(this);
+  if (a2[4])
   {
     operator new();
   }
 
   *(this + 4) = 0;
-  if (*(a2 + 5))
+  if (a2[5])
   {
     operator new();
   }
 
   *(this + 5) = 0;
-  if (*(a2 + 6))
+  if (a2[6])
   {
     operator new();
   }
 
   *(this + 6) = 0;
-  if (*(a2 + 7))
+  if (a2[7])
   {
     operator new();
   }
 
   *(this + 7) = 0;
-  if (*(a2 + 8))
+  if (a2[8])
   {
     operator new();
   }
 
   *(this + 8) = 0;
-  if (*(a2 + 9))
+  if (a2[9])
   {
     operator new();
   }
 
   *(this + 9) = 0;
-  if (*(a2 + 10))
+  if (a2[10])
   {
     operator new();
   }
 
   *(this + 10) = 0;
-  if (*(a2 + 11))
+  if (a2[11])
   {
     operator new();
   }
 
   *(this + 11) = 0;
-  if (*(a2 + 12))
+  if (a2[12])
   {
     operator new();
   }
 
   *(this + 12) = 0;
-  return result;
 }
 
 EQKitCompositeGlyph *EQKitCompositeGlyph::operator=(EQKitCompositeGlyph *this, EQKitCompositeGlyph *a2)
@@ -7060,7 +7060,7 @@ uint64_t EQKitCompositeGlyph::extenderPath(EQKitCompositeGlyph *this)
   return result;
 }
 
-uint64_t EQKitCompositeGlyph::upperPathLowerStem(EQKitCompositeGlyph *this)
+EQKitPath::Stem *EQKitCompositeGlyph::upperPathLowerStem(EQKitCompositeGlyph *this)
 {
   if (*(this + 104))
   {
@@ -7084,7 +7084,7 @@ uint64_t EQKitCompositeGlyph::upperPathLowerStem(EQKitCompositeGlyph *this)
   return result;
 }
 
-uint64_t _createStem(unint64_t **a1, unsigned int a2)
+EQKitPath::Stem *_createStem(unint64_t **a1, unsigned int a2)
 {
   if (a1)
   {
@@ -7098,7 +7098,7 @@ uint64_t _createStem(unint64_t **a1, unsigned int a2)
   return 0;
 }
 
-uint64_t EQKitCompositeGlyph::lowerPathUpperStem(EQKitCompositeGlyph *this)
+EQKitPath::Stem *EQKitCompositeGlyph::lowerPathUpperStem(EQKitCompositeGlyph *this)
 {
   if ((*(this + 104) & 2) != 0)
   {
@@ -7112,7 +7112,7 @@ uint64_t EQKitCompositeGlyph::lowerPathUpperStem(EQKitCompositeGlyph *this)
   return result;
 }
 
-uint64_t EQKitCompositeGlyph::middlePathUpperStem(EQKitCompositeGlyph *this)
+EQKitPath::Stem *EQKitCompositeGlyph::middlePathUpperStem(EQKitCompositeGlyph *this)
 {
   if ((*(this + 104) & 4) != 0)
   {
@@ -7126,7 +7126,7 @@ uint64_t EQKitCompositeGlyph::middlePathUpperStem(EQKitCompositeGlyph *this)
   return result;
 }
 
-uint64_t EQKitCompositeGlyph::middlePathLowerStem(EQKitCompositeGlyph *this)
+EQKitPath::Stem *EQKitCompositeGlyph::middlePathLowerStem(EQKitCompositeGlyph *this)
 {
   if ((*(this + 104) & 8) != 0)
   {
@@ -7150,7 +7150,7 @@ uint64_t EQKitCompositeGlyph::middlePathLowerStem(EQKitCompositeGlyph *this)
   return result;
 }
 
-uint64_t EQKitCompositeGlyph::extenderPathStem(EQKitCompositeGlyph *this)
+EQKitPath::Stem *EQKitCompositeGlyph::extenderPathStem(EQKitCompositeGlyph *this)
 {
   if ((*(this + 104) & 0x10) != 0)
   {
@@ -7205,9 +7205,9 @@ CGPath *EQKitCompositeGlyph::createPathWithLength(EQKitCompositeGlyph *this, dou
   return Mutable;
 }
 
-void sub_26C6FE098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C6FE098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   EQKitPath::~EQKitPath(va);
   _Unwind_Resume(a1);
 }
@@ -7355,20 +7355,20 @@ double EQKitCompositeGlyph::compose(EQKitCompositeGlyph *this, double a2, CGPath
 
   if (v11)
   {
-    v30 = *(v11 + 40);
+    v30 = *(v11 + 5);
   }
 
   v32 = 0.0;
   v33 = 0.0;
   if (v75)
   {
-    v33 = v75[5];
+    v33 = *(v75 + 5);
   }
 
   v34 = v31 + v30;
   if (v12)
   {
-    v32 = *(v12 + 40);
+    v32 = *(v12 + 5);
   }
 
   v35 = v33 + v32;
@@ -7432,9 +7432,9 @@ double EQKitCompositeGlyph::compose(EQKitCompositeGlyph *this, double a2, CGPath
     {
 LABEL_63:
       v29 = v40;
-      if (v75[5] < v40)
+      if (*(v75 + 5) < v40)
       {
-        v29 = v75[5];
+        v29 = *(v75 + 5);
       }
 
       goto LABEL_71;
@@ -7469,9 +7469,9 @@ LABEL_71:
   v28 = v41 - v30;
   if (v11)
   {
-    if (*(v11 + 40) < v28)
+    if (*(v11 + 5) < v28)
     {
-      v28 = *(v11 + 40);
+      v28 = *(v11 + 5);
     }
   }
 
@@ -7483,7 +7483,7 @@ LABEL_71:
   v42 = v40 - v29;
   if (v12)
   {
-    v27 = *(v12 + 40);
+    v27 = *(v12 + 5);
     if (v27 < v42)
     {
       goto LABEL_79;
@@ -7906,21 +7906,21 @@ void sub_26C6FE924(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CGPoint>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<CGPoint>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<CGPoint>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<CGPoint>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<CGPoint>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CGPoint>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -8009,26 +8009,26 @@ uint64_t EQKitLayoutManager::EQKitLayoutManager(uint64_t a1, void *a2, void *a3,
   return a1;
 }
 
-void sub_26C703B14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C703B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKitLayoutContext::~EQKitLayoutContext(va);
-  std::deque<EQKitLayoutTable>::~deque[abi:nn200100](v3 + 45);
-  std::deque<EQKitLayoutElementaryStack>::~deque[abi:nn200100](v3 + 39);
-  std::deque<EQKitLayoutStretchedOperator>::~deque[abi:nn200100](v3 + 33);
-  std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::~deque[abi:nn200100](v3 + 27);
-  v6 = v2[47];
-  if (v6)
+  std::deque<EQKitLayoutTable>::~deque[abi:nn200100](v4 + 45);
+  std::deque<EQKitLayoutElementaryStack>::~deque[abi:nn200100](v4 + 39);
+  std::deque<EQKitLayoutStretchedOperator>::~deque[abi:nn200100](v4 + 33);
+  std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::~deque[abi:nn200100](v4 + 27);
+  v7 = v3[47];
+  if (v7)
   {
-    v2[48] = v6;
-    operator delete(v6);
+    v3[48] = v7;
+    operator delete(v7);
   }
 
-  std::deque<EQKitLayoutRow>::~deque[abi:nn200100](v2 + 41);
-  std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::~deque[abi:nn200100](v2 + 35);
-  std::deque<EQKitLayoutContext>::~deque[abi:nn200100](v4);
-  std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::~deque[abi:nn200100](v3);
-  EQKitLayoutContext::~EQKitLayoutContext((v2 + 6));
+  std::deque<EQKitLayoutRow>::~deque[abi:nn200100](v3 + 41);
+  std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::~deque[abi:nn200100](v3 + 35);
+  std::deque<EQKitLayoutContext>::~deque[abi:nn200100](v5);
+  std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::~deque[abi:nn200100](v4);
+  EQKitLayoutContext::~EQKitLayoutContext((v3 + 6));
   _Unwind_Resume(a1);
 }
 
@@ -8233,15 +8233,16 @@ uint64_t EQKitLayoutManager::fontCollection(id *this)
 
 double EQKitLayoutManager::lengthForAttribute(EQKitLayoutManager *a1, int a2, uint64_t a3, double a4)
 {
-  LODWORD(v9) = 1;
-  *(&v9 + 1) = 0;
-  v10 = a3;
+  LODWORD(v10) = 1;
+  *(&v10 + 1) = 0;
+  v11 = a3;
   v6 = *(a1 + 75);
-  v11 = a2;
-  if (EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>>(v6, v6 + 32, &v10, &v9))
+  v12 = a2;
+  if (EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>>(v6, v6 + 32, &v11, &v10))
   {
     v7 = EQKitLayoutManager::layoutContext(a1);
-    return EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(&v9, v7, a4);
+    v8.n128_f64[0] = a4;
+    return EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(&v10, v7, v8);
   }
 
   return a4;
@@ -8434,17 +8435,18 @@ EQKitBox *EQKitLayoutManager::layoutExpression(EQKitLayoutManager *a1, void *a2,
   return v14;
 }
 
-void sub_26C70456C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_26C70456C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, id a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   EQKit::ILayout::~ILayout(&a12);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
-  _Block_object_dispose((v29 - 112), 8);
-  _Block_object_dispose((v29 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
+  _Block_object_dispose((v28 - 112), 8);
+  _Block_object_dispose((v28 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutManager::beginRow(EQKitLayoutManager *this, char a2, BOOL a3)
+void EQKitLayoutManager::beginRow(EQKitLayoutManager *this, char a2, char a3)
 {
   if ((a2 & 1) != 0 || (v4 = *(this + 46)) == 0)
   {
@@ -8533,14 +8535,14 @@ void EQKitLayoutManager::endRow(EQKitLayoutManager *this@<X0>, EQKit::ILayout *a
   }
 }
 
-void EQKitLayoutManager::layoutBox(EQKitLayoutManager *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, EQKit::ILayout *a4@<X8>)
+void EQKitLayoutManager::layoutBox(EQKitLayoutManager *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, EQKit::ILayout *a4@<X8>)
 {
   v8 = *(EQKitLayoutManager::layoutContext(a1) + 16);
 
   EQKitLayoutManager::layoutBox(a1, a2, 0, v8, 0, 0, a3, a4);
 }
 
-void EQKitLayoutManager::layoutBox(EQKitLayoutManager *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, EQKit::ILayout *a8@<X8>)
+void EQKitLayoutManager::layoutBox(EQKitLayoutManager *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, EQKit::ILayout *a8@<X8>)
 {
   EQKitLayoutManager::beginRow(a1, 1, 0);
   v16 = *(a1 + 46) + *(a1 + 45) - 1;
@@ -8552,6 +8554,8 @@ void EQKitLayoutManager::layoutBox(EQKitLayoutManager *a1@<X0>, uint64_t a2@<X1>
 
 void EQKitLayoutManager::layout(EQKitLayoutManager *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a5;
+  v7 = a4;
   v41 = a6;
   v42 = a2;
   v11 = *(a1 + 34) + *(a1 + 33) - 1;
@@ -8568,12 +8572,12 @@ void EQKitLayoutManager::layout(EQKitLayoutManager *a1, void *a2, uint64_t a3, u
   EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>>(v13, v13 + 8, v39, &v40);
   if (v40 == 2)
   {
-    a4 = 1;
+    v7 = 1;
   }
 
   else if (v40 == 1)
   {
-    a4 = 0;
+    v7 = 0;
   }
 
   isOperatorPaddingRequired = EQKitLayoutManager::isOperatorPaddingRequired(a1);
@@ -8590,7 +8594,7 @@ void EQKitLayoutManager::layout(EQKitLayoutManager *a1, void *a2, uint64_t a3, u
     }
 
     v37 = v12;
-    v38 = a5;
+    v38 = v6;
     v21 = v16 - v19;
     v22 = v21 >> 2;
     if (v21 >> 2 <= (v20 + 1))
@@ -8632,7 +8636,7 @@ void EQKitLayoutManager::layout(EQKitLayoutManager *a1, void *a2, uint64_t a3, u
     }
 
     v15 = v25;
-    a5 = v38;
+    v6 = v38;
     a3 = v24;
     v12 = v37;
   }
@@ -8644,7 +8648,7 @@ void EQKitLayoutManager::layout(EQKitLayoutManager *a1, void *a2, uint64_t a3, u
   }
 
   *(a1 + 48) = v18;
-  EQKitLayoutContext::EQKitLayoutContext(v39, a1, v12 + 136 * (v11 % 0x1E), a2, a3, a4, a5);
+  EQKitLayoutContext::EQKitLayoutContext(v39, a1, v12 + 136 * (v11 % 0x1E), a2, a3, v7, v6);
   std::deque<EQKitLayoutContext>::push_back(a1 + 29, v39);
   EQKitLayoutContext::~EQKitLayoutContext(v39);
   isEmbellishedOperatorRoot = EQKitLayoutManager::isEmbellishedOperatorRoot(a1, a2);
@@ -8674,14 +8678,14 @@ LABEL_27:
     if (v42)
     {
 LABEL_25:
-      [v34 layoutSchemata];
+      objc_msgSend_layoutSchemata(v34, v37);
       goto LABEL_29;
     }
 
     goto LABEL_27;
   }
 
-  EQKitLayoutManager::schemataForStretchedOperator(a1, v33, v39);
+  EQKitLayoutManager::schemataForStretchedOperator(v39, a1, v33);
 LABEL_29:
   if (isEmbellishedOperatorRoot)
   {
@@ -8717,21 +8721,21 @@ LABEL_29:
   EQKit::Layout::Schemata::~Schemata(v39);
 }
 
-void sub_26C704E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26C704E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   EQKit::Layout::Schemata::~Schemata(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t EQKitLayoutManager::layout(EQKitLayoutManager *a1, uint64_t a2, uint64_t a3)
+void EQKitLayoutManager::layout(EQKitLayoutManager *a1, void *a2, uint64_t a3)
 {
   v6 = *(EQKitLayoutManager::layoutContext(a1) + 16);
 
-  return EQKitLayoutManager::layout(a1, a2, 0, v6, 0, a3);
+  EQKitLayoutManager::layout(a1, a2, 0, v6, 0, a3);
 }
 
-void EQKitLayoutManager::layoutIntoRow(uint64_t a1, EQKitLayoutRow *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void EQKitLayoutManager::layoutIntoRow(uint64_t a1, EQKitLayoutRow *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   EQKitLayoutManager::beginRow(a1, 1, 0);
   EQKitLayoutManager::layout(a1, a3, a4, a5, 0, a6);
@@ -8743,10 +8747,10 @@ void EQKitLayoutManager::layoutIntoRow(uint64_t a1, EQKitLayoutRow *a2, uint64_t
       goto LABEL_3;
     }
 
-    v12 = v15;
+    v12 = v14[20];
   }
 
-  EQKitLayoutRow::EQKitLayoutRow(v14, (*(*(a1 + 336) + 8 * ((v12 + *(a1 + 360) - 1) / 0x19uLL)) + 160 * ((v12 + *(a1 + 360) - 1) % 0x19uLL)));
+  EQKitLayoutRow::EQKitLayoutRow(v14, (*(*(a1 + 336) + 8 * ((v12 + *(a1 + 360) - 1) / 0x19)) + 160 * ((v12 + *(a1 + 360) - 1) % 0x19)));
   EQKitLayoutRow::operator=(a2, v14);
   EQKitLayoutRow::~EQKitLayoutRow(v14);
   EQKitLayoutRow::resolveKerning(a2, *(a1 + 32));
@@ -8756,14 +8760,14 @@ LABEL_3:
   EQKit::ILayout::~ILayout(v13);
 }
 
-void sub_26C705004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26C705004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   EQKitLayoutRow::~EQKitLayoutRow(va);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutManager::addHSpace(EQKitLayoutManager *this, double a2)
+void EQKitLayoutManager::addHSpace(id *this, double a2)
 {
   if (a2 != 0.0)
   {
@@ -8779,16 +8783,17 @@ void EQKitLayoutManager::addHSpace(EQKitLayoutManager *this, double a2)
   }
 }
 
-void sub_26C7050C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_26C7050C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   EQKit::ILayout::~ILayout(&a9);
-  EQKit::ILayout::~ILayout(&a16);
+  EQKit::ILayout::~ILayout(va);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutManager::addRowChild(uint64_t a1, uint64_t a2, uint64_t a3)
+void EQKitLayoutManager::addRowChild(id *a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(a1 + 368) && EQKitLayoutManager::addRowChild())
+  if (!a1[46] && EQKitLayoutManager::addRowChild())
   {
     return;
   }
@@ -8848,8 +8853,8 @@ LABEL_16:
 
   *(a2 + 40) = v10;
   *(a2 + 48) = v13;
-  v14 = *(a1 + 368) + *(a1 + 360) - 1;
-  v15 = *(*(a1 + 336) + 8 * (v14 / 0x19)) + 160 * (v14 % 0x19);
+  v14 = a1[45] + a1[46] - 1;
+  v15 = *(a1[42] + v14 / 0x19) + 160 * (v14 % 0x19);
 
   EQKitLayoutRow::addChild(v15, a3, a2);
 }
@@ -8867,7 +8872,7 @@ void EQKitLayoutManager::addOperatorLeftSpace(EQKitLayoutManager *this, double a
     v4 = v10[0];
   }
 
-  v5 = *(*(this + 42) + 8 * ((v4 + *(this + 45) - 1) / 0x19uLL)) + 160 * ((v4 + *(this + 45) - 1) % 0x19uLL);
+  v5 = *(*(this + 42) + 8 * ((v4 + *(this + 45) - 1) / 0x19)) + 160 * ((v4 + *(this + 45) - 1) % 0x19);
   v6 = *(v5 + 144);
   v7 = fmax(a2 - v6, 0.0);
   if (v6 > 0.0)
@@ -8891,10 +8896,11 @@ LABEL_5:
   }
 }
 
-void sub_26C70534C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_26C70534C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   EQKit::ILayout::~ILayout(&a9);
-  EQKit::ILayout::~ILayout(&a16);
+  EQKit::ILayout::~ILayout(va);
   _Unwind_Resume(a1);
 }
 
@@ -8910,7 +8916,7 @@ void EQKitLayoutManager::addOperatorRightSpace(EQKitLayoutManager *this, double 
   {
     v4 = v7[0];
 LABEL_2:
-    *(*(*(this + 42) + 8 * ((v4 + *(this + 45) - 1) / 0x19uLL)) + 160 * ((v4 + *(this + 45) - 1) % 0x19uLL) + 144) = a2;
+    *(*(*(this + 42) + 8 * ((v4 + *(this + 45) - 1) / 0x19)) + 160 * ((v4 + *(this + 45) - 1) % 0x19) + 144) = a2;
   }
 
   if (a2 != 0.0)
@@ -8927,10 +8933,11 @@ LABEL_2:
   }
 }
 
-void sub_26C705480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_26C705480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   EQKit::ILayout::~ILayout(&a9);
-  EQKit::ILayout::~ILayout(&a16);
+  EQKit::ILayout::~ILayout(va);
   _Unwind_Resume(a1);
 }
 
@@ -9017,11 +9024,11 @@ void EQKitLayoutManager::alignBoxHorizontally(const EQKit::ILayout *a1@<X1>, int
   }
 }
 
-void sub_26C7056F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C7056F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::ILayout::~ILayout(va);
-  EQKit::ILayout::~ILayout(v2);
+  EQKit::ILayout::~ILayout(v3);
   _Unwind_Resume(a1);
 }
 
@@ -9065,20 +9072,20 @@ uint64_t EQKitLayoutManager::isEmbellishedOperatorRoot(void *a1, void *a2)
   return result;
 }
 
-void EQKitLayoutManager::schemataForStretchedOperator(id *this@<X0>, const EQKitLayoutStretchedOperator *a2@<X1>, uint64_t a3@<X8>)
+void EQKitLayoutManager::schemataForStretchedOperator(EQKit::Layout::Schemata *__return_ptr a1@<X8>, id *this@<X0>, const EQKitLayoutStretchedOperator *a3@<X1>)
 {
-  EQKit::Layout::Schemata::Schemata(a3);
-  v6 = *a2;
-  v7 = *(a2 + 2);
+  EQKit::Layout::Schemata::Schemata(a1);
+  v6 = *a3;
+  v7 = *(a3 + 2);
   if (v7 == 1)
   {
-    v8 = [*a2 operatorUnicharOrNul];
+    v8 = [*a3 operatorUnicharOrNul];
     v9 = EQKit::Font::Manager::defaultCollection([this[74] fontManager]);
     v10 = EQKitLayoutManager::layoutContext(this);
     if ((*(*v9 + 104))(v9, v8, 1, v10 + 8))
     {
       EQKit::Layout::Schemata::operFontStretch(v11);
-      EQKit::Layout::Schemata::operator=(a3, v11);
+      EQKit::Layout::Schemata::operator=(a1, v11);
     }
 
     else
@@ -9088,8 +9095,8 @@ void EQKitLayoutManager::schemataForStretchedOperator(id *this@<X0>, const EQKit
         return;
       }
 
-      [v6 layoutSchemata];
-      EQKit::Layout::Schemata::operator=(a3, v11);
+      objc_msgSend_layoutSchemata(v6);
+      EQKit::Layout::Schemata::operator=(a1, v11);
     }
 
     goto LABEL_10;
@@ -9097,33 +9104,34 @@ void EQKitLayoutManager::schemataForStretchedOperator(id *this@<X0>, const EQKit
 
   if (v7 == 2)
   {
-    EQKitLayoutManager::schemataForOperatorWhenStretchedVertically(this, *a2, a3);
+    EQKitLayoutManager::schemataForOperatorWhenStretchedVertically(this, *a3, a1);
     return;
   }
 
   if (v6)
   {
-    [*a2 layoutSchemata];
-    EQKit::Layout::Schemata::operator=(a3, v11);
+    objc_msgSend_layoutSchemata(*a3);
+    EQKit::Layout::Schemata::operator=(a1, v11);
 LABEL_10:
     EQKit::Layout::Schemata::~Schemata(v11);
   }
 }
 
-void sub_26C705970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_26C705970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   EQKit::Layout::Schemata::~Schemata(&a9);
   EQKit::Layout::Schemata::~Schemata(v9);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutManager::layoutSchemata(uint64_t a1, EQKit::Layout::Schemata *a2, int a3, void *a4)
+void EQKitLayoutManager::layoutSchemata(uint64_t a1, EQKit::Layout::Schemata *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   EQKit::ILayout::ILayout(v61, 0);
   v9 = *(a2 + 2);
   if (a4)
   {
-    v10 = a3;
+    v10 = v5;
   }
 
   else
@@ -9156,7 +9164,7 @@ void EQKitLayoutManager::layoutSchemata(uint64_t a1, EQKit::Layout::Schemata *a2
       EQKitLayoutManager::layout(a1, v13, 0, *(v14 + 16), 0, 0);
       goto LABEL_41;
     case 2:
-      EQKitLayoutManager::layoutRow(a1, a2, v60);
+      EQKitLayoutManager::layoutRow(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 3:
@@ -9180,27 +9188,27 @@ void EQKitLayoutManager::layoutSchemata(uint64_t a1, EQKit::Layout::Schemata *a2
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 5:
-      EQKitLayoutManager::layoutUnderover(a2, a1, a3, a4, v60);
+      EQKitLayoutManager::layoutUnderover(v60, a2, a1, v5, a4);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 6:
-      EQKitLayoutManager::layoutRadical(a1, a2, v60);
+      EQKitLayoutManager::layoutRadical(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 7:
-      EQKitLayoutManager::layoutFraction(a1, a2, a3, a4, v60);
+      EQKitLayoutManager::layoutFraction(a1, a2, v5, a4, v60);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 8:
-      EQKitLayoutManager::layoutIdentifier(a1, a2, v60);
+      EQKitLayoutManager::layoutIdentifier(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 9:
-      EQKitLayoutManager::layoutNumber(a1, a2, v60);
+      EQKitLayoutManager::layoutNumber(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 10:
-      EQKitLayoutManager::layoutOperator(a1, a2, v60);
+      EQKitLayoutManager::layoutOperator(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 11:
@@ -9340,7 +9348,7 @@ LABEL_41:
         EQKitLayoutManager::addOperatorRightSpace(a1, v29);
       }
 
-      else if (!a4 && a3)
+      else if (!a4 && v5)
       {
         EQKitLayoutManager::clearOperatorSpace(a1);
       }
@@ -9352,35 +9360,35 @@ LABEL_41:
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 13:
-      EQKitLayoutManager::layoutStackGroup(a1, a2, v60);
+      EQKitLayoutManager::layoutStackGroup(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 14:
-      EQKitLayoutManager::layoutStackRow(a1, a2, v60);
+      EQKitLayoutManager::layoutStackRow(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 15:
-      EQKitLayoutManager::layoutStackLine(a1, a2, v60);
+      EQKitLayoutManager::layoutStackLine(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 16:
-      EQKitLayoutManager::layoutStackCarries(a1, a2, v60);
+      EQKitLayoutManager::layoutStackCarries(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 17:
-      EQKitLayoutManager::layoutStackCarry(a1, a2, v60);
+      EQKitLayoutManager::layoutStackCarry(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 18:
-      EQKitLayoutManager::layoutLongDivision(a1, a2, v60);
+      EQKitLayoutManager::layoutLongDivision(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 19:
-      EQKitLayoutManager::layoutTable(a1, a2, v60);
+      EQKitLayoutManager::layoutTable(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 20:
-      EQKitLayoutManager::layoutTableRow(a1, a2, v60);
+      EQKitLayoutManager::layoutTableRow(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 21:
@@ -9388,19 +9396,19 @@ LABEL_41:
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 22:
-      EQKitLayoutManager::layoutText(a1, a2, v60);
+      EQKitLayoutManager::layoutText(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 23:
-      EQKitLayoutManager::layoutPadded(a1, a2, v60);
+      EQKitLayoutManager::layoutPadded(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 24:
-      EQKitLayoutManager::layoutSpace(a1, v60);
+      EQKitLayoutManager::layoutSpace(v60, a1);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 25:
-      EQKitLayoutManager::layoutFenced(a1, a2, v60);
+      EQKitLayoutManager::layoutFenced(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 26:
@@ -9411,7 +9419,7 @@ LABEL_41:
       EQKit::ILayout::operator=(v61, v60);
       goto LABEL_40;
     case 28:
-      EQKitLayoutManager::layoutEnclose(a1, a2, v60);
+      EQKitLayoutManager::layoutEnclose(v60, a1, a2);
       EQKit::ILayout::operator=(v61, v60);
 LABEL_40:
       EQKit::ILayout::~ILayout(v60);
@@ -9421,14 +9429,15 @@ LABEL_40:
   }
 }
 
-void sub_26C7062B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_26C7062B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  EQKit::ILayout::~ILayout(&a33);
-  EQKit::ILayout::~ILayout((v33 - 184));
+  va_start(va, a32);
+  EQKit::ILayout::~ILayout(va);
+  EQKit::ILayout::~ILayout((v32 - 184));
   _Unwind_Resume(a1);
 }
 
-uint64_t EQKitLayoutManager::schemataForOperatorWhenStretchedVertically(id *a1, void *a2, uint64_t a3)
+EQKit::Layout::Schemata *EQKitLayoutManager::schemataForOperatorWhenStretchedVertically(id *a1, void *a2, uint64_t a3)
 {
   v6 = [a2 operatorUnicharOrNul];
   v7 = EQKit::Font::Manager::defaultCollection([a1[74] fontManager]);
@@ -9444,7 +9453,7 @@ uint64_t EQKitLayoutManager::schemataForOperatorWhenStretchedVertically(id *a1, 
   {
     if (a2)
     {
-      [a2 layoutSchemata];
+      objc_msgSend_layoutSchemata(a2);
     }
 
     else
@@ -9459,13 +9468,13 @@ uint64_t EQKitLayoutManager::schemataForOperatorWhenStretchedVertically(id *a1, 
   return v9;
 }
 
-EQKit::ILayout *EQKitLayoutManager::layoutText@<X0>(id *this@<X0>, const EQKit::Layout::Schemata *a2@<X1>, EQKit::ILayout *a3@<X8>)
+EQKit::ILayout *EQKitLayoutManager::layoutText@<X0>(EQKit::ILayout *__return_ptr a1@<X8>, id *this@<X0>, const EQKit::Layout::Schemata *a3@<X1>)
 {
   v44 = *MEMORY[0x277D85DE8];
-  v4 = EQKit::Layout::Schemata::textSchemata(a2);
+  v4 = EQKit::Layout::Schemata::textSchemata(a3);
   if (!v4)
   {
-    return EQKit::ILayout::ILayout(a3, 0);
+    return EQKit::ILayout::ILayout(a1, 0);
   }
 
   v5 = v4;
@@ -9550,7 +9559,7 @@ EQKit::ILayout *EQKitLayoutManager::layoutText@<X0>(id *this@<X0>, const EQKit::
             EQKitLayoutManager::addRowChild(this, v35, v20);
             EQKit::ILayout::~ILayout(v35);
 
-            EQKit::ILayout::~ILayout(__p);
+            EQKit::ILayout::~ILayout(&__p[0].__r_.__value_.__l.__data_);
           }
 
           v21 = EQKitLayoutManager::layoutContext(this);
@@ -9617,7 +9626,7 @@ LABEL_33:
     CFRelease(cf);
   }
 
-  return EQKit::ILayout::ILayout(a3, 0);
+  return EQKit::ILayout::ILayout(a1, 0);
 }
 
 void sub_26C706984(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
@@ -9652,14 +9661,14 @@ uint64_t EQKitLayoutManager::currentNode(EQKitLayoutManager *this)
   }
 }
 
-void EQKitLayoutManager::layoutRow(EQKitLayoutManager *this@<X0>, const EQKit::Layout::Schemata *a2@<X1>, EQKit::ILayout *a3@<X8>)
+void EQKitLayoutManager::layoutRow(EQKit::ILayout *__return_ptr a1@<X8>, EQKitLayoutManager *this@<X0>, const EQKit::Layout::Schemata *a3@<X1>)
 {
   v33 = *MEMORY[0x277D85DE8];
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v6 = EQKit::Layout::Schemata::children(a2);
+  v6 = EQKit::Layout::Schemata::children(a3);
   v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v7)
   {
@@ -9706,7 +9715,7 @@ void EQKitLayoutManager::layoutRow(EQKitLayoutManager *this@<X0>, const EQKit::L
   v11 = 0;
   v12 = 0;
 LABEL_15:
-  v14 = EQKit::Layout::Schemata::children(a2);
+  v14 = EQKit::Layout::Schemata::children(a3);
   v15 = EQKitLayoutFilterOutSpaceLike(v14);
   v25 = 0u;
   v26 = 0u;
@@ -9748,14 +9757,14 @@ LABEL_15:
     while (v16);
   }
 
-  EQKit::ILayout::ILayout(a3, 0);
+  EQKit::ILayout::ILayout(a1, 0);
   if (v12)
   {
     EQKitLayoutManager::resolveRow(this, v15);
     if (v11)
     {
       EQKitLayoutManager::endRow(this, v21);
-      EQKit::ILayout::operator=(a3, v21);
+      EQKit::ILayout::operator=(a1, v21);
       EQKit::ILayout::~ILayout(v21);
     }
   }

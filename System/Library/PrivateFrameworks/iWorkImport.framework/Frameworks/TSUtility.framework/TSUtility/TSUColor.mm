@@ -245,7 +245,7 @@
 
 - (TSUColor)initWithCGColor:(CGColor *)color colorSpace:(unint64_t)space
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   if (!color)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUColor initWithCGColor:colorSpace:]"];
@@ -255,9 +255,9 @@
     +[TSUAssertionHandler logBacktraceThrottled];
   }
 
-  v41.receiver = self;
-  v41.super_class = TSUColor;
-  v9 = [(TSUColor *)&v41 init];
+  v54.receiver = self;
+  v54.super_class = TSUColor;
+  v9 = [(TSUColor *)&v54 init];
   if (v9)
   {
     if (CGColorGetPattern(color))
@@ -298,14 +298,16 @@ LABEL_25:
         }
 
         v16 = CGColorGetColorSpace(color);
-        v17 = TSUSRGBColorSpace();
-        if (!CFEqual(v16, v17))
+        v18 = TSUSRGBColorSpace(v16, v17);
+        v19 = CFEqual(v16, v18);
+        if (!v19)
         {
-          v18 = TSUP3ColorSpace();
-          if (!CFEqual(v16, v18))
+          v21 = TSUP3ColorSpace(v19, v20);
+          v22 = CFEqual(v16, v21);
+          if (!v22)
           {
-            v19 = TSUDeviceRGBColorSpace();
-            if (!CFEqual(v16, v19))
+            v24 = TSUDeviceRGBColorSpace(v22, v23);
+            if (!CFEqual(v16, v24))
             {
               v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUColor initWithCGColor:colorSpace:]"];
               v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUColor.m"];
@@ -319,27 +321,29 @@ LABEL_25:
         goto LABEL_19;
       }
 
-      v20 = CGColorGetColorSpace(color);
-      v21 = TSUSRGBColorSpace();
-      if (!CFEqual(v20, v21))
+      v25 = CGColorGetColorSpace(color);
+      v27 = TSUSRGBColorSpace(v25, v26);
+      v28 = CFEqual(v25, v27);
+      if (!v28)
       {
-        v22 = TSUP3ColorSpace();
-        if (!CFEqual(v20, v22))
+        v30 = TSUP3ColorSpace(v28, v29);
+        if (!CFEqual(v25, v30))
         {
-          v38 = CGColorGetColorSpace(color);
-          if (CGColorSpaceGetModel(v38) == kCGColorSpaceModelRGB && CGColorSpaceIsWideGamutRGB(v38))
+          v49 = CGColorGetColorSpace(color);
+          IsWideGamutRGB = CGColorSpaceGetModel(v49);
+          if (IsWideGamutRGB == 1 && (IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(v49), IsWideGamutRGB))
           {
             space = 1;
-            v39 = TSUP3ColorSpace();
+            v52 = TSUP3ColorSpace(IsWideGamutRGB, v51);
           }
 
           else
           {
-            v39 = TSUSRGBColorSpace();
+            v52 = TSUSRGBColorSpace(IsWideGamutRGB, v51);
             space = 0;
           }
 
-          Copy = CGColorCreateCopyByMatchingToColorSpace(v39, kCGRenderingIntentDefault, color, 0);
+          Copy = CGColorCreateCopyByMatchingToColorSpace(v52, kCGRenderingIntentDefault, color, 0);
           if (Copy)
           {
 LABEL_26:
@@ -349,25 +353,25 @@ LABEL_26:
             {
               Components = CGColorGetComponents(v9->mCGColor);
               NumberOfComponents = CGColorGetNumberOfComponents(v9->mCGColor);
-              v31 = (&v40 - ((8 * NumberOfComponents + 15) & 0xFFFFFFFFFFFFFFF0));
+              v42 = (&v53 - ((8 * NumberOfComponents + 15) & 0xFFFFFFFFFFFFFFF0));
               if (NumberOfComponents)
               {
-                v32 = (&v40 - ((8 * NumberOfComponents + 15) & 0xFFFFFFFFFFFFFFF0));
+                v43 = (&v53 - ((8 * NumberOfComponents + 15) & 0xFFFFFFFFFFFFFFF0));
                 do
                 {
-                  v33 = *Components++;
-                  v34 = v33;
-                  *v32++ = v34;
+                  v44 = *Components++;
+                  v45 = v44;
+                  *v43++ = v45;
                   --NumberOfComponents;
                 }
 
                 while (NumberOfComponents);
               }
 
-              v35 = CGColorGetColorSpace(v9->mCGColor);
-              v36 = CGColorCreate(v35, v31);
+              v46 = CGColorGetColorSpace(v9->mCGColor);
+              v47 = CGColorCreate(v46, v42);
               CGColorRelease(v9->mCGColor);
-              v9->mCGColor = v36;
+              v9->mCGColor = v47;
             }
 
             return v9;
@@ -386,19 +390,20 @@ LABEL_19:
     {
       if (Model != kCGColorSpaceModelRGB)
       {
-        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUColor initWithCGColor:colorSpace:]"];
-        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUColor.m"];
-        [TSUAssertionHandler handleFailureInFunction:v23 file:v24 lineNumber:244 isFatal:0 description:"Color specified as sRGB isn't even RGB!"];
+        v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUColor initWithCGColor:colorSpace:]"];
+        v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUColor.m"];
+        [TSUAssertionHandler handleFailureInFunction:v31 file:v32 lineNumber:244 isFatal:0 description:"Color specified as sRGB isn't even RGB!"];
 
         +[TSUAssertionHandler logBacktraceThrottled];
       }
 
-      v25 = CGColorGetColorSpace(color);
-      v26 = TSUSRGBColorSpace();
-      if (!CFEqual(v25, v26))
+      v33 = CGColorGetColorSpace(color);
+      v35 = TSUSRGBColorSpace(v33, v34);
+      v36 = CFEqual(v33, v35);
+      if (!v36)
       {
-        v27 = TSUDeviceRGBColorSpace();
-        if (!CFEqual(v25, v27))
+        v38 = TSUDeviceRGBColorSpace(v36, v37);
+        if (!CFEqual(v33, v38))
         {
           v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUColor initWithCGColor:colorSpace:]"];
           v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUColor.m"];
@@ -421,12 +426,12 @@ LABEL_19:
   components[4] = *MEMORY[0x277D85DE8];
   if (!space || space == 2)
   {
-    v13 = TSUSRGBColorSpace();
+    v13 = TSUSRGBColorSpace(self, a2);
   }
 
   else if (space == 1)
   {
-    v13 = TSUP3ColorSpace();
+    v13 = TSUP3ColorSpace(self, a2);
   }
 
   else
@@ -450,7 +455,7 @@ LABEL_19:
   {
     if (space == 1)
     {
-      v12 = TSUP3ColorSpace();
+      v12 = TSUP3ColorSpace(self, a2);
     }
 
     else
@@ -461,7 +466,7 @@ LABEL_19:
 
   else
   {
-    v12 = TSUSRGBColorSpace();
+    v12 = TSUSRGBColorSpace(self, a2);
   }
 
   v13 = TSUCreateCGColorFromHSBInColorSpace(v12, hue, saturation, brightness, alpha);
@@ -478,7 +483,7 @@ LABEL_19:
   yellowCopy = yellow;
   blackCopy = black;
   alphaCopy = alpha;
-  v8 = TSUDeviceCMYKColorSpace();
+  v8 = TSUDeviceCMYKColorSpace(self, a2);
   v9 = CGColorCreate(v8, &cyanCopy);
   v10 = [(TSUColor *)self initWithCGColor:v9, *&cyanCopy, *&magentaCopy, *&yellowCopy, *&blackCopy, *&alphaCopy, v17];
   CGColorRelease(v9);
@@ -559,37 +564,37 @@ LABEL_19:
   cGColor = [colorCopy CGColor];
   if (CGColorGetPattern(cGColor))
   {
-    v8 = [(TSUColor *)self initWithCGColor:cGColor];
+    v9 = [(TSUColor *)self initWithCGColor:cGColor];
   }
 
   else
   {
-    v9 = TSUP3ColorSpace();
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v9, kCGRenderingIntentDefault, cGColor, 0);
-    v11 = TSUSRGBColorSpace();
-    v12 = CGColorCreateCopyByMatchingToColorSpace(v11, kCGRenderingIntentDefault, CopyByMatchingToColorSpace, 0);
-    v13 = TSUP3ColorSpace();
-    v14 = CGColorCreateCopyByMatchingToColorSpace(v13, kCGRenderingIntentDefault, v12, 0);
-    v15 = [TSUColor colorWithCGColor:CopyByMatchingToColorSpace];
-    v16 = [TSUColor colorWithCGColor:v14];
-    if ([v15 isEqualWithTolerance:v16])
+    v10 = TSUP3ColorSpace(0, v8);
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, cGColor, 0);
+    v13 = TSUSRGBColorSpace(CopyByMatchingToColorSpace, v12);
+    v14 = CGColorCreateCopyByMatchingToColorSpace(v13, kCGRenderingIntentDefault, CopyByMatchingToColorSpace, 0);
+    v16 = TSUP3ColorSpace(v14, v15);
+    v17 = CGColorCreateCopyByMatchingToColorSpace(v16, kCGRenderingIntentDefault, v14, 0);
+    v18 = [TSUColor colorWithCGColor:CopyByMatchingToColorSpace];
+    v19 = [TSUColor colorWithCGColor:v17];
+    if ([v18 isEqualWithTolerance:v19])
     {
-      v17 = v12;
+      v20 = v14;
     }
 
     else
     {
-      v17 = CopyByMatchingToColorSpace;
+      v20 = CopyByMatchingToColorSpace;
     }
 
-    v18 = [(TSUColor *)self initWithCGColor:v17];
+    v21 = [(TSUColor *)self initWithCGColor:v20];
     CGColorRelease(CopyByMatchingToColorSpace);
-    CGColorRelease(v12);
     CGColorRelease(v14);
-    v8 = v18;
+    CGColorRelease(v17);
+    v9 = v21;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)dealloc
@@ -980,27 +985,27 @@ LABEL_4:
     v10 = self->mColorRGBSpace;
     if (v10 == 1)
     {
-      v56 = [TSUColor alloc];
+      v60 = [TSUColor alloc];
       [(TSUColor *)self redComponent];
-      v58 = v57;
-      [v7 redComponent];
-      v60 = TSUMix(v58, v59, fraction);
-      [(TSUColor *)self greenComponent];
       v62 = v61;
-      [v7 greenComponent];
+      [v7 redComponent];
       v64 = TSUMix(v62, v63, fraction);
-      [(TSUColor *)self blueComponent];
+      [(TSUColor *)self greenComponent];
       v66 = v65;
-      [v7 blueComponent];
+      [v7 greenComponent];
       v68 = TSUMix(v66, v67, fraction);
-      [(TSUColor *)self alphaComponent];
+      [(TSUColor *)self blueComponent];
       v70 = v69;
+      [v7 blueComponent];
+      v72 = TSUMix(v70, v71, fraction);
+      [(TSUColor *)self alphaComponent];
+      v74 = v73;
       [v7 alphaComponent];
-      v27 = TSUMix(v70, v71, fraction);
-      v28 = v56;
-      v29 = v60;
-      v30 = v64;
-      v31 = v68;
+      v27 = TSUMix(v74, v75, fraction);
+      v28 = v60;
+      v29 = v64;
+      v30 = v68;
+      v31 = v72;
       v32 = 1;
     }
 
@@ -1011,7 +1016,7 @@ LABEL_4:
 LABEL_2:
         selfCopy = self;
 LABEL_18:
-        v55 = selfCopy;
+        v59 = selfCopy;
         goto LABEL_19;
       }
 
@@ -1043,52 +1048,54 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if ([(TSUColor *)self colorRGBSpace]== 1)
+  colorRGBSpace = [(TSUColor *)self colorRGBSpace];
+  if (colorRGBSpace == 1)
   {
     selfCopy2 = self;
   }
 
   else
   {
-    v34 = TSUP3ColorSpace();
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v34, kCGRenderingIntentDefault, [(TSUColor *)self CGColor], 0);
+    v36 = TSUP3ColorSpace(colorRGBSpace, v34);
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v36, kCGRenderingIntentDefault, [(TSUColor *)self CGColor], 0);
     selfCopy2 = [[TSUColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
     CGColorRelease(CopyByMatchingToColorSpace);
   }
 
-  if ([v7 colorRGBSpace] == 1)
+  colorRGBSpace2 = [v7 colorRGBSpace];
+  if (colorRGBSpace2 == 1)
   {
-    v36 = v7;
+    v40 = v7;
   }
 
   else
   {
-    v37 = TSUP3ColorSpace();
-    v38 = CGColorCreateCopyByMatchingToColorSpace(v37, kCGRenderingIntentDefault, [v7 CGColor], 0);
-    v36 = [[TSUColor alloc] initWithCGColor:v38 colorSpace:1];
-    CGColorRelease(v38);
+    v41 = TSUP3ColorSpace(colorRGBSpace2, v39);
+    v42 = CGColorCreateCopyByMatchingToColorSpace(v41, kCGRenderingIntentDefault, [v7 CGColor], 0);
+    v40 = [[TSUColor alloc] initWithCGColor:v42 colorSpace:1];
+    CGColorRelease(v42);
   }
 
-  v39 = [TSUColor alloc];
+  v43 = [TSUColor alloc];
   [(TSUColor *)selfCopy2 redComponent];
-  v41 = v40;
-  [(TSUColor *)v36 redComponent];
-  v43 = TSUMix(v41, v42, fraction);
-  [(TSUColor *)selfCopy2 greenComponent];
   v45 = v44;
-  [(TSUColor *)v36 greenComponent];
+  [(TSUColor *)v40 redComponent];
   v47 = TSUMix(v45, v46, fraction);
-  [(TSUColor *)selfCopy2 blueComponent];
+  [(TSUColor *)selfCopy2 greenComponent];
   v49 = v48;
-  [(TSUColor *)v36 blueComponent];
+  [(TSUColor *)v40 greenComponent];
   v51 = TSUMix(v49, v50, fraction);
-  [(TSUColor *)selfCopy2 alphaComponent];
+  [(TSUColor *)selfCopy2 blueComponent];
   v53 = v52;
-  [(TSUColor *)v36 alphaComponent];
-  v55 = [(TSUColor *)v39 initWithRed:1 green:v43 blue:v47 alpha:v51 colorSpace:TSUMix(v53, v54, fraction)];
+  [(TSUColor *)v40 blueComponent];
+  v55 = TSUMix(v53, v54, fraction);
+  [(TSUColor *)selfCopy2 alphaComponent];
+  v57 = v56;
+  [(TSUColor *)v40 alphaComponent];
+  v59 = [(TSUColor *)v43 initWithRed:1 green:v47 blue:v51 alpha:v55 colorSpace:TSUMix(v57, v58, fraction)];
 
 LABEL_19:
-  return v55;
+  return v59;
 }
 
 - (id)colorByCompositingSourceOverDestinationColor:(id)color
@@ -1245,17 +1252,18 @@ LABEL_19:
   colorRGBSpace2 = [colorCopy colorRGBSpace];
 
   selfCopy = self;
+  p_isa = &selfCopy->super.isa;
   if (!colorRGBSpace && colorRGBSpace2 == 1)
   {
-    v8 = TSUP3ColorSpace();
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v8, kCGRenderingIntentDefault, selfCopy->mCGColor, 0);
-    v10 = [[TSUColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
+    v10 = TSUP3ColorSpace(selfCopy, v8);
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, p_isa[1], 0);
+    v12 = [[TSUColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
 
     CGColorRelease(CopyByMatchingToColorSpace);
-    selfCopy = v10;
+    p_isa = &v12->super.isa;
   }
 
-  return selfCopy;
+  return p_isa;
 }
 
 - (void)encodeWithCoder:(id)coder

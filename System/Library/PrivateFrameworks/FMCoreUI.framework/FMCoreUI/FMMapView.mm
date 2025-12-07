@@ -1243,66 +1243,66 @@ LABEL_11:
   var0 = rect.var1.var0;
   v7 = rect.var0.var1;
   v8 = rect.var0.var0;
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (![(FMMapView *)self isMapPositioningDisabled]&& ![(FMMapView *)self isUserSwiping])
   {
     delegate = [(FMMapView *)self delegate];
     if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      [delegate edgeInsetsForState:{-[FMMapView currentSelectedState](self, "currentSelectedState")}];
-      v12 = v11;
-      v38 = v14;
-      v39 = v13;
-      v16 = v15;
-      v17 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v11 = [delegate edgeInsetsForState:{-[FMMapView currentSelectedState](self, "currentSelectedState")}];
+      v13 = v12;
+      v39 = v15;
+      v40 = v14;
+      v17 = v16;
+      v18 = LogCategory_Unspecified(v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v45.top = v12;
-        v45.right = v38;
-        v45.left = v39;
-        v45.bottom = v16;
-        v18 = NSStringFromUIEdgeInsets(v45);
+        v46.top = v13;
+        v46.right = v39;
+        v46.left = v40;
+        v46.bottom = v17;
+        v19 = NSStringFromUIEdgeInsets(v46);
         *buf = 138412546;
-        v41 = v18;
-        v42 = 2048;
+        v42 = v19;
+        v43 = 2048;
         currentSelectedState = [(FMMapView *)self currentSelectedState];
-        _os_log_impl(&dword_24A315000, v17, OS_LOG_TYPE_DEFAULT, "FMMapView: delegate insets %@ currentState: %ld", buf, 0x16u);
+        _os_log_impl(&dword_24A315000, v18, OS_LOG_TYPE_DEFAULT, "FMMapView: delegate insets %@ currentState: %ld", buf, 0x16u);
       }
     }
 
     else
     {
-      v12 = 38.0;
-      v38 = 38.0;
+      v13 = 38.0;
       v39 = 38.0;
-      v16 = 38.0;
+      v40 = 38.0;
+      v17 = 38.0;
     }
 
-    v37 = v16;
+    v38 = v17;
     if (objc_opt_respondsToSelector())
     {
       [delegate attributionInsetsForState:{-[FMMapView currentSelectedState](self, "currentSelectedState")}];
-      v36 = v19;
-      v21 = v20;
-      v23 = v22;
-      v25 = v24;
+      v37 = v20;
+      v22 = v21;
+      v24 = v23;
+      v26 = v25;
     }
 
     else
     {
-      v23 = 6.0;
-      v36 = 0;
-      v25 = 0xC043000000000000;
-      v21 = 0;
+      v24 = 6.0;
+      v37 = 0;
+      v26 = 0xC043000000000000;
+      v22 = 0;
     }
 
-    v26 = v8 == *MEMORY[0x277CD4BB0] && v7 == *(MEMORY[0x277CD4BB0] + 8);
-    if (!v26 || (var0 == *(MEMORY[0x277CD4BB0] + 16) ? (v27 = var1 == *(MEMORY[0x277CD4BB0] + 24)) : (v27 = 0), !v27))
+    v27 = v8 == *MEMORY[0x277CD4BB0] && v7 == *(MEMORY[0x277CD4BB0] + 8);
+    if (!v27 || (var0 == *(MEMORY[0x277CD4BB0] + 16) ? (v28 = var1 == *(MEMORY[0x277CD4BB0] + 24)) : (v28 = 0), !v28))
     {
       [(FMMapView *)self lastVisibleMapRect];
-      if (v31 != v8 || v28 != v7 || v29 != var0 || v30 != var1 || ([(FMMapView *)self lastVisibleInsets], v35 != v39) || v32 != v12 || v34 != v38 || v33 != v37 || [(FMMapView *)self isMapMoved])
+      if (v32 != v8 || v29 != v7 || v30 != var0 || v31 != var1 || ([(FMMapView *)self lastVisibleInsets], v36 != v40) || v33 != v13 || v35 != v39 || v34 != v38 || [(FMMapView *)self isMapMoved])
       {
-        [(FMMapView *)self animateMapToPosition:zoomCopy withInsets:v8 attributionInsets:v7 andZoom:var0, var1, v12, v39, v37, v38, v36, v21, *&v23, v25];
+        [(FMMapView *)self animateMapToPosition:zoomCopy withInsets:v8 attributionInsets:v7 andZoom:var0, var1, v13, v40, v38, v39, v37, v22, *&v24, v26];
       }
     }
   }
@@ -1310,7 +1310,7 @@ LABEL_11:
 
 - (void)animateMapToPosition:(double)position withInsets:(double)insets attributionInsets:(double)attributionInsets andZoom:(double)zoom
 {
-  *&v172[9] = *MEMORY[0x277D85DE8];
+  *&v176[9] = *MEMORY[0x277D85DE8];
   selectedAnnotation = [self selectedAnnotation];
   mapView = [self mapView];
   [mapView visibleMapRect];
@@ -1327,87 +1327,88 @@ LABEL_11:
   [mapView3 visibleMapRect];
   v40 = v39 + v38 * 0.5;
 
-  v173.x = a2 + insets * 0.5;
-  v173.y = v32;
-  v175.x = v36;
-  v175.y = v40;
-  v41 = MKMetersBetweenMapPoints(v173, v175);
-  v42 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  v177.x = a2 + insets * 0.5;
+  v177.y = v32;
+  v179.x = v36;
+  v179.y = v40;
+  v41 = MKMetersBetweenMapPoints(v177, v179);
+  v43 = LogCategory_Unspecified(v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    [(FMMapView *)self animateMapToPosition:v42 withInsets:zoom attributionInsets:a7 andZoom:a8, a9];
+    [(FMMapView *)self animateMapToPosition:v43 withInsets:zoom attributionInsets:a7 andZoom:a8, a9];
   }
 
   [self safeAreaInsets];
-  v44 = v43;
+  v45 = v44;
   [self safeAreaInsets];
-  v46 = v45;
+  v47 = v46;
   isAllAnnotationsShown = [self isAllAnnotationsShown];
   isAllAnnotationsShown2 = [self isAllAnnotationsShown];
   mapView4 = [self mapView];
   [mapView4 _zoomLevel];
-  if (v41 <= 600000.0 / v50)
+  if (v41 <= 600000.0 / v51)
   {
-    v52 = fmin(vabdd_f64(v31, insetsCopy) / 10000.0, 0.5);
-    if (v52 < 0.4)
+    v54 = fmin(vabdd_f64(v31, insetsCopy) / 10000.0, 0.5);
+    if (v54 < 0.4)
     {
-      v53 = 1;
+      v55 = 1;
     }
 
     else
     {
-      v53 = isAllAnnotationsShown;
+      v55 = isAllAnnotationsShown;
     }
 
-    if (v53)
+    if (v55)
     {
-      v52 = 0.4;
+      v54 = 0.4;
     }
 
     if ((isAllAnnotationsShown2 & (selectedAnnotation != 0)) != 0)
     {
-      v52 = 0.5;
+      v54 = 0.5;
     }
 
     if (a11)
     {
-      v51 = v52;
+      v53 = v54;
     }
 
     else
     {
-      v51 = 0.4;
+      v53 = 0.4;
     }
   }
 
   else
   {
 
-    if (![self isAllAnnotationsShown] || selectedAnnotation || objc_msgSend(self, "isGoingBackToAllAnnotation"))
+    isAllAnnotationsShown3 = [self isAllAnnotationsShown];
+    if (!isAllAnnotationsShown3 || selectedAnnotation || (isAllAnnotationsShown3 = [self isGoingBackToAllAnnotation], isAllAnnotationsShown3))
     {
-      v51 = 0.0;
+      v53 = 0.0;
     }
 
     else
     {
-      v51 = 0.4;
+      v53 = 0.4;
     }
   }
 
-  v54 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v56 = LogCategory_Unspecified(isAllAnnotationsShown3);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
   {
     isMapAnimating = [self isMapAnimating];
     layoutTimer = [self layoutTimer];
     *buf = 67109888;
-    *v170 = isMapAnimating;
-    *&v170[4] = 1024;
-    *&v170[6] = layoutTimer != 0;
-    LOWORD(v171) = 1024;
-    *(&v171 + 2) = [self isPreventingMapUpdates];
-    HIWORD(v171) = 2048;
-    *v172 = v51;
-    _os_log_impl(&dword_24A315000, v54, OS_LOG_TYPE_DEFAULT, "animateMapToPosition isMapAnimating(%d) layoutTimer(%d) isPreventingMapUpdates(%d) duration(%f)", buf, 0x1Eu);
+    *v174 = isMapAnimating;
+    *&v174[4] = 1024;
+    *&v174[6] = layoutTimer != 0;
+    LOWORD(v175) = 1024;
+    *(&v175 + 2) = [self isPreventingMapUpdates];
+    HIWORD(v175) = 2048;
+    *v176 = v53;
+    _os_log_impl(&dword_24A315000, v56, OS_LOG_TYPE_DEFAULT, "animateMapToPosition isMapAnimating(%d) layoutTimer(%d) isPreventingMapUpdates(%d) duration(%f)", buf, 0x1Eu);
   }
 
   if (([self isMapAnimating] & 1) == 0)
@@ -1419,14 +1420,14 @@ LABEL_11:
     }
   }
 
-  if (v51 == 0.0)
+  if (v53 == 0.0)
   {
 LABEL_27:
-    v160 = v51;
+    v164 = v53;
     zoomCopy = zoom;
-    v159 = a8;
-    v163 = zoom + v44;
-    v164 = a8 + v46;
+    v163 = a8;
+    v167 = zoom + v45;
+    v168 = a8 + v47;
     [self setIsMapAnimating:{1, a19, a20}];
     [self setIsMapMoved:0];
     renderingMode = [self renderingMode];
@@ -1434,182 +1435,182 @@ LABEL_27:
     mapView6 = mapView5;
     if (renderingMode)
     {
-      [mapView5 _setEdgeInsets:{v163, a7, v164, a9}];
-      v61 = attributionInsetsCopy;
-      v62 = insetsCopy;
-      v63 = a2;
-      v64 = positionCopy;
+      [mapView5 _setEdgeInsets:{v167, a7, v168, a9}];
+      v63 = attributionInsetsCopy;
+      v64 = insetsCopy;
+      v65 = a2;
+      v66 = positionCopy;
     }
 
     else
     {
-      [mapView5 mapRectThatFits:a2 edgePadding:{positionCopy, insetsCopy, attributionInsetsCopy, v163, a7, v164, a9}];
-      v63 = v65;
-      v64 = v66;
-      v62 = v67;
-      v61 = v68;
+      [mapView5 mapRectThatFits:a2 edgePadding:{positionCopy, insetsCopy, attributionInsetsCopy, v167, a7, v168, a9}];
+      v65 = v67;
+      v66 = v68;
+      v64 = v69;
+      v63 = v70;
 
       mapView6 = [self mapView];
       [mapView6 _setEdgeInsets:{38.0, 38.0, 38.0, 38.0}];
     }
 
     mapView7 = [self mapView];
-    [mapView7 _setAttributionInsets:{a17, a18, v156, v157}];
+    [mapView7 _setAttributionInsets:{a17, a18, v160, v161}];
 
     mapView8 = [self mapView];
     [mapView8 bounds];
-    v72 = v71 - (a7 + a9);
-    v74 = v73 - (v163 + v164);
+    v74 = v73 - (a7 + a9);
+    v76 = v75 - (v167 + v168);
 
-    v75 = [MEMORY[0x277CD4E58] _cameraLookingAtMapRect:v63 forViewSize:{v64, v62, v61, v72, v74}];
+    v77 = [MEMORY[0x277CD4E58] _cameraLookingAtMapRect:v65 forViewSize:{v66, v64, v63, v74, v76}];
     mapView9 = [self mapView];
     camera = [mapView9 camera];
     [camera altitude];
-    v79 = v78;
-    [v75 altitude];
-    v81 = vabdd_f64(v79, v80);
+    v81 = v80;
+    [v77 altitude];
+    v83 = vabdd_f64(v81, v82);
     mapView10 = [self mapView];
     camera2 = [mapView10 camera];
     [camera2 centerCoordinate];
-    v85 = v84;
     v87 = v86;
-    [v75 centerCoordinate];
-    [self distanceBetweenOrigin:v85 andDestination:{v87, v88, v89}];
-    [self dampingForAltitude:v81 andDistance:v90];
-    v92 = v91;
+    v89 = v88;
+    [v77 centerCoordinate];
+    [self distanceBetweenOrigin:v87 andDestination:{v89, v90, v91}];
+    [self dampingForAltitude:v83 andDistance:v92];
+    v94 = v93;
 
-    v93 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+    v96 = LogCategory_Unspecified(v95);
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
     {
-      v174.width = v72;
-      v174.height = v74;
-      v152 = NSStringFromCGSize(v174);
+      v178.width = v74;
+      v178.height = v76;
+      v156 = NSStringFromCGSize(v178);
       mapView11 = [self mapView];
       [mapView11 bounds];
-      v154 = NSStringFromCGRect(v176);
-      v177.top = v163;
-      v177.bottom = v164;
-      v177.left = a7;
-      v177.right = a9;
-      v155 = NSStringFromUIEdgeInsets(v177);
+      v158 = NSStringFromCGRect(v180);
+      v181.top = v167;
+      v181.bottom = v168;
+      v181.left = a7;
+      v181.right = a9;
+      v159 = NSStringFromUIEdgeInsets(v181);
       *buf = 138412802;
-      *v170 = v152;
-      *&v170[8] = 2112;
-      v171 = v154;
-      v172[0] = 2112;
-      *&v172[1] = v155;
-      _os_log_debug_impl(&dword_24A315000, v93, OS_LOG_TYPE_DEBUG, "FMMapView: viewSize: %@ bounds: %@ safeInsets: %@", buf, 0x20u);
+      *v174 = v156;
+      *&v174[8] = 2112;
+      v175 = v158;
+      v176[0] = 2112;
+      *&v176[1] = v159;
+      _os_log_debug_impl(&dword_24A315000, v96, OS_LOG_TYPE_DEBUG, "FMMapView: viewSize: %@ bounds: %@ safeInsets: %@", buf, 0x20u);
     }
 
     renderingMode2 = [self renderingMode];
-    [v75 centerCoordinate];
-    v97 = fabs(v96) <= 180.0;
-    if (fabs(v95) > 90.0)
+    [v77 centerCoordinate];
+    v100 = fabs(v99) <= 180.0;
+    if (fabs(v98) > 90.0)
     {
-      v97 = 0;
+      v100 = 0;
     }
 
     if (renderingMode2)
     {
-      if (v97)
+      if (v100)
       {
-        v98 = [MEMORY[0x277CD4E58] cameraLookingAtCenterCoordinate:v95 fromDistance:v96 pitch:400.0 heading:{50.0, 0.0}];
+        v101 = [MEMORY[0x277CD4E58] cameraLookingAtCenterCoordinate:v98 fromDistance:v99 pitch:400.0 heading:{50.0, 0.0}];
 
         mapView12 = [self mapView];
         camera3 = [mapView12 camera];
         [camera3 altitude];
-        v102 = v101;
-        [v98 altitude];
-        v104 = vabdd_f64(v102, v103);
+        v105 = v104;
+        [v101 altitude];
+        v107 = vabdd_f64(v105, v106);
         mapView13 = [self mapView];
         camera4 = [mapView13 camera];
         [camera4 centerCoordinate];
-        v108 = v107;
-        v110 = v109;
-        [v98 centerCoordinate];
-        [self distanceBetweenOrigin:v108 andDestination:{v110, v111, v112}];
-        [self dampingForAltitude:v104 andDistance:v113];
-        v92 = v114;
+        v111 = v110;
+        v113 = v112;
+        [v101 centerCoordinate];
+        [self distanceBetweenOrigin:v111 andDestination:{v113, v114, v115}];
+        [self dampingForAltitude:v107 andDistance:v116];
+        v94 = v117;
 
-        v75 = v98;
+        v77 = v101;
       }
 
-      [v75 centerCoordinate];
-      v117 = a7;
-      if (fabs(v116) <= 180.0 && fabs(v115) <= 90.0)
+      centerCoordinate = [v77 centerCoordinate];
+      v121 = a7;
+      if (fabs(v120) <= 180.0 && fabs(v119) <= 90.0)
       {
-        v118 = a9;
-        v119 = LogCategory_Unspecified();
-        if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
+        v122 = a9;
+        v123 = LogCategory_Unspecified(centerCoordinate);
+        if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
         {
-          [FMMapView animateMapToPosition:v75 withInsets:v119 attributionInsets:? andZoom:?];
+          [FMMapView animateMapToPosition:v77 withInsets:v123 attributionInsets:? andZoom:?];
         }
 
         mapView14 = [self mapView];
-        v122 = mapView14;
-        LODWORD(v123) = 1128792064;
-        LODWORD(v124) = 1.0;
-        v125 = v75;
-        v126 = v160;
+        v126 = mapView14;
+        LODWORD(v127) = 1128792064;
+        LODWORD(v128) = 1.0;
+        v129 = v77;
+        v130 = v164;
         goto LABEL_42;
       }
     }
 
     else
     {
-      v117 = a7;
-      if (v97)
+      v121 = a7;
+      if (v100)
       {
-        v118 = a9;
+        v122 = a9;
         cameraBefore3DRendering = [self cameraBefore3DRendering];
 
         mapView14 = [self mapView];
-        v122 = mapView14;
+        v126 = mapView14;
         if (cameraBefore3DRendering)
         {
           camera5 = [mapView14 camera];
           [camera5 altitude];
-          v130 = v129;
+          v134 = v133;
           cameraBefore3DRendering2 = [self cameraBefore3DRendering];
           [cameraBefore3DRendering2 altitude];
-          v133 = vabdd_f64(v130, v132);
+          v137 = vabdd_f64(v134, v136);
           mapView15 = [self mapView];
           camera6 = [mapView15 camera];
           [camera6 centerCoordinate];
-          v137 = v136;
-          v139 = v138;
+          v141 = v140;
+          v143 = v142;
           cameraBefore3DRendering3 = [self cameraBefore3DRendering];
           [cameraBefore3DRendering3 centerCoordinate];
-          [self distanceBetweenOrigin:v137 andDestination:{v139, v141, v142}];
-          [self dampingForAltitude:v133 andDistance:v143];
-          LODWORD(v133) = v144;
+          [self distanceBetweenOrigin:v141 andDestination:{v143, v145, v146}];
+          [self dampingForAltitude:v137 andDistance:v147];
+          LODWORD(v137) = v148;
 
           cameraBefore3DRendering4 = [self cameraBefore3DRendering];
           [cameraBefore3DRendering4 setPitch:0.0];
 
           mapView16 = [self mapView];
           cameraBefore3DRendering5 = [self cameraBefore3DRendering];
-          LODWORD(v148) = 1128792064;
-          LODWORD(v149) = 1.0;
-          LODWORD(v150) = LODWORD(v133);
-          [mapView16 setCamera:cameraBefore3DRendering5 duration:v160 springMass:v149 springStiffness:v148 springDamping:v150 springVelocity:0.0];
+          LODWORD(v152) = 1128792064;
+          LODWORD(v153) = 1.0;
+          LODWORD(v154) = LODWORD(v137);
+          [mapView16 setCamera:cameraBefore3DRendering5 duration:v164 springMass:v153 springStiffness:v152 springDamping:v154 springVelocity:0.0];
 
           [self setCameraBefore3DRendering:0];
           goto LABEL_47;
         }
 
-        LODWORD(v123) = 1128792064;
-        LODWORD(v124) = 1.0;
-        v125 = v75;
-        v126 = v160;
+        LODWORD(v127) = 1128792064;
+        LODWORD(v128) = 1.0;
+        v129 = v77;
+        v130 = v164;
 LABEL_42:
-        LODWORD(v121) = v92;
-        [mapView14 setCamera:v125 duration:v126 springMass:v124 springStiffness:v123 springDamping:v121 springVelocity:0.0];
+        LODWORD(v125) = v94;
+        [mapView14 setCamera:v129 duration:v130 springMass:v128 springStiffness:v127 springDamping:v125 springVelocity:0.0];
 
 LABEL_47:
         [self setLastVisibleMapRect:{a2, positionCopy, insetsCopy, attributionInsetsCopy}];
-        [self setLastVisibleInsets:{zoomCopy, v117, v159, v118}];
-        v151 = dispatch_time(0, (v160 * 1000000000.0));
+        [self setLastVisibleInsets:{zoomCopy, v121, v163, v122}];
+        v155 = dispatch_time(0, (v164 * 1000000000.0));
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __71__FMMapView_animateMapToPosition_withInsets_attributionInsets_andZoom___block_invoke;
@@ -1620,16 +1621,16 @@ LABEL_47:
         *&block[7] = insetsCopy;
         *&block[8] = attributionInsetsCopy;
         *&block[9] = zoomCopy;
-        *&block[10] = v117;
-        *&block[11] = v159;
-        *&block[12] = v118;
-        dispatch_after(v151, MEMORY[0x277D85CD0], block);
+        *&block[10] = v121;
+        *&block[11] = v163;
+        *&block[12] = v122;
+        dispatch_after(v155, MEMORY[0x277D85CD0], block);
 
         goto LABEL_48;
       }
     }
 
-    v118 = a9;
+    v122 = a9;
     goto LABEL_47;
   }
 
@@ -1659,59 +1660,59 @@ void __71__FMMapView_animateMapToPosition_withInsets_attributionInsets_andZoom__
 
 void __71__FMMapView_animateMapToPosition_withInsets_attributionInsets_andZoom___block_invoke_2(double *a1)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v23[0] = @"x";
+  v25[0] = @"x";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:a1[4]];
-  v24[0] = v3;
-  v23[1] = @"y";
+  v26[0] = v3;
+  v25[1] = @"y";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:a1[5]];
-  v24[1] = v4;
-  v23[2] = @"width";
+  v26[1] = v4;
+  v25[2] = @"width";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:a1[6]];
-  v24[2] = v5;
-  v23[3] = @"height";
+  v26[2] = v5;
+  v25[3] = @"height";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:a1[7]];
-  v24[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+  v26[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
 
-  v21[0] = @"top";
+  v23[0] = @"top";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:a1[8]];
-  v22[0] = v8;
-  v21[1] = @"left";
+  v24[0] = v8;
+  v23[1] = @"left";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:a1[9]];
-  v22[1] = v9;
-  v21[2] = @"bottom";
+  v24[1] = v9;
+  v23[2] = @"bottom";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:a1[10]];
-  v22[2] = v10;
-  v21[3] = @"right";
+  v24[2] = v10;
+  v23[3] = @"right";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:a1[11]];
-  v22[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
-  v20 = 0;
-  v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v20];
-  v14 = v20;
+  v22 = 0;
+  v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v22];
+  v14 = v22;
   [v2 setObject:v13 forKey:@"FMMapViewLastVisibleRect"];
 
   if (v14)
   {
-    v15 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = LogCategory_Unspecified(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __71__FMMapView_animateMapToPosition_withInsets_attributionInsets_andZoom___block_invoke_2_cold_1();
     }
   }
 
-  v19 = 0;
-  v16 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v19];
-  v17 = v19;
-  [v2 setObject:v16 forKey:@"FMMapViewLastVisibleInsets"];
+  v21 = 0;
+  v17 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v21];
+  v18 = v21;
+  [v2 setObject:v17 forKey:@"FMMapViewLastVisibleInsets"];
 
-  if (v17)
+  if (v18)
   {
-    v18 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = LogCategory_Unspecified(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       __71__FMMapView_animateMapToPosition_withInsets_attributionInsets_andZoom___block_invoke_2_cold_2();
     }
@@ -2545,41 +2546,43 @@ uint64_t __40__FMMapView_annotationsSortedByDistance__block_invoke(uint64_t a1, 
     }
   }
 
-  if (![(FMMapView *)self shouldDisplayOverlay])
+  shouldDisplayOverlay = [(FMMapView *)self shouldDisplayOverlay];
+  if (!shouldDisplayOverlay)
   {
     goto LABEL_15;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = overlayCopy;
-    parentAnnotation = [v8 parentAnnotation];
-    v7 = [objc_alloc(MEMORY[0x277CD4DA8]) initWithCircle:v8];
+    v10 = overlayCopy;
+    parentAnnotation = [v10 parentAnnotation];
+    v7 = [objc_alloc(MEMORY[0x277CD4DA8]) initWithCircle:v10];
     if ([parentAnnotation conformsToProtocol:&unk_285DA7C08])
     {
-      v10 = parentAnnotation;
-      v11 = [(FMMapView *)self viewForAnnotation:v10];
+      v12 = parentAnnotation;
+      v13 = [(FMMapView *)self viewForAnnotation:v12];
       mapView = [(FMMapView *)self mapView];
       mapType = [mapView mapType];
 
       if (mapType)
       {
+        v24 = 0.0;
+        v25 = 0.0;
         v22 = 0.0;
         v23 = 0.0;
-        v20 = 0.0;
-        v21 = 0.0;
-        tintColor = [v10 tintColor];
-        [tintColor getHue:&v23 saturation:&v22 brightness:&v21 alpha:&v20];
+        tintColor = [v12 tintColor];
+        [tintColor getHue:&v25 saturation:&v24 brightness:&v23 alpha:&v22];
 
-        v15 = [MEMORY[0x277D75348] colorWithHue:v23 saturation:v22 brightness:v21 + 0.4 alpha:v20];
-        [v7 setFillColor:v15];
+        v17 = [MEMORY[0x277D75348] colorWithHue:v25 saturation:v24 brightness:v23 + 0.4 alpha:v22];
+        [v7 setFillColor:v17];
         [v7 setAlpha:0.15];
       }
 
       else
       {
-        tintColor2 = [v11 tintColor];
+        tintColor2 = [v13 tintColor];
         [v7 setFillColor:tintColor2];
 
         [v7 setAlpha:0.2];
@@ -2589,8 +2592,8 @@ uint64_t __40__FMMapView_annotationsSortedByDistance__block_invoke(uint64_t a1, 
     if (!v7)
     {
 LABEL_15:
-      v18 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = LogCategory_Unspecified(shouldDisplayOverlay);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [FMMapView mapView:rendererForOverlay:];
       }
@@ -2601,14 +2604,15 @@ LABEL_15:
 
   else
   {
-    v16 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = LogCategory_Unspecified(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [FMMapView mapView:rendererForOverlay:];
     }
 
-    v7 = [objc_alloc(MEMORY[0x277CD4EE8]) initWithOverlay:overlayCopy];
-    if (!v7)
+    shouldDisplayOverlay = [objc_alloc(MEMORY[0x277CD4EE8]) initWithOverlay:overlayCopy];
+    v7 = shouldDisplayOverlay;
+    if (!shouldDisplayOverlay)
     {
       goto LABEL_15;
     }

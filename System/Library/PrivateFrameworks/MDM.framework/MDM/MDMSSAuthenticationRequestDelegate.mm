@@ -30,7 +30,7 @@
 
 - (void)startWithCompletionBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = +[MDMMCInterface isLimitedAppsMode];
   v6 = *DMCLogObjects();
@@ -56,21 +56,19 @@
     {
       v9 = v6;
       *buf = 138543362;
-      v15 = objc_opt_class();
-      v10 = v15;
+      v14 = objc_opt_class();
+      v10 = v14;
       _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ starting user authentication.", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __63__MDMSSAuthenticationRequestDelegate_startWithCompletionBlock___block_invoke;
-    v12[3] = &unk_27982D0B8;
-    v12[4] = self;
-    v13 = blockCopy;
-    [(MDMSSRequestDelegate *)self _startTimeout:v12 completionBlock:900.0];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __63__MDMSSAuthenticationRequestDelegate_startWithCompletionBlock___block_invoke;
+    v11[3] = &unk_27982D0B8;
+    v11[4] = self;
+    v12 = blockCopy;
+    [(MDMSSRequestDelegate *)self _startTimeout:v11 completionBlock:900.0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__MDMSSAuthenticationRequestDelegate_startWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
@@ -104,7 +102,7 @@ void __63__MDMSSAuthenticationRequestDelegate_startWithCompletionBlock___block_i
 
 - (void)authenticateRequest:(id)request didReceiveResponse:(id)response
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   authenticateResponseType = [responseCopy authenticateResponseType];
   v7 = *DMCLogObjects();
@@ -112,8 +110,8 @@ void __63__MDMSSAuthenticationRequestDelegate_startWithCompletionBlock___block_i
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "User successfully logged into iTunes account.", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "User successfully logged into iTunes account.", &v11, 2u);
     }
 
     authenticatedAccount = [responseCopy authenticatedAccount];
@@ -124,12 +122,10 @@ void __63__MDMSSAuthenticationRequestDelegate_startWithCompletionBlock___block_i
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v10 = v7;
-    v12 = 134217984;
+    v11 = 134217984;
     authenticateResponseType2 = [responseCopy authenticateResponseType];
-    _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_ERROR, "User failed to log into iTunes account. Reason code: %ld", &v12, 0xCu);
+    _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_ERROR, "User failed to log into iTunes account. Reason code: %ld", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

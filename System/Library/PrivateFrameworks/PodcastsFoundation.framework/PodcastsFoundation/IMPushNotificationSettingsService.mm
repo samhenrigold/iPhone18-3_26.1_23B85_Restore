@@ -25,7 +25,7 @@
 
 id __55__IMPushNotificationSettingsService_endpointURLForKey___block_invoke(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = MEMORY[0x1E695DFF8];
@@ -36,8 +36,8 @@ id __55__IMPushNotificationSettingsService_endpointURLForKey___block_invoke(uint
     {
       v6 = [MEMORY[0x1E696AF20] componentsWithURL:v5 resolvingAgainstBaseURL:0];
       v7 = [MEMORY[0x1E696AF60] queryItemWithName:@"bid" value:@"com.apple.Podcasts"];
-      v19[0] = v7;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+      v18[0] = v7;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
       [v6 setQueryItems:v8];
 
       v9 = [v6 URL];
@@ -46,14 +46,12 @@ id __55__IMPushNotificationSettingsService_endpointURLForKey___block_invoke(uint
 
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to find an endpoint for the key '%@'", *(a1 + 32)];
   v11 = MEMORY[0x1E696ABC0];
-  v17 = *MEMORY[0x1E696A578];
-  v18 = v10;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v16 = *MEMORY[0x1E696A578];
+  v17 = v10;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   v13 = [v11 errorWithDomain:@"IMPushNotificationSettingsServiceErrorDomain" code:-1000 userInfo:v12];
 
   v14 = [MEMORY[0x1E698CAD0] promiseWithError:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

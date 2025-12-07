@@ -76,7 +76,7 @@ LABEL_5:
   fromCopy = from;
   selfCopy = self;
   sub_100157E78(fromCopy, mode, v8, v9);
-  sub_1000338B4(v8);
+  sub_1000338B4(v8, v9);
 }
 
 - (void)dismissCardWithCompletion:(id)completion
@@ -98,7 +98,7 @@ LABEL_5:
 
   selfCopy = self;
   sub_100158554(v7, v6);
-  sub_1000338B4(v7);
+  sub_1000338B4(v7, v6);
 }
 
 - (void)restyleRecordingCardSheetPresentationController

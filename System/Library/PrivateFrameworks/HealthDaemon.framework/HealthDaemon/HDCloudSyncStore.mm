@@ -4,6 +4,7 @@
 + (id)shardIntervalWithStartDate:(id)date endDate:(id)endDate;
 + (id)shardPredicatesForProfile:(id)profile currentDate:(id)date error:(id *)error;
 + (id)syncStoreForProfile:(id)profile storeIdentifier:(id)identifier error:(id *)error;
++ (void)samplesDeletedInProfile:(id)profile byUser:(BOOL)user intervals:(id)intervals;
 - (BOOL)_isSupportedShardTypeForRestrictionPredicates;
 - (BOOL)canRecieveSyncObjectsForEntityClass:(Class)class;
 - (BOOL)clearAllSyncAnchorsWithError:(id *)error;
@@ -37,6 +38,74 @@
 @end
 
 @implementation HDCloudSyncStore
+
++ (void)samplesDeletedInProfile:(id)profile byUser:(BOOL)user intervals:(id)intervals
+{
+  userCopy = user;
+  v30 = *MEMORY[0x277D85DE8];
+  profileCopy = profile;
+  if (userCopy)
+  {
+    v8 = 86400.0;
+  }
+
+  else
+  {
+    v8 = 1209600.0;
+  }
+
+  v9 = MEMORY[0x277CBEAA8];
+  intervalsCopy = intervals;
+  v11 = [v9 dateWithTimeIntervalSinceNow:v8];
+  v23 = 0;
+  v12 = [HDCloudSyncStoreEntity rebaseRequiredByDate:v11 intervals:intervalsCopy profile:profileCopy error:&v23];
+
+  v13 = v23;
+  if (!v12)
+  {
+    _HKInitializeLogging();
+    v14 = *MEMORY[0x277CCC328];
+    if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
+    {
+      v22 = &stru_283BF39C8;
+      if (userCopy)
+      {
+        v22 = @" by the user";
+      }
+
+      *buf = 138543618;
+      v27 = v22;
+      v28 = 2114;
+      v29 = v13;
+      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to record rebase requirement after samples were deleted%{public}@: %{public}@", buf, 0x16u);
+    }
+  }
+
+  v15 = kHDEventNameCloudSync;
+  if (userCopy)
+  {
+    v16 = &unk_283CB3CC0;
+  }
+
+  else
+  {
+    v16 = &unk_283CB3CD8;
+  }
+
+  v24[0] = @"rebase-trigger";
+  v24[1] = @"deadline";
+  v25[0] = v16;
+  v17 = MEMORY[0x277CCABB0];
+  [v11 timeIntervalSinceReferenceDate];
+  v18 = [v17 numberWithDouble:?];
+  v25[1] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  HDPowerLog(v15, v19, 1);
+
+  daemon = [profileCopy daemon];
+  analyticsSubmissionCoordinator = [daemon analyticsSubmissionCoordinator];
+  [analyticsSubmissionCoordinator cloudSync_reportRebaseTriggeredByDeletionByUser:userCopy];
+}
 
 + (id)_syncStoreForProfile:(void *)profile storeIdentifier:(void *)identifier ownerIdentifier:(void *)ownerIdentifier syncIdentity:(void *)identity containerIdentifier:(void *)containerIdentifier shardPredicate:(void *)predicate creationDate:(uint64_t)date error:
 {
@@ -302,23 +371,23 @@ uint64_t __140__HDCloudSyncStore__syncStoreForProfile_storeIdentifier_ownerIdent
     if (v24)
     {
       objc_storeWeak(v24 + 10, v17);
-      v25 = [identifierCopy copy];
+      v25 = objc_msgSend_copy(identifierCopy);
       v26 = self[7];
       self[7] = v25;
 
-      v27 = [identityCopy copy];
+      v27 = objc_msgSend_copy(identityCopy);
       v28 = self[8];
       self[8] = v27;
 
-      v29 = [ownerIdentifierCopy copy];
+      v29 = objc_msgSend_copy(ownerIdentifierCopy);
       v30 = self[9];
       self[9] = v29;
 
-      v31 = [containerIdentifierCopy copy];
+      v31 = objc_msgSend_copy(containerIdentifierCopy);
       v32 = self[11];
       self[11] = v31;
 
-      v33 = [profileCopy copy];
+      v33 = objc_msgSend_copy(profileCopy);
       v34 = self[6];
       self[6] = v33;
 
@@ -626,7 +695,7 @@ uint64_t __62__HDCloudSyncStore_syncStoreForProfile_storeIdentifier_error___bloc
 
 uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate_ownerIdentifier_containerIdentifier_syncIdentity_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -634,47 +703,47 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
   v10 = *(a1 + 56);
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate_ownerIdentifier_containerIdentifier_syncIdentity_error___block_invoke_2;
-  v72[3] = &unk_278626460;
-  v59 = v5;
-  v73 = v59;
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate_ownerIdentifier_containerIdentifier_syncIdentity_error___block_invoke_2;
+  v71[3] = &unk_278626460;
+  v58 = v5;
+  v72 = v58;
   v11 = v6;
-  v74 = v11;
+  v73 = v11;
   v12 = v10;
   v13 = a3;
-  v63 = v4;
-  if (![HDCloudSyncStoreEntity enumerateShardsForOwnerIdentifier:v7 containerIdentifier:v8 syncIdentity:v9 profile:v12 transaction:v4 error:a3 handler:v72])
+  v62 = v4;
+  if (![HDCloudSyncStoreEntity enumerateShardsForOwnerIdentifier:v7 containerIdentifier:v8 syncIdentity:v9 profile:v12 transaction:v4 error:a3 handler:v71])
   {
     v51 = 0;
-    v30 = v59;
+    v30 = v58;
     goto LABEL_41;
   }
 
-  v60 = a1;
+  v59 = a1;
   v14 = *(a1 + 64);
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
-  v55 = v11;
+  v54 = v11;
   v15 = v11;
-  v16 = [v15 countByEnumeratingWithState:&v68 objects:v76 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v67 objects:v75 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v69;
+    v18 = *v68;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v69 != v18)
+        if (*v68 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v68 + 1) + 8 * i);
+        v20 = *(*(&v67 + 1) + 8 * i);
         v21 = [v20 startDate];
         v22 = [v21 hk_isAfterDate:v14];
 
@@ -701,7 +770,7 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
         v14 = v26;
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v68 objects:v76 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v67 objects:v75 count:16];
     }
 
     while (v17);
@@ -713,37 +782,37 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
   if (!v28)
   {
     v51 = 0;
-    v30 = v59;
-    v11 = v55;
+    v30 = v58;
+    v11 = v54;
     goto LABEL_40;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   obj = v28;
-  v30 = v59;
-  v11 = v55;
-  v62 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
-  if (!v62)
+  v30 = v58;
+  v11 = v54;
+  v61 = [obj countByEnumeratingWithState:&v63 objects:v74 count:16];
+  if (!v61)
   {
     v51 = 1;
     goto LABEL_39;
   }
 
-  v61 = *v65;
-  v54 = v29;
+  v60 = *v64;
+  v53 = v29;
   while (2)
   {
-    for (j = 0; j != v62; ++j)
+    for (j = 0; j != v61; ++j)
     {
-      if (*v65 != v61)
+      if (*v64 != v60)
       {
         objc_enumerationMutation(obj);
       }
 
-      v32 = *(*(&v64 + 1) + 8 * j);
+      v32 = *(*(&v63 + 1) + 8 * j);
       v33 = [v15 indexOfObject:v32];
       if (v33 == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -776,57 +845,36 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
       }
 
       v42 = [v30 objectAtIndexedSubscript:v38];
-      v43 = [v42 storeUUIDInTransaction:v63 error:v13];
+      v43 = [v42 storeUUIDInTransaction:v62 error:v13];
       if (!v43)
       {
         goto LABEL_37;
       }
 
       v44 = [v15 objectAtIndexedSubscript:v38];
-      if (([v44 isEqual:v32] & 1) == 0)
+      if (([v44 isEqual:v32] & 1) == 0 && (objc_msgSend(v32, "startDate"), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "endDate"), v56 = v44, v46 = v13, v47 = objc_claimAutoreleasedReturnValue(), v48 = objc_msgSend(v42, "updateShardStartDate:endDate:type:transaction:error:", v45, v47, objc_msgSend(v32, "type"), v62, v46), v47, v13 = v46, v44 = v56, v45, v30 = v58, !v48) || (v27 = v59, +[HDCloudSyncStore _syncStoreForProfile:storeIdentifier:ownerIdentifier:syncIdentity:containerIdentifier:shardPredicate:creationDate:error:](*(v59 + 80), *(v59 + 56), v43, *(v59 + 32), *(v59 + 48), *(v59 + 40), v32, 0, v13), (v49 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        v45 = [v32 startDate];
-        [v32 endDate];
-        v57 = v44;
-        v47 = v46 = v13;
-        v48 = [v42 updateShardStartDate:v45 endDate:v47 type:objc_msgSend(v32 transaction:"type") error:{v63, v46}];
-
-        v13 = v46;
-        v44 = v57;
-
-        v30 = v59;
-        if (!v48)
-        {
-          goto LABEL_36;
-        }
-      }
-
-      v27 = v60;
-      v49 = [(HDCloudSyncStore *)*(v60 + 80) _syncStoreForProfile:v43 storeIdentifier:*(v60 + 32) ownerIdentifier:*(v60 + 48) syncIdentity:*(v60 + 40) containerIdentifier:v32 shardPredicate:0 creationDate:v13 error:?];
-      if (!v49)
-      {
-LABEL_36:
 
 LABEL_37:
 LABEL_38:
-        v29 = v54;
+        v29 = v53;
 
         v51 = 0;
-        v11 = v55;
+        v11 = v54;
         goto LABEL_39;
       }
 
       v50 = v49;
-      [*(v60 + 72) addObject:v49];
+      [*(v59 + 72) addObject:v49];
 
 LABEL_30:
     }
 
     v51 = 1;
-    v29 = v54;
-    v11 = v55;
-    v62 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
-    if (v62)
+    v29 = v53;
+    v11 = v54;
+    v61 = [obj countByEnumeratingWithState:&v63 objects:v74 count:16];
+    if (v61)
     {
       continue;
     }
@@ -839,7 +887,6 @@ LABEL_39:
 LABEL_40:
 LABEL_41:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v51;
 }
 
@@ -860,15 +907,15 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
 {
   v16 = [HDCloudSyncStore alloc];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v4 = [(NSUUID *)self->_storeIdentifier copy];
-  v5 = [(NSString *)self->_ownerIdentifier copy];
+  v4 = objc_msgSend_copy(self->_storeIdentifier);
+  v5 = objc_msgSend_copy(self->_ownerIdentifier);
   syncIdentity = self->_syncIdentity;
-  v7 = [(NSString *)self->_containerIdentifier copy];
-  v8 = [(HDCloudSyncShardPredicate *)self->_shardPredicate copy];
+  v7 = objc_msgSend_copy(self->_containerIdentifier);
+  v8 = objc_msgSend_copy(self->_shardPredicate);
   syncProvenance = self->_syncProvenance;
   syncEpoch = self->_syncEpoch;
-  v11 = [(NSSet *)self->_excludedSyncIdentities copy];
-  v12 = [(HDCloudSyncCachedStoreEpochs *)self->_cachedCurrentSequenceEpochs copy];
+  v11 = objc_msgSend_copy(self->_excludedSyncIdentities);
+  v12 = objc_msgSend_copy(self->_cachedCurrentSequenceEpochs);
   v13 = [(HDCloudSyncStore *)&v16->super.isa _initWithProfile:v4 storeIdentifier:v5 ownerIdentifier:syncIdentity syncIdentity:v7 containerIdentifier:v8 shardPredicate:syncProvenance provenance:syncEpoch syncEpoch:v11 excludedSyncIdentities:v12 currentEpochs:?];
 
   *(v13 + 6) = self->_syncProtocolVersion;
@@ -878,7 +925,7 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
 
 - (id)syncStoreForEpoch:(int64_t)epoch
 {
-  v4 = [(HDCloudSyncStore *)self copy];
+  v4 = objc_msgSend_copy(self, a2);
   v4[2] = epoch;
 
   return v4;
@@ -892,7 +939,7 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDCloudSyncStore.m" lineNumber:540 description:{@"Invalid parameter not satisfying: %@", @"syncProtocolVersion <= _syncProtocolVersion"}];
   }
 
-  v5 = [(HDCloudSyncStore *)self copy];
+  v5 = objc_msgSend_copy(self);
   v5[6] = version;
 
   return v5;
@@ -900,7 +947,7 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
 
 - (id)syncStoreForTombstoneSyncOnly:(BOOL)only
 {
-  v4 = [(HDCloudSyncStore *)self copy];
+  v4 = objc_msgSend_copy(self, a2);
   v4[40] = only;
 
   return v4;
@@ -975,39 +1022,38 @@ uint64_t __123__HDCloudSyncStore_createOrUpdateShardStoresForProfile_throughDate
 
 - (id)_syncAnchorMapByStrippingBlockedEntities:(id)entities
 {
-  v22[7] = *MEMORY[0x277D85DE8];
+  v21[7] = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v4 = objc_alloc_init(HDSyncAnchorMap);
   v5 = [HDSyncEntityIdentifier identifierWithSchema:0 entity:107];
-  v22[0] = v5;
+  v21[0] = v5;
   v6 = [HDSyncEntityIdentifier identifierWithSchema:0 entity:15];
-  v22[1] = v6;
+  v21[1] = v6;
   v7 = [HDSyncEntityIdentifier identifierWithSchema:0 entity:20];
-  v22[2] = v7;
+  v21[2] = v7;
   v8 = [HDSyncEntityIdentifier identifierWithSchema:0 entity:21];
-  v22[3] = v8;
+  v21[3] = v8;
   v9 = [HDSyncEntityIdentifier identifierWithSchema:0 entity:57];
-  v22[4] = v9;
+  v21[4] = v9;
   v10 = [HDSyncEntityIdentifier identifierWithSchema:@"ACHAchievementsPlugin" entity:1];
-  v22[5] = v10;
+  v21[5] = v10;
   v11 = [HDSyncEntityIdentifier identifierWithSchema:@"ACHAchievementsPlugin" entity:2];
-  v22[6] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:7];
+  v21[6] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:7];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __61__HDCloudSyncStore__syncAnchorMapByStrippingBlockedEntities___block_invoke;
-  v19[3] = &unk_2786264B0;
-  v20 = v12;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __61__HDCloudSyncStore__syncAnchorMapByStrippingBlockedEntities___block_invoke;
+  v18[3] = &unk_2786264B0;
+  v19 = v12;
   v13 = v4;
-  v21 = v13;
+  v20 = v13;
   v14 = v12;
-  [entitiesCopy enumerateAnchorsAndEntityIdentifiersWithBlock:v19];
+  [entitiesCopy enumerateAnchorsAndEntityIdentifiersWithBlock:v18];
 
-  v15 = v21;
+  v15 = v20;
   v16 = v13;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1082,11 +1128,11 @@ BOOL __60__HDCloudSyncStore_replaceFrozenAnchorMap_updateDate_error___block_invo
 
 - (id)databaseIdentifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v10 = 0;
-  v4 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromProfile:WeakRetained error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromProfile:WeakRetained error:&v9];
+  v5 = v9;
 
   if (v4)
   {
@@ -1101,15 +1147,13 @@ BOOL __60__HDCloudSyncStore_replaceFrozenAnchorMap_updateDate_error___block_invo
     {
       *buf = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = v5;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get database identifier: %{public}@", buf, 0x16u);
     }
 
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1142,33 +1186,33 @@ BOOL __60__HDCloudSyncStore_replaceFrozenAnchorMap_updateDate_error___block_invo
 - (id)_syncEntityDependencyIdentifiersForEntity:(void *)entity
 {
   entityCopy = entity;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (entity)
   {
     v3 = [a2 syncEntityDependenciesForSyncProtocolVersion:{objc_msgSend(entity, "protocolVersion")}];
     if ([v3 count])
     {
       v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
       v5 = v3;
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v16;
+        v8 = *v15;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v16 != v8)
+            if (*v15 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v15 + 1) + 8 * i);
+            v10 = *(*(&v14 + 1) + 8 * i);
             syncEntityIdentifier = [v10 syncEntityIdentifier];
             [v4 addObject:syncEntityIdentifier];
 
@@ -1176,7 +1220,7 @@ BOOL __60__HDCloudSyncStore_replaceFrozenAnchorMap_updateDate_error___block_invo
             [v4 addObjectsFromArray:v12];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v7);
@@ -1190,8 +1234,6 @@ BOOL __60__HDCloudSyncStore_replaceFrozenAnchorMap_updateDate_error___block_invo
       entityCopy = MEMORY[0x277CBEBF8];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return entityCopy;
 }
@@ -1229,17 +1271,15 @@ uint64_t __42__HDCloudSyncStore__supportedSyncEntities__block_invoke(uint64_t a1
 
 - (id)_tombstoneEntities
 {
-  v3[4] = *MEMORY[0x277D85DE8];
+  v2[4] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v3[0] = objc_opt_class();
-    v3[1] = objc_opt_class();
-    v3[2] = objc_opt_class();
-    v3[3] = objc_opt_class();
-    self = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+    v2[0] = objc_opt_class();
+    v2[1] = objc_opt_class();
+    v2[2] = objc_opt_class();
+    v2[3] = objc_opt_class();
+    self = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -1322,30 +1362,30 @@ uint64_t __66__HDCloudSyncStore__requiredSyncEntitiesForSupportedSyncEntities___
 
 - (id)orderedSyncEntities
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   _supportedSyncEntities = [(HDCloudSyncStore *)&self->super.isa _supportedSyncEntities];
   v4 = [(HDCloudSyncStore *)self _requiredSyncEntitiesForSupportedSyncEntities:_supportedSyncEntities];
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         syncEntityIdentifier = [v11 syncEntityIdentifier];
         [v5 addObject:syncEntityIdentifier];
 
@@ -1353,21 +1393,19 @@ uint64_t __66__HDCloudSyncStore__requiredSyncEntitiesForSupportedSyncEntities___
         [v5 addObjectsFromArray:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __39__HDCloudSyncStore_orderedSyncEntities__block_invoke;
-  v18[3] = &unk_278623A30;
-  v19 = v5;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __39__HDCloudSyncStore_orderedSyncEntities__block_invoke;
+  v17[3] = &unk_278623A30;
+  v18 = v5;
   v14 = v5;
-  v15 = [_supportedSyncEntities hk_filter:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [_supportedSyncEntities hk_filter:v17];
 
   return v15;
 }
@@ -1383,18 +1421,18 @@ uint64_t __39__HDCloudSyncStore_orderedSyncEntities__block_invoke(uint64_t a1, v
 
 - (BOOL)shouldContinueAfterAnchorValidationError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v17 = 0;
-  v5 = [(HDCloudSyncStore *)self persistedStateWithError:&v17];
-  v6 = v17;
+  v16 = 0;
+  v5 = [(HDCloudSyncStore *)self persistedStateWithError:&v16];
+  v6 = v16;
   if (v5)
   {
     v7 = [v5 stateWithGapEncountered:1];
 
-    v16 = v6;
-    v8 = [(HDCloudSyncStore *)self persistState:v7 error:&v16];
-    v9 = v16;
+    v15 = v6;
+    v8 = [(HDCloudSyncStore *)self persistState:v7 error:&v15];
+    v9 = v15;
 
     _HKInitializeLogging();
     v10 = *MEMORY[0x277CCC328];
@@ -1405,8 +1443,8 @@ uint64_t __39__HDCloudSyncStore_orderedSyncEntities__block_invoke(uint64_t a1, v
       {
         *buf = 138543618;
         selfCopy3 = self;
-        v20 = 2114;
-        v21 = errorCopy;
+        v19 = 2114;
+        v20 = errorCopy;
         v12 = "%{public}@: Recorded anchor gap after validation failure: %{public}@";
 LABEL_12:
         _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, v12, buf, 0x16u);
@@ -1417,8 +1455,8 @@ LABEL_12:
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v20 = 2114;
-      v21 = v9;
+      v19 = 2114;
+      v20 = v9;
       v12 = "%{public}@: Failed to update persisted state when recording an encountered anchor gap: %{public}@";
       goto LABEL_12;
     }
@@ -1432,15 +1470,14 @@ LABEL_12:
   {
     *buf = 138543618;
     selfCopy3 = self;
-    v20 = 2114;
-    v21 = v6;
+    v19 = 2114;
+    v20 = v6;
     _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Failed to retrieve current persisted state when recording an encountered anchor gap: %{public}@", buf, 0x16u);
   }
 
   v9 = v6;
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1451,11 +1488,10 @@ LABEL_10:
   uUIDString = [(NSUUID *)self->_storeIdentifier UUIDString];
   syncProvenance = self->_syncProvenance;
   syncEpoch = self->_syncEpoch;
-  syncProtocolVersion = self->_syncProtocolVersion;
-  v9 = HKSyncProtocolVersionToString();
-  v10 = [v3 stringWithFormat:@"<%@:%p %@ (%ld) Epoch %lld, version %@, shard %@>", v4, self, uUIDString, syncProvenance, syncEpoch, v9, self->_shardPredicate];
+  v8 = HKSyncProtocolVersionToString();
+  v9 = [v3 stringWithFormat:@"<%@:%p %@ (%ld) Epoch %lld, version %@, shard %@>", v4, self, uUIDString, syncProvenance, syncEpoch, v8, self->_shardPredicate];
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)_isSupportedShardTypeForRestrictionPredicates
@@ -1468,7 +1504,7 @@ LABEL_10:
 
 - (BOOL)providesSamplePruningRestrictionPredicate
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   profile = [(HDCloudSyncStore *)self profile];
   cloudSyncManager = [profile cloudSyncManager];
   canPerformRecentRecordRoll = [cloudSyncManager canPerformRecentRecordRoll];
@@ -1476,9 +1512,9 @@ LABEL_10:
   _isSupportedShardTypeForRestrictionPredicates = [(HDCloudSyncStore *)self _isSupportedShardTypeForRestrictionPredicates];
   profile2 = [(HDCloudSyncStore *)self profile];
   legacyRepositoryProfile = [profile2 legacyRepositoryProfile];
-  v21 = 0;
-  v9 = HDUpgradedToSyncIdentity(legacyRepositoryProfile, &v21);
-  v10 = v21;
+  v20 = 0;
+  v9 = HDUpgradedToSyncIdentity(legacyRepositoryProfile, &v20);
+  v10 = v20;
 
   if (v10)
   {
@@ -1488,8 +1524,8 @@ LABEL_10:
     {
       *buf = 138543618;
       selfCopy = self;
-      v24 = 2114;
-      v25 = v10;
+      v23 = 2114;
+      v24 = v10;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Failed to check whether device has upgraded to sync identity: %{public}@", buf, 0x16u);
     }
   }
@@ -1511,7 +1547,6 @@ LABEL_10:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 

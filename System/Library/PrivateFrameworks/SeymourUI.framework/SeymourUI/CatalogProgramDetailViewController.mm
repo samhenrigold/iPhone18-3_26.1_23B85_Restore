@@ -15,13 +15,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20C045C98();
+  sub_20C045C98(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_20C045DD8(appear);
+  sub_20C045DD8(appearCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -54,8 +55,8 @@
   v7.super_class = type metadata accessor for CatalogProgramDetailViewController();
   v4 = v7.receiver;
   [(CatalogProgramDetailViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20C048054(&qword_27C771EC0, v5, type metadata accessor for CatalogProgramDetailViewController);
-  sub_20C048054(&qword_27C771EC8, v6, type metadata accessor for CatalogProgramDetailViewController);
+  sub_20C048054(&qword_27C771EC0, v5, type metadata accessor for CatalogProgramDetailViewController, "i!\nv");
+  sub_20C048054(&qword_27C771EC8, v6, type metadata accessor for CatalogProgramDetailViewController, &unk_20C18A720);
   sub_20C139374();
 }
 
@@ -81,7 +82,7 @@
   swift_unknownObjectRelease();
   sub_20C046C3C();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC9SeymourUI34CatalogProgramDetailViewController)initWithNibName:(id)name bundle:(id)bundle

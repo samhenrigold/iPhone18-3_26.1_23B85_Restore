@@ -42,7 +42,7 @@
   if (!v5)
   {
 LABEL_7:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_8;
   }
 
@@ -62,26 +62,26 @@ LABEL_7:
   [(SIModel *)v5 setOutputs:v10];
 
   [(SIPeopleSegmentation *)v5 setSnapEveryFrameCount:30];
-  if (![(SIPeopleSegmentation *)v5 _initTemporalBuffer])
+  _initTemporalBuffer = [(SIPeopleSegmentation *)v5 _initTemporalBuffer];
+  if ((_initTemporalBuffer & 1) == 0)
   {
-    v12 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __SceneIntelligenceLogSharedInstance(_initTemporalBuffer);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380931;
       v17 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PeopleSegmentation/SIPeopleSegmentation.mm";
       v18 = 1025;
       v19 = 70;
-      _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d ***  ***", buf, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d ***  ***", buf, 0x12u);
     }
 
     goto LABEL_7;
   }
 
-  v11 = v5;
+  v12 = v5;
 LABEL_8:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (CGSize)getInputResolution
@@ -150,23 +150,23 @@ LABEL_8:
   v5 = v4;
   [(SIPeopleSegmentation *)self getOutputResolution];
   v7 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v5, v6, 0x4C303038u, v3, &self->_temporalBuffer);
+  v8 = v7;
   if (v7)
   {
-    v8 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __SceneIntelligenceLogSharedInstance(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = 136381187;
       v12 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PeopleSegmentation/SIPeopleSegmentation.mm";
       v13 = 1025;
       v14 = 111;
       v15 = 1024;
-      v16 = v7;
-      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** (Error %d) Could not create internal image buffer of uint8 type ***", &v11, 0x18u);
+      v16 = v8;
+      _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** (Error %d) Could not create internal image buffer of uint8 type ***", &v11, 0x18u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7 == 0;
+  return v8 == 0;
 }
 
 - (int64_t)evaluateForInput:(__CVBuffer *)input outputBuffer:(__CVBuffer *)buffer

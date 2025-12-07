@@ -169,9 +169,9 @@ uint64_t __53__PUPlaybackTimeLabel__maximumLabelSizeWithDuration___block_invoke_
   if ([(PUPlaybackTimeLabel *)self _needsUpdateLabel])
   {
     [(PUPlaybackTimeLabel *)self _setNeedsUpdateLabel:0];
-    [(PUPlaybackTimeLabel *)self currentPlaybackTime];
+    objc_msgSend_currentPlaybackTime(self);
     memset(&v6[32], 0, 48);
-    [(PUPlaybackTimeLabel *)self playbackDuration];
+    objc_msgSend_playbackDuration(self);
     if (0 >> 96 == 1 && (v6[44] & 0x1D) == 1)
     {
       *v6 = *&v6[56];
@@ -203,7 +203,7 @@ uint64_t __53__PUPlaybackTimeLabel__maximumLabelSizeWithDuration___block_invoke_
   {
     [(PUPlaybackTimeLabel *)self _setNeedsUpdateBackground:0];
     memset(&v14[1], 0, sizeof(CMTime));
-    [(PUPlaybackTimeLabel *)self playbackDuration];
+    objc_msgSend_playbackDuration(self);
     if (0 >> 96 == 1)
     {
       v14[0] = v14[1];

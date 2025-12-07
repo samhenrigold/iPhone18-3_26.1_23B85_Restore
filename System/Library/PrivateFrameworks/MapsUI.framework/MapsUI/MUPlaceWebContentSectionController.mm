@@ -139,7 +139,7 @@ void __112__MUPlaceWebContentSectionController_webContentViewController_performH
 
 - (MUPlaceWebContentSectionController)initWithMapItem:(id)item configuration:(id)configuration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   configurationCopy = configuration;
   v8 = objc_alloc_init(MUWebContentTraits);
@@ -151,9 +151,9 @@ void __112__MUPlaceWebContentSectionController_webContentViewController_performH
 
   if (v11 && ([configurationCopy url], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
   {
-    v20.receiver = self;
-    v20.super_class = MUPlaceWebContentSectionController;
-    v13 = [(MUPlaceSectionController *)&v20 initWithMapItem:itemCopy];
+    v19.receiver = self;
+    v19.super_class = MUPlaceWebContentSectionController;
+    v13 = [(MUPlaceSectionController *)&v19 initWithMapItem:itemCopy];
     if (v13)
     {
       v14 = MUGetPlaceCardLog();
@@ -185,14 +185,13 @@ void __112__MUPlaceWebContentSectionController_webContentViewController_performH
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v22 = configurationCopy;
+      v21 = configurationCopy;
       _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_FAULT, "MUPlaceWebContentSectionController: Cannot load a webmodule with config %@ because the config url is empty", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

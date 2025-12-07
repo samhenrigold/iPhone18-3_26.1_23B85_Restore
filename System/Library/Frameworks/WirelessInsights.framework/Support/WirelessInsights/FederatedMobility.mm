@@ -102,18 +102,17 @@
 - (void)updateServicePredictionConfiguration:(id)configuration
 {
   v3 = sub_100164A3C(&qword_1002D7180, &qword_10024ABF0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11[-v5 - 8];
-  v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1001654A8(v7, v11);
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  memcpy(v9 + 4, v11, 0x178uLL);
-  sub_1001C47C0(0, 0, v6, &unk_10024D4E0, v9);
+  v5 = &v10[-v4 - 8];
+  v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_1001654A8(v6, v10);
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  memcpy(v8 + 4, v10, 0x178uLL);
+  sub_1001C47C0(0, 0, v5, &unk_10024D4E0, v8);
 }
 
 @end

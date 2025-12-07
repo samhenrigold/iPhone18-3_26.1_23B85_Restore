@@ -1118,7 +1118,7 @@ void __51__OKPresentationViewControllerProxy_viewDidAppear___block_invoke(uint64
   }
 }
 
-uint64_t __51__OKPresentationViewControllerProxy_viewDidAppear___block_invoke_2(uint64_t a1, _BYTE *a2)
+void *__51__OKPresentationViewControllerProxy_viewDidAppear___block_invoke_2(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;
@@ -1137,7 +1137,7 @@ intptr_t __51__OKPresentationViewControllerProxy_viewDidAppear___block_invoke_3(
   return dispatch_semaphore_signal(v4);
 }
 
-uint64_t __51__OKPresentationViewControllerProxy_viewDidAppear___block_invoke_4(uint64_t a1, _BYTE *a2)
+void *__51__OKPresentationViewControllerProxy_viewDidAppear___block_invoke_4(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;
@@ -1702,7 +1702,7 @@ LABEL_6:
   dispatch_async(MEMORY[0x277D85CD0], v4);
 }
 
-uint64_t __78__OKPresentationViewControllerProxy_producer_didProcessLiveAuthoringKeyPaths___block_invoke(uint64_t a1)
+void *__78__OKPresentationViewControllerProxy_producer_didProcessLiveAuthoringKeyPaths___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -1731,7 +1731,7 @@ uint64_t __78__OKPresentationViewControllerProxy_producer_didProcessLiveAuthorin
           [v7 presentationDidLiveUpdate];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -2387,7 +2387,7 @@ uint64_t __60__OKPresentationViewControllerProxy_setupJavascriptContext___block_
   return [v0 deepestDisplayedPageViewController];
 }
 
-id __60__OKPresentationViewControllerProxy_setupJavascriptContext___block_invoke_4()
+OKCollectionProxy *__60__OKPresentationViewControllerProxy_setupJavascriptContext___block_invoke_4()
 {
   v0 = objc_opt_new();
   [v0 setDataSource:{objc_msgSend(objc_msgSend(MEMORY[0x277CD4640], "currentThis"), "toObject")}];
@@ -2998,13 +2998,13 @@ LABEL_12:
   }
 }
 
-uint64_t __68__OKPresentationViewControllerProxy_fadeAllAudioTracksWithDuration___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__68__OKPresentationViewControllerProxy_fadeAllAudioTracksWithDuration___block_invoke(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v5 = result;
-    v6 = [*(result + 40) delegate];
-    v7 = *(v5 + 48);
+    v6 = [result[5] delegate];
+    v7 = *(v5 + 6);
 
     return [v6 beginFadingForTrackID:a2 fadeDuration:v7];
   }
@@ -3142,13 +3142,13 @@ void *__73__OKPresentationViewControllerProxy_fadeMainNavigatorTracksWithDuratio
   return generateUUID;
 }
 
-uint64_t __83__OKPresentationViewControllerProxy_beginAudioForController_withAVAsset_andVolume___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__83__OKPresentationViewControllerProxy_beginAudioForController_withAVAsset_andVolume___block_invoke(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v5 = result;
-    v6 = [*(result + 40) delegate];
-    [*(v5 + 48) requiredDuckLevel];
+    v6 = [result[5] delegate];
+    [v5[6] requiredDuckLevel];
 
     return [v6 beginDuckingForTrackID:a2 toDuckLevel:? fadeDuration:?];
   }
@@ -3285,11 +3285,11 @@ uint64_t __70__OKPresentationViewControllerProxy_endAudioForController_andTrackI
   return result;
 }
 
-uint64_t __70__OKPresentationViewControllerProxy_endAudioForController_andTrackID___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__70__OKPresentationViewControllerProxy_endAudioForController_andTrackID___block_invoke_2(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
-    v5 = [*(result + 40) delegate];
+    v5 = [result[5] delegate];
 
     return [v5 endDuckingForTrackID:a2];
   }
@@ -3297,13 +3297,13 @@ uint64_t __70__OKPresentationViewControllerProxy_endAudioForController_andTrackI
   return result;
 }
 
-uint64_t __70__OKPresentationViewControllerProxy_endAudioForController_andTrackID___block_invoke_3(uint64_t result, uint64_t a2, uint64_t a3)
+id *__70__OKPresentationViewControllerProxy_endAudioForController_andTrackID___block_invoke_3(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v5 = result;
-    v6 = [*(result + 40) delegate];
-    [*(v5 + 48) requiredDuckLevel];
+    v6 = [result[5] delegate];
+    [v5[6] requiredDuckLevel];
 
     return [v6 beginDuckingForTrackID:a2 toDuckLevel:? fadeDuration:?];
   }

@@ -82,7 +82,7 @@ uint64_t __24__ATXTrialAssets_client__block_invoke(uint64_t a1, uint64_t a2)
 
   else
   {
-    v8 = __atxlog_handle_trial_assets();
+    v8 = __atxlog_handle_trial_assets(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(ATXTrialAssets *)resourceCopy dictionaryForResource:v8];
@@ -114,7 +114,7 @@ uint64_t __24__ATXTrialAssets_client__block_invoke(uint64_t a1, uint64_t a2)
 
   else
   {
-    v8 = __atxlog_handle_trial_assets();
+    v8 = __atxlog_handle_trial_assets(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(ATXTrialAssets *)nameCopy dictionaryForClassName:v8];
@@ -280,7 +280,7 @@ void __49__ATXTrialAssets_fetchTrialExperimentIdentifiers__block_invoke(uint64_t
 
   else
   {
-    v15 = __atxlog_handle_default();
+    v15 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *v16 = 0;

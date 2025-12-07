@@ -8,7 +8,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if ([(HMDCameraClipsQuotaServerNotification *)self reason]== 1)
   {
     v3 = @"allCamerasDisabled";
@@ -19,23 +19,21 @@
     v3 = 0;
   }
 
-  v13 = @"hk";
-  v11[0] = @"c";
+  v12 = @"hk";
+  v10[0] = @"c";
   containerIdentifier = [(HMDCameraClipsQuotaServerNotification *)self containerIdentifier];
-  v12[0] = containerIdentifier;
-  v12[1] = v3;
-  v11[1] = @"f";
-  v11[2] = @"r";
+  v11[0] = containerIdentifier;
+  v11[1] = v3;
+  v10[1] = @"f";
+  v10[2] = @"r";
   requestID = [(HMDCameraClipsQuotaServerNotification *)self requestID];
-  v12[2] = requestID;
-  v11[3] = @"u";
+  v11[2] = requestID;
+  v10[3] = @"u";
   userDSID = [(HMDCameraClipsQuotaServerNotification *)self userDSID];
-  v12[3] = userDSID;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
-  v14[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[3] = userDSID;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v13[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   return v8;
 }

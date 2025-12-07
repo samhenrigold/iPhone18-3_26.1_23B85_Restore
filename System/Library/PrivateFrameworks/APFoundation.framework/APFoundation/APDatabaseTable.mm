@@ -52,7 +52,7 @@
 
 - (id)selectAll
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_manager(self, a2, v2, v3);
   if (v5)
   {
@@ -70,22 +70,20 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v19 = objc_opt_class();
-      v15 = v19;
+      v18 = objc_opt_class();
+      v15 = v18;
       _os_log_impl(&dword_1BADC1000, v14, OS_LOG_TYPE_ERROR, "[%{private}@]: Database manager is nil when trying to select all.", buf, 0xCu);
     }
 
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)_tableExists
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_manager(self, a2, v2, v3);
   if (v5)
   {
@@ -93,8 +91,8 @@
     v10 = objc_msgSend_tableName(self, v7, v8, v9);
     v12 = objc_msgSend_initWithName_forColumnType_withValue_(v6, v11, @"name", 3, v10);
 
-    v24 = v12;
-    v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v24, 1);
+    v23 = v12;
+    v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v23, 1);
     v16 = objc_msgSend_executeSelectStringsQuery_withParameters_(v5, v15, @"SELECT name FROM sqlite_master WHERE type='table' AND name=?", v14);
 
     v20 = objc_msgSend_count(v16, v17, v18, v19) != 0;
@@ -106,15 +104,14 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v26 = objc_opt_class();
-      v21 = v26;
+      v25 = objc_opt_class();
+      v21 = v25;
       _os_log_impl(&dword_1BADC1000, v12, OS_LOG_TYPE_ERROR, "[%{private}@]: Database manager is nil when trying to select all.", buf, 0xCu);
     }
 
     v20 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

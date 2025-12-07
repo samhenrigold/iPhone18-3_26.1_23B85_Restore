@@ -100,17 +100,18 @@ void __38__CSMiniPlayerArtworkView_setArtwork___block_invoke(uint64_t a1, void *
   v4 = a2;
   v5 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [v4 setImage:v5];
   }
 
   else
   {
-    v6 = ContinuitySingLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __38__CSMiniPlayerArtworkView_setArtwork___block_invoke_cold_1(v6);
+      __38__CSMiniPlayerArtworkView_setArtwork___block_invoke_cold_1(v7);
     }
   }
 }

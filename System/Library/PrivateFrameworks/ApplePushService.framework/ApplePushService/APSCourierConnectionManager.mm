@@ -25,6 +25,7 @@
 - (BOOL)isPiggybacking;
 - (BOOL)isSuspendedOnInterface:(int64_t)interface;
 - (BOOL)keepAliveV2SupportedOnInterface:(int64_t)interface;
+- (BOOL)sendMessageWithTopicHash:(id)hash identifier:(unint64_t)identifier payload:(id)payload token:(id)token isPlistFormat:(BOOL)format lastRTT:(id)t onInterface:(int64_t)interface withCompletion:(id)self0;
 - (BOOL)shouldUseInternet;
 - (BOOL)useServerKeepAliveStatsOnInterface:(int64_t)interface;
 - (NSArray)activeProtocolConnections;
@@ -73,6 +74,8 @@
 - (void)_delayedPerformKeepAliveOnInterface:(int64_t)interface withDelay:(double)delay;
 - (void)_delayedReconnectTimerFired;
 - (void)_delayedSuspendKeepAliveTimerFired:(id)fired;
+- (void)_disconnectAllStreamsWithReason:(unsigned int)reason;
+- (void)_disconnectStreamForInterface:(int64_t)interface withReason:(unsigned int)reason error:(id)error;
 - (void)_filterMessageTimeoutTimerFired:(id)fired;
 - (void)_handleConnectionAfterSuspensionRecoveryOnInterface:(int64_t)interface withKeepAlive:(BOOL)alive;
 - (void)_handleConnectionFailureOnInterface:(int64_t)interface forceDelayedReconnect:(BOOL)reconnect withReason:(unsigned int)reason error:(id)error;
@@ -81,15 +84,20 @@
 - (void)_handleDelayKeepAliveCancelMessageOnInterface:(int64_t)interface;
 - (void)_handleFlushMessage:(id)message onInterface:(int64_t)interface;
 - (void)_handleKeepAliveAckMessage:(id)message onInterface:(int64_t)interface;
+- (void)_handleKeepAliveResponseMessage:(id)message onInterface:(int64_t)interface didWake:(BOOL)wake;
 - (void)_handlePSKVendingStatus:(unint64_t)status onConnectionType:(int64_t)type;
 - (void)_invokeInFailureHandlingContext:(id)context;
 - (void)_noteFullTCPHandshake;
 - (void)_pendingMessageReconnectTimerFired;
+- (void)_performFlushWithPaddingLength:(int)length;
+- (void)_performKeepAliveOnInterface:(int64_t)interface shortInterval:(BOOL)interval withAction:(int)action;
+- (void)_requestKeepAlive:(BOOL)alive orConnection:(BOOL)connection shortInterval:(BOOL)interval onInterface:(int64_t)interface;
 - (void)_resetInterfacePreferenceTimerFired:(id)fired;
 - (void)_resetKeepAliveOnInterface:(int64_t)interface;
 - (void)_resetServerKeepAliveStatsOnInterface:(int64_t)interface;
 - (void)_startConnectionEstablishTimerOnInterface:(int64_t)interface;
 - (void)_startFilterMessageTimerOnInterface:(int64_t)interface;
+- (void)_startKeepAliveResponseTimerOnInterface:(int64_t)interface shortInterval:(BOOL)interval;
 - (void)_startResetInterfacePreferenceTimer;
 - (void)_stopOffloadingToAOP;
 - (void)_submitKeepAliveFailedAWDonInterface:(int64_t)interface;
@@ -104,9 +112,11 @@
 - (void)clearConsecutiveConnectionFailureReasonOnInterface:(int64_t)interface;
 - (void)clearDNSResolutionAndTLSHandshakeOnInterface:(int64_t)interface;
 - (void)clearProtocolConnectionForInterface:(int64_t)interface;
+- (void)connectionOffloader:(id)offloader cacheKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth;
 - (void)courierConnection:(id)connection aboutToWriteDataOnConnectedInterface:(int64_t)interface;
 - (void)courierConnection:(id)connection connectionEstablishTimerFiredOnInterface:(int64_t)interface;
 - (void)courierConnection:(id)connection connectionManager:(id)manager handleEvent:(int)event context:(id)context onInterface:(int64_t)interface;
+- (void)courierConnection:(id)connection disconnectStreamOnInterface:(int64_t)interface withReason:(unsigned int)reason;
 - (void)courierConnection:(id)connection errorOccured:(id)occured disconnectReason:(unsigned int)reason onInterface:(int64_t)interface;
 - (void)courierConnection:(id)connection hasDeterminedServerHostname:(id)hostname onInterface:(int64_t)interface;
 - (void)courierConnection:(id)connection keepAliveResponseTimerFiredOnInterface:(int64_t)interface;
@@ -114,11 +124,16 @@
 - (void)courierConnection:(id)connection receivedOffloadInfo:(id)info onInterface:(int64_t)interface;
 - (void)courierConnection:(id)connection receivedServerBag:(id)bag finishedProcessingServerBagBlock:(id)block;
 - (void)courierConnection:(id)connection shouldConnect:(id)connect;
+- (void)courierConnection:(id)connection streamEndedOnInterface:(int64_t)interface withReason:(unsigned int)reason;
+- (void)courierConnectionHasConnected:(id)connected context:(id)context enabledPackedFormat:(BOOL)format secureHandshakeEnabled:(BOOL)enabled onInterface:(int64_t)interface;
 - (void)dealloc;
 - (void)forceAdjustConnections;
 - (void)holdPowerAssertionUntilStreamsQuiesce;
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality;
 - (void)interfaceRadioHotnessChanged:(id)changed;
 - (void)markInitiallyConnectedOnInterface:(int64_t)interface;
+- (void)networkMonitor:(id)monitor enableWiFiAssertionForPiggybackConnection:(BOOL)connection;
+- (void)networkMonitor:(id)monitor evaluateDualModeState:(BOOL)state;
 - (void)networkMonitorWiFiBecameAssociated:(id)associated;
 - (void)notePush;
 - (void)offloadHeuristics:(id)heuristics offloadDisabledOnInterface:(int64_t)interface;
@@ -129,20 +144,28 @@
 - (void)prepareForFullWake;
 - (void)prepareForSleep;
 - (void)recalculateCriticalReliability;
+- (void)refreshCriticalReliabilityTimerWithShortKeepAlive:(BOOL)alive;
 - (void)requestConnectionIfNeeded;
+- (void)sendActivityTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp onInterface:(int64_t)interface;
 - (void)sendConnectMessageWithToken:(id)token interface:(int64_t)interface activeInterval:(unsigned int)interval presenceFlags:(int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)nonce signature:(id)self0 hostCertificateInfo:(id)self1 redirectCount:(unsigned __int8)self2 tcpHandshakeTimeMilliseconds:(double)self3 dnsResolveTimeMilliseconds:(double)self4 tlsHandshakeTimeMilliseconds:(double)self5 consecutiveConnectionFailureReason:(id)self6 withCompletion:(id)self7 onInterface:(int64_t)self8;
 - (void)sendConnectMessageWithToken:(id)token state:(int)state interface:(int64_t)interface activeInterval:(unsigned int)interval presenceFlags:(int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)self0 signature:(id)self1 redirectCount:(unsigned __int8)self2 withCompletion:(id)self3 onInterface:(int64_t)self4;
 - (void)sendConnectMessageWithToken:(id)token state:(int)state presenceFlags:(int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)self0 redirectCount:(unsigned __int8)self1 withCompletion:(id)self2 onInterface:(int64_t)self3;
 - (void)sendFilterMessageWithEnabledHashes:(id)hashes ignoredHashes:(id)ignoredHashes opportunisticHashes:(id)opportunisticHashes nonWakingHashes:(id)wakingHashes pausedHashes:(id)pausedHashes token:(id)token version:(unint64_t)version expectsResponse:(BOOL)self0 onInterface:(int64_t)self1 withCompletion:(id)self2;
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id token:(id)token onInterface:(int64_t)interface;
+- (void)sendMessageTracingAckWithTopicHash:(id)hash tracingUUID:(id)d status:(int)status token:(id)token onInterface:(int64_t)interface;
 - (void)sendMessageTransportAcknowledgeMessageOnInterface:(int64_t)interface;
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d onInterface:(int64_t)interface;
+- (void)sendSetActiveState:(BOOL)state forInterval:(unsigned int)interval onInterface:(int64_t)interface;
 - (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type withCompletion:(id)completion onInterface:(int64_t)self0;
 - (void)setConnectionFailure:(id)failure onInterface:(int64_t)interface;
 - (void)setConnectionStatistics:(id)statistics onInterface:(int64_t)interface;
 - (void)setConnectionTime:(id)time forInterface:(int64_t)interface;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setKeepAliveConfiguration:(unint64_t)configuration;
+- (void)setKeepAliveV2Supported:(BOOL)supported onInterface:(int64_t)interface;
 - (void)setMaxLargeMessageSize:(id)size forInterface:(int64_t)interface;
 - (void)setMaxMessageSize:(id)size forInterface:(int64_t)interface;
+- (void)setServerSupportsDualMode:(BOOL)mode;
 - (void)stopManagerOnInterface:(int64_t)interface;
 - (void)triggerCriticalReliability;
 - (void)updateKeepAliveInterval:(double)interval;
@@ -582,6 +605,14 @@
   return v12 & 1;
 }
 
+- (void)_disconnectAllStreamsWithReason:(unsigned int)reason
+{
+  v3 = *&reason;
+  [(APSCourierConnectionManager *)self _disconnectStreamForInterface:1 withReason:*&reason];
+  [(APSCourierConnectionManager *)self _disconnectStreamForInterface:0 withReason:v3];
+  self->_cmaType = 0;
+}
+
 - (void)_handleConnectionFailureOnInterface:(int64_t)interface forceDelayedReconnect:(BOOL)reconnect withReason:(unsigned int)reason error:(id)error
 {
   reconnectCopy = reconnect;
@@ -1005,6 +1036,143 @@ LABEL_81:
   self->_pendingMessageReconnectTimer = 0;
 
   [(APSCourierConnectionManager *)self _adjustConnectionWithInterfacePreference:[(APSCourierConnection *)self->_courierConnection nextConnectionAttemptInterface]];
+}
+
+- (void)_disconnectStreamForInterface:(int64_t)interface withReason:(unsigned int)reason error:(id)error
+{
+  v5 = *&reason;
+  errorCopy = error;
+  environment = [(APSCourierConnectionManager *)self environment];
+  name = [environment name];
+  v11 = [name isEqualToString:APSEnvironmentProduction];
+
+  if (v11)
+  {
+    if (v5 == 19)
+    {
+      courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+      v13 = [courierConnection hasEstablishedConnectionOnInterface:interface];
+
+      v14 = +[APSOffloadHeuristics shared];
+      v15 = v14;
+      if (v13)
+      {
+        [v14 connectionDisconnectWithError:errorCopy interface:interface];
+      }
+
+      else
+      {
+        [v14 connectionAttemptFailedWithError:errorCopy interface:interface];
+      }
+    }
+
+    else
+    {
+      v15 = +[APSOffloadHeuristics shared];
+      [v15 connectionDisconnectWithAPSReason:v5 interface:interface];
+    }
+  }
+
+  v16 = +[APSLog courier];
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = sub_1000067F8(interface);
+    *buf = 138412802;
+    selfCopy = self;
+    v42 = 2112;
+    v43 = v17;
+    v44 = 1024;
+    v45 = v5;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ _disconnectStream for interface: %@ with reason: %u", buf, 0x1Cu);
+  }
+
+  outgoingConnectMessageQueue = [(APSCourierConnectionManager *)self outgoingConnectMessageQueue];
+  v19 = sub_1000067F8(interface);
+  [outgoingConnectMessageQueue clearEnqueuedSendsOnInterface:v19];
+
+  outgoingSendMessageQueue = [(APSCourierConnectionManager *)self outgoingSendMessageQueue];
+  v21 = sub_1000067F8(interface);
+  [outgoingSendMessageQueue clearEnqueuedSendsOnInterface:v21];
+
+  tokenGenerateResponseQueue = [(APSCourierConnectionManager *)self tokenGenerateResponseQueue];
+  v23 = sub_1000067F8(interface);
+  [tokenGenerateResponseQueue clearEnqueuedSendsOnInterface:v23];
+
+  outgoingFilterQueue = [(APSCourierConnectionManager *)self outgoingFilterQueue];
+  v25 = sub_1000067F8(interface);
+  [outgoingFilterQueue clearEnqueuedSendsOnInterface:v25];
+
+  [(APSCourierConnectionManager *)self setConnectionTime:0 forInterface:interface];
+  [(APSCourierConnectionManager *)self _clearFilterMessageTimerOnInterface:interface];
+  [(APSCourierConnection *)self->_courierConnection setIsSuspended:0 onInterface:interface];
+  redirectHost = [(APSCourierConnection *)self->_courierConnection redirectHost];
+
+  if (!redirectHost)
+  {
+    [(APSCourierConnection *)self->_courierConnection clearRedirectCount];
+  }
+
+  v27 = [(APSCourierConnection *)self->_courierConnection isConnectedOnInterface:interface];
+  v28 = [(APSCourierConnection *)self->_courierConnection hasOpenConnectionOnInterface:interface];
+  [(APSCourierConnection *)self->_courierConnection closeStreamForInterface:interface];
+  [(APSCourierConnection *)self->_courierConnection setIsConnected:0 onInterface:interface withDisconnectReason:v5];
+  if (!interface)
+  {
+    [(APSCourierConnectionManager *)self _clearPostSuspensionFlushState];
+  }
+
+  v29 = v28 & (v27 ^ 1);
+  if (v27)
+  {
+    if ([(APSCourierConnection *)self->_courierConnection countConnectedInterfaces]== 1)
+    {
+      [(APSNetworkMonitor *)self->_networkMonitor closedSecondChannel:interface];
+    }
+
+    [(APSCourierConnectionManager *)self _clearKeepAliveResponseTimerOnInterface:interface];
+  }
+
+  else if (v29)
+  {
+    [(APSCourierConnectionManager *)self _clearConnectionEstablishTimerOnInterface:interface];
+  }
+
+  if (self->_enabled)
+  {
+    v30 = +[APSLog courier];
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      name2 = [(APSEnvironment *)self->_environment name];
+      v32 = sub_1000067F8(interface);
+      *buf = 138412546;
+      selfCopy = name2;
+      v42 = 2112;
+      v43 = v32;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Connection closed %@ %@", buf, 0x16u);
+    }
+  }
+
+  if (v27)
+  {
+    v33 = 2;
+  }
+
+  else
+  {
+    v33 = v29;
+  }
+
+  v34 = [(APSCourierConnectionManager *)self protocolConnectionForInterface:interface];
+  [(APSCourierConnectionManager *)self clearProtocolConnectionForInterface:interface];
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_10009E2FC;
+  v36[3] = &unk_100188A60;
+  v37 = v34;
+  v38 = v33;
+  v39 = v5;
+  v35 = v34;
+  [v35 enumerateStateListeners:v36];
 }
 
 - (void)_cacheIPAddress:(id)address onInterface:(int64_t)interface
@@ -1945,6 +2113,13 @@ LABEL_178:
 
     [(APSCourierConnectionManager *)self disconnectAllStreamsWithReason:28];
   }
+}
+
+- (void)connectionOffloader:(id)offloader cacheKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth
+{
+  growthCopy = growth;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection saveKeepAliveInterval:growthCopy isInitialGrowth:interval];
 }
 
 - (BOOL)_deviceCanOffloadPresenceResponse:(id)response interface:(int64_t)interface
@@ -3040,6 +3215,99 @@ LABEL_21:
 LABEL_85:
 }
 
+- (void)courierConnection:(id)connection disconnectStreamOnInterface:(int64_t)interface withReason:(unsigned int)reason
+{
+  v5 = *&reason;
+  connectionCopy = connection;
+  v9 = +[APSLog courier];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = sub_1000067F8(interface);
+    countConnectedInterfaces = [(APSCourierConnection *)self->_courierConnection countConnectedInterfaces];
+    v15 = 138413058;
+    selfCopy3 = self;
+    v17 = 2112;
+    v18 = connectionCopy;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2048;
+    v22 = countConnectedInterfaces;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ courierConnection %@ asked us to disconnect stream on interface %@. Connected on %lu interfaces.", &v15, 0x2Au);
+  }
+
+  if ([connectionCopy isConnectedOnInterface:interface])
+  {
+    v12 = +[APSLog courier];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 138412290;
+      selfCopy3 = self;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Calling into AWD for ConnectionDisconnected", &v15, 0xCu);
+    }
+
+    v13 = [NSNumber numberWithInt:[(APSCourierConnectionManager *)self _linkQualityForInterface:interface]];
+    [APSMetricLogger connectionDisconnected:interface linkQuality:v13 reason:v5];
+    v14 = +[APSLog courier];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 138412290;
+      selfCopy3 = self;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@: AWD for ConnectionDisconnected finished", &v15, 0xCu);
+    }
+  }
+
+  [(APSCourierConnectionManager *)self _disconnectStreamForInterface:interface withReason:v5];
+}
+
+- (void)courierConnection:(id)connection streamEndedOnInterface:(int64_t)interface withReason:(unsigned int)reason
+{
+  v5 = *&reason;
+  connectionCopy = connection;
+  v9 = +[APSLog courier];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = sub_1000067F8(interface);
+    *buf = 138412802;
+    selfCopy3 = self;
+    v21 = 2112;
+    v22 = connectionCopy;
+    v23 = 2112;
+    v24 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: Stream end encountered for %@ onInterface %@", buf, 0x20u);
+  }
+
+  v11 = +[APSLog courier];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    selfCopy3 = self;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Calling into AWD for ConnectionDisconnected", buf, 0xCu);
+  }
+
+  v12 = [NSNumber numberWithInt:[(APSCourierConnectionManager *)self _linkQualityForInterface:interface]];
+  [APSMetricLogger connectionDisconnected:interface linkQuality:v12 reason:v5];
+  v13 = +[APSLog courier];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    selfCopy3 = self;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@: AWD for ConnectionDisconnected finished", buf, 0xCu);
+  }
+
+  [(APSCourierConnectionManager *)self _handleConnectionFailureOnInterface:interface forceDelayedReconnect:0 withReason:v5];
+  v14 = @"wifi";
+  if (!interface)
+  {
+    v14 = @"wwan";
+  }
+
+  v15 = [NSNumber numberWithInt:[(APSCourierConnectionManager *)self _linkQualityForInterface:interface, @"Interface", @"LinkQuality", v14]];
+  v18[1] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v18 forKeys:&v17 count:2];
+
+  APSPowerLog();
+}
+
 - (void)courierConnection:(id)connection parserErrorMessage:(id)message OnInterface:(int64_t)interface
 {
   connectionCopy = connection;
@@ -3588,6 +3856,78 @@ LABEL_15:
   }
 
   [(APSCourierConnectionManager *)self _startConnectionEstablishTimerOnInterface:interface];
+}
+
+- (void)courierConnectionHasConnected:(id)connected context:(id)context enabledPackedFormat:(BOOL)format secureHandshakeEnabled:(BOOL)enabled onInterface:(int64_t)interface
+{
+  enabledCopy = enabled;
+  formatCopy = format;
+  connectedCopy = connected;
+  contextCopy = context;
+  v14 = +[APSLog courier];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = [connectedCopy serverHostnameForInterface:interface];
+    v16 = [connectedCopy serverIPAddressForInterface:interface];
+    if (formatCopy)
+    {
+      v17 = @"YES";
+    }
+
+    else
+    {
+      v17 = @"NO";
+    }
+
+    v26 = enabledCopy;
+    if (enabledCopy)
+    {
+      v18 = @"YES";
+    }
+
+    else
+    {
+      v18 = @"NO";
+    }
+
+    v19 = sub_1000067F8(interface);
+    *buf = 138413826;
+    selfCopy = self;
+    v29 = 2112;
+    v30 = v15;
+    v31 = 2112;
+    v32 = v16;
+    v33 = 2112;
+    v34 = connectedCopy;
+    v35 = 2112;
+    v36 = v17;
+    v37 = 2112;
+    v38 = v18;
+    enabledCopy = v26;
+    v39 = 2112;
+    v40 = v19;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@: Connected to courier %@ (%@) connection: %@ usingPackedFormat %@ secureHandshakeEnabled %@ onInterface: %@", buf, 0x48u);
+  }
+
+  [(APSCourierConnectionManager *)self setConnectionStatistics:contextCopy onInterface:interface];
+  self->_secureHandshakeEnabled[interface] = enabledCopy;
+  v20 = objc_alloc_init(APSCourierConnectionProtocolConnection);
+  [(APSCourierConnectionProtocolConnection *)v20 setConnectionManager:self];
+  [(APSCourierConnectionProtocolConnection *)v20 setInterface:interface];
+  [(APSCourierConnectionProtocolConnection *)v20 setSecureHandshakeEnabled:enabledCopy];
+  v21 = &self->super.isa + interface;
+  v22 = v21[12];
+  v21[12] = v20;
+  v23 = v20;
+
+  delegate = [(APSCourierConnectionManager *)self delegate];
+  [delegate courierConnectionManager:self openedNewProtocolConnection:v23];
+
+  [(APSCourierConnectionManager *)self clearConsecutiveConnectionFailureReasonOnInterface:interface];
+  +[NSDate timeIntervalSinceReferenceDate];
+  v25 = [NSNumber numberWithDouble:?];
+
+  [(APSCourierConnectionManager *)self setConnectionTime:v25 forInterface:interface];
 }
 
 - (void)courierConnection:(id)connection keepAliveResponseTimerFiredOnInterface:(int64_t)interface
@@ -4715,6 +5055,46 @@ LABEL_9:
   [(APSCourierConnectionManager *)self setHandlingFailure:0];
 }
 
+- (void)_performFlushWithPaddingLength:(int)length
+{
+  v3 = *&length;
+  if ([(APSCourierConnection *)self->_courierConnection isConnectedOnInterface:1])
+  {
+    v5 = +[APSLog courier];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = sub_1000067F8(1uLL);
+      v9 = 138412802;
+      selfCopy2 = self;
+      v11 = 2048;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ Sending flush message with padding length %lu  onInterface %@", &v9, 0x20u);
+    }
+
+    [(APSCourierConnection *)self->_courierConnection sendFlushMessageWithWantPaddingLength:v3 paddingLength:v3 onInterface:1];
+  }
+
+  if ([(APSCourierConnection *)self->_courierConnection isConnectedOnInterface:0])
+  {
+    v7 = +[APSLog courier];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = sub_1000067F8(0);
+      v9 = 138412802;
+      selfCopy2 = self;
+      v11 = 2048;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Sending flush message with padding length %lu  onInterface %@", &v9, 0x20u);
+    }
+
+    [(APSCourierConnection *)self->_courierConnection sendFlushMessageWithWantPaddingLength:v3 paddingLength:v3 onInterface:0];
+  }
+}
+
 - (void)_handleFlushMessage:(id)message onInterface:(int64_t)interface
 {
   messageCopy = message;
@@ -4830,6 +5210,311 @@ LABEL_9:
   }
 }
 
+- (void)_performKeepAliveOnInterface:(int64_t)interface shortInterval:(BOOL)interval withAction:(int)action
+{
+  v5 = *&action;
+  intervalCopy = interval;
+  if ([(APSCourierConnection *)self->_courierConnection isConnectedOnInterface:?])
+  {
+    if ([(APSCourierConnection *)self->_courierConnection isConnectionOffloadedOnInterface:interface])
+    {
+      connectionOffloader = [(APSCourierConnectionManager *)self connectionOffloader];
+      [connectionOffloader sendAPOriginatedKeepAlive:interface];
+    }
+
+    else
+    {
+      [(APSConnectionHistory *)self->_connectionHistory adjustQualityOfConnectionOnInterface:interface];
+      v8 = [(APSCourierConnectionManager *)self useServerKeepAliveStatsOnInterface:interface];
+      if (v8)
+      {
+        v9 = +[APSLog courier];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          selfCopy3 = self;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ using server stats for keep alive interval", buf, 0xCu);
+        }
+
+        courierConnection = self->_courierConnection;
+        [(NSNumber *)self->_serverMaxKeepAliveInterval doubleValue];
+        [(APSCourierConnection *)courierConnection setServerStatsMaxKeepAlive:interface onInterface:?];
+        v11 = self->_courierConnection;
+        [(NSNumber *)self->_serverMinKeepAliveInterval doubleValue];
+        [(APSCourierConnection *)v11 setServerStatsMinKeepAlive:interface onInterface:?];
+        v12 = self->_courierConnection;
+        [(NSNumber *)self->_serverExpectedKeepAliveInterval doubleValue];
+        [(APSCourierConnection *)v12 setServerStatsExpectedKeepAlive:interface onInterface:?];
+        [(APSCourierConnection *)self->_courierConnection setUsingServerStatsAggressively:[(APSConnectionHistory *)self->_connectionHistory connectionQualityOnInterface:interface]== 2 onInterface:interface];
+      }
+
+      else
+      {
+        [(APSCourierConnectionManager *)self _resetServerKeepAliveStatsOnInterface:interface];
+      }
+
+      [(APSCourierConnection *)self->_courierConnection currentKeepAliveIntervalOnInterface:interface];
+      v14 = llround(v13 / 60.0);
+      v15 = [(APSCourierConnection *)self->_courierConnection currentKeepAliveStateOnInterface:interface];
+      if ([(APSCourierConnection *)self->_courierConnection keepAliveV2SupportedOnInterface:interface])
+      {
+        [(APSCourierConnection *)self->_courierConnection setKeepAliveGracePeriod:interface onInterface:self->_keepAliveV2TimeDriftMaximum];
+        [(APSCourierConnection *)self->_courierConnection resumeManagerWithAction:v5 onInterface:interface];
+        [(APSCourierConnection *)self->_courierConnection currentKeepAliveIntervalOnInterface:interface];
+        v17 = llround(v16);
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      v18 = [[APSKeepAliveMetadata alloc] initWithUsingWWAN:interface == 0 keepAliveInterval:v14 delayedResponseInterval:v17 usingServerStats:v8 keepAliveState:v15];
+      v19 = +[APSLog courier];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = v18;
+        v21 = 60 * v14;
+        v42 = self->_courierConnection;
+        v22 = sub_1000067F8(interface);
+        v23 = v15;
+        countConnectedInterfaces = [(APSCourierConnection *)self->_courierConnection countConnectedInterfaces];
+        [(APSCourierConnectionManager *)self pcPersistentInterfaceManager];
+        v14 = v43 = v14;
+        currentLinkQualityString = [v14 currentLinkQualityString];
+        *buf = 138413570;
+        selfCopy3 = self;
+        v51 = 1024;
+        v52 = v21;
+        v18 = v20;
+        v53 = 2112;
+        v54 = v42;
+        v55 = 2112;
+        v56 = v22;
+        v57 = 2048;
+        v58 = countConnectedInterfaces;
+        v15 = v23;
+        v59 = 2112;
+        v60 = currentLinkQualityString;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@: Sending keep alive message with interval %d via conn: %@ onInterface: %@. Connected on %lu interfaces. Current link quality: %@", buf, 0x3Au);
+
+        LODWORD(v14) = v43;
+      }
+
+      [(APSCourierConnection *)self->_courierConnection sendKeepAliveMessageWithMetadata:v18 onInterface:interface];
+      environment = [(APSCourierConnectionManager *)self environment];
+      name = [environment name];
+      v28 = [name isEqualToString:APSEnvironmentProduction];
+
+      if (v28)
+      {
+        v29 = +[APSOffloadHeuristics shared];
+        [v29 keepAliveSendOnInterface:interface interval:v14];
+      }
+
+      [(APSCourierConnectionManager *)self _startKeepAliveResponseTimerOnInterface:interface shortInterval:intervalCopy, v42];
+      v30 = [(APSCourierConnection *)self->_courierConnection nwInterfaceTypeForInterface:interface];
+      v31 = +[APSLog courier];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        selfCopy3 = self;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%@: Sending keep alive note to Core Telephony.", buf, 0xCu);
+      }
+
+      ctClient = [(APSCourierConnectionManager *)self ctClient];
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_1000A764C;
+      v46[3] = &unk_100188AD0;
+      v46[4] = self;
+      [ctClient triggerKeepaliveWakeupEvent:v30 completion:v46];
+
+      [(APSCourierConnection *)self->_courierConnection currentKeepAliveIntervalOnInterface:interface];
+      v34 = [NSNumber numberWithInt:llround(v33)];
+      v35 = self->_courierConnection;
+      v36 = +[NSDate date];
+      [(APSCourierConnection *)v35 setObject:v36 forKey:@"keepAliveSent" onInterface:interface];
+
+      [(APSCourierConnection *)self->_courierConnection setObject:v34 forKey:@"lastKeepAliveInterval" onInterface:interface];
+      v37 = [NSNumber numberWithInt:[(APSCourierConnection *)self->_courierConnection currentGrowthStageOnInterface:interface]];
+      [(APSCourierConnection *)self->_courierConnection setObject:v37 forKey:@"growthStage" onInterface:interface];
+      v38 = &off_100197A70;
+      if (!interface)
+      {
+        v38 = &off_100197A58;
+      }
+
+      v48[0] = v38;
+      v47[0] = @"ConnectionType";
+      v47[1] = @"Environment";
+      v39 = [NSNumber numberWithUnsignedInteger:[(APSEnvironment *)self->_environment environmentType]];
+      v48[1] = v39;
+      v47[2] = @"LinkQuality";
+      v40 = [NSNumber numberWithInt:[(APSCourierConnectionManager *)self _linkQualityForInterface:interface]];
+      v48[2] = v40;
+      v41 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:3];
+
+      APSPowerLog();
+      if (!interface && self->_pendingPostSuspensionWWANFlush)
+      {
+        [(APSCourierConnectionManager *)self _handleConnectionAfterSuspensionRecoveryOnInterface:0 withKeepAlive:0];
+        [(APSCourierConnectionManager *)self _clearPostSuspensionFlushState];
+      }
+    }
+  }
+}
+
+- (void)_startKeepAliveResponseTimerOnInterface:(int64_t)interface shortInterval:(BOOL)interval
+{
+  intervalCopy = interval;
+  [(APSCourierConnectionManager *)self _clearKeepAliveResponseTimerOnInterface:?];
+  courierConnection = self->_courierConnection;
+
+  [(APSCourierConnection *)courierConnection startKeepAliveResponseTimerOnInterface:interface shortInterval:intervalCopy];
+}
+
+- (void)_requestKeepAlive:(BOOL)alive orConnection:(BOOL)connection shortInterval:(BOOL)interval onInterface:(int64_t)interface
+{
+  intervalCopy = interval;
+  connectionCopy = connection;
+  aliveCopy = alive;
+  +[NSDate timeIntervalSinceReferenceDate];
+  v12 = v11;
+  v13 = v11 - self->_lastClientRequestedKeepaliveTime;
+  courierConnection = self->_courierConnection;
+  if (interface == 3)
+  {
+    isConnected = [(APSCourierConnection *)courierConnection isConnected];
+    hasOpenConnection = [(APSCourierConnection *)self->_courierConnection hasOpenConnection];
+    v17 = self->_courierConnection;
+    interfaceCopy = [(APSCourierConnection *)v17 preferredInterface];
+    v19 = v17;
+  }
+
+  else
+  {
+    isConnected = [(APSCourierConnection *)courierConnection isConnectedOnInterface:interface];
+    hasOpenConnection = [(APSCourierConnection *)self->_courierConnection hasOpenConnectionOnInterface:interface];
+    v19 = self->_courierConnection;
+    interfaceCopy = interface;
+  }
+
+  v20 = [(APSCourierConnection *)v19 hasKeepAliveResponseTimerOnInterface:interfaceCopy];
+  if (v13 < 0.0 || v13 >= 60.0)
+  {
+    if (v20 & 1 | ((isConnected & 1) == 0))
+    {
+      if (hasOpenConnection)
+      {
+        v22 = +[APSLog courier];
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          v23 = self->_courierConnection;
+          if ([(APSCourierConnection *)v23 hasConnectionEstablishTimerOnInterface:interface])
+          {
+            v24 = @"YES";
+          }
+
+          else
+          {
+            v24 = @"NO";
+          }
+
+          v25 = [(APSCourierConnection *)self->_courierConnection hasKeepAliveResponseTimerOnInterface:interface];
+          v31 = 138413058;
+          if (v25)
+          {
+            v26 = @"YES";
+          }
+
+          else
+          {
+            v26 = @"NO";
+          }
+
+          selfCopy2 = self;
+          v33 = 2112;
+          v34 = v23;
+          v35 = 2112;
+          v36 = v24;
+          v37 = 2112;
+          v38 = v26;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%@ ignoring request to keepAlive/reconnect conn: %@ connectTimer: %@ keepAliveTimer: %@", &v31, 0x2Au);
+        }
+
+        return;
+      }
+
+      if (!connectionCopy)
+      {
+        return;
+      }
+
+      [(APSCourierConnectionManager *)self _adjustConnectionWithInterfacePreference:interface];
+      v30 = self->_courierConnection;
+      if (interface == 3)
+      {
+        if (![(APSCourierConnection *)v30 hasOpenConnection])
+        {
+          return;
+        }
+      }
+
+      else if (![(APSCourierConnection *)v30 hasOpenConnectionOnInterface:interface])
+      {
+        return;
+      }
+    }
+
+    else
+    {
+      if (!aliveCopy)
+      {
+        return;
+      }
+
+      if (interface == 3)
+      {
+        interface = [(APSCourierConnection *)self->_courierConnection preferredInterface];
+      }
+
+      [(APSCourierConnectionManager *)self _performKeepAliveOnInterface:interface shortInterval:intervalCopy withAction:2];
+    }
+
+    self->_lastClientRequestedKeepaliveTime = v12;
+    return;
+  }
+
+  v27 = +[APSLog courier];
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    v28 = @"NO";
+    if (aliveCopy)
+    {
+      v29 = @"YES";
+    }
+
+    else
+    {
+      v29 = @"NO";
+    }
+
+    v31 = 138412802;
+    selfCopy2 = self;
+    v33 = 2112;
+    v34 = v29;
+    if (connectionCopy)
+    {
+      v28 = @"YES";
+    }
+
+    v35 = 2112;
+    v36 = v28;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@ throttling call to _requestKeepAlive:%@ orConnection:%@", &v31, 0x20u);
+  }
+}
+
 - (void)requestConnectionIfNeeded
 {
   v3 = +[APSLog courier];
@@ -4864,6 +5549,146 @@ LABEL_9:
     courierConnection = self->_courierConnection;
 
     [(APSCourierConnection *)courierConnection updateConnectionManagerKeepAliveIntervalOnInterface:interface];
+  }
+}
+
+- (void)_handleKeepAliveResponseMessage:(id)message onInterface:(int64_t)interface didWake:(BOOL)wake
+{
+  wakeCopy = wake;
+  messageCopy = message;
+  [(APSCourierConnectionManager *)self _clearKeepAliveResponseTimerOnInterface:interface];
+  v9 = [messageCopy objectForKey:@"APSProtocolKeepAliveResponse"];
+  v10 = +[APSLog courier];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = sub_1000067F8(interface);
+    *buf = 138413058;
+    selfCopy2 = self;
+    v36 = 2112;
+    v37 = v9;
+    v38 = 2112;
+    v39 = v11;
+    v40 = 2112;
+    v41 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@: Received keep-alive response %@ on interface %@: %@", buf, 0x2Au);
+  }
+
+  if (![(APSCourierConnection *)self->_courierConnection isConnectedOnInterface:interface])
+  {
+    v20 = +[APSLog courier];
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = sub_1000067F8(interface);
+      *buf = 138412546;
+      selfCopy2 = self;
+      v36 = 2112;
+      v37 = v21;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ received keepAlive for interface %@ that is no longer connected, ignoring.", buf, 0x16u);
+    }
+
+    goto LABEL_31;
+  }
+
+  if (!v9)
+  {
+    if (![(APSCourierConnection *)self->_courierConnection keepAliveV2SupportedOnInterface:interface])
+    {
+      v20 = +[NSDate date];
+      v22 = [(APSCourierConnection *)self->_courierConnection objectForKey:@"keepAliveSent" onInterface:interface];
+      if (v22)
+      {
+        [v20 timeIntervalSinceDate:v22];
+      }
+
+      else
+      {
+        v23 = 0.0;
+      }
+
+      v29 = [NSNumber numberWithDouble:v23];
+      [(APSCourierConnection *)self->_courierConnection setObject:v29 forKey:@"keepAliveAckTime" onInterface:interface];
+      [(APSCourierConnection *)self->_courierConnection resumeManagerWithAction:0 onInterface:interface];
+      if (interface == 1)
+      {
+        networkMonitor = self->_networkMonitor;
+        [(APSCourierConnection *)self->_courierConnection currentKeepAliveIntervalOnInterface:1];
+        [(APSNetworkMonitor *)networkMonitor setCurrentWiFiKeepAliveInterval:[(APSCourierConnection *)self->_courierConnection countOfGrowthActionsOnInterface:1] growAttempts:v31];
+      }
+
+      if (![(APSCourierConnection *)self->_courierConnection lastKeepAliveActionOnInterface:interface])
+      {
+        [(APSCourierConnectionManager *)self _submitKeepAliveSucceededAWDonInterface:interface];
+      }
+
+      goto LABEL_31;
+    }
+
+    [(APSCourierConnection *)self->_courierConnection setKeepAliveV2Supported:0 onInterface:interface];
+    goto LABEL_23;
+  }
+
+  v12 = [messageCopy objectForKey:@"APSProtocolKeepAliveResponse"];
+  intValue = [v12 intValue];
+
+  switch(intValue)
+  {
+    case 2u:
+      selfCopy4 = self;
+      interfaceCopy2 = interface;
+      v28 = 1;
+LABEL_24:
+      [(APSCourierConnectionManager *)selfCopy4 _performKeepAliveOnInterface:interfaceCopy2 shortInterval:0 withAction:v28];
+      break;
+    case 1u:
+      v24 = [messageCopy objectForKey:@"APSProtocolKeepAliveDelayKeepAliveDurationKey"];
+      v25 = ([v24 unsignedIntValue] / 0x3E8);
+
+      [(APSCourierConnectionManager *)self _delayedPerformKeepAliveOnInterface:interface withDelay:v25];
+      break;
+    case 0u:
+      [(APSCourierConnectionManager *)self _submitKeepAliveSucceededAWDonInterface:interface];
+      [(APSCourierConnectionManager *)self _performKeepAliveOnInterface:interface shortInterval:0 withAction:0];
+      if (interface == 1)
+      {
+        v14 = self->_networkMonitor;
+        [(APSCourierConnection *)self->_courierConnection currentKeepAliveIntervalOnInterface:1];
+        [(APSNetworkMonitor *)v14 setCurrentWiFiKeepAliveInterval:[(APSCourierConnection *)self->_courierConnection countOfGrowthActionsOnInterface:1] growAttempts:v15];
+      }
+
+      v16 = &off_100197A70;
+      if (!interface)
+      {
+        v16 = &off_100197A58;
+      }
+
+      v33[0] = v16;
+      v17 = [NSNumber numberWithUnsignedInteger:[(APSEnvironment *)self->_environment environmentType:@"ConnectionType"]];
+      v33[1] = v17;
+      v32[2] = @"LinkQuality";
+      v18 = [NSNumber numberWithInt:[(APSCourierConnectionManager *)self _linkQualityForInterface:interface]];
+      v33[2] = v18;
+      v32[3] = @"DidWake";
+      v19 = [NSNumber numberWithBool:wakeCopy];
+      v33[3] = v19;
+      v20 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:4];
+
+      APSPowerLog();
+LABEL_31:
+
+      break;
+    default:
+      if (intValue - 3 <= 1)
+      {
+        [(APSCourierConnection *)self->_courierConnection setKeepAliveV2Supported:0 onInterface:interface];
+        [(APSCourierConnection *)self->_courierConnection setKeepAliveGracePeriod:interface onInterface:0.0];
+LABEL_23:
+        selfCopy4 = self;
+        interfaceCopy2 = interface;
+        v28 = 2;
+        goto LABEL_24;
+      }
+
+      break;
   }
 }
 
@@ -4907,6 +5732,43 @@ LABEL_9:
   self->_delayedSuspendKeepAliveInterval = interval;
 }
 
+- (void)networkMonitor:(id)monitor evaluateDualModeState:(BOOL)state
+{
+  stateCopy = state;
+  v6 = +[APSLog courier];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = @"NO";
+    if (stateCopy)
+    {
+      v7 = @"YES";
+    }
+
+    v9 = 138412546;
+    selfCopy2 = self;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Received delegate call: shouldUseDualMode is set to %@", &v9, 0x16u);
+  }
+
+  if ([(APSCourierConnection *)self->_courierConnection isConnected])
+  {
+    v8 = +[APSLog courier];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 138412290;
+      selfCopy2 = self;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ resetting consecutive failures because we have at least one connection", &v9, 0xCu);
+    }
+
+    self->_consecutiveConnectionFailureCount = 0;
+    self->_consecutiveTLSConnectionFailureCount = 0;
+  }
+
+  [(APSCourierConnection *)self->_courierConnection setIsDualChannelAllowed:stateCopy];
+  [(APSCourierConnectionManager *)self _adjustConnection];
+}
+
 - (void)networkMonitorWiFiBecameAssociated:(id)associated
 {
   v4 = +[APSLog courier];
@@ -4918,6 +5780,57 @@ LABEL_9:
   }
 
   [(APSCourierConnectionManager *)self _adjustConnection];
+}
+
+- (void)networkMonitor:(id)monitor enableWiFiAssertionForPiggybackConnection:(BOOL)connection
+{
+  connectionCopy = connection;
+  v6 = +[APSLog courier];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = @"Disabling";
+    if (connectionCopy)
+    {
+      v7 = @"Enabling";
+    }
+
+    v8 = 138412546;
+    selfCopy = self;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: %@ WiFi assertion for piggyback connection", &v8, 0x16u);
+  }
+
+  [(APSCourierConnection *)self->_courierConnection setEnableNonCellularOnConnectionManager:connectionCopy];
+}
+
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality
+{
+  v4 = *&quality;
+  changedCopy = changed;
+  if (![changedCopy interfaceIdentifier])
+  {
+    isPoorLinkQuality = [changedCopy isPoorLinkQuality];
+    v8 = [PCInterfaceMonitor isPoorLinkQuality:v4];
+    if (isPoorLinkQuality)
+    {
+      if ((v8 & 1) == 0 && [(APSCourierConnection *)self->_courierConnection isConnectedOnInterface:1])
+      {
+        APSAlert();
+        v9 = +[APSLog courier];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = 138412290;
+          selfCopy = self;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ WiFi poorLQ keepAlive sent", &v10, 0xCu);
+        }
+
+        [(APSCourierConnectionManager *)self _requestKeepAlive:1 orConnection:0 shortInterval:0 onInterface:1];
+      }
+    }
+  }
+
+  [(APSCourierConnectionManager *)self _dumpLogsForInconsistencyIfNecessary];
 }
 
 - (void)interfaceRadioHotnessChanged:(id)changed
@@ -5180,6 +6093,14 @@ LABEL_9:
   return v5;
 }
 
+- (void)sendSetActiveState:(BOOL)state forInterval:(unsigned int)interval onInterface:(int64_t)interface
+{
+  v6 = *&interval;
+  stateCopy = state;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection sendSetActiveState:stateCopy forInterval:v6 onInterface:interface];
+}
+
 - (id)_sendOutgoingMessage:(id)message topicHash:(id)hash lastRTT:(id)t token:(id)token onInterface:(int64_t)interface ultraConstrainedAllowed:(BOOL)allowed withCompletion:(id)completion
 {
   messageCopy = message;
@@ -5356,6 +6277,16 @@ LABEL_33:
   return v27;
 }
 
+- (void)sendMessageTracingAckWithTopicHash:(id)hash tracingUUID:(id)d status:(int)status token:(id)token onInterface:(int64_t)interface
+{
+  v8 = *&status;
+  tokenCopy = token;
+  dCopy = d;
+  hashCopy = hash;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection sendMessageTracingAckWithTopicHash:hashCopy tracingUUID:dCopy status:v8 token:tokenCopy onInterface:interface];
+}
+
 - (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type withCompletion:(id)completion onInterface:(int64_t)self0
 {
   hashCopy = hash;
@@ -5381,12 +6312,38 @@ LABEL_33:
   [tokenGenerateResponseQueue enqueueSendBlock:v24 completionBlock:completionCopy];
 }
 
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d onInterface:(int64_t)interface
+{
+  v7 = *&d;
+  tokenCopy = token;
+  metadataCopy = metadata;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection sendPubSubChannelListWithMetadata:metadataCopy baseToken:tokenCopy messageID:v7 onInterface:interface];
+}
+
+- (void)sendActivityTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp onInterface:(int64_t)interface
+{
+  v10 = *&flag;
+  tokenCopy = token;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection sendActivityTrackingRequestWithMessageID:d pushToken:tokenCopy salt:salt trackingFlag:v10 timestamp:timestamp onInterface:interface];
+}
+
 - (BOOL)generationMatches:(unint64_t)matches forInterface:(int64_t)interface
 {
   courierConnection = [(APSCourierConnectionManager *)self courierConnection];
   LOBYTE(interface) = [courierConnection generationMatches:matches forInterface:interface];
 
   return interface;
+}
+
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id token:(id)token onInterface:(int64_t)interface
+{
+  v8 = *&response;
+  tokenCopy = token;
+  idCopy = id;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection sendMessageAcknowledgeMessageWithResponse:v8 messageId:idCopy token:tokenCopy onInterface:interface];
 }
 
 - (double)currentKeepAliveIntervalOnInterface:(int64_t)interface
@@ -5396,6 +6353,34 @@ LABEL_33:
   v6 = v5;
 
   return v6;
+}
+
+- (BOOL)sendMessageWithTopicHash:(id)hash identifier:(unint64_t)identifier payload:(id)payload token:(id)token isPlistFormat:(BOOL)format lastRTT:(id)t onInterface:(int64_t)interface withCompletion:(id)self0
+{
+  formatCopy = format;
+  completionCopy = completion;
+  tCopy = t;
+  tokenCopy = token;
+  payloadCopy = payload;
+  hashCopy = hash;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  LOBYTE(t) = [courierConnection sendMessageWithTopicHash:hashCopy identifier:identifier payload:payloadCopy token:tokenCopy isPlistFormat:formatCopy lastRTT:tCopy onInterface:interface];
+
+  outgoingSendMessageQueue = [(APSCourierConnectionManager *)self outgoingSendMessageQueue];
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_1000A9F14;
+  v28[3] = &unk_100188B40;
+  v28[4] = interface;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1000A9F1C;
+  v26[3] = &unk_100188B68;
+  v27 = completionCopy;
+  v23 = completionCopy;
+  [outgoingSendMessageQueue enqueueSendBlock:v28 completionBlock:v26];
+
+  return t;
 }
 
 - (BOOL)isAttemptingToReconnect
@@ -5574,12 +6559,26 @@ LABEL_33:
   return interface;
 }
 
+- (void)setKeepAliveV2Supported:(BOOL)supported onInterface:(int64_t)interface
+{
+  supportedCopy = supported;
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  [courierConnection setKeepAliveV2Supported:supportedCopy onInterface:interface];
+}
+
 - (unsigned)redirectCount
 {
   courierConnection = [(APSCourierConnectionManager *)self courierConnection];
   redirectCount = [courierConnection redirectCount];
 
   return redirectCount;
+}
+
+- (void)setServerSupportsDualMode:(BOOL)mode
+{
+  modeCopy = mode;
+  networkMonitor = [(APSCourierConnectionManager *)self networkMonitor];
+  [networkMonitor setServerSupportsDualMode:modeCopy];
 }
 
 - (void)stopManagerOnInterface:(int64_t)interface
@@ -5671,6 +6670,59 @@ LABEL_33:
 
     v9 = +[NSRunLoop currentRunLoop];
     [v9 addTimer:self->_criticalFlushTimer forMode:NSDefaultRunLoopMode];
+  }
+}
+
+- (void)refreshCriticalReliabilityTimerWithShortKeepAlive:(BOOL)alive
+{
+  aliveCopy = alive;
+  v5 = +[APSLog courier];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (aliveCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v17 = 138412546;
+    selfCopy = self;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ _refreshCriticalReliabilityTimerWithShortKeepAlive %@", &v17, 0x16u);
+  }
+
+  courierConnection = [(APSCourierConnectionManager *)self courierConnection];
+  if ([courierConnection preferredInterface] == 1)
+  {
+    courierConnectionManagerClientsHaveEagerMessages = 1;
+  }
+
+  else
+  {
+    delegate = [(APSCourierConnectionManager *)self delegate];
+    courierConnectionManagerClientsHaveEagerMessages = [delegate courierConnectionManagerClientsHaveEagerMessages];
+  }
+
+  [(APSCourierConnectionManager *)self _requestKeepAlive:courierConnectionManagerClientsHaveEagerMessages orConnection:1 shortInterval:aliveCopy onInterface:3];
+  [(PCPersistentTimer *)self->_criticalReliabilityTimer invalidate];
+  criticalReliabilityTimer = self->_criticalReliabilityTimer;
+  self->_criticalReliabilityTimer = 0;
+
+  if (self->_enableCriticalReliability)
+  {
+    v11 = [PCPersistentTimer alloc];
+    courierConnection2 = [(APSCourierConnectionManager *)self courierConnection];
+    [courierConnection2 minimumKeepAliveInterval];
+    v13 = [v11 initWithTimeInterval:@"criticalreliability" serviceIdentifier:self target:"_criticalReliabilityTimerFired" selector:0 userInfo:?];
+    v14 = self->_criticalReliabilityTimer;
+    self->_criticalReliabilityTimer = v13;
+
+    [(PCPersistentTimer *)self->_criticalReliabilityTimer setDisableSystemWaking:1];
+    [(PCPersistentTimer *)self->_criticalReliabilityTimer setMinimumEarlyFireProportion:1.0];
+    v15 = self->_criticalReliabilityTimer;
+    v16 = +[NSRunLoop currentRunLoop];
+    [(PCPersistentTimer *)v15 scheduleInRunLoop:v16];
   }
 }
 

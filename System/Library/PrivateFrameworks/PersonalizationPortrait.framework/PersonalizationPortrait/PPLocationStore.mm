@@ -7,6 +7,7 @@
 + (id)placemarkWithName:(id)name clLocation:(id)location;
 - (BOOL)clearWithError:(id *)error deletedCount:(unint64_t *)count;
 - (BOOL)cloudSyncWithError:(id *)error;
+- (BOOL)donateLocations:(id)locations source:(id)source contextualNamedEntities:(id)entities algorithm:(unsigned __int16)algorithm cloudSync:(BOOL)sync decayRate:(double)rate error:(id *)error;
 - (BOOL)iterLocationRecordsWithQuery:(id)query error:(id *)error block:(id)block;
 - (BOOL)iterRankedLocationsWithQuery:(id)query error:(id *)error block:(id)block;
 - (PPLocationStore)init;
@@ -36,18 +37,17 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  clientFeedbackHelper = self->_clientFeedbackHelper;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_clientFeedbackHelper;
+    v4 = self->_clientFeedbackHelper;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)locationRecordsWithQuery:(id)query error:(id *)error
@@ -168,32 +168,30 @@ LABEL_3:
 
 void __60__PPLocationStore_iterLocationRecordsWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v17 = 0u;
-    v18 = 0u;
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v13;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
-          v13 = *(*(a1 + 40) + 8);
           (*(*(a1 + 32) + 16))(*(a1 + 32));
           if (*(*(*(a1 + 40) + 8) + 24) == 1)
           {
@@ -202,7 +200,7 @@ void __60__PPLocationStore_iterLocationRecordsWithQuery_error_block___block_invo
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v9)
         {
           continue;
@@ -214,8 +212,6 @@ void __60__PPLocationStore_iterLocationRecordsWithQuery_error_block___block_invo
 
 LABEL_12:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)rankedLocationsWithQuery:(id)query error:(id *)error
@@ -336,32 +332,30 @@ LABEL_3:
 
 void __60__PPLocationStore_iterRankedLocationsWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v17 = 0u;
-    v18 = 0u;
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v13;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
-          v13 = *(*(a1 + 40) + 8);
           (*(*(a1 + 32) + 16))(*(a1 + 32));
           if (*(*(*(a1 + 40) + 8) + 24) == 1)
           {
@@ -370,7 +364,7 @@ void __60__PPLocationStore_iterRankedLocationsWithQuery_error_block___block_invo
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v9)
         {
           continue;
@@ -382,8 +376,6 @@ void __60__PPLocationStore_iterRankedLocationsWithQuery_error_block___block_invo
 
 LABEL_12:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)clearWithError:(id *)error deletedCount:(unint64_t *)count
@@ -400,6 +392,61 @@ LABEL_12:
   LOBYTE(error) = [v4 cloudSyncWithError:error];
 
   return error;
+}
+
+- (BOOL)donateLocations:(id)locations source:(id)source contextualNamedEntities:(id)entities algorithm:(unsigned __int16)algorithm cloudSync:(BOOL)sync decayRate:(double)rate error:(id *)error
+{
+  syncCopy = sync;
+  algorithmCopy = algorithm;
+  locationsCopy = locations;
+  sourceCopy = source;
+  entitiesCopy = entities;
+  if (!locationsCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPLocationStore.m" lineNumber:389 description:{@"Invalid parameter not satisfying: %@", @"locations"}];
+
+    if (sourceCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_11:
+    currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"PPLocationStore.m" lineNumber:390 description:{@"Invalid parameter not satisfying: %@", @"source"}];
+
+    goto LABEL_3;
+  }
+
+  if (!sourceCopy)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_3:
+  v20 = pp_locations_signpost_handle();
+  v21 = os_signpost_id_generate(v20);
+
+  v22 = pp_locations_signpost_handle();
+  v23 = v22;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A7FD3000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "PPLocationStore.donateLocations", "", buf, 2u);
+  }
+
+  v24 = +[PPLocationReadWriteClient sharedInstance];
+  v25 = [v24 donateLocations:locationsCopy source:sourceCopy contextualNamedEntities:entitiesCopy algorithm:algorithmCopy cloudSync:syncCopy decayRate:error error:rate];
+
+  v26 = pp_locations_signpost_handle();
+  v27 = v26;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  {
+    *v31 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A7FD3000, v27, OS_SIGNPOST_INTERVAL_END, v21, "PPLocationStore.donateLocations", "", v31, 2u);
+  }
+
+  return v25;
 }
 
 - (void)registerFeedback:(id)feedback clientIdentifier:(id)identifier completion:(id)completion
@@ -645,13 +692,12 @@ LABEL_12:
 
 void __31__PPLocationStore_defaultStore__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = defaultStore__pasExprOnceResult;
-  defaultStore__pasExprOnceResult = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = defaultStore__pasExprOnceResult;
+  defaultStore__pasExprOnceResult = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

@@ -5,6 +5,7 @@
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSLUIAppViewListViewController
@@ -44,6 +45,21 @@
     table = [(CSLUIAppViewListViewController *)self table];
     [table setSeparatorStyle:0];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = CSLUIAppViewListViewController;
+  [(CSLUIAppViewListViewController *)&v9 viewWillAppear:appear];
+  v3 = [_NSLocalizedStringResource alloc];
+  v4 = +[NSLocale currentLocale];
+  v5 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL = [v5 bundleURL];
+  v7 = [v3 initWithKey:@"APP_VIEW" table:@"Settings" locale:v4 bundleURL:bundleURL];
+
+  v8 = [NSURL URLWithString:@"bridge:root=APP_VIEW_ID"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"APP_VIEW_ID" title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v8];
 }
 
 - (id)specifiers

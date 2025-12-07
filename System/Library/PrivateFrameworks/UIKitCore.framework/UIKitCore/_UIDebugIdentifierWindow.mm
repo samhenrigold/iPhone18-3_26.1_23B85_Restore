@@ -23,7 +23,7 @@
     v8 = [off_1E70ECC18 monospacedSystemFontOfSize:14.0 weight:*off_1E70ECD20];
     [(UILabel *)v4->_sceneIdentifierLabel setFont:v8];
 
-    v9 = +[UIColor blackColor];
+    v9 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v4->_sceneIdentifierLabel setBackgroundColor:v9];
 
     v10 = +[UIColor whiteColor];

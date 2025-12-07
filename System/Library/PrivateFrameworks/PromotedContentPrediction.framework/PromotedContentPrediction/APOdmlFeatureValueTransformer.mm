@@ -6,12 +6,11 @@
 
 + (id)allowedTopLevelClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
-  return v3;
+  return v2;
 }
 
 @end

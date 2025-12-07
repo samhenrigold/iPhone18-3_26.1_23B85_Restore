@@ -7,38 +7,37 @@
 
 - (NHOLogging)init
 {
-  v10[9] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = NHOLogging;
-  v2 = [(NHOLogging *)&v8 init];
+  v9[9] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = NHOLogging;
+  v2 = [(NHOLogging *)&v7 init];
   v3 = v2;
   if (v2)
   {
     v2->_lock._os_unfair_lock_opaque = 0;
-    v9[0] = &unk_286C61B80;
-    v9[1] = &unk_286C61B98;
-    v10[0] = @"general";
-    v10[1] = @"home";
-    v9[2] = &unk_286C61BB0;
-    v9[3] = &unk_286C61BC8;
-    v10[2] = @"notification";
-    v10[3] = @"radar76496236";
-    v9[4] = &unk_286C61BE0;
-    v9[5] = &unk_286C61BF8;
-    v10[4] = @"invitation";
-    v10[5] = @"onboarding";
-    v9[6] = &unk_286C61C10;
-    v9[7] = &unk_286C61C28;
-    v10[6] = @"settings";
-    v10[7] = @"contacts";
-    v9[8] = &unk_286C61C40;
-    v10[8] = @"camera";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:9];
+    v8[0] = &unk_286C61B80;
+    v8[1] = &unk_286C61B98;
+    v9[0] = @"general";
+    v9[1] = @"home";
+    v8[2] = &unk_286C61BB0;
+    v8[3] = &unk_286C61BC8;
+    v9[2] = @"notification";
+    v9[3] = @"radar76496236";
+    v8[4] = &unk_286C61BE0;
+    v8[5] = &unk_286C61BF8;
+    v9[4] = @"invitation";
+    v9[5] = @"onboarding";
+    v8[6] = &unk_286C61C10;
+    v8[7] = &unk_286C61C28;
+    v9[6] = @"settings";
+    v9[7] = @"contacts";
+    v8[8] = &unk_286C61C40;
+    v9[8] = @"camera";
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:9];
     categoryMap = v3->_categoryMap;
     v3->_categoryMap = v4;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

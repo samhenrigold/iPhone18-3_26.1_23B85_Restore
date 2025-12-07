@@ -237,15 +237,21 @@ uint64_t __76__SSAppPurchaseHistoryDatabase_setLocalRevision_forAccountUniqueIde
     v7 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = v7 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v8 = v7;
+      LODWORD(v8) = v7;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+    v9 = [v6 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -254,28 +260,27 @@ uint64_t __76__SSAppPurchaseHistoryDatabase_setLocalRevision_forAccountUniqueIde
     {
       v22 = 138412290;
       v23 = objc_opt_class();
-      LODWORD(v21) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v9, 1, "[%@] Posting SSAppPurchaseHistoryDatabaseLocalRevisionDidChange", &v22, 12);
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v22, v21}];
-        free(v10);
-        SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"SSAppPurchaseHistoryDatabaseLocalRevisionDidChange", 0, 0, 1u);
-    v19 = *(*(a1[6] + 8) + 24);
+    v20 = *(*(a1[6] + 8) + 24);
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  return v19 & 1;
+  return v20 & 1;
 }
 
 - (BOOL)resetCacheForNewAccountID:(id)d
@@ -301,47 +306,52 @@ uint64_t __76__SSAppPurchaseHistoryDatabase_setLocalRevision_forAccountUniqueIde
       v3 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v3 shouldLog];
+    LODWORD(v4) = [v3 shouldLog];
     shouldLogToDisk = [v3 shouldLogToDisk];
     oSLogObject = [v3 OSLogObject];
+    v7 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v4) = v4 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v4 = v4;
     }
 
-    if (shouldLog)
+    else
     {
-      v7 = objc_opt_class();
+      v4 &= 2u;
+    }
+
+    if (v4)
+    {
+      v8 = objc_opt_class();
       v26 = 138412290;
-      v27 = v7;
-      LODWORD(v20) = 12;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v27 = v8;
+      v9 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v7, 1, "[%@] Posting SSAppPurchaseHistoryDatabaseLocalRevisionDidChange", &v26, 12);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v26, v20}];
-        free(v9);
-        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        SSFileLog(v3, @"%@", v12, v13, v14, v15, v16, v17, v11);
       }
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"SSAppPurchaseHistoryDatabaseLocalRevisionDidChange", 0, 0, 1u);
-    v18 = *(v23 + 24);
+    v19 = *(v23 + 24);
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   _Block_object_dispose(&v22, 8);
-  return v18 & 1;
+  return v19 & 1;
 }
 
 uint64_t __58__SSAppPurchaseHistoryDatabase_resetCacheForNewAccountID___block_invoke(uint64_t a1, void *a2)
@@ -409,7 +419,7 @@ uint64_t __57__SSAppPurchaseHistoryDatabase_valueForDatabaseProperty___block_inv
   return 1;
 }
 
-uint64_t __57__SSAppPurchaseHistoryDatabase_valueForDatabaseProperty___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
+void *__57__SSAppPurchaseHistoryDatabase_valueForDatabaseProperty___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -491,7 +501,7 @@ uint64_t __61__SSAppPurchaseHistoryDatabase_setValue_forDatabaseProperty___block
   return 1;
 }
 
-uint64_t __61__SSAppPurchaseHistoryDatabase_setValue_forDatabaseProperty___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
+void *__61__SSAppPurchaseHistoryDatabase_setValue_forDatabaseProperty___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -600,7 +610,7 @@ uint64_t __63__SSAppPurchaseHistoryDatabase_removeValueForDatabaseProperty___blo
   return 1;
 }
 
-uint64_t __63__SSAppPurchaseHistoryDatabase_removeValueForDatabaseProperty___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
+void *__63__SSAppPurchaseHistoryDatabase_removeValueForDatabaseProperty___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())

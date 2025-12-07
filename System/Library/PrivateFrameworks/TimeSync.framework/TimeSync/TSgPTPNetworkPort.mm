@@ -3,6 +3,8 @@
 - (TSgPTPNetworkPort)initWithImplDC:(id)c;
 - (void)addClient:(id)client;
 - (void)didAnnounceTimeoutForPort:(id)port;
+- (void)didChangeASCapable:(BOOL)capable forPort:(id)port;
+- (void)didChangeAdministrativeEnable:(BOOL)enable forPort:(id)port;
 - (void)didSyncTimeoutForPort:(id)port;
 - (void)didSyncTimeoutWithMean:(int64_t)mean median:(int64_t)median standardDeviation:(unint64_t)deviation minimum:(int64_t)minimum maximum:(int64_t)maximum numberOfSamples:(unsigned int)samples forPort:(id)port;
 - (void)didTerminateServiceForPort:(id)port;
@@ -43,7 +45,7 @@ LABEL_4:
 
 - (void)addClient:(id)client
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -51,45 +53,37 @@ LABEL_4:
     uTF8String = [v5 UTF8String];
     v7 = [(TSgPTPNetworkPort *)self description];
     *buf = 136315394;
-    v20 = uTF8String;
-    v21 = 2080;
+    v14 = uTF8String;
+    v15 = 2080;
     uTF8String2 = [v7 UTF8String];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Adding Client %s to port %s\n", buf, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v8 = self->_clients;
-  v9 = [(NSPointerArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [NSPointerArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = MEMORY[0];
     while (2)
     {
-      v12 = 0;
-      do
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v15 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if (*(*(&v14 + 1) + 8 * v12) == clientCopy)
+        if (*(8 * i) == clientCopy)
         {
 
           goto LABEL_14;
         }
-
-        ++v12;
       }
 
-      while (v10 != v12);
-      v10 = [(NSPointerArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [NSPointerArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v10)
       {
         continue;
@@ -99,21 +93,19 @@ LABEL_4:
     }
   }
 
-  [(NSPointerArray *)self->_clients addPointer:clientCopy, v14];
+  [(NSPointerArray *)self->_clients addPointer:?];
   if ([(NSPointerArray *)self->_clients count]== 1)
   {
-    [(_TSF_TSDgPTPNetworkPort *)self->_impl addClient:self];
+    [(_TSF_TSDgPTPNetworkPort *)self->_impl addClient:?];
   }
 
 LABEL_14:
   os_unfair_lock_unlock(&self->_clientLock);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeClient:(id)client
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -121,25 +113,21 @@ LABEL_14:
     uTF8String = [v5 UTF8String];
     v7 = [(TSgPTPNetworkPort *)self description];
     *buf = 136315394;
-    v22 = uTF8String;
-    v23 = 2080;
+    v16 = uTF8String;
+    v17 = 2080;
     uTF8String2 = [v7 UTF8String];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Removing Client %s from port %s\n", buf, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v8 = self->_clients;
-  v9 = [(NSPointerArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [NSPointerArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v17;
+    v12 = MEMORY[0];
     while (2)
     {
       v13 = 0;
@@ -147,24 +135,24 @@ LABEL_14:
       v11 += v10;
       do
       {
-        if (*v17 != v12)
+        if (MEMORY[0] != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        if (*(*(&v16 + 1) + 8 * v13) == clientCopy)
+        if (*(8 * v13) == clientCopy)
         {
 
-          [(NSPointerArray *)self->_clients removePointerAtIndex:v14, v16];
+          [(NSPointerArray *)self->_clients removePointerAtIndex:?];
           goto LABEL_13;
         }
 
         ++v14;
-        ++v13;
+        v13 = (v13 + 1);
       }
 
       while (v10 != v13);
-      v10 = [(NSPointerArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [NSPointerArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v10)
       {
         continue;
@@ -177,17 +165,135 @@ LABEL_14:
 LABEL_13:
   if (![(NSPointerArray *)self->_clients count])
   {
-    [(_TSF_TSDgPTPNetworkPort *)self->_impl removeClient:self];
+    [(_TSF_TSDgPTPNetworkPort *)self->_impl removeClient:?];
   }
 
   os_unfair_lock_unlock(&self->_clientLock);
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)didChangeASCapable:(BOOL)capable forPort:(id)port
+{
+  capableCopy = capable;
+  v25 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock(&self->_clientLock);
+  [(NSPointerArray *)self->_clients compact];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
+    portNumber = [(TSgPTPPort *)self portNumber];
+    v10 = @"NO";
+    *buf = 138413058;
+    v19 = 2048;
+    v18 = v7;
+    if (capableCopy)
+    {
+      v10 = @"YES";
+    }
+
+    v20 = clockIdentifier;
+    v21 = 1024;
+    v22 = portNumber;
+    v23 = 2112;
+    v24 = v10;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): changedASCapable:%@", buf, 0x26u);
+  }
+
+  v11 = self->_clients;
+  v12 = [NSPointerArray countByEnumeratingWithState:v11 objects:"countByEnumeratingWithState:objects:count:" count:0];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = MEMORY[0];
+    do
+    {
+      for (i = 0; i != v13; i = (i + 1))
+      {
+        if (MEMORY[0] != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = *(8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          [v16 didChangeASCapable:? forPort:?];
+        }
+      }
+
+      v13 = [NSPointerArray countByEnumeratingWithState:v11 objects:"countByEnumeratingWithState:objects:count:" count:?];
+    }
+
+    while (v13);
+  }
+
+  os_unfair_lock_unlock(&self->_clientLock);
+}
+
+- (void)didChangeAdministrativeEnable:(BOOL)enable forPort:(id)port
+{
+  enableCopy = enable;
+  v25 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock(&self->_clientLock);
+  [(NSPointerArray *)self->_clients compact];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
+    portNumber = [(TSgPTPPort *)self portNumber];
+    v10 = @"NO";
+    *buf = 138413058;
+    v19 = 2048;
+    v18 = v7;
+    if (enableCopy)
+    {
+      v10 = @"YES";
+    }
+
+    v20 = clockIdentifier;
+    v21 = 1024;
+    v22 = portNumber;
+    v23 = 2112;
+    v24 = v10;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): changedAdministrativeEnable:%@", buf, 0x26u);
+  }
+
+  v11 = self->_clients;
+  v12 = [NSPointerArray countByEnumeratingWithState:v11 objects:"countByEnumeratingWithState:objects:count:" count:0];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = MEMORY[0];
+    do
+    {
+      for (i = 0; i != v13; i = (i + 1))
+      {
+        if (MEMORY[0] != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = *(8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          [v16 didChangeAdministrativeEnable:? forPort:?];
+        }
+      }
+
+      v13 = [NSPointerArray countByEnumeratingWithState:v11 objects:"countByEnumeratingWithState:objects:count:" count:?];
+    }
+
+    while (v13);
+  }
+
+  os_unfair_lock_unlock(&self->_clientLock);
 }
 
 - (void)didTimeoutOnMACLookupForPort:(id)port
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -195,57 +301,48 @@ LABEL_13:
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138412802;
-    v19 = v5;
-    v20 = 2048;
+    v13 = v5;
+    v14 = 2048;
     clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
-    v22 = 1024;
+    v16 = 1024;
     portNumber = [(TSgPTPPort *)self portNumber];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): timedoutMACLookup", buf, 0x1Cu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v6 = self->_clients;
-  v7 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = MEMORY[0];
     do
     {
-      v10 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v14 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v11 didTimeoutOnMACLookupForPort:{self, v13}];
+          [v11 didTimeoutOnMACLookupForPort:?];
         }
-
-        ++v10;
       }
 
-      while (v8 != v10);
-      v8 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&self->_clientLock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didAnnounceTimeoutForPort:(id)port
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -253,57 +350,48 @@ LABEL_13:
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138412802;
-    v19 = v5;
-    v20 = 2048;
+    v13 = v5;
+    v14 = 2048;
     clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
-    v22 = 1024;
+    v16 = 1024;
     portNumber = [(TSgPTPPort *)self portNumber];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): announceTimeout", buf, 0x1Cu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v6 = self->_clients;
-  v7 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = MEMORY[0];
     do
     {
-      v10 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v14 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v11 didAnnounceTimeoutForPort:{self, v13}];
+          [v11 didAnnounceTimeoutForPort:?];
         }
-
-        ++v10;
       }
 
-      while (v8 != v10);
-      v8 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&self->_clientLock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSyncTimeoutForPort:(id)port
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -311,57 +399,48 @@ LABEL_13:
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138412802;
-    v19 = v5;
-    v20 = 2048;
+    v13 = v5;
+    v14 = 2048;
     clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
-    v22 = 1024;
+    v16 = 1024;
     portNumber = [(TSgPTPPort *)self portNumber];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): syncTimeout", buf, 0x1Cu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v6 = self->_clients;
-  v7 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = MEMORY[0];
     do
     {
-      v10 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v14 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v11 didSyncTimeoutForPort:{self, v13}];
+          [v11 didSyncTimeoutForPort:?];
         }
-
-        ++v10;
       }
 
-      while (v8 != v10);
-      v8 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&self->_clientLock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSyncTimeoutWithMean:(int64_t)mean median:(int64_t)median standardDeviation:(unint64_t)deviation minimum:(int64_t)minimum maximum:(int64_t)maximum numberOfSamples:(unsigned int)samples forPort:(id)port
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -369,65 +448,60 @@ LABEL_13:
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     *buf = 138414338;
-    v31 = v14;
-    v32 = 2048;
+    v25 = v14;
+    v26 = 2048;
     clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
-    v34 = 1024;
+    v28 = 1024;
     portNumber = [(TSgPTPPort *)self portNumber];
-    v36 = 2048;
+    v30 = 2048;
     meanCopy = mean;
-    v38 = 2048;
+    v32 = 2048;
     medianCopy = median;
-    v40 = 2048;
+    v34 = 2048;
     deviationCopy = deviation;
-    v42 = 2048;
+    v36 = 2048;
     minimumCopy = minimum;
-    v44 = 2048;
+    v38 = 2048;
     maximumCopy = maximum;
-    v46 = 1024;
+    v40 = 1024;
     samplesCopy = samples;
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): syncTimeoutWithMean:%lld median:%lld standardDeviation:%llu minimum:%lld maximum:%lld numberOfSamples:%u", buf, 0x54u);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v15 = self->_clients;
-  v16 = [(NSPointerArray *)v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v16 = [NSPointerArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = MEMORY[0];
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v17; i = (i + 1))
       {
-        if (*v26 != v18)
+        if (MEMORY[0] != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * i);
+        v20 = *(8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v20 didSyncTimeoutWithMean:mean median:median standardDeviation:deviation minimum:minimum maximum:maximum numberOfSamples:samples forPort:self];
+          [v20 didSyncTimeoutWithMean:self median:? standardDeviation:? minimum:? maximum:? numberOfSamples:? forPort:?];
         }
       }
 
-      v17 = [(NSPointerArray *)v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v17 = [NSPointerArray countByEnumeratingWithState:v15 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v17);
   }
 
   os_unfair_lock_unlock(&self->_clientLock);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTerminateServiceForPort:(id)port
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_clientLock);
   [(NSPointerArray *)self->_clients compact];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -435,45 +509,37 @@ LABEL_13:
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138412802;
-    v19 = v5;
-    v20 = 2048;
+    v13 = v5;
+    v14 = 2048;
     clockIdentifier = [(TSgPTPPort *)self clockIdentifier];
-    v22 = 1024;
+    v16 = 1024;
     portNumber = [(TSgPTPPort *)self portNumber];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSgPTPNetworkPort(%@,%016llx.%hu): terminatedService", buf, 0x1Cu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v6 = self->_clients;
-  v7 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = MEMORY[0];
     do
     {
-      v10 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v14 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v11 didTerminateServiceForPort:{self, v13}];
+          [v11 didTerminateServiceForPort:?];
         }
-
-        ++v10;
       }
 
-      while (v8 != v10);
-      v8 = [(NSPointerArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [NSPointerArray countByEnumeratingWithState:v6 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v8);
@@ -481,814 +547,596 @@ LABEL_13:
 
   os_unfair_lock_unlock(&self->_clientLock);
   [(TSgPTPPort *)self serviceTerminated];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)diagnosticDescriptionForInfo:(id)info withIndent:(id)indent
 {
   infoCopy = info;
   indentCopy = indent;
-  v65.receiver = self;
-  v65.super_class = &OBJC_METACLASS___TSgPTPNetworkPort;
-  v8 = objc_msgSendSuper2(&v65, sel_diagnosticDescriptionForInfo_withIndent_, infoCopy, indentCopy);
-  v9 = [infoCopy objectForKeyedSubscript:@"InterfaceName"];
-  [v8 appendFormat:@"%@    Interface: ", indentCopy];
+  v59.receiver = self;
+  v59.super_class = &OBJC_METACLASS___TSgPTPNetworkPort;
+  v8 = objc_msgSendSuper2(&v59, sel_diagnosticDescriptionForInfo_withIndent_, infoCopy, indentCopy);
+  v9 = [infoCopy objectForKeyedSubscript:?];
+  [v8 appendFormat:indentCopy];
   if (v9)
   {
-    [v8 appendFormat:@"%@\n", v9];
+    [v8 appendFormat:v9];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Source Address: ", indentCopy];
-  v10 = [infoCopy objectForKeyedSubscript:@"SourceAddress"];
+  [v8 appendFormat:indentCopy];
+  v10 = [infoCopy objectForKeyedSubscript:?];
   v11 = v10;
   if (v10)
   {
-    [v8 appendFormat:@"%@\n", v10];
+    [v8 appendFormat:v10];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Destination Address: ", indentCopy];
-  v12 = [infoCopy objectForKeyedSubscript:@"DestinationAddress"];
+  [v8 appendFormat:indentCopy];
+  v12 = [infoCopy objectForKeyedSubscript:?];
 
   if (v12)
   {
-    [v8 appendFormat:@"%@\n", v12];
+    [v8 appendFormat:v12];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Priority 1: ", indentCopy];
-  v13 = [infoCopy objectForKeyedSubscript:@"ClockPriority1"];
+  [v8 appendFormat:indentCopy];
+  v13 = [infoCopy objectForKeyedSubscript:?];
   v14 = v13;
   if (v13)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v13, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v13, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Class: ", indentCopy];
-  v15 = [infoCopy objectForKeyedSubscript:@"ClockClass"];
+  [v8 appendFormat:indentCopy];
+  v15 = [infoCopy objectForKeyedSubscript:?];
 
   if (v15)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v15, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v15, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Accuracy: ", indentCopy];
-  v16 = [infoCopy objectForKeyedSubscript:@"ClockAccuracy"];
+  [v8 appendFormat:indentCopy];
+  v16 = [infoCopy objectForKeyedSubscript:?];
 
   if (v16)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v16, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v16, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Offset Scaled Log Variance: ", indentCopy];
-  v17 = [infoCopy objectForKeyedSubscript:@"OffsetScaledLogVariance"];
+  [v8 appendFormat:indentCopy];
+  v17 = [infoCopy objectForKeyedSubscript:?];
 
   if (v17)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v17, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v17, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Priority 2: ", indentCopy];
-  v18 = [infoCopy objectForKeyedSubscript:@"ClockPriority2"];
+  [v8 appendFormat:indentCopy];
+  v18 = [infoCopy objectForKeyedSubscript:?];
 
   if (v18)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v18, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v18, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Grandmaster Identity: ", indentCopy];
-  v19 = [infoCopy objectForKeyedSubscript:@"GrandmasterID"];
+  [v8 appendFormat:indentCopy];
+  v19 = [infoCopy objectForKeyedSubscript:?];
 
   if (v19)
   {
-    [v8 appendFormat:@"%016llx\n", objc_msgSend(v19, "unsignedLongLongValue")];
+    [v8 appendFormat:objc_msgSend(v19, "unsignedLongLongValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Steps Removed: ", indentCopy];
-  v20 = [infoCopy objectForKeyedSubscript:@"StepsRemoved"];
+  [v8 appendFormat:indentCopy];
+  v20 = [infoCopy objectForKeyedSubscript:?];
 
   if (v20)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v20, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v20, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Time Source: ", indentCopy];
-  v21 = [infoCopy objectForKeyedSubscript:@"TimeSource"];
+  [v8 appendFormat:indentCopy];
+  v21 = [infoCopy objectForKeyedSubscript:?];
 
   if (v21)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v21, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v21, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Priority 1: ", indentCopy];
-  v22 = [infoCopy objectForKeyedSubscript:@"ReceivedClockPriority1"];
+  [v8 appendFormat:indentCopy];
+  v22 = [infoCopy objectForKeyedSubscript:?];
 
   if (v22)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v22, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v22, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Class: ", indentCopy];
-  v23 = [infoCopy objectForKeyedSubscript:@"ReceivedClockClass"];
+  [v8 appendFormat:indentCopy];
+  v23 = [infoCopy objectForKeyedSubscript:?];
 
   if (v23)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v23, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v23, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Accuracy: ", indentCopy];
-  v24 = [infoCopy objectForKeyedSubscript:@"ReceivedClockAccuracy"];
+  [v8 appendFormat:indentCopy];
+  v24 = [infoCopy objectForKeyedSubscript:?];
 
   if (v24)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v24, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v24, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Offset Scaled Log Variance: ", indentCopy];
-  v25 = [infoCopy objectForKeyedSubscript:@"ReceivedOffsetScaledLogVariance"];
+  [v8 appendFormat:indentCopy];
+  v25 = [infoCopy objectForKeyedSubscript:?];
 
   if (v25)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v25, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v25, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Priority 2: ", indentCopy];
-  v26 = [infoCopy objectForKeyedSubscript:@"ReceivedClockPriority2"];
+  [v8 appendFormat:indentCopy];
+  v26 = [infoCopy objectForKeyedSubscript:?];
 
   if (v26)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v26, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v26, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Grandmaster Identity: ", indentCopy];
-  v27 = [infoCopy objectForKeyedSubscript:@"ReceivedGrandmasterID"];
+  [v8 appendFormat:indentCopy];
+  v27 = [infoCopy objectForKeyedSubscript:?];
 
   if (v27)
   {
-    [v8 appendFormat:@"%016llx\n", objc_msgSend(v27, "unsignedLongLongValue")];
+    [v8 appendFormat:objc_msgSend(v27, "unsignedLongLongValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Steps Removed: ", indentCopy];
-  v28 = [infoCopy objectForKeyedSubscript:@"ReceivedStepsRemoved"];
+  [v8 appendFormat:indentCopy];
+  v28 = [infoCopy objectForKeyedSubscript:?];
 
   if (v28)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v28, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v28, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Time Source: ", indentCopy];
-  v29 = [infoCopy objectForKeyedSubscript:@"ReceivedTimeSource"];
+  [v8 appendFormat:indentCopy];
+  v29 = [infoCopy objectForKeyedSubscript:?];
 
   if (v29)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v29, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v29, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Local Link Type: ", indentCopy];
-  v30 = [infoCopy objectForKeyedSubscript:@"LocalLinkType"];
+  [v8 appendFormat:indentCopy];
+  v30 = [infoCopy objectForKeyedSubscript:?];
 
   if (!v30)
   {
-    v32 = @"Could not read property\n";
-    goto LABEL_64;
+    goto LABEL_61;
   }
 
   unsignedCharValue = [v30 unsignedCharValue];
   if (unsignedCharValue <= 2)
   {
-    if (!unsignedCharValue)
+    if (unsignedCharValue <= 2)
     {
-      v32 = @"Unknown\n";
-      goto LABEL_64;
+LABEL_61:
+      [v8 appendString:?];
+      goto LABEL_62;
     }
+  }
 
-    if (unsignedCharValue == 1)
-    {
-      v32 = @"AVB Ethernet\n";
-      goto LABEL_64;
-    }
+  else if (unsignedCharValue <= 5 || unsignedCharValue == 6)
+  {
+    goto LABEL_61;
+  }
 
-    if (unsignedCharValue != 2)
-    {
-      goto LABEL_190;
-    }
+  [v8 appendFormat:objc_msgSend(v30, "unsignedCharValue")];
+LABEL_62:
+  [v8 appendFormat:indentCopy];
+  v32 = [infoCopy objectForKeyedSubscript:?];
 
-    v32 = @"Ethernet\n";
-LABEL_64:
-    [v8 appendString:v32];
+  if (!v32)
+  {
     goto LABEL_65;
   }
 
-  if (unsignedCharValue <= 4)
-  {
-    if (unsignedCharValue == 3)
-    {
-      v32 = @"Infrastructure WiFi\n";
-    }
-
-    else
-    {
-      v32 = @"Peer to Peer WiFi\n";
-    }
-
-    goto LABEL_64;
-  }
-
-  if (unsignedCharValue == 5)
-  {
-    v32 = @"Timing Measurement\n";
-    goto LABEL_64;
-  }
-
-  if (unsignedCharValue == 6)
-  {
-    v32 = @"Fine Timing Measurement\n";
-    goto LABEL_64;
-  }
-
-LABEL_190:
-  [v8 appendFormat:@"Undefined link type %hhu\n", objc_msgSend(v30, "unsignedCharValue")];
-LABEL_65:
-  [v8 appendFormat:@"%@    Remote Link Type: ", indentCopy];
-  v33 = [infoCopy objectForKeyedSubscript:@"RemoteLinkType"];
-
-  if (!v33)
-  {
-    v35 = @"Could not read property\n";
-    goto LABEL_71;
-  }
-
-  unsignedCharValue2 = [v33 unsignedCharValue];
+  unsignedCharValue2 = [v32 unsignedCharValue];
   if (unsignedCharValue2 <= 2)
   {
-    if (!unsignedCharValue2)
+    if (unsignedCharValue2 > 2)
     {
-      v35 = @"Unknown\n";
-      goto LABEL_71;
+      goto LABEL_150;
     }
 
-    if (unsignedCharValue2 == 1)
-    {
-      v35 = @"AVB Ethernet\n";
-      goto LABEL_71;
-    }
-
-    if (unsignedCharValue2 != 2)
-    {
-      goto LABEL_191;
-    }
-
-    v35 = @"Ethernet\n";
-LABEL_71:
-    [v8 appendString:v35];
-    goto LABEL_72;
+LABEL_65:
+    [v8 appendString:?];
+    goto LABEL_66;
   }
 
-  if (unsignedCharValue2 <= 4)
+  if (unsignedCharValue2 <= 5 || unsignedCharValue2 == 6)
   {
-    if (unsignedCharValue2 == 3)
+    goto LABEL_65;
+  }
+
+LABEL_150:
+  [v8 appendFormat:objc_msgSend(v32, "unsignedCharValue")];
+LABEL_66:
+  [v8 appendFormat:indentCopy];
+  v34 = [infoCopy objectForKeyedSubscript:?];
+
+  if (!v34)
+  {
+    goto LABEL_83;
+  }
+
+  unsignedCharValue3 = [v34 unsignedCharValue];
+  if (unsignedCharValue3 > 1)
+  {
+    if (unsignedCharValue3 == 2 || unsignedCharValue3 == 3)
     {
-      v35 = @"Infrastructure WiFi\n";
+      goto LABEL_83;
     }
 
-    else
-    {
-      v35 = @"Peer to Peer WiFi\n";
-    }
-
-    goto LABEL_71;
+LABEL_82:
+    [v8 appendFormat:objc_msgSend(v34, "unsignedCharValue")];
+    goto LABEL_84;
   }
 
-  if (unsignedCharValue2 == 5)
+  if (unsignedCharValue3 > 1)
   {
-    v35 = @"Timing Measurement\n";
-    goto LABEL_71;
+    goto LABEL_82;
   }
 
-  if (unsignedCharValue2 == 6)
-  {
-    v35 = @"Fine Timing Measurement\n";
-    goto LABEL_71;
-  }
-
-LABEL_191:
-  [v8 appendFormat:@"Undefined link type %hhu\n", objc_msgSend(v33, "unsignedCharValue")];
-LABEL_72:
-  [v8 appendFormat:@"%@    Local Timestamping Mode: ", indentCopy];
-  v36 = [infoCopy objectForKeyedSubscript:@"LocalTimestampingMode"];
+LABEL_83:
+  [v8 appendString:?];
+LABEL_84:
+  [v8 appendFormat:indentCopy];
+  v36 = [infoCopy objectForKeyedSubscript:?];
 
   if (!v36)
   {
-    v38 = @"Could not read property\n";
-    goto LABEL_98;
+    goto LABEL_92;
   }
 
-  unsignedCharValue3 = [v36 unsignedCharValue];
-  if (unsignedCharValue3 > 1)
-  {
-    if (unsignedCharValue3 == 2)
-    {
-      v38 = @"Interrupt\n";
-      goto LABEL_98;
-    }
-
-    if (unsignedCharValue3 == 3)
-    {
-      v38 = @"Software\n";
-      goto LABEL_98;
-    }
-
-LABEL_95:
-    [v8 appendFormat:@"Undefined link type %hhu\n", objc_msgSend(v36, "unsignedCharValue")];
-    goto LABEL_99;
-  }
-
-  if (!unsignedCharValue3)
-  {
-    v38 = @"Unknown\n";
-    goto LABEL_98;
-  }
-
-  if (unsignedCharValue3 != 1)
-  {
-    goto LABEL_95;
-  }
-
-  v38 = @"Hardware\n";
-LABEL_98:
-  [v8 appendString:v38];
-LABEL_99:
-  [v8 appendFormat:@"%@    Remote Timestamping Mode: ", indentCopy];
-  v39 = [infoCopy objectForKeyedSubscript:@"RemoteTimestampingMode"];
-
-  if (!v39)
-  {
-    v41 = @"Could not read property\n";
-    goto LABEL_111;
-  }
-
-  unsignedCharValue4 = [v39 unsignedCharValue];
+  unsignedCharValue4 = [v36 unsignedCharValue];
   if (unsignedCharValue4 > 1)
   {
-    if (unsignedCharValue4 == 2)
+    if (unsignedCharValue4 == 2 || unsignedCharValue4 == 3)
     {
-      v41 = @"Interrupt\n";
-      goto LABEL_111;
+      goto LABEL_92;
     }
 
-    if (unsignedCharValue4 == 3)
-    {
-      v41 = @"Software\n";
-      goto LABEL_111;
-    }
-
-LABEL_108:
-    [v8 appendFormat:@"Undefined link type %hhu\n", objc_msgSend(v39, "unsignedCharValue")];
-    goto LABEL_112;
+LABEL_91:
+    [v8 appendFormat:objc_msgSend(v36, "unsignedCharValue")];
+    goto LABEL_93;
   }
 
-  if (!unsignedCharValue4)
+  if (unsignedCharValue4 > 1)
   {
-    v41 = @"Unknown\n";
-    goto LABEL_111;
+    goto LABEL_91;
   }
 
-  if (unsignedCharValue4 != 1)
+LABEL_92:
+  [v8 appendString:?];
+LABEL_93:
+  [v8 appendFormat:indentCopy];
+  v38 = [infoCopy objectForKeyedSubscript:?];
+
+  if (!v38)
   {
-    goto LABEL_108;
+    goto LABEL_96;
   }
 
-  v41 = @"Hardware\n";
-LABEL_111:
-  [v8 appendString:v41];
-LABEL_112:
-  [v8 appendFormat:@"%@    Local Oscillator Type: ", indentCopy];
-  v42 = [infoCopy objectForKeyedSubscript:@"LocalOscillatorType"];
-
-  if (!v42)
-  {
-    v44 = @"Could not read property\n";
-    goto LABEL_119;
-  }
-
-  unsignedCharValue5 = [v42 unsignedCharValue];
+  unsignedCharValue5 = [v38 unsignedCharValue];
   if (unsignedCharValue5 > 4)
   {
-    if (unsignedCharValue5 <= 6)
+    if (unsignedCharValue5 > 9)
     {
-      if (unsignedCharValue5 == 5)
-      {
-        v44 = @"VCYCXO\n";
-      }
-
-      else
-      {
-        v44 = @"OCXO\n";
-      }
-
-      goto LABEL_119;
+      goto LABEL_151;
     }
 
-    if (unsignedCharValue5 == 7)
-    {
-      v44 = @"DOCXO\n";
-      goto LABEL_119;
-    }
-
-    if (unsignedCharValue5 == 8)
-    {
-      v44 = @"VCOCXO\n";
-      goto LABEL_119;
-    }
-
-    if (unsignedCharValue5 != 9)
-    {
-      goto LABEL_210;
-    }
-
-    v44 = @"VCDOCXO\n";
-LABEL_119:
-    [v8 appendString:v44];
-    goto LABEL_120;
+LABEL_96:
+    [v8 appendString:?];
+    goto LABEL_97;
   }
 
-  if (unsignedCharValue5 > 1)
+  if (unsignedCharValue5 > 1 || unsignedCharValue5 <= 1)
   {
-    if (unsignedCharValue5 == 2)
-    {
-      v44 = @"MEMS\n";
-    }
-
-    else if (unsignedCharValue5 == 3)
-    {
-      v44 = @"TCXO\n";
-    }
-
-    else
-    {
-      v44 = @"VCO\n";
-    }
-
-    goto LABEL_119;
+    goto LABEL_96;
   }
 
-  if (!unsignedCharValue5)
+LABEL_151:
+  [v8 appendFormat:objc_msgSend(v38, "unsignedCharValue")];
+LABEL_97:
+  [v8 appendFormat:indentCopy];
+  v40 = [infoCopy objectForKeyedSubscript:?];
+
+  if (!v40)
   {
-    v44 = @"Unknown\n";
-    goto LABEL_119;
+    goto LABEL_100;
   }
 
-  if (unsignedCharValue5 == 1)
-  {
-    v44 = @"Crystal\n";
-    goto LABEL_119;
-  }
-
-LABEL_210:
-  [v8 appendFormat:@"Undefined oscillator type %hhu\n", objc_msgSend(v42, "unsignedCharValue")];
-LABEL_120:
-  [v8 appendFormat:@"%@    Remote Oscillator Type: ", indentCopy];
-  v45 = [infoCopy objectForKeyedSubscript:@"RemoteOscillatorType"];
-
-  if (!v45)
-  {
-    v47 = @"Could not read property\n";
-    goto LABEL_127;
-  }
-
-  unsignedCharValue6 = [v45 unsignedCharValue];
+  unsignedCharValue6 = [v40 unsignedCharValue];
   if (unsignedCharValue6 > 4)
   {
-    if (unsignedCharValue6 <= 6)
+    if (unsignedCharValue6 > 9)
     {
-      if (unsignedCharValue6 == 5)
-      {
-        v47 = @"VCYCXO\n";
-      }
-
-      else
-      {
-        v47 = @"OCXO\n";
-      }
-
-      goto LABEL_127;
+      goto LABEL_152;
     }
 
-    if (unsignedCharValue6 == 7)
-    {
-      v47 = @"DOCXO\n";
-      goto LABEL_127;
-    }
-
-    if (unsignedCharValue6 == 8)
-    {
-      v47 = @"VCOCXO\n";
-      goto LABEL_127;
-    }
-
-    if (unsignedCharValue6 != 9)
-    {
-      goto LABEL_211;
-    }
-
-    v47 = @"VCDOCXO\n";
-LABEL_127:
-    [v8 appendString:v47];
-    goto LABEL_128;
+LABEL_100:
+    [v8 appendString:?];
+    goto LABEL_101;
   }
 
-  if (unsignedCharValue6 > 1)
+  if (unsignedCharValue6 > 1 || unsignedCharValue6 <= 1)
   {
-    if (unsignedCharValue6 == 2)
-    {
-      v47 = @"MEMS\n";
-    }
-
-    else if (unsignedCharValue6 == 3)
-    {
-      v47 = @"TCXO\n";
-    }
-
-    else
-    {
-      v47 = @"VCO\n";
-    }
-
-    goto LABEL_127;
+    goto LABEL_100;
   }
 
-  if (!unsignedCharValue6)
+LABEL_152:
+  [v8 appendFormat:objc_msgSend(v40, "unsignedCharValue")];
+LABEL_101:
+  [v8 appendFormat:indentCopy];
+  v42 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v42)
   {
-    v47 = @"Unknown\n";
-    goto LABEL_127;
+    [v8 appendFormat:objc_msgSend(v42, "intValue")];
   }
 
-  if (unsignedCharValue6 == 1)
+  else
   {
-    v47 = @"Crystal\n";
-    goto LABEL_127;
+    [v8 appendString:?];
   }
 
-LABEL_211:
-  [v8 appendFormat:@"Undefined oscillator type %hhu\n", objc_msgSend(v45, "unsignedCharValue")];
-LABEL_128:
-  [v8 appendFormat:@"%@    Local Frequency Tolerance Lower: ", indentCopy];
-  v48 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyToleranceLower"];
+  [v8 appendFormat:indentCopy];
+  v43 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v43)
+  {
+    [v8 appendFormat:objc_msgSend(v43, "intValue")];
+  }
+
+  else
+  {
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v44 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v44)
+  {
+    [v8 appendFormat:objc_msgSend(v44, "intValue")];
+  }
+
+  else
+  {
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v45 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v45)
+  {
+    [v8 appendFormat:objc_msgSend(v45, "intValue")];
+  }
+
+  else
+  {
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v46 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v46)
+  {
+    [v8 appendFormat:objc_msgSend(v46, "intValue")];
+  }
+
+  else
+  {
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v47 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v47)
+  {
+    [v8 appendFormat:objc_msgSend(v47, "intValue")];
+  }
+
+  else
+  {
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v48 = [infoCopy objectForKeyedSubscript:?];
 
   if (v48)
   {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v48, "intValue")];
+    [v8 appendFormat:objc_msgSend(v48, "intValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Local Frequency Tolerance Upper: ", indentCopy];
-  v49 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyToleranceUpper"];
+  [v8 appendFormat:indentCopy];
+  v49 = [infoCopy objectForKeyedSubscript:?];
 
   if (v49)
   {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v49, "intValue")];
+    [v8 appendFormat:objc_msgSend(v49, "intValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Remote Frequency Tolerance Lower: ", indentCopy];
-  v50 = [infoCopy objectForKeyedSubscript:@"RemoteFrequencyToleranceLower"];
+  v50 = [infoCopy objectForKeyedSubscript:?];
 
   if (v50)
   {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v50, "intValue")];
+    if ([v50 BOOLValue])
+    {
+      v51 = @"YES";
+    }
+
+    else
+    {
+      v51 = @"NO";
+    }
+
+    [v8 appendFormat:indentCopy, v51];
+    [v8 appendFormat:indentCopy];
+    v52 = [infoCopy objectForKeyedSubscript:?];
+
+    if (v52)
+    {
+      [v8 appendFormat:objc_msgSend(v52, "unsignedLongLongValue")];
+    }
+
+    else
+    {
+      [v8 appendString:?];
+    }
+
+    [v8 appendFormat:indentCopy];
+    v53 = [infoCopy objectForKeyedSubscript:?];
+
+    if (v53)
+    {
+      [v8 appendFormat:objc_msgSend(v53, "unsignedShortValue")];
+    }
+
+    else
+    {
+      [v8 appendString:?];
+    }
   }
 
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  [v8 appendFormat:@"%@    Remote Frequency Tolerance Upper: ", indentCopy];
-  v51 = [infoCopy objectForKeyedSubscript:@"RemoteFrequencyToleranceUpper"];
-
-  if (v51)
-  {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v51, "intValue")];
-  }
-
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  [v8 appendFormat:@"%@    Local Frequency Stability Lower: ", indentCopy];
-  v52 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyStabilityLower"];
-
-  if (v52)
-  {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v52, "intValue")];
-  }
-
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  [v8 appendFormat:@"%@    Local Frequency Stability Upper: ", indentCopy];
-  v53 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyStabilityUpper"];
-
-  if (v53)
-  {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v53, "intValue")];
-  }
-
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  [v8 appendFormat:@"%@    Remote Frequency Stability Lower: ", indentCopy];
-  v54 = [infoCopy objectForKeyedSubscript:@"RemoteFrequencyStabilityLower"];
-
+  v54 = [infoCopy objectForKeyedSubscript:?];
+  v55 = v54;
   if (v54)
   {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v54, "intValue")];
-  }
-
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  [v8 appendFormat:@"%@    Remote Frequency Stability Upper: ", indentCopy];
-  v55 = [infoCopy objectForKeyedSubscript:@"RemoteFrequencyStabilityUpper"];
-
-  if (v55)
-  {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v55, "intValue")];
-  }
-
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  v56 = [infoCopy objectForKeyedSubscript:@"OverridenReceiveMatching"];
-
-  if (v56)
-  {
-    if ([v56 BOOLValue])
+    if ([v54 BOOLValue])
     {
-      v57 = @"YES";
+      v56 = @"YES";
     }
 
     else
     {
-      v57 = @"NO";
+      v56 = @"NO";
     }
 
-    [v8 appendFormat:@"%@    Overriden Receive Matching: %@\n", indentCopy, v57];
-    [v8 appendFormat:@"%@    Overriden Receive Clock Identity: ", indentCopy];
-    v58 = [infoCopy objectForKeyedSubscript:@"OverridenReceiveClockIdentity"];
-
-    if (v58)
-    {
-      [v8 appendFormat:@"0x%016llx\n", objc_msgSend(v58, "unsignedLongLongValue")];
-    }
-
-    else
-    {
-      [v8 appendString:@"Could not read property\n"];
-    }
-
-    [v8 appendFormat:@"%@    Overriden Receive Port Number: ", indentCopy];
-    v59 = [infoCopy objectForKeyedSubscript:@"OverridenReceivePortNumber"];
-
-    if (v59)
-    {
-      [v8 appendFormat:@"%hu\n", objc_msgSend(v59, "unsignedShortValue")];
-    }
-
-    else
-    {
-      [v8 appendString:@"Could not read property\n"];
-    }
+    [v8 appendFormat:indentCopy, v56];
   }
 
-  v60 = [infoCopy objectForKeyedSubscript:@"PTPPortEnabled"];
-  v61 = v60;
-  if (v60)
-  {
-    if ([v60 BOOLValue])
-    {
-      v62 = @"YES";
-    }
-
-    else
-    {
-      v62 = @"NO";
-    }
-
-    [v8 appendFormat:@"%@    PTP Port Enabled: %@\n", indentCopy, v62];
-  }
-
-  v63 = v8;
+  v57 = v8;
 
   return v8;
 }
@@ -1296,16 +1144,15 @@ LABEL_128:
 - (void)initWithImplDC:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

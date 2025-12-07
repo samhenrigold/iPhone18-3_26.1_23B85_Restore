@@ -6,11 +6,10 @@
 
 + (BOOL)becomeCurrentUser
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (getuid())
   {
-    v2 = 1;
-    goto LABEL_16;
+    return 1;
   }
 
   *__error() = 0;
@@ -21,17 +20,15 @@
     {
       v16 = __error();
       v17 = strerror(*v16);
-      v22 = 136315138;
-      v23 = v17;
+      v21 = 136315138;
+      v22 = v17;
       v13 = MEMORY[0x1E69E9C10];
       v14 = "Warning: failed to get pwInfo: %s\n";
       v15 = 12;
       goto LABEL_21;
     }
 
-LABEL_15:
-    v2 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   v4 = v3;
@@ -39,14 +36,14 @@ LABEL_15:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v13 = MEMORY[0x1E69E9C10];
       v14 = "Warning: got pwInfo for uid=0.\n";
       v15 = 2;
       goto LABEL_21;
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
   v5 = getenv("LLVM_PROFILE_FILE");
@@ -59,9 +56,9 @@ LABEL_15:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138412290;
-      v23 = v9;
-      _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Retaining write permission to proile data file: %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v9;
+      _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Retaining write permission to proile data file: %@", &v21, 0xCu);
     }
 
     chmod([v9 fileSystemRepresentation], 0x1B6u);
@@ -75,35 +72,33 @@ LABEL_15:
       pw_name = v4->pw_name;
       v11 = __error();
       v12 = strerror(*v11);
-      v22 = 136315394;
-      v23 = pw_name;
-      v24 = 2080;
-      v25 = v12;
+      v21 = 136315394;
+      v22 = pw_name;
+      v23 = 2080;
+      v24 = v12;
       v13 = MEMORY[0x1E69E9C10];
       v14 = "Warning: failed to setuid to account %s: %s\n";
       v15 = 22;
 LABEL_21:
-      _os_log_error_impl(&dword_1A7F47000, v13, OS_LOG_TYPE_ERROR, v14, &v22, v15);
-      goto LABEL_15;
+      _os_log_error_impl(&dword_1A7F47000, v13, OS_LOG_TYPE_ERROR, v14, &v21, v15);
+      return 0;
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
   v2 = 1;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    v20 = v4->pw_name;
+    v19 = v4->pw_name;
     pw_uid = v4->pw_uid;
-    v22 = 136315394;
-    v23 = v20;
-    v24 = 1024;
-    LODWORD(v25) = pw_uid;
-    _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Dropping root privileges to %s (%i)", &v22, 0x12u);
+    v21 = 136315394;
+    v22 = v19;
+    v23 = 1024;
+    LODWORD(v24) = pw_uid;
+    _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Dropping root privileges to %s (%i)", &v21, 0x12u);
   }
 
-LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

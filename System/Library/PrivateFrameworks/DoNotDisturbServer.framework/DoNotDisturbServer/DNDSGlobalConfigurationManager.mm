@@ -7,8 +7,10 @@
 - (DNDSGlobalConfigurationManager)initWithBackingStore:(id)store;
 - (DNDSGlobalConfigurationManagerDelegate)delegate;
 - (id)getConfigurationReturningError:(id *)error;
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted;
 - (unint64_t)_writeConfiguration:(id)configuration error:(id *)error;
 - (void)dealloc;
+- (void)globalConfigurationStore:(id)store didUpdatePreventAutoReplySetting:(BOOL)setting;
 @end
 
 @implementation DNDSGlobalConfigurationManager
@@ -127,7 +129,7 @@ LABEL_18:
 - (BOOL)setPreventAutoReply:(BOOL)reply withError:(id *)error
 {
   replyCopy = reply;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = DNDSLogGlobalConfiguration;
   if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
   {
@@ -138,14 +140,14 @@ LABEL_18:
     }
 
     *buf = 136315138;
-    v21 = v8;
+    v20 = v8;
     _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Setting auto reply to %s", buf, 0xCu);
   }
 
   backingStore = self->_backingStore;
-  v19 = 0;
-  v10 = [(DNDSGlobalConfigurationStoring *)backingStore readRecordWithError:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(DNDSGlobalConfigurationStoring *)backingStore readRecordWithError:&v18];
+  v11 = v18;
   v12 = [v10 mutableCopy];
 
   v13 = v11 == 0;
@@ -186,7 +188,6 @@ LABEL_18:
 
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -201,7 +202,7 @@ LABEL_15:
 - (BOOL)setModesCanImpactAvailability:(BOOL)availability withError:(id *)error
 {
   availabilityCopy = availability;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = DNDSLogGlobalConfiguration;
   if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
   {
@@ -212,14 +213,14 @@ LABEL_15:
     }
 
     *buf = 136315138;
-    v21 = v8;
+    v20 = v8;
     _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Setting global availability preference to %s", buf, 0xCu);
   }
 
   backingStore = self->_backingStore;
-  v19 = 0;
-  v10 = [(DNDSGlobalConfigurationStoring *)backingStore readRecordWithError:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(DNDSGlobalConfigurationStoring *)backingStore readRecordWithError:&v18];
+  v11 = v18;
   v12 = [v10 mutableCopy];
 
   v13 = v11 == 0;
@@ -260,18 +261,37 @@ LABEL_15:
 
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
+}
+
+- (void)globalConfigurationStore:(id)store didUpdatePreventAutoReplySetting:(BOOL)setting
+{
+  settingCopy = setting;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained globalConfigurationManager:self didUpdatePreventAutoReplySetting:settingCopy];
+}
+
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  redacted = [(DNDSGlobalConfigurationStoring *)self->_backingStore readRecordWithError:0, redacted];
+  v5 = [[DNDSBackingStoreDictionaryContext alloc] initWithDestination:1 partitionType:1 redactSensitiveData:0 contactProvider:0 applicationIdentifierMapper:0];
+  v6 = [redacted dictionaryRepresentationWithContext:v5];
+  v9 = @"globalConfiguration";
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+
+  return v7;
 }
 
 - (unint64_t)_writeConfiguration:(id)configuration error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   backingStore = self->_backingStore;
-  v19 = 0;
-  v8 = [(DNDSGlobalConfigurationStoring *)backingStore writeRecord:configurationCopy error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [(DNDSGlobalConfigurationStoring *)backingStore writeRecord:configurationCopy error:&v18];
+  v9 = v18;
   v10 = v9;
   if (v8)
   {
@@ -281,7 +301,7 @@ LABEL_15:
       if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = v10;
+        v20 = v10;
         _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Failed to save configuration, but error can be ignored; error=%{public}@", buf, 0xCu);
       }
     }
@@ -292,7 +312,7 @@ LABEL_15:
       if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = configurationCopy;
+        v20 = configurationCopy;
         _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Saved configuration; configuration=%{public}@", buf, 0xCu);
       }
 
@@ -331,7 +351,6 @@ LABEL_15:
   v12 = 0;
 LABEL_20:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -344,36 +363,18 @@ LABEL_20:
 
 - (void)setPreventAutoReply:(uint64_t)a1 withError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Error reading auto reply state: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Error reading auto reply state: %@", &v2, 0xCu);
 }
 
 - (void)setModesCanImpactAvailability:(uint64_t)a1 withError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Error reading global availability state: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeConfiguration:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "Failed to save configuration but device is under first lock; configuration=%{public}@, error=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeConfiguration:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "Failed to save configuration, will request a radar; configuration=%{public}@, error=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Error reading global availability state: %@", &v2, 0xCu);
 }
 
 @end

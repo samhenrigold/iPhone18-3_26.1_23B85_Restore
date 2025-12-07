@@ -97,15 +97,15 @@
   name = [(NSSQLProperty *)self name];
   if (self)
   {
-    columnName = [(NSSQLProperty *)self columnName];
+    v8 = objc_msgSend_stringWithFormat_(v4, v6, name, [(NSSQLProperty *)self columnName]);
   }
 
   else
   {
-    columnName = 0;
+    v8 = objc_msgSend_stringWithFormat_(v4, v6, name, 0);
   }
 
-  v9 = [v4 stringWithFormat:@"<%@ %@ (%@)>", v6, name, columnName];
+  v9 = v8;
   objc_autoreleasePoolPop(v3);
 
   return v9;

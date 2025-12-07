@@ -126,20 +126,20 @@ LABEL_6:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __78__PKPaymentAuthorizationPaymentUIInterface_consumeSinglePressUpForButtonKind___block_invoke(uint64_t a1)
+void __78__PKPaymentAuthorizationPaymentUIInterface_consumeSinglePressUpForButtonKind___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v8 = 134349056;
-    v9 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPaymentUIInterface (%{public}p): Dismissing due to a lock button press", &v8, 0xCu);
+    v4 = *(a1 + 32);
+    v9 = 134349056;
+    v10 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPaymentUIInterface (%{public}p): Dismissing due to a lock button press", &v9, 0xCu);
   }
 
-  v4 = [*(*(a1 + 32) + 8) request];
-  if ([v4 requestType] == 1)
+  v5 = [*(*(a1 + 32) + 8) request];
+  if ([v5 requestType] == 1)
   {
 
 LABEL_6:
@@ -147,17 +147,17 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v5 = [*(*(a1 + 32) + 8) request];
-  v6 = [v5 requestType];
+  v6 = [*(*(a1 + 32) + 8) request];
+  v7 = [v6 requestType];
 
-  if (!v6)
+  if (!v7)
   {
     goto LABEL_6;
   }
 
 LABEL_7:
-  v7 = [*(*(a1 + 32) + 8) presenter];
-  [v7 dismissWithReason:3 completion:0];
+  v8 = [*(*(a1 + 32) + 8) presenter];
+  [v8 dismissWithReason:3 completion:0];
 }
 
 @end

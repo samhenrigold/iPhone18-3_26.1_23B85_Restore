@@ -1,4 +1,5 @@
 @interface HMDRemoteEventRouterServerConnection
+- (HMDRemoteEventRouterServerConnection)initWithDevice:(id)device connectionMode:(int64_t)mode supportsFragmentMessage:(BOOL)message userAccessControlProviderUUID:(id)d;
 - (HMDRemoteEventRouterServerConnection)initWithDeviceIdentifier:(id)identifier device:(id)device connectionMode:(int64_t)mode supportsFragmentMessage:(BOOL)message userAccessControlProviderUUID:(id)d;
 - (NSString)description;
 @end
@@ -68,6 +69,17 @@
   }
 
   return v17;
+}
+
+- (HMDRemoteEventRouterServerConnection)initWithDevice:(id)device connectionMode:(int64_t)mode supportsFragmentMessage:(BOOL)message userAccessControlProviderUUID:(id)d
+{
+  messageCopy = message;
+  dCopy = d;
+  deviceCopy = device;
+  identifier = [deviceCopy identifier];
+  v13 = [(HMDRemoteEventRouterServerConnection *)self initWithDeviceIdentifier:identifier device:deviceCopy connectionMode:mode supportsFragmentMessage:messageCopy userAccessControlProviderUUID:dCopy];
+
+  return v13;
 }
 
 @end

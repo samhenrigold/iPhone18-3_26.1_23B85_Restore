@@ -7,13 +7,13 @@
 
 - (DDUIPhysicalUnitGroup)initWithName:(id)name units:(id)units restricted:(BOOL)restricted symbol:(id)symbol
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   unitsCopy = units;
   symbolCopy = symbol;
-  v27.receiver = self;
-  v27.super_class = DDUIPhysicalUnitGroup;
-  v14 = [(DDUIPhysicalUnitGroup *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = DDUIPhysicalUnitGroup;
+  v14 = [(DDUIPhysicalUnitGroup *)&v26 init];
   v15 = v14;
   if (v14)
   {
@@ -21,38 +21,37 @@
     objc_storeStrong(&v15->_units, units);
     v15->_restrictedLinkification = restricted;
     objc_storeStrong(&v15->_symbol, symbol);
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v16 = unitsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v24;
+      v19 = *v23;
       do
       {
         v20 = 0;
         do
         {
-          if (*v24 != v19)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v23 + 1) + 8 * v20++) setGroup:{v15, v23}];
+          [*(*(&v22 + 1) + 8 * v20++) setGroup:{v15, v22}];
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v18);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

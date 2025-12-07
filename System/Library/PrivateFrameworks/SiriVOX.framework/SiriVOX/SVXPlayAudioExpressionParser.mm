@@ -5,7 +5,7 @@
 
 void __54___SVXPlayAudioExpressionParser_parsePlayAudio_reply___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -15,11 +15,11 @@ void __54___SVXPlayAudioExpressionParser_parsePlayAudio_reply___block_invoke(uin
     v9 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v16 = 136315394;
-      v17 = "[_SVXPlayAudioExpressionParser parsePlayAudio:reply:]_block_invoke";
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Service successfully parsed expression: %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[_SVXPlayAudioExpressionParser parsePlayAudio:reply:]_block_invoke";
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Service successfully parsed expression: %@", &v15, 0x16u);
     }
 
     objc_opt_class();
@@ -35,11 +35,11 @@ void __54___SVXPlayAudioExpressionParser_parsePlayAudio_reply___block_invoke(uin
       v13 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
       {
-        v16 = 136315394;
-        v17 = "[_SVXPlayAudioExpressionParser parsePlayAudio:reply:]_block_invoke";
-        v18 = 2112;
-        v19 = v7;
-        _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s Parsed expression has no data: %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[_SVXPlayAudioExpressionParser parsePlayAudio:reply:]_block_invoke";
+        v17 = 2112;
+        v18 = v7;
+        _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s Parsed expression has no data: %@", &v15, 0x16u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -51,18 +51,16 @@ void __54___SVXPlayAudioExpressionParser_parsePlayAudio_reply___block_invoke(uin
     v12 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = 136315394;
-      v17 = "[_SVXPlayAudioExpressionParser parsePlayAudio:reply:]_block_invoke";
-      v18 = 2112;
-      v19 = v15;
-      _os_log_error_impl(&dword_2695B9000, v12, OS_LOG_TYPE_ERROR, "%s Service failed to parse expression: %@", &v16, 0x16u);
+      v14 = *(a1 + 32);
+      v15 = 136315394;
+      v16 = "[_SVXPlayAudioExpressionParser parsePlayAudio:reply:]_block_invoke";
+      v17 = 2112;
+      v18 = v14;
+      _os_log_error_impl(&dword_2695B9000, v12, OS_LOG_TYPE_ERROR, "%s Service failed to parse expression: %@", &v15, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

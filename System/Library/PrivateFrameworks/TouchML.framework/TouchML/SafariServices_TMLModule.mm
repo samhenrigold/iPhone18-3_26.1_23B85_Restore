@@ -1,5 +1,6 @@
 @interface SafariServices_TMLModule
 + (BOOL)loadModule;
++ (void)defineConstants:(id)constants;
 @end
 
 @implementation SafariServices_TMLModule
@@ -23,6 +24,26 @@
   v2 = *(v6 + 24);
   _Block_object_dispose(&v5, 8);
   return v2;
+}
+
++ (void)defineConstants:(id)constants
+{
+  v3 = MEMORY[0x277CBEB38];
+  constantsCopy = constants;
+  dictionary = [v3 dictionary];
+  v5 = *MEMORY[0x277CD4630];
+  [dictionary setObject:&unk_287F557A8 forKeyedSubscript:*MEMORY[0x277CD4630]];
+  [constantsCopy defineProperty:@"SFErrorNoExtensionFound" descriptor:dictionary];
+  [dictionary setObject:&unk_287F557C0 forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SFErrorNoAttachmentFound" descriptor:dictionary];
+  [dictionary setObject:&unk_287F557D8 forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SFErrorLoadingInterrupted" descriptor:dictionary];
+  [dictionary setObject:&unk_287F557F0 forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SFSafariViewControllerDismissButtonStyleDone" descriptor:dictionary];
+  [dictionary setObject:&unk_287F557A8 forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SFSafariViewControllerDismissButtonStyleClose" descriptor:dictionary];
+  [dictionary setObject:&unk_287F557C0 forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SFSafariViewControllerDismissButtonStyleCancel" descriptor:dictionary];
 }
 
 @end

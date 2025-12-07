@@ -125,16 +125,16 @@
     [(PXVideoProcessingOperationSpec *)v25 setInputVideoURL:v11];
     if (v24)
     {
-      [(PXPhotoKitLivePhotoVideoContentProviderSpec *)v24 loopStartTime];
+      objc_msgSend_loopStartTime(v24);
       *location = v39;
       location[2] = v40;
       [(PXVideoStabilizeOperationSpec *)v25 setStartTime:location];
-      [(PXPhotoKitLivePhotoVideoContentProviderSpec *)v24 loopTimeRange];
+      objc_msgSend_loopTimeRange(v24);
       *location = v36;
       *&location[2] = v37;
       v42 = v38;
       [(PXVideoStabilizeOperationSpec *)v25 setTimeRange:location];
-      [(PXPhotoKitLivePhotoVideoContentProviderSpec *)v24 crossfadeDuration];
+      objc_msgSend_crossfadeDuration(v24);
     }
 
     else

@@ -5,7 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
-- (uint64_t)_copyWithZone:(Class)zone usingConcreteClass:;
+- (void)_copyWithZone:(Class)zone usingConcreteClass:;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -141,7 +141,7 @@
   return [(MRApplicationActivity *)self _copyWithZone:v4 usingConcreteClass:v5];
 }
 
-- (uint64_t)_copyWithZone:(Class)zone usingConcreteClass:
+- (void)_copyWithZone:(Class)zone usingConcreteClass:
 {
   if (!self)
   {

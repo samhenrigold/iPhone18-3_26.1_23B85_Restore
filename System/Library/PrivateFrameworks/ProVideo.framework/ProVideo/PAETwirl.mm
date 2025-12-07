@@ -149,24 +149,24 @@
 
   v13 = v10;
   var1 = info->var0.var1;
-  v33 = 0.0;
-  [v9 getFloatValue:&v33 fromParm:1 atFxTime:var1];
-  if (v33 == 0.0)
+  v31 = 0.0;
+  [v9 getFloatValue:&v31 fromParm:1 atFxTime:var1];
+  if (v31 == 0.0)
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v31);
     }
 
     else
     {
-      v31[0] = 0;
+      v29[0] = 0;
     }
 
-    [output setHeliumRef:v31];
-    if (v31[0])
+    [output setHeliumRef:v29];
+    if (v29[0])
     {
-      (*(*v31[0] + 24))(v31[0]);
+      (*(*v29[0] + 24))(v29[0]);
     }
 
     LOBYTE(v12) = 1;
@@ -174,25 +174,23 @@
   }
 
   versionAtCreation = [v13 versionAtCreation];
-  v16 = versionAtCreation;
-  v17 = versionAtCreation == 1 || versionAtCreation > 2;
-  v18 = v17;
-  v19 = v18 ? input : output;
-  [v19 width];
-  v32 = 0;
-  [v9 getFloatValue:&v32 fromParm:2 atFxTime:var1];
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+  v16 = versionAtCreation == 1 || versionAtCreation > 2;
+  v17 = v16;
+  v18 = v17 ? input : output;
+  [v18 width];
+  v30 = 0;
+  [v9 getFloatValue:&v30 fromParm:2 atFxTime:var1];
+  objc_msgSend_getInversePixelTransformForImage_(self);
   __asm { FMOV            V0.2D, #0.5 }
 
-  v30 = _Q0;
-  [v9 getXValue:&v30 YValue:&v30 + 8 fromParm:3 atFxTime:var1];
-  v24 = v16 == 1 ? output : input;
-  [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:&v30 withImage:v24];
-  v30 = v29;
-  v28 = 0;
-  [v9 getBoolValue:&v28 fromParm:4 atFxTime:info->var0.var1];
-  v25 = v18 ? output : input;
-  if ([v25 imageType] != 3)
+  v28 = _Q0;
+  [v9 getXValue:&v28 YValue:&v28 + 8 fromParm:3 atFxTime:var1];
+  objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
+  v28 = v27;
+  v26 = 0;
+  [v9 getBoolValue:&v26 fromParm:4 atFxTime:info->var0.var1];
+  v23 = v17 ? output : input;
+  if ([v23 imageType] != 3)
   {
 LABEL_6:
     LOBYTE(v12) = 0;
@@ -204,16 +202,16 @@ LABEL_6:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
     {
-      *&v29 = 0;
+      *&v27 = 0;
     }
 
-    v26 = HGObject::operator new(0x1C0uLL);
-    HTwirl::HTwirl(v26);
+    v24 = HGObject::operator new(0x1C0uLL);
+    HTwirl::HTwirl(v24);
   }
 
   return v12;

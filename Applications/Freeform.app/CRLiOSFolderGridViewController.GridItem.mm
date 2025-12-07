@@ -13,7 +13,7 @@
   x = frame.origin.x;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController8GridItem____lazy_storage___gridViewController) = 0;
   v8.receiver = self;
-  v8.super_class = _s8GridItemCMa();
+  v8.super_class = _s8GridItemCMa(0);
   return [(CRLiOSFolderGridViewController.Item *)&v8 initWithFrame:x, y, width, height];
 }
 
@@ -21,7 +21,7 @@
 {
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController8GridItem____lazy_storage___gridViewController) = 0;
   v7.receiver = self;
-  v7.super_class = _s8GridItemCMa();
+  v7.super_class = _s8GridItemCMa(0);
   coderCopy = coder;
   v5 = [(CRLiOSFolderGridViewController.Item *)&v7 initWithCoder:coderCopy];
 

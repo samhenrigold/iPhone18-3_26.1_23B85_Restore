@@ -74,7 +74,7 @@
     pointerAttributes = self->_pointerAttributes;
     self->_pointerAttributes = v5;
 
-    v7 = _UIEventHIDUIWindowForHIDEvent();
+    v7 = _UIEventHIDUIWindowForHIDEvent(event);
     if (v7)
     {
       [v7 _convertPointToSceneReferenceSpace:{_UIEventHIDConvertPointerLocation3DToWindow(event, v7)}];
@@ -324,9 +324,9 @@
 
 - (id)_windowServerHitTestWindow
 {
-  [(UIEvent *)self _hidEvent];
+  _hidEvent = [(UIEvent *)self _hidEvent];
 
-  return _UIEventHIDUIWindowForHIDEvent();
+  return _UIEventHIDUIWindowForHIDEvent(_hidEvent);
 }
 
 - (int64_t)weightedDominantComponentForScaleWeight:(double)weight rotationWeight:(double)rotationWeight translationWeight:(double)translationWeight

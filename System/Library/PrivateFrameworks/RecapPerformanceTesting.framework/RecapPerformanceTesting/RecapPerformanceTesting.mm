@@ -1,28 +1,28 @@
-uint64_t RecapLibraryCore()
+uint64_t RecapLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = RecapLibraryCore_frameworkLibrary;
-  v5 = RecapLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = RecapLibraryCore_frameworkLibrary;
+  v6 = RecapLibraryCore_frameworkLibrary;
   if (!RecapLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_279AF37D8;
-    v7 = *off_279AF37E8;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    RecapLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_279AF37D8;
+    v8 = *off_279AF37E8;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    RecapLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_261A181EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261A181EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -37,11 +37,19 @@ uint64_t __RecapLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t RecapLibrary()
 {
-  v0 = RecapLibraryCore();
+  v3 = 0;
+  v0 = RecapLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -71,9 +79,9 @@ id getRCPInlinePlayerClass()
   return v1;
 }
 
-void sub_261A183C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261A183C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -90,8 +98,8 @@ Class __getRCPInlinePlayerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getRCPInlinePlayerClass_block_invoke_cold_1();
-    return getRCPEventStreamClass(v3);
+    __getRCPInlinePlayerClass_block_invoke_cold_1();
+    return getRCPEventStreamClass();
   }
 
   return result;
@@ -121,9 +129,9 @@ id getRCPEventStreamClass()
   return v1;
 }
 
-void sub_261A184F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261A184F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -171,9 +179,9 @@ id getRCPSyntheticEventStreamClass()
   return v1;
 }
 
-void sub_261A18630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261A18630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -190,8 +198,8 @@ Class __getRCPSyntheticEventStreamClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getRCPSyntheticEventStreamClass_block_invoke_cold_1();
-    return getRCPPlayerPlaybackOptionsClass(v3);
+    __getRCPSyntheticEventStreamClass_block_invoke_cold_1();
+    return getRCPPlayerPlaybackOptionsClass();
   }
 
   return result;
@@ -221,9 +229,9 @@ id getRCPPlayerPlaybackOptionsClass()
   return v1;
 }
 
-void sub_261A18768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261A18768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -271,9 +279,9 @@ id getRCPEventSenderPropertiesClass()
   return v1;
 }
 
-void sub_261A188A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261A188A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -294,20 +302,20 @@ void __getRCPEventSenderPropertiesClass_block_invoke(uint64_t a1)
   }
 }
 
-void *std::vector<double>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<double>::vector[abi:nn200100](uint64_t *a1, uint64_t *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<double>::__vallocate[abi:nn200100](result, a3);
+    std::vector<double>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<double>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -341,16 +349,16 @@ void sub_261A19888(void *a1)
   JUMPOUT(0x261A19870);
 }
 
-id RPTLogTestRunning()
+id RPTLogTestRunning(uint64_t a1)
 {
   if (RPTLogTestRunning_onceToken != -1)
   {
     RPTLogTestRunning_cold_1();
   }
 
-  v1 = RPTLogTestRunning___logObj;
+  v2 = RPTLogTestRunning___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __RPTLogTestRunning_block_invoke()
@@ -411,7 +419,7 @@ double RPTGetBoundsForView(void *a1)
 
 double _RPTGetSafeBoundsForView(void *a1, int a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 superview];
   [v3 frame];
@@ -431,44 +439,44 @@ double _RPTGetSafeBoundsForView(void *a1, int a2)
 
   if (v22)
   {
-    v23 = [v3 superview];
-    v42.origin.x = _RPTGetSafeBoundsForView(v23, 0);
-    v42.origin.y = v24;
-    v42.size.width = v25;
-    v42.size.height = v26;
-    v38.origin.x = x;
-    v38.origin.y = y;
-    v38.size.width = width;
-    v38.size.height = height;
-    v39 = CGRectIntersection(v38, v42);
-    x = v39.origin.x;
-    y = v39.origin.y;
-    width = v39.size.width;
-    height = v39.size.height;
+    v24 = [v3 superview];
+    v43.origin.x = _RPTGetSafeBoundsForView(v24, 0);
+    v43.origin.y = v25;
+    v43.size.width = v26;
+    v43.size.height = v27;
+    v39.origin.x = x;
+    v39.origin.y = y;
+    v39.size.width = width;
+    v39.size.height = height;
+    v40 = CGRectIntersection(v39, v43);
+    x = v40.origin.x;
+    y = v40.origin.y;
+    width = v40.size.width;
+    height = v40.size.height;
   }
 
   if (a2)
   {
-    v27 = RPTLogTestRunning();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = RPTLogTestRunning(v23);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v40.origin.x = x;
-      v40.origin.y = y;
-      v40.size.width = width;
-      v40.size.height = height;
-      v28 = _RPTStringFromCGRect(v40);
-      v41.origin.x = v6;
-      v41.origin.y = v8;
-      v41.size.width = v10;
-      v41.size.height = v12;
+      v41.origin.x = x;
+      v41.origin.y = y;
+      v41.size.width = width;
+      v41.size.height = height;
       v29 = _RPTStringFromCGRect(v41);
-      v31 = 138543874;
-      v32 = v28;
-      v33 = 2114;
-      v34 = v29;
-      v35 = 2114;
-      v36 = v3;
-      _os_log_impl(&dword_261A17000, v27, OS_LOG_TYPE_DEFAULT, "RPT: Safe window bounds %{public}@ (%{public}@) for view %{public}@.", &v31, 0x20u);
+      v42.origin.x = v6;
+      v42.origin.y = v8;
+      v42.size.width = v10;
+      v42.size.height = v12;
+      v30 = _RPTStringFromCGRect(v42);
+      v32 = 138543874;
+      v33 = v29;
+      v34 = 2114;
+      v35 = v30;
+      v36 = 2114;
+      v37 = v3;
+      _os_log_impl(&dword_261A17000, v28, OS_LOG_TYPE_DEFAULT, "RPT: Safe window bounds %{public}@ (%{public}@) for view %{public}@.", &v32, 0x20u);
     }
   }
 
@@ -849,9 +857,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_261A20ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_261A20ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -860,6 +868,13 @@ void sub_261A23034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 {
   v12 = v10;
 
+  _Unwind_Resume(a1);
+}
+
+void sub_261A241A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -879,8 +894,7 @@ id makeRCPPlayerPlaybackOptions()
     makeRCPPlayerPlaybackOptions_cold_1();
   }
 
-  [v0 setLinkEventDeliveryToDisplayRefreshRate:_RPTTestRunnerEnableEventDeliverySync_enable];
-  v1 = RPTLogTestRunning();
+  v1 = RPTLogTestRunning([v0 setLinkEventDeliveryToDisplayRefreshRate:_RPTTestRunnerEnableEventDeliverySync_enable]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = [v0 valueForKeyPath:@"playbackSpeedFactor"];

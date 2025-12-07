@@ -1,4 +1,5 @@
 @interface ARCoachingDeviceController
+- (ARCoachingDeviceController)initWithDeviceMaskImage:(id)image geoTrackingMode:(BOOL)mode;
 - (ARCoachingDeviceController)initWithDeviceMaskImage:(id)image solidColor:(id)color geoTrackingMode:(BOOL)mode;
 - (CATransform3D)transform;
 - (CGPoint)position;
@@ -74,7 +75,7 @@
   result = self->_deviceLayer;
   if (result)
   {
-    return [(CATransform3D *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   *&retstr->m41 = 0u;
@@ -192,6 +193,41 @@
   return v10;
 }
 
+- (ARCoachingDeviceController)initWithDeviceMaskImage:(id)image geoTrackingMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v6 = MEMORY[0x277D75348];
+  imageCopy = image;
+  blackColor = [v6 blackColor];
+  v9 = [(ARCoachingDeviceController *)self initWithDeviceMaskImage:imageCopy solidColor:blackColor geoTrackingMode:modeCopy];
+
+  if (v9)
+  {
+    [(CALayer *)v9->_holeLayer setCompositingFilter:*MEMORY[0x277CDA310]];
+    layer = [MEMORY[0x277CD9ED0] layer];
+    shineLayer = v9->_shineLayer;
+    v9->_shineLayer = layer;
+
+    [(CALayer *)v9->_shineLayer setCornerRadius:8.0];
+    [(CALayer *)v9->_shineLayer setCornerCurve:*MEMORY[0x277CDA138]];
+    [(CALayer *)v9->_shineLayer setMasksToBounds:1];
+    layer2 = [MEMORY[0x277CD9ED0] layer];
+    shineInnerLayer = v9->_shineInnerLayer;
+    v9->_shineInnerLayer = layer2;
+
+    whiteColor = [MEMORY[0x277D75348] whiteColor];
+    -[CALayer setBackgroundColor:](v9->_shineInnerLayer, "setBackgroundColor:", [whiteColor CGColor]);
+
+    [(CALayer *)v9->_shineInnerLayer setAllowsEdgeAntialiasing:1];
+    v15 = v9->_shineInnerLayer;
+    CGAffineTransformMakeRotation(&v17, 1.09955743);
+    [(CALayer *)v15 setAffineTransform:&v17];
+    [(CALayer *)v9->_shineLayer addSublayer:v9->_shineInnerLayer];
+  }
+
+  return v9;
+}
+
 - (void)update:(double)update visibility:(double)visibility layer:(id)layer renderParams:(id *)params
 {
   layerCopy = layer;
@@ -235,12 +271,12 @@
   *&v61.m43 = v26;
   v61.m34 = -1.0 / (v18 * 0.615763547);
   [(ARCoachingDeviceController *)self setTransform:&v61];
-  [(ARCoachingDeviceController *)self transform];
+  objc_msgSend_transform(self);
   CATransform3DRotate(&v60, &v61, params->var0 * 3.14159265 / 180.0, 0.0, 1.0, 0.0);
   v61 = v60;
   [(ARCoachingDeviceController *)self setTransform:&v61];
   v27 = visibility * 0.7 + 0.3;
-  [(ARCoachingDeviceController *)self transform];
+  objc_msgSend_transform(self);
   CATransform3DScale(&v59, &v61, v27, v27, 1.0);
   v61 = v59;
   [(ARCoachingDeviceController *)self setTransform:&v61];
@@ -283,13 +319,13 @@
   }
 
   *&v29 = (v30.__sinval * -55.0) + 25.0;
-  [(ARCoachingDeviceController *)self transform];
+  objc_msgSend_transform(self, v29);
   CATransform3DTranslate(&v58, &v61, v37, v38, v39);
   v61 = v58;
   [(ARCoachingDeviceController *)self setTransform:&v61];
   if (self->_geoTrackingMode)
   {
-    [(ARCoachingDeviceController *)self transform];
+    objc_msgSend_transform(self);
     CATransform3DRotate(&v57, &v61, ((v28 * -0.75) + -0.3), 0.0, 1.0, 0.0);
     *&v61.m31 = *&v57.m31;
     *&v61.m33 = *&v57.m33;
@@ -303,7 +339,7 @@
 
   else
   {
-    [(ARCoachingDeviceController *)self transform];
+    objc_msgSend_transform(self);
     CATransform3DRotate(&v56, &v61, v28, 0.0, 1.0, 0.0);
     *&v61.m31 = *&v56.m31;
     *&v61.m33 = *&v56.m33;
@@ -329,7 +365,7 @@
   [(CALayer *)self->_shineLayer setBounds:?];
   [(ARCoachingDeviceController *)self opacity];
   [(CALayer *)self->_shineLayer setOpacity:?];
-  [(ARCoachingDeviceController *)self transform];
+  objc_msgSend_transform(self);
   shineLayer = self->_shineLayer;
   v61 = v55;
   [(CALayer *)shineLayer setTransform:&v61];

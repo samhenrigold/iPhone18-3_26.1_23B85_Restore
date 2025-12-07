@@ -35,13 +35,13 @@
 
 + (id)allowedValueClassesForKeyPath:(id)path
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (([pathCopy isEqualToString:@"isArchived"] & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"hasSchedule"))
   {
     v6 = MEMORY[0x1E695DFD8];
-    v12[0] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v8 = [v6 setWithArray:v7];
   }
 
@@ -52,8 +52,6 @@
 
     v8 = [MEMORY[0x1E695DFD8] set];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

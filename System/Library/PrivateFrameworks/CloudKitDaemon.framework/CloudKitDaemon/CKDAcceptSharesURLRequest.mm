@@ -33,28 +33,28 @@
 
 - (id)zoneIDsToLock
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = objc_msgSend_shareMetadatasToAccept(self, v4, v5, 0);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v24, v28, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v23, v27, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = objc_msgSend_shareRecordID(*(*(&v24 + 1) + 8 * i), v9, v10);
+        v14 = objc_msgSend_shareRecordID(*(*(&v23 + 1) + 8 * i), v9, v10);
         v17 = objc_msgSend_zoneID(v14, v15, v16);
 
         if (v17)
@@ -63,15 +63,13 @@
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v24, v28, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v23, v27, 16);
     }
 
     while (v11);
   }
 
   v21 = objc_msgSend_allObjects(v3, v19, v20);
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -106,10 +104,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -126,28 +123,28 @@
 
 - (id)generateRequestOperations
 {
-  v144 = *MEMORY[0x277D85DE8];
+  v143 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v138 = 0u;
   v139 = 0u;
   v140 = 0u;
   v141 = 0u;
-  v142 = 0u;
   obj = objc_msgSend_shareMetadatasToAccept(self, v4, v5);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v139, v143, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v138, v142, 16);
   if (v7)
   {
     v10 = v7;
-    v138 = *v140;
+    v137 = *v139;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v140 != v138)
+        if (*v139 != v137)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v139 + 1) + 8 * i);
+        v12 = *(*(&v138 + 1) + 8 * i);
         v13 = objc_msgSend_operationType(self, v8, v9);
         v15 = objc_msgSend_operationRequestWithType_(self, v14, v13);
         if (objc_msgSend_requiresCKAnonymousUserIDs(self, v16, v17))
@@ -257,7 +254,7 @@
         objc_msgSend_addObject_(v31, v113, v15);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v139, v143, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v138, v142, 16);
       if (v10)
       {
         continue;
@@ -270,20 +267,18 @@
   v114 = v3;
 LABEL_23:
 
-  v135 = *MEMORY[0x277D85DE8];
-
   return v114;
 }
 
 - (id)returnVerificationKeyAndSignatureForRequestOperation:(id)operation dataToBeSigned:(id)signed error:(id *)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   signedCopy = signed;
   operationCopy = operation;
   if ((objc_msgSend_requiresCKAnonymousUserIDs(self, v11, v12) & 1) == 0)
   {
-    v54 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v54, v55, a2, self, @"CKDAcceptSharesURLRequest.m", 142, @"Signature is only required for anonymous to server requests");
+    v53 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v53, v54, a2, self, @"CKDAcceptSharesURLRequest.m", 142, @"Signature is only required for anonymous to server requests");
   }
 
   v15 = objc_msgSend_shareMetadataByRequestID(self, v13, v14);
@@ -294,18 +289,18 @@ LABEL_23:
 
   if (!objc_msgSend_signingPCSIdentity(v23, v24, v25))
   {
-    v56 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v26, v27);
-    v59 = objc_msgSend_shareRecordID(v23, v57, v58);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v56, v60, a2, self, @"CKDAcceptSharesURLRequest.m", 146, @"A signing identity is required to accept share %@ when using anonymous to server share participants.", v59);
+    v55 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v26, v27);
+    v58 = objc_msgSend_shareRecordID(v23, v56, v57);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v55, v59, a2, self, @"CKDAcceptSharesURLRequest.m", 146, @"A signing identity is required to accept share %@ when using anonymous to server share participants.", v58);
   }
 
   v28 = objc_msgSend_container(self, v26, v27);
   v31 = objc_msgSend_pcsManager(v28, v29, v30);
   v34 = objc_msgSend_signingPCSIdentity(v23, v32, v33);
-  v61 = 0;
-  v36 = objc_msgSend_createSignatureWithIdentity_dataToBeSigned_forScope_error_(v31, v35, v34, signedCopy, 5, &v61);
+  v60 = 0;
+  v36 = objc_msgSend_createSignatureWithIdentity_dataToBeSigned_forScope_error_(v31, v35, v34, signedCopy, 5, &v60);
 
-  v37 = v61;
+  v37 = v60;
   if (objc_msgSend_length(v36, v38, v39) && !v37)
   {
     v40 = objc_alloc(MEMORY[0x277CBC7A0]);
@@ -332,13 +327,13 @@ LABEL_14:
   v46 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v50 = v46;
-    v53 = objc_msgSend_signingPCSIdentity(v23, v51, v52);
+    v49 = v46;
+    v52 = objc_msgSend_signingPCSIdentity(v23, v50, v51);
     *buf = 138543618;
-    v63 = v53;
-    v64 = 2112;
-    v65 = v37;
-    _os_log_error_impl(&dword_22506F000, v50, OS_LOG_TYPE_ERROR, "Couldn't generate a request signature with signing identity %{public}@ because we got an error from PCS: %@", buf, 0x16u);
+    v62 = v52;
+    v63 = 2112;
+    v64 = v37;
+    _os_log_error_impl(&dword_22506F000, v49, OS_LOG_TYPE_ERROR, "Couldn't generate a request signature with signing identity %{public}@ because we got an error from PCS: %@", buf, 0x16u);
   }
 
   v45 = 0;
@@ -349,14 +344,12 @@ LABEL_14:
 
 LABEL_15:
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v45;
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_shareMetadataByRequestID(self, v5, v6);
   v10 = objc_msgSend_response(objectCopy, v8, v9);
@@ -382,9 +375,9 @@ LABEL_11:
 
   v24 = objc_msgSend_translator(self, v18, v19);
   v27 = objc_msgSend_anonymousCKUserID(v15, v25, v26);
-  v112 = 0;
-  v29 = objc_msgSend_shareFromPShare_asAnonymousCKUserID_error_(v24, v28, v23, v27, &v112);
-  v30 = v112;
+  v111 = 0;
+  v29 = objc_msgSend_shareFromPShare_asAnonymousCKUserID_error_(v24, v28, v23, v27, &v111);
+  v30 = v111;
 
   if (!v29 && v30)
   {
@@ -397,7 +390,7 @@ LABEL_11:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v114 = v30;
+      v113 = v30;
       _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "Failed to convert share: %@", buf, 0xCu);
     }
 
@@ -446,9 +439,9 @@ LABEL_11:
       v71 = objc_msgSend_now(MEMORY[0x277CBEAA8], v86, v87);
       v74 = objc_msgSend_sharedManager(CKDDeviceCapabilityManager, v88, v89);
       v77 = objc_msgSend_recordID(v29, v90, v91);
-      v111 = objc_msgSend_container(self, v92, v93);
-      v110 = objc_msgSend_operation(self, v94, v95);
-      objc_msgSend_noteShareUsageForShareID_at_container_operation_(v74, v96, v77, v71, v111, v110);
+      v110 = objc_msgSend_container(self, v92, v93);
+      v109 = objc_msgSend_operation(self, v94, v95);
+      objc_msgSend_noteShareUsageForShareID_at_container_operation_(v74, v96, v77, v71, v110, v109);
 
 LABEL_15:
     }
@@ -467,7 +460,6 @@ LABEL_16:
 
   v107 = v30;
 
-  v108 = *MEMORY[0x277D85DE8];
   return v30;
 }
 

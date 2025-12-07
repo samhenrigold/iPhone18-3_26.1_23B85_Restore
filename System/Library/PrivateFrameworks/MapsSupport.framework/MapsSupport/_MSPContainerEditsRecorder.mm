@@ -36,7 +36,7 @@
 
 - (void)insertObject:(id)object inEditableObjectsAtIndex:(unint64_t)index
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   [(NSMutableArray *)self->_originalMutableArray insertObject:objectCopy atIndex:index];
   if (index)
@@ -52,8 +52,8 @@
 
   orderedEdits = self->_orderedEdits;
   v10 = [_MSPContainerEditAddition alloc];
-  v18[0] = objectCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = objectCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v12 = [MEMORY[0x277CCAA78] indexSetWithIndex:index];
   null = storageIdentifier;
   if (!storageIdentifier)
@@ -61,37 +61,33 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v17 = null;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v16 = null;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   v15 = [(_MSPContainerEditAddition *)v10 initWithObjects:v11 indexes:v12 identifiersAtop:v14];
   [(NSMutableArray *)orderedEdits addObject:v15];
 
   if (!storageIdentifier)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObjectFromEditableObjectsAtIndex:(unint64_t)index
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = [(NSMutableArray *)self->_originalMutableArray objectAtIndexedSubscript:?];
   [(NSMutableArray *)self->_originalMutableArray removeObjectAtIndex:index];
   orderedEdits = self->_orderedEdits;
   v7 = [_MSPContainerEditRemoval alloc];
-  v12[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = [MEMORY[0x277CCAA78] indexSetWithIndex:index];
   v10 = [(_MSPContainerEditRemoval *)v7 initWithRemovedObjects:v8 indexes:v9];
   [(NSMutableArray *)orderedEdits addObject:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceObjectInEditableObjectsAtIndex:(unint64_t)index withObject:(id)object
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = [(NSMutableArray *)self->_originalMutableArray objectAtIndexedSubscript:index];
   if (([v7 isEqual:objectCopy] & 1) == 0)
@@ -99,16 +95,14 @@
     [(NSMutableArray *)self->_originalMutableArray replaceObjectAtIndex:index withObject:objectCopy];
     orderedEdits = self->_orderedEdits;
     v9 = [_MSPContainerEditReplacement alloc];
-    v16[0] = v7;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    v15 = objectCopy;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v15[0] = v7;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14 = objectCopy;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
     v12 = [MEMORY[0x277CCAA78] indexSetWithIndex:index];
     v13 = [(_MSPContainerEditReplacement *)v9 initWithOriginalObjects:v10 replacementObjects:v11 indexes:v12];
     [(NSMutableArray *)orderedEdits addObject:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertEditableObjects:(id)objects atIndexes:(id)indexes
@@ -226,40 +220,38 @@ LABEL_7:
 
 - (void)useImmutableObjectsForEditsFromMap:(id)map intermediateMutableObjectTransferBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   blockCopy = block;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   orderedEdits = [(_MSPContainerEditsRecorder *)self orderedEdits];
-  v9 = [orderedEdits countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [orderedEdits countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(orderedEdits);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) useImmutableObjectsFromMap:mapCopy intermediateMutableObjectTransferBlock:blockCopy];
+        [*(*(&v13 + 1) + 8 * v12++) useImmutableObjectsFromMap:mapCopy intermediateMutableObjectTransferBlock:blockCopy];
       }
 
       while (v10 != v12);
-      v10 = [orderedEdits countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [orderedEdits countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

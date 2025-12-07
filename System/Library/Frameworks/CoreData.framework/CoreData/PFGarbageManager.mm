@@ -5,29 +5,29 @@
 
 uint64_t __49___PFGarbageManager__doCleanupForDir_exceptURLs___block_invoke(id *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v15 = 0;
+  v14 = 0;
   v3 = [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = [a1[4] stringByAppendingPathComponent:*(*(&v11 + 1) + 8 * v6)];
+        v7 = [a1[4] stringByAppendingPathComponent:*(*(&v10 + 1) + 8 * v6)];
         if (([a1[5] containsObject:v7] & 1) == 0)
         {
           v8 = a1[6];
@@ -43,15 +43,13 @@ uint64_t __49___PFGarbageManager__doCleanupForDir_exceptURLs___block_invoke(id *
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v4);
   }
 
-  result = [v2 drain];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 @end

@@ -1012,7 +1012,7 @@ LABEL_23:
   y = v105.origin.y;
   height = v105.size.height;
   width = v105.size.width;
-  v25 = +[UIKBGeometry geometry];
+  v25 = objc_msgSend_geometry(UIKBGeometry);
   [(UIKBRenderGeometry *)self frame];
   v27 = v26;
   [(UIKBRenderGeometry *)self paddedFrame];
@@ -1279,7 +1279,7 @@ LABEL_23:
   y = v98.origin.y;
   width = v98.size.width;
   height = v98.size.height;
-  v27 = +[UIKBGeometry geometry];
+  v27 = objc_msgSend_geometry(UIKBGeometry);
   [v27 setPaddingTop:{0x4000000000000000, 3}];
   [v27 setPaddingBottom:{0x4000000000000000, 3}];
   [(UIKBRenderGeometry *)self frame];

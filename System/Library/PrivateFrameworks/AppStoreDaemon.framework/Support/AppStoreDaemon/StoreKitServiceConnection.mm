@@ -32,7 +32,7 @@
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}s", buf, 0x16u);
     }
 
-    v14 = sub_1003A4EE0();
+    v14 = sub_1003A4EE0(InstallAttributionManager);
     v15 = sub_1003AEC50(v14, dCopy);
 
     v16 = ASDLogHandleForCategory();
@@ -67,7 +67,7 @@
 
             v22 = sub_10024BCE8(InstallAttributionPingback, *(*(&v31 + 1) + 8 * i));
             sub_10024D43C(v22, dCopy);
-            v23 = sub_1003A4EE0();
+            v23 = sub_1003A4EE0(InstallAttributionManager);
             v24 = sub_1003AE708(v23, v22);
 
             v25 = ASDLogHandleForCategory();
@@ -221,7 +221,7 @@ LABEL_18:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}s", &v13, 0x16u);
     }
 
-    v11 = sub_1003A4EE0();
+    v11 = sub_1003A4EE0(InstallAttributionManager);
     v12 = sub_1003AE9B0(v11, dCopy);
   }
 
@@ -258,7 +258,7 @@ LABEL_18:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}s", buf, 0x16u);
     }
 
-    v11 = sub_1003A4EE0();
+    v11 = sub_1003A4EE0(InstallAttributionManager);
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
     v12[2] = sub_10024EF60;
@@ -316,7 +316,7 @@ LABEL_18:
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Validating test impression from web", v34, 0xCu);
       }
 
-      v20 = sub_1003BC9A0();
+      v20 = sub_1003BC9A0(InstallAttributionService);
       v33[0] = _NSConcreteStackBlock;
       v33[1] = 3221225472;
       v33[2] = sub_10024F4D0;
@@ -347,7 +347,7 @@ LABEL_18:
       v23 = [ASDInstallAttributionParamsConfig paramsFromDictionary:impressionCopy];
       [v23 setSourceAppBundleId:dCopy];
       v24 = [impressionCopy objectForKeyedSubscript:@"fidelity-type"];
-      v25 = sub_1003BC9A0();
+      v25 = sub_1003BC9A0(InstallAttributionService);
       v32[0] = _NSConcreteStackBlock;
       v32[1] = 3221225472;
       v32[2] = sub_10024F4E0;
@@ -423,7 +423,7 @@ LABEL_23:
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}s", &v13, 0x16u);
     }
 
-    v12 = sub_1003A4EE0();
+    v12 = sub_1003A4EE0(InstallAttributionManager);
     sub_1003AEFC0(v12, dictionariesCopy, completionCopy);
   }
 

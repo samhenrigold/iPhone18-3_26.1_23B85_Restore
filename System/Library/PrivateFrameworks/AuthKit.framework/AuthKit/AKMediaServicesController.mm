@@ -137,7 +137,6 @@ uint64_t __43__AKMediaServicesController_sharedInstance__block_invoke()
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKMediaServicesController_appIconForBundleID_size_completion___block_invoke(uint64_t a1)
@@ -281,7 +280,6 @@ void __64__AKMediaServicesController_appIconForBundleID_size_completion___block_
 
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKMediaServicesController_appIconForBundleID_size_completion___block_invoke_34(uint64_t a1)
@@ -642,7 +640,6 @@ void __64__AKMediaServicesController_appIconForBundleID_size_completion___block_
 
   objc_storeStrong(&v59, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKMediaServicesController_appIconForBundleID_size_completion___block_invoke_42(uint64_t a1)
@@ -818,16 +815,13 @@ void __64__AKMediaServicesController_appIconForBundleID_size_completion___block_
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v49, 0);
   objc_storeStrong(v50, 0);
-  *MEMORY[0x1E69E9840];
 }
 
-void *__64__AKMediaServicesController_appIconForBundleID_size_completion___block_invoke_45(void *result)
+uint64_t __64__AKMediaServicesController_appIconForBundleID_size_completion___block_invoke_45(uint64_t result)
 {
-  if (result[6])
+  if (*(result + 48))
   {
-    v1 = result[4];
-    v2 = result[5];
-    return (*(result[6] + 16))();
+    return (*(*(result + 48) + 16))();
   }
 
   return result;
@@ -874,7 +868,6 @@ void *__64__AKMediaServicesController_appIconForBundleID_size_completion___block
 
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isRequestCancelledForBundleID:(id)d
@@ -988,7 +981,6 @@ void *__64__AKMediaServicesController_appIconForBundleID_size_completion___block
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKMediaServicesController_appMetadataForBundleIDs_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1013,21 +1005,6 @@ void __64__AKMediaServicesController_appMetadataForBundleIDs_completion___block_
   dispatch_group_leave(*(a1 + 32));
   objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
-}
-
-uint64_t __64__AKMediaServicesController_appMetadataForBundleIDs_completion___block_invoke_2(void *a1)
-{
-  if ([*(*(a1[5] + 8) + 40) count] || !*(*(a1[6] + 8) + 40))
-  {
-    v3 = *(*(a1[5] + 8) + 40);
-    return (*(a1[4] + 16))();
-  }
-
-  else
-  {
-    v1 = *(*(a1[6] + 8) + 40);
-    return (*(a1[4] + 16))();
-  }
 }
 
 - (void)_appMetadataForBundleID:(id)d completion:(id)completion
@@ -1173,7 +1150,6 @@ void __64__AKMediaServicesController__appMetadataForBundleID_completion___block_
 
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKMediaServicesController__appMetadataForBundleID_completion___block_invoke_49(void *a1)
@@ -1415,7 +1391,6 @@ void __64__AKMediaServicesController__appMetadataForBundleID_completion___block_
 
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -61,9 +61,10 @@
   _Block_copy(v7);
   environmentCopy = environment;
 
-  v9 = sub_1921BDAC8(v8);
+  sub_1921BDAC8(v8);
+  v10 = v9;
 
-  sub_1921C72D0(v9, environmentCopy, self, v7);
+  sub_1921C72D0(v10, environmentCopy, self, v7);
   _Block_release(v7);
 
   _Block_release(v7);

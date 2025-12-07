@@ -68,9 +68,9 @@
 - (ATXMissedNotificationRankingLoggingEvent)initWithProto:(id)proto
 {
   protoCopy = proto;
-  v15.receiver = self;
-  v15.super_class = ATXMissedNotificationRankingLoggingEvent;
-  v5 = [(ATXMissedNotificationRankingLoggingEvent *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = ATXMissedNotificationRankingLoggingEvent;
+  v5 = [(ATXMissedNotificationRankingLoggingEvent *)&v16 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -79,39 +79,40 @@
   if (!protoCopy)
   {
 LABEL_9:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_10;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)v5 initWithProto:v13];
+      [(ATXDigestTimeline *)v5 initWithProto:v14];
     }
 
     goto LABEL_9;
   }
 
-  v6 = protoCopy;
-  v7 = [ATXMissedNotificationRanking alloc];
-  missedNotificationRanking = [v6 missedNotificationRanking];
-  v9 = [(ATXMissedNotificationRanking *)v7 initWithProto:missedNotificationRanking];
+  v7 = protoCopy;
+  v8 = [ATXMissedNotificationRanking alloc];
+  missedNotificationRanking = [v7 missedNotificationRanking];
+  v10 = [(ATXMissedNotificationRanking *)v8 initWithProto:missedNotificationRanking];
   missedNotificationRanking = v5->_missedNotificationRanking;
-  v5->_missedNotificationRanking = v9;
+  v5->_missedNotificationRanking = v10;
 
-  [v6 timestamp];
-  v5->_timestamp = v11;
-  LODWORD(v7) = [v6 eventType];
+  [v7 timestamp];
+  v5->_timestamp = v12;
+  LODWORD(v8) = [v7 eventType];
 
-  v5->_eventType = v7;
+  v5->_eventType = v8;
 LABEL_5:
-  v12 = v5;
+  v13 = v5;
 LABEL_10:
 
-  return v12;
+  return v13;
 }
 
 - (ATXMissedNotificationRankingLoggingEvent)initWithProtoData:(id)data

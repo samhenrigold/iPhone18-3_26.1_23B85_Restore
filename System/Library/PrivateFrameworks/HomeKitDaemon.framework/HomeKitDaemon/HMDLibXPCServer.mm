@@ -19,7 +19,7 @@
 
 - (void)handleIncomingConnection:(id)connection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -28,9 +28,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v22 = v8;
-    v23 = 2112;
-    v24 = connectionCopy;
+    v21 = v8;
+    v22 = 2112;
+    v23 = connectionCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling incoming connection: %@", buf, 0x16u);
   }
 
@@ -41,27 +41,25 @@
 
   objc_initWeak(buf, selfCopy);
   libXPCInterface2 = [(HMDLibXPCServer *)selfCopy libXPCInterface];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __44__HMDLibXPCServer_handleIncomingConnection___block_invoke;
-  v18 = &unk_27867D130;
-  objc_copyWeak(&v20, buf);
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __44__HMDLibXPCServer_handleIncomingConnection___block_invoke;
+  v17 = &unk_27867D130;
+  objc_copyWeak(&v19, buf);
   v12 = connectionCopy;
-  v19 = v12;
-  [libXPCInterface2 setXPCEventHandlerForConnection:v12 handler:&v15];
+  v18 = v12;
+  [libXPCInterface2 setXPCEventHandlerForConnection:v12 handler:&v14];
 
-  v13 = [(HMDLibXPCServer *)selfCopy libXPCInterface:v15];
+  v13 = [(HMDLibXPCServer *)selfCopy libXPCInterface:v14];
   [v13 activateXPCConnection:v12];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDLibXPCServer_handleIncomingConnection___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -72,9 +70,9 @@ void __44__HMDLibXPCServer_handleIncomingConnection___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      *v40 = 138543362;
-      *&v40[4] = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Lost self when handling XPC event on listener connection", v40, 0xCu);
+      *v39 = 138543362;
+      *&v39[4] = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Lost self when handling XPC event on listener connection", v39, 0xCu);
     }
 
     v18 = v15;
@@ -104,77 +102,77 @@ void __44__HMDLibXPCServer_handleIncomingConnection___block_invoke(uint64_t a1, 
         v10 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v37 = HMFGetLogIdentifier();
-          v38 = *(a1 + 32);
-          *v40 = 138543618;
-          *&v40[4] = v37;
-          *&v40[12] = 2112;
-          *&v40[14] = v38;
-          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Connection interrupted: %@", v40, 0x16u);
+          v36 = HMFGetLogIdentifier();
+          v37 = *(a1 + 32);
+          *v39 = 138543618;
+          *&v39[4] = v36;
+          *&v39[12] = 2112;
+          *&v39[14] = v37;
+          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Connection interrupted: %@", v39, 0x16u);
         }
 
         goto LABEL_6;
       }
 
-      v22 = MEMORY[0x277D863F8];
-      v23 = objc_autoreleasePoolPush();
-      v24 = v5;
-      v25 = HMFGetOSLogHandle();
-      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
-      if (v3 == v22)
+      v21 = MEMORY[0x277D863F8];
+      v22 = objc_autoreleasePoolPush();
+      v23 = v5;
+      v24 = HMFGetOSLogHandle();
+      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
+      if (v3 == v21)
       {
-        if (v26)
+        if (v25)
         {
-          v27 = HMFGetLogIdentifier();
-          v39 = *(a1 + 32);
-          *v40 = 138543618;
-          *&v40[4] = v27;
-          *&v40[12] = 2112;
-          *&v40[14] = v39;
-          v29 = "%{public}@Connection invalidated: %@";
-          v30 = v25;
-          v31 = 22;
+          v26 = HMFGetLogIdentifier();
+          v38 = *(a1 + 32);
+          *v39 = 138543618;
+          *&v39[4] = v26;
+          *&v39[12] = 2112;
+          *&v39[14] = v38;
+          v28 = "%{public}@Connection invalidated: %@";
+          v29 = v24;
+          v30 = 22;
           goto LABEL_26;
         }
       }
 
-      else if (v26)
+      else if (v25)
       {
-        v27 = HMFGetLogIdentifier();
-        v28 = *(a1 + 32);
-        *v40 = 138543874;
-        *&v40[4] = v27;
-        *&v40[12] = 2112;
-        *&v40[14] = v28;
-        *&v40[22] = 2112;
+        v26 = HMFGetLogIdentifier();
+        v27 = *(a1 + 32);
+        *v39 = 138543874;
+        *&v39[4] = v26;
+        *&v39[12] = 2112;
+        *&v39[14] = v27;
+        *&v39[22] = 2112;
         name = v3;
-        v29 = "%{public}@Received unexpected error event for connection %@: %@";
-        v30 = v25;
-        v31 = 32;
+        v28 = "%{public}@Received unexpected error event for connection %@: %@";
+        v29 = v24;
+        v30 = 32;
 LABEL_26:
-        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, v29, v40, v31);
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, v28, v39, v30);
       }
 
-      objc_autoreleasePoolPop(v23);
-      v13 = v24;
+      objc_autoreleasePoolPop(v22);
+      v13 = v23;
       goto LABEL_7;
     }
 
-    v32 = objc_autoreleasePoolPush();
-    v33 = v5;
-    v34 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v31 = objc_autoreleasePoolPush();
+    v32 = v5;
+    v33 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v35 = HMFGetLogIdentifier();
-      v36 = *(a1 + 32);
-      *v40 = 138543618;
-      *&v40[4] = v35;
-      *&v40[12] = 2112;
-      *&v40[14] = v36;
-      _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Termination imminent for connection: %@", v40, 0x16u);
+      v34 = HMFGetLogIdentifier();
+      v35 = *(a1 + 32);
+      *v39 = 138543618;
+      *&v39[4] = v34;
+      *&v39[12] = 2112;
+      *&v39[14] = v35;
+      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Termination imminent for connection: %@", v39, 0x16u);
     }
 
-    v18 = v32;
+    v18 = v31;
 LABEL_11:
     objc_autoreleasePoolPop(v18);
     goto LABEL_13;
@@ -187,15 +185,15 @@ LABEL_11:
   {
     v11 = HMFGetLogIdentifier();
     v12 = *(a1 + 32);
-    *v40 = 138544130;
-    *&v40[4] = v11;
-    *&v40[12] = 2112;
-    *&v40[14] = v12;
-    *&v40[22] = 2080;
+    *v39 = 138544130;
+    *&v39[4] = v11;
+    *&v39[12] = 2112;
+    *&v39[14] = v12;
+    *&v39[22] = 2080;
     name = xpc_type_get_name(v7);
-    v42 = 2112;
-    v43 = v3;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received unexpected event type for connection %@: (%s) %@", v40, 0x2Au);
+    v41 = 2112;
+    v42 = v3;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received unexpected event type for connection %@: (%s) %@", v39, 0x2Au);
   }
 
 LABEL_6:
@@ -207,7 +205,6 @@ LABEL_7:
   [v14 cancelXPCConnection:*(a1 + 32)];
 
 LABEL_13:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -257,7 +254,7 @@ LABEL_13:
 
 void __24__HMDLibXPCServer_start__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -274,9 +271,9 @@ LABEL_12:
     }
 
     v12 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Lost self when handling XPC event on listener connection", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Lost self when handling XPC event on listener connection", &v16, 0xCu);
 LABEL_11:
 
     goto LABEL_12;
@@ -300,22 +297,22 @@ LABEL_11:
       if (v13)
       {
         v15 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v15;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Listener connection locally invalidated", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v15;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Listener connection locally invalidated", &v16, 0xCu);
       }
     }
 
     else if (v13)
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2080;
+      v16 = 138543874;
+      v17 = v14;
+      v18 = 2080;
       name = xpc_type_get_name(v8);
-      v21 = 2112;
-      v22 = v3;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received unexpected event type for listener connection: (%s) %@", &v17, 0x20u);
+      v20 = 2112;
+      v21 = v3;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Received unexpected event type for listener connection: (%s) %@", &v16, 0x20u);
     }
 
     goto LABEL_11;
@@ -323,8 +320,6 @@ LABEL_11:
 
   [v5 handleIncomingConnection:v3];
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDLibXPCServer)initWithMachServiceName:(id)name queue:(id)queue libXPCInterface:(id)interface
@@ -337,7 +332,7 @@ LABEL_13:
   v11 = [(HMDLibXPCServer *)&v15 init];
   if (v11)
   {
-    v12 = [nameCopy copy];
+    v12 = objc_msgSend_copy(nameCopy);
     name = v11->_name;
     v11->_name = v12;
 
@@ -375,10 +370,9 @@ LABEL_13:
 
 void __30__HMDLibXPCServer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_69434;
-  logCategory__hmf_once_v11_69434 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_69434;
+  logCategory__hmf_once_v11_69434 = v0;
 }
 
 @end

@@ -1,6 +1,5 @@
 @interface SBAlertLayoutPresentationVerifier
 + (id)__lock_verifiers;
-+ (uint64_t)_handleTrackingStateChange;
 + (void)_handleTrackingStateChange;
 - (SBAlertLayoutPresentationVerifier)initWithScreen:(id)screen;
 - (uint64_t)_fixAlertItemLayout;
@@ -51,57 +50,35 @@
 
 + (void)_handleTrackingStateChange
 {
-  v17 = *MEMORY[0x277D85DE8];
-  objc_opt_self();
-  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  __isReportingBadPositions = [standardUserDefaults BOOLForKey:@"SBTrackAlertWindowPosition"];
-
-  os_unfair_lock_lock(&__verifierLock);
-  v1 = +[SBAlertLayoutPresentationVerifier __lock_verifiers];
-  v2 = [v1 copy];
-
-  os_unfair_lock_unlock(&__verifierLock);
-  memset(v14, 0, sizeof(v14));
-  v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:v14 objects:v16 count:16];
-  if (v4)
+  v8 = **(self + 16);
+  do
   {
-    [(SBAlertLayoutPresentationVerifier *)v14 _handleTrackingStateChange:v3];
-  }
-
-  if (__isReportingBadPositions == 1)
-  {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
-    if (v6)
+    v9 = 0;
+    do
     {
-      v7 = v6;
-      v8 = *v11;
-      do
+      if (**(self + 16) != v8)
       {
-        v9 = 0;
-        do
-        {
-          if (*v11 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          [(SBAlertLayoutPresentationVerifier *)*(*(&v10 + 1) + 8 * v9++) _startTrackingBadPositions];
-        }
-
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
+        objc_enumerationMutation(obj);
       }
 
-      while (v7);
+      v10 = *(*(self + 8) + 8 * v9);
+      if (v10)
+      {
+        [*(v10 + 48) invalidate];
+        v11 = *(v10 + 48);
+        *(v10 + 48) = 0;
+      }
+
+      v9 = v9 + 1;
     }
+
+    while (a3 != v9);
+    result = [obj countByEnumeratingWithState:self objects:a4 count:16];
+    a3 = result;
   }
+
+  while (result);
+  return result;
 }
 
 - (void)dealloc
@@ -199,9 +176,9 @@ uint64_t __78__SBAlertLayoutPresentationVerifier_scheduleAlertLayoutVerification
     +[SBAlertLayoutPresentationVerifier __lock_verifiers];
   }
 
-  v0 = __lock_verifiers_lock_verifiers;
+  v1 = __lock_verifiers_lock_verifiers;
 
-  return v0;
+  return v1;
 }
 
 void __53__SBAlertLayoutPresentationVerifier___lock_verifiers__block_invoke()
@@ -271,13 +248,6 @@ void __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invoke(
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-uint64_t __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invoke_2(uint64_t a1)
-{
-  result = BSContinuousMachTimeNow();
-  *(*(a1 + 32) + 56) = v3;
-  return result;
-}
-
 double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invoke_3(uint64_t a1)
 {
   result = *(a1 + 40);
@@ -327,7 +297,7 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
 {
   if (self)
   {
-    if (([(SBAlertLayoutPresentationVerifier *)self _hasBrokenHostingLayerInvariants]& 1) != 0 || ([(SBAlertLayoutPresentationVerifier *)self _hasBrokenWindowInvariants]& 1) != 0 || [(SBAlertLayoutPresentationVerifier *)self _hasBrokenAlertPresentationInvariants])
+    if (([(SBAlertLayoutPresentationVerifier *)self _hasBrokenHostingLayerInvariants]& 1) != 0 || ([(SBAlertLayoutPresentationVerifier *)self _hasBrokenWindowInvariants]& 1) != 0 || (hasBrokenAlertPresentation = [(SBAlertLayoutPresentationVerifier *)self _hasBrokenAlertPresentationInvariants], hasBrokenAlertPresentation))
     {
       if (*&self[8].isa == -1.79769313e308)
       {
@@ -335,14 +305,14 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
         self[8].isa = v2;
       }
 
-      BSContinuousMachTimeNow();
-      if (v3 - *&self[8].isa >= 10.0)
+      v3 = BSContinuousMachTimeNow();
+      if (v4 - *&self[8].isa >= 10.0)
       {
-        v4 = SBLogAlertItems();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        v6 = SBLogAlertItems(v3);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_ERROR, "Omitting giant layout dump. We've logged it enough.", buf, 2u);
+          _os_log_error_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_ERROR, "Omitting giant layout dump. We've logged it enough.", buf, 2u);
         }
       }
 
@@ -360,11 +330,11 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
 
     else
     {
-      v5 = SBLogAlertItems();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v8 = SBLogAlertItems(hasBrokenAlertPresentation);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        *v6 = 0;
-        _os_log_debug_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEBUG, "Alert layout appears correct.", v6, 2u);
+        *v9 = 0;
+        _os_log_debug_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEBUG, "Alert layout appears correct.", v9, 2u);
       }
 
       self[8].isa = 0xFFEFFFFFFFFFFFFFLL;
@@ -421,7 +391,7 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
 - (uint64_t)_hasBrokenHostingLayerInvariants
 {
   selfCopy = self;
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (*(self + 24))
@@ -439,44 +409,44 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
       v10 = [layerPresentationOverrides objectForKey:v9];
       transformer = [v10 transformer];
 
-      v22 = 0u;
       v23 = 0u;
-      v21 = 0u;
+      v24 = 0u;
+      v22 = 0u;
       if (transformer)
       {
-        [transformer transform];
+        objc_msgSend_transform(transformer);
       }
 
       else
       {
-        v21 = *MEMORY[0x277CBF2C0];
-        v22 = *(MEMORY[0x277CBF2C0] + 16);
-        v23 = *(MEMORY[0x277CBF2C0] + 32);
+        v22 = *MEMORY[0x277CBF2C0];
+        v23 = *(MEMORY[0x277CBF2C0] + 16);
+        v24 = *(MEMORY[0x277CBF2C0] + 32);
       }
 
       [*(selfCopy + 24) bounds];
       OUTLINED_FUNCTION_4_14();
-      MidX = CGRectGetMidX(v30);
-      v31.origin.x = OUTLINED_FUNCTION_3_23();
-      MidY = CGRectGetMidY(v31);
-      v13 = vaddq_f64(v23, vmlaq_n_f64(vmulq_n_f64(v22, MidY), v21, MidX));
-      selfCopy = MidX != v13.f64[0];
-      if (MidX != v13.f64[0])
+      MidX = CGRectGetMidX(v31);
+      v32.origin.x = OUTLINED_FUNCTION_3_23();
+      MidY = CGRectGetMidY(v32);
+      v14 = vaddq_f64(v24, vmlaq_n_f64(vmulq_n_f64(v23, MidY), v22, MidX));
+      selfCopy = MidX != v14.f64[0];
+      if (MidX != v14.f64[0])
       {
-        point = v13;
-        v19 = MidY;
-        v14 = SBLogAlertItems();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        point = v14;
+        v20 = MidY;
+        v15 = SBLogAlertItems(v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v29.y = v19;
-          v29.x = MidX;
-          v16 = NSStringFromCGPoint(v29);
-          v17 = NSStringFromCGPoint(point);
+          v30.y = v20;
+          v30.x = MidX;
+          v17 = NSStringFromCGPoint(v30);
+          v18 = NSStringFromCGPoint(point);
           *buf = 138543618;
-          v25 = v16;
-          v26 = 2114;
-          v27 = v17;
-          _os_log_error_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_ERROR, "Alert window hosting layer has misaligned transform. Layer midpoint: %{public}@. Transformed midpoint:  %{public}@", buf, 0x16u);
+          v26 = v17;
+          v27 = 2114;
+          v28 = v18;
+          _os_log_error_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_ERROR, "Alert window hosting layer has misaligned transform. Layer midpoint: %{public}@. Transformed midpoint:  %{public}@", buf, 0x16u);
         }
       }
     }
@@ -507,7 +477,8 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
       [*(v1 + 40) bounds];
       v18.origin.x = OUTLINED_FUNCTION_3_23();
       v4 = CGRectEqualToRect(v18, v21);
-      v5 = [*(v1 + 24) isHidden] | v4;
+      isHidden = [*(v1 + 24) isHidden];
+      v6 = isHidden | v4;
       if (screen == v3)
       {
         coordinateSpace = [*(v1 + 40) coordinateSpace];
@@ -518,19 +489,19 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
         v19.origin.x = OUTLINED_FUNCTION_3_23();
         MidX = CGRectGetMidX(v19);
         [*(v1 + 40) bounds];
-        v9 = vabdd_f64(MidX, CGRectGetMidX(v20));
+        v10 = vabdd_f64(MidX, CGRectGetMidX(v20));
         isHidden = [*(v1 + 24) isHidden];
-        if (v9 < 1.0)
+        if (v10 < 1.0)
         {
-          v6 = 1;
+          v7 = 1;
         }
 
         else
         {
-          v6 = isHidden;
+          v7 = isHidden;
         }
 
-        if (v5 & v6)
+        if (v6 & v7)
         {
           return 0;
         }
@@ -538,18 +509,18 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
 
-      v11 = SBLogAlertItems();
+      v11 = SBLogAlertItems(isHidden);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12[0] = 67109632;
         v12[1] = screen == v3;
         v13 = 1024;
-        v14 = v5 & 1;
+        v14 = v6 & 1;
         v15 = 1024;
-        v16 = v6;
+        v16 = v7;
         _os_log_error_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_ERROR, "Alert window invariants broken. correctScreenPresentation:%{BOOL}i correctBounds:%{BOOL}i correctXLayout:%{BOOL}i", v12, 0x14u);
       }
 
@@ -563,7 +534,7 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
 - (uint64_t)_hasBrokenAlertPresentationInvariants
 {
   selfCopy = self;
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained(&self[4].isa);
@@ -592,7 +563,7 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
 
           if (v14 != screen)
           {
-            v16 = 0;
+            v17 = 0;
             goto LABEL_15;
           }
 
@@ -601,22 +572,22 @@ double __57__SBAlertLayoutPresentationVerifier__logToAutoBugCapture__block_invok
           [coordinateSpace convertRect:view fromCoordinateSpace:?];
           OUTLINED_FUNCTION_4_14();
 
-          v27.origin.x = OUTLINED_FUNCTION_3_23();
-          MidX = CGRectGetMidX(v27);
+          v28.origin.x = OUTLINED_FUNCTION_3_23();
+          MidX = CGRectGetMidX(v28);
           [*(selfCopy + 40) bounds];
-          v20 = vabdd_f64(MidX, CGRectGetMidX(v28));
-          v16 = v20 < 1.0;
-          if (window3 != v13 || v20 >= 1.0)
+          v21 = vabdd_f64(MidX, CGRectGetMidX(v29));
+          v17 = v21 < 1.0;
+          if (window3 != v13 || v21 >= 1.0)
           {
 LABEL_15:
-            v22 = SBLogAlertItems();
-            if (OUTLINED_FUNCTION_9_6(v22))
+            v23 = SBLogAlertItems(v16);
+            if (OUTLINED_FUNCTION_9_6(v23))
             {
-              v23[0] = 67109376;
-              v23[1] = window3 == v13;
-              v24 = 1024;
-              v25 = v16;
-              _os_log_error_impl(&dword_21ED4E000, selfCopy, OS_LOG_TYPE_ERROR, "Alert layout invariants broken. correctScreenPresentation:%{BOOL}i correctXLayout:%{BOOL}i", v23, 0xEu);
+              v24[0] = 67109376;
+              v24[1] = window3 == v13;
+              v25 = 1024;
+              v26 = v17;
+              _os_log_error_impl(&dword_21ED4E000, selfCopy, OS_LOG_TYPE_ERROR, "Alert layout invariants broken. correctScreenPresentation:%{BOOL}i correctXLayout:%{BOOL}i", v24, 0xEu);
             }
 
             selfCopy = 1;
@@ -639,11 +610,11 @@ LABEL_9:
 
 - (void)_logAlertItemLayout
 {
-  v187 = *MEMORY[0x277D85DE8];
+  v208 = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
-    v4 = SBLogAlertItems();
+    v4 = SBLogAlertItems(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       LOWORD(buf.a) = 0;
@@ -653,48 +624,49 @@ LABEL_9:
     WeakRetained = objc_loadWeakRetained((selfCopy + 32));
     currentlyPresentedAlertItem = [WeakRetained currentlyPresentedAlertItem];
 
-    HIDWORD(v175) = arc4random();
-    v7 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v7))
-    {
-      v71 = *(selfCopy + 16);
-      LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v71;
-      OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v72, v73, v74, v75, v76, 0xCu);
-    }
-
-    v8 = SBLogAlertItems();
+    v7 = arc4random();
+    HIDWORD(v196) = v7;
+    v8 = SBLogAlertItems(v7);
     if (OUTLINED_FUNCTION_9_6(v8))
     {
-      OUTLINED_FUNCTION_10_7();
-      LODWORD(buf.a) = v77;
-      *(&buf.a + 4) = currentlyPresentedAlertItem;
-      WORD2(buf.b) = 1024;
-      *(&buf.b + 6) = v78;
+      v92 = *(selfCopy + 16);
+      LODWORD(buf.a) = 138543362;
+      *(&buf.a + 4) = v92;
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v79, v80, v81, v82, v83, 0x12u);
+      _os_log_error_impl(v93, v94, v95, v96, v97, 0xCu);
     }
 
-    v9 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v9))
+    v10 = SBLogAlertItems(v9);
+    if (OUTLINED_FUNCTION_9_6(v10))
+    {
+      OUTLINED_FUNCTION_10_7();
+      LODWORD(buf.a) = v98;
+      *(&buf.a + 4) = currentlyPresentedAlertItem;
+      WORD2(buf.b) = 1024;
+      *(&buf.b + 6) = v99;
+      OUTLINED_FUNCTION_5_12();
+      _os_log_error_impl(v100, v101, v102, v103, v104, 0x12u);
+    }
+
+    v12 = SBLogAlertItems(v11);
+    if (OUTLINED_FUNCTION_9_6(v12))
     {
       OUTLINED_FUNCTION_8_5();
-      v84 = *(selfCopy + 24);
-      [v84 bounds];
-      v85 = NSStringFromCGRect(v190);
+      v105 = *(selfCopy + 24);
+      [v105 bounds];
+      v106 = NSStringFromCGRect(v211);
       LODWORD(buf.a) = 67109634;
       HIDWORD(buf.a) = v4;
       LOWORD(buf.b) = 2114;
-      *(&buf.b + 2) = v84;
+      *(&buf.b + 2) = v105;
       WORD1(buf.c) = 2114;
-      *(&buf.c + 4) = v85;
+      *(&buf.c + 4) = v106;
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v86, v87, v88, v89, v90, 0x1Cu);
+      _os_log_error_impl(v107, v108, v109, v110, v111, 0x1Cu);
     }
 
-    v10 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v10))
+    v14 = SBLogAlertItems(v13);
+    if (OUTLINED_FUNCTION_9_6(v14))
     {
       OUTLINED_FUNCTION_8_5();
       _contextId = [*(selfCopy + 24) _contextId];
@@ -703,75 +675,75 @@ LABEL_9:
       LOWORD(buf.b) = 1024;
       *(&buf.b + 2) = _contextId;
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v92, v93, v94, v95, v96, 0xEu);
+      _os_log_error_impl(v113, v114, v115, v116, v117, 0xEu);
     }
 
-    v11 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v11))
+    v16 = SBLogAlertItems(v15);
+    if (OUTLINED_FUNCTION_9_6(v16))
     {
       OUTLINED_FUNCTION_8_5();
       screen = [*(selfCopy + 24) screen];
       OUTLINED_FUNCTION_0_45(screen, 1.5047e-36);
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v98, v99, v100, v101, v102, 0x12u);
+      _os_log_error_impl(v119, v120, v121, v122, v123, 0x12u);
     }
 
-    v12 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v12))
+    v18 = SBLogAlertItems(v17);
+    if (OUTLINED_FUNCTION_9_6(v18))
     {
       OUTLINED_FUNCTION_8_5();
       _scene = [*(selfCopy + 24) _scene];
       OUTLINED_FUNCTION_0_45(_scene, 1.5047e-36);
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v104, v105, v106, v107, v108, 0x12u);
+      _os_log_error_impl(v125, v126, v127, v128, v129, 0x12u);
     }
 
-    v13 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v13))
+    v20 = SBLogAlertItems(v19);
+    if (OUTLINED_FUNCTION_9_6(v20))
     {
       OUTLINED_FUNCTION_8_5();
       _scene2 = [*(selfCopy + 24) _scene];
       settings = [_scene2 settings];
       OUTLINED_FUNCTION_0_45(settings, 1.5047e-36);
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v111, v112, v113, v114, v115, 0x12u);
+      _os_log_error_impl(v132, v133, v134, v135, v136, 0x12u);
     }
 
-    v14 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_9_6(v14))
+    v22 = SBLogAlertItems(v21);
+    if (OUTLINED_FUNCTION_9_6(v22))
     {
       OUTLINED_FUNCTION_8_5();
       _scene3 = [*(selfCopy + 24) _scene];
       clientSettings = [_scene3 clientSettings];
       OUTLINED_FUNCTION_0_45(clientSettings, 1.5047e-36);
       OUTLINED_FUNCTION_5_12();
-      _os_log_error_impl(v118, v119, v120, v121, v122, 0x12u);
+      _os_log_error_impl(v139, v140, v141, v142, v143, 0x12u);
     }
 
     alertController = [currentlyPresentedAlertItem alertController];
     if (alertController)
     {
-      v16 = alertController;
+      v24 = alertController;
       OUTLINED_FUNCTION_8_5();
       do
       {
-        v17 = SBLogAlertItems();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v26 = SBLogAlertItems(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v19 = objc_opt_class();
-          v2 = NSStringFromClass(v19);
+          v28 = objc_opt_class();
+          v2 = NSStringFromClass(v28);
           LODWORD(buf.a) = 67109634;
           HIDWORD(buf.a) = v4;
           LOWORD(buf.b) = 2114;
           *(&buf.b + 2) = v2;
           WORD1(buf.c) = 2048;
-          *(&buf.c + 4) = v16;
-          _os_log_error_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_ERROR, "DL%x: View controller in presentation hierarchy: <%{public}@, %p>.", &buf, 0x1Cu);
+          *(&buf.c + 4) = v24;
+          _os_log_error_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_ERROR, "DL%x: View controller in presentation hierarchy: <%{public}@, %p>.", &buf, 0x1Cu);
         }
 
-        presentingViewController = [v16 presentingViewController];
+        presentingViewController = [v24 presentingViewController];
 
-        v16 = presentingViewController;
+        v24 = presentingViewController;
       }
 
       while (presentingViewController);
@@ -785,31 +757,31 @@ LABEL_9:
       LODWORD(v4) = 2114;
       do
       {
-        v22 = SBLogAlertItems();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v32 = SBLogAlertItems(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           [view center];
-          v2 = NSStringFromCGPoint(v188);
+          v2 = NSStringFromCGPoint(v209);
           [view bounds];
-          v24 = NSStringFromCGRect(v189);
-          [view transform];
+          v34 = NSStringFromCGRect(v210);
+          objc_msgSend_transform(view);
           NSStringFromCGAffineTransform(&buf);
-          v25 = selfCopy;
-          v27 = v26 = currentlyPresentedAlertItem;
+          v35 = selfCopy;
+          v37 = v36 = currentlyPresentedAlertItem;
           LODWORD(buf.a) = 67110146;
-          HIDWORD(buf.a) = WORD2(v175);
+          HIDWORD(buf.a) = WORD2(v196);
           LOWORD(buf.b) = 2114;
           *(&buf.b + 2) = view;
           WORD1(buf.c) = 2114;
           *(&buf.c + 4) = v2;
           WORD2(buf.d) = 2114;
-          *(&buf.d + 6) = v24;
+          *(&buf.d + 6) = v34;
           HIWORD(buf.tx) = 2114;
-          *&buf.ty = v27;
-          _os_log_error_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_ERROR, "DL%x: View in hierarchy: %{public}@. Center: %{public}@. Bounds: %{public}@. Transform: %{public}@", &buf, 0x30u);
+          *&buf.ty = v37;
+          _os_log_error_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_ERROR, "DL%x: View in hierarchy: %{public}@. Center: %{public}@. Bounds: %{public}@. Transform: %{public}@", &buf, 0x30u);
 
-          currentlyPresentedAlertItem = v26;
-          selfCopy = v25;
+          currentlyPresentedAlertItem = v36;
+          selfCopy = v35;
         }
 
         superview = [view superview];
@@ -825,86 +797,86 @@ LABEL_9:
     {
       mEMORY[0x277D0AAD8] = [MEMORY[0x277D0AAD8] sharedInstance];
       identifier = [_scene4 identifier];
-      v31 = [mEMORY[0x277D0AAD8] sceneWithIdentifier:identifier];
+      v41 = [mEMORY[0x277D0AAD8] sceneWithIdentifier:identifier];
     }
 
     else
     {
-      v31 = 0;
+      v41 = 0;
     }
 
-    uiPresentationManager = [v31 uiPresentationManager];
+    uiPresentationManager = [v41 uiPresentationManager];
     defaultPresentationContext = [uiPresentationManager defaultPresentationContext];
 
-    v34 = +[SBMainDisplayRootWindowScenePresentationBinder sharedInstance];
-    v35 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v35))
+    v44 = +[SBMainDisplayRootWindowScenePresentationBinder sharedInstance];
+    v45 = SBLogAlertItems(v44);
+    if (OUTLINED_FUNCTION_11_5(v45))
     {
       OUTLINED_FUNCTION_10_7();
       LODWORD(buf.a) = 67109378;
-      HIDWORD(buf.a) = v123;
+      HIDWORD(buf.a) = v144;
       OUTLINED_FUNCTION_2_30();
-      *(v124 + 58) = v34;
-      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v125, v126, "DL%x: Root window scene binder: %{public}@");
+      *(v145 + 58) = v44;
+      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v146, v147, "DL%x: Root window scene binder: %{public}@");
     }
 
-    v36 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v36))
+    v47 = SBLogAlertItems(v46);
+    if (OUTLINED_FUNCTION_11_5(v47))
     {
       OUTLINED_FUNCTION_8_5();
-      rootWindow = [v34 rootWindow];
+      rootWindow = [v44 rootWindow];
       OUTLINED_FUNCTION_0_45(rootWindow, 1.5047e-36);
-      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v128, v129, "DL%x: Root window: %{public}@");
+      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v149, v150, "DL%x: Root window: %{public}@");
     }
 
-    v37 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v37))
+    v49 = SBLogAlertItems(v48);
+    if (OUTLINED_FUNCTION_11_5(v49))
     {
       OUTLINED_FUNCTION_10_7();
       LODWORD(buf.a) = 67109378;
-      HIDWORD(buf.a) = v130;
+      HIDWORD(buf.a) = v151;
       OUTLINED_FUNCTION_2_30();
-      *(v131 + 58) = v31;
-      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v132, v133, "DL%x: Host scene: %{public}@");
+      *(v152 + 58) = v41;
+      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v153, v154, "DL%x: Host scene: %{public}@");
     }
 
-    v38 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v38))
+    v51 = SBLogAlertItems(v50);
+    if (OUTLINED_FUNCTION_11_5(v51))
     {
       OUTLINED_FUNCTION_10_7();
       LODWORD(buf.a) = 67109378;
-      HIDWORD(buf.a) = v134;
+      HIDWORD(buf.a) = v155;
       OUTLINED_FUNCTION_2_30();
-      *(v135 + 58) = defaultPresentationContext;
-      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v136, v137, "DL%x: Host scene presentation context: %{public}@");
+      *(v156 + 58) = defaultPresentationContext;
+      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v157, v158, "DL%x: Host scene presentation context: %{public}@");
     }
 
-    v39 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v39))
+    v53 = SBLogAlertItems(v52);
+    if (OUTLINED_FUNCTION_11_5(v53))
     {
       OUTLINED_FUNCTION_8_5();
       layerPresentationOverrides = [defaultPresentationContext layerPresentationOverrides];
       OUTLINED_FUNCTION_0_45(layerPresentationOverrides, 1.5047e-36);
-      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v139, v140, "DL%x: Host scene layer presentation overrides: %{public}@");
+      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v160, v161, "DL%x: Host scene layer presentation overrides: %{public}@");
     }
 
-    v40 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v40))
+    v55 = SBLogAlertItems(v54);
+    if (OUTLINED_FUNCTION_11_5(v55))
     {
       OUTLINED_FUNCTION_10_7();
       LODWORD(buf.a) = 67109378;
-      HIDWORD(buf.a) = v141;
+      HIDWORD(buf.a) = v162;
       OUTLINED_FUNCTION_2_30();
-      *(v142 + 58) = _scene4;
-      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v143, v144, "DL%x: Alert client scene: %{public}@");
+      *(v163 + 58) = _scene4;
+      OUTLINED_FUNCTION_6_10(&dword_21ED4E000, v164, v165, "DL%x: Alert client scene: %{public}@");
     }
 
     memset(&buf, 0, sizeof(buf));
-    sceneTransformer = [v34 sceneTransformer];
-    v42 = sceneTransformer;
+    sceneTransformer = [v44 sceneTransformer];
+    v57 = sceneTransformer;
     if (sceneTransformer)
     {
-      [sceneTransformer transform];
+      objc_msgSend_transform(sceneTransformer);
     }
 
     else
@@ -912,16 +884,16 @@ LABEL_9:
       memset(&buf, 0, sizeof(buf));
     }
 
-    v43 = *(MEMORY[0x277CBF2C0] + 16);
-    *&v184.a = *MEMORY[0x277CBF2C0];
-    *&v184.c = v43;
-    *&v184.tx = *(MEMORY[0x277CBF2C0] + 32);
-    v167 = v43;
-    v170 = *&v184.a;
-    v181 = *&v184.a;
-    v182 = v43;
-    v164 = *&v184.tx;
-    v183 = *&v184.tx;
+    v58 = *(MEMORY[0x277CBF2C0] + 16);
+    *&v205.a = *MEMORY[0x277CBF2C0];
+    *&v205.c = v58;
+    *&v205.tx = *(MEMORY[0x277CBF2C0] + 32);
+    v188 = v58;
+    v191 = *&v205.a;
+    v202 = *&v205.a;
+    v203 = v58;
+    v185 = *&v205.tx;
+    v204 = *&v205.tx;
     hostTransformer = [defaultPresentationContext hostTransformer];
 
     if (hostTransformer)
@@ -930,15 +902,15 @@ LABEL_9:
       hostTransformer = hostTransformer2;
       if (hostTransformer2)
       {
-        [hostTransformer2 transform];
+        objc_msgSend_transform(hostTransformer2);
       }
 
       else
       {
-        memset(&v180, 0, sizeof(v180));
+        memset(&v201, 0, sizeof(v201));
       }
 
-      v184 = v180;
+      v205 = v201;
     }
 
     if (*(selfCopy + 24))
@@ -946,105 +918,105 @@ LABEL_9:
       v4 = currentlyPresentedAlertItem;
       selfCopy = [MEMORY[0x277D75968] targetForUIWindow:?];
       layerPresentationOverrides2 = [defaultPresentationContext layerPresentationOverrides];
-      v47 = [layerPresentationOverrides2 objectForKey:selfCopy];
-      hostTransformer = [v47 transformer];
+      v62 = [layerPresentationOverrides2 objectForKey:selfCopy];
+      hostTransformer = [v62 transformer];
 
       if (hostTransformer)
       {
-        [hostTransformer transform];
+        objc_msgSend_transform(hostTransformer);
       }
 
       else
       {
-        v181 = v170;
-        v182 = v167;
-        v183 = v164;
+        v202 = v191;
+        v203 = v188;
+        v204 = v185;
       }
 
       currentlyPresentedAlertItem = v4;
     }
 
-    *&v180.a = v170;
-    *&v180.c = v167;
-    *&v180.tx = v164;
-    *&t1.a = v170;
-    *&t1.c = v167;
-    *&t1.tx = v164;
+    *&v201.a = v191;
+    *&v201.c = v188;
+    *&v201.tx = v185;
+    *&t1.a = v191;
+    *&t1.c = v188;
+    *&t1.tx = v185;
     t2 = buf;
-    v48 = CGAffineTransformConcat(&v180, &t1, &t2);
-    t2 = v180;
-    v56 = OUTLINED_FUNCTION_14_2(v48, v49, v50, v51, v52, v53, v54, v55, *&v184.tx, v164.n128_u64[0], v164.n128_u64[1], v167.n128_i64[0], v167.n128_i64[1], v170, *(&v170 + 1), v173, v175, *&v184.a, *&v184.b, *&v184.c, *&v184.d, *&v184.c, v177);
-    v180 = t1;
+    v63 = CGAffineTransformConcat(&v201, &t1, &t2);
+    t2 = v201;
+    v72 = OUTLINED_FUNCTION_14_2(v63, v64, v65, v66, v67, v68, v69, v70, *&v205.tx, *&v205.c, v185.n128_u64[0], v185.n128_u64[1], v188.n128_i64[0], v188.n128_i64[1], v191, *(&v191 + 1), v194, v196, *&v205.a, *&v205.b, *&v205.c, *&v205.d, v71, v198);
+    v201 = t1;
     t2 = t1;
-    OUTLINED_FUNCTION_14_2(v56, v57, v58, v59, v60, v61, v62, v63, v183, v165, v166, v168, v169, v171, v172, v174, v176, v181, *(&v181 + 1), v182.n128_i64[0], v182.n128_i64[1], v182, v178);
-    v180 = t1;
-    v64 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_12_4(v64))
+    v80 = OUTLINED_FUNCTION_14_2(v72, v73, v74, v75, v76, v77, v78, v79, v204, v203, v186, v187, v189, v190, v192, v193, v195, v197, v202, *(&v202 + 1), v203.n128_i64[0], v203.n128_i64[1], *&t1.a, v199);
+    v201 = t1;
+    v81 = SBLogAlertItems(v80);
+    if (OUTLINED_FUNCTION_12_4(v81))
     {
       OUTLINED_FUNCTION_8_5();
       *&t1.a = *&buf.a;
       *&t1.c = *&buf.c;
-      v145 = OUTLINED_FUNCTION_13_3(*&buf.tx);
-      hostTransformer = NSStringFromCGAffineTransform(v145);
+      v166 = OUTLINED_FUNCTION_13_3(*&buf.tx);
+      hostTransformer = NSStringFromCGAffineTransform(v166);
       OUTLINED_FUNCTION_1_27(hostTransformer, 1.5047e-36);
-      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v146, v147, "DL%x: Root transform: %{public}@");
+      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v167, v168, "DL%x: Root transform: %{public}@");
     }
 
-    v65 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_12_4(v65))
+    v83 = SBLogAlertItems(v82);
+    if (OUTLINED_FUNCTION_12_4(v83))
     {
       OUTLINED_FUNCTION_8_5();
-      *&t1.a = *&v184.a;
-      *&t1.c = *&v184.c;
-      v148 = OUTLINED_FUNCTION_13_3(*&v184.tx);
-      hostTransformer = NSStringFromCGAffineTransform(v148);
+      *&t1.a = *&v205.a;
+      *&t1.c = *&v205.c;
+      v169 = OUTLINED_FUNCTION_13_3(*&v205.tx);
+      hostTransformer = NSStringFromCGAffineTransform(v169);
       OUTLINED_FUNCTION_1_27(hostTransformer, 1.5047e-36);
-      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v149, v150, "DL%x: Scene transform: %{public}@");
+      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v170, v171, "DL%x: Scene transform: %{public}@");
     }
 
-    v66 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_12_4(v66))
+    v85 = SBLogAlertItems(v84);
+    if (OUTLINED_FUNCTION_12_4(v85))
     {
       OUTLINED_FUNCTION_8_5();
-      *&t1.a = v181;
-      *&t1.c = v182;
-      v151 = OUTLINED_FUNCTION_13_3(v183);
-      hostTransformer = NSStringFromCGAffineTransform(v151);
+      *&t1.a = v202;
+      *&t1.c = v203;
+      v172 = OUTLINED_FUNCTION_13_3(v204);
+      hostTransformer = NSStringFromCGAffineTransform(v172);
       OUTLINED_FUNCTION_1_27(hostTransformer, 1.5047e-36);
-      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v152, v153, "DL%x: Alert layer transform: %{public}@");
+      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v173, v174, "DL%x: Alert layer transform: %{public}@");
     }
 
-    v67 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_12_4(v67))
+    v87 = SBLogAlertItems(v86);
+    if (OUTLINED_FUNCTION_12_4(v87))
     {
       OUTLINED_FUNCTION_8_5();
-      *&t1.a = *&v180.a;
-      *&t1.c = *&v180.c;
-      v154 = OUTLINED_FUNCTION_13_3(*&v180.tx);
-      hostTransformer = NSStringFromCGAffineTransform(v154);
+      *&t1.a = *&v201.a;
+      *&t1.c = *&v201.c;
+      v175 = OUTLINED_FUNCTION_13_3(*&v201.tx);
+      hostTransformer = NSStringFromCGAffineTransform(v175);
       OUTLINED_FUNCTION_1_27(hostTransformer, 1.5047e-36);
-      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v155, v156, "DL%x: Total combined transform: %{public}@");
+      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v176, v177, "DL%x: Total combined transform: %{public}@");
     }
 
-    v68 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_12_4(v68))
+    v89 = SBLogAlertItems(v88);
+    if (OUTLINED_FUNCTION_12_4(v89))
     {
       OUTLINED_FUNCTION_8_5();
       hostTransformer = [SBApp orientationAggregator];
       OUTLINED_FUNCTION_1_27(hostTransformer, 1.5047e-36);
-      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v157, v158, "DL%x: Orientation state: %{public}@");
+      OUTLINED_FUNCTION_7_4(&dword_21ED4E000, v178, v179, "DL%x: Orientation state: %{public}@");
     }
 
-    v69 = +[SBReachabilityManager sharedInstance];
-    v70 = SBLogAlertItems();
-    if (OUTLINED_FUNCTION_11_5(v70))
+    v90 = +[SBReachabilityManager sharedInstance];
+    v91 = SBLogAlertItems(v90);
+    if (OUTLINED_FUNCTION_11_5(v91))
     {
       OUTLINED_FUNCTION_8_5();
-      reachabilityEnabled = [v69 reachabilityEnabled];
-      reachabilityModeActive = [v69 reachabilityModeActive];
-      [v69 reachabilityYOffset];
-      v162 = v161;
-      [v69 effectiveReachabilityYOffset];
+      reachabilityEnabled = [v90 reachabilityEnabled];
+      reachabilityModeActive = [v90 reachabilityModeActive];
+      [v90 reachabilityYOffset];
+      v183 = v182;
+      [v90 effectiveReachabilityYOffset];
       LODWORD(t1.a) = 67110144;
       HIDWORD(t1.a) = v4;
       LOWORD(t1.b) = 1024;
@@ -1052,9 +1024,9 @@ LABEL_9:
       HIWORD(t1.b) = 1024;
       LODWORD(t1.c) = reachabilityModeActive;
       WORD2(t1.c) = 2048;
-      *(&t1.c + 6) = v162;
+      *(&t1.c + 6) = v183;
       HIWORD(t1.d) = 2048;
-      t1.tx = v163;
+      t1.tx = v184;
       _os_log_error_impl(&dword_21ED4E000, hostTransformer, OS_LOG_TYPE_ERROR, "DL%x: Reachability enabled:%{BOOL}i active:%{BOOL}i offsetWhenActive:%f currentOffset:%f", &t1, 0x28u);
     }
   }
@@ -1064,60 +1036,27 @@ LABEL_9:
 {
   if (result)
   {
-    v1 = result;
-    [*(result + 24) frame];
+    v3 = result;
+    objc_msgSend_frame(*(result + 24), a2);
     OUTLINED_FUNCTION_4_14();
-    [*(v1 + 40) bounds];
-    v5.origin.x = OUTLINED_FUNCTION_3_23();
-    result = CGRectEqualToRect(v5, v6);
+    [*(v3 + 40) bounds];
+    v7.origin.x = OUTLINED_FUNCTION_3_23();
+    result = CGRectEqualToRect(v7, v8);
     if ((result & 1) == 0)
     {
-      v2 = SBLogAlertItems();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      v4 = SBLogAlertItems(result);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Broken alert layout getting fixed", v4, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Broken alert layout getting fixed", v6, 2u);
       }
 
-      v3 = *(v1 + 24);
-      [*(v1 + 40) bounds];
-      return [v3 setFrame:?];
+      v5 = *(v3 + 24);
+      [*(v3 + 40) bounds];
+      return [v5 setFrame:?];
     }
   }
 
-  return result;
-}
-
-+ (uint64_t)_handleTrackingStateChange
-{
-  v8 = **(self + 16);
-  do
-  {
-    v9 = 0;
-    do
-    {
-      if (**(self + 16) != v8)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v10 = *(*(self + 8) + 8 * v9);
-      if (v10)
-      {
-        [*(v10 + 48) invalidate];
-        v11 = *(v10 + 48);
-        *(v10 + 48) = 0;
-      }
-
-      ++v9;
-    }
-
-    while (a3 != v9);
-    result = [obj countByEnumeratingWithState:self objects:a4 count:16];
-    a3 = result;
-  }
-
-  while (result);
   return result;
 }
 

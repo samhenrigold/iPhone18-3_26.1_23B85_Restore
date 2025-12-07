@@ -21,10 +21,10 @@ void __47___LTServerSpeechSession_swapLocalesAndRestart__block_invoke(uint64_t a
   }
 }
 
-uint64_t __66___LTServerSpeechSession_updateOwnVoicePendingSwapAndRestartTimer__block_invoke(uint64_t a1)
+uint64_t __66___LTServerSpeechSession_updateOwnVoicePendingSwapAndRestartTimer__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _LTOSLogSpeech(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __66___LTServerSpeechSession_updateOwnVoicePendingSwapAndRestartTimer__block_invoke_cold_1();
   }
@@ -47,7 +47,7 @@ void __50___LTServerSpeechSession_languageDetectionResult___block_invoke(uint64_
 
 void __50___LTServerSpeechSession_speechRecognitionResult___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -60,25 +60,23 @@ void __50___LTServerSpeechSession_speechRecognitionResult___block_invoke(uint64_
 
     if (v8)
     {
-      v9 = atomic_load(v3 + 13);
-      if ((v9 & 1) == 0)
+      v11 = atomic_load(v3 + 13);
+      if ((v11 & 1) == 0)
       {
-        v10 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = _LTOSLogSpeech(v9, v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = [v3[6] targetLocale];
-          v12 = [v11 localeIdentifier];
-          v14 = 138412290;
-          v15 = v12;
-          _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_DEFAULT, "OVAD speech recognized waiting for pending final translation: %@", &v14, 0xCu);
+          v13 = [v3[6] targetLocale];
+          v14 = [v13 localeIdentifier];
+          v15 = 138412290;
+          v16 = v14;
+          _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_DEFAULT, "OVAD speech recognized waiting for pending final translation: %@", &v15, 0xCu);
         }
 
         atomic_store(1u, v3 + 13);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49___LTServerSpeechSession_translatorDidTranslate___block_invoke(uint64_t a1)

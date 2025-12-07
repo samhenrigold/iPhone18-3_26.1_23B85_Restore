@@ -314,7 +314,7 @@
       v21 = firstObject;
       if (firstObject)
       {
-        [firstObject preferredTransform];
+        objc_msgSend_preferredTransform(firstObject);
       }
 
       else
@@ -334,7 +334,7 @@
       v144 = 0;
       v24 = FigGetRotationAngleAndFlipsFromCGAffineTransform() * 0.0174532925;
       v25.i64[0] = 0xBF000000BF000000;
-      v25.i64[1] = v118.u32[2] | 0xBF00000000000000;
+      v25.i64[1] = v118.n128_u32[2] | 0xBF00000000000000;
       v115 = v25;
       v27 = __sincosf_stret(v24);
       *&v26 = v27.__cosval;
@@ -394,8 +394,8 @@
       v43.i32[3] = v117.i32[3];
       __asm { FMOV            V19.4S, #1.0 }
 
-      _Q19.i32[0] = v118.i32[0];
-      _Q19.i32[2] = v118.i32[2];
+      _Q19.i32[0] = v118.n128_u32[0];
+      _Q19.i32[2] = v118.n128_i32[2];
       v151.columns[2].i32[0] = v37;
       v45 = vdupq_lane_s8(*&vceqq_s8(v151.columns[2], v151.columns[0]), 0);
       v46.i64[0] = __PAIR64__(LODWORD(v27.__cosval), v90);
@@ -475,7 +475,7 @@
 
       while (v57 != 3);
       v61 = 0;
-      _Q19.i32[3] = v118.i32[3];
+      _Q19.i32[3] = v118.n128_i32[3];
       v62 = *buf;
       v63 = *&buf[16];
       v64 = v148;
@@ -665,8 +665,8 @@
       v137.i32[2] = *&buf[24];
       v136.i64[0] = *buf;
       v137.i64[0] = *&buf[16];
-      v138.i32[2] = v148.i32[2];
-      v138.i64[0] = v148.i64[0];
+      v138.n128_u32[2] = v148.u32[2];
+      v138.n128_u64[0] = v148.i64[0];
     }
 
     _pu_isVitalityLimitingAllowed = [self _pu_isVitalityLimitingAllowed];

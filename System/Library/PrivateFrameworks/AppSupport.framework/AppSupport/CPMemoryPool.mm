@@ -35,28 +35,28 @@
 
 - (id)nextSlotWithBytes:(const void *)bytes length:(unint64_t)length
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_lock);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   files = self->_files;
-  v8 = [(NSMutableArray *)files countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(NSMutableArray *)files countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(files);
         }
 
-        v12 = [*(*(&v17 + 1) + 8 * i) nextSlotWithBytes:bytes length:length];
+        v12 = [*(*(&v16 + 1) + 8 * i) nextSlotWithBytes:bytes length:length];
         if (v12)
         {
           v14 = v12;
@@ -64,7 +64,7 @@
         }
       }
 
-      v9 = [(NSMutableArray *)files countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [(NSMutableArray *)files countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -88,7 +88,6 @@
 
 LABEL_14:
   pthread_mutex_unlock(&self->_lock);
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

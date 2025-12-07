@@ -50,27 +50,25 @@
 
 void __42__PGCommonTitleUtility_dimensionForLabel___block_invoke()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v3[0] = @"None";
-  v3[1] = @"Area";
-  v3[2] = @"Address";
-  v3[3] = @"Number";
-  v3[4] = @"Street";
-  v3[5] = @"District";
-  v3[6] = @"City";
-  v3[7] = @"County";
-  v3[8] = @"State";
-  v3[9] = @"Country";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:10];
+  v2[10] = *MEMORY[0x277D85DE8];
+  v2[0] = @"None";
+  v2[1] = @"Area";
+  v2[2] = @"Address";
+  v2[3] = @"Number";
+  v2[4] = @"Street";
+  v2[5] = @"District";
+  v2[6] = @"City";
+  v2[7] = @"County";
+  v2[8] = @"State";
+  v2[9] = @"Country";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:10];
   v1 = dimensionForLabel__dimensionLabelMapping;
   dimensionForLabel__dimensionLabelMapping = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)locationLabelForDimension:(unint64_t)dimension
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (dimension <= 4)
   {
     if (dimension > 2)
@@ -134,19 +132,18 @@ LABEL_20:
     }
   }
 
-  v8 = +[PGLogging sharedLogging];
-  loggingConnection = [v8 loggingConnection];
+  v7 = +[PGLogging sharedLogging];
+  loggingConnection = [v7 loggingConnection];
 
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     dimensionCopy = dimension;
-    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Couldn't match dimension %lu to label", &v10, 0xCu);
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Couldn't match dimension %lu to label", &v9, 0xCu);
   }
 
   v4 = 0;
 LABEL_21:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -231,29 +228,29 @@ uint64_t __51__PGCommonTitleUtility_titleWithLineBreakForTitle___block_invoke(ui
 
 + (id)titleWithLineBreakForTitle:(id)title andUsedNames:(id)names
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   namesCopy = names;
-  v88 = [titleCopy length];
-  if (v88 <= 0xB)
+  v87 = [titleCopy length];
+  if (v87 <= 0xB)
   {
     v7 = titleCopy;
     goto LABEL_113;
   }
 
-  v102 = 0;
-  v8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"[\\r\\n\\t\\f\\v ]+" options:64 error:&v102];
-  v83 = v102;
-  v84 = v8;
-  v90 = [v8 matchesInString:titleCopy options:0 range:{0, objc_msgSend(titleCopy, "length")}];
-  v92 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(namesCopy, "count")}];
+  v101 = 0;
+  v8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"[\\r\\n\\t\\f\\v ]+" options:64 error:&v101];
+  v82 = v101;
+  v83 = v8;
+  v89 = [v8 matchesInString:titleCopy options:0 range:{0, objc_msgSend(titleCopy, "length")}];
+  v91 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(namesCopy, "count")}];
+  v97 = 0u;
   v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
-  v85 = namesCopy;
+  v84 = namesCopy;
   obj = namesCopy;
-  v9 = [obj countByEnumeratingWithState:&v98 objects:v104 count:16];
+  v9 = [obj countByEnumeratingWithState:&v97 objects:v103 count:16];
   if (!v9)
   {
     goto LABEL_45;
@@ -261,20 +258,20 @@ uint64_t __51__PGCommonTitleUtility_titleWithLineBreakForTitle___block_invoke(ui
 
   v10 = v9;
   v11 = 0;
-  v12 = *v99;
+  v12 = *v98;
   do
   {
     v13 = 0;
-    v86 = v11;
-    v87 = -v11;
+    v85 = v11;
+    v86 = -v11;
     do
     {
-      if (*v99 != v12)
+      if (*v98 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v98 + 1) + 8 * v13);
+      v14 = *(*(&v97 + 1) + 8 * v13);
       v15 = [titleCopy rangeOfString:v14];
       v17 = v15;
       v18 = v16;
@@ -295,10 +292,10 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v28 = [self _closestSpaceMatchFromMatches:v90 withUsedNameRange:v15 searchForward:{v16, 0}];
+      v28 = [self _closestSpaceMatchFromMatches:v89 withUsedNameRange:v15 searchForward:{v16, 0}];
       if (v28 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (v87 != v13)
+        if (v86 != v13)
         {
           goto LABEL_13;
         }
@@ -320,7 +317,7 @@ LABEL_13:
 
       v20 = [titleCopy substringWithRange:{v30, v31}];
 LABEL_14:
-      if (v17 == 0x7FFFFFFFFFFFFFFFLL || (v21 = v17 + v18, v17 + v18 >= [titleCopy length]) || ((v22 = objc_msgSend(self, "_closestSpaceMatchFromMatches:withUsedNameRange:searchForward:", v90, v17, v18, 1), v22 != 0x7FFFFFFFFFFFFFFFLL) ? (v23 = v22 > v21) : (v23 = 0), !v23 || v21 == 0x7FFFFFFFFFFFFFFFLL || (v24 = v22, v22 >= objc_msgSend(titleCopy, "length"))))
+      if (v17 == 0x7FFFFFFFFFFFFFFFLL || (v21 = v17 + v18, v17 + v18 >= [titleCopy length]) || ((v22 = objc_msgSend(self, "_closestSpaceMatchFromMatches:withUsedNameRange:searchForward:", v89, v17, v18, 1), v22 != 0x7FFFFFFFFFFFFFFFLL) ? (v23 = v22 > v21) : (v23 = 0), !v23 || v21 == 0x7FFFFFFFFFFFFFFFLL || (v24 = v22, v22 >= objc_msgSend(titleCopy, "length"))))
       {
         v25 = 0;
       }
@@ -355,26 +352,26 @@ LABEL_14:
         v26 = v14;
       }
 
-      [v92 addObject:v26];
+      [v91 addObject:v26];
 
       ++v13;
     }
 
     while (v10 != v13);
-    v11 = v86 + v10;
-    v33 = [obj countByEnumeratingWithState:&v98 objects:v104 count:16];
+    v11 = v85 + v10;
+    v33 = [obj countByEnumeratingWithState:&v97 objects:v103 count:16];
     v10 = v33;
   }
 
   while (v33);
 LABEL_45:
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
-  v34 = v92;
-  v35 = [v34 countByEnumeratingWithState:&v94 objects:v103 count:16];
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v34 = v91;
+  v35 = [v34 countByEnumeratingWithState:&v93 objects:v102 count:16];
   if (!v35)
   {
 
@@ -384,23 +381,23 @@ LABEL_111:
   }
 
   v36 = v35;
-  v37 = vcvtps_u32_f32(vcvts_n_f32_u64(v88, 1uLL));
+  v37 = vcvtps_u32_f32(vcvts_n_f32_u64(v87, 1uLL));
   v38 = -1;
-  v39 = *v95;
+  v39 = *v94;
   v40 = -1;
   v41 = -1;
   v42 = -1;
-  v93 = v34;
+  v92 = v34;
   do
   {
     for (i = 0; i != v36; ++i)
     {
-      if (*v95 != v39)
+      if (*v94 != v39)
       {
-        objc_enumerationMutation(v93);
+        objc_enumerationMutation(v92);
       }
 
-      v44 = [titleCopy rangeOfString:*(*(&v94 + 1) + 8 * i)];
+      v44 = [titleCopy rangeOfString:*(*(&v93 + 1) + 8 * i)];
       if (v44 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v46 = v44 + v45;
@@ -470,7 +467,7 @@ LABEL_111:
           v42 = v52;
         }
 
-        if (v46 != v88)
+        if (v46 != v87)
         {
           if (v48 >= v40)
           {
@@ -492,8 +489,8 @@ LABEL_111:
       }
     }
 
-    v34 = v93;
-    v36 = [v93 countByEnumeratingWithState:&v94 objects:v103 count:16];
+    v34 = v92;
+    v36 = [v92 countByEnumeratingWithState:&v93 objects:v102 count:16];
   }
 
   while (v36);
@@ -514,7 +511,7 @@ LABEL_111:
   }
 
   v54 = 0x277CCA000;
-  if (v88 > 0x16)
+  if (v87 > 0x16)
   {
 LABEL_87:
     v57 = 0;
@@ -605,7 +602,7 @@ LABEL_88:
 
     v56 = v72;
     v74 = v73;
-    v34 = v93;
+    v34 = v92;
     v75 = v74;
 
     v54 = 0x277CCA000uLL;
@@ -629,40 +626,39 @@ LABEL_88:
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@", v56, @"\n", v57];
 
 LABEL_112:
-  namesCopy = v85;
+  namesCopy = v84;
 
 LABEL_113:
-  v81 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)titleWithNoLineBreakSpaceForTitle:(id)title andUsedNames:(id)names
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   namesCopy = names;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [namesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [namesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       v11 = titleCopy;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(namesCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v10);
+        v12 = *(*(&v15 + 1) + 8 * v10);
         v13 = [v12 stringByReplacingOccurrencesOfString:@" " withString:@" "];
         titleCopy = [v11 stringByReplacingOccurrencesOfString:v12 withString:v13];
 
@@ -671,13 +667,11 @@ LABEL_113:
       }
 
       while (v8 != v10);
-      v8 = [namesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [namesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return titleCopy;
 }
@@ -687,43 +681,43 @@ LABEL_113:
   forwardCopy = forward;
   length = range.length;
   location = range.location;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = matches;
-  v7 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v37;
+    v9 = *v36;
     v10 = location + length;
     v11 = 0x7FFFFFFFFFFFFFFFLL;
-    v33 = 0x7FFFFFFFFFFFFFFFLL;
-    v34 = 0;
+    v32 = 0x7FFFFFFFFFFFFFFFLL;
+    v33 = 0;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13.location = [*(*(&v36 + 1) + 8 * i) range];
+        v13.location = [*(*(&v35 + 1) + 8 * i) range];
         if (v13.location != 0x7FFFFFFFFFFFFFFFLL)
         {
           v14 = v13.location;
           v15 = v13.length;
+          v43.location = location;
+          v43.length = length;
+          v16 = NSIntersectionRange(v13, v43).length;
+          v41.location = v14;
+          v41.length = v15;
           v44.location = location;
           v44.length = length;
-          v16 = NSIntersectionRange(v13, v44).length;
-          v42.location = v14;
-          v42.length = v15;
-          v45.location = location;
-          v45.length = length;
-          v17 = NSUnionRange(v42, v45);
+          v17 = NSUnionRange(v41, v44);
           v18 = v14 - v10 + v15;
           if (location <= v14)
           {
@@ -803,24 +797,24 @@ LABEL_113:
             v11 = v24;
           }
 
-          v27 = v34;
+          v27 = v33;
           if (v26)
           {
             v27 = v22;
           }
 
-          v28 = v33;
+          v28 = v32;
           if (v26)
           {
             v28 = v23;
           }
 
-          v33 = v28;
-          v34 = v27;
+          v32 = v28;
+          v33 = v27;
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (!v8)
       {
         goto LABEL_43;
@@ -828,28 +822,27 @@ LABEL_113:
     }
   }
 
-  v33 = 0x7FFFFFFFFFFFFFFFLL;
-  v34 = 0;
+  v32 = 0x7FFFFFFFFFFFFFFFLL;
+  v33 = 0;
 LABEL_43:
 
-  v29 = *MEMORY[0x277D85DE8];
+  v29 = v32;
   v30 = v33;
-  v31 = v34;
-  result.length = v31;
-  result.location = v30;
+  result.length = v30;
+  result.location = v29;
   return result;
 }
 
 + (void)startAndEndDateNodeFromDateNodes:(id)nodes startDateNode:(id *)node endDateNode:(id *)dateNode
 {
   nodeCopy = node;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = nodes;
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
@@ -857,17 +850,17 @@ LABEL_43:
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v24 = *v26;
+    v23 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v24)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         localDate = [v12 localDate];
         if (!v7 || [v7 compare:localDate] == 1)
         {
@@ -888,7 +881,7 @@ LABEL_43:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
@@ -913,35 +906,33 @@ LABEL_43:
     v19 = v9;
     *dateNode = v9;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)bestAddressNodeForMomentNodes:(id)nodes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v4 = [nodesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [nodesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         bestAddressNode = [v10 bestAddressNode];
         v12 = [bestAddressNode anyEdgeFromNode:v10];
         if (!v6 || ([v6 relevance], v14 = v13, objc_msgSend(v12, "relevance"), v14 < v15))
@@ -954,7 +945,7 @@ LABEL_43:
         }
       }
 
-      v5 = [nodesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [nodesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -966,73 +957,69 @@ LABEL_43:
     v7 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)dateNodesFromMomentNodes:(id)nodes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v4 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = nodesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        dateNodes = [*(*(&v13 + 1) + 8 * i) dateNodes];
+        dateNodes = [*(*(&v12 + 1) + 8 * i) dateNodes];
         [v4 unionSet:dateNodes];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)holidayNameForDateNodes:(id)nodes
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   nodesCopy = nodes;
-  v4 = [nodesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [nodesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        collection = [*(*(&v19 + 1) + 8 * i) collection];
+        collection = [*(*(&v18 + 1) + 8 * i) collection];
         holidayNodes = [collection holidayNodes];
 
         array = [holidayNodes array];
@@ -1053,7 +1040,7 @@ LABEL_43:
         }
       }
 
-      v5 = [nodesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [nodesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v5)
       {
         continue;
@@ -1065,8 +1052,6 @@ LABEL_43:
 
   v16 = 0;
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1120,43 +1105,43 @@ uint64_t __48__PGCommonTitleUtility_holidayNameForDateNodes___block_invoke(uint6
 
 + (BOOL)containsCelebrationForDateNodes:(id)nodes holidayName:(id *)name titleGenerationContext:(id)context graph:(id)graph
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   contextCopy = context;
   graphCopy = graph;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = nodesCopy;
-  v9 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v9 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
   v10 = 0;
   if (v9)
   {
-    v34 = *v47;
+    v33 = *v46;
     v11 = &selRef_assetIsSafeForWidgetDisplay_;
 LABEL_3:
-    v40 = 0;
-    v31 = v11[375];
-    v33 = v9;
+    v39 = 0;
+    v30 = v11[375];
+    v32 = v9;
     while (1)
     {
-      if (*v47 != v34)
+      if (*v46 != v33)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v46 + 1) + 8 * v40);
+      v12 = *(*(&v45 + 1) + 8 * v39);
       context = objc_autoreleasePoolPush();
       collection = [v12 collection];
       holidayNodes = [collection holidayNodes];
 
-      v37 = [(PGGraphEdgeCollection *)PGGraphCelebratingEdgeCollection edgesToNodes:holidayNodes];
-      holidayNodes2 = [v37 holidayNodes];
+      v36 = [(PGGraphEdgeCollection *)PGGraphCelebratingEdgeCollection edgesToNodes:holidayNodes];
+      holidayNodes2 = [v36 holidayNodes];
       holidayNames = [holidayNodes2 holidayNames];
       v16 = v10;
       v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -1165,21 +1150,21 @@ LABEL_3:
       infoNode = [graphCopy infoNode];
       locale = [infoNode locale];
       countryCode = [locale countryCode];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __97__PGCommonTitleUtility_containsCelebrationForDateNodes_holidayName_titleGenerationContext_graph___block_invoke;
-      v42[3] = &unk_27887F838;
-      v44 = &v50;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __97__PGCommonTitleUtility_containsCelebrationForDateNodes_holidayName_titleGenerationContext_graph___block_invoke;
+      v41[3] = &unk_27887F838;
+      v43 = &v49;
       nameCopy = name;
       v23 = v17;
-      v43 = v23;
-      [holidayService enumerateEventRulesWithNames:holidayNames betweenLocalDate:localDate andLocalDate:localDate supportedCountryCode:countryCode usingBlock:v42];
+      v42 = v23;
+      [holidayService enumerateEventRulesWithNames:holidayNames betweenLocalDate:localDate andLocalDate:localDate supportedCountryCode:countryCode usingBlock:v41];
 
       v10 = v16;
-      v24 = *(v51 + 24);
+      v24 = *(v50 + 24);
       if (((name != 0) & v24) == 1)
       {
-        v25 = [v23 sortedArrayUsingSelector:v31];
+        v25 = [v23 sortedArrayUsingSelector:v30];
         firstObject = [v25 firstObject];
 
         v10 = firstObject;
@@ -1192,9 +1177,9 @@ LABEL_3:
         break;
       }
 
-      if (v33 == ++v40)
+      if (v32 == ++v39)
       {
-        v9 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+        v9 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -1211,10 +1196,9 @@ LABEL_3:
     *name = v10;
   }
 
-  v28 = *(v51 + 24);
+  v28 = *(v50 + 24);
 
-  _Block_object_dispose(&v50, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
   return v28 & 1;
 }
 

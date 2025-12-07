@@ -212,16 +212,15 @@
 {
   if ((type - 1) > 5)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_2789B8FD0[type - 1];
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
-  return v5;
+  return v4;
 }
 
 + (int64_t)content_typeForMutableObject:(id)object

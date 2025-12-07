@@ -6,6 +6,7 @@
 + (id)buildSetupITFMRequest:(id)request;
 + (id)buildSetupNLv4ProtoRequest:(id)request;
 + (id)buildSetupSNLCProtoRequest:(id)request;
++ (id)getPscOverrideProbabilityForLabel:(int)label;
 + (id)get_psc_index_to_parser;
 + (unique_ptr<sirinluinternalnlv4_parser::NLv4ParserRequest,)buildNLv4ProtoRequest:(id)request;
 + (void)_setWarmupRequestId:(id)id;
@@ -28,7 +29,7 @@
 
 + (void)populateParser:(id)parser parserToSet:(id)set
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   parserCopy = parser;
   setCopy = set;
   if ([parserCopy count])
@@ -37,31 +38,31 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v25 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
-      v26 = 2112;
-      v27 = setCopy;
+      v24 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
+      v25 = 2112;
+      v26 = setCopy;
       _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Doing a sweep on userParses and if there isn't one, set it to parserToSet=%@", buf, 0x16u);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = parserCopy;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           parser = [v12 parser];
           v14 = parser == 0;
 
@@ -71,9 +72,9 @@
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v25 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
-              v26 = 2112;
-              v27 = setCopy;
+              v24 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
+              v25 = 2112;
+              v26 = setCopy;
               _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s No parser set yet, set it to parserToSet=%@", buf, 0x16u);
             }
 
@@ -87,15 +88,15 @@
             {
               parser2 = [v12 parser];
               *buf = 136315394;
-              v25 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
-              v26 = 2112;
-              v27 = parser2;
+              v24 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
+              v25 = 2112;
+              v26 = parser2;
               _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s A parser is set already, moving on. parser=%@", buf, 0x16u);
             }
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -108,43 +109,41 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v25 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
+      v24 = "+[CDMNLServiceUtils populateParser:parserToSet:]";
       _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Early return as it's an empty userParses (either nil or empty)", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)buildLVCResponse:(id)response lvcRequest:(id)request
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   array = [MEMORY[0x1E695DF70] array];
-  v25 = +[CDMUserDefaultsUtils readUserDefaultLVCOverride];
+  v24 = +[CDMUserDefaultsUtils readUserDefaultLVCOverride];
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v34 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
+    v33 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
     _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Checking user defaults for com.apple.siri.cdm LVC override...", buf, 0xCu);
   }
 
-  if ([v25 length])
+  if ([v24 length])
   {
     string = objc_alloc_init(MEMORY[0x1E69D1190]);
-    [string setLanguageVariantName:v25];
+    [string setLanguageVariantName:v24];
     [string setLanguageVariantScore:1.0];
     v6 = CDMLogContext;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       dictionaryRepresentation = [string dictionaryRepresentation];
       *buf = 136315650;
-      v34 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
-      v35 = 2112;
-      *v36 = @"lvc";
-      *&v36[8] = 2112;
-      *&v36[10] = dictionaryRepresentation;
+      v33 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
+      v34 = 2112;
+      *v35 = @"lvc";
+      *&v35[8] = 2112;
+      *&v35[10] = dictionaryRepresentation;
       _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nWARNING: LVC override found. After override, LVC output %@", buf, 0x20u);
     }
 
@@ -155,25 +154,25 @@
   {
     string = [MEMORY[0x1E696AD60] string];
     [string appendString:@"LVC classification results: "];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = [responseCopy hypotheses];
-    v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v8)
     {
-      v9 = *v29;
+      v9 = *v28;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v9)
+          if (*v28 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * i);
+          v11 = *(*(&v27 + 1) + 8 * i);
           label = [v11 label];
           [v11 probability];
           [string appendFormat:@"[symbol=%d, prob=%.2f], ", label, v13];
@@ -192,11 +191,11 @@
               label2 = [v11 label];
               [v11 probability];
               *buf = 136315650;
-              v34 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
-              v35 = 1024;
-              *v36 = label2;
-              *&v36[4] = 2048;
-              *&v36[6] = v18;
+              v33 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
+              v34 = 1024;
+              *v35 = label2;
+              *&v35[4] = 2048;
+              *&v35[6] = v18;
               _os_log_error_impl(&dword_1DC287000, stringLabel, OS_LOG_TYPE_ERROR, "%s [ERR]: Language variant string representation is not set for label=%i prob=%.2f", buf, 0x1Cu);
             }
           }
@@ -206,7 +205,7 @@
           [array addObject:v14];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v8);
@@ -222,13 +221,11 @@
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v34 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
-    v35 = 2112;
-    *v36 = v20;
+    v33 = "+[CDMNLServiceUtils buildLVCResponse:lvcRequest:]";
+    v34 = 2112;
+    *v35 = v20;
     _os_log_debug_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEBUG, "%s CDMLVCResponseCommand: %@", buf, 0x16u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -361,9 +358,67 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
   return v16;
 }
 
++ (id)getPscOverrideProbabilityForLabel:(int)label
+{
+  v3 = *&label;
+  v17 = *MEMORY[0x1E69E9840];
+  get_psc_index_to_parser = [self get_psc_index_to_parser];
+  v5 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  v6 = [get_psc_index_to_parser objectForKeyedSubscript:v5];
+
+  v7 = +[CDMUserDefaultsUtils readUserDefaultPscOverride];
+  if ([v7 length])
+  {
+    if ([v7 isEqualToString:@"not-pommes"])
+    {
+      v8 = &unk_1F581A128;
+      goto LABEL_16;
+    }
+
+    if ([v7 isEqualToString:@"pommes"])
+    {
+      v9 = @"com.apple.search";
+LABEL_8:
+      if (v6 == v9)
+      {
+        v10 = &unk_1F581A138;
+      }
+
+      else
+      {
+        v10 = &unk_1F581A148;
+      }
+
+      v8 = v10;
+      goto LABEL_16;
+    }
+
+    if ([v7 isEqualToString:@"pommes-phase-2"])
+    {
+      v9 = @"com.apple.search_phase_2";
+      goto LABEL_8;
+    }
+
+    v11 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v13 = 136315394;
+      v14 = "+[CDMNLServiceUtils getPscOverrideProbabilityForLabel:]";
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s [WARN]: Unexpected PSC override %@", &v13, 0x16u);
+    }
+  }
+
+  v8 = 0;
+LABEL_16:
+
+  return v8;
+}
+
 + (id)buildPSCResponse:(id)response pscRequest:(id)request
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   requestCopy = request;
   rewriteMsg = [requestCopy rewriteMsg];
@@ -374,37 +429,37 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
     {
       rewrittenUtterance = [rewriteMsg rewrittenUtterance];
       *buf = 136315394;
-      v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-      v68 = 2112;
-      *v69 = rewrittenUtterance;
+      v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+      v67 = 2112;
+      *v68 = rewrittenUtterance;
       _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s PSC rewrittenUtterance being set to CCQR top hypothesis:%@", buf, 0x16u);
     }
   }
 
-  v57 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v56 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v7 = objc_alloc(MEMORY[0x1E695DF70]);
   hypotheses = [responseCopy hypotheses];
-  v55 = [v7 initWithCapacity:{objc_msgSend(hypotheses, "count")}];
+  v54 = [v7 initWithCapacity:{objc_msgSend(hypotheses, "count")}];
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = [responseCopy hypotheses];
-  v9 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+  v9 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
   if (v9)
   {
-    v10 = *v63;
+    v10 = *v62;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v63 != v10)
+        if (*v62 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v62 + 1) + 8 * i);
+        v12 = *(*(&v61 + 1) + 8 * i);
         if (([v12 hasStringLabel] & 1) == 0)
         {
           v13 = CDMOSLoggerForCategory(0);
@@ -413,11 +468,11 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
             label = [v12 label];
             [v12 probability];
             *buf = 136315650;
-            v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-            v68 = 1024;
-            *v69 = label;
-            *&v69[4] = 2048;
-            *&v69[6] = v32;
+            v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+            v67 = 1024;
+            *v68 = label;
+            *&v68[4] = 2048;
+            *&v68[6] = v32;
           }
 
           v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(v12, "label")];
@@ -433,7 +488,7 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
           [v12 probability];
           v19 = v18;
           v20 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-          [v57 setObject:v20 forKey:v17];
+          [v56 setObject:v20 forKey:v17];
 
           v21 = +[CDMNLServiceUtils getPscOverrideProbabilityForLabel:](CDMNLServiceUtils, "getPscOverrideProbabilityForLabel:", [v12 label]);
           if (v21)
@@ -444,13 +499,13 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
               stringLabel = [v12 stringLabel];
               [v21 floatValue];
               *buf = 136315906;
-              v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-              v68 = 2112;
-              *v69 = @"psc";
-              *&v69[8] = 2112;
-              *&v69[10] = stringLabel;
-              v70 = 2048;
-              v71 = v25;
+              v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+              v67 = 2112;
+              *v68 = @"psc";
+              *&v68[8] = 2112;
+              *&v68[10] = stringLabel;
+              v69 = 2048;
+              v70 = v25;
               _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nWARNING: PSC override found - setting '%@' parse to probability=%.2f", buf, 0x2Au);
             }
 
@@ -468,13 +523,13 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315906;
-                v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-                v68 = 2112;
-                *v69 = v17;
-                *&v69[8] = 2048;
-                *&v69[10] = v19;
-                v70 = 2048;
-                v71 = 0.600000024;
+                v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+                v67 = 2112;
+                *v68 = v17;
+                *&v68[8] = 2048;
+                *&v68[10] = v19;
+                v69 = 2048;
+                v70 = 0.600000024;
                 _os_log_debug_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEBUG, "%s Not emitting PSC parse for externalParserId=%@: probability=%.2f < threshold=%.2f", buf, 0x2Au);
               }
 
@@ -485,18 +540,18 @@ void __43__CDMNLServiceUtils_buildSetupITFMRequest___block_invoke(uint64_t a1, v
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315906;
-              v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-              v68 = 2112;
-              *v69 = v17;
-              *&v69[8] = 2048;
-              *&v69[10] = v19;
-              v70 = 2048;
-              v71 = 0.600000024;
+              v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+              v67 = 2112;
+              *v68 = v17;
+              *&v68[8] = 2048;
+              *&v68[10] = v19;
+              v69 = 2048;
+              v70 = 0.600000024;
               _os_log_debug_impl(&dword_1DC287000, v30, OS_LOG_TYPE_DEBUG, "%s PSC parse externalParserId=%@: probability=%.2f is below threshold (%.2f), but emitting due to ambiguity refactor being disabled.", buf, 0x2Au);
             }
           }
 
-          [v55 addObject:v26];
+          [v54 addObject:v26];
 LABEL_30:
 
           goto LABEL_31;
@@ -508,58 +563,58 @@ LABEL_30:
           stringLabel2 = [v12 stringLabel];
           [v12 probability];
           *buf = 136315650;
-          v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-          v68 = 2112;
-          *v69 = stringLabel2;
-          *&v69[8] = 2048;
-          *&v69[10] = v29;
+          v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+          v67 = 2112;
+          *v68 = stringLabel2;
+          *&v68[8] = 2048;
+          *&v68[10] = v29;
           _os_log_debug_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEBUG, "%s Not emitting PSC parse for label=%@ prob=%.2f, no externalParserId found", buf, 0x20u);
         }
 
 LABEL_31:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+      v9 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
     }
 
     while (v9);
   }
 
-  if (![v55 count])
+  if (![v54 count])
   {
-    v53 = [v57 objectForKeyedSubscript:@"com.apple.search"];
-    v52 = [v57 objectForKeyedSubscript:@"com.apple.search_phase_2"];
-    if (v53)
+    v52 = [v56 objectForKeyedSubscript:@"com.apple.search"];
+    v51 = [v56 objectForKeyedSubscript:@"com.apple.search_phase_2"];
+    if (v52)
     {
-      if (v52)
+      if (v51)
       {
-        [v53 floatValue];
-        v34 = v33;
         [v52 floatValue];
+        v34 = v33;
+        [v51 floatValue];
         if ((v34 + v35) >= 0.6)
         {
-          v75[0] = @"com.apple.search";
-          v75[1] = @"com.apple.search_phase_2";
-          [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
+          v74[0] = @"com.apple.search";
+          v74[1] = @"com.apple.search_phase_2";
+          [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:2];
+          v59 = 0u;
           v60 = 0u;
-          v61 = 0u;
-          v58 = 0u;
-          v36 = v59 = 0u;
-          v37 = [v36 countByEnumeratingWithState:&v58 objects:v74 count:16];
+          v57 = 0u;
+          v36 = v58 = 0u;
+          v37 = [v36 countByEnumeratingWithState:&v57 objects:v73 count:16];
           if (v37)
           {
-            v38 = *v59;
+            v38 = *v58;
             do
             {
               for (j = 0; j != v37; ++j)
               {
-                if (*v59 != v38)
+                if (*v58 != v38)
                 {
                   objc_enumerationMutation(v36);
                 }
 
-                v40 = *(*(&v58 + 1) + 8 * j);
-                v41 = [v57 objectForKeyedSubscript:v40];
+                v40 = *(*(&v57 + 1) + 8 * j);
+                v41 = [v56 objectForKeyedSubscript:v40];
                 [v41 floatValue];
                 v43 = v42;
                 v44 = [CDMNLServiceUtils buildPSCUserParseForExternalParserId:v40 probability:rewriteMsg rewriteMsg:?];
@@ -567,22 +622,22 @@ LABEL_31:
                 if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136316162;
-                  v67 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
-                  v68 = 2112;
-                  *v69 = v40;
-                  *&v69[8] = 2048;
-                  *&v69[10] = v43;
-                  v70 = 2048;
-                  v71 = 0.600000024;
-                  v72 = 2048;
-                  v73 = 0x3FE3333340000000;
+                  v66 = "+[CDMNLServiceUtils buildPSCResponse:pscRequest:]";
+                  v67 = 2112;
+                  *v68 = v40;
+                  *&v68[8] = 2048;
+                  *&v68[10] = v43;
+                  v69 = 2048;
+                  v70 = 0.600000024;
+                  v71 = 2048;
+                  v72 = 0x3FE3333340000000;
                   _os_log_debug_impl(&dword_1DC287000, v45, OS_LOG_TYPE_DEBUG, "%s PSC parse externalParserId=%@: probability=%.2f is below threshold (%.2f), but emitting as POMMES + POMMES_PHASE_2 > (%.2f).", buf, 0x34u);
                 }
 
-                [v55 addObject:v44];
+                [v54 addObject:v44];
               }
 
-              v37 = [v36 countByEnumeratingWithState:&v58 objects:v74 count:16];
+              v37 = [v36 countByEnumeratingWithState:&v57 objects:v73 count:16];
             }
 
             while (v37);
@@ -592,16 +647,14 @@ LABEL_31:
     }
   }
 
-  v46 = [[CDMPSCResponseCommand alloc] initWithPscParses:v55 pscResponse:responseCopy];
-
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = [[CDMPSCResponseCommand alloc] initWithPscParses:v54 pscResponse:responseCopy];
 
   return v46;
 }
 
 + (id)buildSNLCProtoResponse:(id)response snlcRequest:(id)request parserToSet:(id)set
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   requestCopy = request;
   setCopy = set;
@@ -611,56 +664,56 @@ LABEL_31:
     hypotheses = [responseCopy hypotheses];
     firstObject = [hypotheses firstObject];
     *buf = 136315394;
-    v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
-    v73 = 1024;
-    LODWORD(v74) = [firstObject label];
+    v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+    v72 = 1024;
+    LODWORD(v73) = [firstObject label];
     _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s SNLC classification result=%i", buf, 0x12u);
   }
 
-  v59 = +[CDMUserDefaultsUtils readUserDefaultSnlcOverride];
+  v58 = +[CDMUserDefaultsUtils readUserDefaultSnlcOverride];
   v9 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+    v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
     _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s Checking user defaults for com.apple.siri.cdm SNLC override...", buf, 0xCu);
   }
 
-  if ([v59 length])
+  if ([v58 length])
   {
-    if ([v59 isEqualToString:@"server"])
+    if ([v58 isEqualToString:@"server"])
     {
       v10 = CDMLogContext;
       if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_INFO))
       {
         *buf = 136315906;
-        v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
-        v73 = 2112;
-        v74 = @"snlc";
-        v75 = 2112;
-        v76 = @"server";
-        v77 = 2048;
-        v78 = 0x3FF0000000000000;
+        v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+        v72 = 2112;
+        v73 = @"snlc";
+        v74 = 2112;
+        v75 = @"server";
+        v76 = 2048;
+        v77 = 0x3FF0000000000000;
         _os_log_impl(&dword_1DC287000, v10, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nWARNING: SNLC defaults override found. Overriding SNLC classification result with %@ and probability=%.2f", buf, 0x2Au);
       }
     }
 
     else
     {
-      if ([v59 isEqualToString:@"device"])
+      if ([v58 isEqualToString:@"device"])
       {
         v11 = CDMLogContext;
         v12 = 1;
         if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_INFO))
         {
           *buf = 136315906;
-          v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
-          v73 = 2112;
-          v74 = @"snlc";
-          v75 = 2112;
-          v76 = @"device";
-          v77 = 2048;
-          v78 = 0x3FF0000000000000;
+          v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+          v72 = 2112;
+          v73 = @"snlc";
+          v74 = 2112;
+          v75 = @"device";
+          v76 = 2048;
+          v77 = 0x3FF0000000000000;
           _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nWARNING: SNLC defaults override found. Overriding SNLC classification result with %@ and probability=%.2f", buf, 0x2Au);
         }
 
@@ -671,32 +724,32 @@ LABEL_31:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+        v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
         _os_log_error_impl(&dword_1DC287000, v13, OS_LOG_TYPE_ERROR, "%s [ERR]: Unknown SNLC override label. Falling back on SERVER", buf, 0xCu);
       }
     }
 
     v12 = 0;
 LABEL_16:
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     hypotheses2 = [responseCopy hypotheses];
-    v15 = [hypotheses2 countByEnumeratingWithState:&v65 objects:v70 count:16];
+    v15 = [hypotheses2 countByEnumeratingWithState:&v64 objects:v69 count:16];
     if (v15)
     {
-      v16 = *v66;
+      v16 = *v65;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v66 != v16)
+          if (*v65 != v16)
           {
             objc_enumerationMutation(hypotheses2);
           }
 
-          v18 = *(*(&v65 + 1) + 8 * i);
+          v18 = *(*(&v64 + 1) + 8 * i);
           if ([v18 label] == v12)
           {
             LODWORD(v19) = 1.0;
@@ -711,7 +764,7 @@ LABEL_16:
           }
         }
 
-        v15 = [hypotheses2 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        v15 = [hypotheses2 countByEnumeratingWithState:&v64 objects:v69 count:16];
       }
 
       while (v15);
@@ -724,17 +777,17 @@ LABEL_16:
       firstObject2 = [hypotheses4 firstObject];
       label = [firstObject2 label];
       *buf = 136315650;
-      v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
-      v73 = 2112;
-      v74 = @"snlc";
-      v75 = 1024;
-      LODWORD(v76) = label;
+      v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+      v72 = 2112;
+      v73 = @"snlc";
+      v74 = 1024;
+      LODWORD(v75) = label;
       _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nCorrected SNLC classification result=%i (after override).", buf, 0x1Cu);
     }
   }
 
   rewriteMsg = [requestCopy rewriteMsg];
-  v57 = rewriteMsg;
+  v56 = rewriteMsg;
   v27 = objc_alloc_init(MEMORY[0x1E69D1178]);
   [v27 setAsrHypothesisIndex:0];
   [v27 setExternalParserId:@"com.apple.siri.nlv3"];
@@ -745,9 +798,9 @@ LABEL_16:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
-    v73 = 1024;
-    LODWORD(v74) = rewriteMsg != 0;
+    v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+    v72 = 1024;
+    LODWORD(v73) = rewriteMsg != 0;
     _os_log_debug_impl(&dword_1DC287000, v29, OS_LOG_TYPE_DEBUG, "%s SNLC rewrittenUtterances size=%d", buf, 0x12u);
   }
 
@@ -763,9 +816,9 @@ LABEL_16:
       {
         rewrittenUtterance2 = [rewriteMsg rewrittenUtterance];
         *buf = 136315394;
-        v72 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
-        v73 = 2112;
-        v74 = rewrittenUtterance2;
+        v71 = "+[CDMNLServiceUtils buildSNLCProtoResponse:snlcRequest:parserToSet:]";
+        v72 = 2112;
+        v73 = rewrittenUtterance2;
         _os_log_debug_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEBUG, "%s SNLC rewrittenUtterance being set to CCQR top hypothesis:%@", buf, 0x16u);
       }
 
@@ -789,25 +842,25 @@ LABEL_16:
   requestId = [parserRequest requestId];
   [v37 setIdA:requestId];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   hypotheses5 = [responseCopy hypotheses];
-  v41 = [hypotheses5 countByEnumeratingWithState:&v61 objects:v69 count:16];
+  v41 = [hypotheses5 countByEnumeratingWithState:&v60 objects:v68 count:16];
   if (v41)
   {
-    v42 = *v62;
+    v42 = *v61;
     while (2)
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v62 != v42)
+        if (*v61 != v42)
         {
           objc_enumerationMutation(hypotheses5);
         }
 
-        v44 = *(*(&v61 + 1) + 8 * j);
+        v44 = *(*(&v60 + 1) + 8 * j);
         if (![v44 label])
         {
           [v44 probability];
@@ -816,7 +869,7 @@ LABEL_16:
         }
       }
 
-      v41 = [hypotheses5 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v41 = [hypotheses5 countByEnumeratingWithState:&v60 objects:v68 count:16];
       if (v41)
       {
         continue;
@@ -836,8 +889,6 @@ LABEL_46:
   hypotheses7 = [responseCopy hypotheses];
   firstObject3 = [hypotheses7 firstObject];
   v51 = -[CDMSNLCProtoResponseCommand initWithClassLabel:snlcParses:snlcResponse:](v48, "initWithClassLabel:snlcParses:snlcResponse:", [firstObject3 label], v46, responseCopy);
-
-  v52 = *MEMORY[0x1E69E9840];
 
   return v51;
 }
@@ -1027,21 +1078,20 @@ void __48__CDMNLServiceUtils_buildSetupNLv4ProtoRequest___block_invoke(uint64_t 
 
 + (unique_ptr<sirinluinternalnlv4_parser::NLv4ParserRequest,)buildNLv4ProtoRequest:(id)request
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "+[CDMNLServiceUtils buildNLv4ProtoRequest:]";
-    _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Convert SIRINLUINTERNALNLV4_PARSERNLv4ParserRequest to sirinluinternalnlv4_parser::NLv4ParserRequest...", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "+[CDMNLServiceUtils buildNLv4ProtoRequest:]";
+    _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Convert SIRINLUINTERNALNLV4_PARSERNLv4ParserRequest to sirinluinternalnlv4_parser::NLv4ParserRequest...", &v8, 0xCu);
   }
 
   v5 = MEMORY[0x1E69D1430];
   parserRequest = [requestCopy parserRequest];
   [v5 convertNLv4ParserRequestToCpp:parserRequest];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1059,18 +1109,16 @@ void __48__CDMNLServiceUtils_buildSetupNLv4ProtoRequest___block_invoke(uint64_t 
 
 void __44__CDMNLServiceUtils_get_psc_index_to_parser__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F5819D20;
-  v3[1] = &unk_1F5819D08;
-  v4[0] = &stru_1F5800F50;
-  v4[1] = @"com.apple.search";
-  v3[2] = &unk_1F5819D38;
-  v4[2] = @"com.apple.search_phase_2";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F5819D20;
+  v2[1] = &unk_1F5819D08;
+  v3[0] = &stru_1F5800F50;
+  v3[1] = @"com.apple.search";
+  v2[2] = &unk_1F5819D38;
+  v3[2] = @"com.apple.search_phase_2";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = +[CDMNLServiceUtils get_psc_index_to_parser]::_PSC_INDEX_TO_PARSER;
   +[CDMNLServiceUtils get_psc_index_to_parser]::_PSC_INDEX_TO_PARSER = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

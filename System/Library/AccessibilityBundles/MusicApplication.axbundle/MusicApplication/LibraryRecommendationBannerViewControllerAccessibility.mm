@@ -48,27 +48,20 @@
   [v3 _setAccessibilityTraitsBlock:&__block_literal_global_326];
 }
 
-id __100__LibraryRecommendationBannerViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1)
+id __100__LibraryRecommendationBannerViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
   if (*(a1 + 64))
   {
-    v10 = accessibilityMusicLocalizedString(@"explicit");
-    v5 = __UIAXStringForVariables();
+    v4 = accessibilityMusicLocalizedString(@"explicit");
+    v2 = __UIAXStringForVariables();
   }
 
   else
   {
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 56);
-    v7 = *(a1 + 40);
-    v5 = __UIAXStringForVariables();
+    v2 = __UIAXStringForVariables();
   }
 
-  return v5;
+  return v2;
 }
 
 - (void)accessibilityUpdateBannerDisplay

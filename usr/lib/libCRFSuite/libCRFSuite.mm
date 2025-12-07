@@ -1,10 +1,10 @@
-uint64_t model_release(_DWORD *a1)
+uint64_t model_release(void ***a1)
 {
   v2 = crfsuite_interlocked_decrement(a1 + 2);
   if (!v2)
   {
     v3 = *a1;
-    crf1dt_delete(**(*a1 + 40));
+    crf1dt_delete(*(*a1)[5]);
     free(v3[5]);
     free(v3[4]);
     free(v3[1]);
@@ -558,7 +558,7 @@ uint64_t cqdb_to_id(void *a1, char *__s)
   return 4294966273;
 }
 
-uint64_t cqdb_to_string(uint64_t a1, unsigned int a2)
+uint64_t cqdb_to_string(uint64_t a1, int a2)
 {
   v2 = *(a1 + 4136);
   if (v2 && *(a1 + 32) > a2 && (v3 = *(v2 + 4 * a2), v3))
@@ -572,7 +572,7 @@ uint64_t cqdb_to_string(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t hashword(_DWORD *a1, uint64_t a2, int a3)
+uint64_t hashword(_DWORD *a1, unint64_t a2, int a3)
 {
   v3 = (a3 + 4 * a2 - 559038737);
   if (a2 < 4)
@@ -644,7 +644,7 @@ uint64_t hashword(_DWORD *a1, uint64_t a2, int a3)
   return (HIDWORD(v17) ^ v21) - (v17 >> 8);
 }
 
-_DWORD *hashword2(_DWORD *result, uint64_t a2, int *a3, _DWORD *a4)
+_DWORD *hashword2(_DWORD *result, unint64_t a2, int *a3, _DWORD *a4)
 {
   v4 = *a3 + 4 * a2 - 559038737;
   v5 = v4 + *a4;
@@ -1029,8 +1029,9 @@ LABEL_17:
   }
 }
 
-uint64_t crf1dc_new(int a1, int a2, int a3)
+_DWORD *crf1dc_new(int a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = malloc_type_calloc(1uLL, 0x70uLL, 0x109004037870131uLL);
   v7 = v6;
   if (v6)
@@ -1069,7 +1070,7 @@ uint64_t crf1dc_new(int a1, int a2, int a3)
       }
     }
 
-    if (!crf1dc_set_num_items(v7, a3))
+    if (!crf1dc_set_num_items(v7, v3))
     {
       *(v7 + 8) = 0;
     }
@@ -1789,13 +1790,13 @@ uint64_t crf1dc_viterbi(uint64_t result, uint64_t a2)
 
 uint64_t crf1dc_debug_context(FILE *a1)
 {
-  v90 = *MEMORY[0x29EDCA608];
+  v89 = *MEMORY[0x29EDCA608];
   v2 = crf1dc_new(2, 3, 3);
-  v3 = *(v2 + 80);
-  v4 = *(v2 + 88);
+  v3 = *(v2 + 10);
+  v4 = *(v2 + 11);
   *v3 = xmmword_297732580;
   *(v3 + 16) = 0x3FB999999999999ALL;
-  v5 = *(v2 + 4);
+  v5 = v2[1];
   v6 = v3 + 8 * v5;
   *v6 = 0x3FD999999999999ALL;
   *(v6 + 8) = xmmword_297732590;
@@ -1810,14 +1811,14 @@ uint64_t crf1dc_debug_context(FILE *a1)
   v9 = v4 + 16 * v5;
   *v9 = 0x3FE0000000000000;
   *(v9 + 8) = xmmword_2977325B0;
-  *(v2 + 8) = *(v2 + 12);
+  v2[2] = v2[3];
   crf1dc_alpha_score(v2);
   crf1dc_beta_score(v2);
   v10 = 0;
-  v11 = *(v2 + 80);
-  v12 = *(v2 + 88);
-  v13 = *(v2 + 4);
-  v14 = v89;
+  v11 = *(v2 + 10);
+  v12 = *(v2 + 11);
+  v13 = v2[1];
+  v14 = v88;
   do
   {
     v15 = 0;
@@ -1848,7 +1849,7 @@ uint64_t crf1dc_debug_context(FILE *a1)
   while (v10 != 3);
   v21 = 0;
   v22 = 0.0;
-  v23 = v89;
+  v23 = v88;
   do
   {
     v24 = 0;
@@ -1871,10 +1872,10 @@ uint64_t crf1dc_debug_context(FILE *a1)
 
   while (v21 != 3);
   fwrite("Check for the partition factor... ", 0x22uLL, 1uLL, a1);
-  v27 = exp(*(v2 + 16));
+  v27 = exp(*(v2 + 2));
   check_values(a1, v27, v22);
   v28 = 0;
-  v29 = v89;
+  v29 = v88;
   do
   {
     v30 = 0;
@@ -1883,10 +1884,10 @@ uint64_t crf1dc_debug_context(FILE *a1)
     {
       for (j = 0; j != 3; ++j)
       {
-        v88[0] = v28;
-        v88[1] = v30;
-        v88[2] = j;
-        v33 = crf1dc_score(v2, v88) - *(v2 + 16);
+        v87[0] = v28;
+        v87[1] = v30;
+        v87[2] = j;
+        v33 = crf1dc_score(v2, v87) - *(v2 + 2);
         fprintf(a1, "Check for the sequence %d-%d-%d... ", v28, v30, j);
         v34 = exp(v33);
         check_values(a1, v34, *&v31[8 * j] / v22);
@@ -1903,7 +1904,7 @@ uint64_t crf1dc_debug_context(FILE *a1)
 
   while (v28 != 3);
   v35 = 0;
-  v36 = v89;
+  v36 = v88;
   do
   {
     v37 = 0;
@@ -1921,9 +1922,9 @@ uint64_t crf1dc_debug_context(FILE *a1)
     }
 
     while (v37 != 3);
-    v41 = *(*(v2 + 40) + 8 * v35);
-    v42 = *(*(v2 + 48) + 8 * v35);
-    v43 = 1.0 / **(v2 + 56);
+    v41 = *(*(v2 + 5) + 8 * v35);
+    v42 = *(*(v2 + 6) + 8 * v35);
+    v43 = 1.0 / **(v2 + 7);
     fprintf(a1, "Check for the marginal probability (0,%d)... ", v35);
     check_values(a1, v41 * v42 * v43, v38 / v22);
     ++v35;
@@ -1932,7 +1933,7 @@ uint64_t crf1dc_debug_context(FILE *a1)
 
   while (v35 != 3);
   v44 = 0;
-  v45 = v89;
+  v45 = v88;
   do
   {
     v46 = 0;
@@ -1950,10 +1951,10 @@ uint64_t crf1dc_debug_context(FILE *a1)
     }
 
     while (v46 != 3);
-    v50 = *(v2 + 4);
-    v51 = *(*(v2 + 40) + 8 * v50 + 8 * v44);
-    v52 = *(*(v2 + 48) + 8 * v50 + 8 * v44);
-    v53 = 1.0 / *(*(v2 + 56) + 8);
+    v50 = v2[1];
+    v51 = *(*(v2 + 5) + 8 * v50 + 8 * v44);
+    v52 = *(*(v2 + 6) + 8 * v50 + 8 * v44);
+    v53 = 1.0 / *(*(v2 + 7) + 8);
     fprintf(a1, "Check for the marginal probability (1,%d)... ", v44);
     check_values(a1, v51 * v52 * v53, v47 / v22);
     ++v44;
@@ -1962,7 +1963,7 @@ uint64_t crf1dc_debug_context(FILE *a1)
 
   while (v44 != 3);
   v54 = 0;
-  v55 = v89;
+  v55 = v88;
   do
   {
     v56 = 0;
@@ -1980,10 +1981,10 @@ uint64_t crf1dc_debug_context(FILE *a1)
     }
 
     while (v56 != 3);
-    v60 = *(v2 + 4);
-    v61 = *(*(v2 + 40) + 16 * v60 + 8 * v54);
-    v62 = *(*(v2 + 48) + 16 * v60 + 8 * v54);
-    v63 = 1.0 / *(*(v2 + 56) + 16);
+    v60 = v2[1];
+    v61 = *(*(v2 + 5) + 16 * v60 + 8 * v54);
+    v62 = *(*(v2 + 6) + 16 * v60 + 8 * v54);
+    v63 = 1.0 / *(*(v2 + 7) + 16);
     fprintf(a1, "Check for the marginal probability (2,%d)... ", v54);
     check_values(a1, v61 * v62 * v63, v57 / v22);
     ++v54;
@@ -1992,7 +1993,7 @@ uint64_t crf1dc_debug_context(FILE *a1)
 
   while (v54 != 3);
   v64 = 0;
-  v65 = v89;
+  v65 = v88;
   do
   {
     v66 = 0;
@@ -2008,11 +2009,11 @@ uint64_t crf1dc_debug_context(FILE *a1)
       }
 
       while (v68 != 24);
-      v70 = *(v2 + 4);
-      v71 = *(*(v2 + 40) + 8 * v64);
-      v72 = *(*(v2 + 48) + 8 * v70 + 8 * v66);
-      v73 = *(*(v2 + 80) + 8 * v70 + 8 * v66);
-      v74 = *(*(v2 + 88) + 8 * v70 * v64 + 8 * v66);
+      v70 = v2[1];
+      v71 = *(*(v2 + 5) + 8 * v64);
+      v72 = *(*(v2 + 6) + 8 * v70 + 8 * v66);
+      v73 = *(*(v2 + 10) + 8 * v70 + 8 * v66);
+      v74 = *(*(v2 + 11) + 8 * v70 * v64 + 8 * v66);
       fprintf(a1, "Check for the marginal probability (0,%d)-(1,%d)... ", v64, v66);
       check_values(a1, v72 * (v73 * (v71 * v74)), v69 / v22);
       ++v66;
@@ -2026,7 +2027,7 @@ uint64_t crf1dc_debug_context(FILE *a1)
 
   while (v64 != 3);
   v75 = 0;
-  v76 = v89;
+  v76 = v88;
   do
   {
     v77 = 0;
@@ -2042,11 +2043,11 @@ uint64_t crf1dc_debug_context(FILE *a1)
       }
 
       while (v79 != 216);
-      v81 = *(v2 + 4);
-      v82 = *(*(v2 + 40) + 8 * v81 + 8 * v75);
-      v83 = *(*(v2 + 48) + 16 * v81 + 8 * v77);
-      v84 = *(*(v2 + 80) + 16 * v81 + 8 * v77);
-      v85 = *(*(v2 + 88) + 8 * v81 * v75 + 8 * v77);
+      v81 = v2[1];
+      v82 = *(*(v2 + 5) + 8 * v81 + 8 * v75);
+      v83 = *(*(v2 + 6) + 16 * v81 + 8 * v77);
+      v84 = *(*(v2 + 10) + 16 * v81 + 8 * v77);
+      v85 = *(*(v2 + 11) + 8 * v81 * v75 + 8 * v77);
       fprintf(a1, "Check for the marginal probability (1,%d)-(2,%d)... ", v75, v77);
       result = check_values(a1, v83 * (v84 * (v82 * v85)), v80 / v22);
       ++v77;
@@ -2059,7 +2060,6 @@ uint64_t crf1dc_debug_context(FILE *a1)
   }
 
   while (v75 != 3);
-  v87 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2134,12 +2134,12 @@ uint64_t encoder_exchange_options(uint64_t *a1, uint64_t a2, int a3)
   return 0;
 }
 
-uint64_t encoder_initialize(uint64_t *a1, uint64_t a2, uint64_t *a3)
+uint64_t encoder_initialize(uint64_t *a1, _DWORD *a2, uint64_t *a3)
 {
   v6 = *a1;
-  v7 = *(a2 + 20);
-  v8 = *(a2 + 24);
-  v9 = *(a2 + 16);
+  v7 = a2[5];
+  v8 = a2[6];
+  v9 = a2[4];
   *(v6 + 40) = 0;
   *(v6 + 24) = 0u;
   *(v6 + 8) = 0u;
@@ -2153,13 +2153,18 @@ uint64_t encoder_initialize(uint64_t *a1, uint64_t a2, uint64_t *a3)
   else
   {
     v10 = 0;
-    v11 = 0;
+    LODWORD(v11) = 0;
     do
     {
       v12 = *dataset_get(a2, v10);
       if (v11 <= v12)
       {
         v11 = v12;
+      }
+
+      else
+      {
+        v11 = v11;
       }
 
       ++v10;
@@ -2170,49 +2175,25 @@ uint64_t encoder_initialize(uint64_t *a1, uint64_t a2, uint64_t *a3)
 
   v13 = crf1dc_new(3, v7, v11);
   *(v6 + 40) = v13;
-  if (!v13)
-  {
-    goto LABEL_13;
-  }
-
-  logging(a3, "Feature generation\n", v14, v15, v16, v17, v18, v19, v67);
-  logging(a3, "type: CRF1d\n", v20, v21, v22, v23, v24, v25, v68);
-  logging(a3, "feature.minfreq: %f\n", v26, v27, v28, v29, v30, v31, *(v6 + 48));
-  logging(a3, "feature.possible_states: %d\n", v32, v33, v34, v35, v36, v37, *(v6 + 56));
-  logging(a3, "feature.possible_transitions: %d\n", v38, v39, v40, v41, v42, v43, *(v6 + 60));
-  v44 = clock();
-  v45 = crf1df_generate((v6 + 12), a2, v7, *(v6 + 48), v8, *(v6 + 56) != 0, *(v6 + 60) != 0, a3[1], *a3);
-  *(v6 + 16) = v45;
-  if (!v45)
-  {
-    goto LABEL_13;
-  }
-
-  logging(a3, "Number of features: %d\n", v46, v47, v48, v49, v50, v51, *(v6 + 12));
-  v52 = clock();
-  logging(a3, "Seconds required: %.3f\n", v53, v54, v55, v56, v57, v58, COERCE__INT64((v52 - v44) / 1000000.0));
-  logging(a3, "\n", v59, v60, v61, v62, v63, v64, v69);
-  crf1df_init_references((v6 + 24), (v6 + 32), *(v6 + 16), *(v6 + 12), v8, v7);
-  if (*(v6 + 24) && *(v6 + 32))
+  if (v13 && (logging(a3, "Feature generation\n"), logging(a3, "type: CRF1d\n"), logging(a3, "feature.minfreq: %f\n", *(v6 + 48)), logging(a3, "feature.possible_states: %d\n", *(v6 + 56)), logging(a3, "feature.possible_transitions: %d\n", *(v6 + 60)), v14 = clock(), v15 = crf1df_generate((v6 + 12), a2, v7, *(v6 + 48), v8, *(v6 + 56) != 0, *(v6 + 60) != 0, a3[1], *a3), (*(v6 + 16) = v15) != 0) && (logging(a3, "Number of features: %d\n", *(v6 + 12)), v16 = clock(), logging(a3, "Seconds required: %.3f\n", (v16 - v14) / 1000000.0), logging(a3, "\n"), crf1df_init_references((v6 + 24), (v6 + 32), *(v6 + 16), *(v6 + 12), v8, v7), *(v6 + 24)) && *(v6 + 32))
   {
     result = 0;
   }
 
   else
   {
-LABEL_13:
     crf1de_finish(v6);
     result = 2147483649;
   }
 
   a1[3] = a2;
-  v66 = *(*(v6 + 40) + 12);
+  v18 = *(*(v6 + 40) + 12);
   *(a1 + 11) = *(v6 + 12);
-  *(a1 + 12) = v66;
+  *(a1 + 12) = v18;
   return result;
 }
 
-uint64_t encoder_objective_and_gradients_batch(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, uint64_t a5)
+uint64_t encoder_objective_and_gradients_batch(uint64_t *a1, uint64_t a2, uint64_t a3, double *a4, double *a5)
 {
   v9 = *a1;
   v10 = *(a2 + 16);
@@ -2267,10 +2248,10 @@ uint64_t encoder_objective_and_gradients_batch(uint64_t a1, uint64_t a2, uint64_
   return 0;
 }
 
-uint64_t encoder_save_model(uint64_t a1, const char *a2, uint64_t a3, void *a4)
+uint64_t encoder_save_model(unsigned int **a1, const char *a2, double *a3, void *a4)
 {
   v6 = *a1;
-  v7 = **(a1 + 24);
+  v7 = *a1[3];
   v8 = *(v7 + 16);
   v9 = *(v7 + 24);
   v10 = crf1mmw(a2);
@@ -2279,14 +2260,15 @@ uint64_t encoder_save_model(uint64_t a1, const char *a2, uint64_t a3, void *a4)
     return 2147483652;
   }
 
-  v12 = v10;
-  v13 = crf1de_write_model(v6, v10, a3, v8, v9, a4, 0, v11);
-  crf1dmw_close(v12);
-  return v13;
+  v11 = v10;
+  v12 = crf1de_write_model(v6, v10, a3, v8, v9, a4, 0);
+  crf1dmw_close(v11);
+  return v12;
 }
 
-uint64_t encoder_save_model_to_file_pointer(unsigned int **a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t encoder_save_model_to_file_pointer(unsigned int **a1, uint64_t a2, double *a3, void *a4, uint64_t a5)
 {
+  v5 = a5;
   v9 = *a1;
   v10 = *a1[3];
   v11 = *(v10 + 16);
@@ -2318,22 +2300,22 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if ((a5 & 0x14) == 0)
+  if ((v5 & 0x14) == 0)
   {
-    v24 = *(v10 + 16);
-    v25 = crf1mmw_from_file_pointer(a2);
-    if (v25)
+    v18 = *(v10 + 16);
+    v19 = crf1mmw_from_file_pointer(a2);
+    if (v19)
     {
-      v27 = v25;
-      v28 = crf1de_write_model(v9, v25, a3, v24, v16, a4, a5, v26);
-      crf1dmw_close(v27);
-      return v28;
+      v20 = v19;
+      v21 = crf1de_write_model(v9, v19, a3, v18, v16, a4, v5);
+      crf1dmw_close(v20);
+      return v21;
     }
 
     return 2147483652;
   }
 
-  if ((~a5 & 3) != 0)
+  if ((~v5 & 3) != 0)
   {
     v12 = *MEMORY[0x29EDCA610];
     v13 = "To use compact or quantized format, you must store attributes and labels out side of crfsuite model.\n";
@@ -2341,7 +2323,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if ((a5 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
     compact_model_writer_from_file_pointer = create_compact_model_writer_from_file_pointer(a2);
   }
@@ -2351,19 +2333,72 @@ LABEL_15:
     compact_model_writer_from_file_pointer = create_quantized_model_writer_from_file_pointer(a2);
   }
 
-  v30 = compact_model_writer_from_file_pointer;
+  v23 = compact_model_writer_from_file_pointer;
   if (!compact_model_writer_from_file_pointer)
   {
     return 2147483652;
   }
 
-  logging(a4, "Storing the model\n", v18, v19, v20, v21, v22, v23, v125);
-  v31 = clock();
-  logging(a4, "Writing label features\n", v32, v33, v34, v35, v36, v37, v126);
-  v38 = malloc_type_calloc(8uLL, *v9 * *v9, 0x100004000313F17uLL);
-  v39 = v38;
-  v40 = *v9;
-  if (v40 < 1)
+  logging(a4, "Storing the model\n");
+  v24 = clock();
+  logging(a4, "Writing label features\n");
+  v25 = malloc_type_calloc(8uLL, *v9 * *v9, 0x100004000313F17uLL);
+  v26 = v25;
+  v27 = *v9;
+  if (v27 < 1)
+  {
+    v29 = 0;
+  }
+
+  else
+  {
+    v28 = 0;
+    v29 = 0;
+    v30 = *(v9 + 4);
+    do
+    {
+      v31 = (v30 + 16 * v28);
+      v32 = *v31;
+      if (v32 >= 1)
+      {
+        v33 = *(v31 + 1);
+        do
+        {
+          v35 = *v33++;
+          v34 = v35;
+          v36 = a3[v35];
+          if (v36 != 0.0)
+          {
+            v37 = (*(v9 + 2) + 24 * v34);
+            if (*v37 != 1)
+            {
+              encoder_save_model_to_file_pointer_cold_1();
+            }
+
+            ++v29;
+            *(v25 + v37[2] + v27 * v28) = v36;
+          }
+
+          --v32;
+        }
+
+        while (v32);
+      }
+
+      ++v28;
+    }
+
+    while (v28 != v27);
+  }
+
+  v55 = v24;
+  write_label_features(v23);
+  free(v26);
+  logging(a4, "Writing attribute feature counts and offsets.\n");
+  v38 = malloc_type_calloc(4uLL, v9[1], 0x100004052888210uLL);
+  v39 = malloc_type_calloc(4uLL, v9[1], 0x100004052888210uLL);
+  v40 = v39;
+  if (v9[1] < 1)
   {
     v42 = 0;
   }
@@ -2372,29 +2407,28 @@ LABEL_15:
   {
     v41 = 0;
     v42 = 0;
-    v43 = *(v9 + 4);
+    v43 = *(v9 + 3);
     do
     {
       v44 = (v43 + 16 * v41);
+      *(v39 + v41) = v42;
       v45 = *v44;
-      if (v45 >= 1)
+      if (v45 < 1)
       {
-        v46 = *(v44 + 1);
+        v46 = 0;
+      }
+
+      else
+      {
+        v46 = 0;
+        v47 = *(v44 + 1);
         do
         {
-          v48 = *v46++;
-          v47 = v48;
-          v49 = *(a3 + 8 * v48);
-          if (v49 != 0.0)
+          v48 = *v47++;
+          if (a3[v48] != 0.0)
           {
-            v50 = (*(v9 + 2) + 24 * v47);
-            if (*v50 != 1)
-            {
-              encoder_save_model_to_file_pointer_cold_1();
-            }
-
-            v42 = (v42 + 1);
-            *(v38 + v50[2] + v40 * v41) = v49;
+            ++v42;
+            ++v46;
           }
 
           --v45;
@@ -2403,122 +2437,53 @@ LABEL_15:
         while (v45);
       }
 
-      ++v41;
+      v38[v41++] = v46;
     }
 
-    while (v41 != v40);
+    while (v41 < v9[1]);
   }
 
-  v130 = v31;
-  write_label_features(v30);
-  free(v39);
-  logging(a4, "Writing attribute feature counts and offsets.\n", v51, v52, v53, v54, v55, v56, v127);
-  v57 = malloc_type_calloc(4uLL, v9[1], 0x100004052888210uLL);
-  v58 = malloc_type_calloc(4uLL, v9[1], 0x100004052888210uLL);
-  v59 = v58;
-  if (v9[1] < 1)
+  write_attribute_feature_counts_and_offsets(v23);
+  free(v38);
+  free(v40);
+  logging(a4, "Writing attribute features.\n");
+  open_attribute_features(v23);
+  v49 = v9[1];
+  if (v49 >= 1)
   {
-    v61 = 0;
-  }
-
-  else
-  {
-    v60 = 0;
-    v61 = 0;
-    v62 = *(v9 + 3);
-    do
+    for (i = 0; i < v49; ++i)
     {
-      v63 = (v62 + 16 * v60);
-      *(v58 + v60) = v61;
-      v64 = *v63;
-      if (v64 < 1)
+      v51 = *(v9 + 3) + 16 * i;
+      v52 = *v51;
+      if (*v51 >= 1)
       {
-        v65 = 0;
-      }
-
-      else
-      {
-        v65 = 0;
-        v66 = *(v63 + 1);
+        v53 = 0;
         do
         {
-          v67 = *v66++;
-          v68 = *(a3 + 8 * v67);
-          if (v68 == 0.0)
+          if (a3[*(*(v51 + 8) + 4 * v53)] != 0.0)
           {
-            v61 = v61;
+            write_attribute_feature(v23);
+            v52 = *v51;
           }
 
-          else
-          {
-            v61 = (v61 + 1);
-          }
-
-          if (v68 != 0.0)
-          {
-            ++v65;
-          }
-
-          --v64;
+          ++v53;
         }
 
-        while (v64);
+        while (v53 < v52);
+        v49 = v9[1];
       }
-
-      v57[v60++] = v65;
     }
-
-    while (v60 < v9[1]);
   }
 
-  write_attribute_feature_counts_and_offsets(v30);
-  free(v57);
-  free(v59);
-  logging(a4, "Writing attribute features.\n", v69, v70, v71, v72, v73, v74, v128);
-  open_attribute_features(v30);
-  v81 = v9[1];
-  if (v81 >= 1)
-  {
-    v82 = 0;
-    do
-    {
-      v83 = *(v9 + 3) + 16 * v82;
-      v84 = *v83;
-      if (*v83 >= 1)
-      {
-        v85 = 0;
-        do
-        {
-          v86 = *(*(v83 + 8) + 4 * v85);
-          if (*(a3 + 8 * v86) != 0.0)
-          {
-            v87 = *(*(v9 + 2) + 24 * v86 + 8);
-            write_attribute_feature(v30);
-            v84 = *v83;
-          }
-
-          ++v85;
-        }
-
-        while (v85 < v84);
-        v81 = v9[1];
-      }
-
-      ++v82;
-    }
-
-    while (v82 < v81);
-  }
-
-  logging(a4, "Number of attributes: %d\n", v75, v76, v77, v78, v79, v80, v81);
-  logging(a4, "Number of labels: %d\n", v88, v89, v90, v91, v92, v93, *v9);
-  logging(a4, "Number of features: %d\n", v94, v95, v96, v97, v98, v99, v9[3]);
-  logging(a4, "Number of active label features: %d\n", v100, v101, v102, v103, v104, v105, v42);
-  logging(a4, "Number of active attribute features: %d\n", v106, v107, v108, v109, v110, v111, v61);
-  v112 = clock();
-  logging(a4, "Seconds required: %.3f\n", v113, v114, v115, v116, v117, v118, COERCE__INT64((v112 - v130) / 1000000.0));
-  logging(a4, "\n", v119, v120, v121, v122, v123, v124, v129);
-  close_writer(v30);
+  logging(a4, "Number of attributes: %d\n", v49);
+  logging(a4, "Number of labels: %d\n", *v9);
+  logging(a4, "Number of features: %d\n", v9[3]);
+  logging(a4, "Number of active label features: %d\n", v29);
+  logging(a4, "Number of active attribute features: %d\n", v42);
+  v54 = clock();
+  logging(a4, "Seconds required: %.3f\n", (v54 - v55) / 1000000.0);
+  logging(a4, "\n");
+  close_writer(v23);
   return 0;
 }
 
@@ -2973,211 +2938,209 @@ void *crf1de_model_expectation(void *result, unsigned int *a2, uint64_t a3, doub
   return result;
 }
 
-uint64_t crf1de_write_model(unsigned int *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8)
+uint64_t crf1de_write_model(unsigned int *a1, void *a2, double *a3, uint64_t a4, uint64_t a5, void *a6, char a7)
 {
-  v112 = a7;
-  v9 = a3;
-  v12 = *a1;
-  v13 = a1[1];
-  v14 = a1[3];
-  logging(a6, "Storing the model\n", a3, a4, a5, a6, a7, a8, v101);
-  v15 = clock();
-  v16 = malloc_type_calloc(v14, 4uLL, 0x100004052888210uLL);
-  if (v16)
+  v11 = *a1;
+  v12 = a1[1];
+  v13 = a1[3];
+  logging(a6, "Storing the model\n");
+  v14 = clock();
+  v15 = malloc_type_calloc(v13, 4uLL, 0x100004052888210uLL);
+  if (v15)
   {
-    v17 = v16;
-    if (v14 >= 1)
-    {
-      memset(v16, 255, 4 * v14);
-    }
-
-    v18 = malloc_type_calloc(v13, 4uLL, 0x100004052888210uLL);
-    if (!v18)
-    {
-      v21 = 1;
-LABEL_28:
-      v37 = v17;
-LABEL_29:
-      free(v37);
-      return v21;
-    }
-
-    v19 = v18;
-    v109 = v12;
+    v16 = v15;
     if (v13 >= 1)
     {
-      memset(v18, 255, 4 * v13);
+      memset(v15, 255, 4 * v13);
     }
 
-    v20 = crf1dmw_open_features(a2);
-    if (v20)
+    v17 = malloc_type_calloc(v12, 4uLL, 0x100004052888210uLL);
+    if (!v17)
+    {
+      v20 = 1;
+LABEL_28:
+      v30 = v16;
+LABEL_29:
+      free(v30);
+      return v20;
+    }
+
+    v18 = v17;
+    v50 = v11;
+    if (v12 >= 1)
+    {
+      memset(v17, 255, 4 * v12);
+    }
+
+    v19 = crf1dmw_open_features(a2);
+    if (v19)
     {
       goto LABEL_8;
     }
 
-    v105 = v15;
-    v106 = v13;
-    v107 = a6;
-    v108 = v17;
-    if (v14 >= 1)
+    v46 = v14;
+    v47 = v12;
+    v48 = a6;
+    v49 = v16;
+    if (v13 >= 1)
     {
+      v21 = 0;
+      v51 = 0;
       v22 = 0;
-      v110 = 0;
-      v23 = 0;
       while (1)
       {
-        v24 = *v9;
-        if (*v9 != 0.0)
+        v23 = *a3;
+        if (*a3 != 0.0)
         {
-          v25 = *(a1 + 2);
+          v24 = *(a1 + 2);
           __s = 0;
-          v115 = 0;
-          v116 = 0.0;
-          *v17 = v23;
-          v27 = (v25 + v22 + 4);
-          v26 = *(v25 + v22);
-          if (v26)
+          v56 = 0;
+          v57 = 0.0;
+          *v16 = v22;
+          v26 = (v24 + v21 + 4);
+          v25 = *(v24 + v21);
+          if (v25)
           {
-            v28 = v23;
+            v27 = v22;
           }
 
           else
           {
-            v29 = *v27;
-            if ((v19[v29] & 0x80000000) != 0)
+            v28 = *v26;
+            if ((v18[v28] & 0x80000000) != 0)
             {
-              v19[v29] = v110;
-              v29 = *v27;
-              v26 = *(v25 + v22);
-              v28 = *v17;
-              v110 = (v110 + 1);
+              v18[v28] = v51;
+              v28 = *v26;
+              v25 = *(v24 + v21);
+              v27 = *v16;
+              ++v51;
             }
 
             else
             {
-              v26 = 0;
-              v28 = v23;
+              v25 = 0;
+              v27 = v22;
             }
 
-            v27 = &v19[v29];
+            v26 = &v18[v28];
           }
 
-          __s = __PAIR64__(*v27, v26);
-          LODWORD(v115) = *(v25 + v22 + 8);
-          v116 = v24;
-          v30 = crf1dmw_put_feature(a2, v28, &__s);
-          if (v30)
+          __s = __PAIR64__(*v26, v25);
+          LODWORD(v56) = *(v24 + v21 + 8);
+          v57 = v23;
+          v29 = crf1dmw_put_feature(a2, v27, &__s);
+          if (v29)
           {
             goto LABEL_26;
           }
 
-          v23 = (v23 + 1);
+          ++v22;
         }
 
-        ++v17;
-        ++v9;
-        v22 += 24;
-        if (24 * v14 == v22)
+        ++v16;
+        ++a3;
+        v21 += 24;
+        if (24 * v13 == v21)
         {
           goto LABEL_25;
         }
       }
     }
 
-    v23 = 0;
-    v110 = 0;
+    v22 = 0;
+    v51 = 0;
 LABEL_25:
-    v30 = crf1dmw_close_features(a2);
-    if (v30)
+    v29 = crf1dmw_close_features(a2);
+    if (v29)
     {
 LABEL_26:
-      v21 = v30;
-      v17 = v108;
+      v20 = v29;
+      v16 = v49;
       goto LABEL_27;
     }
 
-    logging(v107, "Number of active features: %d (%d)\n", v31, v32, v33, v34, v35, v36, v23);
-    logging(v107, "Number of active attributes: %d (%d)\n", v39, v40, v41, v42, v43, v44, v110);
-    logging(v107, "Number of active labels: %d (%d)\n", v45, v46, v47, v48, v49, v50, v12);
-    v57 = v112;
-    if ((v112 & 2) != 0)
+    logging(v48, "Number of active features: %d (%d)\n", v22, v13);
+    logging(v48, "Number of active attributes: %d (%d)\n", v51, v12);
+    logging(v48, "Number of active labels: %d (%d)\n", v11, v11);
+    v32 = a7;
+    if ((a7 & 2) != 0)
     {
-      crf1dmw_set_no_labels(a2, v12);
-      v17 = v108;
+      crf1dmw_set_no_labels(a2, v11);
+      v16 = v49;
     }
 
     else
     {
-      logging(v107, "Writing labels\n", v51, v52, v53, v54, v55, v56, v12);
-      v20 = crf1dmw_open_labels(a2, v12);
-      v58 = v12;
-      v17 = v108;
-      if (v20)
+      logging(v48, "Writing labels\n", v11);
+      v19 = crf1dmw_open_labels(a2, v11);
+      v33 = v11;
+      v16 = v49;
+      if (v19)
       {
         goto LABEL_8;
       }
 
-      v59 = a5;
-      if (v109 >= 1)
+      v34 = a5;
+      if (v50 >= 1)
       {
-        v60 = 0;
+        v35 = 0;
         do
         {
           __s = 0;
-          (*(v59 + 48))(v59, v60, &__s);
+          (*(v34 + 48))(v34, v35, &__s);
           if (__s)
           {
-            v20 = crf1dmw_put_label(a2, v60, __s);
-            if (v20)
+            v19 = crf1dmw_put_label(a2, v35, __s);
+            if (v19)
             {
               goto LABEL_8;
             }
 
-            v59 = a5;
+            v34 = a5;
             (*(a5 + 64))(a5, __s);
-            v58 = v109;
+            v33 = v50;
           }
 
-          v60 = (v60 + 1);
+          v35 = (v35 + 1);
         }
 
-        while (v58 != v60);
+        while (v33 != v35);
       }
 
-      v20 = crf1dmw_close_labels(a2);
-      v57 = v112;
-      if (v20)
+      v19 = crf1dmw_close_labels(a2);
+      v32 = a7;
+      if (v19)
       {
         goto LABEL_8;
       }
     }
 
-    if (v57)
+    if (v32)
     {
-      crf1dmw_set_no_attributes(a2, v110);
+      crf1dmw_set_no_attributes(a2, v51);
     }
 
     else
     {
-      logging(v107, "Writing attributes\n", v61, v62, v63, v64, v65, v66, v102);
-      v20 = crf1dmw_open_attrs(a2, v110);
-      if (v20)
+      logging(v48, "Writing attributes\n");
+      v19 = crf1dmw_open_attrs(a2, v51);
+      if (v19)
       {
         goto LABEL_8;
       }
 
-      if (v13 >= 1)
+      if (v12 >= 1)
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if ((v19[i] & 0x80000000) == 0)
+          if ((v18[i] & 0x80000000) == 0)
           {
             __s = 0;
             (*(a4 + 48))(a4, i, &__s);
             if (__s)
             {
-              v20 = crf1dmw_put_attr(a2, v19[i], __s);
-              if (v20)
+              v19 = crf1dmw_put_attr(a2, v18[i], __s);
+              if (v19)
               {
                 goto LABEL_8;
               }
@@ -3188,62 +3151,62 @@ LABEL_26:
         }
       }
 
-      v20 = crf1dmw_close_attrs(a2);
-      if (v20)
+      v19 = crf1dmw_close_attrs(a2);
+      if (v19)
       {
         goto LABEL_8;
       }
     }
 
-    logging(v107, "Writing feature references for transitions\n", v68, v69, v70, v71, v72, v73, v102);
-    v20 = crf1dmw_open_labelrefs(a2, v109 + 2);
-    if (!v20)
+    logging(v48, "Writing feature references for transitions\n");
+    v19 = crf1dmw_open_labelrefs(a2, v50 + 2);
+    if (!v19)
     {
-      v74 = v17;
-      if (v109 < 1)
+      v37 = v16;
+      if (v50 < 1)
       {
 LABEL_59:
-        v77 = crf1dmw_close_labelrefs(a2);
-        if (!v77)
+        v40 = crf1dmw_close_labelrefs(a2);
+        if (!v40)
         {
-          logging(v107, "Writing feature references for attributes\n", v78, v79, v80, v81, v82, v83, v103);
-          v77 = crf1dmw_open_attrrefs(a2, v110);
-          if (!v77)
+          logging(v48, "Writing feature references for attributes\n");
+          v40 = crf1dmw_open_attrrefs(a2, v51);
+          if (!v40)
           {
-            if (v106 < 1)
+            if (v47 < 1)
             {
 LABEL_68:
-              v21 = crf1dmw_close_attrrefs(a2);
-              if (!v21)
+              v20 = crf1dmw_close_attrrefs(a2);
+              if (!v20)
               {
-                v88 = clock();
-                logging(v107, "Seconds required: %.3f\n", v89, v90, v91, v92, v93, v94, COERCE__INT64((v88 - v105) / 1000000.0));
-                logging(v107, "\n", v95, v96, v97, v98, v99, v100, v104);
-                free(v19);
-                v37 = v74;
+                v45 = clock();
+                logging(v48, "Seconds required: %.3f\n", (v45 - v46) / 1000000.0);
+                logging(v48, "\n");
+                free(v18);
+                v30 = v37;
                 goto LABEL_29;
               }
 
               goto LABEL_62;
             }
 
-            v84 = 0;
-            v85 = v19;
+            v41 = 0;
+            v42 = v18;
             while (1)
             {
-              v87 = *v85++;
-              v86 = v87;
-              if ((v87 & 0x80000000) == 0)
+              v44 = *v42++;
+              v43 = v44;
+              if ((v44 & 0x80000000) == 0)
               {
-                v77 = crf1dmw_put_attrref(a2, v86, (*(a1 + 3) + v84), v74);
-                if (v77)
+                v40 = crf1dmw_put_attrref(a2, v43, (*(a1 + 3) + v41), v37);
+                if (v40)
                 {
                   break;
                 }
               }
 
-              v84 += 16;
-              if (16 * v106 == v84)
+              v41 += 16;
+              if (16 * v47 == v41)
               {
                 goto LABEL_68;
               }
@@ -3254,35 +3217,35 @@ LABEL_68:
 
       else
       {
-        v75 = 0;
-        v76 = 0;
+        v38 = 0;
+        v39 = 0;
         while (1)
         {
-          v77 = crf1dmw_put_labelref(a2, v76, (*(a1 + 4) + v75), v74);
-          if (v77)
+          v40 = crf1dmw_put_labelref(a2, v39, (*(a1 + 4) + v38), v37);
+          if (v40)
           {
             break;
           }
 
-          ++v76;
-          v75 += 16;
-          if (16 * v109 == v75)
+          ++v39;
+          v38 += 16;
+          if (16 * v50 == v38)
           {
             goto LABEL_59;
           }
         }
       }
 
-      v21 = v77;
+      v20 = v40;
 LABEL_62:
-      v17 = v74;
+      v16 = v37;
       goto LABEL_27;
     }
 
 LABEL_8:
-    v21 = v20;
+    v20 = v19;
 LABEL_27:
-    free(v19);
+    free(v18);
     goto LABEL_28;
   }
 
@@ -3482,7 +3445,7 @@ double ME_Efficient_Model_Trainer::constrained_line_search(ME_Efficient_Model_Tr
   {
     while (1)
     {
-      Vec::Vec(&v49, (*(a6 + 1) - *a6) >> 3, 0.0);
+      Vec::Vec(&v49, 0.0, (*(a6 + 1) - *a6) >> 3);
       v20 = v20 * 0.5;
       v21 = *a6;
       v22 = *(a6 + 1);
@@ -3507,10 +3470,10 @@ double ME_Efficient_Model_Trainer::constrained_line_search(ME_Efficient_Model_Tr
         while (v25);
       }
 
-      Vec::Vec(&__p, (*(a3 + 1) - *a3) >> 3, 0.0);
+      Vec::Vec(&__p, 0.0, (*(a3 + 1) - *a3) >> 3);
       v27 = *a3;
       v28 = *(a3 + 1);
-      v29 = v28 - *a3;
+      v29 = &v28[-*a3];
       v30 = v49;
       if (v29 != v50 - v49)
       {
@@ -3529,7 +3492,7 @@ double ME_Efficient_Model_Trainer::constrained_line_search(ME_Efficient_Model_Tr
 
         do
         {
-          *&v33[v31 >> 29] = *(v27 + (v31 >> 29)) + *&v30[v31 >> 29];
+          *&v33[v31 >> 29] = *&v27[v31 >> 29] + *&v30[v31 >> 29];
           v31 += 0x100000000;
           --v32;
         }
@@ -3557,7 +3520,7 @@ double ME_Efficient_Model_Trainer::constrained_line_search(ME_Efficient_Model_Tr
       Vec::Project(a7, &v53);
       ME_Efficient_Model_Trainer::regularized_func_grad(this, a2, a7, a8);
       v35 = v34;
-      Vec::Vec(&__p, (a7[1] - *a7) >> 3, 0.0);
+      Vec::Vec(&__p, 0.0, (a7[1] - *a7) >> 3);
       v36 = *a7;
       v37 = a7[1];
       v38 = v37 - *a7;
@@ -3579,7 +3542,7 @@ double ME_Efficient_Model_Trainer::constrained_line_search(ME_Efficient_Model_Tr
 
         do
         {
-          *&v42[v40 >> 29] = *(v36 + (v40 >> 29)) - *(v39 + (v40 >> 29));
+          *&v42[v40 >> 29] = *&v36[v40 >> 29] - *&v39[v40 >> 29];
           v40 += 0x100000000;
           --v41;
         }
@@ -3689,46 +3652,46 @@ uint64_t Vec::Project(uint64_t result, uint64_t *a2)
   return result;
 }
 
-void ME_Efficient_Model_Trainer::perform_OWLQN(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>, double a4@<D0>)
+void ME_Efficient_Model_Trainer::perform_OWLQN(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t *a3@<X8>, double a4@<D0>)
 {
-  v93 = *MEMORY[0x29EDCA608];
+  v92 = *MEMORY[0x29EDCA608];
   v7 = *a2;
   v8 = a2[1];
   v10 = (v8 - v7) >> 3;
+  v86 = 0;
   v87 = 0;
   v88 = 0;
-  v89 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v87, v7, v8, v10);
-  Vec::Vec(&v85, v10, 0.0);
-  Vec::Vec(&v83, v10, 0.0);
-  ME_Efficient_Model_Trainer::regularized_func_grad(a1, a4, &v87, &v85);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v86, v7, v8, v10);
+  Vec::Vec(&v84, 0.0, v10);
+  Vec::Vec(&v82, 0.0, v10);
+  ME_Efficient_Model_Trainer::regularized_func_grad(a1, a4, &v86, &v84);
   v12 = v11;
-  for (i = 0; i != 30; i += 3)
+  for (i = 0; i != 240; i += 24)
   {
-    Vec::Vec(&v92[i], 0, 0.0);
+    Vec::Vec(&v91[i], 0.0, 0);
   }
 
-  v73 = a3;
-  for (j = 0; j != 30; j += 3)
+  v72 = a3;
+  for (j = 0; j != 240; j += 24)
   {
-    Vec::Vec(&v91[j], 0, 0.0);
+    Vec::Vec(&v90[j], 0.0, 0);
   }
 
   v15 = 0;
   v16 = MEMORY[0x29EDCA610];
   while (v15 != 300)
   {
+    v79 = 0;
     v80 = 0;
     v81 = 0;
-    v82 = 0;
-    std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v80, v85, v86, (v86 - v85) >> 3);
-    v17 = v87;
-    if (v88 != v87)
+    std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v79, v84, v85, (v85 - v84) >> 3);
+    v17 = v86;
+    if (v87 != v86)
     {
       v18 = 0;
-      v19 = (v88 - v87) >> 3;
-      v20 = v85;
-      v21 = v80;
+      v19 = (v87 - v86) >> 3;
+      v20 = v84;
+      v21 = v79;
       if (v19 <= 1)
       {
         v19 = 1;
@@ -3794,8 +3757,8 @@ LABEL_22:
     }
 
     fputc(10, *v16);
-    v30 = v80;
-    if (v81 == v80)
+    v30 = v79;
+    if (v80 == v79)
     {
       v33 = 0.0;
     }
@@ -3803,7 +3766,7 @@ LABEL_22:
     else
     {
       v31 = 0;
-      v32 = (v81 - v80) >> 3;
+      v32 = (v80 - v79) >> 3;
       if (v32 <= 1)
       {
         v32 = 1;
@@ -3812,7 +3775,7 @@ LABEL_22:
       v33 = 0.0;
       do
       {
-        v33 = v33 + *(v80 + (v31 >> 29)) * *(v80 + (v31 >> 29));
+        v33 = v33 + *(v79 + (v31 >> 29)) * *(v79 + (v31 >> 29));
         v31 += 0x100000000;
         --v32;
       }
@@ -3823,13 +3786,13 @@ LABEL_22:
     v34 = sqrt(v33);
     if (v34 >= 0.0001)
     {
-      approximate_Hg(&v80, v92, v91, v90, v15, &v76);
-      Vec::Vec(&__p, (v77 - v76) >> 3, 0.0);
-      v35 = v76;
-      if (v77 != v76)
+      approximate_Hg(&v75, &v79, v91, v90, v89, v15);
+      Vec::Vec(&__p, 0.0, (v76 - v75) >> 3);
+      v35 = v75;
+      if (v76 != v75)
       {
         v36 = 0;
-        v37 = (v77 - v76) >> 3;
+        v37 = (v76 - v75) >> 3;
         v38 = __p;
         if (v37 <= 1)
         {
@@ -3846,26 +3809,26 @@ LABEL_22:
         while (v37);
       }
 
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v83, __p, v79, (v79 - __p) >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v82, __p, v78, (v78 - __p) >> 3);
       if (__p)
       {
-        v79 = __p;
+        v78 = __p;
         operator delete(__p);
       }
 
-      if (v76)
+      if (v75)
       {
-        v77 = v76;
-        operator delete(v76);
+        v76 = v75;
+        operator delete(v75);
       }
 
-      if (v84 == v83)
+      if (v83 == v82)
       {
         goto LABEL_47;
       }
 
       v39 = 0;
-      v40 = (v84 - v83) >> 3;
+      v40 = (v83 - v82) >> 3;
       if (v40 <= 1)
       {
         v40 = 1;
@@ -3874,7 +3837,7 @@ LABEL_22:
       v41 = 0.0;
       do
       {
-        v41 = v41 + *(v83 + (v39 >> 29)) * *(v80 + (v39 >> 29));
+        v41 = v41 + *(v82 + (v39 >> 29)) * *(v79 + (v39 >> 29));
         v39 += 0x100000000;
         --v40;
       }
@@ -3883,12 +3846,12 @@ LABEL_22:
       if (v41 >= 0.0)
       {
 LABEL_47:
-        Vec::Vec(&__p, (v81 - v80) >> 3, 0.0);
-        v42 = v80;
-        if (v81 != v80)
+        Vec::Vec(&__p, 0.0, (v80 - v79) >> 3);
+        v42 = v79;
+        if (v80 != v79)
         {
           v43 = 0;
-          v44 = (v81 - v80) >> 3;
+          v44 = (v80 - v79) >> 3;
           v45 = __p;
           if (v44 <= 1)
           {
@@ -3905,12 +3868,12 @@ LABEL_47:
           while (v44);
         }
 
-        v46 = v83;
+        v46 = v82;
         v47 = __p;
-        if (v84 != v83)
+        if (v83 != v82)
         {
           v48 = 0;
-          v49 = (v84 - v83) >> 3;
+          v49 = (v83 - v82) >> 3;
           if (v49 <= 1)
           {
             v49 = 1;
@@ -3934,27 +3897,27 @@ LABEL_47:
 
         if (v47)
         {
-          v79 = v47;
+          v78 = v47;
           operator delete(v47);
         }
       }
 
-      Vec::Vec(&__p, v10, 0.0);
-      Vec::Vec(&v76, v10, 0.0);
-      v12 = ME_Efficient_Model_Trainer::constrained_line_search(a1, a4, &v87, &v80, v12, &v83, &__p, &v76);
-      Vec::Vec(&v74, (v79 - __p) >> 3, 0.0);
+      Vec::Vec(&__p, 0.0, v10);
+      Vec::Vec(&v75, 0.0, v10);
+      v12 = ME_Efficient_Model_Trainer::constrained_line_search(a1, a4, &v86, &v79, v12, &v82, &__p, &v75);
+      Vec::Vec(&v73, 0.0, (v78 - __p) >> 3);
       v50 = __p;
-      v51 = v87;
-      if (v79 - __p != v88 - v87)
+      v51 = v86;
+      if (v78 - __p != v87 - v86)
       {
         __assert_rtn("operator-", "mathvec.h", 74, "a.Size() == b.Size()");
       }
 
-      if (v79 != __p)
+      if (v78 != __p)
       {
         v52 = 0;
-        v53 = (v79 - __p) >> 3;
-        v54 = v74;
+        v53 = (v78 - __p) >> 3;
+        v54 = v73;
         if (v53 <= 1)
         {
           v53 = 1;
@@ -3971,31 +3934,31 @@ LABEL_47:
       }
 
       v55 = v15 % 0xA;
-      v56 = &v92[3 * v55];
-      if (v56 != &v74)
+      v56 = &v91[24 * v55];
+      if (v56 != &v73)
       {
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v92[3 * v55], v74, v75, (v75 - v74) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v91[24 * v55], v73, v74, (v74 - v73) >> 3);
       }
 
-      if (v74)
+      if (v73)
       {
-        v75 = v74;
-        operator delete(v74);
+        v74 = v73;
+        operator delete(v73);
       }
 
-      Vec::Vec(&v74, (v77 - v76) >> 3, 0.0);
-      v57 = v76;
-      v58 = v85;
-      if (v77 - v76 != v86 - v85)
+      Vec::Vec(&v73, 0.0, (v76 - v75) >> 3);
+      v57 = v75;
+      v58 = v84;
+      if (v76 - v75 != v85 - v84)
       {
         __assert_rtn("operator-", "mathvec.h", 74, "a.Size() == b.Size()");
       }
 
-      if (v77 != v76)
+      if (v76 != v75)
       {
         v59 = 0;
-        v60 = (v77 - v76) >> 3;
-        v61 = v74;
+        v60 = (v76 - v75) >> 3;
+        v61 = v73;
         if (v60 <= 1)
         {
           v60 = 1;
@@ -4011,16 +3974,16 @@ LABEL_47:
         while (v60);
       }
 
-      v62 = &v91[3 * v55];
-      if (v62 != &v74)
+      v62 = &v90[24 * v55];
+      if (v62 != &v73)
       {
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v91[3 * v55], v74, v75, (v75 - v74) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v90[24 * v55], v73, v74, (v74 - v73) >> 3);
       }
 
-      if (v74)
+      if (v73)
       {
-        v75 = v74;
-        operator delete(v74);
+        v74 = v73;
+        operator delete(v73);
       }
 
       v63 = v62[1];
@@ -4050,27 +4013,27 @@ LABEL_47:
         while (v66);
       }
 
-      v90[v55] = 1.0 / v67;
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v87, __p, v79, (v79 - __p) >> 3);
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v85, v76, v77, (v77 - v76) >> 3);
-      if (v76)
+      v89[v55] = 1.0 / v67;
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v86, __p, v78, (v78 - __p) >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v84, v75, v76, (v76 - v75) >> 3);
+      if (v75)
       {
-        v77 = v76;
-        operator delete(v76);
+        v76 = v75;
+        operator delete(v75);
       }
 
       if (__p)
       {
-        v79 = __p;
+        v78 = __p;
         operator delete(__p);
       }
 
-      v30 = v80;
+      v30 = v79;
     }
 
     if (v30)
     {
-      v81 = v30;
+      v80 = v30;
       operator delete(v30);
     }
 
@@ -4081,49 +4044,47 @@ LABEL_47:
     }
   }
 
-  *v73 = 0;
-  v73[1] = 0;
-  v73[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v73, v87, v88, (v88 - v87) >> 3);
-  for (k = 0; k != -30; k -= 3)
+  *v72 = 0;
+  v72[1] = 0;
+  v72[2] = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v72, v86, v87, (v87 - v86) >> 3);
+  for (k = 0; k != -240; k -= 24)
   {
-    v69 = v91[k + 27];
+    v69 = *&v90[k + 216];
     if (v69)
     {
-      v91[k + 28] = v69;
+      *&v90[k + 224] = v69;
       operator delete(v69);
     }
   }
 
-  for (m = 0; m != -30; m -= 3)
+  for (m = 0; m != -240; m -= 24)
   {
-    v71 = v92[m + 27];
+    v71 = *&v91[m + 216];
     if (v71)
     {
-      v92[m + 28] = v71;
+      *&v91[m + 224] = v71;
       operator delete(v71);
     }
   }
 
-  if (v83)
+  if (v82)
   {
-    v84 = v83;
-    operator delete(v83);
+    v83 = v82;
+    operator delete(v82);
   }
 
-  if (v85)
+  if (v84)
   {
-    v86 = v85;
-    operator delete(v85);
+    v85 = v84;
+    operator delete(v84);
   }
 
-  if (v87)
+  if (v86)
   {
-    v88 = v87;
-    operator delete(v87);
+    v87 = v86;
+    operator delete(v86);
   }
-
-  v72 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2977054D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32)
@@ -4180,7 +4141,7 @@ void sub_2977054D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4255,7 +4216,7 @@ void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v
   return result;
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4296,13 +4257,13 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-void Vec::Vec(Vec *this, unint64_t a2, double a3)
+void Vec::Vec(Vec *this, double a2, unint64_t a3)
 {
-  v3 = a3;
+  v3 = a2;
   *(this + 1) = 0;
   *(this + 2) = 0;
   *this = 0;
-  std::vector<double>::resize(this, a2, &v3);
+  std::vector<double>::resize(this, a3, &v3);
 }
 
 void sub_29770596C(_Unwind_Exception *exception_object)
@@ -4317,20 +4278,20 @@ void sub_29770596C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v3, a3);
+    std::vector<double>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -4448,7 +4409,7 @@ void std::vector<double>::__append(uint64_t a1, unint64_t a2, uint64_t *a3)
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4472,202 +4433,202 @@ void sub_297705BE8(_Unwind_Exception *exception_object)
 
 char *crf1df_generate(unsigned int *a1, uint64_t a2, int a3, double a4, uint64_t a5, int a6, int a7, uint64_t a8, uint64_t a9)
 {
-  v73 = 0;
-  v74 = 0;
-  v75 = 0;
-  v69 = *(a2 + 16);
-  v72[1] = a8;
-  v72[2] = 0;
-  v72[0] = a9;
+  v51 = 0;
+  v52 = 0;
+  v53 = 0;
+  v47 = *(a2 + 16);
+  v50[1] = a8;
+  v50[2] = 0;
+  v50[0] = a9;
   v14 = malloc_type_calloc(1uLL, 0x10uLL, 0x10200403A5D3213uLL);
-  v22 = v14;
-  v67 = a1;
-  HIDWORD(v64) = a7;
+  v15 = v14;
+  v45 = a1;
+  v44 = a7;
   if (v14)
   {
     *(v14 + 2) = 0;
-    v23 = rumavl_new(0x18, featureset_comp, 0, 0);
-    *v22 = v23;
-    if (!v23)
+    v16 = rumavl_new(0x18, featureset_comp, 0, 0);
+    *v15 = v16;
+    if (!v16)
     {
-      free(v22);
-      v22 = 0;
+      free(v15);
+      v15 = 0;
     }
   }
 
-  logging_progress_start(v72, v15, v16, v17, v18, v19, v20, v21, v64);
-  if (v69 >= 1)
+  logging_progress_start(v50);
+  if (v47 >= 1)
   {
-    v31 = 0;
+    v17 = 0;
     if (a6)
     {
-      v32 = a3 < 1;
+      v18 = a3 < 1;
     }
 
     else
     {
-      v32 = 1;
+      v18 = 1;
     }
 
-    v33 = v32;
+    v19 = v18;
     do
     {
-      v70 = v31;
-      v34 = dataset_get(a2, v31);
-      v71 = *v34;
-      if (v71 >= 1)
+      v48 = v17;
+      v20 = dataset_get(a2, v17);
+      v49 = *v20;
+      if (v49 >= 1)
       {
-        v41 = v34;
-        v42 = 0;
-        v43 = a3;
+        v21 = v20;
+        v22 = 0;
+        v23 = a3;
         do
         {
-          v44 = *(v41 + 1);
-          v45 = *(*(v41 + 2) + 4 * v42);
-          if (v43 != a3)
+          v24 = *(v21 + 1);
+          v25 = *(*(v21 + 2) + 4 * v22);
+          if (v23 != a3)
           {
-            LODWORD(v73) = 1;
-            HIDWORD(v73) = v43;
-            LODWORD(v74) = v45;
-            v75 = 0x3FF0000000000000;
-            featureset_add(v22, &v73);
+            LODWORD(v51) = 1;
+            HIDWORD(v51) = v23;
+            LODWORD(v52) = v25;
+            v53 = 0x3FF0000000000000;
+            featureset_add(v15, &v51);
           }
 
-          v46 = (v44 + 16 * v42);
-          if (*v46 >= 1)
+          v26 = (v24 + 16 * v22);
+          if (*v26 >= 1)
           {
-            v47 = 0;
+            v27 = 0;
             do
             {
-              v48 = *(v46 + 1) + 16 * v47;
-              v49 = *v48;
-              LODWORD(v73) = 0;
-              HIDWORD(v73) = v49;
-              LODWORD(v74) = v45;
-              v75 = *(v48 + 8);
-              featureset_add(v22, &v73);
-              if ((v33 & 1) == 0)
+              v28 = *(v26 + 1) + 16 * v27;
+              v29 = *v28;
+              LODWORD(v51) = 0;
+              HIDWORD(v51) = v29;
+              LODWORD(v52) = v25;
+              v53 = *(v28 + 8);
+              featureset_add(v15, &v51);
+              if ((v19 & 1) == 0)
               {
-                v50 = 0;
+                v30 = 0;
                 do
                 {
-                  v51 = *(*(v46 + 1) + 16 * v47);
-                  LODWORD(v73) = 0;
-                  HIDWORD(v73) = v51;
-                  LODWORD(v74) = v50;
-                  v75 = 0;
-                  featureset_add(v22, &v73);
-                  ++v50;
+                  v31 = *(*(v26 + 1) + 16 * v27);
+                  LODWORD(v51) = 0;
+                  HIDWORD(v51) = v31;
+                  LODWORD(v52) = v30;
+                  v53 = 0;
+                  featureset_add(v15, &v51);
+                  ++v30;
                 }
 
-                while (a3 != v50);
+                while (a3 != v30);
               }
 
-              ++v47;
+              ++v27;
             }
 
-            while (v47 < *v46);
+            while (v27 < *v26);
           }
 
-          ++v42;
-          v43 = v45;
+          ++v22;
+          v23 = v25;
         }
 
-        while (v42 != v71);
+        while (v22 != v49);
       }
 
-      logging_progress(v72, 100 * v31++ / v69, v35, v36, v37, v38, v39, v40);
+      logging_progress(v50, 100 * v17++ / v47);
     }
 
-    while (v70 + 1 != v69);
+    while (v48 + 1 != v47);
   }
 
-  logging_progress_end(v72, v24, v25, v26, v27, v28, v29, v30, v65);
-  if (v66 && a3 >= 1)
+  logging_progress_end(v50);
+  if (v44 && a3 >= 1)
   {
-    v52 = 0;
+    v32 = 0;
     do
     {
-      v53 = 0;
+      v33 = 0;
       do
       {
-        LODWORD(v73) = 1;
-        HIDWORD(v73) = v52;
-        LODWORD(v74) = v53;
-        v75 = 0;
-        featureset_add(v22, &v73);
-        ++v53;
+        LODWORD(v51) = 1;
+        HIDWORD(v51) = v32;
+        LODWORD(v52) = v33;
+        v53 = 0;
+        featureset_add(v15, &v51);
+        ++v33;
       }
 
-      while (a3 != v53);
-      ++v52;
+      while (a3 != v33);
+      ++v32;
     }
 
-    while (v52 != a3);
+    while (v32 != a3);
   }
 
-  v76 = 0;
-  v54 = rumavl_node_next(*v22, 0, 1, &v76);
-  if (v54)
+  v54 = 0;
+  v34 = rumavl_node_next(*v15, 0, 1, &v54);
+  if (v34)
   {
-    v55 = v54;
-    v56 = 0;
+    v35 = v34;
+    v36 = 0;
     do
     {
-      if (v76[2] >= a4)
+      if (v54[2] >= a4)
       {
-        ++v56;
+        ++v36;
       }
 
-      v55 = rumavl_node_next(*v22, v55, 1, &v76);
+      v35 = rumavl_node_next(*v15, v35, 1, &v54);
     }
 
-    while (v55);
+    while (v35);
   }
 
   else
   {
-    v56 = 0;
+    v36 = 0;
   }
 
-  v57 = malloc_type_calloc(v56, 0x18uLL, 0x10000401E56706BuLL);
-  if (v57)
+  v37 = malloc_type_calloc(v36, 0x18uLL, 0x10000401E56706BuLL);
+  if (v37)
   {
-    v58 = rumavl_node_next(*v22, 0, 1, &v76);
-    if (v58)
+    v38 = rumavl_node_next(*v15, 0, 1, &v54);
+    if (v38)
     {
-      v59 = v58;
-      v60 = 0;
+      v39 = v38;
+      v40 = 0;
       do
       {
-        if (v76[2] >= a4)
+        if (v54[2] >= a4)
         {
-          v61 = *v76;
-          v62 = &v57[24 * v60];
-          *(v62 + 2) = v76[2];
-          *v62 = v61;
-          ++v60;
+          v41 = *v54;
+          v42 = &v37[24 * v40];
+          *(v42 + 2) = v54[2];
+          *v42 = v41;
+          ++v40;
         }
 
-        v59 = rumavl_node_next(*v22, v59, 1, &v76);
+        v39 = rumavl_node_next(*v15, v39, 1, &v54);
       }
 
-      while (v59);
+      while (v39);
     }
   }
 
   else
   {
-    v56 = 0;
+    v36 = 0;
   }
 
-  *v67 = v56;
-  rumavl_destroy(*v22);
-  free(v22);
-  return v57;
+  *v45 = v36;
+  rumavl_destroy(*v15);
+  free(v15);
+  return v37;
 }
 
-uint64_t featureset_add(uint64_t a1, double *a2)
+uint64_t featureset_add(void *a1, double *a2)
 {
   result = rumavl_find(*a1, a2);
   if (result)
@@ -4678,13 +4639,13 @@ uint64_t featureset_add(uint64_t a1, double *a2)
   else
   {
     result = rumavl_insert(*a1, a2);
-    ++*(a1 + 8);
+    ++*(a1 + 2);
   }
 
   return result;
 }
 
-uint64_t crf1df_init_references(void ***a1, void ***a2, uint64_t a3, int a4, int a5, int a6)
+uint64_t crf1df_init_references(void ***a1, void ***a2, uint64_t a3, int a4, unsigned int a5, unsigned int a6)
 {
   v12 = malloc_type_calloc(a5, 0x10uLL, 0x101004082113244uLL);
   if (!v12)
@@ -5499,7 +5460,7 @@ uint64_t crf1dmw_close_features(void *a1)
 
 uint64_t crf1dmw_put_feature(uint64_t a1, int a2, uint64_t a3)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   result = 2147483652;
   if (*(a1 + 8) == 5)
   {
@@ -5507,20 +5468,19 @@ uint64_t crf1dmw_put_feature(uint64_t a1, int a2, uint64_t a3)
     if (*(v5 + 8) == a2)
     {
       v7 = *a1;
-      LODWORD(v9[0]) = *a3;
-      fwrite(v9, 4uLL, 1uLL, v7);
-      LODWORD(v9[0]) = *(a3 + 4);
-      fwrite(v9, 4uLL, 1uLL, v7);
-      LODWORD(v9[0]) = *(a3 + 8);
-      fwrite(v9, 4uLL, 1uLL, v7);
-      v9[0] = *(a3 + 16);
-      fwrite(v9, 1uLL, 8uLL, v7);
+      LODWORD(v8[0]) = *a3;
+      fwrite(v8, 4uLL, 1uLL, v7);
+      LODWORD(v8[0]) = *(a3 + 4);
+      fwrite(v8, 4uLL, 1uLL, v7);
+      LODWORD(v8[0]) = *(a3 + 8);
+      fwrite(v8, 4uLL, 1uLL, v7);
+      v8[0] = *(a3 + 16);
+      fwrite(v8, 1uLL, 8uLL, v7);
       result = 0;
       ++*(v5 + 8);
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5782,7 +5742,7 @@ uint64_t crf1dm_get_num_labels@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
   return a2;
 }
 
-uint64_t crf1dm_to_label(uint64_t a1, unsigned int a2)
+uint64_t crf1dm_to_label(uint64_t a1, int a2)
 {
   result = *(a1 + 56);
   if (result)
@@ -5821,7 +5781,7 @@ uint64_t crf1dm_to_aid(uint64_t a1, char *a2)
   }
 }
 
-uint64_t crf1dm_to_attr(uint64_t a1, unsigned int a2)
+uint64_t crf1dm_to_attr(uint64_t a1, int a2)
 {
   v3 = *(a1 + 64);
   if (v3 && !*(a1 + 4))
@@ -6933,31 +6893,31 @@ uint64_t tagger_score(uint64_t a1, int *a2, double *a3)
   return 0;
 }
 
-uint64_t tagger_lognorm(_DWORD **a1, double *a2)
+uint64_t tagger_lognorm(void *a1, double *a2)
 {
   v3 = *a1;
   crf1dt_set_level(*a1);
-  *a2 = crf1dc_lognorm(*(v3 + 8));
+  *a2 = crf1dc_lognorm(*(v3 + 1));
   return 0;
 }
 
-uint64_t tagger_marginal_point(_DWORD **a1, int a2, int a3, double *a4)
+uint64_t tagger_marginal_point(void *a1, int a2, int a3, double *a4)
 {
   v7 = *a1;
   crf1dt_set_level(*a1);
-  *a4 = crf1dc_marginal_point(*(v7 + 8), a2, a3);
+  *a4 = crf1dc_marginal_point(*(v7 + 1), a2, a3);
   return 0;
 }
 
-uint64_t tagger_marginal_path(_DWORD **a1, uint64_t a2, int a3, int a4, double *a5)
+uint64_t tagger_marginal_path(void *a1, uint64_t a2, int a3, int a4, double *a5)
 {
   v9 = *a1;
   crf1dt_set_level(*a1);
-  *a5 = crf1dc_marginal_path(*(v9 + 8), a2, a3, a4);
+  *a5 = crf1dc_marginal_path(*(v9 + 1), a2, a3, a4);
   return 0;
 }
 
-uint64_t tagger_tag_paragraph(uint64_t *a1, int *a2, unsigned int a3, void *a4)
+uint64_t tagger_tag_paragraph(uint64_t *a1, int *a2, uint64_t a3, void *a4)
 {
   v7 = *a1;
   v8 = *(*a1 + 8);
@@ -7188,29 +7148,28 @@ uint64_t crfsuite_train_set_message_callback(uint64_t result, uint64_t a2, uint6
   return result;
 }
 
-uint64_t crfsuite_train_to_file(uint64_t **a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t crfsuite_train_to_file(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
     return 2147483651;
   }
 
-  v12 = 0;
+  v11 = 0;
   v7 = (*(*(a2 + 24) + 56))();
   v8 = (*(*(a2 + 16) + 56))();
-  crfsuite_train_train(a1, a2, v7, v8, a4, &v12);
-  if (!v12)
+  crfsuite_train_train(a1, a2, v7, v8, a4, &v11);
+  if (!v11)
   {
     return 0;
   }
 
-  v9 = (*a1)[2];
-  v10 = (*(**a1 + 136))();
-  free(v12);
-  return v10;
+  v9 = (*(**a1 + 136))();
+  free(v11);
+  return v9;
 }
 
-uint64_t crfsuite_train_to_file_pointer(uint64_t **a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, char a7)
+uint64_t crfsuite_train_to_file_pointer(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7)
 {
   if (!a5)
   {
@@ -7218,15 +7177,15 @@ uint64_t crfsuite_train_to_file_pointer(uint64_t **a1, uint64_t a2, int a3, int 
   }
 
   v13 = (*a1)[1];
-  v20 = 1.0;
+  v19 = 1.0;
   v14 = (*(v13 + 96))();
-  if ((a7 & 1) != 0 && !v14 && v20 > 1.0)
+  if ((a7 & 1) != 0 && !v14 && v19 > 1.0)
   {
     fwrite("ERROR: crfsuite_training_do_not_store_attributes flag is not compatible with minimal frequency value that is greater than 1!\n", 0x7FuLL, 1uLL, *MEMORY[0x29EDCA610]);
     return 2147483651;
   }
 
-  v19 = 0;
+  v18 = 0;
   if (a3 <= 0)
   {
     a3 = (*(*(a2 + 24) + 56))();
@@ -7237,15 +7196,14 @@ uint64_t crfsuite_train_to_file_pointer(uint64_t **a1, uint64_t a2, int a3, int 
     a4 = (*(*(a2 + 24) + 56))(*(a2 + 16));
   }
 
-  crfsuite_train_train(a1, a2, a3, a4, a6, &v19);
-  if (!v19)
+  crfsuite_train_train(a1, a2, a3, a4, a6, &v18);
+  if (!v18)
   {
     return 0;
   }
 
-  v17 = (*a1)[2];
   v16 = (*(**a1 + 144))();
-  free(v19);
+  free(v18);
   return v16;
 }
 
@@ -7281,41 +7239,44 @@ _DWORD *crf1de_create_trainer(int a1, unsigned int a2)
   return v2;
 }
 
-void crfsuite_train_train(uint64_t **a1, unsigned int *a2, int a3, int a4, int a5, double **a6)
+void crfsuite_train_train(uint64_t **a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, double **a6)
 {
+  v7 = a5;
+  v8 = a4;
+  v9 = a3;
   v11 = *a1;
   v12 = (*a1)[2];
   v13 = **a1;
   *a6 = 0;
-  memset(v34, 0, sizeof(v34));
-  memset(v33, 0, sizeof(v33));
-  dataset_init_trainset(v34, a2, a3, a4, a5);
-  if ((a5 & 0x80000000) == 0)
+  memset(v21, 0, sizeof(v21));
+  memset(v20, 0, sizeof(v20));
+  dataset_init_trainset(v21, a2, a3, a4, a5);
+  if ((v7 & 0x80000000) == 0)
   {
-    dataset_init_testset(v33, a2, a3, a4, a5);
-    logging(v12, "Holdout group: %d\n", v14, v15, v16, v17, v18, v19, (a5 + 1));
-    logging(v12, "\n", v20, v21, v22, v23, v24, v25, v32);
+    dataset_init_testset(v20, a2, v9, v8, v7);
+    logging(v12, "Holdout group: %d\n", v7 + 1);
+    logging(v12, "\n");
   }
 
   (*(v13 + 56))(v13, v11[1], 0xFFFFFFFFLL);
-  (*(v13 + 64))(v13, v34, v12);
-  v26 = *(v11 + 7);
-  if (v26 <= 2)
+  (*(v13 + 64))(v13, v21, v12);
+  v14 = *(v11 + 7);
+  if (v14 <= 2)
   {
-    if (v26 == 1)
+    if (v14 == 1)
     {
-      if (a5 == -1)
+      if (v7 == -1)
       {
-        v31 = 0;
+        v19 = 0;
       }
 
       else
       {
-        v31 = v33;
+        v19 = v20;
       }
 
-      crfsuite_train_lbfgs(v13, v34, v31, v11[1], v12, a6);
-      if ((a5 & 0x80000000) == 0)
+      crfsuite_train_lbfgs(v13, v21, v19, v11[1], v12, a6);
+      if ((v7 & 0x80000000) == 0)
       {
         goto LABEL_29;
       }
@@ -7323,23 +7284,23 @@ void crfsuite_train_train(uint64_t **a1, unsigned int *a2, int a3, int a4, int a
 
     else
     {
-      if (v26 != 2)
+      if (v14 != 2)
       {
         goto LABEL_28;
       }
 
-      if (a5 == -1)
+      if (v7 == -1)
       {
-        v28 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v28 = v33;
+        v16 = v20;
       }
 
-      crfsuite_train_l2sgd(v13, v34, v28, v11[1], v12, a6);
-      if ((a5 & 0x80000000) == 0)
+      crfsuite_train_l2sgd(v13, v21, v16, v11[1], v12, a6);
+      if ((v7 & 0x80000000) == 0)
       {
         goto LABEL_29;
       }
@@ -7348,48 +7309,48 @@ void crfsuite_train_train(uint64_t **a1, unsigned int *a2, int a3, int a4, int a
 
   else
   {
-    if (v26 != 3)
+    if (v14 != 3)
     {
-      if (v26 == 4)
+      if (v14 == 4)
       {
-        if (a5 == -1)
+        if (v7 == -1)
         {
-          v30 = 0;
+          v18 = 0;
         }
 
         else
         {
-          v30 = v33;
+          v18 = v20;
         }
 
-        crfsuite_train_passive_aggressive(v13, v34, v30, v11[1], v12, a6);
+        crfsuite_train_passive_aggressive(v13, v21, v18, v11[1], v12, a6);
       }
 
-      else if (v26 == 5)
+      else if (v14 == 5)
       {
-        if (a5 == -1)
+        if (v7 == -1)
         {
-          v27 = 0;
+          v15 = 0;
         }
 
         else
         {
-          v27 = v33;
+          v15 = v20;
         }
 
-        crfsuite_train_arow(v13, v34, v27, v11[1], v12, a6);
-        if (a5 < 0)
+        crfsuite_train_arow(v13, v21, v15, v11[1], v12, a6);
+        if (v7 < 0)
         {
           goto LABEL_30;
         }
 
 LABEL_29:
-        dataset_finish(v33);
+        dataset_finish(v20);
         goto LABEL_30;
       }
 
 LABEL_28:
-      if (a5 < 0)
+      if (v7 < 0)
       {
         goto LABEL_30;
       }
@@ -7397,25 +7358,25 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    if (a5 == -1)
+    if (v7 == -1)
     {
-      v29 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v29 = v33;
+      v17 = v20;
     }
 
-    crfsuite_train_averaged_perceptron(v13, v34, v29, v11[1], v12, a6);
-    if ((a5 & 0x80000000) == 0)
+    crfsuite_train_averaged_perceptron(v13, v21, v17, v11[1], v12, a6);
+    if ((v7 & 0x80000000) == 0)
     {
       goto LABEL_29;
     }
   }
 
 LABEL_30:
-  dataset_finish(v34);
+  dataset_finish(v21);
 }
 
 void *crfsuite_attribute_init(void *result)
@@ -7868,7 +7829,7 @@ double crfsuite_evaluation_finish(uint64_t a1)
   return result;
 }
 
-uint64_t crfsuite_evaluation_accmulate(int *a1, int *a2, int *a3, int a4)
+uint64_t crfsuite_evaluation_accmulate(int *a1, int *a2, int *a3, unsigned int a4)
 {
   if (a4 < 1)
   {
@@ -8001,63 +7962,47 @@ double crfsuite_evaluation_finalize(unsigned int *a1)
   return result;
 }
 
-void *crfsuite_evaluation_output(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *crfsuite_evaluation_output(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v55 = 0;
-  v54[1] = a3;
-  v54[2] = 0;
-  v54[0] = a4;
-  logging(v54, "Performance by label (#match, #model, #ref) (precision, recall, F1):\n", a3, a4, a5, a6, a7, a8, v41);
+  v11 = 0;
+  v10[1] = a3;
+  v10[2] = 0;
+  v10[0] = a4;
+  logging(v10, "Performance by label (#match, #model, #ref) (precision, recall, F1):\n");
   if (*a1 >= 1)
   {
-    v16 = 0;
-    v17 = 0;
+    v6 = 0;
+    v7 = 0;
     do
     {
-      v18 = *(a1 + 1);
-      (*(a2 + 48))(a2, v17, &v55);
-      v25 = v55;
-      if (!v55)
+      v8 = *(a1 + 1);
+      (*(a2 + 48))(a2, v7, &v11);
+      if (!v11)
       {
-        v55 = "[UNKNOWN]";
-        v25 = "[UNKNOWN]";
+        v11 = "[UNKNOWN]";
       }
 
-      v26 = v18 + v16;
-      v27 = *(v18 + v16);
-      if (*(v18 + v16 + 4))
+      if (*(v8 + v6 + 4))
       {
-        v53 = *(v26 + 32);
-        v52 = *(v26 + 16);
-        v46 = *(v18 + v16 + 8);
-        v51 = *(v18 + v16 + 4);
-        v42 = *(v18 + v16);
-        logging(v54, "    %s: (%d, %d, %d) (%1.4f, %1.4f, %1.4f)\n", v19, v20, v21, v22, v23, v24, v25);
+        logging(v10, "    %s: (%d, %d, %d) (%1.4f, %1.4f, %1.4f)\n");
       }
 
       else
       {
-        v47 = *(v18 + v16 + 8);
-        v43 = *(v18 + v16);
-        logging(v54, "    %s: (%d, %d, %d) (******, ******, ******)\n", v19, v20, v21, v22, v23, v24, v25);
+        logging(v10, "    %s: (%d, %d, %d) (******, ******, ******)\n");
       }
 
-      (*(a2 + 64))(a2, v55);
-      ++v17;
-      v16 += 40;
+      (*(a2 + 64))(a2, v11);
+      ++v7;
+      v6 += 40;
     }
 
-    while (v17 < *a1);
+    while (v7 < *a1);
   }
 
-  v48 = *(a1 + 9);
-  logging(v54, "Macro-average precision, recall, F1: (%f, %f, %f)\n", v10, v11, v12, v13, v14, v15, *(a1 + 7));
-  v49 = *(a1 + 4);
-  v44 = a1[5];
-  logging(v54, "Item accuracy: %d / %d (%1.4f)\n", v28, v29, v30, v31, v32, v33, a1[4]);
-  v50 = *(a1 + 6);
-  v45 = a1[11];
-  return logging(v54, "Instance accuracy: %d / %d (%1.4f)\n", v34, v35, v36, v37, v38, v39, a1[10]);
+  logging(v10, "Macro-average precision, recall, F1: (%f, %f, %f)\n", *(a1 + 7), *(a1 + 8), *(a1 + 9));
+  logging(v10, "Item accuracy: %d / %d (%1.4f)\n", a1[4], a1[5], *(a1 + 4));
+  return logging(v10, "Instance accuracy: %d / %d (%1.4f)\n", a1[10], a1[11], *(a1 + 6));
 }
 
 uint64_t crfsuite_interlocked_increment(_DWORD *a1)
@@ -8212,7 +8157,7 @@ void crfsuite_delete_feature_tokenizer(FILE **a1)
     v3 = a1[1];
     if (v3)
     {
-      iwa_delete(v3);
+      iwa_delete(&v3->_p);
     }
 
     free(a1);
@@ -8434,9 +8379,9 @@ uint64_t crfsuite_dictionary_create_instance(const char *a1, void *a2)
   return result;
 }
 
-uint64_t dictionary_release(uint64_t a1)
+uint64_t dictionary_release(void ***a1)
 {
-  v2 = crfsuite_interlocked_decrement((a1 + 8));
+  v2 = crfsuite_interlocked_decrement(a1 + 2);
   if (!v2)
   {
     quark_delete(*a1);
@@ -8446,7 +8391,7 @@ uint64_t dictionary_release(uint64_t a1)
   return v2;
 }
 
-uint64_t dictionary_to_string(uint64_t *a1, int a2, char **a3)
+uint64_t dictionary_to_string(uint64_t *a1, uint64_t a2, char **a3)
 {
   v4 = quark_to_string(*a1, a2);
   if (!v4)
@@ -8545,8 +8490,9 @@ uint64_t ME_Efficient_Model_Trainer::perform_SGD(ME_Efficient_Model_Trainer *thi
   std::ostream::put();
   std::ostream::flush();
   v81[0] = 0;
-  std::vector<double>::vector[abi:ne200100](&v82, v15);
-  std::vector<int>::vector[abi:ne200100](v81, v15);
+  std::vector<double>::vector[abi:ne200100](&v82, v15, v81);
+  LODWORD(v78) = 0;
+  std::vector<int>::vector[abi:ne200100](v81, v15, &v78);
   v78 = 0;
   v79 = 0;
   v80 = 0;
@@ -8876,7 +8822,7 @@ void *std::endl[abi:ne200100]<char,std::char_traits<char>>(void *a1)
   return a1;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8925,13 +8871,13 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-uint64_t std::random_shuffle[abi:ne200100]<std::__wrap_iter<int *>>(uint64_t result, uint64_t a2)
+std::__1 *std::random_shuffle[abi:ne200100]<std::__wrap_iter<int *>>(std::__1 *result, uint64_t a2)
 {
   v2 = (a2 - result) >> 2;
   if (v2 >= 2)
@@ -8952,13 +8898,13 @@ uint64_t std::random_shuffle[abi:ne200100]<std::__wrap_iter<int *>>(uint64_t res
         if (v8)
         {
           v9 = *v7;
-          *v7 = v4[v8];
-          v4[v8] = v9;
+          *v7 = *(v4 + v8);
+          *(v4 + v8) = v9;
         }
 
-        ++v7;
+        v7 = (v7 + 4);
         --v6;
-        ++v4;
+        v4 = (v4 + 4);
       }
 
       while (v7 < v5);
@@ -8986,16 +8932,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -9018,9 +8964,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_29770BF54(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_29770BF54(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C272DE0](&a10);
+  MEMORY[0x29C272DE0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -9110,29 +9056,17 @@ void sub_29770C188(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_29770C218(_Unwind_Exception *exception_object)
@@ -9147,7 +9081,7 @@ void sub_29770C218(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -9167,29 +9101,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(uint64_t a1, un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_29770C314(_Unwind_Exception *exception_object)
@@ -9204,6 +9126,19 @@ void sub_29770C314(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_29770C3EC(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -9214,6 +9149,19 @@ void sub_29770C3EC(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_29770C500(_Unwind_Exception *exception_object)
@@ -9407,10 +9355,10 @@ uint64_t std::__independent_bits_engine<std::__rs_default,unsigned long>::__eval
 
 void holdout_evaluation(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t *a4)
 {
-  memset(v18, 0, sizeof(v18));
+  memset(v14, 0, sizeof(v14));
   v8 = a2[4];
   v9 = (*(*(*a2 + 24) + 56))();
-  crfsuite_evaluation_init(v18, v9);
+  crfsuite_evaluation_init(v14, v9);
   (*(a1 + 88))(a1, a3, 1.0);
   if (v8 < 1)
   {
@@ -9423,7 +9371,7 @@ void holdout_evaluation(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t *a4)
     v11 = 0;
     do
     {
-      v17 = 0;
+      v13 = 0;
       v12 = dataset_get(a2, v10);
       if (*v12 >= 1)
       {
@@ -9432,17 +9380,17 @@ void holdout_evaluation(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t *a4)
       }
 
       (*(a1 + 96))(a1, v12);
-      (*(a1 + 112))(a1, v11, &v17);
-      crfsuite_evaluation_accmulate(v18, *(v12 + 2), v11, *v12);
+      (*(a1 + 112))(a1, v11, &v13);
+      crfsuite_evaluation_accmulate(v14, *(v12 + 2), v11, *v12);
       ++v10;
     }
 
     while (v8 != v10);
   }
 
-  crfsuite_evaluation_finalize(v18);
-  crfsuite_evaluation_output(v18, *(*a2 + 24), a4[1], *a4, v13, v14, v15, v16);
-  crfsuite_evaluation_finish(v18);
+  crfsuite_evaluation_finalize(v14);
+  crfsuite_evaluation_output(v14, *(*a2 + 24), a4[1], *a4);
+  crfsuite_evaluation_finish(v14);
   if (v11)
   {
     free(v11);
@@ -9453,23 +9401,7 @@ char *iwa_reader(uint64_t a1)
 {
   v2 = malloc_type_malloc(0x68uLL, 0x1070040CBD6686FuLL);
   v3 = v2;
-  if (!v2)
-  {
-    goto LABEL_4;
-  }
-
-  *(v2 + 88) = 0u;
-  *(v2 + 72) = 0u;
-  *(v2 + 56) = 0u;
-  *(v2 + 40) = 0u;
-  *(v2 + 24) = 0u;
-  *(v2 + 8) = 0u;
-  *v2 = a1;
-  v4 = malloc_type_malloc(0x10000uLL, 0x100004077774924uLL);
-  *(v3 + 4) = v4;
-  *(v3 + 5) = v4 + 0x10000;
-  *(v3 + 6) = v4 + 0x10000;
-  if (v4)
+  if (v2 && (*(v2 + 88) = 0u, *(v2 + 72) = 0u, *(v2 + 56) = 0u, *(v2 + 40) = 0u, *(v2 + 24) = 0u, *(v2 + 8) = 0u, *v2 = a1, v4 = malloc_type_malloc(0x10000uLL, 0x100004077774924uLL), *(v3 + 4) = v4, *(v3 + 5) = v4 + 0x10000, *(v3 + 6) = v4 + 0x10000, v4))
   {
     *(v3 + 9) = malloc_type_calloc(0x1000uLL, 1uLL, 0x100004077774924uLL);
     *(v3 + 56) = xmmword_297732630;
@@ -9479,7 +9411,6 @@ char *iwa_reader(uint64_t a1)
 
   else
   {
-LABEL_4:
     iwa_delete(v3);
     return 0;
   }
@@ -9715,74 +9646,67 @@ uint64_t read_field_unescaped(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-void *logging(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void *logging(void *result, const char *a2, ...)
 {
+  va_start(va, a2);
   if (result)
   {
-    v9 = result[1];
-    if (v9)
+    v2 = result[1];
+    if (v2)
     {
-      return v9(*result, a2, &a9);
+      return v2(*result, a2, va);
     }
   }
 
   return result;
 }
 
-void *logging_timestamp(void *a1, uint64_t a2)
+void *logging_timestamp(void *a1, const char *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v13 = 0;
-  time(&v13);
-  v4 = gmtime(&v13);
-  strftime(v14, 0x50uLL, "%Y-%m-%dT%H:%M:%SZ", v4);
-  result = logging(a1, a2, v5, v6, v7, v8, v9, v10, v14);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  v8 = *MEMORY[0x29EDCA608];
+  v6 = 0;
+  time(&v6);
+  v4 = gmtime(&v6);
+  strftime(v7, 0x50uLL, "%Y-%m-%dT%H:%M:%SZ", v4);
+  return logging(a1, a2, v7);
 }
 
-void *logging_progress(void *result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *logging_progress(void *result, int a2)
 {
-  v8 = *(result + 4);
-  if (v8 < a2)
+  v2 = *(result + 4);
+  if (v2 < a2)
   {
-    v10 = result;
+    v4 = result;
     do
     {
-      v11 = v8 + 1;
-      *(v10 + 4) = v8 + 1;
-      if (v8)
+      *(v4 + 4) = v2 + 1;
+      if (v2)
       {
-        if (v11 % 10)
+        if ((v2 + 1) % 10)
         {
-          v12 = v10;
-          v13 = ".";
+          result = logging(v4, ".");
         }
 
         else
         {
-          v14 = (v11 / 10);
-          v12 = v10;
-          v13 = "%d";
+          result = logging(v4, "%d");
         }
-
-        result = logging(v12, v13, a3, a4, a5, a6, a7, a8, v14);
       }
 
-      v8 = *(v10 + 4);
+      v2 = *(v4 + 4);
     }
 
-    while (v8 < a2);
+    while (v2 < a2);
   }
 
   return result;
 }
 
-void *logging_progress_end(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void *logging_progress_end(void *a1)
 {
-  logging_progress(a1, 100, a3, a4, a5, a6, a7, a8);
+  logging_progress(a1, 100);
 
-  return logging(a1, "\n", v10, v11, v12, v13, v14, v15, a9);
+  return logging(a1, "\n");
 }
 
 _DWORD *params_create_instance()
@@ -9912,4 +9836,36 @@ uint64_t params_set(unsigned int **a1, char *a2, const char *a3)
   }
 
   return result;
+}
+
+uint64_t params_get(unsigned int **a1, char *a2, char **a3)
+{
+  v10 = *MEMORY[0x29EDCA608];
+  param = find_param(*a1, a2);
+  if (!param)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = *(param + 2);
+  switch(v5)
+  {
+    case 3:
+      v7 = param[3];
+      goto LABEL_10;
+    case 2:
+      snprintf(__str, 0x3FFuLL, "%f");
+      goto LABEL_8;
+    case 1:
+      snprintf(__str, 0x3FFuLL, "%d");
+LABEL_8:
+      v7 = __str;
+LABEL_10:
+      v8 = mystrdup(v7);
+      result = 0;
+      *a3 = v8;
+      return result;
+  }
+
+  return 0;
 }

@@ -84,11 +84,11 @@
 
 - (void)layoutSubviews
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   kdebug_trace();
-  v14.receiver = self;
-  v14.super_class = ARSKView;
-  [(SKView *)&v14 layoutSubviews];
+  v13.receiver = self;
+  v13.super_class = ARSKView;
+  [(SKView *)&v13 layoutSubviews];
   kdebug_trace();
   window = [(ARSKView *)self window];
   windowScene = [window windowScene];
@@ -109,20 +109,18 @@
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
     [(ARSKView *)self bounds];
-    v11 = NSStringFromCGRect(v24);
+    v11 = NSStringFromCGRect(v23);
     v12 = NSStringFromUIInterfaceOrientation(self->_interfaceOrientation);
     *buf = 138544130;
-    v16 = v10;
-    v17 = 2048;
+    v15 = v10;
+    v16 = 2048;
     selfCopy = self;
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v12;
+    v18 = 2114;
+    v19 = v11;
+    v20 = 2114;
+    v21 = v12;
     _os_log_impl(&dword_23D3AE000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: [ARSKView] Layout changed to %{public}@, %{public}@", buf, 0x2Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (ARSession)session
@@ -286,37 +284,37 @@ uint64_t __35__ARSKView__anchorForNode_inFrame___block_invoke(uint64_t a1, void 
 
 - (void)_updateAnchors:(id)anchors camera:(id)camera
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   anchorsCopy = anchors;
   cameraCopy = camera;
-  v61 = anchorsCopy;
+  v60 = anchorsCopy;
   v7 = [MEMORY[0x277CBEB98] setWithArray:anchorsCopy];
   v8 = [(NSSet *)self->_lastFrameAnchors mutableCopy];
   [v8 minusSet:v7];
-  v69 = [v7 mutableCopy];
-  [v69 minusSet:self->_lastFrameAnchors];
-  v60 = v7;
+  v68 = [v7 mutableCopy];
+  [v68 minusSet:self->_lastFrameAnchors];
+  v59 = v7;
   objc_storeStrong(&self->_lastFrameAnchors, v7);
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v80 objects:v86 count:16];
+  v9 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v81;
+    v11 = *v80;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v81 != v11)
+        if (*v80 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v80 + 1) + 8 * i);
+        v13 = *(*(&v79 + 1) + 8 * i);
         nodesByAnchorIdentifier = self->_nodesByAnchorIdentifier;
         identifier = [v13 identifier];
         v16 = [(NSMutableDictionary *)nodesByAnchorIdentifier objectForKeyedSubscript:identifier];
@@ -339,32 +337,32 @@ uint64_t __35__ARSKView__anchorForNode_inFrame___block_invoke(uint64_t a1, void 
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v80 objects:v86 count:16];
+      v10 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
     }
 
     while (v10);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
-  v63 = v69;
-  v21 = [v63 countByEnumeratingWithState:&v76 objects:v85 count:16];
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v62 = v68;
+  v21 = [v62 countByEnumeratingWithState:&v75 objects:v84 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v77;
+    v23 = *v76;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v77 != v23)
+        if (*v76 != v23)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v62);
         }
 
-        v25 = *(*(&v76 + 1) + 8 * j);
+        v25 = *(*(&v75 + 1) + 8 * j);
         v26 = self->_nodesByAnchorIdentifier;
         identifier3 = [v25 identifier];
         node = [(NSMutableDictionary *)v26 objectForKeyedSubscript:identifier3];
@@ -410,7 +408,7 @@ uint64_t __35__ARSKView__anchorForNode_inFrame___block_invoke(uint64_t a1, void 
 LABEL_24:
       }
 
-      v22 = [v63 countByEnumeratingWithState:&v76 objects:v85 count:16];
+      v22 = [v62 countByEnumeratingWithState:&v75 objects:v84 count:16];
     }
 
     while (v22);
@@ -418,38 +416,38 @@ LABEL_24:
 
   interfaceOrientation = self->_interfaceOrientation;
   [cameraCopy projectionMatrix];
-  v68 = v40;
-  v70 = v39;
-  v66 = v42;
-  v67 = v41;
+  v67 = v40;
+  v69 = v39;
+  v65 = v42;
+  v66 = v41;
   trackingState = [cameraCopy trackingState];
+  v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v44 = 3;
   if (trackingState)
   {
     v44 = interfaceOrientation;
   }
 
-  v65 = v44;
+  v64 = v44;
+  v73 = 0uLL;
   v74 = 0uLL;
-  v75 = 0uLL;
-  v62 = v61;
-  v45 = [v62 countByEnumeratingWithState:&v72 objects:v84 count:16];
+  v61 = v60;
+  v45 = [v61 countByEnumeratingWithState:&v71 objects:v83 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v73;
+    v47 = *v72;
     do
     {
       for (k = 0; k != v46; ++k)
       {
-        if (*v73 != v47)
+        if (*v72 != v47)
         {
-          objc_enumerationMutation(v62);
+          objc_enumerationMutation(v61);
         }
 
-        v49 = *(*(&v72 + 1) + 8 * k);
+        v49 = *(*(&v71 + 1) + 8 * k);
         v50 = self->_nodesByAnchorIdentifier;
         identifier5 = [v49 identifier];
         v52 = [(NSMutableDictionary *)v50 objectForKeyedSubscript:identifier5];
@@ -465,7 +463,7 @@ LABEL_24:
             [delegate8 view:self willUpdateNode:v52 forAnchor:v49];
           }
 
-          [(ARSKView *)self _updateNode:v52 forAnchor:v49 projectionMatrix:cameraCopy camera:v65 orientation:v70, v68, v67, v66];
+          [(ARSKView *)self _updateNode:v52 forAnchor:v49 projectionMatrix:cameraCopy camera:v64 orientation:v69, v67, v66, v65];
           delegate9 = [(SKView *)self delegate];
           v57 = objc_opt_respondsToSelector();
 
@@ -477,13 +475,11 @@ LABEL_24:
         }
       }
 
-      v46 = [v62 countByEnumeratingWithState:&v72 objects:v84 count:16];
+      v46 = [v61 countByEnumeratingWithState:&v71 objects:v83 count:16];
     }
 
     while (v46);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNode:(float32x4_t)node forAnchor:(float32x4_t)anchor projectionMatrix:(float32x4_t)matrix camera:(uint64_t)camera orientation:(void *)orientation
@@ -494,13 +490,13 @@ LABEL_24:
   [v16 imageResolution];
   v18 = v17;
   v20 = v19;
-  [v16 transform];
+  objc_msgSend_transform(v16);
   v52 = __invert_f4(v51);
   v38 = v52.columns[1];
   v39 = v52.columns[0];
   v36 = v52.columns[3];
   v37 = v52.columns[2];
-  [v15 transform];
+  objc_msgSend_transform(v15);
   v21 = 0;
   v48[0] = v22;
   v48[1] = v23;
@@ -522,10 +518,10 @@ LABEL_24:
   v46 = ((v26.f32[0] / v26.f32[3]) + 1.0) * 0.5;
   v44 = (1.0 - (v26.f32[1] / v26.f32[3])) * 0.5;
   memset(&v49, 0, sizeof(v49));
-  ARCameraImageToViewTransform(a10, 0, &v49, v18, v20, self[84].f64[0], self[84].f64[1]);
-  v47 = vmulq_f64(vaddq_f64(*&v49.tx, vmlaq_n_f64(vmulq_n_f64(*&v49.c, v44), *&v49.a, v46)), self[84]);
-  scene = [(float64x2_t *)self scene];
-  [(float64x2_t *)self convertPoint:scene toScene:*&v47];
+  ARCameraImageToViewTransform(a10, 0, &v49, v18, v20, *(self + 1344), *(self + 1352));
+  v47 = vmulq_f64(vaddq_f64(*&v49.tx, vmlaq_n_f64(vmulq_n_f64(*&v49.c, v44), *&v49.a, v46)), *(self + 1344));
+  scene = [self scene];
+  [self convertPoint:scene toScene:*&v47];
   v31 = v30;
   v33 = v32;
 

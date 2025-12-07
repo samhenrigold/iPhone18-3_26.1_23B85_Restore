@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)disconnect;
 - (void)findAppForAccessory;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PSGAccessoryDetailsController
@@ -68,139 +69,161 @@
       if (isAvailableOverBonjour)
       {
         hasIPConnection = [(EAAccessory *)self->_accessory hasIPConnection];
-        v10 = MEMORY[0x277D3FAD8];
-        v11 = PSG_BundleForGeneralSettingsUIFramework();
-        v12 = v11;
-        if (hasIPConnection)
+        v10 = hasIPConnection;
+        v11 = MEMORY[0x277D3FAD8];
+        v12 = PSG_BundleForGeneralSettingsUIFramework(hasIPConnection);
+        v13 = v12;
+        if (v10)
         {
-          v13 = @"DISCONNECT";
+          v14 = @"DISCONNECT";
         }
 
         else
         {
-          v13 = @"CONNECT";
+          v14 = @"CONNECT";
         }
 
-        if (hasIPConnection)
+        if (v10)
         {
-          v14 = &selRef_disconnect;
+          v15 = &selRef_disconnect;
         }
 
         else
         {
-          v14 = &selRef_connect;
+          v15 = &selRef_connect;
         }
 
-        v15 = [v11 localizedStringForKey:v13 value:&stru_282E88A90 table:0];
-        v16 = [v10 preferenceSpecifierNamed:v15 target:self set:0 get:0 detail:0 cell:13 edit:0];
+        v16 = [v12 localizedStringForKey:v14 value:&stru_282E88A90 table:0];
+        v17 = [v11 preferenceSpecifierNamed:v16 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-        [v16 setButtonAction:*v14];
-        [v16 setIdentifier:@"CONNECT_BUTTON"];
-        [v3 addObject:v16];
+        [v17 setButtonAction:*v15];
+        [v17 setIdentifier:@"CONNECT_BUTTON"];
+        [v3 addObject:v17];
       }
     }
 
     if ([(EAAccessory *)self->_accessory isConnected])
     {
       manufacturer = [(EAAccessory *)self->_accessory manufacturer];
-      v18 = [manufacturer length];
+      v19 = [manufacturer length];
 
-      v19 = MEMORY[0x277D3FED8];
-      if (v18)
+      v21 = MEMORY[0x277D3FED8];
+      if (v19)
       {
-        v20 = MEMORY[0x277D3FAD8];
-        v21 = PSG_BundleForGeneralSettingsUIFramework();
-        v22 = [v21 localizedStringForKey:@"MANUFACTURER" value:&stru_282E88A90 table:0];
-        v23 = [v20 preferenceSpecifierNamed:v22 target:self set:0 get:sel_manufacturer detail:0 cell:4 edit:0];
+        v22 = MEMORY[0x277D3FAD8];
+        v23 = PSG_BundleForGeneralSettingsUIFramework(v20);
+        v24 = [v23 localizedStringForKey:@"MANUFACTURER" value:&stru_282E88A90 table:0];
+        v25 = [v22 preferenceSpecifierNamed:v24 target:self set:0 get:sel_manufacturer detail:0 cell:4 edit:0];
 
-        [v23 setIdentifier:@"MANUFACTURER"];
-        [v23 setProperty:MEMORY[0x277CBEC38] forKey:*v19];
-        [v3 addObject:v23];
+        [v25 setIdentifier:@"MANUFACTURER"];
+        [v25 setProperty:MEMORY[0x277CBEC38] forKey:*v21];
+        [v3 addObject:v25];
       }
 
       modelNumber = [(EAAccessory *)self->_accessory modelNumber];
-      v25 = [modelNumber length];
+      v27 = [modelNumber length];
 
-      if (v25)
+      if (v27)
       {
-        v26 = MEMORY[0x277D3FAD8];
-        v27 = PSG_BundleForGeneralSettingsUIFramework();
-        v28 = [v27 localizedStringForKey:@"MODELNUMBER" value:&stru_282E88A90 table:0];
-        v29 = [v26 preferenceSpecifierNamed:v28 target:self set:0 get:sel_modelNumber detail:0 cell:4 edit:0];
+        v29 = MEMORY[0x277D3FAD8];
+        v30 = PSG_BundleForGeneralSettingsUIFramework(v28);
+        v31 = [v30 localizedStringForKey:@"MODELNUMBER" value:&stru_282E88A90 table:0];
+        v32 = [v29 preferenceSpecifierNamed:v31 target:self set:0 get:sel_modelNumber detail:0 cell:4 edit:0];
 
-        [v29 setIdentifier:@"MODELNUMBER"];
-        [v29 setProperty:MEMORY[0x277CBEC38] forKey:*v19];
-        [v3 addObject:v29];
+        [v32 setIdentifier:@"MODELNUMBER"];
+        [v32 setProperty:MEMORY[0x277CBEC38] forKey:*v21];
+        [v3 addObject:v32];
       }
 
       serialNumber = [(EAAccessory *)self->_accessory serialNumber];
-      v31 = [serialNumber length];
+      v34 = [serialNumber length];
 
-      if (v31)
+      if (v34)
       {
-        v32 = MEMORY[0x277D3FAD8];
-        v33 = PSG_BundleForGeneralSettingsUIFramework();
-        v34 = [v33 localizedStringForKey:@"SERIALNUMBER" value:&stru_282E88A90 table:0];
-        v35 = [v32 preferenceSpecifierNamed:v34 target:self set:0 get:sel_serialNumber detail:0 cell:4 edit:0];
+        v36 = MEMORY[0x277D3FAD8];
+        v37 = PSG_BundleForGeneralSettingsUIFramework(v35);
+        v38 = [v37 localizedStringForKey:@"SERIALNUMBER" value:&stru_282E88A90 table:0];
+        v39 = [v36 preferenceSpecifierNamed:v38 target:self set:0 get:sel_serialNumber detail:0 cell:4 edit:0];
 
-        [v35 setIdentifier:@"SERIALNUMBER"];
-        [v35 setProperty:MEMORY[0x277CBEC38] forKey:*v19];
-        [v3 addObject:v35];
+        [v39 setIdentifier:@"SERIALNUMBER"];
+        [v39 setProperty:MEMORY[0x277CBEC38] forKey:*v21];
+        [v3 addObject:v39];
       }
 
       firmwareRevision = [(EAAccessory *)self->_accessory firmwareRevision];
-      v37 = [firmwareRevision length];
+      v41 = [firmwareRevision length];
 
-      if (v37)
+      if (v41)
       {
-        v38 = MEMORY[0x277D3FAD8];
-        v39 = PSG_BundleForGeneralSettingsUIFramework();
-        v40 = [v39 localizedStringForKey:@"FIRMWAREREVISION" value:&stru_282E88A90 table:0];
-        v41 = [v38 preferenceSpecifierNamed:v40 target:self set:0 get:sel_firmwareRevision detail:0 cell:4 edit:0];
+        v43 = MEMORY[0x277D3FAD8];
+        v44 = PSG_BundleForGeneralSettingsUIFramework(v42);
+        v45 = [v44 localizedStringForKey:@"FIRMWAREREVISION" value:&stru_282E88A90 table:0];
+        v46 = [v43 preferenceSpecifierNamed:v45 target:self set:0 get:sel_firmwareRevision detail:0 cell:4 edit:0];
 
-        [v41 setIdentifier:@"FIRMWAREREVISION"];
-        [v41 setProperty:MEMORY[0x277CBEC38] forKey:*v19];
-        [v3 addObject:v41];
+        [v46 setIdentifier:@"FIRMWAREREVISION"];
+        [v46 setProperty:MEMORY[0x277CBEC38] forKey:*v21];
+        [v3 addObject:v46];
       }
 
       hardwareRevision = [(EAAccessory *)self->_accessory hardwareRevision];
-      v43 = [hardwareRevision length];
+      v48 = [hardwareRevision length];
 
-      if (v43)
+      if (v48)
       {
-        v44 = MEMORY[0x277D3FAD8];
-        v45 = PSG_BundleForGeneralSettingsUIFramework();
-        v46 = [v45 localizedStringForKey:@"HARDWAREREVISION" value:&stru_282E88A90 table:0];
-        v47 = [v44 preferenceSpecifierNamed:v46 target:self set:0 get:sel_hardwareRevision detail:0 cell:4 edit:0];
+        v50 = MEMORY[0x277D3FAD8];
+        v51 = PSG_BundleForGeneralSettingsUIFramework(v49);
+        v52 = [v51 localizedStringForKey:@"HARDWAREREVISION" value:&stru_282E88A90 table:0];
+        v53 = [v50 preferenceSpecifierNamed:v52 target:self set:0 get:sel_hardwareRevision detail:0 cell:4 edit:0];
 
-        [v47 setIdentifier:@"HARDWAREREVISION"];
-        [v47 setProperty:MEMORY[0x277CBEC38] forKey:*v19];
-        [v3 addObject:v47];
+        [v53 setIdentifier:@"HARDWAREREVISION"];
+        [v53 setProperty:MEMORY[0x277CBEC38] forKey:*v21];
+        [v3 addObject:v53];
       }
 
-      if ([(EAAccessory *)self->_accessory supportsPublicIap])
+      supportsPublicIap = [(EAAccessory *)self->_accessory supportsPublicIap];
+      if (supportsPublicIap)
       {
-        v48 = MEMORY[0x277D3FAD8];
-        v49 = PSG_BundleForGeneralSettingsUIFramework();
-        v50 = [v49 localizedStringForKey:@"FIND_APP_FOR_ACCESSORY" value:&stru_282E88A90 table:0];
-        v51 = [v48 preferenceSpecifierNamed:v50 target:self set:0 get:0 detail:0 cell:13 edit:0];
+        v55 = MEMORY[0x277D3FAD8];
+        v56 = PSG_BundleForGeneralSettingsUIFramework(supportsPublicIap);
+        v57 = [v56 localizedStringForKey:@"FIND_APP_FOR_ACCESSORY" value:&stru_282E88A90 table:0];
+        v58 = [v55 preferenceSpecifierNamed:v57 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-        [v51 setButtonAction:sel_findAppForAccessory];
-        [v51 setIdentifier:@"FIND_APP_FOR_ACCESSORY"];
-        [v3 addObject:v51];
+        [v58 setButtonAction:sel_findAppForAccessory];
+        [v58 setIdentifier:@"FIND_APP_FOR_ACCESSORY"];
+        [v3 addObject:v58];
       }
     }
   }
 
-  v52 = *MEMORY[0x277D3FC48];
-  v53 = *(&self->super.super.super.super.super.isa + v52);
-  *(&self->super.super.super.super.super.isa + v52) = v3;
-  v54 = v3;
+  v59 = *MEMORY[0x277D3FC48];
+  v60 = *(&self->super.super.super.super.super.isa + v59);
+  *(&self->super.super.super.super.super.isa + v59) = v3;
+  v61 = v3;
 
-  v55 = *(&self->super.super.super.super.super.isa + v52);
-  v56 = v55;
+  v62 = *(&self->super.super.super.super.super.isa + v59);
+  v63 = v62;
 
-  return v55;
+  return v62;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = PSGAccessoryDetailsController;
+  [(PSGAccessoryDetailsController *)&v8 viewDidAppear:appear];
+  if (self->_shouldEscape)
+  {
+    navigationController = [(PSGAccessoryDetailsController *)self navigationController];
+    topViewController = [navigationController topViewController];
+
+    if (topViewController == self)
+    {
+      navigationController2 = [(PSGAccessoryDetailsController *)self navigationController];
+      v7 = [navigationController2 popViewControllerAnimated:1];
+    }
+  }
+
+  self->_finishedAppearing = 1;
 }
 
 - (void)connect
@@ -219,7 +242,7 @@
 
 - (void)findAppForAccessory
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [MEMORY[0x277CCAD18] queryItemWithName:@"action" value:@"accessory-lookup"];
   v5 = v3;
@@ -227,15 +250,15 @@
 
   selfCopy = self;
   [(EAAccessory *)self->_accessory allPublicProtocolStrings];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  obj = v49 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  obj = v48 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v47;
+    v8 = *v46;
     v9 = 1;
     do
     {
@@ -243,12 +266,12 @@
       v11 = v9;
       do
       {
-        if (*v47 != v8)
+        if (*v46 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v46 + 1) + 8 * v10);
+        v12 = *(*(&v45 + 1) + 8 * v10);
         v13 = MEMORY[0x277CCAD18];
         v9 = (v11 + 1);
         v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"id%d", v11];
@@ -260,7 +283,7 @@
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v7 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v7);
@@ -305,15 +328,13 @@
   [v37 setQueryItems:v5];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   v39 = [v37 URL];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __52__PSGAccessoryDetailsController_findAppForAccessory__block_invoke;
-  v44[3] = &unk_278325070;
-  v45 = v37;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __52__PSGAccessoryDetailsController_findAppForAccessory__block_invoke;
+  v43[3] = &unk_278325070;
+  v44 = v37;
   v40 = v37;
-  [mEMORY[0x277D75128] openURL:v39 options:MEMORY[0x277CBEC10] completionHandler:v44];
-
-  v41 = *MEMORY[0x277D85DE8];
+  [mEMORY[0x277D75128] openURL:v39 options:MEMORY[0x277CBEC10] completionHandler:v43];
 }
 
 void __52__PSGAccessoryDetailsController_findAppForAccessory__block_invoke(uint64_t a1, char a2)
@@ -375,9 +396,9 @@ LABEL_8:
     }
   }
 
-  v94 = name;
+  v102 = name;
   v12 = [(PSGAccessoryDetailsController *)self specifierForID:@"CONNECT_BUTTON"];
-  v97 = [(PSGAccessoryDetailsController *)self specifierForID:@"MANUFACTURER"];
+  v105 = [(PSGAccessoryDetailsController *)self specifierForID:@"MANUFACTURER"];
   v13 = [(PSGAccessoryDetailsController *)self specifierForID:@"MODELNUMBER"];
   v14 = [(PSGAccessoryDetailsController *)self specifierForID:@"SERIALNUMBER"];
   v15 = [(PSGAccessoryDetailsController *)self specifierForID:@"FIRMWAREREVISION"];
@@ -385,8 +406,8 @@ LABEL_8:
   v17 = [(PSGAccessoryDetailsController *)self specifierForID:@"FIND_APP_FOR_ACCESSORY"];
   [(PSGAccessoryDetailsController *)self beginUpdates];
   name3 = [updateCopy name];
-  v95 = v15;
-  v96 = v14;
+  v103 = v15;
+  v104 = v14;
   if ([name3 isEqualToString:*MEMORY[0x277CC5E88]])
   {
     isConnected = [v5 isConnected];
@@ -394,11 +415,11 @@ LABEL_8:
     if (isConnected)
     {
       v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v21 = v97;
-      if (v97)
+      v99 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v21 = v105;
+      if (v105)
       {
-        [v20 addObject:v97];
+        [v20 addObject:v105];
       }
 
       if (v13)
@@ -426,132 +447,133 @@ LABEL_8:
         [v20 addObject:v17];
       }
 
-      v92 = v13;
+      v100 = v13;
       if ([v20 count])
       {
         [(PSGAccessoryDetailsController *)self removeContiguousSpecifiers:v20 animated:1];
       }
 
-      v90 = v20;
+      v98 = v20;
       manufacturer = [v5 manufacturer];
       v23 = [manufacturer length];
 
-      v24 = MEMORY[0x277D3FED8];
+      v25 = MEMORY[0x277D3FED8];
       if (v23)
       {
-        v25 = MEMORY[0x277D3FAD8];
-        v26 = PSG_BundleForGeneralSettingsUIFramework();
-        v27 = [v26 localizedStringForKey:@"MANUFACTURER" value:&stru_282E88A90 table:0];
-        v28 = [v25 preferenceSpecifierNamed:v27 target:self set:0 get:sel_manufacturer detail:0 cell:4 edit:0];
+        v26 = MEMORY[0x277D3FAD8];
+        v27 = PSG_BundleForGeneralSettingsUIFramework(v24);
+        v28 = [v27 localizedStringForKey:@"MANUFACTURER" value:&stru_282E88A90 table:0];
+        v29 = [v26 preferenceSpecifierNamed:v28 target:self set:0 get:sel_manufacturer detail:0 cell:4 edit:0];
 
-        v24 = MEMORY[0x277D3FED8];
-        [v28 setIdentifier:@"MANUFACTURER"];
-        [v28 setProperty:MEMORY[0x277CBEC38] forKey:*v24];
-        [v91 addObject:v28];
-        v21 = v28;
+        v25 = MEMORY[0x277D3FED8];
+        [v29 setIdentifier:@"MANUFACTURER"];
+        [v29 setProperty:MEMORY[0x277CBEC38] forKey:*v25];
+        [v99 addObject:v29];
+        v21 = v29;
       }
 
-      v29 = v12;
-      v97 = v21;
+      v30 = v12;
+      v105 = v21;
       modelNumber = [v5 modelNumber];
-      v31 = [modelNumber length];
+      v32 = [modelNumber length];
 
-      if (v31)
+      if (v32)
       {
-        v32 = MEMORY[0x277D3FAD8];
-        v33 = PSG_BundleForGeneralSettingsUIFramework();
-        v34 = [v33 localizedStringForKey:@"MODELNUMBER" value:&stru_282E88A90 table:0];
-        v35 = [v32 preferenceSpecifierNamed:v34 target:self set:0 get:sel_modelNumber detail:0 cell:4 edit:0];
+        v34 = MEMORY[0x277D3FAD8];
+        v35 = PSG_BundleForGeneralSettingsUIFramework(v33);
+        v36 = [v35 localizedStringForKey:@"MODELNUMBER" value:&stru_282E88A90 table:0];
+        v37 = [v34 preferenceSpecifierNamed:v36 target:self set:0 get:sel_modelNumber detail:0 cell:4 edit:0];
 
-        v24 = MEMORY[0x277D3FED8];
-        [v35 setIdentifier:@"MODELNUMBER"];
-        [v35 setProperty:MEMORY[0x277CBEC38] forKey:*v24];
-        v36 = v91;
-        [v91 addObject:v35];
-        v92 = v35;
+        v25 = MEMORY[0x277D3FED8];
+        [v37 setIdentifier:@"MODELNUMBER"];
+        [v37 setProperty:MEMORY[0x277CBEC38] forKey:*v25];
+        v38 = v99;
+        [v99 addObject:v37];
+        v100 = v37;
       }
 
       else
       {
-        v36 = v91;
+        v38 = v99;
       }
 
       serialNumber = [v5 serialNumber];
-      v44 = [serialNumber length];
+      v46 = [serialNumber length];
 
-      if (v44)
+      if (v46)
       {
-        v45 = MEMORY[0x277D3FAD8];
-        v46 = PSG_BundleForGeneralSettingsUIFramework();
-        v47 = [v46 localizedStringForKey:@"SERIALNUMBER" value:&stru_282E88A90 table:0];
-        v48 = [v45 preferenceSpecifierNamed:v47 target:self set:0 get:sel_serialNumber detail:0 cell:4 edit:0];
+        v48 = MEMORY[0x277D3FAD8];
+        v49 = PSG_BundleForGeneralSettingsUIFramework(v47);
+        v50 = [v49 localizedStringForKey:@"SERIALNUMBER" value:&stru_282E88A90 table:0];
+        v51 = [v48 preferenceSpecifierNamed:v50 target:self set:0 get:sel_serialNumber detail:0 cell:4 edit:0];
 
-        v24 = MEMORY[0x277D3FED8];
-        [v48 setIdentifier:@"SERIALNUMBER"];
-        [v48 setProperty:MEMORY[0x277CBEC38] forKey:*v24];
-        [v36 addObject:v48];
+        v25 = MEMORY[0x277D3FED8];
+        [v51 setIdentifier:@"SERIALNUMBER"];
+        [v51 setProperty:MEMORY[0x277CBEC38] forKey:*v25];
+        [v38 addObject:v51];
       }
 
       else
       {
-        v48 = v96;
+        v51 = v104;
       }
 
-      v96 = v48;
+      v104 = v51;
       firmwareRevision = [v5 firmwareRevision];
-      v50 = [firmwareRevision length];
+      v53 = [firmwareRevision length];
 
-      if (v50)
+      if (v53)
       {
-        v51 = MEMORY[0x277D3FAD8];
-        v52 = PSG_BundleForGeneralSettingsUIFramework();
-        v53 = [v52 localizedStringForKey:@"FIRMWAREREVISION" value:&stru_282E88A90 table:0];
-        v54 = [v51 preferenceSpecifierNamed:v53 target:self set:0 get:sel_firmwareRevision detail:0 cell:4 edit:0];
+        v55 = MEMORY[0x277D3FAD8];
+        v56 = PSG_BundleForGeneralSettingsUIFramework(v54);
+        v57 = [v56 localizedStringForKey:@"FIRMWAREREVISION" value:&stru_282E88A90 table:0];
+        v58 = [v55 preferenceSpecifierNamed:v57 target:self set:0 get:sel_firmwareRevision detail:0 cell:4 edit:0];
 
-        v24 = MEMORY[0x277D3FED8];
-        [v54 setIdentifier:@"FIRMWAREREVISION"];
-        [v54 setProperty:MEMORY[0x277CBEC38] forKey:*v24];
-        [v36 addObject:v54];
-        v95 = v54;
+        v25 = MEMORY[0x277D3FED8];
+        [v58 setIdentifier:@"FIRMWAREREVISION"];
+        [v58 setProperty:MEMORY[0x277CBEC38] forKey:*v25];
+        [v38 addObject:v58];
+        v103 = v58;
       }
 
       hardwareRevision = [v5 hardwareRevision];
-      v56 = [hardwareRevision length];
+      v60 = [hardwareRevision length];
 
-      if (v56)
+      if (v60)
       {
-        v57 = MEMORY[0x277D3FAD8];
-        v58 = PSG_BundleForGeneralSettingsUIFramework();
-        v59 = [v58 localizedStringForKey:@"HARDWAREREVISION" value:&stru_282E88A90 table:0];
-        v60 = [v57 preferenceSpecifierNamed:v59 target:self set:0 get:sel_hardwareRevision detail:0 cell:4 edit:0];
+        v62 = MEMORY[0x277D3FAD8];
+        v63 = PSG_BundleForGeneralSettingsUIFramework(v61);
+        v64 = [v63 localizedStringForKey:@"HARDWAREREVISION" value:&stru_282E88A90 table:0];
+        v65 = [v62 preferenceSpecifierNamed:v64 target:self set:0 get:sel_hardwareRevision detail:0 cell:4 edit:0];
 
-        [v60 setIdentifier:@"HARDWAREREVISION"];
-        [v60 setProperty:MEMORY[0x277CBEC38] forKey:*v24];
-        [v36 addObject:v60];
-        v16 = v60;
+        [v65 setIdentifier:@"HARDWAREREVISION"];
+        [v65 setProperty:MEMORY[0x277CBEC38] forKey:*v25];
+        [v38 addObject:v65];
+        v16 = v65;
       }
 
-      if ([v5 supportsPublicIap])
+      supportsPublicIap = [v5 supportsPublicIap];
+      if (supportsPublicIap)
       {
-        v61 = MEMORY[0x277D3FAD8];
-        v62 = PSG_BundleForGeneralSettingsUIFramework();
-        v63 = [v62 localizedStringForKey:@"FIND_APP_FOR_ACCESSORY" value:&stru_282E88A90 table:0];
-        v64 = [v61 preferenceSpecifierNamed:v63 target:self set:0 get:0 detail:0 cell:13 edit:0];
+        v67 = MEMORY[0x277D3FAD8];
+        v68 = PSG_BundleForGeneralSettingsUIFramework(supportsPublicIap);
+        v69 = [v68 localizedStringForKey:@"FIND_APP_FOR_ACCESSORY" value:&stru_282E88A90 table:0];
+        v70 = [v67 preferenceSpecifierNamed:v69 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-        [v64 setButtonAction:sel_findAppForAccessory];
-        [v64 setIdentifier:@"FIND_APP_FOR_ACCESSORY"];
-        [v36 addObject:v64];
-        v17 = v64;
+        [v70 setButtonAction:sel_findAppForAccessory];
+        [v70 setIdentifier:@"FIND_APP_FOR_ACCESSORY"];
+        [v38 addObject:v70];
+        v17 = v70;
       }
 
-      v13 = v92;
-      if ([v36 count])
+      v13 = v100;
+      if ([v38 count])
       {
-        [(PSGAccessoryDetailsController *)self addSpecifiersFromArray:v36 animated:1];
+        [(PSGAccessoryDetailsController *)self addSpecifiersFromArray:v38 animated:1];
       }
 
 LABEL_64:
-      v42 = 0;
+      v44 = 0;
       goto LABEL_65;
     }
   }
@@ -565,54 +587,54 @@ LABEL_64:
   {
     isConnected2 = [v5 isConnected];
 
-    v29 = v12;
+    v30 = v12;
     if ((isConnected2 & 1) == 0)
     {
       bonjourName4 = [v5 bonjourName];
 
       if (bonjourName4)
       {
-        v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v41 = v40;
-        if (v97)
+        v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v43 = v42;
+        if (v105)
         {
-          [v40 addObject:?];
+          [v42 addObject:?];
         }
 
         if (v13)
         {
-          [v41 addObject:v13];
+          [v43 addObject:v13];
         }
 
         if (v14)
         {
-          [v41 addObject:v14];
+          [v43 addObject:v14];
         }
 
-        if (v95)
+        if (v103)
         {
-          [v41 addObject:v95];
+          [v43 addObject:v103];
         }
 
         if (v16)
         {
-          [v41 addObject:v16];
+          [v43 addObject:v16];
         }
 
         if (v17)
         {
-          [v41 addObject:v17];
+          [v43 addObject:v17];
         }
 
-        if ([v41 count])
+        if ([v43 count])
         {
-          [(PSGAccessoryDetailsController *)self removeContiguousSpecifiers:v41 animated:1];
+          [(PSGAccessoryDetailsController *)self removeContiguousSpecifiers:v43 animated:1];
         }
       }
 
       else
       {
-        v42 = 1;
+        v44 = 1;
         if (self->_finishedAppearing)
         {
           goto LABEL_65;
@@ -625,11 +647,11 @@ LABEL_64:
     goto LABEL_64;
   }
 
-  v42 = 0;
-  v29 = v12;
+  v44 = 0;
+  v30 = v12;
 LABEL_65:
   bonjourName5 = [v5 bonjourName];
-  if (!bonjourName5 || (v66 = bonjourName5, v67 = [v5 isAvailableOverBonjour], v66, !v67))
+  if (!bonjourName5 || (v72 = bonjourName5, v73 = [v5 isAvailableOverBonjour], v72, !v73))
   {
     bonjourName6 = [v5 bonjourName];
 
@@ -647,7 +669,7 @@ LABEL_65:
     self->_shouldEscape = 1;
 LABEL_81:
     [(PSGAccessoryDetailsController *)self endUpdates];
-    if (v42)
+    if (v44)
     {
       goto LABEL_92;
     }
@@ -662,27 +684,27 @@ LABEL_81:
 
     if (hasIPConnection)
     {
-      v70 = v17;
-      v71 = v16;
-      v93 = v13;
-      if (v29)
+      v77 = v17;
+      v78 = v16;
+      v101 = v13;
+      if (v30)
       {
-        v72 = [(PSGAccessoryDetailsController *)self indexOfSpecifier:v29];
-        [(PSGAccessoryDetailsController *)self removeSpecifier:v29 animated:1];
+        v79 = [(PSGAccessoryDetailsController *)self indexOfSpecifier:v30];
+        v76 = [(PSGAccessoryDetailsController *)self removeSpecifier:v30 animated:1];
       }
 
       else
       {
-        v72 = 1;
+        v79 = 1;
       }
 
-      v76 = v29;
-      v77 = MEMORY[0x277D3FAD8];
-      v78 = PSG_BundleForGeneralSettingsUIFramework();
-      v79 = [v78 localizedStringForKey:@"DISCONNECT" value:&stru_282E88A90 table:0];
-      v80 = [v77 preferenceSpecifierNamed:v79 target:self set:0 get:0 detail:0 cell:13 edit:0];
+      v84 = v30;
+      v85 = MEMORY[0x277D3FAD8];
+      v86 = PSG_BundleForGeneralSettingsUIFramework(v76);
+      v87 = [v86 localizedStringForKey:@"DISCONNECT" value:&stru_282E88A90 table:0];
+      v88 = [v85 preferenceSpecifierNamed:v87 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-      v81 = sel_disconnect;
+      v89 = sel_disconnect;
       goto LABEL_91;
     }
   }
@@ -704,7 +726,7 @@ LABEL_81:
   {
 LABEL_78:
     [(PSGAccessoryDetailsController *)self endUpdates];
-    if (v42)
+    if (v44)
     {
       goto LABEL_92;
     }
@@ -712,37 +734,37 @@ LABEL_78:
     goto LABEL_94;
   }
 
-  v70 = v17;
-  v71 = v16;
-  v93 = v13;
-  if (v29)
+  v77 = v17;
+  v78 = v16;
+  v101 = v13;
+  if (v30)
   {
-    v72 = [(PSGAccessoryDetailsController *)self indexOfSpecifier:v29];
-    [(PSGAccessoryDetailsController *)self removeSpecifier:v29 animated:1];
+    v79 = [(PSGAccessoryDetailsController *)self indexOfSpecifier:v30];
+    v83 = [(PSGAccessoryDetailsController *)self removeSpecifier:v30 animated:1];
   }
 
   else
   {
-    v72 = 1;
+    v79 = 1;
   }
 
-  v82 = v29;
-  v83 = MEMORY[0x277D3FAD8];
-  v84 = PSG_BundleForGeneralSettingsUIFramework();
-  v85 = [v84 localizedStringForKey:@"CONNECT" value:&stru_282E88A90 table:0];
-  v80 = [v83 preferenceSpecifierNamed:v85 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v90 = v30;
+  v91 = MEMORY[0x277D3FAD8];
+  v92 = PSG_BundleForGeneralSettingsUIFramework(v83);
+  v93 = [v92 localizedStringForKey:@"CONNECT" value:&stru_282E88A90 table:0];
+  v88 = [v91 preferenceSpecifierNamed:v93 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-  v81 = sel_connect;
+  v89 = sel_connect;
 LABEL_91:
-  [v80 setButtonAction:v81];
-  [v80 setIdentifier:@"CONNECT_BUTTON"];
-  [(PSGAccessoryDetailsController *)self insertSpecifier:v80 atIndex:v72 animated:1];
+  [v88 setButtonAction:v89];
+  [v88 setIdentifier:@"CONNECT_BUTTON"];
+  [(PSGAccessoryDetailsController *)self insertSpecifier:v88 atIndex:v79 animated:1];
   [(PSGAccessoryDetailsController *)self endUpdates];
-  v29 = v80;
-  v13 = v93;
-  v16 = v71;
-  v17 = v70;
-  if (v42)
+  v30 = v88;
+  v13 = v101;
+  v16 = v78;
+  v17 = v77;
+  if (v44)
   {
 LABEL_92:
     navigationController = [(PSGAccessoryDetailsController *)self navigationController];
@@ -751,14 +773,14 @@ LABEL_92:
     if (topViewController == self)
     {
       navigationController2 = [(PSGAccessoryDetailsController *)self navigationController];
-      v89 = [navigationController2 popViewControllerAnimated:1];
+      v97 = [navigationController2 popViewControllerAnimated:1];
     }
   }
 
 LABEL_94:
   objc_storeStrong(&self->_accessory, v5);
 
-  name = v94;
+  name = v102;
 LABEL_95:
 }
 

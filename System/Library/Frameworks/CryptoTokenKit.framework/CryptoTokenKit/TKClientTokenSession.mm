@@ -99,22 +99,21 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = *MEMORY[0x1E695E480];
-      v12 = SecAccessControlCreateFromData();
-      if (!v12)
+      v11 = SecAccessControlCreateFromData();
+      if (!v11)
       {
-        v21 = TK_LOG_client_1();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v20 = TK_LOG_client_1(0);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
         {
-          [TKClientTokenSession processObjectCreationAttributes:v10 authContext:&errorCopy error:?];
+          [TKClientTokenSession processObjectCreationAttributes:authContext:error:];
         }
 
         goto LABEL_13;
       }
 
-      v13 = v12;
+      v12 = v11;
 
-      v10 = v13;
+      v10 = v12;
     }
 
     if (SecAccessControlIsBound())
@@ -134,9 +133,9 @@
 
       else
       {
-        gotLoadHelper_x8__OBJC_CLASS___LAContext(v16);
-        v29 = objc_alloc_init(*(v28 + 3664));
-        [(TKClientTokenSession *)self set_testing_AuthContextUsed:v29];
+        gotLoadHelper_x8__OBJC_CLASS___LAContext(v15);
+        v28 = objc_alloc_init(*(v27 + 3664));
+        [(TKClientTokenSession *)self set_testing_AuthContextUsed:v28];
       }
 
 LABEL_23:
@@ -145,32 +144,32 @@ LABEL_24:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v30 = SecAccessControlCopyData();
+        v29 = SecAccessControlCopyData();
 
-        v31 = [attributesCopy mutableCopy];
-        [v31 setObject:v30 forKeyedSubscript:v9];
-        v32 = [v31 copy];
+        v30 = [attributesCopy mutableCopy];
+        [v30 setObject:v29 forKeyedSubscript:v9];
+        v31 = [v30 copy];
 
-        v10 = v30;
-        attributesCopy = v32;
+        v10 = v29;
+        attributesCopy = v31;
       }
 
       goto LABEL_26;
     }
 
     lAContext2 = [(TKClientTokenSession *)self LAContext];
-    v19 = lAContext2;
+    v18 = lAContext2;
     if (lAContext2)
     {
-      v20 = lAContext2;
-      *context = v19;
+      v19 = lAContext2;
+      *context = v18;
     }
 
     else
     {
-      gotLoadHelper_x8__OBJC_CLASS___LAContext(v18);
-      v23 = objc_alloc_init(*(v22 + 3664));
-      *context = v23;
+      gotLoadHelper_x8__OBJC_CLASS___LAContext(v17);
+      v22 = objc_alloc_init(*(v21 + 3664));
+      *context = v22;
     }
 
     _testing_AuthContextUsed2 = [(TKClientTokenSession *)self _testing_AuthContextUsed];
@@ -180,10 +179,10 @@ LABEL_24:
       [(TKClientTokenSession *)self set_testing_AuthContextUsed:*context];
     }
 
-    v25 = [*context evaluateAccessControl:v10 aksOperation:&stru_1F5A7A8A8 options:MEMORY[0x1E695E0F8] error:errorCopy];
-    if (v25)
+    v24 = [*context evaluateAccessControl:v10 aksOperation:&stru_1F5A7A8A8 options:MEMORY[0x1E695E0F8] error:errorCopy];
+    if (v24)
     {
-      lAContext = v25;
+      lAContext = v24;
       SecAccessControlSetBound();
       goto LABEL_23;
     }
@@ -191,16 +190,17 @@ LABEL_24:
     if (!errorCopy || *errorCopy)
     {
 LABEL_21:
-      v27 = 0;
+      v26 = 0;
       goto LABEL_27;
     }
 
-    Helper_x8__LAErrorDomain = gotLoadHelper_x8__LAErrorDomain(v26);
-    *errorCopy = [v36 errorWithDomain:**(v35 + 3632) code:-1000 userInfo:{0, Helper_x8__LAErrorDomain}];
-    v21 = TK_LOG_client_1();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    Helper_x8__LAErrorDomain = gotLoadHelper_x8__LAErrorDomain(v25);
+    v36 = [v35 errorWithDomain:**(v34 + 3632) code:-1000 userInfo:{0, Helper_x8__LAErrorDomain}];
+    *errorCopy = v36;
+    v20 = TK_LOG_client_1(v36);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [TKClientTokenSession processObjectCreationAttributes:v21 authContext:? error:?];
+      [TKClientTokenSession processObjectCreationAttributes:v20 authContext:? error:?];
     }
 
 LABEL_13:
@@ -210,33 +210,26 @@ LABEL_13:
 
 LABEL_26:
   attributesCopy = attributesCopy;
-  v27 = attributesCopy;
+  v26 = attributesCopy;
 LABEL_27:
 
-  return v27;
+  return v26;
 }
 
 - (void)processObjectCreationAttributes:(uint64_t *)a1 authContext:(NSObject *)a2 error:.cold.1(uint64_t **a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = **a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "[LAContext evaluateAccessControl:] failed but did not provide an error, synthesizing: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "[LAContext evaluateAccessControl:] failed but did not provide an error, synthesizing: %{public}@", &v3, 0xCu);
 }
 
-- (void)processObjectCreationAttributes:(uint64_t)a1 authContext:(uint64_t *)a2 error:.cold.2(uint64_t a1, uint64_t **a2)
+- (void)processObjectCreationAttributes:authContext:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  if (*a2)
-  {
-    v2 = **a2;
-  }
-
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  _os_log_fault_impl(&dword_1DF413000, v3, OS_LOG_TYPE_FAULT, "Unable to deserialize AC %{public}@, error: %{public}@", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DF413000, v0, OS_LOG_TYPE_FAULT, "Unable to deserialize AC %{public}@, error: %{public}@", v1, 0x16u);
 }
 
 @end

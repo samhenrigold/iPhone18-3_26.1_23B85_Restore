@@ -20,22 +20,20 @@
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3, v6);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100005A3C(self->fileSystem, *&self->fileSystem[24]);
-  v10 = objc_opt_self();
+  __chkstk_darwin(v3);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100005A3C(self->fileSystem, *&self->fileSystem[24]);
+  v7 = objc_opt_self();
 
-  assessmentAgentPolicyStoreDirectoryURL = [v10 assessmentAgentPolicyStoreDirectoryURL];
+  assessmentAgentPolicyStoreDirectoryURL = [v7 assessmentAgentPolicyStoreDirectoryURL];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v12 = *v9;
-  v13 = sub_10001DA3C(v8);
-  (*(v4 + 8))(v8, v3);
+  v9 = sub_10001DA3C(v6);
+  (*(v4 + 8))(v6, v3);
 
-  v14 = v13[2];
+  v10 = v9[2];
 
-  return v14 != 0;
+  return v10 != 0;
 }
 
 - (id)writeOnlyScratchpadForIdentifier:(id)identifier
@@ -62,18 +60,16 @@
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_100005A3C(self->fileSystem, *&self->fileSystem[24]);
-  v11 = objc_opt_self();
+  __chkstk_darwin(v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100005A3C(self->fileSystem, *&self->fileSystem[24]);
+  v8 = objc_opt_self();
 
-  assessmentAgentPolicyStoreDirectoryURL = [v11 assessmentAgentPolicyStoreDirectoryURL];
+  assessmentAgentPolicyStoreDirectoryURL = [v8 assessmentAgentPolicyStoreDirectoryURL];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v13 = *v10;
   sub_10001D88C();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 
   return 1;
 }

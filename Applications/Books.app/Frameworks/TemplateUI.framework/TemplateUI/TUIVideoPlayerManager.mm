@@ -77,15 +77,15 @@
   if (self->_systemAutoPlayEnabled != enabled)
   {
     enabledCopy = enabled;
-    v5 = TUIVideoLog();
+    v5 = TUIVideoLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained(&self->_activeVideoPlayer);
-      v17 = 67109378;
-      LODWORD(v18[0]) = enabledCopy;
-      WORD2(v18[0]) = 2112;
-      *(v18 + 6) = WeakRetained;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Setting systemAutoPlayEnabled: %i, activeVideoPlayer: %@", &v17, 0x12u);
+      v18 = 67109378;
+      LODWORD(v19[0]) = enabledCopy;
+      WORD2(v19[0]) = 2112;
+      *(v19 + 6) = WeakRetained;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Setting systemAutoPlayEnabled: %i, activeVideoPlayer: %@", &v18, 0x12u);
     }
 
     self->_systemAutoPlayEnabled = enabledCopy;
@@ -98,17 +98,17 @@
 
       if (isWithinVisibleBounds)
       {
-        v11 = TUIVideoLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = TUIVideoLog(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-          v17 = 138412290;
-          v18[0] = v12;
-          _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Playing video from system auto play settings changed: %@", &v17, 0xCu);
+          v13 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+          v18 = 138412290;
+          v19[0] = v13;
+          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Playing video from system auto play settings changed: %@", &v18, 0xCu);
         }
 
-        v13 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-        player = [v13 player];
+        v14 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+        player = [v14 player];
         [player play];
 LABEL_14:
 
@@ -120,17 +120,17 @@ LABEL_14:
     {
     }
 
-    v15 = TUIVideoLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = TUIVideoLog(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-      v17 = 138412290;
-      v18[0] = v16;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Pausing video from system auto play settings changed: %@", &v17, 0xCu);
+      v17 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+      v18 = 138412290;
+      v19[0] = v17;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Pausing video from system auto play settings changed: %@", &v18, 0xCu);
     }
 
-    v13 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-    player = [v13 player];
+    v14 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+    player = [v14 player];
     [player pause];
     goto LABEL_14;
   }
@@ -143,14 +143,14 @@ LABEL_14:
 
   if (WeakRetained != playerCopy)
   {
-    objc_storeWeak(&self->_activeVideoPlayer, playerCopy);
-    v6 = TUIVideoLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = objc_storeWeak(&self->_activeVideoPlayer, playerCopy);
+    v7 = TUIVideoLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Set active video player: %@", &v8, 0xCu);
+      v8 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Set active video player: %@", &v9, 0xCu);
     }
   }
 }
@@ -433,23 +433,27 @@ LABEL_19:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   v8 = [(NSMutableDictionary *)self->_players objectForKey:idCopy];
 
-  if (v8 && [v8 isWithinVisibleBounds] != boundsCopy)
+  if (v8)
   {
-    v9 = TUIVideoLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    isWithinVisibleBounds = [v8 isWithinVisibleBounds];
+    if (isWithinVisibleBounds != boundsCopy)
     {
-      isWithinVisibleBounds = [v8 isWithinVisibleBounds];
-      player = [v8 player];
-      v12[0] = 67109634;
-      v12[1] = isWithinVisibleBounds;
-      v13 = 1024;
-      v14 = boundsCopy;
-      v15 = 2112;
-      v16 = player;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Updating isWithinVisibleBounds from %i to %i for %@", v12, 0x18u);
-    }
+      v10 = TUIVideoLog(isWithinVisibleBounds);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        isWithinVisibleBounds2 = [v8 isWithinVisibleBounds];
+        player = [v8 player];
+        v13[0] = 67109634;
+        v13[1] = isWithinVisibleBounds2;
+        v14 = 1024;
+        v15 = boundsCopy;
+        v16 = 2112;
+        v17 = player;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Updating isWithinVisibleBounds from %i to %i for %@", v13, 0x18u);
+      }
 
-    [v8 setIsWithinVisibleBounds:boundsCopy];
+      [v8 setIsWithinVisibleBounds:boundsCopy];
+    }
   }
 }
 
@@ -614,28 +618,28 @@ LABEL_19:
     activePlayerWasPlayingWhenEnteringBackground = 0;
   }
 
-  v6 = TUIVideoLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TUIVideoLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-    v11[0] = 67109378;
-    v11[1] = activePlayerWasPlayingWhenEnteringBackground;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Video did enter foreground, should resume: %i, for player: %@", v11, 0x12u);
+    v8 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+    v13[0] = 67109378;
+    v13[1] = activePlayerWasPlayingWhenEnteringBackground;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Video did enter foreground, should resume: %i, for player: %@", v13, 0x12u);
   }
 
   if (activePlayerWasPlayingWhenEnteringBackground)
   {
-    v8 = TUIVideoLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TUIVideoLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Resuming video on foreground", v11, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Resuming video on foreground", v13, 2u);
     }
 
-    v9 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-    player = [v9 player];
+    v11 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+    player = [v11 player];
     [player play];
   }
 
@@ -658,26 +662,26 @@ LABEL_19:
     isPlaying = 0;
   }
 
-  v8 = TUIVideoLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = TUIVideoLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109120;
-    v12[1] = isPlaying;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Video did enter background, isPlaying: %i", v12, 8u);
+    v14[0] = 67109120;
+    v14[1] = isPlaying;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Video did enter background, isPlaying: %i", v14, 8u);
   }
 
   self->_activePlayerWasPlayingWhenEnteringBackground = isPlaying;
   if (isPlaying)
   {
-    v9 = TUIVideoLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = TUIVideoLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12[0]) = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Pausing video on background", v12, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Pausing video on background", v14, 2u);
     }
 
-    v10 = objc_loadWeakRetained(&self->_activeVideoPlayer);
-    player2 = [v10 player];
+    v12 = objc_loadWeakRetained(&self->_activeVideoPlayer);
+    player2 = [v12 player];
     [player2 pause];
   }
 
@@ -703,29 +707,29 @@ LABEL_19:
     v5 = +[NSProcessInfo processInfo];
     isLowPowerModeEnabled = [v5 isLowPowerModeEnabled];
 
-    v7 = TUIVideoLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = TUIVideoLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109632;
-      v9[1] = IsReduceMotionEnabled;
-      v10 = 1024;
-      v11 = IsVideoAutoplayEnabled;
-      v12 = 1024;
-      v13 = isLowPowerModeEnabled;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting systemAutoPlay: reducedMotion: %i, videoAutoPlayEnabled: %i, lowPowerModeEnabled: %i", v9, 0x14u);
+      v10[0] = 67109632;
+      v10[1] = IsReduceMotionEnabled;
+      v11 = 1024;
+      v12 = IsVideoAutoplayEnabled;
+      v13 = 1024;
+      v14 = isLowPowerModeEnabled;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Setting systemAutoPlay: reducedMotion: %i, videoAutoPlayEnabled: %i, lowPowerModeEnabled: %i", v10, 0x14u);
     }
 
     if (IsReduceMotionEnabled)
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = IsVideoAutoplayEnabled & (isLowPowerModeEnabled ^ 1);
+      v9 = IsVideoAutoplayEnabled & (isLowPowerModeEnabled ^ 1);
     }
 
-    [(TUIVideoPlayerManager *)self setSystemAutoPlayEnabled:v8];
+    [(TUIVideoPlayerManager *)self setSystemAutoPlayEnabled:v9];
   }
 }
 
@@ -737,7 +741,7 @@ LABEL_19:
   v13 = changeCopy;
   if (context == &off_2619C8)
   {
-    if (pathCopy && changeCopy && [pathCopy isEqualToString:@"outputVolume"])
+    if (pathCopy && changeCopy && objc_msgSend_isEqualToString_(pathCopy))
     {
       WeakRetained = objc_loadWeakRetained(&self->_activeVideoPlayer);
       player = [WeakRetained player];

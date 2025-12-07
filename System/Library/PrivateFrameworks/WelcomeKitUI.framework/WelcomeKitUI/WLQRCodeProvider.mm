@@ -24,7 +24,7 @@
 
 - (void)request
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (self->_useGooglePlayStore)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -32,31 +32,27 @@
     v5 = WLLocalizedString();
     v6 = WLLocalizedString();
     v7 = [(WLQRCode *)v4 initWithName:v5 title:v6 URL:@"https://support.apple.com/HT201196" code:@"apple_support" scale:self->_scale];
-    v20[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v18[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [WeakRetained providerDidProvide:v8];
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{@"https://a.app.qq.com/o/simple.jsp?pkgname=com.apple.movetoios", @"https://url.cloud.huawei.com/gKwTbAcORy", @"https://h5coml.vivo.com.cn/h5coml/appdetail_h5/browser_v2/index.html?appId=415331", 0}];
+    v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{@"https://a.app.qq.com/o/simple.jsp?pkgname=com.apple.movetoios", @"https://url.cloud.huawei.com/gKwTbAcORy", @"https://h5coml.vivo.com.cn/h5coml/appdetail_h5/browser_v2/index.html?appId=415331", 0}];
     urls = self->_urls;
-    self->_urls = v10;
+    self->_urls = v9;
 
-    v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
     codes = self->_codes;
-    self->_codes = v12;
+    self->_codes = v11;
 
-    v14 = self->_codes;
-    v15 = [WLQRCode alloc];
+    v13 = self->_codes;
+    v14 = [WLQRCode alloc];
+    v15 = WLLocalizedString();
     v16 = WLLocalizedString();
-    v17 = WLLocalizedString();
-    v18 = [(WLQRCode *)v15 initWithName:v16 title:v17 URL:@"https://play.google.com/store/apps/details?id=com.apple.movetoios" code:@"google_play" scale:self->_scale];
-    [(NSMutableArray *)v14 addObject:v18];
-
-    v19 = *MEMORY[0x277D85DE8];
+    v17 = [(WLQRCode *)v14 initWithName:v15 title:v16 URL:@"https://play.google.com/store/apps/details?id=com.apple.movetoios" code:@"google_play" scale:self->_scale];
+    [(NSMutableArray *)v13 addObject:v17];
 
     [(WLQRCodeProvider *)self drainQueue];
   }

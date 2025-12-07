@@ -22,9 +22,9 @@
 - (PTEspressoGenericExecutor)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v15.receiver = self;
-  v15.super_class = PTEspressoGenericExecutor;
-  v6 = [(PTEspressoGenericExecutor *)&v15 init];
+  v17.receiver = self;
+  v17.super_class = PTEspressoGenericExecutor;
+  v6 = [(PTEspressoGenericExecutor *)&v17 init];
   v7 = v6;
   if (!v6)
   {
@@ -38,8 +38,8 @@
 
   if (!v7->_interleavedToPlanar)
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PTEspressoGenericExecutor initWithMetalContext:];
     }
@@ -47,14 +47,14 @@
     goto LABEL_9;
   }
 
-  v10 = [contextCopy computePipelineStateFor:@"planarToInterleaved" withConstants:0];
+  v11 = [contextCopy computePipelineStateFor:@"planarToInterleaved" withConstants:0];
   planarToInterleaved = v7->_planarToInterleaved;
-  v7->_planarToInterleaved = v10;
+  v7->_planarToInterleaved = v11;
 
   if (!v7->_planarToInterleaved)
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PTEspressoGenericExecutor initWithMetalContext:];
     }
@@ -62,14 +62,14 @@
 LABEL_9:
 
 LABEL_10:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
-  v12 = v7;
+  v14 = v7;
 LABEL_11:
 
-  return v12;
+  return v14;
 }
 
 - (PTEspressoGenericExecutor)initWithMetalContext:(id)context url:(id)url inputNames:(id)names outputNames:(id)outputNames tensorSwapNames:(id)swapNames reshapeNetworkSize:(id *)size configuration:(id)configuration
@@ -88,7 +88,7 @@ LABEL_11:
 
 - (PTEspressoGenericExecutor)initWithMetalContext:(id)context url:(id)url inputNames:(id)names outputNames:(id)outputNames tensorSwapNames:(id)swapNames reshapeNetworkSize:(id *)size configuration:(id)configuration ANEConfig:(id)self0
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   urlCopy = url;
   namesCopy = names;
   outputNamesCopy = outputNames;
@@ -120,8 +120,8 @@ LABEL_11:
   v24->_ctx = context;
   if (!context)
   {
-    v34 = _PTLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v35 = _PTLogSystem(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
     }
@@ -136,8 +136,8 @@ LABEL_11:
 
   if (v33)
   {
-    v34 = _PTLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v35 = _PTLogSystem(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
     }
@@ -146,10 +146,11 @@ LABEL_11:
   else
   {
     [configCopy espressoPlanPriority];
-    if (espresso_plan_set_priority())
+    v36 = espresso_plan_set_priority();
+    if (v36)
     {
-      v34 = _PTLogSystem();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = _PTLogSystem(v36);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
       }
@@ -158,11 +159,12 @@ LABEL_11:
     else
     {
       version = espresso_network_get_version();
-      v38 = _PTLogSystem();
-      networkVersion = v38;
-      if (version)
+      v40 = version;
+      v41 = _PTLogSystem(version);
+      networkVersion = v41;
+      if (v40)
       {
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
         }
@@ -170,26 +172,27 @@ LABEL_11:
 
       else
       {
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
         }
 
-        v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:v46];
+        v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:v54];
         networkVersion = v24->_networkVersion;
-        v24->_networkVersion = v40;
+        v24->_networkVersion = v43;
       }
 
-      if (!configurationCopy || ([configurationCopy UTF8String], !espresso_network_select_configuration()))
+      if (!configurationCopy || ([configurationCopy UTF8String], v44 = espresso_network_select_configuration(), !v44))
       {
         if (size)
         {
-          v34 = [namesCopy objectAtIndexedSubscript:0];
-          [v34 UTF8String];
-          if (espresso_network_change_input_blob_shapes_seq())
+          v35 = [namesCopy objectAtIndexedSubscript:0];
+          [v35 UTF8String];
+          v45 = espresso_network_change_input_blob_shapes_seq();
+          if (v45)
           {
-            v41 = _PTLogSystem();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+            v46 = _PTLogSystem(v45);
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
             }
@@ -198,10 +201,11 @@ LABEL_11:
           }
         }
 
-        if (espresso_plan_build())
+        v47 = espresso_plan_build();
+        if (v47)
         {
-          v34 = _PTLogSystem();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v35 = _PTLogSystem(v47);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
           }
@@ -210,14 +214,15 @@ LABEL_11:
         else
         {
           [(PTEspressoGenericExecutor *)v24 bindTensorSwaps:swapNamesCopy];
-          v42 = objc_opt_new();
+          v48 = objc_opt_new();
           inputsMap = v24->_inputsMap;
-          v24->_inputsMap = v42;
+          v24->_inputsMap = v48;
 
-          if ([(PTEspressoGenericExecutor *)v24 bindBuffers:namesCopy toMap:v24->_inputsMap isInput:1])
+          v50 = [(PTEspressoGenericExecutor *)v24 bindBuffers:namesCopy toMap:v24->_inputsMap isInput:1];
+          if (v50)
           {
-            v34 = _PTLogSystem();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v35 = _PTLogSystem(v50);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
             }
@@ -225,18 +230,19 @@ LABEL_11:
 
           else
           {
-            v44 = objc_opt_new();
+            v51 = objc_opt_new();
             outputsMap = v24->_outputsMap;
-            v24->_outputsMap = v44;
+            v24->_outputsMap = v51;
 
-            if (![(PTEspressoGenericExecutor *)v24 bindBuffers:outputNamesCopy toMap:v24->_outputsMap isInput:0])
+            v53 = [(PTEspressoGenericExecutor *)v24 bindBuffers:outputNamesCopy toMap:v24->_outputsMap isInput:0];
+            if (!v53)
             {
-              v35 = v24;
+              v37 = v24;
               goto LABEL_13;
             }
 
-            v34 = _PTLogSystem();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v35 = _PTLogSystem(v53);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
             }
@@ -246,8 +252,8 @@ LABEL_11:
         goto LABEL_11;
       }
 
-      v34 = _PTLogSystem();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = _PTLogSystem(v44);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [PTEspressoGenericExecutor initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:];
       }
@@ -257,22 +263,22 @@ LABEL_11:
 LABEL_11:
 
 LABEL_12:
-  v35 = 0;
+  v37 = 0;
 LABEL_13:
 
-  return v35;
+  return v37;
 }
 
 - (signed)bindTensorSwaps:(id)swaps
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   swapsCopy = swaps;
   v5 = objc_opt_new();
   tensorSwap = self->_tensorSwap;
   self->_tensorSwap = v5;
 
-  v18[0] = 0;
-  v18[1] = 0;
+  v19[0] = 0;
+  v19[1] = 0;
   if ([swapsCopy count])
   {
     v7 = 0;
@@ -287,14 +293,14 @@ LABEL_13:
         break;
       }
 
-      v18[v7 & 1] = v17;
+      v19[v7 & 1] = v18;
       if (v7)
       {
-        v10 = [PTTensorSwapPair alloc];
-        v11 = [swapsCopy subarrayWithRange:{v7 - 1, 2}];
-        v12 = [(PTTensorSwapPair *)v10 initWithIOSurfaces:v18 names:v11];
+        v11 = [PTTensorSwapPair alloc];
+        v12 = [swapsCopy subarrayWithRange:{v7 - 1, 2}];
+        v13 = [(PTTensorSwapPair *)v11 initWithIOSurfaces:v19 names:v12];
 
-        [(NSMutableArray *)self->_tensorSwap addObject:v12];
+        [(NSMutableArray *)self->_tensorSwap addObject:v13];
       }
 
       if ([swapsCopy count] <= ++v7)
@@ -303,44 +309,44 @@ LABEL_13:
       }
     }
 
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(PTEspressoGenericExecutor *)swapsCopy bindTensorSwaps:v7];
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
 LABEL_7:
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13 << 31 >> 31;
+  return v14 << 31 >> 31;
 }
 
 - (signed)bindBuffers:(id)buffers toMap:(id)map isInput:(BOOL)input
 {
   inputCopy = input;
-  v68 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   buffersCopy = buffers;
   mapCopy = map;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = buffersCopy;
-  v46 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-  if (!v46)
+  v50 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+  if (!v50)
   {
-    v38 = 0;
+    v42 = 0;
     goto LABEL_47;
   }
 
-  v45 = *v60;
-  v42 = inputCopy;
+  v49 = *v64;
+  v46 = inputCopy;
   allocator = *MEMORY[0x277CBECE8];
   v10 = 64;
   if (inputCopy)
@@ -348,23 +354,23 @@ LABEL_7:
     v10 = 56;
   }
 
-  v41 = v10;
+  v45 = v10;
   while (2)
   {
-    for (i = 0; i != v46; ++i)
+    for (i = 0; i != v50; ++i)
     {
-      if (*v60 != v45)
+      if (*v64 != v49)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v59 + 1) + 8 * i);
-      v13 = [mapCopy objectForKeyedSubscript:{v12, v41}];
+      v12 = *(*(&v63 + 1) + 8 * i);
+      v13 = [mapCopy objectForKeyedSubscript:{v12, v45}];
 
       if (v13)
       {
-        v39 = _PTLogSystem();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v43 = _PTLogSystem(v14);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           [PTEspressoGenericExecutor bindBuffers:toMap:isInput:];
         }
@@ -372,154 +378,157 @@ LABEL_7:
         goto LABEL_46;
       }
 
-      v58 = 0;
+      v62 = 0;
+      v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v56 = 0u;
       v57 = 0u;
       v54 = 0u;
       v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
       *surface = 0u;
-      v49 = 0u;
+      v53 = 0u;
       [v12 UTF8String];
-      if (espresso_network_bind_buffer())
+      v15 = espresso_network_bind_buffer();
+      if (v15)
       {
-        v39 = _PTLogSystem();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v43 = _PTLogSystem(v15);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           [PTEspressoGenericExecutor bindBuffers:toMap:isInput:];
         }
 
 LABEL_46:
 
-        v38 = -1;
+        v42 = -1;
         goto LABEL_47;
       }
 
-      v14 = surface[0];
+      v16 = surface[0];
       pixelBufferOut = 0;
-      if (CVPixelBufferCreateWithIOSurface(allocator, surface[0], 0, &pixelBufferOut))
+      v17 = CVPixelBufferCreateWithIOSurface(allocator, surface[0], 0, &pixelBufferOut);
+      if (v17)
       {
-        v15 = _PTLogSystem();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v18 = _PTLogSystem(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [(PTTensorSwapPair *)buf initWithIOSurfaces:v15 names:?];
+          [(PTTensorSwapPair *)buf initWithIOSurfaces:v18 names:?];
         }
       }
 
-      v16 = pixelBufferOut;
-      device = [(PTMetalContext *)self->_metalContext device];
-      v18 = [PTPixelBufferUtil getMTLTextureDescriptor:v16 device:device];
+      v19 = pixelBufferOut;
+      v20 = objc_msgSend_device(self->_metalContext);
+      v21 = [PTPixelBufferUtil getMTLTextureDescriptor:v19 device:v20];
 
-      height = [v18 height];
-      if (height == *(&v53 + 1))
+      height = [v21 height];
+      if (height == *(&v57 + 1))
       {
-        width = [v18 width];
-        if (width == v53)
+        width = [v21 width];
+        if (width == v57)
         {
-          device2 = [(PTMetalContext *)self->_metalContext device];
-          device4 = [device2 newTextureWithDescriptor:v18 iosurface:v14 plane:0];
-          [mapCopy setObject:device4 forKeyedSubscript:v12];
+          v24 = objc_msgSend_device(self->_metalContext);
+          v25 = [v24 newTextureWithDescriptor:v21 iosurface:v16 plane:0];
+          [mapCopy setObject:v25 forKeyedSubscript:v12];
           goto LABEL_38;
         }
       }
 
-      v23 = v54;
-      v24 = pixelBufferOut;
-      device3 = [(PTMetalContext *)self->_metalContext device];
-      device2 = [PTPixelBufferUtil getMTLTextureDescriptor:v24 device:device3];
+      v26 = v58;
+      v27 = pixelBufferOut;
+      v28 = objc_msgSend_device(self->_metalContext);
+      v24 = [PTPixelBufferUtil getMTLTextureDescriptor:v27 device:v28];
 
-      if ([device2 pixelFormat] == 10)
+      if ([v24 pixelFormat] == 10)
       {
-        v26 = v23 == 2;
-        v27 = 80;
-        v28 = 30;
+        v29 = v26 == 2;
+        v30 = 80;
+        v31 = 30;
       }
 
       else
       {
-        if ([device2 pixelFormat] != 25)
+        pixelFormat = [v24 pixelFormat];
+        if (pixelFormat != 25)
         {
-          v30 = _PTLogSystem();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v34 = _PTLogSystem(pixelFormat);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            [(PTEspressoGenericExecutor *)v63 bindBuffers:device2 toMap:&v64 isInput:v30];
+            [(PTEspressoGenericExecutor *)v67 bindBuffers:v24 toMap:&v68 isInput:v34];
           }
 
           goto LABEL_28;
         }
 
-        v26 = v23 == 2;
-        v27 = 115;
-        v28 = 65;
+        v29 = v26 == 2;
+        v30 = 115;
+        v31 = 65;
       }
 
-      if (v26)
+      if (v29)
       {
-        v29 = v28;
+        v33 = v31;
       }
 
       else
       {
-        v29 = v27;
+        v33 = v30;
       }
 
-      [device2 setPixelFormat:v29];
+      [v24 setPixelFormat:v33];
 LABEL_28:
-      height2 = [device2 height];
-      if (height2 == *(&v53 + 1))
+      height2 = [v24 height];
+      if (height2 == *(&v57 + 1))
       {
-        [device2 setWidth:v53];
-        device4 = [(PTMetalContext *)self->_metalContext device];
-        v32 = [device4 newTextureWithDescriptor:device2 iosurface:v14 plane:0];
-        v33 = v32;
+        [v24 setWidth:v57];
+        v25 = objc_msgSend_device(self->_metalContext);
+        v36 = [v25 newTextureWithDescriptor:v24 iosurface:v16 plane:0];
+        v37 = v36;
       }
 
       else
       {
-        [device2 setHeight:?];
-        device5 = [(PTMetalContext *)self->_metalContext device];
-        v32 = [device5 newTextureWithDescriptor:device2];
+        [v24 setHeight:?];
+        v38 = objc_msgSend_device(self->_metalContext);
+        v36 = [v38 newTextureWithDescriptor:v24];
 
-        device6 = [(PTMetalContext *)self->_metalContext device];
-        v33 = [device6 newTextureWithDescriptor:v18 iosurface:v14 plane:0];
+        v39 = objc_msgSend_device(self->_metalContext);
+        v37 = [v39 newTextureWithDescriptor:v21 iosurface:v16 plane:0];
 
-        if (v42)
+        if (v46)
         {
-          v36 = v32;
+          v40 = v36;
         }
 
         else
         {
-          v36 = v33;
+          v40 = v37;
         }
 
-        if (v42)
+        if (v46)
         {
-          v37 = v33;
+          v41 = v37;
         }
 
         else
         {
-          v37 = v32;
+          v41 = v36;
         }
 
-        [*(&self->super.isa + v41) addObject:v36];
-        [*(&self->super.isa + v41) addObject:v37];
-        device4 = v32;
+        [*(&self->super.isa + v45) addObject:v40];
+        [*(&self->super.isa + v45) addObject:v41];
+        v25 = v36;
       }
 
-      [mapCopy setObject:v32 forKeyedSubscript:v12];
+      [mapCopy setObject:v36 forKeyedSubscript:v12];
 
 LABEL_38:
       CVPixelBufferRelease(pixelBufferOut);
     }
 
-    v38 = 0;
-    v46 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-    if (v46)
+    v42 = 0;
+    v50 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+    if (v50)
     {
       continue;
     }
@@ -529,7 +538,7 @@ LABEL_38:
 
 LABEL_47:
 
-  return v38;
+  return v42;
 }
 
 + (unint64_t)getEspressoMetalDeviceId:(id)id
@@ -576,19 +585,19 @@ LABEL_5:
 {
   nameCopy = name;
   [name UTF8String];
-  result = espresso_network_bind_cvpixelbuffer();
-  if (result)
+  v6 = espresso_network_bind_cvpixelbuffer();
+  if (v6)
   {
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PTEspressoGenericExecutor bindInputResourceWithName:to:];
     }
 
-    return -1;
+    LODWORD(v6) = -1;
   }
 
-  return result;
+  return v6;
 }
 
 - (unsigned)convertBindInput:(id)input
@@ -600,8 +609,8 @@ LABEL_5:
 
     if (!commandBuffer)
     {
-      v6 = _PTLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _PTLogSystem(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [PTEspressoGenericExecutor convertBindInput:];
       }
@@ -612,17 +621,17 @@ LABEL_5:
 
     if ([(NSMutableArray *)self->_inputInterleavedToPlanarConversion count])
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        v9 = [(NSMutableArray *)self->_inputInterleavedToPlanarConversion objectAtIndexedSubscript:v8];
-        v10 = [(NSMutableArray *)self->_inputInterleavedToPlanarConversion objectAtIndexedSubscript:v8 + 1];
-        [(PTEspressoGenericExecutor *)self convertInterleavedWithMetalContext:inputCopy inInterleaved:v9 outPlanar:v10];
+        v10 = [(NSMutableArray *)self->_inputInterleavedToPlanarConversion objectAtIndexedSubscript:v9];
+        v11 = [(NSMutableArray *)self->_inputInterleavedToPlanarConversion objectAtIndexedSubscript:v9 + 1];
+        [(PTEspressoGenericExecutor *)self convertInterleavedWithMetalContext:inputCopy inInterleaved:v10 outPlanar:v11];
 
-        v8 += 2;
+        v9 += 2;
       }
 
-      while ([(NSMutableArray *)self->_inputInterleavedToPlanarConversion count]> v8);
+      while ([(NSMutableArray *)self->_inputInterleavedToPlanarConversion count]> v9);
     }
 
     [inputCopy commitAndWaitUntilScheduled];
@@ -640,8 +649,8 @@ LABEL_5:
 
     if (!commandBuffer)
     {
-      v6 = _PTLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _PTLogSystem(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [PTEspressoGenericExecutor convertBindInput:];
       }
@@ -652,17 +661,17 @@ LABEL_5:
 
     if ([(NSMutableArray *)self->_outputPlanarToInterleavedConversion count])
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        v9 = [(NSMutableArray *)self->_outputPlanarToInterleavedConversion objectAtIndexedSubscript:v8];
-        v10 = [(NSMutableArray *)self->_outputPlanarToInterleavedConversion objectAtIndexedSubscript:v8 + 1];
-        [(PTEspressoGenericExecutor *)self convertPlanarWithMetalContext:outputCopy inPlanarTexture:v9 outInterleaved:v10];
+        v10 = [(NSMutableArray *)self->_outputPlanarToInterleavedConversion objectAtIndexedSubscript:v9];
+        v11 = [(NSMutableArray *)self->_outputPlanarToInterleavedConversion objectAtIndexedSubscript:v9 + 1];
+        [(PTEspressoGenericExecutor *)self convertPlanarWithMetalContext:outputCopy inPlanarTexture:v10 outInterleaved:v11];
 
-        v8 += 2;
+        v9 += 2;
       }
 
-      while ([(NSMutableArray *)self->_outputPlanarToInterleavedConversion count]> v8);
+      while ([(NSMutableArray *)self->_outputPlanarToInterleavedConversion count]> v9);
     }
 
     [outputCopy commitAndWaitUntilScheduled];
@@ -676,10 +685,11 @@ LABEL_5:
   result = [(PTEspressoGenericExecutor *)self convertBindInput:self->_metalContext];
   if (!result)
   {
-    if (espresso_plan_execute_sync())
+    v4 = espresso_plan_execute_sync();
+    if (v4)
     {
-      v4 = _PTLogSystem();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = _PTLogSystem(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [PTEspressoGenericExecutor execute];
       }
@@ -704,12 +714,13 @@ LABEL_5:
   v7 = [(PTEspressoGenericExecutor *)self convertBindInput:context];
   if (!v7)
   {
-    v10 = MEMORY[0x277D85DD0];
-    v11 = asyncCopy;
-    if (espresso_plan_submit())
+    v11 = MEMORY[0x277D85DD0];
+    v12 = asyncCopy;
+    v8 = espresso_plan_submit();
+    if (v8)
     {
-      v8 = _PTLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _PTLogSystem(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [PTEspressoGenericExecutor executeAsync:metalContext:];
       }
@@ -719,7 +730,7 @@ LABEL_5:
 
     else
     {
-      v7 = [(PTEspressoGenericExecutor *)self convertBindOutput:self->_metalContext, v10, 3221225472, __55__PTEspressoGenericExecutor_executeAsync_metalContext___block_invoke, &unk_278523208, self, v11];
+      v7 = [(PTEspressoGenericExecutor *)self convertBindOutput:self->_metalContext, v11, 3221225472, __55__PTEspressoGenericExecutor_executeAsync_metalContext___block_invoke, &unk_278523208, self, v12];
     }
   }
 
@@ -730,7 +741,7 @@ uint64_t __55__PTEspressoGenericExecutor_executeAsync_metalContext___block_invok
 {
   if (a2)
   {
-    v4 = _PTLogSystem();
+    v4 = _PTLogSystem(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __55__PTEspressoGenericExecutor_executeAsync_metalContext___block_invoke_cold_1(a2, a1, v4);
@@ -814,40 +825,40 @@ uint64_t __55__PTEspressoGenericExecutor_executeAsync_metalContext___block_invok
 - (unsigned)tensorSwap:(int)swap
 {
   v3 = *&swap;
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
+  v24 = *MEMORY[0x277D85DE8];
   v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = self->_tensorSwap;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v5)
   {
-    v14 = 0;
+    v16 = 0;
     goto LABEL_17;
   }
 
   v6 = v5;
-  v7 = *v18;
+  v7 = *v20;
   while (2)
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v18 != v7)
+      if (*v20 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v17 + 1) + 8 * i);
-      v10 = [v9 tensorNameWithIndex:{0, v17}];
+      v9 = *(*(&v19 + 1) + 8 * i);
+      v10 = [v9 tensorNameWithIndex:{0, v19}];
       [v10 UTF8String];
       [v9 tensorWithIndex:v3];
       v11 = espresso_network_bind_cvpixelbuffer();
 
       if (v11)
       {
-        v15 = _PTLogSystem();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = _PTLogSystem(v12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_15;
         }
@@ -855,15 +866,15 @@ uint64_t __55__PTEspressoGenericExecutor_executeAsync_metalContext___block_invok
         goto LABEL_16;
       }
 
-      v12 = [v9 tensorNameWithIndex:1];
-      [v12 UTF8String];
+      v13 = [v9 tensorNameWithIndex:1];
+      [v13 UTF8String];
       [v9 tensorWithIndex:(v3 + 1)];
-      v13 = espresso_network_bind_cvpixelbuffer();
+      v14 = espresso_network_bind_cvpixelbuffer();
 
-      if (v13)
+      if (v14)
       {
-        v15 = _PTLogSystem();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = _PTLogSystem(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
 LABEL_15:
           [PTEspressoGenericExecutor bindInputResourceWithName:to:];
@@ -871,13 +882,13 @@ LABEL_15:
 
 LABEL_16:
 
-        v14 = -1;
+        v16 = -1;
         goto LABEL_17;
       }
     }
 
-    v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    v14 = 0;
+    v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v16 = 0;
     if (v6)
     {
       continue;
@@ -888,7 +899,7 @@ LABEL_16:
 
 LABEL_17:
 
-  return v14;
+  return v16;
 }
 
 - (void)initWithMetalContext:url:inputNames:outputNames:tensorSwapNames:reshapeNetworkSize:configuration:ANEConfig:.cold.1()

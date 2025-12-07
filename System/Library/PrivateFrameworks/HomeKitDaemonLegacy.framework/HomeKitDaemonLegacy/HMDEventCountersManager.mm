@@ -44,20 +44,20 @@
     v8 = 0;
   }
 
-  swift_getObjectType();
+  ObjectType = swift_getObjectType();
   sub_253CD0528();
   providerCopy = provider;
   swift_unknownObjectRetain_n();
-  v10 = providerCopy;
-  v11 = sub_253CD0458();
+  v11 = providerCopy;
+  v12 = sub_253CD0458();
   [objc_opt_self() defaultSaveInterval];
-  v13 = v12;
+  v14 = v13;
   sharedInstance = [objc_opt_self() sharedInstance];
-  v15 = sub_25320817C(v11, v10, v13, v6, v8, sharedInstance);
+  v16 = sub_25320817C(v12, v11, v6, v8, sharedInstance, ObjectType, v14);
   swift_unknownObjectRelease();
 
   swift_deallocPartialClassInstance();
-  return v15;
+  return v16;
 }
 
 - (void)_save
@@ -125,7 +125,7 @@ void __32__HMDEventCountersManager__save__block_invoke(uint64_t a1)
   v9 = dictionary;
   v5 = dictionary;
   [(NSMutableDictionary *)counterGroups enumerateKeysAndObjectsUsingBlock:v8];
-  v6 = [v5 copy];
+  v6 = objc_msgSend_copy(v5);
 
   return v6;
 }
@@ -144,35 +144,35 @@ void __49__HMDEventCountersManager__fetchAllEventCounters__block_invoke(uint64_t
 
 - (void)resetAllEventCounters
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   self->_pendingSave = 1;
   allValues = [(NSMutableDictionary *)self->_counterGroups allValues];
   os_unfair_lock_unlock(&self->_lock);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v4 = allValues;
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) resetEventCounters];
+        [*(*(&v8 + 1) + 8 * v7++) resetEventCounters];
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -181,8 +181,6 @@ void __49__HMDEventCountersManager__fetchAllEventCounters__block_invoke(uint64_t
   os_unfair_lock_lock_with_options();
   [(HMDEventCountersManager *)self _save];
   os_unfair_lock_unlock(&self->_lock);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetEventCountersForRequestGroup:(id)group
@@ -268,42 +266,41 @@ void __49__HMDEventCountersManager__fetchAllEventCounters__block_invoke(uint64_t
 
 - (void)removeCounterGroupsBasedOnPredicate:(id)predicate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   os_unfair_lock_lock_with_options();
   [(NSMutableDictionary *)self->_counterGroups allKeys];
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v5 = v12 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v10 = 0u;
+  v5 = v11 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if (predicateCopy[2](predicateCopy, v9))
         {
-          [(HMDEventCountersManager *)self _removeCounterGroupForSpecifier:v9, v11];
+          [(HMDEventCountersManager *)self _removeCounterGroupForSpecifier:v9, v10];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCounterGroupForSpecifier:(id)specifier
@@ -335,7 +332,7 @@ void __49__HMDEventCountersManager__fetchAllEventCounters__block_invoke(uint64_t
   v8 = dictionary;
   v15 = v8;
   [(NSMutableDictionary *)counterGroups enumerateKeysAndObjectsUsingBlock:&v11];
-  v9 = [v8 copy];
+  v9 = objc_msgSend_copy(v8, v11, v12, v13, v14);
 
   os_unfair_lock_unlock(&self->_lock);
 
@@ -484,18 +481,16 @@ void __53__HMDEventCountersManager_counterGroupsForPredicate___block_invoke(uint
 
 void __50__HMDEventCountersManager_allowedSpecifierClasses__block_invoke()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = allowedSpecifierClasses__hmf_once_v4;
   allowedSpecifierClasses__hmf_once_v4 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (double)defaultSaveInterval

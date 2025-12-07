@@ -1,6 +1,7 @@
 @interface PDSEntry
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToEntry:(id)entry;
+- (PDSEntry)entryWithUpdatedState:(unsigned __int8)state;
 - (PDSEntry)initWithCoder:(id)coder;
 - (PDSEntry)initWithUser:(id)user registration:(id)registration clientID:(id)d state:(unsigned __int8)state;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -67,6 +68,19 @@ LABEL_4:
   }
 
   return v15;
+}
+
+- (PDSEntry)entryWithUpdatedState:(unsigned __int8)state
+{
+  stateCopy = state;
+  if (state >= 4u)
+  {
+    [PDSEntry entryWithUpdatedState:];
+  }
+
+  v5 = [objc_alloc(objc_opt_class()) initWithUser:self->_user registration:self->_registration clientID:self->_clientID state:stateCopy];
+
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

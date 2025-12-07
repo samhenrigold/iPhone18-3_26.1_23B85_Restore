@@ -6,18 +6,13 @@
 
 uint64_t __53__NSDictionary_MSVSequence__msv_reduceIntoObject_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  v3 = (*(*(a1 + 32) + 16))();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 uint64_t __53__NSDictionary_MSVSequence__msv_reduceIntoUInt64_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -25,7 +20,6 @@ uint64_t __53__NSDictionary_MSVSequence__msv_reduceIntoUInt64_by___block_invoke(
 
 uint64_t __53__NSDictionary_MSVSequence__msv_reduceIntoUInt32_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -33,7 +27,6 @@ uint64_t __53__NSDictionary_MSVSequence__msv_reduceIntoUInt32_by___block_invoke(
 
 uint64_t __51__NSDictionary_MSVSequence__msv_reduceIntoUInt_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -41,7 +34,6 @@ uint64_t __51__NSDictionary_MSVSequence__msv_reduceIntoUInt_by___block_invoke(ui
 
 uint64_t __52__NSDictionary_MSVSequence__msv_reduceIntoInt64_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -49,7 +41,6 @@ uint64_t __52__NSDictionary_MSVSequence__msv_reduceIntoInt64_by___block_invoke(u
 
 uint64_t __52__NSDictionary_MSVSequence__msv_reduceIntoInt32_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -57,7 +48,6 @@ uint64_t __52__NSDictionary_MSVSequence__msv_reduceIntoInt32_by___block_invoke(u
 
 uint64_t __50__NSDictionary_MSVSequence__msv_reduceIntoInt_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -65,7 +55,6 @@ uint64_t __50__NSDictionary_MSVSequence__msv_reduceIntoInt_by___block_invoke(uin
 
 uint64_t __51__NSDictionary_MSVSequence__msv_reduceIntoBool_by___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -170,35 +159,35 @@ void __37__NSDictionary_MSVSequence__msv_map___block_invoke(uint64_t a1)
 
 - (void)_msv_enumerateKeysAndObjectsWithSortedKeys:(void *)keys usingBlock:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   keysCopy = keys;
   if (self)
   {
-    v19 = 0;
+    v18 = 0;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = [self objectForKey:{v12, v15}];
-        keysCopy[2](keysCopy, v12, v13, &v19);
-        LOBYTE(v12) = v19;
+        v12 = *(*(&v14 + 1) + 8 * v11);
+        v13 = [self objectForKey:{v12, v14}];
+        keysCopy[2](keysCopy, v12, v13, &v18);
+        LOBYTE(v12) = v18;
 
         if (v12)
         {
@@ -207,7 +196,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -218,8 +207,6 @@ LABEL_4:
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __52__NSDictionary_MSVAdditions__msv_compactDescription__block_invoke(uint64_t a1, void *a2, void *a3)

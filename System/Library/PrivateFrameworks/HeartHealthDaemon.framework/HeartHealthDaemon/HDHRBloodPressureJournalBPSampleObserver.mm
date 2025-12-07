@@ -5,7 +5,6 @@
 - (id)_samplesFromCurrentDeviceIn:(id)in;
 - (id)_samplesInCurrentActiveJournalPeriodFor:(id)for from:(id)from;
 - (unint64_t)_removeDeliveredNotificationsFromNotificationCenterForSamples:(id)samples journal:(id)journal;
-- (void)_currentActiveJournal;
 - (void)samplesAdded:(id)added anchor:(id)anchor;
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor;
 @end
@@ -54,7 +53,7 @@
 
 - (id)_samplesInCurrentActiveJournalPeriodFor:(id)for from:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   forCopy = for;
   fromCopy = from;
   if (forCopy)
@@ -78,16 +77,16 @@
     }
 
     v13 = MEMORY[0x277CCAC30];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __89__HDHRBloodPressureJournalBPSampleObserver__samplesInCurrentActiveJournalPeriodFor_from___block_invoke;
-    v23 = &unk_278660598;
-    v24 = v9;
-    v25 = v11;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __89__HDHRBloodPressureJournalBPSampleObserver__samplesInCurrentActiveJournalPeriodFor_from___block_invoke;
+    v22 = &unk_278660598;
+    v23 = v9;
+    v24 = v11;
     v14 = v11;
     v15 = v9;
-    v16 = [v13 predicateWithBlock:&v20];
-    v17 = [fromCopy filteredArrayUsingPredicate:{v16, v20, v21, v22, v23}];
+    v16 = [v13 predicateWithBlock:&v19];
+    v17 = [fromCopy filteredArrayUsingPredicate:{v16, v19, v20, v21, v22}];
   }
 
   else
@@ -103,8 +102,6 @@
 
     v17 = MEMORY[0x277CBEBF8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -157,16 +154,16 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
 
 - (BOOL)_regenerateNotificationsIfNecessaryWithJournalSamples:(id)samples
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([samples count])
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     heartHealthProfileExtension = [WeakRetained heartHealthProfileExtension];
     bloodPressureJournalNotificationManager = [heartHealthProfileExtension bloodPressureJournalNotificationManager];
 
-    v12 = 0;
-    v7 = [bloodPressureJournalNotificationManager scheduleNotificationsWithReason:2 error:&v12];
-    v8 = v12;
+    v11 = 0;
+    v7 = [bloodPressureJournalNotificationManager scheduleNotificationsWithReason:2 error:&v11];
+    v8 = v11;
     if (v8)
     {
       _HKInitializeLogging();
@@ -194,13 +191,12 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (unint64_t)_removeDeliveredNotificationsFromNotificationCenterForSamples:(id)samples journal:(id)journal
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   journalCopy = journal;
   if ([samplesCopy count])
@@ -218,31 +214,30 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
     v12 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
+      v14 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Samples do not belong to current active journal.", &v15, 0xCu);
+      _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Samples do not belong to current active journal.", &v14, 0xCu);
     }
 
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   _HKInitializeLogging();
   v6 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138543618;
+    v24 = 138543618;
     selfCopy3 = self;
-    v27 = 2048;
-    v28 = [addedCopy count];
-    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Blood Pressure samples added. Number of samples added %lu", &v25, 0x16u);
+    v26 = 2048;
+    v27 = [addedCopy count];
+    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Blood Pressure samples added. Number of samples added %lu", &v24, 0x16u);
   }
 
   _currentActiveJournal = [(HDHRBloodPressureJournalBPSampleObserver *)self _currentActiveJournal];
@@ -252,11 +247,11 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
   v10 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138543618;
+    v24 = 138543618;
     selfCopy3 = self;
-    v27 = 1024;
-    LODWORD(v28) = v9;
-    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Blood Pressure samples added. Regeneration success state  %{BOOL}d", &v25, 0x12u);
+    v26 = 1024;
+    LODWORD(v27) = v9;
+    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Blood Pressure samples added. Regeneration success state  %{BOOL}d", &v24, 0x12u);
   }
 
   didRegenerateNotificationsHandler = self->_didRegenerateNotificationsHandler;
@@ -270,11 +265,11 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
   v13 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138543618;
+    v24 = 138543618;
     selfCopy3 = self;
-    v27 = 2048;
-    v28 = v12;
-    _os_log_impl(&dword_229486000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Blood Pressure samples added. Request sent to remove delivered notifications, requested notification identifier count %lu", &v25, 0x16u);
+    v26 = 2048;
+    v27 = v12;
+    _os_log_impl(&dword_229486000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Blood Pressure samples added. Request sent to remove delivered notifications, requested notification identifier count %lu", &v24, 0x16u);
   }
 
   didRequestNotificationsRemovalHandler = self->_didRequestNotificationsRemovalHandler;
@@ -303,13 +298,11 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
   {
     didTriggerSyncHandler[2](didTriggerSyncHandler, v16 != 0);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   anchorCopy = anchor;
   _HKInitializeLogging();
@@ -321,16 +314,16 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
     v10 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(removedCopy, "count")}];
-      v18 = 138544130;
+      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(removedCopy, "count")}];
+      v17 = 138544130;
       selfCopy = self;
-      v20 = 2114;
-      v21 = v17;
-      v22 = 2114;
-      v23 = removedCopy;
-      v24 = 2114;
-      v25 = anchorCopy;
-      _os_log_debug_impl(&dword_229486000, v10, OS_LOG_TYPE_DEBUG, "[%{public}@] %{public}@ samples of types removed: %{public}@. anchor: %{public}@", &v18, 0x2Au);
+      v19 = 2114;
+      v20 = v16;
+      v21 = 2114;
+      v22 = removedCopy;
+      v23 = 2114;
+      v24 = anchorCopy;
+      _os_log_debug_impl(&dword_229486000, v10, OS_LOG_TYPE_DEBUG, "[%{public}@] %{public}@ samples of types removed: %{public}@. anchor: %{public}@", &v17, 0x2Au);
     }
   }
 
@@ -344,33 +337,14 @@ BOOL __72__HDHRBloodPressureJournalBPSampleObserver__samplesFromCurrentDeviceIn_
     bloodPressureJournalSyncRequester = [heartHealthProfileExtension bloodPressureJournalSyncRequester];
     [bloodPressureJournalSyncRequester requestStateSyncWithReason:@"Blood Pressure samples removed"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_currentActiveJournal
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to fetch latest active journal: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_samplesInCurrentActiveJournalPeriodFor:(uint64_t)a1 from:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to calculate journal end day. Got nil for journal End day.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_regenerateNotificationsIfNecessaryWithJournalSamples:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to schedule notifications: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to calculate journal end day. Got nil for journal End day.", &v2, 0xCu);
 }
 
 @end

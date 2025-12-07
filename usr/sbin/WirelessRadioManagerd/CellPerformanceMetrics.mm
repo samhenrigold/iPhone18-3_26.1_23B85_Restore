@@ -209,7 +209,6 @@ LABEL_16:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    dlBandwidth = self->_dlBandwidth;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -229,7 +228,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  nrFr1 = self->_nrFr1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -244,7 +242,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  nrFr2 = self->_nrFr2;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -259,7 +256,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  nrRsrp = self->_nrRsrp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -274,7 +270,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  nrSinr = self->_nrSinr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -289,7 +284,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  nrBw = self->_nrBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -304,7 +298,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  stallRate = self->_stallRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -319,7 +312,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  latency = self->_latency;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -334,7 +326,6 @@ LABEL_12:
   }
 
 LABEL_25:
-  stCount = self->_stCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -349,7 +340,6 @@ LABEL_13:
   }
 
 LABEL_26:
-  count = self->_count;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -361,7 +351,6 @@ LABEL_14:
     }
 
 LABEL_28:
-    lteRsrpFr2 = self->_lteRsrpFr2;
     PBDataWriterWriteSint32Field();
     if ((*&self->_has & 0x200) == 0)
     {
@@ -372,7 +361,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  lteRsrpFr1 = self->_lteRsrpFr1;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -387,7 +375,6 @@ LABEL_15:
   }
 
 LABEL_29:
-  nrSabw = self->_nrSabw;
 
   PBDataWriterWriteUint32Field();
 }

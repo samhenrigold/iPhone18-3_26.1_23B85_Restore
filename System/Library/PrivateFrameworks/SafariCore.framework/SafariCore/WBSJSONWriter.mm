@@ -335,7 +335,7 @@ LABEL_12:
 
 - (BOOL)closeCurrentEntryWithError:(id *)error
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   lastObject = [(NSMutableArray *)self->_stateStack lastObject];
   v6 = lastObject;
   if (lastObject)
@@ -391,11 +391,11 @@ LABEL_16:
   {
     v8 = MEMORY[0x1E696ABC0];
     v9 = *MEMORY[0x1E696A598];
-    v15[0] = *MEMORY[0x1E696A578];
-    v15[1] = v9;
-    v16[0] = @"JSON serialization was not started";
-    v16[1] = @"Call -beginObjectWithError: or -beginArrayWithError: first.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[0] = *MEMORY[0x1E696A578];
+    v14[1] = v9;
+    v15[0] = @"JSON serialization was not started";
+    v15[1] = @"Call -beginObjectWithError: or -beginArrayWithError: first.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     *error = [v8 errorWithDomain:@"com.apple.Safari.Core.WBSJSONWriterErrorDomain" code:1 userInfo:v10];
 
     goto LABEL_16;
@@ -403,7 +403,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v13 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -420,26 +419,24 @@ LABEL_17:
 
 - (BOOL)_checkHasNoRootWithError:(id *)error
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = [(NSMutableArray *)self->_stateStack count];
   v5 = v4;
   if (error && v4)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"JSON serialization has already started";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"JSON serialization has already started";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     *error = [v6 errorWithDomain:@"com.apple.Safari.Core.WBSJSONWriterErrorDomain" code:2 userInfo:v7];
   }
 
-  result = v5 == 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 == 0;
 }
 
 - (BOOL)_checkCurrentState:(id)state doesNotContainKey:(id)key error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v8 = [state containsKey:keyCopy];
   v9 = v8;
@@ -447,18 +444,17 @@ LABEL_17:
   {
     v10 = MEMORY[0x1E696ABC0];
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Key '%@' was already added to the current object", keyCopy, *MEMORY[0x1E696A578]];
-    v16[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *error = [v10 errorWithDomain:@"com.apple.Safari.Core.WBSJSONWriterErrorDomain" code:5 userInfo:v12];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9 ^ 1;
 }
 
 - (id)_currentEntryStateOfKind:(int64_t)kind error:(id *)error
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   lastObject = [(NSMutableArray *)self->_stateStack lastObject];
   v7 = lastObject;
   if (!lastObject)
@@ -470,11 +466,11 @@ LABEL_17:
 
     v8 = MEMORY[0x1E696ABC0];
     v9 = *MEMORY[0x1E696A598];
-    v23[0] = *MEMORY[0x1E696A578];
-    v23[1] = v9;
-    v24[0] = @"JSON serialization was not started";
-    v24[1] = @"Call -beginObjectWithError: or -beginArrayWithError: first.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = *MEMORY[0x1E696A578];
+    v22[1] = v9;
+    v23[0] = @"JSON serialization was not started";
+    v23[1] = @"Call -beginObjectWithError: or -beginArrayWithError: first.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
     v11 = v8;
     v12 = 1;
     goto LABEL_11;
@@ -499,11 +495,11 @@ LABEL_12:
 
       v13 = MEMORY[0x1E696ABC0];
       v14 = *MEMORY[0x1E696A598];
-      v21[0] = *MEMORY[0x1E696A578];
-      v21[1] = v14;
-      v22[0] = @"Expecting an object entry and got an array entry";
-      v22[1] = @"Call -addEntry:forKey:error: or -beginObjectForKey:error:, or -beginArrayForKey:error: instead.";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+      v20[0] = *MEMORY[0x1E696A578];
+      v20[1] = v14;
+      v21[0] = @"Expecting an object entry and got an array entry";
+      v21[1] = @"Call -addEntry:forKey:error: or -beginObjectForKey:error:, or -beginArrayForKey:error: instead.";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
       v11 = v13;
       v12 = 4;
     }
@@ -512,11 +508,11 @@ LABEL_12:
     {
       v15 = MEMORY[0x1E696ABC0];
       v16 = *MEMORY[0x1E696A598];
-      v19[0] = *MEMORY[0x1E696A578];
-      v19[1] = v16;
-      v20[0] = @"Expecting an array entry and got an object entry";
-      v20[1] = @"Call -appendEntry:error: or -appendAndBeginObjectWithError:, or -appendAndBeginArrayWithError: instead.";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v18[0] = *MEMORY[0x1E696A578];
+      v18[1] = v16;
+      v19[0] = @"Expecting an array entry and got an object entry";
+      v19[1] = @"Call -appendEntry:error: or -appendAndBeginObjectWithError:, or -appendAndBeginArrayWithError: instead.";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
       v11 = v15;
       v12 = 3;
     }
@@ -528,8 +524,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return error;
 }
@@ -646,15 +640,15 @@ LABEL_20:
 
 - (id)_dataForJSONObject:(id)object error:(id *)error
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   if (objectCopy)
   {
     v7 = objc_autoreleasePoolPush();
     options = self->_options;
-    v14[0] = 0;
-    v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:objectCopy options:options | 4 error:v14];
-    v10 = v14[0];
+    v13[0] = 0;
+    v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:objectCopy options:options | 4 error:v13];
+    v10 = v13[0];
     objc_autoreleasePoolPop(v7);
     if (error)
     {
@@ -667,8 +661,6 @@ LABEL_20:
   {
     v9 = nullLiteralData;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -740,63 +732,57 @@ LABEL_20:
 {
   lengthCopy = length;
   bufferCopy = buffer;
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   fileHandle = self->_fileHandle;
-  if (!fileHandle)
+  if (fileHandle)
   {
-    if (length)
+    if (write([(NSFileHandle *)fileHandle fileDescriptor], buffer, length) == -1)
     {
-      while ([(NSOutputStream *)self->_outputStream hasSpaceAvailable])
-      {
-        v13 = [(NSOutputStream *)self->_outputStream write:bufferCopy maxLength:lengthCopy];
-        bufferCopy += v13;
-        lengthCopy -= v13;
-        if (!lengthCopy)
-        {
-          goto LABEL_8;
-        }
-      }
-
       if (error)
       {
-        v18 = *MEMORY[0x1E696A578];
-        v19[0] = @"Cannot write more data to the output stream";
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-        v15 = [v14 mutableCopy];
-
-        streamError = [(NSOutputStream *)self->_outputStream streamError];
-        [v15 setObject:streamError forKeyedSubscript:*MEMORY[0x1E696AA08]];
-
-        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.Safari.Core.WBSJSONWriterErrorDomain" code:6 userInfo:v15];
+        v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:512 userInfo:0];
+        v11 = v10;
+        result = 0;
+        *error = v10;
+        return result;
       }
 
-      goto LABEL_11;
+      return 0;
     }
 
-LABEL_8:
-    result = 1;
-    goto LABEL_12;
+    return 1;
   }
 
-  if (write([(NSFileHandle *)fileHandle fileDescriptor], buffer, length) != -1)
+  if (!length)
   {
-    goto LABEL_8;
+    return 1;
   }
 
-  if (!error)
+  while ([(NSOutputStream *)self->_outputStream hasSpaceAvailable])
   {
-LABEL_11:
-    result = 0;
-    goto LABEL_12;
+    v13 = [(NSOutputStream *)self->_outputStream write:bufferCopy maxLength:lengthCopy];
+    bufferCopy += v13;
+    lengthCopy -= v13;
+    if (!lengthCopy)
+    {
+      return 1;
+    }
   }
 
-  v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:512 userInfo:0];
-  v11 = v10;
-  result = 0;
-  *error = v10;
-LABEL_12:
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  if (error)
+  {
+    v17 = *MEMORY[0x1E696A578];
+    v18[0] = @"Cannot write more data to the output stream";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v15 = [v14 mutableCopy];
+
+    streamError = [(NSOutputStream *)self->_outputStream streamError];
+    [v15 setObject:streamError forKeyedSubscript:*MEMORY[0x1E696AA08]];
+
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.Safari.Core.WBSJSONWriterErrorDomain" code:6 userInfo:v15];
+  }
+
+  return 0;
 }
 
 @end

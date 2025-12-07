@@ -157,47 +157,48 @@ LABEL_6:
   v3 = [(NSArray *)self->_routes count];
   if (v3)
   {
-    if ([(NSArray *)self->_companionRoutes count])
+    v4 = [(NSArray *)self->_companionRoutes count];
+    if (v4)
     {
-      v4 = sub_100053324();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = sub_100053324(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v5 = [(NSArray *)self->_routes count];
-        v6 = [(NSArray *)self->_companionRoutes count];
+        v6 = [(NSArray *)self->_routes count];
+        v7 = [(NSArray *)self->_companionRoutes count];
         *buf = 134217984;
-        v20 = v5 - v6;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Will construct %lu remaining companion routes from composed routes", buf, 0xCu);
+        v21 = v6 - v7;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Will construct %lu remaining companion routes from composed routes", buf, 0xCu);
       }
 
-      v16 = 0u;
       v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
+      v16 = 0u;
       routes = [(NanoRoutePlanningResponse *)self routes];
-      v8 = [routes countByEnumeratingWithState:&v14 objects:v18 count:16];
-      if (v8)
+      v9 = [routes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v9)
       {
-        v9 = v8;
-        v10 = *v15;
+        v10 = v9;
+        v11 = *v16;
         do
         {
-          v11 = 0;
+          v12 = 0;
           do
           {
-            if (*v15 != v10)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(routes);
             }
 
-            v12 = [(NanoRoutePlanningResponse *)self _generateCompanionRouteFromComposedRoute:*(*(&v14 + 1) + 8 * v11)];
-            v11 = v11 + 1;
+            v13 = [(NanoRoutePlanningResponse *)self _generateCompanionRouteFromComposedRoute:*(*(&v15 + 1) + 8 * v12)];
+            v12 = v12 + 1;
           }
 
-          while (v9 != v11);
-          v9 = [routes countByEnumeratingWithState:&v14 objects:v18 count:16];
+          while (v10 != v12);
+          v10 = [routes countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
-        while (v9);
+        while (v10);
       }
     }
 
@@ -306,31 +307,32 @@ LABEL_6:
 
 - (void)_generateCompanionRoutesFromComposedRoutes
 {
-  if ([(NSArray *)self->_routes count])
+  v3 = [(NSArray *)self->_routes count];
+  if (v3)
   {
-    v3 = sub_100053324();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100053324(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v4 = [(NSArray *)self->_routes count];
+      v5 = [(NSArray *)self->_routes count];
       *buf = 134217984;
-      v11 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Will construct %lu companion routes from composed routes", buf, 0xCu);
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Will construct %lu companion routes from composed routes", buf, 0xCu);
     }
 
     routes = self->_routes;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000044C0;
-    v9[3] = &unk_100084D10;
-    v9[4] = self;
-    v6 = sub_1000282B8(routes, v9);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000044C0;
+    v10[3] = &unk_100084D10;
+    v10[4] = self;
+    v7 = sub_1000282B8(routes, v10);
     companionRoutes = self->_companionRoutes;
-    self->_companionRoutes = v6;
+    self->_companionRoutes = v7;
   }
 
   else
   {
-    v8 = self->_companionRoutes;
+    v9 = self->_companionRoutes;
     self->_companionRoutes = 0;
   }
 }
@@ -718,7 +720,7 @@ LABEL_3:
       v15 = v14;
       if ((v13 & 1) == 0)
       {
-        v16 = sub_100053324();
+        v16 = sub_100053324(v14);
         if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
 LABEL_22:
@@ -796,7 +798,7 @@ LABEL_24:
 
 + (void)clearDiskRouteStorage
 {
-  v2 = sub_100053324();
+  v2 = sub_100053324(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;

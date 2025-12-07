@@ -100,9 +100,8 @@
   return v2;
 }
 
-uint64_t __39__ANRapportConnection_sharedConnection__block_invoke(uint64_t a1)
+uint64_t __39__ANRapportConnection_sharedConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   sharedConnection_shared = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -127,7 +126,7 @@ uint64_t __39__ANRapportConnection_sharedConnection__block_invoke(uint64_t a1)
 - (id)activateLinkWithOptions:(unint64_t)options
 {
   v22 = *MEMORY[0x277D85DE8];
-  v5 = ANLogHandleRapportConnection();
+  v5 = ANLogHandleRapportConnection(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -151,47 +150,45 @@ uint64_t __39__ANRapportConnection_sharedConnection__block_invoke(uint64_t a1)
   v7 = v6;
   v13 = v7;
   [(ANRapportConnection *)self activateLinkWithOptions:options completion:v12];
-  dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-  v8 = ANLogHandleRapportConnection();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+  v9 = ANLogHandleRapportConnection(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *v15 = 138412290;
     v16 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@Activate Rapport link finished.", v15, 0xCu);
+    _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@Activate Rapport link finished.", v15, 0xCu);
   }
 
-  v9 = *(*(&buf + 1) + 40);
+  v10 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 void __47__ANRapportConnection_activateLinkWithOptions___block_invoke(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ANLogHandleRapportConnection(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412546;
       v10 = &stru_2851BDB18;
       v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_ERROR, "%@Activate Rapport link failed with error: %@.", &v9, 0x16u);
+      v12 = v4;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Activate Rapport link failed with error: %@.", &v9, 0x16u);
     }
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
-  v7 = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v4;
+  v8 = v4;
 
   dispatch_group_leave(*(a1 + 32));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateLinkWithOptions:(unint64_t)options completion:(id)completion
@@ -211,7 +208,7 @@ void __47__ANRapportConnection_activateLinkWithOptions___block_invoke(uint64_t a
 
 void __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 48) & 4) != 0)
   {
     [*(a1 + 32) setIsTimerSuspended:1];
@@ -224,128 +221,127 @@ void __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke
   {
     if (*(a1 + 48))
     {
-      v12 = ANLogHandleRapportConnection();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = ANLogHandleRapportConnection(v3);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = &stru_2851BDB18;
-        _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, "%@### Forcing Link Active", buf, 0xCu);
+        v32 = &stru_2851BDB18;
+        _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@### Forcing Link Active", buf, 0xCu);
       }
     }
 
-    else if (([*(a1 + 32) _needsScan] & 1) == 0)
+    else
     {
-      v11 = ANLogHandleRapportConnection();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = [*(a1 + 32) _needsScan];
+      if ((v13 & 1) == 0)
       {
-        *buf = 138412290;
-        v30 = &stru_2851BDB18;
-        _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "%@### No scan needed.", buf, 0xCu);
-      }
+        v14 = ANLogHandleRapportConnection(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v32 = &stru_2851BDB18;
+          _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@### No scan needed.", buf, 0xCu);
+        }
 
-      goto LABEL_16;
+        goto LABEL_16;
+      }
     }
 
-    v13 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = ANLogHandleRapportConnection(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%@### Will activate link", buf, 0xCu);
+      v32 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "%@### Will activate link", buf, 0xCu);
     }
 
-    v14 = [MEMORY[0x277CBEAA8] date];
-    [*(a1 + 32) setLastScanStartTimestamp:v14];
+    v17 = [MEMORY[0x277CBEAA8] date];
+    [*(a1 + 32) setLastScanStartTimestamp:v17];
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_23;
-    v27[3] = &unk_278C86898;
-    v28 = *(a1 + 40);
-    v15 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, v27);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_24;
-    v23[3] = &unk_278C872A8;
-    v24 = v15;
-    v16 = *(a1 + 32);
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 48);
-    v25 = v17;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_23;
+    v29[3] = &unk_278C86898;
+    v30 = *(a1 + 40);
+    v18 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, v29);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_24;
+    v25[3] = &unk_278C872A8;
     v26 = v18;
-    v19 = v15;
-    [v16 _setupLink:v23];
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 40);
+    v21 = *(a1 + 48);
+    v27 = v20;
+    v28 = v21;
+    v22 = v18;
+    [v19 _setupLink:v25];
 
-    v10 = v28;
+    v12 = v30;
     goto LABEL_23;
   }
 
-  v3 = ANLogHandleRapportConnection();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ANLogHandleRapportConnection(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@### Rapport Link Already Active", buf, 0xCu);
+    v32 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@### Rapport Link Already Active", buf, 0xCu);
   }
 
   [*(a1 + 32) _startTimer];
-  [*(a1 + 32) _remainingScanTimeInterval];
-  if (v4 > 0.0 && (*(a1 + 48) & 2) != 0)
+  v5 = [*(a1 + 32) _remainingScanTimeInterval];
+  if (v6 <= 0.0 || (*(a1 + 48) & 2) == 0)
   {
-    v5 = v4;
-    v6 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412546;
-      v30 = &stru_2851BDB18;
-      v31 = 2048;
-      v32 = v5;
-      _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@### Waiting %fl seconds for scan to complete", buf, 0x16u);
-    }
-
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_25;
-    block[3] = &unk_278C86898;
-    v22 = *(a1 + 40);
-    v7 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, block);
-    v8 = dispatch_time(0, (v5 * 1000000000.0));
-    v9 = dispatch_get_global_queue(2, 0);
-    dispatch_after(v8, v9, v7);
-
-    v10 = v22;
-LABEL_23:
-
-    goto LABEL_24;
+LABEL_16:
+    (*(*(a1 + 40) + 16))();
+    return;
   }
 
-LABEL_16:
-  (*(*(a1 + 40) + 16))();
-LABEL_24:
-  v20 = *MEMORY[0x277D85DE8];
+  v7 = v6;
+  v8 = ANLogHandleRapportConnection(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v32 = &stru_2851BDB18;
+    v33 = 2048;
+    v34 = v7;
+    _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@### Waiting %fl seconds for scan to complete", buf, 0x16u);
+  }
+
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_25;
+  block[3] = &unk_278C86898;
+  v24 = *(a1 + 40);
+  v9 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, block);
+  v10 = dispatch_time(0, (v7 * 1000000000.0));
+  v11 = dispatch_get_global_queue(2, 0);
+  dispatch_after(v10, v11, v9);
+
+  v12 = v24;
+LABEL_23:
 }
 
 uint64_t __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_23(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleRapportConnection();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleRapportConnection(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@### Calling activation handler post-scan", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@### Calling activation handler post-scan", &v4, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_24(uint64_t a1, void *a2)
 {
   v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleRapportConnection();
+  v4 = ANLogHandleRapportConnection(v3);
   v5 = v4;
   if (v3)
   {
@@ -359,23 +355,24 @@ void __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke
     }
 
     v6 = *(a1 + 32);
-    if (dispatch_block_testcancel(v6))
+    v7 = dispatch_block_testcancel(v6);
+    if (v7)
     {
-      v7 = ANLogHandleRapportConnection();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = ANLogHandleRapportConnection(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v17 = 138412290;
         v18 = &stru_2851BDB18;
-        _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@### Activation handler already called. Skipping.", &v17, 0xCu);
+        _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@### Activation handler already called. Skipping.", &v17, 0xCu);
       }
 
       goto LABEL_18;
     }
 
     dispatch_block_cancel(v6);
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
 LABEL_16:
-    v9();
+    v10();
     goto LABEL_18;
   }
 
@@ -388,52 +385,48 @@ LABEL_16:
 
   if ((*(a1 + 48) & 2) != 0)
   {
-    v10 = [MEMORY[0x277CEAB80] sharedInstance];
-    v11 = [v10 numberForDefault:*MEMORY[0x277CEA928]];
-    [v11 doubleValue];
-    v13 = v12;
+    v11 = [MEMORY[0x277CEAB80] sharedInstance];
+    v12 = [v11 numberForDefault:*MEMORY[0x277CEA928]];
+    [v12 doubleValue];
+    v14 = v13;
 
-    v14 = dispatch_time(0, (v13 * 1000000000.0));
-    v15 = dispatch_get_global_queue(2, 0);
-    dispatch_after(v14, v15, *(a1 + 32));
+    v15 = dispatch_time(0, (v14 * 1000000000.0));
+    v16 = dispatch_get_global_queue(2, 0);
+    dispatch_after(v15, v16, *(a1 + 32));
 
     goto LABEL_18;
   }
 
   if (!dispatch_block_testcancel(*(a1 + 32)))
   {
-    v8 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = ANLogHandleRapportConnection(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138412290;
       v18 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@### Calling activation handler immediately", &v17, 0xCu);
+      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Calling activation handler immediately", &v17, 0xCu);
     }
 
     dispatch_block_cancel(*(a1 + 32));
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
     goto LABEL_16;
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__ANRapportConnection_activateLinkWithOptions_completion___block_invoke_25(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleRapportConnection();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleRapportConnection(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@### Calling activation handler post-scan", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@### Calling activation handler post-scan", &v4, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)deactivateLinkWithOptions:(unint64_t)options
@@ -448,20 +441,20 @@ uint64_t __58__ANRapportConnection_activateLinkWithOptions_completion___block_in
   dispatch_async(clientQueue, v6);
 }
 
-uint64_t __49__ANRapportConnection_deactivateLinkWithOptions___block_invoke(uint64_t result)
+id *__49__ANRapportConnection_deactivateLinkWithOptions___block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(result + 40);
+  v2 = result[5];
   if ((v2 & 2) != 0)
   {
-    [*(result + 32) setIsTimerSuspended:0];
-    result = [*(v1 + 32) _startTimer];
-    v2 = *(v1 + 40);
+    [result[4] setIsTimerSuspended:0];
+    result = [v1[4] _startTimer];
+    v2 = v1[5];
   }
 
   if (v2)
   {
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 _tearDownLink];
   }
@@ -492,7 +485,7 @@ uint64_t __49__ANRapportConnection_deactivateLinkWithOptions___block_invoke(uint
 
 void __47__ANRapportConnection_addDeviceDelegate_queue___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = *(a1 + 32);
   if (v3)
@@ -509,51 +502,48 @@ void __47__ANRapportConnection_addDeviceDelegate_queue___block_invoke(uint64_t a
   v6 = [WeakRetained deviceDelegatesToQueues];
   [v6 setObject:v5 forKey:*(a1 + 40)];
 
-  v7 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
-    v21 = 0u;
-    v22 = 0u;
     v19 = 0u;
     v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     obj = [WeakRetained devices];
-    v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v8)
+    v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v7)
     {
-      v9 = v8;
-      v10 = *v20;
+      v8 = v7;
+      v9 = *v18;
       do
       {
-        v11 = 0;
+        v10 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v11 = *(*(&v17 + 1) + 8 * v10);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __47__ANRapportConnection_addDeviceDelegate_queue___block_invoke_2;
           block[3] = &unk_278C86668;
-          v16 = *(a1 + 40);
-          v17 = WeakRetained;
-          v18 = v12;
+          v14 = *(a1 + 40);
+          v15 = WeakRetained;
+          v16 = v11;
           dispatch_async(v5, block);
 
-          ++v11;
+          ++v10;
         }
 
-        while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        while (v8 != v10);
+        v8 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
-      while (v9);
+      while (v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sendMessage:(id)message device:(id)device responseHandler:(id)handler
@@ -691,7 +681,7 @@ void __58__ANRapportConnection_sendMessage_device_responseHandler___block_invoke
 
 void __48__ANRapportConnection_sendDailyRequest_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -701,18 +691,16 @@ void __48__ANRapportConnection_sendDailyRequest_handler___block_invoke(uint64_t 
 
   else
   {
-    v5 = ANLogHandleRapportConnection();
+    v5 = ANLogHandleRapportConnection(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily failed to get link client to send daily request.", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily failed to get link client to send daily request.", &v6, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDailyRequest:(id)request
@@ -730,24 +718,22 @@ void __48__ANRapportConnection_sendDailyRequest_handler___block_invoke(uint64_t 
 
 void __44__ANRapportConnection_registerDailyRequest___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277D442D0];
   v7 = a4;
   v8 = [a3 objectForKey:v6];
-  v9 = ANLogHandleRapportConnection();
+  v9 = ANLogHandleRapportConnection(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = &stru_2851BDB18;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Received Daily Request from %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = &stru_2851BDB18;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Received Daily Request from %@", &v11, 0x16u);
   }
 
   v10 = (*(*(a1 + 32) + 16))();
   (*(v7 + 2))(v7, v10, 0, 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendHomeLocationStatusRequestToDevice:(id)device handler:(id)handler
@@ -770,7 +756,7 @@ void __44__ANRapportConnection_registerDailyRequest___block_invoke(uint64_t a1, 
 
 void __69__ANRapportConnection_sendHomeLocationStatusRequestToDevice_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -780,37 +766,33 @@ void __69__ANRapportConnection_sendHomeLocationStatusRequestToDevice_handler___b
 
   else
   {
-    v5 = ANLogHandleRapportConnection();
+    v5 = ANLogHandleRapportConnection(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Home Location Status Request failed to get link client", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Home Location Status Request failed to get link client", &v6, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_simulateDeliveryFailureForMessage:(id)message
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v5 = ANLogHandleRapportConnection();
+  v5 = ANLogHandleRapportConnection(messageCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Forcing Rapport Delivery Failure", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@Forcing Rapport Delivery Failure", &v8, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCA9B8] an_errorWithCode:1036 component:*MEMORY[0x277CEA9C8] description:@"Force Delivery Failure Enabled in User Defaults"];
   delegate = [(ANRapportConnection *)self delegate];
   [delegate connection:self failedDeliveryForMessage:messageCopy withError:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupLink:(id)link
@@ -871,108 +853,99 @@ void __69__ANRapportConnection_sendHomeLocationStatusRequestToDevice_handler___b
 
 void __34__ANRapportConnection__setupLink___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = ANLogHandleRapportConnection();
+  v2 = ANLogHandleRapportConnection(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@### Rapport Connection Invalidated", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@### Rapport Connection Invalidated", &v3, 0xCu);
   }
 
   [WeakRetained _handleLinkInvalidation];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __34__ANRapportConnection__setupLink___block_invoke_35()
+void __34__ANRapportConnection__setupLink___block_invoke_35(uint64_t a1)
 {
   v4 = *MEMORY[0x277D85DE8];
-  v0 = ANLogHandleRapportConnection();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = ANLogHandleRapportConnection(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 138412290;
     v3 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v0, OS_LOG_TYPE_DEFAULT, "%@### Rapport Connection Interrupted", &v2, 0xCu);
+    _os_log_impl(&dword_23F525000, v1, OS_LOG_TYPE_DEFAULT, "%@### Rapport Connection Interrupted", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ANRapportConnection__setupLink___block_invoke_36(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = ANLogHandleRapportConnection();
+  v5 = ANLogHandleRapportConnection(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 customDescription];
-    v8 = 138412546;
-    v9 = &stru_2851BDB18;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Device Found: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = &stru_2851BDB18;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Device Found: %@", &v7, 0x16u);
   }
 
   [WeakRetained _updateDevices];
   [WeakRetained _notifyDeviceDelegatesConnectionDidFindDevice:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ANRapportConnection__setupLink___block_invoke_38(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = ANLogHandleRapportConnection();
+  v5 = ANLogHandleRapportConnection(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 customDescription];
-    v8 = 138412546;
-    v9 = &stru_2851BDB18;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Device Lost: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = &stru_2851BDB18;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Device Lost: %@", &v7, 0x16u);
   }
 
   [WeakRetained _updateDevices];
   [WeakRetained _notifyDeviceDelegatesConnectionDidLoseDevice:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ANRapportConnection__setupLink___block_invoke_39(uint64_t a1, void *a2, int a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = ANLogHandleRapportConnection();
+  v7 = ANLogHandleRapportConnection(WeakRetained);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v5 customDescription];
-    v10 = 138412802;
-    v11 = &stru_2851BDB18;
-    v12 = 1024;
-    v13 = a3;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@### Device Changed (flags = %d): %@", &v10, 0x1Cu);
+    v9 = 138412802;
+    v10 = &stru_2851BDB18;
+    v11 = 1024;
+    v12 = a3;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@### Device Changed (flags = %d): %@", &v9, 0x1Cu);
   }
 
   [WeakRetained _updateDevices];
   [WeakRetained _notifyDeviceDelegatesConnectionDidFindDevice:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ANRapportConnection__setupLink___block_invoke_41(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = ANLogHandleRapportConnection();
+  v5 = ANLogHandleRapportConnection(WeakRetained);
   v6 = v5;
   if (v3)
   {
@@ -982,9 +955,9 @@ void __34__ANRapportConnection__setupLink___block_invoke_41(uint64_t a1, void *a
     }
 
     *buf = 138412546;
-    v20 = &stru_2851BDB18;
-    v21 = 2112;
-    v22 = v3;
+    v19 = &stru_2851BDB18;
+    v20 = 2112;
+    v21 = v3;
     v7 = "%@### Error activating link '%@'";
     v8 = v6;
     v9 = OS_LOG_TYPE_ERROR;
@@ -999,7 +972,7 @@ void __34__ANRapportConnection__setupLink___block_invoke_41(uint64_t a1, void *a
     }
 
     *buf = 138412290;
-    v20 = &stru_2851BDB18;
+    v19 = &stru_2851BDB18;
     v7 = "%@### Link activated succcessfully";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
@@ -1015,25 +988,23 @@ LABEL_7:
   block[1] = 3221225472;
   block[2] = __34__ANRapportConnection__setupLink___block_invoke_42;
   block[3] = &unk_278C86580;
-  objc_copyWeak(&v18, buf);
+  objc_copyWeak(&v17, buf);
   dispatch_async(v11, block);
 
   if (*(a1 + 32))
   {
     v12 = [WeakRetained clientQueue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __34__ANRapportConnection__setupLink___block_invoke_2;
-    v14[3] = &unk_278C86C60;
-    v16 = *(a1 + 32);
-    v15 = v3;
-    dispatch_async(v12, v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __34__ANRapportConnection__setupLink___block_invoke_2;
+    v13[3] = &unk_278C86C60;
+    v15 = *(a1 + 32);
+    v14 = v3;
+    dispatch_async(v12, v13);
   }
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ANRapportConnection__setupLink___block_invoke_42(uint64_t a1)
@@ -1075,7 +1046,7 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke(id *a1)
   if (v5)
   {
     v6 = [v5 objectForKey:@"Client"];
-    v7 = ANLogHandleRapportConnection();
+    v7 = ANLogHandleRapportConnection(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -1113,43 +1084,41 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke(id *a1)
     v13 = [a1[4] identifier];
     [v12 setObject:v5 forKey:v13];
 
-    v14 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = ANLogHandleRapportConnection(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(*&buf[8] + 40);
+      v16 = *(*&buf[8] + 40);
       *v26 = 138412546;
       v27 = &stru_2851BDB18;
       v28 = 2112;
-      v29 = v15;
-      _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@### Creating new link %@", v26, 0x16u);
+      v29 = v16;
+      _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@### Creating new link %@", v26, 0x16u);
     }
 
-    v16 = *(*&buf[8] + 40);
+    v17 = *(*&buf[8] + 40);
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
     v20[2] = __46__ANRapportConnection__linkForDevice_handler___block_invoke_45;
     v20[3] = &unk_278C87438;
-    v17 = a1[4];
-    v18 = a1[5];
-    v21 = v17;
-    v22 = v18;
+    v18 = a1[4];
+    v19 = a1[5];
+    v21 = v18;
+    v22 = v19;
     objc_copyWeak(&v25, a1 + 7);
     v23 = a1[6];
     v24 = buf;
-    [v16 activateWithCompletion:v20];
+    [v17 activateWithCompletion:v20];
 
     objc_destroyWeak(&v25);
     _Block_object_dispose(buf, 8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ANRapportConnection__linkForDevice_handler___block_invoke_45(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleRapportConnection();
+  v4 = ANLogHandleRapportConnection(v3);
   v5 = v4;
   if (v3)
   {
@@ -1157,25 +1126,25 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke_45(uint64_t
     {
       v6 = [*(a1 + 32) name];
       *buf = 138412802;
-      v16 = &stru_2851BDB18;
+      v14 = &stru_2851BDB18;
+      v15 = 2112;
+      v16 = v6;
       v17 = 2112;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v3;
+      v18 = v3;
       _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_ERROR, "%@### Failed to activate device: %@ with error %@", buf, 0x20u);
     }
 
     v7 = [*(a1 + 40) clientQueue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __46__ANRapportConnection__linkForDevice_handler___block_invoke_46;
-    v12[3] = &unk_278C868C0;
-    objc_copyWeak(&v14, (a1 + 64));
-    v13 = *(a1 + 32);
-    dispatch_async(v7, v12);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __46__ANRapportConnection__linkForDevice_handler___block_invoke_46;
+    v10[3] = &unk_278C868C0;
+    objc_copyWeak(&v12, (a1 + 64));
+    v11 = *(a1 + 32);
+    dispatch_async(v7, v10);
 
     (*(*(a1 + 48) + 16))(*(a1 + 48), 0, v3, v8);
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v12);
   }
 
   else
@@ -1184,17 +1153,14 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke_45(uint64_t
     {
       v9 = [*(a1 + 32) name];
       *buf = 138412546;
-      v16 = &stru_2851BDB18;
-      v17 = 2112;
-      v18 = v9;
+      v14 = &stru_2851BDB18;
+      v15 = 2112;
+      v16 = v9;
       _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Successfully activated device: %@", buf, 0x16u);
     }
 
-    v10 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ANRapportConnection__linkForDevice_handler___block_invoke_46(uint64_t a1)
@@ -1216,16 +1182,16 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke_46(uint64_t
 
 - (void)_tearDownLink
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = ANLogHandleRapportConnection();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = ANLogHandleRapportConnection(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     companionLinkClient = [(ANRapportConnection *)self companionLinkClient];
-    v7 = 138412546;
-    v8 = &stru_2851BDB18;
-    v9 = 2112;
-    v10 = companionLinkClient;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@Tearing Down Companion Link: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = &stru_2851BDB18;
+    v8 = 2112;
+    v9 = companionLinkClient;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@Tearing Down Companion Link: %@", &v6, 0x16u);
   }
 
   [(RPCompanionLinkClient *)self->_companionLinkClient setInvalidationHandler:0];
@@ -1233,8 +1199,6 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke_46(uint64_t
   [(RPCompanionLinkClient *)self->_companionLinkClient invalidate];
   companionLinkClient = self->_companionLinkClient;
   self->_companionLinkClient = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerHandlers
@@ -1261,18 +1225,18 @@ void __46__ANRapportConnection__linkForDevice_handler___block_invoke_46(uint64_t
 
 void __53__ANRapportConnection__registerMessageRequestHandler__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = [a3 objectForKey:*MEMORY[0x277D442D0]];
   v10 = [MEMORY[0x277CEABD0] senderWithID:v9 type:2];
-  v11 = ANLogHandleRapportConnection();
+  v11 = ANLogHandleRapportConnection(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = &stru_2851BDB18;
-    v24 = 2112;
-    v25 = v9;
+    v22 = &stru_2851BDB18;
+    v23 = 2112;
+    v24 = v9;
     _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "%@### Rapport Received Message from %@", buf, 0x16u);
   }
 
@@ -1281,18 +1245,17 @@ void __53__ANRapportConnection__registerMessageRequestHandler__block_invoke(uint
   block[1] = 3221225472;
   block[2] = __53__ANRapportConnection__registerMessageRequestHandler__block_invoke_48;
   block[3] = &unk_278C874B0;
-  objc_copyWeak(&v21, (a1 + 40));
+  objc_copyWeak(&v20, (a1 + 40));
   block[4] = *(a1 + 32);
-  v18 = v7;
-  v19 = v10;
-  v20 = v8;
+  v17 = v7;
+  v18 = v10;
+  v19 = v8;
   v13 = v8;
   v14 = v10;
   v15 = v7;
   dispatch_async(v12, block);
 
-  objc_destroyWeak(&v21);
-  v16 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v20);
 }
 
 void __53__ANRapportConnection__registerMessageRequestHandler__block_invoke_48(uint64_t a1)
@@ -1328,17 +1291,17 @@ void __53__ANRapportConnection__registerMessageRequestHandler__block_invoke_48(u
 
 void __64__ANRapportConnection__registerHomeLocationStatusRequestHandler__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
-  v8 = ANLogHandleRapportConnection();
+  v8 = ANLogHandleRapportConnection(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442D0]];
     *buf = 138412546;
-    v19 = &stru_2851BDB18;
-    v20 = 2112;
-    v21 = v9;
+    v18 = &stru_2851BDB18;
+    v19 = 2112;
+    v20 = v9;
     _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@### Rapport Received Home Location Status Request from %@", buf, 0x16u);
   }
 
@@ -1353,20 +1316,18 @@ void __64__ANRapportConnection__registerHomeLocationStatusRequestHandler__block_
     block[1] = 3221225472;
     block[2] = __64__ANRapportConnection__registerHomeLocationStatusRequestHandler__block_invoke_52;
     block[3] = &unk_278C86A80;
-    objc_copyWeak(&v17, (a1 + 40));
+    objc_copyWeak(&v16, (a1 + 40));
     block[4] = *(a1 + 32);
-    v16 = v7;
+    v15 = v7;
     dispatch_async(v13, block);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
   }
 
   else
   {
     (*(v7 + 2))(v7, MEMORY[0x277CBEC10], 0, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ANRapportConnection__registerHomeLocationStatusRequestHandler__block_invoke_52(uint64_t a1)
@@ -1386,18 +1347,16 @@ void __64__ANRapportConnection__registerHomeLocationStatusRequestHandler__block_
   v5 = [activeDevices copy];
   [(ANRapportConnection *)self setActiveDevices:v5];
 
-  v6 = ANLogHandleRapportConnection();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = ANLogHandleRapportConnection(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     activeDevices2 = [(ANRapportConnection *)self activeDevices];
     v9 = 138412546;
     v10 = &stru_2851BDB18;
     v11 = 2048;
     v12 = [activeDevices2 count];
-    _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@### Updated Devices (%lu)", &v9, 0x16u);
+    _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@### Updated Devices (%lu)", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_incrementMessageCountForCompanionLinkClient:(id)client
@@ -1445,7 +1404,7 @@ void __68__ANRapportConnection__incrementMessageCountForCompanionLinkClient___bl
 
 void __68__ANRapportConnection__decrementMessageCountForCompanionLinkClient___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) clients];
   v3 = [*(a1 + 40) destinationDevice];
   v4 = [v3 identifier];
@@ -1463,16 +1422,16 @@ void __68__ANRapportConnection__decrementMessageCountForCompanionLinkClient___bl
 
     else
     {
-      v8 = ANLogHandleRapportConnection();
+      v8 = ANLogHandleRapportConnection(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = [*(a1 + 40) destinationDevice];
         v10 = [v9 name];
-        v16 = 138412546;
-        v17 = &stru_2851BDB18;
-        v18 = 2112;
-        v19 = v10;
-        _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@### Invalidating and Removing Link For: %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = &stru_2851BDB18;
+        v17 = 2112;
+        v18 = v10;
+        _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@### Invalidating and Removing Link For: %@", &v15, 0x16u);
       }
 
       v11 = [*(a1 + 32) clients];
@@ -1483,13 +1442,11 @@ void __68__ANRapportConnection__decrementMessageCountForCompanionLinkClient___bl
       [*(a1 + 40) invalidate];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessage:(id)message linkClient:(id)client handler:(id)handler
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   clientCopy = client;
   handlerCopy = handler;
@@ -1498,32 +1455,30 @@ void __68__ANRapportConnection__decrementMessageCountForCompanionLinkClient___bl
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
   v12 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA938]];
 
-  v22 = *MEMORY[0x277D442F0];
-  v23[0] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __55__ANRapportConnection__sendMessage_linkClient_handler___block_invoke;
-  v17[3] = &unk_278C87500;
+  v21 = *MEMORY[0x277D442F0];
+  v22[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55__ANRapportConnection__sendMessage_linkClient_handler___block_invoke;
+  v16[3] = &unk_278C87500;
   v14 = clientCopy;
-  v18 = v14;
-  objc_copyWeak(&v20, &location);
+  v17 = v14;
+  objc_copyWeak(&v19, &location);
   v15 = handlerCopy;
-  v19 = v15;
-  [v14 sendRequestID:@"com.apple.announce.announcement.message" request:messageCopy options:v13 responseHandler:v17];
+  v18 = v15;
+  [v14 sendRequestID:@"com.apple.announce.announcement.message" request:messageCopy options:v13 responseHandler:v16];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ANRapportConnection__sendMessage_linkClient_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = ANLogHandleRapportConnection();
+  v8 = ANLogHandleRapportConnection(v7);
   v9 = v8;
   if (v7)
   {
@@ -1531,13 +1486,13 @@ void __55__ANRapportConnection__sendMessage_linkClient_handler___block_invoke(ui
     {
       v10 = [*(a1 + 32) destinationDevice];
       v11 = [v10 name];
-      v17 = 138412802;
-      v18 = &stru_2851BDB18;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_ERROR, "%@### Rapport Send Failed to: %@, Error: %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = &stru_2851BDB18;
+      v18 = 2112;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v7;
+      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_ERROR, "%@### Rapport Send Failed to: %@, Error: %@", &v16, 0x20u);
     }
   }
 
@@ -1547,36 +1502,33 @@ void __55__ANRapportConnection__sendMessage_linkClient_handler___block_invoke(ui
     {
       v12 = [*(a1 + 32) destinationDevice];
       v13 = [v12 name];
-      v17 = 138412546;
-      v18 = &stru_2851BDB18;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Send Successful to: %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = &stru_2851BDB18;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Send Successful to: %@", &v16, 0x16u);
     }
 
-    v9 = ANLogHandleRapportConnection();
+    v9 = ANLogHandleRapportConnection(v14);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = &stru_2851BDB18;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Response from device: %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = &stru_2851BDB18;
+      v18 = 2112;
+      v19 = v6;
+      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Response from device: %@", &v16, 0x16u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained _decrementMessageCountForCompanionLinkClient:*(a1 + 32)];
 
-  v15 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendDailyRequest:(id)request handler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   [(ANRapportConnection *)self _incrementMessageCountForCompanionLinkClient:requestCopy];
@@ -1584,24 +1536,22 @@ void __55__ANRapportConnection__sendMessage_linkClient_handler___block_invoke(ui
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
   v9 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA938]];
 
-  v19 = *MEMORY[0x277D442F0];
-  v20[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __49__ANRapportConnection__sendDailyRequest_handler___block_invoke;
-  v14[3] = &unk_278C87500;
+  v18 = *MEMORY[0x277D442F0];
+  v19[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __49__ANRapportConnection__sendDailyRequest_handler___block_invoke;
+  v13[3] = &unk_278C87500;
   v11 = requestCopy;
-  v15 = v11;
-  objc_copyWeak(&v17, &location);
+  v14 = v11;
+  objc_copyWeak(&v16, &location);
   v12 = handlerCopy;
-  v16 = v12;
-  [v11 sendRequestID:@"com.apple.announce.dailyanalytics" request:MEMORY[0x277CBEC10] options:v10 responseHandler:v14];
+  v15 = v12;
+  [v11 sendRequestID:@"com.apple.announce.dailyanalytics" request:MEMORY[0x277CBEC10] options:v10 responseHandler:v13];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ANRapportConnection__sendDailyRequest_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1609,7 +1559,7 @@ void __49__ANRapportConnection__sendDailyRequest_handler___block_invoke(uint64_t
   v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = ANLogHandleRapportConnection();
+  v8 = ANLogHandleRapportConnection(v7);
   v9 = v8;
   if (v7)
   {
@@ -1640,7 +1590,7 @@ void __49__ANRapportConnection__sendDailyRequest_handler___block_invoke(uint64_t
       _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Send Daily Request Successful to: %@", &v16, 0x16u);
     }
 
-    v9 = ANLogHandleRapportConnection();
+    v9 = ANLogHandleRapportConnection(v14);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412546;
@@ -1655,12 +1605,11 @@ void __49__ANRapportConnection__sendDailyRequest_handler___block_invoke(uint64_t
   [WeakRetained _decrementMessageCountForCompanionLinkClient:*(a1 + 32)];
 
   (*(*(a1 + 40) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendHomeLocationStatusRequestToDevice:(id)device handler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   [(ANRapportConnection *)self _incrementMessageCountForCompanionLinkClient:deviceCopy];
@@ -1668,24 +1617,22 @@ void __49__ANRapportConnection__sendDailyRequest_handler___block_invoke(uint64_t
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
   v9 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA930]];
 
-  v19 = *MEMORY[0x277D442F0];
-  v20[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___block_invoke;
-  v14[3] = &unk_278C87500;
+  v18 = *MEMORY[0x277D442F0];
+  v19[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___block_invoke;
+  v13[3] = &unk_278C87500;
   v11 = deviceCopy;
-  v15 = v11;
-  objc_copyWeak(&v17, &location);
+  v14 = v11;
+  objc_copyWeak(&v16, &location);
   v12 = handlerCopy;
-  v16 = v12;
-  [v11 sendRequestID:@"com.apple.announce.home-location-status-request" request:MEMORY[0x277CBEC10] options:v10 responseHandler:v14];
+  v15 = v12;
+  [v11 sendRequestID:@"com.apple.announce.home-location-status-request" request:MEMORY[0x277CBEC10] options:v10 responseHandler:v13];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1693,7 +1640,7 @@ void __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___
   v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = ANLogHandleRapportConnection();
+  v8 = ANLogHandleRapportConnection(v7);
   v9 = v8;
   if (v7)
   {
@@ -1724,7 +1671,7 @@ void __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___
       _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Rapport Home Location Status Request Successful to: %@", &v16, 0x16u);
     }
 
-    v9 = ANLogHandleRapportConnection();
+    v9 = ANLogHandleRapportConnection(v14);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412546;
@@ -1739,38 +1686,37 @@ void __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___
   [WeakRetained _decrementMessageCountForCompanionLinkClient:*(a1 + 32)];
 
   (*(*(a1 + 40) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_executeBlockForDelegates:(id)delegates
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   delegatesCopy = delegates;
   deviceDelegatesToQueues = [(ANRapportConnection *)self deviceDelegatesToQueues];
   keyEnumerator = [deviceDelegatesToQueues keyEnumerator];
   allObjects = [keyEnumerator allObjects];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = allObjects;
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
+        v12 = *(*(&v19 + 1) + 8 * v11);
         deviceDelegatesToQueues2 = [(ANRapportConnection *)self deviceDelegatesToQueues];
         v14 = [deviceDelegatesToQueues2 objectForKey:v12];
 
@@ -1780,20 +1726,18 @@ void __70__ANRapportConnection__sendHomeLocationStatusRequestToDevice_handler___
         block[3] = &unk_278C86C60;
         v15 = delegatesCopy;
         block[4] = v12;
-        v19 = v15;
+        v18 = v15;
         dispatch_async(v14, block);
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDeviceDelegatesConnectionDidFindDevice:(id)device
@@ -1850,134 +1794,129 @@ void __69__ANRapportConnection__notifyDeviceDelegatesConnectionDidLoseDevice___b
   [lastScanStartTimestamp timeIntervalSince1970];
   v8 = v7;
 
-  v9 = ANLogHandleRapportConnection();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = ANLogHandleRapportConnection(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = MEMORY[0x277CCABB0];
+    v11 = MEMORY[0x277CCABB0];
     activeDevices = [(ANRapportConnection *)self activeDevices];
-    v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(activeDevices, "count")}];
+    v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(activeDevices, "count")}];
     lastScanStartTimestamp2 = [(ANRapportConnection *)self lastScanStartTimestamp];
     v20 = 138413058;
     v21 = &stru_2851BDB18;
     v22 = 2112;
-    v23 = v12;
+    v23 = v13;
     v24 = 2112;
     v25 = lastScanStartTimestamp2;
     v26 = 2112;
     v27 = date;
-    _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "%@### Active Device Count: %@, Scan Start: %@, Now: %@", &v20, 0x2Au);
+    _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@### Active Device Count: %@, Scan Start: %@, Now: %@", &v20, 0x2Au);
   }
 
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-  v15 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA928]];
-  [v15 doubleValue];
-  v17 = v16;
+  v16 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA928]];
+  [v16 doubleValue];
+  v18 = v17;
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17 - (v5 - v8);
+  return v18 - (v5 - v8);
 }
 
 - (BOOL)_needsScan
 {
-  v34 = *MEMORY[0x277D85DE8];
-  if (!self->_companionLinkClient)
+  v36 = *MEMORY[0x277D85DE8];
+  if (self->_companionLinkClient)
   {
-    goto LABEL_13;
-  }
+    date = [MEMORY[0x277CBEAA8] date];
+    [date timeIntervalSince1970];
+    v5 = v4;
 
-  date = [MEMORY[0x277CBEAA8] date];
-  [date timeIntervalSince1970];
-  v5 = v4;
+    mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
+    v7 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA928]];
+    [v7 doubleValue];
+    v9 = v8;
 
-  mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-  v7 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA928]];
-  [v7 doubleValue];
-  v9 = v8;
+    lastScanStartTimestamp = [(ANRapportConnection *)self lastScanStartTimestamp];
+    [lastScanStartTimestamp timeIntervalSince1970];
+    v12 = v9 + v11;
 
-  lastScanStartTimestamp = [(ANRapportConnection *)self lastScanStartTimestamp];
-  [lastScanStartTimestamp timeIntervalSince1970];
-  v12 = v9 + v11;
+    if (v12 >= v5)
+    {
+      goto LABEL_6;
+    }
 
-  if (v12 < v5)
-  {
-    v13 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = ANLogHandleRapportConnection(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       lastScanStartTimestamp2 = [(ANRapportConnection *)self lastScanStartTimestamp];
-      v28 = 138412546;
-      v29 = &stru_2851BDB18;
-      v30 = 2112;
-      v31 = lastScanStartTimestamp2;
-      _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%@### Last Scan Completion: %@", &v28, 0x16u);
+      v30 = 138412546;
+      v31 = &stru_2851BDB18;
+      v32 = 2112;
+      v33 = lastScanStartTimestamp2;
+      _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@### Last Scan Completion: %@", &v30, 0x16u);
     }
 
     mEMORY[0x277CEAB80]2 = [MEMORY[0x277CEAB80] sharedInstance];
-    v16 = [mEMORY[0x277CEAB80]2 numberForDefault:*MEMORY[0x277CEA920]];
-    [v16 doubleValue];
-    v18 = v17;
+    v17 = [mEMORY[0x277CEAB80]2 numberForDefault:*MEMORY[0x277CEA920]];
+    [v17 doubleValue];
+    v19 = v18;
 
-    v19 = v5 - v12;
-    if (v19 > v18)
+    v21 = v5 - v12;
+    if (v21 > v19)
     {
-      v24 = ANLogHandleRapportConnection();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = ANLogHandleRapportConnection(v20);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
-        v26 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
-        v28 = 138412802;
-        v29 = &stru_2851BDB18;
-        v30 = 2112;
-        v31 = v25;
+        v28 = [MEMORY[0x277CCABB0] numberWithDouble:v21];
+        v29 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
+        v30 = 138412802;
+        v31 = &stru_2851BDB18;
         v32 = 2112;
-        v33 = v26;
-        _os_log_impl(&dword_23F525000, v24, OS_LOG_TYPE_DEFAULT, "%@### Needs Scan. Elapsed time (%@) since last scan exceeds scan interval (%@)", &v28, 0x20u);
+        v33 = v28;
+        v34 = 2112;
+        v35 = v29;
+        _os_log_impl(&dword_23F525000, v27, OS_LOG_TYPE_DEFAULT, "%@### Needs Scan. Elapsed time (%@) since last scan exceeds scan interval (%@)", &v30, 0x20u);
+      }
+    }
+
+    else
+    {
+LABEL_6:
+      activeDevices = [(ANRapportConnection *)self activeDevices];
+      activeDevicesSupportingAnnounce = [activeDevices activeDevicesSupportingAnnounce];
+      v24 = [activeDevicesSupportingAnnounce count];
+
+      if (v24)
+      {
+        return 0;
       }
 
-      goto LABEL_12;
+      v27 = ANLogHandleRapportConnection(v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        v30 = 138412290;
+        v31 = &stru_2851BDB18;
+        _os_log_impl(&dword_23F525000, v27, OS_LOG_TYPE_DEFAULT, "%@### Needs Scan. No devices.", &v30, 0xCu);
+      }
     }
   }
 
-  activeDevices = [(ANRapportConnection *)self activeDevices];
-  activeDevicesSupportingAnnounce = [activeDevices activeDevicesSupportingAnnounce];
-  v22 = [activeDevicesSupportingAnnounce count];
-
-  if (!v22)
-  {
-    v24 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-    {
-      v28 = 138412290;
-      v29 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v24, OS_LOG_TYPE_DEFAULT, "%@### Needs Scan. No devices.", &v28, 0xCu);
-    }
-
-LABEL_12:
-
-LABEL_13:
-    result = 1;
-    goto LABEL_14;
-  }
-
-  result = 0;
-LABEL_14:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)_startTimer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   clientQueue = [(ANRapportConnection *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
-  if ([(ANRapportConnection *)self isTimerSuspended])
+  isTimerSuspended = [(ANRapportConnection *)self isTimerSuspended];
+  if (isTimerSuspended)
   {
-    v4 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = ANLogHandleRapportConnection(isTimerSuspended);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@### Ignoring request to start timer. Timer is suspended.", buf, 0xCu);
+      v29 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Ignoring request to start timer. Timer is suspended.", buf, 0xCu);
     }
   }
 
@@ -1987,61 +1926,58 @@ LABEL_14:
 
     if (timer)
     {
-      [(ANRapportConnection *)self _cancelTimer];
-      v6 = ANLogHandleRapportConnection();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = ANLogHandleRapportConnection([(ANRapportConnection *)self _cancelTimer]);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = &stru_2851BDB18;
-        _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@### Creating new deactivation timer", buf, 0xCu);
+        v29 = &stru_2851BDB18;
+        _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@### Creating new deactivation timer", buf, 0xCu);
       }
     }
 
     mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-    v8 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA918]];
-    [v8 doubleValue];
-    v10 = v9;
+    v9 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA918]];
+    [v9 doubleValue];
+    v11 = v10;
 
     clientQueue2 = [(ANRapportConnection *)self clientQueue];
-    v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, clientQueue2);
-    [(ANRapportConnection *)self setTimer:v12];
+    v13 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, clientQueue2);
+    [(ANRapportConnection *)self setTimer:v13];
 
     timer2 = [(ANRapportConnection *)self timer];
-    v14 = dispatch_time(0, (v10 * 1000000000.0));
-    dispatch_source_set_timer(timer2, v14, (v10 * 1000000000.0), 0);
+    v15 = dispatch_time(0, (v11 * 1000000000.0));
+    dispatch_source_set_timer(timer2, v15, (v11 * 1000000000.0), 0);
 
     objc_initWeak(&location, self);
     timer3 = [(ANRapportConnection *)self timer];
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __34__ANRapportConnection__startTimer__block_invoke;
-    v24 = &unk_278C86580;
-    objc_copyWeak(&v25, &location);
-    dispatch_source_set_event_handler(timer3, &v21);
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __34__ANRapportConnection__startTimer__block_invoke;
+    v25 = &unk_278C86580;
+    objc_copyWeak(&v26, &location);
+    dispatch_source_set_event_handler(timer3, &v22);
 
-    v16 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = ANLogHandleRapportConnection(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v16;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = v18;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = [MEMORY[0x277CCABB0] numberWithDouble:{v10, v21, v22, v23, v24}];
+        v20 = [MEMORY[0x277CCABB0] numberWithDouble:{v11, v22, v23, v24, v25}];
         *buf = 138412546;
-        v28 = &stru_2851BDB18;
-        v29 = 2112;
-        v30 = v18;
-        _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_DEFAULT, "%@### Will deactivate client link in (%@) seconds", buf, 0x16u);
+        v29 = &stru_2851BDB18;
+        v30 = 2112;
+        v31 = v20;
+        _os_log_impl(&dword_23F525000, v19, OS_LOG_TYPE_DEFAULT, "%@### Will deactivate client link in (%@) seconds", buf, 0x16u);
       }
     }
 
     timer4 = [(ANRapportConnection *)self timer];
     dispatch_resume(timer4);
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ANRapportConnection__startTimer__block_invoke(uint64_t a1)
@@ -2052,18 +1988,17 @@ void __34__ANRapportConnection__startTimer__block_invoke(uint64_t a1)
 
 - (void)_handleTimerExpired
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = ANLogHandleRapportConnection();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = ANLogHandleRapportConnection(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@### Deactivation timer expired", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@### Deactivation timer expired", &v4, 0xCu);
   }
 
   [(ANRapportConnection *)self _cancelTimer];
   [(ANRapportConnection *)self _tearDownLink];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelTimer
@@ -2073,15 +2008,15 @@ void __34__ANRapportConnection__startTimer__block_invoke(uint64_t a1)
 
   if (timer)
   {
-    v4 = ANLogHandleRapportConnection();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = ANLogHandleRapportConnection(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       timer2 = [(ANRapportConnection *)self timer];
       v8 = 138412546;
       v9 = &stru_2851BDB18;
       v10 = 2112;
       v11 = timer2;
-      _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@### Removing client link deactivation timer %@", &v8, 0x16u);
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@### Removing client link deactivation timer %@", &v8, 0x16u);
     }
 
     timer3 = [(ANRapportConnection *)self timer];
@@ -2089,8 +2024,6 @@ void __34__ANRapportConnection__startTimer__block_invoke(uint64_t a1)
 
     [(ANRapportConnection *)self setTimer:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (ANRapportConnectionDelegate)delegate

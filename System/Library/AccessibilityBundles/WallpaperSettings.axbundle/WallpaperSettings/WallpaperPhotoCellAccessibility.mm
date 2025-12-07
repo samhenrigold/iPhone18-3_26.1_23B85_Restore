@@ -112,10 +112,7 @@ LABEL_10:
 
 uint64_t __53__WallpaperPhotoCellAccessibility__axWallpaperBundle__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) wallpaperBundleAtIndex:{objc_msgSend(*(a1 + 40), "item")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) wallpaperBundleAtIndex:{objc_msgSend(*(a1 + 40), "item")}];
 
   return MEMORY[0x2A1C71028]();
 }

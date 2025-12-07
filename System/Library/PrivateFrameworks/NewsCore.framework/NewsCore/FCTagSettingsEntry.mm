@@ -9,7 +9,7 @@
 
 - (FCTagSettingsEntry)initWithEntryID:(id)d tagID:(id)iD fontMultiplier:(id)multiplier fontMultiplierMacOS:(id)s contentScale:(id)scale contentScaleMacOS:(id)oS accessToken:(id)token webAccessOptIn:(BOOL)self0
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   multiplierCopy = multiplier;
@@ -19,15 +19,15 @@
   tokenCopy = token;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag settings list entry must have an identifier"];
+    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag settings list entry must have an identifier"];
     *buf = 136315906;
-    v45 = "[FCTagSettingsEntry initWithEntryID:tagID:fontMultiplier:fontMultiplierMacOS:contentScale:contentScaleMacOS:accessToken:webAccessOptIn:]";
-    v46 = 2080;
-    v47 = "FCTagSettingsEntry.m";
-    v48 = 1024;
-    v49 = 24;
-    v50 = 2114;
-    v51 = v41;
+    v44 = "[FCTagSettingsEntry initWithEntryID:tagID:fontMultiplier:fontMultiplierMacOS:contentScale:contentScaleMacOS:accessToken:webAccessOptIn:]";
+    v45 = 2080;
+    v46 = "FCTagSettingsEntry.m";
+    v47 = 1024;
+    v48 = 24;
+    v49 = 2114;
+    v50 = v40;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -43,22 +43,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag settings list entry must have a tag identifier"];
+    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag settings list entry must have a tag identifier"];
     *buf = 136315906;
-    v45 = "[FCTagSettingsEntry initWithEntryID:tagID:fontMultiplier:fontMultiplierMacOS:contentScale:contentScaleMacOS:accessToken:webAccessOptIn:]";
-    v46 = 2080;
-    v47 = "FCTagSettingsEntry.m";
-    v48 = 1024;
-    v49 = 25;
-    v50 = 2114;
-    v51 = v42;
+    v44 = "[FCTagSettingsEntry initWithEntryID:tagID:fontMultiplier:fontMultiplierMacOS:contentScale:contentScaleMacOS:accessToken:webAccessOptIn:]";
+    v45 = 2080;
+    v46 = "FCTagSettingsEntry.m";
+    v47 = 1024;
+    v48 = 25;
+    v49 = 2114;
+    v50 = v41;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v43.receiver = self;
-  v43.super_class = FCTagSettingsEntry;
-  v23 = [(FCTagSettingsEntry *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = FCTagSettingsEntry;
+  v23 = [(FCTagSettingsEntry *)&v42 init];
   v24 = v23;
   if (v23)
   {
@@ -102,7 +102,6 @@ LABEL_6:
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

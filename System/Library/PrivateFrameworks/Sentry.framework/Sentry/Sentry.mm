@@ -31,50 +31,45 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t __STYFrameworkDefaults_block_invoke(uint64_t a1)
 {
-  v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.Sentry.Framework"];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.Sentry.Framework"];
 
   return MEMORY[0x2821F96F8]();
 }
 
-id getReporter()
+id getReporter(uint64_t a1)
 {
   if (getReporter_onceToken != -1)
   {
     getReporter_cold_1();
   }
 
-  v1 = sharedSymptomsReporter;
+  v2 = sharedSymptomsReporter;
 
-  return v1;
+  return v2;
 }
 
 void __getReporter_block_invoke()
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277D6AFC8]);
   v1 = sharedSymptomsReporter;
   sharedSymptomsReporter = v0;
 
-  v8[0] = *MEMORY[0x277D6B000];
+  v7[0] = *MEMORY[0x277D6B000];
   v2 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v9[0] = v2;
-  v8[1] = *MEMORY[0x277D6AFF8];
+  v8[0] = v2;
+  v7[1] = *MEMORY[0x277D6AFF8];
   v3 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v9[1] = v3;
-  v8[2] = *MEMORY[0x277D6AFF0];
+  v8[1] = v3;
+  v7[2] = *MEMORY[0x277D6AFF0];
   v4 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   v6 = symptomsActions;
   symptomsActions = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-id descriptionForSymptomsErrorCode(uint64_t a1)
+__CFString *descriptionForSymptomsErrorCode(uint64_t a1)
 {
   v1 = a1;
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error Description for error : %d not available ", a1];
@@ -244,7 +239,7 @@ void _reportToAbc(void *a1, void *a2)
 {
   v12 = a1;
   v3 = a2;
-  v4 = getReporter();
+  v4 = getReporter(v3);
   v5 = [v12 objectForKeyedSubscript:@"processImagePath"];
 
   if (v5)
@@ -283,7 +278,7 @@ void _reportToAbc(void *a1, void *a2)
 
 void ___reportToAbc_block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 objectForKey:*MEMORY[0x277D6B198]];
   v4 = [v3 BOOLValue];
@@ -310,15 +305,13 @@ void ___reportToAbc_block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = descriptionForSymptomsErrorCode(v8);
-      v12[0] = 67109378;
-      v12[1] = v8;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_impl(&dword_2656CE000, v6, OS_LOG_TYPE_DEFAULT, "ABC did not accept case for signpost event. \n                                                    Error Code : %d \n                                                    Error Description : %@", v12, 0x12u);
+      v11[0] = 67109378;
+      v11[1] = v8;
+      v12 = 2112;
+      v13 = v10;
+      _os_log_impl(&dword_2656CE000, v6, OS_LOG_TYPE_DEFAULT, "ABC did not accept case for signpost event. \n                                                    Error Code : %d \n                                                    Error Description : %@", v11, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void reportToAbc(void *a1, char a2, void *a3)
@@ -341,23 +334,23 @@ void reportToAbc(void *a1, char a2, void *a3)
 
 void __reportToAbc_block_invoke(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
-    v12[0] = *MEMORY[0x277D82CE0];
+    v11[0] = *MEMORY[0x277D82CE0];
     v2 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    v12[1] = *MEMORY[0x277D82CE8];
-    v13[0] = v2;
-    v13[1] = *(a1 + 32);
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[1] = *MEMORY[0x277D82CE8];
+    v12[0] = v2;
+    v12[1] = *(a1 + 32);
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
     v4 = *MEMORY[0x277D6B130];
-    v9 = v3;
-    v10 = v4;
-    v8 = @"com.apple.DiagnosticExtensions.tailspin";
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    v11 = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v8 = v3;
+    v9 = v4;
+    v7 = @"com.apple.DiagnosticExtensions.tailspin";
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+    v10 = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   }
 
   else
@@ -366,8 +359,6 @@ void __reportToAbc_block_invoke(uint64_t a1)
   }
 
   _reportToAbc(*(a1 + 40), v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 float machCtsTimeToMs(unint64_t a1)
@@ -555,7 +546,7 @@ void __currentLevels_block_invoke()
   monitorThermalPressure();
 }
 
-void __startMonitoringSystemConditions_block_invoke()
+void __startMonitoringSystemConditions_block_invoke(uint64_t result, uint64_t a2)
 {
   if (startMonitoringSystemConditions_onceToken != -1)
   {
@@ -588,19 +579,20 @@ uint64_t stopMonitoringSystemConditions()
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_2656D518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2656D518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  objc_destroyWeak((v8 + 40));
+  va_start(va, a13);
+  objc_destroyWeak((v14 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v7 + 32));
-  objc_destroyWeak((v9 - 88));
+  objc_destroyWeak((v13 + 32));
+  objc_destroyWeak((v15 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -613,7 +605,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 void processResponse(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 objectForKey:kSTYTailspinSaveOperationFailedErrorKey];
   v3 = [v1 objectForKey:kSTYScenarioReportRefKey];
@@ -640,18 +632,18 @@ void processResponse(void *a1)
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v32 = [v6 scenario];
-        v28 = [v32 scenarioID];
-        v29 = [perfIssueDetectionTimeLogs objectForKey:v4];
-        [v11 timeIntervalSinceDate:v29];
+        v31 = [v6 scenario];
+        v27 = [v31 scenarioID];
+        v28 = [perfIssueDetectionTimeLogs objectForKey:v4];
+        [v11 timeIntervalSinceDate:v28];
         *buf = 138413058;
-        v34 = v28;
-        v35 = 2048;
-        *v36 = v30;
-        *&v36[8] = 1024;
-        *&v36[10] = [v4 intValue];
-        v37 = 2112;
-        v38 = v10;
+        v33 = v27;
+        v34 = 2048;
+        *v35 = v29;
+        *&v35[8] = 1024;
+        *&v35[10] = [v4 intValue];
+        v36 = 2112;
+        v37 = v10;
         _os_log_debug_impl(&dword_2656CE000, v15, OS_LOG_TYPE_DEBUG, "[Signpost: %@] Response details is as follows:\n\t  Total time to process tailspin save request by HangTracer: %f\n\t Request Identifier: %d\n\t Path to saved tailspin: %@ ", buf, 0x26u);
       }
 
@@ -704,19 +696,19 @@ void processResponse(void *a1)
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v31 = [v6 scenario];
-      v24 = [v31 scenarioID];
-      v25 = [v4 intValue];
-      v26 = [outstandingTailspinSaveRequests objectForKey:v4];
-      v27 = [v2 localizedDescription];
+      v30 = [v6 scenario];
+      v23 = [v30 scenarioID];
+      v24 = [v4 intValue];
+      v25 = [outstandingTailspinSaveRequests objectForKey:v4];
+      v26 = [v2 localizedDescription];
       *buf = 138413058;
-      v34 = v24;
-      v35 = 1024;
-      *v36 = v25;
-      *&v36[4] = 2112;
-      *&v36[6] = v26;
-      v37 = 2112;
-      v38 = v27;
+      v33 = v23;
+      v34 = 1024;
+      *v35 = v24;
+      *&v35[4] = 2112;
+      *&v35[6] = v25;
+      v36 = 2112;
+      v37 = v26;
       _os_log_error_impl(&dword_2656CE000, v8, OS_LOG_TYPE_ERROR, "[Signpost: %@] The response from hangtracerd for report with Request identifier : %d and scenarioID %@ errored out with error message %@", buf, 0x26u);
     }
 
@@ -738,8 +730,6 @@ LABEL_24:
 
   [perfIssueDetectionTimeLogs removeObjectForKey:v4];
 LABEL_25:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void responseRecieved(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -781,9 +771,9 @@ void refreshHTPreferences()
   }
 }
 
-void sub_2656D63D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2656D63D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -795,9 +785,9 @@ void sub_2656D6CFC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2656D9520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2656D9520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -829,9 +819,9 @@ id TailspinFilenamePrefixForInterval(void *a1)
   return v10;
 }
 
-void sub_2656DA844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2656DA844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -864,82 +854,53 @@ void OUTLINED_FUNCTION_7(void *a1, int a2, os_log_t log, const char *a4, uint8_t
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void processResponse_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 intValue];
-  v8 = [v0 localizedDescription];
+  v7 = [v0 localizedDescription];
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void processResponse_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void processResponse_cold_3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 scenario];
   v2 = [v1 scenarioID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void processResponse_cold_4(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 intValue];
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void processResponse_cold_5()
 {
   OUTLINED_FUNCTION_11();
   v2 = v1;
-  v10 = *MEMORY[0x277D85DE8];
   [v1 intValue];
   v3 = [perfIssueDetectionTimeLogs objectForKey:v2];
   [v0 timeIntervalSinceDate:v3];
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void refreshPreferences_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void refreshHTPreferences_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }

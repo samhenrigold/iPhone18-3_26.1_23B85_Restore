@@ -10,16 +10,16 @@
 - (id)succinctDescriptionBuilder;
 - (uint64_t)_defaultEvaluationStrategyForIdiom:(uint64_t)idiom;
 - (uint64_t)_evaluationStrategyForScene:(uint64_t)scene;
-- (uint64_t)windowScene:(uint64_t)scene willTransitionToActivationState:;
-- (void)_evaluateApplicationKeyWindowWithComparisonWindowScene:(uint64_t)scene changingKeyWindowSceneActions:(uint64_t)actions sceneKeyWindowActions:(int)windowActions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)keyWindowActions andSceneBecomeKeyWindowActions:(uint64_t)becomeKeyWindowActions forReason:(void *)reason;
+- (void)_evaluateApplicationKeyWindowWithComparisonWindowScene:(uint64_t)scene changingKeyWindowSceneActions:(uint64_t)actions sceneKeyWindowActions:(uint64_t)windowActions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)keyWindowActions andSceneBecomeKeyWindowActions:(uint64_t)becomeKeyWindowActions forReason:(void *)reason;
 - (void)_setDefaultEvaluationStrategy:(uint64_t)strategy forIdiom:;
 - (void)_updateDefaultEvaluationStrategyForIdiomIfNeededWithRequest:(__int16)request;
 - (void)dealloc;
-- (void)evaluateApplicationKeyWindowForWindowScene:(int)scene withWindowMadeKey:(uint64_t)key sceneKeyWindowActions:(int)actions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)windowActions andSceneBecomeKeyWindowActions:(uint64_t)keyWindowActions forReason:(void *)reason;
+- (void)evaluateApplicationKeyWindowForWindowScene:(uint64_t)scene withWindowMadeKey:(uint64_t)key sceneKeyWindowActions:(uint64_t)actions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)windowActions andSceneBecomeKeyWindowActions:(uint64_t)keyWindowActions forReason:(void *)reason;
+- (void)windowScene:(uint64_t)scene willTransitionToActivationState:;
 - (void)windowScene:(void *)scene didMoveFromScreen:(void *)screen toScreen:;
 - (void)windowScene:(void *)scene willMoveFromScreen:(void *)screen toScreen:;
 - (void)windowSceneDidBecomeTargetOfKeyboardEventDeferringEnvironment:(char *)environment;
-- (void)windowSceneDidConnect:(uint64_t)connect;
+- (void)windowSceneDidConnect:(char *)connect;
 - (void)windowSceneWillInvalidate:(uint64_t)invalidate;
 @end
 
@@ -232,7 +232,7 @@
     {
       v9 = [(_UIKeyWindowEvaluator *)self _stackForWindowScene:v6];
       v10 = v9;
-      v11 = *(self + 200);
+      v11 = *(self + 25);
       if (v11 && v9 == v11)
       {
         v12 = _NSStringFromUIUserInterfaceIdiom(_userInterfaceIdiom);
@@ -258,7 +258,7 @@
 
       else
       {
-        v18 = self + 8 * _userInterfaceIdiom;
+        v18 = &self[8 * _userInterfaceIdiom];
         if (request)
         {
           if ((_userInterfaceIdiom - 11) <= 0xFFFFFFFFFFFFFFF3)
@@ -267,7 +267,7 @@
             [currentHandler2 handleFailureInMethod:sel__incrementFBSSceneBackedSceneCountForIdiom_ object:self file:@"_UIKeyWindowEvaluator.m" lineNumber:240 description:{@"Invalid parameter not satisfying: %@", @"(idiom >= UIUserInterfaceIdiomFirst) && (idiom <= UIUserInterfaceIdiomLast)"}];
           }
 
-          ++*(v18 + 16);
+          ++*(v18 + 2);
         }
 
         v19 = _userInterfaceIdiom - 11;
@@ -279,7 +279,7 @@
             [currentHandler3 handleFailureInMethod:sel__decrementFBSSceneBackedSceneCountForIdiom_ object:self file:@"_UIKeyWindowEvaluator.m" lineNumber:245 description:{@"Invalid parameter not satisfying: %@", @"(idiom >= UIUserInterfaceIdiomFirst) && (idiom <= UIUserInterfaceIdiomLast)"}];
           }
 
-          --*(v18 + 16);
+          --*(v18 + 2);
         }
 
         if (v19 <= 0xFFFFFFFFFFFFFFF3)
@@ -288,7 +288,7 @@
           [currentHandler4 handleFailureInMethod:sel__countOfFBSSceneBackedScenesForIdiom_ object:self file:@"_UIKeyWindowEvaluator.m" lineNumber:235 description:{@"Invalid parameter not satisfying: %@", @"(idiom >= UIUserInterfaceIdiomFirst) && (idiom <= UIUserInterfaceIdiomLast)"}];
         }
 
-        v20 = *(v18 + 16);
+        v20 = *(v18 + 2);
         _isTargetOfKeyboardEventDeferringEnvironment = [v6 _isTargetOfKeyboardEventDeferringEnvironment];
         if (v20)
         {
@@ -323,8 +323,8 @@
               aBlock[5] = v26;
               aBlock[6] = _userInterfaceIdiom;
               v29 = _Block_copy(aBlock);
-              v29[2](v29, *(self + 184));
-              v29[2](v29, *(self + 192));
+              v29[2](v29, *(self + 23));
+              v29[2](v29, *(self + 24));
               [(_UIKeyWindowEvaluator *)self _setDefaultEvaluationStrategy:v26 forIdiom:_userInterfaceIdiom];
             }
           }
@@ -347,9 +347,9 @@
     if (role)
     {
       v9 = role;
-      v10 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+      isEqualToString = objc_msgSend_isEqualToString_(role);
 
-      if (_userInterfaceIdiom != 3 && (v10 & 1) == 0)
+      if (_userInterfaceIdiom != 3 && (isEqualToString & 1) == 0)
       {
         v13 = *(sceneCopy + 23);
         v12 = (sceneCopy + 184);
@@ -418,8 +418,9 @@ LABEL_11:
   return sceneCopy;
 }
 
-- (void)_evaluateApplicationKeyWindowWithComparisonWindowScene:(uint64_t)scene changingKeyWindowSceneActions:(uint64_t)actions sceneKeyWindowActions:(int)windowActions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)keyWindowActions andSceneBecomeKeyWindowActions:(uint64_t)becomeKeyWindowActions forReason:(void *)reason
+- (void)_evaluateApplicationKeyWindowWithComparisonWindowScene:(uint64_t)scene changingKeyWindowSceneActions:(uint64_t)actions sceneKeyWindowActions:(uint64_t)windowActions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)keyWindowActions andSceneBecomeKeyWindowActions:(uint64_t)becomeKeyWindowActions forReason:(void *)reason
 {
+  windowActionsCopy = windowActions;
   reasonCopy2 = reason;
   v60 = *MEMORY[0x1E69E9840];
   if (!a2 || ([a2 _hasInvalidated] & 1) == 0)
@@ -502,7 +503,7 @@ LABEL_11:
         (*(actions + 16))(actions, 0);
       }
 
-      if (window && (windowActions & 1) == 0)
+      if (window && (windowActionsCopy & 1) == 0)
       {
         (*(window + 16))();
       }
@@ -515,7 +516,7 @@ LABEL_11:
       goto LABEL_63;
     }
 
-    if (windowActions)
+    if (windowActionsCopy)
     {
       v25 = 0;
     }
@@ -574,7 +575,7 @@ LABEL_37:
       (*(actions + 16))(actions, v43);
     }
 
-    if ((windowActions & 1) == 0)
+    if ((windowActionsCopy & 1) == 0)
     {
       if (window)
       {
@@ -650,10 +651,11 @@ LABEL_63:
   }
 }
 
-- (void)evaluateApplicationKeyWindowForWindowScene:(int)scene withWindowMadeKey:(uint64_t)key sceneKeyWindowActions:(int)actions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)windowActions andSceneBecomeKeyWindowActions:(uint64_t)keyWindowActions forReason:(void *)reason
+- (void)evaluateApplicationKeyWindowForWindowScene:(uint64_t)scene withWindowMadeKey:(uint64_t)key sceneKeyWindowActions:(uint64_t)actions ignoringOldKeyWindow:(uint64_t)window sceneResignKeyWindowActions:(uint64_t)windowActions andSceneBecomeKeyWindowActions:(uint64_t)keyWindowActions forReason:(void *)reason
 {
   if (self)
   {
+    sceneCopy = scene;
     if (!a2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -668,7 +670,7 @@ LABEL_63:
       v19 = [(_UIKeyWindowEvaluator *)self _evaluationStrategyForScene:v18];
       _keyWindow = [(UIWindowScene *)v18 _keyWindow];
 
-      if (!v19 && scene && _keyWindow)
+      if (!v19 && sceneCopy && _keyWindow)
       {
         v21 = [(_UIKeyWindowEvaluator *)self _stackForWindowScene:v18];
         [(_UIKeyWindowSceneStack *)v21 pushWindowScene:v18 withEvaluationStrategy:0 forReason:reason];
@@ -710,7 +712,7 @@ LABEL_63:
   return _keyWindow;
 }
 
-- (void)windowSceneDidConnect:(uint64_t)connect
+- (void)windowSceneDidConnect:(char *)connect
 {
   if (connect)
   {
@@ -720,7 +722,7 @@ LABEL_63:
   }
 }
 
-- (uint64_t)windowScene:(uint64_t)scene willTransitionToActivationState:
+- (void)windowScene:(uint64_t)scene willTransitionToActivationState:
 {
   if (result)
   {
@@ -794,8 +796,8 @@ LABEL_63:
     }
 
     v8 = [(_UIKeyWindowEvaluator *)self _stackForWindowScene:a2];
-    v9 = *(self + 200);
-    *(self + 200) = v8;
+    v9 = *(self + 25);
+    *(self + 25) = v8;
   }
 }
 
@@ -804,12 +806,12 @@ LABEL_63:
   v52 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v5 = *(self + 200);
+    v5 = *(self + 25);
     if (v5)
     {
       v9 = v5;
-      v10 = *(self + 200);
-      *(self + 200) = 0;
+      v10 = *(self + 25);
+      *(self + 25) = 0;
 
       _userInterfaceIdiom = [scene _userInterfaceIdiom];
       if ([screen _userInterfaceIdiom] != _userInterfaceIdiom)

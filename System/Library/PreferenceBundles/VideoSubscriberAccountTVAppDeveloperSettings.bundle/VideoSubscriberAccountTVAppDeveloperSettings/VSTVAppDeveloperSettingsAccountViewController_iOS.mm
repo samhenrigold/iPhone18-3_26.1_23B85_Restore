@@ -7,6 +7,7 @@
 - (id)infoGroupSpecifiers;
 - (id)refreshGroupSpecifiers;
 - (id)sourceIdentifierGroupSpecifiers;
+- (id)specifierWithTitle:(id)title value:(id)value details:(id)details copyable:(BOOL)copyable;
 - (id)specifiers;
 - (void)refreshAccount;
 - (void)remoteNotifier:(id)notifier didReceiveRemoteNotificationWithUserInfo:(id)info;
@@ -156,6 +157,42 @@
   v4 = +[VSUserAccountManager sharedUserAccountManager];
   account = [(VSTVAppDeveloperSettingsAccountViewController_iOS *)self account];
   [v4 forceRefreshUserAccount:account withCompletion:&stru_8300];
+}
+
+- (id)specifierWithTitle:(id)title value:(id)value details:(id)details copyable:(BOOL)copyable
+{
+  copyableCopy = copyable;
+  titleCopy = title;
+  valueCopy = value;
+  detailsCopy = details;
+  if (detailsCopy)
+  {
+    v13 = objc_opt_class();
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  if (valueCopy)
+  {
+    v14 = 4;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v15 = [PSSpecifier preferenceSpecifierNamed:titleCopy target:self set:0 get:"valueForSpecifier:" detail:v13 cell:v14 edit:0];
+  [v15 setProperty:valueCopy forKey:PSValueKey];
+  v16 = [NSNumber numberWithBool:copyableCopy];
+  [v15 setProperty:v16 forKey:PSCopyableCellKey];
+
+  [v15 setProperty:detailsCopy forKey:@"VSTVAppDeveloperSettingsAccountDetailsListKey"];
+
+  return v15;
 }
 
 - (id)groupWithSpecifiers:(id)specifiers

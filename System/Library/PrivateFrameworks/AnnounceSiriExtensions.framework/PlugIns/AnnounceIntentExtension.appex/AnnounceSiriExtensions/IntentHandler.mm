@@ -22,12 +22,12 @@
 - (_TtC23AnnounceIntentExtension13IntentHandler)init
 {
   v3 = OBJC_IVAR____TtC23AnnounceIntentExtension13IntentHandler_recentIntentHandlers;
-  *(&self->super.super.isa + v3) = sub_1000057D4(&_swiftEmptyArrayStorage);
+  *(&self->super.super.isa + v3) = sub_1000057D4(_swiftEmptyArrayStorage);
   v4 = OBJC_IVAR____TtC23AnnounceIntentExtension13IntentHandler____lazy_storage___logger;
   v5 = sub_100016394();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for IntentHandler();
+  v7.super_class = type metadata accessor for IntentHandler(0);
   return [(IntentHandler *)&v7 init];
 }
 

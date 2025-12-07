@@ -9,7 +9,7 @@
 
 - (void)fire
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = self->_liveObserversMap;
   objc_sync_enter(v3);
   v4 = objc_autoreleasePoolPush();
@@ -19,26 +19,26 @@
   objc_autoreleasePoolPop(v4);
   objc_sync_exit(v3);
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         (*(v11 + 16))(v11);
         objc_autoreleasePoolPop(v12);
@@ -46,13 +46,11 @@
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer forObjectLifetime:(id)lifetime

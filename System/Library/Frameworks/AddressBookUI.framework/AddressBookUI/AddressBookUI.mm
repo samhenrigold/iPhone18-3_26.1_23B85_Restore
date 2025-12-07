@@ -78,7 +78,7 @@ NSString *__cdecl ABCreateStringWithAddressDictionary(NSDictionary *address, BOO
   return v5;
 }
 
-uint64_t ABAddressBookUIBundle()
+uint64_t ABAddressBookUIBundle(uint64_t a1, uint64_t a2)
 {
   if (ABAddressBookUIBundle_onceToken != -1)
   {
@@ -95,7 +95,7 @@ id __ABAddressBookUIBundle_block_invoke()
   return result;
 }
 
-uint64_t ABAddressBookBundle()
+uint64_t ABAddressBookBundle(uint64_t a1, uint64_t a2)
 {
   if (ABAddressBookBundle_onceToken != -1)
   {
@@ -112,7 +112,7 @@ id __ABAddressBookBundle_block_invoke()
   return result;
 }
 
-uint64_t ABUIOldAppsUseModernUI()
+uint64_t ABUIOldAppsUseModernUI(uint64_t a1)
 {
   if (ABUIOldAppsUseModernUI_onceToken != -1)
   {
@@ -146,21 +146,21 @@ uint64_t __ABUIOldAppsUseModernUI_block_invoke()
   return result;
 }
 
-uint64_t ABUIAppIsOldFMF()
+void *ABUIAppIsOldFMF()
 {
   v0 = [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
   result = [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
   if (result)
   {
-    return [v0 integerValue] == 0;
+    return ([v0 integerValue] == 0);
   }
 
   return result;
 }
 
-uint64_t ABUIShouldUseLegacyUI()
+uint64_t ABUIShouldUseLegacyUI(uint64_t a1)
 {
-  if (!ABUIOldAppsUseModernUI())
+  if (!ABUIOldAppsUseModernUI(a1))
   {
     return 1;
   }
@@ -401,14 +401,14 @@ BOOL ABUIIsBlurSupported()
   return ABUIIsBlurSupported_blurSupported == 1 && !UIAccessibilityIsReduceMotionEnabled() && !UIAccessibilityIsReduceTransparencyEnabled();
 }
 
-uint64_t __ABUIIsBlurSupported_block_invoke()
+void *__ABUIIsBlurSupported_block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x277D75DF0] settingsForPrivateStyle:{2030), "blurRadius"}];
   ABUIIsBlurSupported_blurSupported = v1 > 0.0;
   return result;
 }
 
-uint64_t __RoundToScale_block_invoke()
+void *__RoundToScale_block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x277D759A0] "mainScreen")];
   RoundToScale___s = v1;

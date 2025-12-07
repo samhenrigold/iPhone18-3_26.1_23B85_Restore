@@ -97,7 +97,7 @@
   }
 
   v11 = *(self + 11);
-  v12 = MEMORY[0x1EEE9AC00](v10);
+  MEMORY[0x1EEE9AC00](v10);
   *&v20[-32] = self;
   *&v20[-24] = v12;
   *&v20[-16] = v13;
@@ -150,7 +150,7 @@ LABEL_7:
 
 - (void)deleteItem:(STKImageGlyph *)item completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -177,7 +177,7 @@ LABEL_7:
 
 - (void)moveItemFromIndex:(int64_t)index toIndex:(int64_t)toIndex completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v17 - v10;
   v12 = _Block_copy(handler);
@@ -204,7 +204,7 @@ LABEL_7:
 
 - (void)moveItemFromIndexPath:(NSIndexPath *)path toIndexPath:(NSIndexPath *)indexPath completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -262,7 +262,7 @@ LABEL_7:
 
 - (void)imageAtIndexPath:(NSIndexPath *)path completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -289,7 +289,7 @@ LABEL_7:
 
 - (void)imageForImageGlyph:(STKImageGlyph *)glyph completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -316,7 +316,7 @@ LABEL_7:
 
 - (void)stickerAtIndexPath:(NSIndexPath *)path completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -343,7 +343,7 @@ LABEL_7:
 
 - (void)stickerForImageGlyph:(STKImageGlyph *)glyph completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

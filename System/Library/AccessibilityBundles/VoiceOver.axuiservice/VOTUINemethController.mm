@@ -23,10 +23,10 @@
   v14 = (self + OBJC_IVAR___VOTUINemethController_dismissAction);
   *v14 = sub_21D1C;
   v14[1] = v11;
-  v15 = (self + OBJC_IVAR___VOTUINemethController_setBrailleUnicodeTable);
+  v15 = (&self->super.super.super.isa + OBJC_IVAR___VOTUINemethController_setBrailleUnicodeTable);
   *v15 = sub_21D4C;
   v15[1] = v12;
-  v16 = (self + OBJC_IVAR___VOTUINemethController_unsetBrailleUnicodeTable);
+  v16 = (&self->super.super.super.isa + OBJC_IVAR___VOTUINemethController_unsetBrailleUnicodeTable);
   *v16 = sub_21D4C;
   v16[1] = v13;
   v18.receiver = self;

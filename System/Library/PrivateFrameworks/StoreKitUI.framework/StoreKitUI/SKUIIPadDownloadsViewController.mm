@@ -170,42 +170,8 @@ void __60__SKUIIPadDownloadsViewController_reloadDownloadsAtIndexes___block_invo
 
 - (void)loadView
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIIPadDownloadsViewController *)v3 loadView:v4];
-      }
-    }
-  }
-
-  v11 = objc_alloc_init(SKUIDownloadsView);
-  [(SKUIIPadDownloadsViewController *)self setView:v11];
-  v12 = objc_alloc_init(SKUISearchCollectionViewFlowLayout);
-  [(UICollectionViewFlowLayout *)v12 setMinimumInteritemSpacing:0.0];
-  [(UICollectionViewFlowLayout *)v12 setMinimumLineSpacing:0.0];
-  [(SKUISearchCollectionViewFlowLayout *)v12 setBackfills:0];
-  v13 = objc_alloc(MEMORY[0x277D752A0]);
-  [(SKUIDownloadsView *)v11 bounds];
-  v14 = [v13 initWithFrame:v12 collectionViewLayout:?];
-  collectionView = self->_collectionView;
-  self->_collectionView = v14;
-
-  [(UICollectionView *)self->_collectionView registerClass:objc_opt_class() forCellWithReuseIdentifier:@"a"];
-  [(UICollectionView *)self->_collectionView setDelegate:self];
-  [(UICollectionView *)self->_collectionView setDataSource:self];
-  v16 = self->_collectionView;
-  whiteColor = [MEMORY[0x277D75348] whiteColor];
-  [(UICollectionView *)v16 setBackgroundColor:whiteColor];
-
-  [(UICollectionView *)self->_collectionView setAlwaysBounceVertical:1];
-  [(UICollectionView *)self->_collectionView setAllowsMultipleSelection:1];
-  [(UICollectionView *)self->_collectionView setPrefetchingEnabled:0];
-  [(SKUIDownloadsView *)v11 setContentView:self->_collectionView];
-  [(SKUIIPadDownloadsViewController *)self _reload];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIPadDownloadsViewController loadView]";
 }
 
 - (void)viewDidLayoutSubviews
@@ -524,6 +490,24 @@ void __60__SKUIIPadDownloadsViewController_reloadDownloadsAtIndexes___block_invo
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)setDownloads:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIPadDownloadsViewController setDownloads:]";
+}
+
+- (void)reloadDownloadsAtIndexes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIPadDownloadsViewController reloadDownloadsAtIndexes:]";
+}
+
+- (void)collectionView:(uint64_t)a3 numberOfItemsInSection:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIPadDownloadsViewController collectionView:numberOfItemsInSection:]";
 }
 
 @end

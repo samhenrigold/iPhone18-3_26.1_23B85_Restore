@@ -1,4 +1,6 @@
 @interface FPDMoveAtom
++ (id)atomForMoving:(id)moving toTargetFolder:(id)folder as:(id)as root:(id)root atomically:(BOOL)atomically sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption useDiskWriter:(BOOL)self0;
++ (id)atomForPostFolderUnderRoot:(id)root atomically:(BOOL)atomically useDiskWriter:(BOOL)writer;
 - (BOOL)shouldAccountForDownloadOfSourceItemForMoveInfo:(id)info extensionManager:(id)manager;
 - (FPDMoveAtom)initWithKind:(unsigned __int8)kind source:(id)source targetName:(id)name targetFolder:(id)folder root:(id)root atomically:(BOOL)atomically sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)self0 useDiskWriter:(BOOL)self1;
 - (id)description;
@@ -33,6 +35,41 @@
   }
 
   return v23;
+}
+
++ (id)atomForMoving:(id)moving toTargetFolder:(id)folder as:(id)as root:(id)root atomically:(BOOL)atomically sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption useDiskWriter:(BOOL)self0
+{
+  atomicallyCopy = atomically;
+  rootCopy = root;
+  asCopy = as;
+  folderCopy = folder;
+  movingCopy = moving;
+  isFolder = [movingCopy isFolder];
+  v20 = [FPDMoveAtom alloc];
+  LOBYTE(v24) = writer;
+  if (isFolder)
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+    v21 = 2;
+  }
+
+  v22 = [(FPDMoveAtom *)v20 initWithKind:v21 source:movingCopy targetName:asCopy targetFolder:folderCopy root:rootCopy atomically:atomicallyCopy sourceMaterializeOption:option targetMaterializeOption:materializeOption useDiskWriter:v24];
+
+  return v22;
+}
+
++ (id)atomForPostFolderUnderRoot:(id)root atomically:(BOOL)atomically useDiskWriter:(BOOL)writer
+{
+  atomicallyCopy = atomically;
+  rootCopy = root;
+  LOBYTE(v10) = writer;
+  v8 = [[FPDMoveAtom alloc] initWithKind:1 source:0 targetName:0 targetFolder:0 root:rootCopy atomically:atomicallyCopy sourceMaterializeOption:0 targetMaterializeOption:0 useDiskWriter:v10];
+
+  return v8;
 }
 
 - (BOOL)shouldAccountForDownloadOfSourceItemForMoveInfo:(id)info extensionManager:(id)manager

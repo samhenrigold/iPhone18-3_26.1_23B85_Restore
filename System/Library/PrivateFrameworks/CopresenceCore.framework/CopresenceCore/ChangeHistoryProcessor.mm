@@ -7,15 +7,14 @@
 
 - (void)visitDeleteContactEvent:(id)event
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC14CopresenceCore22ChangeHistoryProcessor_onContactDeleted);
-  v4 = *&self->onContactDeleted[OBJC_IVAR____TtC14CopresenceCore22ChangeHistoryProcessor_onContactDeleted];
+  v4 = *(&self->super.isa + OBJC_IVAR____TtC14CopresenceCore22ChangeHistoryProcessor_onContactDeleted);
   eventCopy = event;
   selfCopy = self;
   contactIdentifier = [eventCopy contactIdentifier];
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
 
-  v5(v8, v10);
+  v4(v7, v9);
 }
 
 - (_TtC14CopresenceCore22ChangeHistoryProcessor)init

@@ -14,20 +14,20 @@
 
 - (MCSubCalAccountPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v53.receiver = self;
-  v53.super_class = MCSubCalAccountPayload;
-  v10 = [(MCPayload *)&v53 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v52.receiver = self;
+  v52.super_class = MCSubCalAccountPayload;
+  v10 = [(MCPayload *)&v52 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_15;
   }
 
-  v52 = 0;
-  v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountDescription" isRequired:0 outError:&v52];
-  v12 = v52;
+  v51 = 0;
+  v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountDescription" isRequired:0 outError:&v51];
+  v12 = v51;
   accountDescription = v10->_accountDescription;
   v10->_accountDescription = v11;
 
@@ -36,9 +36,9 @@
     goto LABEL_6;
   }
 
-  v51 = 0;
-  v14 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountUsername" isRequired:0 outError:&v51];
-  v12 = v51;
+  v50 = 0;
+  v14 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountUsername" isRequired:0 outError:&v50];
+  v12 = v50;
   username = v10->_username;
   v10->_username = v14;
 
@@ -47,9 +47,9 @@
     goto LABEL_6;
   }
 
-  v50 = 0;
-  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SubCalAccountUseSSL" isRequired:0 outError:&v50];
-  v12 = v50;
+  v49 = 0;
+  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SubCalAccountUseSSL" isRequired:0 outError:&v49];
+  v12 = v49;
   useSSLNum = v10->_useSSLNum;
   v10->_useSSLNum = v16;
 
@@ -59,9 +59,9 @@
   }
 
   v10->_useSSL = [(NSNumber *)v10->_useSSLNum BOOLValue];
-  v49 = 0;
-  v18 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPNUUID" isRequired:0 outError:&v49];
-  v12 = v49;
+  v48 = 0;
+  v18 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPNUUID" isRequired:0 outError:&v48];
+  v12 = v48;
   VPNUUID = v10->_VPNUUID;
   v10->_VPNUUID = v18;
 
@@ -72,22 +72,11 @@
 
   if ([profileCopy isStub])
   {
-    v46 = 0;
-    v33 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountHostName" isRequired:0 outError:&v46];
-    v12 = v46;
-    hostname = v10->_hostname;
-    v10->_hostname = v33;
-
-    if (v12)
-    {
-      goto LABEL_6;
-    }
-
     v45 = 0;
-    v35 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountPersistentUUID" isRequired:0 outError:&v45];
+    v32 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountHostName" isRequired:0 outError:&v45];
     v12 = v45;
-    accountPersistentUUID = v10->_accountPersistentUUID;
-    v10->_accountPersistentUUID = v35;
+    hostname = v10->_hostname;
+    v10->_hostname = v32;
 
     if (v12)
     {
@@ -95,18 +84,29 @@
     }
 
     v44 = 0;
-    v37 = &v44;
-    v38 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ACAccountIdentifier" isRequired:0 outError:&v44];
-    v39 = &OBJC_IVAR___MCSubCalAccountPayload__acAccountIdentifier;
+    v34 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountPersistentUUID" isRequired:0 outError:&v44];
+    v12 = v44;
+    accountPersistentUUID = v10->_accountPersistentUUID;
+    v10->_accountPersistentUUID = v34;
+
+    if (v12)
+    {
+      goto LABEL_6;
+    }
+
+    v43 = 0;
+    v36 = &v43;
+    v37 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ACAccountIdentifier" isRequired:0 outError:&v43];
+    v38 = &OBJC_IVAR___MCSubCalAccountPayload__acAccountIdentifier;
   }
 
   else
   {
-    v48 = 0;
-    v40 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountHostName" isRequired:1 outError:&v48];
-    v12 = v48;
-    v41 = v10->_hostname;
-    v10->_hostname = v40;
+    v47 = 0;
+    v39 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountHostName" isRequired:1 outError:&v47];
+    v12 = v47;
+    v40 = v10->_hostname;
+    v10->_hostname = v39;
 
     if (v12)
     {
@@ -127,9 +127,9 @@ LABEL_6:
         v26 = v25;
         mCVerboseDescription = [v21 MCVerboseDescription];
         *buf = 138543618;
-        v55 = v25;
-        v56 = 2114;
-        v57 = mCVerboseDescription;
+        v54 = v25;
+        v55 = 2114;
+        v56 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v24, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -137,16 +137,16 @@ LABEL_6:
       goto LABEL_11;
     }
 
-    v47 = 0;
-    v37 = &v47;
-    v38 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountPassword" isRequired:0 outError:&v47];
-    v39 = &OBJC_IVAR___MCSubCalAccountPayload__password;
+    v46 = 0;
+    v36 = &v46;
+    v37 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SubCalAccountPassword" isRequired:0 outError:&v46];
+    v38 = &OBJC_IVAR___MCSubCalAccountPayload__password;
   }
 
-  v12 = *v37;
-  v42 = *v39;
-  v43 = *(&v10->super.super.isa + v42);
-  *(&v10->super.super.isa + v42) = v38;
+  v12 = *v36;
+  v41 = *v38;
+  v42 = *(&v10->super.super.isa + v41);
+  *(&v10->super.super.isa + v41) = v37;
 
   if (v12)
   {
@@ -162,15 +162,14 @@ LABEL_11:
       v29 = v28;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v55 = friendlyName;
-      v56 = 2114;
-      v57 = dictionaryCopy;
+      v54 = friendlyName;
+      v55 = 2114;
+      v56 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v29, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_15:
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -333,7 +332,7 @@ LABEL_15:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_accountDescription)
   {
@@ -398,16 +397,14 @@ LABEL_15:
   if ([v3 count] && (+[MCKeyValueSection sectionWithKeyValues:](MCKeyValueSection, "sectionWithKeyValues:", v3), (v28 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v29 = v28;
-    v33[0] = v28;
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+    v32[0] = v28;
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
   }
 
   else
   {
     v30 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
@@ -429,19 +426,17 @@ LABEL_15:
 
 - (NSArray)calendarAccountIdentifiers
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (self->_acAccountIdentifier)
   {
-    v5[0] = self->_acAccountIdentifier;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = self->_acAccountIdentifier;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

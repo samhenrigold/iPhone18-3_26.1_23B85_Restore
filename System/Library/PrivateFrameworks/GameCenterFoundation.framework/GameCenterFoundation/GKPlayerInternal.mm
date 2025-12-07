@@ -9,6 +9,7 @@
 - (GKPlayerInternal)initWithSanitizeBeforeEncodingBlock:(id)block;
 - (id)conciseDescription;
 - (id)debugDescription;
+- (id)displayNameWithOptions:(unsigned __int8)options;
 - (id)minimalInternal;
 - (id)serverRepresentation;
 - (unint64_t)hash;
@@ -45,76 +46,74 @@
   return v3;
 }
 
-void __43__GKPlayerInternal_secureCodedPropertyKeys__block_invoke()
+void __43__GKPlayerInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8[35] = *MEMORY[0x277D85DE8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v8[4] = objc_opt_class();
-  v8[5] = objc_opt_class();
-  v8[6] = objc_opt_class();
-  v8[7] = objc_opt_class();
-  v8[8] = objc_opt_class();
-  v8[9] = objc_opt_class();
-  v8[10] = objc_opt_class();
-  v8[11] = objc_opt_class();
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0, @"playerID", @"scopedIDs", @"alias", @"avatarArtwork", @"avatarType", @"friendLevel", @"friendBiDirectional", @"friendPlayedWith", @"friendPlayedNearby", @"acceptedGameInviteFromThisFriend", @"initiatedGameInviteToThisFriend", @"automatchedTogether", @"photos"}];
-  v8[12] = v3;
-  v7[13] = @"flags";
-  v8[13] = objc_opt_class();
-  v7[14] = @"numberOfFriends";
-  v8[14] = objc_opt_class();
-  v7[15] = @"numberOfFriendsInCommon";
-  v8[15] = objc_opt_class();
-  v7[16] = @"numberOfGames";
-  v8[16] = objc_opt_class();
-  v7[17] = @"numberOfGamesInCommon";
-  v8[17] = objc_opt_class();
-  v7[18] = @"numberOfAchievements";
-  v8[18] = objc_opt_class();
-  v7[19] = @"numberOfAchievementPoints";
-  v8[19] = objc_opt_class();
-  v7[20] = @"messagesID";
-  v8[20] = objc_opt_class();
-  v7[21] = @"onboarding";
-  v8[21] = objc_opt_class();
-  v7[22] = @"achievementsVisibility";
-  v8[22] = objc_opt_class();
-  v7[23] = @"gamesPlayedVisibility";
-  v8[23] = objc_opt_class();
-  v7[24] = @"friendsVisibility";
-  v8[24] = objc_opt_class();
-  v7[25] = @"globalFriendListAccess";
-  v8[25] = objc_opt_class();
-  v7[26] = @"isArcadeSubscriber";
-  v8[26] = objc_opt_class();
-  v7[27] = @"contactsIntegrationConsent";
-  v8[27] = objc_opt_class();
-  v7[28] = @"contactsAssociationID";
-  v8[28] = objc_opt_class();
-  v7[29] = @"inboxEntry";
-  v8[29] = objc_opt_class();
-  v7[30] = @"isInContacts";
-  v8[30] = objc_opt_class();
-  v7[31] = @"contact";
-  v8[31] = objc_opt_class();
-  v7[32] = @"serviceLastUpdatedTimestamp";
-  v8[32] = objc_opt_class();
-  v7[33] = @"isChallengeable";
-  v8[33] = objc_opt_class();
-  v7[34] = @"supportsMultiplayerActivities";
-  v8[34] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:35];
+  v9[35] = *MEMORY[0x277D85DE8];
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v9[2] = objc_opt_class();
+  v9[3] = objc_opt_class();
+  v9[4] = objc_opt_class();
+  v9[5] = objc_opt_class();
+  v9[6] = objc_opt_class();
+  v9[7] = objc_opt_class();
+  v9[8] = objc_opt_class();
+  v9[9] = objc_opt_class();
+  v9[10] = objc_opt_class();
+  v9[11] = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0, @"playerID", @"scopedIDs", @"alias", @"avatarArtwork", @"avatarType", @"friendLevel", @"friendBiDirectional", @"friendPlayedWith", @"friendPlayedNearby", @"acceptedGameInviteFromThisFriend", @"initiatedGameInviteToThisFriend", @"automatchedTogether", @"photos"}];
+  v9[12] = v5;
+  v8[13] = @"flags";
+  v9[13] = objc_opt_class();
+  v8[14] = @"numberOfFriends";
+  v9[14] = objc_opt_class();
+  v8[15] = @"numberOfFriendsInCommon";
+  v9[15] = objc_opt_class();
+  v8[16] = @"numberOfGames";
+  v9[16] = objc_opt_class();
+  v8[17] = @"numberOfGamesInCommon";
+  v9[17] = objc_opt_class();
+  v8[18] = @"numberOfAchievements";
+  v9[18] = objc_opt_class();
+  v8[19] = @"numberOfAchievementPoints";
+  v9[19] = objc_opt_class();
+  v8[20] = @"messagesID";
+  v9[20] = objc_opt_class();
+  v8[21] = @"onboarding";
+  v9[21] = objc_opt_class();
+  v8[22] = @"achievementsVisibility";
+  v9[22] = objc_opt_class();
+  v8[23] = @"gamesPlayedVisibility";
+  v9[23] = objc_opt_class();
+  v8[24] = @"friendsVisibility";
+  v9[24] = objc_opt_class();
+  v8[25] = @"globalFriendListAccess";
+  v9[25] = objc_opt_class();
+  v8[26] = @"isArcadeSubscriber";
+  v9[26] = objc_opt_class();
+  v8[27] = @"contactsIntegrationConsent";
+  v9[27] = objc_opt_class();
+  v8[28] = @"contactsAssociationID";
+  v9[28] = objc_opt_class();
+  v8[29] = @"inboxEntry";
+  v9[29] = objc_opt_class();
+  v8[30] = @"isInContacts";
+  v9[30] = objc_opt_class();
+  v8[31] = @"contact";
+  v9[31] = objc_opt_class();
+  v8[32] = @"serviceLastUpdatedTimestamp";
+  v9[32] = objc_opt_class();
+  v8[33] = @"isChallengeable";
+  v9[33] = objc_opt_class();
+  v8[34] = @"supportsMultiplayerActivities";
+  v9[34] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:35];
 
-  v5 = secureCodedPropertyKeys_sSecureCodedKeys_21;
-  secureCodedPropertyKeys_sSecureCodedKeys_21 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = secureCodedPropertyKeys_sSecureCodedKeys_21;
+  secureCodedPropertyKeys_sSecureCodedKeys_21 = v6;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -278,6 +277,24 @@ void __43__GKPlayerInternal_secureCodedPropertyKeys__block_invoke()
   return v9;
 }
 
+- (id)displayNameWithOptions:(unsigned __int8)options
+{
+  optionsCopy = options;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  alias = [(GKPlayerInternal *)self alias];
+  if ((isKindOfClass & 1) == 0)
+  {
+    v7 = objc_opt_class();
+    compositeName = [(GKPlayerInternal *)self compositeName];
+    v9 = [v7 displayNameWithOptions:optionsCopy alias:alias composite:compositeName];
+
+    alias = v9;
+  }
+
+  return alias;
+}
+
 + (id)displayNameWithOptions:(unsigned __int8)options alias:(id)alias composite:(id)composite
 {
   aliasCopy = alias;
@@ -310,20 +327,9 @@ void __43__GKPlayerInternal_secureCodedPropertyKeys__block_invoke()
 
 + (Class)classForFamiliarity:(int)familiarity
 {
-  if ((familiarity - 1) > 3)
-  {
-    v4 = off_2785DBC78;
-  }
+  v4 = objc_opt_class();
 
-  else
-  {
-    v4 = off_2785E2660[familiarity - 1];
-  }
-
-  v5 = *v4;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v4;
 }
 
 - (BOOL)isLoaded

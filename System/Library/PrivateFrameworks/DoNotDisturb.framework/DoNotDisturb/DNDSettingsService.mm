@@ -128,41 +128,41 @@ void __49__DNDSettingsService_serviceForClientIdentifier___block_invoke_2(uint64
 
 - (id)behaviorSettingsReturningError:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDSettingsService.behaviorSettings", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
   v6 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__11;
-  v22 = __Block_byref_object_dispose__11;
-  v23 = 0;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__11;
-  v16[3] = __Block_byref_object_dispose__11;
-  v17 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__11;
+  v24 = __Block_byref_object_dispose__11;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__11;
+  v18 = __Block_byref_object_dispose__11;
+  v19 = 0;
   v7 = +[DNDRemoteServiceConnection sharedInstance];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__DNDSettingsService_behaviorSettingsReturningError___block_invoke;
-  v14[3] = &unk_27843B268;
-  v14[4] = &v18;
-  v14[5] = &v15;
-  [v7 getBehaviorSettingsWithRequestDetails:v6 completionHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__DNDSettingsService_behaviorSettingsReturningError___block_invoke;
+  v13[3] = &unk_27843B268;
+  v13[4] = &v20;
+  v13[5] = &v14;
+  [v7 getBehaviorSettingsWithRequestDetails:v6 completionHandler:v13];
 
-  if (!v19[5] && os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_ERROR))
+  if (!v21[5] && os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_ERROR))
   {
-    [(DNDSettingsService *)v6 behaviorSettingsReturningError:v16];
+    [DNDSettingsService behaviorSettingsReturningError:];
   }
 
   if (error)
   {
-    v8 = *(v16[0] + 40);
+    v8 = v15[5];
     if (v8)
     {
       *error = v8;
@@ -172,21 +172,19 @@ void __49__DNDSettingsService_serviceForClientIdentifier___block_invoke_2(uint64
   v9 = DNDLogSettings;
   if (os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v19[5];
+    v10 = v21[5];
     *buf = 138543618;
-    v26 = v6;
-    v27 = 2114;
-    v28 = v10;
+    v28 = v6;
+    v29 = 2114;
+    v30 = v10;
     _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got behavior settings, settings=%{public}@", buf, 0x16u);
   }
 
-  v11 = v19[5];
-  _Block_object_dispose(&v15, 8);
+  v11 = v21[5];
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v20, 8);
   os_activity_scope_leave(&state);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -207,41 +205,41 @@ void __53__DNDSettingsService_behaviorSettingsReturningError___block_invoke(uint
 
 - (BOOL)setBehaviorSettings:(id)settings error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDSettingsService.setBehaviorSettings", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
   v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__11;
-  v21 = __Block_byref_object_dispose__11;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__11;
+  v20 = __Block_byref_object_dispose__11;
+  v21 = 0;
   v9 = +[DNDRemoteServiceConnection sharedInstance];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __48__DNDSettingsService_setBehaviorSettings_error___block_invoke;
-  v16[3] = &unk_27843A0A8;
-  v16[4] = &v23;
-  v16[5] = &v17;
-  [v9 setBehaviorSettings:settingsCopy withRequestDetails:v8 completionHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __48__DNDSettingsService_setBehaviorSettings_error___block_invoke;
+  v15[3] = &unk_27843A0A8;
+  v15[4] = &v22;
+  v15[5] = &v16;
+  [v9 setBehaviorSettings:settingsCopy withRequestDetails:v8 completionHandler:v15];
 
   v10 = DNDLogSettings;
-  if (*(v24 + 24) == 1)
+  if (*(v23 + 24) == 1)
   {
     if (os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v29 = v8;
-      v30 = 2114;
-      v31 = settingsCopy;
+      v28 = v8;
+      v29 = 2114;
+      v30 = settingsCopy;
       _os_log_impl(&dword_22002F000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set behavior settings, settings=%{public}@", buf, 0x16u);
       if (!error)
       {
@@ -265,13 +263,13 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v15 = v18[5];
+  v14 = v17[5];
   *buf = 138543874;
-  v29 = v8;
-  v30 = 2114;
-  v31 = settingsCopy;
-  v32 = 2114;
-  v33 = v15;
+  v28 = v8;
+  v29 = 2114;
+  v30 = settingsCopy;
+  v31 = 2114;
+  v32 = v14;
   _os_log_error_impl(&dword_22002F000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting behavior settings, settings=%{public}@, error='%{public}@'", buf, 0x20u);
   if (!error)
   {
@@ -279,20 +277,19 @@ LABEL_6:
   }
 
 LABEL_7:
-  v11 = v18[5];
+  v11 = v17[5];
   if (v11)
   {
     *error = v11;
   }
 
 LABEL_9:
-  v12 = *(v24 + 24);
-  _Block_object_dispose(&v17, 8);
+  v12 = *(v23 + 24);
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   os_activity_scope_leave(&state);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
@@ -307,41 +304,41 @@ void __48__DNDSettingsService_setBehaviorSettings_error___block_invoke(uint64_t 
 
 - (id)scheduleSettingsReturningError:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDSettingsService.scheduleSettings", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
   v6 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__11;
-  v22 = __Block_byref_object_dispose__11;
-  v23 = 0;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__11;
-  v16[3] = __Block_byref_object_dispose__11;
-  v17 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__11;
+  v24 = __Block_byref_object_dispose__11;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__11;
+  v18 = __Block_byref_object_dispose__11;
+  v19 = 0;
   v7 = +[DNDRemoteServiceConnection sharedInstance];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__DNDSettingsService_scheduleSettingsReturningError___block_invoke;
-  v14[3] = &unk_27843B290;
-  v14[4] = &v18;
-  v14[5] = &v15;
-  [v7 getScheduleSettingsWithRequestDetails:v6 completionHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__DNDSettingsService_scheduleSettingsReturningError___block_invoke;
+  v13[3] = &unk_27843B290;
+  v13[4] = &v20;
+  v13[5] = &v14;
+  [v7 getScheduleSettingsWithRequestDetails:v6 completionHandler:v13];
 
-  if (!v19[5] && os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_ERROR))
+  if (!v21[5] && os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_ERROR))
   {
-    [(DNDSettingsService *)v6 scheduleSettingsReturningError:v16];
+    [DNDSettingsService scheduleSettingsReturningError:];
   }
 
   if (error)
   {
-    v8 = *(v16[0] + 40);
+    v8 = v15[5];
     if (v8)
     {
       *error = v8;
@@ -351,21 +348,19 @@ void __48__DNDSettingsService_setBehaviorSettings_error___block_invoke(uint64_t 
   v9 = DNDLogSettings;
   if (os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v19[5];
+    v10 = v21[5];
     *buf = 138543618;
-    v26 = v6;
-    v27 = 2114;
-    v28 = v10;
+    v28 = v6;
+    v29 = 2114;
+    v30 = v10;
     _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got schedule settings, settings=%{public}@", buf, 0x16u);
   }
 
-  v11 = v19[5];
-  _Block_object_dispose(&v15, 8);
+  v11 = v21[5];
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v20, 8);
   os_activity_scope_leave(&state);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -386,41 +381,41 @@ void __53__DNDSettingsService_scheduleSettingsReturningError___block_invoke(uint
 
 - (BOOL)setScheduleSettings:(id)settings error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDSettingsService.setScheduleSettings", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
   v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__11;
-  v21 = __Block_byref_object_dispose__11;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__11;
+  v20 = __Block_byref_object_dispose__11;
+  v21 = 0;
   v9 = +[DNDRemoteServiceConnection sharedInstance];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __48__DNDSettingsService_setScheduleSettings_error___block_invoke;
-  v16[3] = &unk_27843A0A8;
-  v16[4] = &v23;
-  v16[5] = &v17;
-  [v9 setScheduleSettings:settingsCopy withRequestDetails:v8 completionHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __48__DNDSettingsService_setScheduleSettings_error___block_invoke;
+  v15[3] = &unk_27843A0A8;
+  v15[4] = &v22;
+  v15[5] = &v16;
+  [v9 setScheduleSettings:settingsCopy withRequestDetails:v8 completionHandler:v15];
 
   v10 = DNDLogSettings;
-  if (*(v24 + 24) == 1)
+  if (*(v23 + 24) == 1)
   {
     if (os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v29 = v8;
-      v30 = 2114;
-      v31 = settingsCopy;
+      v28 = v8;
+      v29 = 2114;
+      v30 = settingsCopy;
       _os_log_impl(&dword_22002F000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set schedule settings, settings=%{public}@", buf, 0x16u);
       if (!error)
       {
@@ -444,13 +439,13 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v15 = v18[5];
+  v14 = v17[5];
   *buf = 138543874;
-  v29 = v8;
-  v30 = 2114;
-  v31 = settingsCopy;
-  v32 = 2114;
-  v33 = v15;
+  v28 = v8;
+  v29 = 2114;
+  v30 = settingsCopy;
+  v31 = 2114;
+  v32 = v14;
   _os_log_error_impl(&dword_22002F000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting schedule settings, settings=%{public}@, error='%{public}@'", buf, 0x20u);
   if (!error)
   {
@@ -458,20 +453,19 @@ LABEL_6:
   }
 
 LABEL_7:
-  v11 = v18[5];
+  v11 = v17[5];
   if (v11)
   {
     *error = v11;
   }
 
 LABEL_9:
-  v12 = *(v24 + 24);
-  _Block_object_dispose(&v17, 8);
+  v12 = *(v23 + 24);
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   os_activity_scope_leave(&state);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
@@ -533,13 +527,13 @@ void __48__DNDSettingsService_setScheduleSettings_error___block_invoke(uint64_t 
 
 void __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = DNDLogSettings;
   if (os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "Adding settings update listener: listener=%{public}@", buf, 0xCu);
   }
 
@@ -553,7 +547,7 @@ void __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___
     {
       v7 = *(a1 + 32);
       *buf = 138543362;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Registered for settings updates: listener=%{public}@", buf, 0xCu);
     }
   }
@@ -572,16 +566,14 @@ void __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___
   if (v8)
   {
     v9 = *(*(a1 + 40) + 16);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___block_invoke_13;
-    v11[3] = &unk_27843A1C0;
-    v12 = v8;
-    v13 = v5;
-    dispatch_async(v9, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___block_invoke_13;
+    v10[3] = &unk_27843A1C0;
+    v11 = v8;
+    v12 = v5;
+    dispatch_async(v9, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSettingsUpdateListener:(id)listener
@@ -606,19 +598,17 @@ void __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___
 
 uint64_t __51__DNDSettingsService_removeSettingsUpdateListener___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = DNDLogSettings;
   if (os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "Removing settings update listener: listener=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_22002F000, v2, OS_LOG_TYPE_DEFAULT, "Removing settings update listener: listener=%{public}@", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 40) + 24) removeObject:*(a1 + 32)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 24) removeObject:*(a1 + 32)];
 }
 
 - (void)remoteService:(id)service didReceiveUpdatedBehaviorSettings:(id)settings
@@ -654,44 +644,42 @@ void __70__DNDSettingsService_remoteService_didReceiveUpdatedBehaviorSettings___
 
 void __70__DNDSettingsService_remoteService_didReceiveUpdatedBehaviorSettings___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 settingsService:*(a1 + 40) didReceiveUpdatedBehaviorSettings:{*(a1 + 48), v9}];
+          [v7 settingsService:*(a1 + 40) didReceiveUpdatedBehaviorSettings:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteService:(id)service didReceiveUpdatedPhoneCallBypassSettings:(id)settings
@@ -727,44 +715,42 @@ void __77__DNDSettingsService_remoteService_didReceiveUpdatedPhoneCallBypassSett
 
 void __77__DNDSettingsService_remoteService_didReceiveUpdatedPhoneCallBypassSettings___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 settingsService:*(a1 + 40) didReceiveUpdatedPhoneCallBypassSettings:{*(a1 + 48), v9}];
+          [v7 settingsService:*(a1 + 40) didReceiveUpdatedPhoneCallBypassSettings:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteService:(id)service didReceiveUpdatedScheduleSettings:(id)settings
@@ -800,49 +786,47 @@ void __70__DNDSettingsService_remoteService_didReceiveUpdatedScheduleSettings___
 
 void __70__DNDSettingsService_remoteService_didReceiveUpdatedScheduleSettings___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 settingsService:*(a1 + 40) didReceiveUpdatedScheduleSettings:{*(a1 + 48), v9}];
+          [v7 settingsService:*(a1 + 40) didReceiveUpdatedScheduleSettings:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_registerForSettingsUpdatesIfRequired
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(NSHashTable *)self->_settingsUpdateListeners count]&& !self->_registeredForUpdates)
   {
@@ -859,49 +843,38 @@ void __70__DNDSettingsService_remoteService_didReceiveUpdatedScheduleSettings___
       _os_log_impl(&dword_22002F000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering settings update listener", &buf, 0xCu);
     }
 
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
-    v14 = 0;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__11;
-    v19 = __Block_byref_object_dispose__11;
-    v20 = 0;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__11;
+    v18 = __Block_byref_object_dispose__11;
+    v19 = 0;
     v6 = +[DNDRemoteServiceConnection sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __65__DNDSettingsService__queue_registerForSettingsUpdatesIfRequired__block_invoke;
-    v10[3] = &unk_27843A0A8;
-    v10[4] = &v11;
-    v10[5] = &buf;
-    [v6 registerForSettingsUpdatesWithRequestDetails:v4 completionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __65__DNDSettingsService__queue_registerForSettingsUpdatesIfRequired__block_invoke;
+    v9[3] = &unk_27843A0A8;
+    v9[4] = &v10;
+    v9[5] = &buf;
+    [v6 registerForSettingsUpdatesWithRequestDetails:v4 completionHandler:v9];
 
     if (*(*(&buf + 1) + 40) && os_log_type_enabled(DNDLogSettings, OS_LOG_TYPE_ERROR))
     {
-      [(DNDSettingsService *)v4 _queue_registerForSettingsUpdatesIfRequired];
+      [DNDSettingsService _queue_registerForSettingsUpdatesIfRequired];
     }
 
-    self->_registeredForUpdates = *(v12 + 24);
+    self->_registeredForUpdates = *(v11 + 24);
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v10, 8);
     os_activity_scope_leave(&state);
   }
 
-  if ([(NSHashTable *)self->_settingsUpdateListeners count])
-  {
-    registeredForUpdates = self->_registeredForUpdates;
-  }
-
-  else
-  {
-    registeredForUpdates = 1;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return registeredForUpdates;
+  return ![(NSHashTable *)self->_settingsUpdateListeners count]|| self->_registeredForUpdates;
 }
 
 void __65__DNDSettingsService__queue_registerForSettingsUpdatesIfRequired__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -913,38 +886,34 @@ void __65__DNDSettingsService__queue_registerForSettingsUpdatesIfRequired__block
   *(v6 + 40) = v5;
 }
 
-- (void)behaviorSettingsReturningError:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+- (void)behaviorSettingsReturningError:.cold.1()
 {
-  OUTLINED_FUNCTION_1_1(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v2, v3, "[%{public}@] Error when getting behavior settings, error='%{public}@'");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_22002F000, v0, v1, "[%{public}@] Error when getting behavior settings, error='%{public}@'");
 }
 
-- (void)scheduleSettingsReturningError:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+- (void)scheduleSettingsReturningError:.cold.1()
 {
-  OUTLINED_FUNCTION_1_1(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v2, v3, "[%{public}@] Error when getting schedule settings, error='%{public}@'");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_22002F000, v0, v1, "[%{public}@] Error when getting schedule settings, error='%{public}@'");
 }
 
 void __70__DNDSettingsService_addSettingsUpdateListener_withCompletionHandler___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_22002F000, a2, OS_LOG_TYPE_ERROR, "Did not register for settings updates, will remove listener: listener=%{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_22002F000, a2, OS_LOG_TYPE_ERROR, "Did not register for settings updates, will remove listener: listener=%{public}@", &v3, 0xCu);
 }
 
 - (void)_queue_registerForSettingsUpdatesIfRequired
 {
-  OUTLINED_FUNCTION_1_1(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v2, v3, "[%{public}@] Error when registering settings update listener, error='%{public}@'");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_22002F000, v0, v1, "[%{public}@] Error when registering settings update listener, error='%{public}@'");
 }
 
 @end

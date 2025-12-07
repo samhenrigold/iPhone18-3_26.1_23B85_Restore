@@ -9,10 +9,9 @@
 
 + (id)createHeader:(unint64_t)header
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF88]);
-  [v3 appendBytes:v6 length:PBDataWriterWriteBareVarint()];
-  v4 = *MEMORY[0x1E69E9840];
+  [v3 appendBytes:v5 length:PBDataWriterWriteBareVarint()];
 
   return v3;
 }

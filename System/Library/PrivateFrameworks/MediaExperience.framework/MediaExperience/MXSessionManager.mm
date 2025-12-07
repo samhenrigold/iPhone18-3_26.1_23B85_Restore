@@ -12,6 +12,7 @@
 - (BOOL)doesAnyActiveSessionExistWhichPrefersToBeInterruptedByNextRecordingClient:(id)client;
 - (BOOL)doesSessionPreferInterruptionOnRouteDisconnect:(id)disconnect;
 - (BOOL)duckSessionForVoiceOverIfNeeded:(id)needed voiceOverSession:(id)session;
+- (BOOL)getQuiesceableWiredPortAutoRouteOnConnectPreference:(unsigned int)preference;
 - (BOOL)isAirPlaySession:(id)session;
 - (BOOL)isAnExistingDuckingSource:(id)source;
 - (BOOL)isAnyOtherUnduckedPlayingSessionMatchingVolumeRampCategory:(id)category;
@@ -38,6 +39,7 @@
 - (BOOL)isSiriSessionActiveAndRoutedToSiriOutputVAD;
 - (BOOL)isSmartRoutingEligibleSessionAvailable;
 - (BOOL)isSpeechDetectCategory:(id)category;
+- (BOOL)isVADIDRoutedToOutputPortType:(unsigned int)type portType:(unsigned int)portType;
 - (BOOL)isVoiceOverDuckingActive:(id)active outDuckScalar:(float *)scalar outDuckFadeDuration:(float *)duration;
 - (BOOL)sessionCanBecomeSharePlayMedia:(id)media;
 - (BOOL)sessionUtilizesIndependentRecordingOnly:(id)only;
@@ -65,6 +67,7 @@
 - (id)copyActiveSessionsInfoForAdditiveRouting;
 - (id)copyActiveVoiceOverSession;
 - (id)copyAudioBehaviorForCategory:(id)category mode:(id)mode;
+- (id)copyCoreSessionsShadowingAudioSession:(unsigned int)session withOptions:(unsigned int)options;
 - (id)copyDisplayIDForActiveCarPlayVideoSession;
 - (id)copyEvaluatedBadgeType:(id)type;
 - (id)copyHighestPriorityActiveSession:(id)session deviceIdentifier:(id)identifier;
@@ -84,17 +87,21 @@
 - (id)getAvailableAudioDestination:(id)destination;
 - (id)getBluetoothCustomizedAlternateCategory:(id)category enableBluetooth:(BOOL)bluetooth;
 - (id)getCleanupSessionAssertionReasonString:(int64_t)string;
+- (id)getClientPriorityAsString:(unsigned int)string;
 - (id)getDefaultBuiltInCustomizedAlternateCategory:(id)category defaultBuiltInRoute:(id)route;
 - (id)getDisallowedRecordingReasonString:(unint64_t)string;
 - (id)getDuckingSource:(id)source duckerSession:(id)session;
 - (id)getProjectedAudioDestinationForCategory:(id)category mode:(id)mode;
+- (id)getRouteSharingPolicyAsString:(int)string;
 - (id)getShadowingAudioSessionOptionsAsString:(unsigned int)string;
+- (id)getSilentModeClientTypeAsString:(unsigned int)string;
 - (id)getUncustomizedCategory:(id)category;
 - (int)clearUplinkMutedCache;
 - (int)getMuteState:(id *)state outMuteValue:(BOOL *)value;
 - (int)getSessionPriority:(MXSessionPlayingInfo *)priority forTipi:(BOOL)tipi;
 - (int)getVolumeButtonDelta:(id)delta outVolumeDelta:(float *)volumeDelta;
 - (int)prepareSessionActivationBeforeACQDispatch:(id)dispatch;
+- (int)updateDuckToLevelScalarSetByClient:(BOOL)client session:(id)session newLevel:(float)level newLevelSetByClient:(BOOL)byClient currentLevel:(float)currentLevel currentLevelSetByClient:(BOOL)setByClient;
 - (int)updateMuteState:(id *)state muteValue:(id)value;
 - (unint64_t)addSessionThatWantsToSuspendNeroScreenMirroring:(id)mirroring;
 - (unint64_t)mxCoreSessionListAddSession:(id)session;
@@ -129,6 +136,7 @@
 - (void)getAndResetAsyncDuckingParameters:(BOOL *)parameters mostRecentDuckFadeDuration:(float *)duration;
 - (void)getUpdatedDuckVolume:(id)volume outDuckVolume:(float *)duckVolume;
 - (void)handleSilentModeTimerDidFire;
+- (void)handleUserIntentToUnmute:(unsigned int)unmute;
 - (void)interruptActiveSessionsNotOptedIntoWombat;
 - (void)interruptAllIndependentInputAudioResourceSessionsIfNeeded:(id)needed;
 - (void)interruptAllSessionsAndSystemSounds:(id)sounds;
@@ -142,10 +150,13 @@
 - (void)postDisallowedActivationDueToContinuityCaptureNotification:(BOOL)notification videoPlaybackWasIntended:(BOOL)intended;
 - (void)postDisallowedRecordingNotification:(unint64_t)notification;
 - (void)postStopCommandToSessionsWithAudioMode:(id)mode;
+- (void)postStopCommandToShadowingSessionsForSession:(id)session withShadowingOptions:(unsigned int)options;
+- (void)processContinuityScreenOutputPortAvailableDidChange:(BOOL)change;
 - (void)pvmStateDidChangeCallback:(id)callback;
 - (void)refreshDeviceSampleRateCache;
 - (void)remoteDeviceControlIsAllowed:(unsigned int *)allowed;
 - (void)removeDuckerForSession:(id)session sessionCausingUnduck:(id)unduck duckingSource:(id)source outLastDuckingSourceWasRemoved:(BOOL *)removed;
+- (void)removeEntryFromMutedBundleIDCache:(int)cache bundleID:(id)d;
 - (void)removeSilentModeTimer;
 - (void)replaceMutedBundleIDwithHostID;
 - (void)resetDefaultMusicApp;
@@ -157,9 +168,12 @@
 - (void)setDevicesSampleRates:(id)rates;
 - (void)setDuckScalarForVoiceOver:(float)over;
 - (void)setLongFormVideoApps:(id)apps;
+- (void)setQuiesceableWiredPortPreference:(unsigned int)preference autoRouteOnConnect:(BOOL)connect;
 - (void)setRecordingClientPIDs:(id)ds;
 - (void)setSystemMirroringRoutingContextUUID:(id)d;
 - (void)setUpStringConversionDictionaries;
+- (void)setVADID:(unsigned int)d forVADName:(id)name;
+- (void)setWombatEnabled:(BOOL)enabled;
 - (void)sleepForAsyncDucking:(BOOL)ducking duration:(float)duration;
 - (void)synchronizeSessionVolumeWithMediaVolumeIfNeeded:(id)needed;
 - (void)unduckSessionsForDucker:(id)ducker;
@@ -171,14 +185,18 @@
 - (void)updateBadgeType:(id)type matchingPID:(int)d;
 - (void)updateBluetoothFrameworkToPlayMuteChime:(id)chime playRejectTone:(BOOL)tone;
 - (void)updateCachedContinuityScreenOutputPortID;
+- (void)updateDeviceSampleRate:(unsigned int)rate;
 - (void)updateDuckVolume:(id)volume duckerSession:(id)session duckVolume:(float)duckVolume duckFadeDuration:(float)duration;
 - (void)updateDuckedSessionsForVoiceOver:(id)over;
 - (void)updateDuckedSessionsForVoiceOverIfNeededOnRouteChange;
 - (void)updateDuckingSourceInfoForSession:(id)session duckerSession:(id)duckerSession duckVolume:(float)volume duckFadeDuration:(float)duration;
 - (void)updateExclaveSensorStatusIfNeeded;
 - (void)updateForRecordingStateDidChange;
+- (void)updateMostRecentDuckFadeDuration:(float)duration duckOperation:(BOOL)operation duckerSession:(id)session sessionToDuck:(id)duck;
 - (void)updateMutedBundleIDs:(id)ds muteValue:(BOOL)value;
 - (void)updateNeroScreenState:(id)state suspendScreen:(BOOL)screen;
+- (void)updateNowPlayingAppShouldResumeForCarPlay:(BOOL)play;
+- (void)updateSilentModeState:(BOOL)state untilTime:(id)time withReason:(id)reason forClientType:(unsigned int)type updateForStartup:(BOOL)startup;
 - (void)updateSilentModeTimer:(BOOL)timer untilTime:(id)time clientType:(unsigned int)type;
 - (void)updateSomeAirPlayCapableVideoClientIsActive;
 - (void)updateSupportedOutputChannelLayouts;
@@ -210,34 +228,34 @@
 
 - (id)copyActiveCoreSessionControllingRouting
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
-        if ([v6 isActive] && (objc_msgSend(v6, "currentlyControllingFlags") & 2) != 0)
+        v6 = *(*(&v8 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v6) && ([v6 currentlyControllingFlags] & 2) != 0)
         {
           v3 = v6;
           goto LABEL_12;
         }
       }
 
-      v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -249,7 +267,6 @@
 
 LABEL_12:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -276,27 +293,27 @@ LABEL_12:
 
 - (id)copySpeechDetectSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([v7 hasAudioCategory:@"SpeechDetect"])
         {
           v8 = v7;
@@ -304,7 +321,7 @@ LABEL_12:
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -317,7 +334,6 @@ LABEL_12:
   v7 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -331,28 +347,28 @@ LABEL_11:
 
 - (void)updateSupportedOutputChannelLayouts
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
-        if ([v7 isActive] && CMSUtility_SessionCanBeAndAllowedToBeNowPlayingApp(v7))
+        v7 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v7) && CMSUtility_SessionCanBeAndAllowedToBeNowPlayingApp(v7))
         {
           cf = 0;
           FigRoutingManagerContextUtilities_CopySystemMusicContextUUID(&cf);
@@ -377,7 +393,7 @@ LABEL_11:
               fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
-            [v7 setSupportedOutputChannelLayouts:{v8, v12, v13}];
+            [v7 setSupportedOutputChannelLayouts:v8];
             CMSMNotificationUtility_PostSupportedBufferedAudioCapabilitiesDidChange(v7);
           }
 
@@ -394,13 +410,11 @@ LABEL_11:
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)systemSoundRemoteVADID
@@ -413,18 +427,17 @@ LABEL_11:
 - (BOOL)areBothBudsInEarForA2DPPort
 {
   CurrentOutputPortAtIndex = CMSMUtility_GetCurrentOutputPortAtIndex(0);
-  v3 = CurrentOutputPortAtIndex;
   if (vaeGetPortTypeFromPortID(CurrentOutputPortAtIndex) != 1885892674)
   {
     goto LABEL_5;
   }
 
-  DoesBTPortSupportInEarDetection = vaeDoesBTPortSupportInEarDetection(v3);
+  DoesBTPortSupportInEarDetection = vaeDoesBTPortSupportInEarDetection(CurrentOutputPortAtIndex);
   if (DoesBTPortSupportInEarDetection)
   {
-    if (vaeGetBTPortPrimaryBudInEarStatus(v3) == 1)
+    if (vaeGetBTPortPrimaryBudInEarStatus(CurrentOutputPortAtIndex) == 1)
     {
-      LOBYTE(DoesBTPortSupportInEarDetection) = vaeGetBTPortSecondaryBudInEarStatus(v3) == 1;
+      LOBYTE(DoesBTPortSupportInEarDetection) = vaeGetBTPortSecondaryBudInEarStatus(CurrentOutputPortAtIndex) == 1;
       return DoesBTPortSupportInEarDetection;
     }
 
@@ -466,35 +479,35 @@ LABEL_5:
 
 - (id)copyActiveVoiceOverSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        if ([v7 isActive] && objc_msgSend(v7, "hasAudioCategory:", @"VoiceOver"))
+        v7 = *(*(&v10 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v7) && [v7 hasAudioCategory:@"VoiceOver"])
         {
           v8 = v7;
           goto LABEL_12;
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -507,7 +520,6 @@ LABEL_5:
   v7 = 0;
 LABEL_12:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -531,27 +543,27 @@ LABEL_12:
 
 - (BOOL)isSmartRoutingEligibleSessionAvailable
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v12 != v5)
+      if (*v11 != v5)
       {
         objc_enumerationMutation(copyMXCoreSessionList);
       }
 
-      v7 = *(*(&v11 + 1) + 8 * v6);
+      v7 = *(*(&v10 + 1) + 8 * v6);
       if ([v7 isPlaying])
       {
         if (CMSUtility_GetIsEligibleForBTSmartRoutingConsideration(v7))
@@ -566,7 +578,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -583,7 +595,6 @@ LABEL_11:
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -617,42 +628,43 @@ LABEL_11:
 
 - (void)updateCachedContinuityScreenOutputPortID
 {
-  if (MX_FeatureFlags_IsOnenessEnabled())
+  if (MX_FeatureFlags_IsOnenessEnabled(self, a2))
   {
     CachedContinuityScreenOutputPortID = vaemGetCachedContinuityScreenOutputPortID();
-    v4 = vaemContinuityScreenOutputIsConnected() ? vaemGetVADPortIDFromVADPortType(1885565807) : 0;
-    if (CachedContinuityScreenOutputPortID != v4)
+    v4 = CachedContinuityScreenOutputPortID;
+    v6 = vaemContinuityScreenOutputIsConnected(CachedContinuityScreenOutputPortID, v5) ? vaemGetVADPortIDFromVADPortType(1885565807) : 0;
+    if (v4 != v6)
     {
-      vaemSetCachedContinuityScreenOutputPortID(v4);
+      vaemSetCachedContinuityScreenOutputPortID(v6);
 
-      [(MXSessionManager *)self processContinuityScreenOutputPortAvailableDidChange:v4 != 0];
+      [(MXSessionManager *)self processContinuityScreenOutputPortAvailableDidChange:v6 != 0];
     }
   }
 }
 
 - (id)copyVoiceOverSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([v7 hasAudioCategory:@"VoiceOver"])
         {
           v8 = v7;
@@ -660,7 +672,7 @@ LABEL_11:
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -673,7 +685,6 @@ LABEL_11:
   v7 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -715,11 +726,11 @@ LABEL_11:
 
 - (void)refreshDeviceSampleRateCache
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
   if (dword_1EB75DE40)
   {
-    v31 = 0;
+    v28 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -727,21 +738,22 @@ LABEL_11:
   }
 
   -[MXSessionManager setDevicesSampleRates:](self, "setDevicesSampleRates:", [MEMORY[0x1E695DF20] dictionary]);
-  v28 = 0u;
-  v29 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   audioDeviceInfo = [(MXSessionManager *)self audioDeviceInfo];
-  v5 = [(NSDictionary *)audioDeviceInfo countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v5 = [(NSDictionary *)audioDeviceInfo countByEnumeratingWithState:&v23 objects:v30 count:16];
   if (v5)
   {
-    v6 = v5;
-    v7 = *v27;
+    v7 = v5;
+    v8 = *v24;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v9 = 0;
+      do
       {
-        if (*v27 != v7)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(audioDeviceInfo);
         }
@@ -749,29 +761,31 @@ LABEL_11:
         -[MXSessionManager updateDeviceSampleRate:](self, "updateDeviceSampleRate:", [-[NSDictionary objectForKey:](-[MXSessionManager audioDeviceInfo](self "audioDeviceInfo")]);
       }
 
-      v6 = [(NSDictionary *)audioDeviceInfo countByEnumeratingWithState:&v26 objects:v33 count:16];
+      while (v7 != v9);
+      v5 = [(NSDictionary *)audioDeviceInfo countByEnumeratingWithState:&v23 objects:v30 count:16];
+      v7 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
-  if (CMSMVAUtility_IsAdditiveRoutingEnabled())
+  if (CMSMVAUtility_IsAdditiveRoutingEnabled(v5, v6))
   {
-    v24 = 0u;
-    v25 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     vadNameToID = [+[MXAdditiveRoutingManager sharedInstance](MXAdditiveRoutingManager vadNameToID];
-    v10 = [(NSDictionary *)vadNameToID countByEnumeratingWithState:&v22 objects:v32 count:16];
-    if (v10)
+    v11 = [(NSDictionary *)vadNameToID countByEnumeratingWithState:&v19 objects:v29 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v23;
+      v12 = v11;
+      v13 = *v20;
       do
       {
-        for (j = 0; j != v11; ++j)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v12)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(vadNameToID);
           }
@@ -779,48 +793,46 @@ LABEL_11:
           -[MXSessionManager updateDeviceSampleRate:](self, "updateDeviceSampleRate:", [-[NSDictionary objectForKey:](-[MXAdditiveRoutingManager vadNameToID](+[MXAdditiveRoutingManager sharedInstance](MXAdditiveRoutingManager "sharedInstance")]);
         }
 
-        v11 = [(NSDictionary *)vadNameToID countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v12 = [(NSDictionary *)vadNameToID countByEnumeratingWithState:&v19 objects:v29 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
 
   if (dword_1EB75DE40)
   {
-    v31 = 0;
+    v28 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v15 = v31;
-    if (os_log_type_enabled(v14, type))
+    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v16 = v28;
+    v17 = type;
+    if (os_log_type_enabled(v15, type))
     {
-      v16 = v15;
+      v18 = v16;
     }
 
     else
     {
-      v16 = v15 & 0xFFFFFFFE;
+      v18 = v16 & 0xFFFFFFFE;
     }
 
-    if (v16)
+    if (v18)
     {
-      v34 = 136315138;
-      v35 = "[MXSessionManager refreshDeviceSampleRateCache]";
-      LODWORD(v21) = 12;
-      v19 = &v34;
-      _os_log_send_and_compose_impl();
+      v31 = 136315138;
+      v32 = "[MXSessionManager refreshDeviceSampleRateCache]";
+      _os_log_send_and_compose_impl(v18, 0, v33, 128, &dword_1B17A2000, v15, v17, "-MXSessionManager- %s: Devices sample rates cache is updated", &v31);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock:v19] unlock];
-  v17 = *MEMORY[0x1E69E9840];
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
 }
 
 - (unsigned)getCurrentOutputPort
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   v2 = CMSMUtility_CopyCurrentOutputPorts();
   v3 = v2;
@@ -828,15 +840,18 @@ LABEL_11:
   {
     ValueAtIndex = FigCFArrayGetValueAtIndex();
     CFNumberGetValue(ValueAtIndex, kCFNumberSInt32Type, &valuePtr);
-    if (!valuePtr && dword_1EB75DE40)
+    if (!valuePtr)
     {
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
+      if (dword_1EB75DE40)
+      {
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
+      }
     }
 
     CFRelease(v3);
-    result = valuePtr;
+    return valuePtr;
   }
 
   else
@@ -853,17 +868,14 @@ LABEL_11:
       CFRelease(v3);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)updateDuckedSessionsForVoiceOverIfNeededOnRouteChange
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled())
+  v4 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(self, a2))
   {
     if (CMSMDeviceState_IsVoiceOverOn())
     {
@@ -877,96 +889,95 @@ LABEL_11:
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        [+[MXSessionManager sharedInstance](MXSessionManager startAsyncDuckingOperation:v5];
+        [+[MXSessionManager sharedInstance](MXSessionManager startAsyncDuckingOperation];
         [+[MXSessionManager sharedInstance](MXSessionManager updateDuckedSessionsForVoiceOver:"updateDuckedSessionsForVoiceOver:", 0];
         [+[MXSessionManager sharedInstance](MXSessionManager endAsyncDuckingOperation];
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateExclaveSensorStatusIfNeeded
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (CMSMDeviceState_DeviceHasExclaveCapability())
+  v18 = *MEMORY[0x1E69E9840];
+  if (CMSMDeviceState_DeviceHasExclaveCapability(self, a2))
   {
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     obj = [(MXSessionManager *)self copyMXCoreSessionList];
-    v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v15;
-      v12 = *v15;
+      v5 = *v14;
+      v6 = &qword_1EB75D000;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v15 != v5)
+          if (*v14 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v14 + 1) + 8 * i);
-          if ((([v7 isRecording] & 1) != 0 || objc_msgSend(v7, "isUsingBuiltInMicForRecording")) && -[MXExclaves updateSensorStatus:reason:](+[MXExclaves sharedInstance](MXExclaves, "sharedInstance"), "updateSensorStatus:reason:", v7, @"route has changed"))
+          v8 = *(*(&v13 + 1) + 8 * i);
+          if ((([v8 isRecording] & 1) != 0 || objc_msgSend(v8, "isUsingBuiltInMicForRecording")) && -[MXExclaves updateSensorStatus:reason:](+[MXExclaves sharedInstance](MXExclaves, "sharedInstance"), "updateSensorStatus:reason:", v8, @"route has changed"))
           {
             if (dword_1EB75DE40)
             {
+              v9 = v6;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
               os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+              v6 = v9;
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v5 = v12;
+              v5 = v11;
             }
 
-            CMSUtilityApplier_PostNotification_StopCommand(v7, 0);
+            CMSUtilityApplier_PostNotification_StopCommand(v8, 0);
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v4);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)doesActiveSessionHaveInput
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
-        if ([v6 isActive] && objc_msgSend(v6, "hasInput") && (objc_msgSend(v6, "currentlyControllingFlags") & 2) != 0)
+        v6 = *(*(&v8 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v6) && [v6 hasInput] && (objc_msgSend(v6, "currentlyControllingFlags") & 2) != 0)
         {
           LOBYTE(v3) = 1;
           goto LABEL_13;
         }
       }
 
-      v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -978,15 +989,14 @@ LABEL_11:
 
 LABEL_13:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)updateForRecordingStateDidChange
 {
-  CMSMUtility_PostRecordingStateDidChangeNotificationIfNeeded();
+  v2 = CMSMUtility_PostRecordingStateDidChangeNotificationIfNeeded();
 
-  CMSMNotificationUtility_PostHighestArbitrationPriorityForTipiDidChangeIfNeeded();
+  CMSMNotificationUtility_PostHighestArbitrationPriorityForTipiDidChangeIfNeeded(v2, v3);
 }
 
 - (int)getSessionPriority:(MXSessionPlayingInfo *)priority forTipi:(BOOL)tipi
@@ -1003,8 +1013,7 @@ LABEL_13:
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v31 = 100;
-    goto LABEL_48;
+    return 100;
   }
 
   if (tipiCopy)
@@ -1125,15 +1134,13 @@ LABEL_28:
   {
     if (dword_1EB75DE40)
     {
-LABEL_36:
-      v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+      v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+LABEL_47:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-LABEL_47:
-    v31 = 501;
-    goto LABEL_48;
+    return 501;
   }
 
 LABEL_32:
@@ -1141,13 +1148,15 @@ LABEL_32:
   {
     if (dword_1EB75DE40)
     {
-      goto LABEL_36;
+      v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+      goto LABEL_47;
     }
 
-    goto LABEL_47;
+    return 501;
   }
 
-  if (priority->var7 && v31 <= 0xC7)
+  else if (priority->var7 && v31 <= 0xC7)
   {
     if (dword_1EB75DE40)
     {
@@ -1156,11 +1165,9 @@ LABEL_32:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v31 = 200;
+    return 200;
   }
 
-LABEL_48:
-  v33 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -1213,10 +1220,10 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
 
 - (MXSessionManager)init
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = MXSessionManager;
-  v2 = [(MXSessionManager *)&v15 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = MXSessionManager;
+  v2 = [(MXSessionManager *)&v16 init];
   if (v2)
   {
     v2->_audioCategoriesWithInput = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"Multi", @"Record", 0x1F2891810, @"PlayAndRecord", 0x1F2891830, 0x1F2891850, 0x1F2891870, @"VoiceCommand", @"VoiceCommand_WithBluetooth", @"VoiceCommandThatMixes", @"VoiceCommandThatMixes_WithBluetooth", @"PhoneCall", @"TTYCall", 0}];
@@ -1246,11 +1253,12 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
     v2->_mxCoreSessionList = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:5];
     v2->_mxCoreSessionListLock = objc_alloc_init(MEMORY[0x1E696AD10]);
     v2->_sessionsThatWantToSuspendNeroScreenMirroring = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:5];
-    v2->_pickableRoutesDescriptions = objc_alloc_init(MEMORY[0x1E695DF90]);
-    if (MX_FeatureFlags_IsQuiesceableWiredConnectionEnabled())
+    v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v2->_pickableRoutesDescriptions = v6;
+    if (MX_FeatureFlags_IsQuiesceableWiredConnectionEnabled(v6, v7))
     {
-      v6 = MXCFPreferencesCopyPreference(@"quiesceableWiredPortsAutoRouteOnConnectPreference");
-      v2->_quiesceableWiredPortsAutoRouteOnConnectPreference = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v6];
+      v8 = MXCFPreferencesCopyPreference(@"quiesceableWiredPortsAutoRouteOnConnectPreference");
+      v2->_quiesceableWiredPortsAutoRouteOnConnectPreference = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v8];
     }
 
     else
@@ -1258,27 +1266,27 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
       v2->_quiesceableWiredPortsAutoRouteOnConnectPreference = 0;
     }
 
-    v2->_silentModeEnabled = [MXSessionManager getSilentModeStateFromDisk:v13];
+    v2->_silentModeEnabled = +[MXSessionManager getSilentModeStateFromDisk];
     v2->_silentModeEnabledUntilTime = +[MXSessionManager copySilentModeUntilTimeFromDisk];
-    v7 = MXCFPreferencesCopyPreference(@"silentModeClientType");
-    v2->_silentModeClient = [v7 unsignedIntValue];
+    v9 = MXCFPreferencesCopyPreference(@"silentModeClientType");
+    v2->_silentModeClient = [v9 unsignedIntValue];
     v2->_silentModeReason = MXCFPreferencesCopyPreference(@"silentModeReason");
 
-    if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled())
+    if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(v10, v11))
     {
-      v8 = MXCFPreferencesCopyPreference(@"duckScalarForVoiceOver");
-      v9 = v8;
-      if (v8)
+      v12 = MXCFPreferencesCopyPreference(@"duckScalarForVoiceOver");
+      v13 = v12;
+      if (v12)
       {
-        [v8 floatValue];
+        [v12 floatValue];
       }
 
       else
       {
-        v10 = 1.0;
+        v14 = 1.0;
       }
 
-      v2->_duckScalarForVoiceOver = v10;
+      v2->_duckScalarForVoiceOver = v14;
     }
 
     [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
@@ -1287,7 +1295,6 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
     v2->_isVoiceAssistantPlayingToPersonalAudioDeviceOverMedia = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -1378,7 +1385,7 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
 
 - (void)setLongFormVideoApps:(id)apps
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1386,11 +1393,10 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock:v7] lock];
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
 
   self->_longFormVideoApps = apps;
   [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRecordingClientPIDs:(id)ds
@@ -1413,10 +1419,39 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
   [(NSRecursiveLock *)propertiesLock unlock];
 }
 
+- (void)setWombatEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v7 = *MEMORY[0x1E69E9840];
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
+  wombatEnabled = self->_wombatEnabled;
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
+  if (wombatEnabled != enabledCopy)
+  {
+    if (dword_1EB75DE40)
+    {
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+
+    [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
+    self->_wombatEnabled = enabledCopy;
+    [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
+    if (enabledCopy)
+    {
+      [(MXSessionManager *)self interruptActiveSessionsNotOptedIntoWombat];
+    }
+
+    CMSMNotificationUtility_PostWombatEnabledDidChange(enabledCopy);
+    CMSMNotificationUtility_PostSpeechDetectStyleDidChangeIfNeeded(0, 0);
+  }
+}
+
 - (void)setDuckScalarForVoiceOver:(float)over
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled())
+  v13 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(self, a2))
   {
     v5 = fminf(over, 1.0);
     if (v5 >= 0.0)
@@ -1462,13 +1497,11 @@ uint64_t __34__MXSessionManager_sharedInstance__block_invoke()
     os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)appAllowedToInitiateRecordingTemporarily
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
   if (!self->_appAllowedToInitiateRecordingTemporarilyTimestamp)
   {
@@ -1502,14 +1535,13 @@ LABEL_7:
 
   v6 = self->_appAllowedToInitiateRecordingTemporarily;
 LABEL_9:
-  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock:v9] unlock];
-  v7 = *MEMORY[0x1E69E9840];
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
   return v6;
 }
 
 - (void)setAppAllowedToInitiateRecordingTemporarily:(id)temporarily
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
 
   self->_appAllowedToInitiateRecordingTemporarily = 0;
@@ -1532,8 +1564,7 @@ LABEL_5:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock:v7] unlock];
-  v6 = *MEMORY[0x1E69E9840];
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
 }
 
 - (void)appToInterruptCurrentNowPlayingSession:(id)session
@@ -1570,28 +1601,28 @@ LABEL_5:
 
 - (void)interruptActiveSessionsNotOptedIntoWombat
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        if ([v7 isActive] && (objc_msgSend(v7, "prefersToPlayDuringWombat") & 1) == 0)
+        v7 = *(*(&v9 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v7) && ([v7 prefersToPlayDuringWombat] & 1) == 0)
         {
           if (dword_1EB75DE40)
           {
@@ -1604,13 +1635,11 @@ LABEL_5:
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isLongFormVideoApp:(id)app
@@ -1702,7 +1731,7 @@ LABEL_4:
 
 - (void)makeStarkPortRoutableForPlayingSession:(BOOL)session
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (session)
   {
     PortOfTypeInConnectedPortsList = CMSMVAUtility_GetPortOfTypeInConnectedPortsList(1886614639);
@@ -1721,8 +1750,6 @@ LABEL_4:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)mxCoreSessionListAddSession:(id)session
@@ -1844,6 +1871,55 @@ LABEL_4:
   updateNeroScreenState_suspendScreen__sCurrentCount = v8;
 }
 
+- (void)updateNowPlayingAppShouldResumeForCarPlay:(BOOL)play
+{
+  playCopy = play;
+  v10 = *MEMORY[0x1E69E9840];
+  CMSMNP_SetNowPlayingAppShouldResumeForCarPlay(play);
+  v4 = CMSMNP_CopyNowPlayingAppWasPlayingUponCarPlayDisconnectFromDisk();
+  v5 = v4;
+  if (playCopy)
+  {
+    v6 = FigCFEqual();
+    if (v5)
+    {
+      CFRelease(v5);
+    }
+
+    if (v6)
+    {
+      IsCurrentlyActive = vaemStarkAudioPortIsCurrentlyActive();
+      v8 = +[MXSessionManager sharedInstance];
+      if (IsCurrentlyActive)
+      {
+        [(MXSessionManager *)v8 resumeNowPlayingAppForCarPlay];
+      }
+
+      else
+      {
+        [(MXSessionManager *)v8 setShouldResumeNowPlayingAppOnDelayedCarPlayPortPublication:1];
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  if (dword_1EB75DE40)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+LABEL_12:
+  CMSMNP_WriteNowPlayingAppWasPlayingUponCarPlayDisconnectToDisk(0);
+}
+
 - (void)resumeNowPlayingAppForCarPlay
 {
   v7 = *MEMORY[0x1E69E9840];
@@ -1883,15 +1959,13 @@ LABEL_4:
   fig_log_call_emit_and_clean_up_after_send_and_compose();
   if (dword_1EB75DE40)
   {
-    v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
 LABEL_10:
-  CMSMNP_ResumeNowPlayingAppOverCarPlay(nowPlayingAppDisplayID);
-
-  v6 = *MEMORY[0x1E69E9840];
+  CMSMNP_ResumeNowPlayingAppOverCarPlay(nowPlayingAppDisplayID, v3);
 }
 
 - (void)resetDefaultMusicApp
@@ -1907,7 +1981,7 @@ LABEL_10:
 
 - (void)handleSilentModeTimerDidFire
 {
-  v3 = MXGetSerialQueue();
+  v3 = MXGetSerialQueue(self, a2);
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 3221225472;
   v4[2] = __48__MXSessionManager_handleSilentModeTimerDidFire__block_invoke;
@@ -1918,7 +1992,7 @@ LABEL_10:
 
 uint64_t __48__MXSessionManager_handleSilentModeTimerDidFire__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1926,22 +2000,20 @@ uint64_t __48__MXSessionManager_handleSilentModeTimerDidFire__block_invoke(uint6
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [*(a1 + 32) setSilentModeEnabled:{objc_msgSend(*(a1 + 32), "silentModeEnabled", v5, v6) ^ 1}];
+  [*(a1 + 32) setSilentModeEnabled:{objc_msgSend(*(a1 + 32), "silentModeEnabled") ^ 1}];
   [*(a1 + 32) setSilentModeEnabledUntilTime:0];
   [+[MXAlarmEvents sharedInstance](MXAlarmEvents resetAlarmEvent:"resetAlarmEvent:", @"com.apple.mediaexperience.silentmode.timer"];
   MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeEnabled", [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "silentModeEnabled")}]);
   MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeEnabledUntilTime", 0);
   CMSMDeviceState_UpdateRingerStateForSilentMode([*(a1 + 32) silentModeEnabled]);
   CMSMNotificationUtility_PostSilentModeEnabledDidChange([*(a1 + 32) silentModeEnabled]);
-  result = -[MXBiomeStreams updateBiomeSilentMode:clientType:untilTime:reason:](+[MXBiomeStreams sharedInstance](MXBiomeStreams, "sharedInstance"), "updateBiomeSilentMode:clientType:untilTime:reason:", [*(a1 + 32) silentModeEnabled], objc_msgSend(*(a1 + 32), "silentModeClient"), 0, objc_msgSend(*(a1 + 32), "silentModeReason"));
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return -[MXBiomeStreams updateBiomeSilentMode:clientType:untilTime:reason:](+[MXBiomeStreams sharedInstance](MXBiomeStreams, "sharedInstance"), "updateBiomeSilentMode:clientType:untilTime:reason:", [*(a1 + 32) silentModeEnabled], objc_msgSend(*(a1 + 32), "silentModeClient"), 0, objc_msgSend(*(a1 + 32), "silentModeReason"));
 }
 
 - (void)updateSilentModeTimer:(BOOL)timer untilTime:(id)time clientType:(unsigned int)type
 {
   timerCopy = timer;
-  v17 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [time timeIntervalSinceNow];
   if (v9 <= 0.0)
   {
@@ -1952,30 +2024,101 @@ uint64_t __48__MXSessionManager_handleSilentModeTimerDidFire__block_invoke(uint6
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(MXSessionManager *)self removeSilentModeTimer:v15];
-    goto LABEL_11;
+    [(MXSessionManager *)self removeSilentModeTimer];
   }
 
-  v10 = v9;
-  if (type == 5 && [(MXSessionManager *)self silentModeEnabled]== timerCopy && ![(MXSessionManager *)self silentModeEnabledUntilTime])
+  else
+  {
+    v10 = v9;
+    if (type == 5 && [(MXSessionManager *)self silentModeEnabled]== timerCopy && ![(MXSessionManager *)self silentModeEnabledUntilTime])
+    {
+      if (dword_1EB75DE40)
+      {
+        v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
+      }
+    }
+
+    else
+    {
+      [+[MXAlarmEvents sharedInstance](MXAlarmEvents setAlarmEvent:"setAlarmEvent:eventName:" eventName:@"com.apple.mediaexperience.silentmode.timer", v10];
+      [(MXSessionManager *)self setSilentModeEnabledUntilTime:time];
+
+      MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeEnabledUntilTime", time);
+    }
+  }
+}
+
+- (void)updateSilentModeState:(BOOL)state untilTime:(id)time withReason:(id)reason forClientType:(unsigned int)type updateForStartup:(BOOL)startup
+{
+  startupCopy = startup;
+  v8 = *&type;
+  stateCopy = state;
+  v22 = *MEMORY[0x1E69E9840];
+  silentModeEnabled = [(MXSessionManager *)self silentModeEnabled];
+  v14 = silentModeEnabled;
+  if (startupCopy)
   {
     if (dword_1EB75DE40)
     {
-      v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      v21 = silentModeEnabled;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
+      v14 = v21;
     }
 
-LABEL_11:
-    v13 = *MEMORY[0x1E69E9840];
-    return;
+    silentModeEnabledUntilTime = [+[MXSessionManager sharedInstance](MXSessionManager silentModeEnabledUntilTime];
+    if (silentModeEnabledUntilTime)
+    {
+      [(NSDate *)silentModeEnabledUntilTime timeIntervalSinceNow];
+      if (v17 > 0.0)
+      {
+        stateCopy = stateCopy;
+      }
+
+      else
+      {
+        time = 0;
+        stateCopy = v14 ^ 1u;
+      }
+    }
   }
 
-  [+[MXAlarmEvents sharedInstance](MXAlarmEvents setAlarmEvent:"setAlarmEvent:eventName:" eventName:@"com.apple.mediaexperience.silentmode.timer", v10];
-  [(MXSessionManager *)self setSilentModeEnabledUntilTime:time];
-  v11 = *MEMORY[0x1E69E9840];
+  [+[MXSessionManager sharedInstance](MXSessionManager setSilentModeClient:"setSilentModeClient:", v8];
+  [+[MXSessionManager sharedInstance](MXSessionManager setSilentModeReason:"setSilentModeReason:", reason];
+  MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeClientType", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v8]);
+  MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeReason", reason);
+  if (dword_1EB75DE40)
+  {
+    v18 = v14;
+    v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    v14 = v18;
+  }
 
-  MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeEnabledUntilTime", time);
+  [(MXSessionManager *)self updateSilentModeTimer:stateCopy untilTime:time clientType:v8];
+  if (v14 != stateCopy)
+  {
+    [(MXSessionManager *)self setSilentModeEnabled:stateCopy];
+    v20 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:stateCopy];
+    MXCFPreferencesSetAndSynchronizeUserPreference(@"silentModeEnabled", v20);
+
+LABEL_13:
+    CMSMDeviceState_UpdateRingerStateForSilentMode(stateCopy);
+    CMSMNotificationUtility_PostSilentModeEnabledDidChange(stateCopy);
+    goto LABEL_14;
+  }
+
+  if (startupCopy)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_14:
+  [+[MXBiomeStreams sharedInstance](MXBiomeStreams updateBiomeSilentMode:"updateBiomeSilentMode:clientType:untilTime:reason:" clientType:stateCopy untilTime:v8 reason:time, reason];
 }
 
 - (void)removeSilentModeTimer
@@ -1998,6 +2141,19 @@ LABEL_11:
   }
 }
 
+- (void)updateDeviceSampleRate:(unsigned int)rate
+{
+  if (rate)
+  {
+    v3 = *&rate;
+    [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
+    v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:{-[MXSessionManager devicesSampleRates](self, "devicesSampleRates")}];
+    [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", vaemGetSampleRateForDevice(v3)), objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v3)}];
+    -[MXSessionManager setDevicesSampleRates:](self, "setDevicesSampleRates:", [MEMORY[0x1E695DF20] dictionaryWithDictionary:v5]);
+    [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
+  }
+}
+
 - (void)setDevicesSampleRates:(id)rates
 {
   [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
@@ -2010,20 +2166,20 @@ LABEL_11:
 
 - (void)volumePreferenceDidChangeCallback:(id)callback
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   userInfo = [callback userInfo];
-  v54 = [userInfo objectForKey:0x1F2891210];
-  v52 = [userInfo objectForKey:0x1F2891270];
+  v60 = [userInfo objectForKey:0x1F2891210];
+  v58 = [userInfo objectForKey:0x1F2891270];
   v5 = [userInfo objectForKey:0x1F28939B0];
   [userInfo objectForKey:0x1F2892D30];
   v6 = [userInfo objectForKey:0x1F2899190];
   v7 = [userInfo objectForKey:0x1F288EC70];
-  v55 = [userInfo objectForKey:0x1F289F730];
+  v61 = [userInfo objectForKey:0x1F289F730];
   [objc_msgSend(userInfo objectForKey:{0x1F28A37B0), "floatValue"}];
   v9 = v8;
   [objc_msgSend(userInfo objectForKey:{0x1F28A37D0), "floatValue"}];
   v11 = v10;
-  v56 = [v5 isEqualToString:@"ImplicitVolumeChange"];
+  v62 = [v5 isEqualToString:@"ImplicitVolumeChange"];
   if (v6)
   {
     [v6 floatValue];
@@ -2038,17 +2194,17 @@ LABEL_11:
 
   [userInfo removeObjectForKey:0x1F28A37B0];
   [userInfo removeObjectForKey:0x1F28A37D0];
-  FigSimpleMutexLock();
-  v57 = userInfo;
-  if (CMSMVAUtility_IsAdditiveRoutingEnabled() && [(MXSessionManager *)self voiceOverVADVolumeNeedsUpdate])
+  v14 = FigSimpleMutexLock();
+  v63 = userInfo;
+  if (CMSMVAUtility_IsAdditiveRoutingEnabled(v14, v15) && [(MXSessionManager *)self voiceOverVADVolumeNeedsUpdate])
   {
     copyActiveVoiceOverSessionPlayingToOnDemandVAD = [+[MXAdditiveRoutingManager sharedInstance](MXAdditiveRoutingManager copyActiveVoiceOverSessionPlayingToOnDemandVAD];
-    v53 = copyActiveVoiceOverSessionPlayingToOnDemandVAD == 0;
+    v59 = copyActiveVoiceOverSessionPlayingToOnDemandVAD == 0;
     if (copyActiveVoiceOverSessionPlayingToOnDemandVAD)
     {
       if (dword_1EB75DE40)
       {
-        v64 = 0;
+        v70 = 0;
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -2064,26 +2220,26 @@ LABEL_11:
   else
   {
     copyActiveVoiceOverSessionPlayingToOnDemandVAD = 0;
-    v53 = 1;
+    v59 = 1;
   }
 
-  v16 = [(MXSessionManager *)self copyMXCoreSessionList:v47];
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v17 = [v16 countByEnumeratingWithState:&v59 objects:v71 count:16];
-  if (!v17)
+  copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v19 = [copyMXCoreSessionList countByEnumeratingWithState:&v65 objects:v77 count:16];
+  if (!v19)
   {
 
-    v18 = 0;
-    v26 = userInfo;
+    v20 = 0;
+    v30 = userInfo;
 LABEL_34:
     if (vaemSystemSoundLocalVADExists())
     {
-      if ([v18 isActive] && (CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(v18), CurrentOutputVADID == -[MXSessionManager systemSoundLocalVADID](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "systemSoundLocalVADID")))
+      if (objc_msgSend_isActive(v20) && (CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(v20), CurrentOutputVADID == [+[MXSessionManager systemSoundLocalVADID] sharedInstance])
       {
-        CMSUtility_UpdatePlaybackVolume(v18, 0.0, 0.0);
+        CMSUtility_UpdatePlaybackVolume(v20, 0.0, 0.0);
       }
 
       else
@@ -2091,214 +2247,219 @@ LABEL_34:
         CurrentRouteTypeForSystemSoundAtIndex = CMSMUtility_GetCurrentRouteTypeForSystemSoundAtIndex(0);
         if (dword_1EB75DE40)
         {
-          v64 = 0;
+          v70 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v30 = v64;
-          if (os_log_type_enabled(v29, type))
+          v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v34 = v70;
+          v35 = type;
+          if (os_log_type_enabled(v33, type))
           {
-            v31 = v30;
+            v36 = v34;
           }
 
           else
           {
-            v31 = v30 & 0xFFFFFFFE;
+            v36 = v34 & 0xFFFFFFFE;
           }
 
-          if (v31)
+          if (v36)
           {
             VADNameForVADID = CMSMUtility_GetVADNameForVADID([+[MXSessionManager systemSoundLocalVADID] sharedInstance];
-            v65 = 136315650;
-            v66 = "[MXSessionManager volumePreferenceDidChangeCallback:]";
-            v67 = 2114;
-            v68 = VADNameForVADID;
-            v69 = 2114;
-            v70 = CurrentRouteTypeForSystemSoundAtIndex;
-            LODWORD(v50) = 32;
-            v48 = &v65;
-            _os_log_send_and_compose_impl();
+            v71 = 136315650;
+            v72 = "[MXSessionManager volumePreferenceDidChangeCallback:]";
+            v73 = 2114;
+            v74 = VADNameForVADID;
+            v75 = 2114;
+            v76 = CurrentRouteTypeForSystemSoundAtIndex;
+            _os_log_send_and_compose_impl(v36, 0, v78, 128, &dword_1B17A2000, v33, v35, "-MXSessionManager- %s: Setting volume on VAD: %{public}@ route: %{public}@ as no session is controlling system sound VAD volume", &v71, 32);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        vaemSetDeviceVolumeIfNotSet([[MXSessionManager systemSoundLocalVADID:v48] sharedInstance:CurrentRouteTypeForSystemSoundAtIndex];
+        vaemSetDeviceVolumeIfNotSet([[MXSessionManager systemSoundLocalVADID] sharedInstance:CurrentRouteTypeForSystemSoundAtIndex];
       }
     }
 
     goto LABEL_46;
   }
 
-  v51 = v7;
-  v58 = 0;
-  v18 = 0;
-  v19 = *v60;
+  v57 = v7;
+  v64 = 0;
+  v20 = 0;
+  v21 = *v66;
   do
   {
-    for (i = 0; i != v17; ++i)
+    for (i = 0; i != v19; ++i)
     {
-      if (*v60 != v19)
+      if (*v66 != v21)
       {
-        objc_enumerationMutation(v16);
+        objc_enumerationMutation(copyMXCoreSessionList);
       }
 
-      v21 = *(*(&v59 + 1) + 8 * i);
-      if ([v21 isActive])
+      v23 = *(*(&v65 + 1) + 8 * i);
+      if (objc_msgSend_isActive(v23))
       {
-        if ([v21 hasAudioCategory:@"VoiceOver"])
+        v24 = [v23 hasAudioCategory:@"VoiceOver"];
+        if (v24)
         {
-          v18 = v21;
+          v20 = v23;
         }
 
-        if ((!CMSMVAUtility_IsAdditiveRoutingEnabled() || ([v21 isEqual:copyActiveVoiceOverSessionPlayingToOnDemandVAD] & 1) == 0) && (objc_msgSend(v21, "currentlyControllingFlags") & 0x10) != 0)
+        if ((!CMSMVAUtility_IsAdditiveRoutingEnabled(v24, v25) || ([v23 isEqual:copyActiveVoiceOverSessionPlayingToOnDemandVAD] & 1) == 0) && (objc_msgSend(v23, "currentlyControllingFlags") & 0x10) != 0)
         {
-          CurrentAudioDestination = CMSUtility_GetCurrentAudioDestination(v21);
+          CurrentAudioDestination = CMSUtility_GetCurrentAudioDestination(v23);
           if ([CurrentAudioDestination isEqualToString:0x1F2893B50])
           {
-            if ([objc_msgSend(v21 "audioCategory")])
+            if ([objc_msgSend(v23 "audioCategory")])
             {
-              v23 = 0.0;
-              v24 = 0.0;
-              v25 = v21;
+              v27 = 0.0;
+              v28 = 0.0;
+              v29 = v23;
             }
 
             else
             {
-              v25 = v21;
-              v23 = v9;
-              v24 = v11;
+              v29 = v23;
+              v27 = v9;
+              v28 = v11;
             }
 
-            CMSUtility_UpdatePlaybackVolume(v25, v23, v24);
-            LOBYTE(v58) = 1;
+            CMSUtility_UpdatePlaybackVolume(v29, v27, v28);
+            LOBYTE(v64) = 1;
           }
 
           else
           {
-            CMSUtility_UpdatePlaybackVolume(v21, v9, v11);
-            HIDWORD(v58) |= [CurrentAudioDestination isEqualToString:0x1F2893B70];
+            CMSUtility_UpdatePlaybackVolume(v23, v9, v11);
+            HIDWORD(v64) |= [CurrentAudioDestination isEqualToString:0x1F2893B70];
           }
         }
       }
     }
 
-    v17 = [v16 countByEnumeratingWithState:&v59 objects:v71 count:16];
+    v19 = [copyMXCoreSessionList countByEnumeratingWithState:&v65 objects:v77 count:16];
   }
 
-  while (v17);
+  while (v19);
 
-  v26 = v57;
-  v7 = v51;
-  LOBYTE(v17) = v58;
-  if ((v58 & 0x100000000) == 0)
+  v30 = v63;
+  v7 = v57;
+  LOBYTE(v19) = v64;
+  if ((v64 & 0x100000000) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_46:
-  v33 = [v7 isEqualToString:@"AirTunes"];
-  v34 = [v55 isEqualToString:@"Audio/Video"];
-  if ((v17 & 1) == 0 && v33 && v34)
+  v38 = [v7 isEqualToString:@"AirTunes"];
+  v39 = [v61 isEqualToString:@"Audio/Video"];
+  if ((v19 & 1) == 0 && v38 && v39)
   {
     CurrentRouteTypeAtIndex = CMSMUtility_GetCurrentRouteTypeAtIndex(0);
     if (dword_1EB75DE40)
     {
-      v64 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
-      v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v37 = v64;
-      if (os_log_type_enabled(v36, type))
-      {
-        v38 = v37;
-      }
-
-      else
-      {
-        v38 = v37 & 0xFFFFFFFE;
-      }
-
-      if (v38)
-      {
-        v39 = CMSMUtility_GetVADNameForVADID([+[MXSessionManager defaultVADID] sharedInstance];
-        v65 = 136315650;
-        v66 = "[MXSessionManager volumePreferenceDidChangeCallback:]";
-        v67 = 2114;
-        v68 = v39;
-        v69 = 2114;
-        v70 = CurrentRouteTypeAtIndex;
-        LODWORD(v50) = 32;
-        v48 = &v65;
-        _os_log_send_and_compose_impl();
-      }
-
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    vaemSetDeviceVolumeIfNotSet([[MXSessionManager defaultVADID:v48] sharedInstance:CurrentRouteTypeAtIndex];
-  }
-
-  if ((v17 & 1) == 0 && CMSMDeviceState_IsVoiceOverOn() && (CMSMVAUtility_IsAdditiveRoutingEnabled() & ~v53) == 0)
-  {
-    v40 = CMSMUtility_GetCurrentRouteTypeAtIndex(0);
-    if (dword_1EB75DE40)
-    {
-      v64 = 0;
+      v70 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v42 = v64;
+      v42 = v70;
+      v43 = type;
       if (os_log_type_enabled(v41, type))
       {
-        v43 = v42;
+        v44 = v42;
       }
 
       else
       {
-        v43 = v42 & 0xFFFFFFFE;
+        v44 = v42 & 0xFFFFFFFE;
       }
 
-      if (v43)
+      if (v44)
       {
-        v44 = CMSMUtility_GetVADNameForVADID([+[MXSessionManager defaultVADID] sharedInstance];
-        v65 = 136315650;
-        v66 = "[MXSessionManager volumePreferenceDidChangeCallback:]";
-        v67 = 2114;
-        v68 = v44;
-        v69 = 2114;
-        v70 = v40;
-        LODWORD(v50) = 32;
-        v48 = &v65;
-        _os_log_send_and_compose_impl();
+        v45 = CMSMUtility_GetVADNameForVADID([+[MXSessionManager defaultVADID] sharedInstance];
+        v71 = 136315650;
+        v72 = "[MXSessionManager volumePreferenceDidChangeCallback:]";
+        v73 = 2114;
+        v74 = v45;
+        v75 = 2114;
+        v76 = CurrentRouteTypeAtIndex;
+        LODWORD(v56) = 32;
+        _os_log_send_and_compose_impl(v44, 0, v78, 128, &dword_1B17A2000, v41, v43, "-MXSessionManager- %s: Setting volume on VAD: %{public}@ route: %{public}@ as no session is controlling default VAD and current route is AirTunes", &v71, v56);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    vaemSetDeviceVolumeIfNotSet([[MXSessionManager defaultVADID:v48] sharedInstance:v40];
+    vaemSetDeviceVolumeIfNotSet([[MXSessionManager defaultVADID] sharedInstance:CurrentRouteTypeAtIndex];
+  }
+
+  if ((v19 & 1) == 0)
+  {
+    IsVoiceOverOn = CMSMDeviceState_IsVoiceOverOn();
+    if (IsVoiceOverOn)
+    {
+      if ((CMSMVAUtility_IsAdditiveRoutingEnabled(IsVoiceOverOn, v47) & ~v59) == 0)
+      {
+        v48 = CMSMUtility_GetCurrentRouteTypeAtIndex(0);
+        if (dword_1EB75DE40)
+        {
+          v70 = 0;
+          type = OS_LOG_TYPE_DEFAULT;
+          v49 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v50 = v70;
+          v51 = type;
+          if (os_log_type_enabled(v49, type))
+          {
+            v52 = v50;
+          }
+
+          else
+          {
+            v52 = v50 & 0xFFFFFFFE;
+          }
+
+          if (v52)
+          {
+            v53 = CMSMUtility_GetVADNameForVADID([+[MXSessionManager defaultVADID] sharedInstance];
+            v71 = 136315650;
+            v72 = "[MXSessionManager volumePreferenceDidChangeCallback:]";
+            v73 = 2114;
+            v74 = v53;
+            v75 = 2114;
+            v76 = v48;
+            LODWORD(v56) = 32;
+            _os_log_send_and_compose_impl(v52, 0, v78, 128, &dword_1B17A2000, v49, v51, "-MXSessionManager- %s: Setting volume on VAD: %{public}@ route: %{public}@ as no session is controlling VAD and VoiceOver is ON", &v71, v56);
+          }
+
+          fig_log_call_emit_and_clean_up_after_send_and_compose();
+        }
+
+        vaemSetDeviceVolumeIfNotSet([[MXSessionManager defaultVADID] sharedInstance:v48];
+      }
+    }
   }
 
   FigSimpleMutexUnlock();
-  if ((v56 & 1) == 0 && (![v54 isEqualToString:@"EmergencyAlert"] || (objc_msgSend(v52, "isEqualToString:", @"CustomVolume") & 1) == 0))
+  if ((v62 & 1) == 0 && (![v60 isEqualToString:@"EmergencyAlert"] || (objc_msgSend(v58, "isEqualToString:", @"CustomVolume") & 1) == 0))
   {
     FigSimpleMutexLock();
-    v45 = *&dword_1EB75E0E4;
+    v54 = *&dword_1EB75E0E4;
     FigSimpleMutexUnlock();
-    if (v45 != v13)
+    if (v54 != v13)
     {
       FigSimpleMutexLock();
       dword_1EB75E0E4 = LODWORD(v13);
       FigSimpleMutexUnlock();
-      CMSMNotificationUtility_PostVolumeDidChangeToVolumeButtonClientsWithPayload(v26);
+      CMSMNotificationUtility_PostVolumeDidChangeToVolumeButtonClientsWithPayload(v30, v55);
     }
 
-    CMSMNotificationUtility_PostVolumeDidChangeToAVSystemControllersWithPayload(v26);
+    CMSMNotificationUtility_PostVolumeDidChangeToAVSystemControllersWithPayload(v30);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pvmStateDidChangeCallback:(id)callback
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
   [+[MXSessionManager sharedInstance](MXSessionManager duckVolumeForSpeakerVolumeLimit];
   v6 = v5;
@@ -2306,27 +2467,27 @@ LABEL_46:
   LODWORD(v8) = 0.5;
   LODWORD(v9) = v6;
   v10 = [(MXDuckingSource *)v7 initWithType:7 ID:0 duckVolume:v9 duckFadeDuration:v8];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   obj = copyMXCoreSessionList;
-  v11 = [copyMXCoreSessionList countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [copyMXCoreSessionList countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v21;
     do
     {
       v14 = 0;
       do
       {
-        if (*v24 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * v14);
+        v15 = *(*(&v20 + 1) + 8 * v14);
         if ([(MXSessionManager *)self isSessionDucked:v15 duckingSource:v10])
         {
           [(MXSessionManager *)self startAsyncDuckingOperation];
@@ -2337,13 +2498,13 @@ LABEL_46:
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          [(MXSessionManager *)self unduckVolume:v15 sessionCausingUnduck:0 duckingSource:v10, v20, v21];
+          [(MXSessionManager *)self unduckVolume:v15 sessionCausingUnduck:0 duckingSource:v10];
 LABEL_14:
           [(MXSessionManager *)self endAsyncDuckingOperationForSession:v15];
           goto LABEL_15;
         }
 
-        if ([v15 isActive] && -[MXSessionManager shouldDuckSessionForSpeakerVolumeLimit:](self, "shouldDuckSessionForSpeakerVolumeLimit:", v15))
+        if (objc_msgSend_isActive(v15) && [(MXSessionManager *)self shouldDuckSessionForSpeakerVolumeLimit:v15])
         {
           [(MXSessionManager *)self startAsyncDuckingOperation];
           if (dword_1EB75DE40)
@@ -2353,7 +2514,7 @@ LABEL_14:
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          [(MXSessionManager *)self duckVolume:v15 duckerSession:0 duckingSource:v10, v20, v21];
+          [(MXSessionManager *)self duckVolume:v15 duckerSession:0 duckingSource:v10];
           goto LABEL_14;
         }
 
@@ -2362,39 +2523,37 @@ LABEL_15:
       }
 
       while (v12 != v14);
-      v18 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v18 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       v12 = v18;
     }
 
     while (v18);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copySessionWithAudioSessionID:(unsigned int)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 audioSessionID] == d)
         {
           v10 = v9;
@@ -2402,7 +2561,7 @@ LABEL_15:
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -2415,40 +2574,39 @@ LABEL_15:
   v9 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)copyActiveSessionsInfoForAdditiveRouting
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v18 = *MEMORY[0x1E69E9840];
+  v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
-        if ([v8 isActive] && !-[MXSessionManager isSpeechDetectCategory:](self, "isSpeechDetectCategory:", objc_msgSend(v8, "audioCategory")) && (objc_msgSend(v8, "isIDSMXCoreSession") & 1) == 0 && (objc_msgSend(v8, "isHardwareSafetySession") & 1) == 0)
+        v8 = *(*(&v13 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v8) && !-[MXSessionManager isSpeechDetectCategory:](self, "isSpeechDetectCategory:", [v8 audioCategory]) && (objc_msgSend(v8, "isIDSMXCoreSession") & 1) == 0 && (objc_msgSend(v8, "isHardwareSafetySession") & 1) == 0)
         {
           additiveRoutingInfo = [v8 additiveRoutingInfo];
           if (additiveRoutingInfo)
           {
-            [v15 addObject:additiveRoutingInfo];
+            [v12 addObject:additiveRoutingInfo];
           }
 
           else
@@ -2460,28 +2618,26 @@ LABEL_11:
         }
       }
 
-      v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v12;
 }
 
 - (id)copySessionsThatUserIntendsToUnmute:(unsigned int)unmute
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v3 = *&unmute;
+  v36 = *MEMORY[0x1E69E9840];
   v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  VolumeButtonClient = CMSessionMgrFindVolumeButtonClient(unmute);
-  if (VolumeButtonClient && (v6 = VolumeButtonClient, [VolumeButtonClient isActive]))
+  VolumeButtonClient = CMSessionMgrFindVolumeButtonClient(v3, v5);
+  if (VolumeButtonClient && (v7 = VolumeButtonClient, objc_msgSend_isActive(VolumeButtonClient)))
   {
-    isOutputMuted = [v6 isOutputMuted];
+    isOutputMuted = [v7 isOutputMuted];
     if (dword_1EB75DE40)
     {
-      v29 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2489,7 +2645,7 @@ LABEL_11:
 
     if (isOutputMuted)
     {
-      [v23 addObject:v6];
+      [v23 addObject:v7];
     }
   }
 
@@ -2500,229 +2656,288 @@ LABEL_11:
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v10 = [copyMXCoreSessionList countByEnumeratingWithState:&v24 objects:v30 count:16];
-    if (v10)
+    v11 = [copyMXCoreSessionList countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v25;
+      v12 = v11;
+      v13 = *v25;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v12)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(copyMXCoreSessionList);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
-          if ([v14 isOutputMuted])
+          v15 = *(*(&v24 + 1) + 8 * i);
+          if ([v15 isOutputMuted])
           {
             if (dword_1EB75DE40)
             {
               v29 = 0;
               type = OS_LOG_TYPE_DEFAULT;
-              v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v16 = v29;
-              if (os_log_type_enabled(v15, type))
+              v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v17 = v29;
+              v18 = type;
+              if (os_log_type_enabled(v16, type))
               {
-                v17 = v16;
+                v19 = v17;
               }
 
               else
               {
-                v17 = v16 & 0xFFFFFFFE;
+                v19 = v17 & 0xFFFFFFFE;
               }
 
-              if (v17)
+              if (v19)
               {
-                clientName = [v14 clientName];
+                clientName = [v15 clientName];
                 v31 = 136315394;
                 v32 = "[MXSessionManager copySessionsThatUserIntendsToUnmute:]";
                 v33 = 2114;
                 v34 = clientName;
                 LODWORD(v22) = 22;
-                v21 = &v31;
-                _os_log_send_and_compose_impl();
+                _os_log_send_and_compose_impl(v19, 0, v35, 128, &dword_1B17A2000, v16, v18, "-MXSessionManager- %s: Found outputMuted session '%{public}@'", &v31, v22);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
-            [v23 addObject:{v14, v21, v22}];
+            [v23 addObject:v15];
           }
         }
 
-        v11 = [copyMXCoreSessionList countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v12 = [copyMXCoreSessionList countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v23;
+}
+
+- (void)handleUserIntentToUnmute:(unsigned int)unmute
+{
+  v3 = *&unmute;
+  v20 = *MEMORY[0x1E69E9840];
+  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(self, a2))
+  {
+    v4 = [+[MXSessionManager sharedInstance](MXSessionManager copySessionsThatUserIntendsToUnmute:"copySessionsThatUserIntendsToUnmute:", v3];
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v16;
+      v8 = &qword_1EB75D000;
+      do
+      {
+        for (i = 0; i != v6; ++i)
+        {
+          if (*v16 != v7)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          v10 = *(*(&v15 + 1) + 8 * i);
+          if (objc_msgSend_isActive(v10) && [v10 hasAudioMode:@"ShortFormVideo"])
+          {
+            if (dword_1EB75DE40)
+            {
+              v11 = v4;
+              v12 = v8;
+              os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+              v8 = v12;
+              fig_log_call_emit_and_clean_up_after_send_and_compose();
+              v4 = v11;
+            }
+
+            [v10 setIsOutputMuted:0];
+            cmsBeginInterruptionGuts(v10, 0, 2);
+            [+[MXSessionManager sharedInstance](MXSessionManager unmuteOutputForSession:"unmuteOutputForSession:", v10];
+            CMSMNotificationUtility_PostIsOutputMutedDidChange(v10, v14);
+          }
+
+          CMSMNotificationUtility_PostUserIntentToUnmuteDidChange(v10, 1);
+        }
+
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v6);
+    }
+  }
 }
 
 - (void)dumpDebugInfo
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
+  v3 = &qword_1EB75D000;
   if (dword_1EB75DE40)
   {
-    v41 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock:v25] lock];
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] lock];
   if (dword_1EB75DE40)
   {
-    v41 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
-    v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-  }
-
-  if ([(NSMutableDictionary *)[(MXSessionManager *)self pickableRoutesDescriptions:v26] count])
-  {
-    CFDictionaryApplyFunction([(MXSessionManager *)self pickableRoutesDescriptions], CMSMUtility_PrintRouteDescriptions, 0);
-  }
-
-  if (dword_1EB75DE40)
-  {
-    v41 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock:v27] unlock];
+  if ([(NSMutableDictionary *)[(MXSessionManager *)self pickableRoutesDescriptions] count])
+  {
+    CFDictionaryApplyFunction([(MXSessionManager *)self pickableRoutesDescriptions], CMSMUtility_PrintRouteDescriptions, 0);
+  }
+
   if (dword_1EB75DE40)
   {
-    v41 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v7 = [(MXSessionManager *)self devicesSampleRates:v28];
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v36 objects:v48 count:16];
-  if (v8)
+  [(NSRecursiveLock *)[(MXSessionManager *)self propertiesLock] unlock];
+  if (dword_1EB75DE40)
   {
-    v9 = v8;
-    v35 = *v37;
+    v36 = 0;
+    type = OS_LOG_TYPE_DEFAULT;
+    v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  devicesSampleRates = [(MXSessionManager *)self devicesSampleRates];
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v9 = [(NSDictionary *)devicesSampleRates countByEnumeratingWithState:&v31 objects:v43 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v30 = *v32;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v35)
+        if (*v32 != v30)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(devicesSampleRates);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
-        v12 = [(NSDictionary *)v7 objectForKey:v11, v29, v34];
+        v12 = *(*(&v31 + 1) + 8 * i);
+        v13 = [(NSDictionary *)devicesSampleRates objectForKey:v12];
         if (dword_1EB75DE40)
         {
-          v13 = v12;
-          v41 = 0;
+          v14 = v13;
+          v36 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v15 = v41;
-          if (os_log_type_enabled(v14, type))
+          v15 = v3;
+          v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v17 = v36;
+          v18 = type;
+          if (os_log_type_enabled(v16, type))
           {
-            v16 = v15;
+            v19 = v17;
           }
 
           else
           {
-            v16 = v15 & 0xFFFFFFFE;
+            v19 = v17 & 0xFFFFFFFE;
           }
 
-          if (v16)
+          if (v19)
           {
-            VADNameForVADID = CMSMUtility_GetVADNameForVADID([v11 unsignedIntValue]);
-            v42 = 136315650;
-            v43 = "[MXSessionManager dumpDebugInfo]";
-            v44 = 2114;
-            v45 = VADNameForVADID;
-            v46 = 2114;
-            v47 = v13;
-            LODWORD(v34) = 32;
-            v29 = &v42;
-            _os_log_send_and_compose_impl();
+            VADNameForVADID = CMSMUtility_GetVADNameForVADID([v12 unsignedIntValue]);
+            v37 = 136315650;
+            v38 = "[MXSessionManager dumpDebugInfo]";
+            v39 = 2114;
+            v40 = VADNameForVADID;
+            v41 = 2114;
+            v42 = v14;
+            LODWORD(v29) = 32;
+            _os_log_send_and_compose_impl(v19, 0, v44, 128, &dword_1B17A2000, v16, v18, "-MXSessionManager- %s: '%{public}@' sample rate=%{public}@", &v37, v29);
           }
 
+          v3 = v15;
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
       }
 
-      v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v10 = [(NSDictionary *)devicesSampleRates countByEnumeratingWithState:&v31 objects:v43 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
   if (dword_1EB75DE40)
   {
-    v41 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v19 = v41;
-    if (os_log_type_enabled(v18, type))
+    v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v22 = v36;
+    v23 = type;
+    if (os_log_type_enabled(v21, type))
     {
-      v20 = v19;
+      v24 = v22;
     }
 
     else
     {
-      v20 = v19 & 0xFFFFFFFE;
+      v24 = v22 & 0xFFFFFFFE;
     }
 
-    if (v20)
+    if (v24)
     {
-      v42 = 136315138;
-      v43 = "[MXSessionManager dumpDebugInfo]";
-      _os_log_send_and_compose_impl();
+      v37 = 136315138;
+      v38 = "[MXSessionManager dumpDebugInfo]";
+      _os_log_send_and_compose_impl(v24, 0, v44, 128, &dword_1B17A2000, v21, v23, "-MXSessionManager- %s: #######################################################################################################################################", &v37);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE40)
     {
-      v41 = 0;
+      v36 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v22 = v41;
-      if (os_log_type_enabled(v21, type))
+      v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v26 = v36;
+      v27 = type;
+      if (os_log_type_enabled(v25, type))
       {
-        v23 = v22;
+        v28 = v26;
       }
 
       else
       {
-        v23 = v22 & 0xFFFFFFFE;
+        v28 = v26 & 0xFFFFFFFE;
       }
 
-      if (v23)
+      if (v28)
       {
-        v42 = 136315138;
-        v43 = "[MXSessionManager dumpDebugInfo]";
-        _os_log_send_and_compose_impl();
+        v37 = 136315138;
+        v38 = "[MXSessionManager dumpDebugInfo]";
+        _os_log_send_and_compose_impl(v28, 0, v44, 128, &dword_1B17A2000, v25, v27, "-MXSessionManager- %s: =======================================================================================================================================", &v37);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getUpdatedDuckVolume:(id)volume outDuckVolume:(float *)duckVolume
@@ -2775,32 +2990,32 @@ LABEL_11:
 
 - (void)addDuckerToSession:(id)session duckerSession:(id)duckerSession duckingSource:(id)source
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   type = [source type];
   [source ID];
   isSingleton = [source isSingleton];
   if (duckerSession || type != 2)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     duckingSourceList = [session duckingSourceList];
-    v11 = [duckingSourceList countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [duckingSourceList countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
 LABEL_5:
       v14 = 0;
       while (1)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(duckingSourceList);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * v14);
+        v15 = *(*(&v19 + 1) + 8 * v14);
         if (isSingleton)
         {
           type2 = [source type];
@@ -2822,7 +3037,7 @@ LABEL_5:
 
         if (v12 == ++v14)
         {
-          v12 = [duckingSourceList countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v12 = [duckingSourceList countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v12)
           {
             goto LABEL_5;
@@ -2839,53 +3054,55 @@ LABEL_15:
       [objc_msgSend(session "duckingSourceList")];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeDuckerForSession:(id)session sessionCausingUnduck:(id)unduck duckingSource:(id)source outLastDuckingSourceWasRemoved:(BOOL *)removed
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if ([source type] == 3)
   {
     [objc_msgSend(session "duckingSourceList")];
 LABEL_32:
     *removed = 1;
-    goto LABEL_33;
+    return;
   }
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   duckingSourceList = [session duckingSourceList];
-  v10 = [duckingSourceList countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v10 = [duckingSourceList countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v28;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(duckingSourceList);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
-        if (([source type] != 1 || objc_msgSend(v14, "type") != 1) && (!MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled() || objc_msgSend(source, "type") != 6 || objc_msgSend(v14, "type") != 6) && (objc_msgSend(source, "type") != 7 || objc_msgSend(v14, "type") != 7) && (objc_msgSend(source, "type") != 8 || objc_msgSend(v14, "type") != 8))
+        v14 = *(*(&v27 + 1) + 8 * i);
+        type = [source type];
+        if (type != 1 || (type = [v14 type], type != 1))
         {
-          type = [source type];
-          if (type != [v14 type])
+          if ((!MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(type, v16) || [source type] != 6 || objc_msgSend(v14, "type") != 6) && (objc_msgSend(source, "type") != 7 || objc_msgSend(v14, "type") != 7) && (objc_msgSend(source, "type") != 8 || objc_msgSend(v14, "type") != 8))
           {
-            continue;
-          }
+            type2 = [source type];
+            if (type2 != [v14 type])
+            {
+              continue;
+            }
 
-          v16 = [source ID];
-          if (v16 != [v14 ID])
-          {
-            continue;
+            v18 = [source ID];
+            if (v18 != [v14 ID])
+            {
+              continue;
+            }
           }
         }
 
@@ -2897,7 +3114,7 @@ LABEL_32:
         goto LABEL_24;
       }
 
-      v11 = [duckingSourceList countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [duckingSourceList countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v11)
       {
         continue;
@@ -2913,59 +3130,56 @@ LABEL_24:
     goto LABEL_32;
   }
 
-  v24 = 0u;
   v25 = 0u;
-  v23 = 0u;
+  v26 = 0u;
+  v24 = 0u;
   duckingSourceList2 = [session duckingSourceList];
-  v18 = [duckingSourceList2 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v18)
+  v20 = [duckingSourceList2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v20)
   {
-    v19 = v18;
-    v20 = *v23;
+    v21 = v20;
+    v22 = *v24;
     while (1)
     {
-      if (*v23 != v20)
+      if (*v24 != v22)
       {
         objc_enumerationMutation(duckingSourceList2);
       }
 
-      if (!--v19)
+      if (!--v21)
       {
-        v19 = [duckingSourceList2 countByEnumeratingWithState:&v22 objects:v30 count:16];
-        if (!v19)
+        v21 = [duckingSourceList2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        if (!v21)
         {
           break;
         }
       }
     }
   }
-
-LABEL_33:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (float)getDuckVolumeForBlurEffect:(id)effect duckeeSession:(id)session
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v26 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v25 = 0;
   *cf = 0u;
-  *v25 = 0u;
+  *v24 = 0u;
   CurrentAudioDestination = CMSUtility_GetCurrentAudioDestination(session);
-  cmsmCopyCurrentActiveRouteInfoAtIndexForVADUID(CurrentAudioDestination, 0, &cf[1], &v25[1], v25);
+  cmsmCopyCurrentActiveRouteInfoAtIndexForVADUID(CurrentAudioDestination, 0, &cf[1], &v24[1], v24);
   v8 = -[MXSessionManager getUncustomizedCategory:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "getUncustomizedCategory:", [session audioCategory]);
   audioMode = [session audioMode];
-  v27[0] = *cf;
-  v27[1] = *v25;
-  v28 = v26;
-  v10 = PVMGetVolumePreference(v8, audioMode, v27);
+  v26[0] = *cf;
+  v26[1] = *v24;
+  v27 = v25;
+  v10 = PVMGetVolumePreference(v8, audioMode, v26);
   if (cf[1])
   {
     CFRelease(cf[1]);
   }
 
-  if (v25[1])
+  if (v24[1])
   {
-    CFRelease(v25[1]);
+    CFRelease(v24[1]);
   }
 
   if (cf[1])
@@ -3019,13 +3233,12 @@ LABEL_33:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (BOOL)areDuckerAndDuckeePlayingOnDifferentVADs:(id)ds duckerSession:(id)session
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(ds);
   if (session)
   {
@@ -3045,124 +3258,122 @@ LABEL_33:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = CurrentOutputVADID != v7;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return CurrentOutputVADID != v7;
 }
 
 - (void)duckVolume:(id)volume duckerSession:(id)session duckingSource:(id)source
 {
-  v32 = *MEMORY[0x1E69E9840];
-  if (!session || !CMSUtility_SessionDucksOthers(volume))
+  v33 = *MEMORY[0x1E69E9840];
+  if (session && CMSUtility_SessionDucksOthers(volume))
   {
-    type = [source type];
-    v11 = [source ID];
-    [source duckVolume];
-    v31 = v12;
-    [source duckFadeDuration];
-    v14 = v13;
-    if (type)
+    if (!dword_1EB75DE40)
     {
-      v15 = 0;
+      return;
     }
 
-    else
-    {
-      v15 = CMSystemSoundMgr_SystemSoundMustBeHeard(v11) != 0;
-    }
-
-    if (CMSUtility_GetPrefersNoDucking(volume) && type != 1 && !v15 && (!MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled() || type != 6))
-    {
-      if (!dword_1EB75DE40)
-      {
-        goto LABEL_28;
-      }
-
-      goto LABEL_22;
-    }
-
-    [(MXSessionManager *)self addDuckerToSession:volume duckerSession:session duckingSource:source];
-    if ([volume isDucked])
-    {
-      goto LABEL_28;
-    }
-
-    if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy() && [volume isOutputMuted])
-    {
-      if (!dword_1EB75DE40)
-      {
-        goto LABEL_28;
-      }
-
-LABEL_22:
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      goto LABEL_23;
-    }
-
-    [+[MXSessionManager sharedInstance](MXSessionManager cancelAnyInProgressRampIfNeeded:"cancelAnyInProgressRampIfNeeded:reason:" reason:volume, 1];
-    [(MXSessionManager *)self getUpdatedDuckVolume:session outDuckVolume:&v31];
-    if (session)
-    {
-      if (dword_1EB75DE40)
-      {
-        v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-LABEL_26:
-        fig_log_call_emit_and_clean_up_after_send_and_compose();
-      }
-    }
-
-    else if (dword_1EB75DE40)
-    {
-      v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-      goto LABEL_26;
-    }
-
-    LODWORD(v16) = v31;
-    v20 = [MEMORY[0x1E696AD98] numberWithFloat:{v16, v29, v30}];
-    LODWORD(v21) = v14;
-    v22 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-    CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(volume);
-    vaemSetToolboxDuckingEnabled(CurrentOutputVADID);
-    CMSUtility_PostInterruptionCommandNotification(volume, 2u, [volume clientName], 0, v20, v22, 0, 0);
-    LODWORD(v24) = v14;
-    [(MXSessionManager *)self updateMostRecentDuckFadeDuration:1 duckOperation:session duckerSession:volume sessionToDuck:v24];
-    [volume setIsDucked:1];
-    LODWORD(v25) = v14;
-    [volume setAudioQueueFadeDuration:v25];
-    LODWORD(v26) = v31;
-    [volume setAudioQueueDuckVolume:v26];
-    LODWORD(v27) = v31;
-    [session setLastDuckVolumeApplied:v27];
-    goto LABEL_28;
+    v32 = 0;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+LABEL_23:
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return;
   }
 
-  if (dword_1EB75DE40)
+  type = [source type];
+  v11 = [source ID];
+  [source duckVolume];
+  v32 = v12;
+  [source duckFadeDuration];
+  v14 = v13;
+  if (type)
   {
-    v31 = 0;
-    v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-LABEL_23:
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = CMSystemSoundMgr_SystemSoundMustBeHeard(v11) != 0;
+  }
+
+  PrefersNoDucking = CMSUtility_GetPrefersNoDucking(volume);
+  if (PrefersNoDucking && type != 1 && !v15 && (!MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(PrefersNoDucking, v17) || type != 6))
+  {
+    if (!dword_1EB75DE40)
+    {
+      return;
+    }
+
+    v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    goto LABEL_23;
+  }
+
+  [(MXSessionManager *)self addDuckerToSession:volume duckerSession:session duckingSource:source];
+  isDucked = [volume isDucked];
+  if (isDucked)
+  {
+    return;
+  }
+
+  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(isDucked, v19) && [volume isOutputMuted])
+  {
+    if (!dword_1EB75DE40)
+    {
+      return;
+    }
+
+    v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    goto LABEL_23;
+  }
+
+  [+[MXSessionManager sharedInstance](MXSessionManager cancelAnyInProgressRampIfNeeded:"cancelAnyInProgressRampIfNeeded:reason:" reason:volume, 1];
+  [(MXSessionManager *)self getUpdatedDuckVolume:session outDuckVolume:&v32];
+  if (session)
+  {
+    if (dword_1EB75DE40)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else if (dword_1EB75DE40)
+  {
+LABEL_25:
+    v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-LABEL_28:
-  v28 = *MEMORY[0x1E69E9840];
+  LODWORD(v21) = v32;
+  v24 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
+  LODWORD(v25) = v14;
+  v26 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
+  CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(volume);
+  vaemSetToolboxDuckingEnabled(CurrentOutputVADID, 1);
+  CMSUtility_PostInterruptionCommandNotification(volume, 2u, [volume clientName], 0, v24, v26, 0, 0);
+  LODWORD(v28) = v14;
+  [(MXSessionManager *)self updateMostRecentDuckFadeDuration:1 duckOperation:session duckerSession:volume sessionToDuck:v28];
+  [volume setIsDucked:1];
+  LODWORD(v29) = v14;
+  [volume setAudioQueueFadeDuration:v29];
+  LODWORD(v30) = v32;
+  [volume setAudioQueueDuckVolume:v30];
+  LODWORD(v31) = v32;
+  [session setLastDuckVolumeApplied:v31];
 }
 
 - (void)unduckVolume:(id)volume sessionCausingUnduck:(id)unduck duckingSource:(id)source
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([volume isDucked])
   {
     v9 = unduck ? unduck : volume;
     [v9 unduckFadeDuration];
     v11 = v10 <= 0.0 ? 0.5 : v10;
-    v22 = 0;
-    [(MXSessionManager *)self removeDuckerForSession:volume sessionCausingUnduck:unduck duckingSource:source outLastDuckingSourceWasRemoved:&v22];
-    if (v22 == 1)
+    v19 = 0;
+    [(MXSessionManager *)self removeDuckerForSession:volume sessionCausingUnduck:unduck duckingSource:source outLastDuckingSourceWasRemoved:&v19];
+    if (v19 == 1)
     {
       [volume setIsDucked:0];
       if (![volume interruptingSession])
@@ -3180,42 +3391,40 @@ LABEL_28:
 
         CMSUtility_PostInterruptionCommandNotification(volume, 3u, [volume clientName], 0, v15, v13, 0, 0);
         CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(volume);
-        vaemSetToolboxDuckingEnabled(CurrentOutputVADID);
+        vaemSetToolboxDuckingEnabled(CurrentOutputVADID, 0);
         *&v18 = v11;
         [(MXSessionManager *)self updateMostRecentDuckFadeDuration:0 duckOperation:unduck duckerSession:volume sessionToDuck:v18];
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSessionDucked:(id)ducked duckingSource:(id)source
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   LODWORD(v6) = [ducked isDucked];
   if (v6)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     duckingSourceList = [ducked duckingSourceList];
-    v6 = [duckingSourceList countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [duckingSourceList countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(duckingSourceList);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           type = [v11 type];
           if (type == [source type])
           {
@@ -3223,12 +3432,12 @@ LABEL_28:
             if (v13 == [source ID])
             {
               LOBYTE(v6) = 1;
-              goto LABEL_13;
+              return v6;
             }
           }
         }
 
-        v8 = [duckingSourceList countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [duckingSourceList countByEnumeratingWithState:&v15 objects:v19 count:16];
         LOBYTE(v6) = 0;
         if (v8)
         {
@@ -3240,110 +3449,101 @@ LABEL_28:
     }
   }
 
-LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)getDuckingSource:(id)source duckerSession:(id)session
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   duckingSourceList = [source duckingSourceList];
-  v6 = [duckingSourceList countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v6)
+  v6 = [duckingSourceList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (!v6)
   {
-    v7 = v6;
-    v8 = *v15;
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = *v14;
 LABEL_3:
-    v9 = 0;
-    while (1)
+  v9 = 0;
+  while (1)
+  {
+    if (*v14 != v8)
     {
-      if (*v15 != v8)
-      {
-        objc_enumerationMutation(duckingSourceList);
-      }
+      objc_enumerationMutation(duckingSourceList);
+    }
 
-      v10 = *(*(&v14 + 1) + 8 * v9);
-      if ([v10 type] == 2)
+    v10 = *(*(&v13 + 1) + 8 * v9);
+    if ([v10 type] == 2)
+    {
+      v11 = [v10 ID];
+      if (v11 == [objc_msgSend(session "ID")])
       {
-        v11 = [v10 ID];
-        if (v11 == [objc_msgSend(session "ID")])
-        {
-          break;
-        }
-      }
-
-      if (v7 == ++v9)
-      {
-        v7 = [duckingSourceList countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v7)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_10;
+        return v10;
       }
     }
-  }
 
-  else
-  {
-LABEL_10:
-    v10 = 0;
-  }
+    if (v7 == ++v9)
+    {
+      v7 = [duckingSourceList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v7)
+      {
+        goto LABEL_3;
+      }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v10;
+      return 0;
+    }
+  }
 }
 
 - (void)duckSessionIfDuckerIsActive:(id)active
 {
   v5 = CMSMUtility_CopyCurrentRouteTypes();
   v6 = CMSUtility_CopyActiveDuckerForSession(active);
-  [(MXSessionManager *)self startAsyncDuckingOperation];
-  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled())
+  startAsyncDuckingOperation = [(MXSessionManager *)self startAsyncDuckingOperation];
+  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(startAsyncDuckingOperation, v8))
   {
     if (v6)
     {
-      v7 = [v6 hasAudioCategory:@"VoiceOver"];
-      v8 = +[MXSessionManager sharedInstance];
-      if (v7)
+      v9 = [v6 hasAudioCategory:@"VoiceOver"];
+      v10 = +[MXSessionManager sharedInstance];
+      if (v9)
       {
-        v9 = v6;
+        v11 = v6;
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
     }
 
     else
     {
-      v8 = +[MXSessionManager sharedInstance];
-      v7 = 0;
+      v10 = +[MXSessionManager sharedInstance];
       v9 = 0;
+      v11 = 0;
     }
 
-    v10 = v7 & [(MXSessionManager *)v8 duckSessionForVoiceOverIfNeeded:active voiceOverSession:v9];
+    v12 = v9 & [(MXSessionManager *)v10 duckSessionForVoiceOverIfNeeded:active voiceOverSession:v11];
   }
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(v12) = 0;
   }
 
-  v19 = 0;
-  if (v6 && (v10 & 1) == 0)
+  v21 = 0;
+  if (v6 && (v12 & 1) == 0)
   {
-    v11 = [MXDuckingSource alloc];
-    v12 = [objc_msgSend(v6 "ID")];
+    v13 = [MXDuckingSource alloc];
+    v14 = [objc_msgSend(v6 "ID")];
     [v6 duckToLevelScalar];
-    v19 = [MXDuckingSource initWithType:v11 ID:"initWithType:ID:duckVolume:duckFadeDuration:" duckVolume:2 duckFadeDuration:v12];
+    v21 = [MXDuckingSource initWithType:v13 ID:"initWithType:ID:duckVolume:duckFadeDuration:" duckVolume:2 duckFadeDuration:v14];
     [(MXSessionManager *)self duckVolume:active duckerSession:v6 duckingSource:?];
     [v6 setNeedToEndInterruption:1];
   }
@@ -3351,12 +3551,12 @@ LABEL_10:
   if ([(MXSessionManager *)self shouldDuckSessionForSpeakerVolumeLimit:active])
   {
     [+[MXSessionManager sharedInstance](MXSessionManager duckVolumeForSpeakerVolumeLimit];
-    v14 = v13;
-    v15 = [MXDuckingSource alloc];
-    LODWORD(v16) = 0.5;
-    LODWORD(v17) = v14;
-    v18 = [(MXDuckingSource *)v15 initWithType:7 ID:0 duckVolume:v17 duckFadeDuration:v16];
-    [(MXSessionManager *)self duckVolume:active duckerSession:0 duckingSource:v18];
+    v16 = v15;
+    v17 = [MXDuckingSource alloc];
+    LODWORD(v18) = 0.5;
+    LODWORD(v19) = v16;
+    v20 = [(MXDuckingSource *)v17 initWithType:7 ID:0 duckVolume:v19 duckFadeDuration:v18];
+    [(MXSessionManager *)self duckVolume:active duckerSession:0 duckingSource:v20];
   }
 
   [(MXSessionManager *)self endAsyncDuckingOperationForSession:active];
@@ -3364,30 +3564,30 @@ LABEL_10:
 
 - (void)duckSessionsForDucker:(id)ducker sessionsToDuck:(id)duck
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (duck)
   {
     [(MXSessionManager *)self startAsyncDuckingOperation];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v6 = [duck countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v6 = [duck countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         v9 = 0;
         do
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(duck);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * v9);
+          v10 = *(*(&v20 + 1) + 8 * v9);
           v11 = [MXDuckingSource alloc];
           v12 = [objc_msgSend(ducker "ID")];
           [ducker duckToLevelScalar];
@@ -3407,7 +3607,7 @@ LABEL_10:
         }
 
         while (v7 != v9);
-        v7 = [duck countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [duck countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
@@ -3415,67 +3615,65 @@ LABEL_10:
 
     [(MXSessionManager *)self endAsyncDuckingOperationForSession:ducker];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unduckSessionsForDucker:(id)ducker
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = -[MXDuckingSource initWithType:ID:duckVolume:duckFadeDuration:]([MXDuckingSource alloc], "initWithType:ID:duckVolume:duckFadeDuration:", 2, [objc_msgSend(ducker "ID")], 0.0, 0.0);
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         if ([v12 isDucked] && -[MXSessionManager isSessionDucked:duckingSource:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "isSessionDucked:duckingSource:", v12, v6))
         {
           [v5 addObject:v12];
         }
       }
 
-      v9 = [copyMXCoreSessionList countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [copyMXCoreSessionList countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
   [(MXSessionManager *)self startAsyncDuckingOperation];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v13 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v13 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v5);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * j);
+        v17 = *(*(&v18 + 1) + 8 * j);
         [+[MXSessionManager sharedInstance](MXSessionManager unduckVolume:"unduckVolume:sessionCausingUnduck:duckingSource:" sessionCausingUnduck:v17 duckingSource:ducker, v6];
         if ([v17 duckCommandSentToCarSession])
         {
@@ -3483,42 +3681,40 @@ LABEL_10:
         }
       }
 
-      v14 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
   }
 
   [(MXSessionManager *)self endAsyncDuckingOperationForSession:ducker];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unduckSessionsForDuckingSource:(id)source
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(MXSessionManager *)self startAsyncDuckingOperation];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if ([+[MXSessionManager isSessionDucked:"isSessionDucked:duckingSource:"]
         {
           [+[MXSessionManager sharedInstance](MXSessionManager unduckVolume:"unduckVolume:sessionCausingUnduck:duckingSource:" sessionCausingUnduck:v10 duckingSource:0, source];
@@ -3528,29 +3724,27 @@ LABEL_10:
       }
 
       while (v7 != v9);
-      v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(MXSessionManager *)self endAsyncDuckingOperation];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDuckingSourceInfoForSession:(id)session duckerSession:(id)duckerSession duckVolume:(float)volume duckFadeDuration:(float)duration
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v8 = [MXSessionManager getDuckingSource:"getDuckingSource:duckerSession:" duckerSession:?];
   if (v8)
   {
     v10 = v8;
     *&v9 = volume;
     [v8 setDuckVolume:v9];
-    v11 = *MEMORY[0x1E69E9840];
-    *&v12 = duration;
+    *&v11 = duration;
 
-    [v10 setDuckFadeDuration:v12];
+    [v10 setDuckFadeDuration:v11];
   }
 
   else
@@ -3558,40 +3752,39 @@ LABEL_10:
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (BOOL)isAnExistingDuckingSource:(id)source
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = CMSUtility_CopySessionsToDuck(1, 0, source);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [(__CFArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(__CFArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([(MXSessionManager *)self getDuckingSource:*(*(&v13 + 1) + 8 * i) duckerSession:source])
+        if ([(MXSessionManager *)self getDuckingSource:*(*(&v12 + 1) + 8 * i) duckerSession:source])
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [(__CFArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(__CFArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -3604,15 +3797,14 @@ LABEL_10:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)updateDuckVolume:(id)volume duckerSession:(id)session duckVolume:(float)duckVolume duckFadeDuration:(float)duration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   duckVolumeCopy = duckVolume;
-  if (!CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy() || ([volume isOutputMuted] & 1) == 0)
+  if (!CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(self, a2) || ([volume isOutputMuted] & 1) == 0)
   {
     [+[MXSessionManager sharedInstance](MXSessionManager cancelAnyInProgressRampIfNeeded:"cancelAnyInProgressRampIfNeeded:reason:" reason:volume, 1];
     [(MXSessionManager *)self getUpdatedDuckVolume:session outDuckVolume:&duckVolumeCopy];
@@ -3637,13 +3829,11 @@ LABEL_11:
     *&v18 = duckVolumeCopy;
     [session setLastDuckVolumeApplied:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateUnduckVolume:(id)volume duckerSession:(id)session unduckVolume:(float)unduckVolume unduckFadeDuration:(float)duration
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   unduckVolumeCopy = unduckVolume;
   [+[MXSessionManager sharedInstance](MXSessionManager cancelAnyInProgressRampIfNeeded:"cancelAnyInProgressRampIfNeeded:reason:" reason:volume, 1];
   [(MXSessionManager *)self getUpdatedDuckVolume:session outDuckVolume:&unduckVolumeCopy];
@@ -3679,36 +3869,34 @@ LABEL_11:
     [session setLastDuckVolumeApplied:v19];
   }
 
-  result = v15 != 1.0;
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return v15 != 1.0;
 }
 
 - (BOOL)updateDuckVolumeForDucker:(id)ducker duckVolume:(float)volume duckFadeDuration:(float)duration
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v9 = 1;
   v10 = CMSUtility_CopySessionsToDuck(1, 0, ducker);
   [(MXSessionManager *)self startAsyncDuckingOperation];
-  v27 = 0u;
-  v28 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v11 = [(__CFArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v22 = 0u;
+  v23 = 0u;
+  v11 = [(__CFArray *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v23;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         if (([v15 isDucked] & 1) == 0)
         {
           if (dword_1EB75DE40)
@@ -3730,7 +3918,7 @@ LABEL_11:
         [(MXSessionManager *)self updateDuckVolume:v15 duckerSession:ducker duckVolume:v18 duckFadeDuration:v19];
       }
 
-      v12 = [(__CFArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [(__CFArray *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v12)
       {
         continue;
@@ -3743,39 +3931,38 @@ LABEL_11:
   }
 
 LABEL_13:
-  [(MXSessionManager *)self endAsyncDuckingOperation:v23];
+  [(MXSessionManager *)self endAsyncDuckingOperation];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)updateUnduckVolumeForDucker:(id)ducker unduckVolume:(float)volume unduckFadeDuration:(float)duration
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v9 = CMSUtility_CopySessionsToDuck(1, 0, ducker);
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v10 = [(__CFArray *)v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v10 = [(__CFArray *)v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v34;
+    v12 = *v33;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v34 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (([*(*(&v33 + 1) + 8 * i) isDucked] & 1) == 0)
+        if (([*(*(&v32 + 1) + 8 * i) isDucked] & 1) == 0)
         {
           if (dword_1EB75DE40)
           {
-            v32 = 0;
+            v31 = 0;
             type = OS_LOG_TYPE_DEFAULT;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -3787,7 +3974,7 @@ LABEL_13:
         }
       }
 
-      v11 = [(__CFArray *)v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v11 = [(__CFArray *)v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v11)
       {
         continue;
@@ -3798,25 +3985,25 @@ LABEL_13:
   }
 
   [(MXSessionManager *)self startAsyncDuckingOperation];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v14 = [(__CFArray *)v9 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v14 = [(__CFArray *)v9 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v14)
   {
     v17 = v14;
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(v9);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * j);
+        v20 = *(*(&v26 + 1) + 8 * j);
         *&v15 = volume;
         *&v16 = duration;
         [(MXSessionManager *)self updateDuckingSourceInfoForSession:v20 duckerSession:ducker duckVolume:v15 duckFadeDuration:v16];
@@ -3825,7 +4012,7 @@ LABEL_13:
         [(MXSessionManager *)self updateUnduckVolume:v20 duckerSession:ducker unduckVolume:v21 unduckFadeDuration:v22];
       }
 
-      v17 = [(__CFArray *)v9 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v17 = [(__CFArray *)v9 countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v17);
@@ -3835,13 +4022,148 @@ LABEL_13:
   v23 = 1;
 LABEL_20:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
+}
+
+- (int)updateDuckToLevelScalarSetByClient:(BOOL)client session:(id)session newLevel:(float)level newLevelSetByClient:(BOOL)byClient currentLevel:(float)currentLevel currentLevelSetByClient:(BOOL)setByClient
+{
+  setByClientCopy = setByClient;
+  byClientCopy = byClient;
+  clientCopy = client;
+  v38 = *MEMORY[0x1E69E9840];
+  session = [+[MXSessionManager sharedInstance](MXSessionManager isAnExistingDuckingSource:"isAnExistingDuckingSource:", session];
+  [session lastDuckVolumeApplied];
+  v16 = *&v17;
+  *&v17 = level;
+  if (clientCopy)
+  {
+    [session setDuckToLevelScalar:v17];
+    [session setDuckToLevelScalarSetByClient:byClientCopy];
+  }
+
+  else
+  {
+    [session setUnduckToLevelScalar:v17];
+    [session setUnduckToLevelScalarSetByClient:byClientCopy];
+  }
+
+  result = objc_msgSend_isActive(session);
+  if (result)
+  {
+    if ([session interruptionStyle] != 32)
+    {
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return -15685;
+    }
+
+    if ([+[MXSessionManager voiceOverSessionWantsRelativeDucking:"voiceOverSessionWantsRelativeDucking:"]
+    {
+      if (dword_1EB75DE40)
+      {
+        v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
+      }
+
+      [(MXSessionManager *)self startAsyncDuckingOperation];
+      [+[MXSessionManager sharedInstance](MXSessionManager updateDuckedSessionsForVoiceOver:"updateDuckedSessionsForVoiceOver:", session];
+      [(MXSessionManager *)self endAsyncDuckingOperation];
+      return 0;
+    }
+
+    if (clientCopy)
+    {
+      if (session)
+      {
+        if (v16 > level)
+        {
+          v21 = +[MXSessionManager sharedInstance];
+          [session duckToLevelScalar];
+          v23 = v22;
+          [session duckFadeDuration];
+          LODWORD(v25) = v24;
+          LODWORD(v26) = v23;
+          if (![(MXSessionManager *)v21 updateDuckVolumeForDucker:session duckVolume:v26 duckFadeDuration:v25])
+          {
+            v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+            fig_log_call_emit_and_clean_up_after_send_and_compose();
+            *&v36 = currentLevel;
+            [session setDuckToLevelScalar:v36];
+            [session setDuckToLevelScalarSetByClient:setByClientCopy];
+            return -15685;
+          }
+
+          return 0;
+        }
+
+        if (!dword_1EB75DE40)
+        {
+          return 0;
+        }
+      }
+
+      else if (!dword_1EB75DE40)
+      {
+        return 0;
+      }
+    }
+
+    else if (session)
+    {
+      if (level == 1.0)
+      {
+        [+[MXSessionManager sharedInstance](MXSessionManager unduckSessionsForDucker:"unduckSessionsForDucker:", session];
+        return 0;
+      }
+
+      if (v16 < level)
+      {
+        v28 = +[MXSessionManager sharedInstance];
+        [session unduckToLevelScalar];
+        v30 = v29;
+        [session unduckFadeDuration];
+        LODWORD(v32) = v31;
+        LODWORD(v33) = v30;
+        if (![(MXSessionManager *)v28 updateUnduckVolumeForDucker:session unduckVolume:v33 unduckFadeDuration:v32])
+        {
+          v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+          fig_log_call_emit_and_clean_up_after_send_and_compose();
+          *&v37 = currentLevel;
+          [session setUnduckToLevelScalar:v37];
+          [session setUnduckToLevelScalarSetByClient:setByClientCopy];
+          return -15685;
+        }
+
+        return 0;
+      }
+
+      if (!dword_1EB75DE40)
+      {
+        return 0;
+      }
+    }
+
+    else if (!dword_1EB75DE40)
+    {
+      return 0;
+    }
+
+    v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return 0;
+  }
+
+  return result;
 }
 
 - (BOOL)shouldDuckSessionForVoiceOver:(id)over
 {
-  v8[16] = *MEMORY[0x1E69E9840];
+  v9[16] = *MEMORY[0x1E69E9840];
   if (!over)
   {
     if (dword_1EB75DE40)
@@ -3851,22 +4173,27 @@ LABEL_20:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
   if ([over hasAudioCategory:@"VoiceOver"])
   {
-LABEL_12:
-    v4 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
-  v8[0] = 0;
-  PVMCopyVolumeCategoryAndMode(-[MXSessionManager getUncustomizedCategory:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "getUncustomizedCategory:", [over audioCategory]), objc_msgSend(over, "audioMode"), v8, 0);
-  v4 = [over clientPriority] <= 0xA && ((objc_msgSend(v8[0], "isEqualToString:", @"Alert") & 1) == 0 && (objc_msgSend(v8[0], "isEqualToString:", @"Alarm") & 1) == 0 && !objc_msgSend(over, "isTheAssistant") || MX_FeatureFlags_IsAlertsRelativeVoiceOverVolumeEnabled() != 0);
+  v9[0] = 0;
+  PVMCopyVolumeCategoryAndMode(-[MXSessionManager getUncustomizedCategory:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "getUncustomizedCategory:", [over audioCategory]), objc_msgSend(over, "audioMode"), v9, 0);
+  if ([over clientPriority] <= 0xA)
+  {
+    v6 = [v9[0] isEqualToString:@"Alert"];
+    v4 = (v6 & 1) == 0 && (v6 = [v9[0] isEqualToString:@"Alarm"], (v6 & 1) == 0) && (v6 = objc_msgSend(over, "isTheAssistant"), !v6) || MX_FeatureFlags_IsAlertsRelativeVoiceOverVolumeEnabled(v6, v7) != 0;
+  }
 
-LABEL_13:
-  v6 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v4 = 0;
+  }
+
   return v4;
 }
 
@@ -3890,15 +4217,16 @@ LABEL_13:
     {
       if (dword_1EB75DE40)
       {
-        goto LABEL_9;
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+        v13 = 1;
+        goto LABEL_19;
       }
 
-LABEL_14:
-      v13 = 1;
-      goto LABEL_17;
+      goto LABEL_15;
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   if (sessionCopy || (sessionCopy = [(MXSessionManager *)self copyVoiceOverSession]) != 0)
@@ -3908,39 +4236,40 @@ LABEL_14:
       goto LABEL_8;
     }
 
-LABEL_16:
+LABEL_17:
     v13 = 0;
+    goto LABEL_18;
+  }
+
+  v10 = [+[MXSessionManager sharedInstance](MXSessionManager getProjectedAudioDestinationForCategory:"getProjectedAudioDestinationForCategory:mode:" mode:@"VoiceOver", @"Default"];
+  CurrentAudioDestination = CMSUtility_GetCurrentAudioDestination(over);
+  if (CMSMUtility_AreVADsRoutedToTheSamePhysicalDevice(v10, CurrentAudioDestination))
+  {
     goto LABEL_17;
   }
 
-  v9 = [+[MXSessionManager sharedInstance](MXSessionManager getProjectedAudioDestinationForCategory:"getProjectedAudioDestinationForCategory:mode:" mode:@"VoiceOver", @"Default"];
-  CurrentAudioDestination = CMSUtility_GetCurrentAudioDestination(over);
-  if (CMSMUtility_AreVADsRoutedToTheSamePhysicalDevice(v9, CurrentAudioDestination))
-  {
-    goto LABEL_16;
-  }
-
 LABEL_8:
-  if (!dword_1EB75DE40)
+  if (dword_1EB75DE40)
   {
-    goto LABEL_14;
+    v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v13 = 1;
+LABEL_19:
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    goto LABEL_18;
   }
 
-LABEL_9:
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+LABEL_15:
   v13 = 1;
-  fig_log_call_emit_and_clean_up_after_send_and_compose();
-LABEL_17:
+LABEL_18:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)isVoiceOverDuckingActive:(id)active outDuckScalar:(float *)scalar outDuckFadeDuration:(float *)duration
 {
   activeCopy = active;
-  if ((active || (activeCopy = -[MXSessionManager copyActiveVoiceOverSession](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "copyActiveVoiceOverSession")) != 0) && [activeCopy isActive] && CMSUtility_SessionDucksOthers(activeCopy))
+  if ((active || (activeCopy = [+[MXSessionManager copyActiveVoiceOverSession] sharedInstance]!= 0) && objc_msgSend_isActive(activeCopy, a2) && CMSUtility_SessionDucksOthers(activeCopy))
   {
     [activeCopy duckToLevelScalar];
     v10 = v9;
@@ -3973,12 +4302,12 @@ LABEL_9:
 
 - (BOOL)duckSessionForVoiceOverIfNeeded:(id)needed voiceOverSession:(id)session
 {
-  v19[24] = *MEMORY[0x1E69E9840];
+  v16[24] = *MEMORY[0x1E69E9840];
   needed = [+[MXSessionManager sharedInstance](MXSessionManager shouldDuckSessionForVoiceOver:"shouldDuckSessionForVoiceOver:", needed];
   if (needed)
   {
-    v19[0] = 0;
-    needed = [+[MXSessionManager sharedInstance](MXSessionManager isVoiceOverDuckingActive:"isVoiceOverDuckingActive:outDuckScalar:outDuckFadeDuration:" outDuckScalar:session outDuckFadeDuration:v19 + 4, v19];
+    v16[0] = 0;
+    needed = [+[MXSessionManager sharedInstance](MXSessionManager isVoiceOverDuckingActive:"isVoiceOverDuckingActive:outDuckScalar:outDuckFadeDuration:" outDuckScalar:session outDuckFadeDuration:v16 + 4, v16];
     if (needed)
     {
       copyActiveVoiceOverSession = [+[MXSessionManager sharedInstance](MXSessionManager copyActiveVoiceOverSession];
@@ -3992,8 +4321,8 @@ LABEL_9:
       else
       {
         v10 = [MXDuckingSource alloc];
-        LODWORD(v11) = HIDWORD(v19[0]);
-        LODWORD(v12) = v19[0];
+        LODWORD(v11) = HIDWORD(v16[0]);
+        LODWORD(v12) = v16[0];
         v13 = [(MXDuckingSource *)v10 initWithType:6 ID:0 duckVolume:v11 duckFadeDuration:v12];
         if (dword_1EB75DE40)
         {
@@ -4002,14 +4331,13 @@ LABEL_9:
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        [+[MXSessionManager duckVolume:v17]duckingSource:"duckVolume:duckerSession:duckingSource:", needed, 0, v13];
+        [+[MXSessionManager sharedInstance](MXSessionManager duckVolume:"duckVolume:duckerSession:duckingSource:" duckerSession:needed duckingSource:0, v13];
 
         LOBYTE(needed) = 1;
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return needed;
 }
 
@@ -4023,7 +4351,7 @@ LABEL_9:
 
 - (BOOL)voiceOverSessionWantsRelativeDucking:(id)ducking
 {
-  IsRelativeVoiceOverVolumeEnabled = MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled();
+  IsRelativeVoiceOverVolumeEnabled = MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(self, a2);
   LOBYTE(v5) = 0;
   if (ducking)
   {
@@ -4042,14 +4370,15 @@ LABEL_9:
 
 - (void)updateDuckedSessionsForVoiceOver:(id)over
 {
+  selfCopy = self;
   v43 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled())
+  if (MX_FeatureFlags_IsRelativeVoiceOverVolumeEnabled(self, a2))
   {
-    v37 = 0;
-    v5 = [+[MXSessionManager sharedInstance](MXSessionManager isVoiceOverDuckingActive:"isVoiceOverDuckingActive:outDuckScalar:outDuckFadeDuration:" outDuckScalar:over outDuckFadeDuration:&v37 + 4, &v37];
+    v36 = 0;
+    v5 = [+[MXSessionManager sharedInstance](MXSessionManager isVoiceOverDuckingActive:"isVoiceOverDuckingActive:outDuckScalar:outDuckFadeDuration:" outDuckScalar:over outDuckFadeDuration:&v36 + 4, &v36];
     if (dword_1EB75DE40)
     {
-      v36 = 0;
+      v35 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -4061,79 +4390,79 @@ LABEL_9:
       copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
       copyActiveVoiceOverSession = [+[MXSessionManager sharedInstance](MXSessionManager copyActiveVoiceOverSession];
       v9 = [MXDuckingSource alloc];
-      LODWORD(v10) = HIDWORD(v37);
-      LODWORD(v11) = v37;
+      LODWORD(v10) = HIDWORD(v36);
+      LODWORD(v11) = v36;
       v12 = [(MXDuckingSource *)v9 initWithType:6 ID:0 duckVolume:v10 duckFadeDuration:v11];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v13 = [copyMXCoreSessionList countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v13 = [copyMXCoreSessionList countByEnumeratingWithState:&v30 objects:v37 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v32;
-        v29 = copyActiveVoiceOverSession;
-        selfCopy = self;
+        v15 = *v31;
+        v28 = copyActiveVoiceOverSession;
+        v29 = selfCopy;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v32 != v15)
+            if (*v31 != v15)
             {
               objc_enumerationMutation(copyMXCoreSessionList);
             }
 
-            v17 = *(*(&v31 + 1) + 8 * i);
-            if ([v17 isActive])
+            v17 = *(*(&v30 + 1) + 8 * i);
+            if (objc_msgSend_isActive(v17))
             {
-              v18 = [(MXSessionManager *)self shouldSkipDuckingForVoiceOver:v17 inActiveVoiceOverSession:copyActiveVoiceOverSession];
+              v18 = [(MXSessionManager *)selfCopy shouldSkipDuckingForVoiceOver:v17 inActiveVoiceOverSession:copyActiveVoiceOverSession];
               if ([+[MXSessionManager isSessionDucked:"isSessionDucked:duckingSource:"]
               {
                 if (v18)
                 {
                   if (dword_1EB75DE40)
                   {
-                    v36 = 0;
+                    v35 = 0;
                     type = OS_LOG_TYPE_DEFAULT;
                     v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                    v20 = v36;
+                    v20 = v35;
+                    v21 = type;
                     if (os_log_type_enabled(v19, type))
                     {
-                      v21 = v20;
+                      v22 = v20;
                     }
 
                     else
                     {
-                      v21 = v20 & 0xFFFFFFFE;
+                      v22 = v20 & 0xFFFFFFFE;
                     }
 
-                    if (v21)
+                    if (v22)
                     {
                       clientName = [v17 clientName];
-                      v39 = 136315394;
-                      v40 = "[MXSessionManager(DuckingUtilities) updateDuckedSessionsForVoiceOver:]";
-                      v41 = 2114;
-                      v42 = clientName;
-                      LODWORD(v28) = 22;
-                      v27 = &v39;
-                      _os_log_send_and_compose_impl();
+                      v38 = 136315394;
+                      v39 = "[MXSessionManager(DuckingUtilities) updateDuckedSessionsForVoiceOver:]";
+                      v40 = 2114;
+                      v41 = clientName;
+                      LODWORD(v27) = 22;
+                      _os_log_send_and_compose_impl(v22, 0, v42, 128, &dword_1B17A2000, v19, v21, "-MXSessionManagerDuckingUtilities- %s: Unducking %{public}@ because it is playing to a different physical location than VoiceOver.", &v38, v27);
                     }
 
                     fig_log_call_emit_and_clean_up_after_send_and_compose();
-                    copyActiveVoiceOverSession = v29;
-                    self = selfCopy;
+                    copyActiveVoiceOverSession = v28;
+                    selfCopy = v29;
                   }
 
-                  [+[MXSessionManager unduckVolume:v27]duckingSource:"unduckVolume:sessionCausingUnduck:duckingSource:", v17, 0, v12];
+                  [+[MXSessionManager sharedInstance](MXSessionManager unduckVolume:"unduckVolume:sessionCausingUnduck:duckingSource:" sessionCausingUnduck:v17 duckingSource:0, v12];
                 }
 
                 else
                 {
-                  v23 = +[MXSessionManager sharedInstance];
-                  LODWORD(v24) = HIDWORD(v37);
-                  LODWORD(v25) = v37;
-                  [(MXSessionManager *)v23 updateDuckVolume:v17 duckerSession:0 duckVolume:v24 duckFadeDuration:v25];
+                  v24 = +[MXSessionManager sharedInstance];
+                  LODWORD(v25) = HIDWORD(v36);
+                  LODWORD(v26) = v36;
+                  [(MXSessionManager *)v24 updateDuckVolume:v17 duckerSession:0 duckVolume:v25 duckFadeDuration:v26];
                 }
               }
 
@@ -4144,7 +4473,7 @@ LABEL_9:
             }
           }
 
-          v14 = [copyMXCoreSessionList countByEnumeratingWithState:&v31 objects:v38 count:16];
+          v14 = [copyMXCoreSessionList countByEnumeratingWithState:&v30 objects:v37 count:16];
         }
 
         while (v14);
@@ -4153,17 +4482,15 @@ LABEL_9:
 
     else
     {
-      [(MXSessionManager *)self unduckSessionsForVoiceOverDuckingSource];
+      [(MXSessionManager *)selfCopy unduckSessionsForVoiceOverDuckingSource];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)muteOutputForSession:(id)session
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy() && !CMSMUtility_IsCategoryInputOnly([session audioCategory]))
+  v18 = *MEMORY[0x1E69E9840];
+  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(self, a2) && !CMSMUtility_IsCategoryInputOnly([session audioCategory]))
   {
     if (dword_1EB75DE40)
     {
@@ -4186,7 +4513,7 @@ LABEL_9:
     [(MXSessionManager *)self addDuckerToSession:session duckerSession:0 duckingSource:v16];
     [+[MXSessionManager sharedInstance](MXSessionManager cancelAnyInProgressRampIfNeeded:"cancelAnyInProgressRampIfNeeded:reason:" reason:session, 1];
     CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(session);
-    vaemSetToolboxDuckingEnabled(CurrentOutputVADID);
+    vaemSetToolboxDuckingEnabled(CurrentOutputVADID, 1);
     CMSUtility_PostInterruptionCommandNotification(session, 2u, [session clientName], 0, v9, v8, 0, 0);
     [session setIsDucked:1];
     [session setNeedToEndInterruption:1];
@@ -4195,14 +4522,12 @@ LABEL_9:
     [v9 floatValue];
     [session setAudioQueueDuckVolume:?];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unmuteOutputForSession:(id)session
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy() && !CMSMUtility_IsCategoryInputOnly([session audioCategory]))
+  v21 = *MEMORY[0x1E69E9840];
+  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(self, a2) && !CMSMUtility_IsCategoryInputOnly([session audioCategory]))
   {
     if (dword_1EB75DE40)
     {
@@ -4224,18 +4549,16 @@ LABEL_9:
     LODWORD(v16) = v15;
     LODWORD(v17) = v14;
     v18 = [(MXDuckingSource *)v12 initWithType:8 ID:0 duckVolume:v17 duckFadeDuration:v16];
-    v21[0] = 0;
-    [(MXSessionManager *)self removeDuckerForSession:session sessionCausingUnduck:0 duckingSource:v18 outLastDuckingSourceWasRemoved:v21];
-    if (v21[0] == 1)
+    v20[0] = 0;
+    [(MXSessionManager *)self removeDuckerForSession:session sessionCausingUnduck:0 duckingSource:v18 outLastDuckingSourceWasRemoved:v20];
+    if (v20[0] == 1)
     {
       CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(session);
-      vaemSetToolboxDuckingEnabled(CurrentOutputVADID);
+      vaemSetToolboxDuckingEnabled(CurrentOutputVADID, 0);
       CMSUtility_PostInterruptionCommandNotification(session, 3u, [session clientName], 0, v11, v8, 0, 0);
       [session setIsDucked:0];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (float)getSleepDurationForDuckFadeDuration:(float)duration
@@ -4253,10 +4576,29 @@ LABEL_9:
   return fminf(duration, 5.0);
 }
 
+- (void)updateMostRecentDuckFadeDuration:(float)duration duckOperation:(BOOL)operation duckerSession:(id)session sessionToDuck:(id)duck
+{
+  operationCopy = operation;
+  if ([duck isPlayingOutput] && !-[MXSessionManager isSpeechDetectCategory:](self, "isSpeechDetectCategory:", objc_msgSend(session, "audioCategory")))
+  {
+    [(MXSessionManager *)self mostRecentDuckFadeDuration];
+    if (*&v10 > duration)
+    {
+      [(MXSessionManager *)self mostRecentDuckFadeDuration];
+      duration = *&v10;
+    }
+
+    *&v10 = duration;
+    [(MXSessionManager *)self setMostRecentDuckFadeDuration:v10];
+
+    [(MXSessionManager *)self setMostRecentDuckOperation:operationCopy];
+  }
+}
+
 - (void)endAsyncDuckingOperationForSession:(id)session
 {
-  v9 = *MEMORY[0x1E69E9840];
-  IsOffloadActivationOffACQEnabled = MX_FeatureFlags_IsOffloadActivationOffACQEnabled();
+  v7 = *MEMORY[0x1E69E9840];
+  IsOffloadActivationOffACQEnabled = MX_FeatureFlags_IsOffloadActivationOffACQEnabled(self, a2);
   if (session && IsOffloadActivationOffACQEnabled && ([session isInterruptionCalledOffAudioControlQueue] & 1) != 0)
   {
     if (dword_1EB75DE40)
@@ -4265,13 +4607,10 @@ LABEL_9:
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     [(MXSessionManager *)self endAsyncDuckingOperation];
   }
@@ -4279,7 +4618,7 @@ LABEL_9:
 
 - (void)getAndResetAsyncDuckingParameters:(BOOL *)parameters mostRecentDuckFadeDuration:(float *)duration
 {
-  if (MX_FeatureFlags_IsOffloadActivationOffACQEnabled())
+  if (MX_FeatureFlags_IsOffloadActivationOffACQEnabled(self, a2))
   {
     *parameters = [(MXSessionManager *)self mostRecentDuckOperation];
     [(MXSessionManager *)self mostRecentDuckFadeDuration];
@@ -4292,8 +4631,8 @@ LABEL_9:
 
 - (void)sleepForAsyncDucking:(BOOL)ducking duration:(float)duration
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsAsyncDuckingEnabled())
+  v10 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsAsyncDuckingEnabled(self, a2))
   {
     *&v6 = duration;
     [(MXSessionManager *)self getSleepDurationForDuckFadeDuration:v6];
@@ -4307,78 +4646,72 @@ LABEL_9:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      [MEMORY[0x1E696AF00] sleepForTimeInterval:{v8, v11, v12}];
+      [MEMORY[0x1E696AF00] sleepForTimeInterval:v8];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldDuckSessionForSpeakerVolumeLimit:(id)limit
 {
-  v15[22] = *MEMORY[0x1E69E9840];
+  v14[22] = *MEMORY[0x1E69E9840];
   if (([limit isSharePlayCallSession] & 1) != 0 || (objc_msgSend(limit, "isSharePlayMediaSession") & 1) != 0 || !PVMIsMaxVolumeLimitForBuiltInSpeakerEnabled())
   {
-    v5 = 0;
+    return 0;
+  }
+
+  v13 = 0;
+  v14[0] = 0;
+  v11 = 0;
+  v12 = 0;
+  v9 = 0;
+  v10 = 0;
+  v8 = 0;
+  PVMCopyCurrentState(0, v14, &v13, &v12, &v11, &v10);
+  if ([v12 isEqualToString:@"Speaker"] && objc_msgSend(v11, "isEqualToString:", @"Speaker") && (v4 = objc_msgSend(v14[0], "isEqualToString:", @"Audio/Video"), PVMCopyVolumeCategoryAndMode(objc_msgSend(limit, "audioCategory"), objc_msgSend(limit, "audioMode"), &v9, &v8), objc_msgSend(v9, "isEqualToString:", @"Audio/Video")))
+  {
+    v5 = v4 ^ 1;
+    if (dword_1EB75DE40)
+    {
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
   }
 
   else
   {
-    v14 = 0;
-    v15[0] = 0;
-    v12 = 0;
-    v13 = 0;
-    v10 = 0;
-    v11 = 0;
-    v9 = 0;
-    PVMCopyCurrentState(0, v15, &v14, &v13, &v12, &v11);
-    if ([v13 isEqualToString:@"Speaker"] && objc_msgSend(v12, "isEqualToString:", @"Speaker") && (v4 = objc_msgSend(v15[0], "isEqualToString:", @"Audio/Video"), PVMCopyVolumeCategoryAndMode(objc_msgSend(limit, "audioCategory"), objc_msgSend(limit, "audioMode"), &v10, &v9), objc_msgSend(v10, "isEqualToString:", @"Audio/Video")))
-    {
-      v5 = v4 ^ 1;
-      if (dword_1EB75DE40)
-      {
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-        fig_log_call_emit_and_clean_up_after_send_and_compose();
-      }
-    }
-
-    else
-    {
-      v5 = 0;
-    }
+    v5 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)interruptEligibleSessionsOnContinuityScreenOutputPortAvailableDidChange
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsInterruptingPlayingSessionsInOnenessEnabled())
+  v15 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsInterruptingPlayingSessionsInOnenessEnabled(self, a2))
   {
     copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+    v10 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(copyMXCoreSessionList);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
-          if ([v8 isActive] && (objc_msgSend(v8, "isTheAssistant") & 1) == 0 && (objc_msgSend(v8, "prefersNoInterruptionsDuringRemoteDeviceControl") & 1) == 0 && (objc_msgSend(v8, "hasPhoneCallBehavior") & 1) == 0 && !CMSMUtility_IsEmergencyAlertCategory(objc_msgSend(v8, "audioCategory")))
+          v8 = *(*(&v10 + 1) + 8 * i);
+          if (objc_msgSend_isActive(v8) && ([v8 isTheAssistant] & 1) == 0 && (objc_msgSend(v8, "prefersNoInterruptionsDuringRemoteDeviceControl") & 1) == 0 && (objc_msgSend(v8, "hasPhoneCallBehavior") & 1) == 0 && !CMSMUtility_IsEmergencyAlertCategory(objc_msgSend(v8, "audioCategory")))
           {
             if (dword_1EB75DE40)
             {
@@ -4391,42 +4724,40 @@ LABEL_9:
           }
         }
 
-        v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)interruptRecordingSessionsOnContinuityScreenOutputPortAvailableDidChange
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsOnenessEnabled())
+  v15 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsOnenessEnabled(self, a2))
   {
     copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+    v10 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(copyMXCoreSessionList);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
-          if ([v8 isActive] && objc_msgSend(v8, "isRecordingMutedForRemoteDevice") && (objc_msgSend(v8, "prefersNoInterruptionsDuringRemoteDeviceControl") & 1) == 0)
+          v8 = *(*(&v10 + 1) + 8 * i);
+          if (objc_msgSend_isActive(v8) && [v8 isRecordingMutedForRemoteDevice] && (objc_msgSend(v8, "prefersNoInterruptionsDuringRemoteDeviceControl") & 1) == 0)
           {
             if (dword_1EB75DE40)
             {
@@ -4439,14 +4770,31 @@ LABEL_9:
           }
         }
 
-        v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)processContinuityScreenOutputPortAvailableDidChange:(BOOL)change
+{
+  changeCopy = change;
+  v5 = *MEMORY[0x1E69E9840];
+  if (!change)
+  {
+    [(MXSessionManager *)self interruptRecordingSessionsOnContinuityScreenOutputPortAvailableDidChange];
+  }
+
+  if (dword_1EB75DE40)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  +[MXSystemController notifyAll:payload:dontPostIfSuspended:](MXSystemController, "notifyAll:payload:dontPostIfSuspended:", @"ContinuityScreenOutputPortAvailableDidChange", [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", changeCopy), @"ContinuityScreenOutputPortAvailableDidChange_IsPortAvailable", 0}], 0);
 }
 
 - (id)getBluetoothCustomizedAlternateCategory:(id)category enableBluetooth:(BOOL)bluetooth
@@ -4470,37 +4818,168 @@ LABEL_9:
   return result;
 }
 
-- (BOOL)isSessionWithAudioCategoryActive:(id)active
+- (BOOL)getQuiesceableWiredPortAutoRouteOnConnectPreference:(unsigned int)preference
+{
+  v3 = *&preference;
+  v12 = *MEMORY[0x1E69E9840];
+  if (!MX_FeatureFlags_IsQuiesceableWiredConnectionEnabled(self, a2))
+  {
+    return 0;
+  }
+
+  if (!v3)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return 0;
+  }
+
+  v5 = vaeCopyPersistentUID(v3);
+  v6 = [(NSMutableDictionary *)[(MXSessionManager *)self quiesceableWiredPortsAutoRouteOnConnectPreference] objectForKey:v5];
+  if (v6)
+  {
+    bOOLValue = [v6 BOOLValue];
+    if (dword_1EB75DE40)
+    {
+      v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+  }
+
+  else
+  {
+    if (dword_1EB75DE40)
+    {
+      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+
+    bOOLValue = 1;
+    [(MXSessionManager *)self setQuiesceableWiredPortPreference:v3 autoRouteOnConnect:1];
+  }
+
+  return bOOLValue;
+}
+
+- (void)setQuiesceableWiredPortPreference:(unsigned int)preference autoRouteOnConnect:(BOOL)connect
+{
+  connectCopy = connect;
+  v11 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsQuiesceableWiredConnectionEnabled(self, a2))
+  {
+    if (preference)
+    {
+      v7 = vaeCopyPersistentUID(preference);
+      quiesceableWiredPortsAutoRouteOnConnectPreference = [(MXSessionManager *)self quiesceableWiredPortsAutoRouteOnConnectPreference];
+      -[NSMutableDictionary setObject:forKey:](quiesceableWiredPortsAutoRouteOnConnectPreference, "setObject:forKey:", [MEMORY[0x1E696AD98] numberWithBool:connectCopy], v7);
+      if (dword_1EB75DE40)
+      {
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
+      }
+
+      MXCFPreferencesSetAndSynchronizeUserPreference(@"quiesceableWiredPortsAutoRouteOnConnectPreference", [(MXSessionManager *)self quiesceableWiredPortsAutoRouteOnConnectPreference]);
+    }
+
+    else
+    {
+      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+  }
+}
+
+- (void)setVADID:(unsigned int)d forVADName:(id)name
+{
+  v5 = *&d;
+  v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:{-[MXSessionManager audioDeviceInfo](self, "audioDeviceInfo")}];
+  [v7 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithUnsignedInt:", v5), name}];
+  [(MXSessionManager *)self updateDeviceSampleRate:v5];
+  -[MXSessionManager setAudioDeviceInfo:](self, "setAudioDeviceInfo:", [MEMORY[0x1E695DF20] dictionaryWithDictionary:v7]);
+}
+
+- (BOOL)isVADIDRoutedToOutputPortType:(unsigned int)type portType:(unsigned int)portType
 {
   v18 = *MEMORY[0x1E69E9840];
-  copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v5 = [+[MXAdditiveRoutingManager sharedInstance](MXAdditiveRoutingManager copyDetailedRouteDescription:"copyDetailedRouteDescription:", *&type];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [objc_msgSend(v5 objectForKey:{@"RouteDetailedDescription_Outputs", 0), "allObjects"}];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        if (vaeGetPortTypeFromPortID([objc_msgSend(*(*(&v13 + 1) + 8 * i) objectForKey:{@"RouteDetailedDescription_ID", "unsignedIntValue"}]) == portType)
+        {
+          v11 = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v11 = 0;
+LABEL_11:
+
+  return v11;
+}
+
+- (BOOL)isSessionWithAudioCategoryActive:(id)active
+{
+  v17 = *MEMORY[0x1E69E9840];
+  copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 isActive] && (objc_msgSend(v9, "hasAudioCategory:", active) & 1) != 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9) && ([v9 hasAudioCategory:active] & 1) != 0)
         {
           v10 = 1;
           goto LABEL_12;
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -4513,41 +4992,40 @@ LABEL_9:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)isSessionWithAudioModeActive:(id)active
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 isActive] && (objc_msgSend(v9, "hasAudioMode:", active) & 1) != 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9) && ([v9 hasAudioMode:active] & 1) != 0)
         {
           v10 = 1;
           goto LABEL_12;
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -4560,41 +5038,40 @@ LABEL_12:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)isSessionWithAudioModePlaying:(id)playing
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 isActive] && objc_msgSend(v9, "isPlaying") && (objc_msgSend(v9, "hasAudioMode:", playing) & 1) != 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9) && [v9 isPlaying] && (objc_msgSend(v9, "hasAudioMode:", playing) & 1) != 0)
         {
           v10 = 1;
           goto LABEL_13;
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -4607,41 +5084,40 @@ LABEL_12:
   v10 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)areSessionsWithAudioModesActive:(id)active
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 isActive] && (objc_msgSend(active, "containsObject:", objc_msgSend(v9, "audioMode")) & 1) != 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9) && ([active containsObject:{objc_msgSend(v9, "audioMode")}] & 1) != 0)
         {
           v10 = 1;
           goto LABEL_12;
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -4654,41 +5130,40 @@ LABEL_13:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)isSessionWithAudioModeRecording:(id)recording
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 isActive] && objc_msgSend(v9, "isRecording") && (objc_msgSend(v9, "hasAudioMode:", recording) & 1) != 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9) && [v9 isRecording] && (objc_msgSend(v9, "hasAudioMode:", recording) & 1) != 0)
         {
           v10 = 1;
           goto LABEL_13;
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -4701,72 +5176,70 @@ LABEL_12:
   v10 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)copyInterruptedSessions:(id)sessions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 waitingToResume] && objc_msgSend(v10, "interruptingSession") == sessions)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (id)copyDisplayIDForActiveCarPlayVideoSession
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  displayID = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
+  displayID = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (displayID)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != displayID; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isActiveOverAirPlayVideo] && CMSMUtility_IsCarPlayVideoActive())
         {
           displayID = [v6 displayID];
@@ -4774,7 +5247,7 @@ LABEL_13:
         }
       }
 
-      displayID = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
+      displayID = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (displayID)
       {
         continue;
@@ -4786,41 +5259,40 @@ LABEL_13:
 
 LABEL_12:
 
-  v7 = *MEMORY[0x1E69E9840];
   return displayID;
 }
 
 - (void)updateSomeAirPlayCapableVideoClientIsActive
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   someAirPlayCapableVideoClientIsActive = [(MXSessionManager *)self someAirPlayCapableVideoClientIsActive];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        if ([v8 isAirPlayCapableVideo] && ((objc_msgSend(v8, "isActive") & 1) != 0 || (objc_msgSend(v8, "isPlaying") & 1) != 0))
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if ([v8 isAirPlayCapableVideo] && ((objc_msgSend_isActive(v8) & 1) != 0 || (objc_msgSend(v8, "isPlaying") & 1) != 0))
         {
           v5 = 1;
           goto LABEL_13;
         }
       }
 
-      v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -4835,7 +5307,7 @@ LABEL_13:
   [(MXSessionManager *)self setSomeAirPlayCapableVideoClientIsActive:v5];
   if (someAirPlayCapableVideoClientIsActive != v5)
   {
-    FigRoutingManagerUtilities_PostEndpointNotification();
+    FigRoutingManagerUtilities_PostEndpointNotification(@"SomeAirPlayCapableVideoClientIsActiveDidChange");
     if (dword_1EB75DE40)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -4843,56 +5315,54 @@ LABEL_13:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyHighestPriorityActiveSession:(id)session deviceIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (session && identifier)
   {
-    v26 = 0;
+    v24 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v7 = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList:v19];
+  copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v22;
+    v11 = *v20;
     v12 = 100;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v11)
+        if (*v20 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         LocalSessionPriority = CMSM_GetLocalSessionPriority(v14, 1);
-        if ([v14 isActive])
+        if (objc_msgSend_isActive(v14))
         {
-          v16 = LocalSessionPriority > v12;
+          v17 = LocalSessionPriority > v12;
         }
 
         else
         {
-          v16 = 0;
+          v17 = 0;
         }
 
-        if (v16 && CMSUtility_IsSessionPlayStateEligibleForTipi(v14))
+        if (v17 && CMSUtility_IsSessionPlayStateEligibleForTipi(v14, v16))
         {
           if (identifier)
           {
@@ -4913,7 +5383,7 @@ LABEL_20:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [copyMXCoreSessionList countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (!v9)
       {
         goto LABEL_25;
@@ -4924,71 +5394,68 @@ LABEL_20:
   v10 = 0;
 LABEL_25:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)resetWaitingToResume:(id)resume
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if ([v9 interruptingSession] == resume && objc_msgSend(v9, "waitingToResume"))
         {
           [v9 setWaitingToResume:0];
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copySessionWithPID:(int)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([objc_msgSend(v9 "clientPID")] == d)
         {
           v10 = v9;
@@ -4996,7 +5463,7 @@ LABEL_25:
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -5009,20 +5476,19 @@ LABEL_25:
   v9 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)copySessionToBeMuted:(id *)muted
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = *&muted->var0[4];
-  v85 = *muted->var0;
-  v86 = v6;
-  if (![(MXSessionManager *)self isAuditTokenValid:&v85])
+  v83 = *muted->var0;
+  v84 = v6;
+  if (![(MXSessionManager *)self isAuditTokenValid:&v83])
   {
-    v79 = 0;
+    v77 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -5033,46 +5499,46 @@ LABEL_28:
   }
 
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v72 = 0u;
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v74 objects:v84 count:16];
+  v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v72 objects:v82 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v75;
+    v10 = *v73;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v75 != v10)
+        if (*v73 != v10)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v12 = *(*(&v74 + 1) + 8 * i);
+        v12 = *(*(&v72 + 1) + 8 * i);
         if (v12)
         {
-          [*(*(&v74 + 1) + 8 * i) auditToken];
+          objc_msgSend_auditToken(*(*(&v72 + 1) + 8 * i));
         }
 
         else
         {
-          v85 = 0u;
-          v86 = 0u;
+          v83 = 0u;
+          v84 = 0u;
         }
 
         v13 = *&muted->var0[4];
-        v83[0] = *muted->var0;
-        v83[1] = v13;
-        if ([(MXSessionManager *)self isAuditTokenEqual:&v85 compareTo:v83])
+        v81[0] = *muted->var0;
+        v81[1] = v13;
+        if ([(MXSessionManager *)self isAuditTokenEqual:&v83 compareTo:v81])
         {
           [v5 addObject:v12];
         }
       }
 
-      v9 = [copyMXCoreSessionList countByEnumeratingWithState:&v74 objects:v84 count:16];
+      v9 = [copyMXCoreSessionList countByEnumeratingWithState:&v72 objects:v82 count:16];
     }
 
     while (v9);
@@ -5080,25 +5546,26 @@ LABEL_28:
 
   if (![v5 count])
   {
-    v79 = 0;
+    v77 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v20 = v79;
-    if (os_log_type_enabled(v19, type))
+    v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v21 = v77;
+    v22 = type;
+    if (os_log_type_enabled(v20, type))
     {
-      v21 = v20;
+      v23 = v21;
     }
 
     else
     {
-      v21 = v20 & 0xFFFFFFFE;
+      v23 = v21 & 0xFFFFFFFE;
     }
 
-    if (v21)
+    if (v23)
     {
-      LODWORD(v83[0]) = 136315138;
-      *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
-      _os_log_send_and_compose_impl();
+      LODWORD(v81[0]) = 136315138;
+      *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+      _os_log_send_and_compose_impl(v23, 0, &v83, 128, &dword_1B17A2000, v20, v22, "-MXSessionManagerUtilities- %s: No sessions found", v81);
     }
 
     goto LABEL_28;
@@ -5109,30 +5576,29 @@ LABEL_28:
     firstObject = [v5 firstObject];
     if (dword_1EB75DE40)
     {
-      v79 = 0;
+      v77 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v16 = v79;
+      v16 = v77;
+      v17 = type;
       if (os_log_type_enabled(v15, type))
       {
-        v17 = v16;
+        v18 = v16;
       }
 
       else
       {
-        v17 = v16 & 0xFFFFFFFE;
+        v18 = v16 & 0xFFFFFFFE;
       }
 
-      if (!v17)
+      if (v18)
       {
-        goto LABEL_97;
+        LODWORD(v81[0]) = 136315138;
+        *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+        _os_log_send_and_compose_impl(v18, 0, &v83, 128, &dword_1B17A2000, v15, v17, "-MXSessionManagerUtilities- %s: Only 1 session exists, returning this.", v81);
       }
 
-      LODWORD(v83[0]) = 136315138;
-      *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
 LABEL_96:
-      _os_log_send_and_compose_impl();
-LABEL_97:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
@@ -5141,63 +5607,62 @@ LABEL_97:
   {
     if (dword_1EB75DE40)
     {
-      v79 = 0;
+      v77 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v25 = v79;
-      if (os_log_type_enabled(v24, type))
+      v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v26 = v77;
+      v27 = type;
+      if (os_log_type_enabled(v25, type))
       {
-        v26 = v25;
+        v28 = v26;
       }
 
       else
       {
-        v26 = v25 & 0xFFFFFFFE;
+        v28 = v26 & 0xFFFFFFFE;
       }
 
-      if (v26)
+      if (v28)
       {
-        LODWORD(v83[0]) = 136315138;
-        *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
-        LODWORD(v58) = 12;
-        v54 = v83;
-        _os_log_send_and_compose_impl();
+        LODWORD(v81[0]) = 136315138;
+        *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+        _os_log_send_and_compose_impl(v28, 0, &v83, 128, &dword_1B17A2000, v25, v27, "-MXSessionManagerUtilities- %s: Looking for the candidate session.", v81);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v72 = 0u;
-    v73 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v27 = [v5 countByEnumeratingWithState:&v70 objects:v82 count:{16, v54, v58}];
-    if (v27)
+    v68 = 0u;
+    v69 = 0u;
+    v29 = [v5 countByEnumeratingWithState:&v68 objects:v80 count:16];
+    if (v29)
     {
-      v28 = v27;
-      v29 = *v71;
+      v30 = v29;
+      v31 = *v69;
 LABEL_39:
-      v30 = 0;
+      v32 = 0;
       while (1)
       {
-        if (*v71 != v29)
+        if (*v69 != v31)
         {
           objc_enumerationMutation(v5);
         }
 
-        v31 = *(*(&v70 + 1) + 8 * v30);
-        if ([v31 isActive])
+        v33 = *(*(&v68 + 1) + 8 * v32);
+        if (objc_msgSend_isActive(v33))
         {
-          if ([v31 isRecording] && objc_msgSend(v31, "hasPhoneCallBehavior"))
+          if ([v33 isRecording] && objc_msgSend(v33, "hasPhoneCallBehavior"))
           {
             break;
           }
         }
 
-        if (v28 == ++v30)
+        if (v30 == ++v32)
         {
-          v28 = [v5 countByEnumeratingWithState:&v70 objects:v82 count:16];
-          if (v28)
+          v30 = [v5 countByEnumeratingWithState:&v68 objects:v80 count:16];
+          if (v30)
           {
             goto LABEL_39;
           }
@@ -5206,30 +5671,29 @@ LABEL_39:
         }
       }
 
-      firstObject = v31;
+      firstObject = v33;
       if (dword_1EB75DE40)
       {
-        v79 = 0;
+        v77 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v33 = v79;
-        if (os_log_type_enabled(v32, type))
+        v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v35 = v77;
+        v36 = type;
+        if (os_log_type_enabled(v34, type))
         {
-          v34 = v33;
+          v37 = v35;
         }
 
         else
         {
-          v34 = v33 & 0xFFFFFFFE;
+          v37 = v35 & 0xFFFFFFFE;
         }
 
-        if (v34)
+        if (v37)
         {
-          LODWORD(v83[0]) = 136315138;
-          *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
-          LODWORD(v59) = 12;
-          v55 = v83;
-          _os_log_send_and_compose_impl();
+          LODWORD(v81[0]) = 136315138;
+          *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+          _os_log_send_and_compose_impl(v37, 0, &v83, 128, &dword_1B17A2000, v34, v36, "-MXSessionManagerUtilities- %s: Found the active call session.", v81);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5242,34 +5706,34 @@ LABEL_39:
     }
 
 LABEL_56:
-    v68 = 0u;
-    v69 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v35 = [v5 countByEnumeratingWithState:&v66 objects:v81 count:{16, v55, v59}];
-    if (v35)
+    v64 = 0u;
+    v65 = 0u;
+    v38 = [v5 countByEnumeratingWithState:&v64 objects:v79 count:16];
+    if (v38)
     {
-      v36 = v35;
-      v37 = *v67;
+      v39 = v38;
+      v40 = *v65;
 LABEL_58:
-      v38 = 0;
+      v41 = 0;
       while (1)
       {
-        if (*v67 != v37)
+        if (*v65 != v40)
         {
           objc_enumerationMutation(v5);
         }
 
-        v39 = *(*(&v66 + 1) + 8 * v38);
-        if ([v39 hasPhoneCallBehavior])
+        v42 = *(*(&v64 + 1) + 8 * v41);
+        if ([v42 hasPhoneCallBehavior])
         {
           break;
         }
 
-        if (v36 == ++v38)
+        if (v39 == ++v41)
         {
-          v36 = [v5 countByEnumeratingWithState:&v66 objects:v81 count:16];
-          if (v36)
+          v39 = [v5 countByEnumeratingWithState:&v64 objects:v79 count:16];
+          if (v39)
           {
             goto LABEL_58;
           }
@@ -5278,30 +5742,29 @@ LABEL_58:
         }
       }
 
-      firstObject = v39;
+      firstObject = v42;
       if (dword_1EB75DE40)
       {
-        v79 = 0;
+        v77 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v41 = v79;
-        if (os_log_type_enabled(v40, type))
+        v43 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v44 = v77;
+        v45 = type;
+        if (os_log_type_enabled(v43, type))
         {
-          v42 = v41;
+          v46 = v44;
         }
 
         else
         {
-          v42 = v41 & 0xFFFFFFFE;
+          v46 = v44 & 0xFFFFFFFE;
         }
 
-        if (v42)
+        if (v46)
         {
-          LODWORD(v83[0]) = 136315138;
-          *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
-          LODWORD(v60) = 12;
-          v56 = v83;
-          _os_log_send_and_compose_impl();
+          LODWORD(v81[0]) = 136315138;
+          *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+          _os_log_send_and_compose_impl(v46, 0, &v83, 128, &dword_1B17A2000, v43, v45, "-MXSessionManagerUtilities- %s: Found the phoneCall behavior session.", v81);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5314,34 +5777,34 @@ LABEL_58:
     }
 
 LABEL_73:
-    v64 = 0u;
-    v65 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v43 = [v5 countByEnumeratingWithState:&v62 objects:v80 count:{16, v56, v60}];
-    if (v43)
+    v60 = 0u;
+    v61 = 0u;
+    v47 = [v5 countByEnumeratingWithState:&v60 objects:v78 count:16];
+    if (v47)
     {
-      v44 = v43;
-      v45 = *v63;
+      v48 = v47;
+      v49 = *v61;
 LABEL_75:
-      v46 = 0;
+      v50 = 0;
       while (1)
       {
-        if (*v63 != v45)
+        if (*v61 != v49)
         {
           objc_enumerationMutation(v5);
         }
 
-        v47 = *(*(&v62 + 1) + 8 * v46);
-        if ([v47 hostProcessAttribution])
+        v51 = *(*(&v60 + 1) + 8 * v50);
+        if ([v51 hostProcessAttribution])
         {
           break;
         }
 
-        if (v44 == ++v46)
+        if (v48 == ++v50)
         {
-          v44 = [v5 countByEnumeratingWithState:&v62 objects:v80 count:16];
-          if (v44)
+          v48 = [v5 countByEnumeratingWithState:&v60 objects:v78 count:16];
+          if (v48)
           {
             goto LABEL_75;
           }
@@ -5350,30 +5813,29 @@ LABEL_75:
         }
       }
 
-      firstObject = v47;
+      firstObject = v51;
       if (dword_1EB75DE40)
       {
-        v79 = 0;
+        v77 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v49 = v79;
-        if (os_log_type_enabled(v48, type))
+        v52 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v53 = v77;
+        v54 = type;
+        if (os_log_type_enabled(v52, type))
         {
-          v50 = v49;
+          v55 = v53;
         }
 
         else
         {
-          v50 = v49 & 0xFFFFFFFE;
+          v55 = v53 & 0xFFFFFFFE;
         }
 
-        if (v50)
+        if (v55)
         {
-          LODWORD(v83[0]) = 136315138;
-          *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
-          LODWORD(v61) = 12;
-          v57 = v83;
-          _os_log_send_and_compose_impl();
+          LODWORD(v81[0]) = 136315138;
+          *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+          _os_log_send_and_compose_impl(v55, 0, &v83, 128, &dword_1B17A2000, v52, v54, "-MXSessionManagerUtilities- %s: Found the session with host info.", v81);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5389,34 +5851,34 @@ LABEL_90:
     firstObject = [v5 firstObject];
     if (dword_1EB75DE40)
     {
-      v79 = 0;
+      v77 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v51 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v52 = v79;
-      if (os_log_type_enabled(v51, type))
+      v56 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v57 = v77;
+      v58 = type;
+      if (os_log_type_enabled(v56, type))
       {
-        v53 = v52;
+        v59 = v57;
       }
 
       else
       {
-        v53 = v52 & 0xFFFFFFFE;
+        v59 = v57 & 0xFFFFFFFE;
       }
 
-      if (!v53)
+      if (v59)
       {
-        goto LABEL_97;
+        LODWORD(v81[0]) = 136315138;
+        *(v81 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
+        _os_log_send_and_compose_impl(v59, 0, &v83, 128, &dword_1B17A2000, v56, v58, "-MXSessionManagerUtilities- %s: Returning bundleID for any session for this client.", v81);
       }
 
-      LODWORD(v83[0]) = 136315138;
-      *(v83 + 4) = "[MXSessionManager(Utilities) copySessionToBeMuted:]";
       goto LABEL_96;
     }
   }
 
 LABEL_29:
 
-  v22 = *MEMORY[0x1E69E9840];
   return firstObject;
 }
 
@@ -5466,8 +5928,8 @@ LABEL_29:
 
 - (void)applyUplinkMute:(id)mute
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsSessionBasedMutingEnabled())
+  v13 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsSessionBasedMutingEnabled(self, a2))
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -5487,10 +5949,10 @@ LABEL_29:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      [(MXSessionManager *)self setApplyUplinkMuteToPhoneCallBehaviorSession:0, v13, v14];
+      [(MXSessionManager *)self setApplyUplinkMuteToPhoneCallBehaviorSession:0];
     }
 
-    if ([mute isActive] && objc_msgSend(mute, "isRecording") && (objc_msgSend(mute, "isRecordingMuted") & 1) == 0 && -[NSSet containsObject:](-[MXSessionManager mutedSessionBundleIDs](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "mutedSessionBundleIDs"), "containsObject:", v6))
+    if (objc_msgSend_isActive(mute) && [mute isRecording] && (objc_msgSend(mute, "isRecordingMuted") & 1) == 0 && -[NSSet containsObject:](-[MXSessionManager mutedSessionBundleIDs](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "mutedSessionBundleIDs"), "containsObject:", v6))
     {
       if (dword_1EB75DE40)
       {
@@ -5499,26 +5961,22 @@ LABEL_29:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v9 = [MXSessionManager sharedInstance:v13];
+      v9 = +[MXSessionManager sharedInstance];
       v10 = [MEMORY[0x1E696AD98] numberWithBool:1];
       *&v11 = -1;
       *(&v11 + 1) = -1;
-      v15[0] = v11;
-      v15[1] = v11;
-      [(MXSessionManager *)v9 updateMuteState:v15 muteValue:v10];
+      v12[0] = v11;
+      v12[1] = v11;
+      [(MXSessionManager *)v9 updateMuteState:v12 muteValue:v10];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replaceMutedBundleIDwithHostID
 {
-  v58 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsSessionBasedMutingEnabled())
+  v59 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsSessionBasedMutingEnabled(self, a2))
   {
-    v48 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5617,17 +6075,18 @@ LABEL_29:
               type = OS_LOG_TYPE_DEFAULT;
               v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
               v22 = v48;
+              v23 = type;
               if (os_log_type_enabled(v21, type))
               {
-                v23 = v22;
+                v24 = v22;
               }
 
               else
               {
-                v23 = v22 & 0xFFFFFFFE;
+                v24 = v22 & 0xFFFFFFFE;
               }
 
-              if (v23)
+              if (v24)
               {
                 displayID = [v19 displayID];
                 v49 = 136315651;
@@ -5637,33 +6096,33 @@ LABEL_29:
                 v53 = 2113;
                 v54 = v20;
                 LODWORD(v31) = 32;
-                v30 = &v49;
-                _os_log_send_and_compose_impl();
+                _os_log_send_and_compose_impl(v24, 0, v58, 128, &dword_1B17A2000, v21, v23, "-MXSessionManagerUtilities- %s: Updating muted bundleID for uplink mute from %{private}@ to %{private}@", &v49, v31);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
-            [(MXSessionManager *)self setUplinkMutedBundleID:v20, v30, v31];
+            [(MXSessionManager *)self setUplinkMutedBundleID:v20];
           }
 
           if (dword_1EB75DE40)
           {
             v48 = 0;
             type = OS_LOG_TYPE_DEFAULT;
-            v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v26 = v48;
-            if (os_log_type_enabled(v25, type))
+            v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v27 = v48;
+            v28 = type;
+            if (os_log_type_enabled(v26, type))
             {
-              v27 = v26;
+              v29 = v27;
             }
 
             else
             {
-              v27 = v26 & 0xFFFFFFFE;
+              v29 = v27 & 0xFFFFFFFE;
             }
 
-            if (v27)
+            if (v29)
             {
               displayID2 = [v19 displayID];
               v49 = 136315651;
@@ -5673,8 +6132,7 @@ LABEL_29:
               v53 = 2113;
               v54 = v20;
               LODWORD(v31) = 32;
-              v30 = &v49;
-              _os_log_send_and_compose_impl();
+              _os_log_send_and_compose_impl(v29, 0, v58, 128, &dword_1B17A2000, v26, v28, "-MXSessionManagerUtilities- %s: Updating muted set for %{private}@ with %{private}@", &v49, v31);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5687,27 +6145,37 @@ LABEL_29:
       while (v17);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateMutedBundleIDs:(id)ds muteValue:(BOOL)value
 {
   valueCopy = value;
-  v13 = *MEMORY[0x1E69E9840];
   v7 = [MEMORY[0x1E695DFA8] setWithSet:{-[MXSessionManager mutedSessionBundleIDs](self, "mutedSessionBundleIDs")}];
-  if (MX_FeatureFlags_IsSessionBasedMutingEnabled())
+  if (MX_FeatureFlags_IsSessionBasedMutingEnabled(v7, v8))
   {
-    goto LABEL_11;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+LABEL_13:
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return;
   }
 
-  v8 = [ds isEqualToString:@"com.apple.mobilephone"];
-  v9 = (v8 & 1) != 0 ? 0 : [ds isEqualToString:@"com.apple.facetime"];
-  v10 = v8 | v9;
+  v10 = [ds isEqualToString:@"com.apple.mobilephone"];
+  if (v10)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = [ds isEqualToString:@"com.apple.facetime"];
+  }
+
+  v12 = v10 | v11;
   if (valueCopy)
   {
     [v7 addObject:ds];
-    if (v10)
+    if (v12)
     {
       [v7 addObject:@"com.apple.mobilephone"];
       [v7 addObject:@"com.apple.facetime"];
@@ -5717,7 +6185,7 @@ LABEL_29:
   else
   {
     [v7 removeObject:ds];
-    if (v10)
+    if (v12)
     {
       [v7 removeObject:@"com.apple.mobilephone"];
       [v7 removeObject:@"com.apple.facetime"];
@@ -5728,33 +6196,26 @@ LABEL_29:
   MXCFPreferencesSetAndSynchronizeUserPreference(@"mutedSessionBundleIDs", [(NSSet *)[(MXSessionManager *)self mutedSessionBundleIDs] allObjects]);
   if (dword_1EB75DE40)
   {
-LABEL_11:
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    goto LABEL_13;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int)clearUplinkMutedCache
 {
-  v28 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsSessionBasedMutingEnabled())
+  v29 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsSessionBasedMutingEnabled(self, a2))
   {
-    v22 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-LABEL_19:
-    result = -15685;
-    goto LABEL_20;
+    return -15685;
   }
 
   if (CMSMUtility_PhoneCallOrRingtoneExists())
   {
-    goto LABEL_19;
+    return -15685;
   }
 
   v4 = [MEMORY[0x1E695DFA8] setWithSet:{-[MXSessionManager mutedSessionBundleIDs](self, "mutedSessionBundleIDs")}];
@@ -5798,125 +6259,122 @@ LABEL_19:
     type = OS_LOG_TYPE_DEFAULT;
     v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v12 = v22;
+    v13 = type;
     if (os_log_type_enabled(v11, type))
     {
-      v13 = v12;
+      v14 = v12;
     }
 
     else
     {
-      v13 = v12 & 0xFFFFFFFE;
+      v14 = v12 & 0xFFFFFFFE;
     }
 
-    if (v13)
+    if (v14)
     {
       mutedSessionBundleIDs2 = [(MXSessionManager *)self mutedSessionBundleIDs];
       v23 = 136315395;
       v24 = "[MXSessionManager(Utilities) clearUplinkMutedCache]";
       v25 = 2113;
       v26 = mutedSessionBundleIDs2;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(v14, 0, v28, 128, &dword_1B17A2000, v11, v13, "-MXSessionManagerUtilities- %s: Updated muted session bundle IDs list after clear mute state: %{private}@", &v23, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = 0;
-LABEL_20:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (int)updateMuteState:(id *)state muteValue:(id)value
 {
-  v108 = *MEMORY[0x1E69E9840];
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x2020000000;
-  v101 = 3;
+  v104 = *MEMORY[0x1E69E9840];
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x2020000000;
+  v97 = 3;
   v7 = *&state->var0[4];
   *atoken.val = *state->var0;
   *&atoken.val[4] = v7;
-  v92 = audit_token_to_pid(&atoken);
-  if (MX_FeatureFlags_IsSessionBasedMutingEnabled())
+  v8 = audit_token_to_pid(&atoken);
+  v88 = v8;
+  if (MX_FeatureFlags_IsSessionBasedMutingEnabled(v8, v9))
   {
-    v102 = 0;
+    v98 = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v9 = v102;
+    v11 = v98;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     else
     {
-      v10 = v9 & 0xFFFFFFFE;
+      v12 = v11 & 0xFFFFFFFE;
     }
 
-    if (v10)
+    if (v12)
     {
-      *v103 = 136315138;
-      *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-      _os_log_send_and_compose_impl();
+      *v99 = 136315138;
+      *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+      _os_log_send_and_compose_impl(v12, 0, &atoken, 128, &dword_1B17A2000, os_log_and_send_and_compose_flags_and_os_log_type, 0, "-MXSessionManagerUtilities- %s: SessionBasedMuting is enabled, not updating mute using legacy behavior.", v99);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     copyPhoneCallBehaviorRecordingSession = 0;
 LABEL_17:
-    v17 = 0;
+    v19 = 0;
     refreshed = -15685;
     goto LABEL_18;
   }
 
   if (value)
   {
-    v11 = *&state->var0[4];
+    v13 = *&state->var0[4];
     *atoken.val = *state->var0;
-    *&atoken.val[4] = v11;
+    *&atoken.val[4] = v13;
     if ([(MXSessionManager *)self isAuditTokenValid:&atoken])
     {
-      v12 = *&state->var0[4];
+      v14 = *&state->var0[4];
       *atoken.val = *state->var0;
-      *&atoken.val[4] = v12;
+      *&atoken.val[4] = v14;
       if ([(MXSessionManager *)self isAuditTokenValid:&atoken])
       {
         if (dword_1EB75DE40)
         {
-          v102 = 0;
+          v98 = 0;
           type[0] = OS_LOG_TYPE_DEFAULT;
-          v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v14 = v102;
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v16 = v98;
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = v14;
+            v17 = v16;
           }
 
           else
           {
-            v15 = v14 & 0xFFFFFFFE;
+            v17 = v16 & 0xFFFFFFFE;
           }
 
-          if (v15)
+          if (v17)
           {
-            *v103 = 136315138;
-            *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-            LODWORD(v89) = 12;
-            v86 = v103;
-            _os_log_send_and_compose_impl();
+            *v99 = 136315138;
+            *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+            _os_log_send_and_compose_impl(v17, 0, &atoken, 128, &dword_1B17A2000, v15, 0, "-MXSessionManagerUtilities- %s: Trying to change the mute state via user action on banner or the app UI.", v99);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v44 = *&state->var0[4];
+        v45 = *&state->var0[4];
         *atoken.val = *state->var0;
-        *&atoken.val[4] = v44;
-        copyPhoneCallBehaviorRecordingSession = [(MXSessionManager *)self copySessionToBeMuted:&atoken, v86, v89];
+        *&atoken.val[4] = v45;
+        copyPhoneCallBehaviorRecordingSession = [(MXSessionManager *)self copySessionToBeMuted:&atoken];
         if (copyPhoneCallBehaviorRecordingSession)
         {
 LABEL_62:
-          v22 = 0;
+          v23 = 0;
 LABEL_82:
           refreshed = 0;
           goto LABEL_83;
@@ -5924,68 +6382,66 @@ LABEL_82:
 
         if (dword_1EB75DE40)
         {
-          v102 = 0;
+          v98 = 0;
           type[0] = OS_LOG_TYPE_DEFAULT;
-          v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v46 = v102;
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v46 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v47 = v98;
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
-            v47 = v46;
+            v48 = v47;
           }
 
           else
           {
-            v47 = v46 & 0xFFFFFFFE;
+            v48 = v47 & 0xFFFFFFFE;
           }
 
-          if (v47)
+          if (v48)
           {
-            *v103 = 136315138;
-            *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-            LODWORD(v89) = 12;
-            v86 = v103;
-            _os_log_send_and_compose_impl();
+            *v99 = 136315138;
+            *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+            _os_log_send_and_compose_impl(v48, 0, &atoken, 128, &dword_1B17A2000, v46, 0, "-MXSessionManagerUtilities- %s: No active recording phone call behavior session found matching audit token.", v99);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v17 = MX_RunningBoardServices_CopyDisplayIDForPID(v92);
-        if (v17)
+        v19 = MX_RunningBoardServices_CopyDisplayIDForPID(v88);
+        if (v19)
         {
-          -[MXSessionManager updateMutedBundleIDs:muteValue:](self, "updateMutedBundleIDs:muteValue:", v17, [value BOOLValue]);
+          -[MXSessionManager updateMutedBundleIDs:muteValue:](self, "updateMutedBundleIDs:muteValue:", v19, [value BOOLValue]);
           if (dword_1EB75DE40)
           {
-            v102 = 0;
+            v98 = 0;
             type[0] = OS_LOG_TYPE_DEFAULT;
-            v49 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v50 = v102;
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+            v50 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v51 = v98;
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
             {
-              v51 = v50;
+              v52 = v51;
             }
 
             else
             {
-              v51 = v50 & 0xFFFFFFFE;
+              v52 = v51 & 0xFFFFFFFE;
             }
 
-            if (v51)
+            if (v52)
             {
               bOOLValue = [value BOOLValue];
-              v53 = "UnMuted";
-              *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-              *v103 = 136315650;
+              v54 = "UnMuted";
+              *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+              *v99 = 136315650;
               if (bOOLValue)
               {
-                v53 = "Muted";
+                v54 = "Muted";
               }
 
-              *&v103[12] = 2114;
-              *&v103[14] = v17;
-              *&v103[22] = 2082;
-              v104 = v53;
-              _os_log_send_and_compose_impl();
+              *&v99[12] = 2114;
+              *&v99[14] = v19;
+              *&v99[22] = 2082;
+              v100 = v54;
+              _os_log_send_and_compose_impl(v52, 0, &atoken, 128, &dword_1B17A2000, v50, 0, "-MXSessionManagerUtilities- %s: Session with bundleID: %{public}@ was successfully: %{public}s", v99, 32);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5997,144 +6453,139 @@ LABEL_82:
         }
       }
 
-      v22 = 0;
+      v23 = 0;
       copyPhoneCallBehaviorRecordingSession = 0;
       goto LABEL_82;
     }
 
     if (dword_1EB75DE40)
     {
-      v102 = 0;
+      v98 = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v24 = v102;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v25 = v98;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = v24;
+        v26 = v25;
       }
 
       else
       {
-        v25 = v24 & 0xFFFFFFFE;
+        v26 = v25 & 0xFFFFFFFE;
       }
 
-      if (v25)
+      if (v26)
       {
-        *v103 = 136315138;
-        *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-        LODWORD(v89) = 12;
-        v86 = v103;
-        _os_log_send_and_compose_impl();
+        *v99 = 136315138;
+        *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+        _os_log_send_and_compose_impl(v26, 0, &atoken, 128, &dword_1B17A2000, v24, 0, "-MXSessionManagerUtilities- %s: Trying to change the mute state via uplink.", v99);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    -[MXSessionManager setUplinkMuteSetByClient:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance", v86, v89), "setUplinkMuteSetByClient:", [value BOOLValue]);
+    -[MXSessionManager setUplinkMuteSetByClient:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "setUplinkMuteSetByClient:", [value BOOLValue]);
     copyPhoneCallBehaviorRecordingSession = [+[MXSessionManager sharedInstance](MXSessionManager copyPhoneCallBehaviorRecordingSession];
     if (copyPhoneCallBehaviorRecordingSession)
     {
       goto LABEL_62;
     }
 
-    v102 = 0;
+    v98 = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v30 = v102;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v31 = v98;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = v30;
+      v32 = v31;
     }
 
     else
     {
-      v31 = v30 & 0xFFFFFFFE;
+      v32 = v31 & 0xFFFFFFFE;
     }
 
-    if (v31)
+    if (v32)
     {
       bOOLValue2 = [value BOOLValue];
-      v33 = "UnMute";
+      v34 = "UnMute";
       if (bOOLValue2)
       {
-        v33 = "Mute";
+        v34 = "Mute";
       }
 
-      *v103 = 136315394;
-      *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-      *&v103[12] = 2082;
-      *&v103[14] = v33;
-      LODWORD(v89) = 22;
-      v86 = v103;
-      _os_log_send_and_compose_impl();
+      *v99 = 136315394;
+      *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+      *&v99[12] = 2082;
+      *&v99[14] = v34;
+      _os_log_send_and_compose_impl(v32, 0, &atoken, 128, &dword_1B17A2000, v30, 0, "-MXSessionManagerUtilities- %s: No active recording phone call behavior session found. Will cache and apply %{public}s when phone call behavior session starts.", v99, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if ([value BOOLValue])
     {
-      v38 = [MEMORY[0x1E696AD98] numberWithBool:1];
+      v39 = [MEMORY[0x1E696AD98] numberWithBool:1];
     }
 
     else
     {
-      v38 = 0;
+      v39 = 0;
     }
 
-    [(MXSessionManager *)self setApplyUplinkMuteToPhoneCallBehaviorSession:v38, v86, v89];
+    [(MXSessionManager *)self setApplyUplinkMuteToPhoneCallBehaviorSession:v39];
     if (([value BOOLValue] & 1) == 0)
     {
       if (dword_1EB75DE40)
       {
-        v102 = 0;
+        v98 = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v40 = v102;
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v41 = v98;
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v41 = v40;
+          v42 = v41;
         }
 
         else
         {
-          v41 = v40 & 0xFFFFFFFE;
+          v42 = v41 & 0xFFFFFFFE;
         }
 
-        if (v41)
+        if (v42)
         {
           uplinkMutedBundleID = [(MXSessionManager *)self uplinkMutedBundleID];
           bOOLValue3 = [value BOOLValue];
-          *v103 = 136315651;
-          *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-          *&v103[12] = 2113;
-          *&v103[14] = uplinkMutedBundleID;
-          *&v103[22] = 1024;
-          LODWORD(v104) = bOOLValue3;
-          LODWORD(v89) = 28;
-          v86 = v103;
-          _os_log_send_and_compose_impl();
+          *v99 = 136315651;
+          *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+          *&v99[12] = 2113;
+          *&v99[14] = uplinkMutedBundleID;
+          *&v99[22] = 1024;
+          LODWORD(v100) = bOOLValue3;
+          LODWORD(v87) = 28;
+          _os_log_send_and_compose_impl(v42, 0, &atoken, 128, &dword_1B17A2000, v40, 0, "-MXSessionManagerUtilities- %s: Removing UplinkMuted bundleID = %{private}@, muteValue = %{BOOL}u", v99, v87);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      [(MXSessionManager *)self removeEntryFromMutedBundleIDCache:0 bundleID:[(MXSessionManager *)self uplinkMutedBundleID:v86]];
+      [(MXSessionManager *)self removeEntryFromMutedBundleIDCache:0 bundleID:[(MXSessionManager *)self uplinkMutedBundleID]];
       [(MXSessionManager *)self setUplinkMutedBundleID:0];
     }
 
     CMSMNotificationUtility_PostUplinkMuteDidChange([value BOOLValue]);
-    v22 = 0;
+    v23 = 0;
     copyPhoneCallBehaviorRecordingSession = 0;
     refreshed = -15685;
   }
 
   else
   {
-    v21 = *&state->var0[4];
+    v22 = *&state->var0[4];
     *atoken.val = *state->var0;
-    *&atoken.val[4] = v21;
+    *&atoken.val[4] = v22;
     if ([(MXSessionManager *)self isAuditTokenValid:&atoken])
     {
-      v22 = 0;
+      v23 = 0;
       copyPhoneCallBehaviorRecordingSession = 0;
       refreshed = 0;
       value = 0;
@@ -6144,33 +6595,31 @@ LABEL_82:
     {
       if (dword_1EB75DE40)
       {
-        v102 = 0;
+        v98 = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v27 = v102;
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v28 = v98;
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = v27;
+          v29 = v28;
         }
 
         else
         {
-          v28 = v27 & 0xFFFFFFFE;
+          v29 = v28 & 0xFFFFFFFE;
         }
 
-        if (v28)
+        if (v29)
         {
-          *v103 = 136315138;
-          *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-          LODWORD(v89) = 12;
-          v86 = v103;
-          _os_log_send_and_compose_impl();
+          *v99 = 136315138;
+          *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+          _os_log_send_and_compose_impl(v29, 0, &atoken, 128, &dword_1B17A2000, v27, 0, "-MXSessionManagerUtilities- %s: Trying to toggle the mute state.", v99);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      copyPhoneCallBehaviorRecordingSession = [+[MXSessionManager sharedInstance](MXSessionManager copyPhoneCallBehaviorRecordingSession:v86];
+      copyPhoneCallBehaviorRecordingSession = [+[MXSessionManager sharedInstance](MXSessionManager copyPhoneCallBehaviorRecordingSession];
       prefersBluetoothAccessoryMuting = [copyPhoneCallBehaviorRecordingSession prefersBluetoothAccessoryMuting];
       if (prefersBluetoothAccessoryMuting)
       {
@@ -6179,27 +6628,25 @@ LABEL_82:
 
       else
       {
-        v102 = 0;
+        v98 = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v36 = v102;
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v37 = v98;
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = v36;
+          v38 = v37;
         }
 
         else
         {
-          v37 = v36 & 0xFFFFFFFE;
+          v38 = v37 & 0xFFFFFFFE;
         }
 
-        if (v37)
+        if (v38)
         {
-          *v103 = 136315138;
-          *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-          LODWORD(v90) = 12;
-          v87 = v103;
-          _os_log_send_and_compose_impl();
+          *v99 = 136315138;
+          *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+          _os_log_send_and_compose_impl(v38, 0, &atoken, 128, &dword_1B17A2000, v36, 0, "-MXSessionManagerUtilities- %s: No active recording phone call behavior session or bluetooth opted-in session found.", v99);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -6208,75 +6655,74 @@ LABEL_82:
 
       isRecordingMuted = [copyPhoneCallBehaviorRecordingSession isRecordingMuted];
       value = [MEMORY[0x1E696AD98] numberWithBool:isRecordingMuted ^ 1u];
-      v22 = prefersBluetoothAccessoryMuting ^ 1;
+      v23 = prefersBluetoothAccessoryMuting ^ 1;
     }
   }
 
 LABEL_83:
-  v17 = CMSUtility_CopyBundleID(copyPhoneCallBehaviorRecordingSession);
-  if (!v17)
+  v19 = CMSUtility_CopyBundleID(copyPhoneCallBehaviorRecordingSession);
+  if (!v19)
   {
     if (dword_1EB75DE40)
     {
-      v102 = 0;
+      v98 = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v54 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v55 = v102;
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+      v55 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v56 = v98;
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = v55;
+        v57 = v56;
       }
 
       else
       {
-        v56 = v55 & 0xFFFFFFFE;
+        v57 = v56 & 0xFFFFFFFE;
       }
 
-      if (v56)
+      if (v57)
       {
-        *v103 = 136315394;
-        *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-        *&v103[12] = 1024;
-        *&v103[14] = v92;
-        LODWORD(v89) = 18;
-        v86 = v103;
-        _os_log_send_and_compose_impl();
+        *v99 = 136315394;
+        *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+        *&v99[12] = 1024;
+        *&v99[14] = v88;
+        _os_log_send_and_compose_impl(v57, 0, &atoken, 128, &dword_1B17A2000, v55, 0, "-MXSessionManagerUtilities- %s: Fetching bundle ID from RBS for given pid %d", v99, 18);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v17 = MX_RunningBoardServices_CopyDisplayIDForPID(v92);
-    if (!v17)
+    v19 = MX_RunningBoardServices_CopyDisplayIDForPID(v88);
+    if (!v19)
     {
-      v102 = 0;
+      v98 = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v66 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v67 = v102;
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      v67 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v68 = v98;
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
-        v68 = v67;
+        v69 = v68;
       }
 
       else
       {
-        v68 = v67 & 0xFFFFFFFE;
+        v69 = v68 & 0xFFFFFFFE;
       }
 
-      if (v68)
+      if (v69)
       {
         bOOLValue4 = [value BOOLValue];
-        v70 = "UnMute";
+        v71 = "UnMute";
         if (bOOLValue4)
         {
-          v70 = "Mute";
+          v71 = "Mute";
         }
 
-        *v103 = 136315394;
-        *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-        *&v103[12] = 2082;
-        *&v103[14] = v70;
-        _os_log_send_and_compose_impl();
+        *v99 = 136315394;
+        *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+        *&v99[12] = 2082;
+        *&v99[14] = v71;
+        LODWORD(v87) = 22;
+        _os_log_send_and_compose_impl(v69, 0, &atoken, 128, &dword_1B17A2000, v67, 0, "-MXSessionManagerUtilities- %s: We could not find the bundleID to %{public}s", v99, v87);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -6285,40 +6731,41 @@ LABEL_83:
   }
 
   bOOLValue5 = [value BOOLValue];
-  if (((v22 | bOOLValue5 ^ [(NSSet *)[(MXSessionManager *)self mutedSessionBundleIDs] containsObject:v17]) & 1) == 0)
+  if (((v23 | bOOLValue5 ^ [(NSSet *)[(MXSessionManager *)self mutedSessionBundleIDs] containsObject:v19]) & 1) == 0)
   {
     if (dword_1EB75DE40)
     {
-      v102 = 0;
+      v98 = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v58 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v59 = v102;
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v59 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v60 = v98;
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
-        v60 = v59;
+        v61 = v60;
       }
 
       else
       {
-        v60 = v59 & 0xFFFFFFFE;
+        v61 = v60 & 0xFFFFFFFE;
       }
 
-      if (v60)
+      if (v61)
       {
         bOOLValue6 = [value BOOLValue];
-        v62 = "UnMuted";
-        *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-        *v103 = 136315650;
+        v63 = "UnMuted";
+        *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+        *v99 = 136315650;
         if (bOOLValue6)
         {
-          v62 = "Muted";
+          v63 = "Muted";
         }
 
-        *&v103[12] = 2114;
-        *&v103[14] = v17;
-        *&v103[22] = 2082;
-        v104 = v62;
-        _os_log_send_and_compose_impl();
+        *&v99[12] = 2114;
+        *&v99[14] = v19;
+        *&v99[22] = 2082;
+        v100 = v63;
+        LODWORD(v87) = 32;
+        _os_log_send_and_compose_impl(v61, 0, &atoken, 128, &dword_1B17A2000, v59, 0, "-MXSessionManagerUtilities- %s: Redundant call, Session with bundleID %{public}@ already %{public}s", v99, v87);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -6329,61 +6776,60 @@ LABEL_83:
 
   if ([copyPhoneCallBehaviorRecordingSession hasPhoneCallBehavior])
   {
-    if (((v22 | [copyPhoneCallBehaviorRecordingSession isRecording]) & 1) == 0)
+    if (((v23 | [copyPhoneCallBehaviorRecordingSession isRecording]) & 1) == 0)
     {
-      v22 = 0;
+      v23 = 0;
       goto LABEL_122;
     }
   }
 
-  else if (!v22)
+  else if (!v23)
   {
     goto LABEL_122;
   }
 
   if (dword_1EB75DE40)
   {
-    v102 = 0;
+    v98 = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v63 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v64 = v102;
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v64 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v65 = v98;
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
-      v65 = v64;
+      v66 = v65;
     }
 
     else
     {
-      v65 = v64 & 0xFFFFFFFE;
+      v66 = v65 & 0xFFFFFFFE;
     }
 
-    if (v65)
+    if (v66)
     {
-      *v103 = 136315394;
-      *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-      *&v103[12] = 1024;
-      *&v103[14] = v22;
-      LODWORD(v91) = 18;
-      v88 = v103;
-      _os_log_send_and_compose_impl();
+      *v99 = 136315394;
+      *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+      *&v99[12] = 1024;
+      *&v99[14] = v23;
+      LODWORD(v87) = 18;
+      _os_log_send_and_compose_impl(v66, 0, &atoken, 128, &dword_1B17A2000, v64, 0, "-MXSessionManagerUtilities- %s: We need to play the chime for muting. Reject = %{BOOL}u", v99, v87);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v22 = 1;
+  v23 = 1;
 LABEL_122:
   if (copyPhoneCallBehaviorRecordingSession)
   {
-    [copyPhoneCallBehaviorRecordingSession auditToken];
-    v71 = *&atoken.val[4];
+    objc_msgSend_auditToken(copyPhoneCallBehaviorRecordingSession);
+    v72 = *&atoken.val[4];
     *state->var0 = *atoken.val;
-    *&state->var0[4] = v71;
+    *&state->var0[4] = v72;
   }
 
   if (refreshed)
   {
-    if (!v22)
+    if (!v23)
     {
       goto LABEL_18;
     }
@@ -6391,10 +6837,10 @@ LABEL_122:
     goto LABEL_126;
   }
 
-  -[MXSessionManager updateMutedBundleIDs:muteValue:](self, "updateMutedBundleIDs:muteValue:", v17, [value BOOLValue]);
+  -[MXSessionManager updateMutedBundleIDs:muteValue:](self, "updateMutedBundleIDs:muteValue:", v19, [value BOOLValue]);
   if ([value BOOLValue])
   {
-    [(MXSessionManager *)self setUplinkMutedBundleID:v17];
+    [(MXSessionManager *)self setUplinkMutedBundleID:v19];
   }
 
   else
@@ -6404,92 +6850,91 @@ LABEL_122:
 
   if ([value BOOLValue])
   {
-    v73 = 1;
+    v74 = 1;
   }
 
   else
   {
-    v73 = 2;
+    v74 = 2;
   }
 
-  *(v99 + 6) = v73;
+  *(v95 + 6) = v74;
   refreshed = CMSMUtility_AudioToolboxServerRefreshMuteState();
   if (refreshed)
   {
-    v102 = 0;
+    v98 = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v74 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v75 = v102;
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+    v75 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v76 = v98;
+    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
     {
-      v76 = v75;
+      v77 = v76;
     }
 
     else
     {
-      v76 = v75 & 0xFFFFFFFE;
+      v77 = v76 & 0xFFFFFFFE;
     }
 
-    if (v76)
+    if (v77)
     {
       bOOLValue7 = [value BOOLValue];
-      v78 = "UnMuting";
-      *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-      *v103 = 136315650;
+      v79 = "UnMuting";
+      *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+      *v99 = 136315650;
       if (bOOLValue7)
       {
-        v78 = "Muting";
+        v79 = "Muting";
       }
 
-      *&v103[12] = 2082;
-      *&v103[14] = v78;
-      *&v103[22] = 2114;
-      v104 = v17;
-      LODWORD(v91) = 32;
-      v88 = v103;
-      _os_log_send_and_compose_impl();
+      *&v99[12] = 2082;
+      *&v99[14] = v79;
+      *&v99[22] = 2114;
+      v100 = v19;
+      LODWORD(v87) = 32;
+      _os_log_send_and_compose_impl(v77, 0, &atoken, 128, &dword_1B17A2000, v75, 0, "-MXSessionManagerUtilities- %s: There was a problem %{public}s the recording session with bundleID: %{public}@.", v99, v87);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    *(v99 + 6) = 3;
-    if (v22)
+    *(v95 + 6) = 3;
+    if (v23)
     {
 LABEL_126:
-      *v103 = 0;
-      *&v103[8] = v103;
-      *&v103[16] = 0x3052000000;
-      v104 = __Block_byref_object_copy__15;
-      v105 = __Block_byref_object_dispose__15;
-      v106 = objc_alloc_init(getAAAudioSessionControlClass());
+      *v99 = 0;
+      *&v99[8] = v99;
+      *&v99[16] = 0x3052000000;
+      v100 = __Block_byref_object_copy__15;
+      v101 = __Block_byref_object_dispose__15;
+      v102 = objc_alloc_init(getAAAudioSessionControlClass());
       if (updateMuteState_muteValue__onceToken != -1)
       {
         [MXSessionManager(Utilities) updateMuteState:muteValue:];
       }
 
-      [*(*&v103[8] + 40) setDispatchQueue:{updateMuteState_muteValue__sBluetoothMuteActionQueue, v88, v91}];
+      [*(*&v99[8] + 40) setDispatchQueue:updateMuteState_muteValue__sBluetoothMuteActionQueue];
       if (dword_1EB75DE40)
       {
         *type = 0;
-        v96 = OS_LOG_TYPE_DEFAULT;
-        v72 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT);
+        v92 = OS_LOG_TYPE_DEFAULT;
+        v73 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
       UpTimeNanoseconds = FigGetUpTimeNanoseconds();
-      v93[0] = MEMORY[0x1E69E9820];
-      v93[1] = 3221225472;
-      v93[2] = __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_27;
-      v93[3] = &unk_1E7AECC28;
-      v85 = *&state->var0[4];
-      v94 = *state->var0;
-      v95 = v85;
-      v93[4] = v17;
-      v93[5] = v103;
-      v93[6] = &v98;
-      v93[7] = UpTimeNanoseconds;
-      MXDispatchAsync("[MXSessionManager(Utilities) updateMuteState:muteValue:]", "MXSessionManagerUtilities.m", 922, 0, 0, updateMuteState_muteValue__sBluetoothMuteActionQueue, v93);
-      _Block_object_dispose(v103, 8);
+      v89[0] = MEMORY[0x1E69E9820];
+      v89[1] = 3221225472;
+      v89[2] = __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_27;
+      v89[3] = &unk_1E7AECC28;
+      v86 = *&state->var0[4];
+      v90 = *state->var0;
+      v91 = v86;
+      v89[4] = v19;
+      v89[5] = v99;
+      v89[6] = &v94;
+      v89[7] = UpTimeNanoseconds;
+      MXDispatchAsync("[MXSessionManager(Utilities) updateMuteState:muteValue:]", "MXSessionManagerUtilities.m", 922, 0, 0, updateMuteState_muteValue__sBluetoothMuteActionQueue, v89);
+      _Block_object_dispose(v99, 8);
     }
   }
 
@@ -6497,47 +6942,46 @@ LABEL_126:
   {
     if (dword_1EB75DE40)
     {
-      v102 = 0;
+      v98 = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v79 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v80 = v102;
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+      v80 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v81 = v98;
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
-        v81 = v80;
+        v82 = v81;
       }
 
       else
       {
-        v81 = v80 & 0xFFFFFFFE;
+        v82 = v81 & 0xFFFFFFFE;
       }
 
-      if (v81)
+      if (v82)
       {
         bOOLValue8 = [value BOOLValue];
-        v83 = "UnMuted";
-        *&v103[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
-        *v103 = 136315650;
+        v84 = "UnMuted";
+        *&v99[4] = "[MXSessionManager(Utilities) updateMuteState:muteValue:]";
+        *v99 = 136315650;
         if (bOOLValue8)
         {
-          v83 = "Muted";
+          v84 = "Muted";
         }
 
-        *&v103[12] = 2114;
-        *&v103[14] = v17;
-        *&v103[22] = 2082;
-        v104 = v83;
-        LODWORD(v91) = 32;
-        v88 = v103;
-        _os_log_send_and_compose_impl();
+        *&v99[12] = 2114;
+        *&v99[14] = v19;
+        *&v99[22] = 2082;
+        v100 = v84;
+        LODWORD(v87) = 32;
+        _os_log_send_and_compose_impl(v82, 0, &atoken, 128, &dword_1B17A2000, v80, 0, "-MXSessionManagerUtilities- %s: Session with bundleID: %{public}@ was successfully: %{public}s", v99, v87);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    -[MXSessionManager setUplinkMuteSetByClient:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance", v88, v91), "setUplinkMuteSetByClient:", [value BOOLValue]);
+    -[MXSessionManager setUplinkMuteSetByClient:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "setUplinkMuteSetByClient:", [value BOOLValue]);
     CMSMNotificationUtility_PostUplinkMuteDidChange([value BOOLValue]);
     refreshed = 0;
-    if (v22)
+    if (v23)
     {
       goto LABEL_126;
     }
@@ -6545,8 +6989,7 @@ LABEL_126:
 
 LABEL_18:
 
-  _Block_object_dispose(&v98, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v94, 8);
   return refreshed;
 }
 
@@ -6575,9 +7018,9 @@ uint64_t __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_inv
   return [v2 activateWithCompletion:v5];
 }
 
-void __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_2(uint64_t a1, uint64_t a2)
+void __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_2(uint64_t a1, unint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -6591,9 +7034,9 @@ void __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_
     v5 = *(*(*(a1 + 40) + 8) + 40);
     v6 = *(*(*(a1 + 48) + 8) + 24);
     v7 = *(a1 + 80);
-    v12[0] = *(a1 + 64);
-    v12[1] = v7;
-    [v5 setMuteAction:v6 auditToken:v12 bundleIdentifier:v4];
+    v9[0] = *(a1 + 64);
+    v9[1] = v7;
+    [v5 setMuteAction:v6 auditToken:v9 bundleIdentifier:v4];
   }
 
   if (dword_1EB75DE40)
@@ -6604,8 +7047,6 @@ void __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_
   }
 
   [*(*(*(a1 + 40) + 8) + 40) invalidate];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int)getMuteState:(id *)state outMuteValue:(BOOL *)value
@@ -6616,82 +7057,78 @@ void __57__MXSessionManager_Utilities__updateMuteState_muteValue___block_invoke_
   *&atoken.val[4] = v7;
   v8 = audit_token_to_pid(&atoken);
   *value = 0;
-  if (!MX_FeatureFlags_IsSessionBasedMutingEnabled())
+  if (!MX_FeatureFlags_IsSessionBasedMutingEnabled(v8, v9))
   {
-    v10 = *&state->var0[4];
+    v11 = *&state->var0[4];
     *atoken.val = *state->var0;
-    *&atoken.val[4] = v10;
+    *&atoken.val[4] = v11;
     if (![(MXSessionManager *)self isAuditTokenValid:&atoken])
     {
-      goto LABEL_6;
+      return -15685;
     }
 
-    v11 = [(MXSessionManager *)self copySessionWithPID:v8];
-    v12 = CMSUtility_CopyBundleID(v11);
-    if (v12)
+    v12 = [(MXSessionManager *)self copySessionWithPID:v8];
+    v13 = CMSUtility_CopyBundleID(v12);
+    if (v13)
     {
-      v13 = v12;
+      v14 = v13;
     }
 
     else
     {
-      v13 = MX_RunningBoardServices_CopyDisplayIDForPID(v8);
-      if (!v13)
+      v14 = MX_RunningBoardServices_CopyDisplayIDForPID(v8);
+      if (!v14)
       {
-        v14 = -15685;
+        v15 = -15685;
         goto LABEL_10;
       }
     }
 
-    v17 = [(NSSet *)[(MXSessionManager *)self mutedSessionBundleIDs] containsObject:v13];
-    v14 = 0;
+    v17 = [(NSSet *)[(MXSessionManager *)self mutedSessionBundleIDs] containsObject:v14];
+    v15 = 0;
     *value = v17;
 LABEL_10:
 
-    goto LABEL_7;
+    return v15;
   }
 
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-LABEL_6:
-  v14 = -15685;
-LABEL_7:
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return -15685;
 }
 
 - (id)copyPhoneCallBehaviorRecordingSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        if ([v7 isActive] && objc_msgSend(v7, "isRecording") && objc_msgSend(v7, "hasPhoneCallBehavior"))
+        v7 = *(*(&v10 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v7) && [v7 isRecording] && objc_msgSend(v7, "hasPhoneCallBehavior"))
         {
           v8 = v7;
           goto LABEL_13;
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -6704,13 +7141,72 @@ LABEL_7:
   v7 = 0;
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
+}
+
+- (void)removeEntryFromMutedBundleIDCache:(int)cache bundleID:(id)d
+{
+  v5 = *&cache;
+  v14 = *MEMORY[0x1E69E9840];
+  IsSessionBasedMutingEnabled = MX_FeatureFlags_IsSessionBasedMutingEnabled(self, a2);
+  if (!IsSessionBasedMutingEnabled)
+  {
+    if (!MX_FeatureFlags_IsCallManagementMuteControlEnabled(IsSessionBasedMutingEnabled, v8))
+    {
+      return;
+    }
+
+    if (v5 || d)
+    {
+      if (v5)
+      {
+        v10 = [(MXSessionManager *)self copySessionWithPID:v5];
+        v11 = CMSUtility_CopyBundleID(v10);
+        if (v11)
+        {
+          dCopy = v11;
+          goto LABEL_13;
+        }
+
+        dCopy = MX_RunningBoardServices_CopyDisplayIDForPID(v5);
+        if (dCopy)
+        {
+LABEL_13:
+          if ([objc_msgSend(MEMORY[0x1E695DFA8] setWithSet:{-[MXSessionManager mutedSessionBundleIDs](self, "mutedSessionBundleIDs")), "containsObject:", dCopy}])
+          {
+            [(MXSessionManager *)self updateMutedBundleIDs:dCopy muteValue:0];
+            if (dword_1EB75DE40)
+            {
+              os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+              fig_log_call_emit_and_clean_up_after_send_and_compose();
+            }
+          }
+        }
+      }
+
+      else
+      {
+        dCopy = d;
+        v10 = 0;
+        if (dCopy)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      return;
+    }
+  }
+
+  v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
 }
 
 - (id)copyActiveSessionWithAudioCategory:(id)category andAudioMode:(id)mode
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (category | mode)
   {
     copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
@@ -6744,7 +7240,7 @@ LABEL_13:
           }
 
           v13 = *(*(&v24 + 1) + 8 * i);
-          if ([v13 isActive])
+          if (objc_msgSend_isActive(v13))
           {
             if (v11)
             {
@@ -6771,17 +7267,18 @@ LABEL_26:
                 type = OS_LOG_TYPE_DEFAULT;
                 os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
                 v17 = v29;
+                v18 = type;
                 if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
                 {
-                  v18 = v17;
+                  v19 = v17;
                 }
 
                 else
                 {
-                  v18 = v17 & 0xFFFFFFFE;
+                  v19 = v17 & 0xFFFFFFFE;
                 }
 
-                if (v18)
+                if (v19)
                 {
                   clientName = [v13 clientName];
                   audioCategory = [v13 audioCategory];
@@ -6794,7 +7291,7 @@ LABEL_26:
                   v35 = audioCategory;
                   v36 = 2114;
                   v37 = audioMode;
-                  _os_log_send_and_compose_impl();
+                  _os_log_send_and_compose_impl(v19, 0, v39, 128, &dword_1B17A2000, os_log_and_send_and_compose_flags_and_os_log_type, v18, "-MXSessionManagerUtilities- %s: Active session found %{public}@ with audio category %{public}@ and mode %{public}@", &v30, 42);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -6822,57 +7319,54 @@ LABEL_34:
 
   else
   {
-    v29 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
     v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v14 = 0;
+    return 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)copySessionsWithAuditToken:(id *)token
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
+        v11 = *(*(&v16 + 1) + 8 * v10);
         if (v11)
         {
-          [*(*(&v17 + 1) + 8 * v10) auditToken];
+          objc_msgSend_auditToken(*(*(&v16 + 1) + 8 * v10));
         }
 
         else
         {
-          memset(v16, 0, sizeof(v16));
+          memset(v15, 0, sizeof(v15));
         }
 
         v12 = *&token->var0[4];
-        v15[0] = *token->var0;
-        v15[1] = v12;
-        if ([(MXSessionManager *)self isAuditTokenEqual:v16 compareTo:v15])
+        v14[0] = *token->var0;
+        v14[1] = v12;
+        if ([(MXSessionManager *)self isAuditTokenEqual:v15 compareTo:v14])
         {
           [v5 addObject:v11];
         }
@@ -6881,41 +7375,40 @@ LABEL_34:
       }
 
       while (v8 != v10);
-      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)copySessionWithDisplayID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (d)
   {
     copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v20 count:16];
+    v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(copyMXCoreSessionList);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 displayID] && objc_msgSend(objc_msgSend(v9, "displayID"), "isEqualToString:", d))
           {
             v10 = v9;
@@ -6923,7 +7416,7 @@ LABEL_34:
           }
         }
 
-        v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v20 count:16];
+        v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -6939,42 +7432,96 @@ LABEL_14:
 
   else
   {
-    v19 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v10 = 0;
+    return 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
+}
+
+- (id)copyCoreSessionsShadowingAudioSession:(unsigned int)session withOptions:(unsigned int)options
+{
+  v4 = *&options;
+  v5 = *&session;
+  copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v7 = [MXSessionManagerBase copySessionsShadowingAudioSessionID:v5 withShadowingOptions:v4 fromSessionList:copyMXCoreSessionList];
+
+  return v7;
+}
+
+- (void)postStopCommandToShadowingSessionsForSession:(id)session withShadowingOptions:(unsigned int)options
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v4 = -[MXSessionManager copyCoreSessionsShadowingAudioSession:withOptions:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "copyCoreSessionsShadowingAudioSession:withOptions:", [session audioSessionID], *&options);
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    do
+    {
+      v8 = 0;
+      v11 = v6;
+      do
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v12 + 1) + 8 * v8);
+        if (objc_msgSend_isActive(v9))
+        {
+          if (dword_1EB75DE40)
+          {
+            os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+            fig_log_call_emit_and_clean_up_after_send_and_compose();
+            v6 = v11;
+          }
+
+          CMSUtilityApplier_PostNotification_StopCommand(v9, 0);
+        }
+
+        ++v8;
+      }
+
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 - (void)updateBluetoothFrameworkToPlayMuteChime:(id)chime playRejectTone:(BOOL)tone
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (([chime isRecording] & 1) == 0 && !tone)
   {
     if (dword_1EB75DE40)
     {
-      v22 = 0;
-      type[0] = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    goto LABEL_21;
+    return;
   }
 
   v7 = objc_alloc_init(getAAAudioSessionControlClass());
   v8 = CMSUtility_CopyBundleID(chime);
-  v23 = 0u;
-  v24 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   if (chime)
   {
-    [chime auditToken];
+    objc_msgSend_auditToken(chime);
   }
 
   if (updateBluetoothFrameworkToPlayMuteChime_playRejectTone__onceToken == -1)
@@ -6995,7 +7542,7 @@ LABEL_9:
       if (!v8)
       {
         *type = 0;
-        v20 = OS_LOG_TYPE_DEFAULT;
+        v17 = OS_LOG_TYPE_DEFAULT;
         v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -7004,7 +7551,7 @@ LABEL_9:
     }
   }
 
-  [v7 setDispatchQueue:{updateBluetoothFrameworkToPlayMuteChime_playRejectTone__sBluetoothMuteActionQueue, v14, v15}];
+  [v7 setDispatchQueue:updateBluetoothFrameworkToPlayMuteChime_playRejectTone__sBluetoothMuteActionQueue];
   if (tone)
   {
     v10 = 3;
@@ -7028,27 +7575,24 @@ LABEL_9:
   if (dword_1EB75DE40)
   {
     *type = 0;
-    v20 = OS_LOG_TYPE_DEFAULT;
+    v17 = OS_LOG_TYPE_DEFAULT;
     v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   UpTimeNanoseconds = FigGetUpTimeNanoseconds();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v18 = v23;
-  v16[2] = __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_playRejectTone___block_invoke_46;
-  v16[3] = &unk_1E7AECC78;
-  v17 = v10;
-  v19 = v24;
-  v16[4] = v7;
-  v16[5] = v8;
-  v16[6] = UpTimeNanoseconds;
-  MXDispatchAsync("[MXSessionManager(Utilities) updateBluetoothFrameworkToPlayMuteChime:playRejectTone:]", "MXSessionManagerUtilities.m", 1235, 0, 0, updateBluetoothFrameworkToPlayMuteChime_playRejectTone__sBluetoothMuteActionQueue, v16);
-
-LABEL_21:
-  v13 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v15 = v19;
+  v13[2] = __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_playRejectTone___block_invoke_46;
+  v13[3] = &unk_1E7AECC78;
+  v14 = v10;
+  v16 = v20;
+  v13[4] = v7;
+  v13[5] = v8;
+  v13[6] = UpTimeNanoseconds;
+  MXDispatchAsync("[MXSessionManager(Utilities) updateBluetoothFrameworkToPlayMuteChime:playRejectTone:]", "MXSessionManagerUtilities.m", 1235, 0, 0, updateBluetoothFrameworkToPlayMuteChime_playRejectTone__sBluetoothMuteActionQueue, v13);
 }
 
 dispatch_queue_t __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_playRejectTone___block_invoke()
@@ -7073,7 +7617,7 @@ uint64_t __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChi
   return [v3 activateWithCompletion:v2];
 }
 
-void __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_playRejectTone___block_invoke_2(uint64_t a1, uint64_t a2)
+void __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_playRejectTone___block_invoke_2(uint64_t a1, unint64_t a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -7108,30 +7652,29 @@ void __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_p
     type = OS_LOG_TYPE_DEFAULT;
     v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v9 = v15;
+    v10 = type;
     if (os_log_type_enabled(v8, type))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 0xFFFFFFFE;
+      v11 = v9 & 0xFFFFFFFE;
     }
 
-    if (v10)
+    if (v11)
     {
-      v11 = (FigGetUpTimeNanoseconds() - *(a1 + 48)) / 0xF4240uLL;
+      v12 = (FigGetUpTimeNanoseconds() - *(a1 + 48)) / 0xF4240uLL;
       v16 = 136315394;
       v17 = "[MXSessionManager(Utilities) updateBluetoothFrameworkToPlayMuteChime:playRejectTone:]_block_invoke";
       v18 = 2048;
-      v19 = v11;
-      _os_log_send_and_compose_impl();
+      v19 = v12;
+      _os_log_send_and_compose_impl(v11, 0, v20, 128, &dword_1B17A2000, v8, v10, "-MXSessionManagerUtilities- %s: Bluetooth session control activateWithCompletion ended - Elapsed time=%llu milliseconds", &v16, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MXSessionManager_Utilities__updateBluetoothFrameworkToPlayMuteChime_playRejectTone___block_invoke_2_47(uint64_t a1)
@@ -7187,6 +7730,47 @@ LABEL_11:
   }
 
   return result;
+}
+
+- (id)getSilentModeClientTypeAsString:(unsigned int)string
+{
+  if (string >= 0xA)
+  {
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown(%d)", *&string];
+  }
+
+  else
+  {
+    return off_1E7AECCF8[string];
+  }
+}
+
+- (id)getClientPriorityAsString:(unsigned int)string
+{
+  switch(string)
+  {
+    case 0u:
+      return @"Default";
+    case 0x14u:
+      return @"EmergencyAlert";
+    case 0xAu:
+      return @"PhoneCall";
+  }
+
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown(%d)", *&string];
+}
+
+- (id)getRouteSharingPolicyAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown(%d)", *&string];
+  }
+
+  else
+  {
+    return off_1E7AECD48[string];
+  }
 }
 
 - (id)getShadowingAudioSessionOptionsAsString:(unsigned int)string
@@ -7260,37 +7844,37 @@ LABEL_5:
 
 - (BOOL)isAnyOtherUnduckedPlayingSessionMatchingVolumeRampCategory:(id)category
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   LastVolumeRampCategory = vaemVolumeStateGetLastVolumeRampCategory();
   CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(category);
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if (v11 != category && [*(*(&v15 + 1) + 8 * i) isPlaying] && (objc_msgSend(v11, "isDucked") & 1) == 0 && CurrentOutputVADID == CMSUtility_GetCurrentOutputVADID(v11) && PVMCategoriesAreEquivalent(-[MXSessionManager getUncustomizedCategory:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "getUncustomizedCategory:", objc_msgSend(category, "audioCategory")), objc_msgSend(category, "audioMode"), LastVolumeRampCategory, 0))
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (v11 != category && [*(*(&v14 + 1) + 8 * i) isPlaying] && (objc_msgSend(v11, "isDucked") & 1) == 0 && CurrentOutputVADID == CMSUtility_GetCurrentOutputVADID(v11) && PVMCategoriesAreEquivalent(-[MXSessionManager getUncustomizedCategory:](+[MXSessionManager sharedInstance](MXSessionManager, "sharedInstance"), "getUncustomizedCategory:", objc_msgSend(category, "audioCategory")), objc_msgSend(category, "audioMode"), LastVolumeRampCategory, 0))
         {
           v12 = 1;
           goto LABEL_15;
         }
       }
 
-      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -7303,7 +7887,6 @@ LABEL_5:
   v12 = 0;
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -7311,7 +7894,7 @@ LABEL_15:
 {
   v9 = *MEMORY[0x1E69E9840];
   CurrentOutputVADID = CMSUtility_GetCurrentOutputVADID(needed);
-  if (vaemIsVolumeRampInProgress(CurrentOutputVADID) && ![+[MXSessionManager isAnyOtherUnduckedPlayingSessionMatchingVolumeRampCategory:"isAnyOtherUnduckedPlayingSessionMatchingVolumeRampCategory:"]
+  if (vaemIsVolumeRampInProgress(CurrentOutputVADID, v7) && ![+[MXSessionManager isAnyOtherUnduckedPlayingSessionMatchingVolumeRampCategory:"isAnyOtherUnduckedPlayingSessionMatchingVolumeRampCategory:"]
   {
     if (dword_1EB75DE40)
     {
@@ -7322,8 +7905,6 @@ LABEL_15:
 
     vaemDeviceCancelVolumeRamp(CurrentOutputVADID, reason);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)doesSessionPreferInterruptionOnRouteDisconnect:(id)disconnect
@@ -7348,167 +7929,164 @@ LABEL_15:
 
 - (void)interruptSessionsOnRouteDisconnect:(id)disconnect
 {
-  v50 = *MEMORY[0x1E69E9840];
-  IsInterruptOnRouteDisconnectEnabled = MX_FeatureFlags_IsInterruptOnRouteDisconnectEnabled();
+  v53 = *MEMORY[0x1E69E9840];
+  IsInterruptOnRouteDisconnectEnabled = MX_FeatureFlags_IsInterruptOnRouteDisconnectEnabled(self, a2);
   IsContextSystemAudio = FigRoutingManagerContextUtilities_IsContextSystemAudio(disconnect);
-  v6 = CMSMUtility_IsSharePlayCallSessionActive();
-  if (IsInterruptOnRouteDisconnectEnabled && IsContextSystemAudio && !v6)
+  v6 = IsContextSystemAudio;
+  v8 = CMSMUtility_IsSharePlayCallSessionActive(IsContextSystemAudio, v7);
+  if (IsInterruptOnRouteDisconnectEnabled && v6 && !v8)
   {
-    v33 = 0u;
-    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     obj = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
-    v7 = [obj countByEnumeratingWithState:&v33 objects:v49 count:16];
+    v9 = [obj countByEnumeratingWithState:&v35 objects:v51 count:16];
     selfCopy2 = self;
-    if (v7)
+    if (v9)
     {
-      v9 = v7;
-      v10 = *v34;
-      v30 = *v34;
+      v11 = v9;
+      v12 = *v36;
+      v32 = *v36;
       do
       {
-        v11 = 0;
-        v31 = v9;
+        v13 = 0;
+        v33 = v11;
         do
         {
-          if (*v34 != v10)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v33 + 1) + 8 * v11);
-          if ([v12 isActive])
+          v14 = *(*(&v35 + 1) + 8 * v13);
+          if (objc_msgSend_isActive(v14))
           {
-            v13 = [(MXSessionManager *)selfCopy2 doesSessionPreferInterruptionOnRouteDisconnect:v12];
-            v14 = CMSUtility_AreRoutingContextsEquivalent(disconnect, [v12 routingContextUUID]);
+            v15 = [(MXSessionManager *)selfCopy2 doesSessionPreferInterruptionOnRouteDisconnect:v14];
+            v16 = CMSUtility_AreRoutingContextsEquivalent(disconnect, [v14 routingContextUUID]);
             if (dword_1EB75DE40)
             {
-              v38 = 0;
+              v40 = 0;
               type = OS_LOG_TYPE_DEFAULT;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v16 = v38;
+              v18 = v40;
+              v19 = type;
               if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
               {
-                v17 = v16;
+                v20 = v18;
               }
 
               else
               {
-                v17 = v16 & 0xFFFFFFFE;
+                v20 = v18 & 0xFFFFFFFE;
               }
 
-              if (v17)
+              if (v20)
               {
-                clientName = [v12 clientName];
-                audioCategory = [v12 audioCategory];
-                v39 = 136316162;
-                v40 = "[MXSessionManager(Utilities) interruptSessionsOnRouteDisconnect:]";
-                v41 = 2114;
-                v42 = clientName;
+                clientName = [v14 clientName];
+                audioCategory = [v14 audioCategory];
+                v41 = 136316162;
+                v42 = "[MXSessionManager(Utilities) interruptSessionsOnRouteDisconnect:]";
                 v43 = 2114;
-                v44 = audioCategory;
-                v45 = 1024;
-                v46 = v13;
+                v44 = clientName;
+                v45 = 2114;
+                v46 = audioCategory;
                 v47 = 1024;
-                v48 = v14;
+                v48 = v15;
+                v49 = 1024;
+                v50 = v16;
                 selfCopy2 = self;
-                LODWORD(v28) = 44;
-                v27 = &v39;
-                _os_log_send_and_compose_impl();
+                LODWORD(v30) = 44;
+                _os_log_send_and_compose_impl(v20, 0, v52, 128, &dword_1B17A2000, os_log_and_send_and_compose_flags_and_os_log_type, v19, "-MXSessionManagerUtilities- %s: Session: %{public}@ with audioCategory %{public}@ interruptOnRouteDisconnect = %{BOOL}u, routingContextsAreEquivalent = %{BOOL}u", &v41, v30);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v10 = v30;
-              v9 = v31;
+              v12 = v32;
+              v11 = v33;
             }
 
-            if (v14 && v13)
+            if (v16 && v15)
             {
               if (dword_1EB75DE40)
               {
-                v38 = 0;
+                v40 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v22 = v38;
-                if (os_log_type_enabled(v21, type))
+                v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v25 = v40;
+                v26 = type;
+                if (os_log_type_enabled(v24, type))
                 {
-                  v23 = v22;
+                  v27 = v25;
                 }
 
                 else
                 {
-                  v23 = v22 & 0xFFFFFFFE;
+                  v27 = v25 & 0xFFFFFFFE;
                 }
 
-                if (v23)
+                if (v27)
                 {
-                  clientName2 = [v12 clientName];
-                  v39 = 136315394;
-                  v40 = "[MXSessionManager(Utilities) interruptSessionsOnRouteDisconnect:]";
-                  v41 = 2114;
-                  v42 = clientName2;
-                  LODWORD(v28) = 22;
-                  v27 = &v39;
-                  _os_log_send_and_compose_impl();
+                  clientName2 = [v14 clientName];
+                  v41 = 136315394;
+                  v42 = "[MXSessionManager(Utilities) interruptSessionsOnRouteDisconnect:]";
+                  v43 = 2114;
+                  v44 = clientName2;
+                  LODWORD(v30) = 22;
+                  _os_log_send_and_compose_impl(v27, 0, v52, 128, &dword_1B17A2000, v24, v26, "-MXSessionManagerUtilities- %s: INTERRUPTING '%{public}@' for route disconnect", &v41, v30);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v10 = v30;
-                v9 = v31;
+                v12 = v32;
+                v11 = v33;
               }
 
-              CMSUtilityApplier_PostNotification_StopCommandWithReason(v12, 0, [MEMORY[0x1E696AD98] numberWithInt:{4, v27, v28}]);
+              CMSUtilityApplier_PostNotification_StopCommandWithReason(v14, 0, [MEMORY[0x1E696AD98] numberWithInt:4]);
             }
           }
 
-          ++v11;
+          ++v13;
         }
 
-        while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v33 objects:v49 count:16];
+        while (v11 != v13);
+        v11 = [obj countByEnumeratingWithState:&v35 objects:v51 count:16];
       }
 
-      while (v9);
+      while (v11);
     }
   }
 
   else if (dword_1EB75DE40)
   {
-    v38 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
-    v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)interruptSessionsForCategoryNoLongerRoutable
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        if ([v7 isActive] && objc_msgSend(v7, "hasInput") && !CMSMVAUtility_IsInputDeviceAvailableForSession(v7))
+        v7 = *(*(&v9 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v7) && [v7 hasInput] && !CMSMVAUtility_IsInputDeviceAvailableForSession(v7))
         {
           if (dword_1EB75DE40)
           {
@@ -7517,86 +8095,87 @@ LABEL_15:
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          CMSUtilityApplier_PostNotification_StopCommandWithReason(v7, 0, [MEMORY[0x1E696AD98] numberWithInt:{4, v10, v11}]);
+          CMSUtilityApplier_PostNotification_StopCommandWithReason(v7, 0, [MEMORY[0x1E696AD98] numberWithInt:4]);
         }
       }
 
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postStopCommandToSessionsWithAudioMode:(id)mode
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (mode)
   {
     copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
-    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v19 objects:v31 count:16];
+    v23 = 0u;
+    v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v20 objects:v32 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
-      v18 = copyMXCoreSessionList;
+      v7 = *v21;
+      v8 = &qword_1EB75D000;
+      v19 = copyMXCoreSessionList;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(copyMXCoreSessionList);
           }
 
-          v9 = *(*(&v19 + 1) + 8 * i);
-          if ([v9 isActive] && objc_msgSend(v9, "hasAudioMode:", mode))
+          v10 = *(*(&v20 + 1) + 8 * i);
+          if (objc_msgSend_isActive(v10) && [v10 hasAudioMode:mode])
           {
             if (dword_1EB75DE40)
             {
-              v24 = 0;
+              v25 = 0;
               type = OS_LOG_TYPE_DEFAULT;
+              v11 = v8;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v11 = v24;
+              v13 = v25;
+              v14 = type;
               if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
               {
-                v12 = v11;
+                v15 = v13;
               }
 
               else
               {
-                v12 = v11 & 0xFFFFFFFE;
+                v15 = v13 & 0xFFFFFFFE;
               }
 
-              if (v12)
+              if (v15)
               {
-                clientName = [v9 clientName];
-                v25 = 136315650;
-                v26 = "[MXSessionManager(Utilities) postStopCommandToSessionsWithAudioMode:]";
-                v27 = 2114;
-                v28 = clientName;
-                v29 = 2114;
+                clientName = [v10 clientName];
+                v26 = 136315650;
+                v27 = "[MXSessionManager(Utilities) postStopCommandToSessionsWithAudioMode:]";
+                v28 = 2114;
+                v29 = clientName;
+                v30 = 2114;
                 modeCopy = mode;
-                LODWORD(v17) = 32;
-                v16 = &v25;
-                _os_log_send_and_compose_impl();
+                LODWORD(v18) = 32;
+                _os_log_send_and_compose_impl(v15, 0, v33, 128, &dword_1B17A2000, os_log_and_send_and_compose_flags_and_os_log_type, v14, "-MXSessionManagerUtilities- %s: INTERRUPTING session '%{public}@' with audioMode '%{public}@'", &v26, v18);
               }
 
+              v8 = v11;
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              copyMXCoreSessionList = v18;
+              copyMXCoreSessionList = v19;
             }
 
-            CMSUtilityApplier_PostNotification_StopCommand(v9, 0);
+            CMSUtilityApplier_PostNotification_StopCommand(v10, 0);
           }
         }
 
-        v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v19 objects:v31 count:16];
+        v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v20 objects:v32 count:16];
       }
 
       while (v6);
@@ -7605,19 +8184,15 @@ LABEL_15:
 
   else
   {
-    v24 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
-    v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSpeechDetectCategory:(id)category
 {
-  IsSpeechDetectEnabled = MX_FeatureFlags_IsSpeechDetectEnabled();
+  IsSpeechDetectEnabled = MX_FeatureFlags_IsSpeechDetectEnabled(self, a2);
   if (IsSpeechDetectEnabled)
   {
 
@@ -7630,13 +8205,12 @@ LABEL_15:
 - (BOOL)isAtleastOneBudNotInEarForA2DPPort
 {
   CurrentOutputPortAtIndex = CMSMUtility_GetCurrentOutputPortAtIndex(0);
-  v3 = CurrentOutputPortAtIndex;
   if (vaeGetPortTypeFromPortID(CurrentOutputPortAtIndex) == 1885892674)
   {
-    DoesBTPortSupportInEarDetection = vaeDoesBTPortSupportInEarDetection(v3);
+    DoesBTPortSupportInEarDetection = vaeDoesBTPortSupportInEarDetection(CurrentOutputPortAtIndex);
     if (DoesBTPortSupportInEarDetection)
     {
-      LOBYTE(DoesBTPortSupportInEarDetection) = vaeGetBTPortPrimaryBudInEarStatus(v3) != 1 || vaeGetBTPortSecondaryBudInEarStatus(v3) != 1;
+      LOBYTE(DoesBTPortSupportInEarDetection) = vaeGetBTPortPrimaryBudInEarStatus(CurrentOutputPortAtIndex) != 1 || vaeGetBTPortSecondaryBudInEarStatus(CurrentOutputPortAtIndex) != 1;
     }
   }
 
@@ -7650,28 +8224,28 @@ LABEL_15:
 
 - (void)interruptAllSessionsAndSystemSounds:(id)sounds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        if ([v8 isActive])
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v8))
         {
           if (dword_1EB75DE40)
           {
@@ -7683,17 +8257,15 @@ LABEL_15:
           CMSUtilityApplier_PostNotification_StopCommand(v8, 0);
         }
 
-        [objc_msgSend(v8 clientPID];
+        [objc_msgSend(v8 "clientPID")];
         CMSystemSoundMgr_StopSystemSoundsforPID();
       }
 
-      v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)getSpeechDetectStyleForSessionConfiguration:(id)configuration
@@ -7718,9 +8290,10 @@ LABEL_15:
     return 2;
   }
 
-  if (([configuration hasAudioCategory:@"MediaPlayback"] & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"MediaPlaybackNoSpeaker") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"Audio/Video") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"AmbientSound") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"SoloAmbientSound") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"UserInterfaceSoundEffects") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"AudioProcessing") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"LiveAudio") & 1) != 0 || (objc_msgSend(configuration, "hasAudioCategory:", @"Notice") & 1) != 0 || objc_msgSend(configuration, "isPlayingOutput") && CMSMUtility_IsPlayAndRecordCategory(objc_msgSend(configuration, "audioCategory")) && objc_msgSend(configuration, "hasAudioMode:", @"Default"))
+  v6 = [configuration hasAudioCategory:@"MediaPlayback"];
+  if (v6 & 1) != 0 || (v6 = [configuration hasAudioCategory:@"MediaPlaybackNoSpeaker"], (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"Audio/Video"), (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"AmbientSound"), (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"SoloAmbientSound"), (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"UserInterfaceSoundEffects"), (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"AudioProcessing"), (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"LiveAudio"), (v6) || (v6 = objc_msgSend(configuration, "hasAudioCategory:", @"Notice"), (v6) || objc_msgSend(configuration, "isPlayingOutput") && CMSMUtility_IsPlayAndRecordCategory(objc_msgSend(configuration, "audioCategory")) && (v6 = objc_msgSend(configuration, "hasAudioMode:", @"Default"), v6))
   {
-    if (!MX_FeatureFlags_IsInterruptLongFormVideoOnSpeechDetectEnabled() || ([configuration hasAudioMode:@"MoviePlayback"] & 1) == 0 && (objc_msgSend(configuration, "isLongFormVideo") & 1) == 0)
+    if (!MX_FeatureFlags_IsInterruptLongFormVideoOnSpeechDetectEnabled(v6, v7) || ([configuration hasAudioMode:@"MoviePlayback"] & 1) == 0 && (objc_msgSend(configuration, "isLongFormVideo") & 1) == 0)
     {
       return 3;
     }
@@ -7745,7 +8318,7 @@ LABEL_15:
 {
   v27 = *MEMORY[0x1E69E9840];
   CurrentOutputPortAtIndex = CMSMUtility_GetCurrentOutputPortAtIndex(0);
-  v5 = vaeDoesBluetoothSupportFeature(CurrentOutputPortAtIndex) == 0;
+  v5 = vaeDoesBluetoothSupportFeature(CurrentOutputPortAtIndex, @"kBluetoothAudioDeviceFeatureConversationDetect") == 0;
   wombatEnabled = [+[MXSessionManager sharedInstance](MXSessionManager wombatEnabled];
   v7 = wombatEnabled;
   if (wombatEnabled)
@@ -7789,23 +8362,23 @@ LABEL_9:
       }
 
       v15 = *(*(&v22 + 1) + 8 * v13);
-      if (([v15 hasAudioCategory:@"SpeechDetect"] & 1) == 0 && objc_msgSend(v15, "isActive") && !CMSUtility_DoesSessionRemainActiveAfterStoppingPlaying(v15))
+      if (([v15 hasAudioCategory:@"SpeechDetect"] & 1) == 0 && objc_msgSend_isActive(v15) && !CMSUtility_DoesSessionRemainActiveAfterStoppingPlaying(v15, v16))
       {
-        v16 = [(MXSessionManager *)self getSpeechDetectStyleForSessionConfiguration:v15];
-        if (v16 == 2)
+        v17 = [(MXSessionManager *)self getSpeechDetectStyleForSessionConfiguration:v15];
+        if (v17 == 2)
         {
           v8 = 2;
         }
 
         else
         {
-          if (v16 == 4)
+          if (v17 == 4)
           {
             v8 = 4;
             break;
           }
 
-          if (v16 == 3 && v8 - 4 < 0xFFFFFFFE)
+          if (v17 == 3 && v8 - 4 < 0xFFFFFFFE)
           {
             v8 = 3;
           }
@@ -7833,7 +8406,6 @@ LABEL_9:
   }
 
   currentSpeechDetectStyle__sPreviousSpeechDetectStyle = v8;
-  v19 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -7854,36 +8426,36 @@ LABEL_9:
 
 - (BOOL)isAnySessionWithMappedVolumeCategoryPlaying:(id)playing
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = PVMGetMappedCategory([v9 audioCategory]);
-        if ([v9 isActive] && objc_msgSend(v9, "isPlaying") && (objc_msgSend(v9, "doesntActuallyPlayAudio") & 1) == 0 && objc_msgSend(v9, "isPlayingOutput") && (objc_msgSend(v10, "isEqualToString:", playing) & 1) != 0)
+        if (objc_msgSend_isActive(v9) && [v9 isPlaying] && (objc_msgSend(v9, "doesntActuallyPlayAudio") & 1) == 0 && objc_msgSend(v9, "isPlayingOutput") && (objc_msgSend(v10, "isEqualToString:", playing) & 1) != 0)
         {
           v11 = 1;
           goto LABEL_15;
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -7896,7 +8468,6 @@ LABEL_9:
   v11 = 0;
 LABEL_15:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -7921,46 +8492,44 @@ LABEL_15:
 - (id)copyPotentialActiveSharePlayMediaSession
 {
   v19 = *MEMORY[0x1E69E9840];
-  if (!MX_FeatureFlags_IsSharePlayEnabled())
+  IsSharePlayEnabled = MX_FeatureFlags_IsSharePlayEnabled(self, a2);
+  if (!IsSharePlayEnabled)
   {
-    v5 = 0;
-LABEL_19:
-    v12 = *MEMORY[0x1E69E9840];
-    return v5;
+    return 0;
   }
 
-  SharePlayMediaSession = CMSMUtility_GetSharePlayMediaSession();
-  if (![SharePlayMediaSession isActive])
+  SharePlayMediaSession = CMSMUtility_GetSharePlayMediaSession(IsSharePlayEnabled, v4);
+  if (!objc_msgSend_isActive(SharePlayMediaSession))
   {
     copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
+    v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v15;
+      v9 = v8;
+      v10 = *v15;
       while (2)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v9)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(copyMXCoreSessionList);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
-          if ([v11 isActive] && -[MXSessionManager sessionCanBecomeSharePlayMedia:](self, "sessionCanBecomeSharePlayMedia:", v11))
+          v12 = *(*(&v14 + 1) + 8 * i);
+          if (objc_msgSend_isActive(v12) && [(MXSessionManager *)self sessionCanBecomeSharePlayMedia:v12])
           {
-            v5 = v11;
+            v6 = v12;
             goto LABEL_18;
           }
         }
 
-        v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v8)
+        v9 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v9)
         {
           continue;
         }
@@ -7969,13 +8538,11 @@ LABEL_19:
       }
     }
 
-    v5 = 0;
+    v6 = 0;
 LABEL_18:
 
-    goto LABEL_19;
+    return v6;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return SharePlayMediaSession;
 }
@@ -7994,48 +8561,50 @@ LABEL_18:
 
 - (void)postDisallowedActivationDueToContinuityCaptureNotification:(BOOL)notification videoPlaybackWasIntended:(BOOL)intended
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (CMSMDeviceState_ItsAniPad())
+  v13 = *MEMORY[0x1E69E9840];
+  v6 = CMSMDeviceState_ItsAniPad();
+  if (v6)
   {
-    v6 = MXGetNotificationSenderQueue();
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __115__MXSessionManager_Utilities__postDisallowedActivationDueToContinuityCaptureNotification_videoPlaybackWasIntended___block_invoke;
-    v9[3] = &__block_descriptor_34_e5_v8__0l;
+    v8 = MXGetNotificationSenderQueue(v6, v7);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __115__MXSessionManager_Utilities__postDisallowedActivationDueToContinuityCaptureNotification_videoPlaybackWasIntended___block_invoke;
+    v10[3] = &__block_descriptor_34_e5_v8__0l;
     notificationCopy = notification;
     intendedCopy = intended;
-    MXDispatchAsync("[MXSessionManager(Utilities) postDisallowedActivationDueToContinuityCaptureNotification:videoPlaybackWasIntended:]", "MXSessionManagerUtilities.m", 2149, 0, 0, v6, v9);
+    MXDispatchAsync("[MXSessionManager(Utilities) postDisallowedActivationDueToContinuityCaptureNotification:videoPlaybackWasIntended:]", "MXSessionManagerUtilities.m", 2149, 0, 0, v8, v10);
   }
 
   else
   {
-    v13 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __115__MXSessionManager_Utilities__postDisallowedActivationDueToContinuityCaptureNotification_videoPlaybackWasIntended___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  if (_block_invoke_registrationStatus && (_block_invoke_registrationStatus = notify_register_check("com.apple.MediaExperience.DisallowedActivationDueToContinuityCapture", &_block_invoke_notificationToken)) != 0 || (!*(a1 + 33) ? (v2 = *(a1 + 32)) : (v2 = *(a1 + 32) | 2), notify_set_state(_block_invoke_notificationToken, v2) || (result = notify_post("com.apple.MediaExperience.DisallowedActivationDueToContinuityCapture"), result) || dword_1EB75DE40))
+  if (_block_invoke_registrationStatus && (_block_invoke_registrationStatus = notify_register_check("com.apple.MediaExperience.DisallowedActivationDueToContinuityCapture", &_block_invoke_notificationToken)) != 0 || (!*(a1 + 33) ? (v2 = *(a1 + 32)) : (v2 = *(a1 + 32) | 2), notify_set_state(_block_invoke_notificationToken, v2) || (result = notify_post("com.apple.MediaExperience.DisallowedActivationDueToContinuityCapture"), result)))
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  if (dword_1EB75DE40)
+  {
+    v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
   return result;
 }
 
 - (void)postDisallowedRecordingNotification:(unint64_t)notification
 {
-  v5 = MXGetNotificationSenderQueue();
+  v5 = MXGetNotificationSenderQueue(self, a2);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __67__MXSessionManager_Utilities__postDisallowedRecordingNotification___block_invoke;
@@ -8048,14 +8617,20 @@ uint64_t __115__MXSessionManager_Utilities__postDisallowedActivationDueToContinu
 uint64_t __67__MXSessionManager_Utilities__postDisallowedRecordingNotification___block_invoke(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  if (_block_invoke_2_registrationStatus && (_block_invoke_2_registrationStatus = notify_register_check("com.apple.MediaExperience.DisallowedRecording", &_block_invoke_2_notificationToken)) != 0 || notify_set_state(_block_invoke_2_notificationToken, *(a1 + 40)) || (result = notify_post("com.apple.MediaExperience.DisallowedRecording"), result) || dword_1EB75DE40)
+  if (_block_invoke_2_registrationStatus && (_block_invoke_2_registrationStatus = notify_register_check("com.apple.MediaExperience.DisallowedRecording", &_block_invoke_2_notificationToken)) != 0 || notify_set_state(_block_invoke_2_notificationToken, *(a1 + 40)) || (result = notify_post("com.apple.MediaExperience.DisallowedRecording"), result))
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
+  if (dword_1EB75DE40)
+  {
+    v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
   return result;
 }
 
@@ -8074,39 +8649,37 @@ uint64_t __67__MXSessionManager_Utilities__postDisallowedRecordingNotification__
 
 - (void)updateActiveSessionsOnDeviceRelinquished
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        [*(*(&v8 + 1) + 8 * v6) setWasActiveWhenDeviceOwnershipRelinquished:{objc_msgSend(*(*(&v8 + 1) + 8 * v6), "isActive")}];
+        [*(*(&v7 + 1) + 8 * v6) setWasActiveWhenDeviceOwnershipRelinquished:objc_msgSend_isActive(*(*(&v7 + 1) + 8 * v6))];
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [copyMXCoreSessionList countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getCleanupSessionAssertionReasonString:(int64_t)string
@@ -8139,24 +8712,24 @@ uint64_t __67__MXSessionManager_Utilities__postDisallowedRecordingNotification__
     }
 
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:clientName];
-    v9 = MXGetSerialQueue();
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupReason___block_invoke;
-    v10[3] = &unk_1E7AECCC0;
-    objc_copyWeak(v11, &location);
-    v12 = audioSessionID;
-    v11[1] = reason;
-    v10[4] = v8;
-    MXDispatchAsync("[MXSessionManager(Utilities) cleanupSessionAssertionsIfNeeded:cleanupReason:]", "MXSessionManagerUtilities.m", 2302, 0, 0, v9, v10);
-    objc_destroyWeak(v11);
+    v10 = MXGetSerialQueue(v8, v9);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupReason___block_invoke;
+    v11[3] = &unk_1E7AECCC0;
+    objc_copyWeak(v12, &location);
+    v13 = audioSessionID;
+    v12[1] = reason;
+    v11[4] = v8;
+    MXDispatchAsync("[MXSessionManager(Utilities) cleanupSessionAssertionsIfNeeded:cleanupReason:]", "MXSessionManagerUtilities.m", 2302, 0, 0, v10, v11);
+    objc_destroyWeak(v12);
     objc_destroyWeak(&location);
   }
 }
 
 void __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupReason___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak((a1 + 40));
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   if ([Weak playbackAssertionRef])
@@ -8169,31 +8742,31 @@ void __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupR
     [v3 addObject:{objc_msgSend(Weak, "resumeAssertionRef")}];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = [Weak hostProcessPlaybackAssertions];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addObject:{objc_msgSend(objc_msgSend(Weak, "hostProcessPlaybackAssertions"), "objectForKey:", *(*(&v11 + 1) + 8 * v8++))}];
+        [v3 addObject:{objc_msgSend(objc_msgSend(Weak, "hostProcessPlaybackAssertions"), "objectForKey:", *(*(&v10 + 1) + 8 * v8++))}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -8201,56 +8774,88 @@ void __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupR
 
   v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"0x%x", *(a1 + 56)];
   MX_RunningBoardServices_InvalidatePlaybackAssertionsContainingSessionID(v9, v3, *(a1 + 48));
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyEvaluatedBadgeType:(id)type
 {
-  EvaluatedBadgeType = FigRoutingManagerUtilities_GetEvaluatedBadgeType();
+  EvaluatedBadgeType = FigRoutingManagerUtilities_GetEvaluatedBadgeType(type);
 
   return EvaluatedBadgeType;
 }
 
 - (void)updateBadgeType:(id)type matchingPID:(int)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([objc_msgSend(v11 "clientPID")] == d)
         {
           [v11 setBadgeType:type];
         }
       }
 
-      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSupportedOutputChannelLayouts:(id)layouts matchingPID:(int)d
+{
+  v17 = *MEMORY[0x1E69E9840];
+  copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(copyMXCoreSessionList);
+        }
+
+        v11 = *(*(&v12 + 1) + 8 * i);
+        if ([objc_msgSend(v11 "clientPID")] == d)
+        {
+          [v11 setSupportedOutputChannelLayouts:layouts];
+        }
+      }
+
+      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (BOOL)isPIDAllowedToBeNowPlayingApp:(int)app
 {
   v18 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
@@ -8258,60 +8863,22 @@ void __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupR
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v14;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v14 != v9)
-        {
-          objc_enumerationMutation(copyMXCoreSessionList);
-        }
-
-        v11 = *(*(&v13 + 1) + 8 * i);
-        if ([objc_msgSend(v11 "clientPID")] == d)
-        {
-          [v11 setSupportedOutputChannelLayouts:layouts];
-        }
-      }
-
-      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v8);
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)isPIDAllowedToBeNowPlayingApp:(int)app
-{
-  v19 = *MEMORY[0x1E69E9840];
-  copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([objc_msgSend(v10 "clientPID")] == app)
         {
           if (CMSUtility_GetIsEligibleForNowPlayingAppConsideration(v10))
@@ -8326,7 +8893,7 @@ void __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupR
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -8344,43 +8911,32 @@ void __78__MXSessionManager_Utilities__cleanupSessionAssertionsIfNeeded_cleanupR
   v11 = 1;
 LABEL_15:
 
-  if (v7)
-  {
-    result = v11;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 && v11;
 }
 
 - (id)copySessionEligibleForNowPlayingAppConsideration:(int)consideration
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([objc_msgSend(v9 "clientPID")] == consideration && objc_msgSend(v9, "isEligibleForNowPlayingAppConsideration"))
         {
           v10 = v9;
@@ -8388,7 +8944,7 @@ LABEL_15:
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -8401,7 +8957,6 @@ LABEL_15:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -8446,9 +9001,9 @@ LABEL_12:
       LOBYTE(v8) = 0;
       if (v19 && v18 && v17 && v16)
       {
-        if ([(__CFString *)v19 isEqualToString:?])
+        if ([v19 isEqualToString:?])
         {
-          v8 = [(__CFString *)v17 isEqualToString:v16]^ 1;
+          v8 = [v17 isEqualToString:v16] ^ 1;
         }
 
         else
@@ -8464,7 +9019,7 @@ LABEL_12:
 
 - (BOOL)sessionUtilizesIndependentRecordingOnly:(id)only
 {
-  IsAdditiveRoutingEnabled = CMSMVAUtility_IsAdditiveRoutingEnabled();
+  IsAdditiveRoutingEnabled = CMSMVAUtility_IsAdditiveRoutingEnabled(self, a2);
   if (IsAdditiveRoutingEnabled)
   {
     if (([only isRoutedToOnDemandVAD] & 1) != 0 || (IsAdditiveRoutingEnabled = objc_msgSend(only, "willRouteToOnDemandVADOnActivation")) != 0)
@@ -8490,17 +9045,17 @@ LABEL_12:
 
 - (BOOL)canSessionsCoexistDueToIndependentRecording:(id)recording victim:(id)victim
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (!CMSMVAUtility_IsAdditiveRoutingEnabled() || (v6 = victim, v7 = recording, ![+[MXSessionManager sharedInstance](MXSessionManager sessionUtilizesIndependentRecordingOnly:"sessionUtilizesIndependentRecordingOnly:", recording]) && (v6 = recording, v7 = victim, ![+[MXSessionManager sessionUtilizesIndependentRecordingOnly:"sessionUtilizesIndependentRecordingOnly:"])
+  v11 = *MEMORY[0x1E69E9840];
+  if (!CMSMVAUtility_IsAdditiveRoutingEnabled(self, a2) || (v6 = victim, v7 = recording, ![+[MXSessionManager sharedInstance](MXSessionManager sessionUtilizesIndependentRecordingOnly:"sessionUtilizesIndependentRecordingOnly:", recording]) && (v6 = recording, v7 = victim, ![+[MXSessionManager sessionUtilizesIndependentRecordingOnly:"sessionUtilizesIndependentRecordingOnly:"])
   {
 LABEL_16:
     LOBYTE(v7) = 0;
-    goto LABEL_17;
+    return v7;
   }
 
   if (v7)
   {
-    if (([v7 prefersEchoCancelledInput] & 1) == 0 && objc_msgSend(v6, "isTheAssistant"))
+    if ((-[NSObject prefersEchoCancelledInput](v7, "prefersEchoCancelledInput") & 1) == 0 && [v6 isTheAssistant])
     {
       if (dword_1EB75DE40)
       {
@@ -8516,12 +9071,12 @@ LABEL_16:
     {
       if (dword_1EB75DE40)
       {
-        v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+        v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
         LOBYTE(v7) = 1;
 LABEL_18:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        goto LABEL_17;
+        return v7;
       }
 
       goto LABEL_15;
@@ -8531,29 +9086,27 @@ LABEL_18:
     {
 LABEL_15:
       LOBYTE(v7) = 1;
-      goto LABEL_17;
+      return v7;
     }
 
     LOBYTE(v7) = [v7 hasEntitlementToRecordDuringCall];
     if (dword_1EB75DE40)
     {
-      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       goto LABEL_18;
     }
   }
 
-LABEL_17:
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)canSessionsCoexistDueToMediaMultitasking:(id)multitasking victim:(id)victim
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if (!CMSMDeviceState_SupportsMediaMultitasking() || ![multitasking isMediaSession] || !objc_msgSend(victim, "isMediaSession"))
+  v10 = *MEMORY[0x1E69E9840];
+  if (!CMSMDeviceState_SupportsMediaMultitasking(self, a2) || ![multitasking isMediaSession] || !objc_msgSend(victim, "isMediaSession"))
   {
-    goto LABEL_7;
+    return 0;
   }
 
   v6 = CMSUtility_SessionCanBeAndAllowedToBeNowPlayingApp(multitasking);
@@ -8561,9 +9114,7 @@ LABEL_17:
   {
     if (!dword_1EB75DE40)
     {
-LABEL_12:
-      v7 = 1;
-      goto LABEL_8;
+      return 1;
     }
 
 LABEL_10:
@@ -8571,52 +9122,40 @@ LABEL_10:
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     v7 = 1;
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    goto LABEL_8;
+    return v7;
   }
 
   if (![multitasking hasAudioTrack] || (objc_msgSend(victim, "hasAudioTrack") & 1) == 0)
   {
     if (!dword_1EB75DE40)
     {
-      goto LABEL_12;
+      return 1;
     }
 
     goto LABEL_10;
   }
 
-LABEL_7:
-  v7 = 0;
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return 0;
 }
 
 - (BOOL)canSessionsCoexistDueToOutputMuting:(id)muting victim:(id)victim
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy() && [muting isEligibleForOutputMuting] && objc_msgSend(victim, "isEligibleForOutputMuting") && (objc_msgSend(muting, "isOutputMuted") && (objc_msgSend(muting, "hasAudioMode:", @"ShortFormVideo") & 1) != 0 || objc_msgSend(victim, "isOutputMuted") && objc_msgSend(victim, "hasAudioMode:", @"ShortFormVideo")))
+  v9 = *MEMORY[0x1E69E9840];
+  if (!CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(self, a2) || ![muting isEligibleForOutputMuting] || !objc_msgSend(victim, "isEligibleForOutputMuting") || (!objc_msgSend(muting, "isOutputMuted") || (objc_msgSend(muting, "hasAudioMode:", @"ShortFormVideo") & 1) == 0) && (!objc_msgSend(victim, "isOutputMuted") || !objc_msgSend(victim, "hasAudioMode:", @"ShortFormVideo")))
   {
-    if (dword_1EB75DE40)
-    {
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      v9 = 1;
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    else
-    {
-      v9 = 1;
-    }
+    return 0;
   }
 
-  else
+  if (!dword_1EB75DE40)
   {
-    v9 = 0;
+    return 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v9;
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+  v8 = 1;
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return v8;
 }
 
 - (BOOL)isAirPlaySession:(id)session
@@ -8631,27 +9170,27 @@ LABEL_8:
 
 - (BOOL)isSiriSessionActiveAndRoutedToSiriOutputVAD
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        if ([v6 isActive])
+        v6 = *(*(&v9 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v6))
         {
           if ([v6 isTheAssistant])
           {
@@ -8665,7 +9204,7 @@ LABEL_8:
         }
       }
 
-      v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [copyMXCoreSessionList countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -8677,33 +9216,32 @@ LABEL_8:
 
 LABEL_13:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)isSiriSessionActive:(BOOL *)active andMixable:(BOOL *)mixable
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ([v11 isTheAssistant])
         {
           if (active)
@@ -8716,12 +9254,12 @@ LABEL_13:
             *mixable = [v11 mixesWithEveryone];
           }
 
-          isActive = [v11 isActive];
+          isActive = objc_msgSend_isActive(v11);
           goto LABEL_15;
         }
       }
 
-      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -8734,7 +9272,6 @@ LABEL_13:
   isActive = 0;
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return isActive;
 }
 
@@ -8757,28 +9294,28 @@ LABEL_15:
 
 - (BOOL)doesAnyActiveSessionExistWhichPrefersToBeInterruptedByNextRecordingClient:(id)client
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionList);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        if (v9 != client && [*(*(&v14 + 1) + 8 * i) isActive] && objc_msgSend(v9, "prefersBeingInterruptedByNextActiveRecordingClient"))
+        v9 = *(*(&v13 + 1) + 8 * i);
+        if (v9 != client && objc_msgSend_isActive(*(*(&v13 + 1) + 8 * i)) && [v9 prefersBeingInterruptedByNextActiveRecordingClient])
         {
           if (dword_1EB75DE40)
           {
@@ -8797,7 +9334,7 @@ LABEL_15:
         }
       }
 
-      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -8810,135 +9347,133 @@ LABEL_15:
   v10 = 0;
 LABEL_15:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)remoteDeviceControlIsAllowed:(unsigned int *)allowed
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsOnenessEnabled())
+  v20 = *MEMORY[0x1E69E9840];
+  if (!MX_FeatureFlags_IsOnenessEnabled(self, a2))
   {
-    copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v6)
+    if (!allowed)
     {
-      v7 = v6;
-      v8 = *v17;
-      while (2)
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v17 != v8)
-          {
-            objc_enumerationMutation(copyMXCoreSessionList);
-          }
-
-          v10 = *(*(&v16 + 1) + 8 * i);
-          if ([v10 isActive] && objc_msgSend(v10, "hasPhoneCallBehavior") && objc_msgSend(v10, "isRecording"))
-          {
-            if (dword_1EB75DE40)
-            {
-              os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-              fig_log_call_emit_and_clean_up_after_send_and_compose();
-            }
-
-            v11 = 3;
-            goto LABEL_29;
-          }
-
-          if ([v10 isTheAssistant] && objc_msgSend(v10, "isRecording"))
-          {
-            if (dword_1EB75DE40)
-            {
-              v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-              fig_log_call_emit_and_clean_up_after_send_and_compose();
-            }
-
-            v11 = 4;
-            goto LABEL_29;
-          }
-
-          if ([v10 isActive] && objc_msgSend(v10, "isRecording") && (objc_msgSend(v10, "prefersNoInterruptionsDuringRemoteDeviceControl") & 1) == 0)
-          {
-            if (dword_1EB75DE40)
-            {
-              v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-              fig_log_call_emit_and_clean_up_after_send_and_compose();
-            }
-
-            v11 = 2;
-            goto LABEL_29;
-          }
-        }
-
-        v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v16 objects:v20 count:16];
-        if (v7)
-        {
-          continue;
-        }
-
-        break;
-      }
+      return;
     }
 
-    v11 = 0;
-LABEL_29:
+    v11 = 1;
+    goto LABEL_30;
+  }
 
-    if (allowed)
+  copyMXCoreSessionList = [(MXSessionManager *)self copyMXCoreSessionList];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v6 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v16;
+    while (2)
     {
-      goto LABEL_30;
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v16 != v8)
+        {
+          objc_enumerationMutation(copyMXCoreSessionList);
+        }
+
+        v10 = *(*(&v15 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v10) && [v10 hasPhoneCallBehavior] && objc_msgSend(v10, "isRecording"))
+        {
+          if (dword_1EB75DE40)
+          {
+            os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+            fig_log_call_emit_and_clean_up_after_send_and_compose();
+          }
+
+          v11 = 3;
+          goto LABEL_29;
+        }
+
+        if ([v10 isTheAssistant] && objc_msgSend(v10, "isRecording"))
+        {
+          if (dword_1EB75DE40)
+          {
+            v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+            fig_log_call_emit_and_clean_up_after_send_and_compose();
+          }
+
+          v11 = 4;
+          goto LABEL_29;
+        }
+
+        if (objc_msgSend_isActive(v10) && [v10 isRecording] && (objc_msgSend(v10, "prefersNoInterruptionsDuringRemoteDeviceControl") & 1) == 0)
+        {
+          if (dword_1EB75DE40)
+          {
+            v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+            fig_log_call_emit_and_clean_up_after_send_and_compose();
+          }
+
+          v11 = 2;
+          goto LABEL_29;
+        }
+      }
+
+      v7 = [copyMXCoreSessionList countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
     }
   }
 
-  else if (allowed)
+  v11 = 0;
+LABEL_29:
+
+  if (allowed)
   {
-    v11 = 1;
 LABEL_30:
     *allowed = v11;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getAvailableAudioDestination:(id)destination
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = @"VirtualAudioDevice_Default";
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [destination countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [destination countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(destination);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (vaemIsAudioDestinationAvailable(v9))
         {
-          v4 = v9;
-          goto LABEL_11;
+          return v9;
         }
       }
 
-      v6 = [destination countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [destination countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -8948,33 +9483,29 @@ LABEL_30:
     }
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (id)copyAudioBehaviorForCategory:(id)category mode:(id)mode
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!qword_1EB75E0E8)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   if (!category || !mode)
   {
     if (!dword_1EB75DE40)
     {
-LABEL_15:
-      v9 = 0;
-      goto LABEL_16;
+      return 0;
     }
 
 LABEL_14:
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    goto LABEL_15;
+    return 0;
   }
 
   CategoryStringWithModeAppended = CMSMUtility_CreateCategoryStringWithModeAppended([+[MXSessionManager getUncustomizedCategory:"getUncustomizedCategory:"];
@@ -9009,14 +9540,12 @@ LABEL_13:
     goto LABEL_14;
   }
 
-LABEL_16:
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)getProjectedAudioDestinationForCategory:(id)category mode:(id)mode
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = @"VirtualAudioDevice_Default";
   if (category && mode)
   {
@@ -9035,18 +9564,17 @@ LABEL_16:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (int)getVolumeButtonDelta:(id)delta outVolumeDelta:(float *)volumeDelta
 {
   cf[16] = *MEMORY[0x1E69E9840];
-  VolumeButtonClient = CMSessionMgrFindVolumeButtonClient(1u);
+  VolumeButtonClient = CMSessionMgrFindVolumeButtonClient(1, a2);
   v7 = VolumeButtonClient;
   if (VolumeButtonClient)
   {
-    if (![VolumeButtonClient isActive])
+    if (!objc_msgSend_isActive(VolumeButtonClient))
     {
       VolumeDeltaIfRoutedToThirdPartyTV = 0.0625;
       goto LABEL_33;
@@ -9117,20 +9645,21 @@ LABEL_16:
     LOBYTE(theArray) = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v12 = v19;
+    v13 = theArray;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, theArray))
     {
-      v13 = v12;
+      v14 = v12;
     }
 
     else
     {
-      v13 = v12 & 0xFFFFFFFE;
+      v14 = v12 & 0xFFFFFFFE;
     }
 
-    if (v13)
+    if (v14)
     {
       clientName = [v7 clientName];
-      isActive = [v7 isActive];
+      isActive = objc_msgSend_isActive(v7);
       *v20 = 136316162;
       *&v20[4] = "[MXSessionManager(Utilities) getVolumeButtonDelta:outVolumeDelta:]";
       v21 = 2114;
@@ -9141,7 +9670,7 @@ LABEL_16:
       v26 = isActive;
       v27 = 2048;
       v28 = VolumeDeltaIfRoutedToThirdPartyTV;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(v14, 0, cf, 128, &dword_1B17A2000, os_log_and_send_and_compose_flags_and_os_log_type, v13, "-MXSessionManagerUtilities- %s: Volume button client session: %{public}@, category: %{public}@, isActive: %{BOOL}u, outVolumeDelta = %1.4f", v20, 48);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -9149,7 +9678,6 @@ LABEL_16:
 
 LABEL_33:
   *volumeDelta = VolumeDeltaIfRoutedToThirdPartyTV;
-  v16 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -9176,7 +9704,7 @@ LABEL_33:
 
 - (BOOL)isSessionConfigurationEligibleForOutputMuting:(id)muting audioMode:(id)mode
 {
-  IsPlayAndRecordCategory = CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy();
+  IsPlayAndRecordCategory = CMSMDeviceState_SupportsShortFormOutputMutingAudioPolicy(self, a2);
   if (IsPlayAndRecordCategory)
   {
     if (FigCFEqual() || FigCFEqual() || FigCFEqual() || FigCFEqual() || FigCFEqual() || CMSMUtility_IsCategoryInputOnly(muting))
@@ -9189,7 +9717,7 @@ LABEL_33:
       IsPlayAndRecordCategory = CMSMUtility_IsPlayAndRecordCategory(muting);
       if (IsPlayAndRecordCategory)
       {
-        LOBYTE(IsPlayAndRecordCategory) = CMSMUtility_DoCategoryAndModeHavePhoneCallBehaviour(muting) == 0;
+        LOBYTE(IsPlayAndRecordCategory) = CMSMUtility_DoCategoryAndModeHavePhoneCallBehaviour(muting, mode) == 0;
       }
     }
   }
@@ -9199,46 +9727,46 @@ LABEL_33:
 
 - (void)synchronizeSessionVolumeWithMediaVolumeIfNeeded:(id)needed
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsSynchronizeSiriAlarmVolumesToMediaVolumeEnabled())
+  v28 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsSynchronizeSiriAlarmVolumesToMediaVolumeEnabled(self, a2))
   {
     if (([needed isTheAssistant] & 1) != 0 || (objc_msgSend(needed, "audioCategory"), FigCFEqual()))
     {
       [+[MXSessionManager sharedInstance](MXSessionManager setIsVoiceAssistantPlayingToPersonalAudioDeviceOverMedia:"setIsVoiceAssistantPlayingToPersonalAudioDeviceOverMedia:", 0];
       if ([+[MXSessionManager isAnySessionWithMappedVolumeCategoryPlaying:"isAnySessionWithMappedVolumeCategoryPlaying:"]
       {
-        v27 = 0;
+        v24 = 0;
         *cf = 0u;
-        *v26 = 0u;
-        PVMCopyCurrentDeviceRoute(&cf[1], &v26[1], v26);
-        v28 = *cf;
-        v29 = *v26;
-        v30 = v27;
-        cf[0] = PVMGetMappedEndpointType(&v28);
-        v28 = *cf;
-        v29 = *v26;
-        v30 = v27;
-        if (PVMIsRoutedToAPersonalAudioDevice(&v28))
+        *v23 = 0u;
+        PVMCopyCurrentDeviceRoute(&cf[1], &v23[1], v23);
+        v25 = *cf;
+        v26 = *v23;
+        v27 = v24;
+        cf[0] = PVMGetMappedEndpointType(&v25);
+        v25 = *cf;
+        v26 = *v23;
+        v27 = v24;
+        if (PVMIsRoutedToAPersonalAudioDevice(&v25))
         {
           if ([needed isTheAssistant])
           {
             UpTimeNanoseconds = FigGetUpTimeNanoseconds();
-            v28 = *cf;
-            v29 = *v26;
-            v30 = v27;
-            v5 = ((UpTimeNanoseconds - PVMGetMostRecentSynchronizedVolumeActivityTimestamp(&v28)) / 0x3B9ACA00uLL);
+            v25 = *cf;
+            v26 = *v23;
+            v27 = v24;
+            v5 = ((UpTimeNanoseconds - PVMGetMostRecentSynchronizedVolumeActivityTimestamp(&v25)) / 0x3B9ACA00uLL);
             if (PVMGetSynchronizedVolumeResetTimerDuration() <= v5)
             {
-              v28 = *cf;
-              v29 = *v26;
-              v30 = v27;
-              v13 = PVMGetVolumePreference(@"Audio/Video", 0, &v28);
+              v25 = *cf;
+              v26 = *v23;
+              v27 = v24;
+              v13 = PVMGetVolumePreference(@"Audio/Video", 0, &v25);
               v14 = PVMGetRawVolumeForCurrentRouteFromVolume(@"Audio/Video", 0, v13);
               v15 = PVMComputeSynchronizedVolume(v14);
-              v28 = *cf;
-              v29 = *v26;
-              v30 = v27;
-              *&v16 = PVMGetVolumePreference(@"VoiceCommand", 0, &v28);
+              v25 = *cf;
+              v26 = *v23;
+              v27 = v24;
+              *&v16 = PVMGetVolumePreference(@"VoiceCommand", 0, &v25);
               v17 = PVMGetVolumeToBeAppliedOnHardware(v16, v15);
               if (v17)
               {
@@ -9251,19 +9779,19 @@ LABEL_33:
                 }
 
                 [v18 floatValue];
-                v28 = *cf;
-                v29 = *v26;
-                v30 = v27;
-                PVMSetVolumePreference(@"VoiceCommand", 0, 1, &v28, 0, 0, v21, 0.0, 0.0);
+                v25 = *cf;
+                v26 = *v23;
+                v27 = v24;
+                PVMSetVolumePreference(@"VoiceCommand", 0, 1, &v25, 0, 0, v21, 0.0, 0.0);
               }
             }
 
             else
             {
-              v28 = *cf;
-              v29 = *v26;
-              v30 = v27;
-              PVMSetMostRecentSynchronizedVolumeActivityTimestamp(&v28, UpTimeNanoseconds);
+              v25 = *cf;
+              v26 = *v23;
+              v27 = v24;
+              PVMSetMostRecentSynchronizedVolumeActivityTimestamp(&v25, UpTimeNanoseconds);
             }
 
             [+[MXSessionManager sharedInstance](MXSessionManager setIsVoiceAssistantPlayingToPersonalAudioDeviceOverMedia:"setIsVoiceAssistantPlayingToPersonalAudioDeviceOverMedia:", 1];
@@ -9271,17 +9799,17 @@ LABEL_33:
 
           else
           {
-            v28 = *cf;
-            v29 = *v26;
-            v30 = v27;
-            v6 = PVMGetVolumePreference(@"Audio/Video", 0, &v28);
+            v25 = *cf;
+            v26 = *v23;
+            v27 = v24;
+            v6 = PVMGetVolumePreference(@"Audio/Video", 0, &v25);
             v7 = PVMGetRawVolumeForCurrentRouteFromVolume(@"Audio/Video", 0, v6);
             v8 = PVMComputeSynchronizedVolume(v7);
-            *&v28 = 0;
-            *(&v28 + 1) = @"broadcast";
-            v30 = 0;
-            v29 = 0uLL;
-            *&v9 = PVMGetVolumePreference(@"Alarm", 0, &v28);
+            *&v25 = 0;
+            *(&v25 + 1) = @"broadcast";
+            v27 = 0;
+            v26 = 0uLL;
+            *&v9 = PVMGetVolumePreference(@"Alarm", 0, &v25);
             v10 = PVMGetVolumeToBeAppliedOnHardware(v9, v8);
             if (v10)
             {
@@ -9294,11 +9822,11 @@ LABEL_33:
               }
 
               [v11 floatValue];
-              *&v28 = 0;
-              *(&v28 + 1) = @"broadcast";
-              v30 = 0;
-              v29 = 0uLL;
-              PVMSetVolumePreference(@"Alarm", 0, 1, &v28, 0, 0, v20, 0.0, 0.0);
+              *&v25 = 0;
+              *(&v25 + 1) = @"broadcast";
+              v27 = 0;
+              v26 = 0uLL;
+              PVMSetVolumePreference(@"Alarm", 0, 1, &v25, 0, 0, v20, 0.0, 0.0);
             }
           }
         }
@@ -9309,21 +9837,19 @@ LABEL_33:
           cf[1] = 0;
         }
 
-        if (v26[1])
+        if (v23[1])
         {
-          CFRelease(v26[1]);
-          v26[1] = 0;
+          CFRelease(v23[1]);
+          v23[1] = 0;
         }
 
-        if (v26[0])
+        if (v23[0])
         {
-          CFRelease(v26[0]);
+          CFRelease(v23[0]);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCurrentRouteHeadphoneAndInEar:(unsigned int *)ear
@@ -9354,14 +9880,12 @@ LABEL_33:
 
 - (BOOL)shouldAllowBluetoothAccessoryToRequestAudioRoute
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!+[MXSystemController preferHeadphonesOverCarsAndSpeakersEnabled])
   {
     if (!dword_1EB75DE40)
     {
-LABEL_8:
-      v4 = 1;
-      goto LABEL_10;
+      return 1;
     }
 
 LABEL_6:
@@ -9369,14 +9893,14 @@ LABEL_6:
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     v4 = 1;
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    goto LABEL_10;
+    return v4;
   }
 
   if (![+[MXSessionManager isCurrentRouteHeadphoneAndInEar:"isCurrentRouteHeadphoneAndInEar:"]
   {
     if (!dword_1EB75DE40)
     {
-      goto LABEL_8;
+      return 1;
     }
 
     goto LABEL_6;
@@ -9389,36 +9913,34 @@ LABEL_6:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = 0;
-LABEL_10:
-  v5 = *MEMORY[0x1E69E9840];
-  return v4;
+  return 0;
 }
 
 - (int)prepareSessionActivationBeforeACQDispatch:(id)dispatch
 {
-  v4 = MXGetPerformanceLog();
+  v4 = MXGetPerformanceLog(self, a2);
   v5 = os_signpost_id_make_with_pointer(v4, dispatch);
-  v6 = MXGetPerformanceLog();
+  v7 = MXGetPerformanceLog(v5, v6);
   if (v5 - 1 > 0xFFFFFFFFFFFFFFFDLL)
   {
-    MXGetPerformanceLog();
+    MXGetPerformanceLog(v7, v8);
   }
 
   else
   {
-    v7 = v6;
-    if (os_signpost_enabled(v6))
+    v9 = v7;
+    v10 = os_signpost_enabled(v7);
+    if (v10)
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B17A2000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Prepare session activation", &unk_1B19E5B76, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B17A2000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Prepare session activation", &unk_1B19E5B76, buf, 2u);
     }
 
-    v8 = MXGetPerformanceLog();
-    if (os_signpost_enabled(v8))
+    v12 = MXGetPerformanceLog(v10, v11);
+    if (os_signpost_enabled(v12))
     {
-      *v10 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B17A2000, v8, OS_SIGNPOST_INTERVAL_END, v5, "Prepare session activation", &unk_1B19E5B76, v10, 2u);
+      *v14 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B17A2000, v12, OS_SIGNPOST_INTERVAL_END, v5, "Prepare session activation", &unk_1B19E5B76, v14, 2u);
     }
   }
 
@@ -9664,7 +10186,7 @@ LABEL_10:
   IsMandrakeEverywhereEnabled = MX_FeatureFlags_IsMandrakeEverywhereEnabled();
   if (IsMandrakeEverywhereEnabled)
   {
-    IsMandrakeEverywhereEnabled = CMSMDeviceState_SupportsBeacon();
+    IsMandrakeEverywhereEnabled = CMSMDeviceState_SupportsBeacon(IsMandrakeEverywhereEnabled, v5);
     if (!IsMandrakeEverywhereEnabled)
     {
       v3 = 1768776806;
@@ -9687,69 +10209,69 @@ LABEL_10:
   v38 = v34;
   v36 = v3;
   v39 = 1768776806;
-  v6 = *MEMORY[0x1E695E480];
-  v7 = OUTLINED_FUNCTION_1_12(IsMandrakeEverywhereEnabled, v51, v50, v5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v7 = *MEMORY[0x1E695E480];
+  v8 = OUTLINED_FUNCTION_1_12(IsMandrakeEverywhereEnabled, v51, v50, v6, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   [OUTLINED_FUNCTION_7() setFigCustomizedCategoryWithBluetooth_Dict:{1768776806, 1768779619, 1768781411, 1768781426, 1987208039, 1836281204, 1918990112, 1735222132, 1836021360, 1936747374, 1987080813, 1919776355, 1986884455, 1768778864, 1751212899, 1936683886, 1936749157, 1768057203, 1768781411, 1835229549}];
   figCustomizedCategoryWithBluetooth_Dict = [(MXSessionManager *)self figCustomizedCategoryWithBluetooth_Dict];
   if (figCustomizedCategoryWithBluetooth_Dict)
   {
-    v10 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithBluetooth_Dict, v51, v49, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    v11 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithBluetooth_Dict, v51, v49, v10, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     [OUTLINED_FUNCTION_7() setFigCustomizedCategoryWithoutBluetooth_Dict:?];
     figCustomizedCategoryWithoutBluetooth_Dict = [(MXSessionManager *)self figCustomizedCategoryWithoutBluetooth_Dict];
     if (figCustomizedCategoryWithoutBluetooth_Dict)
     {
-      v13 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithoutBluetooth_Dict, v51, v48, v12, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      v14 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithoutBluetooth_Dict, v51, v48, v13, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       [OUTLINED_FUNCTION_7() setFigUncustomizedCategory_Dict:?];
       figUncustomizedCategory_Dict = [(MXSessionManager *)self figUncustomizedCategory_Dict];
       if (figUncustomizedCategory_Dict)
       {
-        v16 = OUTLINED_FUNCTION_1_12(figUncustomizedCategory_Dict, v51, v47, v15, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        v17 = OUTLINED_FUNCTION_1_12(figUncustomizedCategory_Dict, v51, v47, v16, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         [OUTLINED_FUNCTION_7() setFigCustomizedCategoryWithDefaultBuiltIn_Speaker_Dict:?];
         figCustomizedCategoryWithDefaultBuiltIn_Speaker_Dict = [(MXSessionManager *)self figCustomizedCategoryWithDefaultBuiltIn_Speaker_Dict];
         if (figCustomizedCategoryWithDefaultBuiltIn_Speaker_Dict)
         {
-          v19 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithDefaultBuiltIn_Speaker_Dict, v51, v46, v18, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          v20 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithDefaultBuiltIn_Speaker_Dict, v51, v46, v19, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
           [OUTLINED_FUNCTION_7() setFigCustomizedCategoryWithDefaultBuiltIn_Receiver_Dict:?];
           figCustomizedCategoryWithDefaultBuiltIn_Receiver_Dict = [(MXSessionManager *)self figCustomizedCategoryWithDefaultBuiltIn_Receiver_Dict];
           if (figCustomizedCategoryWithDefaultBuiltIn_Receiver_Dict)
           {
-            v22 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithDefaultBuiltIn_Receiver_Dict, v51, v45, v21, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+            v23 = OUTLINED_FUNCTION_1_12(figCustomizedCategoryWithDefaultBuiltIn_Receiver_Dict, v51, v45, v22, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
             [OUTLINED_FUNCTION_7() setFigCustomizedCategoryWithDefaultBuiltIn_Default_Dict:?];
             if ([(MXSessionManager *)self figCustomizedCategoryWithDefaultBuiltIn_Default_Dict])
             {
-              v23 = CFDictionaryCreate(v6, keys, values, 37, MEMORY[0x1E695E9D8], 0);
+              v24 = CFDictionaryCreate(v7, keys, values, 37, MEMORY[0x1E695E9D8], 0);
               [OUTLINED_FUNCTION_7() setFigCategoryToMuteabilityDict:?];
               if ([(MXSessionManager *)self figCategoryToMuteabilityDict])
               {
-                v24 = CFDictionaryCreate(v6, keys, v42, 37, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                v25 = CFDictionaryCreate(v7, keys, v42, 37, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
                 [OUTLINED_FUNCTION_7() setFigCategoryToOutputOverridabilityDict:?];
                 if ([(MXSessionManager *)self figCategoryToOutputOverridabilityDict])
                 {
-                  v25 = CFDictionaryCreate(v6, keys, "vasc", 37, MEMORY[0x1E695E9D8], 0);
+                  v26 = CFDictionaryCreate(v7, keys, "vasc", 37, MEMORY[0x1E695E9D8], 0);
                   [OUTLINED_FUNCTION_7() setFigCategoryToVADCategoryDict:?];
                   if ([(MXSessionManager *)self figCategoryToVADCategoryDict])
                   {
-                    v26 = CFDictionaryCreate(v6, setUpStringConversionDictionaries_figRouteNames, "wphp", 25, MEMORY[0x1E695E9D8], 0);
+                    v27 = CFDictionaryCreate(v7, setUpStringConversionDictionaries_figRouteNames, "wphp", 25, MEMORY[0x1E695E9D8], 0);
                     [OUTLINED_FUNCTION_7() setFigRouteToVADOutputPortTypeDict:?];
                     if ([(MXSessionManager *)self figRouteToVADOutputPortTypeDict])
                     {
-                      v27 = CFDictionaryCreate(v6, setUpStringConversionDictionaries_figRouteNames, "iwmp", 25, MEMORY[0x1E695E9D8], 0);
+                      v28 = CFDictionaryCreate(v7, setUpStringConversionDictionaries_figRouteNames, "iwmp", 25, MEMORY[0x1E695E9D8], 0);
                       [OUTLINED_FUNCTION_7() setFigRouteToVADInputPortTypeDict:?];
                       if ([(MXSessionManager *)self figRouteToVADInputPortTypeDict])
                       {
-                        v28 = CFDictionaryCreate(v6, "uolp", setUpStringConversionDictionaries_figOutputDeviceNamesForVADOutputPortTypes, 21, 0, MEMORY[0x1E695E9E8]);
+                        v29 = CFDictionaryCreate(v7, "uolp", setUpStringConversionDictionaries_figOutputDeviceNamesForVADOutputPortTypes, 21, 0, MEMORY[0x1E695E9E8]);
                         [OUTLINED_FUNCTION_7() setVadOutputPortTypeToFigOutputDeviceNameDict:?];
                         if ([(MXSessionManager *)self vadOutputPortTypeToFigOutputDeviceNameDict])
                         {
-                          v29 = CFDictionaryCreate(v6, "uolp", v41, 21, 0, MEMORY[0x1E695E9E8]);
+                          v30 = CFDictionaryCreate(v7, "uolp", v41, 21, 0, MEMORY[0x1E695E9E8]);
                           [OUTLINED_FUNCTION_7() setVadOutputPortTypeToMuteabilityDict:?];
                           if ([(MXSessionManager *)self vadOutputPortTypeToMuteabilityDict])
                           {
-                            v30 = CFDictionaryCreate(v6, "nilp", setUpStringConversionDictionaries_figInputDeviceNamesForVADInputPortTypes, 9, 0, MEMORY[0x1E695E9E8]);
+                            v31 = CFDictionaryCreate(v7, "nilp", setUpStringConversionDictionaries_figInputDeviceNamesForVADInputPortTypes, 9, 0, MEMORY[0x1E695E9E8]);
                             [OUTLINED_FUNCTION_7() setVadInputPortTypeToFigInputDeviceNameDict:?];
                             if ([(MXSessionManager *)self vadInputPortTypeToFigInputDeviceNameDict])
                             {
-                              v31 = CFDictionaryCreate(v6, v40, v33, 30, MEMORY[0x1E695E9D8], 0);
+                              v32 = CFDictionaryCreate(v7, v40, v33, 30, MEMORY[0x1E695E9D8], 0);
                               [OUTLINED_FUNCTION_7() setFigModeTypeToVADModeType:?];
                               [(MXSessionManager *)self figModeTypeToVADModeType];
                             }
@@ -9766,8 +10288,6 @@ LABEL_10:
       }
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 @end

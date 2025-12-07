@@ -2,17 +2,17 @@
 - (BOOL)pxg_hasSuperview;
 - (BOOL)pxg_isChildOfView:()PXGReusableViewAdoption;
 - (uint64_t)pxg_prepareForReuse;
-- (uint64_t)pxg_shiftPosition:()PXGReusableViewAdoption;
 - (void)_setCornersWithStyle:()PXGReusableViewAdoption;
 - (void)pxg_addToHostingView:()PXGReusableViewAdoption;
 - (void)pxg_addToScrollViewController:()PXGReusableViewAdoption floatingAxis:;
 - (void)pxg_becomeReusable;
 - (void)pxg_configureWithTexture:()PXGReusableViewAdoption geometry:info:style:textureInfo:resizableCapInsets:reusableViewInfo:screenScale:separateLayers:;
+- (void)pxg_shiftPosition:()PXGReusableViewAdoption;
 @end
 
 @implementation UIView(PXGReusableViewAdoption)
 
-- (uint64_t)pxg_shiftPosition:()PXGReusableViewAdoption
+- (void)pxg_shiftPosition:()PXGReusableViewAdoption
 {
   result = [self isFloating];
   if ((result & 1) == 0)

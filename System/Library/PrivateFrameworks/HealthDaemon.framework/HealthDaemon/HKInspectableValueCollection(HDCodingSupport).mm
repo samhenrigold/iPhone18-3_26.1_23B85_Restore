@@ -7,7 +7,7 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -19,26 +19,26 @@
   v4 = v3;
   collectionType = [v4 collectionType];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   collections = [v4 collections];
-  v8 = [collections countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [collections countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
 LABEL_4:
     v11 = 0;
     while (1)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(collections);
       }
 
-      v12 = [MEMORY[0x277CCD550] createWithCodable:*(*(&v19 + 1) + 8 * v11)];
+      v12 = [MEMORY[0x277CCD550] createWithCodable:*(*(&v18 + 1) + 8 * v11)];
       if (!v12)
       {
         goto LABEL_13;
@@ -49,7 +49,7 @@ LABEL_4:
 
       if (v9 == ++v11)
       {
-        v9 = [collections countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [collections countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v9)
         {
           goto LABEL_4;
@@ -75,7 +75,6 @@ LABEL_13:
 LABEL_14:
 
 LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

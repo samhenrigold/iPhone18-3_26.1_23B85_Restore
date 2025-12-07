@@ -31,7 +31,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC12PhotosUICore31PXAssetEntityEditResourceLoader_results) = MEMORY[0x1E69E7CC0];
   *(&self->super.isa + OBJC_IVAR____TtC12PhotosUICore31PXAssetEntityEditResourceLoader_resourceLoader) = v4;
   v5 = OBJC_IVAR____TtC12PhotosUICore31PXAssetEntityEditResourceLoader_continuation;
-  sub_1A4A520AC();
+  sub_1A4A520AC(0);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
   v8.super_class = ObjectType;

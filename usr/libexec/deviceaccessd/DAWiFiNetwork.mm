@@ -125,74 +125,91 @@ LABEL_26:
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v30 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v29 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v29, &v30, "%@", v5);
+    v6 = v29;
   }
 
   wifiAwarePairedID = self->_wifiAwarePairedID;
   if (wifiAwarePairedID)
   {
-    v6 = wifiAwarePairedID;
-    uUIDString = [(NSUUID *)v6 UUIDString];
-    CUAppendF();
-    v7 = v4;
+    v28 = v6;
+    v8 = wifiAwarePairedID;
+    uUIDString = [(NSUUID *)v8 UUIDString];
+    CUAppendF(&v28, &v30, "WiFiAwarePairedUUID: %@", uUIDString);
+    v10 = v28;
 
-    v4 = v7;
+    v6 = v10;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v19 = SSID;
-    CUAppendF();
-    v9 = v4;
+    v27 = v6;
+    v12 = SSID;
+    CUAppendF(&v27, &v30, "SSID %@", v12);
+    v13 = v27;
 
-    v4 = v9;
+    v6 = v13;
   }
 
   serviceName = self->_serviceName;
   if (serviceName)
   {
-    v20 = serviceName;
-    CUAppendF();
-    v11 = v4;
+    v26 = v6;
+    v15 = serviceName;
+    CUAppendF(&v26, &v30, "Service Name %@", v15);
+    v16 = v26;
 
-    v4 = v11;
+    v6 = v16;
   }
 
   wifiAwareOTAName = self->_wifiAwareOTAName;
   if (wifiAwareOTAName)
   {
-    v21 = wifiAwareOTAName;
-    CUAppendF();
-    v13 = v4;
+    v25 = v6;
+    v18 = wifiAwareOTAName;
+    CUAppendF(&v25, &v30, "WiFi Aware OTA Name %@", v18);
+    v19 = v25;
 
-    v4 = v13;
+    v6 = v19;
   }
 
   if (self->_unsecured)
   {
-    CUAppendF();
-    v14 = v4;
+    v24 = v6;
+    CUAppendF(&v24, &v30, "unsecured %s", "yes");
+    v20 = v24;
 
-    v4 = v14;
+    v6 = v20;
   }
 
-  v15 = &stru_10005A2C8;
-  if (v4)
+  v21 = &stru_10005A2C8;
+  if (v6)
   {
-    v15 = v4;
+    v21 = v6;
   }
 
-  v16 = v15;
+  v22 = v21;
 
-  return v16;
+  return v22;
 }
 
 @end

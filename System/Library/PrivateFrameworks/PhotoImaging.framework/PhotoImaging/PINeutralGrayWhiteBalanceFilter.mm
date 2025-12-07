@@ -217,11 +217,11 @@ uint64_t __54__PINeutralGrayWhiteBalanceFilter_colorBalanceKernels__block_invoke
     v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:5];
 
     whiteBalanceKernel = [objc_opt_class() whiteBalanceKernel];
-    [v6 extent];
+    objc_msgSend_extent(v6);
     v31 = [whiteBalanceKernel applyWithExtent:&__block_literal_global_26570 roiCallback:v29 arguments:?];
 
     v32 = [(PINeutralGrayWhiteBalanceFilter *)self applyOutputConversion:v31];
-    [(CIImage *)self->_inputImage extent];
+    objc_msgSend_extent(self->_inputImage);
     v33 = [v32 imageByCroppingToRect:?];
     imageByPremultiplyingAlpha = [v33 imageByPremultiplyingAlpha];
   }
@@ -239,7 +239,7 @@ uint64_t __54__PINeutralGrayWhiteBalanceFilter_colorBalanceKernels__block_invoke
   v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
 
   yIQToRGBKernel = [objc_opt_class() YIQToRGBKernel];
-  [v3 extent];
+  objc_msgSend_extent(v3);
   v7 = [yIQToRGBKernel applyWithExtent:&__block_literal_global_26570 roiCallback:v5 arguments:?];
 
   v8 = [MEMORY[0x1E695F680] samplerWithImage:v7];
@@ -248,7 +248,7 @@ uint64_t __54__PINeutralGrayWhiteBalanceFilter_colorBalanceKernels__block_invoke
   v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
 
   pPtogHDRKernel = [objc_opt_class() PPtogHDRKernel];
-  [v8 extent];
+  objc_msgSend_extent(v8);
   v11 = [pPtogHDRKernel applyWithExtent:&__block_literal_global_26570 roiCallback:v9 arguments:?];
 
   return v11;
@@ -261,7 +261,7 @@ uint64_t __54__PINeutralGrayWhiteBalanceFilter_colorBalanceKernels__block_invoke
   v14[0] = v3;
   v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   gHDRtoPPKernel = [objc_opt_class() gHDRtoPPKernel];
-  [v3 extent];
+  objc_msgSend_extent(v3);
   v6 = [gHDRtoPPKernel applyWithExtent:&__block_literal_global_26570 roiCallback:v4 arguments:?];
 
   v7 = [MEMORY[0x1E695F680] samplerWithImage:v6];
@@ -271,7 +271,7 @@ uint64_t __54__PINeutralGrayWhiteBalanceFilter_colorBalanceKernels__block_invoke
   v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
 
   rGBToYIQKernel = [objc_opt_class() RGBToYIQKernel];
-  [v7 extent];
+  objc_msgSend_extent(v7);
   v11 = [rGBToYIQKernel applyWithExtent:&__block_literal_global_26570 roiCallback:v9 arguments:?];
 
   return v11;

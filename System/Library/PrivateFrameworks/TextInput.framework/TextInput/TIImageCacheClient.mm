@@ -491,7 +491,7 @@ uint64_t __63__TIImageCacheClient__remoteStoreImageForKey_inGroup_withItem___blo
   groupCopy = group;
   itemCopy = item;
   [itemCopy scale];
-  if (v11 == 0.0 || (-[TIImageCacheClient imagePath](self, "imagePath"), v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) || (v25 = 0, v23 = 0u, v24 = 0u, -[TIImageCacheClient _imgForItem:](self, "_imgForItem:", itemCopy), [itemCopy data], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "length") + 48, v13, v14))
+  if (v11 == 0.0 || (-[TIImageCacheClient imagePath](self, "imagePath"), v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) || (v25 = 0, v23 = 0u, v24 = 0u, objc_msgSend__imgForItem_(self), [itemCopy data], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "length") + 48, v13, v14))
   {
     [itemCopy _callDataReleaseHandler];
   }

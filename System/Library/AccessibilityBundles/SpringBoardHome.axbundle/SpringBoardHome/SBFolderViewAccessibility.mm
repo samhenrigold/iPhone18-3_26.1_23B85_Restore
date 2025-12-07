@@ -71,7 +71,7 @@
 
 - (BOOL)accessibilityPerformEscape
 {
-  v2 = AXSBHIconManagerFromSharedIconController();
+  v2 = AXSBHIconManagerFromSharedIconController(self, a2);
   if ([v2 safeBoolForKey:@"hasOpenFolder"])
   {
     v6 = v2;

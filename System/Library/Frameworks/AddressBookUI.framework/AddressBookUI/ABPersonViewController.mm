@@ -1,6 +1,7 @@
 @interface ABPersonViewController
 + (ABPersonViewController)viewControllerWithRestorationIdentifierPath:(id)path coder:(id)coder;
 - (ABAddressBookRef)addressBook;
+- (ABPersonViewController)initWithNibName:(id)name bundle:(id)bundle addressBook:(void *)book style:(int)style;
 - (BOOL)contactViewController:(id)controller shouldPerformDefaultActionForContactProperty:(id)property;
 - (CGSize)preferredContentSize;
 - (CNContactStore)contactStore;
@@ -11,9 +12,33 @@
 - (void)reloadContactViewController;
 - (void)setAddressBook:(ABAddressBookRef)addressBook;
 - (void)setDisplayedPerson:(ABRecordRef)displayedPerson;
+- (void)setHighlightedItemForProperty:(int)property withIdentifier:(int)identifier important:(BOOL)important;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ABPersonViewController
+
+- (ABPersonViewController)initWithNibName:(id)name bundle:(id)bundle addressBook:(void *)book style:(int)style
+{
+  v6 = *&style;
+  v11.receiver = self;
+  v11.super_class = ABPersonViewController;
+  v8 = [(ABPersonViewController *)&v11 initWithNibName:0 bundle:0];
+  v9 = v8;
+  if (v8)
+  {
+    [(ABPersonViewController *)v8 setAddressBook:book];
+    [(ABPersonViewController *)v9 setAllowsEditing:1];
+    [(ABPersonViewController *)v9 setAllowsActions:1];
+    [(ABPersonViewController *)v9 setShouldShowLinkedPeople:0];
+    [(ABPersonViewController *)v9 setRestorationIdentifier:@"PeoplePickerPersonRestorationIdentifier"];
+    [(ABPersonViewController *)v9 setRestorationClass:objc_opt_class()];
+    [-[ABPersonViewController navigationItem](v9 "navigationItem")];
+    [(ABPersonViewController *)v9 setStyle:v6];
+  }
+
+  return v9;
+}
 
 - (void)dealloc
 {
@@ -250,6 +275,15 @@ LABEL_18:
   return result;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ABPersonViewController;
+  [(ABPersonViewController *)&v4 viewDidAppear:appear];
+  [(ABPersonViewController *)self preferredContentSize];
+  [(ABPersonViewController *)self setPreferredContentSize:?];
+}
+
 - (BOOL)contactViewController:(id)controller shouldPerformDefaultActionForContactProperty:(id)property
 {
   [(ABPersonViewController *)self personViewDelegate];
@@ -273,9 +307,19 @@ LABEL_18:
   }
 }
 
+- (void)setHighlightedItemForProperty:(int)property withIdentifier:(int)identifier important:(BOOL)important
+{
+  importantCopy = important;
+  v6 = *&identifier;
+  [(ABPersonViewController *)self setHighlightedProperty:*&property];
+  [(ABPersonViewController *)self setHighlightedMultiValueIdentifier:v6];
+
+  [(ABPersonViewController *)self setHighlightedImportant:importantCopy];
+}
+
 - (void)reloadContactViewController
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if (![(ABPersonViewController *)self displayedPerson])
   {
     v3 = ABPersonCreate();
@@ -287,8 +331,8 @@ LABEL_18:
   }
 
   v4 = [MEMORY[0x277CBDA58] contactPropertyKeyFromPublicABPropertyID:{-[ABPersonViewController highlightedProperty](self, "highlightedProperty")}];
-  v25[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v6 = v5;
   if (v4)
   {
@@ -297,20 +341,20 @@ LABEL_18:
 
   v7 = [MEMORY[0x277CBDA58] contactFromPublicABPerson:-[ABPersonViewController displayedPerson](self keysToFetch:{"displayedPerson"), v6}];
   v8 = v7;
-  if (v4 && (v9 = [v7 valueForKey:v4], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v22 = 0u, v23 = 0u, v20 = 0u, v21 = 0u, (v10 = objc_msgSend(v9, "countByEnumeratingWithState:objects:count:", &v20, v24, 16)) != 0))
+  if (v4 && (v9 = [v7 valueForKey:v4], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v21 = 0u, v22 = 0u, v19 = 0u, v20 = 0u, (v10 = objc_msgSend(v9, "countByEnumeratingWithState:objects:count:", &v19, v23, 16)) != 0))
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         iOSLegacyIdentifier = [v14 iOSLegacyIdentifier];
         if (iOSLegacyIdentifier == [(ABPersonViewController *)self highlightedMultiValueIdentifier])
         {
@@ -319,7 +363,7 @@ LABEL_18:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       identifier = 0;
       if (v11)
       {
@@ -360,7 +404,6 @@ LABEL_18:
   [view setAutoresizingMask:18];
   [-[ABPersonViewController view](self "view")];
   [(CNContactViewController *)[(ABPersonViewController *)self cnContactViewController] didMoveToParentViewController:self];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__ABPersonViewController_reloadContactViewController__block_invoke(uint64_t a1, void *a2)

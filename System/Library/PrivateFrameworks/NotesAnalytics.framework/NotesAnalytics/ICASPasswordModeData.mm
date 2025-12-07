@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"pwdModeChangeContextPath";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"pwdModeChangeContextPath";
   pwdModeChangeContextPath = [(ICASPasswordModeData *)self pwdModeChangeContextPath];
   if (pwdModeChangeContextPath)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = pwdModeChangeContextPath2;
-  v16[0] = pwdModeChangeContextPath2;
-  v15[1] = @"startMode";
+  v15[0] = pwdModeChangeContextPath2;
+  v14[1] = @"startMode";
   startMode = [(ICASPasswordModeData *)self startMode];
   if (startMode)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = startMode2;
-  v16[1] = startMode2;
-  v15[2] = @"endMode";
+  v15[1] = startMode2;
+  v14[2] = @"endMode";
   endMode = [(ICASPasswordModeData *)self endMode];
   if (endMode)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = endMode2;
-  v16[2] = endMode2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = endMode2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

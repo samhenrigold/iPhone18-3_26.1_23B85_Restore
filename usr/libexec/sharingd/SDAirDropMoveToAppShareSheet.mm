@@ -8,25 +8,24 @@
 - (void)showShareSheetWith:(id)with completion:(id)completion
 {
   v6 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(completion);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(completion);
   type metadata accessor for URL();
-  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v10;
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = self;
-  v14[5] = v11;
-  v14[6] = sub_10066E1F8;
-  v14[7] = v12;
+  v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = swift_allocObject();
+  *(v11 + 16) = v9;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v8, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = self;
+  v13[5] = v10;
+  v13[6] = sub_10066E1F8;
+  v13[7] = v11;
   selfCopy = self;
-  sub_1002B3098(0, 0, v9, &unk_10080F1E8, v14);
+  sub_1002B3098(0, 0, v8, &unk_10080F1E8, v13);
 }
 
 - (_TtC16DaemoniOSLibrary28SDAirDropMoveToAppShareSheet)init

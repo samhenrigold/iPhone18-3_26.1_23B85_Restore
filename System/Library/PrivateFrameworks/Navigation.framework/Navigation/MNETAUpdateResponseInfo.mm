@@ -36,14 +36,13 @@
 {
   v3 = sub_1D3276A60();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC10Navigation23MNETAUpdateResponseInfo_responseTime, v3);
-  v8 = sub_1D3276A10();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC10Navigation23MNETAUpdateResponseInfo_responseTime, v3);
+  v7 = sub_1D3276A10();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (_TtC10Navigation23MNETAUpdateResponseInfo)init

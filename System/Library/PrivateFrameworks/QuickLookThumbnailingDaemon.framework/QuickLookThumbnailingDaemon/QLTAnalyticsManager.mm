@@ -45,7 +45,7 @@ void __35__QLTAnalyticsManager__eventsQueue__block_invoke()
 
 void __34__QLTAnalyticsManager__sendEvent___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) name];
   v3 = [*(a1 + 32) propertiesBuilder];
   v4 = AnalyticsSendEventLazy();
@@ -66,21 +66,19 @@ void __34__QLTAnalyticsManager__sendEvent___block_invoke(uint64_t a1)
     v10 = [*(a1 + 32) name];
     v11 = v10;
     v12 = @"failed";
-    v14 = 138412802;
-    v15 = v9;
-    v16 = 2112;
+    v13 = 138412802;
+    v14 = v9;
+    v15 = 2112;
     if (v4)
     {
       v12 = @"succeeded";
     }
 
-    v17 = v10;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_2615D3000, v8, OS_LOG_TYPE_INFO, "%@: Tracking event %@ %@", &v14, 0x20u);
+    v16 = v10;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_2615D3000, v8, OS_LOG_TYPE_INFO, "%@: Tracking event %@ %@", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedManager

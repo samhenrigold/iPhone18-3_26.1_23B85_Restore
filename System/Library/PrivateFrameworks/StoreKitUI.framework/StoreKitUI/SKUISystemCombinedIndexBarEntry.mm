@@ -2,6 +2,7 @@
 - (CGSize)_calculatedContentSize;
 - (SKUISystemCombinedIndexBarEntry)init;
 - (void)_drawContentInRect:(CGRect)rect;
+- (void)init;
 @end
 
 @implementation SKUISystemCombinedIndexBarEntry
@@ -52,6 +53,12 @@
 
   v8 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{x, y, width, height}];
   [v8 fill];
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISystemCombinedIndexBarEntry init]";
 }
 
 @end

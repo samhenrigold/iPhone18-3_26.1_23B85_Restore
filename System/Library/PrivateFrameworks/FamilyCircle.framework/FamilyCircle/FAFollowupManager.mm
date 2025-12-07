@@ -10,40 +10,39 @@
 
 + (void)tearDownFollowupItemWithIdentifier:(id)identifier completion:(id)completion
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v6 = MEMORY[0x1E6997AC8];
   identifierCopy = identifier;
   v8 = [[v6 alloc] initWithClientIdentifier:@"com.icloud.family"];
-  v14[0] = identifierCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___block_invoke;
-  v12[3] = &unk_1E7CA47F0;
-  v13 = completionCopy;
+  v13[0] = identifierCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___block_invoke;
+  v11[3] = &unk_1E7CA47F0;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [v8 clearPendingFollowUpItemsWithUniqueIdentifiers:v9 completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v8 clearPendingFollowUpItemsWithUniqueIdentifiers:v9 completion:v11];
 }
 
 void __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _FALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___block_invoke_cold_1(v5);
+      __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___block_invoke_cold_1(v6);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, a2, v5);
+    (*(v8 + 16))(v8, a2, v6);
   }
 }
 
@@ -56,7 +55,7 @@ void __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___blo
   v9 = [_followupManager synchronizeFollowUpsWithServerPayload:payloadCopy altDSID:dCopy error:&v13];
 
   v10 = v13;
-  v11 = _FALogSystem();
+  v11 = _FALogSystem(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
   if (v9)
   {
@@ -74,63 +73,59 @@ void __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___blo
 
 + (void)teardownPendingFollowup
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [self description];
-  OUTLINED_FUNCTION_0(&dword_1B70B0000, v2, v3, "Failed to clear pending family followup items with error: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1B70B0000, v2, v3, "Failed to clear pending family followup items with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)teardownFollowUpWithContext:(id)context completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = contextCopy;
+    v14 = contextCopy;
     _os_log_impl(&dword_1B70B0000, v8, OS_LOG_TYPE_DEFAULT, "teardownFollowUpWithContext called with context: %@", buf, 0xCu);
   }
 
   _followupManager = [self _followupManager];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __60__FAFollowupManager_teardownFollowUpWithContext_completion___block_invoke;
-  v12[3] = &unk_1E7CA47F0;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __60__FAFollowupManager_teardownFollowUpWithContext_completion___block_invoke;
+  v11[3] = &unk_1E7CA47F0;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [_followupManager teardownFollowUpWithContext:contextCopy completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [_followupManager teardownFollowUpWithContext:contextCopy completion:v11];
 }
 
 void __60__FAFollowupManager_teardownFollowUpWithContext_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v7)
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Successfully cleared pending family followup items.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Successfully cleared pending family followup items.", &v9, 2u);
     }
   }
 
   else if (v7)
   {
     v8 = [v5 debugDescription];
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Failed to clear pending family followup items with error: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Failed to clear pending family followup items with error: %@", &v9, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_followupManager
@@ -148,22 +143,19 @@ void __60__FAFollowupManager_teardownFollowUpWithContext_completion___block_invo
 
 void __67__FAFollowupManager_tearDownFollowupItemWithIdentifier_completion___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
-  OUTLINED_FUNCTION_0(&dword_1B70B0000, v2, v3, "Failed to teardown followup item with error: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1B70B0000, v2, v3, "Failed to teardown followup item with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)synchronizeFollowupWithPayload:(void *)a1 altDSID:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 debugDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "Failed to post followup with error %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "Failed to post followup with error %@", &v4, 0xCu);
 }
 
 @end

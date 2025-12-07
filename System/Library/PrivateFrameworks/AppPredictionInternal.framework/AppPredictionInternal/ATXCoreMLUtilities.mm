@@ -11,15 +11,16 @@
   nameCopy = name;
   v5 = objc_opt_new();
   [v5 setComputeUnits:0];
-  v10 = 0;
-  v6 = [self loadCoreMLModelWithName:nameCopy withConfiguration:v5 error:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [self loadCoreMLModelWithName:nameCopy withConfiguration:v5 error:&v11];
+  v7 = v11;
+  v8 = v7;
   if (!v6)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(ATXCoreMLUtilities *)nameCopy loadCoreMLModelWithName:v7, v8];
+      [(ATXCoreMLUtilities *)nameCopy loadCoreMLModelWithName:v8, v9];
     }
   }
 
@@ -28,18 +29,18 @@
 
 + (id)loadCoreMLModelWithName:(id)name withConfiguration:(id)configuration error:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   configurationCopy = configuration;
   if (!nameCopy)
   {
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CEB260];
-    v26 = *MEMORY[0x277CCA068];
-    v27[0] = @"ATXCoreMLUtilities: Missing model name";
+    v25 = *MEMORY[0x277CCA068];
+    v26[0] = @"ATXCoreMLUtilities: Missing model name";
     v17 = MEMORY[0x277CBEAC0];
-    v18 = v27;
-    v19 = &v26;
+    v18 = v26;
+    v19 = &v25;
 LABEL_6:
     v12 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
     v14 = [v15 errorWithDomain:v16 code:3 userInfo:v12];
@@ -53,20 +54,20 @@ LABEL_6:
   {
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CEB260];
-    v24 = *MEMORY[0x277CCA068];
-    v25 = @"ATXCoreMLUtilities: No valid path for model";
+    v23 = *MEMORY[0x277CCA068];
+    v24 = @"ATXCoreMLUtilities: No valid path for model";
     v17 = MEMORY[0x277CBEAC0];
-    v18 = &v25;
-    v19 = &v24;
+    v18 = &v24;
+    v19 = &v23;
     goto LABEL_6;
   }
 
   v10 = v9;
   v11 = MEMORY[0x277CBFF20];
   v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:v9];
-  v23 = 0;
-  v13 = [v11 modelWithContentsOfURL:v12 configuration:configurationCopy error:&v23];
-  v14 = v23;
+  v22 = 0;
+  v13 = [v11 modelWithContentsOfURL:v12 configuration:configurationCopy error:&v22];
+  v14 = v22;
 LABEL_7:
 
   if (error && !v13)
@@ -74,8 +75,6 @@ LABEL_7:
     v20 = v14;
     *error = v14;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -126,7 +125,7 @@ LABEL_7:
   }
 
 LABEL_8:
-  v14 = __atxlog_handle_default();
+  v14 = __atxlog_handle_default(type);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [ATXCoreMLUtilities scoreForModelOutputValue:v7 outputIndexedSubscript:v14];
@@ -140,22 +139,20 @@ LABEL_14:
 
 + (void)loadCoreMLModelWithName:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXCoreMLUtilities: Error initializing %@ model: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXCoreMLUtilities: Error initializing %@ model: %@", &v3, 0x16u);
 }
 
 + (void)scoreForModelOutputValue:(uint64_t)a1 outputIndexedSubscript:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXCoreMLUtilities - CoreMLModel: No valid outputType found for %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXCoreMLUtilities - CoreMLModel: No valid outputType found for %ld", &v2, 0xCu);
 }
 
 @end

@@ -32,7 +32,7 @@
   v7 = [(SXActionActivityGroup *)v5 initWithTitle:title];
 
   v8 = [SXBlockActionActivity alloc];
-  v9 = SXBundle();
+  v9 = SXBundle(v8);
   v10 = [v9 localizedStringForKey:@"Create Event" value:&stru_1F532F6C0 table:0];
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
@@ -45,7 +45,7 @@
   [(SXActionActivityGroup *)v7 addActivity:v12];
 
   v13 = [SXBlockActionActivity alloc];
-  v14 = SXBundle();
+  v14 = SXBundle(v13);
   v15 = [v14 localizedStringForKey:@"Show in Calendar" value:&stru_1F532F6C0 table:0];
   v19 = MEMORY[0x1E69E9820];
   v20 = 3221225472;

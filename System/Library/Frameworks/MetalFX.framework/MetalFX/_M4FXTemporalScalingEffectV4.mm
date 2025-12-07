@@ -3,10 +3,6 @@
 - (CGPoint)motionVectorScale;
 - (CGPoint)previousJitterOffset;
 - (_M4FXTemporalScalingEffectV4)initWithDevice:(id)device descriptor:(id)descriptor compiler:(id)compiler history:(id)history;
-- (__n128)currentViewToClipMatrix;
-- (__n128)currentWorldToViewMatrix;
-- (__n128)previousViewToClipMatrix;
-- (__n128)previousWorldToViewMatrix;
 - (__n128)setCurrentViewToClipMatrix:(__n128)matrix;
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix;
 - (__n128)setPreviousViewToClipMatrix:(__n128)matrix;
@@ -97,7 +93,7 @@
     MTLReportFailure();
   }
 
-  MetalFxScopedSignpost::MetalFxScopedSignpost(v32, 0, self, 7, self->super.super.super._encodeID, 0);
+  MetalFxScopedSignpost::MetalFxScopedSignpost(v25, 0, self, 7, self->super.super.super._encodeID, 0);
   if (MTLReportFailureTypeEnabled())
   {
     checkInputOutputTextures(self->_colorTexture, self->_depthTexture, self->_motionTexture, self->_outputTexture, self->_inputWidth, self->_inputHeight, self->_colorTextureFormat, self->_inputContentWidth, self->_inputContentHeight, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat);
@@ -111,7 +107,7 @@
     if (v10 < inputContentMinScale)
     {
       v22 = v10;
-      v24 = inputContentMinScale;
+      v23 = inputContentMinScale;
       MTLReportFailure();
     }
 
@@ -119,7 +115,7 @@
     if (v11 > inputContentMaxScale)
     {
       v22 = v11;
-      v24 = inputContentMaxScale;
+      v23 = inputContentMaxScale;
       MTLReportFailure();
     }
 
@@ -129,21 +125,14 @@
     }
   }
 
-  v31 = HIDWORD(*&self->_jitterOffset[4]);
-  reset = self->_reset;
-  reversedDepth = self->_reversedDepth;
-  preExposure = self->_preExposure;
-  v13 = *&self->_motionVectorScale[4];
-  v26 = self->_inputContentWidth;
-  v28 = self->_inputContentHeight;
   self->_colorTexture;
   self->_depthTexture;
   self->_motionTexture;
   self->_outputTexture;
   self->_exposureTexture;
   self->_reactiveMaskTexture;
-  v14 = self->_inputContentWidth;
-  v15 = self->_inputContentHeight;
+  v12 = self->_inputContentWidth;
+  v13 = self->_inputContentHeight;
   [bufferCopy useResidencySet:self->device4->var2];
   if (self->super.super.super._useRefTensors)
   {
@@ -156,13 +145,13 @@
   [*var4 setLabel:@"MetalFX_Temporal_PreProcessing"];
   if (MTLTraceEnabled())
   {
-    [(_M4FXTemporalScalingEffectV4 *)self outputWidth];
-    [(_M4FXTemporalScalingEffectV4 *)self outputHeight];
-    [(_M4FXTemporalScalingEffectV4 *)self inputWidth];
-    [(_M4FXTemporalScalingEffectV4 *)self inputHeight];
-    v18 = self->device4;
-    v18->var6 = self;
-    MFXDevice4::emitSignPostForComputeEncoder(v18);
+    outputWidth = [(_M4FXTemporalScalingEffectV4 *)self outputWidth];
+    outputHeight = [(_M4FXTemporalScalingEffectV4 *)self outputHeight];
+    inputWidth = [(_M4FXTemporalScalingEffectV4 *)self inputWidth];
+    v19 = inputWidth & 0xFFFFFFFF0000FFFFLL | ([(_M4FXTemporalScalingEffectV4 *)self inputHeight]<< 16);
+    v20 = self->device4;
+    v20->var6 = self;
+    MFXDevice4::emitSignPostForComputeEncoder(v20, v12 | (v13 << 16) | (outputWidth << 32) | (outputHeight << 48), v19);
   }
 
   fence = self->_fence;
@@ -173,10 +162,6 @@
 
   [*var4 waitForFence:self->internalFence beforeEncoderStages:0x8000000];
   [*var4 waitForFence:self->internalMLFence beforeEncoderStages:0x8000000];
-  filter = self->_filter;
-  history = self->_history;
-  autoExposureEnabled = self->_autoExposureEnabled;
-  input_TensorData_Buffer = self->_input_TensorData_Buffer;
   BRNet_v3_Filter<MFXDevice4>::encodePre();
 }
 
@@ -189,30 +174,12 @@
   return result;
 }
 
-- (__n128)currentWorldToViewMatrix
-{
-  result = *(self + 576);
-  v2 = *(self + 592);
-  v3 = *(self + 608);
-  v4 = *(self + 624);
-  return result;
-}
-
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix
 {
   result[36] = a2;
   result[37] = matrix;
   result[38] = a4;
   result[39] = a5;
-  return result;
-}
-
-- (__n128)currentViewToClipMatrix
-{
-  result = *(self + 640);
-  v2 = *(self + 656);
-  v3 = *(self + 672);
-  v4 = *(self + 688);
   return result;
 }
 
@@ -225,30 +192,12 @@
   return result;
 }
 
-- (__n128)previousWorldToViewMatrix
-{
-  result = *(self + 704);
-  v2 = *(self + 720);
-  v3 = *(self + 736);
-  v4 = *(self + 752);
-  return result;
-}
-
 - (__n128)setPreviousWorldToViewMatrix:(__n128)matrix
 {
   result[44] = a2;
   result[45] = matrix;
   result[46] = a4;
   result[47] = a5;
-  return result;
-}
-
-- (__n128)previousViewToClipMatrix
-{
-  result = *(self + 768);
-  v2 = *(self + 784);
-  v3 = *(self + 800);
-  v4 = *(self + 816);
   return result;
 }
 

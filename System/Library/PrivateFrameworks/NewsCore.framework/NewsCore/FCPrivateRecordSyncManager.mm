@@ -16,7 +16,7 @@
 
 - (id)initWithRecordID:(void *)d desiredKeys:(void *)keys currentState:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dCopy = d;
   keysCopy = keys;
@@ -27,15 +27,15 @@
 
   if (!v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordID != nil"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordID != nil"];
     *buf = 136315906;
-    v27 = "[FCPrivateRecordSyncManager initWithRecordID:desiredKeys:currentState:]";
-    v28 = 2080;
-    v29 = "FCPrivateRecordSyncManager.m";
-    v30 = 1024;
-    v31 = 37;
-    v32 = 2114;
-    v33 = v23;
+    v26 = "[FCPrivateRecordSyncManager initWithRecordID:desiredKeys:currentState:]";
+    v27 = 2080;
+    v28 = "FCPrivateRecordSyncManager.m";
+    v29 = 1024;
+    v30 = 37;
+    v31 = 2114;
+    v32 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!dCopy)
@@ -43,15 +43,15 @@
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "desiredKeys != nil"];
+        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "desiredKeys != nil"];
         *buf = 136315906;
-        v27 = "[FCPrivateRecordSyncManager initWithRecordID:desiredKeys:currentState:]";
-        v28 = 2080;
-        v29 = "FCPrivateRecordSyncManager.m";
-        v30 = 1024;
-        v31 = 38;
-        v32 = 2114;
-        v33 = v24;
+        v26 = "[FCPrivateRecordSyncManager initWithRecordID:desiredKeys:currentState:]";
+        v27 = 2080;
+        v28 = "FCPrivateRecordSyncManager.m";
+        v29 = 1024;
+        v30 = 38;
+        v31 = 2114;
+        v32 = v23;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -62,9 +62,9 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v25.receiver = self;
-  v25.super_class = FCPrivateRecordSyncManager;
-  self = objc_msgSendSuper2(&v25, sel_init);
+  v24.receiver = self;
+  v24.super_class = FCPrivateRecordSyncManager;
+  self = objc_msgSendSuper2(&v24, sel_init);
   if (self)
   {
     v10 = [v7 copy];
@@ -96,7 +96,6 @@ LABEL_5:
 
 LABEL_10:
 
-  v21 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -186,7 +185,7 @@ LABEL_10:
 
 - (BOOL)isDirty
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (self)
   {
     currentState = self->_currentState;
@@ -254,21 +253,20 @@ LABEL_10:
     recordName = [(CKRecordID *)v19 recordName];
     v21 = recordName;
     v22 = " not";
-    v25 = 138543874;
-    v26 = v17;
+    v24 = 138543874;
+    v25 = v17;
     if (v14)
     {
       v22 = "";
     }
 
-    v27 = 2114;
-    v28 = recordName;
-    v29 = 2080;
-    v30 = v22;
-    _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ for %{public}@ is discovering he is%s dirty on being asked", &v25, 0x20u);
+    v26 = 2114;
+    v27 = recordName;
+    v28 = 2080;
+    v29 = v22;
+    _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ for %{public}@ is discovering he is%s dirty on being asked", &v24, 0x20u);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -327,7 +325,7 @@ LABEL_10:
 
 - (void)fetchChangesWithContext:(id)context qualityOfService:(int64_t)service completionHandler:(id)handler
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v9 = MEMORY[0x1E695DF00];
   contextCopy = context;
@@ -335,10 +333,10 @@ LABEL_10:
   v12 = objc_alloc_init(FCCKPrivateFetchRecordsOperation);
   if (self)
   {
-    v26[0] = self->_recordID;
+    v25[0] = self->_recordID;
     v13 = MEMORY[0x1E695DEC8];
-    v14 = v26[0];
-    v15 = [v13 arrayWithObjects:v26 count:1];
+    v14 = v25[0];
+    v15 = [v13 arrayWithObjects:v25 count:1];
 
     [(FCCKPrivateFetchRecordsOperation *)v12 setRecordIDs:v15];
     desiredKeys = self->_desiredKeys;
@@ -346,9 +344,9 @@ LABEL_10:
 
   else
   {
-    v26[0] = 0;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-    [(FCCKPrivateFetchRecordsOperation *)v12 setRecordIDs:v22];
+    v25[0] = 0;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    [(FCCKPrivateFetchRecordsOperation *)v12 setRecordIDs:v21];
 
     desiredKeys = 0;
   }
@@ -366,25 +364,24 @@ LABEL_10:
   }
 
   [(FCOperation *)v12 setRelativePriority:v17];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke;
-  v23[3] = &unk_1E7C378E8;
-  v23[4] = self;
-  v24 = pbDate;
-  v25 = handlerCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke;
+  v22[3] = &unk_1E7C378E8;
+  v22[4] = self;
+  v23 = pbDate;
+  v24 = handlerCopy;
   v18 = handlerCopy;
   v19 = pbDate;
-  [(FCCKPrivateFetchRecordsOperation *)v12 setFetchRecordsCompletionBlock:v23];
+  [(FCCKPrivateFetchRecordsOperation *)v12 setFetchRecordsCompletionBlock:v22];
   privateDatabase = [contextCopy privateDatabase];
 
   [(FCCKPrivateDatabase *)privateDatabase addOperation:v12];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
   if ([v5 fc_isCKUnknownItemError])
@@ -395,10 +392,10 @@ void __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_c
       v7 = v7[1];
     }
 
-    v23[0] = v7;
+    v22[0] = v7;
     v8 = MEMORY[0x1E695DEC8];
     v9 = v7;
-    v10 = [v8 arrayWithObjects:v23 count:1];
+    v10 = [v8 arrayWithObjects:v22 count:1];
 
     v11 = 0;
   }
@@ -409,19 +406,18 @@ void __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_c
     v11 = v5;
   }
 
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_2;
-  v20 = &unk_1E7C36C58;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_2;
+  v19 = &unk_1E7C36C58;
   v12 = a1[5];
-  v21 = a1[4];
-  v22 = v12;
-  v13 = _Block_copy(&v17);
+  v20 = a1[4];
+  v21 = v12;
+  v13 = _Block_copy(&v16);
   v14 = a1[6];
   v15 = [v6 allValues];
 
   (*(v14 + 16))(v14, v15, v10, 0, v13, v11);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __89__FCPrivateRecordSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_2(uint64_t a1)

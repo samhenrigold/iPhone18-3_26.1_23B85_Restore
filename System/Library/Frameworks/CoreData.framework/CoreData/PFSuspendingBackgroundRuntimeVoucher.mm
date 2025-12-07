@@ -3,44 +3,43 @@
 
 @implementation PFSuspendingBackgroundRuntimeVoucher
 
-uint64_t __83___PFSuspendingBackgroundRuntimeVoucher__observeApplicationActivationNotifications__block_invoke()
+void *__83___PFSuspendingBackgroundRuntimeVoucher__observeApplicationActivationNotifications__block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v0 = +[_PFRoutines applicationActivateLifecyleNotifications];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  result = [v0 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  result = [v0 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (result)
   {
     v2 = result;
-    v3 = *v9;
+    v3 = *v8;
     do
     {
       v4 = 0;
       do
       {
-        if (*v9 != v3)
+        if (*v8 != v3)
         {
           objc_enumerationMutation(v0);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * v4);
+        v5 = *(*(&v7 + 1) + 8 * v4);
         v6 = [MEMORY[0x1E696AD88] defaultCenter];
         [v6 addObserverForName:v5 object:qword_1ED4BEB70 queue:0 usingBlock:&__block_literal_global_173];
-        ++v4;
+        v4 = v4 + 1;
       }
 
       while (v2 != v4);
-      result = [v0 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      result = [v0 countByEnumeratingWithState:&v7 objects:v11 count:16];
       v2 = result;
     }
 
     while (result);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 

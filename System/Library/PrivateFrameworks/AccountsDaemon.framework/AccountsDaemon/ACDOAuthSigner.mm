@@ -154,93 +154,94 @@ void __75__ACDOAuthSigner__signedRequest_withAccountObject_applicationID_timesta
   dCopy = d;
   timestampCopy = timestamp;
   handlerCopy = handler;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__5;
+  v59 = __Block_byref_object_dispose__5;
+  v60 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__5;
+  v53 = __Block_byref_object_dispose__5;
   v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__5;
-  v58 = __Block_byref_object_dispose__5;
-  v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__5;
-  v52 = __Block_byref_object_dispose__5;
-  v53 = 0;
   managedObjectContext = [(ACDDatabaseConnection *)self->_databaseConnection managedObjectContext];
-  v40 = MEMORY[0x277D85DD0];
-  v41 = 3221225472;
-  v42 = __74__ACDOAuthSigner_signURLRequest_withAccount_callingPID_timestamp_handler___block_invoke;
-  v43 = &unk_27848C130;
-  v46 = &v54;
+  v41 = MEMORY[0x277D85DD0];
+  v42 = 3221225472;
+  v43 = __74__ACDOAuthSigner_signURLRequest_withAccount_callingPID_timestamp_handler___block_invoke;
+  v44 = &unk_27848C130;
+  v47 = &v55;
   selfCopy = self;
   v18 = accountCopy;
-  v45 = v18;
-  v47 = &v48;
-  [managedObjectContext performBlockAndWait:&v40];
+  v46 = v18;
+  v48 = &v49;
+  [managedObjectContext performBlockAndWait:&v41];
 
-  if (!v55[5])
+  if (!v56[5])
   {
-    v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:6 userInfo:{0, v40, v41, v42, v43, selfCopy}];
-    handlerCopy[2](handlerCopy, 0, v20);
+    v21 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:6 userInfo:{0, v41, v42, v43, v44, selfCopy}];
+    handlerCopy[2](handlerCopy, 0, v21);
     goto LABEL_19;
   }
 
   if (dCopy && [dCopy intValue] >= 1)
   {
-    if (![(ACDClient *)self->_client hasEntitlement:*MEMORY[0x277CB9000]])
+    v19 = [(ACDClient *)self->_client hasEntitlement:*MEMORY[0x277CB9000]];
+    if (!v19)
     {
-      v32 = _ACDLogSystem();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = _ACDLogSystem(v19);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        [(ACDOAuthSigner *)v32 signURLRequest:v33 withAccount:v34 callingPID:v35 timestamp:v36 handler:v37, v38, v39];
+        [(ACDOAuthSigner *)v33 signURLRequest:v34 withAccount:v35 callingPID:v36 timestamp:v37 handler:v38, v39, v40];
       }
 
-      v20 = 0;
+      v21 = 0;
       goto LABEL_8;
     }
 
     [dCopy intValue];
-    v19 = ACDGetAdamOrDisplayIDForPID();
+    v20 = ACDGetAdamOrDisplayIDForPID();
   }
 
   else
   {
-    v19 = [(ACDClient *)self->_client adamOrDisplayID:v40];
+    v20 = [(ACDClient *)self->_client adamOrDisplayID:v41];
   }
 
-  v20 = v19;
+  v21 = v20;
 LABEL_8:
-  if ([(ACDClient *)self->_client hasEntitlement:*MEMORY[0x277CB8FE0]]|| ([(ACDClient *)self->_client bundleID], v21 = objc_claimAutoreleasedReturnValue(), v22 = [(ACDOAuthSigner *)self _permissionGrantedForBundleID:v21 onAccountType:v49[5]], v21, v22))
+  if ([(ACDClient *)self->_client hasEntitlement:*MEMORY[0x277CB8FE0]]|| ([(ACDClient *)self->_client bundleID], v22 = objc_claimAutoreleasedReturnValue(), v23 = [(ACDOAuthSigner *)self _permissionGrantedForBundleID:v22 onAccountType:v50[5]], v22, v23))
   {
-    if (v20 || !self->_shouldIncludeAppIdInRequest)
+    if (v21 || !self->_shouldIncludeAppIdInRequest)
     {
-      v23 = [(ACDOAuthSigner *)self _signedRequest:requestCopy withAccountObject:v55[5] applicationID:v20 timestamp:timestampCopy];
-      (handlerCopy)[2](handlerCopy, v23, 0);
+      v24 = [(ACDOAuthSigner *)self _signedRequest:requestCopy withAccountObject:v56[5] applicationID:v21 timestamp:timestampCopy];
+      (handlerCopy)[2](handlerCopy, v24, 0);
     }
 
     else
     {
-      v24 = _ACLogSystem();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = _ACLogSystem();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(ACDOAuthSigner *)v24 signURLRequest:v25 withAccount:v26 callingPID:v27 timestamp:v28 handler:v29, v30, v31];
+        [(ACDOAuthSigner *)v25 signURLRequest:v26 withAccount:v27 callingPID:v28 timestamp:v29 handler:v30, v31, v32];
       }
 
-      v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:1 userInfo:0];
-      handlerCopy[2](handlerCopy, 0, v23);
+      v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:1 userInfo:0];
+      handlerCopy[2](handlerCopy, 0, v24);
     }
   }
 
   else
   {
-    v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
-    handlerCopy[2](handlerCopy, 0, v23);
+    v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, v24);
   }
 
 LABEL_19:
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v49, 8);
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v55, 8);
 }
 
 void __74__ACDOAuthSigner_signURLRequest_withAccount_callingPID_timestamp_handler___block_invoke(uint64_t a1)
@@ -344,7 +345,7 @@ void __68__ACDOAuthSigner_signedRequest_withAccount_applicationID_timestamp___bl
   selfCopy = [(ACDClient *)self->_client hasEntitlement:*MEMORY[0x277CB8FE0], v31, v32, v33, v34, selfCopy];
   if (!dCopy)
   {
-    v23 = _ACDLogSystem();
+    v23 = _ACDLogSystem(selfCopy);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [(ACDOAuthSigner *)v23 signURLRequest:v24 withAccount:v25 applicationID:v26 timestamp:v27 handler:v28, v29, v30];
@@ -353,7 +354,7 @@ void __68__ACDOAuthSigner_signedRequest_withAccount_applicationID_timestamp___bl
     goto LABEL_10;
   }
 
-  if (!selfCopy)
+  if ((selfCopy & 1) == 0)
   {
     bundleID = [(ACDClient *)self->_client bundleID];
     v21 = [(ACDOAuthSigner *)self _permissionGrantedForBundleID:bundleID onAccountType:v40[5]];
@@ -407,25 +408,25 @@ void __77__ACDOAuthSigner_signURLRequest_withAccount_applicationID_timestamp_han
 
 - (id)ckForAccountType:(id)type
 {
-  v15[6] = *MEMORY[0x277D85DE8];
+  v14[6] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB8D00];
-  v14[0] = *MEMORY[0x277CB8D28];
-  v14[1] = v3;
-  v15[0] = @"XX[E:QjlmkJZqTBNhLOT:g";
-  v15[1] = @"3878861889";
+  v13[0] = *MEMORY[0x277CB8D28];
+  v13[1] = v3;
+  v14[0] = @"XX[E:QjlmkJZqTBNhLOT:g";
+  v14[1] = @"3878861889";
   v4 = *MEMORY[0x277CB8C30];
-  v14[2] = @"com.apple.linkedin";
-  v14[3] = v4;
-  v15[2] = @"lh11ykuiycpw";
-  v15[3] = @"b84f8d61205456:e:416:fd08c7811:4";
+  v13[2] = @"com.apple.linkedin";
+  v13[3] = v4;
+  v14[2] = @"lh11ykuiycpw";
+  v14[3] = @"b84f8d61205456:e:416:fd08c7811:4";
   v5 = *MEMORY[0x277CB8D18];
-  v14[4] = *MEMORY[0x277CB8D30];
-  v14[5] = v5;
-  v15[4] = @"97d4b8:a6350926e2ab4gedefa7432:2:88530f7";
-  v15[5] = @"902265845";
+  v13[4] = *MEMORY[0x277CB8D30];
+  v13[5] = v5;
+  v14[4] = @"97d4b8:a6350926e2ab4gedefa7432:2:88530f7";
+  v14[5] = @"902265845";
   v6 = MEMORY[0x277CBEAC0];
   typeCopy = type;
-  v8 = [v6 dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v8 = [v6 dictionaryWithObjects:v14 forKeys:v13 count:6];
   identifier = [typeCopy identifier];
 
   v10 = [v8 objectForKey:identifier];
@@ -439,33 +440,31 @@ void __77__ACDOAuthSigner_signURLRequest_withAccount_applicationID_timestamp_han
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)csForAccountType:(id)type
 {
-  v15[6] = *MEMORY[0x277D85DE8];
+  v14[6] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB8D00];
-  v14[0] = *MEMORY[0x277CB8D28];
-  v14[1] = v3;
-  v15[0] = @"Bav5TVOpCZd0XCrn8DuQrMGZbkHivaFYBnsbz3HUJE";
-  v15[1] = @"9911g0d2c25782d6ebed:a4dbc14762c";
+  v13[0] = *MEMORY[0x277CB8D28];
+  v13[1] = v3;
+  v14[0] = @"Bav5TVOpCZd0XCrn8DuQrMGZbkHivaFYBnsbz3HUJE";
+  v14[1] = @"9911g0d2c25782d6ebed:a4dbc14762c";
   v4 = *MEMORY[0x277CB8C30];
-  v14[2] = @"com.apple.linkedin";
-  v14[3] = v4;
-  v15[2] = @"{Mgj6CGuJT:c{qMb";
-  v15[3] = @"f058gbed57167f91";
+  v13[2] = @"com.apple.linkedin";
+  v13[3] = v4;
+  v14[2] = @"{Mgj6CGuJT:c{qMb";
+  v14[3] = @"f058gbed57167f91";
   v5 = *MEMORY[0x277CB8D18];
-  v14[4] = *MEMORY[0x277CB8D30];
-  v14[5] = v5;
-  v15[4] = @"33b67328e3fe8c697325g9d1666c672agbcagc1f";
-  v15[5] = @"49b7ccffdbg14a5b234345cf1acc86c4";
+  v13[4] = *MEMORY[0x277CB8D30];
+  v13[5] = v5;
+  v14[4] = @"33b67328e3fe8c697325g9d1666c672agbcagc1f";
+  v14[5] = @"49b7ccffdbg14a5b234345cf1acc86c4";
   v6 = MEMORY[0x277CBEAC0];
   typeCopy = type;
-  v8 = [v6 dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v8 = [v6 dictionaryWithObjects:v14 forKeys:v13 count:6];
   identifier = [typeCopy identifier];
 
   v10 = [v8 objectForKey:identifier];
@@ -479,8 +478,6 @@ void __77__ACDOAuthSigner_signURLRequest_withAccount_applicationID_timestamp_han
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

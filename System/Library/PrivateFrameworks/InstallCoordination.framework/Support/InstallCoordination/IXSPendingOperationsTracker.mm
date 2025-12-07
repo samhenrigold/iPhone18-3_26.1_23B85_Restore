@@ -53,9 +53,9 @@
 - (BOOL)_deserializePlistFormatFromData:(id)data atURL:(id)l
 {
   lCopy = l;
-  v16 = 0;
-  v7 = [NSPropertyListSerialization propertyListWithData:data options:0 format:0 error:&v16];
-  v8 = v16;
+  v17 = 0;
+  v7 = [NSPropertyListSerialization propertyListWithData:data options:0 format:0 error:&v17];
+  v8 = v17;
   if (!v7)
   {
     v9 = sub_1000031B0(off_100121958);
@@ -72,28 +72,28 @@
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_8:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
   v10 = [v9 objectForKeyedSubscript:@"BundleIDs"];
-  if (v10 && (objc_opt_class(), sub_10008EBE8(v10)))
+  if (v10 && (v11 = objc_opt_class(), sub_10008EBE8(v10, v11)))
   {
-    v11 = [IXApplicationIdentity identitiesForBundleIdentifiers:v10];
-    v12 = [[NSMutableSet alloc] initWithArray:v11];
+    v12 = [IXApplicationIdentity identitiesForBundleIdentifiers:v10];
+    v13 = [[NSMutableSet alloc] initWithArray:v12];
     pendingOperationIdentities = self->_pendingOperationIdentities;
-    self->_pendingOperationIdentities = v12;
+    self->_pendingOperationIdentities = v13;
 
-    v14 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
 LABEL_11:
-  return v14;
+  return v15;
 }
 
 - (BOOL)_deserializeKeyedArchiveFromData:(id)data atURL:(id)l

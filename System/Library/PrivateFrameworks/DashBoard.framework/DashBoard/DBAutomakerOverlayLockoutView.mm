@@ -6,7 +6,7 @@
 
 - (void)automakerOverlayStateMonitor:(id)monitor didUpdateOverlays:(id)overlays
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE938E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE938E0, &unk_2483A2CC0);
   v6 = sub_248383B10();
   monitorCopy = monitor;
   selfCopy = self;

@@ -11,12 +11,12 @@
 
 - (id)initFromDebugData:(id)data
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   dataCopy = data;
   bytes = [data bytes];
-  v18.receiver = self;
-  v18.super_class = BLScoreData;
-  v7 = [(BLScoreData *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = BLScoreData;
+  v7 = [(BLScoreData *)&v17 init];
   v8 = v7;
   if (!v7)
   {
@@ -35,8 +35,7 @@
     NSLog(&cfstr_EFileVersionNo.isa);
 LABEL_9:
 
-    v8 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   v9 = [(BLScoreData *)v7 readFwCommon:bytes];
@@ -69,8 +68,6 @@ LABEL_9:
     v15->var1 = 0;
   }
 
-LABEL_11:
-  v16 = *MEMORY[0x29EDCA608];
   return v8;
 }
 

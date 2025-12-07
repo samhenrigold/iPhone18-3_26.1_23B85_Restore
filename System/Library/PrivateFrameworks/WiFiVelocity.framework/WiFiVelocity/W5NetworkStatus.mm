@@ -90,34 +90,34 @@
 
 - (id)description
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithCapacity:0];
   [v3 appendFormat:@"Primary IPv4: %@ (%@)\n", self->_primaryIPv4InterfaceName, self->_primaryIPv4ServiceName];
   [v3 appendFormat:@"Primary IPv6: %@ (%@)\n", self->_primaryIPv6InterfaceName, self->_primaryIPv6ServiceName];
   [v3 appendFormat:@"IPv4 Addresses: %lu\n", -[NSArray count](self->_primaryIPv4Addresses, "count")];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   primaryIPv4Addresses = self->_primaryIPv4Addresses;
-  v5 = [(NSArray *)primaryIPv4Addresses countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v5 = [(NSArray *)primaryIPv4Addresses countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(primaryIPv4Addresses);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v29 + 1) + 8 * i)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v28 + 1) + 8 * i)];
       }
 
-      v6 = [(NSArray *)primaryIPv4Addresses countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v6 = [(NSArray *)primaryIPv4Addresses countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v6);
@@ -125,29 +125,29 @@
 
   [v3 appendFormat:@"IPv4 Router: %@\n", self->_primaryIPv4Router];
   [v3 appendFormat:@"IPv6 Addresses: %lu\n", -[NSArray count](self->_primaryIPv6Addresses, "count")];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   primaryIPv6Addresses = self->_primaryIPv6Addresses;
-  v10 = [(NSArray *)primaryIPv6Addresses countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v10 = [(NSArray *)primaryIPv6Addresses countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(primaryIPv6Addresses);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v25 + 1) + 8 * j)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v24 + 1) + 8 * j)];
       }
 
-      v11 = [(NSArray *)primaryIPv6Addresses countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v11 = [(NSArray *)primaryIPv6Addresses countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
     while (v11);
@@ -155,38 +155,36 @@
 
   [v3 appendFormat:@"IPv6 Router: %@\n", self->_primaryIPv6Router];
   [v3 appendFormat:@"DNS Addresses: %lu\n", -[NSArray count](self->_primaryDNSAddresses, "count")];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   primaryDNSAddresses = self->_primaryDNSAddresses;
-  v15 = [(NSArray *)primaryDNSAddresses countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v15 = [(NSArray *)primaryDNSAddresses countByEnumeratingWithState:&v20 objects:v32 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (k = 0; k != v16; ++k)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(primaryDNSAddresses);
         }
 
-        [v3 appendFormat:@"\t%@\n", *(*(&v21 + 1) + 8 * k)];
+        [v3 appendFormat:@"\t%@\n", *(*(&v20 + 1) + 8 * k)];
       }
 
-      v16 = [(NSArray *)primaryDNSAddresses countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v16 = [(NSArray *)primaryDNSAddresses countByEnumeratingWithState:&v20 objects:v32 count:16];
     }
 
     while (v16);
   }
 
   [v3 appendFormat:@"Apple Reachable: 0x%X\n%@\n", self->_isAppleReachable, W5DescriptionForReachabilityFlags(self->_isAppleReachable, @"\t"];
-  result = [v3 copy];
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v3 copy];
 }
 
 - (BOOL)conformsToProtocol:(id)protocol

@@ -100,17 +100,15 @@
 
 - (id)migratableSources
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = [AVTArchiverBasedStoreMigratableSource alloc];
   storeLocation = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self storeLocation];
   environment = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self environment];
   v6 = [(AVTArchiverBasedStoreMigratableSource *)v3 initWithStoreLocation:storeLocation environment:environment];
-  v11[0] = v6;
+  v10[0] = v6;
   copiedAsideMigratableSource = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self copiedAsideMigratableSource];
-  v11[1] = copiedAsideMigratableSource;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[1] = copiedAsideMigratableSource;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
   return v8;
 }
@@ -230,7 +228,7 @@
 
 - (id)createStoreServerWithError:(id *)error
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   v5 = +[AVTCoreDataPersistentStoreConfiguration currentManagedObjectModel];
   v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:error];
   if (v6)
@@ -239,19 +237,19 @@
     if ([(_AVTCoreDataPersistentStoreLocalConfiguration *)self createDatabaseDirectoryIfNeeded:error usingFileManager:v7])
     {
       v8 = *MEMORY[0x277CBE340];
-      v17[0] = *MEMORY[0x277CBE328];
-      v17[1] = v8;
-      v18[0] = MEMORY[0x277CBEC38];
-      v18[1] = @"com.apple.avatar.service";
+      v16[0] = *MEMORY[0x277CBE328];
+      v16[1] = v8;
+      v17[0] = MEMORY[0x277CBEC38];
+      v17[1] = @"com.apple.avatar.service";
       v9 = *MEMORY[0x277CBE240];
-      v17[2] = *MEMORY[0x277CBE268];
-      v17[3] = v9;
+      v16[2] = *MEMORY[0x277CBE268];
+      v16[3] = v9;
       v10 = *MEMORY[0x277CCA1A0];
-      v18[2] = MEMORY[0x277CBEC38];
-      v18[3] = v10;
-      v17[4] = *MEMORY[0x277CBE210];
-      v18[4] = MEMORY[0x277CBEC38];
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+      v17[2] = MEMORY[0x277CBEC38];
+      v17[3] = v10;
+      v16[4] = *MEMORY[0x277CBE210];
+      v17[4] = MEMORY[0x277CBEC38];
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
       v12 = objc_alloc(MEMORY[0x277CBE510]);
       databaseLocation = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self databaseLocation];
       v14 = [v12 initForStoreWithURL:databaseLocation usingModel:v5 options:v11 policy:0];
@@ -268,14 +266,12 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)tearDownAndEraseAllContent:(id *)content
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   logger = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self logger];
   folderLocation = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self folderLocation];
   path = [folderLocation path];
@@ -284,33 +280,33 @@
   coordinator = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self coordinator];
   persistentStores = [coordinator persistentStores];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v10 = persistentStores;
-  v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v35;
+    v14 = *v34;
     while (2)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v34 + 1) + 8 * v15);
+        v17 = *(*(&v33 + 1) + 8 * v15);
         coordinator2 = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self coordinator];
-        v33 = v16;
-        v19 = [coordinator2 removePersistentStore:v17 error:&v33];
-        v13 = v33;
+        v32 = v16;
+        v19 = [coordinator2 removePersistentStore:v17 error:&v32];
+        v13 = v32;
 
         if (!v19)
         {
@@ -338,7 +334,7 @@
       }
 
       while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v12)
       {
         continue;
@@ -357,9 +353,9 @@
 
   v25 = objc_alloc_init(MEMORY[0x277CCAA00]);
   folderLocation2 = [(_AVTCoreDataPersistentStoreLocalConfiguration *)self folderLocation];
-  v32 = v13;
-  v23 = [v25 removeItemAtURL:folderLocation2 error:&v32];
-  v13 = v32;
+  v31 = v13;
+  v23 = [v25 removeItemAtURL:folderLocation2 error:&v31];
+  v13 = v31;
 
   if ((v23 & 1) == 0)
   {
@@ -375,7 +371,6 @@
   }
 
 LABEL_19:
-  v30 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

@@ -23,6 +23,7 @@
 - (int64_t)layout:(id)layout generationStateForItemAtIndexPath:(PXSimpleIndexPath *)path;
 - (int64_t)layout:(id)layout irisToggleStateForItemAtIndexPath:(PXSimpleIndexPath *)path;
 - (void)_didTapGenerationButton:(id)button;
+- (void)_dismissPresentedReviewController:(id)controller animated:(BOOL)animated;
 - (void)_immediatelyGenerateAndStagePackageFromReviewAsset:(id)asset suppressLivePhoto:(BOOL)photo mediaOrigin:(int64_t)origin;
 - (void)_presentReviewForAssetReference:(id)reference;
 - (void)_presentReviewViewController:(id)controller;
@@ -195,7 +196,7 @@ void *__114__AEMessagesShelfViewController__immediatelyGenerateAndStagePackageFr
 
 - (void)assetExplorerReviewScreenViewController:(id)controller didPerformCompletionAction:(unint64_t)action withSelectedAssetUUIDs:(id)ds livePhotoDisabledAssetUUIDs:(id)iDs substituteAssetsByUUID:(id)d
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dsCopy = ds;
   iDsCopy = iDs;
@@ -203,9 +204,9 @@ void *__114__AEMessagesShelfViewController__immediatelyGenerateAndStagePackageFr
   dCopy = d;
   _packageTransport = [(AEMessagesShelfViewController *)self _packageTransport];
   orderedStagedIdentifiers = [_packageTransport orderedStagedIdentifiers];
-  v44 = [MEMORY[0x277CBEB98] setWithArray:?];
-  v14 = [v44 mutableCopy];
-  v46 = dsCopy;
+  v43 = [MEMORY[0x277CBEB98] setWithArray:?];
+  v14 = [v43 mutableCopy];
+  v45 = dsCopy;
   [v14 minusSet:dsCopy];
   if ([v14 count])
   {
@@ -213,29 +214,29 @@ void *__114__AEMessagesShelfViewController__immediatelyGenerateAndStagePackageFr
     [_packageTransport unstagePackagesWithIdentifiers:allObjects];
   }
 
-  v43 = v14;
+  v42 = v14;
   if ([dCopy count])
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     allKeys = [dCopy allKeys];
-    v17 = [allKeys countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v17 = [allKeys countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v56;
+      v19 = *v55;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v56 != v19)
+          if (*v55 != v19)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v21 = *(*(&v55 + 1) + 8 * i);
+          v21 = *(*(&v54 + 1) + 8 * i);
           v22 = [_packageTransport stagedPackageForIdentifier:v21];
           mediaOrigin = [v22 mediaOrigin];
           v24 = [iDsCopy containsObject:v21];
@@ -243,7 +244,7 @@ void *__114__AEMessagesShelfViewController__immediatelyGenerateAndStagePackageFr
           [(AEMessagesShelfViewController *)selfCopy _immediatelyGenerateAndStagePackageFromReviewAsset:v25 suppressLivePhoto:v24 mediaOrigin:mediaOrigin];
         }
 
-        v18 = [allKeys countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v18 = [allKeys countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v18);
@@ -254,30 +255,30 @@ void *__114__AEMessagesShelfViewController__immediatelyGenerateAndStagePackageFr
   if ([packagesWithLivePhotoContent count])
   {
     v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v42 = packagesWithLivePhotoContent;
+    v41 = packagesWithLivePhotoContent;
     v28 = packagesWithLivePhotoContent;
-    v29 = [v28 countByEnumeratingWithState:&v51 objects:v59 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v50 objects:v58 count:16];
     if (!v29)
     {
       goto LABEL_29;
     }
 
     v30 = v29;
-    v31 = *v52;
+    v31 = *v51;
     while (1)
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v52 != v31)
+        if (*v51 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v51 + 1) + 8 * j);
+        v33 = *(*(&v50 + 1) + 8 * j);
         identifier = [v33 identifier];
         v35 = [iDsCopy containsObject:identifier];
         containsSuppressedLivePhoto = [v33 containsSuppressedLivePhoto];
@@ -312,12 +313,12 @@ LABEL_24:
         }
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v50 objects:v58 count:16];
       if (!v30)
       {
 LABEL_29:
 
-        packagesWithLivePhotoContent = v42;
+        packagesWithLivePhotoContent = v41;
         break;
       }
     }
@@ -337,8 +338,6 @@ LABEL_29:
     *buf = 0;
     _os_log_impl(&dword_2411DE000, v40, OS_LOG_TYPE_DEFAULT, "Finished review; did dismiss.", buf, 2u);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetExplorerReviewScreenViewControllerDidPressCancel:(id)cancel
@@ -372,34 +371,34 @@ LABEL_29:
 
   _tilingController = [(AEMessagesShelfViewController *)self _tilingController];
   [contentCoordinateSpace convertPoint:scrollView fromCoordinateSpace:{x, y}];
-  v27 = 0;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v23 = 0;
+  v21 = 0u;
   v22 = 0u;
-  if (_tilingController && (v11 = *MEMORY[0x277D3CF88], v12 = *(MEMORY[0x277D3CF88] + 8), v13 = *(MEMORY[0x277D3CF88] + 16), v14 = *(MEMORY[0x277D3CF88] + 24), [_tilingController hitTestTileAtPoint:&__block_literal_global_521 padding:? passingTest:?], v22))
+  v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
+  if (_tilingController && (objc_msgSend_hitTestTileAtPoint_padding_passingTest_(_tilingController), v18))
   {
-    v19 = v24;
-    v20 = v23;
+    v15 = v20;
+    v16 = v19;
     currentLayout = [_tilingController currentLayout];
     dataSource = [currentLayout dataSource];
-    v21[0] = v20;
-    v21[1] = v19;
-    v17 = [dataSource assetReferenceAtItemIndexPath:v21];
+    v17[0] = v16;
+    v17[1] = v15;
+    v13 = [dataSource assetReferenceAtItemIndexPath:v17];
   }
 
   else
   {
-    v17 = 0;
+    v13 = 0;
   }
 
-  return v17;
+  return v13;
 }
 
 - (void)_presentReviewForAssetReference:(id)reference
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
   _internalReviewDataSourceManager = [(AEMessagesShelfViewController *)self _internalReviewDataSourceManager];
   didFailToOpenPhotoLibrary = [_internalReviewDataSourceManager didFailToOpenPhotoLibrary];
@@ -408,41 +407,41 @@ LABEL_29:
   {
     _currentAssetsDataSource = [(AEMessagesShelfViewController *)self _currentAssetsDataSource];
     _internalReviewMediaProvider = [(AEMessagesShelfViewController *)self _internalReviewMediaProvider];
+    v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     if (_currentAssetsDataSource)
     {
-      [_currentAssetsDataSource indexPathForAssetReference:referenceCopy];
+      objc_msgSend_indexPathForAssetReference_(_currentAssetsDataSource);
     }
 
-    v26 = _currentAssetsDataSource;
+    v25 = _currentAssetsDataSource;
+    v30 = v32;
     v31 = v33;
-    v32 = v34;
-    v24 = PXIndexPathFromSimpleIndexPath();
+    v23 = PXIndexPathFromSimpleIndexPath();
     _packageTransport = [(AEMessagesShelfViewController *)self _packageTransport];
     orderedStagedIdentifiers = [_packageTransport orderedStagedIdentifiers];
-    v23 = [MEMORY[0x277CBEB98] setWithArray:orderedStagedIdentifiers];
+    v22 = [MEMORY[0x277CBEB98] setWithArray:orderedStagedIdentifiers];
     v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v11 = orderedStagedIdentifiers;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
+          v16 = *(*(&v26 + 1) + 8 * i);
           v17 = [_packageTransport stagedPackageForIdentifier:v16];
           if ([v17 containsSuppressedLivePhoto])
           {
@@ -450,7 +449,7 @@ LABEL_29:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v13);
@@ -458,14 +457,12 @@ LABEL_29:
 
     _dataSource = [(AEMessagesShelfViewController *)self _dataSource];
     v19 = [objc_alloc(MEMORY[0x277D3D058]) initWithReviewDataSource:_dataSource];
-    LOBYTE(v22) = 0;
-    v20 = [objc_alloc(MEMORY[0x277D3D020]) initWithDataSourceManager:v19 mediaProvider:_internalReviewMediaProvider reviewAssetProvider:0 initialIndexPath:v24 initialSelectedAssetUUIDs:v23 initialDisabledLivePhotoAssetUUIDs:v10 selectionCountLimit:0 sourceType:1 lowMemoryMode:v22 options:32];
+    LOBYTE(v21) = 0;
+    v20 = [objc_alloc(MEMORY[0x277D3D020]) initWithDataSourceManager:v19 mediaProvider:_internalReviewMediaProvider reviewAssetProvider:0 initialIndexPath:v23 initialSelectedAssetUUIDs:v22 initialDisabledLivePhotoAssetUUIDs:v10 selectionCountLimit:0 sourceType:1 lowMemoryMode:v21 options:32];
     [v20 setDelegate:self];
     [v20 setModalPresentationStyle:0];
     [(AEMessagesShelfViewController *)self _presentReviewViewController:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldPresentReviewController
@@ -510,11 +507,7 @@ LABEL_29:
   [contentCoordinateSpace convertPoint:scrollView fromCoordinateSpace:{v11, v13}];
   if (_tilingController)
   {
-    v14 = *MEMORY[0x277D3CF88];
-    v15 = *(MEMORY[0x277D3CF88] + 8);
-    v16 = *(MEMORY[0x277D3CF88] + 16);
-    v17 = *(MEMORY[0x277D3CF88] + 24);
-    [_tilingController hitTestTileAtPoint:&__block_literal_global_517 padding:? passingTest:?];
+    objc_msgSend_hitTestTileAtPoint_padding_passingTest_(_tilingController);
   }
 
   return 0;
@@ -739,7 +732,7 @@ LABEL_39:
   v7 = tilingController;
   if (tilingController)
   {
-    [tilingController tileIdentifierForTile:buttonCopy];
+    objc_msgSend_tileIdentifierForTile_(tilingController);
   }
 
   else
@@ -818,7 +811,7 @@ LABEL_11:
   v7 = tilingController;
   if (tilingController)
   {
-    [tilingController tileIdentifierForTile:irisCopy];
+    objc_msgSend_tileIdentifierForTile_(tilingController);
   }
 
   else
@@ -860,7 +853,7 @@ LABEL_11:
   v7 = tilingController;
   if (tilingController)
   {
-    [tilingController tileIdentifierForTile:shelfCopy];
+    objc_msgSend_tileIdentifierForTile_(tilingController);
   }
 }
 
@@ -924,7 +917,7 @@ LABEL_11:
 void __77__AEMessagesShelfViewController_framesOfVisibleContentViewInCoordinateSpace___block_invoke(uint64_t a1, void *a2, uint64_t a3, double *a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v10 = a7;
-  if (*a2 == 5 && a2[1] == *MEMORY[0x277D3CC58])
+  if (*a2 == __PAIR128__(*MEMORY[0x277D3CC58], 5))
   {
     v12 = v10;
     [*(a1 + 32) convertRect:*(a1 + 40) toCoordinateSpace:{*a4, a4[1], a4[2], a4[3]}];
@@ -964,7 +957,7 @@ void __77__AEMessagesShelfViewController_framesOfVisibleContentViewInCoordinateS
   v11[0] = *&duration->dataSourceIdentifier;
   v11[1] = v6;
   v7 = [dataSource assetAtItemIndexPath:v11];
-  [v7 duration];
+  objc_msgSend_duration(v7);
   v9 = v8;
 
   return v9;
@@ -1204,58 +1197,58 @@ void __77__AEMessagesShelfViewController_framesOfVisibleContentViewInCoordinateS
 
 void __64__AEMessagesShelfViewController__transportStagingStateDidChange__block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v34;
+    v5 = *v33;
     do
     {
       v6 = 0;
       do
       {
-        if (*v34 != v5)
+        if (*v33 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) removeAssetWithIdentifier:*(*(&v33 + 1) + 8 * v6++)];
+        [*(a1 + 40) removeAssetWithIdentifier:*(*(&v32 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v4);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v7 = *(a1 + 48);
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       v11 = 0;
       do
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(a1 + 56) stagedPackageForIdentifier:*(*(&v29 + 1) + 8 * v11)];
+        v12 = [*(a1 + 56) stagedPackageForIdentifier:*(*(&v28 + 1) + 8 * v11)];
         v13 = [v12 reviewAssetFromPackageMetadata];
         [*(a1 + 40) replaceAsset:v13];
 
@@ -1263,33 +1256,33 @@ void __64__AEMessagesShelfViewController__transportStagingStateDidChange__block_
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v9);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = *(a1 + 64);
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       v18 = 0;
       do
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(a1 + 56) stagedPackageForIdentifier:{*(*(&v25 + 1) + 8 * v18), v25}];
+        v19 = [*(a1 + 56) stagedPackageForIdentifier:{*(*(&v24 + 1) + 8 * v18), v24}];
         v20 = [v19 reviewAssetFromPackageMetadata];
         v21 = *(a1 + 72);
         v22 = [v19 identifier];
@@ -1300,13 +1293,11 @@ void __64__AEMessagesShelfViewController__transportStagingStateDidChange__block_
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -1430,6 +1421,16 @@ id __44__AEMessagesShelfViewController_viewDidLoad__block_invoke_5()
   v5 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel_handleTap_];
   [v5 setDelegate:self];
   [scrollView addGestureRecognizer:v5];
+}
+
+- (void)_dismissPresentedReviewController:(id)controller animated:(BOOL)animated
+{
+  if (controller)
+  {
+    [controller dismissViewControllerAnimated:animated completion:0];
+    presentedReviewController = self->_presentedReviewController;
+    self->_presentedReviewController = 0;
+  }
 }
 
 - (void)_presentReviewViewController:(id)controller

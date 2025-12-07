@@ -1,5 +1,6 @@
 @interface _CDPeriodicSchedulerJob
 + (_CDPeriodicSchedulerJob)jobWithInterval:(double)interval schedulerJobName:(id)name handler:(id)handler;
++ (_CDPeriodicSchedulerJob)jobWithInterval:(double)interval schedulerJobName:(id)name queue:(id)queue asynchronousHandler:(BOOL)handler handler:(id)a7;
 + (_CDPeriodicSchedulerJob)jobWithPeriod:(int64_t)period schedulerJobName:(id)name handler:(id)handler;
 - (_CDPeriodicSchedulerJob)initWithPeriod:(int64_t)period interval:(double)interval schedulerJobName:(id)name queue:(id)queue asynchronousHandler:(BOOL)handler handler:(id)a8;
 - (void)setExecutionCriteria:(id)criteria;
@@ -82,15 +83,27 @@ LABEL_17:
   return v14;
 }
 
++ (_CDPeriodicSchedulerJob)jobWithInterval:(double)interval schedulerJobName:(id)name queue:(id)queue asynchronousHandler:(BOOL)handler handler:(id)a7
+{
+  handlerCopy = handler;
+  v12 = _MAPIntervalToCDPeriod(interval);
+  v13 = a7;
+  queueCopy = queue;
+  nameCopy = name;
+  v16 = [[_CDPeriodicSchedulerJob alloc] initWithPeriod:v12 interval:nameCopy schedulerJobName:queueCopy queue:handlerCopy asynchronousHandler:v13 handler:interval];
+
+  return v16;
+}
+
 - (_CDPeriodicSchedulerJob)initWithPeriod:(int64_t)period interval:(double)interval schedulerJobName:(id)name queue:(id)queue asynchronousHandler:(BOOL)handler handler:(id)a8
 {
   keys[6] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
   v17 = a8;
-  v30.receiver = self;
-  v30.super_class = _CDPeriodicSchedulerJob;
-  v18 = [(_CDPeriodicSchedulerJob *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = _CDPeriodicSchedulerJob;
+  v18 = [(_CDPeriodicSchedulerJob *)&v29 init];
   v19 = v18;
   if (v18)
   {
@@ -127,7 +140,6 @@ LABEL_17:
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

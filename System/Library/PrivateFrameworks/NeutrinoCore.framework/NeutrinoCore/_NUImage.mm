@@ -176,7 +176,7 @@
   objc_storeStrong((v5 + 64), self->_tileFactory);
   tileCount = [(NUImageLayout *)self->_layout tileCount];
   v15 = 0;
-  std::vector<unsigned char>::vector[abi:ne200100](&v16, tileCount);
+  std::vector<unsigned char>::vector[abi:ne200100](&v16, tileCount, &v15);
   v7 = *(v5 + 72);
   if (v7)
   {
@@ -356,7 +356,7 @@
   layout = self->_layout;
   if (regionCopy)
   {
-    [regionCopy bounds];
+    objc_msgSend_bounds(regionCopy);
   }
 
   else
@@ -447,7 +447,7 @@
     memset(v73, 0, sizeof(v73));
     if (infoCopy)
     {
-      [infoCopy frameRect];
+      objc_msgSend_frameRect(infoCopy);
     }
 
     validRegion = [(_NUImage *)self validRegion];
@@ -644,7 +644,7 @@
     layout = self->_layout;
     if (regionCopy)
     {
-      [regionCopy bounds];
+      objc_msgSend_bounds(regionCopy);
     }
 
     else
@@ -755,7 +755,7 @@
 
 - (_NUImage)initWithLayout:(id)layout format:(id)format colorSpace:(id)space headroom:(float)headroom tileFactory:(id)factory
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   formatCopy = format;
   spaceCopy = space;
@@ -892,9 +892,9 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v67.receiver = self;
-  v67.super_class = _NUImage;
-  v18 = [(_NUImage *)&v67 init];
+  v68.receiver = self;
+  v68.super_class = _NUImage;
+  v18 = [(_NUImage *)&v68 init];
   v19 = v18;
   if (v18)
   {
@@ -902,7 +902,7 @@ LABEL_33:
     objc_storeStrong(&v19->_format, format);
     objc_storeStrong(&v19->_colorSpace, space);
     v19->_contentHeadroom = headroom;
-    v20 = +[NURegion region];
+    v20 = objc_msgSend_region(NURegion);
     validRegion = v19->_validRegion;
     v19->_validRegion = v20;
 
@@ -923,7 +923,8 @@ LABEL_33:
     writeQueue = v19->_writeQueue;
     v19->_writeQueue = v29;
 
-    std::vector<unsigned char>::vector[abi:ne200100](buf, tileCount);
+    v67 = 0;
+    std::vector<unsigned char>::vector[abi:ne200100](buf, tileCount, &v67);
     begin = v19->_accessCount.__begin_;
     if (begin)
     {

@@ -39,7 +39,7 @@
 
 - (id)photosViewController:(id)controller animationForProposedAnimation:(id)animation
 {
-  sub_1A3C52C70(0, &qword_1EB126A10);
+  sub_1A3C52C70(0, &qword_1EB126A10, off_1E771E328);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   animationCopy = animation;
   objCClassFromMetadata = [ObjCClassFromMetadata sharedInstance];

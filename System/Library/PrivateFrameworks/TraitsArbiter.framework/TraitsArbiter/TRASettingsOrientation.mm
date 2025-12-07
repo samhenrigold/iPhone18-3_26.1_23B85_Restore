@@ -87,25 +87,7 @@
   }
 
   orientation = self->_orientation;
-  if (orientation != [(TRASettingsOrientation *)settingsCopy orientation])
-  {
-    goto LABEL_9;
-  }
-
-  orientationMapResolver = self->_orientationMapResolver;
-  orientationMapResolver = [(TRASettingsOrientation *)settingsCopy orientationMapResolver];
-  LODWORD(orientationMapResolver) = [(BSInterfaceOrientationMapResolving *)orientationMapResolver isEqual:orientationMapResolver];
-
-  if (!orientationMapResolver)
-  {
-    goto LABEL_9;
-  }
-
-  validatedOrientationInputs = self->_validatedOrientationInputs;
-  validatedOrientationInputs = [(TRASettingsOrientation *)settingsCopy validatedOrientationInputs];
-  LODWORD(validatedOrientationInputs) = [(TRAArbitrationDeviceOrientationInputs *)validatedOrientationInputs isEqual:validatedOrientationInputs];
-
-  if (validatedOrientationInputs)
+  if (orientation == [(TRASettingsOrientation *)settingsCopy orientation]&& (orientationMapResolver = self->_orientationMapResolver, [(TRASettingsOrientation *)settingsCopy orientationMapResolver], v7 = objc_claimAutoreleasedReturnValue(), LODWORD(orientationMapResolver) = [(BSInterfaceOrientationMapResolving *)orientationMapResolver isEqual:v7], v7, orientationMapResolver) && (validatedOrientationInputs = self->_validatedOrientationInputs, [(TRASettingsOrientation *)settingsCopy validatedOrientationInputs], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(validatedOrientationInputs) = [(TRAArbitrationDeviceOrientationInputs *)validatedOrientationInputs isEqual:v9], v9, validatedOrientationInputs))
   {
     rawOrientationInputs = self->_rawOrientationInputs;
     rawOrientationInputs = [(TRASettingsOrientation *)settingsCopy rawOrientationInputs];

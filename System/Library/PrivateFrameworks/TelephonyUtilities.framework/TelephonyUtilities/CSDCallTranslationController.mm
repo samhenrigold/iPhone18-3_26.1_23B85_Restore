@@ -46,7 +46,7 @@
 {
   notificationCopy = notification;
   selfCopy = self;
-  sub_1002AC1C4(notificationCopy);
+  sub_1002AC1C4();
 }
 
 - (void)performRequest:(id)request forCall:(id)call completion:(id)completion
@@ -64,14 +64,13 @@
 {
   v4 = type metadata accessor for Locale();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Locale._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1002AB748();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)client:(id)client didStopTranslationWithError:(id)error

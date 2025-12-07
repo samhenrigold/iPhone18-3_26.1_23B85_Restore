@@ -1,3 +1,379 @@
+int64x2_t FstSearchLatticeDurationBackoff::vite(int64x2_t **this, unsigned int a2, int a3, SearchStats *a4, int a5)
+{
+  FstSearchLatticeDurationBackoff::advanceDeltas(this, a2, a3, a4, a5);
+  v13 = 0u;
+  v14 = 0u;
+  SnapTime::recordTime(&v13, 1, 0, 0, 0);
+  if (a2 >= 1)
+  {
+    v7 = *(this + 18);
+    if (v7)
+    {
+      if (!(a2 % v7))
+      {
+        FstSearchLatticeDurationBackoff::collectTraces(this);
+      }
+    }
+  }
+
+  v11 = 0u;
+  v12 = 0u;
+  SnapTime::recordTime(&v11, 1, 0, 0, 0);
+  v8 = this[13];
+  result = vaddq_s64(v8[14], vsubq_s64(v11, v13));
+  v10 = vaddq_s64(v8[15], vsubq_s64(v12, v14));
+  v8[14] = result;
+  v8[15] = v10;
+  return result;
+}
+
+_DWORD *FstSearchLatticeDurationBackoff::reset(_DWORD *this)
+{
+  this[42] = 0;
+  this[46] = 0;
+  this[56] = 0;
+  return this;
+}
+
+double FstSearchLatticeDurationBackoff::doFrame(int64x2_t **this, unsigned int a2, int a3, SearchStats *a4, int a5)
+{
+  if (a3 >= 20000)
+  {
+    a3 = 20000;
+  }
+
+  *&result = FstSearchLatticeDurationBackoff::vite(this, a2, a3, a4, a5).u64[0];
+  return result;
+}
+
+uint64_t FstSearchLatticeDurationBackoff::beginTopRecPassSyncRecog(PelScoreCache **this, PelScorer *a2, const ArcGraph *a3)
+{
+  result = SearchItf::beginTopRecPassSyncRecogBase(this, a2);
+  if (a3)
+  {
+    MiniFst::init(this + 33, a3, this[4]);
+    result = ArcGraph::findBackoffState(this[5]);
+    *(this + 94) = result;
+    *(this + 380) = 1;
+  }
+
+  return result;
+}
+
+uint64_t FstSearchLatticeDurationBackoff::endTopRecPassSyncRecog(FstSearchLatticeDurationBackoff *this)
+{
+  v10 = 0u;
+  v11 = 0u;
+  SnapTime::recordTime(&v10, 1, 0, 0, 0);
+  v8 = 0u;
+  v9 = 0u;
+  SnapTime::recordTime(&v8, 1, 0, 0, 0);
+  v2 = vsubq_s64(v8, v10);
+  v3 = *(this + 13);
+  v4 = v3[13];
+  v5 = vaddq_s64(v3[12], v2);
+  v8 = v2;
+  v9 = vsubq_s64(v9, v11);
+  v6 = vaddq_s64(v4, v9);
+  v3[12] = v5;
+  v3[13] = v6;
+  *(this + 64) = 1879048192;
+  return SearchItf::endTopRecPassSyncRecogBase(this);
+}
+
+void FstSearchLatticeDurationBackoff::printSize(FstSearchLatticeDurationBackoff *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t *a5, unint64_t *a6)
+{
+  *a4 = 0;
+  *a5 = 0;
+  *a6 = 0;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950);
+  if (v72)
+  {
+    v13 = v71;
+  }
+
+  else
+  {
+    v13 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v13);
+  DgnString::~DgnString(&v71);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v14, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287F8B0);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952);
+  if (v72)
+  {
+    v18 = v71;
+  }
+
+  else
+  {
+    v18 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954);
+  if (v72)
+  {
+    v20 = v71;
+  }
+
+  else
+  {
+    v20 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955);
+  if (v72)
+  {
+    v22 = v71;
+  }
+
+  else
+  {
+    v22 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  v66 = a2;
+  v67 = a6;
+  v68 = a3;
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956);
+  if (v72)
+  {
+    v24 = v71;
+  }
+
+  else
+  {
+    v24 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v24, 4, 4, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  v25 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v25 = 12;
+  }
+
+  v26 = *(this + 42);
+  v27 = 16 * v26;
+  if (v26 <= 0)
+  {
+    v27 = 0;
+  }
+
+  v28 = v27 + v25;
+  v29 = v27 + v25 + 16 * (*(this + 43) - v26);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957);
+  if (v72)
+  {
+    v31 = v71;
+  }
+
+  else
+  {
+    v31 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v31, v29, v28, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v29;
+  *a5 += v28;
+  v32 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v32 = 12;
+  }
+
+  v33 = *(this + 46);
+  v34 = 20 * v33;
+  if (v33 <= 0)
+  {
+    v34 = 0;
+  }
+
+  v35 = v34 + v32;
+  v36 = v34 + v32 + 20 * (*(this + 47) - v33);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959);
+  if (v72)
+  {
+    v38 = v71;
+  }
+
+  else
+  {
+    v38 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v38, v36, v35, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v36;
+  *a5 += v35;
+  v39 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v39 = 12;
+  }
+
+  v40 = *(this + 56);
+  v41 = 30 * v40;
+  if (v40 <= 0)
+  {
+    v41 = 0;
+  }
+
+  v42 = v41 + v39;
+  v43 = v41 + v39 + 30 * (*(this + 57) - v40);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964);
+  if (v72)
+  {
+    v45 = v71;
+  }
+
+  else
+  {
+    v45 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26287F8B0, v16, v16, v45, v43, v42, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v43;
+  *a5 += v42;
+  v46 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v46 = 12;
+  }
+
+  v47 = *(this + 60);
+  v48 = 30 * v47;
+  if (v47 <= 0)
+  {
+    v48 = 0;
+  }
+
+  v49 = v48 + v46;
+  v50 = v48 + v46 + 30 * (*(this + 61) - v47);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966);
+  if (v72)
+  {
+    v52 = v71;
+  }
+
+  else
+  {
+    v52 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v15, &unk_26287F8B0, v16, v16, v52, v50, v49, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v50;
+  *a5 += v49;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968);
+  if (v72)
+  {
+    v54 = v71;
+  }
+
+  else
+  {
+    v54 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v15, &unk_26287F8B0, v16, v16, v54, 4, 4, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970);
+  if (v72)
+  {
+    v56 = v71;
+  }
+
+  else
+  {
+    v56 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v15, &unk_26287F8B0, v16, v16, v56, 4, 4, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972);
+  if (v72)
+  {
+    v58 = v71;
+  }
+
+  else
+  {
+    v58 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v15, &unk_26287F8B0, v16, v16, v58, 4, 4, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += 4;
+  *a5 += 4;
+  v59 = sizeObject(this + 264, 0);
+  v60 = sizeObject(this + 264, 1);
+  v61 = sizeObject(this + 264, 3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974);
+  if (v72)
+  {
+    v63 = v71;
+  }
+
+  else
+  {
+    v63 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v15, &unk_26287F8B0, v16, v16, v63, v59, v60, v61);
+  DgnString::~DgnString(&v71);
+  *a4 += v59;
+  *a5 += v60;
+  *v67 += v61;
+  v69 = 0;
+  v70 = 0;
+  SearchItf::printSize(this, v66, v15, &v70, &v69, &v69);
+  *a4 += v70;
+  *a5 += v69;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985);
+  if (v72)
+  {
+    v65 = v71;
+  }
+
+  else
+  {
+    v65 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v68, &unk_26287F8B0, (35 - v68), (35 - v68), v65, *a4, *a5, *v67);
+  DgnString::~DgnString(&v71);
+}
+
 uint64_t FstSearchLatticeDurationBackoff::getBestTrace(uint64_t a1, void *a2, void *a3, int a4)
 {
   if (a4)
@@ -154,7 +530,7 @@ LABEL_16:
   return v13 != 1879048192;
 }
 
-uint64_t FstSearchLatticeDurationBackoff::buildWordLattice(uint64_t a1, unint64_t a2, void *a3, void *a4, char a5)
+uint64_t FstSearchLatticeDurationBackoff::buildWordLattice(uint64_t a1, uint64_t *a2, void *a3, void *a4, char a5)
 {
   v28 = 0;
   v29 = 0;
@@ -196,7 +572,7 @@ uint64_t FstSearchLatticeDurationBackoff::buildWordLattice(uint64_t a1, unint64_
             v18 = *(v27 + 4 * v17);
             if (*(*a4 + v11) == 1)
             {
-              FstSearchLatticeDurationBackoff::createLatticeLink(a1, v11, v15, 0xFFFFFFFFLL, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
+              FstSearchLatticeDurationBackoff::createLatticeLink(a1, v11, v15, 0xFFFFFFFF, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
             }
 
             v19 = v26[0] + 16 * v11;
@@ -233,26 +609,24 @@ uint64_t FstSearchLatticeDurationBackoff::buildWordLattice(uint64_t a1, unint64_
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v29);
 }
 
-void sub_262645D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262645D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va2);
   _Unwind_Resume(a1);
 }
 
-void FstSearchLatticeDurationBackoff::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, uint64_t a4, uint64_t a5, const WordLatticeLC *a6, unint64_t a7, uint64_t a8, char a9)
+void FstSearchLatticeDurationBackoff::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, unsigned int a4, int a5, const WordLatticeLC *a6, uint64_t *a7, uint64_t a8, char a9)
 {
-  v11 = a5;
-  v12 = a4;
   v16 = *(a1 + 160);
   if ((a4 & 0x80000000) != 0 || (v17 = v16 + 16 * a4, v18 = *(v17 + 12), v18 < 1))
   {
@@ -282,7 +656,7 @@ void FstSearchLatticeDurationBackoff::createLatticeLink(uint64_t a1, unsigned in
     while (v19 < v20 && !v22);
   }
 
-  ArcGraph::lexToCWIDAC(*(a1 + 40), *(v16 + 16 * a2), a3, a4, a5, a6, a7, a8, v44);
+  ArcGraph::lexToCWIDAC(v44, *(a1 + 40), *(v16 + 16 * a2));
   v23 = a3[1];
   if (v22)
   {
@@ -295,11 +669,11 @@ void FstSearchLatticeDurationBackoff::createLatticeLink(uint64_t a1, unsigned in
     v24 = *a3;
   }
 
-  if (v44[0] >> 25 == 126)
+  if (LODWORD(v44[0]) >> 25 == 126)
   {
     v25 = 0;
     v26 = v23;
-    if ((v12 & 0x80000000) != 0)
+    if ((a4 & 0x80000000) != 0)
     {
 LABEL_16:
       v27 = 0;
@@ -311,7 +685,7 @@ LABEL_16:
   {
     v25 = *(a1 + 136);
     v26 = v23 - v25;
-    if ((v12 & 0x80000000) != 0)
+    if ((a4 & 0x80000000) != 0)
     {
       goto LABEL_16;
     }
@@ -347,9 +721,9 @@ LABEL_19:
 LABEL_28:
     v33 = *(v30 + 16 * a2 + 4);
     v34 = v33 - v32 + 1;
-    if ((v12 & 0x80000000) == 0)
+    if ((a4 & 0x80000000) == 0)
     {
-      v35 = *(v30 + 16 * v12 + 4);
+      v35 = *(v30 + 16 * a4 + 4);
       goto LABEL_30;
     }
 
@@ -367,23 +741,23 @@ LABEL_31:
 LABEL_25:
   v33 = (*(v30 + 16 * a2 + 4) - 1) / 2;
   v34 = v33 - v32 + 1;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  v35 = (*(v30 + 16 * v12 + 4) - 1) / 2;
+  v35 = (*(v30 + 16 * a4 + 4) - 1) / 2;
 LABEL_30:
   v36 = v35 - v33;
 LABEL_32:
   WordLatticeLC::WordLatticeLC(v37, v44, v32, v34, v36, &v38);
-  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, v11, a6, v37);
+  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, a5, a6, v37);
   WordLatticeLC::~WordLatticeLC(v37);
 }
 
-void sub_262645FCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262645FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WordLatticeLC::~WordLatticeLC(va);
   _Unwind_Resume(a1);
 }
@@ -611,138 +985,141 @@ _DWORD *FstSearchLatticeDurationBackoff::seedTheory(FstSearchLatticeDurationBack
   return FstSearchLatticeDurationBackoff::propagateNulls(this, 20000, a3, a5);
 }
 
-uint64_t FstSearchLatticeDurationBackoff::expandEmbFstHistory(uint64_t result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *FstSearchLatticeDurationBackoff::expandEmbFstHistory(uint64_t *result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
-  v8 = *(result + 252);
-  if (v8 != -1)
+  v6 = *(result + 63);
+  if (v6 != -1)
   {
-    v9 = result;
-    v10 = (*(result + 160) + 16 * v8);
-    for (i = *(*(result + 176) + 20 * v10[2] + 12); i != -1; v8 = v16)
+    v7 = result;
+    v8 = (result[20] + 16 * v6);
+    for (i = *(result[22] + 20 * v8[2] + 12); i != -1; v6 = v14)
     {
-      v16 = i;
-      result = v9[5];
-      if (*v10 == 16777209)
+      v14 = i;
+      result = v7[5];
+      if (*v8 == 16777209)
       {
-        v17 = (*(result + 174) << 25) | 0xFFFFF9;
+        v15 = (*(result + 87) << 25) | 0xFFFFF9;
       }
 
       else
       {
-        result = ArcGraph::lexToCWID(result, *v10, a3, a4, a5, a6, a7, a8);
-        v17 = result;
+        result = ArcGraph::lexToCWID(result, *v8);
+        v15 = result;
       }
 
-      v18 = *(a2 + 8);
-      if (v18 == *(a2 + 12))
+      v16 = *(a2 + 8);
+      if (v16 == *(a2 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a2, 1, 1);
-        v18 = *(a2 + 8);
+        v16 = *(a2 + 8);
       }
 
-      *(*a2 + 4 * v18) = v17;
+      *(*a2 + 4 * v16) = v15;
       ++*(a2 + 8);
-      v19 = *(a6 + 8);
-      if (v19 == *(a6 + 12))
+      v17 = *(a6 + 8);
+      if (v17 == *(a6 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-        v19 = *(a6 + 8);
+        v17 = *(a6 + 8);
       }
 
-      *(*a6 + 4 * v19) = v8;
+      *(*a6 + 4 * v17) = v6;
       ++*(a6 + 8);
-      v20 = v9[20];
-      v21 = *(v20 + 16 * v8 + 4);
-      v22 = *(a3 + 8);
-      if (v22 == *(a3 + 12))
+      v18 = v7[20];
+      v19 = *(v18 + 16 * v6 + 4);
+      v20 = *(a3 + 8);
+      if (v20 == *(a3 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-        v22 = *(a3 + 8);
-        v20 = v9[20];
+        v20 = *(a3 + 8);
+        v18 = v7[20];
       }
 
-      *(*a3 + 4 * v22) = v21;
+      *(*a3 + 4 * v20) = v19;
       ++*(a3 + 8);
-      v23 = *(v9[22] + 20 * *(v20 + 16 * v8 + 8));
-      v24 = *(a5 + 8);
-      if (v24 == *(a5 + 12))
+      v21 = *(v7[22] + 20 * *(v18 + 16 * v6 + 8));
+      v22 = *(a5 + 8);
+      if (v22 == *(a5 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-        v24 = *(a5 + 8);
+        v22 = *(a5 + 8);
       }
 
-      *(*a5 + 4 * v24) = v23;
+      *(*a5 + 4 * v22) = v21;
       ++*(a5 + 8);
-      v10 = (v9[20] + 16 * v16);
-      i = *(v9[22] + 20 * v10[2] + 12);
+      v8 = (v7[20] + 16 * v14);
+      i = *(v7[22] + 20 * v8[2] + 12);
     }
 
-    *a4 = *v10;
+    *a4 = *v8;
   }
 
   return result;
 }
 
-void FstSearchLatticeDurationBackoff::checkSearchParametersValidityForArcGraph(FstSearchLatticeDurationBackoff *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double FstSearchLatticeDurationBackoff::checkSearchParametersValidityForArcGraph(uint64_t this, int a2, int a3)
 {
-  v8 = *(this + 5);
-  if (*(v8 + 178) == 1)
+  v3 = *(this + 40);
+  if (*(v3 + 178) == 1)
   {
-    v9 = a3;
-    ArcGraph::ensureHeaderValid(*(this + 5), "Header", a3, a4, a5, a6, a7, a8);
-    if (*(v8 + 202) == 1 && *(v8 + 188) != *(this + 35))
+    result = ArcGraph::ensureHeaderValid(*(this + 40), "Header");
+    if (*(v3 + 202) == 1)
     {
-      v16 = *(v8 + 188);
-      v19 = *(this + 35);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchInterWordSilencePenalty");
+      v8 = *(this + 140);
+      if (*(v3 + 188) != v8)
+      {
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchInterWordSilencePenalty", *(v3 + 188), v8);
+      }
     }
 
-    if (*(v8 + 192) != *(this + 34))
+    v9 = *(this + 136);
+    if (*(v3 + 192) != v9)
     {
-      v17 = *(v8 + 192);
-      v20 = *(this + 34);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchPerWordPenalty");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchPerWordPenalty", *(v3 + 192), v9);
     }
 
-    if (*(v8 + 196) != *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608))
+    v10 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 40) + 174)) + 608);
+    if (*(v3 + 196) != v10)
     {
-      v18 = *(v8 + 196);
-      v21 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "Voc");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "Voc", *(v3 + 196), v10);
     }
 
-    v14 = *(v8 + 203);
-    if (v9)
+    v11 = *(v3 + 203);
+    if (a3)
     {
       if (a2)
       {
-        if ((*(v8 + 203) & 1) == 0)
+        if ((v11 & 1) == 0)
         {
-          return;
+          return result;
         }
+
+        v12 = 1;
       }
 
-      else if (*(v8 + 203))
+      else
       {
-        return;
+        if (v11)
+        {
+          return result;
+        }
+
+        v12 = 0;
       }
 
-      v23 = *(v8 + 203);
-      v15 = "DropAlternateFrames";
-      goto LABEL_18;
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "DropAlternateFrames", v12, v11);
     }
 
-    if (a2 & 1) != 0 || (*(v8 + 203))
+    else if (a2 & 1) != 0 || (v11)
     {
-      v22 = *(v8 + 203);
-      v15 = "NoDecimation";
-LABEL_18:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, v15);
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "NoDecimation", a2, v11);
     }
   }
+
+  return result;
 }
 
-uint64_t FstSearchLatticeDurationBackoff::makePartialResult(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t FstSearchLatticeDurationBackoff::makePartialResult(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
   v8 = *(a2 + 8);
   if (v8 >= 1)
@@ -764,40 +1141,40 @@ uint64_t FstSearchLatticeDurationBackoff::makePartialResult(void *a1, uint64_t a
     return 1879048192;
   }
 
-  v15 = BestTrace;
-  FstSearchLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4, v11, v12, v13, v14);
-  memset(v25, 0, sizeof(v25));
-  v26 = 0;
+  v11 = BestTrace;
+  FstSearchLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4);
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
   if (*(a3 + 8))
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
     do
     {
-      v19 = *a3 + v16;
-      v20 = *(v19 + 28);
-      WordLatticeLC::WordLatticeLC(v24, v19, v18, *(v19 + 24) - v18, v20 - *(v19 + 24), v25);
-      v21 = *(a2 + 8);
-      if (v21 == *(a2 + 12))
+      v15 = *a3 + v12;
+      v16 = *(v15 + 28);
+      WordLatticeLC::WordLatticeLC(v20, v15, v14, *(v15 + 24) - v14, v16 - *(v15 + 24), v21);
+      v17 = *(a2 + 8);
+      if (v17 == *(a2 + 12))
       {
         DgnArray<WordLatticeLC>::reallocElts(a2, 1, 1);
-        LODWORD(v21) = *(a2 + 8);
+        LODWORD(v17) = *(a2 + 8);
       }
 
-      WordLatticeLC::WordLatticeLC((*a2 + 112 * v21), v24);
+      WordLatticeLC::WordLatticeLC((*a2 + 112 * v17), v20);
       ++*(a2 + 8);
-      WordLatticeLC::~WordLatticeLC(v24);
-      ++v17;
-      v16 += 32;
-      v18 = v20;
+      WordLatticeLC::~WordLatticeLC(v20);
+      ++v13;
+      v12 += 32;
+      v14 = v16;
     }
 
-    while (v17 < *(a3 + 8));
+    while (v13 < *(a3 + 8));
   }
 
-  v22 = a1[20] + 16 * v15;
-  return (*(a1[22] + 20 * *(v22 + 8)) + *(a1[11] + 4 * *(v22 + 4)));
+  v18 = a1[20] + 16 * v11;
+  return (*(a1[22] + 20 * *(v18 + 8)) + *(a1[11] + 4 * *(v18 + 4)));
 }
 
 void FstSearchLatticeDuration::FstSearchLatticeDuration(FstSearchLatticeDuration *this, const int *a2, const int *a3)
@@ -880,28 +1257,28 @@ LABEL_13:
 
 int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this, int a2, int a3, SearchStats *a4, int a5)
 {
-  v142[0] = a2;
-  v140 = 0u;
-  v141 = 0u;
-  SnapTime::recordTime(&v140, 1, 0, 0, 0);
-  v114 = (this + 256);
+  v134[0] = a2;
+  v132 = 0u;
+  v133 = 0u;
+  SnapTime::recordTime(&v132, 1, 0, 0, 0);
+  v106 = (this + 256);
   *(this + 64) = a3;
   v7 = *(this + 2);
   v8 = *(this + 56);
   if (v8)
   {
     v9 = 0;
-    v115 = 0;
-    v116 = 0;
-    v104 = *(this + 53);
-    v106 = *(this + 208);
-    v121 = this;
-    v122 = *(this + 2);
+    v107 = 0;
+    v108 = 0;
+    v96 = *(this + 53);
+    v98 = *(this + 208);
+    v113 = this;
+    v114 = *(this + 2);
     do
     {
       v10 = v9;
-      v124 = 32 * v9;
-      v11 = *(this + 27) + v124;
+      v116 = 32 * v9;
+      v11 = *(this + 27) + v116;
       v12 = *(v11 + 4);
       if (v8 <= v9 + 1)
       {
@@ -913,7 +1290,7 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
         v9 = v8;
       }
 
-      v107 = v9 - 1;
+      v99 = v9 - 1;
       v13 = (v11 + 36);
       v14 = 1;
       while (v10 + v14 < v8)
@@ -923,7 +1300,7 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
         ++v14;
         if (v15 != v12)
         {
-          v107 = v10 + v14 - 2;
+          v99 = v10 + v14 - 2;
           v9 = v10 + v14 - 1;
           break;
         }
@@ -932,30 +1309,30 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
       v16 = *(this + 5);
       if (*(v16 + 160) != v12)
       {
-        v17 = *(v16 + 140) <= v12 || v10 > v107;
-        v108 = v9;
+        v17 = *(v16 + 140) <= v12 || v10 > v99;
+        v100 = v9;
         if (!v17)
         {
           v18 = 0;
-          v19 = v107 - v10 + 1;
+          v19 = v99 - v10 + 1;
           do
           {
-            v20 = *(this + 27) + v124 + v18;
+            v20 = *(this + 27) + v116 + v18;
             v21 = *v20;
             v22 = PelScoreCache::getScoreNoBackoff(*(this + 4), *(v20 + 12)) + v21;
-            v23 = *(this + 27) + v124 + v18;
+            v23 = *(this + 27) + v116 + v18;
             v24 = *(v23 + 12);
             v25 = *(v23 + 24);
-            v26 = v106;
+            v26 = v98;
             if (v25 >= 1)
             {
-              v26 = v106 - v25;
+              v26 = v98 - v25;
             }
 
-            v27 = v26 & ((v25 - v106) >> 31);
+            v27 = v26 & ((v25 - v98) >> 31);
             if (*(v23 + 12))
             {
-              v28 = v25 - v106;
+              v28 = v25 - v98;
             }
 
             else
@@ -984,25 +1361,25 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
             }
 
             v31 = v22 + v30;
-            if (v22 + v30 - v122 <= *v114)
+            if (v22 + v30 - v114 <= *v106)
             {
               v32 = *(v23 + 4);
               v33 = *(v23 + 14);
               v34 = *(v23 + 16);
-              if (*v114 > v31)
+              if (*v106 > v31)
               {
-                *v114 = v31;
+                *v106 = v31;
               }
 
-              this = v121;
-              v35 = *(v121 + 60);
-              if (v35 == *(v121 + 61))
+              this = v113;
+              v35 = *(v113 + 60);
+              if (v35 == *(v113 + 61))
               {
-                DgnArray<PrefilterResultFrame>::reallocElts(v121 + 232, 1, 1);
-                v35 = *(v121 + 60);
+                DgnArray<PrefilterResultFrame>::reallocElts(v113 + 232, 1, 1);
+                v35 = *(v113 + 60);
               }
 
-              v36 = *(v121 + 29) + 32 * v35;
+              v36 = *(v113 + 29) + 32 * v35;
               *v36 = v31;
               *(v36 + 4) = v32;
               *(v36 + 12) = v24;
@@ -1010,24 +1387,24 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
               *(v36 + 16) = v34;
               *(v36 + 24) = v28;
               *(v36 + 28) = v29;
-              v37 = *(v121 + 60) + 1;
-              *(v121 + 60) = v37;
+              v37 = *(v113 + 60) + 1;
+              *(v113 + 60) = v37;
               if (!v18)
               {
-                v38 = v115;
-                if (v116 == 2 * *(v121 + 4))
+                v38 = v107;
+                if (v108 == 2 * *(v113 + 4))
                 {
                   v38 = v37;
                 }
 
-                v115 = v38;
-                ++v116;
+                v107 = v38;
+                ++v108;
               }
             }
 
             else
             {
-              this = v121;
+              this = v113;
             }
 
             v18 += 32;
@@ -1037,37 +1414,37 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
           while (v19);
         }
 
-        v105 = v107 - v10 + 1;
+        v97 = v99 - v10 + 1;
         v39 = v12;
-        v7 = v122;
-        v109 = v12;
-        v110 = v10;
+        v7 = v114;
+        v101 = v12;
+        v102 = v10;
         do
         {
           v40 = *(this + 5);
           v41 = *(v40 + 152);
           v42 = *(v41 + 4 * v39);
           v43 = *(v40 + 140);
-          v123 = *(v41 + 4 * (v39 + 1));
-          v111 = v39;
-          if (v43 <= v123)
+          v115 = *(v41 + 4 * (v39 + 1));
+          v103 = v39;
+          if (v43 <= v115)
           {
             if (*(this + 380) == 1 && v43 <= v12)
             {
               v72 = (v42 & 0xFFFFF) <= 0xFFFF3 ? v42 & 0xFFFFF : v42 & 0xFFFFF | 0xF00000;
               if (v72 != 16777210)
               {
-                DgnString::DgnString(&v137);
-                ArcGraph::getNameAndHumanReadablePron(*(this + 5), v72, &v137, v73, v74, v75, v76, v77);
-                v82 = &unk_26287F8B0;
-                if (v137.i32[2])
+                DgnString::DgnString(&v129);
+                ArcGraph::getNameAndHumanReadablePron(*(this + 5), v72, &v129);
+                v74 = &unk_26287F8B0;
+                if (v129.i32[2])
                 {
-                  v82 = v137.i64[0];
+                  v74 = v129.i64[0];
                 }
 
-                xprintf("Seed from state %d score %d trace %d, %s\n", v78, v79, v80, v81, v109, *(*(this + 27) + 32 * v110), *(*(this + 27) + 32 * v110 + 8), v82);
-                MiniFst::seed(this + 264, *(*(this + 27) + 32 * v110), *(*(this + 27) + 32 * v110 + 20), *(*(this + 27) + 32 * v110 + 8), v123);
-                DgnString::~DgnString(&v137);
+                xprintf("Seed from state %d score %d trace %d, %s\n", v73, v101, *(*(this + 27) + 32 * v102), *(*(this + 27) + 32 * v102 + 8), v74);
+                MiniFst::seed(this + 264, *(*(this + 27) + 32 * v102), *(*(this + 27) + 32 * v102 + 20), *(*(this + 27) + 32 * v102 + 8), v115);
+                DgnString::~DgnString(&v129);
               }
             }
           }
@@ -1075,16 +1452,16 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
           else
           {
             ScoreNoBackoff = PelScoreCache::getScoreNoBackoff(*(this + 4), *(v41 + 4 * v39));
-            if (v10 <= v107)
+            if (v10 <= v99)
             {
               v45 = 0;
               v46 = (v42 >> 20) & 0x3FF;
               v47 = ScoreNoBackoff + v46;
               v48 = v42;
-              v49 = v105;
+              v49 = v97;
               if (v42)
               {
-                v50 = v104;
+                v50 = v96;
               }
 
               else
@@ -1092,12 +1469,12 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
                 v50 = 0;
               }
 
-              v120 = v42;
-              v113 = v42;
-              v112 = (v42 >> 20) & 0x3FF;
+              v112 = v42;
+              v105 = v42;
+              v104 = (v42 >> 20) & 0x3FF;
               do
               {
-                v51 = *(this + 27) + v124 + v45;
+                v51 = *(this + 27) + v116 + v45;
                 v52 = v47 + *v51;
                 if (v48)
                 {
@@ -1133,55 +1510,55 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
                   v64 = *(v51 + 28);
                   if (v59 > v57)
                   {
-                    *v114 = v57;
+                    *v106 = v57;
                   }
 
-                  this = v121;
-                  v65 = *(v121 + 60);
-                  if (v65 == *(v121 + 61))
+                  this = v113;
+                  v65 = *(v113 + 60);
+                  if (v65 == *(v113 + 61))
                   {
-                    v118 = v60;
-                    v119 = v62;
+                    v110 = v60;
+                    v111 = v62;
                     v66 = v50;
                     v67 = v54;
-                    v117 = v63;
-                    DgnArray<PrefilterResultFrame>::reallocElts(v121 + 232, 1, 1);
-                    v63 = v117;
-                    v60 = v118;
-                    v62 = v119;
+                    v109 = v63;
+                    DgnArray<PrefilterResultFrame>::reallocElts(v113 + 232, 1, 1);
+                    v63 = v109;
+                    v60 = v110;
+                    v62 = v111;
                     v54 = v67;
                     v50 = v66;
-                    v48 = v113;
-                    v46 = v112;
-                    v65 = *(v121 + 60);
+                    v48 = v105;
+                    v46 = v104;
+                    v65 = *(v113 + 60);
                   }
 
-                  v68 = *(v121 + 29) + 32 * v65;
+                  v68 = *(v113 + 29) + 32 * v65;
                   *v68 = v57;
-                  *(v68 + 4) = v123;
+                  *(v68 + 4) = v115;
                   *(v68 + 8) = v60;
-                  v42 = v120;
-                  *(v68 + 12) = v120;
+                  v42 = v112;
+                  *(v68 + 12) = v112;
                   *(v68 + 14) = v61;
                   *(v68 + 16) = v63 + v46;
                   *(v68 + 20) = v62;
                   *(v68 + 24) = v54;
                   *(v68 + 28) = v56 + v64;
-                  v69 = *(v121 + 60) + 1;
-                  *(v121 + 60) = v69;
+                  v69 = *(v113 + 60) + 1;
+                  *(v113 + 60) = v69;
                   if (!v45)
                   {
-                    v70 = v115;
-                    if (v116 == 2 * *(v121 + 4))
+                    v70 = v107;
+                    if (v108 == 2 * *(v113 + 4))
                     {
                       v70 = v69;
                     }
 
-                    v115 = v70;
-                    ++v116;
+                    v107 = v70;
+                    ++v108;
                   }
 
-                  v7 = v122;
+                  v7 = v114;
                 }
 
                 v45 += 32;
@@ -1192,10 +1569,10 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
             }
           }
 
-          v39 = v111 + 2;
-          v9 = v108;
-          LODWORD(v12) = v109;
-          LODWORD(v10) = v110;
+          v39 = v103 + 2;
+          v9 = v100;
+          LODWORD(v12) = v101;
+          LODWORD(v10) = v102;
         }
 
         while ((v42 & 0x80000000) == 0);
@@ -1204,112 +1581,112 @@ int64x2_t FstSearchLatticeDuration::advanceDeltas(FstSearchLatticeDuration *this
     }
 
     while (v9 < v8);
-    a3 = *v114;
+    a3 = *v106;
   }
 
   else
   {
-    v115 = 0;
-    v116 = 0;
+    v107 = 0;
+    v108 = 0;
   }
 
-  v139 = a3 + v7;
+  v131 = a3 + v7;
   if (*(this + 380) == 1)
   {
-    MiniFst::updateFrame(this + 264, v114, v7, a2);
-  }
-
-  v137 = 0u;
-  v138 = 0u;
-  SnapTime::recordTime(&v137, 1, 0, 0, 0);
-  v137 = vsubq_s64(v137, v140);
-  v138 = vsubq_s64(v138, v141);
-  v83 = *(this + 13);
-  v84 = vaddq_s64(v83[1], v138);
-  *v83 = vaddq_s64(*v83, v137);
-  v83[1] = v84;
-  v135 = 0u;
-  v136 = 0u;
-  SnapTime::recordTime(&v135, 1, 0, 0, 0);
-  if (v116 > 2 * *(this + 4))
-  {
-    FstSearchLatticeDurationBackoff::applyCutoffOnEmitting(this, v115, &v139);
-  }
-
-  v133 = 0u;
-  v134 = 0u;
-  SnapTime::recordTime(&v133, 1, 0, 0, 0);
-  v85 = vsubq_s64(v133, v135);
-  v86 = *(this + 13);
-  v87 = v86[3];
-  v88 = vaddq_s64(v86[2], v85);
-  v133 = v85;
-  v134 = vsubq_s64(v134, v136);
-  v89 = vaddq_s64(v87, v134);
-  v86[2] = v88;
-  v86[3] = v89;
-  v131 = 0u;
-  v132 = 0u;
-  SnapTime::recordTime(&v131, 1, 0, 0, 0);
-  FstSearchLatticeDurationBackoff::makeViterbiDecisionOnEmitting(this);
-  v90 = *(this + 6);
-  if (v90)
-  {
-    v91 = *(this + 56);
-    if (v90 < v91)
-    {
-      mrec_nth_element<FstSearchLeafLatticeBackoffcmpTok>(*(this + 27), v90, v91);
-    }
+    MiniFst::updateFrame(this + 264, v106, v7, a2);
   }
 
   v129 = 0u;
   v130 = 0u;
   SnapTime::recordTime(&v129, 1, 0, 0, 0);
-  v92 = vsubq_s64(v129, v131);
-  v93 = *(this + 13);
-  v94 = v93[5];
-  v95 = vaddq_s64(v93[4], v92);
-  v129 = v92;
-  v130 = vsubq_s64(v130, v132);
-  v96 = vaddq_s64(v94, v130);
-  v93[4] = v95;
-  v93[5] = v96;
+  v129 = vsubq_s64(v129, v132);
+  v130 = vsubq_s64(v130, v133);
+  v75 = *(this + 13);
+  v76 = vaddq_s64(v75[1], v130);
+  *v75 = vaddq_s64(*v75, v129);
+  v75[1] = v76;
   v127 = 0u;
   v128 = 0u;
   SnapTime::recordTime(&v127, 1, 0, 0, 0);
+  if (v108 > 2 * *(this + 4))
+  {
+    FstSearchLatticeDurationBackoff::applyCutoffOnEmitting(this, v107, &v131);
+  }
+
+  v125 = 0u;
+  v126 = 0u;
+  SnapTime::recordTime(&v125, 1, 0, 0, 0);
+  v77 = vsubq_s64(v125, v127);
+  v78 = *(this + 13);
+  v79 = v78[3];
+  v80 = vaddq_s64(v78[2], v77);
+  v125 = v77;
+  v126 = vsubq_s64(v126, v128);
+  v81 = vaddq_s64(v79, v126);
+  v78[2] = v80;
+  v78[3] = v81;
+  v123 = 0u;
+  v124 = 0u;
+  SnapTime::recordTime(&v123, 1, 0, 0, 0);
+  FstSearchLatticeDurationBackoff::makeViterbiDecisionOnEmitting(this);
+  v82 = *(this + 6);
+  if (v82)
+  {
+    v83 = *(this + 56);
+    if (v82 < v83)
+    {
+      mrec_nth_element<FstSearchLeafLatticeBackoffcmpTok>(*(this + 27), v82, v83);
+    }
+  }
+
+  v121 = 0u;
+  v122 = 0u;
+  SnapTime::recordTime(&v121, 1, 0, 0, 0);
+  v84 = vsubq_s64(v121, v123);
+  v85 = *(this + 13);
+  v86 = v85[5];
+  v87 = vaddq_s64(v85[4], v84);
+  v121 = v84;
+  v122 = vsubq_s64(v122, v124);
+  v88 = vaddq_s64(v86, v122);
+  v85[4] = v87;
+  v85[5] = v88;
+  v119 = 0u;
+  v120 = 0u;
+  SnapTime::recordTime(&v119, 1, 0, 0, 0);
   *(this + 60) = 0;
-  v97 = *(this + 56);
-  *(this + 38) = v97;
+  v89 = *(this + 56);
+  *(this + 38) = v89;
   if (a4)
   {
-    *(a4 + 2) += v97;
-    if (*(a4 + 2) > v97)
+    *(a4 + 2) += v89;
+    if (*(a4 + 2) > v89)
     {
-      LODWORD(v97) = *(a4 + 2);
+      LODWORD(v89) = *(a4 + 2);
     }
 
-    *(a4 + 2) = v97;
+    *(a4 + 2) = v89;
   }
 
   if (*(this + 380) == 1)
   {
-    FstSearchLatticeDuration::seedFromMiniFst(this, v142);
+    FstSearchLatticeDuration::seedFromMiniFst(this, v134);
   }
 
   if (a5)
   {
-    FstSearchLatticeDurationBackoff::propagateNulls(this, v139, a2, a4);
+    FstSearchLatticeDurationBackoff::propagateNulls(this, v131, a2, a4);
   }
 
   *(this + 62) = a2;
-  v125 = 0u;
-  v126 = 0u;
-  SnapTime::recordTime(&v125, 1, 0, 0, 0);
-  v98 = *(this + 13);
-  result = vaddq_s64(v98[6], vsubq_s64(v125, v127));
-  v100 = vaddq_s64(v98[7], vsubq_s64(v126, v128));
-  v98[6] = result;
-  v98[7] = v100;
+  v117 = 0u;
+  v118 = 0u;
+  SnapTime::recordTime(&v117, 1, 0, 0, 0);
+  v90 = *(this + 13);
+  result = vaddq_s64(v90[6], vsubq_s64(v117, v119));
+  v92 = vaddq_s64(v90[7], vsubq_s64(v118, v120));
+  v90[6] = result;
+  v90[7] = v92;
   return result;
 }
 
@@ -1332,176 +1709,175 @@ uint64_t FstSearchLatticeDuration::seedFromMiniFst(uint64_t this, int *a2)
         v5 = (*(v2 + 280) + 36 * v4);
         v6 = v5[4];
         v7 = v5[5];
-        v9 = v5[6];
-        v8 = v5[7];
-        v45 = v5[7];
-        v46 = *v5;
-        v10 = v5[2];
+        v8 = v5[6];
+        v44 = v5[7];
+        v45 = *v5;
+        v9 = v5[2];
+        v46 = 0;
         v47 = 0;
-        v48 = 0;
-        v43 = v7;
-        v44 = v6;
-        v42 = v9;
-        if ((v10 & 0x80000000) != 0)
+        v42 = v7;
+        v43 = v6;
+        v41 = v8;
+        if ((v9 & 0x80000000) != 0)
         {
-          LODWORD(v14) = -2 - v10;
+          LODWORD(v13) = -2 - v9;
         }
 
         else
         {
+          v10 = 0;
           v11 = 0;
-          v12 = 0;
           do
           {
-            if (v12 == HIDWORD(v48))
+            if (v11 == HIDWORD(v47))
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v47, 1, 1);
-              v12 = v48;
+              DgnPrimArray<unsigned int>::reallocElts(&v46, 1, 1);
               v11 = v47;
+              v10 = v46;
             }
 
-            *(v11 + 4 * v12) = v10;
-            v13 = v48;
-            v12 = v48 + 1;
-            LODWORD(v48) = v48 + 1;
-            v10 = *(*(v2 + 264) + 36 * v10 + 8);
+            *(v10 + 4 * v11) = v9;
+            v12 = v47;
+            v11 = v47 + 1;
+            LODWORD(v47) = v47 + 1;
+            v9 = *(*(v2 + 264) + 36 * v9 + 8);
           }
 
-          while ((v10 & 0x80000000) == 0);
-          LODWORD(v14) = -2 - v10;
-          if ((v13 & 0x80000000) == 0)
+          while ((v9 & 0x80000000) == 0);
+          LODWORD(v13) = -2 - v9;
+          if ((v12 & 0x80000000) == 0)
           {
             do
             {
-              v15 = *(v47 + 4 * v13);
-              v16 = *(v2 + 264);
-              v17 = (v16 + 36 * v15);
-              v18 = *v17;
-              v19 = *(v17 + 2);
-              v20 = *(v2 + 184);
-              if (v20 == *(v2 + 188))
+              v14 = *(v46 + 4 * v12);
+              v15 = *(v2 + 264);
+              v16 = (v15 + 36 * v14);
+              v17 = *v16;
+              v18 = *(v16 + 2);
+              v19 = *(v2 + 184);
+              if (v19 == *(v2 + 188))
               {
                 DgnArray<FstSearchLatticeHashBackoffTraceToken>::reallocElts(v2 + 176, 1, 1);
-                v20 = *(v2 + 184);
-                v16 = *(v2 + 264);
+                v19 = *(v2 + 184);
+                v15 = *(v2 + 264);
               }
 
-              v21 = *(v2 + 176) + 20 * v20;
-              *(v2 + 184) = v20 + 1;
-              *v21 = v18;
-              *(v21 + 4) = v19;
-              *(v21 + 12) = v14;
-              *(v21 + 16) = 0;
-              v22 = *(v16 + 36 * v15 + 28);
-              v23 = *(v2 + 168);
-              if (v23 == *(v2 + 172))
+              v20 = *(v2 + 176) + 20 * v19;
+              *(v2 + 184) = v19 + 1;
+              *v20 = v17;
+              *(v20 + 4) = v18;
+              *(v20 + 12) = v13;
+              *(v20 + 16) = 0;
+              v21 = *(v15 + 36 * v14 + 28);
+              v22 = *(v2 + 168);
+              if (v22 == *(v2 + 172))
               {
                 DgnArray<DgnPrimArray<double>>::reallocElts(v2 + 160, 1, 1);
-                v23 = *(v2 + 168);
+                v22 = *(v2 + 168);
               }
 
-              v24 = *(v2 + 160);
-              v25 = v24 + 16 * v23;
-              *v25 = v22;
-              *(v25 + 8) = v20;
-              *(v25 + 12) = 0;
-              v14 = *(v2 + 168);
-              *(v2 + 168) = v14 + 1;
-              *(v24 + 16 * v14 + 12) = 1;
+              v23 = *(v2 + 160);
+              v24 = v23 + 16 * v22;
+              *v24 = v21;
+              *(v24 + 8) = v19;
+              *(v24 + 12) = 0;
+              v13 = *(v2 + 168);
+              *(v2 + 168) = v13 + 1;
+              *(v23 + 16 * v13 + 12) = 1;
             }
 
-            while (v13-- > 0);
+            while (v12-- > 0);
           }
         }
 
-        v27 = *(v2 + 184);
-        if (v27 == *(v2 + 188))
+        v26 = *(v2 + 184);
+        if (v26 == *(v2 + 188))
         {
           DgnArray<FstSearchLatticeHashBackoffTraceToken>::reallocElts(v2 + 176, 1, 1);
-          v27 = *(v2 + 184);
+          v26 = *(v2 + 184);
         }
 
-        v28 = *(v2 + 176);
-        *(v2 + 184) = v27 + 1;
-        v29 = (v28 + 20 * v27);
-        *v29 = v46;
-        v29[1] = v44;
-        v29[2] = v43;
-        v29[3] = v14;
-        v29[4] = 0;
-        if (v45 == 16777213)
+        v27 = *(v2 + 176);
+        *(v2 + 184) = v26 + 1;
+        v28 = (v27 + 20 * v26);
+        *v28 = v45;
+        v28[1] = v43;
+        v28[2] = v42;
+        v28[3] = v13;
+        v28[4] = 0;
+        if (v44 == 16777213)
         {
-          v30 = (*(v2 + 160) + 16 * v14);
-          v31 = 16777209;
-          if (*v30 == 16777209)
+          v29 = (*(v2 + 160) + 16 * v13);
+          v30 = 16777209;
+          if (*v29 == 16777209)
           {
-            v27 = v30[2];
+            v26 = v29[2];
           }
         }
 
         else
         {
-          v31 = v45;
+          v30 = v44;
         }
 
-        v32 = *a2;
-        v33 = *(v2 + 168);
-        if (v33 == *(v2 + 172))
+        v31 = *a2;
+        v32 = *(v2 + 168);
+        if (v32 == *(v2 + 172))
         {
           DgnArray<DgnPrimArray<double>>::reallocElts(v2 + 160, 1, 1);
-          v33 = *(v2 + 168);
+          v32 = *(v2 + 168);
         }
 
-        v34 = *(v2 + 160);
-        v35 = (v34 + 16 * v33);
-        *v35 = v31;
-        v35[1] = v32;
-        v35[2] = v27;
-        v35[3] = 0;
-        v36 = *(v2 + 168);
-        *(v2 + 168) = v36 + 1;
-        *(v34 + 16 * v36 + 12) = 1;
-        v37 = *(v2 + 224);
-        if (v37 == *(v2 + 228))
+        v33 = *(v2 + 160);
+        v34 = (v33 + 16 * v32);
+        *v34 = v30;
+        v34[1] = v31;
+        v34[2] = v26;
+        v34[3] = 0;
+        v35 = *(v2 + 168);
+        *(v2 + 168) = v35 + 1;
+        *(v33 + 16 * v35 + 12) = 1;
+        v36 = *(v2 + 224);
+        if (v36 == *(v2 + 228))
         {
           DgnArray<PrefilterResultFrame>::reallocElts(v2 + 216, 1, 1);
-          v37 = *(v2 + 224);
+          v36 = *(v2 + 224);
         }
 
-        v38 = *(v2 + 216) + 32 * v37;
-        *v38 = v46;
-        *(v38 + 4) = v42;
-        *(v38 + 8) = v36;
-        *(v38 + 12) = -2;
-        *(v38 + 16) = v44;
-        *(v38 + 20) = v43;
-        *(v38 + 24) = 0;
+        v37 = *(v2 + 216) + 32 * v36;
+        *v37 = v45;
+        *(v37 + 4) = v41;
+        *(v37 + 8) = v35;
+        *(v37 + 12) = -2;
+        *(v37 + 16) = v43;
+        *(v37 + 20) = v42;
+        *(v37 + 24) = 0;
         ++*(v2 + 224);
-        this = DgnPrimArray<unsigned int>::~DgnPrimArray(&v47);
+        this = DgnPrimArray<unsigned int>::~DgnPrimArray(&v46);
         ++v4;
-        LODWORD(v39) = *(v2 + 288);
-        v40 = *(v2 + 20);
-        if (v39 >= v40)
+        LODWORD(v38) = *(v2 + 288);
+        v39 = *(v2 + 20);
+        if (v38 >= v39)
         {
-          v39 = v40;
+          v38 = v39;
         }
 
         else
         {
-          v39 = v39;
+          v38 = v38;
         }
       }
 
-      while (v4 < v39);
+      while (v4 < v38);
     }
   }
 
   return this;
 }
 
-void sub_262647508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262647508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -1766,7 +2142,7 @@ LABEL_56:
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v53);
 }
 
-int64x2_t FstSearchLatticeDuration::vite(int64x2_t **this, int a2, int a3, SearchStats *a4, int a5)
+int64x2_t FstSearchLatticeDuration::vite(int64x2_t **this, unsigned int a2, int a3, SearchStats *a4, int a5)
 {
   FstSearchLatticeDuration::advanceDeltas(this, a2, a3, a4, a5);
   v13 = 0u;
@@ -1803,7 +2179,7 @@ _DWORD *FstSearchLatticeDuration::reset(_DWORD *this)
   return this;
 }
 
-double FstSearchLatticeDuration::doFrame(int64x2_t **this, int a2, int a3, SearchStats *a4, int a5)
+double FstSearchLatticeDuration::doFrame(int64x2_t **this, unsigned int a2, int a3, SearchStats *a4, int a5)
 {
   if (a3 >= 20000)
   {
@@ -1814,13 +2190,13 @@ double FstSearchLatticeDuration::doFrame(int64x2_t **this, int a2, int a3, Searc
   return result;
 }
 
-uint64_t FstSearchLatticeDuration::beginTopRecPassSyncRecog(FstSearchLatticeDuration *this, PelScorer *a2, const ArcGraph *a3)
+uint64_t FstSearchLatticeDuration::beginTopRecPassSyncRecog(PelScoreCache **this, PelScorer *a2, const ArcGraph *a3)
 {
   result = SearchItf::beginTopRecPassSyncRecogBase(this, a2);
   if (a3)
   {
-    MiniFst::init(this + 264, a3, *(this + 4));
-    result = ArcGraph::findBackoffState(*(this + 5));
+    MiniFst::init(this + 33, a3, this[4]);
+    result = ArcGraph::findBackoffState(this[5]);
     *(this + 94) = result;
     *(this + 380) = 1;
   }
@@ -1854,109 +2230,199 @@ void FstSearchLatticeDuration::printSize(FstSearchLatticeDuration *this, uint64_
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950);
+  if (v72)
   {
-    v16 = v117;
+    v13 = v71;
   }
 
   else
   {
-    v16 = &unk_26287F8B0;
+    v13 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v16);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v13);
+  DgnString::~DgnString(&v71);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287F8B0);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952, &v117);
-  if (v118)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287F8B0);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952);
+  if (v72)
   {
-    v27 = v117;
+    v18 = v71;
   }
 
   else
   {
-    v27 = &unk_26287F8B0;
+    v18 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v27, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954);
+  if (v72)
   {
-    v32 = v117;
+    v20 = v71;
   }
 
   else
   {
-    v32 = &unk_26287F8B0;
+    v20 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955);
+  if (v72)
   {
-    v37 = v117;
+    v22 = v71;
   }
 
   else
   {
-    v37 = &unk_26287F8B0;
+    v22 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v37, 4, 4, 0);
-  v112 = a2;
-  v113 = a6;
-  v114 = a3;
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  v66 = a2;
+  v67 = a6;
+  v68 = a3;
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956);
+  if (v72)
   {
-    v42 = v117;
+    v24 = v71;
   }
 
   else
   {
-    v42 = &unk_26287F8B0;
+    v24 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v39, v40, v41, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v42, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v24, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v43 = 16;
+  v25 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v43 = 12;
+    v25 = 12;
   }
 
-  v44 = *(this + 42);
-  v45 = 16 * v44;
-  if (v44 <= 0)
+  v26 = *(this + 42);
+  v27 = 16 * v26;
+  if (v26 <= 0)
   {
-    v45 = 0;
+    v27 = 0;
   }
 
-  v46 = v45 + v43;
-  v47 = v45 + v43 + 16 * (*(this + 43) - v44);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957, &v117);
-  if (v118)
+  v28 = v27 + v25;
+  v29 = v27 + v25 + 16 * (*(this + 43) - v26);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957);
+  if (v72)
   {
-    v52 = v117;
+    v31 = v71;
+  }
+
+  else
+  {
+    v31 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v31, v29, v28, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v29;
+  *a5 += v28;
+  v32 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v32 = 12;
+  }
+
+  v33 = *(this + 46);
+  v34 = 20 * v33;
+  if (v33 <= 0)
+  {
+    v34 = 0;
+  }
+
+  v35 = v34 + v32;
+  v36 = v34 + v32 + 20 * (*(this + 47) - v33);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959);
+  if (v72)
+  {
+    v38 = v71;
+  }
+
+  else
+  {
+    v38 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v38, v36, v35, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v36;
+  *a5 += v35;
+  v39 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v39 = 12;
+  }
+
+  v40 = *(this + 56);
+  v41 = 30 * v40;
+  if (v40 <= 0)
+  {
+    v41 = 0;
+  }
+
+  v42 = v41 + v39;
+  v43 = v41 + v39 + 30 * (*(this + 57) - v40);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964);
+  if (v72)
+  {
+    v45 = v71;
+  }
+
+  else
+  {
+    v45 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26287F8B0, v16, v16, v45, v43, v42, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v43;
+  *a5 += v42;
+  v46 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v46 = 12;
+  }
+
+  v47 = *(this + 60);
+  v48 = 30 * v47;
+  if (v47 <= 0)
+  {
+    v48 = 0;
+  }
+
+  v49 = v48 + v46;
+  v50 = v48 + v46 + 30 * (*(this + 61) - v47);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966);
+  if (v72)
+  {
+    v52 = v71;
   }
 
   else
@@ -1964,183 +2430,92 @@ void FstSearchLatticeDuration::printSize(FstSearchLatticeDuration *this, uint64_
     v52 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v52, v47, v46, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v47;
-  *a5 += v46;
-  v53 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v15, &unk_26287F8B0, v16, v16, v52, v50, v49, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v50;
+  *a5 += v49;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968);
+  if (v72)
   {
-    v53 = 12;
-  }
-
-  v54 = *(this + 46);
-  v55 = 20 * v54;
-  if (v54 <= 0)
-  {
-    v55 = 0;
-  }
-
-  v56 = v55 + v53;
-  v57 = v55 + v53 + 20 * (*(this + 47) - v54);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959, &v117);
-  if (v118)
-  {
-    v62 = v117;
+    v54 = v71;
   }
 
   else
   {
-    v62 = &unk_26287F8B0;
+    v54 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v62, v57, v56, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v57;
-  *a5 += v56;
-  v63 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v63 = 12;
-  }
-
-  v64 = *(this + 56);
-  v65 = 30 * v64;
-  if (v64 <= 0)
-  {
-    v65 = 0;
-  }
-
-  v66 = v65 + v63;
-  v67 = v65 + v63 + 30 * (*(this + 57) - v64);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964, &v117);
-  if (v118)
-  {
-    v72 = v117;
-  }
-
-  else
-  {
-    v72 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v69, v70, v71, v21, &unk_26287F8B0, v22, v22, v72, v67, v66, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v67;
-  *a5 += v66;
-  v73 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v73 = 12;
-  }
-
-  v74 = *(this + 60);
-  v75 = 30 * v74;
-  if (v74 <= 0)
-  {
-    v75 = 0;
-  }
-
-  v76 = v75 + v73;
-  v77 = v75 + v73 + 30 * (*(this + 61) - v74);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966, &v117);
-  if (v118)
-  {
-    v82 = v117;
-  }
-
-  else
-  {
-    v82 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, v21, &unk_26287F8B0, v22, v22, v82, v77, v76, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v77;
-  *a5 += v76;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968, &v117);
-  if (v118)
-  {
-    v87 = v117;
-  }
-
-  else
-  {
-    v87 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v83, v84, v85, v86, v21, &unk_26287F8B0, v22, v22, v87, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v15, &unk_26287F8B0, v16, v16, v54, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970);
+  if (v72)
   {
-    v92 = v117;
+    v56 = v71;
   }
 
   else
   {
-    v92 = &unk_26287F8B0;
+    v56 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v89, v90, v91, v21, &unk_26287F8B0, v22, v22, v92, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v15, &unk_26287F8B0, v16, v16, v56, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972);
+  if (v72)
   {
-    v97 = v117;
+    v58 = v71;
   }
 
   else
   {
-    v97 = &unk_26287F8B0;
+    v58 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v94, v95, v96, v21, &unk_26287F8B0, v22, v22, v97, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v15, &unk_26287F8B0, v16, v16, v58, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v98 = sizeObject(this + 264, 0);
-  v99 = sizeObject(this + 264, 1);
-  v100 = sizeObject(this + 264, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974, &v117);
-  if (v118)
+  v59 = sizeObject(this + 264, 0);
+  v60 = sizeObject(this + 264, 1);
+  v61 = sizeObject(this + 264, 3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974);
+  if (v72)
   {
-    v105 = v117;
+    v63 = v71;
   }
 
   else
   {
-    v105 = &unk_26287F8B0;
+    v63 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v21, &unk_26287F8B0, v22, v22, v105, v98, v99, v100);
-  DgnString::~DgnString(&v117);
-  *a4 += v98;
-  *a5 += v99;
-  *v113 += v100;
-  v115 = 0;
-  v116 = 0;
-  SearchItf::printSize(this, v112, v21, &v116, &v115, &v115);
-  *a4 += v116;
-  *a5 += v115;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985, &v117);
-  if (v118)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v15, &unk_26287F8B0, v16, v16, v63, v59, v60, v61);
+  DgnString::~DgnString(&v71);
+  *a4 += v59;
+  *a5 += v60;
+  *v67 += v61;
+  v69 = 0;
+  v70 = 0;
+  SearchItf::printSize(this, v66, v15, &v70, &v69, &v69);
+  *a4 += v70;
+  *a5 += v69;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985);
+  if (v72)
   {
-    v110 = v117;
+    v65 = v71;
   }
 
   else
   {
-    v110 = &unk_26287F8B0;
+    v65 = &unk_26287F8B0;
   }
 
-  v111 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v107, v108, v109, v114, &unk_26287F8B0, (35 - v114), (35 - v114), v110, *a4, *a5, *v113);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v68, &unk_26287F8B0, (35 - v68), (35 - v68), v65, *a4, *a5, *v67);
+  DgnString::~DgnString(&v71);
 }
 
 BOOL FstSearchLatticeDuration::findBestPath(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
@@ -2207,7 +2582,7 @@ LABEL_16:
   return v13 != 1879048192;
 }
 
-uint64_t FstSearchLatticeDuration::buildWordLattice(uint64_t a1, unint64_t a2, void *a3, void *a4, char a5)
+uint64_t FstSearchLatticeDuration::buildWordLattice(uint64_t a1, uint64_t *a2, void *a3, void *a4, char a5)
 {
   v28 = 0;
   v29 = 0;
@@ -2249,7 +2624,7 @@ uint64_t FstSearchLatticeDuration::buildWordLattice(uint64_t a1, unint64_t a2, v
             v18 = *(v27 + 4 * v17);
             if (*(*a4 + v11) == 1)
             {
-              FstSearchLatticeDuration::createLatticeLink(a1, v11, v15, 0xFFFFFFFFLL, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
+              FstSearchLatticeDuration::createLatticeLink(a1, v11, v15, 0xFFFFFFFF, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
             }
 
             v19 = v26[0] + 16 * v11;
@@ -2286,26 +2661,24 @@ uint64_t FstSearchLatticeDuration::buildWordLattice(uint64_t a1, unint64_t a2, v
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v29);
 }
 
-void sub_262648554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262648554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va2);
   _Unwind_Resume(a1);
 }
 
-void FstSearchLatticeDuration::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, uint64_t a4, uint64_t a5, const WordLatticeLC *a6, unint64_t a7, uint64_t a8, char a9)
+void FstSearchLatticeDuration::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, unsigned int a4, int a5, const WordLatticeLC *a6, uint64_t *a7, uint64_t a8, char a9)
 {
-  v11 = a5;
-  v12 = a4;
   v16 = *(a1 + 160);
   if ((a4 & 0x80000000) != 0 || (v17 = v16 + 16 * a4, v18 = *(v17 + 12), v18 < 1))
   {
@@ -2335,7 +2708,7 @@ void FstSearchLatticeDuration::createLatticeLink(uint64_t a1, unsigned int a2, i
     while (v19 < v20 && !v22);
   }
 
-  ArcGraph::lexToCWIDAC(*(a1 + 40), *(v16 + 16 * a2), a3, a4, a5, a6, a7, a8, v44);
+  ArcGraph::lexToCWIDAC(v44, *(a1 + 40), *(v16 + 16 * a2));
   v23 = a3[1];
   if (v22)
   {
@@ -2348,11 +2721,11 @@ void FstSearchLatticeDuration::createLatticeLink(uint64_t a1, unsigned int a2, i
     v24 = *a3;
   }
 
-  if (v44[0] >> 25 == 126)
+  if (LODWORD(v44[0]) >> 25 == 126)
   {
     v25 = 0;
     v26 = v23;
-    if ((v12 & 0x80000000) != 0)
+    if ((a4 & 0x80000000) != 0)
     {
 LABEL_16:
       v27 = 0;
@@ -2364,7 +2737,7 @@ LABEL_16:
   {
     v25 = *(a1 + 136);
     v26 = v23 - v25;
-    if ((v12 & 0x80000000) != 0)
+    if ((a4 & 0x80000000) != 0)
     {
       goto LABEL_16;
     }
@@ -2400,9 +2773,9 @@ LABEL_19:
 LABEL_28:
     v33 = *(v30 + 16 * a2 + 4);
     v34 = v33 - v32 + 1;
-    if ((v12 & 0x80000000) == 0)
+    if ((a4 & 0x80000000) == 0)
     {
-      v35 = *(v30 + 16 * v12 + 4);
+      v35 = *(v30 + 16 * a4 + 4);
       goto LABEL_30;
     }
 
@@ -2420,23 +2793,23 @@ LABEL_31:
 LABEL_25:
   v33 = (*(v30 + 16 * a2 + 4) - 1) / 2;
   v34 = v33 - v32 + 1;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  v35 = (*(v30 + 16 * v12 + 4) - 1) / 2;
+  v35 = (*(v30 + 16 * a4 + 4) - 1) / 2;
 LABEL_30:
   v36 = v35 - v33;
 LABEL_32:
   WordLatticeLC::WordLatticeLC(v37, v44, v32, v34, v36, &v38);
-  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, v11, a6, v37);
+  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, a5, a6, v37);
   WordLatticeLC::~WordLatticeLC(v37);
 }
 
-void sub_2626487A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2626487A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WordLatticeLC::~WordLatticeLC(va);
   _Unwind_Resume(a1);
 }
@@ -2664,138 +3037,141 @@ _DWORD *FstSearchLatticeDuration::seedTheory(FstSearchLatticeDuration *this, int
   return FstSearchLatticeDurationBackoff::propagateNulls(this, 20000, a3, a5);
 }
 
-uint64_t FstSearchLatticeDuration::expandEmbFstHistory(uint64_t result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *FstSearchLatticeDuration::expandEmbFstHistory(uint64_t *result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
-  v8 = *(result + 252);
-  if (v8 != -1)
+  v6 = *(result + 63);
+  if (v6 != -1)
   {
-    v9 = result;
-    v10 = (*(result + 160) + 16 * v8);
-    for (i = *(*(result + 176) + 20 * v10[2] + 12); i != -1; v8 = v16)
+    v7 = result;
+    v8 = (result[20] + 16 * v6);
+    for (i = *(result[22] + 20 * v8[2] + 12); i != -1; v6 = v14)
     {
-      v16 = i;
-      result = v9[5];
-      if (*v10 == 16777209)
+      v14 = i;
+      result = v7[5];
+      if (*v8 == 16777209)
       {
-        v17 = (*(result + 174) << 25) | 0xFFFFF9;
+        v15 = (*(result + 87) << 25) | 0xFFFFF9;
       }
 
       else
       {
-        result = ArcGraph::lexToCWID(result, *v10, a3, a4, a5, a6, a7, a8);
-        v17 = result;
+        result = ArcGraph::lexToCWID(result, *v8);
+        v15 = result;
       }
 
-      v18 = *(a2 + 8);
-      if (v18 == *(a2 + 12))
+      v16 = *(a2 + 8);
+      if (v16 == *(a2 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a2, 1, 1);
-        v18 = *(a2 + 8);
+        v16 = *(a2 + 8);
       }
 
-      *(*a2 + 4 * v18) = v17;
+      *(*a2 + 4 * v16) = v15;
       ++*(a2 + 8);
-      v19 = *(a6 + 8);
-      if (v19 == *(a6 + 12))
+      v17 = *(a6 + 8);
+      if (v17 == *(a6 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-        v19 = *(a6 + 8);
+        v17 = *(a6 + 8);
       }
 
-      *(*a6 + 4 * v19) = v8;
+      *(*a6 + 4 * v17) = v6;
       ++*(a6 + 8);
-      v20 = v9[20];
-      v21 = *(v20 + 16 * v8 + 4);
-      v22 = *(a3 + 8);
-      if (v22 == *(a3 + 12))
+      v18 = v7[20];
+      v19 = *(v18 + 16 * v6 + 4);
+      v20 = *(a3 + 8);
+      if (v20 == *(a3 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-        v22 = *(a3 + 8);
-        v20 = v9[20];
+        v20 = *(a3 + 8);
+        v18 = v7[20];
       }
 
-      *(*a3 + 4 * v22) = v21;
+      *(*a3 + 4 * v20) = v19;
       ++*(a3 + 8);
-      v23 = *(v9[22] + 20 * *(v20 + 16 * v8 + 8));
-      v24 = *(a5 + 8);
-      if (v24 == *(a5 + 12))
+      v21 = *(v7[22] + 20 * *(v18 + 16 * v6 + 8));
+      v22 = *(a5 + 8);
+      if (v22 == *(a5 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-        v24 = *(a5 + 8);
+        v22 = *(a5 + 8);
       }
 
-      *(*a5 + 4 * v24) = v23;
+      *(*a5 + 4 * v22) = v21;
       ++*(a5 + 8);
-      v10 = (v9[20] + 16 * v16);
-      i = *(v9[22] + 20 * v10[2] + 12);
+      v8 = (v7[20] + 16 * v14);
+      i = *(v7[22] + 20 * v8[2] + 12);
     }
 
-    *a4 = *v10;
+    *a4 = *v8;
   }
 
   return result;
 }
 
-void FstSearchLatticeDuration::checkSearchParametersValidityForArcGraph(FstSearchLatticeDuration *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double FstSearchLatticeDuration::checkSearchParametersValidityForArcGraph(uint64_t this, int a2, int a3)
 {
-  v8 = *(this + 5);
-  if (*(v8 + 178) == 1)
+  v3 = *(this + 40);
+  if (*(v3 + 178) == 1)
   {
-    v9 = a3;
-    ArcGraph::ensureHeaderValid(*(this + 5), "Header", a3, a4, a5, a6, a7, a8);
-    if (*(v8 + 202) == 1 && *(v8 + 188) != *(this + 35))
+    result = ArcGraph::ensureHeaderValid(*(this + 40), "Header");
+    if (*(v3 + 202) == 1)
     {
-      v16 = *(v8 + 188);
-      v19 = *(this + 35);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchInterWordSilencePenalty");
+      v8 = *(this + 140);
+      if (*(v3 + 188) != v8)
+      {
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchInterWordSilencePenalty", *(v3 + 188), v8);
+      }
     }
 
-    if (*(v8 + 192) != *(this + 34))
+    v9 = *(this + 136);
+    if (*(v3 + 192) != v9)
     {
-      v17 = *(v8 + 192);
-      v20 = *(this + 34);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchPerWordPenalty");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchPerWordPenalty", *(v3 + 192), v9);
     }
 
-    if (*(v8 + 196) != *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608))
+    v10 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 40) + 174)) + 608);
+    if (*(v3 + 196) != v10)
     {
-      v18 = *(v8 + 196);
-      v21 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "Voc");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "Voc", *(v3 + 196), v10);
     }
 
-    v14 = *(v8 + 203);
-    if (v9)
+    v11 = *(v3 + 203);
+    if (a3)
     {
       if (a2)
       {
-        if ((*(v8 + 203) & 1) == 0)
+        if ((v11 & 1) == 0)
         {
-          return;
+          return result;
         }
+
+        v12 = 1;
       }
 
-      else if (*(v8 + 203))
+      else
       {
-        return;
+        if (v11)
+        {
+          return result;
+        }
+
+        v12 = 0;
       }
 
-      v23 = *(v8 + 203);
-      v15 = "DropAlternateFrames";
-      goto LABEL_18;
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "DropAlternateFrames", v12, v11);
     }
 
-    if (a2 & 1) != 0 || (*(v8 + 203))
+    else if (a2 & 1) != 0 || (v11)
     {
-      v22 = *(v8 + 203);
-      v15 = "NoDecimation";
-LABEL_18:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, v15);
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "NoDecimation", a2, v11);
     }
   }
+
+  return result;
 }
 
-uint64_t FstSearchLatticeDuration::makePartialResult(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t FstSearchLatticeDuration::makePartialResult(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
   v8 = *(a2 + 8);
   if (v8 >= 1)
@@ -2817,52 +3193,52 @@ uint64_t FstSearchLatticeDuration::makePartialResult(void *a1, uint64_t a2, uint
     return 1879048192;
   }
 
-  v15 = BestTrace;
-  FstSearchLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4, v11, v12, v13, v14);
-  memset(v25, 0, sizeof(v25));
-  v26 = 0;
+  v11 = BestTrace;
+  FstSearchLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4);
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
   if (*(a3 + 8))
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
     do
     {
-      v19 = *a3 + v16;
-      v20 = *(v19 + 28);
-      WordLatticeLC::WordLatticeLC(v24, v19, v18, *(v19 + 24) - v18, v20 - *(v19 + 24), v25);
-      v21 = *(a2 + 8);
-      if (v21 == *(a2 + 12))
+      v15 = *a3 + v12;
+      v16 = *(v15 + 28);
+      WordLatticeLC::WordLatticeLC(v20, v15, v14, *(v15 + 24) - v14, v16 - *(v15 + 24), v21);
+      v17 = *(a2 + 8);
+      if (v17 == *(a2 + 12))
       {
         DgnArray<WordLatticeLC>::reallocElts(a2, 1, 1);
-        LODWORD(v21) = *(a2 + 8);
+        LODWORD(v17) = *(a2 + 8);
       }
 
-      WordLatticeLC::WordLatticeLC((*a2 + 112 * v21), v24);
+      WordLatticeLC::WordLatticeLC((*a2 + 112 * v17), v20);
       ++*(a2 + 8);
-      WordLatticeLC::~WordLatticeLC(v24);
-      ++v17;
-      v16 += 32;
-      v18 = v20;
+      WordLatticeLC::~WordLatticeLC(v20);
+      ++v13;
+      v12 += 32;
+      v14 = v16;
     }
 
-    while (v17 < *(a3 + 8));
+    while (v13 < *(a3 + 8));
   }
 
-  v22 = a1[20] + 16 * v15;
-  return (*(a1[22] + 20 * *(v22 + 8)) + *(a1[11] + 4 * *(v22 + 4)));
+  v18 = a1[20] + 16 * v11;
+  return (*(a1[22] + 20 * *(v18 + 8)) + *(a1[11] + 4 * *(v18 + 4)));
 }
 
 int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff *this, int a2, int a3, SearchStats *a4, int a5)
 {
   v6 = a2;
-  v104[0] = a2;
-  v102 = 0u;
-  v103 = 0u;
-  SnapTime::recordTime(&v102, 1, 0, 0, 0);
+  v96[0] = a2;
+  v94 = 0u;
+  v95 = 0u;
+  SnapTime::recordTime(&v94, 1, 0, 0, 0);
   *(this + 58) = a3;
-  v86 = *(this + 2);
-  v80 = (this + 232);
+  v78 = *(this + 2);
+  v72 = (this + 232);
   v8 = *(this + 50);
   if (v8)
   {
@@ -2890,20 +3266,20 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
         }
       }
 
-      v77 = v6;
-      v85 = v11;
+      v69 = v6;
+      v77 = v11;
       if (*(v13 + 140) > v15)
       {
         v16 = *(this + 19) + *(this + 58) >= 5000 ? 5000 : *(this + 19) + *(this + 58);
         ScoreAllowBackoff_updateNodeInSequence = PelScoreCache::getScoreAllowBackoff_updateNodeInSequence(*(this + 4), *(v12 + v14), *(v12 + v14 - 12), v16);
         v18 = *(this + 58);
-        if (ScoreAllowBackoff_updateNodeInSequence - v86 <= v18)
+        if (ScoreAllowBackoff_updateNodeInSequence - v78 <= v18)
         {
           v19 = ScoreAllowBackoff_updateNodeInSequence;
           v20 = v10;
           if (v18 > ScoreAllowBackoff_updateNodeInSequence)
           {
-            *v80 = ScoreAllowBackoff_updateNodeInSequence;
+            *v72 = ScoreAllowBackoff_updateNodeInSequence;
           }
 
           v21 = *(this + 24) + v14;
@@ -2926,7 +3302,7 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
           *(v27 + 16) = v25;
           v28 = *(this + 54);
           *(this + 54) = v28 + 1;
-          if (v85 == 2 * *(this + 4))
+          if (v77 == 2 * *(this + 4))
           {
             v10 = v28 + 1;
           }
@@ -2936,7 +3312,7 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
             v10 = v20;
           }
 
-          ++v85;
+          ++v77;
         }
       }
 
@@ -2955,17 +3331,17 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
             v48 = (v32 & 0xFFFFF) <= 0xFFFF3 ? v32 & 0xFFFFF : v32 & 0xFFFFF | 0xF00000;
             if (v48 != 16777210)
             {
-              DgnString::DgnString(&v99);
-              ArcGraph::getNameAndHumanReadablePron(*(this + 5), v48, &v99, v49, v50, v51, v52, v53);
-              v58 = &unk_26287F8B0;
-              if (v99.i32[2])
+              DgnString::DgnString(&v91);
+              ArcGraph::getNameAndHumanReadablePron(*(this + 5), v48, &v91);
+              v50 = &unk_26287F8B0;
+              if (v91.i32[2])
               {
-                v58 = v99.i64[0];
+                v50 = v91.i64[0];
               }
 
-              xprintf("Seed from state %d score %d trace %d, %s\n", v54, v55, v56, v57, v15, *(*(this + 24) + v14 - 12), *(*(this + 24) + v14 - 4), v58);
+              xprintf("Seed from state %d score %d trace %d, %s\n", v49, v15, *(*(this + 24) + v14 - 12), *(*(this + 24) + v14 - 4), v50);
               MiniFst::seed(this + 240, *(*(this + 24) + v14 - 12), *(*(this + 24) + v14 + 8), *(*(this + 24) + v14 - 4), v33);
-              DgnString::~DgnString(&v99);
+              DgnString::~DgnString(&v91);
             }
           }
         }
@@ -2985,13 +3361,13 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
 
           v37 = PelScoreCache::getScoreAllowBackoff_updateNodeInSequence(*(this + 4), *(v31 + 4 * v29), *(*(this + 24) + v14 - 12) + v35, v36);
           v38 = *(this + 58);
-          if (v37 - v86 <= v38)
+          if (v37 - v78 <= v38)
           {
             v39 = v37;
-            v84 = v10;
+            v76 = v10;
             if (v38 > v37)
             {
-              *v80 = v37;
+              *v72 = v37;
             }
 
             v40 = *(this + 24) + v14;
@@ -3002,13 +3378,13 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
             v45 = *(this + 54);
             if (v45 == *(this + 55))
             {
-              v82 = v43;
-              v83 = v42;
-              v81 = v41;
+              v74 = v43;
+              v75 = v42;
+              v73 = v41;
               DgnArray<CWIDAC>::reallocElts(this + 208, 1, 1);
-              v41 = v81;
-              v43 = v82;
-              v42 = v83;
+              v41 = v73;
+              v43 = v74;
+              v42 = v75;
               LODWORD(v45) = *(this + 54);
             }
 
@@ -3022,17 +3398,17 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
             *(v46 + 20) = v43;
             v47 = *(this + 54);
             *(this + 54) = v47 + 1;
-            if (v85 == 2 * *(this + 4))
+            if (v77 == 2 * *(this + 4))
             {
               v10 = v47 + 1;
             }
 
             else
             {
-              v10 = v84;
+              v10 = v76;
             }
 
-            ++v85;
+            ++v77;
           }
         }
 
@@ -3042,8 +3418,8 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
       while ((v32 & 0x80000000) == 0);
       v9 = (v9 + 1);
       v8 = *(this + 50);
-      v6 = v77;
-      v11 = v85;
+      v6 = v69;
+      v11 = v77;
     }
 
     while (v9 < v8);
@@ -3056,113 +3432,113 @@ int64x2_t FstSearchLateLatticeBackoff::advanceDeltas(FstSearchLateLatticeBackoff
   }
 
 LABEL_47:
-  v101 = *(this + 58) + v86;
+  v93 = *(this + 58) + v78;
   if (*(this + 356) == 1)
   {
-    MiniFst::updateFrame(this + 240, v80, v86, v6);
-  }
-
-  v99 = 0u;
-  v100 = 0u;
-  SnapTime::recordTime(&v99, 1, 0, 0, 0);
-  v99 = vsubq_s64(v99, v102);
-  v100 = vsubq_s64(v100, v103);
-  v59 = *(this + 13);
-  v60 = vaddq_s64(v59[1], v100);
-  *v59 = vaddq_s64(*v59, v99);
-  v59[1] = v60;
-  v97 = 0u;
-  v98 = 0u;
-  SnapTime::recordTime(&v97, 1, 0, 0, 0);
-  if (v11 > 2 * *(this + 4))
-  {
-    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v10, &v101);
-  }
-
-  v95 = 0u;
-  v96 = 0u;
-  SnapTime::recordTime(&v95, 1, 0, 0, 0);
-  v61 = vsubq_s64(v95, v97);
-  v62 = *(this + 13);
-  v63 = v62[3];
-  v64 = vaddq_s64(v62[2], v61);
-  v95 = v61;
-  v96 = vsubq_s64(v96, v98);
-  v65 = vaddq_s64(v63, v96);
-  v62[2] = v64;
-  v62[3] = v65;
-  v93 = 0u;
-  v94 = 0u;
-  SnapTime::recordTime(&v93, 1, 0, 0, 0);
-  FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(this);
-  v66 = *(this + 6);
-  if (v66)
-  {
-    v67 = *(this + 50);
-    if (v66 < v67)
-    {
-      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v66, v67);
-    }
+    MiniFst::updateFrame(this + 240, v72, v78, v6);
   }
 
   v91 = 0u;
   v92 = 0u;
   SnapTime::recordTime(&v91, 1, 0, 0, 0);
-  v68 = vsubq_s64(v91, v93);
-  v69 = *(this + 13);
-  v70 = v69[5];
-  v71 = vaddq_s64(v69[4], v68);
-  v91 = v68;
-  v92 = vsubq_s64(v92, v94);
-  v72 = vaddq_s64(v70, v92);
-  v69[4] = v71;
-  v69[5] = v72;
+  v91 = vsubq_s64(v91, v94);
+  v92 = vsubq_s64(v92, v95);
+  v51 = *(this + 13);
+  v52 = vaddq_s64(v51[1], v92);
+  *v51 = vaddq_s64(*v51, v91);
+  v51[1] = v52;
   v89 = 0u;
   v90 = 0u;
   SnapTime::recordTime(&v89, 1, 0, 0, 0);
+  if (v11 > 2 * *(this + 4))
+  {
+    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v10, &v93);
+  }
+
+  v87 = 0u;
+  v88 = 0u;
+  SnapTime::recordTime(&v87, 1, 0, 0, 0);
+  v53 = vsubq_s64(v87, v89);
+  v54 = *(this + 13);
+  v55 = v54[3];
+  v56 = vaddq_s64(v54[2], v53);
+  v87 = v53;
+  v88 = vsubq_s64(v88, v90);
+  v57 = vaddq_s64(v55, v88);
+  v54[2] = v56;
+  v54[3] = v57;
+  v85 = 0u;
+  v86 = 0u;
+  SnapTime::recordTime(&v85, 1, 0, 0, 0);
+  FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(this);
+  v58 = *(this + 6);
+  if (v58)
+  {
+    v59 = *(this + 50);
+    if (v58 < v59)
+    {
+      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v58, v59);
+    }
+  }
+
+  v83 = 0u;
+  v84 = 0u;
+  SnapTime::recordTime(&v83, 1, 0, 0, 0);
+  v60 = vsubq_s64(v83, v85);
+  v61 = *(this + 13);
+  v62 = v61[5];
+  v63 = vaddq_s64(v61[4], v60);
+  v83 = v60;
+  v84 = vsubq_s64(v84, v86);
+  v64 = vaddq_s64(v62, v84);
+  v61[4] = v63;
+  v61[5] = v64;
+  v81 = 0u;
+  v82 = 0u;
+  SnapTime::recordTime(&v81, 1, 0, 0, 0);
   *(this + 54) = 0;
-  v73 = *(this + 50);
-  *(this + 38) = v73;
+  v65 = *(this + 50);
+  *(this + 38) = v65;
   if (a4)
   {
-    *(a4 + 2) += v73;
-    if (*(a4 + 2) > v73)
+    *(a4 + 2) += v65;
+    if (*(a4 + 2) > v65)
     {
-      LODWORD(v73) = *(a4 + 2);
+      LODWORD(v65) = *(a4 + 2);
     }
 
-    *(a4 + 2) = v73;
+    *(a4 + 2) = v65;
   }
 
   if (*(this + 356) == 1)
   {
-    FstSearchLateLatticeBackoff::seedFromMiniFst(this, v104);
+    FstSearchLateLatticeBackoff::seedFromMiniFst(this, v96);
   }
 
   if (a5)
   {
-    FstSearchLateLatticeHashBackoff::propagateNulls(this, v101, v6, a4);
+    FstSearchLateLatticeHashBackoff::propagateNulls(this, v93, v6, a4);
   }
 
   *(this + 56) = v6;
-  v87 = 0u;
-  v88 = 0u;
-  SnapTime::recordTime(&v87, 1, 0, 0, 0);
-  v74 = *(this + 13);
-  result = vaddq_s64(v74[6], vsubq_s64(v87, v89));
-  v76 = vaddq_s64(v74[7], vsubq_s64(v88, v90));
-  v74[6] = result;
-  v74[7] = v76;
+  v79 = 0u;
+  v80 = 0u;
+  SnapTime::recordTime(&v79, 1, 0, 0, 0);
+  v66 = *(this + 13);
+  result = vaddq_s64(v66[6], vsubq_s64(v79, v81));
+  v68 = vaddq_s64(v66[7], vsubq_s64(v80, v82));
+  v66[6] = result;
+  v66[7] = v68;
   return result;
 }
 
-uint64_t FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(uint64_t this)
+char **FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(char **this)
 {
   v1 = this;
-  v2 = *(this + 216);
+  v2 = *(this + 54);
   if (v2)
   {
-    this = mrec_qsort_r<FstSearchLateLatticeHashBackoffActiveToken>(*(this + 208), v2, 24);
+    this = mrec_qsort_r<FstSearchLateLatticeHashBackoffActiveToken>(this[26], v2, 24, 0);
     v3 = *(v1 + 216);
     *(v1 + 200) = 0;
     if (v3)
@@ -3196,7 +3572,7 @@ uint64_t FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(uint64_t thi
 
   else
   {
-    *(this + 200) = 0;
+    *(this + 50) = 0;
   }
 
   return this;
@@ -3293,9 +3669,9 @@ uint64_t FstSearchLateLatticeBackoff::seedFromMiniFst(uint64_t this, int *a2)
   return this;
 }
 
-void sub_2626499B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2626499B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -3336,13 +3712,13 @@ double FstSearchLateLatticeBackoff::doFrame(int64x2_t **this, int a2, int a3, Se
   return result;
 }
 
-uint64_t FstSearchLateLatticeBackoff::beginTopRecPassSyncRecog(FstSearchLateLatticeBackoff *this, PelScorer *a2, const ArcGraph *a3)
+uint64_t FstSearchLateLatticeBackoff::beginTopRecPassSyncRecog(PelScoreCache **this, PelScorer *a2, const ArcGraph *a3)
 {
   result = SearchItf::beginTopRecPassSyncRecogBase(this, a2);
   if (a3)
   {
-    MiniFst::init(this + 240, a3, *(this + 4));
-    result = ArcGraph::findBackoffState(*(this + 5));
+    MiniFst::init(this + 30, a3, this[4]);
+    result = ArcGraph::findBackoffState(this[5]);
     *(this + 88) = result;
     *(this + 356) = 1;
   }
@@ -3376,275 +3752,275 @@ uint64_t FstSearchLateLatticeBackoff::endTopRecPassSyncRecog(int64x2_t **this)
 uint64_t FstSearchLateLatticeBackoff::generateTraceTokensForLateLattice(FstSearchLateLatticeBackoff *this)
 {
   v1 = this;
-  v128[1] = 0;
-  v129 = 0;
-  v130 = 0;
-  v128[0] = 0;
-  FstSearchLateLatticeHashBackoff::getTraceTimeBoundaries(this, &v129, v128);
-  v126 = 0;
-  v127 = 0;
+  v122[1] = 0;
+  v123 = 0;
   v124 = 0;
-  v125 = 0;
-  v123[0] = 0;
-  v123[1] = 0;
-  v122 = 1879048192;
-  v2 = (*(*v1 + 80))(v1, &v126, &v124, &v122, v123);
-  v9 = *(v1 + 7);
-  v10 = *(v1 + 2);
-  v119 = -1;
-  v121 = 256;
-  v120 = *(v1 + 34);
+  v122[0] = 0;
+  FstSearchLateLatticeHashBackoff::getTraceTimeBoundaries(this, &v123, v122);
+  v120 = 0;
+  v121 = 0;
+  v118 = 0;
+  v119 = 0;
+  v117[0] = 0;
+  v117[1] = 0;
+  v116 = 1879048192;
+  v2 = (*(*v1 + 80))(v1, &v120, &v118, &v116, v117);
+  v3 = *(v1 + 7);
+  v4 = *(v1 + 2);
+  v113 = -1;
+  v115 = 256;
+  v114 = *(v1 + 34);
   if (v2)
   {
-    v117 = 0;
-    v118 = 0;
-    v11 = *(v1 + 42);
-    if (v11)
+    v111 = 0;
+    v112 = 0;
+    v5 = *(v1 + 42);
+    if (v5)
     {
-      v12 = 0;
-      v102 = v10;
-      v103 = v9;
+      v6 = 0;
+      v96 = v4;
+      v97 = v3;
       while (1)
       {
         while (1)
         {
           while (1)
           {
-            --v11;
-            v13 = *(v1 + 20);
-            if (*(v126 + v11))
+            --v5;
+            v7 = *(v1 + 20);
+            if (*(v120 + v5))
             {
               break;
             }
 
-            *(v13 + 36 * v11 + 8) = -1;
-            if (!v11)
+            *(v7 + 36 * v5 + 8) = -1;
+            if (!v5)
             {
               goto LABEL_76;
             }
           }
 
-          v14 = (v13 + 36 * v11);
-          v15 = *v14;
-          v16 = *(v1 + 6);
-          if (*(v16 + 388) > v15 && *(*(v16 + 104) + v15))
+          v8 = (v7 + 36 * v5);
+          v9 = *v8;
+          v10 = *(v1 + 6);
+          if (*(v10 + 388) > v9 && *(*(v10 + 104) + v9))
           {
-            v17 = *(*(v16 + 72) + 2 * *(*(v16 + 48) + 4 * v15));
+            v11 = *(*(v10 + 72) + 2 * *(*(v10 + 48) + 4 * v9));
           }
 
           else
           {
-            v17 = 0;
+            v11 = 0;
           }
 
-          v18 = *(v1 + 11);
-          v19 = *(v18 + 4 * v14[1]);
-          v20 = *(v1 + 22);
-          v21 = (v20 + 16 * v14[2]);
-          v22 = *(v1 + 3);
-          v23 = *(v123[0] + 4 * v11);
-          HIWORD(v119) = v17;
-          v107 = v21;
-          v24 = v21[1].u32[1];
-          if ((v24 & 0x80000000) == 0)
+          v12 = *(v1 + 11);
+          v13 = *(v12 + 4 * v8[1]);
+          v14 = *(v1 + 22);
+          v15 = (v14 + 16 * v8[2]);
+          v16 = *(v1 + 3);
+          v17 = *(v117[0] + 4 * v5);
+          HIWORD(v113) = v11;
+          v101 = v15;
+          v18 = v15[1].u32[1];
+          if ((v18 & 0x80000000) == 0)
           {
             break;
           }
 
-          v14[2] = v12;
-          if (v12 == HIDWORD(v118))
+          v8[2] = v6;
+          if (v6 == HIDWORD(v112))
           {
-            DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-            v12 = v118;
+            DgnArray<DgnPrimArray<double>>::reallocElts(&v111, 1, 1);
+            v6 = v112;
           }
 
-          *(v117 + v12) = *v107->i8;
-          v12 = v118 + 1;
-          LODWORD(v118) = v118 + 1;
-          *(*(v1 + 20) + 36 * v11 + 12) = 1;
-          if (!v11)
+          *(v111 + v6) = *v101->i8;
+          v6 = v112 + 1;
+          LODWORD(v112) = v112 + 1;
+          *(*(v1 + 20) + 36 * v5 + 12) = 1;
+          if (!v5)
           {
             goto LABEL_76;
           }
         }
 
-        v25 = v13 + 36 * v24;
-        v26 = *(v25 + 4);
-        v27 = v26 ? *(v129 + 4 * (v26 - 1)) : 0;
-        v112 = v22 + v122 - v23;
-        v105 = (v20 + 16 * *(v25 + 8));
-        v106 = v19 + v107->i32[0] - *(v18 + 4 * v26) - v105->i32[0];
-        v104 = v105->i32[0] - *(v128[0] + 4 * v26);
-        v28 = v12;
-        v109 = v24;
-        if (v27 < *(v129 + 4 * v26))
+        v19 = v7 + 36 * v18;
+        v20 = *(v19 + 4);
+        v21 = v20 ? *(v123 + (v20 - 1)) : 0;
+        v106 = v16 + v116 - v17;
+        v99 = (v14 + 16 * *(v19 + 8));
+        v100 = v13 + v101->i32[0] - *(v12 + 4 * v20) - v99->i32[0];
+        v98 = v99->i32[0] - *(v122[0] + 4 * v20);
+        v22 = v6;
+        v103 = v18;
+        if (v21 < *(v123 + v20))
         {
           break;
         }
 
 LABEL_42:
-        if (v12 >= v28)
+        if (v6 >= v22)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 150, "fst/fstsrch", 2, "%s", v7, v8, &unk_26287F8B0);
-          v28 = v118;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 150, "fst/fstsrch", 2, "%s", &unk_26287F8B0);
+          v22 = v112;
         }
 
-        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTokLmhst>(v117 + 16 * v12, v28 - v12, 16);
-        v43 = v12 + 1;
-        v44 = v118;
-        if (v43 < v118)
+        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTokLmhst>(v111 + 16 * v6, v22 - v6, 16, 0);
+        v37 = v6 + 1;
+        v38 = v112;
+        if (v37 < v112)
         {
-          v45 = 16 * (v12 + 1);
-          v46 = v12;
+          v39 = 16 * (v6 + 1);
+          v40 = v6;
           do
           {
-            if (*(v117 + v45 + 8) != *(v117 + 4 * v46 + 2))
+            if (*(v111 + v39 + 8) != *(v111 + 4 * v40 + 2))
             {
-              *(v117 + ++v46) = *(v117 + v45);
-              v44 = v118;
+              *(v111 + ++v40) = *(v111 + v39);
+              v38 = v112;
             }
 
-            ++v43;
-            v45 += 16;
+            ++v37;
+            v39 += 16;
           }
 
-          while (v43 < v44);
-          LODWORD(v43) = v46 + 1;
+          while (v37 < v38);
+          LODWORD(v37) = v40 + 1;
         }
 
-        v47 = v117;
-        if (HIDWORD(v118) < v43)
+        v41 = v111;
+        if (HIDWORD(v112) < v37)
         {
-          v115 = 0;
-          HIDWORD(v118) = realloc_array(v117, &v115, 16 * v43, 16 * v44, 16 * v44, 1) >> 4;
-          v47 = v115;
-          v117 = v115;
-          v44 = v118;
+          v109 = 0;
+          HIDWORD(v112) = realloc_array(v111, &v109, 16 * v37, 16 * v38, 16 * v38, 1) >> 4;
+          v41 = v109;
+          v111 = v109;
+          v38 = v112;
         }
 
-        if (v44 < v43)
+        if (v38 < v37)
         {
-          v48 = v43 - v44;
-          v49 = &v47[16 * v44];
+          v42 = v37 - v38;
+          v43 = &v41[16 * v38];
           do
           {
-            *v49 = xmmword_26287F850;
-            v49 += 16;
-            --v48;
+            *v43 = xmmword_26287F850;
+            v43 += 16;
+            --v42;
           }
 
-          while (v48);
+          while (v42);
         }
 
-        LODWORD(v118) = v43;
-        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTok>(&v47[16 * v12], v43 - v12, 16);
-        v50 = 16 * v12;
-        v51 = *(v117 + v50) + v10;
-        if (v51 >= v112)
+        LODWORD(v112) = v37;
+        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTok>(&v41[16 * v6], v37 - v6, 16, 0, xmmword_26287F850);
+        v44 = 16 * v6;
+        v45 = *(v111 + v44) + v4;
+        if (v45 >= v106)
         {
-          v51 = v112;
+          v45 = v106;
         }
 
-        v52 = v118;
-        v53 = *(v1 + 5) + v12;
-        if (v118 < v53)
+        v46 = v112;
+        v47 = *(v1 + 5) + v6;
+        if (v112 < v47)
         {
-          v53 = v118;
+          v47 = v112;
         }
 
-        v54 = *(v1 + 20);
-        *(v54 + 36 * v11 + 8) = v12;
-        if (v12 < v53)
+        v48 = *(v1 + 20);
+        *(v48 + 36 * v5 + 8) = v6;
+        if (v6 < v47)
         {
-          while (*(v117 + v50) <= v51)
+          while (*(v111 + v44) <= v45)
           {
-            v55 = *(v117 + v50 + 12);
-            if ((v55 & 0x80000000) == 0)
+            v49 = *(v111 + v44 + 12);
+            if ((v49 & 0x80000000) == 0)
             {
-              *(v126 + v55) = 1;
-              v56 = v55 == v109 ? 0 : v104 + v9;
-              v57 = v56 + v106 + *(v123[0] + 4 * v11);
-              if (*(v123[0] + 4 * v55) > v57)
+              *(v120 + v49) = 1;
+              v50 = v49 == v103 ? 0 : v98 + v3;
+              v51 = v50 + v100 + *(v117[0] + 4 * v5);
+              if (*(v117[0] + 4 * v49) > v51)
               {
-                *(v123[0] + 4 * v55) = v57;
+                *(v117[0] + 4 * v49) = v51;
               }
             }
 
-            ++v12;
-            v50 += 16;
-            if (v53 == v12)
+            ++v6;
+            v44 += 16;
+            if (v47 == v6)
             {
-              v12 = v53;
+              v6 = v47;
               break;
             }
           }
 
-          v54 = *(v1 + 20);
-          v52 = v118;
+          v48 = *(v1 + 20);
+          v46 = v112;
         }
 
-        *(v54 + 36 * v11 + 12) = v12 - *(v54 + 36 * v11 + 8);
-        if (HIDWORD(v118) < v12)
+        *(v48 + 36 * v5 + 12) = v6 - *(v48 + 36 * v5 + 8);
+        if (HIDWORD(v112) < v6)
         {
-          v115 = 0;
-          HIDWORD(v118) = realloc_array(v117, &v115, 16 * v12, 16 * v52, 16 * v52, 1) >> 4;
-          v117 = v115;
-          v52 = v118;
+          v109 = 0;
+          HIDWORD(v112) = realloc_array(v111, &v109, 16 * v6, 16 * v46, 16 * v46, 1) >> 4;
+          v111 = v109;
+          v46 = v112;
         }
 
-        if (v52 < v12)
+        if (v46 < v6)
         {
-          v58 = v12 - v52;
-          v59 = v117 + 16 * v52;
+          v52 = v6 - v46;
+          v53 = v111 + 16 * v46;
           do
           {
-            *v59++ = xmmword_26287F850;
-            --v58;
+            *v53++ = xmmword_26287F850;
+            --v52;
           }
 
-          while (v58);
+          while (v52);
         }
 
-        LODWORD(v118) = v12;
-        if (!v11)
+        LODWORD(v112) = v6;
+        if (!v5)
         {
 LABEL_76:
-          v60 = v117;
-          v61 = HIDWORD(v118);
-          v62 = *(v1 + 42);
+          v54 = v111;
+          v55 = HIDWORD(v112);
+          v56 = *(v1 + 42);
           goto LABEL_78;
         }
       }
 
-      v108 = v11;
-      v111 = v104 + v9;
-      v110 = v19 + v107->i32[0] - v105->i32[0];
-      v29 = 36 * v27;
+      v102 = v5;
+      v105 = v98 + v3;
+      v104 = v13 + v101->i32[0] - v99->i32[0];
+      v23 = 36 * v21;
       while (1)
       {
-        if (v24 == v27)
+        if (v18 == v21)
         {
-          v30 = 0;
+          v24 = 0;
         }
 
         else
         {
-          v30 = v111;
+          v24 = v105;
         }
 
-        v31 = *(v1 + 20);
-        v32 = (*(v1 + 22) + 16 * *(v31 + v29 + 8));
-        if ((v110 + v30 + *v32) <= v112)
+        v25 = *(v1 + 20);
+        v26 = (*(v1 + 22) + 16 * *(v25 + v23 + 8));
+        if ((v104 + v24 + *v26) <= v106)
         {
-          v33 = v1;
-          v34 = *(v31 + 36 * v108);
-          v35 = *(v31 + v29);
-          v36 = v35 != 16777209 && ArcGraph::lexToCWID(v33[5], *(v31 + v29), v3, v4, v5, v6, v7, v8) >> 25 != 126;
-          if (v34 == 16777209)
+          v27 = v1;
+          v28 = *(v25 + 36 * v102);
+          v29 = *(v25 + v23);
+          v30 = v29 != 16777209 && ArcGraph::lexToCWID(v27[5], *(v25 + v23)) >> 25 != 126;
+          if (v28 == 16777209)
           {
-            v1 = v33;
-            v24 = v109;
-            if (v36)
+            v1 = v27;
+            v18 = v103;
+            if (v30)
             {
               goto LABEL_35;
             }
@@ -3652,298 +4028,299 @@ LABEL_76:
 
           else
           {
-            v37 = v34 == 16777214 || v35 == 16777213;
-            v1 = v33;
-            v24 = v109;
-            if (!v37)
+            v31 = v28 == 16777214 || v29 == 16777213;
+            v1 = v27;
+            v18 = v103;
+            if (!v31)
             {
 LABEL_35:
-              isLexPelPhnMatch = FstSearchLateLatticeHashBackoff::isLexPelPhnMatch(v1, v27, &v119);
-              v1 = v33;
-              v24 = v109;
+              isLexPelPhnMatch = FstSearchLateLatticeHashBackoff::isLexPelPhnMatch(v1, v21, &v113);
+              v1 = v27;
+              v18 = v103;
               if (isLexPelPhnMatch)
               {
-                v39 = v118;
-                if (v118 == HIDWORD(v118))
+                v33 = v112;
+                if (v112 == HIDWORD(v112))
                 {
-                  DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-                  v39 = v118;
-                  v1 = v33;
-                  v24 = v109;
+                  DgnArray<DgnPrimArray<double>>::reallocElts(&v111, 1, 1);
+                  v33 = v112;
+                  v1 = v27;
+                  v18 = v103;
                 }
 
-                *(v117 + v39) = *v32;
-                v40 = v118;
-                LODWORD(v118) = v118 + 1;
-                v41 = (v117 + 16 * v40);
-                v41[1].i32[1] = v27;
-                *v41 = vadd_s32(vsub_s32(vadd_s32(*v107, vdup_n_s32(v30)), *v105), *v41);
-                v42 = *(*(v1 + 20) + 36 * v108);
-                if (v42 != 16777209)
+                *(v111 + v33) = *v26;
+                v34 = v112;
+                LODWORD(v112) = v112 + 1;
+                v35 = (v111 + 16 * v34);
+                v35[1].i32[1] = v21;
+                *v35 = vadd_s32(vsub_s32(vadd_s32(*v101, vdup_n_s32(v24)), *v99), *v35);
+                v36 = *(*(v1 + 20) + 36 * v102);
+                if (v36 != 16777209)
                 {
-                  v41[1].i32[0] = v42 + 2 * v41[1].i32[0] + 1;
+                  v35[1].i32[0] = v36 + 2 * v35[1].i32[0] + 1;
                 }
               }
             }
           }
         }
 
-        ++v27;
-        v29 += 36;
-        if (v27 >= *(v129 + 4 * v26))
+        ++v21;
+        v23 += 36;
+        if (v21 >= *(v123 + v20))
         {
-          v28 = v118;
-          v10 = v102;
-          v9 = v103;
-          v11 = v108;
+          v22 = v112;
+          v4 = v96;
+          v3 = v97;
+          v5 = v102;
           goto LABEL_42;
         }
       }
     }
 
-    v62 = 0;
-    v12 = 0;
-    v61 = 0;
-    v60 = 0;
+    v56 = 0;
+    v6 = 0;
+    v55 = 0;
+    v54 = 0;
 LABEL_78:
-    v63 = *(v1 + 22);
-    *(v1 + 22) = v60;
-    v117 = v63;
-    v64 = *(v1 + 47);
-    *(v1 + 46) = v12;
-    *(v1 + 47) = v61;
-    LODWORD(v118) = 0;
-    HIDWORD(v118) = v64;
-    v116 = 0;
-    v115 = 0;
-    if (v62)
+    v57 = *(v1 + 22);
+    *(v1 + 22) = v54;
+    v111 = v57;
+    v58 = *(v1 + 47);
+    *(v1 + 46) = v6;
+    *(v1 + 47) = v55;
+    LODWORD(v112) = 0;
+    HIDWORD(v112) = v58;
+    v110 = 0;
+    v109 = 0;
+    if (v56)
     {
-      v65 = MemChunkAlloc(4 * v62, 0);
-      v115 = v65;
-      v116 = v62;
+      v59 = MemChunkAlloc(4 * v56, 0);
+      v109 = v59;
+      v110 = v56;
       if (*(v1 + 42))
       {
-        v66 = 0;
-        v67 = 0;
-        v62 = 0;
+        v60 = 0;
+        v61 = 0;
+        v56 = 0;
         do
         {
-          v68 = *(v1 + 20);
-          v69 = (v68 + v66);
-          if (*(v68 + v66 + 8) == -1)
+          v62 = *(v1 + 20);
+          v63 = (v62 + v60);
+          if (*(v62 + v60 + 8) == -1)
           {
-            *(v65 + v67) = -1;
+            *(v59 + v61) = -1;
           }
 
           else
           {
-            if (v67 != v62)
+            if (v61 != v56)
             {
-              v70 = v68 + 36 * v62;
-              v71 = *v69;
-              v72 = v69[1];
-              *(v70 + 32) = *(v69 + 16);
-              *v70 = v71;
-              *(v70 + 16) = v72;
+              v64 = v62 + 36 * v56;
+              v65 = *v63;
+              v66 = v63[1];
+              *(v64 + 32) = *(v63 + 16);
+              *v64 = v65;
+              *(v64 + 16) = v66;
             }
 
-            *(v65 + v67) = v62++;
+            *(v59 + v61) = v56++;
           }
 
-          ++v67;
-          v73 = *(v1 + 42);
-          v66 += 36;
+          ++v61;
+          v67 = *(v1 + 42);
+          v60 += 36;
         }
 
-        while (v67 < v73);
-        v74 = *(v1 + 43);
-        if (v62 > v74)
+        while (v61 < v67);
+        v68 = *(v1 + 43);
+        if (v56 > v68)
         {
-          DgnArray<FstSearchLateLatticeHashBackoffTrace>::reallocElts(v1 + 160, v62 - v74, 0);
-          LODWORD(v73) = *(v1 + 42);
+          DgnArray<FstSearchLateLatticeHashBackoffTrace>::reallocElts(v1 + 160, v56 - v68, 0);
+          LODWORD(v67) = *(v1 + 42);
         }
 
-        if (v73 < v62)
+        if (v67 < v56)
         {
-          v75 = v62 - v73;
-          v76 = (*(v1 + 20) + 36 * v73 + 32);
+          v69 = v56 - v67;
+          v70 = (*(v1 + 20) + 36 * v67 + 32);
           do
           {
-            *(v76 - 2) = xmmword_26287F860;
-            *(v76 - 1) = xmmword_26287F870;
-            *v76 = -2;
-            v76 += 18;
-            --v75;
+            *(v70 - 2) = xmmword_26287F860;
+            *(v70 - 1) = xmmword_26287F870;
+            *v70 = -2;
+            v70 += 18;
+            --v69;
           }
 
-          while (v75);
+          while (v69);
         }
       }
 
       else
       {
-        v62 = 0;
+        v56 = 0;
       }
     }
 
-    *(v1 + 42) = v62;
-    v77 = *(v1 + 46);
-    if (v77)
+    *(v1 + 42) = v56;
+    v71 = *(v1 + 46);
+    if (v71)
     {
-      v78 = v115;
-      v79 = (*(v1 + 22) + 12);
+      v72 = v109;
+      v73 = (*(v1 + 22) + 12);
       do
       {
-        v80 = *v79;
-        if ((v80 & 0x80000000) == 0)
+        v74 = *v73;
+        if ((v74 & 0x80000000) == 0)
         {
-          *v79 = v78[v80];
+          *v73 = v72[v74];
         }
 
-        v79 += 4;
-        --v77;
+        v73 += 4;
+        --v71;
       }
 
-      while (v77);
+      while (v71);
     }
 
-    v81 = *(v1 + 50);
-    v113 = 0;
-    v114 = 0;
-    if (v81)
+    v75 = *(v1 + 50);
+    v107 = 0;
+    v108 = 0;
+    if (v75)
     {
-      v131[0] = 0;
-      v82 = realloc_array(0, v131, 24 * v81, 0, 0, 1) / 0x18;
-      HIDWORD(v114) = v82;
-      v83 = v131[0];
-      v113 = v131[0];
-      v84 = v131[0] + 16;
-      v85 = v81;
+      v125[0] = 0;
+      v76 = realloc_array(0, v125, 24 * v75, 0, 0, 1) / 0x18;
+      HIDWORD(v108) = v76;
+      v77 = v125[0];
+      v107 = v125[0];
+      v78 = v125[0] + 16;
+      v79 = v75;
       do
       {
-        *(v84 - 2) = 0xFFFFFFFF00000000;
-        *(v84 - 2) = -1;
-        *(v84 - 2) = -2;
-        *v84 = 0;
-        v84 += 3;
-        --v85;
+        *(v78 - 2) = 0xFFFFFFFF00000000;
+        *(v78 - 2) = -1;
+        *(v78 - 2) = -2;
+        *v78 = 0;
+        v78 += 3;
+        --v79;
       }
 
-      while (v85);
+      while (v79);
+    }
+
+    else
+    {
+      v77 = 0;
+      LODWORD(v76) = 0;
+    }
+
+    LODWORD(v108) = v75;
+    v80 = *(v1 + 50);
+    if (v80)
+    {
+      v81 = 0;
+      v82 = 0;
+      v83 = 0;
+      v84 = v109;
+      do
+      {
+        v85 = *(v1 + 38);
+        if (v83 < v85 && v82 == v85)
+        {
+          *(v1 + 38) = v83;
+        }
+
+        v87 = (*(v1 + 24) + v81);
+        v88 = *(v87 + 2);
+        if (v88 == -1 || v84[v88] != -1)
+        {
+          v89 = &v77[3 * v83];
+          v90 = *v87;
+          v89[2] = *(v87 + 2);
+          *v89 = v90;
+          v91 = *(*(v1 + 24) + v81 + 8);
+          if (v91 != -1)
+          {
+            LODWORD(v91) = v84[v91];
+          }
+
+          *(v89 + 2) = v91;
+          ++v83;
+          v80 = *(v1 + 50);
+        }
+
+        ++v82;
+        v81 += 24;
+      }
+
+      while (v82 < v80);
     }
 
     else
     {
       v83 = 0;
-      LODWORD(v82) = 0;
     }
 
-    LODWORD(v114) = v81;
-    v86 = *(v1 + 50);
-    if (v86)
+    if (v83 < *(v1 + 38))
     {
-      v87 = 0;
-      v88 = 0;
-      v89 = 0;
-      v90 = v115;
+      *(v1 + 38) = v83;
+    }
+
+    if (v76 < v83)
+    {
+      v125[0] = 0;
+      v76 = realloc_array(v77, v125, 24 * v83, 24 * v75, 24 * v75, 1) / 0x18;
+      v77 = v125[0];
+      LODWORD(v75) = v108;
+    }
+
+    if (v75 < v83)
+    {
+      v92 = v83 - v75;
+      v93 = &v77[3 * v75 + 2];
       do
       {
-        v91 = *(v1 + 38);
-        if (v89 < v91 && v88 == v91)
-        {
-          *(v1 + 38) = v89;
-        }
-
-        v93 = (*(v1 + 24) + v87);
-        v94 = *(v93 + 2);
-        if (v94 == -1 || v90[v94] != -1)
-        {
-          v95 = &v83[3 * v89];
-          v96 = *v93;
-          v95[2] = *(v93 + 2);
-          *v95 = v96;
-          v97 = *(*(v1 + 24) + v87 + 8);
-          if (v97 != -1)
-          {
-            LODWORD(v97) = v90[v97];
-          }
-
-          *(v95 + 2) = v97;
-          ++v89;
-          v86 = *(v1 + 50);
-        }
-
-        ++v88;
-        v87 += 24;
+        *(v93 - 2) = 0xFFFFFFFF00000000;
+        *(v93 - 2) = -1;
+        *(v93 - 2) = -2;
+        *v93 = 0;
+        v93 += 3;
+        --v92;
       }
 
-      while (v88 < v86);
+      while (v92);
     }
 
-    else
-    {
-      v89 = 0;
-    }
-
-    if (v89 < *(v1 + 38))
-    {
-      *(v1 + 38) = v89;
-    }
-
-    if (v82 < v89)
-    {
-      v131[0] = 0;
-      v82 = realloc_array(v83, v131, 24 * v89, 24 * v81, 24 * v81, 1) / 0x18;
-      v83 = v131[0];
-      LODWORD(v81) = v114;
-    }
-
-    if (v81 < v89)
-    {
-      v98 = v89 - v81;
-      v99 = &v83[3 * v81 + 2];
-      do
-      {
-        *(v99 - 2) = 0xFFFFFFFF00000000;
-        *(v99 - 2) = -1;
-        *(v99 - 2) = -2;
-        *v99 = 0;
-        v99 += 3;
-        --v98;
-      }
-
-      while (v98);
-    }
-
-    v100 = *(v1 + 24);
-    *(v1 + 24) = v83;
-    v113 = v100;
-    LODWORD(v100) = *(v1 + 51);
-    *(v1 + 50) = v89;
-    *(v1 + 51) = v82;
-    LODWORD(v114) = 0;
-    HIDWORD(v114) = v100;
-    DgnIArray<Utterance *>::~DgnIArray(&v113);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v115);
-    DgnIArray<Utterance *>::~DgnIArray(&v117);
+    v94 = *(v1 + 24);
+    *(v1 + 24) = v77;
+    v107 = v94;
+    LODWORD(v94) = *(v1 + 51);
+    *(v1 + 50) = v83;
+    *(v1 + 51) = v76;
+    LODWORD(v108) = 0;
+    HIDWORD(v108) = v94;
+    DgnIArray<Utterance *>::~DgnIArray(&v107);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v109);
+    DgnIArray<Utterance *>::~DgnIArray(&v111);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v123);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v124);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v126);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v128);
-  return DgnPrimFixArray<double>::~DgnPrimFixArray(&v129);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v117);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v118);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v120);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v122);
+  return DgnPrimFixArray<double>::~DgnPrimFixArray(&v123);
 }
 
-void sub_26264A5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_26264A5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a25);
   DgnIArray<Utterance *>::~DgnIArray(&a27);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a31);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v31 - 160);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v31 - 144);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v31 - 128);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v31 - 112);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v30 - 160);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v30 - 144);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v30 - 128);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v30 - 112);
   _Unwind_Resume(a1);
 }
 
@@ -3952,109 +4329,199 @@ void FstSearchLateLatticeBackoff::printSize(FstSearchLateLatticeBackoff *this, u
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950);
+  if (v72)
   {
-    v16 = v117;
+    v13 = v71;
   }
 
   else
   {
-    v16 = &unk_26287F8B0;
+    v13 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v16);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v13);
+  DgnString::~DgnString(&v71);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287F8B0);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952, &v117);
-  if (v118)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287F8B0);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952);
+  if (v72)
   {
-    v27 = v117;
+    v18 = v71;
   }
 
   else
   {
-    v27 = &unk_26287F8B0;
+    v18 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v27, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954);
+  if (v72)
   {
-    v32 = v117;
+    v20 = v71;
   }
 
   else
   {
-    v32 = &unk_26287F8B0;
+    v20 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955);
+  if (v72)
   {
-    v37 = v117;
+    v22 = v71;
   }
 
   else
   {
-    v37 = &unk_26287F8B0;
+    v22 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v37, 4, 4, 0);
-  v112 = a2;
-  v113 = a6;
-  v114 = a3;
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  v66 = a2;
+  v67 = a6;
+  v68 = a3;
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956);
+  if (v72)
   {
-    v42 = v117;
+    v24 = v71;
   }
 
   else
   {
-    v42 = &unk_26287F8B0;
+    v24 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v39, v40, v41, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v42, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v24, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v43 = 16;
+  v25 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v43 = 12;
+    v25 = 12;
   }
 
-  v44 = *(this + 42);
-  v45 = 24 * v44;
-  if (v44 <= 0)
+  v26 = *(this + 42);
+  v27 = 24 * v26;
+  if (v26 <= 0)
   {
-    v45 = 0;
+    v27 = 0;
   }
 
-  v46 = v45 + v43;
-  v47 = v45 + v43 + 24 * (*(this + 43) - v44);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957, &v117);
-  if (v118)
+  v28 = v27 + v25;
+  v29 = v27 + v25 + 24 * (*(this + 43) - v26);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957);
+  if (v72)
   {
-    v52 = v117;
+    v31 = v71;
+  }
+
+  else
+  {
+    v31 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v31, v29, v28, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v29;
+  *a5 += v28;
+  v32 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v32 = 12;
+  }
+
+  v33 = *(this + 46);
+  v34 = 16 * v33;
+  if (v33 <= 0)
+  {
+    v34 = 0;
+  }
+
+  v35 = v34 + v32;
+  v36 = v34 + v32 + 16 * (*(this + 47) - v33);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959);
+  if (v72)
+  {
+    v38 = v71;
+  }
+
+  else
+  {
+    v38 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v38, v36, v35, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v36;
+  *a5 += v35;
+  v39 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v39 = 12;
+  }
+
+  v40 = *(this + 50);
+  v41 = 22 * v40;
+  if (v40 <= 0)
+  {
+    v41 = 0;
+  }
+
+  v42 = v41 + v39;
+  v43 = v41 + v39 + 22 * (*(this + 51) - v40);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964);
+  if (v72)
+  {
+    v45 = v71;
+  }
+
+  else
+  {
+    v45 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26287F8B0, v16, v16, v45, v43, v42, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v43;
+  *a5 += v42;
+  v46 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v46 = 12;
+  }
+
+  v47 = *(this + 54);
+  v48 = 22 * v47;
+  if (v47 <= 0)
+  {
+    v48 = 0;
+  }
+
+  v49 = v48 + v46;
+  v50 = v48 + v46 + 22 * (*(this + 55) - v47);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966);
+  if (v72)
+  {
+    v52 = v71;
   }
 
   else
@@ -4062,186 +4529,95 @@ void FstSearchLateLatticeBackoff::printSize(FstSearchLateLatticeBackoff *this, u
     v52 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v52, v47, v46, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v47;
-  *a5 += v46;
-  v53 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v15, &unk_26287F8B0, v16, v16, v52, v50, v49, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v50;
+  *a5 += v49;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968);
+  if (v72)
   {
-    v53 = 12;
-  }
-
-  v54 = *(this + 46);
-  v55 = 16 * v54;
-  if (v54 <= 0)
-  {
-    v55 = 0;
-  }
-
-  v56 = v55 + v53;
-  v57 = v55 + v53 + 16 * (*(this + 47) - v54);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959, &v117);
-  if (v118)
-  {
-    v62 = v117;
+    v54 = v71;
   }
 
   else
   {
-    v62 = &unk_26287F8B0;
+    v54 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v62, v57, v56, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v57;
-  *a5 += v56;
-  v63 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v63 = 12;
-  }
-
-  v64 = *(this + 50);
-  v65 = 22 * v64;
-  if (v64 <= 0)
-  {
-    v65 = 0;
-  }
-
-  v66 = v65 + v63;
-  v67 = v65 + v63 + 22 * (*(this + 51) - v64);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964, &v117);
-  if (v118)
-  {
-    v72 = v117;
-  }
-
-  else
-  {
-    v72 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v69, v70, v71, v21, &unk_26287F8B0, v22, v22, v72, v67, v66, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v67;
-  *a5 += v66;
-  v73 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v73 = 12;
-  }
-
-  v74 = *(this + 54);
-  v75 = 22 * v74;
-  if (v74 <= 0)
-  {
-    v75 = 0;
-  }
-
-  v76 = v75 + v73;
-  v77 = v75 + v73 + 22 * (*(this + 55) - v74);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966, &v117);
-  if (v118)
-  {
-    v82 = v117;
-  }
-
-  else
-  {
-    v82 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, v21, &unk_26287F8B0, v22, v22, v82, v77, v76, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v77;
-  *a5 += v76;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968, &v117);
-  if (v118)
-  {
-    v87 = v117;
-  }
-
-  else
-  {
-    v87 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v83, v84, v85, v86, v21, &unk_26287F8B0, v22, v22, v87, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v15, &unk_26287F8B0, v16, v16, v54, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970);
+  if (v72)
   {
-    v92 = v117;
+    v56 = v71;
   }
 
   else
   {
-    v92 = &unk_26287F8B0;
+    v56 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v89, v90, v91, v21, &unk_26287F8B0, v22, v22, v92, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v15, &unk_26287F8B0, v16, v16, v56, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972);
+  if (v72)
   {
-    v97 = v117;
+    v58 = v71;
   }
 
   else
   {
-    v97 = &unk_26287F8B0;
+    v58 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v94, v95, v96, v21, &unk_26287F8B0, v22, v22, v97, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v15, &unk_26287F8B0, v16, v16, v58, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v98 = sizeObject(this + 240, 0);
-  v99 = sizeObject(this + 240, 1);
-  v100 = sizeObject(this + 240, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974, &v117);
-  if (v118)
+  v59 = sizeObject(this + 240, 0);
+  v60 = sizeObject(this + 240, 1);
+  v61 = sizeObject(this + 240, 3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974);
+  if (v72)
   {
-    v105 = v117;
+    v63 = v71;
   }
 
   else
   {
-    v105 = &unk_26287F8B0;
+    v63 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v21, &unk_26287F8B0, v22, v22, v105, v98, v99, v100);
-  DgnString::~DgnString(&v117);
-  *a4 += v98;
-  *a5 += v99;
-  *v113 += v100;
-  v115 = 0;
-  v116 = 0;
-  SearchItf::printSize(this, v112, v21, &v116, &v115, &v115);
-  *a4 += v116;
-  *a5 += v115;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985, &v117);
-  if (v118)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v15, &unk_26287F8B0, v16, v16, v63, v59, v60, v61);
+  DgnString::~DgnString(&v71);
+  *a4 += v59;
+  *a5 += v60;
+  *v67 += v61;
+  v69 = 0;
+  v70 = 0;
+  SearchItf::printSize(this, v66, v15, &v70, &v69, &v69);
+  *a4 += v70;
+  *a5 += v69;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985);
+  if (v72)
   {
-    v110 = v117;
+    v65 = v71;
   }
 
   else
   {
-    v110 = &unk_26287F8B0;
+    v65 = &unk_26287F8B0;
   }
 
-  v111 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v107, v108, v109, v114, &unk_26287F8B0, (35 - v114), (35 - v114), v110, *a4, *a5, *v113);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v68, &unk_26287F8B0, (35 - v68), (35 - v68), v65, *a4, *a5, *v67);
+  DgnString::~DgnString(&v71);
 }
 
-BOOL FstSearchLateLatticeBackoff::findBestPath(uint64_t a1, uint64_t **a2, uint64_t a3, int *a4, uint64_t a5)
+BOOL FstSearchLateLatticeBackoff::findBestPath(uint64_t a1, uint64_t **a2, uint64_t a3, int *a4, uint64_t *a5)
 {
   v10 = *(a1 + 168);
   if (v10)
@@ -4345,7 +4721,7 @@ LABEL_16:
       v25 = v16 - v22;
     }
 
-    v26 = *(a5 + 12);
+    v26 = *(a5 + 3);
     v27 = v23;
     if (v23 > v26)
     {
@@ -4353,7 +4729,7 @@ LABEL_16:
       v27 = *(a1 + 168);
     }
 
-    *(a5 + 8) = v23;
+    *(a5 + 2) = v23;
     v17 = *a4;
     if (v27)
     {
@@ -4402,7 +4778,7 @@ LABEL_16:
   return v17 != 1879048192;
 }
 
-uint64_t FstSearchLateLatticeBackoff::buildWordLattice(uint64_t a1, unint64_t a2, void *a3, void *a4, char a5)
+uint64_t FstSearchLateLatticeBackoff::buildWordLattice(uint64_t a1, uint64_t *a2, void *a3, void *a4, char a5)
 {
   v28 = 0;
   v29 = 0;
@@ -4444,7 +4820,7 @@ uint64_t FstSearchLateLatticeBackoff::buildWordLattice(uint64_t a1, unint64_t a2
             v18 = *(v27 + 4 * v17);
             if (*(*a4 + v11) == 1)
             {
-              FstSearchLateLatticeBackoff::createLatticeLink(a1, v11, v15, 0xFFFFFFFFLL, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
+              FstSearchLateLatticeBackoff::createLatticeLink(a1, v11, v15, 0xFFFFFFFF, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
             }
 
             v19 = v26[0] + 16 * v11;
@@ -4481,26 +4857,24 @@ uint64_t FstSearchLateLatticeBackoff::buildWordLattice(uint64_t a1, unint64_t a2
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v29);
 }
 
-void sub_26264B2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26264B2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va2);
   _Unwind_Resume(a1);
 }
 
-void FstSearchLateLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, uint64_t a4, uint64_t a5, const WordLatticeLC *a6, unint64_t a7, uint64_t a8, char a9)
+void FstSearchLateLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, unsigned int a4, int a5, const WordLatticeLC *a6, uint64_t *a7, uint64_t a8, char a9)
 {
-  v11 = a5;
-  v12 = a4;
   v16 = *(a1 + 160);
   if ((a4 & 0x80000000) != 0 || (v17 = v16 + 36 * a4, v18 = *(v17 + 12), v18 < 1))
   {
@@ -4530,7 +4904,7 @@ void FstSearchLateLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2
     while (v19 < v20 && !v22);
   }
 
-  ArcGraph::lexToCWIDAC(*(a1 + 40), *(v16 + 36 * a2), a3, a4, a5, a6, a7, a8, v44);
+  ArcGraph::lexToCWIDAC(v44, *(a1 + 40), *(v16 + 36 * a2));
   v23 = a3[1];
   if (v22)
   {
@@ -4543,7 +4917,7 @@ void FstSearchLateLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2
     v24 = *a3;
   }
 
-  if (v44[0] >> 25 == 126)
+  if (LODWORD(v44[0]) >> 25 == 126)
   {
     v25 = 0;
     v26 = v23;
@@ -4556,7 +4930,7 @@ void FstSearchLateLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2
   }
 
   v27 = v24 - v23;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     v28 = 0;
   }
@@ -4588,9 +4962,9 @@ void FstSearchLateLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2
 LABEL_27:
     v33 = *(v30 + 36 * a2 + 4);
     v34 = v33 - v32 + 1;
-    if ((v12 & 0x80000000) == 0)
+    if ((a4 & 0x80000000) == 0)
     {
-      v35 = *(v30 + 36 * v12 + 4);
+      v35 = *(v30 + 36 * a4 + 4);
       goto LABEL_29;
     }
 
@@ -4608,23 +4982,23 @@ LABEL_30:
 LABEL_24:
   v33 = (*(v30 + 36 * a2 + 4) - 1) / 2;
   v34 = v33 - v32 + 1;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     goto LABEL_30;
   }
 
-  v35 = (*(v30 + 36 * v12 + 4) - 1) / 2;
+  v35 = (*(v30 + 36 * a4 + 4) - 1) / 2;
 LABEL_29:
   v36 = v35 - v33;
 LABEL_31:
   WordLatticeLC::WordLatticeLC(v37, v44, v32, v34, v36, &v38);
-  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, v11, a6, v37);
+  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, a5, a6, v37);
   WordLatticeLC::~WordLatticeLC(v37);
 }
 
-void sub_26264B500(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26264B500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WordLatticeLC::~WordLatticeLC(va);
   _Unwind_Resume(a1);
 }
@@ -4780,7 +5154,7 @@ uint64_t FstSearchLateLatticeBackoff::getBestScoreMaybeUpdateFstNode(FstSearchLa
   return v6;
 }
 
-uint64_t FstSearchLateLatticeBackoff::seedTheory(FstSearchLateLatticeBackoff *this, int a2, int a3, int a4, SearchStats *a5)
+unint64_t FstSearchLateLatticeBackoff::seedTheory(FstSearchLateLatticeBackoff *this, int a2, int a3, int a4, SearchStats *a5)
 {
   if (a4 == -2)
   {
@@ -4829,138 +5203,141 @@ uint64_t FstSearchLateLatticeBackoff::seedTheory(FstSearchLateLatticeBackoff *th
   return FstSearchLateLatticeHashBackoff::propagateNulls(this, 20000, a3, a5);
 }
 
-uint64_t FstSearchLateLatticeBackoff::expandEmbFstHistory(uint64_t result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *FstSearchLateLatticeBackoff::expandEmbFstHistory(uint64_t *result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
-  v8 = *(result + 228);
-  if (v8 != -1)
+  v6 = *(result + 57);
+  if (v6 != -1)
   {
-    v9 = result;
-    v10 = (*(result + 160) + 36 * v8);
-    for (i = v10[5]; i != -1; v8 = v16)
+    v7 = result;
+    v8 = (result[20] + 36 * v6);
+    for (i = v8[5]; i != -1; v6 = v14)
     {
-      v16 = i;
-      result = *(v9 + 40);
-      if (*v10 == 16777209)
+      v14 = i;
+      result = v7[5];
+      if (*v8 == 16777209)
       {
-        v17 = (*(result + 174) << 25) | 0xFFFFF9;
+        v15 = (*(result + 87) << 25) | 0xFFFFF9;
       }
 
       else
       {
-        result = ArcGraph::lexToCWID(result, *v10, a3, a4, a5, a6, a7, a8);
-        v17 = result;
+        result = ArcGraph::lexToCWID(result, *v8);
+        v15 = result;
       }
 
-      v18 = *(a2 + 8);
-      if (v18 == *(a2 + 12))
+      v16 = *(a2 + 8);
+      if (v16 == *(a2 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a2, 1, 1);
-        v18 = *(a2 + 8);
+        v16 = *(a2 + 8);
       }
 
-      *(*a2 + 4 * v18) = v17;
+      *(*a2 + 4 * v16) = v15;
       ++*(a2 + 8);
-      v19 = *(a6 + 8);
-      if (v19 == *(a6 + 12))
+      v17 = *(a6 + 8);
+      if (v17 == *(a6 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-        v19 = *(a6 + 8);
+        v17 = *(a6 + 8);
       }
 
-      *(*a6 + 4 * v19) = v8;
+      *(*a6 + 4 * v17) = v6;
       ++*(a6 + 8);
-      v20 = *(v9 + 160);
-      v21 = *(v20 + 36 * v8 + 4);
-      v22 = *(a3 + 8);
-      if (v22 == *(a3 + 12))
+      v18 = v7[20];
+      v19 = *(v18 + 36 * v6 + 4);
+      v20 = *(a3 + 8);
+      if (v20 == *(a3 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-        v22 = *(a3 + 8);
-        v20 = *(v9 + 160);
+        v20 = *(a3 + 8);
+        v18 = v7[20];
       }
 
-      *(*a3 + 4 * v22) = v21;
+      *(*a3 + 4 * v20) = v19;
       ++*(a3 + 8);
-      v23 = *(v20 + 36 * v8 + 16);
-      v24 = *(a5 + 8);
-      if (v24 == *(a5 + 12))
+      v21 = *(v18 + 36 * v6 + 16);
+      v22 = *(a5 + 8);
+      if (v22 == *(a5 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-        v24 = *(a5 + 8);
+        v22 = *(a5 + 8);
       }
 
-      *(*a5 + 4 * v24) = v23;
+      *(*a5 + 4 * v22) = v21;
       ++*(a5 + 8);
-      v10 = (*(v9 + 160) + 36 * v16);
-      i = v10[5];
+      v8 = (v7[20] + 36 * v14);
+      i = v8[5];
     }
 
-    *a4 = *v10;
+    *a4 = *v8;
   }
 
   return result;
 }
 
-void FstSearchLateLatticeBackoff::checkSearchParametersValidityForArcGraph(FstSearchLateLatticeBackoff *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double FstSearchLateLatticeBackoff::checkSearchParametersValidityForArcGraph(uint64_t this, int a2, int a3)
 {
-  v8 = *(this + 5);
-  if (*(v8 + 178) == 1)
+  v3 = *(this + 40);
+  if (*(v3 + 178) == 1)
   {
-    v9 = a3;
-    ArcGraph::ensureHeaderValid(*(this + 5), "Header", a3, a4, a5, a6, a7, a8);
-    if (*(v8 + 202) == 1 && *(v8 + 188) != *(this + 35))
+    result = ArcGraph::ensureHeaderValid(*(this + 40), "Header");
+    if (*(v3 + 202) == 1)
     {
-      v16 = *(v8 + 188);
-      v19 = *(this + 35);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchInterWordSilencePenalty");
+      v8 = *(this + 140);
+      if (*(v3 + 188) != v8)
+      {
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchInterWordSilencePenalty", *(v3 + 188), v8);
+      }
     }
 
-    if (*(v8 + 192) != *(this + 34))
+    v9 = *(this + 136);
+    if (*(v3 + 192) != v9)
     {
-      v17 = *(v8 + 192);
-      v20 = *(this + 34);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchPerWordPenalty");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchPerWordPenalty", *(v3 + 192), v9);
     }
 
-    if (*(v8 + 196) != *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608))
+    v10 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 40) + 174)) + 608);
+    if (*(v3 + 196) != v10)
     {
-      v18 = *(v8 + 196);
-      v21 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "Voc");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "Voc", *(v3 + 196), v10);
     }
 
-    v14 = *(v8 + 203);
-    if (v9)
+    v11 = *(v3 + 203);
+    if (a3)
     {
       if (a2)
       {
-        if ((*(v8 + 203) & 1) == 0)
+        if ((v11 & 1) == 0)
         {
-          return;
+          return result;
         }
+
+        v12 = 1;
       }
 
-      else if (*(v8 + 203))
+      else
       {
-        return;
+        if (v11)
+        {
+          return result;
+        }
+
+        v12 = 0;
       }
 
-      v23 = *(v8 + 203);
-      v15 = "DropAlternateFrames";
-      goto LABEL_18;
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "DropAlternateFrames", v12, v11);
     }
 
-    if (a2 & 1) != 0 || (*(v8 + 203))
+    else if (a2 & 1) != 0 || (v11)
     {
-      v22 = *(v8 + 203);
-      v15 = "NoDecimation";
-LABEL_18:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, v15);
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "NoDecimation", a2, v11);
     }
   }
+
+  return result;
 }
 
-uint64_t FstSearchLateLatticeBackoff::makePartialResult(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t FstSearchLateLatticeBackoff::makePartialResult(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
   v8 = *(a2 + 8);
   if (v8 >= 1)
@@ -4982,52 +5359,52 @@ uint64_t FstSearchLateLatticeBackoff::makePartialResult(uint64_t a1, uint64_t a2
     return 1879048192;
   }
 
-  v15 = BestTrace;
-  FstSearchLateLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4, v11, v12, v13, v14);
-  memset(v25, 0, sizeof(v25));
-  v26 = 0;
+  v11 = BestTrace;
+  FstSearchLateLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4);
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
   if (*(a3 + 8))
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
     do
     {
-      v19 = *a3 + v16;
-      v20 = *(v19 + 28);
-      WordLatticeLC::WordLatticeLC(v24, v19, v18, *(v19 + 24) - v18, v20 - *(v19 + 24), v25);
-      v21 = *(a2 + 8);
-      if (v21 == *(a2 + 12))
+      v15 = *a3 + v12;
+      v16 = *(v15 + 28);
+      WordLatticeLC::WordLatticeLC(v20, v15, v14, *(v15 + 24) - v14, v16 - *(v15 + 24), v21);
+      v17 = *(a2 + 8);
+      if (v17 == *(a2 + 12))
       {
         DgnArray<WordLatticeLC>::reallocElts(a2, 1, 1);
-        LODWORD(v21) = *(a2 + 8);
+        LODWORD(v17) = *(a2 + 8);
       }
 
-      WordLatticeLC::WordLatticeLC((*a2 + 112 * v21), v24);
+      WordLatticeLC::WordLatticeLC((*a2 + 112 * v17), v20);
       ++*(a2 + 8);
-      WordLatticeLC::~WordLatticeLC(v24);
-      ++v17;
-      v16 += 32;
-      v18 = v20;
+      WordLatticeLC::~WordLatticeLC(v20);
+      ++v13;
+      v12 += 32;
+      v14 = v16;
     }
 
-    while (v17 < *(a3 + 8));
+    while (v13 < *(a3 + 8));
   }
 
-  v22 = *(a1 + 160) + 36 * v15;
-  return (*(v22 + 16) + *(*(a1 + 88) + 4 * *(v22 + 4)));
+  v18 = a1[20] + 36 * v11;
+  return (*(v18 + 16) + *(a1[11] + 4 * *(v18 + 4)));
 }
 
 int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2, int a3, SearchStats *a4, int a5)
 {
   v6 = a2;
-  v105[0] = a2;
-  v103 = 0u;
-  v104 = 0u;
-  SnapTime::recordTime(&v103, 1, 0, 0, 0);
+  v97[0] = a2;
+  v95 = 0u;
+  v96 = 0u;
+  SnapTime::recordTime(&v95, 1, 0, 0, 0);
   *(this + 58) = a3;
-  v87 = *(this + 2);
-  v82 = (this + 232);
+  v79 = *(this + 2);
+  v74 = (this + 232);
   v8 = *(this + 50);
   if (v8)
   {
@@ -5055,19 +5432,19 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
         }
       }
 
-      v86 = v10;
-      v78 = v6;
+      v78 = v10;
+      v70 = v6;
       if (*(v13 + 140) > v15)
       {
         v16 = v9;
         v17 = *(v12 + v14 - 12);
         v18 = PelScoreCache::getScoreNoBackoff(*(this + 4), *(v12 + v14)) + v17;
         v19 = *(this + 58);
-        if (v18 - v87 <= v19)
+        if (v18 - v79 <= v19)
         {
           if (v19 > v18)
           {
-            *v82 = v18;
+            *v74 = v18;
           }
 
           v20 = *(this + 24) + v14;
@@ -5090,7 +5467,7 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
           *(v26 + 16) = v24;
           v27 = *(this + 54);
           *(this + 54) = v27 + 1;
-          if (v86 == 2 * *(this + 4))
+          if (v78 == 2 * *(this + 4))
           {
             v9 = (v27 + 1);
           }
@@ -5100,7 +5477,7 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
             v9 = v16;
           }
 
-          ++v86;
+          ++v78;
         }
 
         else
@@ -5110,7 +5487,7 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
       }
 
       v28 = v15;
-      v81 = this;
+      v73 = this;
       do
       {
         v29 = *(this + 5);
@@ -5125,17 +5502,17 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
             v49 = (v31 & 0xFFFFF) <= 0xFFFF3 ? v31 & 0xFFFFF : v31 & 0xFFFFF | 0xF00000;
             if (v49 != 16777210)
             {
-              DgnString::DgnString(&v100);
-              ArcGraph::getNameAndHumanReadablePron(*(this + 5), v49, &v100, v50, v51, v52, v53, v54);
-              v59 = &unk_26287F8B0;
-              if (v100.i32[2])
+              DgnString::DgnString(&v92);
+              ArcGraph::getNameAndHumanReadablePron(*(this + 5), v49, &v92);
+              v51 = &unk_26287F8B0;
+              if (v92.i32[2])
               {
-                v59 = v100.i64[0];
+                v51 = v92.i64[0];
               }
 
-              xprintf("Seed from state %d score %d trace %d, %s\n", v55, v56, v57, v58, v15, *(*(this + 24) + v14 - 12), *(*(this + 24) + v14 - 4), v59);
+              xprintf("Seed from state %d score %d trace %d, %s\n", v50, v15, *(*(this + 24) + v14 - 12), *(*(this + 24) + v14 - 4), v51);
               MiniFst::seed(this + 240, *(*(this + 24) + v14 - 12), *(*(this + 24) + v14 + 8), *(*(this + 24) + v14 - 4), v32);
-              DgnString::~DgnString(&v100);
+              DgnString::~DgnString(&v92);
             }
           }
         }
@@ -5147,12 +5524,12 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
           v36 = *(this + 24);
           v37 = ScoreNoBackoff + v34 + *(v36 + v14 - 12);
           v38 = *(this + 58);
-          if (v37 - v87 <= v38)
+          if (v37 - v79 <= v38)
           {
-            v85 = v9;
+            v77 = v9;
             if (v38 > v37)
             {
-              *v82 = v37;
+              *v74 = v37;
             }
 
             v39 = v36 + v14;
@@ -5164,15 +5541,15 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
             if (v44 == *(this + 55))
             {
               v45 = this + 208;
-              v83 = v40;
-              v84 = v41;
+              v75 = v40;
+              v76 = v41;
               v46 = v42;
               DgnArray<CWIDAC>::reallocElts(v45, 1, 1);
-              v40 = v83;
-              v41 = v84;
+              v40 = v75;
+              v41 = v76;
               v42 = v46;
-              this = v81;
-              LODWORD(v44) = *(v81 + 54);
+              this = v73;
+              LODWORD(v44) = *(v73 + 54);
             }
 
             v47 = *(this + 26) + 24 * v44;
@@ -5185,17 +5562,17 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
             *(v47 + 20) = v42;
             v48 = *(this + 54);
             *(this + 54) = v48 + 1;
-            if (v86 == 2 * *(this + 4))
+            if (v78 == 2 * *(this + 4))
             {
               v9 = (v48 + 1);
             }
 
             else
             {
-              v9 = v85;
+              v9 = v77;
             }
 
-            ++v86;
+            ++v78;
           }
         }
 
@@ -5205,8 +5582,8 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
       while ((v31 & 0x80000000) == 0);
       v11 = (v11 + 1);
       v8 = *(this + 50);
-      v6 = v78;
-      v10 = v86;
+      v6 = v70;
+      v10 = v78;
     }
 
     while (v11 < v8);
@@ -5219,103 +5596,103 @@ int64x2_t FstSearchLateLattice::advanceDeltas(FstSearchLateLattice *this, int a2
   }
 
 LABEL_42:
-  v102 = *(this + 58) + v87;
+  v94 = *(this + 58) + v79;
   if (*(this + 356) == 1)
   {
-    MiniFst::updateFrame(this + 240, v82, v87, v6);
-  }
-
-  v100 = 0u;
-  v101 = 0u;
-  SnapTime::recordTime(&v100, 1, 0, 0, 0);
-  v100 = vsubq_s64(v100, v103);
-  v101 = vsubq_s64(v101, v104);
-  v60 = *(this + 13);
-  v61 = vaddq_s64(v60[1], v101);
-  *v60 = vaddq_s64(*v60, v100);
-  v60[1] = v61;
-  v98 = 0u;
-  v99 = 0u;
-  SnapTime::recordTime(&v98, 1, 0, 0, 0);
-  if (v10 > 2 * *(this + 4))
-  {
-    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v9, &v102);
-  }
-
-  v96 = 0u;
-  v97 = 0u;
-  SnapTime::recordTime(&v96, 1, 0, 0, 0);
-  v62 = vsubq_s64(v96, v98);
-  v63 = *(this + 13);
-  v64 = v63[3];
-  v65 = vaddq_s64(v63[2], v62);
-  v96 = v62;
-  v97 = vsubq_s64(v97, v99);
-  v66 = vaddq_s64(v64, v97);
-  v63[2] = v65;
-  v63[3] = v66;
-  v94 = 0u;
-  v95 = 0u;
-  SnapTime::recordTime(&v94, 1, 0, 0, 0);
-  FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(this);
-  v67 = *(this + 6);
-  if (v67)
-  {
-    v68 = *(this + 50);
-    if (v67 < v68)
-    {
-      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v67, v68);
-    }
+    MiniFst::updateFrame(this + 240, v74, v79, v6);
   }
 
   v92 = 0u;
   v93 = 0u;
   SnapTime::recordTime(&v92, 1, 0, 0, 0);
-  v69 = vsubq_s64(v92, v94);
-  v70 = *(this + 13);
-  v71 = v70[5];
-  v72 = vaddq_s64(v70[4], v69);
-  v92 = v69;
-  v93 = vsubq_s64(v93, v95);
-  v73 = vaddq_s64(v71, v93);
-  v70[4] = v72;
-  v70[5] = v73;
+  v92 = vsubq_s64(v92, v95);
+  v93 = vsubq_s64(v93, v96);
+  v52 = *(this + 13);
+  v53 = vaddq_s64(v52[1], v93);
+  *v52 = vaddq_s64(*v52, v92);
+  v52[1] = v53;
   v90 = 0u;
   v91 = 0u;
   SnapTime::recordTime(&v90, 1, 0, 0, 0);
+  if (v10 > 2 * *(this + 4))
+  {
+    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v9, &v94);
+  }
+
+  v88 = 0u;
+  v89 = 0u;
+  SnapTime::recordTime(&v88, 1, 0, 0, 0);
+  v54 = vsubq_s64(v88, v90);
+  v55 = *(this + 13);
+  v56 = v55[3];
+  v57 = vaddq_s64(v55[2], v54);
+  v88 = v54;
+  v89 = vsubq_s64(v89, v91);
+  v58 = vaddq_s64(v56, v89);
+  v55[2] = v57;
+  v55[3] = v58;
+  v86 = 0u;
+  v87 = 0u;
+  SnapTime::recordTime(&v86, 1, 0, 0, 0);
+  FstSearchLateLatticeBackoff::makeViterbiDecisionOnEmitting(this);
+  v59 = *(this + 6);
+  if (v59)
+  {
+    v60 = *(this + 50);
+    if (v59 < v60)
+    {
+      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v59, v60);
+    }
+  }
+
+  v84 = 0u;
+  v85 = 0u;
+  SnapTime::recordTime(&v84, 1, 0, 0, 0);
+  v61 = vsubq_s64(v84, v86);
+  v62 = *(this + 13);
+  v63 = v62[5];
+  v64 = vaddq_s64(v62[4], v61);
+  v84 = v61;
+  v85 = vsubq_s64(v85, v87);
+  v65 = vaddq_s64(v63, v85);
+  v62[4] = v64;
+  v62[5] = v65;
+  v82 = 0u;
+  v83 = 0u;
+  SnapTime::recordTime(&v82, 1, 0, 0, 0);
   *(this + 54) = 0;
-  v74 = *(this + 50);
-  *(this + 38) = v74;
+  v66 = *(this + 50);
+  *(this + 38) = v66;
   if (a4)
   {
-    *(a4 + 2) += v74;
-    if (*(a4 + 2) > v74)
+    *(a4 + 2) += v66;
+    if (*(a4 + 2) > v66)
     {
-      LODWORD(v74) = *(a4 + 2);
+      LODWORD(v66) = *(a4 + 2);
     }
 
-    *(a4 + 2) = v74;
+    *(a4 + 2) = v66;
   }
 
   if (*(this + 356) == 1)
   {
-    FstSearchLateLattice::seedFromMiniFst(this, v105);
+    FstSearchLateLattice::seedFromMiniFst(this, v97);
   }
 
   if (a5)
   {
-    FstSearchLateLatticeHashBackoff::propagateNulls(this, v102, v6, a4);
+    FstSearchLateLatticeHashBackoff::propagateNulls(this, v94, v6, a4);
   }
 
   *(this + 56) = v6;
-  v88 = 0u;
-  v89 = 0u;
-  SnapTime::recordTime(&v88, 1, 0, 0, 0);
-  v75 = *(this + 13);
-  result = vaddq_s64(v75[6], vsubq_s64(v88, v90));
-  v77 = vaddq_s64(v75[7], vsubq_s64(v89, v91));
-  v75[6] = result;
-  v75[7] = v77;
+  v80 = 0u;
+  v81 = 0u;
+  SnapTime::recordTime(&v80, 1, 0, 0, 0);
+  v67 = *(this + 13);
+  result = vaddq_s64(v67[6], vsubq_s64(v80, v82));
+  v69 = vaddq_s64(v67[7], vsubq_s64(v81, v83));
+  v67[6] = result;
+  v67[7] = v69;
   return result;
 }
 
@@ -5410,9 +5787,9 @@ uint64_t FstSearchLateLattice::seedFromMiniFst(uint64_t this, int *a2)
   return this;
 }
 
-void sub_26264C594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26264C594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -5453,13 +5830,13 @@ double FstSearchLateLattice::doFrame(int64x2_t **this, int a2, int a3, SearchSta
   return result;
 }
 
-uint64_t FstSearchLateLattice::beginTopRecPassSyncRecog(FstSearchLateLattice *this, PelScorer *a2, const ArcGraph *a3)
+uint64_t FstSearchLateLattice::beginTopRecPassSyncRecog(PelScoreCache **this, PelScorer *a2, const ArcGraph *a3)
 {
   result = SearchItf::beginTopRecPassSyncRecogBase(this, a2);
   if (a3)
   {
-    MiniFst::init(this + 240, a3, *(this + 4));
-    result = ArcGraph::findBackoffState(*(this + 5));
+    MiniFst::init(this + 30, a3, this[4]);
+    result = ArcGraph::findBackoffState(this[5]);
     *(this + 88) = result;
     *(this + 356) = 1;
   }
@@ -5493,275 +5870,275 @@ uint64_t FstSearchLateLattice::endTopRecPassSyncRecog(int64x2_t **this)
 uint64_t FstSearchLateLattice::generateTraceTokensForLateLattice(FstSearchLateLattice *this)
 {
   v1 = this;
-  v128[1] = 0;
-  v129 = 0;
-  v130 = 0;
-  v128[0] = 0;
-  FstSearchLateLatticeHashBackoff::getTraceTimeBoundaries(this, &v129, v128);
-  v126 = 0;
-  v127 = 0;
+  v122[1] = 0;
+  v123 = 0;
   v124 = 0;
-  v125 = 0;
-  v123[0] = 0;
-  v123[1] = 0;
-  v122 = 1879048192;
-  v2 = (*(*v1 + 80))(v1, &v126, &v124, &v122, v123);
-  v9 = *(v1 + 7);
-  v10 = *(v1 + 2);
-  v119 = -1;
-  v121 = 256;
-  v120 = *(v1 + 34);
+  v122[0] = 0;
+  FstSearchLateLatticeHashBackoff::getTraceTimeBoundaries(this, &v123, v122);
+  v120 = 0;
+  v121 = 0;
+  v118 = 0;
+  v119 = 0;
+  v117[0] = 0;
+  v117[1] = 0;
+  v116 = 1879048192;
+  v2 = (*(*v1 + 80))(v1, &v120, &v118, &v116, v117);
+  v3 = *(v1 + 7);
+  v4 = *(v1 + 2);
+  v113 = -1;
+  v115 = 256;
+  v114 = *(v1 + 34);
   if (v2)
   {
-    v117 = 0;
-    v118 = 0;
-    v11 = *(v1 + 42);
-    if (v11)
+    v111 = 0;
+    v112 = 0;
+    v5 = *(v1 + 42);
+    if (v5)
     {
-      v12 = 0;
-      v102 = v10;
-      v103 = v9;
+      v6 = 0;
+      v96 = v4;
+      v97 = v3;
       while (1)
       {
         while (1)
         {
           while (1)
           {
-            --v11;
-            v13 = *(v1 + 20);
-            if (*(v126 + v11))
+            --v5;
+            v7 = *(v1 + 20);
+            if (*(v120 + v5))
             {
               break;
             }
 
-            *(v13 + 36 * v11 + 8) = -1;
-            if (!v11)
+            *(v7 + 36 * v5 + 8) = -1;
+            if (!v5)
             {
               goto LABEL_76;
             }
           }
 
-          v14 = (v13 + 36 * v11);
-          v15 = *v14;
-          v16 = *(v1 + 6);
-          if (*(v16 + 388) > v15 && *(*(v16 + 104) + v15))
+          v8 = (v7 + 36 * v5);
+          v9 = *v8;
+          v10 = *(v1 + 6);
+          if (*(v10 + 388) > v9 && *(*(v10 + 104) + v9))
           {
-            v17 = *(*(v16 + 72) + 2 * *(*(v16 + 48) + 4 * v15));
+            v11 = *(*(v10 + 72) + 2 * *(*(v10 + 48) + 4 * v9));
           }
 
           else
           {
-            v17 = 0;
+            v11 = 0;
           }
 
-          v18 = *(v1 + 11);
-          v19 = *(v18 + 4 * v14[1]);
-          v20 = *(v1 + 22);
-          v21 = (v20 + 16 * v14[2]);
-          v22 = *(v1 + 3);
-          v23 = *(v123[0] + 4 * v11);
-          HIWORD(v119) = v17;
-          v107 = v21;
-          v24 = v21[1].u32[1];
-          if ((v24 & 0x80000000) == 0)
+          v12 = *(v1 + 11);
+          v13 = *(v12 + 4 * v8[1]);
+          v14 = *(v1 + 22);
+          v15 = (v14 + 16 * v8[2]);
+          v16 = *(v1 + 3);
+          v17 = *(v117[0] + 4 * v5);
+          HIWORD(v113) = v11;
+          v101 = v15;
+          v18 = v15[1].u32[1];
+          if ((v18 & 0x80000000) == 0)
           {
             break;
           }
 
-          v14[2] = v12;
-          if (v12 == HIDWORD(v118))
+          v8[2] = v6;
+          if (v6 == HIDWORD(v112))
           {
-            DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-            v12 = v118;
+            DgnArray<DgnPrimArray<double>>::reallocElts(&v111, 1, 1);
+            v6 = v112;
           }
 
-          *(v117 + v12) = *v107->i8;
-          v12 = v118 + 1;
-          LODWORD(v118) = v118 + 1;
-          *(*(v1 + 20) + 36 * v11 + 12) = 1;
-          if (!v11)
+          *(v111 + v6) = *v101->i8;
+          v6 = v112 + 1;
+          LODWORD(v112) = v112 + 1;
+          *(*(v1 + 20) + 36 * v5 + 12) = 1;
+          if (!v5)
           {
             goto LABEL_76;
           }
         }
 
-        v25 = v13 + 36 * v24;
-        v26 = *(v25 + 4);
-        v27 = v26 ? *(v129 + 4 * (v26 - 1)) : 0;
-        v112 = v22 + v122 - v23;
-        v105 = (v20 + 16 * *(v25 + 8));
-        v106 = v19 + v107->i32[0] - *(v18 + 4 * v26) - v105->i32[0];
-        v104 = v105->i32[0] - *(v128[0] + 4 * v26);
-        v28 = v12;
-        v109 = v24;
-        if (v27 < *(v129 + 4 * v26))
+        v19 = v7 + 36 * v18;
+        v20 = *(v19 + 4);
+        v21 = v20 ? *(v123 + (v20 - 1)) : 0;
+        v106 = v16 + v116 - v17;
+        v99 = (v14 + 16 * *(v19 + 8));
+        v100 = v13 + v101->i32[0] - *(v12 + 4 * v20) - v99->i32[0];
+        v98 = v99->i32[0] - *(v122[0] + 4 * v20);
+        v22 = v6;
+        v103 = v18;
+        if (v21 < *(v123 + v20))
         {
           break;
         }
 
 LABEL_42:
-        if (v12 >= v28)
+        if (v6 >= v22)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 150, "fst/fstsrch", 2, "%s", v7, v8, &unk_26287F8B0);
-          v28 = v118;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 150, "fst/fstsrch", 2, "%s", &unk_26287F8B0);
+          v22 = v112;
         }
 
-        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTokLmhst>(v117 + 16 * v12, v28 - v12, 16);
-        v43 = v12 + 1;
-        v44 = v118;
-        if (v43 < v118)
+        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTokLmhst>(v111 + 16 * v6, v22 - v6, 16, 0);
+        v37 = v6 + 1;
+        v38 = v112;
+        if (v37 < v112)
         {
-          v45 = 16 * (v12 + 1);
-          v46 = v12;
+          v39 = 16 * (v6 + 1);
+          v40 = v6;
           do
           {
-            if (*(v117 + v45 + 8) != *(v117 + 4 * v46 + 2))
+            if (*(v111 + v39 + 8) != *(v111 + 4 * v40 + 2))
             {
-              *(v117 + ++v46) = *(v117 + v45);
-              v44 = v118;
+              *(v111 + ++v40) = *(v111 + v39);
+              v38 = v112;
             }
 
-            ++v43;
-            v45 += 16;
+            ++v37;
+            v39 += 16;
           }
 
-          while (v43 < v44);
-          LODWORD(v43) = v46 + 1;
+          while (v37 < v38);
+          LODWORD(v37) = v40 + 1;
         }
 
-        v47 = v117;
-        if (HIDWORD(v118) < v43)
+        v41 = v111;
+        if (HIDWORD(v112) < v37)
         {
-          v115 = 0;
-          HIDWORD(v118) = realloc_array(v117, &v115, 16 * v43, 16 * v44, 16 * v44, 1) >> 4;
-          v47 = v115;
-          v117 = v115;
-          v44 = v118;
+          v109 = 0;
+          HIDWORD(v112) = realloc_array(v111, &v109, 16 * v37, 16 * v38, 16 * v38, 1) >> 4;
+          v41 = v109;
+          v111 = v109;
+          v38 = v112;
         }
 
-        if (v44 < v43)
+        if (v38 < v37)
         {
-          v48 = v43 - v44;
-          v49 = &v47[16 * v44];
+          v42 = v37 - v38;
+          v43 = &v41[16 * v38];
           do
           {
-            *v49 = xmmword_26287F850;
-            v49 += 16;
-            --v48;
+            *v43 = xmmword_26287F850;
+            v43 += 16;
+            --v42;
           }
 
-          while (v48);
+          while (v42);
         }
 
-        LODWORD(v118) = v43;
-        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTok>(&v47[16 * v12], v43 - v12, 16);
-        v50 = 16 * v12;
-        v51 = *(v117 + v50) + v10;
-        if (v51 >= v112)
+        LODWORD(v112) = v37;
+        mrec_qsort_r<FstSearchLateLatticeHashBackoffcmpTok>(&v41[16 * v6], v37 - v6, 16, 0, xmmword_26287F850);
+        v44 = 16 * v6;
+        v45 = *(v111 + v44) + v4;
+        if (v45 >= v106)
         {
-          v51 = v112;
+          v45 = v106;
         }
 
-        v52 = v118;
-        v53 = *(v1 + 5) + v12;
-        if (v118 < v53)
+        v46 = v112;
+        v47 = *(v1 + 5) + v6;
+        if (v112 < v47)
         {
-          v53 = v118;
+          v47 = v112;
         }
 
-        v54 = *(v1 + 20);
-        *(v54 + 36 * v11 + 8) = v12;
-        if (v12 < v53)
+        v48 = *(v1 + 20);
+        *(v48 + 36 * v5 + 8) = v6;
+        if (v6 < v47)
         {
-          while (*(v117 + v50) <= v51)
+          while (*(v111 + v44) <= v45)
           {
-            v55 = *(v117 + v50 + 12);
-            if ((v55 & 0x80000000) == 0)
+            v49 = *(v111 + v44 + 12);
+            if ((v49 & 0x80000000) == 0)
             {
-              *(v126 + v55) = 1;
-              v56 = v55 == v109 ? 0 : v104 + v9;
-              v57 = v56 + v106 + *(v123[0] + 4 * v11);
-              if (*(v123[0] + 4 * v55) > v57)
+              *(v120 + v49) = 1;
+              v50 = v49 == v103 ? 0 : v98 + v3;
+              v51 = v50 + v100 + *(v117[0] + 4 * v5);
+              if (*(v117[0] + 4 * v49) > v51)
               {
-                *(v123[0] + 4 * v55) = v57;
+                *(v117[0] + 4 * v49) = v51;
               }
             }
 
-            ++v12;
-            v50 += 16;
-            if (v53 == v12)
+            ++v6;
+            v44 += 16;
+            if (v47 == v6)
             {
-              v12 = v53;
+              v6 = v47;
               break;
             }
           }
 
-          v54 = *(v1 + 20);
-          v52 = v118;
+          v48 = *(v1 + 20);
+          v46 = v112;
         }
 
-        *(v54 + 36 * v11 + 12) = v12 - *(v54 + 36 * v11 + 8);
-        if (HIDWORD(v118) < v12)
+        *(v48 + 36 * v5 + 12) = v6 - *(v48 + 36 * v5 + 8);
+        if (HIDWORD(v112) < v6)
         {
-          v115 = 0;
-          HIDWORD(v118) = realloc_array(v117, &v115, 16 * v12, 16 * v52, 16 * v52, 1) >> 4;
-          v117 = v115;
-          v52 = v118;
+          v109 = 0;
+          HIDWORD(v112) = realloc_array(v111, &v109, 16 * v6, 16 * v46, 16 * v46, 1) >> 4;
+          v111 = v109;
+          v46 = v112;
         }
 
-        if (v52 < v12)
+        if (v46 < v6)
         {
-          v58 = v12 - v52;
-          v59 = v117 + 16 * v52;
+          v52 = v6 - v46;
+          v53 = v111 + 16 * v46;
           do
           {
-            *v59++ = xmmword_26287F850;
-            --v58;
+            *v53++ = xmmword_26287F850;
+            --v52;
           }
 
-          while (v58);
+          while (v52);
         }
 
-        LODWORD(v118) = v12;
-        if (!v11)
+        LODWORD(v112) = v6;
+        if (!v5)
         {
 LABEL_76:
-          v60 = v117;
-          v61 = HIDWORD(v118);
-          v62 = *(v1 + 42);
+          v54 = v111;
+          v55 = HIDWORD(v112);
+          v56 = *(v1 + 42);
           goto LABEL_78;
         }
       }
 
-      v108 = v11;
-      v111 = v104 + v9;
-      v110 = v19 + v107->i32[0] - v105->i32[0];
-      v29 = 36 * v27;
+      v102 = v5;
+      v105 = v98 + v3;
+      v104 = v13 + v101->i32[0] - v99->i32[0];
+      v23 = 36 * v21;
       while (1)
       {
-        if (v24 == v27)
+        if (v18 == v21)
         {
-          v30 = 0;
+          v24 = 0;
         }
 
         else
         {
-          v30 = v111;
+          v24 = v105;
         }
 
-        v31 = *(v1 + 20);
-        v32 = (*(v1 + 22) + 16 * *(v31 + v29 + 8));
-        if ((v110 + v30 + *v32) <= v112)
+        v25 = *(v1 + 20);
+        v26 = (*(v1 + 22) + 16 * *(v25 + v23 + 8));
+        if ((v104 + v24 + *v26) <= v106)
         {
-          v33 = v1;
-          v34 = *(v31 + 36 * v108);
-          v35 = *(v31 + v29);
-          v36 = v35 != 16777209 && ArcGraph::lexToCWID(v33[5], *(v31 + v29), v3, v4, v5, v6, v7, v8) >> 25 != 126;
-          if (v34 == 16777209)
+          v27 = v1;
+          v28 = *(v25 + 36 * v102);
+          v29 = *(v25 + v23);
+          v30 = v29 != 16777209 && ArcGraph::lexToCWID(v27[5], *(v25 + v23)) >> 25 != 126;
+          if (v28 == 16777209)
           {
-            v1 = v33;
-            v24 = v109;
-            if (v36)
+            v1 = v27;
+            v18 = v103;
+            if (v30)
             {
               goto LABEL_35;
             }
@@ -5769,298 +6146,299 @@ LABEL_76:
 
           else
           {
-            v37 = v34 == 16777214 || v35 == 16777213;
-            v1 = v33;
-            v24 = v109;
-            if (!v37)
+            v31 = v28 == 16777214 || v29 == 16777213;
+            v1 = v27;
+            v18 = v103;
+            if (!v31)
             {
 LABEL_35:
-              isLexPelPhnMatch = FstSearchLateLatticeHashBackoff::isLexPelPhnMatch(v1, v27, &v119);
-              v1 = v33;
-              v24 = v109;
+              isLexPelPhnMatch = FstSearchLateLatticeHashBackoff::isLexPelPhnMatch(v1, v21, &v113);
+              v1 = v27;
+              v18 = v103;
               if (isLexPelPhnMatch)
               {
-                v39 = v118;
-                if (v118 == HIDWORD(v118))
+                v33 = v112;
+                if (v112 == HIDWORD(v112))
                 {
-                  DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-                  v39 = v118;
-                  v1 = v33;
-                  v24 = v109;
+                  DgnArray<DgnPrimArray<double>>::reallocElts(&v111, 1, 1);
+                  v33 = v112;
+                  v1 = v27;
+                  v18 = v103;
                 }
 
-                *(v117 + v39) = *v32;
-                v40 = v118;
-                LODWORD(v118) = v118 + 1;
-                v41 = (v117 + 16 * v40);
-                v41[1].i32[1] = v27;
-                *v41 = vadd_s32(vsub_s32(vadd_s32(*v107, vdup_n_s32(v30)), *v105), *v41);
-                v42 = *(*(v1 + 20) + 36 * v108);
-                if (v42 != 16777209)
+                *(v111 + v33) = *v26;
+                v34 = v112;
+                LODWORD(v112) = v112 + 1;
+                v35 = (v111 + 16 * v34);
+                v35[1].i32[1] = v21;
+                *v35 = vadd_s32(vsub_s32(vadd_s32(*v101, vdup_n_s32(v24)), *v99), *v35);
+                v36 = *(*(v1 + 20) + 36 * v102);
+                if (v36 != 16777209)
                 {
-                  v41[1].i32[0] = v42 + 2 * v41[1].i32[0] + 1;
+                  v35[1].i32[0] = v36 + 2 * v35[1].i32[0] + 1;
                 }
               }
             }
           }
         }
 
-        ++v27;
-        v29 += 36;
-        if (v27 >= *(v129 + 4 * v26))
+        ++v21;
+        v23 += 36;
+        if (v21 >= *(v123 + v20))
         {
-          v28 = v118;
-          v10 = v102;
-          v9 = v103;
-          v11 = v108;
+          v22 = v112;
+          v4 = v96;
+          v3 = v97;
+          v5 = v102;
           goto LABEL_42;
         }
       }
     }
 
-    v62 = 0;
-    v12 = 0;
-    v61 = 0;
-    v60 = 0;
+    v56 = 0;
+    v6 = 0;
+    v55 = 0;
+    v54 = 0;
 LABEL_78:
-    v63 = *(v1 + 22);
-    *(v1 + 22) = v60;
-    v117 = v63;
-    v64 = *(v1 + 47);
-    *(v1 + 46) = v12;
-    *(v1 + 47) = v61;
-    LODWORD(v118) = 0;
-    HIDWORD(v118) = v64;
-    v116 = 0;
-    v115 = 0;
-    if (v62)
+    v57 = *(v1 + 22);
+    *(v1 + 22) = v54;
+    v111 = v57;
+    v58 = *(v1 + 47);
+    *(v1 + 46) = v6;
+    *(v1 + 47) = v55;
+    LODWORD(v112) = 0;
+    HIDWORD(v112) = v58;
+    v110 = 0;
+    v109 = 0;
+    if (v56)
     {
-      v65 = MemChunkAlloc(4 * v62, 0);
-      v115 = v65;
-      v116 = v62;
+      v59 = MemChunkAlloc(4 * v56, 0);
+      v109 = v59;
+      v110 = v56;
       if (*(v1 + 42))
       {
-        v66 = 0;
-        v67 = 0;
-        v62 = 0;
+        v60 = 0;
+        v61 = 0;
+        v56 = 0;
         do
         {
-          v68 = *(v1 + 20);
-          v69 = (v68 + v66);
-          if (*(v68 + v66 + 8) == -1)
+          v62 = *(v1 + 20);
+          v63 = (v62 + v60);
+          if (*(v62 + v60 + 8) == -1)
           {
-            *(v65 + v67) = -1;
+            *(v59 + v61) = -1;
           }
 
           else
           {
-            if (v67 != v62)
+            if (v61 != v56)
             {
-              v70 = v68 + 36 * v62;
-              v71 = *v69;
-              v72 = v69[1];
-              *(v70 + 32) = *(v69 + 16);
-              *v70 = v71;
-              *(v70 + 16) = v72;
+              v64 = v62 + 36 * v56;
+              v65 = *v63;
+              v66 = v63[1];
+              *(v64 + 32) = *(v63 + 16);
+              *v64 = v65;
+              *(v64 + 16) = v66;
             }
 
-            *(v65 + v67) = v62++;
+            *(v59 + v61) = v56++;
           }
 
-          ++v67;
-          v73 = *(v1 + 42);
-          v66 += 36;
+          ++v61;
+          v67 = *(v1 + 42);
+          v60 += 36;
         }
 
-        while (v67 < v73);
-        v74 = *(v1 + 43);
-        if (v62 > v74)
+        while (v61 < v67);
+        v68 = *(v1 + 43);
+        if (v56 > v68)
         {
-          DgnArray<FstSearchLateLatticeHashBackoffTrace>::reallocElts(v1 + 160, v62 - v74, 0);
-          LODWORD(v73) = *(v1 + 42);
+          DgnArray<FstSearchLateLatticeHashBackoffTrace>::reallocElts(v1 + 160, v56 - v68, 0);
+          LODWORD(v67) = *(v1 + 42);
         }
 
-        if (v73 < v62)
+        if (v67 < v56)
         {
-          v75 = v62 - v73;
-          v76 = (*(v1 + 20) + 36 * v73 + 32);
+          v69 = v56 - v67;
+          v70 = (*(v1 + 20) + 36 * v67 + 32);
           do
           {
-            *(v76 - 2) = xmmword_26287F860;
-            *(v76 - 1) = xmmword_26287F870;
-            *v76 = -2;
-            v76 += 18;
-            --v75;
+            *(v70 - 2) = xmmword_26287F860;
+            *(v70 - 1) = xmmword_26287F870;
+            *v70 = -2;
+            v70 += 18;
+            --v69;
           }
 
-          while (v75);
+          while (v69);
         }
       }
 
       else
       {
-        v62 = 0;
+        v56 = 0;
       }
     }
 
-    *(v1 + 42) = v62;
-    v77 = *(v1 + 46);
-    if (v77)
+    *(v1 + 42) = v56;
+    v71 = *(v1 + 46);
+    if (v71)
     {
-      v78 = v115;
-      v79 = (*(v1 + 22) + 12);
+      v72 = v109;
+      v73 = (*(v1 + 22) + 12);
       do
       {
-        v80 = *v79;
-        if ((v80 & 0x80000000) == 0)
+        v74 = *v73;
+        if ((v74 & 0x80000000) == 0)
         {
-          *v79 = v78[v80];
+          *v73 = v72[v74];
         }
 
-        v79 += 4;
-        --v77;
+        v73 += 4;
+        --v71;
       }
 
-      while (v77);
+      while (v71);
     }
 
-    v81 = *(v1 + 50);
-    v113 = 0;
-    v114 = 0;
-    if (v81)
+    v75 = *(v1 + 50);
+    v107 = 0;
+    v108 = 0;
+    if (v75)
     {
-      v131[0] = 0;
-      v82 = realloc_array(0, v131, 24 * v81, 0, 0, 1) / 0x18;
-      HIDWORD(v114) = v82;
-      v83 = v131[0];
-      v113 = v131[0];
-      v84 = v131[0] + 16;
-      v85 = v81;
+      v125[0] = 0;
+      v76 = realloc_array(0, v125, 24 * v75, 0, 0, 1) / 0x18;
+      HIDWORD(v108) = v76;
+      v77 = v125[0];
+      v107 = v125[0];
+      v78 = v125[0] + 16;
+      v79 = v75;
       do
       {
-        *(v84 - 2) = 0xFFFFFFFF00000000;
-        *(v84 - 2) = -1;
-        *(v84 - 2) = -2;
-        *v84 = 0;
-        v84 += 3;
-        --v85;
+        *(v78 - 2) = 0xFFFFFFFF00000000;
+        *(v78 - 2) = -1;
+        *(v78 - 2) = -2;
+        *v78 = 0;
+        v78 += 3;
+        --v79;
       }
 
-      while (v85);
+      while (v79);
+    }
+
+    else
+    {
+      v77 = 0;
+      LODWORD(v76) = 0;
+    }
+
+    LODWORD(v108) = v75;
+    v80 = *(v1 + 50);
+    if (v80)
+    {
+      v81 = 0;
+      v82 = 0;
+      v83 = 0;
+      v84 = v109;
+      do
+      {
+        v85 = *(v1 + 38);
+        if (v83 < v85 && v82 == v85)
+        {
+          *(v1 + 38) = v83;
+        }
+
+        v87 = (*(v1 + 24) + v81);
+        v88 = *(v87 + 2);
+        if (v88 == -1 || v84[v88] != -1)
+        {
+          v89 = &v77[3 * v83];
+          v90 = *v87;
+          v89[2] = *(v87 + 2);
+          *v89 = v90;
+          v91 = *(*(v1 + 24) + v81 + 8);
+          if (v91 != -1)
+          {
+            LODWORD(v91) = v84[v91];
+          }
+
+          *(v89 + 2) = v91;
+          ++v83;
+          v80 = *(v1 + 50);
+        }
+
+        ++v82;
+        v81 += 24;
+      }
+
+      while (v82 < v80);
     }
 
     else
     {
       v83 = 0;
-      LODWORD(v82) = 0;
     }
 
-    LODWORD(v114) = v81;
-    v86 = *(v1 + 50);
-    if (v86)
+    if (v83 < *(v1 + 38))
     {
-      v87 = 0;
-      v88 = 0;
-      v89 = 0;
-      v90 = v115;
+      *(v1 + 38) = v83;
+    }
+
+    if (v76 < v83)
+    {
+      v125[0] = 0;
+      v76 = realloc_array(v77, v125, 24 * v83, 24 * v75, 24 * v75, 1) / 0x18;
+      v77 = v125[0];
+      LODWORD(v75) = v108;
+    }
+
+    if (v75 < v83)
+    {
+      v92 = v83 - v75;
+      v93 = &v77[3 * v75 + 2];
       do
       {
-        v91 = *(v1 + 38);
-        if (v89 < v91 && v88 == v91)
-        {
-          *(v1 + 38) = v89;
-        }
-
-        v93 = (*(v1 + 24) + v87);
-        v94 = *(v93 + 2);
-        if (v94 == -1 || v90[v94] != -1)
-        {
-          v95 = &v83[3 * v89];
-          v96 = *v93;
-          v95[2] = *(v93 + 2);
-          *v95 = v96;
-          v97 = *(*(v1 + 24) + v87 + 8);
-          if (v97 != -1)
-          {
-            LODWORD(v97) = v90[v97];
-          }
-
-          *(v95 + 2) = v97;
-          ++v89;
-          v86 = *(v1 + 50);
-        }
-
-        ++v88;
-        v87 += 24;
+        *(v93 - 2) = 0xFFFFFFFF00000000;
+        *(v93 - 2) = -1;
+        *(v93 - 2) = -2;
+        *v93 = 0;
+        v93 += 3;
+        --v92;
       }
 
-      while (v88 < v86);
+      while (v92);
     }
 
-    else
-    {
-      v89 = 0;
-    }
-
-    if (v89 < *(v1 + 38))
-    {
-      *(v1 + 38) = v89;
-    }
-
-    if (v82 < v89)
-    {
-      v131[0] = 0;
-      v82 = realloc_array(v83, v131, 24 * v89, 24 * v81, 24 * v81, 1) / 0x18;
-      v83 = v131[0];
-      LODWORD(v81) = v114;
-    }
-
-    if (v81 < v89)
-    {
-      v98 = v89 - v81;
-      v99 = &v83[3 * v81 + 2];
-      do
-      {
-        *(v99 - 2) = 0xFFFFFFFF00000000;
-        *(v99 - 2) = -1;
-        *(v99 - 2) = -2;
-        *v99 = 0;
-        v99 += 3;
-        --v98;
-      }
-
-      while (v98);
-    }
-
-    v100 = *(v1 + 24);
-    *(v1 + 24) = v83;
-    v113 = v100;
-    LODWORD(v100) = *(v1 + 51);
-    *(v1 + 50) = v89;
-    *(v1 + 51) = v82;
-    LODWORD(v114) = 0;
-    HIDWORD(v114) = v100;
-    DgnIArray<Utterance *>::~DgnIArray(&v113);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v115);
-    DgnIArray<Utterance *>::~DgnIArray(&v117);
+    v94 = *(v1 + 24);
+    *(v1 + 24) = v77;
+    v107 = v94;
+    LODWORD(v94) = *(v1 + 51);
+    *(v1 + 50) = v83;
+    *(v1 + 51) = v76;
+    LODWORD(v108) = 0;
+    HIDWORD(v108) = v94;
+    DgnIArray<Utterance *>::~DgnIArray(&v107);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v109);
+    DgnIArray<Utterance *>::~DgnIArray(&v111);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v123);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v124);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v126);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v128);
-  return DgnPrimFixArray<double>::~DgnPrimFixArray(&v129);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v117);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v118);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v120);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v122);
+  return DgnPrimFixArray<double>::~DgnPrimFixArray(&v123);
 }
 
-void sub_26264D19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_26264D19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a25);
   DgnIArray<Utterance *>::~DgnIArray(&a27);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a31);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v31 - 160);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v31 - 144);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v31 - 128);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v31 - 112);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v30 - 160);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v30 - 144);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v30 - 128);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v30 - 112);
   _Unwind_Resume(a1);
 }
 
@@ -6069,109 +6447,199 @@ void FstSearchLateLattice::printSize(FstSearchLateLattice *this, uint64_t a2, ui
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950);
+  if (v72)
   {
-    v16 = v117;
+    v13 = v71;
   }
 
   else
   {
-    v16 = &unk_26287F8B0;
+    v13 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v16);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v13);
+  DgnString::~DgnString(&v71);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287F8B0);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952, &v117);
-  if (v118)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287F8B0);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952);
+  if (v72)
   {
-    v27 = v117;
+    v18 = v71;
   }
 
   else
   {
-    v27 = &unk_26287F8B0;
+    v18 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v27, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954);
+  if (v72)
   {
-    v32 = v117;
+    v20 = v71;
   }
 
   else
   {
-    v32 = &unk_26287F8B0;
+    v20 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955);
+  if (v72)
   {
-    v37 = v117;
+    v22 = v71;
   }
 
   else
   {
-    v37 = &unk_26287F8B0;
+    v22 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v37, 4, 4, 0);
-  v112 = a2;
-  v113 = a6;
-  v114 = a3;
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  v66 = a2;
+  v67 = a6;
+  v68 = a3;
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956);
+  if (v72)
   {
-    v42 = v117;
+    v24 = v71;
   }
 
   else
   {
-    v42 = &unk_26287F8B0;
+    v24 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v39, v40, v41, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v42, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v24, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v43 = 16;
+  v25 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v43 = 12;
+    v25 = 12;
   }
 
-  v44 = *(this + 42);
-  v45 = 24 * v44;
-  if (v44 <= 0)
+  v26 = *(this + 42);
+  v27 = 24 * v26;
+  if (v26 <= 0)
   {
-    v45 = 0;
+    v27 = 0;
   }
 
-  v46 = v45 + v43;
-  v47 = v45 + v43 + 24 * (*(this + 43) - v44);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957, &v117);
-  if (v118)
+  v28 = v27 + v25;
+  v29 = v27 + v25 + 24 * (*(this + 43) - v26);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957);
+  if (v72)
   {
-    v52 = v117;
+    v31 = v71;
+  }
+
+  else
+  {
+    v31 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v31, v29, v28, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v29;
+  *a5 += v28;
+  v32 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v32 = 12;
+  }
+
+  v33 = *(this + 46);
+  v34 = 16 * v33;
+  if (v33 <= 0)
+  {
+    v34 = 0;
+  }
+
+  v35 = v34 + v32;
+  v36 = v34 + v32 + 16 * (*(this + 47) - v33);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959);
+  if (v72)
+  {
+    v38 = v71;
+  }
+
+  else
+  {
+    v38 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v38, v36, v35, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v36;
+  *a5 += v35;
+  v39 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v39 = 12;
+  }
+
+  v40 = *(this + 50);
+  v41 = 22 * v40;
+  if (v40 <= 0)
+  {
+    v41 = 0;
+  }
+
+  v42 = v41 + v39;
+  v43 = v41 + v39 + 22 * (*(this + 51) - v40);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964);
+  if (v72)
+  {
+    v45 = v71;
+  }
+
+  else
+  {
+    v45 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26287F8B0, v16, v16, v45, v43, v42, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v43;
+  *a5 += v42;
+  v46 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v46 = 12;
+  }
+
+  v47 = *(this + 54);
+  v48 = 22 * v47;
+  if (v47 <= 0)
+  {
+    v48 = 0;
+  }
+
+  v49 = v48 + v46;
+  v50 = v48 + v46 + 22 * (*(this + 55) - v47);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966);
+  if (v72)
+  {
+    v52 = v71;
   }
 
   else
@@ -6179,186 +6647,95 @@ void FstSearchLateLattice::printSize(FstSearchLateLattice *this, uint64_t a2, ui
     v52 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v52, v47, v46, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v47;
-  *a5 += v46;
-  v53 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v15, &unk_26287F8B0, v16, v16, v52, v50, v49, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v50;
+  *a5 += v49;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968);
+  if (v72)
   {
-    v53 = 12;
-  }
-
-  v54 = *(this + 46);
-  v55 = 16 * v54;
-  if (v54 <= 0)
-  {
-    v55 = 0;
-  }
-
-  v56 = v55 + v53;
-  v57 = v55 + v53 + 16 * (*(this + 47) - v54);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959, &v117);
-  if (v118)
-  {
-    v62 = v117;
+    v54 = v71;
   }
 
   else
   {
-    v62 = &unk_26287F8B0;
+    v54 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v62, v57, v56, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v57;
-  *a5 += v56;
-  v63 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v63 = 12;
-  }
-
-  v64 = *(this + 50);
-  v65 = 22 * v64;
-  if (v64 <= 0)
-  {
-    v65 = 0;
-  }
-
-  v66 = v65 + v63;
-  v67 = v65 + v63 + 22 * (*(this + 51) - v64);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964, &v117);
-  if (v118)
-  {
-    v72 = v117;
-  }
-
-  else
-  {
-    v72 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v69, v70, v71, v21, &unk_26287F8B0, v22, v22, v72, v67, v66, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v67;
-  *a5 += v66;
-  v73 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v73 = 12;
-  }
-
-  v74 = *(this + 54);
-  v75 = 22 * v74;
-  if (v74 <= 0)
-  {
-    v75 = 0;
-  }
-
-  v76 = v75 + v73;
-  v77 = v75 + v73 + 22 * (*(this + 55) - v74);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966, &v117);
-  if (v118)
-  {
-    v82 = v117;
-  }
-
-  else
-  {
-    v82 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, v21, &unk_26287F8B0, v22, v22, v82, v77, v76, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v77;
-  *a5 += v76;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968, &v117);
-  if (v118)
-  {
-    v87 = v117;
-  }
-
-  else
-  {
-    v87 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v83, v84, v85, v86, v21, &unk_26287F8B0, v22, v22, v87, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v15, &unk_26287F8B0, v16, v16, v54, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970);
+  if (v72)
   {
-    v92 = v117;
+    v56 = v71;
   }
 
   else
   {
-    v92 = &unk_26287F8B0;
+    v56 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v89, v90, v91, v21, &unk_26287F8B0, v22, v22, v92, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v15, &unk_26287F8B0, v16, v16, v56, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972);
+  if (v72)
   {
-    v97 = v117;
+    v58 = v71;
   }
 
   else
   {
-    v97 = &unk_26287F8B0;
+    v58 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v94, v95, v96, v21, &unk_26287F8B0, v22, v22, v97, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v15, &unk_26287F8B0, v16, v16, v58, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v98 = sizeObject(this + 240, 0);
-  v99 = sizeObject(this + 240, 1);
-  v100 = sizeObject(this + 240, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974, &v117);
-  if (v118)
+  v59 = sizeObject(this + 240, 0);
+  v60 = sizeObject(this + 240, 1);
+  v61 = sizeObject(this + 240, 3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974);
+  if (v72)
   {
-    v105 = v117;
+    v63 = v71;
   }
 
   else
   {
-    v105 = &unk_26287F8B0;
+    v63 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v21, &unk_26287F8B0, v22, v22, v105, v98, v99, v100);
-  DgnString::~DgnString(&v117);
-  *a4 += v98;
-  *a5 += v99;
-  *v113 += v100;
-  v115 = 0;
-  v116 = 0;
-  SearchItf::printSize(this, v112, v21, &v116, &v115, &v115);
-  *a4 += v116;
-  *a5 += v115;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985, &v117);
-  if (v118)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v15, &unk_26287F8B0, v16, v16, v63, v59, v60, v61);
+  DgnString::~DgnString(&v71);
+  *a4 += v59;
+  *a5 += v60;
+  *v67 += v61;
+  v69 = 0;
+  v70 = 0;
+  SearchItf::printSize(this, v66, v15, &v70, &v69, &v69);
+  *a4 += v70;
+  *a5 += v69;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985);
+  if (v72)
   {
-    v110 = v117;
+    v65 = v71;
   }
 
   else
   {
-    v110 = &unk_26287F8B0;
+    v65 = &unk_26287F8B0;
   }
 
-  v111 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v107, v108, v109, v114, &unk_26287F8B0, (35 - v114), (35 - v114), v110, *a4, *a5, *v113);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v68, &unk_26287F8B0, (35 - v68), (35 - v68), v65, *a4, *a5, *v67);
+  DgnString::~DgnString(&v71);
 }
 
-BOOL FstSearchLateLattice::findBestPath(uint64_t a1, uint64_t **a2, uint64_t a3, int *a4, uint64_t a5)
+BOOL FstSearchLateLattice::findBestPath(uint64_t a1, uint64_t **a2, uint64_t a3, int *a4, uint64_t *a5)
 {
   v10 = *(a1 + 168);
   if (v10)
@@ -6462,7 +6839,7 @@ LABEL_16:
       v25 = v16 - v22;
     }
 
-    v26 = *(a5 + 12);
+    v26 = *(a5 + 3);
     v27 = v23;
     if (v23 > v26)
     {
@@ -6470,7 +6847,7 @@ LABEL_16:
       v27 = *(a1 + 168);
     }
 
-    *(a5 + 8) = v23;
+    *(a5 + 2) = v23;
     v17 = *a4;
     if (v27)
     {
@@ -6519,7 +6896,7 @@ LABEL_16:
   return v17 != 1879048192;
 }
 
-uint64_t FstSearchLateLattice::buildWordLattice(uint64_t a1, unint64_t a2, void *a3, void *a4, char a5)
+uint64_t FstSearchLateLattice::buildWordLattice(uint64_t a1, uint64_t *a2, void *a3, void *a4, char a5)
 {
   v28 = 0;
   v29 = 0;
@@ -6561,7 +6938,7 @@ uint64_t FstSearchLateLattice::buildWordLattice(uint64_t a1, unint64_t a2, void 
             v18 = *(v27 + 4 * v17);
             if (*(*a4 + v11) == 1)
             {
-              FstSearchLateLattice::createLatticeLink(a1, v11, v15, 0xFFFFFFFFLL, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
+              FstSearchLateLattice::createLatticeLink(a1, v11, v15, 0xFFFFFFFF, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
             }
 
             v19 = v26[0] + 16 * v11;
@@ -6598,26 +6975,24 @@ uint64_t FstSearchLateLattice::buildWordLattice(uint64_t a1, unint64_t a2, void 
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v29);
 }
 
-void sub_26264DE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26264DE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va2);
   _Unwind_Resume(a1);
 }
 
-void FstSearchLateLattice::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, uint64_t a4, uint64_t a5, const WordLatticeLC *a6, unint64_t a7, uint64_t a8, char a9)
+void FstSearchLateLattice::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, unsigned int a4, int a5, const WordLatticeLC *a6, uint64_t *a7, uint64_t a8, char a9)
 {
-  v11 = a5;
-  v12 = a4;
   v16 = *(a1 + 160);
   if ((a4 & 0x80000000) != 0 || (v17 = v16 + 36 * a4, v18 = *(v17 + 12), v18 < 1))
   {
@@ -6647,7 +7022,7 @@ void FstSearchLateLattice::createLatticeLink(uint64_t a1, unsigned int a2, int *
     while (v19 < v20 && !v22);
   }
 
-  ArcGraph::lexToCWIDAC(*(a1 + 40), *(v16 + 36 * a2), a3, a4, a5, a6, a7, a8, v44);
+  ArcGraph::lexToCWIDAC(v44, *(a1 + 40), *(v16 + 36 * a2));
   v23 = a3[1];
   if (v22)
   {
@@ -6660,7 +7035,7 @@ void FstSearchLateLattice::createLatticeLink(uint64_t a1, unsigned int a2, int *
     v24 = *a3;
   }
 
-  if (v44[0] >> 25 == 126)
+  if (LODWORD(v44[0]) >> 25 == 126)
   {
     v25 = 0;
     v26 = v23;
@@ -6673,7 +7048,7 @@ void FstSearchLateLattice::createLatticeLink(uint64_t a1, unsigned int a2, int *
   }
 
   v27 = v24 - v23;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     v28 = 0;
   }
@@ -6705,9 +7080,9 @@ void FstSearchLateLattice::createLatticeLink(uint64_t a1, unsigned int a2, int *
 LABEL_27:
     v33 = *(v30 + 36 * a2 + 4);
     v34 = v33 - v32 + 1;
-    if ((v12 & 0x80000000) == 0)
+    if ((a4 & 0x80000000) == 0)
     {
-      v35 = *(v30 + 36 * v12 + 4);
+      v35 = *(v30 + 36 * a4 + 4);
       goto LABEL_29;
     }
 
@@ -6725,23 +7100,23 @@ LABEL_30:
 LABEL_24:
   v33 = (*(v30 + 36 * a2 + 4) - 1) / 2;
   v34 = v33 - v32 + 1;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     goto LABEL_30;
   }
 
-  v35 = (*(v30 + 36 * v12 + 4) - 1) / 2;
+  v35 = (*(v30 + 36 * a4 + 4) - 1) / 2;
 LABEL_29:
   v36 = v35 - v33;
 LABEL_31:
   WordLatticeLC::WordLatticeLC(v37, v44, v32, v34, v36, &v38);
-  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, v11, a6, v37);
+  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, a5, a6, v37);
   WordLatticeLC::~WordLatticeLC(v37);
 }
 
-void sub_26264E0E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26264E0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WordLatticeLC::~WordLatticeLC(va);
   _Unwind_Resume(a1);
 }
@@ -6897,7 +7272,7 @@ uint64_t FstSearchLateLattice::getBestScoreMaybeUpdateFstNode(FstSearchLateLatti
   return v6;
 }
 
-uint64_t FstSearchLateLattice::seedTheory(FstSearchLateLattice *this, int a2, int a3, int a4, SearchStats *a5)
+unint64_t FstSearchLateLattice::seedTheory(FstSearchLateLattice *this, int a2, int a3, int a4, SearchStats *a5)
 {
   if (a4 == -2)
   {
@@ -6946,138 +7321,141 @@ uint64_t FstSearchLateLattice::seedTheory(FstSearchLateLattice *this, int a2, in
   return FstSearchLateLatticeHashBackoff::propagateNulls(this, 20000, a3, a5);
 }
 
-uint64_t FstSearchLateLattice::expandEmbFstHistory(uint64_t result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *FstSearchLateLattice::expandEmbFstHistory(uint64_t *result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
-  v8 = *(result + 228);
-  if (v8 != -1)
+  v6 = *(result + 57);
+  if (v6 != -1)
   {
-    v9 = result;
-    v10 = (*(result + 160) + 36 * v8);
-    for (i = v10[5]; i != -1; v8 = v16)
+    v7 = result;
+    v8 = (result[20] + 36 * v6);
+    for (i = v8[5]; i != -1; v6 = v14)
     {
-      v16 = i;
-      result = *(v9 + 40);
-      if (*v10 == 16777209)
+      v14 = i;
+      result = v7[5];
+      if (*v8 == 16777209)
       {
-        v17 = (*(result + 174) << 25) | 0xFFFFF9;
+        v15 = (*(result + 87) << 25) | 0xFFFFF9;
       }
 
       else
       {
-        result = ArcGraph::lexToCWID(result, *v10, a3, a4, a5, a6, a7, a8);
-        v17 = result;
+        result = ArcGraph::lexToCWID(result, *v8);
+        v15 = result;
       }
 
-      v18 = *(a2 + 8);
-      if (v18 == *(a2 + 12))
+      v16 = *(a2 + 8);
+      if (v16 == *(a2 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a2, 1, 1);
-        v18 = *(a2 + 8);
+        v16 = *(a2 + 8);
       }
 
-      *(*a2 + 4 * v18) = v17;
+      *(*a2 + 4 * v16) = v15;
       ++*(a2 + 8);
-      v19 = *(a6 + 8);
-      if (v19 == *(a6 + 12))
+      v17 = *(a6 + 8);
+      if (v17 == *(a6 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-        v19 = *(a6 + 8);
+        v17 = *(a6 + 8);
       }
 
-      *(*a6 + 4 * v19) = v8;
+      *(*a6 + 4 * v17) = v6;
       ++*(a6 + 8);
-      v20 = *(v9 + 160);
-      v21 = *(v20 + 36 * v8 + 4);
-      v22 = *(a3 + 8);
-      if (v22 == *(a3 + 12))
+      v18 = v7[20];
+      v19 = *(v18 + 36 * v6 + 4);
+      v20 = *(a3 + 8);
+      if (v20 == *(a3 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-        v22 = *(a3 + 8);
-        v20 = *(v9 + 160);
+        v20 = *(a3 + 8);
+        v18 = v7[20];
       }
 
-      *(*a3 + 4 * v22) = v21;
+      *(*a3 + 4 * v20) = v19;
       ++*(a3 + 8);
-      v23 = *(v20 + 36 * v8 + 16);
-      v24 = *(a5 + 8);
-      if (v24 == *(a5 + 12))
+      v21 = *(v18 + 36 * v6 + 16);
+      v22 = *(a5 + 8);
+      if (v22 == *(a5 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-        v24 = *(a5 + 8);
+        v22 = *(a5 + 8);
       }
 
-      *(*a5 + 4 * v24) = v23;
+      *(*a5 + 4 * v22) = v21;
       ++*(a5 + 8);
-      v10 = (*(v9 + 160) + 36 * v16);
-      i = v10[5];
+      v8 = (v7[20] + 36 * v14);
+      i = v8[5];
     }
 
-    *a4 = *v10;
+    *a4 = *v8;
   }
 
   return result;
 }
 
-void FstSearchLateLattice::checkSearchParametersValidityForArcGraph(FstSearchLateLattice *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double FstSearchLateLattice::checkSearchParametersValidityForArcGraph(uint64_t this, int a2, int a3)
 {
-  v8 = *(this + 5);
-  if (*(v8 + 178) == 1)
+  v3 = *(this + 40);
+  if (*(v3 + 178) == 1)
   {
-    v9 = a3;
-    ArcGraph::ensureHeaderValid(*(this + 5), "Header", a3, a4, a5, a6, a7, a8);
-    if (*(v8 + 202) == 1 && *(v8 + 188) != *(this + 35))
+    result = ArcGraph::ensureHeaderValid(*(this + 40), "Header");
+    if (*(v3 + 202) == 1)
     {
-      v16 = *(v8 + 188);
-      v19 = *(this + 35);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchInterWordSilencePenalty");
+      v8 = *(this + 140);
+      if (*(v3 + 188) != v8)
+      {
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchInterWordSilencePenalty", *(v3 + 188), v8);
+      }
     }
 
-    if (*(v8 + 192) != *(this + 34))
+    v9 = *(this + 136);
+    if (*(v3 + 192) != v9)
     {
-      v17 = *(v8 + 192);
-      v20 = *(this + 34);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchPerWordPenalty");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "SearchPerWordPenalty", *(v3 + 192), v9);
     }
 
-    if (*(v8 + 196) != *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608))
+    v10 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 40) + 174)) + 608);
+    if (*(v3 + 196) != v10)
     {
-      v18 = *(v8 + 196);
-      v21 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "Voc");
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "Voc", *(v3 + 196), v10);
     }
 
-    v14 = *(v8 + 203);
-    if (v9)
+    v11 = *(v3 + 203);
+    if (a3)
     {
       if (a2)
       {
-        if ((*(v8 + 203) & 1) == 0)
+        if ((v11 & 1) == 0)
         {
-          return;
+          return result;
         }
+
+        v12 = 1;
       }
 
-      else if (*(v8 + 203))
+      else
       {
-        return;
+        if (v11)
+        {
+          return result;
+        }
+
+        v12 = 0;
       }
 
-      v23 = *(v8 + 203);
-      v15 = "DropAlternateFrames";
-      goto LABEL_18;
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "DropAlternateFrames", v12, v11);
     }
 
-    if (a2 & 1) != 0 || (*(v8 + 203))
+    else if (a2 & 1) != 0 || (v11)
     {
-      v22 = *(v8 + 203);
-      v15 = "NoDecimation";
-LABEL_18:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, v15);
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", "NoDecimation", a2, v11);
     }
   }
+
+  return result;
 }
 
-uint64_t FstSearchLateLattice::makePartialResult(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t FstSearchLateLattice::makePartialResult(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
   v8 = *(a2 + 8);
   if (v8 >= 1)
@@ -7099,62 +7477,62 @@ uint64_t FstSearchLateLattice::makePartialResult(uint64_t a1, uint64_t a2, uint6
     return 1879048192;
   }
 
-  v15 = BestTrace;
-  FstSearchLateLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4, v11, v12, v13, v14);
-  memset(v25, 0, sizeof(v25));
-  v26 = 0;
+  v11 = BestTrace;
+  FstSearchLateLatticeHashBackoff::getHistory(a1, BestTrace, a3, a4);
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
   if (*(a3 + 8))
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
     do
     {
-      v19 = *a3 + v16;
-      v20 = *(v19 + 28);
-      WordLatticeLC::WordLatticeLC(v24, v19, v18, *(v19 + 24) - v18, v20 - *(v19 + 24), v25);
-      v21 = *(a2 + 8);
-      if (v21 == *(a2 + 12))
+      v15 = *a3 + v12;
+      v16 = *(v15 + 28);
+      WordLatticeLC::WordLatticeLC(v20, v15, v14, *(v15 + 24) - v14, v16 - *(v15 + 24), v21);
+      v17 = *(a2 + 8);
+      if (v17 == *(a2 + 12))
       {
         DgnArray<WordLatticeLC>::reallocElts(a2, 1, 1);
-        LODWORD(v21) = *(a2 + 8);
+        LODWORD(v17) = *(a2 + 8);
       }
 
-      WordLatticeLC::WordLatticeLC((*a2 + 112 * v21), v24);
+      WordLatticeLC::WordLatticeLC((*a2 + 112 * v17), v20);
       ++*(a2 + 8);
-      WordLatticeLC::~WordLatticeLC(v24);
-      ++v17;
-      v16 += 32;
-      v18 = v20;
+      WordLatticeLC::~WordLatticeLC(v20);
+      ++v13;
+      v12 += 32;
+      v14 = v16;
     }
 
-    while (v17 < *(a3 + 8));
+    while (v13 < *(a3 + 8));
   }
 
-  v22 = *(a1 + 160) + 36 * v15;
-  return (*(v22 + 16) + *(*(a1 + 88) + 4 * *(v22 + 4)));
+  v18 = a1[20] + 36 * v11;
+  return (*(v18 + 16) + *(a1[11] + 4 * *(v18 + 4)));
 }
 
 int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, int a2, int a3, SearchStats *a4, int a5)
 {
-  v125[0] = a2;
-  v123 = 0u;
-  v124 = 0u;
-  SnapTime::recordTime(&v123, 1, 0, 0, 0);
+  v117[0] = a2;
+  v115 = 0u;
+  v116 = 0u;
+  SnapTime::recordTime(&v115, 1, 0, 0, 0);
   *(this + 58) = a3;
-  v104 = *(this + 2);
-  v102 = (this + 232);
+  v96 = *(this + 2);
+  v94 = (this + 232);
   v7 = *(this + 50);
   if (v7)
   {
     v8 = 0;
-    v103 = 0;
+    v95 = 0;
     v9 = *(this + 2);
     do
     {
       v10 = v8;
-      v97 = 24 * v8;
-      v11 = *(this + 24) + v97;
+      v89 = 24 * v8;
+      v11 = *(this + 24) + v89;
       v12 = *(v11 + 4);
       if (v7 <= v8 + 1)
       {
@@ -7166,7 +7544,7 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
         v8 = v7;
       }
 
-      v98 = v8 - 1;
+      v90 = v8 - 1;
       v13 = (v11 + 28);
       v14 = 1;
       while (v10 + v14 < v7)
@@ -7176,7 +7554,7 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
         ++v14;
         if (v15 != v12)
         {
-          v98 = v10 + v14 - 2;
+          v90 = v10 + v14 - 2;
           v8 = v10 + v14 - 1;
           break;
         }
@@ -7185,13 +7563,13 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
       v16 = *(this + 5);
       if (*(v16 + 160) != v12)
       {
-        v17 = v98;
-        v18 = *(v16 + 140) <= v12 || v10 > v98;
-        v100 = v10;
+        v17 = v90;
+        v18 = *(v16 + 140) <= v12 || v10 > v90;
+        v92 = v10;
         if (!v18)
         {
           v19 = 0;
-          v20 = v98 - v10 + 1;
+          v20 = v90 - v10 + 1;
           do
           {
             if (*(this + 19) + *(this + 58) >= 5000)
@@ -7204,17 +7582,17 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
               v21 = *(this + 19) + *(this + 58);
             }
 
-            ScoreAllowBackoff_updateNodeInSequence = PelScoreCache::getScoreAllowBackoff_updateNodeInSequence(*(this + 4), *(*(this + 24) + v97 + v19 + 12), *(*(this + 24) + v97 + v19), v21);
+            ScoreAllowBackoff_updateNodeInSequence = PelScoreCache::getScoreAllowBackoff_updateNodeInSequence(*(this + 4), *(*(this + 24) + v89 + v19 + 12), *(*(this + 24) + v89 + v19), v21);
             v23 = *(this + 58);
             if (ScoreAllowBackoff_updateNodeInSequence - v9 <= v23)
             {
               v24 = ScoreAllowBackoff_updateNodeInSequence;
               if (v23 > ScoreAllowBackoff_updateNodeInSequence)
               {
-                *v102 = ScoreAllowBackoff_updateNodeInSequence;
+                *v94 = ScoreAllowBackoff_updateNodeInSequence;
               }
 
-              v25 = *(this + 24) + v97 + v19;
+              v25 = *(this + 24) + v89 + v19;
               v26 = *(v25 + 4);
               v27 = *(v25 + 12);
               v28 = *(v25 + 14);
@@ -7236,19 +7614,19 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
               *(this + 54) = v32;
               if (!v19)
               {
-                v33 = v103;
-                if (HIDWORD(v103) == 2 * *(this + 4))
+                v33 = v95;
+                if (HIDWORD(v95) == 2 * *(this + 4))
                 {
                   v33 = v32;
                 }
 
-                v103 = __PAIR64__(HIDWORD(v103), v33) + 0x100000000;
+                v95 = __PAIR64__(HIDWORD(v95), v33) + 0x100000000;
               }
 
-              v10 = v100;
+              v10 = v92;
             }
 
-            v17 = v98;
+            v17 = v90;
             v19 += 24;
             --v20;
           }
@@ -7258,36 +7636,36 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
 
         v34 = v17 - v10 + 1;
         v35 = v12;
-        v96 = v8;
-        v99 = v12;
+        v88 = v8;
+        v91 = v12;
         do
         {
           v36 = *(this + 5);
           v37 = *(v36 + 152);
           v38 = *(v37 + 4 * v35);
           v39 = *(v36 + 140);
-          v107 = *(v37 + 4 * (v35 + 1));
-          v101 = v35;
-          if (v39 <= v107)
+          v99 = *(v37 + 4 * (v35 + 1));
+          v93 = v35;
+          if (v39 <= v99)
           {
             if (*(this + 356) == 1 && v39 <= v12)
             {
               v46 = (v38 & 0xFFFFF) <= 0xFFFF3 ? v38 & 0xFFFFF : v38 & 0xFFFFF | 0xF00000;
               if (v46 != 16777210)
               {
-                DgnString::DgnString(&v120);
-                ArcGraph::getNameAndHumanReadablePron(*(this + 5), v46, &v120, v47, v48, v49, v50, v51);
-                v57 = &unk_26287F8B0;
-                if (v120.i32[2])
+                DgnString::DgnString(&v112);
+                ArcGraph::getNameAndHumanReadablePron(*(this + 5), v46, &v112);
+                v49 = &unk_26287F8B0;
+                if (v112.i32[2])
                 {
-                  v57 = v120.i64[0];
+                  v49 = v112.i64[0];
                 }
 
-                v56 = (*(this + 24) + 24 * v10);
-                xprintf("Seed from state %d score %d trace %d, %s\n", v52, v53, v54, v55, v99, *v56, v56[2], v57);
-                v58 = (*(this + 24) + 24 * v10);
-                MiniFst::seed(this + 240, *v58, v58[5], v58[2], v107);
-                DgnString::~DgnString(&v120);
+                v48 = (*(this + 24) + 24 * v10);
+                xprintf("Seed from state %d score %d trace %d, %s\n", v47, v91, *v48, v48[2], v49);
+                v50 = (*(this + 24) + 24 * v10);
+                MiniFst::seed(this + 240, *v50, v50[5], v50[2], v99);
+                DgnString::~DgnString(&v112);
               }
             }
           }
@@ -7307,83 +7685,83 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
 
             v42 = v38;
             v43 = 24 * v10;
-            v105 = v40;
-            v106 = v42;
+            v97 = v40;
+            v98 = v42;
             v44 = PelScoreCache::getScoreAllowBackoff_updateNodeInSequence(*(this + 4), v42, *(*(this + 24) + 24 * v10) + v40, v41);
-            if (v10 <= v98)
+            if (v10 <= v90)
             {
-              v59 = 0;
-              v60 = v44 - *(*(this + 24) + v43);
-              v61 = v97;
-              v38 = v106;
+              v51 = 0;
+              v52 = v44 - *(*(this + 24) + v43);
+              v53 = v89;
+              v38 = v98;
               do
               {
-                v62 = *(this + 24);
-                v63 = *(v62 + v61) + v60;
-                v64 = *(this + 58);
-                if (v63 - v9 <= v64)
+                v54 = *(this + 24);
+                v55 = *(v54 + v53) + v52;
+                v56 = *(this + 58);
+                if (v55 - v9 <= v56)
                 {
-                  v65 = v34;
-                  if (v64 > v63)
+                  v57 = v34;
+                  if (v56 > v55)
                   {
-                    *v102 = v63;
+                    *v94 = v55;
                   }
 
-                  v66 = v62 + v61;
-                  v67 = *(v66 + 8);
-                  v68 = *(v66 + 14);
-                  v69 = *(v66 + 16);
-                  v70 = *(v66 + 20);
-                  v71 = *(this + 54);
-                  if (v71 == *(this + 55))
+                  v58 = v54 + v53;
+                  v59 = *(v58 + 8);
+                  v60 = *(v58 + 14);
+                  v61 = *(v58 + 16);
+                  v62 = *(v58 + 20);
+                  v63 = *(this + 54);
+                  if (v63 == *(this + 55))
                   {
                     DgnArray<CWIDAC>::reallocElts(this + 208, 1, 1);
-                    LODWORD(v71) = *(this + 54);
+                    LODWORD(v63) = *(this + 54);
                   }
 
-                  v72 = *(this + 26) + 24 * v71;
-                  *v72 = v63;
-                  *(v72 + 4) = v107;
-                  *(v72 + 8) = v67;
-                  v38 = v106;
-                  *(v72 + 12) = v106;
-                  *(v72 + 14) = v68;
-                  *(v72 + 16) = v69 + v105;
-                  *(v72 + 20) = v70;
-                  v73 = *(this + 54) + 1;
-                  *(this + 54) = v73;
-                  if (!v59)
+                  v64 = *(this + 26) + 24 * v63;
+                  *v64 = v55;
+                  *(v64 + 4) = v99;
+                  *(v64 + 8) = v59;
+                  v38 = v98;
+                  *(v64 + 12) = v98;
+                  *(v64 + 14) = v60;
+                  *(v64 + 16) = v61 + v97;
+                  *(v64 + 20) = v62;
+                  v65 = *(this + 54) + 1;
+                  *(this + 54) = v65;
+                  if (!v51)
                   {
-                    v74 = v103;
-                    if (HIDWORD(v103) == 2 * *(this + 4))
+                    v66 = v95;
+                    if (HIDWORD(v95) == 2 * *(this + 4))
                     {
-                      v74 = v73;
+                      v66 = v65;
                     }
 
-                    v103 = __PAIR64__(HIDWORD(v103), v74) + 0x100000000;
+                    v95 = __PAIR64__(HIDWORD(v95), v66) + 0x100000000;
                   }
 
-                  v9 = v104;
-                  v34 = v65;
+                  v9 = v96;
+                  v34 = v57;
                 }
 
-                ++v59;
-                v61 += 24;
+                ++v51;
+                v53 += 24;
               }
 
-              while (v34 != v59);
+              while (v34 != v51);
             }
 
             else
             {
-              v38 = v106;
+              v38 = v98;
             }
           }
 
-          v35 = v101 + 2;
-          v8 = v96;
-          LODWORD(v12) = v99;
-          v10 = v100;
+          v35 = v93 + 2;
+          v8 = v88;
+          LODWORD(v12) = v91;
+          v10 = v92;
         }
 
         while ((v38 & 0x80000000) == 0);
@@ -7392,121 +7770,121 @@ int64x2_t FstSearchLatticeBackoff::advanceDeltas(FstSearchLatticeBackoff *this, 
     }
 
     while (v8 < v7);
-    a3 = *v102;
+    a3 = *v94;
   }
 
   else
   {
-    v103 = 0;
+    v95 = 0;
   }
 
-  v122 = a3 + v104;
+  v114 = a3 + v96;
   if (*(this + 356) == 1)
   {
-    MiniFst::updateFrame(this + 240, v102, v104, a2);
-  }
-
-  v120 = 0u;
-  v121 = 0u;
-  SnapTime::recordTime(&v120, 1, 0, 0, 0);
-  v120 = vsubq_s64(v120, v123);
-  v121 = vsubq_s64(v121, v124);
-  v75 = *(this + 13);
-  v76 = vaddq_s64(v75[1], v121);
-  *v75 = vaddq_s64(*v75, v120);
-  v75[1] = v76;
-  v118 = 0u;
-  v119 = 0u;
-  SnapTime::recordTime(&v118, 1, 0, 0, 0);
-  if (HIDWORD(v103) > 2 * *(this + 4))
-  {
-    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v103, &v122);
-  }
-
-  v116 = 0u;
-  v117 = 0u;
-  SnapTime::recordTime(&v116, 1, 0, 0, 0);
-  v77 = vsubq_s64(v116, v118);
-  v78 = *(this + 13);
-  v79 = v78[3];
-  v80 = vaddq_s64(v78[2], v77);
-  v116 = v77;
-  v117 = vsubq_s64(v117, v119);
-  v81 = vaddq_s64(v79, v117);
-  v78[2] = v80;
-  v78[3] = v81;
-  v114 = 0u;
-  v115 = 0u;
-  SnapTime::recordTime(&v114, 1, 0, 0, 0);
-  FstSearchLatticeBackoff::makeViterbiDecisionOnEmitting(this);
-  v82 = *(this + 6);
-  if (v82)
-  {
-    v83 = *(this + 50);
-    if (v82 < v83)
-    {
-      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v82, v83);
-    }
+    MiniFst::updateFrame(this + 240, v94, v96, a2);
   }
 
   v112 = 0u;
   v113 = 0u;
   SnapTime::recordTime(&v112, 1, 0, 0, 0);
-  v84 = vsubq_s64(v112, v114);
-  v85 = *(this + 13);
-  v86 = v85[5];
-  v87 = vaddq_s64(v85[4], v84);
-  v112 = v84;
-  v113 = vsubq_s64(v113, v115);
-  v88 = vaddq_s64(v86, v113);
-  v85[4] = v87;
-  v85[5] = v88;
+  v112 = vsubq_s64(v112, v115);
+  v113 = vsubq_s64(v113, v116);
+  v67 = *(this + 13);
+  v68 = vaddq_s64(v67[1], v113);
+  *v67 = vaddq_s64(*v67, v112);
+  v67[1] = v68;
   v110 = 0u;
   v111 = 0u;
   SnapTime::recordTime(&v110, 1, 0, 0, 0);
+  if (HIDWORD(v95) > 2 * *(this + 4))
+  {
+    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v95, &v114);
+  }
+
+  v108 = 0u;
+  v109 = 0u;
+  SnapTime::recordTime(&v108, 1, 0, 0, 0);
+  v69 = vsubq_s64(v108, v110);
+  v70 = *(this + 13);
+  v71 = v70[3];
+  v72 = vaddq_s64(v70[2], v69);
+  v108 = v69;
+  v109 = vsubq_s64(v109, v111);
+  v73 = vaddq_s64(v71, v109);
+  v70[2] = v72;
+  v70[3] = v73;
+  v106 = 0u;
+  v107 = 0u;
+  SnapTime::recordTime(&v106, 1, 0, 0, 0);
+  FstSearchLatticeBackoff::makeViterbiDecisionOnEmitting(this);
+  v74 = *(this + 6);
+  if (v74)
+  {
+    v75 = *(this + 50);
+    if (v74 < v75)
+    {
+      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v74, v75);
+    }
+  }
+
+  v104 = 0u;
+  v105 = 0u;
+  SnapTime::recordTime(&v104, 1, 0, 0, 0);
+  v76 = vsubq_s64(v104, v106);
+  v77 = *(this + 13);
+  v78 = v77[5];
+  v79 = vaddq_s64(v77[4], v76);
+  v104 = v76;
+  v105 = vsubq_s64(v105, v107);
+  v80 = vaddq_s64(v78, v105);
+  v77[4] = v79;
+  v77[5] = v80;
+  v102 = 0u;
+  v103 = 0u;
+  SnapTime::recordTime(&v102, 1, 0, 0, 0);
   *(this + 54) = 0;
-  v89 = *(this + 50);
-  *(this + 38) = v89;
+  v81 = *(this + 50);
+  *(this + 38) = v81;
   if (a4)
   {
-    *(a4 + 2) += v89;
-    if (*(a4 + 2) > v89)
+    *(a4 + 2) += v81;
+    if (*(a4 + 2) > v81)
     {
-      LODWORD(v89) = *(a4 + 2);
+      LODWORD(v81) = *(a4 + 2);
     }
 
-    *(a4 + 2) = v89;
+    *(a4 + 2) = v81;
   }
 
   if (*(this + 356) == 1)
   {
-    FstSearchLatticeBackoff::seedFromMiniFst(this, v125);
+    FstSearchLatticeBackoff::seedFromMiniFst(this, v117);
   }
 
   if (a5)
   {
-    FstSearchLatticeBackoff::propagateNulls(this, v122, a2, a4);
+    FstSearchLatticeBackoff::propagateNulls(this, v114, a2, a4);
   }
 
   *(this + 56) = a2;
-  v108 = 0u;
-  v109 = 0u;
-  SnapTime::recordTime(&v108, 1, 0, 0, 0);
-  v90 = *(this + 13);
-  result = vaddq_s64(v90[6], vsubq_s64(v108, v110));
-  v92 = vaddq_s64(v90[7], vsubq_s64(v109, v111));
-  v90[6] = result;
-  v90[7] = v92;
+  v100 = 0u;
+  v101 = 0u;
+  SnapTime::recordTime(&v100, 1, 0, 0, 0);
+  v82 = *(this + 13);
+  result = vaddq_s64(v82[6], vsubq_s64(v100, v102));
+  v84 = vaddq_s64(v82[7], vsubq_s64(v101, v103));
+  v82[6] = result;
+  v82[7] = v84;
   return result;
 }
 
-uint64_t FstSearchLatticeBackoff::makeViterbiDecisionOnEmitting(uint64_t this)
+char **FstSearchLatticeBackoff::makeViterbiDecisionOnEmitting(char **this)
 {
   v1 = this;
-  v2 = *(this + 216);
+  v2 = *(this + 54);
   if (v2)
   {
-    this = mrec_qsort_r<FstSearchLateLatticeHashBackoffActiveToken>(*(this + 208), v2, 24);
+    this = mrec_qsort_r<FstSearchLateLatticeHashBackoffActiveToken>(this[26], v2, 24, 0);
     v3 = *(v1 + 216);
     *(v1 + 200) = 0;
     if (v3)
@@ -7576,7 +7954,7 @@ LABEL_16:
 
   else
   {
-    *(this + 200) = 0;
+    *(this + 50) = 0;
   }
 
   return this;
@@ -7757,9 +8135,9 @@ uint64_t FstSearchLatticeBackoff::seedFromMiniFst(uint64_t this, int *a2)
   return this;
 }
 
-void sub_26264F510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26264F510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -7777,7 +8155,7 @@ _DWORD *FstSearchLatticeBackoff::propagateNulls(_DWORD *this, int a2, int a3, Se
     v8 = 0;
     do
     {
-      v9 = *(v4 + 192);
+      v9 = *(v4 + 24);
       v10 = v8;
       v11 = *(v9 + 24 * v8 + 4);
       v67 = v8;
@@ -7801,7 +8179,7 @@ _DWORD *FstSearchLatticeBackoff::propagateNulls(_DWORD *this, int a2, int a3, Se
 
       v8 = v12;
 LABEL_10:
-      v13 = *(v4 + 40);
+      v13 = *(v4 + 5);
       if (*(v13 + 160) != v11 && (*(v13 + 140) <= v11 || (*(*(v13 + 152) + 4 * v11) & 0x40000000) != 0))
       {
         v64 = 24 * v10;
@@ -7810,7 +8188,7 @@ LABEL_10:
         v76 = v8 - v67;
         do
         {
-          v14 = *(v4 + 40);
+          v14 = *(v4 + 5);
           v15 = *(v14 + 152);
           v70 = v11;
           v73 = *(v15 + 4 * v11);
@@ -7829,7 +8207,7 @@ LABEL_10:
               v74 = v17;
               do
               {
-                v23 = *(v4 + 192);
+                v23 = *(v4 + 24);
                 v24 = *(v23 + v22);
                 v25 = v24 + v21;
                 if (v24 + v21 > v7)
@@ -7845,16 +8223,16 @@ LABEL_10:
                 v31 = v29 + v21;
                 if (v17 == 16777210)
                 {
-                  v39 = *(v4 + 200);
-                  if (v39 == *(v4 + 204))
+                  v39 = v4[50];
+                  if (v39 == v4[51])
                   {
                     v40 = *(v23 + v22 + 14);
-                    this = DgnArray<CWIDAC>::reallocElts(v4 + 192, 1, 1);
+                    this = DgnArray<CWIDAC>::reallocElts((v4 + 48), 1, 1);
                     v28 = v40;
                     v21 = (v73 >> 20) & 0x3FF;
                     v17 = v74;
-                    LODWORD(v39) = *(v4 + 200);
-                    v23 = *(v4 + 192);
+                    LODWORD(v39) = v4[50];
+                    v23 = *(v4 + 24);
                   }
 
                   v41 = v23 + 24 * v39;
@@ -7865,7 +8243,7 @@ LABEL_10:
                   *(v41 + 14) = v28;
                   *(v41 + 16) = v31;
                   *(v41 + 20) = v30;
-                  ++*(v4 + 200);
+                  ++v4[50];
                 }
 
                 else
@@ -7892,56 +8270,56 @@ LABEL_10:
                   }
 
                   v72 = v33;
-                  v34 = *(v4 + 184);
-                  if (v34 == *(v4 + 188))
+                  v34 = v4[46];
+                  if (v34 == v4[47])
                   {
                     v35 = v28;
-                    this = DgnArray<DgnPrimArray<double>>::reallocElts(v4 + 176, 1, 1);
+                    this = DgnArray<DgnPrimArray<double>>::reallocElts((v4 + 44), 1, 1);
                     v28 = v35;
                     v21 = (v73 >> 20) & 0x3FF;
                     v17 = v74;
-                    v34 = *(v4 + 184);
+                    v34 = v4[46];
                   }
 
                   v36 = v71 + 2 * v30;
-                  v37 = (*(v4 + 176) + 16 * v34);
-                  *(v4 + 184) = v34 + 1;
+                  v37 = (*(v4 + 22) + 16 * v34);
+                  v4[46] = v34 + 1;
                   *v37 = v25;
                   v37[1] = v32;
                   v37[2] = v36;
                   v37[3] = v26;
-                  v38 = *(v4 + 168);
+                  v38 = v4[42];
                   if (!v20)
                   {
-                    if (v38 == *(v4 + 172))
+                    if (v38 == v4[43])
                     {
                       v42 = v28;
-                      this = DgnArray<DgnPrimArray<double>>::reallocElts(v4 + 160, 1, 1);
+                      this = DgnArray<DgnPrimArray<double>>::reallocElts((v4 + 40), 1, 1);
                       v28 = v42;
                       v21 = (v73 >> 20) & 0x3FF;
                       v17 = v74;
-                      v38 = *(v4 + 168);
+                      v38 = v4[42];
                     }
 
-                    v43 = (*(v4 + 160) + 16 * v38);
+                    v43 = (*(v4 + 20) + 16 * v38);
                     *v43 = v17;
                     v43[1] = a3;
                     v43[2] = v34;
                     v43[3] = 0;
-                    v44 = *(v4 + 168);
-                    *(v4 + 168) = v44 + 1;
-                    v45 = *(v4 + 200);
-                    if (v45 == *(v4 + 204))
+                    v44 = v4[42];
+                    v4[42] = v44 + 1;
+                    v45 = v4[50];
+                    if (v45 == v4[51])
                     {
                       v46 = v28;
-                      this = DgnArray<CWIDAC>::reallocElts(v4 + 192, 1, 1);
+                      this = DgnArray<CWIDAC>::reallocElts((v4 + 48), 1, 1);
                       v28 = v46;
                       v21 = (v73 >> 20) & 0x3FF;
                       v17 = v74;
-                      LODWORD(v45) = *(v4 + 200);
+                      LODWORD(v45) = v4[50];
                     }
 
-                    v47 = *(v4 + 192) + 24 * v45;
+                    v47 = *(v4 + 24) + 24 * v45;
                     *v47 = v25 + v72;
                     *(v47 + 4) = v75;
                     *(v47 + 8) = v44;
@@ -7949,11 +8327,11 @@ LABEL_10:
                     *(v47 + 14) = v28;
                     *(v47 + 16) = v31;
                     *(v47 + 20) = v36;
-                    ++*(v4 + 200);
-                    v38 = *(v4 + 168);
+                    ++v4[50];
+                    v38 = v4[42];
                   }
 
-                  v48 = *(v4 + 160) + 16 * (v38 - 1);
+                  v48 = *(v4 + 20) + 16 * (v38 - 1);
                   ++*(v48 + 12);
                   v7 = a2;
                 }
@@ -7970,18 +8348,18 @@ LABEL_10:
         }
 
         while ((v73 & 0x80000000) == 0);
-        LODWORD(v6) = *(v4 + 200);
+        LODWORD(v6) = v4[50];
         v8 = v66;
       }
     }
 
     while (v8 < v6);
-    v49 = *(v4 + 152);
+    v49 = v4[38];
     if (v6 > v49)
     {
-      this = mrec_qsort_r<FstSearchLateLatticeHashBackoffActiveToken>((*(v4 + 192) + 24 * v49), (v6 - v49), 24);
-      v49 = *(v4 + 152);
-      LODWORD(v6) = *(v4 + 200);
+      this = mrec_qsort_r<FstSearchLateLatticeHashBackoffActiveToken>((*(v4 + 24) + 24 * v49), (v6 - v49), 24, 0);
+      v49 = v4[38];
+      LODWORD(v6) = v4[50];
     }
 
     if (v49 < v6)
@@ -7990,7 +8368,7 @@ LABEL_10:
       v51 = v49;
       do
       {
-        v52 = *(v4 + 192);
+        v52 = *(v4 + 24);
         v53 = (v52 + 24 * v50);
         this = v49;
         if (*(v53 + 1) != *(v52 + 24 * (v50 - 1) + 4))
@@ -7998,7 +8376,7 @@ LABEL_10:
           goto LABEL_64;
         }
 
-        if ((v49 - v51) < *(v4 + 20))
+        if ((v49 - v51) < v4[5])
         {
           v54 = v51;
           if (v49 > v51)
@@ -8036,7 +8414,7 @@ LABEL_64:
         }
 
         ++v50;
-        v6 = *(v4 + 200);
+        v6 = v4[50];
       }
 
       while (v50 < v6);
@@ -8056,21 +8434,21 @@ LABEL_64:
     if (a4)
     {
 LABEL_67:
-      *(a4 + 1) += *(v4 + 168) - v5;
+      *(a4 + 1) += v4[42] - v5;
     }
   }
 
-  v59 = *(v4 + 204);
+  v59 = v4[51];
   if (v49 > v59)
   {
-    this = DgnArray<CWIDAC>::reallocElts(v4 + 192, v49 - v59, 0);
-    LODWORD(v6) = *(v4 + 200);
+    this = DgnArray<CWIDAC>::reallocElts((v4 + 48), v49 - v59, 0);
+    LODWORD(v6) = v4[50];
   }
 
   if (v6 < v49)
   {
     v60 = v49 - v6;
-    v61 = (*(v4 + 192) + 24 * v6 + 16);
+    v61 = (*(v4 + 24) + 24 * v6 + 16);
     do
     {
       *(v61 - 2) = 0xFFFFFFFF00000000;
@@ -8084,7 +8462,7 @@ LABEL_67:
     while (v60);
   }
 
-  *(v4 + 200) = v49;
+  v4[50] = v49;
   return this;
 }
 
@@ -8342,7 +8720,7 @@ LABEL_56:
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v50);
 }
 
-int64x2_t FstSearchLatticeBackoff::vite(int64x2_t **this, int a2, int a3, SearchStats *a4, int a5)
+int64x2_t FstSearchLatticeBackoff::vite(int64x2_t **this, unsigned int a2, int a3, SearchStats *a4, int a5)
 {
   FstSearchLatticeBackoff::advanceDeltas(this, a2, a3, a4, a5);
   v13 = 0u;
@@ -8379,7 +8757,7 @@ _DWORD *FstSearchLatticeBackoff::reset(_DWORD *this)
   return this;
 }
 
-double FstSearchLatticeBackoff::doFrame(int64x2_t **this, int a2, int a3, SearchStats *a4, int a5)
+double FstSearchLatticeBackoff::doFrame(int64x2_t **this, unsigned int a2, int a3, SearchStats *a4, int a5)
 {
   if (a3 >= 20000)
   {
@@ -8390,13 +8768,13 @@ double FstSearchLatticeBackoff::doFrame(int64x2_t **this, int a2, int a3, Search
   return result;
 }
 
-uint64_t FstSearchLatticeBackoff::beginTopRecPassSyncRecog(FstSearchLatticeBackoff *this, PelScorer *a2, const ArcGraph *a3)
+uint64_t FstSearchLatticeBackoff::beginTopRecPassSyncRecog(PelScoreCache **this, PelScorer *a2, const ArcGraph *a3)
 {
   result = SearchItf::beginTopRecPassSyncRecogBase(this, a2);
   if (a3)
   {
-    MiniFst::init(this + 240, a3, *(this + 4));
-    result = ArcGraph::findBackoffState(*(this + 5));
+    MiniFst::init(this + 30, a3, this[4]);
+    result = ArcGraph::findBackoffState(this[5]);
     *(this + 88) = result;
     *(this + 356) = 1;
   }
@@ -8430,109 +8808,199 @@ void FstSearchLatticeBackoff::printSize(FstSearchLatticeBackoff *this, uint64_t 
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2950);
+  if (v72)
   {
-    v16 = v117;
+    v13 = v71;
   }
 
   else
   {
-    v16 = &unk_26287F8B0;
+    v13 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v16);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287F8B0, a3, &unk_26287F8B0, v13);
+  DgnString::~DgnString(&v71);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287F8B0);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952, &v117);
-  if (v118)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287F8B0);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2952);
+  if (v72)
   {
-    v27 = v117;
+    v18 = v71;
   }
 
   else
   {
-    v27 = &unk_26287F8B0;
+    v18 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v27, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2954);
+  if (v72)
   {
-    v32 = v117;
+    v20 = v71;
   }
 
   else
   {
-    v32 = &unk_26287F8B0;
+    v20 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2955);
+  if (v72)
   {
-    v37 = v117;
+    v22 = v71;
   }
 
   else
   {
-    v37 = &unk_26287F8B0;
+    v22 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v37, 4, 4, 0);
-  v112 = a2;
-  v113 = a6;
-  v114 = a3;
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  v66 = a2;
+  v67 = a6;
+  v68 = a3;
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2956);
+  if (v72)
   {
-    v42 = v117;
+    v24 = v71;
   }
 
   else
   {
-    v42 = &unk_26287F8B0;
+    v24 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v39, v40, v41, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v42, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v24, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v43 = 16;
+  v25 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v43 = 12;
+    v25 = 12;
   }
 
-  v44 = *(this + 42);
-  v45 = 16 * v44;
-  if (v44 <= 0)
+  v26 = *(this + 42);
+  v27 = 16 * v26;
+  if (v26 <= 0)
   {
-    v45 = 0;
+    v27 = 0;
   }
 
-  v46 = v45 + v43;
-  v47 = v45 + v43 + 16 * (*(this + 43) - v44);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957, &v117);
-  if (v118)
+  v28 = v27 + v25;
+  v29 = v27 + v25 + 16 * (*(this + 43) - v26);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2957);
+  if (v72)
   {
-    v52 = v117;
+    v31 = v71;
+  }
+
+  else
+  {
+    v31 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v31, v29, v28, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v29;
+  *a5 += v28;
+  v32 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v32 = 12;
+  }
+
+  v33 = *(this + 46);
+  v34 = 16 * v33;
+  if (v33 <= 0)
+  {
+    v34 = 0;
+  }
+
+  v35 = v34 + v32;
+  v36 = v34 + v32 + 16 * (*(this + 47) - v33);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959);
+  if (v72)
+  {
+    v38 = v71;
+  }
+
+  else
+  {
+    v38 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v38, v36, v35, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v36;
+  *a5 += v35;
+  v39 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v39 = 12;
+  }
+
+  v40 = *(this + 50);
+  v41 = 22 * v40;
+  if (v40 <= 0)
+  {
+    v41 = 0;
+  }
+
+  v42 = v41 + v39;
+  v43 = v41 + v39 + 22 * (*(this + 51) - v40);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964);
+  if (v72)
+  {
+    v45 = v71;
+  }
+
+  else
+  {
+    v45 = &unk_26287F8B0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26287F8B0, v16, v16, v45, v43, v42, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v43;
+  *a5 += v42;
+  v46 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v46 = 12;
+  }
+
+  v47 = *(this + 54);
+  v48 = 22 * v47;
+  if (v47 <= 0)
+  {
+    v48 = 0;
+  }
+
+  v49 = v48 + v46;
+  v50 = v48 + v46 + 22 * (*(this + 55) - v47);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966);
+  if (v72)
+  {
+    v52 = v71;
   }
 
   else
@@ -8540,183 +9008,92 @@ void FstSearchLatticeBackoff::printSize(FstSearchLatticeBackoff *this, uint64_t 
     v52 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v52, v47, v46, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v47;
-  *a5 += v46;
-  v53 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v15, &unk_26287F8B0, v16, v16, v52, v50, v49, 0);
+  DgnString::~DgnString(&v71);
+  *a4 += v50;
+  *a5 += v49;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968);
+  if (v72)
   {
-    v53 = 12;
-  }
-
-  v54 = *(this + 46);
-  v55 = 16 * v54;
-  if (v54 <= 0)
-  {
-    v55 = 0;
-  }
-
-  v56 = v55 + v53;
-  v57 = v55 + v53 + 16 * (*(this + 47) - v54);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2959, &v117);
-  if (v118)
-  {
-    v62 = v117;
+    v54 = v71;
   }
 
   else
   {
-    v62 = &unk_26287F8B0;
+    v54 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, (a3 + 1), &unk_26287F8B0, (34 - a3), (34 - a3), v62, v57, v56, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v57;
-  *a5 += v56;
-  v63 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v63 = 12;
-  }
-
-  v64 = *(this + 50);
-  v65 = 22 * v64;
-  if (v64 <= 0)
-  {
-    v65 = 0;
-  }
-
-  v66 = v65 + v63;
-  v67 = v65 + v63 + 22 * (*(this + 51) - v64);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2964, &v117);
-  if (v118)
-  {
-    v72 = v117;
-  }
-
-  else
-  {
-    v72 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v69, v70, v71, v21, &unk_26287F8B0, v22, v22, v72, v67, v66, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v67;
-  *a5 += v66;
-  v73 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v73 = 12;
-  }
-
-  v74 = *(this + 54);
-  v75 = 22 * v74;
-  if (v74 <= 0)
-  {
-    v75 = 0;
-  }
-
-  v76 = v75 + v73;
-  v77 = v75 + v73 + 22 * (*(this + 55) - v74);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2966, &v117);
-  if (v118)
-  {
-    v82 = v117;
-  }
-
-  else
-  {
-    v82 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, v21, &unk_26287F8B0, v22, v22, v82, v77, v76, 0);
-  DgnString::~DgnString(&v117);
-  *a4 += v77;
-  *a5 += v76;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2968, &v117);
-  if (v118)
-  {
-    v87 = v117;
-  }
-
-  else
-  {
-    v87 = &unk_26287F8B0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v83, v84, v85, v86, v21, &unk_26287F8B0, v22, v22, v87, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v15, &unk_26287F8B0, v16, v16, v54, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2970);
+  if (v72)
   {
-    v92 = v117;
+    v56 = v71;
   }
 
   else
   {
-    v92 = &unk_26287F8B0;
+    v56 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v89, v90, v91, v21, &unk_26287F8B0, v22, v22, v92, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v15, &unk_26287F8B0, v16, v16, v56, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972, &v117);
-  if (v118)
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2972);
+  if (v72)
   {
-    v97 = v117;
+    v58 = v71;
   }
 
   else
   {
-    v97 = &unk_26287F8B0;
+    v58 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v94, v95, v96, v21, &unk_26287F8B0, v22, v22, v97, 4, 4, 0);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v15, &unk_26287F8B0, v16, v16, v58, 4, 4, 0);
+  DgnString::~DgnString(&v71);
   *a4 += 4;
   *a5 += 4;
-  v98 = sizeObject(this + 240, 0);
-  v99 = sizeObject(this + 240, 1);
-  v100 = sizeObject(this + 240, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974, &v117);
-  if (v118)
+  v59 = sizeObject(this + 240, 0);
+  v60 = sizeObject(this + 240, 1);
+  v61 = sizeObject(this + 240, 3);
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2974);
+  if (v72)
   {
-    v105 = v117;
+    v63 = v71;
   }
 
   else
   {
-    v105 = &unk_26287F8B0;
+    v63 = &unk_26287F8B0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v21, &unk_26287F8B0, v22, v22, v105, v98, v99, v100);
-  DgnString::~DgnString(&v117);
-  *a4 += v98;
-  *a5 += v99;
-  *v113 += v100;
-  v115 = 0;
-  v116 = 0;
-  SearchItf::printSize(this, v112, v21, &v116, &v115, &v115);
-  *a4 += v116;
-  *a5 += v115;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985, &v117);
-  if (v118)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v15, &unk_26287F8B0, v16, v16, v63, v59, v60, v61);
+  DgnString::~DgnString(&v71);
+  *a4 += v59;
+  *a5 += v60;
+  *v67 += v61;
+  v69 = 0;
+  v70 = 0;
+  SearchItf::printSize(this, v66, v15, &v70, &v69, &v69);
+  *a4 += v70;
+  *a5 += v69;
+  getShipObjectSizeDescription(&v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstdef.inl", 2985);
+  if (v72)
   {
-    v110 = v117;
+    v65 = v71;
   }
 
   else
   {
-    v110 = &unk_26287F8B0;
+    v65 = &unk_26287F8B0;
   }
 
-  v111 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v107, v108, v109, v114, &unk_26287F8B0, (35 - v114), (35 - v114), v110, *a4, *a5, *v113);
-  DgnString::~DgnString(&v117);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v68, &unk_26287F8B0, (35 - v68), (35 - v68), v65, *a4, *a5, *v67);
+  DgnString::~DgnString(&v71);
 }
 
 uint64_t FstSearchLatticeBackoff::getBestTrace(uint64_t a1, void *a2, void *a3, int a4)
@@ -8875,7 +9252,7 @@ LABEL_16:
   return v13 != 1879048192;
 }
 
-unint64_t FstSearchLatticeBackoff::createLatticeNodes(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7)
+uint64_t *FstSearchLatticeBackoff::createLatticeNodes(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7)
 {
   v8 = a2;
   v10 = *(a1 + 168);
@@ -8906,7 +9283,7 @@ unint64_t FstSearchLatticeBackoff::createLatticeNodes(uint64_t a1, uint64_t **a2
   }
 
   *(*result + 4 * v14) = Node;
-  ++*(result + 8);
+  ++*(result + 2);
   v15 = *(a1 + 168);
   v16 = a7;
   if (v15)
@@ -8938,8 +9315,8 @@ unint64_t FstSearchLatticeBackoff::createLatticeNodes(uint64_t a1, uint64_t **a2
             }
 
             *(*result + 4 * v23) = v22;
-            v24 = *(result + 8);
-            *(result + 8) = v24 + 1;
+            v24 = *(result + 2);
+            *(result + 2) = v24 + 1;
             if (*(*a6 + v15) == 1)
             {
               v17 = v24;
@@ -9023,7 +9400,7 @@ unint64_t FstSearchLatticeBackoff::createLatticeNodes(uint64_t a1, uint64_t **a2
   return result;
 }
 
-uint64_t FstSearchLatticeBackoff::buildWordLattice(uint64_t a1, unint64_t a2, void *a3, void *a4, char a5)
+uint64_t FstSearchLatticeBackoff::buildWordLattice(uint64_t a1, uint64_t *a2, void *a3, void *a4, char a5)
 {
   v28 = 0;
   v29 = 0;
@@ -9065,7 +9442,7 @@ uint64_t FstSearchLatticeBackoff::buildWordLattice(uint64_t a1, unint64_t a2, vo
             v18 = *(v27 + 4 * v17);
             if (*(*a4 + v11) == 1)
             {
-              FstSearchLatticeBackoff::createLatticeLink(a1, v11, v15, 0xFFFFFFFFLL, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
+              FstSearchLatticeBackoff::createLatticeLink(a1, v11, v15, 0xFFFFFFFF, v18, *(v27 + 4 * (v12 - *(v29 + v11))), a2, v10, a5);
             }
 
             v19 = v26[0] + 16 * v11;
@@ -9102,26 +9479,24 @@ uint64_t FstSearchLatticeBackoff::buildWordLattice(uint64_t a1, unint64_t a2, vo
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v29);
 }
 
-void sub_262650E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262650E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va2);
   _Unwind_Resume(a1);
 }
 
-void FstSearchLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, uint64_t a4, uint64_t a5, const WordLatticeLC *a6, unint64_t a7, uint64_t a8, char a9)
+void FstSearchLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, int *a3, unsigned int a4, int a5, const WordLatticeLC *a6, uint64_t *a7, uint64_t a8, char a9)
 {
-  v11 = a5;
-  v12 = a4;
   v16 = *(a1 + 160);
   if ((a4 & 0x80000000) != 0 || (v17 = v16 + 16 * a4, v18 = *(v17 + 12), v18 < 1))
   {
@@ -9151,7 +9526,7 @@ void FstSearchLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, in
     while (v19 < v20 && !v22);
   }
 
-  ArcGraph::lexToCWIDAC(*(a1 + 40), *(v16 + 16 * a2), a3, a4, a5, a6, a7, a8, v44);
+  ArcGraph::lexToCWIDAC(v44, *(a1 + 40), *(v16 + 16 * a2));
   v23 = a3[1];
   if (v22)
   {
@@ -9164,7 +9539,7 @@ void FstSearchLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, in
     v24 = *a3;
   }
 
-  if (v44[0] >> 25 == 126)
+  if (LODWORD(v44[0]) >> 25 == 126)
   {
     v25 = 0;
     v26 = v23;
@@ -9177,7 +9552,7 @@ void FstSearchLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, in
   }
 
   v27 = v24 - v23;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     v28 = 0;
   }
@@ -9209,9 +9584,9 @@ void FstSearchLatticeBackoff::createLatticeLink(uint64_t a1, unsigned int a2, in
 LABEL_27:
     v33 = *(v30 + 16 * a2 + 4);
     v34 = v33 - v32 + 1;
-    if ((v12 & 0x80000000) == 0)
+    if ((a4 & 0x80000000) == 0)
     {
-      v35 = *(v30 + 16 * v12 + 4);
+      v35 = *(v30 + 16 * a4 + 4);
       goto LABEL_29;
     }
 
@@ -9229,23 +9604,23 @@ LABEL_30:
 LABEL_24:
   v33 = (*(v30 + 16 * a2 + 4) - 1) / 2;
   v34 = v33 - v32 + 1;
-  if ((v12 & 0x80000000) != 0)
+  if ((a4 & 0x80000000) != 0)
   {
     goto LABEL_30;
   }
 
-  v35 = (*(v30 + 16 * v12 + 4) - 1) / 2;
+  v35 = (*(v30 + 16 * a4 + 4) - 1) / 2;
 LABEL_29:
   v36 = v35 - v33;
 LABEL_31:
   WordLatticeLC::WordLatticeLC(v37, v44, v32, v34, v36, &v38);
-  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, v11, a6, v37);
+  Lattice<WordLatticeLC>::maybeCreateAndConnectLinkAvoidMultiLinks(a7, a5, a6, v37);
   WordLatticeLC::~WordLatticeLC(v37);
 }
 
-void sub_262651058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262651058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WordLatticeLC::~WordLatticeLC(va);
   _Unwind_Resume(a1);
 }
@@ -9475,645 +9850,74 @@ _DWORD *FstSearchLatticeBackoff::seedTheory(FstSearchLatticeBackoff *this, int a
   return FstSearchLatticeBackoff::propagateNulls(this, 20000, a3, a5);
 }
 
-uint64_t FstSearchLatticeBackoff::expandEmbFstHistory(uint64_t result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *FstSearchLatticeBackoff::expandEmbFstHistory(uint64_t *result, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
-  v8 = *(result + 228);
-  if (v8 != -1)
+  v6 = *(result + 57);
+  if (v6 != -1)
   {
-    v10 = result;
-    v11 = (*(result + 160) + 16 * v8);
-    for (i = *(*(result + 176) + 16 * v11[2] + 12); i != -1; v8 = v17)
+    v8 = result;
+    v9 = (result[20] + 16 * v6);
+    for (i = *(result[22] + 16 * v9[2] + 12); i != -1; v6 = v15)
     {
-      v17 = i;
-      result = v10[5];
-      if (*v11 == 16777209)
+      v15 = i;
+      result = v8[5];
+      if (*v9 == 16777209)
       {
-        v18 = (*(result + 174) << 25) | 0xFFFFF9;
+        v16 = (*(result + 87) << 25) | 0xFFFFF9;
       }
 
       else
       {
-        result = ArcGraph::lexToCWID(result, *v11, a3, a4, a5, a6, a7, a8);
-        v18 = result;
+        result = ArcGraph::lexToCWID(result, *v9);
+        v16 = result;
       }
 
-      v19 = *(a2 + 8);
-      if (v19 == *(a2 + 12))
+      v17 = *(a2 + 8);
+      if (v17 == *(a2 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a2, 1, 1);
-        v19 = *(a2 + 8);
+        v17 = *(a2 + 8);
       }
 
-      *(*a2 + 4 * v19) = v18;
+      *(*a2 + 4 * v17) = v16;
       ++*(a2 + 8);
-      v20 = *(a6 + 8);
-      if (v20 == *(a6 + 12))
+      v18 = *(a6 + 8);
+      if (v18 == *(a6 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-        v20 = *(a6 + 8);
+        v18 = *(a6 + 8);
       }
 
-      *(*a6 + 4 * v20) = v8;
+      *(*a6 + 4 * v18) = v6;
       ++*(a6 + 8);
-      v21 = v10[20];
-      v22 = *(v21 + 16 * v8 + 4);
-      v23 = *(a3 + 8);
-      if (v23 == *(a3 + 12))
+      v19 = v8[20];
+      v20 = *(v19 + 16 * v6 + 4);
+      v21 = *(a3 + 8);
+      if (v21 == *(a3 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-        v23 = *(a3 + 8);
-        v21 = v10[20];
+        v21 = *(a3 + 8);
+        v19 = v8[20];
       }
 
-      *(*a3 + 4 * v23) = v22;
+      *(*a3 + 4 * v21) = v20;
       ++*(a3 + 8);
-      v24 = *(v10[22] + 16 * *(v21 + 16 * v8 + 8));
-      v25 = *(a5 + 8);
-      if (v25 == *(a5 + 12))
+      v22 = *(v8[22] + 16 * *(v19 + 16 * v6 + 8));
+      v23 = *(a5 + 8);
+      if (v23 == *(a5 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-        v25 = *(a5 + 8);
+        v23 = *(a5 + 8);
       }
 
-      *(*a5 + 4 * v25) = v24;
+      *(*a5 + 4 * v23) = v22;
       ++*(a5 + 8);
-      v11 = (v10[20] + 16 * v17);
-      i = *(v10[22] + 16 * v11[2] + 12);
+      v9 = (v8[20] + 16 * v15);
+      i = *(v8[22] + 16 * v9[2] + 12);
     }
 
-    *a4 = *v11;
+    *a4 = *v9;
   }
 
-  return result;
-}
-
-void FstSearchLatticeBackoff::checkSearchParametersValidityForArcGraph(FstSearchLatticeBackoff *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *(this + 5);
-  if (*(v8 + 178) == 1)
-  {
-    v9 = a3;
-    ArcGraph::ensureHeaderValid(*(this + 5), "Header", a3, a4, a5, a6, a7, a8);
-    if (*(v8 + 202) == 1 && *(v8 + 188) != *(this + 35))
-    {
-      v16 = *(v8 + 188);
-      v19 = *(this + 35);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchInterWordSilencePenalty");
-    }
-
-    if (*(v8 + 192) != *(this + 34))
-    {
-      v17 = *(v8 + 192);
-      v20 = *(this + 34);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "SearchPerWordPenalty");
-    }
-
-    if (*(v8 + 196) != *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608))
-    {
-      v18 = *(v8 + 196);
-      v21 = *(*(**VocMgr::smpVocMgr + 8 * *(*(this + 5) + 174)) + 608);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, "Voc");
-    }
-
-    v14 = *(v8 + 203);
-    if (v9)
-    {
-      if (a2)
-      {
-        if ((*(v8 + 203) & 1) == 0)
-        {
-          return;
-        }
-      }
-
-      else if (*(v8 + 203))
-      {
-        return;
-      }
-
-      v23 = *(v8 + 203);
-      v15 = "DropAlternateFrames";
-      goto LABEL_18;
-    }
-
-    if (a2 & 1) != 0 || (*(v8 + 203))
-    {
-      v22 = *(v8 + 203);
-      v15 = "NoDecimation";
-LABEL_18:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/fst/fstsrch.cpp", 160, "fst/fstsrch", 3, "%.500s %d %d", v12, v13, v15);
-    }
-  }
-}
-
-void FstSearchLatticeBackoff::getHistory(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a2 == -1)
-  {
-    *(a3 + 8) = 0;
-  }
-
-  else
-  {
-    v9 = a4;
-    LODWORD(v11) = 0;
-    v12 = a2;
-    v13 = a2;
-    do
-    {
-      v14 = (*(a1 + 160) + 16 * v13);
-      if (*v14 == 16777209)
-      {
-        v11 = v11;
-      }
-
-      else
-      {
-        v11 = (v11 + 1);
-      }
-
-      v13 = *(*(a1 + 176) + 16 * v14[2] + 12);
-    }
-
-    while (v13 != -1);
-    v15 = *(a3 + 12);
-    if (v11 > v15)
-    {
-      DgnArray<PrefilterResultFrame>::reallocElts(a3, v11 - v15, 0);
-    }
-
-    v16 = *(a3 + 8);
-    if (v16 < v11)
-    {
-      v17 = v11 - v16;
-      v18 = *a3 + 32 * v16;
-      do
-      {
-        *v18 = 0x3FFFFAFFFFFFLL;
-        *(v18 + 8) = xmmword_26286CC40;
-        *(v18 + 24) = 0x1F0000001FLL;
-        v18 += 32;
-        --v17;
-      }
-
-      while (v17);
-    }
-
-    *(a3 + 8) = v11;
-    if (v11)
-    {
-      v19 = *(a1 + 160);
-      v20 = -16;
-      do
-      {
-        v21 = (v19 + 16 * v12);
-        v22 = v21[1];
-        if (*v21 == 16777209)
-        {
-          if (v9)
-          {
-            v20 = (v22 - 1) / 2 + 1;
-          }
-
-          else
-          {
-            v20 = v22 + 1;
-          }
-        }
-
-        else
-        {
-          if (v9)
-          {
-            v22 = (v22 - 1) / 2;
-          }
-
-          ArcGraph::lexToCWIDAC(*(a1 + 40), *v21, a3, a4, a5, a6, a7, a8, v26);
-          if (v20 == -16)
-          {
-            v23 = v22 + 1;
-          }
-
-          else
-          {
-            v23 = v20;
-          }
-
-          v24 = v26[1];
-          v11 = (v11 - 1);
-          v25 = *a3 + 32 * v11;
-          *v25 = v26[0];
-          *(v25 + 4) = v24;
-          *(v25 + 8) = v27;
-          *(v25 + 24) = v22 + 1;
-          *(v25 + 28) = v23;
-          v19 = *(a1 + 160);
-          v20 = -16;
-        }
-
-        v12 = *(*(a1 + 176) + 16 * *(v19 + 16 * v12 + 8) + 12);
-      }
-
-      while (v12 != -1);
-    }
-  }
-}
-
-uint64_t FstSearchLatticeBackoff::makePartialResult(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v8 = *(a2 + 8);
-  if (v8 >= 1)
-  {
-    v9 = 112 * v8 - 112;
-    do
-    {
-      (**(*a2 + v9))(*a2 + v9);
-      v9 -= 112;
-    }
-
-    while (v9 != -112);
-  }
-
-  *(a2 + 8) = 0;
-  BestTrace = FstSearchLatticeBackoff::getBestTrace(a1, 0, 0, 1);
-  if (BestTrace == -1)
-  {
-    return 1879048192;
-  }
-
-  v15 = BestTrace;
-  FstSearchLatticeBackoff::getHistory(a1, BestTrace, a3, a4, v11, v12, v13, v14);
-  memset(v25, 0, sizeof(v25));
-  v26 = 0;
-  if (*(a3 + 8))
-  {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    do
-    {
-      v19 = *a3 + v16;
-      v20 = *(v19 + 28);
-      WordLatticeLC::WordLatticeLC(v24, v19, v18, *(v19 + 24) - v18, v20 - *(v19 + 24), v25);
-      v21 = *(a2 + 8);
-      if (v21 == *(a2 + 12))
-      {
-        DgnArray<WordLatticeLC>::reallocElts(a2, 1, 1);
-        LODWORD(v21) = *(a2 + 8);
-      }
-
-      WordLatticeLC::WordLatticeLC((*a2 + 112 * v21), v24);
-      ++*(a2 + 8);
-      WordLatticeLC::~WordLatticeLC(v24);
-      ++v17;
-      v16 += 32;
-      v18 = v20;
-    }
-
-    while (v17 < *(a3 + 8));
-  }
-
-  v22 = a1[20] + 16 * v15;
-  return (*(a1[22] + 16 * *(v22 + 8)) + *(a1[11] + 4 * *(v22 + 4)));
-}
-
-int64x2_t FstSearchLattice::advanceDeltas(FstSearchLattice *this, int a2, int a3, SearchStats *a4, int a5)
-{
-  v123[0] = a2;
-  v121 = 0u;
-  v122 = 0u;
-  SnapTime::recordTime(&v121, 1, 0, 0, 0);
-  *(this + 58) = a3;
-  v7 = *(this + 2);
-  v98 = (this + 232);
-  v8 = *(this + 50);
-  if (v8)
-  {
-    v99 = 0;
-    v100 = 0;
-    v9 = 0;
-    v104 = this;
-    v101 = *(this + 2);
-    do
-    {
-      v10 = v9;
-      v94 = 24 * v9;
-      v11 = *(this + 24) + v94;
-      v12 = *(v11 + 4);
-      if (v8 <= v9 + 1)
-      {
-        ++v9;
-      }
-
-      else
-      {
-        v9 = v8;
-      }
-
-      v92 = v9 - 1;
-      v13 = (v11 + 28);
-      v14 = 1;
-      while (v10 + v14 < v8)
-      {
-        v15 = *v13;
-        v13 += 6;
-        ++v14;
-        if (v15 != v12)
-        {
-          v92 = v10 + v14 - 2;
-          v9 = v10 + v14 - 1;
-          break;
-        }
-      }
-
-      v16 = *(this + 5);
-      if (*(v16 + 160) != v12)
-      {
-        v17 = *(v16 + 140) <= v12 || v10 > v92;
-        v93 = v9;
-        if (!v17)
-        {
-          v18 = 0;
-          v19 = v92 - v10 + 1;
-          do
-          {
-            v20 = *(v104 + 24) + v94 + v18;
-            v21 = *v20;
-            v22 = PelScoreCache::getScoreNoBackoff(*(v104 + 4), *(v20 + 12)) + v21;
-            v23 = *(v104 + 58);
-            if (v22 - v7 <= v23)
-            {
-              if (v23 > v22)
-              {
-                *v98 = v22;
-              }
-
-              v24 = *(v104 + 24) + v94 + v18;
-              v25 = *(v24 + 4);
-              v26 = *(v24 + 12);
-              v27 = *(v24 + 14);
-              v28 = *(v24 + 16);
-              v29 = *(v104 + 54);
-              if (v29 == *(v104 + 55))
-              {
-                DgnArray<CWIDAC>::reallocElts(v104 + 208, 1, 1);
-                LODWORD(v29) = *(v104 + 54);
-              }
-
-              v30 = *(v104 + 26) + 24 * v29;
-              *v30 = v22;
-              *(v30 + 4) = v25;
-              *(v30 + 12) = v26;
-              *(v30 + 14) = v27;
-              *(v30 + 16) = v28;
-              v31 = *(v104 + 54) + 1;
-              *(v104 + 54) = v31;
-              if (!v18)
-              {
-                v32 = v99;
-                if (v100 == 2 * *(v104 + 4))
-                {
-                  v32 = v31;
-                }
-
-                v99 = v32;
-                ++v100;
-              }
-            }
-
-            v18 += 24;
-            --v19;
-          }
-
-          while (v19);
-        }
-
-        v33 = v92 - v10 + 1;
-        v34 = v12;
-        v95 = v12;
-        v96 = v10;
-        this = v104;
-        v102 = v33;
-        do
-        {
-          v35 = *(this + 5);
-          v36 = *(v35 + 152);
-          v37 = *(v36 + 4 * v34);
-          v38 = *(v35 + 140);
-          v105 = *(v36 + 4 * (v34 + 1));
-          v97 = v34;
-          if (v38 <= v105)
-          {
-            if (*(this + 356) == 1 && v38 <= v12)
-            {
-              v58 = (v37 & 0xFFFFF) <= 0xFFFF3 ? v37 & 0xFFFFF : v37 & 0xFFFFF | 0xF00000;
-              if (v58 != 16777210)
-              {
-                DgnString::DgnString(&v118);
-                ArcGraph::getNameAndHumanReadablePron(*(this + 5), v58, &v118, v59, v60, v61, v62, v63);
-                v69 = &unk_26287F8B0;
-                if (v118.i32[2])
-                {
-                  v69 = v118.i64[0];
-                }
-
-                v68 = (*(this + 24) + 24 * v96);
-                xprintf("Seed from state %d score %d trace %d, %s\n", v64, v65, v66, v67, v95, *v68, v68[2], v69);
-                v70 = (*(this + 24) + 24 * v96);
-                MiniFst::seed(this + 240, *v70, v70[5], v70[2], v105);
-                DgnString::~DgnString(&v118);
-              }
-            }
-          }
-
-          else
-          {
-            ScoreNoBackoff = PelScoreCache::getScoreNoBackoff(*(this + 4), *(v36 + 4 * v34));
-            if (v10 <= v92)
-            {
-              v40 = 0;
-              v41 = (v37 >> 20) & 0x3FF;
-              v42 = ScoreNoBackoff + v41;
-              v43 = v94;
-              v103 = v37;
-              do
-              {
-                v44 = *(this + 24);
-                v45 = v42 + *(v44 + v43);
-                v46 = *(this + 58);
-                if (v45 - v7 <= v46)
-                {
-                  if (v46 > v45)
-                  {
-                    *v98 = v45;
-                  }
-
-                  v47 = v44 + v43;
-                  v48 = *(v47 + 8);
-                  v49 = *(v47 + 14);
-                  v50 = *(v47 + 16);
-                  v51 = *(v47 + 20);
-                  this = v104;
-                  v52 = *(v104 + 54);
-                  if (v52 == *(v104 + 55))
-                  {
-                    DgnArray<CWIDAC>::reallocElts(v104 + 208, 1, 1);
-                    LODWORD(v52) = *(v104 + 54);
-                  }
-
-                  v53 = v50 + v41;
-                  v54 = *(v104 + 26) + 24 * v52;
-                  *v54 = v45;
-                  *(v54 + 4) = v105;
-                  *(v54 + 8) = v48;
-                  v37 = v103;
-                  *(v54 + 12) = v103;
-                  *(v54 + 14) = v49;
-                  *(v54 + 16) = v53;
-                  *(v54 + 20) = v51;
-                  v55 = *(v104 + 54) + 1;
-                  *(v104 + 54) = v55;
-                  if (!v40)
-                  {
-                    v56 = v99;
-                    if (v100 == 2 * *(v104 + 4))
-                    {
-                      v56 = v55;
-                    }
-
-                    v99 = v56;
-                    ++v100;
-                  }
-
-                  v7 = v101;
-                  v33 = v102;
-                }
-
-                ++v40;
-                v43 += 24;
-              }
-
-              while (v33 != v40);
-            }
-          }
-
-          v34 = v97 + 2;
-          v9 = v93;
-          LODWORD(v12) = v95;
-          LODWORD(v10) = v96;
-        }
-
-        while ((v37 & 0x80000000) == 0);
-        v8 = *(this + 50);
-      }
-    }
-
-    while (v9 < v8);
-    a3 = *v98;
-  }
-
-  else
-  {
-    v99 = 0;
-    v100 = 0;
-  }
-
-  v120 = a3 + v7;
-  if (*(this + 356) == 1)
-  {
-    MiniFst::updateFrame(this + 240, v98, v7, a2);
-  }
-
-  v118 = 0u;
-  v119 = 0u;
-  SnapTime::recordTime(&v118, 1, 0, 0, 0);
-  v118 = vsubq_s64(v118, v121);
-  v119 = vsubq_s64(v119, v122);
-  v71 = *(this + 13);
-  v72 = vaddq_s64(v71[1], v119);
-  *v71 = vaddq_s64(*v71, v118);
-  v71[1] = v72;
-  v116 = 0u;
-  v117 = 0u;
-  SnapTime::recordTime(&v116, 1, 0, 0, 0);
-  if (v100 > 2 * *(this + 4))
-  {
-    FstSearchLateLatticeHashBackoff::applyCutoffOnEmitting(this, v99, &v120);
-  }
-
-  v114 = 0u;
-  v115 = 0u;
-  SnapTime::recordTime(&v114, 1, 0, 0, 0);
-  v73 = vsubq_s64(v114, v116);
-  v74 = *(this + 13);
-  v75 = v74[3];
-  v76 = vaddq_s64(v74[2], v73);
-  v114 = v73;
-  v115 = vsubq_s64(v115, v117);
-  v77 = vaddq_s64(v75, v115);
-  v74[2] = v76;
-  v74[3] = v77;
-  v112 = 0u;
-  v113 = 0u;
-  SnapTime::recordTime(&v112, 1, 0, 0, 0);
-  FstSearchLatticeBackoff::makeViterbiDecisionOnEmitting(this);
-  v78 = *(this + 6);
-  if (v78)
-  {
-    v79 = *(this + 50);
-    if (v78 < v79)
-    {
-      mrec_nth_element<FstSearchLateLatticeHashBackoffcmpTok>(*(this + 24), v78, v79);
-    }
-  }
-
-  v110 = 0u;
-  v111 = 0u;
-  SnapTime::recordTime(&v110, 1, 0, 0, 0);
-  v80 = vsubq_s64(v110, v112);
-  v81 = *(this + 13);
-  v82 = v81[5];
-  v83 = vaddq_s64(v81[4], v80);
-  v110 = v80;
-  v111 = vsubq_s64(v111, v113);
-  v84 = vaddq_s64(v82, v111);
-  v81[4] = v83;
-  v81[5] = v84;
-  v108 = 0u;
-  v109 = 0u;
-  SnapTime::recordTime(&v108, 1, 0, 0, 0);
-  *(this + 54) = 0;
-  v85 = *(this + 50);
-  *(this + 38) = v85;
-  if (a4)
-  {
-    *(a4 + 2) += v85;
-    if (*(a4 + 2) > v85)
-    {
-      LODWORD(v85) = *(a4 + 2);
-    }
-
-    *(a4 + 2) = v85;
-  }
-
-  if (*(this + 356) == 1)
-  {
-    FstSearchLattice::seedFromMiniFst(this, v123);
-  }
-
-  if (a5)
-  {
-    FstSearchLatticeBackoff::propagateNulls(this, v120, a2, a4);
-  }
-
-  *(this + 56) = a2;
-  v106 = 0u;
-  v107 = 0u;
-  SnapTime::recordTime(&v106, 1, 0, 0, 0);
-  v86 = *(this + 13);
-  result = vaddq_s64(v86[6], vsubq_s64(v106, v108));
-  v88 = vaddq_s64(v86[7], vsubq_s64(v107, v109));
-  v86[6] = result;
-  v86[7] = v88;
   return result;
 }

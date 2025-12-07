@@ -9,11 +9,38 @@
 
 - (id)description
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
   identifier = [(CBDevice *)self->_cbDevice identifier];
-  v4 = NSPrintF_safe();
+  v5 = identifier;
+  v6 = "yes";
+  if (self->_powerSourceIDLeft)
+  {
+    v7 = "yes";
+  }
 
-  return v4;
+  else
+  {
+    v7 = "no";
+  }
+
+  if (self->_powerSourceIDRight)
+  {
+    v8 = "yes";
+  }
+
+  else
+  {
+    v8 = "no";
+  }
+
+  if (!self->_powerSourceIDCase)
+  {
+    v6 = "no";
+  }
+
+  v9 = NSPrintF_safe("%@: ID %@, PowerSources Left %s, Right %s, Case %s", v3, identifier, v7, v8, v6);
+
+  return v9;
 }
 
 - (void)powerSourceUpdate
@@ -33,10 +60,14 @@
   {
     if (self->_powerSourceIDLeft)
     {
-      IOPSReleasePowerSource();
-      if (dword_100B50958 < 31 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+      v3 = IOPSReleasePowerSource();
+      if (dword_100B50958 < 31)
       {
-        sub_100801594();
+        v4 = v3;
+        if (dword_100B50958 != -1 || _LogCategory_Initialize())
+        {
+          sub_100801594(v4);
+        }
       }
 
       self->_powerSourceIDLeft = 0;
@@ -47,10 +78,14 @@
 
     if (self->_powerSourceIDRight)
     {
-      IOPSReleasePowerSource();
-      if (dword_100B50958 < 31 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+      v6 = IOPSReleasePowerSource();
+      if (dword_100B50958 < 31)
       {
-        sub_1008015FC();
+        v7 = v6;
+        if (dword_100B50958 != -1 || _LogCategory_Initialize())
+        {
+          sub_1008015FC(v7);
+        }
       }
 
       self->_powerSourceIDRight = 0;
@@ -67,10 +102,14 @@
 {
   if (self->_powerSourceIDLeft)
   {
-    IOPSReleasePowerSource();
-    if (dword_100B50958 < 31 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+    v3 = IOPSReleasePowerSource();
+    if (dword_100B50958 < 31)
     {
-      sub_100801664();
+      v4 = v3;
+      if (dword_100B50958 != -1 || _LogCategory_Initialize())
+      {
+        sub_100801664(v4);
+      }
     }
 
     self->_powerSourceIDLeft = 0;
@@ -81,10 +120,14 @@
 
   if (self->_powerSourceIDRight)
   {
-    IOPSReleasePowerSource();
-    if (dword_100B50958 < 31 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+    v6 = IOPSReleasePowerSource();
+    if (dword_100B50958 < 31)
     {
-      sub_1008016CC();
+      v7 = v6;
+      if (dword_100B50958 != -1 || _LogCategory_Initialize())
+      {
+        sub_1008016CC(v7);
+      }
     }
 
     self->_powerSourceIDRight = 0;
@@ -95,10 +138,14 @@
 
   if (self->_powerSourceIDCase)
   {
-    IOPSReleasePowerSource();
-    if (dword_100B50958 < 31 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
+    v9 = IOPSReleasePowerSource();
+    if (dword_100B50958 < 31)
     {
-      sub_100801734();
+      v10 = v9;
+      if (dword_100B50958 != -1 || _LogCategory_Initialize())
+      {
+        sub_100801734(v10);
+      }
     }
 
     self->_powerSourceIDCase = 0;
@@ -167,7 +214,7 @@
           {
             if (dword_100B50958 <= 90 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_100B50958, "[CBAccessoryInfo _powerSourceUpdateWithPartID:]", 90, "### Accessory power source update failed: bad part ID '%s', %@", d, self);
             }
 
             goto LABEL_151;
@@ -204,23 +251,23 @@ LABEL_61:
           IOPSReleasePowerSource();
           if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
           {
-            v89 = CUPrintErrorCode();
-            LogPrintF_safe();
+            v42 = CUPrintErrorCode();
+            LogPrintF_safe(&dword_100B50958, "[CBAccessoryInfo _powerSourceUpdateWithPartID:]", 30, "Accessory power source remove: state unknown, %s, %@, %@", d, self, v42);
           }
 
           *(&self->super.isa + v41) = 0;
         }
 
-        v42 = *(&self->super.isa + v21);
+        v43 = *(&self->super.isa + v21);
         *(&self->super.isa + v21) = 0;
 
         goto LABEL_151;
       }
 
 LABEL_33:
-      v93 = v20;
+      v92 = v20;
       v24 = *(&self->super.isa + v21);
-      v95 = v24 == 0;
+      v94 = v24 == 0;
       if (!v24)
       {
         v24 = objc_alloc_init(NSMutableDictionary);
@@ -289,23 +336,23 @@ LABEL_33:
         case 0:
           name = 0;
 LABEL_80:
-          v94 = identifier;
+          v93 = identifier;
           if (name)
           {
-            v44 = v33;
-            v45 = name;
-            v46 = v45;
-            if (v44 == v45)
+            v45 = v33;
+            v46 = name;
+            v47 = v46;
+            if (v45 == v46)
             {
             }
 
             else
             {
-              if (v44)
+              if (v45)
               {
-                v47 = [v44 isEqual:v45];
+                v48 = [v45 isEqual:v46];
 
-                if (v47)
+                if (v48)
                 {
                   goto LABEL_88;
                 }
@@ -321,173 +368,173 @@ LABEL_80:
           }
 
 LABEL_88:
-          if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || (v48 = _LogCategory_Initialize()) != 0))
+          if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || (v49 = _LogCategory_Initialize()) != 0))
           {
-            v87 = (v18 * 100.0);
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_100B50958, "[CBAccessoryInfo _powerSourceUpdateWithPartID:]", 30, "Accessory power source create with battery level: %d", (v18 * 100.0));
           }
 
-          v49 = [NSNumber numberWithInt:(v18 * 100.0), v87];
-          v50 = [(objc_class *)v24 objectForKeyedSubscript:@"Current Capacity"];
-          v51 = v49;
+          v50 = [NSNumber numberWithInt:(v18 * 100.0)];
+          v51 = [(objc_class *)v24 objectForKeyedSubscript:@"Current Capacity"];
           v52 = v50;
-          v53 = v52;
-          if (v51 == v52)
+          v53 = v51;
+          v54 = v53;
+          if (v52 == v53)
           {
 
             goto LABEL_100;
           }
 
-          if ((v51 != 0) != (v52 == 0))
+          if ((v52 != 0) != (v53 == 0))
           {
-            v54 = [v51 isEqual:v52];
+            v55 = [v52 isEqual:v53];
 
-            if (v54)
+            if (v55)
             {
 LABEL_100:
-              v55 = @"Battery Power";
+              v56 = @"Battery Power";
               if (batteryStateLeft == 1)
               {
-                v55 = @"AC Power";
+                v56 = @"AC Power";
               }
 
-              v56 = v55;
-              v57 = [(objc_class *)v24 objectForKeyedSubscript:@"Power Source State"];
-              v58 = v56;
+              v57 = v56;
+              v58 = [(objc_class *)v24 objectForKeyedSubscript:@"Power Source State"];
               v59 = v57;
-              v60 = v59;
-              v91 = name;
-              v92 = v33;
-              if (v58 == v59)
+              v60 = v58;
+              v61 = v60;
+              v90 = name;
+              v91 = v33;
+              if (v59 == v60)
               {
 
                 goto LABEL_109;
               }
 
-              if (v59)
+              if (v60)
               {
-                v61 = [(__CFString *)v58 isEqual:v59];
+                v62 = [(__CFString *)v59 isEqual:v60];
 
-                if (v61)
+                if (v62)
                 {
 LABEL_109:
                   if (batteryStateLeft == 1)
                   {
-                    v62 = &__kCFBooleanTrue;
+                    v63 = &__kCFBooleanTrue;
                   }
 
                   else
                   {
-                    v62 = &__kCFBooleanFalse;
+                    v63 = &__kCFBooleanFalse;
                   }
 
-                  v63 = v62;
-                  v64 = [(objc_class *)v24 objectForKeyedSubscript:@"Is Charging"];
-                  v65 = v63;
+                  v64 = v63;
+                  v65 = [(objc_class *)v24 objectForKeyedSubscript:@"Is Charging"];
                   v66 = v64;
-                  v67 = v66;
-                  if (v65 == v66)
+                  v67 = v65;
+                  v68 = v67;
+                  if (v66 == v67)
                   {
 
                     goto LABEL_119;
                   }
 
-                  if (v66)
+                  if (v67)
                   {
-                    v68 = [v65 isEqual:v66];
+                    v69 = [v66 isEqual:v67];
 
-                    if (v68)
+                    if (v69)
                     {
 LABEL_119:
                       if ((v18 * 100.0) >= 10)
                       {
-                        v69 = &__kCFBooleanFalse;
+                        v70 = &__kCFBooleanFalse;
                       }
 
                       else
                       {
-                        v69 = &__kCFBooleanTrue;
+                        v70 = &__kCFBooleanTrue;
                       }
 
-                      v70 = v69;
-                      v71 = [(objc_class *)v24 objectForKeyedSubscript:@"Low Warn Level"];
-                      v72 = v70;
+                      v71 = v70;
+                      v72 = [(objc_class *)v24 objectForKeyedSubscript:@"Low Warn Level"];
                       v73 = v71;
-                      v74 = v73;
-                      if (v72 == v73)
+                      v74 = v72;
+                      v75 = v74;
+                      if (v73 == v74)
                       {
 
-                        v75 = selfCopy;
+                        v76 = selfCopy;
                         goto LABEL_129;
                       }
 
-                      v75 = selfCopy;
-                      if (v73)
+                      v76 = selfCopy;
+                      if (v74)
                       {
-                        v76 = [v72 isEqual:v73];
+                        v77 = [v73 isEqual:v74];
 
-                        if (v76)
+                        if (v77)
                         {
 LABEL_129:
                           [(CBDevice *)v5 accessoryStatusOBCTime];
-                          if ((v77 / 60.0) < 1)
+                          if ((v78 / 60.0) < 1)
                           {
 LABEL_138:
-                            v84 = *(&v75->super.isa + v93);
-                            v85 = v95;
-                            if (!v84)
+                            v85 = *(&v76->super.isa + v92);
+                            v86 = v94;
+                            if (!v85)
                             {
                               IOPSCreatePowerSource();
-                              v84 = 0;
-                              *(&v75->super.isa + v93) = 0;
-                              if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || (v86 = _LogCategory_Initialize(), v84 = 0, v86)))
+                              v85 = 0;
+                              *(&v76->super.isa + v92) = 0;
+                              if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || (v88 = _LogCategory_Initialize(), v85 = 0, v88)))
                               {
-                                v90 = CUPrintErrorCode();
-                                LogPrintF_safe();
+                                v87 = CUPrintErrorCode();
+                                v76 = selfCopy;
+                                LogPrintF_safe(&dword_100B50958, "[CBAccessoryInfo _powerSourceUpdateWithPartID:]", 30, "Accessory power source create: %@, power source ID: %s, error return: %@", selfCopy, "no", v87);
 
-                                v85 = 1;
-                                v84 = 0;
+                                v86 = 1;
+                                v85 = 0;
                               }
 
                               else
                               {
-                                v85 = 1;
+                                v86 = 1;
                               }
                             }
 
-                            if (v84)
+                            if (v85)
                             {
-                              if (v85)
+                              if (v86)
                               {
                                 IOPSSetPowerSourceDetails();
                                 if (dword_100B50958 <= 30 && (dword_100B50958 != -1 || _LogCategory_Initialize()))
                                 {
-                                  v88 = CUPrintErrorCode();
-                                  LogPrintF_safe();
+                                  v89 = CUPrintErrorCode();
+                                  LogPrintF_safe(&dword_100B50958, "[CBAccessoryInfo _powerSourceUpdateWithPartID:]", 30, "Accessory power source update: %@, error: %@, publish power source %@ for device: %@", v76, v89, v24, v5);
                                 }
                               }
                             }
 
-                            identifier = v94;
+                            identifier = v93;
                             goto LABEL_151;
                           }
 
-                          v78 = [NSNumber numberWithInt:?];
-                          v79 = [(objc_class *)v24 objectForKeyedSubscript:@"Time to Full Charge"];
-                          v80 = v78;
+                          v79 = [NSNumber numberWithInt:?];
+                          v80 = [(objc_class *)v24 objectForKeyedSubscript:@"Time to Full Charge"];
                           v81 = v79;
-                          v82 = v81;
-                          if (v80 == v81)
+                          v82 = v80;
+                          v83 = v82;
+                          if (v81 == v82)
                           {
                           }
 
                           else
                           {
-                            if ((v80 != 0) != (v81 == 0))
+                            if ((v81 != 0) != (v82 == 0))
                             {
-                              v83 = [v80 isEqual:v81];
+                              v84 = [v81 isEqual:v82];
 
-                              if (v83)
+                              if (v84)
                               {
                                 goto LABEL_137;
                               }
@@ -497,7 +544,7 @@ LABEL_138:
                             {
                             }
 
-                            [(objc_class *)v24 setObject:v80 forKeyedSubscript:@"Time to Full Charge"];
+                            [(objc_class *)v24 setObject:v81 forKeyedSubscript:@"Time to Full Charge"];
                             sub_1000E0A60();
                           }
 
@@ -511,7 +558,7 @@ LABEL_137:
                       {
                       }
 
-                      [(objc_class *)v24 setObject:v72 forKeyedSubscript:@"Low Warn Level"];
+                      [(objc_class *)v24 setObject:v73 forKeyedSubscript:@"Low Warn Level"];
                       sub_1000E0A60();
                       goto LABEL_129;
                     }
@@ -521,7 +568,7 @@ LABEL_137:
                   {
                   }
 
-                  [(objc_class *)v24 setObject:v65 forKeyedSubscript:@"Is Charging"];
+                  [(objc_class *)v24 setObject:v66 forKeyedSubscript:@"Is Charging"];
                   sub_1000E0A60();
                   goto LABEL_119;
                 }
@@ -531,7 +578,7 @@ LABEL_137:
               {
               }
 
-              [(objc_class *)v24 setObject:v58 forKeyedSubscript:@"Power Source State"];
+              [(objc_class *)v24 setObject:v59 forKeyedSubscript:@"Power Source State"];
               sub_1000E0A60();
               goto LABEL_109;
             }
@@ -541,7 +588,7 @@ LABEL_137:
           {
           }
 
-          [(objc_class *)v24 setObject:v51 forKeyedSubscript:@"Current Capacity"];
+          [(objc_class *)v24 setObject:v52 forKeyedSubscript:@"Current Capacity"];
           sub_1000E0A60();
           goto LABEL_100;
         case 0x208:

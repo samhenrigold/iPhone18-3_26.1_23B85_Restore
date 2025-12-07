@@ -44,17 +44,16 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  f_flags = self->_stfs.f_flags;
   deviceID = self->_deviceID;
-  v7 = BRCPrettyPrintBitmap();
-  v8 = [v3 stringWithFormat:@"<%@:%p>, deviceID:%d device:'%s' mounted-on:'%s' fstype:%s(%@)", v4, self, deviceID, self->_stfs.f_mntfromname, self->_stfs.f_mntonname, self->_stfs.f_fstypename, v7];
+  v6 = BRCPrettyPrintBitmap();
+  v7 = [v3 stringWithFormat:@"<%@:%p>, deviceID:%d device:'%s' mounted-on:'%s' fstype:%s(%@)", v4, self, deviceID, self->_stfs.f_mntfromname, self->_stfs.f_mntonname, self->_stfs.f_fstypename, v6];
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)setupWithError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   self->_deviceID = 0;
   memset(&__src, 0, 512);
   homeDirForCurrentPersona = [MEMORY[0x277CFAEF0] homeDirForCurrentPersona];
@@ -131,9 +130,9 @@ LABEL_30:
         *&__dst[24] = br_errorFromErrno;
         *&__dst[32] = 2112;
         *&__dst[34] = v12;
-        v28 = __dst;
+        v27 = __dst;
 LABEL_31:
-        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", v28, 0x2Au);
+        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", v27, 0x2Au);
       }
 
 LABEL_12:
@@ -149,21 +148,21 @@ LABEL_12:
       goto LABEL_16;
     }
 
-    v24 = *__error();
-    v25 = brc_bread_crumbs();
-    v26 = brc_default_log();
-    if (os_log_type_enabled(v26, 0x90u))
+    v23 = *__error();
+    v24 = brc_bread_crumbs();
+    v25 = brc_default_log();
+    if (os_log_type_enabled(v25, 0x90u))
     {
-      v29 = 136315650;
+      v28 = 136315650;
       fileSystemRepresentation = [v9 fileSystemRepresentation];
-      v31 = 1024;
-      *v32 = v24;
-      *&v32[4] = 2112;
-      *&v32[6] = v25;
-      _os_log_error_impl(&dword_223E7A000, v26, 0x90u, "[ERROR] stat for %s failed %{errno}d%@", &v29, 0x1Cu);
+      v30 = 1024;
+      *v31 = v23;
+      *&v31[4] = 2112;
+      *&v31[6] = v24;
+      _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] stat for %s failed %{errno}d%@", &v28, 0x1Cu);
     }
 
-    *__error() = v24;
+    *__error() = v23;
     br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
     if (br_errorFromErrno)
     {
@@ -171,21 +170,21 @@ LABEL_12:
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, 0x90u))
       {
-        v27 = "(passed to caller)";
-        v29 = 136315906;
+        v26 = "(passed to caller)";
+        v28 = 136315906;
         fileSystemRepresentation = "[BRCVolume setupWithError:]";
-        v31 = 2080;
+        v30 = 2080;
         if (!error)
         {
-          v27 = "(ignored by caller)";
+          v26 = "(ignored by caller)";
         }
 
-        *v32 = v27;
-        *&v32[8] = 2112;
-        *&v32[10] = br_errorFromErrno;
-        v33 = 2112;
-        v34 = v12;
-        v28 = &v29;
+        *v31 = v26;
+        *&v31[8] = 2112;
+        *&v31[10] = br_errorFromErrno;
+        v32 = 2112;
+        v33 = v12;
+        v27 = &v28;
         goto LABEL_31;
       }
 
@@ -213,7 +212,6 @@ LABEL_16:
   }
 
   v21 = self->_deviceID != 0;
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

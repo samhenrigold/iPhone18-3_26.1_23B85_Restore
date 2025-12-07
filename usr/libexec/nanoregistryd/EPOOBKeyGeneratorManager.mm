@@ -86,35 +86,35 @@
 
     if (!v3)
     {
-      v4 = sub_1000A98C0();
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      v5 = sub_1000A98C0(v4);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-      if (v5)
+      if (v6)
       {
-        v6 = sub_1000A98C0();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = sub_1000A98C0(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPairingAgent retrieveOOBDataForPeer:", &v12, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPairingAgent retrieveOOBDataForPeer:", &v16, 2u);
         }
       }
 
       agent = [(EPPairingAgent *)self->_agent agent];
-      v8 = [agent retrieveOOBDataForPeer:0];
-      [(EPOOBKeyGeneratorManager *)self setKey:v8];
+      v10 = [agent retrieveOOBDataForPeer:0];
+      [(EPOOBKeyGeneratorManager *)self setKey:v10];
 
-      v9 = sub_1000A98C0();
-      LODWORD(v8) = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      v12 = sub_1000A98C0(v11);
+      LODWORD(v10) = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-      if (v8)
+      if (v10)
       {
-        v10 = sub_1000A98C0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_1000A98C0(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = [(EPOOBKeyGeneratorManager *)self key];
-          v12 = 138412290;
-          v13 = v11;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "CoreBluetooth CBPairingAgent retrieveOOBDataForPeer: completed %@", &v12, 0xCu);
+          v15 = [(EPOOBKeyGeneratorManager *)self key];
+          v16 = 138412290;
+          v17 = v15;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "CoreBluetooth CBPairingAgent retrieveOOBDataForPeer: completed %@", &v16, 0xCu);
         }
       }
 

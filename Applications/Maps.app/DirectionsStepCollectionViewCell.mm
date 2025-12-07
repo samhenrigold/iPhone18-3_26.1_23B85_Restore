@@ -112,7 +112,7 @@
   if (result)
   {
 
-    return [($8452678F12DBC466148836A9D382CAFC *)result cellMetricsForIdiom:a4];
+    return objc_msgSend_cellMetricsForIdiom_(result);
   }
 
   else

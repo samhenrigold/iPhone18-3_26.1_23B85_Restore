@@ -19,19 +19,18 @@
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v14 - v11;
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v13 - v10;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v6 + 16))(v10, v12, v5);
+  (*(v6 + 16))(v9, v11, v5);
   swift_beginAccess();
   selfCopy = self;
-  specialized Dictionary.subscript.setter(0, 0, v10);
+  specialized Dictionary.subscript.setter(0, 0, v9);
   swift_endAccess();
 
-  (*(v6 + 8))(v12, v5);
+  (*(v6 + 8))(v11, v5);
 }
 
 - (CPBiomeSessionDonator)init

@@ -1,3 +1,105 @@
+uint64_t SecSupportsEnhancedApfs()
+{
+  if (qword_1000739D0 != -1)
+  {
+    dispatch_once(&qword_1000739D0, &stru_1000642B8);
+  }
+
+  if (byte_1000739C8)
+  {
+    return 1;
+  }
+
+  if (qword_1000739E0 != -1)
+  {
+    dispatch_once(&qword_1000739E0, &stru_1000642F8);
+  }
+
+  return byte_1000739D8;
+}
+
+void sub_10003D4BC(id a1)
+{
+  __len = 1023;
+  bzero(__big, 0x400uLL);
+  if (!sysctlbyname("kern.bootargs", __big, &__len, 0, 0) && strnstr(__big, "-apfs_shared_datavolume", __len))
+  {
+    byte_1000739D8 = 1;
+  }
+
+  v1 = secLogObjForScope("eapfs");
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v4 = byte_1000739D8;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "eapfs boot-arg set to %{BOOL}d", buf, 8u);
+  }
+}
+
+void sub_10003D5BC(id a1)
+{
+  v1 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/filesystems");
+  if (v1)
+  {
+    v2 = v1;
+    CFProperty = IORegistryEntryCreateCFProperty(v1, @"e-apfs", kCFAllocatorDefault, 0);
+    if (CFProperty)
+    {
+      CFRelease(CFProperty);
+      byte_1000739C8 = 1;
+    }
+
+    IOObjectRelease(v2);
+  }
+
+  v4 = secLogObjForScope("eapfs");
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5[0] = 67109120;
+    v5[1] = byte_1000739C8;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "eapfs IODT set to %{BOOL}d", v5, 8u);
+  }
+}
+
+uint64_t SecIsEduMode()
+{
+  if (qword_1000739B0 != -1)
+  {
+    dispatch_once(&qword_1000739B0, &stru_100064238);
+  }
+
+  return byte_1000739AC;
+}
+
+void sub_10003D704(id a1)
+{
+  v1 = MKBUserTypeDeviceMode();
+  if (v1)
+  {
+    v2 = v1;
+    value = 0;
+    if (CFDictionaryGetValueIfPresent(v1, kMKBDeviceModeKey[0], &value))
+    {
+      if (CFEqual(value, kMKBDeviceModeSharedIPad))
+      {
+        byte_1000739AC = 1;
+      }
+    }
+
+    CFRelease(v2);
+  }
+
+  else
+  {
+    v3 = secLogObjForScope("edumode");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cannot determine because deviceMode is NULL", v4, 2u);
+    }
+  }
+}
+
 uint64_t SecSeparateUserKeychain()
 {
   if (qword_1000739C0 != -1)
@@ -90,7 +192,7 @@ CFURLRef SecCopyURLForFileInUserScopedKeychainDirectory(uint64_t a1)
   return sub_10003D8E0(v2 ^ 1u, a1);
 }
 
-uint64_t __security_simulatecrash(uint64_t a1, int a2)
+uint64_t __security_simulatecrash(uint64_t a1, unsigned int a2)
 {
   v4 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -106,7 +208,7 @@ uint64_t __security_simulatecrash(uint64_t a1, int a2)
   return SimulateCrash();
 }
 
-uint64_t __security_stackshotreport(uint64_t a1, int a2)
+uint64_t __security_stackshotreport(uint64_t a1, unsigned int a2)
 {
   v4 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -315,7 +417,7 @@ BOOL sub_10003E190(const void *a1, uint64_t a2)
   return v6;
 }
 
-const __CFData *sub_10003E210(sqlite3_stmt *a1, uint64_t a2, int a3, const __CFArray *a4, const void **a5, void *a6, _DWORD *a7, __CFString **a8)
+const __CFData *sub_10003E210(sqlite3_stmt *a1, uint64_t a2, int a3, const __CFArray *a4, const __CFData **a5, void *a6, _DWORD *a7, CFErrorRef *a8)
 {
   result = sub_1000103D8(a1, a3);
   if (result)
@@ -329,7 +431,7 @@ const __CFData *sub_10003E210(sqlite3_stmt *a1, uint64_t a2, int a3, const __CFA
   return result;
 }
 
-BOOL sub_10003E2C0(sqlite3_stmt *a1, const __CFString *cf, CFTypeRef *a3, uint64_t a4)
+BOOL sub_10003E2C0(sqlite3_stmt *a1, const __CFString *cf, CFErrorRef *a3, uint64_t a4)
 {
   if (SecDbBindObject(a1, 1, cf, a3))
   {
@@ -898,58 +1000,58 @@ SecCertificateRef sub_10003EEE4(__CFString ***a1, const __CFDictionary *a2)
   return SecCertificateCreateWithData(kCFAllocatorDefault, Value);
 }
 
-uint64_t sub_10003F0E8(const __CFArray *a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_10003F0E8(const __CFArray *a1, uint64_t a2, CFErrorRef *a3)
 {
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2000000000;
-  v28 = 1;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2000000000;
+  v27 = 1;
   if (qword_1000737F0 != -1)
   {
     dispatch_once(&qword_1000737F0, &stru_100062A88);
   }
 
-  v29 = sub_100017208();
-  v30 = sub_10001712C();
-  v31 = sub_100017240();
-  v32 = sub_100017224();
+  v28 = sub_100017208();
+  v29 = sub_10001712C();
+  v30 = sub_100017240();
+  v31 = sub_100017224();
   if (a1 && (v7 = CFGetTypeID(a1), v7 == CFArrayGetTypeID()))
   {
     if (CFArrayGetCount(a1))
     {
       sub_1000216DC();
-      v19 = 0x40000000;
-      v20 = sub_10001D260;
-      v21 = &unk_100062AB0;
-      v22 = &v25;
-      v23 = a3;
-      v24 = a1;
-      v33.length = CFArrayGetCount(a1);
-      v33.location = 0;
-      CFArrayApplyFunction(a1, v33, sub_10001E348, context);
-      if (*(v26 + 24) == 1)
+      v18 = 0x40000000;
+      v19 = sub_10001D260;
+      v20 = &unk_100062AB0;
+      v21 = &v24;
+      v22 = a3;
+      v23 = a1;
+      v32.length = CFArrayGetCount(a1);
+      v32.location = 0;
+      CFArrayApplyFunction(a1, v32, sub_10001E348, context);
+      if (*(v25 + 24) == 1)
       {
         v10 = sub_100021738();
         v14 = sub_1000199E0(v10, v11, v12, a3, v13);
-        *(v26 + 24) = v14;
+        *(v25 + 24) = v14;
       }
     }
 
     else
     {
-      *(v26 + 24) = 0;
-      SecCFCreateErrorWithFormat(1, sSecXPCErrorDomain, 0, a3, 0, @"accessGroups e empty", v8, v9, v17);
+      *(v25 + 24) = 0;
+      SecCFCreateErrorWithFormat(1, sSecXPCErrorDomain, 0, a3, 0, @"accessGroups e empty", v8, v9);
     }
   }
 
   else
   {
-    *(v26 + 24) = 0;
+    *(v25 + 24) = 0;
     SecCFCreateErrorWithFormat(1, sSecXPCErrorDomain, 0, a3, 0, @"accessGroups not CFArray, got %@", v5, v6, a1);
   }
 
-  v15 = *(v26 + 24);
-  _Block_object_dispose(&v25, 8);
+  v15 = *(v25 + 24);
+  _Block_object_dispose(&v24, 8);
   return v15;
 }
 
@@ -980,11 +1082,11 @@ uint64_t sub_10003F32C(uint64_t a1)
   return 1;
 }
 
-void sub_10003F3C0(uint64_t a1, uint64_t a2, _BYTE *a3)
+void sub_10003F3C0(void *a1, uint64_t a2, _BYTE *a3)
 {
   cf = 0;
-  ++*(*(*(a1 + 32) + 8) + 24);
-  *(a2 + 16) = *(a1 + 48);
+  ++*(*(a1[4] + 8) + 24);
+  *(a2 + 16) = a1[6];
   v6 = sub_100002404(a2, kSecAttrAccessible);
   v7 = v6;
   if (v6 && kSecAttrAccessibleAlwaysPrivate)
@@ -1022,8 +1124,8 @@ LABEL_9:
   sub_100021714();
   if (*(v10 + 24) == 1)
   {
-    v11 = sub_100001820(*(a2 + 16), 7, *(a1 + 56));
-    sub_100002090(a2, v11, kCFNull, *(a1 + 56));
+    v11 = sub_100001820(*(a2 + 16), 7, a1[7]);
+    sub_100002090(a2, v11, kCFNull, a1[7]);
     sub_100021714();
     v14 = v13 & *(v12 + 24);
     *(v12 + 24) = v14;
@@ -1036,7 +1138,7 @@ LABEL_14:
         if (!CFEqual(v15, kSecAttrAccessGroupToken))
         {
 LABEL_20:
-          if ((sub_1000057E0(a2, *(a1 + 64), 0, 0, &cf) & 1) == 0)
+          if ((sub_1000057E0(a2, a1[8], 0, 0, &cf) & 1) == 0)
           {
             v16 = secLogObjForScope("SecError");
             if (sub_100021784(v16))
@@ -1115,7 +1217,7 @@ LABEL_39:
     if (cf)
     {
       CFRetain(cf);
-      v26 = *(a1 + 56);
+      v26 = a1[7];
       if (v26 && !*v26)
       {
         *v26 = v25;
@@ -1127,7 +1229,7 @@ LABEL_39:
       }
     }
 
-    v21 = *(*(a1 + 40) + 8);
+    v21 = *(a1[5] + 8);
     v22 = *(v21 + 24);
     if (v25)
     {
@@ -1156,18 +1258,17 @@ uint64_t sub_10003F75C(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int 
 {
   v9 = 0;
   err = 0;
-  v42[0] = kSecClassGenericPassword;
-  v42[1] = kSecClassInternetPassword;
-  v42[2] = kSecClassCertificate;
-  v42[3] = kSecClassKey;
+  v41[0] = kSecClassGenericPassword;
+  v41[1] = kSecClassInternetPassword;
+  v41[2] = kSecClassCertificate;
+  v41[3] = kSecClassKey;
   do
   {
     v10 = *(a1 + 32);
     v11 = *(a1 + 80);
     v12 = *(a1 + 48);
     v13 = *(a1 + 56);
-    v37 = *(a1 + 40);
-    v14 = sub_10000DA5C(kCFAllocatorDefault, a2, a3, a4, a5, a6, a7, a8, kSecClass, v42[v9]);
+    v14 = sub_10000DA5C(kCFAllocatorDefault, a2, a3, a4, a5, a6, a7, a8, kSecClass, v41[v9]);
     v15 = sub_10002A574(v14, *(v13 + 24), -1, v13, &err);
     CFRelease(v14);
     if (v15)
@@ -1252,7 +1353,7 @@ LABEL_15:
   v22 = 0;
   while (1)
   {
-    v38 = v22;
+    v37 = v22;
     allocator = *(a1 + 32);
     ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 72), v22);
     v24 = *(a1 + 80);
@@ -1265,8 +1366,8 @@ LABEL_15:
     }
 
 LABEL_35:
-    v22 = v38 + 1;
-    if (v38 + 1 >= CFArrayGetCount(*(a1 + 72)))
+    v22 = v37 + 1;
+    if (v37 + 1 >= CFArrayGetCount(*(a1 + 72)))
     {
       return 1;
     }
@@ -1393,25 +1494,23 @@ void sub_10003FDE8()
   __break(1u);
 }
 
-void sub_10003FE04(uint64_t a1, uint64_t a2)
+void sub_10003FE04()
 {
-  v3 = secLogObjForScope("SecError");
-  if (sub_100021720(v3))
+  v0 = secLogObjForScope("SecError");
+  if (sub_100021720(v0))
   {
-    v9 = *(*(*a2 + 8) + 24);
     sub_1000216CC();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_impl(v1, v2, v3, v4, v5, 0x12u);
   }
 }
 
 void sub_10003FEC0(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = secLogObjForScope("SecError");
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = secLogObjForScope("SecError");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(*(*a1 + 8) + 24);
     sub_100021748();
-    sub_1000216FC(&_mh_execute_header, v6, v8, "upgrade: Setting version failed: %@", v9);
+    sub_1000216FC(&_mh_execute_header, v5, v6, "upgrade: Setting version failed: %@", v7);
   }
 
   *a3 = a2;
@@ -1422,14 +1521,13 @@ BOOL sub_10003FF78(uint64_t *a1, uint64_t *a2)
   v4 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *a1;
     sub_100021748();
-    sub_1000216FC(&_mh_execute_header, v4, v6, "upgr: failed to process custom indexes: %@", v9);
+    sub_1000216FC(&_mh_execute_header, v4, v5, "upgr: failed to process custom indexes: %@", v8);
   }
 
-  v7 = *a1;
+  v6 = *a1;
   *a2 = *a1;
-  return v7 == 0;
+  return v6 == 0;
 }
 
 void sub_100040030(const void *a1, uint64_t a2)
@@ -1447,33 +1545,32 @@ void sub_100040030(const void *a1, uint64_t a2)
   }
 }
 
-void sub_100040078(uint64_t a1)
+void sub_100040078()
 {
-  v2 = secLogObjForScope("SecError");
-  if (sub_100021720(v2))
+  v0 = secLogObjForScope("SecError");
+  if (sub_100021720(v0))
   {
-    v3 = *(*a1 + 24);
     sub_100021748();
     sub_1000216CC();
-    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_impl(v1, v2, v3, v4, v5, 0xCu);
   }
 
   abort();
 }
 
-uint64_t sub_1000400E8(uint64_t a1, char a2, const __CFData *a3, __CFString **a4)
+uint64_t sub_1000400E8(uint64_t a1, char a2, const __CFData *a3, CFErrorRef *a4)
 {
   cf = 0;
   theDict = 0;
-  v53 = 0;
+  v51 = 0;
   v8 = sub_100002E20(a1);
   v9 = sub_100002E28(a1);
-  if (!sub_10002226C(v8, v9, *(a1 + 64), &cf, *(a1 + 56), a3, *(a1 + 16), *(a1 + 72), &theDict, &v53, a2, 0, a4))
+  if (!sub_10002226C(v8, v9, *(a1 + 64), &cf, *(a1 + 56), a3, *(a1 + 16), *(a1 + 72), &theDict, &v51, a2, 0, a4))
   {
     goto LABEL_64;
   }
 
-  if (v53 > 1)
+  if (v51 > 1)
   {
     if (theDict)
     {
@@ -1530,12 +1627,7 @@ LABEL_43:
       goto LABEL_59;
     }
 
-    if (CFEqual(v34, @"AirPort"))
-    {
-      goto LABEL_53;
-    }
-
-    if (CFEqual(v34, @"com.apple.airplay.password"))
+    if (CFEqual(v34, @"AirPort") || CFEqual(v34, @"com.apple.airplay.password"))
     {
       goto LABEL_70;
     }
@@ -1548,23 +1640,20 @@ LABEL_43:
         goto LABEL_59;
       }
 
-LABEL_53:
-      v37 = &kSecAttrAccessibleAfterFirstUnlock;
+LABEL_70:
+      v45 = sub_100024BBC();
 LABEL_71:
-      v46 = *v37;
-      v47 = sub_100024BBC();
-LABEL_72:
-      v32 = sub_100003054(v47, v48, v49, a4);
+      v32 = sub_100003054(v45, v46, v47, a4);
       goto LABEL_43;
     }
 
-    v50 = sub_100024BBC();
-    if (sub_100003054(v50, v51, v52, a4))
+    v48 = sub_100024BBC();
+    if (sub_100003054(v48, v49, v50, a4))
     {
-      v49 = @"com.apple.youtube.credentials";
-      v47 = a1;
-      v48 = kSecAttrAccessGroup;
-      goto LABEL_72;
+      v47 = @"com.apple.youtube.credentials";
+      v45 = a1;
+      v46 = kSecAttrAccessGroup;
+      goto LABEL_71;
     }
 
 LABEL_41:
@@ -1597,9 +1686,7 @@ LABEL_41:
 
       if (sub_100009130(v23) && (CFEqual(v23, kSecAttrProtocolHTTPProxy) || CFEqual(v23, kSecAttrProtocolHTTPSProxy) || CFEqual(v23, kSecAttrProtocolRTSPProxy) || CFEqual(v23, kSecAttrProtocolFTPProxy)))
       {
-LABEL_70:
-        v37 = &kSecAttrAccessibleWhenUnlocked;
-        goto LABEL_71;
+        goto LABEL_70;
       }
     }
   }
@@ -1607,27 +1694,27 @@ LABEL_70:
 LABEL_59:
   v31 = 1;
 LABEL_60:
-  v38 = sub_1000405A0(a1, a4);
-  if (!v38)
+  v37 = sub_1000405A0(a1, a4);
+  if (!v37)
   {
 LABEL_64:
     v31 = 0;
     goto LABEL_65;
   }
 
-  v39 = v38;
+  v38 = v37;
   Protection = SecAccessControlGetProtection();
-  v41 = SecAccessControlGetProtection();
-  if (!CFEqual(Protection, v41))
+  v40 = SecAccessControlGetProtection();
+  if (!CFEqual(Protection, v40))
   {
+    v41 = SecAccessControlGetProtection();
     v42 = SecAccessControlGetProtection();
-    v43 = SecAccessControlGetProtection();
-    v31 = SecError(-26275, a4, @"ACL protection doesn't match the one in blob (%@ : %@)", v42, v43);
+    v31 = SecError(-26275, a4, @"ACL protection doesn't match the one in blob (%@ : %@)", v41, v42);
   }
 
-  CFRelease(v39);
+  CFRelease(v38);
 LABEL_65:
-  v44 = sub_1000032AC(a1, cf, 0);
+  v43 = sub_1000032AC(a1, cf, 0);
   if (theDict)
   {
     CFRelease(theDict);
@@ -1638,10 +1725,10 @@ LABEL_65:
     CFRelease(cf);
   }
 
-  return v44 & v31;
+  return v43 & v31;
 }
 
-const void *sub_1000405A0(void **a1, __CFString **a2)
+const void *sub_1000405A0(uint64_t *a1, __CFString **a2)
 {
   v4 = sub_100001820(a1[2], 15, a2);
   v5 = sub_100001BA0(a1, v4, a2);
@@ -1717,7 +1804,7 @@ LABEL_23:
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SecDbItemCopyAccessControl accc %@ != pdmn %@, setting pdmn to accc value", &v20, 0x16u);
           }
 
-          __security_simulatecrash(@"Corrupted item on decrypt accc != pdmn", 1405091842);
+          __security_simulatecrash(@"Corrupted item on decrypt accc != pdmn", 0x53C00002u);
           v17 = sub_100001820(a1[2], 14, a2);
           if (!sub_100002090(a1, v17, Protection, a2))
           {

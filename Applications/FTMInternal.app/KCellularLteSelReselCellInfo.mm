@@ -853,25 +853,23 @@ LABEL_36:
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_multiBandInfos.count)
   {
-    v45 = 0;
+    v18 = 0;
     PBDataWriterPlaceMark();
     if (self->_multiBandInfos.count)
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        v7 = self->_multiBandInfos.list[v6];
         PBDataWriterWriteUint32Field();
-        ++v6;
+        ++v5;
       }
 
-      while (v6 < self->_multiBandInfos.count);
+      while (v5 < self->_multiBandInfos.count);
     }
 
     PBDataWriterRecallMark();
@@ -880,7 +878,6 @@ LABEL_36:
   has = self->_has;
   if ((*&has & 0x20) != 0)
   {
-    imsEmergencySupport = self->_imsEmergencySupport;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -900,7 +897,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  acBarringForEmergency = self->_acBarringForEmergency;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -915,7 +911,6 @@ LABEL_11:
   }
 
 LABEL_53:
-  moSignallingAcBarringFactor = self->_moSignallingAcBarringFactor;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -930,7 +925,6 @@ LABEL_12:
   }
 
 LABEL_54:
-  moSignallingAcBarringTime = self->_moSignallingAcBarringTime;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -945,7 +939,6 @@ LABEL_13:
   }
 
 LABEL_55:
-  moSignallingAcBarringForSpecialAc = self->_moSignallingAcBarringForSpecialAc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -960,7 +953,6 @@ LABEL_14:
   }
 
 LABEL_56:
-  moDataAcBarringFactor = self->_moDataAcBarringFactor;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -975,7 +967,6 @@ LABEL_15:
   }
 
 LABEL_57:
-  moDataAcBarringTime = self->_moDataAcBarringTime;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -990,7 +981,6 @@ LABEL_16:
   }
 
 LABEL_58:
-  moDataAcBarringForSpecialAc = self->_moDataAcBarringForSpecialAc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1005,7 +995,6 @@ LABEL_17:
   }
 
 LABEL_59:
-  qRxLevMin = self->_qRxLevMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1020,7 +1009,6 @@ LABEL_18:
   }
 
 LABEL_60:
-  qQualMin = self->_qQualMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1035,7 +1023,6 @@ LABEL_19:
   }
 
 LABEL_61:
-  qHyst = self->_qHyst;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1050,7 +1037,6 @@ LABEL_20:
   }
 
 LABEL_62:
-  sNonIntraSearchP = self->_sNonIntraSearchP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1065,7 +1051,6 @@ LABEL_21:
   }
 
 LABEL_63:
-  sNonIntraSearchQ = self->_sNonIntraSearchQ;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1080,7 +1065,6 @@ LABEL_22:
   }
 
 LABEL_64:
-  sIntraSearchP = self->_sIntraSearchP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1095,7 +1079,6 @@ LABEL_23:
   }
 
 LABEL_65:
-  sIntraSearchQ = self->_sIntraSearchQ;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1110,7 +1093,6 @@ LABEL_24:
   }
 
 LABEL_66:
-  threshServingLowP = self->_threshServingLowP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1125,55 +1107,54 @@ LABEL_25:
   }
 
 LABEL_67:
-  threshServingLowQ = self->_threshServingLowQ;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_26:
-    priorityOperatingFreq = self->_priorityOperatingFreq;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_27:
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v10 = self->_nbrEutras;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v11)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_nbrEutras;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v42;
+    v9 = v8;
+    v10 = *v15;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v11 = 0;
+      do
       {
-        if (*v42 != v13)
+        if (*v15 != v10)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v11;
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
-  v16 = self->_has;
-  if ((*&v16 & 8) != 0)
+  v12 = self->_has;
+  if ((*&v12 & 8) != 0)
   {
-    dlEarfcn = self->_dlEarfcn;
     PBDataWriterWriteUint32Field();
-    v16 = self->_has;
-    if ((*&v16 & 0x1000) == 0)
+    v12 = self->_has;
+    if ((*&v12 & 0x1000) == 0)
     {
 LABEL_36:
-      if ((*&v16 & 0x10) == 0)
+      if ((*&v12 & 0x10) == 0)
       {
         goto LABEL_37;
       }
@@ -1182,18 +1163,17 @@ LABEL_36:
     }
   }
 
-  else if ((*&v16 & 0x1000) == 0)
+  else if ((*&v12 & 0x1000) == 0)
   {
     goto LABEL_36;
   }
 
-  pci = self->_pci;
   PBDataWriterWriteUint32Field();
-  v16 = self->_has;
-  if ((*&v16 & 0x10) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x10) == 0)
   {
 LABEL_37:
-    if ((*&v16 & 4) == 0)
+    if ((*&v12 & 4) == 0)
     {
       goto LABEL_39;
     }
@@ -1202,31 +1182,28 @@ LABEL_37:
   }
 
 LABEL_71:
-  dlRfBand = self->_dlRfBand;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_38:
-    dlBandwidth = self->_dlBandwidth;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_39:
   if (self->_intraFreqPcis.count)
   {
-    v45 = 0;
+    v18 = 0;
     PBDataWriterPlaceMark();
     if (self->_intraFreqPcis.count)
     {
-      v18 = 0;
+      v13 = 0;
       do
       {
-        v19 = self->_intraFreqPcis.list[v18];
         PBDataWriterWriteUint32Field();
-        ++v18;
+        ++v13;
       }
 
-      while (v18 < self->_intraFreqPcis.count);
+      while (v13 < self->_intraFreqPcis.count);
     }
 
     PBDataWriterRecallMark();
@@ -1244,7 +1221,6 @@ LABEL_39:
 
   if ((*(&self->_has + 2) & 0x20) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }

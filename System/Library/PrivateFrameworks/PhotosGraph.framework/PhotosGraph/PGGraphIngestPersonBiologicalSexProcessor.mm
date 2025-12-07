@@ -33,7 +33,7 @@
 
 - (unint64_t)_sexForPersonNode:(id)node photoLibrary:(id)library
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   libraryCopy = library;
   localIdentifier = [nodeCopy localIdentifier];
@@ -47,9 +47,9 @@
       v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"sexType != %lu", 0];
       [librarySpecificFetchOptions setPredicate:v15];
       v16 = *MEMORY[0x277CD9BD8];
-      v27[0] = *MEMORY[0x277CD9BD0];
-      v27[1] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v26[0] = *MEMORY[0x277CD9BD0];
+      v26[1] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
       [librarySpecificFetchOptions setFetchPropertySets:v17];
 
       v18 = [MEMORY[0x277CD9868] fetchFacesInAssets:v8 options:librarySpecificFetchOptions];
@@ -71,9 +71,9 @@
         {
           stringDescription2 = [nodeCopy stringDescription];
           *buf = 138478083;
-          v29 = stringDescription2;
-          v30 = 2048;
-          v31 = v20;
+          v28 = stringDescription2;
+          v29 = 2048;
+          v30 = v20;
           _os_log_impl(&dword_22F0FC000, stringDescription, OS_LOG_TYPE_INFO, "[Ingest BiologicalSex]Person %{private}@ doesn't have enough singleton face assets with sex classification: %lu", buf, 0x16u);
         }
 
@@ -91,9 +91,9 @@
       {
         stringDescription3 = [nodeCopy stringDescription];
         *buf = 138478083;
-        v29 = stringDescription3;
-        v30 = 2048;
-        v31 = v10;
+        v28 = stringDescription3;
+        v29 = 2048;
+        v30 = v10;
         _os_log_impl(&dword_22F0FC000, librarySpecificFetchOptions, OS_LOG_TYPE_INFO, "[Ingest BiologicalSex] Person %{private}@ doesn't have enough singleton face assets: %lu", buf, 0x16u);
       }
 
@@ -106,7 +106,6 @@
     v14 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -125,17 +124,17 @@
 
 - (void)_writeBiologicalSexByPerson:(id)person toPhotoLibrary:(id)library
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   personCopy = person;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __88__PGGraphIngestPersonBiologicalSexProcessor__writeBiologicalSexByPerson_toPhotoLibrary___block_invoke;
-  v13[3] = &unk_27888A660;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __88__PGGraphIngestPersonBiologicalSexProcessor__writeBiologicalSexByPerson_toPhotoLibrary___block_invoke;
+  v12[3] = &unk_27888A660;
   v6 = personCopy;
-  v14 = v6;
-  v12 = 0;
-  v7 = [library performChangesAndWait:v13 error:&v12];
-  v8 = v12;
+  v13 = v6;
+  v11 = 0;
+  v7 = [library performChangesAndWait:v12 error:&v11];
+  v8 = v11;
   if ((v7 & 1) == 0)
   {
     v9 = +[PGLogging sharedLogging];
@@ -144,60 +143,56 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error setting the sex of a PHPerson: %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __88__PGGraphIngestPersonBiologicalSexProcessor__writeBiologicalSexByPerson_toPhotoLibrary___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        v8 = [*(a1 + 32) objectForKey:{v7, v12}];
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [*(a1 + 32) objectForKey:{v7, v11}];
         v9 = [v8 unsignedIntegerValue];
         v10 = [MEMORY[0x277CD9940] changeRequestForPerson:v7];
         [v10 setSexType:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPersonBiologicalSexForPersonNodes:(id)nodes photoLibrary:(id)library withProgressBlock:(id)block
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   libraryCopy = library;
   blockCopy = block;
-  v56 = _Block_copy(blockCopy);
-  if (!v56)
+  v55 = _Block_copy(blockCopy);
+  if (!v55)
   {
     v15 = [nodesCopy count];
     if (!v15)
@@ -206,7 +201,7 @@ void __88__PGGraphIngestPersonBiologicalSexProcessor__writeBiologicalSexByPerson
     }
 
     v16 = v15;
-    v49 = blockCopy;
+    v48 = blockCopy;
     v12 = 0.0;
     goto LABEL_11;
   }
@@ -216,16 +211,16 @@ void __88__PGGraphIngestPersonBiologicalSexProcessor__writeBiologicalSexByPerson
   if (Current >= 0.01)
   {
     v13 = Current;
-    v65 = 0;
-    v56[2](v56, &v65, 0.0);
-    if (v65 == 1)
+    v64 = 0;
+    v55[2](v55, &v64, 0.0);
+    if (v64 == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v67 = 76;
-        *&v67[4] = 2080;
-        *&v67[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
+        *v66 = 76;
+        *&v66[4] = 2080;
+        *&v66[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
         v14 = MEMORY[0x277D86220];
 LABEL_53:
         _os_log_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -242,32 +237,32 @@ LABEL_53:
   if (v17)
   {
     v16 = v17;
-    v49 = blockCopy;
+    v48 = blockCopy;
 LABEL_11:
-    v52 = libraryCopy;
+    v51 = libraryCopy;
     librarySpecificFetchOptions = [libraryCopy librarySpecificFetchOptions];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v50 = nodesCopy;
+    v49 = nodesCopy;
     v20 = nodesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v61 objects:v69 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v60 objects:v68 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v62;
+      v23 = *v61;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v62 != v23)
+          if (*v61 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v61 + 1) + 8 * i);
+          v25 = *(*(&v60 + 1) + 8 * i);
           localIdentifier = [v25 localIdentifier];
           if ([localIdentifier length])
           {
@@ -275,7 +270,7 @@ LABEL_11:
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v60 objects:v68 count:16];
       }
 
       while (v22);
@@ -283,32 +278,32 @@ LABEL_11:
 
     v27 = MEMORY[0x277CD9938];
     allKeys = [dictionary allKeys];
-    v48 = librarySpecificFetchOptions;
+    v47 = librarySpecificFetchOptions;
     v29 = [v27 fetchPersonsWithLocalIdentifiers:allKeys options:librarySpecificFetchOptions];
 
-    v51 = objc_alloc_init(MEMORY[0x277CCAB00]);
+    v50 = objc_alloc_init(MEMORY[0x277CCAB00]);
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     obj = v29;
-    v55 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
-    if (v55)
+    v54 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+    if (v54)
     {
       v30 = 1.0 / v16;
-      v54 = *v58;
+      v53 = *v57;
       v31 = 0.0;
-      libraryCopy = v52;
+      libraryCopy = v51;
       while (2)
       {
-        for (j = 0; j != v55; ++j)
+        for (j = 0; j != v54; ++j)
         {
-          if (*v58 != v54)
+          if (*v57 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = *(*(&v57 + 1) + 8 * j);
+          v33 = *(*(&v56 + 1) + 8 * j);
           v34 = objc_autoreleasePoolPush();
           localIdentifier2 = [v33 localIdentifier];
           v36 = [dictionary objectForKeyedSubscript:localIdentifier2];
@@ -322,12 +317,12 @@ LABEL_11:
             v40 = [v36 debugDescription];
             v41 = [(PGGraphIngestPersonBiologicalSexProcessor *)self _sexDescriptionForBiologicalSex:v37];
             *buf = 138478083;
-            *v67 = v40;
-            *&v67[8] = 2112;
-            *&v67[10] = v41;
+            *v66 = v40;
+            *&v66[8] = 2112;
+            *&v66[10] = v41;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[Ingest BiologicalSex]Person %{private}@ classified as %@", buf, 0x16u);
 
-            libraryCopy = v52;
+            libraryCopy = v51;
           }
 
           -[PGGraphBuilder setBiologicalSex:onPersonNodeForIdentifier:](self->_graphBuilder, "setBiologicalSex:onPersonNodeForIdentifier:", v37, [v36 identifier]);
@@ -335,33 +330,33 @@ LABEL_11:
           if ([v33 sexType] != v42)
           {
             v43 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v42];
-            [v51 setObject:v43 forKey:v33];
+            [v50 setObject:v43 forKey:v33];
           }
 
           v31 = v30 + v31;
-          if (v56)
+          if (v55)
           {
             v44 = CFAbsoluteTimeGetCurrent();
             if (v44 - v12 >= 0.01)
             {
-              v65 = 0;
-              v56[2](v56, &v65, v31);
-              if (v65)
+              v64 = 0;
+              v55[2](v55, &v64, v31);
+              if (v64)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  *v67 = 115;
-                  *&v67[4] = 2080;
-                  *&v67[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
+                  *v66 = 115;
+                  *&v66[4] = 2080;
+                  *&v66[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
                 objc_autoreleasePoolPop(v34);
-                blockCopy = v49;
-                nodesCopy = v50;
-                v45 = v48;
-                v46 = v51;
+                blockCopy = v48;
+                nodesCopy = v49;
+                v45 = v47;
+                v46 = v50;
                 goto LABEL_47;
               }
 
@@ -372,8 +367,8 @@ LABEL_11:
           objc_autoreleasePoolPop(v34);
         }
 
-        v55 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
-        if (v55)
+        v54 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+        if (v54)
         {
           continue;
         }
@@ -384,32 +379,32 @@ LABEL_11:
 
     else
     {
-      libraryCopy = v52;
+      libraryCopy = v51;
     }
 
-    v46 = v51;
-    if ([v51 count])
+    v46 = v50;
+    if ([v50 count])
     {
-      [(PGGraphIngestPersonBiologicalSexProcessor *)self _writeBiologicalSexByPerson:v51 toPhotoLibrary:libraryCopy];
+      [(PGGraphIngestPersonBiologicalSexProcessor *)self _writeBiologicalSexByPerson:v50 toPhotoLibrary:libraryCopy];
     }
 
-    blockCopy = v49;
-    nodesCopy = v50;
-    v45 = v48;
-    if (v56)
+    blockCopy = v48;
+    nodesCopy = v49;
+    v45 = v47;
+    if (v55)
     {
       if (CFAbsoluteTimeGetCurrent() - v12 >= 0.01)
       {
-        v65 = 0;
-        v56[2](v56, &v65, 1.0);
-        if (v65)
+        v64 = 0;
+        v55[2](v55, &v64, 1.0);
+        if (v64)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v67 = 123;
-            *&v67[4] = 2080;
-            *&v67[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
+            *v66 = 123;
+            *&v66[4] = 2080;
+            *&v66[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -423,16 +418,16 @@ LABEL_47:
 
   if (CFAbsoluteTimeGetCurrent() - v12 >= 0.01)
   {
-    v65 = 0;
-    v56[2](v56, &v65, 1.0);
-    if (v65)
+    v64 = 0;
+    v55[2](v55, &v64, 1.0);
+    if (v64)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v67 = 81;
-        *&v67[4] = 2080;
-        *&v67[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
+        *v66 = 81;
+        *&v66[4] = 2080;
+        *&v66[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPersonBiologicalSexProcessor.m";
         v14 = MEMORY[0x277D86220];
         goto LABEL_53;
       }
@@ -440,8 +435,6 @@ LABEL_47:
   }
 
 LABEL_48:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
@@ -497,37 +490,37 @@ LABEL_48:
 
 + (unint64_t)sexForFaces:(id)faces personDescription:(id)description
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   facesCopy = faces;
   descriptionCopy = description;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v7 = [facesCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v7 = [facesCopy countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
     v10 = 0;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(facesCopy);
         }
 
-        if ([*(*(&v19 + 1) + 8 * i) sexType] == 2)
+        if ([*(*(&v18 + 1) + 8 * i) sexType] == 2)
         {
           ++v10;
         }
       }
 
       v9 += v8;
-      v8 = [facesCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v8 = [facesCopy countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v8);
@@ -545,11 +538,11 @@ LABEL_48:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 138478339;
-    v24 = descriptionCopy;
-    v25 = 2048;
-    v26 = v13;
-    v27 = 2048;
-    v28 = 1.0 - v13;
+    v23 = descriptionCopy;
+    v24 = 2048;
+    v25 = v13;
+    v26 = 2048;
+    v27 = 1.0 - v13;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[Ingest BiologicalSex]Person %{private}@ femaleRatio:%0.2f maleRatio: %0.2f", buf, 0x20u);
   }
 
@@ -568,7 +561,6 @@ LABEL_48:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

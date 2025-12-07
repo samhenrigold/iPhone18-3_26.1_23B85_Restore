@@ -5,6 +5,7 @@
 - (id)handleSelect:(id)select;
 - (void)authorize:(id)authorize withToken:(id)token;
 - (void)handleDeselect;
+- (void)supportPayment:(BOOL)payment;
 @end
 
 @implementation NFLoyaltyAgent
@@ -26,6 +27,68 @@
   }
 
   return v2;
+}
+
+- (void)supportPayment:(BOOL)payment
+{
+  paymentCopy = payment;
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v7 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v10 = 45;
+    if (isMetaClass)
+    {
+      v10 = 43;
+    }
+
+    v7(6, "%c[%{public}s %{public}s]:%i enable = %d", v10, ClassName, Name, 74, paymentCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v11 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = object_getClass(self);
+    if (class_isMetaClass(v12))
+    {
+      v13 = 43;
+    }
+
+    else
+    {
+      v13 = 45;
+    }
+
+    *buf = 67110146;
+    v18 = v13;
+    v19 = 2082;
+    v20 = object_getClassName(self);
+    v21 = 2082;
+    v22 = sel_getName(a2);
+    v23 = 1024;
+    v24 = 74;
+    v25 = 1024;
+    v26 = paymentCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i enable = %d", buf, 0x28u);
+  }
+
+  if (paymentCopy)
+  {
+    v14 = 48;
+  }
+
+  else
+  {
+    v14 = 16;
+  }
+
+  self->_mobileCaps = self->_mobileCaps & 0xFFFFFFCF | v14;
 }
 
 - (id)getTransactionEvent

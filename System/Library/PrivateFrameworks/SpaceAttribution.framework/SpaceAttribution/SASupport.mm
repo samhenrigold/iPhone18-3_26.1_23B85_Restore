@@ -2,6 +2,7 @@
 + (BOOL)isFileCloned:(const char *)cloned;
 + (BOOL)isFilePurgeable:(const char *)purgeable;
 + (BOOL)isItemMountedOnSystemVolume:(id)volume;
++ (BOOL)isSDHierarchyEnabledForPath:(id)path orFD:(int)d;
 + (BOOL)shouldExcludeCacheSizeForBundle:(id)bundle;
 + (BOOL)targetDeviceIsHomePod;
 + (BOOL)targetDeviceIsIpad;
@@ -23,6 +24,9 @@
 + (id)getURLMountPoint:(id)point;
 + (id)getVolumesPaths;
 + (id)getiCloudPlanSizeGB;
++ (int)enableDirStatInfoForPath:(id)path orFD:(int)d withOptions:(int64_t)options andGetInfo:(id *)info;
++ (int)enableDirStatsForPath:(id)path orFD:(int)d withOptions:(int64_t)options;
++ (int)getDirStatInfoForPath:(id)path orFD:(int)d withOptions:(int64_t)options info:(id *)info;
 + (unint64_t)calculateMovingSumFor:(unint64_t)for with:(unint64_t)with numOfSamples:(unint64_t)samples windowLength:(unint64_t)length;
 + (unint64_t)getCloneDstreamIDForPath:(id)path;
 + (unint64_t)getDirStatKeyForOriginID:(unint64_t)d ofMount:(char *)mount;
@@ -58,6 +62,111 @@
   }
 
   return v4;
+}
+
++ (int)enableDirStatsForPath:(id)path orFD:(int)d withOptions:(int64_t)options
+{
+  optionsCopy = options;
+  v6 = *&d;
+  pathCopy = path;
+  v8 = pathCopy;
+  v34 = 0u;
+  v35 = 0u;
+  v9 = 284;
+  if ((optionsCopy & 1) == 0)
+  {
+    v9 = 28;
+  }
+
+  v32 = 0uLL;
+  v33 = 0uLL;
+  v30 = 0uLL;
+  v31 = 0uLL;
+  v28 = 0uLL;
+  v29 = 0uLL;
+  v26 = 0uLL;
+  v27 = 0uLL;
+  v25 = 0uLL;
+  v24 = 0uLL;
+  v23 = 0uLL;
+  v22 = 0uLL;
+  v21 = 0uLL;
+  v20 = 0uLL;
+  v19[0] = 0x100000003;
+  v19[1] = v9;
+  if (pathCopy)
+  {
+    if (fsctl([pathCopy fileSystemRepresentation], 0xC1104A71uLL, v19, 1u))
+    {
+      goto LABEL_5;
+    }
+
+LABEL_13:
+    v11 = SALog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      v14 = v8;
+      if (!v8)
+      {
+        v14 = [NSNumber numberWithInt:v6];
+      }
+
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Enabled APFSIOC_DIR_STATS_OP for %@", &v15, 0xCu);
+      if (!v8)
+      {
+      }
+    }
+
+    v10 = 0;
+    goto LABEL_18;
+  }
+
+  if (!v6)
+  {
+    v11 = SALog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_10003A0F4();
+    }
+
+    v10 = 22;
+    goto LABEL_18;
+  }
+
+  if (!ffsctl(v6, 0xC1104A71uLL, v19, 0))
+  {
+    goto LABEL_13;
+  }
+
+LABEL_5:
+  v10 = *__error();
+  if (v10 != 2)
+  {
+    v11 = SALog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = v8;
+      if (!v8)
+      {
+        v12 = [NSNumber numberWithInt:v6];
+      }
+
+      v15 = 138412546;
+      v16 = v12;
+      v17 = 2080;
+      v18 = strerror(v10);
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "APFSIOC_DIR_STATS_OP : DIR_STATS_OP_SET failed for fd %@ : %s", &v15, 0x16u);
+      if (!v8)
+      {
+      }
+    }
+
+LABEL_18:
+  }
+
+  return v10;
 }
 
 + (id)getPathOfiNode:(unint64_t)node inVolume:(id)volume
@@ -176,6 +285,256 @@ LABEL_9:
   }
 
   return v7;
+}
+
++ (int)getDirStatInfoForPath:(id)path orFD:(int)d withOptions:(int64_t)options info:(id *)info
+{
+  optionsCopy = options;
+  v8 = *&d;
+  pathCopy = path;
+  v11 = pathCopy;
+  v32 = 0u;
+  memset(v33, 0, sizeof(v33));
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 3;
+  v29 = 1;
+  if (pathCopy)
+  {
+    if (fsctl([pathCopy fileSystemRepresentation], 0xC1104A71uLL, &v28, 1u))
+    {
+      goto LABEL_3;
+    }
+
+    goto LABEL_8;
+  }
+
+  if (v8)
+  {
+    if (ffsctl(v8, 0xC1104A71uLL, &v28, 0))
+    {
+LABEL_3:
+      v12 = *__error();
+      if (v12 != 45)
+      {
+        v13 = SALog();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          v23 = v11;
+          if (!v11)
+          {
+            v23 = [NSNumber numberWithInt:v8];
+          }
+
+          v24 = 138412546;
+          v25 = v23;
+          v26 = 2080;
+          v27 = strerror(v12);
+          _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "APFSIOC_DIR_STATS_OP: DIR_STATS_OP_GET failed for %@ : %s", &v24, 0x16u);
+          if (!v11)
+          {
+          }
+        }
+      }
+
+      goto LABEL_24;
+    }
+
+LABEL_8:
+    if ((v29 & 4) == 0)
+    {
+      v14 = SALog();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+LABEL_10:
+
+LABEL_23:
+        v12 = 93;
+        goto LABEL_24;
+      }
+
+      v19 = v11;
+      if (!v11)
+      {
+        v19 = [NSNumber numberWithInt:v8];
+      }
+
+      v24 = 138412546;
+      v25 = v19;
+      v26 = 2048;
+      v27 = v29;
+      v20 = "dir-stat for %@ (flags 0x%llx) is not in saf mode.";
+      v21 = v14;
+      v22 = 22;
+LABEL_41:
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, v20, &v24, v22);
+      if (!v11)
+      {
+      }
+
+      goto LABEL_10;
+    }
+
+    if ((~v30 & 0xB) != 0)
+    {
+      v17 = SALog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        sub_10003A330();
+      }
+
+      goto LABEL_23;
+    }
+
+    if ((v29 & 0x10) != 0)
+    {
+      v14 = SALog();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_10;
+      }
+
+      v19 = v11;
+      if (!v11)
+      {
+        v19 = [NSNumber numberWithInt:v8];
+      }
+
+      v24 = 138412290;
+      v25 = v19;
+      v20 = "dir-stats for %@ is possibly inconsistent.";
+    }
+
+    else
+    {
+      if (optionsCopy & 1) == 0 || ([self isSDHierarchyEnabledForPath:v11 orFD:v8])
+      {
+        v12 = 0;
+        if (info)
+        {
+          v15 = *(&v32 + 1);
+          info->var0 = v33[0].i64[0];
+          *&info->var1 = vextq_s8(*(v33 + 8), *(v33 + 8), 8uLL);
+          info->var3 = v31;
+          info->var4 = v15;
+        }
+
+        goto LABEL_24;
+      }
+
+      v14 = SALog();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_10;
+      }
+
+      v19 = v11;
+      if (!v11)
+      {
+        v19 = [NSNumber numberWithInt:v8];
+      }
+
+      v24 = 138412290;
+      v25 = v19;
+      v20 = "Dir-stats for %@ does not have SD hierarchy";
+    }
+
+    v21 = v14;
+    v22 = 12;
+    goto LABEL_41;
+  }
+
+  v16 = SALog();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    sub_10003A3B0();
+  }
+
+  v12 = 22;
+LABEL_24:
+
+  return v12;
+}
+
++ (BOOL)isSDHierarchyEnabledForPath:(id)path orFD:(int)d
+{
+  v4 = *&d;
+  pathCopy = path;
+  v6 = pathCopy;
+  v22 = 0;
+  memset(v21, 0, sizeof(v21));
+  LODWORD(v21[0]) = 2;
+  if (pathCopy)
+  {
+    if (fsctl([pathCopy fileSystemRepresentation], 0xC0F84A7EuLL, v21, 0))
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    if (!v4)
+    {
+      v9 = SALog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        sub_10003A430();
+      }
+
+      goto LABEL_11;
+    }
+
+    if (ffsctl(v4, 0xC0F84A7EuLL, v21, 0))
+    {
+LABEL_3:
+      v7 = SALog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        v11 = v6;
+        if (!v6)
+        {
+          v11 = [NSNumber numberWithInt:v4];
+        }
+
+        v12 = *__error();
+        v13 = __error();
+        v14 = strerror(*v13);
+        v15 = 138412802;
+        v16 = v11;
+        v17 = 1024;
+        v18 = v12;
+        v19 = 2080;
+        v20 = v14;
+        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to GET speculative download hierarchy info for %@ with error %d (%s)", &v15, 0x1Cu);
+        if (!v6)
+        {
+        }
+      }
+
+LABEL_11:
+      v8 = 0;
+      goto LABEL_12;
+    }
+  }
+
+  v8 = BYTE7(v21[0]);
+LABEL_12:
+
+  return v8 & 1;
+}
+
++ (int)enableDirStatInfoForPath:(id)path orFD:(int)d withOptions:(int64_t)options andGetInfo:(id *)info
+{
+  v8 = *&d;
+  pathCopy = path;
+  v10 = [SASupport enableDirStatsForPath:pathCopy orFD:v8 withOptions:options];
+  if (!v10)
+  {
+    v10 = [SASupport getDirStatInfoForPath:pathCopy orFD:v8 withOptions:options info:info];
+  }
+
+  return v10;
 }
 
 + (BOOL)targetDeviceIsIpad
@@ -457,15 +816,15 @@ LABEL_8:
 {
   if (d)
   {
-    if ((fsgetpath(v8, 0x400uLL, sid, d) & 0x8000000000000000) == 0)
+    if ((fsgetpath(v7, 0x400uLL, sid, d) & 0x8000000000000000) == 0)
     {
-      v4 = [NSString stringWithUTF8String:v8];
+      v4 = [NSString stringWithUTF8String:v7];
       goto LABEL_8;
     }
 
-    v5 = *__error();
-    v6 = SALog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    __error();
+    v5 = SALog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10003A964();
     }

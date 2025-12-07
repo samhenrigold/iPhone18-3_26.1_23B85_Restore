@@ -724,7 +724,7 @@ uint64_t __75__ICNoteLockManager_updateDivergedAttachmentsWithConfiguration_comp
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_3_4(&dword_1D4171000, v3, v4, "Adding lock to note… {note: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_4(&dword_1D4171000, v3, v4, "Adding lock to note… {note: %@}%s:%d", v5, v6, v7, v8);
 }
 
 - (void)addLockWithCompletionHandler:(void *)a1 .cold.2(void *a1)
@@ -741,7 +741,7 @@ uint64_t __75__ICNoteLockManager_updateDivergedAttachmentsWithConfiguration_comp
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_3_4(&dword_1D4171000, v3, v4, "Removing lock from note… {note: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_4(&dword_1D4171000, v3, v4, "Removing lock from note… {note: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __61__ICNoteLockManager_unsafelyToggleLockWithCompletionHandler___block_invoke_3_cold_1(void *a1, NSObject *a2)

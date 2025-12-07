@@ -25,7 +25,7 @@ LABEL_9:
     v41 = 0u;
     if (self)
     {
-      [self CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(self);
     }
 
     v7 = CACreateStringWithFloatArray(&v41, 0x14uLL, 0.000001);
@@ -84,7 +84,7 @@ LABEL_17:
     v42 = 0u;
     if (self)
     {
-      [self CACornerRadiiValue];
+      objc_msgSend_CACornerRadiiValue(self);
     }
 
     v14 = 8;
@@ -98,7 +98,7 @@ LABEL_17:
     v41 = 0u;
     if (self)
     {
-      [self CA_CGAffineTransformValue];
+      objc_msgSend_CA_CGAffineTransformValue(self);
     }
 
     v7 = CACreateStringWithDoubleArray(&v41, 6uLL, 1.0e-12);
@@ -133,7 +133,7 @@ LABEL_13:
   v41 = 0u;
   if (self)
   {
-    [self CATransform3DValue];
+    objc_msgSend_CATransform3DValue(self);
     v27 = v32;
     v26 = v33;
     v25 = v34;

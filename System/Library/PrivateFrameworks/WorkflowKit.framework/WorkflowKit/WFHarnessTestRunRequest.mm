@@ -33,7 +33,7 @@
 
 - (WFHarnessTestRunRequest)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"testRunDescriptor"];
   if (!v5)
@@ -42,7 +42,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v13 = "[WFHarnessTestRunRequest initWithCoder:]";
+      v12 = "[WFHarnessTestRunRequest initWithCoder:]";
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Trying to deserialize a test run request, but there's no run descriptor attached to it. No idea what test case this request wants to run, failing.", buf, 0xCu);
     }
 
@@ -50,9 +50,9 @@
     goto LABEL_7;
   }
 
-  v11.receiver = self;
-  v11.super_class = WFHarnessTestRunRequest;
-  v6 = [(WFWorkflowRunRequest *)&v11 initWithCoder:coderCopy];
+  v10.receiver = self;
+  v10.super_class = WFHarnessTestRunRequest;
+  v6 = [(WFWorkflowRunRequest *)&v10 initWithCoder:coderCopy];
   if (v6)
   {
     v7 = v5;
@@ -61,18 +61,17 @@
 LABEL_7:
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)getInputWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   testRunDescriptor = [(WFHarnessTestRunRequest *)self testRunDescriptor];
-  v11 = 0;
-  v6 = [testRunDescriptor loadTestCaseWithError:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [testRunDescriptor loadTestCaseWithError:&v10];
+  v7 = v10;
 
   if (v6)
   {
@@ -88,16 +87,14 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[WFHarnessTestRunRequest getInputWithCompletionHandler:]";
-      v14 = 2112;
-      v15 = v7;
+      v12 = "[WFHarnessTestRunRequest getInputWithCompletionHandler:]";
+      v13 = 2112;
+      v14 = v7;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Can't load harness test case when getting shortcut input: %@", buf, 0x16u);
     }
 
     (handlerCopy)[2](handlerCopy, 0, v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (WFHarnessTestRunRequest)initWithTestBundleURL:(id)l xcTestClass:(id)class xcTestMethodName:(id)name testIdentifier:(id)identifier automationType:(id)type

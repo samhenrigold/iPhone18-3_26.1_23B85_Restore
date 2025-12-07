@@ -1,24 +1,24 @@
 id sub_241EFC710(void *a1)
 {
-  v2 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EC7AA60, &qword_241EFDE48) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EC7AA60, &qword_241EFDE48);
   MEMORY[0x28223BE20]();
-  v4 = &v12 - v3;
-  v5 = sub_241EFD7B4();
+  v3 = &v11 - v2;
+  v4 = sub_241EFD7B4();
   sub_241EFC854();
-  v6 = a1;
+  v5 = a1;
   sub_241EFD804();
 
-  v7 = *(v5 - 8);
-  v8 = (*(v7 + 48))(v4, 1, v5);
-  v9 = 0;
-  if (v8 != 1)
+  v6 = *(v4 - 8);
+  v7 = (*(v6 + 48))(v3, 1, v4);
+  v8 = 0;
+  if (v7 != 1)
   {
-    v10 = sub_241EFD794();
-    (*(v7 + 8))(v4, v5);
-    v9 = v10;
+    v9 = sub_241EFD794();
+    (*(v6 + 8))(v3, v4);
+    v8 = v9;
   }
 
-  return v9;
+  return v8;
 }
 
 unint64_t sub_241EFC854()
@@ -35,14 +35,12 @@ unint64_t sub_241EFC854()
 
 uint64_t sub_241EFC8A8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_241EFC8E0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
@@ -72,31 +70,31 @@ id getCPSWebClipServiceClass()
   return v1;
 }
 
-void sub_241EFCA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241EFCA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCPSWebClipServiceClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!ClipServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __ClipServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278D29B38;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __ClipServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278D29B38;
+    v6 = 0;
     ClipServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (ClipServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -104,7 +102,7 @@ Class __getCPSWebClipServiceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -119,17 +117,13 @@ LABEL_4:
   }
 
   getCPSWebClipServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __ClipServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ClipServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -142,7 +136,7 @@ uint64_t (*sub_241EFD080(uint64_t a1, uint64_t a2))()
   return sub_241EFD4F0;
 }
 
-uint64_t sub_241EFD170(unint64_t *a1)
+uint64_t sub_241EFD170(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -155,7 +149,7 @@ uint64_t sub_241EFD170(unint64_t *a1)
   return result;
 }
 
-uint64_t sub_241EFD1D0@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
+uint64_t sub_241EFD1D0@<X0>(__int128 *a1@<X0>, void *a2@<X8>)
 {
   v4 = swift_allocObject();
   *(v4 + 16) = *a1;
@@ -168,13 +162,13 @@ uint64_t sub_241EFD1D0@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
   return swift_unknownObjectRetain();
 }
 
-uint64_t sub_241EFD27C(uint64_t *a1)
+uint64_t sub_241EFD27C(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *a1;
-  v1 = a1[1];
-  v3 = swift_allocObject();
-  *(v3 + 16) = v2;
-  *(v3 + 24) = v1;
+  v6 = *a1;
+  v5 = a1[1];
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  *(v7 + 24) = v5;
 
   sub_241EFD7F4();
 }
@@ -291,39 +285,29 @@ _WORD *storeEnumTagSinglePayload for WebClipConnectionOptionDefinition(_WORD *re
 uint64_t sub_241EFD420(uint64_t a1)
 {
   v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v5 = a1;
-  return v2(&v5);
-}
-
-uint64_t sub_241EFD45C(void *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1);
+  v4 = a1;
+  return v2(&v4);
 }
 
 uint64_t sub_241EFD488(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 16);
-  v6 = *(v2 + 24);
+  v5 = *(v2 + 24);
   ObjectType = swift_getObjectType();
-  return (*(v6 + 8))(a1, a2, ObjectType, v6);
+  return (*(v5 + 8))(a1, a2, ObjectType, v5);
 }
 
-id sub_241EFD558()
+id sub_241EFD558(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = sub_241EFD7B4();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
+  v3 = sub_241EFD7B4();
+  v4 = *(v3 - 8);
   MEMORY[0x28223BE20]();
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_241EFD7A4();
   sub_241EFC854();
-  v5 = sub_241EFD7C4();
-  (*(v1 + 8))(v4, v0);
+  v7 = sub_241EFD7C4();
+  (*(v4 + 8))(v6, v3);
 
-  return v5;
+  return v7;
 }
 
 uint64_t UISceneConnectionOptions.webClipID.getter()
@@ -339,7 +323,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

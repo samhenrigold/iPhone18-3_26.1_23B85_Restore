@@ -31,7 +31,7 @@
 
   v6 = [PXStoryRecipeAssetEdits alloc];
   keyAsset = [(PXStoryRecipeAssetEdits *)self keyAsset];
-  [(PXStoryRecipeAssetEdits *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self);
   userCuratedAssets = [(PXStoryRecipeAssetEdits *)self userCuratedAssets];
   v9 = [(PXStoryRecipeAssetEdits *)v6 initWithKeyAsset:keyAsset overallDurationInfo:&v11 userCuratedAssets:userCuratedAssets customUserAssetsEdit:v5];
 
@@ -60,7 +60,7 @@
 {
   assetCopy = asset;
   v5 = [PXStoryRecipeAssetEdits alloc];
-  [(PXStoryRecipeAssetEdits *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self);
   userCuratedAssets = [(PXStoryRecipeAssetEdits *)self userCuratedAssets];
   customUserAssetsEdit = [(PXStoryRecipeAssetEdits *)self customUserAssetsEdit];
   v8 = [(PXStoryRecipeAssetEdits *)v5 initWithKeyAsset:assetCopy overallDurationInfo:&v10 userCuratedAssets:userCuratedAssets customUserAssetsEdit:customUserAssetsEdit];
@@ -75,7 +75,7 @@
   v5 = NSStringFromClass(v4);
   keyAsset = [(PXStoryRecipeAssetEdits *)self keyAsset];
   uuid = [keyAsset uuid];
-  [(PXStoryRecipeAssetEdits *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self);
   v8 = PFStoryOverallDurationInfoDescription();
   userCuratedAssets = [(PXStoryRecipeAssetEdits *)self userCuratedAssets];
   v10 = [userCuratedAssets count];
@@ -109,7 +109,7 @@
         if (v5)
         {
 LABEL_6:
-          [(PXStoryRecipeAssetEdits *)v5 overallDurationInfo];
+          objc_msgSend_overallDurationInfo(v5);
           v10 = v20[0];
           goto LABEL_11;
         }

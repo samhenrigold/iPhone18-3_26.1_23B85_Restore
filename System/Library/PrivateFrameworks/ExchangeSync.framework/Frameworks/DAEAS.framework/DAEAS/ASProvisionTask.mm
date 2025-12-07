@@ -1,6 +1,8 @@
 @interface ASProvisionTask
 - (BOOL)getTopLevelToken:(char *)token outStatusCodePage:(char *)page outStatusToken:(char *)statusToken;
 - (BOOL)processContext:(id)context;
+- (id)_initWithType:(int)type policy:(id)policy key:(id)key;
+- (id)_initWithType:(int)type policy:(id)policy key:(id)key accountOnlyRemoteWipeSuccess:(BOOL)success;
 - (id)_policyID;
 - (id)_provisioningType;
 - (id)requestBody;
@@ -9,6 +11,48 @@
 @end
 
 @implementation ASProvisionTask
+
+- (id)_initWithType:(int)type policy:(id)policy key:(id)key
+{
+  v6 = *&type;
+  policyCopy = policy;
+  keyCopy = key;
+  v14.receiver = self;
+  v14.super_class = ASProvisionTask;
+  v10 = [(ASTask *)&v14 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(ASProvisionTask *)v10 setType:v6];
+    [(ASProvisionTask *)v11 setPolicy:policyCopy];
+    v12 = [keyCopy copy];
+    [(ASProvisionTask *)v11 setKey:v12];
+  }
+
+  return v11;
+}
+
+- (id)_initWithType:(int)type policy:(id)policy key:(id)key accountOnlyRemoteWipeSuccess:(BOOL)success
+{
+  successCopy = success;
+  v8 = *&type;
+  policyCopy = policy;
+  keyCopy = key;
+  v16.receiver = self;
+  v16.super_class = ASProvisionTask;
+  v12 = [(ASTask *)&v16 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(ASProvisionTask *)v12 setType:v8];
+    [(ASProvisionTask *)v13 setAccountOnlyRemoteWipeSuccess:successCopy];
+    [(ASProvisionTask *)v13 setPolicy:policyCopy];
+    v14 = [keyCopy copy];
+    [(ASProvisionTask *)v13 setKey:v14];
+  }
+
+  return v13;
+}
 
 - (id)_policyID
 {
@@ -44,7 +88,7 @@
 
 - (id)requestBody
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 switchToCodePage:14];
   [v3 openTag:5];
@@ -63,31 +107,31 @@
         [v3 switchToCodePage:18];
         [v3 openTag:22];
         [v3 openTag:8];
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         allKeys = [(NSDictionary *)self->_deviceInfo allKeys];
-        v15 = [allKeys countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v15 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
         if (!v15)
         {
           goto LABEL_38;
         }
 
         v16 = v15;
-        v17 = *v45;
-        v41 = v3;
-        v42 = *v45;
+        v17 = *v44;
+        v40 = v3;
+        v41 = *v44;
         while (1)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v45 != v17)
+            if (*v44 != v17)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v19 = *(*(&v44 + 1) + 8 * i);
+            v19 = *(*(&v43 + 1) + 8 * i);
             intValue = [v19 intValue];
             if (intValue <= 2)
             {
@@ -154,8 +198,8 @@
               allKeys = v25;
               v16 = v24;
 
-              v3 = v41;
-              v17 = v42;
+              v3 = v40;
+              v17 = v41;
 
               if (sendUserAgentInDeviceInfo)
               {
@@ -169,7 +213,7 @@ LABEL_35:
             }
           }
 
-          v16 = [allKeys countByEnumeratingWithState:&v44 objects:v48 count:16];
+          v16 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
           if (!v16)
           {
 LABEL_38:
@@ -275,8 +319,6 @@ LABEL_38:
   [v3 closeTag:5];
   data = [v3 data];
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
@@ -303,7 +345,7 @@ LABEL_38:
 
 - (BOOL)processContext:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -439,13 +481,12 @@ LABEL_17:
   v18 = 0;
 LABEL_31:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)finishWithError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
   v6 = currentlyParsingItem;
@@ -456,10 +497,10 @@ LABEL_31:
     if (os_log_type_enabled(v7, v8))
     {
       *buf = 138412546;
-      v30 = objc_opt_class();
-      v31 = 2112;
-      v32 = v6;
-      v9 = v30;
+      v29 = objc_opt_class();
+      v30 = 2112;
+      v31 = v6;
+      v9 = v29;
       _os_log_impl(&dword_24A0AC000, v7, v8, "%@ Parsed response of %@", buf, 0x16u);
     }
 
@@ -468,15 +509,15 @@ LABEL_31:
 
     if (![(ASTask *)self attemptRetryWithStatus:v11 error:0])
     {
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __35__ASProvisionTask_finishWithError___block_invoke_15;
-      v24[3] = &unk_278FC7B68;
-      v24[4] = self;
-      v25 = v6;
-      v26 = v11;
-      [(ASTask *)self finishWithError:0 afterDelegateCallout:v24];
-      v12 = v25;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __35__ASProvisionTask_finishWithError___block_invoke_15;
+      v23[3] = &unk_278FC7B68;
+      v23[4] = self;
+      v24 = v6;
+      v25 = v11;
+      [(ASTask *)self finishWithError:0 afterDelegateCallout:v23];
+      v12 = v24;
 LABEL_17:
 
       goto LABEL_18;
@@ -497,8 +538,8 @@ LABEL_17:
     }
 
     *buf = 138412290;
-    v30 = objc_opt_class();
-    v17 = v30;
+    v29 = objc_opt_class();
+    v17 = v29;
     v18 = "%@ cancelled";
     v19 = v15;
     v20 = v22;
@@ -514,10 +555,10 @@ LABEL_17:
     }
 
     *buf = 138412546;
-    v30 = objc_opt_class();
-    v31 = 2112;
-    v32 = errorCopy;
-    v17 = v30;
+    v29 = objc_opt_class();
+    v30 = 2112;
+    v31 = errorCopy;
+    v17 = v29;
     v18 = "%@ failed: %@";
     v19 = v15;
     v20 = v16;
@@ -529,22 +570,20 @@ LABEL_17:
 LABEL_14:
   if (![(ASTask *)self attemptRetryWithStatus:v13 error:errorCopy])
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __35__ASProvisionTask_finishWithError___block_invoke;
-    v27[3] = &unk_278FC78E8;
-    v27[4] = self;
-    v28 = errorCopy;
-    [(ASTask *)self finishWithError:v28 afterDelegateCallout:v27];
-    v12 = v28;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __35__ASProvisionTask_finishWithError___block_invoke;
+    v26[3] = &unk_278FC78E8;
+    v26[4] = self;
+    v27 = errorCopy;
+    [(ASTask *)self finishWithError:v27 afterDelegateCallout:v26];
+    v12 = v27;
     goto LABEL_17;
   }
 
 LABEL_15:
   [(ASTask *)self setCurrentlyParsingItem:0];
 LABEL_18:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __35__ASProvisionTask_finishWithError___block_invoke(uint64_t a1)

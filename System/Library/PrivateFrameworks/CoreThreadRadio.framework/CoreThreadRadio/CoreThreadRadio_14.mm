@@ -1,3 +1,489 @@
+uint64_t HostInterpreter::ProcessRouteAdd(HostInterpreter *this, unsigned __int8 a2, char **a3, in6_addr *a4)
+{
+  v31[1] = 0;
+  v32 = 0;
+  v31[0] = 0;
+  v6 = a4[1].__u6_addr32[1];
+  if (v6 == -1)
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v6 == 1)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = v7;
+  }
+
+  BYTE4(v32) = v8 | (8 * a4[1].__u6_addr8[8]) | (4 * a4[1].__u6_addr8[9]) | 0x10;
+  IPv6Prefix::IPv6Prefix(&v29, a4, a4[1].__u6_addr8[0]);
+  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (logging_obg)
+  {
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
+    {
+      IPv6Prefix::to_string(__p, &v29);
+      v10 = (SBYTE3(v28) & 0x80u) == 0 ? __p : __p[0];
+      *buf = 136315394;
+      *&buf[4] = v10;
+      *&buf[12] = 1024;
+      *&buf[14] = gSrpModeNetInfo;
+      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "OffMeshPrefix::[%s],srpMode[%d]", buf, 0x12u);
+      if (SBYTE3(v28) < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [PowerEventHandler_Rcp init:];
+  }
+
+  v11 = a4[1].__u6_addr32[1];
+  v12 = a4[1].__u6_addr8[8];
+  v13 = a4[1].__u6_addr8[9];
+  *buf = 2;
+  *&buf[4] = v11;
+  buf[8] = v12;
+  *&buf[10] = 0;
+  buf[12] = v13;
+  buf[13] = (v32 & 0x1000000000) != 0;
+  IPv6Prefix::to_string(__p, &v29);
+  if ((SBYTE3(v28) & 0x80u) == 0)
+  {
+    v14 = __p;
+  }
+
+  else
+  {
+    v14 = __p[0];
+  }
+
+  v15 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(v14, v31);
+  v16 = v15;
+  if (SBYTE3(v28) < 0)
+  {
+    operator delete(__p[0]);
+    if (v16)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  else if (v15)
+  {
+LABEL_22:
+    v17 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v17)
+    {
+      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        HostInterpreter::ProcessRouteAdd();
+      }
+
+      goto LABEL_56;
+    }
+
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_56;
+    }
+
+LABEL_55:
+    [PowerEventHandler_Rcp init:];
+    goto LABEL_56;
+  }
+
+  if ((gSrpModeNetInfo & 1) == 0)
+  {
+    if ((this + 88) == HostInterpreter::find_route_entry(this, &v29, buf))
+    {
+      *__p = v29;
+      v27 = v30;
+      v28 = *buf;
+      operator new();
+    }
+
+    v19 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v19)
+    {
+      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        HostInterpreter::ProcessRouteAdd();
+      }
+    }
+
+    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      [PowerEventHandler_Rcp init:];
+    }
+
+    v16 = 0;
+    v21 = 0;
+    v22 = *a4[2].__u6_addr8;
+    if (v22)
+    {
+      goto LABEL_61;
+    }
+
+    goto LABEL_59;
+  }
+
+  v16 = otBorderRouterAddRoute(*(this + 28), v31);
+  if (!v16)
+  {
+    v16 = otBorderRouterRegister(*(this + 28));
+    if (v16)
+    {
+      v20 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (!v20)
+      {
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_56;
+        }
+
+        goto LABEL_55;
+      }
+
+      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        HostInterpreter::ProcessRouteAdd();
+      }
+
+      goto LABEL_56;
+    }
+
+    v21 = 0;
+    v22 = *a4[2].__u6_addr8;
+    if (v22)
+    {
+      goto LABEL_61;
+    }
+
+LABEL_59:
+    std::runtime_error::runtime_error(__p, "call to empty boost::function");
+    __p[0] = off_1004C1548;
+    boost::throw_exception<boost::bad_function_call>(__p);
+  }
+
+  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (!v18)
+  {
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_56;
+    }
+
+    goto LABEL_55;
+  }
+
+  if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  {
+    HostInterpreter::ProcessRouteAdd();
+  }
+
+LABEL_56:
+  HIDWORD(v24) = v16 - 1;
+  LODWORD(v24) = v16 - 1;
+  v23 = v24 >> 1;
+  if (v23 > 6 || ((0x4Du >> v23) & 1) == 0)
+  {
+    v21 = 1;
+    v22 = *a4[2].__u6_addr8;
+    if (v22)
+    {
+      goto LABEL_61;
+    }
+
+    goto LABEL_59;
+  }
+
+  v16 = dword_10044816C[v23];
+  v21 = dword_100448188[v23];
+  v22 = *a4[2].__u6_addr8;
+  if (!v22)
+  {
+    goto LABEL_59;
+  }
+
+LABEL_61:
+  (*((v22 & 0xFFFFFFFFFFFFFFFELL) + 8))(&a4[2].__u6_addr32[2], v21);
+  return v16;
+}
+
+void sub_100137E00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t HostInterpreter::ProcessRouteRemove(HostInterpreter *this, unsigned __int8 a2, char **a3, in6_addr *a4)
+{
+  memset(v32, 0, sizeof(v32));
+  IPv6Prefix::IPv6Prefix(&v31, a4, a4[1].__u6_addr8[0]);
+  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (logging_obg)
+  {
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
+    {
+      IPv6Prefix::to_string(&__p, &v31);
+      v7 = v30 >= 0 ? &__p : __p.__vftable;
+      *buf = 136315394;
+      *&buf[4] = v7;
+      *&buf[12] = 1024;
+      v36 = gSrpModeNetInfo;
+      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "Off Mesh Prefix::[%s] srpMode[%d]", buf, 0x12u);
+      if (v30 < 0)
+      {
+        operator delete(__p.__vftable);
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [PowerEventHandler_Rcp init:];
+  }
+
+  if ((gSrpModeNetInfo & 1) == 0)
+  {
+    *buf = 2;
+    buf[8] = 1;
+    *&buf[10] = 0;
+    route_entry = HostInterpreter::find_route_entry(this, &v31, buf);
+    v9 = log_get_logging_obg("com.apple.threadradiod", "default");
+    v10 = v9;
+    if ((this + 88) == route_entry)
+    {
+      if (v9)
+      {
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        {
+          OffMeshRouteEntry::get_description(&__p, buf, &v31, 0);
+          v12 = v30 >= 0 ? &__p : __p.__vftable;
+          *v33 = 136315138;
+          v34 = v12;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "OffMeshPrefixes:[%s] Prefix not found", v33, 0xCu);
+          if (v30 < 0)
+          {
+            operator delete(__p.__vftable);
+          }
+        }
+      }
+
+      else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        [PowerEventHandler_Rcp init:];
+      }
+
+      v20 = 0;
+      goto LABEL_67;
+    }
+
+    if (v9)
+    {
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
+        OffMeshRouteEntry::get_description(&__p, buf, &v31, 0);
+        v11 = v30 >= 0 ? &__p : __p.__vftable;
+        *v33 = 136315138;
+        v34 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "OffMeshPrefixes:Removing %s", v33, 0xCu);
+        if (v30 < 0)
+        {
+          operator delete(__p.__vftable);
+        }
+      }
+    }
+
+    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      [PowerEventHandler_Rcp init:];
+    }
+
+    v13 = route_entry[1];
+    if (v13)
+    {
+      do
+      {
+        v14 = v13;
+        v13 = *v13;
+      }
+
+      while (v13);
+    }
+
+    else
+    {
+      v15 = route_entry;
+      do
+      {
+        v14 = v15[2];
+        v16 = *v14 == v15;
+        v15 = v14;
+      }
+
+      while (!v16);
+    }
+
+    if (*(this + 10) == route_entry)
+    {
+      *(this + 10) = v14;
+    }
+
+    v17 = *(this + 11);
+    --*(this + 12);
+    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v17, route_entry);
+    operator delete(route_entry);
+  }
+
+  IPv6Prefix::to_string(&__p, &v31);
+  if (v30 >= 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__vftable;
+  }
+
+  v19 = ot::Utils::CmdLineParser::ParseAsIp6Prefix(p_p, v32);
+  v20 = v19;
+  if (v30 < 0)
+  {
+    operator delete(__p.__vftable);
+    if (v20)
+    {
+      goto LABEL_45;
+    }
+  }
+
+  else if (v19)
+  {
+LABEL_45:
+    v21 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v21)
+    {
+      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        HostInterpreter::ProcessRouteRemove();
+      }
+
+      goto LABEL_71;
+    }
+
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_71;
+    }
+
+LABEL_70:
+    [PowerEventHandler_Rcp init:];
+    goto LABEL_71;
+  }
+
+  v20 = otBorderRouterRemoveRoute(*(this + 28), v32);
+  if (!v20)
+  {
+    v20 = otBorderRouterRegister(*(this + 28));
+    if (v20)
+    {
+      v23 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (!v23)
+      {
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_71;
+        }
+
+        goto LABEL_70;
+      }
+
+      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        HostInterpreter::ProcessRouteRemove();
+      }
+
+      goto LABEL_71;
+    }
+
+LABEL_67:
+    v24 = 0;
+    v25 = *&a4[1].__u6_addr32[2];
+    if (v25)
+    {
+      goto LABEL_76;
+    }
+
+LABEL_74:
+    std::runtime_error::runtime_error(&__p, "call to empty boost::function");
+    __p.__vftable = off_1004C1548;
+    boost::throw_exception<boost::bad_function_call>(&__p);
+  }
+
+  v22 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (!v22)
+  {
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_71;
+    }
+
+    goto LABEL_70;
+  }
+
+  if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  {
+    HostInterpreter::ProcessRouteRemove();
+  }
+
+LABEL_71:
+  HIDWORD(v27) = v20 - 1;
+  LODWORD(v27) = v20 - 1;
+  v26 = v27 >> 1;
+  if (v26 > 6 || ((0x4Du >> v26) & 1) == 0)
+  {
+    v24 = 1;
+    v25 = *&a4[1].__u6_addr32[2];
+    if (v25)
+    {
+      goto LABEL_76;
+    }
+
+    goto LABEL_74;
+  }
+
+  v20 = dword_10044816C[v26];
+  v24 = dword_100448188[v26];
+  v25 = *&a4[1].__u6_addr32[2];
+  if (!v25)
+  {
+    goto LABEL_74;
+  }
+
+LABEL_76:
+  (*((v25 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 2, v24);
+  return v20;
+}
+
 void sub_1001383E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
@@ -9,19 +495,19 @@ void sub_1001383E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HostInterpreter::ProcessServiceAdd(HostInterpreter *this, unsigned __int8 a2, char **a3, unsigned __int8 *a4)
+uint64_t HostInterpreter::ProcessServiceAdd(ServiceEntry **this, unsigned __int8 a2, char **a3, unsigned __int8 *a4)
 {
-  RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, &v44);
-  if (v46 < 0)
+  RcpHostContext::get_rcp_state(&v43, RcpHostContext::sRcpHostContext);
+  if (v45 < 0)
   {
-    if (v45 == 10 && *v44 == 0x746169636F737361 && *(v44 + 4) == 25701)
+    if (v44 == 10 && *v43 == 0x746169636F737361 && *(v43 + 4) == 25701)
     {
       goto LABEL_31;
     }
 
-    if (v45 == 11)
+    if (v44 == 11)
     {
-      v6 = v44;
+      v6 = v43;
 LABEL_12:
       v8 = *v6;
       v9 = *(v6 + 3);
@@ -31,13 +517,13 @@ LABEL_12:
       }
 
 LABEL_31:
-      v56 = *a4;
+      v55 = *a4;
       logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
       if (logging_obg)
       {
         if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR))
         {
-          HostInterpreter::ProcessServiceAdd(a4);
+          HostInterpreter::ProcessServiceAdd();
         }
       }
 
@@ -51,15 +537,15 @@ LABEL_31:
 LABEL_79:
         if (a4[253] == 93)
         {
-          v30 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v30)
+          v29 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v29)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
-              v31 = a4[253];
+              v30 = a4[253];
               LODWORD(buf.__vftable) = 67109120;
-              HIDWORD(buf.__vftable) = v31;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Starting RCP SRP service ABC timer, service data[%02X]", &buf, 8u);
+              HIDWORD(buf.__vftable) = v30;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Starting RCP SRP service ABC timer, service data[%02X]", &buf, 8u);
             }
           }
 
@@ -71,20 +557,20 @@ LABEL_79:
           HostInterpreter::setRcpSrpServiceABCTimer(this);
         }
 
-        v32 = a4[505];
-        memcpy(v58, a4 + 253, v32);
-        v57 = v32;
-        v33 = a4[252];
-        memcpy(&v61, a4 + 4, v33);
-        v60 = v33;
-        v59 = v59 & 0xFE | a4[506];
-        v14 = otServerAddService(*(this + 28), v55);
+        v31 = a4[505];
+        memcpy(v57, a4 + 253, v31);
+        v56 = v31;
+        v32 = a4[252];
+        memcpy(&v60, a4 + 4, v32);
+        v59 = v32;
+        v58 = v58 & 0xFE | a4[506];
+        v14 = otServerAddService(this[28], v54);
         if (v14)
         {
-          v34 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v34)
+          v33 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v33)
           {
-            if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               HostInterpreter::ProcessServiceAdd();
             }
@@ -100,12 +586,12 @@ LABEL_79:
 
         else
         {
-          v14 = otBorderRouterRegister(*(this + 28));
+          v14 = otBorderRouterRegister(this[28]);
           if (!v14)
           {
-            v36 = 0;
-            v37 = *(a4 + 64);
-            if (v37)
+            v35 = 0;
+            v36 = *(a4 + 64);
+            if (v36)
             {
               goto LABEL_108;
             }
@@ -113,10 +599,10 @@ LABEL_79:
             goto LABEL_106;
           }
 
-          v35 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v35)
+          v34 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v34)
           {
-            if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               HostInterpreter::ProcessServiceAdd();
             }
@@ -132,27 +618,27 @@ LABEL_102:
         }
 
 LABEL_103:
-        HIDWORD(v39) = v14 - 1;
-        LODWORD(v39) = v14 - 1;
-        v38 = v39 >> 1;
-        if (v38 <= 6 && ((0x4Du >> v38) & 1) != 0)
+        HIDWORD(v38) = v14 - 1;
+        LODWORD(v38) = v14 - 1;
+        v37 = v38 >> 1;
+        if (v37 <= 6 && ((0x4Du >> v37) & 1) != 0)
         {
-          v14 = dword_10044816C[v38];
-          v36 = dword_100448188[v38];
-          v37 = *(a4 + 64);
-          if (!v37)
+          v14 = dword_10044816C[v37];
+          v35 = dword_100448188[v37];
+          v36 = *(a4 + 64);
+          if (!v36)
           {
             goto LABEL_106;
           }
 
 LABEL_108:
-          (*((v37 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 520, v36);
+          (*((v36 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 520, v35);
           goto LABEL_109;
         }
 
-        v36 = 1;
-        v37 = *(a4 + 64);
-        if (v37)
+        v35 = 1;
+        v36 = *(a4 + 64);
+        if (v36)
         {
           goto LABEL_108;
         }
@@ -165,67 +651,66 @@ LABEL_106:
 
       if (a4[505])
       {
-        v17 = a4[505];
         operator new();
       }
 
-      v18 = a4[252];
-      v42 = 0;
-      v43 = 0;
+      v17 = a4[252];
       v41 = 0;
-      if (v18)
+      v42 = 0;
+      v40 = 0;
+      if (v17)
       {
         operator new();
       }
 
-      v19 = *a4;
-      v20 = a4[506];
+      v18 = *a4;
+      v19 = a4[506];
       LODWORD(buf.__imp_.__imp_) = 2;
-      HIDWORD(buf.__imp_.__imp_) = v19;
-      v49 = 0;
-      v50 = 0;
+      HIDWORD(buf.__imp_.__imp_) = v18;
       v48 = 0;
+      v49 = 0;
+      v47 = 0;
       buf.__vftable = off_1004C5358;
-      v51 = v20;
-      nl::Data::Data(v52, &v41);
-      Rloc16 = otThreadGetRloc16(*(this + 28));
-      v54 = -1;
-      v21 = *(this + 1);
-      v22 = *(this + 2);
-      if (v21 != v22)
+      v50 = v19;
+      nl::Data::Data(v51, &v40);
+      Rloc16 = otThreadGetRloc16(this[28]);
+      v53 = -1;
+      v20 = this[1];
+      v21 = this[2];
+      if (v20 != v21)
       {
-        while (!ServiceEntryBase::operator==(v21, &buf))
+        while (!ServiceEntryBase::operator==(v20, &buf))
         {
-          v21 += 80;
-          if (v21 == v22)
+          v20 = (v20 + 80);
+          if (v20 == v21)
           {
-            v21 = v22;
+            v20 = v21;
             break;
           }
         }
 
-        v22 = *(this + 2);
+        v21 = this[2];
       }
 
-      if (v21 == v22)
+      if (v20 == v21)
       {
-        if (v22 >= *(this + 3))
+        if (v21 >= this[3])
         {
-          v27 = std::vector<ServiceEntry>::__emplace_back_slow_path<ServiceEntry const&>(this + 1, &buf);
+          v26 = std::vector<ServiceEntry>::__emplace_back_slow_path<ServiceEntry const&>(this + 1, &buf);
         }
 
         else
         {
-          ServiceEntry::ServiceEntry(v22, &buf);
-          v27 = v22 + 80;
-          *(this + 2) = v22 + 80;
+          ServiceEntry::ServiceEntry(v21, &buf);
+          v26 = (v21 + 80);
+          this[2] = (v21 + 80);
         }
 
-        *(this + 2) = v27;
-        v28 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v28)
+        this[2] = v26;
+        v27 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v27)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
             ServiceEntry::get_description(&buf);
           }
@@ -242,15 +727,15 @@ LABEL_72:
 
       else
       {
-        v23 = *(v21 + 48);
-        v24 = *(v21 + 56);
-        v25 = (v21 + 48);
-        if (v24 - v23 != v42 - v41 || memcmp(v23, v41, v24 - v23))
+        v22 = *(v20 + 6);
+        v23 = *(v20 + 7);
+        v24 = (v20 + 48);
+        if (v23 - v22 != v41 - v40 || memcmp(v22, v40, v23 - v22))
         {
-          v26 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v26)
+          v25 = log_get_logging_obg("com.apple.threadradiod", "default");
+          if (v25)
           {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               ServiceEntry::get_description(&buf);
             }
@@ -261,18 +746,18 @@ LABEL_72:
             [PowerEventHandler_Rcp init:];
           }
 
-          if (v25 != &v41)
+          if (v24 != &v40)
           {
-            std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v25, v41, v42, v42 - v41);
+            std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v24, v40, v41, v41 - v40);
           }
 
           goto LABEL_73;
         }
 
-        v29 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v29)
+        v28 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v28)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             ServiceEntry::get_description(&buf);
           }
@@ -288,23 +773,23 @@ LABEL_72:
 
 LABEL_73:
       buf.__vftable = off_1004C5358;
-      if (v52[0])
+      if (v51[0])
       {
-        v52[1] = v52[0];
-        operator delete(v52[0]);
+        v51[1] = v51[0];
+        operator delete(v51[0]);
       }
 
       buf.__vftable = off_1004C52F8;
-      if (v48)
+      if (v47)
       {
-        v49 = v48;
-        operator delete(v48);
+        v48 = v47;
+        operator delete(v47);
       }
 
-      if (v41)
+      if (v40)
       {
-        v42 = v41;
-        operator delete(v41);
+        v41 = v40;
+        operator delete(v40);
       }
 
       goto LABEL_79;
@@ -313,9 +798,9 @@ LABEL_73:
 
   else
   {
-    if (v46 == 10)
+    if (v45 == 10)
     {
-      if (v44 != 0x746169636F737361 || v45 != 25701)
+      if (v43 != 0x746169636F737361 || v44 != 25701)
       {
         goto LABEL_16;
       }
@@ -323,9 +808,9 @@ LABEL_73:
       goto LABEL_31;
     }
 
-    if (v46 == 11)
+    if (v45 == 11)
     {
-      v6 = &v44;
+      v6 = &v43;
       goto LABEL_12;
     }
   }
@@ -336,10 +821,10 @@ LABEL_16:
   {
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v12 = &v44;
-      if (v46 < 0)
+      v12 = &v43;
+      if (v45 < 0)
       {
-        v12 = v44;
+        v12 = v43;
       }
 
       LODWORD(buf.__vftable) = 136315138;
@@ -364,9 +849,9 @@ LABEL_16:
   (*((v13 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 520, 4);
   v14 = 13;
 LABEL_109:
-  if (v46 < 0)
+  if (v45 < 0)
   {
-    operator delete(v44);
+    operator delete(v43);
   }
 
   return v14;
@@ -418,35 +903,34 @@ uint64_t HostInterpreter::ProcessServiceRemove(HostInterpreter *this, unsigned _
 
   if (a4[256])
   {
-    v12 = a4[256];
     operator new();
   }
 
-  v17 = *a4;
+  v16 = *a4;
   LODWORD(buf.__imp_.__imp_) = 2;
-  HIDWORD(buf.__imp_.__imp_) = v17;
+  HIDWORD(buf.__imp_.__imp_) = v16;
   buf.__vftable = off_1004C52F8;
-  v55 = 0;
-  v56 = 0;
   v54 = 0;
-  v18 = *(this + 1);
-  v19 = *(this + 2);
-  if (v18 != v19)
+  v55 = 0;
+  v53 = 0;
+  v17 = *(this + 1);
+  v18 = *(this + 2);
+  if (v17 != v18)
   {
-    while (!ServiceEntryBase::operator==(v18, &buf))
+    while (!ServiceEntryBase::operator==(v17, &buf))
     {
-      v18 += 80;
-      if (v18 == v19)
+      v17 += 80;
+      if (v17 == v18)
       {
-        v18 = v19;
+        v17 = v18;
         break;
       }
     }
 
-    v19 = *(this + 2);
+    v18 = *(this + 2);
   }
 
-  if (v18 == v19)
+  if (v17 == v18)
   {
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
@@ -463,10 +947,10 @@ uint64_t HostInterpreter::ProcessServiceRemove(HostInterpreter *this, unsigned _
     }
 
     v7 = 0;
-    v26 = 6;
+    v25 = 6;
     buf.__vftable = off_1004C52F8;
-    v27 = v54;
-    if (v54)
+    v26 = v53;
+    if (v53)
     {
       goto LABEL_101;
     }
@@ -480,40 +964,40 @@ uint64_t HostInterpreter::ProcessServiceRemove(HostInterpreter *this, unsigned _
     goto LABEL_81;
   }
 
-  v20 = *a4;
-  v44 = 0;
-  v45 = v20;
-  v43 = off_1004C52F8;
-  v47 = 0;
-  v48 = 0;
+  v19 = *a4;
+  v43 = 0;
+  v44 = v19;
+  v42 = off_1004C52F8;
   v46 = 0;
-  v21 = *(this + 1);
-  if (v21 != v19)
+  v47 = 0;
+  v45 = 0;
+  v20 = *(this + 1);
+  if (v20 != v18)
   {
-    while (!ServiceEntryBase::operator==(v21, &v43))
+    while (!ServiceEntryBase::operator==(v20, &v42))
     {
-      v21 += 80;
-      if (v21 == v19)
+      v20 += 80;
+      if (v20 == v18)
       {
-        v21 = v19;
+        v20 = v18;
         break;
       }
     }
 
-    v19 = *(this + 2);
+    v18 = *(this + 2);
   }
 
-  v22 = v21 == v19;
-  v7 = v21 == v19;
-  if (v22)
+  v21 = v20 == v18;
+  v7 = v20 == v18;
+  if (v21)
   {
-    v28 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v28)
+    v27 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v27)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *__p = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Services: NCP Entry not Found, inform SRP Daemon", __p, 2u);
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Services: NCP Entry not Found, inform SRP Daemon", __p, 2u);
       }
 
       goto LABEL_79;
@@ -528,22 +1012,22 @@ LABEL_78:
 
   else
   {
-    v23 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v23)
+    v22 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v22)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        (*(*v21 + 16))(__p, v21);
-        v24 = __p;
-        if (v50 < 0)
+        (*(*v20 + 16))(__p, v20);
+        v23 = __p;
+        if (v49 < 0)
         {
-          v24 = *__p;
+          v23 = *__p;
         }
 
-        *v51 = 136315138;
-        v52 = v24;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Services: NCP Entry Found %s", v51, 0xCu);
-        if (v50 < 0)
+        *v50 = 136315138;
+        v51 = v23;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Services: NCP Entry Found %s", v50, 0xCu);
+        if (v49 < 0)
         {
           operator delete(*__p);
         }
@@ -559,27 +1043,27 @@ LABEL_78:
   }
 
 LABEL_79:
-  v43 = off_1004C52F8;
-  if (v46)
+  v42 = off_1004C52F8;
+  if (v45)
   {
-    v47 = v46;
-    operator delete(v46);
+    v46 = v45;
+    operator delete(v45);
   }
 
 LABEL_81:
-  v32 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v32)
+  v31 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v31)
   {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      (*(*v18 + 16))(&v43, v18);
-      v33 = SHIBYTE(v46) >= 0 ? &v43 : v43;
+      (*(*v17 + 16))(&v42, v17);
+      v32 = SHIBYTE(v45) >= 0 ? &v42 : v42;
       *__p = 136315138;
-      *&__p[4] = v33;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Services: Removing %s", __p, 0xCu);
-      if (SHIBYTE(v46) < 0)
+      *&__p[4] = v32;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Services: Removing %s", __p, 0xCu);
+      if (SHIBYTE(v45) < 0)
       {
-        operator delete(v43);
+        operator delete(v42);
       }
     }
   }
@@ -589,71 +1073,71 @@ LABEL_81:
     [PowerEventHandler_Rcp init:];
   }
 
-  v34 = *(this + 2);
-  if (v18 + 80 != v34)
+  v33 = *(this + 2);
+  if (v17 + 80 != v33)
   {
     do
     {
-      *(v18 + 8) = *(v18 + 88);
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v18 + 16), *(v18 + 96), *(v18 + 104), *(v18 + 104) - *(v18 + 96));
-      *(v18 + 40) = *(v18 + 120);
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v18 + 48), *(v18 + 128), *(v18 + 136), *(v18 + 136) - *(v18 + 128));
-      *(v18 + 72) = *(v18 + 152);
-      *(v18 + 74) = *(v18 + 154);
-      v35 = v18 + 80;
-      v36 = v18 + 160;
-      v18 += 80;
+      *(v17 + 8) = *(v17 + 88);
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v17 + 16), *(v17 + 96), *(v17 + 104), *(v17 + 104) - *(v17 + 96));
+      *(v17 + 40) = *(v17 + 120);
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v17 + 48), *(v17 + 128), *(v17 + 136), *(v17 + 136) - *(v17 + 128));
+      *(v17 + 72) = *(v17 + 152);
+      *(v17 + 74) = *(v17 + 154);
+      v34 = v17 + 80;
+      v35 = v17 + 160;
+      v17 += 80;
     }
 
-    while (v36 != v34);
-    v34 = *(this + 2);
-    v18 = v35;
+    while (v35 != v33);
+    v33 = *(this + 2);
+    v17 = v34;
   }
 
-  if (v34 != v18)
+  if (v33 != v17)
   {
-    v37 = (v34 - 80);
-    v38 = v37;
-    v39 = v37;
+    v36 = (v33 - 80);
+    v37 = v36;
+    v38 = v36;
     do
     {
-      v40 = *v39;
-      v39 -= 10;
-      (*v40)(v38);
-      v37 -= 10;
-      v22 = v38 == v18;
-      v38 = v39;
+      v39 = *v38;
+      v38 -= 10;
+      (*v39)(v37);
+      v36 -= 10;
+      v21 = v37 == v17;
+      v37 = v38;
     }
 
-    while (!v22);
+    while (!v21);
   }
 
-  *(this + 2) = v18;
+  *(this + 2) = v17;
   if (a4[4] == 93)
   {
     HostInterpreter::clearRcpSrpServiceABCTimer(this);
   }
 
-  v26 = 0;
+  v25 = 0;
   buf.__vftable = off_1004C52F8;
-  v27 = v54;
-  if (v54)
+  v26 = v53;
+  if (v53)
   {
 LABEL_101:
-    v55 = v27;
-    operator delete(v27);
+    v54 = v26;
+    operator delete(v26);
   }
 
 LABEL_102:
-  if (v26)
+  if (v25)
   {
-    v14 = 0;
+    v13 = 0;
     goto LABEL_104;
   }
 
 LABEL_3:
   v8 = *a4;
-  v57 = *a4;
+  v56 = *a4;
   v9 = log_get_logging_obg("com.apple.threadradiod", "default");
   v10 = v9;
   if (!v6)
@@ -692,16 +1176,16 @@ LABEL_3:
     [PowerEventHandler_Rcp init:];
   }
 
-  v13 = a4[256];
-  memcpy(v59, a4 + 4, v13);
-  v58 = v13;
-  v14 = otServerRemoveService(*(this + 28), v8, v59, v13);
-  if (v14)
+  v12 = a4[256];
+  memcpy(v58, a4 + 4, v12);
+  v57 = v12;
+  v13 = otServerRemoveService(*(this + 28), v8, v58, v12);
+  if (v13)
   {
-    v15 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v15)
+    v14 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v14)
     {
-      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         HostInterpreter::ProcessServiceRemove();
       }
@@ -717,18 +1201,18 @@ LABEL_3:
     goto LABEL_65;
   }
 
-  v14 = otBorderRouterRegister(*(this + 28));
-  if (!v14)
+  v13 = otBorderRouterRegister(*(this + 28));
+  if (!v13)
   {
 LABEL_104:
-    v31 = 0;
+    v30 = 0;
     goto LABEL_105;
   }
 
-  v16 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v16)
+  v15 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v15)
   {
-    if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       HostInterpreter::ProcessServiceRemove();
     }
@@ -743,62 +1227,62 @@ LABEL_64:
   }
 
 LABEL_65:
-  HIDWORD(v30) = v14 - 1;
-  LODWORD(v30) = v14 - 1;
-  v29 = v30 >> 1;
-  if (v29 <= 2)
+  HIDWORD(v29) = v13 - 1;
+  LODWORD(v29) = v13 - 1;
+  v28 = v29 >> 1;
+  if (v28 <= 2)
   {
-    if (v29)
+    if (v28)
     {
-      if (v29 == 2)
+      if (v28 == 2)
       {
-        v31 = 9;
-        v14 = 5;
+        v30 = 9;
+        v13 = 5;
         goto LABEL_105;
       }
     }
 
     else
     {
-      v14 = 1;
+      v13 = 1;
     }
 
     goto LABEL_73;
   }
 
-  if (v29 != 6)
+  if (v28 != 6)
   {
-    if (v29 != 3)
+    if (v28 != 3)
     {
 LABEL_73:
-      v31 = 1;
+      v30 = 1;
       goto LABEL_105;
     }
 
 LABEL_71:
-    v31 = 2;
-    v14 = 7;
+    v30 = 2;
+    v13 = 7;
     goto LABEL_105;
   }
 
-  v31 = 4;
-  v14 = 13;
+  v30 = 4;
+  v13 = 13;
 LABEL_105:
-  v41 = *(a4 + 33);
-  if (!v41)
+  v40 = *(a4 + 33);
+  if (!v40)
   {
     std::runtime_error::runtime_error(&buf, "call to empty boost::function");
     buf.__vftable = off_1004C1548;
     boost::throw_exception<boost::bad_function_call>(&buf);
   }
 
-  (*((v41 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 272, v31);
+  (*((v40 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 272, v30);
   if (v7)
   {
     HostInterpreter::signal_service_list(this);
   }
 
-  return v14;
+  return v13;
 }
 
 void sub_100139804(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::runtime_error a21, void *a22, uint64_t a23)
@@ -822,7 +1306,7 @@ void sub_100139804(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void HostInterpreter::ProcessStatus(HostInterpreter *this, unsigned __int8 a2, char **a3, void *a4)
+void HostInterpreter::ProcessStatus(HostInterpreter *this, unsigned __int8 a2, char **a3, char *a4)
 {
   *(RcpHostContext::sRcpHostContext + 5728) = otLinkGetChannel(*(this + 28));
   otThreadGetNetworkName(*(this + 28));
@@ -837,32 +1321,31 @@ uint64_t HostInterpreter::ProcessThreadStart(HostInterpreter *this, int a2, char
 {
   if (!a2)
   {
-    v9 = 7;
+    v8 = 7;
 LABEL_32:
-    v14 = *a4;
+    v13 = *a4;
     if (!*a4)
     {
-      std::runtime_error::runtime_error(v20, "call to empty boost::function");
-      *v20 = off_1004C1548;
-      boost::throw_exception<boost::bad_function_call>(v20);
+      std::runtime_error::runtime_error(v19, "call to empty boost::function");
+      *v19 = off_1004C1548;
+      boost::throw_exception<boost::bad_function_call>(v19);
     }
 
-    v15 = "Error!\n";
+    v14 = "Error!\n";
     goto LABEL_34;
   }
 
-  v6 = *(this + 28);
   if (otPlatRadioGetRcp2Vendor2Enabled())
   {
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
     {
-      v8 = logging_obg;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v7 = logging_obg;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v25 = "ProcessThreadStart";
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: Thread Start Indication sent", buf, 0xCu);
+        v24 = "ProcessThreadStart";
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: Thread Start Indication sent", buf, 0xCu);
       }
     }
 
@@ -874,16 +1357,16 @@ LABEL_32:
     started = otPlatVendorSetVendorThreadStartStop(*(this + 28), 1);
     if (started)
     {
-      v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v11)
+      v10 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v10)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v25 = "ProcessThreadStart";
-          v26 = 1024;
-          v27 = started;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", buf, 0x12u);
+          v24 = "ProcessThreadStart";
+          v25 = 1024;
+          v26 = started;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", buf, 0x12u);
         }
       }
 
@@ -894,8 +1377,29 @@ LABEL_32:
     }
   }
 
-  v9 = otDatasetSetActive(*(this + 28), buf);
-  if (v9)
+  v8 = otDatasetSetActive(*(this + 28), buf);
+  if (v8)
+  {
+    goto LABEL_32;
+  }
+
+  v11 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v11)
+  {
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "dataset commit active, Done", v19, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [PowerEventHandler_Rcp init:];
+  }
+
+  v8 = otIp6SetEnabled(*(this + 28), 1);
+  if (v8)
   {
     goto LABEL_32;
   }
@@ -905,8 +1409,8 @@ LABEL_32:
   {
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "dataset commit active, Done", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "ifconfig up, Done", v19, 2u);
     }
   }
 
@@ -915,29 +1419,8 @@ LABEL_32:
     [PowerEventHandler_Rcp init:];
   }
 
-  v9 = otIp6SetEnabled(*(this + 28), 1);
-  if (v9)
-  {
-    goto LABEL_32;
-  }
-
-  v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v13)
-  {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-    {
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "ifconfig up, Done", v20, 2u);
-    }
-  }
-
-  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-  {
-    [PowerEventHandler_Rcp init:];
-  }
-
-  v9 = otThreadSetEnabled(*(this + 28), 1);
-  if (v9)
+  v8 = otThreadSetEnabled(*(this + 28), 1);
+  if (v8)
   {
     goto LABEL_32;
   }
@@ -948,21 +1431,21 @@ LABEL_32:
     otThreadBecomeLeader(*(this + 28), 0);
   }
 
-  otInstanceGetUptimeAsString(*(this + 28), v23, 24);
-  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v18)
+  otInstanceGetUptimeAsString(*(this + 28), v22, 24);
+  v17 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v17)
   {
     is_the_mask_enabled = syslog_is_the_mask_enabled(6);
     if (is_the_mask_enabled)
     {
-      is_the_mask_enabled = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
+      is_the_mask_enabled = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
       if (is_the_mask_enabled)
       {
-        *v20 = 136315394;
-        *&v20[4] = v23;
-        v21 = 2080;
-        v22 = "ProcessThreadStart";
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s %s Thread start, Done", v20, 0x16u);
+        *v19 = 136315394;
+        *&v19[4] = v22;
+        v20 = 2080;
+        v21 = "ProcessThreadStart";
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s %s Thread start, Done", v19, 0x16u);
       }
     }
   }
@@ -977,24 +1460,23 @@ LABEL_32:
   }
 
   HostInterpreter::transactionEnabled(is_the_mask_enabled, 1);
-  v14 = *a4;
+  v13 = *a4;
   if (!*a4)
   {
-    std::runtime_error::runtime_error(v20, "call to empty boost::function");
-    *v20 = off_1004C1548;
-    boost::throw_exception<boost::bad_function_call>(v20);
+    std::runtime_error::runtime_error(v19, "call to empty boost::function");
+    *v19 = off_1004C1548;
+    boost::throw_exception<boost::bad_function_call>(v19);
   }
 
-  v9 = 0;
-  v15 = "Done\n";
+  v8 = 0;
+  v14 = "Done\n";
 LABEL_34:
-  (*((v14 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, v15, a3);
-  return v9;
+  (*((v13 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, v14, a3);
+  return v8;
 }
 
 uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __int8 a2, char **a3, char *a4)
 {
-  v6 = *(this + 28);
   Rcp2Vendor2Enabled = otPlatRadioGetRcp2Vendor2Enabled();
   if (Rcp2Vendor2Enabled)
   {
@@ -1002,12 +1484,12 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
     {
-      v9 = logging_obg;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v8 = logging_obg;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        *v28 = 136315138;
-        *&v28[4] = "ProcessThreadStop";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s: Thread Stop Indication sent", v28, 0xCu);
+        *v25 = 136315138;
+        *&v25[4] = "ProcessThreadStop";
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: Thread Stop Indication sent", v25, 0xCu);
       }
     }
 
@@ -1017,23 +1499,23 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
     }
 
     Rcp2Vendor2Enabled = otPlatVendorSetVendorThreadStartStop(*(this + 28), 0);
-    v10 = Rcp2Vendor2Enabled;
+    v9 = Rcp2Vendor2Enabled;
     if (Rcp2Vendor2Enabled)
     {
-      v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v11)
+      v10 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v10)
       {
         Rcp2Vendor2Enabled = syslog_is_the_mask_enabled(6);
         if (Rcp2Vendor2Enabled)
         {
-          Rcp2Vendor2Enabled = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+          Rcp2Vendor2Enabled = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
           if (Rcp2Vendor2Enabled)
           {
-            *v28 = 136315394;
-            *&v28[4] = "ProcessThreadStop";
-            *&v28[12] = 1024;
-            *&v28[14] = v10;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", v28, 0x12u);
+            *v25 = 136315394;
+            *&v25[4] = "ProcessThreadStop";
+            *&v25[12] = 1024;
+            *&v25[14] = v9;
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", v25, 0x12u);
           }
         }
       }
@@ -1050,23 +1532,23 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
   }
 
   HostInterpreter::transactionEnabled(Rcp2Vendor2Enabled, 0);
-  v12 = *(this + 30);
-  *v28 = _NSConcreteStackBlock;
-  *&v28[8] = 0x40000000;
-  *&v28[16] = ___ZN15HostInterpreter38clearRcpSrpSignalMeshLocalAddressTimerEv_block_invoke;
-  v29 = &__block_descriptor_tmp_39;
-  v30 = this;
-  dispatch_async(v12, v28);
-  if (HostInterpreter::isThreadSessionJoinEnabled(v13))
+  v11 = *(this + 30);
+  *v25 = _NSConcreteStackBlock;
+  *&v25[8] = 0x40000000;
+  *&v25[16] = ___ZN15HostInterpreter38clearRcpSrpSignalMeshLocalAddressTimerEv_block_invoke;
+  v26 = &__block_descriptor_tmp_39;
+  v27 = this;
+  dispatch_async(v11, v25);
+  if (HostInterpreter::isThreadSessionJoinEnabled(v12))
   {
-    v14 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v14)
+    v13 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v13)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v28 = 136315138;
-        *&v28[4] = "ProcessThreadStop";
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s Thread Session Join THREAD_SESSION_OFF", v28, 0xCu);
+        *v25 = 136315138;
+        *&v25[4] = "ProcessThreadStop";
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s Thread Session Join THREAD_SESSION_OFF", v25, 0xCu);
       }
     }
 
@@ -1077,10 +1559,10 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
 
     saveStringValue("threadSessionJoin", "OFF");
     wcm_notify(0, *(this + 184));
-    v15 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v15)
+    v14 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v14)
     {
-      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         HostInterpreter::ProcessThreadStop();
       }
@@ -1091,8 +1573,8 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
       [PowerEventHandler_Rcp init:];
     }
 
-    v16 = HostInterpreter::detachIfWedConnectionInProgress(this);
-    if (v16)
+    v15 = HostInterpreter::detachIfWedConnectionInProgress(this);
+    if (v15)
     {
       goto LABEL_43;
     }
@@ -1105,14 +1587,36 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
   HostInterpreter::clearChildRoleDetectionTimer(this);
   HostInterpreter::clearRcpSrpServiceABCTimer(this);
   otIp6SetSlaacEnabled(*(this + 28), 0);
+  v16 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v16)
+  {
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      *v25 = 136315138;
+      *&v25[4] = "ProcessThreadStop";
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s: SLAAC Disabled, Done", v25, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [PowerEventHandler_Rcp init:];
+  }
+
+  v15 = otThreadSetEnabled(*(this + 28), 0);
+  if (v15)
+  {
+    goto LABEL_43;
+  }
+
   v17 = log_get_logging_obg("com.apple.threadradiod", "default");
   if (v17)
   {
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v28 = 136315138;
-      *&v28[4] = "ProcessThreadStop";
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s: SLAAC Disabled, Done", v28, 0xCu);
+      *v25 = 136315138;
+      *&v25[4] = "ProcessThreadStop";
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s: Thread stop, Done", v25, 0xCu);
     }
   }
 
@@ -1121,52 +1625,30 @@ uint64_t HostInterpreter::ProcessThreadStop(HostInterpreter *this, unsigned __in
     [PowerEventHandler_Rcp init:];
   }
 
-  v16 = otThreadSetEnabled(*(this + 28), 0);
-  if (v16)
-  {
-    goto LABEL_43;
-  }
-
-  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v18)
-  {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
-    {
-      *v28 = 136315138;
-      *&v28[4] = "ProcessThreadStop";
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s: Thread stop, Done", v28, 0xCu);
-    }
-  }
-
-  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-  {
-    [PowerEventHandler_Rcp init:];
-  }
-
-  v16 = otIp6SetEnabled(*(this + 28), 0);
-  if (v16)
+  v15 = otIp6SetEnabled(*(this + 28), 0);
+  if (v15)
   {
 LABEL_43:
     HostInterpreter::remove_all_address_prefix_route_entries(this, 1);
     if (!*a4)
     {
-      std::runtime_error::runtime_error(v28, "call to empty boost::function");
-      *v28 = off_1004C1548;
-      boost::throw_exception<boost::bad_function_call>(v28);
+      std::runtime_error::runtime_error(v25, "call to empty boost::function");
+      *v25 = off_1004C1548;
+      boost::throw_exception<boost::bad_function_call>(v25);
     }
 
     (*((*a4 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, "Error!\n");
-    return v16;
+    return v15;
   }
 
-  v20 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v20)
+  v19 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v19)
   {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      *v28 = 136315138;
-      *&v28[4] = "ProcessThreadStop";
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s: ifconfig down, Done", v28, 0xCu);
+      *v25 = 136315138;
+      *&v25[4] = "ProcessThreadStop";
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%s: ifconfig down, Done", v25, 0xCu);
     }
   }
 
@@ -1176,14 +1658,14 @@ LABEL_43:
   }
 
   otNetDataReset(*(this + 28));
-  v21 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v21)
+  v20 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v20)
   {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      *v28 = 136315138;
-      *&v28[4] = "ProcessThreadStop";
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%s: Closing settings fd", v28, 0xCu);
+      *v25 = 136315138;
+      *&v25[4] = "ProcessThreadStop";
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s: Closing settings fd", v25, 0xCu);
     }
   }
 
@@ -1192,24 +1674,22 @@ LABEL_43:
     [PowerEventHandler_Rcp init:];
   }
 
-  v22 = *(this + 28);
-  otPlatSettingsDeinit();
+  otPlatSettingsDeinit(*(this + 28));
   usleep(0x186A0u);
-  v23 = *(this + 28);
-  v24 = otPlatVendorResetRCP() == 0;
-  v25 = log_get_logging_obg("com.apple.threadradiod", "default");
-  v26 = v25;
-  if (!v24)
+  v21 = otPlatVendorResetRCP() == 0;
+  v22 = log_get_logging_obg("com.apple.threadradiod", "default");
+  v23 = v22;
+  if (!v21)
   {
-    if (v25)
+    if (v22)
     {
-      if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         goto LABEL_72;
       }
 
-      *v28 = 0;
-      v27 = "Failed to Reset RCP2 to sleep state";
+      *v25 = 0;
+      v24 = "Failed to Reset RCP2 to sleep state";
       goto LABEL_67;
     }
 
@@ -1223,7 +1703,7 @@ LABEL_71:
     goto LABEL_72;
   }
 
-  if (!v25)
+  if (!v22)
   {
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -1233,23 +1713,23 @@ LABEL_71:
     goto LABEL_71;
   }
 
-  if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     goto LABEL_72;
   }
 
-  *v28 = 0;
-  v27 = "Reset RCP2 to sleep state";
+  *v25 = 0;
+  v24 = "Reset RCP2 to sleep state";
 LABEL_67:
-  _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, v27, v28, 2u);
+  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, v24, v25, 2u);
 LABEL_72:
   power_assertion_n = 0;
   Thread_DeassertPower();
   if (!*a4)
   {
-    std::runtime_error::runtime_error(v28, "call to empty boost::function");
-    *v28 = off_1004C1548;
-    boost::throw_exception<boost::bad_function_call>(v28);
+    std::runtime_error::runtime_error(v25, "call to empty boost::function");
+    *v25 = off_1004C1548;
+    boost::throw_exception<boost::bad_function_call>(v25);
   }
 
   (*((*a4 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 8, "Done\n");
@@ -1335,8 +1815,8 @@ uint64_t HostInterpreter::ProcessUpdatePrimaryResident(HostInterpreter *this, in
     {
       v12 = 19;
       strcpy(__p, "is_primary_resident");
-      v10 = __p;
-      v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+      v10[0] = __p;
+      v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, v10);
       std::string::assign((v5 + 7), "1");
     }
 
@@ -1344,8 +1824,8 @@ uint64_t HostInterpreter::ProcessUpdatePrimaryResident(HostInterpreter *this, in
     {
       v12 = 19;
       strcpy(__p, "is_primary_resident");
-      v10 = __p;
-      v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+      v10[0] = __p;
+      v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, v10);
       std::string::assign((v7 + 7), "0");
     }
 
@@ -1356,8 +1836,8 @@ uint64_t HostInterpreter::ProcessUpdatePrimaryResident(HostInterpreter *this, in
 
     v12 = 19;
     strcpy(__p, "is_primary_resident");
-    v10 = __p;
-    v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+    v10[0] = __p;
+    v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, v10);
     v9 = (v8 + 7);
     if (*(v8 + 79) < 0)
     {
@@ -1423,16 +1903,16 @@ LABEL_7:
   goto LABEL_7;
 }
 
-uint64_t HostInterpreter::ProcessWedStart(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t *a4)
+uint64_t HostInterpreter::ProcessWedStart(HostInterpreter *this, uint64_t a2, char **a3, const char **a4)
 {
   v6 = otThreadWedWakeUpPattern(*(this + 28));
-  RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, __p);
+  RcpHostContext::get_rcp_state(&__p, RcpHostContext::sRcpHostContext);
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
     if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_DEBUG))
     {
-      HostInterpreter::ProcessWedStart(__p);
+      HostInterpreter::ProcessWedStart();
     }
   }
 
@@ -1444,10 +1924,10 @@ uint64_t HostInterpreter::ProcessWedStart(HostInterpreter *this, unsigned __int8
   LinkMode = otThreadGetLinkMode(*(this + 28));
   if (~LinkMode & 6) != 0 || (LinkMode)
   {
-    v12 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v12)
+    v11 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v11)
     {
-      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         HostInterpreter::ProcessWedStart();
       }
@@ -1462,8 +1942,8 @@ LABEL_29:
     }
 
 LABEL_30:
+    v15 = 1;
     v16 = 1;
-    v17 = 1;
     goto LABEL_46;
   }
 
@@ -1474,12 +1954,12 @@ LABEL_30:
     {
       if (!strcasecmp(*a4, CslPeripheralAddr))
       {
-        v19 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v19)
+        v18 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v18)
         {
-          if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
-            HostInterpreter::ProcessWedStart(a4);
+            HostInterpreter::ProcessWedStart();
           }
 
           goto LABEL_30;
@@ -1495,13 +1975,12 @@ LABEL_30:
     }
   }
 
-  v10 = *(this + 28);
   if (otPlatRadioGetRcp2Vendor2Enabled() && byte_10052D769 == 1)
   {
-    v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v11)
+    v10 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v10)
     {
-      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         HostInterpreter::ProcessWedStart();
       }
@@ -1519,14 +1998,14 @@ LABEL_30:
 
   if ((otThreadIsEnhCslPeerUnlinking(*(this + 28)) & 1) != 0 || otThreadIsEnhCslPeerLinking(*(this + 28)))
   {
-    v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v13)
+    v12 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v12)
     {
-      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         IsEnhCslPeerUnlinking = otThreadIsEnhCslPeerUnlinking(*(this + 28));
         IsEnhCslPeerLinking = otThreadIsEnhCslPeerLinking(*(this + 28));
-        HostInterpreter::ProcessWedStart(IsEnhCslPeerUnlinking, IsEnhCslPeerLinking, buf, v13);
+        HostInterpreter::ProcessWedStart(IsEnhCslPeerUnlinking, IsEnhCslPeerLinking, buf, v12);
       }
 
       goto LABEL_45;
@@ -1539,29 +2018,29 @@ LABEL_44:
     }
 
 LABEL_45:
-    v17 = 9;
-    v16 = 5;
+    v16 = 9;
+    v15 = 5;
     goto LABEL_46;
   }
 
-  v16 = HostInterpreter::detachIfWedConnectionInProgress(this);
-  if (v16)
+  v15 = HostInterpreter::detachIfWedConnectionInProgress(this);
+  if (v15)
   {
     goto LABEL_61;
   }
 
-  v16 = ot::Utils::CmdLineParser::ParseAsHexString(*a4, v30, 8);
-  if (v16)
+  v15 = ot::Utils::CmdLineParser::ParseAsHexString(*a4, v29, 8);
+  if (v15)
   {
     goto LABEL_61;
   }
 
-  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v18)
+  v17 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v17)
   {
-    if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      HostInterpreter::ProcessWedStart(v30);
+      HostInterpreter::ProcessWedStart();
     }
   }
 
@@ -1570,48 +2049,48 @@ LABEL_45:
     [PowerEventHandler_Rcp init:];
   }
 
-  v22 = v6 == 2 ? 1180 : 3000;
-  v23 = v6 == 2 ? 3 : 1;
-  v16 = otThreadAttachCslPeripheral(*(this + 28), v30, v22, v6, v23, 1u);
-  if (v16)
+  v21 = v6 == 2 ? 1180 : 3000;
+  v22 = v6 == 2 ? 3 : 1;
+  v15 = otThreadAttachCslPeripheral(*(this + 28), v29, v21, v6, v22, 1u);
+  if (v15)
   {
 LABEL_61:
-    HIDWORD(v25) = v16 - 1;
-    LODWORD(v25) = v16 - 1;
-    v24 = v25 >> 1;
-    if (v24 <= 6 && ((0x4Du >> v24) & 1) != 0)
+    HIDWORD(v24) = v15 - 1;
+    LODWORD(v24) = v15 - 1;
+    v23 = v24 >> 1;
+    if (v23 <= 6 && ((0x4Du >> v23) & 1) != 0)
     {
-      v16 = dword_10044816C[v24];
-      v17 = dword_100448188[v24];
+      v15 = dword_10044816C[v23];
+      v16 = dword_100448188[v23];
     }
 
     else
     {
-      v17 = 1;
+      v16 = 1;
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
 LABEL_46:
-  v20 = a4[1];
-  if (!v20)
+  v19 = a4[1];
+  if (!v19)
   {
-    std::runtime_error::runtime_error(&v28, "call to empty boost::function");
-    v28.__vftable = off_1004C1548;
-    boost::throw_exception<boost::bad_function_call>(&v28);
+    std::runtime_error::runtime_error(&v27, "call to empty boost::function");
+    v27.__vftable = off_1004C1548;
+    boost::throw_exception<boost::bad_function_call>(&v27);
   }
 
-  (*((v20 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 16, v17);
-  if (v27 < 0)
+  (*((v19 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 2, v16);
+  if (v26 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
   }
 
-  return v16;
+  return v15;
 }
 
 void sub_10013BA48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::runtime_error a16)
@@ -1824,7 +2303,7 @@ dispatch_queue_t HostInterpreter::create_srp_convergence_queue(HostInterpreter *
   return result;
 }
 
-void **std::vector<ServiceEntry>::~vector[abi:ne200100](void **a1)
+char **std::vector<ServiceEntry>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -1835,11 +2314,11 @@ void **std::vector<ServiceEntry>::~vector[abi:ne200100](void **a1)
     {
       v5 = v3 - 80;
       v6 = v3 - 80;
-      v7 = v3 - 80;
+      v7 = (v3 - 80);
       do
       {
         v8 = *v7;
-        v7 -= 80;
+        v7 -= 10;
         (*v8)(v6);
         v5 -= 80;
         v9 = v6 == v2;
@@ -1875,11 +2354,11 @@ void HostInterpreter::~HostInterpreter(CFTypeRef *this)
     {
       v6 = v4 - 80;
       v7 = v4 - 80;
-      v8 = v4 - 80;
+      v8 = (v4 - 80);
       do
       {
         v9 = *v8;
-        v8 -= 80;
+        v8 -= 10;
         (*v9)(v7);
         v6 -= 80;
         v10 = v7 == v3;
@@ -1903,11 +2382,11 @@ void HostInterpreter::~HostInterpreter(CFTypeRef *this)
     {
       v14 = v12 - 80;
       v15 = v12 - 80;
-      v16 = v12 - 80;
+      v16 = (v12 - 80);
       do
       {
         v17 = *v16;
-        v16 -= 80;
+        v16 -= 10;
         (*v17)(v15);
         v14 -= 80;
         v10 = v15 == v11;
@@ -2018,11 +2497,11 @@ void HostInterpreter::signalMeshLocalAddressNotFound(HostInterpreter *this)
   operator new();
 }
 
-void sub_10013C658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+void sub_10013C658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (a15 < 0)
@@ -2096,7 +2575,7 @@ void HostInterpreter::setRcpSrpServiceABCTimer(HostInterpreter *this)
   }
 }
 
-void HostInterpreter::checkRcpSrpServiceFound(HostInterpreter *this)
+double HostInterpreter::checkRcpSrpServiceFound(HostInterpreter *this)
 {
   HostInterpreter::clearRcpSrpServiceABCTimer(this);
   if ((gSrpModeNetInfo & 1) == 0)
@@ -2104,7 +2583,6 @@ void HostInterpreter::checkRcpSrpServiceFound(HostInterpreter *this)
     v3 = *(this + 1);
     if (v3 != *(this + 2))
     {
-      v4 = *(v3 + 16);
       if ((*(v3 + 24) - *(v3 + 16)) >= 0)
       {
         operator new();
@@ -2201,16 +2679,16 @@ LABEL_11:
   }
 
   while (v17 != 93);
-  v6 = log_get_logging_obg("com.apple.threadradiod", "default");
-  v7 = v6;
-  if (v6)
+  v5 = log_get_logging_obg("com.apple.threadradiod", "default");
+  v6 = v5;
+  if (v5)
   {
     if (syslog_is_the_mask_enabled(6))
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Unicast SRP service found", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Unicast SRP service found", buf, 2u);
       }
     }
   }
@@ -2219,6 +2697,8 @@ LABEL_11:
   {
     [PowerEventHandler_Rcp init:];
   }
+
+  return result;
 }
 
 void sub_10013D1AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
@@ -3032,7 +3512,7 @@ uint64_t HostInterpreter::force_leader_reelection(HostInterpreter *this)
   HIBYTE(v18) = 19;
   strcpy(buf, "is_primary_resident");
   v16 = buf;
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v16);
   v3 = (v2 + 7);
   v4 = *(v2 + 79);
   if (v4 < 0)
@@ -3236,29 +3716,29 @@ uint64_t HostInterpreter::ProcessUpdateAccessoryAddr(HostInterpreter *this, unsi
   if (!a4 || *(a4 + 23) < 0 && !*a4)
   {
 LABEL_71:
-    v10 = 0;
+    v14 = 0;
     goto LABEL_72;
   }
 
-  v8 = (a4 + 3);
-  v9 = (a4 + 3);
+  v10 = (a4 + 3);
+  v11 = (a4 + 3);
   if (*(a4 + 47) < 0)
   {
-    v9 = *v8;
-    if (!*v8)
+    v11 = *v10;
+    if (!*v10)
     {
-      v10 = 0;
+      v14 = 0;
       goto LABEL_72;
     }
   }
 
-  v10 = ot::Ip6::Address::FromString(v32, v9);
-  if (v10)
+  v14 = ot::Ip6::Address::FromString(v35, v11, v8, v9);
+  if (v14)
   {
-    v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v11)
+    v15 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v15)
     {
-      if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         HostInterpreter::ProcessUpdateAccessoryAddr();
       }
@@ -3276,30 +3756,30 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v12 = a4;
+  v16 = a4;
   if (*(a4 + 23) < 0)
   {
-    v12 = *a4;
+    v16 = *a4;
   }
 
-  v10 = ot::Ip6::Address::FromString(&v33, v12);
-  if (!v10)
+  v14 = ot::Ip6::Address::FromString(&v36, v16, v12, v13);
+  if (!v14)
   {
-    v14 = otThreadLookUpRloc16(*(this + 28), &v33);
-    if (v14 == 65534)
+    v18 = otThreadLookUpRloc16(*(this + 28), &v36);
+    if (v18 == 65534)
     {
-      v15 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v15)
+      v19 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v19)
       {
-        if (!syslog_is_the_mask_enabled(4) || !os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (!syslog_is_the_mask_enabled(4) || !os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_63;
         }
 
-        v16 = a4;
+        v20 = a4;
         if (*(a4 + 23) < 0)
         {
-          v16 = *a4;
+          v20 = *a4;
           if ((*(a4 + 47) & 0x80000000) == 0)
           {
             goto LABEL_33;
@@ -3309,34 +3789,34 @@ LABEL_37:
         else if ((*(a4 + 47) & 0x80000000) == 0)
         {
 LABEL_33:
-          v17 = a4 + 6;
+          v21 = a4 + 6;
           if ((*(a4 + 71) & 0x80000000) == 0)
           {
 LABEL_35:
             *buf = 136316162;
-            *&buf[4] = v16;
-            v35 = 2080;
-            v36 = v8;
-            v37 = 2080;
-            v38 = v17;
-            v39 = 1024;
-            v40 = 65534;
-            v41 = 1024;
-            v42 = 65534;
-            _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "UpdateAccessoryAddr:Mark Add[%s] Lookup[%s] Info[%s] rloc16[%x] mle_rloc16[%x] LookupFound[0]", buf, 0x2Cu);
+            *&buf[4] = v20;
+            v38 = 2080;
+            v39 = v10;
+            v40 = 2080;
+            v41 = v21;
+            v42 = 1024;
+            v43 = 65534;
+            v44 = 1024;
+            v45 = 65534;
+            _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "UpdateAccessoryAddr:Mark Add[%s] Lookup[%s] Info[%s] rloc16[%x] mle_rloc16[%x] LookupFound[0]", buf, 0x2Cu);
 LABEL_63:
             if (qword_1004E59B0 <= 0xFF)
             {
               *buf = a4;
-              v10 = 0;
-              *(std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&nm_srp_omr_rloc_map, a4) + 28) = v14;
+              v14 = 0;
+              *(std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&nm_srp_omr_rloc_map, a4, &std::piecewise_construct, buf) + 28) = v18;
               goto LABEL_72;
             }
 
-            v29 = log_get_logging_obg("com.apple.threadradiod", "default");
-            if (v29)
+            v32 = log_get_logging_obg("com.apple.threadradiod", "default");
+            if (v32)
             {
-              if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
                 HostInterpreter::ProcessUpdateAccessoryAddr();
               }
@@ -3351,12 +3831,12 @@ LABEL_63:
           }
 
 LABEL_34:
-          v17 = *v17;
+          v21 = *v21;
           goto LABEL_35;
         }
 
-        v8 = *v8;
-        v17 = a4 + 6;
+        v10 = *v10;
+        v21 = a4 + 6;
         if ((*(a4 + 71) & 0x80000000) == 0)
         {
           goto LABEL_35;
@@ -3375,11 +3855,11 @@ LABEL_62:
       goto LABEL_63;
     }
 
-    v24 = *(this + 28);
-    v25 = *(v24 + 91304);
-    ot::AddressResolver::UpdateSnoopedCacheEntry((v24 + 127088), &v33, v14, *(v24 + 91304));
-    v26 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (!v26)
+    v27 = *(this + 28);
+    v28 = *(v27 + 91304);
+    ot::AddressResolver::UpdateSnoopedCacheEntry((v27 + 127088), &v36, v18, *(v27 + 91304));
+    v29 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (!v29)
     {
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
@@ -3389,38 +3869,38 @@ LABEL_62:
       goto LABEL_62;
     }
 
-    if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       goto LABEL_63;
     }
 
-    v27 = a4;
+    v30 = a4;
     if (*(a4 + 23) < 0)
     {
-      v27 = *a4;
+      v30 = *a4;
       if ((*(a4 + 47) & 0x80000000) == 0)
       {
 LABEL_57:
-        v28 = a4 + 6;
+        v31 = a4 + 6;
         if ((*(a4 + 71) & 0x80000000) == 0)
         {
 LABEL_58:
           *buf = 136316162;
-          *&buf[4] = v27;
-          v35 = 2080;
-          v36 = v8;
-          v37 = 2080;
-          v38 = v28;
-          v39 = 1024;
-          v40 = v14;
-          v41 = 1024;
-          v42 = v25;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "UpdateAccessoryAddr:Mark Add[%s] Lookup[%s] Info[%s] rloc16[%x] mle_rloc16[%x]", buf, 0x2Cu);
+          *&buf[4] = v30;
+          v38 = 2080;
+          v39 = v10;
+          v40 = 2080;
+          v41 = v31;
+          v42 = 1024;
+          v43 = v18;
+          v44 = 1024;
+          v45 = v28;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "UpdateAccessoryAddr:Mark Add[%s] Lookup[%s] Info[%s] rloc16[%x] mle_rloc16[%x]", buf, 0x2Cu);
           goto LABEL_63;
         }
 
 LABEL_79:
-        v28 = *v28;
+        v31 = *v31;
         goto LABEL_58;
       }
     }
@@ -3430,8 +3910,8 @@ LABEL_79:
       goto LABEL_57;
     }
 
-    v8 = *v8;
-    v28 = a4 + 6;
+    v10 = *v10;
+    v31 = a4 + 6;
     if ((*(a4 + 71) & 0x80000000) == 0)
     {
       goto LABEL_58;
@@ -3440,8 +3920,8 @@ LABEL_79:
     goto LABEL_79;
   }
 
-  v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (!v13)
+  v17 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (!v17)
   {
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -3451,14 +3931,14 @@ LABEL_79:
     goto LABEL_37;
   }
 
-  if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     HostInterpreter::ProcessUpdateAccessoryAddr();
   }
 
 LABEL_38:
-  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (!v18)
+  v22 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (!v22)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -3468,12 +3948,12 @@ LABEL_38:
     goto LABEL_48;
   }
 
-  if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v19 = a4;
+    v23 = a4;
     if (*(a4 + 23) < 0)
     {
-      v19 = *a4;
+      v23 = *a4;
       if ((*(a4 + 47) & 0x80000000) == 0)
       {
         goto LABEL_43;
@@ -3483,33 +3963,33 @@ LABEL_38:
     else if ((*(a4 + 47) & 0x80000000) == 0)
     {
 LABEL_43:
-      v20 = a4 + 6;
+      v24 = a4 + 6;
       if ((*(a4 + 71) & 0x80000000) == 0)
       {
 LABEL_45:
         *buf = 136316418;
-        *&buf[4] = v19;
-        v35 = 2080;
-        v36 = v8;
-        v37 = 2080;
-        v38 = v20;
-        v39 = 1024;
-        v40 = 65534;
-        v41 = 1024;
-        v42 = 65534;
-        v43 = 1024;
-        v44 = v10;
-        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "UpdateAccessoryAddr:Mark Add[%s] Lookup[%s] Info[%s] rloc16[%x] mle_rloc16[%x] error[%d]", buf, 0x32u);
+        *&buf[4] = v23;
+        v38 = 2080;
+        v39 = v10;
+        v40 = 2080;
+        v41 = v24;
+        v42 = 1024;
+        v43 = 65534;
+        v44 = 1024;
+        v45 = 65534;
+        v46 = 1024;
+        v47 = v14;
+        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "UpdateAccessoryAddr:Mark Add[%s] Lookup[%s] Info[%s] rloc16[%x] mle_rloc16[%x] error[%d]", buf, 0x32u);
         goto LABEL_48;
       }
 
 LABEL_44:
-      v20 = *v20;
+      v24 = *v24;
       goto LABEL_45;
     }
 
-    v8 = *v8;
-    v20 = a4 + 6;
+    v10 = *v10;
+    v24 = a4 + 6;
     if ((*(a4 + 71) & 0x80000000) == 0)
     {
       goto LABEL_45;
@@ -3519,26 +3999,25 @@ LABEL_44:
   }
 
 LABEL_48:
-  HIDWORD(v22) = v10 - 1;
-  LODWORD(v22) = v10 - 1;
-  v21 = v22 >> 1;
-  if (v21 <= 6 && ((0x4Du >> v21) & 1) != 0)
+  HIDWORD(v26) = v14 - 1;
+  LODWORD(v26) = v14 - 1;
+  v25 = v26 >> 1;
+  if (v25 <= 6 && ((0x4Du >> v25) & 1) != 0)
   {
-    v10 = dword_10044816C[v21];
-    v23 = dword_100448188[v21];
+    v14 = dword_10044816C[v25];
   }
 
 LABEL_72:
-  v30 = a4[9];
-  if (!v30)
+  v33 = a4[9];
+  if (!v33)
   {
     std::runtime_error::runtime_error(buf, "call to empty boost::function");
     *buf = off_1004C1548;
     boost::throw_exception<boost::bad_function_call>(buf);
   }
 
-  (*((v30 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 80);
-  return v10;
+  (*((v33 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 10);
+  return v14;
 }
 
 uint64_t HostInterpreter::get_wpantund_status_from_oterror(uint64_t a1, uint64_t a2)
@@ -3589,11 +4068,11 @@ uint64_t boost::function1<void,int>::operator()(void *a1)
 
 uint64_t HostInterpreter::DeviceModeConfig(uint64_t a1, const std::string::value_type *a2)
 {
-  memset(&v41, 0, sizeof(v41));
+  memset(&v40, 0, sizeof(v40));
   StringValue = getStringValue("Thread:DeviceMode");
   if (StringValue)
   {
-    std::string::assign(&v41, StringValue);
+    std::string::assign(&v40, StringValue);
   }
 
   v5 = *(a1 + 240);
@@ -3603,14 +4082,14 @@ uint64_t HostInterpreter::DeviceModeConfig(uint64_t a1, const std::string::value
   *&block[24] = &__block_descriptor_tmp_39;
   *&block[32] = a1;
   dispatch_async(v5, block);
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v40.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v41.__r_.__value_.__l.__size_;
+    size = v40.__r_.__value_.__l.__size_;
   }
 
   if (!size)
@@ -3618,32 +4097,32 @@ uint64_t HostInterpreter::DeviceModeConfig(uint64_t a1, const std::string::value
     goto LABEL_30;
   }
 
-  if ((*(&v41.__r_.__value_.__s + 23) & 0x80) != 0)
+  if ((*(&v40.__r_.__value_.__s + 23) & 0x80) != 0)
   {
-    if (v41.__r_.__value_.__l.__size_ == 6)
+    if (v40.__r_.__value_.__l.__size_ == 6)
     {
 LABEL_25:
-      v7 = v41.__r_.__value_.__r.__words[0];
+      v7 = v40.__r_.__value_.__r.__words[0];
       goto LABEL_26;
     }
 
-    if (v41.__r_.__value_.__l.__size_ != 13)
+    if (v40.__r_.__value_.__l.__size_ != 13)
     {
       goto LABEL_30;
     }
 
-    v7 = v41.__r_.__value_.__r.__words[0];
+    v7 = v40.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    v7 = &v41;
-    if (HIBYTE(v41.__r_.__value_.__r.__words[2]) == 6)
+    v7 = &v40;
+    if (HIBYTE(v40.__r_.__value_.__r.__words[2]) == 6)
     {
       goto LABEL_26;
     }
 
-    if (HIBYTE(v41.__r_.__value_.__r.__words[2]) != 13)
+    if (HIBYTE(v40.__r_.__value_.__r.__words[2]) != 13)
     {
       goto LABEL_30;
     }
@@ -3673,18 +4152,18 @@ LABEL_25:
       }
     }
 
-    v34 = *v12;
-    v35 = *(v12 + 2);
-    if (v34 == 1953853298 && v35 == 29285)
+    v33 = *v12;
+    v34 = *(v12 + 2);
+    if (v33 == 1953853298 && v34 == 29285)
     {
       goto LABEL_103;
     }
   }
 
 LABEL_18:
-  if ((*(&v41.__r_.__value_.__s + 23) & 0x80) != 0)
+  if ((*(&v40.__r_.__value_.__s + 23) & 0x80) != 0)
   {
-    if (v41.__r_.__value_.__l.__size_ != 6)
+    if (v40.__r_.__value_.__l.__size_ != 6)
     {
       goto LABEL_30;
     }
@@ -3692,24 +4171,24 @@ LABEL_18:
     goto LABEL_25;
   }
 
-  if (HIBYTE(v41.__r_.__value_.__r.__words[2]) != 6)
+  if (HIBYTE(v40.__r_.__value_.__r.__words[2]) != 6)
   {
     goto LABEL_30;
   }
 
-  v7 = &v41;
+  v7 = &v40;
 LABEL_26:
   if (LODWORD(v7->__r_.__value_.__l.__data_) != 1953853298 || WORD2(v7->__r_.__value_.__r.__words[0]) != 29285)
   {
     goto LABEL_30;
   }
 
-  v27 = a2[23];
-  if (v27 < 0)
+  v26 = a2[23];
+  if (v26 < 0)
   {
     if (*(a2 + 1) == 13)
     {
-      v28 = *a2;
+      v27 = *a2;
       goto LABEL_90;
     }
 
@@ -3719,10 +4198,10 @@ LABEL_30:
     {
       if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_DEBUG))
       {
-        v15 = &v41;
-        if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v15 = &v40;
+        if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v15 = v41.__r_.__value_.__r.__words[0];
+          v15 = v40.__r_.__value_.__r.__words[0];
         }
 
         v16 = a2;
@@ -3753,36 +4232,36 @@ LABEL_30:
     goto LABEL_41;
   }
 
-  v28 = a2;
-  if (v27 != 13)
+  v27 = a2;
+  if (v26 != 13)
   {
     goto LABEL_30;
   }
 
 LABEL_90:
-  v31 = *v28;
-  v32 = *(v28 + 5);
-  if (v31 != 0x722D797065656C73 || v32 != 0x726574756F722D79)
+  v30 = *v27;
+  v31 = *(v27 + 5);
+  if (v30 != 0x722D797065656C73 || v31 != 0x726574756F722D79)
   {
     goto LABEL_30;
   }
 
 LABEL_103:
-  v37 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v37)
+  v36 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v36)
   {
-    if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v38 = &v41;
-      if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v37 = &v40;
+      if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v38 = v41.__r_.__value_.__r.__words[0];
+        v37 = v40.__r_.__value_.__r.__words[0];
       }
 
-      v39 = a2;
+      v38 = a2;
       if (a2[23] < 0)
       {
-        v39 = *a2;
+        v38 = *a2;
       }
 
       *block = 136315906;
@@ -3790,10 +4269,10 @@ LABEL_103:
       *&block[12] = 1024;
       *&block[14] = 11036;
       *&block[18] = 2080;
-      *&block[20] = v38;
+      *&block[20] = v37;
       *&block[28] = 2080;
-      *&block[30] = v39;
-      _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "ThreadConnection: %s:%d: Transition from %s to %s", block, 0x26u);
+      *&block[30] = v38;
+      _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "ThreadConnection: %s:%d: Transition from %s to %s", block, 0x26u);
     }
   }
 
@@ -3824,7 +4303,7 @@ LABEL_41:
   {
     if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      HostInterpreter::DeviceModeConfig(a2 + 23);
+      HostInterpreter::DeviceModeConfig();
     }
   }
 
@@ -3888,8 +4367,8 @@ LABEL_74:
         a2 = *a2;
       }
 
-      v29 = strcmp(a2, "synchronized-sleepy-end-device");
-      if (v29)
+      v28 = strcmp(a2, "synchronized-sleepy-end-device");
+      if (v28)
       {
         v22 = 0;
       }
@@ -3899,7 +4378,7 @@ LABEL_74:
         v22 = 151;
       }
 
-      if (v29)
+      if (v28)
       {
         v23 = 0;
       }
@@ -3929,7 +4408,6 @@ LABEL_64:
   result = otThreadSetLinkMode(*(a1 + 224), 6);
   if (!result)
   {
-    v25 = *(a1 + 224);
     if (otPlatRadioGetRcp2Vendor2Enabled())
     {
       byte_10052D769 = 0;
@@ -3945,11 +4423,11 @@ LABEL_64:
   }
 
 LABEL_85:
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
-    v30 = result;
-    operator delete(v41.__r_.__value_.__l.__data_);
-    return v30;
+    v29 = result;
+    operator delete(v40.__r_.__value_.__l.__data_);
+    return v29;
   }
 
   return result;
@@ -3983,7 +4461,7 @@ void boost::any_cast<std::string>(uint64_t a1@<X0>, std::string *a2@<X8>)
     v11.__vftable = 0;
     std::bad_cast::bad_cast(&v11);
     v11.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v11);
   }
 
   v7 = *a1;
@@ -4113,21 +4591,12 @@ LABEL_29:
   return 0;
 }
 
-void boost::any::any<std::string &>()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void HostInterpreter::onChipReset(HostInterpreter *this)
 {
   strcpy(&__p, "vendor:rcp:state:crash");
   *(&__p.__r_.__value_.__s + 23) = 22;
   v53.__r_.__value_.__r.__words[0] = &__p;
-  v1 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p.__r_.__value_.__l.__data_);
+  v1 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v53);
   std::string::assign((v1 + 7), "uninitialized");
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4137,7 +4606,7 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
   *(&__p.__r_.__value_.__s + 23) = 13;
   strcpy(&__p, "threadSession");
   v53.__r_.__value_.__r.__words[0] = &__p;
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p.__r_.__value_.__l.__data_);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v53);
   std::string::assign((v2 + 7), "OFF");
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4174,7 +4643,7 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
     v57 = 13;
     strcpy(buf, "threadSession");
     v55 = buf;
-    v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+    v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
     std::string::assign((v17 + 7), v6);
     if (v57 < 0)
     {
@@ -4201,11 +4670,11 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
   v57 = 13;
   strcpy(buf, "threadSession");
   v55 = buf;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
   v10 = v7[7];
-  v8 = (v7 + 7);
+  v8 = v7 + 7;
   v9 = v10;
-  v11 = v8[23];
+  v11 = *(v8 + 23);
   if (v11 >= 0)
   {
     v12 = v8;
@@ -4223,7 +4692,7 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
 
   else
   {
-    v13 = *(v8 + 1);
+    v13 = v8[1];
   }
 
   std::string::append(&__p, v12, v13);
@@ -4239,7 +4708,7 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
     strcpy(buf, "vendor:rcp:state:crash");
     v57 = 22;
     v55 = buf;
-    v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+    v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
     std::string::assign((v15 + 7), v14);
     if (v57 < 0)
     {
@@ -4266,11 +4735,11 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
   strcpy(buf, "vendor:rcp:state:crash");
   v57 = 22;
   v55 = buf;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
   v22 = v19[7];
-  v20 = (v19 + 7);
+  v20 = v19 + 7;
   v21 = v22;
-  v23 = v20[23];
+  v23 = *(v20 + 23);
   if (v23 >= 0)
   {
     v24 = v20;
@@ -4288,7 +4757,7 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
 
   else
   {
-    v25 = *(v20 + 1);
+    v25 = v20[1];
   }
 
   std::string::append(&__p, v24, v25);
@@ -4301,7 +4770,7 @@ void HostInterpreter::onChipReset(HostInterpreter *this)
   strcpy(buf, "vendor:rcp:state:crash");
   v57 = 22;
   v55 = buf;
-  v26 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+  v26 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
   v27 = v26 + 7;
   v28 = *(v26 + 79);
   if (v28 < 0)
@@ -4345,7 +4814,7 @@ LABEL_62:
       v57 = 17;
       strcpy(buf, "Thread:DeviceMode");
       v55 = buf;
-      v34 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+      v34 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
       std::string::assign((v34 + 7), v33);
       if (v57 < 0)
       {
@@ -4371,11 +4840,11 @@ LABEL_62:
       v57 = 17;
       strcpy(buf, "Thread:DeviceMode");
       v55 = buf;
-      v36 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+      v36 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
       v39 = v36[7];
-      v37 = (v36 + 7);
+      v37 = v36 + 7;
       v38 = v39;
-      v40 = v37[23];
+      v40 = *(v37 + 23);
       if (v40 >= 0)
       {
         v41 = v37;
@@ -4393,7 +4862,7 @@ LABEL_62:
 
       else
       {
-        v42 = *(v37 + 1);
+        v42 = v37[1];
       }
 
       std::string::append(&__p, v41, v42);
@@ -4423,7 +4892,7 @@ LABEL_82:
     v57 = 16;
     strcpy(buf, "fault_crash_type");
     v55 = buf;
-    v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+    v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &v55);
     std::string::assign((v45 + 7), v44);
     if (v57 < 0)
     {
@@ -4590,7 +5059,7 @@ void HostInterpreter::CAStabilityMetrics(uint64_t a1, uint64_t a2)
   BYTE7(v9[2]) = 16;
   strcpy(v9, "fault_crash_typefault_crash_type");
   v16 = &v9[1];
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1]);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1], &std::piecewise_construct, &v16);
   std::string::assign((v2 + 7), "0");
   if (SBYTE7(v9[2]) < 0)
   {
@@ -4601,7 +5070,7 @@ void HostInterpreter::CAStabilityMetrics(uint64_t a1, uint64_t a2)
   v9[1] = v9[0];
   LOBYTE(v9[2]) = 0;
   v16 = &v9[1];
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1]);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1], &std::piecewise_construct, &v16);
   v4 = (v3 + 7);
   if (*(v3 + 79) < 0)
   {
@@ -4617,7 +5086,7 @@ void HostInterpreter::CAStabilityMetrics(uint64_t a1, uint64_t a2)
   strcpy(v9, "vendor:rcp:statevendor:rcp:state:crash");
   BYTE7(v9[2]) = 22;
   v16 = &v9[1];
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1]);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1], &std::piecewise_construct, &v16);
   std::string::assign((v5 + 7), "uninitialized");
   if (SBYTE7(v9[2]) < 0)
   {
@@ -4628,7 +5097,7 @@ void HostInterpreter::CAStabilityMetrics(uint64_t a1, uint64_t a2)
   strcpy(&v9[1] + 14, "te:crash");
   BYTE7(v9[2]) = 22;
   v16 = &v9[1];
-  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1]);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v9[1], &std::piecewise_construct, &v16);
   v7 = (v6 + 7);
   if (*(v6 + 79) < 0)
   {
@@ -4680,7 +5149,7 @@ xpc_object_t ___ZN15HostInterpreter18CAStabilityMetricsENSt3__112basic_stringIcN
   *(&__p[0].__r_.__value_.__s + 23) = 13;
   strcpy(__p, "threadSession");
   v61.__r_.__value_.__r.__words[0] = __p;
-  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p[0].__r_.__value_.__l.__data_);
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p[0].__r_.__value_.__l.__data_, &std::piecewise_construct, &v61);
   v5 = (v4 + 7);
   if (*(v4 + 79) < 0)
   {
@@ -4696,7 +5165,7 @@ xpc_object_t ___ZN15HostInterpreter18CAStabilityMetricsENSt3__112basic_stringIcN
   strcpy(__p, "vendor:rcp:state:crash");
   *(&__p[0].__r_.__value_.__s + 23) = 22;
   v61.__r_.__value_.__r.__words[0] = __p;
-  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p[0].__r_.__value_.__l.__data_);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p[0].__r_.__value_.__l.__data_, &std::piecewise_construct, &v61);
   v7 = (v6 + 7);
   if (*(v6 + 79) < 0)
   {
@@ -4712,7 +5181,7 @@ xpc_object_t ___ZN15HostInterpreter18CAStabilityMetricsENSt3__112basic_stringIcN
   *(&__p[0].__r_.__value_.__s + 23) = 17;
   strcpy(__p, "Thread:DeviceMode");
   v61.__r_.__value_.__r.__words[0] = __p;
-  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p[0].__r_.__value_.__l.__data_);
+  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p[0].__r_.__value_.__l.__data_, &std::piecewise_construct, &v61);
   v9 = (v8 + 7);
   if (*(v8 + 79) < 0)
   {
@@ -5402,7 +5871,7 @@ void HostInterpreter::restore_health_metrics_from_persisted_db(HostInterpreter *
   v4 = 19;
   strcpy(__p, "is_radio_tx_timeout");
   v5 = __p;
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v5);
   operator new();
 }
 
@@ -5429,7 +5898,7 @@ void HostInterpreter::restore_awd_stability_counters_from_persisted_db(HostInter
   v4 = 16;
   strcpy(__p, "fault_num_resets");
   v5 = __p;
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v5);
   operator new();
 }
 
@@ -5444,7 +5913,7 @@ BOOL HostInterpreter::anyThreadSessionEnabled(HostInterpreter *this)
   return HostInterpreter::isThreadSessionJoinEnabled(isThreadSessionEnabled);
 }
 
-void HostInterpreter::setExtendedMACAddressInDataSetIfAvailableinDB(HostInterpreter *this)
+void HostInterpreter::setExtendedMACAddressInDataSetIfAvailableinDB(ot::Instance **this)
 {
   if (!HostInterpreter::getNameAndXPANIDFromDataset(this, cStr))
   {
@@ -5481,7 +5950,7 @@ LABEL_25:
         [PowerEventHandler_Rcp init:];
       }
 
-      otLinkRegenerateExAddr(*(this + 28));
+      otLinkRegenerateExAddr(this[28]);
       goto LABEL_32;
     }
 
@@ -5514,7 +5983,7 @@ LABEL_8:
 
 LABEL_9:
   v19 = bswap64(LLIntValueForBundleID);
-  if (otLinkSetExtendedAddress(*(this + 28), &v19))
+  if (otLinkSetExtendedAddress(this[28], &v19))
   {
     return;
   }
@@ -5528,7 +5997,7 @@ LABEL_9:
       v13 = 136315138;
       v14 = "setExtendedMACAddressInDataSetIfAvailableinDB";
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s, Successfully Set xMAC Addres to OT", &v13, 0xCu);
-      if (otPlatIsSettingsFileExists(*(this + 28)))
+      if (otPlatIsSettingsFileExists(this[28]))
       {
         goto LABEL_32;
       }
@@ -5549,7 +6018,7 @@ LABEL_17:
         [PowerEventHandler_Rcp init:];
       }
 
-      otLinkRegenerateExAddr(*(this + 28));
+      otLinkRegenerateExAddr(this[28]);
       saveLLIntValueNULLForBundleID(cStr, "com.apple.threadradiodeMACDB");
       goto LABEL_32;
     }
@@ -5558,7 +6027,7 @@ LABEL_17:
   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     [PowerEventHandler_Rcp init:];
-    if (otPlatIsSettingsFileExists(*(this + 28)))
+    if (otPlatIsSettingsFileExists(this[28]))
     {
       goto LABEL_32;
     }
@@ -5566,7 +6035,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if ((otPlatIsSettingsFileExists(*(this + 28)) & 1) == 0)
+  if ((otPlatIsSettingsFileExists(this[28]) & 1) == 0)
   {
     goto LABEL_17;
   }
@@ -5591,10 +6060,10 @@ LABEL_32:
     [PowerEventHandler_Rcp init:];
   }
 
-  ot::Instance::InitSettings(*(this + 28));
+  ot::Instance::InitSettings(this[28]);
 }
 
-void HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(HostInterpreter *this)
+double HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(HostInterpreter *this)
 {
   if (HostInterpreter::getNameAndXPANIDFromDataset(this, cStr))
   {
@@ -5602,16 +6071,16 @@ void HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(HostInterpreter *
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
     {
-      v4 = logging_obg;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = logging_obg;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v15 = 136315650;
-        v16 = "saveExtendedMACAddressIfNotAvailableinDB";
-        v17 = 1024;
-        LODWORD(v18[0]) = LLIntValueForBundleID != 0;
-        WORD2(v18[0]) = 2048;
-        *(v18 + 6) = LLIntValueForBundleID;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s, Before reading from OT, xMAC present in DB: %d, xMAC value in DB: 0x%llx", &v15, 0x1Cu);
+        v16 = 136315650;
+        v17 = "saveExtendedMACAddressIfNotAvailableinDB";
+        v18 = 1024;
+        LODWORD(v19[0]) = LLIntValueForBundleID != 0;
+        WORD2(v19[0]) = 2048;
+        *(v19 + 6) = LLIntValueForBundleID;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s, Before reading from OT, xMAC present in DB: %d, xMAC value in DB: 0x%llx", &v16, 0x1Cu);
       }
     }
 
@@ -5621,22 +6090,22 @@ void HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(HostInterpreter *
     }
 
     ExtendedAddress = otLinkGetExtendedAddress(*(this + 28));
-    v6 = ExtendedAddress[7] | (((ExtendedAddress[5] << 8) | (((((ExtendedAddress[1] << 8) | (*ExtendedAddress << 16) | ExtendedAddress[2]) << 16) | (ExtendedAddress[3] << 8) | ExtendedAddress[4]) << 16) | ExtendedAddress[6]) << 8);
-    saveLLIntValueForBundleID("last_used_emac_address", v6, "com.apple.threadradiodeMACDB");
+    v7 = ExtendedAddress[7] | (((ExtendedAddress[5] << 8) | (((((ExtendedAddress[1] << 8) | (*ExtendedAddress << 16) | ExtendedAddress[2]) << 16) | (ExtendedAddress[3] << 8) | ExtendedAddress[4]) << 16) | ExtendedAddress[6]) << 8);
+    saveLLIntValueForBundleID("last_used_emac_address", v7, "com.apple.threadradiodeMACDB");
     if (!LLIntValueForBundleID)
     {
-      saveLLIntValueForBundleID(cStr, v6, "com.apple.threadradiodeMACDB");
-      v10 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v10)
+      saveLLIntValueForBundleID(cStr, v7, "com.apple.threadradiodeMACDB");
+      v11 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v11)
       {
-        v11 = v10;
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = v11;
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v15 = 136315394;
-          v16 = "saveExtendedMACAddressIfNotAvailableinDB";
-          v17 = 2048;
-          v18[0] = v6;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s, Read xMAC from OT and wrote it to DB = 0x%llx to OT", &v15, 0x16u);
+          v16 = 136315394;
+          v17 = "saveExtendedMACAddressIfNotAvailableinDB";
+          v18 = 2048;
+          v19[0] = v7;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s, Read xMAC from OT and wrote it to DB = 0x%llx to OT", &v16, 0x16u);
         }
       }
 
@@ -5646,18 +6115,18 @@ void HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(HostInterpreter *
       }
     }
 
-    v7 = getLLIntValueForBundleID(cStr, "com.apple.threadradiodeMACDB");
-    v8 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v8)
+    v8 = getLLIntValueForBundleID(cStr, "com.apple.threadradiodeMACDB");
+    v9 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v9)
     {
-      v9 = v8;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = v9;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v15 = 136315394;
-        v16 = "saveExtendedMACAddressIfNotAvailableinDB";
-        v17 = 2048;
-        v18[0] = v7;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s, Checking Value in DB, xMAC value in DB: 0x%llx", &v15, 0x16u);
+        v16 = 136315394;
+        v17 = "saveExtendedMACAddressIfNotAvailableinDB";
+        v18 = 2048;
+        v19[0] = v8;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s, Checking Value in DB, xMAC value in DB: 0x%llx", &v16, 0x16u);
       }
     }
 
@@ -5666,19 +6135,19 @@ void HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(HostInterpreter *
       [PowerEventHandler_Rcp init:];
     }
 
-    v12 = log_get_logging_obg("com.apple.threadradiod", "default");
-    v13 = v12;
-    if (v7 && v7 == v6)
+    v13 = log_get_logging_obg("com.apple.threadradiod", "default");
+    v14 = v13;
+    if (v8 && v8 == v7)
     {
-      if (v12)
+      if (v13)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v15 = 136315138;
-          v16 = "saveExtendedMACAddressIfNotAvailableinDB";
-          v14 = "%s, Values in DB and OT match";
+          v16 = 136315138;
+          v17 = "saveExtendedMACAddressIfNotAvailableinDB";
+          v15 = "%s, Values in DB and OT match";
 LABEL_29:
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, v14, &v15, 0xCu);
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, v15, &v16, 0xCu);
         }
       }
 
@@ -5688,13 +6157,13 @@ LABEL_29:
       }
     }
 
-    else if (v12)
+    else if (v13)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v15 = 136315138;
-        v16 = "saveExtendedMACAddressIfNotAvailableinDB";
-        v14 = "%s, Values in DB and OT DO NOT match";
+        v16 = 136315138;
+        v17 = "saveExtendedMACAddressIfNotAvailableinDB";
+        v15 = "%s, Values in DB and OT DO NOT match";
         goto LABEL_29;
       }
     }
@@ -5704,6 +6173,8 @@ LABEL_29:
       [PowerEventHandler_Rcp init:];
     }
   }
+
+  return result;
 }
 
 BOOL HostInterpreter::getNameAndXPANIDFromDataset(HostInterpreter *this, char *a2)
@@ -5820,18 +6291,18 @@ void HostInterpreter::persistThreadSessionJoin(HostInterpreter *this, int a2)
   wcm_notify(0, v6);
 }
 
-void HostInterpreter::HandleDiagnosticGetResponseFromLeader(uint64_t a1, int a2, uint64_t a3)
+double HostInterpreter::HandleDiagnosticGetResponseFromLeader(uint64_t a1, int a2, uint64_t a3)
 {
-  v16 = 0;
+  v17 = 0;
   if (a2)
   {
-    return;
+    return result;
   }
 
   otMessageGetLength(a3);
   otMessageGetOffset(a3);
   v5 = 0;
-  if (otThreadGetNextDiagnosticTlv(a3, &v16, v20))
+  if (otThreadGetNextDiagnosticTlv(a3, &v17, v21))
   {
     goto LABEL_22;
   }
@@ -5839,18 +6310,18 @@ void HostInterpreter::HandleDiagnosticGetResponseFromLeader(uint64_t a1, int a2,
   v6 = 0;
   do
   {
-    switch(v20[0])
+    switch(v21[0])
     {
       case 0x64:
         v6 = 1;
         continue;
       case 1:
-        v5 = v21;
+        v5 = v22;
         continue;
       case 0:
-        v7 = v21;
-        v8 = BYTE1(v21);
-        *(a1 + 154) = v21;
+        v7 = v22;
+        v8 = BYTE1(v22);
+        *(a1 + 154) = v22;
         snprintf(__str, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v7, v8, BYTE2(v7), BYTE3(v7), BYTE4(v7), BYTE5(v7), BYTE6(v7), HIBYTE(v7));
         continue;
     }
@@ -5876,7 +6347,7 @@ void HostInterpreter::HandleDiagnosticGetResponseFromLeader(uint64_t a1, int a2,
     if (syslog_is_the_mask_enabled(4) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR))
     {
       buf = 67109120;
-      *buf_4 = v20[0];
+      *buf_4 = v21[0];
       v10 = logging_obg;
       v11 = "Mle::HandleDiagnosticGetResponseFromLeader Unhandled TLV type=%d";
       v12 = 8;
@@ -5885,7 +6356,7 @@ LABEL_19:
     }
   }
 
-  while (!otThreadGetNextDiagnosticTlv(a3, &v16, v20));
+  while (!otThreadGetNextDiagnosticTlv(a3, &v17, v21));
   if (v6)
   {
     operator new();
@@ -5907,7 +6378,7 @@ LABEL_22:
         *&buf_4[6] = __str;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "HI:HandleDiagnosticGetResponseFromLeader:Received DIAG.RSP from leader: leaderRloc16:0x%x, leaderExtAddr:%s", &buf, 0x12u);
         *(a1 + 152) = v5;
-        return;
+        return result;
       }
     }
 
@@ -5931,29 +6402,37 @@ LABEL_22:
   {
     [PowerEventHandler_Rcp init:];
   }
+
+  return result;
 }
 
-void sub_100143FE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t *a25)
+void sub_100143FE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   if (a25)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a25);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void HostInterpreter::HandleDiagGetSingleHopPeerResponseIPAddr(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+void HostInterpreter::HandleDiagGetSingleHopPeerResponseIPAddr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  HostInterpreter::HandleDiagGetSingleHopPeerResponseIPAddr(a4, a1, a2, a3);
+}
+
 {
   if (a4)
   {
+    v6 = a2;
     v33 = 0;
     memset(v42, 0, sizeof(v42));
     *__str = 0u;
     memset(v41, 0, sizeof(v41));
     *__s2 = 0u;
     memset(v39, 0, sizeof(v39));
-    memset(v32, 0, 7);
+    *&v32[3] = 0;
+    *v32 = 0;
     v29 = &v29;
     v30 = &v29;
     v31 = 0;
@@ -6009,14 +6488,14 @@ LABEL_66:
       return;
     }
 
-    if (a2)
+    if (v6)
     {
       v9 = log_get_logging_obg("com.apple.threadradiod", "default");
       if (v9)
       {
         if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v10 = otThreadErrorToString(a2);
+          v10 = otThreadErrorToString(v6);
           *buf = 136315650;
           *&buf[4] = "HandleDiagGetSingleHopPeerResponseIPAddr";
           *&buf[12] = 2080;
@@ -6225,22 +6704,23 @@ LABEL_39:
   }
 }
 
-void sub_1001449B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_1001449B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   if (a23)
   {
-    (*(*a23 + 8))(a23);
+    (*(*a23 + 8))(a23, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::list<std::string>::~list(&a24);
   _Unwind_Resume(a1);
 }
 
-void HostInterpreter::HandleDiagnosticGetResponse(int a1, uint64_t a2, uint64_t a3)
+void HostInterpreter::HandleDiagnosticGetResponse(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v19 = 0;
   if (a3)
   {
+    v4 = a1;
     otIp6AddressToString(a3 + 16, v24, 48);
     if (a2)
     {
@@ -6251,7 +6731,7 @@ void HostInterpreter::HandleDiagnosticGetResponse(int a1, uint64_t a2, uint64_t 
       __src[1] = 0;
       Offset = otMessageGetOffset(a2);
       Length = otMessageGetLength(a2);
-      if (!a1)
+      if (!v4)
       {
         v11 = Length;
         logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -6321,7 +6801,7 @@ void HostInterpreter::HandleDiagnosticGetResponse(int a1, uint64_t a2, uint64_t 
           if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
           {
             buf[0] = 136315394;
-            *&buf[1] = otThreadErrorToString(a1);
+            *&buf[1] = otThreadErrorToString(v4);
             v21 = 2080;
             v22 = v24;
             _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "TDM DIAG_GET.rsp/ans error:%s peerAddr:%s", buf, 0x16u);
@@ -6388,22 +6868,13 @@ void sub_100144F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::any::any<nl::Data &>()
+void sub_1001450D8(_Unwind_Exception *a1)
 {
-  operator new();
-}
-
-{
-  operator new();
-}
-
-void sub_1001450D8()
-{
-  v2 = *v1;
-  if (*v1)
+  v3 = *v2;
+  if (*v2)
   {
-    *(v0 + 16) = v2;
-    operator delete(v2);
+    *(v1 + 16) = v3;
+    operator delete(v3);
   }
 
   operator delete();
@@ -6688,7 +7159,7 @@ LABEL_42:
       }
 
       memset(__p, 0, 24);
-      IPv6Prefix::to_string((v18 + 28), v59);
+      IPv6Prefix::to_string(v59, (v18 + 28));
       if ((v59[23] & 0x80u) == 0)
       {
         v23 = v59;
@@ -6831,7 +7302,7 @@ LABEL_46:
       }
 
       memset(v59, 0, 24);
-      IPv6Prefix::to_string((v33 + 28), v55);
+      IPv6Prefix::to_string(v55, (v33 + 28));
       if (v58 >= 0)
       {
         v37 = v55;
@@ -7013,11 +7484,11 @@ void sub_100145F74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *nl::Data::Data(void *this, const unsigned __int8 *a2, uint64_t a3)
+nl::Data *nl::Data::Data(nl::Data *this, const unsigned __int8 *a2, size_t a3)
 {
   *this = 0;
-  this[1] = 0;
-  this[2] = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
   if (a3)
   {
     if ((a3 & 0x8000000000000000) == 0)
@@ -7043,7 +7514,7 @@ void sub_10014604C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HostInterpreter::signal_ipv6route_list_change(HostInterpreter *this)
+void HostInterpreter::signal_ipv6route_list_change(HostInterpreter *this)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -7155,18 +7626,17 @@ uint64_t HostInterpreter::signal_ipv6route_list_change(HostInterpreter *this)
     }
   }
 
-  result = RcpHostContext::canReportNetworkDataIPV6RouteInfo(RcpHostContext::sRcpHostContext);
-  if (result)
+  if (RcpHostContext::canReportNetworkDataIPV6RouteInfo(RcpHostContext::sRcpHostContext))
   {
 LABEL_30:
-    v15 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v15)
+    v14 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v14)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         *&buf[4] = "signal_ipv6route_list_change";
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%s SRP reporting", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s SRP reporting", buf, 0xCu);
       }
     }
 
@@ -7179,33 +7649,31 @@ LABEL_30:
     std::__tree<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::__map_value_compare<IPv6Prefix,std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::less<IPv6Prefix>,true>,std::allocator<std::__value_type<IPv6Prefix,InterfaceRouteEntry>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::__tree_node<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,void *> *,long>>(this + 16, *(this + 13), this + 14);
     *buf = buf;
     *&buf[8] = buf;
-    v16 = *(this + 13);
-    if (v16 != (this + 112))
+    v15 = *(this + 13);
+    if (v15 != (this + 112))
     {
-      v17[1] = 0;
-      v18 = 0;
-      v17[0] = &v17[1];
-      IPv6Prefix::to_string((v16 + 28), __p);
-      v21 = 7;
-      strcpy(v20, "Address");
-      *v19 = v20;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v17, v20);
+      v16[1] = 0;
+      v17 = 0;
+      v16[0] = &v16[1];
+      IPv6Prefix::to_string(__p, (v15 + 28));
+      v20 = 7;
+      strcpy(v19, "Address");
+      *v18 = v19;
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16, v19, &std::piecewise_construct, v18);
       operator new();
     }
 
-    HIBYTE(v18) = 11;
-    strcpy(v17, "IPv6:Routes");
-    boost::any::any<std::list<std::map<std::string,boost::any>> &>();
+    HIBYTE(v17) = 11;
+    strcpy(v16, "IPv6:Routes");
+    boost::any::any<std::list<std::map<std::string,boost::any>> &>(__p, buf);
   }
-
-  return result;
 }
 
-void sub_1001467BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34)
+void sub_1001467BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34)
 {
   if (a28)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a28);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (a16 < 0)
@@ -7219,19 +7687,19 @@ void sub_1001467BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HostInterpreter::signal_service_list_change(HostInterpreter *this)
+void HostInterpreter::signal_service_list_change(const ServiceEntry **this)
 {
-  if ((HostInterpreter::service_list_changed(this) & 1) != 0 || (result = RcpHostContext::canReportNetworkDataServiceInfo(RcpHostContext::sRcpHostContext), result))
+  if ((HostInterpreter::service_list_changed(this) & 1) != 0 || RcpHostContext::canReportNetworkDataServiceInfo(RcpHostContext::sRcpHostContext))
   {
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
     {
-      v3 = logging_obg;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v2 = logging_obg;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf) = 136315138;
         *(&buf + 4) = "signal_service_list_change";
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s SRP reporting", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s SRP reporting", &buf, 0xCu);
       }
     }
 
@@ -7241,37 +7709,33 @@ uint64_t HostInterpreter::signal_service_list_change(HostInterpreter *this)
     }
 
     RcpHostContext::resetReportNetworkDataServiceInfo(RcpHostContext::sRcpHostContext);
-    std::vector<ServiceEntry>::__assign_with_size[abi:ne200100]<ServiceEntry*,ServiceEntry*>(this + 4, *(this + 1), *(this + 2), 0xCCCCCCCCCCCCCCCDLL * ((*(this + 2) - *(this + 1)) >> 4));
+    std::vector<ServiceEntry>::__assign_with_size[abi:ne200100]<ServiceEntry*,ServiceEntry*>(this + 4, this[1], this[2], 0xCCCCCCCCCCCCCCCDLL * ((this[2] - this[1]) >> 4));
     *&buf = &buf;
     *(&buf + 1) = &buf;
-    v13 = 0;
-    v4 = *(this + 1);
-    if (v4 != *(this + 2))
+    v10 = 0;
+    if (this[1] != this[2])
     {
-      v7[1] = 0;
-      v8 = 0;
-      v7[0] = &v7[1];
-      v5 = *(v4 + 12);
-      v11 = 16;
+      v4[1] = 0;
+      v5 = 0;
+      v4[0] = &v4[1];
+      v8 = 16;
       strcpy(__p, "EnterpriseNumber");
-      *v9 = __p;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v7, __p);
+      *v6 = __p;
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &std::piecewise_construct, v6);
       operator new();
     }
 
-    HIBYTE(v8) = 15;
-    strcpy(v7, "Thread:Services");
-    boost::any::any<std::list<std::map<std::string,boost::any>> &>();
+    HIBYTE(v5) = 15;
+    strcpy(v4, "Thread:Services");
+    boost::any::any<std::list<std::map<std::string,boost::any>> &>(__p, &buf);
   }
-
-  return result;
 }
 
-void sub_100147148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
+void sub_100147148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
 {
   if (a31)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a31);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (a21 < 0)
@@ -7513,11 +7977,12 @@ void sub_10014782C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void HostInterpreter::setScanSessionPriority(HostInterpreter *this, int a2)
+void HostInterpreter::setScanSessionPriority(HostInterpreter *this, uint64_t a2)
 {
+  v2 = a2;
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   v5 = logging_obg;
-  if (a2)
+  if (v2)
   {
     if (logging_obg)
     {
@@ -7563,7 +8028,7 @@ LABEL_14:
   }
 
 LABEL_15:
-  otThreadSetScanHighPriority(*(this + 28), a2);
+  otThreadSetScanHighPriority(*(this + 28), v2);
   otThreadSetCoexConfigInfo(*(this + 28));
 }
 
@@ -7571,7 +8036,6 @@ uint64_t HostInterpreter::ProcessDiscoverScanForCurrentNetwork(HostInterpreter *
 {
   Channel = otLinkGetChannel(*(this + 28));
   PanId = otLinkGetPanId(*(this + 28));
-  v6 = *(this + 28);
   if (otPlatRadioGetRcp2Vendor2Enabled())
   {
     byte_10052D769 = 0;
@@ -7584,26 +8048,25 @@ uint64_t HostInterpreter::ProcessDiscoverScanForCurrentNetwork(HostInterpreter *
   _MergedGlobals_12 = 0;
   otThreadGetExtendedPanId(*(this + 28));
   current_nw_xpanid = 0;
-  v8 = *v7;
+  v7 = *v6;
+  current_nw_xpanid = v7 << 8;
+  v8 = v6[1] | (v7 << 8);
   current_nw_xpanid = v8 << 8;
-  v9 = v7[1] | (v8 << 8);
+  v9 = v6[2] | (v8 << 8);
   current_nw_xpanid = v9 << 8;
-  v10 = v7[2] | (v9 << 8);
+  v10 = v6[3] | ((v9 & 0xFFFFFF) << 8);
   current_nw_xpanid = v10 << 8;
-  v11 = v7[3] | ((v10 & 0xFFFFFF) << 8);
+  v11 = v6[4] | ((v10 & 0x7FFFFFFFFFFFFFLL) << 8);
   current_nw_xpanid = v11 << 8;
-  v12 = v7[4] | ((v11 & 0x7FFFFFFFFFFFFFLL) << 8);
+  v12 = v6[5] | ((v11 & 0x7FFFFFFFFFFFFFLL) << 8);
   current_nw_xpanid = v12 << 8;
-  v13 = v7[5] | ((v12 & 0x7FFFFFFFFFFFFFLL) << 8);
-  current_nw_xpanid = v13 << 8;
-  current_nw_xpanid = (v7[6] | ((v13 & 0x7FFFFFFFFFFFFFLL) << 8)) << 8;
-  current_nw_xpanid = v7[7] | current_nw_xpanid;
+  current_nw_xpanid = (v6[6] | ((v12 & 0x7FFFFFFFFFFFFFLL) << 8)) << 8;
+  current_nw_xpanid = v6[7] | current_nw_xpanid;
   otThreadGetNetworkName(*(this + 28));
-  current_network_name = v14;
-  v15 = otThreadDiscover(*(this + 28), 1 << Channel, PanId, 0, 0, HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork, this);
-  if (!v15)
+  current_network_name = v13;
+  v14 = otThreadDiscover(*(this + 28), 1 << Channel, PanId, 0, 0, HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork, this);
+  if (!v14)
   {
-    v19 = *(this + 28);
     if (otPlatRadioGetRcp2Vendor2Enabled())
     {
       byte_10052D769 = 1;
@@ -7619,8 +8082,8 @@ uint64_t HostInterpreter::ProcessDiscoverScanForCurrentNetwork(HostInterpreter *
     goto LABEL_16;
   }
 
-  v16 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (!v16)
+  v15 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (!v15)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -7644,17 +8107,17 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v17 = v16;
-  if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v16 = v15;
+  if (!syslog_is_the_mask_enabled(6) || !os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     goto LABEL_15;
   }
 
-  v22 = 136315394;
-  v23 = "ProcessDiscoverScanForCurrentNetwork";
-  v24 = 1024;
-  v25 = v15;
-  _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s Fail to start the dsicover scan, error = %d", &v22, 0x12u);
+  v20 = 136315394;
+  v21 = "ProcessDiscoverScanForCurrentNetwork";
+  v22 = 1024;
+  v23 = v14;
+  _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s Fail to start the dsicover scan, error = %d", &v20, 0x12u);
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (!logging_obg)
   {
@@ -7664,28 +8127,28 @@ LABEL_20:
       [PowerEventHandler_Rcp init:];
     }
 
-    return v15;
+    return v14;
   }
 
 LABEL_16:
-  v20 = logging_obg;
-  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v18 = logging_obg;
+  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    v22 = 136315906;
-    v23 = "ProcessDiscoverScanForCurrentNetwork";
+    v20 = 136315906;
+    v21 = "ProcessDiscoverScanForCurrentNetwork";
+    v22 = 1024;
+    v23 = PanId;
     v24 = 1024;
-    v25 = PanId;
+    v25 = Channel;
     v26 = 1024;
-    v27 = Channel;
-    v28 = 1024;
-    v29 = v15;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s for panid = 0x%x, channel = %d, error = %d", &v22, 0x1Eu);
+    v27 = v14;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s for panid = 0x%x, channel = %d, error = %d", &v20, 0x1Eu);
   }
 
-  return v15;
+  return v14;
 }
 
-void HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork(uint64_t *a1, const char *a2)
+void HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork(HostInterpreter *a1, const char *a2)
 {
   if (a2)
   {
@@ -7696,7 +8159,7 @@ void HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork(uint64_t *a1, 
     v7 = *(a2 + 4);
     v8 = *(a2 + 5);
     v9 = *(a2 + 6);
-    v25 = *(a2 + 7);
+    v24 = *(a2 + 7);
     v10 = *(a2 + 32) | (((*(a2 + 30) << 8) | (((((*(a2 + 26) << 8) | (*(a2 + 25) << 16) | *(a2 + 27)) << 16) | (*(a2 + 28) << 8) | *(a2 + 29)) << 16) | *(a2 + 31)) << 8);
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
@@ -7713,24 +8176,24 @@ void HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork(uint64_t *a1, 
         *&buf[4] = "HandleResultOfDiscoverScanForCurrentNetwork";
         *&buf[12] = 1024;
         *&buf[14] = (v13 >> 6) & 1;
-        v29 = 1024;
-        v30 = v14;
-        v31 = 1024;
-        v32 = v15;
-        v33 = 1024;
-        v34 = v16;
-        v35 = 1024;
-        v36 = v17;
-        v37 = 2080;
-        v38 = (a2 + 8);
-        v39 = 2048;
-        v40 = v10;
-        v41 = 2048;
-        v42 = v25 | (((v8 << 8) | (((((v4 << 8) | (v3 << 16) | v5) << 16) | (v6 << 8) | v7) << 16) | v9) << 8);
-        v43 = 2048;
-        v44 = current_nw_xpanid;
-        v45 = 2080;
-        v46 = current_network_name;
+        v28 = 1024;
+        v29 = v14;
+        v30 = 1024;
+        v31 = v15;
+        v32 = 1024;
+        v33 = v16;
+        v34 = 1024;
+        v35 = v17;
+        v36 = 2080;
+        v37 = a2 + 8;
+        v38 = 2048;
+        v39 = v10;
+        v40 = 2048;
+        v41 = v24 | (((v8 << 8) | (((((v4 << 8) | (v3 << 16) | v5) << 16) | (v6 << 8) | v7) << 16) | v9) << 8);
+        v42 = 2048;
+        v43 = current_nw_xpanid;
+        v44 = 2080;
+        v45 = current_network_name;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s Joinable: %d PAN: 0x%04x Channel: %2d RSSI dBm: %3d LQI: %3d Network Name: %-16s, ExtPAN: 0x%llx eMAC: 0x%llx, Current NW ExtPAN: 0x%llx, Current NW Name: %-16s", buf, 0x5Cu);
       }
     }
@@ -7760,8 +8223,8 @@ void HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork(uint64_t *a1, 
         *&buf[4] = "HandleResultOfDiscoverScanForCurrentNetwork";
         *&buf[12] = 1024;
         *&buf[14] = v21;
-        v29 = 1024;
-        v30 = ((~LinkMode & 6) == 0) & (LinkMode ^ 1);
+        v28 = 1024;
+        v29 = ((~LinkMode & 6) == 0) & (LinkMode ^ 1);
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s scan done, return, routerFoundOnCurrentNetwork = %d, isSleepyRouter = %d", buf, 0x18u);
       }
     }
@@ -7776,24 +8239,23 @@ void HostInterpreter::HandleResultOfDiscoverScanForCurrentNetwork(uint64_t *a1, 
       v23 = otThreadGetLinkMode(*(HostInterpreter::sHostInterpreter + 224));
       if ((~v23 & 6) == 0 && (v23 & 1) == 0)
       {
-        RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, buf);
-        v27 = 11;
+        RcpHostContext::get_rcp_state(buf, RcpHostContext::sRcpHostContext);
+        v26 = 11;
         strcpy(__p, "ReceivedAdv");
         operator new();
       }
     }
 
-    v24 = a1[28];
     if (otPlatRadioGetRcp2Vendor2Enabled())
     {
       byte_10052D769 = 0;
-      if (otThreadGetScanHighPriority(a1[28]))
+      if (otThreadGetScanHighPriority(*(a1 + 28)))
       {
         HostInterpreter::setScanSessionPriority(a1, 0);
       }
     }
 
-    otLinkSetDiscoverScanDutyCycle(a1[28], 0);
+    otLinkSetDiscoverScanDutyCycle(*(a1 + 28), 0);
   }
 }
 
@@ -7814,7 +8276,7 @@ uint64_t HostInterpreter::ProcessUpdateLeaderInfo(HostInterpreter *this)
         result = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
         if (result)
         {
-          HostInterpreter::ProcessUpdateLeaderInfo(this + 76);
+          HostInterpreter::ProcessUpdateLeaderInfo();
           return 0;
         }
       }
@@ -7850,7 +8312,7 @@ uint64_t HostInterpreter::ProcessUpdateLeaderInfo(HostInterpreter *this)
         result = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
         if (result)
         {
-          HostInterpreter::ProcessUpdateLeaderInfo(this + 76);
+          HostInterpreter::ProcessUpdateLeaderInfo();
           return 0;
         }
       }
@@ -7964,8 +8426,7 @@ std::string *HostInterpreter::GetLinkLocalAddr@<X0>(unint64_t a1@<X1>, std::stri
   v5 = HIBYTE(a1);
   *__str = *"fe80:0:0:0";
   *&__str[15] = unk_10044790F;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
   a2->__r_.__value_.__r.__words[0] = 0;
   snprintf(__str, 0x1FuLL, "%s:%02x%02x", __str, a1 ^ 2, BYTE1(a1));
   snprintf(__str, 0x1FuLL, "%s:%02x%02x", __str, BYTE2(a1), v4);
@@ -8244,7 +8705,7 @@ uint64_t HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(HostInterpr
   {
     if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(&v47);
+      HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr();
     }
   }
 
@@ -8384,7 +8845,7 @@ void sub_100149100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-size_t HostInterpreter::external_route_pref_to_string@<X0>(int a1@<W1>, _BYTE *a2@<X8>)
+size_t HostInterpreter::external_route_pref_to_string@<X0>(int a1@<W1>, void *a2@<X8>)
 {
   if ((a1 + 1) > 2)
   {
@@ -8408,11 +8869,11 @@ size_t HostInterpreter::external_route_pref_to_string@<X0>(int a1@<W1>, _BYTE *a
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memcpy(a2, v3, result);
-    a2[v5] = 0;
+    *(a2 + v5) = 0;
   }
 
   else
@@ -8464,15 +8925,6 @@ uint64_t HostInterpreter::get_num_routers(HostInterpreter *this)
   return v2;
 }
 
-void boost::any::any<std::map<std::string,boost::any> &>()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void HostInterpreter::update_on_mesh_prefixes(HostInterpreter *this)
 {
   v35 = 0;
@@ -8495,7 +8947,7 @@ void HostInterpreter::update_on_mesh_prefixes(HostInterpreter *this)
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
-        IPv6Prefix::to_string(&v26, __p);
+        IPv6Prefix::to_string(__p, &v26);
         v5 = __p[23] >= 0 ? __p : *__p;
         *buf = 67109378;
         *&buf[4] = v3;
@@ -8731,7 +9183,7 @@ LABEL_56:
   std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(&v28, v29);
 }
 
-void sub_100149EEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, void *a19)
+void sub_100149EEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19)
 {
   operator delete(v19);
   std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(&a18, a19);
@@ -8758,7 +9210,7 @@ void HostInterpreter::update_off_mesh_routes(HostInterpreter *this)
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
-        IPv6Prefix::to_string(&v25, __p);
+        IPv6Prefix::to_string(__p, &v25);
         v4 = __p[23] >= 0 ? __p : *__p;
         *buf = 136315138;
         *&buf[4] = v4;
@@ -8993,16 +9445,16 @@ LABEL_55:
   std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(&v27, v28);
 }
 
-void sub_10014A6B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, void *a17)
+void sub_10014A6B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
 {
   operator delete(v17);
   std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(&a16, a17);
   _Unwind_Resume(a1);
 }
 
-uint64_t HostInterpreter::refresh_routes_on_interface(HostInterpreter *this)
+void HostInterpreter::refresh_routes_on_interface(HostInterpreter *this)
 {
-  v34 = 256;
+  v33 = 256;
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
@@ -9026,7 +9478,7 @@ uint64_t HostInterpreter::refresh_routes_on_interface(HostInterpreter *this)
   {
     while (1)
     {
-      while (HostInterpreter::should_add_route_on_interface(this, v5 + 28, &v34) && v34 == *(v5 + 12))
+      while (HostInterpreter::should_add_route_on_interface(this, v5 + 28, &v33) && v33 == *(v5 + 12))
       {
         v8 = v5[1];
         if (v8)
@@ -9072,8 +9524,8 @@ uint64_t HostInterpreter::refresh_routes_on_interface(HostInterpreter *this)
 
       *buf = 136315394;
       *&buf[4] = "com.apple.wpantund.ncp";
-      v36 = 2080;
-      v37 = "default";
+      v35 = 2080;
+      v36 = "default";
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", buf, 0x16u);
       v13 = v5[1];
       v14 = v5;
@@ -9118,17 +9570,17 @@ LABEL_34:
 
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      InterfaceRouteEntry::get_description((v5 + 6), (v5 + 28), 0, buf);
+      InterfaceRouteEntry::get_description(buf, (v5 + 6), (v5 + 28), 0);
       v12 = buf;
-      if (v38 < 0)
+      if (v37 < 0)
       {
         v12 = *buf;
       }
 
-      *v39 = 136315138;
-      v40 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "InterfaceRoutes:Rmv %s", v39, 0xCu);
-      if (v38 < 0)
+      *v38 = 136315138;
+      v39 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "InterfaceRoutes:Rmv %s", v38, 0xCu);
+      if (v37 < 0)
       {
         operator delete(*buf);
         v13 = v5[1];
@@ -9189,7 +9641,7 @@ LABEL_36:
       while (v20);
     }
 
-    if (HostInterpreter::should_add_route_on_interface(this, v19, &v34))
+    if (HostInterpreter::should_add_route_on_interface(this, v19, &v33))
     {
       for (i = *v6; i; i = *i)
       {
@@ -9209,17 +9661,17 @@ LABEL_36:
       {
         if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          OffMeshRouteEntry::get_description((v18 + 6), v19, 0, buf);
+          OffMeshRouteEntry::get_description(buf, (v18 + 6), v19, 0);
           v25 = buf;
-          if (v38 < 0)
+          if (v37 < 0)
           {
             v25 = *buf;
           }
 
-          *v39 = 136315138;
-          v40 = v25;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "InterfaceRoutes:AddRoute for prefix:%s", v39, 0xCu);
-          if (v38 < 0)
+          *v38 = 136315138;
+          v39 = v25;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "InterfaceRoutes:AddRoute for prefix:%s", v38, 0xCu);
+          if (v37 < 0)
           {
             operator delete(*buf);
           }
@@ -9230,13 +9682,13 @@ LABEL_36:
       {
         *buf = 136315394;
         *&buf[4] = "com.apple.wpantund.ncp";
-        v36 = 2080;
-        v37 = "default";
+        v35 = 2080;
+        v36 = "default";
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", buf, 0x16u);
       }
 
       *buf = v19;
-      *(std::__tree<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::__map_value_compare<IPv6Prefix,std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::less<IPv6Prefix>,true>,std::allocator<std::__value_type<IPv6Prefix,InterfaceRouteEntry>>>::__emplace_unique_key_args<IPv6Prefix,std::piecewise_construct_t const&,std::tuple<IPv6Prefix const&>,std::tuple<>>(this + 104, v19) + 48) = 256;
+      *(std::__tree<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::__map_value_compare<IPv6Prefix,std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::less<IPv6Prefix>,true>,std::allocator<std::__value_type<IPv6Prefix,InterfaceRouteEntry>>>::__emplace_unique_key_args<IPv6Prefix,std::piecewise_construct_t const&,std::tuple<IPv6Prefix const&>,std::tuple<>>(this + 13, v19, &std::piecewise_construct, buf) + 12) = 256;
     }
 
 LABEL_38:
@@ -9248,7 +9700,7 @@ LABEL_38:
   {
     do
     {
-      if (HostInterpreter::should_add_route_on_interface(this, v26 + 28, &v34))
+      if (HostInterpreter::should_add_route_on_interface(this, v26 + 28, &v33))
       {
         for (j = *v6; j; j = *j)
         {
@@ -9268,17 +9720,17 @@ LABEL_38:
         {
           if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            OnMeshPrefixEntry::get_description((v26 + 48), (v26 + 28), 0, buf);
+            OnMeshPrefixEntry::get_description(buf, (v26 + 48), (v26 + 28), 0);
             v29 = buf;
-            if (v38 < 0)
+            if (v37 < 0)
             {
               v29 = *buf;
             }
 
-            *v39 = 136315138;
-            v40 = v29;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "InterfaceRoutes:AddRoute for prefix:%s", v39, 0xCu);
-            if (v38 < 0)
+            *v38 = 136315138;
+            v39 = v29;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "InterfaceRoutes:AddRoute for prefix:%s", v38, 0xCu);
+            if (v37 < 0)
             {
               operator delete(*buf);
             }
@@ -9289,14 +9741,14 @@ LABEL_38:
         {
           *buf = 136315394;
           *&buf[4] = "com.apple.wpantund.ncp";
-          v36 = 2080;
-          v37 = "default";
+          v35 = 2080;
+          v36 = "default";
           _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", buf, 0x16u);
         }
 
-        v31 = v34;
+        v31 = v33;
         *buf = v26 + 28;
-        *(std::__tree<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::__map_value_compare<IPv6Prefix,std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::less<IPv6Prefix>,true>,std::allocator<std::__value_type<IPv6Prefix,InterfaceRouteEntry>>>::__emplace_unique_key_args<IPv6Prefix,std::piecewise_construct_t const&,std::tuple<IPv6Prefix const&>,std::tuple<>>(this + 104, v26 + 28) + 48) = v31;
+        *(std::__tree<std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::__map_value_compare<IPv6Prefix,std::__value_type<IPv6Prefix,InterfaceRouteEntry>,std::less<IPv6Prefix>,true>,std::allocator<std::__value_type<IPv6Prefix,InterfaceRouteEntry>>>::__emplace_unique_key_args<IPv6Prefix,std::piecewise_construct_t const&,std::tuple<IPv6Prefix const&>,std::tuple<>>(this + 13, v26 + 28, &std::piecewise_construct, buf) + 12) = v31;
         v30 = *(v26 + 1);
         if (!v30)
         {
@@ -9337,527 +9789,5 @@ LABEL_65:
     while (v32 != (this + 64));
   }
 
-  return HostInterpreter::signal_ipv6route_list_change(this);
-}
-
-uint64_t HostInterpreter::get_num_unique_on_mesh_prefixes(HostInterpreter *this)
-{
-  v12 = 0;
-  v8 = 0;
-  v9 = 0;
-  v7 = &v8;
-  while (!otNetDataGetNextOnMeshPrefix(*(this + 28), &v12, &v10))
-  {
-    IPv6Prefix::IPv6Prefix(&v6, &v10, v11);
-    logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (logging_obg)
-    {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
-      {
-        IPv6Prefix::to_string(&v6, __p);
-        if (v16 >= 0)
-        {
-          v3 = __p;
-        }
-
-        else
-        {
-          v3 = *__p;
-        }
-
-        *buf = 136315138;
-        v18 = v3;
-        _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "OnMeshPrefix:[%s]", buf, 0xCu);
-        if (v16 < 0)
-        {
-          operator delete(*__p);
-        }
-      }
-    }
-
-    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      *__p = 136315394;
-      *&__p[4] = "com.apple.wpantund.ncp";
-      v14 = 2080;
-      v15 = "default";
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", __p, 0x16u);
-    }
-
-    IPv6Prefix::to_string(&v6, __p);
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v7, __p);
-    if (v16 < 0)
-    {
-      operator delete(*__p);
-    }
-  }
-
-  v4 = v9;
-  std::__tree<std::string>::destroy(&v7, v8);
-  return v4;
-}
-
-uint64_t HostInterpreter::get_num_unique_off_mesh_routes(HostInterpreter *this)
-{
-  v12 = 0;
-  v8 = 0;
-  v9 = 0;
-  v7 = &v8;
-  while (!otNetDataGetNextRoute(*(this + 28), &v12, &v10))
-  {
-    IPv6Prefix::IPv6Prefix(&v6, &v10, v11);
-    IPv6Prefix::to_string(&v6, __p);
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v7, __p);
-    if (v5 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  v2 = v9;
-  std::__tree<std::string>::destroy(&v7, v8);
-  return v2;
-}
-
-void sub_10014B18C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, char *a20)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-    std::__tree<std::string>::destroy(&a19, a20);
-    _Unwind_Resume(a1);
-  }
-
-  std::__tree<std::string>::destroy(&a19, a20);
-  _Unwind_Resume(a1);
-}
-
-void HostInterpreter::find_and_erase_service_entry(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t *a7)
-{
-  v8 = *a7;
-  v7 = a7[1];
-  if (*a7 != v7)
-  {
-    v12 = 0;
-    v13 = *a4;
-    v14 = *(a4 + 8) - *a4;
-    v15 = *a5;
-    v16 = *(a5 + 8) - *a5;
-    while (1)
-    {
-      if (*(v8 + v12 + 8) == a2 && *(v8 + v12 + 12) == a3)
-      {
-        v17 = *(v8 + v12 + 16);
-        if (*(v8 + v12 + 24) - v17 == v14 && !memcmp(v17, v13, v14))
-        {
-          v18 = v8 + v12;
-          if (*(v8 + v12 + 72) == a6)
-          {
-            v19 = *(v18 + 48);
-            if (*(v18 + 56) - v19 == v16 && !memcmp(v19, v15, v16))
-            {
-              break;
-            }
-          }
-        }
-      }
-
-      v12 += 80;
-      if (v8 + v12 == v7)
-      {
-        return;
-      }
-    }
-
-    logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (logging_obg)
-    {
-      v21 = logging_obg;
-      v22 = a7;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-      {
-        (*(*(v8 + v12) + 16))(__p, v8 + v12);
-        v23 = v38 >= 0 ? __p : __p[0];
-        *buf = 136315138;
-        v40 = v23;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "RemoveSrvc:%s", buf, 0xCu);
-        if (v38 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-    }
-
-    else
-    {
-      v22 = a7;
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        [PowerEventHandler_Rcp init:];
-      }
-    }
-
-    v24 = (v8 + v12);
-    v25 = v22[1];
-    if ((v8 + v12 + 80) != v25)
-    {
-      v26 = *v22;
-      v27 = *v22 + v8 + v12;
-      v28 = -*v22;
-      do
-      {
-        v29 = v27 + v28;
-        *(v27 + v28 + 8) = *(v27 + v28 + 88);
-        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v27 + v28 + 16), *(v27 + v28 + 96), *(v27 + v28 + 104), *(v27 + v28 + 104) - *(v27 + v28 + 96));
-        *(v29 + 40) = *(v29 + 120);
-        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v29 + 48), *(v29 + 128), *(v29 + 136), *(v29 + 136) - *(v29 + 128));
-        v30 = v27 + v28;
-        *(v30 + 72) = *(v27 + v28 + 152);
-        *(v30 + 74) = *(v27 + v28 + 154);
-        v27 += 80;
-      }
-
-      while ((v27 + v28 + 80) != v25);
-      v25 = v22[1];
-      v24 = (v27 - v26);
-    }
-
-    if (v25 != v24)
-    {
-      v31 = v25 - 10;
-      v32 = v31;
-      v33 = v31;
-      do
-      {
-        v34 = *v33;
-        v33 -= 10;
-        (*v34)(v32);
-        v31 -= 10;
-        v35 = v32 == v24;
-        v32 = v33;
-      }
-
-      while (!v35);
-    }
-
-    v22[1] = v24;
-  }
-}
-
-uint64_t HostInterpreter::find_service_entry(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t *a7)
-{
-  v7 = *a7;
-  v8 = a7[1];
-  if (*a7 == v8)
-  {
-    return 0;
-  }
-
-  v12 = *a4;
-  v13 = *(a4 + 8) - *a4;
-  v14 = *a5;
-  v15 = *(a5 + 8) - *a5;
-  while (1)
-  {
-    if (*(v7 + 8) == a2 && *(v7 + 12) == a3)
-    {
-      v16 = *(v7 + 16);
-      if (*(v7 + 24) - v16 == v13 && !memcmp(v16, v12, v13) && *(v7 + 72) == a6)
-      {
-        v17 = *(v7 + 48);
-        if (v15 == *(v7 + 56) - v17 && !memcmp(v14, v17, v15))
-        {
-          break;
-        }
-      }
-    }
-
-    v7 += 80;
-    if (v7 == v8)
-    {
-      return 0;
-    }
-  }
-
-  return 1;
-}
-
-void ServiceEntry::~ServiceEntry(ServiceEntry *this)
-{
-  *this = off_1004C5358;
-  v2 = *(this + 6);
-  if (v2)
-  {
-    *(this + 7) = v2;
-    operator delete(v2);
-  }
-
-  *this = off_1004C52F8;
-  v3 = *(this + 2);
-  if (v3)
-  {
-    *(this + 3) = v3;
-    operator delete(v3);
-  }
-}
-
-{
-  *this = off_1004C5358;
-  v2 = *(this + 6);
-  if (v2)
-  {
-    *(this + 7) = v2;
-    operator delete(v2);
-  }
-
-  *this = off_1004C52F8;
-  v3 = *(this + 2);
-  if (v3)
-  {
-    *(this + 3) = v3;
-    operator delete(v3);
-  }
-
-  operator delete();
-}
-
-void HostInterpreter::GetLeaderReelectCountersAsValMap(void *a1@<X8>)
-{
-  a1[2] = 0;
-  a1[1] = 0;
-  *a1 = a1 + 1;
-  operator new();
-}
-
-void sub_10014BB1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v17, *(v17 + 8));
-  _Unwind_Resume(a1);
-}
-
-void HostInterpreter::GetNeighborsCountAsValMap(int a1@<W3>, int a2@<W4>, void *a3@<X8>)
-{
-  a3[2] = 0;
-  a3[1] = 0;
-  *a3 = a3 + 1;
-  if (a1)
-  {
-    *(&v26.__r_.__value_.__s + 23) = 1;
-    LOWORD(v26.__r_.__value_.__l.__data_) = 91;
-    v7 = std::string::insert(&v26, 0, "ConnectedChildCount");
-    v8 = *&v7->__r_.__value_.__l.__data_;
-    v27.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-    *&v27.__r_.__value_.__l.__data_ = v8;
-    v7->__r_.__value_.__l.__size_ = 0;
-    v7->__r_.__value_.__r.__words[2] = 0;
-    v7->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v25, 0);
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v9 = &v25;
-    }
-
-    else
-    {
-      v9 = v25.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v25.__r_.__value_.__l.__size_;
-    }
-
-    v11 = std::string::append(&v27, v9, size);
-    v12 = *&v11->__r_.__value_.__l.__data_;
-    v28.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-    *&v28.__r_.__value_.__l.__data_ = v12;
-    v11->__r_.__value_.__l.__size_ = 0;
-    v11->__r_.__value_.__r.__words[2] = 0;
-    v11->__r_.__value_.__r.__words[0] = 0;
-    v24 = 1;
-    strcpy(__s, "]");
-    v13 = std::string::append(&v28, __s, 1uLL);
-    v14 = *&v13->__r_.__value_.__l.__data_;
-    v30 = v13->__r_.__value_.__r.__words[2];
-    v29 = v14;
-    v13->__r_.__value_.__l.__size_ = 0;
-    v13->__r_.__value_.__r.__words[2] = 0;
-    v13->__r_.__value_.__r.__words[0] = 0;
-    if (v24 < 0)
-    {
-      operator delete(*__s);
-      if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-LABEL_10:
-        if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_11;
-        }
-
-        goto LABEL_16;
-      }
-    }
-
-    else if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    operator delete(v28.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-LABEL_11:
-      if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_17;
-    }
-
-LABEL_16:
-    operator delete(v25.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-LABEL_12:
-      if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_13;
-      }
-
-LABEL_18:
-      operator delete(v26.__r_.__value_.__l.__data_);
-LABEL_13:
-      v28.__r_.__value_.__r.__words[0] = &v29;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, &v29);
-      operator new();
-    }
-
-LABEL_17:
-    operator delete(v27.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_18;
-  }
-
-  if (a2)
-  {
-    *(&v26.__r_.__value_.__s + 23) = 1;
-    LOWORD(v26.__r_.__value_.__l.__data_) = 91;
-    v15 = std::string::insert(&v26, 0, "ConnectedRouterCount");
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v27.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v27.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v25, 0);
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v17 = &v25;
-    }
-
-    else
-    {
-      v17 = v25.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v18 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v18 = v25.__r_.__value_.__l.__size_;
-    }
-
-    v19 = std::string::append(&v27, v17, v18);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v28.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v28.__r_.__value_.__l.__data_ = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    v24 = 1;
-    strcpy(__s, "]");
-    v21 = std::string::append(&v28, __s, 1uLL);
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    v30 = v21->__r_.__value_.__r.__words[2];
-    v29 = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
-    if (v24 < 0)
-    {
-      operator delete(*__s);
-      if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-LABEL_28:
-        if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_29;
-        }
-
-        goto LABEL_34;
-      }
-    }
-
-    else if ((SHIBYTE(v28.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_28;
-    }
-
-    operator delete(v28.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-LABEL_29:
-      if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_30;
-      }
-
-      goto LABEL_35;
-    }
-
-LABEL_34:
-    operator delete(v25.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-LABEL_30:
-      if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_31;
-      }
-
-LABEL_36:
-      operator delete(v26.__r_.__value_.__l.__data_);
-LABEL_31:
-      v28.__r_.__value_.__r.__words[0] = &v29;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, &v29);
-      operator new();
-    }
-
-LABEL_35:
-    operator delete(v27.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_36;
-  }
+  HostInterpreter::signal_ipv6route_list_change(this);
 }

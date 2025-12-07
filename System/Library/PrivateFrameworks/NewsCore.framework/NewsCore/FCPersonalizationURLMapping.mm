@@ -78,7 +78,7 @@ void __52__FCPersonalizationURLMapping_initWithPBURLMapping___block_invoke_2(uin
 
 - (id)tagScoresForURL:(id)l
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = [[FCPersonalizationDecomposedURL alloc] initWithURLString:lCopy];
   urlMappingByDomain = [(FCPersonalizationURLMapping *)self urlMappingByDomain];
@@ -87,68 +87,68 @@ void __52__FCPersonalizationURLMapping_initWithPBURLMapping___block_invoke_2(uin
 
   if (v8)
   {
-    *v36 = 0;
-    *&v36[8] = v36;
-    *&v36[16] = 0x3032000000;
-    v37 = __Block_byref_object_copy__48;
-    v38 = __Block_byref_object_dispose__48;
-    v39 = [v8 tagsForPath:@"/"];
-    if (!*(*&v36[8] + 40))
+    *v35 = 0;
+    *&v35[8] = v35;
+    *&v35[16] = 0x3032000000;
+    v36 = __Block_byref_object_copy__48;
+    v37 = __Block_byref_object_dispose__48;
+    v38 = [v8 tagsForPath:@"/"];
+    if (!*(*&v35[8] + 40))
     {
       v9 = MEMORY[0x1E69E9C10];
       v10 = MEMORY[0x1E69E9C10];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"There should be path tags for the default path"];
-        *v33 = 136315906;
-        *&v33[4] = "[FCPersonalizationURLMapping tagScoresForURL:]";
-        *&v33[12] = 2080;
-        *&v33[14] = "FCPersonalizationURLMapping.m";
-        *&v33[22] = 1024;
-        LODWORD(v34) = 277;
-        WORD2(v34) = 2114;
-        *(&v34 + 6) = v21;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v33, 0x26u);
+        v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"There should be path tags for the default path"];
+        *v32 = 136315906;
+        *&v32[4] = "[FCPersonalizationURLMapping tagScoresForURL:]";
+        *&v32[12] = 2080;
+        *&v32[14] = "FCPersonalizationURLMapping.m";
+        *&v32[22] = 1024;
+        LODWORD(v33) = 277;
+        WORD2(v33) = 2114;
+        *(&v33 + 6) = v20;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v32, 0x26u);
       }
     }
 
-    *v33 = 0;
-    *&v33[8] = v33;
-    *&v33[16] = 0x3032000000;
-    *&v34 = __Block_byref_object_copy__48;
-    *(&v34 + 1) = __Block_byref_object_dispose__48;
-    v35 = 0;
+    *v32 = 0;
+    *&v32[8] = v32;
+    *&v32[16] = 0x3032000000;
+    *&v33 = __Block_byref_object_copy__48;
+    *(&v33 + 1) = __Block_byref_object_dispose__48;
+    v34 = 0;
     paths = [(FCPersonalizationDecomposedURL *)v5 paths];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __47__FCPersonalizationURLMapping_tagScoresForURL___block_invoke;
-    v23[3] = &unk_1E7C391A0;
-    v24 = v8;
-    v25 = v36;
-    v26 = v33;
-    [paths enumerateObjectsUsingBlock:v23];
-
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
-    v22[2] = __47__FCPersonalizationURLMapping_tagScoresForURL___block_invoke_2;
-    v22[3] = &unk_1E7C40CF8;
-    v22[4] = v36;
-    v12 = [MEMORY[0x1E695DF20] fc_dictionary:v22];
+    v22[2] = __47__FCPersonalizationURLMapping_tagScoresForURL___block_invoke;
+    v22[3] = &unk_1E7C391A0;
+    v23 = v8;
+    v24 = v35;
+    v25 = v32;
+    [paths enumerateObjectsUsingBlock:v22];
+
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __47__FCPersonalizationURLMapping_tagScoresForURL___block_invoke_2;
+    v21[3] = &unk_1E7C40CF8;
+    v21[4] = v35;
+    v12 = [MEMORY[0x1E695DF20] fc_dictionary:v21];
     v13 = FCProgressivePersonalizationLog;
     if (os_log_type_enabled(FCProgressivePersonalizationLog, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(*&v33[8] + 40);
+      v14 = *(*&v32[8] + 40);
       *buf = 138412802;
-      v28 = lCopy;
-      v29 = 2112;
-      v30 = v14;
-      v31 = 2112;
-      v32 = v12;
+      v27 = lCopy;
+      v28 = 2112;
+      v29 = v14;
+      v30 = 2112;
+      v31 = v12;
       _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEBUG, "URL String %@ with matching path %@ mapped to %@", buf, 0x20u);
     }
 
-    _Block_object_dispose(v33, 8);
-    _Block_object_dispose(v36, 8);
+    _Block_object_dispose(v32, 8);
+    _Block_object_dispose(v35, 8);
   }
 
   else
@@ -159,19 +159,17 @@ void __52__FCPersonalizationURLMapping_initWithPBURLMapping___block_invoke_2(uin
       v16 = v15;
       domain2 = [(FCPersonalizationDecomposedURL *)v5 domain];
       paths2 = [(FCPersonalizationDecomposedURL *)v5 paths];
-      *v36 = 138412802;
-      *&v36[4] = lCopy;
-      *&v36[12] = 2112;
-      *&v36[14] = domain2;
-      *&v36[22] = 2112;
-      v37 = paths2;
-      _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEBUG, "Failed to find mapping for URL String %@ with domain %@ and paths %@", v36, 0x20u);
+      *v35 = 138412802;
+      *&v35[4] = lCopy;
+      *&v35[12] = 2112;
+      *&v35[14] = domain2;
+      *&v35[22] = 2112;
+      v36 = paths2;
+      _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEBUG, "Failed to find mapping for URL String %@ with domain %@ and paths %@", v35, 0x20u);
     }
 
     v12 = MEMORY[0x1E695E0F8];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -218,28 +216,26 @@ void __47__FCPersonalizationURLMapping_tagScoresForURL___block_invoke_3(uint64_t
 
 void __47__FCPersonalizationURLMapping_tagScoresForURL___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
 
   if (v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Already have a score for tag %@", v5];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Already have a score for tag %@", v5];
     *buf = 136315906;
-    v11 = "[FCPersonalizationURLMapping tagScoresForURL:]_block_invoke_4";
-    v12 = 2080;
-    v13 = "FCPersonalizationURLMapping.m";
-    v14 = 1024;
-    v15 = 293;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCPersonalizationURLMapping tagScoresForURL:]_block_invoke_4";
+    v11 = 2080;
+    v12 = "FCPersonalizationURLMapping.m";
+    v13 = 1024;
+    v14 = 293;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)popularityForURL:(id)l

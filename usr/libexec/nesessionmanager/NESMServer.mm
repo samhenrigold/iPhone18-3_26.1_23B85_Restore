@@ -127,7 +127,7 @@
 
   selfCopy2 = self;
   objc_sync_enter(selfCopy2);
-  if ([(NESMServer *)sessionCopy type]== 1)
+  if (objc_msgSend_type(sessionCopy) == 1)
   {
     configuration = [(NESMServer *)sessionCopy configuration];
     v8 = [configuration grade] == 1;
@@ -210,7 +210,7 @@
     }
   }
 
-  else if ([(NESMServer *)sessionCopy type]== 6)
+  else if (objc_msgSend_type(sessionCopy) == 6)
   {
     if (selfCopy2)
     {
@@ -218,7 +218,7 @@
     }
   }
 
-  else if ([(NESMServer *)sessionCopy type]== 8)
+  else if (objc_msgSend_type(sessionCopy) == 8)
   {
     v18 = ne_log_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -298,7 +298,7 @@ LABEL_36:
   if (parentSessionCopy)
   {
     v14 = 0;
-    if ([parentSessionCopy type] != 3 || !selfCopy2)
+    if (objc_msgSend_type(parentSessionCopy) != 3 || !selfCopy2)
     {
       goto LABEL_10;
     }
@@ -323,7 +323,7 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if ([sessionCopy type] == 4)
+  if (objc_msgSend_type(sessionCopy) == 4)
   {
     configuration = [sessionCopy configuration];
     externalIdentifier = [configuration externalIdentifier];
@@ -351,7 +351,7 @@ LABEL_47:
     }
   }
 
-  if ([sessionCopy type] == 10)
+  if (objc_msgSend_type(sessionCopy) == 10)
   {
     v24 = selfCopy2 ? objc_getProperty(selfCopy2, v23, 240, 1) : 0;
     if (v24 == sessionCopy)
@@ -360,14 +360,14 @@ LABEL_47:
     }
   }
 
-  if ([sessionCopy type] != 1)
+  if (objc_msgSend_type(sessionCopy) != 1)
   {
-    if ([sessionCopy type] == 2 || objc_msgSend(sessionCopy, "type") == 5)
+    if (objc_msgSend_type(sessionCopy) == 2 || objc_msgSend_type(sessionCopy) == 5)
     {
       goto LABEL_46;
     }
 
-    if ([sessionCopy type] == 6)
+    if (objc_msgSend_type(sessionCopy) == 6)
     {
       if (selfCopy2)
       {
@@ -379,16 +379,16 @@ LABEL_47:
       goto LABEL_46;
     }
 
-    if ([sessionCopy type] == 7)
+    if (objc_msgSend_type(sessionCopy) == 7)
     {
 LABEL_46:
       v20 = 0;
       goto LABEL_47;
     }
 
-    if ([sessionCopy type] != 8)
+    if (objc_msgSend_type(sessionCopy) != 8)
     {
-      if ([sessionCopy type] == 9 || objc_msgSend(sessionCopy, "type") == 11 || objc_msgSend(sessionCopy, "type") == 12)
+      if (objc_msgSend_type(sessionCopy) == 9 || objc_msgSend_type(sessionCopy) == 11 || objc_msgSend_type(sessionCopy) == 12)
       {
         goto LABEL_46;
       }
@@ -658,9 +658,9 @@ LABEL_48:
   sessionCopy = session;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if ([sessionCopy type] != 3)
+  if (objc_msgSend_type(sessionCopy) != 3)
   {
-    if ([sessionCopy type] == 4)
+    if (objc_msgSend_type(sessionCopy) == 4)
     {
       if (selfCopy)
       {
@@ -722,11 +722,11 @@ LABEL_15:
       goto LABEL_30;
     }
 
-    if ([sessionCopy type] != 10)
+    if (objc_msgSend_type(sessionCopy) != 10)
     {
-      if ([sessionCopy type] != 1)
+      if (objc_msgSend_type(sessionCopy) != 1)
       {
-        if ([sessionCopy type] == 2)
+        if (objc_msgSend_type(sessionCopy) == 2)
         {
           [sessionCopy setIsDeregisteredAppVPNSession:1];
           v8 = ne_log_obj();
@@ -742,7 +742,7 @@ LABEL_15:
           v9 = "%@: Deregister App VPN Session: %@";
         }
 
-        else if ([sessionCopy type] == 5)
+        else if (objc_msgSend_type(sessionCopy) == 5)
         {
           v8 = ne_log_obj();
           if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -757,7 +757,7 @@ LABEL_15:
           v9 = "%@: Deregister Path Controller Session: %@";
         }
 
-        else if ([sessionCopy type] == 6)
+        else if (objc_msgSend_type(sessionCopy) == 6)
         {
           if (selfCopy)
           {
@@ -787,7 +787,7 @@ LABEL_15:
           v9 = "%@: Deregister DNS Proxy Session: %@";
         }
 
-        else if ([sessionCopy type] == 7)
+        else if (objc_msgSend_type(sessionCopy) == 7)
         {
           v8 = ne_log_obj();
           if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -804,7 +804,7 @@ LABEL_15:
 
         else
         {
-          if ([sessionCopy type] != 9)
+          if (objc_msgSend_type(sessionCopy) != 9)
           {
             goto LABEL_31;
           }

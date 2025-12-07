@@ -35,7 +35,7 @@
     return 0;
   }
 
-  result = sub_1E0C57068();
+  result = sub_1E0C57068(0);
   if (result)
   {
     sub_1E0C56764(self->_TLSIdentityHandle, &arg);
@@ -60,7 +60,7 @@
   v6 = 0;
   if (identity)
   {
-    v6 = sub_1E0C57068();
+    v6 = sub_1E0C57068(0);
     if (v6)
     {
       sub_1E0C5691C(identity);
@@ -79,7 +79,7 @@
   }
 
   v3 = tLSIdentity;
-  if (!sub_1E0C57068())
+  if (!sub_1E0C57068(0))
   {
     return 0;
   }
@@ -101,7 +101,7 @@
     cf = 0;
     if (handle)
     {
-      if (sub_1E0C57068())
+      if (sub_1E0C57068(0))
       {
         sub_1E0C56764(handle, &cf);
         if (cf)
@@ -131,7 +131,7 @@
   tLSIdentity = [credentialsCopy TLSIdentity];
   if (tLSIdentity)
   {
-    if (sub_1E0C57068())
+    if (sub_1E0C57068(0))
     {
       sub_1E0C5691C(tLSIdentity);
       tLSIdentity = v8;

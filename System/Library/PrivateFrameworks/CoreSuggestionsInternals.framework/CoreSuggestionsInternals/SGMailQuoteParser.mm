@@ -1,9 +1,32 @@
 @interface SGMailQuoteParser
 + (id)_tofuRegions:(id)regions utf8:(const char *)utf8 isAOSPMail:(BOOL)mail;
 + (id)_xWrote:(id)wrote utf8:(const char *)utf8;
++ (id)quotedRegionsFrom:(id)from isAOSPMail:(BOOL)mail foundToEndOfMessage:(BOOL *)message;
 @end
 
 @implementation SGMailQuoteParser
+
++ (id)quotedRegionsFrom:(id)from isAOSPMail:(BOOL)mail foundToEndOfMessage:(BOOL *)message
+{
+  mailCopy = mail;
+  fromCopy = from;
+  v9 = objc_autoreleasePoolPush();
+  uTF8String = [fromCopy UTF8String];
+  v11 = objc_opt_new();
+  v12 = [self _tofuRegions:fromCopy utf8:uTF8String isAOSPMail:mailCopy];
+  [v11 addIndexes:v12];
+  if (message)
+  {
+    *message = objc_msgSend_count(v12) != 0;
+  }
+
+  v13 = [self _xWrote:fromCopy utf8:uTF8String];
+  [v11 addIndexes:v13];
+
+  objc_autoreleasePoolPop(v9);
+
+  return v11;
+}
 
 + (id)_xWrote:(id)wrote utf8:(const char *)utf8
 {
@@ -170,7 +193,6 @@ void __50__SGMailQuoteParser__tofuRegions_utf8_isAOSPMail___block_invoke(uint64_
   v2 = patterns_24207();
   v3 = [v2 regex2ForKey:@"OriginalMessage/F"];
 
-  v6 = *(a1 + 40);
   v5 = *(a1 + 32);
   v4 = v3;
   _PASEnumerateSimpleLinesInString();

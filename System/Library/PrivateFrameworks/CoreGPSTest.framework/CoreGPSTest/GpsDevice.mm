@@ -102,7 +102,7 @@
 
 - (BOOL)getGpsConfiguration:(id *)configuration error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fTestDevice = self->_fTestDevice;
   if (fTestDevice)
   {
@@ -125,15 +125,12 @@
     v14 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
     if (!v14)
     {
-      goto LABEL_12;
+      return v14;
     }
 
-    LOWORD(v19[0]) = 0;
+    LOWORD(v18[0]) = 0;
     v16 = "Unknown hardware platform";
-LABEL_14:
-    _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, v16, v19, 2u);
-    LOBYTE(v14) = 0;
-    goto LABEL_12;
+    goto LABEL_14;
   }
 
   v10 = *(GpsdPlatformInfo::instance(0) + 8);
@@ -145,12 +142,15 @@ LABEL_14:
     v14 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
     if (!v14)
     {
-      goto LABEL_12;
+      return v14;
     }
 
-    LOWORD(v19[0]) = 0;
+    LOWORD(v18[0]) = 0;
     v16 = "Unknown gnss chip";
-    goto LABEL_14;
+LABEL_14:
+    _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, v16, v18, 2u);
+    LOBYTE(v14) = 0;
+    return v14;
   }
 
   v11 = GpsdLogObjectGeneral;
@@ -158,18 +158,16 @@ LABEL_14:
   {
     var0 = configuration->var0;
     var2 = configuration->var2;
-    v19[0] = 67109632;
-    v19[1] = var0;
-    v20 = 1024;
-    v21 = v10;
-    v22 = 1024;
-    v23 = var2;
-    _os_log_impl(&dword_2454AA000, v11, OS_LOG_TYPE_DEFAULT, "deviceConfig,%d,hwConfig,%d,dylibIfc,%d", v19, 0x14u);
+    v18[0] = 67109632;
+    v18[1] = var0;
+    v19 = 1024;
+    v20 = v10;
+    v21 = 1024;
+    v22 = var2;
+    _os_log_impl(&dword_2454AA000, v11, OS_LOG_TYPE_DEFAULT, "deviceConfig,%d,hwConfig,%d,dylibIfc,%d", v18, 0x14u);
   }
 
   LOBYTE(v14) = 1;
-LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -850,13 +848,13 @@ LABEL_87:
 
 - (void)flushLogs
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[GpsDevice flushLogs]";
-    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[GpsDevice flushLogs]";
+    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
   }
 
   fTestDevice = self->_fTestDevice;
@@ -868,8 +866,6 @@ LABEL_87:
       (*(*v5 + 24))(v5);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

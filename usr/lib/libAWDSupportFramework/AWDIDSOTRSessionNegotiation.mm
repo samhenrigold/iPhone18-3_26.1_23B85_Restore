@@ -128,7 +128,6 @@ LABEL_8:
 {
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -146,7 +145,6 @@ LABEL_8:
     }
 
 LABEL_10:
-    duration = self->_duration;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -156,7 +154,6 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  priority = self->_priority;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if (has)
@@ -171,7 +168,6 @@ LABEL_7:
   }
 
 LABEL_11:
-  result = self->_result;
 
   PBDataWriterWriteUint32Field();
 }
@@ -279,7 +275,6 @@ LABEL_6:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 48);
     if ((has & 4) != 0)
     {
       if ((*(equal + 48) & 4) == 0 || self->_timestamp != *(equal + 3))

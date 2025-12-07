@@ -79,7 +79,7 @@
     {
       v78 = *&time->var0;
       *&v79 = time->var3;
-      [effectCopy cornersAtTime:&v78 forcePosterFrame:frameCopy includeDropShadow:shadowCopy scale:v11 viewSize:1.0 viewOrigin:{1.0, width, height}];
+      objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(effectCopy, 1.0, 1.0, width, height);
       v25 = height;
     }
 
@@ -118,7 +118,7 @@
     v31 = v30;
     if (v30)
     {
-      [v30 SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(v30);
     }
 
     else
@@ -243,134 +243,131 @@
   return v21;
 }
 
-void __144__PVEffectFrame_initWithEffect_atTime_forcePosterFrame_includeDropShadow_includeTextFrames_minimumHitSize_hitSizeThreshold_viewSize_viewOrigin___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, float64x2_t a10, __int128 a11, float64x2_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, float64x2_t a37, __int128 a38, CGPoint a39, CGPoint a40, CGPoint a41, CGPoint a42, __int128 a43, float64x2_t a44, __int128 a45, float64x2_t a46)
+void __144__PVEffectFrame_initWithEffect_atTime_forcePosterFrame_includeDropShadow_includeTextFrames_minimumHitSize_hitSizeThreshold_viewSize_viewOrigin___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float64x2_t a10, float64x2_t a12, float64x2_t a, CGPoint b, CGPoint c, __int128 a9, __int128 a11, CGPoint d, __int128 a17, float64x2_t a18, __int128 a19, float64x2_t a20, CGPoint a21, CGPoint a22, CGPoint a23, CGPoint a24, float64x2_t a25, __int128 a26, CGPoint a27, CGPoint a28, CGPoint a29, float64x2_t a30, __int128 a31, CGPoint a32, CGPoint a33, CGPoint a34, CGPoint a35, __int128 a36, float64x2_t a37, __int128 a38, float64x2_t a39)
 {
-  v48 = [PVEffectFrame alloc];
+  v41 = [PVEffectFrame alloc];
+  v42 = *(a1 + 32);
+  v43 = *(a1 + 132);
+  v44 = *(a1 + 133);
+  v45 = *(a1 + 72);
+  v46 = *(a1 + 80);
+  v47 = *(a1 + 128);
+  a32 = *(a1 + 104);
+  a33.x = *(a1 + 120);
+  v48 = [(PVEffectFrame *)v41 initWithEffect:v42 atTime:&a32 forcePosterFrame:v43 includeDropShadow:v44 includeTextFrames:0 minimumHitSize:v47 hitSizeThreshold:v45 viewSize:v46 viewOrigin:*(a1 + 88), *(a1 + 96)];
+  v72 = 0;
+  v73 = 0;
+  v70 = 0;
+  v71 = 0;
   v49 = *(a1 + 32);
-  v50 = *(a1 + 132);
-  v51 = *(a1 + 133);
-  v52 = *(a1 + 72);
-  v53 = *(a1 + 80);
-  v54 = *(a1 + 128);
-  a39 = *(a1 + 104);
-  a40.x = *(a1 + 120);
-  v55 = [(PVEffectFrame *)v48 initWithEffect:v49 atTime:&a39 forcePosterFrame:v50 includeDropShadow:v51 includeTextFrames:0 minimumHitSize:v54 hitSizeThreshold:v52 viewSize:v53 viewOrigin:*(a1 + 88), *(a1 + 96)];
-  v82 = 0;
-  v83 = 0;
-  v80 = 0;
-  v81 = 0;
-  v56 = *(a1 + 32);
-  if (v56)
+  if (v49)
   {
-    v57 = *(a1 + 133);
-    v58 = *(a1 + 132);
-    v59 = *(a1 + 128);
-    a39 = *(a1 + 104);
-    a40.x = *(a1 + 120);
-    [v56 textCornersAtTime:&a39 index:a3 forcePosterFrame:v58 includeDropShadow:v57 scale:v59 viewSize:1.0 viewOrigin:{1.0, *(a1 + 88), *(a1 + 96)}];
+    a32 = *(a1 + 104);
+    a33.x = *(a1 + 120);
+    objc_msgSend_textCornersAtTime_index_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(v49, 1.0, 1.0, *(a1 + 88), *(a1 + 96));
   }
 
   if (*(a1 + 128) == 1)
   {
-    v80 = 0;
-    v81 = 0;
-    v82 = 0;
-    v83 = 0;
+    v70 = 0;
+    v71 = 0;
+    v72 = 0;
+    v73 = 0;
   }
 
-  a39 = v80;
-  a40 = v81;
-  a41 = v82;
-  a42 = v83;
-  [(PVEffectFrame *)v55 setCornerPoints:&a39];
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  c = 0;
-  d = 0;
-  a = 0u;
-  b = 0;
-  v60 = [*(a1 + 40) objectAtIndexedSubscript:a3];
-  v61 = v60;
-  if (v60)
+  a32 = v70;
+  a33 = v71;
+  a34 = v72;
+  a35 = v73;
+  [(PVEffectFrame *)v48 setCornerPoints:&a32];
+  v68 = 0;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0;
+  v62 = 0u;
+  v63 = 0;
+  v50 = [*(a1 + 40) objectAtIndexedSubscript:a3];
+  v51 = v50;
+  if (v50)
   {
-    [v60 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v50);
   }
 
   else
   {
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    c = 0;
-    d = 0;
-    a = 0u;
-    b = 0;
+    v68 = 0;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0;
+    v62 = 0u;
+    v63 = 0;
   }
 
   if (([*(a1 + 48) wantsToIncludeCoordinateSystemTranslationInEffectViewTransform] & 1) == 0 && *(a1 + 128) == 1)
   {
     __asm { FMOV            V1.2D, #0.5 }
 
-    v67 = vmulq_f64(*(a1 + 88), _Q1);
-    a43 = v76;
-    a44 = v77;
-    a45 = v78;
-    a46 = v79;
-    a39 = a;
-    a40 = b;
-    a41 = c;
-    a42 = d;
+    v57 = vmulq_f64(*(a1 + 88), _Q1);
+    a36 = v66;
     a37 = v67;
-    a38 = 0u;
-    pv_simd_matrix_translate(&a39, &a37, &var30);
-    v76 = a9;
-    v77 = a10;
-    v78 = a11;
-    v79 = a12;
-    a = var30.a;
-    b = var30.b;
-    c = var30.c;
-    d = var30.d;
+    a38 = v68;
+    a39 = v69;
+    a32 = v62;
+    a33 = v63;
+    a34 = v64;
+    a35 = v65;
+    a30 = v57;
+    a31 = 0u;
+    pv_simd_matrix_translate(&a32, &a30, &var30);
+    v66 = a9;
+    v67 = a11;
+    v68 = d;
+    v69 = a17;
+    v62 = var30.a;
+    v63 = var30.b;
+    v64 = var30.c;
+    v65 = var30.d;
   }
 
-  a43 = v76;
-  a44 = v77;
-  a45 = v78;
-  a46 = v79;
-  a39 = a;
-  a40 = b;
-  a41 = c;
-  a42 = d;
-  [(PVEffectFrame *)v55 setTransform:&a39];
-  a43 = xmmword_260342820;
-  a44 = qword_260342830;
-  a45 = xmmword_260342840;
-  a46 = qword_260342850;
-  a39 = pv_transform_info_identity;
-  a40 = *algn_2603427F0;
-  a41 = xmmword_260342800;
-  a42 = qword_260342810;
-  v68 = *(a1 + 88);
-  var30.a = a;
-  var30.b = b;
-  var30.c = c;
-  var30.d = d;
-  pv_transform_info_make(&var30, &a39, v68);
-  var30.a = a39;
-  var30.b = a40;
-  var30.c = a41;
-  var30.d = a42;
-  [(PVEffectFrame *)v55 setTransformInfo:&var30];
-  v69 = [*(a1 + 56) objectAtIndexedSubscript:a3];
-  [v69 CGRectValue];
-  [(PVEffectFrame *)v55 setObjectBounds:?];
+  a36 = v66;
+  a37 = v67;
+  a38 = v68;
+  a39 = v69;
+  a32 = v62;
+  a33 = v63;
+  a34 = v64;
+  a35 = v65;
+  [(PVEffectFrame *)v48 setTransform:&a32];
+  a36 = xmmword_260342820;
+  a37 = qword_260342830;
+  a38 = xmmword_260342840;
+  a39 = qword_260342850;
+  a32 = pv_transform_info_identity;
+  a33 = *algn_2603427F0;
+  a34 = xmmword_260342800;
+  a35 = qword_260342810;
+  v58 = *(a1 + 88);
+  var30.a = v62;
+  var30.b = v63;
+  var30.c = v64;
+  var30.d = v65;
+  pv_transform_info_make(&var30, &a32, v58);
+  var30.a = a32;
+  var30.b = a33;
+  var30.c = a34;
+  var30.d = a35;
+  [(PVEffectFrame *)v48 setTransformInfo:&var30];
+  v59 = [*(a1 + 56) objectAtIndexedSubscript:a3];
+  [v59 CGRectValue];
+  [(PVEffectFrame *)v48 setObjectBounds:?];
 
-  if (v55)
+  if (v48)
   {
-    [(PVEffectFrame *)v55 cornerPoints];
+    objc_msgSend_cornerPoints(v48);
   }
 
   else
@@ -378,10 +375,10 @@ void __144__PVEffectFrame_initWithEffect_atTime_forcePosterFrame_includeDropShad
     memset(&var30, 0, sizeof(var30));
   }
 
-  v70 = PVCGPointQuad_to_NSArray(&var30);
-  [(PVEffectFrame *)v55 setHitAreaPoints:v70];
+  v60 = PVCGPointQuad_to_NSArray(&var30);
+  [(PVEffectFrame *)v48 setHitAreaPoints:v60];
 
-  [*(a1 + 64) addObject:v55];
+  [*(a1 + 64) addObject:v48];
 }
 
 - (CGRect)viewSpaceObjectBounds
@@ -391,7 +388,7 @@ void __144__PVEffectFrame_initWithEffect_atTime_forcePosterFrame_includeDropShad
   v49 = 0;
   v50 = 0;
   [(PVEffectFrame *)self objectBounds];
-  PVCGPointQuad_from_CGRect(v54, &v49);
+  PVCGPointQuad_from_CGRect(&v49, v54);
   v47 = 0u;
   v48 = 0u;
   v45 = 0u;
@@ -400,7 +397,7 @@ void __144__PVEffectFrame_initWithEffect_atTime_forcePosterFrame_includeDropShad
   v44 = 0u;
   v41 = 0u;
   v42 = 0u;
-  [(PVEffectFrame *)self transform];
+  objc_msgSend_transform(self);
   v33 = 0;
   v34 = &v33;
   v35 = 0x6010000000;
@@ -484,7 +481,7 @@ CGFloat *__38__PVEffectFrame_viewSpaceObjectBounds__block_invoke(uint64_t a1, in
 
 - (CGPoint)midpoint
 {
-  [(PVEffectFrame *)self cornerPoints];
+  objc_msgSend_cornerPoints(self, a2);
   quad_center = pv_CGPoint_get_quad_center(&v4);
   result.y = v3;
   result.x = quad_center;
@@ -511,7 +508,7 @@ CGFloat *__38__PVEffectFrame_viewSpaceObjectBounds__block_invoke(uint64_t a1, in
   v28.receiver = self;
   v28.super_class = PVEffectFrame;
   v24 = [(PVEffectFrame *)&v28 description];
-  [(PVEffectFrame *)self time];
+  objc_msgSend_time(self);
   v23 = CMTimeCopyDescription(0, &time);
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[PVEffectFrame forcePosterFrame](self, "forcePosterFrame")}];
   v4 = MEMORY[0x277CCACA8];
@@ -546,12 +543,12 @@ CGFloat *__38__PVEffectFrame_viewSpaceObjectBounds__block_invoke(uint64_t a1, in
   v20 = [v8 stringWithUTF8String:PVCoordinateSystemOriginNames[v10]];
   [(PVEffectFrame *)self viewSize];
   v19 = NSStringFromCGSize(v32);
-  [(PVEffectFrame *)self cornerPoints];
+  objc_msgSend_cornerPoints(self);
   v11 = NSStringFromPVCGPointQuad(&time, 3);
   [(PVEffectFrame *)self objectBounds];
   v18 = NSStringFromCGRect(v33);
   hitAreaPoints = [(PVEffectFrame *)self hitAreaPoints];
-  [(PVEffectFrame *)self transform];
+  objc_msgSend_transform(self);
   v13 = NSStringFromSIMDDouble4x4(&time.value, 4);
   v14 = MEMORY[0x277CCABB0];
   textFrames = [(PVEffectFrame *)self textFrames];

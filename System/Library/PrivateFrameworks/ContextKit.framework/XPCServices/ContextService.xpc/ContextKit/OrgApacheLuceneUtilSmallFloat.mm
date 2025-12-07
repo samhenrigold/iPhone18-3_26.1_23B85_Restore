@@ -12,7 +12,7 @@
 {
   if (byte)
   {
-    return JavaLangFloat_intBitsToFloatWithInt_((byte << (24 - int)) - (withInt << 24) + 1056964608);
+    return JavaLangFloat_intBitsToFloatWithInt_((byte << (24 - int)) - (withInt << 24) + 1056964608, a2);
   }
 
   else
@@ -23,7 +23,7 @@
 
 + (char)floatToByte315WithFloat:(float)float
 {
-  v3 = JavaLangFloat_floatToRawIntBitsWithFloat_(float);
+  v3 = JavaLangFloat_floatToRawIntBitsWithFloat_(self, a2, float);
   if ((v3 >> 21) <= 0x27F)
   {
     v4 = (v3 >> 21) ^ 0xFFFFFF80;
@@ -49,7 +49,7 @@
 {
   if (byte)
   {
-    return JavaLangFloat_intBitsToFloatWithInt_((byte << 21) + 805306368);
+    return JavaLangFloat_intBitsToFloatWithInt_((byte << 21) + 805306368, a2);
   }
 
   else
@@ -60,7 +60,7 @@
 
 + (char)floatToByte52WithFloat:(float)float
 {
-  v3 = JavaLangFloat_floatToRawIntBitsWithFloat_(float);
+  v3 = JavaLangFloat_floatToRawIntBitsWithFloat_(self, a2, float);
   if ((v3 >> 19) <= 0x89F)
   {
     v4 = (v3 >> 19) + 96;
@@ -86,7 +86,7 @@
 {
   if (byte)
   {
-    return JavaLangFloat_intBitsToFloatWithInt_((byte << 19) + 1023410176);
+    return JavaLangFloat_intBitsToFloatWithInt_((byte << 19) + 1023410176, a2);
   }
 
   else

@@ -823,14 +823,13 @@ LABEL_8:
     }
   }
 
-  [l host];
-  v11 = localizedDescriptionForError(domain, code);
+  v11 = localizedDescriptionForError(domain, code, [l host]);
   if (v11)
   {
     [v10 setObject:v11 forKey:@"NSLocalizedDescription"];
   }
 
-  if ([domain isEqualToString:@"NSURLErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     LocalizedFailureReason = _CFNetworkErrorGetLocalizedFailureReason();
     if (LocalizedFailureReason)
@@ -839,7 +838,7 @@ LABEL_8:
     }
   }
 
-  if ([domain isEqualToString:@"NSURLErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     LocalizedRecoverySuggestion = _CFNetworkErrorGetLocalizedRecoverySuggestion();
     if (LocalizedRecoverySuggestion)
@@ -865,7 +864,7 @@ LABEL_8:
 {
   domain = [(NSError *)self domain];
 
-  return [(NSString *)domain isEqualToString:domain];
+  return objc_msgSend_isEqualToString_(domain);
 }
 
 - (id)_web_localizedDescription
@@ -881,10 +880,7 @@ LABEL_8:
     v4 = 0;
   }
 
-  domain = [(NSError *)self domain];
-  code = [(NSError *)self code];
-  [v4 host];
-  result = localizedDescriptionForError(domain, code);
+  result = localizedDescriptionForError(-[NSError domain](self, "domain"), -[NSError code](self, "code"), [v4 host]);
   if (!result)
   {
 
@@ -911,14 +907,13 @@ LABEL_8:
     [v10 setObject:objc_msgSend(l forKey:{"absoluteString"), @"NSErrorFailingURLStringKey"}];
   }
 
-  [l host];
-  v11 = localizedDescriptionForError(domain_nowarn, code);
+  v11 = localizedDescriptionForError(domain_nowarn, code, [l host]);
   if (v11)
   {
     [v10 setObject:v11 forKey:@"NSLocalizedDescription"];
   }
 
-  if ([domain_nowarn isEqualToString:@"NSURLErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain_nowarn))
   {
     LocalizedFailureReason = _CFNetworkErrorGetLocalizedFailureReason();
     if (LocalizedFailureReason)
@@ -927,7 +922,7 @@ LABEL_8:
     }
   }
 
-  if ([domain_nowarn isEqualToString:@"NSURLErrorDomain"])
+  if (objc_msgSend_isEqualToString_(domain_nowarn))
   {
     LocalizedRecoverySuggestion = _CFNetworkErrorGetLocalizedRecoverySuggestion();
     if (LocalizedRecoverySuggestion)

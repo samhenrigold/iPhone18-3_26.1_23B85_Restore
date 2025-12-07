@@ -53,7 +53,7 @@
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   outlined init with copy of Any(v4, v3);
-  type metadata accessor for _EXExtensionAvailabilityObserver();
+  type metadata accessor for _EXExtensionAvailabilityObserver(0);
   if (swift_dynamicCast())
   {
     _EXExtensionAvailabilityObserver.invalidate()();

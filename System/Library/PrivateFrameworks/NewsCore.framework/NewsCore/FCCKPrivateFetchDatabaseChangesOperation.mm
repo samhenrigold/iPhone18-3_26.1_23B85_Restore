@@ -81,21 +81,21 @@ void __60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invo
   [*(a1 + 40) runChildCKOperation:v4 destination:a2];
 }
 
-uint64_t __60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invoke_2(uint64_t result, uint64_t a2)
+id *__60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t __60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invoke_3(uint64_t result, uint64_t a2)
+id *__60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -120,33 +120,33 @@ void __60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invo
 
 void __60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invoke_5(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
   v3 = [MEMORY[0x1E695DF70] array];
-  v21 = [MEMORY[0x1E695DF90] dictionary];
+  v20 = [MEMORY[0x1E695DF90] dictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v19 = a1;
+  v18 = a1;
   obj = [*(a1 + 32) readOnlyArray];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     LOBYTE(v7) = 0;
-    v8 = *v23;
+    v8 = *v22;
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 changedZoneIDs];
         [v2 addObjectsFromArray:v11];
 
@@ -159,7 +159,7 @@ void __60__FCCKPrivateFetchDatabaseChangesOperation_performOperation__block_invo
         {
           v14 = [v10 serverChangeToken];
           v15 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "destination")}];
-          [v21 setObject:v14 forKeyedSubscript:v15];
+          [v20 setObject:v14 forKeyedSubscript:v15];
         }
 
         if (v7)
@@ -189,7 +189,7 @@ LABEL_12:
         v6 = v16;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (!v5)
       {
         goto LABEL_18;
@@ -201,15 +201,13 @@ LABEL_12:
   v7 = 0;
 LABEL_18:
 
-  [*(v19 + 40) setResultChangedZoneIDs:v2];
-  [*(v19 + 40) setResultDeletedZoneIDs:v3];
-  v17 = [[FCCKPrivateDatabaseServerChangeToken alloc] initWithChangeTokensByDestination:v21];
-  [*(v19 + 40) setResultServerChangeToken:v17];
+  [*(v18 + 40) setResultChangedZoneIDs:v2];
+  [*(v18 + 40) setResultDeletedZoneIDs:v3];
+  v17 = [[FCCKPrivateDatabaseServerChangeToken alloc] initWithChangeTokensByDestination:v20];
+  [*(v18 + 40) setResultServerChangeToken:v17];
 
-  [*(v19 + 40) setResultMoreComing:v7];
-  [*(v19 + 40) finishedPerformingOperationWithError:v6];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [*(v18 + 40) setResultMoreComing:v7];
+  [*(v18 + 40) finishedPerformingOperationWithError:v6];
 }
 
 - (void)operationWillFinishWithError:(id)error

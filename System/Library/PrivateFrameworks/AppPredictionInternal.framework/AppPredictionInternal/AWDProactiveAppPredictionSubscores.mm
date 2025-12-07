@@ -19743,20 +19743,18 @@ LABEL_1064:
   p_has = &self->_has;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v6 = *(&self->_has + 9);
-  if ((v6 & 0x8000000000) != 0)
+  v5 = *(&self->_has + 9);
+  if ((v5 & 0x8000000000) != 0)
   {
-    installAge = self->_installAge;
     PBDataWriterWriteInt32Field();
-    v6 = *(&self->_has + 9);
-    if ((v6 & 0x400000000000) == 0)
+    v5 = *(&self->_has + 9);
+    if ((v5 & 0x400000000000) == 0)
     {
 LABEL_5:
-      if ((v6 & 0x200000000000) == 0)
+      if ((v5 & 0x200000000000) == 0)
       {
         goto LABEL_6;
       }
@@ -19765,18 +19763,17 @@ LABEL_5:
     }
   }
 
-  else if ((v6 & 0x400000000000) == 0)
+  else if ((v5 & 0x400000000000) == 0)
   {
     goto LABEL_5;
   }
 
-  lastSpotlightLaunchAge = self->_lastSpotlightLaunchAge;
   PBDataWriterWriteInt32Field();
-  v6 = *(&self->_has + 9);
-  if ((v6 & 0x200000000000) == 0)
+  v5 = *(&self->_has + 9);
+  if ((v5 & 0x200000000000) == 0)
   {
 LABEL_6:
-    if ((v6 & 0x200000000000000) == 0)
+    if ((v5 & 0x200000000000000) == 0)
     {
       goto LABEL_8;
     }
@@ -19785,62 +19782,53 @@ LABEL_6:
   }
 
 LABEL_1093:
-  lastLaunchAge = self->_lastLaunchAge;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x200000000000000) != 0)
   {
 LABEL_7:
-    medianSecondsBetweenLaunches = self->_medianSecondsBetweenLaunches;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_8:
   if ((*(&self->_has + 62) & 2) != 0)
   {
-    averageSecondsBetweenLaunches = self->_averageSecondsBetweenLaunches;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 101) & 0x20) != 0)
   {
-    unlockTime = self->_unlockTime;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 39) & 0x10) != 0)
   {
-    appInFolder = self->_appInFolder;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 65) & 2) != 0)
   {
-    folderPage = self->_folderPage;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 95) & 2) != 0)
   {
-    springBoardPage = self->_springBoardPage;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 79) & 0x10) != 0)
   {
-    onSpringBoardDock = self->_onSpringBoardDock;
     PBDataWriterWriteInt32Field();
   }
 
-  v14 = *(&self->_has + 8);
-  if ((v14 & 0x40) != 0)
+  v6 = *(&self->_has + 8);
+  if ((v6 & 0x40) != 0)
   {
-    feedback = self->_feedback;
     PBDataWriterWriteInt32Field();
-    v14 = *(&self->_has + 8);
-    if ((v14 & 0x80) == 0)
+    v6 = *(&self->_has + 8);
+    if ((v6 & 0x80) == 0)
     {
 LABEL_22:
-      if ((v14 & 0x100) == 0)
+      if ((v6 & 0x100) == 0)
       {
         goto LABEL_24;
       }
@@ -19849,31 +19837,28 @@ LABEL_22:
     }
   }
 
-  else if ((v14 & 0x80) == 0)
+  else if ((v6 & 0x80) == 0)
   {
     goto LABEL_22;
   }
 
-  feedbackConfirms = self->_feedbackConfirms;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 0x100) != 0)
   {
 LABEL_23:
-    feedbackRejects = self->_feedbackRejects;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_24:
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 2) != 0)
   {
-    aPRExplicitConfirmRatio = self->_aPRExplicitConfirmRatio;
     PBDataWriterWriteInt32Field();
-    v16 = *p_has;
+    v7 = *p_has;
     if ((*p_has & 4) == 0)
     {
 LABEL_26:
-      if ((v16 & 8) == 0)
+      if ((v7 & 8) == 0)
       {
         goto LABEL_27;
       }
@@ -19882,18 +19867,17 @@ LABEL_26:
     }
   }
 
-  else if ((v16 & 4) == 0)
+  else if ((v7 & 4) == 0)
   {
     goto LABEL_26;
   }
 
-  aPRExplicitRejectRatio = self->_aPRExplicitRejectRatio;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 8) == 0)
   {
 LABEL_27:
-    if ((v16 & 0x10) == 0)
+    if ((v7 & 0x10) == 0)
     {
       goto LABEL_28;
     }
@@ -19902,13 +19886,12 @@ LABEL_27:
   }
 
 LABEL_1100:
-  aPRImplicitConfirmRatio = self->_aPRImplicitConfirmRatio;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_28:
-    if ((v16 & 0x40) == 0)
+    if ((v7 & 0x40) == 0)
     {
       goto LABEL_29;
     }
@@ -19917,13 +19900,12 @@ LABEL_28:
   }
 
 LABEL_1101:
-  aPRImplicitRejectRatio = self->_aPRImplicitRejectRatio;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x40) == 0)
   {
 LABEL_29:
-    if ((v16 & 0x20) == 0)
+    if ((v7 & 0x20) == 0)
     {
       goto LABEL_30;
     }
@@ -19932,13 +19914,12 @@ LABEL_29:
   }
 
 LABEL_1102:
-  aPRSiriKitIntentsRatio = self->_aPRSiriKitIntentsRatio;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x20) == 0)
   {
 LABEL_30:
-    if ((v16 & 0x80) == 0)
+    if ((v7 & 0x80) == 0)
     {
       goto LABEL_31;
     }
@@ -19947,13 +19928,12 @@ LABEL_30:
   }
 
 LABEL_1103:
-  aPRNonSiriKitIntentsRatio = self->_aPRNonSiriKitIntentsRatio;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x80) == 0)
   {
 LABEL_31:
-    if ((v16 & 0x100) == 0)
+    if ((v7 & 0x100) == 0)
     {
       goto LABEL_32;
     }
@@ -19962,13 +19942,12 @@ LABEL_31:
   }
 
 LABEL_1104:
-  aPRTotalExplicitConfirms = self->_aPRTotalExplicitConfirms;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x100) == 0)
   {
 LABEL_32:
-    if ((v16 & 0x200) == 0)
+    if ((v7 & 0x200) == 0)
     {
       goto LABEL_33;
     }
@@ -19977,13 +19956,12 @@ LABEL_32:
   }
 
 LABEL_1105:
-  aPRTotalExplicitRejects = self->_aPRTotalExplicitRejects;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x200) == 0)
   {
 LABEL_33:
-    if ((v16 & 0x400) == 0)
+    if ((v7 & 0x400) == 0)
     {
       goto LABEL_34;
     }
@@ -19992,13 +19970,12 @@ LABEL_33:
   }
 
 LABEL_1106:
-  aPRTotalImplicitConfirms = self->_aPRTotalImplicitConfirms;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x400) == 0)
   {
 LABEL_34:
-    if ((v16 & 0x1000) == 0)
+    if ((v7 & 0x1000) == 0)
     {
       goto LABEL_35;
     }
@@ -20007,13 +19984,12 @@ LABEL_34:
   }
 
 LABEL_1107:
-  aPRTotalImplicitRejects = self->_aPRTotalImplicitRejects;
   PBDataWriterWriteInt32Field();
-  v16 = *p_has;
+  v7 = *p_has;
   if ((*p_has & 0x1000) == 0)
   {
 LABEL_35:
-    if ((v16 & 0x800) == 0)
+    if ((v7 & 0x800) == 0)
     {
       goto LABEL_37;
     }
@@ -20022,50 +19998,43 @@ LABEL_35:
   }
 
 LABEL_1108:
-  aPRTotalSiriKitIntents = self->_aPRTotalSiriKitIntents;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x800) != 0)
   {
 LABEL_36:
-    aPRTotalNonSiriKitIntents = self->_aPRTotalNonSiriKitIntents;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_37:
   if ((*(&self->_has + 78) & 8) != 0)
   {
-    launchTimePopularity = self->_launchTimePopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 95) & 0x20) != 0)
   {
-    timeOfDayPopularity = self->_timeOfDayPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 62) & 8) != 0)
   {
-    coarseTimeOfDayPopularity = self->_coarseTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 78) & 2) != 0)
   {
-    launchPopularity = self->_launchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v22 = *(&self->_has + 11);
-  if ((v22 & 0x80000000000000) != 0)
+  v8 = *(&self->_has + 11);
+  if ((v8 & 0x80000000000000) != 0)
   {
-    spotlightLaunchTimePopularity = self->_spotlightLaunchTimePopularity;
     PBDataWriterWriteInt32Field();
-    v22 = *(&self->_has + 11);
-    if ((v22 & 0x100000000000000) == 0)
+    v8 = *(&self->_has + 11);
+    if ((v8 & 0x100000000000000) == 0)
     {
 LABEL_47:
-      if ((v22 & 0x40000000000000) == 0)
+      if ((v8 & 0x40000000000000) == 0)
       {
         goto LABEL_49;
       }
@@ -20074,81 +20043,70 @@ LABEL_47:
     }
   }
 
-  else if ((v22 & 0x100000000000000) == 0)
+  else if ((v8 & 0x100000000000000) == 0)
   {
     goto LABEL_47;
   }
 
-  spotlightTimeOfDayPopularity = self->_spotlightTimeOfDayPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x40000000000000) != 0)
   {
 LABEL_48:
-    spotlightLaunchPopularity = self->_spotlightLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_49:
   if ((*(&self->_has + 63) & 2) != 0)
   {
-    dayZeroPoints = self->_dayZeroPoints;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 95) & 4) != 0)
   {
-    staticAppPoints = self->_staticAppPoints;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 77) & 0x80) != 0)
   {
-    launchDayOfWeekPopularity = self->_launchDayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if (*(&self->_has + 63))
   {
-    dayOfWeekPopularity = self->_dayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v28 = *(&self->_has + 9);
-  if ((v28 & 0x4000000000000) != 0)
+  v9 = *(&self->_has + 9);
+  if ((v9 & 0x4000000000000) != 0)
   {
-    launchSequencePopularity = self->_launchSequencePopularity;
     PBDataWriterWriteInt32Field();
-    v28 = *(&self->_has + 9);
+    v9 = *(&self->_has + 9);
   }
 
-  if ((v28 & 0x1000000000000) != 0)
+  if ((v9 & 0x1000000000000) != 0)
   {
-    launchLocationPopularity = self->_launchLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 64) & 2) != 0)
   {
-    entropyLaunchPopularity = self->_entropyLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 63) & 0x40) != 0)
   {
-    entropyDayOfWeekPopularity = self->_entropyDayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if (*(&self->_has + 64))
   {
-    entropyDayOfWeekPopularityByDay = self->_entropyDayOfWeekPopularityByDay;
     PBDataWriterWriteInt32Field();
   }
 
-  v34 = *(&self->_has + 7);
-  if ((v34 & 0x8000000000000000) == 0)
+  v10 = *(&self->_has + 7);
+  if ((v10 & 0x8000000000000000) == 0)
   {
-    if ((v34 & 0x400000000000000) == 0)
+    if ((v10 & 0x400000000000000) == 0)
     {
       goto LABEL_70;
     }
@@ -20156,38 +20114,33 @@ LABEL_49:
     goto LABEL_69;
   }
 
-  entropyDayOfWeekPopularityByApp = self->_entropyDayOfWeekPopularityByApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x400000000000000) != 0)
   {
 LABEL_69:
-    distanceDayOfWeekToLaunchPopularity = self->_distanceDayOfWeekToLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_70:
   if ((*(&self->_has + 64) & 0x20) != 0)
   {
-    entropyTrendingPopularity = self->_entropyTrendingPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 63) & 0x20) != 0)
   {
-    distanceTrendingToLaunchPopularity = self->_distanceTrendingToLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v38 = *(&self->_has + 8);
-  if ((v38 & 4) != 0)
+  v11 = *(&self->_has + 8);
+  if ((v11 & 4) != 0)
   {
-    entropySSIDPopularity = self->_entropySSIDPopularity;
     PBDataWriterWriteInt32Field();
-    v38 = *(&self->_has + 8);
-    if ((v38 & 0x10) == 0)
+    v11 = *(&self->_has + 8);
+    if ((v11 & 0x10) == 0)
     {
 LABEL_76:
-      if ((v38 & 8) == 0)
+      if ((v11 & 8) == 0)
       {
         goto LABEL_78;
       }
@@ -20196,107 +20149,92 @@ LABEL_76:
     }
   }
 
-  else if ((v38 & 0x10) == 0)
+  else if ((v11 & 0x10) == 0)
   {
     goto LABEL_76;
   }
 
-  entropySSIDPopularityBySSID = self->_entropySSIDPopularityBySSID;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 8) != 0)
   {
 LABEL_77:
-    entropySSIDPopularityByApp = self->_entropySSIDPopularityByApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_78:
   if ((*(&self->_has + 63) & 8) != 0)
   {
-    distanceSSIDToLaunchPopularity = self->_distanceSSIDToLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 27) & 0x20) != 0)
   {
-    appCount = self->_appCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 63) & 0x10) != 0)
   {
-    distanceToExplicitLaunchPrediction = self->_distanceToExplicitLaunchPrediction;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 80) & 0x10) != 0)
   {
-    siriKitIntentParzen = self->_siriKitIntentParzen;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 79) & 8) != 0)
   {
-    nonSiriKitIntentParzen = self->_nonSiriKitIntentParzen;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 27) & 0x40) != 0)
   {
-    appDailyDose = self->_appDailyDose;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 62) & 0x20) != 0)
   {
-    currentDose = self->_currentDose;
     PBDataWriterWriteInt32Field();
   }
 
-  v47 = *(&self->_has + 3);
-  if ((v47 & 0x80000000) != 0)
+  v12 = *(&self->_has + 3);
+  if ((v12 & 0x80000000) != 0)
   {
-    appDailyDoseRemaining = self->_appDailyDoseRemaining;
     PBDataWriterWriteInt32Field();
-    v47 = *(&self->_has + 3);
+    v12 = *(&self->_has + 3);
   }
 
-  if ((v47 & 0x100000000) != 0)
+  if ((v12 & 0x100000000) != 0)
   {
-    appDailyDoseSmoothedError = self->_appDailyDoseSmoothedError;
     PBDataWriterWriteInt32Field();
   }
 
-  v50 = *(&self->_has + 12);
-  if ((v50 & 0x4000000000) != 0)
+  v13 = *(&self->_has + 12);
+  if ((v13 & 0x4000000000) != 0)
   {
-    totalNumberOfLaunches = self->_totalNumberOfLaunches;
     PBDataWriterWriteInt32Field();
-    v50 = *(&self->_has + 12);
+    v13 = *(&self->_has + 12);
   }
 
-  if ((v50 & 0x10000000000) != 0)
+  if ((v13 & 0x10000000000) != 0)
   {
-    totalNumberOfSpotlightLaunches = self->_totalNumberOfSpotlightLaunches;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 21) & 0x80) != 0)
   {
-    airplaneModePopularity = self->_airplaneModePopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v54 = *(&self->_has + 12);
-  if ((v54 & 0x1000000000) != 0)
+  v14 = *(&self->_has + 12);
+  if ((v14 & 0x1000000000) != 0)
   {
-    totalNumberOfAirplaneModeLaunches = self->_totalNumberOfAirplaneModeLaunches;
     PBDataWriterWriteInt32Field();
-    v54 = *(&self->_has + 12);
-    if ((v54 & 0x80000000000) == 0)
+    v14 = *(&self->_has + 12);
+    if ((v14 & 0x80000000000) == 0)
     {
 LABEL_104:
-      if ((v54 & 0x20000000000) == 0)
+      if ((v14 & 0x20000000000) == 0)
       {
         goto LABEL_106;
       }
@@ -20305,89 +20243,77 @@ LABEL_104:
     }
   }
 
-  else if ((v54 & 0x80000000000) == 0)
+  else if ((v14 & 0x80000000000) == 0)
   {
     goto LABEL_104;
   }
 
-  trendingPopularity = self->_trendingPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 12) & 0x20000000000) != 0)
   {
 LABEL_105:
-    totalNumberOfTrendingLaunches = self->_totalNumberOfTrendingLaunches;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_106:
   if ((*(&self->_has + 80) & 8) != 0)
   {
-    sSIDPopularity = self->_sSIDPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 100) & 0x80) != 0)
   {
-    totalNumberOfSSIDLaunches = self->_totalNumberOfSSIDLaunches;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 79) & 0x20) != 0)
   {
-    onWifi = self->_onWifi;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 62) & 0x10) != 0)
   {
-    coreMotionPopularity = self->_coreMotionPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 100) & 0x20) != 0)
   {
-    totalNumberOfCoreMotionLaunches = self->_totalNumberOfCoreMotionLaunches;
     PBDataWriterWriteInt32Field();
   }
 
-  v61 = *(&self->_has + 9);
-  if ((v61 & 0x20000000000000) != 0)
+  v15 = *(&self->_has + 9);
+  if ((v15 & 0x20000000000000) != 0)
   {
-    magicalMomentsConfidence = self->_magicalMomentsConfidence;
     PBDataWriterWriteInt32Field();
-    v61 = *(&self->_has + 9);
+    v15 = *(&self->_has + 9);
   }
 
-  if ((v61 & 0x100000000000000) != 0)
+  if ((v15 & 0x100000000000000) != 0)
   {
-    magicalMomentsPredictionReason = self->_magicalMomentsPredictionReason;
-    PBDataWriterWriteInt32Field();
-  }
-
-  v64 = *(&self->_has + 8);
-  if ((v64 & 0x80000) != 0)
-  {
-    heroAppConfidence = self->_heroAppConfidence;
-    PBDataWriterWriteInt32Field();
-    v64 = *(&self->_has + 8);
-  }
-
-  if ((v64 & 0x100000) != 0)
-  {
-    heroAppPredictionReason = self->_heroAppPredictionReason;
     PBDataWriterWriteInt32Field();
   }
 
-  v67 = *(&self->_has + 9);
-  if ((v67 & 0x40000000000000) != 0)
+  v16 = *(&self->_has + 8);
+  if ((v16 & 0x80000) != 0)
   {
-    magicalMomentsHeroAppPredictionIndex = self->_magicalMomentsHeroAppPredictionIndex;
     PBDataWriterWriteInt32Field();
-    v67 = *(&self->_has + 9);
-    if ((v67 & 0x80000000000000) == 0)
+    v16 = *(&self->_has + 8);
+  }
+
+  if ((v16 & 0x100000) != 0)
+  {
+    PBDataWriterWriteInt32Field();
+  }
+
+  v17 = *(&self->_has + 9);
+  if ((v17 & 0x40000000000000) != 0)
+  {
+    PBDataWriterWriteInt32Field();
+    v17 = *(&self->_has + 9);
+    if ((v17 & 0x80000000000000) == 0)
     {
 LABEL_126:
-      if ((v67 & 0x400000000000000) == 0)
+      if ((v17 & 0x400000000000000) == 0)
       {
         goto LABEL_128;
       }
@@ -20396,37 +20322,33 @@ LABEL_126:
     }
   }
 
-  else if ((v67 & 0x80000000000000) == 0)
+  else if ((v17 & 0x80000000000000) == 0)
   {
     goto LABEL_126;
   }
 
-  magicalMomentsHeroAppPredictionTotalPredictions = self->_magicalMomentsHeroAppPredictionTotalPredictions;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x400000000000000) != 0)
   {
 LABEL_127:
-    mostRecentNotificationAge = self->_mostRecentNotificationAge;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_128:
   if ((*(&self->_has + 58) & 0x80) != 0)
   {
-    appPreferenceBundleBoost = self->_appPreferenceBundleBoost;
     PBDataWriterWriteInt32Field();
   }
 
-  v70 = *(&self->_has + 8);
-  if ((v70 & 0x20000) != 0)
+  v18 = *(&self->_has + 8);
+  if ((v18 & 0x20000) != 0)
   {
-    genreTimeOfDayPopularity = self->_genreTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
-    v70 = *(&self->_has + 8);
-    if ((v70 & 0x8000) == 0)
+    v18 = *(&self->_has + 8);
+    if ((v18 & 0x8000) == 0)
     {
 LABEL_132:
-      if ((v70 & 0x1000) == 0)
+      if ((v18 & 0x1000) == 0)
       {
         goto LABEL_133;
       }
@@ -20435,18 +20357,17 @@ LABEL_132:
     }
   }
 
-  else if ((v70 & 0x8000) == 0)
+  else if ((v18 & 0x8000) == 0)
   {
     goto LABEL_132;
   }
 
-  genreSequencePopularity = self->_genreSequencePopularity;
   PBDataWriterWriteInt32Field();
-  v70 = *(&self->_has + 8);
-  if ((v70 & 0x1000) == 0)
+  v18 = *(&self->_has + 8);
+  if ((v18 & 0x1000) == 0)
   {
 LABEL_133:
-    if ((v70 & 0x10000) == 0)
+    if ((v18 & 0x10000) == 0)
     {
       goto LABEL_135;
     }
@@ -20455,32 +20376,28 @@ LABEL_133:
   }
 
 LABEL_1124:
-  genreDayOfWeekPopularity = self->_genreDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 0x10000) != 0)
   {
 LABEL_134:
-    genreSpotlightLaunchPopularity = self->_genreSpotlightLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_135:
   if ((*(&self->_has + 101) & 4) != 0)
   {
-    trendingGenrePopularity = self->_trendingGenrePopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v73 = *(&self->_has + 8);
-  if ((v73 & 0x400) != 0)
+  v19 = *(&self->_has + 8);
+  if ((v19 & 0x400) != 0)
   {
-    genreAirplaneModePopularity = self->_genreAirplaneModePopularity;
     PBDataWriterWriteInt32Field();
-    v73 = *(&self->_has + 8);
-    if ((v73 & 0x800) == 0)
+    v19 = *(&self->_has + 8);
+    if ((v19 & 0x800) == 0)
     {
 LABEL_139:
-      if ((v73 & 0x2000) == 0)
+      if ((v19 & 0x2000) == 0)
       {
         goto LABEL_140;
       }
@@ -20489,18 +20406,17 @@ LABEL_139:
     }
   }
 
-  else if ((v73 & 0x800) == 0)
+  else if ((v19 & 0x800) == 0)
   {
     goto LABEL_139;
   }
 
-  genreDailyDoseRemaining = self->_genreDailyDoseRemaining;
   PBDataWriterWriteInt32Field();
-  v73 = *(&self->_has + 8);
-  if ((v73 & 0x2000) == 0)
+  v19 = *(&self->_has + 8);
+  if ((v19 & 0x2000) == 0)
   {
 LABEL_140:
-    if ((v73 & 0x4000) == 0)
+    if ((v19 & 0x4000) == 0)
     {
       goto LABEL_142;
     }
@@ -20509,26 +20425,23 @@ LABEL_140:
   }
 
 LABEL_1128:
-  genreLocationPopularity = self->_genreLocationPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 0x4000) != 0)
   {
 LABEL_141:
-    genreSSIDPopularity = self->_genreSSIDPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_142:
-  v75 = *(&self->_has + 2);
-  if ((v75 & 0x40000000000000) != 0)
+  v20 = *(&self->_has + 2);
+  if ((v20 & 0x40000000000000) != 0)
   {
-    app2VecClusterTimeOfDayPopularity = self->_app2VecClusterTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
-    v75 = *(&self->_has + 2);
-    if ((v75 & 0x20000000000000) == 0)
+    v20 = *(&self->_has + 2);
+    if ((v20 & 0x20000000000000) == 0)
     {
 LABEL_144:
-      if ((v75 & 0x8000000000000) == 0)
+      if ((v20 & 0x8000000000000) == 0)
       {
         goto LABEL_145;
       }
@@ -20537,18 +20450,17 @@ LABEL_144:
     }
   }
 
-  else if ((v75 & 0x20000000000000) == 0)
+  else if ((v20 & 0x20000000000000) == 0)
   {
     goto LABEL_144;
   }
 
-  app2VecClusterSequencePopularity = self->_app2VecClusterSequencePopularity;
   PBDataWriterWriteInt32Field();
-  v75 = *(&self->_has + 2);
-  if ((v75 & 0x8000000000000) == 0)
+  v20 = *(&self->_has + 2);
+  if ((v20 & 0x8000000000000) == 0)
   {
 LABEL_145:
-    if ((v75 & 0x80000000000000) == 0)
+    if ((v20 & 0x80000000000000) == 0)
     {
       goto LABEL_146;
     }
@@ -20557,13 +20469,12 @@ LABEL_145:
   }
 
 LABEL_1132:
-  app2VecClusterDayOfWeekPopularity = self->_app2VecClusterDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v75 = *(&self->_has + 2);
-  if ((v75 & 0x80000000000000) == 0)
+  v20 = *(&self->_has + 2);
+  if ((v20 & 0x80000000000000) == 0)
   {
 LABEL_146:
-    if ((v75 & 0x10000000000000) == 0)
+    if ((v20 & 0x10000000000000) == 0)
     {
       goto LABEL_147;
     }
@@ -20572,13 +20483,12 @@ LABEL_146:
   }
 
 LABEL_1133:
-  app2VecClusterTrendingPopularity = self->_app2VecClusterTrendingPopularity;
   PBDataWriterWriteInt32Field();
-  v75 = *(&self->_has + 2);
-  if ((v75 & 0x10000000000000) == 0)
+  v20 = *(&self->_has + 2);
+  if ((v20 & 0x10000000000000) == 0)
   {
 LABEL_147:
-    if ((v75 & 0x4000000000000) == 0)
+    if ((v20 & 0x4000000000000) == 0)
     {
       goto LABEL_149;
     }
@@ -20587,32 +20497,28 @@ LABEL_147:
   }
 
 LABEL_1134:
-  app2VecClusterLocationPopularity = self->_app2VecClusterLocationPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 2) & 0x4000000000000) != 0)
   {
 LABEL_148:
-    app2VecClusterCount = self->_app2VecClusterCount;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_149:
   if ((*(&self->_has + 95) & 8) != 0)
   {
-    supportsMedia = self->_supportsMedia;
     PBDataWriterWriteInt32Field();
   }
 
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x800000) != 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x800000) != 0)
   {
-    appIntentLaunchPopularity = self->_appIntentLaunchPopularity;
     PBDataWriterWriteInt32Field();
-    v78 = *(&self->_has + 5);
-    if ((v78 & 0x2000000) == 0)
+    v21 = *(&self->_has + 5);
+    if ((v21 & 0x2000000) == 0)
     {
 LABEL_153:
-      if ((v78 & 0x80000000) == 0)
+      if ((v21 & 0x80000000) == 0)
       {
         goto LABEL_154;
       }
@@ -20621,18 +20527,17 @@ LABEL_153:
     }
   }
 
-  else if ((v78 & 0x2000000) == 0)
+  else if ((v21 & 0x2000000) == 0)
   {
     goto LABEL_153;
   }
 
-  appIntentLaunchTimePopularity = self->_appIntentLaunchTimePopularity;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x80000000) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x80000000) == 0)
   {
 LABEL_154:
-    if ((v78 & 0x40000) == 0)
+    if ((v21 & 0x40000) == 0)
     {
       goto LABEL_155;
     }
@@ -20641,13 +20546,12 @@ LABEL_154:
   }
 
 LABEL_1138:
-  appIntentTimeOfDayPopularity = self->_appIntentTimeOfDayPopularity;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x40000) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x40000) == 0)
   {
 LABEL_155:
-    if ((v78 & 2) == 0)
+    if ((v21 & 2) == 0)
     {
       goto LABEL_156;
     }
@@ -20656,13 +20560,12 @@ LABEL_155:
   }
 
 LABEL_1139:
-  appIntentLastLaunchAge = self->_appIntentLastLaunchAge;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 2) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 2) == 0)
   {
 LABEL_156:
-    if ((v78 & 0x4000000) == 0)
+    if ((v21 & 0x4000000) == 0)
     {
       goto LABEL_157;
     }
@@ -20671,13 +20574,12 @@ LABEL_156:
   }
 
 LABEL_1140:
-  appIntentAverageSecondsBetweenAppActions = self->_appIntentAverageSecondsBetweenAppActions;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x4000000) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x4000000) == 0)
   {
 LABEL_157:
-    if ((v78 & 0x80000) == 0)
+    if ((v21 & 0x80000) == 0)
     {
       goto LABEL_158;
     }
@@ -20686,13 +20588,12 @@ LABEL_157:
   }
 
 LABEL_1141:
-  appIntentMedianSecondsBetweenAppActions = self->_appIntentMedianSecondsBetweenAppActions;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x80000) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x80000) == 0)
   {
 LABEL_158:
-    if ((v78 & 0x20) == 0)
+    if ((v21 & 0x20) == 0)
     {
       goto LABEL_159;
     }
@@ -20701,13 +20602,12 @@ LABEL_158:
   }
 
 LABEL_1142:
-  appIntentLaunchDayOfWeekPopularity = self->_appIntentLaunchDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x20) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x20) == 0)
   {
 LABEL_159:
-    if ((v78 & 4) == 0)
+    if ((v21 & 4) == 0)
     {
       goto LABEL_160;
     }
@@ -20716,13 +20616,12 @@ LABEL_159:
   }
 
 LABEL_1143:
-  appIntentDayOfWeekPopularity = self->_appIntentDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 4) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 4) == 0)
   {
 LABEL_160:
-    if ((v78 & 0x400000000) == 0)
+    if ((v21 & 0x400000000) == 0)
     {
       goto LABEL_161;
     }
@@ -20731,13 +20630,12 @@ LABEL_160:
   }
 
 LABEL_1144:
-  appIntentCoarseTimeOfDayPopularity = self->_appIntentCoarseTimeOfDayPopularity;
   PBDataWriterWriteInt32Field();
-  v78 = *(&self->_has + 5);
-  if ((v78 & 0x400000000) == 0)
+  v21 = *(&self->_has + 5);
+  if ((v21 & 0x400000000) == 0)
   {
 LABEL_161:
-    if ((v78 & 0x4000000000) == 0)
+    if ((v21 & 0x4000000000) == 0)
     {
       goto LABEL_163;
     }
@@ -20746,32 +20644,28 @@ LABEL_161:
   }
 
 LABEL_1145:
-  appIntentTotalNumberOfLaunches = self->_appIntentTotalNumberOfLaunches;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 5) & 0x4000000000) != 0)
   {
 LABEL_162:
-    appIntentUnlockTime = self->_appIntentUnlockTime;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_163:
   if ((*(&self->_has + 39) & 0x20) != 0)
   {
-    appIntentAirplaneModePopularity = self->_appIntentAirplaneModePopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x100000000) != 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x100000000) != 0)
   {
-    appIntentTotalNumberOfAirplaneModeLaunches = self->_appIntentTotalNumberOfAirplaneModeLaunches;
     PBDataWriterWriteInt32Field();
-    v81 = *(&self->_has + 5);
-    if ((v81 & 0x10000000) == 0)
+    v22 = *(&self->_has + 5);
+    if ((v22 & 0x10000000) == 0)
     {
 LABEL_167:
-      if ((v81 & 0x800000000) == 0)
+      if ((v22 & 0x800000000) == 0)
       {
         goto LABEL_168;
       }
@@ -20780,18 +20674,17 @@ LABEL_167:
     }
   }
 
-  else if ((v81 & 0x10000000) == 0)
+  else if ((v22 & 0x10000000) == 0)
   {
     goto LABEL_167;
   }
 
-  appIntentSSIDPopularity = self->_appIntentSSIDPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x800000000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x800000000) == 0)
   {
 LABEL_168:
-    if ((v81 & 8) == 0)
+    if ((v22 & 8) == 0)
     {
       goto LABEL_169;
     }
@@ -20800,13 +20693,12 @@ LABEL_168:
   }
 
 LABEL_1149:
-  appIntentTotalNumberOfSSIDLaunches = self->_appIntentTotalNumberOfSSIDLaunches;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 8) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 8) == 0)
   {
 LABEL_169:
-    if ((v81 & 0x200000000) == 0)
+    if ((v22 & 0x200000000) == 0)
     {
       goto LABEL_170;
     }
@@ -20815,13 +20707,12 @@ LABEL_169:
   }
 
 LABEL_1150:
-  appIntentCoreMotionPopularity = self->_appIntentCoreMotionPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x200000000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x200000000) == 0)
   {
 LABEL_170:
-    if ((v81 & 0x2000000000) == 0)
+    if ((v22 & 0x2000000000) == 0)
     {
       goto LABEL_171;
     }
@@ -20830,13 +20721,12 @@ LABEL_170:
   }
 
 LABEL_1151:
-  appIntentTotalNumberOfCoreMotionLaunches = self->_appIntentTotalNumberOfCoreMotionLaunches;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x2000000000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x2000000000) == 0)
   {
 LABEL_171:
-    if ((v81 & 0x1000000000) == 0)
+    if ((v22 & 0x1000000000) == 0)
     {
       goto LABEL_172;
     }
@@ -20845,13 +20735,12 @@ LABEL_171:
   }
 
 LABEL_1152:
-  appIntentTrendingPopularity = self->_appIntentTrendingPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x1000000000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x1000000000) == 0)
   {
 LABEL_172:
-    if ((v81 & 0x100000) == 0)
+    if ((v22 & 0x100000) == 0)
     {
       goto LABEL_173;
     }
@@ -20860,13 +20749,12 @@ LABEL_172:
   }
 
 LABEL_1153:
-  appIntentTotalNumberOfTrendingLaunches = self->_appIntentTotalNumberOfTrendingLaunches;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x100000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x100000) == 0)
   {
 LABEL_173:
-    if ((v81 & 0x40) == 0)
+    if ((v22 & 0x40) == 0)
     {
       goto LABEL_174;
     }
@@ -20875,13 +20763,12 @@ LABEL_173:
   }
 
 LABEL_1154:
-  appIntentLaunchLocationPopularity = self->_appIntentLaunchLocationPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x40) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x40) == 0)
   {
 LABEL_174:
-    if ((v81 & 0x40000000) == 0)
+    if ((v22 & 0x40000000) == 0)
     {
       goto LABEL_175;
     }
@@ -20890,13 +20777,12 @@ LABEL_174:
   }
 
 LABEL_1155:
-  appIntentDayZeroPoints = self->_appIntentDayZeroPoints;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x40000000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x40000000) == 0)
   {
 LABEL_175:
-    if ((v81 & 0x1000000) == 0)
+    if ((v22 & 0x1000000) == 0)
     {
       goto LABEL_176;
     }
@@ -20905,13 +20791,12 @@ LABEL_175:
   }
 
 LABEL_1156:
-  appIntentStaticPoints = self->_appIntentStaticPoints;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x1000000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x1000000) == 0)
   {
 LABEL_176:
-    if ((v81 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
       goto LABEL_177;
     }
@@ -20920,13 +20805,12 @@ LABEL_176:
   }
 
 LABEL_1157:
-  appIntentLaunchSequencePopularity = self->_appIntentLaunchSequencePopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 1) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 1) == 0)
   {
 LABEL_177:
-    if ((v81 & 0x2000) == 0)
+    if ((v22 & 0x2000) == 0)
     {
       goto LABEL_178;
     }
@@ -20935,13 +20819,12 @@ LABEL_177:
   }
 
 LABEL_1158:
-  appIntentAppLaunchSequencePopularity = self->_appIntentAppLaunchSequencePopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x2000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x2000) == 0)
   {
 LABEL_178:
-    if ((v81 & 0x400) == 0)
+    if ((v22 & 0x400) == 0)
     {
       goto LABEL_179;
     }
@@ -20950,13 +20833,12 @@ LABEL_178:
   }
 
 LABEL_1159:
-  appIntentEntropyLaunchPopularity = self->_appIntentEntropyLaunchPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x400) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x400) == 0)
   {
 LABEL_179:
-    if ((v81 & 0x1000) == 0)
+    if ((v22 & 0x1000) == 0)
     {
       goto LABEL_180;
     }
@@ -20965,13 +20847,12 @@ LABEL_179:
   }
 
 LABEL_1160:
-  appIntentEntropyDayOfWeekPopularity = self->_appIntentEntropyDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x1000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x1000) == 0)
   {
 LABEL_180:
-    if ((v81 & 0x800) == 0)
+    if ((v22 & 0x800) == 0)
     {
       goto LABEL_181;
     }
@@ -20980,13 +20861,12 @@ LABEL_180:
   }
 
 LABEL_1161:
-  appIntentEntropyDayOfWeekPopularityByDay = self->_appIntentEntropyDayOfWeekPopularityByDay;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x800) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x800) == 0)
   {
 LABEL_181:
-    if ((v81 & 0x80) == 0)
+    if ((v22 & 0x80) == 0)
     {
       goto LABEL_182;
     }
@@ -20995,13 +20875,12 @@ LABEL_181:
   }
 
 LABEL_1162:
-  appIntentEntropyDayOfWeekPopularityByAppIntent = self->_appIntentEntropyDayOfWeekPopularityByAppIntent;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x80) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x80) == 0)
   {
 LABEL_182:
-    if ((v81 & 0x20000) == 0)
+    if ((v22 & 0x20000) == 0)
     {
       goto LABEL_183;
     }
@@ -21010,13 +20889,12 @@ LABEL_182:
   }
 
 LABEL_1163:
-  appIntentDistanceDayOfWeekToLaunchPopularity = self->_appIntentDistanceDayOfWeekToLaunchPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x20000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x20000) == 0)
   {
 LABEL_183:
-    if ((v81 & 0x200) == 0)
+    if ((v22 & 0x200) == 0)
     {
       goto LABEL_184;
     }
@@ -21025,13 +20903,12 @@ LABEL_183:
   }
 
 LABEL_1164:
-  appIntentEntropyTrendingPopularity = self->_appIntentEntropyTrendingPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x200) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x200) == 0)
   {
 LABEL_184:
-    if ((v81 & 0x4000) == 0)
+    if ((v22 & 0x4000) == 0)
     {
       goto LABEL_185;
     }
@@ -21040,13 +20917,12 @@ LABEL_184:
   }
 
 LABEL_1165:
-  appIntentDistanceTrendingToLaunchPopularity = self->_appIntentDistanceTrendingToLaunchPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x4000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x4000) == 0)
   {
 LABEL_185:
-    if ((v81 & 0x10000) == 0)
+    if ((v22 & 0x10000) == 0)
     {
       goto LABEL_186;
     }
@@ -21055,13 +20931,12 @@ LABEL_185:
   }
 
 LABEL_1166:
-  appIntentEntropySSIDPopularity = self->_appIntentEntropySSIDPopularity;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x10000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x10000) == 0)
   {
 LABEL_186:
-    if ((v81 & 0x8000) == 0)
+    if ((v22 & 0x8000) == 0)
     {
       goto LABEL_187;
     }
@@ -21070,13 +20945,12 @@ LABEL_186:
   }
 
 LABEL_1167:
-  appIntentEntropySSIDPopularityBySSID = self->_appIntentEntropySSIDPopularityBySSID;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x8000) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x8000) == 0)
   {
 LABEL_187:
-    if ((v81 & 0x100) == 0)
+    if ((v22 & 0x100) == 0)
     {
       goto LABEL_188;
     }
@@ -21085,13 +20959,12 @@ LABEL_187:
   }
 
 LABEL_1168:
-  appIntentEntropySSIDPopularityByAppIntent = self->_appIntentEntropySSIDPopularityByAppIntent;
   PBDataWriterWriteInt32Field();
-  v81 = *(&self->_has + 5);
-  if ((v81 & 0x100) == 0)
+  v22 = *(&self->_has + 5);
+  if ((v22 & 0x100) == 0)
   {
 LABEL_188:
-    if ((v81 & 0x10) == 0)
+    if ((v22 & 0x10) == 0)
     {
       goto LABEL_190;
     }
@@ -21100,110 +20973,95 @@ LABEL_188:
   }
 
 LABEL_1169:
-  appIntentDistanceSSIDToLaunchPopularity = self->_appIntentDistanceSSIDToLaunchPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 5) & 0x10) != 0)
   {
 LABEL_189:
-    appIntentCount = self->_appIntentCount;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_190:
-  v83 = *(&self->_has + 2);
-  if ((v83 & 0x100000000000000) != 0)
+  v23 = *(&self->_has + 2);
+  if ((v23 & 0x100000000000000) != 0)
   {
-    appActionConfirmEvents = self->_appActionConfirmEvents;
     PBDataWriterWriteInt32Field();
-    v83 = *(&self->_has + 2);
+    v23 = *(&self->_has + 2);
   }
 
-  if ((v83 & 0x400000000000000) != 0)
+  if ((v23 & 0x400000000000000) != 0)
   {
-    appActionRejectEvents = self->_appActionRejectEvents;
     PBDataWriterWriteInt32Field();
   }
 
-  v86 = *(&self->_has + 12);
-  if (v86)
+  v24 = *(&self->_has + 12);
+  if (v24)
   {
-    totalAppActionConfirmEvents = self->_totalAppActionConfirmEvents;
     PBDataWriterWriteInt32Field();
-    v86 = *(&self->_has + 12);
+    v24 = *(&self->_has + 12);
   }
 
-  if ((v86 & 2) != 0)
+  if ((v24 & 2) != 0)
   {
-    totalAppActionRejectEvents = self->_totalAppActionRejectEvents;
     PBDataWriterWriteInt32Field();
   }
 
-  v89 = *(&self->_has + 4);
-  if ((v89 & 0x1000000) != 0)
+  v25 = *(&self->_has + 4);
+  if ((v25 & 0x1000000) != 0)
   {
-    appForAllActionsConfirmEvents = self->_appForAllActionsConfirmEvents;
     PBDataWriterWriteInt32Field();
-    v89 = *(&self->_has + 4);
+    v25 = *(&self->_has + 4);
   }
 
-  if ((v89 & 0x2000000) != 0)
+  if ((v25 & 0x2000000) != 0)
   {
-    appForAllActionsRejectEvents = self->_appForAllActionsRejectEvents;
     PBDataWriterWriteInt32Field();
   }
 
-  v92 = *(&self->_has + 12);
-  if ((v92 & 4) != 0)
+  v26 = *(&self->_has + 12);
+  if ((v26 & 4) != 0)
   {
-    totalAppForAllActionsConfirmEvents = self->_totalAppForAllActionsConfirmEvents;
     PBDataWriterWriteInt32Field();
-    v92 = *(&self->_has + 12);
+    v26 = *(&self->_has + 12);
   }
 
-  if ((v92 & 8) != 0)
+  if ((v26 & 8) != 0)
   {
-    totalAppForAllActionsRejectEvents = self->_totalAppForAllActionsRejectEvents;
     PBDataWriterWriteInt32Field();
   }
 
-  v95 = *p_has;
+  v27 = *p_has;
   if ((*p_has & 0x8000000000000) != 0)
   {
-    actionHeuristicConfirmEvents = self->_actionHeuristicConfirmEvents;
     PBDataWriterWriteInt32Field();
-    v95 = *p_has;
+    v27 = *p_has;
   }
 
-  if ((v95 & 0x10000000000000) != 0)
+  if ((v27 & 0x10000000000000) != 0)
   {
-    actionHeuristicRejectEvents = self->_actionHeuristicRejectEvents;
-    PBDataWriterWriteInt32Field();
-  }
-
-  v98 = *(&self->_has + 11);
-  if ((v98 & 0x4000000000000000) != 0)
-  {
-    totalActionHeuristicConfirmEvents = self->_totalActionHeuristicConfirmEvents;
-    PBDataWriterWriteInt32Field();
-    v98 = *(&self->_has + 11);
-  }
-
-  if (v98 < 0)
-  {
-    totalActionHeuristicRejectEvents = self->_totalActionHeuristicRejectEvents;
     PBDataWriterWriteInt32Field();
   }
 
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x100000000000) != 0)
+  v28 = *(&self->_has + 11);
+  if ((v28 & 0x4000000000000000) != 0)
   {
-    appForAllIntentsLaunchPopularity = self->_appForAllIntentsLaunchPopularity;
     PBDataWriterWriteInt32Field();
-    v101 = *(&self->_has + 4);
-    if ((v101 & 0x200000000000) == 0)
+    v28 = *(&self->_has + 11);
+  }
+
+  if (v28 < 0)
+  {
+    PBDataWriterWriteInt32Field();
+  }
+
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x100000000000) != 0)
+  {
+    PBDataWriterWriteInt32Field();
+    v29 = *(&self->_has + 4);
+    if ((v29 & 0x200000000000) == 0)
     {
 LABEL_216:
-      if ((v101 & 0x800000000000) == 0)
+      if ((v29 & 0x800000000000) == 0)
       {
         goto LABEL_217;
       }
@@ -21212,18 +21070,17 @@ LABEL_216:
     }
   }
 
-  else if ((v101 & 0x200000000000) == 0)
+  else if ((v29 & 0x200000000000) == 0)
   {
     goto LABEL_216;
   }
 
-  appForAllIntentsLaunchTimePopularity = self->_appForAllIntentsLaunchTimePopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x800000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x800000000000) == 0)
   {
 LABEL_217:
-    if ((v101 & 0x40000000000) == 0)
+    if ((v29 & 0x40000000000) == 0)
     {
       goto LABEL_218;
     }
@@ -21232,13 +21089,12 @@ LABEL_217:
   }
 
 LABEL_1173:
-  appForAllIntentsTimeOfDayPopularity = self->_appForAllIntentsTimeOfDayPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x40000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x40000000000) == 0)
   {
 LABEL_218:
-    if ((v101 & 0x40000000) == 0)
+    if ((v29 & 0x40000000) == 0)
     {
       goto LABEL_219;
     }
@@ -21247,13 +21103,12 @@ LABEL_218:
   }
 
 LABEL_1174:
-  appForAllIntentsLaunchDayOfWeekPopularity = self->_appForAllIntentsLaunchDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x40000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x40000000) == 0)
   {
 LABEL_219:
-    if ((v101 & 0x8000000) == 0)
+    if ((v29 & 0x8000000) == 0)
     {
       goto LABEL_220;
     }
@@ -21262,13 +21117,12 @@ LABEL_219:
   }
 
 LABEL_1175:
-  appForAllIntentsDayOfWeekPopularity = self->_appForAllIntentsDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x8000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x8000000) == 0)
   {
 LABEL_220:
-    if ((v101 & 0x4000000000000) == 0)
+    if ((v29 & 0x4000000000000) == 0)
     {
       goto LABEL_221;
     }
@@ -21277,13 +21131,12 @@ LABEL_220:
   }
 
 LABEL_1176:
-  appForAllIntentsCoarseTimeOfDayPopularity = self->_appForAllIntentsCoarseTimeOfDayPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x4000000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x4000000000000) == 0)
   {
 LABEL_221:
-    if ((v101 & 0x40000000000000) == 0)
+    if ((v29 & 0x40000000000000) == 0)
     {
       goto LABEL_222;
     }
@@ -21292,13 +21145,12 @@ LABEL_221:
   }
 
 LABEL_1177:
-  appForAllIntentsTotalNumberOfLaunches = self->_appForAllIntentsTotalNumberOfLaunches;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x40000000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x40000000000000) == 0)
   {
 LABEL_222:
-    if ((v101 & 0x4000000) == 0)
+    if ((v29 & 0x4000000) == 0)
     {
       goto LABEL_223;
     }
@@ -21307,13 +21159,12 @@ LABEL_222:
   }
 
 LABEL_1178:
-  appForAllIntentsUnlockTime = self->_appForAllIntentsUnlockTime;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x4000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x4000000) == 0)
   {
 LABEL_223:
-    if ((v101 & 0x1000000000000) == 0)
+    if ((v29 & 0x1000000000000) == 0)
     {
       goto LABEL_224;
     }
@@ -21322,13 +21173,12 @@ LABEL_223:
   }
 
 LABEL_1179:
-  appForAllIntentsAirplaneModePopularity = self->_appForAllIntentsAirplaneModePopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x1000000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x1000000000000) == 0)
   {
 LABEL_224:
-    if ((v101 & 0x400000000000) == 0)
+    if ((v29 & 0x400000000000) == 0)
     {
       goto LABEL_225;
     }
@@ -21337,13 +21187,12 @@ LABEL_224:
   }
 
 LABEL_1180:
-  appForAllIntentsTotalNumberOfAirplaneModeLaunches = self->_appForAllIntentsTotalNumberOfAirplaneModeLaunches;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x400000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x400000000000) == 0)
   {
 LABEL_225:
-    if ((v101 & 0x8000000000000) == 0)
+    if ((v29 & 0x8000000000000) == 0)
     {
       goto LABEL_226;
     }
@@ -21352,13 +21201,12 @@ LABEL_225:
   }
 
 LABEL_1181:
-  appForAllIntentsSSIDPopularity = self->_appForAllIntentsSSIDPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x8000000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x8000000000000) == 0)
   {
 LABEL_226:
-    if ((v101 & 0x20000000000000) == 0)
+    if ((v29 & 0x20000000000000) == 0)
     {
       goto LABEL_227;
     }
@@ -21367,13 +21215,12 @@ LABEL_226:
   }
 
 LABEL_1182:
-  appForAllIntentsTotalNumberOfSSIDLaunches = self->_appForAllIntentsTotalNumberOfSSIDLaunches;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x20000000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x20000000000000) == 0)
   {
 LABEL_227:
-    if ((v101 & 0x10000000000000) == 0)
+    if ((v29 & 0x10000000000000) == 0)
     {
       goto LABEL_228;
     }
@@ -21382,13 +21229,12 @@ LABEL_227:
   }
 
 LABEL_1183:
-  appForAllIntentsTrendingPopularity = self->_appForAllIntentsTrendingPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x10000000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x10000000000000) == 0)
   {
 LABEL_228:
-    if ((v101 & 0x80000000000) == 0)
+    if ((v29 & 0x80000000000) == 0)
     {
       goto LABEL_229;
     }
@@ -21397,13 +21243,12 @@ LABEL_228:
   }
 
 LABEL_1184:
-  appForAllIntentsTotalNumberOfTrendingLaunches = self->_appForAllIntentsTotalNumberOfTrendingLaunches;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x80000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x80000000000) == 0)
   {
 LABEL_229:
-    if ((v101 & 0x2000000000) == 0)
+    if ((v29 & 0x2000000000) == 0)
     {
       goto LABEL_230;
     }
@@ -21412,13 +21257,12 @@ LABEL_229:
   }
 
 LABEL_1185:
-  appForAllIntentsLaunchLocationPopularity = self->_appForAllIntentsLaunchLocationPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x2000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x2000000000) == 0)
   {
 LABEL_230:
-    if ((v101 & 0x400000000) == 0)
+    if ((v29 & 0x400000000) == 0)
     {
       goto LABEL_231;
     }
@@ -21427,13 +21271,12 @@ LABEL_230:
   }
 
 LABEL_1186:
-  appForAllIntentsEntropyLaunchPopularity = self->_appForAllIntentsEntropyLaunchPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x400000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x400000000) == 0)
   {
 LABEL_231:
-    if ((v101 & 0x1000000000) == 0)
+    if ((v29 & 0x1000000000) == 0)
     {
       goto LABEL_232;
     }
@@ -21442,13 +21285,12 @@ LABEL_231:
   }
 
 LABEL_1187:
-  appForAllIntentsEntropyDayOfWeekPopularity = self->_appForAllIntentsEntropyDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x1000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x1000000000) == 0)
   {
 LABEL_232:
-    if ((v101 & 0x800000000) == 0)
+    if ((v29 & 0x800000000) == 0)
     {
       goto LABEL_233;
     }
@@ -21457,13 +21299,12 @@ LABEL_232:
   }
 
 LABEL_1188:
-  appForAllIntentsEntropyDayOfWeekPopularityByDay = self->_appForAllIntentsEntropyDayOfWeekPopularityByDay;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x800000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x800000000) == 0)
   {
 LABEL_233:
-    if ((v101 & 0x80000000) == 0)
+    if ((v29 & 0x80000000) == 0)
     {
       goto LABEL_234;
     }
@@ -21472,13 +21313,12 @@ LABEL_233:
   }
 
 LABEL_1189:
-  appForAllIntentsEntropyDayOfWeekPopularityByApp = self->_appForAllIntentsEntropyDayOfWeekPopularityByApp;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x80000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x80000000) == 0)
   {
 LABEL_234:
-    if ((v101 & 0x20000000000) == 0)
+    if ((v29 & 0x20000000000) == 0)
     {
       goto LABEL_235;
     }
@@ -21487,13 +21327,12 @@ LABEL_234:
   }
 
 LABEL_1190:
-  appForAllIntentsDistanceDayOfWeekToLaunchPopularity = self->_appForAllIntentsDistanceDayOfWeekToLaunchPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x20000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x20000000000) == 0)
   {
 LABEL_235:
-    if ((v101 & 0x200000000) == 0)
+    if ((v29 & 0x200000000) == 0)
     {
       goto LABEL_236;
     }
@@ -21502,13 +21341,12 @@ LABEL_235:
   }
 
 LABEL_1191:
-  appForAllIntentsEntropyTrendingPopularity = self->_appForAllIntentsEntropyTrendingPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x200000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x200000000) == 0)
   {
 LABEL_236:
-    if ((v101 & 0x4000000000) == 0)
+    if ((v29 & 0x4000000000) == 0)
     {
       goto LABEL_237;
     }
@@ -21517,13 +21355,12 @@ LABEL_236:
   }
 
 LABEL_1192:
-  appForAllIntentsDistanceTrendingToLaunchPopularity = self->_appForAllIntentsDistanceTrendingToLaunchPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x4000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x4000000000) == 0)
   {
 LABEL_237:
-    if ((v101 & 0x10000000000) == 0)
+    if ((v29 & 0x10000000000) == 0)
     {
       goto LABEL_238;
     }
@@ -21532,13 +21369,12 @@ LABEL_237:
   }
 
 LABEL_1193:
-  appForAllIntentsEntropySSIDPopularity = self->_appForAllIntentsEntropySSIDPopularity;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x10000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x10000000000) == 0)
   {
 LABEL_238:
-    if ((v101 & 0x8000000000) == 0)
+    if ((v29 & 0x8000000000) == 0)
     {
       goto LABEL_239;
     }
@@ -21547,13 +21383,12 @@ LABEL_238:
   }
 
 LABEL_1194:
-  appForAllIntentsEntropySSIDPopularityBySSID = self->_appForAllIntentsEntropySSIDPopularityBySSID;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x8000000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x8000000000) == 0)
   {
 LABEL_239:
-    if ((v101 & 0x100000000) == 0)
+    if ((v29 & 0x100000000) == 0)
     {
       goto LABEL_240;
     }
@@ -21562,13 +21397,12 @@ LABEL_239:
   }
 
 LABEL_1195:
-  appForAllIntentsEntropySSIDPopularityByApp = self->_appForAllIntentsEntropySSIDPopularityByApp;
   PBDataWriterWriteInt32Field();
-  v101 = *(&self->_has + 4);
-  if ((v101 & 0x100000000) == 0)
+  v29 = *(&self->_has + 4);
+  if ((v29 & 0x100000000) == 0)
   {
 LABEL_240:
-    if ((v101 & 0x20000000) == 0)
+    if ((v29 & 0x20000000) == 0)
     {
       goto LABEL_242;
     }
@@ -21577,46 +21411,40 @@ LABEL_240:
   }
 
 LABEL_1196:
-  appForAllIntentsDistanceSSIDToLaunchPopularity = self->_appForAllIntentsDistanceSSIDToLaunchPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x20000000) != 0)
   {
 LABEL_241:
-    appForAllIntentsCount = self->_appForAllIntentsCount;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_242:
-  v103 = *(&self->_has + 11);
-  if ((v103 & 0x100) != 0)
+  v30 = *(&self->_has + 11);
+  if ((v30 & 0x100) != 0)
   {
-    slotLaunchPopularity = self->_slotLaunchPopularity;
     PBDataWriterWriteInt32Field();
-    v103 = *(&self->_has + 11);
+    v30 = *(&self->_has + 11);
   }
 
-  if ((v103 & 0x40000) != 0)
+  if ((v30 & 0x40000) != 0)
   {
-    slotLaunchTimePopularity = self->_slotLaunchTimePopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 87) & 0x20) != 0)
   {
-    slotLaunchCoreMotionPopularity = self->_slotLaunchCoreMotionPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v107 = *(&self->_has + 11);
-  if ((v107 & 0x1000) != 0)
+  v31 = *(&self->_has + 11);
+  if ((v31 & 0x1000) != 0)
   {
-    slotLaunchPreviousLocationPopularity = self->_slotLaunchPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v107 = *(&self->_has + 11);
-    if ((v107 & 0x80000000000) == 0)
+    v31 = *(&self->_has + 11);
+    if ((v31 & 0x80000000000) == 0)
     {
 LABEL_250:
-      if ((v107 & 2) == 0)
+      if ((v31 & 2) == 0)
       {
         goto LABEL_252;
       }
@@ -21625,31 +21453,28 @@ LABEL_250:
     }
   }
 
-  else if ((v107 & 0x80000000000) == 0)
+  else if ((v31 & 0x80000000000) == 0)
   {
     goto LABEL_250;
   }
 
-  slotTimeOfDayPopularity = self->_slotTimeOfDayPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 2) != 0)
   {
 LABEL_251:
-    slotLaunchDayOfWeekPopularity = self->_slotLaunchDayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_252:
-  v109 = *(&self->_has + 10);
-  if ((v109 & 0x400) != 0)
+  v32 = *(&self->_has + 10);
+  if ((v32 & 0x400) != 0)
   {
-    slotDayOfWeekPopularity = self->_slotDayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
-    v109 = *(&self->_has + 10);
-    if ((v109 & 0x800000000000000) == 0)
+    v32 = *(&self->_has + 10);
+    if ((v32 & 0x800000000000000) == 0)
     {
 LABEL_254:
-      if ((v109 & 0x20) == 0)
+      if ((v32 & 0x20) == 0)
       {
         goto LABEL_256;
       }
@@ -21658,31 +21483,28 @@ LABEL_254:
     }
   }
 
-  else if ((v109 & 0x800000000000000) == 0)
+  else if ((v32 & 0x800000000000000) == 0)
   {
     goto LABEL_254;
   }
 
-  slotLaunchCoarseTimePopularity = self->_slotLaunchCoarseTimePopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 10) & 0x20) != 0)
   {
 LABEL_255:
-    slotCoarseTimeOfDayPopularity = self->_slotCoarseTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_256:
-  v111 = *(&self->_has + 11);
-  if ((v111 & 0x1000000000) != 0)
+  v33 = *(&self->_has + 11);
+  if ((v33 & 0x1000000000) != 0)
   {
-    slotSecondsSinceLastSlot = self->_slotSecondsSinceLastSlot;
     PBDataWriterWriteInt32Field();
-    v111 = *(&self->_has + 11);
-    if ((v111 & 8) == 0)
+    v33 = *(&self->_has + 11);
+    if ((v33 & 8) == 0)
     {
 LABEL_258:
-      if ((v111 & 0x400000) == 0)
+      if ((v33 & 0x400000) == 0)
       {
         goto LABEL_259;
       }
@@ -21691,18 +21513,17 @@ LABEL_258:
     }
   }
 
-  else if ((v111 & 8) == 0)
+  else if ((v33 & 8) == 0)
   {
     goto LABEL_258;
   }
 
-  slotLaunchLocationPopularity = self->_slotLaunchLocationPopularity;
   PBDataWriterWriteInt32Field();
-  v111 = *(&self->_has + 11);
-  if ((v111 & 0x400000) == 0)
+  v33 = *(&self->_has + 11);
+  if ((v33 & 0x400000) == 0)
   {
 LABEL_259:
-    if ((v111 & 0x4000000) == 0)
+    if ((v33 & 0x4000000) == 0)
     {
       goto LABEL_260;
     }
@@ -21711,13 +21532,12 @@ LABEL_259:
   }
 
 LABEL_1206:
-  slotLocationPopularity = self->_slotLocationPopularity;
   PBDataWriterWriteInt32Field();
-  v111 = *(&self->_has + 11);
-  if ((v111 & 0x4000000) == 0)
+  v33 = *(&self->_has + 11);
+  if ((v33 & 0x4000000) == 0)
   {
 LABEL_260:
-    if ((v111 & 0x4000000000000) == 0)
+    if ((v33 & 0x4000000000000) == 0)
     {
       goto LABEL_261;
     }
@@ -21726,13 +21546,12 @@ LABEL_260:
   }
 
 LABEL_1207:
-  slotNumberOfParameters = self->_slotNumberOfParameters;
   PBDataWriterWriteInt32Field();
-  v111 = *(&self->_has + 11);
-  if ((v111 & 0x4000000000000) == 0)
+  v33 = *(&self->_has + 11);
+  if ((v33 & 0x4000000000000) == 0)
   {
 LABEL_261:
-    if ((v111 & 0x2000000000000) == 0)
+    if ((v33 & 0x2000000000000) == 0)
     {
       goto LABEL_263;
     }
@@ -21741,52 +21560,45 @@ LABEL_261:
   }
 
 LABEL_1208:
-  slotTotalNumberOfLaunchesForSlot = self->_slotTotalNumberOfLaunchesForSlot;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x2000000000000) != 0)
   {
 LABEL_262:
-    slotTotalNumberOfLaunches = self->_slotTotalNumberOfLaunches;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_263:
   if ((*(&self->_has + 80) & 0x80) != 0)
   {
-    slotCount = self->_slotCount;
     PBDataWriterWriteInt32Field();
   }
 
-  v114 = *(&self->_has + 11);
-  if ((v114 & 0x2000000) != 0)
+  v34 = *(&self->_has + 11);
+  if ((v34 & 0x2000000) != 0)
   {
-    slotNumSessionStartsForRootOfApp = self->_slotNumSessionStartsForRootOfApp;
     PBDataWriterWriteInt32Field();
-    v114 = *(&self->_has + 11);
+    v34 = *(&self->_has + 11);
   }
 
-  if ((v114 & 0x1000000000000) != 0)
+  if ((v34 & 0x1000000000000) != 0)
   {
-    slotTotalNumSessionsForRootOfApp = self->_slotTotalNumSessionsForRootOfApp;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 81) & 8) != 0)
   {
-    slotEntropyForSlotSet = self->_slotEntropyForSlotSet;
     PBDataWriterWriteInt32Field();
   }
 
-  v118 = *(&self->_has + 11);
-  if ((v118 & 0x8000000000000) != 0)
+  v35 = *(&self->_has + 11);
+  if ((v35 & 0x8000000000000) != 0)
   {
-    slotTotalNumberOfLaunchesForSlotSet = self->_slotTotalNumberOfLaunchesForSlotSet;
     PBDataWriterWriteInt32Field();
-    v118 = *(&self->_has + 11);
-    if ((v118 & 0x8000000) == 0)
+    v35 = *(&self->_has + 11);
+    if ((v35 & 0x8000000) == 0)
     {
 LABEL_273:
-      if ((v118 & 0x20000000000000) == 0)
+      if ((v35 & 0x20000000000000) == 0)
       {
         goto LABEL_274;
       }
@@ -21795,18 +21607,17 @@ LABEL_273:
     }
   }
 
-  else if ((v118 & 0x8000000) == 0)
+  else if ((v35 & 0x8000000) == 0)
   {
     goto LABEL_273;
   }
 
-  slotNumberOfUniqueDaysLaunchedForSlot = self->_slotNumberOfUniqueDaysLaunchedForSlot;
   PBDataWriterWriteInt32Field();
-  v118 = *(&self->_has + 11);
-  if ((v118 & 0x20000000000000) == 0)
+  v35 = *(&self->_has + 11);
+  if ((v35 & 0x20000000000000) == 0)
   {
 LABEL_274:
-    if ((v118 & 0x20000000000) == 0)
+    if ((v35 & 0x20000000000) == 0)
     {
       goto LABEL_275;
     }
@@ -21815,13 +21626,12 @@ LABEL_274:
   }
 
 LABEL_1212:
-  slotTotalNumberOfUniqueDaysLaunched = self->_slotTotalNumberOfUniqueDaysLaunched;
   PBDataWriterWriteInt32Field();
-  v118 = *(&self->_has + 11);
-  if ((v118 & 0x20000000000) == 0)
+  v35 = *(&self->_has + 11);
+  if ((v35 & 0x20000000000) == 0)
   {
 LABEL_275:
-    if ((v118 & 0x40000000000) == 0)
+    if ((v35 & 0x40000000000) == 0)
     {
       goto LABEL_276;
     }
@@ -21830,13 +21640,12 @@ LABEL_275:
   }
 
 LABEL_1213:
-  slotTimeOfDayBudgetMeanForSlot = self->_slotTimeOfDayBudgetMeanForSlot;
   PBDataWriterWriteInt32Field();
-  v118 = *(&self->_has + 11);
-  if ((v118 & 0x40000000000) == 0)
+  v35 = *(&self->_has + 11);
+  if ((v35 & 0x40000000000) == 0)
   {
 LABEL_276:
-    if ((v118 & 0x800000000000) == 0)
+    if ((v35 & 0x800000000000) == 0)
     {
       goto LABEL_277;
     }
@@ -21845,13 +21654,12 @@ LABEL_276:
   }
 
 LABEL_1214:
-  slotTimeOfDayBudgetStdDevForSlot = self->_slotTimeOfDayBudgetStdDevForSlot;
   PBDataWriterWriteInt32Field();
-  v118 = *(&self->_has + 11);
-  if ((v118 & 0x800000000000) == 0)
+  v35 = *(&self->_has + 11);
+  if ((v35 & 0x800000000000) == 0)
   {
 LABEL_277:
-    if ((v118 & 0x4000000000) == 0)
+    if ((v35 & 0x4000000000) == 0)
     {
       goto LABEL_278;
     }
@@ -21860,13 +21668,12 @@ LABEL_277:
   }
 
 LABEL_1215:
-  slotTodaysTimeOfDayBudgetForSlot = self->_slotTodaysTimeOfDayBudgetForSlot;
   PBDataWriterWriteInt32Field();
-  v118 = *(&self->_has + 11);
-  if ((v118 & 0x4000000000) == 0)
+  v35 = *(&self->_has + 11);
+  if ((v35 & 0x4000000000) == 0)
   {
 LABEL_278:
-    if ((v118 & 0x8000000000) == 0)
+    if ((v35 & 0x8000000000) == 0)
     {
       goto LABEL_280;
     }
@@ -21875,44 +21682,38 @@ LABEL_278:
   }
 
 LABEL_1216:
-  slotTimeAndDayPopularity = self->_slotTimeAndDayPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x8000000000) != 0)
   {
 LABEL_279:
-    slotTimeAndLocationPopularity = self->_slotTimeAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_280:
   if (*(&self->_has + 81))
   {
-    slotDayAndLocationPopularity = self->_slotDayAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 92) & 0x20) != 0)
   {
-    slotTimeAndDayAndLocationPopularity = self->_slotTimeAndDayAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 80) & 0x40) != 0)
   {
-    slotCoreMotionPopularity = self->_slotCoreMotionPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v123 = *(&self->_has + 11);
-  if ((v123 & 0x400000000) != 0)
+  v36 = *(&self->_has + 11);
+  if ((v36 & 0x400000000) != 0)
   {
-    slotPreviousLocationPopularity = self->_slotPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v123 = *(&self->_has + 11);
-    if ((v123 & 0x100000000) == 0)
+    v36 = *(&self->_has + 11);
+    if ((v36 & 0x100000000) == 0)
     {
 LABEL_288:
-      if ((v123 & 0x200000000) == 0)
+      if ((v36 & 0x200000000) == 0)
       {
         goto LABEL_289;
       }
@@ -21921,18 +21722,17 @@ LABEL_288:
     }
   }
 
-  else if ((v123 & 0x100000000) == 0)
+  else if ((v36 & 0x100000000) == 0)
   {
     goto LABEL_288;
   }
 
-  slotPreviousLocationAndCoreMotionPopularity = self->_slotPreviousLocationAndCoreMotionPopularity;
   PBDataWriterWriteInt32Field();
-  v123 = *(&self->_has + 11);
-  if ((v123 & 0x200000000) == 0)
+  v36 = *(&self->_has + 11);
+  if ((v36 & 0x200000000) == 0)
   {
 LABEL_289:
-    if ((v123 & 0x10000000000) == 0)
+    if ((v36 & 0x10000000000) == 0)
     {
       goto LABEL_291;
     }
@@ -21941,26 +21741,23 @@ LABEL_289:
   }
 
 LABEL_1220:
-  slotPreviousLocationAndLocationPopularity = self->_slotPreviousLocationAndLocationPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x10000000000) != 0)
   {
 LABEL_290:
-    slotTimeAndPreviousLocationPopularity = self->_slotTimeAndPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_291:
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x200) != 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x200) != 0)
   {
-    slotDayAndPreviousLocationPopularity = self->_slotDayAndPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v125 = *(&self->_has + 10);
-    if ((v125 & 0x80000000) == 0)
+    v37 = *(&self->_has + 10);
+    if ((v37 & 0x80000000) == 0)
     {
 LABEL_293:
-      if ((v125 & 0x100000000000) == 0)
+      if ((v37 & 0x100000000000) == 0)
       {
         goto LABEL_294;
       }
@@ -21969,18 +21766,17 @@ LABEL_293:
     }
   }
 
-  else if ((v125 & 0x80000000) == 0)
+  else if ((v37 & 0x80000000) == 0)
   {
     goto LABEL_293;
   }
 
-  slotFeedbackTotalConfirmsForSlot = self->_slotFeedbackTotalConfirmsForSlot;
   PBDataWriterWriteInt32Field();
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x100000000000) == 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x100000000000) == 0)
   {
 LABEL_294:
-    if ((v125 & 0x40000000) == 0)
+    if ((v37 & 0x40000000) == 0)
     {
       goto LABEL_295;
     }
@@ -21989,13 +21785,12 @@ LABEL_294:
   }
 
 LABEL_1224:
-  slotFeedbackTotalRejectsForSlot = self->_slotFeedbackTotalRejectsForSlot;
   PBDataWriterWriteInt32Field();
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x40000000) == 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x40000000) == 0)
   {
 LABEL_295:
-    if ((v125 & 0x80000000000) == 0)
+    if ((v37 & 0x80000000000) == 0)
     {
       goto LABEL_296;
     }
@@ -22004,13 +21799,12 @@ LABEL_295:
   }
 
 LABEL_1225:
-  slotFeedbackTotalConfirmsForAllSlots = self->_slotFeedbackTotalConfirmsForAllSlots;
   PBDataWriterWriteInt32Field();
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x80000000000) == 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x80000000000) == 0)
   {
 LABEL_296:
-    if ((v125 & 0x1000) == 0)
+    if ((v37 & 0x1000) == 0)
     {
       goto LABEL_297;
     }
@@ -22019,13 +21813,12 @@ LABEL_296:
   }
 
 LABEL_1226:
-  slotFeedbackTotalRejectsForAllSlots = self->_slotFeedbackTotalRejectsForAllSlots;
   PBDataWriterWriteInt32Field();
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x1000) == 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x1000) == 0)
   {
 LABEL_297:
-    if ((v125 & 0x8000) == 0)
+    if ((v37 & 0x8000) == 0)
     {
       goto LABEL_298;
     }
@@ -22034,13 +21827,12 @@ LABEL_297:
   }
 
 LABEL_1227:
-  slotFeedbackConfirmRatio = self->_slotFeedbackConfirmRatio;
   PBDataWriterWriteInt32Field();
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x8000) == 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x8000) == 0)
   {
 LABEL_298:
-    if ((v125 & 0x4000) == 0)
+    if ((v37 & 0x4000) == 0)
     {
       goto LABEL_299;
     }
@@ -22049,13 +21841,12 @@ LABEL_298:
   }
 
 LABEL_1228:
-  slotFeedbackConfirmRatioStdDev = self->_slotFeedbackConfirmRatioStdDev;
   PBDataWriterWriteInt32Field();
-  v125 = *(&self->_has + 10);
-  if ((v125 & 0x4000) == 0)
+  v37 = *(&self->_has + 10);
+  if ((v37 & 0x4000) == 0)
   {
 LABEL_299:
-    if ((v125 & 0x2000) == 0)
+    if ((v37 & 0x2000) == 0)
     {
       goto LABEL_301;
     }
@@ -22064,38 +21855,33 @@ LABEL_299:
   }
 
 LABEL_1229:
-  slotFeedbackConfirmRatioMean = self->_slotFeedbackConfirmRatioMean;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 10) & 0x2000) != 0)
   {
 LABEL_300:
-    slotFeedbackConfirmRatioCount = self->_slotFeedbackConfirmRatioCount;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_301:
   if ((*(&self->_has + 7) & 2) != 0)
   {
-    actionLaunchPopularity = self->_actionLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 11) & 8) != 0)
   {
-    actionTimeOfDayPopularity = self->_actionTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v129 = *p_has;
+  v38 = *p_has;
   if ((*p_has & 0x2000) != 0)
   {
-    actionCoarseTimeOfDayPopularity = self->_actionCoarseTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
-    v129 = *p_has;
+    v38 = *p_has;
     if ((*p_has & 0x4000000000) == 0)
     {
 LABEL_307:
-      if ((v129 & 0x400000000000000) == 0)
+      if ((v38 & 0x400000000000000) == 0)
       {
         goto LABEL_309;
       }
@@ -22104,63 +21890,55 @@ LABEL_307:
     }
   }
 
-  else if ((v129 & 0x4000000000) == 0)
+  else if ((v38 & 0x4000000000) == 0)
   {
     goto LABEL_307;
   }
 
-  actionDayOfWeekPopularity = self->_actionDayOfWeekPopularity;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x400000000000000) != 0)
   {
 LABEL_308:
-    actionLocationPopularity = self->_actionLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_309:
-  v131 = *(&self->_has + 1);
-  if ((v131 & 0x1000000) != 0)
+  v39 = *(&self->_has + 1);
+  if ((v39 & 0x1000000) != 0)
   {
-    actionTimeAndDayPopularity = self->_actionTimeAndDayPopularity;
     PBDataWriterWriteInt32Field();
-    v131 = *(&self->_has + 1);
+    v39 = *(&self->_has + 1);
   }
 
-  if ((v131 & 0x2000000) != 0)
+  if ((v39 & 0x2000000) != 0)
   {
-    actionTimeAndLocationPopularity = self->_actionTimeAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 4) & 0x10) != 0)
   {
-    actionDayAndLocationPopularity = self->_actionDayAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 10) & 0x80) != 0)
   {
-    actionTimeAndDayAndLocationPopularity = self->_actionTimeAndDayAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 4) & 4) != 0)
   {
-    actionCoreMotionPopularity = self->_actionCoreMotionPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v137 = *(&self->_has + 1);
-  if ((v137 & 4) != 0)
+  v40 = *(&self->_has + 1);
+  if ((v40 & 4) != 0)
   {
-    actionPreviousLocationPopularity = self->_actionPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v137 = *(&self->_has + 1);
-    if ((v137 & 1) == 0)
+    v40 = *(&self->_has + 1);
+    if ((v40 & 1) == 0)
     {
 LABEL_321:
-      if ((v137 & 2) == 0)
+      if ((v40 & 2) == 0)
       {
         goto LABEL_322;
       }
@@ -22169,18 +21947,17 @@ LABEL_321:
     }
   }
 
-  else if ((v137 & 1) == 0)
+  else if ((v40 & 1) == 0)
   {
     goto LABEL_321;
   }
 
-  actionPreviousLocationAndCoreMotionPopularity = self->_actionPreviousLocationAndCoreMotionPopularity;
   PBDataWriterWriteInt32Field();
-  v137 = *(&self->_has + 1);
-  if ((v137 & 2) == 0)
+  v40 = *(&self->_has + 1);
+  if ((v40 & 2) == 0)
   {
 LABEL_322:
-    if ((v137 & 0x4000000) == 0)
+    if ((v40 & 0x4000000) == 0)
     {
       goto LABEL_324;
     }
@@ -22189,146 +21966,125 @@ LABEL_322:
   }
 
 LABEL_1236:
-  actionPreviousLocationAndLocationPopularity = self->_actionPreviousLocationAndLocationPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x4000000) != 0)
   {
 LABEL_323:
-    actionTimeAndPreviousLocationPopularity = self->_actionTimeAndPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_324:
   if ((*(&self->_has + 4) & 0x20) != 0)
   {
-    actionDayAndPreviousLocationPopularity = self->_actionDayAndPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v140 = *(&self->_has + 1);
-  if ((v140 & 0x80000000) != 0)
+  v41 = *(&self->_has + 1);
+  if ((v41 & 0x80000000) != 0)
   {
-    actionTotalConfirms = self->_actionTotalConfirms;
     PBDataWriterWriteInt32Field();
-    v140 = *(&self->_has + 1);
+    v41 = *(&self->_has + 1);
   }
 
-  if ((v140 & 0x200000000) != 0)
+  if ((v41 & 0x200000000) != 0)
   {
-    actionTotalRejects = self->_actionTotalRejects;
     PBDataWriterWriteInt32Field();
   }
 
-  v143 = *(&self->_has + 2);
-  if ((v143 & 0x800000000000000) != 0)
+  v42 = *(&self->_has + 2);
+  if ((v42 & 0x800000000000000) != 0)
   {
-    appActionScore = self->_appActionScore;
     PBDataWriterWriteInt32Field();
-    v143 = *(&self->_has + 2);
+    v42 = *(&self->_has + 2);
   }
 
-  if ((v143 & 0x200000000000000) != 0)
+  if ((v42 & 0x200000000000000) != 0)
   {
-    appActionLogProbability = self->_appActionLogProbability;
     PBDataWriterWriteInt32Field();
   }
 
-  v146 = *(&self->_has + 11);
-  if ((v146 & 0x800000000) != 0)
+  v43 = *(&self->_has + 11);
+  if ((v43 & 0x800000000) != 0)
   {
-    slotScore = self->_slotScore;
     PBDataWriterWriteInt32Field();
-    v146 = *(&self->_has + 11);
+    v43 = *(&self->_has + 11);
   }
 
-  if ((v146 & 0x800000) != 0)
+  if ((v43 & 0x800000) != 0)
   {
-    slotLogProbability = self->_slotLogProbability;
     PBDataWriterWriteInt32Field();
   }
 
-  v149 = *p_has;
+  v44 = *p_has;
   if ((*p_has & 0x40000000000000) != 0)
   {
-    actionIsFutureMedia = self->_actionIsFutureMedia;
     PBDataWriterWriteInt32Field();
-    v149 = *p_has;
+    v44 = *p_has;
   }
 
-  if ((v149 & 0x20000000000000) != 0)
+  if ((v44 & 0x20000000000000) != 0)
   {
-    actionIsBackgroundExecutable = self->_actionIsBackgroundExecutable;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 43) & 0x20) != 0)
   {
-    appIntentSlotCountForAllAppActions = self->_appIntentSlotCountForAllAppActions;
     PBDataWriterWriteInt32Field();
   }
 
   if (*(&self->_has + 91))
   {
-    slotNumDocFreqForRootOfApp = self->_slotNumDocFreqForRootOfApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v154 = *(&self->_has + 4);
-  if ((v154 & 0x10000000) != 0)
+  v45 = *(&self->_has + 4);
+  if ((v45 & 0x10000000) != 0)
   {
-    appForAllIntentsCoreMotionPopularity = self->_appForAllIntentsCoreMotionPopularity;
     PBDataWriterWriteInt32Field();
-    v154 = *(&self->_has + 4);
+    v45 = *(&self->_has + 4);
   }
 
-  if ((v154 & 0x2000000000000) != 0)
+  if ((v45 & 0x2000000000000) != 0)
   {
-    appForAllIntentsTotalNumberOfCoreMotionLaunches = self->_appForAllIntentsTotalNumberOfCoreMotionLaunches;
     PBDataWriterWriteInt32Field();
   }
 
-  v157 = *(&self->_has + 11);
-  if ((v157 & 0x20000) != 0)
+  v46 = *(&self->_has + 11);
+  if ((v46 & 0x20000) != 0)
   {
-    slotLaunchTimeCount = self->_slotLaunchTimeCount;
     PBDataWriterWriteInt32Field();
-    v157 = *(&self->_has + 11);
+    v46 = *(&self->_has + 11);
   }
 
-  if (v157)
+  if (v46)
   {
-    slotLaunchDayOfWeekCount = self->_slotLaunchDayOfWeekCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 87) & 4) != 0)
   {
-    slotLaunchCoarseTimeCount = self->_slotLaunchCoarseTimeCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 88) & 4) != 0)
   {
-    slotLaunchLocationCount = self->_slotLaunchLocationCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 87) & 0x10) != 0)
   {
-    slotLaunchCoreMotionCount = self->_slotLaunchCoreMotionCount;
     PBDataWriterWriteInt32Field();
   }
 
-  v163 = *(&self->_has + 11);
-  if ((v163 & 0x800) != 0)
+  v47 = *(&self->_has + 11);
+  if ((v47 & 0x800) != 0)
   {
-    slotLaunchPreviousLocationCount = self->_slotLaunchPreviousLocationCount;
     PBDataWriterWriteInt32Field();
-    v163 = *(&self->_has + 11);
-    if ((v163 & 0x4000) == 0)
+    v47 = *(&self->_has + 11);
+    if ((v47 & 0x4000) == 0)
     {
 LABEL_362:
-      if ((v163 & 0x8000) == 0)
+      if ((v47 & 0x8000) == 0)
       {
         goto LABEL_364;
       }
@@ -22337,37 +22093,33 @@ LABEL_362:
     }
   }
 
-  else if ((v163 & 0x4000) == 0)
+  else if ((v47 & 0x4000) == 0)
   {
     goto LABEL_362;
   }
 
-  slotLaunchTimeAndDayPopularity = self->_slotLaunchTimeAndDayPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x8000) != 0)
   {
 LABEL_363:
-    slotLaunchTimeAndLocationPopularity = self->_slotLaunchTimeAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_364:
   if ((*(&self->_has + 87) & 0x40) != 0)
   {
-    slotLaunchDayAndLocationPopularity = self->_slotLaunchDayAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v166 = *(&self->_has + 11);
-  if ((v166 & 0x2000) != 0)
+  v48 = *(&self->_has + 11);
+  if ((v48 & 0x2000) != 0)
   {
-    slotLaunchTimeAndDayAndLocationPopularity = self->_slotLaunchTimeAndDayAndLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v166 = *(&self->_has + 11);
-    if ((v166 & 0x200) == 0)
+    v48 = *(&self->_has + 11);
+    if ((v48 & 0x200) == 0)
     {
 LABEL_368:
-      if ((v166 & 0x400) == 0)
+      if ((v48 & 0x400) == 0)
       {
         goto LABEL_369;
       }
@@ -22376,18 +22128,17 @@ LABEL_368:
     }
   }
 
-  else if ((v166 & 0x200) == 0)
+  else if ((v48 & 0x200) == 0)
   {
     goto LABEL_368;
   }
 
-  slotLaunchPreviousLocationAndCoreMotionPopularity = self->_slotLaunchPreviousLocationAndCoreMotionPopularity;
   PBDataWriterWriteInt32Field();
-  v166 = *(&self->_has + 11);
-  if ((v166 & 0x400) == 0)
+  v48 = *(&self->_has + 11);
+  if ((v48 & 0x400) == 0)
   {
 LABEL_369:
-    if ((v166 & 0x10000) == 0)
+    if ((v48 & 0x10000) == 0)
     {
       goto LABEL_371;
     }
@@ -22396,26 +22147,23 @@ LABEL_369:
   }
 
 LABEL_1243:
-  slotLaunchPreviousLocationAndLocationPopularity = self->_slotLaunchPreviousLocationAndLocationPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x10000) != 0)
   {
 LABEL_370:
-    slotLaunchTimeAndPreviousLocationPopularity = self->_slotLaunchTimeAndPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_371:
-  v168 = *(&self->_has + 10);
-  if (v168 < 0)
+  v49 = *(&self->_has + 10);
+  if (v49 < 0)
   {
-    slotLaunchDayAndPreviousLocationPopularity = self->_slotLaunchDayAndPreviousLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v168 = *(&self->_has + 10);
-    if ((v168 & 0x100000000000000) == 0)
+    v49 = *(&self->_has + 10);
+    if ((v49 & 0x100000000000000) == 0)
     {
 LABEL_373:
-      if ((v168 & 0x40000000000000) == 0)
+      if ((v49 & 0x40000000000000) == 0)
       {
         goto LABEL_374;
       }
@@ -22424,18 +22172,17 @@ LABEL_373:
     }
   }
 
-  else if ((v168 & 0x100000000000000) == 0)
+  else if ((v49 & 0x100000000000000) == 0)
   {
     goto LABEL_373;
   }
 
-  slotIsSiriKitIntent = self->_slotIsSiriKitIntent;
   PBDataWriterWriteInt32Field();
-  v168 = *(&self->_has + 10);
-  if ((v168 & 0x40000000000000) == 0)
+  v49 = *(&self->_has + 10);
+  if ((v49 & 0x40000000000000) == 0)
   {
 LABEL_374:
-    if ((v168 & 0x80000000000000) == 0)
+    if ((v49 & 0x80000000000000) == 0)
     {
       goto LABEL_376;
     }
@@ -22444,46 +22191,40 @@ LABEL_374:
   }
 
 LABEL_1727:
-  slotIsCustomIntent = self->_slotIsCustomIntent;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 10) & 0x80000000000000) != 0)
   {
 LABEL_375:
-    slotIsNSUserActivity = self->_slotIsNSUserActivity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_376:
-  v170 = *(&self->_has + 11);
-  if ((v170 & 0x10000000000000) != 0)
+  v50 = *(&self->_has + 11);
+  if ((v50 & 0x10000000000000) != 0)
   {
-    slotTotalNumberOfUndecayedLaunchesForSlot = self->_slotTotalNumberOfUndecayedLaunchesForSlot;
     PBDataWriterWriteInt32Field();
-    v170 = *(&self->_has + 11);
+    v50 = *(&self->_has + 11);
   }
 
-  if ((v170 & 0x10000000) != 0)
+  if ((v50 & 0x10000000) != 0)
   {
-    slotOnlyLaunchedWithinShortTimeSpan = self->_slotOnlyLaunchedWithinShortTimeSpan;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 87) & 2) != 0)
   {
-    slotLOIBoost = self->_slotLOIBoost;
     PBDataWriterWriteInt32Field();
   }
 
-  v174 = *(&self->_has + 5);
-  if ((v174 & 0x8000000000) != 0)
+  v51 = *(&self->_has + 5);
+  if ((v51 & 0x8000000000) != 0)
   {
-    appIntentValueScore = self->_appIntentValueScore;
     PBDataWriterWriteInt32Field();
-    v174 = *(&self->_has + 5);
-    if ((v174 & 0x80000000000) == 0)
+    v51 = *(&self->_has + 5);
+    if ((v51 & 0x80000000000) == 0)
     {
 LABEL_384:
-      if ((v174 & 0x200000) == 0)
+      if ((v51 & 0x200000) == 0)
       {
         goto LABEL_386;
       }
@@ -22492,81 +22233,70 @@ LABEL_384:
     }
   }
 
-  else if ((v174 & 0x80000000000) == 0)
+  else if ((v51 & 0x80000000000) == 0)
   {
     goto LABEL_384;
   }
 
-  appLaunchMicroLocationPopularity = self->_appLaunchMicroLocationPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 5) & 0x200000) != 0)
   {
 LABEL_385:
-    appIntentLaunchMicroLocationPopularity = self->_appIntentLaunchMicroLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_386:
   if ((*(&self->_has + 24) & 0x10) != 0)
   {
-    appCategory = self->_appCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if (*(&self->_has + 77))
   {
-    intentCategory = self->_intentCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 6) & 0x80) != 0)
   {
-    actionKeyCategory = self->_actionKeyCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 77) & 2) != 0)
   {
-    intentCategoryFromIntentDefinition = self->_intentCategoryFromIntentDefinition;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 95) & 0x10) != 0)
   {
-    timeOfDayBucket = self->_timeOfDayBucket;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 62) & 0x80) != 0)
   {
-    dayOfWeekBucket = self->_dayOfWeekBucket;
     PBDataWriterWriteInt32Field();
   }
 
-  v182 = *(&self->_has + 5);
-  if ((v182 & 0x8000000) != 0)
+  v52 = *(&self->_has + 5);
+  if ((v52 & 0x8000000) != 0)
   {
-    appIntentPartOfWeekPopularity = self->_appIntentPartOfWeekPopularity;
     PBDataWriterWriteInt32Field();
-    v182 = *(&self->_has + 5);
+    v52 = *(&self->_has + 5);
   }
 
-  if ((v182 & 0x400000) != 0)
+  if ((v52 & 0x400000) != 0)
   {
-    appIntentLaunchPartOfWeekPopularity = self->_appIntentLaunchPartOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v185 = *(&self->_has + 11);
-  if ((v185 & 0x40) != 0)
+  v53 = *(&self->_has + 11);
+  if ((v53 & 0x40) != 0)
   {
-    slotLaunchPartOfWeekCount = self->_slotLaunchPartOfWeekCount;
     PBDataWriterWriteInt32Field();
-    v185 = *(&self->_has + 11);
-    if ((v185 & 0x80) == 0)
+    v53 = *(&self->_has + 11);
+    if ((v53 & 0x80) == 0)
     {
 LABEL_404:
-      if ((v185 & 0x80000000) == 0)
+      if ((v53 & 0x80000000) == 0)
       {
         goto LABEL_406;
       }
@@ -22575,37 +22305,33 @@ LABEL_404:
     }
   }
 
-  else if ((v185 & 0x80) == 0)
+  else if ((v53 & 0x80) == 0)
   {
     goto LABEL_404;
   }
 
-  slotLaunchPartOfWeekPopularity = self->_slotLaunchPartOfWeekPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x80000000) != 0)
   {
 LABEL_405:
-    slotPartOfWeekPopularity = self->_slotPartOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_406:
   if ((*p_has & 0x8000000000000000) != 0)
   {
-    actionPartOfWeekPopularity = self->_actionPartOfWeekPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x2000000) != 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x2000000) != 0)
   {
-    slotFeedbackMinutesSinceLastConfirmInSpotlight = self->_slotFeedbackMinutesSinceLastConfirmInSpotlight;
     PBDataWriterWriteInt32Field();
-    v188 = *(&self->_has + 10);
-    if ((v188 & 0x10000000) == 0)
+    v54 = *(&self->_has + 10);
+    if ((v54 & 0x10000000) == 0)
     {
 LABEL_410:
-      if ((v188 & 0x100000000) == 0)
+      if ((v54 & 0x100000000) == 0)
       {
         goto LABEL_411;
       }
@@ -22614,18 +22340,17 @@ LABEL_410:
     }
   }
 
-  else if ((v188 & 0x10000000) == 0)
+  else if ((v54 & 0x10000000) == 0)
   {
     goto LABEL_410;
   }
 
-  slotFeedbackMinutesSinceLastExplicitRejectInSpotlight = self->_slotFeedbackMinutesSinceLastExplicitRejectInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x100000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x100000000) == 0)
   {
 LABEL_411:
-    if ((v188 & 0x200000000000) == 0)
+    if ((v54 & 0x200000000000) == 0)
     {
       goto LABEL_412;
     }
@@ -22634,13 +22359,12 @@ LABEL_411:
   }
 
 LABEL_1253:
-  slotFeedbackTotalConfirmsForSlotInLastHourInSpotlight = self->_slotFeedbackTotalConfirmsForSlotInLastHourInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x200000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x200000000000) == 0)
   {
 LABEL_412:
-    if ((v188 & 0x200000000) == 0)
+    if ((v54 & 0x200000000) == 0)
     {
       goto LABEL_413;
     }
@@ -22649,13 +22373,12 @@ LABEL_412:
   }
 
 LABEL_1254:
-  slotFeedbackTotalRejectsForSlotInLastHourInSpotlight = self->_slotFeedbackTotalRejectsForSlotInLastHourInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x200000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x200000000) == 0)
   {
 LABEL_413:
-    if ((v188 & 0x400000000000) == 0)
+    if ((v54 & 0x400000000000) == 0)
     {
       goto LABEL_414;
     }
@@ -22664,13 +22387,12 @@ LABEL_413:
   }
 
 LABEL_1255:
-  slotFeedbackTotalConfirmsForSlotInLastTwoHoursInSpotlight = self->_slotFeedbackTotalConfirmsForSlotInLastTwoHoursInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x400000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x400000000000) == 0)
   {
 LABEL_414:
-    if ((v188 & 0x2000000000) == 0)
+    if ((v54 & 0x2000000000) == 0)
     {
       goto LABEL_415;
     }
@@ -22679,13 +22401,12 @@ LABEL_414:
   }
 
 LABEL_1256:
-  slotFeedbackTotalRejectsForSlotInLastTwoHoursInSpotlight = self->_slotFeedbackTotalRejectsForSlotInLastTwoHoursInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x2000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x2000000000) == 0)
   {
 LABEL_415:
-    if ((v188 & 0x4000000000000) == 0)
+    if ((v54 & 0x4000000000000) == 0)
     {
       goto LABEL_416;
     }
@@ -22694,13 +22415,12 @@ LABEL_415:
   }
 
 LABEL_1257:
-  slotFeedbackTotalConfirmsForSlotTodayInSpotlight = self->_slotFeedbackTotalConfirmsForSlotTodayInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x4000000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x4000000000000) == 0)
   {
 LABEL_416:
-    if ((v188 & 0x800000000) == 0)
+    if ((v54 & 0x800000000) == 0)
     {
       goto LABEL_417;
     }
@@ -22709,13 +22429,12 @@ LABEL_416:
   }
 
 LABEL_1258:
-  slotFeedbackTotalRejectsForSlotTodayInSpotlight = self->_slotFeedbackTotalRejectsForSlotTodayInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x800000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x800000000) == 0)
   {
 LABEL_417:
-    if ((v188 & 0x1000000000000) == 0)
+    if ((v54 & 0x1000000000000) == 0)
     {
       goto LABEL_418;
     }
@@ -22724,13 +22443,12 @@ LABEL_417:
   }
 
 LABEL_1259:
-  slotFeedbackTotalConfirmsForSlotInSpotlight = self->_slotFeedbackTotalConfirmsForSlotInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x1000000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x1000000000000) == 0)
   {
 LABEL_418:
-    if ((v188 & 0x200000) == 0)
+    if ((v54 & 0x200000) == 0)
     {
       goto LABEL_419;
     }
@@ -22739,13 +22457,12 @@ LABEL_418:
   }
 
 LABEL_1260:
-  slotFeedbackTotalRejectsForSlotInSpotlight = self->_slotFeedbackTotalRejectsForSlotInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x200000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x200000) == 0)
   {
 LABEL_419:
-    if ((v188 & 0x80000) == 0)
+    if ((v54 & 0x80000) == 0)
     {
       goto LABEL_420;
     }
@@ -22754,13 +22471,12 @@ LABEL_419:
   }
 
 LABEL_1261:
-  slotFeedbackConfirmsPartOfWeekCountInSpotlight = self->_slotFeedbackConfirmsPartOfWeekCountInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x80000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x80000) == 0)
   {
 LABEL_420:
-    if ((v188 & 0x800000) == 0)
+    if ((v54 & 0x800000) == 0)
     {
       goto LABEL_421;
     }
@@ -22769,13 +22485,12 @@ LABEL_420:
   }
 
 LABEL_1262:
-  slotFeedbackConfirmsDayCountInSpotlight = self->_slotFeedbackConfirmsDayCountInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x800000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x800000) == 0)
   {
 LABEL_421:
-    if ((v188 & 0x20000) == 0)
+    if ((v54 & 0x20000) == 0)
     {
       goto LABEL_422;
     }
@@ -22784,13 +22499,12 @@ LABEL_421:
   }
 
 LABEL_1263:
-  slotFeedbackConfirmsTimeOfDayCountInSpotlight = self->_slotFeedbackConfirmsTimeOfDayCountInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x20000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x20000) == 0)
   {
 LABEL_422:
-    if ((v188 & 0x1000000000) == 0)
+    if ((v54 & 0x1000000000) == 0)
     {
       goto LABEL_423;
     }
@@ -22799,13 +22513,12 @@ LABEL_422:
   }
 
 LABEL_1264:
-  slotFeedbackConfirmsCoarseTimeOfDayCountInSpotlight = self->_slotFeedbackConfirmsCoarseTimeOfDayCountInSpotlight;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x1000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x1000000000) == 0)
   {
 LABEL_423:
-    if ((v188 & 0x2000000000000) == 0)
+    if ((v54 & 0x2000000000000) == 0)
     {
       goto LABEL_424;
     }
@@ -22814,13 +22527,12 @@ LABEL_423:
   }
 
 LABEL_1265:
-  slotFeedbackTotalConfirmsForSlotTodayInLockscreen = self->_slotFeedbackTotalConfirmsForSlotTodayInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x2000000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x2000000000000) == 0)
   {
 LABEL_424:
-    if ((v188 & 0x1000000) == 0)
+    if ((v54 & 0x1000000) == 0)
     {
       goto LABEL_425;
     }
@@ -22829,13 +22541,12 @@ LABEL_424:
   }
 
 LABEL_1266:
-  slotFeedbackTotalRejectsForSlotTodayInLockscreen = self->_slotFeedbackTotalRejectsForSlotTodayInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x1000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x1000000) == 0)
   {
 LABEL_425:
-    if ((v188 & 0x20000000) == 0)
+    if ((v54 & 0x20000000) == 0)
     {
       goto LABEL_426;
     }
@@ -22844,13 +22555,12 @@ LABEL_425:
   }
 
 LABEL_1267:
-  slotFeedbackMinutesSinceLastConfirmInLockscreen = self->_slotFeedbackMinutesSinceLastConfirmInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x20000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x20000000) == 0)
   {
 LABEL_426:
-    if ((v188 & 0x8000000) == 0)
+    if ((v54 & 0x8000000) == 0)
     {
       goto LABEL_427;
     }
@@ -22859,13 +22569,12 @@ LABEL_426:
   }
 
 LABEL_1268:
-  slotFeedbackMinutesSinceLastRejectInLockscreen = self->_slotFeedbackMinutesSinceLastRejectInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x8000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x8000000) == 0)
   {
 LABEL_427:
-    if ((v188 & 0x400000000) == 0)
+    if ((v54 & 0x400000000) == 0)
     {
       goto LABEL_428;
     }
@@ -22874,13 +22583,12 @@ LABEL_427:
   }
 
 LABEL_1269:
-  slotFeedbackMinutesSinceLastExplicitRejectInLockscreen = self->_slotFeedbackMinutesSinceLastExplicitRejectInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x400000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x400000000) == 0)
   {
 LABEL_428:
-    if ((v188 & 0x800000000000) == 0)
+    if ((v54 & 0x800000000000) == 0)
     {
       goto LABEL_429;
     }
@@ -22889,13 +22597,12 @@ LABEL_428:
   }
 
 LABEL_1270:
-  slotFeedbackTotalConfirmsForSlotInLockscreen = self->_slotFeedbackTotalConfirmsForSlotInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x800000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x800000000000) == 0)
   {
 LABEL_429:
-    if ((v188 & 0x100000) == 0)
+    if ((v54 & 0x100000) == 0)
     {
       goto LABEL_430;
     }
@@ -22904,13 +22611,12 @@ LABEL_429:
   }
 
 LABEL_1271:
-  slotFeedbackTotalRejectsForSlotInLockscreen = self->_slotFeedbackTotalRejectsForSlotInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x100000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x100000) == 0)
   {
 LABEL_430:
-    if ((v188 & 0x40000) == 0)
+    if ((v54 & 0x40000) == 0)
     {
       goto LABEL_431;
     }
@@ -22919,13 +22625,12 @@ LABEL_430:
   }
 
 LABEL_1272:
-  slotFeedbackConfirmsPartOfWeekCountInLockscreen = self->_slotFeedbackConfirmsPartOfWeekCountInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x40000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x40000) == 0)
   {
 LABEL_431:
-    if ((v188 & 0x400000) == 0)
+    if ((v54 & 0x400000) == 0)
     {
       goto LABEL_432;
     }
@@ -22934,13 +22639,12 @@ LABEL_431:
   }
 
 LABEL_1273:
-  slotFeedbackConfirmsDayCountInLockscreen = self->_slotFeedbackConfirmsDayCountInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x400000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x400000) == 0)
   {
 LABEL_432:
-    if ((v188 & 0x10000) == 0)
+    if ((v54 & 0x10000) == 0)
     {
       goto LABEL_433;
     }
@@ -22949,13 +22653,12 @@ LABEL_432:
   }
 
 LABEL_1274:
-  slotFeedbackConfirmsTimeOfDayCountInLockscreen = self->_slotFeedbackConfirmsTimeOfDayCountInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x10000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x10000) == 0)
   {
 LABEL_433:
-    if ((v188 & 0x10000000000) == 0)
+    if ((v54 & 0x10000000000) == 0)
     {
       goto LABEL_434;
     }
@@ -22964,13 +22667,12 @@ LABEL_433:
   }
 
 LABEL_1275:
-  slotFeedbackConfirmsCoarseTimeOfDayCountInLockscreen = self->_slotFeedbackConfirmsCoarseTimeOfDayCountInLockscreen;
   PBDataWriterWriteInt32Field();
-  v188 = *(&self->_has + 10);
-  if ((v188 & 0x10000000000) == 0)
+  v54 = *(&self->_has + 10);
+  if ((v54 & 0x10000000000) == 0)
   {
 LABEL_434:
-    if ((v188 & 0x20000000000000) == 0)
+    if ((v54 & 0x20000000000000) == 0)
     {
       goto LABEL_436;
     }
@@ -22979,26 +22681,23 @@ LABEL_434:
   }
 
 LABEL_1276:
-  slotFeedbackTotalConfirmsTodayInLockscreenForAllSlots = self->_slotFeedbackTotalConfirmsTodayInLockscreenForAllSlots;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 10) & 0x20000000000000) != 0)
   {
 LABEL_435:
-    slotFeedbackTotalRejectsTodayInLockscreenForAllSlots = self->_slotFeedbackTotalRejectsTodayInLockscreenForAllSlots;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_436:
-  v190 = *p_has;
+  v55 = *p_has;
   if ((*p_has & 0x400000000000) != 0)
   {
-    actionFeedbackTotalConfirmsInSpotlight = self->_actionFeedbackTotalConfirmsInSpotlight;
     PBDataWriterWriteInt32Field();
-    v190 = *p_has;
+    v55 = *p_has;
     if ((*p_has & 0x2000000000000) == 0)
     {
 LABEL_438:
-      if ((v190 & 0x800000000000) == 0)
+      if ((v55 & 0x800000000000) == 0)
       {
         goto LABEL_439;
       }
@@ -23007,18 +22706,17 @@ LABEL_438:
     }
   }
 
-  else if ((v190 & 0x2000000000000) == 0)
+  else if ((v55 & 0x2000000000000) == 0)
   {
     goto LABEL_438;
   }
 
-  actionFeedbackTotalRejectsInSpotlight = self->_actionFeedbackTotalRejectsInSpotlight;
   PBDataWriterWriteInt32Field();
-  v190 = *p_has;
+  v55 = *p_has;
   if ((*p_has & 0x800000000000) == 0)
   {
 LABEL_439:
-    if ((v190 & 0x4000000000000) == 0)
+    if ((v55 & 0x4000000000000) == 0)
     {
       goto LABEL_440;
     }
@@ -23027,13 +22725,12 @@ LABEL_439:
   }
 
 LABEL_1280:
-  actionFeedbackTotalConfirmsTodayInLockscreen = self->_actionFeedbackTotalConfirmsTodayInLockscreen;
   PBDataWriterWriteInt32Field();
-  v190 = *p_has;
+  v55 = *p_has;
   if ((*p_has & 0x4000000000000) == 0)
   {
 LABEL_440:
-    if ((v190 & 0x200000000000) == 0)
+    if ((v55 & 0x200000000000) == 0)
     {
       goto LABEL_441;
     }
@@ -23042,13 +22739,12 @@ LABEL_440:
   }
 
 LABEL_1281:
-  actionFeedbackTotalRejectsTodayInLockscreen = self->_actionFeedbackTotalRejectsTodayInLockscreen;
   PBDataWriterWriteInt32Field();
-  v190 = *p_has;
+  v55 = *p_has;
   if ((*p_has & 0x200000000000) == 0)
   {
 LABEL_441:
-    if ((v190 & 0x1000000000000) == 0)
+    if ((v55 & 0x1000000000000) == 0)
     {
       goto LABEL_443;
     }
@@ -23057,26 +22753,23 @@ LABEL_441:
   }
 
 LABEL_1282:
-  actionFeedbackTotalConfirmsInLockscreen = self->_actionFeedbackTotalConfirmsInLockscreen;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x1000000000000) != 0)
   {
 LABEL_442:
-    actionFeedbackTotalRejectsInLockscreen = self->_actionFeedbackTotalRejectsInLockscreen;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_443:
-  v192 = *(&self->_has + 10);
-  if ((v192 & 0x8000000000) != 0)
+  v56 = *(&self->_has + 10);
+  if ((v56 & 0x8000000000) != 0)
   {
-    slotFeedbackTotalConfirmsInSpotlightForAllSlots = self->_slotFeedbackTotalConfirmsInSpotlightForAllSlots;
     PBDataWriterWriteInt32Field();
-    v192 = *(&self->_has + 10);
-    if ((v192 & 0x10000000000000) == 0)
+    v56 = *(&self->_has + 10);
+    if ((v56 & 0x10000000000000) == 0)
     {
 LABEL_445:
-      if ((v192 & 0x4000000000) == 0)
+      if ((v56 & 0x4000000000) == 0)
       {
         goto LABEL_446;
       }
@@ -23085,18 +22778,17 @@ LABEL_445:
     }
   }
 
-  else if ((v192 & 0x10000000000000) == 0)
+  else if ((v56 & 0x10000000000000) == 0)
   {
     goto LABEL_445;
   }
 
-  slotFeedbackTotalRejectsInSpotlightForAllSlots = self->_slotFeedbackTotalRejectsInSpotlightForAllSlots;
   PBDataWriterWriteInt32Field();
-  v192 = *(&self->_has + 10);
-  if ((v192 & 0x4000000000) == 0)
+  v56 = *(&self->_has + 10);
+  if ((v56 & 0x4000000000) == 0)
   {
 LABEL_446:
-    if ((v192 & 0x8000000000000) == 0)
+    if ((v56 & 0x8000000000000) == 0)
     {
       goto LABEL_448;
     }
@@ -23105,66 +22797,57 @@ LABEL_446:
   }
 
 LABEL_1286:
-  slotFeedbackTotalConfirmsInLockscreenForAllSlots = self->_slotFeedbackTotalConfirmsInLockscreenForAllSlots;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 10) & 0x8000000000000) != 0)
   {
 LABEL_447:
-    slotFeedbackTotalRejectsInLockscreenForAllSlots = self->_slotFeedbackTotalRejectsInLockscreenForAllSlots;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_448:
-  v194 = *(&self->_has + 11);
-  if ((v194 & 0x20000000) != 0)
+  v57 = *(&self->_has + 11);
+  if ((v57 & 0x20000000) != 0)
   {
-    slotPartOfWeekAndLocationPopularity = self->_slotPartOfWeekAndLocationPopularity;
     PBDataWriterWriteInt32Field();
-    v194 = *(&self->_has + 11);
+    v57 = *(&self->_has + 11);
   }
 
-  if ((v194 & 0x10) != 0)
+  if ((v57 & 0x10) != 0)
   {
-    slotLaunchPartOfWeekAndLocationPopularity = self->_slotLaunchPartOfWeekAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 7) & 0x20) != 0)
   {
-    actionPartOfWeekAndLocationPopularity = self->_actionPartOfWeekAndLocationPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v198 = *(&self->_has + 11);
-  if ((v198 & 0x20) != 0)
+  v58 = *(&self->_has + 11);
+  if ((v58 & 0x20) != 0)
   {
-    slotLaunchPartOfWeekAndTimePopularity = self->_slotLaunchPartOfWeekAndTimePopularity;
     PBDataWriterWriteInt32Field();
-    v198 = *(&self->_has + 11);
+    v58 = *(&self->_has + 11);
   }
 
-  if ((v198 & 0x40000000) != 0)
+  if ((v58 & 0x40000000) != 0)
   {
-    slotPartOfWeekAndTimePopularity = self->_slotPartOfWeekAndTimePopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 7) & 0x40) != 0)
   {
-    actionPartOfWeekAndTimePopularity = self->_actionPartOfWeekAndTimePopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x80000) != 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x80000) != 0)
   {
-    totalLaunchesForAllActionsUsingTimeDecay = self->_totalLaunchesForAllActionsUsingTimeDecay;
     PBDataWriterWriteInt32Field();
-    v202 = *(&self->_has + 12);
-    if ((v202 & 0x80) == 0)
+    v59 = *(&self->_has + 12);
+    if ((v59 & 0x80) == 0)
     {
 LABEL_462:
-      if ((v202 & 0x100) == 0)
+      if ((v59 & 0x100) == 0)
       {
         goto LABEL_463;
       }
@@ -23173,18 +22856,17 @@ LABEL_462:
     }
   }
 
-  else if ((v202 & 0x80) == 0)
+  else if ((v59 & 0x80) == 0)
   {
     goto LABEL_462;
   }
 
-  totalLaunchesForAllActionsUsingDayOfWeekDecay = self->_totalLaunchesForAllActionsUsingDayOfWeekDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x100) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x100) == 0)
   {
 LABEL_463:
-    if ((v202 & 0x10) == 0)
+    if ((v59 & 0x10) == 0)
     {
       goto LABEL_464;
     }
@@ -23193,13 +22875,12 @@ LABEL_463:
   }
 
 LABEL_1290:
-  totalLaunchesForAllActionsUsingLocationDecay = self->_totalLaunchesForAllActionsUsingLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x10) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x10) == 0)
   {
 LABEL_464:
-    if ((v202 & 0x4000) == 0)
+    if ((v59 & 0x4000) == 0)
     {
       goto LABEL_465;
     }
@@ -23208,13 +22889,12 @@ LABEL_464:
   }
 
 LABEL_1291:
-  totalLaunchesForAllActionsUsingCoreMotionDecay = self->_totalLaunchesForAllActionsUsingCoreMotionDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x4000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x4000) == 0)
   {
 LABEL_465:
-    if ((v202 & 0x800) == 0)
+    if ((v59 & 0x800) == 0)
     {
       goto LABEL_466;
     }
@@ -23223,13 +22903,12 @@ LABEL_465:
   }
 
 LABEL_1292:
-  totalLaunchesForAllActionsUsingPreviousLocationDecay = self->_totalLaunchesForAllActionsUsingPreviousLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x800) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x800) == 0)
   {
 LABEL_466:
-    if ((v202 & 0x1000) == 0)
+    if ((v59 & 0x1000) == 0)
     {
       goto LABEL_467;
     }
@@ -23238,13 +22917,12 @@ LABEL_466:
   }
 
 LABEL_1293:
-  totalLaunchesForAllActionsUsingPartOfWeekDecay = self->_totalLaunchesForAllActionsUsingPartOfWeekDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x1000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x1000) == 0)
   {
 LABEL_467:
-    if ((v202 & 0x2000) == 0)
+    if ((v59 & 0x2000) == 0)
     {
       goto LABEL_468;
     }
@@ -23253,13 +22931,12 @@ LABEL_467:
   }
 
 LABEL_1294:
-  totalLaunchesForAllActionsUsingPreviousLocationAndCoreMotionDecay = self->_totalLaunchesForAllActionsUsingPreviousLocationAndCoreMotionDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x2000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x2000) == 0)
   {
 LABEL_468:
-    if ((v202 & 0x40000) == 0)
+    if ((v59 & 0x40000) == 0)
     {
       goto LABEL_469;
     }
@@ -23268,13 +22945,12 @@ LABEL_468:
   }
 
 LABEL_1295:
-  totalLaunchesForAllActionsUsingPreviousLocationAndLocationDecay = self->_totalLaunchesForAllActionsUsingPreviousLocationAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x40000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x40000) == 0)
   {
 LABEL_469:
-    if ((v202 & 0x40) == 0)
+    if ((v59 & 0x40) == 0)
     {
       goto LABEL_470;
     }
@@ -23283,13 +22959,12 @@ LABEL_469:
   }
 
 LABEL_1296:
-  totalLaunchesForAllActionsUsingTimeAndPreviousLocationDecay = self->_totalLaunchesForAllActionsUsingTimeAndPreviousLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x40) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x40) == 0)
   {
 LABEL_470:
-    if ((v202 & 0x10000) == 0)
+    if ((v59 & 0x10000) == 0)
     {
       goto LABEL_471;
     }
@@ -23298,13 +22973,12 @@ LABEL_470:
   }
 
 LABEL_1297:
-  totalLaunchesForAllActionsUsingDayAndPreviousLocationDecay = self->_totalLaunchesForAllActionsUsingDayAndPreviousLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x10000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x10000) == 0)
   {
 LABEL_471:
-    if ((v202 & 0x20000) == 0)
+    if ((v59 & 0x20000) == 0)
     {
       goto LABEL_472;
     }
@@ -23313,13 +22987,12 @@ LABEL_471:
   }
 
 LABEL_1298:
-  totalLaunchesForAllActionsUsingTimeAndDayDecay = self->_totalLaunchesForAllActionsUsingTimeAndDayDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x20000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x20000) == 0)
   {
 LABEL_472:
-    if ((v202 & 0x20) == 0)
+    if ((v59 & 0x20) == 0)
     {
       goto LABEL_473;
     }
@@ -23328,13 +23001,12 @@ LABEL_472:
   }
 
 LABEL_1299:
-  totalLaunchesForAllActionsUsingTimeAndLocationDecay = self->_totalLaunchesForAllActionsUsingTimeAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x20) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x20) == 0)
   {
 LABEL_473:
-    if ((v202 & 0x8000) == 0)
+    if ((v59 & 0x8000) == 0)
     {
       goto LABEL_474;
     }
@@ -23343,13 +23015,12 @@ LABEL_473:
   }
 
 LABEL_1300:
-  totalLaunchesForAllActionsUsingDayAndLocationDecay = self->_totalLaunchesForAllActionsUsingDayAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x8000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x8000) == 0)
   {
 LABEL_474:
-    if ((v202 & 0x200) == 0)
+    if ((v59 & 0x200) == 0)
     {
       goto LABEL_475;
     }
@@ -23358,13 +23029,12 @@ LABEL_474:
   }
 
 LABEL_1301:
-  totalLaunchesForAllActionsUsingTimeAndDayAndLocationDecay = self->_totalLaunchesForAllActionsUsingTimeAndDayAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x200) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x200) == 0)
   {
 LABEL_475:
-    if ((v202 & 0x400) == 0)
+    if ((v59 & 0x400) == 0)
     {
       goto LABEL_476;
     }
@@ -23373,13 +23043,12 @@ LABEL_475:
   }
 
 LABEL_1302:
-  totalLaunchesForAllActionsUsingPartOfWeekAndLocationDecay = self->_totalLaunchesForAllActionsUsingPartOfWeekAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x400) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x400) == 0)
   {
 LABEL_476:
-    if ((v202 & 0x800000000) == 0)
+    if ((v59 & 0x800000000) == 0)
     {
       goto LABEL_477;
     }
@@ -23388,13 +23057,12 @@ LABEL_476:
   }
 
 LABEL_1303:
-  totalLaunchesForAllActionsUsingPartOfWeekAndTimeDecay = self->_totalLaunchesForAllActionsUsingPartOfWeekAndTimeDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x800000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x800000000) == 0)
   {
 LABEL_477:
-    if ((v202 & 0x800000) == 0)
+    if ((v59 & 0x800000) == 0)
     {
       goto LABEL_478;
     }
@@ -23403,13 +23071,12 @@ LABEL_477:
   }
 
 LABEL_1304:
-  totalLaunchesForSlotUsingTimeDecay = self->_totalLaunchesForSlotUsingTimeDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x800000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x800000) == 0)
   {
 LABEL_478:
-    if ((v202 & 0x1000000) == 0)
+    if ((v59 & 0x1000000) == 0)
     {
       goto LABEL_479;
     }
@@ -23418,13 +23085,12 @@ LABEL_478:
   }
 
 LABEL_1305:
-  totalLaunchesForSlotUsingDayOfWeekDecay = self->_totalLaunchesForSlotUsingDayOfWeekDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x1000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x1000000) == 0)
   {
 LABEL_479:
-    if ((v202 & 0x100000) == 0)
+    if ((v59 & 0x100000) == 0)
     {
       goto LABEL_480;
     }
@@ -23433,13 +23099,12 @@ LABEL_479:
   }
 
 LABEL_1306:
-  totalLaunchesForSlotUsingLocationDecay = self->_totalLaunchesForSlotUsingLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x100000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x100000) == 0)
   {
 LABEL_480:
-    if ((v202 & 0x40000000) == 0)
+    if ((v59 & 0x40000000) == 0)
     {
       goto LABEL_481;
     }
@@ -23448,13 +23113,12 @@ LABEL_480:
   }
 
 LABEL_1307:
-  totalLaunchesForSlotUsingCoreMotionDecay = self->_totalLaunchesForSlotUsingCoreMotionDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x40000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x40000000) == 0)
   {
 LABEL_481:
-    if ((v202 & 0x8000000) == 0)
+    if ((v59 & 0x8000000) == 0)
     {
       goto LABEL_482;
     }
@@ -23463,13 +23127,12 @@ LABEL_481:
   }
 
 LABEL_1308:
-  totalLaunchesForSlotUsingPreviousLocationDecay = self->_totalLaunchesForSlotUsingPreviousLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x8000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x8000000) == 0)
   {
 LABEL_482:
-    if ((v202 & 0x100000000) == 0)
+    if ((v59 & 0x100000000) == 0)
     {
       goto LABEL_483;
     }
@@ -23478,13 +23141,12 @@ LABEL_482:
   }
 
 LABEL_1309:
-  totalLaunchesForSlotUsingPartOfWeekDecay = self->_totalLaunchesForSlotUsingPartOfWeekDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x100000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x100000000) == 0)
   {
 LABEL_483:
-    if ((v202 & 0x200000000) == 0)
+    if ((v59 & 0x200000000) == 0)
     {
       goto LABEL_484;
     }
@@ -23493,13 +23155,12 @@ LABEL_483:
   }
 
 LABEL_1310:
-  totalLaunchesForSlotUsingTimeAndDayDecay = self->_totalLaunchesForSlotUsingTimeAndDayDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x200000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x200000000) == 0)
   {
 LABEL_484:
-    if ((v202 & 0x200000) == 0)
+    if ((v59 & 0x200000) == 0)
     {
       goto LABEL_485;
     }
@@ -23508,13 +23169,12 @@ LABEL_484:
   }
 
 LABEL_1311:
-  totalLaunchesForSlotUsingTimeAndLocationDecay = self->_totalLaunchesForSlotUsingTimeAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x200000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x200000) == 0)
   {
 LABEL_485:
-    if ((v202 & 0x80000000) == 0)
+    if ((v59 & 0x80000000) == 0)
     {
       goto LABEL_486;
     }
@@ -23523,13 +23183,12 @@ LABEL_485:
   }
 
 LABEL_1312:
-  totalLaunchesForSlotUsingDayAndLocationDecay = self->_totalLaunchesForSlotUsingDayAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x80000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x80000000) == 0)
   {
 LABEL_486:
-    if ((v202 & 0x20000000) == 0)
+    if ((v59 & 0x20000000) == 0)
     {
       goto LABEL_487;
     }
@@ -23538,13 +23197,12 @@ LABEL_486:
   }
 
 LABEL_1313:
-  totalLaunchesForSlotUsingTimeAndDayAndLocationDecay = self->_totalLaunchesForSlotUsingTimeAndDayAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x20000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x20000000) == 0)
   {
 LABEL_487:
-    if ((v202 & 0x10000000) == 0)
+    if ((v59 & 0x10000000) == 0)
     {
       goto LABEL_488;
     }
@@ -23553,13 +23211,12 @@ LABEL_487:
   }
 
 LABEL_1314:
-  totalLaunchesForSlotUsingPreviousLocationAndLocationDecay = self->_totalLaunchesForSlotUsingPreviousLocationAndLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x10000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x10000000) == 0)
   {
 LABEL_488:
-    if ((v202 & 0x400000000) == 0)
+    if ((v59 & 0x400000000) == 0)
     {
       goto LABEL_489;
     }
@@ -23568,13 +23225,12 @@ LABEL_488:
   }
 
 LABEL_1315:
-  totalLaunchesForSlotUsingPreviousLocationAndCoreMotionDecay = self->_totalLaunchesForSlotUsingPreviousLocationAndCoreMotionDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x400000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x400000000) == 0)
   {
 LABEL_489:
-    if ((v202 & 0x400000) == 0)
+    if ((v59 & 0x400000) == 0)
     {
       goto LABEL_490;
     }
@@ -23583,13 +23239,12 @@ LABEL_489:
   }
 
 LABEL_1316:
-  totalLaunchesForSlotUsingTimeAndPreviousLocationDecay = self->_totalLaunchesForSlotUsingTimeAndPreviousLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x400000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x400000) == 0)
   {
 LABEL_490:
-    if ((v202 & 0x2000000) == 0)
+    if ((v59 & 0x2000000) == 0)
     {
       goto LABEL_491;
     }
@@ -23598,13 +23253,12 @@ LABEL_490:
   }
 
 LABEL_1317:
-  totalLaunchesForSlotUsingDayAndPreviousLocationDecay = self->_totalLaunchesForSlotUsingDayAndPreviousLocationDecay;
   PBDataWriterWriteInt32Field();
-  v202 = *(&self->_has + 12);
-  if ((v202 & 0x2000000) == 0)
+  v59 = *(&self->_has + 12);
+  if ((v59 & 0x2000000) == 0)
   {
 LABEL_491:
-    if ((v202 & 0x4000000) == 0)
+    if ((v59 & 0x4000000) == 0)
     {
       goto LABEL_493;
     }
@@ -23613,32 +23267,28 @@ LABEL_491:
   }
 
 LABEL_1318:
-  totalLaunchesForSlotUsingPartOfWeekAndLocationDecay = self->_totalLaunchesForSlotUsingPartOfWeekAndLocationDecay;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 12) & 0x4000000) != 0)
   {
 LABEL_492:
-    totalLaunchesForSlotUsingPartOfWeekAndTimeDecay = self->_totalLaunchesForSlotUsingPartOfWeekAndTimeDecay;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_493:
   if ((*(&self->_has + 77) & 8) != 0)
   {
-    isDateInWeekendOnDevice = self->_isDateInWeekendOnDevice;
     PBDataWriterWriteInt32Field();
   }
 
-  v205 = *p_has;
+  v60 = *p_has;
   if ((*p_has & 0x800000000) != 0)
   {
-    actionCoreMotionType = self->_actionCoreMotionType;
     PBDataWriterWriteInt32Field();
-    v205 = *p_has;
+    v60 = *p_has;
     if ((*p_has & 0x100000000000000) == 0)
     {
 LABEL_497:
-      if ((v205 & 0x100000000000) == 0)
+      if ((v60 & 0x100000000000) == 0)
       {
         goto LABEL_498;
       }
@@ -23647,18 +23297,17 @@ LABEL_497:
     }
   }
 
-  else if ((v205 & 0x100000000000000) == 0)
+  else if ((v60 & 0x100000000000000) == 0)
   {
     goto LABEL_497;
   }
 
-  actionLOIType = self->_actionLOIType;
   PBDataWriterWriteInt32Field();
-  v205 = *p_has;
+  v60 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
 LABEL_498:
-    if ((v205 & 0x80000000000) == 0)
+    if ((v60 & 0x80000000000) == 0)
     {
       goto LABEL_500;
     }
@@ -23667,26 +23316,23 @@ LABEL_498:
   }
 
 LABEL_1322:
-  actionFeedbackMeanNumberOfSpotlightLaunchesPerDay = self->_actionFeedbackMeanNumberOfSpotlightLaunchesPerDay;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x80000000000) != 0)
   {
 LABEL_499:
-    actionFeedbackMeanNumberOfSpotlightConfirmsPerDay = self->_actionFeedbackMeanNumberOfSpotlightConfirmsPerDay;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_500:
-  v207 = *(&self->_has + 11);
-  if ((v207 & 0x200000) != 0)
+  v61 = *(&self->_has + 11);
+  if ((v61 & 0x200000) != 0)
   {
-    slotLaunchTimeWithThirtyMinuteWindowCount = self->_slotLaunchTimeWithThirtyMinuteWindowCount;
     PBDataWriterWriteInt32Field();
-    v207 = *(&self->_has + 11);
-    if ((v207 & 0x100000) == 0)
+    v61 = *(&self->_has + 11);
+    if ((v61 & 0x100000) == 0)
     {
 LABEL_502:
-      if ((v207 & 0x80000) == 0)
+      if ((v61 & 0x80000) == 0)
       {
         goto LABEL_503;
       }
@@ -23695,18 +23341,17 @@ LABEL_502:
     }
   }
 
-  else if ((v207 & 0x100000) == 0)
+  else if ((v61 & 0x100000) == 0)
   {
     goto LABEL_502;
   }
 
-  slotLaunchTimeWithHourWindowCount = self->_slotLaunchTimeWithHourWindowCount;
   PBDataWriterWriteInt32Field();
-  v207 = *(&self->_has + 11);
-  if ((v207 & 0x80000) == 0)
+  v61 = *(&self->_has + 11);
+  if ((v61 & 0x80000) == 0)
   {
 LABEL_503:
-    if ((v207 & 0x400000000000) == 0)
+    if ((v61 & 0x400000000000) == 0)
     {
       goto LABEL_504;
     }
@@ -23715,13 +23360,12 @@ LABEL_503:
   }
 
 LABEL_1326:
-  slotLaunchTimeWithEightHourWindowCount = self->_slotLaunchTimeWithEightHourWindowCount;
   PBDataWriterWriteInt32Field();
-  v207 = *(&self->_has + 11);
-  if ((v207 & 0x400000000000) == 0)
+  v61 = *(&self->_has + 11);
+  if ((v61 & 0x400000000000) == 0)
   {
 LABEL_504:
-    if ((v207 & 0x200000000000) == 0)
+    if ((v61 & 0x200000000000) == 0)
     {
       goto LABEL_505;
     }
@@ -23730,13 +23374,12 @@ LABEL_504:
   }
 
 LABEL_1327:
-  slotTimeOfDayWithThirtyMinuteWindowPopularity = self->_slotTimeOfDayWithThirtyMinuteWindowPopularity;
   PBDataWriterWriteInt32Field();
-  v207 = *(&self->_has + 11);
-  if ((v207 & 0x200000000000) == 0)
+  v61 = *(&self->_has + 11);
+  if ((v61 & 0x200000000000) == 0)
   {
 LABEL_505:
-    if ((v207 & 0x100000000000) == 0)
+    if ((v61 & 0x100000000000) == 0)
     {
       goto LABEL_507;
     }
@@ -23745,26 +23388,23 @@ LABEL_505:
   }
 
 LABEL_1328:
-  slotTimeOfDayWithHourWindowPopularity = self->_slotTimeOfDayWithHourWindowPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 11) & 0x100000000000) != 0)
   {
 LABEL_506:
-    slotTimeOfDayWithEightHourWindowPopularity = self->_slotTimeOfDayWithEightHourWindowPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_507:
-  v209 = *(&self->_has + 1);
-  if ((v209 & 0x40000000) != 0)
+  v62 = *(&self->_has + 1);
+  if ((v62 & 0x40000000) != 0)
   {
-    actionTimeOfDayWithThirtyMinuteWindowPopularity = self->_actionTimeOfDayWithThirtyMinuteWindowPopularity;
     PBDataWriterWriteInt32Field();
-    v209 = *(&self->_has + 1);
-    if ((v209 & 0x20000000) == 0)
+    v62 = *(&self->_has + 1);
+    if ((v62 & 0x20000000) == 0)
     {
 LABEL_509:
-      if ((v209 & 0x10000000) == 0)
+      if ((v62 & 0x10000000) == 0)
       {
         goto LABEL_511;
       }
@@ -23773,53 +23413,47 @@ LABEL_509:
     }
   }
 
-  else if ((v209 & 0x20000000) == 0)
+  else if ((v62 & 0x20000000) == 0)
   {
     goto LABEL_509;
   }
 
-  actionTimeOfDayWithHourWindowPopularity = self->_actionTimeOfDayWithHourWindowPopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x10000000) != 0)
   {
 LABEL_510:
-    actionTimeOfDayWithEightHourWindowPopularity = self->_actionTimeOfDayWithEightHourWindowPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_511:
-  v211 = *(&self->_has + 10);
-  if ((v211 & 4) != 0)
+  v63 = *(&self->_has + 10);
+  if ((v63 & 4) != 0)
   {
-    randomSessionValue = self->_randomSessionValue;
     PBDataWriterWriteInt32Field();
-    v211 = *(&self->_has + 10);
+    v63 = *(&self->_has + 10);
   }
 
-  if ((v211 & 2) != 0)
+  if ((v63 & 2) != 0)
   {
-    randomScore = self->_randomScore;
     PBDataWriterWriteInt32Field();
   }
 
-  v214 = *(&self->_has + 2);
-  if ((v214 & 0x2000000000000) != 0)
+  v64 = *(&self->_has + 2);
+  if ((v64 & 0x2000000000000) != 0)
   {
-    ambientLightTypePopularity = self->_ambientLightTypePopularity;
     PBDataWriterWriteInt32Field();
-    v214 = *(&self->_has + 2);
+    v64 = *(&self->_has + 2);
   }
 
-  if ((v214 & 0x1000000000000) != 0)
+  if ((v64 & 0x1000000000000) != 0)
   {
-    ambientLightTypeLaunchPopularity = self->_ambientLightTypeLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v217 = *(&self->_has + 4);
-  if ((v217 & 0x8000000000000000) == 0)
+  v65 = *(&self->_has + 4);
+  if ((v65 & 0x8000000000000000) == 0)
   {
-    if ((v217 & 0x4000000000000000) == 0)
+    if ((v65 & 0x4000000000000000) == 0)
     {
       goto LABEL_522;
     }
@@ -23827,120 +23461,103 @@ LABEL_511:
     goto LABEL_521;
   }
 
-  appIntentAmbientLightTypePopularity = self->_appIntentAmbientLightTypePopularity;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x4000000000000000) != 0)
   {
 LABEL_521:
-    appIntentAmbientLightTypeLaunchPopularity = self->_appIntentAmbientLightTypeLaunchPopularity;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_522:
-  v219 = *(&self->_has + 5);
-  if ((v219 & 0x20000000000) != 0)
+  v66 = *(&self->_has + 5);
+  if ((v66 & 0x20000000000) != 0)
   {
-    appLOITypeLaunches = self->_appLOITypeLaunches;
     PBDataWriterWriteInt32Field();
-    v219 = *(&self->_has + 5);
+    v66 = *(&self->_has + 5);
   }
 
-  if ((v219 & 0x40000000000) != 0)
+  if ((v66 & 0x40000000000) != 0)
   {
-    appLastAppLaunches = self->_appLastAppLaunches;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 61) & 0x80) != 0)
   {
-    appTimeOfDayLaunches = self->_appTimeOfDayLaunches;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 28) & 2) != 0)
   {
-    appDayOfWeekLaunches = self->_appDayOfWeekLaunches;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 23) & 0x40) != 0)
   {
-    appBlendedLOITypePopularity = self->_appBlendedLOITypePopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v225 = *(&self->_has + 3);
-  if (v225)
+  v67 = *(&self->_has + 3);
+  if (v67)
   {
-    appBlendedLastAppPopularity = self->_appBlendedLastAppPopularity;
     PBDataWriterWriteInt32Field();
-    v225 = *(&self->_has + 3);
+    v67 = *(&self->_has + 3);
   }
 
-  if ((v225 & 4) != 0)
+  if ((v67 & 4) != 0)
   {
-    appBlendedTimeOfDayPopularity = self->_appBlendedTimeOfDayPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v228 = *(&self->_has + 2);
-  if ((v228 & 0x1000000000000000) != 0)
+  v68 = *(&self->_has + 2);
+  if ((v68 & 0x1000000000000000) != 0)
   {
-    appBlendedDayOfWeekPopularity = self->_appBlendedDayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
-    v228 = *(&self->_has + 2);
+    v68 = *(&self->_has + 2);
   }
 
-  if (v228 < 0)
+  if (v68 < 0)
   {
-    appBlendedLOITypeSampledPopularity = self->_appBlendedLOITypeSampledPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v231 = *(&self->_has + 3);
-  if ((v231 & 2) != 0)
+  v69 = *(&self->_has + 3);
+  if ((v69 & 2) != 0)
   {
-    appBlendedLastAppSampledPopularity = self->_appBlendedLastAppSampledPopularity;
     PBDataWriterWriteInt32Field();
-    v231 = *(&self->_has + 3);
+    v69 = *(&self->_has + 3);
   }
 
-  if ((v231 & 8) != 0)
+  if ((v69 & 8) != 0)
   {
-    appBlendedTimeOfDaySampledPopularity = self->_appBlendedTimeOfDaySampledPopularity;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 23) & 0x20) != 0)
   {
-    appBlendedDayOfWeekSampledPopularity = self->_appBlendedDayOfWeekSampledPopularity;
     PBDataWriterWriteInt32Field();
   }
 
-  v235 = *(&self->_has + 4);
-  if ((v235 & 0x800000000000000) != 0)
+  v70 = *(&self->_has + 4);
+  if ((v70 & 0x800000000000000) != 0)
   {
-    appGlobalScoreGivenTimeDayLocationAndLastApp = self->_appGlobalScoreGivenTimeDayLocationAndLastApp;
     PBDataWriterWriteInt32Field();
-    v235 = *(&self->_has + 4);
+    v70 = *(&self->_has + 4);
   }
 
-  if ((v235 & 0x400000000000000) != 0)
+  if ((v70 & 0x400000000000000) != 0)
   {
-    appGlobalScoreGivenTimeDayAndLocation = self->_appGlobalScoreGivenTimeDayAndLocation;
     PBDataWriterWriteInt32Field();
   }
 
-  v238 = *(&self->_has + 7);
-  if ((v238 & 0x400000000000) != 0)
+  v71 = *(&self->_has + 7);
+  if ((v71 & 0x400000000000) != 0)
   {
-    appTimeAndDayOfWeekPopularity = self->_appTimeAndDayOfWeekPopularity;
     PBDataWriterWriteInt32Field();
-    v238 = *(&self->_has + 7);
-    if ((v238 & 0x200000) == 0)
+    v71 = *(&self->_has + 7);
+    if ((v71 & 0x200000) == 0)
     {
 LABEL_552:
-      if ((v238 & 0x400000) == 0)
+      if ((v71 & 0x400000) == 0)
       {
         goto LABEL_553;
       }
@@ -23949,18 +23566,17 @@ LABEL_552:
     }
   }
 
-  else if ((v238 & 0x200000) == 0)
+  else if ((v71 & 0x200000) == 0)
   {
     goto LABEL_552;
   }
 
-  appPopularityGivenTimeAndDayOfWeek = self->_appPopularityGivenTimeAndDayOfWeek;
   PBDataWriterWriteInt32Field();
-  v238 = *(&self->_has + 7);
-  if ((v238 & 0x400000) == 0)
+  v71 = *(&self->_has + 7);
+  if ((v71 & 0x400000) == 0)
   {
 LABEL_553:
-    if ((v238 & 0x1000000000000) == 0)
+    if ((v71 & 0x1000000000000) == 0)
     {
       goto LABEL_555;
     }
@@ -23969,26 +23585,23 @@ LABEL_553:
   }
 
 LABEL_1335:
-  appPopularityOfTimeAndDayOfWeekGivenApp = self->_appPopularityOfTimeAndDayOfWeekGivenApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x1000000000000) != 0)
   {
 LABEL_554:
-    appTotalNumberOfTimeAndDayOfWeekLaunches = self->_appTotalNumberOfTimeAndDayOfWeekLaunches;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_555:
-  v240 = *(&self->_has + 6);
-  if ((v240 & 0x800000000) != 0)
+  v72 = *(&self->_has + 6);
+  if ((v72 & 0x800000000) != 0)
   {
-    appLaunchesCoarseTimePowLocationForAppInContext = self->_appLaunchesCoarseTimePowLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v240 = *(&self->_has + 6);
-    if ((v240 & 0x1000000000) == 0)
+    v72 = *(&self->_has + 6);
+    if ((v72 & 0x1000000000) == 0)
     {
 LABEL_557:
-      if ((v240 & 0x400000000) == 0)
+      if ((v72 & 0x400000000) == 0)
       {
         goto LABEL_558;
       }
@@ -23997,18 +23610,17 @@ LABEL_557:
     }
   }
 
-  else if ((v240 & 0x1000000000) == 0)
+  else if ((v72 & 0x1000000000) == 0)
   {
     goto LABEL_557;
   }
 
-  appLaunchesCoarseTimePowLocationInContext = self->_appLaunchesCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v240 = *(&self->_has + 6);
-  if ((v240 & 0x400000000) == 0)
+  v72 = *(&self->_has + 6);
+  if ((v72 & 0x400000000) == 0)
   {
 LABEL_558:
-    if ((v240 & 0x200000000) == 0)
+    if ((v72 & 0x200000000) == 0)
     {
       goto LABEL_560;
     }
@@ -24017,26 +23629,23 @@ LABEL_558:
   }
 
 LABEL_1339:
-  appLaunchesCoarseTimePowLocationForApp = self->_appLaunchesCoarseTimePowLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 6) & 0x200000000) != 0)
   {
 LABEL_559:
-    appLaunchesCoarseTimePowLocationForAllAppsAndContexts = self->_appLaunchesCoarseTimePowLocationForAllAppsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_560:
-  v242 = *(&self->_has + 3);
-  if ((v242 & 0x40000) != 0)
+  v73 = *(&self->_has + 3);
+  if ((v73 & 0x40000) != 0)
   {
-    appConfirmsCoarseTimePowLocationForAppInContext = self->_appConfirmsCoarseTimePowLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v242 = *(&self->_has + 3);
-    if ((v242 & 0x80000) == 0)
+    v73 = *(&self->_has + 3);
+    if ((v73 & 0x80000) == 0)
     {
 LABEL_562:
-      if ((v242 & 0x20000) == 0)
+      if ((v73 & 0x20000) == 0)
       {
         goto LABEL_563;
       }
@@ -24045,18 +23654,17 @@ LABEL_562:
     }
   }
 
-  else if ((v242 & 0x80000) == 0)
+  else if ((v73 & 0x80000) == 0)
   {
     goto LABEL_562;
   }
 
-  appConfirmsCoarseTimePowLocationInContext = self->_appConfirmsCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v242 = *(&self->_has + 3);
-  if ((v242 & 0x20000) == 0)
+  v73 = *(&self->_has + 3);
+  if ((v73 & 0x20000) == 0)
   {
 LABEL_563:
-    if ((v242 & 0x10000) == 0)
+    if ((v73 & 0x10000) == 0)
     {
       goto LABEL_565;
     }
@@ -24065,26 +23673,23 @@ LABEL_563:
   }
 
 LABEL_1343:
-  appConfirmsCoarseTimePowLocationForApp = self->_appConfirmsCoarseTimePowLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x10000) != 0)
   {
 LABEL_564:
-    appConfirmsCoarseTimePowLocationForAllAppsAndContexts = self->_appConfirmsCoarseTimePowLocationForAllAppsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_565:
-  v244 = *(&self->_has + 7);
-  if ((v244 & 0x800000000) != 0)
+  v74 = *(&self->_has + 7);
+  if ((v74 & 0x800000000) != 0)
   {
-    appRejectsCoarseTimePowLocationForAppInContext = self->_appRejectsCoarseTimePowLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v244 = *(&self->_has + 7);
-    if ((v244 & 0x1000000000) == 0)
+    v74 = *(&self->_has + 7);
+    if ((v74 & 0x1000000000) == 0)
     {
 LABEL_567:
-      if ((v244 & 0x400000000) == 0)
+      if ((v74 & 0x400000000) == 0)
       {
         goto LABEL_568;
       }
@@ -24093,18 +23698,17 @@ LABEL_567:
     }
   }
 
-  else if ((v244 & 0x1000000000) == 0)
+  else if ((v74 & 0x1000000000) == 0)
   {
     goto LABEL_567;
   }
 
-  appRejectsCoarseTimePowLocationInContext = self->_appRejectsCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v244 = *(&self->_has + 7);
-  if ((v244 & 0x400000000) == 0)
+  v74 = *(&self->_has + 7);
+  if ((v74 & 0x400000000) == 0)
   {
 LABEL_568:
-    if ((v244 & 0x200000000) == 0)
+    if ((v74 & 0x200000000) == 0)
     {
       goto LABEL_569;
     }
@@ -24113,13 +23717,12 @@ LABEL_568:
   }
 
 LABEL_1347:
-  appRejectsCoarseTimePowLocationForApp = self->_appRejectsCoarseTimePowLocationForApp;
   PBDataWriterWriteInt32Field();
-  v244 = *(&self->_has + 7);
-  if ((v244 & 0x200000000) == 0)
+  v74 = *(&self->_has + 7);
+  if ((v74 & 0x200000000) == 0)
   {
 LABEL_569:
-    if ((v244 & 0x4000) == 0)
+    if ((v74 & 0x4000) == 0)
     {
       goto LABEL_570;
     }
@@ -24128,13 +23731,12 @@ LABEL_569:
   }
 
 LABEL_1348:
-  appRejectsCoarseTimePowLocationForAllAppsAndContexts = self->_appRejectsCoarseTimePowLocationForAllAppsAndContexts;
   PBDataWriterWriteInt32Field();
-  v244 = *(&self->_has + 7);
-  if ((v244 & 0x4000) == 0)
+  v74 = *(&self->_has + 7);
+  if ((v74 & 0x4000) == 0)
   {
 LABEL_570:
-    if ((v244 & 0x8000) == 0)
+    if ((v74 & 0x8000) == 0)
     {
       goto LABEL_571;
     }
@@ -24143,13 +23745,12 @@ LABEL_570:
   }
 
 LABEL_1349:
-  appLaunchesSpecificTimeDowLocationForAppInContext = self->_appLaunchesSpecificTimeDowLocationForAppInContext;
   PBDataWriterWriteInt32Field();
-  v244 = *(&self->_has + 7);
-  if ((v244 & 0x8000) == 0)
+  v74 = *(&self->_has + 7);
+  if ((v74 & 0x8000) == 0)
   {
 LABEL_571:
-    if ((v244 & 0x2000) == 0)
+    if ((v74 & 0x2000) == 0)
     {
       goto LABEL_572;
     }
@@ -24158,13 +23759,12 @@ LABEL_571:
   }
 
 LABEL_1350:
-  appLaunchesSpecificTimeDowLocationInContext = self->_appLaunchesSpecificTimeDowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v244 = *(&self->_has + 7);
-  if ((v244 & 0x2000) == 0)
+  v74 = *(&self->_has + 7);
+  if ((v74 & 0x2000) == 0)
   {
 LABEL_572:
-    if ((v244 & 0x1000) == 0)
+    if ((v74 & 0x1000) == 0)
     {
       goto LABEL_574;
     }
@@ -24173,26 +23773,23 @@ LABEL_572:
   }
 
 LABEL_1351:
-  appLaunchesSpecificTimeDowLocationForApp = self->_appLaunchesSpecificTimeDowLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x1000) != 0)
   {
 LABEL_573:
-    appLaunchesSpecificTimeDowLocationForAllAppsAndContexts = self->_appLaunchesSpecificTimeDowLocationForAllAppsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_574:
-  v246 = *(&self->_has + 3);
-  if ((v246 & 0x8000000) != 0)
+  v75 = *(&self->_has + 3);
+  if ((v75 & 0x8000000) != 0)
   {
-    appConfirmsSpecificTimeDowLocationForAppInContext = self->_appConfirmsSpecificTimeDowLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v246 = *(&self->_has + 3);
-    if ((v246 & 0x10000000) == 0)
+    v75 = *(&self->_has + 3);
+    if ((v75 & 0x10000000) == 0)
     {
 LABEL_576:
-      if ((v246 & 0x4000000) == 0)
+      if ((v75 & 0x4000000) == 0)
       {
         goto LABEL_577;
       }
@@ -24201,18 +23798,17 @@ LABEL_576:
     }
   }
 
-  else if ((v246 & 0x10000000) == 0)
+  else if ((v75 & 0x10000000) == 0)
   {
     goto LABEL_576;
   }
 
-  appConfirmsSpecificTimeDowLocationInContext = self->_appConfirmsSpecificTimeDowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v246 = *(&self->_has + 3);
-  if ((v246 & 0x4000000) == 0)
+  v75 = *(&self->_has + 3);
+  if ((v75 & 0x4000000) == 0)
   {
 LABEL_577:
-    if ((v246 & 0x2000000) == 0)
+    if ((v75 & 0x2000000) == 0)
     {
       goto LABEL_579;
     }
@@ -24221,26 +23817,23 @@ LABEL_577:
   }
 
 LABEL_1355:
-  appConfirmsSpecificTimeDowLocationForApp = self->_appConfirmsSpecificTimeDowLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x2000000) != 0)
   {
 LABEL_578:
-    appConfirmsSpecificTimeDowLocationForAllAppsAndContexts = self->_appConfirmsSpecificTimeDowLocationForAllAppsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_579:
-  v248 = *(&self->_has + 7);
-  if ((v248 & 0x100000000000) != 0)
+  v76 = *(&self->_has + 7);
+  if ((v76 & 0x100000000000) != 0)
   {
-    appRejectsSpecificTimeDowLocationForAppInContext = self->_appRejectsSpecificTimeDowLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v248 = *(&self->_has + 7);
-    if ((v248 & 0x200000000000) == 0)
+    v76 = *(&self->_has + 7);
+    if ((v76 & 0x200000000000) == 0)
     {
 LABEL_581:
-      if ((v248 & 0x80000000000) == 0)
+      if ((v76 & 0x80000000000) == 0)
       {
         goto LABEL_582;
       }
@@ -24249,18 +23842,17 @@ LABEL_581:
     }
   }
 
-  else if ((v248 & 0x200000000000) == 0)
+  else if ((v76 & 0x200000000000) == 0)
   {
     goto LABEL_581;
   }
 
-  appRejectsSpecificTimeDowLocationInContext = self->_appRejectsSpecificTimeDowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v248 = *(&self->_has + 7);
-  if ((v248 & 0x80000000000) == 0)
+  v76 = *(&self->_has + 7);
+  if ((v76 & 0x80000000000) == 0)
   {
 LABEL_582:
-    if ((v248 & 0x40000000000) == 0)
+    if ((v76 & 0x40000000000) == 0)
     {
       goto LABEL_584;
     }
@@ -24269,26 +23861,23 @@ LABEL_582:
   }
 
 LABEL_1359:
-  appRejectsSpecificTimeDowLocationForApp = self->_appRejectsSpecificTimeDowLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x40000000000) != 0)
   {
 LABEL_583:
-    appRejectsSpecificTimeDowLocationForAllAppsAndContexts = self->_appRejectsSpecificTimeDowLocationForAllAppsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_584:
-  v250 = *(&self->_has + 2);
-  if ((v250 & 0x100) != 0)
+  v77 = *(&self->_has + 2);
+  if ((v77 & 0x100) != 0)
   {
-    actionsCoarseTimePowLocationForActionInContext = self->_actionsCoarseTimePowLocationForActionInContext;
     PBDataWriterWriteInt32Field();
-    v250 = *(&self->_has + 2);
-    if ((v250 & 0x400) == 0)
+    v77 = *(&self->_has + 2);
+    if ((v77 & 0x400) == 0)
     {
 LABEL_586:
-      if ((v250 & 0x80) == 0)
+      if ((v77 & 0x80) == 0)
       {
         goto LABEL_587;
       }
@@ -24297,18 +23886,17 @@ LABEL_586:
     }
   }
 
-  else if ((v250 & 0x400) == 0)
+  else if ((v77 & 0x400) == 0)
   {
     goto LABEL_586;
   }
 
-  actionsCoarseTimePowLocationInContext = self->_actionsCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v250 = *(&self->_has + 2);
-  if ((v250 & 0x80) == 0)
+  v77 = *(&self->_has + 2);
+  if ((v77 & 0x80) == 0)
   {
 LABEL_587:
-    if ((v250 & 0x200) == 0)
+    if ((v77 & 0x200) == 0)
     {
       goto LABEL_589;
     }
@@ -24317,26 +23905,23 @@ LABEL_587:
   }
 
 LABEL_1363:
-  actionsCoarseTimePowLocationForAction = self->_actionsCoarseTimePowLocationForAction;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 2) & 0x200) != 0)
   {
 LABEL_588:
-    actionsCoarseTimePowLocationForAllActionsAndContexts = self->_actionsCoarseTimePowLocationForAllActionsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_589:
-  v252 = *p_has;
+  v78 = *p_has;
   if ((*p_has & 0x8000000) != 0)
   {
-    actionConfirmsCoarseTimePowLocationForActionInContext = self->_actionConfirmsCoarseTimePowLocationForActionInContext;
     PBDataWriterWriteInt32Field();
-    v252 = *p_has;
+    v78 = *p_has;
     if ((*p_has & 0x20000000) == 0)
     {
 LABEL_591:
-      if ((v252 & 0x4000000) == 0)
+      if ((v78 & 0x4000000) == 0)
       {
         goto LABEL_592;
       }
@@ -24345,18 +23930,17 @@ LABEL_591:
     }
   }
 
-  else if ((v252 & 0x20000000) == 0)
+  else if ((v78 & 0x20000000) == 0)
   {
     goto LABEL_591;
   }
 
-  actionConfirmsCoarseTimePowLocationInContext = self->_actionConfirmsCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v252 = *p_has;
+  v78 = *p_has;
   if ((*p_has & 0x4000000) == 0)
   {
 LABEL_592:
-    if ((v252 & 0x10000000) == 0)
+    if ((v78 & 0x10000000) == 0)
     {
       goto LABEL_594;
     }
@@ -24365,26 +23949,23 @@ LABEL_592:
   }
 
 LABEL_1367:
-  actionConfirmsCoarseTimePowLocationForAction = self->_actionConfirmsCoarseTimePowLocationForAction;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x10000000) != 0)
   {
 LABEL_593:
-    actionConfirmsCoarseTimePowLocationForAllActionsAndContexts = self->_actionConfirmsCoarseTimePowLocationForAllActionsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_594:
-  v254 = *(&self->_has + 1);
-  if ((v254 & 0x10000) != 0)
+  v79 = *(&self->_has + 1);
+  if ((v79 & 0x10000) != 0)
   {
-    actionRejectsCoarseTimePowLocationForActionInContext = self->_actionRejectsCoarseTimePowLocationForActionInContext;
     PBDataWriterWriteInt32Field();
-    v254 = *(&self->_has + 1);
-    if ((v254 & 0x40000) == 0)
+    v79 = *(&self->_has + 1);
+    if ((v79 & 0x40000) == 0)
     {
 LABEL_596:
-      if ((v254 & 0x8000) == 0)
+      if ((v79 & 0x8000) == 0)
       {
         goto LABEL_597;
       }
@@ -24393,18 +23974,17 @@ LABEL_596:
     }
   }
 
-  else if ((v254 & 0x40000) == 0)
+  else if ((v79 & 0x40000) == 0)
   {
     goto LABEL_596;
   }
 
-  actionRejectsCoarseTimePowLocationInContext = self->_actionRejectsCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v254 = *(&self->_has + 1);
-  if ((v254 & 0x8000) == 0)
+  v79 = *(&self->_has + 1);
+  if ((v79 & 0x8000) == 0)
   {
 LABEL_597:
-    if ((v254 & 0x20000) == 0)
+    if ((v79 & 0x20000) == 0)
     {
       goto LABEL_599;
     }
@@ -24413,26 +23993,23 @@ LABEL_597:
   }
 
 LABEL_1371:
-  actionRejectsCoarseTimePowLocationForAction = self->_actionRejectsCoarseTimePowLocationForAction;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x20000) != 0)
   {
 LABEL_598:
-    actionRejectsCoarseTimePowLocationForAllActionsAndContexts = self->_actionRejectsCoarseTimePowLocationForAllActionsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_599:
-  v256 = *(&self->_has + 2);
-  if ((v256 & 0x100000000000) != 0)
+  v80 = *(&self->_has + 2);
+  if ((v80 & 0x100000000000) != 0)
   {
-    actionsSpecificTimeDowLocationForActionInContext = self->_actionsSpecificTimeDowLocationForActionInContext;
     PBDataWriterWriteInt32Field();
-    v256 = *(&self->_has + 2);
-    if ((v256 & 0x400000000000) == 0)
+    v80 = *(&self->_has + 2);
+    if ((v80 & 0x400000000000) == 0)
     {
 LABEL_601:
-      if ((v256 & 0x80000000000) == 0)
+      if ((v80 & 0x80000000000) == 0)
       {
         goto LABEL_602;
       }
@@ -24441,18 +24018,17 @@ LABEL_601:
     }
   }
 
-  else if ((v256 & 0x400000000000) == 0)
+  else if ((v80 & 0x400000000000) == 0)
   {
     goto LABEL_601;
   }
 
-  actionsSpecificTimeDowLocationInContext = self->_actionsSpecificTimeDowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v256 = *(&self->_has + 2);
-  if ((v256 & 0x80000000000) == 0)
+  v80 = *(&self->_has + 2);
+  if ((v80 & 0x80000000000) == 0)
   {
 LABEL_602:
-    if ((v256 & 0x200000000000) == 0)
+    if ((v80 & 0x200000000000) == 0)
     {
       goto LABEL_604;
     }
@@ -24461,26 +24037,23 @@ LABEL_602:
   }
 
 LABEL_1375:
-  actionsSpecificTimeDowLocationForAction = self->_actionsSpecificTimeDowLocationForAction;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 2) & 0x200000000000) != 0)
   {
 LABEL_603:
-    actionsSpecificTimeDowLocationForAllActionsAndContexts = self->_actionsSpecificTimeDowLocationForAllActionsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_604:
-  v258 = *p_has;
+  v81 = *p_has;
   if ((*p_has & 0x80000000) != 0)
   {
-    actionConfirmsSpecificTimeDowLocationForActionInContext = self->_actionConfirmsSpecificTimeDowLocationForActionInContext;
     PBDataWriterWriteInt32Field();
-    v258 = *p_has;
+    v81 = *p_has;
     if ((*p_has & 0x200000000) == 0)
     {
 LABEL_606:
-      if ((v258 & 0x40000000) == 0)
+      if ((v81 & 0x40000000) == 0)
       {
         goto LABEL_607;
       }
@@ -24489,18 +24062,17 @@ LABEL_606:
     }
   }
 
-  else if ((v258 & 0x200000000) == 0)
+  else if ((v81 & 0x200000000) == 0)
   {
     goto LABEL_606;
   }
 
-  actionConfirmsSpecificTimeDowLocationInContext = self->_actionConfirmsSpecificTimeDowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v258 = *p_has;
+  v81 = *p_has;
   if ((*p_has & 0x40000000) == 0)
   {
 LABEL_607:
-    if ((v258 & 0x100000000) == 0)
+    if ((v81 & 0x100000000) == 0)
     {
       goto LABEL_609;
     }
@@ -24509,26 +24081,23 @@ LABEL_607:
   }
 
 LABEL_1379:
-  actionConfirmsSpecificTimeDowLocationForAction = self->_actionConfirmsSpecificTimeDowLocationForAction;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x100000000) != 0)
   {
 LABEL_608:
-    actionConfirmsSpecificTimeDowLocationForAllActionsAndContexts = self->_actionConfirmsSpecificTimeDowLocationForAllActionsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_609:
-  v260 = *(&self->_has + 1);
-  if ((v260 & 0x100000) != 0)
+  v82 = *(&self->_has + 1);
+  if ((v82 & 0x100000) != 0)
   {
-    actionRejectsSpecificTimeDowLocationForActionInContext = self->_actionRejectsSpecificTimeDowLocationForActionInContext;
     PBDataWriterWriteInt32Field();
-    v260 = *(&self->_has + 1);
-    if ((v260 & 0x400000) == 0)
+    v82 = *(&self->_has + 1);
+    if ((v82 & 0x400000) == 0)
     {
 LABEL_611:
-      if ((v260 & 0x80000) == 0)
+      if ((v82 & 0x80000) == 0)
       {
         goto LABEL_612;
       }
@@ -24537,18 +24106,17 @@ LABEL_611:
     }
   }
 
-  else if ((v260 & 0x400000) == 0)
+  else if ((v82 & 0x400000) == 0)
   {
     goto LABEL_611;
   }
 
-  actionRejectsSpecificTimeDowLocationInContext = self->_actionRejectsSpecificTimeDowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v260 = *(&self->_has + 1);
-  if ((v260 & 0x80000) == 0)
+  v82 = *(&self->_has + 1);
+  if ((v82 & 0x80000) == 0)
   {
 LABEL_612:
-    if ((v260 & 0x200000) == 0)
+    if ((v82 & 0x200000) == 0)
     {
       goto LABEL_614;
     }
@@ -24557,26 +24125,23 @@ LABEL_612:
   }
 
 LABEL_1383:
-  actionRejectsSpecificTimeDowLocationForAction = self->_actionRejectsSpecificTimeDowLocationForAction;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x200000) != 0)
   {
 LABEL_613:
-    actionRejectsSpecificTimeDowLocationForAllActionsAndContexts = self->_actionRejectsSpecificTimeDowLocationForAllActionsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_614:
-  v262 = *(&self->_has + 6);
-  if ((v262 & 0x20000000000) != 0)
+  v83 = *(&self->_has + 6);
+  if ((v83 & 0x20000000000) != 0)
   {
-    appLaunchesInTimeBucket0ForApp = self->_appLaunchesInTimeBucket0ForApp;
     PBDataWriterWriteInt32Field();
-    v262 = *(&self->_has + 6);
-    if ((v262 & 0x10000000000000) == 0)
+    v83 = *(&self->_has + 6);
+    if ((v83 & 0x10000000000000) == 0)
     {
 LABEL_616:
-      if ((v262 & 0x400000000000000) == 0)
+      if ((v83 & 0x400000000000000) == 0)
       {
         goto LABEL_617;
       }
@@ -24585,18 +24150,17 @@ LABEL_616:
     }
   }
 
-  else if ((v262 & 0x10000000000000) == 0)
+  else if ((v83 & 0x10000000000000) == 0)
   {
     goto LABEL_616;
   }
 
-  appLaunchesInTimeBucket1ForApp = self->_appLaunchesInTimeBucket1ForApp;
   PBDataWriterWriteInt32Field();
-  v262 = *(&self->_has + 6);
-  if ((v262 & 0x400000000000000) == 0)
+  v83 = *(&self->_has + 6);
+  if ((v83 & 0x400000000000000) == 0)
   {
 LABEL_617:
-    if ((v262 & 0x800000000000000) == 0)
+    if ((v83 & 0x800000000000000) == 0)
     {
       goto LABEL_618;
     }
@@ -24605,13 +24169,12 @@ LABEL_617:
   }
 
 LABEL_1387:
-  appLaunchesInTimeBucket2ForApp = self->_appLaunchesInTimeBucket2ForApp;
   PBDataWriterWriteInt32Field();
-  v262 = *(&self->_has + 6);
-  if ((v262 & 0x800000000000000) == 0)
+  v83 = *(&self->_has + 6);
+  if ((v83 & 0x800000000000000) == 0)
   {
 LABEL_618:
-    if ((v262 & 0x1000000000000000) == 0)
+    if ((v83 & 0x1000000000000000) == 0)
     {
       goto LABEL_619;
     }
@@ -24620,13 +24183,12 @@ LABEL_618:
   }
 
 LABEL_1388:
-  appLaunchesInTimeBucket3ForApp = self->_appLaunchesInTimeBucket3ForApp;
   PBDataWriterWriteInt32Field();
-  v262 = *(&self->_has + 6);
-  if ((v262 & 0x1000000000000000) == 0)
+  v83 = *(&self->_has + 6);
+  if ((v83 & 0x1000000000000000) == 0)
   {
 LABEL_619:
-    if ((v262 & 0x2000000000000000) == 0)
+    if ((v83 & 0x2000000000000000) == 0)
     {
       goto LABEL_620;
     }
@@ -24635,19 +24197,17 @@ LABEL_619:
   }
 
 LABEL_1389:
-  appLaunchesInTimeBucket4ForApp = self->_appLaunchesInTimeBucket4ForApp;
   PBDataWriterWriteInt32Field();
-  v262 = *(&self->_has + 6);
-  if ((v262 & 0x2000000000000000) == 0)
+  v83 = *(&self->_has + 6);
+  if ((v83 & 0x2000000000000000) == 0)
   {
 LABEL_620:
-    if ((v262 & 0x4000000000000000) == 0)
+    if ((v83 & 0x4000000000000000) == 0)
     {
       goto LABEL_621;
     }
 
 LABEL_1391:
-    appLaunchesInTimeBucket6ForApp = self->_appLaunchesInTimeBucket6ForApp;
     PBDataWriterWriteInt32Field();
     if ((*(&self->_has + 6) & 0x8000000000000000) == 0)
     {
@@ -24658,48 +24218,43 @@ LABEL_1391:
   }
 
 LABEL_1390:
-  appLaunchesInTimeBucket5ForApp = self->_appLaunchesInTimeBucket5ForApp;
   PBDataWriterWriteInt32Field();
-  v262 = *(&self->_has + 6);
-  if ((v262 & 0x4000000000000000) != 0)
+  v83 = *(&self->_has + 6);
+  if ((v83 & 0x4000000000000000) != 0)
   {
     goto LABEL_1391;
   }
 
 LABEL_621:
-  if ((v262 & 0x8000000000000000) == 0)
+  if ((v83 & 0x8000000000000000) == 0)
   {
     goto LABEL_622;
   }
 
 LABEL_1392:
-  appLaunchesInTimeBucket7ForApp = self->_appLaunchesInTimeBucket7ForApp;
   PBDataWriterWriteInt32Field();
 LABEL_622:
-  v263 = *(&self->_has + 7);
-  if (v263)
+  v84 = *(&self->_has + 7);
+  if (v84)
   {
-    appLaunchesInTimeBucket8ForApp = self->_appLaunchesInTimeBucket8ForApp;
     PBDataWriterWriteInt32Field();
-    v263 = *(&self->_has + 7);
+    v84 = *(&self->_has + 7);
   }
 
-  if ((v263 & 2) != 0)
+  if ((v84 & 2) != 0)
   {
-    appLaunchesInTimeBucket9ForApp = self->_appLaunchesInTimeBucket9ForApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x40000000000) != 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x40000000000) != 0)
   {
-    appLaunchesInTimeBucket10ForApp = self->_appLaunchesInTimeBucket10ForApp;
     PBDataWriterWriteInt32Field();
-    v266 = *(&self->_has + 6);
-    if ((v266 & 0x80000000000) == 0)
+    v85 = *(&self->_has + 6);
+    if ((v85 & 0x80000000000) == 0)
     {
 LABEL_628:
-      if ((v266 & 0x100000000000) == 0)
+      if ((v85 & 0x100000000000) == 0)
       {
         goto LABEL_629;
       }
@@ -24708,18 +24263,17 @@ LABEL_628:
     }
   }
 
-  else if ((v266 & 0x80000000000) == 0)
+  else if ((v85 & 0x80000000000) == 0)
   {
     goto LABEL_628;
   }
 
-  appLaunchesInTimeBucket11ForApp = self->_appLaunchesInTimeBucket11ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x100000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x100000000000) == 0)
   {
 LABEL_629:
-    if ((v266 & 0x200000000000) == 0)
+    if ((v85 & 0x200000000000) == 0)
     {
       goto LABEL_630;
     }
@@ -24728,13 +24282,12 @@ LABEL_629:
   }
 
 LABEL_1395:
-  appLaunchesInTimeBucket12ForApp = self->_appLaunchesInTimeBucket12ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x200000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x200000000000) == 0)
   {
 LABEL_630:
-    if ((v266 & 0x400000000000) == 0)
+    if ((v85 & 0x400000000000) == 0)
     {
       goto LABEL_631;
     }
@@ -24743,13 +24296,12 @@ LABEL_630:
   }
 
 LABEL_1396:
-  appLaunchesInTimeBucket13ForApp = self->_appLaunchesInTimeBucket13ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x400000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x400000000000) == 0)
   {
 LABEL_631:
-    if ((v266 & 0x800000000000) == 0)
+    if ((v85 & 0x800000000000) == 0)
     {
       goto LABEL_632;
     }
@@ -24758,13 +24310,12 @@ LABEL_631:
   }
 
 LABEL_1397:
-  appLaunchesInTimeBucket14ForApp = self->_appLaunchesInTimeBucket14ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x800000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x800000000000) == 0)
   {
 LABEL_632:
-    if ((v266 & 0x1000000000000) == 0)
+    if ((v85 & 0x1000000000000) == 0)
     {
       goto LABEL_633;
     }
@@ -24773,13 +24324,12 @@ LABEL_632:
   }
 
 LABEL_1398:
-  appLaunchesInTimeBucket15ForApp = self->_appLaunchesInTimeBucket15ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x1000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x1000000000000) == 0)
   {
 LABEL_633:
-    if ((v266 & 0x2000000000000) == 0)
+    if ((v85 & 0x2000000000000) == 0)
     {
       goto LABEL_634;
     }
@@ -24788,13 +24338,12 @@ LABEL_633:
   }
 
 LABEL_1399:
-  appLaunchesInTimeBucket16ForApp = self->_appLaunchesInTimeBucket16ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x2000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x2000000000000) == 0)
   {
 LABEL_634:
-    if ((v266 & 0x4000000000000) == 0)
+    if ((v85 & 0x4000000000000) == 0)
     {
       goto LABEL_635;
     }
@@ -24803,13 +24352,12 @@ LABEL_634:
   }
 
 LABEL_1400:
-  appLaunchesInTimeBucket17ForApp = self->_appLaunchesInTimeBucket17ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x4000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x4000000000000) == 0)
   {
 LABEL_635:
-    if ((v266 & 0x8000000000000) == 0)
+    if ((v85 & 0x8000000000000) == 0)
     {
       goto LABEL_636;
     }
@@ -24818,13 +24366,12 @@ LABEL_635:
   }
 
 LABEL_1401:
-  appLaunchesInTimeBucket18ForApp = self->_appLaunchesInTimeBucket18ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x8000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x8000000000000) == 0)
   {
 LABEL_636:
-    if ((v266 & 0x20000000000000) == 0)
+    if ((v85 & 0x20000000000000) == 0)
     {
       goto LABEL_637;
     }
@@ -24833,13 +24380,12 @@ LABEL_636:
   }
 
 LABEL_1402:
-  appLaunchesInTimeBucket19ForApp = self->_appLaunchesInTimeBucket19ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x20000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x20000000000000) == 0)
   {
 LABEL_637:
-    if ((v266 & 0x40000000000000) == 0)
+    if ((v85 & 0x40000000000000) == 0)
     {
       goto LABEL_638;
     }
@@ -24848,13 +24394,12 @@ LABEL_637:
   }
 
 LABEL_1403:
-  appLaunchesInTimeBucket20ForApp = self->_appLaunchesInTimeBucket20ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x40000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x40000000000000) == 0)
   {
 LABEL_638:
-    if ((v266 & 0x80000000000000) == 0)
+    if ((v85 & 0x80000000000000) == 0)
     {
       goto LABEL_639;
     }
@@ -24863,13 +24408,12 @@ LABEL_638:
   }
 
 LABEL_1404:
-  appLaunchesInTimeBucket21ForApp = self->_appLaunchesInTimeBucket21ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x80000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x80000000000000) == 0)
   {
 LABEL_639:
-    if ((v266 & 0x100000000000000) == 0)
+    if ((v85 & 0x100000000000000) == 0)
     {
       goto LABEL_640;
     }
@@ -24878,13 +24422,12 @@ LABEL_639:
   }
 
 LABEL_1405:
-  appLaunchesInTimeBucket22ForApp = self->_appLaunchesInTimeBucket22ForApp;
   PBDataWriterWriteInt32Field();
-  v266 = *(&self->_has + 6);
-  if ((v266 & 0x100000000000000) == 0)
+  v85 = *(&self->_has + 6);
+  if ((v85 & 0x100000000000000) == 0)
   {
 LABEL_640:
-    if ((v266 & 0x200000000000000) == 0)
+    if ((v85 & 0x200000000000000) == 0)
     {
       goto LABEL_642;
     }
@@ -24893,26 +24436,23 @@ LABEL_640:
   }
 
 LABEL_1406:
-  appLaunchesInTimeBucket23ForApp = self->_appLaunchesInTimeBucket23ForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 6) & 0x200000000000000) != 0)
   {
 LABEL_641:
-    appLaunchesInTimeBucket24ForApp = self->_appLaunchesInTimeBucket24ForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_642:
-  v268 = *(&self->_has + 7);
-  if ((v268 & 0x100) != 0)
+  v86 = *(&self->_has + 7);
+  if ((v86 & 0x100) != 0)
   {
-    appLaunchesOnDayOfWeekSundayForApp = self->_appLaunchesOnDayOfWeekSundayForApp;
     PBDataWriterWriteInt32Field();
-    v268 = *(&self->_has + 7);
-    if ((v268 & 0x40) == 0)
+    v86 = *(&self->_has + 7);
+    if ((v86 & 0x40) == 0)
     {
 LABEL_644:
-      if ((v268 & 0x400) == 0)
+      if ((v86 & 0x400) == 0)
       {
         goto LABEL_645;
       }
@@ -24921,18 +24461,17 @@ LABEL_644:
     }
   }
 
-  else if ((v268 & 0x40) == 0)
+  else if ((v86 & 0x40) == 0)
   {
     goto LABEL_644;
   }
 
-  appLaunchesOnDayOfWeekMondayForApp = self->_appLaunchesOnDayOfWeekMondayForApp;
   PBDataWriterWriteInt32Field();
-  v268 = *(&self->_has + 7);
-  if ((v268 & 0x400) == 0)
+  v86 = *(&self->_has + 7);
+  if ((v86 & 0x400) == 0)
   {
 LABEL_645:
-    if ((v268 & 0x800) == 0)
+    if ((v86 & 0x800) == 0)
     {
       goto LABEL_646;
     }
@@ -24941,13 +24480,12 @@ LABEL_645:
   }
 
 LABEL_1410:
-  appLaunchesOnDayOfWeekTuesdayForApp = self->_appLaunchesOnDayOfWeekTuesdayForApp;
   PBDataWriterWriteInt32Field();
-  v268 = *(&self->_has + 7);
-  if ((v268 & 0x800) == 0)
+  v86 = *(&self->_has + 7);
+  if ((v86 & 0x800) == 0)
   {
 LABEL_646:
-    if ((v268 & 0x200) == 0)
+    if ((v86 & 0x200) == 0)
     {
       goto LABEL_647;
     }
@@ -24956,13 +24494,12 @@ LABEL_646:
   }
 
 LABEL_1411:
-  appLaunchesOnDayOfWeekWednesdayForApp = self->_appLaunchesOnDayOfWeekWednesdayForApp;
   PBDataWriterWriteInt32Field();
-  v268 = *(&self->_has + 7);
-  if ((v268 & 0x200) == 0)
+  v86 = *(&self->_has + 7);
+  if ((v86 & 0x200) == 0)
   {
 LABEL_647:
-    if ((v268 & 0x20) == 0)
+    if ((v86 & 0x20) == 0)
     {
       goto LABEL_648;
     }
@@ -24971,13 +24508,12 @@ LABEL_647:
   }
 
 LABEL_1412:
-  appLaunchesOnDayOfWeekThursdayForApp = self->_appLaunchesOnDayOfWeekThursdayForApp;
   PBDataWriterWriteInt32Field();
-  v268 = *(&self->_has + 7);
-  if ((v268 & 0x20) == 0)
+  v86 = *(&self->_has + 7);
+  if ((v86 & 0x20) == 0)
   {
 LABEL_648:
-    if ((v268 & 0x80) == 0)
+    if ((v86 & 0x80) == 0)
     {
       goto LABEL_650;
     }
@@ -24986,26 +24522,23 @@ LABEL_648:
   }
 
 LABEL_1413:
-  appLaunchesOnDayOfWeekFridayForApp = self->_appLaunchesOnDayOfWeekFridayForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x80) != 0)
   {
 LABEL_649:
-    appLaunchesOnDayOfWeekSaturdayForApp = self->_appLaunchesOnDayOfWeekSaturdayForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_650:
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x200000000000) != 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x200000000000) != 0)
   {
-    appLaunchesAtCoarseGeoHash0ForApp = self->_appLaunchesAtCoarseGeoHash0ForApp;
     PBDataWriterWriteInt32Field();
-    v270 = *(&self->_has + 5);
-    if ((v270 & 0x400000000000) == 0)
+    v87 = *(&self->_has + 5);
+    if ((v87 & 0x400000000000) == 0)
     {
 LABEL_652:
-      if ((v270 & 0x800000000000) == 0)
+      if ((v87 & 0x800000000000) == 0)
       {
         goto LABEL_653;
       }
@@ -25014,18 +24547,17 @@ LABEL_652:
     }
   }
 
-  else if ((v270 & 0x400000000000) == 0)
+  else if ((v87 & 0x400000000000) == 0)
   {
     goto LABEL_652;
   }
 
-  appLaunchesAtCoarseGeoHash1ForApp = self->_appLaunchesAtCoarseGeoHash1ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x800000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x800000000000) == 0)
   {
 LABEL_653:
-    if ((v270 & 0x1000000000000) == 0)
+    if ((v87 & 0x1000000000000) == 0)
     {
       goto LABEL_654;
     }
@@ -25034,13 +24566,12 @@ LABEL_653:
   }
 
 LABEL_1417:
-  appLaunchesAtCoarseGeoHash2ForApp = self->_appLaunchesAtCoarseGeoHash2ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x1000000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x1000000000000) == 0)
   {
 LABEL_654:
-    if ((v270 & 0x2000000000000) == 0)
+    if ((v87 & 0x2000000000000) == 0)
     {
       goto LABEL_655;
     }
@@ -25049,13 +24580,12 @@ LABEL_654:
   }
 
 LABEL_1418:
-  appLaunchesAtCoarseGeoHash3ForApp = self->_appLaunchesAtCoarseGeoHash3ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x2000000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x2000000000000) == 0)
   {
 LABEL_655:
-    if ((v270 & 0x4000000000000) == 0)
+    if ((v87 & 0x4000000000000) == 0)
     {
       goto LABEL_656;
     }
@@ -25064,13 +24594,12 @@ LABEL_655:
   }
 
 LABEL_1419:
-  appLaunchesAtCoarseGeoHash4ForApp = self->_appLaunchesAtCoarseGeoHash4ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x4000000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x4000000000000) == 0)
   {
 LABEL_656:
-    if ((v270 & 0x8000000000000) == 0)
+    if ((v87 & 0x8000000000000) == 0)
     {
       goto LABEL_657;
     }
@@ -25079,13 +24608,12 @@ LABEL_656:
   }
 
 LABEL_1420:
-  appLaunchesAtCoarseGeoHash5ForApp = self->_appLaunchesAtCoarseGeoHash5ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x8000000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x8000000000000) == 0)
   {
 LABEL_657:
-    if ((v270 & 0x10000000000000) == 0)
+    if ((v87 & 0x10000000000000) == 0)
     {
       goto LABEL_658;
     }
@@ -25094,13 +24622,12 @@ LABEL_657:
   }
 
 LABEL_1421:
-  appLaunchesAtCoarseGeoHash6ForApp = self->_appLaunchesAtCoarseGeoHash6ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x10000000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x10000000000000) == 0)
   {
 LABEL_658:
-    if ((v270 & 0x20000000000000) == 0)
+    if ((v87 & 0x20000000000000) == 0)
     {
       goto LABEL_659;
     }
@@ -25109,19 +24636,17 @@ LABEL_658:
   }
 
 LABEL_1422:
-  appLaunchesAtCoarseGeoHash7ForApp = self->_appLaunchesAtCoarseGeoHash7ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x20000000000000) == 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x20000000000000) == 0)
   {
 LABEL_659:
-    if ((v270 & 0x40000000000000) == 0)
+    if ((v87 & 0x40000000000000) == 0)
     {
       goto LABEL_660;
     }
 
 LABEL_1424:
-    appLaunchesAtCoarseGeoHash9ForApp = self->_appLaunchesAtCoarseGeoHash9ForApp;
     PBDataWriterWriteInt32Field();
     if ((*(&self->_has + 5) & 0x8000000000000000) == 0)
     {
@@ -25132,34 +24657,31 @@ LABEL_1424:
   }
 
 LABEL_1423:
-  appLaunchesAtCoarseGeoHash8ForApp = self->_appLaunchesAtCoarseGeoHash8ForApp;
   PBDataWriterWriteInt32Field();
-  v270 = *(&self->_has + 5);
-  if ((v270 & 0x40000000000000) != 0)
+  v87 = *(&self->_has + 5);
+  if ((v87 & 0x40000000000000) != 0)
   {
     goto LABEL_1424;
   }
 
 LABEL_660:
-  if ((v270 & 0x8000000000000000) == 0)
+  if ((v87 & 0x8000000000000000) == 0)
   {
     goto LABEL_661;
   }
 
 LABEL_1425:
-  appLaunchesAtSpecificGeoHash0ForApp = self->_appLaunchesAtSpecificGeoHash0ForApp;
   PBDataWriterWriteInt32Field();
 LABEL_661:
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x20) != 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x20) != 0)
   {
-    appLaunchesAtSpecificGeoHash1ForApp = self->_appLaunchesAtSpecificGeoHash1ForApp;
     PBDataWriterWriteInt32Field();
-    v271 = *(&self->_has + 6);
-    if ((v271 & 0x40) == 0)
+    v88 = *(&self->_has + 6);
+    if ((v88 & 0x40) == 0)
     {
 LABEL_663:
-      if ((v271 & 0x80) == 0)
+      if ((v88 & 0x80) == 0)
       {
         goto LABEL_664;
       }
@@ -25168,18 +24690,17 @@ LABEL_663:
     }
   }
 
-  else if ((v271 & 0x40) == 0)
+  else if ((v88 & 0x40) == 0)
   {
     goto LABEL_663;
   }
 
-  appLaunchesAtSpecificGeoHash2ForApp = self->_appLaunchesAtSpecificGeoHash2ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x80) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x80) == 0)
   {
 LABEL_664:
-    if ((v271 & 0x100) == 0)
+    if ((v88 & 0x100) == 0)
     {
       goto LABEL_665;
     }
@@ -25188,13 +24709,12 @@ LABEL_664:
   }
 
 LABEL_1428:
-  appLaunchesAtSpecificGeoHash3ForApp = self->_appLaunchesAtSpecificGeoHash3ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x100) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x100) == 0)
   {
 LABEL_665:
-    if ((v271 & 0x200) == 0)
+    if ((v88 & 0x200) == 0)
     {
       goto LABEL_666;
     }
@@ -25203,13 +24723,12 @@ LABEL_665:
   }
 
 LABEL_1429:
-  appLaunchesAtSpecificGeoHash4ForApp = self->_appLaunchesAtSpecificGeoHash4ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x200) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x200) == 0)
   {
 LABEL_666:
-    if ((v271 & 0x400) == 0)
+    if ((v88 & 0x400) == 0)
     {
       goto LABEL_667;
     }
@@ -25218,13 +24737,12 @@ LABEL_666:
   }
 
 LABEL_1430:
-  appLaunchesAtSpecificGeoHash5ForApp = self->_appLaunchesAtSpecificGeoHash5ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x400) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x400) == 0)
   {
 LABEL_667:
-    if ((v271 & 0x800) == 0)
+    if ((v88 & 0x800) == 0)
     {
       goto LABEL_668;
     }
@@ -25233,13 +24751,12 @@ LABEL_667:
   }
 
 LABEL_1431:
-  appLaunchesAtSpecificGeoHash6ForApp = self->_appLaunchesAtSpecificGeoHash6ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x800) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x800) == 0)
   {
 LABEL_668:
-    if ((v271 & 0x1000) == 0)
+    if ((v88 & 0x1000) == 0)
     {
       goto LABEL_669;
     }
@@ -25248,13 +24765,12 @@ LABEL_668:
   }
 
 LABEL_1432:
-  appLaunchesAtSpecificGeoHash7ForApp = self->_appLaunchesAtSpecificGeoHash7ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x1000) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x1000) == 0)
   {
 LABEL_669:
-    if ((v271 & 0x2000) == 0)
+    if ((v88 & 0x2000) == 0)
     {
       goto LABEL_670;
     }
@@ -25263,13 +24779,12 @@ LABEL_669:
   }
 
 LABEL_1433:
-  appLaunchesAtSpecificGeoHash8ForApp = self->_appLaunchesAtSpecificGeoHash8ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 0x2000) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 0x2000) == 0)
   {
 LABEL_670:
-    if ((v271 & 1) == 0)
+    if ((v88 & 1) == 0)
     {
       goto LABEL_671;
     }
@@ -25278,13 +24793,12 @@ LABEL_670:
   }
 
 LABEL_1434:
-  appLaunchesAtSpecificGeoHash9ForApp = self->_appLaunchesAtSpecificGeoHash9ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 1) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 1) == 0)
   {
 LABEL_671:
-    if ((v271 & 2) == 0)
+    if ((v88 & 2) == 0)
     {
       goto LABEL_672;
     }
@@ -25293,13 +24807,12 @@ LABEL_671:
   }
 
 LABEL_1435:
-  appLaunchesAtSpecificGeoHash10ForApp = self->_appLaunchesAtSpecificGeoHash10ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 2) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 2) == 0)
   {
 LABEL_672:
-    if ((v271 & 4) == 0)
+    if ((v88 & 4) == 0)
     {
       goto LABEL_673;
     }
@@ -25308,13 +24821,12 @@ LABEL_672:
   }
 
 LABEL_1436:
-  appLaunchesAtSpecificGeoHash11ForApp = self->_appLaunchesAtSpecificGeoHash11ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 4) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 4) == 0)
   {
 LABEL_673:
-    if ((v271 & 8) == 0)
+    if ((v88 & 8) == 0)
     {
       goto LABEL_674;
     }
@@ -25323,13 +24835,12 @@ LABEL_673:
   }
 
 LABEL_1437:
-  appLaunchesAtSpecificGeoHash12ForApp = self->_appLaunchesAtSpecificGeoHash12ForApp;
   PBDataWriterWriteInt32Field();
-  v271 = *(&self->_has + 6);
-  if ((v271 & 8) == 0)
+  v88 = *(&self->_has + 6);
+  if ((v88 & 8) == 0)
   {
 LABEL_674:
-    if ((v271 & 0x10) == 0)
+    if ((v88 & 0x10) == 0)
     {
       goto LABEL_676;
     }
@@ -25338,40 +24849,35 @@ LABEL_674:
   }
 
 LABEL_1438:
-  appLaunchesAtSpecificGeoHash13ForApp = self->_appLaunchesAtSpecificGeoHash13ForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 6) & 0x10) != 0)
   {
 LABEL_675:
-    appLaunchesAtSpecificGeoHash14ForApp = self->_appLaunchesAtSpecificGeoHash14ForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_676:
-  v273 = *(&self->_has + 7);
-  if ((v273 & 0x40000) != 0)
+  v89 = *(&self->_has + 7);
+  if ((v89 & 0x40000) != 0)
   {
-    appNumberOfSpecificGeohashesForApp = self->_appNumberOfSpecificGeohashesForApp;
     PBDataWriterWriteInt32Field();
-    v273 = *(&self->_has + 7);
+    v89 = *(&self->_has + 7);
   }
 
-  if ((v273 & 0x20000) != 0)
+  if ((v89 & 0x20000) != 0)
   {
-    appNumberOfCoarseGeohashesForApp = self->_appNumberOfCoarseGeohashesForApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v276 = *(&self->_has + 4);
-  if ((v276 & 0x40000) != 0)
+  v90 = *(&self->_has + 4);
+  if ((v90 & 0x40000) != 0)
   {
-    appEntropyForTimeBuckets = self->_appEntropyForTimeBuckets;
     PBDataWriterWriteInt32Field();
-    v276 = *(&self->_has + 4);
-    if ((v276 & 0x20000) == 0)
+    v90 = *(&self->_has + 4);
+    if ((v90 & 0x20000) == 0)
     {
 LABEL_682:
-      if ((v276 & 0x10000) == 0)
+      if ((v90 & 0x10000) == 0)
       {
         goto LABEL_684;
       }
@@ -25380,57 +24886,50 @@ LABEL_682:
     }
   }
 
-  else if ((v276 & 0x20000) == 0)
+  else if ((v90 & 0x20000) == 0)
   {
     goto LABEL_682;
   }
 
-  appEntropyForSpecificGeoHash = self->_appEntropyForSpecificGeoHash;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x10000) != 0)
   {
 LABEL_683:
-    appEntropyForCoarseGeoHash = self->_appEntropyForCoarseGeoHash;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_684:
   if (*(&self->_has + 47))
   {
-    appLaunchesAtCoarseGeoHashForAppInContext = self->_appLaunchesAtCoarseGeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 49) & 0x80) != 0)
   {
-    appLaunchesAtSpecificGeoHashForAppInContext = self->_appLaunchesAtSpecificGeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
   }
 
-  v280 = *(&self->_has + 5);
-  if ((v280 & 0x800000000000000) != 0)
+  v91 = *(&self->_has + 5);
+  if ((v91 & 0x800000000000000) != 0)
   {
-    appLaunchesAtDayOfWeekInContext = self->_appLaunchesAtDayOfWeekInContext;
     PBDataWriterWriteInt32Field();
-    v280 = *(&self->_has + 5);
+    v91 = *(&self->_has + 5);
   }
 
-  if ((v280 & 0x400000000000000) != 0)
+  if ((v91 & 0x400000000000000) != 0)
   {
-    appLaunchesAtDayOfWeekForApp = self->_appLaunchesAtDayOfWeekForApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v283 = *(&self->_has + 6);
-  if ((v283 & 0x40000) != 0)
+  v92 = *(&self->_has + 6);
+  if ((v92 & 0x40000) != 0)
   {
-    appLaunchesAtTimeAndDayForAppInContext = self->_appLaunchesAtTimeAndDayForAppInContext;
     PBDataWriterWriteInt32Field();
-    v283 = *(&self->_has + 6);
-    if ((v283 & 0x80000) == 0)
+    v92 = *(&self->_has + 6);
+    if ((v92 & 0x80000) == 0)
     {
 LABEL_694:
-      if ((v283 & 0x20000) == 0)
+      if ((v92 & 0x20000) == 0)
       {
         goto LABEL_696;
       }
@@ -25439,45 +24938,40 @@ LABEL_694:
     }
   }
 
-  else if ((v283 & 0x80000) == 0)
+  else if ((v92 & 0x80000) == 0)
   {
     goto LABEL_694;
   }
 
-  appLaunchesAtTimeAndDayInContext = self->_appLaunchesAtTimeAndDayInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 6) & 0x20000) != 0)
   {
 LABEL_695:
-    appLaunchesAtTimeAndDayForApp = self->_appLaunchesAtTimeAndDayForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_696:
-  v285 = *(&self->_has + 5);
-  if ((v285 & 0x200000000000000) != 0)
+  v93 = *(&self->_has + 5);
+  if ((v93 & 0x200000000000000) != 0)
   {
-    appLaunchesAtCoarseGeoHashInContext = self->_appLaunchesAtCoarseGeoHashInContext;
     PBDataWriterWriteInt32Field();
-    v285 = *(&self->_has + 5);
+    v93 = *(&self->_has + 5);
   }
 
-  if ((v285 & 0x80000000000000) != 0)
+  if ((v93 & 0x80000000000000) != 0)
   {
-    appLaunchesAtCoarseGeoHashForApp = self->_appLaunchesAtCoarseGeoHashForApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v288 = *(&self->_has + 6);
-  if ((v288 & 0x10000) != 0)
+  v94 = *(&self->_has + 6);
+  if ((v94 & 0x10000) != 0)
   {
-    appLaunchesAtSpecificGeoHashInContext = self->_appLaunchesAtSpecificGeoHashInContext;
     PBDataWriterWriteInt32Field();
-    v288 = *(&self->_has + 6);
-    if ((v288 & 0x4000) == 0)
+    v94 = *(&self->_has + 6);
+    if ((v94 & 0x4000) == 0)
     {
 LABEL_702:
-      if ((v288 & 0x2000000000) == 0)
+      if ((v94 & 0x2000000000) == 0)
       {
         goto LABEL_703;
       }
@@ -25486,18 +24980,17 @@ LABEL_702:
     }
   }
 
-  else if ((v288 & 0x4000) == 0)
+  else if ((v94 & 0x4000) == 0)
   {
     goto LABEL_702;
   }
 
-  appLaunchesAtSpecificGeoHashForApp = self->_appLaunchesAtSpecificGeoHashForApp;
   PBDataWriterWriteInt32Field();
-  v288 = *(&self->_has + 6);
-  if ((v288 & 0x2000000000) == 0)
+  v94 = *(&self->_has + 6);
+  if ((v94 & 0x2000000000) == 0)
   {
 LABEL_703:
-    if ((v288 & 0x4000000000) == 0)
+    if ((v94 & 0x4000000000) == 0)
     {
       goto LABEL_705;
     }
@@ -25506,32 +24999,28 @@ LABEL_703:
   }
 
 LABEL_1448:
-  appLaunchesForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appLaunchesForAllAppsAndContextsDecayedAtCoarseContextRate;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 6) & 0x4000000000) != 0)
   {
 LABEL_704:
-    appLaunchesForAllAppsAndContextsDecayedAtSpecificContextRate = self->_appLaunchesForAllAppsAndContextsDecayedAtSpecificContextRate;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_705:
   if ((*(&self->_has + 77) & 0x10) != 0)
   {
-    isLocationServicesDisabled = self->_isLocationServicesDisabled;
     PBDataWriterWriteInt32Field();
   }
 
-  v291 = *(&self->_has + 7);
-  if ((v291 & 8) != 0)
+  v95 = *(&self->_has + 7);
+  if ((v95 & 8) != 0)
   {
-    appLaunchesInTwoHourTimeBucketForAppInContext = self->_appLaunchesInTwoHourTimeBucketForAppInContext;
     PBDataWriterWriteInt32Field();
-    v291 = *(&self->_has + 7);
-    if ((v291 & 0x10) == 0)
+    v95 = *(&self->_has + 7);
+    if ((v95 & 0x10) == 0)
     {
 LABEL_709:
-      if ((v291 & 4) == 0)
+      if ((v95 & 4) == 0)
       {
         goto LABEL_711;
       }
@@ -25540,31 +25029,28 @@ LABEL_709:
     }
   }
 
-  else if ((v291 & 0x10) == 0)
+  else if ((v95 & 0x10) == 0)
   {
     goto LABEL_709;
   }
 
-  appLaunchesInTwoHourTimeBucketInContext = self->_appLaunchesInTwoHourTimeBucketInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 4) != 0)
   {
 LABEL_710:
-    appLaunchesInTwoHourTimeBucketForApp = self->_appLaunchesInTwoHourTimeBucketForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_711:
-  v293 = *(&self->_has + 3);
-  if ((v293 & 0x800000) != 0)
+  v96 = *(&self->_has + 3);
+  if ((v96 & 0x800000) != 0)
   {
-    appConfirmsInTwoHourTimeBucketForAppInContext = self->_appConfirmsInTwoHourTimeBucketForAppInContext;
     PBDataWriterWriteInt32Field();
-    v293 = *(&self->_has + 3);
-    if ((v293 & 0x1000000) == 0)
+    v96 = *(&self->_has + 3);
+    if ((v96 & 0x1000000) == 0)
     {
 LABEL_713:
-      if ((v293 & 0x400000) == 0)
+      if ((v96 & 0x400000) == 0)
       {
         goto LABEL_715;
       }
@@ -25573,31 +25059,28 @@ LABEL_713:
     }
   }
 
-  else if ((v293 & 0x1000000) == 0)
+  else if ((v96 & 0x1000000) == 0)
   {
     goto LABEL_713;
   }
 
-  appConfirmsInTwoHourTimeBucketInContext = self->_appConfirmsInTwoHourTimeBucketInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x400000) != 0)
   {
 LABEL_714:
-    appConfirmsInTwoHourTimeBucketForApp = self->_appConfirmsInTwoHourTimeBucketForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_715:
-  v295 = *(&self->_has + 7);
-  if ((v295 & 0x10000000000) != 0)
+  v97 = *(&self->_has + 7);
+  if ((v97 & 0x10000000000) != 0)
   {
-    appRejectsInTwoHourTimeBucketForAppInContext = self->_appRejectsInTwoHourTimeBucketForAppInContext;
     PBDataWriterWriteInt32Field();
-    v295 = *(&self->_has + 7);
-    if ((v295 & 0x20000000000) == 0)
+    v97 = *(&self->_has + 7);
+    if ((v97 & 0x20000000000) == 0)
     {
 LABEL_717:
-      if ((v295 & 0x8000000000) == 0)
+      if ((v97 & 0x8000000000) == 0)
       {
         goto LABEL_719;
       }
@@ -25606,31 +25089,28 @@ LABEL_717:
     }
   }
 
-  else if ((v295 & 0x20000000000) == 0)
+  else if ((v97 & 0x20000000000) == 0)
   {
     goto LABEL_717;
   }
 
-  appRejectsInTwoHourTimeBucketInContext = self->_appRejectsInTwoHourTimeBucketInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x8000000000) != 0)
   {
 LABEL_718:
-    appRejectsInTwoHourTimeBucketForApp = self->_appRejectsInTwoHourTimeBucketForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_719:
-  v297 = *(&self->_has + 3);
-  if ((v297 & 0x800) != 0)
+  v98 = *(&self->_has + 3);
+  if ((v98 & 0x800) != 0)
   {
-    appConfirmsAtDayOfWeekForAppInContext = self->_appConfirmsAtDayOfWeekForAppInContext;
     PBDataWriterWriteInt32Field();
-    v297 = *(&self->_has + 3);
-    if ((v297 & 0x1000) == 0)
+    v98 = *(&self->_has + 3);
+    if ((v98 & 0x1000) == 0)
     {
 LABEL_721:
-      if ((v297 & 0x400) == 0)
+      if ((v98 & 0x400) == 0)
       {
         goto LABEL_723;
       }
@@ -25639,31 +25119,28 @@ LABEL_721:
     }
   }
 
-  else if ((v297 & 0x1000) == 0)
+  else if ((v98 & 0x1000) == 0)
   {
     goto LABEL_721;
   }
 
-  appConfirmsAtDayOfWeekInContext = self->_appConfirmsAtDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x400) != 0)
   {
 LABEL_722:
-    appConfirmsAtDayOfWeekForApp = self->_appConfirmsAtDayOfWeekForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_723:
-  v299 = *(&self->_has + 7);
-  if ((v299 & 0x10000000) != 0)
+  v99 = *(&self->_has + 7);
+  if ((v99 & 0x10000000) != 0)
   {
-    appRejectsAtDayOfWeekForAppInContext = self->_appRejectsAtDayOfWeekForAppInContext;
     PBDataWriterWriteInt32Field();
-    v299 = *(&self->_has + 7);
-    if ((v299 & 0x20000000) == 0)
+    v99 = *(&self->_has + 7);
+    if ((v99 & 0x20000000) == 0)
     {
 LABEL_725:
-      if ((v299 & 0x8000000) == 0)
+      if ((v99 & 0x8000000) == 0)
       {
         goto LABEL_727;
       }
@@ -25672,31 +25149,28 @@ LABEL_725:
     }
   }
 
-  else if ((v299 & 0x20000000) == 0)
+  else if ((v99 & 0x20000000) == 0)
   {
     goto LABEL_725;
   }
 
-  appRejectsAtDayOfWeekInContext = self->_appRejectsAtDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x8000000) != 0)
   {
 LABEL_726:
-    appRejectsAtDayOfWeekForApp = self->_appRejectsAtDayOfWeekForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_727:
-  v301 = *(&self->_has + 3);
-  if ((v301 & 0x100) != 0)
+  v100 = *(&self->_has + 3);
+  if ((v100 & 0x100) != 0)
   {
-    appConfirmsAtCoarseGeoHashForAppInContext = self->_appConfirmsAtCoarseGeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v301 = *(&self->_has + 3);
-    if ((v301 & 0x200) == 0)
+    v100 = *(&self->_has + 3);
+    if ((v100 & 0x200) == 0)
     {
 LABEL_729:
-      if ((v301 & 0x80) == 0)
+      if ((v100 & 0x80) == 0)
       {
         goto LABEL_731;
       }
@@ -25705,31 +25179,28 @@ LABEL_729:
     }
   }
 
-  else if ((v301 & 0x200) == 0)
+  else if ((v100 & 0x200) == 0)
   {
     goto LABEL_729;
   }
 
-  appConfirmsAtCoarseGeoHashInContext = self->_appConfirmsAtCoarseGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x80) != 0)
   {
 LABEL_730:
-    appConfirmsAtCoarseGeoHashForApp = self->_appConfirmsAtCoarseGeoHashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_731:
-  v303 = *(&self->_has + 7);
-  if ((v303 & 0x2000000) != 0)
+  v101 = *(&self->_has + 7);
+  if ((v101 & 0x2000000) != 0)
   {
-    appRejectsAtCoarseGeoHashForAppInContext = self->_appRejectsAtCoarseGeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v303 = *(&self->_has + 7);
-    if ((v303 & 0x4000000) == 0)
+    v101 = *(&self->_has + 7);
+    if ((v101 & 0x4000000) == 0)
     {
 LABEL_733:
-      if ((v303 & 0x1000000) == 0)
+      if ((v101 & 0x1000000) == 0)
       {
         goto LABEL_735;
       }
@@ -25738,31 +25209,28 @@ LABEL_733:
     }
   }
 
-  else if ((v303 & 0x4000000) == 0)
+  else if ((v101 & 0x4000000) == 0)
   {
     goto LABEL_733;
   }
 
-  appRejectsAtCoarseGeoHashInContext = self->_appRejectsAtCoarseGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x1000000) != 0)
   {
 LABEL_734:
-    appRejectsAtCoarseGeoHashForApp = self->_appRejectsAtCoarseGeoHashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_735:
-  v305 = *(&self->_has + 3);
-  if ((v305 & 0x4000) != 0)
+  v102 = *(&self->_has + 3);
+  if ((v102 & 0x4000) != 0)
   {
-    appConfirmsAtSpecificGeoHashForAppInContext = self->_appConfirmsAtSpecificGeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v305 = *(&self->_has + 3);
-    if ((v305 & 0x8000) == 0)
+    v102 = *(&self->_has + 3);
+    if ((v102 & 0x8000) == 0)
     {
 LABEL_737:
-      if ((v305 & 0x2000) == 0)
+      if ((v102 & 0x2000) == 0)
       {
         goto LABEL_739;
       }
@@ -25771,31 +25239,28 @@ LABEL_737:
     }
   }
 
-  else if ((v305 & 0x8000) == 0)
+  else if ((v102 & 0x8000) == 0)
   {
     goto LABEL_737;
   }
 
-  appConfirmsAtSpecificGeoHashInContext = self->_appConfirmsAtSpecificGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x2000) != 0)
   {
 LABEL_738:
-    appConfirmsAtSpecificGeoHashForApp = self->_appConfirmsAtSpecificGeoHashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_739:
-  v307 = *(&self->_has + 7);
-  if ((v307 & 0x80000000) != 0)
+  v103 = *(&self->_has + 7);
+  if ((v103 & 0x80000000) != 0)
   {
-    appRejectsAtSpecificGeoHashForAppInContext = self->_appRejectsAtSpecificGeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v307 = *(&self->_has + 7);
-    if ((v307 & 0x100000000) == 0)
+    v103 = *(&self->_has + 7);
+    if ((v103 & 0x100000000) == 0)
     {
 LABEL_741:
-      if ((v307 & 0x40000000) == 0)
+      if ((v103 & 0x40000000) == 0)
       {
         goto LABEL_743;
       }
@@ -25804,45 +25269,40 @@ LABEL_741:
     }
   }
 
-  else if ((v307 & 0x100000000) == 0)
+  else if ((v103 & 0x100000000) == 0)
   {
     goto LABEL_741;
   }
 
-  appRejectsAtSpecificGeoHashInContext = self->_appRejectsAtSpecificGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x40000000) != 0)
   {
 LABEL_742:
-    appRejectsAtSpecificGeoHashForApp = self->_appRejectsAtSpecificGeoHashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_743:
-  v309 = *(&self->_has + 3);
-  if ((v309 & 0x100000) != 0)
+  v104 = *(&self->_has + 3);
+  if ((v104 & 0x100000) != 0)
   {
-    appConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteInt32Field();
-    v309 = *(&self->_has + 3);
+    v104 = *(&self->_has + 3);
   }
 
-  if ((v309 & 0x200000) != 0)
+  if ((v104 & 0x200000) != 0)
   {
-    appConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate = self->_appConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate;
     PBDataWriterWriteInt32Field();
   }
 
-  v312 = *(&self->_has + 7);
-  if ((v312 & 0x2000000000) != 0)
+  v105 = *(&self->_has + 7);
+  if ((v105 & 0x2000000000) != 0)
   {
-    appRejectsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appRejectsForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteInt32Field();
-    v312 = *(&self->_has + 7);
-    if ((v312 & 0x4000000000) == 0)
+    v105 = *(&self->_has + 7);
+    if ((v105 & 0x4000000000) == 0)
     {
 LABEL_749:
-      if ((v312 & 0x40000000000000) == 0)
+      if ((v105 & 0x40000000000000) == 0)
       {
         goto LABEL_751;
       }
@@ -25851,31 +25311,28 @@ LABEL_749:
     }
   }
 
-  else if ((v312 & 0x4000000000) == 0)
+  else if ((v105 & 0x4000000000) == 0)
   {
     goto LABEL_749;
   }
 
-  appRejectsForAllAppsAndContextsDecayedAtSpecificContextRate = self->_appRejectsForAllAppsAndContextsDecayedAtSpecificContextRate;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 7) & 0x40000000000000) != 0)
   {
 LABEL_750:
-    currentTimeBucketFromZeroToTwentyFour = self->_currentTimeBucketFromZeroToTwentyFour;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_751:
-  v314 = *(&self->_has + 1);
-  if ((v314 & 0x1000000000000) != 0)
+  v106 = *(&self->_has + 1);
+  if ((v106 & 0x1000000000000) != 0)
   {
-    actionsAtDayOfWeekForActionInContext = self->_actionsAtDayOfWeekForActionInContext;
     PBDataWriterWriteInt32Field();
-    v314 = *(&self->_has + 1);
-    if ((v314 & 0x2000000000000) == 0)
+    v106 = *(&self->_has + 1);
+    if ((v106 & 0x2000000000000) == 0)
     {
 LABEL_753:
-      if ((v314 & 0x800000000000) == 0)
+      if ((v106 & 0x800000000000) == 0)
       {
         goto LABEL_754;
       }
@@ -25884,18 +25341,17 @@ LABEL_753:
     }
   }
 
-  else if ((v314 & 0x2000000000000) == 0)
+  else if ((v106 & 0x2000000000000) == 0)
   {
     goto LABEL_753;
   }
 
-  actionsAtDayOfWeekInContext = self->_actionsAtDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
-  v314 = *(&self->_has + 1);
-  if ((v314 & 0x800000000000) == 0)
+  v106 = *(&self->_has + 1);
+  if ((v106 & 0x800000000000) == 0)
   {
 LABEL_754:
-    if ((v314 & 0x200000000000) == 0)
+    if ((v106 & 0x200000000000) == 0)
     {
       goto LABEL_755;
     }
@@ -25904,13 +25360,12 @@ LABEL_754:
   }
 
 LABEL_1482:
-  actionsAtDayOfWeekForAction = self->_actionsAtDayOfWeekForAction;
   PBDataWriterWriteInt32Field();
-  v314 = *(&self->_has + 1);
-  if ((v314 & 0x200000000000) == 0)
+  v106 = *(&self->_has + 1);
+  if ((v106 & 0x200000000000) == 0)
   {
 LABEL_755:
-    if ((v314 & 0x400000000000) == 0)
+    if ((v106 & 0x400000000000) == 0)
     {
       goto LABEL_756;
     }
@@ -25919,13 +25374,12 @@ LABEL_755:
   }
 
 LABEL_1483:
-  actionsAtCoarseGeoHashForActionInContext = self->_actionsAtCoarseGeoHashForActionInContext;
   PBDataWriterWriteInt32Field();
-  v314 = *(&self->_has + 1);
-  if ((v314 & 0x400000000000) == 0)
+  v106 = *(&self->_has + 1);
+  if ((v106 & 0x400000000000) == 0)
   {
 LABEL_756:
-    if ((v314 & 0x100000000000) == 0)
+    if ((v106 & 0x100000000000) == 0)
     {
       goto LABEL_758;
     }
@@ -25934,26 +25388,23 @@ LABEL_756:
   }
 
 LABEL_1484:
-  actionsAtCoarseGeoHashInContext = self->_actionsAtCoarseGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x100000000000) != 0)
   {
 LABEL_757:
-    actionsAtCoarseGeoHashForAction = self->_actionsAtCoarseGeoHashForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_758:
-  v316 = *(&self->_has + 2);
-  if ((v316 & 4) != 0)
+  v107 = *(&self->_has + 2);
+  if ((v107 & 4) != 0)
   {
-    actionsAtSpecificGeoHashForActionInContext = self->_actionsAtSpecificGeoHashForActionInContext;
     PBDataWriterWriteInt32Field();
-    v316 = *(&self->_has + 2);
-    if ((v316 & 8) == 0)
+    v107 = *(&self->_has + 2);
+    if ((v107 & 8) == 0)
     {
 LABEL_760:
-      if ((v316 & 2) == 0)
+      if ((v107 & 2) == 0)
       {
         goto LABEL_761;
       }
@@ -25962,18 +25413,17 @@ LABEL_760:
     }
   }
 
-  else if ((v316 & 8) == 0)
+  else if ((v107 & 8) == 0)
   {
     goto LABEL_760;
   }
 
-  actionsAtSpecificGeoHashInContext = self->_actionsAtSpecificGeoHashInContext;
   PBDataWriterWriteInt32Field();
-  v316 = *(&self->_has + 2);
-  if ((v316 & 2) == 0)
+  v107 = *(&self->_has + 2);
+  if ((v107 & 2) == 0)
   {
 LABEL_761:
-    if ((v316 & 0x20) == 0)
+    if ((v107 & 0x20) == 0)
     {
       goto LABEL_762;
     }
@@ -25982,13 +25432,12 @@ LABEL_761:
   }
 
 LABEL_1488:
-  actionsAtSpecificGeoHashForAction = self->_actionsAtSpecificGeoHashForAction;
   PBDataWriterWriteInt32Field();
-  v316 = *(&self->_has + 2);
-  if ((v316 & 0x20) == 0)
+  v107 = *(&self->_has + 2);
+  if ((v107 & 0x20) == 0)
   {
 LABEL_762:
-    if ((v316 & 0x40) == 0)
+    if ((v107 & 0x40) == 0)
     {
       goto LABEL_763;
     }
@@ -25997,13 +25446,12 @@ LABEL_762:
   }
 
 LABEL_1489:
-  actionsAtTimeOfDayForActionInContext = self->_actionsAtTimeOfDayForActionInContext;
   PBDataWriterWriteInt32Field();
-  v316 = *(&self->_has + 2);
-  if ((v316 & 0x40) == 0)
+  v107 = *(&self->_has + 2);
+  if ((v107 & 0x40) == 0)
   {
 LABEL_763:
-    if ((v316 & 0x10) == 0)
+    if ((v107 & 0x10) == 0)
     {
       goto LABEL_765;
     }
@@ -26012,26 +25460,23 @@ LABEL_763:
   }
 
 LABEL_1490:
-  actionsAtTimeOfDayInContext = self->_actionsAtTimeOfDayInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 2) & 0x10) != 0)
   {
 LABEL_764:
-    actionsAtTimeOfDayForAction = self->_actionsAtTimeOfDayForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_765:
-  v318 = *p_has;
+  v108 = *p_has;
   if ((*p_has & 0x1000000) != 0)
   {
-    actionConfirmsAtTimeOfDayForActionInContext = self->_actionConfirmsAtTimeOfDayForActionInContext;
     PBDataWriterWriteInt32Field();
-    v318 = *p_has;
+    v108 = *p_has;
     if ((*p_has & 0x2000000) == 0)
     {
 LABEL_767:
-      if ((v318 & 0x800000) == 0)
+      if ((v108 & 0x800000) == 0)
       {
         goto LABEL_769;
       }
@@ -26040,31 +25485,28 @@ LABEL_767:
     }
   }
 
-  else if ((v318 & 0x2000000) == 0)
+  else if ((v108 & 0x2000000) == 0)
   {
     goto LABEL_767;
   }
 
-  actionConfirmsAtTimeOfDayInContext = self->_actionConfirmsAtTimeOfDayInContext;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x800000) != 0)
   {
 LABEL_768:
-    actionConfirmsAtTimeOfDayForAction = self->_actionConfirmsAtTimeOfDayForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_769:
-  v320 = *(&self->_has + 1);
-  if ((v320 & 0x2000) != 0)
+  v109 = *(&self->_has + 1);
+  if ((v109 & 0x2000) != 0)
   {
-    actionRejectsAtTimeOfDayForActionInContext = self->_actionRejectsAtTimeOfDayForActionInContext;
     PBDataWriterWriteInt32Field();
-    v320 = *(&self->_has + 1);
-    if ((v320 & 0x4000) == 0)
+    v109 = *(&self->_has + 1);
+    if ((v109 & 0x4000) == 0)
     {
 LABEL_771:
-      if ((v320 & 0x1000) == 0)
+      if ((v109 & 0x1000) == 0)
       {
         goto LABEL_773;
       }
@@ -26073,31 +25515,28 @@ LABEL_771:
     }
   }
 
-  else if ((v320 & 0x4000) == 0)
+  else if ((v109 & 0x4000) == 0)
   {
     goto LABEL_771;
   }
 
-  actionRejectsAtTimeOfDayInContext = self->_actionRejectsAtTimeOfDayInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x1000) != 0)
   {
 LABEL_772:
-    actionRejectsAtTimeOfDayForAction = self->_actionRejectsAtTimeOfDayForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_773:
-  v322 = *p_has;
+  v110 = *p_has;
   if ((*p_has & 0x40000) != 0)
   {
-    actionConfirmsAtDayOfWeekForActionInContext = self->_actionConfirmsAtDayOfWeekForActionInContext;
     PBDataWriterWriteInt32Field();
-    v322 = *p_has;
+    v110 = *p_has;
     if ((*p_has & 0x80000) == 0)
     {
 LABEL_775:
-      if ((v322 & 0x20000) == 0)
+      if ((v110 & 0x20000) == 0)
       {
         goto LABEL_777;
       }
@@ -26106,31 +25545,28 @@ LABEL_775:
     }
   }
 
-  else if ((v322 & 0x80000) == 0)
+  else if ((v110 & 0x80000) == 0)
   {
     goto LABEL_775;
   }
 
-  actionConfirmsAtDayOfWeekInContext = self->_actionConfirmsAtDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x20000) != 0)
   {
 LABEL_776:
-    actionConfirmsAtDayOfWeekForAction = self->_actionConfirmsAtDayOfWeekForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_777:
-  v324 = *(&self->_has + 1);
-  if ((v324 & 0x80) != 0)
+  v111 = *(&self->_has + 1);
+  if ((v111 & 0x80) != 0)
   {
-    actionRejectsAtDayOfWeekForActionInContext = self->_actionRejectsAtDayOfWeekForActionInContext;
     PBDataWriterWriteInt32Field();
-    v324 = *(&self->_has + 1);
-    if ((v324 & 0x100) == 0)
+    v111 = *(&self->_has + 1);
+    if ((v111 & 0x100) == 0)
     {
 LABEL_779:
-      if ((v324 & 0x40) == 0)
+      if ((v111 & 0x40) == 0)
       {
         goto LABEL_781;
       }
@@ -26139,31 +25575,28 @@ LABEL_779:
     }
   }
 
-  else if ((v324 & 0x100) == 0)
+  else if ((v111 & 0x100) == 0)
   {
     goto LABEL_779;
   }
 
-  actionRejectsAtDayOfWeekInContext = self->_actionRejectsAtDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x40) != 0)
   {
 LABEL_780:
-    actionRejectsAtDayOfWeekForAction = self->_actionRejectsAtDayOfWeekForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_781:
-  v326 = *p_has;
+  v112 = *p_has;
   if ((*p_has & 0x8000) != 0)
   {
-    actionConfirmsAtCoarseGeoHashForActionInContext = self->_actionConfirmsAtCoarseGeoHashForActionInContext;
     PBDataWriterWriteInt32Field();
-    v326 = *p_has;
+    v112 = *p_has;
     if ((*p_has & 0x10000) == 0)
     {
 LABEL_783:
-      if ((v326 & 0x4000) == 0)
+      if ((v112 & 0x4000) == 0)
       {
         goto LABEL_785;
       }
@@ -26172,31 +25605,28 @@ LABEL_783:
     }
   }
 
-  else if ((v326 & 0x10000) == 0)
+  else if ((v112 & 0x10000) == 0)
   {
     goto LABEL_783;
   }
 
-  actionConfirmsAtCoarseGeoHashInContext = self->_actionConfirmsAtCoarseGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x4000) != 0)
   {
 LABEL_784:
-    actionConfirmsAtCoarseGeoHashForAction = self->_actionConfirmsAtCoarseGeoHashForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_785:
-  v328 = *(&self->_has + 1);
-  if ((v328 & 0x10) != 0)
+  v113 = *(&self->_has + 1);
+  if ((v113 & 0x10) != 0)
   {
-    actionRejectsAtCoarseGeoHashForActionInContext = self->_actionRejectsAtCoarseGeoHashForActionInContext;
     PBDataWriterWriteInt32Field();
-    v328 = *(&self->_has + 1);
-    if ((v328 & 0x20) == 0)
+    v113 = *(&self->_has + 1);
+    if ((v113 & 0x20) == 0)
     {
 LABEL_787:
-      if ((v328 & 8) == 0)
+      if ((v113 & 8) == 0)
       {
         goto LABEL_789;
       }
@@ -26205,31 +25635,28 @@ LABEL_787:
     }
   }
 
-  else if ((v328 & 0x20) == 0)
+  else if ((v113 & 0x20) == 0)
   {
     goto LABEL_787;
   }
 
-  actionRejectsAtCoarseGeoHashInContext = self->_actionRejectsAtCoarseGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 8) != 0)
   {
 LABEL_788:
-    actionRejectsAtCoarseGeoHashForAction = self->_actionRejectsAtCoarseGeoHashForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_789:
-  v330 = *p_has;
+  v114 = *p_has;
   if ((*p_has & 0x200000) != 0)
   {
-    actionConfirmsAtSpecificGeoHashForActionInContext = self->_actionConfirmsAtSpecificGeoHashForActionInContext;
     PBDataWriterWriteInt32Field();
-    v330 = *p_has;
+    v114 = *p_has;
     if ((*p_has & 0x400000) == 0)
     {
 LABEL_791:
-      if ((v330 & 0x100000) == 0)
+      if ((v114 & 0x100000) == 0)
       {
         goto LABEL_793;
       }
@@ -26238,31 +25665,28 @@ LABEL_791:
     }
   }
 
-  else if ((v330 & 0x400000) == 0)
+  else if ((v114 & 0x400000) == 0)
   {
     goto LABEL_791;
   }
 
-  actionConfirmsAtSpecificGeoHashInContext = self->_actionConfirmsAtSpecificGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x100000) != 0)
   {
 LABEL_792:
-    actionConfirmsAtSpecificGeoHashForAction = self->_actionConfirmsAtSpecificGeoHashForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_793:
-  v332 = *(&self->_has + 1);
-  if ((v332 & 0x400) != 0)
+  v115 = *(&self->_has + 1);
+  if ((v115 & 0x400) != 0)
   {
-    actionRejectsAtSpecificGeoHashForActionInContext = self->_actionRejectsAtSpecificGeoHashForActionInContext;
     PBDataWriterWriteInt32Field();
-    v332 = *(&self->_has + 1);
-    if ((v332 & 0x800) == 0)
+    v115 = *(&self->_has + 1);
+    if ((v115 & 0x800) == 0)
     {
 LABEL_795:
-      if ((v332 & 0x200) == 0)
+      if ((v115 & 0x200) == 0)
       {
         goto LABEL_797;
       }
@@ -26271,31 +25695,28 @@ LABEL_795:
     }
   }
 
-  else if ((v332 & 0x800) == 0)
+  else if ((v115 & 0x800) == 0)
   {
     goto LABEL_795;
   }
 
-  actionRejectsAtSpecificGeoHashInContext = self->_actionRejectsAtSpecificGeoHashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x200) != 0)
   {
 LABEL_796:
-    actionRejectsAtSpecificGeoHashForAction = self->_actionRejectsAtSpecificGeoHashForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_797:
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x800) != 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x800) != 0)
   {
-    actionsInTimeBucket0ForAction = self->_actionsInTimeBucket0ForAction;
     PBDataWriterWriteInt32Field();
-    v334 = *(&self->_has + 2);
-    if ((v334 & 0x400000) == 0)
+    v116 = *(&self->_has + 2);
+    if ((v116 & 0x400000) == 0)
     {
 LABEL_799:
-      if ((v334 & 0x10000000) == 0)
+      if ((v116 & 0x10000000) == 0)
       {
         goto LABEL_800;
       }
@@ -26304,18 +25725,17 @@ LABEL_799:
     }
   }
 
-  else if ((v334 & 0x400000) == 0)
+  else if ((v116 & 0x400000) == 0)
   {
     goto LABEL_799;
   }
 
-  actionsInTimeBucket1ForAction = self->_actionsInTimeBucket1ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x10000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x10000000) == 0)
   {
 LABEL_800:
-    if ((v334 & 0x20000000) == 0)
+    if ((v116 & 0x20000000) == 0)
     {
       goto LABEL_801;
     }
@@ -26324,13 +25744,12 @@ LABEL_800:
   }
 
 LABEL_1518:
-  actionsInTimeBucket2ForAction = self->_actionsInTimeBucket2ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x20000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x20000000) == 0)
   {
 LABEL_801:
-    if ((v334 & 0x40000000) == 0)
+    if ((v116 & 0x40000000) == 0)
     {
       goto LABEL_802;
     }
@@ -26339,13 +25758,12 @@ LABEL_801:
   }
 
 LABEL_1519:
-  actionsInTimeBucket3ForAction = self->_actionsInTimeBucket3ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x40000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x40000000) == 0)
   {
 LABEL_802:
-    if ((v334 & 0x80000000) == 0)
+    if ((v116 & 0x80000000) == 0)
     {
       goto LABEL_803;
     }
@@ -26354,13 +25772,12 @@ LABEL_802:
   }
 
 LABEL_1520:
-  actionsInTimeBucket4ForAction = self->_actionsInTimeBucket4ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x80000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x80000000) == 0)
   {
 LABEL_803:
-    if ((v334 & 0x100000000) == 0)
+    if ((v116 & 0x100000000) == 0)
     {
       goto LABEL_804;
     }
@@ -26369,13 +25786,12 @@ LABEL_803:
   }
 
 LABEL_1521:
-  actionsInTimeBucket5ForAction = self->_actionsInTimeBucket5ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x100000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x100000000) == 0)
   {
 LABEL_804:
-    if ((v334 & 0x200000000) == 0)
+    if ((v116 & 0x200000000) == 0)
     {
       goto LABEL_805;
     }
@@ -26384,13 +25800,12 @@ LABEL_804:
   }
 
 LABEL_1522:
-  actionsInTimeBucket6ForAction = self->_actionsInTimeBucket6ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x200000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x200000000) == 0)
   {
 LABEL_805:
-    if ((v334 & 0x400000000) == 0)
+    if ((v116 & 0x400000000) == 0)
     {
       goto LABEL_806;
     }
@@ -26399,13 +25814,12 @@ LABEL_805:
   }
 
 LABEL_1523:
-  actionsInTimeBucket7ForAction = self->_actionsInTimeBucket7ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x400000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x400000000) == 0)
   {
 LABEL_806:
-    if ((v334 & 0x800000000) == 0)
+    if ((v116 & 0x800000000) == 0)
     {
       goto LABEL_807;
     }
@@ -26414,13 +25828,12 @@ LABEL_806:
   }
 
 LABEL_1524:
-  actionsInTimeBucket8ForAction = self->_actionsInTimeBucket8ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x800000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x800000000) == 0)
   {
 LABEL_807:
-    if ((v334 & 0x1000) == 0)
+    if ((v116 & 0x1000) == 0)
     {
       goto LABEL_808;
     }
@@ -26429,13 +25842,12 @@ LABEL_807:
   }
 
 LABEL_1525:
-  actionsInTimeBucket9ForAction = self->_actionsInTimeBucket9ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x1000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x1000) == 0)
   {
 LABEL_808:
-    if ((v334 & 0x2000) == 0)
+    if ((v116 & 0x2000) == 0)
     {
       goto LABEL_809;
     }
@@ -26444,13 +25856,12 @@ LABEL_808:
   }
 
 LABEL_1526:
-  actionsInTimeBucket10ForAction = self->_actionsInTimeBucket10ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x2000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x2000) == 0)
   {
 LABEL_809:
-    if ((v334 & 0x4000) == 0)
+    if ((v116 & 0x4000) == 0)
     {
       goto LABEL_810;
     }
@@ -26459,13 +25870,12 @@ LABEL_809:
   }
 
 LABEL_1527:
-  actionsInTimeBucket11ForAction = self->_actionsInTimeBucket11ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x4000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x4000) == 0)
   {
 LABEL_810:
-    if ((v334 & 0x8000) == 0)
+    if ((v116 & 0x8000) == 0)
     {
       goto LABEL_811;
     }
@@ -26474,13 +25884,12 @@ LABEL_810:
   }
 
 LABEL_1528:
-  actionsInTimeBucket12ForAction = self->_actionsInTimeBucket12ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x8000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x8000) == 0)
   {
 LABEL_811:
-    if ((v334 & 0x10000) == 0)
+    if ((v116 & 0x10000) == 0)
     {
       goto LABEL_812;
     }
@@ -26489,13 +25898,12 @@ LABEL_811:
   }
 
 LABEL_1529:
-  actionsInTimeBucket13ForAction = self->_actionsInTimeBucket13ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x10000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x10000) == 0)
   {
 LABEL_812:
-    if ((v334 & 0x20000) == 0)
+    if ((v116 & 0x20000) == 0)
     {
       goto LABEL_813;
     }
@@ -26504,13 +25912,12 @@ LABEL_812:
   }
 
 LABEL_1530:
-  actionsInTimeBucket14ForAction = self->_actionsInTimeBucket14ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x20000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x20000) == 0)
   {
 LABEL_813:
-    if ((v334 & 0x40000) == 0)
+    if ((v116 & 0x40000) == 0)
     {
       goto LABEL_814;
     }
@@ -26519,13 +25926,12 @@ LABEL_813:
   }
 
 LABEL_1531:
-  actionsInTimeBucket15ForAction = self->_actionsInTimeBucket15ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x40000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x40000) == 0)
   {
 LABEL_814:
-    if ((v334 & 0x80000) == 0)
+    if ((v116 & 0x80000) == 0)
     {
       goto LABEL_815;
     }
@@ -26534,13 +25940,12 @@ LABEL_814:
   }
 
 LABEL_1532:
-  actionsInTimeBucket16ForAction = self->_actionsInTimeBucket16ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x80000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x80000) == 0)
   {
 LABEL_815:
-    if ((v334 & 0x100000) == 0)
+    if ((v116 & 0x100000) == 0)
     {
       goto LABEL_816;
     }
@@ -26549,13 +25954,12 @@ LABEL_815:
   }
 
 LABEL_1533:
-  actionsInTimeBucket17ForAction = self->_actionsInTimeBucket17ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x100000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x100000) == 0)
   {
 LABEL_816:
-    if ((v334 & 0x200000) == 0)
+    if ((v116 & 0x200000) == 0)
     {
       goto LABEL_817;
     }
@@ -26564,13 +25968,12 @@ LABEL_816:
   }
 
 LABEL_1534:
-  actionsInTimeBucket18ForAction = self->_actionsInTimeBucket18ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x200000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x200000) == 0)
   {
 LABEL_817:
-    if ((v334 & 0x800000) == 0)
+    if ((v116 & 0x800000) == 0)
     {
       goto LABEL_818;
     }
@@ -26579,13 +25982,12 @@ LABEL_817:
   }
 
 LABEL_1535:
-  actionsInTimeBucket19ForAction = self->_actionsInTimeBucket19ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x800000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x800000) == 0)
   {
 LABEL_818:
-    if ((v334 & 0x1000000) == 0)
+    if ((v116 & 0x1000000) == 0)
     {
       goto LABEL_819;
     }
@@ -26594,13 +25996,12 @@ LABEL_818:
   }
 
 LABEL_1536:
-  actionsInTimeBucket20ForAction = self->_actionsInTimeBucket20ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x1000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x1000000) == 0)
   {
 LABEL_819:
-    if ((v334 & 0x2000000) == 0)
+    if ((v116 & 0x2000000) == 0)
     {
       goto LABEL_820;
     }
@@ -26609,13 +26010,12 @@ LABEL_819:
   }
 
 LABEL_1537:
-  actionsInTimeBucket21ForAction = self->_actionsInTimeBucket21ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x2000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x2000000) == 0)
   {
 LABEL_820:
-    if ((v334 & 0x4000000) == 0)
+    if ((v116 & 0x4000000) == 0)
     {
       goto LABEL_821;
     }
@@ -26624,13 +26024,12 @@ LABEL_820:
   }
 
 LABEL_1538:
-  actionsInTimeBucket22ForAction = self->_actionsInTimeBucket22ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x4000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x4000000) == 0)
   {
 LABEL_821:
-    if ((v334 & 0x8000000) == 0)
+    if ((v116 & 0x8000000) == 0)
     {
       goto LABEL_822;
     }
@@ -26639,13 +26038,12 @@ LABEL_821:
   }
 
 LABEL_1539:
-  actionsInTimeBucket23ForAction = self->_actionsInTimeBucket23ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x8000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x8000000) == 0)
   {
 LABEL_822:
-    if ((v334 & 0x8000000000) == 0)
+    if ((v116 & 0x8000000000) == 0)
     {
       goto LABEL_823;
     }
@@ -26654,13 +26052,12 @@ LABEL_822:
   }
 
 LABEL_1540:
-  actionsInTimeBucket24ForAction = self->_actionsInTimeBucket24ForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x8000000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x8000000000) == 0)
   {
 LABEL_823:
-    if ((v334 & 0x2000000000) == 0)
+    if ((v116 & 0x2000000000) == 0)
     {
       goto LABEL_824;
     }
@@ -26669,13 +26066,12 @@ LABEL_823:
   }
 
 LABEL_1541:
-  actionsOnDayOfWeekSundayForAction = self->_actionsOnDayOfWeekSundayForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x2000000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x2000000000) == 0)
   {
 LABEL_824:
-    if ((v334 & 0x20000000000) == 0)
+    if ((v116 & 0x20000000000) == 0)
     {
       goto LABEL_825;
     }
@@ -26684,13 +26080,12 @@ LABEL_824:
   }
 
 LABEL_1542:
-  actionsOnDayOfWeekMondayForAction = self->_actionsOnDayOfWeekMondayForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x20000000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x20000000000) == 0)
   {
 LABEL_825:
-    if ((v334 & 0x40000000000) == 0)
+    if ((v116 & 0x40000000000) == 0)
     {
       goto LABEL_826;
     }
@@ -26699,13 +26094,12 @@ LABEL_825:
   }
 
 LABEL_1543:
-  actionsOnDayOfWeekTuesdayForAction = self->_actionsOnDayOfWeekTuesdayForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x40000000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x40000000000) == 0)
   {
 LABEL_826:
-    if ((v334 & 0x10000000000) == 0)
+    if ((v116 & 0x10000000000) == 0)
     {
       goto LABEL_827;
     }
@@ -26714,13 +26108,12 @@ LABEL_826:
   }
 
 LABEL_1544:
-  actionsOnDayOfWeekWednesdayForAction = self->_actionsOnDayOfWeekWednesdayForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x10000000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x10000000000) == 0)
   {
 LABEL_827:
-    if ((v334 & 0x1000000000) == 0)
+    if ((v116 & 0x1000000000) == 0)
     {
       goto LABEL_828;
     }
@@ -26729,13 +26122,12 @@ LABEL_827:
   }
 
 LABEL_1545:
-  actionsOnDayOfWeekThursdayForAction = self->_actionsOnDayOfWeekThursdayForAction;
   PBDataWriterWriteInt32Field();
-  v334 = *(&self->_has + 2);
-  if ((v334 & 0x1000000000) == 0)
+  v116 = *(&self->_has + 2);
+  if ((v116 & 0x1000000000) == 0)
   {
 LABEL_828:
-    if ((v334 & 0x4000000000) == 0)
+    if ((v116 & 0x4000000000) == 0)
     {
       goto LABEL_830;
     }
@@ -26744,26 +26136,23 @@ LABEL_828:
   }
 
 LABEL_1546:
-  actionsOnDayOfWeekFridayForAction = self->_actionsOnDayOfWeekFridayForAction;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 2) & 0x4000000000) != 0)
   {
 LABEL_829:
-    actionsOnDayOfWeekSaturdayForAction = self->_actionsOnDayOfWeekSaturdayForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_830:
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x400000000) != 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x400000000) != 0)
   {
-    actionsAtCoarseGeoHash0ForAction = self->_actionsAtCoarseGeoHash0ForAction;
     PBDataWriterWriteInt32Field();
-    v336 = *(&self->_has + 1);
-    if ((v336 & 0x800000000) == 0)
+    v117 = *(&self->_has + 1);
+    if ((v117 & 0x800000000) == 0)
     {
 LABEL_832:
-      if ((v336 & 0x1000000000) == 0)
+      if ((v117 & 0x1000000000) == 0)
       {
         goto LABEL_833;
       }
@@ -26772,18 +26161,17 @@ LABEL_832:
     }
   }
 
-  else if ((v336 & 0x800000000) == 0)
+  else if ((v117 & 0x800000000) == 0)
   {
     goto LABEL_832;
   }
 
-  actionsAtCoarseGeoHash1ForAction = self->_actionsAtCoarseGeoHash1ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x1000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x1000000000) == 0)
   {
 LABEL_833:
-    if ((v336 & 0x2000000000) == 0)
+    if ((v117 & 0x2000000000) == 0)
     {
       goto LABEL_834;
     }
@@ -26792,13 +26180,12 @@ LABEL_833:
   }
 
 LABEL_1550:
-  actionsAtCoarseGeoHash2ForAction = self->_actionsAtCoarseGeoHash2ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x2000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x2000000000) == 0)
   {
 LABEL_834:
-    if ((v336 & 0x4000000000) == 0)
+    if ((v117 & 0x4000000000) == 0)
     {
       goto LABEL_835;
     }
@@ -26807,13 +26194,12 @@ LABEL_834:
   }
 
 LABEL_1551:
-  actionsAtCoarseGeoHash3ForAction = self->_actionsAtCoarseGeoHash3ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x4000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x4000000000) == 0)
   {
 LABEL_835:
-    if ((v336 & 0x8000000000) == 0)
+    if ((v117 & 0x8000000000) == 0)
     {
       goto LABEL_836;
     }
@@ -26822,13 +26208,12 @@ LABEL_835:
   }
 
 LABEL_1552:
-  actionsAtCoarseGeoHash4ForAction = self->_actionsAtCoarseGeoHash4ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x8000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x8000000000) == 0)
   {
 LABEL_836:
-    if ((v336 & 0x10000000000) == 0)
+    if ((v117 & 0x10000000000) == 0)
     {
       goto LABEL_837;
     }
@@ -26837,13 +26222,12 @@ LABEL_836:
   }
 
 LABEL_1553:
-  actionsAtCoarseGeoHash5ForAction = self->_actionsAtCoarseGeoHash5ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x10000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x10000000000) == 0)
   {
 LABEL_837:
-    if ((v336 & 0x20000000000) == 0)
+    if ((v117 & 0x20000000000) == 0)
     {
       goto LABEL_838;
     }
@@ -26852,13 +26236,12 @@ LABEL_837:
   }
 
 LABEL_1554:
-  actionsAtCoarseGeoHash6ForAction = self->_actionsAtCoarseGeoHash6ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x20000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x20000000000) == 0)
   {
 LABEL_838:
-    if ((v336 & 0x40000000000) == 0)
+    if ((v117 & 0x40000000000) == 0)
     {
       goto LABEL_839;
     }
@@ -26867,13 +26250,12 @@ LABEL_838:
   }
 
 LABEL_1555:
-  actionsAtCoarseGeoHash7ForAction = self->_actionsAtCoarseGeoHash7ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x40000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x40000000000) == 0)
   {
 LABEL_839:
-    if ((v336 & 0x80000000000) == 0)
+    if ((v117 & 0x80000000000) == 0)
     {
       goto LABEL_840;
     }
@@ -26882,13 +26264,12 @@ LABEL_839:
   }
 
 LABEL_1556:
-  actionsAtCoarseGeoHash8ForAction = self->_actionsAtCoarseGeoHash8ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x80000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x80000000000) == 0)
   {
 LABEL_840:
-    if ((v336 & 0x4000000000000) == 0)
+    if ((v117 & 0x4000000000000) == 0)
     {
       goto LABEL_841;
     }
@@ -26897,13 +26278,12 @@ LABEL_840:
   }
 
 LABEL_1557:
-  actionsAtCoarseGeoHash9ForAction = self->_actionsAtCoarseGeoHash9ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x4000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x4000000000000) == 0)
   {
 LABEL_841:
-    if ((v336 & 0x100000000000000) == 0)
+    if ((v117 & 0x100000000000000) == 0)
     {
       goto LABEL_842;
     }
@@ -26912,13 +26292,12 @@ LABEL_841:
   }
 
 LABEL_1558:
-  actionsAtSpecificGeoHash0ForAction = self->_actionsAtSpecificGeoHash0ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x100000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x100000000000000) == 0)
   {
 LABEL_842:
-    if ((v336 & 0x200000000000000) == 0)
+    if ((v117 & 0x200000000000000) == 0)
     {
       goto LABEL_843;
     }
@@ -26927,13 +26306,12 @@ LABEL_842:
   }
 
 LABEL_1559:
-  actionsAtSpecificGeoHash1ForAction = self->_actionsAtSpecificGeoHash1ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x200000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x200000000000000) == 0)
   {
 LABEL_843:
-    if ((v336 & 0x400000000000000) == 0)
+    if ((v117 & 0x400000000000000) == 0)
     {
       goto LABEL_844;
     }
@@ -26942,13 +26320,12 @@ LABEL_843:
   }
 
 LABEL_1560:
-  actionsAtSpecificGeoHash2ForAction = self->_actionsAtSpecificGeoHash2ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x400000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x400000000000000) == 0)
   {
 LABEL_844:
-    if ((v336 & 0x800000000000000) == 0)
+    if ((v117 & 0x800000000000000) == 0)
     {
       goto LABEL_845;
     }
@@ -26957,13 +26334,12 @@ LABEL_844:
   }
 
 LABEL_1561:
-  actionsAtSpecificGeoHash3ForAction = self->_actionsAtSpecificGeoHash3ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x800000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x800000000000000) == 0)
   {
 LABEL_845:
-    if ((v336 & 0x1000000000000000) == 0)
+    if ((v117 & 0x1000000000000000) == 0)
     {
       goto LABEL_846;
     }
@@ -26972,13 +26348,12 @@ LABEL_845:
   }
 
 LABEL_1562:
-  actionsAtSpecificGeoHash4ForAction = self->_actionsAtSpecificGeoHash4ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x1000000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x1000000000000000) == 0)
   {
 LABEL_846:
-    if ((v336 & 0x2000000000000000) == 0)
+    if ((v117 & 0x2000000000000000) == 0)
     {
       goto LABEL_847;
     }
@@ -26987,19 +26362,17 @@ LABEL_846:
   }
 
 LABEL_1563:
-  actionsAtSpecificGeoHash5ForAction = self->_actionsAtSpecificGeoHash5ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x2000000000000000) == 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x2000000000000000) == 0)
   {
 LABEL_847:
-    if ((v336 & 0x4000000000000000) == 0)
+    if ((v117 & 0x4000000000000000) == 0)
     {
       goto LABEL_848;
     }
 
 LABEL_1565:
-    actionsAtSpecificGeoHash7ForAction = self->_actionsAtSpecificGeoHash7ForAction;
     PBDataWriterWriteInt32Field();
     if ((*(&self->_has + 1) & 0x8000000000000000) == 0)
     {
@@ -27010,40 +26383,36 @@ LABEL_1565:
   }
 
 LABEL_1564:
-  actionsAtSpecificGeoHash6ForAction = self->_actionsAtSpecificGeoHash6ForAction;
   PBDataWriterWriteInt32Field();
-  v336 = *(&self->_has + 1);
-  if ((v336 & 0x4000000000000000) != 0)
+  v117 = *(&self->_has + 1);
+  if ((v117 & 0x4000000000000000) != 0)
   {
     goto LABEL_1565;
   }
 
 LABEL_848:
-  if ((v336 & 0x8000000000000000) == 0)
+  if ((v117 & 0x8000000000000000) == 0)
   {
     goto LABEL_849;
   }
 
 LABEL_1566:
-  actionsAtSpecificGeoHash8ForAction = self->_actionsAtSpecificGeoHash8ForAction;
   PBDataWriterWriteInt32Field();
 LABEL_849:
   if (*(&self->_has + 16))
   {
-    actionsAtSpecificGeoHash9ForAction = self->_actionsAtSpecificGeoHash9ForAction;
     PBDataWriterWriteInt32Field();
   }
 
-  v338 = *(&self->_has + 1);
-  if ((v338 & 0x8000000000000) != 0)
+  v118 = *(&self->_has + 1);
+  if ((v118 & 0x8000000000000) != 0)
   {
-    actionsAtSpecificGeoHash10ForAction = self->_actionsAtSpecificGeoHash10ForAction;
     PBDataWriterWriteInt32Field();
-    v338 = *(&self->_has + 1);
-    if ((v338 & 0x10000000000000) == 0)
+    v118 = *(&self->_has + 1);
+    if ((v118 & 0x10000000000000) == 0)
     {
 LABEL_853:
-      if ((v338 & 0x20000000000000) == 0)
+      if ((v118 & 0x20000000000000) == 0)
       {
         goto LABEL_854;
       }
@@ -27052,18 +26421,17 @@ LABEL_853:
     }
   }
 
-  else if ((v338 & 0x10000000000000) == 0)
+  else if ((v118 & 0x10000000000000) == 0)
   {
     goto LABEL_853;
   }
 
-  actionsAtSpecificGeoHash11ForAction = self->_actionsAtSpecificGeoHash11ForAction;
   PBDataWriterWriteInt32Field();
-  v338 = *(&self->_has + 1);
-  if ((v338 & 0x20000000000000) == 0)
+  v118 = *(&self->_has + 1);
+  if ((v118 & 0x20000000000000) == 0)
   {
 LABEL_854:
-    if ((v338 & 0x40000000000000) == 0)
+    if ((v118 & 0x40000000000000) == 0)
     {
       goto LABEL_855;
     }
@@ -27072,13 +26440,12 @@ LABEL_854:
   }
 
 LABEL_1569:
-  actionsAtSpecificGeoHash12ForAction = self->_actionsAtSpecificGeoHash12ForAction;
   PBDataWriterWriteInt32Field();
-  v338 = *(&self->_has + 1);
-  if ((v338 & 0x40000000000000) == 0)
+  v118 = *(&self->_has + 1);
+  if ((v118 & 0x40000000000000) == 0)
   {
 LABEL_855:
-    if ((v338 & 0x80000000000000) == 0)
+    if ((v118 & 0x80000000000000) == 0)
     {
       goto LABEL_857;
     }
@@ -27087,26 +26454,23 @@ LABEL_855:
   }
 
 LABEL_1570:
-  actionsAtSpecificGeoHash13ForAction = self->_actionsAtSpecificGeoHash13ForAction;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 1) & 0x80000000000000) != 0)
   {
 LABEL_856:
-    actionsAtSpecificGeoHash14ForAction = self->_actionsAtSpecificGeoHash14ForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_857:
-  v340 = *p_has;
+  v119 = *p_has;
   if ((*p_has & 0x40000000000) != 0)
   {
-    actionEntropyForTimeOfDay = self->_actionEntropyForTimeOfDay;
     PBDataWriterWriteInt32Field();
-    v340 = *p_has;
+    v119 = *p_has;
     if ((*p_has & 0x10000000000) == 0)
     {
 LABEL_859:
-      if ((v340 & 0x8000000000) == 0)
+      if ((v119 & 0x8000000000) == 0)
       {
         goto LABEL_860;
       }
@@ -27115,18 +26479,17 @@ LABEL_859:
     }
   }
 
-  else if ((v340 & 0x10000000000) == 0)
+  else if ((v119 & 0x10000000000) == 0)
   {
     goto LABEL_859;
   }
 
-  actionEntropyForDayOfWeek = self->_actionEntropyForDayOfWeek;
   PBDataWriterWriteInt32Field();
-  v340 = *p_has;
+  v119 = *p_has;
   if ((*p_has & 0x8000000000) == 0)
   {
 LABEL_860:
-    if ((v340 & 0x20000000000) == 0)
+    if ((v119 & 0x20000000000) == 0)
     {
       goto LABEL_861;
     }
@@ -27135,13 +26498,12 @@ LABEL_860:
   }
 
 LABEL_1574:
-  actionEntropyForCoarseGeoHash = self->_actionEntropyForCoarseGeoHash;
   PBDataWriterWriteInt32Field();
-  v340 = *p_has;
+  v119 = *p_has;
   if ((*p_has & 0x20000000000) == 0)
   {
 LABEL_861:
-    if ((v340 & 0x1000000000000000) == 0)
+    if ((v119 & 0x1000000000000000) == 0)
     {
       goto LABEL_862;
     }
@@ -27150,13 +26512,12 @@ LABEL_861:
   }
 
 LABEL_1575:
-  actionEntropyForSpecificGeoHash = self->_actionEntropyForSpecificGeoHash;
   PBDataWriterWriteInt32Field();
-  v340 = *p_has;
+  v119 = *p_has;
   if ((*p_has & 0x1000000000000000) == 0)
   {
 LABEL_862:
-    if ((v340 & 0x800000000000000) == 0)
+    if ((v119 & 0x800000000000000) == 0)
     {
       goto LABEL_864;
     }
@@ -27165,26 +26526,23 @@ LABEL_862:
   }
 
 LABEL_1576:
-  actionNumberOfSpecificGeohashesForAction = self->_actionNumberOfSpecificGeohashesForAction;
   PBDataWriterWriteInt32Field();
   if ((*p_has & 0x800000000000000) != 0)
   {
 LABEL_863:
-    actionNumberOfCoarseGeohashesForAction = self->_actionNumberOfCoarseGeohashesForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_864:
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x80000000) != 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x80000000) != 0)
   {
-    appLaunchesAtZoom7GeoHashForAppInContext = self->_appLaunchesAtZoom7GeoHashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v342 = *(&self->_has + 6);
-    if ((v342 & 0x100000000) == 0)
+    v120 = *(&self->_has + 6);
+    if ((v120 & 0x100000000) == 0)
     {
 LABEL_866:
-      if ((v342 & 0x40000000) == 0)
+      if ((v120 & 0x40000000) == 0)
       {
         goto LABEL_867;
       }
@@ -27193,18 +26551,17 @@ LABEL_866:
     }
   }
 
-  else if ((v342 & 0x100000000) == 0)
+  else if ((v120 & 0x100000000) == 0)
   {
     goto LABEL_866;
   }
 
-  appLaunchesAtZoom7GeoHashInContext = self->_appLaunchesAtZoom7GeoHashInContext;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x40000000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x40000000) == 0)
   {
 LABEL_867:
-    if ((v342 & 0x100000) == 0)
+    if ((v120 & 0x100000) == 0)
     {
       goto LABEL_868;
     }
@@ -27213,13 +26570,12 @@ LABEL_867:
   }
 
 LABEL_1580:
-  appLaunchesAtZoom7GeoHashForApp = self->_appLaunchesAtZoom7GeoHashForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x100000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x100000) == 0)
   {
 LABEL_868:
-    if ((v342 & 0x200000) == 0)
+    if ((v120 & 0x200000) == 0)
     {
       goto LABEL_869;
     }
@@ -27228,13 +26584,12 @@ LABEL_868:
   }
 
 LABEL_1581:
-  appLaunchesAtZoom7GeoHash0ForApp = self->_appLaunchesAtZoom7GeoHash0ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x200000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x200000) == 0)
   {
 LABEL_869:
-    if ((v342 & 0x400000) == 0)
+    if ((v120 & 0x400000) == 0)
     {
       goto LABEL_870;
     }
@@ -27243,13 +26598,12 @@ LABEL_869:
   }
 
 LABEL_1582:
-  appLaunchesAtZoom7GeoHash1ForApp = self->_appLaunchesAtZoom7GeoHash1ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x400000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x400000) == 0)
   {
 LABEL_870:
-    if ((v342 & 0x800000) == 0)
+    if ((v120 & 0x800000) == 0)
     {
       goto LABEL_871;
     }
@@ -27258,13 +26612,12 @@ LABEL_870:
   }
 
 LABEL_1583:
-  appLaunchesAtZoom7GeoHash2ForApp = self->_appLaunchesAtZoom7GeoHash2ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x800000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x800000) == 0)
   {
 LABEL_871:
-    if ((v342 & 0x1000000) == 0)
+    if ((v120 & 0x1000000) == 0)
     {
       goto LABEL_872;
     }
@@ -27273,13 +26626,12 @@ LABEL_871:
   }
 
 LABEL_1584:
-  appLaunchesAtZoom7GeoHash3ForApp = self->_appLaunchesAtZoom7GeoHash3ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x1000000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x1000000) == 0)
   {
 LABEL_872:
-    if ((v342 & 0x2000000) == 0)
+    if ((v120 & 0x2000000) == 0)
     {
       goto LABEL_873;
     }
@@ -27288,13 +26640,12 @@ LABEL_872:
   }
 
 LABEL_1585:
-  appLaunchesAtZoom7GeoHash4ForApp = self->_appLaunchesAtZoom7GeoHash4ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x2000000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x2000000) == 0)
   {
 LABEL_873:
-    if ((v342 & 0x4000000) == 0)
+    if ((v120 & 0x4000000) == 0)
     {
       goto LABEL_874;
     }
@@ -27303,13 +26654,12 @@ LABEL_873:
   }
 
 LABEL_1586:
-  appLaunchesAtZoom7GeoHash5ForApp = self->_appLaunchesAtZoom7GeoHash5ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x4000000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x4000000) == 0)
   {
 LABEL_874:
-    if ((v342 & 0x8000000) == 0)
+    if ((v120 & 0x8000000) == 0)
     {
       goto LABEL_875;
     }
@@ -27318,13 +26668,12 @@ LABEL_874:
   }
 
 LABEL_1587:
-  appLaunchesAtZoom7GeoHash6ForApp = self->_appLaunchesAtZoom7GeoHash6ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x8000000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x8000000) == 0)
   {
 LABEL_875:
-    if ((v342 & 0x10000000) == 0)
+    if ((v120 & 0x10000000) == 0)
     {
       goto LABEL_876;
     }
@@ -27333,13 +26682,12 @@ LABEL_875:
   }
 
 LABEL_1588:
-  appLaunchesAtZoom7GeoHash7ForApp = self->_appLaunchesAtZoom7GeoHash7ForApp;
   PBDataWriterWriteInt32Field();
-  v342 = *(&self->_has + 6);
-  if ((v342 & 0x10000000) == 0)
+  v120 = *(&self->_has + 6);
+  if ((v120 & 0x10000000) == 0)
   {
 LABEL_876:
-    if ((v342 & 0x20000000) == 0)
+    if ((v120 & 0x20000000) == 0)
     {
       goto LABEL_878;
     }
@@ -27348,38 +26696,33 @@ LABEL_876:
   }
 
 LABEL_1589:
-  appLaunchesAtZoom7GeoHash8ForApp = self->_appLaunchesAtZoom7GeoHash8ForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 6) & 0x20000000) != 0)
   {
 LABEL_877:
-    appLaunchesAtZoom7GeoHash9ForApp = self->_appLaunchesAtZoom7GeoHash9ForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_878:
   if ((*(&self->_has + 34) & 8) != 0)
   {
-    appEntropyForZoom7GeoHash = self->_appEntropyForZoom7GeoHash;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 58) & 8) != 0)
   {
-    appNumberOfZoom7GeohashesForApp = self->_appNumberOfZoom7GeohashesForApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v346 = *(&self->_has + 4);
-  if ((v346 & 0x200000000000000) != 0)
+  v121 = *(&self->_has + 4);
+  if ((v121 & 0x200000000000000) != 0)
   {
-    appGeoAssociationScoreAtZoom7 = self->_appGeoAssociationScoreAtZoom7;
     PBDataWriterWriteInt32Field();
-    v346 = *(&self->_has + 4);
-    if ((v346 & 0x80000000000000) == 0)
+    v121 = *(&self->_has + 4);
+    if ((v121 & 0x80000000000000) == 0)
     {
 LABEL_884:
-      if ((v346 & 0x100000000000000) == 0)
+      if ((v121 & 0x100000000000000) == 0)
       {
         goto LABEL_886;
       }
@@ -27388,43 +26731,38 @@ LABEL_884:
     }
   }
 
-  else if ((v346 & 0x80000000000000) == 0)
+  else if ((v121 & 0x80000000000000) == 0)
   {
     goto LABEL_884;
   }
 
-  appGeoAssociationScoreAtZoom13 = self->_appGeoAssociationScoreAtZoom13;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x100000000000000) != 0)
   {
 LABEL_885:
-    appGeoAssociationScoreAtZoom16 = self->_appGeoAssociationScoreAtZoom16;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_886:
   if ((*(&self->_has + 58) & 0x10) != 0)
   {
-    appPartOfWeekAssociationScore = self->_appPartOfWeekAssociationScore;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 24) & 0x40) != 0)
   {
-    appCoarseTimeAssociationScore = self->_appCoarseTimeAssociationScore;
     PBDataWriterWriteInt32Field();
   }
 
-  v350 = *(&self->_has + 5);
-  if ((v350 & 0x10000000000) != 0)
+  v122 = *(&self->_has + 5);
+  if ((v122 & 0x10000000000) != 0)
   {
-    appLOITypeAssociationScore = self->_appLOITypeAssociationScore;
     PBDataWriterWriteInt32Field();
-    v350 = *(&self->_has + 5);
-    if ((v350 & 0x4000000000000000) == 0)
+    v122 = *(&self->_has + 5);
+    if ((v122 & 0x4000000000000000) == 0)
     {
 LABEL_892:
-      if ((v350 & 0x2000000000000000) == 0)
+      if ((v122 & 0x2000000000000000) == 0)
       {
         goto LABEL_894;
       }
@@ -27433,45 +26771,40 @@ LABEL_892:
     }
   }
 
-  else if ((v350 & 0x4000000000000000) == 0)
+  else if ((v122 & 0x4000000000000000) == 0)
   {
     goto LABEL_892;
   }
 
-  appLaunchesAtSSIDForAppInContext = self->_appLaunchesAtSSIDForAppInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 5) & 0x2000000000000000) != 0)
   {
 LABEL_893:
-    appLaunchesAtSSIDForApp = self->_appLaunchesAtSSIDForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_894:
-  v352 = *(&self->_has + 6);
-  if ((v352 & 0x8000000000) != 0)
+  v123 = *(&self->_has + 6);
+  if ((v123 & 0x8000000000) != 0)
   {
-    appLaunchesForCoreMotionForAppInContext = self->_appLaunchesForCoreMotionForAppInContext;
     PBDataWriterWriteInt32Field();
-    v352 = *(&self->_has + 6);
+    v123 = *(&self->_has + 6);
   }
 
-  if ((v352 & 0x10000000000) != 0)
+  if ((v123 & 0x10000000000) != 0)
   {
-    appLaunchesInAirplaneModeForAppInContext = self->_appLaunchesInAirplaneModeForAppInContext;
     PBDataWriterWriteInt32Field();
   }
 
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x800) != 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x800) != 0)
   {
-    homeScreenAppConfirmsOnDayOfWeekForAppInContext = self->_homeScreenAppConfirmsOnDayOfWeekForAppInContext;
     PBDataWriterWriteInt32Field();
-    v355 = *(&self->_has + 9);
-    if ((v355 & 0x1000) == 0)
+    v124 = *(&self->_has + 9);
+    if ((v124 & 0x1000) == 0)
     {
 LABEL_900:
-      if ((v355 & 0x400) == 0)
+      if ((v124 & 0x400) == 0)
       {
         goto LABEL_901;
       }
@@ -27480,18 +26813,17 @@ LABEL_900:
     }
   }
 
-  else if ((v355 & 0x1000) == 0)
+  else if ((v124 & 0x1000) == 0)
   {
     goto LABEL_900;
   }
 
-  homeScreenAppConfirmsOnDayOfWeekInContext = self->_homeScreenAppConfirmsOnDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x400) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x400) == 0)
   {
 LABEL_901:
-    if ((v355 & 0x800000000) == 0)
+    if ((v124 & 0x800000000) == 0)
     {
       goto LABEL_902;
     }
@@ -27500,13 +26832,12 @@ LABEL_901:
   }
 
 LABEL_1599:
-  homeScreenAppConfirmsOnDayOfWeekForApp = self->_homeScreenAppConfirmsOnDayOfWeekForApp;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x800000000) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x800000000) == 0)
   {
 LABEL_902:
-    if ((v355 & 0x1000000000) == 0)
+    if ((v124 & 0x1000000000) == 0)
     {
       goto LABEL_903;
     }
@@ -27515,13 +26846,12 @@ LABEL_902:
   }
 
 LABEL_1600:
-  homeScreenAppRejectsOnDayOfWeekForAppInContext = self->_homeScreenAppRejectsOnDayOfWeekForAppInContext;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x1000000000) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x1000000000) == 0)
   {
 LABEL_903:
-    if ((v355 & 0x400000000) == 0)
+    if ((v124 & 0x400000000) == 0)
     {
       goto LABEL_904;
     }
@@ -27530,13 +26860,12 @@ LABEL_903:
   }
 
 LABEL_1601:
-  homeScreenAppRejectsOnDayOfWeekInContext = self->_homeScreenAppRejectsOnDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x400000000) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x400000000) == 0)
   {
 LABEL_904:
-    if ((v355 & 0x100) == 0)
+    if ((v124 & 0x100) == 0)
     {
       goto LABEL_905;
     }
@@ -27545,13 +26874,12 @@ LABEL_904:
   }
 
 LABEL_1602:
-  homeScreenAppRejectsOnDayOfWeekForApp = self->_homeScreenAppRejectsOnDayOfWeekForApp;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x100) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x100) == 0)
   {
 LABEL_905:
-    if ((v355 & 0x200) == 0)
+    if ((v124 & 0x200) == 0)
     {
       goto LABEL_906;
     }
@@ -27560,13 +26888,12 @@ LABEL_905:
   }
 
 LABEL_1603:
-  homeScreenAppConfirmsInTwoHourTimeIntervalForAppInContext = self->_homeScreenAppConfirmsInTwoHourTimeIntervalForAppInContext;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x200) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x200) == 0)
   {
 LABEL_906:
-    if ((v355 & 0x80) == 0)
+    if ((v124 & 0x80) == 0)
     {
       goto LABEL_907;
     }
@@ -27575,13 +26902,12 @@ LABEL_906:
   }
 
 LABEL_1604:
-  homeScreenAppConfirmsInTwoHourTimeIntervalInContext = self->_homeScreenAppConfirmsInTwoHourTimeIntervalInContext;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x80) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x80) == 0)
   {
 LABEL_907:
-    if ((v355 & 0x100000000) == 0)
+    if ((v124 & 0x100000000) == 0)
     {
       goto LABEL_908;
     }
@@ -27590,13 +26916,12 @@ LABEL_907:
   }
 
 LABEL_1605:
-  homeScreenAppConfirmsInTwoHourTimeIntervalForApp = self->_homeScreenAppConfirmsInTwoHourTimeIntervalForApp;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x100000000) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x100000000) == 0)
   {
 LABEL_908:
-    if ((v355 & 0x200000000) == 0)
+    if ((v124 & 0x200000000) == 0)
     {
       goto LABEL_909;
     }
@@ -27605,13 +26930,12 @@ LABEL_908:
   }
 
 LABEL_1606:
-  homeScreenAppRejectsInTwoHourTimeIntervalForAppInContext = self->_homeScreenAppRejectsInTwoHourTimeIntervalForAppInContext;
   PBDataWriterWriteInt32Field();
-  v355 = *(&self->_has + 9);
-  if ((v355 & 0x200000000) == 0)
+  v124 = *(&self->_has + 9);
+  if ((v124 & 0x200000000) == 0)
   {
 LABEL_909:
-    if ((v355 & 0x80000000) == 0)
+    if ((v124 & 0x80000000) == 0)
     {
       goto LABEL_911;
     }
@@ -27620,26 +26944,23 @@ LABEL_909:
   }
 
 LABEL_1607:
-  homeScreenAppRejectsInTwoHourTimeIntervalInContext = self->_homeScreenAppRejectsInTwoHourTimeIntervalInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x80000000) != 0)
   {
 LABEL_910:
-    homeScreenAppRejectsInTwoHourTimeIntervalForApp = self->_homeScreenAppRejectsInTwoHourTimeIntervalForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_911:
-  v357 = *(&self->_has + 8);
-  if ((v357 & 0x400000000000000) != 0)
+  v125 = *(&self->_has + 8);
+  if ((v125 & 0x400000000000000) != 0)
   {
-    homeScreenAppConfirmsAtCoarseGeohashForAppInContext = self->_homeScreenAppConfirmsAtCoarseGeohashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v357 = *(&self->_has + 8);
-    if ((v357 & 0x800000000000000) == 0)
+    v125 = *(&self->_has + 8);
+    if ((v125 & 0x800000000000000) == 0)
     {
 LABEL_913:
-      if ((v357 & 0x200000000000000) == 0)
+      if ((v125 & 0x200000000000000) == 0)
       {
         goto LABEL_915;
       }
@@ -27648,31 +26969,28 @@ LABEL_913:
     }
   }
 
-  else if ((v357 & 0x800000000000000) == 0)
+  else if ((v125 & 0x800000000000000) == 0)
   {
     goto LABEL_913;
   }
 
-  homeScreenAppConfirmsAtCoarseGeohashInContext = self->_homeScreenAppConfirmsAtCoarseGeohashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 0x200000000000000) != 0)
   {
 LABEL_914:
-    homeScreenAppConfirmsAtCoarseGeohashForApp = self->_homeScreenAppConfirmsAtCoarseGeohashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_915:
-  v359 = *(&self->_has + 9);
-  if ((v359 & 0x40000) != 0)
+  v126 = *(&self->_has + 9);
+  if ((v126 & 0x40000) != 0)
   {
-    homeScreenAppRejectsAtCoarseGeohashForAppInContext = self->_homeScreenAppRejectsAtCoarseGeohashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v359 = *(&self->_has + 9);
-    if ((v359 & 0x80000) == 0)
+    v126 = *(&self->_has + 9);
+    if ((v126 & 0x80000) == 0)
     {
 LABEL_917:
-      if ((v359 & 0x20000) == 0)
+      if ((v126 & 0x20000) == 0)
       {
         goto LABEL_918;
       }
@@ -27681,18 +26999,17 @@ LABEL_917:
     }
   }
 
-  else if ((v359 & 0x80000) == 0)
+  else if ((v126 & 0x80000) == 0)
   {
     goto LABEL_917;
   }
 
-  homeScreenAppRejectsAtCoarseGeohashInContext = self->_homeScreenAppRejectsAtCoarseGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v359 = *(&self->_has + 9);
-  if ((v359 & 0x20000) == 0)
+  v126 = *(&self->_has + 9);
+  if ((v126 & 0x20000) == 0)
   {
 LABEL_918:
-    if ((v359 & 1) == 0)
+    if ((v126 & 1) == 0)
     {
       goto LABEL_919;
     }
@@ -27701,13 +27018,12 @@ LABEL_918:
   }
 
 LABEL_1614:
-  homeScreenAppRejectsAtCoarseGeohashForApp = self->_homeScreenAppRejectsAtCoarseGeohashForApp;
   PBDataWriterWriteInt32Field();
-  v359 = *(&self->_has + 9);
-  if ((v359 & 1) == 0)
+  v126 = *(&self->_has + 9);
+  if ((v126 & 1) == 0)
   {
 LABEL_919:
-    if ((v359 & 2) == 0)
+    if ((v126 & 2) == 0)
     {
       goto LABEL_921;
     }
@@ -27716,32 +27032,28 @@ LABEL_919:
   }
 
 LABEL_1615:
-  homeScreenAppConfirmsAtSpecificGeohashForAppInContext = self->_homeScreenAppConfirmsAtSpecificGeohashForAppInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 2) != 0)
   {
 LABEL_920:
-    homeScreenAppConfirmsAtSpecificGeohashInContext = self->_homeScreenAppConfirmsAtSpecificGeohashInContext;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_921:
   if ((*(&self->_has + 8) & 0x8000000000000000) != 0)
   {
-    homeScreenAppConfirmsAtSpecificGeohashForApp = self->_homeScreenAppConfirmsAtSpecificGeohashForApp;
     PBDataWriterWriteInt32Field();
   }
 
-  v362 = *(&self->_has + 9);
-  if ((v362 & 0x1000000) != 0)
+  v127 = *(&self->_has + 9);
+  if ((v127 & 0x1000000) != 0)
   {
-    homeScreenAppRejectsAtSpecificGeohashForAppInContext = self->_homeScreenAppRejectsAtSpecificGeohashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v362 = *(&self->_has + 9);
-    if ((v362 & 0x2000000) == 0)
+    v127 = *(&self->_has + 9);
+    if ((v127 & 0x2000000) == 0)
     {
 LABEL_925:
-      if ((v362 & 0x800000) == 0)
+      if ((v127 & 0x800000) == 0)
       {
         goto LABEL_927;
       }
@@ -27750,31 +27062,28 @@ LABEL_925:
     }
   }
 
-  else if ((v362 & 0x2000000) == 0)
+  else if ((v127 & 0x2000000) == 0)
   {
     goto LABEL_925;
   }
 
-  homeScreenAppRejectsAtSpecificGeohashInContext = self->_homeScreenAppRejectsAtSpecificGeohashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x800000) != 0)
   {
 LABEL_926:
-    homeScreenAppRejectsAtSpecificGeohashForApp = self->_homeScreenAppRejectsAtSpecificGeohashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_927:
-  v364 = *(&self->_has + 8);
-  if ((v364 & 0x2000000000000000) != 0)
+  v128 = *(&self->_has + 8);
+  if ((v128 & 0x2000000000000000) != 0)
   {
-    homeScreenAppConfirmsAtCoarseTimePOWLocationForAppInContext = self->_homeScreenAppConfirmsAtCoarseTimePOWLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v364 = *(&self->_has + 8);
-    if ((v364 & 0x4000000000000000) == 0)
+    v128 = *(&self->_has + 8);
+    if ((v128 & 0x4000000000000000) == 0)
     {
 LABEL_929:
-      if ((v364 & 0x1000000000000000) == 0)
+      if ((v128 & 0x1000000000000000) == 0)
       {
         goto LABEL_931;
       }
@@ -27783,31 +27092,28 @@ LABEL_929:
     }
   }
 
-  else if ((v364 & 0x4000000000000000) == 0)
+  else if ((v128 & 0x4000000000000000) == 0)
   {
     goto LABEL_929;
   }
 
-  homeScreenAppConfirmsAtCoarseTimePOWLocationInContext = self->_homeScreenAppConfirmsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 0x1000000000000000) != 0)
   {
 LABEL_930:
-    homeScreenAppConfirmsAtCoarseTimePOWLocationForApp = self->_homeScreenAppConfirmsAtCoarseTimePOWLocationForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_931:
-  v366 = *(&self->_has + 9);
-  if ((v366 & 0x200000) != 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 0x200000) != 0)
   {
-    homeScreenAppRejectsAtCoarseTimePOWLocationForAppInContext = self->_homeScreenAppRejectsAtCoarseTimePOWLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v366 = *(&self->_has + 9);
-    if ((v366 & 0x400000) == 0)
+    v129 = *(&self->_has + 9);
+    if ((v129 & 0x400000) == 0)
     {
 LABEL_933:
-      if ((v366 & 0x100000) == 0)
+      if ((v129 & 0x100000) == 0)
       {
         goto LABEL_934;
       }
@@ -27816,18 +27122,17 @@ LABEL_933:
     }
   }
 
-  else if ((v366 & 0x400000) == 0)
+  else if ((v129 & 0x400000) == 0)
   {
     goto LABEL_933;
   }
 
-  homeScreenAppRejectsAtCoarseTimePOWLocationInContext = self->_homeScreenAppRejectsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v366 = *(&self->_has + 9);
-  if ((v366 & 0x100000) == 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 0x100000) == 0)
   {
 LABEL_934:
-    if ((v366 & 8) == 0)
+    if ((v129 & 8) == 0)
     {
       goto LABEL_935;
     }
@@ -27836,13 +27141,12 @@ LABEL_934:
   }
 
 LABEL_1625:
-  homeScreenAppRejectsAtCoarseTimePOWLocationForApp = self->_homeScreenAppRejectsAtCoarseTimePOWLocationForApp;
   PBDataWriterWriteInt32Field();
-  v366 = *(&self->_has + 9);
-  if ((v366 & 8) == 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 8) == 0)
   {
 LABEL_935:
-    if ((v366 & 0x10) == 0)
+    if ((v129 & 0x10) == 0)
     {
       goto LABEL_936;
     }
@@ -27851,13 +27155,12 @@ LABEL_935:
   }
 
 LABEL_1626:
-  homeScreenAppConfirmsAtSpecificTimeDOWLocationForAppInContext = self->_homeScreenAppConfirmsAtSpecificTimeDOWLocationForAppInContext;
   PBDataWriterWriteInt32Field();
-  v366 = *(&self->_has + 9);
-  if ((v366 & 0x10) == 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 0x10) == 0)
   {
 LABEL_936:
-    if ((v366 & 4) == 0)
+    if ((v129 & 4) == 0)
     {
       goto LABEL_937;
     }
@@ -27866,13 +27169,12 @@ LABEL_936:
   }
 
 LABEL_1627:
-  homeScreenAppConfirmsAtSpecificTimeDOWLocationInContext = self->_homeScreenAppConfirmsAtSpecificTimeDOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v366 = *(&self->_has + 9);
-  if ((v366 & 4) == 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 4) == 0)
   {
 LABEL_937:
-    if ((v366 & 0x8000000) == 0)
+    if ((v129 & 0x8000000) == 0)
     {
       goto LABEL_938;
     }
@@ -27881,13 +27183,12 @@ LABEL_937:
   }
 
 LABEL_1628:
-  homeScreenAppConfirmsAtSpecificTimeDOWLocationForApp = self->_homeScreenAppConfirmsAtSpecificTimeDOWLocationForApp;
   PBDataWriterWriteInt32Field();
-  v366 = *(&self->_has + 9);
-  if ((v366 & 0x8000000) == 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 0x8000000) == 0)
   {
 LABEL_938:
-    if ((v366 & 0x10000000) == 0)
+    if ((v129 & 0x10000000) == 0)
     {
       goto LABEL_939;
     }
@@ -27896,13 +27197,12 @@ LABEL_938:
   }
 
 LABEL_1629:
-  homeScreenAppRejectsAtSpecificTimeDOWLocationForAppInContext = self->_homeScreenAppRejectsAtSpecificTimeDOWLocationForAppInContext;
   PBDataWriterWriteInt32Field();
-  v366 = *(&self->_has + 9);
-  if ((v366 & 0x10000000) == 0)
+  v129 = *(&self->_has + 9);
+  if ((v129 & 0x10000000) == 0)
   {
 LABEL_939:
-    if ((v366 & 0x4000000) == 0)
+    if ((v129 & 0x4000000) == 0)
     {
       goto LABEL_941;
     }
@@ -27911,26 +27211,23 @@ LABEL_939:
   }
 
 LABEL_1630:
-  homeScreenAppRejectsAtSpecificTimeDOWLocationInContext = self->_homeScreenAppRejectsAtSpecificTimeDOWLocationInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x4000000) != 0)
   {
 LABEL_940:
-    homeScreenAppRejectsAtSpecificTimeDOWLocationForApp = self->_homeScreenAppRejectsAtSpecificTimeDOWLocationForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_941:
-  v368 = *(&self->_has + 3);
-  if ((v368 & 0x10000000000000) != 0)
+  v130 = *(&self->_has + 3);
+  if ((v130 & 0x10000000000000) != 0)
   {
-    appDirectoryConfirmsOnDayOfWeekForAppInContext = self->_appDirectoryConfirmsOnDayOfWeekForAppInContext;
     PBDataWriterWriteInt32Field();
-    v368 = *(&self->_has + 3);
-    if ((v368 & 0x20000000000000) == 0)
+    v130 = *(&self->_has + 3);
+    if ((v130 & 0x20000000000000) == 0)
     {
 LABEL_943:
-      if ((v368 & 0x8000000000000) == 0)
+      if ((v130 & 0x8000000000000) == 0)
       {
         goto LABEL_945;
       }
@@ -27939,31 +27236,28 @@ LABEL_943:
     }
   }
 
-  else if ((v368 & 0x20000000000000) == 0)
+  else if ((v130 & 0x20000000000000) == 0)
   {
     goto LABEL_943;
   }
 
-  appDirectoryConfirmsOnDayOfWeekInContext = self->_appDirectoryConfirmsOnDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x8000000000000) != 0)
   {
 LABEL_944:
-    appDirectoryConfirmsOnDayOfWeekForApp = self->_appDirectoryConfirmsOnDayOfWeekForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_945:
-  v370 = *(&self->_has + 4);
-  if ((v370 & 0x1000) != 0)
+  v131 = *(&self->_has + 4);
+  if ((v131 & 0x1000) != 0)
   {
-    appDirectoryRejectsOnDayOfWeekForAppInContext = self->_appDirectoryRejectsOnDayOfWeekForAppInContext;
     PBDataWriterWriteInt32Field();
-    v370 = *(&self->_has + 4);
-    if ((v370 & 0x2000) == 0)
+    v131 = *(&self->_has + 4);
+    if ((v131 & 0x2000) == 0)
     {
 LABEL_947:
-      if ((v370 & 0x800) == 0)
+      if ((v131 & 0x800) == 0)
       {
         goto LABEL_949;
       }
@@ -27972,31 +27266,28 @@ LABEL_947:
     }
   }
 
-  else if ((v370 & 0x2000) == 0)
+  else if ((v131 & 0x2000) == 0)
   {
     goto LABEL_947;
   }
 
-  appDirectoryRejectsOnDayOfWeekInContext = self->_appDirectoryRejectsOnDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x800) != 0)
   {
 LABEL_948:
-    appDirectoryRejectsOnDayOfWeekForApp = self->_appDirectoryRejectsOnDayOfWeekForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_949:
-  v372 = *(&self->_has + 3);
-  if ((v372 & 0x2000000000000) != 0)
+  v132 = *(&self->_has + 3);
+  if ((v132 & 0x2000000000000) != 0)
   {
-    appDirectoryConfirmsInTwoHourTimeIntervalForAppInContext = self->_appDirectoryConfirmsInTwoHourTimeIntervalForAppInContext;
     PBDataWriterWriteInt32Field();
-    v372 = *(&self->_has + 3);
-    if ((v372 & 0x4000000000000) == 0)
+    v132 = *(&self->_has + 3);
+    if ((v132 & 0x4000000000000) == 0)
     {
 LABEL_951:
-      if ((v372 & 0x1000000000000) == 0)
+      if ((v132 & 0x1000000000000) == 0)
       {
         goto LABEL_953;
       }
@@ -28005,31 +27296,28 @@ LABEL_951:
     }
   }
 
-  else if ((v372 & 0x4000000000000) == 0)
+  else if ((v132 & 0x4000000000000) == 0)
   {
     goto LABEL_951;
   }
 
-  appDirectoryConfirmsInTwoHourTimeIntervalInContext = self->_appDirectoryConfirmsInTwoHourTimeIntervalInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x1000000000000) != 0)
   {
 LABEL_952:
-    appDirectoryConfirmsInTwoHourTimeIntervalForApp = self->_appDirectoryConfirmsInTwoHourTimeIntervalForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_953:
-  v374 = *(&self->_has + 4);
-  if ((v374 & 0x200) != 0)
+  v133 = *(&self->_has + 4);
+  if ((v133 & 0x200) != 0)
   {
-    appDirectoryRejectsInTwoHourTimeIntervalForAppInContext = self->_appDirectoryRejectsInTwoHourTimeIntervalForAppInContext;
     PBDataWriterWriteInt32Field();
-    v374 = *(&self->_has + 4);
-    if ((v374 & 0x400) == 0)
+    v133 = *(&self->_has + 4);
+    if ((v133 & 0x400) == 0)
     {
 LABEL_955:
-      if ((v374 & 0x100) == 0)
+      if ((v133 & 0x100) == 0)
       {
         goto LABEL_957;
       }
@@ -28038,31 +27326,28 @@ LABEL_955:
     }
   }
 
-  else if ((v374 & 0x400) == 0)
+  else if ((v133 & 0x400) == 0)
   {
     goto LABEL_955;
   }
 
-  appDirectoryRejectsInTwoHourTimeIntervalInContext = self->_appDirectoryRejectsInTwoHourTimeIntervalInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x100) != 0)
   {
 LABEL_956:
-    appDirectoryRejectsInTwoHourTimeIntervalForApp = self->_appDirectoryRejectsInTwoHourTimeIntervalForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_957:
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x800000000) != 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x800000000) != 0)
   {
-    appDirectoryConfirmsAtCoarseGeohashForAppInContext = self->_appDirectoryConfirmsAtCoarseGeohashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v376 = *(&self->_has + 3);
-    if ((v376 & 0x1000000000) == 0)
+    v134 = *(&self->_has + 3);
+    if ((v134 & 0x1000000000) == 0)
     {
 LABEL_959:
-      if ((v376 & 0x400000000) == 0)
+      if ((v134 & 0x400000000) == 0)
       {
         goto LABEL_960;
       }
@@ -28071,18 +27356,17 @@ LABEL_959:
     }
   }
 
-  else if ((v376 & 0x1000000000) == 0)
+  else if ((v134 & 0x1000000000) == 0)
   {
     goto LABEL_959;
   }
 
-  appDirectoryConfirmsAtCoarseGeohashInContext = self->_appDirectoryConfirmsAtCoarseGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x400000000) == 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x400000000) == 0)
   {
 LABEL_960:
-    if ((v376 & 0x800000000000000) == 0)
+    if ((v134 & 0x800000000000000) == 0)
     {
       goto LABEL_961;
     }
@@ -28091,13 +27375,12 @@ LABEL_960:
   }
 
 LABEL_1646:
-  appDirectoryConfirmsAtCoarseGeohashForApp = self->_appDirectoryConfirmsAtCoarseGeohashForApp;
   PBDataWriterWriteInt32Field();
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x800000000000000) == 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x800000000000000) == 0)
   {
 LABEL_961:
-    if ((v376 & 0x1000000000000000) == 0)
+    if ((v134 & 0x1000000000000000) == 0)
     {
       goto LABEL_962;
     }
@@ -28106,13 +27389,12 @@ LABEL_961:
   }
 
 LABEL_1647:
-  appDirectoryRejectsAtCoarseGeohashForAppInContext = self->_appDirectoryRejectsAtCoarseGeohashForAppInContext;
   PBDataWriterWriteInt32Field();
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x1000000000000000) == 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x1000000000000000) == 0)
   {
 LABEL_962:
-    if ((v376 & 0x400000000000000) == 0)
+    if ((v134 & 0x400000000000000) == 0)
     {
       goto LABEL_963;
     }
@@ -28121,13 +27403,12 @@ LABEL_962:
   }
 
 LABEL_1648:
-  appDirectoryRejectsAtCoarseGeohashInContext = self->_appDirectoryRejectsAtCoarseGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x400000000000000) == 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x400000000000000) == 0)
   {
 LABEL_963:
-    if ((v376 & 0x20000000000) == 0)
+    if ((v134 & 0x20000000000) == 0)
     {
       goto LABEL_964;
     }
@@ -28136,13 +27417,12 @@ LABEL_963:
   }
 
 LABEL_1649:
-  appDirectoryRejectsAtCoarseGeohashForApp = self->_appDirectoryRejectsAtCoarseGeohashForApp;
   PBDataWriterWriteInt32Field();
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x20000000000) == 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x20000000000) == 0)
   {
 LABEL_964:
-    if ((v376 & 0x40000000000) == 0)
+    if ((v134 & 0x40000000000) == 0)
     {
       goto LABEL_965;
     }
@@ -28151,13 +27431,12 @@ LABEL_964:
   }
 
 LABEL_1650:
-  appDirectoryConfirmsAtSpecificGeohashForAppInContext = self->_appDirectoryConfirmsAtSpecificGeohashForAppInContext;
   PBDataWriterWriteInt32Field();
-  v376 = *(&self->_has + 3);
-  if ((v376 & 0x40000000000) == 0)
+  v134 = *(&self->_has + 3);
+  if ((v134 & 0x40000000000) == 0)
   {
 LABEL_965:
-    if ((v376 & 0x10000000000) == 0)
+    if ((v134 & 0x10000000000) == 0)
     {
       goto LABEL_967;
     }
@@ -28166,26 +27445,23 @@ LABEL_965:
   }
 
 LABEL_1651:
-  appDirectoryConfirmsAtSpecificGeohashInContext = self->_appDirectoryConfirmsAtSpecificGeohashInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x10000000000) != 0)
   {
 LABEL_966:
-    appDirectoryConfirmsAtSpecificGeohashForApp = self->_appDirectoryConfirmsAtSpecificGeohashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_967:
-  v378 = *(&self->_has + 4);
-  if ((v378 & 2) != 0)
+  v135 = *(&self->_has + 4);
+  if ((v135 & 2) != 0)
   {
-    appDirectoryRejectsAtSpecificGeohashForAppInContext = self->_appDirectoryRejectsAtSpecificGeohashForAppInContext;
     PBDataWriterWriteInt32Field();
-    v378 = *(&self->_has + 4);
-    if ((v378 & 4) == 0)
+    v135 = *(&self->_has + 4);
+    if ((v135 & 4) == 0)
     {
 LABEL_969:
-      if ((v378 & 1) == 0)
+      if ((v135 & 1) == 0)
       {
         goto LABEL_971;
       }
@@ -28194,31 +27470,28 @@ LABEL_969:
     }
   }
 
-  else if ((v378 & 4) == 0)
+  else if ((v135 & 4) == 0)
   {
     goto LABEL_969;
   }
 
-  appDirectoryRejectsAtSpecificGeohashInContext = self->_appDirectoryRejectsAtSpecificGeohashInContext;
   PBDataWriterWriteInt32Field();
   if (*(&self->_has + 4))
   {
 LABEL_970:
-    appDirectoryRejectsAtSpecificGeohashForApp = self->_appDirectoryRejectsAtSpecificGeohashForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_971:
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x4000000000) != 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x4000000000) != 0)
   {
-    appDirectoryConfirmsAtCoarseTimePOWLocationForAppInContext = self->_appDirectoryConfirmsAtCoarseTimePOWLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v380 = *(&self->_has + 3);
-    if ((v380 & 0x8000000000) == 0)
+    v136 = *(&self->_has + 3);
+    if ((v136 & 0x8000000000) == 0)
     {
 LABEL_973:
-      if ((v380 & 0x2000000000) == 0)
+      if ((v136 & 0x2000000000) == 0)
       {
         goto LABEL_974;
       }
@@ -28227,18 +27500,17 @@ LABEL_973:
     }
   }
 
-  else if ((v380 & 0x8000000000) == 0)
+  else if ((v136 & 0x8000000000) == 0)
   {
     goto LABEL_973;
   }
 
-  appDirectoryConfirmsAtCoarseTimePOWLocationInContext = self->_appDirectoryConfirmsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x2000000000) == 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x2000000000) == 0)
   {
 LABEL_974:
-    if ((v380 & 0x4000000000000000) == 0)
+    if ((v136 & 0x4000000000000000) == 0)
     {
       goto LABEL_975;
     }
@@ -28247,13 +27519,12 @@ LABEL_974:
   }
 
 LABEL_1658:
-  appDirectoryConfirmsAtCoarseTimePOWLocationForApp = self->_appDirectoryConfirmsAtCoarseTimePOWLocationForApp;
   PBDataWriterWriteInt32Field();
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x4000000000000000) == 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x4000000000000000) == 0)
   {
 LABEL_975:
-    if ((v380 & 0x8000000000000000) == 0)
+    if ((v136 & 0x8000000000000000) == 0)
     {
       goto LABEL_976;
     }
@@ -28262,13 +27533,12 @@ LABEL_975:
   }
 
 LABEL_1659:
-  appDirectoryRejectsAtCoarseTimePOWLocationForAppInContext = self->_appDirectoryRejectsAtCoarseTimePOWLocationForAppInContext;
   PBDataWriterWriteInt32Field();
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x8000000000000000) == 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x8000000000000000) == 0)
   {
 LABEL_976:
-    if ((v380 & 0x2000000000000000) == 0)
+    if ((v136 & 0x2000000000000000) == 0)
     {
       goto LABEL_977;
     }
@@ -28277,13 +27547,12 @@ LABEL_976:
   }
 
 LABEL_1660:
-  appDirectoryRejectsAtCoarseTimePOWLocationInContext = self->_appDirectoryRejectsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x2000000000000000) == 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x2000000000000000) == 0)
   {
 LABEL_977:
-    if ((v380 & 0x100000000000) == 0)
+    if ((v136 & 0x100000000000) == 0)
     {
       goto LABEL_978;
     }
@@ -28292,13 +27561,12 @@ LABEL_977:
   }
 
 LABEL_1661:
-  appDirectoryRejectsAtCoarseTimePOWLocationForApp = self->_appDirectoryRejectsAtCoarseTimePOWLocationForApp;
   PBDataWriterWriteInt32Field();
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x100000000000) == 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x100000000000) == 0)
   {
 LABEL_978:
-    if ((v380 & 0x200000000000) == 0)
+    if ((v136 & 0x200000000000) == 0)
     {
       goto LABEL_979;
     }
@@ -28307,13 +27575,12 @@ LABEL_978:
   }
 
 LABEL_1662:
-  appDirectoryConfirmsAtSpecificTimeDOWLocationForAppInContext = self->_appDirectoryConfirmsAtSpecificTimeDOWLocationForAppInContext;
   PBDataWriterWriteInt32Field();
-  v380 = *(&self->_has + 3);
-  if ((v380 & 0x200000000000) == 0)
+  v136 = *(&self->_has + 3);
+  if ((v136 & 0x200000000000) == 0)
   {
 LABEL_979:
-    if ((v380 & 0x80000000000) == 0)
+    if ((v136 & 0x80000000000) == 0)
     {
       goto LABEL_981;
     }
@@ -28322,26 +27589,23 @@ LABEL_979:
   }
 
 LABEL_1663:
-  appDirectoryConfirmsAtSpecificTimeDOWLocationInContext = self->_appDirectoryConfirmsAtSpecificTimeDOWLocationInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x80000000000) != 0)
   {
 LABEL_980:
-    appDirectoryConfirmsAtSpecificTimeDOWLocationForApp = self->_appDirectoryConfirmsAtSpecificTimeDOWLocationForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_981:
-  v382 = *(&self->_has + 4);
-  if ((v382 & 0x10) != 0)
+  v137 = *(&self->_has + 4);
+  if ((v137 & 0x10) != 0)
   {
-    appDirectoryRejectsAtSpecificTimeDOWLocationForAppInContext = self->_appDirectoryRejectsAtSpecificTimeDOWLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v382 = *(&self->_has + 4);
-    if ((v382 & 0x20) == 0)
+    v137 = *(&self->_has + 4);
+    if ((v137 & 0x20) == 0)
     {
 LABEL_983:
-      if ((v382 & 8) == 0)
+      if ((v137 & 8) == 0)
       {
         goto LABEL_985;
       }
@@ -28350,31 +27614,28 @@ LABEL_983:
     }
   }
 
-  else if ((v382 & 0x20) == 0)
+  else if ((v137 & 0x20) == 0)
   {
     goto LABEL_983;
   }
 
-  appDirectoryRejectsAtSpecificTimeDOWLocationInContext = self->_appDirectoryRejectsAtSpecificTimeDOWLocationInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 8) != 0)
   {
 LABEL_984:
-    appDirectoryRejectsAtSpecificTimeDOWLocationForApp = self->_appDirectoryRejectsAtSpecificTimeDOWLocationForApp;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_985:
-  v384 = *(&self->_has + 9);
-  if ((v384 & 0x20) != 0)
+  v138 = *(&self->_has + 9);
+  if ((v138 & 0x20) != 0)
   {
-    homeScreenAppConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_homeScreenAppConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteInt32Field();
-    v384 = *(&self->_has + 9);
-    if ((v384 & 0x40) == 0)
+    v138 = *(&self->_has + 9);
+    if ((v138 & 0x40) == 0)
     {
 LABEL_987:
-      if ((v384 & 0x20000000) == 0)
+      if ((v138 & 0x20000000) == 0)
       {
         goto LABEL_988;
       }
@@ -28383,18 +27644,17 @@ LABEL_987:
     }
   }
 
-  else if ((v384 & 0x40) == 0)
+  else if ((v138 & 0x40) == 0)
   {
     goto LABEL_987;
   }
 
-  homeScreenAppConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate = self->_homeScreenAppConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate;
   PBDataWriterWriteInt32Field();
-  v384 = *(&self->_has + 9);
-  if ((v384 & 0x20000000) == 0)
+  v138 = *(&self->_has + 9);
+  if ((v138 & 0x20000000) == 0)
   {
 LABEL_988:
-    if ((v384 & 0x40000000) == 0)
+    if ((v138 & 0x40000000) == 0)
     {
       goto LABEL_990;
     }
@@ -28403,54 +27663,47 @@ LABEL_988:
   }
 
 LABEL_1670:
-  homeScreenAppRejectsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_homeScreenAppRejectsForAllAppsAndContextsDecayedAtCoarseContextRate;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x40000000) != 0)
   {
 LABEL_989:
-    homeScreenAppRejectsForAllAppsAndContextsDecayedAtSpecificContextRate = self->_homeScreenAppRejectsForAllAppsAndContextsDecayedAtSpecificContextRate;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_990:
-  v386 = *(&self->_has + 3);
-  if ((v386 & 0x400000000000) != 0)
+  v139 = *(&self->_has + 3);
+  if ((v139 & 0x400000000000) != 0)
   {
-    appDirectoryConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appDirectoryConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteInt32Field();
-    v386 = *(&self->_has + 3);
+    v139 = *(&self->_has + 3);
   }
 
-  if ((v386 & 0x800000000000) != 0)
+  if ((v139 & 0x800000000000) != 0)
   {
-    appDirectoryConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate = self->_appDirectoryConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate;
-    PBDataWriterWriteInt32Field();
-  }
-
-  v389 = *(&self->_has + 4);
-  if ((v389 & 0x40) != 0)
-  {
-    appDirectoryRejectsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appDirectoryRejectsForAllAppsAndContextsDecayedAtCoarseContextRate;
-    PBDataWriterWriteInt32Field();
-    v389 = *(&self->_has + 4);
-  }
-
-  if ((v389 & 0x80) != 0)
-  {
-    appDirectoryRejectsForAllAppsAndContextsDecayedAtSpecificContextRate = self->_appDirectoryRejectsForAllAppsAndContextsDecayedAtSpecificContextRate;
     PBDataWriterWriteInt32Field();
   }
 
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x2000000000) != 0)
+  v140 = *(&self->_has + 4);
+  if ((v140 & 0x40) != 0)
   {
-    homeScreenActionConfirmsOnDayOfWeekForActionInContext = self->_homeScreenActionConfirmsOnDayOfWeekForActionInContext;
     PBDataWriterWriteInt32Field();
-    v392 = *(&self->_has + 8);
-    if ((v392 & 0x4000000000) == 0)
+    v140 = *(&self->_has + 4);
+  }
+
+  if ((v140 & 0x80) != 0)
+  {
+    PBDataWriterWriteInt32Field();
+  }
+
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x2000000000) != 0)
+  {
+    PBDataWriterWriteInt32Field();
+    v141 = *(&self->_has + 8);
+    if ((v141 & 0x4000000000) == 0)
     {
 LABEL_1000:
-      if ((v392 & 0x1000000000) == 0)
+      if ((v141 & 0x1000000000) == 0)
       {
         goto LABEL_1001;
       }
@@ -28459,18 +27712,17 @@ LABEL_1000:
     }
   }
 
-  else if ((v392 & 0x4000000000) == 0)
+  else if ((v141 & 0x4000000000) == 0)
   {
     goto LABEL_1000;
   }
 
-  homeScreenActionConfirmsOnDayOfWeekInContext = self->_homeScreenActionConfirmsOnDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x1000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x1000000000) == 0)
   {
 LABEL_1001:
-    if ((v392 & 0x400000000) == 0)
+    if ((v141 & 0x400000000) == 0)
     {
       goto LABEL_1002;
     }
@@ -28479,13 +27731,12 @@ LABEL_1001:
   }
 
 LABEL_1674:
-  homeScreenActionConfirmsOnDayOfWeekForAction = self->_homeScreenActionConfirmsOnDayOfWeekForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x400000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x400000000) == 0)
   {
 LABEL_1002:
-    if ((v392 & 0x800000000) == 0)
+    if ((v141 & 0x800000000) == 0)
     {
       goto LABEL_1003;
     }
@@ -28494,13 +27745,12 @@ LABEL_1002:
   }
 
 LABEL_1675:
-  homeScreenActionConfirmsAtTimeOfDayForActionInContext = self->_homeScreenActionConfirmsAtTimeOfDayForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x800000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x800000000) == 0)
   {
 LABEL_1003:
-    if ((v392 & 0x200000000) == 0)
+    if ((v141 & 0x200000000) == 0)
     {
       goto LABEL_1004;
     }
@@ -28509,13 +27759,12 @@ LABEL_1003:
   }
 
 LABEL_1676:
-  homeScreenActionConfirmsAtTimeOfDayInContext = self->_homeScreenActionConfirmsAtTimeOfDayInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x200000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x200000000) == 0)
   {
 LABEL_1004:
-    if ((v392 & 0x400000) == 0)
+    if ((v141 & 0x400000) == 0)
     {
       goto LABEL_1005;
     }
@@ -28524,13 +27773,12 @@ LABEL_1004:
   }
 
 LABEL_1677:
-  homeScreenActionConfirmsAtTimeOfDayForAction = self->_homeScreenActionConfirmsAtTimeOfDayForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x400000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x400000) == 0)
   {
 LABEL_1005:
-    if ((v392 & 0x800000) == 0)
+    if ((v141 & 0x800000) == 0)
     {
       goto LABEL_1006;
     }
@@ -28539,13 +27787,12 @@ LABEL_1005:
   }
 
 LABEL_1678:
-  homeScreenActionConfirmsAtCoarseGeohashForActionInContext = self->_homeScreenActionConfirmsAtCoarseGeohashForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x800000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x800000) == 0)
   {
 LABEL_1006:
-    if ((v392 & 0x200000) == 0)
+    if ((v141 & 0x200000) == 0)
     {
       goto LABEL_1007;
     }
@@ -28554,13 +27801,12 @@ LABEL_1006:
   }
 
 LABEL_1679:
-  homeScreenActionConfirmsAtCoarseGeohashInContext = self->_homeScreenActionConfirmsAtCoarseGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x200000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x200000) == 0)
   {
 LABEL_1007:
-    if ((v392 & 0x10000000) == 0)
+    if ((v141 & 0x10000000) == 0)
     {
       goto LABEL_1008;
     }
@@ -28569,13 +27815,12 @@ LABEL_1007:
   }
 
 LABEL_1680:
-  homeScreenActionConfirmsAtCoarseGeohashForAction = self->_homeScreenActionConfirmsAtCoarseGeohashForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x10000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x10000000) == 0)
   {
 LABEL_1008:
-    if ((v392 & 0x20000000) == 0)
+    if ((v141 & 0x20000000) == 0)
     {
       goto LABEL_1009;
     }
@@ -28584,13 +27829,12 @@ LABEL_1008:
   }
 
 LABEL_1681:
-  homeScreenActionConfirmsAtSpecificGeohashForActionInContext = self->_homeScreenActionConfirmsAtSpecificGeohashForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x20000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x20000000) == 0)
   {
 LABEL_1009:
-    if ((v392 & 0x8000000) == 0)
+    if ((v141 & 0x8000000) == 0)
     {
       goto LABEL_1010;
     }
@@ -28599,13 +27843,12 @@ LABEL_1009:
   }
 
 LABEL_1682:
-  homeScreenActionConfirmsAtSpecificGeohashInContext = self->_homeScreenActionConfirmsAtSpecificGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x8000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x8000000) == 0)
   {
 LABEL_1010:
-    if ((v392 & 0x2000000) == 0)
+    if ((v141 & 0x2000000) == 0)
     {
       goto LABEL_1011;
     }
@@ -28614,13 +27857,12 @@ LABEL_1010:
   }
 
 LABEL_1683:
-  homeScreenActionConfirmsAtSpecificGeohashForAction = self->_homeScreenActionConfirmsAtSpecificGeohashForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x2000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x2000000) == 0)
   {
 LABEL_1011:
-    if ((v392 & 0x4000000) == 0)
+    if ((v141 & 0x4000000) == 0)
     {
       goto LABEL_1012;
     }
@@ -28629,13 +27871,12 @@ LABEL_1011:
   }
 
 LABEL_1684:
-  homeScreenActionConfirmsAtCoarseTimePOWLocationForActionInContext = self->_homeScreenActionConfirmsAtCoarseTimePOWLocationForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x4000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x4000000) == 0)
   {
 LABEL_1012:
-    if ((v392 & 0x1000000) == 0)
+    if ((v141 & 0x1000000) == 0)
     {
       goto LABEL_1013;
     }
@@ -28644,13 +27885,12 @@ LABEL_1012:
   }
 
 LABEL_1685:
-  homeScreenActionConfirmsAtCoarseTimePOWLocationInContext = self->_homeScreenActionConfirmsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x1000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x1000000) == 0)
   {
 LABEL_1013:
-    if ((v392 & 0x80000000) == 0)
+    if ((v141 & 0x80000000) == 0)
     {
       goto LABEL_1014;
     }
@@ -28659,13 +27899,12 @@ LABEL_1013:
   }
 
 LABEL_1686:
-  homeScreenActionConfirmsAtCoarseTimePOWLocationForAction = self->_homeScreenActionConfirmsAtCoarseTimePOWLocationForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x80000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x80000000) == 0)
   {
 LABEL_1014:
-    if ((v392 & 0x100000000) == 0)
+    if ((v141 & 0x100000000) == 0)
     {
       goto LABEL_1015;
     }
@@ -28674,13 +27913,12 @@ LABEL_1014:
   }
 
 LABEL_1687:
-  homeScreenActionConfirmsAtSpecificTimeDOWLocationForActionInContext = self->_homeScreenActionConfirmsAtSpecificTimeDOWLocationForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x100000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x100000000) == 0)
   {
 LABEL_1015:
-    if ((v392 & 0x40000000) == 0)
+    if ((v141 & 0x40000000) == 0)
     {
       goto LABEL_1016;
     }
@@ -28689,13 +27927,12 @@ LABEL_1015:
   }
 
 LABEL_1688:
-  homeScreenActionConfirmsAtSpecificTimeDOWLocationInContext = self->_homeScreenActionConfirmsAtSpecificTimeDOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x40000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x40000000) == 0)
   {
 LABEL_1016:
-    if ((v392 & 0x80000000000000) == 0)
+    if ((v141 & 0x80000000000000) == 0)
     {
       goto LABEL_1017;
     }
@@ -28704,13 +27941,12 @@ LABEL_1016:
   }
 
 LABEL_1689:
-  homeScreenActionConfirmsAtSpecificTimeDOWLocationForAction = self->_homeScreenActionConfirmsAtSpecificTimeDOWLocationForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x80000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x80000000000000) == 0)
   {
 LABEL_1017:
-    if ((v392 & 0x100000000000000) == 0)
+    if ((v141 & 0x100000000000000) == 0)
     {
       goto LABEL_1018;
     }
@@ -28719,13 +27955,12 @@ LABEL_1017:
   }
 
 LABEL_1690:
-  homeScreenActionRejectsOnDayOfWeekForActionInContext = self->_homeScreenActionRejectsOnDayOfWeekForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x100000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x100000000000000) == 0)
   {
 LABEL_1018:
-    if ((v392 & 0x40000000000000) == 0)
+    if ((v141 & 0x40000000000000) == 0)
     {
       goto LABEL_1019;
     }
@@ -28734,13 +27969,12 @@ LABEL_1018:
   }
 
 LABEL_1691:
-  homeScreenActionRejectsOnDayOfWeekInContext = self->_homeScreenActionRejectsOnDayOfWeekInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x40000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x40000000000000) == 0)
   {
 LABEL_1019:
-    if ((v392 & 0x10000000000000) == 0)
+    if ((v141 & 0x10000000000000) == 0)
     {
       goto LABEL_1020;
     }
@@ -28749,13 +27983,12 @@ LABEL_1019:
   }
 
 LABEL_1692:
-  homeScreenActionRejectsOnDayOfWeekForAction = self->_homeScreenActionRejectsOnDayOfWeekForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x10000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x10000000000000) == 0)
   {
 LABEL_1020:
-    if ((v392 & 0x20000000000000) == 0)
+    if ((v141 & 0x20000000000000) == 0)
     {
       goto LABEL_1021;
     }
@@ -28764,13 +27997,12 @@ LABEL_1020:
   }
 
 LABEL_1693:
-  homeScreenActionRejectsAtTimeOfDayForActionInContext = self->_homeScreenActionRejectsAtTimeOfDayForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x20000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x20000000000000) == 0)
   {
 LABEL_1021:
-    if ((v392 & 0x8000000000000) == 0)
+    if ((v141 & 0x8000000000000) == 0)
     {
       goto LABEL_1022;
     }
@@ -28779,13 +28011,12 @@ LABEL_1021:
   }
 
 LABEL_1694:
-  homeScreenActionRejectsAtTimeOfDayInContext = self->_homeScreenActionRejectsAtTimeOfDayInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x8000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x8000000000000) == 0)
   {
 LABEL_1022:
-    if ((v392 & 0x10000000000) == 0)
+    if ((v141 & 0x10000000000) == 0)
     {
       goto LABEL_1023;
     }
@@ -28794,13 +28025,12 @@ LABEL_1022:
   }
 
 LABEL_1695:
-  homeScreenActionRejectsAtTimeOfDayForAction = self->_homeScreenActionRejectsAtTimeOfDayForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x10000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x10000000000) == 0)
   {
 LABEL_1023:
-    if ((v392 & 0x20000000000) == 0)
+    if ((v141 & 0x20000000000) == 0)
     {
       goto LABEL_1024;
     }
@@ -28809,13 +28039,12 @@ LABEL_1023:
   }
 
 LABEL_1696:
-  homeScreenActionRejectsAtCoarseGeohashForActionInContext = self->_homeScreenActionRejectsAtCoarseGeohashForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x20000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x20000000000) == 0)
   {
 LABEL_1024:
-    if ((v392 & 0x8000000000) == 0)
+    if ((v141 & 0x8000000000) == 0)
     {
       goto LABEL_1025;
     }
@@ -28824,13 +28053,12 @@ LABEL_1024:
   }
 
 LABEL_1697:
-  homeScreenActionRejectsAtCoarseGeohashInContext = self->_homeScreenActionRejectsAtCoarseGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x8000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x8000000000) == 0)
   {
 LABEL_1025:
-    if ((v392 & 0x400000000000) == 0)
+    if ((v141 & 0x400000000000) == 0)
     {
       goto LABEL_1026;
     }
@@ -28839,13 +28067,12 @@ LABEL_1025:
   }
 
 LABEL_1698:
-  homeScreenActionRejectsAtCoarseGeohashForAction = self->_homeScreenActionRejectsAtCoarseGeohashForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x400000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x400000000000) == 0)
   {
 LABEL_1026:
-    if ((v392 & 0x800000000000) == 0)
+    if ((v141 & 0x800000000000) == 0)
     {
       goto LABEL_1027;
     }
@@ -28854,13 +28081,12 @@ LABEL_1026:
   }
 
 LABEL_1699:
-  homeScreenActionRejectsAtSpecificGeohashForActionInContext = self->_homeScreenActionRejectsAtSpecificGeohashForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x800000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x800000000000) == 0)
   {
 LABEL_1027:
-    if ((v392 & 0x200000000000) == 0)
+    if ((v141 & 0x200000000000) == 0)
     {
       goto LABEL_1028;
     }
@@ -28869,13 +28095,12 @@ LABEL_1027:
   }
 
 LABEL_1700:
-  homeScreenActionRejectsAtSpecificGeohashInContext = self->_homeScreenActionRejectsAtSpecificGeohashInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x200000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x200000000000) == 0)
   {
 LABEL_1028:
-    if ((v392 & 0x80000000000) == 0)
+    if ((v141 & 0x80000000000) == 0)
     {
       goto LABEL_1029;
     }
@@ -28884,13 +28109,12 @@ LABEL_1028:
   }
 
 LABEL_1701:
-  homeScreenActionRejectsAtSpecificGeohashForAction = self->_homeScreenActionRejectsAtSpecificGeohashForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x80000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x80000000000) == 0)
   {
 LABEL_1029:
-    if ((v392 & 0x100000000000) == 0)
+    if ((v141 & 0x100000000000) == 0)
     {
       goto LABEL_1030;
     }
@@ -28899,13 +28123,12 @@ LABEL_1029:
   }
 
 LABEL_1702:
-  homeScreenActionRejectsAtCoarseTimePOWLocationForActionInContext = self->_homeScreenActionRejectsAtCoarseTimePOWLocationForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x100000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x100000000000) == 0)
   {
 LABEL_1030:
-    if ((v392 & 0x40000000000) == 0)
+    if ((v141 & 0x40000000000) == 0)
     {
       goto LABEL_1031;
     }
@@ -28914,13 +28137,12 @@ LABEL_1030:
   }
 
 LABEL_1703:
-  homeScreenActionRejectsAtCoarseTimePOWLocationInContext = self->_homeScreenActionRejectsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x40000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x40000000000) == 0)
   {
 LABEL_1031:
-    if ((v392 & 0x2000000000000) == 0)
+    if ((v141 & 0x2000000000000) == 0)
     {
       goto LABEL_1032;
     }
@@ -28929,13 +28151,12 @@ LABEL_1031:
   }
 
 LABEL_1704:
-  homeScreenActionRejectsAtCoarseTimePOWLocationForAction = self->_homeScreenActionRejectsAtCoarseTimePOWLocationForAction;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x2000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x2000000000000) == 0)
   {
 LABEL_1032:
-    if ((v392 & 0x4000000000000) == 0)
+    if ((v141 & 0x4000000000000) == 0)
     {
       goto LABEL_1033;
     }
@@ -28944,13 +28165,12 @@ LABEL_1032:
   }
 
 LABEL_1705:
-  homeScreenActionRejectsAtSpecificTimeDOWLocationForActionInContext = self->_homeScreenActionRejectsAtSpecificTimeDOWLocationForActionInContext;
   PBDataWriterWriteInt32Field();
-  v392 = *(&self->_has + 8);
-  if ((v392 & 0x4000000000000) == 0)
+  v141 = *(&self->_has + 8);
+  if ((v141 & 0x4000000000000) == 0)
   {
 LABEL_1033:
-    if ((v392 & 0x1000000000000) == 0)
+    if ((v141 & 0x1000000000000) == 0)
     {
       goto LABEL_1035;
     }
@@ -28959,26 +28179,23 @@ LABEL_1033:
   }
 
 LABEL_1706:
-  homeScreenActionRejectsAtSpecificTimeDOWLocationInContext = self->_homeScreenActionRejectsAtSpecificTimeDOWLocationInContext;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 8) & 0x1000000000000) != 0)
   {
 LABEL_1034:
-    homeScreenActionRejectsAtSpecificTimeDOWLocationForAction = self->_homeScreenActionRejectsAtSpecificTimeDOWLocationForAction;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_1035:
-  v394 = *(&self->_has + 4);
-  if ((v394 & 0x400000) != 0)
+  v142 = *(&self->_has + 4);
+  if ((v142 & 0x400000) != 0)
   {
-    appExplicitRejectsCoarseTimePowLocationForAppInContext = self->_appExplicitRejectsCoarseTimePowLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v394 = *(&self->_has + 4);
-    if ((v394 & 0x800000) == 0)
+    v142 = *(&self->_has + 4);
+    if ((v142 & 0x800000) == 0)
     {
 LABEL_1037:
-      if ((v394 & 0x200000) == 0)
+      if ((v142 & 0x200000) == 0)
       {
         goto LABEL_1038;
       }
@@ -28987,18 +28204,17 @@ LABEL_1037:
     }
   }
 
-  else if ((v394 & 0x800000) == 0)
+  else if ((v142 & 0x800000) == 0)
   {
     goto LABEL_1037;
   }
 
-  appExplicitRejectsCoarseTimePowLocationInContext = self->_appExplicitRejectsCoarseTimePowLocationInContext;
   PBDataWriterWriteInt32Field();
-  v394 = *(&self->_has + 4);
-  if ((v394 & 0x200000) == 0)
+  v142 = *(&self->_has + 4);
+  if ((v142 & 0x200000) == 0)
   {
 LABEL_1038:
-    if ((v394 & 0x100000) == 0)
+    if ((v142 & 0x100000) == 0)
     {
       goto LABEL_1040;
     }
@@ -29007,26 +28223,23 @@ LABEL_1038:
   }
 
 LABEL_1710:
-  appExplicitRejectsCoarseTimePowLocationForApp = self->_appExplicitRejectsCoarseTimePowLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 4) & 0x100000) != 0)
   {
 LABEL_1039:
-    appExplicitRejectsCoarseTimePowLocationForAllAppsAndContexts = self->_appExplicitRejectsCoarseTimePowLocationForAllAppsAndContexts;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_1040:
-  v396 = *(&self->_has + 9);
-  if ((v396 & 0x4000) != 0)
+  v143 = *(&self->_has + 9);
+  if ((v143 & 0x4000) != 0)
   {
-    homeScreenAppExplicitRejectsAtCoarseTimePOWLocationForAppInContext = self->_homeScreenAppExplicitRejectsAtCoarseTimePOWLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v396 = *(&self->_has + 9);
-    if ((v396 & 0x8000) == 0)
+    v143 = *(&self->_has + 9);
+    if ((v143 & 0x8000) == 0)
     {
 LABEL_1042:
-      if ((v396 & 0x2000) == 0)
+      if ((v143 & 0x2000) == 0)
       {
         goto LABEL_1043;
       }
@@ -29035,18 +28248,17 @@ LABEL_1042:
     }
   }
 
-  else if ((v396 & 0x8000) == 0)
+  else if ((v143 & 0x8000) == 0)
   {
     goto LABEL_1042;
   }
 
-  homeScreenAppExplicitRejectsAtCoarseTimePOWLocationInContext = self->_homeScreenAppExplicitRejectsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v396 = *(&self->_has + 9);
-  if ((v396 & 0x2000) == 0)
+  v143 = *(&self->_has + 9);
+  if ((v143 & 0x2000) == 0)
   {
 LABEL_1043:
-    if ((v396 & 0x10000) == 0)
+    if ((v143 & 0x10000) == 0)
     {
       goto LABEL_1045;
     }
@@ -29055,26 +28267,23 @@ LABEL_1043:
   }
 
 LABEL_1714:
-  homeScreenAppExplicitRejectsAtCoarseTimePOWLocationForApp = self->_homeScreenAppExplicitRejectsAtCoarseTimePOWLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 9) & 0x10000) != 0)
   {
 LABEL_1044:
-    homeScreenAppExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_homeScreenAppExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_1045:
-  v398 = *(&self->_has + 3);
-  if ((v398 & 0x80000000000000) != 0)
+  v144 = *(&self->_has + 3);
+  if ((v144 & 0x80000000000000) != 0)
   {
-    appDirectoryExplicitRejectsAtCoarseTimePOWLocationForAppInContext = self->_appDirectoryExplicitRejectsAtCoarseTimePOWLocationForAppInContext;
     PBDataWriterWriteInt32Field();
-    v398 = *(&self->_has + 3);
-    if ((v398 & 0x100000000000000) == 0)
+    v144 = *(&self->_has + 3);
+    if ((v144 & 0x100000000000000) == 0)
     {
 LABEL_1047:
-      if ((v398 & 0x40000000000000) == 0)
+      if ((v144 & 0x40000000000000) == 0)
       {
         goto LABEL_1048;
       }
@@ -29083,18 +28292,17 @@ LABEL_1047:
     }
   }
 
-  else if ((v398 & 0x100000000000000) == 0)
+  else if ((v144 & 0x100000000000000) == 0)
   {
     goto LABEL_1047;
   }
 
-  appDirectoryExplicitRejectsAtCoarseTimePOWLocationInContext = self->_appDirectoryExplicitRejectsAtCoarseTimePOWLocationInContext;
   PBDataWriterWriteInt32Field();
-  v398 = *(&self->_has + 3);
-  if ((v398 & 0x40000000000000) == 0)
+  v144 = *(&self->_has + 3);
+  if ((v144 & 0x40000000000000) == 0)
   {
 LABEL_1048:
-    if ((v398 & 0x200000000000000) == 0)
+    if ((v144 & 0x200000000000000) == 0)
     {
       goto LABEL_1050;
     }
@@ -29103,60 +28311,52 @@ LABEL_1048:
   }
 
 LABEL_1718:
-  appDirectoryExplicitRejectsAtCoarseTimePOWLocationForApp = self->_appDirectoryExplicitRejectsAtCoarseTimePOWLocationForApp;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 3) & 0x200000000000000) != 0)
   {
 LABEL_1049:
-    appDirectoryExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appDirectoryExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_1050:
-  v400 = *(&self->_has + 9);
-  if ((v400 & 0x4000000000) != 0)
+  v145 = *(&self->_has + 9);
+  if ((v145 & 0x4000000000) != 0)
   {
-    homeScreenTotalLaunchesForApp = self->_homeScreenTotalLaunchesForApp;
     PBDataWriterWriteInt32Field();
-    v400 = *(&self->_has + 9);
+    v145 = *(&self->_has + 9);
   }
 
-  if ((v400 & 0x2000000000) != 0)
+  if ((v145 & 0x2000000000) != 0)
   {
-    homeScreenTotalLaunchesForAllApps = self->_homeScreenTotalLaunchesForAllApps;
     PBDataWriterWriteInt32Field();
   }
 
-  v403 = *(&self->_has + 4);
-  if ((v403 & 0x8000) != 0)
+  v146 = *(&self->_has + 4);
+  if ((v146 & 0x8000) != 0)
   {
-    appDirectoryTotalLaunchesForApp = self->_appDirectoryTotalLaunchesForApp;
     PBDataWriterWriteInt32Field();
-    v403 = *(&self->_has + 4);
+    v146 = *(&self->_has + 4);
   }
 
-  if ((v403 & 0x4000) != 0)
+  if ((v146 & 0x4000) != 0)
   {
-    appDirectoryTotalLaunchesForAllApps = self->_appDirectoryTotalLaunchesForAllApps;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 77) & 4) != 0)
   {
-    isAppClip = self->_isAppClip;
     PBDataWriterWriteInt32Field();
   }
 
-  v407 = *(&self->_has + 10);
-  if ((v407 & 0x40000000000) != 0)
+  v147 = *(&self->_has + 10);
+  if ((v147 & 0x40000000000) != 0)
   {
-    slotFeedbackTotalExplicitRejectsForSlotNoDecay = self->_slotFeedbackTotalExplicitRejectsForSlotNoDecay;
     PBDataWriterWriteInt32Field();
-    v407 = *(&self->_has + 10);
-    if ((v407 & 0x20000000000) == 0)
+    v147 = *(&self->_has + 10);
+    if ((v147 & 0x20000000000) == 0)
     {
 LABEL_1062:
-      if ((v407 & 0x4000000) == 0)
+      if ((v147 & 0x4000000) == 0)
       {
         goto LABEL_1064;
       }
@@ -29165,90 +28365,76 @@ LABEL_1062:
     }
   }
 
-  else if ((v407 & 0x20000000000) == 0)
+  else if ((v147 & 0x20000000000) == 0)
   {
     goto LABEL_1062;
   }
 
-  slotFeedbackTotalExplicitRejectsForAllSlotsNoDecay = self->_slotFeedbackTotalExplicitRejectsForAllSlotsNoDecay;
   PBDataWriterWriteInt32Field();
   if ((*(&self->_has + 10) & 0x4000000) != 0)
   {
 LABEL_1063:
-    slotFeedbackMinutesSinceLastExplicitRejectInHomeScreen = self->_slotFeedbackMinutesSinceLastExplicitRejectInHomeScreen;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_1064:
   if (*(&self->_has + 12))
   {
-    actionTotalExplicitRejectsNoDecay = self->_actionTotalExplicitRejectsNoDecay;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 9) & 0x8000000000000000) != 0)
   {
-    poiPopularityForAppInContext = self->_poiPopularityForAppInContext;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 45) & 0x10) != 0)
   {
-    appLaunchPopularityAtPOIForAppInContext = self->_appLaunchPopularityAtPOIForAppInContext;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 79) & 0x40) != 0)
   {
-    poiCategory = self->_poiCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 47) & 0x10) != 0)
   {
-    appLaunchesAtPOIForAppInContext = self->_appLaunchesAtPOIForAppInContext;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 24) & 0x20) != 0)
   {
-    appCategoryScore = self->_appCategoryScore;
     PBDataWriterWriteInt32Field();
   }
 
   if (*(&self->_has + 80))
   {
-    posteriorProbabilityOfAppGivenMode = self->_posteriorProbabilityOfAppGivenMode;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 62) & 4) != 0)
   {
-    classConditionalProbabilityOfModeGivenApp = self->_classConditionalProbabilityOfModeGivenApp;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 101) & 0x10) != 0)
   {
-    uniqueOccurrencesOfAppInMode = self->_uniqueOccurrencesOfAppInMode;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 78) & 0x10) != 0)
   {
-    localOccurrencesOfAppInMode = self->_localOccurrencesOfAppInMode;
     PBDataWriterWriteInt32Field();
   }
 
   if ((*(&self->_has + 66) & 4) != 0)
   {
-    globalOccurrencesOfAppInMode = self->_globalOccurrencesOfAppInMode;
     PBDataWriterWriteInt32Field();
   }
 
   if (*(&self->_has + 58))
   {
-    appModeEntityScore = self->_appModeEntityScore;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -58984,7 +58170,7 @@ LABEL_4073:
 
 - (unint64_t)hash
 {
-  v2 = MEMORY[0x28223BE20](self, a2);
+  MEMORY[0x28223BE20](self);
   v3 = *(v2 + 3268);
   if (v3)
   {

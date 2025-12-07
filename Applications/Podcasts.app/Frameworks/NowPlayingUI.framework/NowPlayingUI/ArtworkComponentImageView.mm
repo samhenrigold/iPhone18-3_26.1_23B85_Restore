@@ -13,7 +13,7 @@
 - (void)didMoveToSuperview
 {
   selfCopy = self;
-  sub_CEFEC();
+  sub_CEFEC(selfCopy);
 }
 
 - (CGRect)frame

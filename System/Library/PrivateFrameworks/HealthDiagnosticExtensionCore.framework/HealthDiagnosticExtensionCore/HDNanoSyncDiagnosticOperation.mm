@@ -26,36 +26,36 @@
 
 - (void)run
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   [(HDNanoSyncDiagnosticOperation *)self _collectNanoSyncMessageDatabase];
   _sortedPairedDevices = [(HDNanoSyncDiagnosticOperation *)self _sortedPairedDevices];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v5 = _sortedPairedDevices;
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v32;
     v9 = *MEMORY[0x277D2BBB8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = [v11 valueForProperty:v9];
         [v4 setObject:v11 forKeyedSubscript:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v7);
@@ -69,31 +69,31 @@
     healthDirectoryURL = [(HDDiagnosticOperation *)self healthDirectoryURL];
     v14 = [healthDirectoryURL URLByAppendingPathComponent:@"healthdb.sqlite" isDirectory:0];
 
-    v27 = v14;
+    v26 = v14;
     v15 = [(HDDiagnosticOperation *)self openReadOnlyDatabaseAtURL:v14];
     nanoSyncDatabaseURL = [(HDNanoSyncDiagnosticOperation *)self nanoSyncDatabaseURL];
     v17 = [(HDDiagnosticOperation *)self openReadOnlyDatabaseAtURL:nanoSyncDatabaseURL];
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v18 = v5;
-    v19 = [v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v29;
+      v21 = *v28;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v29 != v21)
+          if (*v28 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v28 + 1) + 8 * j);
+          v23 = *(*(&v27 + 1) + 8 * j);
           [(HDDiagnosticOperation *)self appendNewline];
           [(HDDiagnosticOperation *)self appendStrongSeparator];
           if (v15)
@@ -112,7 +112,7 @@
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v20);
@@ -126,8 +126,6 @@
   {
     [(HDDiagnosticOperation *)self log:@"No paired devices"];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_collectNanoSyncMessageDatabase
@@ -203,83 +201,80 @@ uint64_t __53__HDNanoSyncDiagnosticOperation__sortedPairedDevices__block_invoke(
 
 - (void)_reportSummaryWithDevices:(id)devices
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   -[HDDiagnosticOperation appendFormat:](self, "appendFormat:", @"%lu Paired Devices:", [devicesCopy count]);
-  v33 = 0u;
-  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = devicesCopy;
-  v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v30)
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v28)
   {
-    v29 = *v32;
-    v28 = *MEMORY[0x277D2BB20];
-    v27 = *MEMORY[0x277D2BC08];
-    v26 = *MEMORY[0x277D2BBC0];
-    v5 = *MEMORY[0x277D2BB50];
-    v24 = *MEMORY[0x277D2BB50];
-    v25 = *MEMORY[0x277D2BBA8];
-    v6 = *MEMORY[0x277D2BB58];
+    v27 = *v30;
+    v26 = *MEMORY[0x277D2BB20];
+    v25 = *MEMORY[0x277D2BC08];
+    v24 = *MEMORY[0x277D2BBC0];
+    v22 = *MEMORY[0x277D2BB50];
+    v23 = *MEMORY[0x277D2BBA8];
+    v5 = *MEMORY[0x277D2BB58];
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v32 != v29)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
-        v9 = [v8 valueForProperty:v28];
-        bOOLValue = [v9 BOOLValue];
+        v7 = *(*(&v29 + 1) + 8 * i);
+        v8 = [v7 valueForProperty:v26];
+        bOOLValue = [v8 BOOLValue];
 
-        v11 = [v8 valueForProperty:v27];
-        v12 = [v8 valueForProperty:v26];
-        v13 = [v8 valueForProperty:v25];
-        v14 = [v8 valueForProperty:v24];
-        v15 = [(HDDiagnosticOperation *)self stringFromDate:v14];
+        v10 = [v7 valueForProperty:v25];
+        v11 = [v7 valueForProperty:v24];
+        v12 = [v7 valueForProperty:v23];
+        v13 = [v7 valueForProperty:v22];
+        v14 = [(HDDiagnosticOperation *)self stringFromDate:v13];
 
-        v16 = [v8 valueForProperty:v6];
-        v17 = [(HDDiagnosticOperation *)self stringFromDate:v16];
+        v15 = [v7 valueForProperty:v5];
+        v16 = [(HDDiagnosticOperation *)self stringFromDate:v15];
 
         if (bOOLValue)
         {
-          [MEMORY[0x277CCACA8] stringWithFormat:@"(active since %@)", v15, v22];
+          [MEMORY[0x277CCACA8] stringWithFormat:@"(active since %@)", v14, v20];
         }
 
         else
         {
-          v18 = &stru_2863876A0;
-          if (v15)
+          v17 = &stru_2863876A0;
+          if (v14)
           {
-            v19 = v15;
+            v18 = v14;
           }
 
           else
           {
-            v19 = &stru_2863876A0;
+            v18 = &stru_2863876A0;
           }
 
-          if (v17)
+          if (v16)
           {
-            v18 = v17;
+            v17 = v16;
           }
 
-          [MEMORY[0x277CCACA8] stringWithFormat:@"(last active %@ - %@)", v19, v18];
+          [MEMORY[0x277CCACA8] stringWithFormat:@"(last active %@ - %@)", v18, v17];
         }
-        v20 = ;
-        [(HDDiagnosticOperation *)self appendFormat:@"\t%@ %@ %@ %@", v13, v12, v11, v20];
+        v19 = ;
+        [(HDDiagnosticOperation *)self appendFormat:@"\t%@ %@ %@ %@", v12, v11, v10, v19];
       }
 
-      v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v30);
+    while (v28);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportQuickSwitchSummaryWithDevicesByPairingID:(id)d
@@ -334,7 +329,7 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
 
 - (id)_reportDetailsForDevice:(id)device database:(id)database
 {
-  v61[2] = *MEMORY[0x277D85DE8];
+  v60[2] = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v7 = *MEMORY[0x277D2BBB8];
   deviceCopy = device;
@@ -349,21 +344,21 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
   v15 = [(HDDiagnosticOperation *)self stringFromDate:v14];
 
   v16 = [deviceCopy valueForProperty:*MEMORY[0x277D2BB58]];
-  v54 = [(HDDiagnosticOperation *)self stringFromDate:v16];
+  v53 = [(HDDiagnosticOperation *)self stringFromDate:v16];
 
   v17 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB0]];
 
-  v52 = [(HDDiagnosticOperation *)self stringFromDate:v17];
+  v51 = [(HDDiagnosticOperation *)self stringFromDate:v17];
 
-  v55 = 0;
-  v53 = databaseCopy;
-  v18 = [MEMORY[0x277D10790] nanoPairingEntityWithRegistryUUID:v9 database:databaseCopy error:&v55];
-  v19 = v55;
+  v54 = 0;
+  v52 = databaseCopy;
+  v18 = [MEMORY[0x277D10790] nanoPairingEntityWithRegistryUUID:v9 database:databaseCopy error:&v54];
+  v19 = v54;
   v20 = v19;
   if (v18)
   {
-    v49 = v19;
-    v50 = v12;
+    v48 = v19;
+    v49 = v12;
     v21 = " (inactive)";
     if (bOOLValue)
     {
@@ -378,28 +373,28 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
 
     [(HDDiagnosticOperation *)self appendFormat:@"%@ %@ %@%s", v13, v12, v11, v21];
     v23 = [objc_alloc(MEMORY[0x277CCDA90]) initWithColumnTitles:0];
-    v61[0] = v22;
+    v60[0] = v22;
     v24 = v15;
     if ((bOOLValue & 1) == 0)
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %@", v15, v54];
+      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %@", v15, v53];
     }
 
-    v61[1] = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+    v60[1] = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
     [v23 appendRow:v25];
 
     if ((bOOLValue & 1) == 0)
     {
     }
 
-    v60[0] = @"    Pairing ID:";
+    v59[0] = @"    Pairing ID:";
     uUIDString = [v9 UUIDString];
-    v60[1] = uUIDString;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+    v59[1] = uUIDString;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
     [v23 appendRow:v27];
 
-    v59[0] = @"    IDS ID:";
+    v58[0] = @"    IDS ID:";
     deviceIdentifier = [v18 deviceIdentifier];
     v29 = deviceIdentifier;
     if (deviceIdentifier)
@@ -412,17 +407,17 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
       v30 = @"(null)";
     }
 
-    v59[1] = v30;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+    v58[1] = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
     [v23 appendRow:v31];
 
-    v32 = v52;
-    v58[0] = @"    Paired:";
-    v58[1] = v52;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+    v32 = v51;
+    v57[0] = @"    Paired:";
+    v57[1] = v51;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
     [v23 appendRow:v33];
 
-    v57[0] = @"    Source:";
+    v56[0] = @"    Source:";
     defaultSourceBundleIdentifier = [v18 defaultSourceBundleIdentifier];
     v35 = defaultSourceBundleIdentifier;
     if (defaultSourceBundleIdentifier)
@@ -435,11 +430,11 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
       v36 = @"(null)";
     }
 
-    v57[1] = v36;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+    v56[1] = v36;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
     [v23 appendRow:v37];
 
-    v56[0] = @"    Restore Complete:";
+    v55[0] = @"    Restore Complete:";
     isRestoreComplete = [v18 isRestoreComplete];
     v39 = @"NO";
     if (isRestoreComplete)
@@ -447,8 +442,8 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
       v39 = @"YES";
     }
 
-    v56[1] = v39;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v55[1] = v39;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
     [v23 appendRow:v40];
 
     [(HDDiagnosticOperation *)self appendNewline];
@@ -460,23 +455,21 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
     v42 = MEMORY[0x277D108D0];
     syncProvenance = [v18 syncProvenance];
     v44 = v42;
-    v45 = v53;
-    [v44 hde_reportSyncAnchorsForSyncProvenance:syncProvenance diagnosticOperation:self database:v53];
+    v45 = v52;
+    [v44 hde_reportSyncAnchorsForSyncProvenance:syncProvenance diagnosticOperation:self database:v52];
     deviceIdentifier2 = [v18 deviceIdentifier];
 
-    v12 = v50;
-    v20 = v49;
+    v12 = v49;
+    v20 = v48;
   }
 
   else
   {
     [(HDDiagnosticOperation *)self log:@"Failed to find sync store for NRDevice %@: %@", v9, v19];
     deviceIdentifier2 = 0;
-    v32 = v52;
-    v45 = v53;
+    v32 = v51;
+    v45 = v52;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return deviceIdentifier2;
 }
@@ -571,14 +564,13 @@ void __81__HDNanoSyncDiagnosticOperation__reportQuickSwitchSummaryWithDevicesByP
 
 uint64_t __108__HDNanoSyncDiagnosticOperation__countOfMessagesForDeviceIdentifier_description_predicateSQL_date_database___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   [*(a1 + 40) timeIntervalSinceReferenceDate];
 
-  return sqlite3_bind_double(a2, 2, v5);
+  return sqlite3_bind_double(a2, 2, v4);
 }
 
-uint64_t __108__HDNanoSyncDiagnosticOperation__countOfMessagesForDeviceIdentifier_description_predicateSQL_date_database___block_invoke_2(uint64_t a1)
+uint64_t __108__HDNanoSyncDiagnosticOperation__countOfMessagesForDeviceIdentifier_description_predicateSQL_date_database___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 48) + 8) + 24) = HDSQLiteColumnAsInt64();
   if (*(*(*(a1 + 48) + 8) + 24) >= 1)

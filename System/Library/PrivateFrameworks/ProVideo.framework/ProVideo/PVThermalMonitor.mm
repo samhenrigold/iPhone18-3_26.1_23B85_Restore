@@ -58,7 +58,7 @@
   return v10;
 }
 
-uint64_t __24__PVThermalMonitor_init__block_invoke(uint64_t a1, uint64_t a2)
+void *__24__PVThermalMonitor_init__block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) currentThermalLevel];
   result = [*(a1 + 32) _updateThermalLevelsWithToken:a2];
@@ -121,7 +121,7 @@ void __34__PVThermalMonitor_sharedInstance__block_invoke()
   return v3 & 1;
 }
 
-uint64_t __47__PVThermalMonitor_thermalLevelExceededNominal__block_invoke(uint64_t a1)
+void *__47__PVThermalMonitor_thermalLevelExceededNominal__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) highestThermalLevel];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -153,7 +153,7 @@ uint64_t __47__PVThermalMonitor_thermalLevelExceededNominal__block_invoke(uint64
   return v3;
 }
 
-uint64_t __32__PVThermalMonitor_thermalLevel__block_invoke(uint64_t a1)
+void *__32__PVThermalMonitor_thermalLevel__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) currentThermalLevel];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -185,7 +185,7 @@ uint64_t __32__PVThermalMonitor_thermalLevel__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __46__PVThermalMonitor_highestThermalLevelReached__block_invoke(uint64_t a1)
+void *__46__PVThermalMonitor_highestThermalLevelReached__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) highestThermalLevel];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -661,7 +661,7 @@ uint64_t WrdListFormat::init(uint64_t this)
 {
   if (!*(this + 32))
   {
-    operator new[](18);
+    operator new[](18, 0x1000C80BDFB0063);
   }
 
   return this;
@@ -719,7 +719,7 @@ void sub_25D2E4C78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CsSimpleHeapVector<WrdListFormat>::pushBack(void *a1, uint64_t *a2)
+void *CsSimpleHeapVector<WrdListFormat>::pushBack(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -738,7 +738,7 @@ uint64_t CsSimpleHeapVector<WrdListFormat>::pushBack(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[1] = result;
@@ -865,7 +865,7 @@ unsigned __int16 *WrdListLevelFormat::setNumberTextLength(WrdListLevelFormat *th
   this->var12 = 0;
   if (a2)
   {
-    operator new[](2 * a2);
+    operator new[](2 * a2, 0x1000C80BDFB0063);
   }
 
   this->var11 = 0;
@@ -1184,7 +1184,7 @@ uint64_t WrdParser::parse(WrdParser *this, WrdListFormatOverride *a2)
   return v6();
 }
 
-void *WrdListFormatOverride::setNumberOfLevelsOverridden(WrdListFormatOverride *this, unsigned int a2)
+uint64_t *WrdListFormatOverride::setNumberOfLevelsOverridden(uint64_t **this, unsigned int a2)
 {
   result = WrdListFormatOverride::cleanup(this);
   *(this + 49) = a2;
@@ -1193,10 +1193,10 @@ void *WrdListFormatOverride::setNumberOfLevelsOverridden(WrdListFormatOverride *
     v5 = 0;
     do
     {
-      v6 = (*(**(this + 1) + 16))(*(this + 1));
+      v6 = (*(*this[1] + 16))(this[1]);
       v8 = v6;
-      v7 = *(this + 4);
-      if (v7 >= *(this + 5))
+      v7 = this[4];
+      if (v7 >= this[5])
       {
         result = std::vector<WrdListLevelFormatOverride *,ChAllocator<WrdListLevelFormatOverride *>>::__emplace_back_slow_path<WrdListLevelFormatOverride *>(this + 3, &v8);
       }
@@ -1207,7 +1207,7 @@ void *WrdListFormatOverride::setNumberOfLevelsOverridden(WrdListFormatOverride *
         result = v7 + 1;
       }
 
-      *(this + 4) = result;
+      this[4] = result;
       ++v5;
     }
 
@@ -1349,27 +1349,29 @@ uint64_t WrdStringWithDataTypedTable::WrdStringWithDataTypedTable(uint64_t resul
   return result;
 }
 
-uint64_t WrdBinaryReader::read(WrdBinaryReader *this, WrdStringWithDataTypedTable *a2)
+void WrdBinaryReader::read(WrdBinaryReader *this, WrdStringWithDataTypedTable *a2)
 {
   v3 = *(a2 + 2);
   if (v3 <= 90)
   {
     if (v3 == 51)
     {
-      result = *(this + 4);
+      v4 = *(this + 4);
       v5 = *(a2 + 2);
       v6 = 51;
 
-      return WrdParser::parse(result, v5, v6);
+      goto LABEL_6;
     }
 
     if (v3 == 72)
     {
-      result = *(this + 4);
+      v4 = *(this + 4);
       v5 = *(a2 + 2);
       v6 = 72;
 
-      return WrdParser::parse(result, v5, v6);
+LABEL_6:
+      WrdParser::parse(v4, v5, v6);
+      return;
     }
 
 LABEL_20:
@@ -1379,11 +1381,11 @@ LABEL_20:
 
   if (v3 == 91)
   {
-    result = *(this + 4);
+    v4 = *(this + 4);
     v5 = *(a2 + 2);
     v6 = 91;
 
-    return WrdParser::parse(result, v5, v6);
+    goto LABEL_6;
   }
 
   if (v3 != 123)
@@ -1391,16 +1393,14 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  result = *(this + 4);
-  if (*(result + 232) >= 0x90u)
+  v4 = *(this + 4);
+  if (*(v4 + 232) >= 0x90u)
   {
     v5 = *(a2 + 2);
     v6 = 144;
 
-    return WrdParser::parse(result, v5, v6);
+    goto LABEL_6;
   }
-
-  return result;
 }
 
 void WrdStringWithDataTypedTable::~WrdStringWithDataTypedTable(WrdStringWithDataTypedTable *this)
@@ -1437,10 +1437,10 @@ void *WrdOutlineListData::init(void *this)
     v3 = 0;
     do
     {
-      v4 = (*(**(v2 + 32) + 16))(*(v2 + 32));
+      v4 = (*(*v2[4] + 16))(v2[4]);
       v7 = v4;
-      v5 = *(v2 + 16);
-      if (v5 >= *(v2 + 24))
+      v5 = v2[2];
+      if (v5 >= v2[3])
       {
         this = std::vector<WrdAutoNumberLevelDescriptor *,ChAllocator<WrdAutoNumberLevelDescriptor *>>::__emplace_back_slow_path<WrdAutoNumberLevelDescriptor *>(v1, &v7);
       }
@@ -1451,7 +1451,7 @@ void *WrdOutlineListData::init(void *this)
         this = v5 + 1;
       }
 
-      *(v2 + 16) = this;
+      v2[2] = this;
     }
 
     while (v3++ < 8);
@@ -1548,7 +1548,7 @@ uint64_t WrdOutlineListData::reset(WrdOutlineListData *this)
   return result;
 }
 
-void *WrdSectionTextRun::WrdSectionTextRun(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5)
+void *WrdSectionTextRun::WrdSectionTextRun(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = WrdTextRun::WrdTextRun(a1, a2, a3);
   *result = &unk_286ED56E8;
@@ -2248,22 +2248,22 @@ uint64_t WrdBinaryReader::loadFKPPAPX(WrdBinTable **this, unsigned int a2)
 
 uint64_t WrdParser::parse(WrdParser *this, WrdFormattedDiskPage *a2)
 {
-  v8 = WrdFormattedDiskPage::s_unPageBufferSize;
+  v10 = WrdFormattedDiskPage::s_unPageBufferSize;
   *(a2 + 12) = WrdFormattedDiskPage::s_unUndefinedOffset;
   v4 = *(a2 + 2);
   *(a2 + 2) = (*(**(this + 14) + 40))(*(this + 14));
-  (*(**(this + 14) + 56))(*(this + 14), v4, &v8);
-  if (v8 != WrdFormattedDiskPage::s_unPageBufferSize)
+  (*(**(this + 14) + 56))(*(this + 14), v4, &v10);
+  if (v10 != WrdFormattedDiskPage::s_unPageBufferSize)
   {
     exception = __cxa_allocate_exception(4uLL);
     *exception = 2001;
   }
 
-  StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2);
+  StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2, v5, v6);
   return (*(*StreamInterface + 2))(StreamInterface, 0, 0);
 }
 
-void **WrdFormattedDiskPage::getStreamInterface(SsrwOOStream *this)
+void **WrdFormattedDiskPage::getStreamInterface(SsrwOOStream *this, uint64_t a2, unsigned int a3)
 {
   result = this[4].var0;
   if (!result)
@@ -2323,7 +2323,7 @@ BOOL WrdParser::areFCsInSameRun(WrdParser *this, SsrwOOStream *a2, unsigned int 
     return 0;
   }
 
-  StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2);
+  StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2, a2, a3);
   (*(*StreamInterface + 2))(StreamInterface, 0, 0);
   v9 = 0;
   v10 = 0;
@@ -2382,16 +2382,16 @@ uint64_t WrdFileInformationBlock::getNumberOfCharInText(uint64_t this)
 
 void WrdParser::applyExceptionsForFC(WrdParser *this, SsrwOOStream *a2, unsigned int a3, WrdParagraphProperties *a4, WrdParagraphProperties *a5, WrdTableProperties *a6, WrdTableProperties *a7)
 {
-  if (WrdParser::seekToExceptionForFC(this, a2, a3, &v17))
+  if (WrdParser::seekToExceptionForFC(this, a2, a3, &v19))
   {
-    StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2);
-    v14 = (*(*StreamInterface + 8))(StreamInterface);
-    v15 = v14 ? 2 * v14 - 1 : 2 * (*(*StreamInterface + 8))(StreamInterface);
-    v16 = (*(*StreamInterface + 10))(StreamInterface);
-    WrdParagraphProperties::setParagraphStyleIndex(a4, v16);
-    if (v15 >= 3)
+    StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2, v13, v14);
+    v16 = (*(*StreamInterface + 8))(StreamInterface);
+    v17 = v16 ? 2 * v16 - 1 : 2 * (*(*StreamInterface + 8))(StreamInterface);
+    v18 = (*(*StreamInterface + 10))(StreamInterface);
+    WrdParagraphProperties::setParagraphStyleIndex(a4, v18);
+    if (v17 >= 3)
     {
-      WrdParser::parseGrpprl(this, StreamInterface, v15 - 2, 0, 0, 0, a4, 0, a5, 0, a6, a7, 0, 0, 0);
+      WrdParser::parseGrpprl(this, StreamInterface, v17 - 2, 0, 0, 0, a4, 0, a5, 0, a6, a7, 0, 0, 0);
     }
   }
 
@@ -2414,7 +2414,7 @@ void WrdParser::applyExceptionsForFC(WrdParser *this, SsrwOOStream *a2, unsigned
 
 uint64_t WrdParser::seekToExceptionForFC(WrdParser *this, SsrwOOStream *a2, unsigned int a3, unsigned int *a4)
 {
-  StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2);
+  StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2, a2, a3);
   (*(*StreamInterface + 2))(StreamInterface, 0, 0);
   v8 = 0;
   while (1)
@@ -2652,7 +2652,7 @@ uint64_t *WrdBinaryReader::read(uint64_t *this, WrdCharacterTextRun *a2)
           p_var2 = &var2;
           v10 = &v3[3 * var1 + 28];
 LABEL_25:
-          this = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v10, &var2);
+          this = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v10, &var2, &std::piecewise_construct, &p_var2);
           *(this + 8) = var51;
         }
       }
@@ -2704,7 +2704,7 @@ void WrdBinaryReader::readTextRunCHP(WrdBinaryReader *this, WrdCharacterTextRun 
 
   PcdIdxFromCP = WrdPieceTable::getPcdIdxFromCP((*(this + 17) + 72), v4);
   v11 = *(this + 4);
-  if ((*(v11 + 186) & 4) != 0)
+  if ((v11[186] & 4) != 0)
   {
     v12 = *(this + 17);
     if (*(v12 + 72) - 1 > PcdIdxFromCP)
@@ -2762,7 +2762,7 @@ LABEL_18:
 
 void sub_25D2E98A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
-  MEMORY[0x25F897000](v20, 0x10A1C407169F6FFLL);
+  MEMORY[0x25F897000](v20, 0x10A1C407169F6FFLL, a3, a4, a5, a6, a7, a8);
   if (v21)
   {
     (*(*v19 + 8))(v19);
@@ -2793,16 +2793,13 @@ void sub_25D2E98A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void WrdParser::applyExceptionsForFC(WrdParser *this, SsrwOOStream *a2, unsigned int a3, WrdCharacterProperties *a4, WrdCharacterProperties *a5, unsigned int *a6)
 {
-  v7 = a4;
-  v9 = this;
   if (WrdParser::seekToExceptionForFC(this, a2, a3, a6))
   {
-    StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2);
-    v11 = StreamInterface;
-    v12 = (*(*StreamInterface + 8))(StreamInterface);
-    if (v12)
+    StreamInterface = WrdFormattedDiskPage::getStreamInterface(a2, v10, v11);
+    v13 = (*(*StreamInterface + 8))(StreamInterface);
+    if (v13)
     {
-      WrdParser::parseGrpprl(v9, v11, v12, 0, 0, 0, 0, v7, 0, a5, 0, 0, 0, 0, 0);
+      WrdParser::parseGrpprl(this, StreamInterface, v13, 0, 0, 0, 0, a4, 0, a5, 0, 0, 0, 0, 0);
     }
   }
 }
@@ -3653,7 +3650,7 @@ LABEL_11:
 
 LABEL_15:
   v21 = &v20;
-  v13 = *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v6 + 224), &v20) + 8);
+  v13 = *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v6 + 224), &v20, &std::piecewise_construct, &v21) + 8);
   *(this + 152) = v13;
   WrdParser::parse(*(this + 4), a2, v13);
   v14 = *(a2 + 45);
@@ -3722,41 +3719,37 @@ EshObjectFactory *WrdEshObjectFactory::createObject(WrdEshObjectFactory *this, E
   return Object;
 }
 
-uint64_t WrdBinaryReader::read(WrdBinaryReader *this, EshRoot *a2)
+void WrdBinaryReader::read(WrdBinaryReader *this, EshRoot *a2)
 {
   if ((*(this + 47) & 0xFFFFFFFE) != 4)
   {
     EshBinaryReader::read((this + 40), a2);
   }
 
-  return WrdBinaryReader::readPicture(this, a2);
+  WrdBinaryReader::readPicture(this, a2);
 }
 
-uint64_t WrdBinaryReader::readPicture(WrdBinaryReader *this, EshRoot *a2)
+void WrdBinaryReader::readPicture(WrdBinaryReader *this, EshRoot *a2)
 {
-  result = (*(*a2 + 104))(a2, 0);
-  v4 = *(this + 154);
-  if (v4)
+  (*(*a2 + 104))(a2, 0);
+  v3 = *(this + 154);
+  if (v3)
   {
     *(this + 156) = 4;
-    v5 = *(*(this + 4) + 120);
-    v6 = *(this + 153);
+    v4 = *(*(this + 4) + 120);
+    v5 = *(this + 153);
     if (*(this + 47) == 4)
     {
-      (*(v5->var0 + 2))(*(*(this + 4) + 120), v6, 0);
+      (*(v4->var0 + 2))(*(*(this + 4) + 120), v5, 0);
       goto LABEL_5;
     }
 
-    v7 = v6 + v4;
-    result = (*(v5->var0 + 5))(*(*(this + 4) + 120));
-    if (v7 > result)
+    if (v5 + v3 > (*(v4->var0 + 5))(*(*(this + 4) + 120)))
     {
 LABEL_5:
-      WrdEshReader::start((this + 40), v5);
+      WrdEshReader::start(this + 5, v4);
     }
   }
-
-  return result;
 }
 
 uint64_t EshDataModelVisitor::takeClientVisitor(EshDataModelVisitor *this, EshClientDataModelVisitor *a2)
@@ -3995,7 +3988,7 @@ uint64_t EshParserVisitor::parseMetafileInfo(EshParserVisitor *a1, uint64_t a2)
   return EshParserVisitor::delayReadData(a1, (a2 + 24), v10);
 }
 
-uint64_t SsrwOORootStorage::createInBuf(SsrwOORootStorage *this, void **a2, unsigned int a3, void *(*a4)(void *, unint64_t), int8x8_t a5)
+uint64_t SsrwOORootStorage::createInBuf(SsrwOORootStorage *this, void **a2, uint64_t a3, void *(*a4)(void *, unint64_t), int8x8_t a5)
 {
   LODWORD(result) = createStructuredStorageInBuf(a2, a3, a4, 1, this + 10, a5);
   if (result || (result = getStorageFromRoot(*(this + 10), this), result))
@@ -4008,7 +4001,7 @@ uint64_t SsrwOORootStorage::createInBuf(SsrwOORootStorage *this, void **a2, unsi
   return result;
 }
 
-uint64_t createStructuredStorageInBufEx(void *a1, unsigned int a2, uint64_t a3, int a4, uint64_t *a5, unsigned int a6, int8x8_t a7)
+uint64_t createStructuredStorageInBufEx(void *a1, int8x8_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
 {
   if (!a1)
   {
@@ -4016,29 +4009,31 @@ uint64_t createStructuredStorageInBufEx(void *a1, unsigned int a2, uint64_t a3, 
   }
 
   StructuredStorageInternal = 6;
-  if (a5)
+  if (a6)
   {
-    if (a3)
+    if (a4)
     {
       if (*a1)
       {
-        a7.i32[0] = a6;
-        v10 = vcnt_s8(a7);
+        v9 = a7;
+        a2.i32[0] = a7;
+        v10 = vcnt_s8(a2);
         v10.i16[0] = vaddlv_u8(v10);
         if (v10.i32[0] <= 1u)
         {
-          if ((a4 - 1) > 1)
+          v11 = a5;
+          if ((a5 - 1) > 1)
           {
             return 2;
           }
 
           else
           {
-            v12 = SsrwOpenMemForReadWrite(a1, a2, a3);
+            v12 = SsrwOpenMemForReadWrite(a1, a3, a4);
             if (v12)
             {
               v13 = v12;
-              StructuredStorageInternal = createStructuredStorageInternal(v12, a4, a5, 1, a6);
+              StructuredStorageInternal = createStructuredStorageInternal(v12, v11, a6, 1, v9);
               if (StructuredStorageInternal)
               {
                 SsrwFclose(v13);
@@ -4124,16 +4119,16 @@ uint64_t createStructuredStorageInternal(uint64_t a1, int a2, uint64_t *a3, char
   *(v11 + 80) = v14;
   if (!v14)
   {
-    closeStg(v11);
+    closeStg(v11, v15);
     return 5;
   }
 
   bzero(v14, v13);
   SectorShift = headerGetSectorShift(*(v11 + 16));
-  v16 = fatConstruct(v11, (v11 + 24), 1 << SectorShift);
-  if (v16)
+  v17 = fatConstruct(v11, (v11 + 24), 1 << SectorShift);
+  if (v17)
   {
-    v17 = v16;
+    v19 = v17;
   }
 
   else
@@ -4141,29 +4136,29 @@ uint64_t createStructuredStorageInternal(uint64_t a1, int a2, uint64_t *a3, char
     *v11 = a1;
     *(v11 + 56) = a2;
     SmallSectorShift = headerGetSmallSectorShift(*(v11 + 16));
-    v19 = fatConstruct(v11, (v11 + 32), 1 << SmallSectorShift);
-    if (v19)
+    v21 = fatConstruct(v11, (v11 + 32), 1 << SmallSectorShift);
+    if (v21)
     {
-      v17 = v19;
+      v19 = v21;
     }
 
     else
     {
       storageCreateAtRoot(v11, (v11 + 48));
-      v17 = rootStorageInitWrite(v11);
-      if (!v17)
+      v19 = rootStorageInitWrite(v11);
+      if (!v19)
       {
         *(v11 + 8) = a4;
         *a3 = v11;
-        return v17;
+        return v19;
       }
     }
 
     *v11 = 0;
   }
 
-  closeStg(v11);
-  return v17;
+  closeStg(v11, v18);
+  return v19;
 }
 
 uint64_t storageCreateAtRoot(uint64_t a1, uint64_t *a2)
@@ -4477,7 +4472,7 @@ void sub_25D2ED098(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t getStorageInfo(uint64_t a1, uint64_t **a2)
+uint64_t getStorageInfo(uint64_t *a1, uint64_t **a2)
 {
   if (!a1)
   {
@@ -4488,7 +4483,7 @@ uint64_t getStorageInfo(uint64_t a1, uint64_t **a2)
   if (a2 && *a1)
   {
     TOC = rootStorageGetTOC(*a1);
-    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 8));
+    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 2));
     if (EntryAtIndex)
     {
       v7 = EntryAtIndex;
@@ -4520,7 +4515,7 @@ uint64_t getStorageInfo(uint64_t a1, uint64_t **a2)
   return result;
 }
 
-uint64_t SsrwOOStorage::setClass(SsrwOOStorage *this, _SsrwOO_GUID *a2)
+_Storage *SsrwOOStorage::setClass(SsrwOOStorage *this, _SsrwOO_GUID *a2)
 {
   result = this->var0;
   if (result)
@@ -4537,9 +4532,9 @@ uint64_t SsrwOOStorage::setClass(SsrwOOStorage *this, _SsrwOO_GUID *a2)
   return result;
 }
 
-uint64_t storageSetClass(uint64_t a1, _OWORD *a2)
+uint64_t storageSetClass(uint64_t *a1, _OWORD *a2)
 {
-  if (!a1 || (*(a1 + 32) - 1) > 1)
+  if (!a1 || (*(a1 + 8) - 1) > 1)
   {
     return 6;
   }
@@ -4548,7 +4543,7 @@ uint64_t storageSetClass(uint64_t a1, _OWORD *a2)
   if (!result)
   {
     TOC = rootStorageGetTOC(*a1);
-    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 8));
+    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 2));
 
     return directorySetClass(EntryAtIndex, a2);
   }
@@ -4611,11 +4606,11 @@ void SsrwOOStorage::createStream(SsrwOOStorage *this, unsigned __int16 *a2)
   *exception = v3;
 }
 
-void sub_25D2ED3E8(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+void sub_25D2ED3E8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
-  v5 = v3;
-  MEMORY[0x25F897000](v5, 0x10A1C4083891BCBLL);
+  va_start(va, a4);
+  v6 = v4;
+  MEMORY[0x25F897000](v6, 0x10A1C4083891BCBLL);
   if (a2 == 1)
   {
     __cxa_begin_catch(a1);
@@ -4947,7 +4942,7 @@ uint64_t streamSetClass(uint64_t a1, _OWORD *a2)
   return result;
 }
 
-uint64_t streamFlushToDisk(uint64_t a1)
+uint64_t streamFlushToDisk(void *a1)
 {
   v19 = 0;
   if (!a1)
@@ -4955,27 +4950,27 @@ uint64_t streamFlushToDisk(uint64_t a1)
     return 6;
   }
 
-  if (!*(a1 + 40))
+  if (!*(a1 + 10))
   {
     return 0;
   }
 
   Header = rootStorageGetHeader(*a1);
-  v3 = *(a1 + 24) >> headerGetSectorShift(Header);
-  v4 = *(a1 + 56);
+  v3 = a1[3] >> headerGetSectorShift(Header);
+  v4 = a1[7];
   if (*(v4 + 16) <= v3)
   {
-    result = rootStorageWriteSector(*a1, *(a1 + 32), &v19, 0);
+    result = rootStorageWriteSector(*a1, a1[4], &v19, 0);
     if (result)
     {
       return result;
     }
 
     TOC = rootStorageGetTOC(*a1);
-    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 8));
+    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 2));
     Fat = rootStorageGetFat(*a1);
     v9 = Fat;
-    v10 = *(a1 + 56);
+    v10 = a1[7];
     v11 = *(v10 + 16);
     if (v11)
     {
@@ -5002,7 +4997,7 @@ uint64_t streamFlushToDisk(uint64_t a1)
     }
 
     v12 = v19;
-    v13 = *(a1 + 56);
+    v13 = a1[7];
     v14 = *(v13 + 20);
     if (v14 <= v3)
     {
@@ -5033,11 +5028,11 @@ uint64_t streamFlushToDisk(uint64_t a1)
         v18 = malloc_type_malloc(v16, 0x100004052888210uLL);
       }
 
-      v13 = *(a1 + 56);
+      v13 = a1[7];
       if (!v18)
       {
         free(*(v13 + 8));
-        *(*(a1 + 56) + 8) = 0;
+        *(a1[7] + 8) = 0;
         return 5;
       }
 
@@ -5054,22 +5049,23 @@ uint64_t streamFlushToDisk(uint64_t a1)
     goto LABEL_5;
   }
 
-  result = rootStorageRewriteSector(*a1, *(a1 + 32), *(*(v4 + 8) + 4 * v3));
+  result = rootStorageRewriteSector(*a1, a1[4], *(*(v4 + 8) + 4 * v3));
   if (!result)
   {
 LABEL_5:
     result = 0;
-    *(a1 + 40) = 0xFFFFFFFF00000000;
+    a1[5] = 0xFFFFFFFF00000000;
   }
 
   return result;
 }
 
-uint64_t rootStorageWriteSector(uint64_t a1, const void *a2, _DWORD *a3, int a4)
+uint64_t rootStorageWriteSector(uint64_t a1, const void *a2, _DWORD *a3, uint64_t a4)
 {
+  v4 = a4;
   v12 = 0;
   SectorShift = headerGetSectorShift(*(a1 + 16));
-  result = fatNextFreeSector(*(a1 + 24), &v12, a4);
+  result = fatNextFreeSector(*(a1 + 24), &v12, v4);
   if (!result)
   {
     v10 = v12;
@@ -5475,7 +5471,7 @@ uint64_t fatUpdate(uint64_t a1, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t fatFreeChain(uint64_t a1, unsigned int a2)
+uint64_t fatFreeChain(uint64_t a1, uint64_t a2)
 {
   if (a2 <= 0xFFFFFFFD)
   {
@@ -5640,13 +5636,14 @@ LABEL_16:
   return inited;
 }
 
-SsrwOOStorage *SsrwOOStorage::close(SsrwOOStorage *this, char a2)
+SsrwOOStorage *SsrwOOStorage::close(SsrwOOStorage *this, uint64_t a2)
 {
   if (this->var0)
   {
+    v2 = a2;
     v3 = this;
-    this = closeStorage(this);
-    if ((a2 & 1) == 0)
+    this = closeStorage(this, a2);
+    if ((v2 & 1) == 0)
     {
       if (this)
       {
@@ -5662,11 +5659,11 @@ SsrwOOStorage *SsrwOOStorage::close(SsrwOOStorage *this, char a2)
   return this;
 }
 
-uint64_t closeStorage(uint64_t a1)
+uint64_t closeStorage(uint64_t **a1, uint64_t a2)
 {
-  if (*(*a1 + 16))
+  if ((*a1)[2])
   {
-    return closeStorageInternal(a1);
+    return closeStorageInternal(a1, a2);
   }
 
   else
@@ -5675,14 +5672,15 @@ uint64_t closeStorage(uint64_t a1)
   }
 }
 
-uint64_t **SsrwOORootStorage::close(SsrwOORootStorage *this, char a2)
+uint64_t *SsrwOORootStorage::close(SsrwOORootStorage *this, uint64_t a2)
 {
   v4 = *(this + 10);
   result = (this + 80);
   if (v4)
   {
-    result = closeStructuredStorage(result);
-    if ((a2 & 1) == 0)
+    v5 = a2;
+    result = closeStructuredStorage(result, a2);
+    if ((v5 & 1) == 0)
     {
       if (result)
       {
@@ -5831,7 +5829,7 @@ uint64_t directoryEntryWrite(uint64_t a1, uint64_t a2, int *a3)
   return 0;
 }
 
-uint64_t leWriteTime(int a1, _DWORD *a2)
+uint64_t leWriteTime(uint64_t a1, _DWORD *a2)
 {
   v5 = 0;
   result = WinFileTimeFromTime_t(a1, &v5);
@@ -6034,13 +6032,14 @@ LABEL_13:
   }
 }
 
-uint64_t fatWriteFat(uint64_t a1, int a2)
+uint64_t fatWriteFat(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 16))
   {
     return 0;
   }
 
+  v2 = a2;
   Header = rootStorageGetHeader(*(a1 + 32));
   SectorShift = headerGetSectorShift(Header);
   v6 = (1 << SectorShift);
@@ -6108,13 +6107,13 @@ uint64_t fatWriteFat(uint64_t a1, int a2)
       }
 
 LABEL_17:
-      v17 = rootStorageRewriteSector(*(a1 + 32), v8, a2);
+      v17 = rootStorageRewriteSector(*(a1 + 32), v8, v2);
       if (v17)
       {
         break;
       }
 
-      ++a2;
+      ++v2;
       if (v9 >= *(a1 + 16))
       {
         goto LABEL_19;
@@ -7883,13 +7882,13 @@ LABEL_453:
       v104 = WrdTableProperties::getTopBorderReference(a2);
       WrdBaseParser::parseBRC80(a1, v104, v7, a5);
       LeftBorderReference = WrdTableProperties::getLeftBorderReference(a2);
-      WrdBaseParser::parseBRC80(a1, LeftBorderReference, v7 + 2, a5);
+      WrdBaseParser::parseBRC80(a1, LeftBorderReference, v7 + 4, a5);
       BottomBorderReference = WrdTableProperties::getBottomBorderReference(a2);
-      WrdBaseParser::parseBRC80(a1, BottomBorderReference, v7 + 4, a5);
+      WrdBaseParser::parseBRC80(a1, BottomBorderReference, v7 + 8, a5);
       RightBorderReference = WrdTableProperties::getRightBorderReference(a2);
-      WrdBaseParser::parseBRC80(a1, RightBorderReference, v7 + 6, a5);
+      WrdBaseParser::parseBRC80(a1, RightBorderReference, v7 + 12, a5);
       InnerHorizontalBorderReference = WrdTableProperties::getInnerHorizontalBorderReference(a2);
-      WrdBaseParser::parseBRC80(a1, InnerHorizontalBorderReference, v7 + 8, a5);
+      WrdBaseParser::parseBRC80(a1, InnerHorizontalBorderReference, v7 + 16, a5);
       InnerVerticalBorderReference = WrdTableProperties::getInnerVerticalBorderReference(a2);
       v110 = (v7 + 20);
       goto LABEL_291;
@@ -7912,10 +7911,10 @@ LABEL_453:
       if ((v117 & 0x80000000) == 0 && v7 + 4 <= a5)
       {
         v118 = 0;
-        v119 = v7 + 6;
+        v119 = (v7 + 6);
         do
         {
-          v120 = CsLeReadUInt16(v119 - 2);
+          v120 = CsLeReadUInt16((v119 - 4));
           WrdTableProperties::setPositionOfCell(a2, v118++, v120);
           v121 = v119 + 2;
           v122 = *(a2 + 344) < v118 || v119 > a5;
@@ -7941,7 +7940,7 @@ LABEL_453:
 
           v126 = WrdTableProperties::getTableCellDescriptorReference(a2, v125);
           WrdTapParser::parsePartOfTableCellDescriptor(a1, v126, v116, a5);
-          v116 += 10;
+          v116 += 20;
           v124 -= 20;
           ++v125;
         }
@@ -8495,7 +8494,7 @@ WrdTableProperties *WrdTableProperties::setHalfOfGapBetweenTextInAdjColOfTableRo
   return this;
 }
 
-_WORD *WrdTableProperties::setNumberOfCellsForRow(WrdTableProperties *this, int a2)
+WrdTableProperties *WrdTableProperties::setNumberOfCellsForRow(WrdTableProperties *this, int a2)
 {
   *(this + 2) |= 0x2000000000000000uLL;
   *(this + 172) = a2;
@@ -8539,7 +8538,7 @@ _WORD *WrdTableProperties::setNumberOfCellsForRow(WrdTableProperties *this, int 
         else
         {
           *v10 = 0;
-          v11 = v10 + 1;
+          v11 = (v10 + 1);
         }
 
         *(this + 32) = v11;
@@ -8558,7 +8557,7 @@ _WORD *WrdTableProperties::setNumberOfCellsForRow(WrdTableProperties *this, int 
     else
     {
       *v11 = 0;
-      result = v11 + 1;
+      result = (v11 + 2);
     }
 
     *(this + 32) = result;
@@ -8567,7 +8566,7 @@ _WORD *WrdTableProperties::setNumberOfCellsForRow(WrdTableProperties *this, int 
   return result;
 }
 
-uint64_t WrdTableProperties::getTableCellDescriptorReference(WrdTableProperties *this, int a2)
+uint64_t WrdTableProperties::getTableCellDescriptorReference(WrdTableProperties *this, signed int a2)
 {
   v4 = *(this + 172);
   if (v4 <= a2)
@@ -9032,23 +9031,23 @@ void sub_25D2F9200(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D2F9910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D2F9910(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = WMState;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D2F9CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, objc_super a10)
+void sub_25D2F9CA4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, objc_super a10)
 {
   a10.super_class = WBReader;
-  [(_Unwind_Exception *)&a10 dealloc];
+  [(_Unwind_Exception *)&a10 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-uint64_t **WrdParser::closeDoc(WrdParser *this)
+uint64_t *WrdParser::closeDoc(WrdParser *this)
 {
   result = SsrwOORootStorage::isOpen((this + 24));
   if (result)
@@ -9060,15 +9059,14 @@ uint64_t **WrdParser::closeDoc(WrdParser *this)
       v5 = *(v3 - 8);
       if (v5)
       {
-        v6 = v3 + 184 * v5 - 184;
-        v7 = -184 * v5;
+        v6 = -184 * v5;
         do
         {
-          v6 = TSURectWithOriginAndSize(v6) - 184;
-          v7 += 184;
+          TSURectWithOriginAndSize();
+          v6 += 184;
         }
 
-        while (v7);
+        while (v6);
       }
 
       MEMORY[0x25F896FE0](v4, 0x1020C80285AA8CALL);
@@ -9076,44 +9074,44 @@ uint64_t **WrdParser::closeDoc(WrdParser *this)
 
     *(this + 18) = 0;
     *(this + 2) = 0;
-    v8 = *(this + 34);
-    if (v8)
+    v7 = *(this + 34);
+    if (v7)
     {
-      if (*v8)
+      if (*v7)
       {
-        MEMORY[0x25F896FE0](*v8, 0x1000C8052888210);
+        MEMORY[0x25F896FE0](*v7, 0x1000C8052888210);
       }
 
-      *v8 = 0;
-      MEMORY[0x25F897000](v8, 0x1010C40A1D9428BLL);
+      *v7 = 0;
+      MEMORY[0x25F897000](v7, 0x1010C40A1D9428BLL);
     }
 
     *(this + 34) = 0;
-    v9 = *(this + 16);
+    v8 = *(this + 16);
+    if (v8)
+    {
+      (*(*v8 + 8))(v8);
+    }
+
+    *(this + 16) = 0;
+    v9 = *(this + 14);
     if (v9)
     {
       (*(*v9 + 8))(v9);
     }
 
-    *(this + 16) = 0;
-    v10 = *(this + 14);
+    *(this + 14) = 0;
+    v10 = *(this + 15);
     if (v10)
     {
       (*(*v10 + 8))(v10);
     }
 
-    *(this + 14) = 0;
-    v11 = *(this + 15);
+    *(this + 15) = 0;
+    v11 = *(this + 17);
     if (v11)
     {
-      (*(*v11 + 8))(v11);
-    }
-
-    *(this + 15) = 0;
-    v12 = *(this + 17);
-    if (v12)
-    {
-      SsrwOOStorage::~SsrwOOStorage(v12);
+      SsrwOOStorage::~SsrwOOStorage(v11);
       MEMORY[0x25F897000]();
     }
 
@@ -9204,7 +9202,7 @@ void WrdFileInformationBlock::~WrdFileInformationBlock(WrdFileInformationBlock *
 
   *(this + 10) = 0;
 
-  TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
 }
 
 void WrdRdrText::~WrdRdrText(WrdRdrText *this)

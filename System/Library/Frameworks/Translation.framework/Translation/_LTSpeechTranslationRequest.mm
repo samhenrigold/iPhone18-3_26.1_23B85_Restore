@@ -127,11 +127,11 @@ LABEL_7:
 {
   serviceCopy = service;
   doneCopy = done;
-  v8 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _LTOSLogTranslationEngine(doneCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_23AAF5000, v8, OS_LOG_TYPE_DEFAULT, "Start speech translation with service", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_DEFAULT, "Start speech translation with service", buf, 2u);
   }
 
   logIdentifier = [(_LTTranslationRequest *)self logIdentifier];
@@ -144,14 +144,14 @@ LABEL_7:
   block[1] = 3221225472;
   block[2] = __65___LTSpeechTranslationRequest__startTranslationWithService_done___block_invoke;
   block[3] = &unk_278B6CCE0;
-  objc_copyWeak(&v17, buf);
-  v15 = serviceCopy;
-  v16 = doneCopy;
-  v12 = serviceCopy;
-  v13 = doneCopy;
+  objc_copyWeak(&v18, buf);
+  v16 = serviceCopy;
+  v17 = doneCopy;
+  v13 = serviceCopy;
+  v14 = doneCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
 }
 
@@ -271,38 +271,39 @@ LABEL_7:
       {
         DataLength = CMBlockBufferGetDataLength(DataBuffer);
         v12 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:DataLength];
-        if (CMBlockBufferCopyDataBytes(DataBuffer, 0, DataLength, [v12 mutableBytes]))
+        v13 = CMBlockBufferCopyDataBytes(DataBuffer, 0, DataLength, [v12 mutableBytes]);
+        if (v13)
         {
-          v13 = _LTOSLogSpeech();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = _LTOSLogSpeech(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [_LTSpeechTranslationRequest _appendAudioSampleBuffer:simulateRealtime:];
           }
 
-          v14 = 0;
+          v16 = 0;
         }
 
         else
         {
-          v14 = v12;
+          v16 = v12;
         }
       }
 
       else
       {
-        v14 = [MEMORY[0x277CBEA90] dataWithBytes:dataPointerOut length:totalLengthOut];
+        v16 = [MEMORY[0x277CBEA90] dataWithBytes:dataPointerOut length:totalLengthOut];
       }
 
-      if (v14)
+      if (v16)
       {
         if (realtimeCopy)
         {
-          [(_LTSpeechTranslationRequest *)self _simulateRealtimeBehavior:v14];
+          [(_LTSpeechTranslationRequest *)self _simulateRealtimeBehavior:v16];
         }
 
         else
         {
-          [(_LTTranslationService *)self->_service addSpeechAudioData:v14];
+          [(_LTTranslationService *)self->_service addSpeechAudioData:v16];
         }
       }
     }
@@ -310,18 +311,18 @@ LABEL_7:
 
   else
   {
-    v17 = [objc_alloc(MEMORY[0x277CB83A8]) initWithStreamDescription:StreamBasicDescription];
-    v15 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v17 frameCapacity:CMSampleBufferGetNumSamples(buffer)];
-    [v15 setFrameLength:CMSampleBufferGetNumSamples(buffer)];
+    v19 = [objc_alloc(MEMORY[0x277CB83A8]) initWithStreamDescription:StreamBasicDescription];
+    v17 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v19 frameCapacity:CMSampleBufferGetNumSamples(buffer)];
+    [v17 setFrameLength:CMSampleBufferGetNumSamples(buffer)];
     NumSamples = CMSampleBufferGetNumSamples(buffer);
-    CMSampleBufferCopyPCMDataIntoAudioBufferList(buffer, 0, NumSamples, [v15 mutableAudioBufferList]);
-    [(_LTSpeechTranslationRequest *)self _convertAndFeedPCMBuffer:v15];
+    CMSampleBufferCopyPCMDataIntoAudioBufferList(buffer, 0, NumSamples, [v17 mutableAudioBufferList]);
+    [(_LTSpeechTranslationRequest *)self _convertAndFeedPCMBuffer:v17];
   }
 }
 
 - (void)append:(opaqueCMSampleBuffer *)append simulateRealtime:(BOOL)realtime
 {
-  v7 = _LTOSLogTranslationEngine();
+  v7 = _LTOSLogTranslationEngine(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -348,16 +349,14 @@ LABEL_7:
 
 - (void)_drainAndClearAudioConverter
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_convertAndFeedPCMBuffer:(id)buffer
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   dispatch_assert_queue_V2(self->_queue);
   format = [bufferCopy format];
@@ -375,10 +374,10 @@ LABEL_7:
     [(AVAudioConverter *)self->_converter setSampleRateConverterQuality:127];
   }
 
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x2020000000;
-  v32 = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v34 = 0;
   while (1)
   {
     v9 = objc_alloc(MEMORY[0x277CB83C8]);
@@ -387,16 +386,17 @@ LABEL_7:
 
     [v11 setFrameLength:8000];
     v12 = self->_converter;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __56___LTSpeechTranslationRequest__convertAndFeedPCMBuffer___block_invoke;
-    v27[3] = &unk_278B6DBA0;
-    v29 = v31;
-    v30 = 0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __56___LTSpeechTranslationRequest__convertAndFeedPCMBuffer___block_invoke;
+    v29[3] = &unk_278B6DBA0;
+    v31 = v33;
+    v32 = 0;
     v13 = bufferCopy;
-    v28 = v13;
-    v14 = [(AVAudioConverter *)v12 convertToBuffer:v11 error:&v30 withInputFromBlock:v27];
-    v15 = v30;
+    v30 = v13;
+    v14 = [(AVAudioConverter *)v12 convertToBuffer:v11 error:&v32 withInputFromBlock:v29];
+    v15 = v32;
+    v17 = v15;
     if (v14 == 2)
     {
       break;
@@ -404,8 +404,8 @@ LABEL_7:
 
     if (v14 == 3)
     {
-      v19 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = _LTOSLogSpeech(v15, v16);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [_LTSpeechTranslationRequest _convertAndFeedPCMBuffer:];
       }
@@ -418,17 +418,17 @@ LABEL_7:
       finalASRInputCaptureFile = self->_finalASRInputCaptureFile;
       if (finalASRInputCaptureFile)
       {
-        v26 = 0;
-        [(AVAudioFile *)finalASRInputCaptureFile writeFromBuffer:v11 error:&v26];
-        v17 = v26;
-        if (v17)
+        v28 = 0;
+        [(AVAudioFile *)finalASRInputCaptureFile writeFromBuffer:v11 error:&v28];
+        v19 = v28;
+        if (v19)
         {
-          v20 = v17;
-          v21 = _LTOSLogSpeech();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v23 = v19;
+          v24 = _LTOSLogSpeech(v19, v20);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            localizedDescription = [v20 localizedDescription];
-            [(_LTSpeechTranslationRequest *)localizedDescription _convertAndFeedPCMBuffer:buf, v21];
+            localizedDescription = [v23 localizedDescription];
+            [(_LTSpeechTranslationRequest *)localizedDescription _convertAndFeedPCMBuffer:buf, v24];
           }
 
           break;
@@ -436,8 +436,8 @@ LABEL_7:
       }
     }
 
-    v18 = [MEMORY[0x277CBEA90] dataWithBytes:*objc_msgSend(v11 length:{"int16ChannelData"), 2 * objc_msgSend(v11, "frameLength")}];
-    [(_LTTranslationService *)self->_service addSpeechAudioData:v18];
+    v21 = [MEMORY[0x277CBEA90] dataWithBytes:*objc_msgSend(v11 length:{"int16ChannelData"), 2 * objc_msgSend(v11, "frameLength")}];
+    [(_LTTranslationService *)self->_service addSpeechAudioData:v21];
 
     if (v14 == 1)
     {
@@ -446,9 +446,7 @@ LABEL_7:
   }
 
 LABEL_17:
-  _Block_object_dispose(v31, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v33, 8);
 }
 
 - (void)endAudio
@@ -579,7 +577,7 @@ LABEL_17:
 
 - (id)setUpAudioCaptureFile:(id)file withFormat:(id)format
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   v6 = MEMORY[0x277CBEBD0];
   fileCopy = file;
@@ -604,41 +602,39 @@ LABEL_17:
 
   v18 = objc_alloc(MEMORY[0x277CB8398]);
   settings = [formatCopy settings];
-  v29 = 0;
-  v20 = [v18 initForWriting:v17 settings:settings commonFormat:objc_msgSend(formatCopy interleaved:"commonFormat") error:objc_msgSend(formatCopy, "isInterleaved"), &v29];
-  v21 = v29;
+  v30 = 0;
+  v20 = [v18 initForWriting:v17 settings:settings commonFormat:objc_msgSend(formatCopy interleaved:"commonFormat") error:objc_msgSend(formatCopy, "isInterleaved"), &v30];
+  v21 = v30;
 
-  v22 = _LTOSLogSpeech();
-  v23 = v22;
+  v24 = _LTOSLogSpeech(v22, v23);
+  v25 = v24;
   if (v21)
   {
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [(_LTSpeechTranslationRequest *)v23 setUpAudioCaptureFile:v17 withFormat:v21];
+      [(_LTSpeechTranslationRequest *)v25 setUpAudioCaptureFile:v17 withFormat:v21];
     }
 
-    v24 = 0;
+    v26 = 0;
   }
 
   else
   {
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v25 = v23;
+      v27 = v25;
       path = [v17 path];
       *buf = 138412546;
-      v31 = path;
-      v32 = 2112;
-      v33 = formatCopy;
-      _os_log_impl(&dword_23AAF5000, v25, OS_LOG_TYPE_INFO, "Created audio file: %@ with format %@", buf, 0x16u);
+      v32 = path;
+      v33 = 2112;
+      v34 = formatCopy;
+      _os_log_impl(&dword_23AAF5000, v27, OS_LOG_TYPE_INFO, "Created audio file: %@ with format %@", buf, 0x16u);
     }
 
-    v24 = v20;
+    v26 = v20;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v26;
 }
 
 + (id)generateSilentAudioDataWithDuration:(double)duration
@@ -656,21 +652,11 @@ LABEL_17:
   return WeakRetained;
 }
 
-- (void)_appendAudioSampleBuffer:simulateRealtime:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_convertAndFeedPCMBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_convertAndFeedPCMBuffer:(os_log_t)log .cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -682,17 +668,15 @@ LABEL_17:
 
 - (void)setUpAudioCaptureFile:(void *)a3 withFormat:.cold.1(void *a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 path];
   v7 = [a3 localizedDescription];
-  v9 = 138412546;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_ERROR, "Failed to create audio capture file at %@ for writing: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_ERROR, "Failed to create audio capture file at %@ for writing: %@", &v8, 0x16u);
 }
 
 @end

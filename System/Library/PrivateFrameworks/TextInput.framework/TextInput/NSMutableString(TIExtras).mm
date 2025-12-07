@@ -14,7 +14,7 @@
 
 - (void)_replaceOccurrencesOfCharacter:()TIExtras withCharacter:
 {
-  v7 = [MEMORY[0x1E696AEC0] _stringWithUnichar:?];
+  v7 = [MEMORY[0x1E696AEC0] _stringWithUnichar:a3];
   v6 = [MEMORY[0x1E696AEC0] _stringWithUnichar:a4];
   [self replaceOccurrencesOfString:v7 withString:v6 options:2 range:{0, objc_msgSend(self, "length")}];
 }

@@ -1,29 +1,29 @@
-void std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,false>(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,false>(std::vector<int> *result, unint64_t a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
-  v7 = a2;
-  v8 = a1;
-  v60 = a2;
-  v61 = a1;
+  v8 = a2;
+  v9 = result;
+  v61 = a2;
+  v62 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
-    v10 = v7 - v8;
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 4);
-    if (v11 <= 2)
+    v11 = v8 - v9;
+    v12 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v9) >> 4);
+    if (v12 <= 2)
     {
-      if (v11 < 2)
+      if (v12 < 2)
       {
         return;
       }
 
-      if (v11 == 2)
+      if (v12 == 2)
       {
-        v52 = *(v7 - 12);
-        v60 = v7 - 6;
-        if (v52 > *v8)
+        v53 = *(v8 - 12);
+        v61 = v8 - 48;
+        if (v53 > *&v9->__begin_)
         {
-          v53 = &v61;
-          v54 = &v60;
+          v54 = &v62;
+          v55 = &v61;
           goto LABEL_94;
         }
 
@@ -33,38 +33,38 @@ LABEL_2:
       goto LABEL_10;
     }
 
-    if (v11 == 3)
+    if (v12 == 3)
     {
       break;
     }
 
-    if (v11 == 4)
+    if (v12 == 4)
     {
-      v60 = v7 - 6;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v8, v8 + 6, v8 + 12, v7 - 12);
+      v61 = v8 - 48;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v9, &v9[2], &v9[4], v8 - 12);
       return;
     }
 
-    if (v11 == 5)
+    if (v12 == 5)
     {
-      v60 = v7 - 6;
-      v65 = (v8 + 6);
-      v66 = v8;
-      v63 = (v8 + 18);
-      v64 = (v8 + 12);
-      v62 = v7 - 6;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v8, v8 + 6, v8 + 12, v8 + 36);
-      if (*(v7 - 12) > *(v8 + 36))
+      v61 = v8 - 48;
+      v66 = &v9[2];
+      v67 = v9;
+      v64 = &v9[6];
+      v65 = &v9[4];
+      v63 = v8 - 48;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v9, &v9[2], &v9[4], &v9[6]);
+      if (*(v8 - 12) > *&v9[6].__begin_)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v63, &v62);
-        if (*v63 > *(v8 + 24))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v64, &v63);
+        if (*v64 > *&v9[4].__begin_)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v64, &v63);
-          if (*v64 > *(v8 + 12))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
+          if (*v65 > *&v9[2].__begin_)
           {
-            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-            v55 = *v65;
-            v56 = *v8;
+            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+            v56 = *v66;
+            v57 = *&v9->__begin_;
             goto LABEL_92;
           }
         }
@@ -74,16 +74,16 @@ LABEL_2:
     }
 
 LABEL_10:
-    if (v10 <= 1151)
+    if (v11 <= 1151)
     {
       if (a5)
       {
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v7);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v8);
       }
 
       else
       {
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v7);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v8);
       }
 
       return;
@@ -91,33 +91,33 @@ LABEL_10:
 
     if (i == 1)
     {
-      if (v8 != v7)
+      if (v9 != v8)
       {
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v7, v7, a3);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v8, v8, a3, a6);
       }
 
       return;
     }
 
-    v12 = v11 >> 1;
-    v13 = &v8[6 * (v11 >> 1)];
-    v14 = (v7 - 6);
-    if (v10 < 0x1801)
+    v13 = v12 >> 1;
+    v14 = &v9[2 * (v12 >> 1)];
+    v15 = (v8 - 48);
+    if (v11 < 0x1801)
     {
-      v65 = v8;
-      v66 = v13;
-      v64 = (v7 - 6);
-      v19 = *v8;
-      v20 = *v14;
-      if (*v8 <= *v13)
+      v66 = v9;
+      v67 = v14;
+      v65 = (v8 - 48);
+      v20 = *&v9->__begin_;
+      v21 = *v15;
+      if (*&v9->__begin_ <= *&v14->__begin_)
       {
-        if (v20 > v19)
+        if (v21 > v20)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-          if (*v65 > *v66)
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+          if (*v66 > *v67)
           {
-            v21 = &v66;
-            v22 = &v65;
+            v22 = &v67;
+            v23 = &v66;
             goto LABEL_35;
           }
         }
@@ -125,20 +125,20 @@ LABEL_10:
 
       else
       {
-        v21 = &v66;
-        if (v20 > v19)
+        v22 = &v67;
+        if (v21 > v20)
         {
           goto LABEL_22;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 > *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 > *v66)
         {
-          v21 = &v65;
+          v22 = &v66;
 LABEL_22:
-          v22 = &v64;
+          v23 = &v65;
 LABEL_35:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v21, v22);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v22, v23);
         }
       }
 
@@ -150,279 +150,279 @@ LABEL_35:
       goto LABEL_63;
     }
 
-    v65 = v13;
-    v66 = v8;
-    v64 = (v7 - 6);
-    v15 = *v13;
-    v16 = *v14;
-    if (*v13 > *v8)
+    v66 = v14;
+    v67 = v9;
+    v65 = (v8 - 48);
+    v16 = *&v14->__begin_;
+    v17 = *v15;
+    if (*&v14->__begin_ > *&v9->__begin_)
     {
-      v17 = &v66;
-      if (v16 <= v15)
+      v18 = &v67;
+      if (v17 <= v16)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_27;
         }
 
-        v17 = &v65;
+        v18 = &v66;
       }
 
-      v18 = &v64;
+      v19 = &v65;
       goto LABEL_26;
     }
 
-    if (v16 > v15)
+    if (v17 > v16)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 > *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 > *v67)
       {
-        v17 = &v66;
-        v18 = &v65;
+        v18 = &v67;
+        v19 = &v66;
 LABEL_26:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v17, v18);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v18, v19);
       }
     }
 
 LABEL_27:
-    v23 = &v8[6 * v12];
-    v25 = *(v23 - 12);
-    v24 = v23 - 6;
-    v26 = v25;
-    v27 = *(v8 + 12);
-    v65 = v24;
-    v66 = (v8 + 6);
-    v28 = *(v7 - 24);
-    v64 = (v7 - 12);
-    if (v25 > v27)
+    v24 = &v9[2 * v13];
+    v26 = *&v24[-2].__begin_;
+    v25 = &v24[-2];
+    v27 = v26;
+    v28 = *&v9[2].__begin_;
+    v66 = v25;
+    v67 = &v9[2];
+    v29 = *(v8 - 24);
+    v65 = (v8 - 96);
+    if (v26 > v28)
     {
-      v29 = &v66;
-      if (v28 <= v26)
+      v30 = &v67;
+      if (v29 <= v27)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_42;
         }
 
-        v29 = &v65;
+        v30 = &v66;
       }
 
-      v30 = &v64;
+      v31 = &v65;
       goto LABEL_41;
     }
 
-    if (v28 > v26)
+    if (v29 > v27)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 > *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 > *v67)
       {
-        v29 = &v66;
-        v30 = &v65;
+        v30 = &v67;
+        v31 = &v66;
 LABEL_41:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v29, v30);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v30, v31);
       }
     }
 
 LABEL_42:
-    v31 = &v8[6 * v12];
-    v33 = *(v31 + 12);
-    v32 = v31 + 6;
-    v34 = v33;
-    v35 = *(v8 + 24);
-    v65 = v32;
-    v66 = (v8 + 12);
-    v36 = *(v7 - 36);
-    v64 = (v7 - 18);
-    if (v33 > v35)
+    v32 = &v9[2 * v13];
+    v34 = *&v32[2].__begin_;
+    v33 = &v32[2];
+    v35 = v34;
+    v36 = *&v9[4].__begin_;
+    v66 = v33;
+    v67 = &v9[4];
+    v37 = *(v8 - 36);
+    v65 = (v8 - 144);
+    if (v34 > v36)
     {
-      v37 = &v66;
-      if (v36 <= v34)
+      v38 = &v67;
+      if (v37 <= v35)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_51;
         }
 
-        v37 = &v65;
+        v38 = &v66;
       }
 
-      v38 = &v64;
+      v39 = &v65;
       goto LABEL_50;
     }
 
-    if (v36 > v34)
+    if (v37 > v35)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 > *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 > *v67)
       {
-        v37 = &v66;
-        v38 = &v65;
+        v38 = &v67;
+        v39 = &v66;
 LABEL_50:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v37, v38);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v38, v39);
       }
     }
 
 LABEL_51:
-    v65 = v13;
-    v66 = v24;
-    v64 = v32;
-    v39 = *v13;
-    v40 = *v32;
-    if (*v13 <= *v24)
+    v66 = v14;
+    v67 = v25;
+    v65 = v33;
+    v40 = *&v14->__begin_;
+    v41 = *v33;
+    if (*&v14->__begin_ <= *v25)
     {
-      if (v40 <= v39)
+      if (v41 <= v40)
       {
         goto LABEL_60;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 <= *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 <= *v67)
       {
         goto LABEL_60;
       }
 
-      v41 = &v66;
-      v42 = &v65;
+      v42 = &v67;
+      v43 = &v66;
     }
 
     else
     {
-      v41 = &v66;
-      if (v40 <= v39)
+      v42 = &v67;
+      if (v41 <= v40)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_60;
         }
 
-        v41 = &v65;
+        v42 = &v66;
       }
 
-      v42 = &v64;
+      v43 = &v65;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v41, v42);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v42, v43);
 LABEL_60:
-    v43 = *v8;
-    v59 = *(v8 + 1);
-    v8[1] = 0;
-    v45 = v8[3];
-    v44 = v8[4];
-    v8[2] = 0;
-    v8[3] = 0;
-    v66 = v44;
-    v67 = *(v8 + 10);
-    *v8 = *v13;
-    std::vector<int>::__move_assign((v8 + 1), (v13 + 1));
-    v46 = v13[4];
-    *(v8 + 10) = *(v13 + 10);
-    v8[4] = v46;
-    *v13 = v43;
-    v47 = v13[1];
-    if (v47)
+    begin = v9->__begin_;
+    v60 = *&v9->__end_;
+    v9->__end_ = 0;
+    v46 = v9[1].__begin_;
+    end = v9[1].__end_;
+    v9->__end_cap_.__value_ = 0;
+    v9[1].__begin_ = 0;
+    v67 = end;
+    value = v9[1].__end_cap_.__value_;
+    v9->__begin_ = v14->__begin_;
+    std::vector<int>::__move_assign(&v9->__end_, &v14->__end_);
+    v47 = v14[1].__end_;
+    LODWORD(v9[1].__end_cap_.__value_) = v14[1].__end_cap_.__value_;
+    v9[1].__end_ = v47;
+    v14->__begin_ = begin;
+    v48 = v14->__end_;
+    if (v48)
     {
-      v13[2] = v47;
-      operator delete(v47);
+      v14->__end_cap_.__value_ = v48;
+      operator delete(v48);
     }
 
-    *(v13 + 1) = v59;
-    v13[3] = v45;
-    v48 = v66;
-    *(v13 + 10) = v67;
-    v13[4] = v48;
-    v8 = v61;
+    *&v14->__end_ = v60;
+    v14[1].__begin_ = v46;
+    v49 = v67;
+    LODWORD(v14[1].__end_cap_.__value_) = value;
+    v14[1].__end_ = v49;
+    v9 = v62;
     if (a5)
     {
 LABEL_37:
-      v7 = v60;
+      v8 = v61;
       goto LABEL_64;
     }
 
 LABEL_63:
-    v7 = v60;
-    if (*(v8 - 12) <= *v8)
+    v8 = v61;
+    if (*&v9[-2].__begin_ <= *&v9->__begin_)
     {
-      v8 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v8, v60);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v9, v61);
       goto LABEL_73;
     }
 
 LABEL_64:
-    v49 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v8, v7);
-    if ((v50 & 1) == 0)
+    v50 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v9, v8);
+    if ((v51 & 1) == 0)
     {
       goto LABEL_71;
     }
 
-    v51 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v49);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v49 + 6, v7))
+    v52 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v50);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(&v50[2], v8))
     {
-      if (v51)
+      if (v52)
       {
         return;
       }
 
-      v60 = v49;
-      v7 = v49;
+      v61 = v50;
+      v8 = v50;
     }
 
     else
     {
-      if (!v51)
+      if (!v52)
       {
 LABEL_71:
-        std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,false>(v8, v49, a3, -i, a5 & 1);
-        v8 = v49 + 6;
+        std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,false>(v9, v50, a3, -i, a5 & 1);
+        v9 = v50 + 2;
 LABEL_73:
         a5 = 0;
-        v61 = v8;
+        v62 = v9;
         a4 = -i;
         goto LABEL_2;
       }
 
-      v61 = v49 + 6;
-      v8 = v49 + 6;
+      v62 = &v50[2];
+      v9 = v50 + 2;
     }
   }
 
-  v57 = *(v8 + 12);
-  v65 = (v8 + 6);
-  v66 = v8;
-  v58 = *(v7 - 12);
-  v64 = (v7 - 6);
-  if (v57 > *v8)
+  v58 = *&v9[2].__begin_;
+  v66 = &v9[2];
+  v67 = v9;
+  v59 = *(v8 - 12);
+  v65 = (v8 - 48);
+  if (v58 > *&v9->__begin_)
   {
-    v53 = &v66;
-    if (v58 <= v57)
+    v54 = &v67;
+    if (v59 <= v58)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-      if (*v64 <= *v65)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+      if (*v65 <= *v66)
       {
         return;
       }
 
-      v53 = &v65;
+      v54 = &v66;
     }
 
-    v54 = &v64;
+    v55 = &v65;
     goto LABEL_94;
   }
 
-  if (v58 > v57)
+  if (v59 > v58)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-    v55 = *v65;
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
     v56 = *v66;
+    v57 = *v67;
 LABEL_92:
-    if (v55 > v56)
+    if (v56 > v57)
     {
-      v53 = &v66;
-      v54 = &v65;
+      v54 = &v67;
+      v55 = &v66;
 LABEL_94:
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v53, v54);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v54, v55);
     }
   }
 }
@@ -665,7 +665,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,ka
   return result;
 }
 
-uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(std::vector<int> *this, unint64_t a2)
+std::vector<int> *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(std::vector<int> *this, unint64_t a2)
 {
   v22 = a2;
   begin = this->__begin_;
@@ -882,7 +882,7 @@ std::vector<int> *std::__partition_with_equals_on_right[abi:ne200100]<std::_Clas
   return v13 - 2;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(uint64_t *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(uint64_t *a1, char *a2)
 {
   v2 = a2;
   v33 = a2;
@@ -896,7 +896,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
         v31 = a1;
         v12 = *(a1 + 12);
         v13 = *(a2 - 12);
-        v37 = (a2 - 6);
+        v37 = (a2 - 48);
         v38 = (a1 + 6);
         if (v12 > *a1)
         {
@@ -934,7 +934,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
         v9 = (a1 + 12);
         v37 = (a1 + 12);
         v38 = (a1 + 6);
-        v35 = a2 - 6;
+        v35 = (a2 - 48);
         v36 = (a1 + 18);
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(a1, a1 + 6, a1 + 12, a1 + 36);
         if (*(v2 - 12) <= *(a1 + 36))
@@ -980,7 +980,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
   if (v4 == 2)
   {
     v5 = *(a2 - 12);
-    v33 = a2 - 6;
+    v33 = (a2 - 48);
     if (v5 > *a1)
     {
       v6 = &v34;
@@ -1108,66 +1108,66 @@ LABEL_43:
   return v19 + 6 == v33;
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(float *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(float *a1, char *a2, uint64_t *a3, uint64_t a4, __n128 a5)
 {
-  v18 = a1;
+  v19 = a1;
   if (a1 != a2)
   {
-    v6 = a2;
-    v7 = a1;
-    v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
+    v7 = a2;
+    v8 = a1;
+    v9 = a2 - a1;
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
     if (a2 - a1 >= 49)
     {
-      v10 = (v9 - 2) >> 1;
-      v11 = v10 + 1;
-      v12 = &a1[12 * v10];
+      v11 = (v10 - 2) >> 1;
+      v12 = v11 + 1;
+      v13 = &a1[12 * v11];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v7, a4, v9, v12);
-        v12 -= 48;
-        --v11;
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, a4, v10, v13);
+        v13 -= 12;
+        --v12;
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v17 = v6;
-    v13 = v6;
-    if (v6 != a3)
+    v18 = v7;
+    v14 = v7;
+    if (v7 != a3)
     {
       do
       {
-        if (*v13 > *v18)
+        if (*v14 > *v19)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v17, &v18);
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v18, a4, v9, v18);
-          v13 = v17;
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v18, &v19);
+          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v19, a4, v10, v19);
+          v14 = v18;
         }
 
-        v13 += 6;
-        v17 = v13;
+        v14 += 6;
+        v18 = v14;
       }
 
-      while (v13 != a3);
-      v7 = v18;
-      v8 = v6 - v18;
+      while (v14 != a3);
+      v8 = v19;
+      v9 = v7 - v19;
     }
 
-    if (v8 >= 49)
+    if (v9 >= 49)
     {
-      v14 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 4);
+      v15 = 0xAAAAAAAAAAAAAAABLL * (v9 >> 4);
       do
       {
-        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v7, v6, a4, v14);
-        v6 -= 6;
+        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v7, a4, v15);
+        v7 -= 6;
       }
 
-      while (v14-- > 2);
-      return v17;
+      while (v15-- > 2);
+      return v18;
     }
 
-    return v13;
+    return v14;
   }
 
   return a3;
@@ -1250,19 +1250,19 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Transl
   }
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    v10 = *(a1 + 16);
-    v9 = *(a1 + 24);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 8) = 0;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 40);
+    v7 = a1[1];
+    v10 = a1[2];
+    v9 = a1[3];
+    a1[2] = 0;
+    a1[3] = 0;
+    a1[1] = 0;
+    v18 = a1[4];
+    v19 = *(a1 + 10);
     v11 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(a1, a3, a4);
     v12 = v11;
     if (v11 == (a2 - 48))
@@ -1366,7 +1366,7 @@ __n128 std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::
   *(v4 + 24) = 0;
   *(v4 + 32) = 0;
   *(v4 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   result = *(a2 + 40);
   *(v4 + 40) = result;
   *(a1 + 8) = v4 + 56;
@@ -1411,7 +1411,7 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v7 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(v7 + 40) = *(a2 + 40);
   *&v16 = v16 + 56;
   v8 = a1[1];
@@ -1430,9 +1430,9 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>
   return v13;
 }
 
-void sub_1B5611D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5611D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1585,32 +1585,32 @@ void std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::He
   a1[1] = v2;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,false>(__int128 *a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,false>(std::vector<int> *result, unint64_t a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
-  v7 = a2;
-  v8 = a1;
-  v57 = a2;
-  v58 = a1;
+  v8 = a2;
+  v9 = result;
+  v58 = a2;
+  v59 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
-    v10 = v7 - v8;
-    v11 = 0x6DB6DB6DB6DB6DB7 * ((v7 - v8) >> 3);
-    if (v11 <= 2)
+    v11 = v8 - v9;
+    v12 = 0x6DB6DB6DB6DB6DB7 * ((v8 - v9) >> 3);
+    if (v12 <= 2)
     {
-      if (v11 < 2)
+      if (v12 < 2)
       {
         return;
       }
 
-      if (v11 == 2)
+      if (v12 == 2)
       {
-        v49 = *(v7 - 14);
-        v57 = (v7 - 56);
-        if (v49 < *v8)
+        v50 = *(v8 - 14);
+        v58 = v8 - 56;
+        if (v50 < *&v9->__begin_)
         {
-          v50 = &v58;
-          v51 = &v57;
+          v51 = &v59;
+          v52 = &v58;
           goto LABEL_94;
         }
 
@@ -1620,38 +1620,38 @@ LABEL_2:
       goto LABEL_10;
     }
 
-    if (v11 == 3)
+    if (v12 == 3)
     {
       break;
     }
 
-    if (v11 == 4)
+    if (v12 == 4)
     {
-      v57 = (v7 - 56);
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v8, (v8 + 56), v8 + 7, v7 - 14);
+      v58 = v8 - 56;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v9, &v9[2].__end_, &v9[4].__end_cap_, v8 - 14);
       return;
     }
 
-    if (v11 == 5)
+    if (v12 == 5)
     {
-      v57 = (v7 - 56);
-      *&v63 = v8;
-      v61 = (v8 + 7);
-      *&v62 = v8 + 56;
-      v59 = v7 - 56;
-      v60 = v8 + 42;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v8, (v8 + 56), v8 + 7, v8 + 42);
-      if (*(v7 - 14) < *(v8 + 42))
+      v58 = v8 - 56;
+      *&v64 = v9;
+      p_end_cap = &v9[4].__end_cap_;
+      *&v63 = v9 + 56;
+      v60 = v8 - 56;
+      v61 = &v9[7];
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v9, &v9[2].__end_, &v9[4].__end_cap_, &v9[7]);
+      if (*(v8 - 14) < *&v9[7].__begin_)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v60, &v59);
-        if (*v60 < *(v8 + 28))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v61, &v60);
+        if (*v61 < *&v9[4].__end_cap_.__value_)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v61, &v60);
-          if (*v61 < *(v8 + 14))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&p_end_cap, &v61);
+          if (*p_end_cap < *&v9[2].__end_)
           {
-            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-            v52 = *v62;
-            v53 = *v8;
+            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+            v53 = *v63;
+            v54 = *&v9->__begin_;
             goto LABEL_92;
           }
         }
@@ -1661,16 +1661,16 @@ LABEL_2:
     }
 
 LABEL_10:
-    if (v10 <= 1343)
+    if (v11 <= 1343)
     {
       if (a5)
       {
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v7);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v8);
       }
 
       else
       {
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v7);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v8);
       }
 
       return;
@@ -1678,33 +1678,33 @@ LABEL_10:
 
     if (i == 1)
     {
-      if (v8 != v7)
+      if (v9 != v8)
       {
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v7, v7, a3);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v8, v8, a3, a6);
       }
 
       return;
     }
 
-    v12 = v11 >> 1;
-    v13 = v8 + 56 * (v11 >> 1);
-    v14 = v7 - 14;
-    if (v10 < 0x1C01)
+    v13 = v12 >> 1;
+    v14 = v9 + 56 * (v12 >> 1);
+    v15 = (v8 - 56);
+    if (v11 < 0x1C01)
     {
-      *&v63 = v13;
-      v61 = v7 - 14;
-      *&v62 = v8;
-      v19 = *v8;
-      v20 = *v14;
-      if (*v8 >= *v13)
+      *&v64 = v14;
+      p_end_cap = (v8 - 56);
+      *&v63 = v9;
+      v20 = *&v9->__begin_;
+      v21 = *v15;
+      if (*&v9->__begin_ >= *v14)
       {
-        if (v20 < v19)
+        if (v21 < v20)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-          if (*v62 < *v63)
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+          if (*v63 < *v64)
           {
-            v21 = &v63;
-            v22 = &v62;
+            v22 = &v64;
+            p_p_end_cap = &v63;
             goto LABEL_35;
           }
         }
@@ -1712,20 +1712,20 @@ LABEL_10:
 
       else
       {
-        v21 = &v63;
-        if (v20 < v19)
+        v22 = &v64;
+        if (v21 < v20)
         {
           goto LABEL_22;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 < *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap < *v63)
         {
-          v21 = &v62;
+          v22 = &v63;
 LABEL_22:
-          v22 = &v61;
+          p_p_end_cap = &p_end_cap;
 LABEL_35:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v21, v22);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v22, p_p_end_cap);
         }
       }
 
@@ -1737,274 +1737,274 @@ LABEL_35:
       goto LABEL_63;
     }
 
-    *&v63 = v8;
-    v61 = v7 - 14;
-    *&v62 = v13;
-    v15 = *v13;
+    *&v64 = v9;
+    p_end_cap = (v8 - 56);
+    *&v63 = v14;
     v16 = *v14;
-    if (*v13 < *v8)
+    v17 = *v15;
+    if (*v14 < *&v9->__begin_)
     {
-      v17 = &v63;
-      if (v16 >= v15)
+      v18 = &v64;
+      if (v17 >= v16)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_27;
         }
 
-        v17 = &v62;
+        v18 = &v63;
       }
 
-      v18 = &v61;
+      v19 = &p_end_cap;
       goto LABEL_26;
     }
 
-    if (v16 < v15)
+    if (v17 < v16)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 < *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 < *v64)
       {
-        v17 = &v63;
-        v18 = &v62;
+        v18 = &v64;
+        v19 = &v63;
 LABEL_26:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v17, v18);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v18, v19);
       }
     }
 
 LABEL_27:
-    v23 = v8 + 14 * v12;
-    v25 = *(v23 - 14);
-    v24 = v23 - 14;
-    v26 = v25;
-    v27 = *(v8 + 14);
-    *&v63 = v8 + 56;
-    *&v62 = v24;
-    v28 = *(v7 - 28);
-    v61 = (v7 - 7);
-    if (v25 < v27)
+    v24 = (v9 + 56 * v13);
+    v26 = *(v24 - 14);
+    v25 = v24 - 14;
+    v27 = v26;
+    v28 = *&v9[2].__end_;
+    *&v64 = v9 + 56;
+    *&v63 = v25;
+    v29 = *(v8 - 28);
+    p_end_cap = (v8 - 112);
+    if (v26 < v28)
     {
-      v29 = &v63;
-      if (v28 >= v26)
+      v30 = &v64;
+      if (v29 >= v27)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_42;
         }
 
-        v29 = &v62;
+        v30 = &v63;
       }
 
-      v30 = &v61;
+      v31 = &p_end_cap;
       goto LABEL_41;
     }
 
-    if (v28 < v26)
+    if (v29 < v27)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 < *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 < *v64)
       {
-        v29 = &v63;
-        v30 = &v62;
+        v30 = &v64;
+        v31 = &v63;
 LABEL_41:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v29, v30);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v30, v31);
       }
     }
 
 LABEL_42:
-    v31 = v8 + 14 * v12;
-    v33 = v31[14];
-    v32 = (v31 + 14);
-    v34 = v33;
-    v35 = *(v8 + 28);
-    *&v63 = v8 + 7;
-    *&v62 = v32;
-    v36 = *(v7 - 42);
-    v61 = v7 - 42;
-    if (v33 < v35)
+    v32 = (v9 + 56 * v13);
+    v34 = v32[14];
+    v33 = (v32 + 14);
+    v35 = v34;
+    v36 = *&v9[4].__end_cap_.__value_;
+    *&v64 = v9 + 112;
+    *&v63 = v33;
+    v37 = *(v8 - 42);
+    p_end_cap = (v8 - 168);
+    if (v34 < v36)
     {
-      v37 = &v63;
-      if (v36 >= v34)
+      v38 = &v64;
+      if (v37 >= v35)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_51;
         }
 
-        v37 = &v62;
+        v38 = &v63;
       }
 
-      v38 = &v61;
+      v39 = &p_end_cap;
       goto LABEL_50;
     }
 
-    if (v36 < v34)
+    if (v37 < v35)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 < *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 < *v64)
       {
-        v37 = &v63;
-        v38 = &v62;
+        v38 = &v64;
+        v39 = &v63;
 LABEL_50:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v37, v38);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v38, v39);
       }
     }
 
 LABEL_51:
-    *&v63 = v24;
-    v61 = v32;
-    *&v62 = v13;
-    v39 = *v13;
-    v40 = *v32;
-    if (*v13 >= *v24)
+    *&v64 = v25;
+    p_end_cap = v33;
+    *&v63 = v14;
+    v40 = *v14;
+    v41 = *v33;
+    if (*v14 >= *v25)
     {
-      if (v40 >= v39)
+      if (v41 >= v40)
       {
         goto LABEL_60;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 >= *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 >= *v64)
       {
         goto LABEL_60;
       }
 
-      v41 = &v63;
-      v42 = &v62;
+      v42 = &v64;
+      v43 = &v63;
     }
 
     else
     {
-      v41 = &v63;
-      if (v40 >= v39)
+      v42 = &v64;
+      if (v41 >= v40)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_60;
         }
 
-        v41 = &v62;
+        v42 = &v63;
       }
 
-      v42 = &v61;
+      v43 = &p_end_cap;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v41, v42);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v42, v43);
 LABEL_60:
-    v43 = *v8;
-    v56 = v8[1];
-    v44 = *(v8 + 4);
-    *(v8 + 2) = 0;
-    *(v8 + 3) = 0;
-    *(v8 + 4) = 0;
-    v62 = *(v8 + 40);
-    v63 = v43;
-    *v8 = *v13;
-    std::vector<int>::__move_assign((v8 + 1), v13 + 1);
-    *(v8 + 40) = *(v13 + 40);
-    *v13 = v63;
-    v45 = *(v13 + 2);
-    if (v45)
+    v44 = *&v9->__begin_;
+    v57 = *&v9->__end_cap_.__value_;
+    end = v9[1].__end_;
+    v9->__end_cap_.__value_ = 0;
+    v9[1].__begin_ = 0;
+    v9[1].__end_ = 0;
+    v63 = *&v9[1].__end_cap_.__value_;
+    v64 = v44;
+    *&v9->__begin_ = *v14;
+    std::vector<int>::__move_assign(&v9->__end_cap_, v14 + 1);
+    *&v9[1].__end_cap_.__value_ = *(v14 + 40);
+    *v14 = v64;
+    v46 = *(v14 + 2);
+    if (v46)
     {
-      *(v13 + 3) = v45;
-      operator delete(v45);
+      *(v14 + 3) = v46;
+      operator delete(v46);
     }
 
-    *(v13 + 1) = v56;
-    *(v13 + 4) = v44;
-    *(v13 + 40) = v62;
-    v8 = v58;
+    *(v14 + 1) = v57;
+    *(v14 + 4) = end;
+    *(v14 + 40) = v63;
+    v9 = v59;
     if (a5)
     {
 LABEL_37:
-      v7 = v57;
+      v8 = v58;
       goto LABEL_64;
     }
 
 LABEL_63:
-    v7 = v57;
-    if (*(v8 - 14) >= *v8)
+    v8 = v58;
+    if (*&v9[-3].__end_cap_.__value_ >= *&v9->__begin_)
     {
-      v8 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v8, v57);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v9, v58);
       goto LABEL_73;
     }
 
 LABEL_64:
-    v46 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v8, v7);
-    if ((v47 & 1) == 0)
+    v47 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v9, v8);
+    if ((v48 & 1) == 0)
     {
       goto LABEL_71;
     }
 
-    v48 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v46);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>((v46 + 56), v7))
+    v49 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v47);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>((v47 + 56), v8))
     {
-      if (v48)
+      if (v49)
       {
         return;
       }
 
-      v57 = v46;
-      v7 = v46;
+      v58 = v47;
+      v8 = v47;
     }
 
     else
     {
-      if (!v48)
+      if (!v49)
       {
 LABEL_71:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,false>(v8, v46, a3, -i, a5 & 1);
-        v8 = (v46 + 56);
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,false>(v9, v47, a3, -i, a5 & 1);
+        v9 = (v47 + 56);
 LABEL_73:
         a5 = 0;
-        v58 = v8;
+        v59 = v9;
         a4 = -i;
         goto LABEL_2;
       }
 
-      v58 = (v46 + 56);
-      v8 = (v46 + 56);
+      v59 = v47 + 56;
+      v9 = (v47 + 56);
     }
   }
 
-  *&v63 = v8;
-  v54 = *(v8 + 14);
-  *&v62 = v8 + 56;
-  v55 = *(v7 - 14);
-  v61 = v7 - 14;
-  if (v54 < *v8)
+  *&v64 = v9;
+  v55 = *&v9[2].__end_;
+  *&v63 = v9 + 56;
+  v56 = *(v8 - 14);
+  p_end_cap = (v8 - 56);
+  if (v55 < *&v9->__begin_)
   {
-    v50 = &v63;
-    if (v55 >= v54)
+    v51 = &v64;
+    if (v56 >= v55)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-      if (*v61 >= *v62)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+      if (*p_end_cap >= *v63)
       {
         return;
       }
 
-      v50 = &v62;
+      v51 = &v63;
     }
 
-    v51 = &v61;
+    v52 = &p_end_cap;
     goto LABEL_94;
   }
 
-  if (v55 < v54)
+  if (v56 < v55)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-    v52 = *v62;
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
     v53 = *v63;
+    v54 = *v64;
 LABEL_92:
-    if (v52 < v53)
+    if (v53 < v54)
     {
-      v50 = &v63;
-      v51 = &v62;
+      v51 = &v64;
+      v52 = &v63;
 LABEL_94:
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v50, v51);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v51, v52);
     }
   }
 }
@@ -2241,7 +2241,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,st
   return result;
 }
 
-__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(std::vector<int> *this, unint64_t a2)
+std::vector<int> *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(std::vector<int> *this, unint64_t a2)
 {
   v20 = a2;
   v3 = *&this->__begin_;
@@ -2451,7 +2451,7 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   return v13 - 56;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(__int128 *a1, char *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(__int128 *a1, float *a2)
 {
   v2 = a2;
   v32 = a2;
@@ -2466,7 +2466,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v12 = *(a1 + 14);
         v30 = a1 + 14;
         v13 = *(a2 - 14);
-        v36 = (a2 - 56);
+        v36 = a2 - 14;
         if (v12 < *a1)
         {
           v6 = &v29;
@@ -2503,7 +2503,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v9 = (a1 + 7);
         v30 = a1 + 14;
         v36 = (a1 + 7);
-        v34 = a2 - 56;
+        v34 = (a2 - 14);
         v35 = a1 + 42;
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(a1, (a1 + 56), a1 + 7, a1 + 42);
         if (*(v2 - 14) >= *(a1 + 42))
@@ -2549,7 +2549,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
   if (v4 == 2)
   {
     v5 = *(a2 - 14);
-    v32 = a2 - 56;
+    v32 = (a2 - 14);
     if (v5 < *a1)
     {
       v6 = &v33;
@@ -2604,7 +2604,7 @@ LABEL_32:
   }
 
 LABEL_33:
-  v19 = a1 + 168;
+  v19 = a1 + 42;
   if (v19 == v2)
   {
     return 1;
@@ -2621,14 +2621,14 @@ LABEL_33:
 
 LABEL_43:
     v14 = v19;
-    v19 += 56;
+    v19 += 14;
     if (v19 == v2)
     {
       return 1;
     }
   }
 
-  v30 = *(v19 + 4);
+  v30 = *(v19 + 1);
   v31 = *(v19 + 3);
   v22 = *(v19 + 1);
   v23 = *(v19 + 4);
@@ -2636,7 +2636,7 @@ LABEL_43:
   *(v19 + 3) = 0;
   *(v19 + 4) = 0;
   v28 = v22;
-  v29 = *(v19 + 40);
+  v29 = *(v19 + 10);
   do
   {
     v24 = v14;
@@ -2672,69 +2672,69 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  return v19 + 56 == v32;
+  return v19 + 14 == v32;
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(float *a1, __int128 *a2, __int128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(float *a1, char *a2, __int128 *a3, uint64_t a4, __n128 a5)
 {
-  v18 = a1;
+  v19 = a1;
   if (a1 != a2)
   {
-    v6 = a2;
-    v7 = a1;
-    v8 = a2 - a1;
-    v9 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
+    v7 = a2;
+    v8 = a1;
+    v9 = a2 - a1;
+    v10 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
     if (a2 - a1 >= 57)
     {
-      v10 = (v9 - 2) >> 1;
-      v11 = v10 + 1;
-      v12 = &a1[14 * v10];
+      v11 = (v10 - 2) >> 1;
+      v12 = v11 + 1;
+      v13 = &a1[14 * v11];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v7, a4, v9, v12);
-        v12 -= 56;
-        --v11;
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, a4, v10, v13);
+        v13 -= 14;
+        --v12;
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v17 = v6;
-    v13 = v6;
-    if (v6 != a3)
+    v18 = v7;
+    v14 = v7;
+    if (v7 != a3)
     {
       do
       {
-        if (*v13 < *v18)
+        if (*v14 < *v19)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v17, &v18);
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v18, a4, v9, v18);
-          v13 = v17;
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v18, &v19);
+          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v19, a4, v10, v19);
+          v14 = v18;
         }
 
-        v13 = (v13 + 56);
-        v17 = v13;
+        v14 = (v14 + 56);
+        v18 = v14;
       }
 
-      while (v13 != a3);
-      v7 = v18;
-      v8 = v6 - v18;
+      while (v14 != a3);
+      v8 = v19;
+      v9 = v7 - v19;
     }
 
-    if (v8 >= 57)
+    if (v9 >= 57)
     {
-      v14 = 0x6DB6DB6DB6DB6DB7 * (v8 >> 3);
+      v15 = 0x6DB6DB6DB6DB6DB7 * (v9 >> 3);
       do
       {
-        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v7, v6, a4, v14);
-        v6 = (v6 - 56);
+        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v7, a4, v15);
+        v7 = (v7 - 56);
       }
 
-      while (v14-- > 2);
-      return v17;
+      while (v15-- > 2);
+      return v18;
     }
 
-    return v13;
+    return v14;
   }
 
   return a3;
@@ -2774,7 +2774,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
           v14 = v5;
           v5 = v10;
           *v14 = *v10;
-          std::vector<int>::__move_assign(&v14[1], v10 + 1);
+          std::vector<int>::__move_assign((v14 + 1), v10 + 1);
           *(v14 + 40) = *(v5 + 40);
           if (v7 < v9)
           {
@@ -2793,38 +2793,37 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
         }
 
         while (v10->n128_f32[0] >= v11);
-        v5->n128_f32[0] = v11;
-        v5->n128_u32[3] = v21;
-        *(v5->n128_u64 + 4) = v20;
-        v17 = v5[1].n128_u64[0];
+        *v5 = v11;
+        *(v5 + 12) = v21;
+        *(v5 + 4) = v20;
+        v17 = *(v5 + 16);
         if (v17)
         {
-          v5[1].n128_u64[1] = v17;
+          *(v5 + 24) = v17;
           operator delete(v17);
-          v5[1].n128_u64[0] = 0;
-          v5[1].n128_u64[1] = 0;
-          v5[2].n128_u64[0] = 0;
+          *(v5 + 16) = 0;
+          *(v5 + 24) = 0;
+          *(v5 + 32) = 0;
         }
 
-        v5[1] = v18;
-        v5[2].n128_u64[0] = v13;
+        *(v5 + 16) = v18;
+        *(v5 + 32) = v13;
         *(v5 + 40) = v19;
       }
     }
   }
 }
 
-__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v7 = *a1;
-    v8 = *(a1 + 16);
-    v9 = *(a1 + 24);
-    v10 = *(a1 + 32);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 32) = 0;
+    v8 = *(a1 + 2);
+    v9 = *(a1 + 3);
+    v10 = *(a1 + 4);
+    a1[1] = 0uLL;
+    *(a1 + 4) = 0;
     v18 = *(a1 + 40);
     v19 = v7;
     v11 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(a1, a3, a4);
@@ -2977,33 +2976,33 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> 
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,std::pair<float,int>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::pair<float,int>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::pair<float,int>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::pair<float,int>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,std::pair<float,int>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::pair<float,int>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::pair<float,int>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::pair<float,int>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3011,44 +3010,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Hyp::Hyp(uint64_t a1, int a2, int a3, int a4, char a5, uint64_t a6, float a7, float a8)
@@ -3058,7 +3057,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Hyp::Hyp(u
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  std::vector<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*,std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*>(a1 + 8, *(a6 + 8), *(a6 + 16), (*(a6 + 16) - *(a6 + 8)) >> 4);
+  std::vector<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*,std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*>((a1 + 8), *(a6 + 8), *(a6 + 16), (*(a6 + 16) - *(a6 + 8)) >> 4);
   v14 = *(a6 + 44);
   *(a1 + 56) = 0;
   *(a1 + 32) = a2;
@@ -3098,26 +3097,26 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Hyp::Hyp(u
   return a1;
 }
 
-void sub_1B5613ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B5613ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  kaldi::CuMatrix<float>::~CuMatrix(v8);
+  va_start(va, a11);
+  kaldi::CuMatrix<float>::~CuMatrix(v13);
   std::vector<kaldi::Vector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v6 + 160);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v6 + 120);
-  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table((v7 + 3));
-  v10 = *v7;
-  if (*v7)
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v11 + 160);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v11 + 120);
+  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table(v12 + 3);
+  v15 = *v12;
+  if (*v12)
   {
-    *(v6 + 64) = v10;
-    operator delete(v10);
+    *(v11 + 64) = v15;
+    operator delete(v15);
   }
 
   std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*,std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__init_with_size[abi:ne200100]<std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*,std::shared_ptr<kaldi::quasar::ComputeEngineBufferItf>*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3246,7 +3245,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Hyp::~Hyp(
   std::vector<kaldi::Vector<float>>::__destroy_vector::operator()[abi:ne200100](&v4);
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(a1 + 160);
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(a1 + 120);
-  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table(a1 + 80);
+  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table((a1 + 80));
   v2 = *(a1 + 56);
   if (v2)
   {
@@ -3273,347 +3272,347 @@ void std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Sc
 
 TFileObject *compileAlt(const TFileObject *a1, TFileObject *a2, TLexicon *a3, TAllocator *a4)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (*(a1 + 10))
   {
     if (TLexicon::checkName(a3, *(a1 + 3), 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       loggableFileObject(a1);
-      v38 = v54.i8[15];
-      v39 = v53.__vftable;
+      v44 = v62.i8[15];
+      v45 = v61.__vftable;
       loggableUnicode(*(a1 + 3), __p);
-      v40 = &v53;
-      if (v38 < 0)
+      v48 = &v61;
+      if (v44 < 0)
       {
-        v40 = v39;
+        v48 = v45;
       }
 
-      if (v51 >= 0)
+      if (v59 >= 0)
       {
-        v41 = __p;
+        v49 = __p;
       }
 
       else
       {
-        v41 = __p[0];
+        v49 = __p[0];
       }
 
-      tknPrintf("Error: %s'%s' is an invalid token name.\n", v40, v41);
-      if (v51 < 0)
+      tknPrintf("Error: %s'%s' is an invalid token name.\n", v46, v47, v48, v49);
+      if (v59 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v54.i8[15] < 0)
+      if (v62.i8[15] < 0)
       {
-        operator delete(v53.__vftable);
+        operator delete(v61.__vftable);
       }
 
       std::string::basic_string[abi:ne200100]<0>(__p, "");
-      TException::TException(&v53, __p);
-      v53.__vftable = &unk_1F2D00400;
-      if (v55 >= 0)
+      TException::TException(&v61, __p);
+      v61.__vftable = &unk_1F2D00400;
+      if (v63 >= 0)
       {
-        v42 = &v54;
+        v50 = &v62;
       }
 
       else
       {
-        v42 = v54.i64[0];
+        v50 = v62.i64[0];
       }
 
-      conditionalAssert(v42->i8, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 155);
-      TException::~TException(&v53);
-      if (v51 < 0)
+      conditionalAssert(v50->i8, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 155);
+      TException::~TException(&v61);
+      if (v59 < 0)
       {
         operator delete(__p[0]);
       }
 
       exception = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v53, "");
-      TException::TException(exception, &v53);
+      std::string::basic_string[abi:ne200100]<0>(&v61, "");
+      TException::TException(exception, &v61);
       *exception = &unk_1F2D00400;
     }
 
     if (*(getPropCheckTokenExistence() + 8) == 1 && !TLexicon::findHeadClone(a3, *(a1 + 3)))
     {
       loggableFileObject(a1);
-      v8 = v54.i8[15];
-      v9 = v53.__vftable;
+      v8 = v62.i8[15];
+      v9 = v61.__vftable;
       loggableUnicode(*(a1 + 3), __p);
-      v10 = &v53;
+      v12 = &v61;
       if (v8 < 0)
       {
-        v10 = v9;
+        v12 = v9;
       }
 
-      if (v51 >= 0)
+      if (v59 >= 0)
       {
-        v11 = __p;
+        v13 = __p;
       }
 
       else
       {
-        v11 = __p[0];
+        v13 = __p[0];
       }
 
-      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v10, v11);
-      if (v51 < 0)
+      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v10, v11, v12, v13);
+      if (v59 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v54.i8[15] < 0)
+      if (v62.i8[15] < 0)
       {
-        operator delete(v53.__vftable);
+        operator delete(v61.__vftable);
       }
     }
 
-    v13 = *(a1 + 3);
-    v12 = (a1 + 24);
-    v14 = wcslen(v13);
-    if ((v14 + 1) >> 62)
+    v15 = *(a1 + 3);
+    v14 = (a1 + 24);
+    v16 = wcslen(v15);
+    if ((v16 + 1) >> 62)
     {
-      v15 = -1;
+      v17 = -1;
     }
 
     else
     {
-      v15 = 4 * (v14 + 1);
+      v17 = 4 * (v16 + 1);
     }
 
-    v16 = TAllocator::allocate(a4, v15);
-    wcscpy(v16, *v12);
-    v17 = TAllocator::allocate(a4, 48);
-    *(v17 + 40) = 1;
-    *(v17 + 24) = v16;
-    *(v17 + 32) = 0;
-    *v17 = 0;
-    *(v17 + 8) = "T";
-    *(v17 + 16) = 0;
+    v18 = TAllocator::allocate(a4, v17);
+    wcscpy(v18, *v14);
+    v19 = TAllocator::allocate(a4, 48);
+    *(v19 + 10) = 1;
+    v19[3] = v18;
+    v19[4] = 0;
+    *v19 = 0;
+    v19[1] = "T";
+    v19[2] = 0;
     goto LABEL_56;
   }
 
-  v53.__vftable = &unk_1B5B0DA34;
-  v54 = vdupq_n_s64(1uLL);
-  v55 = -1;
-  if (TFileObject::verify(a1, &v53, 1, 0))
+  v61.__vftable = &unk_1B5B0DA34;
+  v62 = vdupq_n_s64(1uLL);
+  v63 = -1;
+  if (TFileObject::verify(a1, &v61, 1, 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(v48, "");
-    TException::TException(__p, v48);
+    std::string::basic_string[abi:ne200100]<0>(v56, "");
+    TException::TException(__p, v56);
     __p[0] = &unk_1F2D00400;
-    if (v52 >= 0)
+    if (v60 >= 0)
     {
-      v44 = &__p[1];
+      v52 = &__p[1];
     }
 
     else
     {
-      v44 = __p[1];
+      v52 = __p[1];
     }
 
-    conditionalAssert(v44, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 88);
+    conditionalAssert(v52, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 88);
     TException::~TException(__p);
-    if (v49 < 0)
+    if (v57 < 0)
     {
-      operator delete(v48[0]);
+      operator delete(v56[0]);
     }
 
-    v45 = __cxa_allocate_exception(0x20uLL);
+    v53 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, "");
-    TException::TException(v45, __p);
-    *v45 = &unk_1F2D00400;
+    TException::TException(v53, __p);
+    *v53 = &unk_1F2D00400;
   }
 
-  v18 = 0;
+  v20 = 0;
+  v21 = 0;
   v19 = 0;
-  v17 = 0;
-  v20 = *(a1 + 3);
+  v22 = *(a1 + 3);
   do
   {
-    if (TFileObject::verify(v20, 0, 0))
+    if (TFileObject::verify(v22, 0, 0))
     {
       goto LABEL_31;
     }
 
-    if (TLexicon::checkName(a3, *(v20 + 24), 1, 0xFFFFFFFFFFFFFFFFLL))
+    if (TLexicon::checkName(a3, *(v22 + 24), 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      loggableFileObject(v20);
-      v21 = v51;
-      v22 = __p[0];
-      loggableUnicode(*(v20 + 24), v48);
-      v23 = __p;
-      if (v21 < 0)
+      loggableFileObject(v22);
+      v23 = v59;
+      v24 = __p[0];
+      loggableUnicode(*(v22 + 24), v56);
+      v27 = __p;
+      if (v23 < 0)
       {
-        v23 = v22;
+        v27 = v24;
       }
 
-      if (v49 >= 0)
+      if (v57 >= 0)
       {
-        v24 = v48;
+        v28 = v56;
       }
 
       else
       {
-        v24 = v48[0];
+        v28 = v56[0];
       }
 
-      tknPrintf("Error: %s'%s' is an invalid token name.\n", v23, v24);
-      if (v49 < 0)
+      tknPrintf("Error: %s'%s' is an invalid token name.\n", v25, v26, v27, v28);
+      if (v57 < 0)
       {
-        operator delete(v48[0]);
+        operator delete(v56[0]);
       }
 
-      if (v51 < 0)
+      if (v59 < 0)
       {
         operator delete(__p[0]);
       }
 
 LABEL_31:
-      v18 = 1;
+      v20 = 1;
       goto LABEL_32;
     }
 
-    if (*(getPropCheckTokenExistence() + 8) == 1 && !TLexicon::findHeadClone(a3, *(v20 + 24)))
+    if (*(getPropCheckTokenExistence() + 8) == 1 && !TLexicon::findHeadClone(a3, *(v22 + 24)))
     {
-      loggableFileObject(v20);
-      v25 = v51;
-      v26 = __p[0];
-      loggableUnicode(*(v20 + 24), v48);
-      v27 = __p;
-      if (v25 < 0)
+      loggableFileObject(v22);
+      v29 = v59;
+      v30 = __p[0];
+      loggableUnicode(*(v22 + 24), v56);
+      v33 = __p;
+      if (v29 < 0)
       {
-        v27 = v26;
+        v33 = v30;
       }
 
-      if (v49 >= 0)
+      if (v57 >= 0)
       {
-        v28 = v48;
+        v34 = v56;
       }
 
       else
       {
-        v28 = v48[0];
+        v34 = v56[0];
       }
 
-      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v27, v28);
-      if (v49 < 0)
+      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v31, v32, v33, v34);
+      if (v57 < 0)
       {
-        operator delete(v48[0]);
+        operator delete(v56[0]);
       }
 
-      if (v51 < 0)
+      if (v59 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    v29 = wcslen(*(v20 + 24));
-    if ((v29 + 1) >> 62)
+    v35 = wcslen(*(v22 + 24));
+    if ((v35 + 1) >> 62)
     {
-      v30 = -1;
+      v36 = -1;
     }
 
     else
     {
-      v30 = 4 * (v29 + 1);
+      v36 = 4 * (v35 + 1);
     }
 
-    v31 = TAllocator::allocate(a4, v30);
-    wcscpy(v31, *(v20 + 24));
-    v32 = TAllocator::allocate(a4, 48);
-    *(v32 + 40) = 1;
-    *(v32 + 24) = v31;
-    *(v32 + 32) = 0;
-    *v32 = 0;
-    *(v32 + 8) = "T";
-    *(v32 + 16) = 0;
-    if (v19)
+    v37 = TAllocator::allocate(a4, v36);
+    wcscpy(v37, *(v22 + 24));
+    v38 = TAllocator::allocate(a4, 48);
+    *(v38 + 10) = 1;
+    v38[3] = v37;
+    v38[4] = 0;
+    *v38 = 0;
+    v38[1] = "T";
+    v38[2] = 0;
+    if (v21)
     {
-      *(v19 + 16) = v32;
+      v21[2] = v38;
     }
 
-    if (!v17)
+    if (!v19)
     {
-      v17 = v32;
+      v19 = v38;
     }
 
-    v19 = v32;
+    v21 = v38;
 LABEL_32:
-    v20 = *(v20 + 16);
+    v22 = *(v22 + 16);
   }
 
-  while (v20);
-  if (v18)
+  while (v22);
+  if (v20)
   {
-    std::string::basic_string[abi:ne200100]<0>(v48, "");
-    TException::TException(__p, v48);
+    std::string::basic_string[abi:ne200100]<0>(v56, "");
+    TException::TException(__p, v56);
     __p[0] = &unk_1F2D00400;
-    if (v52 >= 0)
+    if (v60 >= 0)
     {
-      v46 = &__p[1];
+      v54 = &__p[1];
     }
 
     else
     {
-      v46 = __p[1];
+      v54 = __p[1];
     }
 
-    conditionalAssert(v46, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 130);
+    conditionalAssert(v54, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 130);
     TException::~TException(__p);
-    if (v49 < 0)
+    if (v57 < 0)
     {
-      operator delete(v48[0]);
+      operator delete(v56[0]);
     }
 
-    v47 = __cxa_allocate_exception(0x20uLL);
+    v55 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, "");
-    TException::TException(v47, __p);
-    *v47 = &unk_1F2D00400;
+    TException::TException(v55, __p);
+    *v55 = &unk_1F2D00400;
   }
 
-  if (*(v17 + 16))
+  if (v19[2])
   {
-    v33 = TAllocator::allocate(a4, 48);
-    *(v33 + 40) = 0;
-    *(v33 + 24) = v17;
-    *(v33 + 32) = 0;
-    *v33 = 0;
-    *(v33 + 8) = "S";
-    *(v33 + 16) = 0;
-    v17 = v33;
+    v39 = TAllocator::allocate(a4, 48);
+    *(v39 + 10) = 0;
+    v39[3] = v19;
+    v39[4] = 0;
+    *v39 = 0;
+    v39[1] = "S";
+    v39[2] = 0;
+    v19 = v39;
   }
 
 LABEL_56:
   if (!a2)
   {
-    return v17;
+    return v19;
   }
 
   if (!wcscmp(*(a2 + 1), "A"))
   {
-    v35 = *(a2 + 3);
+    v41 = *(a2 + 3);
     do
     {
-      v36 = v35;
-      v35 = *(v35 + 16);
+      v42 = v41;
+      v41 = *(v41 + 16);
     }
 
-    while (v35);
-    *(v36 + 16) = v17;
+    while (v41);
+    *(v42 + 16) = v19;
   }
 
   else
   {
-    *(a2 + 2) = v17;
-    v34 = TAllocator::allocate(a4, 48);
-    *(v34 + 40) = 0;
-    *(v34 + 24) = a2;
-    *(v34 + 32) = 0;
-    *(v34 + 8) = "A";
-    *(v34 + 16) = 0;
-    a2 = v34;
-    *v34 = 0;
+    *(a2 + 2) = v19;
+    v40 = TAllocator::allocate(a4, 48);
+    *(v40 + 10) = 0;
+    v40[3] = a2;
+    v40[4] = 0;
+    v40[1] = "A";
+    v40[2] = 0;
+    a2 = v40;
+    *v40 = 0;
   }
 
   return a2;
@@ -3643,7 +3642,7 @@ LABEL_6:
 void TArrayObject::TArrayObject(TArrayObject *this, const TFileObject *a2, TLexicon *a3, TAllocator *a4)
 {
   *(this + 1) = 0;
-  v20 = this + 8;
+  v26 = this + 8;
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -3651,7 +3650,7 @@ void TArrayObject::TArrayObject(TArrayObject *this, const TFileObject *a2, TLexi
   *this = &unk_1F2D20C88;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  v26 = 0;
+  v32 = 0;
   v6 = *(a2 + 3);
   if (!v6)
   {
@@ -3668,7 +3667,7 @@ void TArrayObject::TArrayObject(TArrayObject *this, const TFileObject *a2, TLexi
         if (!*(this + 2))
         {
 LABEL_25:
-          MEMORY[0x1B8C84940](v20, v6[3]);
+          MEMORY[0x1B8C84940](v26, v6[3]);
           goto LABEL_33;
         }
       }
@@ -3679,17 +3678,17 @@ LABEL_25:
       }
 
       loggableFileObject(v6);
-      if (v24 >= 0)
+      if (v30 >= 0)
       {
-        v14 = __p;
+        v18 = __p;
       }
 
       else
       {
-        v14 = __p[0];
+        v18 = __p[0];
       }
 
-      tknPrintf("Error: %sRedefinition\n", v14);
+      tknPrintf("Error: %sRedefinition\n", v16, v17, v18);
     }
 
     else
@@ -3702,17 +3701,17 @@ LABEL_25:
       if (v8 < 48 || v8 >= 0x3A && (v8 < 0x660 || TLocaleInfo::getDigitExtended(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v8) == -1))
       {
         loggableFileObject(v6);
-        if (v24 >= 0)
+        if (v30 >= 0)
         {
-          v13 = __p;
+          v15 = __p;
         }
 
         else
         {
-          v13 = __p[0];
+          v15 = __p[0];
         }
 
-        tknPrintf("Error: %sInvalid attribute\n", v13);
+        tknPrintf("Error: %sInvalid attribute\n", v13, v14, v15);
       }
 
       else
@@ -3722,8 +3721,8 @@ LABEL_25:
           operator new();
         }
 
-        v10 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v9, &v26);
-        if ((v26 & 1) == 0 && v10 >> 4 < 0x271)
+        v10 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v9, &v32);
+        if ((v32 & 1) == 0 && v10 >> 4 < 0x271)
         {
           v11 = v10;
           v12 = *(this + 4);
@@ -3740,51 +3739,51 @@ LABEL_25:
         }
 
         loggableFileObject(v6);
-        if (v24 >= 0)
+        if (v30 >= 0)
         {
-          v15 = __p;
+          v21 = __p;
         }
 
         else
         {
-          v15 = __p[0];
+          v21 = __p[0];
         }
 
-        tknPrintf("Error: %sBad index (not an integer or greater than 10000)\n", v15);
+        tknPrintf("Error: %sBad index (not an integer or greater than 10000)\n", v19, v20, v21);
       }
     }
 
-    if (v24 < 0)
+    if (v30 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v26 = 1;
+    v32 = 1;
 LABEL_33:
     v6 = v6[2];
   }
 
   while (v6);
-  if (v26)
+  if (v32)
   {
-    std::string::basic_string[abi:ne200100]<0>(v21, "");
-    TException::TException(__p, v21);
+    std::string::basic_string[abi:ne200100]<0>(v27, "");
+    TException::TException(__p, v27);
     __p[0] = &unk_1F2D00400;
-    if (v25 >= 0)
+    if (v31 >= 0)
     {
-      v16 = &__p[1];
+      v22 = &__p[1];
     }
 
     else
     {
-      v16 = __p[1];
+      v22 = __p[1];
     }
 
-    conditionalAssert(v16, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 286);
+    conditionalAssert(v22, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 286);
     TException::~TException(__p);
-    if (v22 < 0)
+    if (v28 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v27[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
@@ -3794,9 +3793,9 @@ LABEL_33:
   }
 }
 
-void sub_1B5614C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_1B5614C20(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
-  MEMORY[0x1B8C85350](v27, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](v27, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   v30 = *v28;
   if (*v28)
   {
@@ -3837,18 +3836,18 @@ uint64_t TArrayObject::checkNoGap(TArrayObject *this, unint64_t a2, unint64_t a3
         }
 
         loggableUnicode(v9, __p);
-        if (v13 >= 0)
+        if (v15 >= 0)
         {
-          v10 = __p;
+          v12 = __p;
         }
 
         else
         {
-          v10 = __p[0];
+          v12 = __p[0];
         }
 
-        tknPrintf("Error: Array '%s' : Attribute '%llu' : Missing declaration\n", v10, v4);
-        if (v13 < 0)
+        tknPrintf("Error: Array '%s' : Attribute '%llu' : Missing declaration\n", v10, v11, v12, v4);
+        if (v15 < 0)
         {
           operator delete(__p[0]);
         }
@@ -4020,9 +4019,9 @@ void TDigitObject::TDigitObject(TDigitObject *this, const TFileObject *a2, TLexi
   }
 }
 
-void sub_1B5615344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void **a11, void **a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_1B5615344(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, void **a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
-  MEMORY[0x1B8C85350](v24, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](v24, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   v27 = *a11;
   if (*a11)
   {
@@ -4238,29 +4237,29 @@ void sub_1B56157F4(_Unwind_Exception *a1)
 const char *addSequence(const __int32 **a1, TVertex *a2, TVertex *a3, TGraph *a4, TLexicon *a5, const char *a6, const char *a7, const char *a8)
 {
   v12 = a1;
-  if (wcscmp(a1[1], "S") || (v12 = *(v12 + 3)) != 0)
+  if (wcscmp(a1[1], "S") || (v12 = v12[3]) != 0)
   {
-    while (!wcscmp(*(v12 + 1), "S"))
+    while (!wcscmp(v12[1], "S"))
     {
 LABEL_37:
-      v12 = *(v12 + 2);
+      v12 = v12[2];
       if (!v12)
       {
         return a7;
       }
     }
 
-    v13 = *(v12 + 2);
+    v13 = v12[2];
     v14 = a3;
     v15 = a7;
     if (v13)
     {
-      if (!wcscmp(*(v13 + 8), "S"))
+      if (!wcscmp(*(v13 + 1), "S"))
       {
         do
         {
           v17 = v13;
-          v13 = *(v13 + 16);
+          v13 = *(v13 + 2);
           if (!v13)
           {
             v14 = a3;
@@ -4268,11 +4267,11 @@ LABEL_37:
           }
         }
 
-        while (!wcscmp(*(v13 + 8), "S"));
+        while (!wcscmp(*(v13 + 1), "S"));
         if (a6)
         {
           v28 = 0;
-          v18 = *(v17 + 24);
+          v18 = *(v17 + 3);
           {
             operator new();
           }
@@ -4336,7 +4335,7 @@ LABEL_24:
       v16 = 0;
     }
 
-    v22 = *(v12 + 1);
+    v22 = v12[1];
     if (!wcscmp(v22, "T"))
     {
       addToken(v12, a2, v14, a4, a5);
@@ -4499,7 +4498,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t TRomanObject::build(uint64_t a1, signed int *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
+uint64_t TRomanObject::build(uint64_t a1, int *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
 {
   v24 = 0;
   {
@@ -4574,76 +4573,76 @@ void sub_1B56160E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a3, TLexicon *a4, TAllocator *a5)
+uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t *a2, char **a3, TLexicon *a4, TAllocator *a5)
 {
   v7 = a2;
-  v99 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   *(a1 + 8) = 0;
-  v53 = a1 + 8;
+  v57 = a1 + 8;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *a1 = &unk_1F2D20D18;
-  v60 = "E";
-  v61 = xmmword_1B5AFFEF0;
-  v62 = -1;
-  v63 = "I";
-  v64 = xmmword_1B5AFFEF0;
-  v65 = -1;
-  v66 = "N";
-  v67 = xmmword_1B5AFFEF0;
-  v68 = -1;
-  v69 = "Z";
-  v70 = xmmword_1B5AFFEF0;
-  v71 = -1;
-  v72 = "D";
-  v73 = xmmword_1B5AE0060;
-  v74 = -1;
-  v75 = "C";
-  v76 = xmmword_1B5AE0060;
-  v77 = -1;
-  v78 = "C";
-  v79 = xmmword_1B5AE0060;
-  v80 = -1;
-  v81 = "L";
-  v82 = xmmword_1B5AE5400;
-  v83 = -1;
-  v84 = "L";
-  v85 = 2;
-  v86 = xmmword_1B5AE01E0;
-  v87 = "E";
-  v88 = 2;
-  v89 = xmmword_1B5AE01E0;
-  v90 = "E";
-  v91 = 2;
-  v92 = xmmword_1B5AE01E0;
-  v93 = "W";
-  v94 = 2;
-  v95 = xmmword_1B5AE01E0;
-  v96 = "N";
-  v97 = 0;
-  v98 = xmmword_1B5AE01E0;
-  v9 = TFileObject::verify(a2, &v60, 13, 1);
-  v59 = v9;
+  v64 = "E";
+  v65 = xmmword_1B5AFFEF0;
+  v66 = -1;
+  v67 = "I";
+  v68 = xmmword_1B5AFFEF0;
+  v69 = -1;
+  v70 = "N";
+  v71 = xmmword_1B5AFFEF0;
+  v72 = -1;
+  v73 = "Z";
+  v74 = xmmword_1B5AFFEF0;
+  v75 = -1;
+  v76 = "D";
+  v77 = xmmword_1B5AE0060;
+  v78 = -1;
+  v79 = "C";
+  v80 = xmmword_1B5AE0060;
+  v81 = -1;
+  v82 = "C";
+  v83 = xmmword_1B5AE0060;
+  v84 = -1;
+  v85 = "L";
+  v86 = xmmword_1B5AE5400;
+  v87 = -1;
+  v88 = "L";
+  v89 = 2;
+  v90 = xmmword_1B5AE01E0;
+  v91 = "E";
+  v92 = 2;
+  v93 = xmmword_1B5AE01E0;
+  v94 = "E";
+  v95 = 2;
+  v96 = xmmword_1B5AE01E0;
+  v97 = "W";
+  v98 = 2;
+  v99 = xmmword_1B5AE01E0;
+  v100 = "N";
+  v101 = 0;
+  v102 = xmmword_1B5AE01E0;
+  v9 = TFileObject::verify(a2, &v64, 13, 1);
+  v63 = v9;
   if (v9)
   {
-    std::string::basic_string[abi:ne200100]<0>(v54, "");
-    TException::TException(__p, v54);
+    std::string::basic_string[abi:ne200100]<0>(v58, "");
+    TException::TException(__p, v58);
     __p[0] = &unk_1F2D00400;
-    if (v58 >= 0)
+    if (v62 >= 0)
     {
-      v45 = &__p[1];
+      v49 = &__p[1];
     }
 
     else
     {
-      v45 = __p[1];
+      v49 = __p[1];
     }
 
-    conditionalAssert(v45, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 740);
+    conditionalAssert(v49, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 740);
     TException::~TException(__p);
-    if (v55 < 0)
+    if (v59 < 0)
     {
-      operator delete(v54[0]);
+      operator delete(v58[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
@@ -4664,14 +4663,14 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
   v11 = v7[3];
   if (v11)
   {
-    v51 = v7;
+    v55 = v7;
     v12 = 0;
     while (1)
     {
       v13 = *(v11 + 1);
       if (!wcscmp(v13, "N"))
       {
-        MEMORY[0x1B8C84940](v53, *(v11 + 3));
+        MEMORY[0x1B8C84940](v57, *(v11 + 3));
       }
 
       else
@@ -4732,30 +4731,30 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
         {
           if (TFileObject::verify(v11, 0, 0))
           {
-            std::string::basic_string[abi:ne200100]<0>(v54, "");
-            TException::TException(__p, v54);
+            std::string::basic_string[abi:ne200100]<0>(v58, "");
+            TException::TException(__p, v58);
             __p[0] = &unk_1F2D00400;
-            if (v58 >= 0)
+            if (v62 >= 0)
             {
-              v49 = &__p[1];
+              v53 = &__p[1];
             }
 
             else
             {
-              v49 = __p[1];
+              v53 = __p[1];
             }
 
-            conditionalAssert(v49, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 787);
+            conditionalAssert(v53, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 787);
             TException::~TException(__p);
-            if (v55 < 0)
+            if (v59 < 0)
             {
-              operator delete(v54[0]);
+              operator delete(v58[0]);
             }
 
-            v50 = __cxa_allocate_exception(0x20uLL);
+            v54 = __cxa_allocate_exception(0x20uLL);
             std::string::basic_string[abi:ne200100]<0>(__p, "");
-            TException::TException(v50, __p);
-            *v50 = &unk_1F2D00400;
+            TException::TException(v54, __p);
+            *v54 = &unk_1F2D00400;
           }
 
           v23 = *(v11 + 3);
@@ -4765,27 +4764,27 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
               operator new();
             }
 
-            v24 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v23, &v59);
+            v24 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v23, &v63);
             *(a1 + 128) = v24;
-            if (v24 - 5 >= 0xFFFFFFFD && v59 != 1)
+            if (v24 - 5 >= 0xFFFFFFFD && v63 != 1)
             {
               goto LABEL_50;
             }
 
             loggableFileObject(v11);
-            v25 = __p;
-            if (v57 < 0)
+            v27 = __p;
+            if (v61 < 0)
             {
-              v25 = __p[0];
+              v27 = __p[0];
             }
 
-            tknPrintf("Error: %sValue is out of range, must be 2, 3, 4, or I\n", v25);
-            if (v57 < 0)
+            tknPrintf("Error: %sValue is out of range, must be 2, 3, 4, or I\n", v25, v26, v27);
+            if (v61 < 0)
             {
               operator delete(__p[0]);
             }
 
-            v26 = 1;
+            v28 = 1;
             goto LABEL_49;
           }
 
@@ -4842,9 +4841,9 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
             Array = TCountingObject::getArray(0, v11, a3);
             *(a1 + 80) = Array;
 LABEL_48:
-            v26 = v59 | (Array == 0);
+            v28 = v63 | (Array == 0);
 LABEL_49:
-            v59 = v26;
+            v63 = v28;
           }
         }
       }
@@ -4853,28 +4852,28 @@ LABEL_50:
       v11 = *(v11 + 2);
       if (!v11)
       {
-        v27 = v12 < 2;
-        v7 = v51;
-        if (!v27)
+        v29 = v12 < 2;
+        v7 = v55;
+        if (!v29)
         {
-          loggableFileObject(v51);
-          if (v57 >= 0)
+          loggableFileObject(v55);
+          if (v61 >= 0)
           {
-            v28 = __p;
+            v32 = __p;
           }
 
           else
           {
-            v28 = __p[0];
+            v32 = __p[0];
           }
 
-          tknPrintf("Error: %sAttributes EnxAnd, ItaAnd, NldAnd, and ZhoZero are exclusive\n", v28);
-          if (v57 < 0)
+          tknPrintf("Error: %sAttributes EnxAnd, ItaAnd, NldAnd, and ZhoZero are exclusive\n", v30, v31, v32);
+          if (v61 < 0)
           {
             operator delete(__p[0]);
           }
 
-          v59 = 1;
+          v63 = 1;
         }
 
         break;
@@ -4883,110 +4882,110 @@ LABEL_50:
   }
 
   *(a1 + 88) = 0;
-  v29 = *(a1 + 32);
-  if (v29)
+  v33 = *(a1 + 32);
+  if (v33)
   {
-    v30 = *(a1 + 40);
-    if (v30)
+    v34 = *(a1 + 40);
+    if (v34)
     {
-      v31 = (((*(v30 + 5) - *(v30 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
-      *(a1 + 88) = v31;
+      v35 = (((*(v34 + 5) - *(v34 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
+      *(a1 + 88) = v35;
       if (*(a1 + 136) == 1)
       {
-        *(a1 + 88) = v31 - 2;
+        *(a1 + 88) = v35 - 2;
       }
 
-      v32 = TCountingObject::checkChunk(a1, v7, v29, v30);
-      v59 |= v32;
-      v33 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 40));
-      v59 |= v33;
+      v36 = TCountingObject::checkChunk(a1, v7, v33, v34);
+      v63 |= v36;
+      v37 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 40));
+      v63 |= v37;
     }
   }
 
-  v34 = *(a1 + 48);
-  if (v34)
+  v38 = *(a1 + 48);
+  if (v38)
   {
-    v35 = *(a1 + 56);
-    if (v35)
+    v39 = *(a1 + 56);
+    if (v39)
     {
-      v36 = (((*(v35 + 5) - *(v35 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
+      v40 = (((*(v39 + 5) - *(v39 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
       if (*(a1 + 136))
       {
-        v36 -= 2;
+        v40 -= 2;
       }
 
-      if (v36 >= *(a1 + 88))
+      if (v40 >= *(a1 + 88))
       {
-        v36 = *(a1 + 88);
+        v40 = *(a1 + 88);
       }
 
-      *(a1 + 88) = v36;
-      v37 = TCountingObject::checkChunk(a1, v7, v34, v35);
-      v59 |= v37;
-      v38 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 56));
-      v59 |= v38;
+      *(a1 + 88) = v40;
+      v41 = TCountingObject::checkChunk(a1, v7, v38, v39);
+      v63 |= v41;
+      v42 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 56));
+      v63 |= v42;
     }
   }
 
-  v39 = *(a1 + 64);
-  if (v39)
+  v43 = *(a1 + 64);
+  if (v43)
   {
-    v40 = *(a1 + 72);
-    if (v40)
+    v44 = *(a1 + 72);
+    if (v44)
     {
-      v41 = (((*(v40 + 5) - *(v40 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
+      v45 = (((*(v44 + 5) - *(v44 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
       if (*(a1 + 136))
       {
-        v41 -= 2;
+        v45 -= 2;
       }
 
-      if (v41 >= *(a1 + 88))
+      if (v45 >= *(a1 + 88))
       {
-        v41 = *(a1 + 88);
+        v45 = *(a1 + 88);
       }
 
-      *(a1 + 88) = v41;
-      v42 = TCountingObject::checkChunk(a1, v7, v39, v40);
-      v59 |= v42;
-      v43 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 72));
-      v59 |= v43;
+      *(a1 + 88) = v45;
+      v46 = TCountingObject::checkChunk(a1, v7, v43, v44);
+      v63 |= v46;
+      v47 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 72));
+      v63 |= v47;
     }
   }
 
-  if (v59 == 1)
+  if (v63 == 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v54, "");
-    TException::TException(__p, v54);
+    std::string::basic_string[abi:ne200100]<0>(v58, "");
+    TException::TException(__p, v58);
     __p[0] = &unk_1F2D00400;
-    if (v58 >= 0)
+    if (v62 >= 0)
     {
-      v47 = &__p[1];
+      v51 = &__p[1];
     }
 
     else
     {
-      v47 = __p[1];
+      v51 = __p[1];
     }
 
-    conditionalAssert(v47, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 897);
+    conditionalAssert(v51, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 897);
     TException::~TException(__p);
-    if (v55 < 0)
+    if (v59 < 0)
     {
-      operator delete(v54[0]);
+      operator delete(v58[0]);
     }
 
-    v48 = __cxa_allocate_exception(0x20uLL);
+    v52 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, "");
-    TException::TException(v48, __p);
-    *v48 = &unk_1F2D00400;
+    TException::TException(v52, __p);
+    *v52 = &unk_1F2D00400;
   }
 
   return a1;
 }
 
-void sub_1B5616BC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_1B5616BC0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
-  MEMORY[0x1B8C85350](a10, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](a10, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   *v26 = a11;
   if (*(v26 + 31) < 0)
   {
@@ -4996,28 +4995,28 @@ void sub_1B5616BC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TCountingObject::getArray(int a1, const __int32 **this, uint64_t **a3)
+uint64_t TCountingObject::getArray(int a1, const __int32 **this, char **a3)
 {
   if (TFileObject::verify(this, 0, 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(v16, "");
-    TException::TException(__p, v16);
+    std::string::basic_string[abi:ne200100]<0>(v18, "");
+    TException::TException(__p, v18);
     __p[0] = &unk_1F2D00400;
-    if (v20 >= 0)
+    if (v22 >= 0)
     {
-      v14 = &__p[1];
+      v16 = &__p[1];
     }
 
     else
     {
-      v14 = __p[1];
+      v16 = __p[1];
     }
 
-    conditionalAssert(v14, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 905);
+    conditionalAssert(v16, "/Library/Caches/com.apple.xbs/Sources/EmbeddedAcousticRecognition/libquasar/libtennessee/src/nashville/libtextproc/tkn/patternmgr.cpp", 905);
     TException::~TException(__p);
-    if (v17 < 0)
+    if (v19 < 0)
     {
-      operator delete(v16[0]);
+      operator delete(v18[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
@@ -5056,7 +5055,7 @@ uint64_t TCountingObject::getArray(int a1, const __int32 **this, uint64_t **a3)
         break;
       }
 
-      ++v5;
+      v5 += 8;
       if (!--v9)
       {
         goto LABEL_10;
@@ -5068,18 +5067,18 @@ uint64_t TCountingObject::getArray(int a1, const __int32 **this, uint64_t **a3)
   {
 LABEL_10:
     loggableFileObject(this);
-    if (v19 >= 0)
+    if (v21 >= 0)
     {
-      v12 = __p;
+      v14 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v14 = __p[0];
     }
 
-    tknPrintf("Error: %sArray name does not exist\n", v12);
-    if (v19 < 0)
+    tknPrintf("Error: %sArray name does not exist\n", v12, v13, v14);
+    if (v21 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5131,7 +5130,7 @@ uint64_t TCountingObject::checkChunk(TCountingObject *this, const TFileObject *a
           if (v12 >= (*(a3 + 5) - v14) >> 3 || !*(v14 + 8 * v12))
           {
             loggableFileObject(a2);
-            if (v18 >= 0)
+            if (v20 >= 0)
             {
               p_p = &__p;
             }
@@ -5141,8 +5140,8 @@ uint64_t TCountingObject::checkChunk(TCountingObject *this, const TFileObject *a
               p_p = __p;
             }
 
-            tknPrintf("Error: %sCannot make spoken form for '%llu'\n", p_p, v12);
-            if (v18 < 0)
+            tknPrintf("Error: %sCannot make spoken form for '%llu'\n", v15, v16, p_p, v12);
+            if (v20 < 0)
             {
               operator delete(__p);
             }
@@ -5200,18 +5199,18 @@ uint64_t TCountingObject::checkMagnitude(TCountingObject *this, const TFileObjec
   else
   {
     loggableFileObject(a2);
-    if (v19 >= 0)
+    if (v27 >= 0)
     {
-      v11 = __p;
+      v13 = __p;
     }
 
     else
     {
-      v11 = __p[0];
+      v13 = __p[0];
     }
 
-    tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v11, 10 * *(this + 16));
-    if (v19 < 0)
+    tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v11, v12, v13, 10 * *(this + 16));
+    if (v27 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5224,26 +5223,26 @@ uint64_t TCountingObject::checkMagnitude(TCountingObject *this, const TFileObjec
 
   for (i = v9 + 10; i < v8; ++i)
   {
-    v13 = *(this + 16);
-    if (i % (10 * v13))
+    v15 = *(this + 16);
+    if (i % (10 * v15))
     {
-      if (i / 0xA % v13 && *(v7 + 8 * i))
+      if (i / 0xA % v15 && *(v7 + 8 * i))
       {
         if (!v6)
         {
           loggableFileObject(a2);
-          if (v19 >= 0)
+          if (v27 >= 0)
           {
-            v16 = __p;
+            v24 = __p;
           }
 
           else
           {
-            v16 = __p[0];
+            v24 = __p[0];
           }
 
-          tknPrintf("Warning: %sMagnitude '%llu' is not supported\n", v16, i);
-          if (v19 < 0)
+          tknPrintf("Warning: %sMagnitude '%llu' is not supported\n", v22, v23, v24, i);
+          if (v27 < 0)
           {
             operator delete(__p[0]);
           }
@@ -5252,37 +5251,37 @@ uint64_t TCountingObject::checkMagnitude(TCountingObject *this, const TFileObjec
         }
 
         loggableFileObject(a2);
-        if (v19 >= 0)
+        if (v27 >= 0)
         {
-          v14 = __p;
+          v18 = __p;
         }
 
         else
         {
-          v14 = __p[0];
+          v18 = __p[0];
         }
 
-        tknPrintf("Error: %sMagnitude '%llu' is not supported\n", v14, i);
+        tknPrintf("Error: %sMagnitude '%llu' is not supported\n", v16, v17, v18, i);
         goto LABEL_30;
       }
     }
 
-    else if (!*(v7 + 8 * i) && (v8 <= i + 10 * v13 || !*(v7 + 80 * v13 + 8 * i) || *(this + 136) == 1))
+    else if (!*(v7 + 8 * i) && (v8 <= i + 10 * v15 || !*(v7 + 80 * v15 + 8 * i) || *(this + 136) == 1))
     {
       loggableFileObject(a2);
-      if (v19 >= 0)
+      if (v27 >= 0)
       {
-        v15 = __p;
+        v21 = __p;
       }
 
       else
       {
-        v15 = __p[0];
+        v21 = __p[0];
       }
 
-      tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v15, i);
+      tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v19, v20, v21, i);
 LABEL_30:
-      if (v19 < 0)
+      if (v27 < 0)
       {
         operator delete(__p[0]);
       }
@@ -5621,7 +5620,7 @@ LABEL_60:
   return result;
 }
 
-unint64_t TCountingObject::build(TCountingObject *a1, __int32 *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
+size_t TCountingObject::build(TCountingObject *a1, __int32 *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
 {
   do
   {
@@ -6243,7 +6242,7 @@ LABEL_66:
 
 void sub_1B56188D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  MEMORY[0x1B8C85350](v16, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](v16, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x450]) == 1 && a16 != a9)
   {
     if (a16)
@@ -6255,24 +6254,24 @@ void sub_1B56188D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<void const*>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<void const*>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void const*>::__append(a1, a2 - v3, a3);
+    std::vector<void const*>::__append(result, a2 - v3, a3);
   }
 }
 
-void TPatternManager::TPatternManager(TPatternManager *this, TInputStream *a2, TInputStream *a3, TLexicon *a4, TTokenizerParamManager *a5)
+void TPatternManager::TPatternManager(TPatternManager *this, const TLocaleInfo **a2, TInputStream *a3, TParamManager **a4, TTokenizerParamManager *a5)
 {
   v8 = *MEMORY[0x1E69E9840];
   TAllocator::TAllocator((this + 40), 2048);
@@ -6439,9 +6438,9 @@ uint64_t callBackSync(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, TAllo
   return 1;
 }
 
-void sub_1B5619A08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5619A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   if (LOBYTE(STACK[0x420]) == 1)
   {
     callBackSync(va);
@@ -6452,7 +6451,7 @@ void sub_1B5619A08(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t callBackLookup(void *a1, unint64_t a2, void *a3, uint64_t a4, TAllocator *a5)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (a2 <= 1 && *a1 > 1uLL)
   {
     return 0;
@@ -6467,7 +6466,7 @@ uint64_t callBackLookup(void *a1, unint64_t a2, void *a3, uint64_t a4, TAllocato
   if (TLexicon::checkName(a3, v8, 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     loggableUnicode(v8, &__p);
-    if (v28 >= 0)
+    if (v30 >= 0)
     {
       p_p = &__p;
     }
@@ -6477,8 +6476,8 @@ uint64_t callBackLookup(void *a1, unint64_t a2, void *a3, uint64_t a4, TAllocato
       p_p = __p;
     }
 
-    tknPrintf("Error: '%s' : Lookup requested for an invalid word name.\n", p_p);
-    if (v28 < 0)
+    tknPrintf("Error: '%s' : Lookup requested for an invalid word name.\n", v9, v10, p_p);
+    if (v30 < 0)
     {
       operator delete(__p);
     }
@@ -6486,72 +6485,72 @@ uint64_t callBackLookup(void *a1, unint64_t a2, void *a3, uint64_t a4, TAllocato
     return 0;
   }
 
-  v24 = 0;
-  v25 = 0;
   v26 = 0;
-  v11 = TStringParam::get((a4 + 10736));
+  v27 = 0;
+  v28 = 0;
+  v13 = TStringParam::get((a4 + 10736));
   ActiveConfigHandle = TParam::getActiveConfigHandle((a4 + 16456));
-  v13 = *(a4 + 4 * TParam::getValidConfig((a4 + 16456), ActiveConfigHandle) + 16616);
-  v14 = TParam::getActiveConfigHandle((a4 + 16104));
-  ValidConfig = TParam::getValidConfig((a4 + 16104), v14);
-  TLexicon::findHeadClonesCollated(a3, v8, v11, v13, *(a4 + 4 * ValidConfig + 16264), &v24);
+  v15 = *(a4 + 4 * TParam::getValidConfig((a4 + 16456), ActiveConfigHandle) + 16616);
+  v16 = TParam::getActiveConfigHandle((a4 + 16104));
+  ValidConfig = TParam::getValidConfig((a4 + 16104), v16);
+  TLexicon::findHeadClonesCollated(a3, v8, v13, v15, *(a4 + 4 * ValidConfig + 16264), &v26);
   for (i = 0; i != 1600; i += 16)
   {
     *(&__p + i) = 0;
   }
 
-  v17 = 0;
-  v18 = (v25 - v24) >> 5;
-  v19 = v24 + 16;
-  v20 = 100;
+  v19 = 0;
+  v20 = (v27 - v26) >> 5;
+  v21 = v26 + 16;
+  v22 = 100;
   do
   {
-    if (!v18)
+    if (!v20)
     {
       break;
     }
 
-    if ((*v19 & 0x35) == 0)
+    if ((*v21 & 0x35) == 0)
     {
-      v21 = **(v19 - 2);
-      v22 = &__p + 2 * v17;
-      *v22 = 1;
-      v22[1] = v21;
-      ++v17;
+      v23 = **(v21 - 2);
+      v24 = &__p + 2 * v19;
+      *v24 = 1;
+      v24[1] = v23;
+      ++v19;
     }
 
-    --v18;
-    v19 += 32;
     --v20;
+    v21 += 32;
+    --v22;
   }
 
-  while (v20);
-  std::vector<TLexiconMatch>::resize(&v24, 0);
-  if (v17)
+  while (v22);
+  std::vector<TLexiconMatch>::resize(&v26, 0);
+  if (v19)
   {
-    if (v17 == 1)
+    if (v19 == 1)
     {
-      v10 = __p;
+      v12 = __p;
     }
 
     else
     {
-      v10 = callBackSeqAlt(&__p, v17, "A", a3, a5);
+      v12 = callBackSeqAlt(&__p, v19, "A", a3, a5);
     }
   }
 
   else
   {
-    v10 = 1;
+    v12 = 1;
   }
 
-  if (v24)
+  if (v26)
   {
-    v25 = v24;
-    operator delete(v24);
+    v27 = v26;
+    operator delete(v26);
   }
 
-  return v10;
+  return v12;
 }
 
 void sub_1B5619C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -6728,14 +6727,14 @@ void TPatternManager::~TPatternManager(TPatternManager *this)
   TAllocator::clear((this + 40));
 }
 
-uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TAllocator *a5)
+uint64_t callBackObject(void *a1, unint64_t a2, unint64_t a3, uint64_t a4, TAllocator *a5)
 {
   if (a2 <= 1 && *a1 > 1uLL)
   {
     return 0;
   }
 
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = *v8;
   if (*v8)
   {
@@ -6754,58 +6753,58 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
       v9 = v11;
       if (!v11)
       {
-        v14 = *(a1 + 8);
-        if ((*(*a3 + 16))(a3, v14))
+        v16 = a1[1];
+        if ((*(*a3 + 16))(a3, v16, a3, a4))
         {
-          v16 = wcslen(v14);
-          v17 = v16 + 54;
-          if ((v16 + 54) >> 62)
+          v18 = wcslen(v16);
+          v19 = v18 + 54;
+          if ((v18 + 54) >> 62)
           {
-            v18 = -1;
+            v20 = -1;
           }
 
           else
           {
-            v18 = 4 * (v16 + 54);
+            v20 = 4 * (v18 + 54);
           }
 
-          __p = TAllocator::allocate(a5, v18);
-          v22 = v17;
+          __p = TAllocator::allocate(a5, v20);
+          v24 = v19;
+          v27 = 0;
           v25 = 0;
-          v23 = 0;
           TBuffer<wchar_t>::insert(&__p, 0, "P", 0x17uLL);
           {
             operator new();
           }
 
           TLocaleInfo::valueToString(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, a3, &__p, 1);
-          TBuffer<wchar_t>::insert(&__p, v23, "", 0xBuLL);
-          v19 = 0;
+          TBuffer<wchar_t>::insert(&__p, v25, "", 0xBuLL);
+          v21 = 0;
             ;
           }
 
-          TBuffer<wchar_t>::insert(&__p, v23, v14, v19 - 1);
-          TBuffer<wchar_t>::insert(&__p, v23, "", 3uLL);
-          if (v23 >= v22)
+          TBuffer<wchar_t>::insert(&__p, v25, v16, v21 - 1);
+          TBuffer<wchar_t>::insert(&__p, v25, "", 3uLL);
+          if (v25 >= v24)
           {
-            if (v25)
+            if (v27)
             {
-              v26 = 0;
-              TBuffer<wchar_t>::insert(&__p, v23--, &v26, 1uLL);
+              v28 = 0;
+              TBuffer<wchar_t>::insert(&__p, v25--, &v28, 1uLL);
             }
 
-            else if (v22)
+            else if (v24)
             {
-              *(__p + v22 - 1) = 0;
+              *(__p + v24 - 1) = 0;
             }
           }
 
           else
           {
-            *(__p + v23) = 0;
+            *(__p + v25) = 0;
           }
 
-          if (v25 == 1 && __p != &v24)
+          if (v27 == 1 && __p != &v26)
           {
             if (__p)
             {
@@ -6818,8 +6817,8 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
       }
     }
 
-    loggableUnicode(*(a1 + 8), &__p);
-    if (v23 >= 0)
+    loggableUnicode(a1[1], &__p);
+    if (v25 >= 0)
     {
       p_p = &__p;
     }
@@ -6829,8 +6828,8 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
       p_p = __p;
     }
 
-    tknPrintf("Error: ${Counting, Array, Roman}...() : the argument (%s) must be a number\n", p_p);
-    if (SHIBYTE(v23) < 0)
+    tknPrintf("Error: ${Counting, Array, Roman}...() : the argument (%s) must be a number\n", v12, v13, p_p);
+    if (SHIBYTE(v25) < 0)
     {
       operator delete(__p);
     }
@@ -6843,7 +6842,7 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
 
 void sub_1B561B47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *__p, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  MEMORY[0x1B8C85350](v13, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](v13, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x420]) == 1 && __p != &a13 && __p != 0)
   {
     MEMORY[0x1B8C85310]();
@@ -6866,28 +6865,25 @@ TAllocator *TPatternManager::clear(TPatternManager *this)
   return result;
 }
 
-uint64_t TPatternManager::addWords(TPatternManager *this, TVertex *a2, TGraph *a3, TSegmenter *a4, uint64_t a5)
+void TPatternManager::addWords(TPatternManager *this, TVertex *a2, TGraph *a3, TSegmenter *a4, uint64_t a5)
 {
   *this = a5;
   v9 = *(a2 + 2);
-  result = TSegmenter::getSegment(a4, v9);
-  if (!result)
+  Segment = TSegmenter::getSegment(a4, v9);
+  if (!Segment)
   {
-    return result;
+    return;
   }
 
-  v11 = result;
-  if (*(result + 24) == 5)
+  v11 = Segment;
+  if (*(Segment + 24) == 5)
   {
-    return result;
+    return;
   }
 
-  v12 = **result;
+  v12 = **Segment;
   {
-    if (result)
-    {
-      operator new();
-    }
+    operator new();
   }
 
   if (v12 > 159)
@@ -6906,13 +6902,13 @@ uint64_t TPatternManager::addWords(TPatternManager *this, TVertex *a2, TGraph *a
 
     if (v14 || v12 == v15)
     {
-      return result;
+      return;
     }
   }
 
   else if (v12 <= 0x20 && ((1 << v12) & 0x100002600) != 0)
   {
-    return result;
+    return;
   }
 
   v80 = a3;
@@ -7256,7 +7252,7 @@ LABEL_103:
           }
 
           v88 = v83;
-          *(&v88 + *(v83 - 24)) = v81;
+          *(&v88 + *(v83 - 3)) = v81;
           *&v89 = MEMORY[0x1E69E5548] + 16;
           if (v92 < 0)
           {
@@ -7309,7 +7305,7 @@ LABEL_103:
     TAllocator::clear(v78);
   }
 
-  return TAllocator::clear(v95);
+  TAllocator::clear(v95);
 }
 
 void sub_1B561BFEC(_Unwind_Exception *a1)
@@ -7318,7 +7314,7 @@ void sub_1B561BFEC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t addToken(__int32 **a1, TVertex *a2, TVertex *a3, TGraph *a4, TLexicon *a5)
+void *addToken(__int32 **a1, TVertex *a2, TVertex *a3, TGraph *a4, TLexicon *a5)
 {
   HeadClone = TLexicon::findHeadClone(a5, a1[3]);
   if (HeadClone)
@@ -7533,7 +7529,7 @@ void TPatternManager::expandWord(uint64_t a1, TGraph *a2, uint64_t a3, int a4)
   }
 
   v17 = wcslen(**(a3 + 56));
-  TFileObjectParser::TFileObjectParser(&v27, **(a3 + 56) + 4 * v17 + 4, 1, *(a1 + 8) + 224);
+  TFileObjectParser::TFileObjectParser(&v27, **(a3 + 56) + 4 * v17 + 4, 1, (*(a1 + 8) + 224));
   addSequence(v27[3], v12, v11, a2, *(a1 + 8), *(v12 + 2), *(v12 + 2), v11[3]);
   TFileObjectParser::~TFileObjectParser(&v27);
   TGraph::deleteEdge(a2, a3);
@@ -7553,7 +7549,7 @@ void sub_1B561C7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (v16)
       {
-        MEMORY[0x1B8C85310](v16, 0x1000C8052888210);
+        MEMORY[0x1B8C85310](v16, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
       }
     }
   }
@@ -7607,7 +7603,7 @@ void TRomanObject::~TRomanObject(TRomanObject *this)
   }
 }
 
-uint64_t TRomanObject::isBuildable(uint64_t a1, signed int *a2)
+uint64_t TRomanObject::isBuildable(uint64_t a1, int *a2)
 {
   v5 = 0;
   {
@@ -7771,7 +7767,7 @@ void sub_1B561CDA4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const char *TArrayObject::build(uint64_t a1, signed int *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
+const char *TArrayObject::build(uint64_t a1, int *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
 {
   v14 = 0;
   {
@@ -7836,7 +7832,7 @@ LABEL_8:
             if (TLexicon::checkName(a4, v14, 0, 0xFFFFFFFFFFFFFFFFLL))
             {
               loggableUnicode(v14, &__p);
-              if (v35 >= 0)
+              if (v37 >= 0)
               {
                 p_p = &__p;
               }
@@ -7846,8 +7842,8 @@ LABEL_8:
                 p_p = __p;
               }
 
-              tknPrintf("Warning: '%s' : The tokenizer grammar constructed an invalid word name.\n", p_p);
-              if (SHIBYTE(v35) < 0)
+              tknPrintf("Warning: '%s' : The tokenizer grammar constructed an invalid word name.\n", v26, v27, p_p);
+              if (SHIBYTE(v37) < 0)
               {
                 operator delete(__p);
               }
@@ -7855,34 +7851,34 @@ LABEL_8:
               return 0;
             }
 
-            __p = v36;
-            v35 = xmmword_1B5AE2110;
-            v37 = 1;
+            __p = v38;
+            v37 = xmmword_1B5AE2110;
+            v39 = 1;
             slashEscape(v14, &__p);
-            v17 = *(&v35 + 1);
+            v17 = *(&v37 + 1);
             if (v5)
             {
-              v29 = v5;
-              v30 = *(&v35 + 1) + 11;
+              v31 = v5;
+              v32 = *(&v37 + 1) + 11;
+              v35 = 0;
               v33 = 0;
-              v31 = 0;
-              TBuffer<wchar_t>::insert(&v29, 0, "T", 9uLL);
-              if (*(&v35 + 1) >= v35)
+              TBuffer<wchar_t>::insert(&v31, 0, "T", 9uLL);
+              if (*(&v37 + 1) >= v37)
               {
-                if (v37)
+                if (v39)
                 {
-                  v38[0] = 0;
-                  TBuffer<wchar_t>::insert(&__p, *(&v35 + 1), v38, 1uLL);
+                  v40[0] = 0;
+                  TBuffer<wchar_t>::insert(&__p, *(&v37 + 1), v40, 1uLL);
                   v18 = __p;
-                  --*(&v35 + 1);
+                  --*(&v37 + 1);
                 }
 
                 else
                 {
                   v18 = __p;
-                  if (v35)
+                  if (v37)
                   {
-                    *(__p + v35 - 1) = 0;
+                    *(__p + v37 - 1) = 0;
                   }
                 }
               }
@@ -7890,37 +7886,37 @@ LABEL_8:
               else
               {
                 v18 = __p;
-                *(__p + *(&v35 + 1)) = 0;
+                *(__p + *(&v37 + 1)) = 0;
               }
 
               v22 = 0;
                 ;
               }
 
-              TBuffer<wchar_t>::insert(&v29, v31, v18, v22 - 1);
-              v38[0] = 34;
-              TBuffer<wchar_t>::insert(&v29, v31, v38, 1uLL);
-              if (v31 >= v30)
+              TBuffer<wchar_t>::insert(&v31, v33, v18, v22 - 1);
+              v40[0] = 34;
+              TBuffer<wchar_t>::insert(&v31, v33, v40, 1uLL);
+              if (v33 >= v32)
               {
-                if (v33)
+                if (v35)
                 {
-                  v38[0] = 0;
-                  TBuffer<wchar_t>::insert(&v29, v31--, v38, 1uLL);
+                  v40[0] = 0;
+                  TBuffer<wchar_t>::insert(&v31, v33--, v40, 1uLL);
                 }
 
-                else if (v30)
+                else if (v32)
                 {
-                  v29[v30 - 1] = 0;
+                  v31[v32 - 1] = 0;
                 }
               }
 
               else
               {
-                v29[v31] = 0;
+                v31[v33] = 0;
               }
 
               v24 = wcslen(v5);
-              if (v33 == 1 && v29 != &v32 && v29)
+              if (v35 == 1 && v31 != &v34 && v31)
               {
                 MEMORY[0x1B8C85310]();
               }
@@ -7928,7 +7924,7 @@ LABEL_8:
               v5 += v24;
             }
 
-            if (v37 == 1 && __p != v36 && __p)
+            if (v39 == 1 && __p != v38 && __p)
             {
               MEMORY[0x1B8C85310]();
             }
@@ -8138,9 +8134,9 @@ double std::__fs::filesystem::path::stem[abi:ne200100]@<D0>(const std::__fs::fil
   return result;
 }
 
-void quasar::filesystem::Path::filename(quasar::filesystem::Path *this@<X0>, void *a2@<X8>)
+void quasar::filesystem::Path::filename(uint64_t *__return_ptr a1@<X8>, void **this@<X0>)
 {
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v4, (this + 8));
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v4, (this + 1));
   std::__fs::filesystem::path::filename[abi:ne200100](&v4, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8152,8 +8148,8 @@ void quasar::filesystem::Path::filename(quasar::filesystem::Path *this@<X0>, voi
     v6 = __p;
   }
 
-  *a2 = &unk_1F2CFAA28;
-  v3 = (a2 + 1);
+  *a1 = &unk_1F2CFAA28;
+  v3 = (a1 + 1);
   if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(v3, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
@@ -8240,7 +8236,7 @@ void quasar::filesystem::Path::operator/(uint64_t a1@<X0>, uint64_t a2@<X1>, voi
 
   __p.__pn_ = v6;
   memset(&v6, 0, sizeof(v6));
-  std::__fs::filesystem::operator/[abi:ne200100](&__p, &v8, &v9);
+  std::__fs::filesystem::operator/[abi:ne200100](&v9, &__p, &v8);
   if (SHIBYTE(v9.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&pn, v9.__pn_.__r_.__value_.__l.__data_, v9.__pn_.__r_.__value_.__l.__size_);
@@ -8341,21 +8337,21 @@ void sub_1B561DC24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 char *quasar::filesystem::CreateTemporaryDirectory@<X0>(uint64_t a1@<X8>)
 {
-  std::__fs::filesystem::__temp_directory_path(&v6, 0);
+  std::__fs::filesystem::__temp_directory_path(&v5, 0);
   std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>(&__p, "tmpdir.XXXXXX");
-  std::__fs::filesystem::operator/[abi:ne200100](&__p, &v6, &v7);
-  if (SHIBYTE(v7.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  std::__fs::filesystem::operator/[abi:ne200100](&v6, &__p, &v5);
+  if (SHIBYTE(v6.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(a1, v7.__pn_.__r_.__value_.__l.__data_, v7.__pn_.__r_.__value_.__l.__size_);
-    if (SHIBYTE(v7.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    std::string::__init_copy_ctor_external(a1, v6.__pn_.__r_.__value_.__l.__data_, v6.__pn_.__r_.__value_.__l.__size_);
+    if (SHIBYTE(v6.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v7.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v6.__pn_.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    *a1 = v7;
+    *a1 = v6;
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8363,22 +8359,22 @@ char *quasar::filesystem::CreateTemporaryDirectory@<X0>(uint64_t a1@<X8>)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v6.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v5.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v6.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v5.__pn_.__r_.__value_.__l.__data_);
   }
 
   if (*(a1 + 23) >= 0)
   {
-    v3 = a1;
+    v2 = a1;
   }
 
   else
   {
-    v3 = *a1;
+    v2 = *a1;
   }
 
-  return mkdtemp(v3);
+  return mkdtemp(v2);
 }
 
 void sub_1B561DD20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -8770,7 +8766,7 @@ LABEL_49:
 
 LABEL_21:
   LOBYTE(v32.f_bsize) = 0;
-  std::vector<char>::vector[abi:ne200100](__p, 1024);
+  std::vector<char>::vector[abi:ne200100](__p, 1024, &v32);
   if ((*(a1 + *(*a1 - 24) + 32) & 2) != 0)
   {
     v12 = 0;
@@ -9003,29 +8999,17 @@ LABEL_29:
   return v15;
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<quasar::rescoring::FeatureType>::__vallocate[abi:ne200100](result, a2);
+    std::vector<quasar::rescoring::FeatureType>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<quasar::rescoring::FeatureType>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1B561EADC(_Unwind_Exception *exception_object)
@@ -9040,42 +9024,49 @@ void sub_1B561EADC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B561F11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::__shared_weak_count *a5, ...)
+void quasar::LatticeLmeFtmDecoder::runImpl(uint64_t a1, uint64_t a2, uint64_t *a3, quasar::SpeechRequestData **a4, uint64_t a5)
 {
-  va_start(va, a5);
+  v7 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  std::allocate_shared[abi:ne200100]<quasar::DecoderPassData,std::allocator<quasar::DecoderPassData>,std::shared_ptr<kaldi::OnlineFeatInputItf> const&,std::shared_ptr<kaldi::OnlineFeatInputItf> const&,std::shared_ptr<kaldi::OnlineFeatureMatrix> const&,std::shared_ptr<kaldi::DecodableInterface> const&,std::shared_ptr<quasar::Decodable> const&,std::shared_ptr<kaldi::SnrTracker> const&,BOOL,BOOL,0>(&v5, a2 + 536, a2 + 520, a2, a2 + 16, a2 + 32, a2 + 48, v6 + 1, v6);
+}
+
+void sub_1B561F11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, ...)
+{
+  va_start(va, a9);
   quasar::QuasarInfoMessage::~QuasarInfoMessage(va);
-  *(v5 - 136) = v5 - 168;
-  std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100]((v5 - 136));
-  if (a5)
+  *(v9 - 136) = v9 - 168;
+  std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100]((v9 - 136));
+  if (a9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
   }
 
   _Unwind_Resume(a1);
 }
 
-void quasar::LatticeLmeFtmDecoder::doEagerTasks(uint64_t a1)
+void quasar::LatticeLmeFtmDecoder::doEagerTasks(uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a1 + 3416);
-  if (v2)
+  v3 = *(a1 + 3416);
+  if (v3)
   {
-    if (std::__shared_weak_count::lock(v2))
+    if (std::__shared_weak_count::lock(v3))
     {
-      v3 = *(a1 + 3408);
+      v4 = *(a1 + 3408);
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  kaldi::quasar::LatticeBiglmFasterTraceBackDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokensFinal(*(v3 + 2432), *(*(v3 + 2432) + 808), 1);
+  kaldi::quasar::LatticeBiglmFasterTraceBackDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokensFinal(*(v4 + 2432), *(*(v4 + 2432) + 808), 1);
   _ZNSt3__115allocate_sharedB8ne200100IN3fst9VectorFstINS1_6ArcTplINS1_16LatticeWeightTplIfEEiEENS1_11VectorStateIS6_NS_9allocatorIS6_EEEEEENS8_ISB_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
@@ -9104,55 +9095,55 @@ void sub_1B561F370(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t quasar::LatticeLmeFtmDecoder::runAsyncTasks(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+void quasar::LatticeLmeFtmDecoder::runAsyncTasks(const void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
 {
-  quasar::SpeechRecognizerModelLoader::getDecoderChain(*a8, (a1 + 3344), 0, &v46);
-  v9 = v46;
-  if ((v47 - v46) <= 0x10)
+  quasar::SpeechRecognizerModelLoader::getDecoderChain(*a8, a1 + 418, 0, &v45);
+  v9 = v45;
+  if ((v46 - v45) <= 0x10)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
+    v44 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v29);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, "FTM chain must have at least two elements", 41);
-    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v29);
+    v30 = 0u;
+    v28 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v28);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "FTM chain must have at least two elements", 41);
+    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v28);
   }
 
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
+    v44 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v29);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, "FTM Decoder must be derived from OnlineLatticeBiglmFasterDecoder", 64);
-    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v29);
+    v30 = 0u;
+    v28 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v28);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "FTM Decoder must be derived from OnlineLatticeBiglmFasterDecoder", 64);
+    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v28);
   }
 
   v11 = v9[1];
@@ -9162,54 +9153,54 @@ uint64_t quasar::LatticeLmeFtmDecoder::runAsyncTasks(uint64_t a1, uint64_t a2, u
     atomic_fetch_add_explicit(&v11->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  *(a1 + 3408) = v10;
-  v12 = *(a1 + 3416);
-  *(a1 + 3416) = v11;
+  a1[426] = v10;
+  v12 = a1[427];
+  a1[427] = v11;
   if (v12)
   {
     std::__shared_weak_count::__release_weak(v12);
-    v9 = v46;
+    v9 = v45;
   }
 
   v13 = (v9 + 2);
-  if (v47 != (v9 + 2))
+  if (v46 != (v9 + 2))
   {
-    v14 = (a1 + 3424);
+    v14 = a1 + 428;
     do
     {
       if (((*(**v13 + 80))() & 1) == 0)
       {
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v38 = 0u;
+        v42 = 0u;
         v39 = 0u;
-        v36 = 0u;
+        v40 = 0u;
         v37 = 0u;
-        v34 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
-        v30 = 0u;
+        v34 = 0u;
         v31 = 0u;
+        v32 = 0u;
         v29 = 0u;
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v29);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, "Second pass decoders must support eager", 39);
-        quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v29);
+        v30 = 0u;
+        v28 = 0u;
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v28);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "Second pass decoders must support eager", 39);
+        quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v28);
       }
 
-      v28 = *v13;
+      v27 = *v13;
       v15 = *(v13 + 1);
       if (v15)
       {
         atomic_fetch_add_explicit((*(v13 + 1) + 16), 1uLL, memory_order_relaxed);
       }
 
-      v16 = *(a1 + 3432);
-      v17 = *(a1 + 3440);
+      v16 = a1[429];
+      v17 = a1[430];
       if (v16 >= v17)
       {
         v19 = *v14;
@@ -9236,40 +9227,40 @@ uint64_t quasar::LatticeLmeFtmDecoder::runAsyncTasks(uint64_t a1, uint64_t a2, u
           v23 = v21;
         }
 
-        *&v31 = a1 + 3424;
+        *&v30 = a1 + 428;
         if (v23)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<quasar::FeatureExtractor>>>(a1 + 3424, v23);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<quasar::FeatureExtractor>>>((a1 + 428), v23);
         }
 
         v24 = (16 * (v20 >> 4));
-        *v24 = v28;
+        *v24 = v27;
         v18 = v24 + 1;
         memcpy(0, v19, v20);
-        v25 = *(a1 + 3424);
-        *(a1 + 3424) = 0;
-        *(a1 + 3432) = v18;
-        v26 = *(a1 + 3440);
-        *(a1 + 3440) = 0;
-        *&v30 = v25;
-        *(&v30 + 1) = v26;
+        v25 = a1[428];
+        a1[428] = 0;
+        a1[429] = v18;
+        v26 = a1[430];
+        a1[430] = 0;
         *&v29 = v25;
-        *(&v29 + 1) = v25;
-        std::__split_buffer<std::weak_ptr<quasar::Decoder>>::~__split_buffer(&v29);
+        *(&v29 + 1) = v26;
+        *&v28 = v25;
+        *(&v28 + 1) = v25;
+        std::__split_buffer<std::weak_ptr<quasar::Decoder>>::~__split_buffer(&v28);
       }
 
       else
       {
-        *v16 = v28;
+        *v16 = v27;
         *(v16 + 1) = v15;
         v18 = v16 + 16;
       }
 
-      *(a1 + 3432) = v18;
+      a1[429] = v18;
       v13 += 16;
     }
 
-    while (v13 != v47);
+    while (v13 != v46);
   }
 
   if (v11)
@@ -9277,9 +9268,8 @@ uint64_t quasar::LatticeLmeFtmDecoder::runAsyncTasks(uint64_t a1, uint64_t a2, u
     std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  *&v29 = &v46;
-  std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](&v29);
-  return 0;
+  *&v28 = &v45;
+  std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](&v28);
 }
 
 void sub_1B561F734(_Unwind_Exception *a1)
@@ -9425,7 +9415,7 @@ void quasar::OnlineLatticeBiglmLmeFasterDecoder::~OnlineLatticeBiglmLmeFasterDec
 
   std::__tree<std::string>::destroy(this + 3024, *(this + 379));
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(this + 2984);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 2944);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 368);
   v3 = *(this + 367);
   if (v3)
   {
@@ -9701,7 +9691,7 @@ void std::vector<std::weak_ptr<quasar::Decoder>>::__assign_with_size[abi:ne20010
   }
 }
 
-uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::weak_ptr<quasar::Decoder> *,std::weak_ptr<quasar::Decoder> *,std::weak_ptr<quasar::Decoder> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::weak_ptr<quasar::Decoder> *,std::weak_ptr<quasar::Decoder> *,std::weak_ptr<quasar::Decoder> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -9767,33 +9757,42 @@ void quasar::SpeechRecognizerModelLoader::~SpeechRecognizerModelLoader(char **th
   }
 }
 
-uint64_t quasar::SpeechRecognizerModelLoader::getDecodable@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void quasar::SpeechRecognizerModelLoader::getDecodable(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
   __p = a2;
-  result = std::__tree<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 304, a2);
+  v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 304), a2, &std::piecewise_construct, &__p);
   if (v7)
   {
     v8 = *a1;
     std::operator+<char>();
-    Ptree = quasar::SystemConfig::getPtree(v8, &__p);
-    if (v14 < 0)
+    quasar::SystemConfig::getPtree(v8, &__p);
+    v10 = v9;
+    if (v15 < 0)
     {
       operator delete(__p);
     }
 
-    v10 = *(a1 + 16);
-    v11 = quasar::PTree::begin(Ptree);
-    (*(*v10 + 24))(&__p, v10, a2, v11);
+    v11 = *(a1 + 16);
+    v12 = quasar::PTree::begin(v10);
+    (*(*v11 + 24))(&__p, v11, a2, v12);
     quasar::Decodable::init(__p, v8);
   }
 
-  v12 = *(result + 64);
-  *a3 = *(result + 56);
-  a3[1] = v12;
-  if (v12)
+  v13 = *(v6 + 8);
+  *a3 = *(v6 + 7);
+  a3[1] = v13;
+  if (v13)
   {
-    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_1B56203F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, std::__shared_weak_count *a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  return result;
+  _Unwind_Resume(exception_object);
 }

@@ -28,9 +28,11 @@
 
 uint64_t __48__CNCallStackRecordingSchedulerDecorator_os_log__block_invoke()
 {
-  os_log_cn_once_object_1_2 = os_log_create("com.apple.contacts.debug", "scheduler-callstack");
+  v0 = os_log_create("com.apple.contacts.debug", "scheduler-callstack");
+  v1 = os_log_cn_once_object_1_2;
+  os_log_cn_once_object_1_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNCallStackRecordingSchedulerDecorator)initWithScheduler:(id)scheduler
@@ -62,11 +64,10 @@ uint64_t __48__CNCallStackRecordingSchedulerDecorator_os_log__block_invoke()
 
 - (void)blockBecamePending
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Scheduling block with call stack: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Scheduling block with call stack: %{public}@", &v2, 0xCu);
 }
 
 - (void)performBlock:(id)block

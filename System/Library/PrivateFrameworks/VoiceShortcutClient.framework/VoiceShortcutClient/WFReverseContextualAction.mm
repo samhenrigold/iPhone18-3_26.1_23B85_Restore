@@ -147,7 +147,7 @@ LABEL_21:
 
 - (WFReverseContextualAction)initWithActionToReverse:(id)reverse reversalState:(id)state
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   reverseCopy = reverse;
   stateCopy = state;
   v10 = stateCopy;
@@ -177,9 +177,9 @@ LABEL_3:
   if ([reverseCopy isReversible])
   {
     identifier = [reverseCopy identifier];
-    v31[0] = identifier;
-    v31[1] = @"reverse";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+    v30[0] = identifier;
+    v30[1] = @"reverse";
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
     v13 = [v12 componentsJoinedByString:@"."];
 
     v14 = MEMORY[0x1E696AEC0];
@@ -191,9 +191,9 @@ LABEL_3:
     associatedAppBundleIdentifier = [reverseCopy associatedAppBundleIdentifier];
     parameters = [reverseCopy parameters];
     icon = [reverseCopy icon];
-    v30.receiver = self;
-    v30.super_class = WFReverseContextualAction;
-    self = [(WFContextualAction *)&v30 initWithIdentifier:v13 wfActionIdentifier:wfActionIdentifier associatedAppBundleIdentifier:associatedAppBundleIdentifier parameters:parameters displayString:v17 title:v17 subtitle:0 icon:icon];
+    v29.receiver = self;
+    v29.super_class = WFReverseContextualAction;
+    self = [(WFContextualAction *)&v29 initWithIdentifier:v13 wfActionIdentifier:wfActionIdentifier associatedAppBundleIdentifier:associatedAppBundleIdentifier parameters:parameters displayString:v17 title:v17 subtitle:0 icon:icon];
 
     if (self)
     {
@@ -213,7 +213,6 @@ LABEL_3:
     selfCopy2 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10008EA48();
+  sub_10008EA48(selfCopy);
 }
 
 - (_TtC17SequoiaTranslator39ConversationListContainerViewController)initWithNibName:(id)name bundle:(id)bundle

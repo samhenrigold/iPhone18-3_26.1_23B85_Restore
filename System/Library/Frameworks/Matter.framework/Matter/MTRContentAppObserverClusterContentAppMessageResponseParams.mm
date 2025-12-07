@@ -67,11 +67,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:1296 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -134,20 +134,20 @@ LABEL_6:
   {
     [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self setData:0];
 LABEL_5:
-    v12 = *(struct + 32);
-    v11 = struct + 32;
-    if (v12 == 1)
+    v14 = *(struct + 32);
+    v13 = struct + 32;
+    if (v14 == 1)
     {
-      v13 = sub_238DE36B8(v11);
-      v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v13 length:v13[1] encoding:4];
-      [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self setEncodingHint:v14];
+      v15 = sub_238DE36B8(v13, v10);
+      v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v15 length:v15[1] encoding:4];
+      [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self setEncodingHint:v16];
 
       encodingHint = [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self encodingHint];
 
       if (!encodingHint)
       {
-        v9 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-        v10 = 0x821C00000000;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+        v12 = 0x821C00000000;
         goto LABEL_8;
       }
     }
@@ -157,15 +157,15 @@ LABEL_5:
       [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self setEncodingHint:0];
     }
 
-    v10 = 0;
-    v16 = 0;
-    v9 = 0;
+    v12 = 0;
+    v18 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
-  v6 = sub_238DE36B8(struct + 8);
-  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v6 length:v6[1] encoding:4];
-  [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self setData:v7];
+  v7 = sub_238DE36B8(struct + 8, v6);
+  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v7 length:v7[1] encoding:4];
+  [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self setData:v8];
 
   data = [(MTRContentAppObserverClusterContentAppMessageResponseParams *)self data];
 
@@ -174,15 +174,15 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v9 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-  v10 = 0x821100000000;
+  v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+  v12 = 0x821100000000;
 LABEL_8:
-  v16 = 47;
+  v18 = 47;
 LABEL_11:
-  v17 = v16 | v10;
-  result.mFile = v9;
-  result.mError = v17;
-  result.mLine = HIDWORD(v17);
+  v19 = v18 | v12;
+  result.mFile = v11;
+  result.mError = v19;
+  result.mLine = HIDWORD(v19);
   return result;
 }
 

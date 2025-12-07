@@ -131,24 +131,25 @@ void __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNoti
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1();
+      __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1(a1);
     }
 
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
   }
 
   else
   {
     [v5 setLoggingStream:*(*(a1 + 32) + 16)];
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
   }
 
-  v8();
+  v9();
 }
 
 - (void)generateDigestForNotificationArrays:(id)arrays reply:(id)reply
@@ -170,24 +171,25 @@ void __82__ATXNotificationDigestGeneratorClient_generateDigestForNotificationArr
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1();
+      __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1(a1);
     }
 
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
   }
 
   else
   {
     [v5 setLoggingStream:*(*(a1 + 32) + 16)];
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
   }
 
-  v8();
+  v9();
 }
 
 - (void)generateMissedNotificationRankingForNotificationArrays:(id)arrays modeUUID:(id)d reply:(id)reply
@@ -239,12 +241,12 @@ void __109__ATXNotificationDigestGeneratorClient_generateMissedNotificationRanki
   }
 }
 
-void __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1()
+void __135__ATXNotificationDigestGeneratorClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v2, v3, "[%@] Error calling XPC for the digest: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "[%@] Error calling XPC for the digest: %@", v5, v6, v7, v8);
 }
 
 @end

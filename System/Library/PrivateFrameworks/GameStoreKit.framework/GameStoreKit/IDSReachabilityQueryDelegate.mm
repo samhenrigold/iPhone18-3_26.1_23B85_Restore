@@ -8,19 +8,19 @@
 - (_TtC12GameStoreKitP33_07FFAB5A3332DEA17BF1A4D00188D36128IDSReachabilityQueryDelegate)init
 {
   ObjectType = swift_getObjectType();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F227B28);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F227B28, &qword_24F97FF50);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = &v15 - v5;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F227B10);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F227B10, &qword_24F97FF38);
   v7 = *(v15 - 8);
   MEMORY[0x28223BE20](v15);
   v9 = &v15 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F227B00);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F227B00, &qword_24F97FF30);
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
   v13 = &v15 - v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F227AC0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F227AC0, &qword_24F97FE10);
   (*(v4 + 104))(v6, *MEMORY[0x277D85778], v3);
   sub_24F92B868();
   (*(v4 + 8))(v6, v3);
@@ -36,7 +36,7 @@
   statusCopy = status;
   if (status)
   {
-    sub_24E69A5C4(0, &qword_27F22BD50);
+    sub_24E69A5C4(0, &qword_27F22BD50, 0x277CCABB0);
     statusCopy = sub_24F92AE38();
   }
 

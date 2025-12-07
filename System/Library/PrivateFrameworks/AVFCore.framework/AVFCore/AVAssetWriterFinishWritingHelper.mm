@@ -133,7 +133,7 @@ uint64_t __160__AVAssetWriterFinishWritingHelper_initWithConfigurationState_fini
 
 - (AVAssetWriterFinishWritingHelper)initWithConfigurationState:(id)state finishWritingOperations:(id)operations figAssetWriterCallbackContextToken:(void *)token figAssetWriter:(OpaqueFigAssetWriter *)writer figAssetWriterIsRemote:(BOOL)remote
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v13 = [[AVWeakReference alloc] initWithReferencedObject:self];
   v53.receiver = self;
   v53.super_class = AVAssetWriterFinishWritingHelper;
@@ -147,7 +147,7 @@ uint64_t __160__AVAssetWriterFinishWritingHelper_initWithConfigurationState_fini
     v52 = v13;
     v15 = [AVWorkaroundNSBlockOperation blockOperationWithBlock:&v48];
     v16 = [(AVWorkaroundNSBlockOperation *)v15 setName:@"Transition to terminal status"];
-    v24 = OUTLINED_FUNCTION_0_9(v16, v17, v18, v19, v20, v21, v22, v23, 0, 0, 0, 0, 0, 0, 0, 0, v46, v48, v49, v50, v51, v52, v53.receiver, v53.super_class, v54);
+    v24 = OUTLINED_FUNCTION_0_9(v16, v17, v18, v19, v20, v21, v22, v23, 0, 0, 0, 0, 0, 0, 0, 0, v46, v48, v49, v50, v51, v52, v53.receiver, v53.super_class);
     if (v24)
     {
       v25 = v24;
@@ -166,7 +166,7 @@ uint64_t __160__AVAssetWriterFinishWritingHelper_initWithConfigurationState_fini
         }
 
         while (v25 != v27);
-        v25 = OUTLINED_FUNCTION_0_9(v28, v29, v30, v31, v32, v33, v34, v35, v38, v39, v40, v41, v42, v43, v44, v45, v47, v48, v49, v50, v51, v52, v53.receiver, v53.super_class, v54);
+        v25 = OUTLINED_FUNCTION_0_9(v28, v29, v30, v31, v32, v33, v34, v35, v38, v39, v40, v41, v42, v43, v44, v45, v47, v48, v49, v50, v51, v52, v53.receiver, v53.super_class);
       }
 
       while (v25);

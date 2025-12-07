@@ -83,8 +83,8 @@ LABEL_9:
   if (v5)
   {
     triggerBuilder = [(HFEventTriggerBuilderInterface *)self triggerBuilder];
-    home = [triggerBuilder home];
-    v8 = [v5 isRegionAtHome:home] ^ 1;
+    v7 = objc_msgSend_home(triggerBuilder);
+    v8 = [v5 isRegionAtHome:v7] ^ 1;
   }
 
   else

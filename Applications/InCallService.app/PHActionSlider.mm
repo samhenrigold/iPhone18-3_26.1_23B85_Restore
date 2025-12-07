@@ -1963,8 +1963,7 @@ LABEL_21:
   if (self->_slideGestureRecognizer == recognizer && ![recognizer state])
   {
     [touchCopy locationInView:self->_knobView];
-    [(PHActionSlider *)self setPanGestureFirstTouchLocationInView:?];
-    v7 = sub_100004F84();
+    v7 = sub_100004F84([(PHActionSlider *)self setPanGestureFirstTouchLocationInView:?]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
@@ -1995,7 +1994,8 @@ LABEL_4:
   [(PHActionSliderKnob *)self->_knobView bounds];
   v35.x = x;
   v35.y = y;
-  if (CGRectContainsPoint(v37, v35))
+  slideGestureRecognizer = CGRectContainsPoint(v37, v35);
+  if (slideGestureRecognizer)
   {
     goto LABEL_4;
   }
@@ -2012,9 +2012,10 @@ LABEL_4:
   v39.origin.y = v19;
   v39.size.width = v21;
   v39.size.height = v23;
-  v10 = CGRectContainsPoint(v39, v36);
+  slideGestureRecognizer = CGRectContainsPoint(v39, v36);
+  v10 = slideGestureRecognizer;
 LABEL_5:
-  v11 = sub_100004F84();
+  v11 = sub_100004F84(slideGestureRecognizer);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v33.x = x;
@@ -2089,7 +2090,7 @@ LABEL_8:
   {
     if (state == 1)
     {
-      v33 = sub_100004F84();
+      v33 = sub_100004F84(1);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         v35 = 138412290;
@@ -2116,7 +2117,7 @@ LABEL_8:
     {
       if (state == 3)
       {
-        v29 = sub_100004F84();
+        v29 = sub_100004F84(3);
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           v35 = 67109378;
@@ -2183,7 +2184,7 @@ LABEL_44:
 
   if ((state - 4) < 2)
   {
-    v32 = sub_100004F84();
+    v32 = sub_100004F84(state);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       v35 = 138412290;

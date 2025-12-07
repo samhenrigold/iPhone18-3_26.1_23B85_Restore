@@ -347,12 +347,12 @@ LABEL_89:
 
 - (id)_parseStructDefinition:(uint64_t)definition
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a2, "length")}];
   v5 = 1;
   if ([a2 length])
   {
-    v27 = 0;
+    v26 = 0;
     v6 = 0;
     while (1)
     {
@@ -439,7 +439,7 @@ LABEL_23:
           }
 
           intValue = [v10 intValue];
-          v27 += intValue;
+          v26 += intValue;
           definition = definitionCopy;
           if (!intValue)
           {
@@ -454,7 +454,7 @@ LABEL_11:
 LABEL_12:
       if (++v6 >= [a2 length])
       {
-        v5 = v27 == 0;
+        v5 = v26 == 0;
         goto LABEL_42;
       }
     }
@@ -491,66 +491,62 @@ LABEL_29:
   }
 
 LABEL_42:
-  if ([v4 count])
+  if (![v4 count])
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:{objc_msgSend(a2, "length")}];
-    [v16 appendString:@"{?="];
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%c", 98];
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v18 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v18)
-    {
-      v19 = v18;
-      v20 = *v30;
-      do
-      {
-        for (j = 0; j != v19; ++j)
-        {
-          if (*v30 != v20)
-          {
-            objc_enumerationMutation(v4);
-          }
+    return 0;
+  }
 
-          v22 = *(*(&v29 + 1) + 8 * j);
-          if (([v22 isEqualToString:v17] & 1) == 0)
-          {
-            [v16 appendString:v22];
-          }
+  v16 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:{objc_msgSend(a2, "length")}];
+  [v16 appendString:@"{?="];
+  v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%c", 98];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v18 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v29;
+    do
+    {
+      for (j = 0; j != v19; ++j)
+      {
+        if (*v29 != v20)
+        {
+          objc_enumerationMutation(v4);
         }
 
-        v19 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v22 = *(*(&v28 + 1) + 8 * j);
+        if (([v22 isEqualToString:v17] & 1) == 0)
+        {
+          [v16 appendString:v22];
+        }
       }
 
-      while (v19);
+      v19 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    if (!v5)
-    {
-      [v16 appendFormat:@"%c", 105];
-    }
-
-    [v16 appendString:@"}"];
-    sizep = 0;
-    NSGetSizeAndAlignment([v16 UTF8String], &sizep, 0);
-    v23 = [v4 copy];
-    v24 = sizep;
-    *(definition + 112) = v23;
-    *(definition + 120) = v24;
-    if (*(definition + 32) == 94)
-    {
-      [v16 insertString:@"^" atIndex:0];
-    }
+    while (v19);
   }
 
-  else
+  if (!v5)
   {
-    v16 = 0;
+    [v16 appendFormat:@"%c", 105];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
+  [v16 appendString:@"}"];
+  sizep = 0;
+  NSGetSizeAndAlignment([v16 UTF8String], &sizep, 0);
+  v23 = [v4 copy];
+  v24 = sizep;
+  *(definition + 112) = v23;
+  *(definition + 120) = v24;
+  if (*(definition + 32) == 94)
+  {
+    [v16 insertString:@"^" atIndex:0];
+  }
+
   return v16;
 }
 
@@ -927,16 +923,16 @@ LABEL_55:
 
 + (id)getValidPropertiesForType:(void *)type withCache:
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v5 = NSStringFromClass(a2);
   v6 = [type objectForKeyedSubscript:v5];
   if (v6)
   {
-    goto LABEL_152;
+    return v6;
   }
 
-  v105 = v5;
+  v104 = v5;
   typeCopy = type;
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
   outCount = 0;
@@ -945,9 +941,9 @@ LABEL_55:
   {
     for (i = 0; i < outCount; ++i)
     {
-      LODWORD(v123.receiver) = 0;
-      v10 = protocol_copyPropertyList(v8[i], &v123);
-      if (LODWORD(v123.receiver))
+      LODWORD(v122.receiver) = 0;
+      v10 = protocol_copyPropertyList(v8[i], &v122);
+      if (LODWORD(v122.receiver))
       {
         v11 = 0;
         do
@@ -955,25 +951,25 @@ LABEL_55:
           [v7 addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", property_getName(v10[v11++]))}];
         }
 
-        while (v11 < LODWORD(v123.receiver));
+        while (v11 < LODWORD(v122.receiver));
       }
 
       free(v10);
     }
   }
 
-  v104 = v7;
+  v103 = v7;
   free(v8);
-  v120 = 0;
-  v12 = class_copyPropertyList(a2, &v120);
+  v119 = 0;
+  v12 = class_copyPropertyList(a2, &v119);
   v13 = objc_alloc(MEMORY[0x1E695DF70]);
-  obj = [v13 initWithCapacity:v120];
-  if (v120)
+  obj = [v13 initWithCapacity:v119];
+  if (v119)
   {
     v14 = 0;
     v15 = 0x1EEBA5000uLL;
     v16 = &selRef_writeDouble_forTag_;
-    v107 = v12;
+    v106 = v12;
     while (1)
     {
       v17 = v12[v14];
@@ -985,9 +981,9 @@ LABEL_55:
       }
 
       v19 = v16[118];
-      v123.receiver = v18;
-      v123.super_class = v19;
-      v20 = objc_msgSendSuper2(&v123, sel_init);
+      v122.receiver = v18;
+      v122.super_class = v19;
+      v20 = objc_msgSendSuper2(&v122, sel_init);
       if (v20)
       {
         break;
@@ -1000,7 +996,7 @@ LABEL_112:
         [obj addObject:v78];
       }
 
-      if (++v14 >= v120)
+      if (++v14 >= v119)
       {
         goto LABEL_115;
       }
@@ -1011,9 +1007,9 @@ LABEL_112:
     v20[1] = v22;
     if (([v22 hasSuffix:@"Count"] & 1) == 0)
     {
-      v122 = 0;
-      v23 = property_copyAttributeList(v17, &v122);
-      if (v122)
+      v121 = 0;
+      v23 = property_copyAttributeList(v17, &v121);
+      if (v121)
       {
         v24 = 0;
         v25 = v23;
@@ -1021,7 +1017,7 @@ LABEL_112:
         {
           ++v24;
           ++v25;
-          if (v122 == v24)
+          if (v121 == v24)
           {
             goto LABEL_18;
           }
@@ -1034,7 +1030,7 @@ LABEL_18:
         v24 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      v110 = v23;
+      v109 = v23;
       v26 = &v23[v24];
       v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v26->value];
       v28 = v27;
@@ -1063,8 +1059,8 @@ LABEL_18:
           }
 
 LABEL_38:
-          v109 = Name;
-          v108 = [v20[1] stringByReplacingCharactersInRange:0 withString:{1, objc_msgSend(objc_msgSend(v20[1], "substringToIndex:", 1), "uppercaseString")}];
+          v108 = Name;
+          v107 = [v20[1] stringByReplacingCharactersInRange:0 withString:{1, objc_msgSend(objc_msgSend(v20[1], "substringToIndex:", 1), "uppercaseString")}];
           if ([v20[2] isSubclassOfClass:objc_opt_class()])
           {
             v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
@@ -1103,27 +1099,27 @@ LABEL_38:
           }
 
 LABEL_47:
-          if (v122)
+          if (v121)
           {
             v43 = 0;
-            v44 = v110;
+            v44 = v109;
             while (*v44->name != 71)
             {
               ++v43;
               ++v44;
-              if (v122 == v43)
+              if (v121 == v43)
               {
                 goto LABEL_51;
               }
             }
 
-            v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v110[v43].value];
+            v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v109[v43].value];
           }
 
           else
           {
 LABEL_51:
-            v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v109];
+            v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v108];
             v43 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
@@ -1156,9 +1152,9 @@ LABEL_51:
           }
 
           v20[6] = v49;
-          v50 = v122;
-          v51 = v110;
-          if (v122)
+          v50 = v121;
+          v51 = v109;
+          if (v121)
           {
             while (*v51->name != 83)
             {
@@ -1169,7 +1165,7 @@ LABEL_51:
               }
             }
 
-            v53 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithUTF8String:{v110[v43].value), "UTF8String"}]);
+            v53 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithUTF8String:{v109[v43].value), "UTF8String"}]);
             if ([(objc_class *)a2 instancesRespondToSelector:v53])
             {
               if ([v28 length])
@@ -1222,7 +1218,7 @@ LABEL_72:
           }
 
           v57 = 1;
-          v58 = v108;
+          v58 = v107;
           while (1)
           {
             v59 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@:", v56, v58), "UTF8String"]);
@@ -1273,7 +1269,7 @@ LABEL_89:
           v66 = sel_registerName([objc_msgSend(v20[1] stringByAppendingString:{@"Count", "UTF8String"}]);
           if ([(objc_class *)a2 instancesRespondToSelector:v66])
           {
-            v12 = v107;
+            v12 = v106;
             v15 = 0x1EEBA5000;
             v16 = &selRef_writeDouble_forTag_;
             if ([0 length])
@@ -1294,13 +1290,13 @@ LABEL_89:
           else
           {
             v69 = 0;
-            v12 = v107;
+            v12 = v106;
             v15 = 0x1EEBA5000;
             v16 = &selRef_writeDouble_forTag_;
           }
 
           v20[8] = v69;
-          v70 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%sAsString:", v109), "UTF8String"]);
+          v70 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%sAsString:", v108), "UTF8String"]);
           if ([(objc_class *)a2 instancesRespondToSelector:v70])
           {
             if ([0 length])
@@ -1324,7 +1320,7 @@ LABEL_89:
           }
 
           v20[9] = v73;
-          v74 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"StringAs%@:", v108), "UTF8String"]);
+          v74 = sel_registerName([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"StringAs%@:", v107), "UTF8String"]);
           if ([(objc_class *)a2 instancesRespondToSelector:v74])
           {
             if ([0 length])
@@ -1348,7 +1344,7 @@ LABEL_89:
           }
 
           v20[10] = v77;
-          free(v110);
+          free(v109);
           goto LABEL_112;
         }
 
@@ -1403,7 +1399,7 @@ LABEL_32:
         }
       }
 
-      free(v110);
+      free(v109);
       v20 = 0;
       v15 = 0x1EEBA5000;
       v16 = &selRef_writeDouble_forTag_;
@@ -1420,29 +1416,29 @@ LABEL_115:
   [obj sortUsingComparator:&__block_literal_global_405];
   v79 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(obj, "count")}];
   v80 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
+  v115 = 0u;
   v116 = 0u;
   v117 = 0u;
   v118 = 0u;
-  v119 = 0u;
-  v81 = [obj countByEnumeratingWithState:&v116 objects:v125 count:16];
+  v81 = [obj countByEnumeratingWithState:&v115 objects:v124 count:16];
   if (!v81)
   {
     goto LABEL_136;
   }
 
   v82 = v81;
-  v83 = *v117;
+  v83 = *v116;
   do
   {
     v84 = 0;
     do
     {
-      if (*v117 != v83)
+      if (*v116 != v83)
       {
         objc_enumerationMutation(obj);
       }
 
-      v85 = *(*(&v116 + 1) + 8 * v84);
+      v85 = *(*(&v115 + 1) + 8 * v84);
       if (v85)
       {
         v86 = *(v85 + 8);
@@ -1498,7 +1494,7 @@ LABEL_131:
     }
 
     while (v82 != v84);
-    v94 = [obj countByEnumeratingWithState:&v116 objects:v125 count:16];
+    v94 = [obj countByEnumeratingWithState:&v115 objects:v124 count:16];
     v82 = v94;
   }
 
@@ -1506,26 +1502,26 @@ LABEL_131:
 LABEL_136:
   [v80 addObjectsFromArray:{objc_msgSend(v79, "allValues")}];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v80, "count")}];
+  v111 = 0u;
   v112 = 0u;
   v113 = 0u;
   v114 = 0u;
-  v115 = 0u;
-  v95 = [v80 countByEnumeratingWithState:&v112 objects:v124 count:16];
+  v95 = [v80 countByEnumeratingWithState:&v111 objects:v123 count:16];
   if (v95)
   {
     v96 = v95;
-    v97 = *v113;
+    v97 = *v112;
     do
     {
       v98 = 0;
       do
       {
-        if (*v113 != v97)
+        if (*v112 != v97)
         {
           objc_enumerationMutation(v80);
         }
 
-        v99 = *(*(&v112 + 1) + 8 * v98);
+        v99 = *(*(&v111 + 1) + 8 * v98);
         if (v99)
         {
           v100 = v99[1];
@@ -1536,7 +1532,7 @@ LABEL_136:
           v100 = 0;
         }
 
-        if (![v104 containsObject:v100] || v99[7] || v99[8])
+        if (![v103 containsObject:v100] || v99[7] || v99[8])
         {
           [v6 addObject:v99];
         }
@@ -1545,16 +1541,14 @@ LABEL_136:
       }
 
       while (v96 != v98);
-      v101 = [v80 countByEnumeratingWithState:&v112 objects:v124 count:16];
+      v101 = [v80 countByEnumeratingWithState:&v111 objects:v123 count:16];
       v96 = v101;
     }
 
     while (v101);
   }
 
-  [typeCopy setObject:v6 forKeyedSubscript:v105];
-LABEL_152:
-  v102 = *MEMORY[0x1E69E9840];
+  [typeCopy setObject:v6 forKeyedSubscript:v104];
   return v6;
 }
 

@@ -31,27 +31,24 @@ uint64_t __70__PSSpecifier_AccountsUI__acui_specifierIconForAccountTypeIdentifie
   v1 = acui_specifierIconForAccountTypeIdentifier__accountTypeImageCache;
   acui_specifierIconForAccountTypeIdentifier__accountTypeImageCache = v0;
   MEMORY[0x277D82BD8](v1);
+  v3 = MEMORY[0x277D755B8];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 imageNamed:@"Exchange_small" inBundle:?];
+  [acui_specifierIconForAccountTypeIdentifier__accountTypeImageCache setObject:? forKeyedSubscript:?];
+  MEMORY[0x277D82BD8](v4);
+  MEMORY[0x277D82BD8](v5);
   v6 = MEMORY[0x277D755B8];
   v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 imageNamed:@"Exchange_small" inBundle:?];
-  v2 = *MEMORY[0x277CB8C00];
+  v7 = [v6 imageNamed:@"Gmail_small" inBundle:?];
   [acui_specifierIconForAccountTypeIdentifier__accountTypeImageCache setObject:? forKeyedSubscript:?];
   MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
   v9 = MEMORY[0x277D755B8];
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v9 imageNamed:@"Gmail_small" inBundle:?];
-  v3 = *MEMORY[0x277CB8C40];
+  v10 = [v9 imageNamed:@"Yahoo_small" inBundle:?];
   [acui_specifierIconForAccountTypeIdentifier__accountTypeImageCache setObject:? forKeyedSubscript:?];
   MEMORY[0x277D82BD8](v10);
-  MEMORY[0x277D82BD8](v11);
-  v12 = MEMORY[0x277D755B8];
-  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v13 = [v12 imageNamed:@"Yahoo_small" inBundle:?];
-  v4 = *MEMORY[0x277CB8D38];
-  [acui_specifierIconForAccountTypeIdentifier__accountTypeImageCache setObject:? forKeyedSubscript:?];
-  MEMORY[0x277D82BD8](v13);
-  return MEMORY[0x277D82BD8](v14);
+  return MEMORY[0x277D82BD8](v11);
 }
 
 uint64_t __84__PSSpecifier_AccountsUI__acui_applicationBundleIdentifierForAccountTypeIdentifier___block_invoke()
@@ -74,9 +71,7 @@ uint64_t __84__PSSpecifier_AccountsUI__acui_applicationBundleIdentifierForAccoun
   v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
   v1 = acui_applicationBundleIdentifierForAccountTypeIdentifier__accountTypeIdentifierToBundleIdentifiers;
   acui_applicationBundleIdentifierForAccountTypeIdentifier__accountTypeIdentifierToBundleIdentifiers = v0;
-  result = MEMORY[0x277D82BD8](v1);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v1);
 }
 
 uint64_t __76__PSSpecifier_AccountsUI__acui_typedIconIdentifierForAccountTypeIdentifier___block_invoke()
@@ -87,9 +82,7 @@ uint64_t __76__PSSpecifier_AccountsUI__acui_typedIconIdentifierForAccountTypeIde
   v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v1 = acui_typedIconIdentifierForAccountTypeIdentifier__accountTypeIdentifierToTypedIconIdentifiers;
   acui_typedIconIdentifierForAccountTypeIdentifier__accountTypeIdentifierToTypedIconIdentifiers = v0;
-  result = MEMORY[0x277D82BD8](v1);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v1);
 }
 
 uint64_t __72__PSSpecifier_AccountsUI__acui_applicationBundleIdentifierForDataclass___block_invoke()
@@ -145,9 +138,7 @@ uint64_t __72__PSSpecifier_AccountsUI__acui_applicationBundleIdentifierForDatacl
   v3 = acui_applicationBundleIdentifierForDataclass__dataClassToBundleIdentifiers;
   acui_applicationBundleIdentifierForDataclass__dataClassToBundleIdentifiers = v2;
   MEMORY[0x277D82BD8](v3);
-  result = MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v5);
 }
 
 void __46__PSSpecifier_AccountsUI___switchSpinnerTimer__block_invoke(id *a1)

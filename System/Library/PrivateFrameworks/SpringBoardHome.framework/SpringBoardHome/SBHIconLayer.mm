@@ -55,7 +55,7 @@
   sub_1BEE4741C();
 
   swift_unknownObjectRelease();
-  sub_1BEB20D28(0, &unk_1EBDBFEE0);
+  sub_1BEB20D28(0, &unk_1EBDBFEE0, off_1E8086E40);
   swift_dynamicCast();
   v6 = *(selfCopy + OBJC_IVAR___SBHIconLayer_iconImageAppearance);
   *(selfCopy + OBJC_IVAR___SBHIconLayer_iconImageAppearance) = v7;

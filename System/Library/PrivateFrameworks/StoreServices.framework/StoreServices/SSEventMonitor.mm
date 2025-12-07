@@ -29,7 +29,7 @@
 - (void)_connectEventConnection
 {
   v27 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -48,28 +48,27 @@
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       LODWORD(v22) = 136446210;
       *(&v22 + 4) = "[SSEventMonitor _connectEventConnection]";
-      LODWORD(v20) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v22, v20}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -82,26 +81,26 @@
     v24 = __Block_byref_object_copy__41;
     v25 = __Block_byref_object_dispose__41;
     selfCopy = self;
-    v16 = objc_alloc_init(SSXPCConnection);
-    self->_eventConnection = v16;
+    v17 = objc_alloc_init(SSXPCConnection);
+    self->_eventConnection = v17;
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __41__SSEventMonitor__connectEventConnection__block_invoke;
     v21[3] = &unk_1E84B0C10;
     v21[4] = self;
     v21[5] = &v22;
-    [(SSXPCConnection *)v16 setMessageBlock:v21];
+    [(SSXPCConnection *)v17 setMessageBlock:v21];
     _Block_object_dispose(&v22, 8);
   }
 
-  v17 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-  v18 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v18, "0", 50);
+  v18 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v19 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v19, "0", 50);
   createXPCEndpoint = [(SSXPCConnection *)self->_eventConnection createXPCEndpoint];
-  xpc_dictionary_set_value(v18, "1", createXPCEndpoint);
+  xpc_dictionary_set_value(v19, "1", createXPCEndpoint);
   xpc_release(createXPCEndpoint);
-  [(SSXPCConnection *)v17 sendMessage:v18];
-  xpc_release(v18);
+  [(SSXPCConnection *)v18 sendMessage:v19];
+  xpc_release(v19);
 }
 
 void __41__SSEventMonitor__connectEventConnection__block_invoke(uint64_t a1, void *a2, xpc_object_t object)
@@ -195,21 +194,21 @@ id __26__SSEventMonitor_delegate__block_invoke(uint64_t a1)
 
 - (void)_handleMessage:(id)message fromServerConnection:(id)connection
 {
-  objc_opt_class();
-  v6 = SSXPCDictionaryCopyCFObjectWithClass(message, "0");
+  v6 = objc_opt_class();
+  v7 = SSXPCDictionaryCopyCFObjectWithClass(message, "0", v6);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objc_opt_class();
-    v7 = SSXPCDictionaryCopyCFObjectWithClass(message, "1");
+    v8 = objc_opt_class();
+    v9 = SSXPCDictionaryCopyCFObjectWithClass(message, "1", v8);
     delegateQueue = self->_delegateQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54__SSEventMonitor__handleMessage_fromServerConnection___block_invoke;
     block[3] = &unk_1E84AD640;
     block[4] = self;
-    block[5] = v6;
-    block[6] = v7;
+    block[5] = v7;
+    block[6] = v9;
     dispatch_async(delegateQueue, block);
   }
 }

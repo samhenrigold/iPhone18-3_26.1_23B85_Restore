@@ -331,7 +331,7 @@ LABEL_10:
     v16 = player2;
     if (player2)
     {
-      [player2 currentTime];
+      objc_msgSend_currentTime(player2);
     }
 
     else
@@ -360,7 +360,7 @@ LABEL_10:
 
   if (itemCopy)
   {
-    [itemCopy duration];
+    objc_msgSend_duration(itemCopy);
   }
 
   else

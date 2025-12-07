@@ -8,7 +8,7 @@
 
 - (id)firstEmailAddressInString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (off_1EF440708(&__block_literal_global_120, stringCopy))
   {
@@ -17,27 +17,27 @@
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = [MEMORY[0x1E6999A88] scanString:{stringCopy, 0}];
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       v9 = *MEMORY[0x1E69999C0];
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           type = [v11 type];
           v13 = [type isEqualToString:v9];
 
@@ -48,7 +48,7 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           continue;
@@ -62,8 +62,6 @@
 LABEL_13:
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return matchedString;
 }
 
@@ -71,7 +69,7 @@ LABEL_13:
 {
   stringCopy = string;
   blockCopy = block;
-  if (!off_1EF440708(&__block_literal_global_120, stringCopy))
+  if ((off_1EF440708(&__block_literal_global_120, stringCopy) & 1) == 0)
   {
     v7 = [CNObservable observableWithScannerResultsOfType:2 inString:stringCopy];
     v8[0] = MEMORY[0x1E69E9820];

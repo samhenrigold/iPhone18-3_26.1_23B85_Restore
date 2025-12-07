@@ -35,12 +35,13 @@
 - (id)randomAccessSliceWithLong:(int64_t)long withLong:(int64_t)withLong
 {
   v4 = [(OrgApacheLuceneStoreIndexInput *)self sliceWithNSString:@"randomaccess" withLong:long withLong:withLong];
-  if ([OrgApacheLuceneStoreRandomAccessInput_class_() isInstance:v4])
+  v6 = [OrgApacheLuceneStoreRandomAccessInput_class_(v4 v5)];
+  if (v6)
   {
-    v5 = OrgApacheLuceneStoreRandomAccessInput_class_();
+    v8 = OrgApacheLuceneStoreRandomAccessInput_class_(v6, v7);
     if (v4)
     {
-      if (([v5 isInstance:v4] & 1) == 0)
+      if (([v8 isInstance:v4] & 1) == 0)
       {
         JreThrowClassCastException();
       }
@@ -51,10 +52,10 @@
 
   else
   {
-    v7 = [OrgApacheLuceneStoreIndexInput__1 alloc];
-    JreStrongAssign(&v7->val$slice_, v4);
+    v10 = [OrgApacheLuceneStoreIndexInput__1 alloc];
+    JreStrongAssign(&v10->val$slice_, v4);
 
-    return v7;
+    return v10;
   }
 }
 

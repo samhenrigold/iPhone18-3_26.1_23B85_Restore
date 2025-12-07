@@ -189,10 +189,10 @@
   if (viewElement)
   {
     style = [viewElement style];
-    v5 = SKUIViewElementFontWithStyle(style);
-    if (!v5)
+    v6 = SKUIViewElementFontWithStyle(style);
+    if (!v6)
     {
-      v5 = SKUIFontPreferredFontForTextStyle(5);
+      v6 = SKUIFontPreferredFontForTextStyle(5, v5);
     }
 
     ikColor = [style ikColor];
@@ -203,38 +203,38 @@
       color = [MEMORY[0x277D75348] blackColor];
     }
 
-    v8 = SKUIViewElementAlignmentForStyle(style);
-    if (v8)
+    v9 = SKUIViewElementAlignmentForStyle(style);
+    if (v9)
     {
-      v9 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v8);
+      v11 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v9, v10);
     }
 
     else
     {
-      v9 = 0;
+      v11 = 0;
     }
 
     text = [v3 text];
-    v12 = [text attributedStringWithDefaultFont:v5 foregroundColor:color textAlignment:v9 style:style];
-    v13 = [v12 mutableCopy];
+    v14 = [text attributedStringWithDefaultFont:v6 foregroundColor:color textAlignment:v11 style:style];
+    v15 = [v14 mutableCopy];
 
-    v14 = *MEMORY[0x277D74118];
-    v15 = [v13 length];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __44__SKUIEditorialComponent_bodyAttributedText__block_invoke;
-    v17[3] = &unk_2781FB7E8;
-    v10 = v13;
-    v18 = v10;
-    [v10 enumerateAttribute:v14 inRange:0 options:v15 usingBlock:{0, v17}];
+    v16 = *MEMORY[0x277D74118];
+    v17 = [v15 length];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __44__SKUIEditorialComponent_bodyAttributedText__block_invoke;
+    v19[3] = &unk_2781FB7E8;
+    v12 = v15;
+    v20 = v12;
+    [v12 enumerateAttribute:v16 inRange:0 options:v17 usingBlock:{0, v19}];
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 void __44__SKUIEditorialComponent_bodyAttributedText__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)

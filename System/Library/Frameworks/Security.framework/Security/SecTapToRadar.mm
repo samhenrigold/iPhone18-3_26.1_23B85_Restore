@@ -25,30 +25,27 @@
 
 void __24__SecTapToRadar_trigger__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (os_variant_allows_internal_security_policies())
   {
-    v3 = *(a1 + 32);
-    if ([objc_opt_class() isRateLimited:v3])
+    if ([objc_opt_class() isRateLimited:*(a1 + 32)])
     {
-      v4 = secLogObjForScope("SecTTR");
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v3 = secLogObjForScope("SecTTR");
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = [*(a1 + 32) alert];
-        v9 = 138412290;
-        v10 = v5;
-        _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Not showing ttr due to ratelimiting: %@", &v9, 0xCu);
+        v4 = [*(a1 + 32) alert];
+        v5 = 138412290;
+        v6 = v4;
+        _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "Not showing ttr due to ratelimiting: %@", &v5, 0xCu);
       }
     }
 
     else
     {
-      v6 = *(a1 + 32);
-      if ([objc_opt_class() askUserIfTTR:v6])
+      if ([objc_opt_class() askUserIfTTR:*(a1 + 32)])
       {
-        v7 = *(a1 + 32);
-        [objc_opt_class() triggerTapToRadar:v7];
+        [objc_opt_class() triggerTapToRadar:*(a1 + 32)];
       }
 
       [*(a1 + 32) updateRetryTimestamp];
@@ -56,7 +53,6 @@ void __24__SecTapToRadar_trigger__block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearRetryTimestamp
@@ -139,21 +135,21 @@ void __24__SecTapToRadar_trigger__block_invoke(uint64_t a1)
 
 + (BOOL)askUserIfTTR:(id)r
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695EE70];
-  v17[0] = *MEMORY[0x1E695EE78];
-  v17[1] = v3;
-  v18[0] = @"Tap-To-Radar";
-  v18[1] = @"Go away";
-  v17[2] = *MEMORY[0x1E695EE60];
+  v16[0] = *MEMORY[0x1E695EE78];
+  v16[1] = v3;
+  v17[0] = @"Tap-To-Radar";
+  v17[1] = @"Go away";
+  v16[2] = *MEMORY[0x1E695EE60];
   rCopy = r;
   alert = [rCopy alert];
-  v18[2] = alert;
-  v17[3] = *MEMORY[0x1E695EE58];
+  v17[2] = alert;
+  v16[3] = *MEMORY[0x1E695EE58];
   componentName = [rCopy componentName];
 
-  v18[3] = componentName;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = componentName;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
   error = 0;
   v8 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v7);
@@ -180,20 +176,19 @@ void __24__SecTapToRadar_trigger__block_invoke(uint64_t a1)
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (void)triggerTapToRadar:(id)radar
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   radarCopy = radar;
   v4 = secLogObjForScope("secttr");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     alert = [radarCopy alert];
     *buf = 138412290;
-    v42 = alert;
+    v41 = alert;
     _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Triggering TTR: %@", buf, 0xCu);
   }
 
@@ -270,8 +265,6 @@ void __24__SecTapToRadar_trigger__block_invoke(uint64_t a1)
   v38 = [v19 URL];
   defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
   [defaultWorkspace openSensitiveURL:v38 withOptions:0];
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isRateLimited:(id)limited

@@ -107,42 +107,42 @@
 
 - (uint64_t)_dnds_assertionSyncProtocolVersion
 {
-  v8 = 0uLL;
-  v9 = 0;
-  [self _dnds_operatingSystemVersion];
-  v2 = [self valueForProperty:*MEMORY[0x277D2BC08]];
+  v9 = 0uLL;
+  v10 = 0;
+  objc_msgSend__dnds_operatingSystemVersion(self, a2);
+  v3 = [self valueForProperty:*MEMORY[0x277D2BC08]];
   _dnds_pairedDeviceClass = [self _dnds_pairedDeviceClass];
-  v6 = v8;
   v7 = v9;
-  v4 = DNDSAssertionSyncProtocolVersionFromOperatingSystemVersionAndBuildVersion(&v6, v2, _dnds_pairedDeviceClass);
+  v8 = v10;
+  v5 = DNDSAssertionSyncProtocolVersionFromOperatingSystemVersionAndBuildVersion(&v7, v3, _dnds_pairedDeviceClass);
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)_dnds_configurationSyncProtocolVersion
 {
-  v8 = 0uLL;
-  v9 = 0;
-  [self _dnds_operatingSystemVersion];
-  v2 = [self valueForProperty:*MEMORY[0x277D2BC08]];
+  v9 = 0uLL;
+  v10 = 0;
+  objc_msgSend__dnds_operatingSystemVersion(self, a2);
+  v3 = [self valueForProperty:*MEMORY[0x277D2BC08]];
   _dnds_pairedDeviceClass = [self _dnds_pairedDeviceClass];
-  v6 = v8;
   v7 = v9;
-  v4 = DNDSConfigurationSyncProtocolVersionFromOperatingSystemVersionAndBuildVersion(&v6, v2, _dnds_pairedDeviceClass);
+  v8 = v10;
+  v5 = DNDSConfigurationSyncProtocolVersionFromOperatingSystemVersionAndBuildVersion(&v7, v3, _dnds_pairedDeviceClass);
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)_dnds_isIOS14EraOS
 {
-  v4 = 0;
   v5 = 0;
   v6 = 0;
-  [self _dnds_operatingSystemVersion];
+  v7 = 0;
+  objc_msgSend__dnds_operatingSystemVersion(self, a2);
   _dnds_pairedDeviceClass = [self _dnds_pairedDeviceClass];
   if (_dnds_pairedDeviceClass == 1)
   {
-    if (v4 == 14)
+    if (v5 == 14)
     {
       return 1;
     }
@@ -152,10 +152,10 @@
   {
     if (_dnds_pairedDeviceClass != 3)
     {
-      return _dnds_pairedDeviceClass == 2 && v4 == 10 && v5 == 18;
+      return _dnds_pairedDeviceClass == 2 && v5 == 10 && v6 == 18;
     }
 
-    if (v4 == 7)
+    if (v5 == 7)
     {
       return 1;
     }
@@ -166,13 +166,13 @@
 
 - (BOOL)_dnds_supportsSilenceLists
 {
-  v6 = 0uLL;
-  v7 = 0;
-  [self _dnds_operatingSystemVersion];
+  v7 = 0uLL;
+  v8 = 0;
+  objc_msgSend__dnds_operatingSystemVersion(self, a2);
   _dnds_pairedDeviceClass = [self _dnds_pairedDeviceClass];
-  v4 = v6;
   v5 = v7;
-  return DNDSsupportsSilenceListsSFromOperatingSystemVersionAndDeviceClass(&v4, _dnds_pairedDeviceClass);
+  v6 = v8;
+  return DNDSsupportsSilenceListsSFromOperatingSystemVersionAndDeviceClass(&v5, _dnds_pairedDeviceClass);
 }
 
 @end

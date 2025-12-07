@@ -56,8 +56,7 @@
   idsService = self->_idsService;
   self->_idsService = v3;
 
-  [(IDSService *)self->_idsService addDelegate:self queue:self->_dispatchQueue];
-  v5 = sub_100004980();
+  v5 = sub_100004980([(IDSService *)self->_idsService addDelegate:self queue:self->_dispatchQueue]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -77,11 +76,11 @@
     self->_messageReceivedHandler = 0;
 
     self->_invalidateDone = 1;
-    v5 = sub_100004980();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004980(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "IDS service invalidated.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "IDS service invalidated.", v7, 2u);
     }
   }
 }
@@ -106,7 +105,7 @@
   accountCopy = account;
   messageCopy = message;
   dCopy = d;
-  v13 = sub_100004980();
+  v13 = sub_100004980(dCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 138412802;
@@ -135,7 +134,7 @@
   accountCopy = account;
   identifierCopy = identifier;
   errorCopy = error;
-  v14 = sub_100004980();
+  v14 = sub_100004980(errorCopy);
   v15 = v14;
   if (successCopy)
   {

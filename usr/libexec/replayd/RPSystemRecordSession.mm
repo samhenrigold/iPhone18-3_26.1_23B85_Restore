@@ -3,6 +3,7 @@
 - (id)dispatchCaptureQueue;
 - (id)outputPath;
 - (void)captureDidFailWithError:(id)error;
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags;
 - (void)handleDeviceLockedWarning;
 - (void)handleDeviceRestrictionWarning;
 - (void)handleIncomingCallWarning;
@@ -13,6 +14,7 @@
 - (void)handleTimerDidUpdate:(id)update;
 - (void)pauseSession;
 - (void)setCaptureMicrophoneEnabled:(BOOL)enabled;
+- (void)startSystemRecordingWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled contextID:(id)d windowSize:(CGSize)size handler:(id)handler;
 - (void)stopSystemRecordingWithHandler:(id)handler;
 - (void)stopSystemRecordingWithURLHandler:(id)handler;
 @end
@@ -26,6 +28,157 @@
   v5 = [v3 outputPath:2 bundleID:bundleID];
 
   return v5;
+}
+
+- (void)startSystemRecordingWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled contextID:(id)d windowSize:(CGSize)size handler:(id)handler
+{
+  height = size.height;
+  width = size.width;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446978;
+    v49 = "[RPSystemRecordSession startSystemRecordingWithMicrophoneEnabled:cameraEnabled:mixedRealityCameraEnabled:contextID:windowSize:handler:]";
+    v50 = 1024;
+    v51 = 51;
+    v52 = 2048;
+    selfCopy = self;
+    v54 = 1024;
+    sessionState = [(RPSession *)self sessionState];
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p starting in session state %d", buf, 0x22u);
+  }
+
+  height = [(RPSession *)self checkCaptureRequirementsWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy windowSize:width, height];
+  if (height)
+  {
+    if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_100066300();
+    }
+
+    if ([height code] == -5805)
+    {
+      v18 = [NSError _rpUserErrorForCode:-5805 userInfo:0];
+      [(RPSession *)self showAlertRecordingCaptureSessionWithError:v18];
+    }
+
+    [(RPSession *)self reportSessionEndReason:height];
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, height);
+    }
+  }
+
+  else
+  {
+    v47.receiver = self;
+    v47.super_class = RPSystemRecordSession;
+    [(RPSession *)&v47 startWithContextID:dCopy windowSize:width, height];
+    if ([(RPSession *)self getAcknowledgementAlertResultsWithMicrophone:enabledCopy cameraEnabled:cameraEnabledCopy])
+    {
+      v19 = +[RPFeatureFlagUtility sharedInstance];
+      systemBannerEnabled = [v19 systemBannerEnabled];
+
+      if (systemBannerEnabled)
+      {
+        v21 = +[RPAngelProxy sharedInstance];
+        v46[0] = _NSConcreteStackBlock;
+        v46[1] = 3221225472;
+        v46[2] = sub_10004FF04;
+        v46[3] = &unk_1000A2330;
+        v46[4] = self;
+        [v21 connectToAngelWithCompletionHandler:v46];
+      }
+
+      [(RPSystemRecordSession *)self adjustedWindowSizeForSystemRecording];
+      v23 = v22;
+      v25 = v24;
+      v26 = +[RPFeatureFlagUtility sharedInstance];
+      replayKitScreenRecordingHEVC = [v26 replayKitScreenRecordingHEVC];
+      v28 = &AVVideoCodecTypeHEVC;
+      if (!replayKitScreenRecordingHEVC)
+      {
+        v28 = &AVVideoCodecTypeH264;
+      }
+
+      v42 = *v28;
+
+      self->_captureType = 0;
+      v29 = +[RPFeatureFlagUtility sharedInstance];
+      replayKitSDRToneMapping = [v29 replayKitSDRToneMapping];
+
+      if (replayKitSDRToneMapping)
+      {
+        self->_captureType = 1;
+      }
+
+      v31 = +[RPFeatureFlagUtility sharedInstance];
+      replayKitScreenRecordingHDR = [v31 replayKitScreenRecordingHDR];
+
+      if (replayKitScreenRecordingHDR)
+      {
+        v33 = _SSHDRCaptureEnabled();
+        if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136446722;
+          v49 = "[RPSystemRecordSession startSystemRecordingWithMicrophoneEnabled:cameraEnabled:mixedRealityCameraEnabled:contextID:windowSize:handler:]";
+          v50 = 1024;
+          v51 = 87;
+          v52 = 1024;
+          LODWORD(selfCopy) = v33;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d _SSHDRCaptureEnabled=%d", buf, 0x18u);
+        }
+
+        if (v33)
+        {
+          self->_captureType = 2;
+          v34 = 1;
+        }
+
+        else
+        {
+          v34 = 0;
+        }
+
+        reportingAgent = [(RPSession *)self reportingAgent];
+        [reportingAgent setIsHDR:v33];
+      }
+
+      else
+      {
+        v34 = 0;
+      }
+
+      v37 = [RPMovieWriter alloc];
+      outputPath = [(RPSystemRecordSession *)self outputPath];
+      v39 = [(RPMovieWriter *)v37 initWithWindowSize:outputPath outputPath:v42 videoCodecType:v34 assetWriterSetting:v23, v25];
+      movieWriter = self->_movieWriter;
+      self->_movieWriter = v39;
+
+      v41 = self->_movieWriter;
+      v43[0] = _NSConcreteStackBlock;
+      v43[1] = 3221225472;
+      v43[2] = sub_100050068;
+      v43[3] = &unk_1000A2628;
+      v43[4] = self;
+      v44 = handlerCopy;
+      realityCameraEnabledCopy = realityCameraEnabled;
+      [(RPMovieWriter *)v41 startWritingHandler:v43];
+    }
+
+    else
+    {
+      [(RPSession *)self setSessionState:3];
+      if (handlerCopy)
+      {
+        v35 = [NSError _rpUserErrorForCode:-5803 userInfo:0];
+        handlerCopy[2](handlerCopy, v35);
+      }
+    }
+  }
 }
 
 - (void)stopSystemRecordingWithHandler:(id)handler
@@ -219,6 +372,23 @@
   result.height = v8;
   result.width = v7;
   return result;
+}
+
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags
+{
+  v7 = *&type;
+  if ([(RPSession *)self sessionState]== 1)
+  {
+    [(RPSession *)self updateReportingSampleCount:v7];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10005104C;
+    v9[3] = &unk_1000A2650;
+    v10 = v7;
+    v9[4] = self;
+    v9[5] = flags;
+    [(RPSession *)self updatePauseOffsetForSampleBuffer:buffer withSampleType:v7 handler:v9];
+  }
 }
 
 - (void)captureDidFailWithError:(id)error

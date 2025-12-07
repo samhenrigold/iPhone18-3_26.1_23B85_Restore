@@ -87,9 +87,9 @@
 
 - (CEKLightingControl)initWithFrame:(CGRect)frame
 {
-  v20.receiver = self;
-  v20.super_class = CEKLightingControl;
-  v3 = [(CEKLightingControl *)&v20 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v22.receiver = self;
+  v22.super_class = CEKLightingControl;
+  v3 = [(CEKLightingControl *)&v22 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     systemYellowColor = [MEMORY[0x1E69DC888] systemYellowColor];
@@ -136,17 +136,17 @@
     frameCache = v3->__frameCache;
     v3->__frameCache = v13;
 
-    if (CEKHapticsAllowed())
+    if (CEKHapticsAllowed(v15, v16))
     {
-      v15 = objc_alloc_init(CEKSelectionFeedbackGenerator);
+      v17 = objc_alloc_init(CEKSelectionFeedbackGenerator);
       selectionFeedbackGenerator = v3->__selectionFeedbackGenerator;
-      v3->__selectionFeedbackGenerator = v15;
+      v3->__selectionFeedbackGenerator = v17;
     }
 
     v3->_maxContentWidth = 414.0;
     v3->_collapsedSelectionCenterPointEdgeInset = 44.0;
     systemTraitsAffectingColorAppearance = [MEMORY[0x1E69DD1B8] systemTraitsAffectingColorAppearance];
-    v18 = [(CEKLightingControl *)v3 registerForTraitChanges:systemTraitsAffectingColorAppearance withAction:sel__traitCollectionColorsChanged];
+    v20 = [(CEKLightingControl *)v3 registerForTraitChanges:systemTraitsAffectingColorAppearance withAction:sel__traitCollectionColorsChanged];
   }
 
   return v3;

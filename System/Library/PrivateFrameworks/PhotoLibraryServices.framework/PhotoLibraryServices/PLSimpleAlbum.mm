@@ -10,7 +10,7 @@
 - (unint64_t)assetsCount
 {
   assets = [(PLSimpleAlbum *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -42,7 +42,7 @@
   return v4;
 }
 
-uint64_t __35__PLSimpleAlbum__countOfAssetType___block_invoke(uint64_t a1, void *a2)
+void *__35__PLSimpleAlbum__countOfAssetType___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 kind];
   if (*(a1 + 40) == result)

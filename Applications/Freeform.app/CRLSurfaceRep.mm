@@ -10,7 +10,7 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC8Freeform13CRLSurfaceRep_cleanupItems) = _swiftEmptyArrayStorage;
   *(&self->super.super.isa + OBJC_IVAR____TtC8Freeform13CRLSurfaceRep_shouldUpdateObservers) = 1;
   v7 = OBJC_IVAR____TtC8Freeform13CRLSurfaceRep_snapshotInvalid;
-  sub_1005B981C(&qword_101A14A90);
+  sub_1005B981C(&qword_101A14A90, &unk_1014C5E60);
   swift_allocObject();
   layoutCopy = layout;
   canvasCopy = canvas;

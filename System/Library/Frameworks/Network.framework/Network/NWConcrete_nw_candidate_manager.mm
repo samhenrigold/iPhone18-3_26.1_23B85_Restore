@@ -32,7 +32,7 @@
   if (service)
   {
     v8 = service;
-    bonjour_service_name = _nw_endpoint_get_bonjour_service_name(v8);
+    bonjour_service_name = _nw_endpoint_get_bonjour_service_name();
 
     bonjour_service_type = nw_endpoint_get_bonjour_service_type(self->service);
     v10 = CFStringCreateWithFormat(v6, 0, @"[CM%zu %s%s.%s]", log_id, v4, bonjour_service_name, bonjour_service_type);
@@ -55,7 +55,7 @@
     v10 = __nwlog_obj();
     *buf = 136446210;
     v30 = "[NWConcrete_nw_candidate_manager init:]";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null _parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -132,7 +132,7 @@ LABEL_34:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v30 = "[NWConcrete_nw_candidate_manager init:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;

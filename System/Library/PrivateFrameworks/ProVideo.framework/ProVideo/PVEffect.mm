@@ -675,7 +675,7 @@ LABEL_15:
   if (v3)
   {
     v9 = v3;
-    [v3 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v3);
     v3 = v9;
   }
 
@@ -1595,7 +1595,7 @@ void __29__PVEffect_effectDescription__block_invoke(uint64_t a1, void *a2, void 
         v22 = qword_260342810;
         if (transformCopy)
         {
-          [transformCopy SIMDDouble4x4];
+          objc_msgSend_SIMDDouble4x4(transformCopy);
         }
 
         else

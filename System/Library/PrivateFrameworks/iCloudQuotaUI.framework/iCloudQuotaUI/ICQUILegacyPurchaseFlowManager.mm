@@ -1396,25 +1396,25 @@ void __70__ICQUILegacyPurchaseFlowManager__handleEngagementRequest_completion___
   dispatch_async(v2, &__block_literal_global_18);
 }
 
-void __58__ICQUILegacyPurchaseFlowManager__clearRetailFollowUpItem__block_invoke()
+void __58__ICQUILegacyPurchaseFlowManager__clearRetailFollowUpItem__block_invoke(uint64_t a1)
 {
-  v0 = _ICQGetLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _ICQGetLogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_275623000, v0, OS_LOG_TYPE_DEFAULT, "Clearing iCloud follow up item.", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_275623000, v1, OS_LOG_TYPE_DEFAULT, "Clearing iCloud follow up item.", v9, 2u);
   }
 
-  v1 = AMSGenerateLogCorrelationKey();
-  v2 = [MEMORY[0x277CB8F48] ams_sharedAccountStore];
-  v3 = [v2 ams_activeiTunesAccount];
+  v2 = AMSGenerateLogCorrelationKey();
+  v3 = [MEMORY[0x277CB8F48] ams_sharedAccountStore];
+  v4 = [v3 ams_activeiTunesAccount];
 
-  v4 = MEMORY[0x277CEE3F8];
-  v5 = [MEMORY[0x277CEE478] bagSubProfile];
-  v6 = [MEMORY[0x277CEE478] bagSubProfileVersion];
-  v7 = [v4 bagForProfile:v5 profileVersion:v6];
+  v5 = MEMORY[0x277CEE3F8];
+  v6 = [MEMORY[0x277CEE478] bagSubProfile];
+  v7 = [MEMORY[0x277CEE478] bagSubProfileVersion];
+  v8 = [v5 bagForProfile:v6 profileVersion:v7];
 
-  [MEMORY[0x277CEE470] removeDeviceOfferWithIdentifier:*MEMORY[0x277CEE178] account:v3 bag:v7 logKey:v1];
+  [MEMORY[0x277CEE470] removeDeviceOfferWithIdentifier:*MEMORY[0x277CEE178] account:v4 bag:v8 logKey:v2];
 }
 
 - (BOOL)_loadNativeURL:(id)l

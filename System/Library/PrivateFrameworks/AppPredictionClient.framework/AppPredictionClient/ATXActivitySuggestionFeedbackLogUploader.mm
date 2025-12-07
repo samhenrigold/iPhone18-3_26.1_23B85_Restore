@@ -74,11 +74,11 @@
   return v4;
 }
 
-NSString *__68__ATXActivitySuggestionFeedbackLogUploader__arrayToStringOfClasses___block_invoke()
+NSString *__68__ATXActivitySuggestionFeedbackLogUploader__arrayToStringOfClasses___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 @end

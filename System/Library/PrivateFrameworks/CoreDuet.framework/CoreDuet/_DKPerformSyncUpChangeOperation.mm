@@ -31,7 +31,7 @@
 
 - (void)performSyncUpChange
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = +[_DKSyncSerializer underlyingQueue];
@@ -58,16 +58,16 @@ LABEL_11:
         v23 = *(self + 336);
         *(self + 336) = 0;
 
-        goto LABEL_12;
+        return;
       }
 
       pseudoPeerForSyncTransportCloudUp = [objc_opt_class() description];
       name = [*(self + 304) name];
-      v25 = 138543618;
-      v26 = pseudoPeerForSyncTransportCloudUp;
-      v27 = 2114;
-      v28 = name;
-      _os_log_debug_impl(&dword_191750000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Skipping change sync up on transport %{public}@ because there are no changes", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = pseudoPeerForSyncTransportCloudUp;
+      v26 = 2114;
+      v27 = name;
+      _os_log_debug_impl(&dword_191750000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Skipping change sync up on transport %{public}@ because there are no changes", &v24, 0x16u);
 
 LABEL_10:
       goto LABEL_11;
@@ -106,19 +106,16 @@ LABEL_10:
 
       v9 = [objc_opt_class() description];
       name4 = [*(self + 304) name];
-      v25 = 138543618;
-      v26 = v9;
-      v27 = 2114;
-      v28 = name4;
-      _os_log_debug_impl(&dword_191750000, &v16->super, OS_LOG_TYPE_DEBUG, "%{public}@: Skipping change sync up on transport %{public}@ because of missing identity", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v9;
+      v26 = 2114;
+      v27 = name4;
+      _os_log_debug_impl(&dword_191750000, &v16->super, OS_LOG_TYPE_DEBUG, "%{public}@: Skipping change sync up on transport %{public}@ because of missing identity", &v24, 0x16u);
     }
 
 LABEL_9:
     goto LABEL_10;
   }
-
-LABEL_12:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

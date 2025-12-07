@@ -71,20 +71,19 @@ LABEL_10:
 
 id __90__CNComposeRecipientTableViewCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v2 = objc_alloc(MEMORY[0x29EDC78E0]);
   v3 = *(a1 + 32);
-  v8[0] = MEMORY[0x29EDCA5F8];
-  v8[1] = 3221225472;
-  v8[2] = __90__CNComposeRecipientTableViewCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
-  v8[3] = &unk_29F2B5378;
-  objc_copyWeak(&v9, (a1 + 40));
-  v4 = [v2 initWithName:v3 actionHandler:v8];
-  v10[0] = v4;
-  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+  v7[0] = MEMORY[0x29EDCA5F8];
+  v7[1] = 3221225472;
+  v7[2] = __90__CNComposeRecipientTableViewCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
+  v7[3] = &unk_29F2B5378;
+  objc_copyWeak(&v8, (a1 + 40));
+  v4 = [v2 initWithName:v3 actionHandler:v7];
+  v9[0] = v4;
+  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
 
-  objc_destroyWeak(&v9);
-  v6 = *MEMORY[0x29EDCA608];
+  objc_destroyWeak(&v8);
 
   return v5;
 }

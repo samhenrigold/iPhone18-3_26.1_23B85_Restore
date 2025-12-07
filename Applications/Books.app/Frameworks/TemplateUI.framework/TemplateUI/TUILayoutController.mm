@@ -279,26 +279,27 @@ LABEL_13:
   if (!instantiationCopy)
   {
 LABEL_7:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_8;
   }
 
-  if (!sub_E002C(instantiationCopy, self->_rootBox))
+  v5 = sub_E002C(instantiationCopy, self->_rootBox);
+  if (!v5)
   {
-    v6 = TUIInstantiationLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = TUIInstantiationLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_19B54C(self, instantiationCopy, v6);
+      sub_19B54C(self, instantiationCopy, v7);
     }
 
     goto LABEL_7;
   }
 
   [(NSHashTable *)self->_invalidInstantiators addObject:instantiationCopy];
-  v5 = 1;
+  v6 = 1;
 LABEL_8:
 
-  return v5;
+  return v6;
 }
 
 - (void)_invalidateChildrenForModel:(id)model
@@ -448,7 +449,7 @@ LABEL_6:
 
           v70[0] = *(*(&v71 + 1) + 8 * k);
           v80[0] = v70;
-          sub_E4024(v75, v70)[3] = v20++;
+          sub_E4024(v75, v70, &std::piecewise_construct, v80)[3] = v20++;
         }
 
         v19 = [v18 countByEnumeratingWithState:&v71 objects:v81 count:16];
@@ -510,7 +511,7 @@ LABEL_38:
       while (v24);
     }
 
-    TUI::Graph::Ordering::solve(v70, &v64);
+    TUI::Graph::Ordering::solve(&v64, v70);
     v30 = [[NSMutableArray alloc] initWithCapacity:v47];
     v32 = v64;
     v31 = v65;
@@ -726,8 +727,8 @@ LABEL_38:
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    children = [v7 children];
-    v11 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v10 = objc_msgSend_children(v7, 0);
+    v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v11)
     {
       v12 = *v15;
@@ -738,7 +739,7 @@ LABEL_38:
         {
           if (*v15 != v12)
           {
-            objc_enumerationMutation(children);
+            objc_enumerationMutation(v10);
           }
 
           [(NSHashTable *)self->_invalidLayouts removeObject:*(*(&v14 + 1) + 8 * v13)];
@@ -746,7 +747,7 @@ LABEL_38:
         }
 
         while (v11 != v13);
-        v11 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
@@ -800,7 +801,7 @@ LABEL_38:
 
   v7 = 1;
 LABEL_7:
-  [(TUIStatsEventCollector *)self->_statsCollector recordEvent:11];
+  objc_msgSend_recordEvent_(self->_statsCollector);
   v8 = objc_autoreleasePoolPush();
   [layoutCopy _validateLayout];
   objc_autoreleasePoolPop(v8);
@@ -827,7 +828,7 @@ LABEL_9:
 
   if ([layoutCopy layoutIsInvalid])
   {
-    [(TUIStatsEventCollector *)self->_statsCollector recordEvent:11];
+    objc_msgSend_recordEvent_(self->_statsCollector);
     v11 = objc_autoreleasePoolPush();
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
@@ -872,14 +873,14 @@ LABEL_6:
   while ([(NSHashTable *)self->_invalidLayouts count])
   {
     anyObject = [(NSHashTable *)self->_invalidLayouts anyObject];
-    model = [anyObject model];
-    if (model)
+    v8 = objc_msgSend_model(anyObject);
+    if (v8)
     {
-      while (model != self->_rootBox)
+      while (v8 != self->_rootBox)
       {
-        parentModel = [(TUIBox *)model parentModel];
+        parentModel = [(TUIBox *)v8 parentModel];
 
-        model = parentModel;
+        v8 = parentModel;
         if (!parentModel)
         {
           goto LABEL_11;
@@ -892,7 +893,7 @@ LABEL_6:
     else
     {
 LABEL_11:
-      model = 0;
+      v8 = 0;
       [(NSHashTable *)self->_invalidLayouts removeObject:anyObject];
     }
   }
@@ -943,7 +944,7 @@ LABEL_11:
     v10 = NAN;
   }
 
-  v24 = [(TUILayout *)self->_rootLayout box];
+  v24 = objc_msgSend_box(self->_rootLayout);
   layoutDirection = [v24 layoutDirection];
 
   if (!layoutDirection)
@@ -991,12 +992,12 @@ LABEL_11:
   {
     while ([(NSHashTable *)self->_invalidChildren count])
     {
-      v40 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
+      v40 = 0u;
       setRepresentation = [(NSHashTable *)self->_invalidChildren setRepresentation];
-      v4 = [setRepresentation countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v4 = [setRepresentation countByEnumeratingWithState:&v39 objects:v46 count:16];
       if (!v4)
       {
 
@@ -1004,25 +1005,25 @@ LABEL_11:
       }
 
       v5 = 0;
-      v6 = *v39;
+      v6 = *v40;
       do
       {
         for (i = 0; i != v4; i = i + 1)
         {
-          if (*v39 != v6)
+          if (*v40 != v6)
           {
             objc_enumerationMutation(setRepresentation);
           }
 
-          v8 = *(*(&v38 + 1) + 8 * i);
-          model = [v8 model];
-          if (model)
+          v8 = *(*(&v39 + 1) + 8 * i);
+          v9 = objc_msgSend_model(v8);
+          if (v9)
           {
-            while (model != self->_rootBox)
+            while (v9 != self->_rootBox)
             {
-              parentModel = [(TUIBox *)model parentModel];
+              parentModel = [(TUIBox *)v9 parentModel];
 
-              model = parentModel;
+              v9 = parentModel;
               if (!parentModel)
               {
                 goto LABEL_11;
@@ -1039,14 +1040,14 @@ LABEL_11:
 LABEL_11:
             [(NSHashTable *)self->_invalidChildren removeObject:v8];
             layouts = self->_layouts;
-            model2 = [v8 model];
-            [(NSMapTable *)layouts removeObjectForKey:model2];
+            v12 = objc_msgSend_model(v8);
+            [(NSMapTable *)layouts removeObjectForKey:v12];
 
-            model = 0;
+            v9 = 0;
           }
         }
 
-        v4 = [setRepresentation countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v4 = [setRepresentation countByEnumeratingWithState:&v39 objects:v46 count:16];
       }
 
       while (v4);
@@ -1059,35 +1060,35 @@ LABEL_11:
 
     if (self->_rootBox)
     {
-      v36 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
+      v36 = 0u;
       objectEnumerator = [(NSHashTable *)self->_orphanLayouts objectEnumerator];
-      v14 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v14 = [objectEnumerator countByEnumeratingWithState:&v35 objects:v45 count:16];
       if (v14)
       {
-        v15 = *v35;
+        v15 = *v36;
         do
         {
           for (j = 0; j != v14; j = j + 1)
           {
-            if (*v35 != v15)
+            if (*v36 != v15)
             {
               objc_enumerationMutation(objectEnumerator);
             }
 
-            v17 = *(*(&v34 + 1) + 8 * j);
+            v17 = *(*(&v35 + 1) + 8 * j);
             [v17 teardown];
             v18 = self->_layouts;
-            model3 = [v17 model];
-            [(NSMapTable *)v18 removeObjectForKey:model3];
+            v19 = objc_msgSend_model(v17);
+            [(NSMapTable *)v18 removeObjectForKey:v19];
 
             [(NSHashTable *)self->_invalidRenderModels removeObject:v17];
             [(NSHashTable *)self->_invalidLayouts removeObject:v17];
           }
 
-          v14 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v14 = [objectEnumerator countByEnumeratingWithState:&v35 objects:v45 count:16];
         }
 
         while (v14);
@@ -1102,27 +1103,27 @@ LABEL_11:
     }
 
     [(NSHashTable *)self->_orphanLayouts removeAllObjects];
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     keyEnumerator = [(NSMapTable *)self->_layouts keyEnumerator];
     allObjects = [keyEnumerator allObjects];
 
-    v22 = [allObjects countByEnumeratingWithState:&v30 objects:v43 count:16];
+    v22 = [allObjects countByEnumeratingWithState:&v31 objects:v44 count:16];
     if (v22)
     {
-      v23 = *v31;
+      v23 = *v32;
       do
       {
         for (k = 0; k != v22; k = k + 1)
         {
-          if (*v31 != v23)
+          if (*v32 != v23)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v25 = *(*(&v30 + 1) + 8 * k);
+          v25 = *(*(&v31 + 1) + 8 * k);
           v26 = v25;
           if (v25)
           {
@@ -1150,18 +1151,19 @@ LABEL_37:
           }
         }
 
-        v22 = [allObjects countByEnumeratingWithState:&v30 objects:v43 count:16];
+        v22 = [allObjects countByEnumeratingWithState:&v31 objects:v44 count:16];
       }
 
       while (v22);
     }
 
-    if ([(NSHashTable *)self->_invalidChildren count])
+    v29 = [(NSHashTable *)self->_invalidChildren count];
+    if (v29)
     {
-      v29 = TUILayoutLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = TUILayoutLog(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        sub_19B5D8(buf, self->_feedId.uniqueIdentifier, [(NSHashTable *)self->_invalidChildren count], v29);
+        sub_19B5D8(buf, self->_feedId.uniqueIdentifier, [(NSHashTable *)self->_invalidChildren count], v30);
       }
 
       TUIDebugHaltInDebugger();
@@ -1173,9 +1175,9 @@ LABEL_37:
 - (void)_validateChildrenForLayout:(id)layout
 {
   layoutCopy = layout;
-  model = [layoutCopy model];
+  v20 = objc_msgSend_model(layoutCopy);
   v18 = objc_opt_new();
-  [model appendLayoutChildrenToArray:v18];
+  [v20 appendLayoutChildrenToArray:v18];
   v27 = 0u;
   v28 = 0u;
   v25 = 0u;
@@ -1875,25 +1877,26 @@ LABEL_6:
   identifierCopy = identifier;
   if (identifierCopy && (hostingGeometryMap = self->_hostingGeometryMap) != 0)
   {
-    height = [(TUIHostingGeometryMap *)hostingGeometryMap geometryForIdentifier:identifierCopy];
-    if (height)
+    v9 = [(TUIHostingGeometryMap *)hostingGeometryMap geometryForIdentifier:identifierCopy];
+    v10 = v9;
+    if (v9)
     {
-      hostedViewFactoryTypesWithGeometryReuse = TUIHostingLog();
+      hostedViewFactoryTypesWithGeometryReuse = TUIHostingLog(v9);
       if (os_log_type_enabled(hostedViewFactoryTypesWithGeometryReuse, OS_LOG_TYPE_DEBUG))
       {
         uniqueIdentifier = self->_feedId.uniqueIdentifier;
-        v29.width = width;
-        v29.height = height;
-        v12 = NSStringFromCGSize(v29);
-        v20 = 134218754;
-        v21 = uniqueIdentifier;
-        v22 = 2112;
-        v23 = identifierCopy;
+        v31.width = width;
+        v31.height = height;
+        v13 = NSStringFromCGSize(v31);
+        v22 = 134218754;
+        v23 = uniqueIdentifier;
         v24 = 2112;
-        v25 = v12;
+        v25 = identifierCopy;
         v26 = 2112;
-        v27 = height;
-        _os_log_debug_impl(&dword_0, hostedViewFactoryTypesWithGeometryReuse, OS_LOG_TYPE_DEBUG, "[fid:%lu] hostingGeometryForIdentifer:%@ requestedSize:%@ => %@", &v20, 0x2Au);
+        v27 = v13;
+        v28 = 2112;
+        v29 = v10;
+        _os_log_debug_impl(&dword_0, hostedViewFactoryTypesWithGeometryReuse, OS_LOG_TYPE_DEBUG, "[fid:%lu] hostingGeometryForIdentifer:%@ requestedSize:%@ => %@", &v22, 0x2Au);
       }
     }
 
@@ -1903,46 +1906,47 @@ LABEL_6:
       hostedViewFactoryTypesWithGeometryReuse = [viewRegistry hostedViewFactoryTypesWithGeometryReuse];
 
       type = [identifierCopy type];
-      v15 = [hostedViewFactoryTypesWithGeometryReuse containsObject:type];
+      v16 = [hostedViewFactoryTypesWithGeometryReuse containsObject:type];
 
-      if (v15)
+      if (v16)
       {
         height = [(_TUIHostingGeometryReuseMap *)self->_hostingGeometryReuseMap geometryForIdentifier:identifierCopy requestedSize:width, height];
+        v10 = height;
         if (height)
         {
-          v16 = TUIHostingLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v18 = TUIHostingLog(height);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
-            v18 = self->_feedId.uniqueIdentifier;
-            v30.width = width;
-            v30.height = height;
-            v19 = NSStringFromCGSize(v30);
-            v20 = 134218754;
-            v21 = v18;
-            v22 = 2112;
-            v23 = identifierCopy;
+            v20 = self->_feedId.uniqueIdentifier;
+            v32.width = width;
+            v32.height = height;
+            v21 = NSStringFromCGSize(v32);
+            v22 = 134218754;
+            v23 = v20;
             v24 = 2112;
-            v25 = v19;
+            v25 = identifierCopy;
             v26 = 2112;
-            v27 = height;
-            _os_log_debug_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "[fid:%lu] hostingGeometryForIdentifer:%@ requestedSize:%@ => %@ (reused)", &v20, 0x2Au);
+            v27 = v21;
+            v28 = 2112;
+            v29 = v10;
+            _os_log_debug_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "[fid:%lu] hostingGeometryForIdentifer:%@ requestedSize:%@ => %@ (reused)", &v22, 0x2Au);
           }
         }
       }
 
       else
       {
-        height = 0;
+        v10 = 0;
       }
     }
   }
 
   else
   {
-    height = 0;
+    v10 = 0;
   }
 
-  return height;
+  return v10;
 }
 
 @end

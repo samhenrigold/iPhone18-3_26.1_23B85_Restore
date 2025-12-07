@@ -16,7 +16,7 @@ uint64_t ___CacheDeleteRegister_block_invoke()
 
 void ___CacheDeleteRegister_block_invoke_311(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = [qword_1ED769FE8 objectForKeyedSubscript:*(a1 + 32)];
   v3 = *(*(a1 + 96) + 8);
   v4 = *(v3 + 40);
@@ -30,9 +30,9 @@ void ___CacheDeleteRegister_block_invoke_311(uint64_t a1)
       v6 = CDGetLogHandle("client");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v31 = [*(a1 + 32) UTF8String];
+        v30 = [*(a1 + 32) UTF8String];
         *buf = 136315138;
-        *v40 = v31;
+        *v39 = v30;
         _os_log_error_impl(&dword_1BA7F1000, v6, OS_LOG_TYPE_ERROR, "CacheDeleteRegistration of %s: new registration is or previous registration was anonymous.", buf, 0xCu);
       }
     }
@@ -93,11 +93,11 @@ void ___CacheDeleteRegister_block_invoke_311(uint64_t a1)
         v16 = *(a1 + 32);
         v17 = *(a1 + 40);
         *buf = 67109634;
-        *v40 = 155;
-        *&v40[4] = 2112;
-        *&v40[6] = v16;
-        v41 = 2112;
-        v42 = v17;
+        *v39 = 155;
+        *&v39[4] = 2112;
+        *&v39[6] = v16;
+        v40 = 2112;
+        v41 = v17;
         _os_log_impl(&dword_1BA7F1000, v15, OS_LOG_TYPE_DEFAULT, "%d _CacheDeleteRegister notify for %@ with options: %@", buf, 0x1Cu);
       }
 
@@ -112,31 +112,31 @@ void ___CacheDeleteRegister_block_invoke_311(uint64_t a1)
         if (isKindOfClass)
         {
           v22 = *(a1 + 40);
-          v37 = *(a1 + 32);
+          v36 = *(a1 + 32);
           v23 = [v22 objectForKeyedSubscript:@"CACHE_DELETE_PURGE_NOTIFICATION"];
-          v38 = v23;
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v37 = v23;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
 
           v25 = CDGetLogHandle("client");
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             v26 = *(a1 + 32);
             *buf = 67109634;
-            *v40 = 161;
-            *&v40[4] = 2112;
-            *&v40[6] = v26;
-            v41 = 2112;
-            v42 = v24;
+            *v39 = 161;
+            *&v39[4] = 2112;
+            *&v39[6] = v26;
+            v40 = 2112;
+            v41 = v24;
             _os_log_impl(&dword_1BA7F1000, v25, OS_LOG_TYPE_DEFAULT, "%d _CacheDeleteRegister calling deleted for %@ with: %@", buf, 0x1Cu);
           }
 
-          v32 = MEMORY[0x1E69E9820];
-          v33 = 3221225472;
-          v34 = ___CacheDeleteRegister_block_invoke_334;
-          v35 = &unk_1E7F02738;
-          v36 = v24;
+          v31 = MEMORY[0x1E69E9820];
+          v32 = 3221225472;
+          v33 = ___CacheDeleteRegister_block_invoke_334;
+          v34 = &unk_1E7F02738;
+          v35 = v24;
           v27 = v24;
-          CallCacheD(&v32, &__block_literal_global_336);
+          CallCacheD(&v31, &__block_literal_global_336);
         }
       }
     }
@@ -157,7 +157,7 @@ void ___CacheDeleteRegister_block_invoke_311(uint64_t a1)
       v29 = 0;
     }
 
-    [*(*(*(a1 + 96) + 8) + 40) setPurgeable:*(a1 + 48) purge:*(a1 + 56) cancel:*(a1 + 64) periodic:*(a1 + 72) notify:*(a1 + 80) callback:v29 entitlements:{v14, v32, v33, v34, v35}];
+    [*(*(*(a1 + 96) + 8) + 40) setPurgeable:*(a1 + 48) purge:*(a1 + 56) cancel:*(a1 + 64) periodic:*(a1 + 72) notify:*(a1 + 80) callback:v29 entitlements:{v14, v31, v32, v33, v34}];
     [*(*(*(a1 + 96) + 8) + 40) resume];
   }
 
@@ -170,23 +170,19 @@ void ___CacheDeleteRegister_block_invoke_311(uint64_t a1)
       _os_log_error_impl(&dword_1BA7F1000, v14, OS_LOG_TYPE_ERROR, "unable to create listener", buf, 2u);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void ___CacheDeleteRegister_block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = CDGetLogHandle("client");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1BA7F1000, v3, OS_LOG_TYPE_ERROR, "CallCacheD failed: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1BA7F1000, v3, OS_LOG_TYPE_ERROR, "CallCacheD failed: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void ___CacheDeleteRegister_block_invoke_341(void *a1, void *a2)
@@ -206,7 +202,7 @@ void ___CacheDeleteRegister_block_invoke_341(void *a1, void *a2)
 
 void ___CacheDeleteRegister_block_invoke_2_342(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -214,32 +210,28 @@ void ___CacheDeleteRegister_block_invoke_2_342(uint64_t a1, void *a2, void *a3)
     v7 = CDGetLogHandle("client");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_error_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_ERROR, "Proxy check-in error: %@, serviceInfo: %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_error_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_ERROR, "Proxy check-in error: %@, serviceInfo: %@", &v8, 0x16u);
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ___CacheDeleteRegister_block_invoke_344(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = CDGetLogHandle("client");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1BA7F1000, v3, OS_LOG_TYPE_ERROR, "Failed to register: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1BA7F1000, v3, OS_LOG_TYPE_ERROR, "Failed to register: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

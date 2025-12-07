@@ -17,7 +17,7 @@
 - (TPSTip)currentTip
 {
   swift_getKeyPath();
-  sub_1C0122EFC(&qword_1EBE06978, type metadata accessor for TPSSavedTipsManager);
+  sub_1C0122EFC(&qword_1EBE06978, type metadata accessor for TPSSavedTipsManager, &protocol conformance descriptor for TPSSavedTipsManager);
   selfCopy = self;
   sub_1C014BF00();
 
@@ -39,7 +39,7 @@
 - (BOOL)isCurrentTipSaved
 {
   swift_getKeyPath();
-  sub_1C0122EFC(&qword_1EBE06978, type metadata accessor for TPSSavedTipsManager);
+  sub_1C0122EFC(&qword_1EBE06978, type metadata accessor for TPSSavedTipsManager, &protocol conformance descriptor for TPSSavedTipsManager);
   selfCopy = self;
   sub_1C014BF00();
 
@@ -80,40 +80,37 @@
     v4 = 0;
   }
 
-  v5 = *(&self->super.isa + OBJC_IVAR___TPSSavedTipsManager_queue);
   MEMORY[0x1EEE9AC00](v4);
   selfCopy = self;
   sub_1C014C5B0();
 
-  return v8;
+  return v7;
 }
 
 - (id)savedDateWithCorrelationId:(id)id
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06688, &qword_1C0156730);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v18[-v6];
-  v8 = sub_1C014C230();
-  v9 = *(&self->super.isa + OBJC_IVAR___TPSSavedTipsManager_queue);
+  v6 = &v16[-v5];
+  v7 = sub_1C014C230();
   selfCopy = self;
-  v20 = v8;
-  v21 = v10;
+  v18 = v7;
+  v19 = v8;
   selfCopy2 = self;
   sub_1C014C5B0();
 
-  v12 = sub_1C014BD40();
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 48))(v7, 1, v12);
-  v15 = 0;
-  if (v14 != 1)
+  v10 = sub_1C014BD40();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v6, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    v16 = sub_1C014BCE0();
-    (*(v13 + 8))(v7, v12);
-    v15 = v16;
+    v14 = sub_1C014BCE0();
+    (*(v11 + 8))(v6, v10);
+    v13 = v14;
   }
 
-  return v15;
+  return v13;
 }
 
 - (void)toggleSavedTipWithCorrelationId:(id)id tipIdentifier:(id)identifier
@@ -129,44 +126,42 @@
 - (void)updateSavedTipsWithCorrelationId:(id)id tipIdentifier:(id)identifier savedDate:(id)date lastUsedVersion:(id)version
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06688, &qword_1C0156730);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v24 - v10;
-  v12 = sub_1C014C230();
-  v14 = v13;
-  v15 = sub_1C014C230();
-  v17 = v16;
+  v10 = &v23 - v9;
+  v11 = sub_1C014C230();
+  v13 = v12;
+  v14 = sub_1C014C230();
+  v16 = v15;
   if (date)
   {
     sub_1C014BD00();
-    v18 = sub_1C014BD40();
-    (*(*(v18 - 8) + 56))(v11, 0, 1, v18);
+    v17 = sub_1C014BD40();
+    (*(*(v17 - 8) + 56))(v10, 0, 1, v17);
   }
 
   else
   {
-    v19 = sub_1C014BD40();
-    (*(*(v19 - 8) + 56))(v11, 1, 1, v19);
+    v18 = sub_1C014BD40();
+    (*(*(v18 - 8) + 56))(v10, 1, 1, v18);
   }
 
-  v20 = sub_1C014C230();
-  v22 = v21;
+  v19 = sub_1C014C230();
+  v21 = v20;
   selfCopy = self;
-  sub_1C011EC38(v12, v14, v15, v17, v11, v20, v22);
+  sub_1C011EC38(v11, v13, v14, v16, v10, v19, v21);
 
-  sub_1C012348C(v11);
+  sub_1C012348C(v10);
 }
 
 - (id)identifiers
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___TPSSavedTipsManager_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBE067C0, &qword_1C0157160);
   sub_1C014C5B0();
 
-  v4 = sub_1C014C3B0();
+  v3 = sub_1C014C3B0();
 
-  return v4;
+  return v3;
 }
 
 - (void)removeInvalidEntries

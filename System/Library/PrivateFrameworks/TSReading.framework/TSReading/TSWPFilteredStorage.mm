@@ -132,11 +132,11 @@ uint64_t __29__TSWPFilteredStorage_string__block_invoke(uint64_t a1, uint64_t a2
   _Block_object_dispose(v13, 8);
 }
 
-uint64_t __43__TSWPFilteredStorage_getCharacters_range___block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
+void *__43__TSWPFilteredStorage_getCharacters_range___block_invoke(void *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
-  v6 = *(result + 48);
-  if (v6 > a2 || *(result + 56) + v6 < a2 + a3)
+  v6 = result[6];
+  if (v6 > a2 || result[7] + v6 < a2 + a3)
   {
     v7 = [MEMORY[0x277D6C290] currentHandler];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSWPFilteredStorage getCharacters:range:]_block_invoke"];
@@ -526,32 +526,32 @@ uint64_t __43__TSWPFilteredStorage_getCharacters_range___block_invoke(uint64_t r
   }
 }
 
-uint64_t __42__TSWPFilteredStorage_substringWithRange___block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
+void *__42__TSWPFilteredStorage_substringWithRange___block_invoke(void *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
-  v6 = *(result + 56);
-  if (v6 > a2 || *(result + 64) + v6 < a2 + a3)
+  v6 = result[7];
+  if (v6 > a2 || result[8] + v6 < a2 + a3)
   {
     v7 = [MEMORY[0x277D6C290] currentHandler];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSWPFilteredStorage substringWithRange:]_block_invoke"];
     result = [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPFilteredStorage.mm"), 392, @"Bogus visible range"}];
   }
 
-  v9 = a3 + *(*(*(v5 + 48) + 8) + 24);
-  v10 = *(v5 + 80);
+  v9 = a3 + *(*(v5[6] + 8) + 24);
+  v10 = v5[10];
   if (v9 > v10)
   {
     v11 = [MEMORY[0x277D6C290] currentHandler];
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSWPFilteredStorage substringWithRange:]_block_invoke"];
     result = [v11 handleFailureInFunction:v12 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPFilteredStorage.mm"), 393, @"Not enough room in text buffer"}];
-    v10 = *(v5 + 80);
-    v9 = a3 + *(*(*(v5 + 48) + 8) + 24);
+    v10 = v5[10];
+    v9 = a3 + *(*(v5[6] + 8) + 24);
   }
 
   if (v9 <= v10)
   {
-    result = [*(v5 + 32) appendString:{objc_msgSend(*(*(v5 + 40) + 8), "substringWithRange:", a2, a3)}];
-    *(*(*(v5 + 48) + 8) + 24) += a3;
+    result = [v5[4] appendString:{objc_msgSend(*(v5[5] + 8), "substringWithRange:", a2, a3)}];
+    *(*(v5[6] + 8) + 24) += a3;
   }
 
   return result;
@@ -571,7 +571,7 @@ uint64_t __42__TSWPFilteredStorage_substringWithRange___block_invoke(uint64_t re
   [(TSWPStorage *)storage enumerateWithAttributeKind:v6 inRange:v8 usingBlock:v10, v11];
 }
 
-uint64_t __69__TSWPFilteredStorage_enumerateWithAttributeKind_inRange_usingBlock___block_invoke(uint64_t a1)
+void *__69__TSWPFilteredStorage_enumerateWithAttributeKind_inRange_usingBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) charRangeMappedFromStorage:?];
   if (v3)
@@ -598,7 +598,7 @@ uint64_t __69__TSWPFilteredStorage_enumerateWithAttributeKind_inRange_usingBlock
   [(TSWPStorage *)storage enumerateSmartFieldsWithAttributeKind:v6 inRange:v8 usingBlock:v10, v11];
 }
 
-uint64_t __80__TSWPFilteredStorage_enumerateSmartFieldsWithAttributeKind_inRange_usingBlock___block_invoke(uint64_t a1)
+void *__80__TSWPFilteredStorage_enumerateSmartFieldsWithAttributeKind_inRange_usingBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) charRangeMappedFromStorage:?];
   if (v3)
@@ -633,7 +633,7 @@ uint64_t __80__TSWPFilteredStorage_enumerateSmartFieldsWithAttributeKind_inRange
   return selfCopy;
 }
 
-uint64_t __45__TSWPFilteredStorage_hasSmartFieldsInRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__45__TSWPFilteredStorage_hasSmartFieldsInRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [*(*(a1 + 32) + 8) hasSmartFieldsInRange:{a2, a3}];
   if (result)
@@ -726,8 +726,8 @@ uint64_t __45__TSWPFilteredStorage_hasSmartFieldsInRange___block_invoke(uint64_t
 
         if (!breaks)
         {
-          v11 = IsParagraphBreakingCharacter(v10);
-          if (v10 == 8232 || (v11 & 1) != 0)
+          v12 = IsParagraphBreakingCharacter(v10, v11);
+          if (v10 == 8232 || (v12 & 1) != 0)
           {
             break;
           }
@@ -748,16 +748,16 @@ uint64_t __45__TSWPFilteredStorage_hasSmartFieldsInRange___block_invoke(uint64_t
     {
       while (1)
       {
-        v13 = [(TSWPFilteredStorage *)self characterAtIndex:indexCopy];
-        if (!IsWhitespaceCharacter(v13))
+        v14 = [(TSWPFilteredStorage *)self characterAtIndex:indexCopy];
+        if (!IsWhitespaceCharacter(v14))
         {
           break;
         }
 
         if (!breaks)
         {
-          v14 = IsParagraphBreakingCharacter(v13);
-          if (v13 == 8232 || (v14 & 1) != 0)
+          v16 = IsParagraphBreakingCharacter(v14, v15);
+          if (v14 == 8232 || (v16 & 1) != 0)
           {
             break;
           }
@@ -771,18 +771,18 @@ uint64_t __45__TSWPFilteredStorage_hasSmartFieldsInRange___block_invoke(uint64_t
       }
     }
 
-    v12 = indexCopy - v8;
+    v13 = indexCopy - v8;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
     v8 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v15 = v8;
-  result.length = v12;
-  result.location = v15;
+  v17 = v8;
+  result.length = v13;
+  result.location = v17;
   return result;
 }
 

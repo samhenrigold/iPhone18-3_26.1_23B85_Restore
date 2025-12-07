@@ -3,19 +3,24 @@ uint64_t ispExclaveKitCommandChRunMd(uint64_t a1)
   ServiceTypeFromChIdx = ispExclaveGetServiceTypeFromChIdx(*(a1 + 524));
   if (properties[0] != 1 || ServiceTypeFromChIdx == 0)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x4802000000;
-    v17 = __Block_byref_object_copy_;
-    v18 = __Block_byref_object_dispose_;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x4802000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
     v4 = *(a1 + 524);
-    v19 = v4;
+    v20 = v4;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChRunMd();
     }
 
-    v5 = motiontowakemodule_ekmotiontowake_channelrunmotiondetect(&properties[70 * v4 + 134], &v19);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 0x40000000;
+    v14[2] = ___Z27ispExclaveKitCommandChRunMdP20sExclaveKitIspCmdHdr_block_invoke;
+    v14[3] = &unk_279797800;
+    v14[4] = &v15;
+    v5 = motiontowakemodule_ekmotiontowake_channelrunmotiondetect(&properties[70 * v4 + 134], &v20, v14);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChRunMd();
@@ -54,8 +59,8 @@ LABEL_10:
     *(a1 + 544) = 0u;
     *(a1 + 560) = 0u;
     *(a1 + 528) = 0u;
-    v9 = v15 + 8;
-    v8 = v15[8];
+    v9 = v16 + 8;
+    v8 = v16[8];
     if (v8 == 0x72C19E1404569D85)
     {
       v10 = 0;
@@ -97,7 +102,7 @@ LABEL_10:
 
     v6 = 0;
 LABEL_30:
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v15, 8);
     return v6;
   }
 
@@ -109,9 +114,9 @@ LABEL_30:
   return 3;
 }
 
-void sub_25497BB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497BB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -140,10 +145,10 @@ uint64_t ispExclaveKitCommandChRunAndk(uint64_t a1)
     ispExclaveKitCommandChRunAndk();
   }
 
-  v7[0] = 0;
-  v7[1] = v7;
-  v7[2] = 0x2000000000;
-  v7[3] = 0;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2000000000;
+  v8[3] = 0;
   ServiceTypeFromChIdx = ispExclaveGetServiceTypeFromChIdx(*(a1 + 524));
   if (ServiceTypeFromChIdx == -1)
   {
@@ -156,7 +161,7 @@ uint64_t ispExclaveKitCommandChRunAndk(uint64_t a1)
   }
 
   v3 = *(a1 + 524);
-  v6 = v3;
+  v7 = v3;
   if (ServiceTypeFromChIdx != 1)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -169,16 +174,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  andkmodule_ekandk_runandk(&properties[70 * v3 + 124], &v6);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 0x40000000;
+  v6[2] = ___Z29ispExclaveKitCommandChRunAndkP20sExclaveKitIspCmdHdr_block_invoke;
+  v6[3] = &unk_279797828;
+  v6[4] = v8;
+  andkmodule_ekandk_runandk(&properties[70 * v3 + 124], &v7, v6);
   v4 = 0;
 LABEL_11:
-  _Block_object_dispose(v7, 8);
+  _Block_object_dispose(v8, 8);
   return v4;
 }
 
-void sub_25497BD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497BD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -192,10 +202,11 @@ unsigned __int8 *___Z29ispExclaveKitCommandChRunAndkP20sExclaveKitIspCmdHdr_bloc
   return result;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t ispExclaveKitCommandChRunFd(uint64_t a1)
@@ -208,7 +219,7 @@ uint64_t ispExclaveKitCommandChRunFd(uint64_t a1)
       ispExclaveKitCommandChRunFd();
     }
 
-    v2 = 3;
+    return 3;
   }
 
   else
@@ -229,7 +240,12 @@ uint64_t ispExclaveKitCommandChRunFd(uint64_t a1)
       _os_log_impl(&dword_25497B000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d - [IR-EK] Run Face Detection\n", buf, 0x12u);
     }
 
-    v5 = attentionawarenessmodule_ekattentionawareness_channelrunfacedetect(&properties[70 * v3 + 126], &v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 0x40000000;
+    v8[2] = ___Z27ispExclaveKitCommandChRunFdP20sExclaveKitIspCmdHdr_block_invoke;
+    v8[3] = &unk_279797850;
+    v8[4] = &v10;
+    v5 = attentionawarenessmodule_ekattentionawareness_channelrunfacedetect(&properties[70 * v3 + 126], &v9, v8);
     v6 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
     {
@@ -263,13 +279,12 @@ uint64_t ispExclaveKitCommandChRunFd(uint64_t a1)
     _Block_object_dispose(&v10, 8);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_25497BFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497BFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -287,19 +302,24 @@ uint64_t ispExclaveKitCommandChRunEr(uint64_t a1)
 {
   if (!ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)))
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x4802000000;
-    v13 = __Block_byref_object_copy__0;
-    v14 = __Block_byref_object_dispose__0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x4802000000;
+    v14 = __Block_byref_object_copy__0;
+    v15 = __Block_byref_object_dispose__0;
     v3 = *(a1 + 524);
-    v15 = v3;
+    v16 = v3;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChRunEr();
     }
 
-    v4 = eyereliefmodule_ekeyerelief_channelruneyerelief(&properties[70 * v3 + 112], &v15);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 0x40000000;
+    v10[2] = ___Z27ispExclaveKitCommandChRunErP20sExclaveKitIspCmdHdr_block_invoke;
+    v10[3] = &unk_279797878;
+    v10[4] = &v11;
+    v4 = eyereliefmodule_ekeyerelief_channelruneyerelief(&properties[70 * v3 + 112], &v16, v10);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChRunEr();
@@ -319,7 +339,7 @@ LABEL_9:
 
       v2 = 1;
 LABEL_34:
-      _Block_object_dispose(&v10, 8);
+      _Block_object_dispose(&v11, 8);
       return v2;
     }
 
@@ -340,7 +360,7 @@ LABEL_34:
     *(a1 + 544) = 0u;
     *(a1 + 560) = 0u;
     *(a1 + 528) = 0u;
-    v5 = v11[8];
+    v5 = v12[8];
     if (v5 > 0xFE569FEE078F38E1)
     {
       switch(v5)
@@ -413,9 +433,9 @@ LABEL_24:
   return 3;
 }
 
-void sub_25497C348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497C348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -453,14 +473,20 @@ uint64_t ispExclaveKitCommandChRunAnst(uint64_t a1)
   else
   {
     v3 = *(a1 + 524);
-    v8 = v3;
-    v6[0] = 0;
-    v6[1] = v6;
-    v6[2] = 0x2000000000;
-    v7 = 0;
+    v9 = v3;
+    v7[0] = 0;
+    v7[1] = v7;
+    v7[2] = 0x2000000000;
+    v8 = 0;
     if (ServiceTypeFromChIdx == 1)
     {
-      if (anstmodule_ekanst_channelrunkitanstv150(&properties[70 * v3 + 118], &v8))
+      v6[0] = MEMORY[0x277D85DD0];
+      v6[1] = 0x40000000;
+      v6[2] = ___Z29ispExclaveKitCommandChRunAnstP20sExclaveKitIspCmdHdr_block_invoke;
+      v6[3] = &unk_2797978A0;
+      v6[4] = v7;
+      v6[5] = a1;
+      if (anstmodule_ekanst_channelrunkitanstv150(&properties[70 * v3 + 118], &v9, v6))
       {
         if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
         {
@@ -486,15 +512,15 @@ uint64_t ispExclaveKitCommandChRunAnst(uint64_t a1)
       v4 = 3;
     }
 
-    _Block_object_dispose(v6, 8);
+    _Block_object_dispose(v7, 8);
   }
 
   return v4;
 }
 
-void sub_25497C508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25497C508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -725,11 +751,11 @@ void *___ZL16decodeAnstResultP49anstmodule_ispexclavecorechrunkitanstresultv150_
 
 uint64_t _ispExclaveKitCommandChFacekitConfigSetV2(int a1)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x2000000000;
-  v6 = 0;
-  if (byte_27F6132C0 && (facekitmodule_ekfacekit_channelfaceconfigset(&properties[70 * a1 + 136], &dword_27F6132C4), (v4[3] & 1) == 0))
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2000000000;
+  v7 = 0;
+  if (byte_27F6132C0 && (v3[0] = MEMORY[0x277D85DD0], v3[1] = 0x40000000, v3[2] = ___Z41_ispExclaveKitCommandChFacekitConfigSetV2j_block_invoke, v3[3] = &unk_279797918, v3[4] = &v4, facekitmodule_ekfacekit_channelfaceconfigset(&properties[70 * a1 + 136], &dword_27F6132C4, v3), (v5[3] & 1) == 0))
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
@@ -744,13 +770,13 @@ uint64_t _ispExclaveKitCommandChFacekitConfigSetV2(int a1)
     v1 = 0;
   }
 
-  _Block_object_dispose(&v3, 8);
+  _Block_object_dispose(&v4, 8);
   return v1;
 }
 
-void sub_25497CB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497CB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -836,7 +862,13 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  facekitmodule_ekfacekit_channelrunkitfaceprocess(&properties[70 * v3 + 136], &v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 0x40000000;
+  v10[2] = ___Z43ispExclaveKitCommandChRunFacekitFirstPassV2P20sExclaveKitIspCmdHdr_block_invoke;
+  v10[3] = &unk_279797940;
+  v10[4] = &v12;
+  v10[5] = a1;
+  facekitmodule_ekfacekit_channelrunkitfaceprocess(&properties[70 * v3 + 136], &v11, v10);
   v5 = qword_27F6132E0;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_INFO))
   {
@@ -870,13 +902,12 @@ LABEL_13:
 
 LABEL_14:
   _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-void sub_25497CE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25497CE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -984,10 +1015,10 @@ unsigned __int8 *___Z43ispExclaveKitCommandChRunFacekitFirstPassV2P20sExclaveKit
 
 uint64_t ispExclaveKitCommandChRunFacekitSecondPassV2(uint64_t a1)
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2000000000;
-  v10 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 0;
   ServiceTypeFromChIdx = ispExclaveGetServiceTypeFromChIdx(*(a1 + 524));
   if (ServiceTypeFromChIdx == -1)
   {
@@ -1000,7 +1031,7 @@ uint64_t ispExclaveKitCommandChRunFacekitSecondPassV2(uint64_t a1)
   }
 
   v3 = *(a1 + 524);
-  v6 = v3;
+  v7 = v3;
   if (ServiceTypeFromChIdx != 1)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -1013,8 +1044,13 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  facekitmodule_ekfacekit_channelrunkitfacesecondaryprocess(&properties[70 * v3 + 136], &v6);
-  if (v8[3])
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 0x40000000;
+  v6[2] = ___Z44ispExclaveKitCommandChRunFacekitSecondPassV2P20sExclaveKitIspCmdHdr_block_invoke;
+  v6[3] = &unk_279797968;
+  v6[4] = &v8;
+  facekitmodule_ekfacekit_channelrunkitfacesecondaryprocess(&properties[70 * v3 + 136], &v7, v6);
+  if (v9[3])
   {
     v4 = 0;
   }
@@ -1030,13 +1066,13 @@ LABEL_9:
   }
 
 LABEL_10:
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   return v4;
 }
 
-void sub_25497D1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497D1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1052,55 +1088,88 @@ BOOL ___Z44ispExclaveKitCommandChRunFacekitSecondPassV2P20sExclaveKitIspCmdHdr_b
 
 void commandTimerCallback(ISPExclaveKitTimer *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = qword_27F6132E0;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
   {
     commandTimerCallback(a1, v2);
   }
 
-  ISPExclaveKitTimer::getCmdId(a1);
-  ISPExclaveKitTimer::getCmdId(a1);
+  CmdId = ISPExclaveKitTimer::getCmdId(a1);
+  v4 = ISPExclaveKitTimer::getCmdId(a1);
+  v5 = 1;
+  if (v4 >= 0x80000)
+  {
+    if ((v4 - 589825) <= 4 && v4 != 589827 || v4 == 720896 || v4 == 0x80000)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    if (v4 <= 393216)
+    {
+      if (v4 != 131076 && v4 != 0x40000 && v4 != 327680)
+      {
+        goto LABEL_17;
+      }
+
+LABEL_16:
+      v5 = 0;
+      goto LABEL_17;
+    }
+
+    if ((v4 - 393217) < 2 || v4 == 458752)
+    {
+      goto LABEL_16;
+    }
+  }
+
+LABEL_17:
   if ((byte_27F6136E8 & 1) == 0)
   {
-    v4 = 0;
-    v5 = &unk_27F612E28;
+    v6 = 0;
+    v7 = &unk_27F612E28;
     do
     {
-      if (channelStateGet(v4) != 1)
+      if (channelStateGet(v6) != 1)
       {
-        v7[0] = 0;
-        v7[1] = v7;
-        v7[2] = 0x3802000000;
-        v7[3] = __Block_byref_object_copy__1;
-        v7[4] = __Block_byref_object_dispose__1;
-        v6 = qword_27F6132E0;
+        v10[0] = 0;
+        v10[1] = v10;
+        v10[2] = 0x3802000000;
+        v10[3] = __Block_byref_object_copy__1;
+        v10[4] = __Block_byref_object_dispose__1;
+        v8 = qword_27F6132E0;
         if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v9 = "commandTimerCallback";
-          v10 = 1024;
-          v11 = 84;
-          _os_log_debug_impl(&dword_25497B000, v6, OS_LOG_TYPE_DEBUG, "%s:%d - before calling new IDL\n", buf, 0x12u);
+          v12 = "commandTimerCallback";
+          v13 = 1024;
+          v14 = 84;
+          _os_log_debug_impl(&dword_25497B000, v8, OS_LOG_TYPE_DEBUG, "%s:%d - before calling new IDL\n", buf, 0x12u);
         }
 
-        ispexclavekitdebugmodule_ekdebug_channelcommandtimeout(v5);
-        _Block_object_dispose(v7, 8);
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 0x40000000;
+        v9[2] = ___Z20commandTimerCallbackP18ISPExclaveKitTimer_block_invoke;
+        v9[3] = &unk_279797990;
+        v9[4] = v10;
+        ispexclavekitdebugmodule_ekdebug_channelcommandtimeout(v7, CmdId, v5, v9);
+        _Block_object_dispose(v10, 8);
       }
 
-      ++v4;
-      v5 += 35;
+      ++v6;
+      v7 += 35;
     }
 
-    while (v4 != 5);
+    while (v6 != 5);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25497D4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25497D4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1186,7 +1255,7 @@ LABEL_14:
 
 uint64_t ispExclaveKitCommand(unsigned int *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!pTimerList)
   {
     operator new();
@@ -1197,15 +1266,15 @@ uint64_t ispExclaveKitCommand(unsigned int *a1)
   {
     v3 = cmdStringGet(*a1);
     v4 = *a1;
-    v22 = 136315906;
-    v23 = "ispExclaveKitCommand";
-    v24 = 1024;
-    v25 = 144;
-    v26 = 2080;
-    v27 = v3;
-    v28 = 1024;
-    v29 = v4;
-    _os_log_impl(&dword_25497B000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d - cmd: %s[0x%x]\n", &v22, 0x22u);
+    v21 = 136315906;
+    v22 = "ispExclaveKitCommand";
+    v23 = 1024;
+    v24 = 144;
+    v25 = 2080;
+    v26 = v3;
+    v27 = 1024;
+    v28 = v4;
+    _os_log_impl(&dword_25497B000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d - cmd: %s[0x%x]\n", &v21, 0x22u);
   }
 
   v5 = *a1 - 851970 < 2 || *a1 == 0;
@@ -1850,18 +1919,18 @@ LABEL_222:
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
   {
     v18 = cmdStringGet(*a1);
-    v23 = "ispExclaveKitCommand";
-    v25 = 479;
+    v22 = "ispExclaveKitCommand";
+    v24 = 479;
     v19 = *a1;
-    v22 = 136316162;
-    v26 = 2080;
-    v24 = 1024;
-    v27 = v18;
-    v28 = 1024;
-    v29 = v19;
-    v30 = 2048;
-    v31 = v16 / 0x3E8 - v7 / 0x3E8;
-    _os_log_impl(&dword_25497B000, v17, OS_LOG_TYPE_DEFAULT, "%s:%d - cmd: %s[0x%x] - done, duration=%llu us\n", &v22, 0x2Cu);
+    v21 = 136316162;
+    v25 = 2080;
+    v23 = 1024;
+    v26 = v18;
+    v27 = 1024;
+    v28 = v19;
+    v29 = 2048;
+    v30 = v16 / 0x3E8 - v7 / 0x3E8;
+    _os_log_impl(&dword_25497B000, v17, OS_LOG_TYPE_DEFAULT, "%s:%d - cmd: %s[0x%x] - done, duration=%llu us\n", &v21, 0x2Cu);
   }
 
   if (v6)
@@ -1870,14 +1939,14 @@ LABEL_222:
     ISPExclaveKitTimerList::returnTimer(pTimerList, &v6->__sig);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 uint64_t _generateIdlAlgoEnableBitMap(BOOL *a1)
@@ -1899,7 +1968,7 @@ uint64_t _generateIdlAlgoEnableBitMap(BOOL *a1)
   return v2;
 }
 
-uint64_t getConfigurationType(int a1)
+uint64_t getConfigurationType(uint64_t a1)
 {
   if (!a1)
   {
@@ -1916,25 +1985,30 @@ uint64_t getConfigurationType(int a1)
 
 uint64_t _ispExclaveKitCommandAlgoEnable(unsigned int a1)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3802000000;
-  v11 = __Block_byref_object_copy__2;
-  v12 = __Block_byref_object_dispose__2;
-  v7[0] = a1;
-  v7[1] = _generateIdlAlgoEnableBitMap(algn_27F612C24);
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3802000000;
+  v12 = __Block_byref_object_copy__2;
+  v13 = __Block_byref_object_dispose__2;
+  v8[0] = a1;
+  v8[1] = _generateIdlAlgoEnableBitMap(algn_27F612C24);
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
   {
     _ispExclaveKitCommandAlgoEnable();
   }
 
-  v2 = ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable(&properties[70 * a1 + 116], v7);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 0x40000000;
+  v7[2] = ___Z31_ispExclaveKitCommandAlgoEnablej_block_invoke;
+  v7[3] = &unk_2797979B8;
+  v7[4] = &v9;
+  v2 = ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable(&properties[70 * a1 + 116], v8, v7);
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
   {
     _ispExclaveKitCommandAlgoEnable();
   }
 
-  failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v9 + 40);
+  failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v10 + 40);
   if (v2)
   {
     v4 = 0;
@@ -1960,13 +2034,13 @@ uint64_t _ispExclaveKitCommandAlgoEnable(unsigned int a1)
     v5 = 1;
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   return v5;
 }
 
-void sub_25497E638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25497E638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2000,25 +2074,30 @@ uint64_t ispExclaveKitCommandChStop(uint64_t a1)
 
   else
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x3802000000;
-    v12 = __Block_byref_object_copy__1;
-    v13 = __Block_byref_object_dispose__2;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x3802000000;
+    v13 = __Block_byref_object_copy__1;
+    v14 = __Block_byref_object_dispose__2;
     v2 = *(a1 + 524);
-    v8 = v2;
+    v9 = v2;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChStop();
     }
 
-    v3 = ispexclavekitshared_ekchannelstreamingcontrol_channelstop(&properties[70 * v2 + 116], &v8);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 0x40000000;
+    v8[2] = ___Z26ispExclaveKitCommandChStopP20sExclaveKitIspCmdHdr_block_invoke;
+    v8[3] = &unk_2797979E0;
+    v8[4] = &v10;
+    v3 = ispexclavekitshared_ekchannelstreamingcontrol_channelstop(&properties[70 * v2 + 116], &v9, v8);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChStop();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v10 + 40);
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v11 + 40);
     if (v3)
     {
       v5 = 0;
@@ -2045,15 +2124,15 @@ uint64_t ispExclaveKitCommandChStop(uint64_t a1)
       v6 = 1;
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
   return v6;
 }
 
-void sub_25497E83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25497E83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2080,11 +2159,11 @@ uint64_t ispExclaveKitCommandChConcurrentFlagSet(uint64_t a1)
 
   else
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x3802000000;
-    v12 = __Block_byref_object_copy__5;
-    v13 = __Block_byref_object_dispose__6;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x3802000000;
+    v13 = __Block_byref_object_copy__5;
+    v14 = __Block_byref_object_dispose__6;
     v2 = *(a1 + 524);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
@@ -2092,13 +2171,18 @@ uint64_t ispExclaveKitCommandChConcurrentFlagSet(uint64_t a1)
     }
 
     v3 = *(a1 + 528);
-    v4 = ispexclavekitshared_ekchannelstreamingcontrol_channelconcurrentflagset(&properties[70 * v2 + 116]);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 0x40000000;
+    v9[2] = ___Z39ispExclaveKitCommandChConcurrentFlagSetP20sExclaveKitIspCmdHdr_block_invoke;
+    v9[3] = &unk_279797A08;
+    v9[4] = &v10;
+    v4 = ispexclavekitshared_ekchannelstreamingcontrol_channelconcurrentflagset(&properties[70 * v2 + 116], v3, v9);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChConcurrentFlagSet();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v10 + 40);
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v11 + 40);
     if (v4)
     {
       v6 = 0;
@@ -2124,15 +2208,15 @@ uint64_t ispExclaveKitCommandChConcurrentFlagSet(uint64_t a1)
       v7 = 1;
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
   return v7;
 }
 
-void sub_25497EA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25497EA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2180,12 +2264,12 @@ uint64_t ispExclaveKitCommandChConfigurationStatusRead(uint64_t a1)
 
   else
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x3802000000;
-    v12 = __Block_byref_object_copy__9;
-    v13 = __Block_byref_object_dispose__10;
-    v7 = *(a1 + 524);
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x3802000000;
+    v13 = __Block_byref_object_copy__9;
+    v14 = __Block_byref_object_dispose__10;
+    v8 = *(a1 + 524);
     ConfigurationType = getConfigurationType(*(a1 + 528));
     v2 = *(a1 + 524);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
@@ -2193,13 +2277,18 @@ uint64_t ispExclaveKitCommandChConfigurationStatusRead(uint64_t a1)
       ispExclaveKitCommandChConfigurationStatusRead();
     }
 
-    v3 = ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread(&properties[70 * v2 + 116], &v7);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z45ispExclaveKitCommandChConfigurationStatusReadP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_279797A30;
+    v7[4] = &v10;
+    v3 = ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread(&properties[70 * v2 + 116], &v8, v7);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChConfigurationStatusRead();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v10 + 40);
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v11 + 40);
     if (v3 || failure)
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -2213,18 +2302,18 @@ uint64_t ispExclaveKitCommandChConfigurationStatusRead(uint64_t a1)
     else
     {
       v5 = 0;
-      *(a1 + 532) = v10[48];
+      *(a1 + 532) = v11[48];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
   return v5;
 }
 
-void sub_25497EC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25497EC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2246,7 +2335,7 @@ uint64_t ___Z45ispExclaveKitCommandChConfigurationStatusReadP20sExclaveKitIspCmd
 
 uint64_t ispExclaveKitCommandChAlgoEnable(uint64_t a1)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if (channelStateGet(*(a1 + 524)) == 2)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -2254,20 +2343,20 @@ uint64_t ispExclaveKitCommandChAlgoEnable(uint64_t a1)
       ispExclaveKitCommandChAlgoEnable();
     }
 
-    goto LABEL_4;
+    return 2;
   }
 
   v3 = 0;
-  v69 = a1 + 528;
-  v68 = a1;
+  v54 = a1 + 528;
+  v53 = a1;
   v4 = &properties[70 * *(a1 + 524)];
   v5 = v4 + 70;
-  v70 = v4;
-  v71 = v4 + 76;
+  v55 = v4;
+  v56 = v4 + 76;
   v6 = &unk_27F613A24;
   while (1)
   {
-    v7 = *(v69 + v3);
+    v7 = *(v54 + v3);
     *(&properties[1] + v3) = v7;
     if (v7 == 1)
     {
@@ -2276,10 +2365,10 @@ uint64_t ispExclaveKitCommandChAlgoEnable(uint64_t a1)
       {
         *buf = 136315650;
         *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 271;
-        v75 = 1024;
-        v76 = v3;
+        v58 = 1024;
+        v59 = 271;
+        v60 = 1024;
+        v61 = v3;
         _os_log_debug_impl(&dword_25497B000, v8, OS_LOG_TYPE_DEBUG, "%s:%d - algoType: %d is enabled\n", buf, 0x18u);
       }
 
@@ -2295,12 +2384,12 @@ LABEL_69:
     v6 += 76;
     if (v3 == 255)
     {
-      v65 = channelStateGet(*(v68 + 524));
-      if ((v65 - 2) >= 2)
+      v50 = channelStateGet(*(v53 + 524));
+      if ((v50 - 2) >= 2)
       {
-        if (v65 != 1)
+        if (v50 != 1)
         {
-          if (!v65)
+          if (!v50)
           {
             goto LABEL_80;
           }
@@ -2310,48 +2399,43 @@ LABEL_69:
             ispExclaveKitCommandChAlgoEnable();
           }
 
-LABEL_4:
-          result = 2;
-          goto LABEL_76;
+          return 2;
         }
 
         result = os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG);
         if (!result)
         {
-          goto LABEL_76;
+          return result;
         }
 
         ispExclaveKitCommandChAlgoEnable();
-LABEL_145:
-        result = 0;
-        goto LABEL_76;
+        return 0;
       }
 
 LABEL_80:
-      if (ispExclaveGetServiceTypeFromChIdx(*(v68 + 524)) == -1)
+      if (ispExclaveGetServiceTypeFromChIdx(*(v53 + 524)) == -1)
       {
         if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
         {
           ispExclaveKitCommandChAlgoEnable();
         }
 
-        result = 3;
-        goto LABEL_76;
+        return 3;
       }
 
-      v66 = _ispExclaveKitCommandAlgoEnable(*(v68 + 524));
+      v51 = _ispExclaveKitCommandAlgoEnable(*(v53 + 524));
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
       {
         ispExclaveKitCommandChAlgoEnable();
-        if (!v66)
+        if (!v51)
         {
-          goto LABEL_145;
+          return 0;
         }
       }
 
-      else if (!v66)
+      else if (!v51)
       {
-        goto LABEL_145;
+        return 0;
       }
 
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -2359,7 +2443,7 @@ LABEL_80:
         ispExclaveKitCommandChAlgoEnable();
       }
 
-      goto LABEL_75;
+      return 1;
     }
   }
 
@@ -2372,14 +2456,14 @@ LABEL_80:
     {
       *buf = 136316162;
       *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-      v73 = 1024;
-      v74 = 275;
-      v75 = 1024;
-      v76 = v3;
-      v77 = 1024;
-      v78 = v10;
-      v79 = 1024;
-      LODWORD(v80) = v11;
+      v58 = 1024;
+      v59 = 275;
+      v60 = 1024;
+      v61 = v3;
+      v62 = 1024;
+      v63 = v10;
+      v64 = 1024;
+      LODWORD(v65) = v11;
       _os_log_debug_impl(&dword_25497B000, v12, OS_LOG_TYPE_DEBUG, "%s:%d - algoType: %d is associated with serviceType[%d]: %d\n", buf, 0x24u);
     }
 
@@ -2393,63 +2477,61 @@ LABEL_80:
     {
       *buf = 136315650;
       *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-      v73 = 1024;
-      v74 = 278;
-      v75 = 1024;
-      v76 = v11;
+      v58 = 1024;
+      v59 = 278;
+      v60 = 1024;
+      v61 = v11;
       _os_log_debug_impl(&dword_25497B000, v13, OS_LOG_TYPE_DEBUG, "%s:%d - serviceType: %d was not created, creating endpoint\n", buf, 0x18u);
     }
 
-    v14 = algorithmTypeToConclaveName[v3];
-    v15 = &v71[2 * v11];
-    v16 = tb_conclave_endpoint_for_service();
-    if (v16)
+    v14 = &v56[2 * v11];
+    v15 = tb_conclave_endpoint_for_service();
+    if (v15)
     {
       break;
     }
 
-    v17 = *v15;
-    if (!*v15)
+    v16 = *v14;
+    if (!*v14)
     {
       break;
     }
 
-    v18 = qword_27F6132E0;
+    v17 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
       *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-      v73 = 1024;
-      v74 = 295;
-      v75 = 1024;
-      v76 = v11;
-      v77 = 1024;
-      v78 = 0;
-      v79 = 2048;
-      v80 = v17;
-      _os_log_debug_impl(&dword_25497B000, v18, OS_LOG_TYPE_DEBUG, "%s:%d - [Conclave] tb_conclave_endpoint_for_service is success (EKType:%d / tberr:%u / mConclaveEndpoint:%lu)\n\n", buf, 0x28u);
+      v58 = 1024;
+      v59 = 295;
+      v60 = 1024;
+      v61 = v11;
+      v62 = 1024;
+      v63 = 0;
+      v64 = 2048;
+      v65 = v16;
+      _os_log_debug_impl(&dword_25497B000, v17, OS_LOG_TYPE_DEBUG, "%s:%d - [Conclave] tb_conclave_endpoint_for_service is success (EKType:%d / tberr:%u / mConclaveEndpoint:%lu)\n\n", buf, 0x28u);
     }
 
     switch(v11)
     {
       case 2:
-        v19 = *v15;
-        v20 = ispexclavekitshared_ekstreamingcontrol__init(v70 + 57);
-        v21 = qword_27F6132E0;
-        if (v20)
+        v18 = ispexclavekitshared_ekstreamingcontrol__init(v55 + 57, *v14);
+        v19 = qword_27F6132E0;
+        if (v18)
         {
           if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
           {
             ispExclaveKitCommandChAlgoEnable();
-            v21 = *buf;
+            v19 = *buf;
           }
 
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             ispExclaveKitCommandChAlgoEnable();
           }
 
-          goto LABEL_75;
+          return 1;
         }
 
         if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
@@ -2459,344 +2541,13 @@ LABEL_80:
 
         *buf = 136315394;
         *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 308;
-        v22 = v21;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_STREAMING_CONTROL handler is created\n";
+        v58 = 1024;
+        v59 = 308;
+        v20 = v19;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_STREAMING_CONTROL handler is created\n";
         goto LABEL_66;
       case 3:
-        v47 = *v15;
-        v48 = ispexclavekitshared_ekchannelstreamingcontrol__init(v70 + 58);
-        v49 = qword_27F6132E0;
-        if (v48)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v49 = *buf;
-          }
-
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 321;
-        v22 = v49;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_CHANNEL_STREAMING_CONTROL handler is created\n";
-        goto LABEL_66;
-      case 4:
-        v44 = *v15;
-        v45 = ispexclavekitshared_ekispmanager__init(v70 + 61);
-        v46 = qword_27F6132E0;
-        if (v45)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v46 = *buf;
-          }
-
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 334;
-        v22 = v46;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ISP_MANAGER handler is created\n";
-        goto LABEL_66;
-      case 5:
-        v40 = *v15;
-        v41 = ispexclavekitdebugmodule_ekdebug__init(v70 + 65);
-        v42 = qword_27F6132E0;
-        if (v41)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v42 = *buf;
-          }
-
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 348;
-        v22 = v42;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_DEBUG handler is created\n";
-        goto LABEL_66;
-      case 6:
-        v27 = *v15;
-        v28 = anstmodule_ekanst__init(v70 + 59);
-        v29 = qword_27F6132E0;
-        if (v28)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v29 = *buf;
-          }
-
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 361;
-        v22 = v29;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ANST handler is created\n";
-        goto LABEL_66;
-      case 7:
-        v34 = *v15;
-        v35 = andkmodule_ekandk__init(v70 + 62);
-        v36 = qword_27F6132E0;
-        if (v35)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v36 = *buf;
-          }
-
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 374;
-        v22 = v36;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ANDK handler is created\n";
-        goto LABEL_66;
-      case 8:
-        v50 = *v15;
-        v51 = facekitmodule_ekfacekit__init(v70 + 68);
-        v52 = qword_27F6132E0;
-        if (v51)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v52 = *buf;
-          }
-
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 387;
-        v22 = v52;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_FACEKIT handler is created\n";
-        goto LABEL_66;
-      case 11:
-        v53 = *v15;
-        v54 = autoexposuremodule_ekautoexposure__init(v70 + 60);
-        v55 = qword_27F6132E0;
-        if (v54)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v55 = *buf;
-          }
-
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 442;
-        v22 = v55;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_AUTO_EXPOSURE handler is created\n";
-        goto LABEL_66;
-      case 12:
-        v59 = qword_27F6132E0;
-        if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-          v73 = 1024;
-          v74 = 447;
-          _os_log_error_impl(&dword_25497B000, v59, OS_LOG_TYPE_ERROR, "%s:%d - TBD\n", buf, 0x12u);
-        }
-
-        v60 = *v15;
-        v61 = attentionawarenessmodule_ekattentionawareness__init(v70 + 63);
-        v62 = qword_27F6132E0;
-        if (v61)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v62 = *buf;
-          }
-
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 457;
-        v22 = v62;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ATTENTION_AWARENESS handler is created\n";
-        goto LABEL_66;
-      case 13:
-        v56 = *v15;
-        v57 = motiontowakemodule_ekmotiontowake__init(v70 + 67);
-        v58 = qword_27F6132E0;
-        if (v57)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v58 = *buf;
-          }
-
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 485;
-        v22 = v58;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_MOTION_TO_WAKE handler is created\n";
-        goto LABEL_66;
-      case 14:
-        v24 = *v15;
-        v25 = eyereliefmodule_ekeyerelief__init(v70 + 56);
-        v26 = qword_27F6132E0;
-        if (v25)
-        {
-          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-            v26 = *buf;
-          }
-
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-          {
-            ispExclaveKitCommandChAlgoEnable();
-          }
-
-          goto LABEL_75;
-        }
-
-        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_67;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 498;
-        v22 = v26;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_EYE_RELIEF handler is created\n";
-        goto LABEL_66;
-      case 15:
-        v37 = *v15;
-        v38 = ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig__init(v70 + 66);
+        v38 = ispexclavekitshared_ekchannelstreamingcontrol__init(v55 + 58, *v14);
         v39 = qword_27F6132E0;
         if (v38)
         {
@@ -2811,7 +2562,7 @@ LABEL_80:
             ispExclaveKitCommandChAlgoEnable();
           }
 
-          goto LABEL_75;
+          return 1;
         }
 
         if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
@@ -2821,67 +2572,386 @@ LABEL_80:
 
         *buf = 136315394;
         *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-        v73 = 1024;
-        v74 = 512;
-        v22 = v39;
-        v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_HARDWARE_DEFAULT_CONFIG handler is created\n";
+        v58 = 1024;
+        v59 = 321;
+        v20 = v39;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_CHANNEL_STREAMING_CONTROL handler is created\n";
         goto LABEL_66;
-      case 17:
-        v30 = qword_27F6132E0;
-        if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-          v73 = 1024;
-          v74 = 462;
-          _os_log_error_impl(&dword_25497B000, v30, OS_LOG_TYPE_ERROR, "%s:%d - TBD\n", buf, 0x12u);
-        }
-
-        v31 = *v15;
-        v32 = fidflowmodule_ekfidflow__init(v70 + 64);
-        v33 = qword_27F6132E0;
-        if (v32)
+      case 4:
+        v36 = ispexclavekitshared_ekispmanager__init(v55 + 61, *v14);
+        v37 = qword_27F6132E0;
+        if (v36)
         {
           if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
           {
             ispExclaveKitCommandChAlgoEnable();
-            v33 = *buf;
+            v37 = *buf;
           }
 
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             ispExclaveKitCommandChAlgoEnable();
           }
 
-          goto LABEL_75;
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 334;
+        v20 = v37;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ISP_MANAGER handler is created\n";
+        goto LABEL_66;
+      case 5:
+        v33 = ispexclavekitdebugmodule_ekdebug__init(v55 + 65, *v14);
+        v34 = qword_27F6132E0;
+        if (v33)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v34 = *buf;
+          }
+
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 348;
+        v20 = v34;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_DEBUG handler is created\n";
+        goto LABEL_66;
+      case 6:
+        v24 = anstmodule_ekanst__init(v55 + 59, *v14);
+        v25 = qword_27F6132E0;
+        if (v24)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v25 = *buf;
+          }
+
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 361;
+        v20 = v25;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ANST handler is created\n";
+        goto LABEL_66;
+      case 7:
+        v29 = andkmodule_ekandk__init(v55 + 62, *v14);
+        v30 = qword_27F6132E0;
+        if (v29)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v30 = *buf;
+          }
+
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 374;
+        v20 = v30;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ANDK handler is created\n";
+        goto LABEL_66;
+      case 8:
+        v40 = facekitmodule_ekfacekit__init(v55 + 68, *v14);
+        v41 = qword_27F6132E0;
+        if (v40)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v41 = *buf;
+          }
+
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 387;
+        v20 = v41;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_FACEKIT handler is created\n";
+        goto LABEL_66;
+      case 11:
+        v42 = autoexposuremodule_ekautoexposure__init(v55 + 60, *v14);
+        v43 = qword_27F6132E0;
+        if (v42)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v43 = *buf;
+          }
+
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 442;
+        v20 = v43;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_AUTO_EXPOSURE handler is created\n";
+        goto LABEL_66;
+      case 12:
+        v46 = qword_27F6132E0;
+        if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+          v58 = 1024;
+          v59 = 447;
+          _os_log_error_impl(&dword_25497B000, v46, OS_LOG_TYPE_ERROR, "%s:%d - TBD\n", buf, 0x12u);
+        }
+
+        v47 = attentionawarenessmodule_ekattentionawareness__init(v55 + 63, *v14);
+        v48 = qword_27F6132E0;
+        if (v47)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v48 = *buf;
+          }
+
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 457;
+        v20 = v48;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_ATTENTION_AWARENESS handler is created\n";
+        goto LABEL_66;
+      case 13:
+        v44 = motiontowakemodule_ekmotiontowake__init(v55 + 67, *v14);
+        v45 = qword_27F6132E0;
+        if (v44)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v45 = *buf;
+          }
+
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 485;
+        v20 = v45;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_MOTION_TO_WAKE handler is created\n";
+        goto LABEL_66;
+      case 14:
+        v22 = eyereliefmodule_ekeyerelief__init(v55 + 56, *v14);
+        v23 = qword_27F6132E0;
+        if (v22)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v23 = *buf;
+          }
+
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 498;
+        v20 = v23;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_EYE_RELIEF handler is created\n";
+        goto LABEL_66;
+      case 15:
+        v31 = ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig__init(v55 + 66, *v14);
+        v32 = qword_27F6132E0;
+        if (v31)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v32 = *buf;
+          }
+
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
+        }
+
+        if (!os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_67;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+        v58 = 1024;
+        v59 = 512;
+        v20 = v32;
+        v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_HARDWARE_DEFAULT_CONFIG handler is created\n";
+        goto LABEL_66;
+      case 17:
+        v26 = qword_27F6132E0;
+        if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
+          v58 = 1024;
+          v59 = 462;
+          _os_log_error_impl(&dword_25497B000, v26, OS_LOG_TYPE_ERROR, "%s:%d - TBD\n", buf, 0x12u);
+        }
+
+        v27 = fidflowmodule_ekfidflow__init(v55 + 64, *v14);
+        v28 = qword_27F6132E0;
+        if (v27)
+        {
+          if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+            v28 = *buf;
+          }
+
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            ispExclaveKitCommandChAlgoEnable();
+          }
+
+          return 1;
         }
 
         if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
           *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-          v73 = 1024;
-          v74 = 472;
-          v22 = v33;
-          v23 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_FID_FLOW handler is created\n";
+          v58 = 1024;
+          v59 = 472;
+          v20 = v28;
+          v21 = "%s:%d - ISP_EXCLAVE_KIT_SERVICE_TYPE_FID_FLOW handler is created\n";
 LABEL_66:
-          _os_log_debug_impl(&dword_25497B000, v22, OS_LOG_TYPE_DEBUG, v23, buf, 0x12u);
+          _os_log_debug_impl(&dword_25497B000, v20, OS_LOG_TYPE_DEBUG, v21, buf, 0x12u);
         }
 
 LABEL_67:
         *(v5 + v11) = 1;
         break;
       default:
-        v43 = qword_27F6132E0;
+        v35 = qword_27F6132E0;
         if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
           *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-          v73 = 1024;
-          v74 = 517;
-          v75 = 1024;
-          v76 = v11;
-          _os_log_error_impl(&dword_25497B000, v43, OS_LOG_TYPE_ERROR, "%s:%d - service: %d is not handled properly\n", buf, 0x18u);
+          v58 = 1024;
+          v59 = 517;
+          v60 = 1024;
+          v61 = v11;
+          _os_log_error_impl(&dword_25497B000, v35, OS_LOG_TYPE_ERROR, "%s:%d - service: %d is not handled properly\n", buf, 0x18u);
         }
 
         goto LABEL_67;
@@ -2894,39 +2964,35 @@ LABEL_68:
     }
   }
 
-  v63 = qword_27F6132E0;
+  v49 = qword_27F6132E0;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
   {
-    v67 = *v15;
+    v52 = *v14;
     *buf = 136316162;
     *&buf[4] = "ispExclaveKitCommandChAlgoEnable";
-    v73 = 1024;
-    v74 = 287;
-    v75 = 1024;
-    v76 = v11;
-    v77 = 1024;
-    v78 = v16;
-    v79 = 2048;
-    v80 = v67;
-    _os_log_error_impl(&dword_25497B000, v63, OS_LOG_TYPE_ERROR, "%s:%d - [Conclave] tb_conclave_endpoint_for_service failed (EKType:%d / tberr:%u / mConclaveEndpoint:%lu)\n\n", buf, 0x28u);
-    v63 = qword_27F6132E0;
+    v58 = 1024;
+    v59 = 287;
+    v60 = 1024;
+    v61 = v11;
+    v62 = 1024;
+    v63 = v15;
+    v64 = 2048;
+    v65 = v52;
+    _os_log_error_impl(&dword_25497B000, v49, OS_LOG_TYPE_ERROR, "%s:%d - [Conclave] tb_conclave_endpoint_for_service failed (EKType:%d / tberr:%u / mConclaveEndpoint:%lu)\n\n", buf, 0x28u);
+    v49 = qword_27F6132E0;
   }
 
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
   {
     ispExclaveKitCommandChAlgoEnable();
   }
 
-LABEL_75:
-  result = 1;
-LABEL_76:
-  v64 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t ispExclaveKitCommandChOn(unsigned int *a1)
+uint64_t ispExclaveKitCommandChOn(uint64_t a1)
 {
-  if (ispExclaveGetServiceTypeFromChIdx(a1[131]) == -1)
+  if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) == -1)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
@@ -2938,25 +3004,30 @@ uint64_t ispExclaveKitCommandChOn(unsigned int *a1)
 
   else
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x3802000000;
-    v12 = __Block_byref_object_copy__13;
-    v13 = __Block_byref_object_dispose__14;
-    v2 = a1[131];
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x3802000000;
+    v13 = __Block_byref_object_copy__13;
+    v14 = __Block_byref_object_dispose__14;
+    v2 = *(a1 + 524);
     channelStateUpdate(v2, 0);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChOn();
     }
 
-    v3 = ispexclavekitshared_ekstreamingcontrol_on(&properties[70 * v2 + 114]);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 0x40000000;
+    v9[2] = ___Z24ispExclaveKitCommandChOnP20sExclaveKitIspCmdHdr_block_invoke;
+    v9[3] = &unk_279797A58;
+    v9[4] = &v10;
+    v3 = ispexclavekitshared_ekstreamingcontrol_on(&properties[70 * v2 + 114], v9);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChOn();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v10 + 40);
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v11 + 40);
     if (v3)
     {
       v5 = 0;
@@ -2969,17 +3040,17 @@ uint64_t ispExclaveKitCommandChOn(unsigned int *a1)
 
     if (v5)
     {
-      byte_27F6136E8 = v10[48];
+      byte_27F6136E8 = v11[48];
       v7 = qword_27F6132E0;
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
       {
         ispExclaveKitCommandChOn();
-        v7 = v14;
+        v7 = v15;
       }
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        ispExclaveKitCommandChOn(a1);
+        ispExclaveKitCommandChOn();
       }
 
       v6 = 0;
@@ -2995,15 +3066,15 @@ uint64_t ispExclaveKitCommandChOn(unsigned int *a1)
       v6 = 1;
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
   return v6;
 }
 
-void sub_25497FE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25497FE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3023,9 +3094,9 @@ uint64_t ___Z24ispExclaveKitCommandChOnP20sExclaveKitIspCmdHdr_block_invoke(uint
   return result;
 }
 
-uint64_t ispExclaveKitCommandChOff(unsigned int *a1)
+uint64_t ispExclaveKitCommandChOff(uint64_t a1)
 {
-  if (ispExclaveGetServiceTypeFromChIdx(a1[131]) == -1)
+  if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) == -1)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
@@ -3037,24 +3108,29 @@ uint64_t ispExclaveKitCommandChOff(unsigned int *a1)
 
   else
   {
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x3802000000;
-    v11 = __Block_byref_object_copy__17;
-    v12 = __Block_byref_object_dispose__18;
-    v2 = a1[131];
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x3802000000;
+    v12 = __Block_byref_object_copy__17;
+    v13 = __Block_byref_object_dispose__18;
+    v2 = *(a1 + 524);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChOff();
     }
 
-    v3 = ispexclavekitshared_ekstreamingcontrol_off(&properties[70 * v2 + 114]);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 0x40000000;
+    v8[2] = ___Z25ispExclaveKitCommandChOffP20sExclaveKitIspCmdHdr_block_invoke;
+    v8[3] = &unk_279797A80;
+    v8[4] = &v9;
+    v3 = ispexclavekitshared_ekstreamingcontrol_off(&properties[70 * v2 + 114], v8);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChOff();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v9 + 40);
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v10 + 40);
     if (v3)
     {
       v5 = 0;
@@ -3069,10 +3145,10 @@ uint64_t ispExclaveKitCommandChOff(unsigned int *a1)
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
       {
-        ispExclaveKitCommandChOff(a1);
+        ispExclaveKitCommandChOff();
       }
 
-      channelStateUpdate(a1[131], 1);
+      channelStateUpdate(*(a1 + 524), 1);
       v6 = 0;
     }
 
@@ -3086,15 +3162,15 @@ uint64_t ispExclaveKitCommandChOff(unsigned int *a1)
       v6 = 1;
     }
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v9, 8);
   }
 
   return v6;
 }
 
-void sub_254980048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254980048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3130,7 +3206,7 @@ uint64_t ispExclaveKitCommandChFrameRateControl(uint64_t a1)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
-      ispExclaveKitCommandChFrameRateControl((a1 + 524));
+      ispExclaveKitCommandChFrameRateControl();
     }
 
     return 2;
@@ -3139,26 +3215,31 @@ uint64_t ispExclaveKitCommandChFrameRateControl(uint64_t a1)
   else
   {
     v3 = *(a1 + 524);
-    v12[0] = v3;
-    v12[2] = *(a1 + 784);
-    v12[1] = _generateIdlAlgoEnableBitMap((a1 + 528));
-    v7 = 0;
-    v8 = &v7;
-    v9 = 0x3802000000;
-    v10 = __Block_byref_object_copy__21;
-    v11 = __Block_byref_object_dispose__22;
+    v13[0] = v3;
+    v13[2] = *(a1 + 784);
+    LODWORD(v13[1]) = _generateIdlAlgoEnableBitMap((a1 + 528));
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x3802000000;
+    v11 = __Block_byref_object_copy__21;
+    v12 = __Block_byref_object_dispose__22;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFrameRateControl();
     }
 
-    v4 = ispexclavekitshared_ekchannelstreamingcontrol_channelsetalgoframerate(&properties[70 * v3 + 116], v12);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z38ispExclaveKitCommandChFrameRateControlP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_279797AA8;
+    v7[4] = &v8;
+    v4 = ispexclavekitshared_ekchannelstreamingcontrol_channelsetalgoframerate(&properties[70 * LODWORD(v3) + 116], v13, v7);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFrameRateControl();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v8 + 40);
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v9 + 40);
     if (v4 || failure)
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -3172,24 +3253,24 @@ uint64_t ispExclaveKitCommandChFrameRateControl(uint64_t a1)
     else
     {
       *(a1 + 788) = 1;
-      *(a1 + 792) = *(v8 + 12);
+      *(a1 + 792) = *(v9 + 12);
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
       {
-        ispExclaveKitCommandChFrameRateControl(a1);
+        ispExclaveKitCommandChFrameRateControl();
       }
 
       v2 = 0;
     }
 
-    _Block_object_dispose(&v7, 8);
+    _Block_object_dispose(&v8, 8);
   }
 
   return v2;
 }
 
-void sub_2549802DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2549802DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3211,12 +3292,12 @@ uint64_t ___Z38ispExclaveKitCommandChFrameRateControlP20sExclaveKitIspCmdHdr_blo
 
 uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
 {
-  v53[18] = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v52 = 0;
-  v53[0] = &v52;
-  v53[1] = 0x9802000000;
-  v53[2] = __Block_byref_object_copy__25;
-  v53[3] = __Block_byref_object_dispose__26;
+  v53 = &v52;
+  v54 = 0x9802000000;
+  v55 = __Block_byref_object_copy__25;
+  v56 = __Block_byref_object_dispose__26;
   v2 = *(a1 + 524);
   v31 = v2;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
@@ -3224,7 +3305,12 @@ uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
     ispExclaveKitCommandChInfoSet();
   }
 
-  v3 = ispexclavekitshared_ekispmanager_channelinformationget(&properties[70 * v2 + 122], &v31);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 0x40000000;
+  v30[2] = ___Z29ispExclaveKitCommandChInfoSetP20sExclaveKitIspCmdHdr_block_invoke;
+  v30[3] = &unk_279797AD0;
+  v30[4] = &v52;
+  v3 = ispexclavekitshared_ekispmanager_channelinformationget(&properties[70 * v2 + 122], &v31, v30);
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
   {
     ispExclaveKitCommandChInfoSet();
@@ -3238,134 +3324,134 @@ uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
     }
   }
 
-  else if (*(v53[0] + 148) < 0x15u)
+  else if (*(v53 + 37) < 0x15u)
   {
     v4 = *(a1 + 564);
-    if (v4 == 255 || *(v53[0] + 72) == v4)
+    if (v4 == 255 || *(v53 + 72) == v4)
     {
       v5 = *(a1 + 592);
-      if (*(v53[0] + 100) == v5 && *(v53[0] + 104) == *(a1 + 596) && *(v53[0] + 108) == *(a1 + 600) && *(v53[0] + 112) == *(a1 + 604) && *(v53[0] + 116) == *(a1 + 608) && *(v53[0] + 120) == *(a1 + 612) && *(v53[0] + 124) == *(a1 + 616) && *(v53[0] + 128) == *(a1 + 620) && *(v53[0] + 132) == *(a1 + 624))
+      if (*(v53 + 25) == v5 && *(v53 + 26) == *(a1 + 596) && *(v53 + 27) == *(a1 + 600) && *(v53 + 28) == *(a1 + 604) && *(v53 + 29) == *(a1 + 608) && *(v53 + 30) == *(a1 + 612) && *(v53 + 31) == *(a1 + 616) && *(v53 + 32) == *(a1 + 620) && *(v53 + 33) == *(a1 + 624))
       {
-        v19 = *(a1 + 628);
-        if (*(v53[0] + 136) == v19 && *(v53[0] + 140) == *(a1 + 632) && *(v53[0] + 144) == *(a1 + 636))
+        v18 = *(a1 + 628);
+        if (*(v53 + 34) == v18 && *(v53 + 35) == *(a1 + 632) && *(v53 + 36) == *(a1 + 636))
         {
-          if (*(v53[0] + 52) == *(a1 + 536))
+          if (*(v53 + 13) == *(a1 + 536))
           {
-            if (*(a1 + 532) == *(v53[0] + 48))
+            if (*(a1 + 532) == *(v53 + 48))
             {
-              v23 = *(a1 + 556);
-              if (*(v53[0] + 64) == v23 && *(v53[0] + 68) == *(a1 + 560))
+              v22 = *(a1 + 556);
+              if (*(v53 + 16) == v22 && *(v53 + 17) == *(a1 + 560))
               {
-                v24 = *(a1 + 548);
-                if (*(v53[0] + 56) == v24 && *(v53[0] + 60) == *(a1 + 552))
+                v23 = *(a1 + 548);
+                if (*(v53 + 14) == v23 && *(v53 + 15) == *(a1 + 552))
                 {
                   v8 = 0;
                   goto LABEL_31;
                 }
 
-                v28 = qword_27F6132E0;
+                v27 = qword_27F6132E0;
                 if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
                 {
-                  v30 = *(a1 + 552);
+                  v29 = *(a1 + 552);
                   *buf = 136315906;
                   *&buf[4] = "ispExclaveKitCommandChInfoSet";
                   v33 = 1024;
                   v34 = 795;
                   v35 = 1024;
-                  *v36 = v24;
-                  *&v36[4] = 1024;
-                  *&v36[6] = v30;
-                  _os_log_error_impl(&dword_25497B000, v28, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid window percentage in Ch info: %u %u\n", buf, 0x1Eu);
-                  v28 = qword_27F6132E0;
-                }
-
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-                {
-                  ispExclaveKitCommandChInfoSet(v53);
-                }
-              }
-
-              else
-              {
-                v27 = qword_27F6132E0;
-                if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
-                {
-                  v29 = *(a1 + 560);
-                  *buf = 136315906;
-                  *&buf[4] = "ispExclaveKitCommandChInfoSet";
-                  v33 = 1024;
-                  v34 = 785;
-                  v35 = 1024;
                   *v36 = v23;
                   *&v36[4] = 1024;
                   *&v36[6] = v29;
-                  _os_log_error_impl(&dword_25497B000, v27, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid lenslimitedocshift in Ch info: %d %d\n", buf, 0x1Eu);
+                  _os_log_error_impl(&dword_25497B000, v27, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid window percentage in Ch info: %u %u\n", buf, 0x1Eu);
                   v27 = qword_27F6132E0;
                 }
 
                 if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                 {
-                  ispExclaveKitCommandChInfoSet(v53);
+                  ispExclaveKitCommandChInfoSet();
+                }
+              }
+
+              else
+              {
+                v26 = qword_27F6132E0;
+                if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
+                {
+                  v28 = *(a1 + 560);
+                  *buf = 136315906;
+                  *&buf[4] = "ispExclaveKitCommandChInfoSet";
+                  v33 = 1024;
+                  v34 = 785;
+                  v35 = 1024;
+                  *v36 = v22;
+                  *&v36[4] = 1024;
+                  *&v36[6] = v28;
+                  _os_log_error_impl(&dword_25497B000, v26, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid lenslimitedocshift in Ch info: %d %d\n", buf, 0x1Eu);
+                  v26 = qword_27F6132E0;
+                }
+
+                if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                {
+                  ispExclaveKitCommandChInfoSet();
                 }
               }
             }
 
             else
             {
-              v26 = qword_27F6132E0;
+              v25 = qword_27F6132E0;
               if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
               {
                 ispExclaveKitCommandChInfoSet();
-                v26 = *buf;
+                v25 = *buf;
               }
 
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                ispExclaveKitCommandChInfoSet(v53);
+                ispExclaveKitCommandChInfoSet();
               }
             }
           }
 
           else
           {
-            v25 = qword_27F6132E0;
+            v24 = qword_27F6132E0;
             if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
             {
               ispExclaveKitCommandChInfoSet();
-              v25 = *buf;
+              v24 = *buf;
             }
 
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              ispExclaveKitCommandChInfoSet(v53);
+              ispExclaveKitCommandChInfoSet();
             }
           }
         }
 
         else
         {
-          v20 = qword_27F6132E0;
+          v19 = qword_27F6132E0;
           if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
           {
-            v21 = *(a1 + 632);
-            v22 = *(a1 + 636);
+            v20 = *(a1 + 632);
+            v21 = *(a1 + 636);
             *buf = 136316162;
             *&buf[4] = "ispExclaveKitCommandChInfoSet";
             v33 = 1024;
             v34 = 760;
             v35 = 2048;
-            *v36 = v19;
+            *v36 = v18;
             *&v36[8] = 2048;
-            v37 = v21;
+            v37 = v20;
             v38 = 2048;
-            v39 = v22;
-            _os_log_error_impl(&dword_25497B000, v20, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid extrinsicstranslation in Ch info: [%f %f %f] \n", buf, 0x30u);
-            v20 = qword_27F6132E0;
+            v39 = v21;
+            _os_log_error_impl(&dword_25497B000, v19, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid extrinsicstranslation in Ch info: [%f %f %f] \n", buf, 0x30u);
+            v19 = qword_27F6132E0;
           }
 
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            ispExclaveKitCommandChInfoSet(v53);
+            ispExclaveKitCommandChInfoSet();
           }
         }
       }
@@ -3375,14 +3461,14 @@ uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
         v6 = qword_27F6132E0;
         if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
         {
-          v11 = *(a1 + 596);
-          v12 = *(a1 + 600);
-          v13 = *(a1 + 604);
-          v14 = *(a1 + 608);
-          v15 = *(a1 + 612);
-          v16 = *(a1 + 616);
-          v17 = *(a1 + 620);
-          v18 = *(a1 + 624);
+          v10 = *(a1 + 596);
+          v11 = *(a1 + 600);
+          v12 = *(a1 + 604);
+          v13 = *(a1 + 608);
+          v14 = *(a1 + 612);
+          v15 = *(a1 + 616);
+          v16 = *(a1 + 620);
+          v17 = *(a1 + 624);
           *buf = 136317698;
           *&buf[4] = "ispExclaveKitCommandChInfoSet";
           v33 = 1024;
@@ -3390,28 +3476,28 @@ uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
           v35 = 2048;
           *v36 = v5;
           *&v36[8] = 2048;
-          v37 = v11;
+          v37 = v10;
           v38 = 2048;
-          v39 = v12;
+          v39 = v11;
           v40 = 2048;
-          v41 = v13;
+          v41 = v12;
           v42 = 2048;
-          v43 = v14;
+          v43 = v13;
           v44 = 2048;
-          v45 = v15;
+          v45 = v14;
           v46 = 2048;
-          v47 = v16;
+          v47 = v15;
           v48 = 2048;
-          v49 = v17;
+          v49 = v16;
           v50 = 2048;
-          v51 = v18;
+          v51 = v17;
           _os_log_error_impl(&dword_25497B000, v6, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: Invalid extrinsicsrotation in Ch info: [%f %f %f %f %f %f %f %f %f]\n", buf, 0x6Cu);
           v6 = qword_27F6132E0;
         }
 
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          ispExclaveKitCommandChInfoSet(v53);
+          ispExclaveKitCommandChInfoSet();
         }
       }
     }
@@ -3427,7 +3513,7 @@ uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        ispExclaveKitCommandChInfoSet(v53);
+        ispExclaveKitCommandChInfoSet();
       }
     }
   }
@@ -3440,8 +3526,14 @@ uint64_t ispExclaveKitCommandChInfoSet(uint64_t a1)
   v8 = 1;
 LABEL_31:
   _Block_object_dispose(&v52, 8);
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
+void sub_2549809F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __n128 __Block_byref_object_copy__25(uint64_t a1, uint64_t a2)
@@ -3481,11 +3573,11 @@ __n128 ___Z29ispExclaveKitCommandChInfoSetP20sExclaveKitIspCmdHdr_block_invoke(u
 
 uint64_t ispExclaveKitCommandChStart(uint64_t a1)
 {
-  v7[0] = 0;
-  v7[1] = v7;
-  v7[2] = 0x3802000000;
-  v7[3] = __Block_byref_object_copy__29;
-  v7[4] = __Block_byref_object_dispose__30;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x3802000000;
+  v8[3] = __Block_byref_object_copy__29;
+  v8[4] = __Block_byref_object_dispose__30;
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) == -1)
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -3512,13 +3604,18 @@ LABEL_3:
     if (!v3)
     {
       v6 = *v2;
-      v8 = *v2;
+      v9 = *v2;
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
       {
         ispExclaveKitCommandChStart();
       }
 
-      v5 = ispexclavekitshared_ekchannelstreamingcontrol_channelstart(&properties[70 * v6 + 116], &v8);
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 0x40000000;
+      v7[2] = ___Z27ispExclaveKitCommandChStartP20sExclaveKitIspCmdHdr_block_invoke;
+      v7[3] = &unk_279797AF8;
+      v7[4] = v8;
+      v5 = ispexclavekitshared_ekchannelstreamingcontrol_channelstart(&properties[70 * v6 + 116], &v9, v7);
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
       {
         ispExclaveKitCommandChStart();
@@ -3545,13 +3642,13 @@ LABEL_14:
   }
 
 LABEL_9:
-  _Block_object_dispose(v7, 8);
+  _Block_object_dispose(v8, 8);
   return v3;
 }
 
-void sub_254980C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_254980C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3581,7 +3678,7 @@ uint64_t ispExclaveKitCommandChFidSessionEnter(uint64_t a1)
       ispExclaveKitCommandChFidSessionEnter();
     }
 
-    v4 = 3;
+    return 3;
   }
 
   else
@@ -3603,7 +3700,12 @@ uint64_t ispExclaveKitCommandChFidSessionEnter(uint64_t a1)
       _os_log_impl(&dword_25497B000, v3, OS_LOG_TYPE_DEFAULT, "%s:%d - [EK] Run Fid Session Enter\n", buf, 0x12u);
     }
 
-    v4 = fidflowmodule_ekfidflow_channelfidsessionenter(&properties[70 * v2 + 128], &v9);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z37ispExclaveKitCommandChFidSessionEnterP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_279797B20;
+    v7[4] = v8;
+    v4 = fidflowmodule_ekfidflow_channelfidsessionenter(&properties[70 * v2 + 128], &v9, v7);
     v5 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
     {
@@ -3627,7 +3729,6 @@ uint64_t ispExclaveKitCommandChFidSessionEnter(uint64_t a1)
     _Block_object_dispose(v8, 8);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3651,18 +3752,23 @@ uint64_t ispExclaveKitCommandChFidSessionExit(uint64_t a1)
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
     v2 = *(a1 + 524);
-    v6 = v2;
-    v5[0] = 0;
-    v5[1] = v5;
-    v5[2] = 0x3802000000;
-    v5[3] = __Block_byref_object_copy__37;
-    v5[4] = __Block_byref_object_dispose__38;
+    v7 = v2;
+    v6[0] = 0;
+    v6[1] = v6;
+    v6[2] = 0x3802000000;
+    v6[3] = __Block_byref_object_copy__37;
+    v6[4] = __Block_byref_object_dispose__38;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidSessionExit();
     }
 
-    v3 = fidflowmodule_ekfidflow_channelfidsessionexit(&properties[70 * v2 + 128], &v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z36ispExclaveKitCommandChFidSessionExitP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_279797B48;
+    v5[4] = v6;
+    v3 = fidflowmodule_ekfidflow_channelfidsessionexit(&properties[70 * v2 + 128], &v7, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidSessionExit();
@@ -3683,7 +3789,7 @@ LABEL_6:
       v3 = 1;
     }
 
-    _Block_object_dispose(v5, 8);
+    _Block_object_dispose(v6, 8);
     return v3;
   }
 
@@ -3695,9 +3801,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_2549810D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2549810D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3717,53 +3823,44 @@ uint64_t ___Z36ispExclaveKitCommandChFidSessionExitP20sExclaveKitIspCmdHdr_block
   return result;
 }
 
-uint64_t *OUTLINED_FUNCTION_11@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-unsigned int *OUTLINED_FUNCTION_13@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 uint64_t ispExclaveKitCommandChFidSessionStart(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
     v2 = *(a1 + 524);
-    v8 = v2;
+    v9 = v2;
     v3 = *(a1 + 528);
     if (v3 >= 4)
     {
       LOBYTE(v3) = 0;
     }
 
-    v9 = v3;
+    v10 = v3;
     v4 = *(a1 + 532);
     if (v4 >= 4)
     {
       LOBYTE(v4) = 0;
     }
 
-    v10 = v4;
-    v11 = *(a1 + 536);
-    v12 = *(a1 + 540);
-    v7[0] = 0;
-    v7[1] = v7;
-    v7[2] = 0x3802000000;
-    v7[3] = __Block_byref_object_copy__3;
-    v7[4] = __Block_byref_object_dispose__3;
+    v11 = v4;
+    v12 = *(a1 + 536);
+    v13 = *(a1 + 540);
+    v8[0] = 0;
+    v8[1] = v8;
+    v8[2] = 0x3802000000;
+    v8[3] = __Block_byref_object_copy__3;
+    v8[4] = __Block_byref_object_dispose__3;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidSessionStart();
     }
 
-    v5 = fidflowmodule_ekfidflow_channelfidsessionstart(&properties[70 * v2 + 128], &v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z37ispExclaveKitCommandChFidSessionStartP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_279797B70;
+    v7[4] = v8;
+    v5 = fidflowmodule_ekfidflow_channelfidsessionstart(&properties[70 * v2 + 128], &v9, v7);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidSessionStart();
@@ -3784,7 +3881,7 @@ LABEL_10:
       v5 = 1;
     }
 
-    _Block_object_dispose(v7, 8);
+    _Block_object_dispose(v8, 8);
     return v5;
   }
 
@@ -3796,9 +3893,9 @@ LABEL_10:
   return 3;
 }
 
-void sub_25498137C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25498137C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3823,18 +3920,23 @@ uint64_t ispExclaveKitCommandChFidSessionStop(uint64_t a1)
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
     v2 = *(a1 + 524);
-    v6 = v2;
-    v5[0] = 0;
-    v5[1] = v5;
-    v5[2] = 0x3802000000;
-    v5[3] = __Block_byref_object_copy__1_0;
-    v5[4] = __Block_byref_object_dispose__2_0;
+    v7 = v2;
+    v6[0] = 0;
+    v6[1] = v6;
+    v6[2] = 0x3802000000;
+    v6[3] = __Block_byref_object_copy__1_0;
+    v6[4] = __Block_byref_object_dispose__2_0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidSessionStop();
     }
 
-    v3 = fidflowmodule_ekfidflow_channelfidsessionstop(&properties[70 * v2 + 128], &v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z36ispExclaveKitCommandChFidSessionStopP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_279797B98;
+    v5[4] = v6;
+    v3 = fidflowmodule_ekfidflow_channelfidsessionstop(&properties[70 * v2 + 128], &v7, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidSessionStop();
@@ -3855,7 +3957,7 @@ LABEL_6:
       v3 = 1;
     }
 
-    _Block_object_dispose(v5, 8);
+    _Block_object_dispose(v6, 8);
     return v3;
   }
 
@@ -3867,9 +3969,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_254981550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254981550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3894,8 +3996,8 @@ uint64_t ispExclaveKitCommandChFidBracketCapture(uint64_t a1)
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
     v2 = *(a1 + 524);
-    v15 = v2;
-    v16 = *(a1 + 528);
+    v16 = v2;
+    v17 = *(a1 + 528);
     v3 = (a1 + 540);
     for (i = 540; i != 660; i += 12)
     {
@@ -3911,8 +4013,8 @@ uint64_t ispExclaveKitCommandChFidBracketCapture(uint64_t a1)
         v7 = v5 == 1;
       }
 
-      v8 = &v15 + i;
-      *(&v15 + i - 532) = v7;
+      v8 = &v16 + i;
+      *(&v16 + i - 532) = v7;
       if ((v6 - 1) >= 0xD)
       {
         v9 = 0;
@@ -3935,17 +4037,22 @@ uint64_t ispExclaveKitCommandChFidBracketCapture(uint64_t a1)
       *(v8 - 131) = v10;
     }
 
-    v14[0] = 0;
-    v14[1] = v14;
-    v14[2] = 0x3802000000;
-    v14[3] = __Block_byref_object_copy__5_0;
-    v14[4] = __Block_byref_object_dispose__6_0;
+    v15[0] = 0;
+    v15[1] = v15;
+    v15[2] = 0x3802000000;
+    v15[3] = __Block_byref_object_copy__5_0;
+    v15[4] = __Block_byref_object_dispose__6_0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidBracketCapture();
     }
 
-    v12 = fidflowmodule_ekfidflow_channelfidbracketcapture(&properties[70 * v2 + 128], &v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 0x40000000;
+    v14[2] = ___Z39ispExclaveKitCommandChFidBracketCaptureP20sExclaveKitIspCmdHdr_block_invoke;
+    v14[3] = &unk_279797BC0;
+    v14[4] = v15;
+    v12 = fidflowmodule_ekfidflow_channelfidbracketcapture(&properties[70 * v2 + 128], &v16, v14);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChFidBracketCapture();
@@ -3966,7 +4073,7 @@ LABEL_16:
       v12 = 1;
     }
 
-    _Block_object_dispose(v14, 8);
+    _Block_object_dispose(v15, 8);
     return v12;
   }
 
@@ -3978,9 +4085,9 @@ LABEL_16:
   return 3;
 }
 
-void sub_254981794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254981794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4002,25 +4109,23 @@ uint64_t ___Z39ispExclaveKitCommandChFidBracketCaptureP20sExclaveKitIspCmdHdr_bl
 
 void defaultTimerCallback(ISPExclaveKitTimer *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = qword_27F6132E0;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315650;
-    v5 = "defaultTimerCallback";
-    v6 = 1024;
-    v7 = 12;
-    v8 = 2080;
-    v9 = a1 + 96;
-    _os_log_impl(&dword_25497B000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d - calling default timer callback. note: %s\n", &v4, 0x1Cu);
+    v3 = 136315650;
+    v4 = "defaultTimerCallback";
+    v5 = 1024;
+    v6 = 12;
+    v7 = 2080;
+    v8 = a1 + 96;
+    _os_log_impl(&dword_25497B000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d - calling default timer callback. note: %s\n", &v3, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void ISPExclaveKitTimer::ISPExclaveKitTimer(ISPExclaveKitTimer *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *(this + 8) = 0;
   *(this + 9) = 0;
   v2 = (this + 64);
@@ -4032,11 +4137,11 @@ void ISPExclaveKitTimer::ISPExclaveKitTimer(ISPExclaveKitTimer *this)
     v4 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_FAULT))
     {
-      v7 = 136315394;
-      v8 = "ISPExclaveKitTimer";
-      v9 = 1024;
-      v10 = 18;
-      _os_log_fault_impl(&dword_25497B000, v4, OS_LOG_TYPE_FAULT, "%s:%d - invalid queue\n", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "ISPExclaveKitTimer";
+      v8 = 1024;
+      v9 = 18;
+      _os_log_fault_impl(&dword_25497B000, v4, OS_LOG_TYPE_FAULT, "%s:%d - invalid queue\n", &v6, 0x12u);
       v3 = *(this + 9);
     }
 
@@ -4056,15 +4161,14 @@ void ISPExclaveKitTimer::ISPExclaveKitTimer(ISPExclaveKitTimer *this)
   *(this + 10) = 0;
   *(this + 11) = defaultTimerCallback;
   ISPExclaveKitTimer::updateState(this, 0);
-  pthread_mutexattr_init(&v7);
-  pthread_mutexattr_settype(&v7, 2);
-  pthread_mutex_init(this, &v7);
-  pthread_mutexattr_destroy(&v7);
+  pthread_mutexattr_init(&v6);
+  pthread_mutexattr_settype(&v6, 2);
+  pthread_mutex_init(this, &v6);
+  pthread_mutexattr_destroy(&v6);
   *(this + 58) = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void ISPExclaveKitTimer::updateState(ISPExclaveKitTimer *this, int a2)
+void ISPExclaveKitTimer::updateState(uint64_t this, uint64_t a2)
 {
   v2 = a2;
   if (*(this + 228) == a2 && os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_FAULT))
@@ -4111,7 +4215,6 @@ void ISPExclaveKitTimer::_releaseTimer(ISPExclaveKitTimer *this)
 {
   if (*(this + 58) != 1)
   {
-    v3 = *(this + 58);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
       ISPExclaveKitTimer::_releaseTimer();
@@ -4130,7 +4233,6 @@ void ISPExclaveKitTimer::_suspendTimer(ISPExclaveKitTimer *this)
   v2 = *(this + 58);
   if (v2 < 0)
   {
-    v4 = *(this + 58);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
       ISPExclaveKitTimer::_suspendTimer();
@@ -4172,7 +4274,7 @@ uint64_t ISPExclaveKitTimer::registerCallback(pthread_mutex_t *this, void (*a2)(
 
 uint64_t ISPExclaveKitTimer::startTimer(ISPExclaveKitTimer *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(this);
   if (!*(this + 9) && os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_FAULT))
   {
@@ -4186,9 +4288,9 @@ uint64_t ISPExclaveKitTimer::startTimer(ISPExclaveKitTimer *this)
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v10 = "startTimer";
-      v11 = 1024;
-      v12 = 130;
+      v9 = "startTimer";
+      v10 = 1024;
+      v11 = 130;
       _os_log_fault_impl(&dword_25497B000, v3, OS_LOG_TYPE_FAULT, "%s:%d - invalid timer\n", buf, 0x12u);
       v2 = *(this + 8);
     }
@@ -4211,9 +4313,7 @@ uint64_t ISPExclaveKitTimer::startTimer(ISPExclaveKitTimer *this)
   ++*(this + 58);
   dispatch_resume(*(this + 8));
   ISPExclaveKitTimer::updateState(this, 1);
-  result = pthread_mutex_unlock(this);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return pthread_mutex_unlock(this);
 }
 
 uint64_t ISPExclaveKitTimer::stopTimer(pthread_mutex_t *this)
@@ -4237,7 +4337,7 @@ uint64_t ISPExclaveKitTimer::stopTimer(pthread_mutex_t *this)
 void ISPExclaveKitTimerList::ISPExclaveKitTimerList(ISPExclaveKitTimerList *this)
 {
   v2 = 0;
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   do
   {
     ISPExclaveKitTimer::ISPExclaveKitTimer((this + v2 + 16));
@@ -4255,11 +4355,10 @@ void ISPExclaveKitTimerList::ISPExclaveKitTimerList(ISPExclaveKitTimerList *this
   }
 
   while (v3 != 128);
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 2);
-  pthread_mutex_init(this + 512, &v6);
-  pthread_mutexattr_destroy(&v6);
-  v5 = *MEMORY[0x277D85DE8];
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 2);
+  pthread_mutex_init(this + 512, &v5);
+  pthread_mutexattr_destroy(&v5);
 }
 
 void sub_254982090(_Unwind_Exception *a1)
@@ -4280,7 +4379,7 @@ void sub_254982090(_Unwind_Exception *a1)
 void ISPExclaveKitTimerList::~ISPExclaveKitTimerList(pthread_mutex_t *this)
 {
   v2 = 0;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   opaque = this->__opaque;
   do
   {
@@ -4290,11 +4389,11 @@ void ISPExclaveKitTimerList::~ISPExclaveKitTimerList(pthread_mutex_t *this)
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315650;
-        v8 = "~ISPExclaveKitTimerList";
-        v9 = 1024;
-        v10 = 199;
-        v11 = 2048;
-        v12 = v2;
+        v7 = "~ISPExclaveKitTimerList";
+        v8 = 1024;
+        v9 = 199;
+        v10 = 2048;
+        v11 = v2;
         _os_log_fault_impl(&dword_25497B000, v4, OS_LOG_TYPE_FAULT, "%s:%d - timer[%zu] is still in use while delete\n", buf, 0x1Cu);
       }
 
@@ -4311,8 +4410,6 @@ void ISPExclaveKitTimerList::~ISPExclaveKitTimerList(pthread_mutex_t *this)
   {
     ISPExclaveKitTimer::~ISPExclaveKitTimer((this + i));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254982230(_Unwind_Exception *a1, int a2)
@@ -4373,10 +4470,10 @@ uint64_t ISPExclaveKitTimerList::returnTimer(pthread_mutex_t *a1, uint64_t *a2)
 uint64_t _ispExclaveKitCommandChAdConfigSet(int a1)
 {
   v1 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2000000000;
-  v12 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2000000000;
+  v13 = 0;
   v2 = &properties[70 * a1];
   v3 = 1;
   while (1)
@@ -4385,8 +4482,13 @@ uint64_t _ispExclaveKitCommandChAdConfigSet(int a1)
     v5 = &properties[3 * v1];
     if (*(v5 + 1672))
     {
-      attentionawarenessmodule_ekattentionawareness_channelupdateattentionconfig(v2 + 63, (v5 + 419));
-      if ((v10[3] & 1) == 0)
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 0x40000000;
+      v9[2] = ___Z34_ispExclaveKitCommandChAdConfigSetj_block_invoke;
+      v9[3] = &unk_279797C08;
+      v9[4] = &v10;
+      attentionawarenessmodule_ekattentionawareness_channelupdateattentionconfig(v2 + 63, v5 + 419, v9);
+      if ((v11[3] & 1) == 0)
       {
         break;
       }
@@ -4409,13 +4511,13 @@ uint64_t _ispExclaveKitCommandChAdConfigSet(int a1)
 
   v6 = 1;
 LABEL_9:
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   return v6;
 }
 
-void sub_2549824BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2549824BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4431,7 +4533,7 @@ unsigned __int8 *___Z34_ispExclaveKitCommandChAdConfigSetj_block_invoke(uint64_t
 
 uint64_t ispExclaveKitCommandChAdConfigSet(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)))
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -4439,7 +4541,7 @@ uint64_t ispExclaveKitCommandChAdConfigSet(uint64_t a1)
       ispExclaveKitCommandChAdConfigSet();
     }
 
-    result = 3;
+    return 3;
   }
 
   else
@@ -4463,9 +4565,9 @@ uint64_t ispExclaveKitCommandChAdConfigSet(uint64_t a1)
             if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v13 = "getAdSetField";
-              v14 = 1024;
-              v15 = 49;
+              v12 = "getAdSetField";
+              v13 = 1024;
+              v14 = 49;
               _os_log_error_impl(&dword_25497B000, v9, OS_LOG_TYPE_ERROR, "%s:%d - ERROR: ISP_EXCLAVEKIT_CMD_HANDLER_ERR_WRONG_INPUT\n", buf, 0x12u);
             }
           }
@@ -4488,16 +4590,13 @@ uint64_t ispExclaveKitCommandChAdConfigSet(uint64_t a1)
     }
 
     while ((v5 & 1) != 0);
-    result = 0;
+    return 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ispExclaveKitCommandChRunAd(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)))
   {
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -4505,16 +4604,16 @@ uint64_t ispExclaveKitCommandChRunAd(uint64_t a1)
       ispExclaveKitCommandChRunAd();
     }
 
-    v2 = 3;
+    return 3;
   }
 
   else
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2000000000;
-    v12 = 0;
-    v8 = *(a1 + 524);
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2000000000;
+    v13 = 0;
+    v9 = *(a1 + 524);
     v3 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
@@ -4526,23 +4625,30 @@ uint64_t ispExclaveKitCommandChRunAd(uint64_t a1)
     {
       *buf = 136315394;
       *&buf[4] = "ispExclaveKitCommandChRunAd";
-      v14 = 1024;
-      v15 = 325;
+      v15 = 1024;
+      v16 = 325;
       _os_log_impl(&dword_25497B000, v3, OS_LOG_TYPE_DEFAULT, "%s:%d - [IR-EK] Run Attention Detection\n", buf, 0x12u);
     }
 
-    v4 = attentionawarenessmodule_ekattentionawareness_channelrunattentiondetect(&properties[70 * *(a1 + 524) + 126], &v8);
-    v5 = qword_27F6132E0;
+    v4 = &properties[70 * *(a1 + 524)];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 0x40000000;
+    v8[2] = ___Z27ispExclaveKitCommandChRunAdP20sExclaveKitIspCmdHdr_block_invoke;
+    v8[3] = &unk_279797C30;
+    v8[4] = &v10;
+    v8[5] = a1;
+    v5 = attentionawarenessmodule_ekattentionawareness_channelrunattentiondetect(v4 + 63, &v9, v8);
+    v6 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       *&buf[4] = "ispExclaveKitCommandChRunAd";
-      v14 = 1024;
-      v15 = 328;
-      _os_log_impl(&dword_25497B000, v5, OS_LOG_TYPE_DEFAULT, "%s:%d - [IR-EK] Attention Detection Finished\n", buf, 0x12u);
+      v15 = 1024;
+      v16 = 328;
+      _os_log_impl(&dword_25497B000, v6, OS_LOG_TYPE_DEFAULT, "%s:%d - [IR-EK] Attention Detection Finished\n", buf, 0x12u);
     }
 
-    if (v4)
+    if (v5)
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
       {
@@ -4552,7 +4658,7 @@ uint64_t ispExclaveKitCommandChRunAd(uint64_t a1)
       v2 = 1;
     }
 
-    else if (*(v10 + 24))
+    else if (*(v11 + 24))
     {
       v2 = 0;
     }
@@ -4562,16 +4668,15 @@ uint64_t ispExclaveKitCommandChRunAd(uint64_t a1)
       v2 = 4;
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_254982918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_254982918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4687,7 +4792,7 @@ uint64_t ispExclaveKitCommandChRunAdv2(uint64_t a1)
       ispExclaveKitCommandChRunAdv2();
     }
 
-    v2 = 3;
+    return 3;
   }
 
   else
@@ -4709,7 +4814,13 @@ uint64_t ispExclaveKitCommandChRunAdv2(uint64_t a1)
       v3 = *(a1 + 524);
     }
 
-    v5 = fidflowmodule_ekfidflow_channelrunattentiondetectv2(&properties[70 * v3 + 128], &v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 0x40000000;
+    v8[2] = ___Z29ispExclaveKitCommandChRunAdv2P20sExclaveKitIspCmdHdr_block_invoke;
+    v8[3] = &unk_279797C58;
+    v8[4] = &v10;
+    v8[5] = a1;
+    v5 = fidflowmodule_ekfidflow_channelrunattentiondetectv2(&properties[70 * v3 + 128], &v9, v8);
     v6 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
     {
@@ -4743,13 +4854,12 @@ uint64_t ispExclaveKitCommandChRunAdv2(uint64_t a1)
     _Block_object_dispose(&v10, 8);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_254982D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_254982D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5028,7 +5138,7 @@ char *GetString_eIspExclaveKitCmdId(char *a1)
   return *v1;
 }
 
-const char *cmdStringGet(unsigned int a1)
+char *cmdStringGet(unsigned int a1)
 {
   v1 = &off_279797C80;
   v2 = 61;
@@ -5061,23 +5171,28 @@ uint64_t ispExclaveKitCommandChLscSet()
   if (ispExclaveGetServiceTypeFromChIdx(*(v0 + 524)) != -1)
   {
     v1 = *(v0 + 524);
-    v9 = v1;
-    v10 = *(v0 + 528);
-    v11 = *(v0 + 536);
-    v12 = *(v0 + 540);
-    v13 = *(v0 + 548);
-    memcpy(v14, (v0 + 552), sizeof(v14));
-    v4 = 0;
-    v5 = &v4;
-    v6 = 0x3802000000;
-    v7 = __Block_byref_object_copy__4;
-    v8 = __Block_byref_object_dispose__4;
+    v10 = v1;
+    v11 = *(v0 + 528);
+    v12 = *(v0 + 536);
+    v13 = *(v0 + 540);
+    v14 = *(v0 + 548);
+    memcpy(v15, (v0 + 552), sizeof(v15));
+    v5 = 0;
+    v6 = &v5;
+    v7 = 0x3802000000;
+    v8 = __Block_byref_object_copy__4;
+    v9 = __Block_byref_object_dispose__4;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChLscSet();
     }
 
-    v2 = ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channellscset(&properties[70 * v1 + 132], &v9);
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 0x40000000;
+    v4[2] = ___Z28ispExclaveKitCommandChLscSetP20sExclaveKitIspCmdHdr_block_invoke;
+    v4[3] = &unk_279798050;
+    v4[4] = &v5;
+    v2 = ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channellscset(&properties[70 * v1 + 132], &v10, v4);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChLscSet();
@@ -5098,7 +5213,7 @@ LABEL_6:
       v2 = 1;
     }
 
-    if (ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v5 + 40))
+    if (ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v6 + 40))
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
       {
@@ -5108,7 +5223,7 @@ LABEL_6:
       v2 = 1;
     }
 
-    _Block_object_dispose(&v4, 8);
+    _Block_object_dispose(&v5, 8);
     return v2;
   }
 
@@ -5120,9 +5235,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_2549834CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2549834CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5147,66 +5262,66 @@ uint64_t ispExclaveKitCommandChPdpSet()
   v0 = MEMORY[0x28223BE20]();
   if (ispExclaveGetServiceTypeFromChIdx(*(v0 + 524)) != -1)
   {
-    v21 = 0;
-    v22 = &v21;
-    *&v23 = 0x3802000000;
-    *(&v23 + 1) = __Block_byref_object_copy__1_1;
-    v24[0] = __Block_byref_object_dispose__2_1;
+    v22 = 0;
+    v23 = &v22;
+    *&v24 = 0x3802000000;
+    *(&v24 + 1) = __Block_byref_object_copy__1_1;
+    v25[0] = __Block_byref_object_dispose__2_1;
     v1 = *(v0 + 524);
-    LODWORD(v16) = v1;
-    v17 = 0x43534973E0734AAFLL;
+    LODWORD(v17) = v1;
+    v18 = 0x43534973E0734AAFLL;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPdpSet();
     }
 
-    v35 = MEMORY[0x277D85DD0];
-    v36 = 0x40000000;
-    v37 = ___Z28ispExclaveKitCommandChPdpSetP20sExclaveKitIspCmdHdr_block_invoke;
-    v38 = &unk_279798078;
-    v39 = &v21;
-    v2 = ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread(&properties[70 * v1 + 116], &v16);
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 0x40000000;
+    v36[2] = ___Z28ispExclaveKitCommandChPdpSetP20sExclaveKitIspCmdHdr_block_invoke;
+    v36[3] = &unk_279798078;
+    v36[4] = &v22;
+    v2 = ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread(&properties[70 * v1 + 116], &v17, v36);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPdpSet();
     }
 
-    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v22 + 40);
-    if (!v2 && failure && v22[48] == 1)
+    failure = ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v23 + 40);
+    if (!v2 && failure && v23[48] == 1)
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
       {
         ispExclaveKitCommandChPdpSet();
       }
 
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v22, 8);
       return 2;
     }
 
-    _Block_object_dispose(&v21, 8);
-    LODWORD(v21) = *(v0 + 524);
+    _Block_object_dispose(&v22, 8);
+    LODWORD(v22) = *(v0 + 524);
     v5 = *(v0 + 528);
     if (*(v0 + 528))
     {
       if (v5 == 1)
       {
-        ispexclavekithardwaredefaultconfig_ekpdpnongreenmode_nongreenmodegain__init(&v22);
+        ispexclavekithardwaredefaultconfig_ekpdpnongreenmode_nongreenmodegain__init(&v23);
       }
 
       else if (v5 == 2)
       {
-        ispexclavekithardwaredefaultconfig_ekpdpnongreenmode_nongreenmodeinterpolation__init(&v22);
+        ispexclavekithardwaredefaultconfig_ekpdpnongreenmode_nongreenmodeinterpolation__init(&v23);
       }
     }
 
     else
     {
-      ispexclavekithardwaredefaultconfig_ekpdpnongreenmode_nongreenmodebypass__init(&v22);
+      ispexclavekithardwaredefaultconfig_ekpdpnongreenmode_nongreenmodebypass__init(&v23);
     }
 
-    v23 = *(v0 + 532);
-    memcpy(v24, (v0 + 548), sizeof(v24));
-    v6 = v25;
+    v24 = *(v0 + 532);
+    memcpy(v25, (v0 + 548), sizeof(v25));
+    v6 = v26;
     v7 = v0 + 5184;
     v8 = 16;
     do
@@ -5247,31 +5362,36 @@ uint64_t ispExclaveKitCommandChPdpSet()
 
     while (v8);
     v10 = *(v0 + 5292);
-    *&v25[366] = *(v0 + 5276);
-    v26 = v10;
+    *&v26[366] = *(v0 + 5276);
+    v27 = v10;
     v11 = *(v0 + 5324);
-    v27 = *(v0 + 5308);
-    v28 = v11;
+    v28 = *(v0 + 5308);
+    v29 = v11;
     v12 = *(v0 + 5356);
-    v29 = *(v0 + 5340);
-    v30 = v12;
+    v30 = *(v0 + 5340);
+    v31 = v12;
     v13 = *(v0 + 5388);
-    v31 = *(v0 + 5372);
-    v32 = v13;
-    v33 = *(v0 + 5404);
-    v34 = *(v0 + 5412);
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3802000000;
-    v19 = __Block_byref_object_copy__5_1;
-    v20 = __Block_byref_object_dispose__6_1;
+    v32 = *(v0 + 5372);
+    v33 = v13;
+    v34 = *(v0 + 5404);
+    v35 = *(v0 + 5412);
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3802000000;
+    v20 = __Block_byref_object_copy__5_1;
+    v21 = __Block_byref_object_dispose__6_1;
     v14 = *(v0 + 524);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPdpSet();
     }
 
-    v4 = ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channelpdpset(&properties[70 * v14 + 132], &v21);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 0x40000000;
+    v16[2] = ___Z28ispExclaveKitCommandChPdpSetP20sExclaveKitIspCmdHdr_block_invoke_7;
+    v16[3] = &unk_2797980A0;
+    v16[4] = &v17;
+    v4 = ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channelpdpset(&properties[70 * v14 + 132], &v22, v16);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPdpSet();
@@ -5292,7 +5412,7 @@ LABEL_36:
       v4 = 1;
     }
 
-    if (ispexclavekitshared_ekstreamingcontrol_off__result_get_failure((v17 + 40)))
+    if (ispexclavekitshared_ekstreamingcontrol_off__result_get_failure((v18 + 40)))
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
       {
@@ -5302,7 +5422,7 @@ LABEL_36:
       v4 = 1;
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v17, 8);
     return v4;
   }
 
@@ -5314,9 +5434,9 @@ LABEL_36:
   return 3;
 }
 
-void sub_2549839A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2549839A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5482,9 +5602,9 @@ void channelStateReset(void)
 
 uint64_t ispExclaveGetServiceTypeFromChIdx(int a1)
 {
-  if (properties > 6)
+  if (properties[0] > 6)
   {
-    if (properties != 7 && properties != 8)
+    if (properties[0] != 7 && properties[0] != 8)
     {
       if (a1 == 2)
       {
@@ -5501,12 +5621,12 @@ uint64_t ispExclaveGetServiceTypeFromChIdx(int a1)
         v2 = 0;
       }
 
-      v3 = properties == 9;
+      v3 = properties[0] == 9;
       goto LABEL_18;
     }
   }
 
-  else if (properties >= 2 && properties != 3)
+  else if (properties[0] >= 2u && properties[0] != 3)
   {
     if (a1)
     {
@@ -5518,7 +5638,7 @@ uint64_t ispExclaveGetServiceTypeFromChIdx(int a1)
       v2 = 1;
     }
 
-    v3 = properties == 4;
+    v3 = properties[0] == 4;
 LABEL_18:
     if (v3)
     {
@@ -5552,15 +5672,16 @@ LABEL_18:
   }
 }
 
-BOOL channelStateUpdate(unsigned int a1, int a2)
+BOOL channelStateUpdate(uint64_t a1, int a2)
 {
+  v3 = a1;
   v4 = qword_27F6132E0;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
   {
-    channelStateUpdate(a1, a2, v4);
+    channelStateUpdate(v3, a2, v4);
   }
 
-  if (a1 >= 5)
+  if (v3 >= 5)
   {
     result = os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR);
     if (!result)
@@ -5572,7 +5693,7 @@ BOOL channelStateUpdate(unsigned int a1, int a2)
     return 0;
   }
 
-  v6 = &properties[70 * a1 + 68];
+  v6 = &properties[70 * v3 + 68];
   v7 = *v6;
   result = 1;
   if (a2 <= 1)
@@ -5656,7 +5777,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t channelStateGet(unsigned int a1)
+uint64_t channelStateGet(uint64_t a1)
 {
   if (a1 < 5)
   {
@@ -5671,10 +5792,11 @@ uint64_t channelStateGet(unsigned int a1)
   return 0xFFFFFFFFLL;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x1Eu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x1Eu);
 }
 
 uint64_t ispExclaveKitCommandChAeGainCapSet(uint64_t a1)
@@ -5756,19 +5878,24 @@ uint64_t ispExclaveKitCommandChRunAe(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v6 = 0;
-    v7 = &v6;
-    v8 = 0x8002000000;
-    v9 = __Block_byref_object_copy__5;
-    v10 = __Block_byref_object_dispose__5;
+    v7 = 0;
+    v8 = &v7;
+    v9 = 0x8002000000;
+    v10 = __Block_byref_object_copy__5;
+    v11 = __Block_byref_object_dispose__5;
     v2 = *(a1 + 524);
-    v11 = v2;
+    v12 = v2;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChRunAe();
     }
 
-    v3 = autoexposuremodule_ekautoexposure_channelrunautoexposure(&properties[70 * v2 + 120], &v11);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 0x40000000;
+    v6[2] = ___Z27ispExclaveKitCommandChRunAeP20sExclaveKitIspCmdHdr_block_invoke;
+    v6[3] = &unk_2797980C8;
+    v6[4] = &v7;
+    v3 = autoexposuremodule_ekautoexposure_channelrunautoexposure(&properties[70 * v2 + 120], &v12, v6);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChRunAe();
@@ -5790,8 +5917,8 @@ LABEL_6:
       goto LABEL_14;
     }
 
-    v4 = v7;
-    *(a1 + 792) = *(v7 + 16);
+    v4 = v8;
+    *(a1 + 792) = *(v8 + 16);
     *(a1 + 796) = v4[9];
     *(a1 + 804) = *(v4 + 20);
     *(a1 + 808) = *(v4 + 21);
@@ -5806,7 +5933,7 @@ LABEL_6:
     *(a1 + 844) = *(v4 + 30);
     *(a1 + 848) = *(v4 + 124) ^ 1;
 LABEL_14:
-    _Block_object_dispose(&v6, 8);
+    _Block_object_dispose(&v7, 8);
     return v3;
   }
 
@@ -5818,9 +5945,9 @@ LABEL_14:
   return 3;
 }
 
-void sub_254984418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254984418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5856,21 +5983,21 @@ uint64_t ispExclaveKitCommandChSendMetadata(uint64_t a1)
   else
   {
     v2 = 0;
-    v12[0] = 0;
-    v12[1] = v12;
-    v12[2] = 0x3802000000;
-    v12[3] = __Block_byref_object_copy__1_2;
-    v12[4] = __Block_byref_object_dispose__2_2;
+    v13[0] = 0;
+    v13[1] = v13;
+    v13[2] = 0x3802000000;
+    v13[3] = __Block_byref_object_copy__1_2;
+    v13[4] = __Block_byref_object_dispose__2_2;
     v3 = *(a1 + 524);
-    v13[0] = v3;
+    v14[0] = v3;
     v4 = *(a1 + 560);
-    v13[1] = *(a1 + 532);
-    v13[2] = v4;
-    v14 = *(a1 + 568);
-    v15 = *(a1 + 600);
-    v16 = *(a1 + 612);
-    v17 = *(a1 + 616);
-    v22 = *(a1 + 580);
+    v14[1] = *(a1 + 532);
+    v14[2] = v4;
+    v15 = *(a1 + 568);
+    v16 = *(a1 + 600);
+    v17 = *(a1 + 612);
+    v18 = *(a1 + 616);
+    v23 = *(a1 + 580);
     v5 = (a1 + 620);
     do
     {
@@ -5893,16 +6020,21 @@ uint64_t ispExclaveKitCommandChSendMetadata(uint64_t a1)
     while (v2 != 9);
     v11 = v3;
     v7 = *(a1 + 636);
-    v18 = *v5;
-    v19 = v7;
-    v20 = *(a1 + 652);
-    v21 = *(a1 + 660) < 0x3E9u;
+    v19 = *v5;
+    v20 = v7;
+    v21 = *(a1 + 652);
+    v22 = *(a1 + 660) < 0x3E9u;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChSendMetadata();
     }
 
-    v8 = ispexclavekitshared_ekispmanager_channelsensormetadataset(&properties[70 * v11 + 122], v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 0x40000000;
+    v12[2] = ___Z34ispExclaveKitCommandChSendMetadataP20sExclaveKitIspCmdHdr_block_invoke;
+    v12[3] = &unk_2797980F0;
+    v12[4] = v13;
+    v8 = ispexclavekitshared_ekispmanager_channelsensormetadataset(&properties[70 * v11 + 122], v14, v12);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChSendMetadata();
@@ -5924,15 +6056,15 @@ uint64_t ispExclaveKitCommandChSendMetadata(uint64_t a1)
 
     v8 = 1;
 LABEL_18:
-    _Block_object_dispose(v12, 8);
+    _Block_object_dispose(v13, 8);
   }
 
   return v8;
 }
 
-void sub_254984718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_254984718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5954,12 +6086,12 @@ uint64_t ___Z34ispExclaveKitCommandChSendMetadataP20sExclaveKitIspCmdHdr_block_i
 
 uint64_t ispExclaveKitCommandChCameraConfigSet(uint64_t a1)
 {
-  v64[14] = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v63 = 0;
-  v64[0] = &v63;
-  v64[1] = 0x7802000000;
-  v64[2] = __Block_byref_object_copy__5_2;
-  v64[3] = __Block_byref_object_dispose__6_2;
+  v64 = &v63;
+  v65 = 0x7802000000;
+  v66 = __Block_byref_object_copy__5_2;
+  v67 = __Block_byref_object_dispose__6_2;
   v35[0] = *(a1 + 524);
   ispExclaveGetServiceTypeFromChIdx(v35[0]);
   v35[1] = *(a1 + 576);
@@ -5969,7 +6101,12 @@ uint64_t ispExclaveKitCommandChCameraConfigSet(uint64_t a1)
     ispExclaveKitCommandChCameraConfigSet();
   }
 
-  v3 = ispexclavekitshared_ekispmanager_channelcameraconfigurationget(&properties[70 * v2 + 122], v35);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 0x40000000;
+  v34[2] = ___Z37ispExclaveKitCommandChCameraConfigSetP20sExclaveKitIspCmdHdr_block_invoke;
+  v34[3] = &unk_279798118;
+  v34[4] = &v63;
+  v3 = ispexclavekitshared_ekispmanager_channelcameraconfigurationget(&properties[70 * v2 + 122], v35, v34);
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
   {
     ispExclaveKitCommandChCameraConfigSet();
@@ -5987,7 +6124,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if (*(v64[0] + 56) != *(a1 + 568) || *(v64[0] + 58) != *(a1 + 570) || *(v64[0] + 52) != *(a1 + 572) || *(v64[0] + 54) != *(a1 + 574) || *(v64[0] + 64) != *(a1 + 528) || *(v64[0] + 68) != *(a1 + 532) || *(v64[0] + 72) != *(a1 + 536) || *(v64[0] + 76) != *(a1 + 540) || *(v64[0] + 78) != *(a1 + 542) || *(v64[0] + 80) != *(a1 + 544) || *(v64[0] + 84) != *(a1 + 548) || *(v64[0] + 88) != *(a1 + 552) || *(v64[0] + 92) != *(a1 + 556))
+  if (*(v64 + 28) != *(a1 + 568) || *(v64 + 29) != *(a1 + 570) || *(v64 + 26) != *(a1 + 572) || *(v64 + 27) != *(a1 + 574) || *(v64 + 16) != *(a1 + 528) || *(v64 + 34) != *(a1 + 532) || *(v64 + 18) != *(a1 + 536) || *(v64 + 76) != *(a1 + 540) || *(v64 + 39) != *(a1 + 542) || *(v64 + 20) != *(a1 + 544) || *(v64 + 21) != *(a1 + 548) || *(v64 + 22) != *(a1 + 552) || *(v64 + 46) != *(a1 + 556))
   {
     v8 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -5998,59 +6135,59 @@ LABEL_35:
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 528);
-      v12 = *(a1 + 532);
-      v13 = *(a1 + 536);
-      v14 = *(a1 + 540);
-      v15 = *(a1 + 542);
-      v16 = *(a1 + 544);
-      v17 = *(a1 + 548);
-      v18 = *(a1 + 552);
-      v19 = *(a1 + 556);
-      v20 = *(a1 + 558);
-      v21 = *(a1 + 560);
-      v22 = *(a1 + 564);
+      v10 = *(a1 + 528);
+      v11 = *(a1 + 532);
+      v12 = *(a1 + 536);
+      v13 = *(a1 + 540);
+      v14 = *(a1 + 542);
+      v15 = *(a1 + 544);
+      v16 = *(a1 + 548);
+      v17 = *(a1 + 552);
+      v18 = *(a1 + 556);
+      v19 = *(a1 + 558);
+      v20 = *(a1 + 560);
+      v21 = *(a1 + 564);
       *buf = 136318466;
       *&buf[4] = "ispExclaveKitCommandChCameraConfigSet";
       v37 = 1024;
       v38 = 498;
       v39 = 1024;
-      v40 = v11;
+      v40 = v10;
       v41 = 1024;
-      v42 = v12;
+      v42 = v11;
       v43 = 1024;
-      v44 = v13;
+      v44 = v12;
       v45 = 1024;
-      v46 = v14;
+      v46 = v13;
       v47 = 1024;
-      v48 = v15;
+      v48 = v14;
       v49 = 1024;
-      v50 = v16;
+      v50 = v15;
       v51 = 1024;
-      v52 = v17;
+      v52 = v16;
       v53 = 1024;
-      v54 = v18;
+      v54 = v17;
       v55 = 1024;
-      v56 = v19;
+      v56 = v18;
       v57 = 1024;
-      v58 = v20;
+      v58 = v19;
       v59 = 1024;
-      v60 = v21;
+      v60 = v20;
       v61 = 1024;
-      v62 = v22;
+      v62 = v21;
       _os_log_error_impl(&dword_25497B000, v8, OS_LOG_TYPE_ERROR, "%s:%d - Received values: %u %u %u %u %u %u %u %u %u %u %u %u\n", buf, 0x5Au);
       v8 = qword_27F6132E0;
     }
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      ispExclaveKitCommandChCameraConfigSet(v64);
+      ispExclaveKitCommandChCameraConfigSet();
     }
 
     goto LABEL_35;
   }
 
-  v4 = *(v64[0] + 94);
+  v4 = *(v64 + 47);
   v5 = *(a1 + 558);
   if (v4 != v5)
   {
@@ -6071,61 +6208,67 @@ LABEL_35:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 528);
-      v24 = *(a1 + 532);
-      v25 = *(a1 + 536);
-      v26 = *(a1 + 540);
-      v27 = *(a1 + 542);
-      v28 = *(a1 + 544);
-      v29 = *(a1 + 548);
-      v30 = *(a1 + 552);
-      v31 = *(a1 + 556);
-      v32 = *(a1 + 558);
-      v33 = *(a1 + 560);
-      v34 = *(a1 + 564);
+      v22 = *(a1 + 528);
+      v23 = *(a1 + 532);
+      v24 = *(a1 + 536);
+      v25 = *(a1 + 540);
+      v26 = *(a1 + 542);
+      v27 = *(a1 + 544);
+      v28 = *(a1 + 548);
+      v29 = *(a1 + 552);
+      v30 = *(a1 + 556);
+      v31 = *(a1 + 558);
+      v32 = *(a1 + 560);
+      v33 = *(a1 + 564);
       *buf = 136318466;
       *&buf[4] = "ispExclaveKitCommandChCameraConfigSet";
       v37 = 1024;
       v38 = 518;
       v39 = 1024;
-      v40 = v23;
+      v40 = v22;
       v41 = 1024;
-      v42 = v24;
+      v42 = v23;
       v43 = 1024;
-      v44 = v25;
+      v44 = v24;
       v45 = 1024;
-      v46 = v26;
+      v46 = v25;
       v47 = 1024;
-      v48 = v27;
+      v48 = v26;
       v49 = 1024;
-      v50 = v28;
+      v50 = v27;
       v51 = 1024;
-      v52 = v29;
+      v52 = v28;
       v53 = 1024;
-      v54 = v30;
+      v54 = v29;
       v55 = 1024;
-      v56 = v31;
+      v56 = v30;
       v57 = 1024;
-      v58 = v32;
+      v58 = v31;
       v59 = 1024;
-      v60 = v33;
+      v60 = v32;
       v61 = 1024;
-      v62 = v34;
+      v62 = v33;
       _os_log_error_impl(&dword_25497B000, v6, OS_LOG_TYPE_ERROR, "%s:%d - Received values: %u %u %u %u %u %u %u %u %u %u %u %u\n", buf, 0x5Au);
       v6 = qword_27F6132E0;
     }
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ispExclaveKitCommandChCameraConfigSet(v64);
+      ispExclaveKitCommandChCameraConfigSet();
     }
   }
 
   v7 = 0;
 LABEL_36:
   _Block_object_dispose(&v63, 8);
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
+void sub_254984C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __n128 __Block_byref_object_copy__5_2(uint64_t a1, uint64_t a2)
@@ -6160,19 +6303,24 @@ uint64_t ispExclaveKitCommandChAeFrameRateMaxSet(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v5[0] = 0;
-    v5[1] = v5;
-    v5[2] = 0x3802000000;
-    v5[3] = __Block_byref_object_copy__9_0;
-    v5[4] = __Block_byref_object_dispose__10_0;
+    v6[0] = 0;
+    v6[1] = v6;
+    v6[2] = 0x3802000000;
+    v6[3] = __Block_byref_object_copy__9_0;
+    v6[4] = __Block_byref_object_dispose__10_0;
     v4 = *(a1 + 524);
-    v6 = *(a1 + 524);
+    v7 = *(a1 + 524);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMaxSet();
     }
 
-    v2 = autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxset(&properties[70 * v4 + 120], &v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z39ispExclaveKitCommandChAeFrameRateMaxSetP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_279798140;
+    v5[4] = v6;
+    v2 = autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxset(&properties[70 * v4 + 120], &v7, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMaxSet();
@@ -6193,7 +6341,7 @@ LABEL_6:
       v2 = 1;
     }
 
-    _Block_object_dispose(v5, 8);
+    _Block_object_dispose(v6, 8);
     return v2;
   }
 
@@ -6205,9 +6353,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_254984EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_254984EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6231,22 +6379,27 @@ uint64_t ispExclaveKitCommandChAeFrameRateMinSet(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v7[0] = 0;
-    v7[1] = v7;
-    v7[2] = 0x3802000000;
-    v7[3] = __Block_byref_object_copy__13_0;
-    v7[4] = __Block_byref_object_dispose__14_0;
+    v8[0] = 0;
+    v8[1] = v8;
+    v8[2] = 0x3802000000;
+    v8[3] = __Block_byref_object_copy__13_0;
+    v8[4] = __Block_byref_object_dispose__14_0;
     v2 = *(a1 + 524);
     v3 = *(a1 + 528);
-    v8[0] = v2;
-    v8[1] = v3;
+    v9[0] = v2;
+    v9[1] = v3;
     v4 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMinSet(v2, v3, v4);
     }
 
-    v5 = autoexposuremodule_ekautoexposure_channelautoexposureframerateminset(&properties[70 * v2 + 120], v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z39ispExclaveKitCommandChAeFrameRateMinSetP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_279798168;
+    v7[4] = v8;
+    v5 = autoexposuremodule_ekautoexposure_channelautoexposureframerateminset(&properties[70 * v2 + 120], v9, v7);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMinSet();
@@ -6267,7 +6420,7 @@ LABEL_6:
       v5 = 1;
     }
 
-    _Block_object_dispose(v7, 8);
+    _Block_object_dispose(v8, 8);
     return v5;
   }
 
@@ -6279,9 +6432,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_2549850B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2549850B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6305,19 +6458,24 @@ uint64_t ispExclaveKitCommandChAeInitSettingGet(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v6 = 0;
-    v7 = &v6;
-    v8 = 0x8002000000;
-    v9 = __Block_byref_object_copy__17_0;
-    v10 = __Block_byref_object_dispose__18_0;
+    v7 = 0;
+    v8 = &v7;
+    v9 = 0x8002000000;
+    v10 = __Block_byref_object_copy__17_0;
+    v11 = __Block_byref_object_dispose__18_0;
     v2 = *(a1 + 524);
-    v11 = v2;
+    v12 = v2;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeInitSettingGet();
     }
 
-    v3 = autoexposuremodule_ekautoexposure_channelautoexposureinitsettingget(&properties[70 * v2 + 120], &v11);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 0x40000000;
+    v6[2] = ___Z38ispExclaveKitCommandChAeInitSettingGetP20sExclaveKitIspCmdHdr_block_invoke;
+    v6[3] = &unk_279798190;
+    v6[4] = &v7;
+    v3 = autoexposuremodule_ekautoexposure_channelautoexposureinitsettingget(&properties[70 * v2 + 120], &v12, v6);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeInitSettingGet();
@@ -6339,8 +6497,8 @@ LABEL_6:
       goto LABEL_14;
     }
 
-    v4 = v7;
-    *(a1 + 792) = *(v7 + 16);
+    v4 = v8;
+    *(a1 + 792) = *(v8 + 16);
     *(a1 + 796) = v4[9];
     *(a1 + 804) = *(v4 + 20);
     *(a1 + 808) = *(v4 + 21);
@@ -6355,7 +6513,7 @@ LABEL_6:
     *(a1 + 844) = *(v4 + 30);
     *(a1 + 848) = *(v4 + 124) ^ 1;
 LABEL_14:
-    _Block_object_dispose(&v6, 8);
+    _Block_object_dispose(&v7, 8);
     return v3;
   }
 
@@ -6367,9 +6525,9 @@ LABEL_14:
   return 3;
 }
 
-void sub_254985308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254985308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6409,20 +6567,25 @@ uint64_t ispExclaveKitCommandChAeFlickerFreqSet(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v5[0] = 0;
-    v5[1] = v5;
-    v5[2] = 0x3802000000;
-    v5[3] = __Block_byref_object_copy__21_0;
-    v5[4] = __Block_byref_object_dispose__22_0;
-    v6[0] = *(a1 + 528);
-    v6[1] = *(a1 + 536);
+    v6[0] = 0;
+    v6[1] = v6;
+    v6[2] = 0x3802000000;
+    v6[3] = __Block_byref_object_copy__21_0;
+    v6[4] = __Block_byref_object_dispose__22_0;
+    v7[0] = *(a1 + 528);
+    v7[1] = *(a1 + 536);
     v2 = *(a1 + 524);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFlickerFreqSet();
     }
 
-    v3 = autoexposuremodule_ekautoexposure_channelautoexposureflickerfreqset(&properties[70 * v2 + 120], v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z38ispExclaveKitCommandChAeFlickerFreqSetP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_2797981B8;
+    v5[4] = v6;
+    v3 = autoexposuremodule_ekautoexposure_channelautoexposureflickerfreqset(&properties[70 * v2 + 120], v7, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFlickerFreqSet();
@@ -6443,7 +6606,7 @@ LABEL_6:
       v3 = 1;
     }
 
-    _Block_object_dispose(v5, 8);
+    _Block_object_dispose(v6, 8);
     return v3;
   }
 
@@ -6455,9 +6618,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_254985534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254985534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6481,19 +6644,24 @@ uint64_t ispExclaveKitCommandChAeFrameRateMaxGet(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x3802000000;
-    v8 = __Block_byref_object_copy__25_0;
-    v9 = __Block_byref_object_dispose__26_0;
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x3802000000;
+    v9 = __Block_byref_object_copy__25_0;
+    v10 = __Block_byref_object_dispose__26_0;
     v2 = *(a1 + 524);
-    v10 = v2;
+    v11 = v2;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMaxGet();
     }
 
-    v3 = autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxget(&properties[70 * v2 + 120], &v10);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z39ispExclaveKitCommandChAeFrameRateMaxGetP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_2797981E0;
+    v5[4] = &v6;
+    v3 = autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxget(&properties[70 * v2 + 120], &v11, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMaxGet();
@@ -6515,9 +6683,9 @@ LABEL_6:
       goto LABEL_14;
     }
 
-    *(a1 + 528) = *(v6 + 12);
+    *(a1 + 528) = *(v7 + 12);
 LABEL_14:
-    _Block_object_dispose(&v5, 8);
+    _Block_object_dispose(&v6, 8);
     return v3;
   }
 
@@ -6529,9 +6697,9 @@ LABEL_14:
   return 3;
 }
 
-void sub_25498571C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25498571C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6555,19 +6723,24 @@ uint64_t ispExclaveKitCommandChAeFrameRateMinGet(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x3802000000;
-    v8 = __Block_byref_object_copy__29_0;
-    v9 = __Block_byref_object_dispose__30_0;
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x3802000000;
+    v9 = __Block_byref_object_copy__29_0;
+    v10 = __Block_byref_object_dispose__30_0;
     v2 = *(a1 + 524);
-    v10 = v2;
+    v11 = v2;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMinGet();
     }
 
-    v3 = autoexposuremodule_ekautoexposure_channelautoexposureframerateminget(&properties[70 * v2 + 120], &v10);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z39ispExclaveKitCommandChAeFrameRateMinGetP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_279798208;
+    v5[4] = &v6;
+    v3 = autoexposuremodule_ekautoexposure_channelautoexposureframerateminget(&properties[70 * v2 + 120], &v11, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChAeFrameRateMinGet();
@@ -6589,9 +6762,9 @@ LABEL_6:
       goto LABEL_14;
     }
 
-    *(a1 + 528) = *(v6 + 12);
+    *(a1 + 528) = *(v7 + 12);
 LABEL_14:
-    _Block_object_dispose(&v5, 8);
+    _Block_object_dispose(&v6, 8);
     return v3;
   }
 
@@ -6603,9 +6776,9 @@ LABEL_14:
   return 3;
 }
 
-void sub_254985904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254985904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6625,24 +6798,9 @@ uint64_t ___Z39ispExclaveKitCommandChAeFrameRateMinGetP20sExclaveKitIspCmdHdr_bl
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_3_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(*result + 64);
-  v4 = *(*result + 68);
-  v5 = *(*result + 72);
-  v6 = *(*result + 76);
-  v7 = *(*result + 78);
-  v8 = *(*result + 80);
-  v9 = *(*result + 84);
-  v10 = *(*result + 88);
-  v11 = *(*result + 92);
-  return result;
-}
-
 uint64_t _getDeviceType(void)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = properties[0];
   if (properties[0] == -1)
   {
@@ -6654,13 +6812,13 @@ uint64_t _getDeviceType(void)
       v3 = qword_27F6132E0;
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136315650;
-        v7 = "_getDeviceType";
-        v8 = 1024;
-        v9 = 25;
-        v10 = 2080;
-        v11 = buffer;
-        _os_log_impl(&dword_25497B000, v3, OS_LOG_TYPE_DEFAULT, "%s:%d - Device name: %s\n", &v6, 0x1Cu);
+        v5 = 136315650;
+        v6 = "_getDeviceType";
+        v7 = 1024;
+        v8 = 25;
+        v9 = 2080;
+        v10 = buffer;
+        _os_log_impl(&dword_25497B000, v3, OS_LOG_TYPE_DEFAULT, "%s:%d - Device name: %s\n", &v5, 0x1Cu);
       }
 
       if (CFStringFind(v2, @"J717", 0).location == -1 && CFStringFind(v2, @"J718", 0).location == -1 && CFStringFind(v2, @"J720", 0).location == -1 && CFStringFind(v2, @"J721", 0).location == -1)
@@ -6724,7 +6882,6 @@ uint64_t _getDeviceType(void)
     properties[0] = v0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -6786,19 +6943,24 @@ uint64_t ispExclaveKitCommandChPropertyWrite(uint64_t a1)
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
     v4 = *(a1 + 524);
-    v10 = *(a1 + 524);
-    v11 = *(a1 + 532);
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x3802000000;
-    v8 = __Block_byref_object_copy__6;
-    v9 = __Block_byref_object_dispose__6;
+    v11 = *(a1 + 524);
+    v12 = *(a1 + 532);
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x3802000000;
+    v9 = __Block_byref_object_copy__6;
+    v10 = __Block_byref_object_dispose__6;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPropertyWrite();
     }
 
-    v2 = ispexclavekitdebugmodule_ekdebug_channelpropertywrite(&properties[70 * v4 + 130], &v10);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___Z35ispExclaveKitCommandChPropertyWriteP20sExclaveKitIspCmdHdr_block_invoke;
+    v5[3] = &unk_279798230;
+    v5[4] = &v6;
+    v2 = ispexclavekitdebugmodule_ekdebug_channelpropertywrite(&properties[70 * v4 + 130], &v11, v5);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPropertyWrite();
@@ -6819,7 +6981,7 @@ LABEL_6:
       v2 = 1;
     }
 
-    if (ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v6 + 40))
+    if (ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v7 + 40))
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
       {
@@ -6829,7 +6991,7 @@ LABEL_6:
       v2 = 1;
     }
 
-    _Block_object_dispose(&v5, 8);
+    _Block_object_dispose(&v6, 8);
     return v2;
   }
 
@@ -6841,9 +7003,9 @@ LABEL_6:
   return 3;
 }
 
-void sub_254985F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_254985F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6869,7 +7031,7 @@ uint64_t ispExclaveKitCommandChPropertyRead(uint64_t a1)
   *(a1 + 532) = 0;
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
-    v6 = *(a1 + 524);
+    v5 = *(a1 + 524);
     v7 = *(a1 + 524);
     v8 = 0;
     v9 = &v8;
@@ -6881,7 +7043,12 @@ uint64_t ispExclaveKitCommandChPropertyRead(uint64_t a1)
       ispExclaveKitCommandChPropertyRead();
     }
 
-    v2 = ispexclavekitdebugmodule_ekdebug_channelpropertyread(&properties[70 * v6 + 130], &v7);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 0x40000000;
+    v6[2] = ___Z34ispExclaveKitCommandChPropertyReadP20sExclaveKitIspCmdHdr_block_invoke;
+    v6[3] = &unk_279798258;
+    v6[4] = &v8;
+    v2 = ispexclavekitdebugmodule_ekdebug_channelpropertyread(&properties[70 * v5 + 130], &v7, v6);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChPropertyRead();
@@ -6913,7 +7080,7 @@ uint64_t ispExclaveKitCommandChPropertyRead(uint64_t a1)
     v3 = 1;
 LABEL_16:
     _Block_object_dispose(&v8, 8);
-    goto LABEL_17;
+    return v3;
   }
 
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -6921,15 +7088,12 @@ LABEL_16:
     ispExclaveKitCommandChPropertyRead();
   }
 
-  v3 = 3;
-LABEL_17:
-  v4 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 3;
 }
 
-void sub_2549861C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2549861C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6959,26 +7123,31 @@ uint64_t ispExclaveKitCommandChInfiltration(int *a1)
     v2 = a1[132];
     if (v2 == 1)
     {
-      ispexclavekitdebugmodule_ekchannelfiltrationtype_exfiltration__init(&v12);
+      ispexclavekitdebugmodule_ekchannelfiltrationtype_exfiltration__init(&v13);
     }
 
     else if (!v2)
     {
-      ispexclavekitdebugmodule_ekchannelfiltrationtype_infiltration__init(&v12);
+      ispexclavekitdebugmodule_ekchannelfiltrationtype_infiltration__init(&v13);
     }
 
-    v7 = 0;
-    v8 = &v7;
-    v9 = 0x3802000000;
-    v10 = __Block_byref_object_copy__5_3;
-    v11 = __Block_byref_object_dispose__6_3;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x3802000000;
+    v11 = __Block_byref_object_copy__5_3;
+    v12 = __Block_byref_object_dispose__6_3;
     v4 = a1[131];
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChInfiltration();
     }
 
-    v5 = ispexclavekitdebugmodule_ekdebug_channelinfiltration(&properties[70 * v4 + 130], &v12);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z34ispExclaveKitCommandChInfiltrationP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_279798280;
+    v7[4] = &v8;
+    v5 = ispexclavekitdebugmodule_ekdebug_channelinfiltration(&properties[70 * v4 + 130], &v13, v7);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChInfiltration();
@@ -6999,10 +7168,10 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    if (!ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v8 + 40))
+    if (!ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v9 + 40))
     {
       v3 = 0;
-      a1[133] = *(v8 + 12);
+      a1[133] = *(v9 + 12);
       goto LABEL_20;
     }
 
@@ -7014,7 +7183,7 @@ LABEL_13:
 LABEL_19:
     v3 = 1;
 LABEL_20:
-    _Block_object_dispose(&v7, 8);
+    _Block_object_dispose(&v8, 8);
     return v3;
   }
 
@@ -7026,9 +7195,9 @@ LABEL_20:
   return 3;
 }
 
-void sub_254986420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254986420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7056,26 +7225,31 @@ uint64_t ispExclaveKitCommandChExfiltration(int *a1)
     v2 = a1[132];
     if (v2 == 1)
     {
-      ispexclavekitdebugmodule_ekchannelfiltrationtype_exfiltration__init(&v12);
+      ispexclavekitdebugmodule_ekchannelfiltrationtype_exfiltration__init(&v13);
     }
 
     else if (!v2)
     {
-      ispexclavekitdebugmodule_ekchannelfiltrationtype_infiltration__init(&v12);
+      ispexclavekitdebugmodule_ekchannelfiltrationtype_infiltration__init(&v13);
     }
 
-    v7 = 0;
-    v8 = &v7;
-    v9 = 0x3802000000;
-    v10 = __Block_byref_object_copy__9_1;
-    v11 = __Block_byref_object_dispose__10_1;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x3802000000;
+    v11 = __Block_byref_object_copy__9_1;
+    v12 = __Block_byref_object_dispose__10_1;
     v4 = a1[131];
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChExfiltration();
     }
 
-    v5 = ispexclavekitdebugmodule_ekdebug_channelexfiltration(&properties[70 * v4 + 130], &v12);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 0x40000000;
+    v7[2] = ___Z34ispExclaveKitCommandChExfiltrationP20sExclaveKitIspCmdHdr_block_invoke;
+    v7[3] = &unk_2797982A8;
+    v7[4] = &v8;
+    v5 = ispexclavekitdebugmodule_ekdebug_channelexfiltration(&properties[70 * v4 + 130], &v13, v7);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChExfiltration();
@@ -7096,10 +7270,10 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    if (!ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v8 + 40))
+    if (!ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v9 + 40))
     {
       v3 = 0;
-      a1[133] = *(v8 + 12);
+      a1[133] = *(v9 + 12);
       goto LABEL_20;
     }
 
@@ -7111,7 +7285,7 @@ LABEL_13:
 LABEL_19:
     v3 = 1;
 LABEL_20:
-    _Block_object_dispose(&v7, 8);
+    _Block_object_dispose(&v8, 8);
     return v3;
   }
 
@@ -7123,9 +7297,9 @@ LABEL_20:
   return 3;
 }
 
-void sub_254986664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254986664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7151,18 +7325,23 @@ uint64_t ispExclaveKitCommandChDebugCapability(uint64_t a1)
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) != -1)
   {
     v2 = *(a1 + 524);
-    v11 = v2;
-    v6 = 0;
-    v7 = &v6;
-    v8 = 0x3802000000;
-    v9 = __Block_byref_object_copy__13_1;
-    v10 = __Block_byref_object_dispose__14_1;
+    v12 = v2;
+    v7 = 0;
+    v8 = &v7;
+    v9 = 0x3802000000;
+    v10 = __Block_byref_object_copy__13_1;
+    v11 = __Block_byref_object_dispose__14_1;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChDebugCapability();
     }
 
-    v3 = ispexclavekitdebugmodule_ekdebug_channeldebugcapability(&properties[70 * v2 + 130], &v11);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 0x40000000;
+    v6[2] = ___Z37ispExclaveKitCommandChDebugCapabilityP20sExclaveKitIspCmdHdr_block_invoke;
+    v6[3] = &unk_2797982D0;
+    v6[4] = &v7;
+    v3 = ispexclavekitdebugmodule_ekdebug_channeldebugcapability(&properties[70 * v2 + 130], &v12, v6);
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
     {
       ispExclaveKitCommandChDebugCapability();
@@ -7183,10 +7362,10 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    if (!ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v7 + 40))
+    if (!ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(v8 + 40))
     {
       v4 = 0;
-      *(a1 + 528) = *(v7 + 12);
+      *(a1 + 528) = *(v8 + 12);
       goto LABEL_16;
     }
 
@@ -7198,7 +7377,7 @@ LABEL_6:
 LABEL_15:
     v4 = 1;
 LABEL_16:
-    _Block_object_dispose(&v6, 8);
+    _Block_object_dispose(&v7, 8);
     return v4;
   }
 
@@ -7210,9 +7389,9 @@ LABEL_16:
   return 3;
 }
 
-void sub_254986888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254986888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7232,8 +7411,9 @@ uint64_t ___Z37ispExclaveKitCommandChDebugCapabilityP20sExclaveKitIspCmdHdr_bloc
   return result;
 }
 
-uint64_t isUsingSearApprovedInterface(unsigned int a1)
+uint64_t isUsingSearApprovedInterface(uint64_t a1)
 {
+  v1 = a1;
   if (a1 < 0x100003)
   {
     v3 = usingSearApprovedHandler[a1];
@@ -7244,7 +7424,7 @@ uint64_t isUsingSearApprovedInterface(unsigned int a1)
     v2 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
     {
-      isUsingSearApprovedInterface(a1, v2);
+      isUsingSearApprovedInterface(v1, v2);
     }
 
     v3 = 0;
@@ -7253,15 +7433,16 @@ uint64_t isUsingSearApprovedInterface(unsigned int a1)
   return v3 & 1;
 }
 
-void *searApprovedInterfaceSwitcherUpdate(int a1)
+void *searApprovedInterfaceSwitcherUpdate(uint64_t a1)
 {
+  v1 = a1;
   v2 = qword_27F6132E0;
   if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEBUG))
   {
-    searApprovedInterfaceSwitcherUpdate(a1, v2);
+    searApprovedInterfaceSwitcherUpdate(v1, v2);
   }
 
-  return memset(&usingSearApprovedHandler, a1, 0x100003uLL);
+  return memset(usingSearApprovedHandler, v1, 0x100003uLL);
 }
 
 uint64_t ispExclaveKitCommandChRunIsp(uint64_t a1)
@@ -7275,7 +7456,7 @@ uint64_t ispExclaveKitCommandChRunIsp(uint64_t a1)
       ispExclaveKitCommandChRunIsp();
     }
 
-    v6 = 3;
+    return 3;
   }
 
   else
@@ -7298,7 +7479,12 @@ uint64_t ispExclaveKitCommandChRunIsp(uint64_t a1)
       _os_log_impl(&dword_25497B000, v3, OS_LOG_TYPE_DEFAULT, "%s:%d - [EK] Run ISP Manager\n", buf, 0x12u);
     }
 
-    v4 = ispexclavekitshared_ekispmanager_channelrunispmanager(&properties[70 * v2 + 122], &v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 0x40000000;
+    v8[2] = ___Z28ispExclaveKitCommandChRunIspP20sExclaveKitIspCmdHdr_block_invoke;
+    v8[3] = &unk_2797982F8;
+    v8[4] = &v11;
+    v4 = ispexclavekitshared_ekispmanager_channelrunispmanager(&properties[70 * v2 + 122], &v9, v8);
     v5 = qword_27F6132E0;
     if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_DEFAULT))
     {
@@ -7336,13 +7522,12 @@ uint64_t ispExclaveKitCommandChRunIsp(uint64_t a1)
     _Block_object_dispose(&v11, 8);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void sub_254986C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_254986C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7381,8 +7566,13 @@ uint64_t ispExclaveKitCommandChRunPostProcess(uint64_t a1)
 {
   if (ispExclaveGetServiceTypeFromChIdx(*(a1 + 524)) == 1)
   {
-    v3 = *(a1 + 524);
-    result = ispexclavekitshared_ekispmanager_channelrunpostprocess(&properties[70 * v3 + 122], &v3);
+    v4 = *(a1 + 524);
+    v3[0] = MEMORY[0x277D85DD0];
+    v3[1] = 0x40000000;
+    v3[2] = ___Z36ispExclaveKitCommandChRunPostProcessP20sExclaveKitIspCmdHdr_block_invoke;
+    v3[3] = &__block_descriptor_tmp_2_2;
+    v3[4] = a1;
+    result = ispexclavekitshared_ekispmanager_channelrunpostprocess(&properties[70 * v4 + 122], &v4, v3);
     if (result)
     {
       if (os_log_type_enabled(qword_27F6132E0, OS_LOG_TYPE_ERROR))
@@ -7444,7 +7634,7 @@ void ___Z36ispExclaveKitCommandChRunPostProcessP20sExclaveKitIspCmdHdr_block_inv
   }
 }
 
-uint64_t facekitmodule_facekittrackedface__decode(uint64_t a1, _DWORD *a2)
+uint64_t facekitmodule_facekittrackedface__decode(uint64_t a1, int *a2)
 {
   tb_message_precheck_decoding();
   tb_message_raw_decode_s32();
@@ -7507,7 +7697,7 @@ unsigned __int8 *BOOL__opt_get(unsigned __int8 *a1)
   return result;
 }
 
-uint64_t facekitmodule_facekitaccessibilitydata__decode(uint64_t a1, _BYTE *a2)
+uint64_t facekitmodule_facekitaccessibilitydata__decode(uint64_t a1, unsigned __int8 *a2)
 {
   tb_message_precheck_decoding();
   tb_message_raw_decode_u8();
@@ -7605,131 +7795,109 @@ unsigned __int8 *facekitmodule_ekfacekit_channelrunkitfaceprocess__result_get_su
   return result;
 }
 
-uint64_t facekitmodule_ekfacekit_channelfaceconfigset(uint64_t *a1, unsigned int *a2)
+uint64_t facekitmodule_ekfacekit_channelfaceconfigset(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = *(a2 + 4);
     tb_message_raw_encode_BOOL();
-    v8 = *(a2 + 5);
     tb_message_raw_encode_BOOL();
     tb_message_complete();
-    v9 = *a1;
-    v10 = tb_connection_send_query();
-    if ((v10 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v10;
-      v11 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v14 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t facekitmodule_ekfacekit_channelrunkitfaceprocess(uint64_t *a1, unsigned int *a2)
+uint64_t facekitmodule_ekfacekit_channelrunkitfaceprocess(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t facekitmodule_ekfacekit_channelrunkitfacesecondaryprocess(uint64_t *a1, unsigned int *a2)
+uint64_t facekitmodule_ekfacekit_channelrunkitfacesecondaryprocess(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t facekitmodule_ekfacekit__init(uint64_t *a1)
+uint64_t facekitmodule_ekfacekit__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
@@ -7828,153 +7996,124 @@ unsigned __int8 *ispexclavekitshared_ekstreamingcontrol_off__result_get_failure(
   return result;
 }
 
-uint64_t ispexclavekitshared_ekstreamingcontrol_on(uint64_t *a1)
+uint64_t ispexclavekitshared_ekstreamingcontrol_on(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = tb_client_connection_message_construct();
-  if (!v3)
+  v2 = tb_client_connection_message_construct();
+  if (!v2)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v4 = *a1;
-    v5 = tb_connection_send_query();
-    if ((v5 & 0xFFFFFFF7) != 0)
+    v3 = tb_connection_send_query();
+    if ((v3 & 0xFFFFFFF7) != 0)
     {
-      v3 = v5;
-      v6 = *a1;
+      v2 = v3;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v9 = *a1;
       tb_client_connection_message_destruct();
-      v3 = 4;
+      return 4;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v2;
 }
 
-uint64_t ispexclavekitshared_ekstreamingcontrol_off(uint64_t *a1)
+uint64_t ispexclavekitshared_ekstreamingcontrol_off(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = tb_client_connection_message_construct();
-  if (!v3)
+  v2 = tb_client_connection_message_construct();
+  if (!v2)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v4 = *a1;
-    v5 = tb_connection_send_query();
-    if ((v5 & 0xFFFFFFF7) != 0)
+    v3 = tb_connection_send_query();
+    if ((v3 & 0xFFFFFFF7) != 0)
     {
-      v3 = v5;
-      v6 = *a1;
+      v2 = v3;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v9 = *a1;
       tb_client_connection_message_destruct();
-      v3 = 4;
+      return 4;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v2;
 }
 
-uint64_t ispexclavekitshared_ekstreamingcontrol__init(uint64_t *a1)
+uint64_t ispexclavekitshared_ekstreamingcontrol__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelstart(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelstart(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = a2[1];
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v9;
-      v10 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v13 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelstop(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelstop(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelconcurrentflagset(uint64_t *a1)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelconcurrentflagset(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   v3 = tb_client_connection_message_construct();
   if (!v3)
   {
@@ -7982,298 +8121,243 @@ uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelconcurrentflagset(
     tb_message_raw_encode_u64();
     tb_message_raw_encode_BOOL();
     tb_message_complete();
-    v4 = *a1;
-    v5 = tb_connection_send_query();
-    if ((v5 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v3 = v5;
-      v6 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v9 = *a1;
       tb_client_connection_message_destruct();
-      v3 = 4;
+      return 4;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = a2[1] & 0xFFFFF000;
-    if (v7)
+    v5 = a2[1] & 0xFFFFF000;
+    if (v5)
     {
-      ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable_cold_1(v7);
+      ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable_cold_1(v5);
     }
 
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
     {
-      v5 = v9;
-      v10 = *a1;
+      v4 = v6;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v13 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v4;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = *(a2 + 1);
     tb_message_raw_encode_u64();
-    v8 = *(a2 + 1);
-    if (v8 != 0x43534973E0734AAFLL)
+    v5 = *(a2 + 1);
+    if (v5 != 0x43534973E0734AAFLL)
     {
-      ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread_cold_1(v8);
+      ispexclavekitshared_ekchannelstreamingcontrol_channelconfigurationstatusread_cold_1(v5);
     }
 
     tb_message_complete();
-    v9 = *a1;
-    v10 = tb_connection_send_query();
-    if ((v10 & 0xFFFFFFF7) != 0)
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
     {
-      v5 = v10;
-      v11 = *a1;
+      v4 = v6;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v14 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v4;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelsetalgoframerate(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol_channelsetalgoframerate(void *a1, float *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = a2[1] & 0xFFFFF000;
-    if (v7)
+    v5 = a2[1] & 0xFFFFF000;
+    if (v5)
     {
-      ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable_cold_1(v7);
+      ispexclavekitshared_ekchannelstreamingcontrol_channelalgorithmenable_cold_1(v5);
     }
 
     tb_message_raw_encode_u32();
-    v8 = a2[2];
     tb_message_raw_encode_f32();
     tb_message_complete();
-    v9 = *a1;
-    v10 = tb_connection_send_query();
-    if ((v10 & 0xFFFFFFF7) != 0)
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
     {
-      v5 = v10;
-      v11 = *a1;
+      v4 = v6;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v14 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v4;
 }
 
-uint64_t ispexclavekitshared_ekchannelstreamingcontrol__init(uint64_t *a1)
+uint64_t ispexclavekitshared_ekchannelstreamingcontrol__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
 }
 
-uint64_t ispexclavekitshared_ekispmanager_channelrunispmanager(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekispmanager_channelrunispmanager(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = *(a2 + 1);
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v9;
-      v10 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v13 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekitshared_ekispmanager_channelinformationget(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekispmanager_channelinformationget(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekitshared_ekispmanager_channelcameraconfigurationget(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekispmanager_channelcameraconfigurationget(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = a2[1];
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v9;
-      v10 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v13 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekitshared_ekispmanager_channelsensormetadataset(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekispmanager_channelsensormetadataset(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    v7 = a2[1];
     tb_message_raw_encode_u32();
-    v8 = *(a2 + 1);
     tb_message_raw_encode_u64();
-    v9 = *(a2 + 2);
     tb_message_raw_encode_u64();
-    v10 = a2[6];
     tb_message_raw_encode_u32();
     if (a2[7] >= 0xE)
     {
@@ -8287,143 +8371,121 @@ uint64_t ispexclavekitshared_ekispmanager_channelsensormetadataset(uint64_t *a1,
     }
 
     tb_message_raw_encode_u32();
-    v11 = a2[9];
     tb_message_raw_encode_u32();
-    v12 = *(a2 + 40);
     tb_message_raw_encode_BOOL();
-    for (i = 0; i != 9; ++i)
+    for (i = 0; i != 36; i += 4)
     {
-      v14 = a2[i + 11];
       tb_message_raw_encode_f32();
     }
 
-    v15 = *(a2 + 80);
     tb_message_raw_encode_BOOL();
-    v16 = a2[21];
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v17 = *a1;
-    v18 = tb_connection_send_query();
-    if ((v18 & 0xFFFFFFF7) != 0)
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
     {
-      v5 = v18;
-      v19 = *a1;
+      v4 = v6;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v22 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v4;
 }
 
-uint64_t ispexclavekitshared_ekispmanager_channelrunpostprocess(uint64_t *a1, unsigned int *a2)
+uint64_t ispexclavekitshared_ekispmanager_channelrunpostprocess(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekitshared_ekispmanager__init(uint64_t *a1)
+uint64_t ispexclavekitshared_ekispmanager__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
 }
 
-uint64_t andkmodule_ekandk_runandk(uint64_t *a1, unsigned int *a2)
+uint64_t andkmodule_ekandk_runandk(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t andkmodule_ekandk__init(uint64_t *a1)
+uint64_t andkmodule_ekandk__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
@@ -8506,12 +8568,12 @@ void *anstmodule_anstfaceposedegree_value__get(uint64_t *a1)
   return result;
 }
 
-uint64_t anstmodule_anstfacev1502__decode(uint64_t a1, void *a2)
+uint64_t anstmodule_anstfacev1502__decode(uint64_t a1, char *a2)
 {
   tb_message_decode_u32();
   tb_message_decode_u32();
   tb_message_decode_u64();
-  v4 = a2[1];
+  v4 = *(a2 + 1);
   result = 7;
   if (v4 <= 0xF72949D39FB4EAF6)
   {
@@ -8568,7 +8630,7 @@ LABEL_14:
   tb_message_raw_decode_f32();
   tb_message_raw_decode_f32();
   tb_message_decode_u64();
-  v7 = a2[4];
+  v7 = *(a2 + 4);
   if (v7 != 0x9C1A4069785BB2FLL)
   {
     if (v7 != 0x2C7061AAF16187FFLL)
@@ -8580,7 +8642,7 @@ LABEL_14:
   }
 
   tb_message_decode_u64();
-  v8 = a2[6];
+  v8 = *(a2 + 6);
   if (v8 != 0x9C1A4069785BB2FLL)
   {
     if (v8 != 0x2C7061AAF16187FFLL)
@@ -8592,7 +8654,7 @@ LABEL_14:
   }
 
   tb_message_decode_u64();
-  v9 = a2[8];
+  v9 = *(a2 + 8);
   if (v9 == 0x9C1A4069785BB2FLL)
   {
     goto LABEL_23;
@@ -8623,22 +8685,20 @@ LABEL_23:
 
 uint64_t anstmodule_anstobjectv1502__v_visit(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   result = *a1;
   switch(result)
   {
     case 1:
-      v17 = 0;
-      memset(v16, 0, sizeof(v16));
-      v24 = 0;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v10 = a1[1];
-      v11 = a1[2];
+      v11 = 0;
+      memset(v10, 0, sizeof(v10));
+      v18 = 0;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       tb_transport_message_buffer_wrap_buffer();
       if (tb_message_construct())
       {
@@ -8648,27 +8708,24 @@ uint64_t anstmodule_anstobjectv1502__v_visit(void *a1, uint64_t a2)
       result = tb_message_configure_received();
       if (a1[3])
       {
-        v12 = 0;
+        v7 = 0;
         do
         {
-          v15 = 0;
-          memset(v14, 0, sizeof(v14));
-          if (anstmodule_anstobjectv1502__decode(v16, v14))
+          v9 = 0;
+          memset(v8, 0, sizeof(v8));
+          if (anstmodule_anstobjectv1502__decode(v10, v8))
           {
             anstmodule_anstobjectv1502__v_visit_cold_3();
           }
 
-          result = (*(a2 + 16))(a2, v12++, v14);
+          result = (*(a2 + 16))(a2, v7++, v8);
         }
 
-        while (v12 < a1[3]);
+        while (v7 < a1[3]);
       }
 
       break;
     case 2:
-      v7 = a1[1];
-      v8 = a1[2];
-      v9 = a1[3];
       result = tb_message_subrange();
       if (result)
       {
@@ -8695,7 +8752,6 @@ uint64_t anstmodule_anstobjectv1502__v_visit(void *a1, uint64_t a2)
       anstmodule_anstobjectv1502__v_visit_cold_4(result);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8725,22 +8781,20 @@ uint64_t __anstmodule_anstobjectv1502__v_visit_block_invoke(uint64_t a1, uint64_
 
 uint64_t anstmodule_anstfacev1502__v_visit(void *a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   result = *a1;
   switch(result)
   {
     case 1:
-      v16 = 0;
-      memset(v15, 0, sizeof(v15));
-      v23 = 0;
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v10 = a1[1];
-      v11 = a1[2];
+      v10 = 0;
+      memset(v9, 0, sizeof(v9));
+      v17 = 0;
+      v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       tb_transport_message_buffer_wrap_buffer();
       if (tb_message_construct())
       {
@@ -8750,26 +8804,23 @@ uint64_t anstmodule_anstfacev1502__v_visit(void *a1, uint64_t a2)
       result = tb_message_configure_received();
       if (a1[3])
       {
-        v12 = 0;
+        v7 = 0;
         do
         {
-          memset(v14, 0, sizeof(v14));
-          if (anstmodule_anstfacev1502__decode(v15, v14))
+          memset(v8, 0, sizeof(v8));
+          if (anstmodule_anstfacev1502__decode(v9, v8))
           {
             anstmodule_anstfacev1502__v_visit_cold_3();
           }
 
-          result = (*(a2 + 16))(a2, v12++, v14);
+          result = (*(a2 + 16))(a2, v7++, v8);
         }
 
-        while (v12 < a1[3]);
+        while (v7 < a1[3]);
       }
 
       break;
     case 2:
-      v7 = a1[1];
-      v8 = a1[2];
-      v9 = a1[3];
       result = tb_message_subrange();
       if (result)
       {
@@ -8796,7 +8847,6 @@ uint64_t anstmodule_anstfacev1502__v_visit(void *a1, uint64_t a2)
       anstmodule_anstfacev1502__v_visit_cold_4(result);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8857,194 +8907,168 @@ uint64_t anstmodule_anstresultipcv1502__decode(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t anstmodule_ekanst_channelrunkitanstv150(uint64_t *a1, unsigned int *a2)
+uint64_t anstmodule_ekanst_channelrunkitanstv150(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t anstmodule_ekanst__init(uint64_t *a1)
+uint64_t anstmodule_ekanst__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
 }
 
-uint64_t attentionawarenessmodule_ekattentionawareness_channelrunfacedetect(uint64_t *a1, unsigned int *a2)
+uint64_t attentionawarenessmodule_ekattentionawareness_channelrunfacedetect(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t attentionawarenessmodule_ekattentionawareness_channelrunattentiondetect(uint64_t *a1, unsigned int *a2)
+uint64_t attentionawarenessmodule_ekattentionawareness_channelrunattentiondetect(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t attentionawarenessmodule_ekattentionawareness_channelupdateattentionconfig(uint64_t *a1, uint64_t a2)
+uint64_t attentionawarenessmodule_ekattentionawareness_channelupdateattentionconfig(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2 & 0xFFFFFFFC;
-    if (v6)
+    v5 = *a2 & 0xFFFFFFFC;
+    if (v5)
     {
-      attentionawarenessmodule_ekattentionawareness_channelupdateattentionconfig_cold_1(v6);
+      attentionawarenessmodule_ekattentionawareness_channelupdateattentionconfig_cold_1(v5);
     }
 
     tb_message_raw_encode_u32();
-    v7 = *(a2 + 4);
     tb_message_raw_encode_BOOL();
     tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
     {
-      v5 = v9;
-      v10 = *a1;
+      v4 = v6;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v13 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v4;
 }
 
-uint64_t attentionawarenessmodule_ekattentionawareness__init(uint64_t *a1)
+uint64_t attentionawarenessmodule_ekattentionawareness__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
   }
 
   return result;
@@ -9073,740 +9097,623 @@ uint64_t autoexposuremodule_ekautoexposureresult__decode(uint64_t a1, uint64_t a
   return tb_message_raw_decode_BOOL();
 }
 
-uint64_t autoexposuremodule_ekautoexposure_channelrunautoexposure(uint64_t *a1, unsigned int *a2)
+uint64_t autoexposuremodule_ekautoexposure_channelrunautoexposure(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v8;
-      v9 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v12 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxset(uint64_t *a1, unsigned int *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    v7 = a2[1];
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v9;
-      v10 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v13 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframerateminset(uint64_t *a1, unsigned int *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    v7 = a2[1];
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v9;
-      v10 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v13 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure_channelautoexposureinitsettingget(uint64_t *a1, unsigned int *a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v8;
-      v9 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v12 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure_channelautoexposureflickerfreqset(uint64_t *a1, uint64_t *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u64();
-    if (*(a2 + 2) >= 5u)
-    {
-      autoexposuremodule_ekautoexposure_channelautoexposureflickerfreqset_cold_1(*(a2 + 2));
-    }
-
-    tb_message_raw_encode_u32();
-    v7 = *(a2 + 3);
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v9;
-      v10 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v13 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxget(uint64_t *a1, unsigned int *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v8;
-      v9 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v12 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframerateminget(uint64_t *a1, unsigned int *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v8;
-      v9 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v12 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t autoexposuremodule_ekautoexposure__init(uint64_t *a1)
-{
-  tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
-  result = tb_client_connection_activate();
-  if (!result)
-  {
-    *a1 = v2;
-  }
-
-  return result;
-}
-
-uint64_t eyereliefmodule_ekeyerelief_channelruneyerelief(uint64_t *a1, unsigned int *a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v8;
-      v9 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v12 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t eyereliefmodule_ekeyerelief__init(uint64_t *a1)
-{
-  tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
-  result = tb_client_connection_activate();
-  if (!result)
-  {
-    *a1 = v2;
-  }
-
-  return result;
-}
-
-uint64_t ispexclavekitdebugmodule_ekdebug_channelpropertywrite(uint64_t *a1, unsigned int *a2)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    v7 = a2[1];
-    tb_message_raw_encode_u32();
-    v8 = a2[2];
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v9 = *a1;
-    v10 = tb_connection_send_query();
-    if ((v10 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v10;
-      v11 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v14 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t ispexclavekitdebugmodule_ekdebug_channelpropertyread(uint64_t *a1, unsigned int *a2)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    v7 = a2[1];
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v9;
-      v10 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v13 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t ispexclavekitdebugmodule_ekdebug_channeldebugcapability(uint64_t *a1, unsigned int *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u32();
-    tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v8;
-      v9 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v12 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t ispexclavekitdebugmodule_ekdebug_channelinfiltration(uint64_t *a1, uint64_t *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u64();
-    v7 = *a2;
-    if (*a2 != 0x3235545A248E0987 && v7 != 0x3AF3F0E64085E320)
-    {
-      ispexclavekitdebugmodule_ekdebug_channelinfiltration_cold_1(v7);
-    }
-
-    tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v9;
-      v10 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v13 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t ispexclavekitdebugmodule_ekdebug_channelexfiltration(uint64_t *a1, uint64_t *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    v6 = *a2;
-    tb_message_raw_encode_u64();
-    v7 = *a2;
-    if (*a2 != 0x3235545A248E0987 && v7 != 0x3AF3F0E64085E320)
-    {
-      ispexclavekitdebugmodule_ekdebug_channelinfiltration_cold_1(v7);
-    }
-
-    tb_message_complete();
-    v8 = *a1;
-    v9 = tb_connection_send_query();
-    if ((v9 & 0xFFFFFFF7) != 0)
-    {
-      v5 = v9;
-      v10 = *a1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      v13 = *a1;
-      tb_client_connection_message_destruct();
-      v5 = 4;
-    }
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
-uint64_t ispexclavekitdebugmodule_ekdebug_channelcommandtimeout(uint64_t *a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   v3 = tb_client_connection_message_construct();
   if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_raw_encode_u32();
-    tb_message_raw_encode_BOOL();
     tb_message_complete();
-    v4 = *a1;
-    v5 = tb_connection_send_query();
-    if ((v5 & 0xFFFFFFF7) != 0)
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v3 = v5;
-      v6 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v9 = *a1;
       tb_client_connection_message_destruct();
-      v3 = 4;
+      return 4;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t ispexclavekitdebugmodule_ekdebug__init(uint64_t *a1)
+uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxset(void *a1, unsigned int *a2, uint64_t a3)
 {
-  tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
-  result = tb_client_connection_activate();
-  if (!result)
-  {
-    *a1 = v2;
-  }
-
-  return result;
-}
-
-uint64_t ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channellscset(uint64_t *a1, unsigned __int16 *a2)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  memset(v13, 0, sizeof(v13));
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v16 = 0u;
-  v15 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    ispexclavekithardwaredefaultconfig_eklscconfig__raw_encode(v13, a2 + 2);
+    tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channelpdpset(uint64_t *a1, unsigned int *a2)
+uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframerateminset(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  memset(v13, 0, sizeof(v13));
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v16 = 0u;
-  v15 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
-    ispexclavekithardwaredefaultconfig_ekpdpconfig__raw_encode(v13, (a2 + 2));
+    tb_message_raw_encode_u32();
     tb_message_complete();
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig__init(uint64_t *a1)
+uint64_t autoexposuremodule_ekautoexposure_channelautoexposureinitsettingget(void *a1, unsigned int *a2, uint64_t a3)
 {
-  tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
-  result = tb_client_connection_activate();
-  if (!result)
-  {
-    *a1 = v2;
-  }
-
-  return result;
-}
-
-uint64_t motiontowakemodule_ekmotiontowake_channelrunmotiondetect(uint64_t *a1, unsigned int *a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
   v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *a1;
-  v5 = tb_client_connection_message_construct();
-  if (!v5)
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    v6 = *a2;
     tb_message_raw_encode_u32();
     tb_message_complete();
-    v13 = 0;
-    v7 = *a1;
-    v8 = tb_connection_send_query();
-    if ((v8 & 0xFFFFFFF7) != 0)
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
     {
-      v5 = v8;
-      v9 = *a1;
+      v3 = v4;
       tb_client_connection_message_destruct();
     }
 
     else
     {
-      v12 = *a1;
       tb_client_connection_message_destruct();
-      v5 = 4;
+      return 4;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v3;
 }
 
-uint64_t motiontowakemodule_ekmotiontowake__init(uint64_t *a1)
+uint64_t autoexposuremodule_ekautoexposure_channelautoexposureflickerfreqset(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u64();
+    if (*(a2 + 8) >= 5u)
+    {
+      autoexposuremodule_ekautoexposure_channelautoexposureflickerfreqset_cold_1(*(a2 + 8));
+    }
+
+    tb_message_raw_encode_u32();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v5;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframeratemaxget(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t autoexposuremodule_ekautoexposure_channelautoexposureframerateminget(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t autoexposuremodule_ekautoexposure__init(uint64_t *a1, uint64_t a2)
 {
   tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
+  v3 = tb_client_connection_create_with_endpoint();
   result = tb_client_connection_activate();
   if (!result)
   {
-    *a1 = v2;
+    *a1 = v3;
+  }
+
+  return result;
+}
+
+uint64_t eyereliefmodule_ekeyerelief_channelruneyerelief(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t eyereliefmodule_ekeyerelief__init(uint64_t *a1, uint64_t a2)
+{
+  tb_endpoint_set_interface_identifier();
+  v3 = tb_client_connection_create_with_endpoint();
+  result = tb_client_connection_activate();
+  if (!result)
+  {
+    *a1 = v3;
+  }
+
+  return result;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug_channelpropertywrite(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_raw_encode_u32();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug_channelpropertyread(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug_channeldebugcapability(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug_channelinfiltration(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u64();
+    v5 = *a2;
+    if (*a2 != 0x3235545A248E0987 && v5 != 0x3AF3F0E64085E320)
+    {
+      ispexclavekitdebugmodule_ekdebug_channelinfiltration_cold_1(v5);
+    }
+
+    tb_message_complete();
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v6;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug_channelexfiltration(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u64();
+    v5 = *a2;
+    if (*a2 != 0x3235545A248E0987 && v5 != 0x3AF3F0E64085E320)
+    {
+      ispexclavekitdebugmodule_ekdebug_channelinfiltration_cold_1(v5);
+    }
+
+    tb_message_complete();
+    v6 = tb_connection_send_query();
+    if ((v6 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v6;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug_channelcommandtimeout(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_raw_encode_BOOL();
+    tb_message_complete();
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v5;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t ispexclavekitdebugmodule_ekdebug__init(uint64_t *a1, uint64_t a2)
+{
+  tb_endpoint_set_interface_identifier();
+  v3 = tb_client_connection_create_with_endpoint();
+  result = tb_client_connection_activate();
+  if (!result)
+  {
+    *a1 = v3;
+  }
+
+  return result;
+}
+
+uint64_t ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channellscset(void *a1, unsigned __int16 *a2, uint64_t a3)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
+  v15 = 0;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    ispexclavekithardwaredefaultconfig_eklscconfig__raw_encode(v7, a2 + 2);
+    tb_message_complete();
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v5;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig_channelpdpset(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
+  v15 = 0;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    ispexclavekithardwaredefaultconfig_ekpdpconfig__raw_encode(v7, a2 + 1);
+    tb_message_complete();
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v5;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t ispexclavekithardwaredefaultconfig_ekhardwaredefaultconfig__init(uint64_t *a1, uint64_t a2)
+{
+  tb_endpoint_set_interface_identifier();
+  v3 = tb_client_connection_create_with_endpoint();
+  result = tb_client_connection_activate();
+  if (!result)
+  {
+    *a1 = v3;
+  }
+
+  return result;
+}
+
+uint64_t motiontowakemodule_ekmotiontowake_channelrunmotiondetect(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t motiontowakemodule_ekmotiontowake__init(uint64_t *a1, uint64_t a2)
+{
+  tb_endpoint_set_interface_identifier();
+  v3 = tb_client_connection_create_with_endpoint();
+  result = tb_client_connection_activate();
+  if (!result)
+  {
+    *a1 = v3;
   }
 
   return result;
@@ -9859,4 +9766,97 @@ uint64_t fidflowmodule_attentiondetectresultv2__decode(uint64_t a1, uint64_t a2)
   }
 
   return result;
+}
+
+uint64_t fidflowmodule_ekfidflow_channelrunattentiondetectv2(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v7 = 0u;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v6 = 0;
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t fidflowmodule_ekfidflow_channelfidsessionenter(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t fidflowmodule_ekfidflow_channelfidsessionexit(void *a1, unsigned int *a2, uint64_t a3)
+{
+  v3 = tb_client_connection_message_construct();
+  if (!v3)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_complete();
+    v4 = tb_connection_send_query();
+    if ((v4 & 0xFFFFFFF7) != 0)
+    {
+      v3 = v4;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v3;
 }

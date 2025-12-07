@@ -20,15 +20,15 @@
   }
 
   v5 = v4;
-  [v4 setAccessibleWithBoolean:1];
-  v6 = [v5 invokeWithId:self->val$buffer_ withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_())}];
-  if (v6)
+  v6 = [v4 setAccessibleWithBoolean:1];
+  v8 = [v5 invokeWithId:self->val$buffer_ withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_(v6, v7))}];
+  if (v8)
   {
-    v7 = v6;
-    v8 = [objc_msgSend(v6 "getClass")];
-    if (v8)
+    v9 = v8;
+    v10 = [objc_msgSend(v8 "getClass")];
+    if (v10)
     {
-      [v8 invokeWithId:v7 withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_())}];
+      [v10 invokeWithId:v9 withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_(v10, v11))}];
       return 0;
     }
 

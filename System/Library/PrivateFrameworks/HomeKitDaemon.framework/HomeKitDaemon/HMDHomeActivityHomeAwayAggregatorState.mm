@@ -38,7 +38,7 @@
 
 - (id)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   type = [(HMDHomeActivityHomeAwayAggregatorState *)self type];
   if (type >= 3)
@@ -52,15 +52,13 @@
   }
 
   v6 = [v3 initWithName:@"Type" value:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   awayChangedTimestamp = [(HMDHomeActivityHomeAwayAggregatorState *)self awayChangedTimestamp];
   hmf_localTimeDescription = [awayChangedTimestamp hmf_localTimeDescription];
   v10 = [v7 initWithName:@"Away Changed Timestamp" value:hmf_localTimeDescription];
-  v14[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v11;
 }

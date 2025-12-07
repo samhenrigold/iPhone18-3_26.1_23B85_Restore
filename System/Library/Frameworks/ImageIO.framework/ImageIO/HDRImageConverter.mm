@@ -206,103 +206,103 @@ LABEL_39:
 
 - (id)generateToneMappingCurveForImage:(id)image targetHeadroom:(double)headroom
 {
-  v4 = MEMORY[0x1EEE9AC00](self, a2);
+  v4 = (MEMORY[0x1EEE9AC00])(self, a2, image);
   v6 = v5;
-  v7 = v4;
-  v9 = v8;
-  [v9 headroom];
-  v11 = fmin((v10 + -0.000001), v6);
-  v12 = v11;
-  *&v11 = v12;
-  v42 = [v9 inputTransformToEDR:v11];
+  v8 = v7;
+  [v8 headroom];
+  v10 = fmin((v9 + -0.000001), v4);
+  v11 = v10;
+  *&v10 = v11;
+  v41 = [v8 inputTransformToEDR:v10];
   if ((gIIODebugFlags & 0x300000) != 0)
   {
-    v13 = [v42 description];
-    ImageIOLog("☀️ HDRImageConverter::generateToneMappingCurve SRC => GTC\nSRC[EDR=%g] => %s", v12, [v13 UTF8String]);
+    v12 = [v41 description];
+    ImageIOLog("☀️ HDRImageConverter::generateToneMappingCurve SRC => GTC\nSRC[EDR=%g] => %s", v11, [v12 UTF8String]);
   }
 
-  if (!v42)
+  if (!v41)
   {
     goto LABEL_20;
   }
 
-  if (([v42 flags] & 1) == 0)
+  if (([v41 flags] & 1) == 0)
   {
-    v14 = [v9 description];
-    LogError("-[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 135, "Missing gain map: %s", [v14 UTF8String]);
+    v13 = [v8 description];
+    LogError("-[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 135, "Missing gain map: %s", [v13 UTF8String]);
 
 LABEL_20:
-    v38 = 0;
+    v37 = 0;
     goto LABEL_21;
   }
 
-  bzero(v43, 0x1000uLL);
-  imageBuffer = [v9 imageBuffer];
-  image = [v42 image];
-  gainMapBuffer = [v9 gainMapBuffer];
-  gainMap = [v42 gainMap];
+  bzero(v42, 0x1000uLL);
+  imageBuffer = [v8 imageBuffer];
+  image = [v41 image];
+  gainMapBuffer = [v8 gainMapBuffer];
+  gainMap = [v41 gainMap];
   __asm { FMOV            V0.2S, #1.0 }
 
-  *&_D0 = 1.0 / v12;
-  if (([v7 computeLumaGainHistogram:v43 scale:imageBuffer image:image transform:gainMapBuffer gainMap:gainMap transform:_D0] & 1) == 0)
+  *&_D0 = 1.0 / v11;
+  if (([v6 computeLumaGainHistogram:v42 scale:imageBuffer image:image transform:gainMapBuffer gainMap:gainMap transform:_D0] & 1) == 0)
   {
     LogError("[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 147, "Failed to compute luma-gain histogram");
     goto LABEL_20;
   }
 
-  v41 = v9;
+  v40 = v8;
   if ((gIIODebugFlags & 0x300000) != 0)
   {
-    v24 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:32];
-    v25 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    v26 = 1;
+    v23 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:32];
+    v24 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v25 = 1;
     do
     {
-      v27 = [MEMORY[0x1E696AD98] numberWithInt:v26];
-      [v24 addObject:v27];
+      v26 = [MEMORY[0x1E696AD98] numberWithInt:v25];
+      [v23 addObject:v26];
 
-      v26 = (v26 + 1);
+      v25 = (v25 + 1);
     }
 
-    while (v26 != 33);
-    v28 = [v24 componentsJoinedByString:{@", "}];
-    [v25 appendFormat:@"lxg, %@\n", v28];
+    while (v25 != 33);
+    v27 = [v23 componentsJoinedByString:{@", "}];
+    [v24 appendFormat:@"lxg, %@\n", v27];
 
-    v29 = 0;
-    v30 = v43;
+    v28 = 0;
+    v29 = v42;
     do
     {
-      [v24 removeAllObjects];
+      [v23 removeAllObjects];
       for (i = 0; i != 128; i += 4)
       {
-        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", *&v30[i]];
-        [v24 addObject:v32];
+        v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", *&v29[i]];
+        [v23 addObject:v31];
       }
 
-      v33 = [v24 componentsJoinedByString:{@", "}];
-      ++v29;
-      v9 = v41;
-      [v25 appendFormat:@"%d, %@\n", v29, v33];
+      v32 = [v23 componentsJoinedByString:{@", "}];
+      ++v28;
+      v8 = v40;
+      [v24 appendFormat:@"%d, %@\n", v28, v32];
 
-      v30 += 128;
+      v29 += 128;
     }
 
-    while (v29 != 32);
-    _cg_jpeg_mem_term("-[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 167, "Luma-Gain Histogram Data: (32x32)\n%s", [v25 UTF8String]);
+    while (v28 != 32);
+    [v24 UTF8String];
+    _cg_jpeg_mem_term("[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 167, "Luma-Gain Histogram Data: (32x32)\n%s");
   }
 
-  v34 = [objc_opt_class() computeToneMappingCurveFromLumaGainHistogram:v43];
-  if (v34)
+  v33 = [objc_opt_class() computeToneMappingCurveFromLumaGainHistogram:v42];
+  if (v33)
   {
-    v35 = [objc_opt_class() createUUIDFromLumaGainHistogram:v43];
-    if (v35)
+    v34 = [objc_opt_class() createUUIDFromLumaGainHistogram:v42];
+    if (v34)
     {
-      *&v36 = v6;
-      v37 = [v9 flexGTCInfoWithCurveData:v34 headroom:v35 identifier:v36];
-      v38 = v37;
-      if (v37)
+      *&v35 = v4;
+      v36 = [v8 flexGTCInfoWithCurveData:v33 headroom:v34 identifier:v35];
+      v37 = v36;
+      if (v36)
       {
-        v39 = v37;
+        v38 = v36;
       }
 
       else
@@ -314,19 +314,19 @@ LABEL_20:
     else
     {
       LogError("[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 180, "Failed to compute tone mapping curve from luma gain histogram");
-      v38 = 0;
+      v37 = 0;
     }
   }
 
   else
   {
     LogError("[HDRImageConverter generateToneMappingCurveForImage:targetHeadroom:]", 174, "Failed to compute tone mapping curve from luma gain histogram");
-    v38 = 0;
+    v37 = 0;
   }
 
 LABEL_21:
 
-  return v38;
+  return v37;
 }
 
 - (id)computeHDRStatisticsForImage:(id)image targetSpace:(CGColorSpace *)space
@@ -536,8 +536,8 @@ LABEL_39:
 
 + (id)computeToneMappingCurveFromLumaGainHistogram:(id *)histogram
 {
-  v53[559] = *MEMORY[0x1E69E9840];
-  bzero(v52, 0x1180uLL);
+  v54[559] = *MEMORY[0x1E69E9840];
+  bzero(v53, 0x1180uLL);
   v4 = 0;
   v5.i64[0] = 0x3F0000003F000000;
   v5.i64[1] = 0x3F0000003F000000;
@@ -559,7 +559,7 @@ LABEL_39:
     while (v9 != 32);
     v11 = 0;
     v12 = vaddvq_s32(v10);
-    v13 = &v52[35 * v4];
+    v13 = &v53[35 * v4];
     *v13 = v12;
     v14 = v12;
     v15 = 0;
@@ -608,7 +608,7 @@ LABEL_39:
   }
 
   while (v4 != 32);
-  if (!HDRFlexGTC_fillGaps(v52, 0x424800003C03126FLL, 1))
+  if (!HDRFlexGTC_fillGaps(v53, 0x424800003C03126FLL, 1))
   {
     LogError("+[HDRImageConverter computeToneMappingCurveFromLumaGainHistogram:]", 383, "Failed to fill gaps");
 LABEL_26:
@@ -621,7 +621,7 @@ LABEL_26:
     v29 = objc_alloc_init(MEMORY[0x1E696AD60]);
     [v29 appendString:{@"Bin, N, gM, gSD\n"}];
     v30 = 0;
-    v31 = v53;
+    v31 = v54;
     do
     {
       [v29 appendFormat:@"%d, %u, %f, %f\n", v30++, *(v31 - 2), *(v31 - 1), *v31];
@@ -630,13 +630,14 @@ LABEL_26:
 
     while (v30 != 32);
     v32 = v29;
-    _cg_jpeg_mem_term("+[HDRImageConverter computeToneMappingCurveFromLumaGainHistogram:]", 395, "Luma-Gain Bins Data: (32x32)\n%s", [v29 UTF8String]);
+    uTF8String = [v29 UTF8String];
+    _cg_jpeg_mem_term("+[HDRImageConverter computeToneMappingCurveFromLumaGainHistogram:]", 395, "Luma-Gain Bins Data: (32x32)\n%s");
   }
 
-  bzero(v50, 0x380uLL);
-  v48 = 0;
-  HDRFlexGTC_curveFit(v52, 0x424800003C03126FLL, 1, v50, &v48);
-  if (!v48)
+  bzero(v51, 0x380uLL);
+  v49 = 0;
+  HDRFlexGTC_curveFit(v53, 0x424800003C03126FLL, 1, v51, &v49);
+  if (!v49)
   {
     LogError("+[HDRImageConverter computeToneMappingCurveFromLumaGainHistogram:]", 403, "Failed to fit curve");
     goto LABEL_26;
@@ -646,47 +647,48 @@ LABEL_26:
   {
     v33 = objc_alloc_init(MEMORY[0x1E696AD60]);
     [v33 appendString:{@"cubic, x, y, slope\n"}];
-    if (v48 >= 1)
+    if (v49 >= 1)
     {
       v34 = 0;
-      v35 = v51;
+      v35 = v52;
       do
       {
         [v33 appendFormat:@"%d, %f, %f, %f\n", v34++, *(v35 - 2), *(v35 - 1), *v35];
         v35 += 7;
       }
 
-      while (v34 < v48);
+      while (v34 < v49);
     }
 
     v36 = v33;
-    _cg_jpeg_mem_term("+[HDRImageConverter computeToneMappingCurveFromLumaGainHistogram:]", 414, "Luma-Gain Cubic Points: \n%s", [v33 UTF8String]);
+    uTF8String = [v33 UTF8String];
+    _cg_jpeg_mem_term("+[HDRImageConverter computeToneMappingCurveFromLumaGainHistogram:]", 414, "Luma-Gain Cubic Points: \n%s");
   }
 
   v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (v48 >= 1)
+  if (v49 >= 1)
   {
     v39 = 0;
-    v40 = v51;
+    v40 = v52;
     do
     {
       LODWORD(v38) = *(v40 - 2);
-      v41 = [MEMORY[0x1E696AD98] numberWithFloat:v38];
-      v49[0] = v41;
+      v41 = [MEMORY[0x1E696AD98] numberWithFloat:{v38, uTF8String}];
+      v50[0] = v41;
       LODWORD(v42) = *(v40 - 1);
       v43 = [MEMORY[0x1E696AD98] numberWithFloat:v42];
-      v49[1] = v43;
+      v50[1] = v43;
       LODWORD(v44) = *v40;
       v45 = [MEMORY[0x1E696AD98] numberWithFloat:v44];
-      v49[2] = v45;
-      v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:3];
+      v50[2] = v45;
+      v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
       [v37 addObject:v46];
 
       ++v39;
       v40 += 7;
     }
 
-    while (v39 < v48);
+    while (v39 < v49);
   }
 
 LABEL_27:

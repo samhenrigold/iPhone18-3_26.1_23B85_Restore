@@ -8,29 +8,29 @@
 
 + (id)logCoreAnalyticsEventsWithResults:(id)results locations:(id)locations
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   locationsCopy = locations;
   v6 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v7 = resultsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v8)
   {
-    v9 = *v40;
+    v9 = *v39;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * i);
+        v11 = *(*(&v38 + 1) + 8 * i);
         muid = [v11 muid];
         v13 = [v6 objectForKey:muid];
         v14 = [v13 mutableCopy];
@@ -48,46 +48,45 @@
         [v6 setObject:v14 forKey:muid];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v8);
   }
 
   v15 = objc_opt_new();
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x2020000000;
-  v38 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_locations___block_invoke;
-  v32[3] = &unk_2797ACD30;
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2020000000;
+  v37 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_locations___block_invoke;
+  v31[3] = &unk_2797ACD30;
   selfCopy = self;
   v16 = v6;
-  v33 = v16;
+  v32 = v16;
   v17 = v15;
-  v34 = v17;
-  v35 = v37;
-  [locationsCopy enumerateObjectsUsingBlock:v32];
+  v33 = v17;
+  v34 = v36;
+  [locationsCopy enumerateObjectsUsingBlock:v31];
   v18 = objc_opt_new();
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   environment = [processInfo environment];
   v21 = [environment objectForKey:@"XCTestConfigurationFilePath"];
   v22 = v21 != 0;
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_locations___block_invoke_2;
-  v28[3] = &unk_2797ACD58;
-  v30 = v37;
-  v31 = v22;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_locations___block_invoke_2;
+  v27[3] = &unk_2797ACD58;
+  v29 = v36;
+  v30 = v22;
   v23 = v18;
-  v29 = v23;
-  [v17 enumerateObjectsUsingBlock:v28];
+  v28 = v23;
+  [v17 enumerateObjectsUsingBlock:v27];
 
-  _Block_object_dispose(v37, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v36, 8);
 
   return v23;
 }
@@ -119,7 +118,7 @@ void __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_location
 
 + (id)_createCoreAnalyticsEventForLocation:(id)location index:(unint64_t)index muidsToResults:(id)results
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   resultsCopy = results;
   v9 = objc_opt_new();
@@ -130,46 +129,46 @@ void __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_location
   processName = [processInfo processName];
   [v9 setObject:processName forKey:IQFMapsCoreAnalyticsFieldName_client];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   bOOLeanCoreAnalyticsKeys = [objc_opt_class() BOOLeanCoreAnalyticsKeys];
-  v14 = [bOOLeanCoreAnalyticsKeys countByEnumeratingWithState:&v54 objects:v59 count:16];
+  v14 = [bOOLeanCoreAnalyticsKeys countByEnumeratingWithState:&v53 objects:v58 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v55;
+    v16 = *v54;
     v17 = MEMORY[0x277CBEC28];
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v55 != v16)
+        if (*v54 != v16)
         {
           objc_enumerationMutation(bOOLeanCoreAnalyticsKeys);
         }
 
-        [v9 setObject:v17 forKey:*(*(&v54 + 1) + 8 * i)];
+        [v9 setObject:v17 forKey:*(*(&v53 + 1) + 8 * i)];
       }
 
-      v15 = [bOOLeanCoreAnalyticsKeys countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v15 = [bOOLeanCoreAnalyticsKeys countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
     while (v15);
   }
 
-  v49 = locationCopy;
+  v48 = locationCopy;
   muid = [locationCopy muid];
-  v48 = resultsCopy;
+  v47 = resultsCopy;
   v20 = [resultsCopy objectForKey:muid];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v21 = v20;
-  v22 = [v21 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (!v22)
   {
     v24 = 0;
@@ -178,17 +177,17 @@ void __74__IQFMapsCoreAnalyticsLogger_logCoreAnalyticsEventsWithResults_location
 
   v23 = v22;
   v24 = 0;
-  v25 = *v51;
+  v25 = *v50;
   do
   {
     for (j = 0; j != v23; ++j)
     {
-      if (*v51 != v25)
+      if (*v50 != v25)
       {
         objc_enumerationMutation(v21);
       }
 
-      v27 = *(*(&v50 + 1) + 8 * j);
+      v27 = *(*(&v49 + 1) + 8 * j);
       startEventDate = [v27 startEventDate];
       isDateInTodayOrFuture = [startEventDate isDateInTodayOrFuture];
 
@@ -318,7 +317,7 @@ LABEL_37:
       }
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    v23 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
   }
 
   while (v23);
@@ -326,8 +325,6 @@ LABEL_43:
 
   v45 = [MEMORY[0x277CCABB0] numberWithBool:v24 & 1];
   [v9 setObject:v45 forKey:IQFMapsCoreAnalyticsFieldName_hasPersonalizationSignals];
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -346,22 +343,20 @@ LABEL_43:
 
 void __54__IQFMapsCoreAnalyticsLogger_BOOLeanCoreAnalyticsKeys__block_invoke()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v3[0] = IQFMapsCoreAnalyticsFieldName_hasPersonalizationSignals;
-  v3[1] = IQFMapsCoreAnalyticsFieldName_queryResultsHavePersonalizationSignals;
-  v3[2] = IQFMapsCoreAnalyticsFieldName_hasLifeEvent;
-  v3[3] = IQFMapsCoreAnalyticsFieldName_hasEntityRelevance;
-  v3[4] = IQFMapsCoreAnalyticsFieldName_hasUpcomingCarReservation[0];
-  v3[5] = IQFMapsCoreAnalyticsFieldName_hasUpcomingFlightReservation[0];
-  v3[6] = IQFMapsCoreAnalyticsFieldName_hasUpcomingGenericCalendarEvent[0];
-  v3[7] = IQFMapsCoreAnalyticsFieldName_hasUpcomingHotelReservation[0];
-  v3[8] = IQFMapsCoreAnalyticsFieldName_hasUpcomingRestaurantReservation[0];
-  v3[9] = IQFMapsCoreAnalyticsFieldName_hasUpcomingTicketReservation;
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:10];
+  v2[10] = *MEMORY[0x277D85DE8];
+  v2[0] = IQFMapsCoreAnalyticsFieldName_hasPersonalizationSignals;
+  v2[1] = IQFMapsCoreAnalyticsFieldName_queryResultsHavePersonalizationSignals;
+  v2[2] = IQFMapsCoreAnalyticsFieldName_hasLifeEvent;
+  v2[3] = IQFMapsCoreAnalyticsFieldName_hasEntityRelevance;
+  v2[4] = IQFMapsCoreAnalyticsFieldName_hasUpcomingCarReservation[0];
+  v2[5] = IQFMapsCoreAnalyticsFieldName_hasUpcomingFlightReservation[0];
+  v2[6] = IQFMapsCoreAnalyticsFieldName_hasUpcomingGenericCalendarEvent[0];
+  v2[7] = IQFMapsCoreAnalyticsFieldName_hasUpcomingHotelReservation[0];
+  v2[8] = IQFMapsCoreAnalyticsFieldName_hasUpcomingRestaurantReservation[0];
+  v2[9] = IQFMapsCoreAnalyticsFieldName_hasUpcomingTicketReservation;
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:10];
   v1 = BOOLeanCoreAnalyticsKeys_BOOLeanCoreAnalyticsKeys;
   BOOLeanCoreAnalyticsKeys_BOOLeanCoreAnalyticsKeys = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

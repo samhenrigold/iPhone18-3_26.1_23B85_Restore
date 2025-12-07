@@ -1,6 +1,6 @@
 void sub_1000012E8(id a1)
 {
-  v1 = PLLogSignpostReader();
+  v1 = PLLogSignpostReader(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_10000A9E8(v1, v2, v3, v4, v5, v6, v7, v8);
@@ -12,7 +12,7 @@ void sub_1000012E8(id a1)
 
 void sub_100001354(id a1)
 {
-  v1 = PLLogSignpostReader();
+  v1 = PLLogSignpostReader(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -25,7 +25,7 @@ void sub_100001354(id a1)
 int main(int argc, const char **argv, const char **envp)
 {
   v3 = getpid();
-  v4 = PLLogSignpostReader();
+  v4 = PLLogSignpostReader(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AA5C(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -41,10 +41,11 @@ int main(int argc, const char **argv, const char **envp)
   return 5000;
 }
 
-void sub_100001464(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001464(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 double sub_100001790(uint64_t a1, void *a2)
@@ -67,7 +68,7 @@ double sub_100001ABC(uint64_t a1, void *a2)
 
 void sub_100001EF8(id a1)
 {
-  v1 = PLLogSignpostReader();
+  v1 = PLLogSignpostReader(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -77,16 +78,16 @@ void sub_100001EF8(id a1)
   exit(0);
 }
 
-id PLLogSignpostReader()
+id PLLogSignpostReader(uint64_t a1)
 {
   if (qword_100019450 != -1)
   {
     sub_10000AAC8();
   }
 
-  v1 = qword_100019448;
+  v2 = qword_100019448;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001F9C(id a1)
@@ -96,9 +97,9 @@ void sub_100001F9C(id a1)
   _objc_release_x1();
 }
 
-void sub_100003354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -181,8 +182,7 @@ void sub_100004E78(uint64_t a1, void *a2, void *a3)
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [*(a1 + 32) addSubsystem:v7 category:v14];
-                v15 = PLLogSignpostReader();
+                v15 = PLLogSignpostReader([*(a1 + 32) addSubsystem:v7 category:v14]);
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412546;
@@ -206,8 +206,7 @@ void sub_100004E78(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        [*(a1 + 32) addSubsystem:v7 category:0];
-        v9 = PLLogSignpostReader();
+        v9 = PLLogSignpostReader([*(a1 + 32) addSubsystem:v7 category:0]);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           sub_10000B074();
@@ -217,16 +216,16 @@ void sub_100004E78(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100005378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -311,216 +310,218 @@ uint64_t sub_1000058D8(uint64_t a1, void *a2)
 
   if ((v10 & 1) == 0)
   {
-    v11 = PLLogSignpostReader();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = PLLogSignpostReader(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_10000B2C4(v7, v3);
     }
   }
 
   [v3 durationSeconds];
-  v13 = 0;
+  v14 = 0;
   if (v4 && v5 && v7)
   {
-    v14 = v12;
-    v15 = [*(a1 + 32) objectForKey:v4];
+    v15 = v13;
+    v16 = [*(a1 + 32) objectForKey:v4];
 
-    if (!v15)
+    if (!v16)
     {
-      v16 = objc_alloc_init(NSMutableDictionary);
-      [*(a1 + 32) setObject:v16 forKeyedSubscript:v4];
+      v17 = objc_alloc_init(NSMutableDictionary);
+      [*(a1 + 32) setObject:v17 forKeyedSubscript:v4];
     }
 
-    v17 = [*(a1 + 32) objectForKeyedSubscript:v4];
-    v18 = [v17 objectForKey:v5];
+    v18 = [*(a1 + 32) objectForKeyedSubscript:v4];
+    v19 = [v18 objectForKey:v5];
 
-    if (!v18)
+    if (!v19)
     {
-      v19 = objc_alloc_init(NSMutableDictionary);
-      v20 = [*(a1 + 32) objectForKeyedSubscript:v4];
-      [v20 setObject:v19 forKeyedSubscript:v5];
+      v20 = objc_alloc_init(NSMutableDictionary);
+      v21 = [*(a1 + 32) objectForKeyedSubscript:v4];
+      [v21 setObject:v20 forKeyedSubscript:v5];
     }
 
-    v21 = v14;
+    v22 = v15;
     if ([v4 isEqualToString:@"ScrollView"])
     {
-      if (([v5 isEqualToString:@"Scroll_Dragging"] & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", @"Scroll_Deceleration") & 1) != 0 || objc_msgSend(v5, "isEqualToString:", @"Scroll_Animating"))
+      v23 = [v5 isEqualToString:@"Scroll_Dragging"];
+      if (v23 & 1) != 0 || (v23 = [v5 isEqualToString:@"Scroll_Deceleration"], (v23) || (v23 = objc_msgSend(v5, "isEqualToString:", @"Scroll_Animating"), v23))
       {
-        v22 = PLLogSignpostReader();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v24 = PLLogSignpostReader(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           sub_10000B37C();
         }
 
         v23 = [v3 number2Name];
+        v25 = v23;
         if (v23)
         {
-          v24 = [v3 number2Value];
-          [v24 doubleValue];
-          v26 = v25;
+          v26 = [v3 number2Value];
+          [v26 doubleValue];
+          v28 = v27;
 
-          v27 = [*(a1 + 32) objectForKeyedSubscript:v4];
-          v28 = [v27 objectForKeyedSubscript:v5];
-          v29 = [v28 objectForKey:v7];
+          v29 = [*(a1 + 32) objectForKeyedSubscript:v4];
+          v30 = [v29 objectForKeyedSubscript:v5];
+          v31 = [v30 objectForKey:v7];
 
-          if (!v29)
+          if (!v31)
           {
-            v30 = objc_alloc_init(NSMutableDictionary);
-            v31 = [*(a1 + 32) objectForKeyedSubscript:v4];
-            v32 = [v31 objectForKeyedSubscript:v5];
-            [v32 setObject:v30 forKeyedSubscript:v7];
+            v32 = objc_alloc_init(NSMutableDictionary);
+            v33 = [*(a1 + 32) objectForKeyedSubscript:v4];
+            v34 = [v33 objectForKeyedSubscript:v5];
+            [v34 setObject:v32 forKeyedSubscript:v7];
           }
 
-          v33 = [*(a1 + 40) getScrollDirectionForSignpostInterval:v3];
-          if (!v33)
+          v35 = [*(a1 + 40) getScrollDirectionForSignpostInterval:v3];
+          if (!v35)
           {
-            v53 = 0;
-            v13 = 0;
+            v55 = 0;
+            v14 = 0;
 LABEL_34:
 
             goto LABEL_35;
           }
 
-          v88 = v23;
-          v34 = [*(a1 + 32) objectForKeyedSubscript:v4];
-          v35 = [v34 objectForKeyedSubscript:v5];
-          v36 = [v35 objectForKeyedSubscript:v7];
-          v37 = [v36 objectForKey:v33];
+          v90 = v25;
+          v36 = [*(a1 + 32) objectForKeyedSubscript:v4];
+          v37 = [v36 objectForKeyedSubscript:v5];
+          v38 = [v37 objectForKeyedSubscript:v7];
+          v39 = [v38 objectForKey:v35];
 
-          if (!v37)
+          if (!v39)
           {
-            v38 = objc_alloc_init(NSMutableDictionary);
-            v39 = [*(a1 + 32) objectForKeyedSubscript:v4];
-            v40 = [v39 objectForKeyedSubscript:v5];
-            v41 = [v40 objectForKeyedSubscript:v7];
-            [v41 setObject:v38 forKeyedSubscript:v33];
+            v40 = objc_alloc_init(NSMutableDictionary);
+            v41 = [*(a1 + 32) objectForKeyedSubscript:v4];
+            v42 = [v41 objectForKeyedSubscript:v5];
+            v43 = [v42 objectForKeyedSubscript:v7];
+            [v43 setObject:v40 forKeyedSubscript:v35];
 
-            v42 = [*(a1 + 32) objectForKeyedSubscript:v4];
-            v43 = [v42 objectForKeyedSubscript:v5];
-            v44 = [v43 objectForKeyedSubscript:v7];
-            v45 = [v44 objectForKeyedSubscript:v33];
-            [v45 setObject:&off_100015A58 forKeyedSubscript:v88];
+            v44 = [*(a1 + 32) objectForKeyedSubscript:v4];
+            v45 = [v44 objectForKeyedSubscript:v5];
+            v46 = [v45 objectForKeyedSubscript:v7];
+            v47 = [v46 objectForKeyedSubscript:v35];
+            [v47 setObject:&off_100015A58 forKeyedSubscript:v90];
 
-            v46 = [*(a1 + 32) objectForKeyedSubscript:v4];
-            v47 = [v46 objectForKeyedSubscript:v5];
-            v48 = [v47 objectForKeyedSubscript:v7];
-            v49 = [v48 objectForKeyedSubscript:v33];
-            [v49 setObject:&off_100015A10 forKeyedSubscript:@"Count"];
+            v48 = [*(a1 + 32) objectForKeyedSubscript:v4];
+            v49 = [v48 objectForKeyedSubscript:v5];
+            v50 = [v49 objectForKeyedSubscript:v7];
+            v51 = [v50 objectForKeyedSubscript:v35];
+            [v51 setObject:&off_100015A10 forKeyedSubscript:@"Count"];
           }
 
-          v86 = a1;
-          v50 = [*(a1 + 32) objectForKeyedSubscript:v4];
-          v51 = [v50 objectForKeyedSubscript:v5];
-          v52 = [v51 objectForKeyedSubscript:v7];
-          v53 = [v52 objectForKeyedSubscript:v33];
+          v88 = a1;
+          v52 = [*(a1 + 32) objectForKeyedSubscript:v4];
+          v53 = [v52 objectForKeyedSubscript:v5];
+          v54 = [v53 objectForKeyedSubscript:v7];
+          v55 = [v54 objectForKeyedSubscript:v35];
 
-          v54 = [v53 objectForKeyedSubscript:v88];
-          [v54 doubleValue];
-          v56 = [NSNumber numberWithDouble:v26 + v55];
-          [v53 setObject:v56 forKeyedSubscript:v88];
+          v56 = [v55 objectForKeyedSubscript:v90];
+          [v56 doubleValue];
+          v58 = [NSNumber numberWithDouble:v28 + v57];
+          [v55 setObject:v58 forKeyedSubscript:v90];
           goto LABEL_28;
         }
       }
 
       else
       {
-        v23 = 0;
+        v25 = 0;
       }
 
-      v33 = 0;
-      v53 = 0;
+      v35 = 0;
+      v55 = 0;
       goto LABEL_32;
     }
 
-    v57 = [*(a1 + 32) objectForKeyedSubscript:v4];
-    v58 = [v57 objectForKeyedSubscript:v5];
-    v59 = [v58 objectForKey:v7];
+    v59 = [*(a1 + 32) objectForKeyedSubscript:v4];
+    v60 = [v59 objectForKeyedSubscript:v5];
+    v61 = [v60 objectForKey:v7];
 
-    if (!v59)
+    if (!v61)
     {
-      v60 = objc_alloc_init(NSMutableDictionary);
-      v61 = [*(a1 + 32) objectForKeyedSubscript:v4];
-      v62 = [v61 objectForKeyedSubscript:v5];
-      [v62 setObject:v60 forKeyedSubscript:v7];
-
+      v62 = objc_alloc_init(NSMutableDictionary);
       v63 = [*(a1 + 32) objectForKeyedSubscript:v4];
       v64 = [v63 objectForKeyedSubscript:v5];
-      v65 = [v64 objectForKeyedSubscript:v7];
-      [v65 setObject:&off_100015A58 forKeyedSubscript:@"Duration"];
+      [v64 setObject:v62 forKeyedSubscript:v7];
 
-      v66 = [*(a1 + 32) objectForKeyedSubscript:v4];
-      v67 = [v66 objectForKeyedSubscript:v5];
-      v68 = [v67 objectForKeyedSubscript:v7];
-      [v68 setObject:&off_100015A10 forKeyedSubscript:@"Count"];
+      v65 = [*(a1 + 32) objectForKeyedSubscript:v4];
+      v66 = [v65 objectForKeyedSubscript:v5];
+      v67 = [v66 objectForKeyedSubscript:v7];
+      [v67 setObject:&off_100015A58 forKeyedSubscript:@"Duration"];
+
+      v68 = [*(a1 + 32) objectForKeyedSubscript:v4];
+      v69 = [v68 objectForKeyedSubscript:v5];
+      v70 = [v69 objectForKeyedSubscript:v7];
+      [v70 setObject:&off_100015A10 forKeyedSubscript:@"Count"];
     }
 
-    v86 = a1;
-    v69 = [*(a1 + 32) objectForKeyedSubscript:v4];
-    v70 = [v69 objectForKeyedSubscript:v5];
-    v53 = [v70 objectForKeyedSubscript:v7];
+    v88 = a1;
+    v71 = [*(a1 + 32) objectForKeyedSubscript:v4];
+    v72 = [v71 objectForKeyedSubscript:v5];
+    v55 = [v72 objectForKeyedSubscript:v7];
 
-    v54 = [v53 objectForKeyedSubscript:@"Duration"];
-    [v54 doubleValue];
-    v56 = [NSNumber numberWithDouble:v71 + v21];
-    [v53 setObject:v56 forKeyedSubscript:@"Duration"];
-    v88 = 0;
-    v33 = 0;
+    v56 = [v55 objectForKeyedSubscript:@"Duration"];
+    [v56 doubleValue];
+    v58 = [NSNumber numberWithDouble:v73 + v22];
+    [v55 setObject:v58 forKeyedSubscript:@"Duration"];
+    v90 = 0;
+    v35 = 0;
 LABEL_28:
 
-    v72 = [v53 objectForKeyedSubscript:@"Count"];
-    v73 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v72 intValue] + 1);
-    [v53 setObject:v73 forKeyedSubscript:@"Count"];
+    v74 = [v55 objectForKeyedSubscript:@"Count"];
+    v75 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v74 intValue] + 1);
+    [v55 setObject:v75 forKeyedSubscript:@"Count"];
 
-    a1 = v86;
-    v23 = v88;
+    a1 = v88;
+    v25 = v90;
 LABEL_32:
-    v74 = PLLogSignpostReader();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+    v76 = PLLogSignpostReader(v23);
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
     {
-      v76 = &stru_1000149D0;
-      if (v33)
+      v78 = &stru_1000149D0;
+      if (v35)
       {
-        v76 = v33;
+        v78 = v35;
       }
 
-      v81 = v76;
-      v87 = [*(a1 + 32) objectForKeyedSubscript:v4];
-      v84 = [v87 objectForKeyedSubscript:v5];
-      v83 = [v84 objectForKeyedSubscript:v7];
-      v77 = [v83 objectForKeyedSubscript:@"Duration"];
-      v82 = [*(a1 + 32) objectForKeyedSubscript:v4];
-      [v82 objectForKeyedSubscript:v5];
-      v85 = v33;
-      v78 = v89 = v23;
-      v79 = [v78 objectForKeyedSubscript:v7];
-      v80 = [v79 objectForKeyedSubscript:@"Count"];
+      v83 = v78;
+      v89 = [*(a1 + 32) objectForKeyedSubscript:v4];
+      v86 = [v89 objectForKeyedSubscript:v5];
+      v85 = [v86 objectForKeyedSubscript:v7];
+      v79 = [v85 objectForKeyedSubscript:@"Duration"];
+      v84 = [*(a1 + 32) objectForKeyedSubscript:v4];
+      [v84 objectForKeyedSubscript:v5];
+      v87 = v35;
+      v80 = v91 = v25;
+      v81 = [v80 objectForKeyedSubscript:v7];
+      v82 = [v81 objectForKeyedSubscript:@"Count"];
       *buf = 138413826;
-      v91 = v4;
-      v92 = 2112;
-      v93 = v5;
+      v93 = v4;
       v94 = 2112;
-      v95 = v7;
+      v95 = v5;
       v96 = 2112;
-      v97 = v81;
-      v98 = 2048;
-      v99 = v21;
-      v100 = 2112;
-      v101 = v77;
+      v97 = v7;
+      v98 = 2112;
+      v99 = v83;
+      v100 = 2048;
+      v101 = v22;
       v102 = 2112;
-      v103 = v80;
-      _os_log_debug_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEBUG, "Got signpostInterval %@,%@,%@,%@: %.3f (total = %@) (count = %@)", buf, 0x48u);
+      v103 = v79;
+      v104 = 2112;
+      v105 = v82;
+      _os_log_debug_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "Got signpostInterval %@,%@,%@,%@: %.3f (total = %@) (count = %@)", buf, 0x48u);
 
-      v23 = v89;
-      v33 = v85;
+      v25 = v91;
+      v35 = v87;
     }
 
-    v13 = 1;
+    v14 = 1;
     goto LABEL_34;
   }
 
 LABEL_35:
 
-  return v13;
+  return v14;
 }
 
 uint64_t sub_100007124(uint64_t a1, void *a2)
@@ -535,16 +536,16 @@ uint64_t sub_100007124(uint64_t a1, void *a2)
   {
     if (*(a1 + 80) == 1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v7 = [*(a1 + 40) signpostAnimationIntervalData:v3 forTaskingConfig:*(a1 + 48)];
+      v8 = [*(a1 + 40) signpostAnimationIntervalData:v3 forTaskingConfig:*(a1 + 48)];
     }
 
     else
     {
-      v7 = [*(a1 + 40) signpostIntervalData:v3 forTaskingConfig:*(a1 + 48)];
+      v8 = [*(a1 + 40) signpostIntervalData:v3 forTaskingConfig:*(a1 + 48)];
     }
 
-    v12 = v7;
-    [*(a1 + 56) addObject:v7];
+    v13 = v8;
+    [*(a1 + 56) addObject:v8];
 
     if ([*(a1 + 56) count] >= 0xC8)
     {
@@ -554,19 +555,19 @@ uint64_t sub_100007124(uint64_t a1, void *a2)
 
   else
   {
-    v8 = PLLogSignpostReader();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = PLLogSignpostReader(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = [v3 subsystem];
-      v10 = [v3 category];
-      v11 = [v3 name];
-      v14 = 138412802;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Skipping parsing-only signpost '%@::%@::%@'", &v14, 0x20u);
+      v10 = [v3 subsystem];
+      v11 = [v3 category];
+      v12 = [v3 name];
+      v15 = 138412802;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Skipping parsing-only signpost '%@::%@::%@'", &v15, 0x20u);
     }
   }
 
@@ -576,211 +577,211 @@ uint64_t sub_100007124(uint64_t a1, void *a2)
 void sub_100007310(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = PLLogSignpostReader();
+  v4 = PLLogSignpostReader(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [a1[4] name];
     *buf = 138412290;
-    v66 = v5;
+    v69 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[WR] Completing workflow event tracker for workflow '%@'...", buf, 0xCu);
   }
 
-  v43 = [a1[5] workflowDataForEventTracker:v3];
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
+  v46 = [a1[5] workflowDataForEventTracker:v3];
   v62 = 0u;
-  v40 = v3;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v43 = v3;
   obj = [v3 allSignpostTrackers];
-  v44 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
-  if (v44)
+  v47 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
+  if (v47)
   {
-    v42 = *v60;
+    v45 = *v63;
     do
     {
       v6 = 0;
       do
       {
-        if (*v60 != v42)
+        if (*v63 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v45 = v6;
-        v7 = *(*(&v59 + 1) + 8 * v6);
-        v8 = [v43 mutableCopy];
+        v48 = v6;
+        v7 = *(*(&v62 + 1) + 8 * v6);
+        v8 = [v46 mutableCopy];
         v9 = [a1[5] workflowDataForSignpostTracker:v7];
         [v8 addEntriesFromDictionary:v9];
 
-        v57 = 0u;
+        v60 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v46 = v7;
+        v59 = 0u;
+        v49 = v7;
         v10 = [v7 emits];
-        v11 = [v10 countByEnumeratingWithState:&v55 objects:v69 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v58 objects:v72 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v56;
+          v13 = *v59;
           do
           {
             for (i = 0; i != v12; i = i + 1)
             {
-              if (*v56 != v13)
+              if (*v59 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v55 + 1) + 8 * i);
+              v15 = *(*(&v58 + 1) + 8 * i);
               v16 = [v8 mutableCopy];
               v17 = [a1[5] workflowDataForWREvent:v15];
               [v16 addEntriesFromDictionary:v17];
 
-              v18 = PLLogSignpostReader();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+              v19 = PLLogSignpostReader(v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
-                v19 = [a1[4] name];
+                v20 = [a1[4] name];
                 *buf = 138412546;
-                v66 = v19;
-                v67 = 2112;
-                v68 = v16;
-                _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WR] Event processed for workflow '%@': %@", buf, 0x16u);
+                v69 = v20;
+                v70 = 2112;
+                v71 = v16;
+                _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WR] Event processed for workflow '%@': %@", buf, 0x16u);
               }
 
               [a1[6] addObject:v16];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v55 objects:v69 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v58 objects:v72 count:16];
           }
 
           while (v12);
         }
 
-        v53 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
+        v21 = [v49 intervals];
+        v22 = [v21 countByEnumeratingWithState:&v54 objects:v67 count:16];
+        if (v22)
+        {
+          v23 = v22;
+          v24 = *v55;
+          do
+          {
+            for (j = 0; j != v23; j = j + 1)
+            {
+              if (*v55 != v24)
+              {
+                objc_enumerationMutation(v21);
+              }
+
+              v26 = *(*(&v54 + 1) + 8 * j);
+              v27 = [v8 mutableCopy];
+              v28 = [a1[5] workflowDataForWRInterval:v26];
+              [v27 addEntriesFromDictionary:v28];
+
+              v30 = PLLogSignpostReader(v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              {
+                v31 = [a1[4] name];
+                *buf = 138412546;
+                v69 = v31;
+                v70 = 2112;
+                v71 = v27;
+                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WR] Interval processed for workflow '%@': %@", buf, 0x16u);
+              }
+
+              [a1[6] addObject:v27];
+            }
+
+            v23 = [v21 countByEnumeratingWithState:&v54 objects:v67 count:16];
+          }
+
+          while (v23);
+        }
+
         v52 = 0u;
-        v20 = [v46 intervals];
-        v21 = [v20 countByEnumeratingWithState:&v51 objects:v64 count:16];
-        if (v21)
-        {
-          v22 = v21;
-          v23 = *v52;
-          do
-          {
-            for (j = 0; j != v22; j = j + 1)
-            {
-              if (*v52 != v23)
-              {
-                objc_enumerationMutation(v20);
-              }
-
-              v25 = *(*(&v51 + 1) + 8 * j);
-              v26 = [v8 mutableCopy];
-              v27 = [a1[5] workflowDataForWRInterval:v25];
-              [v26 addEntriesFromDictionary:v27];
-
-              v28 = PLLogSignpostReader();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-              {
-                v29 = [a1[4] name];
-                *buf = 138412546;
-                v66 = v29;
-                v67 = 2112;
-                v68 = v26;
-                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WR] Interval processed for workflow '%@': %@", buf, 0x16u);
-              }
-
-              [a1[6] addObject:v26];
-            }
-
-            v22 = [v20 countByEnumeratingWithState:&v51 objects:v64 count:16];
-          }
-
-          while (v22);
-        }
-
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v30 = [v46 incompleteIntervalStarts];
-        v31 = [v30 countByEnumeratingWithState:&v47 objects:v63 count:16];
-        if (v31)
+        v51 = 0u;
+        v32 = [v49 incompleteIntervalStarts];
+        v33 = [v32 countByEnumeratingWithState:&v50 objects:v66 count:16];
+        if (v33)
         {
-          v32 = v31;
-          v33 = *v48;
+          v34 = v33;
+          v35 = *v51;
           do
           {
-            for (k = 0; k != v32; k = k + 1)
+            for (k = 0; k != v34; k = k + 1)
             {
-              if (*v48 != v33)
+              if (*v51 != v35)
               {
-                objc_enumerationMutation(v30);
+                objc_enumerationMutation(v32);
               }
 
-              v35 = *(*(&v47 + 1) + 8 * k);
-              v36 = [v8 mutableCopy];
-              v37 = [a1[5] workflowDataForWRIncompleteInterval:v35];
-              [v36 addEntriesFromDictionary:v37];
+              v37 = *(*(&v50 + 1) + 8 * k);
+              v38 = [v8 mutableCopy];
+              v39 = [a1[5] workflowDataForWRIncompleteInterval:v37];
+              [v38 addEntriesFromDictionary:v39];
 
-              v38 = PLLogSignpostReader();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+              v41 = PLLogSignpostReader(v40);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
               {
-                v39 = [a1[4] name];
+                v42 = [a1[4] name];
                 *buf = 138412546;
-                v66 = v39;
-                v67 = 2112;
-                v68 = v36;
-                _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[WR] Incomplete Interval processed for workflow '%@': %@", buf, 0x16u);
+                v69 = v42;
+                v70 = 2112;
+                v71 = v38;
+                _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "[WR] Incomplete Interval processed for workflow '%@': %@", buf, 0x16u);
               }
 
-              [a1[6] addObject:v36];
+              [a1[6] addObject:v38];
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v47 objects:v63 count:16];
+            v34 = [v32 countByEnumeratingWithState:&v50 objects:v66 count:16];
           }
 
-          while (v32);
+          while (v34);
         }
 
-        v6 = v45 + 1;
+        v6 = v48 + 1;
       }
 
-      while ((v45 + 1) != v44);
-      v44 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
+      while ((v48 + 1) != v47);
+      v47 = [obj countByEnumeratingWithState:&v62 objects:v73 count:16];
     }
 
-    while (v44);
+    while (v47);
   }
 }
 
 uint64_t sub_1000078A8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v20 = a1;
+  v27 = 0u;
+  v21 = a1;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v35 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v4)
   {
     v5 = v4;
-    v22 = *v24;
+    v23 = *v25;
     do
     {
       v6 = 0;
       do
       {
-        if (*v24 != v22)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * v6);
+        v7 = *(*(&v24 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
         v9 = [v7 workflow];
         v10 = [v9 allowListForAllSignposts];
@@ -790,22 +791,22 @@ uint64_t sub_1000078A8(uint64_t a1, void *a2)
 
         if (v13)
         {
-          v14 = PLLogSignpostReader();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = PLLogSignpostReader(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v15 = [v3 subsystem];
-            v16 = [v3 category];
-            v17 = [v7 workflow];
-            v18 = [v17 name];
+            v16 = [v3 subsystem];
+            v17 = [v3 category];
+            v18 = [v7 workflow];
+            v19 = [v18 name];
             *buf = 138413058;
-            v28 = v15;
-            v29 = 2112;
-            v30 = v16;
-            v31 = 2112;
-            v32 = v18;
-            v33 = 2112;
-            v34 = v3;
-            _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "[WR] Processing signpost object (%@:%@) for workflow '%@': %@", buf, 0x2Au);
+            v29 = v16;
+            v30 = 2112;
+            v31 = v17;
+            v32 = 2112;
+            v33 = v19;
+            v34 = 2112;
+            v35 = v3;
+            _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "[WR] Processing signpost object (%@:%@) for workflow '%@': %@", buf, 0x2Au);
           }
 
           [v7 handleSignpost:v3];
@@ -816,15 +817,15 @@ uint64_t sub_1000078A8(uint64_t a1, void *a2)
       }
 
       while (v5 != v6);
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v35 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v5);
   }
 
-  if ([*(v20 + 40) count] >= 0xC8)
+  if ([*(v21 + 40) count] >= 0xC8)
   {
-    *(*(*(v20 + 64) + 8) + 24) = [*(v20 + 48) writeSignpostFile:*(v20 + 56) withOrder:*(*(*(v20 + 64) + 8) + 24) withData:*(v20 + 40)];
+    *(*(*(v21 + 64) + 8) + 24) = [*(v21 + 48) writeSignpostFile:*(v21 + 56) withOrder:*(*(*(v21 + 64) + 8) + 24) withData:*(v21 + 40)];
   }
 
   return 1;
@@ -879,21 +880,22 @@ uint64_t sub_100007C2C(uint64_t a1)
         }
 
         v6 = *(*(&v9 + 1) + 8 * v5);
-        v7 = PLLogSignpostReader();
+        v7 = PLLogSignpostReader(v2);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           sub_10000B6BC(v13, v6, &v14, v7);
         }
 
-        [v6 reset];
+        v2 = [v6 reset];
         v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v15 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v9 objects:v15 count:16];
+      v3 = v2;
     }
 
-    while (v3);
+    while (v2);
   }
 
   return 1;
@@ -921,23 +923,25 @@ BOOL sub_1000098AC(uint64_t a1, void *a2)
 
   v9 = [*(a1 + 40) objectForKeyedSubscript:@"hangDurations"];
   v10 = [v9 count];
+  v11 = v10;
   if (v10 >= 0x5DD)
   {
-    v11 = PLLogSignpostReader();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PLLogSignpostReader(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[RAPID] Exceeded max hang signpost count", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[RAPID] Exceeded max hang signpost count", v14, 2u);
     }
   }
 
-  return v10 < 0x5DD;
+  return v11 < 0x5DD;
 }
 
-void sub_10000A2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10000A2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -984,16 +988,18 @@ void sub_10000A578(id a1)
   qword_100019478 = *&v1;
 }
 
-void sub_10000A7F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A7F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_10000A80C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A80C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000A838(uint64_t a1, uint64_t a2, os_log_t log)
@@ -1010,6 +1016,20 @@ void sub_10000A8C0(int a1, NSObject *a2)
   v2[0] = 67109120;
   v2[1] = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Process %d does not have read entitlement!", v2, 8u);
+}
+
+void sub_10000A938(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100001464(&_mh_execute_header, a2, a3, "Process %d has read entitlement!", a5, a6, a7, a8, v8);
+}
+
+void sub_10000AA5C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100001464(&_mh_execute_header, a2, a3, "Disabling CPU exceptions for PID %d", a5, a6, a7, a8, v8);
 }
 
 void sub_10000AB44(void *a1)
@@ -1088,7 +1108,7 @@ void sub_10000AFC4(void *a1)
   }
 
   sub_10000A7E4();
-  sub_10000A80C(&_mh_execute_header, v3, v4, "## Unable to serialize to %s", v5, v6, v7, v8, v9);
+  sub_10000A80C(&_mh_execute_header, v3, v4, "## Unable to serialize to %s", v5, v6, v7, v8);
   if (a1)
   {
   }
@@ -1103,7 +1123,7 @@ void sub_10000B214(void *a1)
   }
 
   sub_10000A7E4();
-  sub_10000A80C(&_mh_execute_header, v3, v4, "Unable to process signpost: %s", v5, v6, v7, v8, v9);
+  sub_10000A80C(&_mh_execute_header, v3, v4, "Unable to process signpost: %s", v5, v6, v7, v8);
   if (a1)
   {
   }
@@ -1188,7 +1208,7 @@ void sub_10000BA90(void *a1)
   }
 
   sub_10000A7E4();
-  sub_10000A80C(&_mh_execute_header, v3, v4, "[RAPID] Unable to serialize signpost: %s", v5, v6, v7, v8, v9);
+  sub_10000A80C(&_mh_execute_header, v3, v4, "[RAPID] Unable to serialize signpost: %s", v5, v6, v7, v8);
   if (a1)
   {
   }

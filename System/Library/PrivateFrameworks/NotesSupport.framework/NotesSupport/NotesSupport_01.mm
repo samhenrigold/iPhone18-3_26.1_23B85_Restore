@@ -444,7 +444,7 @@ id NSAttributedString.range(byTrimmingCharactersIn:in:)(uint64_t a1, id a2, uint
   return v10;
 }
 
-char *sub_1D45BDDA0(char *a1, int64_t a2, char a3)
+char *sub_1D45BDDA0(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1D45BDDC0(a1, a2, a3, *v3);
   *v3 = result;
@@ -492,7 +492,7 @@ char *sub_1D45BDDC0(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7D34C0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7D34C0, &unk_1D45CB020);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -687,19 +687,19 @@ uint64_t Sequence<>.uniqued()(uint64_t a1, uint64_t a2, uint64_t a3)
   return v15;
 }
 
-uint64_t sub_1D45BE888(uint64_t a1)
+uint64_t sub_1D45BE888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
-  v4 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v11 - v7;
-  (*(v3 + 16))(v6, a1, AssociatedTypeWitness);
+  v7 = *(AssociatedTypeWitness - 8);
+  v8 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = &v15 - v11;
+  (*(v7 + 16))(v10, a1, AssociatedTypeWitness);
   sub_1D45C5018();
-  v9 = sub_1D45C5008();
-  (*(v3 + 8))(v8, AssociatedTypeWitness);
-  return v9 & 1;
+  v13 = sub_1D45C5008();
+  (*(v7 + 8))(v12, AssociatedTypeWitness);
+  return v13 & 1;
 }
 
 uint64_t sub_1D45BE9E8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -982,21 +982,21 @@ double gotLoadHelper_x8__OBJC_CLASS___UMUserPersonaAttributes(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_Photos(double a1)
+double dlopenHelper_Photos(double a1)
 {
   dlopen("/System/Library/Frameworks/Photos.framework/Photos", 0);
   atomic_store(1u, &dlopenHelperFlag_Photos);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_Synapse(double a1)
+double dlopenHelper_Synapse(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/Synapse.framework/Synapse", 0);
   atomic_store(1u, &dlopenHelperFlag_Synapse);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_UserManagement(double a1)
+double dlopenHelper_UserManagement(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/UserManagement.framework/UserManagement", 0);
   atomic_store(1u, &dlopenHelperFlag_UserManagement);

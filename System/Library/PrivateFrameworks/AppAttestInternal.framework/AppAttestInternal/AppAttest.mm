@@ -5,23 +5,13 @@
 
 void __AppAttest_WebAuthentication_AttestKey_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
   v8 = isNSDictionary(v5);
-  if (!v8)
+  if (!v8 || (v12 = v8, [v5 objectForKeyedSubscript:@"certs"], v13 = objc_claimAutoreleasedReturnValue(), isNSString(v13), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, !v14))
   {
-    goto LABEL_58;
-  }
-
-  v12 = v8;
-  v13 = [v5 objectForKeyedSubscript:@"certs"];
-  v14 = isNSString(v13);
-
-  if (!v14)
-  {
-LABEL_58:
     if (v6 && ([v6 domain], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "isEqualToString:", @"com.apple.appattest.error"), v38, v39))
     {
       objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
@@ -29,7 +19,7 @@ LABEL_58:
 
     else
     {
-      v40 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 147, -6, v6, @"Invalid server response", v9, v10, v11, v68);
+      v40 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 147, -6, v6, @"Invalid server response", v9, v10, v11, v66);
       v41 = *(*(a1 + 40) + 8);
       v42 = *(v41 + 40);
       *(v41 + 40) = v40;
@@ -50,7 +40,7 @@ LABEL_58:
   v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (!v23)
   {
-    v24 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 155, -1, 0, @"Failed to allocate array.", v20, v21, v22, v68);
+    v24 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 155, -1, 0, @"Failed to allocate array.", v20, v21, v22, v66);
     v25 = *(*(a1 + 40) + 8);
     v26 = *(v25 + 40);
     *(v25 + 40) = v24;
@@ -61,33 +51,33 @@ LABEL_58:
     goto LABEL_24;
   }
 
-  v70 = v17;
-  v71 = v7;
-  v74 = 0u;
-  v75 = 0u;
+  v68 = v17;
+  v69 = v7;
   v72 = 0u;
   v73 = 0u;
-  v69 = v19;
+  v70 = 0u;
+  v71 = 0u;
+  v67 = v19;
   v27 = v19;
-  v28 = [v27 countByEnumeratingWithState:&v72 objects:v83 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v70 objects:v81 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v73;
+    v30 = *v71;
     v31 = *MEMORY[0x277CBECE8];
     while (2)
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v73 != v30)
+        if (*v71 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v33 = SecCertificateCreateWithData(v31, *(*(&v72 + 1) + 8 * i));
+        v33 = SecCertificateCreateWithData(v31, *(*(&v70 + 1) + 8 * i));
         if (!v33)
         {
-          v43 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 167, -1, 0, @"Failed to create certificate.", v34, v35, v36, v68);
+          v43 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 167, -1, 0, @"Failed to create certificate.", v34, v35, v36, v66);
           v44 = *(*(a1 + 40) + 8);
           v45 = *(v44 + 40);
           *(v44 + 40) = v43;
@@ -100,7 +90,7 @@ LABEL_58:
         CFRelease(v37);
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v72 objects:v83 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v70 objects:v81 count:16];
       if (v29)
       {
         continue;
@@ -112,9 +102,9 @@ LABEL_58:
 
 LABEL_21:
 
-  v17 = v70;
-  v7 = v71;
-  v19 = v69;
+  v17 = v68;
+  v7 = v69;
+  v19 = v67;
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     goto LABEL_24;
@@ -122,7 +112,7 @@ LABEL_21:
 
   if ([v23 count] != 2)
   {
-    v49 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 179, -1, 0, @"The received cert chain length must be 2!", v46, v47, v48, v68);
+    v49 = createAppAttestError("AppAttest_WebAuthentication_AttestKey_block_invoke", 179, -1, 0, @"The received cert chain length must be 2!", v46, v47, v48, v66);
     v50 = *(*(a1 + 40) + 8);
     v51 = *(v50 + 40);
     *(v50 + 40) = v49;
@@ -178,11 +168,11 @@ LABEL_26:
 
     v59 = [*(*(*(a1 + 40) + 8) + 40) localizedDescription];
     *buf = 136315650;
-    v78 = v58;
-    v79 = 1024;
-    v80 = 184;
-    v81 = 2112;
-    v82 = v59;
+    v76 = v58;
+    v77 = 1024;
+    v78 = 184;
+    v79 = 2112;
+    v80 = v59;
     _os_log_impl(&dword_226177000, v52, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to attest key. { error=%@ }", buf, 0x1Cu);
   }
 
@@ -229,24 +219,21 @@ LABEL_41:
       }
 
       *buf = 136315394;
-      v78 = v65;
-      v79 = 1024;
-      v80 = 185;
+      v76 = v65;
+      v77 = 1024;
+      v78 = 185;
       _os_log_impl(&dword_226177000, v60, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attested key.", buf, 0x12u);
     }
-
-    v66 = *(*(*(a1 + 40) + 8) + 40);
   }
 
   (*(*(a1 + 32) + 16))();
 
   objc_autoreleasePoolPop(v7);
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 void __AppAttest_DeviceAttestation_AttestKey_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -310,13 +297,13 @@ void __AppAttest_DeviceAttestation_AttestKey_block_invoke(uint64_t a1, void *a2,
           }
 
           *buf = 136315394;
-          v98 = v27;
-          v99 = 1024;
-          v100 = 327;
+          v96 = v27;
+          v97 = 1024;
+          v98 = 327;
           _os_log_impl(&dword_226177000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to allocate array for certificates.", buf, 0x12u);
         }
 
-        v28 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 328, -1, 0, @"Failed to allocate array.", v19, v20, v21, v87);
+        v28 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 328, -1, 0, @"Failed to allocate array.", v19, v20, v21, v85);
         v29 = *(*(a1 + 40) + 8);
         v30 = *(v29 + 40);
         *(v29 + 40) = v28;
@@ -324,30 +311,30 @@ void __AppAttest_DeviceAttestation_AttestKey_block_invoke(uint64_t a1, void *a2,
 
       if (!*(*(*(a1 + 40) + 8) + 40))
       {
-        v89 = v14;
-        v90 = v7;
-        v93 = 0u;
-        v94 = 0u;
+        v87 = v14;
+        v88 = v7;
         v91 = 0u;
         v92 = 0u;
-        v88 = v16;
+        v89 = 0u;
+        v90 = 0u;
+        v86 = v16;
         v31 = v16;
-        v32 = [v31 countByEnumeratingWithState:&v91 objects:v96 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v89 objects:v94 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v92;
+          v34 = *v90;
           v35 = *MEMORY[0x277CBECE8];
           while (2)
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v92 != v34)
+              if (*v90 != v34)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v37 = SecCertificateCreateWithData(v35, *(*(&v91 + 1) + 8 * i));
+              v37 = SecCertificateCreateWithData(v35, *(*(&v89 + 1) + 8 * i));
               if (!v37)
               {
                 if (AAInternalLogSystem_onceToken_5 != -1)
@@ -390,13 +377,13 @@ void __AppAttest_DeviceAttestation_AttestKey_block_invoke(uint64_t a1, void *a2,
                   }
 
                   *buf = 136315394;
-                  v98 = v62;
-                  v99 = 1024;
-                  v100 = 340;
+                  v96 = v62;
+                  v97 = 1024;
+                  v98 = 340;
                   _os_log_impl(&dword_226177000, v54, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create certificate.", buf, 0x12u);
                 }
 
-                v63 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 341, -1, 0, @"Failed to create certificate.", v55, v56, v57, v87);
+                v63 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 341, -1, 0, @"Failed to create certificate.", v55, v56, v57, v85);
                 v64 = *(*(a1 + 40) + 8);
                 v65 = *(v64 + 40);
                 *(v64 + 40) = v63;
@@ -409,7 +396,7 @@ void __AppAttest_DeviceAttestation_AttestKey_block_invoke(uint64_t a1, void *a2,
               CFRelease(v38);
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v91 objects:v96 count:16];
+            v33 = [v31 countByEnumeratingWithState:&v89 objects:v94 count:16];
             if (v33)
             {
               continue;
@@ -421,9 +408,9 @@ void __AppAttest_DeviceAttestation_AttestKey_block_invoke(uint64_t a1, void *a2,
 
 LABEL_60:
 
-        v14 = v89;
-        v7 = v90;
-        v16 = v88;
+        v14 = v87;
+        v7 = v88;
+        v16 = v86;
         if (!*(*(*(a1 + 40) + 8) + 40))
         {
           if ([v17 count] == 2)
@@ -433,7 +420,7 @@ LABEL_64:
             goto LABEL_65;
           }
 
-          v69 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 353, -1, 0, @"The received cert chain length must be 2!", v66, v67, v68, v87);
+          v69 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 353, -1, 0, @"The received cert chain length must be 2!", v66, v67, v68, v85);
           v70 = *(*(a1 + 40) + 8);
           v71 = *(v70 + 40);
           *(v70 + 40) = v69;
@@ -493,17 +480,17 @@ LABEL_64:
 
       v47 = [v6 localizedDescription];
       *buf = 136315906;
-      v98 = v46;
-      v99 = 1024;
-      v100 = 318;
+      v96 = v46;
+      v97 = 1024;
+      v98 = 318;
+      v99 = 2112;
+      v100 = v5;
       v101 = 2112;
-      v102 = v5;
-      v103 = 2112;
-      v104 = v47;
+      v102 = v47;
       _os_log_impl(&dword_226177000, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to attest key, invalid server response. { response=%@, error=%@ }", buf, 0x26u);
     }
 
-    v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 319, -6, v6, @"Invalid server response", v48, v49, v50, v87);
+    v51 = createAppAttestError("AppAttest_DeviceAttestation_AttestKey_block_invoke", 319, -6, v6, @"Invalid server response", v48, v49, v50, v85);
     v52 = *(*(a1 + 40) + 8);
     v53 = *(v52 + 40);
     *(v52 + 40) = v51;
@@ -556,9 +543,9 @@ LABEL_65:
     }
 
     *buf = 136315394;
-    v98 = v77;
-    v99 = 1024;
-    v100 = 358;
+    v96 = v77;
+    v97 = 1024;
+    v98 = 358;
     _os_log_impl(&dword_226177000, v72, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attested key.", buf, 0x12u);
   }
 
@@ -606,21 +593,18 @@ LABEL_80:
 
       v84 = [*(*(*(a1 + 40) + 8) + 40) localizedDescription];
       *buf = 136315650;
-      v98 = v83;
-      v99 = 1024;
-      v100 = 359;
-      v101 = 2112;
-      v102 = v84;
+      v96 = v83;
+      v97 = 1024;
+      v98 = 359;
+      v99 = 2112;
+      v100 = v84;
       _os_log_impl(&dword_226177000, v78, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to attest key. { error=%@ }", buf, 0x1Cu);
     }
-
-    v85 = *(*(*(a1 + 40) + 8) + 40);
   }
 
   (*(*(a1 + 32) + 16))();
 
   objc_autoreleasePoolPop(v7);
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 @end

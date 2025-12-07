@@ -1,4 +1,5 @@
 @interface CSDRelayMessagingController
+- (BOOL)_canReceiveGuestSessionInviteForMessageType:(int)type;
 - (BOOL)_canReceiveRelayCallsFromDestination:(id)destination device:(id)device;
 - (BOOL)_shouldSendToPairedIDSDevice:(BOOL)device;
 - (BOOL)shouldProcessRelayMessageOfType:(int)type;
@@ -26,6 +27,9 @@
 - (void)dealloc;
 - (void)disconnectMessagingConnectionForCall:(id)call;
 - (void)messenger:(id)messenger handledMessage:(id)message fromDestination:(id)destination device:(id)device;
+- (void)messengerConnectionCouldNotEstablishLink:(id)link forIdentifiers:(id)identifiers didStartConnecting:(BOOL)connecting;
+- (void)messengerConnectionEnded:(id)ended forIdentifiers:(id)identifiers didStartConnecting:(BOOL)connecting;
+- (void)messengerConnectionFailed:(id)failed forIdentifiers:(id)identifiers didStartConnecting:(BOOL)connecting;
 - (void)performBlockOnTransportAvailability:(id)availability forIdentifier:(id)identifier;
 - (void)prepareToDisconnectMessagingConnectionForCall:(id)call;
 - (void)requestAnswerForRequest:(id)request forCall:(id)call;
@@ -44,6 +48,7 @@
 - (void)sendDeviceUnavailableMessageToClientForUniqueProxyIdentifier:(id)identifier;
 - (void)sendDialCallFailedForScreenTimeForUniqueProxyIdentifier:(id)identifier;
 - (void)sendDialCallFailedForUniqueProxyIdentifier:(id)identifier;
+- (void)sendDialCallFailedForUniqueProxyIdentifier:(id)identifier withDisconnectedReason:(int)reason;
 - (void)sendDialCallMessageToHostForCall:(id)call completionHandler:(id)handler;
 - (void)sendDisconnectAllCallsMessageToHostForDisconnectedCall:(id)call;
 - (void)sendDisconnectCallMessageToHostForCall:(id)call;
@@ -51,6 +56,7 @@
 - (void)sendEndActiveAndAnswerCallMessageToHostForCall:(id)call;
 - (void)sendEndHeldAndAnswerCallMessageToHostForCall:(id)call;
 - (void)sendGroupCallMessageToHostForCall:(id)call otherCall:(id)otherCall;
+- (void)sendHardPauseAvailabilityMessageToClientForState:(int)state digits:(id)digits;
 - (void)sendHoldActiveAndAnswerCallMessageToHostForCall:(id)call;
 - (void)sendHoldCallMessageToHostForCall:(id)call;
 - (void)sendIncomingCallMessageToClientForCall:(id)call cannotBeAnswered:(BOOL)answered cannotRelayAudioOrVideoOnPairedDevice:(BOOL)device;
@@ -60,6 +66,7 @@
 - (void)sendNeedsManualInCallSoundsChangeMessageToClientForCall:(id)call;
 - (void)sendPerformSmartHoldingRequest:(id)request;
 - (void)sendPickRouteMessageToHostForRoute:(id)route;
+- (void)sendPlayDTMFToneForKeyMessageForCall:(id)call DTMFKey:(unsigned __int8)key;
 - (void)sendPullCallsMessageToHost;
 - (void)sendPullRelayingCallsMessageToClientAndDisconnectCallsWithUPI:(id)i;
 - (void)sendPushCallsMessageToClientDestination:(id)destination;
@@ -73,6 +80,8 @@
 - (void)sendScreeningChangedForCall:(id)call;
 - (void)sendSendHardPauseDigitsMessageToHostForCall:(id)call;
 - (void)sendSetCustomReply:(id)reply forCall:(id)call;
+- (void)sendSetTTYTypeCallMessageForCall:(id)call ttyType:(int)type;
+- (void)sendSetUplinkMutedCallMessageForCall:(id)call uplinkMuted:(BOOL)muted;
 - (void)sendSmartHoldingSessionChangedForCall:(id)call;
 - (void)sendStartReceptionistReplyForCall:(id)call;
 - (void)sendSuppressRingtoneMessageForCall:(id)call;
@@ -84,6 +93,7 @@
 - (void)sendUpdateCallModelMessageToClientForCall:(id)call;
 - (void)sendUpdateConversationsMessageToClient:(id)client;
 - (void)sendUpdateFailureExpectedMessageToClientForCall:(id)call;
+- (void)sendUpdateRemoteCallStateMessageToClient:(BOOL)client;
 - (void)sendUpdateRemoteUplinkMutedCallMessageToClientForCall:(id)call;
 - (void)sendUpdateRemoteUplinkMutedCallMessageToHostForCall:(id)call;
 - (void)sendUpdateRoutesMessageToClientForRoutes:(id)routes;
@@ -195,12 +205,12 @@
 
         if (!v7)
         {
-          v8 = sub_100004778();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v9 = sub_100004778(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v9 = 138412290;
-            v10 = object;
-            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Terminating relay call that we don't have a relay session for: %@", &v9, 0xCu);
+            v10 = 138412290;
+            v11 = object;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Terminating relay call that we don't have a relay session for: %@", &v10, 0xCu);
           }
 
           [object setLocallyDisconnectedWithReasonIfNone:0];
@@ -224,7 +234,7 @@
 - (void)_handleConferenceConnectionWillClose:(id)close
 {
   closeCopy = close;
-  v5 = sub_100004778();
+  v5 = sub_100004778(closeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [closeCopy name];
@@ -245,7 +255,7 @@
 - (void)_handleConferenceConnectionDidClose:(id)close
 {
   closeCopy = close;
-  v5 = sub_100004778();
+  v5 = sub_100004778(closeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [closeCopy name];
@@ -284,47 +294,47 @@
   v6 = +[CSDRelayIDSService sharedInstance];
   devices = [v6 devices];
 
-  v8 = sub_100004778();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v56 = devices;
-    v57 = 2112;
-    v58 = hostIDSIdentifier;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating dialingIDSDevice using device list %@, host: %@", buf, 0x16u);
+    v60 = devices;
+    v61 = 2112;
+    v62 = hostIDSIdentifier;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updating dialingIDSDevice using device list %@, host: %@", buf, 0x16u);
   }
 
   [(CSDRelayMessagingController *)self setDialingIDSDestination:0];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v9 = devices;
-  v10 = [v9 countByEnumeratingWithState:&v48 objects:v54 count:16];
-  v36 = v9;
-  if (v10)
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v10 = devices;
+  v11 = [v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v40 = v10;
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v49;
+    v12 = v11;
+    v13 = *v53;
 LABEL_5:
-    v13 = 0;
+    v14 = 0;
     while (1)
     {
-      if (*v49 != v12)
+      if (*v53 != v13)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v10);
       }
 
-      v14 = *(*(&v48 + 1) + 8 * v13);
-      if ([v14 isPairedDevice])
+      v15 = *(*(&v52 + 1) + 8 * v14);
+      if ([v15 isPairedDevice])
       {
         break;
       }
 
-      if (v11 == ++v13)
+      if (v12 == ++v14)
       {
-        v11 = [v9 countByEnumeratingWithState:&v48 objects:v54 count:16];
-        if (v11)
+        v12 = [v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+        if (v12)
         {
           goto LABEL_5;
         }
@@ -333,24 +343,24 @@ LABEL_5:
       }
     }
 
-    v15 = v9;
-    v16 = v14;
+    v16 = v10;
+    v17 = v15;
 
-    if (!v16)
+    if (!v17)
     {
       goto LABEL_16;
     }
 
     selfCopy = self;
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v16;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "A paired device exists, so using that as the dialing device: %@", buf, 0xCu);
+      v60 = v17;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "A paired device exists, so using that as the dialing device: %@", buf, 0xCu);
     }
 
-    destination = [v16 destination];
+    destination = [v17 destination];
     [(CSDRelayMessagingController *)selfCopy setDialingIDSDestination:destination];
   }
 
@@ -358,77 +368,77 @@ LABEL_5:
   {
 LABEL_11:
 
-    v15 = v9;
+    v16 = v10;
 LABEL_16:
-    v16 = +[TUCallCapabilities outgoingRelayCallerID];
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v20 = v15;
-    v39 = [v20 countByEnumeratingWithState:&v44 objects:v53 count:16];
-    if (v39)
+    v17 = +[TUCallCapabilities outgoingRelayCallerID];
+    v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v22 = v16;
+    v43 = [v22 countByEnumeratingWithState:&v48 objects:v57 count:16];
+    if (v43)
     {
       selfCopy2 = self;
-      v34 = hostIDSIdentifier;
-      v35 = requestCopy;
+      v38 = hostIDSIdentifier;
+      v39 = requestCopy;
       destination = 0;
-      v38 = *v45;
-      v37 = v20;
+      v42 = *v49;
+      v41 = v22;
       do
       {
-        for (i = 0; i != v39; i = i + 1)
+        for (i = 0; i != v43; i = i + 1)
         {
-          if (*v45 != v38)
+          if (*v49 != v42)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v22);
           }
 
-          v22 = *(*(&v44 + 1) + 8 * i);
-          v40 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          linkedUserURIs = [v22 linkedUserURIs];
-          v24 = [linkedUserURIs countByEnumeratingWithState:&v40 objects:v52 count:16];
-          if (v24)
+          v24 = *(*(&v48 + 1) + 8 * i);
+          v44 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          linkedUserURIs = [v24 linkedUserURIs];
+          v26 = [linkedUserURIs countByEnumeratingWithState:&v44 objects:v56 count:16];
+          if (v26)
           {
-            v25 = v24;
-            v26 = *v41;
+            v27 = v26;
+            v28 = *v45;
             while (2)
             {
-              for (j = 0; j != v25; j = j + 1)
+              for (j = 0; j != v27; j = j + 1)
               {
-                if (*v41 != v26)
+                if (*v45 != v28)
                 {
                   objc_enumerationMutation(linkedUserURIs);
                 }
 
-                _stripFZIDPrefix = [*(*(&v40 + 1) + 8 * j) _stripFZIDPrefix];
-                v29 = [v16 isEqualToString:_stripFZIDPrefix];
+                _stripFZIDPrefix = [*(*(&v44 + 1) + 8 * j) _stripFZIDPrefix];
+                v31 = [v17 isEqualToString:_stripFZIDPrefix];
 
-                if (v29)
+                if (v31)
                 {
                   if (!destination)
                   {
-                    destination = v22;
+                    destination = v24;
                     goto LABEL_35;
                   }
 
-                  v30 = sub_100004778();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                  v33 = sub_100004778(v32);
+                  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v56 = destination;
-                    v57 = 2112;
-                    v58 = v22;
-                    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] We found two devices with matching linkedUserURIs (arbitrarily choosing the first): %@ and %@", buf, 0x16u);
+                    v60 = destination;
+                    v61 = 2112;
+                    v62 = v24;
+                    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] We found two devices with matching linkedUserURIs (arbitrarily choosing the first): %@ and %@", buf, 0x16u);
                   }
                 }
               }
 
-              v25 = [linkedUserURIs countByEnumeratingWithState:&v40 objects:v52 count:16];
-              if (v25)
+              v27 = [linkedUserURIs countByEnumeratingWithState:&v44 objects:v56 count:16];
+              if (v27)
               {
                 continue;
               }
@@ -437,31 +447,31 @@ LABEL_16:
             }
 
 LABEL_35:
-            v20 = v37;
+            v22 = v41;
           }
         }
 
-        v39 = [v20 countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v43 = [v22 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
-      while (v39);
+      while (v43);
 
-      hostIDSIdentifier = v34;
-      requestCopy = v35;
+      hostIDSIdentifier = v38;
+      requestCopy = v39;
       if (destination)
       {
-        v31 = sub_100004778();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_100004778(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v56 = v16;
-          v57 = 2112;
-          v58 = destination;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "A device exists with a linkedUserURI that matches Caller ID %@, so using that as the dialing device: %@", buf, 0x16u);
+          v60 = v17;
+          v61 = 2112;
+          v62 = destination;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "A device exists with a linkedUserURI that matches Caller ID %@, so using that as the dialing device: %@", buf, 0x16u);
         }
 
-        v19Destination = [destination destination];
-        [(CSDRelayMessagingController *)selfCopy2 setDialingIDSDestination:v19Destination];
+        v21Destination = [destination destination];
+        [(CSDRelayMessagingController *)selfCopy2 setDialingIDSDestination:v21Destination];
 
         goto LABEL_45;
       }
@@ -471,11 +481,11 @@ LABEL_35:
     {
     }
 
-    destination = sub_100004778();
+    destination = sub_100004778(v34);
     if (os_log_type_enabled(destination, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v16;
+      v60 = v17;
       _os_log_impl(&_mh_execute_header, destination, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find a dialingIDSDevice. No paired devices exist and no devices that support phone calls and have a linkedUserURI for %@ exist.", buf, 0xCu);
     }
   }
@@ -558,27 +568,28 @@ LABEL_45:
   dictionaryCopy = dictionary;
   messageCopy = message;
   v8 = [(CSDRelayMessagingController *)self identifiersForSessionInvitationWithMessage:messageCopy];
+  v9 = v8;
   if (dictionaryCopy)
   {
-    v9 = [[CSDMessagingRelayMessage alloc] initWithType:0];
-    v10 = [[CSDMessagingAVConferenceInviteData alloc] initWithRelayInviteDictionary:dictionaryCopy];
-    [(CSDMessagingRelayMessage *)v9 setInviteData:v10];
+    v10 = [[CSDMessagingRelayMessage alloc] initWithType:0];
+    v11 = [[CSDMessagingAVConferenceInviteData alloc] initWithRelayInviteDictionary:dictionaryCopy];
+    [(CSDMessagingRelayMessage *)v10 setInviteData:v11];
 
     sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
-    firstObject = [v8 firstObject];
-    [sessionMessenger sendMessage:v9 andAcceptInvitationIfNecessaryForIdentifier:firstObject];
+    firstObject = [v9 firstObject];
+    [sessionMessenger sendMessage:v10 andAcceptInvitationIfNecessaryForIdentifier:firstObject];
   }
 
   else
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100004778(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10047455C(messageCopy, v13, v14, v15, v16, v17, v18, v19);
+      sub_10047455C(messageCopy, v14, v15, v16, v17, v18, v19, v20);
     }
 
     sessionMessenger2 = [(CSDRelayMessagingController *)self sessionMessenger];
-    firstObject2 = [v8 firstObject];
+    firstObject2 = [v9 firstObject];
     [sessionMessenger2 cancelOrDeclineInvitationForIdentifier:firstObject2];
   }
 }
@@ -603,57 +614,58 @@ LABEL_45:
 {
   answeredCopy = answered;
   callCopy = call;
-  v9 = sub_100004778();
+  v9 = sub_100004778(callCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = callCopy;
+    v25 = callCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Host->Client) sendIncomingCallMessageToClientForCall: %@", buf, 0xCu);
   }
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000EF4A8;
-  v20[3] = &unk_10061B3D0;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000EF4A8;
+  v21[3] = &unk_10061B3D0;
   v10 = callCopy;
-  v21 = v10;
+  v22 = v10;
   deviceCopy = device;
-  v11 = objc_retainBlock(v20);
+  v11 = objc_retainBlock(v21);
+  v12 = v11;
   if (answeredCopy)
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Call cannot be answered. Only notifying the paired device", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Call cannot be answered. Only notifying the paired device", buf, 2u);
     }
 
-    v13 = (v11[2])(v11);
-    [v13 setCannotBeAnswered:1];
+    v14 = v12[2](v12);
+    [v14 setCannotBeAnswered:1];
     pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
-    [pairedDeviceMessenger sendMessage:v13 completionHandler:0];
+    [pairedDeviceMessenger sendMessage:v14 completionHandler:0];
   }
 
   else
   {
-    v15 = +[CSDRelayConferenceInterface sharedInstance];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000EF8FC;
-    v16[3] = &unk_10061B3F8;
-    v17 = v10;
+    v16 = +[CSDRelayConferenceInterface sharedInstance];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000EF8FC;
+    v17[3] = &unk_10061B3F8;
+    v18 = v10;
     selfCopy = self;
-    v19 = v11;
-    [v15 prepareConferenceForCall:v17 remoteInviteDictionary:0 completion:v16];
+    v20 = v12;
+    [v16 prepareConferenceForCall:v18 remoteInviteDictionary:0 completion:v17];
 
-    v13 = v17;
+    v14 = v18;
   }
 }
 
 - (void)sendUpdateConversationsMessageToClient:(id)client
 {
   clientCopy = client;
-  v5 = sub_100004778();
+  v5 = sub_100004778(clientCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -705,7 +717,7 @@ LABEL_45:
 - (void)sendConversationToClientForConversation:(id)conversation withConversationMessageType:(int)type
 {
   conversationCopy = conversation;
-  v7 = sub_100004778();
+  v7 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -729,7 +741,7 @@ LABEL_45:
 - (void)sendConversationAudioPriorityToClientForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -752,7 +764,7 @@ LABEL_45:
 - (void)sendCallDialedMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v26 = 138412290;
@@ -837,7 +849,7 @@ LABEL_45:
 - (void)sendCallAnsweredElsewhereMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
@@ -884,7 +896,7 @@ LABEL_45:
 - (void)sendCallDisconnectedMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -912,7 +924,7 @@ LABEL_45:
 {
   callCopy = call;
   captionsCopy = captions;
-  v8 = sub_100004778();
+  v8 = sub_100004778(captionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -954,7 +966,7 @@ LABEL_45:
 - (void)sendCallConnectedMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -983,7 +995,7 @@ LABEL_45:
 - (void)sendResetWantsHoldMusicMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -1009,7 +1021,7 @@ LABEL_45:
 - (void)sendUpdateCallDisplayContextMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
@@ -1041,7 +1053,7 @@ LABEL_45:
 - (void)sendUpdateFailureExpectedMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -1068,7 +1080,7 @@ LABEL_45:
 - (void)sendUpdateSupportsEmergencyFallbackToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -1095,7 +1107,7 @@ LABEL_45:
 - (void)sendUpdateRemoteUplinkMutedCallMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138412290;
@@ -1133,7 +1145,7 @@ LABEL_45:
 - (void)sendUpdateSupportsTTYWithVoiceCallMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -1160,7 +1172,7 @@ LABEL_45:
 - (void)sendUpdateCallModelMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -1189,7 +1201,7 @@ LABEL_45:
 - (void)sendDeviceUnavailableMessageToClientForUniqueProxyIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -1205,7 +1217,7 @@ LABEL_45:
 - (void)sendPullRelayingCallsMessageToClientAndDisconnectCallsWithUPI:(id)i
 {
   iCopy = i;
-  v5 = sub_100004778();
+  v5 = sub_100004778(iCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -1223,7 +1235,7 @@ LABEL_45:
 - (void)sendScreeningChangedForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1320,15 +1332,15 @@ LABEL_7:
 
     sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
     uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_1000F1F30;
-    v36[3] = &unk_10061B4B0;
-    v36[4] = self;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_1000F1F30;
+    v37[3] = &unk_10061B4B0;
+    v37[4] = self;
     v32 = v10;
-    v37 = v32;
-    v38 = callCopy;
-    [sessionMessenger sendMessage:v32 forIdentifier:uniqueProxyIdentifier2 customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v36];
+    v38 = v32;
+    v39 = callCopy;
+    [sessionMessenger sendMessage:v32 forIdentifier:uniqueProxyIdentifier2 customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v37];
 
     if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
     {
@@ -1347,7 +1359,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v32 = sub_100004778();
+  v32 = sub_100004778(v36);
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1360,7 +1372,7 @@ LABEL_16:
 - (void)sendAnnouncementHasFinishedChangedForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1372,37 +1384,37 @@ LABEL_16:
 
   if (lVMEverywhere)
   {
-    v8 = [CSDMessagingRelayMessage alloc];
+    v9 = [CSDMessagingRelayMessage alloc];
     uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-    v10 = [(CSDMessagingRelayMessage *)v8 initWithType:64 uniqueProxyIdentifier:uniqueProxyIdentifier];
+    v11 = [(CSDMessagingRelayMessage *)v9 initWithType:64 uniqueProxyIdentifier:uniqueProxyIdentifier];
 
-    -[CSDMessagingRelayMessage setAnnouncementHasFinished:](v10, "setAnnouncementHasFinished:", [callCopy screeningAnnouncementHasFinished]);
+    -[CSDMessagingRelayMessage setAnnouncementHasFinished:](v11, "setAnnouncementHasFinished:", [callCopy screeningAnnouncementHasFinished]);
     sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
     uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1000F21DC;
-    v15[3] = &unk_10061B4B0;
-    v15[4] = self;
-    v13 = v10;
-    v16 = v13;
-    v17 = callCopy;
-    [sessionMessenger sendMessage:v13 forIdentifier:uniqueProxyIdentifier2 customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v15];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000F21DC;
+    v16[3] = &unk_10061B4B0;
+    v16[4] = self;
+    v14 = v11;
+    v17 = v14;
+    v18 = callCopy;
+    [sessionMessenger sendMessage:v14 forIdentifier:uniqueProxyIdentifier2 customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v16];
 
     if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
     {
       pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
-      [pairedDeviceMessenger sendMessage:v13 completionHandler:0];
+      [pairedDeviceMessenger sendMessage:v14 completionHandler:0];
     }
   }
 
   else
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "LVMEverywhere not enabled, not announcement has finished", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "LVMEverywhere not enabled, not announcement has finished", buf, 2u);
     }
   }
 }
@@ -1410,7 +1422,7 @@ LABEL_16:
 - (void)sendReceptionistStateChangedForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1450,7 +1462,7 @@ LABEL_16:
 - (void)sendLastReceptionistMessageChangedForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1492,7 +1504,7 @@ LABEL_16:
 - (void)sendReceptionistSessionChangedForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1541,7 +1553,7 @@ LABEL_16:
 - (void)sendSmartHoldingSessionChangedForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1590,7 +1602,7 @@ LABEL_16:
 - (void)sendStartReceptionistReplyForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1602,33 +1614,33 @@ LABEL_16:
 
   if (receptionistEnabled)
   {
-    v8 = [[CSDMessagingRelayMessage alloc] initWithType:62];
+    v9 = [[CSDMessagingRelayMessage alloc] initWithType:62];
     sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
     uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000F2D88;
-    v13[3] = &unk_10061B4B0;
-    v13[4] = self;
-    v11 = v8;
-    v14 = v11;
-    v15 = callCopy;
-    [sessionMessenger sendMessage:v11 forIdentifier:uniqueProxyIdentifier customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v13];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000F2D88;
+    v14[3] = &unk_10061B4B0;
+    v14[4] = self;
+    v12 = v9;
+    v15 = v12;
+    v16 = callCopy;
+    [sessionMessenger sendMessage:v12 forIdentifier:uniqueProxyIdentifier customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v14];
 
     if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
     {
       pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
-      [pairedDeviceMessenger sendMessage:v11 completionHandler:0];
+      [pairedDeviceMessenger sendMessage:v12 completionHandler:0];
     }
   }
 
   else
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "receptionistEnabled not enabled, not sending start receptionist reply", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "receptionistEnabled not enabled, not sending start receptionist reply", buf, 2u);
     }
   }
 }
@@ -1637,7 +1649,7 @@ LABEL_16:
 {
   replyCopy = reply;
   callCopy = call;
-  v8 = sub_100004778();
+  v8 = sub_100004778(callCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1649,41 +1661,41 @@ LABEL_16:
 
   if (receptionistEnabled)
   {
-    v11 = [[CSDMessagingRelayMessage alloc] initWithType:63];
-    [(CSDMessagingRelayMessage *)v11 setCustomReply:replyCopy];
+    v12 = [[CSDMessagingRelayMessage alloc] initWithType:63];
+    [(CSDMessagingRelayMessage *)v12 setCustomReply:replyCopy];
     sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
     uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000F2FDC;
-    v16[3] = &unk_10061B4B0;
-    v16[4] = self;
-    v14 = v11;
-    v17 = v14;
-    v18 = callCopy;
-    [sessionMessenger sendMessage:v14 forIdentifier:uniqueProxyIdentifier customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v16];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000F2FDC;
+    v17[3] = &unk_10061B4B0;
+    v17[4] = self;
+    v15 = v12;
+    v18 = v15;
+    v19 = callCopy;
+    [sessionMessenger sendMessage:v15 forIdentifier:uniqueProxyIdentifier customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:v17];
 
     if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
     {
       pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
-      [pairedDeviceMessenger sendMessage:v14 completionHandler:0];
+      [pairedDeviceMessenger sendMessage:v15 completionHandler:0];
     }
   }
 
   else
   {
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004778(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "receptionistEnabled not enabled, not sending receptionist custom reply", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "receptionistEnabled not enabled, not sending receptionist custom reply", buf, 2u);
     }
   }
 }
 
 - (void)sendResetStateMessageToClient
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1734,10 +1746,102 @@ LABEL_16:
   }
 }
 
+- (void)sendHardPauseAvailabilityMessageToClientForState:(int)state digits:(id)digits
+{
+  v4 = *&state;
+  digitsCopy = digits;
+  v7 = sub_100004778(digitsCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109378;
+    v10[1] = v4;
+    v11 = 2112;
+    v12 = digitsCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Host->Client) sendHardPauseAvailabilityMessageToClientForState %d digits: %@", v10, 0x12u);
+  }
+
+  v8 = [[CSDMessagingRelayMessage alloc] initWithType:24];
+  [(CSDMessagingRelayMessage *)v8 setHardPauseDigitsState:v4];
+  [(CSDMessagingRelayMessage *)v8 setHardPauseDigits:digitsCopy];
+  sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
+  [sessionMessenger sendMessage:v8 forIdentifier:0 customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:0];
+}
+
+- (void)sendUpdateRemoteCallStateMessageToClient:(BOOL)client
+{
+  clientCopy = client;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (clientCopy)
+    {
+      v6 = @"YES";
+    }
+
+    *buf = 138412290;
+    v24 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Host->Client) sendUpdateRemoteCallStateMessageToClient force=%@", buf, 0xCu);
+  }
+
+  v7 = [[CSDMessagingRelayMessage alloc] initWithType:26];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  callCenter = [(CSDRelayMessagingController *)self callCenter];
+  currentAudioAndVideoCalls = [callCenter currentAudioAndVideoCalls];
+
+  v10 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (!v10)
+  {
+
+LABEL_15:
+    sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
+    [sessionMessenger sendMessage:v7 forIdentifier:0 customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:0];
+
+    goto LABEL_16;
+  }
+
+  v11 = v10;
+  v12 = *v19;
+  v13 = 1;
+  do
+  {
+    for (i = 0; i != v11; i = i + 1)
+    {
+      if (*v19 != v12)
+      {
+        objc_enumerationMutation(currentAudioAndVideoCalls);
+      }
+
+      v15 = *(*(&v18 + 1) + 8 * i);
+      [(CSDMessagingRelayMessage *)v7 addCall:v15];
+      v13 &= [v15 isConnected];
+    }
+
+    v11 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v18 objects:v22 count:16];
+  }
+
+  while (v11);
+
+  if (v13)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_16:
+  if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice:clientCopy])
+  {
+    pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
+    [pairedDeviceMessenger sendMessage:v7 completionHandler:0];
+  }
+}
+
 - (void)sendCallStartedConnectingMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -1763,7 +1867,7 @@ LABEL_16:
 - (void)sendDialCallFailedForUniqueProxyIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1777,7 +1881,7 @@ LABEL_16:
 - (void)sendDialCallFailedForScreenTimeForUniqueProxyIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1788,208 +1892,230 @@ LABEL_16:
   [(CSDRelayMessagingController *)self sendDialCallFailedForUniqueProxyIdentifier:identifierCopy withDisconnectedReason:25];
 }
 
+- (void)sendDialCallFailedForUniqueProxyIdentifier:(id)identifier withDisconnectedReason:(int)reason
+{
+  v4 = *&reason;
+  identifierCopy = identifier;
+  v9 = [[CSDMessagingRelayMessage alloc] initWithType:2];
+  [(CSDMessagingRelayMessage *)v9 setUniqueProxyIdentifier:identifierCopy];
+  [(CSDMessagingRelayMessage *)v9 setDisconnectedReason:v4];
+  sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
+  [sessionMessenger sendMessage:v9 andCancelOrDeclineInvitationIfNecessaryForIdentifier:identifierCopy];
+
+  if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
+  {
+    pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
+    [pairedDeviceMessenger sendMessage:v9 completionHandler:0];
+  }
+}
+
 - (void)sendPushCallsMessageToClientDestination:(id)destination
 {
   destinationCopy = destination;
-  v5 = sub_100004778();
+  v5 = sub_100004778(destinationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v57 = destinationCopy;
+    v60 = destinationCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Host->Client) sendPushCallsMessageToClientDestination: %@", buf, 0xCu);
   }
 
   selfCopy = self;
-  v36 = [[CSDMessagingRelayMessage alloc] initWithType:30];
+  v39 = [[CSDMessagingRelayMessage alloc] initWithType:30];
   callCenter = [(CSDRelayMessagingController *)self callCenter];
   _allCalls = [callCenter _allCalls];
 
-  v39 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [_allCalls count]);
+  v42 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [_allCalls count]);
   v8 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [_allCalls count]);
   v9 = +[CSDRelayIDSService sharedInstance];
   v10 = [destinationCopy deviceForService:v9];
 
-  v38 = v8;
+  v41 = v8;
   if (v10)
   {
     v11 = +[CSDRelayIDSService sharedInstance];
     pairedDevice = [v11 pairedDevice];
-    v34 = [pairedDevice isEqual:v10];
+    v37 = [pairedDevice isEqual:v10];
   }
 
   else
   {
-    v34 = 0;
+    v37 = 0;
   }
 
-  v53 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v55 = 0u;
   obj = _allCalls;
-  v13 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v13 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (!v13)
   {
-    v37 = 0;
+    v40 = 0;
     goto LABEL_36;
   }
 
   v14 = v13;
-  v37 = 0;
-  v15 = *v52;
+  v40 = 0;
+  v15 = *v55;
   do
   {
     for (i = 0; i != v14; i = i + 1)
     {
-      if (*v52 != v15)
+      if (*v55 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v51 + 1) + 8 * i);
+      v17 = *(*(&v54 + 1) + 8 * i);
       if (v10)
       {
-        provider = [*(*(&v51 + 1) + 8 * i) provider];
+        provider = [*(*(&v54 + 1) + 8 * i) provider];
         v19 = [v10 canReceiveMessagesForCallProvider:provider];
 
         if (v19)
         {
-          v20 = sub_100004778();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = sub_100004778(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v57 = v17;
-            v58 = 2112;
-            v59 = destinationCopy;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Allowing call: %@ to be pushed to destination: %@", buf, 0x16u);
+            v60 = v17;
+            v61 = 2112;
+            v62 = destinationCopy;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Allowing call: %@ to be pushed to destination: %@", buf, 0x16u);
           }
 
 LABEL_21:
 
-          v21 = 1;
+          v23 = 1;
           goto LABEL_22;
         }
       }
 
-      else if ([destinationCopy isGuest] && (objc_msgSend(v17, "needsConversationOrVideoRelaySupport") & 1) == 0)
+      else if ([destinationCopy isGuest])
       {
-        v20 = sub_100004778();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        needsConversationOrVideoRelaySupport = [v17 needsConversationOrVideoRelaySupport];
+        if ((needsConversationOrVideoRelaySupport & 1) == 0)
         {
-          *buf = 138412546;
-          v57 = v17;
-          v58 = 2112;
-          v59 = destinationCopy;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Allowing call: %@ to be pushed to destination: %@", buf, 0x16u);
-        }
+          v21 = sub_100004778(needsConversationOrVideoRelaySupport);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v60 = v17;
+            v61 = 2112;
+            v62 = destinationCopy;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Allowing call: %@ to be pushed to destination: %@", buf, 0x16u);
+          }
 
-        v37 = 1;
-        goto LABEL_21;
+          v40 = 1;
+          goto LABEL_21;
+        }
       }
 
-      v21 = 0;
+      v23 = 0;
 LABEL_22:
-      if (([v10 canReceiveRelayedGFTCalls] & 1) != 0 || !objc_msgSend(v17, "needsConversationOrVideoRelaySupport"))
+      canReceiveRelayedGFTCalls = [v10 canReceiveRelayedGFTCalls];
+      if ((canReceiveRelayedGFTCalls & 1) != 0 || (canReceiveRelayedGFTCalls = [v17 needsConversationOrVideoRelaySupport], !canReceiveRelayedGFTCalls))
       {
-        if (v21)
+        if (v23)
         {
           uniqueProxyIdentifier = [v17 uniqueProxyIdentifier];
-          [v39 addObject:uniqueProxyIdentifier];
+          [v42 addObject:uniqueProxyIdentifier];
 
-          [v38 addObject:v17];
+          [v41 addObject:v17];
           continue;
         }
       }
 
       else
       {
-        v22 = sub_100004778();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_100004778(canReceiveRelayedGFTCalls);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v57 = v17;
-          v58 = 2112;
-          v59 = destinationCopy;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Not allowing call: %@ to be pushed to destination: %@ because the call requires conversation or video relay support", buf, 0x16u);
+          v60 = v17;
+          v61 = 2112;
+          v62 = destinationCopy;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Not allowing call: %@ to be pushed to destination: %@ because the call requires conversation or video relay support", buf, 0x16u);
         }
       }
 
-      v24 = sub_100004778();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100004778(canReceiveRelayedGFTCalls);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v57 = v17;
-        v58 = 2112;
-        v59 = destinationCopy;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Skipping call: %@ to track for pushing to destination: %@", buf, 0x16u);
+        v60 = v17;
+        v61 = 2112;
+        v62 = destinationCopy;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Skipping call: %@ to track for pushing to destination: %@", buf, 0x16u);
       }
     }
 
-    v14 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v14 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
   }
 
   while (v14);
 LABEL_36:
 
-  if ([v39 count])
+  if ([v42 count])
   {
-    v25 = v38;
-    if (v37)
+    v28 = v41;
+    if (v40)
     {
-      v49 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v26 = v38;
-      v27 = [v26 countByEnumeratingWithState:&v47 objects:v55 count:16];
-      if (v27)
+      v51 = 0u;
+      v29 = v41;
+      v30 = [v29 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      if (v30)
       {
-        v28 = v27;
-        v29 = *v48;
+        v31 = v30;
+        v32 = *v51;
         do
         {
-          for (j = 0; j != v28; j = j + 1)
+          for (j = 0; j != v31; j = j + 1)
           {
-            if (*v48 != v29)
+            if (*v51 != v32)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v29);
             }
 
-            [(CSDRelayMessagingController *)selfCopy sendCallAnsweredElsewhereMessageToClientForCall:*(*(&v47 + 1) + 8 * j)];
+            [(CSDRelayMessagingController *)selfCopy sendCallAnsweredElsewhereMessageToClientForCall:*(*(&v50 + 1) + 8 * j)];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v47 objects:v55 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v50 objects:v58 count:16];
         }
 
-        while (v28);
+        while (v31);
       }
     }
 
     hostMessagingDelegate = [(CSDRelayMessagingController *)selfCopy hostMessagingDelegate];
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_1000F3F2C;
-    v41[3] = &unk_10061B4D8;
-    v42 = v38;
-    v32 = v36;
-    v43 = v36;
-    v44 = selfCopy;
-    v45 = v39;
-    v46 = destinationCopy;
-    [hostMessagingDelegate pushHostedCallsForRemoteInviteDictionary:0 destination:v46 toPairedDevice:v34 completion:v41];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_1000F3F2C;
+    v44[3] = &unk_10061B4D8;
+    v45 = v41;
+    v35 = v39;
+    v46 = v39;
+    v47 = selfCopy;
+    v48 = v42;
+    v49 = destinationCopy;
+    [hostMessagingDelegate pushHostedCallsForRemoteInviteDictionary:0 destination:v49 toPairedDevice:v37 completion:v44];
 
-    v33 = v42;
+    v36 = v45;
   }
 
   else
   {
-    v33 = sub_100004778();
-    v32 = v36;
-    v25 = v38;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v36 = sub_100004778(0);
+    v35 = v39;
+    v28 = v41;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Found no calls to send sendPushCallsMessageToClientDestination", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Found no calls to send sendPushCallsMessageToClientDestination", buf, 2u);
     }
   }
 }
@@ -2007,12 +2133,12 @@ LABEL_36:
   allValues = [v8 allValues];
   [(CSDMessagingRelayMessage *)v5 setTuProviders:allValues];
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v5;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Host->Client) Sending UpdateCallContext message: %@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = v5;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Host->Client) Sending UpdateCallContext message: %@", &v13, 0xCu);
   }
 
   pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
@@ -2022,7 +2148,7 @@ LABEL_36:
 - (void)sendNeedsManualInCallSoundsChangeMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -2050,7 +2176,7 @@ LABEL_36:
 - (void)sendInvitationSentMessageToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -2076,7 +2202,7 @@ LABEL_36:
 - (void)sendUpdateRoutesMessageToClientForRoutes:(id)routes
 {
   routesCopy = routes;
-  v5 = sub_100004778();
+  v5 = sub_100004778(routesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2127,7 +2253,7 @@ LABEL_36:
 - (void)sendUpdateSupportsDTMFUpdatesToClientForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -2149,7 +2275,7 @@ LABEL_36:
 {
   callCopy = call;
   updateCopy = update;
-  v8 = sub_100004778();
+  v8 = sub_100004778(updateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412546;
@@ -2175,11 +2301,11 @@ LABEL_36:
 {
   callCopy = call;
   handlerCopy = handler;
-  v8 = sub_100004778();
+  v8 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = callCopy;
+    v21 = callCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client->Host) sendDialCallMessageToHostForCall: %@", buf, 0xCu);
   }
 
@@ -2190,36 +2316,36 @@ LABEL_36:
 
   if (!dialingIDSDestination)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "No dialing IDS device found. If we aren't already in a session, this dial call attempt will fail.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No dialing IDS device found. If we aren't already in a session, this dial call attempt will fail.", buf, 2u);
     }
   }
 
-  v12 = +[CSDRelayConferenceInterface sharedInstance];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_1000F4B34;
-  v15[3] = &unk_10061B500;
-  v16 = callCopy;
+  v13 = +[CSDRelayConferenceInterface sharedInstance];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000F4B34;
+  v16[3] = &unk_10061B500;
+  v17 = callCopy;
   selfCopy = self;
-  v18 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = callCopy;
-  [v12 prepareConferenceForCall:v14 remoteInviteDictionary:0 completion:v15];
+  v19 = handlerCopy;
+  v14 = handlerCopy;
+  v15 = callCopy;
+  [v13 prepareConferenceForCall:v15 remoteInviteDictionary:0 completion:v16];
 }
 
 - (void)sendJoinConversationMessageToHostForCall:(id)call completionHandler:(id)handler
 {
   callCopy = call;
   handlerCopy = handler;
-  v8 = sub_100004778();
+  v8 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = callCopy;
+    v21 = callCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client->Host) sendJoinConversationMessageToHostForCall: %@", buf, 0xCu);
   }
 
@@ -2230,46 +2356,46 @@ LABEL_36:
 
   if (!dialingIDSDestination)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "No dialing IDS device found. If we aren't already in a session, this join conversation request will fail.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No dialing IDS device found. If we aren't already in a session, this join conversation request will fail.", buf, 2u);
     }
   }
 
-  v12 = +[CSDRelayConferenceInterface sharedInstance];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_1000F50D8;
-  v15[3] = &unk_10061B500;
-  v16 = callCopy;
+  v13 = +[CSDRelayConferenceInterface sharedInstance];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000F50D8;
+  v16[3] = &unk_10061B500;
+  v17 = callCopy;
   selfCopy = self;
-  v18 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = callCopy;
-  [v12 prepareConferenceForCall:v14 remoteInviteDictionary:0 completion:v15];
+  v19 = handlerCopy;
+  v14 = handlerCopy;
+  v15 = callCopy;
+  [v13 prepareConferenceForCall:v15 remoteInviteDictionary:0 completion:v16];
 }
 
 - (void)sendAnswerCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = callCopy;
+    v41 = callCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client->Host) sendAnswerCallMessageToHostForCall: %@", buf, 0xCu);
   }
 
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_1000F57E8;
-  v34[3] = &unk_10061B528;
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_1000F57E8;
+  v37[3] = &unk_10061B528;
   v6 = callCopy;
-  v35 = v6;
+  v38 = v6;
   selfCopy = self;
-  v7 = objc_retainBlock(v34);
+  v7 = objc_retainBlock(v37);
   receptionistState = [v6 receptionistState];
   if ([v6 isScreening])
   {
@@ -2283,11 +2409,11 @@ LABEL_36:
       uniqueProxyIdentifier = [v6 uniqueProxyIdentifier];
       [sessionMessenger sendMessage:v11 forIdentifier:uniqueProxyIdentifier customizedForRemoteProtocolVersion:0 waitUntilConnected:0 completionHandler:0];
 
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004778(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "sendAnswerCallMessageToHostForCall, return", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "sendAnswerCallMessageToHostForCall, return", buf, 2u);
       }
 
 LABEL_30:
@@ -2296,84 +2422,87 @@ LABEL_30:
     }
   }
 
-  if ([v6 isAnswerFromScreening])
+  isAnswerFromScreening = [v6 isAnswerFromScreening];
+  if (isAnswerFromScreening)
   {
-    v30 = [v6 receptionistState] != 3;
+    isAnswerFromScreening = [v6 receptionistState];
+    v33 = isAnswerFromScreening != 3;
   }
 
   else
   {
-    v30 = 0;
+    v33 = 0;
   }
 
-  v15 = sub_100004778();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004778(isAnswerFromScreening);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     receptionistState2 = [v6 receptionistState];
     if ([v6 isScreening])
     {
-      v17 = @"YES";
+      v19 = @"YES";
     }
 
     else
     {
-      v17 = @"NO";
+      v19 = @"NO";
     }
 
     selfCopy2 = self;
-    v19 = v7;
-    v20 = receptionistState;
+    v21 = v7;
+    v22 = receptionistState;
     status = [v6 status];
-    isAnswerFromScreening = [v6 isAnswerFromScreening];
+    isAnswerFromScreening2 = [v6 isAnswerFromScreening];
     *buf = 134219010;
-    if (isAnswerFromScreening)
+    if (isAnswerFromScreening2)
     {
-      v23 = @"YES";
+      v25 = @"YES";
     }
 
     else
     {
-      v23 = @"NO";
+      v25 = @"NO";
     }
 
-    v38 = receptionistState2;
-    if (v30)
+    v41 = receptionistState2;
+    if (v33)
     {
-      v24 = @"YES";
+      v26 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v26 = @"NO";
     }
 
-    v39 = 2112;
-    v40 = v17;
-    v41 = 2048;
-    v42 = status;
-    receptionistState = v20;
-    v7 = v19;
+    v42 = 2112;
+    v43 = v19;
+    v44 = 2048;
+    v45 = status;
+    receptionistState = v22;
+    v7 = v21;
     self = selfCopy2;
-    v43 = 2112;
-    v44 = v23;
-    v45 = 2112;
-    v46 = v24;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "sendAnswerCallMessageToHostForCall: rs: %lu, cs: %@, status: %lu, answerFromScreening: %@, canAnswerFromReceptionist: %@", buf, 0x34u);
+    v46 = 2112;
+    v47 = v25;
+    v48 = 2112;
+    v49 = v26;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "sendAnswerCallMessageToHostForCall: rs: %lu, cs: %@, status: %lu, answerFromScreening: %@, canAnswerFromReceptionist: %@", buf, 0x34u);
   }
 
-  if (![v6 isEndpointOnCurrentDevice] || receptionistState && (objc_msgSend(v6, "status") != 1 || !v30))
+  isEndpointOnCurrentDevice = [v6 isEndpointOnCurrentDevice];
+  if (!isEndpointOnCurrentDevice || receptionistState && (isEndpointOnCurrentDevice = [v6 status], isEndpointOnCurrentDevice != 1 || !v33))
   {
-    v27 = sub_100004778();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100004778(isEndpointOnCurrentDevice);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = v6;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Do not prepare conference for call: %@", buf, 0xCu);
+      v41 = v6;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Do not prepare conference for call: %@", buf, 0xCu);
     }
 
     v11 = (v7[2])(v7);
     sessionMessenger2 = [(CSDRelayMessagingController *)self sessionMessenger];
-    v14 = sessionMessenger2;
+    v15 = sessionMessenger2;
     if (receptionistState)
     {
       [sessionMessenger2 sendMessage:v11 forCall:v6 completionHandler:0];
@@ -2382,31 +2511,31 @@ LABEL_30:
     else
     {
       uniqueProxyIdentifier2 = [v6 uniqueProxyIdentifier];
-      [v14 sendMessage:v11 andCancelOrDeclineInvitationIfNecessaryForIdentifier:uniqueProxyIdentifier2];
+      [v15 sendMessage:v11 andCancelOrDeclineInvitationIfNecessaryForIdentifier:uniqueProxyIdentifier2];
     }
 
     goto LABEL_30;
   }
 
-  v25 = +[CSDRelayConferenceInterface sharedInstance];
+  v28 = +[CSDRelayConferenceInterface sharedInstance];
   remoteInviteDictionary = [v6 remoteInviteDictionary];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_1000F595C;
-  v31[3] = &unk_10061B550;
-  v33 = v7;
-  v31[4] = self;
-  v32 = v6;
-  [v25 prepareConferenceForCall:v32 remoteInviteDictionary:remoteInviteDictionary completion:v31];
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_1000F595C;
+  v34[3] = &unk_10061B550;
+  v36 = v7;
+  v34[4] = self;
+  v35 = v6;
+  [v28 prepareConferenceForCall:v35 remoteInviteDictionary:remoteInviteDictionary completion:v34];
 
-  v11 = v33;
+  v11 = v36;
 LABEL_31:
 }
 
 - (void)sendDisconnectCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138412290;
@@ -2445,7 +2574,7 @@ LABEL_31:
 - (void)sendHoldCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -2471,7 +2600,7 @@ LABEL_31:
 - (void)sendUnholdCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -2498,7 +2627,7 @@ LABEL_31:
 {
   callCopy = call;
   otherCallCopy = otherCall;
-  v8 = sub_100004778();
+  v8 = sub_100004778(otherCallCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138412546;
@@ -2529,7 +2658,7 @@ LABEL_31:
 - (void)sendUngroupCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -2554,7 +2683,7 @@ LABEL_31:
 
 - (void)sendSwapCallsMessageToHost
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -2575,7 +2704,7 @@ LABEL_31:
 - (void)sendEndActiveAndAnswerCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2598,7 +2727,7 @@ LABEL_31:
 - (void)sendEndHeldAndAnswerCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2621,7 +2750,7 @@ LABEL_31:
 - (void)sendHoldActiveAndAnswerCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2680,7 +2809,7 @@ LABEL_11:
 - (void)sendDisconnectCurrentCallMessageToHostForDisconnectedCall:(id)call activateHeld:(BOOL)held
 {
   callCopy = call;
-  v7 = sub_100004778();
+  v7 = sub_100004778(callCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v15 = 0;
@@ -2716,7 +2845,7 @@ LABEL_11:
 - (void)sendDisconnectAllCallsMessageToHostForDisconnectedCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -2741,7 +2870,7 @@ LABEL_11:
 - (void)sendSendHardPauseDigitsMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -2760,7 +2889,7 @@ LABEL_11:
 
 - (void)sendRequestCallStateMessageToHost
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -2774,7 +2903,7 @@ LABEL_11:
 
 - (void)sendPullCallsMessageToHost
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2834,7 +2963,7 @@ LABEL_11:
 - (void)sendPushRelayingCallsMessageToHostForSourceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -2851,7 +2980,7 @@ LABEL_11:
 - (void)sendUpdateRemoteUplinkMutedCallMessageToHostForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -2878,7 +3007,7 @@ LABEL_11:
 - (void)sendPickRouteMessageToHostForRoute:(id)route
 {
   routeCopy = route;
-  v5 = sub_100004778();
+  v5 = sub_100004778(routeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -2905,10 +3034,96 @@ LABEL_11:
   [pairedDeviceMessenger sendMessage:v7 completionHandler:0];
 }
 
+- (void)sendPlayDTMFToneForKeyMessageForCall:(id)call DTMFKey:(unsigned __int8)key
+{
+  keyCopy = key;
+  callCopy = call;
+  v7 = [CSDMessagingRelayMessage alloc];
+  uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
+  v11 = [(CSDMessagingRelayMessage *)v7 initWithType:7 uniqueProxyIdentifier:uniqueProxyIdentifier];
+
+  [(CSDMessagingRelayMessage *)v11 setDTMFKey:keyCopy];
+  sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
+  uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
+
+  [sessionMessenger sendMessage:v11 forIdentifier:uniqueProxyIdentifier2];
+}
+
+- (void)sendSetTTYTypeCallMessageForCall:(id)call ttyType:(int)type
+{
+  v4 = *&type;
+  callCopy = call;
+  v7 = sub_100004778(callCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 138412546;
+    v15 = callCopy;
+    v16 = 1024;
+    v17 = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendSetTTYTypeCallMessageForCall: %@ ttyType: %d", &v14, 0x12u);
+  }
+
+  v8 = [CSDMessagingRelayMessage alloc];
+  uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
+  v10 = [(CSDMessagingRelayMessage *)v8 initWithType:42 uniqueProxyIdentifier:uniqueProxyIdentifier];
+
+  [(CSDMessagingRelayMessage *)v10 setTtyType:v4];
+  sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
+  uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
+  [sessionMessenger sendMessage:v10 forIdentifier:uniqueProxyIdentifier2];
+
+  if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
+  {
+    pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
+    [pairedDeviceMessenger sendMessage:v10 completionHandler:0];
+  }
+}
+
+- (void)sendSetUplinkMutedCallMessageForCall:(id)call uplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  callCopy = call;
+  v7 = sub_100004778(callCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = 138412546;
+    v19 = callCopy;
+    v20 = 1024;
+    v21 = mutedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendSetUplinkMutedCallMessageForCall: %@ uplinkMuted: %d", &v18, 0x12u);
+  }
+
+  v8 = [CSDMessagingRelayMessage alloc];
+  uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
+  v10 = [(CSDMessagingRelayMessage *)v8 initWithType:38 uniqueProxyIdentifier:uniqueProxyIdentifier];
+
+  [(CSDMessagingRelayMessage *)v10 setUplinkMuted:mutedCopy];
+  provider = [callCopy provider];
+  LODWORD(uniqueProxyIdentifier) = [provider isTinCanProvider];
+
+  if (uniqueProxyIdentifier)
+  {
+    v12 = +[CSDRelayConferenceInterface sharedInstance];
+    data = [(CSDMessagingRelayMessage *)v10 data];
+    uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
+    [v12 sendData:data throughConferenceForIdentifier:uniqueProxyIdentifier2];
+  }
+
+  sessionMessenger = [(CSDRelayMessagingController *)self sessionMessenger];
+  uniqueProxyIdentifier3 = [callCopy uniqueProxyIdentifier];
+  [sessionMessenger sendMessage:v10 forIdentifier:uniqueProxyIdentifier3];
+
+  if ([(CSDRelayMessagingController *)self _shouldSendToPairedIDSDevice])
+  {
+    pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
+    [pairedDeviceMessenger sendMessage:v10 completionHandler:0];
+  }
+}
+
 - (void)sendSuppressRingtoneMessageForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -2927,12 +3142,12 @@ LABEL_11:
 
 - (void)sendUpdateSystemVolume:(float)volume
 {
-  v5 = sub_100004778();
+  v5 = sub_100004778(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
+    v14 = 134217984;
     volumeCopy = volume;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendUpdateSystemVolume: %f", &v13, 0xCu);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendUpdateSystemVolume: %f", &v14, 0xCu);
   }
 
   v6 = +[CSDFaceTimeAudioIDSService sharedInstance];
@@ -2942,20 +3157,20 @@ LABEL_11:
 
   if (v9)
   {
-    v10 = [[CSDMessagingRelayMessage alloc] initWithType:40];
-    *&v11 = volume;
-    [(CSDMessagingRelayMessage *)v10 setSystemVolume:v11];
+    v11 = [[CSDMessagingRelayMessage alloc] initWithType:40];
+    *&v12 = volume;
+    [(CSDMessagingRelayMessage *)v11 setSystemVolume:v12];
     pairedDeviceMessenger = [(CSDRelayMessagingController *)self pairedDeviceMessenger];
-    [pairedDeviceMessenger sendMessage:v10 completionHandler:0];
+    [pairedDeviceMessenger sendMessage:v11 completionHandler:0];
   }
 
   else
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Paired device does not support system volume updates, not sending message", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Paired device does not support system volume updates, not sending message", &v14, 2u);
     }
   }
 }
@@ -2964,15 +3179,15 @@ LABEL_11:
 {
   memberCopy = member;
   conversationCopy = conversation;
-  v8 = sub_100004778();
+  v8 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
-    v21 = 138412546;
-    v22 = memberCopy;
-    v23 = 2112;
-    v24 = uUID;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendBuzzMember: %@ toConversationWithUUID: %@", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = memberCopy;
+    v24 = 2112;
+    v25 = uUID;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendBuzzMember: %@ toConversationWithUUID: %@", &v22, 0x16u);
   }
 
   v10 = [[CSDMessagingRelayMessage alloc] initWithType:51];
@@ -2990,7 +3205,7 @@ LABEL_11:
 
   if (!v17)
   {
-    pairedDeviceMessenger = sub_100004778();
+    pairedDeviceMessenger = sub_100004778(v18);
     if (os_log_type_enabled(pairedDeviceMessenger, OS_LOG_TYPE_ERROR))
     {
       sub_10047470C(conversationCopy);
@@ -3016,17 +3231,17 @@ LABEL_8:
   membersCopy = members;
   handlesCopy = handles;
   conversationCopy = conversation;
-  v11 = sub_100004778();
+  v11 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
-    v22 = 138412802;
-    v23 = membersCopy;
-    v24 = 2112;
-    v25 = handlesCopy;
-    v26 = 2112;
-    v27 = uUID;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendAddRemoteMembers: %@ otherInvitedHandles: %@ toConversationWithUUID: %@", &v22, 0x20u);
+    v23 = 138412802;
+    v24 = membersCopy;
+    v25 = 2112;
+    v26 = handlesCopy;
+    v27 = 2112;
+    v28 = uUID;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "(IDSMessaging Client<->Host) sendAddRemoteMembers: %@ otherInvitedHandles: %@ toConversationWithUUID: %@", &v23, 0x20u);
   }
 
   v13 = [CSDMessagingRelayMessage alloc];
@@ -3039,7 +3254,7 @@ LABEL_8:
 
   if (!v18)
   {
-    pairedDeviceMessenger = sub_100004778();
+    pairedDeviceMessenger = sub_100004778(v19);
     if (os_log_type_enabled(pairedDeviceMessenger, OS_LOG_TYPE_ERROR))
     {
       sub_10047479C(conversationCopy);
@@ -3118,37 +3333,39 @@ LABEL_9:
   messageCopy = message;
   destinationCopy = destination;
   deviceCopy = device;
-  if ([(CSDRelayMessagingController *)self _canReceiveRelayCallsFromDestination:destinationCopy device:deviceCopy])
+  v12 = [(CSDRelayMessagingController *)self _canReceiveRelayCallsFromDestination:destinationCopy device:deviceCopy];
+  if (v12)
   {
-    if (-[CSDRelayMessagingController shouldProcessRelayMessageOfType:](self, "shouldProcessRelayMessageOfType:", [messageCopy type]))
+    v13 = -[CSDRelayMessagingController shouldProcessRelayMessageOfType:](self, "shouldProcessRelayMessageOfType:", [messageCopy type]);
+    if (v13)
     {
-      if (deviceCopy || ([destinationCopy isGuest] & 1) != 0)
+      if (deviceCopy || (v13 = [destinationCopy isGuest], (v13 & 1) != 0))
       {
-        v12 = sub_100004778();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_100004778(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           typeString = [messageCopy typeString];
           *buf = 138412546;
-          v48 = typeString;
-          v49 = 2112;
-          v50 = messageCopy;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Handle incoming %@ message: %@", buf, 0x16u);
+          v54 = typeString;
+          v55 = 2112;
+          v56 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Handle incoming %@ message: %@", buf, 0x16u);
         }
 
         if (deviceCopy)
         {
-          v14 = +[CSDRelayIDSService sharedInstance];
-          pairedDevice = [v14 pairedDevice];
-          v16 = [pairedDevice isEqual:deviceCopy];
+          v16 = +[CSDRelayIDSService sharedInstance];
+          pairedDevice = [v16 pairedDevice];
+          v18 = [pairedDevice isEqual:deviceCopy];
         }
 
         else
         {
-          v16 = 0;
+          v18 = 0;
         }
 
-        v28 = +[CSDReportingController sharedInstance];
-        [v28 reportRelayMessageReceived:messageCopy fromPairedDevice:v16];
+        v31 = +[CSDReportingController sharedInstance];
+        [v31 reportRelayMessageReceived:messageCopy fromPairedDevice:v18];
 
         clientMessagingDelegate = [(CSDRelayMessagingController *)self clientMessagingDelegate];
         hostMessagingDelegate = [(CSDRelayMessagingController *)self hostMessagingDelegate];
@@ -3156,7 +3373,7 @@ LABEL_9:
         switch([messageCopy type])
         {
           case 1u:
-            [clientMessagingDelegate handleIncomingCallMessageFromHost:messageCopy fromPairedDevice:v16];
+            [clientMessagingDelegate handleIncomingCallMessageFromHost:messageCopy fromPairedDevice:v18];
             break;
           case 2u:
             if ([messageCopy disconnectedReason] == 14)
@@ -3165,63 +3382,64 @@ LABEL_9:
             }
 
             tuProvider = [messageCopy tuProvider];
-            v33 = [deviceCopy canReceiveMessagesForCallProvider:tuProvider];
+            v37 = [deviceCopy canReceiveMessagesForCallProvider:tuProvider];
 
-            if (v33)
+            if (v37)
             {
-              if (![(CSDRelayMessagingController *)self shouldScreenTimeRestrictMessage:messageCopy])
+              v39 = [(CSDRelayMessagingController *)self shouldScreenTimeRestrictMessage:messageCopy];
+              if (!v39)
               {
-                v45[0] = _NSConcreteStackBlock;
-                v45[1] = 3221225472;
-                v45[2] = sub_1000F9150;
-                v45[3] = &unk_10061B5C8;
-                v45[4] = self;
-                v46 = messageCopy;
-                [hostMessagingDelegate handleDialCallMessageFromClient:v46 destination:destinationCopy device:deviceCopy completion:v45];
-                v29 = v46;
+                v51[0] = _NSConcreteStackBlock;
+                v51[1] = 3221225472;
+                v51[2] = sub_1000F9150;
+                v51[3] = &unk_10061B5C8;
+                v51[4] = self;
+                v52 = messageCopy;
+                [hostMessagingDelegate handleDialCallMessageFromClient:v52 destination:destinationCopy device:deviceCopy completion:v51];
+                v32 = v52;
                 goto LABEL_103;
               }
 
-              v30 = sub_100004778();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v34 = sub_100004778(v39);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 destinationID = [messageCopy destinationID];
                 tuProvider2 = [messageCopy tuProvider];
                 isEmergency = [messageCopy isEmergency];
                 *buf = 138412802;
-                v48 = destinationID;
-                v49 = 2112;
-                v50 = tuProvider2;
-                v51 = 1024;
-                LODWORD(v52) = isEmergency;
-                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] Screen Time restricted the call for dial call message with destinationID %@ and provider: %@ is emergency: (%d)", buf, 0x1Cu);
+                v54 = destinationID;
+                v55 = 2112;
+                v56 = tuProvider2;
+                v57 = 1024;
+                LODWORD(v58) = isEmergency;
+                _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[WARN] Screen Time restricted the call for dial call message with destinationID %@ and provider: %@ is emergency: (%d)", buf, 0x1Cu);
               }
 
               goto LABEL_72;
             }
 
-            v36 = sub_100004778();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v42 = sub_100004778(v38);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
               tuProvider3 = [messageCopy tuProvider];
               *buf = 138412802;
-              v48 = deviceCopy;
-              v49 = 2112;
-              v50 = tuProvider3;
-              v51 = 2112;
-              v52 = messageCopy;
-              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[WARN] We determined that device: %@ cannot process messages for provider %@. Ignoring incoming message: %@", buf, 0x20u);
+              v54 = deviceCopy;
+              v55 = 2112;
+              v56 = tuProvider3;
+              v57 = 2112;
+              v58 = messageCopy;
+              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "[WARN] We determined that device: %@ cannot process messages for provider %@. Ignoring incoming message: %@", buf, 0x20u);
             }
 
             break;
           case 3u:
-            [clientMessagingDelegate handleCallDialedMessageFromHost:messageCopy fromPairedDevice:v16];
+            [clientMessagingDelegate handleCallDialedMessageFromHost:messageCopy fromPairedDevice:v18];
             break;
           case 4u:
             [hostMessagingDelegate handleAnswerCallMessageFromClient:messageCopy destination:destinationCopy device:deviceCopy];
             break;
           case 5u:
-            [clientMessagingDelegate handleCallAnsweredElsewhereMessageFromHost:messageCopy fromPairedDevice:v16];
+            [clientMessagingDelegate handleCallAnsweredElsewhereMessageFromHost:messageCopy fromPairedDevice:v18];
             break;
           case 6u:
 LABEL_63:
@@ -3237,7 +3455,7 @@ LABEL_63:
             [hostMessagingDelegate handleDisconnectCallMessageFromClient:messageCopy];
             break;
           case 0xAu:
-            [clientMessagingDelegate handlePullRelayingCallsMessageFromHost:messageCopy fromPairedDevice:v16];
+            [clientMessagingDelegate handlePullRelayingCallsMessageFromHost:messageCopy fromPairedDevice:v18];
             break;
           case 0xBu:
             [hostMessagingDelegate handleHoldCallMessageFromClient:messageCopy];
@@ -3276,7 +3494,7 @@ LABEL_63:
             [hostMessagingDelegate handleDisconnectAllCallsMessageFromClient:messageCopy];
             break;
           case 0x17u:
-            [clientMessagingDelegate handleResetStateMessageFromHost:messageCopy fromPairedDevice:v16];
+            [clientMessagingDelegate handleResetStateMessageFromHost:messageCopy fromPairedDevice:v18];
             break;
           case 0x18u:
             [clientMessagingDelegate handleHardPauseDigitsAvailabilityMessageFromHost:messageCopy];
@@ -3297,24 +3515,24 @@ LABEL_63:
             [clientMessagingDelegate handleCallStartedConnectingMessageFromHost:messageCopy];
             break;
           case 0x1Eu:
-            v41[0] = _NSConcreteStackBlock;
-            v41[1] = 3221225472;
-            v41[2] = sub_1000F92B8;
-            v41[3] = &unk_10061B578;
-            v41[4] = self;
-            v42 = messageCopy;
-            [clientMessagingDelegate handlePushHostedCallsMessageFromHost:v42 completion:v41];
-            v29 = v42;
+            v47[0] = _NSConcreteStackBlock;
+            v47[1] = 3221225472;
+            v47[2] = sub_1000F92B8;
+            v47[3] = &unk_10061B578;
+            v47[4] = self;
+            v48 = messageCopy;
+            [clientMessagingDelegate handlePushHostedCallsMessageFromHost:v48 completion:v47];
+            v32 = v48;
             goto LABEL_103;
           case 0x1Fu:
-            v39[0] = _NSConcreteStackBlock;
-            v39[1] = 3221225472;
-            v39[2] = sub_1000F92C8;
-            v39[3] = &unk_10061B578;
-            v39[4] = self;
-            v40 = messageCopy;
-            [hostMessagingDelegate handlePullHostedCallsMessageFromClient:v40 destination:destinationCopy fromPairedDevice:v16 completion:v39];
-            v29 = v40;
+            v45[0] = _NSConcreteStackBlock;
+            v45[1] = 3221225472;
+            v45[2] = sub_1000F92C8;
+            v45[3] = &unk_10061B578;
+            v45[4] = self;
+            v46 = messageCopy;
+            [hostMessagingDelegate handlePullHostedCallsMessageFromClient:v46 destination:destinationCopy fromPairedDevice:v18 completion:v45];
+            v32 = v46;
             goto LABEL_103;
           case 0x20u:
             [hostMessagingDelegate handlePushRelayingCallsMessageFromClient:messageCopy];
@@ -3367,13 +3585,14 @@ LABEL_63:
           case 0x31u:
             goto LABEL_93;
           case 0x32u:
-            if ([(CSDRelayMessagingController *)self shouldScreenTimeRestrictMessage:messageCopy])
+            v33 = [(CSDRelayMessagingController *)self shouldScreenTimeRestrictMessage:messageCopy];
+            if (v33)
             {
-              v30 = sub_100004778();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v34 = sub_100004778(v33);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] Screen Time restricted the call for Join Conversation message", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[WARN] Screen Time restricted the call for Join Conversation message", buf, 2u);
               }
 
 LABEL_72:
@@ -3384,14 +3603,14 @@ LABEL_72:
 
             else
             {
-              v43[0] = _NSConcreteStackBlock;
-              v43[1] = 3221225472;
-              v43[2] = sub_1000F9204;
-              v43[3] = &unk_10061B5C8;
-              v43[4] = self;
-              v44 = messageCopy;
-              [hostMessagingDelegate handleJoinConversationMessageFromClient:v44 destination:destinationCopy device:deviceCopy completion:v43];
-              v29 = v44;
+              v49[0] = _NSConcreteStackBlock;
+              v49[1] = 3221225472;
+              v49[2] = sub_1000F9204;
+              v49[3] = &unk_10061B5C8;
+              v49[4] = self;
+              v50 = messageCopy;
+              [hostMessagingDelegate handleJoinConversationMessageFromClient:v50 destination:destinationCopy device:deviceCopy completion:v49];
+              v32 = v50;
 LABEL_103:
             }
 
@@ -3456,20 +3675,20 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      clientMessagingDelegate = sub_100004778();
+      clientMessagingDelegate = sub_100004778(v13);
       if (os_log_type_enabled(clientMessagingDelegate, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v48 = destinationCopy;
-        v49 = 2112;
-        v50 = messageCopy;
+        v54 = destinationCopy;
+        v55 = 2112;
+        v56 = messageCopy;
         _os_log_impl(&_mh_execute_header, clientMessagingDelegate, OS_LOG_TYPE_DEFAULT, "[WARN] We determined that device is null and destination: %@ is not guest. Ignoring incoming message: %@", buf, 0x16u);
       }
 
       goto LABEL_28;
     }
 
-    clientMessagingDelegate = sub_100004778();
+    clientMessagingDelegate = sub_100004778(v13);
     if (!os_log_type_enabled(clientMessagingDelegate, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_28;
@@ -3487,37 +3706,38 @@ LABEL_27:
     }
 
     *buf = 138412290;
-    v48 = hostMessagingDelegate;
-    v25 = "[WARN] Ignoring %@ relay message since our device does not suppport processing messages of that type.";
-    v26 = clientMessagingDelegate;
-    v27 = 12;
+    v54 = hostMessagingDelegate;
+    v28 = "[WARN] Ignoring %@ relay message since our device does not suppport processing messages of that type.";
+    v29 = clientMessagingDelegate;
+    v30 = 12;
 LABEL_26:
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, v28, buf, v30);
     goto LABEL_27;
   }
 
-  v17 = sub_100004778();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100004778(v12);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v48 = destinationCopy;
-    v49 = 2112;
-    v50 = deviceCopy;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Messaging device can't receive relayed calls ... destination %@ device %@", buf, 0x16u);
+    v54 = destinationCopy;
+    v55 = 2112;
+    v56 = deviceCopy;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Messaging device can't receive relayed calls ... destination %@ device %@", buf, 0x16u);
   }
 
-  v18 = [(CSDRelayMessagingController *)self shouldDeclineSessionInviteWithMessageWhenRelayIsDisabled:messageCopy];
-  clientMessagingDelegate = sub_100004778();
-  v20 = os_log_type_enabled(clientMessagingDelegate, OS_LOG_TYPE_DEFAULT);
-  if (v18)
+  v20 = [(CSDRelayMessagingController *)self shouldDeclineSessionInviteWithMessageWhenRelayIsDisabled:messageCopy];
+  v21 = v20;
+  clientMessagingDelegate = sub_100004778(v20);
+  v23 = os_log_type_enabled(clientMessagingDelegate, OS_LOG_TYPE_DEFAULT);
+  if (v21)
   {
-    if (v20)
+    if (v23)
     {
       typeString2 = [messageCopy typeString];
       *buf = 138412546;
-      v48 = typeString2;
-      v49 = 2112;
-      v50 = messageCopy;
+      v54 = typeString2;
+      v55 = 2112;
+      v56 = messageCopy;
       _os_log_impl(&_mh_execute_header, clientMessagingDelegate, OS_LOG_TYPE_DEFAULT, "... and we were told to decline the session invite. Declining incoming %@ message: %@", buf, 0x16u);
     }
 
@@ -3529,20 +3749,50 @@ LABEL_26:
     goto LABEL_15;
   }
 
-  if (v20)
+  if (v23)
   {
     hostMessagingDelegate = [messageCopy typeString];
     *buf = 138412546;
-    v48 = hostMessagingDelegate;
-    v49 = 2112;
-    v50 = messageCopy;
-    v25 = "... and we were told not to decline the session invite. Ignoring incoming %@ message: %@";
-    v26 = clientMessagingDelegate;
-    v27 = 22;
+    v54 = hostMessagingDelegate;
+    v55 = 2112;
+    v56 = messageCopy;
+    v28 = "... and we were told not to decline the session invite. Ignoring incoming %@ message: %@";
+    v29 = clientMessagingDelegate;
+    v30 = 22;
     goto LABEL_26;
   }
 
 LABEL_28:
+}
+
+- (void)messengerConnectionEnded:(id)ended forIdentifiers:(id)identifiers didStartConnecting:(BOOL)connecting
+{
+  connectingCopy = connecting;
+  identifiersCopy = identifiers;
+  delegate = [(CSDRelayMessagingController *)self delegate];
+  v8 = [(CSDRelayMessagingController *)self _callsWithUniqueProxyIdentifiers:identifiersCopy];
+
+  [delegate messagingConnectionEndedForCalls:v8 didStartConnecting:connectingCopy];
+}
+
+- (void)messengerConnectionFailed:(id)failed forIdentifiers:(id)identifiers didStartConnecting:(BOOL)connecting
+{
+  connectingCopy = connecting;
+  identifiersCopy = identifiers;
+  delegate = [(CSDRelayMessagingController *)self delegate];
+  v8 = [(CSDRelayMessagingController *)self _callsWithUniqueProxyIdentifiers:identifiersCopy];
+
+  [delegate messagingConnectionFailedForCalls:v8 didStartConnecting:connectingCopy];
+}
+
+- (void)messengerConnectionCouldNotEstablishLink:(id)link forIdentifiers:(id)identifiers didStartConnecting:(BOOL)connecting
+{
+  connectingCopy = connecting;
+  identifiersCopy = identifiers;
+  delegate = [(CSDRelayMessagingController *)self delegate];
+  v8 = [(CSDRelayMessagingController *)self _callsWithUniqueProxyIdentifiers:identifiersCopy];
+
+  [delegate messagingConnectionCouldNotEstablishLinkForCalls:v8 didStartConnecting:connectingCopy];
 }
 
 - (BOOL)shouldProcessRelayMessageOfType:(int)type
@@ -3580,62 +3830,74 @@ LABEL_28:
   return v3;
 }
 
+- (BOOL)_canReceiveGuestSessionInviteForMessageType:(int)type
+{
+  v3 = +[FTDeviceSupport sharedInstance];
+  deviceType = [v3 deviceType];
+
+  return deviceType == 7;
+}
+
 - (void)checkShouldIgnoreSessionInviteWithMessage:(id)message fromDestination:(id)destination completion:(id)completion
 {
   messageCopy = message;
   completionCopy = completion;
   destinationCopy = destination;
-  v11 = sub_100004778();
+  v11 = sub_100004778(destinationCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = +[TUCallCapabilities debugDescription];
-    v43 = 138412290;
-    v44 = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "TUCallCapabilities: %@", &v43, 0xCu);
+    v53 = 138412290;
+    v54 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "TUCallCapabilities: %@", &v53, 0xCu);
   }
 
   isGuest = [destinationCopy isGuest];
-  if (isGuest && !-[CSDRelayMessagingController _canReceiveGuestSessionInviteForMessageType:](self, "_canReceiveGuestSessionInviteForMessageType:", [messageCopy type]))
+  if (isGuest)
   {
-    tuProvider = sub_100004778();
-    if (os_log_type_enabled(tuProvider, OS_LOG_TYPE_DEFAULT))
+    v14 = -[CSDRelayMessagingController _canReceiveGuestSessionInviteForMessageType:](self, "_canReceiveGuestSessionInviteForMessageType:", [messageCopy type]);
+    if ((v14 & 1) == 0)
     {
-      typeString = [messageCopy typeString];
-      v31 = +[FTDeviceSupport sharedInstance];
-      model = [v31 model];
-      v43 = 138412546;
-      v44 = typeString;
-      v45 = 2112;
-      v46 = model;
-      _os_log_impl(&_mh_execute_header, tuProvider, OS_LOG_TYPE_DEFAULT, "[WARN] Setting should ignore session to YES for %@ message because message is from a guest destination and this device is not a supported Guest Session device (%@)", &v43, 0x16u);
-    }
+      tuProvider = sub_100004778(v14);
+      if (os_log_type_enabled(tuProvider, OS_LOG_TYPE_DEFAULT))
+      {
+        typeString = [messageCopy typeString];
+        v36 = +[FTDeviceSupport sharedInstance];
+        model = [v36 model];
+        v53 = 138412546;
+        v54 = typeString;
+        v55 = 2112;
+        v56 = model;
+        _os_log_impl(&_mh_execute_header, tuProvider, OS_LOG_TYPE_DEFAULT, "[WARN] Setting should ignore session to YES for %@ message because message is from a guest destination and this device is not a supported Guest Session device (%@)", &v53, 0x16u);
+      }
 
-    goto LABEL_20;
+      goto LABEL_20;
+    }
   }
 
   type = [messageCopy type];
   if (type == 31)
   {
     callCenter = [(CSDRelayMessagingController *)self callCenter];
-    v28 = [callCenter anyCallPassesTest:&stru_10061B5E8];
+    v32 = [callCenter anyCallPassesTest:&stru_10061B5E8];
 
-    if (v28)
+    if (v32)
     {
       goto LABEL_15;
     }
 
-    tuProvider = sub_100004778();
+    tuProvider = sub_100004778(v33);
     if (os_log_type_enabled(tuProvider, OS_LOG_TYPE_DEFAULT))
     {
       callCenter2 = [(CSDRelayMessagingController *)self callCenter];
       _allCalls = [callCenter2 _allCalls];
-      v43 = 138412290;
-      v44 = _allCalls;
-      _os_log_impl(&_mh_execute_header, tuProvider, OS_LOG_TYPE_DEFAULT, "[WARN] Setting should ignore session to YES because no calls exist with an endpoint on the current device: %@", &v43, 0xCu);
+      v53 = 138412290;
+      v54 = _allCalls;
+      _os_log_impl(&_mh_execute_header, tuProvider, OS_LOG_TYPE_DEFAULT, "[WARN] Setting should ignore session to YES because no calls exist with an endpoint on the current device: %@", &v53, 0xCu);
     }
 
 LABEL_20:
-    v29 = 1;
+    v34 = 1;
 LABEL_29:
 
     goto LABEL_30;
@@ -3646,82 +3908,87 @@ LABEL_29:
     tuProvider = [messageCopy tuProvider];
     destinationID = [messageCopy destinationID];
     identifier = [tuProvider identifier];
-    v18 = [TUICFInterface allowCallForDestinationID:destinationID providerIdentifier:identifier];
+    v19 = [TUICFInterface allowCallForDestinationID:destinationID providerIdentifier:identifier];
 
-    v19 = sub_100004778();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100004778(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       destinationID2 = [messageCopy destinationID];
       identifier2 = [tuProvider identifier];
-      v43 = 138412802;
-      v44 = v18;
-      v45 = 2112;
-      v46 = destinationID2;
-      v47 = 2112;
-      v48 = identifier2;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Query result: %@ for handle: %@ provider: %@", &v43, 0x20u);
+      v53 = 138412802;
+      v54 = v19;
+      v55 = 2112;
+      v56 = destinationID2;
+      v57 = 2112;
+      v58 = identifier2;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Query result: %@ for handle: %@ provider: %@", &v53, 0x20u);
     }
 
-    if ([messageCopy priority] != 2 && (objc_msgSend(v18, "allowCallForDestinationID") & 1) == 0)
+    if ([messageCopy priority] != 2)
     {
-      v24 = sub_100004778();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      allowCallForDestinationID = [v19 allowCallForDestinationID];
+      if ((allowCallForDestinationID & 1) == 0)
       {
-        destinationID3 = [messageCopy destinationID];
-        v43 = 138412546;
-        v44 = destinationID3;
-        v45 = 2112;
-        v46 = tuProvider;
-        v37 = "[WARN] Setting should ignore session to YES because TUICFInterface allowCall = NO for destinationID %@ and provider %@";
-        v38 = v24;
-        v39 = 22;
-        goto LABEL_26;
-      }
+        v28 = sub_100004778(allowCallForDestinationID);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        {
+          destinationID3 = [messageCopy destinationID];
+          v53 = 138412546;
+          v54 = destinationID3;
+          v55 = 2112;
+          v56 = tuProvider;
+          v43 = "[WARN] Setting should ignore session to YES because TUICFInterface allowCall = NO for destinationID %@ and provider %@";
+          v44 = v28;
+          v45 = 22;
+          goto LABEL_26;
+        }
 
 LABEL_27:
 
-      v29 = 1;
+        v34 = 1;
 LABEL_28:
 
-      goto LABEL_29;
+        goto LABEL_29;
+      }
     }
 
     callCenter3 = [(CSDRelayMessagingController *)self callCenter];
-    v23 = [callCenter3 callWithStatus:3];
+    v26 = [callCenter3 callWithStatus:3];
 
-    if (v23)
+    if (v26)
     {
-      v24 = sub_100004778();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100004778(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         callCenter4 = [(CSDRelayMessagingController *)self callCenter];
-        v26 = [callCenter4 callWithStatus:3];
-        v43 = 138412290;
-        v44 = v26;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[WARN] Setting should ignore session to YES because a call exists with sending status: %@", &v43, 0xCu);
+        v30 = [callCenter4 callWithStatus:3];
+        v53 = 138412290;
+        v54 = v30;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Setting should ignore session to YES because a call exists with sending status: %@", &v53, 0xCu);
       }
 
       goto LABEL_27;
     }
 
-    if ([(CSDRelayMessagingController *)self shouldScreenTimeRestrictMessage:messageCopy])
+    v40 = [(CSDRelayMessagingController *)self shouldScreenTimeRestrictMessage:messageCopy];
+    if (v40)
     {
-      v24 = sub_100004778();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100004778(v40);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         destinationID3 = [messageCopy destinationID];
         isEmergency = [messageCopy isEmergency];
-        v43 = 138412802;
-        v44 = destinationID3;
-        v45 = 2112;
-        v46 = tuProvider;
-        v47 = 1024;
-        LODWORD(v48) = isEmergency;
-        v37 = "[WARN] Setting should ignore session to YES because screen time filtered message for destinationID %@ and provider %@ with emergency (%d)";
-        v38 = v24;
-        v39 = 28;
+        v53 = 138412802;
+        v54 = destinationID3;
+        v55 = 2112;
+        v56 = tuProvider;
+        v57 = 1024;
+        LODWORD(v58) = isEmergency;
+        v43 = "[WARN] Setting should ignore session to YES because screen time filtered message for destinationID %@ and provider %@ with emergency (%d)";
+        v44 = v28;
+        v45 = 28;
 LABEL_26:
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, v37, &v43, v39);
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, v43, &v53, v45);
 
         goto LABEL_27;
       }
@@ -3732,74 +3999,96 @@ LABEL_26:
     if ((+[TUCallCapabilities supportsPrimaryCalling]& 1) == 0)
     {
       callCenter5 = [(CSDRelayMessagingController *)self callCenter];
-      v41 = [callCenter5 shouldPreferRelayOverDirectSecondaryCallingForProvider:tuProvider isVideo:{objc_msgSend(messageCopy, "isVideo")}];
+      v47 = [callCenter5 shouldPreferRelayOverDirectSecondaryCallingForProvider:tuProvider isVideo:{objc_msgSend(messageCopy, "isVideo")}];
 
-      if ((v41 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
-        if ([tuProvider isTelephonyProvider]&& +[TUCallCapabilities isDirectTelephonyCallingCurrentlyAvailable])
+        if ([tuProvider isTelephonyProvider])
         {
-          v24 = sub_100004778();
-          if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v48 = +[TUCallCapabilities isDirectTelephonyCallingCurrentlyAvailable];
+          if (v48)
           {
-            goto LABEL_27;
-          }
+            v28 = sub_100004778(v48);
+            if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_27;
+            }
 
-          LOWORD(v43) = 0;
-          v42 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is Telephony, and isDirectTelephonyCallingCurrentlyAvailable is YES";
+            LOWORD(v53) = 0;
+            v49 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is Telephony, and isDirectTelephonyCallingCurrentlyAvailable is YES";
 LABEL_51:
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v42, &v43, 2u);
-          goto LABEL_27;
-        }
-
-        if (-[NSObject isFaceTimeProvider](tuProvider, "isFaceTimeProvider") && ([messageCopy isVideo] & 1) == 0 && +[TUCallCapabilities isDirectFaceTimeAudioCallingCurrentlyAvailable](TUCallCapabilities, "isDirectFaceTimeAudioCallingCurrentlyAvailable"))
-        {
-          v24 = sub_100004778();
-          if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-          {
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, v49, &v53, 2u);
             goto LABEL_27;
           }
-
-          LOWORD(v43) = 0;
-          v42 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is FaceTime Audio, and isDirectFaceTimeAudioCallingCurrentlyAvailable is YES";
-          goto LABEL_51;
         }
 
-        if (-[NSObject isFaceTimeProvider](tuProvider, "isFaceTimeProvider") && [messageCopy isVideo] && +[TUCallCapabilities isDirectFaceTimeVideoCallingCurrentlyAvailable](TUCallCapabilities, "isDirectFaceTimeVideoCallingCurrentlyAvailable"))
+        if ([tuProvider isFaceTimeProvider])
         {
-          v24 = sub_100004778();
-          if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          if (([messageCopy isVideo] & 1) == 0)
           {
-            goto LABEL_27;
-          }
+            v50 = +[TUCallCapabilities isDirectFaceTimeAudioCallingCurrentlyAvailable];
+            if (v50)
+            {
+              v28 = sub_100004778(v50);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              {
+                goto LABEL_27;
+              }
 
-          LOWORD(v43) = 0;
-          v42 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is FaceTime Video, and isDirectFaceTimeVideoCallingCurrentlyAvailable is YES";
-          goto LABEL_51;
+              LOWORD(v53) = 0;
+              v49 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is FaceTime Audio, and isDirectFaceTimeAudioCallingCurrentlyAvailable is YES";
+              goto LABEL_51;
+            }
+          }
         }
 
-        if ([tuProvider isTinCanProvider]&& +[TUCallCapabilities isDirectFaceTimeAudioCallingCurrentlyAvailable])
+        if ([tuProvider isFaceTimeProvider])
         {
-          v24 = sub_100004778();
-          if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          if ([messageCopy isVideo])
           {
-            goto LABEL_27;
-          }
+            v51 = +[TUCallCapabilities isDirectFaceTimeVideoCallingCurrentlyAvailable];
+            if (v51)
+            {
+              v28 = sub_100004778(v51);
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              {
+                goto LABEL_27;
+              }
 
-          LOWORD(v43) = 0;
-          v42 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is TinCan, and isDirectFaceTimeAudioCallingCurrentlyAvailable is YES";
-          goto LABEL_51;
+              LOWORD(v53) = 0;
+              v49 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is FaceTime Video, and isDirectFaceTimeVideoCallingCurrentlyAvailable is YES";
+              goto LABEL_51;
+            }
+          }
+        }
+
+        if ([tuProvider isTinCanProvider])
+        {
+          v52 = +[TUCallCapabilities isDirectFaceTimeAudioCallingCurrentlyAvailable];
+          if (v52)
+          {
+            v28 = sub_100004778(v52);
+            if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_27;
+            }
+
+            LOWORD(v53) = 0;
+            v49 = "[WARN] Setting should ignore session to YES because relay is not preferred, message provider is TinCan, and isDirectFaceTimeAudioCallingCurrentlyAvailable is YES";
+            goto LABEL_51;
+          }
         }
       }
     }
 
-    v29 = 0;
+    v34 = 0;
     goto LABEL_28;
   }
 
 LABEL_15:
-  v29 = 0;
+  v34 = 0;
 LABEL_30:
-  completionCopy[2](completionCopy, v29);
+  completionCopy[2](completionCopy, v34);
 }
 
 - (BOOL)shouldScreenTimeRestrictMessage:(id)message

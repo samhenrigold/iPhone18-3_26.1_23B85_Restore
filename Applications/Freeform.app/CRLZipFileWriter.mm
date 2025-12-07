@@ -263,26 +263,26 @@ LABEL_15:
     {
       name = [firstObject name];
       lastModificationDate = [firstObject lastModificationDate];
-      v23 = [firstObject size];
-      v22 = [firstObject CRC];
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_10052C310;
-      v24[3] = &unk_10186CE58;
-      v30 = handlerCopy;
-      v25 = progressCopy;
-      v26 = firstObject;
+      v24 = [firstObject size];
+      v23 = [firstObject CRC];
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_10052C310;
+      v25[3] = &unk_10186CE58;
+      v31 = handlerCopy;
+      v26 = progressCopy;
+      v27 = firstObject;
       selfCopy = self;
-      v28 = entriesCopy;
-      v29 = archiveCopy;
-      [(CRLZipWriter *)self writeEntryWithName:name force32BitSize:0 lastModificationDate:lastModificationDate size:v23 CRC:v22 fromReadChannel:v15 completion:v24];
+      v29 = entriesCopy;
+      v30 = archiveCopy;
+      [(CRLZipWriter *)self writeEntryWithName:name force32BitSize:0 lastModificationDate:lastModificationDate size:v24 CRC:v23 fromReadChannel:v15 completion:v25];
 
-      v18 = v30;
+      v18 = v31;
     }
 
     else
     {
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v19 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10138DEA4();
@@ -298,15 +298,15 @@ LABEL_15:
         sub_10138DF4C();
       }
 
-      v19 = off_1019EDA68;
+      v20 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10138DF74(v19);
+        sub_10138DF74(v20, v19);
       }
 
-      v20 = [NSString stringWithUTF8String:"[CRLZipFileWriter copyRemainingEntries:fromArchive:progress:completionHandler:]"];
-      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriter.m"];
-      [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:154 isFatal:0 description:"invalid nil value for '%{public}s'", "channel"];
+      v21 = [NSString stringWithUTF8String:"[CRLZipFileWriter copyRemainingEntries:fromArchive:progress:completionHandler:]"];
+      v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriter.m"];
+      [CRLAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:154 isFatal:0 description:"invalid nil value for '%{public}s'", "channel"];
 
       v15 = 0;
       if (!handlerCopy)
@@ -335,7 +335,7 @@ LABEL_18:
   handlerCopy = handler;
   if (self->_writeChannelCompletionHandler)
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v5 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_10138E020();
@@ -351,25 +351,25 @@ LABEL_18:
       sub_10138E0C8();
     }
 
-    v5 = off_1019EDA68;
+    v6 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10138DF74(v5);
+      sub_10138DF74(v6, v5);
     }
 
-    v6 = [NSString stringWithUTF8String:"[CRLZipFileWriter prepareWriteChannelWithCloseCompletionHandler:]"];
-    v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v6 file:v7 lineNumber:175 isFatal:0 description:"expected nil value for '%{public}s'", "_writeChannelCompletionHandler"];
+    v7 = [NSString stringWithUTF8String:"[CRLZipFileWriter prepareWriteChannelWithCloseCompletionHandler:]"];
+    v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:175 isFatal:0 description:"expected nil value for '%{public}s'", "_writeChannelCompletionHandler"];
   }
 
-  v8 = [handlerCopy copy];
+  v9 = [handlerCopy copy];
   writeChannelCompletionHandler = self->_writeChannelCompletionHandler;
-  self->_writeChannelCompletionHandler = v8;
+  self->_writeChannelCompletionHandler = v9;
 
   writeChannel = self->_writeChannel;
   if (!writeChannel)
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v12 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_10138E0F0();
@@ -385,20 +385,20 @@ LABEL_18:
       sub_10138E1AC();
     }
 
-    v11 = off_1019EDA68;
+    v13 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10138DF74(v11);
+      sub_10138DF74(v13, v12);
     }
 
-    v12 = [NSString stringWithUTF8String:"[CRLZipFileWriter prepareWriteChannelWithCloseCompletionHandler:]"];
-    v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v12 file:v13 lineNumber:178 isFatal:0 description:"invalid nil value for '%{public}s'", "_writeChannel"];
+    v14 = [NSString stringWithUTF8String:"[CRLZipFileWriter prepareWriteChannelWithCloseCompletionHandler:]"];
+    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:178 isFatal:0 description:"invalid nil value for '%{public}s'", "_writeChannel"];
 
     writeChannel = self->_writeChannel;
   }
 
-  v14 = writeChannel;
+  v16 = writeChannel;
 
   return writeChannel;
 }

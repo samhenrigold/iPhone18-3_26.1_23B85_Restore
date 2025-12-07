@@ -68,9 +68,9 @@
 
     else
     {
-      v11 = [(NSString *)v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-      if (v11)
+      if (isEqualToString)
       {
         goto LABEL_10;
       }

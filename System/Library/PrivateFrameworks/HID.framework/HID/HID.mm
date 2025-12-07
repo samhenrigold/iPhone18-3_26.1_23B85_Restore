@@ -135,7 +135,7 @@ uint64_t __HIDVirtualServiceClientCopyMatchingEventCallback(void *a1, uint64_t a
   return v8;
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return _os_log_send_and_compose_impl();
@@ -194,30 +194,28 @@ void inputValueCallback_0(void *a1, uint64_t a2, uint64_t a3, __IOHIDValue *a4)
 
 void batchInputValueCallback(void *a1, uint64_t a2, uint64_t a3, __IOHIDValue *a4)
 {
-  v12 = a1;
+  v10 = a1;
   v5 = IOHIDValueGetElement(a4);
   [v5 setValueRef:a4];
   v6 = MEMORY[0x277CD2868];
-  v7 = &v12[*MEMORY[0x277CD2868]];
   os_unfair_recursive_lock_lock_with_options();
-  v8 = *&v12[*v6 + 280];
+  v7 = *&v10[*v6 + 280];
   if ([v5 type] == 5)
   {
-    if (atomic_load(&v12[*v6 + 312]))
+    if (atomic_load(&v10[*v6 + 312]))
     {
-      v10 = atomic_load(&v12[*v6 + 312]);
-      (*(v10 + 16))(v10, v8);
+      v9 = atomic_load(&v10[*v6 + 312]);
+      (*(v9 + 16))(v9, v7);
     }
 
-    [v8 removeAllObjects];
+    [v7 removeAllObjects];
   }
 
   else
   {
-    [v8 addObject:v5];
+    [v7 addObject:v5];
   }
 
-  v11 = &v12[*v6];
   os_unfair_recursive_lock_unlock();
 }
 
@@ -264,7 +262,7 @@ void HIDTimeSyncPropertyHandler(void *a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_0_0()
+uint64_t OUTLINED_FUNCTION_0_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return _os_log_send_and_compose_impl();
@@ -283,9 +281,8 @@ double OUTLINED_FUNCTION_1_0(unsigned int *a1, void *a2, _OWORD *a3)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_3()
+uint64_t OUTLINED_FUNCTION_3(uint64_t a1)
 {
-  v2 = *v0;
 
   return _os_crash_msg();
 }
@@ -308,10 +305,11 @@ double OUTLINED_FUNCTION_5(void *a1, _OWORD *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t getReportCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
@@ -328,8 +326,9 @@ uint64_t getReportCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }

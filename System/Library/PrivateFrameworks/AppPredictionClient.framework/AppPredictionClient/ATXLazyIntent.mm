@@ -20,15 +20,16 @@
     v4 = MEMORY[0x1E696ACD0];
     v5 = objc_opt_class();
     intentData = selfCopy->_intentData;
-    v11 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:intentData error:&v11];
-    v8 = v11;
+    v12 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:intentData error:&v12];
+    v8 = v12;
+    v9 = v8;
     if (v8)
     {
-      v9 = __atxlog_handle_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = __atxlog_handle_default(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [(ATXLazyIntent *)v8 _deserializeIntent];
+        [(ATXLazyIntent *)v9 _deserializeIntent];
       }
     }
 
@@ -111,11 +112,11 @@
 
     if (intent)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = __atxlog_handle_default(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ATXLazyIntent purging intent data due to memory pressure", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXLazyIntent purging intent data due to memory pressure", v8, 2u);
       }
 
       intentData = selfCopy->_intentData;

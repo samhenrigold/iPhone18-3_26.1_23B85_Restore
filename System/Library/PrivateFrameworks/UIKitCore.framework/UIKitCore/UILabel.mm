@@ -47,6 +47,8 @@
 - (_UILabelLegacyScaledMetrics)_scaledMetricsForText:(double)text inRect:(double)rect;
 - (_UILabelMarqueeAnimationDelegate)_marqueeAnimationDelegate;
 - (_UIScrollPocketInteraction)scrollPocketInteraction;
+- (char)_invalidateLabelDisplay;
+- (char)_setMaterialTextColorFollowsTintColor:(char *)result;
 - (double)_actualScaleFactor;
 - (double)_autolayoutSpacingAtEdge:(int)edge forAttribute:(int64_t)attribute inContainer:(id)container isGuide:(BOOL)guide;
 - (double)_autolayoutSpacingAtEdge:(int)edge forAttribute:(int64_t)attribute nextToNeighbor:(id)neighbor edge:(int)a6 attribute:(int64_t)a7 multiplier:(double)multiplier;
@@ -108,7 +110,6 @@
 - (void)_intelligenceCollectContentIn:(CGRect)in collector:(id)collector;
 - (void)_invalidateAsNeededForNewSize:(double *)(a1 oldSize:;
 - (void)_invalidateBaselineConstraints;
-- (void)_invalidateLabelDisplay;
 - (void)_invalidateLabelMetrics;
 - (void)_invalidateLabelSize;
 - (void)_invalidateMaterialColor;
@@ -144,7 +145,6 @@
 - (void)_setLineBreakMode:(int64_t)mode;
 - (void)_setLineBreakStrategy:(unint64_t)strategy;
 - (void)_setMarqueeUpdatable:(BOOL)updatable;
-- (void)_setMaterialTextColorFollowsTintColor:(void *)result;
 - (void)_setMinimumFontSize:(double)size;
 - (void)_setMultilineLabelRequiresCarefulMeasurement:(BOOL)measurement;
 - (void)_setOverallWritingDirectionFollowsLayoutDirection:(BOOL)direction;
@@ -580,9 +580,9 @@ void __22__UILabel__commonInit__block_invoke_2(uint64_t a1)
 
           textColor = [selfCopy textColor];
           currentTextColor = [selfCopy currentTextColor];
-          v15 = [textColor isEqual:currentTextColor];
+          isEqual = objc_msgSend_isEqual_(textColor);
 
-          if ((v15 & 1) == 0)
+          if ((isEqual & 1) == 0)
           {
             currentTextColor2 = [selfCopy currentTextColor];
             [v9 setObject:currentTextColor2 forKey:*off_1E70EC920];
@@ -826,30 +826,30 @@ LABEL_15:
   return shadow;
 }
 
-- (void)_invalidateLabelDisplay
+- (char)_invalidateLabelDisplay
 {
   if (result)
   {
     v1 = result;
-    result[93] &= ~0x1000000uLL;
-    v2 = result[70];
-    result[70] = 0;
+    *(result + 93) &= ~0x1000000uLL;
+    v2 = *(result + 70);
+    *(result + 70) = 0;
 
-    v3 = *(v1 + 568);
-    *(v1 + 568) = 0;
+    v3 = *(v1 + 71);
+    *(v1 + 71) = 0;
 
-    v4 = *(v1 + 608);
-    *(v1 + 608) = 0;
+    v4 = *(v1 + 76);
+    *(v1 + 76) = 0;
 
     *(v1 + 616) = *MEMORY[0x1E695F060];
-    *(v1 + 744) &= ~0x10000uLL;
-    if ((*(v1 + 89) & 8) == 0)
+    *(v1 + 93) &= ~0x10000uLL;
+    if ((v1[89] & 8) == 0)
     {
       [(UILabel *)v1 _resolveMaterialColor:?];
     }
 
-    v5 = *(v1 + 600);
-    *(v1 + 600) = 0;
+    v5 = *(v1 + 75);
+    *(v1 + 75) = 0;
 
     v6.receiver = v1;
     v6.super_class = UILabel;
@@ -1135,9 +1135,9 @@ LABEL_23:
     dispatch_once(&qword_1ED497548, &__block_literal_global_272_0);
   }
 
-  v0 = qword_1ED497540;
+  v1 = qword_1ED497540;
 
-  return v0;
+  return v1;
 }
 
 - (void)_updateProperties
@@ -1394,11 +1394,11 @@ LABEL_20:
 
 - (void)_invalidateMaterialColor
 {
-  if (self)
+  if (result)
   {
-    if ((*(self + 89) & 8) == 0)
+    if ((*(result + 89) & 8) == 0)
     {
-      [(UILabel *)self _resolveMaterialColor:?];
+      [(UILabel *)result _resolveMaterialColor:?];
     }
   }
 }
@@ -1408,7 +1408,7 @@ LABEL_20:
   interactionCopy = interaction;
   selfCopy = self;
   _typedStorage = [(UIView *)selfCopy _typedStorage];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937088);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937088, &unk_18A652330);
   v8 = swift_allocObject();
   *(v8 + 16) = interaction;
   v9 = OBJC_IVAR____UITypedStorage_storage;
@@ -1658,7 +1658,7 @@ LABEL_10:
   return v11;
 }
 
-uint64_t __59__UILabel_UILabel_ModernUISupport___capOffsetFromBoundsTop__block_invoke(uint64_t a1, void *a2)
+void *__59__UILabel_UILabel_ModernUISupport___capOffsetFromBoundsTop__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 capHeight];
@@ -2118,12 +2118,12 @@ uint64_t __59__UILabel_UILabel_ModernUISupport___capOffsetFromBoundsTop__block_i
 {
   collectorCopy = collector;
   selfCopy = self;
-  _sSo7UILabelC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0I16ElementCollectorCtF_0(collectorCopy);
+  _sSo7UILabelC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0I16ElementCollectorCtF_0(collectorCopy, v6);
 }
 
 - (Class)_intelligenceBaseClass
 {
-  sub_188A34624(0, qword_1EA92E678);
+  sub_188A34624(0, qword_1EA92E678, off_1E70EA0D8);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -2500,9 +2500,9 @@ LABEL_17:
 
   if (v14 && v13)
   {
-    v15 = [v13 isEqual:v14];
+    isEqual = objc_msgSend_isEqual_(v13);
 
-    if (v15)
+    if (isEqual)
     {
       goto LABEL_48;
     }
@@ -2662,9 +2662,9 @@ LABEL_48:
     {
       if (font2)
       {
-        v19 = [font2 isEqual:v17];
+        isEqual = objc_msgSend_isEqual_(font2);
 
-        if (v19)
+        if (isEqual)
         {
           goto LABEL_15;
         }
@@ -2739,9 +2739,9 @@ LABEL_16:
 
     if (font2)
     {
-      v16 = [font2 isEqual:v14];
+      isEqual = objc_msgSend_isEqual_(font2);
 
-      if (v16)
+      if (isEqual)
       {
         goto LABEL_12;
       }
@@ -2827,9 +2827,9 @@ LABEL_12:
 
     if (font2)
     {
-      v18 = [font2 isEqual:v16];
+      isEqual = objc_msgSend_isEqual_(font2);
 
-      if (v18)
+      if (isEqual)
       {
         goto LABEL_19;
       }
@@ -3186,29 +3186,29 @@ void __65__UILabel__attributedStringByDisablingHyphenationIfURLsDetected___block
   return v21;
 }
 
-uint64_t __48__UILabel__synthesizedAttributedTextForContent___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__48__UILabel__synthesizedAttributedTextForContent___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a2 isEqual:*(a1 + 32)];
+  result = objc_msgSend_isEqual_(a2, a2, *(a1 + 32));
   if (result)
   {
-    v8 = *(a1 + 40);
-    v9 = *off_1E70EC920;
+    v9 = *(a1 + 40);
+    v10 = *off_1E70EC920;
 
-    return [v8 removeAttribute:v9 range:{a3, a4}];
+    return [v9 removeAttribute:v10 range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __48__UILabel__synthesizedAttributedTextForContent___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__48__UILabel__synthesizedAttributedTextForContent___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a2 isEqual:*(a1 + 32)];
+  result = objc_msgSend_isEqual_(a2, a2, *(a1 + 32));
   if (result)
   {
-    v8 = *(a1 + 40);
-    v9 = *off_1E70EC9B0;
+    v9 = *(a1 + 40);
+    v10 = *off_1E70EC9B0;
 
-    return [v8 removeAttribute:v9 range:{a3, a4}];
+    return [v9 removeAttribute:v10 range:{a3, a4}];
   }
 
   return result;
@@ -3440,7 +3440,7 @@ void __49__UILabel__invalidateAsNeededForNewSize_oldSize___block_invoke(uint64_t
   }
 }
 
-uint64_t __49__UILabel__invalidateAsNeededForNewSize_oldSize___block_invoke_3(uint64_t a1)
+void *__49__UILabel__invalidateAsNeededForNewSize_oldSize___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _setLabelMasksToBoundsForAnimation:*(a1 + 48)];
   if (*(a1 + 49) == 1)
@@ -4041,85 +4041,85 @@ LABEL_43:
     v11 = _associatedScalingLabel;
     if (!_associatedScalingLabel || _associatedScalingLabel == self)
     {
-      if ((LOBYTE(self[7]._scaledSize.height) & 2) == 0 || ([*&self[8]._scaledBaselineOffset minimumScaleFactor], v34 >= 1.0))
+      if ((LOBYTE(self[7]._scaledSize.height) & 2) == 0 || ([*&self[8]._scaledBaselineOffset minimumScaleFactor], v38 >= 1.0))
       {
         self = 0;
         goto LABEL_37;
       }
 
       _stringDrawingContext = [(_UILabelLegacyScaledMetrics *)self _stringDrawingContext];
-      v15 = [_stringDrawingContext copy];
+      v19 = [_stringDrawingContext copy];
 
       [*&self[8]._scaledBaselineOffset minimumScaleFactor];
-      if (v36 >= 1.0)
+      if (v40 >= 1.0)
       {
         self = 0;
         goto LABEL_24;
       }
 
-      if (v36 <= 0.0)
+      if (v40 <= 0.0)
       {
-        v36 = 0.01;
+        v40 = 0.01;
       }
 
-      [v15 setMinimumScaleFactor:v36];
-      [v15 setLayout:0];
-      [v15 setWantsBaselineOffset:1];
-      [v15 setWantsScaledBaselineOffset:1];
-      [v15 setWantsScaledLineHeight:1];
-      [v15 setWantsNumberOfLineFragments:1];
-      [v15 setMaximumNumberOfLines:*&self[4]._scaledFirstBaselineOffset];
-      [v9 boundingRectWithSize:-[_UILabelLegacyScaledMetrics _stringDrawingOptions](self options:"_stringDrawingOptions") context:{v15, a5, a6}];
-      v38 = v37;
-      v40 = v39;
-      [v15 scaledLineHeight];
+      [v19 setMinimumScaleFactor:v40];
+      [v19 setLayout:0];
+      [v19 setWantsBaselineOffset:1];
+      [v19 setWantsScaledBaselineOffset:1];
+      [v19 setWantsScaledLineHeight:1];
+      [v19 setWantsNumberOfLineFragments:1];
+      [v19 setMaximumNumberOfLines:*&self[4]._scaledFirstBaselineOffset];
+      [v9 boundingRectWithSize:-[_UILabelLegacyScaledMetrics _stringDrawingOptions](self options:"_stringDrawingOptions") context:{v19, a5, a6}];
       v42 = v41;
-      [v15 actualScaleFactor];
-      self = 0;
-      if (v43 <= 0.0)
-      {
-        goto LABEL_24;
-      }
-
       v44 = v43;
-      if (v43 >= 1.0 || 1.0 - v43 <= 0.00000011920929)
+      [v19 scaledLineHeight];
+      v46 = v45;
+      [v19 actualScaleFactor];
+      self = 0;
+      if (v47 <= 0.0)
       {
         goto LABEL_24;
       }
 
-      v45 = objc_alloc_init(_UILabelLegacyScaledMetrics);
-      self = v45;
-      if (v45)
+      v48 = v47;
+      if (v47 >= 1.0 || 1.0 - v47 <= 0.00000011920929)
       {
-        v45->_scaledSize.width = v38;
-        v45->_scaledSize.height = v42;
-        v45->_unscaledAndPossiblyTooLargeSize.width = v38;
-        v45->_unscaledAndPossiblyTooLargeSize.height = v40;
-        [v15 baselineOffset];
-        self->_baselineOffset = v46;
-        [v15 firstBaselineOffset];
-        self->_scaledFirstBaselineOffset = v47;
-        [v15 scaledBaselineOffset];
-        self->_scaledBaselineOffset = v48;
-        self->_actualScaleFactor = v44;
-        self->_measuredNumberOfLines = [v15 numberOfLineFragments];
+        goto LABEL_24;
+      }
+
+      v49 = objc_alloc_init(_UILabelLegacyScaledMetrics);
+      self = v49;
+      if (v49)
+      {
+        v49->_scaledSize.width = v42;
+        v49->_scaledSize.height = v46;
+        v49->_unscaledAndPossiblyTooLargeSize.width = v42;
+        v49->_unscaledAndPossiblyTooLargeSize.height = v44;
+        [v19 baselineOffset];
+        self->_baselineOffset = v50;
+        [v19 firstBaselineOffset];
+        self->_scaledFirstBaselineOffset = v51;
+        [v19 scaledBaselineOffset];
+        self->_scaledBaselineOffset = v52;
+        self->_actualScaleFactor = v48;
+        self->_measuredNumberOfLines = [v19 numberOfLineFragments];
       }
 
       else
       {
-        [v15 baselineOffset];
-        [v15 firstBaselineOffset];
-        [v15 scaledBaselineOffset];
-        [v15 numberOfLineFragments];
+        [v19 baselineOffset];
+        [v19 firstBaselineOffset];
+        [v19 scaledBaselineOffset];
+        [v19 numberOfLineFragments];
       }
 
-      v49 = [v9 length];
-      [v15 actualScaleFactor];
-      v17 = [v9 _ui_attributedSubstringFromRange:0 scaledByScaleFactor:v49];
+      v53 = [v9 length];
+      [v19 actualScaleFactor];
+      v21 = [v9 _ui_attributedSubstringFromRange:0 scaledByScaleFactor:v53];
       selfCopy2 = self;
-      v33 = v17;
+      v37 = v21;
 LABEL_23:
-      [(_UICollectionLayoutItemSolver *)selfCopy2 setSolveResult:v33];
+      [(_UICollectionLayoutItemSolver *)selfCopy2 setSolveResult:v37];
 
 LABEL_24:
 LABEL_37:
@@ -4127,54 +4127,54 @@ LABEL_37:
       goto LABEL_38;
     }
 
-    if (!*&_associatedScalingLabel[6]._scaledLineHeight)
+    if (!*(_associatedScalingLabel + 608))
     {
-      [(_UILabelLegacyScaledMetrics *)_associatedScalingLabel bounds];
-      [UILabel _updateScaledMetricsForRect:v11];
+      [_associatedScalingLabel bounds];
+      [(UILabel *)v11 _updateScaledMetricsForRect:v12, v13, v14, v15];
     }
 
-    v12 = [v9 length];
-    scaledLineHeight = v11[6]._scaledLineHeight;
-    if (scaledLineHeight == 0.0)
+    v16 = [v9 length];
+    v17 = v11[76];
+    if (v17)
     {
-      v14 = 0.0;
+      v18 = *(v17 + 8);
     }
 
     else
     {
-      v14 = *(*&scaledLineHeight + 8);
+      v18 = 0.0;
     }
 
-    v15 = [v9 _ui_attributedSubstringFromRange:0 scaledByScaleFactor:{v12, v14}];
+    v19 = [v9 _ui_attributedSubstringFromRange:0 scaledByScaleFactor:{v16, v18}];
     _stringDrawingContext2 = [(_UILabelLegacyScaledMetrics *)self _stringDrawingContext];
-    v17 = [_stringDrawingContext2 copy];
+    v21 = [_stringDrawingContext2 copy];
 
-    [v17 setWantsNumberOfLineFragments:1];
-    [v17 setMaximumNumberOfLines:{-[_UILabelLegacyScaledMetrics numberOfLines](self, "numberOfLines")}];
-    [v17 setMinimumScaleFactor:1.0];
-    [v17 setLayout:0];
-    [v9 boundingRectWithSize:-[_UILabelLegacyScaledMetrics _stringDrawingOptions](self options:"_stringDrawingOptions") context:{v17, a5, a6}];
-    v19 = v18;
-    v21 = v20;
-    [v17 setLayout:0];
-    [v15 boundingRectWithSize:-[_UILabelLegacyScaledMetrics _stringDrawingOptions](self options:"_stringDrawingOptions") context:{v17, a5, a6}];
+    [v21 setWantsNumberOfLineFragments:1];
+    [v21 setMaximumNumberOfLines:{-[_UILabelLegacyScaledMetrics numberOfLines](self, "numberOfLines")}];
+    [v21 setMinimumScaleFactor:1.0];
+    [v21 setLayout:0];
+    [v9 boundingRectWithSize:-[_UILabelLegacyScaledMetrics _stringDrawingOptions](self options:"_stringDrawingOptions") context:{v21, a5, a6}];
     v23 = v22;
     v25 = v24;
-    v26 = objc_alloc_init(_UILabelLegacyScaledMetrics);
-    self = v26;
-    if (v26)
+    [v21 setLayout:0];
+    [v19 boundingRectWithSize:-[_UILabelLegacyScaledMetrics _stringDrawingOptions](self options:"_stringDrawingOptions") context:{v21, a5, a6}];
+    v27 = v26;
+    v29 = v28;
+    v30 = objc_alloc_init(_UILabelLegacyScaledMetrics);
+    self = v30;
+    if (v30)
     {
-      v26->_scaledSize.width = v23;
-      v26->_scaledSize.height = v25;
-      v26->_unscaledAndPossiblyTooLargeSize.width = v19;
-      v26->_unscaledAndPossiblyTooLargeSize.height = v21;
+      v30->_scaledSize.width = v27;
+      v30->_scaledSize.height = v29;
+      v30->_unscaledAndPossiblyTooLargeSize.width = v23;
+      v30->_unscaledAndPossiblyTooLargeSize.height = v25;
     }
 
-    v27 = *&v11[6]._scaledLineHeight;
-    if (v27)
+    v31 = v11[76];
+    if (v31)
     {
-      v28 = v27[2];
-      if (!v26)
+      v32 = v31[2];
+      if (!v30)
       {
         goto LABEL_13;
       }
@@ -4182,14 +4182,14 @@ LABEL_37:
 
     else
     {
-      v28 = 0.0;
-      if (!v26)
+      v32 = 0.0;
+      if (!v30)
       {
 LABEL_13:
-        if (v27)
+        if (v31)
         {
-          v29 = v27[7];
-          if (!v26)
+          v33 = v31[7];
+          if (!v30)
           {
             goto LABEL_16;
           }
@@ -4197,14 +4197,14 @@ LABEL_13:
 
         else
         {
-          v29 = 0.0;
-          if (!v26)
+          v33 = 0.0;
+          if (!v30)
           {
 LABEL_16:
-            if (v27)
+            if (v31)
             {
-              v30 = v27[3];
-              if (!v26)
+              v34 = v31[3];
+              if (!v30)
               {
                 goto LABEL_19;
               }
@@ -4212,53 +4212,53 @@ LABEL_16:
 
             else
             {
-              v30 = 0.0;
-              if (!v26)
+              v34 = 0.0;
+              if (!v30)
               {
 LABEL_19:
-                if (v27)
+                if (v31)
                 {
-                  v31 = v27[1];
-                  if (v26)
+                  v35 = v31[1];
+                  if (v30)
                   {
 LABEL_21:
-                    v26->_actualScaleFactor = v31;
-                    v26->_measuredNumberOfLines = [v17 numberOfLineFragments];
+                    v30->_actualScaleFactor = v35;
+                    v30->_measuredNumberOfLines = [v21 numberOfLineFragments];
 LABEL_22:
                     selfCopy2 = self;
-                    v33 = v15;
+                    v37 = v19;
                     goto LABEL_23;
                   }
                 }
 
                 else
                 {
-                  v31 = 0.0;
-                  if (v26)
+                  v35 = 0.0;
+                  if (v30)
                   {
                     goto LABEL_21;
                   }
                 }
 
-                [v17 numberOfLineFragments];
+                [v21 numberOfLineFragments];
                 goto LABEL_22;
               }
             }
 
-            v26->_scaledBaselineOffset = v30;
-            v27 = *&v11[6]._scaledLineHeight;
+            v30->_scaledBaselineOffset = v34;
+            v31 = v11[76];
             goto LABEL_19;
           }
         }
 
-        v26->_scaledFirstBaselineOffset = v29;
-        v27 = *&v11[6]._scaledLineHeight;
+        v30->_scaledFirstBaselineOffset = v33;
+        v31 = v11[76];
         goto LABEL_16;
       }
     }
 
-    v26->_baselineOffset = v28;
-    v27 = *&v11[6]._scaledLineHeight;
+    v30->_baselineOffset = v32;
+    v31 = v11[76];
     goto LABEL_13;
   }
 
@@ -4836,7 +4836,7 @@ LABEL_78:
   fontCopy = font;
   viewCopy = view;
   string = [stringCopy string];
-  v17 = +[UILabel _tooBigChars];
+  v17 = +[(UILabel *)self];
   v18 = [string rangeOfCharacterFromSet:v17];
 
   if (v18 != 0x7FFFFFFFFFFFFFFFLL)
@@ -5273,11 +5273,11 @@ LABEL_10:
   }
 }
 
-- (void)_setMaterialTextColorFollowsTintColor:(void *)result
+- (char)_setMaterialTextColorFollowsTintColor:(char *)result
 {
   if (result)
   {
-    v2 = result[93];
+    v2 = *(result + 93);
     if ((((v2 >= 0) ^ a2) & 1) == 0)
     {
       v3 = 0x80000000;
@@ -5286,7 +5286,7 @@ LABEL_10:
         v3 = 0;
       }
 
-      result[93] = v2 & 0xFFFFFFFF7FFFFFFFLL | v3;
+      *(result + 93) = v2 & 0xFFFFFFFF7FFFFFFFLL | v3;
       return [(UILabel *)result _invalidateLabelDisplay];
     }
   }
@@ -5358,9 +5358,9 @@ LABEL_10:
 
   if (v7 && v6)
   {
-    v8 = [(UIColor *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_10;
     }
@@ -5493,7 +5493,7 @@ void __69__UILabel__contentAdjustingFontForTypesettingLanguage_didAdjustFont___b
     v13 = 1;
   }
 
-  if (!v13 && ([(__CTFont *)v10 isEqual:v11]& 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     v14 = [*(*(*(a1 + 40) + 8) + 40) contentByApplyingAttribute:*off_1E70EC918 value:v12 toRange:{a3, a4}];
     v15 = *(*(a1 + 40) + 8);
@@ -5537,7 +5537,7 @@ void __89__UILabel__contentAdjustingFontForTypesettingLanguageAwareLineHeightRat
     v13 = 1;
   }
 
-  if (!v13 && ([(__CTFont *)v10 isEqual:v11]& 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     v14 = [*(*(*(a1 + 32) + 8) + 40) contentByApplyingAttribute:*off_1E70EC918 value:v12 toRange:{a3, a4}];
     v15 = *(*(a1 + 32) + 8);
@@ -5581,7 +5581,7 @@ void __76__UILabel__contentAdjustingFontForAccessibilityTraits_forced_didAdjustF
     v13 = 1;
   }
 
-  if (!v13 && ([v10 isEqual:v11] & 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     v14 = [*(*(a1[5] + 8) + 40) contentByApplyingAttribute:*off_1E70EC918 value:v12 toRange:{a3, a4}];
     v15 = *(a1[5] + 8);
@@ -5910,7 +5910,7 @@ void __26__UILabel_setLineSpacing___block_invoke(uint64_t a1, void *a2)
 - (void)set_fontForShortcutBaselineCalculation:(id)calculation
 {
   calculationCopy = calculation;
-  if (![calculationCopy isEqual:self->_fontForShortcutBaselineCalculation] || !calculationCopy && self->_fontForShortcutBaselineCalculation)
+  if (!objc_msgSend_isEqual_(calculationCopy) || !calculationCopy && self->_fontForShortcutBaselineCalculation)
   {
     objc_storeStrong(&self->_fontForShortcutBaselineCalculation, calculation);
     [(UILabel *)self _invalidateBaselineConstraints];
@@ -6096,9 +6096,9 @@ LABEL_17:
 
   typesettingLanguage = [traitCollection typesettingLanguage];
   typesettingLanguage2 = [changeCopy typesettingLanguage];
-  v13 = [typesettingLanguage isEqualToString:typesettingLanguage2];
+  isEqualToString = objc_msgSend_isEqualToString_(typesettingLanguage);
 
-  if ((v13 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UILabel *)self _adjustFontForTypesettingLanguage];
   }
@@ -6194,9 +6194,9 @@ LABEL_17:
     {
       if (v40 && v41)
       {
-        v43 = [v40 isEqual:v41];
+        isEqual = objc_msgSend_isEqual_(v40);
 
-        if (v43)
+        if (isEqual)
         {
           goto LABEL_44;
         }

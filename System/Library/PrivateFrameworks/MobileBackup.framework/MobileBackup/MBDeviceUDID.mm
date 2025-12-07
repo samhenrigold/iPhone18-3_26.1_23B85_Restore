@@ -5,7 +5,7 @@
 
 id __MBDeviceUDID_Legacy_client_block_invoke()
 {
-  v0 = MBGetGestaltValueForKey();
+  v0 = MBGetGestaltValueForKey(@"UniqueDeviceID");
   if (!v0)
   {
     objc_exception_throw([[MBException alloc] initWithCode:1 format:@"Error getting %@ from MobileGestalt", @"UniqueDeviceID"]);

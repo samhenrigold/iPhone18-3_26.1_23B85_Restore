@@ -3,6 +3,8 @@
 + (_CSTypeRef)symbolicatorFromBinaryImagesDescription:(id)description withArchitecture:(_CSArchitecture)architecture;
 + (id)parseBinaryImagesDescription:(id)description;
 - (BOOL)initFromCorpseOrCore;
+- (BOOL)targetUsesExtraPointerBits:(unsigned int)bits;
+- (VMUProcessDescription)initWithTask:(unsigned int)task getBinariesList:(BOOL)list;
 - (VMUProcessDescription)initWithVMUTaskMemoryCache:(id)cache getBinariesList:(BOOL)list;
 - (id)_binaryImagesDescriptionForRanges:(id)ranges;
 - (id)_buildInfoDescription;
@@ -189,21 +191,19 @@ LABEL_40:
 - (void)dealloc
 {
   [(VMUProcessDescription *)self setCrashReporterInfo];
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   CSRelease();
   self->_symbolicator._opaque_1 = 0;
   self->_symbolicator._opaque_2 = 0;
-  v5 = self->_binaryImages;
-  objc_sync_enter(v5);
+  v3 = self->_binaryImages;
+  objc_sync_enter(v3);
   binaryImages = self->_binaryImages;
   self->_binaryImages = 0;
 
-  objc_sync_exit(v5);
+  objc_sync_exit(v3);
   [(VMUProcessDescription *)self clearCrashReporterInfo];
-  v7.receiver = self;
-  v7.super_class = VMUProcessDescription;
-  [(VMUProcessDescription *)&v7 dealloc];
+  v5.receiver = self;
+  v5.super_class = VMUProcessDescription;
+  [(VMUProcessDescription *)&v5 dealloc];
 }
 
 - (void)setCrashReporterInfo
@@ -397,34 +397,34 @@ LABEL_40:
 
 void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArchitecture___block_invoke(uint64_t a1, void *a2)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v3 = a2;
   context = objc_autoreleasePoolPush();
-  *(&v82 + 1) = 1;
-  strcpy(&v84, "__TEXT");
+  *(&v81 + 1) = 1;
+  strcpy(&v83, "__TEXT");
   v4 = [v3 rangeAtIndex:1];
   v6 = v5;
   v7 = [v3 rangeAtIndex:2];
   v9 = v8;
   v10 = [v3 rangeAtIndex:4];
-  v75 = v11;
-  v76 = v10;
+  v74 = v11;
+  v75 = v10;
   v12 = [v3 rangeAtIndex:5];
-  v73 = v13;
-  v74 = v12;
+  v72 = v13;
+  v73 = v12;
   v14 = [v3 rangeAtIndex:6];
   v16 = v15;
   v17 = objc_alloc(MEMORY[0x1E696AE88]);
   v18 = [*(a1 + 32) substringWithRange:{v4, v6}];
   v19 = [v17 initWithString:v18];
 
-  [v19 scanHexLongLong:&v83];
+  [v19 scanHexLongLong:&v82];
   v20 = objc_alloc(MEMORY[0x1E696AE88]);
   v21 = [*(a1 + 32) substringWithRange:{v7, v9}];
   v22 = [v20 initWithString:v21];
 
-  [v22 scanHexLongLong:&v83 + 8];
-  ++*(&v83 + 1);
+  [v22 scanHexLongLong:&v82 + 8];
+  ++*(&v82 + 1);
   v23 = *(*(a1 + 40) + 8);
   v24 = v23[7];
   v25 = v23[8];
@@ -460,9 +460,9 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
     }
 
     v34 = 40 * v30;
-    v35 = v83;
-    v36 = v84;
-    *(v34 + 32) = v85;
+    v35 = v82;
+    v36 = v83;
+    *(v34 + 32) = v84;
     *v34 = v35;
     *(v34 + 16) = v36;
     v28 = 40 * v30 + 40;
@@ -482,9 +482,9 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
 
   else
   {
-    v26 = v83;
-    v27 = v84;
-    *(v24 + 32) = v85;
+    v26 = v82;
+    v27 = v83;
+    *(v24 + 32) = v84;
     *v24 = v26;
     *(v24 + 16) = v27;
     v28 = v24 + 40;
@@ -499,7 +499,7 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
   else
   {
     *subtype = 0;
-    v42 = [*(a1 + 32) substringWithRange:{v76, v75}];
+    v42 = [*(a1 + 32) substringWithRange:{v75, v74}];
     v43 = v42;
     v44 = [v42 cStringUsingEncoding:4];
 
@@ -512,26 +512,26 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
     v41 = subtype[1] | (subtype[0] << 32);
   }
 
-  *&v81 = v41;
+  *&v80 = v41;
   v45 = [*(a1 + 32) substringWithRange:{v14, v16}];
   v46 = v45;
   v47 = [v45 cStringUsingEncoding:4];
 
   v48 = strlen(v47);
-  *(&v81 + 1) = strndup(v47, v48);
-  if (*(&v81 + 1))
+  *(&v80 + 1) = strndup(v47, v48);
+  if (*(&v80 + 1))
   {
-    v49 = [*(a1 + 32) substringWithRange:{v74, v73}];
+    v49 = [*(a1 + 32) substringWithRange:{v73, v72}];
     v50 = [v49 containsString:@"-"];
     v51 = v49;
     if (v50)
     {
-      MEMORY[0x1C695DE40]([v49 cStringUsingEncoding:1], &v80);
+      MEMORY[0x1C695DE40]([v49 cStringUsingEncoding:1], &v79);
     }
 
     else
     {
-      sscanf([v49 cStringUsingEncoding:1], "%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx", &v80, &v80 + 1, &v80 + 2, &v80 + 3, &v80 + 4, &v80 + 5, &v80 + 6, &v80 + 7, &v80 + 8, &v80 + 9, &v80 + 10, &v80 + 11, &v80 + 12, &v80 + 13, &v80 + 14, &v80 + 15);
+      sscanf([v49 cStringUsingEncoding:1], "%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx", &v79, &v79 + 1, &v79 + 2, &v79 + 3, &v79 + 4, &v79 + 5, &v79 + 6, &v79 + 7, &v79 + 8, &v79 + 9, &v79 + 10, &v79 + 11, &v79 + 12, &v79 + 13, &v79 + 14, &v79 + 15);
     }
 
     v52 = *(*(a1 + 48) + 8);
@@ -569,10 +569,10 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
       }
 
       v64 = (v60 << 6);
-      v65 = v79;
-      v66 = v80;
-      v67 = v82;
-      v64[2] = v81;
+      v65 = v78;
+      v66 = v79;
+      v67 = v81;
+      v64[2] = v80;
       v64[3] = v67;
       *v64 = v65;
       v64[1] = v66;
@@ -593,10 +593,10 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
 
     else
     {
-      v55 = v79;
-      v56 = v80;
-      v57 = v82;
-      v53[2] = v81;
+      v55 = v78;
+      v56 = v79;
+      v57 = v81;
+      v53[2] = v80;
       v53[3] = v57;
       *v53 = v55;
       v53[1] = v56;
@@ -609,17 +609,25 @@ void __82__VMUProcessDescription_symbolicatorFromBinaryImagesDescription_withArc
 LABEL_35:
 
   objc_autoreleasePoolPop(context);
-  v72 = *MEMORY[0x1E69E9840];
+}
+
+- (VMUProcessDescription)initWithTask:(unsigned int)task getBinariesList:(BOOL)list
+{
+  listCopy = list;
+  v6 = [[VMUTaskMemoryCache alloc] initWithTask:*&task];
+  v7 = [(VMUProcessDescription *)self initWithVMUTaskMemoryCache:v6 getBinariesList:listCopy];
+
+  return v7;
 }
 
 - (VMUProcessDescription)initWithVMUTaskMemoryCache:(id)cache getBinariesList:(BOOL)list
 {
   listCopy = list;
-  v72 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
-  v69.receiver = self;
-  v69.super_class = VMUProcessDescription;
-  v7 = [(VMUProcessDescription *)&v69 init];
+  v64.receiver = self;
+  v64.super_class = VMUProcessDescription;
+  v7 = [(VMUProcessDescription *)&v64 init];
   if (!v7)
   {
     goto LABEL_61;
@@ -664,12 +672,12 @@ LABEL_11:
           [(VMUProcessDescription *)v7 initFromLiveProcess];
         }
 
-        v68 = 0;
-        *v71 = 0x100000006;
-        if (!sysctl(v71, 2u, 0, &v68, 0, 0))
+        v63 = 0;
+        *v66 = 0x100000006;
+        if (!sysctl(v66, 2u, 0, &v63, 0, 0))
         {
-          v14 = malloc_type_malloc(v68, 0x100004077774924uLL);
-          if (!sysctl(v71, 2u, v14, &v68, 0, 0))
+          v14 = malloc_type_malloc(v63, 0x100004077774924uLL);
+          if (!sysctl(v66, 2u, v14, &v63, 0, 0))
           {
             v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v14];
             hardwareModel = v7->_hardwareModel;
@@ -726,33 +734,31 @@ LABEL_11:
             {
               v7->_symbolicator._opaque_1 = [(VMUTaskMemoryCache *)v7->_memoryCache createSymbolicatorWithFlags:0 andNotification:?];
               v7->_symbolicator._opaque_2 = v29;
-              v66[1] = MEMORY[0x1E69E9820];
-              v66[2] = 3221225472;
-              v66[3] = __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___block_invoke;
-              v66[4] = &unk_1E8277F18;
-              v67 = v7;
+              v61[1] = MEMORY[0x1E69E9820];
+              v61[2] = 3221225472;
+              v61[3] = __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___block_invoke;
+              v61[4] = &unk_1E8277F18;
+              v62 = v7;
               CSSymbolicatorForeachSymbolOwnerAtTime();
             }
 
             else
             {
-              v65[0] = MEMORY[0x1E69E9820];
-              v65[1] = 3221225472;
-              v65[2] = __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___block_invoke_2;
-              v65[3] = &unk_1E82781C0;
-              objc_copyWeak(v66, location);
-              v7->_symbolicator._opaque_1 = [(VMUTaskMemoryCache *)v28 createSymbolicatorWithFlags:v65 andNotification:?];
+              v60[0] = MEMORY[0x1E69E9820];
+              v60[1] = 3221225472;
+              v60[2] = __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___block_invoke_2;
+              v60[3] = &unk_1E82781C0;
+              objc_copyWeak(v61, location);
+              v7->_symbolicator._opaque_1 = [(VMUTaskMemoryCache *)v28 createSymbolicatorWithFlags:v60 andNotification:?];
               v7->_symbolicator._opaque_2 = v31;
-              objc_destroyWeak(v66);
+              objc_destroyWeak(v61);
             }
 
-            opaque_1 = v7->_symbolicator._opaque_1;
-            opaque_2 = v7->_symbolicator._opaque_2;
             if (CSIsNull())
             {
               pid = v7->_pid;
               [(VMUProcessDescription *)v7 processName];
-              v51 = v50 = pid;
+              v46 = v45 = pid;
               CFLog();
             }
 
@@ -764,46 +770,46 @@ LABEL_11:
         {
           v30 = v7->_pid;
           [(VMUProcessDescription *)v7 processName];
-          v51 = v50 = v30;
+          v46 = v45 = v30;
           CFLog();
         }
 
         if (v7->_executablePathNeedsCorrection || ![(NSString *)v7->_executablePath length])
         {
-          v52 = v7->_binaryImages;
-          objc_sync_enter(v52);
-          v61 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v64 = 0u;
+          v47 = v7->_binaryImages;
+          objc_sync_enter(v47);
+          v56 = 0u;
+          v57 = 0u;
+          v58 = 0u;
+          v59 = 0u;
           obj = v7->_binaryImages;
-          v35 = [(NSMutableArray *)obj countByEnumeratingWithState:&v61 objects:v70 count:16];
-          if (v35)
+          v33 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+          if (v33)
           {
-            v36 = *v62;
+            v34 = *v57;
             while (2)
             {
-              for (i = 0; i != v35; ++i)
+              for (i = 0; i != v33; ++i)
               {
-                if (*v62 != v36)
+                if (*v57 != v34)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v38 = *(*(&v61 + 1) + 8 * i);
-                v39 = [(VMUProcessDescription *)v7 processIdentifier:v50];
-                v40 = [v38 objectForKey:@"Identifier"];
-                v41 = [v39 isEqualToString:v40];
+                v36 = *(*(&v56 + 1) + 8 * i);
+                v37 = [(VMUProcessDescription *)v7 processIdentifier:v45];
+                v38 = [v36 objectForKey:@"Identifier"];
+                v39 = [v37 isEqualToString:v38];
 
-                if (v41)
+                if (v39)
                 {
-                  v42 = [v38 objectForKey:@"ExecutablePath"];
-                  v43 = v42;
-                  if (v42)
+                  v40 = [v36 objectForKey:@"ExecutablePath"];
+                  v41 = v40;
+                  if (v40)
                   {
-                    v44 = [v42 copy];
+                    v42 = [v40 copy];
                     executablePath = v7->_executablePath;
-                    v7->_executablePath = v44;
+                    v7->_executablePath = v42;
 
                     v7->_executablePathNeedsCorrection = 0;
                     goto LABEL_55;
@@ -811,8 +817,8 @@ LABEL_11:
                 }
               }
 
-              v35 = [(NSMutableArray *)obj countByEnumeratingWithState:&v61 objects:v70 count:16];
-              if (v35)
+              v33 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+              if (v33)
               {
                 continue;
               }
@@ -823,26 +829,24 @@ LABEL_11:
 
 LABEL_55:
 
-          objc_sync_exit(v52);
+          objc_sync_exit(v47);
         }
 
-        [(VMUProcessDescription *)v7 cleansePathsIncludingBinaryImageList:0, v50, v51];
-        v46 = v7->_symbolicator._opaque_1;
-        v47 = v7->_symbolicator._opaque_2;
+        [(VMUProcessDescription *)v7 cleansePathsIncludingBinaryImageList:0, v45, v46];
         CSSymbolicatorGetAOutSymbolOwner();
         if (CSIsNull())
         {
           if (![(VMUTaskMemoryCache *)cacheCopy isExclave])
           {
-            v59 = 0;
-            v60 = 0;
-            v58 = 9999;
-            v56 = 0u;
-            v57 = 0u;
+            v54 = 0;
+            v55 = 0;
+            v53 = 9999;
+            v51 = 0u;
+            v52 = 0u;
             *location = 0u;
-            if (![(VMUTaskMemoryCache *)v7->_memoryCache machVMRegionRecurseSubmapShortInfo64onAddress:&v60 size:&v59 nestingDepth:&v58 info:location])
+            if (![(VMUTaskMemoryCache *)v7->_memoryCache machVMRegionRecurseSubmapShortInfo64onAddress:&v55 size:&v54 nestingDepth:&v53 info:location])
             {
-              v7->_executableLoadAddress = v60;
+              v7->_executableLoadAddress = v55;
             }
           }
         }
@@ -892,7 +896,6 @@ LABEL_13:
   v13 = 0;
 LABEL_62:
 
-  v48 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -906,11 +909,9 @@ void __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___bl
 
   else if (a2 == 16)
   {
-    v5 = *a3;
-    v4 = a3[1];
-    objc_copyWeak(&v7, (a1 + 32));
+    objc_copyWeak(&v5, (a1 + 32));
     CSSymbolicatorForeachSymbolOwnerAtTime();
-    objc_destroyWeak(&v7);
+    objc_destroyWeak(&v5);
   }
 }
 
@@ -922,18 +923,18 @@ void __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___bl
 
 - (void)initFromLiveProcess
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   size = 0;
-  *v20 = 0xE00000001;
+  *v18 = 0xE00000001;
   pid = self->_pid;
-  v21 = 1;
-  v22 = pid;
-  if ((sysctl(v20, 4u, 0, &size, 0, 0) & 0x80000000) == 0)
+  v19 = 1;
+  v20 = pid;
+  if ((sysctl(v18, 4u, 0, &size, 0, 0) & 0x80000000) == 0)
   {
     v4 = malloc_type_malloc(size, 0x10B2040B74D5165uLL);
     if (v4)
     {
-      if ((sysctl(v20, 4u, v4, &size, 0, 0) & 0x80000000) == 0)
+      if ((sysctl(v18, 4u, v4, &size, 0, 0) & 0x80000000) == 0)
       {
         self->_is64Bit = (*(v4 + 32) & 4) != 0;
         self->_proc_starttime = *v4;
@@ -944,19 +945,19 @@ void __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___bl
     }
   }
 
-  v18 = 0;
+  v16 = 0;
   size = 0;
-  *v20 = 0;
-  _CRCopyExecutablePathAndNameForPIDDetectingInconsistencies(self->_pid, v20, &v18, &size, &v18 + 1);
+  *v18 = 0;
+  _CRCopyExecutablePathAndNameForPIDDetectingInconsistencies(self->_pid, v18, &v16, &size, &v16 + 1);
   executablePath = self->_executablePath;
-  self->_executablePath = *v20;
+  self->_executablePath = *v18;
 
   processName = self->_processName;
   self->_processName = size;
 
   memoryCache = self->_memoryCache;
-  self->_executablePathNeedsCorrection = v18 != 0;
-  self->_processNameNeedsCorrection = HIBYTE(v18) != 0;
+  self->_executablePathNeedsCorrection = v16 != 0;
+  self->_processNameNeedsCorrection = HIBYTE(v16) != 0;
   [(VMUTaskMemoryCache *)memoryCache taskPort];
   self->_taskIsTranslated = CSTaskIsTranslated();
   flags = 0;
@@ -986,7 +987,6 @@ void __68__VMUProcessDescription_initWithVMUTaskMemoryCache_getBinariesList___bl
   v11 = v10;
   if (!v10)
   {
-    v16 = self->_pid;
     CFLog();
     goto LABEL_25;
   }
@@ -1021,19 +1021,17 @@ LABEL_20:
   }
 
 LABEL_25:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)initFromCorpseOrCore
 {
-  v81 = *MEMORY[0x1E69E9840];
-  v75 = 0u;
-  memset(v76, 0, 24);
-  v73 = 0u;
+  v80 = *MEMORY[0x1E69E9840];
   v74 = 0u;
+  memset(v75, 0, 24);
+  v72 = 0u;
+  v73 = 0u;
   *obj = 0u;
-  *v72 = 0u;
+  *v71 = 0u;
   representsCore = [(VMUTaskMemoryCache *)self->_memoryCache representsCore];
   memoryCache = self->_memoryCache;
   if (representsCore)
@@ -1046,12 +1044,12 @@ LABEL_25:
     obj[1] = [coreFileProcPath copy];
 
     coreFileParentProcName = [(VMUTaskMemoryCache *)v5 coreFileParentProcName];
-    v72[0] = [coreFileParentProcName copy];
+    v71[0] = [coreFileParentProcName copy];
 
     coreFileParentProcPath = [(VMUTaskMemoryCache *)v5 coreFileParentProcPath];
-    v72[1] = [coreFileParentProcPath copy];
+    v71[1] = [coreFileParentProcPath copy];
 
-    if ([VMUTaskMemoryCache getCoreFileProcStarttimeSec:v5]|| [VMUTaskMemoryCache getCoreFileProcStarttimeUSec:v5]|| [VMUTaskMemoryCache getCoreFileUserstack:v5]|| [VMUTaskMemoryCache getCoreFileProcFlags:v5]|| [VMUTaskMemoryCache getCoreFileArgsLen:v5]|| [VMUTaskMemoryCache getCoreFileProcArgc:v5]|| [VMUTaskMemoryCache getCoreFileLedgerPhysFootprint:v5]|| [VMUTaskMemoryCache getCoreFileLedgerPhysFootprintLifetimeMax:v5]|| [VMUTaskMemoryCache getCoreFilePid:v5]|| [VMUTaskMemoryCache getCoreFilePPid:v5]|| [(VMUTaskMemoryCache *)v5 getCoreFileCPUType:&v73 + 4])
+    if ([VMUTaskMemoryCache getCoreFileProcStarttimeSec:v5]|| [VMUTaskMemoryCache getCoreFileProcStarttimeUSec:v5]|| [VMUTaskMemoryCache getCoreFileUserstack:v5]|| [VMUTaskMemoryCache getCoreFileProcFlags:v5]|| [VMUTaskMemoryCache getCoreFileArgsLen:v5]|| [VMUTaskMemoryCache getCoreFileProcArgc:v5]|| [VMUTaskMemoryCache getCoreFileLedgerPhysFootprint:v5]|| [VMUTaskMemoryCache getCoreFileLedgerPhysFootprintLifetimeMax:v5]|| [VMUTaskMemoryCache getCoreFilePid:v5]|| [VMUTaskMemoryCache getCoreFilePPid:v5]|| [(VMUTaskMemoryCache *)v5 getCoreFileCPUType:&v72 + 4])
     {
       v10 = 5;
     }
@@ -1085,10 +1083,10 @@ LABEL_25:
         v17 = 0;
         v18 = 0;
         v19 = 0;
+        v64 = 0;
         v65 = 0;
         v66 = 0;
-        v67 = 0;
-        v69 = 0;
+        v68 = 0;
         do
         {
           if (v16 + *(v13 + 4) > v15)
@@ -1114,17 +1112,17 @@ LABEL_25:
               switch(v20)
               {
                 case 2059:
-                  *&v74 = *(v13 + 16);
-                  *(&v74 + 1) = *(v13 + 24);
+                  *&v73 = *(v13 + 16);
+                  *(&v73 + 1) = *(v13 + 24);
                   v19 = 1;
                   break;
                 case 2060:
-                  *&v75 = *(v13 + 16);
-                  LODWORD(v65) = 1;
+                  *&v74 = *(v13 + 16);
+                  LODWORD(v64) = 1;
                   break;
                 case 2061:
-                  HIDWORD(v75) = *(v13 + 16);
-                  LOBYTE(v66) = 1;
+                  HIDWORD(v74) = *(v13 + 16);
+                  LOBYTE(v65) = 1;
                   break;
               }
             }
@@ -1134,17 +1132,17 @@ LABEL_25:
               switch(v20)
               {
                 case 2053:
-                  DWORD2(v73) = *(v13 + 16);
+                  DWORD2(v72) = *(v13 + 16);
                   v17 = 1;
                   break;
                 case 2054:
-                  HIDWORD(v73) = *(v13 + 16);
+                  HIDWORD(v72) = *(v13 + 16);
                   v18 = 1;
                   break;
                 case 2057:
-                  v79 = *(v13 + 16);
-                  v80 = 0;
-                  v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v79];
+                  v78 = *(v13 + 16);
+                  v79 = 0;
+                  v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v78];
                   v22 = obj[0];
                   obj[0] = v21;
 
@@ -1164,12 +1162,12 @@ LABEL_25:
 
                 break;
               case 2068:
-                LODWORD(v76[0]) = *(v13 + 16);
-                BYTE4(v66) = 1;
+                LODWORD(v75[0]) = *(v13 + 16);
+                BYTE4(v65) = 1;
                 break;
               case 2069:
-                DWORD2(v75) = *(v13 + 16);
-                HIDWORD(v65) = 1;
+                DWORD2(v74) = *(v13 + 16);
+                HIDWORD(v64) = 1;
                 break;
             }
           }
@@ -1178,27 +1176,27 @@ LABEL_25:
           {
             if (v20 == 2086)
             {
-              *(&v76[0] + 1) = *(v13 + 16);
-              BYTE4(v69) = 1;
+              *(&v75[0] + 1) = *(v13 + 16);
+              BYTE4(v68) = 1;
             }
 
             else if (v20 == 2087)
             {
-              *&v76[1] = *(v13 + 16);
-              LOBYTE(v69) = 1;
+              *&v75[1] = *(v13 + 16);
+              LOBYTE(v68) = 1;
             }
           }
 
           else if (v20 == 2070)
           {
-            DWORD1(v73) = *(v13 + 16);
-            BYTE4(v67) = 1;
+            DWORD1(v72) = *(v13 + 16);
+            BYTE4(v66) = 1;
           }
 
           else if (v20 == 2073)
           {
-            LODWORD(v73) = *(v13 + 16);
-            LOBYTE(v67) = 1;
+            LODWORD(v72) = *(v13 + 16);
+            LOBYTE(v66) = 1;
           }
 
           v13 = v16 + *(v13 + 4);
@@ -1212,12 +1210,12 @@ LABEL_25:
         v14 = kcd_size;
         v27 = v18 ^ 1;
         v28 = v19 ^ 1;
-        v29 = v65 ^ 1;
-        v30 = BYTE4(v65) ^ 1;
-        v31 = v66 ^ 1;
-        v32 = BYTE4(v66) ^ 1;
-        BYTE4(v69) ^= 1u;
-        if (v69 & v67)
+        v29 = v64 ^ 1;
+        v30 = BYTE4(v64) ^ 1;
+        v31 = v65 ^ 1;
+        v32 = BYTE4(v65) ^ 1;
+        BYTE4(v68) ^= 1u;
+        if (v68 & v66)
         {
           v33 = 0;
         }
@@ -1227,15 +1225,15 @@ LABEL_25:
           v33 = 5;
         }
 
-        v68 = BYTE4(v67) ^ 1;
-        LODWORD(v69) = v33;
+        v67 = BYTE4(v66) ^ 1;
+        LODWORD(v68) = v33;
       }
 
       else
       {
         v25 = v12;
-        v69 = 0x100000005;
-        v68 = 1;
+        v68 = 0x100000005;
+        v67 = 1;
         v32 = 1;
         v31 = 1;
         v30 = 1;
@@ -1249,14 +1247,14 @@ LABEL_25:
       v10 = 5;
       if (obj[0])
       {
-        if ((obj[1] == 0) | ((v26 | v27 | v28 | v29 | v30) | v31) & 1 | ((v32 | v68) | BYTE4(v69)) & 1)
+        if ((obj[1] == 0) | ((v26 | v27 | v28 | v29 | v30) | v31) & 1 | ((v32 | v67) | BYTE4(v68)) & 1)
         {
           v10 = 5;
         }
 
         else
         {
-          v10 = v69;
+          v10 = v68;
         }
       }
     }
@@ -1267,8 +1265,8 @@ LABEL_25:
     v34 = obj[0];
     obj[0] = @"kernel";
 
-    LODWORD(v73) = 4;
-    DWORD2(v75) = 4;
+    LODWORD(v72) = 4;
+    DWORD2(v74) = 4;
   }
 
   else if (v10)
@@ -1278,11 +1276,11 @@ LABEL_25:
   }
 
   objc_storeStrong(&self->_processName, obj[0]);
-  v36 = v74;
-  self->_proc_starttime.tv_sec = v74;
-  v37 = v75;
+  v36 = v73;
+  self->_proc_starttime.tv_sec = v73;
+  v37 = v74;
   self->_proc_starttime.tv_usec = DWORD2(v36);
-  v38 = HIDWORD(v75);
+  v38 = HIDWORD(v74);
   objc_storeStrong(&self->_executablePath, obj[1]);
   lastPathComponent = [(NSString *)self->_executablePath lastPathComponent];
   if ([lastPathComponent length])
@@ -1290,16 +1288,16 @@ LABEL_25:
     objc_storeStrong(&self->_processName, lastPathComponent);
   }
 
-  objc_storeStrong(&self->_parentExecutablePath, v72[1]);
-  objc_storeStrong(&self->_parentProcessName, v72[0]);
+  objc_storeStrong(&self->_parentExecutablePath, v71[1]);
+  objc_storeStrong(&self->_parentProcessName, v71[0]);
   lastPathComponent2 = [(NSString *)self->_parentExecutablePath lastPathComponent];
   if ([lastPathComponent2 length])
   {
     objc_storeStrong(&self->_parentProcessName, lastPathComponent2);
   }
 
-  v41 = DWORD1(v73);
-  if ((v73 & 4) != 0)
+  v41 = DWORD1(v72);
+  if ((v72 & 4) != 0)
   {
     v42 = 3;
   }
@@ -1309,7 +1307,7 @@ LABEL_25:
     v42 = 2;
   }
 
-  if ((~v73 & 3) != 0)
+  if ((~v72 & 3) != 0)
   {
     v43 = 1;
   }
@@ -1320,13 +1318,13 @@ LABEL_25:
   }
 
   self->_idleExitStatus = v43;
-  v44 = v76[0];
-  v45 = DWORD2(v75);
-  self->_is64Bit = (BYTE8(v75) & 4) != 0;
+  v44 = v75[0];
+  v45 = DWORD2(v74);
+  self->_is64Bit = (BYTE8(v74) & 4) != 0;
   self->_cpuType = v41;
-  v46 = HIDWORD(v73);
-  self->_pid = DWORD2(v73);
-  *&self->_physicalFootprint = *(v76 + 8);
+  v46 = HIDWORD(v72);
+  self->_pid = DWORD2(v72);
+  *&self->_physicalFootprint = *(v75 + 8);
   self->_ppid = v46;
   self->_taskIsTranslated = (v45 & 0x20000) != 0;
   if (v37)
@@ -1337,10 +1335,10 @@ LABEL_25:
       environment = self->_environment;
       self->_environment = v47;
 
-      *&v79 = 0;
-      if (![(VMUTaskMemoryCache *)self->_memoryCache mapAddress:v37 - v38 size:v38 returnedAddress:&v79 returnedSize:0]&& v38 >= 5)
+      *&v78 = 0;
+      if (![(VMUTaskMemoryCache *)self->_memoryCache mapAddress:v37 - v38 size:v38 returnedAddress:&v78 returnedSize:0]&& v38 >= 5)
       {
-        v49 = (v79 + 4);
+        v49 = (v78 + 4);
         v50 = 4;
         while (*v49)
         {
@@ -1457,7 +1455,6 @@ LABEL_113:
   v35 = 1;
 LABEL_114:
 
-  v63 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
@@ -1498,7 +1495,7 @@ LABEL_114:
   return v5;
 }
 
-void __69__VMUProcessDescription__extractInfoPlistFromSymbolOwner_withMemory___block_invoke(uint64_t a1)
+void __69__VMUProcessDescription__extractInfoPlistFromSymbolOwner_withMemory___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
@@ -1506,18 +1503,18 @@ void __69__VMUProcessDescription__extractInfoPlistFromSymbolOwner_withMemory___b
     if (!strcmp("__TEXT __info_plist", Name))
     {
       Range = CSRegionGetRange();
-      v5 = [*(a1 + 32) _readDataFromMemory:*(a1 + 40) atAddress:Range size:v4];
-      if (v5)
+      v7 = [*(a1 + 32) _readDataFromMemory:*(a1 + 40) atAddress:Range size:v6];
+      if (v7)
       {
-        v7 = v5;
-        v6 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:0];
+        v9 = v7;
+        v8 = [MEMORY[0x1E696AE40] propertyListWithData:v7 options:0 format:0 error:0];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_storeStrong((*(*(a1 + 48) + 8) + 40), v6);
+          objc_storeStrong((*(*(a1 + 48) + 8) + 40), v8);
         }
 
-        v5 = v7;
+        v7 = v9;
       }
     }
   }
@@ -1652,23 +1649,23 @@ void __69__VMUProcessDescription__extractInfoPlistFromSymbolOwner_withMemory___b
   objc_autoreleasePoolPop(v6);
 }
 
-unint64_t __40__VMUProcessDescription__libraryLoaded___block_invoke(uint64_t a1)
+unint64_t __40__VMUProcessDescription__libraryLoaded___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Name = CSRegionGetName();
   if (!strncmp(Name, "__TEXT", 6uLL) || (result = strcmp(Name, "MACH_HEADER"), !result))
   {
     result = CSRegionGetRange();
-    v5 = *(*(a1 + 32) + 8);
-    if (*(v5 + 24) - 1 >= result)
+    v7 = *(*(a1 + 32) + 8);
+    if (*(v7 + 24) - 1 >= result)
     {
-      *(v5 + 24) = result;
+      *(v7 + 24) = result;
     }
 
-    v6 = v4 + result - 1;
-    v7 = *(*(a1 + 40) + 8);
-    if (v6 > *(v7 + 24))
+    v8 = v6 + result - 1;
+    v9 = *(*(a1 + 40) + 8);
+    if (v8 > *(v9 + 24))
     {
-      *(v7 + 24) = v6;
+      *(v9 + 24) = v8;
     }
   }
 
@@ -1725,7 +1722,7 @@ unint64_t __40__VMUProcessDescription__libraryLoaded___block_invoke(uint64_t a1)
   versionCopy = version;
   if ([versionCopy length])
   {
-    v4 = objc_msgSend(versionCopy, "stringByReplacingOccurrencesOfString:withString:", @"("), CFSTR("[");
+    v4 = objc_msgSend(versionCopy, "stringByReplacingOccurrencesOfString:withString:", @"("), @"[";
 
     v5 = [v4 stringByReplacingOccurrencesOfString:@"" withString:?], @"]");
     versionCopy = v4;
@@ -1817,38 +1814,38 @@ void __36__VMUProcessDescription__bundleLock__block_invoke()
 
 - (id)valueForEnvVar:(id)var
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   varCopy = var;
   if ((!self || !self->_taskType) && !self->_environment)
   {
     context = objc_autoreleasePoolPush();
-    v19 = [[VMUProcInfo alloc] initWithPid:self->_pid];
-    envVars = [(VMUProcInfo *)v19 envVars];
+    v18 = [[VMUProcInfo alloc] initWithPid:self->_pid];
+    envVars = [(VMUProcInfo *)v18 envVars];
     if ([envVars count])
     {
       v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
       environment = self->_environment;
       self->_environment = v4;
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v6 = envVars;
-      v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:{16, context}];
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:{16, context}];
       if (v7)
       {
-        v8 = *v23;
+        v8 = *v22;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v23 != v8)
+            if (*v22 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            v10 = *(*(&v22 + 1) + 8 * i);
+            v10 = *(*(&v21 + 1) + 8 * i);
             v11 = [v10 rangeOfString:@"="];
             if ([v10 length])
             {
@@ -1868,7 +1865,7 @@ void __36__VMUProcessDescription__bundleLock__block_invoke()
             }
           }
 
-          v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v7);
@@ -1880,9 +1877,29 @@ void __36__VMUProcessDescription__bundleLock__block_invoke()
 
   context = [(NSMutableDictionary *)self->_environment objectForKeyedSubscript:varCopy, context];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return context;
+}
+
+- (BOOL)targetUsesExtraPointerBits:(unsigned int)bits
+{
+  v3 = *&bits;
+  if ([VMUProcessDescription targetUsesExtraPointerBits:]::onceToken != -1)
+  {
+    [VMUProcessDescription targetUsesExtraPointerBits:];
+  }
+
+  if ([VMUProcessDescription targetUsesExtraPointerBits:]::osSecurityConfigGetForTaskFunctionPointer && (v8 = 0, v3) && ![VMUProcessDescription targetUsesExtraPointerBits:]::osSecurityConfigGetForTaskFunctionPointer(v3, &v8))
+  {
+    return (v8 >> 2) & 1;
+  }
+
+  else
+  {
+    v5 = [(VMUProcessDescription *)self valueForEnvVar:@"has_sec_transition"];
+    LOBYTE(v6) = [v5 isEqualToString:@"1"];
+  }
+
+  return v6;
 }
 
 void *__52__VMUProcessDescription_targetUsesExtraPointerBits___block_invoke()
@@ -1905,20 +1922,20 @@ void *__52__VMUProcessDescription_targetUsesExtraPointerBits___block_invoke()
     switch(cpuType)
     {
       case 7:
-        v6 = @"X86";
+        v4 = @"X86";
         goto LABEL_21;
       case 0xC:
-        v6 = @"ARM";
+        v4 = @"ARM";
         goto LABEL_21;
       case 0x12:
-        v6 = @"PPC";
+        v4 = @"PPC";
         goto LABEL_21;
     }
 
 LABEL_16:
     cpuType = [MEMORY[0x1E696AEC0] stringWithFormat:@"%08X", cpuType];
 LABEL_17:
-    v6 = cpuType;
+    v4 = cpuType;
     goto LABEL_21;
   }
 
@@ -1926,13 +1943,13 @@ LABEL_17:
   {
     if (cpuType == 33554444)
     {
-      v6 = @"ARM64_32";
+      v4 = @"ARM64_32";
       goto LABEL_21;
     }
 
     if (cpuType == 16777234)
     {
-      v6 = @"PPC-64";
+      v4 = @"PPC-64";
       goto LABEL_21;
     }
 
@@ -1941,7 +1958,7 @@ LABEL_17:
 
   if (cpuType == 16777223)
   {
-    v6 = @"X86-64";
+    v4 = @"X86-64";
     goto LABEL_21;
   }
 
@@ -1950,41 +1967,35 @@ LABEL_17:
     goto LABEL_16;
   }
 
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
-  v6 = @"ARM64";
+  v4 = @"ARM64";
   if ((CSIsNull() & 1) == 0)
   {
-    v7 = self->_symbolicator._opaque_1;
-    v8 = self->_symbolicator._opaque_2;
     if (CSSymbolicatorGetArchitecture() == 0x20100000CLL)
     {
-      v6 = @"ARM64E";
+      v4 = @"ARM64E";
     }
 
     else if (CSArchitectureIsX86_64())
     {
-      v6 = @"X86-64";
+      v4 = @"X86-64";
     }
 
     if (self->_taskIsTranslated)
     {
-      cpuType = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ (translated)", v6];
+      cpuType = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ (translated)", v4];
       goto LABEL_17;
     }
   }
 
 LABEL_21:
 
-  return v6;
+  return v4;
 }
 
 - (id)_binaryImagesDescriptionForRanges:(id)ranges
 {
   rangesCopy = ranges;
   selfCopy = self;
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   self = (self + 72);
   CSRelease();
   self->super.isa = 0;
@@ -1993,24 +2004,24 @@ LABEL_21:
   if ([(NSArray *)selfCopy->_unreadableBinaryImagePaths count])
   {
     [string appendString:@"Unreadable Binary Images:\n"];
-    v7 = [(NSArray *)selfCopy->_unreadableBinaryImagePaths componentsJoinedByString:@"\n"];
-    [string appendString:v7];
+    v5 = [(NSArray *)selfCopy->_unreadableBinaryImagePaths componentsJoinedByString:@"\n"];
+    [string appendString:v5];
   }
 
   binaryImages = [(VMUProcessDescription *)selfCopy binaryImages];
-  v9 = [binaryImages count];
+  v7 = [binaryImages count];
 
-  if (v9)
+  if (v7)
   {
     [string appendString:@"Binary Images:\n"];
     binaryImages2 = [(VMUProcessDescription *)selfCopy binaryImages];
     objectEnumerator = [binaryImages2 objectEnumerator];
 
     nextObject = 0;
-    v32 = rangesCopy;
+    v30 = rangesCopy;
     while (1)
     {
-      v12 = nextObject;
+      v10 = nextObject;
       nextObject = [objectEnumerator nextObject];
 
       if (!nextObject)
@@ -2018,29 +2029,29 @@ LABEL_21:
         break;
       }
 
-      v13 = objc_autoreleasePoolPush();
-      v37 = [nextObject objectForKey:@"Identifier"];
-      v36 = [nextObject objectForKey:@"ExecutablePath"];
-      v14 = [nextObject objectForKey:@"BinaryInfoDwarfUUIDKey"];
-      v15 = [nextObject objectForKey:@"Size"];
-      unsignedLongLongValue = [v15 unsignedLongLongValue];
+      v11 = objc_autoreleasePoolPush();
+      v35 = [nextObject objectForKey:@"Identifier"];
+      v34 = [nextObject objectForKey:@"ExecutablePath"];
+      v12 = [nextObject objectForKey:@"BinaryInfoDwarfUUIDKey"];
+      v13 = [nextObject objectForKey:@"Size"];
+      unsignedLongLongValue = [v13 unsignedLongLongValue];
 
-      v17 = [nextObject objectForKey:@"IsAppleCode"];
-      bOOLValue = [v17 BOOLValue];
+      v15 = [nextObject objectForKey:@"IsAppleCode"];
+      bOOLValue = [v15 BOOLValue];
 
-      v19 = [nextObject objectForKey:@"StartAddress"];
-      v20 = v19;
-      if (v19)
+      v17 = [nextObject objectForKey:@"StartAddress"];
+      v18 = v17;
+      if (v17)
       {
-        unsignedLongLongValue2 = [v19 unsignedLongLongValue];
+        unsignedLongLongValue2 = [v17 unsignedLongLongValue];
         if (!rangesCopy || [rangesCopy indexForLocation:unsignedLongLongValue2] != 0x7FFFFFFFFFFFFFFFLL)
         {
           string2 = [MEMORY[0x1E696AD60] string];
-          if ([v14 length])
+          if ([v12 length])
           {
             [string2 appendString:@"<"];
-            bytes = [v14 bytes];
-            for (i = 0; [v14 length] > i; ++i)
+            bytes = [v12 bytes];
+            for (i = 0; [v12 length] > i; ++i)
             {
               [string2 appendFormat:@"%02x", *(bytes + i)];
             }
@@ -2048,38 +2059,38 @@ LABEL_21:
             [string2 appendString:@"> "];
           }
 
-          v25 = [nextObject objectForKey:@"BinaryInfoArchitectureKey"];
-          v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ ", v25];
-          v27 = v26;
-          v28 = @"+";
+          v23 = [nextObject objectForKey:@"BinaryInfoArchitectureKey"];
+          v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ ", v23];
+          v25 = v24;
+          v26 = @"+";
           if (bOOLValue)
           {
-            v28 = @" ";
+            v26 = @" ";
           }
 
-          v29 = v37;
-          if (!v37)
+          v27 = v35;
+          if (!v35)
           {
-            v29 = @"???";
+            v27 = @"???";
           }
 
           if (selfCopy->_is64Bit)
           {
-            v30 = @"%#18qx - %#18qx %@%@ %@%@ %@%@\n";
+            v28 = @"%#18qx - %#18qx %@%@ %@%@ %@%@\n";
           }
 
           else
           {
-            v30 = @"%#10lx - %#10lx %@%@ %@%@ %@%@\n";
+            v28 = @"%#10lx - %#10lx %@%@ %@%@ %@%@\n";
           }
 
-          [string appendFormat:v30, unsignedLongLongValue2, unsignedLongLongValue + unsignedLongLongValue2 - 1, v28, v29, v26, &stru_1F461F9C8, string2, v36];
+          [string appendFormat:v28, unsignedLongLongValue2, unsignedLongLongValue + unsignedLongLongValue2 - 1, v26, v27, v24, &stru_1F461F9C8, string2, v34];
 
-          rangesCopy = v32;
+          rangesCopy = v30;
         }
       }
 
-      objc_autoreleasePoolPop(v13);
+      objc_autoreleasePoolPop(v11);
     }
   }
 
@@ -2093,7 +2104,7 @@ LABEL_21:
 
 - (id)_rangesOfBinaryImages:(id)images forBacktraces:(id)backtraces
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   imagesCopy = images;
   backtracesCopy = backtraces;
   if (!backtracesCopy)
@@ -2107,40 +2118,40 @@ LABEL_21:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v33 = backtracesCopy;
+      v32 = backtracesCopy;
       goto LABEL_6;
     }
 
 LABEL_30:
-    v38 = 0;
+    v37 = 0;
     goto LABEL_31;
   }
 
   v6 = [MEMORY[0x1E695DEC8] arrayWithObject:backtracesCopy];
 
-  v33 = v6;
+  v32 = v6;
 LABEL_6:
   v7 = objc_alloc_init(VMURangeArray);
-  v38 = objc_alloc_init(VMURangeArray);
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v37 = objc_alloc_init(VMURangeArray);
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = imagesCopy;
-  v8 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v8 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v8)
   {
-    v9 = *v44;
+    v9 = *v43;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v9)
+        if (*v43 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * i);
+        v11 = *(*(&v42 + 1) + 8 * i);
         v12 = [v11 objectForKey:@"StartAddress"];
         v13 = v12;
         if (v12)
@@ -2153,33 +2164,33 @@ LABEL_6:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v8 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v8);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
-  obja = v33;
-  v17 = [obja countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  obja = v32;
+  v17 = [obja countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v17)
   {
-    v18 = *v40;
+    v18 = *v39;
     do
     {
       v19 = 0;
-      v35 = v17;
+      v34 = v17;
       do
       {
-        if (*v40 != v18)
+        if (*v39 != v18)
         {
           objc_enumerationMutation(obja);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * v19);
+        v20 = *(*(&v38 + 1) + 8 * v19);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2199,7 +2210,7 @@ LABEL_6:
                 v28 = [(VMURangeArray *)v7 rangeAtIndex:v27];
                 v30 = v29;
                 [(VMURangeArray *)v7 removeRangeAtIndex:v27];
-                [(VMURangeArray *)v38 addRange:v28, v30];
+                [(VMURangeArray *)v37 addRange:v28, v30];
               }
 
               --v25;
@@ -2209,14 +2220,14 @@ LABEL_6:
           }
 
           v18 = v24;
-          v17 = v35;
+          v17 = v34;
         }
 
         ++v19;
       }
 
       while (v19 != v17);
-      v17 = [obja countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v17 = [obja countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v17);
@@ -2225,9 +2236,7 @@ LABEL_6:
   backtracesCopy = obja;
 LABEL_31:
 
-  v31 = *MEMORY[0x1E69E9840];
-
-  return v38;
+  return v37;
 }
 
 - (id)binaryImagesDescriptionForBacktraces:(id)backtraces
@@ -2322,9 +2331,9 @@ LABEL_31:
     _bundleLock = [(VMUProcessDescription *)self _bundleLock];
     [_bundleLock lock];
 
-    v5 = _CRGetOSVersionDictionary();
-    v6 = self->_osVersionDictionary;
-    self->_osVersionDictionary = v5;
+    v7 = _CRGetOSVersionDictionary(v5, v6);
+    v8 = self->_osVersionDictionary;
+    self->_osVersionDictionary = v7;
 
     _bundleLock2 = [(VMUProcessDescription *)self _bundleLock];
     [_bundleLock2 unlock];
@@ -2566,7 +2575,7 @@ LABEL_31:
 
 - (id)processStatisticsDescription
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (self && self->_taskType)
   {
     physicalFootprint = self->_physicalFootprint;
@@ -2578,44 +2587,44 @@ LABEL_31:
 
   else
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     *buffer = 0u;
     if (proc_pid_rusage(self->_pid, 6, buffer))
     {
       goto LABEL_14;
     }
 
-    physicalFootprint = *(&v17 + 1);
-    v12 = v28;
-    self->_physicalFootprint = *(&v17 + 1);
-    self->_physicalFootprintPeak = v12;
+    physicalFootprint = *(&v16 + 1);
+    v11 = v27;
+    self->_physicalFootprint = *(&v16 + 1);
+    self->_physicalFootprintPeak = v11;
     if (!physicalFootprint)
     {
       goto LABEL_15;
@@ -2656,7 +2665,6 @@ LABEL_14:
   v9 = VMUMemorySizeString(physicalFootprint);
   physicalFootprint = [v8 stringWithFormat:@"Physical footprint:         %s\nPhysical footprint (peak):  %s\nIdle exit:                  %s\n", v9, VMUMemorySizeString(self->_physicalFootprintPeak), v7];
 LABEL_15:
-  v10 = *MEMORY[0x1E69E9840];
 
   return physicalFootprint;
 }

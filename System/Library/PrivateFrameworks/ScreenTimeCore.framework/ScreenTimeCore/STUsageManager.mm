@@ -8,6 +8,7 @@
 - (void)_addDuetNotificationObservers;
 - (void)_duetKnowledgeStorageDidTombstoneEventsNotification:(id)notification;
 - (void)_postNotification:(id)notification rollupError:(id)error calendar:(id)calendar startOfLastWeek:(id)week completionHandler:(id)handler;
+- (void)_purgeAllUsage:(BOOL)usage completionHandler:(id)handler;
 - (void)_purgeUsageOperation:(id)operation cancelledDidChange:(BOOL)change;
 - (void)_purgeUsageOperation:(id)operation executingDidChange:(BOOL)change;
 - (void)_purgeUsageOperation:(id)operation finishedDidChange:(BOOL)change;
@@ -25,6 +26,7 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)performWeeklyRollupWithCompletionHandler:(id)handler;
 - (void)resume;
+- (void)rollupUsageForDuration:(int64_t)duration isBackgroundTask:(BOOL)task isRecomputingUsage:(BOOL)usage completionHandler:(id)handler;
 - (void)setScreenTimeEnabled:(BOOL)enabled;
 - (void)setUsageGenesisDate:(id)date;
 @end
@@ -230,6 +232,135 @@
   v21[4] = self;
   [hourlyUsageRollupActivity scheduleWithBlock:v21];
 LABEL_19:
+}
+
+- (void)rollupUsageForDuration:(int64_t)duration isBackgroundTask:(BOOL)task isRecomputingUsage:(BOOL)usage completionHandler:(id)handler
+{
+  usageCopy = usage;
+  taskCopy = task;
+  handlerCopy = handler;
+  if (_os_feature_enabled_impl())
+  {
+    persistenceController = [(STUsageManager *)self persistenceController];
+    newBackgroundContext = [persistenceController newBackgroundContext];
+
+    v33 = 0;
+    lastObject = [_TtC15ScreenTimeAgent28LegacyUsageShutdownScheduler isLegacyUsageDisabledWithContext:newBackgroundContext error:&v33];
+    usageGenesisDate = v33;
+    if (lastObject)
+    {
+      if ([(STRollupUsageOperation *)lastObject BOOLValue])
+      {
+        v15 = +[STLog usage];
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "rollupUsageForDuration :: Legacy usage is disabled skipping usage rollup", buf, 2u);
+        }
+
+        if (handlerCopy)
+        {
+          handlerCopy[2](handlerCopy, 0);
+        }
+
+LABEL_28:
+
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v16 = +[STLog usage];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        sub_100120D30();
+      }
+    }
+
+    v31 = usageGenesisDate;
+    v17 = [_TtC15ScreenTimeAgent28LegacyUsageShutdownScheduler scheduleSystemTaskAndReturnError:&v31];
+    v18 = v31;
+
+    v19 = +[STLog usage];
+    v20 = v19;
+    if (v17)
+    {
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Successfully scheduled legacy usage shutdown task", buf, 2u);
+      }
+    }
+
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      sub_100120D98();
+    }
+  }
+
+  usageGenesisDate = [(STUsageManager *)self usageGenesisDate];
+  if (usageGenesisDate)
+  {
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_1000992BC;
+    v29[3] = &unk_1001A6278;
+    v29[4] = duration;
+    v30 = taskCopy;
+    newBackgroundContext = [NSPredicate predicateWithBlock:v29];
+    v21 = self->_queuedRollupOperations;
+    objc_sync_enter(v21);
+    v22 = [(NSMutableArray *)self->_queuedRollupOperations filteredArrayUsingPredicate:newBackgroundContext];
+    lastObject = [v22 lastObject];
+
+    if (lastObject)
+    {
+      objc_sync_exit(v21);
+
+      v23 = +[STLog usage];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Last rollup usage operation hasn't had a chance to run, ignoring new request", buf, 2u);
+      }
+
+      if (handlerCopy)
+      {
+        v24 = objc_retainBlock(handlerCopy);
+        rollupQueue = [(STUsageManager *)self rollupQueue];
+        [(STRollupUsageOperation *)lastObject addTarget:self selector:"_usageOperationDidFinish:completion:" forOperationEvents:6 userInfo:v24 delegateQueue:rollupQueue];
+      }
+    }
+
+    else
+    {
+      v26 = [STRollupUsageOperation alloc];
+      persistenceController2 = [(STUsageManager *)self persistenceController];
+      lastObject = [(STRollupUsageOperation *)v26 initWithPersistenceController:persistenceController2 genesisDate:usageGenesisDate duration:duration isBackgroundTask:taskCopy isRecomputingUsage:usageCopy];
+
+      [(NSMutableArray *)self->_queuedRollupOperations addObject:lastObject];
+      objc_sync_exit(v21);
+
+      v28 = +[STLog usage];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Adding rollup usage operation...", buf, 2u);
+      }
+
+      [(STUsageManager *)self _rollupUsageWithOperation:lastObject completionHandler:handlerCopy];
+    }
+
+    goto LABEL_28;
+  }
+
+  if (handlerCopy)
+  {
+    newBackgroundContext = [NSError errorWithDomain:STErrorDomain code:7 userInfo:0];
+    (handlerCopy)[2](handlerCopy, newBackgroundContext);
+LABEL_29:
+  }
 }
 
 - (void)_rollupUsageWithOperation:(id)operation completionHandler:(id)handler
@@ -484,6 +615,67 @@ LABEL_28:
         }
       }
     }
+  }
+}
+
+- (void)_purgeAllUsage:(BOOL)usage completionHandler:(id)handler
+{
+  usageCopy = usage;
+  handlerCopy = handler;
+  v7 = self->_queuedPurgeUsageOperations;
+  objc_sync_enter(v7);
+  v8 = [(NSMutableArray *)self->_queuedPurgeUsageOperations count];
+  if (!v8)
+  {
+    v13 = [STPurgeUsageOperation alloc];
+    persistenceController = [(STUsageManager *)self persistenceController];
+    v9 = [(STPurgeUsageOperation *)v13 initWithPersistenceController:persistenceController purgeAllUsage:usageCopy];
+
+    [(NSMutableArray *)self->_queuedPurgeUsageOperations addObject:v9];
+    objc_sync_exit(v7);
+
+    v15 = +[STLog usage];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Adding purge usage operation...", buf, 2u);
+    }
+
+    if (handlerCopy)
+    {
+      v16 = objc_retainBlock(handlerCopy);
+      rollupQueue = [(STUsageManager *)self rollupQueue];
+      [(STPurgeUsageOperation *)v9 addTarget:self selector:"_usageOperationDidFinish:completion:" forOperationEvents:6 userInfo:v16 delegateQueue:rollupQueue];
+    }
+
+    [(STPurgeUsageOperation *)v9 addObserver:self forKeyPath:@"cancelled" options:1 context:"KVOContextSTUsageManager"];
+    [(STPurgeUsageOperation *)v9 addObserver:self forKeyPath:@"executing" options:1 context:"KVOContextSTUsageManager"];
+    [(STPurgeUsageOperation *)v9 addObserver:self forKeyPath:@"finished" options:1 context:"KVOContextSTUsageManager"];
+    rollupOperationQueue = [(STUsageManager *)self rollupOperationQueue];
+    [rollupOperationQueue cancelAllOperations];
+
+    rollupOperationQueue2 = [(STUsageManager *)self rollupOperationQueue];
+    [rollupOperationQueue2 addOperation:v9];
+    goto LABEL_11;
+  }
+
+  v9 = [(NSMutableArray *)self->_queuedPurgeUsageOperations objectAtIndexedSubscript:v8 - 1];
+  objc_sync_exit(v7);
+
+  v10 = +[STLog usage];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v19 = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Last purge usage operation hasn't had a chance to run, ignoring new request", v19, 2u);
+  }
+
+  if (handlerCopy)
+  {
+    rollupOperationQueue2 = objc_retainBlock(handlerCopy);
+    rollupQueue2 = [(STUsageManager *)self rollupQueue];
+    [(STPurgeUsageOperation *)v9 addTarget:self selector:"_usageOperationDidFinish:completion:" forOperationEvents:6 userInfo:rollupOperationQueue2 delegateQueue:rollupQueue2];
+
+LABEL_11:
   }
 }
 

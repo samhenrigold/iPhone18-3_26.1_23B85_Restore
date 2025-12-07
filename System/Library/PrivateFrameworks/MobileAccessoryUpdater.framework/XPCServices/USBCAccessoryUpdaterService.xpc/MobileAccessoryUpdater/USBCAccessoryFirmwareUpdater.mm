@@ -12,6 +12,7 @@
 - (void)disconnectTimer:(id)timer;
 - (void)downloadFirmwareWithOptions:(id)options;
 - (void)encodeWithCoder:(id)coder;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)finishWithOptions:(id)options;
 - (void)getFWAssetInfo;
 - (void)prepareFirmwareWithOptions:(id)options;
@@ -441,6 +442,114 @@ LABEL_32:
   [(FudPluginDelegate *)delegate didBootstrap:1 info:0 error:0];
 }
 
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  remoteCopy = remote;
+  optionsCopy = options;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_1000042A0;
+  v36 = sub_1000042B0;
+  v37 = 0;
+  [(USBCAccessoryFirmwareUpdater *)self setOptions:optionsCopy];
+  lastState = self->_lastState;
+  self->_lastState = @"Find";
+
+  outOptions = self->_outOptions;
+  v9 = [NSNumber numberWithBool:0];
+  [(NSMutableDictionary *)outOptions setValue:v9 forKey:@"UpdateRequired"];
+
+  v10 = self->_outOptions;
+  LODWORD(v11) = 1028443341;
+  v12 = [NSNumber numberWithFloat:v11];
+  [(NSMutableDictionary *)v10 setValue:v12 forKey:@"PrepareWeight"];
+
+  v13 = self->_outOptions;
+  LODWORD(v14) = 1062836634;
+  v15 = [NSNumber numberWithFloat:v14];
+  [(NSMutableDictionary *)v13 setValue:v15 forKey:@"ApplyWeight"];
+
+  v16 = self->_outOptions;
+  LODWORD(v17) = 1036831949;
+  v18 = [NSNumber numberWithFloat:v17];
+  [(NSMutableDictionary *)v16 setValue:v18 forKey:@"FinishWeight"];
+
+  if (!remoteCopy)
+  {
+    [(FudPluginDelegate *)self->_delegate log:7 format:@"Searching locally only..."];
+    [(FudPluginDelegate *)self->_delegate progress:100.0];
+  }
+
+  v19 = [(NSMutableDictionary *)self->_firmwareAssetProperties objectForKeyedSubscript:@"Firmware Asset Version"];
+  v20 = v19;
+  v21 = v19 && [v19 compare:&off_100027790] && objc_msgSend(v20, "compare:", &off_1000277A8) != 0;
+  *(v47 + 24) = v21;
+
+  if (objc_opt_respondsToSelector())
+  {
+    [(FudPluginDelegate *)self->_delegate log:7 format:@"%s Calling findFirmware", "[USBCAccessoryFirmwareUpdater findFirmwareWithOptions:remote:]"];
+    firmwareUpdater = self->_firmwareUpdater;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000042B8;
+    v31[3] = &unk_100024478;
+    v31[4] = &v46;
+    v31[5] = &v42;
+    v31[6] = &v32;
+    v23 = [(USBCFirmwareUpdater *)firmwareUpdater findFirmware:v31 hardware:self->_installedHardwareFirmwareProperties searchRemote:remoteCopy];
+  }
+
+  v24 = self->_firmwareUpdater;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_1000042E4;
+  v30[3] = &unk_1000244A0;
+  v30[4] = &v38;
+  v30[5] = &v32;
+  installedHardwareFirmwareProperties = self->_installedHardwareFirmwareProperties;
+  firmwareAssetProperties = self->_firmwareAssetProperties;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100004304;
+  v29[3] = &unk_1000244C8;
+  v29[4] = self;
+  v27 = [(USBCFirmwareUpdater *)v24 validateFirmware:v30 hardware:installedHardwareFirmwareProperties firmware:firmwareAssetProperties progress:v29];
+  [(FudPluginDelegate *)self->_delegate log:7 format:@"%s - firmwareFound = %u, goodToInstall = %u, needsDownload = %u", "[USBCAccessoryFirmwareUpdater findFirmwareWithOptions:remote:]", *(v47 + 24), *(v39 + 24), *(v43 + 24)];
+  v28 = v33[5];
+  if (v28)
+  {
+    goto LABEL_12;
+  }
+
+  if (![(USBCFirmwareUpdater *)self->_firmwareUpdater updaterOperational])
+  {
+    v28 = v33[5];
+LABEL_12:
+    [(FudPluginDelegate *)self->_delegate log:7 format:@"%s - returned error: %@", "[USBCAccessoryFirmwareUpdater findFirmwareWithOptions:remote:]", v28];
+    [(USBCAccessoryFirmwareUpdater *)self attemptErrorRecovery:v33[5] delegate:self->_delegate];
+  }
+
+  [(FudPluginDelegate *)self->_delegate didFind:*(v47 + 24) info:self->_outOptions updateAvailable:*(v39 + 24) needsDownload:*(v43 + 24) error:v33[5]];
+  _Block_object_dispose(&v32, 8);
+
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
+}
+
 - (void)downloadFirmwareWithOptions:(id)options
 {
   delegate = self->_delegate;
@@ -451,22 +560,21 @@ LABEL_32:
   lastState = self->_lastState;
   self->_lastState = @"download";
 
-  firmwareUpdater = self->_firmwareUpdater;
   if (objc_opt_respondsToSelector())
   {
-    v8 = self->_firmwareUpdater;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100004448;
-    v12[3] = &unk_1000244F0;
-    v12[4] = self;
-    installedHardwareFirmwareProperties = self->_installedHardwareFirmwareProperties;
+    firmwareUpdater = self->_firmwareUpdater;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_100004460;
-    v11[3] = &unk_1000244C8;
+    v11[2] = sub_100004448;
+    v11[3] = &unk_1000244F0;
     v11[4] = self;
-    v10 = [(USBCFirmwareUpdater *)v8 downloadFirmware:v12 hardware:installedHardwareFirmwareProperties progress:v11];
+    installedHardwareFirmwareProperties = self->_installedHardwareFirmwareProperties;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100004460;
+    v10[3] = &unk_1000244C8;
+    v10[4] = self;
+    v9 = [(USBCFirmwareUpdater *)firmwareUpdater downloadFirmware:v11 hardware:installedHardwareFirmwareProperties progress:v10];
   }
 }
 

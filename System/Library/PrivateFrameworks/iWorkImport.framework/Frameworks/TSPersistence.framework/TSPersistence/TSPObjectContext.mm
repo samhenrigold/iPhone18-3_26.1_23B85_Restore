@@ -8,6 +8,8 @@
 + (id)downloadURLForDataWithDigest:(id)digest;
 + (id)releaseQueue;
 + (id)supportBundleURLForDocumentUUID:(id)d delegate:(id)delegate;
++ (int64_t)documentTypeAtURL:(id)l hasNativeUTI:(BOOL)i;
++ (int64_t)documentTypeAtURL:(id)l hasNativeUTI:(BOOL)i nestedDocumentFilename:(id)filename;
 + (void)removeDefaultSupportDirectory;
 - (BOOL)areExternalReferencesToDataAllowedAtURL:(id)l;
 - (BOOL)areNewExternalReferencesToDataAllowed;
@@ -15,9 +17,11 @@
 - (BOOL)canPerformUserActions;
 - (BOOL)containsDataConformingToUTI:(id)i;
 - (BOOL)continueReadingDocumentObjectFromDatabasePackageURL:(id)l error:(id *)error;
+- (BOOL)continueReadingDocumentObjectFromPackageURL:(id)l areExternalDataReferencesAllowed:(BOOL)allowed finalizeHandlerQueue:(id)queue readCoordinator:(id *)coordinator objects:(id *)objects error:(id *)error;
 - (BOOL)copyIfAppropriateFromOriginalURL:(id)l toURL:(id)rL cloneMode:(BOOL)mode originalPackage:(id)package packageType:(int64_t)type inheritAttributes:(BOOL)attributes;
 - (BOOL)didFinishSuccessfullyReadingObjects:(id)objects readCoordinator:(id)coordinator finalizeHandlerQueue:(id)queue;
 - (BOOL)endAddingLoadedObjects;
+- (BOOL)endWriteWithSuccess:(BOOL)success error:(id *)error;
 - (BOOL)hasCurrentFileFormatVersion;
 - (BOOL)hasExternalReferenceOrMissingOrUnmaterializedRemoteData;
 - (BOOL)hasMissingOrUnmaterializedRemoteData;
@@ -34,6 +38,7 @@
 - (BOOL)readDocumentObjectFromDatabasePackageURL:(id)l error:(id *)error;
 - (BOOL)readDocumentObjectFromPackageURL:(id)l error:(id *)error;
 - (BOOL)readLazyReference:(id)reference object:(id *)object error:(id *)error;
+- (BOOL)readObjectForIdentifier:(int64_t)identifier isWeakReference:(BOOL)reference ignoreUnknownContentWhileReading:(BOOL)reading rootObjectComponent:(id)component object:(id *)object error:(id *)error;
 - (BOOL)readWithReadCoordinator:(id)coordinator finalizeHandlerQueue:(id)queue rootObject:(id *)object error:(id *)error readCompletion:(id)completion;
 - (BOOL)saveToURL:(id)l packageType:(int64_t)type encryptionKey:(id)key originalURL:(id)rL error:(id *)error;
 - (BOOL)setDecryptionKey:(id)key;
@@ -60,6 +65,8 @@
 - (TSPObjectContext)init;
 - (TSPObjectContext)initWithDelegate:(id)delegate;
 - (TSPObjectContext)initWithDelegate:(id)delegate registry:(id)registry resourceContext:(id)context mode:(unsigned int)mode isLoadingDocument:(BOOL)document shouldCreateInternalMetadataObject:(BOOL)object;
+- (TSPObjectContext)initWithURL:(id)l delegate:(id)delegate registry:(id)registry resourceContext:(id)context mode:(unsigned int)mode passphrase:(id)passphrase skipDocumentUpgrade:(BOOL)upgrade error:(id *)self0;
+- (TSPObjectContext)initWithURL:(id)l delegate:(id)delegate resourceContext:(id)context mode:(unsigned int)mode passphrase:(id)passphrase skipDocumentUpgrade:(BOOL)upgrade error:(id *)error;
 - (TSPObjectContextDelegate)delegate;
 - (TSPPackage)documentPackage;
 - (TSPPackage)supportPackage;
@@ -72,6 +79,7 @@
 - (id)dataObserversConformingToProtocol:(id)protocol;
 - (id)dataWithContentsOfPackagePath:(id)path;
 - (id)dataWithDigest:(id)digest;
+- (id)dataWithDigest:(id)digest length:(unint64_t)length preferredFilename:(id)filename canDownload:(BOOL)download isMissingFromServer:(BOOL)server documentRevision:(id)revision downloadPriority:(int64_t)priority uploadStatus:(int64_t)self0;
 - (id)dataWithLegacyDataIdentifier:(int64_t)identifier;
 - (id)documentLoadValidationPolicy;
 - (id)documentResourceDataForDigestString:(id)string locator:(id)locator filename:(id)filename canDownload:(BOOL)download;
@@ -81,12 +89,14 @@
 - (id)objectForIdentifier:(int64_t)identifier;
 - (id)objectUUIDMap:(id)map needsObjectForIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier onlyIfLoaded:(BOOL)loaded;
 - (id)objectWithUUID:(id)d;
+- (id)objectWithUUID:(id)d onlyIfLoaded:(BOOL)loaded validateNewObjects:(BOOL)objects identifier:(int64_t *)identifier;
 - (id)objectWithUUIDIfAvailable:(id)available;
 - (id)objectWithUUIDIfAvailableAndLoaded:(id)loaded;
 - (id)objectWithUUIDPath:(id)path;
 - (id)objectsFromUUIDs:(id)ds;
 - (id)performResourceAccessUsingQueue:(id)queue block:(id)block;
 - (id)prepareSaveProgress;
+- (id)readObjectIfNeededForIdentifier:(int64_t)identifier isWeakReference:(BOOL)reference componentIdentifier:(int64_t)componentIdentifier;
 - (id)supportDirectoryURLReturningIsBundleURL:(BOOL *)l;
 - (id)temporaryDirectory;
 - (int64_t)aggregateReadabilityForDocumentResources;
@@ -114,6 +124,7 @@
 - (void)beginWriteWithOriginalURL:(id)l relativeURLForExternalData:(id)data;
 - (void)canPerformUserActionUsingBlock:(id)block;
 - (void)checkForDataWarnings;
+- (void)closeFromDealloc:(BOOL)dealloc;
 - (void)createInternalMetadataIfNeeded;
 - (void)dataInDocumentDidChangeForDataReferenceMap:(id)map;
 - (void)dealloc;
@@ -124,6 +135,7 @@
 - (void)didReadSupportObject:(id)object;
 - (void)endAssertOnModify;
 - (void)endIgnoringModificationsForObject:(id)object;
+- (void)endSaveWithSuccess:(BOOL)success;
 - (void)ensureObject:(id)object isKnownWithIdentifier:(int64_t)identifier;
 - (void)enumerateAllDataUsingBlock:(id)block;
 - (void)enumerateDataInDocumentUsingBlock:(id)block;
@@ -137,6 +149,7 @@
 - (void)performReadUsingAccessor:(id)accessor;
 - (void)performReadUsingAccessorImpl:(id)impl;
 - (void)prepareForDocumentDumpWithDocumentPackage:(id)package supportPackage:(id)supportPackage documentRevision:(id)revision passphrase:(id)passphrase;
+- (void)prepareForDocumentReplacementWithSuccess:(BOOL)success forSafeSave:(BOOL)save;
 - (void)prepareToReadSupportObjectExternalDataReferencesAllowed:(BOOL)allowed finalizeHandlerQueue:(id)queue objects:(id *)objects accessor:(id)accessor;
 - (void)presentPersistenceError:(id)error;
 - (void)registerAsynchronousObjectModifier:(id)modifier;
@@ -214,9 +227,9 @@
   contextCopy = context;
   if (!registryCopy)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Expected registry to be non-nil", "[TSPObjectContext initWithDelegate:registry:resourceContext:mode:isLoadingDocument:shouldCreateInternalMetadataObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 329);
     v132 = MEMORY[0x277D81150];
-    v134 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v133, "[TSPObjectContext initWithDelegate:registry:resourceContext:mode:isLoadingDocument:shouldCreateInternalMetadataObject:]", "[TSPObjectContext initWithDelegate:registry:resourceContext:mode:isLoadingDocument:shouldCreateInternalMetadataObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 329);
+    v134 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v133, "[TSPObjectContext initWithDelegate:registry:resourceContext:mode:isLoadingDocument:shouldCreateInternalMetadataObject:]");
     v136 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v135, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v132, v137, v134, v136, 329, 1, "Expected registry to be non-nil");
 
@@ -424,6 +437,68 @@
   return v26;
 }
 
++ (int64_t)documentTypeAtURL:(id)l hasNativeUTI:(BOOL)i
+{
+  iCopy = i;
+  lCopy = l;
+  if (objc_msgSend_isNativeDirectoryFormatURL_(self, v7, lCopy))
+  {
+    v9 = 1;
+  }
+
+  else if (objc_msgSend_isTangierEditingDirectoryFormatURL_(self, v8, lCopy))
+  {
+    v9 = 3;
+  }
+
+  else if (objc_msgSend_isValidOrEmptyPackageOrTangierEditingFormatAtURL_hasNativeUTI_(TSPFilePackage, v10, lCopy, iCopy))
+  {
+    v9 = 2;
+  }
+
+  else
+  {
+    v13 = 0;
+    if (iCopy && (objc_msgSend_isZeroLengthFileOrEmptyDirectory_isDirectory_(TSPPackage, v11, lCopy, &v13) & 1) != 0)
+    {
+      if (v13)
+      {
+        v9 = 1;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  return v9;
+}
+
++ (int64_t)documentTypeAtURL:(id)l hasNativeUTI:(BOOL)i nestedDocumentFilename:(id)filename
+{
+  iCopy = i;
+  lCopy = l;
+  filenameCopy = filename;
+  hasNativeUTI = objc_msgSend_documentTypeAtURL_hasNativeUTI_(self, v10, lCopy, iCopy);
+  v13 = hasNativeUTI;
+  if (filenameCopy && iCopy && !hasNativeUTI)
+  {
+    v14 = objc_msgSend_URLByAppendingPathComponent_(lCopy, v12, filenameCopy);
+    isNativeDirectoryFormatURL = objc_msgSend_isNativeDirectoryFormatURL_(self, v15, v14);
+
+    v13 = (isNativeDirectoryFormatURL & 1) != 0;
+  }
+
+  return v13;
+}
+
 + (BOOL)isNativeDirectoryFormatURL:(id)l
 {
   lCopy = l;
@@ -464,53 +539,164 @@
   return isValidTangierEditingFormatAtURL;
 }
 
+- (TSPObjectContext)initWithURL:(id)l delegate:(id)delegate resourceContext:(id)context mode:(unsigned int)mode passphrase:(id)passphrase skipDocumentUpgrade:(BOOL)upgrade error:(id *)error
+{
+  v11 = *&mode;
+  lCopy = l;
+  delegateCopy = delegate;
+  contextCopy = context;
+  passphraseCopy = passphrase;
+  v21 = objc_msgSend_sharedRegistry(TSPRegistry, v19, v20);
+  upgradeCopy = upgrade;
+  v23 = objc_msgSend_initWithURL_delegate_registry_resourceContext_mode_passphrase_skipDocumentUpgrade_error_(self, v22, lCopy, delegateCopy, v21, contextCopy, v11, passphraseCopy, upgradeCopy, error);
+
+  return v23;
+}
+
+- (TSPObjectContext)initWithURL:(id)l delegate:(id)delegate registry:(id)registry resourceContext:(id)context mode:(unsigned int)mode passphrase:(id)passphrase skipDocumentUpgrade:(BOOL)upgrade error:(id *)self0
+{
+  v11 = *&mode;
+  lCopy = l;
+  delegateCopy = delegate;
+  registryCopy = registry;
+  contextCopy = context;
+  passphraseCopy = passphrase;
+  v42 = lCopy;
+  InternalMetadataObject = objc_msgSend_initWithDelegate_registry_resourceContext_mode_isLoadingDocument_shouldCreateInternalMetadataObject_(self, v21, delegateCopy, registryCopy, contextCopy, v11, 1, 0);
+  if (InternalMetadataObject)
+  {
+    if (UnsafePointer != -1)
+    {
+      sub_276BD0BD8();
+    }
+
+    v60 = 0;
+    v61 = &v60;
+    v62 = 0x2020000000;
+    v63 = 0;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x3032000000;
+    v57 = sub_276997288;
+    v58 = sub_276997298;
+    v59 = 0;
+    v24 = objc_msgSend_progressWithTotalUnitCount_(MEMORY[0x277CCAC48], v22, 100);
+    readProgress = InternalMetadataObject->_readProgress;
+    InternalMetadataObject->_readProgress = v24;
+
+    v26 = objc_alloc_init(TSPCancellationState);
+    objc_storeStrong(&InternalMetadataObject->_readCancellationState, v26);
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = sub_2769972A0;
+    v52[3] = &unk_27A6E27F8;
+    v27 = v26;
+    v53 = v27;
+    objc_msgSend_setCancellationHandler_(InternalMetadataObject->_readProgress, v28, v52);
+    v29 = MEMORY[0x277CCACC8];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = sub_2769972AC;
+    v43[3] = &unk_27A6E2820;
+    v30 = InternalMetadataObject;
+    v44 = v30;
+    upgradeCopy = upgrade;
+    v50 = v11;
+    v45 = lCopy;
+    v48 = &v54;
+    v49 = &v60;
+    v46 = passphraseCopy;
+    v47 = delegateCopy;
+    objc_msgSend_tsp_performSynchronousOperationWithReadFileAccessUsingBlock_(v29, v31, v43);
+    objc_msgSend_setCompletedUnitCount_(InternalMetadataObject->_readProgress, v32, 100);
+    v33 = InternalMetadataObject->_readProgress;
+    InternalMetadataObject->_readProgress = 0;
+
+    v36 = v61;
+    if (*(v61 + 24) == 1)
+    {
+      isCancelled = objc_msgSend_isCancelled(v27, v34, v35);
+      v36 = v61;
+      if (isCancelled)
+      {
+        *(v61 + 24) = 0;
+        v38 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v34, *MEMORY[0x277CCA050], 3072, 0);
+        v39 = v55[5];
+        v55[5] = v38;
+
+        v36 = v61;
+      }
+    }
+
+    if ((v36[3] & 1) == 0)
+    {
+      if (error)
+      {
+        *error = objc_msgSend_tsp_ensureReadErrorWithError_(MEMORY[0x277CCA9B8], v34, v55[5]);
+      }
+
+      v30 = 0;
+    }
+
+    v40 = v47;
+    InternalMetadataObject = v30;
+
+    _Block_object_dispose(&v54, 8);
+    _Block_object_dispose(&v60, 8);
+
+    lCopy = v42;
+  }
+
+  return InternalMetadataObject;
+}
+
 - (void)logDocumentStatistics
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v26[3] = 0;
   v25[0] = 0;
   v25[1] = v25;
   v25[2] = 0x2020000000;
   v25[3] = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x2020000000;
+  v24[3] = 0;
   componentManager = self->_componentManager;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_276997A74;
-  v24[3] = &unk_27A6E2848;
-  v24[4] = v26;
-  v24[5] = v25;
-  objc_msgSend_enumerateComponents_(componentManager, v5, v24);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_276997A74;
+  v23[3] = &unk_27A6E2848;
+  v23[4] = v25;
+  v23[5] = v24;
+  objc_msgSend_enumerateComponents_(componentManager, v5, v23);
   objc_msgSend_allData(self->_dataManager, v6, v7);
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v8 = v21 = 0u;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v20, v27, 16);
+  v19 = 0u;
+  v8 = v20 = 0u;
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v19, v26, 16);
   if (v12)
   {
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
-        isExternalData = objc_msgSend_isExternalData(v15, v10, v11, v20);
+        v15 = *(*(&v19 + 1) + 8 * i);
+        isExternalData = objc_msgSend_isExternalData(v15, v10, v11, v19);
         if (objc_msgSend_isInDocument(v15, v17, v18) && ((objc_msgSend_isApplicationData(v15, v10, v11) | isExternalData) & 1) == 0)
         {
           objc_msgSend_encodedLengthIfLocal(v15, v10, v11);
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v20, v27, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v19, v26, 16);
     }
 
     while (v12);
@@ -521,10 +707,9 @@
     sub_276BD0C64();
   }
 
+  _Block_object_dispose(v24, 8);
   _Block_object_dispose(v25, 8);
-  _Block_object_dispose(v26, 8);
   objc_autoreleasePoolPop(v3);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createInternalMetadataIfNeeded
@@ -550,45 +735,43 @@
 
 - (void)applyDeferredInitialDataProperties
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_documentMetadata)
   {
     os_unfair_lock_lock(&self->_deferredInitialDataPropertiesBlocksLock);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = self->_deferredInitialDataPropertiesBlocks;
-    v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v12, v16, 16);
+    v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v11, v15, 16);
     if (v5)
     {
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         v7 = 0;
         do
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          (*(*(*(&v12 + 1) + 8 * v7) + 16))(*(*(&v12 + 1) + 8 * v7));
+          (*(*(*(&v11 + 1) + 8 * v7) + 16))(*(*(&v11 + 1) + 8 * v7));
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v8, &v12, v16, 16);
+        v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v8, &v11, v15, 16);
       }
 
       while (v5);
     }
 
-    objc_msgSend_removeAllObjects(self->_deferredInitialDataPropertiesBlocks, v9, v10, v12);
+    objc_msgSend_removeAllObjects(self->_deferredInitialDataPropertiesBlocks, v9, v10, v11);
     os_unfair_lock_unlock(&self->_deferredInitialDataPropertiesBlocksLock);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -636,6 +819,92 @@
   [(TSPObjectContext *)&v17 dealloc];
 }
 
+- (void)closeFromDealloc:(BOOL)dealloc
+{
+  v3 = 0;
+  v41 = *MEMORY[0x277D85DE8];
+  atomic_compare_exchange_strong(&self->_didClose, &v3, 1u);
+  if (!v3)
+  {
+    if (dealloc)
+    {
+      if (UnsafePointer != -1)
+      {
+        sub_276BD0CA0();
+      }
+    }
+
+    else if (UnsafePointer != -1)
+    {
+      sub_276BD0C8C();
+    }
+
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v6 = objc_msgSend_resourceRequests(self->_resourceContext, a2, dealloc);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v36, v40, 16);
+    if (v10)
+    {
+      v11 = *v37;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v37 != v11)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v13 = objc_msgSend_progress(*(*(&v36 + 1) + 8 * i), v8, v9);
+          objc_msgSend_cancel(v13, v14, v15);
+        }
+
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v36, v40, 16);
+      }
+
+      while (v10);
+    }
+
+    objc_msgSend_didCloseDocument(self->_dataReferenceMap, v16, v17);
+    if (dealloc)
+    {
+      if (qword_280A523E8 != -1)
+      {
+        sub_276BD0CB4();
+      }
+
+      dataManager = self->_dataManager;
+      documentPackage = self->_documentPackage;
+      supportPackage = self->_supportPackage;
+      supportManager = self->_supportManager;
+      v24 = qword_280A523E0;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = sub_276998198;
+      v35[3] = &unk_27A6E2870;
+      v35[4] = dataManager;
+      v35[5] = documentPackage;
+      v35[6] = supportPackage;
+      v35[7] = supportManager;
+      v25 = supportManager;
+      v26 = supportPackage;
+      v27 = documentPackage;
+      v28 = dataManager;
+      dispatch_async(v24, v35);
+    }
+
+    else
+    {
+      objc_msgSend_didCloseDocument(self->_dataManager, v18, v19);
+      objc_msgSend_didCloseDocument(self->_documentPackage, v29, v30);
+      objc_msgSend_didCloseDocument(self->_supportPackage, v31, v32);
+      objc_msgSend_removeFilePresenter(self->_supportManager, v33, v34);
+    }
+  }
+}
+
 - (void)handleFatalError:(id)error withReason:(id)reason
 {
   errorCopy = error;
@@ -667,21 +936,18 @@
     v30 = &stru_2885C9BB8;
   }
 
-  v52 = v28;
-  v50 = v22;
-  v51 = v30;
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d TSP Fatal Error with reason %{public}@ for error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPObjectContext handleFatalError:withReason:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 861, reasonCopy, v16, v19, v22, v30, v28, errorCopy);
 
   v31 = MEMORY[0x277D81150];
-  v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSPObjectContext handleFatalError:withReason:]", "[TSPObjectContext handleFatalError:withReason:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 861, reasonCopy, v16, v19, v50, v51, v52, errorCopy);
+  v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSPObjectContext handleFatalError:withReason:]");
   v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
   v36 = objc_opt_class();
   v37 = NSStringFromClass(v36);
   v40 = objc_msgSend_domain(errorCopy, v38, v39);
   v43 = objc_msgSend_code(errorCopy, v41, v42);
-  v54 = objc_msgSend_tsp_isRecoverable(errorCopy, v44, v45);
-  v53 = objc_msgSend_tsp_hintsDescription(errorCopy, v46, v47);
-  if (v54)
+  v51 = objc_msgSend_tsp_isRecoverable(errorCopy, v44, v45);
+  v50 = objc_msgSend_tsp_hintsDescription(errorCopy, v46, v47);
+  if (v51)
   {
     v49 = @"recoverable=YES, ";
   }
@@ -691,7 +957,7 @@
     v49 = &stru_2885C9BB8;
   }
 
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v48, v33, v35, 861, 1, "TSP Fatal Error with reason %{public}@ for error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", reasonCopy, v37, v40, v43, v49, v53, errorCopy);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v48, v33, v35, 861, 1, "TSP Fatal Error with reason %{public}@ for error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", reasonCopy, v37, v40, v43, v49, v50, errorCopy);
 
   TSUCrashBreakpoint();
   abort();
@@ -1024,9 +1290,9 @@
 
   if (self->_saveOperationState)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Didn't finish previous save", "[TSPObjectContext beginSaveToURL:updateType:packageType:documentUUID:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1017);
     v27 = MEMORY[0x277D81150];
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPObjectContext beginSaveToURL:updateType:packageType:documentUUID:]", "[TSPObjectContext beginSaveToURL:updateType:packageType:documentUUID:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1017);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPObjectContext beginSaveToURL:updateType:packageType:documentUUID:]");
     v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v32, v29, v31, 1017, 1, "Didn't finish previous save");
 
@@ -1065,7 +1331,7 @@
 
 - (void)beginWriteWithOriginalURL:(id)l relativeURLForExternalData:(id)data
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dataCopy = data;
   if (UnsafePointer != -1)
@@ -1098,47 +1364,47 @@
   block[3] = &unk_27A6E2898;
   block[4] = self;
   v25 = lCopy;
-  v58 = v25;
+  v57 = v25;
   dispatch_barrier_sync(documentStateQueue, block);
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = sub_276997288;
-  v55 = sub_276997298;
-  v56 = 0;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = sub_27699A468;
-  v50[3] = &unk_27A6E28C0;
-  v50[4] = self;
-  v50[5] = &v51;
-  objc_msgSend_performReadOperationOnDataAttributes_(self, v26, v50);
-  objc_msgSend_setDataAttributesSnapshot_(self->_packageWriteCoordinator, v27, v52[5]);
-  objc_msgSend_setDataAttributesSnapshot_(self->_supportWriteCoordinator, v28, v52[5]);
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = sub_276997288;
+  v54 = sub_276997298;
+  v55 = 0;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = sub_27699A468;
+  v49[3] = &unk_27A6E28C0;
+  v49[4] = self;
+  v49[5] = &v50;
+  objc_msgSend_performReadOperationOnDataAttributes_(self, v26, v49);
+  objc_msgSend_setDataAttributesSnapshot_(self->_packageWriteCoordinator, v27, v51[5]);
+  objc_msgSend_setDataAttributesSnapshot_(self->_supportWriteCoordinator, v28, v51[5]);
   v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v32 = objc_msgSend_allData(self->_dataManager, v30, v31, 0);
-  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v46, v59, 16);
+  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v45, v58, 16);
   if (v36)
   {
-    v37 = *v47;
+    v37 = *v46;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v47 != v37)
+        if (*v46 != v37)
         {
           objc_enumerationMutation(v32);
         }
 
-        v39 = objc_msgSend_digest(*(*(&v46 + 1) + 8 * i), v34, v35);
+        v39 = objc_msgSend_digest(*(*(&v45 + 1) + 8 * i), v34, v35);
         objc_msgSend_addObject_(v29, v40, v39);
       }
 
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v34, &v46, v59, 16);
+      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v34, &v45, v58, 16);
     }
 
     while (v36);
@@ -1148,8 +1414,7 @@
   objc_msgSend_setKnownDataDigestsForAutosave_(self->_supportMetadata, v42, v29);
   objc_msgSend_suspendLoadingModifiedFlushedComponentsAndWait(self, v43, v44);
 
-  _Block_object_dispose(&v51, 8);
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
 }
 
 - (BOOL)writeToURL:(id)l encryptionKey:(id)key error:(id *)error
@@ -1158,9 +1423,9 @@
   keyCopy = key;
   if (!self->_saveOperationState)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d You should not call this method before |-beginWriteWithOriginalURL:|", "[TSPObjectContext writeToURL:encryptionKey:error:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1255);
     v25 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSPObjectContext writeToURL:encryptionKey:error:]", "[TSPObjectContext writeToURL:encryptionKey:error:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1255);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSPObjectContext writeToURL:encryptionKey:error:]");
     v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v30, v27, v29, 1255, 1, "You should not call this method before |-beginWriteWithOriginalURL:|");
 
@@ -1223,9 +1488,9 @@
   rLCopy = rL;
   supportPackageCopy = supportPackage;
   keyCopy = key;
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should not be saving in QuickLook.", "[TSPObjectContext writeToURL:originalPackage:supportURL:originalSupportPackage:encryptionKey:error:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1325);
   v17 = MEMORY[0x277D81150];
-  v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPObjectContext writeToURL:originalPackage:supportURL:originalSupportPackage:encryptionKey:error:]", "[TSPObjectContext writeToURL:originalPackage:supportURL:originalSupportPackage:encryptionKey:error:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1325);
+  v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPObjectContext writeToURL:originalPackage:supportURL:originalSupportPackage:encryptionKey:error:]");
   v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
   objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v19, v21, 1325, 1, "Should not be saving in QuickLook.");
 
@@ -1250,6 +1515,190 @@
   }
 
   return v7;
+}
+
+- (BOOL)endWriteWithSuccess:(BOOL)success error:(id *)error
+{
+  successCopy = success;
+  if (UnsafePointer != -1)
+  {
+    sub_276BD0DB8();
+  }
+
+  saveOperationState = self->_saveOperationState;
+  if (!saveOperationState)
+  {
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d You should not call this method outside of a save operation", "[TSPObjectContext endWriteWithSuccess:error:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 1599);
+    v56 = MEMORY[0x277D81150];
+    v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "[TSPObjectContext endWriteWithSuccess:error:]");
+    v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v61, v58, v60, 1599, 1, "You should not call this method outside of a save operation");
+
+    TSUCrashBreakpoint();
+    abort();
+  }
+
+  v9 = objc_msgSend_documentPackageWriter(saveOperationState, a2, success);
+  if (!v9 && successCopy)
+  {
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPObjectContext endWriteWithSuccess:error:]");
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v14, v11, v13, 1602, 0, "Document package writer should be available.");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16);
+  }
+
+  v64 = 0;
+  v17 = objc_msgSend_closeAndReturnError_(v9, v8, &v64);
+  v19 = v64;
+  if (v17)
+  {
+    v20 = successCopy;
+  }
+
+  else
+  {
+    if (UnsafePointer != -1)
+    {
+      sub_276BD0DCC();
+    }
+
+    v20 = 0;
+    if (error && successCopy)
+    {
+      v21 = v19;
+      v20 = 0;
+      *error = v19;
+    }
+  }
+
+  objc_msgSend_setDidEndWriteOperation_(self->_saveOperationState, v18, 1);
+  if (objc_msgSend_shouldUpdate(self->_saveOperationState, v22, v23))
+  {
+    v26 = objc_msgSend_allDataIdentifiers(self->_dataManager, v24, v25);
+    objc_msgSend_setAllDataIdentifiersPostSave_(self->_saveOperationState, v27, v26);
+
+    objc_msgSend_prepareForDocumentReplacementWithSuccess_forSafeSave_(self, v28, v20, 1);
+    objc_msgSend_setShouldLeavePendingEndSave_(self->_saveOperationState, v29, 1);
+  }
+
+  else
+  {
+    documentStateQueue = self->_documentStateQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_27699B514;
+    block[3] = &unk_27A6E2960;
+    block[4] = self;
+    v63 = v20;
+    dispatch_barrier_sync(documentStateQueue, block);
+    objc_msgSend_sampleID(self->_saveOperationState, v33, v34);
+    nextSaveProgress = self->_nextSaveProgress;
+    if (nextSaveProgress)
+    {
+      v38 = objc_msgSend_progress(self->_saveOperationState, v35, v36);
+
+      if (nextSaveProgress != v38)
+      {
+        v40 = MEMORY[0x277D81150];
+        v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[TSPObjectContext endWriteWithSuccess:error:]");
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v44, v41, v43, 1634, 0, "Next save progress was updated during a save operation.");
+
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46);
+      }
+    }
+
+    v47 = self->_nextSaveProgress;
+    self->_nextSaveProgress = 0;
+
+    if (objc_msgSend_shouldResumeAsynchronousModifications(self->_saveOperationState, v48, v49))
+    {
+      objc_msgSend_resumeAsynchronousModifications(self, v50, v51);
+    }
+
+    v52 = self->_saveOperationState;
+    self->_saveOperationState = 0;
+  }
+
+  objc_msgSend_endWriteOperation(self, v30, v31);
+  objc_msgSend_resumeLoadingModifiedFlushedComponents(self, v53, v54);
+
+  return v20;
+}
+
+- (void)endSaveWithSuccess:(BOOL)success
+{
+  if (UnsafePointer != -1)
+  {
+    sub_276BD0DF4();
+  }
+
+  saveOperationState = self->_saveOperationState;
+  if (saveOperationState)
+  {
+    if ((objc_msgSend_shouldUpdate(saveOperationState, a2, success) & 1) == 0)
+    {
+      v8 = MEMORY[0x277D81150];
+      v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSPObjectContext endSaveWithSuccess:]");
+      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 1669, 0, "Should have released the save operation state previously");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14);
+    }
+
+    objc_msgSend_updateModifyObjectToken(self, v6, v7);
+    documentStateQueue = self->_documentStateQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_27699B894;
+    block[3] = &unk_27A6E2960;
+    successCopy = success;
+    block[4] = self;
+    dispatch_barrier_sync(documentStateQueue, block);
+    if (objc_msgSend_shouldLeavePendingEndSave(self->_saveOperationState, v16, v17))
+    {
+      dispatch_group_leave(self->_pendingEndSaveGroup);
+    }
+
+    if (objc_msgSend_shouldResumeAsynchronousModifications(self->_saveOperationState, v18, v19))
+    {
+      objc_msgSend_resumeAsynchronousModifications(self, v20, v21);
+    }
+
+    nextSaveProgress = self->_nextSaveProgress;
+    if (nextSaveProgress)
+    {
+      v23 = objc_msgSend_progress(self->_saveOperationState, v20, v21);
+
+      if (nextSaveProgress != v23)
+      {
+        v25 = MEMORY[0x277D81150];
+        v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPObjectContext endSaveWithSuccess:]");
+        v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 1803, 0, "Next save progress was updated during a save operation.");
+
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
+      }
+    }
+
+    v32 = self->_nextSaveProgress;
+    self->_nextSaveProgress = 0;
+
+    v33 = self->_saveOperationState;
+    v34 = self->_saveOperationState;
+    self->_saveOperationState = 0;
+
+    v35 = objc_opt_class();
+    v38 = objc_msgSend_releaseQueue(v35, v36, v37);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = nullsub_2;
+    v39[3] = &unk_27A6E27F8;
+    v40 = v33;
+    dispatch_async(v38, v39);
+  }
 }
 
 - (BOOL)saveToURL:(id)l packageType:(int64_t)type encryptionKey:(id)key originalURL:(id)rL error:(id *)error
@@ -1871,6 +2320,122 @@ LABEL_19:
   _Block_object_dispose(&v21, 8);
 
   return v9 & 1;
+}
+
+- (BOOL)continueReadingDocumentObjectFromPackageURL:(id)l areExternalDataReferencesAllowed:(BOOL)allowed finalizeHandlerQueue:(id)queue readCoordinator:(id *)coordinator objects:(id *)objects error:(id *)error
+{
+  allowedCopy = allowed;
+  lCopy = l;
+  queueCopy = queue;
+  v15 = [TSPPackageReadCoordinator alloc];
+  documentPackage = self->_documentPackage;
+  LODWORD(queue) = self->_flags;
+  v19 = objc_msgSend_documentLoadValidationPolicy(self, v17, v18);
+  ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v15, v20, self, documentPackage, lCopy, queueCopy, allowedCopy, (queue >> 21) & 1, v19);
+
+  objc_msgSend_setCancellationState_(ValidationPolicy, v22, self->_readCancellationState);
+  if (!ValidationPolicy)
+  {
+    v25 = MEMORY[0x277D81150];
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSPObjectContext continueReadingDocumentObjectFromPackageURL:areExternalDataReferencesAllowed:finalizeHandlerQueue:readCoordinator:objects:error:]");
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 2257, 0, "Failed to initialize read coordinator for URL: %@", lCopy);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
+  }
+
+  objc_msgSend_beginAssertOnRead(self->_objectUUIDMap, v23, v24);
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = sub_276997288;
+  v80 = sub_276997298;
+  v81 = 0;
+  v74[6] = &v76;
+  v75 = 0;
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = sub_27699ED28;
+  v74[3] = &unk_27A6E2AC8;
+  v74[4] = self;
+  v74[5] = ValidationPolicy;
+  v33 = objc_msgSend_readWithReadCoordinator_finalizeHandlerQueue_rootObject_error_readCompletion_(self, v32, ValidationPolicy, 0, &v75, error, v74);
+  v34 = v75;
+  v37 = objc_msgSend_didRequireUpgrade(ValidationPolicy, v35, v36);
+  if (v34)
+  {
+    v40 = v33;
+  }
+
+  else
+  {
+    v40 = 0;
+  }
+
+  if (v40 == 1)
+  {
+    v41 = v37;
+    v42 = objc_msgSend_featureIdentifiers(ValidationPolicy, v38, v39);
+    v45 = objc_msgSend_copy(v42, v43, v44);
+    featureIdentifiers = self->_featureIdentifiers;
+    self->_featureIdentifiers = v45;
+
+    v49 = objc_msgSend_losesDataOnWrite(ValidationPolicy, v47, v48);
+    self->_losesDataOnWrite = v49;
+    if (v49)
+    {
+      v52 = objc_msgSend_unsupportedFeatureIdentifiers(ValidationPolicy, v50, v51);
+      v55 = objc_msgSend_copy(v52, v53, v54);
+      unsupportedFeatureIdentifiers = self->_unsupportedFeatureIdentifiers;
+      self->_unsupportedFeatureIdentifiers = v55;
+    }
+
+    if (v41)
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      if (objc_opt_respondsToSelector())
+      {
+        objc_msgSend_didLoadDocumentWrittenByPreviousVersion(WeakRetained, v58, v59);
+      }
+    }
+  }
+
+  if (v33)
+  {
+    documentObject = self->_documentObject;
+    objc_opt_class();
+    v62 = (objc_opt_isKindOfClass() & 1) != 0 ? 0 : v34;
+    if (documentObject != v62)
+    {
+      v63 = MEMORY[0x277D81150];
+      v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "[TSPObjectContext continueReadingDocumentObjectFromPackageURL:areExternalDataReferencesAllowed:finalizeHandlerQueue:readCoordinator:objects:error:]");
+      v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v67, v64, v66, 2306, 0, "Unexpected document object instance");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69);
+    }
+  }
+
+  if (coordinator)
+  {
+    v70 = ValidationPolicy;
+    *coordinator = ValidationPolicy;
+  }
+
+  v71 = v33 ^ 1;
+  if (!objects)
+  {
+    v71 = 1;
+  }
+
+  if ((v71 & 1) == 0)
+  {
+    *objects = v77[5];
+  }
+
+  _Block_object_dispose(&v76, 8);
+
+  return v33;
 }
 
 - (BOOL)readDocumentObjectFromDatabasePackageURL:(id)l error:(id *)error
@@ -2520,7 +3085,7 @@ LABEL_9:
 
 + (id)documentRevisionAtURL:(id)l passphrase:(id)passphrase error:(id *)error
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   passphraseCopy = passphrase;
   v10 = [TSPTemporaryFileCoordinatorDelegate alloc];
@@ -2583,9 +3148,9 @@ LABEL_6:
     v48 = MEMORY[0x277CCA9B8];
     if (v45)
     {
-      v53 = *MEMORY[0x277CCA498];
-      v54[0] = v45;
-      v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v54, &v53, 1);
+      v52 = *MEMORY[0x277CCA498];
+      v53[0] = v45;
+      v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v53, &v52, 1);
       objc_msgSend_tsp_errorWithCode_userInfo_(v48, v50, 9, v49);
     }
 
@@ -2603,8 +3168,6 @@ LABEL_6:
   }
 
 LABEL_19:
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -2733,7 +3296,7 @@ LABEL_19:
 
 - (id)dataObserversConformingToProtocol:(id)protocol
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   os_unfair_lock_lock(&self->_dataObserversLock);
   v7 = objc_msgSend_count(self->_dataObservers, v5, v6);
@@ -2741,32 +3304,32 @@ LABEL_19:
   {
     v8 = objc_alloc(MEMORY[0x277CBEB18]);
     v10 = objc_msgSend_initWithCapacity_(v8, v9, v7);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = self->_dataObservers;
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v20, v24, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v19, v23, 16);
     if (v14)
     {
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * i);
-          if (objc_msgSend_conformsToProtocol_(v17, v13, protocolCopy, v20))
+          v17 = *(*(&v19 + 1) + 8 * i);
+          if (objc_msgSend_conformsToProtocol_(v17, v13, protocolCopy, v19))
           {
             objc_msgSend_addObject_(v10, v13, v17);
           }
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v20, v24, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v19, v23, 16);
       }
 
       while (v14);
@@ -2779,8 +3342,6 @@ LABEL_19:
   }
 
   os_unfair_lock_unlock(&self->_dataObserversLock);
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2821,38 +3382,36 @@ LABEL_19:
 
 - (void)dataInDocumentDidChangeForDataReferenceMap:(id)map
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mapCopy = map;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = objc_msgSend_dataObserversConformingToProtocol_(self, v5, &unk_28860A9F8, 0);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v13, v17, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v12, v16, 16);
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        objc_msgSend_dataInDocumentUpdatedWithProvider_(*(*(&v13 + 1) + 8 * v11++), v8, mapCopy);
+        objc_msgSend_dataInDocumentUpdatedWithProvider_(*(*(&v12 + 1) + 8 * v11++), v8, mapCopy);
       }
 
       while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v13, v17, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v12, v16, 16);
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAllDataUsingBlock:(id)block
@@ -2861,9 +3420,9 @@ LABEL_19:
   dataManager = self->_dataManager;
   if (!dataManager)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPObjectContext enumerateAllDataUsingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 3013, "_dataManager");
     v6 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSPObjectContext enumerateAllDataUsingBlock:]", "[TSPObjectContext enumerateAllDataUsingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 3013, "_dataManager");
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSPObjectContext enumerateAllDataUsingBlock:]");
     v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 3013, 1, "invalid nil value for '%{public}s'", "_dataManager");
 
@@ -2880,9 +3439,9 @@ LABEL_19:
   dataReferenceMap = self->_dataReferenceMap;
   if (!dataReferenceMap)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPObjectContext enumerateDataInDocumentUsingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 3018, "_dataReferenceMap");
     v6 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSPObjectContext enumerateDataInDocumentUsingBlock:]", "[TSPObjectContext enumerateDataInDocumentUsingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 3018, "_dataReferenceMap");
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSPObjectContext enumerateDataInDocumentUsingBlock:]");
     v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 3018, 1, "invalid nil value for '%{public}s'", "_dataReferenceMap");
 
@@ -3173,7 +3732,7 @@ LABEL_5:
 
 - (BOOL)readComponent:(id)component isWeakReference:(BOOL)reference documentPackage:(id)package supportPackage:(id)supportPackage rootObject:(id *)object allObjects:(id *)objects error:(id *)error
 {
-  v123[1] = *MEMORY[0x277D85DE8];
+  v122[1] = *MEMORY[0x277D85DE8];
   componentCopy = component;
   packageCopy = package;
   supportPackageCopy = supportPackage;
@@ -3194,20 +3753,20 @@ LABEL_5:
     }
   }
 
-  v119 = 0;
-  v120 = &v119;
-  v121 = 0x2020000000;
-  v122 = 0;
+  v118 = 0;
+  v119 = &v118;
+  v120 = 0x2020000000;
+  v121 = 0;
   v18 = [TSPFinalizeHandlerQueue alloc];
   v21 = objc_msgSend_identifier(componentCopy, v19, v20);
-  v90 = objc_msgSend_initWithRootObjectIdentifier_(v18, v22, v21);
+  v89 = objc_msgSend_initWithRootObjectIdentifier_(v18, v22, v21);
   v25 = objc_msgSend_packageIdentifier(componentCopy, v23, v24);
   if (v25)
   {
     if (v25 == 1)
     {
       v36 = [TSPPackageReadCoordinator alloc];
-      ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v36, v37, self, self->_documentPackage, 0, v90, 0, (*&self->_flags >> 21) & 1, 0);
+      ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v36, v37, self, self->_documentPackage, 0, v89, 0, (*&self->_flags >> 21) & 1, 0);
       v30 = componentCopy;
       v31 = @"DocumentReadCoordinatorAllocation";
       goto LABEL_12;
@@ -3218,18 +3777,18 @@ LABEL_5:
       v30 = componentCopy;
       v38 = 0;
       v31 = 0;
-      v87 = @"ReadCoordinatorAllocation";
+      v86 = @"ReadCoordinatorAllocation";
       goto LABEL_17;
     }
 
     if (self->_supportPackage)
     {
       v27 = [TSPSupportPackageReadCoordinator alloc];
-      ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_documentPackage_(v27, v28, self, self->_supportPackage, 0, v90, 0, (*&self->_flags >> 21) & 1, 0, packageCopy);
+      ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_documentPackage_(v27, v28, self, self->_supportPackage, 0, v89, 0, (*&self->_flags >> 21) & 1, 0, packageCopy);
       v30 = componentCopy;
       v31 = @"SupportReadCoordinatorAllocation";
 LABEL_12:
-      v87 = v31;
+      v86 = v31;
       v38 = ValidationPolicy;
       goto LABEL_17;
     }
@@ -3246,93 +3805,93 @@ LABEL_12:
     v31 = @"UnknownPackageIdentifier";
   }
 
-  v87 = v31;
+  v86 = v31;
 LABEL_17:
-  v113 = 0;
-  v114 = &v113;
-  v115 = 0x3032000000;
-  v116 = sub_276997288;
-  v117 = sub_276997298;
-  v118 = 0;
-  v107 = 0;
-  v108 = &v107;
-  v109 = 0x3032000000;
-  v110 = sub_276997288;
-  v111 = sub_276997298;
   v112 = 0;
-  v101 = 0;
-  v102 = &v101;
-  v103 = 0x3032000000;
-  v104 = sub_276997288;
-  v105 = sub_276997298;
+  v113 = &v112;
+  v114 = 0x3032000000;
+  v115 = sub_276997288;
+  v116 = sub_276997298;
+  v117 = 0;
   v106 = 0;
-  v88 = v38;
+  v107 = &v106;
+  v108 = 0x3032000000;
+  v109 = sub_276997288;
+  v110 = sub_276997298;
+  v111 = 0;
+  v100 = 0;
+  v101 = &v100;
+  v102 = 0x3032000000;
+  v103 = sub_276997288;
+  v104 = sub_276997298;
+  v105 = 0;
+  v87 = v38;
   if (v38)
   {
     v39 = dispatch_get_global_queue(0, 0);
     v40 = dispatch_semaphore_create(0);
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = sub_2769A41F0;
-    v92[3] = &unk_27A6E2D18;
-    v96 = &v119;
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = sub_2769A41F0;
+    v91[3] = &unk_27A6E2D18;
+    v95 = &v118;
     v41 = v38;
-    v93 = v41;
-    v97 = &v113;
-    v98 = &v107;
-    v99 = &v101;
+    v92 = v41;
+    v96 = &v112;
+    v97 = &v106;
+    v98 = &v100;
     referenceCopy = reference;
     componentCopy = v30;
-    v94 = v30;
+    v93 = v30;
     v42 = v40;
-    v95 = v42;
-    objc_msgSend_readComponent_completionQueue_completion_(v41, v43, v94, v39, v92);
+    v94 = v42;
+    objc_msgSend_readComponent_completionQueue_completion_(v41, v43, v93, v39, v91);
     dispatch_semaphore_wait(v42, 0xFFFFFFFFFFFFFFFFLL);
     objc_msgSend_tearDown(v41, v44, v45);
     objectsCopy = objects;
-    if (*(v120 + 24) == 1)
+    if (*(v119 + 24) == 1)
     {
       v48 = objc_autoreleasePoolPush();
       objc_msgSend_beginAddingLoadedObjects(self, v49, v50);
-      objc_msgSend_addLoadedObjectsAndEnqueueNotifications_(self, v51, v108[5]);
-      if (v108[5])
+      objc_msgSend_addLoadedObjectsAndEnqueueNotifications_(self, v51, v107[5]);
+      if (v107[5])
       {
         v53 = objc_alloc(MEMORY[0x277CBEA60]);
-        v55 = objc_msgSend_initWithObjects_(v53, v54, v108[5], 0);
-        Coordinator_finalizeHandlerQueue = objc_msgSend_didFinishSuccessfullyReadingObjects_readCoordinator_finalizeHandlerQueue_(self, v56, v55, v41, v90);
+        v55 = objc_msgSend_initWithObjects_(v53, v54, v107[5], 0);
+        Coordinator_finalizeHandlerQueue = objc_msgSend_didFinishSuccessfullyReadingObjects_readCoordinator_finalizeHandlerQueue_(self, v56, v55, v41, v89);
       }
 
       else
       {
         v55 = 0;
-        Coordinator_finalizeHandlerQueue = objc_msgSend_didFinishSuccessfullyReadingObjects_readCoordinator_finalizeHandlerQueue_(self, v52, 0, v41, v90);
+        Coordinator_finalizeHandlerQueue = objc_msgSend_didFinishSuccessfullyReadingObjects_readCoordinator_finalizeHandlerQueue_(self, v52, 0, v41, v89);
       }
 
-      *(v120 + 24) = Coordinator_finalizeHandlerQueue;
+      *(v119 + 24) = Coordinator_finalizeHandlerQueue;
       objc_msgSend_endAddingLoadedObjects(self, v58, v59);
 
       objc_autoreleasePoolPop(v48);
-      if (v120[3])
+      if (v119[3])
       {
         goto LABEL_27;
       }
 
-      v78 = objc_msgSend_tsp_ensureReadErrorWithError_(MEMORY[0x277CCA9B8], v80, v102[5]);
+      v78 = objc_msgSend_tsp_ensureReadErrorWithError_(MEMORY[0x277CCA9B8], v80, v101[5]);
       v79 = &unk_2885E5968;
     }
 
     else
     {
-      v78 = objc_msgSend_tsp_ensureReadErrorWithError_(MEMORY[0x277CCA9B8], v46, v102[5]);
+      v78 = objc_msgSend_tsp_ensureReadErrorWithError_(MEMORY[0x277CCA9B8], v46, v101[5]);
       v79 = &unk_2885E5980;
     }
 
-    v81 = v102[5];
-    v102[5] = v78;
+    v81 = v101[5];
+    v101[5] = v78;
 
-    v83 = objc_msgSend_tsp_errorWithError_hints_(MEMORY[0x277CCA9B8], v82, v102[5], v79);
-    v84 = v102[5];
-    v102[5] = v83;
+    v83 = objc_msgSend_tsp_errorWithError_hints_(MEMORY[0x277CCA9B8], v82, v101[5], v79);
+    v84 = v101[5];
+    v101[5] = v83;
 
 LABEL_27:
     goto LABEL_28;
@@ -3348,30 +3907,30 @@ LABEL_27:
 
   objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69);
   v71 = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(MEMORY[0x277CCA9B8], v70, 0);
-  v72 = v102[5];
-  v102[5] = v71;
+  v72 = v101[5];
+  v101[5] = v71;
 
   v73 = MEMORY[0x277CCA9B8];
-  v74 = v102[5];
-  v123[0] = v87;
-  v39 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v75, v123, 1);
+  v74 = v101[5];
+  v122[0] = v86;
+  v39 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v75, v122, 1);
   v77 = objc_msgSend_tsp_errorWithError_hints_(v73, v76, v74, v39);
-  v42 = v102[5];
-  v102[5] = v77;
+  v42 = v101[5];
+  v101[5] = v77;
 LABEL_28:
 
   if (object)
   {
-    *object = v114[5];
+    *object = v113[5];
   }
 
   if (objectsCopy)
   {
-    *objectsCopy = v108[5];
+    *objectsCopy = v107[5];
   }
 
-  v35 = *(v120 + 24);
-  if (error && (v120[3] & 1) == 0)
+  v35 = *(v119 + 24);
+  if (error && (v119[3] & 1) == 0)
   {
     if (*error)
     {
@@ -3380,21 +3939,20 @@ LABEL_28:
 
     else
     {
-      *error = v102[5];
-      v35 = *(v120 + 24);
+      *error = v101[5];
+      v35 = *(v119 + 24);
     }
   }
 
-  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v100, 8);
 
-  _Block_object_dispose(&v107, 8);
-  _Block_object_dispose(&v113, 8);
+  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v112, 8);
 
-  _Block_object_dispose(&v119, 8);
+  _Block_object_dispose(&v118, 8);
   v34 = 0;
 LABEL_38:
 
-  v85 = *MEMORY[0x277D85DE8];
   return v35 & 1;
 }
 
@@ -3567,6 +4125,113 @@ LABEL_38:
   return v16 & 1;
 }
 
+- (id)readObjectIfNeededForIdentifier:(int64_t)identifier isWeakReference:(BOOL)reference componentIdentifier:(int64_t)componentIdentifier
+{
+  referenceCopy = reference;
+  v10 = objc_msgSend_objectForIdentifier_(self, a2, identifier);
+  if (!v10)
+  {
+    v13 = objc_msgSend_componentForRootObjectIdentifier_(self->_componentManager, v9, componentIdentifier);
+    if (v13)
+    {
+      v14 = objc_msgSend_ignoreUnknownContentWhileReading(self, v11, v12);
+      v18 = 0;
+      v19 = 0;
+      isWeakReference_ignoreUnknownContentWhileReading_rootObjectComponent_object_error = objc_msgSend_readObjectForIdentifier_isWeakReference_ignoreUnknownContentWhileReading_rootObjectComponent_object_error_(self, v15, identifier, referenceCopy, v14, v13, &v19, &v18);
+      v10 = v19;
+      if (!(isWeakReference_ignoreUnknownContentWhileReading_rootObjectComponent_object_error | referenceCopy) && UnsafePointer != -1)
+      {
+        sub_276BD1050();
+      }
+
+      goto LABEL_10;
+    }
+
+    if (!referenceCopy)
+    {
+      if (UnsafePointer == -1)
+      {
+        v10 = 0;
+        goto LABEL_10;
+      }
+
+      sub_276BD1078();
+    }
+
+    v10 = 0;
+LABEL_10:
+  }
+
+  return v10;
+}
+
+- (BOOL)readObjectForIdentifier:(int64_t)identifier isWeakReference:(BOOL)reference ignoreUnknownContentWhileReading:(BOOL)reading rootObjectComponent:(id)component object:(id *)object error:(id *)error
+{
+  referenceCopy = reference;
+  componentCopy = component;
+  v35 = 0;
+  v36 = 0;
+  LODWORD(referenceCopy) = objc_msgSend_readComponent_isWeakReference_rootObject_allObjects_error_(self, v15, componentCopy, referenceCopy, &v36, &v35, error);
+  v16 = v36;
+  v19 = v35;
+  if (!referenceCopy)
+  {
+    v31 = 0;
+    v32 = 0;
+    if (!object)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (objc_msgSend_identifier(componentCopy, v17, v18) == identifier)
+  {
+    if (!v16 && !reading)
+    {
+      v21 = MEMORY[0x277D81150];
+      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSPObjectContext readObjectForIdentifier:isWeakReference:ignoreUnknownContentWhileReading:rootObjectComponent:object:error:]");
+      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v25, v22, v24, 3490, 0, "We shouldn't have a nil root object when read is successful.");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27);
+    }
+
+    v28 = v16;
+  }
+
+  else
+  {
+    v28 = objc_msgSend_tsp_objectForIdentifier_(v19, v20, identifier);
+  }
+
+  v31 = v28;
+  if (!v28)
+  {
+    v32 = objc_msgSend_ignoreUnknownContentWhileReading(self, v29, v30);
+    v31 = 0;
+    if (!object)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_12;
+  }
+
+  v32 = 1;
+  if (object)
+  {
+LABEL_12:
+    v33 = v31;
+    *object = v31;
+  }
+
+LABEL_13:
+
+  return v32;
+}
+
 - (BOOL)areNewExternalReferencesToDataAllowed
 {
   if ((*&self->_flags & 0x10) == 0)
@@ -3695,114 +4360,110 @@ LABEL_38:
 
 - (BOOL)isResourceAccessTypeFinished:(int64_t)finished
 {
-  v41 = *MEMORY[0x277D85DE8];
-  if (finished)
+  v40 = *MEMORY[0x277D85DE8];
+  if (!finished)
   {
-    v35 = objc_msgSend_sharedManager(TSPResourceRequestManager, a2, finished);
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v7 = objc_msgSend_resourceContext(self, v5, v6);
-    v10 = objc_msgSend_resourceRequests(v7, v8, v9);
+    return 1;
+  }
 
-    obj = v10;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v36, v40, 16);
-    if (v13)
+  v34 = objc_msgSend_sharedManager(TSPResourceRequestManager, a2, finished);
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v7 = objc_msgSend_resourceContext(self, v5, v6);
+  v10 = objc_msgSend_resourceRequests(v7, v8, v9);
+
+  obj = v10;
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v35, v39, 16);
+  if (v13)
+  {
+    v14 = 0;
+    v15 = *v36;
+    while (2)
     {
-      v14 = 0;
-      v15 = *v37;
-      while (2)
+      v16 = 0;
+      do
       {
-        v16 = 0;
-        do
+        if (*v36 != v15)
         {
-          if (*v37 != v15)
+          objc_enumerationMutation(obj);
+        }
+
+        v17 = *(*(&v35 + 1) + 8 * v16);
+        v18 = objc_msgSend_resourceAccessTypeForResourceRequest_(v34, v12, v17);
+        if ((v18 & v14) == 0)
+        {
+          v19 = TSUProtocolCast();
+          v22 = objc_msgSend_allResourcesInaccessible(v19, v20, v21, &unk_28860AAB8);
+
+          if (UnsafePointer != -1)
           {
-            objc_enumerationMutation(obj);
+            sub_276BD108C();
           }
 
-          v17 = *(*(&v36 + 1) + 8 * v16);
-          v18 = objc_msgSend_resourceAccessTypeForResourceRequest_(v35, v12, v17);
-          if ((v18 & v14) == 0)
+          v25 = objc_msgSend_progress(v17, v23, v24);
+          if (objc_msgSend_isCancelled(v25, v26, v27))
           {
-            v19 = TSUProtocolCast();
-            v22 = objc_msgSend_allResourcesInaccessible(v19, v20, v21, &unk_28860AAB8);
+            isFinished = 0;
+          }
 
-            if (UnsafePointer != -1)
-            {
-              sub_276BD108C();
-            }
+          else
+          {
+            isFinished = objc_msgSend_isFinished(v25, v28, v29);
+          }
 
-            v25 = objc_msgSend_progress(v17, v23, v24);
-            if (objc_msgSend_isCancelled(v25, v26, v27))
-            {
-              isFinished = 0;
-            }
+          if (UnsafePointer != -1)
+          {
+            sub_276BD10B4();
+          }
 
-            else
+          if (((v22 | isFinished) & 1) == 0)
+          {
+            if (objc_msgSend_estimatedDownloadSize(v17, v28, v29))
             {
-              isFinished = objc_msgSend_isFinished(v25, v28, v29);
-            }
-
-            if (UnsafePointer != -1)
-            {
-              sub_276BD10B4();
-            }
-
-            if (((v22 | isFinished) & 1) == 0)
-            {
-              if (objc_msgSend_estimatedDownloadSize(v17, v28, v29))
+              v14 |= v18;
+              if (UnsafePointer != -1)
               {
-                v14 |= v18;
-                if (UnsafePointer != -1)
-                {
-                  sub_276BD10DC();
-                }
+                sub_276BD10DC();
               }
             }
           }
+        }
 
-          if ((finished & ~v14) == 0)
+        if ((finished & ~v14) == 0)
+        {
+          if (UnsafePointer != -1)
           {
-            if (UnsafePointer != -1)
-            {
-              sub_276BD1104();
-            }
-
-            v31 = 0;
-            goto LABEL_29;
+            sub_276BD1104();
           }
 
-          ++v16;
+          v31 = 0;
+          goto LABEL_29;
         }
 
-        while (v13 != v16);
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v36, v40, 16);
-        if (v13)
-        {
-          continue;
-        }
-
-        break;
+        ++v16;
       }
-    }
 
-    if (UnsafePointer != -1)
-    {
-      sub_276BD112C();
-    }
+      while (v13 != v16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v35, v39, 16);
+      if (v13)
+      {
+        continue;
+      }
 
-    v31 = 1;
-LABEL_29:
+      break;
+    }
   }
 
-  else
+  if (UnsafePointer != -1)
   {
-    v31 = 1;
+    sub_276BD112C();
   }
 
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = 1;
+LABEL_29:
+
   return v31;
 }
 
@@ -3936,60 +4597,6 @@ LABEL_29:
 
 - (void)suspendAsynchronousModificationsForObjectTargetType:(unint64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_276997288;
-  v21 = sub_276997298;
-  v22 = 0;
-  asynchronousObjectModifierQueue = self->_asynchronousObjectModifierQueue;
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = sub_2769A6928;
-  block[3] = &unk_27A6E2C28;
-  block[4] = self;
-  block[5] = &v17;
-  block[6] = type;
-  dispatch_sync(asynchronousObjectModifierQueue, block);
-  if (UnsafePointer != -1)
-  {
-    sub_276BD1154();
-  }
-
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v5 = v18[5];
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v23, 16);
-  if (v8)
-  {
-    v9 = *v13;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v13 != v9)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        objc_msgSend_suspendAsynchronousModificationsForObjectTargetType_(*(*(&v12 + 1) + 8 * i), v7, type, v12);
-      }
-
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v12, v23, 16);
-    }
-
-    while (v8);
-  }
-
-  _Block_object_dispose(&v17, 8);
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)resumeAsynchronousModifications
-{
   v23 = *MEMORY[0x277D85DE8];
   v16 = 0;
   v17 = &v16;
@@ -4000,45 +4607,97 @@ LABEL_29:
   asynchronousObjectModifierQueue = self->_asynchronousObjectModifierQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
-  block[2] = sub_2769A6D78;
-  block[3] = &unk_27A6E2E30;
+  block[2] = sub_2769A6928;
+  block[3] = &unk_27A6E2C28;
   block[4] = self;
   block[5] = &v16;
+  block[6] = type;
   dispatch_sync(asynchronousObjectModifierQueue, block);
   if (UnsafePointer != -1)
   {
-    sub_276BD117C();
+    sub_276BD1154();
   }
 
   v13 = 0u;
   v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v3 = v17[5];
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v11, v22, 16);
+  v5 = v17[5];
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v11, v22, 16);
+  if (v8)
+  {
+    v9 = *v12;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        objc_msgSend_suspendAsynchronousModificationsForObjectTargetType_(*(*(&v11 + 1) + 8 * i), v7, type, v11);
+      }
+
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v11, v22, 16);
+    }
+
+    while (v8);
+  }
+
+  _Block_object_dispose(&v16, 8);
+}
+
+- (void)resumeAsynchronousModifications
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_276997288;
+  v19 = sub_276997298;
+  v20 = 0;
+  asynchronousObjectModifierQueue = self->_asynchronousObjectModifierQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = sub_2769A6D78;
+  block[3] = &unk_27A6E2E30;
+  block[4] = self;
+  block[5] = &v15;
+  dispatch_sync(asynchronousObjectModifierQueue, block);
+  if (UnsafePointer != -1)
+  {
+    sub_276BD117C();
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = v16[5];
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v10, v21, 16);
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        objc_msgSend_resumeAsynchronousModifications(*(*(&v11 + 1) + 8 * i), v5, v6, v11);
+        objc_msgSend_resumeAsynchronousModifications(*(*(&v10 + 1) + 8 * i), v5, v6, v10);
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v11, v22, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v10, v21, 16);
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 - (void)registerAsynchronousObjectModifier:(id)modifier
@@ -4195,9 +4854,9 @@ LABEL_29:
 
     if ((objc_msgSend_setPassphrase_(self, v26, passphraseCopy) & 1) == 0)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Password should be correct here.", "[TSPObjectContext prepareForDocumentDumpWithDocumentPackage:supportPackage:documentRevision:passphrase:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 3895);
       v27 = MEMORY[0x277D81150];
-      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPObjectContext prepareForDocumentDumpWithDocumentPackage:supportPackage:documentRevision:passphrase:]", "[TSPObjectContext prepareForDocumentDumpWithDocumentPackage:supportPackage:documentRevision:passphrase:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 3895);
+      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPObjectContext prepareForDocumentDumpWithDocumentPackage:supportPackage:documentRevision:passphrase:]");
       v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v32, v29, v31, 3895, 1, "Password should be correct here.");
 
@@ -4281,6 +4940,56 @@ LABEL_29:
   pendingEndSaveGroup = self->_pendingEndSaveGroup;
 
   objc_msgSend_waitForPendingEndSaveGroup_(v3, v4, pendingEndSaveGroup);
+}
+
+- (void)prepareForDocumentReplacementWithSuccess:(BOOL)success forSafeSave:(BOOL)save
+{
+  saveCopy = save;
+  successCopy = success;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_276997288;
+  v22 = sub_276997298;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_276997288;
+  v16 = sub_276997298;
+  v17 = 0;
+  if (save)
+  {
+    dispatch_group_enter(self->_pendingEndSaveGroup);
+    documentStateQueue = self->_documentStateQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_2769A7B50;
+    block[3] = &unk_27A6E2E80;
+    block[4] = self;
+    block[5] = &v18;
+    block[6] = &v12;
+    dispatch_barrier_sync(documentStateQueue, block);
+  }
+
+  else
+  {
+    v8 = self->_documentStateQueue;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_2769A7C68;
+    v10[3] = &unk_27A6E2EA8;
+    v10[4] = self;
+    v10[5] = &v18;
+    v10[6] = &v12;
+    dispatch_sync(v8, v10);
+  }
+
+  dispatch_group_wait(self->_outstandingReadsGroup, 0xFFFFFFFFFFFFFFFFLL);
+  objc_msgSend_prepareForDocumentReplacementWithSuccess_forSafeSave_originalURL_(v13[5], v9, successCopy, saveCopy, v19[5]);
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
 }
 
 - (NSFilePresenter)filePresenter
@@ -4457,15 +5166,15 @@ LABEL_29:
     if (objc_msgSend_containsObject_(v11, v12, objectCopy))
     {
       v17 = objc_opt_class();
-      v26 = NSStringFromClass(v17);
-      TSUSetCrashReporterInfo();
+      v18 = NSStringFromClass(v17);
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Nested calls to [%{public}@ performBlockIgnoringModifications:] are not supported.", "[TSPObjectContext beginIgnoringModificationsForObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 4107, v18);
 
-      v18 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSPObjectContext beginIgnoringModificationsForObject:]", "[TSPObjectContext beginIgnoringModificationsForObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 4107, v26);
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v25, v20, v22, 4107, 1, "Nested calls to [%{public}@ performBlockIgnoringModifications:] are not supported.", v24);
+      v19 = MEMORY[0x277D81150];
+      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSPObjectContext beginIgnoringModificationsForObject:]");
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v26, v21, v23, 4107, 1, "Nested calls to [%{public}@ performBlockIgnoringModifications:] are not supported.", v25);
 
       TSUCrashBreakpoint();
       abort();
@@ -4490,15 +5199,15 @@ LABEL_29:
     if (!objc_msgSend_containsObject_(v11, v12, objectCopy))
     {
       v17 = objc_opt_class();
-      v26 = NSStringFromClass(v17);
-      TSUSetCrashReporterInfo();
+      v18 = NSStringFromClass(v17);
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Nested calls to [%{public}@ performBlockIgnoringModifications:] are not supported.", "[TSPObjectContext endIgnoringModificationsForObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 4126, v18);
 
-      v18 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSPObjectContext endIgnoringModificationsForObject:]", "[TSPObjectContext endIgnoringModificationsForObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 4126, v26);
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v25, v20, v22, 4126, 1, "Nested calls to [%{public}@ performBlockIgnoringModifications:] are not supported.", v24);
+      v19 = MEMORY[0x277D81150];
+      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSPObjectContext endIgnoringModificationsForObject:]");
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v26, v21, v23, 4126, 1, "Nested calls to [%{public}@ performBlockIgnoringModifications:] are not supported.", v25);
 
       TSUCrashBreakpoint();
       abort();
@@ -5161,6 +5870,13 @@ LABEL_32:
   return v5;
 }
 
+- (id)objectWithUUID:(id)d onlyIfLoaded:(BOOL)loaded validateNewObjects:(BOOL)objects identifier:(int64_t *)identifier
+{
+  v6 = objc_msgSend_objectWithUUID_onlyIfLoaded_validateNewObjects_identifier_(self->_objectUUIDMap, a2, d, loaded, objects, identifier);
+
+  return v6;
+}
+
 - (void)beginAddingLoadedObjects
 {
   if (!atomic_fetch_add(&self->_runLoadObserversQueueSuspendCount, 1uLL))
@@ -5190,9 +5906,9 @@ LABEL_32:
     v6 = atomic_load(&self->_runLoadObserversQueueSuspendCount);
     if (v6 <= 0)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Adding loaded objects before suspending the queue.", "[TSPObjectContext addLoadedObjectsAndEnqueueNotifications:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 4609);
       v8 = MEMORY[0x277D81150];
-      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPObjectContext addLoadedObjectsAndEnqueueNotifications:]", "[TSPObjectContext addLoadedObjectsAndEnqueueNotifications:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm", 4609);
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPObjectContext addLoadedObjectsAndEnqueueNotifications:]");
       v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectContext.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 4609, 1, "Adding loaded objects before suspending the queue.");
 
@@ -5321,6 +6037,25 @@ LABEL_32:
   return v9;
 }
 
+- (id)dataWithDigest:(id)digest length:(unint64_t)length preferredFilename:(id)filename canDownload:(BOOL)download isMissingFromServer:(BOOL)server documentRevision:(id)revision downloadPriority:(int64_t)priority uploadStatus:(int64_t)self0
+{
+  downloadCopy = download;
+  digestCopy = digest;
+  filenameCopy = filename;
+  v19 = objc_msgSend_dataWithDigest_(self, v16, digestCopy);
+  if (!v19)
+  {
+    if (objc_msgSend_length(filenameCopy, v17, v18) || (objc_msgSend_null(TSPData, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_digest(v22, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(digestCopy, v26, v25), v25, v22, !isEqual) || (objc_msgSend_null(TSPData, v20, v28), (v19 = objc_claimAutoreleasedReturnValue()) == 0))
+    {
+      v29 = objc_msgSend_downloadURLForDataWithDigest_(TSPObjectContext, v20, digestCopy);
+      v32 = objc_msgSend_date(MEMORY[0x277CBEAA8], v30, v31);
+      v19 = objc_msgSend_remoteDataWithURL_digest_filename_length_canDownload_downloadPriority_uploadStatus_modificationDate_context_(TSPData, v33, v29, digestCopy, filenameCopy, length, downloadCopy, priority, status, v32, self);
+    }
+  }
+
+  return v19;
+}
+
 + (id)downloadURLForDataWithDigest:(id)digest
 {
   digestCopy = digest;
@@ -5377,29 +6112,29 @@ LABEL_32:
 
 - (NSArray)allDataWithLastDigestMismatch
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = objc_msgSend_dataManager(self, v4, v5, 0);
   v9 = objc_msgSend_allData(v6, v7, v8);
 
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v25, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v20, v24, 16);
   if (v13)
   {
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         v17 = objc_msgSend_lastMismatchedDigest(v16, v11, v12);
         v18 = v17 == 0;
 
@@ -5409,42 +6144,40 @@ LABEL_32:
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v21, v25, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v20, v24, 16);
     }
 
     while (v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)allErasedDataWithLastDigestMismatch
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = objc_msgSend_dataManager(self, v4, v5, 0);
   v9 = objc_msgSend_allData(v6, v7, v8);
 
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v25, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v20, v24, 16);
   if (v13)
   {
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         if ((objc_msgSend_isReadable(v16, v11, v12) & 1) == 0)
         {
           v17 = objc_msgSend_lastMismatchedDigestString(v16, v11, v12);
@@ -5457,20 +6190,18 @@ LABEL_32:
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v21, v25, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v20, v24, 16);
     }
 
     while (v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)allValidatedDataWithDigestMismatchCreatedPriorToVersion:(unint64_t)version
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_documentMetadata(self, a2, version);
   if (!v6)
   {
@@ -5483,40 +6214,38 @@ LABEL_32:
   }
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v17 = objc_msgSend_dataManager(self, v15, v16);
   v20 = objc_msgSend_allData(v17, v18, v19);
 
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v30, v34, 16);
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v29, v33, 16);
   if (v24)
   {
-    v25 = *v31;
+    v25 = *v30;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v31 != v25)
+        if (*v30 != v25)
         {
           objc_enumerationMutation(v20);
         }
 
-        v27 = *(*(&v30 + 1) + 8 * i);
+        v27 = *(*(&v29 + 1) + 8 * i);
         if (objc_msgSend_lastValidationResult(v27, v22, v23) == 2 && objc_msgSend_isReadable(v27, v22, v23) && objc_msgSend_creationVersionWithDocumentMetadata_(v27, v22, v6) < version)
         {
           objc_msgSend_addObject_(v14, v22, v27);
         }
       }
 
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v30, v34, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v29, v33, 16);
     }
 
     while (v24);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -66,7 +66,7 @@
 
 - (id)cellLabels
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self, a2);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   return 0;
@@ -74,7 +74,7 @@
 
 - (int64_t)gridViewType
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self, a2);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   return -1;
@@ -82,7 +82,7 @@
 
 - (void)prepareForDisplay
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self, a2);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -90,7 +90,7 @@
 
 - (void)refreshCells
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self, a2);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -98,7 +98,7 @@
 
 - (void)selectCell:(id)cell atIndex:(int64_t)index
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self, a2);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();

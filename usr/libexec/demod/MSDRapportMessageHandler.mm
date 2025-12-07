@@ -163,48 +163,48 @@
 
     else
     {
-      v8 = sub_100063A54();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100063A54(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Creating RPCompanionLinkClient for listener!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Creating RPCompanionLinkClient for listener!", buf, 2u);
       }
 
       objc_initWeak(buf, self);
-      v9 = objc_alloc_init(RPCompanionLinkClient);
-      [(MSDRapportMessageHandler *)self setListenerRPClient:v9];
+      v10 = objc_alloc_init(RPCompanionLinkClient);
+      [(MSDRapportMessageHandler *)self setListenerRPClient:v10];
 
       queue2 = [(MSDRapportMessageHandler *)self queue];
       listenerRPClient3 = [(MSDRapportMessageHandler *)self listenerRPClient];
       [listenerRPClient3 setDispatchQueue:queue2];
 
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_100099428;
-      v19[3] = &unk_100169C78;
-      objc_copyWeak(&v20, buf);
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_100099428;
+      v20[3] = &unk_100169C78;
+      objc_copyWeak(&v21, buf);
       listenerRPClient4 = [(MSDRapportMessageHandler *)self listenerRPClient];
-      [listenerRPClient4 setInterruptionHandler:v19];
+      [listenerRPClient4 setInterruptionHandler:v20];
 
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_1000994A8;
-      v17[3] = &unk_100169C78;
-      objc_copyWeak(&v18, buf);
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_1000994A8;
+      v18[3] = &unk_100169C78;
+      objc_copyWeak(&v19, buf);
       listenerRPClient5 = [(MSDRapportMessageHandler *)self listenerRPClient];
-      [listenerRPClient5 setInvalidationHandler:v17];
+      [listenerRPClient5 setInvalidationHandler:v18];
 
       listenerRPClient6 = [(MSDRapportMessageHandler *)self listenerRPClient];
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100099528;
-      v15[3] = &unk_10016BCE8;
-      v15[4] = self;
-      v16 = completionCopy;
-      [listenerRPClient6 activateWithCompletion:v15];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_100099528;
+      v16[3] = &unk_10016BCE8;
+      v16[4] = self;
+      v17 = completionCopy;
+      [listenerRPClient6 activateWithCompletion:v16];
 
-      objc_destroyWeak(&v18);
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
     }
   }
@@ -235,25 +235,25 @@
   queue = [(MSDRapportMessageHandler *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = dCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Registering request of ID: %{public}@", buf, 0xCu);
+    v14 = dCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Registering request of ID: %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000997FC;
-  v8[3] = &unk_10016BD60;
-  v7 = dCopy;
-  v9 = v7;
-  objc_copyWeak(&v11, buf);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1000997FC;
+  v9[3] = &unk_10016BD60;
+  v8 = dCopy;
+  v10 = v8;
+  objc_copyWeak(&v12, buf);
   selfCopy = self;
-  [(MSDRapportMessageHandler *)self _ensureListenerRPClientStartedWithCompletion:v8];
-  objc_destroyWeak(&v11);
+  [(MSDRapportMessageHandler *)self _ensureListenerRPClientStartedWithCompletion:v9];
+  objc_destroyWeak(&v12);
 
   objc_destroyWeak(buf);
 }
@@ -264,24 +264,24 @@
   queue = [(MSDRapportMessageHandler *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = dCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Registering event of ID: %{public}@", buf, 0xCu);
+    v13 = dCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Registering event of ID: %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100099DF4;
-  v8[3] = &unk_10016BDB0;
-  v7 = dCopy;
-  v9 = v7;
-  objc_copyWeak(&v10, buf);
-  [(MSDRapportMessageHandler *)self _ensureListenerRPClientStartedWithCompletion:v8];
-  objc_destroyWeak(&v10);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100099DF4;
+  v9[3] = &unk_10016BDB0;
+  v8 = dCopy;
+  v10 = v8;
+  objc_copyWeak(&v11, buf);
+  [(MSDRapportMessageHandler *)self _ensureListenerRPClientStartedWithCompletion:v9];
+  objc_destroyWeak(&v11);
 
   objc_destroyWeak(buf);
 }
@@ -365,11 +365,11 @@ LABEL_11:
 
     else
     {
-      v14 = sub_100063A54();
+      v14 = sub_100063A54(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v43 = deviceCopy;
+        v44 = deviceCopy;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Creating RPCompanionLinkClient for device: %{public}@", buf, 0xCu);
       }
 
@@ -378,11 +378,11 @@ LABEL_11:
 
       if (v16)
       {
-        v17 = sub_100063A54();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100063A54(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Removing", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Removing", buf, 2u);
         }
 
         senderRPClients5 = [(MSDRapportMessageHandler *)self senderRPClients];
@@ -396,53 +396,53 @@ LABEL_11:
       }
 
       objc_initWeak(buf, self);
-      v21 = objc_alloc_init(RPCompanionLinkClient);
+      v22 = objc_alloc_init(RPCompanionLinkClient);
       queue2 = [(MSDRapportMessageHandler *)self queue];
-      [v21 setDispatchQueue:queue2];
+      [v22 setDispatchQueue:queue2];
 
-      [v21 setControlFlags:8454];
+      [v22 setControlFlags:8454];
       rpDevice = [deviceCopy rpDevice];
-      [v21 setDestinationDevice:rpDevice];
+      [v22 setDestinationDevice:rpDevice];
 
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = sub_10009A720;
-      v39[3] = &unk_10016BDD8;
-      v24 = deviceCopy;
-      v40 = v24;
-      objc_copyWeak(&v41, buf);
-      [v21 setInterruptionHandler:v39];
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_10009A784;
-      v36[3] = &unk_10016BDD8;
-      v25 = v24;
-      v37 = v25;
-      objc_copyWeak(&v38, buf);
-      [v21 setInvalidationHandler:v36];
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_10009A7E8;
-      v33[3] = &unk_10016BDD8;
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_10009A720;
+      v40[3] = &unk_10016BDD8;
+      v25 = deviceCopy;
+      v41 = v25;
+      objc_copyWeak(&v42, buf);
+      [v22 setInterruptionHandler:v40];
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_10009A784;
+      v37[3] = &unk_10016BDD8;
       v26 = v25;
-      v34 = v26;
-      objc_copyWeak(&v35, buf);
-      [v21 setDisconnectHandler:v33];
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_10009A84C;
-      v28[3] = &unk_10016A618;
-      v29 = v26;
-      v32 = completionCopy;
+      v38 = v26;
+      objc_copyWeak(&v39, buf);
+      [v22 setInvalidationHandler:v37];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_10009A7E8;
+      v34[3] = &unk_10016BDD8;
+      v27 = v26;
+      v35 = v27;
+      objc_copyWeak(&v36, buf);
+      [v22 setDisconnectHandler:v34];
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 3221225472;
+      v29[2] = sub_10009A84C;
+      v29[3] = &unk_10016A618;
+      v30 = v27;
+      v33 = completionCopy;
       selfCopy = self;
-      v27 = v21;
-      v31 = v27;
-      [v27 activateWithCompletion:v28];
+      v28 = v22;
+      v32 = v28;
+      [v28 activateWithCompletion:v29];
 
-      objc_destroyWeak(&v35);
-      objc_destroyWeak(&v38);
+      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v39);
 
-      objc_destroyWeak(&v41);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(buf);
     }
   }
@@ -455,20 +455,21 @@ LABEL_11:
   dispatch_assert_queue_V2(queue);
 
   v6 = [(MSDRapportMessageHandler *)self _findSenderRPClientForDevice:deviceCopy];
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = deviceCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Invalidating sender RPCompanionLinkClient for device: %{public}@", &v9, 0xCu);
+      v10 = 138543362;
+      v11 = deviceCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "MSDRapportMessageHandler: Invalidating sender RPCompanionLinkClient for device: %{public}@", &v10, 0xCu);
     }
 
-    [v6 setInvalidationHandler:0];
-    [v6 invalidate];
+    [v7 setInvalidationHandler:0];
+    [v7 invalidate];
     senderRPClients = [(MSDRapportMessageHandler *)self senderRPClients];
-    [senderRPClients removeObject:v6];
+    [senderRPClients removeObject:v7];
   }
 }
 
@@ -481,7 +482,7 @@ LABEL_11:
   dispatch_assert_queue_V2(queue);
 
   identifier = [messageCopy identifier];
-  v13 = sub_100063A54();
+  v13 = sub_100063A54(identifier);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -529,7 +530,7 @@ LABEL_9:
   deviceCopy = device;
   completionCopy = completion;
   identifier = [messageCopy identifier];
-  v12 = sub_100063A54();
+  v12 = sub_100063A54(identifier);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -567,12 +568,12 @@ LABEL_9:
 
   if (mockPeerProtocolVersion)
   {
-    v4 = sub_100063A54();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100063A54(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = mockPeerProtocolVersion;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Use mock protocol version: %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = mockPeerProtocolVersion;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Use mock protocol version: %@", &v8, 0xCu);
     }
 
     unsignedIntegerValue = [mockPeerProtocolVersion unsignedIntegerValue];

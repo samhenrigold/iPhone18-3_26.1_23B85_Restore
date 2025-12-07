@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)domain;
 - (unint64_t)hash;
@@ -476,12 +477,11 @@ LABEL_7:
 {
   toCopy = to;
   has = self->_has;
-  v12 = toCopy;
+  v6 = toCopy;
   if ((has & 8) != 0)
   {
-    k = self->_k;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -500,9 +500,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  evaluatedCount = self->_evaluatedCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -516,9 +515,8 @@ LABEL_4:
   }
 
 LABEL_18:
-  engagedCount = self->_engagedCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -532,35 +530,32 @@ LABEL_5:
   }
 
 LABEL_19:
-  rejectedCount = self->_rejectedCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_activeTreatments)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    offeredCount = self->_offeredCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_mappingId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -740,6 +735,21 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278976C18[string];
   }
 
   return v4;

@@ -11,8 +11,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"offerTitleText";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"offerTitleText";
   offerTitleText = self->_offerTitleText;
   null = offerTitleText;
   if (!offerTitleText)
@@ -20,8 +20,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"offerDetailText";
+  v12[0] = null;
+  v11[1] = @"offerDetailText";
   offerDetailText = self->_offerDetailText;
   null2 = offerDetailText;
   if (!offerDetailText)
@@ -29,8 +29,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"offerIdentifier";
+  v12[1] = null2;
+  v11[2] = @"offerIdentifier";
   offerIdentifier = self->_offerIdentifier;
   null3 = offerIdentifier;
   if (!offerIdentifier)
@@ -38,8 +38,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (offerIdentifier)
   {
     if (offerDetailText)
@@ -71,7 +71,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -160,7 +159,7 @@ LABEL_10:
 
 - (INRestaurantOffer)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(INRestaurantOffer *)self init];
   if (!v5)
@@ -177,12 +176,12 @@ LABEL_10:
       goto LABEL_14;
     }
 
-    v16 = 136315394;
-    v17 = "[INRestaurantOffer initWithCoder:]";
-    v18 = 2080;
-    v19 = "_offerTitleText";
+    v15 = 136315394;
+    v16 = "[INRestaurantOffer initWithCoder:]";
+    v17 = 2080;
+    v18 = "_offerTitleText";
 LABEL_13:
-    _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Null value for %s", &v16, 0x16u);
+    _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Null value for %s", &v15, 0x16u);
     goto LABEL_14;
   }
 
@@ -198,10 +197,10 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v16 = 136315394;
-    v17 = "[INRestaurantOffer initWithCoder:]";
-    v18 = 2080;
-    v19 = "_offerDetailText";
+    v15 = 136315394;
+    v16 = "[INRestaurantOffer initWithCoder:]";
+    v17 = 2080;
+    v18 = "_offerDetailText";
     goto LABEL_13;
   }
 
@@ -214,10 +213,10 @@ LABEL_13:
     v13 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315394;
-      v17 = "[INRestaurantOffer initWithCoder:]";
-      v18 = 2080;
-      v19 = "_offerIdentifier";
+      v15 = 136315394;
+      v16 = "[INRestaurantOffer initWithCoder:]";
+      v17 = 2080;
+      v18 = "_offerIdentifier";
       goto LABEL_13;
     }
 
@@ -233,7 +232,6 @@ LABEL_6:
   v12 = v5;
 LABEL_15:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

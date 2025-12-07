@@ -40,7 +40,7 @@
 
   selfCopy = self;
   PLLoggingServiceClient.storeInstrumentation(events:completion:)(v6, v8, v7);
-  sub_268C39EE8(v8);
+  sub_268C39EE8(v8, v7);
 }
 
 @end

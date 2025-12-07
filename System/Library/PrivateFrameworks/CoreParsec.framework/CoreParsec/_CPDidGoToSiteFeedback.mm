@@ -58,7 +58,6 @@ LABEL_9:
   to;
   if ([(_CPDidGoToSiteFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -66,13 +65,11 @@ LABEL_9:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPDidGoToSiteFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 

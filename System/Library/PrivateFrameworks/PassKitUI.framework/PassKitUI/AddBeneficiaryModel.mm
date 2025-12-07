@@ -10,18 +10,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1BD1CE7C4;
+    v5 = v4;
+    v6 = swift_allocObject();
+    v6[2] = v5;
+    v7 = sub_1BD1CE7C4;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_1BDA6F1BC(v5);
-  sub_1BD0D4744(v5);
+  sub_1BDA6F1BC(v7);
+  sub_1BD0D4744(v7, v6, v8, v9, v10, v11, v12, v13);
 }
 
 - (_TtC9PassKitUI19AddBeneficiaryModel)init

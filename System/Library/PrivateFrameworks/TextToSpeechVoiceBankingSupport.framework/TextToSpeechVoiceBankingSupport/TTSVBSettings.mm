@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (BOOL)allowAppUsage;
 - (TTSVBSettings)init;
+- (void)setAllowAppUsage:(BOOL)usage;
 @end
 
 @implementation TTSVBSettings
@@ -20,9 +21,10 @@
 
 uint64_t __31__TTSVBSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_Shared = objc_opt_new();
+  v0 = objc_opt_new();
+  sharedInstance_Shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (TTSVBSettings)init
@@ -45,6 +47,13 @@ uint64_t __31__TTSVBSettings_sharedInstance__block_invoke()
   v3 = [defaults BOOLForKey:@"kTTSVBAllowVoiceBankingAppUsage"];
 
   return v3;
+}
+
+- (void)setAllowAppUsage:(BOOL)usage
+{
+  usageCopy = usage;
+  defaults = [(TTSVBSettings *)self defaults];
+  [defaults setBool:usageCopy forKey:@"kTTSVBAllowVoiceBankingAppUsage"];
 }
 
 @end

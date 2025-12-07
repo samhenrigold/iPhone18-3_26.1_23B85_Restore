@@ -158,7 +158,7 @@ void __128__IRCandidateClassificationDetectorSameSpace_sameSpaceMiLoScoresForCan
 
 - (void)adjustSameSpaceParametersForCandidates:(id)candidates withSystemState:(id)state andHistoryEventsAsc:(id)asc andMiLoPrediction:(id)prediction andNearbyDevicesContainer:(id)container andDate:(id)date
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stateCopy = state;
   ascCopy = asc;
@@ -182,164 +182,164 @@ void __128__IRCandidateClassificationDetectorSameSpace_sameSpaceMiLoScoresForCan
   v23 = [freezeDateNIHomeDevice2 dateByAddingTimeInterval:-v22];
 
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __173__IRCandidateClassificationDetectorSameSpace_adjustSameSpaceParametersForCandidates_withSystemState_andHistoryEventsAsc_andMiLoPrediction_andNearbyDevicesContainer_andDate___block_invoke;
-  v42[3] = &unk_2797E1AF0;
-  v42[4] = self;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __173__IRCandidateClassificationDetectorSameSpace_adjustSameSpaceParametersForCandidates_withSystemState_andHistoryEventsAsc_andMiLoPrediction_andNearbyDevicesContainer_andDate___block_invoke;
+  v41[3] = &unk_2797E1AF0;
+  v41[4] = self;
   v25 = predictionCopy;
-  v43 = v25;
+  v42 = v25;
   v26 = ascCopy;
-  v44 = v26;
+  v43 = v26;
   v27 = dateCopy;
-  v45 = v27;
+  v44 = v27;
   v28 = stateCopy;
-  v46 = v28;
+  v45 = v28;
   v29 = containerCopy;
-  v47 = v29;
+  v46 = v29;
   v30 = v23;
-  v48 = v30;
+  v47 = v30;
   v31 = distantPast;
-  v49 = v31;
-  v50 = &v51;
-  [candidatesCopy enumerateObjectsUsingBlock:v42];
+  v48 = v31;
+  v49 = &v50;
+  [candidatesCopy enumerateObjectsUsingBlock:v41];
   v32 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v33 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    v39 = v25;
+    v38 = v25;
     v34 = v28;
     v35 = v26;
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v52[3]];
+    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v51[3]];
     v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(candidatesCopy, "count")}];
     *buf = 136315906;
-    v56 = "#detector-same-space, ";
-    v57 = 2112;
-    v58 = v32;
-    v59 = 2112;
-    v60 = v36;
-    v61 = 2112;
-    v62 = v37;
+    v55 = "#detector-same-space, ";
+    v56 = 2112;
+    v57 = v32;
+    v58 = 2112;
+    v59 = v36;
+    v60 = 2112;
+    v61 = v37;
     _os_log_impl(&dword_25543D000, v33, OS_LOG_TYPE_INFO, "%s[%@], #sameSpaceCandidates=%@, #totalCandidatesTested=%@", buf, 0x2Au);
 
     v26 = v35;
     v28 = v34;
-    v25 = v39;
+    v25 = v38;
   }
 
-  _Block_object_dispose(&v51, 8);
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
 }
 
 void __173__IRCandidateClassificationDetectorSameSpace_adjustSameSpaceParametersForCandidates_withSystemState_andHistoryEventsAsc_andMiLoPrediction_andNearbyDevicesContainer_andDate___block_invoke(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = [v3 candidate];
-  v7 = [v5 isSameSpaceForCandidate:v6 basedOnMiLoPrediction:*(a1 + 40) andHistoryEventsAsc:*(a1 + 48) andDate:*(a1 + 56)];
+  v4 = objc_opt_class();
+  v5 = [v3 candidate];
+  v6 = [v4 isSameSpaceForCandidate:v5 basedOnMiLoPrediction:*(a1 + 40) andHistoryEventsAsc:*(a1 + 48) andDate:*(a1 + 56)];
 
-  v8 = *(a1 + 32);
-  v9 = [v3 candidate];
-  v10 = [v8 _isSameSpaceBrokeredDeviceForCandidate:v9 basedOnSystemState:*(a1 + 64) andHistoryEventsAsc:*(a1 + 48) andDate:*(a1 + 56)];
+  v7 = *(a1 + 32);
+  v8 = [v3 candidate];
+  v9 = [v7 _isSameSpaceBrokeredDeviceForCandidate:v8 basedOnSystemState:*(a1 + 64) andHistoryEventsAsc:*(a1 + 48) andDate:*(a1 + 56)];
 
-  v11 = *(a1 + 32);
-  v12 = [v3 candidate];
-  v13 = [v11 _isSameSpaceBasedOnPDRFenceForCandidate:v12 basedOnSystemState:*(a1 + 64)];
+  v10 = *(a1 + 32);
+  v11 = [v3 candidate];
+  v12 = [v10 _isSameSpaceBasedOnPDRFenceForCandidate:v11 basedOnSystemState:*(a1 + 64)];
 
-  v14 = *(a1 + 32);
-  v15 = [v3 candidate];
-  v16 = [*(a1 + 72) nearbyDevices];
-  v17 = [v14 _isSameSpaceForCandidate:v15 basedOnNearbyDevices:v16 andExpiryDate:*(a1 + 80) isUWB:1];
+  v13 = *(a1 + 32);
+  v14 = [v3 candidate];
+  v15 = [*(a1 + 72) nearbyDevices];
+  v16 = [v13 _isSameSpaceForCandidate:v14 basedOnNearbyDevices:v15 andExpiryDate:*(a1 + 80) isUWB:1];
 
-  v18 = *(a1 + 32);
-  v19 = [v3 candidate];
-  v20 = [*(a1 + 72) nearbyDevices];
-  v21 = [v18 _isSameSpaceForCandidate:v19 basedOnNearbyDevices:v20 andExpiryDate:*(a1 + 88) isUWB:0];
+  v17 = *(a1 + 32);
+  v18 = [v3 candidate];
+  v19 = [*(a1 + 72) nearbyDevices];
+  v20 = [v17 _isSameSpaceForCandidate:v18 basedOnNearbyDevices:v19 andExpiryDate:*(a1 + 88) isUWB:0];
 
-  v22 = 0;
+  v21 = 0;
   if (+[IRPlatformInfo isTVOS])
   {
-    v23 = *(a1 + 32);
-    v24 = [v3 candidate];
-    v22 = [v23 _isSameSpaceForCandidate:v24 basedOnHistoryEventsAsc:*(a1 + 48) andDate:*(a1 + 56)];
+    v22 = *(a1 + 32);
+    v23 = [v3 candidate];
+    v21 = [v22 _isSameSpaceForCandidate:v23 basedOnHistoryEventsAsc:*(a1 + 48) andDate:*(a1 + 56)];
   }
 
-  v25 = +[IRPreferences shared];
-  v26 = [v25 miloRoomDetectionInCustomLOIEnabled];
-  if ([v26 BOOLValue] & 1) != 0 || ((v7 ^ 1))
+  v24 = +[IRPreferences shared];
+  v25 = [v24 miloRoomDetectionInCustomLOIEnabled];
+  if ([v25 BOOLValue] & 1) != 0 || ((v6 ^ 1))
   {
   }
 
   else
   {
-    v48 = v21;
-    v27 = v17;
-    v28 = v22;
-    v29 = v7;
-    v30 = v13;
-    v31 = v10;
-    v32 = [*(a1 + 64) locationSemanticUserSpecificPlaceType];
+    v46 = v20;
+    v26 = v16;
+    v27 = v21;
+    v28 = v6;
+    v29 = v12;
+    v30 = v9;
+    v31 = [*(a1 + 64) locationSemanticUserSpecificPlaceType];
 
-    v33 = v32 == 5;
-    v10 = v31;
-    v13 = v30;
-    v7 = v29;
-    v22 = v28;
-    v17 = v27;
-    v21 = v48;
-    if (v33)
+    v32 = v31 == 5;
+    v9 = v30;
+    v12 = v29;
+    v6 = v28;
+    v21 = v27;
+    v16 = v26;
+    v20 = v46;
+    if (v32)
     {
-      v34 = dispatch_get_specific(*MEMORY[0x277D21308]);
-      v35 = *MEMORY[0x277D21260];
+      v33 = dispatch_get_specific(*MEMORY[0x277D21308]);
+      v34 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v51 = "#detector-same-space, ";
-        v52 = 2112;
-        v53 = v34;
-        _os_log_impl(&dword_25543D000, v35, OS_LOG_TYPE_INFO, "%s[%@], MiLo room detection in custom LOI is disabled and LOI is custom, disabling sameSpaceBasedOnMiLo", buf, 0x16u);
+        v49 = "#detector-same-space, ";
+        v50 = 2112;
+        v51 = v33;
+        _os_log_impl(&dword_25543D000, v34, OS_LOG_TYPE_INFO, "%s[%@], MiLo room detection in custom LOI is disabled and LOI is custom, disabling sameSpaceBasedOnMiLo", buf, 0x16u);
       }
 
-      v7 = 0;
+      v6 = 0;
     }
   }
 
-  [v3 setSameSpaceBasedOnMiLo:v7];
-  [v3 setSameSpaceBasedOnBrokeredLOI:v10];
-  [v3 setSameSpaceBasedOnUWB:v17 != 0];
-  [v3 setSameSpaceBasedOnBLE:v21 != 0];
-  [v3 setSameSpaceBasedOnPDRFence:v13];
-  [v3 setUwbRange:v17];
-  [v3 setBleRange:v21];
-  [v3 setSameSpaceBasedOnHistory:v22];
+  [v3 setSameSpaceBasedOnMiLo:v6];
+  [v3 setSameSpaceBasedOnBrokeredLOI:v9];
+  [v3 setSameSpaceBasedOnUWB:v16 != 0];
+  [v3 setSameSpaceBasedOnBLE:v20 != 0];
+  [v3 setSameSpaceBasedOnPDRFence:v12];
+  [v3 setUwbRange:v16];
+  [v3 setBleRange:v20];
+  [v3 setSameSpaceBasedOnHistory:v21];
   [v3 setIsSameSpace:{objc_msgSend(*(a1 + 32), "_isSameSpaceCandidate:", v3)}];
   if ([v3 isSameSpace])
   {
     ++*(*(*(a1 + 96) + 8) + 24);
-    v36 = dispatch_get_specific(*MEMORY[0x277D21308]);
-    v37 = *MEMORY[0x277D21260];
+    v35 = dispatch_get_specific(*MEMORY[0x277D21308]);
+    v36 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
-      log = v37;
-      v47 = [v3 candidate];
-      v38 = [v47 name];
-      v46 = [v3 candidate];
-      [v46 candidateIdentifier];
-      v39 = v49 = v36;
-      v40 = [MEMORY[0x277CCABB0] numberWithBool:v7];
-      v41 = [MEMORY[0x277CCABB0] numberWithBool:v10];
-      v42 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-      v43 = [MEMORY[0x277CCABB0] numberWithBool:v22];
+      log = v36;
+      v45 = [v3 candidate];
+      v37 = [v45 name];
+      v44 = [v3 candidate];
+      [v44 candidateIdentifier];
+      v38 = v47 = v35;
+      v39 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+      v40 = [MEMORY[0x277CCABB0] numberWithBool:v9];
+      v41 = [MEMORY[0x277CCABB0] numberWithBool:v12];
+      v42 = [MEMORY[0x277CCABB0] numberWithBool:v21];
       *buf = 136317442;
-      v51 = "#detector-same-space, ";
+      v49 = "#detector-same-space, ";
+      v50 = 2112;
+      v51 = v47;
       v52 = 2112;
-      v53 = v49;
+      v53 = v37;
       v54 = 2112;
       v55 = v38;
       v56 = 2112;
@@ -349,20 +349,16 @@ void __173__IRCandidateClassificationDetectorSameSpace_adjustSameSpaceParameters
       v60 = 2112;
       v61 = v41;
       v62 = 2112;
-      v63 = v42;
+      v63 = v16;
       v64 = 2112;
-      v65 = v17;
+      v65 = v20;
       v66 = 2112;
-      v67 = v21;
-      v68 = 2112;
-      v69 = v43;
+      v67 = v42;
       _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_INFO, "%s[%@], SameSpaceCandidate: name: %@, identifier: %@, MiLo: %@, BrokeredDeviceInLOI: %@, PDRFence: %@, uwbRange: %@, bleRange: %@, history: %@", buf, 0x66u);
 
-      v36 = v49;
+      v35 = v47;
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isSameSpaceCandidate:(id)candidate

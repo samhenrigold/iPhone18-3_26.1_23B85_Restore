@@ -545,7 +545,7 @@ LABEL_21:
       if (v18)
       {
         v57 = 0;
-        DataMutable = OPACKEncoderCreateDataMutable(v18, 8u, &v57);
+        DataMutable = OPACKEncoderCreateDataMutable(v18, 8, &v57);
         if (!DataMutable)
         {
           if (error)
@@ -588,7 +588,7 @@ LABEL_21:
       if (v30)
       {
         v56 = 0;
-        v38 = OPACKEncoderCreateDataMutable(v30, 8u, &v56);
+        v38 = OPACKEncoderCreateDataMutable(v30, 8, &v56);
         if (!v38)
         {
           if (error)

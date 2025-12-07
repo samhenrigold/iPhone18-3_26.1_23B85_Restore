@@ -12,9 +12,7 @@
 {
   [(CLSAestheticsModel *)self setupVersion32];
   self->_version = 86;
-  v3 = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Low Light" operatingPoint:0.8 highPrecisionOperatingPoint:0.8 highRecallOperatingPoint:0.8];
-  lowLightNode = self->_lowLightNode;
-  self->_lowLightNode = v3;
+  self->_lowLightNode = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Low Light" operatingPoint:0.8 highPrecisionOperatingPoint:0.8 highRecallOperatingPoint:0.8];
 
   MEMORY[0x2821F96F8]();
 }
@@ -126,10 +124,10 @@
 
 - (CLSAestheticsModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSAestheticsModel;
-  v4 = [(CLSAestheticsModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSAestheticsModel;
+  v4 = [(CLSAestheticsModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -149,12 +147,12 @@
             v6 = objc_opt_class();
             *buf = 67109378;
             versionCopy = version;
-            v12 = 2112;
-            v13 = v6;
+            v11 = 2112;
+            v12 = v6;
             _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
           }
 
-          v5 = 0;
+          return 0;
         }
       }
 
@@ -170,7 +168,6 @@
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

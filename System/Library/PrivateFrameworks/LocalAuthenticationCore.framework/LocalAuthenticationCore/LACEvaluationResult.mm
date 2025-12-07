@@ -99,24 +99,22 @@ LABEL_14:
 
 - (id)description
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AEC0];
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_rawValue];
   v7 = [v5 stringWithFormat:@"rawValue: %@", v6];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"value: %@", self->_value];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"error: %@", self->_error];
-  v16[2] = v9;
+  v15[2] = v9;
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"request: %@", self->_request];
-  v16[3] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
+  v15[3] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:4];
   v12 = [v11 componentsJoinedByString:@" "];;
   v13 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v12];;
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -130,8 +128,8 @@ LABEL_14:
   if (isKindOfClass)
   {
     v7 = equalCopy;
-    rawValue = [(LACEvaluationResult *)self rawValue];
-    if (rawValue != [v7 rawValue])
+    v8 = objc_msgSend_rawValue(self);
+    if (v8 != objc_msgSend_rawValue(v7))
     {
 LABEL_20:
       v14 = 0;
@@ -140,12 +138,12 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    rawValue2 = [(LACEvaluationResult *)self rawValue];
-    if (rawValue2 > 1)
+    v9 = objc_msgSend_rawValue(self);
+    if (v9 > 1)
     {
-      if (rawValue2 != 2)
+      if (v9 != 2)
       {
-        if (rawValue2 != 3)
+        if (v9 != 3)
         {
           goto LABEL_22;
         }
@@ -193,9 +191,9 @@ LABEL_22:
       }
     }
 
-    else if (rawValue2)
+    else if (v9)
     {
-      if (rawValue2 != 1)
+      if (v9 != 1)
       {
         goto LABEL_22;
       }

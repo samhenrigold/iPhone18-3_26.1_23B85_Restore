@@ -106,10 +106,10 @@
 
   if (style == 2)
   {
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
     [v6 setTextColor:v7];
 
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
 
   else

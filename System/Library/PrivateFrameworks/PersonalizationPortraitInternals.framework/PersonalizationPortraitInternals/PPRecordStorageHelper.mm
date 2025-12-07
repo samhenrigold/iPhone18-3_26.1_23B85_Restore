@@ -1,4 +1,6 @@
 @interface PPRecordStorageHelper
+- (BOOL)clearWithDatabase:(id)database client:(unsigned __int8)client deletedCount:(unint64_t *)count error:(id *)error clearExternalTableReferences:(id)references;
+- (BOOL)decayFeedbackWithDatabase:(id)database client:(unsigned __int8)client decayRate:(double)rate;
 - (BOOL)deleteAllRecordsSourcedFromBundleId:(id)id algorithm:(unsigned int)algorithm txnWitness:(id)witness atLeastOneRecordClusterRemoved:(BOOL *)removed deletedCount:(unint64_t *)count error:(id *)error;
 - (BOOL)deleteAllRecordsSourcedFromBundleId:(id)id documentIds:(id)ids algorithm:(unsigned int)algorithm txnWitness:(id)witness atLeastOneRecordClusterRemoved:(BOOL *)removed deletedCount:(unint64_t *)count error:(id *)error;
 - (BOOL)deleteAllRecordsSourcedFromBundleId:(id)id documentIds:(id)ids txnWitness:(id)witness atLeastOneRecordClusterRemoved:(BOOL *)removed deletedCount:(unint64_t *)count error:(id *)error;
@@ -13,23 +15,62 @@
 - (BOOL)deleteFeedbackCountRecordsOlderThanDate:(id)date txnWitness:(id)witness;
 - (BOOL)fixupDKEventsWithDatabase:(id)database fixup49995922Table:(id)table batchSize:(unsigned int)size shouldContinueBlock:(id)block createRecordWithStatement:(id)statement eventForRecord:(id)record;
 - (BOOL)pruneOrphanedFeedbackCountRecordsWithLimit:(unint64_t)limit rowOffset:(unint64_t)offset deletedCount:(unint64_t *)count txnWitness:(id)witness isComplete:(BOOL *)complete;
+- (BOOL)storeFeedback:(id)feedback database:(id)database client:(unsigned __int8)client lowercaseItemStrings:(BOOL)strings limit:(unsigned int)limit;
 - (PPRecordStorageHelper)initWithName:(id)name table:(id)table clusterIdentifierColumn:(id)column maxRecords:(unsigned int)records duetStorage:(id)storage duetStream:(id)stream sourceStorage:(id)sourceStorage;
 - (id)blobFromUUID:(id)d;
+- (id)clusterIdentifiersExistingInDatabaseBeforeDate:(id)date client:(unsigned __int8)client date:(id)a5;
+- (id)decayedFeedbackCountsForItemString:(id)string database:(id)database client:(unsigned __int8)client;
 - (id)duetEventDeletionProcessingBlockWithDatabase:(id)database client:(unsigned __int8)client;
+- (id)firstDonationSourceCountsForDatabase:(id)database client:(unsigned __int8)client shouldContinueBlock:(id)block;
+- (id)lastDonationTimeForSourcesInDatabase:(id)database client:(unsigned __int8)client before:(id)before;
 - (id)rowIdsForRecordsOlderThanDate:(id)date txnWitness:(id)witness;
 - (id)rowIdsForRecordsSourcedFromBundleId:(id)id documentIds:(id)ids txnWitness:(id)witness;
 - (id)rowIdsForRecordsSourcedFromBundleId:(id)id exactMatchGroupId:(id)groupId olderThanDate:(id)date txnWitness:(id)witness;
 - (id)rowIdsForRecordsSourcedFromBundleId:(id)id groupIds:(id)ids txnWitness:(id)witness;
 - (id)rowIdsForRecordsSourcedFromBundleId:(id)id txnWitness:(id)witness;
 - (id)rowIdsForRecordsToDropMakingRoomForCount:(unsigned int)count txnWitness:(id)witness;
+- (id)thirdPartyBundleIdsFromTodayInDatabase:(id)database client:(unsigned __int8)client;
 - (id)uuidForStatement:(id)statement columnName:(const char *)name tableName:(const char *)tableName;
+- (unsigned)distinctClusterCountInDatabase:(id)database client:(unsigned __int8)client;
 - (void)_deleteRecordsWithRowIdsFromQuery:(void *)query txnWitness:(uint64_t)witness atLeastOneRecordClusterRemoved:(uint64_t)removed deletedCount:(void *)count bind:;
+- (void)deleteAllRemoteRecordsMissingInDuetFromDatabase:(id)database client:(unsigned __int8)client shouldContinueBlock:(id)block;
 - (void)deleteRecordsForRowIds:(id)ids txnWitness:(id)witness atLeastOneClusterRemoved:(BOOL *)removed deletedCount:(unint64_t *)count;
 - (void)disableSyncForBundleIds:(id)ids txnWitness:(id)witness;
+- (void)fixupDKEventsMetadataWithShouldContinueBlock:(id)block database:(id)database client:(unsigned __int8)client;
+- (void)importDuetEventsWithLimit:(unsigned int)limit database:(id)database client:(unsigned __int8)client remoteEventsOnly:(BOOL)only isComplete:(BOOL *)complete shouldContinueBlock:(id)block eventImportBlock:(id)importBlock;
 - (void)truncateRecordsByDroppingOldestMakingRoomForCount:(unsigned int)count txnWitness:(id)witness;
 @end
 
 @implementation PPRecordStorageHelper
+
+- (id)firstDonationSourceCountsForDatabase:(id)database client:(unsigned __int8)client shouldContinueBlock:(id)block
+{
+  clientCopy = client;
+  databaseCopy = database;
+  blockCopy = block;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__5140;
+  v23 = __Block_byref_object_dispose__5141;
+  v24 = objc_opt_new();
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT src.bundle_id AS bundle_id, item.algorithm as algorithm, count(DISTINCT(item.%@)) as count FROM %@ as item INNER JOIN sources as src on src.id = item.source_id WHERE NOT item.is_remote AND item.rowid in (SELECT x.rowid FROM %@ as x INNER JOIN sources as srx ON srx.id = x.source_id WHERE item.%@ = x.%@ ORDER BY srx.seconds_from_1970 ASC LIMIT 1) GROUP BY src.bundle_id, item.algorithm", self->_clusterIdentifierColumn, self->_table, self->_table, self->_clusterIdentifierColumn, self->_clusterIdentifierColumn];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __89__PPRecordStorageHelper_firstDonationSourceCountsForDatabase_client_shouldContinueBlock___block_invoke;
+  v15[3] = &unk_278973260;
+  v11 = blockCopy;
+  v17 = v11;
+  v18 = &v19;
+  v12 = v10;
+  v16 = v12;
+  [databaseCopy readTransactionWithClient:clientCopy block:v15];
+  v13 = v20[5];
+
+  _Block_object_dispose(&v19, 8);
+
+  return v13;
+}
 
 void __89__PPRecordStorageHelper_firstDonationSourceCountsForDatabase_client_shouldContinueBlock___block_invoke(uint64_t a1, void *a2)
 {
@@ -99,6 +140,35 @@ uint64_t __89__PPRecordStorageHelper_firstDonationSourceCountsForDatabase_client
   return v6;
 }
 
+- (id)lastDonationTimeForSourcesInDatabase:(id)database client:(unsigned __int8)client before:(id)before
+{
+  clientCopy = client;
+  databaseCopy = database;
+  beforeCopy = before;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__5140;
+  v23 = __Block_byref_object_dispose__5141;
+  v24 = objc_opt_new();
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT src.bundle_id AS bundle_id, MAX(src.seconds_from_1970) as date FROM sources AS src WHERE src.seconds_from_1970 < :date AND src.id IN (SELECT source_id FROM %@) GROUP BY src.bundle_id", self->_table];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __76__PPRecordStorageHelper_lastDonationTimeForSourcesInDatabase_client_before___block_invoke;
+  v15[3] = &unk_278972E70;
+  v11 = v10;
+  v16 = v11;
+  v12 = beforeCopy;
+  v17 = v12;
+  v18 = &v19;
+  [databaseCopy readTransactionWithClient:clientCopy block:v15];
+  v13 = v20[5];
+
+  _Block_object_dispose(&v19, 8);
+
+  return v13;
+}
+
 void __76__PPRecordStorageHelper_lastDonationTimeForSourcesInDatabase_client_before___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 db];
@@ -142,6 +212,32 @@ uint64_t __76__PPRecordStorageHelper_lastDonationTimeForSourcesInDatabase_client
   return *v8;
 }
 
+- (id)thirdPartyBundleIdsFromTodayInDatabase:(id)database client:(unsigned __int8)client
+{
+  clientCopy = client;
+  databaseCopy = database;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__5140;
+  v18 = __Block_byref_object_dispose__5141;
+  v19 = objc_opt_new();
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT src.bundle_id AS third_party_bundle FROM sources AS src WHERE src.seconds_from_1970 > :date AND src.bundle_id NOT LIKE com.apple%% AND src.id IN (SELECT source_id FROM %@)", self->_table];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __71__PPRecordStorageHelper_thirdPartyBundleIdsFromTodayInDatabase_client___block_invoke;
+  v11[3] = &unk_278978BB8;
+  v8 = v7;
+  v12 = v8;
+  v13 = &v14;
+  [databaseCopy readTransactionWithClient:clientCopy block:v11];
+  v9 = v15[5];
+
+  _Block_object_dispose(&v14, 8);
+
+  return v9;
+}
+
 void __71__PPRecordStorageHelper_thirdPartyBundleIdsFromTodayInDatabase_client___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 db];
@@ -173,6 +269,35 @@ void __71__PPRecordStorageHelper_thirdPartyBundleIdsFromTodayInDatabase_client__
   v4 = objc_opt_new();
   [v4 timeIntervalSince1970];
   [v2 bindNamedParam:":date" toDouble:v3 + -86400.0];
+}
+
+- (id)clusterIdentifiersExistingInDatabaseBeforeDate:(id)date client:(unsigned __int8)client date:(id)a5
+{
+  clientCopy = client;
+  dateCopy = date;
+  v9 = a5;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__5140;
+  v23 = __Block_byref_object_dispose__5141;
+  v24 = objc_opt_new();
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT DISTINCT tbl.%@ AS cluster_id FROM %@ AS tbl INNER JOIN sources AS src ON tbl.source_id = src.id WHERE src.seconds_from_1970 < :date", self->_clusterIdentifierColumn, self->_table];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __84__PPRecordStorageHelper_clusterIdentifiersExistingInDatabaseBeforeDate_client_date___block_invoke;
+  v15[3] = &unk_278972E70;
+  v11 = v10;
+  v16 = v11;
+  v12 = v9;
+  v17 = v12;
+  v18 = &v19;
+  [dateCopy readTransactionWithClient:clientCopy block:v15];
+  v13 = v20[5];
+
+  _Block_object_dispose(&v19, 8);
+
+  return v13;
 }
 
 void __84__PPRecordStorageHelper_clusterIdentifiersExistingInDatabaseBeforeDate_client_date___block_invoke(uint64_t a1, void *a2)
@@ -211,6 +336,29 @@ uint64_t __84__PPRecordStorageHelper_clusterIdentifiersExistingInDatabaseBeforeD
   v4 = MEMORY[0x277D42690];
 
   return *v4;
+}
+
+- (unsigned)distinctClusterCountInDatabase:(id)database client:(unsigned __int8)client
+{
+  clientCopy = client;
+  databaseCopy = database;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT COUNT(DISTINCT %@) AS cluster_count FROM %@", self->_clusterIdentifierColumn, self->_table];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __63__PPRecordStorageHelper_distinctClusterCountInDatabase_client___block_invoke;
+  v10[3] = &unk_278978BB8;
+  v8 = v7;
+  v11 = v8;
+  v12 = &v13;
+  [databaseCopy readTransactionWithClient:clientCopy block:v10];
+  LODWORD(clientCopy) = *(v14 + 6);
+
+  _Block_object_dispose(&v13, 8);
+  return clientCopy;
 }
 
 void __63__PPRecordStorageHelper_distinctClusterCountInDatabase_client___block_invoke(uint64_t a1, void *a2)
@@ -287,7 +435,7 @@ void __63__PPRecordStorageHelper_distinctClusterCountInDatabase_client___block_i
 
 void __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 db];
   v5 = [v4 hasTableNamed:*(a1 + 32)];
@@ -297,55 +445,55 @@ void __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_b
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 80)];
     v7 = [v3 db];
     v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT * FROM %@ LIMIT :batchSize", *(a1 + 32)];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_2;
-    v64[3] = &__block_descriptor_36_e29_v16__0___PASSqliteStatement_8l;
-    v65 = *(a1 + 80);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_3;
-    v62[3] = &unk_278978DB8;
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_2;
+    v63[3] = &__block_descriptor_36_e29_v16__0___PASSqliteStatement_8l;
+    v64 = *(a1 + 80);
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_3;
+    v61[3] = &unk_278978DB8;
     v9 = v6;
-    v63 = v9;
-    [v7 prepAndRunQuery:v8 onPrep:v64 onRow:v62 onError:0];
+    v62 = v9;
+    [v7 prepAndRunQuery:v8 onPrep:v63 onRow:v61 onError:0];
 
     if ([v9 count])
     {
       v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 80)];
       v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT * FROM %@ AS rec_tbl INNER JOIN sources ON rec_tbl.source_id = sources.id WHERE rec_tbl.id IN _pas_nsarray(:batchRowIds)", *(*(a1 + 40) + 8)];
       v12 = [v3 db];
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_4;
-      v60[3] = &unk_278978CF8;
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_4;
+      v59[3] = &unk_278978CF8;
       v13 = v9;
-      v61 = v13;
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_5;
-      v56[3] = &unk_278973180;
+      v60 = v13;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_5;
+      v55[3] = &unk_278973180;
       v14 = *(a1 + 48);
-      v56[4] = *(a1 + 40);
-      v59 = v14;
-      v45 = v3;
-      v57 = v45;
+      v55[4] = *(a1 + 40);
+      v58 = v14;
+      v44 = v3;
+      v56 = v44;
       v15 = v10;
-      v58 = v15;
-      [v12 prepAndRunQuery:v11 onPrep:v60 onRow:v56 onError:0];
+      v57 = v15;
+      [v12 prepAndRunQuery:v11 onPrep:v59 onRow:v55 onError:0];
 
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_344;
-      v54[3] = &unk_2789731A8;
-      v55 = *(a1 + 56);
-      v16 = [v15 _pas_mappedArrayWithTransform:v54];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_344;
+      v53[3] = &unk_2789731A8;
+      v54 = *(a1 + 56);
+      v16 = [v15 _pas_mappedArrayWithTransform:v53];
       v17 = [v16 _pas_mappedArrayWithTransform:&__block_literal_global_350];
       if ([*(*(a1 + 40) + 40) saveEvents:v17 stream:*(*(a1 + 40) + 48) maxRetries:-1 retryInterval:*(a1 + 64) shouldContinueBlock:5.0])
       {
-        v43 = v16;
-        v40 = v13;
-        v41 = v11;
+        v42 = v16;
+        v39 = v13;
+        v40 = v11;
 
         v18 = [v15 _pas_mappedArrayWithTransform:&__block_literal_global_354];
         v19 = *(a1 + 40);
@@ -354,9 +502,9 @@ void __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_b
         v22 = MEMORY[0x277CFE1E0];
         v23 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v18];
         v24 = [v22 predicateForObjectsWithUUIDs:v23];
-        v53 = 0;
-        LOBYTE(v21) = [v20 deleteAllEventsInEventStream:v21 matchingPredicate:v24 error:&v53];
-        v25 = v53;
+        v52 = 0;
+        LOBYTE(v21) = [v20 deleteAllEventsInEventStream:v21 matchingPredicate:v24 error:&v52];
+        v25 = v52;
 
         if ((v21 & 1) == 0)
         {
@@ -364,66 +512,66 @@ void __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_b
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v68 = v25;
+            v67 = v25;
             _os_log_error_impl(&dword_23224A000, v26, OS_LOG_TYPE_ERROR, "during fixup pass: failed to delete old _DKEvent batch: %@", buf, 0xCu);
           }
         }
 
         v27 = a1;
-        v42 = v9;
+        v41 = v9;
 
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
-        obj = v43;
-        v28 = [obj countByEnumeratingWithState:&v49 objects:v66 count:16];
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        obj = v42;
+        v28 = [obj countByEnumeratingWithState:&v48 objects:v65 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v50;
+          v30 = *v49;
           do
           {
             for (i = 0; i != v29; ++i)
             {
-              if (*v50 != v30)
+              if (*v49 != v30)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v32 = *(*(&v49 + 1) + 8 * i);
-              v33 = [v45 db];
-              v34 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"UPDATE %@ SET dk_event_id = :uuidBlob WHERE id = :rowId", *(v27[5] + 8), v40];
-              v48[0] = MEMORY[0x277D85DD0];
-              v48[1] = 3221225472;
-              v48[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_359;
-              v48[3] = &unk_2789743E8;
+              v32 = *(*(&v48 + 1) + 8 * i);
+              v33 = [v44 db];
+              v34 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"UPDATE %@ SET dk_event_id = :uuidBlob WHERE id = :rowId", *(v27[5] + 8), v39];
+              v47[0] = MEMORY[0x277D85DD0];
+              v47[1] = 3221225472;
+              v47[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_359;
+              v47[3] = &unk_2789743E8;
               v35 = v27[5];
-              v48[4] = v32;
-              v48[5] = v35;
-              [v33 prepAndRunQuery:v34 onPrep:v48 onRow:0 onError:0];
+              v47[4] = v32;
+              v47[5] = v35;
+              [v33 prepAndRunQuery:v34 onPrep:v47 onRow:0 onError:0];
             }
 
-            v29 = [obj countByEnumeratingWithState:&v49 objects:v66 count:16];
+            v29 = [obj countByEnumeratingWithState:&v48 objects:v65 count:16];
           }
 
           while (v29);
         }
 
-        v36 = [v45 db];
+        v36 = [v44 db];
         v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM %@ WHERE id IN _pas_nsarray(:batchRowIds)", v27[4]];
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_2_363;
-        v46[3] = &unk_278978CF8;
-        v47 = v40;
-        [v36 prepAndRunQuery:v37 onPrep:v46 onRow:0 onError:0];
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_2_363;
+        v45[3] = &unk_278978CF8;
+        v46 = v39;
+        [v36 prepAndRunQuery:v37 onPrep:v45 onRow:0 onError:0];
 
         *(*(v27[9] + 8) + 24) = 0;
-        v17 = v47;
-        v9 = v42;
-        v11 = v41;
-        v16 = v43;
+        v17 = v46;
+        v9 = v41;
+        v11 = v40;
+        v16 = v42;
       }
 
       else
@@ -444,8 +592,6 @@ void __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_b
       [v15 prepAndRunQuery:v11 onPrep:0 onRow:0 onError:0];
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_3(uint64_t a1, void *a2)
@@ -464,59 +610,57 @@ uint64_t __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Tab
 
 uint64_t __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_batchSize_shouldContinueBlock_createRecordWithStatement_eventForRecord___block_invoke_5(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [v3 getInt64ForColumnName:"id" table:{objc_msgSend(*(*(a1 + 32) + 8), "UTF8String")}];
-  v6 = *(a1 + 40);
-  v7 = (*(*(a1 + 56) + 16))();
-  if (v7)
+  v6 = (*(*(a1 + 56) + 16))();
+  if (v6)
   {
-    v8 = [v3 getNSDataForColumnName:"dk_event_id" table:{objc_msgSend(*(*(a1 + 32) + 8), "UTF8String")}];
-    v9 = v8;
-    if (v8)
+    v7 = [v3 getNSDataForColumnName:"dk_event_id" table:{objc_msgSend(*(*(a1 + 32) + 8), "UTF8String")}];
+    v8 = v7;
+    if (v7)
     {
-      if ([v8 length] == 16)
+      if ([v7 length] == 16)
       {
-        v10 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v9, "bytes")}];
+        v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v8, "bytes")}];
 LABEL_11:
-        v13 = [[PPFixup49995922Tuple alloc] initWithRowid:v5 record:v7 dkUUID:v10];
-        [*(a1 + 48) addObject:v13];
+        v12 = [[PPFixup49995922Tuple alloc] initWithRowid:v5 record:v6 dkUUID:v9];
+        [*(a1 + 48) addObject:v12];
 
         goto LABEL_12;
       }
 
-      v12 = pp_default_log_handle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = pp_default_log_handle();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(*(a1 + 32) + 8);
-        v17 = 138412546;
-        v18 = v16;
-        v19 = 2048;
-        v20 = v5;
-        _os_log_error_impl(&dword_23224A000, v12, OS_LOG_TYPE_ERROR, "during fixup pass: %@ row %lld has bad dk_event_id, ignoring", &v17, 0x16u);
+        v14 = *(*(a1 + 32) + 8);
+        v15 = 138412546;
+        v16 = v14;
+        v17 = 2048;
+        v18 = v5;
+        _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "during fixup pass: %@ row %lld has bad dk_event_id, ignoring", &v15, 0x16u);
       }
     }
 
-    v10 = 0;
+    v9 = 0;
     goto LABEL_11;
   }
 
-  v10 = pp_default_log_handle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v9 = pp_default_log_handle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = *(*(a1 + 32) + 8);
-    v17 = 138412546;
-    v18 = v11;
-    v19 = 2048;
-    v20 = v5;
-    _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "during fixup pass: %@ row %lld contains bad source, ignoring", &v17, 0x16u);
+    v10 = *(*(a1 + 32) + 8);
+    v15 = 138412546;
+    v16 = v10;
+    v17 = 2048;
+    v18 = v5;
+    _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "during fixup pass: %@ row %lld contains bad source, ignoring", &v15, 0x16u);
   }
 
 LABEL_12:
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -551,226 +695,222 @@ void __141__PPRecordStorageHelper_fixupDKEventsWithDatabase_fixup49995922Table_b
 
 - (void)deleteRecordsForRowIds:(id)ids txnWitness:(id)witness atLeastOneClusterRemoved:(BOOL *)removed deletedCount:(unint64_t *)count
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   witnessCopy = witness;
-  v66 = idsCopy;
+  v61 = idsCopy;
   if ([idsCopy count])
   {
-    v61 = a2;
+    v56 = a2;
     removedCopy = removed;
     if (removed)
     {
-      v11 = objc_alloc(MEMORY[0x277CCACA8]);
-      clusterIdentifierColumn = self->_clusterIdentifierColumn;
-      v13 = [v11 initWithFormat:@"SELECT %@ AS clusterIdent FROM %@ WHERE id IN _pas_nsindexset(:rowIds)", clusterIdentifierColumn, self->_table];
-      v14 = objc_opt_new();
-      v15 = [witnessCopy db];
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke;
-      v79[3] = &unk_278978CF8;
-      v16 = idsCopy;
-      v80 = v16;
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_2;
-      v77[3] = &unk_278978DB8;
+      v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT %@ AS clusterIdent FROM %@ WHERE id IN _pas_nsindexset(:rowIds)", self->_clusterIdentifierColumn, self->_table];
+      v12 = objc_opt_new();
+      v13 = [witnessCopy db];
+      v74[0] = MEMORY[0x277D85DD0];
+      v74[1] = 3221225472;
+      v74[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke;
+      v74[3] = &unk_278978CF8;
+      v14 = idsCopy;
+      v75 = v14;
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_2;
+      v72[3] = &unk_278978DB8;
+      v15 = v12;
+      v73 = v15;
+      [v13 prepAndRunQuery:v11 onPrep:v74 onRow:v72 onError:0];
+
+      v16 = v73;
+      v60 = v15;
+
       v17 = v14;
-      v78 = v17;
-      [v15 prepAndRunQuery:v13 onPrep:v79 onRow:v77 onError:0];
-
-      v18 = v78;
-      v65 = v17;
-
-      v19 = v16;
-      v20 = witnessCopy;
+      v18 = witnessCopy;
     }
 
     else
     {
-      v21 = idsCopy;
-      v22 = witnessCopy;
-      v65 = 0;
+      v19 = idsCopy;
+      v20 = witnessCopy;
+      v60 = 0;
       if (!self)
       {
 LABEL_26:
 
-        v45 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT source_id, COUNT(source_id) FROM %@ WHERE id IN _pas_nsindexset(:rowIds) GROUP BY source_id", self->_table];
-        v46 = [witnessCopy db];
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_3;
-        v75[3] = &unk_278978CF8;
-        v47 = v66;
-        v76 = v47;
-        v73[0] = MEMORY[0x277D85DD0];
-        v73[1] = 3221225472;
-        v73[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_4;
-        v73[3] = &unk_278974C38;
-        v73[4] = self;
-        v48 = witnessCopy;
-        v74 = v48;
-        [v46 prepAndRunQuery:v45 onPrep:v75 onRow:v73 onError:0];
+        v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT source_id, COUNT(source_id) FROM %@ WHERE id IN _pas_nsindexset(:rowIds) GROUP BY source_id", self->_table];
+        v44 = [witnessCopy db];
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_3;
+        v70[3] = &unk_278978CF8;
+        v45 = v61;
+        v71 = v45;
+        v68[0] = MEMORY[0x277D85DD0];
+        v68[1] = 3221225472;
+        v68[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_4;
+        v68[3] = &unk_278974C38;
+        v68[4] = self;
+        v46 = witnessCopy;
+        v69 = v46;
+        [v44 prepAndRunQuery:v43 onPrep:v70 onRow:v68 onError:0];
 
-        v49 = [v48 db];
-        v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM %@ WHERE id IN _pas_nsindexset(:rowIds)", self->_table];
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_5;
-        v71[3] = &unk_278978CF8;
-        v72 = v47;
-        [v49 prepAndRunQuery:v50 onPrep:v71 onRow:0 onError:0];
+        v47 = [v46 db];
+        v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM %@ WHERE id IN _pas_nsindexset(:rowIds)", self->_table];
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_5;
+        v66[3] = &unk_278978CF8;
+        v67 = v45;
+        [v47 prepAndRunQuery:v48 onPrep:v66 onRow:0 onError:0];
 
         if (count)
         {
-          v51 = [v48 db];
-          v52 = v51;
-          v53 = sqlite3_changes([v51 handle]);
+          v49 = [v46 db];
+          v50 = v49;
+          v51 = sqlite3_changes([v49 handle]);
 
-          if (v53 < 0)
+          if (v51 < 0)
           {
-            v54 = pp_default_log_handle();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
+            v52 = pp_default_log_handle();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
             {
-              *v89 = 67109120;
-              *&v89[4] = v53;
-              _os_log_fault_impl(&dword_23224A000, v54, OS_LOG_TYPE_FAULT, "Negative number of deletions found: %d", v89, 8u);
+              *v84 = 67109120;
+              *&v84[4] = v51;
+              _os_log_fault_impl(&dword_23224A000, v52, OS_LOG_TYPE_FAULT, "Negative number of deletions found: %d", v84, 8u);
             }
           }
 
-          *count = v53;
+          *count = v51;
         }
 
-        [(PPSourceStorage *)self->_sourceStorage pruneSourcesWithNoReferencesWithTxnWitness:v48];
+        [(PPSourceStorage *)self->_sourceStorage pruneSourcesWithNoReferencesWithTxnWitness:v46];
         if (removedCopy)
         {
-          if (!v65)
+          if (!v60)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:v61 object:self file:@"PPRecordStorageHelper.m" lineNumber:1423 description:{@"Invalid parameter not satisfying: %@", @"clusterIdentSet"}];
+            [currentHandler handleFailureInMethod:v56 object:self file:@"PPRecordStorageHelper.m" lineNumber:1423 description:{@"Invalid parameter not satisfying: %@", @"clusterIdentSet"}];
           }
 
           *removedCopy = 0;
-          v55 = objc_alloc(MEMORY[0x277CCACA8]);
-          v56 = self->_clusterIdentifierColumn;
-          v57 = [v55 initWithFormat:@"SELECT touched.value AS touchedId, remaining.%@ as remainingId FROM _pas_nsset(:clusterIdentSet) AS touched LEFT JOIN %@ AS remaining ON touchedId = remainingId WHERE remainingId IS NULL", v56, self->_table];
-          v58 = [v48 db];
-          v69[0] = MEMORY[0x277D85DD0];
-          v69[1] = 3221225472;
-          v69[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_301;
-          v69[3] = &unk_278978CF8;
-          v70 = v65;
-          v68[0] = MEMORY[0x277D85DD0];
-          v68[1] = 3221225472;
-          v68[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_2_303;
-          v68[3] = &__block_descriptor_40_e49___PASDBIterAction__B_16__0___PASSqliteStatement_8l;
-          v68[4] = removedCopy;
-          [v58 prepAndRunQuery:v57 onPrep:v69 onRow:v68 onError:0];
+          v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT touched.value AS touchedId, remaining.%@ as remainingId FROM _pas_nsset(:clusterIdentSet) AS touched LEFT JOIN %@ AS remaining ON touchedId = remainingId WHERE remainingId IS NULL", self->_clusterIdentifierColumn, self->_table];
+          v54 = [v46 db];
+          v64[0] = MEMORY[0x277D85DD0];
+          v64[1] = 3221225472;
+          v64[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_301;
+          v64[3] = &unk_278978CF8;
+          v65 = v60;
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_2_303;
+          v63[3] = &__block_descriptor_40_e49___PASDBIterAction__B_16__0___PASSqliteStatement_8l;
+          v63[4] = removedCopy;
+          [v54 prepAndRunQuery:v53 onPrep:v64 onRow:v63 onError:0];
         }
 
         goto LABEL_37;
       }
     }
 
-    if (self->_duetStream && [v66 count])
+    if (self->_duetStream && [v61 count])
     {
-      v62 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT dk_event_id FROM %@ WHERE is_remote = 0 AND dk_event_id IS NOT NULL AND id IN _pas_nsindexset(:rowIds)", self->_table];
+      v57 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT dk_event_id FROM %@ WHERE is_remote = 0 AND dk_event_id IS NOT NULL AND id IN _pas_nsindexset(:rowIds)", self->_table];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v97 = 0;
-      v23 = [witnessCopy db];
-      v87[0] = MEMORY[0x277D85DD0];
-      v87[1] = 3221225472;
-      v87[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke;
-      v87[3] = &unk_278978CF8;
-      v24 = v66;
-      v88 = v24;
-      v86[0] = MEMORY[0x277D85DD0];
-      v86[1] = 3221225472;
-      v86[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_2;
-      v86[3] = &unk_278976450;
-      v86[4] = buf;
-      [v23 prepAndRunQuery:v62 onPrep:v87 onRow:v86 onError:0];
+      v92 = 0;
+      v21 = [witnessCopy db];
+      v82[0] = MEMORY[0x277D85DD0];
+      v82[1] = 3221225472;
+      v82[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke;
+      v82[3] = &unk_278978CF8;
+      v22 = v61;
+      v83 = v22;
+      v81[0] = MEMORY[0x277D85DD0];
+      v81[1] = 3221225472;
+      v81[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_2;
+      v81[3] = &unk_278976450;
+      v81[4] = buf;
+      [v21 prepAndRunQuery:v57 onPrep:v82 onRow:v81 onError:0];
 
-      LOBYTE(v23) = *(*&buf[8] + 24);
+      LOBYTE(v21) = *(*&buf[8] + 24);
       _Block_object_dispose(buf, 8);
-      if (v23)
+      if (v21)
       {
-        v84[0] = MEMORY[0x277D85DD0];
-        v84[1] = 3221225472;
-        v84[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_3;
-        v84[3] = &unk_278978CF8;
-        v85 = v24;
-        v25 = [PPSQLDatabase createTempTableContainingRowsFromQuery:v62 descriptiveTableName:@"del_dk_evt" txnWitness:witnessCopy bind:v84];
+        v79[0] = MEMORY[0x277D85DD0];
+        v79[1] = 3221225472;
+        v79[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_3;
+        v79[3] = &unk_278978CF8;
+        v80 = v22;
+        v23 = [PPSQLDatabase createTempTableContainingRowsFromQuery:v57 descriptiveTableName:@"del_dk_evt" txnWitness:witnessCopy bind:v79];
 
         do
         {
-          v26 = objc_opt_new();
-          v27 = objc_opt_new();
-          v28 = [witnessCopy db];
-          v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT rowid, dk_event_id FROM %@ LIMIT :batchSize", v25];
-          *v89 = MEMORY[0x277D85DD0];
-          v90 = 3221225472;
-          v91 = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_5;
-          v92 = &unk_278977B98;
-          v30 = v26;
-          v93 = v30;
-          v31 = v25;
-          v94 = v31;
-          v32 = v27;
-          v95 = v32;
-          [v28 prepAndRunQuery:v29 onPrep:&__block_literal_global_325_5203 onRow:v89 onError:0];
+          v24 = objc_opt_new();
+          v25 = objc_opt_new();
+          v26 = [witnessCopy db];
+          v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT rowid, dk_event_id FROM %@ LIMIT :batchSize", v23];
+          *v84 = MEMORY[0x277D85DD0];
+          v85 = 3221225472;
+          v86 = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_5;
+          v87 = &unk_278977B98;
+          v28 = v24;
+          v88 = v28;
+          v29 = v23;
+          v89 = v29;
+          v30 = v25;
+          v90 = v30;
+          [v26 prepAndRunQuery:v27 onPrep:&__block_literal_global_325_5203 onRow:v84 onError:0];
 
-          v33 = [v30 count];
-          if ([v32 count])
+          v31 = [v28 count];
+          if ([v30 count])
           {
-            v34 = pp_default_log_handle();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+            v32 = pp_default_log_handle();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
-              v43 = [v32 count];
+              v41 = [v30 count];
               *buf = 134217984;
-              *&buf[4] = v43;
-              _os_log_debug_impl(&dword_23224A000, v34, OS_LOG_TYPE_DEBUG, "Propagating deletion of %tu _DKEvents", buf, 0xCu);
+              *&buf[4] = v41;
+              _os_log_debug_impl(&dword_23224A000, v32, OS_LOG_TYPE_DEBUG, "Propagating deletion of %tu _DKEvents", buf, 0xCu);
             }
 
-            v35 = [MEMORY[0x277CFE260] predicateForObjectsWithUUIDs:v32];
+            v33 = [MEMORY[0x277CFE260] predicateForObjectsWithUUIDs:v30];
             duetStorage = self->_duetStorage;
             duetStream = self->_duetStream;
-            v83 = 0;
-            v38 = [(PPDKStorage *)duetStorage deleteAllEventsInEventStream:duetStream matchingPredicate:v35 error:&v83];
-            v39 = v83;
-            if (!v38)
+            v78 = 0;
+            v36 = [(PPDKStorage *)duetStorage deleteAllEventsInEventStream:duetStream matchingPredicate:v33 error:&v78];
+            v37 = v78;
+            if (!v36)
             {
-              v40 = pp_default_log_handle();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v38 = pp_default_log_handle();
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
-                v44 = [v32 count];
+                v42 = [v30 count];
                 *buf = 134218242;
-                *&buf[4] = v44;
+                *&buf[4] = v42;
                 *&buf[12] = 2112;
-                *&buf[14] = v39;
-                _os_log_error_impl(&dword_23224A000, v40, OS_LOG_TYPE_ERROR, "Failed to delete %tu _DKEvents: %@", buf, 0x16u);
+                *&buf[14] = v37;
+                _os_log_error_impl(&dword_23224A000, v38, OS_LOG_TYPE_ERROR, "Failed to delete %tu _DKEvents: %@", buf, 0x16u);
               }
             }
           }
 
-          if ([v30 count])
+          if ([v28 count])
           {
-            v41 = [witnessCopy db];
-            v42 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM %@ WHERE rowid IN _pas_nsarray(:batchRowIds)", v31];
-            v81[0] = MEMORY[0x277D85DD0];
-            v81[1] = 3221225472;
-            v81[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_331;
-            v81[3] = &unk_278978CF8;
-            v82 = v30;
-            [v41 prepAndRunQuery:v42 onPrep:v81 onRow:0 onError:0];
+            v39 = [witnessCopy db];
+            v40 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM %@ WHERE rowid IN _pas_nsarray(:batchRowIds)", v29];
+            v76[0] = MEMORY[0x277D85DD0];
+            v76[1] = 3221225472;
+            v76[2] = __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_331;
+            v76[3] = &unk_278978CF8;
+            v77 = v28;
+            [v39 prepAndRunQuery:v40 onPrep:v76 onRow:0 onError:0];
           }
         }
 
-        while (v33 > 0xC7);
-        [PPSQLDatabase dropTableWithName:v31 txnWitness:witnessCopy];
+        while (v31 > 0xC7);
+        [PPSQLDatabase dropTableWithName:v29 txnWitness:witnessCopy];
       }
     }
 
@@ -788,8 +928,6 @@ LABEL_26:
   }
 
 LABEL_37:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_2(uint64_t a1, void *a2)
@@ -807,7 +945,7 @@ uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOn
 
 uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOneClusterRemoved_deletedCount___block_invoke_4(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = a2;
@@ -819,32 +957,32 @@ uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOn
     v8 = objc_autoreleasePoolPush();
     v9 = [v6 getInt64ForColumn:0];
     v10 = [v6 getInt64ForColumn:1];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0x7FFFFFFFFFFFFFFFLL;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __68__PPRecordStorageHelper__processRowForDeletionWithStatement_handle___block_invoke;
-    v21[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
-    v21[4] = v9;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0x7FFFFFFFFFFFFFFFLL;
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
-    v20[2] = __68__PPRecordStorageHelper__processRowForDeletionWithStatement_handle___block_invoke_2;
-    v20[3] = &unk_278976450;
-    v20[4] = &v22;
-    [v7 prepAndRunQuery:@"SELECT ref_count FROM sources WHERE id = :rowId" onPrep:v21 onRow:v20 onError:0];
-    v11 = v23[3];
+    v20[2] = __68__PPRecordStorageHelper__processRowForDeletionWithStatement_handle___block_invoke;
+    v20[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
+    v20[4] = v9;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __68__PPRecordStorageHelper__processRowForDeletionWithStatement_handle___block_invoke_2;
+    v19[3] = &unk_278976450;
+    v19[4] = &v21;
+    [v7 prepAndRunQuery:@"SELECT ref_count FROM sources WHERE id = :rowId" onPrep:v20 onRow:v19 onError:0];
+    v11 = v22[3];
     if (v11 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v12 = pp_default_log_handle();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v18 = *(v3 + 8);
+        v17 = *(v3 + 8);
         *buf = 134218242;
         *&buf[4] = v9;
         *&buf[12] = 2112;
-        *&buf[14] = v18;
+        *&buf[14] = v17;
         _os_log_error_impl(&dword_23224A000, v12, OS_LOG_TYPE_ERROR, "Can't find source with id %lld during %@ record deletion", buf, 0x16u);
       }
     }
@@ -857,9 +995,9 @@ uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOn
         v14 = pp_default_log_handle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v19 = *(v3 + 8);
+          v18 = *(v3 + 8);
           *buf = 138412546;
-          *&buf[4] = v19;
+          *&buf[4] = v18;
           *&buf[12] = 2048;
           *&buf[14] = v9;
           _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Record deletion from %@ is leading to negative ref_count for source with id %lld", buf, 0x16u);
@@ -869,13 +1007,13 @@ uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOn
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __68__PPRecordStorageHelper__processRowForDeletionWithStatement_handle___block_invoke_312;
-      v27 = &__block_descriptor_48_e29_v16__0___PASSqliteStatement_8l;
-      v28 = v13;
-      v29 = v9;
+      v26 = &__block_descriptor_48_e29_v16__0___PASSqliteStatement_8l;
+      v27 = v13;
+      v28 = v9;
       [v7 prepAndRunQuery:@"UPDATE sources SET ref_count = :refCount WHERE id = :rowId" onPrep:buf onRow:0 onError:0];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
     objc_autoreleasePoolPop(v8);
     v15 = *MEMORY[0x277D42690];
   }
@@ -885,7 +1023,6 @@ uint64_t __97__PPRecordStorageHelper_deleteRecordsForRowIds_txnWitness_atLeastOn
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -899,7 +1036,7 @@ void __68__PPRecordStorageHelper__processRowForDeletionWithStatement_handle___bl
 
 uint64_t __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block_invoke_5(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = MEMORY[0x277CCABB0];
   v5 = a2;
@@ -913,12 +1050,12 @@ uint64_t __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block
     v9 = pp_default_log_handle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 40);
-      v13 = 138412546;
-      v14 = v12;
-      v15 = 2048;
-      v16 = [v7 length];
-      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "column 'dk_event_id' in table '%@' has blob of unexpected length %tu", &v13, 0x16u);
+      v11 = *(a1 + 40);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2048;
+      v15 = [v7 length];
+      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "column 'dk_event_id' in table '%@' has blob of unexpected length %tu", &v12, 0x16u);
     }
 
     goto LABEL_6;
@@ -932,7 +1069,6 @@ uint64_t __61__PPRecordStorageHelper__deleteDKEventsForRowIds_txnWitness___block
 LABEL_6:
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -1106,56 +1242,54 @@ void __104__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_exactMatch
 
 void __81__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_groupIds_txnWitness___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) UTF8String];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = *(a1 + 40);
-  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
+        v7 = *(*(&v17 + 1) + 8 * v6);
         v8 = [*(a1 + 48) db];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __81__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_groupIds_txnWitness___block_invoke_2;
-        v15[3] = &unk_2789743E8;
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __81__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_groupIds_txnWitness___block_invoke_2;
+        v14[3] = &unk_2789743E8;
         v9 = *(a1 + 56);
-        v16 = *(a1 + 64);
-        v17 = v7;
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __81__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_groupIds_txnWitness___block_invoke_3;
-        v12[3] = &unk_278972D80;
-        v13 = *(a1 + 72);
-        v14 = v2;
-        [v8 prepAndRunQuery:v9 onPrep:v15 onRow:v12 onError:0];
+        v15 = *(a1 + 64);
+        v16 = v7;
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __81__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_groupIds_txnWitness___block_invoke_3;
+        v11[3] = &unk_278972D80;
+        v12 = *(a1 + 72);
+        v13 = v2;
+        [v8 prepAndRunQuery:v9 onPrep:v14 onRow:v11 onError:0];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __81__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_groupIds_txnWitness___block_invoke_2(uint64_t a1, void *a2)
@@ -1210,30 +1344,28 @@ void __84__PPRecordStorageHelper_rowIdsForRecordsSourcedFromBundleId_documentIds
 {
   v12 = MEMORY[0x277CCACA8];
   witnessCopy = witness;
-  v14 = [v12 alloc];
-  table = self->_table;
-  v16 = [v14 initWithFormat:@"DELETE FROM %@ AS fb WHERE fb.rowid IN (SELECT rowid FROM %@                    ORDER BY rowid                    LIMIT :limit                    OFFSET :offset) AND NOT EXISTS (SELECT 1 FROM %@ AS rt                 WHERE rt.%@ = fb.item_string)", self->_feedbackTable, self->_feedbackTable, table, self->_clusterIdentifierColumn];
+  v14 = [[v12 alloc] initWithFormat:@"DELETE FROM %@ AS fb WHERE fb.rowid IN (SELECT rowid FROM %@                    ORDER BY rowid                    LIMIT :limit                    OFFSET :offset) AND NOT EXISTS (SELECT 1 FROM %@ AS rt                 WHERE rt.%@ = fb.item_string)", self->_feedbackTable, self->_feedbackTable, self->_table, self->_clusterIdentifierColumn];
+  v15 = [witnessCopy db];
+  v16 = [v15 numberOfRowsInTable:self->_feedbackTable];
+
   v17 = [witnessCopy db];
-  v18 = [v17 numberOfRowsInTable:self->_feedbackTable];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __113__PPRecordStorageHelper_pruneOrphanedFeedbackCountRecordsWithLimit_rowOffset_deletedCount_txnWitness_isComplete___block_invoke;
+  v21[3] = &__block_descriptor_48_e29_v16__0___PASSqliteStatement_8l;
+  v21[4] = limit;
+  v21[5] = offset;
+  v18 = [v17 prepAndRunQuery:v14 onPrep:v21 onRow:0 onError:0];
 
   v19 = [witnessCopy db];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __113__PPRecordStorageHelper_pruneOrphanedFeedbackCountRecordsWithLimit_rowOffset_deletedCount_txnWitness_isComplete___block_invoke;
-  v23[3] = &__block_descriptor_48_e29_v16__0___PASSqliteStatement_8l;
-  v23[4] = limit;
-  v23[5] = offset;
-  v20 = [v19 prepAndRunQuery:v16 onPrep:v23 onRow:0 onError:0];
 
-  v21 = [witnessCopy db];
-
-  *count = sqlite3_changes([v21 handle]);
-  if (offset + limit >= v18)
+  *count = sqlite3_changes([v19 handle]);
+  if (offset + limit >= v16)
   {
     *complete = 1;
   }
 
-  return v20;
+  return v18;
 }
 
 void __113__PPRecordStorageHelper_pruneOrphanedFeedbackCountRecordsWithLimit_rowOffset_deletedCount_txnWitness_isComplete___block_invoke(uint64_t a1, void *a2)
@@ -1268,35 +1400,110 @@ void __76__PPRecordStorageHelper_deleteFeedbackCountRecordsOlderThanDate_txnWitn
   [v3 bindNamedParam:":secondsFrom1970" toDouble:?];
 }
 
+- (void)deleteAllRemoteRecordsMissingInDuetFromDatabase:(id)database client:(unsigned __int8)client shouldContinueBlock:(id)block
+{
+  clientCopy = client;
+  v46 = *MEMORY[0x277D85DE8];
+  databaseCopy = database;
+  blockCopy = block;
+  if (self->_duetStream)
+  {
+    v10 = pp_default_log_handle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      table = self->_table;
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = table;
+      _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "PPRecordStorageHelper(%@): purging all orphaned remote records from local storage", &buf, 0xCu);
+    }
+
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 0;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDatabase_client_shouldContinueBlock___block_invoke;
+    aBlock[3] = &unk_278973078;
+    aBlock[4] = self;
+    v11 = databaseCopy;
+    v29 = v11;
+    v32 = clientCopy;
+    v12 = blockCopy;
+    v30 = v12;
+    v31 = &v33;
+    v13 = _Block_copy(aBlock);
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v42 = 0x3032000000;
+    v43 = __Block_byref_object_copy__5140;
+    v44 = __Block_byref_object_dispose__5141;
+    v45 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{-[PPDKStorage readBatchSize](self->_duetStorage, "readBatchSize")}];
+    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT dk_event_id FROM %@ WHERE dk_event_id IS NOT NULL AND is_remote", self->_table];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDatabase_client_shouldContinueBlock___block_invoke_2;
+    v22[3] = &unk_2789730C8;
+    v15 = v14;
+    v23 = v15;
+    selfCopy = self;
+    p_buf = &buf;
+    v16 = v13;
+    v25 = v16;
+    v17 = v12;
+    v26 = v17;
+    [v11 readTransactionWithClient:clientCopy block:v22];
+    if ([*(*(&buf + 1) + 40) count] && v17[2](v17))
+    {
+      (*(v16 + 2))(v16, *(*(&buf + 1) + 40));
+    }
+
+    v18 = pp_default_log_handle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      v20 = self->_table;
+      v21 = v34[3];
+      *v37 = 138412546;
+      v38 = v20;
+      v39 = 2048;
+      v40 = v21;
+      _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "PPRecordStorageHelper(%@): removed %tu orphaned remote records from local storage", v37, 0x16u);
+    }
+
+    _Block_object_dispose(&buf, 8);
+    _Block_object_dispose(&v33, 8);
+  }
+}
+
 void __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDatabase_client_shouldContinueBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v30[1] = *MEMORY[0x277D85DE8];
+  v20 = 0;
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v19 = *(a1 + 64);
+  v18 = *(a1 + 64);
   v5 = *(a1 + 48);
   v6 = a2;
   v7 = v4;
   v8 = v5;
   if (v3)
   {
-    v25 = 0;
+    v24 = 0;
     v9 = *(v3 + 40);
     v10 = [MEMORY[0x277CFE260] predicateForObjectsWithUUIDs:v6];
-    v31[0] = *(v3 + 48);
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = *(v3 + 48);
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     v12 = [*(v3 + 40) readBatchSize];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __120__PPRecordStorageHelper__filterAndRemoveMissingRemoteRecordsFromBatch_database_client_deletedCount_shouldContinueBlock___block_invoke;
-    v22[3] = &unk_2789730F0;
-    v20 = v8;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __120__PPRecordStorageHelper__filterAndRemoveMissingRemoteRecordsFromBatch_database_client_deletedCount_shouldContinueBlock___block_invoke;
+    v21[3] = &unk_2789730F0;
+    v19 = v8;
     v13 = v8;
-    v24 = v13;
+    v23 = v13;
     v14 = v6;
-    v23 = v14;
-    LOBYTE(v12) = [v9 iterEventBatchesMatchingPredicate:v10 streams:v11 sortDescriptors:MEMORY[0x277CBEBF8] batchSize:v12 readMetaData:0 remoteOnly:1 error:&v25 block:v22];
+    v22 = v14;
+    LOBYTE(v12) = [v9 iterEventBatchesMatchingPredicate:v10 streams:v11 sortDescriptors:MEMORY[0x277CBEBF8] batchSize:v12 readMetaData:0 remoteOnly:1 error:&v24 block:v21];
 
     if (v12)
     {
@@ -1309,12 +1516,12 @@ void __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDatabas
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __120__PPRecordStorageHelper__filterAndRemoveMissingRemoteRecordsFromBatch_database_client_deletedCount_shouldContinueBlock___block_invoke_251;
-      v27 = &unk_278973118;
-      v29 = v15;
-      v30 = &v21;
-      v28 = v3;
+      v26 = &unk_278973118;
+      v28 = v15;
+      v29 = &v20;
+      v27 = v3;
       v16 = v15;
-      [v7 writeTransactionWithClient:v19 block:buf];
+      [v7 writeTransactionWithClient:v18 block:buf];
     }
 
     else
@@ -1322,23 +1529,21 @@ void __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDatabas
       v16 = pp_default_log_handle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = *(v3 + 8);
+        v17 = *(v3 + 8);
         *buf = 138412546;
-        *&buf[4] = v18;
+        *&buf[4] = v17;
         *&buf[12] = 2112;
-        *&buf[14] = v25;
+        *&buf[14] = v24;
         _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "PPRecordStorageHelper(%@): error iterating the duet stream: %@", buf, 0x16u);
       }
     }
 
 LABEL_9:
-    v8 = v20;
+    v8 = v19;
   }
 
-  *(*(*(a1 + 56) + 8) + 24) += v21;
+  *(*(*(a1 + 56) + 8) + 24) += v20;
   [v6 removeAllObjects];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDatabase_client_shouldContinueBlock___block_invoke_2(uint64_t a1, void *a2)
@@ -1374,62 +1579,61 @@ uint64_t __100__PPRecordStorageHelper_deleteAllRemoteRecordsMissingInDuetFromDat
   v7 = [*(*(a1[7] + 8) + 40) count];
   if (v7 >= [*(a1[4] + 40) readBatchSize])
   {
-    v8 = *(*(a1[7] + 8) + 40);
     (*(a1[5] + 16))();
   }
 
-  v9 = (*(a1[6] + 16))();
-  v10 = MEMORY[0x277D42690];
-  v11 = MEMORY[0x277D42698];
+  v8 = (*(a1[6] + 16))();
+  v9 = MEMORY[0x277D42690];
+  v10 = MEMORY[0x277D42698];
 
-  if (v9)
+  if (v8)
   {
-    v12 = v10;
+    v11 = v9;
   }
 
   else
   {
-    v12 = v11;
+    v11 = v10;
   }
 
-  return *v12;
+  return *v11;
 }
 
 void __120__PPRecordStorageHelper__filterAndRemoveMissingRemoteRecordsFromBatch_database_client_deletedCount_shouldContinueBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ((*(*(a1 + 40) + 16))())
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
           v11 = *(a1 + 32);
-          v12 = [*(*(&v14 + 1) + 8 * v10) UUID];
+          v12 = [*(*(&v13 + 1) + 8 * v10) UUID];
           [v11 removeObject:v12];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -1440,8 +1644,6 @@ void __120__PPRecordStorageHelper__filterAndRemoveMissingRemoteRecordsFromBatch_
   {
     *a3 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __120__PPRecordStorageHelper__filterAndRemoveMissingRemoteRecordsFromBatch_database_client_deletedCount_shouldContinueBlock___block_invoke_251(uint64_t a1, void *a2)
@@ -1890,17 +2092,15 @@ void __158__PPRecordStorageHelper_deleteAllRecordsWithName_algorithm_bundleId_gr
   identifierCopy = identifier;
   v14 = MEMORY[0x277CCACA8];
   witnessCopy = witness;
-  v16 = [v14 alloc];
-  table = self->_table;
-  v18 = [v16 initWithFormat:@"SELECT rt.id FROM %@ AS rt WHERE rt.algorithm = :algorithm AND rt.%@ = :clusterIdent", table, self->_clusterIdentifierColumn];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __134__PPRecordStorageHelper_deleteAllRecordsWithClusterIdentifier_algorithm_txnWitness_atLeastOneRecordClusterRemoved_deletedCount_error___block_invoke;
-  v21[3] = &unk_278972F60;
+  v16 = [[v14 alloc] initWithFormat:@"SELECT rt.id FROM %@ AS rt WHERE rt.algorithm = :algorithm AND rt.%@ = :clusterIdent", self->_table, self->_clusterIdentifierColumn];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __134__PPRecordStorageHelper_deleteAllRecordsWithClusterIdentifier_algorithm_txnWitness_atLeastOneRecordClusterRemoved_deletedCount_error___block_invoke;
+  v19[3] = &unk_278972F60;
   algorithmCopy = algorithm;
-  v22 = identifierCopy;
-  v19 = identifierCopy;
-  [(PPRecordStorageHelper *)self _deleteRecordsWithRowIdsFromQuery:v18 txnWitness:witnessCopy atLeastOneRecordClusterRemoved:removed deletedCount:count bind:v21];
+  v20 = identifierCopy;
+  v17 = identifierCopy;
+  [(PPRecordStorageHelper *)self _deleteRecordsWithRowIdsFromQuery:v16 txnWitness:witnessCopy atLeastOneRecordClusterRemoved:removed deletedCount:count bind:v19];
 
   return 1;
 }
@@ -1918,75 +2118,73 @@ void __134__PPRecordStorageHelper_deleteAllRecordsWithClusterIdentifier_algorith
   identifierCopy = identifier;
   v12 = MEMORY[0x277CCACA8];
   witnessCopy = witness;
-  v14 = [v12 alloc];
-  table = self->_table;
-  v16 = [v14 initWithFormat:@"SELECT rt.id FROM %@ AS rt WHERE rt.%@ = :clusterIdent", table, self->_clusterIdentifierColumn];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __124__PPRecordStorageHelper_deleteAllRecordsWithClusterIdentifier_txnWitness_atLeastOneRecordClusterRemoved_deletedCount_error___block_invoke;
-  v19[3] = &unk_278978CF8;
-  v20 = identifierCopy;
-  v17 = identifierCopy;
-  [(PPRecordStorageHelper *)self _deleteRecordsWithRowIdsFromQuery:v16 txnWitness:witnessCopy atLeastOneRecordClusterRemoved:removed deletedCount:count bind:v19];
+  v14 = [[v12 alloc] initWithFormat:@"SELECT rt.id FROM %@ AS rt WHERE rt.%@ = :clusterIdent", self->_table, self->_clusterIdentifierColumn];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __124__PPRecordStorageHelper_deleteAllRecordsWithClusterIdentifier_txnWitness_atLeastOneRecordClusterRemoved_deletedCount_error___block_invoke;
+  v17[3] = &unk_278978CF8;
+  v18 = identifierCopy;
+  v15 = identifierCopy;
+  [(PPRecordStorageHelper *)self _deleteRecordsWithRowIdsFromQuery:v14 txnWitness:witnessCopy atLeastOneRecordClusterRemoved:removed deletedCount:count bind:v17];
 
   return 1;
 }
 
 - (void)disableSyncForBundleIds:(id)ids txnWitness:(id)witness
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   witnessCopy = witness;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   v8 = objc_opt_new();
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke;
   aBlock[3] = &unk_2789797E0;
   v9 = v8;
-  v40 = v9;
+  v39 = v9;
   selfCopy = self;
   v10 = _Block_copy(aBlock);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_201;
-  v35[3] = &unk_278972F10;
-  v38 = &v42;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_201;
+  v34[3] = &unk_278972F10;
+  v37 = &v41;
   v11 = v9;
-  v36 = v11;
+  v35 = v11;
   v12 = v10;
-  v37 = v12;
-  v13 = _Block_copy(v35);
+  v36 = v12;
+  v13 = _Block_copy(v34);
   v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT rt.dk_event_id FROM %@ AS rt INNER JOIN sources AS src ON rt.source_id = src.id WHERE rt.is_remote = 0 AND rt.is_sync_eligible = 1 AND rt.dk_event_id IS NOT NULL AND src.bundle_id IN _pas_nsset(:bundleIds)", self->_table];
   v15 = [witnessCopy db];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_2;
-  v33[3] = &unk_278978CF8;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_2;
+  v32[3] = &unk_278978CF8;
   v16 = idsCopy;
-  v34 = v16;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_3;
-  v31[3] = &unk_278972F38;
-  v31[4] = self;
+  v33 = v16;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_3;
+  v30[3] = &unk_278972F38;
+  v30[4] = self;
   v17 = v13;
-  v32 = v17;
-  [v15 prepAndRunQuery:v14 onPrep:v33 onRow:v31 onError:0];
+  v31 = v17;
+  [v15 prepAndRunQuery:v14 onPrep:v32 onRow:v30 onError:0];
 
   v12[2](v12);
   v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"UPDATE %@ SET is_sync_eligible = 0 WHERE is_remote = 0 AND is_sync_eligible = 1 AND source_id IN (SELECT id FROM sources WHERE bundle_id IN _pas_nsset(:bundleIds))", self->_table];
   v19 = [witnessCopy db];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_4;
-  v29[3] = &unk_278978CF8;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_4;
+  v28[3] = &unk_278978CF8;
   v20 = v16;
-  v30 = v20;
-  [v19 prepAndRunQuery:v18 onPrep:v29 onRow:0 onError:0];
+  v29 = v20;
+  [v19 prepAndRunQuery:v18 onPrep:v28 onRow:0 onError:0];
 
   v21 = [witnessCopy db];
   v22 = v21;
@@ -1997,25 +2195,24 @@ void __134__PPRecordStorageHelper_deleteAllRecordsWithClusterIdentifier_algorith
   {
     v25 = [v20 count];
     table = self->_table;
-    v27 = v43[3];
+    v27 = v42[3];
     *buf = 134218754;
-    v47 = v25;
-    v48 = 2112;
-    v49 = table;
-    v50 = 1024;
-    v51 = v23;
-    v52 = 2048;
-    v53 = v27;
+    v46 = v25;
+    v47 = 2112;
+    v48 = table;
+    v49 = 1024;
+    v50 = v23;
+    v51 = 2048;
+    v52 = v27;
     _os_log_impl(&dword_23224A000, v24, OS_LOG_TYPE_DEFAULT, "Disabled cloud sync for %tu bundleIds in %@: %d records modified, %tu _DKKnowledgeStore records deleted.", buf, 0x26u);
   }
 
-  _Block_object_dispose(&v42, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
 }
 
 uint64_t __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = *(a1 + 40);
@@ -2024,9 +2221,9 @@ uint64_t __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_
     {
       v4 = *(v2 + 48);
       v5 = [MEMORY[0x277CFE260] predicateForObjectsWithUUIDs:*(a1 + 32)];
-      v10 = 0;
-      LOBYTE(v4) = [v3 deleteAllEventsInEventStream:v4 matchingPredicate:v5 error:&v10];
-      v6 = v10;
+      v9 = 0;
+      LOBYTE(v4) = [v3 deleteAllEventsInEventStream:v4 matchingPredicate:v5 error:&v9];
+      v6 = v9;
 
       if ((v4 & 1) == 0)
       {
@@ -2034,19 +2231,17 @@ uint64_t __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v12 = v6;
+          v11 = v6;
           _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "Failed to delete _DKEvents in response to change in bundleId sync status: %@", buf, 0xCu);
         }
       }
     }
   }
 
-  result = [*(a1 + 32) removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) removeAllObjects];
 }
 
-unint64_t __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_201(uint64_t a1, uint64_t a2)
+void *__60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_invoke_201(uint64_t a1, uint64_t a2)
 {
   ++*(*(*(a1 + 48) + 8) + 24);
   [*(a1 + 32) addObject:a2];
@@ -2078,9 +2273,117 @@ uint64_t __60__PPRecordStorageHelper_disableSyncForBundleIds_txnWitness___block_
   return *v7;
 }
 
+- (void)importDuetEventsWithLimit:(unsigned int)limit database:(id)database client:(unsigned __int8)client remoteEventsOnly:(BOOL)only isComplete:(BOOL *)complete shouldContinueBlock:(id)block eventImportBlock:(id)importBlock
+{
+  onlyCopy = only;
+  clientCopy = client;
+  v61[3] = *MEMORY[0x277D85DE8];
+  databaseCopy = database;
+  blockCopy = block;
+  importBlockCopy = importBlock;
+  if (self->_duetStorage)
+  {
+    v35 = importBlockCopy;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__5140;
+    v55 = __Block_byref_object_dispose__5141;
+    v56 = 0;
+    v17 = objc_opt_new();
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remoteEventsOnly_isComplete_shouldContinueBlock_eventImportBlock___block_invoke;
+    v48[3] = &unk_278972E70;
+    v48[4] = self;
+    v36 = v17;
+    v49 = v36;
+    v50 = &v51;
+    [databaseCopy readTransactionWithClient:clientCopy block:v48];
+    if (v52[5])
+    {
+      [MEMORY[0x277CFE260] predicateForEventsWithStartDateAfter:?];
+    }
+
+    else
+    {
+      [MEMORY[0x277CCAC30] predicateWithValue:1];
+    }
+    v18 = ;
+    if (onlyCopy)
+    {
+      v19 = MEMORY[0x277CCA920];
+      predicateForEventsWithNullSourceDeviceID = [MEMORY[0x277CFE1E0] predicateForEventsWithNullSourceDeviceID];
+      v21 = [v19 notPredicateWithSubpredicate:predicateForEventsWithNullSourceDeviceID];
+    }
+
+    else
+    {
+      v21 = [MEMORY[0x277CCAC30] predicateWithValue:1];
+    }
+
+    v22 = MEMORY[0x277CCA920];
+    v23 = [MEMORY[0x277CFE260] predicateForObjectsWithUUIDs:v36];
+    v24 = [v22 notPredicateWithSubpredicate:v23];
+
+    v25 = MEMORY[0x277CCA920];
+    v61[0] = v18;
+    v61[1] = v21;
+    v61[2] = v24;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
+    v27 = [v25 andPredicateWithSubpredicates:v26];
+
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remoteEventsOnly_isComplete_shouldContinueBlock_eventImportBlock___block_invoke_2;
+    aBlock[3] = &unk_278972EC0;
+    limitCopy = limit;
+    completeCopy = complete;
+    v42 = blockCopy;
+    v47 = clientCopy;
+    v44 = &v51;
+    v40 = databaseCopy;
+    selfCopy = self;
+    v43 = v35;
+    v28 = _Block_copy(aBlock);
+    v38 = 0;
+    duetStorage = self->_duetStorage;
+    duetStream = self->_duetStream;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&duetStream count:1];
+    v31 = [MEMORY[0x277CFE1E0] startDateSortDescriptorAscending:1];
+    v59 = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    v33 = [(PPDKStorage *)duetStorage iterEventBatchesMatchingPredicate:v27 streams:v30 sortDescriptors:v32 batchSize:limit error:&v38 block:v28];
+
+    if (!v33)
+    {
+      v34 = pp_default_log_handle();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v58 = v38;
+        _os_log_error_impl(&dword_23224A000, v34, OS_LOG_TYPE_ERROR, "Error while iterating through _DKEvents during importDuetEventsWithLimit: %@", buf, 0xCu);
+      }
+
+      if (complete)
+      {
+        *complete = 1;
+      }
+    }
+
+    _Block_object_dispose(&v51, 8);
+    importBlockCopy = v35;
+  }
+
+  else if (complete)
+  {
+    *complete = 1;
+  }
+}
+
 void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remoteEventsOnly_isComplete_shouldContinueBlock_eventImportBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(*(a1 + 48) + 8);
   v7 = *(v4 + 40);
@@ -2093,37 +2396,37 @@ void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remo
     v10 = [PPSQLKVStore loadBlobForKey:*(v3 + 56) transaction:v9];
     if (v10)
     {
-      v23 = 0;
-      v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v23];
-      v12 = v23;
+      v22 = 0;
+      v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v22];
+      v12 = v22;
       if (v11)
       {
         v13 = v11;
         v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT rt.dk_event_id FROM %@ AS rt INNER JOIN sources AS src ON rt.source_id = src.id WHERE src.seconds_from_1970 > :before_timestamp AND src.seconds_from_1970 < :after_timestamp AND rt.dk_event_id IS NOT NULL", *(v3 + 8)];
         v15 = [v9 db];
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __92__PPRecordStorageHelper__addEventsSourcedOnLastImportDateToSet_lastDKImportDate_txnWitness___block_invoke;
-        v21[3] = &unk_278978CF8;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __92__PPRecordStorageHelper__addEventsSourcedOnLastImportDateToSet_lastDKImportDate_txnWitness___block_invoke;
+        v20[3] = &unk_278978CF8;
         v6 = v11;
-        v22 = v6;
-        *v26 = MEMORY[0x277D85DD0];
-        *&v26[8] = 3221225472;
-        *&v26[16] = __92__PPRecordStorageHelper__addEventsSourcedOnLastImportDateToSet_lastDKImportDate_txnWitness___block_invoke_2;
-        v27 = &unk_278974C38;
-        v28 = v3;
+        v21 = v6;
+        *v25 = MEMORY[0x277D85DD0];
+        *&v25[8] = 3221225472;
+        *&v25[16] = __92__PPRecordStorageHelper__addEventsSourcedOnLastImportDateToSet_lastDKImportDate_txnWitness___block_invoke_2;
+        v26 = &unk_278974C38;
+        v27 = v3;
         v16 = v8;
-        v29 = v16;
-        [v15 prepAndRunQuery:v14 onPrep:v21 onRow:v26 onError:0];
+        v28 = v16;
+        [v15 prepAndRunQuery:v14 onPrep:v20 onRow:v25 onError:0];
 
         if ([v16 count])
         {
           v17 = pp_default_log_handle();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            v19 = [v16 count];
+            v18 = [v16 count];
             *buf = 134217984;
-            v25 = v19;
+            v24 = v18;
             _os_log_debug_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEBUG, "importDuetEventsWithLimit skipping import of %tu events with matching starting date.", buf, 0xCu);
           }
         }
@@ -2134,19 +2437,18 @@ void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remo
         v14 = pp_default_log_handle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v20 = *(v3 + 56);
-          *v26 = 138412546;
-          *&v26[4] = v20;
-          *&v26[12] = 2112;
-          *&v26[14] = v12;
-          _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Failed to unarchive blob for key %@: %@", v26, 0x16u);
+          v19 = *(v3 + 56);
+          *v25 = 138412546;
+          *&v25[4] = v19;
+          *&v25[12] = 2112;
+          *&v25[14] = v12;
+          _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Failed to unarchive blob for key %@: %@", v25, 0x16u);
         }
       }
     }
   }
 
   objc_storeStrong(v5, v6);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remoteEventsOnly_isComplete_shouldContinueBlock_eventImportBlock___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
@@ -2184,31 +2486,31 @@ void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remo
 
 void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remoteEventsOnly_isComplete_shouldContinueBlock_eventImportBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 48);
   v6 = *(*(*(a1 + 56) + 8) + 40);
   v7 = *(a1 + 64);
   v8 = *(a1 + 40);
   v9 = v6;
-  v24 = v5;
+  v23 = v5;
   v10 = a2;
-  v23 = v9;
+  v22 = v9;
   if (v4)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__5140;
-    v30 = __Block_byref_object_dispose__5141;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__5140;
+    v29 = __Block_byref_object_dispose__5141;
     v11 = v9;
-    v31 = v11;
+    v30 = v11;
     v12 = [PPSQLKVStore loadBlobForKey:v4[7] transaction:v10];
     if (v12)
     {
-      v25 = 0;
-      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:&v25];
-      v14 = v25;
+      v24 = 0;
+      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:&v24];
+      v14 = v24;
       if (v13)
       {
         if (([v13 isEqualToDate:v11] & 1) == 0)
@@ -2225,11 +2527,11 @@ void __132__PPRecordStorageHelper_importDuetEventsWithLimit_database_client_remo
             *v7 = 1;
           }
 
-          v4 = v27[5];
+          v4 = v26[5];
 
 LABEL_16:
 LABEL_22:
-          _Block_object_dispose(&v26, 8);
+          _Block_object_dispose(&v25, 8);
 
           goto LABEL_23;
         }
@@ -2240,9 +2542,9 @@ LABEL_22:
         v17 = pp_default_log_handle();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v22 = v4[7];
+          v21 = v4[7];
           *buf = 138412546;
-          *&buf[4] = v22;
+          *&buf[4] = v21;
           *&buf[12] = 2112;
           *&buf[14] = v14;
           _os_log_error_impl(&dword_23224A000, v17, OS_LOG_TYPE_ERROR, "Failed to unarchive blob for key %@: %@", buf, 0x16u);
@@ -2264,7 +2566,7 @@ LABEL_22:
         *v7 = 1;
       }
 
-      v4 = v27[5];
+      v4 = v26[5];
       goto LABEL_16;
     }
 
@@ -2272,17 +2574,17 @@ LABEL_22:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness___block_invoke;
-    v33 = &unk_278972EE8;
-    v40 = sel__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness_;
-    v34 = v4;
-    v35 = v10;
-    v38 = v24;
+    v32 = &unk_278972EE8;
+    v39 = sel__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness_;
+    v33 = v4;
+    v34 = v10;
+    v37 = v23;
     v18 = v8;
-    v36 = v18;
-    v39 = &v26;
-    v37 = v11;
+    v35 = v18;
+    v38 = &v25;
+    v36 = v11;
     [v18 enumerateObjectsUsingBlock:buf];
-    v4 = v27[5];
+    v4 = v26[5];
 
     goto LABEL_22;
   }
@@ -2292,52 +2594,51 @@ LABEL_23:
   v19 = *(*(a1 + 56) + 8);
   v20 = *(v19 + 40);
   *(v19 + 40) = v4;
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 UUID];
 
   if (!v6)
   {
-    v34 = [MEMORY[0x277CCA890] currentHandler];
-    [v34 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"PPRecordStorageHelper.m" lineNumber:708 description:@"_DKEvent has nil UUID"];
+    v32 = [MEMORY[0x277CCA890] currentHandler];
+    [v32 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"PPRecordStorageHelper.m" lineNumber:708 description:@"_DKEvent has nil UUID"];
   }
 
   v7 = *(a1 + 32);
   v8 = [v5 UUID];
   v9 = [v7 blobFromUUID:v8];
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
   v10 = [*(a1 + 40) db];
   v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT 1 FROM %@ WHERE dk_event_id = :uuidBlob", *(*(a1 + 32) + 8)];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness___block_invoke_2;
-  v37[3] = &unk_278978CF8;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness___block_invoke_2;
+  v35[3] = &unk_278978CF8;
   v12 = v9;
-  v38 = v12;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness___block_invoke_3;
-  v36[3] = &unk_278976450;
-  v36[4] = &v39;
-  [v10 prepAndRunQuery:v11 onPrep:v37 onRow:v36 onError:0];
+  v36 = v12;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isComplete_eventImportBlock_txnWitness___block_invoke_3;
+  v34[3] = &unk_278976450;
+  v34[4] = &v37;
+  [v10 prepAndRunQuery:v11 onPrep:v35 onRow:v34 onError:0];
 
-  if (*(v40 + 24) == 1)
+  if (*(v38 + 24) == 1)
   {
     v13 = pp_default_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v33 = [v5 UUID];
+      v31 = [v5 UUID];
       *buf = 138412290;
-      v44 = v33;
+      v42 = v31;
       _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "Skipping import of _DKEvent %@, already present", buf, 0xCu);
     }
   }
@@ -2351,59 +2652,57 @@ void __103__PPRecordStorageHelper__importDuetEventBatch_lastDKImportDate_isCompl
 
     if (v17)
     {
-      v18 = *(a1 + 40);
       (*(*(a1 + 64) + 16))();
     }
   }
 
   if (a3 + 1 == [*(a1 + 48) count])
   {
-    v19 = [v5 startDate];
-    v20 = *(*(a1 + 72) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v18 = [v5 startDate];
+    v19 = *(*(a1 + 72) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = v18;
 
-    v22 = *(*(*(a1 + 72) + 8) + 40);
-    if (v22 && *(a1 + 56) && [v22 isEqualToDate:?])
+    v21 = *(*(*(a1 + 72) + 8) + 40);
+    if (v21 && *(a1 + 56) && [v21 isEqualToDate:?])
     {
-      v23 = pp_default_log_handle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = pp_default_log_handle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = *(a1 + 56);
+        v23 = *(a1 + 56);
         *buf = 138412290;
-        v44 = v24;
-        _os_log_impl(&dword_23224A000, v23, OS_LOG_TYPE_DEFAULT, "_DKEvent.startDate %@ did not change across batch, bumping timestamp to avoid spin.", buf, 0xCu);
+        v42 = v23;
+        _os_log_impl(&dword_23224A000, v22, OS_LOG_TYPE_DEFAULT, "_DKEvent.startDate %@ did not change across batch, bumping timestamp to avoid spin.", buf, 0xCu);
       }
 
-      v25 = [*(a1 + 56) dateByAddingTimeInterval:1.0];
-      v26 = *(*(a1 + 72) + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v24 = [*(a1 + 56) dateByAddingTimeInterval:1.0];
+      v25 = *(*(a1 + 72) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v24;
     }
 
-    v28 = *(*(*(a1 + 72) + 8) + 40);
-    v35 = 0;
-    v29 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v28 requiringSecureCoding:1 error:&v35];
-    v30 = v35;
-    if (v29)
+    v27 = *(*(*(a1 + 72) + 8) + 40);
+    v33 = 0;
+    v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v27 requiringSecureCoding:1 error:&v33];
+    v29 = v33;
+    if (v28)
     {
-      [PPSQLKVStore storeBlob:v29 forKey:*(*(a1 + 32) + 56) transaction:*(a1 + 40)];
+      [PPSQLKVStore storeBlob:v28 forKey:*(*(a1 + 32) + 56) transaction:*(a1 + 40)];
     }
 
     else
     {
-      v31 = pp_default_log_handle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v30 = pp_default_log_handle();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v44 = v30;
-        _os_log_error_impl(&dword_23224A000, v31, OS_LOG_TYPE_ERROR, "Failed to serialize NSDate during _DK import: %@", buf, 0xCu);
+        v42 = v29;
+        _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "Failed to serialize NSDate during _DK import: %@", buf, 0xCu);
       }
     }
   }
 
-  _Block_object_dispose(&v39, 8);
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
 }
 
 void __92__PPRecordStorageHelper__addEventsSourcedOnLastImportDateToSet_lastDKImportDate_txnWitness___block_invoke(uint64_t a1, void *a2)
@@ -2432,6 +2731,134 @@ uint64_t __92__PPRecordStorageHelper__addEventsSourcedOnLastImportDateToSet_last
   v7 = MEMORY[0x277D42690];
 
   return *v7;
+}
+
+- (void)fixupDKEventsMetadataWithShouldContinueBlock:(id)block database:(id)database client:(unsigned __int8)client
+{
+  clientCopy = client;
+  v45[2] = *MEMORY[0x277D85DE8];
+  blockCopy = block;
+  databaseCopy = database;
+  v9 = databaseCopy;
+  if (self)
+  {
+    *buf = 0;
+    v39 = buf;
+    v40 = 0x3032000000;
+    v41 = __Block_byref_object_copy__5140;
+    v42 = __Block_byref_object_dispose__5141;
+    v43 = 0;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __78__PPRecordStorageHelper__dkEventMetadataFixupHasCompletedWithDatabase_client___block_invoke;
+    v37[3] = &unk_278978BB8;
+    v37[4] = self;
+    v37[5] = buf;
+    [databaseCopy readTransactionWithClient:clientCopy block:v37];
+    v10 = *(v39 + 5);
+    if (v10)
+    {
+      bOOLValue = [v10 BOOLValue];
+      _Block_object_dispose(buf, 8);
+
+      if (bOOLValue)
+      {
+        v12 = pp_default_log_handle();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_debug_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEBUG, "Skipping duet fix up as it has already been completed.", buf, 2u);
+        }
+
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v13 = pp_default_log_handle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      {
+        *v36 = 0;
+        _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "PPRecordStorageHelper: metadata fix up has never occurred.", v36, 2u);
+      }
+
+      _Block_object_dispose(buf, 8);
+    }
+  }
+
+  else
+  {
+  }
+
+  v12 = [MEMORY[0x277D425A0] autoreleasingSerialQueueWithLabel:"com.apple.PersonalizationPortrait.duetStreamFixup" qosClass:5];
+  if (self->_duetStorage && self->_duetStream)
+  {
+    v14 = objc_autoreleasePoolPush();
+    v15 = MEMORY[0x277CCA920];
+    v16 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:@"compatVersion"];
+    v17 = [v15 notPredicateWithSubpredicate:v16];
+
+    objc_autoreleasePoolPop(v14);
+    v18 = objc_autoreleasePoolPush();
+    v19 = MEMORY[0x277CFE260];
+    compatibilityVersion = [MEMORY[0x277CFE0F8] compatibilityVersion];
+    v29 = [v19 predicateForObjectsWithMetadataKey:compatibilityVersion];
+
+    objc_autoreleasePoolPop(v18);
+    v21 = objc_autoreleasePoolPush();
+    v22 = MEMORY[0x277CCA920];
+    v45[0] = v17;
+    v45[1] = v29;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v24 = [v22 andPredicateWithSubpredicates:v23];
+
+    objc_autoreleasePoolPop(v21);
+    duetStorage = self->_duetStorage;
+    duetStream = self->_duetStream;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&duetStream count:1];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __86__PPRecordStorageHelper_fixupDKEventsMetadataWithShouldContinueBlock_database_client___block_invoke;
+    v32[3] = &unk_278972E20;
+    v27 = blockCopy;
+    v35 = v27;
+    v33 = v12;
+    selfCopy = self;
+    [(PPDKStorage *)duetStorage iterEventBatchesMatchingPredicate:v24 streams:v26 sortDescriptors:MEMORY[0x277CBEBF8] batchSize:8 error:0 block:v32];
+
+    if (v27[2](v27))
+    {
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __86__PPRecordStorageHelper_fixupDKEventsMetadataWithShouldContinueBlock_database_client___block_invoke_173;
+      v31[3] = &unk_278978B68;
+      v31[4] = self;
+      [v9 writeTransactionWithClient:clientCopy block:v31];
+    }
+
+    else
+    {
+      v28 = pp_default_log_handle();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23224A000, v28, OS_LOG_TYPE_DEFAULT, "Duet stream fix up deferring.", buf, 2u);
+      }
+    }
+  }
+
+  else
+  {
+    v17 = pp_default_log_handle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_INFO, "Not fixing up Duet stream as the stream or storage is nil.", buf, 2u);
+    }
+  }
+
+LABEL_20:
 }
 
 void __86__PPRecordStorageHelper_fixupDKEventsMetadataWithShouldContinueBlock_database_client___block_invoke(void *a1, void *a2, _BYTE *a3)
@@ -2482,10 +2909,10 @@ void __86__PPRecordStorageHelper_fixupDKEventsMetadataWithShouldContinueBlock_da
   [PPSQLKVStore setNumber:MEMORY[0x277CBEC38] forKey:v5 transaction:v4];
 }
 
-void __86__PPRecordStorageHelper_fixupDKEventsMetadataWithShouldContinueBlock_database_client___block_invoke_172(uint64_t a1)
+void __86__PPRecordStorageHelper_fixupDKEventsMetadataWithShouldContinueBlock_database_client___block_invoke_172(id a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v22 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 4);
   if (!v1)
   {
     v11 = 0;
@@ -2493,15 +2920,15 @@ LABEL_16:
     v14 = pp_default_log_handle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v17) = 138412290;
-      *(&v17 + 4) = v11;
-      _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Error cleaning events in Duet stream: %@", &v17, 0xCu);
+      LODWORD(v16) = 138412290;
+      *(&v16 + 4) = v11;
+      _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Error cleaning events in Duet stream: %@", &v16, 0xCu);
     }
 
     goto LABEL_19;
   }
 
-  v2 = [*(a1 + 40) _pas_filteredArrayWithTest:&__block_literal_global_5319];
+  v2 = [*(a1 + 5) _pas_filteredArrayWithTest:&__block_literal_global_5319];
   if (![v2 count])
   {
 
@@ -2510,17 +2937,17 @@ LABEL_16:
   }
 
   v3 = *(v1 + 40);
-  v16 = 0;
-  v4 = [v3 deleteEvents:v2 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [v3 deleteEvents:v2 error:&v15];
+  v5 = v15;
   if (v4)
   {
-    *&v17 = MEMORY[0x277D85DD0];
-    *(&v17 + 1) = 3221225472;
-    v18 = __67__PPRecordStorageHelper__cleanUpMalformedMetadataDuetEvents_error___block_invoke_175;
-    v19 = &unk_278972E48;
-    v20 = v1;
-    v6 = [v2 _pas_mappedArrayWithTransform:&v17];
+    *&v16 = MEMORY[0x277D85DD0];
+    *(&v16 + 1) = 3221225472;
+    v17 = __67__PPRecordStorageHelper__cleanUpMalformedMetadataDuetEvents_error___block_invoke_175;
+    v18 = &unk_278972E48;
+    v19 = v1;
+    v6 = [v2 _pas_mappedArrayWithTransform:&v16];
     v7 = [*(v1 + 40) saveEvents:v6 stream:*(v1 + 48) maxRetries:-1 retryInterval:&__block_literal_global_181 shouldContinueBlock:5.0];
     if ((v7 & 1) == 0)
     {
@@ -2548,7 +2975,7 @@ LABEL_16:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v5;
+      v21 = v5;
       _os_log_error_impl(&dword_23224A000, v12, OS_LOG_TYPE_ERROR, "Error deleting incompatible events: %@", buf, 0xCu);
     }
 
@@ -2564,8 +2991,6 @@ LABEL_16:
   }
 
 LABEL_19:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __67__PPRecordStorageHelper__cleanUpMalformedMetadataDuetEvents_error___block_invoke_175(uint64_t a1, void *a2)
@@ -2680,23 +3105,23 @@ void __78__PPRecordStorageHelper__dkEventMetadataFixupHasCompletedWithDatabase_c
 
 void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke(int8x16_t *a1)
 {
-  v68[3] = *MEMORY[0x277D85DE8];
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__5140;
-  v56 = __Block_byref_object_dispose__5141;
-  v57 = 0;
+  v67[3] = *MEMORY[0x277D85DE8];
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__5140;
+  v55 = __Block_byref_object_dispose__5141;
+  v56 = 0;
   v2 = a1[2].i64[0];
   v3 = a1[3].u8[0];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_2;
-  v51[3] = &unk_278978BB8;
-  v51[4] = a1[2].i64[1];
-  v51[5] = &v52;
-  [v2 readTransactionWithClient:v3 block:v51];
-  if (v53[5])
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_2;
+  v50[3] = &unk_278978BB8;
+  v50[4] = a1[2].i64[1];
+  v50[5] = &v51;
+  [v2 readTransactionWithClient:v3 block:v50];
+  if (v52[5])
   {
     v4 = pp_default_log_handle();
     if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -2705,11 +3130,11 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
     }
 
     v5 = *(a1[2].i64[1] + 8);
-    v6 = v53[5];
-    *v64 = 138412546;
-    *&v64[4] = v5;
-    *&v64[12] = 2112;
-    *&v64[14] = v6;
+    v6 = v52[5];
+    *v63 = 138412546;
+    *&v63[4] = v5;
+    *&v63[12] = 2112;
+    *&v63[14] = v6;
     v7 = "dkEventDeletionProcessingBlock(%@): processing _DKEvent deletions after: %@";
     v8 = v4;
     v9 = 22;
@@ -2723,18 +3148,18 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
       goto LABEL_5;
     }
 
-    v39 = *(a1[2].i64[1] + 8);
-    *v64 = 138412290;
-    *&v64[4] = v39;
+    v38 = *(a1[2].i64[1] + 8);
+    *v63 = 138412290;
+    *&v63[4] = v38;
     v7 = "dkEventDeletionProcessingBlock(%@): processing all _DKEvent deletions";
     v8 = v4;
     v9 = 12;
   }
 
-  _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, v7, v64, v9);
+  _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, v7, v63, v9);
 LABEL_5:
 
-  if (v53[5])
+  if (v52[5])
   {
     [MEMORY[0x277CFE1E0] predicateForEventsWithStartDateAfter:?];
   }
@@ -2754,58 +3179,58 @@ LABEL_5:
   v17 = [v15 predicateForObjectsWithMetadataKey:v16];
 
   v18 = MEMORY[0x277CCA920];
-  v68[0] = v10;
-  v68[1] = v14;
-  v68[2] = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
+  v67[0] = v10;
+  v67[1] = v14;
+  v67[2] = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:3];
   v20 = [v18 andPredicateWithSubpredicates:v19];
 
   location = 0;
-  *v64 = 0;
-  *&v64[8] = v64;
-  *&v64[16] = 0x3032000000;
-  v65 = __Block_byref_object_copy__5140;
-  v66 = __Block_byref_object_dispose__5141;
-  v67 = 0;
+  *v63 = 0;
+  *&v63[8] = v63;
+  *&v63[16] = 0x3032000000;
+  v64 = __Block_byref_object_copy__5140;
+  v65 = __Block_byref_object_dispose__5141;
+  v66 = 0;
   v21 = *(a1[2].i64[1] + 40);
   v22 = [v21 tombstoneStream];
-  v63 = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+  v62 = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
   v24 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v62 = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+  v61 = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
   v26 = [*(a1[2].i64[1] + 40) readBatchSize];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_157;
-  v46[3] = &unk_278972DA8;
-  v41 = a1[2];
-  v27 = v41.i64[0];
-  v47 = vextq_s8(v41, v41, 8uLL);
-  v49 = a1[3].i8[0];
-  v48 = v64;
-  LOBYTE(v21) = [v21 iterEventBatchesMatchingPredicate:v20 streams:v23 sortDescriptors:v25 batchSize:v26 readMetaData:0 remoteOnly:0 error:&location block:v46];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_157;
+  v45[3] = &unk_278972DA8;
+  v40 = a1[2];
+  v27 = v40.i64[0];
+  v46 = vextq_s8(v40, v40, 8uLL);
+  v48 = a1[3].i8[0];
+  v47 = v63;
+  LOBYTE(v21) = [v21 iterEventBatchesMatchingPredicate:v20 streams:v23 sortDescriptors:v25 batchSize:v26 readMetaData:0 remoteOnly:0 error:&location block:v45];
 
   if ((v21 & 1) == 0)
   {
     v28 = pp_default_log_handle();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v38 = *(a1[2].i64[1] + 8);
+      v37 = *(a1[2].i64[1] + 8);
       *buf = 138412546;
-      v59 = v38;
-      v60 = 2112;
-      v61 = location;
+      v58 = v37;
+      v59 = 2112;
+      v60 = location;
       _os_log_error_impl(&dword_23224A000, v28, OS_LOG_TYPE_ERROR, "dkEventDeletionProcessingBlock(%@): failed to load tombstone events: %@", buf, 0x16u);
     }
   }
 
-  if (*(*&v64[8] + 40))
+  if (*(*&v63[8] + 40))
   {
     v29 = location;
     location = 0;
 
-    v30 = *(*&v64[8] + 40);
+    v30 = *(*&v63[8] + 40);
     obj = location;
     v31 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v30 requiringSecureCoding:1 error:&obj];
     objc_storeStrong(&location, obj);
@@ -2813,16 +3238,16 @@ LABEL_5:
     {
       v32 = a1[2].i64[0];
       v33 = a1[3].u8[0];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_159;
-      v42[3] = &unk_278977CD8;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_159;
+      v41[3] = &unk_278977CD8;
       v34 = v31;
       v35 = a1[2].i64[1];
-      v43 = v34;
-      v44 = v35;
-      [v32 writeTransactionWithClient:v33 block:v42];
-      v36 = v43;
+      v42 = v34;
+      v43 = v35;
+      [v32 writeTransactionWithClient:v33 block:v41];
+      v36 = v42;
     }
 
     else
@@ -2830,44 +3255,42 @@ LABEL_5:
       v36 = pp_default_log_handle();
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        v40 = *(a1[2].i64[1] + 8);
+        v39 = *(a1[2].i64[1] + 8);
         *buf = 138412546;
-        v59 = v40;
-        v60 = 2112;
-        v61 = location;
+        v58 = v39;
+        v59 = 2112;
+        v60 = location;
         _os_log_debug_impl(&dword_23224A000, v36, OS_LOG_TYPE_DEBUG, "dkEventDeletionProcessingBlock(%@): failed to serialize NSDate: %@", buf, 0x16u);
       }
     }
   }
 
-  _Block_object_dispose(v64, 8);
-  _Block_object_dispose(&v52, 8);
-
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v63, 8);
+  _Block_object_dispose(&v51, 8);
 }
 
 void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (v3)
   {
     v4 = [PPSQLKVStore loadBlobForKey:*(v3 + 64) transaction:a2];
     if (v4)
     {
-      v12 = 0;
-      v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:&v12];
-      v6 = v12;
+      v11 = 0;
+      v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:&v11];
+      v6 = v11;
       if (!v5)
       {
         v7 = pp_default_log_handle();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v11 = *(v3 + 64);
+          v10 = *(v3 + 64);
           *buf = 138412546;
-          v14 = v11;
-          v15 = 2112;
-          v16 = v6;
+          v13 = v10;
+          v14 = 2112;
+          v15 = v6;
           _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "Failed to unarchive NSDate for KVS key %@: %@", buf, 0x16u);
         }
       }
@@ -2887,12 +3310,11 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v5;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_client___block_invoke_157(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(a1 + 56);
@@ -2903,12 +3325,12 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
   v9 = a2;
   v10 = v2;
   v11 = v10;
-  v35 = v3;
+  v34 = v3;
   if (v3)
   {
-    v29 = v4;
-    v31 = v10;
-    v34 = v6;
+    v28 = v4;
+    v30 = v10;
+    v33 = v6;
     v12 = [v9 lastObject];
     v13 = v12;
     if (v12)
@@ -2917,30 +3339,30 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
       v14 = v7;
     }
 
-    v30 = v13;
-    v33 = v7;
+    v29 = v13;
+    v32 = v7;
     v15 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v32 = v9;
+    v31 = v9;
     v16 = v9;
-    v17 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v37;
+      v19 = *v36;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v37 != v19)
+          if (*v36 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v36 + 1) + 8 * i);
+          v21 = *(*(&v35 + 1) + 8 * i);
           v22 = [v21 stringValue];
 
           if (v22 && (v23 = objc_alloc(MEMORY[0x277CCAD78]), [v21 stringValue], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v23, "initWithUUIDString:", v24), v24, v25))
@@ -2953,7 +3375,7 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
             v25 = pp_default_log_handle();
             if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              v26 = *(v35 + 8);
+              v26 = *(v34 + 8);
               v27 = [v21 stringValue];
               *buf = 138412546;
               *&buf[4] = v26;
@@ -2964,31 +3386,30 @@ void __77__PPRecordStorageHelper_duetEventDeletionProcessingBlockWithDatabase_cl
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v18);
     }
 
-    v11 = v31;
+    v11 = v30;
     if ([v15 count])
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __87__PPRecordStorageHelper__processTombstoneEventBatch_database_client_lastTombstoneDate___block_invoke;
-      v41 = &unk_278977CD8;
-      v42 = v35;
-      v43 = v15;
-      [v31 writeTransactionWithClient:v29 block:buf];
+      v40 = &unk_278977CD8;
+      v41 = v34;
+      v42 = v15;
+      [v30 writeTransactionWithClient:v28 block:buf];
     }
 
-    v7 = v33;
-    v6 = v34;
-    v9 = v32;
+    v7 = v32;
+    v6 = v33;
+    v9 = v31;
   }
 
   objc_storeStrong(v6, v7);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PPRecordStorageHelper__processTombstoneEventBatch_database_client_lastTombstoneDate___block_invoke(uint64_t a1, void *a2)
@@ -3123,18 +3544,48 @@ void __86__PPRecordStorageHelper_truncateRecordsByDroppingOldestMakingRoomForCou
   [v2 deleteRecordsForRowIds:v3 txnWitness:*(a1 + 40) atLeastOneClusterRemoved:0 deletedCount:0];
 }
 
+- (BOOL)decayFeedbackWithDatabase:(id)database client:(unsigned __int8)client decayRate:(double)rate
+{
+  clientCopy = client;
+  databaseCopy = database;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __68__PPRecordStorageHelper_decayFeedbackWithDatabase_client_decayRate___block_invoke;
+  v11[3] = &unk_278972D58;
+  v11[4] = self;
+  v11[5] = &v12;
+  *&v11[6] = rate;
+  if ([databaseCopy writeTransactionWithClient:clientCopy timeoutInSeconds:v11 block:5.0])
+  {
+    v9 = *(v13 + 24);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  _Block_object_dispose(&v12, 8);
+
+  return v9 & 1;
+}
+
 void __68__PPRecordStorageHelper_decayFeedbackWithDatabase_client_decayRate___block_invoke(void *a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   context = objc_autoreleasePoolPush();
   v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_lastDecayDate", *(a1[4] + 16)];
   v5 = [PPSQLKVStore loadBlobForKey:v4 transaction:v3];
   if (v5)
   {
-    v23 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v23];
-    v7 = v23;
+    v22 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v22];
+    v7 = v22;
     if (!v6)
     {
       [PPSQLKVStore removeBlobForKey:v4 transaction:v3];
@@ -3148,9 +3599,9 @@ LABEL_12:
       }
 
       *buf = 138412546;
-      v25 = v4;
-      v26 = 2112;
-      v27 = v7;
+      v24 = v4;
+      v25 = 2112;
+      v26 = v7;
       v16 = "Clearing key %@ because the blob failed to deserialize: %@";
 LABEL_19:
       _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, v16, buf, 0x16u);
@@ -3175,9 +3626,9 @@ LABEL_19:
   v10 = v7;
   v11 = MEMORY[0x277CCAAB0];
   v12 = objc_opt_new();
-  v22 = v10;
-  v6 = [v11 archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v22];
-  v7 = v22;
+  v21 = v10;
+  v6 = [v11 archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v21];
+  v7 = v21;
 
   if (!v6)
   {
@@ -3188,22 +3639,22 @@ LABEL_19:
     }
 
     *buf = 138412546;
-    v25 = v4;
-    v26 = 2112;
-    v27 = v7;
+    v24 = v4;
+    v25 = 2112;
+    v26 = v7;
     v16 = "Unable to serialize date for key %@: %@";
     goto LABEL_19;
   }
 
   v13 = [v3 db];
   v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"UPDATE %@ SET pseudocount = :decayFactor * pseudocount", *(a1[4] + 16), context];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __68__PPRecordStorageHelper_decayFeedbackWithDatabase_client_decayRate___block_invoke_131;
-  v21[3] = &__block_descriptor_48_e29_v16__0___PASSqliteStatement_8l;
-  v21[4] = a1[6];
-  *&v21[5] = v9;
-  *(*(a1[5] + 8) + 24) = [v13 prepAndRunQuery:v14 onPrep:v21 onRow:0 onError:0];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __68__PPRecordStorageHelper_decayFeedbackWithDatabase_client_decayRate___block_invoke_131;
+  v20[3] = &__block_descriptor_48_e29_v16__0___PASSqliteStatement_8l;
+  v20[4] = a1[6];
+  *&v20[5] = v9;
+  *(*(a1[5] + 8) + 24) = [v13 prepAndRunQuery:v14 onPrep:v20 onRow:0 onError:0];
 
   if (*(*(a1[5] + 8) + 24))
   {
@@ -3217,7 +3668,7 @@ LABEL_19:
     {
       v18 = *(a1[4] + 16);
       *buf = 138412290;
-      v25 = v18;
+      v24 = v18;
       _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_INFO, "Decaying feedback counts UPSERT transaction failed for table %@", buf, 0xCu);
     }
   }
@@ -3225,7 +3676,6 @@ LABEL_19:
 LABEL_17:
 
   objc_autoreleasePoolPop(context);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__PPRecordStorageHelper_decayFeedbackWithDatabase_client_decayRate___block_invoke_131(uint64_t a1, void *a2)
@@ -3233,6 +3683,40 @@ uint64_t __68__PPRecordStorageHelper_decayFeedbackWithDatabase_client_decayRate_
   v3 = exp(-(*(a1 + 32) * *(a1 + 40)));
 
   return [a2 bindNamedParam:":decayFactor" toDouble:v3];
+}
+
+- (BOOL)storeFeedback:(id)feedback database:(id)database client:(unsigned __int8)client lowercaseItemStrings:(BOOL)strings limit:(unsigned int)limit
+{
+  clientCopy = client;
+  feedbackCopy = feedback;
+  databaseCopy = database;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  timestamp = [feedbackCopy timestamp];
+  [timestamp timeIntervalSince1970];
+  v16 = v15;
+
+  v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"INSERT INTO %@ (item_string, feedback_type, last_update_seconds_from_1970) VALUES (:itemString, :feedbackType, :lastUpdateSecondsFrom1970) ON CONFLICT(item_string, feedback_type) DO UPDATE SET pseudocount = pseudocount + 1, last_update_seconds_from_1970 = :lastUpdateSecondsFrom1970", self->_feedbackTable];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __82__PPRecordStorageHelper_storeFeedback_database_client_lowercaseItemStrings_limit___block_invoke;
+  v21[3] = &unk_278972D30;
+  v18 = feedbackCopy;
+  limitCopy = limit;
+  v22 = v18;
+  v25 = &v29;
+  v19 = v17;
+  stringsCopy = strings;
+  v26 = v16;
+  v23 = v19;
+  selfCopy = self;
+  [databaseCopy writeTransactionWithClient:clientCopy block:v21];
+  LOBYTE(clientCopy) = *(v30 + 24);
+
+  _Block_object_dispose(&v29, 8);
+  return clientCopy;
 }
 
 void __82__PPRecordStorageHelper_storeFeedback_database_client_lowercaseItemStrings_limit___block_invoke(uint64_t a1, void *a2)
@@ -3324,6 +3808,84 @@ void __82__PPRecordStorageHelper_storeFeedback_database_client_lowercaseItemStri
   [v5 bindNamedParam:":lastUpdateSecondsFrom1970" toDouble:*(a1 + 40)];
 }
 
+- (id)decayedFeedbackCountsForItemString:(id)string database:(id)database client:(unsigned __int8)client
+{
+  clientCopy = client;
+  v54 = *MEMORY[0x277D85DE8];
+  stringCopy = string;
+  databaseCopy = database;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__5140;
+  v46 = __Block_byref_object_dispose__5141;
+  v47 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT MAX(last_update_seconds_from_1970) AS latest_date, SUM(CASE WHEN feedback_type = :engagedExplicitly THEN pseudocount END) AS engaged_explicitly, SUM(CASE WHEN feedback_type = :engagedImplicitly THEN pseudocount END) AS engaged_implicitly, SUM(CASE WHEN feedback_type = :rejectedExplicitly THEN pseudocount END) AS rejected_explicitly, SUM(CASE WHEN feedback_type = :rejectedImplicitly THEN pseudocount END) AS rejected_implicitly FROM %@ WHERE item_string = :itemString", self->_feedbackTable];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __76__PPRecordStorageHelper_decayedFeedbackCountsForItemString_database_client___block_invoke;
+  v17[3] = &unk_278972CB8;
+  v20 = &v48;
+  v11 = v10;
+  v18 = v11;
+  v12 = stringCopy;
+  v19 = v12;
+  v21 = &v42;
+  v22 = &v38;
+  v23 = &v34;
+  v24 = &v30;
+  v25 = &v26;
+  [databaseCopy readTransactionWithClient:clientCopy block:v17];
+  if (v49[3])
+  {
+    v13 = [PPDecayedFeedbackCounts alloc];
+    v14 = [(PPDecayedFeedbackCounts *)v13 initWithLatestDate:v43[5] engagedExplicitly:v39[3] engagedImplicitly:v35[3] rejectedExplicitly:v31[3] rejectedImplicitly:v27[3]];
+  }
+
+  else
+  {
+    v15 = pp_default_log_handle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v53 = clientCopy;
+      _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "Error accumulating feedback counts with database client %hhu", buf, 8u);
+    }
+
+    v14 = 0;
+  }
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
+
+  _Block_object_dispose(&v48, 8);
+
+  return v14;
+}
+
 void __76__PPRecordStorageHelper_decayedFeedbackCountsForItemString_database_client___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 db];
@@ -3376,6 +3938,43 @@ uint64_t __76__PPRecordStorageHelper_decayedFeedbackCountsForItemString_database
   return *MEMORY[0x277D42698];
 }
 
+- (BOOL)clearWithDatabase:(id)database client:(unsigned __int8)client deletedCount:(unint64_t *)count error:(id *)error clearExternalTableReferences:(id)references
+{
+  clientCopy = client;
+  v24 = *MEMORY[0x277D85DE8];
+  referencesCopy = references;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __98__PPRecordStorageHelper_clearWithDatabase_client_deletedCount_error_clearExternalTableReferences___block_invoke;
+  v19[3] = &unk_278972C68;
+  v13 = referencesCopy;
+  v19[4] = self;
+  v20 = v13;
+  countCopy = count;
+  [database writeTransactionWithClient:clientCopy block:v19];
+  duetStorage = self->_duetStorage;
+  if (duetStorage)
+  {
+    v15 = [(PPDKStorage *)duetStorage deleteAllEventsInEventStream:self->_duetStream error:error];
+  }
+
+  else
+  {
+    v16 = pp_default_log_handle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      name = [(_DKEventStream *)self->_duetStream name];
+      *buf = 138412290;
+      v23 = name;
+      _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "Suppressing _DKKnowledge %@ clear due to dkSyncEnabled=NO.", buf, 0xCu);
+    }
+
+    v15 = 1;
+  }
+
+  return v15;
+}
+
 void __98__PPRecordStorageHelper_clearWithDatabase_client_deletedCount_error_clearExternalTableReferences___block_invoke(void *a1, void *a2)
 {
   v8 = a2;
@@ -3399,7 +3998,7 @@ void __98__PPRecordStorageHelper_clearWithDatabase_client_deletedCount_error_cle
 
 - (id)uuidForStatement:(id)statement columnName:(const char *)name tableName:(const char *)tableName
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = [statement getNSDataForColumnName:name table:tableName];
   if ([v7 length] == 16)
   {
@@ -3411,19 +4010,17 @@ void __98__PPRecordStorageHelper_clearWithDatabase_client_deletedCount_error_cle
     v9 = pp_default_log_handle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315650;
+      v11 = 136315650;
       nameCopy = name;
-      v14 = 2080;
+      v13 = 2080;
       tableNameCopy = tableName;
-      v16 = 2048;
-      v17 = [v7 length];
-      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "column '%s' in table '%s' has blob of unexpected length %tu", &v12, 0x20u);
+      v15 = 2048;
+      v16 = [v7 length];
+      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "column '%s' in table '%s' has blob of unexpected length %tu", &v11, 0x20u);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

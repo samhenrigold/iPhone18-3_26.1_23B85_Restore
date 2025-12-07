@@ -2836,7 +2836,7 @@ LABEL_36:
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v18 = dateCopy;
+    v17 = dateCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "setActivitySharingRepromptLastTriggerDate: %@", buf, 0xCu);
   }
 
@@ -2855,13 +2855,13 @@ LABEL_36:
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v18) = v10;
+    LODWORD(v17) = v10;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "setActivitySharingRepromptLastTriggerDate: new count is %d", buf, 8u);
   }
 
   dateCopy = [NSNumber numberWithInt:v10, @"lastTriggerDate", @"totalTriggerCount", dateCopy];
-  v16[1] = dateCopy;
-  v14 = [NSDictionary dictionaryWithObjects:v16 forKeys:&v15 count:2];
+  v15 = dateCopy;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   [standardUserDefaults setObject:v14 forKey:@"GKActivitySharingReprompt"];
 }
 

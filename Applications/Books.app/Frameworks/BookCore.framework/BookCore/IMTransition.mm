@@ -341,7 +341,7 @@
 
   [(IMTransition *)self prepareTransition];
   [(IMTransition *)self prepareViewControllers];
-  [(IMTransition *)self duration];
+  objc_msgSend_duration(self);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_A8D50;
@@ -415,7 +415,7 @@
     return 0;
   }
 
-  [(IMTransition *)self duration];
+  objc_msgSend_duration(self);
   return v9 > 0.0 && v8;
 }
 

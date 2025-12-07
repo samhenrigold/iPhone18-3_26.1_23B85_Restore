@@ -288,9 +288,9 @@ LABEL_43:
     +[CNFavoritesEntry contactFormatter];
   }
 
-  v0 = contactFormatter___contactFormatter;
+  v1 = contactFormatter___contactFormatter;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __36__CNFavoritesEntry_contactFormatter__block_invoke()
@@ -820,9 +820,9 @@ LABEL_10:
     +[CNFavoritesEntry shouldRetryMatching];
   }
 
-  v0 = shouldRetryMatching_cn_once_object_1;
+  v1 = shouldRetryMatching_cn_once_object_1;
 
-  return [v0 BOOLValue];
+  return [v1 BOOLValue];
 }
 
 + (BOOL)favoritesEntryValueForLabeledValueValue:(void *)value propertyKey:(void *)key isEqualToValue:

@@ -47,16 +47,14 @@
 
 - (void)cancel
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   self->_cancelled = 1;
   [(TPSURLSessionTask *)self->_sessionTask unregisterDelegate:self];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Cancelled";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Cancelled";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"Request" code:-1 userInfo:v3];
   [(TPSURLSessionItem *)self notifyWithSessionTask:0 error:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyWithSessionTask:(id)task error:(id)error

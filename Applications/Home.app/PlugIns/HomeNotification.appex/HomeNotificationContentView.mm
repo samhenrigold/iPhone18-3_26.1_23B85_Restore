@@ -3,6 +3,7 @@
 - (HomeNotificationContentView)initWithContent:(id)content;
 - (void)_updateStatusText:(id)text accessoryImage:(id)image animated:(BOOL)animated;
 - (void)dealloc;
+- (void)setContent:(id)content animated:(BOOL)animated;
 - (void)updateConstraints;
 @end
 
@@ -112,6 +113,117 @@
   v4.receiver = self;
   v4.super_class = HomeNotificationContentView;
   [(HomeNotificationContentView *)&v4 dealloc];
+}
+
+- (void)setContent:(id)content animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  contentCopy = content;
+  if (self->_content == contentCopy)
+  {
+    goto LABEL_19;
+  }
+
+  objc_storeStrong(&self->_content, content);
+  statusTextOverrideCancellationToken = [(HomeNotificationContentView *)self statusTextOverrideCancellationToken];
+  [statusTextOverrideCancellationToken cancel];
+
+  [(HomeNotificationContentView *)self setStatusTextOverrideCancellationToken:0];
+  v9 = [(HomeNotificationContent *)contentCopy mode]!= 1 && [(HomeNotificationContent *)contentCopy mode]!= 2;
+  cameraSource = [(HomeNotificationContent *)contentCopy cameraSource];
+  cameraView = [(HomeNotificationContentView *)self cameraView];
+  [cameraView setCameraSource:cameraSource];
+
+  cameraView2 = [(HomeNotificationContentView *)self cameraView];
+  [cameraView2 setHidden:v9];
+
+  statusDisplayStyle = [(HomeNotificationContent *)contentCopy statusDisplayStyle];
+  if (!statusDisplayStyle)
+  {
+    statusBarView = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView setHidden:1];
+    goto LABEL_11;
+  }
+
+  if (statusDisplayStyle == 1)
+  {
+    statusBarView2 = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView2 setHidden:0];
+
+    statusBarView = [UIBlurEffect effectWithStyle:1];
+    v20 = [HULayeredBackgroundEffect backgroundWithBlurEffect:statusBarView];
+    statusBarView3 = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView3 setBackgroundEffect:v20];
+
+    v22 = [UIVibrancyEffect effectForBlurEffect:statusBarView];
+    v23 = [HULayeredContentEffect contentWithVibrancyEffect:v22];
+    statusBarView4 = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView4 setContentEffect:v23];
+
+    goto LABEL_11;
+  }
+
+  if (statusDisplayStyle == 2)
+  {
+    statusBarView5 = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView5 setHidden:0];
+
+    v15 = +[UIColor hf_keyColor];
+    v16 = [HULayeredBackgroundEffect backgroundWithFillColor:v15];
+    statusBarView6 = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView6 setBackgroundEffect:v16];
+
+    statusBarView = [(HomeNotificationContentView *)self statusBarView];
+    [statusBarView setContentEffect:0];
+LABEL_11:
+  }
+
+  objc_initWeak(&location, self);
+  v34 = _NSConcreteStackBlock;
+  v35 = 3221225472;
+  v36 = sub_10000A950;
+  v37 = &unk_100018CF0;
+  objc_copyWeak(&v39, &location);
+  v25 = contentCopy;
+  v38 = v25;
+  v40 = animatedCopy;
+  v26 = objc_retainBlock(&v34);
+  v27 = [(HomeNotificationContent *)v25 actionResultText:v34];
+
+  if (v27)
+  {
+    actionResultText = [(HomeNotificationContent *)v25 actionResultText];
+    [(HomeNotificationContentView *)self _updateStatusText:actionResultText accessoryImage:0 animated:animatedCopy];
+
+    v29 = +[NAScheduler mainThreadScheduler];
+    v30 = [v29 afterDelay:v26 performBlock:2.0];
+    [(HomeNotificationContentView *)self setStatusTextOverrideCancellationToken:v30];
+  }
+
+  else
+  {
+    (v26[2])(v26);
+  }
+
+  cameraView3 = [(HomeNotificationContentView *)self cameraView];
+  errorContent = [(HomeNotificationContent *)v25 errorContent];
+  [cameraView3 setErrorContent:errorContent animated:animatedCopy];
+
+  if ([(HomeNotificationContent *)v25 mode])
+  {
+    spinner = [(HomeNotificationContentView *)self spinner];
+    [spinner stopAnimating];
+  }
+
+  else
+  {
+    spinner = [(HomeNotificationContentView *)self spinner];
+    [spinner startAnimating];
+  }
+
+  objc_destroyWeak(&v39);
+  objc_destroyWeak(&location);
+LABEL_19:
 }
 
 - (void)_updateStatusText:(id)text accessoryImage:(id)image animated:(BOOL)animated

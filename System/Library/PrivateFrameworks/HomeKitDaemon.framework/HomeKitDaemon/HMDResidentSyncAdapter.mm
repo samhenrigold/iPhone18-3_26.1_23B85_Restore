@@ -5,11 +5,11 @@
 
 id __HMDResidentSyncAdapter_1_1_block_invoke(uint64_t a1, void *a2)
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = toManyRelationship(v2, @"users");
-  v72 = v3;
+  v71 = v3;
   v5 = [v4 count];
   if (v5)
   {
@@ -36,10 +36,10 @@ id __HMDResidentSyncAdapter_1_1_block_invoke(uint64_t a1, void *a2)
       {
         [v4 removeObjectAtIndex:v7];
         --v6;
-        if (v72)
+        if (v71)
         {
           v13 = objectValue(v8, 0, @"modelID");
-          [v72 addObject:v13];
+          [v71 addObject:v13];
         }
       }
 
@@ -52,169 +52,169 @@ id __HMDResidentSyncAdapter_1_1_block_invoke(uint64_t a1, void *a2)
     while (v7 < v6);
   }
 
-  if ([v72 count])
+  if ([v71 count])
   {
-    v56 = v4;
-    v57 = v2;
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
+    v55 = v4;
+    v56 = v2;
     v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
     obj = v4;
-    v60 = [obj countByEnumeratingWithState:&v93 objects:v102 count:16];
-    if (v60)
+    v59 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
+    if (v59)
     {
-      v59 = *v94;
+      v58 = *v93;
       do
       {
         v14 = 0;
         do
         {
-          if (*v94 != v59)
+          if (*v93 != v58)
           {
             objc_enumerationMutation(obj);
           }
 
-          v61 = v14;
-          v15 = *(*(&v93 + 1) + 8 * v14);
+          v60 = v14;
+          v15 = *(*(&v92 + 1) + 8 * v14);
+          v88 = 0u;
           v89 = 0u;
           v90 = 0u;
           v91 = 0u;
-          v92 = 0u;
-          v63 = toManyRelationship(v15, @"bulletinRegistrations");
-          v67 = [v63 countByEnumeratingWithState:&v89 objects:v101 count:16];
-          if (v67)
+          v62 = toManyRelationship(v15, @"bulletinRegistrations");
+          v66 = [v62 countByEnumeratingWithState:&v88 objects:v100 count:16];
+          if (v66)
           {
-            v65 = *v90;
+            v64 = *v89;
             do
             {
               v16 = 0;
               do
               {
-                if (*v90 != v65)
+                if (*v89 != v64)
                 {
-                  objc_enumerationMutation(v63);
+                  objc_enumerationMutation(v62);
                 }
 
-                v69 = v16;
-                v17 = *(*(&v89 + 1) + 8 * v16);
+                v68 = v16;
+                v17 = *(*(&v88 + 1) + 8 * v16);
+                v84 = 0u;
                 v85 = 0u;
                 v86 = 0u;
                 v87 = 0u;
-                v88 = 0u;
                 v18 = toManyRelationship(v17, @"conditions");
-                v19 = [v18 countByEnumeratingWithState:&v85 objects:v100 count:16];
+                v19 = [v18 countByEnumeratingWithState:&v84 objects:v99 count:16];
                 if (v19)
                 {
                   v20 = v19;
-                  v21 = *v86;
+                  v21 = *v85;
                   do
                   {
                     for (i = 0; i != v20; ++i)
                     {
-                      if (*v86 != v21)
+                      if (*v85 != v21)
                       {
                         objc_enumerationMutation(v18);
                       }
 
-                      v23 = *(*(&v85 + 1) + 8 * i);
+                      v23 = *(*(&v84 + 1) + 8 * i);
                       v24 = objectValue(v23, 0, @"$type");
                       v25 = [v24 isEqualToString:@"MKFPresenceBulletinCondition"];
 
                       if (v25)
                       {
                         v26 = toManyRelationship(v23, @"users");
-                        pruneArrayOfRefs(v26, v72);
+                        pruneArrayOfRefs(v26, v71);
                       }
                     }
 
-                    v20 = [v18 countByEnumeratingWithState:&v85 objects:v100 count:16];
+                    v20 = [v18 countByEnumeratingWithState:&v84 objects:v99 count:16];
                   }
 
                   while (v20);
                 }
 
-                v16 = v69 + 1;
+                v16 = v68 + 1;
               }
 
-              while (v69 + 1 != v67);
-              v67 = [v63 countByEnumeratingWithState:&v89 objects:v101 count:16];
+              while (v68 + 1 != v66);
+              v66 = [v62 countByEnumeratingWithState:&v88 objects:v100 count:16];
             }
 
-            while (v67);
+            while (v66);
           }
 
-          v14 = v61 + 1;
+          v14 = v60 + 1;
         }
 
-        while (v61 + 1 != v60);
-        v60 = [obj countByEnumeratingWithState:&v93 objects:v102 count:16];
+        while (v60 + 1 != v59);
+        v59 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
       }
 
-      while (v60);
+      while (v59);
     }
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
-    v70 = toManyRelationship(v57, @"accessories");
-    v27 = [v70 countByEnumeratingWithState:&v81 objects:v99 count:16];
-    v28 = v72;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
+    v69 = toManyRelationship(v56, @"accessories");
+    v27 = [v69 countByEnumeratingWithState:&v80 objects:v98 count:16];
+    v28 = v71;
     if (v27)
     {
       v29 = v27;
-      v30 = *v82;
+      v30 = *v81;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v82 != v30)
+          if (*v81 != v30)
           {
-            objc_enumerationMutation(v70);
+            objc_enumerationMutation(v69);
           }
 
-          v32 = *(*(&v81 + 1) + 8 * j);
+          v32 = *(*(&v80 + 1) + 8 * j);
           v33 = toManyRelationship(v32, @"usersWithListeningHistoryEnabled");
-          pruneArrayOfRefs(v33, v72);
+          pruneArrayOfRefs(v33, v71);
 
           v34 = toManyRelationship(v32, @"usersWithMediaContentProfileEnabled");
-          pruneArrayOfRefs(v34, v72);
+          pruneArrayOfRefs(v34, v71);
 
           v35 = toManyRelationship(v32, @"usersWithPersonalRequestsEnabled");
-          pruneArrayOfRefs(v35, v72);
+          pruneArrayOfRefs(v35, v71);
 
           v36 = toManyRelationship(v32, @"pairedUsers");
-          pruneArrayOfRefs(v36, v72);
+          pruneArrayOfRefs(v36, v71);
         }
 
-        v29 = [v70 countByEnumeratingWithState:&v81 objects:v99 count:16];
+        v29 = [v69 countByEnumeratingWithState:&v80 objects:v98 count:16];
       }
 
       while (v29);
     }
 
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
-    v62 = toManyRelationship(v57, @"triggers");
-    v66 = [v62 countByEnumeratingWithState:&v77 objects:v98 count:16];
-    if (v66)
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v61 = toManyRelationship(v56, @"triggers");
+    v65 = [v61 countByEnumeratingWithState:&v76 objects:v97 count:16];
+    if (v65)
     {
-      v64 = *v78;
+      v63 = *v77;
       do
       {
         v37 = 0;
         do
         {
-          if (*v78 != v64)
+          if (*v77 != v63)
           {
-            objc_enumerationMutation(v62);
+            objc_enumerationMutation(v61);
           }
 
-          v71 = v37;
-          v38 = *(*(&v77 + 1) + 8 * v37);
+          v70 = v37;
+          v38 = *(*(&v76 + 1) + 8 * v37);
           v39 = objectValue(v38, 2, @"owner");
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -241,59 +241,57 @@ id __HMDResidentSyncAdapter_1_1_block_invoke(uint64_t a1, void *a2)
             }
           }
 
-          v68 = v41;
-          v75 = 0u;
-          v76 = 0u;
-          v73 = 0u;
+          v67 = v41;
           v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
           v45 = toManyRelationship(v38, @"events");
-          v46 = [v45 countByEnumeratingWithState:&v73 objects:v97 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v72 objects:v96 count:16];
           if (v46)
           {
             v47 = v46;
-            v48 = *v74;
+            v48 = *v73;
             do
             {
               for (k = 0; k != v47; ++k)
               {
-                if (*v74 != v48)
+                if (*v73 != v48)
                 {
                   objc_enumerationMutation(v45);
                 }
 
-                v50 = *(*(&v73 + 1) + 8 * k);
+                v50 = *(*(&v72 + 1) + 8 * k);
                 v51 = objectValue(v50, 0, @"$type");
                 v52 = [v51 isEqualToString:@"Presence"];
 
                 if (v52)
                 {
                   v53 = toManyRelationship(v50, @"users");
-                  pruneArrayOfRefs(v53, v72);
+                  pruneArrayOfRefs(v53, v71);
                 }
               }
 
-              v47 = [v45 countByEnumeratingWithState:&v73 objects:v97 count:16];
+              v47 = [v45 countByEnumeratingWithState:&v72 objects:v96 count:16];
             }
 
             while (v47);
           }
 
-          v28 = v72;
-          v37 = v71 + 1;
+          v28 = v71;
+          v37 = v70 + 1;
         }
 
-        while (v71 + 1 != v66);
-        v66 = [v62 countByEnumeratingWithState:&v77 objects:v98 count:16];
+        while (v70 + 1 != v65);
+        v65 = [v61 countByEnumeratingWithState:&v76 objects:v97 count:16];
       }
 
-      while (v66);
+      while (v65);
     }
 
-    v4 = v56;
-    v2 = v57;
+    v4 = v55;
+    v2 = v56;
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

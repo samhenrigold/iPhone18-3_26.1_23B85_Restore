@@ -330,40 +330,40 @@ void __69__PGGraphAddressNodeCollection_enumerateUniversalEndDatesUsingBlock___b
 
 void __79__PGGraphAddressNodeCollection_addressNodesWithinDistance_ofLocations_inGraph___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v17 + 1) + 8 * i) coordinate];
+        [*(*(&v16 + 1) + 8 * i) coordinate];
         [v3 coordinate];
-        v15 = v11;
-        v16 = v12;
+        v14 = v11;
+        v15 = v12;
         CLLocationCoordinate2DGetDistanceFrom();
         if (v13 <= *(a1 + 48))
         {
-          [*(a1 + 40) addIdentifier:{objc_msgSend(v3, "identifier", v15, v16)}];
+          [*(a1 + 40) addIdentifier:{objc_msgSend(v3, "identifier", v14, v15)}];
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:{16, v15, v16}];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:{16, v14, v15}];
       if (v6)
       {
         continue;
@@ -374,42 +374,36 @@ void __79__PGGraphAddressNodeCollection_addressNodesWithinDistance_ofLocations_i
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)addressNodesForUUIDs:(id)ds inGraph:(id)graph
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   dsCopy = ds;
   v7 = +[PGGraphAddressNode filter];
-  v13 = @"uuid";
-  v14[0] = dsCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"uuid";
+  v13[0] = dsCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v9 = [v7 filterBySettingProperties:v8];
 
   v10 = [(MANodeCollection *)PGGraphAddressNodeCollection nodesMatchingFilter:v9 inGraph:graphCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)addressNodeAsCollectionForUUID:(id)d inGraph:(id)graph
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   dCopy = d;
   v7 = +[PGGraphAddressNode filter];
-  v13 = @"uuid";
-  v14[0] = dCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"uuid";
+  v13[0] = dCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v9 = [v7 filterBySettingProperties:v8];
 
   v10 = [(MANodeCollection *)PGGraphAddressNodeCollection nodesMatchingFilter:v9 inGraph:graphCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

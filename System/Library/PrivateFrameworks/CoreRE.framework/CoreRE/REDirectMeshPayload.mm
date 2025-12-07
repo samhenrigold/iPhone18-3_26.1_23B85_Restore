@@ -80,23 +80,23 @@
 
 - (MeshCollection)makeMeshCollection:(SEL)collection
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   directMesh = [(REDirectMeshPayload *)self directMesh];
-  v42 = DRMeshCopyDescriptor();
-  v57 = 0uLL;
-  v58 = 0;
+  v50 = DRMeshCopyDescriptor();
+  v65 = 0uLL;
+  v66 = 0;
   PartCount = DRMeshGetPartCount();
-  v43 = directMesh;
+  v51 = directMesh;
   v6 = DRMeshCopyDescriptor();
-  v56 = 0;
-  v53[1] = 0;
-  v54 = 0;
-  v53[0] = 0;
-  v55 = 0;
+  v64 = 0;
+  v61[1] = 0;
+  v62 = 0;
+  v61[0] = 0;
+  v63 = 0;
   VertexAttributeCount = DRMeshDescriptorGetVertexAttributeCount();
   if (VertexAttributeCount != -1)
   {
-    VertexAttributeCount = re::DynamicArray<re::NamedVertexBuffer>::setCapacity(v53, VertexAttributeCount + 1);
+    VertexAttributeCount = re::DynamicArray<re::NamedVertexBuffer>::setCapacity(v61, VertexAttributeCount + 1);
   }
 
   IndexType = DRMeshDescriptorGetIndexType();
@@ -115,10 +115,10 @@
     v9 = 49;
   }
 
-  v62.i8[0] = v9;
-  v62.i8[1] = 1;
+  v70.i8[0] = v9;
+  v70.i8[1] = 1;
   re::MeshPayloadBuffers::slice(a4, 4, 0, 0);
-  v65.i32[0] = 0;
+  v73.i32[0] = 0;
   v10 = DRMeshDescriptorGetIndexType();
   v11 = 4 * (v10 == 1);
   if (!v10)
@@ -126,17 +126,17 @@
     v11 = 2;
   }
 
-  v65.i32[1] = v11;
-  re::DynamicArray<re::NamedVertexBuffer>::add(v53, &v60);
-  if (v64 != -1)
+  v73.i32[1] = v11;
+  re::DynamicArray<re::NamedVertexBuffer>::add(v61, &v68);
+  if (v72 != -1)
   {
-    (off_1F5CC8DB0[v64])(&v106, &v62.u32[2]);
+    (off_1F5CC8DB0[v72])(&v114, &v70.u32[2]);
   }
 
-  LODWORD(v64) = -1;
-  if (v60 && (BYTE8(v60) & 1) != 0)
+  LODWORD(v72) = -1;
+  if (v68 && (BYTE8(v68) & 1) != 0)
   {
-    (*(*v60 + 40))();
+    (*(*v68 + 40))();
   }
 
   v12 = DRMeshDescriptorGetVertexAttributeCount();
@@ -144,35 +144,35 @@
   {
     for (i = 0; i != v12; ++i)
     {
-      LODWORD(v52) = 0;
-      v106.i64[0] = 0;
+      LODWORD(v60) = 0;
+      v114.i64[0] = 0;
       *__str = 0;
-      *v105 = 0;
-      *v48 = 0;
-      v47[0] = 0;
-      v59 = 0;
+      *v113 = 0;
+      *v56 = 0;
+      v55[0] = 0;
+      v67 = 0;
       if (DRMeshDescriptorGetVertexAttributeFormat())
       {
         VertexLayout = DRMeshDescriptorGetVertexLayout();
         if (VertexLayout)
         {
-          if (v52 <= 0xC)
+          if (v60 <= 0xC)
           {
-            v15 = *(*(&off_1E871B370 + v52) + 1);
-            v62.i8[0] = v106.i8[0];
-            v62.i8[1] = 1;
-            re::MeshPayloadBuffers::slice(a4, v48[0], v47[0], 0);
-            v65.i64[0] = __PAIR64__(v59, *v105);
-            re::DynamicArray<re::NamedVertexBuffer>::add(v53, &v60);
-            if (v64 != -1)
+            v15 = *(*(&off_1E871B370 + v60) + 1);
+            v70.i8[0] = v114.i8[0];
+            v70.i8[1] = 1;
+            re::MeshPayloadBuffers::slice(a4, v56[0], v55[0], 0);
+            v73.i64[0] = __PAIR64__(v67, *v113);
+            re::DynamicArray<re::NamedVertexBuffer>::add(v61, &v68);
+            if (v72 != -1)
             {
-              (off_1F5CC8DB0[v64])(&v51, &v62.u32[2]);
+              (off_1F5CC8DB0[v72])(&v59, &v70.u32[2]);
             }
 
-            LODWORD(v64) = -1;
-            if (v60 && (BYTE8(v60) & 1) != 0)
+            LODWORD(v72) = -1;
+            if (v68 && (BYTE8(v68) & 1) != 0)
             {
-              (*(*v60 + 40))();
+              (*(*v68 + 40))();
             }
           }
         }
@@ -180,11 +180,11 @@
     }
   }
 
-  v16 = v43;
-  if (v54)
+  v16 = v51;
+  if (v62)
   {
-    v17 = v56 + 40;
-    v18 = 88 * v54;
+    v17 = v64 + 40;
+    v18 = 88 * v62;
     while (1)
     {
       v19 = (*(v17 - 32) & 1) != 0 ? *(v17 - 24) : (v17 - 31);
@@ -208,21 +208,21 @@
       v22 = 0;
       v23.i64[0] = 0x7F0000007FLL;
       v23.i64[1] = 0x7F0000007FLL;
-      v41 = vnegq_f32(v23);
+      v49 = vnegq_f32(v23);
       do
       {
-        v51 = 0;
-        v52 = 0;
-        v49 = 0;
-        v50 = 0;
-        v48[2] = 0;
-        *v48 = 0;
-        LODWORD(v47[1]) = 0;
-        v47[0] = 0;
+        v59 = 0;
+        v60 = 0;
+        v57 = 0;
+        v58 = 0;
+        v56[2] = 0;
+        *v56 = 0;
+        LODWORD(v55[1]) = 0;
+        v55[0] = 0;
         if (DRMeshGetPartAt())
         {
-          v25 = v51;
-          v24 = v52;
+          v25 = v59;
+          v24 = v60;
           v26 = DRMeshDescriptorGetIndexType();
           v27 = 4 * (v26 == 1);
           if (!v26)
@@ -231,148 +231,170 @@
           }
 
           re::MeshPayloadBuffers::slice(a4, 4, v24, v27 * v25);
-          std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(v17, &v60);
-          *(v17 + 32) = v62.i64[0];
-          v16 = v43;
-          if (v61.i32[2] != -1)
+          std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(v17, &v68);
+          *(v17 + 32) = v70.i64[0];
+          v16 = v51;
+          if (v69.i32[2] != -1)
           {
-            (off_1F5CC8DB0[v61.u32[2]])(&v106, &v60);
+            (off_1F5CC8DB0[v69.u32[2]])(&v114, &v68);
           }
 
           v28 = snprintf(__str, 0x40uLL, "Part%zu", v22);
-          v45 = 0;
-          v46 = &str_67;
+          v53 = 0;
+          v54 = &str_67;
           v29 = strlen(__str);
-          *v105 = *v48;
-          *&v105[16] = *v47;
-          v106 = xmmword_1E3047670;
-          v107 = xmmword_1E3047680;
-          v108 = xmmword_1E30476A0;
-          v109 = xmmword_1E30474D0;
-          WORD2(v59) = 0;
-          LODWORD(v59) = 0;
-          v30 = re::MeshPart::MeshPart(&v60, &v45, v50, v56, v54, v51, v51, 1, v105, v22, &v106, &v59, -1, 0);
-          if (v45)
+          *v113 = *v56;
+          *&v113[16] = *v55;
+          v114 = xmmword_1E3047670;
+          v115 = xmmword_1E3047680;
+          v116 = xmmword_1E30476A0;
+          v117 = xmmword_1E30474D0;
+          WORD2(v67) = 0;
+          LODWORD(v67) = 0;
+          v30 = re::MeshPart::MeshPart(&v68, &v53, v58, v64, v62, v59, v59, 1, v113, v22, &v114, &v67, -1, 0);
+          if (v53)
           {
-            if (v45)
+            if (v53)
             {
             }
           }
 
-          v45 = 0;
-          v46 = &str_67;
-          v96 = v49;
-          v31 = *(&v57 + 1);
-          if (*(&v57 + 1) <= v22)
+          v53 = 0;
+          v54 = &str_67;
+          v104 = v57;
+          v31 = *(&v65 + 1);
+          if (*(&v65 + 1) <= v22)
           {
-            goto LABEL_56;
+            goto LABEL_59;
           }
         }
 
         else
         {
-          v80 = 0;
+          v88 = 0;
+          v87 = 0u;
+          v84 = 0u;
+          v82 = 0u;
+          v80 = 0u;
+          v78 = 0u;
           v79 = 0u;
           v76 = 0u;
+          v77 = 0u;
           v74 = 0u;
+          v75 = 0u;
           v72 = 0u;
+          v73 = 0u;
           v70 = 0u;
           v71 = 0u;
           v68 = 0u;
           v69 = 0u;
-          v66 = 0u;
-          v67 = 0u;
-          v64 = 0u;
-          v65 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v60 = 0u;
-          v61 = 0u;
-          DWORD2(v72) = 1;
-          *&v74 = 0;
-          v73 = 0uLL;
-          DWORD2(v74) = 0;
-          *&v76 = 0;
-          v75 = 0uLL;
-          DWORD2(v76) = 0;
-          v77 = 0u;
-          v78 = 0u;
-          LODWORD(v79) = 0;
-          memset(v81, 0, sizeof(v81));
-          v82 = xmmword_1E3047670;
-          v83 = xmmword_1E3047680;
-          v84 = xmmword_1E30476A0;
-          v85 = xmmword_1E30474D0;
+          DWORD2(v80) = 1;
+          *&v82 = 0;
+          v81 = 0uLL;
+          DWORD2(v82) = 0;
+          *&v84 = 0;
+          v83 = 0uLL;
+          DWORD2(v84) = 0;
+          v85 = 0u;
+          v86 = 0u;
+          LODWORD(v87) = 0;
+          memset(v89, 0, sizeof(v89));
+          v90 = xmmword_1E3047670;
+          v91 = xmmword_1E3047680;
+          v92 = xmmword_1E30476A0;
+          v93 = xmmword_1E30474D0;
           *&v32 = 0x7F0000007FLL;
           *(&v32 + 1) = 0x7F0000007FLL;
-          v86 = v41;
-          v87 = v32;
-          v89 = 0;
-          v88 = 0;
-          v90 = 0;
-          v93 = 0;
-          v94 = &str_67;
-          v95 = 0;
-          v96 = 3;
-          v97 = 0x180197E00000001;
-          v91 = -1;
-          v92[0] = -1;
-          *(v92 + 5) = -1;
-          v31 = *(&v57 + 1);
-          if (*(&v57 + 1) <= v22)
+          v94 = v49;
+          v95 = v32;
+          v97 = 0;
+          v96 = 0;
+          v98 = 0;
+          v101 = 0;
+          v102 = &str_67;
+          v103 = 0;
+          v104 = 3;
+          v105 = 0x180197E00000001;
+          v99 = -1;
+          v100[0] = -1;
+          *(v100 + 5) = -1;
+          v31 = *(&v65 + 1);
+          if (*(&v65 + 1) <= v22)
           {
-            *v105 = 0;
-            v109 = 0uLL;
-            v110 = 0uLL;
-            v107 = 0uLL;
-            v108 = 0uLL;
-            v106 = 0uLL;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v113 = 0;
+            v117 = 0uLL;
+            v118 = 0uLL;
+            v115 = 0uLL;
+            v116 = 0uLL;
+            v114 = 0uLL;
+            v39 = MEMORY[0x1E69E9C10];
+            v40 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
             *__str = 136315906;
             *&__str[4] = "operator[]";
-            v99 = 1024;
-            v100 = 468;
-            v101 = 2048;
-            v102 = v22;
-            v103 = 2048;
-            v104 = v31;
-            _os_log_send_and_compose_impl();
+            v107 = 1024;
+            if (v40)
+            {
+              v41 = 3;
+            }
+
+            else
+            {
+              v41 = 2;
+            }
+
+            v108 = 468;
+            v109 = 2048;
+            v110 = v22;
+            v111 = 2048;
+            v112 = v31;
+            _os_log_send_and_compose_impl(v41, v113, &v114, 80, &dword_1E1C61000, v39, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", __str, 38, v45, v46);
             _os_crash_msg();
             __break(1u);
-LABEL_56:
-            v59 = 0;
-            v109 = 0u;
-            v110 = 0u;
-            v107 = 0u;
-            v108 = 0u;
-            v106 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v105 = 136315906;
-            *&v105[4] = "operator[]";
-            *&v105[12] = 1024;
-            *&v105[14] = 468;
-            *&v105[18] = 2048;
-            *&v105[20] = v22;
-            *&v105[28] = 2048;
-            *&v105[30] = v31;
-            _os_log_send_and_compose_impl();
+LABEL_59:
+            v67 = 0;
+            v117 = 0u;
+            v118 = 0u;
+            v115 = 0u;
+            v116 = 0u;
+            v114 = 0u;
+            v42 = MEMORY[0x1E69E9C10];
+            v43 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v113 = 136315906;
+            *&v113[4] = "operator[]";
+            *&v113[12] = 1024;
+            if (v43)
+            {
+              v44 = 3;
+            }
+
+            else
+            {
+              v44 = 2;
+            }
+
+            *&v113[14] = 468;
+            *&v113[18] = 2048;
+            *&v113[20] = v22;
+            *&v113[28] = 2048;
+            *&v113[30] = v31;
+            _os_log_send_and_compose_impl(v44, &v67, &v114, 80, &dword_1E1C61000, v42, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v113, 38, v45, v46);
             _os_crash_msg();
             __break(1u);
           }
         }
 
-        v33 = re::MeshPart::operator=(v58 + v21, &v60);
-        if (v93)
+        v33 = re::MeshPart::operator=(v66 + v21, &v68);
+        if (v101)
         {
-          if (v93)
+          if (v101)
           {
           }
         }
 
-        v94 = &str_67;
-        v93 = 0;
-        re::FixedArray<re::StringID>::deinit(v81);
-        re::AttributeTable::~AttributeTable(&v60);
+        v102 = &str_67;
+        v101 = 0;
+        re::FixedArray<re::StringID>::deinit(v89);
+        re::AttributeTable::~AttributeTable(&v68);
         ++v22;
         v21 += 544;
       }
@@ -383,40 +405,40 @@ LABEL_56:
     v34 = 0;
     v35.i64[0] = 0x7F0000007FLL;
     v35.i64[1] = 0x7F0000007FLL;
-    v61 = vnegq_f32(v35);
-    v62 = v35;
-    *&v64 = 0;
-    v63 = 0uLL;
-    v65 = v61;
-    v66 = v35;
-    *&v68 = 0;
-    v67 = 0uLL;
+    v69 = vnegq_f32(v35);
+    v70 = v35;
+    *&v72 = 0;
+    v71 = 0uLL;
+    v73 = v69;
+    v74 = v35;
+    *&v76 = 0;
+    v75 = 0uLL;
     do
     {
-      v36 = &v60 + v34;
+      v36 = &v68 + v34;
       *(v36 + 18) = 0;
       *(v36 + 22) = 0;
       v34 += 40;
     }
 
     while (v34 != 720);
-    *&v60 = 149034514;
-    *(&v60 + 1) = "Model";
-    aabb = [(REDirectMeshPayload *)self aabb];
-    v61 = v106;
-    v62 = v107;
-    v63 = v57;
-    v57 = 0uLL;
-    *&v64 = v58;
-    v58 = 0;
+    *&v68 = 149034514;
+    *(&v68 + 1) = "Model";
+    v37 = objc_msgSend_aabb(self);
+    v69 = v114;
+    v70 = v115;
+    v71 = v65;
+    v65 = 0uLL;
+    *&v72 = v66;
+    v66 = 0;
     retstr->var0.var4 = 0;
     retstr->var0.var1 = 0;
     retstr->var0.var2 = 0;
     retstr->var0.var3 = 0;
     re::DynamicArray<re::MeshModel>::setCapacity(retstr, 1uLL);
     ++retstr->var0.var3;
-    re::DynamicArray<re::MeshModel>::add(retstr, &v60);
-    re::MeshModel::~MeshModel(&v60);
+    re::DynamicArray<re::MeshModel>::add(retstr, &v68);
+    re::MeshModel::~MeshModel(&v68);
   }
 
   else
@@ -429,23 +451,24 @@ LABEL_33:
     retstr->var0.var3 = 0;
   }
 
-  re::DynamicArray<re::NamedVertexBuffer>::deinit(v53);
-  re::FixedArray<re::MeshPart>::deinit(&v57);
+  re::DynamicArray<re::NamedVertexBuffer>::deinit(v61);
+  re::FixedArray<re::MeshPart>::deinit(&v65);
 
   return result;
 }
 
 - (void)makeBoundingBoxes:(void *)boxes perPartPerInstanceBoundingBoxes:(void *)boundingBoxes
 {
-  [(REDirectMeshPayload *)self aabb];
+  v36 = *MEMORY[0x1E69E9840];
+  objc_msgSend_aabb(self);
   if (!*(boxes + 1))
   {
-    goto LABEL_8;
+    goto LABEL_11;
   }
 
   v7 = *(boxes + 2);
-  *v7 = v14;
-  v7[1] = v15;
+  *v7 = v20;
+  v7[1] = v21;
   directMesh = [(REDirectMeshPayload *)self directMesh];
   PartCount = DRMeshGetPartCount();
 
@@ -455,15 +478,16 @@ LABEL_33:
     v12 = 0;
     while (1)
     {
-      [(REDirectMeshPayload *)self aabb];
-      if (*(boundingBoxes + 1) <= v12)
+      objc_msgSend_aabb(self);
+      v13 = *(boundingBoxes + 1);
+      if (v13 <= v12)
       {
         break;
       }
 
-      v13 = (*(boundingBoxes + 2) + v11);
-      *v13 = v14;
-      v13[1] = v15;
+      v14 = (*(boundingBoxes + 2) + v11);
+      *v14 = v20;
+      v14[1] = v21;
       ++v12;
       v11 += 32;
       if (PartCount == v12)
@@ -472,13 +496,62 @@ LABEL_33:
       }
     }
 
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v22 = 0;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = 0u;
+    v15 = MEMORY[0x1E69E9C10];
+    v23 = 136315906;
+    v24 = "operator[]";
+    v25 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+
+    v26 = 468;
+    v27 = 2048;
+    v28 = v12;
+    v29 = 2048;
+    v30 = v13;
+    _os_log_send_and_compose_impl(v16, &v22, &v31, 80, &dword_1E1C61000, v15, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v23, 38, v20, *(&v20 + 1));
     _os_crash_msg();
     __break(1u);
-LABEL_8:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_11:
+    v22 = 0;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = 0u;
+    v17 = MEMORY[0x1E69E9C10];
+    v18 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v23 = 136315906;
+    v24 = "operator[]";
+    v25 = 1024;
+    if (v18)
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    v26 = 468;
+    v27 = 2048;
+    v28 = 0;
+    v29 = 2048;
+    v30 = 0;
+    _os_log_send_and_compose_impl(v19, &v22, &v31, 80, &dword_1E1C61000, v17, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v23, 38, v20, *(&v20 + 1));
     _os_crash_msg();
     __break(1u);
   }
@@ -706,7 +779,7 @@ LABEL_9:
 - (NSArray)parts
 {
   re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "[REDirectMeshPayload parts]", 203);
-  result = _os_crash();
+  result = _os_crash("assertion failure: (!Unreachable code) ");
   __break(1u);
   return result;
 }
@@ -714,7 +787,7 @@ LABEL_9:
 - (NSArray)models
 {
   re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "[REDirectMeshPayload models]", 209);
-  result = _os_crash();
+  result = _os_crash("assertion failure: (!Unreachable code) ");
   __break(1u);
   return result;
 }

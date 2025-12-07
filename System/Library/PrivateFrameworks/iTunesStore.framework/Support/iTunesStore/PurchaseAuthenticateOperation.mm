@@ -98,15 +98,21 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -115,20 +121,18 @@
   {
     v15 = 138412290;
     v16 = objc_opt_class();
-    LODWORD(v12) = 12;
-    v11 = &v15;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Authenticating for purchase batch", &v15, 12);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [NSString stringWithCString:v6 encoding:4, &v15, v12];
-      free(v7);
-      v11 = v8;
+      v8 = v7;
+      v9 = [NSString stringWithCString:v7 encoding:4];
+      free(v8);
+      v12 = v9;
       SSFileLog();
     }
   }
 
-  v9 = [(PurchaseAuthenticateOperation *)self copyAccountID:&v14 credentialSource:0 byAuthenticatingWithContext:self->_authenticationContext returningError:&v13, v11];
+  v10 = [(PurchaseAuthenticateOperation *)self copyAccountID:&v14 credentialSource:0 byAuthenticatingWithContext:self->_authenticationContext returningError:&v13, v12];
   authenticationBlock = [(PurchaseAuthenticateOperation *)self authenticationBlock];
   if (authenticationBlock)
   {
@@ -136,7 +140,7 @@
   }
 
   [(PurchaseAuthenticateOperation *)self setError:v13];
-  [(PurchaseAuthenticateOperation *)self setSuccess:v9];
+  [(PurchaseAuthenticateOperation *)self setSuccess:v10];
 }
 
 - (id)_clientIdentifierForPurchases:(id)purchases

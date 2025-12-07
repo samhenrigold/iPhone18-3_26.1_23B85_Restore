@@ -307,48 +307,48 @@ LABEL_11:
 
 - (void)_regenerateCategoriesFolder
 {
-  v184 = *MEMORY[0x1E69E9840];
+  v185 = *MEMORY[0x1E69E9840];
   iconModel = [(SBHLibraryCategoriesFolderDataSource *)self iconModel];
   v4 = objc_opt_new();
   mappedIcons = self->_mappedIcons;
-  v170[0] = MEMORY[0x1E69E9820];
-  v170[1] = 3221225472;
-  v170[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke;
-  v170[3] = &unk_1E808CB00;
-  v104 = iconModel;
-  v171 = v104;
+  v171[0] = MEMORY[0x1E69E9820];
+  v171[1] = 3221225472;
+  v171[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke;
+  v171[3] = &unk_1E808CB00;
+  v105 = iconModel;
+  v172 = v105;
   v6 = v4;
-  v172 = v6;
-  [(NSSet *)mappedIcons enumerateObjectsUsingBlock:v170];
+  v173 = v6;
+  [(NSSet *)mappedIcons enumerateObjectsUsingBlock:v171];
   v7 = MEMORY[0x1E695DFD8];
-  v118 = v6;
+  v119 = v6;
   allKeys = [v6 allKeys];
-  v114 = [v7 setWithArray:allKeys];
+  v115 = [v7 setWithArray:allKeys];
 
-  v110 = objc_opt_new();
+  v111 = objc_opt_new();
   v9 = objc_opt_new();
-  v166 = 0u;
   v167 = 0u;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   selfCopy = self;
   icons = [(SBRootFolder *)self->_categoriesFolder icons];
-  v11 = [icons countByEnumeratingWithState:&v166 objects:v183 count:16];
-  v121 = v9;
+  v11 = [icons countByEnumeratingWithState:&v167 objects:v184 count:16];
+  v122 = v9;
   if (v11)
   {
     v12 = v11;
-    v13 = *v167;
+    v13 = *v168;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v167 != v13)
+        if (*v168 != v13)
         {
           objc_enumerationMutation(icons);
         }
 
-        v15 = *(*(&v166 + 1) + 8 * i);
+        v15 = *(*(&v167 + 1) + 8 * i);
         category = [v15 category];
         category2 = [v15 category];
         categoryIdentifier = [category2 categoryIdentifier];
@@ -357,17 +357,17 @@ LABEL_11:
 
         if (v19)
         {
-          v20 = SBLogProactiveAppLibrary();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = SBLogProactiveAppLibrary(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v21 = [v9 objectForKey:categoryIdentifier];
+            v22 = [v9 objectForKey:categoryIdentifier];
             *buf = 138412546;
-            v180 = category;
-            v181 = 2112;
-            v182 = v21;
-            _os_log_error_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_ERROR, "Error; duplicate category: %@ / %@", buf, 0x16u);
+            v181 = category;
+            v182 = 2112;
+            v183 = v22;
+            _os_log_error_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_ERROR, "Error; duplicate category: %@ / %@", buf, 0x16u);
 
-            v9 = v121;
+            v9 = v122;
           }
         }
 
@@ -377,7 +377,7 @@ LABEL_11:
         }
       }
 
-      v12 = [icons countByEnumeratingWithState:&v166 objects:v183 count:16];
+      v12 = [icons countByEnumeratingWithState:&v167 objects:v184 count:16];
     }
 
     while (v12);
@@ -385,318 +385,318 @@ LABEL_11:
 
   firstList = [(SBFolder *)selfCopy->_categoriesFolder firstList];
   categoryIdentifiers = [(SBHLibraryCategoryMap *)selfCopy->_categoryMap categoryIdentifiers];
-  v24 = [categoryIdentifiers count];
+  v25 = [categoryIdentifiers count];
   maximumNumberOfDisplayedCategories = selfCopy->_maximumNumberOfDisplayedCategories;
-  if (v24 >= maximumNumberOfDisplayedCategories)
+  if (v25 >= maximumNumberOfDisplayedCategories)
   {
-    v26 = selfCopy->_maximumNumberOfDisplayedCategories;
+    v27 = selfCopy->_maximumNumberOfDisplayedCategories;
   }
 
   else
   {
-    v26 = v24;
+    v27 = v25;
   }
 
   if (maximumNumberOfDisplayedCategories >= 0)
   {
-    v27 = v26;
+    v28 = v27;
   }
 
   else
   {
-    v27 = v24;
+    v28 = v25;
   }
 
-  v28 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:categoryIdentifiers range:0 copyItems:{v27, 0}];
+  v29 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:categoryIdentifiers range:0 copyItems:{v28, 0}];
 
-  v29 = objc_opt_new();
+  v30 = objc_opt_new();
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_2;
   aBlock[3] = &unk_1E808CB70;
-  v107 = v29;
-  v162 = v107;
-  v163 = selfCopy;
-  v103 = v114;
-  v164 = v103;
-  v165 = &__block_literal_global_47;
-  v30 = _Block_copy(aBlock);
-  v157 = 0u;
+  v108 = v30;
+  v163 = v108;
+  v164 = selfCopy;
+  v104 = v115;
+  v165 = v104;
+  v166 = &__block_literal_global_47;
+  v31 = _Block_copy(aBlock);
   v158 = 0u;
   v159 = 0u;
   v160 = 0u;
-  v108 = firstList;
+  v161 = 0u;
+  v109 = firstList;
   obj = [firstList icons];
-  v31 = [obj countByEnumeratingWithState:&v157 objects:v178 count:16];
-  v119 = v30;
-  if (v31)
+  v32 = [obj countByEnumeratingWithState:&v158 objects:v179 count:16];
+  v120 = v31;
+  if (v32)
   {
-    v32 = v31;
-    v111 = 0;
-    v115 = *v158;
+    v33 = v32;
+    v112 = 0;
+    v116 = *v159;
     do
     {
-      for (j = 0; j != v32; ++j)
+      for (j = 0; j != v33; ++j)
       {
-        if (*v158 != v115)
+        if (*v159 != v116)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v157 + 1) + 8 * j);
-        category3 = [v34 category];
+        v35 = *(*(&v158 + 1) + 8 * j);
+        category3 = [v35 category];
         categoryIdentifier2 = [category3 categoryIdentifier];
-        v155[0] = MEMORY[0x1E69E9820];
-        v155[1] = 3221225472;
-        v155[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_4;
-        v155[3] = &unk_1E808CB98;
-        v37 = categoryIdentifier2;
-        v156 = v37;
-        v38 = [v28 bs_firstObjectPassingTest:v155];
-        v39 = v38;
-        if (v38 && v37 && ([v38 isEqualToCategoryIdentifier:v37] & 1) == 0 && objc_msgSend(category3, "updateCategoryIdentifier:", v39))
+        v156[0] = MEMORY[0x1E69E9820];
+        v156[1] = 3221225472;
+        v156[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_4;
+        v156[3] = &unk_1E808CB98;
+        v38 = categoryIdentifier2;
+        v157 = v38;
+        v39 = [v29 bs_firstObjectPassingTest:v156];
+        v40 = v39;
+        if (v39 && v38 && ([v39 isEqualToCategoryIdentifier:v38] & 1) == 0 && objc_msgSend(category3, "updateCategoryIdentifier:", v40))
         {
-          v40 = v39;
+          v41 = v40;
 
-          v111 = 1;
-          v37 = v40;
+          v112 = 1;
+          v38 = v41;
         }
 
-        predictionCategoryID = [v37 predictionCategoryID];
-        v42 = v30[2](v30, v37);
+        predictionCategoryID = [v38 predictionCategoryID];
+        v43 = v31[2](v31, v38);
         if (predictionCategoryID != 7)
         {
-          if (![v28 containsObject:v37] || !objc_msgSend(v42, "count") || (objc_msgSend(category3, "icons"), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(v43, "count"), v43, !v44))
+          if (![v29 containsObject:v38] || !objc_msgSend(v43, "count") || (objc_msgSend(category3, "icons"), v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v44, "count"), v44, !v45))
           {
-            category4 = [v34 category];
+            category4 = [v35 category];
             [category4 updateCategoryWithIcons:MEMORY[0x1E695E0F0]];
 
-            [v108 removeIcon:v34];
-            [v121 removeObjectForKey:v37];
-            v46 = [v28 mutableCopy];
-            [v46 removeObject:v37];
-            v47 = [v46 copy];
+            [v109 removeIcon:v35];
+            [v122 removeObjectForKey:v38];
+            v47 = [v29 mutableCopy];
+            [v47 removeObject:v38];
+            v48 = [v47 copy];
 
-            v111 = 1;
-            v28 = v47;
+            v112 = 1;
+            v29 = v48;
           }
 
-          v30 = v119;
+          v31 = v120;
         }
       }
 
-      v32 = [obj countByEnumeratingWithState:&v157 objects:v178 count:16];
+      v33 = [obj countByEnumeratingWithState:&v158 objects:v179 count:16];
     }
 
-    while (v32);
+    while (v33);
   }
 
   else
   {
-    v111 = 0;
+    v112 = 0;
   }
 
-  v48 = objc_opt_new();
   v49 = objc_opt_new();
-  v152[0] = MEMORY[0x1E69E9820];
-  v152[1] = 3221225472;
-  v152[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_5;
-  v152[3] = &unk_1E808CBC0;
-  v106 = v49;
-  v153 = v106;
-  v50 = v48;
-  v154 = v50;
-  [v108 enumerateIconsUsingBlock:v152];
-  v150[0] = MEMORY[0x1E69E9820];
-  v150[1] = 3221225472;
-  v150[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_39;
-  v150[3] = &unk_1E808CBE8;
-  obja = v108;
-  v151 = obja;
-  v102 = v50;
-  [v50 enumerateObjectsUsingBlock:v150];
-  v148 = 0u;
+  v50 = objc_opt_new();
+  v153[0] = MEMORY[0x1E69E9820];
+  v153[1] = 3221225472;
+  v153[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_5;
+  v153[3] = &unk_1E808CBC0;
+  v107 = v50;
+  v154 = v107;
+  v51 = v49;
+  v155 = v51;
+  [v109 enumerateIconsUsingBlock:v153];
+  v151[0] = MEMORY[0x1E69E9820];
+  v151[1] = 3221225472;
+  v151[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_39;
+  v151[3] = &unk_1E808CBE8;
+  obja = v109;
+  v152 = obja;
+  v103 = v51;
+  [v51 enumerateObjectsUsingBlock:v151];
   v149 = 0u;
-  v146 = 0u;
+  v150 = 0u;
   v147 = 0u;
-  v116 = [v28 copy];
-  v51 = [v116 countByEnumeratingWithState:&v146 objects:v177 count:16];
-  if (v51)
+  v148 = 0u;
+  v117 = [v29 copy];
+  v52 = [v117 countByEnumeratingWithState:&v147 objects:v178 count:16];
+  if (v52)
   {
-    v52 = v51;
-    v53 = *v147;
-    v54 = v121;
+    v53 = v52;
+    v54 = *v148;
+    v55 = v122;
     do
     {
-      for (k = 0; k != v52; ++k)
+      for (k = 0; k != v53; ++k)
       {
-        if (*v147 != v53)
+        if (*v148 != v54)
         {
-          objc_enumerationMutation(v116);
+          objc_enumerationMutation(v117);
         }
 
-        v56 = *(*(&v146 + 1) + 8 * k);
-        if ([v56 predictionCategoryID] != 7)
+        v57 = *(*(&v147 + 1) + 8 * k);
+        if ([v57 predictionCategoryID] != 7)
         {
-          v57 = [v54 objectForKey:v56];
-          leafIdentifier = [v57 leafIdentifier];
-          v59 = [v106 objectForKey:leafIdentifier];
+          v58 = [v55 objectForKey:v57];
+          leafIdentifier = [v58 leafIdentifier];
+          v60 = [v107 objectForKey:leafIdentifier];
 
-          v60 = v119[2](v119, v56);
-          v143[0] = MEMORY[0x1E69E9820];
-          v143[1] = 3221225472;
-          v143[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_2_41;
-          v143[3] = &unk_1E808CC10;
-          v144 = v118;
-          v145 = &__block_literal_global_47;
-          v61 = [v60 bs_mapNoNulls:v143];
-          if (![v61 count])
+          v61 = v120[2](v120, v57);
+          v144[0] = MEMORY[0x1E69E9820];
+          v144[1] = 3221225472;
+          v144[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_2_41;
+          v144[3] = &unk_1E808CC10;
+          v145 = v119;
+          v146 = &__block_literal_global_47;
+          v62 = [v61 bs_mapNoNulls:v144];
+          if (![v62 count])
           {
-            if (v59)
+            if (v60)
             {
-              [obja removeIcon:v59];
+              [obja removeIcon:v60];
             }
 
-            if (v57)
+            if (v58)
             {
-              [v57 updateCategoryWithIcons:v61];
-              [v121 removeObjectForKey:v56];
-              v62 = [v28 mutableCopy];
-              [v62 removeObject:v56];
-              v63 = [v62 copy];
+              [v58 updateCategoryWithIcons:v62];
+              [v122 removeObjectForKey:v57];
+              v63 = [v29 mutableCopy];
+              [v63 removeObject:v57];
+              v64 = [v63 copy];
 
-              v28 = v63;
+              v29 = v64;
             }
           }
 
-          v54 = v121;
+          v55 = v122;
         }
       }
 
-      v52 = [v116 countByEnumeratingWithState:&v146 objects:v177 count:16];
+      v53 = [v117 countByEnumeratingWithState:&v147 objects:v178 count:16];
     }
 
-    while (v52);
+    while (v53);
   }
 
-  v64 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v139 = 0u;
+  v65 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v140 = 0u;
   v141 = 0u;
   v142 = 0u;
+  v143 = 0u;
   icons2 = [obja icons];
-  v66 = [icons2 countByEnumeratingWithState:&v139 objects:v176 count:16];
-  if (v66)
+  v67 = [icons2 countByEnumeratingWithState:&v140 objects:v177 count:16];
+  if (v67)
   {
-    v67 = v66;
-    v68 = *v140;
+    v68 = v67;
+    v69 = *v141;
     do
     {
-      for (m = 0; m != v67; ++m)
+      for (m = 0; m != v68; ++m)
       {
-        if (*v140 != v68)
+        if (*v141 != v69)
         {
           objc_enumerationMutation(icons2);
         }
 
-        v70 = *(*(&v139 + 1) + 8 * m);
-        leafIdentifier2 = [v70 leafIdentifier];
-        [v64 setObject:v70 forKey:leafIdentifier2];
+        v71 = *(*(&v140 + 1) + 8 * m);
+        leafIdentifier2 = [v71 leafIdentifier];
+        [v65 setObject:v71 forKey:leafIdentifier2];
       }
 
-      v67 = [icons2 countByEnumeratingWithState:&v139 objects:v176 count:16];
+      v68 = [icons2 countByEnumeratingWithState:&v140 objects:v177 count:16];
     }
 
-    while (v67);
+    while (v68);
   }
 
-  v105 = v64;
+  v106 = v65;
 
   [obja removeAllIcons];
-  v137 = 0u;
   v138 = 0u;
-  v135 = 0u;
+  v139 = 0u;
   v136 = 0u;
-  v109 = v28;
-  v72 = [v109 countByEnumeratingWithState:&v135 objects:v175 count:16];
-  if (!v72)
+  v137 = 0u;
+  v110 = v29;
+  v73 = [v110 countByEnumeratingWithState:&v136 objects:v176 count:16];
+  if (!v73)
   {
-    v74 = v119;
+    v75 = v120;
     goto LABEL_91;
   }
 
-  v73 = v72;
-  v74 = v119;
-  v117 = *v136;
+  v74 = v73;
+  v75 = v120;
+  v118 = *v137;
   do
   {
-    v75 = 0;
+    v76 = 0;
     do
     {
-      if (*v136 != v117)
+      if (*v137 != v118)
       {
-        objc_enumerationMutation(v109);
+        objc_enumerationMutation(v110);
       }
 
-      v76 = *(*(&v135 + 1) + 8 * v75);
-      v77 = objc_autoreleasePoolPush();
-      v78 = [v121 objectForKey:v76];
-      leafIdentifier3 = [(SBHLibraryCategory *)v78 leafIdentifier];
+      v77 = *(*(&v136 + 1) + 8 * v76);
+      v78 = objc_autoreleasePoolPush();
+      v79 = [v122 objectForKey:v77];
+      leafIdentifier3 = [(SBHLibraryCategory *)v79 leafIdentifier];
       if (leafIdentifier3)
       {
-        v80 = [(SBFolder *)selfCopy->_categoriesFolder iconWithIdentifier:leafIdentifier3];
-        if (!v80)
+        v81 = [(SBFolder *)selfCopy->_categoriesFolder iconWithIdentifier:leafIdentifier3];
+        if (!v81)
         {
-          v80 = [v105 objectForKey:leafIdentifier3];
-          [v105 removeObjectForKey:leafIdentifier3];
+          v81 = [v106 objectForKey:leafIdentifier3];
+          [v106 removeObjectForKey:leafIdentifier3];
         }
       }
 
       else
       {
-        v80 = 0;
+        v81 = 0;
       }
 
-      v81 = v74[2](v74, v76);
-      v132[0] = MEMORY[0x1E69E9820];
-      v132[1] = 3221225472;
-      v132[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_3_43;
-      v132[3] = &unk_1E808CC10;
-      v133 = v118;
-      v134 = &__block_literal_global_47;
-      v82 = [v81 bs_mapNoNulls:v132];
-      predictionCategoryID2 = [v76 predictionCategoryID];
-      if ([v82 count])
+      v82 = v75[2](v75, v77);
+      v133[0] = MEMORY[0x1E69E9820];
+      v133[1] = 3221225472;
+      v133[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_3_43;
+      v133[3] = &unk_1E808CC10;
+      v134 = v119;
+      v135 = &__block_literal_global_47;
+      v83 = [v82 bs_mapNoNulls:v133];
+      predictionCategoryID2 = [v77 predictionCategoryID];
+      if ([v83 count])
       {
-        v84 = 1;
+        v85 = 1;
       }
 
       else
       {
-        v84 = predictionCategoryID2 == 7;
+        v85 = predictionCategoryID2 == 7;
       }
 
-      if (!v84)
+      if (!v85)
       {
-        if (v80)
+        if (v81)
         {
-          [obja removeIcon:v80];
+          [obja removeIcon:v81];
         }
 
-        v74 = v119;
-        if (v78)
+        v75 = v120;
+        if (v79)
         {
-          [(SBHLibraryCategory *)v78 updateCategoryWithIcons:v82];
-          [v121 removeObjectForKey:v76];
+          [(SBHLibraryCategory *)v79 updateCategoryWithIcons:v83];
+          [v122 removeObjectForKey:v77];
         }
 
-        [v107 removeObjectForKey:v76];
+        [v108 removeObjectForKey:v77];
         goto LABEL_84;
       }
 
-      if (v78)
+      if (v79)
       {
-        if (!v80)
+        if (!v81)
         {
           goto LABEL_87;
         }
@@ -704,123 +704,123 @@ LABEL_11:
 
       else
       {
-        v78 = objc_alloc_init(SBHLibraryCategory);
-        [(SBHLibraryCategory *)v78 setCategoryIdentifier:v76];
+        v79 = objc_alloc_init(SBHLibraryCategory);
+        [(SBHLibraryCategory *)v79 setCategoryIdentifier:v77];
         iconModel2 = [(SBHLibraryCategoriesFolderDataSource *)selfCopy iconModel];
-        [(SBHLibraryCategory *)v78 setIconDelegate:iconModel2];
+        [(SBHLibraryCategory *)v79 setIconDelegate:iconModel2];
 
-        [v121 setObject:v78 forKey:v76];
-        v111 = 1;
-        if (!v80)
+        [v122 setObject:v79 forKey:v77];
+        v112 = 1;
+        if (!v81)
         {
 LABEL_87:
-          v80 = [[SBHLibraryPodCategoryIcon alloc] initWithCategory:v78];
-          v111 = 1;
+          v81 = [[SBHLibraryPodCategoryIcon alloc] initWithCategory:v79];
+          v112 = 1;
         }
       }
 
-      v85 = [obja addIcon:v80];
-      if ([(SBHLibraryCategory *)v78 updateCategoryWithIcons:v82])
+      v86 = [obja addIcon:v81];
+      if ([(SBHLibraryCategory *)v79 updateCategoryWithIcons:v83])
       {
-        [v110 addObject:v76];
+        [v111 addObject:v77];
       }
 
-      compactPodAdditionalItemsFolder = [(SBHLibraryCategory *)v78 compactPodAdditionalItemsFolder];
+      compactPodAdditionalItemsFolder = [(SBHLibraryCategory *)v79 compactPodAdditionalItemsFolder];
       SBTreeNodeSetParent(compactPodAdditionalItemsFolder, selfCopy->_categoriesFolder);
 
-      compactPodFolder = [(SBHLibraryCategory *)v78 compactPodFolder];
+      compactPodFolder = [(SBHLibraryCategory *)v79 compactPodFolder];
       SBTreeNodeSetParent(compactPodFolder, selfCopy->_categoriesFolder);
 
-      expandedPodFolder = [(SBHLibraryCategory *)v78 expandedPodFolder];
+      expandedPodFolder = [(SBHLibraryCategory *)v79 expandedPodFolder];
       SBTreeNodeSetParent(expandedPodFolder, selfCopy->_categoriesFolder);
 
-      v74 = v119;
+      v75 = v120;
 LABEL_84:
 
-      objc_autoreleasePoolPop(v77);
-      ++v75;
+      objc_autoreleasePoolPop(v78);
+      ++v76;
     }
 
-    while (v73 != v75);
-    v90 = [v109 countByEnumeratingWithState:&v135 objects:v175 count:16];
-    v73 = v90;
+    while (v74 != v76);
+    v91 = [v110 countByEnumeratingWithState:&v136 objects:v176 count:16];
+    v74 = v91;
   }
 
-  while (v90);
+  while (v91);
 LABEL_91:
 
-  v130[0] = MEMORY[0x1E69E9820];
-  v130[1] = 3221225472;
-  v130[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_4_46;
-  v130[3] = &unk_1E808CC38;
-  v91 = v109;
-  v131 = v91;
-  [obja sortUsingComparator:v130];
+  v131[0] = MEMORY[0x1E69E9820];
+  v131[1] = 3221225472;
+  v131[2] = __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_4_46;
+  v131[3] = &unk_1E808CC38;
+  v92 = v110;
+  v132 = v92;
+  [obja sortUsingComparator:v131];
   [MEMORY[0x1E6979518] begin];
-  if (v111)
+  if (v112)
   {
-    v128 = 0u;
     v129 = 0u;
-    v126 = 0u;
+    v130 = 0u;
     v127 = 0u;
-    v92 = [(NSHashTable *)selfCopy->_observers copy];
-    v93 = [v92 countByEnumeratingWithState:&v126 objects:v174 count:16];
-    if (v93)
+    v128 = 0u;
+    v93 = [(NSHashTable *)selfCopy->_observers copy];
+    v94 = [v93 countByEnumeratingWithState:&v127 objects:v175 count:16];
+    if (v94)
     {
-      v94 = v93;
-      v95 = *v127;
+      v95 = v94;
+      v96 = *v128;
       do
       {
-        for (n = 0; n != v94; ++n)
+        for (n = 0; n != v95; ++n)
         {
-          if (*v127 != v95)
+          if (*v128 != v96)
           {
-            objc_enumerationMutation(v92);
+            objc_enumerationMutation(v93);
           }
 
-          [*(*(&v126 + 1) + 8 * n) categoriesDataSourceNeedsAnimatedReload:selfCopy];
+          [*(*(&v127 + 1) + 8 * n) categoriesDataSourceNeedsAnimatedReload:selfCopy];
         }
 
-        v94 = [v92 countByEnumeratingWithState:&v126 objects:v174 count:16];
+        v95 = [v93 countByEnumeratingWithState:&v127 objects:v175 count:16];
       }
 
-      while (v94);
+      while (v95);
     }
 
-    v74 = v119;
+    v75 = v120;
   }
 
-  if ([v110 count])
+  if ([v111 count])
   {
-    v124 = 0u;
     v125 = 0u;
-    v122 = 0u;
+    v126 = 0u;
     v123 = 0u;
-    v97 = [(NSHashTable *)selfCopy->_observers copy];
-    v98 = [v97 countByEnumeratingWithState:&v122 objects:v173 count:16];
-    if (v98)
+    v124 = 0u;
+    v98 = [(NSHashTable *)selfCopy->_observers copy];
+    v99 = [v98 countByEnumeratingWithState:&v123 objects:v174 count:16];
+    if (v99)
     {
-      v99 = v98;
-      v100 = *v123;
+      v100 = v99;
+      v101 = *v124;
       do
       {
-        for (ii = 0; ii != v99; ++ii)
+        for (ii = 0; ii != v100; ++ii)
         {
-          if (*v123 != v100)
+          if (*v124 != v101)
           {
-            objc_enumerationMutation(v97);
+            objc_enumerationMutation(v98);
           }
 
-          [*(*(&v122 + 1) + 8 * ii) categoriesDataSource:selfCopy shouldAnimateLayoutForCategories:v110];
+          [*(*(&v123 + 1) + 8 * ii) categoriesDataSource:selfCopy shouldAnimateLayoutForCategories:v111];
         }
 
-        v99 = [v97 countByEnumeratingWithState:&v122 objects:v173 count:16];
+        v100 = [v98 countByEnumeratingWithState:&v123 objects:v174 count:16];
       }
 
-      while (v99);
+      while (v100);
     }
 
-    v74 = v119;
+    v75 = v120;
   }
 
   [MEMORY[0x1E6979518] commit];
@@ -910,8 +910,7 @@ void __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__blo
 
       if (v5)
       {
-        [*(a1 + 40) addObject:v3];
-        v6 = SBLogProactiveAppLibrary();
+        v6 = SBLogProactiveAppLibrary([*(a1 + 40) addObject:v3]);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           __67__SBHLibraryCategoriesFolderDataSource__regenerateCategoriesFolder__block_invoke_5_cold_1(v3, v6);

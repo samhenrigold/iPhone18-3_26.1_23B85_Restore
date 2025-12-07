@@ -33,7 +33,7 @@
   }
 }
 
-uint64_t __39__ALAsset_requestDefaultRepresentation__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__39__ALAsset_requestDefaultRepresentation__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a3 isDeleted];
   if ((result & 1) == 0)
@@ -61,40 +61,44 @@ uint64_t __39__ALAsset_requestDefaultRepresentation__block_invoke(uint64_t a1, v
 
 void __39__ALAsset_requestDefaultRepresentation__block_invoke_2(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   Log = PLBackendGetLog();
   v9 = Log;
   if (a2)
   {
-    if (os_log_type_enabled(Log, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(Log, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v16 = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = a3;
-      v11 = "Downloaded derivative for cloud shared asset %@ to %@";
-      v12 = v9;
-      v13 = OS_LOG_TYPE_DEFAULT;
-LABEL_6:
-      _os_log_impl(&dword_236A83000, v12, v13, v11, &v16, 0x16u);
+      return;
     }
+
+    v10 = *(a1 + 32);
+    v15 = 138412546;
+    v16 = v10;
+    v17 = 2112;
+    v18 = a3;
+    v11 = "Downloaded derivative for cloud shared asset %@ to %@";
+    v12 = v9;
+    v13 = OS_LOG_TYPE_DEFAULT;
   }
 
-  else if (os_log_type_enabled(Log, OS_LOG_TYPE_ERROR))
+  else
   {
+    if (!os_log_type_enabled(Log, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
     v14 = *(a1 + 32);
-    v16 = 138412546;
-    v17 = v14;
-    v18 = 2112;
-    v19 = a4;
+    v15 = 138412546;
+    v16 = v14;
+    v17 = 2112;
+    v18 = a4;
     v11 = "Failed downloading derivative for cloud shared asset %@ : %@";
     v12 = v9;
     v13 = OS_LOG_TYPE_ERROR;
-    goto LABEL_6;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_236A83000, v12, v13, v11, &v15, 0x16u);
 }
 
 - (void)setVideoAtPath:(NSURL *)videoPathURL completionBlock:(ALAssetsLibraryWriteVideoCompletionBlock)completionBlock
@@ -116,63 +120,54 @@ LABEL_6:
   _Block_object_dispose(v9, 8);
 }
 
-uint64_t __42__ALAsset_setVideoAtPath_completionBlock___block_invoke(uint64_t a1)
+void *__42__ALAsset_setVideoAtPath_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   result = PLPhotosAccessAllowed();
   *(*(*(a1 + 56) + 8) + 24) = result;
-  if (*(*(*(a1 + 56) + 8) + 24) == 1)
+  if (*(*(*(a1 + 56) + 8) + 24) == 1 && (result = [*(a1 + 32) isEditable], result))
   {
-    result = [*(a1 + 32) isEditable];
+    result = [*(a1 + 32) _uuid];
     if (result)
     {
-      result = [*(a1 + 32) _uuid];
+      v10[0] = [getPHAssetClass() localIdentifierWithUUID:result];
+      result = [objc_msgSend(getPHAssetClass() fetchAssetsWithLocalIdentifiers:objc_msgSend(MEMORY[0x277CBEA60] options:{"arrayWithObjects:count:", v10, 1), 0), "lastObject"}];
       if (result)
       {
-        v11[0] = [getPHAssetClass() localIdentifierWithUUID:result];
-        result = [objc_msgSend(getPHAssetClass() fetchAssetsWithLocalIdentifiers:objc_msgSend(MEMORY[0x277CBEA60] options:{"arrayWithObjects:count:", v11, 1), 0), "lastObject"}];
-        if (result)
-        {
-          v3 = result;
-          v4 = [getPHPhotoLibraryClass() sharedPhotoLibrary];
-          v9[0] = MEMORY[0x277D85DD0];
-          v9[1] = 3221225472;
-          v9[2] = __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_2;
-          v9[3] = &unk_278A074F0;
-          v9[4] = v3;
-          v10 = *(a1 + 32);
-          v8[0] = MEMORY[0x277D85DD0];
-          v8[1] = 3221225472;
-          v8[2] = __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_3;
-          v8[3] = &unk_278A07518;
-          v8[5] = *(a1 + 48);
-          v8[4] = v10;
-          result = [v4 performChanges:v9 completionHandler:v8];
-        }
-
-        else if (*(a1 + 48))
-        {
-          [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
-          result = (*(*(a1 + 48) + 16))();
-        }
+        v4 = result;
+        v5 = [getPHPhotoLibraryClass() sharedPhotoLibrary];
+        v8[0] = MEMORY[0x277D85DD0];
+        v8[1] = 3221225472;
+        v8[2] = __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_2;
+        v8[3] = &unk_278A074F0;
+        v8[4] = v4;
+        v9 = *(a1 + 32);
+        v7[0] = MEMORY[0x277D85DD0];
+        v7[1] = 3221225472;
+        v7[2] = __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_3;
+        v7[3] = &unk_278A07518;
+        v7[5] = *(a1 + 48);
+        v7[4] = v9;
+        return [v5 performChanges:v8 completionHandler:v7];
       }
 
-      goto LABEL_12;
+      else if (*(a1 + 48))
+      {
+        [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
+        return (*(*(a1 + 48) + 16))();
+      }
     }
   }
 
-  if (!*(a1 + 48))
+  else if (*(a1 + 48))
   {
-LABEL_12:
-    v7 = *MEMORY[0x277D85DE8];
-    return result;
+    [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
+    v6 = *(*(a1 + 48) + 16);
+
+    return v6();
   }
 
-  [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
-  v5 = *(*(a1 + 48) + 16);
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v5();
+  return result;
 }
 
 void __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_2(uint64_t a1)
@@ -183,7 +178,7 @@ void __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_2(uint64_t a1)
   [v2 setContentEditingOutput:v3];
 }
 
-uint64_t __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_3(uint64_t result, int a2, uint64_t a3)
+uint64_t __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_3(uint64_t result, int a2, void *a3)
 {
   v3 = *(result + 40);
   if (v3)
@@ -199,7 +194,7 @@ uint64_t __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_3(uint64_t 
 
     else
     {
-      v9 = [objc_msgSend(objc_msgSend(*(result + 32) "internal")];
+      v9 = [objc_msgSend(objc_msgSend(*(result + 32) internal];
       v8 = *(v4 + 40);
       v7 = *(v8 + 16);
       v6 = 0;
@@ -230,63 +225,54 @@ uint64_t __42__ALAsset_setVideoAtPath_completionBlock___block_invoke_3(uint64_t 
   _Block_object_dispose(v10, 8);
 }
 
-uint64_t __49__ALAsset_setImageData_metadata_completionBlock___block_invoke(uint64_t a1)
+void *__49__ALAsset_setImageData_metadata_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   result = PLPhotosAccessAllowed();
   *(*(*(a1 + 56) + 8) + 24) = result;
-  if (*(*(*(a1 + 56) + 8) + 24) == 1)
+  if (*(*(*(a1 + 56) + 8) + 24) == 1 && (result = [*(a1 + 32) isEditable], result))
   {
-    result = [*(a1 + 32) isEditable];
+    result = [*(a1 + 32) _uuid];
     if (result)
     {
-      result = [*(a1 + 32) _uuid];
+      v10[0] = [getPHAssetClass() localIdentifierWithUUID:result];
+      result = [objc_msgSend(getPHAssetClass() fetchAssetsWithLocalIdentifiers:objc_msgSend(MEMORY[0x277CBEA60] options:{"arrayWithObjects:count:", v10, 1), 0), "lastObject"}];
       if (result)
       {
-        v11[0] = [getPHAssetClass() localIdentifierWithUUID:result];
-        result = [objc_msgSend(getPHAssetClass() fetchAssetsWithLocalIdentifiers:objc_msgSend(MEMORY[0x277CBEA60] options:{"arrayWithObjects:count:", v11, 1), 0), "lastObject"}];
-        if (result)
-        {
-          v3 = result;
-          v4 = [getPHPhotoLibraryClass() sharedPhotoLibrary];
-          v9[0] = MEMORY[0x277D85DD0];
-          v9[1] = 3221225472;
-          v9[2] = __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_2;
-          v9[3] = &unk_278A074F0;
-          v9[4] = v3;
-          v10 = *(a1 + 32);
-          v8[0] = MEMORY[0x277D85DD0];
-          v8[1] = 3221225472;
-          v8[2] = __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_3;
-          v8[3] = &unk_278A07518;
-          v8[5] = *(a1 + 48);
-          v8[4] = v10;
-          result = [v4 performChanges:v9 completionHandler:v8];
-        }
-
-        else if (*(a1 + 48))
-        {
-          [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
-          result = (*(*(a1 + 48) + 16))();
-        }
+        v4 = result;
+        v5 = [getPHPhotoLibraryClass() sharedPhotoLibrary];
+        v8[0] = MEMORY[0x277D85DD0];
+        v8[1] = 3221225472;
+        v8[2] = __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_2;
+        v8[3] = &unk_278A074F0;
+        v8[4] = v4;
+        v9 = *(a1 + 32);
+        v7[0] = MEMORY[0x277D85DD0];
+        v7[1] = 3221225472;
+        v7[2] = __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_3;
+        v7[3] = &unk_278A07518;
+        v7[5] = *(a1 + 48);
+        v7[4] = v9;
+        return [v5 performChanges:v8 completionHandler:v7];
       }
 
-      goto LABEL_12;
+      else if (*(a1 + 48))
+      {
+        [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
+        return (*(*(a1 + 48) + 16))();
+      }
     }
   }
 
-  if (!*(a1 + 48))
+  else if (*(a1 + 48))
   {
-LABEL_12:
-    v7 = *MEMORY[0x277D85DE8];
-    return result;
+    [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
+    v6 = *(*(a1 + 48) + 16);
+
+    return v6();
   }
 
-  [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
-  v5 = *(*(a1 + 48) + 16);
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v5();
+  return result;
 }
 
 void __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_2(uint64_t a1)
@@ -297,7 +283,7 @@ void __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_2(uint64
   [v2 setContentEditingOutput:v3];
 }
 
-uint64_t __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_3(uint64_t result, int a2, uint64_t a3)
+uint64_t __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_3(uint64_t result, int a2, void *a3)
 {
   v3 = *(result + 40);
   if (v3)
@@ -313,7 +299,7 @@ uint64_t __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_3(ui
 
     else
     {
-      v9 = [objc_msgSend(objc_msgSend(*(result + 32) "internal")];
+      v9 = [objc_msgSend(objc_msgSend(*(result + 32) internal];
       v8 = *(v4 + 40);
       v7 = *(v8 + 16);
       v6 = 0;
@@ -407,7 +393,7 @@ uint64_t __49__ALAsset_setImageData_metadata_completionBlock___block_invoke_3(ui
   return v6;
 }
 
-uint64_t __21__ALAsset_isEditable__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__21__ALAsset_isEditable__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isDeleted];
   if ((result & 1) == 0)
@@ -611,9 +597,9 @@ uint64_t __20__ALAsset_thumbnail__block_invoke(uint64_t a1, uint64_t a2, void *a
   return v6;
 }
 
-uint64_t __32__ALAsset_representationForUTI___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+ALAssetRepresentation *__32__ALAsset_representationForUTI___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   result = [a3 isDeleted];
   if ((result & 1) == 0)
   {
@@ -627,26 +613,26 @@ uint64_t __32__ALAsset_representationForUTI___block_invoke(uint64_t a1, uint64_t
 
       else
       {
-        v16 = 0u;
-        v17 = 0u;
-        v14 = 0u;
         v15 = 0u;
+        v16 = 0u;
+        v13 = 0u;
+        v14 = 0u;
         v8 = [a3 sortedSidecarFiles];
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v15;
+          v11 = *v14;
           while (2)
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v15 != v11)
+              if (*v14 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v7 = *(*(&v14 + 1) + 8 * i);
+              v7 = *(*(&v13 + 1) + 8 * i);
               if ([objc_msgSend(v7 "uniformTypeIdentifier")])
               {
                 v6 = [objc_msgSend(v7 "originalFilename")];
@@ -654,7 +640,7 @@ uint64_t __32__ALAsset_representationForUTI___block_invoke(uint64_t a1, uint64_t
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
             v7 = 0;
             v6 = 0;
             if (v10)
@@ -683,7 +669,6 @@ LABEL_17:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -754,11 +739,11 @@ ALAssetRepresentation *__32__ALAsset_defaultRepresentation__block_invoke(uint64_
 
 id __28__ALAsset_valueForProperty___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([a3 isDeleted])
   {
     *(*(*(a1 + 40) + 8) + 40) = 0;
-    goto LABEL_40;
+    return *(*(*(a1 + 40) + 8) + 40);
   }
 
   if ([*(a1 + 32) isEqualToString:@"ALAssetPropertyType"])
@@ -788,7 +773,7 @@ id __28__ALAsset_valueForProperty___block_invoke(uint64_t a1, uint64_t a2, void 
     v8 = [a3 location];
 LABEL_9:
     *(*(*(a1 + 40) + 8) + 40) = v8;
-    goto LABEL_40;
+    return *(*(*(a1 + 40) + 8) + 40);
   }
 
   if ([*(a1 + 32) isEqualToString:@"ALAssetPropertyDuration"])
@@ -806,7 +791,7 @@ LABEL_38:
     v7 = @"ALErrorInvalidProperty";
 LABEL_39:
     *(v6 + 40) = v7;
-    goto LABEL_40;
+    return *(*(*(a1 + 40) + 8) + 40);
   }
 
   if ([*(a1 + 32) isEqualToString:@"ALAssetPropertyOrientation"])
@@ -853,25 +838,25 @@ LABEL_39:
     [v11 setObject:objc_msgSend(a3 forKey:{"assetURL"), v12}];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v13 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v13 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         v18 = [v17 uniformTypeIdentifier];
         if (v18)
         {
@@ -879,7 +864,7 @@ LABEL_39:
         }
       }
 
-      v14 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
@@ -887,10 +872,7 @@ LABEL_39:
 
   *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v11];
 
-LABEL_40:
-  result = *(*(*(a1 + 40) + 8) + 40);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(*(*(a1 + 40) + 8) + 40);
 }
 
 - (BOOL)isValid
@@ -920,7 +902,7 @@ LABEL_40:
   return v3;
 }
 
-uint64_t __16__ALAsset__uuid__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__16__ALAsset__uuid__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [objc_msgSend(a3 "uuid")];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -960,7 +942,7 @@ uint64_t __16__ALAsset__uuid__block_invoke(uint64_t a1, uint64_t a2, void *a3)
   return v4;
 }
 
-uint64_t __24__ALAsset__typeAsString__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__24__ALAsset__typeAsString__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isDeleted];
   if ((result & 1) == 0)

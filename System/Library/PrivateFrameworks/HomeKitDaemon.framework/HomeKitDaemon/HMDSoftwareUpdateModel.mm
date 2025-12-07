@@ -19,38 +19,36 @@
 
 void __36__HMDSoftwareUpdateModel_properties__block_invoke()
 {
-  v11[7] = *MEMORY[0x277D85DE8];
-  v10[0] = @"softwareVersion";
+  v10[7] = *MEMORY[0x277D85DE8];
+  v9[0] = @"softwareVersion";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[0] = v0;
-  v10[1] = @"displayableSoftwareVersion";
+  v10[0] = v0;
+  v9[1] = @"displayableSoftwareVersion";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[1] = v1;
-  v10[2] = @"state";
+  v10[1] = v1;
+  v9[2] = @"state";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[2] = v2;
-  v10[3] = @"downloadSize";
+  v10[2] = v2;
+  v9[3] = @"downloadSize";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[3] = v3;
-  v10[4] = @"installDuration";
+  v10[3] = v3;
+  v9[4] = @"installDuration";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[4] = v4;
-  v10[5] = @"documentationMetadata";
+  v10[4] = v4;
+  v9[5] = @"documentationMetadata";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[5] = v5;
-  v10[6] = @"releaseDate";
+  v10[5] = v5;
+  v9[6] = @"releaseDate";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[6] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:7];
+  v10[6] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:7];
   v8 = properties__properties_130999;
   properties__properties_130999 = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_fetchManagedObjectInContext:(id)context error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   managedObject = [(HMDBackingStoreModelObject *)self managedObject];
   if (managedObject)
@@ -69,13 +67,13 @@ void __36__HMDSoftwareUpdateModel_properties__block_invoke()
         uuid = [(HMDBackingStoreModelObject *)selfCopy uuid];
         parentUUID = [(HMDBackingStoreModelObject *)selfCopy parentUUID];
         *buf = 138544130;
-        v31 = v13;
-        v32 = 2112;
-        v33 = firstObject;
-        v34 = 2112;
-        v35 = uuid;
-        v36 = 2112;
-        v37 = parentUUID;
+        v30 = v13;
+        v31 = 2112;
+        v32 = firstObject;
+        v33 = 2112;
+        v34 = uuid;
+        v35 = 2112;
+        v36 = parentUUID;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_FAULT, "%{public}@Managed object context appears to be reset on this object %@, someone did something very bad: %@/%@", buf, 0x2Au);
       }
 
@@ -115,11 +113,11 @@ void __36__HMDSoftwareUpdateModel_properties__block_invoke()
         parentUUID3 = [(HMDBackingStoreModelObject *)selfCopy2 parentUUID];
         v27 = *error;
         *buf = 138543874;
-        v31 = v25;
-        v32 = 2112;
-        v33 = parentUUID3;
-        v34 = 2112;
-        v35 = v27;
+        v30 = v25;
+        v31 = 2112;
+        v32 = parentUUID3;
+        v33 = 2112;
+        v34 = v27;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Fetch of software update model with parent UUID : %@ failed: %@", buf, 0x20u);
       }
 
@@ -127,8 +125,6 @@ void __36__HMDSoftwareUpdateModel_properties__block_invoke()
       firstObject = 0;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

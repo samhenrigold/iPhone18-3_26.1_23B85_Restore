@@ -8,7 +8,7 @@
 {
   v5 = _Block_copy(completion);
   type metadata accessor for TUHandle();
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_7(&lazy protocol witness table cache variable for type TUHandle and conformance NSObject, type metadata accessor for TUHandle);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_7(&lazy protocol witness table cache variable for type TUHandle and conformance NSObject, type metadata accessor for TUHandle, MEMORY[0x1E69E81B8]);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = swift_allocObject();
   *(v7 + 16) = v5;

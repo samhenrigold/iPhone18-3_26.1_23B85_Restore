@@ -34,10 +34,8 @@
 
 - (void)writeTo:(id)to
 {
-  width = self->_width;
   toCopy = to;
   PBDataWriterWriteInt32Field();
-  height = self->_height;
   PBDataWriterWriteInt32Field();
 }
 

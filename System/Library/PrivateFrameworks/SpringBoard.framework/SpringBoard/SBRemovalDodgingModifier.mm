@@ -26,7 +26,7 @@
 {
   modelCopy = model;
   identifiers = [modelCopy identifiers];
-  v6 = [identifiers containsObject:self->_identifier];
+  v6 = objc_msgSend_containsObject_(identifiers);
 
   if (v6)
   {

@@ -148,9 +148,9 @@ void sub_100006560(uint64_t a1)
   }
 }
 
-void sub_100006DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -200,7 +200,7 @@ uint64_t sub_10000FD2C(uint64_t a1, int a2, void *a3)
   v7 = v6;
   if (!a1)
   {
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(0);
@@ -219,7 +219,7 @@ LABEL_14:
 
   if ((a1 & 0xF) == 0)
   {
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(0);
@@ -242,7 +242,7 @@ LABEL_14:
   v10 = [v8 unsignedIntegerValue];
   if ((a1 & 2) == 0 && (v10 & 2) != 0)
   {
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = sub_10007FAFC(0);
@@ -326,28 +326,27 @@ void sub_100012390(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 72);
-    v4 = *(*(a1 + 72) + 16);
+    v3 = *(*(a1 + 72) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [[DataStreamPendingRequest alloc] initWithIdentifier:*(a1 + 32) protocol:*(a1 + 40) topic:*(a1 + 48) payload:*(a1 + 56) callback:*(a1 + 72)];
-    v6 = [*(a1 + 64) pendingRequests];
-    [v6 addObject:v5];
+    v4 = [[DataStreamPendingRequest alloc] initWithIdentifier:*(a1 + 32) protocol:*(a1 + 40) topic:*(a1 + 48) payload:*(a1 + 56) callback:*(a1 + 72)];
+    v5 = [*(a1 + 64) pendingRequests];
+    [v5 addObject:v4];
 
-    v7 = *(a1 + 64);
-    v8 = sub_10007FAA0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v6 = *(a1 + 64);
+    v7 = sub_10007FAA0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v9 = sub_10007FAFC(v7);
-      v10 = 138543618;
-      v11 = v9;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%{public}@DataStream pending the request: %@", &v10, 0x16u);
+      v8 = sub_10007FAFC(v6);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%{public}@DataStream pending the request: %@", &v9, 0x16u);
     }
   }
 }
@@ -424,7 +423,7 @@ BOOL sub_100014954()
 void sub_10001B4C0(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = sub_10007FAFC(v2);
@@ -496,7 +495,7 @@ id sub_10001C9B4(void *a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 
     else
     {
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = sub_10007FAFC(0);
@@ -515,7 +514,7 @@ id sub_10001C9B4(void *a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(0);
@@ -561,7 +560,7 @@ void sub_10001E7C4(uint64_t a1)
     else
     {
       v10 = v6;
-      v11 = sub_10007FAA0();
+      v11 = sub_10007FAA0(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = sub_10007FAFC(v10);
@@ -581,17 +580,17 @@ void sub_10001E7C4(uint64_t a1)
   }
 }
 
-void sub_10001F36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001F36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -666,7 +665,7 @@ uint64_t sub_10001F99C(int a1)
   }
 }
 
-unint64_t sub_100021484(unsigned __int8 *a1, uint64_t a2, int *a3)
+unint64_t sub_100021484(char *a1, uint64_t a2, int *a3)
 {
   result = 0;
   v5 = -6743;
@@ -849,7 +848,7 @@ id sub_100021858(unint64_t a1)
   return v2;
 }
 
-id sub_100021B74(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t *a4, void *a5)
+id sub_100021B74(int a1, unint64_t a2, unint64_t a3, unint64_t *a4, void *a5)
 {
   if (a2 >= a3)
   {
@@ -897,7 +896,7 @@ LABEL_5:
   return v9;
 }
 
-uint64_t sub_100021F5C()
+uint64_t sub_100021F5C(uint64_t a1, unsigned int a2)
 {
   result = TLV8BufferAppendUInt64();
   if (!result)
@@ -1152,7 +1151,7 @@ id sub_1000296E0(uint64_t a1)
   if (*(a1 + 48) == 1)
   {
     v2 = *(a1 + 32);
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(v2);
@@ -1176,7 +1175,7 @@ id sub_1000296E0(uint64_t a1)
 id sub_1000298A8(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = sub_10007FAFC(v2);
@@ -1237,7 +1236,7 @@ void sub_10002AF50(uint64_t a1, void *a2)
 
         v8 = *(*(&v14 + 1) + 8 * i);
         v9 = *(a1 + 32);
-        v10 = sub_10007FAA0();
+        v10 = sub_10007FAA0(v9);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = sub_10007FAFC(v9);
@@ -1722,7 +1721,7 @@ void sub_10003F0A4(uint64_t a1)
   if (*(a1 + 32) || *(a1 + 40))
   {
     v2 = *(a1 + 48);
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = sub_10007FAFC(v2);
@@ -1737,7 +1736,7 @@ void sub_10003F0A4(uint64_t a1)
   else
   {
     v5 = *(a1 + 48);
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(v5);
@@ -1759,7 +1758,7 @@ void sub_10003F328(uint64_t a1)
   if ([*(a1 + 32) state] != 1)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = sub_10007FAFC(v7);
@@ -1788,7 +1787,7 @@ void sub_10003F328(uint64_t a1)
   if (*(a1 + 40))
   {
     v3 = v2;
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = sub_10007FAFC(v3);
@@ -1829,7 +1828,7 @@ LABEL_17:
     v7 = [NSError errorWithOSStatus:v12];
     v8 = [NSError hapErrorWithcode:2 description:@"Operation Cancelled." reason:@"Failed to get the pairing exchange data." suggestion:0 underlyingError:v7];
     v16 = *(a1 + 32);
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(v16);
@@ -1845,7 +1844,7 @@ LABEL_17:
   }
 
   v13 = *(a1 + 32);
-  v14 = sub_10007FAA0();
+  v14 = sub_10007FAA0(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = sub_10007FAFC(v13);
@@ -1876,7 +1875,7 @@ void sub_10003FE68(uint64_t a1, void *a2)
   if (v8)
   {
     v9 = *(a1 + 32);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(v9);
@@ -1922,9 +1921,9 @@ id sub_1000402AC(uint64_t a1)
   return result;
 }
 
-void sub_10004088C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10004088C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1953,9 +1952,9 @@ void sub_1000408BC(uint64_t a1)
   }
 }
 
-void sub_100040C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100040C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2126,7 +2125,7 @@ LABEL_15:
             {
               if ((a1 + 25298) <= 0xFFFFFFFD)
               {
-                v7 = sub_10007FAA0();
+                v7 = sub_10007FAA0(0);
                 if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
                 {
                   v8 = sub_10007FAFC(0);
@@ -2396,7 +2395,7 @@ void sub_100044A00(uint64_t a1)
 
     else
     {
-      v13 = sub_10007FAA0();
+      v13 = sub_10007FAA0(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = sub_10007FAFC(0);
@@ -2421,7 +2420,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = sub_10007FAFC(0);
@@ -2474,7 +2473,7 @@ void sub_100046E14(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(v4);
   v6 = v5;
   if (v3)
   {
@@ -2519,7 +2518,7 @@ void sub_100048844(uint64_t a1, void *a2, void *a3, void *a4)
   v12 = [v11 objectForKey:*(a1 + 40)];
 
   v13 = *(a1 + 32);
-  v14 = sub_10007FAA0();
+  v14 = sub_10007FAA0(v13);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
   if (v12)
   {
@@ -2542,7 +2541,7 @@ void sub_100048844(uint64_t a1, void *a2, void *a3, void *a4)
     if ([v12 shouldCloseSessionWithTimeoutReason])
     {
       v19 = *(a1 + 32);
-      v20 = sub_10007FAA0();
+      v20 = sub_10007FAA0(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = sub_10007FAFC(v19);
@@ -2607,7 +2606,7 @@ void sub_100048844(uint64_t a1, void *a2, void *a3, void *a4)
 
           v44 = [NSError errorWithDomain:@"DKErrorDomain" code:v33 userInfo:0];
           v45 = *(a1 + 32);
-          v46 = sub_10007FAA0();
+          v46 = sub_10007FAA0(v45);
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             sub_10007FAFC(v45);
@@ -2651,7 +2650,7 @@ void sub_100048844(uint64_t a1, void *a2, void *a3, void *a4)
       else
       {
         v34 = *(a1 + 32);
-        v35 = sub_10007FAA0();
+        v35 = sub_10007FAA0(v34);
         if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           v36 = sub_10007FAFC(v34);
@@ -2702,7 +2701,7 @@ void sub_10004B9D0(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = sub_10007FAFC(v4);
@@ -2759,7 +2758,7 @@ void sub_10004BBD8(uint64_t a1)
     if (v6)
     {
       v8 = v7;
-      v9 = sub_10007FAA0();
+      v9 = sub_10007FAA0(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = sub_10007FAFC(v8);
@@ -2804,7 +2803,7 @@ void sub_10004BBD8(uint64_t a1)
   else
   {
     v14 = *(a1 + 32);
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = sub_10007FAFC(v14);
@@ -3011,7 +3010,7 @@ void sub_10004CD5C(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -3041,7 +3040,7 @@ void sub_10004CEC0(uint64_t a1, void *a2)
   if (v3)
   {
     v5 = v4;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(v5);
@@ -3074,7 +3073,7 @@ void sub_10004CEC0(uint64_t a1, void *a2)
     [v4 setDiscoveryContext:*(a1 + 40)];
     v11 = *(a1 + 48);
     v12 = *(a1 + 32);
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(v12);
     v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
     if (v11 == 3)
     {
@@ -3119,7 +3118,7 @@ void sub_10004D79C(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -3205,7 +3204,7 @@ void sub_10005217C(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(v7);
@@ -3239,7 +3238,7 @@ void sub_10005217C(uint64_t a1, void *a2, void *a3)
     else
     {
       v18 = v12;
-      v19 = sub_10007FAA0();
+      v19 = sub_10007FAA0(v18);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = sub_10007FAFC(v18);
@@ -3266,14 +3265,14 @@ void sub_100052FB0(uint64_t a1, void *a2, void *a3)
   if (v6 && *(a1 + 32))
   {
     v7 = *(a1 + 40);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(v7);
       *buf = 138543618;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v6;
+      v25 = v9;
+      v26 = 2112;
+      v27 = v6;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get signature from service with error: %@", buf, 0x16u);
     }
 
@@ -3282,52 +3281,51 @@ void sub_100052FB0(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v10 = *(a1 + 40);
-    v11 = objc_opt_class();
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 56);
-    v24 = 0;
-    v14 = [v11 parseServiceSignatureResponse:v5 serviceInstanceID:v12 serviceType:v13 error:&v24];
-    v15 = v24;
-    if (v14 || !*(a1 + 32))
+    v10 = objc_opt_class();
+    v11 = *(a1 + 48);
+    v12 = *(a1 + 56);
+    v23 = 0;
+    v13 = [v10 parseServiceSignatureResponse:v5 serviceInstanceID:v11 serviceType:v12 error:&v23];
+    v14 = v23;
+    if (v13 || !*(a1 + 32))
     {
-      v16 = *(a1 + 40);
-      v17 = sub_10007FAA0();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v15 = *(a1 + 40);
+      v16 = sub_10007FAA0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v18 = sub_10007FAFC(v16);
-        v19 = [v14 description];
+        v17 = sub_10007FAFC(v15);
+        v18 = [v13 description];
         *buf = 138543618;
-        v26 = v18;
-        v27 = 2112;
-        v28 = v19;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
+        v25 = v17;
+        v26 = 2112;
+        v27 = v18;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
       }
 
-      v20 = [*(a1 + 40) discoveryContext];
-      v21 = [v20 serviceSignatures];
-      [v21 setObject:v14 forKey:*(a1 + 32)];
-      v22 = 0;
+      v19 = [*(a1 + 40) discoveryContext];
+      v20 = [v19 serviceSignatures];
+      [v20 setObject:v13 forKey:*(a1 + 32)];
+      v21 = 0;
     }
 
     else
     {
-      v20 = *(a1 + 40);
-      v21 = sub_10007FAA0();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v19 = *(a1 + 40);
+      v20 = sub_10007FAA0(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v23 = sub_10007FAFC(v20);
+        v22 = sub_10007FAFC(v19);
         *buf = 138543618;
-        v26 = v23;
-        v27 = 2112;
-        v28 = v15;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse service signature response with error: %@", buf, 0x16u);
+        v25 = v22;
+        v26 = 2112;
+        v27 = v14;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse service signature response with error: %@", buf, 0x16u);
       }
 
-      v22 = v15;
+      v21 = v14;
     }
 
-    [*(a1 + 40) _handleReadServiceSignature:*(a1 + 32) error:v22];
+    [*(a1 + 40) _handleReadServiceSignature:*(a1 + 32) error:v21];
   }
 }
 
@@ -3336,23 +3334,8 @@ uint64_t sub_100053D98(void *a1, uint64_t a2, void *a3)
   v5 = a1;
   if ([v5 length] > 6)
   {
-    if (!a2)
+    if (!a2 || ([v5 getBytes:&v11 length:7], *a2 = v11, v7 = v12, *(a2 + 1) = v12, *(a2 + 2) = v13, v8 = v14, *(a2 + 4) = v14, v9 = v15, *(a2 + 6) = v15, !v7) && v8 == 1 && !v9)
     {
-      goto LABEL_11;
-    }
-
-    [v5 getBytes:&v11 length:7];
-    *a2 = v11;
-    v7 = v12;
-    *(a2 + 1) = v12;
-    *(a2 + 2) = v13;
-    v8 = v14;
-    *(a2 + 4) = v14;
-    v9 = v15;
-    *(a2 + 6) = v15;
-    if (!v7 && v8 == 1 && !v9)
-    {
-LABEL_11:
       v6 = 1;
       goto LABEL_12;
     }
@@ -3565,7 +3548,7 @@ LABEL_9:
 
       else
       {
-        v27 = sub_10007FAA0();
+        v27 = sub_10007FAA0(0);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           v28 = sub_10007FAFC(0);
@@ -3589,7 +3572,7 @@ LABEL_9:
 
     else
     {
-      v25 = sub_10007FAA0();
+      v25 = sub_10007FAA0(0);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         v26 = sub_10007FAFC(0);
@@ -3665,7 +3648,7 @@ LABEL_7:
 
   else
   {
-    v16 = sub_10007FAA0();
+    v16 = sub_10007FAA0(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = sub_10007FAFC(0);
@@ -3732,7 +3715,7 @@ LABEL_16:
 
   if (([v7 length] & v9) != 0)
   {
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = sub_10007FAFC(0);
@@ -3757,7 +3740,7 @@ LABEL_16:
   if (v19)
   {
     [v18 sortUsingComparator:&stru_100273D58];
-    v20 = sub_10007FAA0();
+    v20 = sub_10007FAA0(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = sub_10007FAFC(0);
@@ -3773,7 +3756,7 @@ LABEL_16:
 
   else
   {
-    v22 = sub_10007FAA0();
+    v22 = sub_10007FAA0(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = sub_10007FAFC(0);
@@ -3815,7 +3798,7 @@ uint64_t sub_100054ACC(void *a1, uint64_t a2, void *a3, void *a4)
 
       if (([v7 length] & v11) != 0)
       {
-        v15 = sub_10007FAA0();
+        v15 = sub_10007FAA0(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = sub_10007FAFC(0);
@@ -3841,7 +3824,7 @@ uint64_t sub_100054ACC(void *a1, uint64_t a2, void *a3, void *a4)
       v17 = sub_100057C50(v7, a2);
       if ([v17 count])
       {
-        v28 = sub_10007FAA0();
+        v28 = sub_10007FAA0(0);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           v29 = sub_10007FAFC(0);
@@ -3899,7 +3882,7 @@ LABEL_40:
         if ([v10 count])
         {
           [v10 sortUsingComparator:&stru_100274518];
-          v26 = sub_10007FAA0();
+          v26 = sub_10007FAA0(0);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             v27 = sub_10007FAFC(0);
@@ -3916,7 +3899,7 @@ LABEL_40:
           goto LABEL_39;
         }
 
-        v30 = sub_10007FAA0();
+        v30 = sub_10007FAA0(0);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           v31 = sub_10007FAFC(0);
@@ -4034,7 +4017,7 @@ void sub_100055694(id *a1)
   v2 = [a1[4] pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -4060,7 +4043,7 @@ void sub_100055924(id *a1)
   v2 = [a1[4] pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -4146,7 +4129,7 @@ void sub_100057F40(uint64_t a1)
         if ([v3 containsObject:v8])
         {
           v16 = *(a1 + 40);
-          v17 = sub_10007FAA0();
+          v17 = sub_10007FAA0(v16);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v18 = sub_10007FAFC(v16);
@@ -4188,7 +4171,7 @@ void sub_100057F40(uint64_t a1)
   if (*(a1 + 72) > 0.0)
   {
     v9 = *(a1 + 40);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = sub_10007FAFC(v9);
@@ -4259,7 +4242,7 @@ void sub_100058310(uint64_t a1, void *a2, void *a3)
         if (!v13)
         {
           v14 = WeakRetained;
-          v15 = sub_10007FAA0();
+          v15 = sub_10007FAA0(v14);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             v16 = sub_10007FAFC(v14);
@@ -4305,7 +4288,7 @@ void sub_1000588CC(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = sub_10007FAFC(v7);
@@ -4331,7 +4314,7 @@ void sub_1000588CC(uint64_t a1, void *a2, void *a3)
 void sub_100058A44(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(v2);
@@ -4403,7 +4386,7 @@ void sub_100059188(id *a1, void *a2, void *a3)
   {
     [a1[4] setValue:0];
     v8 = WeakRetained;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = sub_10007FAFC(v8);
@@ -4414,7 +4397,7 @@ void sub_100059188(id *a1, void *a2, void *a3)
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to read from characteristic with error: %@", buf, 0x16u);
     }
 
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = sub_10007FAFC(0);
@@ -4449,7 +4432,7 @@ void sub_100059188(id *a1, void *a2, void *a3)
     {
       [v20 setValue:v17];
       [a1[4] setNotificationContext:v18];
-      v21 = sub_10007FAA0();
+      v21 = sub_10007FAA0(0);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         sub_10007FAFC(0);
@@ -4479,7 +4462,7 @@ void sub_100059188(id *a1, void *a2, void *a3)
       [v20 setValue:0];
       [a1[4] setNotificationContext:0];
       v30 = WeakRetained;
-      v31 = sub_10007FAA0();
+      v31 = sub_10007FAA0(v30);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         v32 = sub_10007FAFC(v30);
@@ -4490,7 +4473,7 @@ void sub_100059188(id *a1, void *a2, void *a3)
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse characteristic read response with error: %@", buf, 0x16u);
       }
 
-      v33 = sub_10007FAA0();
+      v33 = sub_10007FAA0(0);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         v34 = sub_10007FAFC(0);
@@ -4529,7 +4512,7 @@ void sub_100059EE0(uint64_t a1)
   if (*(a1 + 72) > 0.0)
   {
     v2 = *(a1 + 32);
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = sub_10007FAFC(v2);
@@ -4589,7 +4572,7 @@ void sub_100059EE0(uint64_t a1)
           v13 = v12;
         }
 
-        v14 = sub_10007FAA0();
+        v14 = sub_10007FAA0(0);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           v15 = sub_10007FAFC(0);
@@ -4651,7 +4634,7 @@ void sub_10005A36C(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = sub_10007FAFC(v7);
@@ -4678,7 +4661,7 @@ id sub_10005A4E4(uint64_t a1)
 {
   [*(a1 + 32) begin];
   v2 = *(a1 + 40);
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(v2);
@@ -4708,7 +4691,7 @@ id sub_10005A4E4(uint64_t a1)
   {
     [*(a1 + 32) markWithReason:@"Disconnecting"];
     v7 = *(a1 + 40);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = sub_10007FAFC(v7);
@@ -4755,7 +4738,7 @@ void sub_10005ADA4(uint64_t a1, void *a2, void *a3)
       if ((v20 & 1) == 0)
       {
         v27 = v8;
-        v28 = sub_10007FAA0();
+        v28 = sub_10007FAA0(v27);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v29 = sub_10007FAFC(v27);
@@ -4766,7 +4749,7 @@ void sub_10005ADA4(uint64_t a1, void *a2, void *a3)
           _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse characteristic write response with error: %@", buf, 0x16u);
         }
 
-        v30 = sub_10007FAA0();
+        v30 = sub_10007FAA0(0);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           v31 = sub_10007FAFC(0);
@@ -4795,7 +4778,7 @@ void sub_10005ADA4(uint64_t a1, void *a2, void *a3)
     }
 
     [*(a1 + 32) setValue:v19];
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       v24 = sub_10007FAFC(0);
@@ -4817,7 +4800,7 @@ LABEL_19:
   }
 
   v9 = WeakRetained;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = sub_10007FAFC(v9);
@@ -4828,7 +4811,7 @@ LABEL_19:
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to write to characteristic with error: %@", buf, 0x16u);
   }
 
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(0);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = sub_10007FAFC(0);
@@ -4887,7 +4870,7 @@ void sub_10005B7E8(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(v7);
@@ -4898,7 +4881,7 @@ void sub_10005B7E8(uint64_t a1, void *a2, void *a3)
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare timed write to characteristic with error: %@", &v29, 0x16u);
     }
 
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = sub_10007FAFC(0);
@@ -4935,7 +4918,7 @@ LABEL_7:
   }
 
   v19 = *(a1 + 32);
-  v20 = sub_10007FAA0();
+  v20 = sub_10007FAA0(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     v21 = sub_10007FAFC(v19);
@@ -4946,7 +4929,7 @@ LABEL_7:
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@Received response to prepare write with status code: 0x%02x", &v29, 0x12u);
   }
 
-  v22 = sub_10007FAA0();
+  v22 = sub_10007FAA0(0);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     v23 = sub_10007FAFC(0);
@@ -4986,7 +4969,7 @@ void sub_10005BE64(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v9 = WeakRetained;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(v9);
@@ -4997,7 +4980,7 @@ void sub_10005BE64(uint64_t a1, void *a2, void *a3)
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to execute write to characteristic with error: %@", buf, 0x16u);
     }
 
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = sub_10007FAFC(0);
@@ -5035,7 +5018,7 @@ void sub_10005BE64(uint64_t a1, void *a2, void *a3)
       if ((v26 & 1) == 0)
       {
         v33 = v8;
-        v34 = sub_10007FAA0();
+        v34 = sub_10007FAA0(v33);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           v35 = sub_10007FAFC(v33);
@@ -5046,7 +5029,7 @@ void sub_10005BE64(uint64_t a1, void *a2, void *a3)
           _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse characteristic execute response with error: %@", buf, 0x16u);
         }
 
-        v36 = sub_10007FAA0();
+        v36 = sub_10007FAA0(0);
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           v37 = sub_10007FAFC(0);
@@ -5075,7 +5058,7 @@ void sub_10005BE64(uint64_t a1, void *a2, void *a3)
     }
 
     [*(a1 + 32) setValue:v25];
-    v29 = sub_10007FAA0();
+    v29 = sub_10007FAA0(0);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       v30 = sub_10007FAFC(0);
@@ -5096,7 +5079,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v17 = sub_10007FAA0();
+  v17 = sub_10007FAA0(0);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = sub_10007FAFC(0);
@@ -5136,7 +5119,7 @@ void sub_10005DBEC(uint64_t a1, void *a2, void *a3)
     v8 = [v7 accessory];
 
     v9 = *(a1 + 32);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = sub_10007FAFC(v9);
@@ -5222,7 +5205,7 @@ void sub_10005DEBC(uint64_t a1, void *a2, void *a3)
           if (v17)
           {
             v18 = *(a1 + 32);
-            v19 = sub_10007FAA0();
+            v19 = sub_10007FAA0(v18);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               sub_10007FAFC(v18);
@@ -5257,7 +5240,7 @@ void sub_10005DEBC(uint64_t a1, void *a2, void *a3)
     }
 
     v28 = *(a1 + 32);
-    v29 = sub_10007FAA0();
+    v29 = sub_10007FAA0(v28);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       v30 = sub_10007FAFC(v28);
@@ -5285,7 +5268,7 @@ void sub_10005DEBC(uint64_t a1, void *a2, void *a3)
   }
 
   v7 = *(a1 + 32);
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = sub_10007FAFC(v7);
@@ -5331,7 +5314,7 @@ void sub_10005E8C8(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(v7);
@@ -5450,7 +5433,7 @@ void sub_10005F8C4(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = objc_loadWeakRetained((a1 + 48));
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = sub_10007FAFC(v7);
@@ -5504,7 +5487,7 @@ LABEL_20:
       else
       {
         v25 = v7;
-        v26 = sub_10007FAA0();
+        v26 = sub_10007FAA0(v25);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           v27 = sub_10007FAFC(v25);
@@ -5528,7 +5511,7 @@ LABEL_20:
     }
 
     v15 = v7;
-    v16 = sub_10007FAA0();
+    v16 = sub_10007FAA0(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = sub_10007FAFC(v15);
@@ -5607,7 +5590,7 @@ void sub_1000600D4(uint64_t a1, void *a2, void *a3)
         if (!v13)
         {
           v14 = WeakRetained;
-          v15 = sub_10007FAA0();
+          v15 = sub_10007FAA0(v14);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             v16 = sub_10007FAFC(v14);
@@ -5641,7 +5624,7 @@ void sub_1000606A4(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = sub_10007FAFC(v7);
@@ -5667,7 +5650,7 @@ void sub_1000606A4(uint64_t a1, void *a2, void *a3)
 void sub_10006081C(uint64_t a1)
 {
   v2 = objc_loadWeakRetained((a1 + 56));
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(v2);
@@ -5709,7 +5692,7 @@ void sub_100060CF8(void **a1, void *a2, void *a3)
   if (v6)
   {
     v9 = WeakRetained;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(v9);
@@ -5726,7 +5709,7 @@ void sub_100060CF8(void **a1, void *a2, void *a3)
   else if ([v5 statusCode])
   {
     v12 = v8;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = sub_10007FAFC(v12);
@@ -5756,7 +5739,7 @@ void sub_100060CF8(void **a1, void *a2, void *a3)
     else
     {
       v20 = v8;
-      v21 = sub_10007FAA0();
+      v21 = sub_10007FAA0(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = sub_10007FAFC(v20);
@@ -5800,7 +5783,7 @@ void sub_100061154(uint64_t a1)
   }
 
   v5 = *(a1 + 32);
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(v5);
   v7 = v6;
   if (v3)
   {
@@ -5845,7 +5828,7 @@ void sub_1000613E4(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -5868,7 +5851,7 @@ void sub_100061568(uint64_t a1, void *a2)
   if ([*(a1 + 32) isPairing])
   {
     v4 = *(a1 + 32);
-    v5 = sub_10007FAA0();
+    v5 = sub_10007FAA0(v4);
     v6 = v5;
     if (v3)
     {
@@ -5876,9 +5859,9 @@ void sub_100061568(uint64_t a1, void *a2)
       {
         v7 = sub_10007FAFC(v4);
         *buf = 138543618;
-        v19 = v7;
-        v20 = 2112;
-        v21 = v3;
+        v18 = v7;
+        v19 = 2112;
+        v20 = v3;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@Pairing failed, failed to discover the accessory with error: %@", buf, 0x16u);
       }
 
@@ -5891,35 +5874,34 @@ void sub_100061568(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v12 = sub_10007FAFC(v4);
-        v13 = *(a1 + 40);
-        v14 = HMFBooleanToString();
+        v13 = HMFBooleanToString();
         *buf = 138543618;
-        v19 = v12;
-        v20 = 2112;
-        v21 = v14;
+        v18 = v12;
+        v19 = 2112;
+        v20 = v13;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%{public}@Determining if MFi Pair Setup is supported, consentRequired: %@", buf, 0x16u);
       }
 
-      v15 = *(a1 + 32);
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_1000617FC;
-      v16[3] = &unk_1002740A0;
-      v16[4] = v15;
-      v17 = *(a1 + 40);
-      [v15 _getPairingFeaturesWithCompletionHandler:v16];
+      v14 = *(a1 + 32);
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_1000617FC;
+      v15[3] = &unk_1002740A0;
+      v15[4] = v14;
+      v16 = *(a1 + 40);
+      [v14 _getPairingFeaturesWithCompletionHandler:v15];
     }
   }
 
   else
   {
     v9 = *(a1 + 32);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = sub_10007FAFC(v9);
       *buf = 138543362;
-      v19 = v11;
+      v18 = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%{public}@No active pairing session, bailing!", buf, 0xCu);
     }
   }
@@ -5931,7 +5913,7 @@ void sub_1000617FC(uint64_t a1, unint64_t a2, void *a3)
   if (v5)
   {
     v6 = *(a1 + 32);
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(v6);
@@ -5981,7 +5963,7 @@ LABEL_27:
     }
 
     v22 = *(a1 + 32);
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = sub_10007FAFC(v22);
@@ -5994,7 +5976,7 @@ LABEL_27:
   else
   {
     v13 = *(a1 + 32);
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = sub_10007FAFC(v13);
@@ -6021,7 +6003,7 @@ LABEL_27:
       else
       {
         v33 = *(a1 + 32);
-        v34 = sub_10007FAA0();
+        v34 = sub_10007FAA0(v33);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
           v35 = sub_10007FAFC(v33);
@@ -6051,7 +6033,7 @@ LABEL_27:
     }
 
     v22 = *(a1 + 32);
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = sub_10007FAFC(v22);
@@ -6116,7 +6098,7 @@ void sub_1000621BC(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -6142,7 +6124,7 @@ void sub_1000622F0(uint64_t a1, uint64_t a2, void *a3)
   if (v4)
   {
     v5 = *(a1 + 32);
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(v5);
@@ -6185,7 +6167,7 @@ void sub_1000626F8(uint64_t a1, void *a2)
   if (v3)
   {
     v5 = v4;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = sub_10007FAFC(v5);
@@ -6204,7 +6186,7 @@ void sub_1000626F8(uint64_t a1, void *a2)
   {
     [v4 setWaitingForAuth:0];
     v9 = *(a1 + 32);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = sub_10007FAFC(v9);
@@ -6240,7 +6222,7 @@ void sub_1000629A0(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -6277,18 +6259,8 @@ void sub_100062B1C(uint64_t a1)
 
   else if (![*(a1 + 32) pendingRemovePairing])
   {
-    if ([*(a1 + 32) isPaired])
+    if (([*(a1 + 32) isPaired] & 1) != 0 || (objc_msgSend(*(a1 + 32), "keyStore"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "identifier"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "readControllerPairingKeyForAccessory:error:", v6, 0), v7 = objc_claimAutoreleasedReturnValue(), v6, v5, v7, v7))
     {
-      goto LABEL_12;
-    }
-
-    v5 = [*(a1 + 32) keyStore];
-    v6 = [*(a1 + 32) identifier];
-    v7 = [v5 readControllerPairingKeyForAccessory:v6 error:0];
-
-    if (v7)
-    {
-LABEL_12:
       [*(a1 + 32) setPendingRemovePairing:1];
       v8 = [*(a1 + 32) discoveryContext];
       if (!v8 || (v9 = v8, v10 = [*(a1 + 32) isSecuritySessionOpen], v9, v10))
@@ -6330,7 +6302,7 @@ void sub_100063014(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -6357,7 +6329,7 @@ void sub_100063134(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(v7);
@@ -6382,7 +6354,7 @@ LABEL_5:
   }
 
   v11 = *(a1 + 32);
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v13 = sub_10007FAFC(v11);
@@ -6489,7 +6461,7 @@ void sub_100063CC0(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -6545,7 +6517,7 @@ LABEL_3:
   }
 
   v8 = *(a1 + 40);
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = sub_10007FAFC(v8);
@@ -6615,7 +6587,7 @@ void sub_1000644DC(uint64_t a1, void *a2, void *a3)
     else
     {
       v16 = *(a1 + 32);
-      v17 = sub_10007FAA0();
+      v17 = sub_10007FAA0(v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = sub_10007FAFC(v16);
@@ -6647,7 +6619,7 @@ LABEL_17:
   }
 
   v7 = *(a1 + 32);
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = sub_10007FAFC(v7);
@@ -6717,7 +6689,7 @@ LABEL_3:
   }
 
   v9 = *(a1 + 32);
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = sub_10007FAFC(v9);
@@ -6787,7 +6759,7 @@ void sub_100064D10(uint64_t a1, void *a2, void *a3)
     else
     {
       v16 = *(a1 + 32);
-      v17 = sub_10007FAA0();
+      v17 = sub_10007FAA0(v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = sub_10007FAFC(v16);
@@ -6819,7 +6791,7 @@ LABEL_17:
   }
 
   v7 = *(a1 + 32);
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = sub_10007FAFC(v7);
@@ -6871,7 +6843,7 @@ void sub_1000654EC(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_loadWeakRetained((a1 + 56));
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = sub_10007FAFC(v4);
@@ -6896,7 +6868,7 @@ void sub_1000654EC(uint64_t a1, void *a2)
   if ((v12 & 1) == 0)
   {
     v14 = v4;
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       v16 = sub_10007FAFC(v14);
@@ -6917,7 +6889,7 @@ void sub_1000654EC(uint64_t a1, void *a2)
   if ((v19 & 1) == 0)
   {
     v21 = v4;
-    v22 = sub_10007FAA0();
+    v22 = sub_10007FAA0(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       v23 = sub_10007FAFC(v21);
@@ -7006,7 +6978,7 @@ void sub_100065A8C(id *a1)
   else
   {
     v6 = a1[4];
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(v6);
@@ -7056,7 +7028,7 @@ void sub_100065D1C(uint64_t a1, void *a2, void *a3)
     if (!v14)
     {
       v15 = v8;
-      v16 = sub_10007FAA0();
+      v16 = sub_10007FAA0(v15);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = sub_10007FAFC(v15);
@@ -7089,7 +7061,7 @@ void sub_100065D1C(uint64_t a1, void *a2, void *a3)
   }
 
   v9 = WeakRetained;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = sub_10007FAFC(v9);
@@ -7142,7 +7114,7 @@ void sub_1000662CC(uint64_t a1, void *a2, void *a3)
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v15 = v8;
-      v16 = sub_10007FAA0();
+      v16 = sub_10007FAA0(v15);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = sub_10007FAFC(v15);
@@ -7175,7 +7147,7 @@ LABEL_9:
   }
 
   v9 = WeakRetained;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = sub_10007FAFC(v9);
@@ -7228,7 +7200,7 @@ void sub_100066714(uint64_t a1, void *a2)
     else
     {
       v14 = v5;
-      v15 = sub_10007FAA0();
+      v15 = sub_10007FAA0(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = sub_10007FAFC(v14);
@@ -7257,7 +7229,7 @@ LABEL_13:
   }
 
   v6 = WeakRetained;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = sub_10007FAFC(v6);
@@ -7406,7 +7378,7 @@ void sub_100067568(uint64_t a1)
   if (![*(a1 + 32) _outstandingRequests])
   {
     v7 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v9 = sub_10007FAFC(v7);
@@ -7437,7 +7409,7 @@ void sub_10006776C(uint64_t a1, uint64_t a2)
   if (a2)
   {
     v3 = *(a1 + 32);
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = sub_10007FAFC(v3);
@@ -7455,7 +7427,7 @@ void sub_10006776C(uint64_t a1, uint64_t a2)
 void sub_100067938(id *a1)
 {
   v2 = a1[4];
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(v2);
@@ -7468,7 +7440,7 @@ void sub_100067938(id *a1)
   }
 
   v6 = a1[4];
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = sub_10007FAFC(v6);
@@ -7520,7 +7492,7 @@ LABEL_11:
   }
 
   v23 = a1[4];
-  v24 = sub_10007FAA0();
+  v24 = sub_10007FAA0(v23);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     v25 = sub_10007FAFC(v23);
@@ -7572,7 +7544,7 @@ void sub_1000681D4(uint64_t a1)
     else
     {
       v8 = v7;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(v8);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = sub_10007FAFC(v8);
@@ -7589,7 +7561,7 @@ void sub_1000681D4(uint64_t a1)
   else
   {
     v6 = *(a1 + 32);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(v6);
@@ -7624,7 +7596,7 @@ void sub_10006A33C(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v9 = WeakRetained;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(v9);
@@ -7643,7 +7615,7 @@ void sub_10006A33C(uint64_t a1, void *a2, void *a3)
     if ([v5 statusCode])
     {
       v12 = v8;
-      v13 = sub_10007FAA0();
+      v13 = sub_10007FAA0(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = sub_10007FAFC(v12);
@@ -7685,7 +7657,7 @@ void sub_10006B36C(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v9 = WeakRetained;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(v9);
@@ -7706,7 +7678,7 @@ LABEL_10:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v14 = WeakRetained;
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = sub_10007FAFC(v14);
@@ -7749,7 +7721,7 @@ void sub_10006BB54(uint64_t a1)
     if ((v2 & 0xFFFFFFFFFFFFFFFDLL) == 1)
     {
       v7 = *(a1 + 32);
-      v8 = sub_10007FAA0();
+      v8 = sub_10007FAA0(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = sub_10007FAFC(v7);
@@ -7777,7 +7749,7 @@ void sub_10006BB54(uint64_t a1)
   {
     [*(a1 + 32) setConnectionCompletionHandler:{v6, v18, v19, v20, v21, v22, v23}];
     v11 = *(a1 + 32);
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = sub_10007FAFC(v11);
@@ -7832,7 +7804,7 @@ void sub_10006BF68(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -7857,7 +7829,7 @@ void sub_10006C310(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -7881,7 +7853,7 @@ void sub_10006C508(uint64_t a1)
   {
     [*(a1 + 32) setConnectionCompletionHandler:*(a1 + 48)];
     v3 = *(a1 + 32);
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = sub_10007FAFC(v3);
@@ -7914,7 +7886,7 @@ void sub_10006C508(uint64_t a1)
     if ((v2 & 0xFFFFFFFFFFFFFFFDLL) == 1)
     {
       v10 = *(a1 + 32);
-      v11 = sub_10007FAA0();
+      v11 = sub_10007FAA0(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = sub_10007FAFC(v10);
@@ -7946,7 +7918,7 @@ void sub_10006C7AC(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -7982,7 +7954,7 @@ void sub_10006CF80(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = sub_10007FAFC(v3);
@@ -7999,7 +7971,7 @@ void sub_10006CF80(uint64_t a1)
   if ([*(a1 + 40) connectionState] == 1 && !v2)
   {
     v7 = *(a1 + 40);
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = sub_10007FAFC(v7);
@@ -8044,7 +8016,7 @@ void sub_10006CF80(uint64_t a1)
   else if (([v15 isPaired] & 1) == 0 && (objc_msgSend(*(a1 + 40), "isPairing") & 1) == 0)
   {
     v19 = *(a1 + 40);
-    v20 = sub_10007FAA0();
+    v20 = sub_10007FAA0(v19);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = sub_10007FAFC(v19);
@@ -8074,7 +8046,7 @@ void sub_10006D2F8(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -8124,7 +8096,7 @@ void sub_10006D954(uint64_t a1)
       {
         v5 = v4 == 0;
         v18 = *(a1 + 32);
-        v19 = sub_10007FAA0();
+        v19 = sub_10007FAA0(v18);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           v20 = sub_10007FAFC(v18);
@@ -8148,7 +8120,7 @@ void sub_10006D954(uint64_t a1)
     {
       v5 = v4 == 0;
       v22 = *(a1 + 32);
-      v23 = sub_10007FAA0();
+      v23 = sub_10007FAA0(v22);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = sub_10007FAFC(v22);
@@ -8212,9 +8184,7 @@ void sub_10006D954(uint64_t a1)
 
 void sub_10006DDC0(uint64_t a1)
 {
-  v4 = [NSError hapErrorWithcode:28 description:@"Not generating BC Keys" reason:@"Key generated in recent past" suggestion:@"Report the faulty accessory" underlyingError:0];
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
+  v2 = [NSError hapErrorWithcode:28 description:@"Not generating BC Keys" reason:@"Key generated in recent past" suggestion:@"Report the faulty accessory" underlyingError:0];
   (*(*(a1 + 48) + 16))(*(a1 + 56));
 }
 
@@ -8255,7 +8225,7 @@ void sub_10006DF40(uint64_t a1, void *a2, void *a3, double a4, uint64_t a5, void
         [v26 updateBroadcastKeyForIdentifer:v27 key:v10 keyUpdatedStateNumber:v11 keyUpdatedTime:Current];
 
         v14 = *(a1 + 32);
-        v15 = sub_10007FAA0();
+        v15 = sub_10007FAA0(v14);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           v28 = sub_10007FAFC(v14);
@@ -8282,7 +8252,7 @@ void sub_10006DF40(uint64_t a1, void *a2, void *a3, double a4, uint64_t a5, void
         [v36 updateBroadcastKeyForIdentifer:v37 key:v10 keyUpdatedStateNumber:v11 keyUpdatedTime:v35];
 
         v14 = *(a1 + 32);
-        v15 = sub_10007FAA0();
+        v15 = sub_10007FAA0(v14);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           v38 = sub_10007FAFC(v14);
@@ -8312,7 +8282,7 @@ void sub_10006DF40(uint64_t a1, void *a2, void *a3, double a4, uint64_t a5, void
   }
 
   v14 = *(a1 + 32);
-  v15 = sub_10007FAA0();
+  v15 = sub_10007FAA0(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     v16 = sub_10007FAFC(v14);
@@ -8397,7 +8367,7 @@ id sub_10006EF58(id *a1)
     if (result)
     {
       v3 = a1[6];
-      v4 = sub_10007FAA0();
+      v4 = sub_10007FAA0(v3);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v5 = sub_10007FAFC(v3);
@@ -8435,7 +8405,7 @@ void sub_10006F10C(uint64_t a1)
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = sub_10007FAFC(0);
@@ -8557,7 +8527,7 @@ void sub_10006F874(uint64_t a1)
     }
 
     v2 = *(a1 + 40);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = sub_10007FAFC(v2);
@@ -8577,7 +8547,7 @@ LABEL_14:
   else
   {
     v2 = *(a1 + 40);
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(v2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = sub_10007FAFC(v2);
@@ -8601,7 +8571,7 @@ void sub_10006FBB8(uint64_t a1)
   if ([*(a1 + 32) state] == 2)
   {
     v2 = *(a1 + 40);
-    v3 = sub_10007FAA0();
+    v3 = sub_10007FAA0(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = sub_10007FAFC(v2);
@@ -8616,7 +8586,7 @@ void sub_10006FBB8(uint64_t a1)
     if (*(a1 + 56))
     {
       v6 = *(a1 + 40);
-      v7 = sub_10007FAA0();
+      v7 = sub_10007FAA0(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = sub_10007FAFC(v6);
@@ -8680,7 +8650,7 @@ void sub_10006FE5C(uint64_t a1)
   }
 
   v10 = *(a1 + 32);
-  v11 = sub_10007FAA0();
+  v11 = sub_10007FAA0(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = sub_10007FAFC(v10);

@@ -3,7 +3,7 @@
 
 @implementation CopyAvailableEndpoints
 
-size_t __remoteXPCEndpointManager_CopyAvailableEndpoints_block_invoke(uint64_t a1)
+uint64_t __remoteXPCEndpointManager_CopyAvailableEndpoints_block_invoke(uint64_t a1)
 {
   v2 = 32;
   if (*(a1 + 72) == 1635149176)

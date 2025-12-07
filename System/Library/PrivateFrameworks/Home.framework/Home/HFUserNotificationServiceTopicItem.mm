@@ -25,11 +25,11 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v83[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   v6 = MEMORY[0x277CBEB98];
-  v83[0] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
+  v82[0] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:1];
   v8 = [v6 setWithArray:v7];
   [v5 setObject:v8 forKeyedSubscript:@"dependentHomeKitClasses"];
 
@@ -49,8 +49,8 @@
   iconDescriptor = [topic3 iconDescriptor];
   [v5 setObject:iconDescriptor forKeyedSubscript:@"icon"];
 
-  home = [(HFUserNotificationServiceTopicItem *)self home];
-  if (![home hf_shouldShowAnnounceFeatureForThisHome])
+  v19 = objc_msgSend_home(self);
+  if (![v19 hf_shouldShowAnnounceFeatureForThisHome])
   {
     goto LABEL_6;
   }
@@ -68,15 +68,15 @@ LABEL_6:
   [topic5 topicName];
   v24 = v23 = a2;
   v25 = _HFLocalizedStringWithDefaultValue(@"HFUserNotificationServiceTopicName_Announce", @"HFUserNotificationServiceTopicName_Announce", 1);
-  v77 = [v24 isEqualToString:v25];
+  v76 = [v24 isEqualToString:v25];
 
   v11 = 0x277CCA000;
   a2 = v23;
 
-  if (v77)
+  if (v76)
   {
-    home2 = [(HFUserNotificationServiceTopicItem *)self home];
-    currentUser = [home2 currentUser];
+    v26 = objc_msgSend_home(self);
+    currentUser = [v26 currentUser];
     announceUserSettings = [currentUser announceUserSettings];
 
     v29 = -[HFUserNotificationServiceTopicItem _notificationModeToString:](self, "_notificationModeToString:", [announceUserSettings deviceNotificationMode]);
@@ -97,8 +97,8 @@ LABEL_7:
     v34 = +[HFHomeKitDispatcher sharedDispatcher];
     homeManager = [v34 homeManager];
 
-    home3 = [(HFUserNotificationServiceTopicItem *)self home];
-    if ([home3 hf_hasAtleastOneSafetyAndSecuritySupportedAccessory])
+    v36 = objc_msgSend_home(self);
+    if ([v36 hf_hasAtleastOneSafetyAndSecuritySupportedAccessory])
     {
       hasOptedToHH2 = 0;
     }
@@ -111,40 +111,40 @@ LABEL_7:
     v46 = HFLogForCategory(0);
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      home4 = [(HFUserNotificationServiceTopicItem *)self home];
+      v47 = objc_msgSend_home(self);
       *buf = 67109376;
-      *v79 = [home4 hf_hasAtleastOneSafetyAndSecuritySupportedAccessory];
-      *&v79[4] = 1024;
-      *&v79[6] = [homeManager hasOptedToHH2];
+      *v78 = [v47 hf_hasAtleastOneSafetyAndSecuritySupportedAccessory];
+      *&v78[4] = 1024;
+      *&v78[6] = [homeManager hasOptedToHH2];
       _os_log_impl(&dword_20D9BF000, v46, OS_LOG_TYPE_DEFAULT, "Safety Accessory: %{BOOL}d HH2: %{BOOL}d", buf, 0xEu);
     }
 
-    home5 = [(HFUserNotificationServiceTopicItem *)self home];
-    if ([home5 hf_hasEnabledResident] && (objc_msgSend(homeManager, "hasOptedToHH2") & 1) != 0)
+    v48 = objc_msgSend_home(self);
+    if ([v48 hf_hasEnabledResident] && (objc_msgSend(homeManager, "hasOptedToHH2") & 1) != 0)
     {
       v49 = 0;
     }
 
     else
     {
-      home6 = [(HFUserNotificationServiceTopicItem *)self home];
-      v49 = [home6 isEventLogEnabled] ^ 1;
+      v50 = objc_msgSend_home(self);
+      v49 = [v50 isEventLogEnabled] ^ 1;
     }
 
     v51 = HFLogForCategory(3uLL);
     if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
-      home7 = [(HFUserNotificationServiceTopicItem *)self home];
-      hf_hasEnabledResident = [home7 hf_hasEnabledResident];
+      v52 = objc_msgSend_home(self);
+      hf_hasEnabledResident = [v52 hf_hasEnabledResident];
       hasOptedToHH22 = [homeManager hasOptedToHH2];
-      home8 = [(HFUserNotificationServiceTopicItem *)self home];
-      isEventLogEnabled = [home8 isEventLogEnabled];
+      v55 = objc_msgSend_home(self);
+      isEventLogEnabled = [v55 isEventLogEnabled];
       *buf = 67109632;
-      *v79 = hf_hasEnabledResident;
-      *&v79[4] = 1024;
-      *&v79[6] = hasOptedToHH22;
-      LOWORD(v80) = 1024;
-      *(&v80 + 2) = isEventLogEnabled;
+      *v78 = hf_hasEnabledResident;
+      *&v78[4] = 1024;
+      *&v78[6] = hasOptedToHH22;
+      LOWORD(v79) = 1024;
+      *(&v79 + 2) = isEventLogEnabled;
       _os_log_impl(&dword_20D9BF000, v51, OS_LOG_TYPE_DEFAULT, "Enabled Resident: %{BOOL}d HH2: %{BOOL}d EventLogEnabled: %{BOOL}d", buf, 0x14u);
     }
 
@@ -167,8 +167,8 @@ LABEL_7:
     v60 = _HFLocalizedStringWithDefaultValue(@"HFUserNotificationServiceTopicName_ActivityHistory", @"HFUserNotificationServiceTopicName_ActivityHistory", 1);
     v61 = [topicName5 isEqualToString:v60];
 
-    home9 = [(HFUserNotificationServiceTopicItem *)self home];
-    v63 = home9;
+    v62 = objc_msgSend_home(self);
+    v63 = v62;
     if (!v61)
     {
       topic9 = [(HFUserNotificationServiceTopicItem *)self topic];
@@ -183,10 +183,10 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    if ([home9 eventLogDuration] == 30)
+    if ([v62 eventLogDuration] == 30)
     {
-      home10 = [(HFUserNotificationServiceTopicItem *)self home];
-      isEventLogEnabled2 = [home10 isEventLogEnabled];
+      v64 = objc_msgSend_home(self);
+      isEventLogEnabled2 = [v64 isEventLogEnabled];
 
       if (isEventLogEnabled2)
       {
@@ -212,11 +212,11 @@ LABEL_31:
     topic10 = [(HFUserNotificationServiceTopicItem *)self topic];
     topicName6 = [topic10 topicName];
     *buf = 138412802;
-    *v79 = self;
-    *&v79[8] = 2112;
-    v80 = v43;
-    v81 = 2112;
-    v82 = topicName6;
+    *v78 = self;
+    *&v78[8] = 2112;
+    v79 = v43;
+    v80 = 2112;
+    v81 = topicName6;
     _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "%@:%@ Don't need device count for topic %@", buf, 0x20u);
   }
 
@@ -226,8 +226,6 @@ LABEL_33:
   v72 = MEMORY[0x277D2C900];
   v73 = [HFItemUpdateOutcome outcomeWithResults:v5];
   v74 = [v72 futureWithResult:v73];
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v74;
 }

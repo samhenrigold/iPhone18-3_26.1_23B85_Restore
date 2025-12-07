@@ -7,7 +7,7 @@
 
 + (void)migrateSecretIfNecessaryAndReturnSecretValueWithNamespace:(NSString *)namespace topic:(NSString *)topic secretKey:(AMSMetricsIdentifierKey *)key configuration:(NSDictionary *)configuration completionHandler:(id)handler
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4384A0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4384A0, &qword_1AB4D8DD0);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v15 = &v25 - v14;
   v16 = _Block_copy(handler);

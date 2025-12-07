@@ -184,23 +184,11 @@ void __45__HFListFormatter__formatOrListWithElements___block_invoke(uint64_t a1,
 
 - (id)_formatAndListWithElements:(id)elements
 {
-  v35[500] = *MEMORY[0x277D85DE8];
+  v34[500] = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
-  v34 = 0;
-  if ([(HFListFormatter *)self formatter])
+  v33 = 0;
+  if (-[HFListFormatter formatter](self, "formatter") || (-[HFListFormatter locale](self, "locale"), v4 = objc_claimAutoreleasedReturnValue(), [v4 localeIdentifier], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "getCString:maxLength:encoding:", v34, 100, 4), v5, v4, -[HFListFormatter setFormatter:](self, "setFormatter:", ulistfmt_open()), v6 = 0, -[HFListFormatter formatter](self, "formatter")))
   {
-    goto LABEL_3;
-  }
-
-  locale = [(HFListFormatter *)self locale];
-  localeIdentifier = [locale localeIdentifier];
-  [localeIdentifier getCString:v35 maxLength:100 encoding:4];
-
-  [(HFListFormatter *)self setFormatter:ulistfmt_open()];
-  v6 = 0;
-  if ([(HFListFormatter *)self formatter])
-  {
-LABEL_3:
     selfCopy = self;
     v7 = elementsCopy;
     v8 = [elementsCopy count];
@@ -216,9 +204,9 @@ LABEL_3:
     }
 
     v11 = [elementsCopy count];
-    v32 = &v29;
+    v31 = &v28;
     MEMORY[0x28223BE20](v11);
-    v14 = (&v29 - v13);
+    v14 = (&v28 - v13);
     if (v12 >= 0x200)
     {
       v15 = 512;
@@ -229,11 +217,11 @@ LABEL_3:
       v15 = v12;
     }
 
-    bzero(&v29 - v13, v15);
+    bzero(&v28 - v13, v15);
     v16 = [v7 count];
     MEMORY[0x28223BE20](v16);
-    v18 = &v29 - v17;
-    v30 = v9;
+    v18 = &v28 - v17;
+    v29 = v9;
     if (v9)
     {
       v19 = 0;
@@ -286,7 +274,7 @@ LABEL_3:
 LABEL_16:
       [(HFListFormatter *)selfCopy formatter];
       v24 = ulistfmt_format();
-      if (v30)
+      if (v29)
       {
         do
         {
@@ -302,9 +290,9 @@ LABEL_16:
         while (v10);
       }
 
-      if (v34 < 1)
+      if (v33 < 1)
       {
-        v6 = [MEMORY[0x277CCACA8] stringWithCharacters:v35 length:v24];
+        v6 = [MEMORY[0x277CCACA8] stringWithCharacters:v34 length:v24];
         goto LABEL_29;
       }
     }
@@ -313,8 +301,6 @@ LABEL_16:
   }
 
 LABEL_29:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
